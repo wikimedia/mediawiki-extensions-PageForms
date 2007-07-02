@@ -1,0 +1,23 @@
+== About ==
+
+Semantic Forms is an extension to MediaWiki that works in
+conjunction with another extension, Semantic MediaWiki, to allow
+for the creation and usage of forms to add and edit semantic data.
+For more information on Semantic Forms, see
+http://discoursedb.org/SemanticForms/
+
+Notes on installing Semantic Forms can be found in the file INSTALL.
+
+== Contact ==
+
+Semantic Forms was created by Yaron Koren. Contact him for any
+comments, questions, suggestions or bug reports, at
+yaron57@gmail.com.
+
+== Credits to other projects ==
+
+* The Semantic Forms extension includes the entire
+script.aculo.us JavaScript library (http://script.aculo.us/). It
+is distributed via the MIT license, which is compatible with the
+GPL license under which Semantic Forms and Semantic MediaWiki
+are distributed.

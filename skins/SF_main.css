@@ -1,0 +1,15 @@
+/**
+ * The main CSS file for the Semantic Forms extension.
+ */
+.field_box {
+        border: 1px black solid;
+        background: #dddddd;
+        padding: 10px 20px 10px 20px;
+        margin: 0px 20px 20px 20px;
+}
+.template_form {
+        border: 1px black solid;
+        background: #dddddd;
+        padding: 0px 20px 10px 20px;
+        margin-bottom: 20px;
+}
