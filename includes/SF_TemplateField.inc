@@ -37,24 +37,23 @@ class SFTemplateField {
 			'value_string',
 			$conditions, $fname);
       if ($db->numRows( $res ) > 0) {
-	if ($row = $db->fetchObject($res)) {
-	  $f->attribute_type = $row->value_string;
-	  // set possible values if it's an enumeration
-	  if ($f->attribute_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
-	    $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
-	      " AND subject_title = '$semantic_field_db_str' AND property_id = " .
-	      SMW_SP_POSSIBLE_VALUE;
-	    $res2 = $db->select( $db->tableName('smw_specialprops'),
-				'value_string',
-				$conditions, $fname);
-	    if ($db->numRows( $res2 ) > 0) {
-	      while ($row = $db->fetchObject($res2)) {
-		$f->possible_values[] = $row->value_string;
-	      }
-	    }
-	    $db->freeResult($res2);
-	  }
-	}
+        if ($row = $db->fetchObject($res)) {
+          $f->attribute_type = $row->value_string;
+          // set possible values if it's an enumeration
+          if ($f->attribute_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
+            $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
+              " AND subject_title = '$semantic_field_db_str' AND property_id = " .
+              SMW_SP_POSSIBLE_VALUE;
+            $res2 = $db->select( $db->tableName('smw_specialprops'),
+              'value_string', $conditions, $fname);
+            if ($db->numRows( $res2 ) > 0) {
+              while ($row = $db->fetchObject($res2)) {
+                $f->possible_values[] = $row->value_string;
+              }
+            }
+            $db->freeResult($res2);
+          }
+        }
       }
       $db->freeResult($res);
     }

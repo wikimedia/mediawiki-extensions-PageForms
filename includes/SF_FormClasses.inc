@@ -175,7 +175,8 @@ class SFFormTemplateField {
       if ($template_field->attribute_type == "")
         $text .= '<p>' . wfMsg('sf_createform_fieldattrunknowntype', $attr_link_text,  sffLinkText(SMW_NS_TYPE, 'String')) . "</p>\n";
       else
-        $text .= '<p>' . wfMsg('sf_createform_fieldattr', $attr_link_text,  sffLinkText(SMW_NS_TYPE, $template_field->attribute_type)) . "</p>\n";
+        $text .= '<p>' . wfMsg('sf_createform_fieldattr', $attr_link_text,
+          sffLinkText(SMW_NS_TYPE, $template_field->attribute_type)) . "</p>\n";
 
     } elseif ($template_field->attr_or_rel == "relation") {
       $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
@@ -200,19 +201,17 @@ END;
   }
 
   function createMarkup() {
-    if (! $this->is_hidden) {
-      $text = "   <p>";
-      if ($this->template_field->label != "")
-        $text .= "<strong>" . $this->template_field->label .  ":</strong> ";
-      $text .= "{{{field|" . $this->template_field->field_name;
-      if ($this->is_mandatory) {
-        $text .= "|mandatory";
-      }
-      $text .= "}}}</p>\n";
-      return $text;
-    } else {
-      return "";
+    $text = "   <p>";
+    if ($this->template_field->label != "")
+      $text .= "<strong>" . $this->template_field->label .  ":</strong> ";
+    $text .= "{{{field|" . $this->template_field->field_name;
+    if ($this->is_mandatory) {
+      $text .= "|mandatory";
+    } elseif ($this->is_hidden) {
+      $text .= "|hidden";
     }
+    $text .= "}}}</p>\n";
+    return $text;
   }
 }
 

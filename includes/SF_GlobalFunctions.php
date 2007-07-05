@@ -3,7 +3,7 @@
  * Global functions and constants for Semantic Forms.
  */
 
-define('SF_VERSION','0.3.5');
+define('SF_VERSION','0.3.6');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 
@@ -37,7 +37,8 @@ function sfgSetupExtension() {
 	/**********************************************/
 	/***** credits (see "Special:Version")    *****/
 	/**********************************************/
-	$wgExtensionCredits['parserhook'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren', 'url'=>'http://discoursedb.org/SemanticForms/', 'description' => 'Forms for adding and editing semantic data');
+	$wgExtensionCredits['parserhook'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren',
+          'url'=>'http://discoursedb.org/SemanticForms/', 'description' => 'Forms for adding and editing semantic data');
 
 	return true;
 }
@@ -180,7 +181,9 @@ function sfgSetupExtension() {
 	 */
 	function sffGetDefaultForm($db, $page_title, $page_namespace) {
 		$default_form_relation = str_replace(' ', '_', wfMsgForContent('sf_form_relation'));
-		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} WHERE subject_title = '$page_title' AND subject_namespace = '" . $page_namespace . "' AND relation_title = '$default_form_relation' AND object_namespace = " . SF_NS_FORM;
+		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
+                  "WHERE subject_title = '$page_title' AND subject_namespace = '" . $page_namespace .
+                  "' AND relation_title = '$default_form_relation' AND object_namespace = " . SF_NS_FORM;
 		$res = $db->query( $sql );
 		if ($db->numRows( $res ) > 0) {
 			$row = $db->fetchRow($res);

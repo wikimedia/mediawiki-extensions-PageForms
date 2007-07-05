@@ -64,9 +64,9 @@ class SFFormPrinter {
     $passed_validation = true;
     $data_text = "";
     $template_name = "";
+    $instance_was_deleted = false;
     $allow_multiple = false;
     $strict_parsing = false;
-    $instance_was_deleted = false;
     for ($section_num = 0; $section_num < count($form_def_sections); $section_num++) {
       $tif = new SFTemplateInForm();
       $start_position = 0;
@@ -212,6 +212,7 @@ class SFFormPrinter {
           $field_name = trim($tag_components[1]);
           // cycle through the other components
           $is_mandatory = false;
+          $is_hidden = false;
           $input_type = null;
           $no_autocomplete = false;
           $autocomplete_category = null;
@@ -224,6 +225,8 @@ class SFFormPrinter {
             $component = trim($tag_components[$i]);
             if ($component == 'mandatory') {
               $is_mandatory = true;
+            } elseif ($component == 'hidden') {
+              $is_hidden = true;
             } else {
               $sub_components = explode('=', $component);
               if (count($sub_components) == 2) {
@@ -278,9 +281,8 @@ class SFFormPrinter {
           }
           // the template display name might be different from what's in
           // the query string, if a previous instance was deleted
-          if ($instance_was_deleted) {
-            $instance_num--;
-            $template_display_name = $query_template_name . '_' . $instance_num;
+          if ($allow_multiple && $instance_was_deleted) {
+            $template_display_name = $query_template_name . '_' . ($instance_num - 1);
           } else {
             $template_display_name = $full_template_name;
           }
@@ -352,7 +354,9 @@ class SFFormPrinter {
             } else { // value is not an array
               $cur_value_in_template = $cur_value;
             }
-            $new_text = SFFormPrinter::formTemplateFieldHTML($template_display_name, $field_name, $instance_num, $cur_value, $is_mandatory, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str, $all_fields, $strict_parsing);
+            $new_text = SFFormPrinter::formTemplateFieldHTML($template_display_name, $field_name, $instance_num,
+              $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete,
+              $autocomplete_category, $error_str, $all_fields, $strict_parsing);
             if ($new_text) {
               if (is_numeric($field_name)) {
                 // if the value is null, don't include it at all -
@@ -452,7 +456,7 @@ END;
     return array($form_text, $title, $data_text, $passed_validation);
   }
 
-  function formTemplateFieldHTML($template_name, $field_name, $instance_num, $cur_value, $is_mandatory, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str, $all_fields, $strict_parsing) {
+  function formTemplateFieldHTML($template_name, $field_name, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str, $all_fields, $strict_parsing) {
 
     // see if this field matches one of the fields defined for this template -
     // if it is, use all available information about that field; if it's not,
@@ -460,22 +464,24 @@ END;
     // has 'strict' setting in the form definition
     foreach ($all_fields as $cur_field) {
       if ($field_name == $cur_field->field_name) {
-        $text = SFFormPrinter::formFieldHTML($template_name, $field_name, $cur_field, $instance_num, $cur_value, $is_mandatory, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str);
+        $text = SFFormPrinter::formFieldHTML($template_name, $field_name, $cur_field, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str);
         return $text;
       }
     }
     // if we're still here, field wasn't found
     if (! $strict_parsing) {
       $dummy_field = new SFTemplateField();
-      $text = SFFormPrinter::formFieldHTML($template_name, $field_name, $dummy_field, $instance_num, $cur_value, $is_mandatory, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str);
+      $text = SFFormPrinter::formFieldHTML($template_name, $field_name, $dummy_field, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str);
       return $text;
     }
     return null;
   }
 
-  function formFieldHTML($template_name, $field_name, $template_field, $instance_num, $cur_value, $is_mandatory, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str) {
+  function formFieldHTML($template_name, $field_name, $template_field, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str) {
     global $smwgContLang;
-        if ($autocomplete_category != null) {
+        if ($is_hidden) {
+          $text = SFFormPrinter::hiddenFieldHTML($template_name, $field_name, $cur_value);
+        } elseif ($autocomplete_category != null) {
           if ($size == null) $size = 35;
           $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_name, $field_name, $instance_num, $autocomplete_category, false, $cur_value, $error_str);
         } elseif ($input_type == 'text') {
@@ -524,7 +530,6 @@ END;
     global $sfgMaxAutocompleteValues;
     $fname = 'SFFormPrinter::createAutocompleteValuesString';
     $db = & wfGetDB( DB_SLAVE );
-    #$limit_str = ($sfgMaxAutocompleteValues) ? "LIMIT $sfgMaxAutocompleteValues" : "";
     $sql_options = array();
     $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
     // the query depends on whether this field is a relation or a category
@@ -745,6 +750,18 @@ END;
     if ($error_str) {
       $text .= "      <font color=\"red\">$error_str</font>\n";
     }
+    return $text;
+  }
+
+  function hiddenFieldHTML($template_name, $field_name, $cur_value) {
+    if ($template_name == null || $template_name == '')
+      $input_name = $field_name;
+    else
+      $input_name = $template_name . '[' . $field_name . ']';
+    $text =<<<END
+	<input type="hidden" name="$input_name" value="$cur_value" />
+
+END;
     return $text;
   }
 
