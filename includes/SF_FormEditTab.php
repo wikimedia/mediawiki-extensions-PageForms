@@ -35,6 +35,7 @@ function sffFormEditTab($obj, $content_actions) {
   // make sure that this is not itself a category page, and that the user
   // is allowed to edit it
   if (($obj->mTitle != null) && ($obj->mTitle->getNamespace() != NS_CATEGORY)) {
+    $form_name = null;
     $categories = getCategoriesForArticle($obj);
     $default_form_relation = str_replace(' ', '_', wfMsgForContent('sf_form_relation'));
     foreach ($categories as $category) {

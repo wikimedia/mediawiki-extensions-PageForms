@@ -69,7 +69,7 @@ function doSpecialAddData($query = '') {
 			if (! $title) {$title = $target_name;}
 			$text = SFFormPrinter::redirectText($title, $data_text);
 		} else {
-			$text .=<<<END
+			$text =<<<END
 				<form name="createbox" action="" method="post" class="createbox">
 
 END;

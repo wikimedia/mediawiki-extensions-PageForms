@@ -32,9 +32,17 @@ function doSpecialAddPage($query = '') {
 		$page_name = $wgRequest->getVal('page_name');
 		if ('' != $page_name) {
 			// find out whether this page already exists,
-			// and redirect appropriately
+			// and send user to the appropriate form
 			$page_title = Title::newFromText($page_name);
 			if ($page_title && $page_title->exists()) {
+				// it exists - see if page is a redirect; if
+				// it is, edit the target page instead
+				$article = new Article($page_title);
+				$article->loadContent();
+				$redirect_title = Title::newFromRedirect($article->fetchContent());
+				if ($redirect_title != NULL) {
+					$page_title = $redirect_title;
+				}
 				$ed = SpecialPage::getPage('EditData');
 				$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
 			} else {
