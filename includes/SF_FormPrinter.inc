@@ -209,7 +209,7 @@ class SFFormPrinter {
           $full_template_name = null;
           if (isset($template_label)) {
             $form_text .= "</fieldset>\n";
-            unset $template_label;
+            unset ($template_label);
           }
         } elseif ($tag_title == 'field') {
           $field_name = trim($tag_components[1]);
