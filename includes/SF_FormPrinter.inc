@@ -14,6 +14,8 @@ class SFFormPrinter {
     global $gTabIndex; // used to represent the current tab index in the form
     global $gDisabledText; // disables all form elements if user doesn't have edit permission
 
+    // initialize some variables
+    $title = null;
     $gTabIndex = 0;
     if ( $wgUser->isAllowed('edit') ) {
       $gDisabledText = "";
@@ -64,6 +66,7 @@ class SFFormPrinter {
     $passed_validation = true;
     $data_text = "";
     $template_name = "";
+    $full_template_name = "";
     $instance_was_deleted = false;
     $allow_multiple = false;
     $strict_parsing = false;
@@ -114,7 +117,7 @@ class SFFormPrinter {
             $full_template_name = $query_template_name;
           }
           // if this is the first instance, add the label in the form
-          if ($instance_num == 1 && $template_label != null) {
+          if ($instance_num == 1 && isset($template_label)) {
             $form_text .= "<fieldset>\n";
             $form_text .= "<legend>$template_label</legend>\n";
           }
@@ -204,10 +207,10 @@ class SFFormPrinter {
           $allow_multiple = false;
           $template_name = null;
           $full_template_name = null;
-          if ($template_label != null) {
+          if (isset($template_label)) {
             $form_text .= "</fieldset>\n";
+            unset $template_label;
           }
-          $template_label = null;
         } elseif ($tag_title == 'field') {
           $field_name = trim($tag_components[1]);
           // cycle through the other components
@@ -387,7 +390,7 @@ class SFFormPrinter {
         }
         $template_text .= "}}\n";
         // if this is the last of its kind, add another newline
-        if (! $repeat_section)
+        if ($allow_multiple == false || $repeat_section == false)
           $template_text .= "\n";
         $data_text .= $template_text;
       }
