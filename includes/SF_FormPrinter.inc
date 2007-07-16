@@ -310,12 +310,16 @@ class SFFormPrinter {
               // add placeholders for the free text in both the form and
               // the page, using <free_text> tags - once all the free text
               // is known (at the end), it will get substituted in
-              if ($num_rows == null) $num_rows = 5;
-              if ($num_cols == null) $num_cols = 30;
-              $new_text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, null, 'free_text', '<free_text>', null);
-              $free_text_was_included = true;
+              if ($is_hidden) {
+                $new_text = SFFormPrinter::hiddenFieldHTML(null, 'free_text', '<free_text>');
+              } else {
+                if ($num_rows == null) $num_rows = 5;
+                if ($num_cols == null) $num_cols = 30;
+                $new_text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, null, 'free_text', '<free_text>', null);
+              }
               $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
-	      // add a similar placeholder to the data text
+              $free_text_was_included = true;
+              // add a similar placeholder to the data text
               $data_text .= "<free_text>\n\n";
             }
           } else { // this field is part of a template
@@ -788,8 +792,9 @@ END;
       $page_action = "wpDiff";
 
     global $wgScript;
+    $encoded_page_name = urlencode($page_name);
     $text = <<<END
-        <form id="editform" name="editform" method="post" action="$wgScript?title=$page_name&amp;action=submit">
+        <form id="editform" name="editform" method="post" action="$wgScript?title=$encoded_page_name&amp;action=submit">
         <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$data_text" />
     <input type="hidden" name="wpStarttime" value="$starttime" />
     <input type="hidden" name="wpEdittime" value="$edittime" />
