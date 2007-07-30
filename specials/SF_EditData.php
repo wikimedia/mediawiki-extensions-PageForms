@@ -61,14 +61,14 @@ function doSpecialEditData($query = '') {
 			$edit_content = $target_article->getContent();
 			$is_text_source = true;
 		}
-		list ($form_text, $title, $data_text, $passed_validation) =
+		list ($form_text, $javascript_text, $title, $data_text) =
 			SFFormPrinter::formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
-		if ($form_submitted && $passed_validation) {
+		if ($form_submitted) {
 			$text = SFFormPrinter::redirectText($target_name, $data_text);
 		} else {
 			// set 'title' field, in case there's no URL niceness
 			$text =<<<END
-	<form name="createbox" action="" method="post" class="createbox">
+	<form name="createbox" onsubmit="return validate_all()" action="" method="post" class="createbox">
 	<input type="hidden" name="query" value="true" />
 
 END;
@@ -76,6 +76,13 @@ END;
 			$text .= SFFormPrinter::formBottom($target_title);
 		}
 	}
+	$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
+	$wgOut->addLink( array(
+		'rel' => 'stylesheet',
+		'type' => 'text/css',
+		'media' => "screen, projection",
+		'href' => $mainCssUrl
+	));
 	$scriptaculousCssUrl = $sfgScriptPath . '/skins/scriptaculous.css';
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
@@ -83,7 +90,8 @@ END;
 		'media' => "screen, projection",
 		'href' => $scriptaculousCssUrl
 	));
-	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/lib/prototype.js" type="text/javascript"></script>');
-	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/src/scriptaculous.js" type="text/javascript"></script>');
+	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/lib/prototype.js" type="text/javascript"></script>' . "\n");
+	$wgOut->addScript('		<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/src/scriptaculous.js" type="text/javascript"></script>' . "\n");
+	$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
 	$wgOut->addHTML($text);
 }
