@@ -156,6 +156,18 @@ class SFFormTemplateField {
   var $template_field;
   var $is_hidden;
   var $is_mandatory;
+  // the following fields are not set by the form-creation page
+  // (though they could be)
+  var $input_type;
+  var $size;
+  var $num_rows;
+  var $num_cols;
+  var $autocomplete_category;
+  var $no_autocomplete;
+  var $part_of_multiple;
+  // somewhat of a hack - this is an HTML-based value for a specific
+  // representation of a form
+  var $input_name;
 
   function create($num, $template_field) {
     $f = new SFFormTemplateField();
