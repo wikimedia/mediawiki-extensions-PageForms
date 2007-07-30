@@ -1,15 +1,29 @@
 /**
  * The main CSS file for the Semantic Forms extension.
  */
+
+/* Used in 'create template' page */
 .field_box {
         border: 1px black solid;
         background: #dddddd;
         padding: 10px 20px 10px 20px;
         margin: 0px 20px 20px 20px;
 }
+
+/* Used in 'create form' page */
 .template_form {
         border: 1px black solid;
         background: #dddddd;
         padding: 0px 20px 10px 20px;
         margin-bottom: 20px;
+}
+
+/* Used in form pages */
+span.error_message {
+	color: red;
+}
+.multiple_template {
+	background-color: #cccccc;
+	padding: 7px;
+	margin: 10px 0px 10px 0px;
 }
