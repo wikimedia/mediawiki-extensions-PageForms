@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the display and running of a user-created form.
+ * Handles the creation and running of a user-created form.
  *
  * @author Yaron Koren
  * @author Nils Oppermann
@@ -33,6 +33,8 @@ class SFFormPrinter {
         $form_text = wfMsg( 'protectedpagetext' );
       }
     }
+    $javascript_text = "";
+    $js_validation_calls = array();
 
     // Remove <noinclude> sections and <includeonly> tags from form definition
     $form_def = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $form_def);
@@ -44,6 +46,7 @@ class SFFormPrinter {
     $start_position = 0;
     $section_start = 0;
     $free_text_was_included = false;
+    $all_values_for_template = array();
     while ($brackets_loc = strpos($form_def, "{{{", $start_position)) {
       $brackets_end_loc = strpos($form_def, "}}}", $brackets_loc);
       $bracketed_string = substr($form_def, $brackets_loc + 3, $brackets_end_loc - ($brackets_loc + 3));
@@ -56,25 +59,23 @@ class SFFormPrinter {
         $section_start = $brackets_loc;
       }
       $start_position = $brackets_loc + 1;
-    }
+    } // end while
     $form_def_sections[] = trim(substr($form_def, $section_start));
 
     // cycle through form definition file (and possibly an existing article
     // as well), finding template and field declarations and replacing them
     // with form elements, either blank or pre-populated, as appropriate
     $all_fields = array();
-    $passed_validation = true;
     $data_text = "";
     $template_name = "";
-    $full_template_name = "";
-    $instance_was_deleted = false;
     $allow_multiple = false;
+    $instance_num = 0;
+    $all_instances_printed = false;
     $strict_parsing = false;
     for ($section_num = 0; $section_num < count($form_def_sections); $section_num++) {
       $tif = new SFTemplateInForm();
       $start_position = 0;
       $template_text = "";
-      $instance_added = false;
       // the append is there to ensure that the original array doesn't get
       // modified; is it necessary?
       $section = " " . $form_def_sections[$section_num];
@@ -101,23 +102,8 @@ class SFFormPrinter {
               }
             }
           }
-          // increment instance_num (used for query string) if it's
-          // a repeated template, or if user has hit 'add' button
-          // - this logic might not need to be this complicated
-          if ($allow_multiple) {
-            if ($old_template_name == $template_name || $repeat_section) {
-              $instance_num++;
-            } else {
-              $instance_num = 1;
-            }
-            $repeat_section = false;
-            $full_template_name = $query_template_name . '_' . $instance_num;
-          } else {
-            $instance_num = 1;
-            $full_template_name = $query_template_name;
-          }
           // if this is the first instance, add the label in the form
-          if ($instance_num == 1 && isset($template_label)) {
+          if (($old_template_name != $template_name) && isset($template_label)) {
             $form_text .= "<fieldset>\n";
             $form_text .= "<legend>$template_label</legend>\n";
           }
@@ -125,15 +111,7 @@ class SFFormPrinter {
           $all_fields = $tif->getAllFields();
           // remove template tag
           $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
-          // if this is an 'allowed multiple' template, and user requested a
-          // delete of this instance, increment the instance_num; that will
-          // skip over all the fields of this template in the query
-          $delete_cur_instance = false;
-          $full_template_values = $wgRequest->getArray($full_template_name);
-          if ($allow_multiple && $full_template_values['delete'] != null) {
-            $delete_cur_instance = true;
-            $instance_was_deleted = true;
-          }
+          $template_instance_query_values = $wgRequest->getArray($query_template_name);
           // if we are editing a page, and this template can be found more than
           // once in that page, and multiple values are allowed, repeat this
           // section
@@ -148,11 +126,9 @@ class SFFormPrinter {
               // instances of templates, one that doesn't involve re-parsing
               // the same tags, but I don't know what it is.
               if (preg_match_all('/\{\{' . $tif->template_name . '(.*?)\}\}/mis', $existing_page_content, $matches)) {
-                if (count($matches[0]) > 1) {
-                  $repeat_section = true;
-                }
+                $instance_num++;
               } else {
-                $delete_cur_instance = true;
+                $all_instances_printed = true;
               }
             }
             // get the first instance of this template on the page being edited,
@@ -183,34 +159,41 @@ class SFFormPrinter {
               $existing_page_content = str_replace($matches[0], '', $existing_page_content);
             }
           }
-          // now the same check as above, but if the input came from a form -
-          // if multiple instances of this template are allowed, and the template
-          // name of the current instance is the same as the next one, re-use
-          // the template section on the next loop through
-          if ((! $source_is_page) && $allow_multiple) {
-            $possible_next_template_name = $query_template_name . '_' . ($instance_num + 1);
-            $template_values = $wgRequest->getArray($query_template_name);
-            if (count($wgRequest->getArray($possible_next_template_name)) > 0) {
-              $repeat_section = true;
-            } elseif ($template_values['add'] != null && !$instance_added) {
-              $instance_added = true;
-              if (count($wgRequest->getArray($full_template_name)) > 0) {
-                $repeat_section = true;
+          // if the input is from the form (meaning the user has hit one
+          // of the bottom row of buttons), and we're dealing with a
+          // multiple template, get the values for this instance of this
+          // template, then delete them from the array, so we can get the
+          // next group next time - the next() command for arrays doesn't
+          // seem to work here
+         if ((! $source_is_page) && $allow_multiple && $wgRequest) {
+            $all_instances_printed = true;
+            if ($old_template_name != $template_name) {
+              $all_values_for_template = $wgRequest->getArray($query_template_name);
+            }
+            if ($all_values_for_template) {
+              $cur_key = key($all_values_for_template);
+              // skip the input coming in from the "starter" div
+              if ($cur_key == 'num') {
+                unset($all_values_for_template[$cur_key]);
+                $cur_key = key($all_values_for_template);
               }
-            } elseif (count($wgRequest->getArray($full_template_name)) == 0 && !$instance_added) {
-              $delete_cur_instance = true;
+              if ($template_instance_query_values = current($all_values_for_template)) {
+                $all_instances_printed = false;
+                unset($all_values_for_template[$cur_key]);
+              }
             }
           }
         } elseif ($tag_title == 'end template') {
           // remove this tag, reset some variables, and close off form HTML tag
           $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
-          $allow_multiple = false;
           $template_name = null;
-          $full_template_name = null;
           if (isset($template_label)) {
             $form_text .= "</fieldset>\n";
             unset ($template_label);
           }
+          $allow_multiple = false;
+          $all_instances_printed = false;
+          $instance_num = 0;
         } elseif ($tag_title == 'field') {
           $field_name = trim($tag_components[1]);
           // cycle through the other components
@@ -256,10 +239,8 @@ class SFFormPrinter {
               }
             }
           }
-          $error_str = null;
           // get the value from the request, if it's there
-          $full_template_values = $wgRequest->getArray($full_template_name);
-          $cur_value = $full_template_values[$field_name];
+          $cur_value = $template_instance_query_values[$field_name];
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
           }
@@ -277,51 +258,28 @@ class SFFormPrinter {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
             }
           }
-          // check that all mandatory values have been filled in
-          if ($form_submitted && $is_mandatory && $cur_value == "") {
-            $error_str = wfMsg('sf_blank_error');
-            $passed_validation = false;
-          }
-          // the template display name might be different from what's in
-          // the query string, if a previous instance was deleted
-          if ($allow_multiple && $instance_was_deleted) {
-            $template_display_name = $query_template_name . '_' . ($instance_num - 1);
-          } else {
-            $template_display_name = $full_template_name;
-          }
+          $template_display_name = $query_template_name;
           // handle non-template fields - 'page title' and 'free text'
           if ($template_name == '') {
             if ($field_name == 'page title') {
-              // if we're adding a new page, make it an input field, and
-              // possibly validate it; otherwise just put in the name
-              if ($page_title == null) {
-                $title = $wgRequest->getVal('page_title');
-                if ($form_submitted && $title == "") {
-                  $error_str = wfMsg('sf_blank_error');
-                  $passed_validation = false;
-                }
-                if ($size == null) $size = 35;
-                $new_text = SFFormPrinter::textEntryHTML($size, '', $field_name, $title, $error_str);
-              } else {
-                $new_text = $page_title;
-              }
-              $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
+              // the actual value should be non-null - stick it in
+              $new_text = $page_title;
             } elseif ($field_name == 'free text') {
               // add placeholders for the free text in both the form and
               // the page, using <free_text> tags - once all the free text
               // is known (at the end), it will get substituted in
               if ($is_hidden) {
-                $new_text = SFFormPrinter::hiddenFieldHTML(null, 'free_text', '<free_text>');
+                $new_text = SFFormPrinter::hiddenFieldHTML('free_text', '<free_text>');
               } else {
                 if ($num_rows == null) $num_rows = 5;
                 if ($num_cols == null) $num_cols = 30;
-                $new_text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, null, 'free_text', '<free_text>', null);
+                $new_text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, 'free_text', '<free_text>', null);
               }
-              $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
               $free_text_was_included = true;
               // add a similar placeholder to the data text
               $data_text .= "<free_text>\n\n";
             }
+            $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
           } else { // this field is part of a template
             if (is_array($cur_value)) {
               // if it has 1 or 2 elements, assume it's a checkbox; if it has
@@ -361,9 +319,17 @@ class SFFormPrinter {
             } else { // value is not an array
               $cur_value_in_template = $cur_value;
             }
-            $new_text = SFFormPrinter::formTemplateFieldHTML($template_display_name, $field_name, $instance_num,
+            if ($query_template_name == null || $query_template_name == '')
+              $input_name = $field_name;
+            elseif ($allow_multiple)
+              // 'num' will get replaced by an actual index, either in PHP
+              // or in Javascript, later on
+              $input_name = $query_template_name . '[num][' . $field_name . ']';
+            else
+              $input_name = $query_template_name . '[' . $field_name . ']';
+            $new_text = SFFormPrinter::formTemplateFieldHTML($field_name, $input_name, $allow_multiple,
               $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete,
-              $autocomplete_category, $error_str, $all_fields, $strict_parsing);
+              $autocomplete_category, $all_fields, $strict_parsing);
             if ($new_text) {
               if (is_numeric($field_name)) {
                 // if the value is null, don't include it at all -
@@ -376,6 +342,12 @@ class SFFormPrinter {
                   $template_text .= "\n|$field_name=$cur_value_in_template";
               }
               $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
+              // also add to Javascript validation code
+              if ($is_mandatory) {
+		$input_id = "input_" . $gTabIndex;
+		$info_id = "info_" . $gTabIndex;
+                $js_validation_calls[] = "validate_mandatory_field ('$input_id', '$info_id')";
+              }
             } else {
               $start_position = $brackets_end_loc;
             }
@@ -386,43 +358,49 @@ class SFFormPrinter {
         }
       } // end while
 
-      if ($full_template_name != '' && ! $delete_cur_instance) {
+      if (! $all_instances_printed && ($template_text != '')) {
 	// add another newline before the final bracket, if this template
 	// call is already more than one line
         if (strpos($template_text, "\n")) {
           $template_text .= "\n";
         }
-        $template_text .= "}}\n";
-        // if this is the last of its kind, add another newline
-        if ($allow_multiple == false || $repeat_section == false)
-          $template_text .= "\n";
+        $template_text .= "}}\n\n";
+        // TODO - should instances of the same template not be separated
+        // by a blank line? if so, the following code could be used:
+        //if (($data_text != "") &&
+        //    (! $allow_multiple || $old_template_name != $template_name)) {
+        //  $data_text .= "\n";
+        //}
         $data_text .= $template_text;
       }
       if ($allow_multiple) {
-        if (! $delete_cur_instance) {
-          $input_name = $full_template_name . '[delete]';
+        if (! $all_instances_printed) {
+          $section = str_replace('[num]', "[{$instance_num}a]", $section);
           $remove_text = wfMsg('sf_editdata_remove');
-          $gTabIndex++;
           $form_text .=<<<END
-         <div style="background-color:#cccccc; padding:7px; margin:10px 0px 10px 0px;">
+	<div id="wrapper_$gTabIndex" class="multiple_template">
         $section
-        <input tabindex="$gTabIndex" type="submit" name="$input_name" value="$remove_text" $gDisabledText>
+        <input type="button" onclick="blankInstance('wrapper_$gTabIndex');" value="$remove_text" tabindex="$gTabIndex" />
         </div>
 
 END;
-        }
-        if ($repeat_section) {
           // this will cause the section to be re-parsed on the next go
           $section_num--;
         } else {
           // this is the last instance of this template - stick an 'add'
           // button in the form
-          $input_name = $template_name . '[add]';
+        $form_text .=<<<END
+	<div id="starter_$query_template_name" class="multiple_template" style="display: none;">
+        $section
+        </div>
+         <div id="main_$query_template_name"></div>
+
+END;
           $add_another = wfMsg('sf_editdata_addanother');
-          $gTabIndex++;
           $form_text .=<<<END
 	<p style="margin-left:10px;">
-	<input tabindex="$gTabIndex" type="submit" name="$input_name" value="$add_another" $gDisabledText></p>
+	<input type="hidden" value="0" id="numElements" />
+	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$gTabIndex');" value="$add_another" tabindex="$gTabIndex" /></p>
 
 END;
         }
@@ -436,7 +414,7 @@ END;
     // 'free text' input at the bottom of the form
     if (! $free_text_was_included) {
       $form_text .= '	<fieldset><legend>' . wfMsg('sf_editdata_freetextlabel') . "</legend>\n";
-      $form_text .= SFFormPrinter::textAreaHTML(5, 30, null, 'free_text', '<free_text>', null);
+      $form_text .= SFFormPrinter::textAreaHTML(5, 30, 'free_text', '<free_text>', null);
       $form_text .= "    </fieldset>\n";
     }
     // get free text, and add to page data, as well as retroactively
@@ -460,77 +438,174 @@ END;
     // now that we have it, substitute free text into the form and page
     $form_text = str_replace('<free_text>', $free_text, $form_text);
     $data_text = str_replace('<free_text>', $free_text, $data_text);
-    return array($form_text, $title, $data_text, $passed_validation);
+
+    // add general Javascript code
+    $blank_error_str = wfMsg('sf_blank_error');
+    $javascript_text .=<<<END
+
+function validate_mandatory_field(field_id, info_id) {
+	field = document.getElementById(field_id);
+	if (field.value.replace(/\s+/, '') == '') {
+		infobox = document.getElementById(info_id);
+		infobox.innerHTML = "$blank_error_str";
+		//field.style.border = "1px solid red";
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validate_all() {
+	var num_errors = 0;
+
+END;
+    foreach ($js_validation_calls as $function_call) {
+      $javascript_text .= "	if (!$function_call) num_errors += 1;\n";
+    }
+    $remove_text = wfMsg('sf_editdata_remove');
+    $javascript_text .=<<<END
+	return (num_errors == 0);
+}
+
+// This Javascript code is heavily indebted to Dustin Diaz's 'add and remove
+// HTML elements' tutorial - http://www.dustindiaz.com/add-and-remove-html-elements-dynamically-with-javascript/
+function addInstance(starter_div_id, main_div_id, tab_index) {
+  var starter_div = document.getElementById(starter_div_id);
+  var main_div = document.getElementById(main_div_id);
+  var numi = document.getElementById('numElements');
+  var num = (document.getElementById('numElements').value -1)+ 2;
+  numi.value = num;
+  var newdiv = document.createElement('div');
+  var div_id = 'div_' + num;
+  newdiv.setAttribute('id', div_id);
+  newdiv.setAttribute('class', 'multiple_template');
+  // workaround for IE 6 bug
+  newdiv.setAttribute('className', 'multiple_template');
+  // make internal ID unique for the relevant divs and spans, and replace
+  // the [num] index with an actual unique index
+  var orig_html = starter_div.innerHTML;
+  orig_html = orig_html.replace(/input_/g, 'input_' + num + '_');
+  orig_html = orig_html.replace(/info_/g, 'info_' + num + '_');
+  orig_html = orig_html.replace(/div_/g, 'div_' + num + '_');
+  orig_html = orig_html.replace(/\[num\]/g, '[' + num + ']');
+  newdiv.innerHTML = orig_html + '<input type="button" onclick="removeInstance(\'' + main_div_id + '\', \'' + div_id + '\');" value="$remove_text" tabindex="' + tab_index + '" />';
+  main_div.appendChild(newdiv);
+}
+
+function removeInstance(main_div_id, this_div_id) {
+  var d = document.getElementById(main_div_id);
+  var olddiv = document.getElementById(this_div_id);
+  d.removeChild(olddiv);
+}
+
+// hack function - an element that's not a child of anything can't be
+// removed, so do the next best thing: set its contents to blank and its
+// display to 'none'
+function blankInstance(div_id) {
+  var d = document.getElementById(div_id);
+  d.innerHTML = "";
+  d.style.display = "none";
+}
+
+END;
+    return array($form_text, $javascript_text, $title, $data_text);
   }
 
-  function formTemplateFieldHTML($template_name, $field_name, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str, $all_fields, $strict_parsing) {
+  function formTemplateFieldHTML($field_name, $input_name, $part_of_multiple, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $all_fields, $strict_parsing) {
+   global $gTabIndex;
 
     // see if this field matches one of the fields defined for this template -
     // if it is, use all available information about that field; if it's not,
     // either include it in the form or not, depending on whether template
     // has 'strict' setting in the form definition
+    $the_field = null;
     foreach ($all_fields as $cur_field) {
       if ($field_name == $cur_field->field_name) {
-        $text = SFFormPrinter::formFieldHTML($template_name, $field_name, $cur_field, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str);
-        return $text;
+        $the_field = $cur_field;
+        break;
       }
     }
-    // if we're still here, field wasn't found
-    if (! $strict_parsing) {
-      $dummy_field = new SFTemplateField();
-      $text = SFFormPrinter::formFieldHTML($template_name, $field_name, $dummy_field, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str);
-      return $text;
+    if ($the_field == null) {
+      if ($strict_parsing)
+        return null;
+      $the_field = new SFTemplateField();
     }
-    return null;
+
+    // if this is not part of a 'multiple' template, incrememt the
+    // global tab index (used for correct tabbing, and for creating
+    // unique div IDs.)
+    if (! $part_of_multiple)
+      $gTabIndex++;
+
+    // populate field object with settings from the form definition file
+    $the_field->is_mandatory = $is_mandatory;
+    $the_field->is_hidden = $is_hidden;
+    $the_field->input_type = $input_type;
+    $the_field->size = $size;
+    $the_field->num_rows = $num_rows;
+    $the_field->num_cols = $num_cols;
+    $the_field->no_autocomplete = $no_autocomplete;
+    $the_field->autocomplete_category = $autocomplete_category;
+    $the_field->input_name = $input_name;
+    $the_field->part_of_multiple = $part_of_multiple;
+    $text = SFFormPrinter::formFieldHTML($the_field, $cur_value);
+    return $text;
   }
 
-  function formFieldHTML($template_name, $field_name, $template_field, $instance_num, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $error_str) {
+  function formFieldHTML($template_field, $cur_value) {
     global $smwgContLang;
-        if ($is_hidden) {
-          $text = SFFormPrinter::hiddenFieldHTML($template_name, $field_name, $cur_value);
-        } elseif ($autocomplete_category != null) {
-          if ($size == null) $size = 35;
-          $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_name, $field_name, $instance_num, $autocomplete_category, false, $cur_value, $error_str);
-        } elseif ($input_type == 'text') {
-          if ($size == null) $size = 35;
-          $text = SFFormPrinter::textEntryHTML($size, $template_name, $field_name, $cur_value, $error_str);
-        } elseif ($input_type == 'textarea') {
-          if ($num_rows == null) $num_rows = 4;
-          if ($num_cols == null) $num_cols = 40;
-          $text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, $template_name, $field_name, $cur_value, $error_str);
-        } elseif ($input_type == 'date') {
-          $text = SFFormPrinter::dateEntryHTML($template_name, $field_name, $cur_value, $error_str);
-        } elseif ($input_type == 'checkbox') {
-          $text = SFFormPrinter::checkboxHTML($template_name, $field_name, $cur_value, $error_str);
-        } elseif ($template_field->attr_or_rel == "relation") {
-          if ($size == null) $size = 35;
-          if ($no_autocomplete) {
-            $text = SFFormPrinter::textEntryHTML($size, $template_name, $field_name, $cur_value, $error_str);
-          } else {
-            $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_name, $field_name, $instance_num, $template_field->semantic_field, true, $cur_value, $error_str);
-          }
-        } else { // input type not defined in form, and not a relation
-          $attr_type = $template_field->attribute_type;
-          if ($attr_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
-            // prepend the "None" option if it's not a mandatory field
-            $include_none = ! $is_mandatory;
-            $text = SFFormPrinter::dropdownHTML($template_name, $field_name, $template_field->possible_values, $include_none, $cur_value, $error_str);
-          } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_datetime']) {
-            $text = SFFormPrinter::dateEntryHTML($template_name, $field_name, $cur_value, $error_str);
-          } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_float'] || $attr_type == $smwgContLang->smwDatatypeLabels['smw_int']) {
-            if ($size == null) $size = 10;
-            $text = SFFormPrinter::textEntryHTML($size, $template_name, $field_name, $cur_value, $error_str);
-          } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_url']) {
-            if ($size == null) $size = 100;
-            $text = SFFormPrinter::textEntryHTML($size, $template_name, $field_name, $cur_value, $error_str);
-          } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_bool']) {
-            $text = SFFormPrinter::checkboxHTML($template_name, $field_name, $cur_value, $error_str);
-          } else { // String or anything else
-            if ($size == null) $size = 35;
-            $text = SFFormPrinter::textEntryHTML($size, $template_name, $field_name, $cur_value, $error_str);
-          }
-        }
-        return $text;
+
+    if ($template_field->is_hidden) {
+      $text = SFFormPrinter::hiddenFieldHTML($template_field->input_name, $cur_value);
+    } elseif ($template_field->autocomplete_category != null) {
+      $size = $template_field->size;
+      if ($size == null) $size = 35;
+      $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->autocomplete_category, false, $cur_value);
+    } elseif ($template_field->input_type == 'text') {
+      $size = $template_field->size;
+      if ($size == null) $size = 35;
+      $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
+    } elseif ($template_field->input_type == 'textarea') {
+      $num_rows = $template_field->num_rows;
+      if ($num_rows == null) $num_rows = 4;
+      $num_cols = $template_field->num_cols;
+      if ($num_cols == null) $num_cols = 40;
+      $text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, $template_field->input_name, $cur_value);
+    } elseif ($template_field->input_type == 'date') {
+      $text = SFFormPrinter::dateEntryHTML($template_field->input_name, $cur_value);
+    } elseif ($template_field->input_type == 'checkbox') {
+      $text = SFFormPrinter::checkboxHTML($template_field->input_name, $cur_value);
+    } elseif ($template_field->attr_or_rel == "relation") {
+      $size = $template_field->size;
+      if ($size == null) $size = 35;
+      if ($template_field->no_autocomplete) {
+        $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
+      } else {
+        $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->semantic_field, true, $cur_value);
+      }
+    } else { // input type not defined in form, and not a relation
+      $attr_type = $template_field->attribute_type;
+      $size = $template_field->size;
+      if ($attr_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
+        // prepend the "None" option if it's not a mandatory field
+        $include_none = ! $template_field->is_mandatory;
+        $text = SFFormPrinter::dropdownHTML($template_field->input_name, $template_field->possible_values, $include_none, $cur_value);
+      } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_datetime']) {
+        $text = SFFormPrinter::dateEntryHTML($template_field->input_name, $cur_value);
+      } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_float'] || $attr_type == $smwgContLang->smwDatatypeLabels['smw_int']) {
+        if ($size == null) $size = 10;
+        $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
+      } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_url']) {
+        if ($size == null) $size = 100;
+        $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
+      } elseif ($attr_type == $smwgContLang->smwDatatypeLabels['smw_bool']) {
+        $text = SFFormPrinter::checkboxHTML($template_field->input_name, $cur_value);
+      } else { // String or anything else
+        if ($size == null) $size = 35;
+        $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
+      }
+    }
+    return $text;
   }
 
   function createAutocompleteValuesString($field_name, $is_relation) {
@@ -542,11 +617,13 @@ END;
     // the query depends on whether this field is a relation or a category
     if ($is_relation) {
       $conditions = "relation_title = '$field_name'";
+      $sql_options['ORDER BY'] = 'object_title';
       $res = $db->select( $db->tableName('smw_relations'),
                           'DISTINCT object_title',
                           $conditions, $fname, $sql_options);
     } else {
       $conditions = "cl_from = page_id AND cl_to = '$field_name'";
+      $sql_options['ORDER BY'] = 'page_title';
       $res = $db->select( $db->tableNames('categorylinks', 'page'),
                           'page_title',
                           $conditions, $fname, $sql_options);
@@ -563,30 +640,24 @@ END;
     return $array_str;
   }
 
-  function textEntryHTML($size, $template_name, $field_name, $cur_value, $error_str) {
+  function textEntryHTML($size, $input_name, $cur_value) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
+    $input_id = "input_$gTabIndex";
+    $info_id = "info_$gTabIndex";
 
-    if ($template_name == null || $template_name == '')
-      $input_name = $field_name;
-    else
-      $input_name = $template_name . '[' . $field_name . ']';
     $text =<<<END
-	<input tabindex="$gTabIndex" class="createboxInput" name="$input_name" type="text"
+	<input id="$input_id" tabindex="$gTabIndex" class="createboxInput" name="$input_name" type="text"
         value="$cur_value" size="$size" $gDisabledText/>
+	<span id="$info_id" class="error_message"></span>
 
 END;
-    if ($error_str) {
-      $text .= "      <font color=\"red\">$error_str</font>\n";
-    }
     return $text;
   }
 
-  function dropdownHTML($template_name, $field_name, $possible_values, $include_none, $cur_value, $error_str) {
+  function dropdownHTML($input_name, $possible_values, $include_none, $cur_value) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
 
-    $text = '     <select tabindex="' . $gTabIndex . '" name="' . $template_name . '[' . $field_name . ']" ' . $gDisabledText . '>';
+    $text = '     <select tabindex="' . $gTabIndex . '" name="' . $input_name . '" ' . $gDisabledText . '>';
     if ($include_none)
       $text .= "  <option value=\"\">[None]</option>\n";
     foreach ($possible_values as $possible_value) {
@@ -594,37 +665,27 @@ END;
       if ($possible_value == $cur_value) {$text .= " selected=\"selected\""; }
       $text .= ">$possible_value</option>\n";
     }
-    $text .= "    </select>\n";
-    if ($error_str)
-      $text .= "      <font color=\"red\">$error_str</font>\n";
+    $text .=<<<END
+	</select>
+	<span id="$info_id" class="error_message"></span>
+
+END;
     return $text;
   }
 
-  function textEntryWithAutocompleteHTML($size, $template_name, $field_name, $instance_num, $semantic_field_name, $is_relation, $cur_value, $error_str) {
+  function textEntryWithAutocompleteHTML($size, $input_name, $part_of_multiple, $semantic_field_name, $is_relation, $cur_value) {
     global $gTabIndex, $gDisabledText;
     $gTabIndex++;
 
-    $input_id = $template_name . "_" . $field_name . "_input";
-    $div_name = $template_name . "_" . $field_name . "_div";
-    // add instance num to the HTML labels if it's the second or higher, to
-    // guarantee uniqueness of name; autocompletion fails on IE otherwise
-    if ($instance_num > 1) {
-      $input_id .= "_" . $instance_num;
-      $div_name .= "_" . $instance_num;
-    }
-    $input_name = $template_name . '[' . $field_name . ']';
-
+    $input_id = "input_" . $gTabIndex;
+    $info_id = "info_" . $gTabIndex;
+    $div_name = "div_" . $gTabIndex;
     $options_str = SFFormPrinter::createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $is_relation);
     $text =<<<END
-        <input tabindex="$gTabIndex" id="$input_id" autocomplete="off" class="createboxInput" name="$input_name" type="text"
-        value="" size="$size" $gDisabledText/>
-
-END;
-    if ($error_str) {
-      $text .= "   <font color=\"red\">$error_str</font>";
-    }
-    $text .=<<<END
-        <div class="page_name_auto_complete" id="$div_name" style="display:none"></div>
+        <input tabindex="$gTabIndex" id="$input_id" name="$input_name" type="text"
+	value="" size="$size" $gDisabledText/>
+	<span id="$info_id" class="error_message"></span>
+	<div class="page_name_auto_complete" id="$div_name" style="display:none"></div>
 <script type="text/javascript">
 new Autocompleter.Local('$input_id', '$div_name', $options_str, {});
 
@@ -636,29 +697,23 @@ END;
     return $text;
   }
 
-  function textAreaHTML($rows, $cols, $template_name, $field_name, $cur_value, $error_str) {
+  function textAreaHTML($rows, $cols, $input_name, $cur_value) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
+    $input_id = "input_$gTabIndex";
+    $info_id = "info_$gTabIndex";
 
-    if ($template_name == null) {
-      $input_name = $field_name;
-    } else {
-      $input_name = $template_name . '[' . $field_name . ']';
-    }
     $text =<<<END
-	<textarea tabindex="$gTabIndex" name="$input_name" rows=$rows cols=$cols $gDisabledText/>$cur_value</textarea>
+	<textarea tabindex="$gTabIndex" id="$input_id" name="$input_name" rows=$rows cols=$cols $gDisabledText/>$cur_value</textarea>
+	<span id="$info_id" class="error_message"></span>
 
 END;
-    if ($error_str)
-      $text .= "      <font color=\"red\">$error_str</font>\n";
     return $text;
   }
 
-  function monthDropdownHTML($cur_month, $template_name, $index) {
+  function monthDropdownHTML($cur_month, $input_name) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
 
-    $text = '	<select tabindex="' . $gTabIndex . '" name="' . $template_name . '[' . $index . "][month]\" $gDisabledText>\n";
+    $text = '	<select tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '" name="' . $input_name . "[month]\" $gDisabledText>\n";
     $month_names = array(
       wfMsgForContent('sf_january'),
       wfMsgForContent('sf_february'),
@@ -682,9 +737,8 @@ END;
     return $text;
   }
 
-  function dateEntryHTML($template_name, $index, $date, $error_str) {
+  function dateEntryHTML($input_name, $date) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
 
     if ($date) {
       // can show up here either as an array or a string, depending on
@@ -705,25 +759,21 @@ END;
       $month = $cur_date[month];
       $day = null; // no need for day
     }
-    $text .= SFFormPrinter::monthDropdownHTML($month, $template_name, $index);
-    $gTabIndex++;
-    $text .= '  <input tabindex="' . $gTabIndex . '" name="' . $template_name . '[' . $index . '][day]" type="text" value="' . $day . '" size="2"/ ' . $gDisabledText . '>' . "\n";
-    $gTabIndex++;
-    $text .= '  <input tabindex="' . $gTabIndex . '" name="' . $template_name . '[' . $index . '][year]" type="text" value="' . $year . '" size="4"/ ' . $gDisabledText . '>' . "\n";
-    if ($error_str) {
-      $text .= "     <font color=\"red\">$error_str</font>\n";
-    }
+    $text .= SFFormPrinter::monthDropdownHTML($month, $input_name);
+    $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2"/ ' . $gDisabledText . '>' . "\n";
+    $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $gDisabledText . '>' . "\n";
+    $info_id = "info_$gTabIndex";
+    $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
     return $text;
   }
 
-  function radioButtonHTML($template_name, $field_name, $cur_value, $options_array) {
+  function radioButtonHTML($input_name, $cur_value, $options_array) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
 
     if ($title)
       $text .= "     <strong>$title:</strong>\n";
     foreach ($options_array as $i => $option) {
-      $text .= '	<input type="radio" tabindex="' . $gTabIndex . '" name="' . $template_name . '[' . $field_name . ']" value="$option"';
+      $text .= '	<input type="radio" tabindex="' . $gTabIndex . '" name="' . $input_name . '" value="' . $option . '"';
       if ($cur_value == $option || (! $cur_value && $i == 0))
         $text .= " checked";
       $text .= " $gDisabledText/> $option\n";
@@ -731,9 +781,9 @@ END;
     return $text;
   }
 
-  function checkboxHTML($template_name, $field_name, $cur_value, $error_str) {
+  function checkboxHTML($input_name, $cur_value) {
     global $gTabIndex, $gDisabledText;
-    $gTabIndex++;
+    $info_id = "info_$gTabIndex";
 
     // can show up here either as an array or a string, depending on
     // whether it came from user input or a wiki page
@@ -748,23 +798,16 @@ END;
         $checked_str = "";
       }
     }
-    $input_name = $template_name . '[' . $field_name . ']';
     $text =<<<END
 	<input name="{$input_name}[is_checkbox]" type="hidden" value="true" />
-	<input name="{$input_name}[value]" type="checkbox" tabindex="$gTabIndex " $checked_str $gDisabledText/>
+	<input id="input_$gTabIndex" name="{$input_name}[value]" type="checkbox" tabindex="$gTabIndex " $checked_str $gDisabledText/>
+	<span id="$info_id" class="error_message"></span>
 
 END;
-    if ($error_str) {
-      $text .= "      <font color=\"red\">$error_str</font>\n";
-    }
     return $text;
   }
 
-  function hiddenFieldHTML($template_name, $field_name, $cur_value) {
-    if ($template_name == null || $template_name == '')
-      $input_name = $field_name;
-    else
-      $input_name = $template_name . '[' . $field_name . ']';
+  function hiddenFieldHTML($input_name, $cur_value) {
     $text =<<<END
 	<input type="hidden" name="$input_name" value="$cur_value" />
 
