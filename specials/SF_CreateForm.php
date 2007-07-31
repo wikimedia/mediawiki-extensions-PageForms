@@ -86,8 +86,11 @@ function doSpecialCreateForm() {
       $new_label = $wgRequest->getVal("label_" . $old_i . "_" . $j);
       if ($new_label)
         $field->template_field->label = $new_label;
-      if ($wgRequest->getVal("hidefield_" . $old_i . "_" . $j) == "hidden") {
+      if ($wgRequest->getVal("hidden_" . $old_i . "_" . $j) == "hidden") {
         $field->is_hidden = true;
+      }
+      if ($wgRequest->getVal("restricted_" . $old_i . "_" . $j) == "restricted") {
+        $field->is_restricted = true;
       }
       if ($wgRequest->getVal("mandatory_" . $old_i . "_" . $j) == "mandatory") {
         $field->is_mandatory = true;
@@ -123,14 +126,7 @@ END;
   // set 'title' field, in case there's no URL niceness
   $text .= '    <input type="hidden" name="title" value="Special:CreateForm">' . "\n";
   $text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' <input size=25 name="form_name" value="' . $form_name . '"> <font color="red">' . $form_name_error_str . '</font></p>' . "\n";
-  $text .=<<<END
-	<br />
-	<div class="template_form">
-
-END;
-  $text .= '	<h2>' . wfMsg('sf_createform_titlefield') . "</h2>\n";
-  $text .= '	<p>' . wfMsg('sf_createform_titledesc') . "</p>\n";
-  $text .= "	</div>\n";
+  $text .= "	<br />\n";
 
   $text .= $form->creationHTML();
 
