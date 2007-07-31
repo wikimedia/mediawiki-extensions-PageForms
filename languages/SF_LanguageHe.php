@@ -49,8 +49,6 @@ class SF_LanguageHe {
         'sf_forms_docu' => 'הטפסים הבאים קיימים בוויקי הזה.',
         'createform' => 'צור טופס',
         'sf_createform_nameinput' => 'שם הטופס (מקובל לתת לטופס שם בהתאם לשם התבנית העיקרית שהוא מגדיר)',
-        'sf_createform_titlefield' => 'שדה כותרת',
-        'sf_createform_titledesc' => 'זה שדה מחרוזת.',
         'sf_createform_template' => 'תבנית:',
         'sf_createform_templatelabelinput' => 'תוית לתבנית (אופציונלי):',
         'sf_createform_allowmultiple' => ' הרשה כפילויות (או אפס) מהתבנית הזאת בדף המיוצר',

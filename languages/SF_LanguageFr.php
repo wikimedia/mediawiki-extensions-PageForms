@@ -47,8 +47,6 @@ class SF_LanguageFr {
 	'sf_forms_docu' => 'Les formulaires suivants existent dans le wiki.',
 	'createform' => 'Créer un formulaire',
 	'sf_createform_nameinput' => 'Nom de formulaire (la convention est de nommer le formulaire après la modèle principale qu\'il peuple):',
-	'sf_createform_titlefield' => 'Champ de titre',
-	'sf_createform_titledesc' => 'Ce champ est une chaîne de caractères.',
 	'sf_createform_template' => 'Modèle:',
 	'sf_createform_templatelabelinput' => 'Étiquette de modèle (volontaire):',
 	'sf_createform_allowmultiple' => 'Laisser plusieurs (ou zero) instances de ce modèle dans la page',
