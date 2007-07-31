@@ -154,8 +154,9 @@ END;
 class SFFormTemplateField {
   var $num;
   var $template_field;
-  var $is_hidden;
   var $is_mandatory;
+  var $is_hidden;
+  var $is_restricted;
   // the following fields are not set by the form-creation page
   // (though they could be)
   var $input_type;
@@ -173,8 +174,9 @@ class SFFormTemplateField {
     $f = new SFFormTemplateField();
     $f->num = $num;
     $f->template_field = $template_field;
-    $f->is_hidden = false;
     $f->is_mandatory = false;
+    $f->is_hidden = false;
+    $f->is_restricted = false;
     return $f;
   }
 
@@ -200,12 +202,15 @@ class SFFormTemplateField {
     $field_label = $template_field->label;
     $hidden_checked_str = ($this->is_hidden) ? "checked" : "";
     $hidden_text = wfMsg('sf_createform_hidden');
+    $restricted_checked_str = ($this->is_restricted) ? "checked" : "";
+    $restricted_text = wfMsg('sf_createform_restricted');
     $mandatory_checked_str = ($this->is_mandatory) ? "checked" : "";
     $mandatory_text = wfMsg('sf_createform_mandatory');
     $text .=<<<END
-	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" /></p>
-	<p><input type="checkbox" name="hidefield_$field_form_text" value="hidden" $hidden_checked_str /> $hidden_text</p>
-	<p><input type="checkbox" name="mandatory_$field_form_text" value="mandatory" $mandatory_checked_str /> $mandatory_text</p>
+	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
+	&nbsp; <input type="checkbox" name="mandatory_$field_form_text" value="mandatory" $mandatory_checked_str /> $mandatory_text
+	<input type="checkbox" name="hidden_$field_form_text" value="hidden" $hidden_checked_str /> $hidden_text
+	<input type="checkbox" name="restricted_$field_form_text" value="restricted" $restricted_checked_str /> $restricted_text</p>
 	<hr>
 
 END;
@@ -221,6 +226,8 @@ END;
       $text .= "|mandatory";
     } elseif ($this->is_hidden) {
       $text .= "|hidden";
+    } elseif ($this->is_restricted) {
+      $text .= "|restricted";
     }
     $text .= "}}}</p>\n";
     return $text;
