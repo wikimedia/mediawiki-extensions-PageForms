@@ -56,7 +56,7 @@ function doSpecialAddData($query = '') {
 		$diff_page = $wgRequest->getCheck('wpDiff');
 		$form_submitted = ($save_page || $preview_page || $diff_page);
 		// get 'preload' query value, if it exists
-		if ($wgRequest->getCheck('preload')) {
+		if (!$form_submitted && $wgRequest->getCheck('preload')) {
 			$page_is_source = true;
 			$page_contents = SFFormPrinter::getPreloadedText($wgRequest->getVal('preload'));
 		} else {
