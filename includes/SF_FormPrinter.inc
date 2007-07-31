@@ -199,6 +199,7 @@ class SFFormPrinter {
           // cycle through the other components
           $is_mandatory = false;
           $is_hidden = false;
+          $is_restricted = false;
           $input_type = null;
           $no_autocomplete = false;
           $autocomplete_category = null;
@@ -213,6 +214,8 @@ class SFFormPrinter {
               $is_mandatory = true;
             } elseif ($component == 'hidden') {
               $is_hidden = true;
+            } elseif ($component == 'restricted') {
+              $is_restricted = true;
             } else {
               $sub_components = explode('=', $component);
               if (count($sub_components) == 2) {
@@ -258,7 +261,18 @@ class SFFormPrinter {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
             }
           }
-          $template_display_name = $query_template_name;
+
+          // hack - if this is a 'restricted' field, and the user isn't
+          // a sysop, set the global $gDisabledText temporarily to
+          // 'disabled' - set it back at the end of this function
+          $actual_disabled_text = $gDisabledText;
+          // determine whether user is a sysop by whether or not they're
+          // allowed to delete things - if there's a better way, please let
+          // me know
+          if ($is_restricted && ! $wgUser->isAllowed('delete')) {
+            $gDisabledText = "disabled";
+          }
+
           // handle non-template fields - 'page title' and 'free text'
           if ($template_name == '') {
             if ($field_name == 'page title') {
@@ -328,7 +342,7 @@ class SFFormPrinter {
             else
               $input_name = $query_template_name . '[' . $field_name . ']';
             $new_text = SFFormPrinter::formTemplateFieldHTML($field_name, $input_name, $allow_multiple,
-              $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete,
+              $cur_value, $is_mandatory, $is_hidden, $is_restricted, $input_type, $size, $num_rows, $num_cols, $no_autocomplete,
               $autocomplete_category, $all_fields, $strict_parsing);
             if ($new_text) {
               if (is_numeric($field_name)) {
@@ -352,6 +366,8 @@ class SFFormPrinter {
               $start_position = $brackets_end_loc;
             }
           }
+          // restore back to actual value, if it changed
+          $gDisabledText = $actual_disabled_text;
         } else { // tag is not one of the three allowed values
           // ignore tag
           $start_position = $brackets_end_loc;
@@ -511,7 +527,7 @@ END;
     return array($form_text, $javascript_text, $title, $data_text);
   }
 
-  function formTemplateFieldHTML($field_name, $input_name, $part_of_multiple, $cur_value, $is_mandatory, $is_hidden, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $all_fields, $strict_parsing) {
+  function formTemplateFieldHTML($field_name, $input_name, $part_of_multiple, $cur_value, $is_mandatory, $is_hidden, $is_restricted, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $all_fields, $strict_parsing) {
    global $gTabIndex;
 
     // see if this field matches one of the fields defined for this template -
@@ -540,6 +556,7 @@ END;
     // populate field object with settings from the form definition file
     $the_field->is_mandatory = $is_mandatory;
     $the_field->is_hidden = $is_hidden;
+    $the_field->is_restricted = $is_restricted;
     $the_field->input_type = $input_type;
     $the_field->size = $size;
     $the_field->num_rows = $num_rows;
