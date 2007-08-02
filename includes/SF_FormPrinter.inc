@@ -4,10 +4,10 @@
  *
  * @author Yaron Koren
  * @author Nils Oppermann
+ * @author Jeffrey Stuckman
  */
 
 class SFFormPrinter {
-
 
   function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null) {
     global $wgRequest, $wgUser;
@@ -72,6 +72,8 @@ class SFFormPrinter {
     $instance_num = 0;
     $all_instances_printed = false;
     $strict_parsing = false;
+	$autocomplete_value_array = array();
+	$autocomplete_value_array['mappings'] = array();
     for ($section_num = 0; $section_num < count($form_def_sections); $section_num++) {
       $tif = new SFTemplateInForm();
       $start_position = 0;
@@ -269,8 +271,12 @@ class SFFormPrinter {
           // determine whether user is a sysop by whether or not they're
           // allowed to delete things - if there's a better way, please let
           // me know
-          if ($is_restricted && ! $wgUser->isAllowed('delete')) {
+          if ($is_restricted && (! $wgUser || ! $wgUser->isAllowed('delete'))) {
+            // set background color to get around weird IE behavior (field
+            // is disabled, but color stays white)
             $gDisabledText = "disabled";
+            //$gDisabledText = "disabled style=\"background-color: #dddddd; border: 1px solid #ccccff;\"";
+            //$gDisabledText = "disabled readonly";
           }
 
           // handle non-template fields - 'page title' and 'free text'
@@ -343,7 +349,21 @@ class SFFormPrinter {
               $input_name = $query_template_name . '[' . $field_name . ']';
             $new_text = SFFormPrinter::formTemplateFieldHTML($field_name, $input_name, $allow_multiple,
               $cur_value, $is_mandatory, $is_hidden, $is_restricted, $input_type, $size, $num_rows, $num_cols, $no_autocomplete,
-              $autocomplete_category, $all_fields, $strict_parsing);
+              $autocomplete_category, $all_fields, $strict_parsing, $autocomplete_value_array);
+
+            // if this was field was disabled due to being 'restricted',
+            // restore $gDisabledText back to its actual value, and add
+            // a hidden field holding the value of this field, because
+            // disabled inputs for some reason don't submit their value
+            if ($is_restricted && ! $wgUser->isAllowed('delete')) {
+              $gDisabledText = $actual_disabled_text;
+              if ($field_name == 'free text') {
+                $new_text .= SFFormPrinter::hiddenFieldHTML('free_text', '<free_text>');
+              } else {
+                $new_text .= SFFormPrinter::hiddenFieldHTML($input_name, $cur_value);
+              }
+            }
+
             if ($new_text) {
               if (is_numeric($field_name)) {
                 // if the value is null, don't include it at all -
@@ -366,8 +386,6 @@ class SFFormPrinter {
               $start_position = $brackets_end_loc;
             }
           }
-          // restore back to actual value, if it changed
-          $gDisabledText = $actual_disabled_text;
         } else { // tag is not one of the three allowed values
           // ignore tag
           $start_position = $brackets_end_loc;
@@ -396,7 +414,7 @@ class SFFormPrinter {
           $form_text .=<<<END
 	<div id="wrapper_$gTabIndex" class="multiple_template">
         $section
-        <input type="button" onclick="blankInstance('wrapper_$gTabIndex');" value="$remove_text" tabindex="$gTabIndex" />
+        <input type="button" onclick="removeInstance('wrapper_$gTabIndex');" value="$remove_text" tabindex="$gTabIndex" />
         </div>
 
 END;
@@ -415,7 +433,6 @@ END;
           $add_another = wfMsg('sf_editdata_addanother');
           $form_text .=<<<END
 	<p style="margin-left:10px;">
-	<input type="hidden" value="0" id="numElements" />
 	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$gTabIndex');" value="$add_another" tabindex="$gTabIndex" /></p>
 
 END;
@@ -483,51 +500,130 @@ END;
 	return (num_errors == 0);
 }
 
-// This Javascript code is heavily indebted to Dustin Diaz's 'add and remove
-// HTML elements' tutorial - http://www.dustindiaz.com/add-and-remove-html-elements-dynamically-with-javascript/
-function addInstance(starter_div_id, main_div_id, tab_index) {
-  var starter_div = document.getElementById(starter_div_id);
-  var main_div = document.getElementById(main_div_id);
-  var numi = document.getElementById('numElements');
-  var num = (document.getElementById('numElements').value -1)+ 2;
-  numi.value = num;
-  var newdiv = document.createElement('div');
-  var div_id = 'div_' + num;
-  newdiv.setAttribute('id', div_id);
-  newdiv.setAttribute('class', 'multiple_template');
-  // workaround for IE 6 bug
-  newdiv.setAttribute('className', 'multiple_template');
-  // make internal ID unique for the relevant divs and spans, and replace
-  // the [num] index with an actual unique index
-  var orig_html = starter_div.innerHTML;
-  orig_html = orig_html.replace(/input_/g, 'input_' + num + '_');
-  orig_html = orig_html.replace(/info_/g, 'info_' + num + '_');
-  orig_html = orig_html.replace(/div_/g, 'div_' + num + '_');
-  orig_html = orig_html.replace(/\[num\]/g, '[' + num + ']');
-  newdiv.innerHTML = orig_html + '<input type="button" onclick="removeInstance(\'' + main_div_id + '\', \'' + div_id + '\');" value="$remove_text" tabindex="' + tab_index + '" />';
-  main_div.appendChild(newdiv);
+var num_elements = 0;
+
+function addInstance(starter_div_id, main_div_id, tab_index)
+{
+	var starter_div = document.getElementById(starter_div_id);
+	var main_div = document.getElementById(main_div_id);
+	num_elements++;
+	
+	//Create the new instance
+	var new_div = starter_div.cloneNode(true);
+	var div_id = 'div_gen_' + num_elements;
+	new_div.className = 'multiple_template';
+	new_div.id = div_id;
+	new_div.style.display = 'block';
+	
+	// make internal ID unique for the relevant divs and spans, and replace
+	// the [num] index in the element names with an actual unique index
+	var children = new_div.getElementsByTagName('*');
+	var x;
+	for (x=0;x<children.length;x++)
+	{
+		if (children[x].name)
+			children[x].name = children[x].name.replace(/\[num\]/g, '[' + num_elements + ']');
+		if (children[x].id)
+			children[x].id = children[x].id
+				.replace(/input_/g, 'input_' + num_elements + '_')
+				.replace(/info_/g, 'info_' + num_elements + '_')
+				.replace(/div_/g, 'div_' + num_elements + '_');
+	}
+
+	//Create remove button
+	var remove_button = document.createElement('input');
+	remove_button.type = 'button';
+	remove_button.value = '$remove_text';
+	remove_button.tabIndex = tab_index;
+	remove_button.onclick = removeInstanceEventHandler(div_id);
+	new_div.appendChild(remove_button);
+	
+	//Add the new instance
+	main_div.appendChild(new_div);
+	attachAutocompleteToAllFields(new_div);
 }
 
-function removeInstance(main_div_id, this_div_id) {
-  var d = document.getElementById(main_div_id);
-  var olddiv = document.getElementById(this_div_id);
-  d.removeChild(olddiv);
+function removeInstanceEventHandler(this_div_id)
+{
+	return function()
+	{
+		removeInstance(this_div_id);
+	};
 }
 
-// hack function - an element that's not a child of anything can't be
-// removed, so do the next best thing: set its contents to blank and its
-// display to 'none'
-function blankInstance(div_id) {
-  var d = document.getElementById(div_id);
-  d.innerHTML = "";
-  d.style.display = "none";
+function removeInstance(div_id) {
+	var olddiv = document.getElementById(div_id);
+	olddiv.parentNode.removeChild(olddiv);
 }
+
+var autocompletestrings = new Array();
+var autocompletemappings = new Array();
+
+//Activate autocomplete functionality for every field on the document
+function attachAutocompleteToAllDocumentFields()
+{
+	var forms = document.getElementsByTagName("form");
+	var x;
+	for (x=0;x<forms.length;x++)
+	{
+		if (forms[x].name == "createbox")
+		{
+			attachAutocompleteToAllFields(forms[x]);
+		}	
+	}
+}
+
+//Activate autocomplete functionality for every field under the specified element
+function attachAutocompleteToAllFields(base)
+{
+	var inputs = base.getElementsByTagName("input");
+	var y;
+	for (y=0;y<inputs.length;y++)
+	{
+		attachAutocompleteToField(inputs[y].id);
+	}
+}
+
+//Activate autocomplete functionality for the specified field
+function attachAutocompleteToField(input_id)
+{
+	//Check input id for the proper format, to ensure this is for SF
+	if (input_id.substr(0,6) == 'input_')
+	{
+		//Extract the field ID number from the input field
+		var field_num = parseInt(input_id.substring(input_id.lastIndexOf('_') + 1, input_id.length),10);
+		//Add the autocomplete string, if a mapping exists.
+		if (autocompletemappings[field_num])
+		{
+			var div_id = input_id.replace(/input_/g, 'div_');
+			new Autocompleter.Local(input_id, div_id, autocompletestrings[autocompletemappings[field_num]], {});
+		}
+	}
+}
+
+Event.observe(window, 'load', attachAutocompleteToAllDocumentFields);
 
 END;
+
+	//Send the autocomplete values to the browser, along with the mappings of which values should apply to which fields
+	foreach ($autocomplete_value_array as $autocomplete_key => $autocomplete_string)
+	{
+		if ($autocomplete_key == "mappings")
+		{
+			foreach ($autocomplete_string as $field_number => $field_key)
+			{
+				$javascript_text .= "autocompletemappings[$field_number] = '" . str_replace("'", "\'", $field_key) . "';\n";
+			}
+		}
+		else
+		{
+			$javascript_text .= "autocompletestrings['" . str_replace("'", "\'", $autocomplete_key) . "'] = $autocomplete_string;\n";
+		}
+	}
     return array($form_text, $javascript_text, $title, $data_text);
   }
 
-  function formTemplateFieldHTML($field_name, $input_name, $part_of_multiple, $cur_value, $is_mandatory, $is_hidden, $is_restricted, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $all_fields, $strict_parsing) {
+  function formTemplateFieldHTML($field_name, $input_name, $part_of_multiple, $cur_value, $is_mandatory, $is_hidden, $is_restricted, $input_type, $size, $num_rows, $num_cols, $no_autocomplete, $autocomplete_category, $all_fields, $strict_parsing, &$out_autocomplete_values) {
    global $gTabIndex;
 
     // see if this field matches one of the fields defined for this template -
@@ -565,19 +661,21 @@ END;
     $the_field->autocomplete_category = $autocomplete_category;
     $the_field->input_name = $input_name;
     $the_field->part_of_multiple = $part_of_multiple;
-    $text = SFFormPrinter::formFieldHTML($the_field, $cur_value);
+    $text = SFFormPrinter::formFieldHTML($the_field, $cur_value, $out_autocomplete_values);
     return $text;
   }
 
-  function formFieldHTML($template_field, $cur_value) {
+  function formFieldHTML($template_field, $cur_value, &$out_autocomplete_values) {
     global $smwgContLang;
-
+	//When a field is generated that requires autocomplete, the autocomplete string will be added to out_autocomplete_values. Then, at the end,
+	//Javascript will be generated to activate autocomplete field at once.
+	
     if ($template_field->is_hidden) {
       $text = SFFormPrinter::hiddenFieldHTML($template_field->input_name, $cur_value);
     } elseif ($template_field->autocomplete_category != null) {
       $size = $template_field->size;
       if ($size == null) $size = 35;
-      $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->autocomplete_category, false, $cur_value);
+      $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->autocomplete_category, false, $cur_value, $out_autocomplete_values);
     } elseif ($template_field->input_type == 'text') {
       $size = $template_field->size;
       if ($size == null) $size = 35;
@@ -598,7 +696,7 @@ END;
       if ($template_field->no_autocomplete) {
         $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
       } else {
-        $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->semantic_field, true, $cur_value);
+        $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->semantic_field, true, $cur_value, $out_autocomplete_values);
       }
     } else { // input type not defined in form, and not a relation
       $attr_type = $template_field->attribute_type;
@@ -663,7 +761,7 @@ END;
     $info_id = "info_$gTabIndex";
 
     $text =<<<END
-	<input id="$input_id" tabindex="$gTabIndex" class="createboxInput" name="$input_name" type="text"
+		<input id="$input_id" tabindex="$gTabIndex" class="createboxInput" name="$input_name" type="text"
         value="$cur_value" size="$size" $gDisabledText/>
 	<span id="$info_id" class="error_message"></span>
 
@@ -690,23 +788,25 @@ END;
     return $text;
   }
 
-  function textEntryWithAutocompleteHTML($size, $input_name, $part_of_multiple, $semantic_field_name, $is_relation, $cur_value) {
+  function textEntryWithAutocompleteHTML($size, $input_name, $part_of_multiple, $semantic_field_name, $is_relation, $cur_value, &$out_autocomplete_values) {
     global $gTabIndex, $gDisabledText;
     $gTabIndex++;
 
     $input_id = "input_" . $gTabIndex;
     $info_id = "info_" . $gTabIndex;
     $div_name = "div_" . $gTabIndex;
-    $options_str = SFFormPrinter::createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $is_relation);
     $text =<<<END
         <input tabindex="$gTabIndex" id="$input_id" name="$input_name" type="text"
 	value="" size="$size" $gDisabledText/>
 	<span id="$info_id" class="error_message"></span>
 	<div class="page_name_auto_complete" id="$div_name" style="display:none"></div>
 <script type="text/javascript">
-new Autocompleter.Local('$input_id', '$div_name', $options_str, {});
 
 END;
+	$options_str_key = $semantic_field_name . ',' . $is_relation;
+	if (!$out_autocomplete_values[$options_str_key])
+		$out_autocomplete_values[$options_str_key] = SFFormPrinter::createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $is_relation);
+	$out_autocomplete_values['mappings'][$gTabIndex] = $options_str_key;
     if ($cur_value) {
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
@@ -880,7 +980,7 @@ END;
 
   // Much of this function is based on MediaWiki's EditPage::showEditForm()
   function formBottom($target_title = null) {
-    global $wgUser, $wgRightsText, $wgParser;
+    global $wgVersion, $wgUser, $wgRightsText, $wgParser;
     global $gTabIndex, $gDisabledText;
     $sk = $wgUser->getSkin();
 
@@ -899,10 +999,20 @@ END;
     else
       $cancel = $sk->makeKnownLink( $target_title->getPrefixedText(),
                   wfMsgExt('cancel', array('parseinline')) );
-    $edithelpurl = Skin::makeInternalOrExternalUrl( wfMsgForContent( 'edithelppage' ));
+    
+	//Fix so extension works with MediaWiki 1.7
+	if (substr_compare($wgVersion, '1.7', 0, 3) == 0)
+	{
+		$edithelpurl = $sk->makeInternalOrExternalUrl( wfMsgForContent( 'edithelppage' ));
+	}
+	else
+	{
+		$edithelpurl = Skin::makeInternalOrExternalUrl( wfMsgForContent( 'edithelppage' ));
+	}
+    
     $edithelp = '<a target="helpwindow" href="'.$edithelpurl.'">'.
-      htmlspecialchars( wfMsg( 'edithelp' ) ).'</a> '.
-      htmlspecialchars( wfMsg( 'newwindow' ) );
+    htmlspecialchars( wfMsg( 'edithelp' ) ).'</a> '.
+    htmlspecialchars( wfMsg( 'newwindow' ) );
 
     $gTabIndex++;
     $text =<<<END
