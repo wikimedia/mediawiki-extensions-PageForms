@@ -3,7 +3,7 @@
  * Global functions and constants for Semantic Forms.
  */
 
-define('SF_VERSION','0.4.2');
+define('SF_VERSION','0.4.3');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 
@@ -37,7 +37,7 @@ function sfgSetupExtension() {
 	/**********************************************/
 	/***** credits (see "Special:Version")    *****/
 	/**********************************************/
-	$wgExtensionCredits['parserhook'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren',
+	$wgExtensionCredits['parserhook'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren and others',
           'url'=>'http://discoursedb.org/SemanticForms/', 'description' => 'Forms for adding and editing semantic data');
 
 	return true;
