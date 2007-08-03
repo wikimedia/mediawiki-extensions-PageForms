@@ -15,11 +15,23 @@ require_once( "$IP/includes/SpecialPage.php" );
 
 SpecialPage::addPage( new SpecialPage('CreateTemplate','',true,'doSpecialCreateTemplate',false) );
 
+// beginning of new layout for CreateTemplate
+function getSemanticProperties() {
+	$dbr =& wfGetDB( DB_SLAVE );
+	$attributes = $dbr->tableName( 'smw_attributes' );
+	// QueryPage uses the value from this SQL in an ORDER clause,
+	// so return attribute title in value, and its type in title.
+	$query = "SELECT distinct value_datatype as title,
+		  attribute_title as value
+		  FROM $attributes
+		  GROUP BY attribute_title, value_datatype";
+}
+
 function printFieldEntryBox($id, $f) {
   $text = '	<div class="field_box">' . "\n";
-  $text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="25" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
-  $text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="25" name="label_' . $id . '" value="' . $f->label . '"></p>' . "\n";
-  $text .= '	<p>' . wfMsg('sf_createtemplate_semanticfield') . ' <input size="25" name="semantic_field_' . $id . '" value="' . $f->semantic_field . '">' . "\n";
+  $text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
+  $text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '"></p>' . "\n";
+  $text .= '	<p>' . wfMsg('sf_createtemplate_semanticproperty') . ' <input size="15" name="semantic_field_' . $id . '" value="' . $f->semantic_field . '">' . "\n";
 
   $text .= "	<input type=\"radio\" name=\"attr_or_rel_$id\" value=\"attribute\"" .
     ($f->attr_or_rel == "attribute" ? " checked" : "") . '> ' .
@@ -31,7 +43,6 @@ function printFieldEntryBox($id, $f) {
 
   if ($id != "new") {
     $text .= '	<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
-    $text .= "  <hr>\n";
   }
   $text .= <<<END
 </p>
@@ -111,7 +122,7 @@ END;
     'rel' => 'stylesheet',
     'type' => 'text/css',
     'media' => "screen, projection",
-    'href' => "/w/extensions/SemanticMediaWiki/skins/SMW_cpanel.css"
+    'href' => "/w/extensions/SemanticForms/skins/SF_main.css"
   ));
   $wgOut->addHTML($text);
 }
