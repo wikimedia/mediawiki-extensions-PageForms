@@ -143,17 +143,32 @@ class SFFormPrinter {
               // an index starting with 1, not 0, to match MediaWiki's counting
               // system
               $template_contents = array(null);
-              $template_fields = explode('|', $existing_template_text);
-              foreach ($template_fields as $field) {
-                if ($field != null) {
-                  // either there's an equals sign near the beginning or not -
-                  // handling is similar in either way; if there's no equals
-                  // sign, the index of this field becomes the key
-                  $sub_fields = explode('=', $field, 2);
-                  if (count($sub_fields) > 1) {
-                    $template_contents[trim($sub_fields[0])] = trim($sub_fields[1]);
-                  } else {
-                    $template_contents[] = trim($sub_fields[0]);
+              // cycle through template call, splitting it up by pipes ('|'),
+              // except when that pipe is part of a piped link
+              $field = "";
+              $uncompleted_square_brackets = 0;
+              for ($i = 0; $i < strlen($existing_template_text); $i++) {
+                $c = $existing_template_text[$i];
+                if (($i == strlen($existing_template_text) - 1) ||
+                    ($c == '|' && $uncompleted_square_brackets == 0)) {
+                  if ($field != null) {
+                    // either there's an equals sign near the beginning or not -
+                    // handling is similar in either way; if there's no equals
+                    // sign, the index of this field becomes the key
+                    $sub_fields = explode('=', $field, 2);
+                    if (count($sub_fields) > 1) {
+                      $template_contents[trim($sub_fields[0])] = trim($sub_fields[1]);
+                    } else {
+                      $template_contents[] = trim($sub_fields[0]);
+                    }
+                    $field = '';
+                  }
+                } else {
+                  $field .= $c;
+                  if ($c == '[') {
+                    $uncompleted_square_brackets++;
+                  } elseif ($c == ']' && $uncompleted_square_brackets > 0) {
+                    $uncompleted_square_brackets--;
                   }
                 }
               }
