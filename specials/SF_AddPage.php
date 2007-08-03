@@ -5,6 +5,7 @@
  * depending on whether the page already exists.
  *
  * @author Yaron Koren
+ * @author Jeffrey Stuckman
  */
 if (!defined('MEDIAWIKI')) die();
 
@@ -17,11 +18,17 @@ function doSpecialAddPage($query = '') {
 	global $wgOut, $wgRequest, $sfgScriptPath;
 
 	$form_name = $wgRequest->getVal('form');
+	$target_namespace = $wgRequest->getVal('namespace');
 
-        // if query string did not contain this variables, try the URL
-        if (! $form_name) {
-                $form_name = $query;
-        }
+	// if query string did not contain form name, try the URL
+	if (! $form_name) {
+		$form_name = $query;
+		// get namespace from  the URL, if it's there
+		if ($namespace_label_loc = strpos($form_name, "/Namespace:")) {
+			$target_namespace = substr($form_name, $namespace_label_loc + 11);
+			$form_name = substr($form_name, 0, $namespace_label_loc);
+		}
+	}
 
 	// get title of form
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
@@ -31,6 +38,10 @@ function doSpecialAddPage($query = '') {
 	if ($form_submitted) {
 		$page_name = $wgRequest->getVal('page_name');
 		if ('' != $page_name) {
+			// Append the namespace prefix to the page name,
+			// if a namespace was not already entered.
+			if (strpos($page_name,":") === false)
+				$page_name = $target_namespace . ":" . $page_name;
 			// find out whether this page already exists,
 			// and send user to the appropriate form
 			$page_title = Title::newFromText($page_name);
@@ -72,6 +83,7 @@ END;
 	<form action="" method="post">
 	<p>$description</p>
 	<p><input type="text" size="40" name="page_name"></p>
+	<input type="hidden" name="namespace" value="$target_namespace">
 	<input type="Submit" value="$button_text">
 	</form>
 
