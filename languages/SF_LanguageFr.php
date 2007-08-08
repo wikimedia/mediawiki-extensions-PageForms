@@ -8,7 +8,6 @@ class SF_LanguageFr {
 /* private */ var $sfContentMessages = array(
 	'sf_template_docu' => 'Ceci est la modèle « $1 ». Elle doit �tre appel�e par le format suivant:',
 	'sf_template_docufooter' => 'Modifier la page pour voir la texte de la modèle.',
-	'sf_template_pagetype' => 'Ceci est une page de type $1.',
 	'sf_form_relation' => 'Utilise le formulaire',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
@@ -38,9 +37,7 @@ class SF_LanguageFr {
 	'sf_createtemplate_fieldsdesc' => 'Pour une modèle qui n\'utilise pas de noms pour les champs, simplement entrer l\'index de ce champ (e.g. 1, 2, 3, etc.) comme le nom, au lieu d\'un nom actuel.',
 	'sf_createtemplate_fieldname' => 'Nom de champ:',
 	'sf_createtemplate_displaylabel' => 'Étiquette pour l\'affichage:',
-	'sf_createtemplate_semanticfield' => 'Nom de champ sèmantique:',
-	'sf_createtemplate_attribute' => 'attribut',
-	'sf_createtemplate_relation' => 'relation',
+	'sf_createtemplate_semanticfield' => 'Propriètè sèmantique:',
 	'sf_createtemplate_addfield' => 'Ajouter un champ',
 	'sf_createtemplate_deletefield' => 'Efface',
 	'forms' => 'Formulaires',
@@ -56,6 +53,7 @@ class SF_LanguageFr {
 	'sf_createform_fieldrel' => 'Ce champ définit la relation $1.',
 	'sf_createform_formlabel' => 'Étiquette dans le formulaire:',
 	'sf_createform_hidden' =>  'Caché',
+	'sf_createform_restricted' =>  'Restreint',
 	'sf_createform_mandatory' =>  'Obligatoire',
 	'sf_createform_removetemplate' => 'Enlever cette modèle',
 	'sf_createform_addtemplate' => 'Ajouter une modèle:',

@@ -9,7 +9,6 @@ class SF_LanguageHe {
 /* private */ var $sfContentMessages = array(
         'sf_template_docu' => 'זאת התבנית $1. צריך לקרוא לה בפורמט הזה:',
         'sf_template_docufooter' => 'ערוך את הדף כדי לראות את טקסט התבנית.',
-        'sf_template_pagetype' => 'זה דף מטיפוס $1.',
         'sf_form_relation' => 'משתמש בטופס',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
@@ -40,9 +39,7 @@ class SF_LanguageHe {
         'sf_createtemplate_fieldsdesc' => 'כדי ששדות התבנית לא יצטרכו שמות, פשוט הכנס את האינדקס של השדה (1, 2, 3...) במקום שם אמיתי.',
         'sf_createtemplate_fieldname' => 'שם השדה:',
         'sf_createtemplate_displaylabel' => 'תוית תצוגה:',
-        'sf_createtemplate_semanticfield' => 'זה השדה הסמנטי:',
-        'sf_createtemplate_attribute' => 'תכונה',
-        'sf_createtemplate_relation' => 'יחס',
+        'sf_createtemplate_semanticproperty' => 'זה השדה הסמנטי:',
         'sf_createtemplate_addfield' => 'הוסף שדה',
         'sf_createtemplate_deletefield' => 'מחק',
         'forms' => 'טפסים',

@@ -8,7 +8,6 @@ class SF_LanguagePt_br {
 /* private */ var $sfContentMessages = array(
     'sf_template_docu' => 'Esta é a \'$1\' predefinição. Necessita ser chamada no seguinte formato:',
     'sf_template_docufooter' => 'Edite a página para ver o texto da predefinição.',
-    'sf_template_pagetype' => 'Esta é uma página do tipo $1.',
     'sf_form_relation' => 'Tem formulário padrão',
     // month names are already defined in MediaWiki, but unfortunately
     // there they're defined as user messages, and here they're
@@ -42,9 +41,7 @@ entre com o índice daquele campo (e.g. 1, 2, 3, etc.) como nome, no
 lugar do nome atual.',
     'sf_createtemplate_fieldname' => 'Nome do campo:',
     'sf_createtemplate_displaylabel' => 'Mostrar rótulo:',
-    'sf_createtemplate_semanticfield' => 'Semantic nome do campo:',
-    'sf_createtemplate_attribute' => 'atributo',
-    'sf_createtemplate_relation' => 'relação',
+    'sf_createtemplate_semanticproperty' => 'Propriedade sem�ntica:',
     'sf_createtemplate_addfield' => 'Adicionar campo',
     'sf_createtemplate_deletefield' => 'Deletar',
     'forms' => 'Formulários',
@@ -60,6 +57,7 @@ lugar do nome atual.',
     'sf_createform_fieldrel' => 'Este campo define a relação $1.',
     'sf_createform_formlabel' => 'Rótulo do formulário',
     'sf_createform_hidden' =>  'Escondido',
+    'sf_createform_restricted' =>  'Restrito',
     'sf_createform_mandatory' =>  'Obrigatório',
     'sf_createform_removetemplate' => 'Remover predefinição',
     'sf_createform_addtemplate' => 'Adicionar predefinição:',

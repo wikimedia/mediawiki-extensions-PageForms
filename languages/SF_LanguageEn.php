@@ -6,9 +6,11 @@
 class SF_LanguageEn {
 
 /* private */ var $sfContentMessages = array(
+	'sf_createproperty_isattribute' => 'This is an attribute of type $1.',
+	'sf_createproperty_allowedvals' => 'The allowed values for this attribute are:',
+	'sf_createproperty_isrelation' => 'This is a relation.',
 	'sf_template_docu' => 'This is the \'$1\' template. It should be called in the following format:',
 	'sf_template_docufooter' => 'Edit the page to see the template text.',
-	'sf_template_pagetype' => 'This is a page of type $1.',
 	'sf_form_docu' => 'This is the \'$1\' form; edit the page to see the source code. You can add data with this form [[$2|here]].',
 	'sf_form_relation' => 'Has default form',
 	// month names are already defined in MediaWiki, but unfortunately
@@ -30,24 +32,25 @@ class SF_LanguageEn {
 );
 
 /* private */ var $sfUserMessages = array(
+	'createproperty' => 'Create a semantic property',
 	'templates' => 'Templates',
 	'sf_templates_docu' => 'The following templates exist in the wiki.',
 	'sf_templates_definescat' => 'defines category:',
-	'createtemplate' => 'Create template',
+	'createtemplate' => 'Create a template',
 	'sf_createtemplate_namelabel' => 'Template name:',
 	'sf_createtemplate_categorylabel' => 'Category defined by template (optional):',
 	'sf_createtemplate_templatefields' => 'Template fields',
 	'sf_createtemplate_fieldsdesc' => 'To have the fields of a template not require field names, simply enter the index of that field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.',
 	'sf_createtemplate_fieldname' => 'Field name:',
 	'sf_createtemplate_displaylabel' => 'Display label:',
-	'sf_createtemplate_semanticfield' => 'Semantic field name:',
-	'sf_createtemplate_attribute' => 'attribute',
-	'sf_createtemplate_relation' => 'relation',
-	'sf_createtemplate_addfield' => 'Add field',
+	'sf_createtemplate_semanticproperty' => 'Semantic property:',
+	'sf_createtemplate_outputformat' => 'Output format:',
+	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_infoboxformat' => 'Right-hand-side infobox',
 	'sf_createtemplate_deletefield' => 'Delete',
 	'forms' => 'Forms',
 	'sf_forms_docu' => 'The following forms exist in the wiki.',
-	'createform' => 'Create form',
+	'createform' => 'Create a form',
 	'sf_createform_nameinput' => 'Form name (convention is to name the form after the main template it populates):',
 	'sf_createform_template' => 'Template:',
 	'sf_createform_templatelabelinput' => 'Template label (optional):',
