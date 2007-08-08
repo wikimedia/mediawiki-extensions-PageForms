@@ -152,6 +152,11 @@ class SFFormPrinter {
                 if (($i == strlen($existing_template_text) - 1) ||
                     ($c == '|' && $uncompleted_square_brackets == 0)) {
                   if ($field != null) {
+                    // if this was the last character in the template, append
+                    // this character
+                    if ($i == strlen($existing_template_text) - 1) {
+                      $field .= $c;
+                    }
                     // either there's an equals sign near the beginning or not -
                     // handling is similar in either way; if there's no equals
                     // sign, the index of this field becomes the key
