@@ -10,6 +10,7 @@ class SFTemplateField {
   var $field_name;
   var $label;
   var $semantic_field;
+  var $semantic_field_call;
   var $attr_or_rel;
   var $attribute_type;
   var $possible_values;
@@ -61,7 +62,7 @@ class SFTemplateField {
   }
 }
 
-function create_template_text($template_name, $template_fields, $category_name) {
+function createTemplateText($template_name, $template_fields, $category, $template_format) {
   $text = "<noinclude>\n";
   $text .= wfMsgForContent('sf_template_docu', $template_name) . "\n";
   $text .= "<pre>\n";
@@ -78,29 +79,34 @@ function create_template_text($template_name, $template_fields, $category_name) 
 <includeonly>
 
 END;
-  if ($category_name != '') {
-    $text .= wfMsgForContent('sf_template_pagetype', "[[:Category:$category_name]]") . "\n";
+  // topmost part depends on format
+  if ($template_format == 'infobox') {
+    // CSS style can't be used, unfortunately, since most MediaWiki setups
+    // don't have an 'infobox' or comparable CSS class
+    $text .=<<<END
+{| style="width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;"
+! style="text-align: center; background-color:#ccccff;" colspan="2" |<big>{{PAGENAME}}</big>
+|-
+
+END;
+  } else {
+    $text .= "{| border=0 cellpadding=4 cellspacing=4\n";
   }
-  $text .= "{| border=0 cellpadding=4 cellspacing=4\n";
 
   foreach ($template_fields as $i => $field) {
     if ($i > 0) {
       $text .= "|-\n";
     }
     $text .= "! " . $field->label . "\n";
-    if ($field->semantic_field == null || $field->semantic_field == '') {
+    if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
       $text .= "| {{{" . $field->field_name . "|unknown}}}\n";
     } else {
-      if ($field->attr_or_rel == "attribute") {
-        $text .= "| [[" . $field->semantic_field . ":={{{" . $field->field_name . "|unknown}}}]]\n";
-      } else {
-        $text .= "| [[" . $field->semantic_field . "::{{{" . $field->field_name . "|unknown}}}]]\n";
-      }
+      $text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|unknown}}}]]\n";
     }
   }
   $text .= "|}\n";
-  if ($category_name != '') {
-    $text .= "\n[[Category:$category_name]]\n";
+  if ($category != '') {
+    $text .= "\n[[Category:$category]]\n";
   }
   $text .= "</includeonly>\n";
 
