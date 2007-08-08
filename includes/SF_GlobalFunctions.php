@@ -3,7 +3,7 @@
  * Global functions and constants for Semantic Forms.
  */
 
-define('SF_VERSION','0.4.3');
+define('SF_VERSION','0.5');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 
@@ -20,10 +20,11 @@ function sfgSetupExtension() {
 	/***** register specials                  *****/
 	/**********************************************/
 
-	require_once($sfgIP . '/specials/SF_Templates.php');
-	require_once($sfgIP . '/specials/SF_CreateTemplate.php');
 	require_once($sfgIP . '/specials/SF_Forms.php');
 	require_once($sfgIP . '/specials/SF_CreateForm.php');
+	require_once($sfgIP . '/specials/SF_Templates.php');
+	require_once($sfgIP . '/specials/SF_CreateTemplate.php');
+	require_once($sfgIP . '/specials/SF_CreateProperty.php');
 	require_once($sfgIP . '/specials/SF_AddPage.php');
 	require_once($sfgIP . '/specials/SF_AddData.php');
 	require_once($sfgIP . '/specials/SF_EditData.php');
