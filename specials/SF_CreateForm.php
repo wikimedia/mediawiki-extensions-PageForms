@@ -15,7 +15,7 @@ require_once( "$sfgIP/includes/SF_FormClasses.inc" );
 SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm',false) );
 
 function doSpecialCreateForm() {
-  global $wgOut, $wgRequest;
+  global $wgOut, $wgRequest, $wgUser;
   $fname = "CreateForm::doSpecialCreateForm()";
   $db =& wfGetDB( DB_SLAVE );
 
@@ -119,6 +119,8 @@ function doSpecialCreateForm() {
       </script>
 
 END;
+      $wgOut->addHTML($text);
+      return;
     }
   }
 
@@ -126,7 +128,6 @@ END;
   // set 'title' field, in case there's no URL niceness
   $text .= '    <input type="hidden" name="title" value="Special:CreateForm">' . "\n";
   $text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' <input size=25 name="form_name" value="' . $form_name . '"> <font color="red">' . $form_name_error_str . '</font></p>' . "\n";
-  $text .= "	<br />\n";
 
   $text .= $form->creationHTML();
 
@@ -148,6 +149,9 @@ END;
   $final_index = count($form_templates);
   $preview_button_text = wfMsg('preview');
   $add_button_text = wfMsg('sf_createform_add');
+  $sk = $wgUser->getSkin();
+  $ct = SpecialPage::getPage('CreateTemplate');
+  $create_template_link = $sk->makeKnownLinkObj($ct->getTitle(), $ct->getDescription());
   $text .= '	<option value="' . $final_index . '" selected="selected">' .
     wfMsg('sf_createform_atend') . "</option>\n";
   $text .=<<<END
@@ -156,8 +160,11 @@ END;
 	</p>
 	<p><input type="submit" name="preview" value="$preview_button_text"></p>
 	</form>
+	<br /><hr /<br />
+	<p>$create_template_link.</p>
 
 END;
+
 
   $wgOut->addLink( array(
     'rel' => 'stylesheet',
