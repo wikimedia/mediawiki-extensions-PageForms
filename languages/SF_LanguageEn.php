@@ -47,6 +47,7 @@ class SF_LanguageEn {
 	'sf_createtemplate_outputformat' => 'Output format:',
 	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_infoboxformat' => 'Right-hand-side infobox',
+	'sf_createtemplate_addfield' => 'Add field',
 	'sf_createtemplate_deletefield' => 'Delete',
 	'forms' => 'Forms',
 	'sf_forms_docu' => 'The following forms exist in the wiki.',
