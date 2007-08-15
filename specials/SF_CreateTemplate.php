@@ -29,16 +29,16 @@ function getSemanticProperties() {
   $dbr =& wfGetDB( DB_SLAVE );
   $all_properties = array();
 
-  $res = $dbr->query("SELECT distinct attribute_title FROM " .
-    $dbr->tableName('smw_attributes'));
+  $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
+    " WHERE page_namespace = " . SMW_NS_ATTRIBUTE);
   while ($row = $dbr->fetchRow($res)) {
     $attribute_name = str_replace('_', ' ', $row[0]);
     $all_properties[$attribute_name . ":="] = $attribute_name;
   }
   $dbr->freeResult($res);
 
-  $res = $dbr->query("SELECT distinct relation_title FROM " .
-    $dbr->tableName('smw_relations'));
+  $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
+    " WHERE page_namespace = " . SMW_NS_RELATION);
   while ($row = $dbr->fetchRow($res)) {
     $relation_name = str_replace('_', ' ', $row[0]);
     $all_properties[$relation_name . "::"] = $relation_name;
