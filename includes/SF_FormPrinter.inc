@@ -10,7 +10,7 @@
 class SFFormPrinter {
 
   function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null) {
-    global $wgRequest, $wgUser;
+    global $wgRequest, $wgUser, $wgParser;
     global $gTabIndex; // used to represent the current tab index in the form
     global $gDisabledText; // disables all form elements if user doesn't have edit permission
 
@@ -72,8 +72,10 @@ class SFFormPrinter {
     $instance_num = 0;
     $all_instances_printed = false;
     $strict_parsing = false;
-	$autocomplete_value_array = array();
-	$autocomplete_value_array['mappings'] = array();
+    $autocomplete_values = array();
+    $autocomplete_values['mappings'] = array();
+    // initialize list of choosers (dropdowns with available templates)
+    $choosers = array();
     for ($section_num = 0; $section_num < count($form_def_sections); $section_num++) {
       $tif = new SFTemplateInForm();
       $start_position = 0;
@@ -92,7 +94,9 @@ class SFFormPrinter {
           $template_name = trim($tag_components[1]);
           $tif->template_name = $template_name;
           $query_template_name = str_replace(' ', '_', $template_name);
-          // cycle through the other components
+          $chooser_name = false;
+          $chooser_caption = false;
+	  // cycle through the other components
           for ($i = 2; $i < count($tag_components); $i++) {
             $component = $tag_components[$i];
             if ($component == 'multiple') $allow_multiple = true;
@@ -102,11 +106,23 @@ class SFFormPrinter {
               if ($sub_components[0] == 'label') {
                 $template_label = $sub_components[1];
               }
+              if ($sub_components[0] == 'chooser') {
+                $allow_multiple = true;
+                $chooser_name = $sub_components[1];
+              }
+              if ($sub_components[0] == 'chooser caption') {
+                $chooser_caption = $sub_components[1];
+              }
             }
           }
           // if this is the first instance, add the label in the form
           if (($old_template_name != $template_name) && isset($template_label)) {
-            $form_text .= "<fieldset>\n";
+            // add a placeholder to the form text so the fieldset can be
+            // hidden if chooser support demands it
+            if ($chooser_name !== false)
+              $form_text .= "<fieldset [[placeholder]] haschooser=true>\n";
+            else
+               $form_text .= "<fieldset>\n";
             $form_text .= "<legend>$template_label</legend>\n";
           }
           $template_text .= "{{" . $tif->template_name;
@@ -216,6 +232,10 @@ class SFFormPrinter {
           $allow_multiple = false;
           $all_instances_printed = false;
           $instance_num = 0;
+          // if the hiding placeholder is still around, this fieldset should
+          // be hidden because it is empty and choosers are being used. So,
+          // hide it.
+          $form_text = str_replace("[[placeholder]]", "style='display:none'", $form_text);
         } elseif ($tag_title == 'field') {
           $field_name = trim($tag_components[1]);
           // cycle through the other components
@@ -369,7 +389,7 @@ class SFFormPrinter {
               $input_name = $query_template_name . '[' . $field_name . ']';
             $new_text = SFFormPrinter::formTemplateFieldHTML($field_name, $input_name, $allow_multiple,
               $cur_value, $is_mandatory, $is_hidden, $is_restricted, $input_type, $size, $num_rows, $num_cols, $no_autocomplete,
-              $autocomplete_category, $all_fields, $strict_parsing, $autocomplete_value_array);
+              $autocomplete_category, $all_fields, $strict_parsing, $autocomplete_values);
 
             // if this was field was disabled due to being 'restricted',
             // restore $gDisabledText back to its actual value, and add
@@ -440,6 +460,9 @@ class SFFormPrinter {
 END;
           // this will cause the section to be re-parsed on the next go
           $section_num--;
+          // because there is an instance, the fieldset will never be hidden,
+          // even if choosers are being used. So, do not hide the fieldset.
+          $form_text = str_replace("[[placeholder]]", "", $form_text);
         } else {
           // this is the last instance of this template - stick an 'add'
           // button in the form
@@ -456,6 +479,10 @@ END;
 	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$gTabIndex');" value="$add_another" tabindex="$gTabIndex" /></p>
 
 END;
+           // if a chooser is being used for this template, add the template
+           // to the chooser data array
+          if ($chooser_name !== false)
+            $choosers[$chooser_name][]= array($query_template_name, $gTabIndex, $chooser_caption);
         }
       } else {
         $form_text .= $section;
@@ -492,6 +519,86 @@ END;
     $form_text = str_replace('<free_text>', $free_text, $form_text);
     $data_text = str_replace('<free_text>', $free_text, $data_text);
 
+    //Substitute the choosers in here too.
+    $chooser_count = 0;
+    $chooser_text = "";
+    $using_choosers = "false";
+    foreach ($choosers as $choosername => $chooser) {
+      if (count($chooser)!=0) {
+        $chooser_count++;
+        if ($chooser_count==1) {
+          // emit the initial javascript code
+          $using_choosers = "true";
+          $chooser_text .= <<<END
+<script type="text/javascript">
+function updatechooserbutton(f,n)
+{
+	document.getElementById(n).disabled = (f.options[f.selectedIndex].value=="invalid");
+}
+
+function addInstanceFromChooser(chooserid)
+{
+	var chooser = document.getElementById(chooserid);
+	var optionstring = chooser.options[chooser.selectedIndex].value;
+	var pos = optionstring.indexOf(",");
+	var tabindex = optionstring.substr(0,pos);
+	var chooservalue = optionstring.substr(pos+1);
+	addInstance('starter_' + chooservalue, 'main_' + chooservalue, parseInt(tabindex));
+}
+
+//The fieldset containing the given element was just updated. If the fieldset is associated with a chooser,
+//ensure that the fieldset is hidden if and only if there are no template instances inside.
+function hideOrShowFieldset(element)
+{
+	//Find fieldset
+	while (element.tagName.toLowerCase() != "fieldset")
+		element = element.parentNode;
+	//Bail out if fieldset is not part of chooser
+	if (!element.getAttribute("haschooser"))
+		return;
+	//Now look for "input" or "select" tags that don't look like they're part of the starter template
+	var inputs = element.getElementsByTagName("input");
+	var x;
+	var show = false;
+	for (x=0;x<inputs.length;x++)
+	{
+		if (inputs[x].type=="text" && inputs[x].name.indexOf("[num]") == -1)
+			show = true;
+	}
+	var selects = element.getElementsByTagName("select");
+	for (x=0;x<selects.length;x++)
+	{
+		if (selects[x].name.indexOf("[num]") == -1)
+			show = true;
+	}
+	//Now show or hide fieldset
+	element.style.display = (show?"block":"none");
+}
+</script>
+END;
+        }
+	
+	
+
+			
+        $chooser_text .= "<p>$choosername:<select id='chooserselect$chooser_count' size='1' onchange='updatechooserbutton(this,\"chooserbutton$chooser_count\")'>";
+        $chooser_text .= "<option value='invalid'>Choose a field to add</option>";
+        foreach ($chooser as $chooser_item) {
+          $chooser_value = str_replace('"','\\"',$chooser_item[0]);
+          $tabindex = $chooser_item[1];
+          $chooser_caption = $chooser_item[2];
+          if ($chooser_caption === false)
+            $chooser_caption = str_replace('_', ' ', $chooser_value);
+            $chooser_text .= "<option value=\"$tabindex ,$chooser_value\">$chooser_caption</option>";
+          }
+        $chooser_text .= "</select>\n";
+      }
+      $chooser_text .= "<input type='button' onclick=\"addInstanceFromChooser('chooserselect$chooser_count');\" value='" . wfMsg('sf_editdata_addanother') . "' disabled='true' id='chooserbutton$chooser_count'></p>";
+    }
+	
+    $form_text = str_replace('<choosers>', $chooser_text, $form_text);
+	
+	
     // add general Javascript code
     $blank_error_str = wfMsg('sf_blank_error');
     $javascript_text .=<<<END
@@ -561,6 +668,11 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	//Add the new instance
 	main_div.appendChild(new_div);
 	attachAutocompleteToAllFields(new_div);
+	
+	if ($using_choosers)
+	{
+		hideOrShowFieldset(new_div);
+	}
 }
 
 function removeInstanceEventHandler(this_div_id)
@@ -573,7 +685,10 @@ function removeInstanceEventHandler(this_div_id)
 
 function removeInstance(div_id) {
 	var olddiv = document.getElementById(div_id);
-	olddiv.parentNode.removeChild(olddiv);
+	var parent = olddiv.parentNode;
+	parent.removeChild(olddiv);
+	if ($using_choosers)
+		hideOrShowFieldset(parent);
 }
 
 var autocompletestrings = new Array();
@@ -625,21 +740,16 @@ Event.observe(window, 'load', attachAutocompleteToAllDocumentFields);
 
 END;
 
-	//Send the autocomplete values to the browser, along with the mappings of which values should apply to which fields
-	foreach ($autocomplete_value_array as $autocomplete_key => $autocomplete_string)
-	{
-		if ($autocomplete_key == "mappings")
-		{
-			foreach ($autocomplete_string as $field_number => $field_key)
-			{
-				$javascript_text .= "autocompletemappings[$field_number] = '" . str_replace("'", "\'", $field_key) . "';\n";
-			}
-		}
-		else
-		{
-			$javascript_text .= "autocompletestrings['" . str_replace("'", "\'", $autocomplete_key) . "'] = $autocomplete_string;\n";
-		}
-	}
+    // send the autocomplete values to the browser, along with the mappings of which values should apply to which fields
+    foreach ($autocomplete_values as $autocomplete_key => $autocomplete_string) {
+      if ($autocomplete_key == "mappings") {
+        foreach ($autocomplete_string as $field_number => $field_key) {
+          $javascript_text .= "autocompletemappings[$field_number] = '" . str_replace("'", "\'", $field_key) . "';\n";
+        }
+      } else {
+        $javascript_text .= "autocompletestrings['" . str_replace("'", "\'", $autocomplete_key) . "'] = $autocomplete_string;\n";
+      }
+    }
     return array($form_text, $javascript_text, $title, $data_text);
   }
 
@@ -770,6 +880,9 @@ END;
         $names_array[] = str_replace('_', ' ', $cur_value);
       }
       $array_str = "['" . implode("', '", $names_array) . "']";
+    } else {
+      // return an empty array
+      $array_str = "[]";
     }
     $db->freeResult($res);
     return $array_str;
