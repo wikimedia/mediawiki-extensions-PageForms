@@ -3,7 +3,7 @@
  * Global functions and constants for Semantic Forms.
  */
 
-define('SF_VERSION','0.5');
+define('SF_VERSION','0.5.1');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 
