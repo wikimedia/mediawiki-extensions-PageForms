@@ -89,14 +89,5 @@ END;
 
 END;
 	}
-	$scriptaculousCssUrl = $sfgScriptPath . '/skins/scriptaculous.css';
-	$wgOut->addLink( array(
-		'rel' => 'stylesheet',
-		'type' => 'text/css',
-		'media' => "screen, projection",
-		'href' => $scriptaculousCssUrl
-	));
-	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/lib/prototype.js" type="text/javascript"></script>');
-	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/src/scriptaculous.js" type="text/javascript"></script>');
 	$wgOut->addHTML($text);
 }
