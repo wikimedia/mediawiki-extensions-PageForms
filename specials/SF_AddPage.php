@@ -59,6 +59,10 @@ function doSpecialAddPage($query = '') {
 			} else {
 				$ad = SpecialPage::getPage('AddData');
 				$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+				# add 'preload' value, if it was set
+				$preload = $wgRequest->getVal('preload');
+				if ($preload != '')
+					$redirect_url .= "?preload=$preload";
 			}
 			$text =<<<END
         <script type="text/javascript">
