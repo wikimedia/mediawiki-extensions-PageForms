@@ -61,7 +61,6 @@ class SF_LanguageFr {
 	'sf_createform_atend' => 'À la fin',
 	'sf_createform_add' => 'Ajouter',
 	'addpage' => 'Ajouter une page',
-	'sf_addpage_badurl' => 'Ceci est la page pour ajouter une page. Il faut indiquer un nom de formulaire dans l\'URL; l\'URL doit ressembler �|  « Special:AddPage?form=&lt;nom de formulaire&gt; » ou « Special:AddPage/&lt;nom de formulaire&gt; ».',
 	'addoreditdata' => 'Modifer ou ajouter données',
 	'adddata' => 'Ajouter données',
 	'sf_adddata_badurl' => 'Ceci est la page pour ajouter les données. Il faut indiquer un nom de formulaire et une page cible dans l\'URL; l\'URL doit ressembler �|  « Special:AddData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:AddData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».',
