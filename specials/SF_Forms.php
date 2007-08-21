@@ -44,7 +44,8 @@ class FormsPage extends QueryPage {
 			page_title AS title,
 			page_title AS value
 			FROM $page
-			WHERE page_namespace = {$NSform}";
+			WHERE page_namespace = {$NSform}
+			AND page_is_redirect = 0";
 	}
 
 	function sortDescending() {
