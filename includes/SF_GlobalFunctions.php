@@ -1,11 +1,15 @@
 <?php
 /**
  * Global functions and constants for Semantic Forms.
+ *
+ * @author Yaron Koren
  */
 
-define('SF_VERSION','0.5.2');
+define('SF_VERSION','0.5.3');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
+$wgExtensionFunctions[] = 'sfgParserFunctions';
+$wgHooks['LanguageGetMagic'][] = 'sfgLanguageGetMagic';
 
 /**
  *  Do the actual intialisation of the extension. This is just a delayed init that makes sure
@@ -34,6 +38,7 @@ function sfgSetupExtension() {
 	/**********************************************/
 
 	require_once($sfgIP . '/includes/SF_FormEditTab.php');
+	require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 
 	/**********************************************/
 	/***** credits (see "Special:Version")    *****/
@@ -235,6 +240,34 @@ function sfgSetupExtension() {
 		}
 		// if nothing found still, return null
 		return null;
+	}
+
+	function sffFormDropdownHTML() {
+		// create a dropdown of possible form names
+		$dbr =& wfGetDB( DB_SLAVE );
+		$query = "SELECT page_title FROM " . $dbr->tableName( 'page' ) .
+			" WHERE page_namespace = " . SF_NS_FORM .
+			" AND page_is_redirect = 0";
+		$res = $dbr->query($query);
+		$form_names = array();
+		while ($row = $dbr->fetchRow($res)) {
+			$form_names[] = str_replace('_', ' ', $row[0]);
+		}
+		sort($form_names);
+		global $sfgContLang;
+		$namespace_labels = $sfgContLang->getNamespaceArray();
+		$form_label = $namespace_labels[SF_NS_FORM];
+		$str = <<<END
+			$form_label:
+			<select name="form">
+
+END;
+		foreach ($form_names as $form_name) {
+			$str .= "			<option>$form_name</option>\n";
+		}
+		$str .= "			</select>\n";
+                $dbr->freeResult($res);
+		return $str;
 	}
 
 ?>
