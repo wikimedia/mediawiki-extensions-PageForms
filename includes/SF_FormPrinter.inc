@@ -1076,7 +1076,7 @@ END;
     if ( $wgUser->isLoggedIn() )
       $token = htmlspecialchars($wgUser->editToken());
     else
-      $token = "";
+      $token = EDIT_TOKEN_SUFFIX;
     if ($wgRequest->getCheck('wpSave'))
       $page_action = "wpSave";
     elseif ($wgRequest->getVal('wpPreview'))
