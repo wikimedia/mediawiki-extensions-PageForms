@@ -13,7 +13,7 @@ class SFForm {
 
   function create($form_name, $templates) {
     $form = new SFForm();
-    $form->form_name = $form_name;
+    $form->form_name = str_replace('_', ' ', $form_name);
     $form->templates = $templates;
     return $form;
   }
@@ -100,7 +100,7 @@ class SFTemplateInForm {
 
   function create($name, $label, $allow_multiple, $max_allowed = null) {
     $tif = new SFTemplateInForm();
-    $tif->template_name = $name;
+    $tif->template_name = str_replace('_', ' ', $name);
     $tif->fields = array();
     $fields = $tif->getAllFields();
     foreach ($fields as $i => $field) {
