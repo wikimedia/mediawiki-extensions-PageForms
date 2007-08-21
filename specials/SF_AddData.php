@@ -4,9 +4,10 @@
  *
  * @author Yaron Koren
  */
-require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
-
 if (!defined('MEDIAWIKI')) die();
+
+global $sfgIP;
+require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
 
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
@@ -49,7 +50,6 @@ function doSpecialAddData($query = '') {
 	} else {
 		$formArticle = new Article($form_title);
 		$form_definition = $formArticle->getContent();
-		$submit_url = $form_title->getLocalURL('action=submit');
 
 		$save_page = $wgRequest->getCheck('wpSave');
 		$preview_page = $wgRequest->getCheck('wpPreview');
