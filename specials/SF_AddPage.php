@@ -75,18 +75,24 @@ END;
 		}
 	}
 
-	if (! $form_title || ! $form_title->exists() ) {
-		if ($form_name == '')
-			$text = '<p>' . wfMsg('sf_addpage_badurl') . "</p>\n";
-		else
-			$text = '<p>' . wfMsg('sf_addpage_noform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+	if ((! $form_title || ! $form_title->exists()) && ($form_name != '')) {
+		$text = '<p>' . wfMsg('sf_addpage_badform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 	} else {
-		$description = wfMsg('sf_addpage_docu', $form_name);
+		if ($form_name == '')
+			$description = wfMsg('sf_addpage_noform_docu', $form_name);
+		else
+			$description = wfMsg('sf_addpage_docu', $form_name);
 		$button_text = wfMsg('addoreditdata');
 		$text =<<<END
 	<form action="" method="post">
 	<p>$description</p>
-	<p><input type="text" size="40" name="page_name"></p>
+	<p><input type="text" size="40" name="page_name">
+
+END;
+		if ($form_name == '')
+			$text .= sffFormDropdownHTML();
+		$text .=<<<END
+	</p>
 	<input type="hidden" name="namespace" value="$target_namespace">
 	<input type="Submit" value="$button_text">
 	</form>
