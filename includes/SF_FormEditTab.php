@@ -47,7 +47,13 @@ function sffFormEditTab($obj, $content_actions) {
       $form_name = sffGetDefaultForm($db, $obj->mTitle->getNsText(), NS_PROJECT);
     }
     if ($form_name) {  
-      $page = SpecialPage::getPage('EditData');
+      // if this tab is appearing here due to the namespace, there's a
+      // chance that the article in question doesn't exist yet
+      if ($obj->mTitle->exists()) {
+        $page = SpecialPage::getPage('EditData');
+      } else {
+        $page = SpecialPage::getPage('AddData');
+      }
       $target_name = sffTitleURLString($obj->mTitle);
 
       $content_actions['form_edit'] = array(
