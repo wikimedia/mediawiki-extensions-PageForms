@@ -135,6 +135,7 @@ class SFFormPrinter {
           // section
           $existing_template_text = null;
           if ($source_is_page) {
+            $matches = array();
             if ($allow_multiple) {
               // find the number of instances of this template in the page -
               // if it's more than one, re-parse this section of the
@@ -285,7 +286,10 @@ class SFFormPrinter {
             }
           }
           // get the value from the request, if it's there
-          $cur_value = $template_instance_query_values[$field_name];
+          if (isset ($template_instance_query_values[$field_name]))
+            $cur_value = $template_instance_query_values[$field_name];
+          else
+            $cur_value = '';
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
           }
@@ -297,8 +301,11 @@ class SFFormPrinter {
           // if the user is starting to edit a page, and that page contains
           // the current template being processed, get the current template
           // field's value in the existing page
-          if ($source_is_page && ($existing_template_text != null)) {
-            $cur_value = $template_contents[$field_name];
+          if ($source_is_page && (! empty($existing_template_text))) {
+            if (isset($template_contents[$field_name]))
+              $cur_value = $template_contents[$field_name];
+            else
+              $cur_value = '';
             if ($cur_value) {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
             }
@@ -420,7 +427,13 @@ class SFFormPrinter {
               if ($is_mandatory) {
 		$input_id = "input_" . $gTabIndex;
 		$info_id = "info_" . $gTabIndex;
-                $js_validation_calls[] = "validate_mandatory_field ('$input_id', '$info_id')";
+                if ($input_type == 'date') {
+                  $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
+                  $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
+                  $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_3', '$info_id')";
+                } else {
+                  $js_validation_calls[] = "validate_mandatory_field ('$input_id', '$info_id')";
+                }
               }
             } else {
               $start_position = $brackets_end_loc;
@@ -820,6 +833,9 @@ END;
       $text = SFFormPrinter::dateEntryHTML($template_field->input_name, $cur_value);
     } elseif ($template_field->input_type == 'checkbox') {
       $text = SFFormPrinter::checkboxHTML($template_field->input_name, $cur_value);
+    } elseif ($template_field->input_type == 'radiobutton') {
+      $include_none = ! $template_field->is_mandatory;
+      $text = SFFormPrinter::radioButtonHTML($template_field->input_name, $cur_value, $include_none, $template_field->possible_values);
     } elseif ($template_field->attr_or_rel == "relation") {
       $size = $template_field->size;
       if ($size == null) $size = 35;
@@ -828,6 +844,10 @@ END;
       } else {
         $text = SFFormPrinter::textEntryWithAutocompleteHTML($size, $template_field->input_name, $template_field->part_of_multiple, $template_field->semantic_field, true, $cur_value, $out_autocomplete_values);
       }
+    // escape out here if user doesn't have SMW installed
+    } elseif ($smwgContLang == null) {
+      if ($size == null) $size = 35;
+      $text = SFFormPrinter::textEntryHTML($size, $template_field->input_name, $cur_value);
     } else { // input type not defined in form, and not a relation
       $attr_type = $template_field->attribute_type;
       $size = $template_field->size;
@@ -856,7 +876,7 @@ END;
   function createAutocompleteValuesString($field_name, $is_relation) {
     global $sfgMaxAutocompleteValues;
     $fname = 'SFFormPrinter::createAutocompleteValuesString';
-    $db = & wfGetDB( DB_SLAVE );
+    $db = wfGetDB( DB_SLAVE );
     $sql_options = array();
     $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
     // the query depends on whether this field is a relation or a category
@@ -907,7 +927,7 @@ END;
 
     $text = '     <select tabindex="' . $gTabIndex . '" name="' . $input_name . '" ' . $gDisabledText . '>';
     if ($include_none)
-      $text .= "  <option value=\"\">[None]</option>\n";
+      $text .= "  <option value=\"\">" . wfMsg('sf_editdata_none') . "</option>\n";
     foreach ($possible_values as $possible_value) {
       $text .= "  <option value=\"$possible_value\"";
       if ($possible_value == $cur_value) {$text .= " selected=\"selected\""; }
@@ -953,7 +973,7 @@ END;
     $info_id = "info_$gTabIndex";
 
     $text =<<<END
-	<textarea tabindex="$gTabIndex" id="$input_id" name="$input_name" rows=$rows cols=$cols $gDisabledText/>$cur_value</textarea>
+	<textarea tabindex="$gTabIndex" id="$input_id" name="$input_name" rows=$rows cols=$cols $gDisabledText>$cur_value</textarea>
 	<span id="$info_id" class="error_message"></span>
 
 END;
@@ -963,7 +983,7 @@ END;
   function monthDropdownHTML($cur_month, $input_name) {
     global $gTabIndex, $gDisabledText;
 
-    $text = '	<select tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '" name="' . $input_name . "[month]\" $gDisabledText>\n";
+    $text = '	<select tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '_1" name="' . $input_name . "[month]\" $gDisabledText>\n";
     $month_names = array(
       wfMsgForContent('sf_january'),
       wfMsgForContent('sf_february'),
@@ -1005,27 +1025,36 @@ END;
       }
     } else {
       $cur_date = getdate();
-      $year = $cur_date[year];
-      $month = $cur_date[month];
+      $year = $cur_date['year'];
+      $month = $cur_date['month'];
       $day = null; // no need for day
     }
-    $text .= SFFormPrinter::monthDropdownHTML($month, $input_name);
-    $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2"/ ' . $gDisabledText . '>' . "\n";
-    $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $gDisabledText . '>' . "\n";
+    $text = SFFormPrinter::monthDropdownHTML($month, $input_name);
+    $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2"/ ' . $gDisabledText . '>' . "\n";
+    $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $gDisabledText . '>' . "\n";
     $info_id = "info_$gTabIndex";
     $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
     return $text;
   }
 
-  function radioButtonHTML($input_name, $cur_value, $options_array) {
+  function radioButtonHTML($input_name, $cur_value, $include_none, $options_array) {
     global $gTabIndex, $gDisabledText;
 
-    if ($title)
-      $text .= "     <strong>$title:</strong>\n";
+    $check_set = false;
+    if ($include_none) {
+      $text .= '	<input type="radio" tabindex="' . $gTabIndex . '" name="' . $input_name . '" value=""';
+      if (! $cur_value) {
+        $text .= " checked";
+        $check_set = true;
+      }
+      $text .= " $gDisabledText/> " . wfMsg('sf_editdata_none') . "\n";
+    }
     foreach ($options_array as $i => $option) {
       $text .= '	<input type="radio" tabindex="' . $gTabIndex . '" name="' . $input_name . '" value="' . $option . '"';
-      if ($cur_value == $option || (! $cur_value && $i == 0))
+      if ($cur_value == $option || (! $cur_value && ! $check_set)) {
         $text .= " checked";
+        $check_set = true;
+      }
       $text .= " $gDisabledText/> $option\n";
     }
     return $text;
@@ -1229,22 +1258,22 @@ END;
 
   // based on MediaWiki's EditPage::getPreloadedText()
   function getPreloadedText($preload) {
-    if ( $preload === '' )
-       return '';
-    else {
+    if ( $preload === '' ) {
+      return '';
+    } else {
       $preloadTitle = Title::newFromText( $preload );
-        if ( isset( $preloadTitle ) && $preloadTitle->userCanRead() ) {
-          $rev=Revision::newFromTitle($preloadTitle);
+      if ( isset( $preloadTitle ) && $preloadTitle->userCanRead() ) {
+        $rev = Revision::newFromTitle($preloadTitle);
         if ( is_object( $rev ) ) {
           $text = $rev->getText();
           // Remove <noinclude> sections and <includeonly> tags from text
           $text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $text);
           $text = strtr($text, array('<includeonly>' => '', '</includeonly>' => ''));
           return $text;
-        } else
-          return '';
         }
-     }
+      }
+      return '';
+    }
   } 
 
 }
