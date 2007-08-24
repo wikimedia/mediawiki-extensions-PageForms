@@ -83,6 +83,7 @@ class SF_LanguageEn {
 	'sf_editdata_remove' => 'Remove',
 	'sf_editdata_addanother' => 'Add another',
 	'sf_editdata_freetextlabel' => 'Free text',
+	'sf_editdata_none' => '[None]',
 
 	'sf_blank_error' => 'cannot be blank'
 );
