@@ -4,7 +4,7 @@
  * Currently only one pareser function is defined: sf_forminput. It is
  * called as:
  *
- * {{#sf_forminput|form_name|size|value|button_text|query_string}}
+ * {{#sf_forminput:form_name|size|value|button_text|query_string}}
  *
  * This functions returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
@@ -20,7 +20,7 @@
  * 'User' within a namespace also called 'User', and to have the form
  * preload with the page called 'UserStub', you could call the following:
  *
- * {{#sf_forminput|User|||Add or edit user|namespace=User&preload=UserStub}}
+ * {{#sf_forminput:User|||Add or edit user|namespace=User&preload=UserStub}}
  *
  * @author Yaron Koren
  */
@@ -55,7 +55,9 @@ END;
 	// recreate the passed-in query string as a set of hidden variables
 	$query_components = explode('&', $inQueryStr);
 	foreach ($query_components as $component) {
-		list($key, $val) = explode('=', $component);
+		$subcomponents = explode('=', $component, 2);
+		$key = (isset($subcomponents[0])) ? $subcomponents[0] : '';
+		$val = (isset($subcomponents[1])) ? $subcomponents[1] : '';
 		$str .= '			<input type="hidden" name="' . $key . '" value="' . $val . '">' . "\n";
 	}
 	$button_str = ($inButtonStr != '') ? $inButtonStr : wfMsg('addoreditdata');
@@ -63,7 +65,7 @@ END;
 			<input type="submit" value="$button_str"></p>
 			</form>
 END;
-	return array($str, noparse => true);
+	return array($str, 'noparse' => 'true');
 }
 
 ?>
