@@ -59,10 +59,25 @@ function doSpecialAddPage($query = '') {
 			} else {
 				$ad = SpecialPage::getPage('AddData');
 				$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
-				# add 'preload' value, if it was set
-				$preload = $wgRequest->getVal('preload');
-				if ($preload != '')
-					$redirect_url .= "?preload=$preload";
+				// of all the request values, send on to
+				// 'AddData' only 'preload' and specific form
+				// fields - we can tell the latter because
+				// they show up as 'arrays'
+				$first_val_added = false;
+				foreach ($_REQUEST as $key => $val) {
+					if (is_array($val)) {
+						$template_name = $key;
+						$field_name = key($val);
+						$value = current($val);
+						$redirect_url .= ($first_val_added) ? '&' : '?';
+						$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
+						$first_val_added = true;
+					} elseif ($key == 'preload') {
+						$redirect_url .= ($first_val_added) ? '&' : '?';
+						$redirect_url .= "$key=$val";
+						$first_val_added = true;
+					}
+				}
 			}
 			$text =<<<END
         <script type="text/javascript">
