@@ -10,7 +10,7 @@ function getCategoriesForArticle($article) {
   $fname = 'SFFormEditTab::getCategoriesForArticle()';
   $categories = array();
   $titlekey = $article->mTitle->getArticleId();
-  $db =& wfGetDB( DB_SLAVE );
+  $db = wfGetDB( DB_SLAVE );
   $conditions = "cl_from='$titlekey'";
   $res = $db->select( $db->tableName('categorylinks'),
                       'cl_to',
@@ -31,7 +31,7 @@ function getCategoriesForArticle($article) {
  */
 function sffFormEditTab($obj, $content_actions) {
   $fname = 'SFFormEditTab';
-  $db =& wfGetDB( DB_SLAVE );
+  $db = wfGetDB( DB_SLAVE );
   // make sure that this is not itself a category page, and that the user
   // is allowed to edit it
   if (($obj->mTitle != null) && ($obj->mTitle->getNamespace() != NS_CATEGORY)) {

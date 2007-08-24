@@ -36,7 +36,7 @@ class TemplatesPage extends QueryPage {
 
 	function getSQL() {
 		$NStemp = NS_TEMPLATE;
-		$dbr =& wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_SLAVE );
 		$page = $dbr->tableName( 'page' );
 		// QueryPage uses the value from this SQL in an ORDER clause,
 		// so return page_title as title.

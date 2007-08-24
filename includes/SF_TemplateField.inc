@@ -30,7 +30,7 @@ class SFTemplateField {
       // this whole section of code could be made much simpler if it were
       // to use the SMWTypeHandlerFactory class; but that would mean it
       // would require SMW 0.7, which it might be too early for
-      $db =& wfGetDB( DB_SLAVE );
+      $db = wfGetDB( DB_SLAVE );
       // value has underscores in the database
       $semantic_field_db_str = str_replace(' ', '_', $f->semantic_field);
       $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE . " AND subject_title = '$semantic_field_db_str' AND property_id = 1";

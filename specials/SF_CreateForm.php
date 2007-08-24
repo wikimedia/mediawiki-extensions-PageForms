@@ -8,7 +8,7 @@
 
 if (!defined('MEDIAWIKI')) die();
 
-global $IP;
+global $IP, $sfgIP;
 require_once( "$IP/includes/SpecialPage.php" );
 require_once( "$sfgIP/includes/SF_FormClasses.inc" );
 
@@ -16,8 +16,7 @@ SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm'
 
 function doSpecialCreateForm() {
   global $wgOut, $wgRequest, $wgUser;
-  $fname = "CreateForm::doSpecialCreateForm()";
-  $db =& wfGetDB( DB_SLAVE );
+  $db = wfGetDB( DB_SLAVE );
 
   # get the names of all templates on this site
   $all_templates = array();
@@ -37,18 +36,21 @@ function doSpecialCreateForm() {
   # handle inputs
   $form_name = $wgRequest->getVal('form_name');
   foreach ($wgRequest->getValues() as $var => $val) {
-    # get the template declarations and work from there
-    list ($action, $id) = explode("_", $var);
-    if ($action == "template") {
-      # if the button was pressed to remove this template, just don't
-      # add it to the array
-      if ($wgRequest->getVal("del_$id") != "Remove template") {
-        $form_template = SFTemplateInForm::create($val,
-          $wgRequest->getVal("label_$id"),
-          $wgRequest->getVal("allow_multiple_$id"));
-        $form_templates[] = $form_template;
-      } else {
-        $deleted_template_loc = $id;
+    # ignore variables that are not of the right form
+    if (strpos($var, "_") != false) {
+      # get the template declarations and work from there
+      list ($action, $id) = explode("_", $var, 2);
+      if ($action == "template") {
+        # if the button was pressed to remove this template, just don't
+        # add it to the array
+        if ($wgRequest->getVal("del_$id") != "Remove template") {
+          $form_template = SFTemplateInForm::create($val,
+            $wgRequest->getVal("label_$id"),
+            $wgRequest->getVal("allow_multiple_$id"));
+          $form_templates[] = $form_template;
+        } else {
+          $deleted_template_loc = $id;
+        }
       }
     }
   }
@@ -127,7 +129,10 @@ END;
   $text .= '	<form action="" method="get">' . "\n";
   // set 'title' field, in case there's no URL niceness
   $text .= '    <input type="hidden" name="title" value="Special:CreateForm">' . "\n";
-  $text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' <input size=25 name="form_name" value="' . $form_name . '"> <font color="red">' . $form_name_error_str . '</font></p>' . "\n";
+  $text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' <input size=25 name="form_name" value="' . $form_name . '">';
+  if (! empty($form_name_error_str))
+    $text .= ' <font color="red">' . $form_name_error_str . '</font>';
+  $text .= "</p>\n";
 
   $text .= $form->creationHTML();
 

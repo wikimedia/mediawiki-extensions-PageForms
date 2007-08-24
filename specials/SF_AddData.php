@@ -23,8 +23,8 @@ function doSpecialAddData($query = '') {
         // if query string did not contain these variables, try the URL
         if (! $form_name && ! $target_name) {
                 $queryparts = explode('/', $query, 2);
-                $form_name = $queryparts[0];
-                $target_name = $queryparts[1];
+                $form_name = isset($queryparts[0]) ? $queryparts[0] : '';
+                $target_name = isset($queryparts[1]) ? $queryparts[1] : '';
         }
 
 	// get contents of template
@@ -34,8 +34,9 @@ function doSpecialAddData($query = '') {
 
 	// target_title should be null - we shouldn't be adding a page that
 	// already exists
-	// TODO - handle this contingency
 	if ($target_title && $target_title->exists()) {
+		$wgOut->addWikiText( "<p class='error'>" . wfMsg('articleexists') . '</p>');
+		return;
 	} else {
 		$page_title = str_replace('_', ' ', $target_name);
 	}
@@ -94,6 +95,7 @@ END;
 	));
 	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/lib/prototype.js" type="text/javascript"></script>' . "\n");
 	$wgOut->addScript('		<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/src/scriptaculous.js" type="text/javascript"></script>' . "\n");
-	$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
+	if (! empty($javascript_text))
+		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
 	$wgOut->addHTML($text);
 }

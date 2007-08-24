@@ -27,7 +27,7 @@ function cmp($a, $b)
     }
 }
 function getSemanticProperties() {
-  $dbr =& wfGetDB( DB_SLAVE );
+  $dbr = wfGetDB( DB_SLAVE );
   $all_properties = array();
 
   $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .

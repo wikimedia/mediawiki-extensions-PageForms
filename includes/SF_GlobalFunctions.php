@@ -5,7 +5,7 @@
  * @author Yaron Koren
  */
 
-define('SF_VERSION','0.5.3');
+define('SF_VERSION','0.5.4');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -222,7 +222,7 @@ function sfgSetupExtension() {
 		// get all relations that have this page as an object,
 		// and see if any of them have a default form specified
 		$fname = 'sffAddDataLink';
-		$db =& wfGetDB( DB_SLAVE );
+		$db = wfGetDB( DB_SLAVE );
 		$sql = "SELECT DISTINCT relation_title FROM {$db->tableName('smw_relations')} WHERE object_title = '" . $db->strencode($title->getDBkey()) . "' AND object_namespace = '" . $title->getNamespace() . "'";
 		$res = $db->query( $sql );
 		if ($db->numRows( $res ) > 0) {
@@ -244,7 +244,7 @@ function sfgSetupExtension() {
 
 	function sffFormDropdownHTML() {
 		// create a dropdown of possible form names
-		$dbr =& wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_SLAVE );
 		$query = "SELECT page_title FROM " . $dbr->tableName( 'page' ) .
 			" WHERE page_namespace = " . SF_NS_FORM .
 			" AND page_is_redirect = 0";
