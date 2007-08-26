@@ -29,7 +29,7 @@ class SFForm {
   function createMarkup() {
     $title = Title::makeTitle( SF_NS_FORM, $this->form_name );
     $ad = SpecialPage::getPage('AddPage');
-    $add_data_url = sffTitleURLString($ad->getTitle()) . "/" . sffTitleURLString($title);
+    $add_data_url = sffTitleURLString($ad->getTitle()) . "/" . $title->getPartialURL();
     $form_description = wfMsgForContent('sf_form_docu', $this->form_name, $add_data_url);
     $text =<<<END
 <noinclude>
