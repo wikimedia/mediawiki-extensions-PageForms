@@ -5,6 +5,7 @@
  * @author Yaron Koren
  * @author Nils Oppermann
  * @author Jeffrey Stuckman
+ * @author Matt Williamson
  */
 
 class SFFormPrinter {
@@ -373,12 +374,23 @@ class SFFormPrinter {
                   $yes = $words_for_true[0];
                 }
                 $cur_value_in_template = $yes;
-              } elseif (count($cur_value) == 3) {
+              // if it's 3 or greater, assume it's a date or datetime
+              } elseif (count($cur_value) >= 3) {
                 $month = $cur_value['month'];
                 $day = $cur_value['day'];
                 $year = $cur_value['year'];
+                if (isset($cur_value['hour'])) $hour = $cur_value['hour'];
+                if (isset($cur_value['minute'])) $minute = $cur_value['minute'];
+                if (isset($cur_value['second'])) $second = $cur_value['second'];
+                if (isset($cur_value['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
+                if (isset($cur_value['timezone'])) $timezone = $cur_value['timezone'];
                 if ($month != '' && $day != '' && $year != '') {
                   $cur_value_in_template = "$month $day, $year";
+                  # include whatever time information we have
+                  if(isset($hour)) $cur_value_in_template .= " " . str_pad(intval(substr($hour,0,2)),2,'0',STR_PAD_LEFT) . ":" . str_pad(intval(substr($minute,0,2)),2,'0',STR_PAD_LEFT);
+                  if(isset($second)) $cur_value_in_template .= ":" . str_pad(intval(substr($second,0,2)),2,'0',STR_PAD_LEFT);
+                  if(isset($ampm24h)) $cur_value_in_template .= " $ampm24h";
+                  if(isset($timezone)) $cur_value_in_template .= " $timezone";
                 } else {
                   $cur_value_in_template = "";
                 }
@@ -427,10 +439,16 @@ class SFFormPrinter {
               if ($is_mandatory) {
 		$input_id = "input_" . $gTabIndex;
 		$info_id = "info_" . $gTabIndex;
-                if ($input_type == 'date') {
+                if ($input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone') {
                   $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
                   $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
                   $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_3', '$info_id')";
+		  if ($input_type == 'datetime' || $input_type == 'datetime with timezone') {
+                    // TODO - validate the time fields
+                    if ($input_type == 'datetime with timezone') {
+                       // TODO - validate the timezone
+                    }
+                  }
                 } else {
                   $js_validation_calls[] = "validate_mandatory_field ('$input_id', '$info_id')";
                 }
@@ -831,6 +849,10 @@ END;
       $text = SFFormPrinter::textAreaHTML($num_rows, $num_cols, $template_field->input_name, $cur_value);
     } elseif ($template_field->input_type == 'date') {
       $text = SFFormPrinter::dateEntryHTML($template_field->input_name, $cur_value);
+    } elseif ($template_field->input_type == 'datetime') {
+      $text = SFFormPrinter::dateTimeEntryHTML($template_field->input_name, $cur_value, false);
+    } elseif ($template_field->input_type == 'datetime with timezone') {
+      $text = SFFormPrinter::dateTimeEntryHTML($template_field->input_name, $cur_value, true);
     } elseif ($template_field->input_type == 'checkbox') {
       $text = SFFormPrinter::checkboxHTML($template_field->input_name, $cur_value);
     } elseif ($template_field->input_type == 'radiobutton') {
@@ -1018,7 +1040,11 @@ END;
         $month = $date['month'];
         $day = $date['day'];
       } else {
-        $actual_date = strtotime($date);
+        if ($date == 'now') { // special value
+          $actual_date = time();
+        } else {
+          $actual_date = strtotime($date);
+        }
         $year = date("Y", $actual_date);
         $month = date("F", $actual_date);
         $day = date("j", $actual_date);
@@ -1034,6 +1060,63 @@ END;
     $text .= '  <input tabindex="' . $gTabIndex . '" id="input_' . $gTabIndex . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $gDisabledText . '>' . "\n";
     $info_id = "info_$gTabIndex";
     $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
+    return $text;
+  }
+
+  function dateTimeEntryHTML($input_name, $datetime, $include_timezone) {
+    global $gTabIndex, $gDisabledText;
+ 
+    if ($datetime) {
+      // can show up here either as an array or a string, depending on
+      // whether it came from user input or a wiki page
+      if (is_array($datetime)) {
+        if (isset($datetime['hour'])) $hour = $cur_value['hour'];
+        if (isset($datetime['minute'])) $minute = $cur_value['minute'];
+        if (isset($datetime['second'])) $second = $cur_value['second'];
+        if (isset($datetime['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
+        if (isset($datetime['timezone'])) $timezone = $cur_value['timezone'];
+      } else {
+        if ($datetime == 'now') { // special value
+          $actual_date = time();
+        } else {
+          $actual_date = strtotime($datetime);
+        }
+        $hour = date("g", $actual_date);
+        $minute = date("i", $actual_date);
+        $second = date("s", $actual_date);
+        $ampm24h = date("A", $actual_date);
+        $timezone = date("T", $actual_date);
+      }
+    } else {
+      $cur_date = getdate();
+      $hour = null;
+      $minute = null;
+      $second = "00"; // default at least this value
+      $timezone = "";
+    }
+
+    $text = SFFormPrinter::dateEntryHTML($input_name, $datetime);
+    $text .= '  &nbsp;<input tabindex="' . $gTabIndex . '" name="' . $input_name . '[hour]" type="text" value="' . $hour . '" size="2"/ ' . $gDisabledText . '>';
+    $gTabIndex++;
+    $text .= '  :<input tabindex="' . $gTabIndex . '" name="' . $input_name . '[minute]" type="text" value="' . $minute . '" size="2"/ ' . $gDisabledText . '>';
+    $gTabIndex++;
+    $text .= ':<input tabindex="' . $gTabIndex . '" name="' . $input_name . '[second]" type="text" value="' . $second . '" size="2"/ ' . $gDisabledText . '>' . "\n";
+
+    $gTabIndex++;
+    $text .= '   <select tabindex="' . $gTabIndex . '" name="' . $input_name . "[ampm24h]\" $gDisabledText>\n";
+    $ampm24h_options = array('', 'AM', 'PM');
+    foreach ($ampm24h_options as $value) {
+      $text .= "        <option value=\"$value\"";
+      if ($value == $ampm24h) {$text .= " selected=\"selected\""; }
+      $text .= ">$value</option>\n";
+    }
+    $text .= "  </select>\n";
+
+    if ($include_timezone) {
+      $gTabIndex++;
+      $text .= '  <input tabindex="' . $gTabIndex . '" name="' . $input_name . '[timezone]" type="text" value="' . $timezone . '" size="2"/ ' . $gDisabledText . '>' . "\n";
+    }
+
     return $text;
   }
 
