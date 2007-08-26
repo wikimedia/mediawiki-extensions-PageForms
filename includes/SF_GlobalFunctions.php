@@ -5,11 +5,13 @@
  * @author Yaron Koren
  */
 
-define('SF_VERSION','0.5.4');
+define('SF_VERSION','0.5.5');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 $wgHooks['LanguageGetMagic'][] = 'sfgLanguageGetMagic';
+
+require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 
 /**
  *  Do the actual intialisation of the extension. This is just a delayed init that makes sure
@@ -38,12 +40,11 @@ function sfgSetupExtension() {
 	/**********************************************/
 
 	require_once($sfgIP . '/includes/SF_FormEditTab.php');
-	require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 
 	/**********************************************/
 	/***** credits (see "Special:Version")    *****/
 	/**********************************************/
-	$wgExtensionCredits['parserhook'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren and others',
+	$wgExtensionCredits['specialpage'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren and others',
           'url'=>'http://discoursedb.org/SemanticForms/', 'description' => 'Forms for adding and editing semantic data');
 
 	return true;
@@ -54,7 +55,7 @@ function sfgSetupExtension() {
 /**********************************************/
 
 	/**
-	 * Init the additional namepsaces used by Semantic MediaWiki. The
+	 * Init the additional namespaces used by Semantic Forms. The
 	 * parameter denotes the least unused even namespace ID that is
 	 * greater or equal to 100.
 	 */
