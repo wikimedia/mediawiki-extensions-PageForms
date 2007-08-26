@@ -28,13 +28,15 @@
 
 function sfgParserFunctions () {
     global $wgParser;
-    $wgParser->setFunctionHook('sf_forminput', 'renderFormInput');
+    $wgParser->setFunctionHook('forminput', 'renderFormInput');
 }
 
 function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	switch ( $langCode ) {
 	default:
-		$magicWords['sf_forminput']	= array ( 0, 'sf_forminput' );
+		$magicWords['forminput']	= array ( 0, 'forminput' );
+		// for backward compatibility
+		$magicWords['forminput']	= array ( 0, 'sf_forminput' );
 	}
 	return true;
 }
