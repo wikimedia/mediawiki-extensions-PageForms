@@ -1,10 +1,10 @@
 <?php
 /**
  * Parser functions for Semantic Forms.
- * Currently only one pareser function is defined: sf_forminput. It is
+ * Currently only one parser function is defined: forminput. It is
  * called as:
  *
- * {{#sf_forminput:form_name|size|value|button_text|query_string}}
+ * {{#forminput:form_name|size|value|button_text|query_string}}
  *
  * This functions returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
@@ -20,7 +20,7 @@
  * 'User' within a namespace also called 'User', and to have the form
  * preload with the page called 'UserStub', you could call the following:
  *
- * {{#sf_forminput:User|||Add or edit user|namespace=User&preload=UserStub}}
+ * {{#forminput:User|||Add or edit user|namespace=User&preload=UserStub}}
  *
  * @author Yaron Koren
  */
@@ -36,7 +36,7 @@ function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	default:
 		$magicWords['forminput']	= array ( 0, 'forminput' );
 		// for backward compatibility
-		$magicWords['forminput']	= array ( 0, 'sf_forminput' );
+		$magicWords['sf_forminput']	= array ( 0, 'forminput' );
 	}
 	return true;
 }
