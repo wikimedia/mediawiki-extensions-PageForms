@@ -35,8 +35,6 @@ function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	switch ( $langCode ) {
 	default:
 		$magicWords['forminput']	= array ( 0, 'forminput' );
-		// for backward compatibility
-		$magicWords['sf_forminput']	= array ( 0, 'forminput' );
 	}
 	return true;
 }
@@ -49,6 +47,12 @@ function renderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue =
 			<p><input type="text" name="page_name" size="$inSize" value="$inValue">
 
 END;
+	// if the add page URL looks like "index.php?title=Special:AddPage"
+	// (i.e., it's in the default URL style), add in the title as a
+	// hidden value
+	if (($pos = strpos($ap_url, "title=")) > -1) {
+		$str .= '			<input type="hidden" name="title" value="' . substr($ap_url, $pos + 6) . '">' . "\n";
+	}
 	if ($inFormName == '') {
 		$str .= sffFormDropdownHTML();
 	} else {
