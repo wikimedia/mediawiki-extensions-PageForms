@@ -13,7 +13,7 @@ class SFForm {
 
   function create($form_name, $templates) {
     $form = new SFForm();
-    $form->form_name = str_replace('_', ' ', $form_name);
+    $form->form_name = ucfirst(str_replace('_', ' ', $form_name));
     $form->templates = $templates;
     return $form;
   }
@@ -74,8 +74,8 @@ class SFTemplateInForm {
     $template_article = new Article($template_title);
     $template_text = $template_article->getContent();
 
-    if (preg_match_all('/\[\[([\w- ]*)(:[:=]){{{([\w- ]*).*?\]\]/mis', $template_text, $matches)) {
-      // this a two-dimensional array; we need the last three of the four
+    if (preg_match_all('/\[\[([^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
+      // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
       foreach ($matches[1] as $i => $semantic_field_name) {
         $attr_or_rel = ($matches[2][$i] == ":=") ? "attribute" : "relation";
