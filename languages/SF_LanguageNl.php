@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Yaron Koren, Siebrand Mazeland
+ * @author Siebrand Mazeland
  */
 
 class SF_LanguageNl {
