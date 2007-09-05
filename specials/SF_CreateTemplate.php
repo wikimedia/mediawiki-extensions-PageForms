@@ -70,7 +70,7 @@ function printFieldEntryBox($id, $f, $all_properties) {
   $text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
   $text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
   $checked_str = ($f->is_list) ? " checked" : "";
-  $text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' . $checked_str . '>' . wfMsg('sf_createtemplate_fieldislist') . "\n";
+  $text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' . $checked_str . '> ' . wfMsg('sf_createtemplate_fieldislist') . "\n";
 
   if ($id != "new") {
     $text .= '	&nbsp;&nbsp;<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
