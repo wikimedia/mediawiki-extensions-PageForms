@@ -44,6 +44,7 @@ class SF_LanguageEn {
 	'sf_createtemplate_fieldname' => 'Field name:',
 	'sf_createtemplate_displaylabel' => 'Display label:',
 	'sf_createtemplate_semanticproperty' => 'Semantic property:',
+	'sf_createtemplate_fieldislist' => 'This field can hold a list of values, separated by commas',
 	'sf_createtemplate_outputformat' => 'Output format:',
 	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_infoboxformat' => 'Right-hand-side infobox',
