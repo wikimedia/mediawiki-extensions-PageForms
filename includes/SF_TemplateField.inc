@@ -11,37 +11,44 @@ class SFTemplateField {
   var $label;
   var $semantic_field;
   var $semantic_field_call;
+  var $is_list;
   var $attr_or_rel;
   var $attribute_type;
   var $possible_values;
 
-  function newWithValues($name, $label, $semantic_field, $attr_or_rel) {
-    global $smwgContLang;
-
+  function newWithValues($name, $label) {
     $f = new SFTemplateField();
     $f->field_name = str_replace('\\', '', $name);
     $f->label = str_replace('\\', '', $label);
-    $f->semantic_field = str_replace('\\', '', $semantic_field);
-    $f->attr_or_rel = str_replace('\\', '', $attr_or_rel);
-    $f->possible_values = array();
-    $fname = 'SFTemplateField::newWithValues';
+    return $f;
+  }
+
+  // setSemanticData() - called when template is parsed during the creation
+  // of a form
+  function setSemanticData($semantic_field, $attr_or_rel) {
+    $this->semantic_field = str_replace('\\', '', $semantic_field);
+    $this->attr_or_rel = str_replace('\\', '', $attr_or_rel);
+    $this->possible_values = array();
     // set type if it's an attribute
-    if ($f->attr_or_rel == "attribute") {
+    if ($this->attr_or_rel == "attribute") {
+      global $smwgContLang;
+      $fname = 'SFTemplateField::setSemanticData';
+
       // this whole section of code could be made much simpler if it were
       // to use the SMWTypeHandlerFactory class; but that would mean it
       // would require SMW 0.7, which it might be too early for
       $db = wfGetDB( DB_SLAVE );
       // value has underscores in the database
-      $semantic_field_db_str = str_replace(' ', '_', $f->semantic_field);
+      $semantic_field_db_str = str_replace(' ', '_', $this->semantic_field);
       $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE . " AND subject_title = '$semantic_field_db_str' AND property_id = 1";
       $res = $db->select( $db->tableName('smw_specialprops'),
 			'value_string',
 			$conditions, $fname);
       if ($db->numRows( $res ) > 0) {
         if ($row = $db->fetchObject($res)) {
-          $f->attribute_type = $row->value_string;
+          $this->attribute_type = $row->value_string;
           // set possible values if it's an enumeration
-          if ($f->attribute_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
+          if ($this->attribute_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
             $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
               " AND subject_title = '$semantic_field_db_str' AND property_id = " .
               SMW_SP_POSSIBLE_VALUE;
@@ -49,7 +56,7 @@ class SFTemplateField {
               'value_string', $conditions, $fname);
             if ($db->numRows( $res2 ) > 0) {
               while ($row = $db->fetchObject($res2)) {
-                $f->possible_values[] = $row->value_string;
+                $this->possible_values[] = $row->value_string;
               }
             }
             $db->freeResult($res2);
@@ -58,7 +65,6 @@ class SFTemplateField {
       }
       $db->freeResult($res);
     }
-    return $f;
   }
 }
 
@@ -100,6 +106,10 @@ END;
     $text .= "! " . $field->label . "\n";
     if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
       $text .= "| {{{" . $field->field_name . "|unknown}}}\n";
+    // if this field is meant to contain a list, add on an 'arraymap' function,
+    // that will call this semantic markup tag on every element in the list
+    } elseif ($field->is_list) {
+      $text .= "| {{#arraymap:{{{" . $field->field_name . "|unknown}}}|,|x|[[" . $field->semantic_field_call . "x]]}}\n";
     } else {
       $text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|unknown}}}]]\n";
     }
