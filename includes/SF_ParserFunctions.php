@@ -1,12 +1,14 @@
 <?php
 /**
  * Parser functions for Semantic Forms.
- * Currently only one parser function is defined: forminput. It is
- * called as:
+ *
+ * Two parser functions are currently defined: 'forminput' and 'arraymap'.
+ *
+ * 'forminput' is called as:
  *
  * {{#forminput:form_name|size|value|button_text|query_string}}
  *
- * This functions returns HTML representing a form to let the user enter the
+ * This function returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
  * arguments are optional. form_name is the name of the SF form to be used;
  * if it is left empty, a dropdown will appear, letting the user chose among
@@ -22,6 +24,23 @@
  *
  * {{#forminput:User|||Add or edit user|namespace=User&preload=UserStub}}
  *
+ * 'arraymap' is called as:
+ *
+ * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
+ *
+ * This function applies the same transformation to every section of a
+ * delimited string; each such section, as dictated by the 'delimiter'
+ * value, is given the same transformation that the 'var' string is
+ * given in 'new_value'. Finally, the transformed strings are joined
+ * together using the 'new_delimiter' string. Both 'delimiter' and
+ * 'new_delimiter' default to commas.
+ *
+ * Example: to take a semicolon-delimited list, and place the attribute
+ * 'Has color' around each element in the list, you could call the
+ * following:
+ *
+ * {#arraymap:blue;red;yellow|;|x|[[Has color:=x]]|;}}
+ *
  * @author Yaron Koren
  */
 
@@ -29,12 +48,14 @@
 function sfgParserFunctions () {
     global $wgParser;
     $wgParser->setFunctionHook('forminput', 'renderFormInput');
+    $wgParser->setFunctionHook('arraymap', 'renderArrayMap');
 }
 
 function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	switch ( $langCode ) {
 	default:
 		$magicWords['forminput']	= array ( 0, 'forminput' );
+		$magicWords['arraymap']		= array ( 0, 'arraymap' );
 	}
 	return true;
 }
@@ -72,6 +93,21 @@ END;
 			</form>
 END;
 	return array($str, 'noparse' => 'true');
+}
+
+/**
+ * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
+ */
+function renderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
+	$ret = "";
+	$values_array = explode($delimiter, $value);
+	foreach ($values_array as $i =>$cur_value) {
+		if ($i > 0)
+			$ret .= $new_delimiter;
+		# remove whitespace
+		$ret .= str_replace($var, trim($cur_value), $new_value);
+	}
+	return $ret;
 }
 
 ?>
