@@ -82,7 +82,9 @@ class SFTemplateInForm {
         $field_name = $matches[3][$i];
         if (! in_array($field_name, $field_names_array)) {
           $field_names_array[] = $field_name;
-          $template_fields[] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)), $semantic_field_name, $attr_or_rel);
+          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $template_field->setSemanticData($semantic_field_name, $attr_or_rel);
+          $template_fields[] = $template_field;
         }
       }
     }
@@ -91,7 +93,7 @@ class SFTemplateInForm {
       foreach ($matches[1] as $field_name) {
         if (! in_array($field_name, $field_names_array)) {
           $field_names_array[] = $field_name;
-          $template_fields[] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)), null, null);
+          $template_fields[] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
         }
       }
     }
