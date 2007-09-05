@@ -68,12 +68,12 @@ function printFieldEntryBox($id, $f, $all_properties) {
   $text = '	<div class="field_box">' . "\n";
   $text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
   $text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
-  $text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . $f->semantic_field . "\n";
-
-  $text .= "&nbsp;&nbsp;\n\n";
+  $text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
+  $checked_str = ($f->is_list) ? " checked" : "";
+  $text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' . $checked_str . '>' . wfMsg('sf_createtemplate_fieldislist') . "\n";
 
   if ($id != "new") {
-    $text .= '	<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
+    $text .= '	&nbsp;&nbsp;<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
   }
   $text .= <<<END
 </p>
@@ -100,9 +100,9 @@ function doSpecialCreateTemplate() {
         if ($wgRequest->getVal('del_' . $old_id) != '') {
           # do nothing - this field won't get added to the new list
         } else {
-          $field = SFTemplateField::newWithValues($val,
-            $wgRequest->getVal('label_' . $old_id), null, null);
+          $field = SFTemplateField::newWithValues($val, $wgRequest->getVal('label_' . $old_id));
           $field->semantic_field_call = $wgRequest->getVal('semantic_field_call_' . $old_id);
+          $field->is_list = $wgRequest->getCheck('is_list_' . $old_id);
           $fields[] = $field;
         }
       }
