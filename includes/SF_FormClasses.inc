@@ -78,12 +78,12 @@ class SFTemplateInForm {
       // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
       foreach ($matches[1] as $i => $semantic_field_name) {
-        $attr_or_rel = ($matches[2][$i] == ":=") ? "attribute" : "relation";
+        $is_relation = ($matches[2][$i] == "::");
         $field_name = $matches[3][$i];
         if (! in_array($field_name, $field_names_array)) {
           $field_names_array[] = $field_name;
           $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-          $template_field->setSemanticData($semantic_field_name, $attr_or_rel);
+          $template_field->setSemanticData($semantic_field_name, $is_relation);
           $template_fields[] = $template_field;
         }
       }
@@ -153,6 +153,12 @@ END;
   }
 }
 
+/*
+ * This class is distinct from SFTemplateField in that it represents a
+ * template field defined in a form - it contains a simple SFTemplateField
+ * object (the $template_field variable), along with the other properties
+ * for that field that are set within the form
+ */
 class SFFormTemplateField {
   var $num;
   var $template_field;
@@ -162,15 +168,17 @@ class SFFormTemplateField {
   // the following fields are not set by the form-creation page
   // (though they could be)
   var $input_type;
-  var $size;
-  var $num_rows;
-  var $num_cols;
+  var $field_args;
   var $autocomplete_category;
   var $no_autocomplete;
   var $part_of_multiple;
-  // somewhat of a hack - this is an HTML-based value for a specific
-  // representation of a form
+  // somewhat of a hack - these two fields are for a field in a specific
+  // representation of a form, not the form definition; ideally these
+  // should be contained in a third 'field' class, called something like
+  // SFFormInstanceField, that holds these fields plus an instance of
+  // SFFormTemplateField.
   var $input_name;
+  var $is_disabled;
 
   function create($num, $template_field) {
     $f = new SFFormTemplateField();
@@ -186,17 +194,18 @@ class SFFormTemplateField {
     $field_form_text = $template_num . "_" . $this->num;
     $template_field = $this->template_field;
     $text = '<h3>' . wfMsg('sf_createform_field') . " '" . $template_field->field_name . "'</h3>\n";
-    if ($template_field->attr_or_rel == "attribute") {
+    if ($template_field->is_relation) {
+      $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
+      $text .= '<p>' . wfMsg('sf_createform_fieldrel', $rel_link_text) . "</p>\n";
+    } elseif ($template_field->field_type != null) {
       $attr_link_text = sffLinkText(SMW_NS_ATTRIBUTE, $template_field->semantic_field);
-      if ($template_field->attribute_type == "")
+      // TODO - remove this probably-unnecessary check?
+      if ($template_field->field_type == "")
         $text .= '<p>' . wfMsg('sf_createform_fieldattrunknowntype', $attr_link_text,  sffLinkText(SMW_NS_TYPE, 'String')) . "</p>\n";
       else
         $text .= '<p>' . wfMsg('sf_createform_fieldattr', $attr_link_text,
-          sffLinkText(SMW_NS_TYPE, $template_field->attribute_type)) . "</p>\n";
+          sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
 
-    } elseif ($template_field->attr_or_rel == "relation") {
-      $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
-      $text .= '<p>' . wfMsg('sf_createform_fieldrel', $rel_link_text) . "</p>\n";
     } else {
       // not a semantic field - don't add any text
     }
