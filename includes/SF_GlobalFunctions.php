@@ -5,7 +5,7 @@
  * @author Yaron Koren
  */
 
-define('SF_VERSION','0.5.7');
+define('SF_VERSION','0.6');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -40,6 +40,13 @@ function sfgSetupExtension() {
 	/**********************************************/
 
 	require_once($sfgIP . '/includes/SF_FormEditTab.php');
+
+	/**********************************************/
+	/***** create globals for outside hooks   *****/
+	/**********************************************/
+
+	global $sfgFormPrinter;
+	$sfgFormPrinter = new SFFormPrinter();
 
 	/**********************************************/
 	/***** credits (see "Special:Version")    *****/
