@@ -47,8 +47,8 @@
 
 function sfgParserFunctions () {
     global $wgParser;
-    $wgParser->setFunctionHook('forminput', 'renderFormInput');
-    $wgParser->setFunctionHook('arraymap', 'renderArrayMap');
+    $wgParser->setFunctionHook('forminput', 'sfRenderFormInput');
+    $wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
 }
 
 function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
@@ -60,7 +60,7 @@ function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	return true;
 }
 
-function renderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue = '', $inButtonStr = '', $inQueryStr = '') {
+function sfRenderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue = '', $inButtonStr = '', $inQueryStr = '') {
 	$ap = SpecialPage::getPage('AddPage');
 	$ap_url = $ap->getTitle()->getLocalURL();
 	$str = <<<END
@@ -98,7 +98,7 @@ END;
 /**
  * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
  */
-function renderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
+function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
 	$ret = "";
 	$values_array = explode($delimiter, $value);
 	foreach ($values_array as $i =>$cur_value) {
