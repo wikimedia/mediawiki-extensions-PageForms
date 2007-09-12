@@ -28,7 +28,6 @@ class SF_LanguageEn {
 	'sf_october' => 'October',
 	'sf_november' => 'November',
 	'sf_december' => 'December'
-
 );
 
 /* private */ var $sfUserMessages = array(
@@ -84,7 +83,6 @@ class SF_LanguageEn {
 	'sf_editdata_remove' => 'Remove',
 	'sf_editdata_addanother' => 'Add another',
 	'sf_editdata_freetextlabel' => 'Free text',
-	'sf_editdata_none' => '[None]',
 
 	'sf_blank_error' => 'cannot be blank'
 );
