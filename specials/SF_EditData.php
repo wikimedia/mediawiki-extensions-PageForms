@@ -14,7 +14,7 @@ require_once( "$IP/includes/SpecialPage.php" );
 SpecialPage::addPage( new SpecialPage('EditData','',true,'doSpecialEditData',false) );
 
 function doSpecialEditData($query = '') {
-	global $wgOut, $wgRequest, $sfgScriptPath;
+	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
 	$form_name = $wgRequest->getVal('form');
 	$target_name = $wgRequest->getVal('target');
@@ -62,9 +62,9 @@ function doSpecialEditData($query = '') {
 			$is_text_source = true;
 		}
 		list ($form_text, $javascript_text, $title, $data_text) =
-			SFFormPrinter::formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
+			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
 		if ($form_submitted) {
-			$text = SFFormPrinter::redirectText($target_name, $data_text);
+			$text = $sfgFormPrinter->redirectText($target_name, $data_text);
 		} else {
 			// set 'title' field, in case there's no URL niceness
 			$text =<<<END
@@ -73,7 +73,7 @@ function doSpecialEditData($query = '') {
 
 END;
 			$text .= $form_text;
-			$text .= SFFormPrinter::formBottom($target_title);
+			$text .= $sfgFormPrinter->formBottom($target_title, $sfgIsDisabled);
 		}
 	}
 	$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';

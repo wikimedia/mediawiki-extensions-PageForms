@@ -15,10 +15,10 @@ require_once( "$IP/includes/SpecialPage.php" );
 SpecialPage::addPage( new SpecialPage('AddData','',true,'doSpecialAddData',false) );
 
 function doSpecialAddData($query = '') {
-	global $wgOut, $wgRequest, $sfgScriptPath;
+	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
 	$form_name = $wgRequest->getVal('form');
-        $target_name = $wgRequest->getVal('target');
+	$target_name = $wgRequest->getVal('target');
 
         // if query string did not contain these variables, try the URL
         if (! $form_name && ! $target_name) {
@@ -59,24 +59,24 @@ function doSpecialAddData($query = '') {
 		// get 'preload' query value, if it exists
 		if (!$form_submitted && $wgRequest->getCheck('preload')) {
 			$page_is_source = true;
-			$page_contents = SFFormPrinter::getPreloadedText($wgRequest->getVal('preload'));
+			$page_contents = $sfgFormPrinter->getPreloadedText($wgRequest->getVal('preload'));
 		} else {
 			$page_is_source = false;
 			$page_contents = null;
 		}
 		list ($form_text, $javascript_text, $title, $data_text) =
-			SFFormPrinter::formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title);
+			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title);
 		if ($form_submitted) {
 			if (! $title) {$title = $target_name;}
-			$text = SFFormPrinter::redirectText($title, $data_text);
+			$text = $sfgFormPrinter->redirectText($title, $data_text);
 		} else {
 			$text =<<<END
 				<form name="createbox" onsubmit="return validate_all()" action="" method="post" class="createbox">
 
 END;
 			$text .= $form_text;
-                        $target_title = Title::newFromText($title);
-			$text .= SFFormPrinter::formBottom($target_title);
+			$target_title = Title::newFromText($title);
+			$text .= $sfgFormPrinter->formBottom($target_title, $sfgIsDisabled);
 		}
 	}
 	$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
