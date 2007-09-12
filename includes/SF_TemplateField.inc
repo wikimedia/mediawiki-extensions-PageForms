@@ -1,7 +1,8 @@
 <?php
 /**
- * Defines a class, SFTemplateField, used in both creating templates and
- * displaying user-created forms
+ * Defines a class, SFTemplateField, that represents a field in a template,
+ * including any possible semantic aspects it may have. Used in both creating
+ * templates and displaying user-created forms
  *
  * @author Yaron Koren
  */
@@ -12,8 +13,8 @@ class SFTemplateField {
   var $semantic_field;
   var $semantic_field_call;
   var $is_list;
-  var $attr_or_rel;
-  var $attribute_type;
+  var $is_relation;
+  var $field_type;
   var $possible_values;
 
   function newWithValues($name, $label) {
@@ -25,12 +26,15 @@ class SFTemplateField {
 
   // setSemanticData() - called when template is parsed during the creation
   // of a form
-  function setSemanticData($semantic_field, $attr_or_rel) {
+  function setSemanticData($semantic_field, $is_relation) {
     $this->semantic_field = str_replace('\\', '', $semantic_field);
-    $this->attr_or_rel = str_replace('\\', '', $attr_or_rel);
+    $this->is_relation = $is_relation;
     $this->possible_values = array();
-    // set type if it's an attribute
-    if ($this->attr_or_rel == "attribute") {
+    // set field type if it's an attribute
+    // HACK - also set type (to 'relation') if it's a relation
+    if ($this->is_relation) {
+      $this->field_type = 'relation';
+    } else {
       global $smwgContLang;
       $fname = 'SFTemplateField::setSemanticData';
 
@@ -46,9 +50,9 @@ class SFTemplateField {
 			$conditions, $fname);
       if ($db->numRows( $res ) > 0) {
         if ($row = $db->fetchObject($res)) {
-          $this->attribute_type = $row->value_string;
+          $this->field_type = $row->value_string;
           // set possible values if it's an enumeration
-          if ($this->attribute_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
+          if ($this->field_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
             $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
               " AND subject_title = '$semantic_field_db_str' AND property_id = " .
               SMW_SP_POSSIBLE_VALUE;
@@ -96,7 +100,7 @@ END;
 
 END;
   } else {
-    $text .= "{| border=0 cellpadding=4 cellspacing=4\n";
+    $text .= '{| border="0" cellpadding="4" cellspacing="4"' . "\n";
   }
 
   foreach ($template_fields as $i => $field) {
@@ -105,13 +109,13 @@ END;
     }
     $text .= "! " . $field->label . "\n";
     if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
-      $text .= "| {{{" . $field->field_name . "|unknown}}}\n";
+      $text .= "| {{{" . $field->field_name . "|}}}\n";
     // if this field is meant to contain a list, add on an 'arraymap' function,
     // that will call this semantic markup tag on every element in the list
     } elseif ($field->is_list) {
-      $text .= "| {{#arraymap:{{{" . $field->field_name . "|unknown}}}|,|x|[[" . $field->semantic_field_call . "x]]}}\n";
+      $text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|x|[[" . $field->semantic_field_call . "x]]}}\n";
     } else {
-      $text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|unknown}}}]]\n";
+      $text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|}}}]]\n";
     }
   }
   $text .= "|}\n";
