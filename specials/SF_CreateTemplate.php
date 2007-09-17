@@ -84,7 +84,7 @@ END;
 }
 
 function doSpecialCreateTemplate() {
-  global $wgOut, $wgRequest, $wgUser;
+  global $wgOut, $wgRequest, $wgUser, $wgRequest;
 
   $all_properties = getSemanticProperties();
 
@@ -166,7 +166,7 @@ END;
     'rel' => 'stylesheet',
     'type' => 'text/css',
     'media' => "screen, projection",
-    'href' => "/w/extensions/SemanticForms/skins/SF_main.css"
+    'href' => $sfgScriptPath . "/skins/SF_main.css"
   ));
   $wgOut->addHTML($text);
 }
