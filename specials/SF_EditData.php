@@ -61,7 +61,7 @@ function doSpecialEditData($query = '') {
 			$edit_content = $target_article->getContent();
 			$is_text_source = true;
 		}
-		list ($form_text, $javascript_text, $title, $data_text) =
+		list ($form_text, $javascript_text, $data_text) =
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
 		if ($form_submitted) {
 			$text = $sfgFormPrinter->redirectText($target_name, $data_text);
