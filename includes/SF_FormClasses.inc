@@ -73,6 +73,9 @@ class SFTemplateInForm {
     $template_title = Title::newFromText($this->template_name, NS_TEMPLATE);
     $template_article = new Article($template_title);
     $template_text = $template_article->getContent();
+    // ignore 'noinclude' sections and 'includeonly' tags
+    $template_text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $template_text);
+    $template_text = strtr($template_text, array('<includeonly>' => '', '</includeonly>' => ''));
 
     if (preg_match_all('/\[\[([^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
       // this is a two-dimensional array; we need the last three of the four
