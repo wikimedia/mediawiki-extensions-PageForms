@@ -15,7 +15,7 @@ require_once( "$sfgIP/includes/SF_FormClasses.inc" );
 SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm',false) );
 
 function doSpecialCreateForm() {
-  global $wgOut, $wgRequest, $wgUser;
+  global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
   $db = wfGetDB( DB_SLAVE );
 
   # get the names of all templates on this site
@@ -175,7 +175,7 @@ END;
     'rel' => 'stylesheet',
     'type' => 'text/css',
     'media' => "screen, projection",
-    'href' => "/w/extensions/SemanticForms/skins/SF_main.css"
+    'href' => $sfgScriptPath . "/skins/SF_main.css"
   ));
   $wgOut->addHTML($text);
 }
