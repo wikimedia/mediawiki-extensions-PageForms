@@ -44,7 +44,7 @@ function createPropertyText($property_type, $allowed_values_str) {
 }
 
 function doSpecialCreateProperty() {
-  global $wgOut, $wgRequest;
+  global $wgOut, $wgRequest, $sfgScriptPath;
   global $smwgContLang;
 
   # cycle through the query values, setting the appropriate local variables
@@ -140,7 +140,7 @@ END;
     'rel' => 'stylesheet',
     'type' => 'text/css',
     'media' => "screen, projection",
-    'href' => "/w/extensions/SemanticForms/skins/SF_main.css"
+    'href' => $sfgScriptPath . "/skins/SF_main.css"
   ));
   $wgOut->addScript('<script type="text/javascript">' . $javascript_text . '</script>');
   $wgOut->addHTML($text);
