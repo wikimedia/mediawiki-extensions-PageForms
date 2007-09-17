@@ -550,7 +550,7 @@ END;
     if (! $free_text_was_included) {
       $form_text .= '	<fieldset><legend>' . wfMsg('sf_editdata_freetextlabel') . "</legend>\n";
       $other_args = array('rows' => 5, 'cols' => 30);
-      list($text, $new_javascript_text) = $this->textAreaHTML('<free_text>', 'free_text', false, $other_args);
+      list($text, $new_javascript_text) = $this->textAreaHTML('<free_text>', 'free_text', false, $form_is_disabled, $other_args);
       $form_text .= $text;
       $form_text .= "    </fieldset>\n";
     }
