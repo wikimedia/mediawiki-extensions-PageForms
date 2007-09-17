@@ -5,7 +5,7 @@
  * @author Yaron Koren
  */
 
-define('SF_VERSION','0.6');
+define('SF_VERSION','0.6.1');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -52,7 +52,7 @@ function sfgSetupExtension() {
 	/***** credits (see "Special:Version")    *****/
 	/**********************************************/
 	$wgExtensionCredits['specialpage'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren and others',
-          'url'=>'http://discoursedb.org/SemanticForms/', 'description' => 'Forms for adding and editing semantic data');
+          'url'=>'http://www.mediawiki.org/wiki/Extension:Semantic_Forms', 'description' => 'Forms for adding and editing semantic data');
 
 	return true;
 }
