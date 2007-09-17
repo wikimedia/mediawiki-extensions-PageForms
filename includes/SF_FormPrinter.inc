@@ -53,10 +53,10 @@ class SFFormPrinter {
     global $sfgTabIndex; // used to represent the current tab index in the form
 
     // initialize some variables
-    $title = null;
     $sfgTabIndex = 0;
     // disable all form elements if user doesn't have edit permission
-    if ( $wgUser->isAllowed('edit') ) {
+    $true_page_title = Title::newFromText($page_title);
+    if ( $true_page_title->userCanEdit() ) {
       $form_is_disabled = false;
       $form_text = "";
     } else {
@@ -799,7 +799,7 @@ END;
 
     // send the autocomplete values to the browser, along with the mappings of which values should apply to which fields
     $javascript_text .= $fields_javascript_text;
-    return array($form_text, $javascript_text, $title, $data_text);
+    return array($form_text, $javascript_text, $data_text);
   }
 
   function formTemplateFieldHTML($field_name, $input_name, $cur_value, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args, $all_fields, $strict_parsing) {
@@ -886,7 +886,7 @@ END;
         $funcArgs[] = $form_field->input_name;
         $funcArgs[] = $form_field->is_mandatory;
         $funcArgs[] = $form_field->is_disabled;
-        $other_args = $hook_values[1];
+        $other_args = array_merge($form_field->field_args, $hook_values[1]);
         $other_args['possible_values'] = $template_field->possible_values;
         if ($template_field->is_relation) {
           $other_args['is_relation'] = true;
@@ -940,8 +940,9 @@ END;
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if it's an autocomplete, call the with-autocomplete function insted
-    if ($other_args['autocomplete_category'] != null)
-      return textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+    if ($other_args['autocomplete on'] != null) {
+      return SFFormPrinter::textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+    }
 
     global $sfgTabIndex;
     $input_id = "input_$sfgTabIndex";
@@ -989,16 +990,20 @@ END;
   function textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if 'no autocomplete' was specified, call the regular text entry instead
     if ($other_args['no_autocomplete'] == true)
-      return textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+      return SFFormPrinter::textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
     global $sfgTabIndex;
-    $sfgTabIndex++;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $size = $other_args['size'];
-    $is_relation = $other_args['is_relation'];
-    $semantic_field_name = $other_args['semantic_field_name'];
+    if ($other_args['autocomplete on'] != null) {
+      $is_relation = false;
+      $semantic_field_name = $other_args['autocomplete on'];
+    } else {
+      $is_relation = true;
+      $semantic_field_name = $other_args['semantic_field_name'];
+    }
     $input_id = "input_" . $sfgTabIndex;
     $info_id = "info_" . $sfgTabIndex;
     $div_name = "div_" . $sfgTabIndex;
