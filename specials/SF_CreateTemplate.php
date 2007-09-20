@@ -84,7 +84,7 @@ END;
 }
 
 function doSpecialCreateTemplate() {
-  global $wgOut, $wgRequest, $wgUser, $wgRequest;
+  global $wgOut, $wgRequest, $wgUser, $wgContLang;
 
   $all_properties = getSemanticProperties();
 
@@ -136,7 +136,9 @@ END;
 
   $text .= '	<form action="" method="get">' . "\n";
   // set 'title' field, in case there's no URL niceness
-  $text .= '    <input type="hidden" name="title" value="Special:CreateTemplate">' . "\n";
+  $mw_namespace_labels = $wgContLang->getNamespaces();
+  $special_namespace = $mw_namespace_labels[NS_SPECIAL];
+  $text .= '    <input type="hidden" name="title" value="' . $special_namespace . ':CreateTemplate">' . "\n";
   $text .= '	<p>' . wfMsg('sf_createtemplate_namelabel') . ' <input size="25" name="template_name" value="' . $template_name . '"> <font color="red">' . $template_name_error_str . '</font></p>' . "\n";
   $text .= '	<p>' . wfMsg('sf_createtemplate_categorylabel') . ' <input size="25" name="category" value="' . $category . '"></p>' . "\n";
   $text .= "	<fieldset>\n";
