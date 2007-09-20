@@ -112,9 +112,12 @@ END;
   );
 
   // set 'title' as hidden field, in case there's no URL niceness
+  global $wgContLang;
+  $mw_namespace_labels = $wgContLang->getNamespaces();
+  $special_namespace = $mw_namespace_labels[NS_SPECIAL];
   $text .=<<<END
 	<form action="" method="get">
-	<input type="hidden" name="title" value="Special:CreateProperty">
+	<input type="hidden" name="title" value="$special_namespace:CreateProperty">
 	<p>Name: <input size="25" name="property_name" value="">
 	<span style="color: red;">$property_name_error_str</span>
 	Type:
