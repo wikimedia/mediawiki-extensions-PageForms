@@ -51,9 +51,11 @@ class SFFormPrinter {
   function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
+    global $sfgFieldNum; // used for setting various HTML IDs
 
     // initialize some variables
-    $sfgTabIndex = 0;
+    $sfgTabIndex = 1;
+    $sfgFieldNum = 1;
     // disable all form elements if user doesn't have edit permission
     $true_page_title = Title::newFromText($page_title);
     if ( $true_page_title->userCanEdit() ) {
@@ -122,6 +124,7 @@ class SFFormPrinter {
       // modified; is it necessary?
       $section = " " . $form_def_sections[$section_num];
 
+$while_instance = 0;
       while ($brackets_loc = strpos($section, '{{{', $start_position)) {
         $brackets_end_loc = strpos($section, "}}}", $brackets_loc);
         $bracketed_string = substr($section, $brackets_loc + 3, $brackets_end_loc - ($brackets_loc + 3));
@@ -358,6 +361,8 @@ class SFFormPrinter {
                   $field_args['rows'] = 5;
 		if ($field_args['cols'] == null)
                   $field_args['cols'] = 30;
+                $sfgTabIndex++;
+                $sfgFieldNum++;
                 list($new_text, $new_javascript_text) = $this->textAreaHTML('<free_text>', 'free_text', false, $form_is_disabled, $field_args);
               }
               $free_text_was_included = true;
@@ -461,8 +466,8 @@ class SFFormPrinter {
               $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
               // also add to Javascript validation code
               if ($is_mandatory) {
-		$input_id = "input_" . $sfgTabIndex;
-		$info_id = "info_" . $sfgTabIndex;
+		$input_id = "input_" . $sfgFieldNum;
+		$info_id = "info_" . $sfgFieldNum;
                 if ($input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone') {
                   $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
                   $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
@@ -507,9 +512,9 @@ class SFFormPrinter {
           $section = str_replace('[num]', "[{$instance_num}a]", $section);
           $remove_text = wfMsg('sf_editdata_remove');
           $form_text .=<<<END
-	<div id="wrapper_$sfgTabIndex" class="multiple_template">
+	<div id="wrapper_$sfgFieldNum" class="multiple_template">
         $section
-        <input type="button" onclick="removeInstance('wrapper_$sfgTabIndex');" value="$remove_text" tabindex="$sfgTabIndex" />
+        <input type="button" onclick="removeInstance('wrapper_$sfgFieldNum');" value="$remove_text" tabindex="$sfgTabIndex" />
         </div>
 
 END;
@@ -531,13 +536,13 @@ END;
           $add_another = wfMsg('sf_editdata_addanother');
           $form_text .=<<<END
 	<p style="margin-left:10px;">
-	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$sfgTabIndex');" value="$add_another" tabindex="$sfgTabIndex" /></p>
+	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$sfgFieldNum');" value="$add_another" tabindex="$sfgTabIndex" /></p>
 
 END;
            // if a chooser is being used for this template, add the template
            // to the chooser data array
           if ($chooser_name !== false)
-            $choosers[$chooser_name][]= array($query_template_name, $sfgTabIndex, $chooser_caption);
+            $choosers[$chooser_name][]= array($query_template_name, $sfgFieldNum, $chooser_caption);
         }
       } else {
         $form_text .= $section;
@@ -545,14 +550,10 @@ END;
 
     } // end for
 
-    // if it wasn't already included in the form definition, put the
-    // 'free text' input at the bottom of the form
+    // if it wasn't included in the form definition, add the
+    // 'free text' input as a hidden field at the bottom
     if (! $free_text_was_included) {
-      $form_text .= '	<fieldset><legend>' . wfMsg('sf_editdata_freetextlabel') . "</legend>\n";
-      $other_args = array('rows' => 5, 'cols' => 30);
-      list($text, $new_javascript_text) = $this->textAreaHTML('<free_text>', 'free_text', false, $form_is_disabled, $other_args);
-      $form_text .= $text;
-      $form_text .= "    </fieldset>\n";
+      $form_text .= $this->hiddenFieldHTML('free_text', '<free_text>');
     }
     // get free text, and add to page data, as well as retroactively
     // inserting it into the form
@@ -803,7 +804,7 @@ END;
   }
 
   function formTemplateFieldHTML($field_name, $input_name, $cur_value, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args, $all_fields, $strict_parsing) {
-   global $sfgTabIndex;
+   global $sfgTabIndex, $sfgFieldNum;
 
     // see if this field matches one of the fields defined for this template -
     // if it is, use all available information about that field; if it's not,
@@ -823,10 +824,11 @@ END;
     }
 
     // if this is not part of a 'multiple' template, incrememt the
-    // global tab index (used for correct tabbing, and for creating
-    // unique div IDs.)
+    // global tab index (used for correct tabbing)
     if (! $field_args['part_of_multiple'])
       $sfgTabIndex++;
+    // increment the global field number regardless
+    $sfgFieldNum++;
 
     // create an SFFormTemplateField object, containing this field as well
     // as settings from the form definition file
@@ -868,17 +870,18 @@ END;
         $other_args['is_relation'] = true;
         $other_args['semantic_field_name'] = $template_field->semantic_field;
       }
+        // merge default values and values from form - put the default values
+        // first, so that if there's a conflict they'll be overridden
       $funcArgs[] = array_merge($default_args, $other_args);
       list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
     // escape out here if user doesn't have SMW installed
     } elseif ($smwgContLang == null) {
-      $size = $template_field->size;
+      $size = $template_field->field_args['size'];
       if ($size == null) $size = 35;
       $field_args = array('size' => $size);
       list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
     } else { // input type not defined in form, and not a relation
       $field_type = $template_field->field_type;
-      $size = $template_field->size;
       if ($field_type != '' && $this->mSemanticTypeHooks[$field_type] != null) {
         $hook_values = $this->mSemanticTypeHooks[$field_type];
         $funcArgs = array();
@@ -886,7 +889,9 @@ END;
         $funcArgs[] = $form_field->input_name;
         $funcArgs[] = $form_field->is_mandatory;
         $funcArgs[] = $form_field->is_disabled;
-        $other_args = array_merge($form_field->field_args, $hook_values[1]);
+        // merge default values and values from form - put the default values
+        // first, so that if there's a conflict they'll be overridden
+        $other_args = array_merge($hook_values[1], $form_field->field_args);
         $other_args['possible_values'] = $template_field->possible_values;
         if ($template_field->is_relation) {
           $other_args['is_relation'] = true;
@@ -895,59 +900,125 @@ END;
         $funcArgs[] = $other_args;
         list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
       } else { // anything else
-        if ($field_args['size'] == null)
-          $field_args['size'] = 35;
-        list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
+        $other_args = $form_field->field_args;
+        if ($other_args['size'] == null)
+          $other_args['size'] = 35;
+        list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args);
       }
     }
     return array($text, $javascript_text);
   }
 
-  function createAutocompleteValuesString($field_name, $is_relation) {
+  /*
+   * Get all the pages that belong to a category and all its subcategories,
+   * down a certain number of levels - heavily based on SMW's
+   * SMWInlineQuery::includeSubcategories()
+   */
+  private function getAllPagesForCategory($dbr, $top_category, $num_levels) {
+    if (0 == $num_levels) return $top_category;
     global $sfgMaxAutocompleteValues;
-    $fname = '$this->createAutocompleteValuesString';
+
+    $fname = "SFFormPrinter::getAllPagesForCategory";
+    $categories = array($top_category);
+    $checkcategories = array($top_category);
+    $pages = array();
+    for ($level = $num_levels; $level > 0; $level--) {
+      $newcategories = array();
+      foreach ($checkcategories as $category) {
+        $res = $dbr->select( // make the query
+          array('categorylinks', 'page'),
+          array('page_title', 'page_namespace'),
+          array('cl_from = page_id',
+          'cl_to = '. $dbr->addQuotes($category)),
+          $fname);
+          if ($res) {
+            while ($res && $row = $dbr->fetchRow($res)) {
+            if (array_key_exists('page_title', $row)) {
+              $page_namespace = $row['page_namespace'];
+              if ($page_namespace == NS_CATEGORY) { 
+                $new_category = $row[ 'page_title' ];
+                if (!in_array($new_category, $categories)) {
+                  $newcategories[] = $new_category;
+                }
+              } else {
+                $cur_value = str_replace("'", "\'", $row['page_title']);
+                $pages[] = str_replace("_", " ", $cur_value);
+                // return if we've reached the maximum number of allowed values
+                if (count($pages) > $sfgMaxAutocompleteValues)
+                  return $pages;
+              }
+            }
+          }
+          $dbr->freeResult( $res );
+        }
+      }
+      if (count($newcategories) == 0) {
+        return $pages;
+      } else {
+        $categories = array_merge($categories, $newcategories);
+      }
+      $checkcategories = array_diff($newcategories, array());
+    }
+    return $pages;
+  }
+
+  function createAutocompleteValuesString($field_name, $autocomplete_field_type) {
+    global $sfgMaxAutocompleteValues;
+    $fname = 'SFFormPrinter::createAutocompleteValuesString';
+
+    $names_array = array();
     $db = wfGetDB( DB_SLAVE );
     $sql_options = array();
     $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-    // the query depends on whether this field is a relation or a category
-    if ($is_relation) {
+    // the query depends on whether this field is a relation, category or
+    // namespace
+    if ($autocomplete_field_type == 'relation') {
       $conditions = "relation_title = '$field_name'";
       $sql_options['ORDER BY'] = 'object_title';
       $res = $db->select( $db->tableName('smw_relations'),
                           'DISTINCT object_title',
                           $conditions, $fname, $sql_options);
-    } else {
-      $conditions = "cl_from = page_id AND cl_to = '$field_name'";
-      $sql_options['ORDER BY'] = 'page_title';
-      $res = $db->select( $db->tableNames('categorylinks', 'page'),
-                          'page_title',
-                          $conditions, $fname, $sql_options);
-    }
-    if ($db->numRows( $res ) > 0) {
-      $names_array = array();
       while ($row = $db->fetchRow($res)) {
         $cur_value = str_replace("'", "\'", $row[0]);
         $names_array[] = str_replace('_', ' ', $cur_value);
       }
-      $array_str = "['" . implode("', '", $names_array) . "']";
-    } else {
-      // return an empty array
-      $array_str = "[]";
+      $db->freeResult($res);
+    } elseif ($autocomplete_field_type == 'category') {
+      $names_array = $this->getAllPagesForCategory($db, $field_name, 10);
+    } else { // i.e., $autocomplete_field_type == 'namespace'
+      // cycle through all the namespace names for this language, and if
+      // one matches the namespace specified in the form, add the names
+      // of all the pages in that namespace to $names_array
+      global $wgContLang;
+      $namespaces = $wgContLang->getNamespaces();
+      foreach ($namespaces as $ns_code => $ns_name) {
+        if ($ns_name == $field_name) {
+          $conditions = "page_namespace = $ns_code";
+          $sql_options['ORDER BY'] = 'page_title';
+          $res = $db->select( $db->tableNames('page'),
+                              'page_title',
+                              $conditions, $fname, $sql_options);
+          while ($row = $db->fetchRow($res)) {
+            $cur_value = str_replace("'", "\'", $row[0]);
+            $names_array[] = str_replace('_', ' ', $cur_value);
+          }
+          $db->freeResult($res);
+        }
+      }
     }
-    $db->freeResult($res);
+    $array_str = "['" . implode("', '", $names_array) . "']";
     return $array_str;
   }
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if it's an autocomplete, call the with-autocomplete function insted
-    if ($other_args['autocomplete on'] != null) {
+    if ($other_args['autocomplete on'] != null || $other_args['autocomplete on namespace'] != null) {
       return SFFormPrinter::textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
     }
 
-    global $sfgTabIndex;
-    $input_id = "input_$sfgTabIndex";
-    $info_id = "info_$sfgTabIndex";
-    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    global $sfgTabIndex, $sfgFieldNum;
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $size = $other_args['size'];
 
@@ -992,21 +1063,24 @@ END;
     if ($other_args['no_autocomplete'] == true)
       return SFFormPrinter::textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $size = $other_args['size'];
     if ($other_args['autocomplete on'] != null) {
-      $is_relation = false;
+      $autocomplete_field_type = "category";
       $semantic_field_name = $other_args['autocomplete on'];
+    } elseif ($other_args['autocomplete on namespace'] != null) {
+      $autocomplete_field_type = "namespace";
+      $semantic_field_name = $other_args['autocomplete on namespace'];
     } else {
-      $is_relation = true;
+      $autocomplete_field_type = "relation";
       $semantic_field_name = $other_args['semantic_field_name'];
     }
-    $input_id = "input_" . $sfgTabIndex;
-    $info_id = "info_" . $sfgTabIndex;
-    $div_name = "div_" . $sfgTabIndex;
+    $input_id = "input_" . $sfgFieldNum;
+    $info_id = "info_" . $sfgFieldNum;
+    $div_name = "div_" . $sfgFieldNum;
     $text =<<<END
         <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text"
 	value="" size="$size" class="$className" $disabled_text/>
@@ -1017,10 +1091,10 @@ END;
 END;
     $autocomplete_values = array();
     $autocomplete_values['mappings'] = array();
-    $options_str_key = $semantic_field_name . ',' . $is_relation;
+    $options_str_key = $semantic_field_name . ',' . $autocomplete_field_type;
     if (!$autocomplete_values[$options_str_key])
-      $autocomplete_values[$options_str_key] = $this->createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $is_relation);
-    $autocomplete_values['mappings'][$sfgTabIndex] = $options_str_key;
+      $autocomplete_values[$options_str_key] = $this->createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
+    $autocomplete_values['mappings'][$sfgFieldNum] = $options_str_key;
     foreach ($autocomplete_values as $autocomplete_key => $autocomplete_string) {
       if ($autocomplete_key == "mappings") {
         foreach ($autocomplete_string as $field_number => $field_key) {
@@ -1038,11 +1112,11 @@ END;
   }
 
   function textAreaHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
-    $input_id = "input_$sfgTabIndex";
-    $info_id = "info_$sfgTabIndex";
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
 
     $rows = $other_args['rows'];
@@ -1057,11 +1131,11 @@ END;
   }
 
   function monthDropdownHTML($cur_month, $input_name, $is_disabled) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgTabIndex . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
+    $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
     $month_names = array(
       wfMsgForContent('sf_january'),
       wfMsgForContent('sf_february'),
@@ -1086,7 +1160,7 @@ END;
   }
 
   function dateEntryHTML($date, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     if ($date) {
       // can show up here either as an array or a string, depending on
@@ -1113,9 +1187,9 @@ END;
     }
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = $this->monthDropdownHTML($month, $input_name, $is_disabled);
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgTabIndex . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2"/ ' . $disabled_text . '>' . "\n";
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgTabIndex . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $disabled_text . '>' . "\n";
-    $info_id = "info_$sfgTabIndex";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2"/ ' . $disabled_text . '>' . "\n";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $disabled_text . '>' . "\n";
+    $info_id = "info_$sfgFieldNum";
     $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
     return array($text, null);
   }
@@ -1207,10 +1281,10 @@ END;
   }
 
   function checkboxHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
-    $info_id = "info_$sfgTabIndex";
+    $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
 
     // can show up here either as an array or a string, depending on
@@ -1228,7 +1302,7 @@ END;
     }
     $text =<<<END
 	<input name="{$input_name}[is_checkbox]" type="hidden" value="true" />
-	<input id="input_$sfgTabIndex" name="{$input_name}[value]" type="checkbox" class="$className" tabindex="$sfgTabIndex" $checked_str $disabled_text/>
+	<input id="input_$sfgFieldNum" name="{$input_name}[value]" type="checkbox" class="$className" tabindex="$sfgTabIndex" $checked_str $disabled_text/>
 	<span id="$info_id" class="error_message"></span>
 
 END;
@@ -1291,19 +1365,11 @@ END;
 
   // Much of this function is based on MediaWiki's EditPage::showEditForm()
   function formBottom($target_title = null, $is_disabled) {
-    global $wgVersion, $wgUser, $wgRightsText, $wgParser;
+    global $wgVersion, $wgUser;
     global $sfgTabIndex;
     $sk = $wgUser->getSkin();
 
-    $copywarn = "<div id=\"editpage-copywarn\">\n" .
-      wfMsg( $wgRightsText ? 'copyrightwarning' : 'copyrightwarning2',
-             '[[' . wfMsgForContent( 'copyrightpage' ) . ']]',
-	     null,
-             $wgRightsText ) . "\n</div>";
     $title = new Title();
-    $options = new ParserOptions();
-    $copywarn_output = $wgParser->parse($copywarn, $title, $options);
-    $copywarn_text = $copywarn_output->getText();
     $summary_text = wfMsg('summary');
     if ($target_title == null)
       $cancel = '';
@@ -1328,7 +1394,7 @@ END;
     $sfgTabIndex++;
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text =<<<END
-	$copywarn_text
+	<br /><br />
 	<span id='wpSummaryLabel'><label for='wpSummary'>{$summary_text}:</label></span>
 	<div class='editOptions'>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/><br />
