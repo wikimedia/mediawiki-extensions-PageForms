@@ -15,7 +15,7 @@ require_once( "$sfgIP/includes/SF_FormClasses.inc" );
 SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm',false) );
 
 function doSpecialCreateForm() {
-  global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
+  global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
   $db = wfGetDB( DB_SLAVE );
 
   # get the names of all templates on this site
@@ -128,7 +128,9 @@ END;
 
   $text .= '	<form action="" method="get">' . "\n";
   // set 'title' field, in case there's no URL niceness
-  $text .= '    <input type="hidden" name="title" value="Special:CreateForm">' . "\n";
+  $mw_namespace_labels = $wgContLang->getNamespaces();
+  $special_namespace = $mw_namespace_labels[NS_SPECIAL];
+  $text .= '    <input type="hidden" name="title" value="' . $special_namespace . ':CreateForm">' . "\n";
   $text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' <input size=25 name="form_name" value="' . $form_name . '">';
   if (! empty($form_name_error_str))
     $text .= ' <font color="red">' . $form_name_error_str . '</font>';
