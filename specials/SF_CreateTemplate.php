@@ -84,7 +84,7 @@ END;
 }
 
 function doSpecialCreateTemplate() {
-  global $wgOut, $wgRequest, $wgUser, $wgContLang;
+  global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
 
   $all_properties = getSemanticProperties();
 
