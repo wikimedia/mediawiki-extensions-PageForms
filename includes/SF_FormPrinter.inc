@@ -12,6 +12,8 @@ class SFFormPrinter {
 
   var $mSemanticTypeHooks;
   var $mInputTypeHooks;
+  var $standardInputsIncluded;
+  var $mPageTitle;
 
   function SFFormPrinter() {
     global $smwgContLang;
@@ -38,6 +40,9 @@ class SFFormPrinter {
     $this->setInputTypeHook('datetime with timezone', array('SFFormPrinter', 'dateTimeEntryHTML'), array('include_timezone' => true));
     $this->setInputTypeHook('checkbox', array('SFFormPrinter', 'checkboxHTML'), array());
     $this->setInputTypeHook('radiobutton', array('SFFormPrinter', 'radioButtonHTML'), array());
+
+    // initialize other variables
+    $this->standardInputsIncluded = false;
   }
 
   function setSemanticTypeHook($type, $function_name, $default_args) {
@@ -57,8 +62,8 @@ class SFFormPrinter {
     $sfgTabIndex = 1;
     $sfgFieldNum = 1;
     // disable all form elements if user doesn't have edit permission
-    $true_page_title = Title::newFromText($page_title);
-    if ( $true_page_title->userCanEdit() ) {
+    $this->mPageTitle = Title::newFromText($page_title);
+    if ( $this->mPageTitle->userCanEdit() ) {
       $form_is_disabled = false;
       $form_text = "";
     } else {
@@ -327,7 +332,7 @@ $while_instance = 0;
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
           }
-          if (! $cur_value) {
+          if ($cur_value == null) {
             // set to default value specified in the form, if it's there
             $cur_value = $default_value;
           }
@@ -367,7 +372,7 @@ $while_instance = 0;
               }
               $free_text_was_included = true;
               // add a similar placeholder to the data text
-              $data_text .= "<free_text>\n\n";
+              $data_text .= "<free_text>\n";
             }
             $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
           } else { // this field is part of a template
@@ -486,10 +491,42 @@ $while_instance = 0;
               $start_position = $brackets_end_loc;
             }
           }
+        } elseif ($tag_title == 'standard input') {
+          // set a flag so that the standard 'form bottom' won't get displayed
+          $this->standardInputsIncluded = true;
+          // handle all the possible values
+          $input_name = $tag_components[1];
+          $input_label = null;
+          // cycle through the other components
+          for ($i = 2; $i < count($tag_components); $i++) {
+            $component = $tag_components[$i];
+            $sub_components = explode('=', $component);
+            if (count($sub_components) == 2) {
+              if ($sub_components[0] == 'label') {
+                $input_label = $sub_components[1];
+              }
+            }
+          }
+          if ($input_name == 'summary') {
+            $new_text = $this->summaryInputHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'minor edit') {
+            $new_text = $this->minorEditInputHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'watch') {
+            $new_text = $this->watchInputHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'save') {
+            $new_text = $this->saveButtonHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'preview') {
+            $new_text = $this->showPreviewButtonHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'changes') {
+            $new_text = $this->showChangesButtonHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'cancel') {
+            $new_text = $this->cancelLinkHTML($form_is_disabled, $input_label);
+          }
+          $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
         } else { // tag is not one of the three allowed values
           // ignore tag
           $start_position = $brackets_end_loc;
-        }
+        } // end if
       } // end while
 
       if (! $all_instances_printed && ($template_text != '')) {
@@ -498,13 +535,7 @@ $while_instance = 0;
         if (strpos($template_text, "\n")) {
           $template_text .= "\n";
         }
-        $template_text .= "}}\n\n";
-        // TODO - should instances of the same template not be separated
-        // by a blank line? if so, the following code could be used:
-        //if (($data_text != "") &&
-        //    (! $allow_multiple || $old_template_name != $template_name)) {
-        //  $data_text .= "\n";
-        //}
+        $template_text .= "}}\n";
         $data_text .= $template_text;
       }
       if ($allow_multiple) {
@@ -635,10 +666,7 @@ function hideOrShowFieldset(element)
 </script>
 END;
         }
-	
-	
 
-			
         $chooser_text .= "<p>$choosername:<select id='chooserselect$chooser_count' size='1' onchange='updatechooserbutton(this,\"chooserbutton$chooser_count\")'>";
         $chooser_text .= "<option value='invalid'>Choose a field to add</option>";
         foreach ($chooser as $chooser_item) {
@@ -655,8 +683,11 @@ END;
     }
 	
     $form_text = str_replace('<choosers>', $chooser_text, $form_text);
-	
-	
+
+    // add form bottom, if no custom "standard inputs" have been defined
+    if (! $this->standardInputsIncluded)
+      $form_text .= $this->formBottom($form_is_disabled);
+
     // add general Javascript code
     $blank_error_str = wfMsg('sf_blank_error');
     $javascript_text .=<<<END
@@ -1017,6 +1048,7 @@ END;
     }
 
     global $sfgTabIndex, $sfgFieldNum;
+    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
@@ -1032,12 +1064,13 @@ END;
   }
 
   function dropdownHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $input_id = "input_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text =<<<END
-	<select tabindex="$sfgTabIndex" name="$input_name" class="className" $disabled_text>
+	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="className" $disabled_text>
 
 END;
     // add a blank value at the beginning if it's a non-mandatory field
@@ -1317,6 +1350,132 @@ END;
     return $text;
   }
 
+  function summaryInputHTML($is_disabled, $label = null) {
+    global $sfgTabIndex;
+
+    $sfgTabIndex++;
+    if ($label == null)
+      $label = wfMsg('summary');
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    $text =<<<END
+	<span id='wpSummaryLabel'><label for='wpSummary'>$label:</label></span>
+	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/>
+
+END;
+    return $text;
+  }
+
+  function minorEditInputHTML($is_disabled, $label = null) {
+    global $sfgTabIndex;
+
+    $sfgTabIndex++;
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    if ($label == null)
+      $label = wfMsgExt('minoredit', array('parseinline'));
+    $accesskey = wfMsg('accesskey-minoredit');
+    $tooltip = wfMsg('tooltip-minoredit');
+    $text =<<<END
+	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit" $disabled_text/>
+	<label for="wpMinoredit" title="$tooltip">$label</label>
+
+END;
+    return $text;
+  }
+
+  function watchInputHTML($is_disabled, $label = null) {
+    global $sfgTabIndex;
+
+    $sfgTabIndex++;
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    if ($label == null)
+      $label = wfMsgExt('watchthis', array('parseinline'));
+    $accesskey = htmlspecialchars(wfMsg('accesskey-watch'));
+    $tooltip = htmlspecialchars(wfMsg('tooltip-watch'));
+    $text =<<<END
+	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis' $disabled_text/>
+        <label for="wpWatchthis" title="$tooltip">$label</label>
+
+END;
+    return $text;
+  }
+
+  function saveButtonHTML($is_disabled, $label = null) {
+    global $sfgTabIndex;
+
+    $sfgTabIndex++;
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    if ($label == null)
+      $label = wfMsg('savearticle');
+    $temp = array(
+      'id'        => 'wpSave',
+      'name'      => 'wpSave',
+      'type'      => 'submit',
+      'tabindex'  => $sfgTabIndex,
+      'value'     => $label,
+      'accesskey' => wfMsg('accesskey-save'),
+      'title'     => wfMsg('tooltip-save'),
+      $disabled_text => '',
+    );
+    $text = "		" . wfElement('input', $temp, '') . "\n";
+    return $text;
+  }
+
+  function showPreviewButtonHTML($is_disabled, $label = null) {
+    global $sfgTabIndex;
+
+    $sfgTabIndex++;
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    if ($label == null)
+      $label = wfMsg('showpreview');
+    $temp = array(
+      'id'        => 'wpPreview',
+      'name'      => 'wpPreview',
+      'type'      => 'submit',
+      'tabindex'  => $sfgTabIndex,
+      'value'     => $label,
+      'accesskey' => wfMsg('accesskey-preview'),
+      'title'     => wfMsg('tooltip-preview'),
+      $disabled_text => '',
+    );
+    $text = "		" . wfElement('input', $temp, '') . "\n";
+    return $text;
+  }
+
+  function showChangesButtonHTML($is_disabled, $label = null) {
+    global $sfgTabIndex;
+
+    $sfgTabIndex++;
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    if ($label == null)
+      $label = wfMsg('showdiff');
+    $temp = array(
+      'id'        => 'wpDiff',
+      'name'      => 'wpDiff',
+      'type'      => 'submit',
+      'tabindex'  => $sfgTabIndex,
+      'value'     => $label,
+      'accesskey' => wfMsg('accesskey-diff'),
+      'title'     => wfMsg('tooltip-diff'),
+      $disabled_text => '',
+    );
+    $text = "		" . wfElement('input', $temp, '') . "\n";
+    return $text;
+  }
+
+  function cancelLinkHTML($is_disabled, $label = null) {
+    global $wgUser;
+
+    $sk = $wgUser->getSkin();
+    if ($label == null)
+      $label = wfMsgExt('cancel', array('parseinline'));
+    if ($this->mPageTitle == null)
+      $cancel = '';
+    else
+      $cancel = $sk->makeKnownLink( $this->mPageTitle->getPrefixedText(), $label);
+    $text = "		<span class='editHelp'>$cancel</span>\n";
+    return $text;
+  }
+
   function redirectText($page_name, $data_text) {
     global $wgUser, $wgRequest;
 
@@ -1364,106 +1523,35 @@ END;
   }
 
   // Much of this function is based on MediaWiki's EditPage::showEditForm()
-  function formBottom($target_title = null, $is_disabled) {
-    global $wgVersion, $wgUser;
-    global $sfgTabIndex;
-    $sk = $wgUser->getSkin();
-
-    $title = new Title();
-    $summary_text = wfMsg('summary');
-    if ($target_title == null)
-      $cancel = '';
-    else
-      $cancel = $sk->makeKnownLink( $target_title->getPrefixedText(),
-                  wfMsgExt('cancel', array('parseinline')) );
+  function formBottom($is_disabled) {
+    global $wgUser;
     
-	//Fix so extension works with MediaWiki 1.7
-	if (substr_compare($wgVersion, '1.7', 0, 3) == 0)
-	{
-		$edithelpurl = $sk->makeInternalOrExternalUrl( wfMsgForContent( 'edithelppage' ));
-	}
-	else
-	{
-		$edithelpurl = Skin::makeInternalOrExternalUrl( wfMsgForContent( 'edithelppage' ));
-	}
-    
-    $edithelp = '<a target="helpwindow" href="'.$edithelpurl.'">'.
-    htmlspecialchars( wfMsg( 'edithelp' ) ).'</a> '.
-    htmlspecialchars( wfMsg( 'newwindow' ) );
-
-    $sfgTabIndex++;
     $disabled_text = ($is_disabled) ? "disabled" : "";
+    $summary_text = $this->summaryInputHTML($is_disabled);
     $text =<<<END
 	<br /><br />
-	<span id='wpSummaryLabel'><label for='wpSummary'>{$summary_text}:</label></span>
 	<div class='editOptions'>
-	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/><br />
+$summary_text	<br />
 
 END;
-    $minor   = wfMsgExt('minoredit', array('parseinline'));
     if ( $wgUser->isAllowed('minoredit') ) {
-      $sfgTabIndex++;
-      $text .=
-        "<input tabindex='$sfgTabIndex' type='checkbox' value='1' name='wpMinoredit'" .
-        " accesskey='".wfMsg('accesskey-minoredit')."' id='wpMinoredit' $disabled_text/>\n".
-        "<label for='wpMinoredit' title='".wfMsg('tooltip-minoredit')."'>{$minor}</label>\n";
-     }
-
-    $watchthis = wfMsgExt('watchthis', array('parseinline'));
-    if ( $wgUser->isLoggedIn() ) {
-      $sfgTabIndex++;
-      $text .= "<input tabindex='$sfgTabIndex' type='checkbox' name='wpWatchthis'".
-        " accesskey=\"".htmlspecialchars(wfMsg('accesskey-watch'))."\" id='wpWatchthis' $disabled_text/>\n".
-        "<label for='wpWatchthis' title=\"" .
-        htmlspecialchars(wfMsg('tooltip-watch'))."\">{$watchthis}</label>\n";
+      $text .= $this->minorEditInputHTML($is_disabled);
     }
 
-    $sfgTabIndex++;
-    $temp = array(
-      'id'        => 'wpSave',
-      'name'      => 'wpSave',
-      'type'      => 'submit',
-      'tabindex'  => $sfgTabIndex,
-      'value'     => wfMsg('savearticle'),
-      'accesskey' => wfMsg('accesskey-save'),
-      'title'     => wfMsg('tooltip-save'),
-      $disabled_text => '',
-    );
-    $save_button = wfElement('input', $temp, '');
-
-    $sfgTabIndex++;
-    $temp = array(
-      'id'        => 'wpPreview',
-      'name'      => 'wpPreview',
-      'type'      => 'submit',
-      'tabindex'  => $sfgTabIndex,
-      'value'     => wfMsg('showpreview'),
-      'accesskey' => wfMsg('accesskey-preview'),
-      'title'     => wfMsg('tooltip-preview'),
-      $disabled_text => '',
-    );
-    $preview_button = wfElement('input', $temp, '');
-
-    $sfgTabIndex++;
-    $temp = array(
-      'id'        => 'wpDiff',
-      'name'      => 'wpDiff',
-      'type'      => 'submit',
-      'tabindex'  => $sfgTabIndex,
-      'value'     => wfMsg('showdiff'),
-      'accesskey' => wfMsg('accesskey-diff'),
-      'title'     => wfMsg('tooltip-diff'),
-      $disabled_text => '',
-    );
-    $diff_button = wfElement('input', $temp, '');
+    if ( $wgUser->isLoggedIn() ) {
+      $text .= $this->watchInputHTML($is_disabled);
+    }
 
     $text .=<<<END
 	<br />
 	<div class='editButtons'>
-		$save_button
-		$preview_button
-		$diff_button
-		<span class='editHelp'>{$cancel} | {$edithelp}</span>
+
+END;
+    $text .= $this->saveButtonHTML($is_disabled);
+    $text .= $this->showPreviewButtonHTML($is_disabled);
+    $text .= $this->showChangesButtonHTML($is_disabled);
+    $text .= $this->cancelLinkHTML($is_disabled);
+    $text .=<<<END
 	</div><!-- editButtons -->
 	</div><!-- editOptions -->
 	</form>
