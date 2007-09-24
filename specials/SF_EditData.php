@@ -73,7 +73,6 @@ function doSpecialEditData($query = '') {
 
 END;
 			$text .= $form_text;
-			$text .= $sfgFormPrinter->formBottom($target_title, $sfgIsDisabled);
 		}
 	}
 	$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
