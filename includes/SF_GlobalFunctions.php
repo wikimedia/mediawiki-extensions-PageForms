@@ -5,7 +5,7 @@
  * @author Yaron Koren
  */
 
-define('SF_VERSION','0.6.2');
+define('SF_VERSION','0.6.3');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
