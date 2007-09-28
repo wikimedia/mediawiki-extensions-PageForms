@@ -77,6 +77,7 @@ class SFTemplateInForm {
     $template_text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $template_text);
     $template_text = strtr($template_text, array('<includeonly>' => '', '</includeonly>' => ''));
 
+    // first look for normal relation/attribute calls
     if (preg_match_all('/\[\[([^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
       // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
@@ -91,6 +92,23 @@ class SFTemplateInForm {
         }
       }
     }
+    // second, look for "arraymap" parser function calls that map a
+    // relation or attribute onto a list
+    if (preg_match_all('/{{#arraymap:{{{([^|}]*)[^\[]*\[\[([^:=]*)(:[:=])/mis', $template_text, $matches)) {
+      // this is a two-dimensional array; we need the last three of the four
+      // sub-arrays; we also have to remove redundant values
+      foreach ($matches[1] as $i => $field_name) {
+        $is_relation = ($matches[3][$i] == "::");
+        $semantic_field_name = $matches[2][$i];
+        if (! in_array($field_name, $field_names_array)) {
+          $field_names_array[] = $field_name;
+          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $template_field->setSemanticData($semantic_field_name, $is_relation);
+          $template_fields[] = $template_field;
+        }
+      }
+    }
+    
     // get any non-semantic fields defined as well
     if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
       foreach ($matches[1] as $field_name) {
