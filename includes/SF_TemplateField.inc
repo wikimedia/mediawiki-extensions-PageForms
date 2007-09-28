@@ -52,7 +52,7 @@ class SFTemplateField {
         if ($row = $db->fetchObject($res)) {
           $this->field_type = $row->value_string;
           // set possible values if it's an enumeration
-          if ($this->field_type == $smwgContLang->smwDatatypeLabels['smw_enum']) {
+          if ($this->field_type == $smwgContLang->getDatatypeLabel('smw_enum')) {
             $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
               " AND subject_title = '$semantic_field_db_str' AND property_id = " .
               SMW_SP_POSSIBLE_VALUE;
@@ -85,7 +85,6 @@ function createTemplateText($template_name, $template_fields, $category, $templa
   $text .= wfMsgForContent('sf_template_docufooter') . "\n";
   $text .=<<<END
 </noinclude>
-
 <includeonly>
 
 END;
