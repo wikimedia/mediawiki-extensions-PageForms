@@ -3,7 +3,7 @@
  * @author Roc Michael
  */
  
-class SF_LanguageEn {
+class SF_LanguageZh_tw {
  
 /* private */ var $sfContentMessages = array(
         'sf_createproperty_isattribute' => '&#36889;&#26159;&#22411;&#24907;$1&#30340;&#23660;&#24615;&#12290; This is an attribute of type $1.',
