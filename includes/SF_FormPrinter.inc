@@ -23,13 +23,13 @@ class SFFormPrinter {
     // in the form definition
     $this->mSemanticTypeHooks = array();
     if ($smwgContLang != null) {
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_string'], array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_url'], array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_float'], array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_int'], array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_bool'], array('SFFormPrinter', 'checkboxHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_datetime'], array('SFFormPrinter', 'dateEntryHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->smwDatatypeLabels['smw_enum'], array('SFFormPrinter', 'dropdownHTML'), array());
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_string'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_url'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_float'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_int'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_bool'), array('SFFormPrinter', 'checkboxHTML'), array());
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_datetime'), array('SFFormPrinter', 'dateEntryHTML'), array());
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_enum'), array('SFFormPrinter', 'dropdownHTML'), array());
       $this->setSemanticTypeHook('relation', array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('size' => 35));
     }
     $this->mInputTypeHooks = array();
@@ -40,6 +40,8 @@ class SFFormPrinter {
     $this->setInputTypeHook('datetime with timezone', array('SFFormPrinter', 'dateTimeEntryHTML'), array('include_timezone' => true));
     $this->setInputTypeHook('checkbox', array('SFFormPrinter', 'checkboxHTML'), array());
     $this->setInputTypeHook('radiobutton', array('SFFormPrinter', 'radioButtonHTML'), array());
+    $this->setInputTypeHook('listbox', array('SFFormPrinter', 'listboxHTML'), array());
+    $this->setInputTypeHook('checkboxes', array('SFFormPrinter', 'checkboxesHTML'), array());
 
     // initialize other variables
     $this->standardInputsIncluded = false;
@@ -362,9 +364,9 @@ $while_instance = 0;
               if ($is_hidden) {
                 $new_text = $this->hiddenFieldHTML('free_text', '<free_text>');
               } else {
-		if ($field_args['rows'] == null)
+		if (! array_key_exists('rows', $field_args))
                   $field_args['rows'] = 5;
-		if ($field_args['cols'] == null)
+		if (! array_key_exists('cols', $field_args))
                   $field_args['cols'] = 30;
                 $sfgTabIndex++;
                 $sfgFieldNum++;
@@ -377,53 +379,71 @@ $while_instance = 0;
             $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
           } else { // this field is part of a template
             if (is_array($cur_value)) {
-              // if it has 1 or 2 elements, assume it's a checkbox; if it has
-              // 3 elements, assume it's a date
-              // - this handling will have to get more complex if other
-              // possibilities get added
-              if (count($cur_value) == 1) {
-                $words_for_false = explode(',', wfMsgForContent('smw_false_words'));
-                // for the various languages, the second word in the 'false'
-                // series tends to be "no" - go with that one
-                if (count($words_for_false) > 2) {
-                  $no = $words_for_false[1];
-                } elseif (count($words_for_false) == 0) {
-                  $no = "0"; // some safe value if no words are found
-                } else {
-                  $no = $words_for_false[0];
+              // first, check if it's a list
+              if ($cur_value['is_list'] == 1) {
+                $cur_value_in_template = "";
+                if (array_key_exists('delimiter', $field_args))
+                  $delimiter = $field_args['delimiter'];
+                else
+                  $delimiter = ",";
+                foreach ($cur_value as $key => $val) {
+                  if ($key !== "is_list") {
+		    if ($cur_value_in_template != "") {
+                      $cur_value_in_template .= $delimiter . " ";
+                    }
+                    $cur_value_in_template .= $val;
+                  }
                 }
-                $cur_value_in_template = $no;
-              } elseif (count($cur_value) == 2) {
-                $words_for_true = explode(',', wfMsgForContent('smw_true_words'));
-                // the second word in the 'true' series tends to be "yes" -
-                // go with that one
-                if (count($words_for_true) > 2) {
-                  $yes = $words_for_true[1];
-                } elseif (count($words_for_true) == 0) {
-                  $yes = "1"; // some safe value if no words are found
-                } else {
-                  $yes = $words_for_true[0];
-                }
-                $cur_value_in_template = $yes;
-              // if it's 3 or greater, assume it's a date or datetime
-              } elseif (count($cur_value) >= 3) {
-                $month = $cur_value['month'];
-                $day = $cur_value['day'];
-                $year = $cur_value['year'];
-                if (isset($cur_value['hour'])) $hour = $cur_value['hour'];
-                if (isset($cur_value['minute'])) $minute = $cur_value['minute'];
-                if (isset($cur_value['second'])) $second = $cur_value['second'];
-                if (isset($cur_value['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
-                if (isset($cur_value['timezone'])) $timezone = $cur_value['timezone'];
-                if ($month != '' && $day != '' && $year != '') {
-                  $cur_value_in_template = "$month $day, $year";
-                  # include whatever time information we have
-                  if(isset($hour)) $cur_value_in_template .= " " . str_pad(intval(substr($hour,0,2)),2,'0',STR_PAD_LEFT) . ":" . str_pad(intval(substr($minute,0,2)),2,'0',STR_PAD_LEFT);
-                  if(isset($second)) $cur_value_in_template .= ":" . str_pad(intval(substr($second,0,2)),2,'0',STR_PAD_LEFT);
-                  if(isset($ampm24h)) $cur_value_in_template .= " $ampm24h";
-                  if(isset($timezone)) $cur_value_in_template .= " $timezone";
-                } else {
-                  $cur_value_in_template = "";
+              } else {
+                // otherwise:
+                // if it has 1 or 2 elements, assume it's a checkbox; if it has
+                // 3 elements, assume it's a date
+                // - this handling will have to get more complex if other
+                // possibilities get added
+                if (count($cur_value) == 1) {
+                  $words_for_false = explode(',', wfMsgForContent('smw_false_words'));
+                  // for the various languages, the second word in the 'false'
+                  // series tends to be "no" - go with that one
+                  if (count($words_for_false) > 2) {
+                    $no = $words_for_false[1];
+                  } elseif (count($words_for_false) == 0) {
+                    $no = "0"; // some safe value if no words are found
+                  } else {
+                    $no = $words_for_false[0];
+                  }
+                  $cur_value_in_template = $no;
+                } elseif (count($cur_value) == 2) {
+                  $words_for_true = explode(',', wfMsgForContent('smw_true_words'));
+                  // the second word in the 'true' series tends to be "yes" -
+                  // go with that one
+                  if (count($words_for_true) > 2) {
+                    $yes = $words_for_true[1];
+                  } elseif (count($words_for_true) == 0) {
+                    $yes = "1"; // some safe value if no words are found
+                  } else {
+                    $yes = $words_for_true[0];
+                  }
+                  $cur_value_in_template = $yes;
+                // if it's 3 or greater, assume it's a date or datetime
+                } elseif (count($cur_value) >= 3) {
+                  $month = $cur_value['month'];
+                  $day = $cur_value['day'];
+                  $year = $cur_value['year'];
+                  if (isset($cur_value['hour'])) $hour = $cur_value['hour'];
+                  if (isset($cur_value['minute'])) $minute = $cur_value['minute'];
+                  if (isset($cur_value['second'])) $second = $cur_value['second'];
+                  if (isset($cur_value['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
+                  if (isset($cur_value['timezone'])) $timezone = $cur_value['timezone'];
+                  if ($month != '' && $day != '' && $year != '') {
+                    $cur_value_in_template = "$month $day, $year";
+                    // include whatever time information we have
+                    if(isset($hour)) $cur_value_in_template .= " " . str_pad(intval(substr($hour,0,2)),2,'0',STR_PAD_LEFT) . ":" . str_pad(intval(substr($minute,0,2)),2,'0',STR_PAD_LEFT);
+                    if(isset($second)) $cur_value_in_template .= ":" . str_pad(intval(substr($second,0,2)),2,'0',STR_PAD_LEFT);
+                    if(isset($ampm24h)) $cur_value_in_template .= " $ampm24h";
+                    if(isset($timezone)) $cur_value_in_template .= " $timezone";
+                  } else {
+                    $cur_value_in_template = "";
+                  }
                 }
               }
             } else { // value is not an array
@@ -545,7 +565,7 @@ $while_instance = 0;
           $form_text .=<<<END
 	<div id="wrapper_$sfgFieldNum" class="multiple_template">
         $section
-        <input type="button" onclick="removeInstance('wrapper_$sfgFieldNum');" value="$remove_text" tabindex="$sfgTabIndex" />
+        <input type="button" onclick="removeInstance('wrapper_$sfgFieldNum');" value="$remove_text" tabindex="$sfgTabIndex" class="remove" />
         </div>
 
 END;
@@ -567,7 +587,7 @@ END;
           $add_another = wfMsg('sf_editdata_addanother');
           $form_text .=<<<END
 	<p style="margin-left:10px;">
-	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$sfgFieldNum');" value="$add_another" tabindex="$sfgTabIndex" /></p>
+	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$sfgFieldNum');" value="$add_another" tabindex="$sfgTabIndex" class="addAnother" /></p>
 
 END;
            // if a chooser is being used for this template, add the template
@@ -749,7 +769,7 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	//Create remove button
 	var remove_button = document.createElement('input');
 	remove_button.type = 'button';
-	remove_button.value = '$remove_text';
+	remove_button.value = "$remove_text";
 	remove_button.tabIndex = tab_index;
 	remove_button.onclick = removeInstanceEventHandler(div_id);
 	new_div.appendChild(remove_button);
@@ -913,7 +933,7 @@ END;
       list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
     } else { // input type not defined in form, and not a relation
       $field_type = $template_field->field_type;
-      if ($field_type != '' && $this->mSemanticTypeHooks[$field_type] != null) {
+      if ($field_type != '' && array_key_exists($field_type, $this->mSemanticTypeHooks)) {
         $hook_values = $this->mSemanticTypeHooks[$field_type];
         $funcArgs = array();
         $funcArgs[] = $cur_value;
@@ -932,7 +952,7 @@ END;
         list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
       } else { // anything else
         $other_args = $form_field->field_args;
-        if ($other_args['size'] == null)
+        if (!array_key_exists('size', $other_args))
           $other_args['size'] = 35;
         list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args);
       }
@@ -1043,7 +1063,7 @@ END;
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if it's an autocomplete, call the with-autocomplete function insted
-    if ($other_args['autocomplete on'] != null || $other_args['autocomplete on namespace'] != null) {
+    if (array_key_exists('autocomplete on', $other_args) || array_key_exists('autocomplete on namespace', $other_args)) {
       return SFFormPrinter::textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
     }
 
@@ -1070,7 +1090,7 @@ END;
     $input_id = "input_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text =<<<END
-	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="className" $disabled_text>
+	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" $disabled_text>
 
 END;
     // add a blank value at the beginning if it's a non-mandatory field
@@ -1091,6 +1111,87 @@ END;
     return array($text, null);
   }
 
+  /*
+   * getValuesArray() - helper function to get an array of values out of
+   * what may be either an array or a delimited string
+   */
+  function getValuesArray($value, $delimiter) {
+    if (is_array($value)) {
+      return $value;
+    } else {
+      // remove extra spaces
+      return array_map('trim', explode($delimiter, $value));
+    }
+  }
+
+  function listboxHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+    global $sfgTabIndex, $sfgFieldNum;
+
+    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $input_id = "input_$sfgFieldNum";
+    $hidden_input_name = $input_name . "[is_list]";
+    $input_name .= "[]"; // needed so that this input will send an array
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    // get list delimiter - default is comma
+    $delimiter = $other_args['delimiter'];
+    if ($delimiter == null)
+      $delimiter = ",";
+    $cur_values = $this->getValuesArray($cur_value, $delimiter);
+
+    $text =<<<END
+	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" multiple $disabled_text>
+
+END;
+    if (($possible_values = $other_args['possible_values']) == null)
+      $possible_values = array(); 
+    foreach ($possible_values as $possible_value) {
+      $text .= "  <option value=\"$possible_value\"";
+      if (in_array($possible_value, $cur_values)) {$text .= " selected"; }
+      $text .= ">$possible_value</option>\n";
+    }
+    $text .=<<<END
+	</select>
+	<span id="$info_id" class="error_message"></span>
+	<input type="hidden" name="$hidden_input_name" value="1" />
+
+END;
+    return array($text, null);
+  }
+
+  function checkboxesHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+    global $sfgTabIndex, $sfgFieldNum;
+
+    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $input_id = "input_$sfgFieldNum";
+    $hidden_input_name = $input_name . "[is_list]";
+    $disabled_text = ($is_disabled) ? "disabled" : "";
+    // get list delimiter - default is comma
+    $delimiter = $other_args['delimiter'];
+    if ($delimiter == null)
+      $delimiter = ",";
+    $cur_values = $this->getValuesArray($cur_value, $delimiter);
+
+    if (($possible_values = $other_args['possible_values']) == null)
+      $possible_values = array(); 
+    foreach ($possible_values as $key => $possible_value) {
+      $cur_input_name = $input_name . "[" . $key . "]";
+      $checked_text = (in_array($possible_value, $cur_values)) ? 'checked="checked"' : "";
+      $text .=<<<END
+	<span class="checkboxSpan">
+	<input type="checkbox" id="$input_id" tabindex="$sfgTabIndex" name="$cur_input_name" value="$possible_value" class="$className" $checked_text $disabled_text/> $possible_value
+	</span>
+
+END;
+      $sfgTabIndex++;
+    }
+    $text .=<<<END
+	<span id="$info_id" class="error_message"></span>
+	<input type="hidden" name="$hidden_input_name" value="1" />
+
+END;
+    return array($text, null);
+  }
+
   function textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if 'no autocomplete' was specified, call the regular text entry instead
     if ($other_args['no_autocomplete'] == true)
@@ -1098,13 +1199,13 @@ END;
 
     global $sfgTabIndex, $sfgFieldNum;
 
-    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $className = ($is_mandatory) ? "mandatoryField" : "autocompleteInput";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $size = $other_args['size'];
-    if ($other_args['autocomplete on'] != null) {
+    if (array_key_exists('autocomplete on', $other_args)) {
       $autocomplete_field_type = "category";
       $semantic_field_name = $other_args['autocomplete on'];
-    } elseif ($other_args['autocomplete on namespace'] != null) {
+    } elseif (array_key_exists('autocomplete on namespace', $other_args)) {
       $autocomplete_field_type = "namespace";
       $semantic_field_name = $other_args['autocomplete on namespace'];
     } else {
@@ -1220,8 +1321,8 @@ END;
     }
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = $this->monthDropdownHTML($month, $input_name, $is_disabled);
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2"/ ' . $disabled_text . '>' . "\n";
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4"/ ' . $disabled_text . '>' . "\n";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
     $info_id = "info_$sfgFieldNum";
     $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
     return array($text, null);
@@ -1295,7 +1396,7 @@ END;
     if (! $is_mandatory) {
       $text .= '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
       if (! $cur_value) {
-        $text .= " checked";
+        $text .= ' checked="checked"';
         $check_set = true;
       }
       $text .= " $disabled_text/> " . wfMsg('sf_editdata_none') . "\n";
@@ -1305,7 +1406,7 @@ END;
     foreach ($possible_values as $i => $possible_value) {
       $text .= '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value="' . $possible_value . '"';
       if ($cur_value == $possible_value || (! $cur_value && ! $check_set)) {
-        $text .= " checked";
+        $text .= ' checked="checked"';
         $check_set = true;
       }
       $text .= " $disabled_text/> $possible_value\n";
@@ -1323,12 +1424,12 @@ END;
     // can show up here either as an array or a string, depending on
     // whether it came from user input or a wiki page
     if (is_array($cur_value)) {
-      $checked_str = ($cur_value[value] == 'on') ? " checked" : "";
+      $checked_str = ($cur_value[value] == 'on') ? ' checked="checked"' : "";
     } else {
       // default to false - no need to check if it matches a 'false' word
       $vlc = strtolower(trim($cur_value));
       if (in_array($vlc, explode(',', wfMsgForContent('smw_true_words')), TRUE)) {
-        $checked_str = " checked";
+        $checked_str = ' checked="checked"';
       } else {
         $checked_str = "";
       }
@@ -1526,7 +1627,6 @@ END;
   function formBottom($is_disabled) {
     global $wgUser;
     
-    $disabled_text = ($is_disabled) ? "disabled" : "";
     $summary_text = $this->summaryInputHTML($is_disabled);
     $text =<<<END
 	<br /><br />
