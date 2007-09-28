@@ -74,7 +74,6 @@ function doSpecialAddData($query = '') {
 
 END;
 			$text .= $form_text;
-			$target_title = Title::newFromText($page_title);
 		}
 	}
 	$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
