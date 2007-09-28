@@ -43,18 +43,18 @@ function doSpecialCreateForm() {
       if ($action == "template") {
         # if the button was pressed to remove this template, just don't
         # add it to the array
-        if ($wgRequest->getVal("del_$id") != "Remove template") {
+        if ($wgRequest->getVal("del_$id") != null) {
+          $deleted_template_loc = $id;
+        } else {
           $form_template = SFTemplateInForm::create($val,
             $wgRequest->getVal("label_$id"),
             $wgRequest->getVal("allow_multiple_$id"));
           $form_templates[] = $form_template;
-        } else {
-          $deleted_template_loc = $id;
         }
       }
     }
   }
-  if ($wgRequest->getVal('add_field') == wfMsg('sf_createform_add')) {
+  if ($wgRequest->getVal('add_field') != null) {
     $form_template = SFTemplateInForm::create($wgRequest->getVal('new_template'), "", false);
     $new_template_loc = $wgRequest->getVal('before_template');
     # hack - array_splice() doesn't work for objects, so we have to
