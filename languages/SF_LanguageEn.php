@@ -27,7 +27,8 @@ class SF_LanguageEn {
 	'sf_september' => 'September',
 	'sf_october' => 'October',
 	'sf_november' => 'November',
-	'sf_december' => 'December'
+	'sf_december' => 'December',
+	'sf_blank_namespace' => 'Main'
 );
 
 /* private */ var $sfUserMessages = array(
