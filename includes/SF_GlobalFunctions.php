@@ -3,9 +3,10 @@
  * Global functions and constants for Semantic Forms.
  *
  * @author Yaron Koren
+ * @author Harold Solbrig
  */
 
-define('SF_VERSION','0.6.3');
+define('SF_VERSION','0.6.4');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -171,9 +172,16 @@ function sfgSetupExtension() {
 	 * Creates HTML linking to a wiki page
 	 */
 	function sffLinkText($namespace, $name, $text = NULL) {
-		global $wgContLang;
-		$iq = new SMWInlineQuery();
-		return $iq->makeTitleString($wgContLang->getNsText($namespace) . ':' . $name, $text, true);
+ 		global $wgContLang;
+
+		$inText = $wgContLang->getNsText($namespace) . ':' . $name;
+		$title = Title::newFromText( $inText );
+		if ($title === NULL) {
+			return $inText; // TODO maybe report an error here?
+		} 
+		if ( NULL === $text ) $text = $title->getText();
+		$l = new Linker();
+		return $l->makeLinkObj($title, $label);
 	}
 
 	/**
@@ -243,7 +251,14 @@ function sfgSetupExtension() {
 		}
 		// if that didn't work, check if this page's namespace
 		// has a default form specified
-		if ($add_data_link = sffGetAddDataLinkForPage($db, $title, $title->getNsText(), NS_PROJECT)) {
+		$namespace = $title->getNsText();
+		if ('' === $namespace) {
+			// if it's in the main (blank) namespace, check for
+			// the file named with the word for "Main" in this
+			// language
+			$namespace = wfMsgForContent('sf_blank_namespace');
+		}
+		if ($add_data_link = sffGetAddDataLinkForPage($db, $title, $namespace, NS_PROJECT)) {
 			return $add_data_link;
 		}
 		// if nothing found still, return null
