@@ -12,10 +12,10 @@ class SFTemplateField {
   var $label;
   var $semantic_field;
   var $semantic_field_call;
-  var $is_list;
   var $is_relation;
   var $field_type;
   var $possible_values;
+  var $is_list;
 
   function newWithValues($name, $label) {
     $f = new SFTemplateField();
@@ -26,10 +26,11 @@ class SFTemplateField {
 
   // setSemanticData() - called when template is parsed during the creation
   // of a form
-  function setSemanticData($semantic_field, $is_relation) {
+  function setSemanticData($semantic_field, $is_relation, $is_list) {
     $this->semantic_field = str_replace('\\', '', $semantic_field);
     $this->is_relation = $is_relation;
     $this->possible_values = array();
+    $this->is_list = $is_list;
     // set field type if it's an attribute
     // HACK - also set type (to 'relation') if it's a relation
     if ($this->is_relation) {
