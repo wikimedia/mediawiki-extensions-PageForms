@@ -31,7 +31,6 @@ function getCategoriesForArticle($article) {
  */
 function sffFormEditTab($obj, $content_actions) {
   $fname = 'SFFormEditTab';
-  $db = wfGetDB( DB_SLAVE );
   // make sure that this is not itself a category page, and that the user
   // is allowed to edit it
   if (($obj->mTitle != null) && ($obj->mTitle->getNamespace() != NS_CATEGORY)) {
@@ -39,12 +38,12 @@ function sffFormEditTab($obj, $content_actions) {
     $categories = getCategoriesForArticle($obj);
     $default_form_relation = str_replace(' ', '_', wfMsgForContent('sf_form_relation'));
     foreach ($categories as $category) {
-      if ($form_name = sffGetDefaultForm($db, $category, NS_CATEGORY)) {
+      if ($form_name = sffGetDefaultForm($category, NS_CATEGORY)) {
         break;
       }
     }
     if (! $form_name) {
-      $form_name = sffGetDefaultForm($db, $obj->mTitle->getNsText(), NS_PROJECT);
+      $form_name = sffGetDefaultForm($obj->mTitle->getNsText(), NS_PROJECT);
     }
     if ($form_name) {  
       // if this tab is appearing here due to the namespace, there's a
