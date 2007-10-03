@@ -23,14 +23,16 @@ class SFFormPrinter {
     // in the form definition
     $this->mSemanticTypeHooks = array();
     if ($smwgContLang != null) {
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_string'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_url'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_float'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_int'), array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_bool'), array('SFFormPrinter', 'checkboxHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_datetime'), array('SFFormPrinter', 'dateEntryHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_enum'), array('SFFormPrinter', 'dropdownHTML'), array());
-      $this->setSemanticTypeHook('relation', array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_string'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_string'), true, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_url'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_float'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_int'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_bool'), false, array('SFFormPrinter', 'checkboxHTML'), array());
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_datetime'), false, array('SFFormPrinter', 'dateEntryHTML'), array());
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_enum'), false, array('SFFormPrinter', 'dropdownHTML'), array());
+      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_enum'), true, array('SFFormPrinter', 'checkboxesHTML'), array());
+      $this->setSemanticTypeHook('relation', false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('size' => 35));
     }
     $this->mInputTypeHooks = array();
     $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
@@ -40,15 +42,15 @@ class SFFormPrinter {
     $this->setInputTypeHook('datetime with timezone', array('SFFormPrinter', 'dateTimeEntryHTML'), array('include_timezone' => true));
     $this->setInputTypeHook('checkbox', array('SFFormPrinter', 'checkboxHTML'), array());
     $this->setInputTypeHook('radiobutton', array('SFFormPrinter', 'radioButtonHTML'), array());
-    $this->setInputTypeHook('listbox', array('SFFormPrinter', 'listboxHTML'), array());
     $this->setInputTypeHook('checkboxes', array('SFFormPrinter', 'checkboxesHTML'), array());
+    $this->setInputTypeHook('listbox', array('SFFormPrinter', 'listboxHTML'), array());
 
     // initialize other variables
     $this->standardInputsIncluded = false;
   }
 
-  function setSemanticTypeHook($type, $function_name, $default_args) {
-    $this->mSemanticTypeHooks[$type] = array($function_name, $default_args);
+  function setSemanticTypeHook($type, $is_list, $function_name, $default_args) {
+    $this->mSemanticTypeHooks[$type][$is_list] = array($function_name, $default_args);
   }
 
   function setInputTypeHook($input_type, $function_name, $default_args) {
@@ -933,8 +935,11 @@ END;
       list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
     } else { // input type not defined in form, and not a relation
       $field_type = $template_field->field_type;
-      if ($field_type != '' && array_key_exists($field_type, $this->mSemanticTypeHooks)) {
-        $hook_values = $this->mSemanticTypeHooks[$field_type];
+      $is_list = $template_field->is_list;
+      if ($field_type != '' &&
+          array_key_exists($field_type, $this->mSemanticTypeHooks) &&
+          isset($this->mSemanticTypeHooks[$field_type][$is_list])) {
+        $hook_values = $this->mSemanticTypeHooks[$field_type][$is_list];
         $funcArgs = array();
         $funcArgs[] = $cur_value;
         $funcArgs[] = $form_field->input_name;
@@ -960,15 +965,37 @@ END;
     return array($text, $javascript_text);
   }
 
+  function getAllPagesForRelation_0_7($relation_name) {
+    global $sfgMaxAutocompleteValues;
+
+    $fname = "SFFormPrinter::getAllPagesForRelation_0_7";
+    $pages = array();
+    $db = wfGetDB( DB_SLAVE );
+    $sql_options = array();
+    $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
+    $conditions = "relation_title = '$relation_name'";
+    $sql_options['ORDER BY'] = 'object_title';
+    $res = $db->select( $db->tableName('smw_relations'),
+                        'DISTINCT object_title',
+                        $conditions, $fname, $sql_options);
+    while ($row = $db->fetchRow($res)) {
+      $cur_value = str_replace("'", "\'", $row[0]);
+      $pages[] = str_replace('_', ' ', $cur_value);
+    }
+    $db->freeResult($res);
+    return $pages;
+  }
+
   /*
    * Get all the pages that belong to a category and all its subcategories,
    * down a certain number of levels - heavily based on SMW's
    * SMWInlineQuery::includeSubcategories()
    */
-  private function getAllPagesForCategory($dbr, $top_category, $num_levels) {
+  function getAllPagesForCategory($top_category, $num_levels) {
     if (0 == $num_levels) return $top_category;
     global $sfgMaxAutocompleteValues;
 
+    $db = wfGetDB( DB_SLAVE );
     $fname = "SFFormPrinter::getAllPagesForCategory";
     $categories = array($top_category);
     $checkcategories = array($top_category);
@@ -976,14 +1003,14 @@ END;
     for ($level = $num_levels; $level > 0; $level--) {
       $newcategories = array();
       foreach ($checkcategories as $category) {
-        $res = $dbr->select( // make the query
+        $res = $db->select( // make the query
           array('categorylinks', 'page'),
           array('page_title', 'page_namespace'),
           array('cl_from = page_id',
-          'cl_to = '. $dbr->addQuotes($category)),
+          'cl_to = '. $db->addQuotes($category)),
           $fname);
           if ($res) {
-            while ($res && $row = $dbr->fetchRow($res)) {
+            while ($res && $row = $db->fetchRow($res)) {
             if (array_key_exists('page_title', $row)) {
               $page_namespace = $row['page_namespace'];
               if ($page_namespace == NS_CATEGORY) { 
@@ -1000,7 +1027,7 @@ END;
               }
             }
           }
-          $dbr->freeResult( $res );
+          $db->freeResult( $res );
         }
       }
       if (count($newcategories) == 0) {
@@ -1014,34 +1041,25 @@ END;
   }
 
   function createAutocompleteValuesString($field_name, $autocomplete_field_type) {
-    global $sfgMaxAutocompleteValues;
-    $fname = 'SFFormPrinter::createAutocompleteValuesString';
-
     $names_array = array();
-    $db = wfGetDB( DB_SLAVE );
-    $sql_options = array();
-    $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
     // the query depends on whether this field is a relation, category or
     // namespace
     if ($autocomplete_field_type == 'relation') {
-      $conditions = "relation_title = '$field_name'";
-      $sql_options['ORDER BY'] = 'object_title';
-      $res = $db->select( $db->tableName('smw_relations'),
-                          'DISTINCT object_title',
-                          $conditions, $fname, $sql_options);
-      while ($row = $db->fetchRow($res)) {
-        $cur_value = str_replace("'", "\'", $row[0]);
-        $names_array[] = str_replace('_', ' ', $cur_value);
+      $smw_version = SMW_VERSION;
+      if ($smw_version{0} == '0') {
+        $names_array = $this->getAllPagesForRelation_0_7($field_name);
+      } else {
+        // no handling yet
       }
-      $db->freeResult($res);
     } elseif ($autocomplete_field_type == 'category') {
-      $names_array = $this->getAllPagesForCategory($db, $field_name, 10);
+      $names_array = $this->getAllPagesForCategory($field_name, 10);
     } else { // i.e., $autocomplete_field_type == 'namespace'
       // cycle through all the namespace names for this language, and if
       // one matches the namespace specified in the form, add the names
       // of all the pages in that namespace to $names_array
       global $wgContLang;
       $namespaces = $wgContLang->getNamespaces();
+      $db = wfGetDB( DB_SLAVE );
       foreach ($namespaces as $ns_code => $ns_name) {
         if ($ns_name == $field_name) {
           $conditions = "page_namespace = $ns_code";
@@ -1062,8 +1080,9 @@ END;
   }
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    // if it's an autocomplete, call the with-autocomplete function insted
-    if (array_key_exists('autocomplete on', $other_args) || array_key_exists('autocomplete on namespace', $other_args)) {
+    // if it's an autocomplete, call the with-autocomplete function instead
+    if ((array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] != "") ||
+        array_key_exists('autocomplete on namespace', $other_args)) {
       return SFFormPrinter::textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
     }
 
@@ -1194,7 +1213,8 @@ END;
 
   function textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if 'no autocomplete' was specified, call the regular text entry instead
-    if ($other_args['no_autocomplete'] == true)
+    if (array_key_exists('no_autocomplete', $other_args) &&
+        $other_args['no_autocomplete'] == true)
       return SFFormPrinter::textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
     global $sfgTabIndex, $sfgFieldNum;
@@ -1226,7 +1246,7 @@ END;
     $autocomplete_values = array();
     $autocomplete_values['mappings'] = array();
     $options_str_key = $semantic_field_name . ',' . $autocomplete_field_type;
-    if (!$autocomplete_values[$options_str_key])
+    if (! array_key_exists($options_str_key, $autocomplete_values))
       $autocomplete_values[$options_str_key] = $this->createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
     $autocomplete_values['mappings'][$sfgFieldNum] = $options_str_key;
     foreach ($autocomplete_values as $autocomplete_key => $autocomplete_string) {
@@ -1267,7 +1287,6 @@ END;
   function monthDropdownHTML($cur_month, $input_name, $is_disabled) {
     global $sfgTabIndex, $sfgFieldNum;
 
-    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
     $month_names = array(
