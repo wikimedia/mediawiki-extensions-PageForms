@@ -4,9 +4,10 @@
  *
  * @author Yaron Koren
  * @author Harold Solbrig
+ * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.6.4');
+define('SF_VERSION','0.6.5');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -181,7 +182,7 @@ function sfgSetupExtension() {
 		} 
 		if ( NULL === $text ) $text = $title->getText();
 		$l = new Linker();
-		return $l->makeLinkObj($title, $label);
+		return $l->makeLinkObj($title, $text);
 	}
 
 	/**
@@ -201,12 +202,23 @@ function sfgSetupExtension() {
 	 * Gets the default form specified, if any, for a specific page
 	 * (which should be a category, relation, or namespace page)
 	 */
-	function sffGetDefaultForm($db, $page_title, $page_namespace) {
+	function sffGetDefaultForm($page_title, $page_namespace) {
+		$smw_version = SMW_VERSION;
+		if ($smw_version{0} == '0') {
+			return sffGetDefaultForm_0_7($page_title, $page_namespace);
+		} else {
+			return sffGetDefaultForm_1_0($page_title, $page_namespace);
+		}
+	}
+
+	// Version for SMW 0.7 and lower
+	function sffGetDefaultForm_0_7($page_title, $page_namespace) {
+		$db = wfGetDB( DB_SLAVE );
 		$default_form_relation = str_replace(' ', '_', wfMsgForContent('sf_form_relation'));
 		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
-                  "WHERE subject_title = '" . $db->strencode($page_title) .
+		  "WHERE subject_title = '" . $db->strencode($page_title) .
 		  "' AND subject_namespace = '" . $page_namespace .
-                  "' AND relation_title = '" . $db->strencode($default_form_relation) .
+		  "' AND relation_title = '" . $db->strencode($default_form_relation) .
 		  "' AND object_namespace = " . SF_NS_FORM;
 		$res = $db->query( $sql );
 		if ($db->numRows( $res ) > 0) {
@@ -218,13 +230,30 @@ function sfgSetupExtension() {
 		return null;
 	}
 
+	// Version for SMW 1.0 and higher
+	function sffGetDefaultForm_1_0($page_title, $page_namespace) {
+		if ($page_title == NULL)
+			return null;
+
+		$store = smwfGetStore();
+		$title = Title::newFromText($page_title, $page_namespace);
+		$property = Title::newFromText(str_replace(' ', '_', wfMsgForContent('sf_form_relation')), SF_NS_FORM);
+		$res = $store->getPropertyValues($title, $property);
+		$num = count($res);
+		if ($num > 0) {
+			$form_name = $res[0]->getTitle()->getText();
+			return $form_name;
+		}
+		return null;
+	}
+
 	/**
 	 * Helper function for sffAddDataLink() - gets 'default form' relation,
 	 * and creates the corresponding 'add data' link, for a page, if any
 	 * such relation is defined
 	 */
-	function sffGetAddDataLinkForPage($db, $target_page_title, $page_title, $page_namespace) {
-		if (! $form_name = sffGetDefaultForm($db, $page_title, $page_namespace))
+	function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespace) {
+		if (! $form_name = sffGetDefaultForm($page_title, $page_namespace))
 			return null;
 		$ad = SpecialPage::getPage('AddData');
 		$add_data_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
@@ -235,6 +264,47 @@ function sfgSetupExtension() {
 	 * Gets URL for form-based adding of a nonexistent (red-linked) page
 	 */
 	function sffAddDataLink($title) {
+		$smw_version = SMW_VERSION;
+		if ($smw_version{0} == '0') {
+			return sffAddDataLink_0_7($title);
+		} else {
+			return sffAddDataLink_1_0($title);
+		}
+	}
+
+	// Version for SMW 1.0 and higher
+	function sffAddDataLink_1_0($title) {
+		// FIXME - this is broken because the SMW abstraction does not
+		// directly support the kind of query the old direct-access
+		// version does - need to think through how to do it.
+		$store = smwfGetStore();
+		$results = $store->getInProperties($title);
+
+		foreach ($results as $result) {
+			$relation = $result;
+			if ($add_data_link = sffGetAddDataLinkForPage($title, $relation->getText(), SMW_NS_RELATION)) {
+				return $add_data_link;
+			}
+		}
+
+		// if that didn't work, check if this page's namespace
+		// has a default form specified
+		$namespace = $title->getNsText();
+		if ('' === $namespace) {
+			// if it's in the main (blank) namespace, check for
+			// the file named with the word for "Main" in this
+			// language
+			$namespace = wfMsgForContent('sf_blank_namespace');
+		}
+		if ($add_data_link = sffGetAddDataLinkForPage($title, $namespace, NS_PROJECT)) {
+			return $add_data_link;
+		}
+		// if nothing found still, return null
+		return null;
+	}
+
+	// Version for SMW 0.7 and lower
+	function sffAddDataLink_0_7($title) {
 		// get all relations that have this page as an object,
 		// and see if any of them have a default form specified
 		$fname = 'sffAddDataLink';
@@ -244,7 +314,7 @@ function sfgSetupExtension() {
 		if ($db->numRows( $res ) > 0) {
 			while ($row = $db->fetchRow($res)) {
 				$relation = $row[0];
-				if ($add_data_link = sffGetAddDataLinkForPage($db, $title, $relation, SMW_NS_RELATION)) {
+				if ($add_data_link = sffGetAddDataLinkForPage($title, $relation, SMW_NS_RELATION)) {
 					return $add_data_link;
 				}
 			}
@@ -258,7 +328,7 @@ function sfgSetupExtension() {
 			// language
 			$namespace = wfMsgForContent('sf_blank_namespace');
 		}
-		if ($add_data_link = sffGetAddDataLinkForPage($db, $title, $namespace, NS_PROJECT)) {
+		if ($add_data_link = sffGetAddDataLinkForPage($title, $namespace, NS_PROJECT)) {
 			return $add_data_link;
 		}
 		// if nothing found still, return null
