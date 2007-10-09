@@ -23,16 +23,37 @@ class SFFormPrinter {
     // in the form definition
     $this->mSemanticTypeHooks = array();
     if ($smwgContLang != null) {
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_string'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_string'), true, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_url'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_float'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_int'), false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_bool'), false, array('SFFormPrinter', 'checkboxHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_datetime'), false, array('SFFormPrinter', 'dateEntryHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_enum'), false, array('SFFormPrinter', 'dropdownHTML'), array());
-      $this->setSemanticTypeHook($smwgContLang->getDatatypeLabel('smw_enum'), true, array('SFFormPrinter', 'checkboxesHTML'), array());
-      $this->setSemanticTypeHook('relation', false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('size' => 35));
+      // set type strings based on the SMW version
+      $smw_version = SMW_VERSION;
+      if ($smw_version{0} == '0') {
+        $string_type = $smwgContLang->getDatatypeLabel('smw_string');
+        $url_type = $smwgContLang->getDatatypeLabel('smw_url');
+        $float_type = $smwgContLang->getDatatypeLabel('smw_float');
+        $int_type = $smwgContLang->getDatatypeLabel('smw_int');
+        $bool_type = $smwgContLang->getDatatypeLabel('smw_bool');
+        $date_type = $smwgContLang->getDatatypeLabel('smw_datetime');
+        $enum_type = $smwgContLang->getDatatypeLabel('smw_enum');
+        $page_type = 'relation';
+      } else {
+        $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+        $string_type = $datatypeLabels['_str'];
+        $url_type = $datatypeLabels['_uri'];
+        $float_type = $datatypeLabels['_flt'];
+        $int_type = $datatypeLabels['_int'];
+        $date_type = $datatypeLabels['_dat'];
+        $enum_type = $datatypeLabels['_enu'];
+        $page_type = $datatypeLabels['_wpg'];
+      }
+      $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
+      $this->setSemanticTypeHook($float_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($int_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($bool_type, false, array('SFFormPrinter', 'checkboxHTML'), array());
+      $this->setSemanticTypeHook($date_type, false, array('SFFormPrinter', 'dateEntryHTML'), array());
+      $this->setSemanticTypeHook($enum_type, false, array('SFFormPrinter', 'dropdownHTML'), array());
+      $this->setSemanticTypeHook($enum_type, true, array('SFFormPrinter', 'checkboxesHTML'), array());
+      $this->setSemanticTypeHook($page_type, false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('size' => 35));
     }
     $this->mInputTypeHooks = array();
     $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
@@ -437,7 +458,14 @@ $while_instance = 0;
                   if (isset($cur_value['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
                   if (isset($cur_value['timezone'])) $timezone = $cur_value['timezone'];
                   if ($month != '' && $day != '' && $year != '') {
-                    $cur_value_in_template = "$month $day, $year";
+                    // special handling for American dates - otherwise, just
+                    // the standard year/month/day (where month is a number)
+                    global $wgAmericanDates;
+                    if ($wgAmericanDates) {
+                      $cur_value_in_template = "$month $day, $year";
+                    } else {
+                      $cur_value_in_template = "$year/$month/$day";
+                    }
                     // include whatever time information we have
                     if(isset($hour)) $cur_value_in_template .= " " . str_pad(intval(substr($hour,0,2)),2,'0',STR_PAD_LEFT) . ":" . str_pad(intval(substr($minute,0,2)),2,'0',STR_PAD_LEFT);
                     if(isset($second)) $cur_value_in_template .= ":" . str_pad(intval(substr($second,0,2)),2,'0',STR_PAD_LEFT);
@@ -1285,7 +1313,7 @@ END;
   }
 
   function monthDropdownHTML($cur_month, $input_name, $is_disabled) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $wgAmericanDates;
 
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
@@ -1303,9 +1331,10 @@ END;
       wfMsgForContent('sf_november'),
       wfMsgForContent('sf_december')
     );
-    foreach ($month_names as $name) {
-      $text .= "	<option value=\"$name\"";
-      if ($name == $cur_month) {$text .= " selected=\"selected\""; }
+    foreach ($month_names as $i => $name) {
+      $month_value = $wgAmericanDates ? $name : ($i + 1);
+      $text .= "	<option value=\"$month_value\"";
+      if ($name == $cur_month || ($i + 1) == $cur_month) {$text .= " selected=\"selected\""; }
       $text .= ">$name</option>\n";
     }
     $text .= "	</select>\n";
