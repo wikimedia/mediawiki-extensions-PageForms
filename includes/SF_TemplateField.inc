@@ -53,7 +53,7 @@ class SFTemplateField {
         if ($row = $db->fetchObject($res)) {
           $this->field_type = $row->value_string;
           // set possible values if it's an enumeration
-          if ($this->field_type == $smwgContLang->getDatatypeLabel('smw_enum')) {
+          if ($this->field_type == sffEnumTypeString()) {
             $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
               " AND subject_title = '$semantic_field_db_str' AND property_id = " .
               SMW_SP_POSSIBLE_VALUE;
