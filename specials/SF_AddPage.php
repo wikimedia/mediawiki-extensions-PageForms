@@ -67,11 +67,11 @@ function doSpecialAddPage($query = '') {
 				foreach ($_REQUEST as $key => $val) {
 					if (is_array($val)) {
 						$template_name = $key;
-						$field_name = key($val);
-						$value = current($val);
-						$redirect_url .= ($first_val_added) ? '&' : '?';
-						$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
-						$first_val_added = true;
+						foreach ($val as $field_name => $value) {
+							$redirect_url .= ($first_val_added) ? '&' : '?';
+							$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
+							$first_val_added = true;
+						}
 					} elseif ($key == 'preload') {
 						$redirect_url .= ($first_val_added) ? '&' : '?';
 						$redirect_url .= "$key=$val";
