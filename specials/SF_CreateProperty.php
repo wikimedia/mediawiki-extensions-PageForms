@@ -27,7 +27,7 @@ function createPropertyText($property_type, $allowed_values_str) {
     $type_tag = "[[" . $specprops[SMW_SP_HAS_TYPE] . "::" .
       $namespace_labels[SMW_NS_TYPE] . ":$property_type|$property_type]]";
     $text = wfMsg('sf_createproperty_isattribute', $type_tag);
-    if ($property_type == $smwgContLang->getDatatypeLabel('smw_enum')) {
+    if ($property_type == sffEnumTypeString()) {
       $text .= "\n\n" . wfMsg('sf_createproperty_allowedvals');
       // replace the comma substitution character that has no chance of
       // being included in the values list - namely, the ASCII beep
@@ -79,8 +79,31 @@ END;
       return;
     }
   }
+
   $all_properties = getSemanticProperties();
-  $enum_str = $smwgContLang->getDatatypeLabel('smw_enum');
+  $smw_version = SMW_VERSION;
+  if ($smw_version{0} == '0') {
+    $namespace_labels = $smwgContLang->getNamespaceArray();
+    $datatype_labels = array(
+      $namespace_labels[SMW_NS_RELATION],
+      $smwgContLang->getDatatypeLabel('smw_string'),
+      $smwgContLang->getDatatypeLabel('smw_int'),
+      $smwgContLang->getDatatypeLabel('smw_float'),
+      $smwgContLang->getDatatypeLabel('smw_datetime'),
+      $smwgContLang->getDatatypeLabel('smw_bool'),
+      $smwgContLang->getDatatypeLabel('smw_enum'),
+      $smwgContLang->getDatatypeLabel('smw_url'),
+      $smwgContLang->getDatatypeLabel('smw_uri'),
+      $smwgContLang->getDatatypeLabel('smw_email'),
+      $smwgContLang->getDatatypeLabel('smw_temperature'),
+      $smwgContLang->getDatatypeLabel('smw_geocoordinate')
+    );
+    $enum_str = $smwgContLang->getDatatypeLabel('smw_enum');
+  } else {
+    $datatypeLabels = $smwgContLang->getDatatypeLabels();
+    $enum_str = $datatypeLabels['_enu'];
+  }
+  $namespace_labels = $smwgContLang->getNamespaceArray();
 
   $javascript_text =<<<END
 function toggleAllowedValues() {
@@ -94,22 +117,6 @@ function toggleAllowedValues() {
 }
 
 END;
-
-  $namespace_labels = $smwgContLang->getNamespaceArray();
-  $datatype_labels = array(
-    $namespace_labels[SMW_NS_RELATION],
-    $smwgContLang->getDatatypeLabel('smw_string'),
-    $smwgContLang->getDatatypeLabel('smw_int'),
-    $smwgContLang->getDatatypeLabel('smw_float'),
-    $smwgContLang->getDatatypeLabel('smw_datetime'),
-    $smwgContLang->getDatatypeLabel('smw_bool'),
-    $smwgContLang->getDatatypeLabel('smw_enum'),
-    $smwgContLang->getDatatypeLabel('smw_url'),
-    $smwgContLang->getDatatypeLabel('smw_uri'),
-    $smwgContLang->getDatatypeLabel('smw_email'),
-    $smwgContLang->getDatatypeLabel('smw_temperature'),
-    $smwgContLang->getDatatypeLabel('smw_geocoordinate')
-  );
 
   // set 'title' as hidden field, in case there's no URL niceness
   global $wgContLang;
