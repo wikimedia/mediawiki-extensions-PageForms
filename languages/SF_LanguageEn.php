@@ -11,7 +11,7 @@ class SF_LanguageEn {
 	'sf_createproperty_isrelation' => 'This is a relation.',
 	'sf_template_docu' => 'This is the \'$1\' template. It should be called in the following format:',
 	'sf_template_docufooter' => 'Edit the page to see the template text.',
-	'sf_form_docu' => 'This is the \'$1\' form; edit the page to see the source code. You can add data with this form [[$2|here]].',
+	'sf_form_docu' => 'This is the \'$1\' form. To add a page with this form, enter the page name below; if a page with that name already exists, you will be sent to a form to edit that page.',
 	'sf_form_relation' => 'Has default form',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
@@ -81,6 +81,7 @@ class SF_LanguageEn {
 	'editdata' => 'Edit data',
 	'form_edit' => 'Edit with form',
 	'sf_editdata_badurl' => 'This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.',
+	'sf_editdata_formwarning' => 'Warning: This page already exists, but it appears that it was not created with this form.',
 	'sf_editdata_remove' => 'Remove',
 	'sf_editdata_addanother' => 'Add another',
 	'sf_editdata_freetextlabel' => 'Free text',
