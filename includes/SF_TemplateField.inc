@@ -24,6 +24,68 @@ class SFTemplateField {
     return $f;
   }
 
+  function setTypeAndPossibleValues_0_7() {
+    // HACK - set type (to 'relation') if it's a relation
+    if ($this->is_relation) {
+      $this->field_type = 'relation';
+      return;
+    }
+
+    global $smwgContLang;
+    $fname = 'SFTemplateField::getPossibleValues';
+
+    $db = wfGetDB( DB_SLAVE );
+    // value has underscores in the database
+    $semantic_field_db_str = str_replace(' ', '_', $this->semantic_field);
+    $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE . " AND subject_title = '$semantic_field_db_str' AND property_id = 1";
+    $res = $db->select( $db->tableName('smw_specialprops'),
+                        'value_string',
+                        $conditions, $fname);
+    if ($db->numRows( $res ) > 0) {
+      if ($row = $db->fetchObject($res)) {
+        $this->field_type = $row->value_string;
+        // set possible values if it's an enumeration
+        if ($this->field_type == $smwgContLang->getDatatypeLabel('smw_enum')) {
+          $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
+            " AND subject_title = '$semantic_field_db_str' AND property_id = " .
+            SMW_SP_POSSIBLE_VALUE;
+          $res2 = $db->select( $db->tableName('smw_specialprops'),
+            'value_string', $conditions, $fname);
+          if ($db->numRows( $res2 ) > 0) {
+            while ($row = $db->fetchObject($res2)) {
+              $this->possible_values[] = $row->value_string;
+            }
+          }
+          $db->freeResult($res2);
+        }
+      }
+    }
+    $db->freeResult($res);
+    return array();
+  }
+
+  function setTypeAndPossibleValues_1_0() {
+    $proptitle = Title::newFromText($this->semantic_field, SMW_NS_PROPERTY);
+    if ($proptitle === NULL)
+      return;
+    $store = smwfGetStore();
+    $types = $store->getSpecialValues($proptitle, SMW_SP_HAS_TYPE);
+    // TODO - need handling for the case of more than one type
+    if (count($types) > 0)
+      $this->field_type = $types[0]->getWikiValue();
+
+    // this returns an array of objects
+    $SMW_values = smwfGetStore()->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
+    foreach ($SMW_values as $value) {
+      $this->possible_values[] = $value->getXSDValue();
+    }
+    // HACK - if there were any possible values, set the field
+    // type to be 'enumeration', regardless of what the actual type is
+    if (count($this->possible_values) > 0) {
+      $this->field_type = 'enumeration';
+    }
+  }
+
   // setSemanticData() - called when template is parsed during the creation
   // of a form
   function setSemanticData($semantic_field, $is_relation, $is_list) {
@@ -31,44 +93,12 @@ class SFTemplateField {
     $this->is_relation = $is_relation;
     $this->possible_values = array();
     $this->is_list = $is_list;
-    // set field type if it's an attribute
-    // HACK - also set type (to 'relation') if it's a relation
-    if ($this->is_relation) {
-      $this->field_type = 'relation';
+    // set field type and possible values, if any
+    $smw_version = SMW_VERSION;
+    if ($smw_version{0} == '0') {
+      $this->setTypeAndPossibleValues_0_7();
     } else {
-      global $smwgContLang;
-      $fname = 'SFTemplateField::setSemanticData';
-
-      // this whole section of code could be made much simpler if it were
-      // to use the SMWTypeHandlerFactory class; but that would mean it
-      // would require SMW 0.7, which it might be too early for
-      $db = wfGetDB( DB_SLAVE );
-      // value has underscores in the database
-      $semantic_field_db_str = str_replace(' ', '_', $this->semantic_field);
-      $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE . " AND subject_title = '$semantic_field_db_str' AND property_id = 1";
-      $res = $db->select( $db->tableName('smw_specialprops'),
-			'value_string',
-			$conditions, $fname);
-      if ($db->numRows( $res ) > 0) {
-        if ($row = $db->fetchObject($res)) {
-          $this->field_type = $row->value_string;
-          // set possible values if it's an enumeration
-          if ($this->field_type == sffEnumTypeString()) {
-            $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
-              " AND subject_title = '$semantic_field_db_str' AND property_id = " .
-              SMW_SP_POSSIBLE_VALUE;
-            $res2 = $db->select( $db->tableName('smw_specialprops'),
-              'value_string', $conditions, $fname);
-            if ($db->numRows( $res2 ) > 0) {
-              while ($row = $db->fetchObject($res2)) {
-                $this->possible_values[] = $row->value_string;
-              }
-            }
-            $db->freeResult($res2);
-          }
-        }
-      }
-      $db->freeResult($res);
+      $this->setTypeAndPossibleValues_1_0();
     }
   }
 }
