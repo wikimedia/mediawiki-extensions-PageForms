@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.6.6');
+define('SF_VERSION','0.6.7');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -362,17 +362,4 @@ END;
                 $dbr->freeResult($res);
 		return $str;
 	}
-
-	function sffEnumTypeString() {
-		global $smwgContLang;
-		$smw_version = SMW_VERSION;
-		if ($smw_version{0} == '0') {
-			$enum_str = $smwgContLang->getDatatypeLabel('smw_enum');
-		} else {
-			$datatypeLabels = $smwgContLang->getDatatypeLabels();
-			$enum_str = $datatypeLabels['_enu'];
-		}
-		return $enum_str;
-	}
-
 ?>
