@@ -31,9 +31,11 @@ class SFForm {
     $ad = SpecialPage::getPage('AddPage');
     $add_data_url = sffTitleURLString($ad->getTitle()) . "/" . $title->getPartialURL();
     $form_description = wfMsgForContent('sf_form_docu', $this->form_name, $add_data_url);
+    $form_input = "{{#forminput:" . $this->form_name . "}}\n";
     $text =<<<END
 <noinclude>
 $form_description
+$form_input
 </noinclude>
 <includeonly>
 
