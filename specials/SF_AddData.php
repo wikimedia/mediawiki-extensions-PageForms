@@ -12,7 +12,28 @@ require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-SpecialPage::addPage( new SpecialPage('AddData','',true,'doSpecialAddData',false) );
+$mw_version = SpecialVersion::getVersion();
+if (substr($mw_version, 0, 4) == '1.11') {
+	global $wgSpecialPages;
+	$wgSpecialPages['AddData'] = 'SFAddData';
+ 
+	class SFAddData extends SpecialPage {
+
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			smwfInitUserMessages();
+			SpecialPage::SpecialPage('AddData','',true,'doSpecialAddData',false);
+		}
+
+		function execute($query='') {
+			doSpecialAddData($query);
+		}
+	}
+} else {
+	SpecialPage::addPage( new SpecialPage('AddData','',true,'doSpecialAddData',false) );
+}
 
 function doSpecialAddData($query = '') {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
@@ -45,7 +66,7 @@ function doSpecialAddData($query = '') {
 		if ($form_name == '')
 			$text = '<p>' . wfMsg('sf_adddata_badurl') . "</p>\n";
 		else
-			$text = '<p>' . wfMsg('sf_addpage_noform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+			$text = '<p>' . wfMsg('sf_addpage_badform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 	} elseif ($target_name == '') {
 		$text = '<p>' . wfMsg('sf_adddata_badurl') . "</p>\n";
 	} else {
