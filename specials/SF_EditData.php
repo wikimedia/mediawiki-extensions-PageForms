@@ -11,7 +11,28 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-SpecialPage::addPage( new SpecialPage('EditData','',true,'doSpecialEditData',false) );
+$mw_version = SpecialVersion::getVersion();
+if (substr($mw_version, 0, 4) == '1.11') {
+	global $wgSpecialPages;
+	$wgSpecialPages['EditData'] = 'SFEditData';
+ 
+	class SFEditData extends SpecialPage {
+
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			smwfInitUserMessages();
+			parent::__construct('EditData', '', true);
+		}
+
+		function execute($query = '') {
+			doSpecialEditData($query);
+		}
+	}
+} else {
+	SpecialPage::addPage( new SpecialPage('EditData','',true,'doSpecialEditData',false) );
+}
 
 function doSpecialEditData($query = '') {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;

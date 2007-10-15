@@ -12,7 +12,28 @@ global $IP, $sfgIP;
 require_once( "$IP/includes/SpecialPage.php" );
 require_once( "$sfgIP/includes/SF_FormClasses.inc" );
 
-SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm',false) );
+$mw_version = SpecialVersion::getVersion();
+if (substr($mw_version, 0, 4) == '1.11') {
+	global $wgSpecialPages;
+	$wgSpecialPages['CreateForm'] = 'SFCreateForm';
+ 
+	class SFCreateForm extends SpecialPage {
+
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			smwfInitUserMessages();
+			parent::__construct('CreateForm', '', true);
+		}
+
+		function execute() {
+			doSpecialCreateForm();
+		}
+	}
+} else {
+	SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm',false) );
+}
 
 function doSpecialCreateForm() {
   global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
