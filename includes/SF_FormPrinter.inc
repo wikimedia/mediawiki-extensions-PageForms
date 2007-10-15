@@ -38,10 +38,10 @@ class SFFormPrinter {
         $datatypeLabels =  $smwgContLang->getDatatypeLabels();
         $string_type = $datatypeLabels['_str'];
         $url_type = $datatypeLabels['_uri'];
-        $float_type = $datatypeLabels['_flt'];
-        $int_type = $datatypeLabels['_int'];
+        $float_type = $datatypeLabels['_num'];
+        $int_type = $datatypeLabels['_num'];
         $date_type = $datatypeLabels['_dat'];
-        $enum_type = $datatypeLabels['_enu'];
+        $enum_type = $datatypeLabels['enumeration']; // not a real type
         $page_type = $datatypeLabels['_wpg'];
       }
       $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
@@ -86,6 +86,7 @@ class SFFormPrinter {
     // initialize some variables
     $sfgTabIndex = 1;
     $sfgFieldNum = 1;
+    $source_page_matches_this_form = false;
     // disable all form elements if user doesn't have edit permission
     $this->mPageTitle = Title::newFromText($page_title);
     if ( $this->mPageTitle->userCanEdit() ) {
@@ -205,8 +206,11 @@ $while_instance = 0;
           // once in that page, and multiple values are allowed, repeat this
           // section
           $existing_template_text = null;
-          // special template name for preg_match calls
-          $search_template_name = str_replace('/', '\/', $tif->template_name);
+          // special template string for preg_match calls - includes a
+          // regular expression, to allow matching of either spaces or
+          // underlines in name
+          $search_template_str = str_replace('/', '\/', $tif->template_name);
+          $search_template_str = preg_replace('/[_| ]/', '[_| ]', $search_template_str);
           if ($source_is_page) {
             $matches = array();
             if ($allow_multiple) {
@@ -217,7 +221,7 @@ $while_instance = 0;
               // there has to be a more efficient way to handle multiple
               // instances of templates, one that doesn't involve re-parsing
               // the same tags, but I don't know what it is.
-              if (preg_match_all('/\{\{' . $search_template_name . '(.*?)\}\}/mis', $existing_page_content, $matches)) {
+              if (preg_match_all('/\{\{' . $search_template_str . '\s*(?:(?:([\||:].*?)\}\})|()\}\})/mis', $existing_page_content, $matches)) {
                 $instance_num++;
               } else {
                 $all_instances_printed = true;
@@ -225,7 +229,7 @@ $while_instance = 0;
             }
             // get the first instance of this template on the page being edited,
             // even if there are more
-            if (preg_match('/\{\{' . $search_template_name . '(.*?)\}\}/mis', $existing_page_content, $matches)) {
+            if (preg_match('/\{\{' . $search_template_str . '\s*(?:(?:([\||:].*?)\}\})|()\}\})/mis', $existing_page_content, $matches)) {
               $existing_template_text = $matches[1];
               // create array of contents of this template
               // somewhat of a hack - this array starts out with one element,
@@ -372,6 +376,15 @@ $while_instance = 0;
               $cur_value = '';
             if ($cur_value) {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
+            }
+            // if this is not a multiple-instance template, and we've found
+            // a match in the source page, there's a good chance that this
+            // page was created with this form - note that, so we don't
+            // send the user a warning
+            // (multiple-instance templates have a greater chance of
+            // getting repeated from one form to the next)
+            if (! $allow_multiple) {
+              $source_page_matches_this_form = true;
             }
           }
 
@@ -657,6 +670,12 @@ END;
     // now that we have it, substitute free text into the form and page
     $form_text = str_replace('<free_text>', $free_text, $form_text);
     $data_text = str_replace('<free_text>', $free_text, $data_text);
+
+    // add a warning in, if the source was a page and that page appears
+    // to have been edited with a different form
+    if ($source_is_page && ! $source_page_matches_this_form) {
+      $form_text = '	<div class="warning_message">' . wfMsg('sf_editdata_formwarning') . "</div>\n" . $form_text;
+    }
 
     //Substitute the choosers in here too.
     $chooser_count = 0;
@@ -1358,7 +1377,7 @@ END;
           $actual_date = strtotime($date);
         }
         $year = date("Y", $actual_date);
-        $month = date("F", $actual_date);
+        $month = date("n", $actual_date);
         $day = date("j", $actual_date);
       }
     } else {
