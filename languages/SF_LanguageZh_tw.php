@@ -26,7 +26,7 @@ class SF_LanguageZh_tw {
 	'sf_august' => '八月',		//	(August)
 	'sf_september' => '九月',		//	(September)
 	'sf_october' => '十月',		//	(October)
-	'sf_november' => '十月',		//	(November)
+	'sf_november' => '十一月',		//	(November)
 	'sf_december' => '十二月'		//	(December)
 
 );
