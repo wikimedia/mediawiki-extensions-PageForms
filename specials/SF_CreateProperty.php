@@ -139,7 +139,6 @@ END;
     $all_properties = getSemanticProperties_1_0();
     $datatype_labels = $smwgContLang->getDatatypeLabels();
   }
-  $namespace_labels = $smwgContLang->getNamespaceArray();
 
   $javascript_text =<<<END
 function toggleAllowedValues() {
