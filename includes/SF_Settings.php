@@ -43,4 +43,8 @@ if (!isset($sfgNamespaceIndex)) {
 ###
 $sfgMaxAutocompleteValues = 1000;
 
+// A temporary global variable, until we determine the issue with
+// initialization of special pages
+$sfgSpecialPagesSpecialInit = false;
+
 ?>
