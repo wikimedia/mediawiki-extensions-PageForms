@@ -81,7 +81,7 @@ class SF_LanguageEn {
 	'editdata' => 'Edit data',
 	'form_edit' => 'Edit with form',
 	'sf_editdata_badurl' => 'This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.',
-	'sf_editdata_formwarning' => 'Warning: This page already exists, but it appears that it was not created with this form.',
+	'sf_editdata_formwarning' => 'Warning: This page <a href="$1">already exists</a>, but it does not use this form.',
 	'sf_editdata_remove' => 'Remove',
 	'sf_editdata_addanother' => 'Add another',
 	'sf_editdata_freetextlabel' => 'Free text',
