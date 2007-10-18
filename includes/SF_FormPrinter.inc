@@ -41,7 +41,7 @@ class SFFormPrinter {
         $float_type = $datatypeLabels['_num'];
         $int_type = $datatypeLabels['_num'];
         $date_type = $datatypeLabels['_dat'];
-        $enum_type = $datatypeLabels['enumeration']; // not a real type
+        $enum_type = 'enumeration'; // not a real type
         $page_type = $datatypeLabels['_wpg'];
       }
       $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
@@ -674,7 +674,7 @@ END;
     // add a warning in, if the source was a page and that page appears
     // to have been edited with a different form
     if ($source_is_page && ! $source_page_matches_this_form) {
-      $form_text = '	<div class="warning_message">' . wfMsg('sf_editdata_formwarning') . "</div>\n" . $form_text;
+      $form_text = '	<div class="warning_message">' . wfMsg('sf_editdata_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
     }
 
     //Substitute the choosers in here too.
