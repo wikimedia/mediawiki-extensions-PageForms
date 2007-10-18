@@ -101,11 +101,14 @@ END;
 function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
 	$ret = "";
 	$values_array = explode($delimiter, $value);
-	foreach ($values_array as $i =>$cur_value) {
+	foreach ($values_array as $i => $cur_value) {
 		if ($i > 0)
 			$ret .= $new_delimiter;
-		# remove whitespace
-		$ret .= str_replace($var, trim($cur_value), $new_value);
+		// ignore a value if it's null
+		if ('' != $cur_value) {
+			// remove whitespaces
+			$ret .= str_replace($var, trim($cur_value), $new_value);
+		}
 	}
 	return $ret;
 }
