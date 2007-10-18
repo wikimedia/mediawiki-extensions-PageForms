@@ -13,8 +13,8 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-$mw_version = SpecialVersion::getVersion();
-if (substr($mw_version, 0, 4) == '1.11') {
+global $sfgSpecialPagesSpecialInit;
+if ($sfgSpecialPagesSpecialInit) {
 	global $wgSpecialPages;
 	$wgSpecialPages['CreateTemplate'] = 'SFCreateTemplate';
  
@@ -122,7 +122,7 @@ function doSpecialCreateTemplate() {
   global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
 
   $smw_version = SMW_VERSION;
- if ($smw_version{0} == '0') {
+  if ($smw_version{0} == '0') {
     $all_properties = getSemanticProperties_0_7();
   } else {
     $all_properties = getSemanticProperties_1_0();

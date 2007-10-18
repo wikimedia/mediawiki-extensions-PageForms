@@ -12,8 +12,8 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-$mw_version = SpecialVersion::getVersion();
-if (substr($mw_version, 0, 4) == '1.11') {
+global $sfgSpecialPagesSpecialInit;
+if ($sfgSpecialPagesSpecialInit) {
 	global $wgSpecialPages;
 	$wgSpecialPages['AddPage'] = 'SFAddPage';
  

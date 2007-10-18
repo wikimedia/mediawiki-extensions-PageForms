@@ -12,8 +12,8 @@ require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-$mw_version = SpecialVersion::getVersion();
-if (substr($mw_version, 0, 4) == '1.11') {
+global $sfgSpecialPagesSpecialInit;
+if ($sfgSpecialPagesSpecialInit) {
 	global $wgSpecialPages;
 	$wgSpecialPages['AddData'] = 'SFAddData';
  
