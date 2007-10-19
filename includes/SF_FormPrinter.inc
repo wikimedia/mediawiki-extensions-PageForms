@@ -756,6 +756,7 @@ END;
     // add form bottom, if no custom "standard inputs" have been defined
     if (! $this->standardInputsIncluded)
       $form_text .= $this->formBottom($form_is_disabled);
+    $form_text .= "\n	</form>\n";
 
     // add general Javascript code
     $blank_error_str = wfMsg('sf_blank_error');
@@ -1721,7 +1722,6 @@ END;
     $text .=<<<END
 	</div><!-- editButtons -->
 	</div><!-- editOptions -->
-	</form>
 
 END;
     return $text;
