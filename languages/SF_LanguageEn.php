@@ -7,7 +7,8 @@ class SF_LanguageEn {
 
 /* private */ var $sfContentMessages = array(
 	'sf_createproperty_isattribute' => 'This is an attribute of type $1.',
-	'sf_createproperty_allowedvals' => 'The allowed values for this attribute are:',
+	'sf_createproperty_isproperty' => 'This is a property of type $1.',
+	'sf_createproperty_allowedvals' => 'The allowed values for this attribute or property are:',
 	'sf_createproperty_isrelation' => 'This is a relation.',
 	'sf_template_docu' => 'This is the \'$1\' template. It should be called in the following format:',
 	'sf_template_docufooter' => 'Edit the page to see the template text.',
@@ -33,6 +34,9 @@ class SF_LanguageEn {
 
 /* private */ var $sfUserMessages = array(
 	'createproperty' => 'Create a semantic property',
+	'sf_createproperty_allowedvalsinput' => 'If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
+	'sf_createproperty_propname' => 'Name:',
+	'sf_createproperty_proptype' => 'Type:',
 	'templates' => 'Templates',
 	'sf_templates_docu' => 'The following templates exist in the wiki.',
 	'sf_templates_definescat' => 'defines category:',
