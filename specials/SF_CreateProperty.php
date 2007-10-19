@@ -53,11 +53,12 @@ function createPropertyText($property_type, $allowed_values_str) {
     if ($smw_version{0} == '0') {
       $type_tag = "[[" . $specprops[SMW_SP_HAS_TYPE] . "::" .
         $namespace_labels[SMW_NS_TYPE] . ":$property_type|$property_type]]";
+      $text = wfMsg('sf_createproperty_isattribute', $type_tag);
     } else {
       $type_tag = "[[" . $specprops[SMW_SP_HAS_TYPE] .
         "::$property_type|$property_type]]";
+      $text = wfMsg('sf_createproperty_isproperty', $type_tag);
     }
-    $text = wfMsg('sf_createproperty_isattribute', $type_tag);
     if ($allowed_values_str != '') {
       $text .= "\n\n" . wfMsg('sf_createproperty_allowedvals');
       // replace the comma substitution character that has no chance of
@@ -164,12 +165,14 @@ END;
   global $wgContLang;
   $mw_namespace_labels = $wgContLang->getNamespaces();
   $special_namespace = $mw_namespace_labels[NS_SPECIAL];
+  $name_label = wfMsg('sf_createproperty_propname');
+  $type_label = wfMsg('sf_createproperty_proptype');
   $text .=<<<END
 	<form action="" method="get">
 	<input type="hidden" name="title" value="$special_namespace:CreateProperty">
-	<p>Name: <input size="25" name="property_name" value="">
+	<p>$name_label <input size="25" name="property_name" value="">
 	<span style="color: red;">$property_name_error_str</span>
-	Type:
+	$type_label
 	<select id="property_dropdown" name="property_type" onChange="toggleAllowedValues();">
 END;
   foreach ($datatype_labels as $label) {
@@ -177,10 +180,11 @@ END;
   }
 
   $values_input_display = ($smw_version{0} == '0') ? "display: none;" : "";
+  $values_input = wfMsg('sf_createproperty_allowedvalsinput');
   $text .=<<<END
 	</select>
 	<div id="allowed_values" style="$values_input_display margin-bottom: 15px;">
-	<p>Enter list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):</p>
+	<p>$values_input</p>
 	<p><input size="35" name="values" value=""></p>
 	</div>
 	<p><input type="submit" name="preview" value="$preview_button_text"></p>
