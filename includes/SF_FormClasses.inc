@@ -51,9 +51,9 @@ END;
    {{{field|free text}}}
    </fieldset>
 
-<p>{{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}</p>
-<p>{{{standard input|minor edit}}} {{{standard input|watch}}}</p>
 <p>{{{standard input|summary}}}</p>
+<p>{{{standard input|minor edit}}} {{{standard input|watch}}}</p>
+<p>{{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}</p>
 </includeonly>
 
 END;
