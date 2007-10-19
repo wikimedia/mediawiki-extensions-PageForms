@@ -36,7 +36,7 @@ if ($sfgSpecialPagesSpecialInit) {
 	SpecialPage::addPage( new SpecialPage('CreateTemplate','',true,'doSpecialCreateTemplate',false) );
 }
 
-// Custom sort function, used in getSemanticProperties_0_7()
+// Custom sort function, used in both getSemanticProperties() functions
 function cmp($a, $b)
 {
     if ($a == $b) {
@@ -51,25 +51,21 @@ function getSemanticProperties_0_7() {
   $dbr = wfGetDB( DB_SLAVE );
   $all_properties = array();
 
-  $smw_version = SMW_VERSION;
-  if ($smw_version{0} == '0') {
-    $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
-      " WHERE page_namespace = " . SMW_NS_ATTRIBUTE . " AND page_is_redirect = 0");
-    while ($row = $dbr->fetchRow($res)) {
-      $attribute_name = str_replace('_', ' ', $row[0]);
-      $all_properties[$attribute_name . ":="] = $attribute_name;
-    }
-    $dbr->freeResult($res);
-
-    $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
-      " WHERE page_namespace = " . SMW_NS_RELATION . " AND page_is_redirect = 0");
-    while ($row = $dbr->fetchRow($res)) {
-      $relation_name = str_replace('_', ' ', $row[0]);
-      $all_properties[$relation_name . "::"] = $relation_name;
-    }
-    $dbr->freeResult($res);
-  } else {
+  $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
+    " WHERE page_namespace = " . SMW_NS_ATTRIBUTE . " AND page_is_redirect = 0");
+  while ($row = $dbr->fetchRow($res)) {
+    $attribute_name = str_replace('_', ' ', $row[0]);
+    $all_properties[$attribute_name . ":="] = $attribute_name;
   }
+  $dbr->freeResult($res);
+
+  $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
+    " WHERE page_namespace = " . SMW_NS_RELATION . " AND page_is_redirect = 0");
+  while ($row = $dbr->fetchRow($res)) {
+    $relation_name = str_replace('_', ' ', $row[0]);
+    $all_properties[$relation_name . "::"] = $relation_name;
+  }
+  $dbr->freeResult($res);
 
   // sort properties list alphabetically - custom sort function is needed
   // because the regular sort function destroys the "keys" of the array
@@ -79,11 +75,27 @@ function getSemanticProperties_0_7() {
 
 function getSemanticProperties_1_0() {
   $all_properties = array();
-  $smw_props = smwfGetStore()->getPropertiesSpecial();
-  foreach ($smw_props as $smw_prop) {
-    $property_name = $smw_prop[0]->getText();
+
+  // set limit on results - a temporary fix until SMW's getProperties()
+  // functions stop requiring a limit
+  global $smwgIP;
+  include_once($smwgIP . '/includes/storage/SMW_Store.php');
+  $options = new SMWRequestOptions();
+  $options->limit = 10000;
+  $used_properties = smwfGetStore()->getPropertiesSpecial($options);
+  foreach ($used_properties as $property) {
+    $property_name = $property[0]->getText();
     $all_properties[$property_name . "::"] = $property_name;
   }
+  $unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
+  foreach ($unused_properties as $property) {
+    $property_name = $property->getText();
+    $all_properties[$property_name . "::"] = $property_name;
+  }
+
+  // sort properties list alphabetically - custom sort function is needed
+  // because the regular sort function destroys the "keys" of the array
+  uasort($all_properties, "cmp");
   return $all_properties;
 }
 
