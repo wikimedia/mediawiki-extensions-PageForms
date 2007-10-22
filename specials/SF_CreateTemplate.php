@@ -37,97 +37,99 @@ if ($sfgSpecialPagesSpecialInit) {
 }
 
 // Custom sort function, used in both getSemanticProperties() functions
-function cmp($a, $b)
-{
-    if ($a == $b) {
-        return 0;
-    } elseif ($a < $b) {
-        return -1;
-    } else {
-        return 1;
-    }
+function cmp($a, $b) {
+	if ($a == $b) {
+		return 0;
+	} elseif ($a < $b) {
+		return -1;
+	} else {
+		return 1;
+	}
 }
+
 function getSemanticProperties_0_7() {
-  $dbr = wfGetDB( DB_SLAVE );
-  $all_properties = array();
+	$dbr = wfGetDB( DB_SLAVE );
+	$all_properties = array();
 
-  $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
-    " WHERE page_namespace = " . SMW_NS_ATTRIBUTE . " AND page_is_redirect = 0");
-  while ($row = $dbr->fetchRow($res)) {
-    $attribute_name = str_replace('_', ' ', $row[0]);
-    $all_properties[$attribute_name . ":="] = $attribute_name;
-  }
-  $dbr->freeResult($res);
+	$res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
+		" WHERE page_namespace = " . SMW_NS_ATTRIBUTE .
+		" AND page_is_redirect = 0");
+	while ($row = $dbr->fetchRow($res)) {
+		$attribute_name = str_replace('_', ' ', $row[0]);
+		$all_properties[$attribute_name . ":="] = $attribute_name;
+	}
+	$dbr->freeResult($res);
 
-  $res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
-    " WHERE page_namespace = " . SMW_NS_RELATION . " AND page_is_redirect = 0");
-  while ($row = $dbr->fetchRow($res)) {
-    $relation_name = str_replace('_', ' ', $row[0]);
-    $all_properties[$relation_name . "::"] = $relation_name;
-  }
-  $dbr->freeResult($res);
+	$res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
+		" WHERE page_namespace = " . SMW_NS_RELATION .
+		" AND page_is_redirect = 0");
+	while ($row = $dbr->fetchRow($res)) {
+		$relation_name = str_replace('_', ' ', $row[0]);
+		$all_properties[$relation_name . "::"] = $relation_name;
+	}
+	$dbr->freeResult($res);
 
-  // sort properties list alphabetically - custom sort function is needed
-  // because the regular sort function destroys the "keys" of the array
-  uasort($all_properties, "cmp");
-  return $all_properties;
+	// sort properties list alphabetically - custom sort function is needed
+	// because the regular sort function destroys the "keys" of the array
+	uasort($all_properties, "cmp");
+	return $all_properties;
 }
 
 function getSemanticProperties_1_0() {
-  $all_properties = array();
+	$all_properties = array();
 
-  // set limit on results - a temporary fix until SMW's getProperties()
-  // functions stop requiring a limit
-  global $smwgIP;
-  include_once($smwgIP . '/includes/storage/SMW_Store.php');
-  $options = new SMWRequestOptions();
-  $options->limit = 10000;
-  $used_properties = smwfGetStore()->getPropertiesSpecial($options);
-  foreach ($used_properties as $property) {
-    $property_name = $property[0]->getText();
-    $all_properties[$property_name . "::"] = $property_name;
-  }
-  $unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
-  foreach ($unused_properties as $property) {
-    $property_name = $property->getText();
-    $all_properties[$property_name . "::"] = $property_name;
-  }
+	// set limit on results - a temporary fix until SMW's getProperties()
+	// functions stop requiring a limit
+	global $smwgIP;
+	include_once($smwgIP . '/includes/storage/SMW_Store.php');
+	$options = new SMWRequestOptions();
+	$options->limit = 10000;
+	$used_properties = smwfGetStore()->getPropertiesSpecial($options);
+	foreach ($used_properties as $property) {
+	$property_name = $property[0]->getText();
+		$all_properties[$property_name . "::"] = $property_name;
+	}
+	$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
+	foreach ($unused_properties as $property) {
+		$property_name = $property->getText();
+		$all_properties[$property_name . "::"] = $property_name;
+	}
 
-  // sort properties list alphabetically - custom sort function is needed
-  // because the regular sort function destroys the "keys" of the array
-  uasort($all_properties, "cmp");
-  return $all_properties;
+	// sort properties list alphabetically - custom sort function is needed
+	// because the regular sort function destroys the "keys" of the array
+	uasort($all_properties, "cmp");
+	return $all_properties;
 }
 
 function printPropertiesDropdown($all_properties, $id, $property) {
-  $dropdown_str = "<select name=\"semantic_field_call_$id\">\n";
-  $dropdown_str .= "<option value=\"\"></option>\n";
-  foreach ($all_properties as $prop_id => $prop_name) {
-    $selected = ($property == $prop_id) ? "selected" : "";
-    $dropdown_str .= "<option value=\"$prop_id\" $selected>$prop_name</option>\n";
-  }
-  $dropdown_str .= "</select>\n";
-  return $dropdown_str;
+	$dropdown_str = "<select name=\"semantic_field_call_$id\">\n";
+	$dropdown_str .= "<option value=\"\"></option>\n";
+	foreach ($all_properties as $prop_id => $prop_name) {
+		$selected = ($property == $prop_id) ? "selected" : "";
+		$dropdown_str .= "<option value=\"$prop_id\" $selected>$prop_name</option>\n";
+	}
+	$dropdown_str .= "</select>\n";
+	return $dropdown_str;
 }
 
 function printFieldEntryBox($id, $f, $all_properties) {
-  $dropdown_html = printPropertiesDropdown($all_properties, $id, $f->semantic_field_call);
-  $text = '	<div class="field_box">' . "\n";
-  $text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
-  $text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
-  $text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
-  $checked_str = ($f->is_list) ? " checked" : "";
-  $text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' . $checked_str . '> ' . wfMsg('sf_createtemplate_fieldislist') . "\n";
+	$dropdown_html = printPropertiesDropdown($all_properties, $id, $f->semantic_field_call);
+	$text = '	<div class="field_box">' . "\n";
+	$text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
+	$text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
+	$text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
+	$checked_str = ($f->is_list) ? " checked" : "";
+	$text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' .  $checked_str . '> ' . wfMsg('sf_createtemplate_fieldislist') . "\n";
 
-  if ($id != "new") {
-    $text .= '	&nbsp;&nbsp;<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
-  }
-  $text .= <<<END
+	if ($id != "new") {
+		$text .= '	&nbsp;&nbsp;<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
+	}
+	$text .= <<<END
 </p>
 </div>
 
 END;
-  return $text;
+	return $text;
 }
 
 function doSpecialCreateTemplate() {
