@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.6.9');
+define('SF_VERSION','0.6.10');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -274,15 +274,15 @@ function sfgSetupExtension() {
 
 	// Version for SMW 1.0 and higher
 	function sffAddDataLink_1_0($title) {
-		// FIXME - this is broken because the SMW abstraction does not
-		// directly support the kind of query the old direct-access
-		// version does - need to think through how to do it.
+		// get all properties pointing to this page, and if
+		// sffGetAddDataLinkForPage() returns a value with any of
+		// them, return that
 		$store = smwfGetStore();
-		$results = $store->getInProperties($title);
-
-		foreach ($results as $result) {
-			$relation = $result;
-			if ($add_data_link = sffGetAddDataLinkForPage($title, $relation->getText(), SMW_NS_RELATION)) {
+		$title_text = sffTitleURLString($title);
+		$value = SMWDataValueFactory::newTypeIDValue('_wpg', $title_text);
+		$incoming_properties = $store->getInProperties($value);
+		foreach ($incoming_properties as $property) {
+			if ($add_data_link = sffGetAddDataLinkForPage($title, $property->getText(), SMW_NS_PROPERTY)) {
 				return $add_data_link;
 			}
 		}
