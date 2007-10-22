@@ -273,6 +273,15 @@ $while_instance = 0;
               }
               // now remove this template from the text being edited
               $existing_page_content = str_replace($matches[0], '', $existing_page_content);
+              // if this is not a multiple-instance template, and we've found
+              // a match in the source page, there's a good chance that this
+              // page was created with this form - note that, so we don't
+              // send the user a warning
+              // (multiple-instance templates have a greater chance of
+              // getting repeated from one form to the next)
+              if (! $allow_multiple) {
+                $source_page_matches_this_form = true;
+              }
             }
           }
           // if the input is from the form (meaning the user has hit one
@@ -376,15 +385,6 @@ $while_instance = 0;
               $cur_value = '';
             if ($cur_value) {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
-            }
-            // if this is not a multiple-instance template, and we've found
-            // a match in the source page, there's a good chance that this
-            // page was created with this form - note that, so we don't
-            // send the user a warning
-            // (multiple-instance templates have a greater chance of
-            // getting repeated from one form to the next)
-            if (! $allow_multiple) {
-              $source_page_matches_this_form = true;
             }
           }
 
