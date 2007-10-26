@@ -40,6 +40,9 @@ class SFFormPrinter {
         $url_type = $datatypeLabels['_uri'];
         $float_type = $datatypeLabels['_num'];
         $int_type = $datatypeLabels['_num'];
+        // just a placeholder until SMW 1.0 supports Boolean types -
+        // should be $datatypeLabels['_boo'];
+        $bool_type = 'boolean';
         $date_type = $datatypeLabels['_dat'];
         $enum_type = 'enumeration'; // not a real type
         $page_type = $datatypeLabels['_wpg'];
@@ -547,7 +550,13 @@ $while_instance = 0;
                     }
                   }
                 } else {
-                  $js_validation_calls[] = "validate_mandatory_field ('$input_id', '$info_id')";
+                  // temporary fix - simply turn off validation for fields
+                  // that are part of a multiple-instance template
+                  if ($allow_multiple) {
+                    $js_validation_calls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
+                  } else {
+                    $js_validation_calls[] = "validate_mandatory_field('$input_id', '$info_id')";
+                  }
                 }
               }
             } else {
@@ -772,6 +781,27 @@ function validate_mandatory_field(field_id, info_id) {
 	} else {
 		return true;
 	}
+}
+
+// validate a mandatory field that exists across multiple instances of
+// a template - we have to find each one, matching on the pattern of its
+// ID, and validate it
+function validate_multiple_mandatory_fields(field_num) {
+	var num_errors = 0;
+	elems = document.getElementsByTagName("*");
+	var field_pattern = new RegExp('input_(.*)_' + field_num);
+	for (var i = 0; i < elems.length; i++) {
+		id = elems[i].id;
+		if (matches = field_pattern.exec(id)) {
+			instance_num = matches[1];
+			var input_name = "input_" + instance_num + "_" + field_num;
+			var info_name = "info_" + instance_num + "_" + field_num;
+			if (! validate_mandatory_field(input_name, info_name)) {
+				num_errors += 1;
+			}
+		}
+	}
+	return (num_errors == 0);
 }
 
 function validate_all() {
