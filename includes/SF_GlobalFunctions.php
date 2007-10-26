@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.6.10');
+define('SF_VERSION','0.7');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -198,6 +198,17 @@ function sfgSetupExtension() {
           return ($namespace . ucfirst($title->getPartialURL()));
 	}
 
+        /**
+         * A very similar function, to get the non-URL-encoded title string
+         */
+        function sffTitleString($title) {
+          $namespace = $title->getNsText();
+          if ( '' != $namespace ) {
+            $namespace .= ':';
+          }
+          return ($namespace . ucfirst($title->getText()));
+        }
+
 	/**
 	 * Gets the default form specified, if any, for a specific page
 	 * (which should be a category, relation, or namespace page)
@@ -278,7 +289,7 @@ function sfgSetupExtension() {
 		// sffGetAddDataLinkForPage() returns a value with any of
 		// them, return that
 		$store = smwfGetStore();
-		$title_text = sffTitleURLString($title);
+		$title_text = sffTitleString($title);
 		$value = SMWDataValueFactory::newTypeIDValue('_wpg', $title_text);
 		$incoming_properties = $store->getInProperties($value);
 		foreach ($incoming_properties as $property) {
@@ -334,6 +345,45 @@ function sfgSetupExtension() {
 		// if nothing found still, return null
 		return null;
 	}
+
+
+/**
+ * Helper function - gets names of categories for this page;
+ * based on Title::getParentCategories(), but simpler
+ */
+function sffGetCategoriesForArticle($article) {
+	$fname = 'sffGetCategoriesForArticle()';
+	$categories = array();
+	$titlekey = $article->mTitle->getArticleId();
+	$db = wfGetDB( DB_SLAVE );
+	$conditions = "cl_from='$titlekey'";
+	$res = $db->select( $db->tableName('categorylinks'),
+		'cl_to', $conditions, $fname);
+	if ($db->numRows( $res ) > 0) {
+		while ($row = $db->fetchRow($res)) {
+			$categories[] = $row[0];
+		}
+	}
+	$db->freeResult($res);
+	return $categories;
+}
+
+/**
+ * Get the form used to edit this article: either the default form for a
+ * category that this article belongs to (if there is one), or the default
+ * form for the article's namespace, if there is one
+ */
+function sffGetFormForArticle($obj) {
+	$categories = sffGetCategoriesForArticle($obj);
+	foreach ($categories as $category) {
+		if ($form_name = sffGetDefaultForm($category, NS_CATEGORY)) {
+			return $form_name;
+		}
+	}
+	// if we're still here, just return the default form for the namespace,
+	// which may well be null
+	return sffGetDefaultForm($obj->mTitle->getNsText(), NS_PROJECT);
+}
 
 	function sffFormDropdownHTML() {
 		// create a dropdown of possible form names
