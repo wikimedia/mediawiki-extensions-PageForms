@@ -85,6 +85,7 @@ function doSpecialCreateProperty() {
   $allowed_values = $wgRequest->getVal('values');
 
   $preview_button_text = wfMsg('preview');
+  $property_name_error_str = '';
   if ($wgRequest->getVal('preview') == $preview_button_text) {
     # validate property name
     if ($property_name == '') {
@@ -103,7 +104,7 @@ function doSpecialCreateProperty() {
       $full_text = createPropertyText($property_type, $allowed_values);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
-      $text .= <<<END
+      $text =<<<END
   <form id="editform" name="editform" method="post" action="$submit_url">
     <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$full_text" />
   </form>
@@ -167,7 +168,7 @@ END;
   $special_namespace = $mw_namespace_labels[NS_SPECIAL];
   $name_label = wfMsg('sf_createproperty_propname');
   $type_label = wfMsg('sf_createproperty_proptype');
-  $text .=<<<END
+  $text =<<<END
 	<form action="" method="get">
 	<input type="hidden" name="title" value="$special_namespace:CreateProperty">
 	<p>$name_label <input size="25" name="property_name" value="">

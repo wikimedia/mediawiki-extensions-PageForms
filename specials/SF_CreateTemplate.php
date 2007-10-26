@@ -142,13 +142,18 @@ function doSpecialCreateTemplate() {
     $all_properties = getSemanticProperties_1_0();
   }
 
-  # cycle through the query values, setting the appropriate local variables
   $template_name = $wgRequest->getVal('template_name');
+  $template_name_error_str = "";
   $category = $wgRequest->getVal('category');
   $cur_id = 1;
   $fields = array();
+  # cycle through the query values, setting the appropriate local variables
   foreach ($wgRequest->getValues() as $var => $val) {
-    list ($field_field, $old_id) = explode("_", $var);
+    $var_elements = explode("_", $var);
+    // we only care about query variables of the form "a_b"
+    if (count($var_elements) != 2)
+      continue;
+    list ($field_field, $old_id) = $var_elements;
     if ($field_field == "name") {
       if ($old_id != "new" || ($old_id == "new" && $val != "")) {
         if ($wgRequest->getVal('del_' . $old_id) != '') {
