@@ -35,7 +35,7 @@ if ($sfgSpecialPagesSpecialInit) {
 }
 
 function doSpecialEditData($query = '') {
-	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
+	global $wgRequest;
 
 	$form_name = $wgRequest->getVal('form');
 	$target_name = $wgRequest->getVal('target');
@@ -47,6 +47,41 @@ function doSpecialEditData($query = '') {
 		$target_name = $queryparts[1];
 	}
 
+	printEditForm($form_name, $target_name);
+}
+
+global $wgHooks;
+$wgHooks[ 'UnknownAction' ][] = 'sffEmbeddedEditForm';
+
+/**
+ * The function called if we're in index.php (as opposed to one of the special
+ * pages)
+ */
+function sffEmbeddedEditForm($action, $article) {
+	if ($action != 'formedit') {
+		return true;
+	}
+
+	$form_name = sffGetFormForArticle($article);
+	if ($form_name == '') {
+		return true;
+	}
+	global $wgOut;
+
+	$target_title = $article->getTitle();
+	$target_name = sffTitleString($target_title);
+	if ($target_title->exists()) {
+		$wgOut->setPageTitle(wfMsg('editdata'));
+		printEditForm($form_name, $target_name);
+	} else {
+		$wgOut->setPageTitle(wfMsg('adddata'));
+		printAddForm($form_name, $target_name);
+	}
+}
+
+function printEditForm($form_name, $target_name) {
+	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
+
 	// get contents of form definition file
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
 	// get contents of target page
@@ -57,11 +92,13 @@ function doSpecialEditData($query = '') {
 			$text = '<p>' . wfMsg('sf_editdata_badurl') . "</p>\n";
 		else
 			$text = "<p>Error: No form page was found at " . sffLinkText(SF_NS_FORM, $form_name) . ".</p>\n";
+		$wgOut->addHTML($text);
 	} elseif (! $target_title || ! $target_title->exists() ) {
 		if ($target_name == '')
 			$text = '<p>' . wfMsg('sf_editdata_badurl') . "</p>\n";
 		else
 			$text = "<p>Error: No page was found at " . sffLinkText(null, $target_name) . ".</p>\n";
+		$wgOut->addHTML($text);
 	} else {
 		$form_article = new Article($form_title);
 		$form_definition = $form_article->getContent();
