@@ -7,6 +7,7 @@ class SF_LanguageZh_tw {
 
 /* private */ var $sfContentMessages = array(
 	'sf_createproperty_isattribute' => '這是$1型態的屬性。',	//(This is an attribute of type $1.)
+	'sf_createproperty_isproperty' => '這是$1型態的性質。', //'This is a property of type $1.'	
 	'sf_createproperty_allowedvals' => '此屬性的可用型態為：',	//(The allowed values for this attribute are:)
 	'sf_createproperty_isrelation' => '這是一項關聯。',	//(This is a relation.)
 	'sf_template_docu' => '這是\'$1\'樣板，它須以如下的格式引用：',	//(This is the \'$1\' template. It should be called in the following format:)
@@ -27,12 +28,17 @@ class SF_LanguageZh_tw {
 	'sf_september' => '九月',		//	(September)
 	'sf_october' => '十月',		//	(October)
 	'sf_november' => '十一月',		//	(November)
-	'sf_december' => '十二月'		//	(December)
+	'sf_december' => '十二月',		//	(December)
+	'sf_blank_namespace' => '主',   //'Main'	
 
 );
 
 /* private */ var $sfUserMessages = array(
 	'createproperty' => '新增語意(semantic)性質',	//(Create a semantic property)
+	'sf_createproperty_allowedvalsinput' => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\,)：', //If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):'
+	'sf_createproperty_propname' => '名稱：',
+	'sf_createproperty_proptype' => '型態:',
+	
 	'templates' => '樣板',	//(Templates)
 	'sf_templates_docu' => '本wiki系統已含有下列的樣板。',	//(The following templates exist in the wiki.)
 	'sf_templates_definescat' => '定義分類(category)：',	//(defines category:)
@@ -81,6 +87,7 @@ class SF_LanguageZh_tw {
 	'editdata' => '編輯資料',	//(Edit data)
 	'form_edit' => '以表單進行編輯',	//(Edit with form)
 	'sf_editdata_badurl' => '本頁為編輯資料之用，您必須在URL裡同時指定表單及目標頁面，它看起來應該像是\'Special:EditData?form=&lt;表單名稱;&target=&lt;目標頁面&gt;\' 或是  \'Special:EditData/&lt;表單名稱&gt;/&lt;目標頁面&gt;\'.',	//(This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.)
+	'sf_editdata_formwarning' => '警告：<a href="$1">此頁</a>已經存在，只是尚未引用本表單。',	 //'Warning: This page <a href="$1">already exists</a>, but it does not use this form.',
 	'sf_editdata_remove' => '刪除',	//(Remove)
 	'sf_editdata_addanother' => '新增其他',	//(Add another)
 	'sf_editdata_freetextlabel' => '隨意文字區(Free text)',	//(Free text)
