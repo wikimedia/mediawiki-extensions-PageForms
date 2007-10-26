@@ -82,8 +82,20 @@ function doSpecialAddPage($query = '') {
 				if ($redirect_title != NULL) {
 					$page_title = $redirect_title;
 				}
-				$ed = SpecialPage::getPage('EditData');
-				$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+				// HACK - if this is the default form for
+				// this page, send to the regular 'formedit'
+				// tab page; otherwise, send to the 'Special:EditData'
+				// page, with the form name hardcoded.
+				// Is this logic necessary? Or should we just
+				// out-guess the user and always send to the
+				// standard form-edit page, with the 'correct' form?
+				$default_form_name = sffGetFormForArticle($article);
+				if ($form_name == $default_form_name) {
+					$redirect_url = $page_title->getLocalURL('action=formedit');
+				} else {
+					$ed = SpecialPage::getPage('EditData');
+					$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+				}
 			} else {
 				$ad = SpecialPage::getPage('AddData');
 				$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
