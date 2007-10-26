@@ -36,7 +36,7 @@ if ($sfgSpecialPagesSpecialInit) {
 }
 
 function doSpecialAddData($query = '') {
-	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
+	global $wgRequest;
 
 	$form_name = $wgRequest->getVal('form');
 	$target_name = $wgRequest->getVal('target');
@@ -47,6 +47,12 @@ function doSpecialAddData($query = '') {
 		$form_name = isset($queryparts[0]) ? $queryparts[0] : '';
 		$target_name = isset($queryparts[1]) ? $queryparts[1] : '';
 	}
+
+	printAddForm($form_name, $target_name);
+}
+
+function printAddForm($form_name, $target_name) {
+	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
 	// get contents of template
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
