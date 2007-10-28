@@ -77,6 +77,7 @@ function sffEmbeddedEditForm($action, $article) {
 		$wgOut->setPageTitle(wfMsg('adddata'));
 		printAddForm($form_name, $target_name);
 	}
+	return false;
 }
 
 function printEditForm($form_name, $target_name) {
