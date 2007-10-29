@@ -43,6 +43,20 @@ if (!isset($sfgNamespaceIndex)) {
 ###
 $sfgMaxAutocompleteValues = 1000;
 
+###
+## Global variables for handling the two edit tabs (for traditional editing
+## and for editing with a form):
+## $sfgHideMainTab hides the traditional-editing tab for all but sysops
+## $sfgSwitchEditTabLocations switches around the two edit tabs
+## $sfgRenameEditTabs renames the edit-with-form tab to just "Edit", and
+##   the traditional-editing tab, if it is visible, to "Edit source", in
+##   whatever language is being used
+##
+###
+$sfgHideMainEditTab = false;
+$sfgSwitchEditTabLocations = false;
+$sfgRenameEditTabs = false;
+
 // A temporary global variable, until we determine the issue with
 // initialization of special pages
 $sfgSpecialPagesSpecialInit = false;
