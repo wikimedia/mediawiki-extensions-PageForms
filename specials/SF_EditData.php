@@ -58,6 +58,9 @@ $wgHooks[ 'UnknownAction' ][] = 'sffEmbeddedEditForm';
  * pages)
  */
 function sffEmbeddedEditForm($action, $article) {
+	// for some reason, the code calling the 'UnknownAction' hook wants
+	// "true" if the hook failed, and "false" otherwise... this is
+	// probably a bug, but we'll just work with it
 	if ($action != 'formedit') {
 		return true;
 	}
@@ -77,12 +80,12 @@ function sffEmbeddedEditForm($action, $article) {
 		$wgOut->setPageTitle(wfMsg('adddata'));
 		printAddForm($form_name, $target_name);
 	}
-	return false;
 }
 
 function printEditForm($form_name, $target_name) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
+	$javascript_text = "";
 	// get contents of form definition file
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
 	// get contents of target page
@@ -93,13 +96,11 @@ function printEditForm($form_name, $target_name) {
 			$text = '<p>' . wfMsg('sf_editdata_badurl') . "</p>\n";
 		else
 			$text = "<p>Error: No form page was found at " . sffLinkText(SF_NS_FORM, $form_name) . ".</p>\n";
-		$wgOut->addHTML($text);
 	} elseif (! $target_title || ! $target_title->exists() ) {
 		if ($target_name == '')
 			$text = '<p>' . wfMsg('sf_editdata_badurl') . "</p>\n";
 		else
 			$text = "<p>Error: No page was found at " . sffLinkText(null, $target_name) . ".</p>\n";
-		$wgOut->addHTML($text);
 	} else {
 		$form_article = new Article($form_title);
 		$form_definition = $form_article->getContent();
