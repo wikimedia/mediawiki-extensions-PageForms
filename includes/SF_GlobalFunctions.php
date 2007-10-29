@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.7');
+define('SF_VERSION','0.7.1');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
