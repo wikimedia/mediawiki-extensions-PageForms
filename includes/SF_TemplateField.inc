@@ -150,7 +150,10 @@ END;
   }
   $text .= "|}\n";
   if ($category != '') {
-    $text .= "\n[[Category:$category]]\n";
+    $mw_namespace_labels = $wgContLang->getNamespaces();
+    $category_namespace = $mw_namespace_labels[NS_CATEGORY];
+    $text .= "\n[[$category_namespace:$category]]\n";
+
   }
   $text .= "</includeonly>\n";
 
