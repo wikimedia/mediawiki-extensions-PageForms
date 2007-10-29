@@ -95,6 +95,13 @@ class SFFormPrinter {
     if ( $this->mPageTitle->userCanEdit() ) {
       $form_is_disabled = false;
       $form_text = "";
+      // show "Your IP address will be recorded" warning if user is
+      // anonymous - wikitext for bolding has to be replaced with HTML, until
+      // FormPrinter can parse wikitext
+      if ($wgUser->isAnon()) {
+        $anon_edit_warning = preg_replace("/'''(.*)'''/", "<strong>$1</strong>", wfMsg('anoneditwarning'));
+        $form_text .= $anon_edit_warning;
+      }
     } else {
       $form_is_disabled = true;
       // display a message to the user explaining why they can't edit the
@@ -1138,6 +1145,7 @@ END;
       global $wgContLang;
       $namespaces = $wgContLang->getNamespaces();
       $db = wfGetDB( DB_SLAVE );
+      $fname = "SFFormPrinter::createAutocompleteValuesString";
       foreach ($namespaces as $ns_code => $ns_name) {
         if ($ns_name == $field_name) {
           $conditions = "page_namespace = $ns_code";
@@ -1185,6 +1193,7 @@ END;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text =<<<END
 	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" $disabled_text>
@@ -1226,6 +1235,7 @@ END;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
     $hidden_input_name = $input_name . "[is_list]";
     $input_name .= "[]"; // needed so that this input will send an array
     $disabled_text = ($is_disabled) ? "disabled" : "";
@@ -1260,6 +1270,7 @@ END;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
     $hidden_input_name = $input_name . "[is_list]";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     // get list delimiter - default is comma
@@ -1324,6 +1335,7 @@ END;
     $autocomplete_values = array();
     $autocomplete_values['mappings'] = array();
     $options_str_key = $semantic_field_name . ',' . $autocomplete_field_type;
+    $javascript_text = "";
     if (! array_key_exists($options_str_key, $autocomplete_values))
       $autocomplete_values[$options_str_key] = $this->createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
     $autocomplete_values['mappings'][$sfgFieldNum] = $options_str_key;
