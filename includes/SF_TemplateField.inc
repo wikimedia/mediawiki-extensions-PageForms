@@ -150,8 +150,14 @@ END;
   }
   $text .= "|}\n";
   if ($category != '') {
-    $mw_namespace_labels = $wgContLang->getNamespaces();
-    $category_namespace = $mw_namespace_labels[NS_CATEGORY];
+    global $smwgContLang;
+    $smw_version = SMW_VERSION;
+    if ($smw_version{0} == '0') {
+      $namespace_labels = $smwgContLang->getNamespaceArray();
+    } else {
+      $namespace_labels = $smwgContLang->getNamespaces();
+    }
+    $category_namespace = $namespace_labels[NS_CATEGORY];
     $text .= "\n[[$category_namespace:$category]]\n";
 
   }
