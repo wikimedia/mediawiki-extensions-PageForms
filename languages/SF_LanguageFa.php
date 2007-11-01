@@ -84,6 +84,7 @@ class SF_LanguageFa {
 	'sf_forms_adddata' => 'افزودن اطلاعات به‌وسیله این فرم',//Add data with this form
 	'editdata' => 'ویرایش اطلاعات',//Edit data
 	'form_edit' => 'ویرایش با فرم',//Edit with form
+	'edit_source' => 'ویرایش مبدأ',//Edit source
 	'sf_editdata_badurl' => 'این صفحه برای ویرایش اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br/><span dir="ltr"> \'ویژه:EditData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br/>یا<br/><span dir="ltr"> \'ویژه:EditData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',//This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.
 	'sf_editdata_formwarning' => 'اخطار: این صفحه <a href="$1">هم‌اکنون وجود دارد</a>,ولی به‌وسیله این فرم ساخته نشده است.',//Warning: This page <a href="$1">already exists</a>, but it does not use this form.
 	'sf_editdata_remove' => 'حذف',//Remove
