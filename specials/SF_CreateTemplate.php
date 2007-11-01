@@ -169,6 +169,7 @@ function doSpecialCreateTemplate() {
   }
   $template_format = $wgRequest->getVal('template_format');
 
+  $text = "";
   $preview_button_text = wfMsg('preview');
   if ($wgRequest->getVal('preview') == $preview_button_text) {
     # validate template name
