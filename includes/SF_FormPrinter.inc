@@ -176,6 +176,9 @@ $while_instance = 0;
           $template_name = trim($tag_components[1]);
           $tif->template_name = $template_name;
           $query_template_name = str_replace(' ', '_', $template_name);
+          // also replace periods with underlines, since that's what
+          // POST does to strings anyway
+          $query_template_name = str_replace('.', '_', $query_template_name);
           $chooser_name = false;
           $chooser_caption = false;
 	  // cycle through the other components
@@ -426,12 +429,14 @@ $while_instance = 0;
           } else { // this field is part of a template
             if (is_array($cur_value)) {
               // first, check if it's a list
-              if ($cur_value['is_list'] == 1) {
+              if (array_key_exists('is_list', $cur_value) &&
+                  $cur_value['is_list'] == 1) {
                 $cur_value_in_template = "";
-                if (array_key_exists('delimiter', $field_args))
+                if (array_key_exists('delimiter', $field_args)) {
                   $delimiter = $field_args['delimiter'];
-                else
+                } else {
                   $delimiter = ",";
+                }
                 foreach ($cur_value as $key => $val) {
                   if ($key !== "is_list") {
 		    if ($cur_value_in_template != "") {
@@ -1240,9 +1245,11 @@ END;
     $input_name .= "[]"; // needed so that this input will send an array
     $disabled_text = ($is_disabled) ? "disabled" : "";
     // get list delimiter - default is comma
-    $delimiter = $other_args['delimiter'];
-    if ($delimiter == null)
-      $delimiter = ",";
+    if (array_key_exists('delimiter', $other_args)) {
+      $delimiter = $other_args['delimiter'];
+    } else {
+       $delimiter = ",";
+    }
     $cur_values = $this->getValuesArray($cur_value, $delimiter);
 
     $text =<<<END
@@ -1274,13 +1281,16 @@ END;
     $hidden_input_name = $input_name . "[is_list]";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     // get list delimiter - default is comma
-    $delimiter = $other_args['delimiter'];
-    if ($delimiter == null)
+    if (array_key_exists('delimiter', $other_args)) {
+      $delimiter = $other_args['delimiter'];
+    } else {
       $delimiter = ",";
+    }
     $cur_values = $this->getValuesArray($cur_value, $delimiter);
 
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
+    $text = "";
     foreach ($possible_values as $key => $possible_value) {
       $cur_input_name = $input_name . "[" . $key . "]";
       $checked_text = (in_array($possible_value, $cur_values)) ? 'checked="checked"' : "";
