@@ -69,15 +69,12 @@ function sffEmbeddedEditForm($action, $article) {
 	if ($form_name == '') {
 		return true;
 	}
-	global $wgOut;
 
 	$target_title = $article->getTitle();
 	$target_name = sffTitleString($target_title);
 	if ($target_title->exists()) {
-		$wgOut->setPageTitle(wfMsg('editdata'));
 		printEditForm($form_name, $target_name);
 	} else {
-		$wgOut->setPageTitle(wfMsg('adddata'));
 		printAddForm($form_name, $target_name);
 	}
 	return false;
@@ -85,6 +82,10 @@ function sffEmbeddedEditForm($action, $article) {
 
 function printEditForm($form_name, $target_name) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
+
+	$s = wfMsg('sf_editdata_title', $form_name, str_replace('_', ' ', $target_name));
+
+	$wgOut->setPageTitle($s);
 
 	$javascript_text = "";
 	// get contents of form definition file

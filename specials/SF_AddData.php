@@ -54,6 +54,10 @@ function doSpecialAddData($query = '') {
 function printAddForm($form_name, $target_name) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
+	$s = wfMsg('sf_adddata_title', $form_name, str_replace('_', ' ', $target_name));
+	$wgOut->setPageTitle($s);
+
+
 	// get contents of template
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
         // get contents of target page
