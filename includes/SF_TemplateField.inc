@@ -150,12 +150,12 @@ END;
   }
   $text .= "|}\n";
   if ($category != '') {
-    global $smwgContLang;
+    global $wgContLang;
     $smw_version = SMW_VERSION;
     if ($smw_version{0} == '0') {
-      $namespace_labels = $smwgContLang->getNamespaceArray();
+      $namespace_labels = $wgContLang->getNamespaceArray();
     } else {
-      $namespace_labels = $smwgContLang->getNamespaces();
+      $namespace_labels = $wgContLang->getNamespaces();
     }
     $category_namespace = $namespace_labels[NS_CATEGORY];
     $text .= "\n[[$category_namespace:$category]]\n";
