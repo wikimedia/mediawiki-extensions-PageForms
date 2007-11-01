@@ -13,19 +13,10 @@ function sffFormEditTab($obj, $content_actions) {
     $form_name = sffGetFormForArticle($obj);
     if ($form_name) {  
       global $wgRequest;
-      global $sfgHideMainEditTab, $sfgSwitchEditTabLocations, $sfgRenameEditTabs;
+      global $sfgRenameEditTabs;
 
       // create the form edit tab, and apply whatever changes are specified
-      // by the three edit-tab global variables
-      $edit_tab_hidden = false;
-      if ($sfgHideMainEditTab) {
-        global $wgUser;
-        // TODO - there should be a better way to determine if the user is a sysop
-        if (! $wgUser->isAllowed('delete')) {
-          $edit_tab_hidden = true;
-        }
-      }
-
+      // by the edit-tab global variables
       if ($sfgRenameEditTabs) {
         $form_edit_tab_text = wfMsg('edit');
         $content_actions['edit']['text'] = wfMsg('edit_source');
@@ -40,16 +31,28 @@ function sffFormEditTab($obj, $content_actions) {
         'href' => $obj->mTitle->getLocalURL('action=formedit')
       );
 
-      if ($sfgSwitchEditTabLocations) {
-        if (! $edit_tab_hidden) {
-          $content_actions['form_edit'] = $content_actions['edit'];
-        }
-        $content_actions['edit'] = $form_edit_tab;
-      } else {
-        if ($edit_tab_hidden) {
-          unset($content_actions['edit']);
-        }
-        $content_actions['form_edit'] = $form_edit_tab;
+      // find the location of the 'edit' tab, and add 'edit with form'
+      // right before it.
+      // this is a "key-safe" splice - it preserves both the keys and
+      // the values of the array, by editing them separately and then
+      // rebuilding the array.
+      // based on the example at http://us2.php.net/manual/en/function.array-splice.php#31234
+      $tab_keys = array_keys($content_actions);
+      $tab_values = array_values($content_actions);
+      $edit_tab_location = array_search('edit', $tab_keys);
+      // this should never happen, but if there was no edit tab, set
+      // the location index to -1, so the tab shows up near the end
+      if ($edit_tab_location === NULL)
+        $edit_tab_location = -1;
+      array_splice($tab_keys, $edit_tab_location, 0, 'form_edit');
+      array_splice($tab_values, $edit_tab_location, 0, array($form_edit_tab));
+      $content_actions = array();
+      for ($i = 0; $i < count($tab_keys); $i++)
+        $content_actions[$tab_keys[$i]] = $tab_values[$i];
+
+      global $wgUser;
+      if (! $wgUser->isAllowed('viewedittab')) {
+        unset($content_actions['edit']);
       }
 
       return true;
