@@ -35,18 +35,17 @@ class SFForm {
     $text =<<<END
 <noinclude>
 $form_description
+
 $form_input
 </noinclude>
 <includeonly>
 
 END;
-    $text .= "<h2>" . $this->form_name . ": {{{field|page title}}}</h2>\n";
     foreach ($this->templates as $template) {
-      $text .= "\n" . $template->createMarkup();
+      $text .= $template->createMarkup() . "\n";
     }
     $free_text_label = wfMsg('sf_editdata_freetextlabel');
     $text .=<<<END
-
    <fieldset><legend>$free_text_label</legend>
    {{{field|free text}}}
    </fieldset>
