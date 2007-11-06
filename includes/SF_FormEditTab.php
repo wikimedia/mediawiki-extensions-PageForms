@@ -19,7 +19,9 @@ function sffFormEditTab($obj, $content_actions) {
       // by the edit-tab global variables
       if ($sfgRenameEditTabs) {
         $form_edit_tab_text = wfMsg('edit');
-        $content_actions['edit']['text'] = wfMsg('edit_source');
+        if (array_key_exists('edit', $content_actions)) {
+          $content_actions['edit']['text'] = wfMsg('edit_source');
+        }
       } else {
         $form_edit_tab_text = wfMsg('form_edit');
       }
@@ -40,9 +42,12 @@ function sffFormEditTab($obj, $content_actions) {
       $tab_keys = array_keys($content_actions);
       $tab_values = array_values($content_actions);
       $edit_tab_location = array_search('edit', $tab_keys);
-      // this should never happen, but if there was no edit tab, set
-      // the location index to -1, so the tab shows up near the end
-      if ($edit_tab_location === NULL)
+      // if there's no 'edit' tab, look for the 'view source' tab instead
+      if ($edit_tab_location == NULL)
+        $edit_tab_location = array_search('viewsource', $tab_keys);
+      // this should rarely happen, but if there was no edit *or* view source
+      // tab, set the location index to -1, so the tab shows up near the end
+      if ($edit_tab_location == NULL)
         $edit_tab_location = -1;
       array_splice($tab_keys, $edit_tab_location, 0, 'form_edit');
       array_splice($tab_values, $edit_tab_location, 0, array($form_edit_tab));
