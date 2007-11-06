@@ -83,15 +83,14 @@ function sffEmbeddedEditForm($action, $article) {
 function printEditForm($form_name, $target_name) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
-	$s = wfMsg('sf_editdata_title', $form_name, str_replace('_', ' ', $target_name));
-
-	$wgOut->setPageTitle($s);
-
 	$javascript_text = "";
 	// get contents of form definition file
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
 	// get contents of target page
 	$target_title = Title::newFromText($target_name);
+
+	$s = wfMsg('sf_editdata_title', $form_title->getText(), $target_title->getPrefixedText());
+	$wgOut->setPageTitle($s);
 
 	if (! $form_title || ! $form_title->exists() ) {
 		if ($form_name == '')
