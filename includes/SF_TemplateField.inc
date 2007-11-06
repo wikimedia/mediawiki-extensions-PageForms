@@ -143,7 +143,19 @@ END;
     // if this field is meant to contain a list, add on an 'arraymap' function,
     // that will call this semantic markup tag on every element in the list
     } elseif ($field->is_list) {
-      $text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|x|[[" . $field->semantic_field_call . "x]]}}\n";
+      // find a string that's not in the semantic field call, to be used as
+      // the variable
+      $var = "x"; // default - use this even if all the attempts fail
+      if (strstr($field->semantic_field_call, $var)) {
+        $var_options = array('y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc');
+        foreach ($var_options as $option) {
+          if (! strstr($field->semantic_field_call, $option)) {
+            $var = $option;
+            break;
+          }
+        }
+      }
+      $text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_field_call . "$var]]}}\n";
     } else {
       $text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|}}}]]\n";
     }
