@@ -57,6 +57,11 @@ $sfgMaxAutocompleteValues = 1000;
 $sfgRenameEditTabs = false;
 $wgGroupPermissions['*'    ]['viewedittab']   = true;
 
+###
+## List separator character
+###
+$sfgListSeparator = ",";
+
 // A temporary global variable, until we determine the issue with
 // initialization of special pages
 $sfgSpecialPagesSpecialInit = false;

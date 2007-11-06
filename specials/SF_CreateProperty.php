@@ -63,11 +63,12 @@ function createPropertyText($property_type, $allowed_values_str) {
       $text .= "\n\n" . wfMsg('sf_createproperty_allowedvals');
       // replace the comma substitution character that has no chance of
       // being included in the values list - namely, the ASCII beep
-      $allowed_values_str = str_replace('\,', "\a", $allowed_values_str);
-      $allowed_values_array = explode(',', $allowed_values_str);
+      global $sfgListSeparator;
+      $allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
+      $allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
       foreach ($allowed_values_array as $i => $value) {
         // replace beep with comma, trim
-        $value = str_replace("\a", ',', trim($value));
+        $value = str_replace("\a", $sfgListSeparator, trim($value));
         $text .= "\n* [[" . $specprops[SMW_SP_POSSIBLE_VALUE] . ":=$value]]";
       }
     }
