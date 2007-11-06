@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.7.2');
+define('SF_VERSION','0.7.3');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -229,8 +229,12 @@ function sfgSetupExtension() {
 		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
 		  "WHERE subject_title = '" . $db->strencode($page_title) .
 		  "' AND subject_namespace = '" . $page_namespace .
-		  "' AND relation_title = '" . $db->strencode($default_form_relation) .
-		  "' AND object_namespace = " . SF_NS_FORM;
+		  "' AND (relation_title = '" . $db->strencode($default_form_relation);
+		// try English version too, if this is in another language
+		if (wfMsgForContent('sf_form_relation') != "Has default form") {
+			$sql .= "' OR relation_title = 'Has_default_form";
+		}
+		$sql .= "') AND object_namespace = " . SF_NS_FORM;
 		$res = $db->query( $sql );
 		if ($db->numRows( $res ) > 0) {
 			$row = $db->fetchRow($res);
@@ -254,6 +258,16 @@ function sfgSetupExtension() {
 		if ($num > 0) {
 			$form_name = $res[0]->getTitle()->getText();
 			return $form_name;
+		}
+		// try the English version too, if this isn't in English
+		if (wfMsgForContent('sf_form_relation') != "Has default form") {
+			$property = Title::newFromText("Has_default_form", SF_NS_FORM);
+			$res = $store->getPropertyValues($title, $property);
+			$num = count($res);
+			if ($num > 0) {
+				$form_name = $res[0]->getTitle()->getText();
+				return $form_name;
+			}
 		}
 		return null;
 	}
