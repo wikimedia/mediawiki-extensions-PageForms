@@ -121,10 +121,10 @@ class SFTemplateInForm {
         $template_text = str_replace($full_field_text, $replacement, $template_text);
       }
     }
-    
+
     // get any non-semantic fields defined as well
     if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
-      foreach ($matches[1] as $field_name) {
+      foreach ($matches[1] as $i => $field_name) {
         $full_field_text = $matches[0][$i];
         if ($full_field_text != '') {
           $cur_pos = stripos($template_text, $full_field_text);
