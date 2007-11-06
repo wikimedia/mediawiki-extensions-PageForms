@@ -71,10 +71,15 @@ class SFTemplateInForm {
 
   function getAllFields() {
     $template_fields = array();
-    $field_names_array = array();
 
     // get fields of template, both semantic and otherwise, by parsing text
     // of template
+    // The way this works is somewhat complicated: fields are found, and
+    // turned into all x's after being processed, and then stored in an
+    // array based on their location in the template text, so that they
+    // are returned in the order in which they appear in the template, even
+    // though they were found in a different order. The replacement of
+    // each field by x's might not be necessary, but maybe it is.
     $template_title = Title::newFromText($this->template_name, NS_TEMPLATE);
     $template_article = new Article($template_title);
     $template_text = $template_article->getContent();
@@ -83,46 +88,53 @@ class SFTemplateInForm {
     $template_text = strtr($template_text, array('<includeonly>' => '', '</includeonly>' => ''));
 
     // first look for normal relation/attribute calls
-    if (preg_match_all('/\[\[([^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
+    if (preg_match_all('/\[\[([^:=]*:*?[^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
       // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
       foreach ($matches[1] as $i => $semantic_field_name) {
         $is_relation = ($matches[2][$i] == "::");
         $field_name = $matches[3][$i];
-        if (! in_array($field_name, $field_names_array)) {
-          $field_names_array[] = $field_name;
-          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-          $template_field->setSemanticData($semantic_field_name, $is_relation, false);
-          $template_fields[] = $template_field;
-        }
+        $full_field_text = $matches[0][$i];
+        $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+        $template_field->setSemanticData($semantic_field_name, $is_relation, false);
+        $cur_pos = stripos($template_text, $full_field_text);
+        $template_fields[$cur_pos] = $template_field;
+        $replacement = str_repeat("x", strlen($full_field_text));
+        $template_text = str_replace($full_field_text, $replacement, $template_text);
       }
     }
+
     // second, look for "arraymap" parser function calls that map a
     // relation or attribute onto a list
-    if (preg_match_all('/{{#arraymap:{{{([^|}]*)[^\[]*\[\[([^:=]*)(:[:=])/mis', $template_text, $matches)) {
+    if (preg_match_all('/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:=]*:?[^:=]*)(:[:=])/mis', $template_text, $matches)) {
       // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
       foreach ($matches[1] as $i => $field_name) {
         $is_relation = ($matches[3][$i] == "::");
         $semantic_field_name = $matches[2][$i];
-        if (! in_array($field_name, $field_names_array)) {
-          $field_names_array[] = $field_name;
-          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-          $template_field->setSemanticData($semantic_field_name, $is_relation, true);
-          $template_fields[] = $template_field;
-        }
+        $full_field_text = $matches[0][$i];
+        $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+        $template_field->setSemanticData($semantic_field_name, $is_relation, true);
+        $cur_pos = stripos($template_text, $full_field_text);
+        $template_fields[$cur_pos] = $template_field;
+        $replacement = str_repeat("x", strlen($full_field_text));
+        $template_text = str_replace($full_field_text, $replacement, $template_text);
       }
     }
     
     // get any non-semantic fields defined as well
     if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
       foreach ($matches[1] as $field_name) {
-        if (! in_array($field_name, $field_names_array)) {
-          $field_names_array[] = $field_name;
-          $template_fields[] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+        $full_field_text = $matches[0][$i];
+        if ($full_field_text != '') {
+          $cur_pos = stripos($template_text, $full_field_text);
+          $template_fields[$cur_pos] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $replacement = str_repeat("x", strlen($full_field_text));
+          $template_text = str_replace($full_field_text, $replacement, $template_text);
         }
       }
     }
+    ksort($template_fields);
     return $template_fields;
   }
 
@@ -188,12 +200,12 @@ END;
 class SFFormTemplateField {
   var $num;
   var $template_field;
+  var $input_type;
   var $is_mandatory;
   var $is_hidden;
   var $is_restricted;
   // the following fields are not set by the form-creation page
   // (though they could be)
-  var $input_type;
   var $field_args;
   var $autocomplete_category;
   var $no_autocomplete;
@@ -210,42 +222,146 @@ class SFFormTemplateField {
     $f = new SFFormTemplateField();
     $f->num = $num;
     $f->template_field = $template_field;
+    $f->input_type = "";
     $f->is_mandatory = false;
     $f->is_hidden = false;
     $f->is_restricted = false;
     return $f;
   }
 
+  function possibleInputTypes($semantic_field_type, $is_list) {
+    // first, get the list of field types, to determine which one this is
+    global $smwgContLang;
+    $smw_version = SMW_VERSION;
+    if ($smw_version{0} == '0') {
+      $string_type = $smwgContLang->getDatatypeLabel('smw_string');
+      $url_type = $smwgContLang->getDatatypeLabel('smw_url');
+      $float_type = $smwgContLang->getDatatypeLabel('smw_float');
+      $int_type = $smwgContLang->getDatatypeLabel('smw_int');
+      $bool_type = $smwgContLang->getDatatypeLabel('smw_bool');
+      $date_type = $smwgContLang->getDatatypeLabel('smw_datetime');
+      $enum_type = $smwgContLang->getDatatypeLabel('smw_enum');
+      $page_type = 'relation';
+    } else {
+      $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+      $string_type = $datatypeLabels['_str'];
+      $url_type = $datatypeLabels['_uri'];
+      $float_type = $datatypeLabels['_num'];
+      $int_type = $datatypeLabels['_num'];
+      // just a placeholder until SMW 1.0 supports Boolean types -
+      // should be $datatypeLabels['_boo'];
+      $bool_type = 'boolean';
+      $date_type = $datatypeLabels['_dat'];
+      $enum_type = 'enumeration'; // not a real type
+      $page_type = $datatypeLabels['_wpg'];
+    }
+
+    // then, return the array of possible input types, depending on the
+    // field type and whether this field will contain multiple values
+    if ($semantic_field_type == $string_type || $semantic_field_type == $float_type || $semantic_field_type == $int_type || $semantic_field_type == $url_type) {
+      if ($is_list) {
+        return array('text', 'textarea');
+      } else {
+        return array('text');
+      }
+    } elseif ($semantic_field_type == $bool_type) {
+      return array('checkbox');
+    } elseif ($semantic_field_type == $date_type) {
+      return array('date', 'datetime', 'datetime with timezone');
+    } elseif ($semantic_field_type == $enum_type) {
+      if ($is_list) {
+        return array('checkboxes', 'listbox');
+      } else {
+        return array('dropdown', 'radiobutton');
+      }
+    } elseif ($semantic_field_type == $page_type) {
+      if ($is_list) {
+        return array('text', 'textarea');
+      } else {
+        return array('text');
+      }
+    } else { // blank or an unknown type
+      return array('text', 'textarea', 'checkbox', 'date', 'datetime', 'datetime with timezone');
+    }
+  }
+
+  function inputTypeDropdownHTML($dropdown_name, $possible_input_types, $cur_input_type) {
+    // create the dropdown HTML for a list of possible input types
+    $text = "	<select name=\"$dropdown_name\">\n";
+    foreach ($possible_input_types as $i => $input_type) {
+      if ($i == 0) {
+        $text .= "	<option value=\"\">$input_type (default)</option>\n";
+      } else {
+        $selected_str = ($cur_input_type == $input_type) ? "selected" : "";
+        $text .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
+      }
+    }
+    $text .= "	</select>\n";
+    return $text;
+  }
+
   function creationHTML($template_num) {
     $field_form_text = $template_num . "_" . $this->num;
     $template_field = $this->template_field;
     $text = '<h3>' . wfMsg('sf_createform_field') . " '" . $template_field->field_name . "'</h3>\n";
-    if ($template_field->is_relation) {
-      $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
-      $text .= '<p>' . wfMsg('sf_createform_fieldrel', $rel_link_text) . "</p>\n";
-    } elseif ($template_field->field_type != null) {
-      $attr_link_text = sffLinkText(SMW_NS_ATTRIBUTE, $template_field->semantic_field);
-      // TODO - remove this probably-unnecessary check?
-      if ($template_field->field_type == "")
-        $text .= '<p>' . wfMsg('sf_createform_fieldattrunknowntype', $attr_link_text,  sffLinkText(SMW_NS_TYPE, 'String')) . "</p>\n";
-      else
-        $text .= '<p>' . wfMsg('sf_createform_fieldattr', $attr_link_text,
-          sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
-
+    $smw_version = SMW_VERSION;
+    if ($smw_version{0} = "0") {
+      if ($template_field->is_relation) {
+        $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
+        if ($template_field->is_list)
+          $text .= '<p>' . wfMsg('sf_createform_fieldrel', $rel_link_text) . "</p>\n";
+        else
+          $text .= '<p>' . wfMsg('sf_createform_fieldrellist', $rel_link_text) . "</p>\n";
+      } elseif ($template_field->field_type != null) {
+        $attr_link_text = sffLinkText(SMW_NS_ATTRIBUTE, $template_field->semantic_field);
+        // TODO - remove this probably-unnecessary check?
+        if ($template_field->field_type == "")
+          $text .= '<p>' . wfMsg('sf_createform_fieldattrunknowntype', $attr_link_text) . "</p>\n";
+        elseif ($template_field->is_list)
+          $text .= '<p>' . wfMsg('sf_createform_fieldattrlist', $attr_link_text,
+            sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
+        else
+          $text .= '<p>' . wfMsg('sf_createform_fieldattr', $attr_link_text,
+            sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
+      }
     } else {
-      // not a semantic field - don't add any text
+      $prop_link_text = sffLinkText(SMW_NS_PROPERTY, $template_field->semantic_field);
+      // TODO - remove this probably-unnecessary check?
+      if ($template_field->semantic_field == "") {
+        // print nothing if there's no semantic field
+      } elseif ($template_field->field_type == "")
+        $text .= '<p>' . wfMsg('sf_createform_fieldpropunknowntype', $prop_link_text) . "</p>\n";
+      elseif ($template_field->is_list)
+        $text .= '<p>' . wfMsg('sf_createform_fieldproplist', $prop_link_text,
+          sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
+      else
+        $text .= '<p>' . wfMsg('sf_createform_fieldprop', $prop_link_text,
+          sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
     }
+    // if it's not a semantic field - don't add any text
     $form_label_text = wfMsg('sf_createform_formlabel');
     $field_label = $template_field->label;
+    $text .=<<<END
+	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
+	&nbsp; Input type:
+
+END;
+    $possible_input_types = $this->possibleInputTypes($template_field->field_type, $template_field->is_list);
+    if (count($possible_input_types) > 1) {
+      $text .= $this->inputTypeDropdownHTML("input_type_$field_form_text", $possible_input_types, $template_field->input_type);
+    } else {
+      $text .= $possible_input_types[0];
+    }
+    $mandatory_checked_str = ($this->is_mandatory) ? "checked" : "";
+    $mandatory_text = wfMsg('sf_createform_mandatory');
     $hidden_checked_str = ($this->is_hidden) ? "checked" : "";
     $hidden_text = wfMsg('sf_createform_hidden');
     $restricted_checked_str = ($this->is_restricted) ? "checked" : "";
     $restricted_text = wfMsg('sf_createform_restricted');
-    $mandatory_checked_str = ($this->is_mandatory) ? "checked" : "";
-    $mandatory_text = wfMsg('sf_createform_mandatory');
     $text .=<<<END
-	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
-	&nbsp; <input type="checkbox" name="mandatory_$field_form_text" value="mandatory" $mandatory_checked_str /> $mandatory_text
+	</p>
+	<p>
+	<input type="checkbox" name="mandatory_$field_form_text" value="mandatory" $mandatory_checked_str /> $mandatory_text
 	<input type="checkbox" name="hidden_$field_form_text" value="hidden" $hidden_checked_str /> $hidden_text
 	<input type="checkbox" name="restricted_$field_form_text" value="restricted" $restricted_checked_str /> $restricted_text</p>
 	<hr>
@@ -259,6 +375,9 @@ END;
     if ($this->template_field->label != "")
       $text .= "<strong>" . $this->template_field->label .  ":</strong> ";
     $text .= "{{{field|" . $this->template_field->field_name;
+    if ($this->template_field->input_type != '') {
+      $text .= "|input type=" . $this->template_field->input_type;
+    }
     if ($this->is_mandatory) {
       $text .= "|mandatory";
     } elseif ($this->is_hidden) {
