@@ -57,7 +57,7 @@ class SF_LanguageNl {
 	'sf_createform_allowmultiple' => 'Sta meerdere (of geen) instanties van dit sjabloon toe op de gemaakte pagina',
 	'sf_createform_field' => 'Veld:',
 	'sf_createform_fieldattr' => 'Dit beld beschijft de eigenschap $1, van type $2.',
-	'sf_createform_fieldattrunknowntype' => 'Dit veld beschrijft de eigenschap $1, van een ongespecificeerd type ($2 wordt aangenomen).',
+	'sf_createform_fieldattrunknowntype' => 'Dit veld beschrijft de eigenschap $1, van een ongespecificeerd type.',
 	'sf_createform_fieldrel' => 'Dit veld beschrijft de relatie $1.',
 	'sf_createform_formlabel' => 'Formulierlabel:',
 	'sf_createform_hidden' =>  'Verborgen',

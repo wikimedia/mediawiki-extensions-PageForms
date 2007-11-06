@@ -51,7 +51,7 @@ class SF_LanguageHe {
         'sf_createform_allowmultiple' => ' הרשה כפילויות (או אפס) מהתבנית הזאת בדף המיוצר',
         'sf_createform_field' => 'שדה:',
         'sf_createform_fieldattr' => 'השדה הזה מגדיר את התכונה $1, מטיפוס $2.',
-        'sf_createform_fieldattrunknowntype' => 'השדה הזה מגדיר את התכונה $1, לא מוגדר (מניח שהוא מטיפוס $2).',
+        'sf_createform_fieldattrunknowntype' => 'השדה הזה מגדיר את התכונה $1, לא מוגדר.',
         'sf_createform_fieldrel' => 'השדה הזה מגדיר את היחס $1.',
 	'sf_createform_formlabel' => 'תוית בטופס:',
         'sf_createform_hidden' =>  'מוסתר',

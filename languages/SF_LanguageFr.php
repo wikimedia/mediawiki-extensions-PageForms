@@ -49,7 +49,7 @@ class SF_LanguageFr {
 	'sf_createform_allowmultiple' => 'Laisser plusieurs (ou zero) instances de ce modèle dans la page',
 	'sf_createform_field' => 'Champ:',
 	'sf_createform_fieldattr' => 'Ce champ définit l\'attribut $1, de type $2.',
-	'sf_createform_fieldattrunknowntype' => 'Ce champ définit l\'attribut $1, de type non spécifié (assuming to be $2).',
+	'sf_createform_fieldattrunknowntype' => 'Ce champ définit l\'attribut $1, de type non spécifié.',
 	'sf_createform_fieldrel' => 'Ce champ définit la relation $1.',
 	'sf_createform_formlabel' => 'Étiquette dans le formulaire:',
 	'sf_createform_hidden' =>  'Caché',

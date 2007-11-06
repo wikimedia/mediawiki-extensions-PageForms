@@ -63,7 +63,7 @@ class SF_LanguageDe {
 	'sf_createform_allowmultiple' => 'Erlaube mehrere (oder null) Instanzen dieser Vorlage in der erstellten Seite',
 	'sf_createform_field' => 'Feld:',
 	'sf_createform_fieldattr' => 'Dieses Feld definiert die Attribute $1 des Typs $2.',
-	'sf_createform_fieldattrunknowntype' => 'Dieses Feld definiert die Attribute $1 eines unspezifizierten Typs (der angenommen wird als $2).',
+	'sf_createform_fieldattrunknowntype' => 'Dieses Feld definiert die Attribute $1 eines unspezifizierten Typs.',
 	'sf_createform_fieldrel' => 'Dieses Feld definiert den Bezug $1.',
 	'sf_createform_formlabel' => 'Formularbezeichnung:',
 	'sf_createform_hidden' =>  'Versteckt',
