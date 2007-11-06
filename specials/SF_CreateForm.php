@@ -109,6 +109,8 @@ function doSpecialCreateForm() {
       $new_label = $wgRequest->getVal("label_" . $old_i . "_" . $j);
       if ($new_label)
         $field->template_field->label = $new_label;
+      $input_type = $wgRequest->getVal("input_type_" . $old_i . "_" . $j);
+      $field->template_field->input_type = $input_type;
       if ($wgRequest->getVal("hidden_" . $old_i . "_" . $j) == "hidden") {
         $field->is_hidden = true;
       }
