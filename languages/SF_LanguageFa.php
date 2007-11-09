@@ -70,6 +70,8 @@ class SF_LanguageFa {
 	'sf_createform_fieldprop' => 'این ورودی ویژگی $1 از نوع $2 را تعیین می‌کند.',//This field defines the property $1, of type $2.
 	'sf_createform_fieldproplist' => 'این ورودی یک سیاهه از مواردی که ویژگی $1 از نوع $2 را دارند، تعیین می‌کند.',//This field defines a list of elements that have the property $1, of type $2.
 	'sf_createform_fieldpropunknowntype' => 'این ورودی ویژگی $1 از نوع نامشخص را تعیین می‌کند.',//This field defines the property $1, of unspecified type.
+	'sf_createform_inputtype' =>  'نوع ورودی:',//Input type:
+	'sf_createform_inputtypedefault' =>  '(پیش‌فرض)',//(default)
 	'sf_createform_formlabel' => 'برچسب فرم:',//Form label:
 	'sf_createform_hidden' =>  'مخفی',//Hidden
 	'sf_createform_restricted' =>  'محدود‌شده (فقط مدیران می‌توانند ویرایش کنند)',//Restricted (only sysop users can modify it)
