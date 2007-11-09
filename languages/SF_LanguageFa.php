@@ -34,7 +34,7 @@ class SF_LanguageFa {
 
 /* private */ var $sfUserMessages = array(
 	'createproperty' => 'ویژگی معنایی بسازید',//Create a semantic property
-	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این مدخل تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\," جایگزین نمایید):',//If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):
+	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\،" جایگزین نمایید):',//If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):
 	'sf_createproperty_propname' => 'نام:',//Name:
 	'sf_createproperty_proptype' => 'نوع:',//Type:
 	'templates' => 'الگوها',//Templates
@@ -43,16 +43,16 @@ class SF_LanguageFa {
 	'createtemplate' => 'الگو بسازید',//Create a template
 	'sf_createtemplate_namelabel' => 'نام الگو:',//Template name:
 	'sf_createtemplate_categorylabel' => 'تعیین رده به‌وسیله الگو (دلخواه):',//Category defined by template (optional):
-	'sf_createtemplate_templatefields' => 'مداخل الگو',//Template fields
-	'sf_createtemplate_fieldsdesc' => 'برای داشتن مداخل بدون نام در الگوها،تنها شماره مدخل را به جای نام واقعی مدخل وارد کنید (مثلا ۳،۲،۱ و ...).',//To have the fields of a template not require field names, simply enter the index of that field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.
-	'sf_createtemplate_fieldname' => 'نام مدخل:',//Field name:
+	'sf_createtemplate_templatefields' => 'ورودی‌های الگو',//Template fields
+	'sf_createtemplate_fieldsdesc' => 'برای داشتن ورودی‌های بدون نام در الگوها،تنها شماره ورودی را به جای نام واقعی ورودی وارد کنید (مثلا ۳،۲،۱ و ...).',//To have the fields of a template not require field names, simply enter the index of that field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.
+	'sf_createtemplate_fieldname' => 'نام ورودی:',//Field name:
 	'sf_createtemplate_displaylabel' => 'نمایش برچسب:',//Display label:
 	'sf_createtemplate_semanticproperty' => 'ویژگی معنایی:',//Semantic property:
-	'sf_createtemplate_fieldislist' => 'این مدخل می‌تواند یک سیاهه از مقادیر را که با کاما از هم جدا شده‌اند، در خود ذخیره کند',//This field can hold a list of values, separated by commas
+	'sf_createtemplate_fieldislist' => 'این ورودی می‌تواند یک سیاهه از مقادیر را که با کاما از هم جدا شده‌اند، در خود ذخیره کند',//This field can hold a list of values, separated by commas
 	'sf_createtemplate_outputformat' => 'قالب خروجی:',//Output format:
 	'sf_createtemplate_standardformat' => 'استاندارد',//Standard
 	'sf_createtemplate_infoboxformat' => 'جعبه اطلاعات سمت راست',//Right-hand-side infobox
-	'sf_createtemplate_addfield' => 'افزودن مدخل',//Add field
+	'sf_createtemplate_addfield' => 'افزودن ورودی',//Add field
 	'sf_createtemplate_deletefield' => 'حذف',//Delete
 	'forms' => 'فرم‌ها',//Forms
 	'sf_forms_docu' => 'فرم‌های زیر در این ویکی وجود دارند.',//The following forms exist in the wiki.
@@ -61,10 +61,15 @@ class SF_LanguageFa {
 	'sf_createform_template' => 'الگو:',//Template:
 	'sf_createform_templatelabelinput' => 'برچسب الگو (دلخواه):',//Template label (optional):
 	'sf_createform_allowmultiple' => 'می‌توان چند (یا صفر) نمونه از این الگو را در ساختن صفحات استفاده کرد',//Allow for multiple (or zero) instances of this template in the created page
-	'sf_createform_field' => 'مدخل:',//Field:
-	'sf_createform_fieldattr' => 'این مدخل صفت $1 از نوع $2 را تعیین می‌کند.',//This field defines the attribute $1, of type $2.
-	'sf_createform_fieldattrunknowntype' => 'این مدخل صفت $1 از یک نوع مشخص‌نشده(به‌فرض نوع $2) را تعیین می‌کند.',//This field defines the attribute $1, of unspecified type (assuming to be $2).
-	'sf_createform_fieldrel' => 'این مدخل رابطه $1 را تعیین می‌کند.',//This field defines the relation $1.
+	'sf_createform_field' => 'ورودی:',//Field:
+	'sf_createform_fieldattr' => 'این ورودی صفت $1 از نوع $2 را تعیین می‌کند.',//This field defines the attribute $1, of type $2.
+	'sf_createform_fieldattrlist' => 'این ورودی یک سیاهه از مواردی که صفت $1 از نوع $2 را دارند، تعیین می‌کند.',//This field defines a list of elements that have the attribute $1, of type $2.
+	'sf_createform_fieldattrunknowntype' => 'این ورودی صفت $1 از یک نوع مشخص‌نشده(به‌فرض نوع $2) را تعیین می‌کند.',//This field defines the attribute $1, of unspecified type (assuming to be $2).
+	'sf_createform_fieldrel' => 'این ورودی رابطه $1 را تعیین می‌کند.',//This field defines the relation $1.
+	'sf_createform_fieldrellist' => 'این ورودی یک سیاهه از مواردی که ویژگی $1 را دارند، تعیین می‌کند.',//This field defines a list of elements that have the relation $1.
+	'sf_createform_fieldprop' => 'این ورودی ویژگی $1 از نوع $2 را تعیین می‌کند.',//This field defines the property $1, of type $2.
+	'sf_createform_fieldproplist' => 'این ورودی یک سیاهه از مواردی که ویژگی $1 از نوع $2 را دارند، تعیین می‌کند.',//This field defines a list of elements that have the property $1, of type $2.
+	'sf_createform_fieldpropunknowntype' => 'این ورودی ویژگی $1 از نوع نامشخص را تعیین می‌کند.',//This field defines the property $1, of unspecified type.
 	'sf_createform_formlabel' => 'برچسب فرم:',//Form label:
 	'sf_createform_hidden' =>  'مخفی',//Hidden
 	'sf_createform_restricted' =>  'محدود‌شده (فقط مدیران می‌توانند ویرایش کنند)',//Restricted (only sysop users can modify it)
@@ -80,12 +85,14 @@ class SF_LanguageFa {
 	'sf_addpage_noform_docu' => 'نام صفحه را اینجا وارد کنید و فرمی را که می‌خواهید ویرایش با آن انجام شود انتخاب نمایید. اگر صفحه در حال حاضر موجود باشد، شما به صفحه ویرایش آن صفحه به‌وسیله فرم  هدایت می‌شوید. در غیر این‌صورت به فرم افزودن صفحه منتقل خواهید شد.',//Enter the name of the page here, and select the form to edit it with. If this page already exists, you will be sent to the form for editing that page. Otherwise, you will be sent to the form for adding the page.
 	'addoreditdata' => 'افزودن یا ویرایش',//Add or edit
 	'adddata' => 'افزودن اطلاعات',//Add data
+	'sf_adddata_title' => 'افزودن $1: $2',//Add $1: $2
 	'sf_adddata_badurl' => 'این صفحه برای افزودن اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br/><span dir="ltr"> \'ویژه:AddData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br/>یا<br/><span dir="ltr"> \'ویژه:AddData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',//This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.
 	'sf_forms_adddata' => 'افزودن اطلاعات به‌وسیله این فرم',//Add data with this form
 	'editdata' => 'ویرایش اطلاعات',//Edit data
 	'form_edit' => 'ویرایش با فرم',//Edit with form
 	'edit_source' => 'ویرایش مبدأ',//Edit source
-	'sf_editdata_badurl' => 'این صفحه برای ویرایش اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br/><span dir="ltr"> \'ویژه:EditData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br/>یا<br/><span dir="ltr"> \'ویژه:EditData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',//This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.
+	'sf_editdata_title' => 'ویرایش $1: $2',//Edit $1: $2
+    'sf_editdata_badurl' => 'این صفحه برای ویرایش اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br/><span dir="ltr"> \'ویژه:EditData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br/>یا<br/><span dir="ltr"> \'ویژه:EditData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',//This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.
 	'sf_editdata_formwarning' => 'اخطار: این صفحه <a href="$1">هم‌اکنون وجود دارد</a>,ولی به‌وسیله این فرم ساخته نشده است.',//Warning: This page <a href="$1">already exists</a>, but it does not use this form.
 	'sf_editdata_remove' => 'حذف',//Remove
 	'sf_editdata_addanother' => 'افزدون دیگری',//Add another
