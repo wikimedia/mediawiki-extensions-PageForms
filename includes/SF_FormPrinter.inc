@@ -38,8 +38,15 @@ class SFFormPrinter {
         $datatypeLabels =  $smwgContLang->getDatatypeLabels();
         $string_type = $datatypeLabels['_str'];
         $url_type = $datatypeLabels['_uri'];
-        $float_type = $datatypeLabels['_num'];
-        $int_type = $datatypeLabels['_num'];
+        // backwards compatibility with SMW 1.0 alpha 1 - still used, for
+        // now, by the Halo extension
+        if (array_key_exists('_flt', $datatypeLabels)) {
+          $float_type = $datatypeLabels['_flt'];
+          $int_type = $datatypeLabels['_int'];
+        } else {
+          $float_type = $datatypeLabels['_num'];
+          $int_type = $datatypeLabels['_num'];
+        }
         // just a placeholder until SMW 1.0 supports Boolean types -
         // should be $datatypeLabels['_boo'];
         $bool_type = 'boolean';
@@ -694,7 +701,7 @@ END;
 
     // add a warning in, if the source was a page and that page appears
     // to have been edited with a different form
-    if ($source_is_page && ! $source_page_matches_this_form) {
+    if ($source_is_page && ($existing_page_content != '') && ! $source_page_matches_this_form) {
       $form_text = '	<div class="warning_message">' . wfMsg('sf_editdata_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
     }
 
