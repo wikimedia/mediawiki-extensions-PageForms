@@ -70,6 +70,8 @@ class SF_LanguageEn {
 	'sf_createform_fieldprop' => 'This field defines the property $1, of type $2.',
 	'sf_createform_fieldproplist' => 'This field defines a list of elements that have the property $1, of type $2.',
 	'sf_createform_fieldpropunknowntype' => 'This field defines the property $1, of unspecified type.',
+	'sf_createform_inputtype' =>  'Input type:',
+	'sf_createform_inputtypedefault' =>  '(default)',
 	'sf_createform_formlabel' => 'Form label:',
 	'sf_createform_hidden' =>  'Hidden',
 	'sf_createform_restricted' =>  'Restricted (only sysop users can modify it)',
