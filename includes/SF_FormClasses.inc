@@ -71,15 +71,17 @@ class SFTemplateInForm {
 
   function getAllFields() {
     $template_fields = array();
+    $field_names_array = array();
 
     // get fields of template, both semantic and otherwise, by parsing text
     // of template
-    // The way this works is somewhat complicated: fields are found, and
-    // turned into all x's after being processed, and then stored in an
+    // The way this works is that fields are found and then stored in an
     // array based on their location in the template text, so that they
-    // are returned in the order in which they appear in the template, even
-    // though they were found in a different order. The replacement of
-    // each field by x's might not be necessary, but maybe it is.
+    // can be returned in the order in which they appear in the template, even
+    // though they were found in a different order.
+    // Some fields can be found more than once (especially if they're part
+    // of an "#if" statement, so only record them the first time they're
+    // found
     $template_title = Title::newFromText($this->template_name, NS_TEMPLATE);
     $template_article = new Article($template_title);
     $template_text = $template_article->getContent();
@@ -95,12 +97,12 @@ class SFTemplateInForm {
         $is_relation = ($matches[2][$i] == "::");
         $field_name = $matches[3][$i];
         $full_field_text = $matches[0][$i];
-        $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-        $template_field->setSemanticData($semantic_field_name, $is_relation, false);
-        $cur_pos = stripos($template_text, $full_field_text);
-        $template_fields[$cur_pos] = $template_field;
-        $replacement = str_repeat("x", strlen($full_field_text));
-        $template_text = str_replace($full_field_text, $replacement, $template_text);
+        if (! in_array($field_name, $field_names_array)) {
+          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $template_field->setSemanticData($semantic_field_name, $is_relation, false);
+          $cur_pos = stripos($template_text, $full_field_text);
+          $template_fields[$cur_pos] = $template_field;
+        }
       }
     }
 
@@ -113,12 +115,12 @@ class SFTemplateInForm {
         $is_relation = ($matches[3][$i] == "::");
         $semantic_field_name = $matches[2][$i];
         $full_field_text = $matches[0][$i];
-        $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-        $template_field->setSemanticData($semantic_field_name, $is_relation, true);
-        $cur_pos = stripos($template_text, $full_field_text);
-        $template_fields[$cur_pos] = $template_field;
-        $replacement = str_repeat("x", strlen($full_field_text));
-        $template_text = str_replace($full_field_text, $replacement, $template_text);
+        if (! in_array($field_name, $field_names_array)) {
+          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $template_field->setSemanticData($semantic_field_name, $is_relation, true);
+          $cur_pos = stripos($template_text, $full_field_text);
+          $template_fields[$cur_pos] = $template_field;
+        }
       }
     }
 
@@ -126,11 +128,9 @@ class SFTemplateInForm {
     if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
       foreach ($matches[1] as $i => $field_name) {
         $full_field_text = $matches[0][$i];
-        if ($full_field_text != '') {
+        if (($full_field_text != '') && (! in_array($field_name, $field_names_array))) {
           $cur_pos = stripos($template_text, $full_field_text);
           $template_fields[$cur_pos] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-          $replacement = str_repeat("x", strlen($full_field_text));
-          $template_text = str_replace($full_field_text, $replacement, $template_text);
         }
       }
     }
@@ -290,7 +290,8 @@ class SFFormTemplateField {
     $text = "	<select name=\"$dropdown_name\">\n";
     foreach ($possible_input_types as $i => $input_type) {
       if ($i == 0) {
-        $text .= "	<option value=\"\">$input_type (default)</option>\n";
+        $text .= "	<option value=\"\">$input_type " .
+          wfMsg('sf_createform_inputtypedefault') . "</option>\n";
       } else {
         $selected_str = ($cur_input_type == $input_type) ? "selected" : "";
         $text .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
@@ -341,9 +342,10 @@ class SFFormTemplateField {
     // if it's not a semantic field - don't add any text
     $form_label_text = wfMsg('sf_createform_formlabel');
     $field_label = $template_field->label;
+    $input_type_text = wfMsg('sf_createform_inputtype');
     $text .=<<<END
 	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
-	&nbsp; Input type:
+	&nbsp; $input_type_text
 
 END;
     $possible_input_types = $this->possibleInputTypes($template_field->field_type, $template_field->is_list);
