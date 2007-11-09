@@ -77,7 +77,13 @@ class SFTemplateField {
     // this returns an array of objects
     $SMW_values = smwfGetStore()->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
     foreach ($SMW_values as $value) {
-      $this->possible_values[] = $value->getXSDValue();
+      if ($value instanceof SMWDataValue) {
+        $this->possible_values[] = $value->getXSDValue();
+      } else {
+        // backwards compatibility with SMW 1.0 alpha 1 - still used, for
+        // now, by the Halo extension
+        $this->possible_values[] = $value;
+      }
     }
     // HACK - if there were any possible values, set the field
     // type to be 'enumeration', regardless of what the actual type is
