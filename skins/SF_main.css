@@ -19,6 +19,9 @@
 }
 
 /* Used in form pages */
+table.formtable th {
+	text-align: left;
+}
 div.warning_message {
 	border: 1px solid #777777;
 	padding: 12px;
