@@ -167,6 +167,8 @@ function doSpecialCreateTemplate() {
       }
     }
   }
+  $aggregating_property = $wgRequest->getVal('semantic_field_call_aggregation');
+  $aggregation_label = $wgRequest->getVal('aggregation_label');
   $template_format = $wgRequest->getVal('template_format');
 
   $text = "";
@@ -179,7 +181,7 @@ function doSpecialCreateTemplate() {
       # redirect to wiki interface
       $title = Title::newFromText($template_name, NS_TEMPLATE);
       $submit_url = $title->getLocalURL('action=submit');
-      $full_text = createTemplateText($template_name, $fields, $category, $template_format);
+      $full_text = createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
       $text .= <<<END
@@ -212,6 +214,12 @@ END;
   $text .= printFieldEntryBox("new", $new_field, $all_properties);
 
   $text .= '	<p><input type="submit" value="' . wfMsg('sf_createtemplate_addfield') . '"></p>' . "\n";
+  $text .= "	</fieldset>\n";
+  $text .= "	<fieldset>\n";
+  $text .= '	<legend>' . wfMsg('sf_createtemplate_aggregation') . "</legend>\n";
+  $text .= '	<p>' . wfMsg('sf_createtemplate_aggregationdesc') . "</p>\n";
+  $text .= '	<p>' . wfMsg('sf_createtemplate_semanticproperty') . " " . printPropertiesDropdown($all_properties, "aggregation", $aggregating_property). "</p>\n";
+  $text .= '	<p>' . wfMsg('sf_createtemplate_aggregationlabel') . ' <input size="25" name="aggregation_label" value="' . $aggregation_label . '"></p>' . "\n";
   $text .= "	</fieldset>\n";
   $text .= '	<p>' . wfMsg('sf_createtemplate_outputformat') . "\n";
   $text .= '	<input type="radio" name="template_format" checked value="standard">' . wfMsg('sf_createtemplate_standardformat') . "\n";
