@@ -685,16 +685,17 @@ END;
       $free_text = trim($existing_page_content);
     // or get it from a form submission
     } elseif ($wgRequest->getCheck('free_text')) {
-      $free_text = Sanitizer::safeEncodeAttribute($wgRequest->getVal('free_text'));
+      $free_text = $wgRequest->getVal('free_text');
       if (! $free_text_was_included) {
         $data_text .= "<free_text>";
       }
-    // of get it from the form definition
+    // or get it from the form definition
     } elseif ($preload_page != null) {
       $free_text = $this->getPreloadedText($preload_page);
     } else {
       $free_text = null;
     }
+    $free_text = Sanitizer::safeEncodeAttribute($free_text);
     // now that we have it, substitute free text into the form and page
     $form_text = str_replace('<free_text>', $free_text, $form_text);
     $data_text = str_replace('<free_text>', $free_text, $data_text);
