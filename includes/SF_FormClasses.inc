@@ -37,8 +37,7 @@ class SFForm {
 $form_description
 
 $form_input
-</noinclude>
-<includeonly>
+</noinclude><includeonly>
 
 END;
     foreach ($this->templates as $template) {
@@ -102,6 +101,7 @@ class SFTemplateInForm {
           $template_field->setSemanticData($semantic_field_name, $is_relation, false);
           $cur_pos = stripos($template_text, $full_field_text);
           $template_fields[$cur_pos] = $template_field;
+          $field_names_array[] = $field_name;
         }
       }
     }
@@ -120,6 +120,7 @@ class SFTemplateInForm {
           $template_field->setSemanticData($semantic_field_name, $is_relation, true);
           $cur_pos = stripos($template_text, $full_field_text);
           $template_fields[$cur_pos] = $template_field;
+          $field_names_array[] = $field_name;
         }
       }
     }
@@ -131,6 +132,7 @@ class SFTemplateInForm {
         if (($full_field_text != '') && (! in_array($field_name, $field_names_array))) {
           $cur_pos = stripos($template_text, $full_field_text);
           $template_fields[$cur_pos] = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $field_names_array[] = $field_name;
         }
       }
     }
@@ -183,9 +185,13 @@ END;
     if ($this->label != '')
       $text .= "|label=" . $this->label;
     $text .= "}}}\n";
+    // for now, HTML for templates differs for multiple-instance templates;
+    // this may change if handling of form definitions gets more sophisticated
+    if (! $this->allow_multiple) { $text .= "<table>\n"; }
     foreach ($this->fields as $field) {
-      $text .= $field->createMarkup();
+      $text .= $field->createMarkup($this->allow_multiple);
     }
+    if (! $this->allow_multiple) { $text .= "</table>\n"; }
     $text .= "{{{end template}}}\n";
     return $text;
   }
@@ -372,10 +378,23 @@ END;
     return $text;
   }
 
-  function createMarkup() {
-    $text = "   <p>";
-    if ($this->template_field->label != "")
-      $text .= "<strong>" . $this->template_field->label .  ":</strong> ";
+  // for now, HTML of an individual field depends on whether or not it's
+  // part of multiple-instance template; this may change if handling of
+  // such templates in form definitions gets more sophisticated
+  function createMarkup($part_of_multiple) {
+    if ($part_of_multiple) {
+      $text = "   <p>";
+    } else {
+      $text = "   <tr>";
+    }
+    if ($this->template_field->label != "") {
+      if ($part_of_multiple) {
+        $text .= "<strong>" . $this->template_field->label .  ":</strong> ";
+      } else {
+        $text .= "<th>" . $this->template_field->label .  ":</th> ";
+      }
+    }
+    if (! $part_of_multiple) { $text .= "<td>"; }
     $text .= "{{{field|" . $this->template_field->field_name;
     if ($this->template_field->input_type != '') {
       $text .= "|input type=" . $this->template_field->input_type;
@@ -387,7 +406,12 @@ END;
     } elseif ($this->is_restricted) {
       $text .= "|restricted";
     }
-    $text .= "}}}</p>\n";
+    $text .= "}}}";
+    if ($part_of_multiple) {
+      $text .= "<p>\n";
+    } else {
+      $text .= "<tr>\n";
+    }
     return $text;
   }
 }
