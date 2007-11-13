@@ -109,7 +109,7 @@ class SFTemplateField {
   }
 }
 
-function createTemplateText($template_name, $template_fields, $category, $template_format) {
+function createTemplateText($template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format) {
   $text = "<noinclude>\n";
   $text .= wfMsgForContent('sf_template_docu', $template_name) . "\n";
   $text .= "<pre>\n";
@@ -121,8 +121,7 @@ function createTemplateText($template_name, $template_fields, $category, $templa
   $text .= "</pre>\n";
   $text .= wfMsgForContent('sf_template_docufooter') . "\n";
   $text .=<<<END
-</noinclude>
-<includeonly>
+</noinclude><includeonly>
 
 END;
   // topmost part depends on format
@@ -166,15 +165,23 @@ END;
       $text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|}}}]]\n";
     }
   }
+
+  // add a row with an inline query to this table, for aggregation, if
+  // a property was specified
+  if ($aggregating_property != '') {
+    if (count($template_fields) > 0) {
+      $text .= "|-\n";
+    }
+    $text .=<<<END
+! $aggregating_label
+| <ask format="list">[[$aggregating_property{{PAGENAME}}]]</ask>
+
+END;
+  }
   $text .= "|}\n";
   if ($category != '') {
     global $wgContLang;
-    $smw_version = SMW_VERSION;
-    if ($smw_version{0} == '0') {
-      $namespace_labels = $wgContLang->getNamespaceArray();
-    } else {
-      $namespace_labels = $wgContLang->getNamespaces();
-    }
+    $namespace_labels = $wgContLang->getNamespaces();
     $category_namespace = $namespace_labels[NS_CATEGORY];
     $text .= "\n[[$category_namespace:$category]]\n";
 
