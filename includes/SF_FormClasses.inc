@@ -187,7 +187,7 @@ END;
     $text .= "}}}\n";
     // for now, HTML for templates differs for multiple-instance templates;
     // this may change if handling of form definitions gets more sophisticated
-    if (! $this->allow_multiple) { $text .= "<table>\n"; }
+    if (! $this->allow_multiple) { $text .= "<table class=\"formtable\">\n"; }
     foreach ($this->fields as $field) {
       $text .= $field->createMarkup($this->allow_multiple);
     }
