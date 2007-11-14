@@ -44,11 +44,14 @@ class SF_LanguageFa {
 	'sf_createtemplate_namelabel' => 'نام الگو:',//Template name:
 	'sf_createtemplate_categorylabel' => 'تعیین رده به‌وسیله الگو (دلخواه):',//Category defined by template (optional):
 	'sf_createtemplate_templatefields' => 'ورودی‌های الگو',//Template fields
-	'sf_createtemplate_fieldsdesc' => 'برای داشتن ورودی‌های بدون نام در الگوها،تنها شماره ورودی را به جای نام واقعی ورودی وارد کنید (مثلا ۳،۲،۱ و ...).',//To have the fields of a template not require field names, simply enter the index of that field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.
+	'sf_createtemplate_fieldsdesc' => 'برای داشتن ورودی‌های بدون نام در الگوها،کافیست شماره ورودی را به جای نام واقعی ورودی وارد کنید (مثلا ۳،۲،۱ و ...).',//To have the fields of a template not require field names, simply enter the index of that field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.
 	'sf_createtemplate_fieldname' => 'نام ورودی:',//Field name:
 	'sf_createtemplate_displaylabel' => 'نمایش برچسب:',//Display label:
 	'sf_createtemplate_semanticproperty' => 'ویژگی معنایی:',//Semantic property:
 	'sf_createtemplate_fieldislist' => 'این ورودی می‌تواند یک سیاهه از مقادیر را که با کاما از هم جدا شده‌اند، در خود ذخیره کند',//This field can hold a list of values, separated by commas
+	'sf_createtemplate_aggregation' => 'تراکم',//Aggregation
+	'sf_createtemplate_aggregationdesc' => 'برای داشتن سیاه همه صفحاتی که این الگو را به‌کار می‌برند، و همه آن مقالاتی که با ویژگی معینی با آن صفحه در ارتباط هستند، وِیژگی مناسب را مشخص کنید:',//To list, on any page using this template, all of the articles that have a certain property pointing to that page, specify the appropriate property below:
+	'sf_createtemplate_aggregationlabel' => 'عنوان سیاهه',//Title for list:
 	'sf_createtemplate_outputformat' => 'قالب خروجی:',//Output format:
 	'sf_createtemplate_standardformat' => 'استاندارد',//Standard
 	'sf_createtemplate_infoboxformat' => 'جعبه اطلاعات سمت راست',//Right-hand-side infobox
