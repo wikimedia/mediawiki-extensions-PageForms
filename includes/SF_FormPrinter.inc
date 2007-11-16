@@ -97,9 +97,11 @@ class SFFormPrinter {
     $sfgTabIndex = 1;
     $sfgFieldNum = 1;
     $source_page_matches_this_form = false;
-    // disable all form elements if user doesn't have edit permission
+    // disable all form elements if user doesn't have edit permission -
+    // two different checks are needed, because editing permissions can be
+    // set in different ways
     $this->mPageTitle = Title::newFromText($page_title);
-    if ( $this->mPageTitle->userCanEdit() ) {
+    if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCanEdit()) {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
@@ -107,7 +109,7 @@ class SFFormPrinter {
       // FormPrinter can parse wikitext
       if ($wgUser->isAnon()) {
         $anon_edit_warning = preg_replace("/'''(.*)'''/", "<strong>$1</strong>", wfMsg('anoneditwarning'));
-        $form_text .= $anon_edit_warning;
+        $form_text .= "<p>$anon_edit_warning</p>\n";
       }
     } else {
       $form_is_disabled = true;
