@@ -79,8 +79,9 @@ class SFTemplateInForm {
     // can be returned in the order in which they appear in the template, even
     // though they were found in a different order.
     // Some fields can be found more than once (especially if they're part
-    // of an "#if" statement, so only record them the first time they're
-    // found
+    // of an "#if" statement, so they're only recorded the first time they're
+    // found. Also, every field gets replaced with a string of x's after
+    // being found, so it doesn't interfere with future parsing
     $template_title = Title::newFromText($this->template_name, NS_TEMPLATE);
     $template_article = new Article($template_title);
     $template_text = $template_article->getContent();
@@ -88,25 +89,7 @@ class SFTemplateInForm {
     $template_text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $template_text);
     $template_text = strtr($template_text, array('<includeonly>' => '', '</includeonly>' => ''));
 
-    // first look for normal relation/attribute calls
-    if (preg_match_all('/\[\[([^:=]*:*?[^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
-      // this is a two-dimensional array; we need the last three of the four
-      // sub-arrays; we also have to remove redundant values
-      foreach ($matches[1] as $i => $semantic_field_name) {
-        $is_relation = ($matches[2][$i] == "::");
-        $field_name = $matches[3][$i];
-        $full_field_text = $matches[0][$i];
-        if (! in_array($field_name, $field_names_array)) {
-          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
-          $template_field->setSemanticData($semantic_field_name, $is_relation, false);
-          $cur_pos = stripos($template_text, $full_field_text);
-          $template_fields[$cur_pos] = $template_field;
-          $field_names_array[] = $field_name;
-        }
-      }
-    }
-
-    // second, look for "arraymap" parser function calls that map a
+    // first, look for "arraymap" parser function calls that map a
     // relation or attribute onto a list
     if (preg_match_all('/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:=]*:?[^:=]*)(:[:=])/mis', $template_text, $matches)) {
       // this is a two-dimensional array; we need the last three of the four
@@ -121,6 +104,28 @@ class SFTemplateInForm {
           $cur_pos = stripos($template_text, $full_field_text);
           $template_fields[$cur_pos] = $template_field;
           $field_names_array[] = $field_name;
+          $replacement = str_repeat("x", strlen($full_field_text));
+          $template_text = str_replace($full_field_text, $replacement, $template_text);
+        }
+      }
+    }
+
+    // second, look for normal relation/attribute calls
+    if (preg_match_all('/\[\[([^:=]*:*?[^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
+      // this is a two-dimensional array; we need the last three of the four
+      // sub-arrays; we also have to remove redundant values
+      foreach ($matches[1] as $i => $semantic_field_name) {
+        $is_relation = ($matches[2][$i] == "::");
+        $field_name = $matches[3][$i];
+        $full_field_text = $matches[0][$i];
+        if (! in_array($field_name, $field_names_array)) {
+          $template_field = SFTemplateField::newWithValues($field_name, ucfirst(strtolower($field_name)));
+          $template_field->setSemanticData($semantic_field_name, $is_relation, false);
+          $cur_pos = stripos($template_text, $full_field_text);
+          $template_fields[$cur_pos] = $template_field;
+          $field_names_array[] = $field_name;
+          $replacement = str_repeat("x", strlen($full_field_text));
+          $template_text = str_replace($full_field_text, $replacement, $template_text);
         }
       }
     }
@@ -145,8 +150,9 @@ class SFTemplateInForm {
     $tif->template_name = str_replace('_', ' ', $name);
     $tif->fields = array();
     $fields = $tif->getAllFields();
-    foreach ($fields as $i => $field) {
-      $tif->fields[] = SFFormTemplateField::create($i, $field);
+    $field_num = 0;
+    foreach ($fields as $field) {
+      $tif->fields[] = SFFormTemplateField::create($field_num++, $field);
     }
     $tif->label = $label;
     $tif->allow_multiple = $allow_multiple;
@@ -410,7 +416,7 @@ END;
     if ($part_of_multiple) {
       $text .= "<p>\n";
     } else {
-      $text .= "<tr>\n";
+      $text .= "</td></tr>\n";
     }
     return $text;
   }
