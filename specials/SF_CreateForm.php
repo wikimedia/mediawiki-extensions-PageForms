@@ -41,7 +41,7 @@ function doSpecialCreateForm() {
 
   # get the names of all templates on this site
   $all_templates = array();
-  $sql = "SELECT page_title FROM {$db->tableName( 'page' )} WHERE page_namespace=" . NS_TEMPLATE . " ORDER BY page_title";
+  $sql = "SELECT page_title FROM {$db->tableName( 'page' )} WHERE page_namespace=" . NS_TEMPLATE . " AND page_is_redirect = 0 ORDER BY page_title";
   $res = $db->query( $sql );
   if ($db->numRows( $res ) > 0) {
     while ($row = $db->fetchRow($res)) {
