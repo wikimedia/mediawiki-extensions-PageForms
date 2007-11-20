@@ -6,14 +6,13 @@
 class SF_LanguageFa {
 
 /* private */ var $sfContentMessages = array(
-	'sf_createproperty_isattribute' => 'این یک صفت از نوع $1 است.', //This is an attribute of type $1.
-	'sf_createproperty_isproperty' => 'این یک ویژگی از نوع $1 است.', //This is a property of type $1.
-	'sf_createproperty_allowedvals' => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:',//The allowed values for this attribute or property are:
-	'sf_createproperty_isrelation' => 'این یک رابطه است.',//This is a relation.
+	'sf_property_isattribute' => 'این یک صفت از نوع $1 است.', //This is an attribute of type $1.
+	'sf_property_isproperty' => 'این یک ویژگی از نوع $1 است.', //This is a property of type $1.
+	'sf_property_allowedvals' => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:',//The allowed values for this attribute or property are:
+	'sf_property_isrelation' => 'این یک رابطه است.',//This is a relation.
 	'sf_template_docu' => 'این الگوی \'$1\' است. باید با این قالب فراخوانی شود:',//This is the \'$1\' template. It should be called in the following format:
 	'sf_template_docufooter' => 'برای مشاهده متن الگو صفحه را ویرایش کنید.',//Edit the page to see the template text.
 	'sf_form_docu' => 'این فرم \'$1\' است. برای افزودن یک صفحه به‌وسیله این فرم،نام صفحه را وارد کنید، اگر صفحه‌ای با این نام وجود داشته باشد، به فرم ویرایش صفحه هدایت می‌شوید.',//This is the \'$1\' form. To add a page with this form, enter the page name below; if a page with that name already exists, you will be sent to a form to edit that page.
-	'sf_form_relation' => 'فرم پیش‌فرض دارد',//Has default form
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -106,6 +105,11 @@ class SF_LanguageFa {
 	'sf_blank_error' => 'نمی‌تواند خالی باشد'//cannot be blank
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => 'فرم پیش‌فرض دارد' //Has default form
+);
+
 	/**
 	 * Function that returns the namespace identifiers.
 	 */
@@ -131,6 +135,13 @@ class SF_LanguageFa {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }

@@ -7,14 +7,13 @@
 class SF_LanguageZh_cn {
  
 /* private */ var $sfContentMessages = array(
-        'sf_createproperty_isattribute' => '这是$1型态的属性。',   //(This is an attribute of type $1.)
-        'sf_createproperty_isproperty' => '这是$1型态的性质。', //'This is a property of type $1.'       
-        'sf_createproperty_allowedvals' => '此属性的可用型态为：',   //(The allowed values for this attribute are:)
-        'sf_createproperty_isrelation' => '这是一项关联。',       //(This is a relation.)
+        'sf_property_isattribute' => '这是$1型态的属性。',   //(This is an attribute of type $1.)
+        'sf_property_isproperty' => '这是$1型态的性质。', //'This is a property of type $1.'       
+        'sf_property_allowedvals' => '此属性的可用型态为：',   //(The allowed values for this attribute are:)
+        'sf_property_isrelation' => '这是一项关联。',       //(This is a relation.)
         'sf_template_docu' => '这是\'$1\'样板，它须以如下的格式引用：',  //(This is the \'$1\' template. It should be called in the following format:)
         'sf_template_docufooter' => '编辑此页以查看样板文字。',        //(Edit the page to see the template text.)
         'sf_form_docu' => '这是\'$1\'表单，编辑此页以查看原始码，您能以此表单新增资料[[$2|这里]]。',  //(This is the \'$1\' form; edit the page to see the source code. You can add data with this form [[$2|here]].)
-        'sf_form_relation' => '设有表单',      //(Has default form)
         // month names are already defined in MediaWiki, but unfortunately
         // there they're defined as user messages, and here they're
         // content messages
@@ -106,6 +105,11 @@ class SF_LanguageZh_cn {
  
         'sf_blank_error' => '不得为空白'        //(cannot be blank)
 );
+
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => '设有表单'    //(Has default form)
+);
  
         /**
          * Function that returns the namespace identifiers.
@@ -134,6 +138,13 @@ class SF_LanguageZh_cn {
         function getUserMsgArray() {
                 return $this->sfUserMessages;
         }
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
+	}
  
 }
  

@@ -9,7 +9,6 @@ class SF_LanguageHe {
 /* private */ var $sfContentMessages = array(
         'sf_template_docu' => 'זאת התבנית $1. צריך לקרוא לה בפורמט הזה:',
         'sf_template_docufooter' => 'ערוך את הדף כדי לראות את טקסט התבנית.',
-        'sf_form_relation' => 'משתמש בטופס',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -74,6 +73,11 @@ class SF_LanguageHe {
         'sf_blank_error' => 'לא יכול להיות ריק'
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => 'משתמש בטופס'
+);
+
 	/**
 	 * Function that returns the namespace identifiers.
 	 */
@@ -99,6 +103,13 @@ class SF_LanguageHe {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }

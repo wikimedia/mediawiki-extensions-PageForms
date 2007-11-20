@@ -6,14 +6,13 @@
 class SF_LanguageZh_tw {
 
 /* private */ var $sfContentMessages = array(
-	'sf_createproperty_isattribute' => '這是$1型態的屬性。',	//(This is an attribute of type $1.)
-	'sf_createproperty_isproperty' => '這是$1型態的性質。', //'This is a property of type $1.'	
-	'sf_createproperty_allowedvals' => '此屬性的可用型態為：',	//(The allowed values for this attribute are:)
-	'sf_createproperty_isrelation' => '這是一項關聯。',	//(This is a relation.)
+	'sf_property_isattribute' => '這是$1型態的屬性。',	//(This is an attribute of type $1.)
+	'sf_property_isproperty' => '這是$1型態的性質。', //'This is a property of type $1.'	
+	'sf_property_allowedvals' => '此屬性的可用型態為：',	//(The allowed values for this attribute are:)
+	'sf_property_isrelation' => '這是一項關聯。',	//(This is a relation.)
 	'sf_template_docu' => '這是\'$1\'樣板，它須以如下的格式引用：',	//(This is the \'$1\' template. It should be called in the following format:)
 	'sf_template_docufooter' => '編輯此頁以查看樣板文字。',	//(Edit the page to see the template text.)
 	'sf_form_docu' => '這是\'$1\'表單，編輯此頁以查看原始碼，您能以此表單新增資料[[$2|這裡]]。',	//(This is the \'$1\' form; edit the page to see the source code. You can add data with this form [[$2|here]].)
-	'sf_form_relation' => '設有表單',	//(Has default form)
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -106,6 +105,11 @@ class SF_LanguageZh_tw {
 	'sf_blank_error' => '不得為空白'	//(cannot be blank)
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => '設有表單',	//(Has default form)
+);
+
 	/**
 	 * Function that returns the namespace identifiers.
 	 */
@@ -132,6 +136,13 @@ class SF_LanguageZh_tw {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }

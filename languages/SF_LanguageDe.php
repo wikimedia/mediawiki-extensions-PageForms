@@ -6,14 +6,13 @@
 class SF_LanguageDe {
 
 /* private */ var $sfContentMessages = array(
-	'sf_createproperty_isattribute' => 'Dies ist ein Attribut des Typs $1.',
-	'sf_createproperty_isproperty' => 'Dies ist eine Eigenschaft des Typs $1.',
-	'sf_createproperty_allowedvals' => 'Die mÃ¶glichen Werte für diese Eigenschaft bzw. dieses Attribut sind:',
-	'sf_createproperty_isrelation' => 'Dies ist eine Beziehung.',
+	'sf_property_isattribute' => 'Dies ist ein Attribut des Typs $1.',
+	'sf_property_isproperty' => 'Dies ist eine Eigenschaft des Typs $1.',
+	'sf_property_allowedvals' => 'Die mÃ¶glichen Werte für diese Eigenschaft bzw. dieses Attribut sind:',
+	'sf_property_isrelation' => 'Dies ist eine Beziehung.',
 	'sf_template_docu' => 'Dies ist die Vorlage für \'$1\'. Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Bearbeiten sie diese Seite, um den Vorlagentext zu sehen.',
 	'sf_form_docu' => 'Geben sie in dieses Textfeld den Namen der Seite ein, die mit Formular \'$1\' erstellt werden soll. Wenn bereits eine Seite mit diesem Namen existiert werden sie zu einem Formular weitergeleitet, mit dem sie diese Seite bearbeiten kÃ¶nnen.',
-	'sf_form_relation' => 'Hat Standardformular',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -95,6 +94,11 @@ class SF_LanguageDe {
 	'sf_blank_error' => 'Darf nicht leer sein!'
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => 'Hat Standardformular'
+);
+
 	/**
 	 * Function that returns the namespace identifiers.
 	 */
@@ -120,6 +124,13 @@ class SF_LanguageDe {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }

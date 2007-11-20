@@ -6,13 +6,12 @@
 class SF_LanguageNl {
 
 /* private */ var $sfContentMessages = array(
-	'sf_createproperty_isattribute' => 'Dit is een eigenschap van het type $1.',
-	'sf_createproperty_allowedvals' => 'De toegestane waarden voor deze eigenschap zijn:',
-	'sf_createproperty_isrelation' => 'Dit is een relatie.',
+	'sf_property_isattribute' => 'Dit is een eigenschap van het type $1.',
+	'sf_property_allowedvals' => 'De toegestane waarden voor deze eigenschap zijn:',
+	'sf_property_isrelation' => 'Dit is een relatie.',
 	'sf_template_docu' => 'Dit is het sjabloon \'$1\'. Gebruik het op de volgende wijze:',
 	'sf_template_docufooter' => 'Bewerk de pagina om de sjabloontekst te bekijken.',
 	'sf_form_docu' => 'Dit is het formulier \'$1\'. Bewerkt het om de broncode te bekijken. U kunt [[$2|hier]] gegevens tovoegen met dit formulier.',
-	'sf_form_relation' => 'Heeft standaardformulier',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -86,6 +85,11 @@ class SF_LanguageNl {
 	'sf_blank_error' => 'mag niet leeg blijven'
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => 'Heeft standaardformulier'
+);
+
 	/**
 	 * Function that returns the namespace identifiers.
 	 */
@@ -111,6 +115,13 @@ class SF_LanguageNl {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }

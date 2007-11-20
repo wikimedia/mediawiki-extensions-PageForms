@@ -8,7 +8,6 @@ class SF_LanguagePt_br {
 /* private */ var $sfContentMessages = array(
     'sf_template_docu' => 'Esta é a \'$1\' predefinição. Necessita ser chamada no seguinte formato:',
     'sf_template_docufooter' => 'Edite a página para ver o texto da predefinição.',
-    'sf_form_relation' => 'Tem formulário padrão',
     // month names are already defined in MediaWiki, but unfortunately
     // there they're defined as user messages, and here they're
     // content messages
@@ -77,6 +76,11 @@ lugar do nome atual.',
     'sf_blank_error' => 'Não pode ficar em branco'
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => 'Tem formulário padrão'
+);
+
     /**
      * Function that returns the namespace identifiers.
      */
@@ -103,6 +107,13 @@ lugar do nome atual.',
     function getUserMsgArray() {
         return $this->sfUserMessages;
     }
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
+	}
 
 }
 

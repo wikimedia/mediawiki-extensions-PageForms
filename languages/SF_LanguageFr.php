@@ -8,7 +8,6 @@ class SF_LanguageFr {
 /* private */ var $sfContentMessages = array(
 	'sf_template_docu' => 'Ceci est la modÃ¨le Â« $1 Â». Elle doit être appelée par le format suivant:',
 	'sf_template_docufooter' => 'Modifier la page pour voir la texte de la modÃ¨le.',
-	'sf_form_relation' => 'Utilise le formulaire',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -75,6 +74,11 @@ class SF_LanguageFr {
 	'sf_blank_error' => 'ne peut pas être blanc'
 );
 
+/* private */ var $sfSpecialProperties = array(
+	//always start upper-case
+	SF_SP_HAS_DEFAULT_FORM  => 'Utilise le formulaire'
+);
+
 	/**
 	 * Function that returns the namespace identifiers.
 	 */
@@ -100,6 +104,13 @@ class SF_LanguageFr {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }
