@@ -48,10 +48,12 @@ function doSpecialAddData($query = '') {
 		$target_name = isset($queryparts[1]) ? $queryparts[1] : '';
 	}
 
-	printAddForm($form_name, $target_name);
+	$alt_forms = $wgRequest->getArray('alt_form');
+
+	printAddForm($form_name, $target_name, $alt_forms);
 }
 
-function printAddForm($form_name, $target_name) {
+function printAddForm($form_name, $target_name, $alt_forms) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
 	// get contents of template
@@ -99,7 +101,18 @@ function printAddForm($form_name, $target_name) {
 		if ($form_submitted) {
 			$text = $sfgFormPrinter->redirectText($target_name, $data_text);
 		} else {
-			$text =<<<END
+			$text = "";
+			if (count($alt_forms) > 0) {
+				$text .= '<div class="info_message">' . wfMsg('sf_adddata_altforms') . ' ';
+				$ad = SpecialPage::getPage('AddData');
+				$i = 0;
+				foreach ($alt_forms as $alt_form) {
+					if ($i++ > 0) { $text .= ", "; }
+					$text .= '<a href="' . $ad->getTitle()->getFullURL() . "/" . $alt_form . "/" . $target_name . '">' . str_replace('_', ' ', $alt_form) . "</a>";
+				}
+				$text .= "</div>\n";
+			}
+			$text .=<<<END
 				<form name="createbox" onsubmit="return validate_all()" action="" method="post" class="createbox">
 
 END;
