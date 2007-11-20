@@ -9,6 +9,10 @@
 
 define('SF_VERSION','0.7.7');
 
+// constants for special properties
+define('SF_SP_HAS_DEFAULT_FORM', 1);
+define('SF_SP_HAS_ALTERNATE_FORM', 2);
+
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 $wgHooks['LanguageGetMagic'][] = 'sfgLanguageGetMagic';
@@ -329,14 +333,14 @@ function sfgSetupExtension() {
 		$props = $store->getPropertyValues($title, $property);
 		$form_names = array();
 		foreach ($props as $prop) {
-			$form_names[] = $prop->getTitle()->getText();
+			$form_names[] = str_replace(' ', '_', $prop->getTitle()->getText());
 		}
 		// try the English version too, if this isn't in English
 		if ($alternate_form_property != "Has_alternate_form") {
 			$property = Title::newFromText("Has_alternate_form", SF_NS_FORM);
 			$props = $store->getPropertyValues($title, $property);
 			foreach ($props as $prop) {
-				$form_names[] = $prop->getTitle()->getText();
+				$form_names[] = str_replace(' ', '_', $prop->getTitle()->getText());
 			}
 		}
 		return $form_names;
