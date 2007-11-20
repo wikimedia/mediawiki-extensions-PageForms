@@ -6,14 +6,14 @@
 class SF_LanguageEn {
 
 /* private */ var $sfContentMessages = array(
-	'sf_createproperty_isattribute' => 'This is an attribute of type $1.',
-	'sf_createproperty_isproperty' => 'This is a property of type $1.',
-	'sf_createproperty_allowedvals' => 'The allowed values for this attribute or property are:',
-	'sf_createproperty_isrelation' => 'This is a relation.',
+	'sf_property_isattribute' => 'This is an attribute of type $1.',
+	'sf_property_isproperty' => 'This is a property of type $1.',
+	'sf_property_allowedvals' => 'The allowed values for this attribute or property are:',
+	'sf_property_isrelation' => 'This is a relation.',
 	'sf_template_docu' => 'This is the \'$1\' template. It should be called in the following format:',
 	'sf_template_docufooter' => 'Edit the page to see the template text.',
 	'sf_form_docu' => 'This is the \'$1\' form. To add a page with this form, enter the page name below; if a page with that name already exists, you will be sent to a form to edit that page.',
-	'sf_form_relation' => 'Has default form',
+	'sf_category_hasdefaultform' => 'This category uses the form $1.',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -84,6 +84,8 @@ class SF_LanguageEn {
 	'sf_createform_beforetemplate' => 'Before template:',
 	'sf_createform_atend' => 'At end',
 	'sf_createform_add' => 'Add',
+	'createcategory' => 'Create a category',
+	'sf_createcategory_defaultform' => 'Default form:',
 	'addpage' => 'Add page',
 	'sf_addpage_badform' => 'Error: no form page was found at $1',
 	'sf_addpage_docu' => 'Enter the name of the page here, to be edited with the form \'$1\'. If this page already exists, you will be sent to the form for editing that page. Otherwise, you will be sent to the form for adding the page.',
@@ -92,6 +94,7 @@ class SF_LanguageEn {
 	'adddata' => 'Add data',
 	'sf_adddata_title' => 'Add $1: $2',
 	'sf_adddata_badurl' => 'This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.',
+	'sf_adddata_altforms' => 'You can instead add this page with one of the following forms:',
 	'sf_forms_adddata' => 'Add data with this form',
 	'editdata' => 'Edit data',
 	'form_edit' => 'Edit with form',
@@ -104,6 +107,12 @@ class SF_LanguageEn {
 	'sf_editdata_freetextlabel' => 'Free text',
 
 	'sf_blank_error' => 'cannot be blank'
+);
+
+/* private */ var $sfSpecialProperties = array(
+        //always start upper-case
+        SF_SP_HAS_DEFAULT_FORM  => 'Has default form',
+        SF_SP_HAS_ALTERNATE_FORM  => 'Has alternate form'
 );
 
 	/**
@@ -131,6 +140,13 @@ class SF_LanguageEn {
 
 	function getUserMsgArray() {
 		return $this->sfUserMessages;
+	}
+
+	/**
+	 * Function that returns the labels for the special properties.
+	 */
+	function getSpecialPropertiesArray() {
+		return $this->sfSpecialProperties;
 	}
 
 }
