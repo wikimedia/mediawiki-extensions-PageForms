@@ -23,6 +23,13 @@ table.formtable th {
 	text-align: left;
 	vertical-align: top;
 }
+div.info_message {
+	border: 1px solid #777777;
+	padding: 12px;
+	margin: 25px;
+	width:auto;
+	background: #eeeeee;
+}
 div.warning_message {
 	border: 1px solid #777777;
 	padding: 12px;
