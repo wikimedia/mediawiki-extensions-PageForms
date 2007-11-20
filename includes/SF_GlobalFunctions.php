@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.7.6');
+define('SF_VERSION','0.7.7');
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
@@ -33,6 +33,7 @@ function sfgSetupExtension() {
 	require_once($sfgIP . '/specials/SF_Templates.php');
 	require_once($sfgIP . '/specials/SF_CreateTemplate.php');
 	require_once($sfgIP . '/specials/SF_CreateProperty.php');
+	require_once($sfgIP . '/specials/SF_CreateCategory.php');
 	require_once($sfgIP . '/specials/SF_AddPage.php');
 	require_once($sfgIP . '/specials/SF_AddData.php');
 	require_once($sfgIP . '/specials/SF_EditData.php');
@@ -224,14 +225,16 @@ function sfgSetupExtension() {
 
 	// Version for SMW 0.7 and lower
 	function sffGetDefaultForm_0_7($page_title, $page_namespace) {
+		global $sfgContLang;
 		$db = wfGetDB( DB_SLAVE );
-		$default_form_relation = str_replace(' ', '_', wfMsgForContent('sf_form_relation'));
+		$sf_props = $sfgContLang->getSpecialPropertiesArray();
+		$default_form_relation = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
 		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
 		  "WHERE subject_title = '" . $db->strencode($page_title) .
 		  "' AND subject_namespace = '" . $page_namespace .
 		  "' AND (relation_title = '" . $db->strencode($default_form_relation);
 		// try English version too, if this is in another language
-		if (wfMsgForContent('sf_form_relation') != "Has default form") {
+		if ($default_form_relation != "Has_default_form") {
 			$sql .= "' OR relation_title = 'Has_default_form";
 		}
 		$sql .= "') AND object_namespace = " . SF_NS_FORM;
@@ -250,9 +253,12 @@ function sfgSetupExtension() {
 		if ($page_title == NULL)
 			return null;
 
+		global $sfgContLang;
 		$store = smwfGetStore();
 		$title = Title::newFromText($page_title, $page_namespace);
-		$property = Title::newFromText(str_replace(' ', '_', wfMsgForContent('sf_form_relation')), SF_NS_FORM);
+		$sf_props = $sfgContLang->getSpecialPropertiesArray();
+		$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
+		$property = Title::newFromText($default_form_property, SF_NS_FORM);
 		$res = $store->getPropertyValues($title, $property);
 		$num = count($res);
 		if ($num > 0) {
@@ -260,7 +266,7 @@ function sfgSetupExtension() {
 			return $form_name;
 		}
 		// try the English version too, if this isn't in English
-		if (wfMsgForContent('sf_form_relation') != "Has default form") {
+		if ($default_form_property != "Has_default_form") {
 			$property = Title::newFromText("Has_default_form", SF_NS_FORM);
 			$res = $store->getPropertyValues($title, $property);
 			$num = count($res);
@@ -273,6 +279,70 @@ function sfgSetupExtension() {
 	}
 
 	/**
+	 * Gets the alternate forms specified, if any, for a specific page
+	 * (which, for now, should always be a relation)
+	 */
+	function sffGetAlternateForms($page_title, $page_namespace) {
+		$smw_version = SMW_VERSION;
+		if ($smw_version{0} == '0') {
+			return sffGetAlternateForms_0_7($page_title, $page_namespace);
+		} else {
+			return sffGetAlternateForms_1_0($page_title, $page_namespace);
+		}
+	}
+
+	// Version for SMW 0.7 and lower
+	function sffGetAlternateForms_0_7($page_title, $page_namespace) {
+		global $sfgContLang;
+		$db = wfGetDB( DB_SLAVE );
+		$sf_props = $sfgContLang->getSpecialPropertiesArray();
+		$alternate_form_relation = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
+		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
+		  "WHERE subject_title = '" . $db->strencode($page_title) .
+		  "' AND subject_namespace = '" . $page_namespace .
+		  "' AND (relation_title = '" . $db->strencode($alternate_form_relation);
+		// try English version too, if this is in another language
+		if ($alternate_form_relation != "Has_alternate_form") {
+			$sql .= "' OR relation_title = 'Has_alternate_form";
+		}
+		$sql .= "') AND object_namespace = " . SF_NS_FORM;
+		$res = $db->query( $sql );
+		$form_names = array();
+		while ($row = $db->fetchRow($res)) {
+			$form_names[] = $row[0];
+		}
+		$db->freeResult($res);
+		return $form_names;
+	}
+
+	// Version for SMW 1.0 and higher
+	function sffGetAlternateForms_1_0($page_title, $page_namespace) {
+		if ($page_title == NULL)
+			return null;
+
+		global $sfgContLang;
+		$store = smwfGetStore();
+		$title = Title::newFromText($page_title, $page_namespace);
+		$sf_props = $sfgContLang->getSpecialPropertiesArray();
+		$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
+		$property = Title::newFromText($alternate_form_property, SF_NS_FORM);
+		$props = $store->getPropertyValues($title, $property);
+		$form_names = array();
+		foreach ($props as $prop) {
+			$form_names[] = $prop->getTitle()->getText();
+		}
+		// try the English version too, if this isn't in English
+		if ($alternate_form_property != "Has_alternate_form") {
+			$property = Title::newFromText("Has_alternate_form", SF_NS_FORM);
+			$props = $store->getPropertyValues($title, $property);
+			foreach ($props as $prop) {
+				$form_names[] = $prop->getTitle()->getText();
+			}
+		}
+		return $form_names;
+	}
+
+	/**
 	 * Helper function for sffAddDataLink() - gets 'default form' relation,
 	 * and creates the corresponding 'add data' link, for a page, if any
 	 * such relation is defined
@@ -282,6 +352,11 @@ function sfgSetupExtension() {
 			return null;
 		$ad = SpecialPage::getPage('AddData');
 		$add_data_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
+		$alt_forms = sffGetAlternateForms($page_title, $page_namespace);
+		foreach ($alt_forms as $i => $alt_form) {
+			$add_data_url .= ($i == 0) ? "?" : "&";
+			$add_data_url .= "alt_form[$i]=$alt_form";
+		}
 		return $add_data_url;
 	}
 
@@ -399,18 +474,26 @@ function sffGetFormForArticle($obj) {
 	return sffGetDefaultForm($obj->mTitle->getNsText(), NS_PROJECT);
 }
 
+/**
+ * Return an array of all form names on this wiki
+ */
+function sffGetAllForms() {
+	$dbr = wfGetDB( DB_SLAVE );
+	$query = "SELECT page_title FROM " . $dbr->tableName( 'page' ) .
+		" WHERE page_namespace = " . SF_NS_FORM .
+		" AND page_is_redirect = 0" .
+		" ORDER BY page_title";
+	$res = $dbr->query($query);
+	$form_names = array();
+	while ($row = $dbr->fetchRow($res)) {
+		$form_names[] = str_replace('_', ' ', $row[0]);
+	}
+	$dbr->freeResult($res);
+	return $form_names;
+}
+
 	function sffFormDropdownHTML() {
 		// create a dropdown of possible form names
-		$dbr = wfGetDB( DB_SLAVE );
-		$query = "SELECT page_title FROM " . $dbr->tableName( 'page' ) .
-			" WHERE page_namespace = " . SF_NS_FORM .
-			" AND page_is_redirect = 0";
-		$res = $dbr->query($query);
-		$form_names = array();
-		while ($row = $dbr->fetchRow($res)) {
-			$form_names[] = str_replace('_', ' ', $row[0]);
-		}
-		sort($form_names);
 		global $sfgContLang;
 		$namespace_labels = $sfgContLang->getNamespaceArray();
 		$form_label = $namespace_labels[SF_NS_FORM];
@@ -419,11 +502,11 @@ function sffGetFormForArticle($obj) {
 			<select name="form">
 
 END;
+		$form_names = sffGetAllForms();
 		foreach ($form_names as $form_name) {
 			$str .= "			<option>$form_name</option>\n";
 		}
 		$str .= "			</select>\n";
-                $dbr->freeResult($res);
 		return $str;
 	}
 ?>
