@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.7.7');
+define('SF_VERSION','0.7.8');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -18,6 +18,7 @@ $wgExtensionFunctions[] = 'sfgParserFunctions';
 $wgHooks['LanguageGetMagic'][] = 'sfgLanguageGetMagic';
 
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
+require_once($sfgIP . '/languages/SF_Language.php');
 
 /**
  *  Do the actual intialisation of the extension. This is just a delayed init that makes sure
@@ -74,20 +75,22 @@ function sfgSetupExtension() {
 	 * greater or equal to 100.
 	 */
 	function sffInitNamespaces() {
-		global $sfgNamespaceIndex, $wgExtraNamespaces, $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
+		global $sfgNamespaceIndex, $wgExtraNamespaces, $wgNamespaceAliases, $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
 
 		if (!isset($sfgNamespaceIndex)) {
 			$sfgNamespaceIndex = 106;
 		}
 
-		sffInitContentLanguage($wgLanguageCode);
-
 		define('SF_NS_FORM',       $sfgNamespaceIndex);
 		define('SF_NS_FORM_TALK',  $sfgNamespaceIndex+1);
 
+		sffInitContentLanguage($wgLanguageCode);
+
 		// Register namespace identifiers
 		if (!is_array($wgExtraNamespaces)) { $wgExtraNamespaces=array(); }
-		$wgExtraNamespaces = $wgExtraNamespaces + $sfgContLang->getNamespaceArray();
+		$wgExtraNamespaces = $wgExtraNamespaces + $sfgContLang->getNamespaces();
+		// this code doesn't work, for some reason - leave it out for now
+		//$wgNamespaceAliases = $wgNamespaceAliases + $sfgContLang->getNamespaceAliases();
 
 		// Support subpages only for talk pages by default
 		$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
@@ -236,12 +239,14 @@ function sfgSetupExtension() {
 		$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
 		  "WHERE subject_title = '" . $db->strencode($page_title) .
 		  "' AND subject_namespace = '" . $page_namespace .
-		  "' AND (relation_title = '" . $db->strencode($default_form_relation);
-		// try English version too, if this is in another language
-		if ($default_form_relation != "Has_default_form") {
-			$sql .= "' OR relation_title = 'Has_default_form";
+		  "' AND (relation_title = '" . $db->strencode($default_form_relation) . "'";
+		// try aliases for SF_SP_HAS_DEFAULT_FORM, too
+		foreach ($sfgContLang->getSpecialPropertyAliases() as $alias => $property) {
+			if ($property == SF_SP_HAS_DEFAULT_FORM) {
+				$sql .= " OR relation_title = '" . str_replace(' ', '_', $alias) . "'";
+			}
 		}
-		$sql .= "') AND object_namespace = " . SF_NS_FORM;
+		$sql .= ") AND object_namespace = " . SF_NS_FORM;
 		$res = $db->query( $sql );
 		if ($db->numRows( $res ) > 0) {
 			$row = $db->fetchRow($res);
@@ -269,14 +274,18 @@ function sfgSetupExtension() {
 			$form_name = $res[0]->getTitle()->getText();
 			return $form_name;
 		}
-		// try the English version too, if this isn't in English
-		if ($default_form_property != "Has_default_form") {
-			$property = Title::newFromText("Has_default_form", SF_NS_FORM);
-			$res = $store->getPropertyValues($title, $property);
-			$num = count($res);
-			if ($num > 0) {
-				$form_name = $res[0]->getTitle()->getText();
-				return $form_name;
+		// if that didn't work, try any aliases that may exist
+		// for SF_SP_HAS_DEFAULT_FORM
+		$sf_props_aliases = $sfgContLang->getSpecialPropertiesAliases();
+		foreach ($sf_props_aliases as $alias => $prop_code) {
+			if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
+				$property = Title::newFromText($alias, SF_NS_FORM);
+				$res = $store->getPropertyValues($title, $property);
+				$num = count($res);
+				if ($num > 0) {
+					$form_name = $res[0]->getTitle()->getText();
+					return $form_name;
+				}
 			}
 		}
 		return null;
@@ -347,16 +356,21 @@ function sfgSetupExtension() {
 	}
 
 	/**
-	 * Helper function for sffAddDataLink() - gets 'default form' relation,
-	 * and creates the corresponding 'add data' link, for a page, if any
-	 * such relation is defined
+	 * Helper function for sffAddDataLink() - gets 'default form' and
+	 * 'alternate form' relations/properties, and creates the
+	 * corresponding 'add data' link, for a page, if any such
+	 * relation/properties are defined
 	 */
 	function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespace) {
-		if (! $form_name = sffGetDefaultForm($page_title, $page_namespace))
+		$form_name = sffGetDefaultForm($page_title, $page_namespace);
+		$alt_forms = sffGetAlternateForms($page_title, $page_namespace);
+		if (! $form_name && count($alt_forms) == 0)
 			return null;
 		$ad = SpecialPage::getPage('AddData');
-		$add_data_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
-		$alt_forms = sffGetAlternateForms($page_title, $page_namespace);
+		if ($form_name)
+			$add_data_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
+		else
+			$add_data_url = $ad->getTitle()->getFullURL() . "/" . sffTitleURLString($target_page_title);
 		foreach ($alt_forms as $i => $alt_form) {
 			$add_data_url .= ($i == 0) ? "?" : "&";
 			$add_data_url .= "alt_form[$i]=$alt_form";
@@ -441,17 +455,22 @@ function sfgSetupExtension() {
 
 
 /**
- * Helper function - gets names of categories for this page;
+ * Helper function - gets names of categories for a page;
  * based on Title::getParentCategories(), but simpler
+ * - this function doubles as a function to get all categories on the
+ * the site, if no article is specified
  */
-function sffGetCategoriesForArticle($article) {
+function sffGetCategoriesForArticle($article = NULL) {
 	$fname = 'sffGetCategoriesForArticle()';
 	$categories = array();
-	$titlekey = $article->mTitle->getArticleId();
 	$db = wfGetDB( DB_SLAVE );
-	$conditions = "cl_from='$titlekey'";
+	$conditions = null;
+	if ($article != '') {
+		$titlekey = $article->mTitle->getArticleId();
+		$conditions = "cl_from='$titlekey'";
+	}
 	$res = $db->select( $db->tableName('categorylinks'),
-		'cl_to', $conditions, $fname);
+		'distinct cl_to', $conditions, $fname);
 	if ($db->numRows( $res ) > 0) {
 		while ($row = $db->fetchRow($res)) {
 			$categories[] = $row[0];
