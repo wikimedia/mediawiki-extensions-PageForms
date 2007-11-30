@@ -97,7 +97,7 @@ class SF_LanguageZh_tw extends SF_Language {
 	'sf_adddata_title' => '增加 $1： $2',
   'sf_adddata_badurl' => '本頁為新增資料之用，您必須在URL裡同時指定表單及目標頁面，它看起來應該像是\'Special:AddData?form=&lt;表單名稱&gt;&target=&lt;目標頁面&gt;\' 或是 \'Special:AddData/&lt;表單名稱&gt;/&lt;目標頁面&gt;\'。',	//(This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.)
   'sf_adddata_altforms' => '您可選用下列其中一個的表單來新增此頁',  //(You can instead add this page with one of the following forms:),
-  'sf_adddata_altformsonly' => '請從下列的表單中選出其中一個，並以該表單編輯此頁：',  (Please select from one of the following forms to add this page:)
+  'sf_adddata_altformsonly' => '請從下列的表單中選出其中一個，並以該表單編輯此頁：',  //(Please select from one of the following forms to add this page:)
 	'sf_forms_adddata' => '以表單新增資料',	//(Add data with this form)
 	'editdata' => '編輯資料',	//(Edit data)
 	'form_edit' => '以表單進行編輯',	//(Edit with form)
@@ -119,7 +119,7 @@ class SF_LanguageZh_tw extends SF_Language {
 );
 
 /* private */ var $m_SpecialPropertyAliases = array(
-	'設有表單'	=> SF_SP_HAS_DEFAULT_FORM	//(Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “設有表單”. It has changed to use “預設表單”. 
+	'設有表單'	=> SF_SP_HAS_DEFAULT_FORM,	//(Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “設有表單”. It has changed to use “預設表單”. 
 	// support English aliases for special properties
 	'Has default form'	=> SF_SP_HAS_DEFAULT_FORM,
 	'Has alternate form'	=> SF_SP_HAS_ALTERNATE_FORM
