@@ -27,6 +27,7 @@ class SFFormPrinter {
       $smw_version = SMW_VERSION;
       if ($smw_version{0} == '0') {
         $string_type = $smwgContLang->getDatatypeLabel('smw_string');
+        $text_type = 'text'; // placeholder - SMW 1.0+ only
         $url_type = $smwgContLang->getDatatypeLabel('smw_url');
         $float_type = $smwgContLang->getDatatypeLabel('smw_float');
         $int_type = $smwgContLang->getDatatypeLabel('smw_int');
@@ -37,6 +38,7 @@ class SFFormPrinter {
       } else {
         $datatypeLabels =  $smwgContLang->getDatatypeLabels();
         $string_type = $datatypeLabels['_str'];
+        $text_type = $datatypeLabels['_txt'];
         $url_type = $datatypeLabels['_uri'];
         // backwards compatibility with SMW 1.0 alpha 1 - still used, for
         // now, by the Halo extension
@@ -56,6 +58,7 @@ class SFFormPrinter {
       }
       $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
       $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaEntryHTML'), array('rows' => 5, 'cols' => 30));
       $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
       $this->setSemanticTypeHook($float_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
       $this->setSemanticTypeHook($int_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
@@ -764,18 +767,19 @@ function hideOrShowFieldset(element)
 	element.style.display = (show?"block":"none");
 }
 </script>
+
 END;
         }
 
-        $chooser_text .= "<p>$choosername:<select id='chooserselect$chooser_count' size='1' onchange='updatechooserbutton(this,\"chooserbutton$chooser_count\")'>";
-        $chooser_text .= "<option value='invalid'>Choose a field to add</option>";
+        $chooser_text .= "<p>$choosername:<select id='chooserselect$chooser_count' size='1' onchange='updatechooserbutton(this,\"chooserbutton$chooser_count\")'>\n";
+        $chooser_text .= "<option value='invalid'>" . wfMsg('sf_createform_choosefield') . "</option>\n";
         foreach ($chooser as $chooser_item) {
           $chooser_value = str_replace('"','\\"',$chooser_item[0]);
           $tabindex = $chooser_item[1];
           $chooser_caption = $chooser_item[2];
           if ($chooser_caption === false)
             $chooser_caption = str_replace('_', ' ', $chooser_value);
-            $chooser_text .= "<option value=\"$tabindex ,$chooser_value\">$chooser_caption</option>";
+            $chooser_text .= "<option value=\"$tabindex ,$chooser_value\">$chooser_caption</option>\n";
           }
         $chooser_text .= "</select>\n";
       }
@@ -1149,7 +1153,13 @@ END;
       if ($smw_version{0} == '0') {
         $names_array = $this->getAllPagesForRelation_0_7($field_name);
       } else {
-        // no handling yet
+        // Unfortunately, there's no 1.0 version of this function yet,
+        // because it would require a function like
+        // SMWStore::getAllPropertyObjects(), which doesn't exist yet.
+        // For now, just use the 0.7 version - this forces the data store
+        // to be a database, but hopefully that's not a problem for any
+        // users yet
+        $names_array = $this->getAllPagesForRelation_0_7($field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = $this->getAllPagesForCategory($field_name, 10);
