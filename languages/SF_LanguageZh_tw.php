@@ -33,7 +33,7 @@ class SF_LanguageZh_tw extends SF_Language {
 );
 
 /* private */ var $m_UserMessages = array(
-	'createproperty' => '新增語意(semantic)性質',	//(Create a semantic property)
+	'createproperty' => '新增語意(semantic)性質',	//(Create a property)
 	'sf_createproperty_allowedvalsinput' => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\,)：', //If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):'
 	'sf_createproperty_propname' => '名稱：',
 	'sf_createproperty_proptype' => '型態:',

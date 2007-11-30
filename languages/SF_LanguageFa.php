@@ -33,7 +33,7 @@ class SF_LanguageFa extends SF_Language {
 );
 
 /* private */ var $m_UserMessages = array(
-	'createproperty' => 'ویژگی معنایی بسازید',//Create a semantic property
+	'createproperty' => 'ویژگی معنایی بسازید',//Create a property
 	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\،" جایگزین نمایید):',//If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):
 	'sf_createproperty_propname' => 'نام:',//Name:
 	'sf_createproperty_proptype' => 'نوع:',//Type:

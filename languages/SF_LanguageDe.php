@@ -32,7 +32,7 @@ class SF_LanguageDe extends SF_Language {
 );
 
 /* private */ var $m_UserMessages = array(
-	'createproperty' => 'Erstelle eine semantische Eigenschaft',
+	'createproperty' => 'Erstelle eine Eigenschaft',
 	'sf_createproperty_allowedvalsinput' => 'Wenn sie führ dieses Feld nur bestimmte Werte ermöglichen wollen geben sie diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetzen sie dieses mit "\,"):',
 	'sf_createproperty_propname' => 'Name:',
 	'sf_createproperty_proptype' => 'Typ:',

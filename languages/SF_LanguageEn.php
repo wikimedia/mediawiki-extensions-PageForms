@@ -33,7 +33,7 @@ class SF_LanguageEn extends SF_Language {
 );
 
 /* private */ var $m_UserMessages = array(
-	'createproperty' => 'Create a semantic property',
+	'createproperty' => 'Create a property',
 	'sf_createproperty_allowedvalsinput' => 'If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
 	'sf_createproperty_propname' => 'Name:',
 	'sf_createproperty_proptype' => 'Type:',

@@ -30,7 +30,7 @@ class SF_LanguageNl extends SF_Language {
 );
 
 /* private */ var $m_UserMessages = array(
-	'createproperty' => 'Semantische eigenschap aanmaken',
+	'createproperty' => 'Eigenschap aanmaken',
 	'templates' => 'Sjablonen',
 	'sf_templates_docu' => 'De onderstaande sjablonen bestaan in de wiki.',
 	'sf_templates_definescat' => 'bepaalt categorie:',
