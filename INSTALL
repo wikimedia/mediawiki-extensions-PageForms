@@ -1,4 +1,4 @@
-[[Semantic Forms 0.7.7]]
+[[Semantic Forms 0.7.8]]
 
 Contents:
 * Disclaimer
@@ -8,9 +8,9 @@ Contents:
 
 == Disclaimer ==
 
-Semantic Forms is a new extension, and there is no guarantee
-that any of it will work on your system. On the other hand, the
-code does not make any modifications to the database directly,
+Semantic Forms is a relatively new extension, and there is no
+guarantee that any of it will work on your system. On the other hand,
+the code does not make any modifications to the database directly,
 so it should be a low-risk installation.
 
 For a proper legal disclaimer, see the file "COPYING".
@@ -37,4 +37,4 @@ including SF_Settings.php. See SF_Settings.php for more details.
 == Contact ==
 
 If you have any issues or questions, please send them to
-yaron57@gmail.com
+yaron57@gmail.com.
