@@ -3,9 +3,9 @@
  * @author Yaron Koren  翻譯:張致信(Translation: Roc Michael Email:roc.no1@gmail.com)
  */
 
-class SF_LanguageZh_tw {
+class SF_LanguageZh_tw extends SF_Language {
 
-/* private */ var $sfContentMessages = array(
+/* private */ var $m_ContentMessages = array(
 	'sf_property_isattribute' => '這是$1型態的屬性。',	//(This is an attribute of type $1.)
 	'sf_property_isproperty' => '這是$1型態的性質。', //'This is a property of type $1.'	
 	'sf_property_allowedvals' => '此屬性的可用型態為：',	//(The allowed values for this attribute are:)
@@ -13,6 +13,7 @@ class SF_LanguageZh_tw {
 	'sf_template_docu' => '這是\'$1\'樣板，它須以如下的格式引用：',	//(This is the \'$1\' template. It should be called in the following format:)
 	'sf_template_docufooter' => '編輯此頁以查看樣板文字。',	//(Edit the page to see the template text.)
 	'sf_form_docu' => '這是\'$1\'表單，編輯此頁以查看原始碼，您能以此表單新增資料[[$2|這裡]]。',	//(This is the \'$1\' form; edit the page to see the source code. You can add data with this form [[$2|here]].)
+	'sf_category_hasdefaultform' => '此項分類(category)使用$1表單。', //'This category uses the form $1.',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -31,14 +32,14 @@ class SF_LanguageZh_tw {
 	'sf_blank_namespace' => '主',   //'Main'	
 );
 
-/* private */ var $sfUserMessages = array(
+/* private */ var $m_UserMessages = array(
 	'createproperty' => '新增語意(semantic)性質',	//(Create a semantic property)
 	'sf_createproperty_allowedvalsinput' => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\,)：', //If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):'
 	'sf_createproperty_propname' => '名稱：',
 	'sf_createproperty_proptype' => '型態:',
 	'templates' => '樣板',	//(Templates)
 	'sf_templates_docu' => '本wiki系統已含有下列的樣板。',	//(The following templates exist in the wiki.)
-	'sf_templates_definescat' => '定義分類(category)：',	//(defines category:)
+	'sf_templates_definescat' => '定義分類(Category)：',	//(defines category:)
 	'createtemplate' => '新增樣板',	//(Create a template)
 	'sf_createtemplate_namelabel' => '樣板名稱：',	//(Template name:)
 	'sf_createtemplate_categorylabel' => '以樣板定義分類(選用性的)',	//(Category defined by template (optional):)
@@ -83,6 +84,10 @@ class SF_LanguageZh_tw {
 	'sf_createform_beforetemplate' => '在樣板之前：',	//(Before template:)
 	'sf_createform_atend' => '在末端',	//(At end)
 	'sf_createform_add' => '新增',	//(Add)
+	'createcategory' => '新增分類(Category)',
+	'sf_createcategory_name' => '名稱：', //(Name:)
+	'sf_createcategory_defaultform' => '預設的表單',
+  'sf_createcategory_makesubcategory' => '令此項分類(Category)成為某一分類項下的子分類(選擇性使用)',	//'Make this a subcategory of another category (optional):'
 	'addpage' => '新增頁面',	//(Add page)
 	'sf_addpage_badform' => '錯誤！在$1上並沒有找到表單頁面。',	//(Error: no form page was found at $1)
 	'sf_addpage_docu' => '輸入頁面名稱以便以\'$1\'表單編輯。如果此頁已存在的話，您便能以表單編輯該頁，否則，您便能以表單新增此頁面。',	//(Enter the name of the page here, to be edited with the form \'$1\'. If this page already exists, you will be sent to the form for editing that page. Otherwise, you will be sent to the form for adding the page.)
@@ -91,6 +96,8 @@ class SF_LanguageZh_tw {
 	'adddata' => '新增資料',	//(Add data)
 	'sf_adddata_title' => '增加 $1： $2',
   'sf_adddata_badurl' => '本頁為新增資料之用，您必須在URL裡同時指定表單及目標頁面，它看起來應該像是\'Special:AddData?form=&lt;表單名稱&gt;&target=&lt;目標頁面&gt;\' 或是 \'Special:AddData/&lt;表單名稱&gt;/&lt;目標頁面&gt;\'。',	//(This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.)
+  'sf_adddata_altforms' => '您可選用下列其中一個的表單來新增此頁',  //(You can instead add this page with one of the following forms:),
+  'sf_adddata_altformsonly' => '請從下列的表單中選出其中一個，並以該表單編輯此頁：',  (Please select from one of the following forms to add this page:)
 	'sf_forms_adddata' => '以表單新增資料',	//(Add data with this form)
 	'editdata' => '編輯資料',	//(Edit data)
 	'form_edit' => '以表單進行編輯',	//(Edit with form)
@@ -105,45 +112,29 @@ class SF_LanguageZh_tw {
 	'sf_blank_error' => '不得為空白'	//(cannot be blank)
 );
 
-/* private */ var $sfSpecialProperties = array(
+/* private */ var $m_SpecialProperties = array(
 	//always start upper-case
-	SF_SP_HAS_DEFAULT_FORM  => '設有表單',	//(Has default form)
+  SF_SP_HAS_DEFAULT_FORM  => '預設表單',	//(Has default form) 
+	SF_SP_HAS_ALTERNATE_FORM  => '代用表單'  //(Has alternate form)
 );
 
-	/**
-	 * Function that returns the namespace identifiers.
-	 */
-	function getNamespaceArray() {
-		return array(
-			SF_NS_FORM           => '表單',			//	(Form)
-			SF_NS_FORM_TALK      => '表單_talk'		//	(Form_talk)
+/* private */ var $m_SpecialPropertyAliases = array(
+	'設有表單'	=> SF_SP_HAS_DEFAULT_FORM	//(Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “設有表單”. It has changed to use “預設表單”. 
+	// support English aliases for special properties
+	'Has default form'	=> SF_SP_HAS_DEFAULT_FORM,
+	'Has alternate form'	=> SF_SP_HAS_ALTERNATE_FORM
+);
 
-		);
-	}
+var $m_Namespaces = array(
+	SF_NS_FORM           => '表單',		//	(Form)
+	SF_NS_FORM_TALK      => '表單討論'	//	(Form_talk)  SF 0.7.6前原譯為'表單_talk'
+);
 
-	/**
-	 * Function that returns all content messages (those that are stored
-	 * in some article, and can thus not be translated to individual users).
-	 */
-	function getContentMsgArray() {
-		return $this->sfContentMessages;
-	}
-
-	/**
-	 * Function that returns all user messages (those that are given only to
-	 * the current user, and can thus be given in the individual user language).
-	 */
-
-	function getUserMsgArray() {
-		return $this->sfUserMessages;
-	}
-
-	/**
-	 * Function that returns the labels for the special properties.
-	 */
-	function getSpecialPropertiesArray() {
-		return $this->sfSpecialProperties;
-	}
+var $m_NamespaceAliases = array(
+	// support English aliases for namespaces
+	'Form'		=> SF_NS_FORM,
+	'Form_talk'	=> SF_NS_FORM_TALK
+);
 
 }
 

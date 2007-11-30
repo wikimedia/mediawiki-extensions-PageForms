@@ -3,9 +3,9 @@
  * @author Yaron Koren
  */
 
-class SF_LanguageEn {
+class SF_LanguageEn extends SF_Language {
 
-/* private */ var $sfContentMessages = array(
+/* private */ var $m_ContentMessages = array(
 	'sf_property_isattribute' => 'This is an attribute of type $1.',
 	'sf_property_isproperty' => 'This is a property of type $1.',
 	'sf_property_allowedvals' => 'The allowed values for this attribute or property are:',
@@ -32,7 +32,7 @@ class SF_LanguageEn {
 	'sf_blank_namespace' => 'Main'
 );
 
-/* private */ var $sfUserMessages = array(
+/* private */ var $m_UserMessages = array(
 	'createproperty' => 'Create a semantic property',
 	'sf_createproperty_allowedvalsinput' => 'If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
 	'sf_createproperty_propname' => 'Name:',
@@ -84,8 +84,11 @@ class SF_LanguageEn {
 	'sf_createform_beforetemplate' => 'Before template:',
 	'sf_createform_atend' => 'At end',
 	'sf_createform_add' => 'Add',
+	'sf_createform_choosefield' => 'Choose a field to add',
 	'createcategory' => 'Create a category',
+	'sf_createcategory_name' => 'Name:',
 	'sf_createcategory_defaultform' => 'Default form:',
+	'sf_createcategory_makesubcategory' => 'Make this a subcategory of another category (optional):',
 	'addpage' => 'Add page',
 	'sf_addpage_badform' => 'Error: no form page was found at $1',
 	'sf_addpage_docu' => 'Enter the name of the page here, to be edited with the form \'$1\'. If this page already exists, you will be sent to the form for editing that page. Otherwise, you will be sent to the form for adding the page.',
@@ -95,6 +98,7 @@ class SF_LanguageEn {
 	'sf_adddata_title' => 'Add $1: $2',
 	'sf_adddata_badurl' => 'This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.',
 	'sf_adddata_altforms' => 'You can instead add this page with one of the following forms:',
+	'sf_adddata_altformsonly' => 'Please select from one of the following forms to add this page:',
 	'sf_forms_adddata' => 'Add data with this form',
 	'editdata' => 'Edit data',
 	'form_edit' => 'Edit with form',
@@ -109,45 +113,16 @@ class SF_LanguageEn {
 	'sf_blank_error' => 'cannot be blank'
 );
 
-/* private */ var $sfSpecialProperties = array(
+/* private */ var $m_SpecialProperties = array(
         //always start upper-case
         SF_SP_HAS_DEFAULT_FORM  => 'Has default form',
         SF_SP_HAS_ALTERNATE_FORM  => 'Has alternate form'
 );
 
-	/**
-	 * Function that returns the namespace identifiers.
-	 */
-	function getNamespaceArray() {
-		return array(
-			SF_NS_FORM           => 'Form',
-			SF_NS_FORM_TALK      => 'Form_talk'
-		);
-	}
-
-	/**
-	 * Function that returns all content messages (those that are stored
-	 * in some article, and can thus not be translated to individual users).
-	 */
-	function getContentMsgArray() {
-		return $this->sfContentMessages;
-	}
-
-	/**
-	 * Function that returns all user messages (those that are given only to
-	 * the current user, and can thus be given in the individual user language).
-	 */
-
-	function getUserMsgArray() {
-		return $this->sfUserMessages;
-	}
-
-	/**
-	 * Function that returns the labels for the special properties.
-	 */
-	function getSpecialPropertiesArray() {
-		return $this->sfSpecialProperties;
-	}
+var $m_Namespaces = array(
+	SF_NS_FORM           => 'Form',
+	SF_NS_FORM_TALK      => 'Form_talk'
+);
 
 }
 

@@ -3,9 +3,9 @@
  * @author Dominik Rodler
  */
 
-class SF_LanguageDe {
+class SF_LanguageDe extends SF_Language {
 
-/* private */ var $sfContentMessages = array(
+/* private */ var $m_ContentMessages = array(
 	'sf_property_isattribute' => 'Dies ist ein Attribut des Typs $1.',
 	'sf_property_isproperty' => 'Dies ist eine Eigenschaft des Typs $1.',
 	'sf_property_allowedvals' => 'Die möglichen Werte f�r diese Eigenschaft bzw. dieses Attribut sind:',
@@ -31,7 +31,7 @@ class SF_LanguageDe {
 	'sf_blank_namespace' => 'Main'
 );
 
-/* private */ var $sfUserMessages = array(
+/* private */ var $m_UserMessages = array(
 	'createproperty' => 'Erstelle eine semantische Eigenschaft',
 	'sf_createproperty_allowedvalsinput' => 'Wenn sie führ dieses Feld nur bestimmte Werte ermöglichen wollen geben sie diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetzen sie dieses mit "\,"):',
 	'sf_createproperty_propname' => 'Name:',
@@ -94,44 +94,27 @@ class SF_LanguageDe {
 	'sf_blank_error' => 'Darf nicht leer sein!'
 );
 
-/* private */ var $sfSpecialProperties = array(
+/* private */ var $m_SpecialProperties = array(
 	//always start upper-case
 	SF_SP_HAS_DEFAULT_FORM  => 'Hat Standardformular'
 );
 
-	/**
-	 * Function that returns the namespace identifiers.
-	 */
-	function getNamespaceArray() {
-		return array(
-			SF_NS_FORM           => 'Formular',
-			SF_NS_FORM_TALK      => 'Formulardiskussion'
-		);
-	}
+/* private */ var $m_SpecialPropertyAliases = array(
+	// support English aliases for special properties
+	'Has default form'	=> SF_SP_HAS_DEFAULT_FORM,
+	'Has alternate form'	=> SF_SP_HAS_ALTERNATE_FORM
+);
 
-	/**
-	 * Function that returns all content messages (those that are stored
-	 * in some article, and can thus not be translated to individual users).
-	 */
-	function getContentMsgArray() {
-		return $this->sfContentMessages;
-	}
+var $m_Namespaces = array(
+	SF_NS_FORM           => 'Formular',
+	SF_NS_FORM_TALK      => 'Formulardiskussion'
+);
 
-	/**
-	 * Function that returns all user messages (those that are given only to
-	 * the current user, and can thus be given in the individual user language).
-	 */
-
-	function getUserMsgArray() {
-		return $this->sfUserMessages;
-	}
-
-	/**
-	 * Function that returns the labels for the special properties.
-	 */
-	function getSpecialPropertiesArray() {
-		return $this->sfSpecialProperties;
-	}
+var $m_NamespaceAliases = array(
+	// support English aliases for namespaces
+	'Form'		=> SF_NS_FORM,
+	'Form_talk'	=> SF_NS_FORM_TALK
+);
 
 }
 

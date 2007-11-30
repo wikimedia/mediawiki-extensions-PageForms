@@ -3,10 +3,10 @@
  * @author Yaron Koren
  */
 
-class SF_LanguageHe {
+class SF_LanguageHe extends SF_Language {
 
 
-/* private */ var $sfContentMessages = array(
+/* private */ var $m_ContentMessages = array(
         'sf_template_docu' => 'זאת התבנית $1. צריך לקרוא לה בפורמט הזה:',
         'sf_template_docufooter' => 'ערוך את הדף כדי לראות את טקסט התבנית.',
 	// month names are already defined in MediaWiki, but unfortunately
@@ -27,7 +27,7 @@ class SF_LanguageHe {
 
 );
 
-/* private */ var $sfUserMessages = array(
+/* private */ var $m_UserMessages = array(
         'templates' => 'תבניות',
         'sf_templates_docu' => 'התבניות הבאות קיימות בוויקי הזה.',
 	'sf_templates_definescat' => 'מגדיר את הקטגוריה:',
@@ -73,44 +73,27 @@ class SF_LanguageHe {
         'sf_blank_error' => 'לא יכול להיות ריק'
 );
 
-/* private */ var $sfSpecialProperties = array(
+/* private */ var $m_SpecialProperties = array(
 	//always start upper-case
 	SF_SP_HAS_DEFAULT_FORM  => 'משתמש בטופס'
 );
 
-	/**
-	 * Function that returns the namespace identifiers.
-	 */
-	function getNamespaceArray() {
-		return array(
-			SF_NS_FORM           => 'Form',
-			SF_NS_FORM_TALK      => 'Form_talk'
-		);
-	}
+/* private */ var $m_SpecialPropertyAliases = array(
+	// support English aliases for special properties
+	'Has default form'	=> SF_SP_HAS_DEFAULT_FORM,
+	'Has alternate form'	=> SF_SP_HAS_ALTERNATE_FORM
+);
 
-	/**
-	 * Function that returns all content messages (those that are stored
-	 * in some article, and can thus not be translated to individual users).
-	 */
-	function getContentMsgArray() {
-		return $this->sfContentMessages;
-	}
+var $m_Namespaces = array(
+	SF_NS_FORM           => 'Form',
+	SF_NS_FORM_TALK      => 'Form_talk'
+);
 
-	/**
-	 * Function that returns all user messages (those that are given only to
-	 * the current user, and can thus be given in the individual user language).
-	 */
-
-	function getUserMsgArray() {
-		return $this->sfUserMessages;
-	}
-
-	/**
-	 * Function that returns the labels for the special properties.
-	 */
-	function getSpecialPropertiesArray() {
-		return $this->sfSpecialProperties;
-	}
+var $m_NamespaceAliases = array(
+	// support English aliases for namespaces
+	'Form'		=> SF_NS_FORM,
+	'Form_talk'	=> SF_NS_FORM_TALK
+);
 
 }
 

@@ -3,9 +3,9 @@
  * @author Yaron Koren (Translation:Ghassem Tofighi Email:[MyFamily]@gmail.com, HomePage:http://ght.ir)
  */
 
-class SF_LanguageFa {
+class SF_LanguageFa extends SF_Language {
 
-/* private */ var $sfContentMessages = array(
+/* private */ var $m_ContentMessages = array(
 	'sf_property_isattribute' => 'این یک صفت از نوع $1 است.', //This is an attribute of type $1.
 	'sf_property_isproperty' => 'این یک ویژگی از نوع $1 است.', //This is a property of type $1.
 	'sf_property_allowedvals' => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:',//The allowed values for this attribute or property are:
@@ -13,6 +13,7 @@ class SF_LanguageFa {
 	'sf_template_docu' => 'این الگوی \'$1\' است. باید با این قالب فراخوانی شود:',//This is the \'$1\' template. It should be called in the following format:
 	'sf_template_docufooter' => 'برای مشاهده متن الگو صفحه را ویرایش کنید.',//Edit the page to see the template text.
 	'sf_form_docu' => 'این فرم \'$1\' است. برای افزودن یک صفحه به‌وسیله این فرم،نام صفحه را وارد کنید، اگر صفحه‌ای با این نام وجود داشته باشد، به فرم ویرایش صفحه هدایت می‌شوید.',//This is the \'$1\' form. To add a page with this form, enter the page name below; if a page with that name already exists, you will be sent to a form to edit that page.
+	'sf_category_hasdefaultform' => 'این رده از فرم $1 استفاده می‌کند.',//This category uses the form $1.
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -31,7 +32,7 @@ class SF_LanguageFa {
 	'sf_blank_namespace' => 'اصلی'//Main
 );
 
-/* private */ var $sfUserMessages = array(
+/* private */ var $m_UserMessages = array(
 	'createproperty' => 'ویژگی معنایی بسازید',//Create a semantic property
 	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\،" جایگزین نمایید):',//If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):
 	'sf_createproperty_propname' => 'نام:',//Name:
@@ -49,7 +50,7 @@ class SF_LanguageFa {
 	'sf_createtemplate_semanticproperty' => 'ویژگی معنایی:',//Semantic property:
 	'sf_createtemplate_fieldislist' => 'این ورودی می‌تواند یک سیاهه از مقادیر را که با کاما از هم جدا شده‌اند، در خود ذخیره کند',//This field can hold a list of values, separated by commas
 	'sf_createtemplate_aggregation' => 'تراکم',//Aggregation
-	'sf_createtemplate_aggregationdesc' => 'برای داشتن سیاه همه صفحاتی که این الگو را به‌کار می‌برند، و همه آن مقالاتی که با ویژگی معینی با آن صفحه در ارتباط هستند، وِیژگی مناسب را مشخص کنید:',//To list, on any page using this template, all of the articles that have a certain property pointing to that page, specify the appropriate property below:
+	'sf_createtemplate_aggregationdesc' => 'برای داشتن سیاهه همه صفحاتی که این الگو را به‌کار می‌برند، و همه آن مقالاتی که با ویژگی معینی با آن صفحه در ارتباط هستند، وِیژگی مناسب را مشخص کنید:',//To list, on any page using this template, all of the articles that have a certain property pointing to that page, specify the appropriate property below:
 	'sf_createtemplate_aggregationlabel' => 'عنوان سیاهه',//Title for list:
 	'sf_createtemplate_outputformat' => 'قالب خروجی:',//Output format:
 	'sf_createtemplate_standardformat' => 'استاندارد',//Standard
@@ -83,6 +84,10 @@ class SF_LanguageFa {
 	'sf_createform_beforetemplate' => 'قبل از الگوی:',//Before template:
 	'sf_createform_atend' => 'در آخر',//At end
 	'sf_createform_add' => 'افزودن',//Add
+	'createcategory' => 'رده بسازید',//Create a category
+	'sf_createcategory_name' => 'نام:',//Name:
+	'sf_createcategory_defaultform' => 'فرم پیش‌فرض:',//Default form:
+	'sf_createcategory_makesubcategory' => 'قرار دادن این رده به عنوان زیررده یک رده دیگر(دلخواه):',//Make this a subcategory of another category (optional):
 	'addpage' => 'افزودن صفحه',//Add page
 	'sf_addpage_badform' => 'خطا: هیچ صفحه فرمی در $1 پیدا نشد',//Error: no form page was found at $1
 	'sf_addpage_docu' => 'برای ویرایش با فرم \'$1\'، نام صفحه را اینجا وارد کنید. اگر صفحه در حال حاضر موجود باشد، شما به فرم ویرایش صفحه هدایت می‌شوید. در غیر این‌صورت به فرم افزودن صفحه منتقل خواهید شد.',//Enter the name of the page here, to be edited with the form \'$1\'. If this page already exists, you will be sent to the form for editing that page. Otherwise, you will be sent to the form for adding the page.
@@ -91,6 +96,8 @@ class SF_LanguageFa {
 	'adddata' => 'افزودن اطلاعات',//Add data
 	'sf_adddata_title' => 'افزودن $1: $2',//Add $1: $2
 	'sf_adddata_badurl' => 'این صفحه برای افزودن اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br/><span dir="ltr"> \'ویژه:AddData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br/>یا<br/><span dir="ltr"> \'ویژه:AddData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',//This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.
+	'sf_adddata_altforms' => 'می‌توانید این صفحه را به‌وسیله فرم‌های زیر نیز بسازید:',//You can instead add this page with one of the following forms:
+	'sf_adddata_altformsonly' => 'لطفا برای افزودن صفحه از یکی از فرم‌های زیر استفاده کنید:',//Please select from one of the following forms to add this page:
 	'sf_forms_adddata' => 'افزودن اطلاعات به‌وسیله این فرم',//Add data with this form
 	'editdata' => 'ویرایش اطلاعات',//Edit data
 	'form_edit' => 'ویرایش با فرم',//Edit with form
@@ -105,44 +112,28 @@ class SF_LanguageFa {
 	'sf_blank_error' => 'نمی‌تواند خالی باشد'//cannot be blank
 );
 
-/* private */ var $sfSpecialProperties = array(
+/* private */ var $m_SpecialProperties = array(
 	//always start upper-case
-	SF_SP_HAS_DEFAULT_FORM  => 'فرم پیش‌فرض دارد' //Has default form
+	SF_SP_HAS_DEFAULT_FORM  => 'فرم پیش‌فرض دارد',//Has default form
+	 SF_SP_HAS_ALTERNATE_FORM  => 'فرم مشابه دارد'//Has alternate form
 );
 
-	/**
-	 * Function that returns the namespace identifiers.
-	 */
-	function getNamespaceArray() {
-		return array(
-			SF_NS_FORM           => 'فرم',//Form
-			SF_NS_FORM_TALK      => 'بحث_فرم'//Form_talk
-		);
-	}
+/* private */ var $m_SpecialPropertyAliases = array(
+	// support English aliases for special properties
+	'Has default form'	=> SF_SP_HAS_DEFAULT_FORM,
+	'Has alternate form'	=> SF_SP_HAS_ALTERNATE_FORM
+);
 
-	/**
-	 * Function that returns all content messages (those that are stored
-	 * in some article, and can thus not be translated to individual users).
-	 */
-	function getContentMsgArray() {
-		return $this->sfContentMessages;
-	}
+var $m_Namespaces = array(
+	SF_NS_FORM           => 'فرم',//Form
+	SF_NS_FORM_TALK      => 'بحث_فرم'//Form_talk
+);
 
-	/**
-	 * Function that returns all user messages (those that are given only to
-	 * the current user, and can thus be given in the individual user language).
-	 */
-
-	function getUserMsgArray() {
-		return $this->sfUserMessages;
-	}
-
-	/**
-	 * Function that returns the labels for the special properties.
-	 */
-	function getSpecialPropertiesArray() {
-		return $this->sfSpecialProperties;
-	}
+var $m_NamespaceAliases = array(
+	// support English aliases for namespaces
+	'Form'		=> SF_NS_FORM,
+	'Form_talk'	=> SF_NS_FORM_TALK
+);
 
 }
 
