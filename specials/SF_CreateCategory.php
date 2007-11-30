@@ -34,7 +34,7 @@ if ($sfgSpecialPagesSpecialInit) {
 	SpecialPage::addPage( new SpecialPage('CreateCategory','',true,'doSpecialCreateCategory',false) );
 }
 
-function createCategoryText($default_form) {
+function createCategoryText($default_form, $parent_category) {
 	global $sfgContLang;
 
 	$namespace_labels = $sfgContLang->getNamespaceArray();
@@ -44,6 +44,12 @@ function createCategoryText($default_form) {
 	$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] .
 		"::$form_label:$default_form|$default_form]]";
 	$text = wfMsg('sf_category_hasdefaultform', $form_tag);
+	if ($parent_category != '') {
+		global $wgContLang;
+		$namespace_labels = $wgContLang->getNamespaces();
+		$category_namespace = $namespace_labels[NS_CATEGORY];
+		$text .= "\n\n[[$category_namespace:$parent_category]]";
+	}
 	return $text;
 }
 
@@ -53,6 +59,7 @@ function doSpecialCreateCategory() {
   # cycle through the query values, setting the appropriate local variables
   $category_name = $wgRequest->getVal('category_name');
   $default_form = $wgRequest->getVal('default_form');
+  $parent_category = $wgRequest->getVal('parent_category');
 
   $preview_button_text = wfMsg('preview');
   $category_name_error_str = '';
@@ -65,7 +72,7 @@ function doSpecialCreateCategory() {
       $namespace = NS_CATEGORY;
       $title = Title::newFromText($category_name, $namespace);
       $submit_url = $title->getLocalURL('action=submit');
-      $full_text = createCategoryText($default_form);
+      $full_text = createCategoryText($default_form, $parent_category);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
       $text =<<<END
@@ -88,7 +95,7 @@ END;
   global $wgContLang;
   $mw_namespace_labels = $wgContLang->getNamespaces();
   $special_namespace = $mw_namespace_labels[NS_SPECIAL];
-  $name_label = wfMsg('sf_createproperty_propname');
+  $name_label = wfMsg('sf_createcategory_name');
   $form_label = wfMsg('sf_createcategory_defaultform');
   $text =<<<END
 	<form action="" method="get">
@@ -97,16 +104,31 @@ END;
 	<span style="color: red;">$category_name_error_str</span>
 	$form_label
 	<select id="form_dropdown" name="default_form">
+
 END;
   foreach ($all_forms as $form) {
     $text .= "	<option>$form</option>\n";
   }
 
+  $subcategory_label = wfMsg('sf_createcategory_makesubcategory');
+  $categories = sffGetCategoriesForArticle();
   $sk = $wgUser->getSkin();
   $cf = SpecialPage::getPage('CreateForm');
   $create_form_link = $sk->makeKnownLinkObj($cf->getTitle(), $cf->getDescription());
   $text .=<<<END
 	</select>
+	<p>$subcategory_label
+	<select id="category_dropdown" name="parent_category">
+	<option></option>
+
+END;
+  foreach ($categories as $category) {
+    $category = str_replace('_', ' ', $category);
+    $text .= "	<option>$category</option>\n";
+  }
+  $text .=<<<END
+	</select>
+	</p>
 	<p><input type="submit" name="preview" value="$preview_button_text"></p>
 	<br /><hr /<br />
 	<p>$create_form_link.</p>
