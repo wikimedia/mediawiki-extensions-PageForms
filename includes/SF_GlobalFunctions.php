@@ -276,7 +276,7 @@ function sfgSetupExtension() {
 		}
 		// if that didn't work, try any aliases that may exist
 		// for SF_SP_HAS_DEFAULT_FORM
-		$sf_props_aliases = $sfgContLang->getSpecialPropertiesAliases();
+		$sf_props_aliases = $sfgContLang->getSpecialPropertyAliases();
 		foreach ($sf_props_aliases as $alias => $prop_code) {
 			if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
 				$property = Title::newFromText($alias, SF_NS_FORM);
