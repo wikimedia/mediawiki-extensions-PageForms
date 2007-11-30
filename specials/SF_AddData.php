@@ -53,12 +53,46 @@ function doSpecialAddData($query = '') {
 	printAddForm($form_name, $target_name, $alt_forms);
 }
 
+function printAltFormsList($alt_forms, $target_name) {
+	$text = "";
+	$ad = SpecialPage::getPage('AddData');
+	$i = 0;
+	foreach ($alt_forms as $alt_form) {
+		if ($i++ > 0) { $text .= ", "; }
+		$text .= '<a href="' . $ad->getTitle()->getFullURL() . "/" . $alt_form . "/" . $target_name . '">' . str_replace('_', ' ', $alt_form) . "</a>";
+	}
+	return $text;
+}
+
 function printAddForm($form_name, $target_name, $alt_forms) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
-	// get contents of template
+	// get contents of form and target page - if there's only one,
+	// it might be a target with only alternate forms
+	if ($form_name == '') {
+		$wgOut->addHTML( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
+		return;
+	} elseif ($target_name == '') {
+		if (count($alt_forms) > 0) {
+			// if there's just a target and list of alternate
+			// forms, but no main form, display just a list of
+			// links on the page
+			$target_name = $form_name;
+			$target_title = Title::newFromText($target_name);
+			$s = wfMsg('sf_adddata_title', "", $target_title->getPrefixedText());
+			$wgOut->setPageTitle($s);
+			$text = '<p>' . wfMsg('sf_adddata_altformsonly') . ' ';
+			$text .= printAltFormsList($alt_forms, $target_name);
+			$text .= "</p>\n";
+			$wgOut->addHTML($text);
+			return;
+		} else {
+			$wgOut->addWikiText( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
+			return;
+		}
+	}
+
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
-        // get contents of target page
 	$target_title = Title::newFromText($target_name);
 
 	$s = wfMsg('sf_adddata_title', $form_title->getText(), $target_title->getPrefixedText());
@@ -104,12 +138,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 			$text = "";
 			if (count($alt_forms) > 0) {
 				$text .= '<div class="info_message">' . wfMsg('sf_adddata_altforms') . ' ';
-				$ad = SpecialPage::getPage('AddData');
-				$i = 0;
-				foreach ($alt_forms as $alt_form) {
-					if ($i++ > 0) { $text .= ", "; }
-					$text .= '<a href="' . $ad->getTitle()->getFullURL() . "/" . $alt_form . "/" . $target_name . '">' . str_replace('_', ' ', $alt_form) . "</a>";
-				}
+				$text .= printAltFormsList($alt_forms, $target_name);
 				$text .= "</div>\n";
 			}
 			$text .=<<<END
