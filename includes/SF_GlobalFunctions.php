@@ -425,7 +425,6 @@ function sfgSetupExtension() {
 	function sffAddDataLink_0_7($title) {
 		// get all relations that have this page as an object,
 		// and see if any of them have a default form specified
-		$fname = 'sffAddDataLink';
 		$db = wfGetDB( DB_SLAVE );
 		$sql = "SELECT DISTINCT relation_title FROM {$db->tableName('smw_relations')} WHERE object_title = '" . $db->strencode($title->getDBkey()) . "' AND object_namespace = '" . $title->getNamespace() . "'";
 		$res = $db->query( $sql );
