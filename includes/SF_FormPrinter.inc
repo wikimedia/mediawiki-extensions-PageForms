@@ -58,7 +58,7 @@ class SFFormPrinter {
       }
       $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
       $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
-      $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaEntryHTML'), array('rows' => 5, 'cols' => 30));
+      $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaHTML'), array('rows' => 5, 'cols' => 30));
       $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
       $this->setSemanticTypeHook($float_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
       $this->setSemanticTypeHook($int_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
