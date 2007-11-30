@@ -276,6 +276,8 @@ class SFFormTemplateField {
       } else {
         return array('text');
       }
+    } elseif ($semantic_field_type == $text_type) {
+      return array('textarea');
     } elseif ($semantic_field_type == $bool_type) {
       return array('checkbox');
     } elseif ($semantic_field_type == $date_type) {
@@ -318,7 +320,7 @@ class SFFormTemplateField {
     $template_field = $this->template_field;
     $text = '<h3>' . wfMsg('sf_createform_field') . " '" . $template_field->field_name . "'</h3>\n";
     $smw_version = SMW_VERSION;
-    if ($smw_version{0} = "0") {
+    if ($smw_version{0} == "0") {
       if ($template_field->is_relation) {
         $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
         if ($template_field->is_list)
