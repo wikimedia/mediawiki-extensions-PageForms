@@ -3,16 +3,30 @@
 Semantic Forms is an extension to MediaWiki that works in
 conjunction with another extension, Semantic MediaWiki, to allow
 for the creation and usage of forms to add and edit semantic data.
-For more information on Semantic Forms, see
-http://discoursedb.org/SemanticForms/
+For much more information on Semantic Forms, see the extension
+homepage at
+http://www.mediawiki.org/wiki/Extension:Semantic_Forms
 
 Notes on installing Semantic Forms can be found in the file INSTALL.
 
+== Credits ==
+
+Semantic Forms was created, and mostly written by, Yaron Koren.
+Important code contributions were also made by Jeffrey Stuckman,
+Harold Solbrig, Louis Gerbarg, Matt Williamson, Nils Opperman,
+Sergey Chernyshev and wheresmytab.
+
+Language files were written by Yaron Koren, Dominik Rodler (German),
+Ghassem Tofighi (Persian), Siebrand Mazeland (Dutch), Leonardo Costa
+(Brazilian Portuguese) and (Roc) Michael Chang (Taiwanese Chinese
+and mainland Chinese).
+
 == Contact ==
 
-Semantic Forms was created by Yaron Koren. Contact him for any
-comments, questions, suggestions or bug reports, at
-yaron57@gmail.com.
+Most comments, questions, suggestions and bug reports should be
+submitted to the Semantic Forms mailing list/Google group at
+http://groups.google.com/group/semantic-forms . You can also
+contact Yaron directly for any of these, at yaron57@gmail.com.
 
 == Credits to other projects ==
 
