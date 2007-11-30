@@ -75,7 +75,7 @@ function sffEmbeddedEditForm($action, $article) {
 	if ($target_title->exists()) {
 		printEditForm($form_name, $target_name);
 	} else {
-		printAddForm($form_name, $target_name);
+		printAddForm($form_name, $target_name, array());
 	}
 	return false;
 }
