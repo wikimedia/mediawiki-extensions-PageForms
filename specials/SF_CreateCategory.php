@@ -37,7 +37,7 @@ if ($sfgSpecialPagesSpecialInit) {
 function createCategoryText($default_form, $parent_category) {
 	global $sfgContLang;
 
-	$namespace_labels = $sfgContLang->getNamespaceArray();
+	$namespace_labels = $sfgContLang->getNamespaces();
 	$form_label = $namespace_labels[SF_NS_FORM];
 	$specprops = $sfgContLang->getSpecialPropertiesArray();
 	$smw_version = SMW_VERSION;
@@ -61,9 +61,12 @@ function doSpecialCreateCategory() {
   $default_form = $wgRequest->getVal('default_form');
   $parent_category = $wgRequest->getVal('parent_category');
 
+  $save_button_text = wfMsg('savearticle');
   $preview_button_text = wfMsg('preview');
   $category_name_error_str = '';
-  if ($wgRequest->getVal('preview') == $preview_button_text) {
+  $save_page = $wgRequest->getCheck('wpSave');
+  $preview_page = $wgRequest->getCheck('wpPreview');
+  if ($save_page || $preview_page) {
     # validate category name
     if ($category_name == '') {
       $category_name_error_str = wfMsg('sf_blank_error');
@@ -71,19 +74,10 @@ function doSpecialCreateCategory() {
       # redirect to wiki interface
       $namespace = NS_CATEGORY;
       $title = Title::newFromText($category_name, $namespace);
-      $submit_url = $title->getLocalURL('action=submit');
       $full_text = createCategoryText($default_form, $parent_category);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
-      $text =<<<END
-  <form id="editform" name="editform" method="post" action="$submit_url">
-    <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$full_text" />
-  </form>
-      <script>
-      document.editform.submit();
-      </script>
-
-END;
+      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
       $wgOut->addHTML($text);
       return;
     }
@@ -129,7 +123,10 @@ END;
   $text .=<<<END
 	</select>
 	</p>
-	<p><input type="submit" name="preview" value="$preview_button_text"></p>
+	<div class="editButtons">
+	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text"></p>
+	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text"></p>
+	</div>
 	<br /><hr /<br />
 	<p>$create_form_link.</p>
 
