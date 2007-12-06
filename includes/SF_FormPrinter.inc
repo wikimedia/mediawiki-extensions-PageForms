@@ -491,6 +491,11 @@ $while_instance = 0;
                 } elseif (count($cur_value) >= 3) {
                   $month = $cur_value['month'];
                   $day = $cur_value['day'];
+                  global $wgAmericanDates;
+                  if ($wgAmericanDates == false) {
+                      // pad out day to always be two digits
+                     $day = str_pad($day, 2, "0", STR_PAD_LEFT);
+                  }
                   $year = $cur_value['year'];
                   if (isset($cur_value['hour'])) $hour = $cur_value['hour'];
                   if (isset($cur_value['minute'])) $minute = $cur_value['minute'];
@@ -705,9 +710,9 @@ END;
     $form_text = str_replace('<free_text>', $free_text, $form_text);
     $data_text = str_replace('<free_text>', $free_text, $data_text);
 
-    // add a warning in, if the source was a page and that page appears
-    // to have been edited with a different form
-    if ($source_is_page && ($existing_page_content != '') && ! $source_page_matches_this_form) {
+    // add a warning in, if we're editing an existing page and that page
+    // appears to not have been created with this form
+    if ($this->mPageTitle->exists() && ($existing_page_content != '') && ! $source_page_matches_this_form) {
       $form_text = '	<div class="warning_message">' . wfMsg('sf_editdata_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
     }
 
@@ -1199,6 +1204,8 @@ END;
 
     global $sfgTabIndex, $sfgFieldNum;
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
@@ -1217,6 +1224,8 @@ END;
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
@@ -1259,6 +1268,8 @@ END;
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $hidden_input_name = $input_name . "[is_list]";
@@ -1296,6 +1307,8 @@ END;
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $hidden_input_name = $input_name . "[is_list]";
@@ -1339,6 +1352,8 @@ END;
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "autocompleteInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $size = $other_args['size'];
     if (array_key_exists('autocomplete on', $other_args)) {
@@ -1389,6 +1404,8 @@ END;
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
@@ -1424,7 +1441,8 @@ END;
       wfMsgForContent('sf_december')
     );
     foreach ($month_names as $i => $name) {
-      $month_value = $wgAmericanDates ? $name : ($i + 1);
+      // pad out month to always be two digits
+      $month_value = $wgAmericanDates ? $name : str_pad($i + 1, 2, "0", STR_PAD_LEFT);
       $text .= "	<option value=\"$month_value\"";
       if ($name == $cur_month || ($i + 1) == $cur_month) {$text .= " selected=\"selected\""; }
       $text .= ">$name</option>\n";
@@ -1558,6 +1576,8 @@ END;
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
 
@@ -1714,52 +1734,6 @@ END;
     else
       $cancel = $sk->makeKnownLink( $this->mPageTitle->getPrefixedText(), $label);
     $text = "		<span class='editHelp'>$cancel</span>\n";
-    return $text;
-  }
-
-  function redirectText($page_name, $data_text) {
-    global $wgUser, $wgRequest;
-
-    // first, add various hidden fields that allow for editing
-    $title = Title::newFromText($page_name);
-    $article = new Article($title);
-    $starttime = wfTimestampNow();
-    $edittime = $article->getTimestamp();
-    if ( $wgUser->isLoggedIn() )
-      $token = htmlspecialchars($wgUser->editToken());
-    else
-      $token = EDIT_TOKEN_SUFFIX;
-    if ($wgRequest->getCheck('wpSave'))
-      $page_action = "wpSave";
-    elseif ($wgRequest->getVal('wpPreview'))
-      $page_action = "wpPreview";
-    else # if $wgRequest->getVal('wpDiff')
-      $page_action = "wpDiff";
-
-    global $wgScript;
-    $encoded_page_name = urlencode($page_name);
-    $text = <<<END
-        <form id="editform" name="editform" method="post" action="$wgScript?title=$encoded_page_name&amp;action=submit">
-        <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$data_text" />
-    <input type="hidden" name="wpStarttime" value="$starttime" />
-    <input type="hidden" name="wpEdittime" value="$edittime" />
-    <input type="hidden" name="wpEditToken" value="$token" />
-    <input type="hidden" name="wpSummary" value="{$wgRequest->getVal('wpSummary')}" />
-
-END;
-    if ($wgRequest->getCheck('wpMinoredit'))
-      $text .= '    <input type="hidden" name="wpMinoredit">' . "\n";
-    if ($wgRequest->getCheck('wpWatchthis'))
-      $text .= '    <input type="hidden" name="wpWatchthis">' . "\n";
-
-    $text .= <<<END
-    <input type="hidden" name="$page_action" />
-        </form>
-        <script type="text/javascript">
-        document.editform.submit();
-        </script>
-
-END;
     return $text;
   }
 
