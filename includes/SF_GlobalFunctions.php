@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.7.8');
+define('SF_VERSION','0.7.9');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -199,23 +199,70 @@ function sfgSetupExtension() {
 	 * some reason, doesn't include the namespace
 	 */
 	function sffTitleURLString($title) {
-          $namespace = wfUrlencode( $title->getNsText() );
-          if ( '' != $namespace ) {
-            $namespace .= ':';
-          }
-          return ($namespace . ucfirst($title->getPartialURL()));
+		$namespace = wfUrlencode( $title->getNsText() );
+		if ( '' != $namespace ) {
+			$namespace .= ':';
+		}
+		return ($namespace . ucfirst($title->getPartialURL()));
 	}
 
-        /**
-         * A very similar function, to get the non-URL-encoded title string
-         */
-        function sffTitleString($title) {
-          $namespace = $title->getNsText();
-          if ( '' != $namespace ) {
-            $namespace .= ':';
-          }
-          return ($namespace . ucfirst($title->getText()));
-        }
+	/**
+	 * A very similar function, to get the non-URL-encoded title string
+	 */
+	function sffTitleString($title) {
+		$namespace = $title->getNsText();
+		if ( '' != $namespace ) {
+			$namespace .= ':';
+		}
+		return ($namespace . ucfirst($title->getText()));
+	}
+
+	/**
+	 * Prints the mini-form contained at the bottom of various pages, that
+	 * allows pages to spoof a normal edit page, that can preview, save,
+	 * etc.
+	 */
+	function sffPrintRedirectForm($title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this) {
+		$article = new Article($title);
+		$new_url = $title->getLocalURL('action=submit');
+		$starttime = wfTimestampNow();
+		$edittime = $article->getTimestamp();
+		global $wgUser;
+		if ( $wgUser->isLoggedIn() )
+			$token = htmlspecialchars($wgUser->editToken());
+		else
+			$token = EDIT_TOKEN_SUFFIX;
+
+		if ($is_save)
+			$action = "wpSave";
+		elseif ($is_preview)
+			$action = "wpPreview";
+		else // $is_diff
+			$action = "wpDiff";
+
+		$text =<<<END
+	<form id="editform" name="editform" method="post" action="$new_url">
+	<input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$page_contents" />
+	<input type="hidden" name="wpSummary" value="$edit_summary" />
+	<input type="hidden" name="wpStarttime" value="$starttime" />
+	<input type="hidden" name="wpEdittime" value="$edittime" />
+	<input type="hidden" name="wpEditToken" value="$token" />
+	<input type="hidden" name="$action" />
+
+END;
+		if ($is_minor_edit)
+			$text .= '    <input type="hidden" name="wpMinoredit">' . "\n";
+		if ($watch_this)
+			$text .= '    <input type="hidden" name="wpWatchthis">' . "\n";
+		$text .=<<<END
+	</form>
+	<script type="text/javascript">
+	document.editform.submit();
+	</script>
+
+END;
+		return $text;
+	}
 
 	/**
 	 * Gets the default form specified, if any, for a specific page
@@ -517,7 +564,7 @@ function sffGetAllForms() {
 	function sffFormDropdownHTML() {
 		// create a dropdown of possible form names
 		global $sfgContLang;
-		$namespace_labels = $sfgContLang->getNamespaceArray();
+		$namespace_labels = $sfgContLang->getNamespaces();
 		$form_label = $namespace_labels[SF_NS_FORM];
 		$str = <<<END
 			$form_label:
