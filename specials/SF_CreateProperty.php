@@ -85,9 +85,13 @@ function doSpecialCreateProperty() {
   $property_type = $wgRequest->getVal('property_type');
   $allowed_values = $wgRequest->getVal('values');
 
+  $save_button_text = wfMsg('savearticle');
   $preview_button_text = wfMsg('preview');
+
   $property_name_error_str = '';
-  if ($wgRequest->getVal('preview') == $preview_button_text) {
+  $save_page = $wgRequest->getCheck('wpSave');
+  $preview_page = $wgRequest->getCheck('wpPreview');
+  if ($save_page || $preview_page) {
     # validate property name
     if ($property_name == '') {
       $property_name_error_str = wfMsg('sf_blank_error');
@@ -101,19 +105,10 @@ function doSpecialCreateProperty() {
         $namespace = SMW_NS_PROPERTY;
       }
       $title = Title::newFromText($property_name, $namespace);
-      $submit_url = $title->getLocalURL('action=submit');
       $full_text = createPropertyText($property_type, $allowed_values);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
-      $text =<<<END
-  <form id="editform" name="editform" method="post" action="$submit_url">
-    <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$full_text" />
-  </form>
-      <script>
-      document.editform.submit();
-      </script>
-
-END;
+      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
       $wgOut->addHTML($text);
       return;
     }
@@ -189,7 +184,10 @@ END;
 	<p>$values_input</p>
 	<p><input size="35" name="values" value=""></p>
 	</div>
-	<p><input type="submit" name="preview" value="$preview_button_text"></p>
+	<div class="editButtons">
+	<input id="wpSave" type="submit" name="wpSave" value="$save_button_text">
+	<input id="wpPreview" type="submit" name="wpPreview" value="$preview_button_text">
+	</div>
 
 END;
 

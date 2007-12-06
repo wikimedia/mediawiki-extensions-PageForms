@@ -172,27 +172,21 @@ function doSpecialCreateTemplate() {
   $template_format = $wgRequest->getVal('template_format');
 
   $text = "";
+  $save_button_text = wfMsg('savearticle');
   $preview_button_text = wfMsg('preview');
-  if ($wgRequest->getVal('preview') == $preview_button_text) {
+  $save_page = $wgRequest->getCheck('wpSave');
+  $preview_page = $wgRequest->getCheck('wpPreview');
+  if ($save_page || $preview_page) {
     # validate template name
     if ($template_name == '') {
       $template_name_error_str = wfMsg('sf_blank_error');
     } else {
       # redirect to wiki interface
       $title = Title::newFromText($template_name, NS_TEMPLATE);
-      $submit_url = $title->getLocalURL('action=submit');
       $full_text = createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
-      $text .= <<<END
-  <form id="editform" name="editform" method="post" action="$submit_url">
-    <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$full_text" />
-  </form>
-      <script>
-      document.editform.submit();
-      </script>
-
-END;
+      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
     }
   }
 
@@ -224,8 +218,14 @@ END;
   $text .= '	<p>' . wfMsg('sf_createtemplate_outputformat') . "\n";
   $text .= '	<input type="radio" name="template_format" checked value="standard">' . wfMsg('sf_createtemplate_standardformat') . "\n";
   $text .= '	<input type="radio" name="template_format" value="infobox">' . wfMsg('sf_createtemplate_infoboxformat') . "</p>\n";
-  $text .= '	<p><input type="submit" name="preview" value="' . wfMsg('preview') . '"></p>' . "\n";
-  $text .= "	</form>\n";
+  $text .=<<<END
+	<div class="editButtons">
+	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text">
+	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text">
+	</div>
+	</form>
+
+END;
   $sk = $wgUser->getSkin();
   $cp = SpecialPage::getPage('CreateProperty');
   $create_property_link = $sk->makeKnownLinkObj($cp->getTitle(), $cp->getDescription());
