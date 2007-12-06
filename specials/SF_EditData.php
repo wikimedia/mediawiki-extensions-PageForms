@@ -125,7 +125,7 @@ function printEditForm($form_name, $target_name) {
 		list ($form_text, $javascript_text, $data_text) =
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
 		if ($form_submitted) {
-			$text = $sfgFormPrinter->redirectText($target_name, $data_text);
+			$text = sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'));
 		} else {
 			// set 'title' field, in case there's no URL niceness
 			$text =<<<END

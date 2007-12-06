@@ -133,7 +133,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 		list ($form_text, $javascript_text, $data_text) =
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title);
 		if ($form_submitted) {
-			$text = $sfgFormPrinter->redirectText($target_name, $data_text);
+			$text = sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'));
 		} else {
 			$text = "";
 			if (count($alt_forms) > 0) {
