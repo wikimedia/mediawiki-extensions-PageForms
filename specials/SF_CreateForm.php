@@ -126,24 +126,17 @@ function doSpecialCreateForm() {
   $text = "";
 
   # if submit button was pressed, create the form definitions file, then redirect
-  if ($wgRequest->getVal('preview') == wfMsg('preview')) {
+  $save_page = $wgRequest->getCheck('wpSave');
+  $preview_page = $wgRequest->getCheck('wpPreview');
+  if ($save_page || $preview_page) {
     # validate form name
     if ($form->form_name == "") {
       $form_name_error_str = wfMsg('sf_blank_error');
     } else {
       $title = Title::newFromText($form->form_name, SF_NS_FORM);
-      $submit_url = $title->getLocalURL('action=submit');
       $full_text = str_replace('"', '&quot;', $form->createMarkup());
       # redirect to wiki interface
-      $text .= <<<END
-  <form id="editform" name="editform" method="post" action="$submit_url">
-    <input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$full_text" />
-  </form>
-      <script type="text/javascript">
-      document.editform.submit();
-      </script>
-
-END;
+      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
       $wgOut->addHTML($text);
       return;
     }
@@ -177,6 +170,9 @@ END;
   }
 
   $final_index = count($form_templates);
+  // the "save" button is not used in this page, because users should be
+  // forced to preview forms... shouldn't they?
+  $save_button_text = wfMsg('savearticle');
   $preview_button_text = wfMsg('preview');
   $add_button_text = wfMsg('sf_createform_add');
   $sk = $wgUser->getSkin();
@@ -188,7 +184,9 @@ END;
 	</select>
 	<input type="submit" name="add_field" value="$add_button_text">
 	</p>
-	<p><input type="submit" name="preview" value="$preview_button_text"></p>
+	<div class="editButtons">
+	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text">
+	</div>
 	</form>
 	<br /><hr /<br />
 	<p>$create_template_link.</p>
