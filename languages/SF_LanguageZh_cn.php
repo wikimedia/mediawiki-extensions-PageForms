@@ -1,11 +1,10 @@
 <?php
 /**
- * @author： Yaron Koren  翻译:张致信 本档系以电子字典译自繁体版，请自行修订(Translation: Roc Michael Email:roc.no1@gmail.com. This file is translated from Tradition Chinese by using electronic dictionary. Please correct the file by yourself.) 2007-11-16
+ * @author： Yaron Koren  翻译:张致信 本档系以电子字典译自繁体版，请自行修订(Translation: Roc Michael Email:roc.no1@gmail.com. This file is translated from Tradition Chinese by using electronic dictionary. Please correct the file by yourself.)  
  */
  
- 
 class SF_LanguageZh_cn extends SF_Language {
- 
+
 /* private */ var $m_ContentMessages = array(
 	'sf_property_isattribute' => '这是$1型态的属性。',	//(This is an attribute of type $1.)
 	'sf_property_isproperty' => '这是$1型态的性质。', //'This is a property of type $1.'	
@@ -85,6 +84,7 @@ class SF_LanguageZh_cn extends SF_Language {
 	'sf_createform_beforetemplate' => '在样板之前：',	//(Before template:)
 	'sf_createform_atend' => '在末端',	//(At end)
 	'sf_createform_add' => '新增',	//(Add)
+	'sf_createform_choosefield' => '选取欲新增的栏位', //'Choose a field to add'
 	'createcategory' => '新增分类(Category)',
 	'sf_createcategory_name' => '名称：', //(Name:)
 	'sf_createcategory_defaultform' => '预设的表单',
@@ -98,7 +98,7 @@ class SF_LanguageZh_cn extends SF_Language {
 	'sf_adddata_title' => '增加 $1： $2',
   'sf_adddata_badurl' => '本页为新增资料之用，您必须在URL里同时指定表单及目标页面，它看起来应该像是\'Special:AddData?form=&lt;表单名称&gt;&target=&lt;目标页面&gt;\' 或是 \'Special:AddData/&lt;表单名称&gt;/&lt;目标页面&gt;\'。',	//(This is the page for adding data. You must specify both a form name and a target page in the URL; it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:AddData/&lt;form name&gt;/&lt;target page&gt;\'.)
   'sf_adddata_altforms' => '您可选用下列其中一个的表单来新增此页',  //(You can instead add this page with one of the following forms:),
-  'sf_adddata_altformsonly' => '请从下列的表单中选出其中一个，并以该表单编辑此页：',  //(Please select from one of the following forms to add this page:)
+  'sf_adddata_altformsonly' => '请从下列的表单中选出其中一个，并以该表单编辑此页：', // (Please select from one of the following forms to add this page:)
 	'sf_forms_adddata' => '以表单新增资料',	//(Add data with this form)
 	'editdata' => '编辑资料',	//(Edit data)
 	'form_edit' => '以表单进行编辑',	//(Edit with form)
@@ -115,11 +115,11 @@ class SF_LanguageZh_cn extends SF_Language {
 
 /* private */ var $m_SpecialProperties = array(
 	//always start upper-case
-	SF_SP_HAS_DEFAULT_FORM  => '预设表单',	//(Has default form) 
+  SF_SP_HAS_DEFAULT_FORM  => '预设表单',	//(Has default form) 
 	SF_SP_HAS_ALTERNATE_FORM  => '代用表单'  //(Has alternate form)
 );
 
-var $m_SpecialPropertyAliases = array(
+/* private */ var $m_SpecialPropertyAliases = array(
 	'设有表单'	=> SF_SP_HAS_DEFAULT_FORM,	//(Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “设有表单＂. It has changed to use “预设表单＂. 
 	// support English aliases for special properties
 	'Has default form'	=> SF_SP_HAS_DEFAULT_FORM,
@@ -140,3 +140,4 @@ var $m_NamespaceAliases = array(
 }
 
 ?>
+
