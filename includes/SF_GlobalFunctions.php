@@ -59,8 +59,13 @@ function sfgSetupExtension() {
 	/**********************************************/
 	/***** credits (see "Special:Version")    *****/
 	/**********************************************/
-	$wgExtensionCredits['specialpage'][]= array('name'=>'Semantic Forms', 'version'=>SF_VERSION, 'author'=>'Yaron Koren and others',
-          'url'=>'http://www.mediawiki.org/wiki/Extension:Semantic_Forms', 'description' => 'Forms for adding and editing semantic data');
+	$wgExtensionCredits['specialpage'][]= array(
+		'name' => 'Semantic Forms',
+		'version' => SF_VERSION,
+		'author' => 'Yaron Koren and others',
+		'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
+		'description' => 'Forms for adding and editing semantic data',
+	);
 
 	return true;
 }
@@ -187,7 +192,7 @@ function sfgSetupExtension() {
 		$title = Title::newFromText( $inText );
 		if ($title === NULL) {
 			return $inText; // TODO maybe report an error here?
-		} 
+		}
 		if ( NULL === $text ) $text = $title->getText();
 		$l = new Linker();
 		return $l->makeLinkObj($title, $text);
@@ -578,4 +583,3 @@ END;
 		$str .= "			</select>\n";
 		return $str;
 	}
-?>
