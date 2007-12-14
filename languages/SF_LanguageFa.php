@@ -14,6 +14,7 @@ class SF_LanguageFa extends SF_Language {
 	'sf_template_docufooter' => 'برای مشاهده متن الگو صفحه را ویرایش کنید.',//Edit the page to see the template text.
 	'sf_form_docu' => 'این فرم \'$1\' است. برای افزودن یک صفحه به‌وسیله این فرم،نام صفحه را وارد کنید، اگر صفحه‌ای با این نام وجود داشته باشد، به فرم ویرایش صفحه هدایت می‌شوید.',//This is the \'$1\' form. To add a page with this form, enter the page name below; if a page with that name already exists, you will be sent to a form to edit that page.
 	'sf_category_hasdefaultform' => 'این رده از فرم $1 استفاده می‌کند.',//This category uses the form $1.
+	'sf_category_desc' => 'این رده $1 است.',//This is the $1 category.
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -33,7 +34,7 @@ class SF_LanguageFa extends SF_Language {
 );
 
 /* private */ var $m_UserMessages = array(
-	'createproperty' => 'ویژگی معنایی بسازید',//Create a property
+	'createproperty' => 'ویژگی بسازید',//Create a property
 	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\،" جایگزین نمایید):',//If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):
 	'sf_createproperty_propname' => 'نام:',//Name:
 	'sf_createproperty_proptype' => 'نوع:',//Type:
@@ -57,6 +58,7 @@ class SF_LanguageFa extends SF_Language {
 	'sf_createtemplate_infoboxformat' => 'جعبه اطلاعات سمت راست',//Right-hand-side infobox
 	'sf_createtemplate_addfield' => 'افزودن ورودی',//Add field
 	'sf_createtemplate_deletefield' => 'حذف',//Delete
+	'sf_createtemplate_addtemplatebeforesave' => 'قبل از اینکه بتوانید فرم را ذخیره کنید، شما می‌بایست حداقل یک الگو به این فرم اضافه نمایید.',//You must add at least one template to this form before you can save it. 
 	'forms' => 'فرم‌ها',//Forms
 	'sf_forms_docu' => 'فرم‌های زیر در این ویکی وجود دارند.',//The following forms exist in the wiki.
 	'createform' => 'فرم بسازید',//Create a form
@@ -104,12 +106,17 @@ class SF_LanguageFa extends SF_Language {
 	'edit_source' => 'ویرایش مبدأ',//Edit source
 	'sf_editdata_title' => 'ویرایش $1: $2',//Edit $1: $2
     'sf_editdata_badurl' => 'این صفحه برای ویرایش اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br/><span dir="ltr"> \'ویژه:EditData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br/>یا<br/><span dir="ltr"> \'ویژه:EditData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',//This is the page for editing data. You must specify both a form name and a target page in the URL; it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\' or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.
-	'sf_editdata_formwarning' => 'اخطار: این صفحه <a href="$1">هم‌اکنون وجود دارد</a>,ولی به‌وسیله این فرم ساخته نشده است.',//Warning: This page <a href="$1">already exists</a>, but it does not use this form.
+	'sf_editdata_formwarning' => 'اخطار: این صفحه <a href="$1">هم‌اکنون وجود دارد</a>، ولی به‌وسیله این فرم ساخته نشده است.',//Warning: This page <a href="$1">already exists</a>, but it does not use this form.
 	'sf_editdata_remove' => 'حذف',//Remove
 	'sf_editdata_addanother' => 'افزدون دیگری',//Add another
 	'sf_editdata_freetextlabel' => 'متن دلخواه',//Free text
 
-	'sf_blank_error' => 'نمی‌تواند خالی باشد'//cannot be blank
+	'sf_blank_error' => 'نمی‌تواند خالی باشد'//cannot be blank	
+    'sf_bad_url_error' => 'باید قالب URL درستی داشته باشد و با \'http\' شروع شود',//must have the correct URL format, starting with \'http\'
+	'sf_bad_email_error' => 'باید قالب صحیحی برای پست الکترونیک داشته باشد',//must have a valid email address format
+    'sf_bad_number_error' => 'باید یک عدد معتبر باشد',//must be a valid number
+    'sf_bad_integer_error' => 'باید یک عدد صحیح معتبر باشد',//must be a valid integer
+    'sf_bad_date_error' => 'باید یک تاریخ معتبر باشد'//must be a valid date 
 );
 
 /* private */ var $m_SpecialProperties = array(
