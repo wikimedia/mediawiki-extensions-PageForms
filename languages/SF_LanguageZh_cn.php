@@ -14,6 +14,7 @@ class SF_LanguageZh_cn extends SF_Language {
 	'sf_template_docufooter' => '编辑此页以查看样板文字。',	//(Edit the page to see the template text.)
 	'sf_form_docu' => '这是\'$1\'表单，编辑此页以查看原始码，您能以此表单新增资料[[$2|这里]]。',	//(This is the \'$1\' form; edit the page to see the source code. You can add data with this form [[$2|here]].)
 	'sf_category_hasdefaultform' => '此项分类(category)使用$1表单。', //'This category uses the form $1.',
+	'sf_category_desc' => '这是$1分类(category)',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -57,6 +58,7 @@ class SF_LanguageZh_cn extends SF_Language {
 	'sf_createtemplate_infoboxformat' => '右置型信息招牌，广告牌',	//(Right-hand-side infobox)
 	'sf_createtemplate_addfield' => '新增栏位',	//(Add field)
 	'sf_createtemplate_deletefield' => '删除 ', //(Delete)
+	'sf_createtemplate_addtemplatebeforesave' => '在您存贮它之前，您必须为这个表单加入至少一项样板。', 	
 	'forms' => '表单',	//(Forms)
 	'sf_forms_docu' => '本wiki系统已建有下列的表单。',	//(The following forms exist in the wiki.)
 	'createform' => '新增表单',	//(Create a form)
@@ -110,7 +112,12 @@ class SF_LanguageZh_cn extends SF_Language {
 	'sf_editdata_addanother' => '新增其他',	//(Add another)
 	'sf_editdata_freetextlabel' => '随意文字区(Free text)',	//(Free text)
 	
-	'sf_blank_error' => '不得为空白'	//(cannot be blank)
+	'sf_blank_error' => '不得为空白',
+  'sf_bad_url_error' => '须有正确的URL格式（即以 \'http\'起头）',
+  'sf_bad_email_error' => '必须是有效的电子邮件(Email)格式', 
+  'sf_bad_number_error' => '必须是有效的数字',
+  'sf_bad_integer_error' => '必须是有效的整数',
+  'sf_bad_date_error' => '必须是有效的日期' 	
 );
 
 /* private */ var $m_SpecialProperties = array(
@@ -140,4 +147,5 @@ var $m_NamespaceAliases = array(
 }
 
 ?>
+
 
