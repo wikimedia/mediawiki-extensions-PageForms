@@ -14,6 +14,7 @@ class SF_LanguageEn extends SF_Language {
 	'sf_template_docufooter' => 'Edit the page to see the template text.',
 	'sf_form_docu' => 'This is the \'$1\' form. To add a page with this form, enter the page name below; if a page with that name already exists, you will be sent to a form to edit that page.',
 	'sf_category_hasdefaultform' => 'This category uses the form $1.',
+	'sf_category_desc' => 'This is the $1 category.',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
 	// content messages
@@ -57,6 +58,7 @@ class SF_LanguageEn extends SF_Language {
 	'sf_createtemplate_infoboxformat' => 'Right-hand-side infobox',
 	'sf_createtemplate_addfield' => 'Add field',
 	'sf_createtemplate_deletefield' => 'Delete',
+	'sf_createtemplate_addtemplatebeforesave' => 'You must add at least one template to this form before you can save it.',
 	'forms' => 'Forms',
 	'sf_forms_docu' => 'The following forms exist in the wiki.',
 	'createform' => 'Create a form',
@@ -110,7 +112,12 @@ class SF_LanguageEn extends SF_Language {
 	'sf_editdata_addanother' => 'Add another',
 	'sf_editdata_freetextlabel' => 'Free text',
 
-	'sf_blank_error' => 'cannot be blank'
+	'sf_blank_error' => 'cannot be blank',
+	'sf_bad_url_error' => 'must have the correct URL format, starting with \'http\'',
+	'sf_bad_email_error' => 'must have a valid email address format',
+	'sf_bad_number_error' => 'must be a valid number',
+	'sf_bad_integer_error' => 'must be a valid integer',
+	'sf_bad_date_error' => 'must be a valid date'
 );
 
 /* private */ var $m_SpecialProperties = array(
