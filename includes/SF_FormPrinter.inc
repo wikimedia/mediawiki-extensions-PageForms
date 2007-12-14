@@ -1443,7 +1443,10 @@ END;
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    $size = $other_args['size'];
+    if (array_key_exists('size', $other_args))
+      $size = $other_args['size'];
+    else
+      $size = "35";
     if (array_key_exists('autocomplete on', $other_args)) {
       $autocomplete_field_type = "category";
       $semantic_field_name = $other_args['autocomplete on'];
