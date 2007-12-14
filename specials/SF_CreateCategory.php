@@ -34,16 +34,19 @@ if ($sfgSpecialPagesSpecialInit) {
 	SpecialPage::addPage( new SpecialPage('CreateCategory','',true,'doSpecialCreateCategory',false) );
 }
 
-function createCategoryText($default_form, $parent_category) {
+function createCategoryText($default_form, $category_name, $parent_category) {
 	global $sfgContLang;
 
-	$namespace_labels = $sfgContLang->getNamespaces();
-	$form_label = $namespace_labels[SF_NS_FORM];
-	$specprops = $sfgContLang->getSpecialPropertiesArray();
-	$smw_version = SMW_VERSION;
-	$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] .
-		"::$form_label:$default_form|$default_form]]";
-	$text = wfMsg('sf_category_hasdefaultform', $form_tag);
+	if ($default_form == '') {
+		$text = wfMsg('sf_category_desc', $category_name);
+	} else {
+		$namespace_labels = $sfgContLang->getNamespaces();
+		$form_label = $namespace_labels[SF_NS_FORM];
+		$specprops = $sfgContLang->getSpecialPropertiesArray();
+		$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] .
+			"::$form_label:$default_form|$default_form]]";
+		$text = wfMsg('sf_category_hasdefaultform', $form_tag);
+	}
 	if ($parent_category != '') {
 		global $wgContLang;
 		$namespace_labels = $wgContLang->getNamespaces();
@@ -74,7 +77,7 @@ function doSpecialCreateCategory() {
       # redirect to wiki interface
       $namespace = NS_CATEGORY;
       $title = Title::newFromText($category_name, $namespace);
-      $full_text = createCategoryText($default_form, $parent_category);
+      $full_text = createCategoryText($default_form, $category_name, $parent_category);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
       $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
@@ -98,6 +101,7 @@ function doSpecialCreateCategory() {
 	<span style="color: red;">$category_name_error_str</span>
 	$form_label
 	<select id="form_dropdown" name="default_form">
+	<option></option>
 
 END;
   foreach ($all_forms as $form) {
