@@ -111,7 +111,7 @@ class SF_LanguageFa extends SF_Language {
 	'sf_editdata_addanother' => 'افزدون دیگری',//Add another
 	'sf_editdata_freetextlabel' => 'متن دلخواه',//Free text
 
-	'sf_blank_error' => 'نمی‌تواند خالی باشد'//cannot be blank	
+	'sf_blank_error' => 'نمی‌تواند خالی باشد',//cannot be blank	
     'sf_bad_url_error' => 'باید قالب URL درستی داشته باشد و با \'http\' شروع شود',//must have the correct URL format, starting with \'http\'
 	'sf_bad_email_error' => 'باید قالب صحیحی برای پست الکترونیک داشته باشد',//must have a valid email address format
     'sf_bad_number_error' => 'باید یک عدد معتبر باشد',//must be a valid number
