@@ -29,6 +29,7 @@ class SFFormPrinter {
         $string_type = $smwgContLang->getDatatypeLabel('smw_string');
         $text_type = 'text'; // placeholder - SMW 1.0+ only
         $url_type = $smwgContLang->getDatatypeLabel('smw_url');
+        $email_type = $smwgContLang->getDatatypeLabel('smw_email');
         $float_type = $smwgContLang->getDatatypeLabel('smw_float');
         $int_type = $smwgContLang->getDatatypeLabel('smw_int');
         $bool_type = $smwgContLang->getDatatypeLabel('smw_bool');
@@ -40,6 +41,7 @@ class SFFormPrinter {
         $string_type = $datatypeLabels['_str'];
         $text_type = $datatypeLabels['_txt'];
         $url_type = $datatypeLabels['_uri'];
+        $email_type = $datatypeLabels['_ema'];
         // backwards compatibility with SMW 1.0 alpha 1 - still used, for
         // now, by the Halo extension
         if (array_key_exists('_flt', $datatypeLabels)) {
@@ -47,7 +49,7 @@ class SFFormPrinter {
           $int_type = $datatypeLabels['_int'];
         } else {
           $float_type = $datatypeLabels['_num'];
-          $int_type = $datatypeLabels['_num'];
+          $int_type = 'integer'; // placeholder - no longer exists
         }
         // just a placeholder until SMW 1.0 supports Boolean types -
         // should be $datatypeLabels['_boo'];
@@ -56,20 +58,21 @@ class SFFormPrinter {
         $enum_type = 'enumeration'; // not a real type
         $page_type = $datatypeLabels['_wpg'];
       }
-      $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
-      $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string'));
+      $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string'));
       $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaHTML'), array('rows' => 5, 'cols' => 30));
-      $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 100));
-      $this->setSemanticTypeHook($float_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
-      $this->setSemanticTypeHook($int_type, false, array('SFFormPrinter', 'textEntryHTML'), array('size' => 10));
+      $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'URL'));
+      $this->setSemanticTypeHook($email_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'email'));
+      $this->setSemanticTypeHook($float_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'float'));
+      $this->setSemanticTypeHook($int_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'integer'));
       $this->setSemanticTypeHook($bool_type, false, array('SFFormPrinter', 'checkboxHTML'), array());
       $this->setSemanticTypeHook($date_type, false, array('SFFormPrinter', 'dateEntryHTML'), array());
       $this->setSemanticTypeHook($enum_type, false, array('SFFormPrinter', 'dropdownHTML'), array());
       $this->setSemanticTypeHook($enum_type, true, array('SFFormPrinter', 'checkboxesHTML'), array());
-      $this->setSemanticTypeHook($page_type, false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('size' => 35));
+      $this->setSemanticTypeHook($page_type, false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('field_type' => 'page'));
     }
     $this->mInputTypeHooks = array();
-    $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array('size' => 35));
+    $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array());
     $this->setInputTypeHook('textarea', array('SFFormPrinter', 'textAreaHTML'), array('rows' => 5, 'cols' => 30));
     $this->setInputTypeHook('date', array('SFFormPrinter', 'dateEntryHTML'), array());
     $this->setInputTypeHook('datetime', array('SFFormPrinter', 'dateTimeEntryHTML'), array('include_timezone' => false));
@@ -95,6 +98,7 @@ class SFFormPrinter {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
+    global $sfgJSValidationCalls; // array of Javascript calls to determine if page can be saved
 
     // initialize some variables
     $sfgTabIndex = 1;
@@ -128,7 +132,7 @@ class SFFormPrinter {
       }
     }
     $javascript_text = "";
-    $js_validation_calls = array();
+    $sfgJSValidationCalls = array();
     $fields_javascript_text = "";
 
     // Remove <noinclude> sections and <includeonly> tags from form definition
@@ -536,9 +540,20 @@ $while_instance = 0;
             // it's a restricted field and user doesn't have sysop privileges
             $is_disabled = ($form_is_disabled ||
               ($is_restricted && (! $wgUser || ! $wgUser->isAllowed('delete'))));
-            list($new_text, $new_javascript_text) = $this->formTemplateFieldHTML($field_name, $input_name,
-              $cur_value, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args,
+            // create an SFFormTemplateField instance based on all the
+            // parameters in the form definition, and any information from
+            // the template definition (contained in the $all_fields parameter)
+            $form_field = SFFormTemplateField::createFromDefinition($field_name, $input_name,
+              $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args,
               $all_fields, $strict_parsing);
+            // if this is not part of a 'multiple' template, incrememt the
+            // global tab index (used for correct tabbing)
+            if (! $field_args['part_of_multiple'])
+              $sfgTabIndex++;
+            // increment the global field number regardless
+            $sfgFieldNum++;
+            list($new_text, $new_javascript_text) = $this->formFieldHTML($form_field, $cur_value);
+
             $fields_javascript_text .= $new_javascript_text;
 
             // if this was field was disabled due to being 'restricted',
@@ -565,13 +580,13 @@ $while_instance = 0;
               }
               $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
               // also add to Javascript validation code
+              $input_id = "input_" . $sfgFieldNum;
+              $info_id = "info_" . $sfgFieldNum;
               if ($is_mandatory) {
-		$input_id = "input_" . $sfgFieldNum;
-		$info_id = "info_" . $sfgFieldNum;
                 if ($input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone') {
-                  $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
-                  $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
-                  $js_validation_calls[] = "validate_mandatory_field ('$input_id" . "_3', '$info_id')";
+                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
+                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
+                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_3', '$info_id')";
 		  if ($input_type == 'datetime' || $input_type == 'datetime with timezone') {
                     // TODO - validate the time fields
                     if ($input_type == 'datetime with timezone') {
@@ -579,12 +594,10 @@ $while_instance = 0;
                     }
                   }
                 } else {
-                  // temporary fix - simply turn off validation for fields
-                  // that are part of a multiple-instance template
                   if ($allow_multiple) {
-                    $js_validation_calls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
+                    $sfgJSValidationCalls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
                   } else {
-                    $js_validation_calls[] = "validate_mandatory_field('$input_id', '$info_id')";
+                    $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
                   }
                 }
               }
@@ -800,6 +813,11 @@ END;
 
     // add general Javascript code
     $blank_error_str = wfMsg('sf_blank_error');
+    $bad_url_error_str = wfMsg('sf_bad_url_error');
+    $bad_email_error_str = wfMsg('sf_bad_email_error');
+    $bad_number_error_str = wfMsg('sf_bad_number_error');
+    $bad_integer_error_str = wfMsg('sf_bad_integer_error');
+    $bad_date_error_str = wfMsg('sf_bad_date_error');
     $javascript_text .=<<<END
 
 function validate_mandatory_field(field_id, info_id) {
@@ -807,7 +825,6 @@ function validate_mandatory_field(field_id, info_id) {
 	if (field.value.replace(/\s+/, '') == '') {
 		infobox = document.getElementById(info_id);
 		infobox.innerHTML = "$blank_error_str";
-		//field.style.border = "1px solid red";
 		return false;
 	} else {
 		return true;
@@ -835,12 +852,95 @@ function validate_multiple_mandatory_fields(field_num) {
 	return (num_errors == 0);
 }
 
+function validate_field_type(field_id, type, info_id) {
+	field = document.getElementById(field_id);
+	if (type != 'date' && field.value == '') {
+		return true;
+	} else {
+		if (type == 'URL') {
+			// code borrowed from http://snippets.dzone.com/posts/show/452
+			var url_regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+			if (url_regexp.test(field.value)) {
+				return true;
+			} else {
+				infobox = document.getElementById(info_id);
+				infobox.innerHTML = "$bad_url_error_str";
+				return false;
+			}
+		} else if (type == 'email') {
+			// code borrowed from http://javascript.internet.com/forms/email-validation---basic.html
+			var email_regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			if (email_regexp.test(field.value)) {
+				return true;
+			} else {
+				infobox = document.getElementById(info_id);
+				infobox.innerHTML = "$bad_email_error_str";
+				return false;
+			}
+		} else if (type == 'float') {
+			if (field.value.match(/^[\d\.,]+$/)) {
+				return true;
+			} else {
+				infobox = document.getElementById(info_id);
+				infobox.innerHTML = "$bad_number_error_str";
+				return false;
+			}
+		} else if (type == 'integer') {
+			var num_regexp = /[0-9,]*/;
+			if (field.value.match(/^[\d,]+$/)) {
+				return true;
+			} else {
+				infobox = document.getElementById(info_id);
+				infobox.innerHTML = "$bad_integer_error_str";
+				return false;
+			}
+		} else if (type == 'date') {
+			// validate only if day and year fields are both filled in
+			day_field = document.getElementById(field_id + "_2");
+			year_field = document.getElementById(field_id + "_3");
+			if (day_field.value == '' || year_field.value == '') {
+				return true;
+			} else if (day_field.value.match(/^\d+$/) &&
+				   day_field.value <= 31 &&
+				   year_field.value.match(/^\d+$/)) {
+				return true;
+			} else {
+				infobox = document.getElementById(info_id);
+				infobox.innerHTML = "$bad_date_error_str";
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
+}
+
+// same as validate_multiple_mandatory_fields(), but for type validation
+function validate_type_of_multiple_fields(field_num, type) {
+	var num_errors = 0;
+	elems = document.getElementsByTagName("*");
+	var field_pattern = new RegExp('input_(.*)_' + field_num);
+	for (var i = 0; i < elems.length; i++) {
+		id = elems[i].id;
+		if (matches = field_pattern.exec(id)) {
+			instance_num = matches[1];
+			var input_name = "input_" + instance_num + "_" + field_num;
+			var info_name = "info_" + instance_num + "_" + field_num;
+			if (! validate_field_type(input_name, type, info_name)) {
+				num_errors += 1;
+			}
+		}
+	}
+	return (num_errors == 0);
+}
+
+
 function validate_all() {
 	var num_errors = 0;
 
 END;
-    foreach ($js_validation_calls as $function_call) {
-      $javascript_text .= "	if (!$function_call) num_errors += 1;\n";
+    foreach ($sfgJSValidationCalls as $function_call) {
+      $javascript_text .= "	if (! $function_call) num_errors += 1;\n";
     }
     $remove_text = wfMsg('sf_editdata_remove');
     $javascript_text .=<<<END
@@ -965,47 +1065,6 @@ END;
     return array($form_text, $javascript_text, $data_text);
   }
 
-  function formTemplateFieldHTML($field_name, $input_name, $cur_value, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args, $all_fields, $strict_parsing) {
-   global $sfgTabIndex, $sfgFieldNum;
-
-    // see if this field matches one of the fields defined for this template -
-    // if it is, use all available information about that field; if it's not,
-    // either include it in the form or not, depending on whether template
-    // has 'strict' setting in the form definition
-    $the_field = null;
-    foreach ($all_fields as $cur_field) {
-      if ($field_name == $cur_field->field_name) {
-        $the_field = $cur_field;
-        break;
-      }
-    }
-    if ($the_field == null) {
-      if ($strict_parsing)
-        return null;
-      $the_field = new SFTemplateField();
-    }
-
-    // if this is not part of a 'multiple' template, incrememt the
-    // global tab index (used for correct tabbing)
-    if (! $field_args['part_of_multiple'])
-      $sfgTabIndex++;
-    // increment the global field number regardless
-    $sfgFieldNum++;
-
-    // create an SFFormTemplateField object, containing this field as well
-    // as settings from the form definition file
-    $form_field = new SFFormTemplateField();
-    $form_field->template_field = $the_field;
-    $form_field->is_mandatory = $is_mandatory;
-    $form_field->is_hidden = $is_hidden;
-    $form_field->input_type = $input_type;
-    $form_field->field_args = $field_args;
-    $form_field->input_name = $input_name;
-    $form_field->is_disabled = $is_disabled;
-    list($text, $javascript_text) = $this->formFieldHTML($form_field, $cur_value);
-    return array($text, $javascript_text);
-  }
-
   function formFieldHTML($form_field, $cur_value) {
     global $smwgContLang;
 
@@ -1032,8 +1091,8 @@ END;
         $other_args['is_relation'] = true;
         $other_args['semantic_field_name'] = $template_field->semantic_field;
       }
-        // merge default values and values from form - put the default values
-        // first, so that if there's a conflict they'll be overridden
+      // merge default values and values from form - put the default values
+      // first, so that if there's a conflict they'll be overridden
       $funcArgs[] = array_merge($default_args, $other_args);
       list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
     // escape out here if user doesn't have SMW installed
@@ -1066,8 +1125,6 @@ END;
         list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
       } else { // anything else
         $other_args = $form_field->field_args;
-        if (!array_key_exists('size', $other_args))
-          $other_args['size'] = 35;
         list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args);
       }
     }
@@ -1202,14 +1259,45 @@ END;
       return SFFormPrinter::textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
     }
 
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
+
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    $size = $other_args['size'];
+    // set size based on pre-set size, or field type - if field type is set,
+    // possibly add validation too
+    if (array_key_exists('size', $other_args)) {
+      $size = $other_args['size'];
+    } elseif (array_key_exists('field_type', $other_args)) {
+      $validation_type_str = "";
+      if ($other_args['field_type'] == 'integer') {
+        $size = 10;
+        $validation_type_str = 'integer';
+      } elseif ($other_args['field_type'] == 'float') {
+        $size = 10;
+        $validation_type_str = 'float';
+      } elseif ($other_args['field_type'] == 'URL') {
+        $size = 100;
+        $validation_type_str = 'URL';
+      } elseif ($other_args['field_type'] == 'email') {
+        $size = 45;
+        $validation_type_str = 'email';
+      } else {
+        $size = 35;
+      }
+      if ($validation_type_str != '') {
+        if ($other_args['part_of_multiple']) {
+          $sfgJSValidationCalls[] = "validate_type_of_multiple_fields($sfgFieldNum, '$validation_type_str')";
+        } else {
+          $sfgJSValidationCalls[] = "validate_field_type('$input_id', '$validation_type_str', '$info_id')";
+        }
+      }
+    } else {
+      $size = 35;
+    }
 
     $text =<<<END
 		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text"
@@ -1452,7 +1540,16 @@ END;
   }
 
   function dateEntryHTML($date, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
+
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
+    // add to validation calls
+    if ($other_args['part_of_multiple']) {
+      $sfgJSValidationCalls[] = "validate_type_of_multiple_fields($sfgFieldNum, 'date')";
+    } else {
+      $sfgJSValidationCalls[] = "validate_field_type('$input_id', 'date', '$info_id')";
+    }
 
     if ($date) {
       // can show up here either as an array or a string, depending on
@@ -1479,9 +1576,8 @@ END;
     }
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = $this->monthDropdownHTML($month, $input_name, $is_disabled);
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
-    $info_id = "info_$sfgFieldNum";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
     $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
     return array($text, null);
   }
