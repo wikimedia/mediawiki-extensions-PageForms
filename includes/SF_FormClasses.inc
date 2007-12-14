@@ -241,13 +241,46 @@ class SFFormTemplateField {
     return $f;
   }
 
+  function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args, $all_fields, $strict_parsing) {
+    // see if this field matches one of the fields defined for this template -
+    // if it is, use all available information about that field; if it's not,
+    // either include it in the form or not, depending on whether template
+    // has 'strict' setting in the form definition
+    $the_field = null;
+    foreach ($all_fields as $cur_field) {
+      if ($field_name == $cur_field->field_name) {
+        $the_field = $cur_field;
+        break;
+      }
+    }
+    if ($the_field == null) {
+      if ($strict_parsing)
+        return null;
+      $the_field = new SFTemplateField();
+    }
+
+    // create an SFFormTemplateField object, containing this field as well
+    // as settings from the form definition file
+    $f = new SFFormTemplateField();
+    $f->template_field = $the_field;
+    $f->is_mandatory = $is_mandatory;
+    $f->is_hidden = $is_hidden;
+    $f->input_type = $input_type;
+    $f->field_args = $field_args;
+    $f->input_name = $input_name;
+    $f->is_disabled = $is_disabled;
+    return $f;
+  }
+
   function possibleInputTypes($semantic_field_type, $is_list) {
     // first, get the list of field types, to determine which one this is
     global $smwgContLang;
     $smw_version = SMW_VERSION;
     if ($smw_version{0} == '0') {
       $string_type = $smwgContLang->getDatatypeLabel('smw_string');
+      $text_type = 'text'; // placeholder - SMW 1.0+ only
       $url_type = $smwgContLang->getDatatypeLabel('smw_url');
+      $email_type = $smwgContLang->getDatatypeLabel('smw_email');
       $float_type = $smwgContLang->getDatatypeLabel('smw_float');
       $int_type = $smwgContLang->getDatatypeLabel('smw_int');
       $bool_type = $smwgContLang->getDatatypeLabel('smw_bool');
@@ -257,7 +290,9 @@ class SFFormTemplateField {
     } else {
       $datatypeLabels =  $smwgContLang->getDatatypeLabels();
       $string_type = $datatypeLabels['_str'];
+      $text_type = $datatypeLabels['_txt'];
       $url_type = $datatypeLabels['_uri'];
+      $email_type = $datatypeLabels['_ema'];
       $float_type = $datatypeLabels['_num'];
       $int_type = $datatypeLabels['_num'];
       // just a placeholder until SMW 1.0 supports Boolean types -
@@ -270,7 +305,11 @@ class SFFormTemplateField {
 
     // then, return the array of possible input types, depending on the
     // field type and whether this field will contain multiple values
-    if ($semantic_field_type == $string_type || $semantic_field_type == $float_type || $semantic_field_type == $int_type || $semantic_field_type == $url_type) {
+    if ($semantic_field_type == $string_type ||
+        $semantic_field_type == $float_type ||
+        $semantic_field_type == $int_type ||
+        $semantic_field_type == $url_type ||
+        $semantic_field_type == $email_type) {
       if ($is_list) {
         return array('text', 'textarea');
       } else {
