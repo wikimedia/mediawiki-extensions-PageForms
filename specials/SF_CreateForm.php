@@ -123,7 +123,6 @@ function doSpecialCreateForm() {
     }
   }
   $form = SFForm::create($form_name, $form_templates);
-  $text = "";
 
   # if submit button was pressed, create the form definitions file, then redirect
   $save_page = $wgRequest->getCheck('wpSave');
@@ -136,13 +135,13 @@ function doSpecialCreateForm() {
       $title = Title::newFromText($form->form_name, SF_NS_FORM);
       $full_text = str_replace('"', '&quot;', $form->createMarkup());
       # redirect to wiki interface
-      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
+      $text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
       $wgOut->addHTML($text);
       return;
     }
   }
 
-  $text .= '	<form action="" method="get">' . "\n";
+  $text = '	<form action="" method="get">' . "\n";
   // set 'title' field, in case there's no URL niceness
   $mw_namespace_labels = $wgContLang->getNamespaces();
   $special_namespace = $mw_namespace_labels[NS_SPECIAL];
@@ -170,8 +169,9 @@ function doSpecialCreateForm() {
   }
 
   $final_index = count($form_templates);
-  // the "save" button is not used in this page, because users should be
-  // forced to preview forms... shouldn't they?
+  // disable 'save' and 'preview' buttons if user has not yet added any
+  // templates
+  $disabled_text = (count($form_templates) == 0) ? "disabled" : "";
   $save_button_text = wfMsg('savearticle');
   $preview_button_text = wfMsg('preview');
   $add_button_text = wfMsg('sf_createform_add');
@@ -182,13 +182,24 @@ function doSpecialCreateForm() {
     wfMsg('sf_createform_atend') . "</option>\n";
   $text .=<<<END
 	</select>
-	<input type="submit" name="add_field" value="$add_button_text">
-	</p>
+	<input type="submit" name="add_field" value="$add_button_text"></p>
+	<br />
 	<div class="editButtons">
-	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text">
+	<p>
+	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text" $disabled_text />
+	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text" $disabled_text />
+	</p>
 	</div>
+
+END;
+  // explanatory message if buttons are disabled because no templates
+  // have been added
+  if (count($form_templates) == 0) {
+    $text .= "	<p>(" . wfMsg('sf_createtemplate_addtemplatebeforesave') . ")</p>";
+  }
+  $text .=<<<END
 	</form>
-	<br /><hr /<br />
+	<hr /><br />
 	<p>$create_template_link.</p>
 
 END;
