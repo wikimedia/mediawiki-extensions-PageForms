@@ -112,7 +112,7 @@ class SF_LanguageEn extends SF_Language {
 	'sf_editdata_addanother' => 'Adicionar outro',
 	'sf_editdata_freetextlabel' => 'Texto livre',
 
-	'sf_blank_error' => 'Não pode ficar em branco'
+	'sf_blank_error' => 'Não pode ficar em branco',
 	'sf_bad_url_error' => 'deve ter o formato correto da URL, começando com \'http\'', 
     'sf_bad_email_error' => 'deve ter um formato válido de email', 
     'sf_bad_number_error' => 'deve ser um número válido',
