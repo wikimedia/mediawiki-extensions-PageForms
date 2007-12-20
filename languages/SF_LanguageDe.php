@@ -8,9 +8,9 @@ class SF_LanguageDe extends SF_Language {
 /* private */ var $m_ContentMessages = array(
 	'sf_property_isattribute' => 'Dies ist ein Attribut des Typs $1.',
 	'sf_property_isproperty' => 'Dies ist eine Eigenschaft des Typs $1.',
-	'sf_property_allowedvals' => 'Die möglichen Werte f�r diese Eigenschaft bzw. dieses Attribut sind:',
+	'sf_property_allowedvals' => 'Die möglichen Werte für diese Eigenschaft bzw. dieses Attribut sind:',
 	'sf_property_isrelation' => 'Dies ist eine Beziehung.',
-	'sf_template_docu' => 'Dies ist die Vorlage f�r \'$1\'. Sie sollte im folgenden Format aufgerufen werden:',
+	'sf_template_docu' => 'Dies ist die Vorlage für \'$1\'. Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Bearbeiten sie diese Seite, um den Vorlagentext zu sehen.',
 	'sf_form_docu' => 'Geben sie in dieses Textfeld den Namen der Seite ein, die mit Formular \'$1\' erstellt werden soll. Wenn bereits eine Seite mit diesem Namen existiert werden sie zu einem Formular weitergeleitet, mit dem sie diese Seite bearbeiten können.',
 	// month names are already defined in MediaWiki, but unfortunately
@@ -56,7 +56,7 @@ class SF_LanguageDe extends SF_Language {
 	'forms' => 'Formulare',
 	'sf_forms_docu' => 'Die folgenden Formulare existieren in dieser Wiki:',
 	'createform' => 'Erstelle ein Formular',
-	'sf_createform_nameinput' => 'Formularname (laut Konvention wird ein Formular benannt nach der Hauptvorlage, die es bef�llt):',
+	'sf_createform_nameinput' => 'Formularname (laut Konvention wird ein Formular benannt nach der Hauptvorlage, die es befüllt):',
 	'sf_createform_template' => 'Vorlage:',
 	'sf_createform_templatelabelinput' => 'Vorlagebezeichnung (optional):',
 	'sf_createform_allowmultiple' => 'Erlaube mehrere (oder null) Instanzen dieser Vorlage in der erstellten Seite',
@@ -79,12 +79,12 @@ class SF_LanguageDe extends SF_Language {
 	'sf_addpage_noform_docu' => 'Geben sie in dieses Textfeld den Namen der Seite ein und wählen sie das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert werden sie zu einem Formular weitergeleitet, mit dem sie diese Seite bearbeiten können. Andernfalls werden sie zu einem Formular weitergeleitet, mit dem sie diese Seite erstellen können.',
 	'addoreditdata' => 'Hinzufügen oder Bearbeiten',
 	'adddata' => 'Füge Daten hinzu',
-	'sf_adddata_badurl' => 'Dies ist die Seite zum Hinzuf�gen von Daten. Sie m�ssen den Namen eines Formulars UND die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie \'Special:AddData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;\' oder \'Special:AddData/&lt;Formularname&gt;/&lt;Zielseite&gt;\'.',
+	'sf_adddata_badurl' => 'Dies ist die Seite zum Hinzufügen von Daten. Sie müssen den Namen eines Formulars UND die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie \'Special:AddData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;\' oder \'Special:AddData/&lt;Formularname&gt;/&lt;Zielseite&gt;\'.',
 	'sf_forms_adddata' => 'Füge Daten mit diesem Formular hinzu',
 	'editdata' => 'Bearbeite Daten',
 	'form_edit' => 'Bearbeite mit Formular',
 	'edit_source' => 'Bearbeite Quelltext',
-	'sf_editdata_badurl' => 'Dies ist die Seite zum Bearbeiten von Daten. Sie m�ssen den Namen eines Formulars UND die zu bearbeitende Seite in der URL angeben.
+	'sf_editdata_badurl' => 'Dies ist die Seite zum Bearbeiten von Daten. Sie müssen den Namen eines Formulars UND die zu bearbeitende Seite in der URL angeben.
 	Es sollte aussehen wie \'Special:EditData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;\' oder \'Special:EditData/&lt;Formularname&gt;/&lt;Zielseite&gt;\'.',
 	'sf_editdata_formwarning' => 'Warnung: Diese Seite <a href="$1">existiert bereits</a>, aber sie nutzt nicht dieses Formular.',
 	'sf_editdata_remove' => 'Entfernen',

@@ -6,7 +6,7 @@
 class SF_LanguageFr extends SF_Language {
 
 /* private */ var $m_ContentMessages = array(
-	'sf_template_docu' => 'Ceci est la modèle « $1 ». Elle doit �tre appel�e par le format suivant:',
+	'sf_template_docu' => 'Ceci est la modèle « $1 ». Elle doit être appelée par le format suivant:',
 	'sf_template_docufooter' => 'Modifier la page pour voir la texte de la modèle.',
 	// month names are already defined in MediaWiki, but unfortunately
 	// there they're defined as user messages, and here they're
@@ -62,16 +62,16 @@ class SF_LanguageFr extends SF_Language {
 	'addpage' => 'Ajouter une page',
 	'addoreditdata' => 'Modifer ou ajouter données',
 	'adddata' => 'Ajouter données',
-	'sf_adddata_badurl' => 'Ceci est la page pour ajouter les données. Il faut indiquer un nom de formulaire et une page cible dans l\'URL; l\'URL doit ressembler �|  « Special:AddData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:AddData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».',
+	'sf_adddata_badurl' => 'Ceci est la page pour ajouter les données. Il faut indiquer un nom de formulaire et une page cible dans l\'URL; l\'URL doit ressembler à « Special:AddData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:AddData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».',
 	'sf_forms_adddata' => 'Ajouter données avec ce formulaire',
 	'editdata' => 'Modifier les données',
 	'form_edit' => 'Modifier avec formulaire',
-	'sf_editdata_badurl' => 'Ceci est la page pour modifier les données. Il faut indiquer un nom de formulaire et une page cible dans l\'URL; l\'URL doit ressembler �|  « Special:EditData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:EditData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».',
+	'sf_editdata_badurl' => 'Ceci est la page pour modifier les données. Il faut indiquer un nom de formulaire et une page cible dans l\'URL; l\'URL doit ressembler à « Special:EditData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:EditData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».',
 	'sf_editdata_remove' => 'Enlever',
 	'sf_editdata_addanother' => 'Ajouter un autre',
 	'sf_editdata_freetextlabel' => 'Texte libre',
 
-	'sf_blank_error' => 'ne peut pas �tre blanc'
+	'sf_blank_error' => 'ne peut pas être blanc'
 );
 
 /* private */ var $m_SpecialProperties = array(
