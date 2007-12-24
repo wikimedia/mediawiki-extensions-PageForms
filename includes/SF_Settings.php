@@ -62,8 +62,4 @@ $wgGroupPermissions['*'    ]['viewedittab']   = true;
 ###
 $sfgListSeparator = ",";
 
-// A temporary global variable, until we determine the issue with
-// initialization of special pages
-$sfgSpecialPagesSpecialInit = false;
-
 ?>
