@@ -13,28 +13,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['CreateTemplate'] = 'SFCreateTemplate';
- 
-	class SFCreateTemplate extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('CreateTemplate', '', true);
-		}
-
-		function execute() {
-			doSpecialCreateTemplate();
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('CreateTemplate','',true,'doSpecialCreateTemplate',false) );
-}
+SpecialPage::addPage( new SpecialPage('CreateTemplate','',true,'doSpecialCreateTemplate',false) );
 
 // Custom sort function, used in both getSemanticProperties() functions
 function cmp($a, $b) {

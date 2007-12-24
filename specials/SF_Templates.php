@@ -10,30 +10,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['Templates'] = 'SFTemplates';
-
-	class SFTemplates extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('Templates', '', true);
-		}
-
-		function execute() {
-			list( $limit, $offset ) = wfCheckLimits();
-			$rep = new TemplatesPage();
-			return $rep->doQuery( $offset, $limit );
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('Templates','',true,'doSpecialTemplates',false) );
-}
+SpecialPage::addPage( new SpecialPage('Templates','',true,'doSpecialTemplates',false) );
 
 class TemplatesPage extends QueryPage {
 	function getName() {

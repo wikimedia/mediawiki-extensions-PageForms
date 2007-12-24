@@ -11,28 +11,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['CreateCategory'] = 'SFCreateCategory';
-
-	class SFCreateCategory extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('CreateCategory', '', true);
-		}
-
-		function execute() {
-			doSpecialCreateCategory();
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('CreateCategory','',true,'doSpecialCreateCategory',false) );
-}
+SpecialPage::addPage( new SpecialPage('CreateCategory','',true,'doSpecialCreateCategory',false) );
 
 function createCategoryText($default_form, $category_name, $parent_category) {
 	global $sfgContLang;

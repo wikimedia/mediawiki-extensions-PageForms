@@ -12,28 +12,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['AddPage'] = 'SFAddPage';
- 
-	class SFAddPage extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('AddPage', '', true);
-		}
-
-		function execute($query='') {
-			doSpecialAddPage($query);
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('AddPage','',true,'doSpecialAddPage',false) );
-}
+SpecialPage::addPage( new SpecialPage('AddPage','',true,'doSpecialAddPage',false) );
 
 function doSpecialAddPage($query = '') {
 	global $wgOut, $wgRequest, $sfgScriptPath;

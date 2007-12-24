@@ -11,28 +11,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['EditData'] = 'SFEditData';
- 
-	class SFEditData extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('EditData', '', true);
-		}
-
-		function execute($query = '') {
-			doSpecialEditData($query);
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('EditData','',true,'doSpecialEditData',false) );
-}
+SpecialPage::addPage( new SpecialPage('EditData','',true,'doSpecialEditData',false) );
 
 function doSpecialEditData($query = '') {
 	global $wgRequest;
@@ -89,20 +68,19 @@ function printEditForm($form_name, $target_name) {
 	// get contents of target page
 	$target_title = Title::newFromText($target_name);
 
-	$s = wfMsg('sf_editdata_title', $form_title->getText(), $target_title->getPrefixedText());
-	$wgOut->setPageTitle($s);
-
 	if (! $form_title || ! $form_title->exists() ) {
 		if ($form_name == '')
-			$text = '<p>' . wfMsg('sf_editdata_badurl') . "</p>\n";
+			$text = '<p class="error">' . wfMsg('sf_editdata_badurl') . "</p>\n";
 		else
-			$text = "<p>Error: No form page was found at " . sffLinkText(SF_NS_FORM, $form_name) . ".</p>\n";
+			$text = '<p class="error">Error: No form page was found at ' . sffLinkText(SF_NS_FORM, $form_name) . ".</p>\n";
 	} elseif (! $target_title || ! $target_title->exists() ) {
 		if ($target_name == '')
-			$text = '<p>' . wfMsg('sf_editdata_badurl') . "</p>\n";
+			$text = '<p class="error">' . wfMsg('sf_editdata_badurl') . "</p>\n";
 		else
-			$text = "<p>Error: No page was found at " . sffLinkText(null, $target_name) . ".</p>\n";
+			$text = '<p class="error">Error: No page was found at ' . sffLinkText(null, $target_name) . ".</p>\n";
 	} else {
+		$s = wfMsg('sf_editdata_title', $form_title->getText(), $target_title->getPrefixedText());
+		$wgOut->setPageTitle($s);
 		$form_article = new Article($form_title);
 		$form_definition = $form_article->getContent();
 		$submit_url = $form_title->getLocalURL('action=submit');

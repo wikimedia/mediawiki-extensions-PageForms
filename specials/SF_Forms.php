@@ -10,30 +10,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['Forms'] = 'SFForms';
- 
-	class SFForms extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('Forms', '', true);
-		}
-
-		function execute() {
-			list( $limit, $offset ) = wfCheckLimits();
-			$rep = new FormsPage();
-			return $rep->doQuery( $offset, $limit );
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('Forms','',true,'doSpecialForms',false) );
-}
+SpecialPage::addPage( new SpecialPage('Forms','',true,'doSpecialForms',false) );
 
 class FormsPage extends QueryPage {
 	function getName() {

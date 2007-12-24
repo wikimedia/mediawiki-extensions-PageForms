@@ -12,28 +12,7 @@ require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['AddData'] = 'SFAddData';
- 
-	class SFAddData extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			SpecialPage::SpecialPage('AddData','',true,'doSpecialAddData',false);
-		}
-
-		function execute($query='') {
-			doSpecialAddData($query);
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('AddData','',true,'doSpecialAddData',false) );
-}
+SpecialPage::addPage( new SpecialPage('AddData','',true,'doSpecialAddData',false) );
 
 function doSpecialAddData($query = '') {
 	global $wgRequest;

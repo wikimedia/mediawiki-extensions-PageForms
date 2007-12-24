@@ -13,28 +13,7 @@ if (!defined('MEDIAWIKI')) die();
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );
 
-global $sfgSpecialPagesSpecialInit;
-if ($sfgSpecialPagesSpecialInit) {
-	global $wgSpecialPages;
-	$wgSpecialPages['CreateProperty'] = 'SFCreateProperty';
-
-	class SFCreateProperty extends SpecialPage {
-
-		/**
-		 * Constructor
-		 */
-		public function __construct() {
-			smwfInitUserMessages();
-			parent::__construct('CreateProperty', '', true);
-		}
-
-		function execute() {
-			doSpecialCreateProperty();
-		}
-	}
-} else {
-	SpecialPage::addPage( new SpecialPage('CreateProperty','',true,'doSpecialCreateProperty',false) );
-}
+SpecialPage::addPage( new SpecialPage('CreateProperty','',true,'doSpecialCreateProperty',false) );
 
 function createPropertyText($property_type, $allowed_values_str) {
   global $smwgContLang;
