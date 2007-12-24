@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.7.10');
+define('SF_VERSION','0.7.11');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -187,7 +187,7 @@ function sfgSetupExtension() {
 		$title = Title::newFromText( $inText );
 		if ($title === NULL) {
 			return $inText; // TODO maybe report an error here?
-		} 
+		}
 		if ( NULL === $text ) $text = $title->getText();
 		$l = new Linker();
 		return $l->makeLinkObj($title, $text);
@@ -386,17 +386,17 @@ END;
 		$sf_props = $sfgContLang->getSpecialPropertiesArray();
 		$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
 		$property = Title::newFromText($alternate_form_property, SF_NS_FORM);
-		$props = $store->getPropertyValues($title, $property);
+		$prop_vals = $store->getPropertyValues($title, $property);
 		$form_names = array();
-		foreach ($props as $prop) {
-			$form_names[] = str_replace(' ', '_', $prop->getTitle()->getText());
+		foreach ($prop_vals as $prop_val) {
+			$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
 		}
 		// try the English version too, if this isn't in English
 		if ($alternate_form_property != "Has_alternate_form") {
 			$property = Title::newFromText("Has_alternate_form", SF_NS_FORM);
-			$props = $store->getPropertyValues($title, $property);
-			foreach ($props as $prop) {
-				$form_names[] = str_replace(' ', '_', $prop->getTitle()->getText());
+			$prop_vals = $store->getPropertyValues($title, $property);
+			foreach ($prop_vals as $prop_val) {
+				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
 			}
 		}
 		return $form_names;
@@ -511,7 +511,7 @@ function sffGetCategoriesForArticle($article = NULL) {
 	$categories = array();
 	$db = wfGetDB( DB_SLAVE );
 	$conditions = null;
-	if ($article != '') {
+	if ($article != NULL) {
 		$titlekey = $article->mTitle->getArticleId();
 		$conditions = "cl_from='$titlekey'";
 	}
