@@ -51,9 +51,11 @@ class SFFormPrinter {
           $float_type = $datatypeLabels['_num'];
           $int_type = 'integer'; // placeholder - no longer exists
         }
-        // just a placeholder until SMW 1.0 supports Boolean types -
-        // should be $datatypeLabels['_boo'];
-        $bool_type = 'boolean';
+        // some old versions of SMW 1.0 don't support Boolean types
+        if (array_key_exists('_boo', $datatypeLabels))
+          $bool_type = $datatypeLabels['_boo'];
+        else
+          $bool_type = 'boolean';
         $date_type = $datatypeLabels['_dat'];
         $enum_type = 'enumeration'; // not a real type
         $page_type = $datatypeLabels['_wpg'];
