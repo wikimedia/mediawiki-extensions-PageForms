@@ -25,21 +25,21 @@ function createPropertyText($property_type, $allowed_values_str) {
     $namespace_labels = $smwgContLang->getNamespaces();
   }
   if ($property_type == $namespace_labels[SMW_NS_RELATION]) {
-    $text = wfMsg('sf_property_isrelation');
+    $text = wfMsgForContent('sf_property_isrelation');
   } else {
     global $smwgContLang;
     $specprops = $smwgContLang->getSpecialPropertiesArray();
     if ($smw_version{0} == '0') {
       $type_tag = "[[" . $specprops[SMW_SP_HAS_TYPE] . "::" .
         $namespace_labels[SMW_NS_TYPE] . ":$property_type|$property_type]]";
-      $text = wfMsg('sf_property_isattribute', $type_tag);
+      $text = wfMsgForContent('sf_property_isattribute', $type_tag);
     } else {
       $type_tag = "[[" . $specprops[SMW_SP_HAS_TYPE] .
         "::$property_type|$property_type]]";
-      $text = wfMsg('sf_property_isproperty', $type_tag);
+      $text = wfMsgForContent('sf_property_isproperty', $type_tag);
     }
     if ($allowed_values_str != '') {
-      $text .= "\n\n" . wfMsg('sf_property_allowedvals');
+      $text .= "\n\n" . wfMsgForContent('sf_property_allowedvals');
       // replace the comma substitution character that has no chance of
       // being included in the values list - namely, the ASCII beep
       global $sfgListSeparator;
