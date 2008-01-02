@@ -43,7 +43,7 @@ END;
     foreach ($this->templates as $template) {
       $text .= $template->createMarkup() . "\n";
     }
-    $free_text_label = wfMsg('sf_editdata_freetextlabel');
+    $free_text_label = wfMsgForContent('sf_editdata_freetextlabel');
     $text .=<<<END
    <fieldset><legend>$free_text_label</legend>
    {{{field|free text}}}
