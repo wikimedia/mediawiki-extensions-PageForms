@@ -16,7 +16,7 @@ define('SF_SP_HAS_ALTERNATE_FORM', 2);
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 $wgHooks['LanguageGetMagic'][] = 'sfgLanguageGetMagic';
-$wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SemanticForms.i18n.php';
+$wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 require_once($sfgIP . '/languages/SF_Language.php');
@@ -182,7 +182,7 @@ function sffLoadMessagesManually() {
 	global $sfgIP, $wgMessageCache;
 
 	# add messages
-	require($sfgIP . '/languages/SemanticForms.i18n.php');
+	require($sfgIP . '/languages/SF_Messages.php');
 	foreach($messages as $key => $value) {
 		$wgMessageCache->addMessages($messages[$key], $key);
 	}
