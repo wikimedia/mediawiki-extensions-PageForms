@@ -540,7 +540,7 @@ $messages['fi'] = array(
  */
 $messages['fr'] = array(
 	'createproperty'                          => 'Définir une propriété',
-	'sf_createproperty_allowedvalsinput'      => "Si vous désirez que ce champ n'accepte que certaines valeurs, entrez la liste de ces valeurs permises, séparées par des virgules. (Si une valeur contient une virgule, remplacez la par « \\, ») :",
+	'sf_createproperty_allowedvalsinput'      => "Si vous désisez que ce champs n'accepte que certaines valeurs, entrez la liste de ces valeurs permises, séparées par des virgules. (Si une valeur contient une virgule, remplacez la par « \\, ») :",
 	'sf_createproperty_propname'              => 'Nom :',
 	'sf_createproperty_proptype'              => 'Type :',
 	'templates'                               => 'Modèles',
