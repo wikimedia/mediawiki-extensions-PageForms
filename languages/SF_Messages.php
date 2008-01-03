@@ -536,23 +536,22 @@ $messages['fi'] = array(
 );
 
 /** French (Français)
- * @author Yaron Koren
  * @author Grondin
  */
 $messages['fr'] = array(
 	'createproperty'                          => 'Définir une propriété',
-	'sf_createproperty_allowedvalsinput'      => "Si vous désisez que ce champs n'accepte que certaines valeurs, entrez la liste de ces valeurs permises, séparées par des virgules. (Si une valeur contient une virgule, remplacez la par « \\, ») :",
+	'sf_createproperty_allowedvalsinput'      => "Si vous désirez que ce champ n'accepte que certaines valeurs, entrez la liste de ces valeurs permises, séparées par des virgules. (Si une valeur contient une virgule, remplacez la par « \\, ») :",
 	'sf_createproperty_propname'              => 'Nom :',
 	'sf_createproperty_proptype'              => 'Type :',
 	'templates'                               => 'Modèles',
-	'sf_templates_docu'                       => 'Les modèle suivantes existent dans le wiki.',
-	'sf_templates_definescat'                 => 'défine la catégorie:',
-	'createtemplate'                          => 'Créer une modèle',
+	'sf_templates_docu'                       => 'Les modèles suivants existent dans le wiki.',
+	'sf_templates_definescat'                 => 'définir la catégorie :',
+	'createtemplate'                          => 'Créer un modèle',
 	'sf_createtemplate_namelabel'             => 'Nom de modèle:',
-	'sf_createtemplate_categorylabel'         => 'Catégorie définée par cette modèle (volontaire):',
+	'sf_createtemplate_categorylabel'         => 'Catégorie définie par ce modèle (facultatif) :',
 	'sf_createtemplate_templatefields'        => 'Champs de modèle',
-	'sf_createtemplate_fieldsdesc'            => "Pour une modèle qui n'utilise pas de noms pour les champs, simplement entrer l'index de ce champ (e.g. 1, 2, 3, etc.) comme le nom, au lieu d'un nom actuel.",
-	'sf_createtemplate_fieldname'             => 'Nom de champ:',
+	'sf_createtemplate_fieldsdesc'            => "Pour un modèle qui n'utilise aucun nom pour les champs, entrez simplement son index (example : 1, 2, 3, etc.) comme le nom, au lieu d'un nom réel.",
+	'sf_createtemplate_fieldname'             => 'Nom du champ :',
 	'sf_createtemplate_displaylabel'          => "Étiquette pour l'affichage:",
 	'sf_createtemplate_semanticproperty'      => 'Propriété de la sémantique :',
 	'sf_createtemplate_fieldislist'           => 'Ce champs peut contenir une liste de valeurs, séparées par des virgules',
@@ -601,15 +600,15 @@ $messages['fr'] = array(
 	'sf_addpage_badform'                      => "Erreur : aucune page de formulaire n'a été trouvée sur $1",
 	'sf_addpage_docu'                         => "Entrez ici le nom de la page destinée à être éditée avec le formulaire « $1 ». Si cette page existe déjà, vous serez envoyé vers le formulaire afin de l'éditer. Dans le cas contraire, vous serez redirigé vers celui afin de l'ajouter.",
 	'sf_addpage_noform_docu'                  => "Entrez ici le nom de la page puis sélectionner le formulaire avec lequelle elle sera éditée. Si cette page existe déjà, vous serez envoyé vers le formulaire afin de l'éditer. Dans le cas contraire, vous serez redirigé vers celui permettant de l'ajouter.",
-	'addoreditdata'                           => 'Modifer ou ajouter données',
-	'adddata'                                 => 'Ajouter données',
+	'addoreditdata'                           => 'Modifier ou ajouter des données',
+	'adddata'                                 => 'Ajouter des données',
 	'sf_adddata_title'                        => 'Ajouter $1 : $2',
 	'sf_adddata_badurl'                       => "Ceci est la page pour ajouter les données. Il faut indiquer un nom de formulaire et une page cible dans l'URL; l'URL doit ressembler à « Special:AddData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:AddData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».",
 	'sf_adddata_altforms'                     => "Vous pouvez, à la place, ajouter cette page avec l'un des formulaires suivants :",
 	'sf_adddata_altformsonly'                 => "Vous êtes prié de sélectionner l'un des formulaires suivants pour ajouter cette page :",
 	'sf_forms_adddata'                        => 'Ajouter données avec ce formulaire',
 	'editdata'                                => 'Modifier les données',
-	'form_edit'                               => 'Modifier avec formulaire',
+	'form_edit'                               => 'Modifier avec un formulaire',
 	'edit_source'                             => 'Éditer la source',
 	'sf_editdata_title'                       => 'Éditer $1 : $2',
 	'sf_editdata_badurl'                      => "Ceci est la page pour modifier les données. Il faut indiquer un nom de formulaire et une page cible dans l'URL; l'URL doit ressembler à « Special:EditData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:EditData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».",
@@ -627,8 +626,8 @@ $messages['fr'] = array(
 	'sf_property_isproperty'                  => 'Ceci est une propriété du type $1.',
 	'sf_property_allowedvals'                 => 'Les valeurs autorisées pour cet attribut ou cette propriété sont :',
 	'sf_property_isrelation'                  => 'Ceci est une relation.',
-	'sf_template_docu'                        => 'Ceci est la modèle « $1 ». Elle doit être appelée par le format suivant:',
-	'sf_template_docufooter'                  => 'Modifier la page pour voir la texte de la modèle.',
+	'sf_template_docu'                        => 'Ceci est le modèle « $1 ». Il devrait être appelé selon le format suivant :',
+	'sf_template_docufooter'                  => 'Modifier la page pour voir le texte du modèle.',
 	'sf_form_docu'                            => "Ceci est le formulaire « $1 ». Pour ajouter une page avec ce formulaire, entrez son nom ci-dessous ; si elle existe déjà, vous serez dirigé vers un formulaire destiné à l'éditer.",
 	'sf_category_hasdefaultform'              => 'Cette catégorie utilise le formulaire « $1 ».',
 	'sf_category_desc'                        => 'Ceci est la catégorie « $1 ».',
@@ -710,11 +709,12 @@ $messages['he'] = array(
 );
 
 /** Dutch (Nederlands)
- * @author Siebrand
  * @author SPQRobin
+ * @author Siebrand
  */
 $messages['nl'] = array(
 	'createproperty'                          => 'Eigenschap aanmaken',
+	'sf_createproperty_allowedvalsinput'      => 'Als dit veld alleen bepaalde waarden mag hebben, vul dan een lijst van waardes in, gescheiden door komma\'s (als een waarde komma\'s bevat, vervang die door "\\,"):',
 	'sf_createproperty_propname'              => 'Naam:',
 	'sf_createproperty_proptype'              => 'Type:',
 	'templates'                               => 'Sjablonen',
