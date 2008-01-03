@@ -237,6 +237,40 @@ $messages['ar'] = array(
 	'sf_blank_namespace'                      => 'رئيسي',
 );
 
+/** Bulgarian (Български)
+ * @author DCLXVI
+ */
+$messages['bg'] = array(
+	'sf_createproperty_propname'     => 'Име:',
+	'sf_createproperty_proptype'     => 'Вид:',
+	'templates'                      => 'Шаблони',
+	'createtemplate'                 => 'Създаване на шаблон',
+	'sf_createtemplate_namelabel'    => 'Име на шаблон:',
+	'sf_createtemplate_deletefield'  => 'Изтриване',
+	'sf_createform_template'         => 'Шаблон:',
+	'sf_createform_inputtypedefault' => '(по подразбиране)',
+	'sf_createform_removetemplate'   => 'Премахване на шаблон',
+	'sf_createform_addtemplate'      => 'Добавяне на шаблон:',
+	'sf_createform_add'              => 'Добавяне',
+	'createcategory'                 => 'Създаване на категория',
+	'sf_createcategory_name'         => 'Име:',
+	'addoreditdata'                  => 'Добавяне или редактиране',
+	'form_edit'                      => 'Редактиране с формуляр',
+	'sf_editdata_remove'             => 'Премахване',
+	'sf_january'                     => 'януари',
+	'sf_february'                    => 'февруари',
+	'sf_march'                       => 'март',
+	'sf_april'                       => 'април',
+	'sf_may'                         => 'май',
+	'sf_june'                        => 'юни',
+	'sf_july'                        => 'юли',
+	'sf_august'                      => 'август',
+	'sf_september'                   => 'септември',
+	'sf_october'                     => 'октомври',
+	'sf_november'                    => 'ноември',
+	'sf_december'                    => 'декември',
+);
+
 /** German
  * @author Dominik Rodler
  */
@@ -823,17 +857,40 @@ $messages['nl'] = array(
 $messages['pt'] = array(
 	'sf_createproperty_propname'         => 'Nome:',
 	'sf_createproperty_proptype'         => 'Tipo:',
+	'templates'                          => 'Predefinições',
+	'sf_templates_docu'                  => 'As seguintes predefinições existem neste wiki.',
 	'sf_templates_definescat'            => 'definir categoria:',
+	'createtemplate'                     => 'Criar uma predefinição',
+	'sf_createtemplate_namelabel'        => 'Nome da predefinição:',
+	'sf_createtemplate_categorylabel'    => 'Categoria definida pela predefinição (opcional):',
+	'sf_createtemplate_templatefields'   => 'Campos da predefinição:',
+	'sf_createtemplate_fieldname'        => 'Nome do campo:',
+	'sf_createtemplate_displaylabel'     => 'Exibir etiqueta:',
+	'sf_createtemplate_semanticproperty' => 'Propriedade semântica:',
 	'sf_createtemplate_aggregationlabel' => 'Título para a lista:',
+	'sf_createtemplate_outputformat'     => 'Formato de saída:',
+	'sf_createtemplate_standardformat'   => 'Padrão',
 	'sf_createtemplate_deletefield'      => 'Apagar',
+	'sf_createform_template'             => 'Predefinição:',
+	'sf_createform_templatelabelinput'   => 'Etiqueta da predefinição (opcional):',
 	'sf_createform_inputtypedefault'     => '(padrão)',
+	'sf_createform_formlabel'            => 'Etiqueta do formulário:',
+	'sf_createform_hidden'               => 'Oculto',
+	'sf_createform_restricted'           => 'Restrito (apenas sysops poderão modificá-lo)',
+	'sf_createform_mandatory'            => 'Obrigatório',
+	'sf_createform_removetemplate'       => 'Remover predefinição',
+	'sf_createform_addtemplate'          => 'Adicionar predefinição:',
+	'sf_createform_beforetemplate'       => 'Antes da predefinição:',
+	'sf_createform_atend'                => 'Ao fim',
 	'sf_createform_add'                  => 'Adicionar',
+	'createcategory'                     => 'Criar uma categoria',
 	'sf_createcategory_name'             => 'Nome:',
 	'addpage'                            => 'Adicionar página',
 	'addoreditdata'                      => 'Adicionar ou editar',
 	'adddata'                            => 'Adicionar dados',
 	'sf_adddata_title'                   => 'Adicionar $1: $2',
 	'editdata'                           => 'Editar dados',
+	'edit_source'                        => 'Editar a origem',
 	'sf_editdata_title'                  => 'Editar $1: $2',
 	'sf_editdata_remove'                 => 'Remover',
 	'sf_editdata_addanother'             => 'Adicionar outro',
@@ -850,6 +907,7 @@ $messages['pt'] = array(
 	'sf_october'                         => 'Outubro',
 	'sf_november'                        => 'Novembro',
 	'sf_december'                        => 'Dezembro',
+	'sf_blank_namespace'                 => 'Principal',
 );
 
 /** Brasilian Portugese
