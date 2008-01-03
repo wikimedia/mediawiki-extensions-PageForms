@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.8');
+define('SF_VERSION','0.8.1');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -330,7 +330,7 @@ function sffGetDefaultForm_1_0($page_title, $page_namespace) {
 	$title = Title::newFromText($page_title, $page_namespace);
 	$sf_props = $sfgContLang->getSpecialPropertiesArray();
 	$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
-	$property = Title::newFromText($default_form_property, SF_NS_FORM);
+	$property = Title::newFromText($default_form_property, SMW_NS_PROPERTY);
 	$res = $store->getPropertyValues($title, $property);
 	$num = count($res);
 	if ($num > 0) {
