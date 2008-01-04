@@ -16,9 +16,9 @@ class SF_LanguageZh_cn extends SF_Language {
 		SF_NS_FORM_TALK      => '表单讨论'	//	(Form_talk)  SF 0.7.6前原译为'表单_talk'
 	);
 
-$m_SpecialPropertyAliases['设有表单'] = SF_SP_HAS_DEFAULT_FORM;	//(Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “设有表单＂. It has changed to use “预设表单＂. 
-
 }
+
+$m_SpecialPropertyAliases['设有表单'] = SF_SP_HAS_DEFAULT_FORM;	//(Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “设有表单＂. It has changed to use “预设表单＂. 
 
 ?>
 
