@@ -247,6 +247,7 @@ $messages['bg'] = array(
 	'createtemplate'                 => 'Създаване на шаблон',
 	'sf_createtemplate_namelabel'    => 'Име на шаблон:',
 	'sf_createtemplate_deletefield'  => 'Изтриване',
+	'forms'                          => 'Формуляри',
 	'sf_createform_template'         => 'Шаблон:',
 	'sf_createform_inputtypedefault' => '(по подразбиране)',
 	'sf_createform_removetemplate'   => 'Премахване на шаблон',
@@ -254,8 +255,10 @@ $messages['bg'] = array(
 	'sf_createform_add'              => 'Добавяне',
 	'createcategory'                 => 'Създаване на категория',
 	'sf_createcategory_name'         => 'Име:',
+	'addpage'                        => 'Добавяне на страница',
 	'addoreditdata'                  => 'Добавяне или редактиране',
 	'form_edit'                      => 'Редактиране с формуляр',
+	'sf_editdata_formwarning'        => 'Внимание: Тази страница <a href="$1">вече съществува</a>, но не използва този формуляр.',
 	'sf_editdata_remove'             => 'Премахване',
 	'sf_january'                     => 'януари',
 	'sf_february'                    => 'февруари',
@@ -740,6 +743,42 @@ $messages['he'] = array(
 	'sf_october'                         => 'אוקטובר',
 	'sf_november'                        => 'נובמבר',
 	'sf_december'                        => 'דצמבר',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'sf_createproperty_propname'    => 'Numm:',
+	'templates'                     => 'Schablounen',
+	'sf_templates_docu'             => 'Dës Schabloune gëtt et op dëser Wiki.',
+	'sf_templates_definescat'       => "definéiert d'Kategorie:",
+	'createtemplate'                => 'Eng nei Schabloun maachen',
+	'sf_createtemplate_namelabel'   => 'Numm vun der Schabloun:',
+	'sf_createtemplate_deletefield' => 'Läschen',
+	'sf_createform_template'        => 'Schabloun:',
+	'sf_createform_hidden'          => 'Verstoppt',
+	'sf_createform_restricted'      => 'Gespaart (Nëmmen Administrateuren kënnen et änneren)',
+	'sf_createform_mandatory'       => 'Obligateresch',
+	'sf_createcategory_name'        => 'Numm:',
+	'sf_editdata_title'             => 'Ännert $1: $2',
+	'sf_editdata_freetextlabel'     => 'Fräien Text',
+	'sf_blank_error'                => 'Däerf net eidel sinn!',
+	'sf_category_hasdefaultform'    => 'Dës Kategorie benotzt de Formulär $1.',
+	'sf_category_desc'              => "Dëst ass d'$1 Kategorie.",
+	'sf_january'                    => 'Januar',
+	'sf_february'                   => 'Februar',
+	'sf_march'                      => 'Mäerz',
+	'sf_april'                      => 'Abrëll',
+	'sf_may'                        => 'Mee',
+	'sf_june'                       => 'Juni',
+	'sf_july'                       => 'Juli',
+	'sf_august'                     => 'August',
+	'sf_september'                  => 'September',
+	'sf_october'                    => 'Oktober',
+	'sf_november'                   => 'November',
+	'sf_december'                   => 'Dezember',
+	'sf_blank_namespace'            => 'Haapt',
 );
 
 /** Dutch (Nederlands)
