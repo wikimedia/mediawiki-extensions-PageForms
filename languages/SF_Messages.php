@@ -1068,6 +1068,25 @@ $messages['pt-br'] = array(
 	'sf_blank_namespace'                      => 'Principal',
 );
 
+/** Volapük (Volapük)
+ * @author Malafaya
+ */
+$messages['vo'] = array(
+	'sf_january'         => 'yanul',
+	'sf_february'        => 'febul',
+	'sf_march'           => 'mäzul',
+	'sf_april'           => 'prilul',
+	'sf_may'             => 'mayul',
+	'sf_june'            => 'yunul',
+	'sf_july'            => 'yulul',
+	'sf_august'          => 'gustul',
+	'sf_september'       => 'setul',
+	'sf_october'         => 'tobul',
+	'sf_november'        => 'novul',
+	'sf_december'        => 'dekul',
+	'sf_blank_namespace' => 'Cifik',
+);
+
 /** Mainland Chinese
  * @author Roc Michael <roc.no1@gmail.com>
  */
