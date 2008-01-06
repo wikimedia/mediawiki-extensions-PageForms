@@ -745,6 +745,13 @@ $messages['he'] = array(
 	'sf_december'                        => 'דצמבר',
 );
 
+/** Upper Sorbian (Hornjoserbsce)
+ * @author Michawiki
+ */
+$messages['hsb'] = array(
+	'createproperty' => 'Wutwor kajkosć',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
