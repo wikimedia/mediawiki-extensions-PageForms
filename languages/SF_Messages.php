@@ -1068,6 +1068,28 @@ $messages['pt-br'] = array(
 	'sf_blank_namespace'                      => 'Principal',
 );
 
+/** Seeltersk (Seeltersk)
+ * @author Pyt
+ */
+$messages['stq'] = array(
+	'sf_createproperty_proptype'         => 'Typ:',
+	'templates'                          => 'Foarloage',
+	'sf_templates_docu'                  => 'Do foulgjende Foarloagen existierje in {{SITENAME}}.',
+	'sf_templates_definescat'            => 'definiert Kategorie:',
+	'createtemplate'                     => 'Moak ne Foarloage',
+	'sf_createtemplate_namelabel'        => 'Foarloagenoome:',
+	'sf_createtemplate_categorylabel'    => 'Truch Foarloage definierde Kategorie (optionoal):',
+	'sf_createtemplate_templatefields'   => 'Foarloagenfäilde',
+	'sf_createtemplate_fieldsdesc'       => 'Wan n Fäild fon ne Foarloage naan Fäildnoome moor bruukt, reek eenfach insteede fon n wuudelken Noome ju Indexnummer fon dät Fäild as Noome ien (t.B. 1, 2, 3 usw.).',
+	'sf_createtemplate_fieldname'        => 'Fäildnoome:',
+	'sf_createtemplate_displaylabel'     => 'Antouwiesende Fäildbeteekenge:',
+	'sf_createtemplate_semanticproperty' => 'Semantiske Oainskup:',
+	'sf_createtemplate_fieldislist'      => 'Dit Fäild kon ne Lieste fon Wäide änthoolde, do der truch Kommata tränd wäide.',
+	'sf_forms_docu'                      => 'Do foulgjende Formulare existierje in {{SITENAME}}:',
+	'createform'                         => 'Moak n Formular',
+	'sf_createform_nameinput'            => 'Formularnoome (ätter Konvention wäd n Formular benaamd ätter ju Haudfoarloage, wier dät oun kumt):',
+);
+
 /** Volapük (Volapük)
  * @author Malafaya
  */
