@@ -1520,18 +1520,18 @@ END;
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
     $month_names = array(
-      wfMsgForContent('sf_january'),
-      wfMsgForContent('sf_february'),
-      wfMsgForContent('sf_march'),
-      wfMsgForContent('sf_april'),
-      wfMsgForContent('sf_may'),
-      wfMsgForContent('sf_june'),
-      wfMsgForContent('sf_july'),
-      wfMsgForContent('sf_august'),
-      wfMsgForContent('sf_september'),
-      wfMsgForContent('sf_october'),
-      wfMsgForContent('sf_november'),
-      wfMsgForContent('sf_december')
+      wfMsgForContent('january'),
+      wfMsgForContent('february'),
+      wfMsgForContent('march'),
+      wfMsgForContent('april'),
+      wfMsgForContent('may'),
+      wfMsgForContent('june'),
+      wfMsgForContent('july'),
+      wfMsgForContent('august'),
+      wfMsgForContent('september'),
+      wfMsgForContent('october'),
+      wfMsgForContent('november'),
+      wfMsgForContent('december')
     );
     foreach ($month_names as $i => $name) {
       // pad out month to always be two digits
