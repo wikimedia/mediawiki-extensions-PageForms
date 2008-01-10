@@ -216,11 +216,17 @@ $messages['bg'] = array(
 	'sf_createproperty_propname'     => 'Име:',
 	'sf_createproperty_proptype'     => 'Вид:',
 	'templates'                      => 'Шаблони',
+	'sf_templates_docu'              => 'Следните шаблони съществуват в уикито.',
+	'sf_templates_definescat'        => 'дефинира категория:',
 	'createtemplate'                 => 'Създаване на шаблон',
 	'sf_createtemplate_namelabel'    => 'Име на шаблон:',
+	'sf_createtemplate_fieldname'    => 'Име на полето:',
+	'sf_createtemplate_addfield'     => 'Добавяне на поле',
 	'sf_createtemplate_deletefield'  => 'Изтриване',
 	'forms'                          => 'Формуляри',
+	'createform'                     => 'Създаване на формуляр',
 	'sf_createform_template'         => 'Шаблон:',
+	'sf_createform_field'            => 'Поле:',
 	'sf_createform_inputtypedefault' => '(по подразбиране)',
 	'sf_createform_removetemplate'   => 'Премахване на шаблон',
 	'sf_createform_addtemplate'      => 'Добавяне на шаблон:',
@@ -229,7 +235,10 @@ $messages['bg'] = array(
 	'sf_createcategory_name'         => 'Име:',
 	'addpage'                        => 'Добавяне на страница',
 	'addoreditdata'                  => 'Добавяне или редактиране',
+	'sf_adddata_title'               => 'Добавяне на $1: $2',
+	'sf_forms_adddata'               => 'Добавяне на данни с този формуляр',
 	'form_edit'                      => 'Редактиране с формуляр',
+	'sf_editdata_title'              => 'Редактиране на $1: $2',
 	'sf_editdata_formwarning'        => 'Внимание: Тази страница <a href="$1">вече съществува</a>, но не използва този формуляр.',
 	'sf_editdata_remove'             => 'Премахване',
 );
@@ -1150,3 +1159,4 @@ $messages['zh-tw'] = array(
 	'sf_category_desc'                        => '這是$1分類(category)',
 	'sf_blank_namespace'                      => '主',
 );
+
