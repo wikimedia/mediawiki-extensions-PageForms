@@ -338,12 +338,12 @@ $messages['de'] = array(
 	'sf_category_desc'                        => 'Dies ist die Kategorie $1.',
 );
 
-/** Persian
- * @author Ghassem Tofighi <[MyFamily]@gmail.com>
+/** Persian (فارسی)
+ * @author Tofighi
  */
 $messages['fa'] = array(
 	'createproperty'                          => 'ویژگی بسازید',
-	'sf_createproperty_allowedvalsinput'      => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\،" جایگزین نمایید):',
+	'sf_createproperty_allowedvalsinput'      => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\\،" جایگزین نمایید):',
 	'sf_createproperty_propname'              => 'نام:',
 	'sf_createproperty_proptype'              => 'نوع:',
 	'templates'                               => 'الگوها',
@@ -394,6 +394,7 @@ $messages['fa'] = array(
 	'sf_createform_beforetemplate'            => 'قبل از الگوی:',
 	'sf_createform_atend'                     => 'در آخر',
 	'sf_createform_add'                       => 'افزودن',
+	'sf_createform_choosefield'               => 'یک ورودی برای افزودن انتخاب کنید',
 	'createcategory'                          => 'رده بسازید',
 	'sf_createcategory_name'                  => 'نام:',
 	'sf_createcategory_defaultform'           => 'فرم پیش‌فرض:',
