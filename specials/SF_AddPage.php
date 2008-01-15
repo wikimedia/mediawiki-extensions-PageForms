@@ -19,6 +19,8 @@ function doSpecialAddPage($query = '') {
 
 	$form_name = $wgRequest->getVal('form');
 	$target_namespace = $wgRequest->getVal('namespace');
+	$super_page = $wgRequest->getVal('super_page');
+	$params = $wgRequest->getVal('params');
 
 	// if query string did not contain form name, try the URL
 	if (! $form_name) {
@@ -39,7 +41,6 @@ function doSpecialAddPage($query = '') {
 		$page_name = $wgRequest->getVal('page_name');
 		// This form can be used to create a sub-page for an
 		// existing page
-		$super_page = $wgRequest->getVal('super_page');
 		if ('' != $super_page)
 		{
 			$page_name = "$super_page/$page_name";
@@ -98,6 +99,12 @@ function doSpecialAddPage($query = '') {
 					}
 				}
 			}
+
+			if ('' != $params) {
+				$redirect_url .= ($first_val_added) ? '&' : '?';
+				$redirect_url .= $params;
+			}
+
 			$text =<<<END
         <script type="text/javascript">
         window.location="$redirect_url";
@@ -123,11 +130,20 @@ END;
 	<p><input type="text" size="40" name="page_name">
 
 END;
+		// if no form was specified, display a dropdown letting
+		// the user choose the form
 		if ($form_name == '')
 			$text .= sffFormDropdownHTML();
+
+		$hidden_target_namespace = htmlspecialchars($target_namespace);
+		$hidden_super_page = htmlspecialchars($super_page);
+		$hidden_params = htmlspecialchars($params);
+
 		$text .=<<<END
 	</p>
-	<input type="hidden" name="namespace" value="$target_namespace">
+	<input type="hidden" name="namespace" value="$hidden_target_namespace">
+	<input type="hidden" name="super_page" value="$hidden_super_page">
+	<input type="hidden" name="params" value="$hidden_params">
 	<input type="Submit" value="$button_text">
 	</form>
 
