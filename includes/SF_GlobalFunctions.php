@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.8.2');
+define('SF_VERSION','0.8.3');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -26,7 +26,7 @@ require_once($sfgIP . '/languages/SF_Language.php');
  *  MediaWiki is set up properly before we add our stuff.
  */
 function sfgSetupExtension() {
-	global $sfgVersion, $sfgNamespace, $sfgIP, $wgHooks, $wgExtensionCredits, $wgArticlePath, $wgScriptPath, $wgServer;
+	global $sfgVersion, $sfgNamespace, $sfgIP, $wgExtensionCredits, $wgArticlePath, $wgScriptPath, $wgServer;
 
 	sffInitMessages();
 
