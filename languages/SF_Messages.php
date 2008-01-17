@@ -1104,6 +1104,55 @@ $messages['nl'] = array(
 	'sf_blank_namespace'                      => 'Hoofdnaamruimte',
 );
 
+/** Occitan (Occitan)
+ * @author Cedric31
+ */
+$messages['oc'] = array(
+	'createproperty'                          => 'Definir una proprietat',
+	'sf_createproperty_allowedvalsinput'      => "Se decidatz qu'aqueste camp accèpta pas que cèrtas valors, entratz la lista de las valors permesas separadas per de virgulas. (Se una valor conten una virgula, remplaçat-la per « \\, ») :",
+	'sf_createproperty_propname'              => 'Nom :',
+	'sf_createproperty_proptype'              => 'Tipe :',
+	'templates'                               => 'Modèls',
+	'sf_templates_docu'                       => 'Los modèls seguents existisson dins lo wiki.',
+	'sf_templates_definescat'                 => 'definís la categoria :',
+	'createtemplate'                          => 'Crear un modèl',
+	'sf_createtemplate_namelabel'             => 'Nom de modèl :',
+	'sf_createtemplate_categorylabel'         => 'Categoria definida per aqueste modèl (facultatiu) :',
+	'sf_createtemplate_templatefields'        => 'Camps de modèl',
+	'sf_createtemplate_fieldsdesc'            => "Per un modèl qu'utiliza pas cap de nom pels camps, entratz simplament son indèx (exemples : 1, 2, 3, etc.) pel nom, al luòc del nom actual.",
+	'sf_createtemplate_fieldname'             => 'Nom del camp :',
+	'sf_createtemplate_displaylabel'          => "Etiqueta per l'afichatge:",
+	'sf_createtemplate_semanticproperty'      => 'Proprietat de la semantica :',
+	'sf_createtemplate_fieldislist'           => 'Aqueste camp pòt conténer una lista de valors separadas per de virgulas.',
+	'sf_createtemplate_aggregation'           => 'Agregacion',
+	'sf_createtemplate_aggregationdesc'       => "Sus cada pagina utilizant aqueste modèl, per listar totas las qu'an una proprietat puntant vèrs aquesta pagina, indicatz la proprietat adequada çaijós :",
+	'sf_createtemplate_aggregationlabel'      => 'Títol per la lista :',
+	'sf_createtemplate_outputformat'          => 'Format de sortida :',
+	'sf_createtemplate_standardformat'        => 'Estandard',
+	'sf_createtemplate_infoboxformat'         => 'Infobox de drecha',
+	'sf_createtemplate_addfield'              => 'Ajustar un camp',
+	'sf_createtemplate_deletefield'           => 'Escafa',
+	'sf_createtemplate_addtemplatebeforesave' => 'Devètz ajustar al mens un modèl a aqueste formulari abans de lo poder salvagardar.',
+	'forms'                                   => 'Formularis',
+	'sf_forms_docu'                           => 'Los formularis seguents existisson dins lo wiki.',
+	'createform'                              => 'Crear un formulari',
+	'sf_createform_nameinput'                 => "Nom de formulari (la convencion es de nomenar lo formulari aprèp lo modèl principal qu'emplena) :",
+	'sf_createform_template'                  => 'Modèl :',
+	'sf_createform_templatelabelinput'        => 'Etiqueta de modèl (facultatiu) :',
+	'sf_createform_allowmultiple'             => "Permetre mantuna (o zèro) instàncias d'aqueste modèl dins la pagina creada",
+	'sf_createform_field'                     => 'Camp :',
+	'sf_createform_fieldattr'                 => "Aqueste camp definís l'atribut $1, de tipe $2.",
+	'sf_createform_fieldattrlist'             => "Aqueste camp definís una lista dels elements qu'an l'atribut $1, del tipe $2.",
+	'sf_createform_fieldattrunknowntype'      => "Aqueste camp definís l'atribut $1, de tipe non especificat.",
+	'sf_createform_fieldrel'                  => 'Aqueste camp definís la relacion $1.',
+	'sf_createform_fieldrellist'              => "Aqueste camp definís una lista dels elements qu'an la relacion $1.",
+	'sf_createform_fieldprop'                 => 'Aqueste camp definís la proprietat $1, del tipe $2.',
+	'sf_createform_fieldproplist'             => "Aqueste camp definís una lista dels elements qu'an la proprietat $1, del tipe $2.",
+	'sf_createform_fieldpropunknowntype'      => "Aqueste camp definís la proprietat $1, d'un tipe non indicat.",
+	'sf_createform_inputtype'                 => "Tipe d'entrada :",
+	'sf_createform_inputtypedefault'          => '(per defaut)',
+);
+
 /** Portuguese (Português)
  * @author 555
  */
