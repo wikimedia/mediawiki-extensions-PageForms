@@ -100,12 +100,16 @@ function printEditForm($form_name, $target_name) {
 			$edit_content = $target_article->getContent();
 			$is_text_source = true;
 		}
-		list ($form_text, $javascript_text, $data_text) =
+		list ($form_text, $javascript_text, $data_text, $form_page_title) =
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
 		if ($form_submitted) {
 			$text = sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'));
 		} else {
-			// set 'title' field, in case there's no URL niceness
+			// override the default title for this page if
+			// a title was specified in the form
+			if ($form_page_title != NULL) {
+				$wgOut->setPageTitle("$form_page_title: {$target_title->getPrefixedText()}");
+			}
 			$text =<<<END
 	<form name="createbox" onsubmit="return validate_all()" action="" method="post" class="createbox">
 	<input type="hidden" name="query" value="true" />

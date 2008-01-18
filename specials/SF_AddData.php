@@ -109,11 +109,16 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 			$page_is_source = false;
 			$page_contents = null;
 		}
-		list ($form_text, $javascript_text, $data_text) =
+		list ($form_text, $javascript_text, $data_text, $form_page_title) =
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title);
 		if ($form_submitted) {
 			$text = sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'));
 		} else {
+			// override the default title for this page if
+			// a title was specified in the form
+			if ($form_page_title != NULL) {
+				$wgOut->setPageTitle("$form_page_title: {$target_title->getPrefixedText()}");
+			}
 			$text = "";
 			if (count($alt_forms) > 0) {
 				$text .= '<div class="info_message">' . wfMsg('sf_adddata_altforms') . ' ';
