@@ -6,6 +6,7 @@
  * @author Nils Oppermann
  * @author Jeffrey Stuckman
  * @author Matt Williamson
+ * @author Harold Solbrig
  */
 
 class SFFormPrinter {
@@ -106,6 +107,32 @@ class SFFormPrinter {
     $sfgTabIndex = 1;
     $sfgFieldNum = 1;
     $source_page_matches_this_form = false;
+    $form_page_title = NULL;
+    // $form_is_partial is true if:
+    // (a) 'partial' == 1 in the arguments
+    // (b) 'partial form' is found in the form definition
+    // in the latter case, it may remain false until close to the end of
+    // the parsing, so we have to assume that it will become a possibility
+    $form_is_partial = false;
+    
+    // if we have existing content and we're not in an active replacement
+    // situation, preserve the original content. We do this because we want
+    // to pass the original content on IF this is a partial form
+    // TODO: A better approach here would be to pass the revision id of the
+    // existing page content through the replace value, which would
+    // minimize the html traffic and would allow us to do a concurrent
+    // update check.  For now, we pass it through the hidden text field...
+
+    if (! $wgRequest->getCheck('partial')) {
+      $original_page_content = $existing_page_content;
+    } else {
+      $original_page_content = null;
+       if($wgRequest->getCheck('free_text')) {
+          $existing_page_content= $wgRequest->getVal('free_text');
+          $form_is_partial = true;
+       }
+    }
+
     // disable all form elements if user doesn't have edit permission -
     // two different checks are needed, because editing permissions can be
     // set in different ways
@@ -114,8 +141,7 @@ class SFFormPrinter {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
-      // anonymous - wikitext for bolding has to be replaced with HTML, until
-      // FormPrinter can parse wikitext
+      // anonymous - wikitext for bolding has to be replaced with HTML
       if ($wgUser->isAnon()) {
         $anon_edit_warning = preg_replace("/'''(.*)'''/", "<strong>$1</strong>", wfMsg('anoneditwarning'));
         $form_text .= "<p>$anon_edit_warning</p>\n";
@@ -140,6 +166,19 @@ class SFFormPrinter {
     // Remove <noinclude> sections and <includeonly> tags from form definition
     $form_def = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $form_def);
     $form_def = strtr($form_def, array('<includeonly>' => '', '</includeonly>' => ''));
+
+    // parse wiki-text
+    // add '<nowiki>' tags around every triple-bracketed form definition
+    // element, so that the wiki parser won't touch it - the parser will
+    // remove the '<nowiki>' tags, leaving us with what we need
+    global $sfgDisableWikiTextParsing;
+    if (! $sfgDisableWikiTextParsing) {
+      $form_def = strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+      $parser = new Parser();
+      $parser->mOptions = new ParserOptions();
+      $parser->mOptions->initialiseFromUser($wgUser);
+      $form_def = $parser->parse($form_def, $this->mPageTitle, $parser->mOptions)->getText();
+    }
 
     // turn form definition file into an array of sections, one for each
     // template definition (plus the first section)
@@ -183,12 +222,14 @@ class SFFormPrinter {
       // modified; is it necessary?
       $section = " " . $form_def_sections[$section_num];
 
-$while_instance = 0;
       while ($brackets_loc = strpos($section, '{{{', $start_position)) {
         $brackets_end_loc = strpos($section, "}}}", $brackets_loc);
         $bracketed_string = substr($section, $brackets_loc + 3, $brackets_end_loc - ($brackets_loc + 3));
         $tag_components = explode('|', $bracketed_string);
         $tag_title = trim($tag_components[0]);
+        // =====================================================
+        // for template processing
+        // =====================================================
         if ($tag_title == 'for template') {
           $old_template_name = $template_name;
           $template_name = trim($tag_components[1]);
@@ -242,7 +283,7 @@ $while_instance = 0;
           // underlines in name
           $search_template_str = str_replace('/', '\/', $tif->template_name);
           $search_template_str = preg_replace('/[_| ]/', '[_| ]', $search_template_str);
-          if ($source_is_page) {
+          if ($source_is_page || $form_is_partial) {
             $matches = array();
             if ($allow_multiple) {
               // find the number of instances of this template in the page -
@@ -303,7 +344,17 @@ $while_instance = 0;
                 }
               }
               // now remove this template from the text being edited
-              $existing_page_content = str_replace($matches[0], '', $existing_page_content);
+              // if this is a partial form, establish a new insertion point
+              if($existing_page_content && $form_is_partial && $wgRequest->getCheck('partial')) {
+              	// if something already exists, set the new insertion point
+                // to its position; otherwise just let it lie
+                if (strpos($existing_page_content, $matches[0])) {
+                  $existing_page_content = str_replace('{{{insertionpoint}}}', '', $existing_page_content);
+                  $existing_page_content = str_replace($matches[0], '{{{insertionpoint}}}', $existing_page_content);
+                }
+              } else {
+                $existing_page_content = str_replace($matches[0], '', $existing_page_content);
+              }
               // if this is not a multiple-instance template, and we've found
               // a match in the source page, there's a good chance that this
               // page was created with this form - note that, so we don't
@@ -339,6 +390,9 @@ $while_instance = 0;
               }
             }
           }
+        // =====================================================
+        // end template processing
+        // =====================================================
         } elseif ($tag_title == 'end template') {
           // remove this tag, reset some variables, and close off form HTML tag
           $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
@@ -354,6 +408,9 @@ $while_instance = 0;
           // be hidden because it is empty and choosers are being used. So,
           // hide it.
           $form_text = str_replace("[[placeholder]]", "style='display:none'", $form_text);
+        // =====================================================
+        // field processing
+        // =====================================================  
         } elseif ($tag_title == 'field') {
           $field_name = trim($tag_components[1]);
           // cycle through the other components
@@ -401,6 +458,14 @@ $while_instance = 0;
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
           }
+          if ($cur_value && is_array($cur_value)) {
+            // HACK - this is sometimes necessary
+            // TODO: the code around line 433 might correct for this. This
+            // should be checked.
+            if (!$cur_value[0] && $cur_value[1])
+              $cur_value = null;
+          }
+
           if ($cur_value == null) {
             // set to default value specified in the form, if it's there
             $cur_value = $default_value;
@@ -589,7 +654,7 @@ $while_instance = 0;
                   $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
                   $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
                   $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_3', '$info_id')";
-		  if ($input_type == 'datetime' || $input_type == 'datetime with timezone') {
+                  if ($input_type == 'datetime' || $input_type == 'datetime with timezone') {
                     // TODO - validate the time fields
                     if ($input_type == 'datetime with timezone') {
                        // TODO - validate the timezone
@@ -607,6 +672,9 @@ $while_instance = 0;
               $start_position = $brackets_end_loc;
             }
           }
+        // =====================================================
+        // standard input processing
+        // =====================================================
         } elseif ($tag_title == 'standard input') {
           // set a flag so that the standard 'form bottom' won't get displayed
           $this->standardInputsIncluded = true;
@@ -639,21 +707,67 @@ $while_instance = 0;
             $new_text = $this->cancelLinkHTML($form_is_disabled, $input_label);
           }
           $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
+        // =====================================================
+        // page info processing
+        // =====================================================
+        } elseif ($tag_title == 'info') {
+          // TODO: Generate an error message if this is included more than once
+          foreach(array_slice($tag_components, 1) as $component) {
+            list($tag, $val) = explode('=', $component, 2);
+            if ($tag == 'add title') {
+              // handle this only if we're adding a page
+              if (! $this->mPageTitle->exists()) {
+                $form_page_title = $val;
+              }
+            }
+            elseif($tag == 'edit title') {
+              // handle this only if we're editing a page
+              if ($this->mPageTitle->exists()) {
+                $form_page_title = $val;
+              }
+            }
+            elseif($tag == 'partial form') {           		
+              $form_is_partial = true;
+              // replacement pages may have minimal matches...
+              $source_page_matches_this_form = true;
+              }
+            }
+          $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
+        // =====================================================
+        // default outer level processing
+        // =====================================================
         } else { // tag is not one of the three allowed values
           // ignore tag
           $start_position = $brackets_end_loc;
         } // end if
       } // end while
 
-      if (! $all_instances_printed && ($template_text != '')) {
-	// add another newline before the final bracket, if this template
-	// call is already more than one line
-        if (strpos($template_text, "\n")) {
-          $template_text .= "\n";
+      if (! $all_instances_printed ) {
+        if ( $template_text != '' ) {
+          // add another newline before the final bracket, if this template
+          // call is already more than one line
+          if (strpos($template_text, "\n"))
+            $template_text .= "\n";
+            $template_text .= "}}";
+            $data_text .= $template_text . "\n";
+            // if there is a placeholder in the text, we know that we are
+            // doing a replace
+            if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0)) {
+              $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}(\r?\n?)/', 
+                preg_replace('/\}\}/m', '}²',
+                  preg_replace('/\{\{/m', '²{', $template_text)) .
+                "\n{{{insertionpoint}}}",
+                $existing_page_content);
+          // otherwise, if it's a partial form, we have to add the new
+          // text somewhere
+          } elseif ($form_is_partial && $wgRequest->getCheck('partial') ) {
+            $existing_page_content = preg_replace('/\}\}/m', '}²',
+              preg_replace('/\{\{/m', '²{', $template_text)) .
+                "\n{{{insertionpoint}}}\n" . $existing_page_content;
+          }
         }
-        $template_text .= "}}\n";
-        $data_text .= $template_text;
       }
+
       if ($allow_multiple) {
         if (! $all_instances_printed) {
           $section = str_replace('[num]', "[{$instance_num}a]", $section);
@@ -704,7 +818,21 @@ END;
     }
     // get free text, and add to page data, as well as retroactively
     // inserting it into the form
-    if ($source_is_page) {
+
+    // If $form_is_partial is true then either:
+    // (a) we're processing a replacement (param 'partial' == 1)
+    // (b) we're sending out something to be replaced (param 'partial' is missing)
+    if ($form_is_partial) {
+       if(!$wgRequest->getCheck('partial')) {
+         $free_text = $original_page_content;
+         $form_text .= $this->hiddenFieldHTML('partial', 1);
+       } else {
+         $free_text = null;
+         $existing_page_content = preg_replace('/²\{(.*?)\}²/s', '{{\1}}', $existing_page_content);
+         $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content);
+         $existing_page_content = Sanitizer::safeEncodeAttribute($existing_page_content);
+       }
+    } elseif ($source_is_page) {
       // if the page is the source, free_text will just be whatever in the
       // page hasn't already been inserted into the form
       $free_text = trim($existing_page_content);
@@ -1062,9 +1190,13 @@ Event.observe(window, 'load', attachAutocompleteToAllDocumentFields);
 
 END;
 
-    // send the autocomplete values to the browser, along with the mappings of which values should apply to which fields
+    // send the autocomplete values to the browser, along with the mappings
+    // of which values should apply to which fields
+    // if doing a replace, the data text is actually the modified original page
+    if($wgRequest->getCheck('partial'))
+      $data_text = $existing_page_content;
     $javascript_text .= $fields_javascript_text;
-    return array($form_text, $javascript_text, $data_text);
+    return array($form_text, $javascript_text, $data_text, $form_page_title);
   }
 
   function formFieldHTML($form_field, $cur_value) {
