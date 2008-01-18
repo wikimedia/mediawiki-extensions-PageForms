@@ -45,13 +45,15 @@ END;
     }
     $free_text_label = wfMsgForContent('sf_editdata_freetextlabel');
     $text .=<<<END
-   <fieldset><legend>$free_text_label</legend>
-   {{{field|free text}}}
-   </fieldset>
+'''$free_text_label:'''
+{{{field|free text}}}
 
-<p>{{{standard input|summary}}}</p>
-<p>{{{standard input|minor edit}}} {{{standard input|watch}}}</p>
-<p>{{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}</p>
+
+{{{standard input|summary}}}
+
+{{{standard input|minor edit}}} {{{standard input|watch}}}
+
+{{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}
 </includeonly>
 
 END;
@@ -193,11 +195,12 @@ END;
     $text .= "}}}\n";
     // for now, HTML for templates differs for multiple-instance templates;
     // this may change if handling of form definitions gets more sophisticated
-    if (! $this->allow_multiple) { $text .= "<table class=\"formtable\">\n"; }
-    foreach ($this->fields as $field) {
-      $text .= $field->createMarkup($this->allow_multiple);
+    if (! $this->allow_multiple) { $text .= "{| class=\"formtable\"\n"; }
+    foreach ($this->fields as $i => $field) {
+      $is_last_field = ($i == count($this->fields) - 1);
+      $text .= $field->createMarkup($this->allow_multiple, $is_last_field);
     }
-    if (! $this->allow_multiple) { $text .= "</table>\n"; }
+    if (! $this->allow_multiple) { $text .= "|}\n"; }
     $text .= "{{{end template}}}\n";
     return $text;
   }
@@ -430,20 +433,15 @@ END;
   // for now, HTML of an individual field depends on whether or not it's
   // part of multiple-instance template; this may change if handling of
   // such templates in form definitions gets more sophisticated
-  function createMarkup($part_of_multiple) {
-    if ($part_of_multiple) {
-      $text = "   <p>";
-    } else {
-      $text = "   <tr>";
-    }
+  function createMarkup($part_of_multiple, $is_last_field_in_template) {
     if ($this->template_field->label != "") {
       if ($part_of_multiple) {
-        $text .= "<strong>" . $this->template_field->label .  ":</strong> ";
+        $text .= "'''" . $this->template_field->label .  ":''' ";
       } else {
-        $text .= "<th>" . $this->template_field->label .  ":</th> ";
+        $text .= "! " . $this->template_field->label . ":\n";
       }
     }
-    if (! $part_of_multiple) { $text .= "<td>"; }
+    if (! $part_of_multiple) { $text .= "| "; }
     $text .= "{{{field|" . $this->template_field->field_name;
     if ($this->template_field->input_type != '') {
       $text .= "|input type=" . $this->template_field->input_type;
@@ -455,11 +453,11 @@ END;
     } elseif ($this->is_restricted) {
       $text .= "|restricted";
     }
-    $text .= "}}}";
+    $text .= "}}}\n";
     if ($part_of_multiple) {
-      $text .= "<p>\n";
-    } else {
-      $text .= "</td></tr>\n";
+      $text .= "\n";
+    } elseif (! $is_last_field_in_template) {
+      $text .= "|-\n";
     }
     return $text;
   }
