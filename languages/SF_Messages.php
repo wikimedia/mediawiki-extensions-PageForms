@@ -1647,12 +1647,12 @@ $messages['zh-cn'] = array(
 	'sf_blank_namespace'                      => '主',
 );
 
-/** Taiwanese Chinese
- * @author Roc Michael <roc.no1@gmail.com>
+/** ‪中文(台灣)‬ (‪中文(台灣)‬)
+ * @author Roc michael
  */
 $messages['zh-tw'] = array(
 	'createproperty'                          => '新增語意(semantic)性質',
-	'sf_createproperty_allowedvalsinput'      => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\,)：',
+	'sf_createproperty_allowedvalsinput'      => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\\,)：',
 	'sf_createproperty_propname'              => '名稱：',
 	'sf_createproperty_proptype'              => '型態:',
 	'templates'                               => '樣板',
@@ -1668,7 +1668,7 @@ $messages['zh-tw'] = array(
 	'sf_createtemplate_semanticproperty'      => '語意(Semantic)性質',
 	'sf_createtemplate_fieldislist'           => '本欄位能夠以某些值來建立清單，那些值須以半型逗號「,」分隔。',
 	'sf_createtemplate_aggregation'           => '聚集(Aggregation)',
-	'sf_createtemplate_aggregationdesc'       => '列出所有使用本樣版的頁面，而那些帶有特定性質指向那頁面的文章，指定著如下性質：譯註：To list, on any page using this template, all of the articles that have a certain property pointing to that page, specify the appropriate property below :',
+	'sf_createtemplate_aggregationdesc'       => '請指定一項性質(property)，若在某些頁面中該性質的值與您正在瀏覽的頁面的名稱相同時，則這些頁面將會在您正在瀏覽的頁面中被列舉出來。',
 	'sf_createtemplate_aggregationlabel'      => '清單標題',
 	'sf_createtemplate_outputformat'          => '輸出格式：',
 	'sf_createtemplate_standardformat'        => '標準型',
