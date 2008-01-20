@@ -985,6 +985,13 @@ $messages['hsb'] = array(
 	'sf_blank_namespace'                      => 'Hłowny',
 );
 
+/** Hungarian (Magyar)
+ * @author Dorgan
+ */
+$messages['hu'] = array(
+	'sf_createtemplate_deletefield' => 'Törlés',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
