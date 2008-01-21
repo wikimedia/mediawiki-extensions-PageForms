@@ -835,6 +835,9 @@ $messages['gl'] = array(
 	'edit_source'                   => 'Editar orixe',
 	'sf_editdata_title'             => 'Editar $1: $2',
 	'sf_editdata_addanother'        => 'Engadir outro',
+	'sf_editdata_freetextlabel'     => 'Texto libre',
+	'sf_category_hasdefaultform'    => 'Esta categoría usa o formulario $1.',
+	'sf_blank_namespace'            => 'Principal',
 );
 
 /** Hebrew
