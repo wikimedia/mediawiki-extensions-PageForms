@@ -1551,6 +1551,46 @@ $messages['stq'] = array(
 	'sf_category_desc'                        => 'Dit is ju Kategorie $1.',
 );
 
+/** Turkish (Türkçe)
+ * @author Karduelis
+ */
+$messages['tr'] = array(
+	'sf_createproperty_propname'         => 'İsim:',
+	'sf_createproperty_proptype'         => 'Tip:',
+	'templates'                          => 'Şablonlar',
+	'createtemplate'                     => 'Şablon oluştur',
+	'sf_createtemplate_namelabel'        => 'Şablon adı:',
+	'sf_createtemplate_templatefields'   => 'Şablon alanları',
+	'sf_createtemplate_fieldname'        => 'Alan adı:',
+	'sf_createtemplate_aggregationlabel' => 'Liste için başlık:',
+	'sf_createtemplate_outputformat'     => 'Çıktı biçimi:',
+	'sf_createtemplate_standardformat'   => 'Standart',
+	'sf_createtemplate_addfield'         => 'Alan ekle',
+	'sf_createtemplate_deletefield'      => 'Sil',
+	'forms'                              => 'Formlar',
+	'createform'                         => 'Form oluştur',
+	'sf_createform_nameinput'            => 'Form adı:',
+	'sf_createform_template'             => 'Şablon:',
+	'sf_createform_templatelabelinput'   => 'Şablon etiketi (isteğe bağlı):',
+	'sf_createform_field'                => 'Alan:',
+	'sf_createform_inputtypedefault'     => '(var sayılan)',
+	'sf_createform_formlabel'            => 'Form etiketi:',
+	'sf_createform_hidden'               => 'Gizli',
+	'sf_createform_mandatory'            => 'Zorunlu',
+	'sf_createform_removetemplate'       => 'Şablon kaldır',
+	'sf_createform_addtemplate'          => 'Şablon ekle:',
+	'sf_createform_add'                  => 'Ekle',
+	'sf_createcategory_name'             => 'İsim:',
+	'sf_createcategory_defaultform'      => 'Var sayılan form:',
+	'addpage'                            => 'Sayfa ekle',
+	'addoreditdata'                      => 'Ekle veya düzelt',
+	'adddata'                            => 'Veri ekle',
+	'edit_source'                        => 'Kaynak düzelt',
+	'sf_editdata_remove'                 => 'Kaldır',
+	'sf_category_desc'                   => 'Bu $1 kategorisidir.',
+	'sf_blank_namespace'                 => 'Ana',
+);
+
 /** Volapük (Volapük)
  * @author Malafaya
  */
