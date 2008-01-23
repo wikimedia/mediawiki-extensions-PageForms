@@ -114,6 +114,7 @@ class SFFormPrinter {
     // in the latter case, it may remain false until close to the end of
     // the parsing, so we have to assume that it will become a possibility
     $form_is_partial = false;
+    $new_text = "";
     
     // if we have existing content and we're not in an active replacement
     // situation, preserve the original content. We do this because we want
@@ -174,10 +175,9 @@ class SFFormPrinter {
     global $sfgDisableWikiTextParsing;
     if (! $sfgDisableWikiTextParsing) {
       $form_def = strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
-      $parser = new Parser();
-      $parser->mOptions = new ParserOptions();
-      $parser->mOptions->initialiseFromUser($wgUser);
-      $form_def = $parser->parse($form_def, $this->mPageTitle, $parser->mOptions)->getText();
+      $wgParser->mOptions = new ParserOptions();
+      $wgParser->mOptions->initialiseFromUser($wgUser);
+      $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
     }
 
     // turn form definition file into an array of sections, one for each
