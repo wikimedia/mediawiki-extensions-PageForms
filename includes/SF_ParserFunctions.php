@@ -46,9 +46,9 @@
 
 
 function sfgParserFunctions () {
-    global $wgParser;
-    $wgParser->setFunctionHook('forminput', 'sfRenderFormInput');
-    $wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
+	global $wgParser;
+	$wgParser->setFunctionHook('forminput', 'sfRenderFormInput');
+	$wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
 }
 
 function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
