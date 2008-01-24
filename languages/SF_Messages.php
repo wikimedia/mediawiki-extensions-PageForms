@@ -1465,6 +1465,8 @@ $messages['sk'] = array(
  * @author Pyt
  */
 $messages['stq'] = array(
+	'createproperty'                          => 'Moak ne Oainskup',
+	'sf_createproperty_allowedvalsinput'      => 'Wan du foar dit Fäild bloot bestimde Wäide muugelk moakje wolt, reek do dan as kommatrände Lieste ien (wan n Wäid n Komma änthaalt, ärsät dit mäd "\\,"):',
 	'sf_createproperty_propname'              => 'Noome:',
 	'sf_createproperty_proptype'              => 'Typ:',
 	'templates'                               => 'Foarloage',
