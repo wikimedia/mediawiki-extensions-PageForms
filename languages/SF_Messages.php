@@ -303,6 +303,7 @@ $messages['bg'] = array(
 	'sf_createform_add'              => 'Добавяне',
 	'createcategory'                 => 'Създаване на категория',
 	'sf_createcategory_name'         => 'Име:',
+	'sf_createcategory_defaultform'  => 'Формуляр по подразбиране:',
 	'addpage'                        => 'Добавяне на страница',
 	'addoreditdata'                  => 'Добавяне или редактиране',
 	'sf_adddata_title'               => 'Добавяне на $1: $2',
