@@ -43,7 +43,7 @@ END;
     foreach ($this->templates as $template) {
       $text .= $template->createMarkup() . "\n";
     }
-    $free_text_label = wfMsgForContent('sf_editdata_freetextlabel');
+    $free_text_label = wfMsgForContent('sf_form_freetextlabel');
     $text .=<<<END
 '''$free_text_label:'''
 {{{field|free text}}}
@@ -74,8 +74,8 @@ class SFTemplateInForm {
     $template_fields = array();
     $field_names_array = array();
 
-    // get fields of template, both semantic and otherwise, by parsing text
-    // of template
+    // Get the fields of the template, both semantic and otherwise, by parsing
+    // the text of the template.
     // The way this works is that fields are found and then stored in an
     // array based on their location in the template text, so that they
     // can be returned in the order in which they appear in the template, even
@@ -83,7 +83,7 @@ class SFTemplateInForm {
     // Some fields can be found more than once (especially if they're part
     // of an "#if" statement, so they're only recorded the first time they're
     // found. Also, every field gets replaced with a string of x's after
-    // being found, so it doesn't interfere with future parsing
+    // being found, so it doesn't interfere with future parsing.
     $template_title = Title::newFromText($this->template_name, NS_TEMPLATE);
     $template_article = new Article($template_title);
     $template_text = $template_article->getContent();
@@ -132,7 +132,7 @@ class SFTemplateInForm {
       }
     }
 
-    // get any non-semantic fields defined as well
+    // finally, get any non-semantic fields defined
     if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
       foreach ($matches[1] as $i => $field_name) {
         $full_field_text = $matches[0][$i];
@@ -208,8 +208,8 @@ END;
 
 /*
  * This class is distinct from SFTemplateField in that it represents a
- * template field defined in a form - it contains a simple SFTemplateField
- * object (the $template_field variable), along with the other properties
+ * template field defined in a form - it contains a SFTemplateField object
+ * within it (the $template_field variable), along with the other properties
  * for that field that are set within the form
  */
 class SFFormTemplateField {
@@ -229,7 +229,7 @@ class SFFormTemplateField {
   // representation of a form, not the form definition; ideally these
   // should be contained in a third 'field' class, called something like
   // SFFormInstanceField, that holds these fields plus an instance of
-  // SFFormTemplateField.
+  // SFFormTemplateField. Too much work?
   var $input_name;
   var $is_disabled;
 
@@ -247,8 +247,8 @@ class SFFormTemplateField {
   function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args, $all_fields, $strict_parsing) {
     // see if this field matches one of the fields defined for this template -
     // if it is, use all available information about that field; if it's not,
-    // either include it in the form or not, depending on whether template
-    // has 'strict' setting in the form definition
+    // either include it in the form or not, depending on whether the
+    // template has a 'strict' setting in the form definition
     $the_field = null;
     foreach ($all_fields as $cur_field) {
       if ($field_name == $cur_field->field_name) {
@@ -281,7 +281,7 @@ class SFFormTemplateField {
     $smw_version = SMW_VERSION;
     if ($smw_version{0} == '0') {
       $string_type = $smwgContLang->getDatatypeLabel('smw_string');
-      $text_type = 'text'; // placeholder - SMW 1.0+ only
+      $text_type = 'text'; // placeholder - SMW 1.0+ type only
       $url_type = $smwgContLang->getDatatypeLabel('smw_url');
       $email_type = $smwgContLang->getDatatypeLabel('smw_email');
       $float_type = $smwgContLang->getDatatypeLabel('smw_float');
@@ -304,7 +304,7 @@ class SFFormTemplateField {
       else
         $bool_type = 'boolean';
       $date_type = $datatypeLabels['_dat'];
-      $enum_type = 'enumeration'; // not a real type
+      $enum_type = 'enumeration'; // not a real type in SMW 1.0
       $page_type = $datatypeLabels['_wpg'];
     }
 
