@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.9.1');
+define('SF_VERSION','0.9.2');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -575,20 +575,37 @@ function sffGetAllForms() {
 	return $form_names;
 }
 
-	function sffFormDropdownHTML() {
-		// create a dropdown of possible form names
-		global $sfgContLang;
-		$namespace_labels = $sfgContLang->getNamespaces();
-		$form_label = $namespace_labels[SF_NS_FORM];
-		$str = <<<END
-			$form_label:
+function sffFormDropdownHTML() {
+	// create a dropdown of possible form names
+	global $sfgContLang;
+	$namespace_labels = $sfgContLang->getNamespaces();
+	$form_label = $namespace_labels[SF_NS_FORM];
+	$str = <<<END
+		$form_label:
 			<select name="form">
 
 END;
-		$form_names = sffGetAllForms();
-		foreach ($form_names as $form_name) {
-			$str .= "			<option>$form_name</option>\n";
-		}
-		$str .= "			</select>\n";
-		return $str;
+	$form_names = sffGetAllForms();
+	foreach ($form_names as $form_name) {
+		$str .= "			<option>$form_name</option>\n";
 	}
+	$str .= "			</select>\n";
+	return $str;
+}
+
+function sffGetMonthNames() {
+	return array(
+		wfMsgForContent('january'),
+		wfMsgForContent('february'),
+		wfMsgForContent('march'),
+		wfMsgForContent('april'),
+		wfMsgForContent('may'),
+		wfMsgForContent('june'), 
+		wfMsgForContent('july'),
+		wfMsgForContent('august'),
+		wfMsgForContent('september'),
+		wfMsgForContent('october'),
+		wfMsgForContent('november'),
+		wfMsgForContent('december')
+	);
+}
