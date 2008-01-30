@@ -462,7 +462,7 @@ class SFFormPrinter {
             // HACK - this is sometimes necessary
             // TODO: the code around line 433 might correct for this. This
             // should be checked.
-            if (!$cur_value[0] && $cur_value[1])
+            if (count($cur_value) >= 2 && ! $cur_value[0] && $cur_value[1])
               $cur_value = null;
           }
 
@@ -619,6 +619,37 @@ class SFFormPrinter {
               $sfgTabIndex++;
             // increment the global field number regardless
             $sfgFieldNum++;
+            // if the field is a date field, and its default value was set
+            // to 'now', set $cur_value to be the current date
+            if ($default_value == 'now') {
+              if ($input_type == 'date' || $input_type == 'datetime' ||
+                  $input_type == 'datetime with timezone' ||
+                  ($input_type == '' && $form_field->template_field->field_type == 'Date')) {
+                $cur_time = time();
+                $year = date("Y", $cur_time);
+                $month = date("n", $cur_time);
+                $day = date("j", $cur_time);
+                global $wgAmericanDates;
+                if ($wgAmericanDates) {
+                  $month_names = sffGetMonthNames();
+                  $month_name = $month_names[$month - 1];
+                  $cur_value = "$month_name $day, $year";
+                } else {
+                  $cur_value = "$year/$month/$day";
+                }
+                if ($input_type ==  'datetime' || $input_type == 'datetime with timezone') {
+                  $hour = str_pad(intval(substr(date("g", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
+                  $minute = str_pad(intval(substr(date("i", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
+                  $second = str_pad(intval(substr(date("s", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
+                  $ampm = date("A", $cur_time);
+                  $cur_value .= " $hour:$minute:$second $ampm";
+                }
+                if ($input_type == 'datetime with timezone') {
+                  $timezone = date("T", $cur_time);
+                  $cur_value .= " $timezone";
+                }
+              }
+            }
             list($new_text, $new_javascript_text) = $this->formFieldHTML($form_field, $cur_value);
 
             $fields_javascript_text .= $new_javascript_text;
@@ -927,14 +958,14 @@ END;
           $chooser_caption = $chooser_item[2];
           if ($chooser_caption === false)
             $chooser_caption = str_replace('_', ' ', $chooser_value);
-            $chooser_text .= "<option value=\"$tabindex ,$chooser_value\">$chooser_caption</option>\n";
-          }
+          $chooser_text .= "<option value=\"$tabindex ,$chooser_value\">$chooser_caption</option>\n";
+        }
         $chooser_text .= "</select>\n";
       }
       $chooser_text .= "<input type='button' onclick=\"addInstanceFromChooser('chooserselect$chooser_count');\" value='" . wfMsg('sf_editdata_addanother') . "' disabled='true' id='chooserbutton$chooser_count'></p>";
     }
 	
-    $form_text = str_replace('<choosers>', $chooser_text, $form_text);
+    $form_text = str_replace('{{{choosers}}}', $chooser_text, $form_text);
 
     // add form bottom, if no custom "standard inputs" have been defined
     if (! $this->standardInputsIncluded)
@@ -942,6 +973,7 @@ END;
     $form_text .= "\n	</form>\n";
 
     // add general Javascript code
+    $form_errors_header = wfMsg('sf_formerrors_header');
     $blank_error_str = wfMsg('sf_blank_error');
     $bad_url_error_str = wfMsg('sf_bad_url_error');
     $bad_email_error_str = wfMsg('sf_bad_email_error');
@@ -1074,6 +1106,15 @@ END;
     }
     $remove_text = wfMsg('sf_editdata_remove');
     $javascript_text .=<<<END
+	if (num_errors > 0) {
+		// add error header, if it's not there already
+		if (! document.getElementById("form_error_header")) {
+			var errorMsg = document.createElement('div');
+			errorMsg.innerHTML = "<div id=\"form_error_header\" class=\"warning_message\" style=\"font-size: medium\">$form_errors_header</div>";
+			document.getElementById("contentSub").appendChild(errorMsg);
+		}
+		scroll(0, 0);
+	}
 	return (num_errors == 0);
 }
 
@@ -1546,6 +1587,10 @@ END;
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
     $text = "";
+    // if it's mandatory, add a span around all the checkboxes, since
+    // some browsers don't support formatting of checkboxes
+    if ($is_mandatory)
+      $text .= '	<span class="mandatoryFieldsSpan">' . "\n";
     foreach ($possible_values as $key => $possible_value) {
       $cur_input_name = $input_name . "[" . $key . "]";
       $checked_text = (in_array($possible_value, $cur_values)) ? 'checked="checked"' : "";
@@ -1557,6 +1602,9 @@ END;
 END;
       $sfgTabIndex++;
     }
+    // close span
+    if ($is_mandatory)
+      $text .= "	</span>";
     $text .=<<<END
 	<span id="$info_id" class="error_message"></span>
 	<input type="hidden" name="$hidden_input_name" value="1" />
@@ -1651,20 +1699,7 @@ END;
 
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
-    $month_names = array(
-      wfMsgForContent('january'),
-      wfMsgForContent('february'),
-      wfMsgForContent('march'),
-      wfMsgForContent('april'),
-      wfMsgForContent('may'),
-      wfMsgForContent('june'),
-      wfMsgForContent('july'),
-      wfMsgForContent('august'),
-      wfMsgForContent('september'),
-      wfMsgForContent('october'),
-      wfMsgForContent('november'),
-      wfMsgForContent('december')
-    );
+    $month_names = sffGetMonthNames();
     foreach ($month_names as $i => $name) {
       // pad out month to always be two digits
       $month_value = $wgAmericanDates ? $name : str_pad($i + 1, 2, "0", STR_PAD_LEFT);
@@ -1696,11 +1731,7 @@ END;
         $month = $date['month'];
         $day = $date['day'];
       } else {
-        if ($date == 'now') { // special value
-          $actual_date = time();
-        } else {
-          $actual_date = strtotime($date);
-        }
+        $actual_date = strtotime($date);
         $year = date("Y", $actual_date);
         $month = date("n", $actual_date);
         $day = date("j", $actual_date);
@@ -1734,11 +1765,7 @@ END;
         if (isset($datetime['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
         if (isset($datetime['timezone'])) $timezone = $cur_value['timezone'];
       } else {
-        if ($datetime == 'now') { // special value
-          $actual_date = time();
-        } else {
-          $actual_date = strtotime($datetime);
-        }
+        $actual_date = strtotime($datetime);
         $hour = date("g", $actual_date);
         $minute = date("i", $actual_date);
         $second = date("s", $actual_date);
@@ -1792,6 +1819,10 @@ END;
       }
       $text .= " $disabled_text/> " . wfMsg('sf_editdata_none') . "\n";
     }
+    // if it's mandatory, add a span around all the radiobuttons, since
+    // some browsers don't support formatting of radiobuttons
+    if ($is_mandatory)
+      $text .= '	<span class="mandatoryFieldsSpan">' . "\n";
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
     foreach ($possible_values as $i => $possible_value) {
@@ -1802,6 +1833,9 @@ END;
       }
       $text .= " $disabled_text/> $possible_value\n";
     }
+    // close span
+    if ($is_mandatory)
+      $text .= "	</span>";
     return array($text, null);
   }
 
