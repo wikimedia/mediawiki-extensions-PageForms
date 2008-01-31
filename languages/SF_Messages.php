@@ -740,6 +740,7 @@ $messages['fi'] = array(
 /** French (Français)
  * @author Grondin
  * @author Sherbrooke
+ * @author Dereckson
  */
 $messages['fr'] = array(
 	'createproperty'                          => 'Définir une propriété',
@@ -818,6 +819,8 @@ $messages['fr'] = array(
 	'sf_editdata_formwarning'                 => 'Attention : cette page <a href="$1">existe déjà</a>, mais elle n\'utilise pas ce formulaire.',
 	'sf_editdata_remove'                      => 'Enlever',
 	'sf_editdata_addanother'                  => 'Ajouter un autre',
+	'sf_editdata_none'                        => 'Aucune',
+	'sf_formerrors_header'                    => 'Il y a certaines erreurs dans le formulaire. Cf. ci-dessous.',
 	'sf_blank_error'                          => 'ne peut pas être blanc',
 	'sf_bad_url_error'                        => 'doit avoir un format URL correct, commençant par « http »',
 	'sf_bad_email_error'                      => "doit avoir un format correct d'adresse courriel.",
@@ -826,7 +829,7 @@ $messages['fr'] = array(
 	'sf_bad_date_error'                       => 'doit être une date valide',
 	'sf_property_isattribute'                 => 'Ceci est un attribut du type $1.',
 	'sf_property_isproperty'                  => 'Ceci est une propriété du type $1.',
-	'sf_property_allowedvals'                 => 'Les valeurs autorisées pour cet attribut ou cette propriété sont :',
+	'sf_property_allowedvals'                 => 'Voici les valeurs autorisées pour cette propriété :',
 	'sf_property_isrelation'                  => 'Ceci est une relation.',
 	'sf_template_docu'                        => 'Ceci est le modèle « $1 ». Il devrait être appelé selon le format suivant :',
 	'sf_template_docufooter'                  => 'Modifier la page pour voir le texte du modèle.',
@@ -1160,6 +1163,8 @@ $messages['nl'] = array(
 	'sf_editdata_formwarning'                 => 'Deze pagina <a href="$1">bestaat al</a>, maar het gebruikt dit formulier niet.',
 	'sf_editdata_remove'                      => 'Verwijderen',
 	'sf_editdata_addanother'                  => 'Nog toevoegen',
+	'sf_editdata_none'                        => 'Geen',
+	'sf_formerrors_header'                    => 'Er zaten fouten in uw formulierinvoer. Details staan hieronder',
 	'sf_blank_error'                          => 'mag niet leeg blijven',
 	'sf_bad_url_error'                        => "moet de juiste URL hebben, beginnend met 'http'",
 	'sf_bad_email_error'                      => 'moet een geldig e-mailadres-formaat hebben',
@@ -1502,6 +1507,8 @@ $messages['sk'] = array(
 	'sf_editdata_formwarning'                 => 'Upozornenie: Táto stránka <a href="$1">už existuje</a>, ale nepoužíva tento formulár.',
 	'sf_editdata_remove'                      => 'Odstrániť',
 	'sf_editdata_addanother'                  => 'Pridať ďalšiu',
+	'sf_editdata_none'                        => 'Žiadne',
+	'sf_formerrors_header'                    => 'Zaslanie formulára, ktorý ste vyplnili, spôsobilo nasledovné chyby:',
 	'sf_blank_error'                          => 'nemôže byť nevyplnené',
 	'sf_bad_url_error'                        => 'musí mať správny formát URL, začínajúci „http“',
 	'sf_bad_email_error'                      => 'musí mať správny formát emailovej adresy',
@@ -1510,7 +1517,7 @@ $messages['sk'] = array(
 	'sf_bad_date_error'                       => 'musí byť platný dátum',
 	'sf_property_isattribute'                 => 'Toto je atribút typu $1.',
 	'sf_property_isproperty'                  => 'Toto je vlastnosť typu $1.',
-	'sf_property_allowedvals'                 => 'Povolené hodnoty tohto atribútu alebo vlastnosti sú:',
+	'sf_property_allowedvals'                 => 'Povolené hodnoty tejto vlastnosti sú:',
 	'sf_property_isrelation'                  => 'Toto je vzťah.',
 	'sf_template_docu'                        => 'Toto je šablóna „$1“. Mala by byť volaná v nasledovnom tvare:',
 	'sf_template_docufooter'                  => 'Text šablóny uvidíte, keď začnete upravovať stránku.',
