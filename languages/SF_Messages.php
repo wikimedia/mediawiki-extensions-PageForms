@@ -1291,6 +1291,7 @@ $messages['oc'] = array(
 
 /** Portuguese (Português)
  * @author 555
+ * @author Malafaya
  */
 $messages['pt'] = array(
 	'sf_createproperty_propname'         => 'Nome:',
@@ -1332,6 +1333,7 @@ $messages['pt'] = array(
 	'sf_editdata_title'                  => 'Editar $1: $2',
 	'sf_editdata_remove'                 => 'Remover',
 	'sf_editdata_addanother'             => 'Adicionar outro',
+	'sf_editdata_none'                   => 'Nenhum',
 	'sf_blank_error'                     => 'não pode estar em branco',
 	'sf_blank_namespace'                 => 'Principal',
 );
