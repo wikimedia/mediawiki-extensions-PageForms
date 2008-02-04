@@ -73,6 +73,7 @@ class SFFormPrinter {
       $this->setSemanticTypeHook($enum_type, false, array('SFFormPrinter', 'dropdownHTML'), array());
       $this->setSemanticTypeHook($enum_type, true, array('SFFormPrinter', 'checkboxesHTML'), array());
       $this->setSemanticTypeHook($page_type, false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('field_type' => 'page'));
+      $this->setSemanticTypeHook($page_type, true, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('field_type' => 'page', 'size' => '100', 'is_multiple' => 'true'));
     }
     $this->mInputTypeHooks = array();
     $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array());
@@ -345,7 +346,7 @@ class SFFormPrinter {
               }
               // now remove this template from the text being edited
               // if this is a partial form, establish a new insertion point
-              if($existing_page_content && $form_is_partial && $wgRequest->getCheck('partial')) {
+              if ($existing_page_content && $form_is_partial && $wgRequest->getCheck('partial')) {
               	// if something already exists, set the new insertion point
                 // to its position; otherwise just let it lie
                 if (strpos($existing_page_content, $matches[0])) {
@@ -450,20 +451,16 @@ class SFFormPrinter {
             }
           }
           $field_args['part_of_multiple'] = $allow_multiple;
-          // get the value from the request, if it's there
-          if (isset ($template_instance_query_values[$field_name]))
-            $cur_value = $template_instance_query_values[$field_name];
-          else
+          // get the value from the request, if it's there, and if it's not
+          // an array
+          if ($field_query_val = $template_instance_query_values[$field_name]) {
+            if (! is_array($field_query_val)) {
+              $cur_value = $field_query_val;
+            }
+          } else
             $cur_value = '';
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
-          }
-          if ($cur_value && is_array($cur_value)) {
-            // HACK - this is sometimes necessary
-            // TODO: the code around line 433 might correct for this. This
-            // should be checked.
-            if (count($cur_value) >= 2 && ! $cur_value[0] && $cur_value[1])
-              $cur_value = null;
           }
 
           if ($cur_value == null) {
@@ -801,7 +798,7 @@ class SFFormPrinter {
 
       if ($allow_multiple) {
         if (! $all_instances_printed) {
-          $section = str_replace('[num]', "[{$instance_num}a]", $section);
+          $section = str_replace('[num]', "[{$instance_num}]", $section);
           $remove_text = wfMsg('sf_editdata_remove');
           $form_text .=<<<END
 	<div id="wrapper_$sfgFieldNum" class="multiple_template">
@@ -1105,6 +1102,7 @@ END;
       $javascript_text .= "	if (! $function_call) num_errors += 1;\n";
     }
     $remove_text = wfMsg('sf_editdata_remove');
+    $delimiter = '","';
     $javascript_text .=<<<END
 	if (num_errors > 0) {
 		// add error header, if it's not there already
@@ -1137,7 +1135,7 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	// the [num] index in the element names with an actual unique index
 	var children = new_div.getElementsByTagName('*');
 	var x;
-	for (x=0;x<children.length;x++)
+	for (x = 0; x < children.length; x++)
 	{
 		if (children[x].name)
 			children[x].name = children[x].name.replace(/\[num\]/g, '[' + num_elements + ']');
@@ -1219,10 +1217,20 @@ function attachAutocompleteToField(input_id)
 		//Extract the field ID number from the input field
 		var field_num = parseInt(input_id.substring(input_id.lastIndexOf('_') + 1, input_id.length),10);
 		//Add the autocomplete string, if a mapping exists.
-		if (autocompletemappings[field_num])
-		{
+		var field_string = autocompletemappings[field_num];
+		if (field_string) {
 			var div_id = input_id.replace(/input_/g, 'div_');
-			new Autocompleter.Local(input_id, div_id, autocompletestrings[autocompletemappings[field_num]], {});
+			var field_values = new Array();
+			field_values = field_string.split(',');
+			if (field_values[1] == 'multiple') {
+				var delimiter = ",";
+				if (field_values[2] != null) {
+					delimiter = field_values[2];
+				}
+				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], delimiter);
+			} else {
+				new Autocompleter.Local(input_id, div_id, autocompletestrings[field_string], {});
+			}
 		}
 	}
 }
@@ -1372,16 +1380,18 @@ END;
         }
       }
       if (count($newcategories) == 0) {
+        sort($pages);
         return $pages;
       } else {
         $categories = array_merge($categories, $newcategories);
       }
       $checkcategories = array_diff($newcategories, array());
     }
+    sort($pages);
     return $pages;
   }
 
-  function createAutocompleteValuesString($field_name, $autocomplete_field_type) {
+  function createAutocompleteValuesArray($field_name, $autocomplete_field_type) {
     $names_array = array();
     // the query depends on whether this field is a relation, category or
     // namespace
@@ -1407,7 +1417,7 @@ END;
       global $wgContLang;
       $namespaces = $wgContLang->getNamespaces();
       $db = wfGetDB( DB_SLAVE );
-      $fname = "SFFormPrinter::createAutocompleteValuesString";
+      $fname = "SFFormPrinter::createAutocompleteValuesArray";
       foreach ($namespaces as $ns_code => $ns_name) {
         if ($ns_name == $field_name) {
           $conditions = "page_namespace = $ns_code";
@@ -1423,8 +1433,7 @@ END;
         }
       }
     }
-    $array_str = "['" . implode("', '", $names_array) . "']";
-    return $array_str;
+    return $names_array;
   }
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
@@ -1646,26 +1655,28 @@ END;
         <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text"
 	value="" size="$size" class="$className" $disabled_text/>
 	<span id="$info_id" class="error_message"></span>
-	<div class="page_name_auto_complete" id="$div_name" style="display:none"></div>
+	<div class="page_name_auto_complete" id="$div_name"></div>
 <script type="text/javascript">
 
 END;
-    $autocomplete_values = array();
-    $autocomplete_values['mappings'] = array();
-    $options_str_key = $semantic_field_name . ',' . $autocomplete_field_type;
-    $javascript_text = "";
-    if (! array_key_exists($options_str_key, $autocomplete_values))
-      $autocomplete_values[$options_str_key] = $this->createAutocompleteValuesString(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
-    $autocomplete_values['mappings'][$sfgFieldNum] = $options_str_key;
-    foreach ($autocomplete_values as $autocomplete_key => $autocomplete_string) {
-      if ($autocomplete_key == "mappings") {
-        foreach ($autocomplete_string as $field_number => $field_key) {
-          $javascript_text .= "autocompletemappings[$field_number] = '" . str_replace("'", "\'", $field_key) . "';\n";
-        }
-      } else {
-        $javascript_text .= "autocompletestrings['" . str_replace("'", "\'", $autocomplete_key) . "'] = $autocomplete_string;\n";
+    $options_str_key = str_replace("'", "\'", $semantic_field_name);
+    if (array_key_exists('is_multiple', $other_args)) {
+      $options_str_key .= ",multiple";
+      if (array_key_exists('delimiter', $other_args) && $other_args['delimiter'] != ",") {
+        $options_str_key .= "," . $other_args['delimiter'];
       }
     }
+    $autocomplete_values = $this->createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
+    if (array_key_exists('is_multiple', $other_args)) {
+      $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
+    } else {
+      $autocomplete_string = "['" . implode("', '", $autocomplete_values) . "']";
+    }
+    $javascript_text =<<<END
+autocompletemappings[$sfgFieldNum] = '$options_str_key';
+autocompletestrings['$options_str_key'] = $autocomplete_string;
+
+END;
     if ($cur_value) {
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
