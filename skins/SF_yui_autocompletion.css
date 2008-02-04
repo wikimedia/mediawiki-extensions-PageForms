@@ -1,0 +1,17 @@
+/* custom styles for Semantic Forms autocompletion with Yahoo! UI (YUI) */
+.yui-ac-content li {
+    color: black;
+    background-color: white;
+    cursor: default;
+}
+.yui-ac-content li.yui-ac-highlight {
+    color: white;
+    background-color: #222288;
+}
+.yui-ac-content {
+    position: absolute;
+    *position: static; /* hack - IE-only */
+}
+.yui-ac-bd ul {
+    list-style-image: none;
+}
