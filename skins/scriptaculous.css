@@ -440,6 +440,7 @@ div.page_name_auto_complete ul li {
 	margin: 0;
 	padding: 3px;
 	list-style: none;
+	cursor: default;
 }
 
 div.page_name_auto_complete ul li.selected { 
