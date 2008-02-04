@@ -1313,6 +1313,7 @@ $messages['pt'] = array(
 	'sf_createtemplate_fieldname'        => 'Nome do campo:',
 	'sf_createtemplate_displaylabel'     => 'Exibir etiqueta:',
 	'sf_createtemplate_semanticproperty' => 'Propriedade semântica:',
+	'sf_createtemplate_aggregation'      => 'Agregação',
 	'sf_createtemplate_aggregationlabel' => 'Título para a lista:',
 	'sf_createtemplate_outputformat'     => 'Formato de saída:',
 	'sf_createtemplate_standardformat'   => 'Padrão',
@@ -1342,6 +1343,8 @@ $messages['pt'] = array(
 	'sf_editdata_addanother'             => 'Adicionar outro',
 	'sf_editdata_none'                   => 'Nenhum',
 	'sf_blank_error'                     => 'não pode estar em branco',
+	'sf_form_freetextlabel'              => 'Texto livre',
+	'sf_category_desc'                   => 'Esta é a categoria $1.',
 	'sf_blank_namespace'                 => 'Principal',
 );
 
