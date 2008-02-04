@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.9.2');
+define('SF_VERSION','0.9.3');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -334,20 +334,26 @@ function sffGetDefaultForm_1_0($page_title, $page_namespace) {
 	$res = $store->getPropertyValues($title, $property);
 	$num = count($res);
 	if ($num > 0) {
-		$form_name = $res[0]->getTitle()->getText();
-		return $form_name;
+		// make sure it's in the form namespace
+		if ($res[0]->getNamespace() == SF_NS_FORM) {
+			$form_name = $res[0]->getTitle()->getText();
+			return $form_name;
+		}
 	}
 	// if that didn't work, try any aliases that may exist
 	// for SF_SP_HAS_DEFAULT_FORM
 	$sf_props_aliases = $sfgContLang->getSpecialPropertyAliases();
 	foreach ($sf_props_aliases as $alias => $prop_code) {
 		if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
-			$property = Title::newFromText($alias, SF_NS_FORM);
+			$property = Title::newFromText($alias, SMW_NS_PROPERTY);
 			$res = $store->getPropertyValues($title, $property);
 			$num = count($res);
 			if ($num > 0) {
-				$form_name = $res[0]->getTitle()->getText();
-				return $form_name;
+				// make sure it's in the form namespace
+				if ($res[0]->getNamespace() == SF_NS_FORM) {
+					$form_name = $res[0]->getTitle()->getText();
+					return $form_name;
+				}
 			}
 		}
 	}
@@ -401,18 +407,23 @@ function sffGetAlternateForms_1_0($page_title, $page_namespace) {
 	$title = Title::newFromText($page_title, $page_namespace);
 	$sf_props = $sfgContLang->getSpecialPropertiesArray();
 	$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
-	$property = Title::newFromText($alternate_form_property, SF_NS_FORM);
+	$property = Title::newFromText($alternate_form_property, SMW_NS_PROPERTY);
 	$prop_vals = $store->getPropertyValues($title, $property);
 	$form_names = array();
 	foreach ($prop_vals as $prop_val) {
-		$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
+		// make sure it's in the form namespace
+		if ($prop_val->getNamespace() == SF_NS_FORM) {
+			$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
+		}
 	}
 	// try the English version too, if this isn't in English
 	if ($alternate_form_property != "Has_alternate_form") {
-		$property = Title::newFromText("Has_alternate_form", SF_NS_FORM);
+		$property = Title::newFromText("Has_alternate_form", SMW_NS_PROPERTY);
 		$prop_vals = $store->getPropertyValues($title, $property);
 		foreach ($prop_vals as $prop_val) {
-			$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
+			if ($prop_val->getNamespace() == SF_NS_FORM) {
+				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
+			}
 		}
 	}
 	return $form_names;
