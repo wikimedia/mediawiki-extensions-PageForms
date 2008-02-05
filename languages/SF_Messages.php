@@ -619,6 +619,8 @@ $messages['fa'] = array(
 	'sf_editdata_formwarning'                 => 'اخطار: این صفحه <a href="$1">هم‌اکنون وجود دارد</a>، ولی به‌وسیله این فرم ساخته نشده است.',
 	'sf_editdata_remove'                      => 'حذف',
 	'sf_editdata_addanother'                  => 'افزدون دیگری',
+	'sf_editdata_none'                        => 'هیچکدام',
+	'sf_formerrors_header'                    => 'خطاهایی در ورودی فرمتان وجود دارد؛ قسمت پایین را ببینید',
 	'sf_blank_error'                          => 'نمی‌تواند خالی باشد',
 	'sf_bad_url_error'                        => "باید قالب URL درستی داشته باشد و با 'http' شروع شود",
 	'sf_bad_email_error'                      => 'باید قالب صحیحی برای پست الکترونیک داشته باشد',
