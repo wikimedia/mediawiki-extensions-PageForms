@@ -453,8 +453,10 @@ class SFFormPrinter {
           $field_args['part_of_multiple'] = $allow_multiple;
           // get the value from the request, if it's there, and if it's not
           // an array
-          if ($field_query_val = $template_instance_query_values[$field_name]) {
-            if (! is_array($field_query_val)) {
+          if ($template_instance_query_values &&
+              array_key_exists($field_name, $template_instance_query_values)) {
+            $field_query_val = $template_instance_query_values[$field_name];
+            if ($field_query_val && ! is_array($field_query_val)) {
               $cur_value = $field_query_val;
             }
           } else
