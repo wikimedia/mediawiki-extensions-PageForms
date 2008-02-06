@@ -456,7 +456,7 @@ class SFFormPrinter {
           if ($template_instance_query_values &&
               array_key_exists($field_name, $template_instance_query_values)) {
             $field_query_val = $template_instance_query_values[$field_name];
-            if ($field_query_val && ! is_array($field_query_val)) {
+            if ($form_submitted || ($field_query_val && ! is_array($field_query_val))) {
               $cur_value = $field_query_val;
             }
           } else
