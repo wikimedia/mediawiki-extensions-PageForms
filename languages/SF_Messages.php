@@ -192,6 +192,7 @@ $messages['ar'] = array(
 	'sf_editdata_formwarning'                 => 'تحذير: هذه الصفحة <a href="$1">موجودة بالفعل</a>، لكنها لا تستخدم هذه الاستمارة.',
 	'sf_editdata_remove'                      => 'إزالة',
 	'sf_editdata_addanother'                  => 'إضافة آخر',
+	'sf_editdata_none'                        => 'لا شيء',
 	'sf_blank_error'                          => 'لا يمكن أن يكون فارغا',
 	'sf_bad_url_error'                        => "يجب أن يحتوي صيغة المسار الصحيحة، بادئا ب 'http'",
 	'sf_bad_email_error'                      => 'يجب أن يحتوي صيغة عنوان بريد إلكتروني صحيحة',
