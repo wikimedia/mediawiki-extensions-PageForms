@@ -193,6 +193,7 @@ $messages['ar'] = array(
 	'sf_editdata_remove'                      => 'إزالة',
 	'sf_editdata_addanother'                  => 'إضافة آخر',
 	'sf_editdata_none'                        => 'لا شيء',
+	'sf_formerrors_header'                    => 'هناك أخطاء في مدخلات استمارتك؛ انظر بالأسفل',
 	'sf_blank_error'                          => 'لا يمكن أن يكون فارغا',
 	'sf_bad_url_error'                        => "يجب أن يحتوي صيغة المسار الصحيحة، بادئا ب 'http'",
 	'sf_bad_email_error'                      => 'يجب أن يحتوي صيغة عنوان بريد إلكتروني صحيحة',
@@ -201,7 +202,7 @@ $messages['ar'] = array(
 	'sf_bad_date_error'                       => 'يجب أن يكون تاريخا سليما',
 	'sf_property_isattribute'                 => 'هذه صفة من نوع $1.',
 	'sf_property_isproperty'                  => 'هذه خاصية من نوع $1.',
-	'sf_property_allowedvals'                 => 'القيم المسموحة لهذه الصفة أو الخاصية هي:',
+	'sf_property_allowedvals'                 => 'القيم المسموحة لهذه الخاصية هي:',
 	'sf_property_isrelation'                  => 'هذه علاقة.',
 	'sf_template_docu'                        => "هذا قالب '$1'. ينبغي استدعاؤه بالصيغة التالية:",
 	'sf_template_docufooter'                  => 'عدل الصفحة لرؤية نص القالب.',
@@ -1639,6 +1640,29 @@ $messages['stq'] = array(
 	'sf_form_freetextlabel'                   => 'Fräitext',
 	'sf_category_hasdefaultform'              => 'Disse Kategorie benutset dät Formular $1.',
 	'sf_category_desc'                        => 'Dit is ju Kategorie $1.',
+);
+
+/** Swedish (Svenska)
+ * @author Max sonnelid
+ * @author Lejonel
+ */
+$messages['sv'] = array(
+	'templates'                    => 'Mallar',
+	'createtemplate'               => 'Skapa en mall',
+	'sf_createtemplate_namelabel'  => 'Mallnamn:',
+	'sf_createform_template'       => 'Mall:',
+	'sf_createform_addtemplate'    => 'Lägg till mall:',
+	'sf_createform_beforetemplate' => 'Före mall:',
+	'sf_createform_add'            => 'Lägg till',
+	'createcategory'               => 'Skapa en kategori',
+	'sf_createcategory_name'       => 'Namn:',
+	'addpage'                      => 'Lägg till sida',
+	'addoreditdata'                => 'Lägg till eller redigera',
+	'adddata'                      => 'Lägg till data',
+	'sf_adddata_title'             => 'Lägg till $1: $2',
+	'editdata'                     => 'Redigera data',
+	'edit_source'                  => 'Redigera källa',
+	'sf_editdata_title'            => 'Redigera $1: $2',
 );
 
 /** Turkish (Türkçe)
