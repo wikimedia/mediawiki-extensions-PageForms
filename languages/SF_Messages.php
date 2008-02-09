@@ -112,6 +112,15 @@ $messages['en'] = array(
 	'sf_blank_namespace'                 => 'Main',
 );
 
+/** Afrikaans (Afrikaans)
+ * @author SPQRobin
+ */
+$messages['af'] = array(
+	'sf_createproperty_propname' => 'Naam:',
+	'sf_createform_template'     => 'Sjabloon:',
+	'sf_createcategory_name'     => 'Naam:',
+);
+
 /** Arabic (العربية)
  * @author Meno25
  */
@@ -1891,6 +1900,8 @@ $messages['zh-tw'] = array(
 	'sf_editdata_formwarning'                 => '警告：<a href="$1">此頁</a>已經存在，只是尚未引用本表單。',
 	'sf_editdata_remove'                      => '刪除',
 	'sf_editdata_addanother'                  => '新增其他',
+	'sf_editdata_none'                        => '無',
+	'sf_formerrors_header'                    => '您在表單的輸入項目中有錯誤；請參考下方',
 	'sf_blank_error'                          => '不得為空白',
 	'sf_bad_url_error'                        => "須有正確的URL格式（即以 'http'起頭）",
 	'sf_bad_email_error'                      => '必須是有效的電子郵件(Email)格式',
