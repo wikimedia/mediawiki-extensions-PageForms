@@ -9,7 +9,7 @@ function sffFormEditTab($obj, $content_actions) {
   $fname = 'SFFormEditTab';
   // make sure that this is not itself a category page, and that the user
   // is allowed to edit it
-  if (($obj->mTitle != null) && ($obj->mTitle->getNamespace() != NS_CATEGORY)) {
+  if (isset($obj->mTitle) && ($obj->mTitle->getNamespace() != NS_CATEGORY)) {
     $form_name = sffGetFormForArticle($obj);
     if ($form_name) {  
       global $wgRequest;
