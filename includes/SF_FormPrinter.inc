@@ -72,8 +72,8 @@ class SFFormPrinter {
       $this->setSemanticTypeHook($date_type, false, array('SFFormPrinter', 'dateEntryHTML'), array());
       $this->setSemanticTypeHook($enum_type, false, array('SFFormPrinter', 'dropdownHTML'), array());
       $this->setSemanticTypeHook($enum_type, true, array('SFFormPrinter', 'checkboxesHTML'), array());
-      $this->setSemanticTypeHook($page_type, false, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('field_type' => 'page'));
-      $this->setSemanticTypeHook($page_type, true, array('SFFormPrinter', 'textEntryWithAutocompleteHTML'), array('field_type' => 'page', 'size' => '100', 'is_multiple' => 'true'));
+      $this->setSemanticTypeHook($page_type, false, array('SFFormPrinter', 'textInputWithAutocompleteHTML'), array('field_type' => 'page'));
+      $this->setSemanticTypeHook($page_type, true, array('SFFormPrinter', 'textInputWithAutocompleteHTML'), array('field_type' => 'page', 'size' => '100', 'is_list' => 'true'));
     }
     $this->mInputTypeHooks = array();
     $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array());
@@ -418,6 +418,7 @@ class SFFormPrinter {
           $is_mandatory = false;
           $is_hidden = false;
           $is_restricted = false;
+          $is_list = false;
           $input_type = null;
           $field_args = array();
           $default_value = "";
@@ -430,6 +431,8 @@ class SFFormPrinter {
               $is_hidden = true;
             } elseif ($component == 'restricted') {
               $is_restricted = true;
+            } elseif ($component == 'list') {
+              $is_list = true;
             } else {
               $sub_components = explode('=', $component);
               if (count($sub_components) == 2) {
@@ -610,8 +613,8 @@ class SFFormPrinter {
             // parameters in the form definition, and any information from
             // the template definition (contained in the $all_fields parameter)
             $form_field = SFFormTemplateField::createFromDefinition($field_name, $input_name,
-              $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args,
-              $all_fields, $strict_parsing);
+              $is_mandatory, $is_hidden, $is_disabled, $is_list, $input_type,
+              $field_args, $all_fields, $strict_parsing);
             // if this is not part of a 'multiple' template, incrememt the
             // global tab index (used for correct tabbing)
             if (! $field_args['part_of_multiple'])
@@ -681,9 +684,9 @@ class SFFormPrinter {
               $info_id = "info_" . $sfgFieldNum;
               if ($is_mandatory) {
                 if ($input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone') {
-                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_1', '$info_id')";
-                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_2', '$info_id')";
-                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_3', '$info_id')";
+                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_month', '$info_id')";
+                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_day', '$info_id')";
+                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_year', '$info_id')";
                   if ($input_type == 'datetime' || $input_type == 'datetime with timezone') {
                     // TODO - validate the time fields
                     if ($input_type == 'datetime with timezone') {
@@ -1057,8 +1060,8 @@ function validate_field_type(field_id, type, info_id) {
 			}
 		} else if (type == 'date') {
 			// validate only if day and year fields are both filled in
-			day_field = document.getElementById(field_id + "_2");
-			year_field = document.getElementById(field_id + "_3");
+			day_field = document.getElementById(field_id + "_day");
+			year_field = document.getElementById(field_id + "_year");
 			if (day_field.value == '' || year_field.value == '') {
 				return true;
 			} else if (day_field.value.match(/^\d+$/) &&
@@ -1160,16 +1163,14 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	main_div.appendChild(new_div);
 	attachAutocompleteToAllFields(new_div);
 	
-	if ($using_choosers)
-	{
+	if ($using_choosers) {
 		hideOrShowFieldset(new_div);
 	}
 }
 
 function removeInstanceEventHandler(this_div_id)
 {
-	return function()
-	{
+	return function() {
 		removeInstance(this_div_id);
 	};
 }
@@ -1190,10 +1191,8 @@ function attachAutocompleteToAllDocumentFields()
 {
 	var forms = document.getElementsByTagName("form");
 	var x;
-	for (x=0;x<forms.length;x++)
-	{
-		if (forms[x].name == "createbox")
-		{
+	for (x = 0; x < forms.length; x++) {
+		if (forms[x].name == "createbox") {
 			attachAutocompleteToAllFields(forms[x]);
 		}	
 	}
@@ -1204,8 +1203,12 @@ function attachAutocompleteToAllFields(base)
 {
 	var inputs = base.getElementsByTagName("input");
 	var y;
-	for (y=0;y<inputs.length;y++)
-	{
+	for (y = 0; y < inputs.length; y++) {
+		attachAutocompleteToField(inputs[y].id);
+	}
+	// don't forget the textareas
+	inputs = base.getElementsByTagName("textarea");
+	for (y = 0; y < inputs.length; y++) {
 		attachAutocompleteToField(inputs[y].id);
 	}
 }
@@ -1224,7 +1227,7 @@ function attachAutocompleteToField(input_id)
 			var div_id = input_id.replace(/input_/g, 'div_');
 			var field_values = new Array();
 			field_values = field_string.split(',');
-			if (field_values[1] == 'multiple') {
+			if (field_values[1] == 'list') {
 				var delimiter = ",";
 				if (field_values[2] != null) {
 					delimiter = field_values[2];
@@ -1259,6 +1262,7 @@ END;
 
     if ($form_field->is_hidden) {
       $text = $this->hiddenFieldHTML($form_field->input_name, $cur_value);
+      $javascript_text = "";
     } elseif ($form_field->input_type != '' && $this->mInputTypeHooks[$form_field->input_type] != null) {
       $funcArgs = array();
       $funcArgs[] = $cur_value;
@@ -1272,6 +1276,7 @@ END;
       $default_args = $hook_values[1];
       $other_args = $form_field->field_args;
       $other_args['possible_values'] = $template_field->possible_values;
+      $other_args['is_list'] = $template_field->is_list;
       if ($template_field->is_relation) {
         $other_args['is_relation'] = true;
         $other_args['semantic_field_name'] = $template_field->semantic_field;
@@ -1288,7 +1293,7 @@ END;
       list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
     } else { // input type not defined in form, and not a relation
       $field_type = $template_field->field_type;
-      $is_list = $template_field->is_list;
+      $is_list = $form_field->is_list || $template_field->is_list;
       if ($field_type != '' &&
           array_key_exists($field_type, $this->mSemanticTypeHooks) &&
           isset($this->mSemanticTypeHooks[$field_type][$is_list])) {
@@ -1310,6 +1315,11 @@ END;
         list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
       } else { // anything else
         $other_args = $form_field->field_args;
+        // set field to be a list if that was specified in the form definition
+        if ($form_field->is_list) {
+          $other_args['is_list'] = true;
+          $other_args['size'] = 100;
+        }
         list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args);
       }
     }
@@ -1440,9 +1450,13 @@ END;
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if it's an autocomplete, call the with-autocomplete function instead
-    if ((array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] != "") ||
-        array_key_exists('autocomplete on namespace', $other_args)) {
-      return SFFormPrinter::textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+    $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
+    if (! $autocompletion_disabled) {
+      if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
+          array_key_exists('autocomplete on', $other_args) ||
+          array_key_exists('autocomplete on namespace', $other_args)) {
+        return SFFormPrinter::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+      }
     }
 
     global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
@@ -1624,7 +1638,7 @@ END;
     return array($text, null);
   }
 
-  function textEntryWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+  function textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if 'no autocomplete' was specified, call the regular text entry instead
     if (array_key_exists('no_autocomplete', $other_args) &&
         $other_args['no_autocomplete'] == true)
@@ -1653,23 +1667,33 @@ END;
     $input_id = "input_" . $sfgFieldNum;
     $info_id = "info_" . $sfgFieldNum;
     $div_name = "div_" . $sfgFieldNum;
-    $text =<<<END
+    if (array_key_exists('input_type', $other_args) && $other_args['input_type'] == "textarea") {
+      $text =<<<END
+	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text></textarea>
+
+END;
+    } else {
+      $text =<<<END
         <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text"
 	value="" size="$size" class="$className" $disabled_text/>
+
+END;
+    }
+    $text .=<<<END
 	<span id="$info_id" class="error_message"></span>
 	<div class="page_name_auto_complete" id="$div_name"></div>
 <script type="text/javascript">
 
 END;
     $options_str_key = str_replace("'", "\'", $semantic_field_name);
-    if (array_key_exists('is_multiple', $other_args)) {
-      $options_str_key .= ",multiple";
+    if (array_key_exists('is_list', $other_args)) {
+      $options_str_key .= ",list";
       if (array_key_exists('delimiter', $other_args) && $other_args['delimiter'] != ",") {
         $options_str_key .= "," . $other_args['delimiter'];
       }
     }
     $autocomplete_values = $this->createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
-    if (array_key_exists('is_multiple', $other_args)) {
+    if (array_key_exists('is_list', $other_args)) {
       $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
     } else {
       $autocomplete_string = "['" . implode("', '", $autocomplete_values) . "']";
@@ -1687,6 +1711,17 @@ END;
   }
 
   function textAreaHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+    // if it's an autocomplete, call the with-autocomplete function instead
+    $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
+    if (! $autocompletion_disabled) {
+      if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
+          array_key_exists('autocomplete on', $other_args) ||
+          array_key_exists('autocomplete on namespace', $other_args)) {
+        $other_args['input_type'] = "textarea";
+        return SFFormPrinter::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+      }
+    }
+
     global $sfgTabIndex, $sfgFieldNum;
 
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
@@ -1711,7 +1746,7 @@ END;
     global $sfgTabIndex, $sfgFieldNum, $wgAmericanDates;
 
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_1" name="' . $input_name . "[month]\" $disabled_text>\n";
+    $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_month" name="' . $input_name . "[month]\" $disabled_text>\n";
     $month_names = sffGetMonthNames();
     foreach ($month_names as $i => $name) {
       // pad out month to always be two digits
@@ -1757,8 +1792,8 @@ END;
     }
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = $this->monthDropdownHTML($month, $input_name, $is_disabled);
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_2" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_3" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_day" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
+    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_year" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
     $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
     return array($text, null);
   }
