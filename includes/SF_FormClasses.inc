@@ -244,7 +244,7 @@ class SFFormTemplateField {
     return $f;
   }
 
-  function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_disabled, $input_type, $field_args, $all_fields, $strict_parsing) {
+  function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_disabled, $is_list, $input_type, $field_args, $all_fields, $strict_parsing) {
     // see if this field matches one of the fields defined for this template -
     // if it is, use all available information about that field; if it's not,
     // either include it in the form or not, depending on whether the
@@ -272,6 +272,7 @@ class SFFormTemplateField {
     $f->field_args = $field_args;
     $f->input_name = $input_name;
     $f->is_disabled = $is_disabled;
+    $f->is_list = $is_list;
     return $f;
   }
 
