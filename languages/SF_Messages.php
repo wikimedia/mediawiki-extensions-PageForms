@@ -1718,7 +1718,9 @@ $messages['tr'] = array(
  * @author Malafaya
  */
 $messages['vo'] = array(
-	'sf_blank_namespace' => 'Cifik',
+	'sf_createproperty_propname' => 'Nem:',
+	'sf_createcategory_name'     => 'Nem:',
+	'sf_blank_namespace'         => 'Cifik',
 );
 
 /** Mainland Chinese
