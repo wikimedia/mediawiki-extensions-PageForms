@@ -1210,6 +1210,68 @@ $messages['nl'] = array(
 	'sf_blank_namespace'                      => 'Hoofdnaamruimte',
 );
 
+/** Norwegian (‪Norsk (bokmål)‬)
+ * @author Jon Harald Søby
+ */
+$messages['no'] = array(
+	'sf_createproperty_propname'         => 'Navn:',
+	'sf_createproperty_proptype'         => 'Type:',
+	'templates'                          => 'Maler',
+	'sf_templates_docu'                  => 'Følgende maler finnes på wikien.',
+	'sf_templates_definescat'            => 'definerer kategori:',
+	'createtemplate'                     => 'Opprett en mal',
+	'sf_createtemplate_namelabel'        => 'Malnavn:',
+	'sf_createtemplate_categorylabel'    => 'Kategori definert av mal (valgfri):',
+	'sf_createtemplate_templatefields'   => 'Malfelter',
+	'sf_createtemplate_fieldname'        => 'Feltnavn:',
+	'sf_createtemplate_semanticproperty' => 'Semantisk verdi:',
+	'sf_createtemplate_aggregation'      => 'Aggregering',
+	'sf_createtemplate_standardformat'   => 'Standard',
+	'sf_createtemplate_addfield'         => 'Legg til felt',
+	'sf_createtemplate_deletefield'      => 'Slett',
+	'forms'                              => 'Skjemaer',
+	'sf_forms_docu'                      => 'Følgende skjemaer finnes på wikien.',
+	'createform'                         => 'Opprett et skjema',
+	'sf_createform_template'             => 'Mal:',
+	'sf_createform_field'                => 'Felt:',
+	'sf_createform_hidden'               => 'Skjult',
+	'sf_createform_restricted'           => 'Begrenset (kun administratorer kan endre den)',
+	'sf_createform_mandatory'            => 'Obligatorisk',
+	'sf_createform_removetemplate'       => 'Fjern mal',
+	'sf_createform_addtemplate'          => 'Legg til mal:',
+	'sf_createform_beforetemplate'       => 'Før mal:',
+	'sf_createform_add'                  => 'Legg til',
+	'sf_createform_choosefield'          => 'Velg et felt å legge til',
+	'createcategory'                     => 'Opprett en kategori',
+	'sf_createcategory_name'             => 'Navn:',
+	'sf_createcategory_defaultform'      => 'Standardskjema:',
+	'addpage'                            => 'Legg til side',
+	'addoreditdata'                      => 'Legg til eller rediger',
+	'adddata'                            => 'Legg til data',
+	'sf_adddata_title'                   => 'Legg til $1: $2',
+	'sf_forms_adddata'                   => 'Legg til data med dette skjemaet',
+	'editdata'                           => 'Rediger data',
+	'form_edit'                          => 'Rediger med skjema',
+	'edit_source'                        => 'Rediger kilde',
+	'sf_editdata_title'                  => 'Rediger $1: $2',
+	'sf_editdata_remove'                 => 'Fjern',
+	'sf_editdata_addanother'             => 'Legg til en til:',
+	'sf_editdata_none'                   => 'Ingen',
+);
+
+/** Northern Sotho (Sesotho sa Leboa)
+ * @author Mohau
+ */
+$messages['nso'] = array(
+	'sf_createproperty_propname'    => 'Leina:',
+	'sf_createproperty_proptype'    => 'Mohuta:',
+	'sf_createtemplate_deletefield' => 'Phumula',
+	'sf_createform_add'             => 'Lokela',
+	'sf_createcategory_name'        => 'Leina',
+	'sf_adddata_title'              => 'Lokela $1: $2',
+	'sf_editdata_title'             => 'Fetola $1: $2',
+);
+
 /** Occitan (Occitan)
  * @author Cedric31
  */
