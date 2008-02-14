@@ -224,6 +224,7 @@ $messages['ar'] = array(
 
 /** Kotava (Kotava)
  * @author Wikimistusik
+ * @author Nkosi ya Cabinda
  */
 $messages['avk'] = array(
 	'createproperty'                          => 'Redura va pilkaca',
@@ -296,7 +297,7 @@ $messages['avk'] = array(
 	'sf_bad_date_error'                       => 'gotir enafa evla',
 	'sf_property_isattribute'                 => 'Tir pilkovoy ke $1 ord.',
 	'sf_property_isproperty'                  => 'Tir pilkaca ke $1 ord.',
-	'sf_property_allowedvals'                 => 'Tentuyuna voda se ke bat pilkovoy tid :',
+	'sf_property_allowedvals'                 => 'Rictana voda se ke bat pilkovoy tid :',
 	'sf_property_isrelation'                  => 'Tir skedara.',
 	'sf_template_docu'                        => "Tir '$1' teza. Kan vlevef breviz zo gonerur :",
 	'sf_template_docufooter'                  => 'Burupera ta wira va tezacek',
@@ -1082,6 +1083,15 @@ $messages['hsb'] = array(
  */
 $messages['hu'] = array(
 	'sf_createtemplate_deletefield' => 'Törlés',
+);
+
+/** Khmer (ភាសាខ្មែរ)
+ * @author Chhorran
+ */
+$messages['km'] = array(
+	'forms'                        => 'បែបបទ',
+	'createform'                   => 'បង្កើត មួយបែបបទ',
+	'sf_createform_removetemplate' => 'ដកចេញ គំរូខ្នាត',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
