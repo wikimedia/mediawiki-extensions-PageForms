@@ -63,7 +63,7 @@ class SFFormPrinter {
       }
       $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string'));
       $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string'));
-      $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaHTML'), array('rows' => 5, 'cols' => 30));
+      $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'URL'));
       $this->setSemanticTypeHook($email_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'email'));
       $this->setSemanticTypeHook($float_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'float'));
@@ -77,7 +77,7 @@ class SFFormPrinter {
     }
     $this->mInputTypeHooks = array();
     $this->setInputTypeHook('text', array('SFFormPrinter', 'textEntryHTML'), array());
-    $this->setInputTypeHook('textarea', array('SFFormPrinter', 'textAreaHTML'), array('rows' => 5, 'cols' => 30));
+    $this->setInputTypeHook('textarea', array('SFFormPrinter', 'textAreaHTML'), array());
     $this->setInputTypeHook('date', array('SFFormPrinter', 'dateEntryHTML'), array());
     $this->setInputTypeHook('datetime', array('SFFormPrinter', 'dateTimeEntryHTML'), array('include_timezone' => false));
     $this->setInputTypeHook('datetime with timezone', array('SFFormPrinter', 'dateTimeEntryHTML'), array('include_timezone' => true));
@@ -498,10 +498,10 @@ class SFFormPrinter {
               if ($is_hidden) {
                 $new_text = $this->hiddenFieldHTML('free_text', '<free_text>');
               } else {
-		if (! array_key_exists('rows', $field_args))
+                if (! array_key_exists('rows', $field_args))
                   $field_args['rows'] = 5;
-		if (! array_key_exists('cols', $field_args))
-                  $field_args['cols'] = 30;
+                if (! array_key_exists('cols', $field_args))
+                  $field_args['cols'] = 70;
                 $sfgTabIndex++;
                 $sfgFieldNum++;
                 list($new_text, $new_javascript_text) = $this->textAreaHTML('<free_text>', 'free_text', false, $form_is_disabled, $field_args);
@@ -515,7 +515,7 @@ class SFFormPrinter {
             if (is_array($cur_value)) {
               // first, check if it's a list
               if (array_key_exists('is_list', $cur_value) &&
-                  $cur_value['is_list'] == 1) {
+                  $cur_value['is_list'] == true) {
                 $cur_value_in_template = "";
                 if (array_key_exists('delimiter', $field_args)) {
                   $delimiter = $field_args['delimiter'];
@@ -1650,10 +1650,6 @@ END;
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    if (array_key_exists('size', $other_args))
-      $size = $other_args['size'];
-    else
-      $size = "35";
     if (array_key_exists('autocomplete on', $other_args)) {
       $autocomplete_field_type = "category";
       $semantic_field_name = $other_args['autocomplete on'];
@@ -1668,11 +1664,18 @@ END;
     $info_id = "info_" . $sfgFieldNum;
     $div_name = "div_" . $sfgFieldNum;
     if (array_key_exists('input_type', $other_args) && $other_args['input_type'] == "textarea") {
+      $rows = $other_args['rows'];
+      $cols = $other_args['cols'];
       $text =<<<END
 	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text></textarea>
 
 END;
     } else {
+      if (array_key_exists('size', $other_args))
+        $size = $other_args['size'];
+      else
+        $size = "35";
+
       $text =<<<END
         <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text"
 	value="" size="$size" class="$className" $disabled_text/>
@@ -1686,14 +1689,14 @@ END;
 
 END;
     $options_str_key = str_replace("'", "\'", $semantic_field_name);
-    if (array_key_exists('is_list', $other_args)) {
+    if (array_key_exists('is_list', $other_args) && $other_args['is_list'] == true) {
       $options_str_key .= ",list";
       if (array_key_exists('delimiter', $other_args) && $other_args['delimiter'] != ",") {
         $options_str_key .= "," . $other_args['delimiter'];
       }
     }
     $autocomplete_values = $this->createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
-    if (array_key_exists('is_list', $other_args)) {
+    if (array_key_exists('is_list', $other_args) && $other_args['is_list'] == true) {
       $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
     } else {
       $autocomplete_string = "['" . implode("', '", $autocomplete_values) . "']";
@@ -1711,6 +1714,12 @@ END;
   }
 
   function textAreaHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+    // set size values
+    if (! array_key_exists('rows', $other_args))
+      $other_args['rows'] = 5;
+    if (! array_key_exists('cols', $other_args))
+      $other_args['cols'] = 70;
+
     // if it's an autocomplete, call the with-autocomplete function instead
     $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
     if (! $autocompletion_disabled) {
