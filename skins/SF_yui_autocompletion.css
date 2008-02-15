@@ -4,6 +4,10 @@
     background-color: white;
     cursor: default;
 }
+.yui-skin-sam .yui-ac-content li.yui-ac-highlight {
+    color: white;
+    background-color: #222288;
+}
 .yui-ac-content li.yui-ac-highlight {
     color: white;
     background-color: #222288;
@@ -14,4 +18,16 @@
 }
 .yui-ac-bd ul {
     list-style-image: none;
+}
+/* Override unneeded settings from YUI's CSS file */
+.yui-skin-sam .yui-ac-content {
+    width: auto;
+}
+.yui-skin-sam .yui-ac-input {
+    width: auto;
+    position: static;
+}
+.yui-skin-sam .yui-ac-container {
+    width: auto;
+    position: static;
 }
