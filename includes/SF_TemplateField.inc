@@ -178,8 +178,13 @@ END;
 END;
     // make the actual inline query an #ask function, if that's supported
     // by this version of SMW; otherwise use the old <ask> tag
-    global $wgParser;
-    if (in_array("ask", $wgParser->getFunctionHooks())) {
+    // HACK - to find this out, create a new parser and call SMW's 'register'
+    // function on it
+    $parser = new Parser();
+    $dummy_text = "";
+    $dummy_state = null;
+    smwfRegisterInlineQueries($parser, $dummy_text, $dummy_state);
+    if (in_array("ask", $parser->getFunctionHooks())) {
       $text .= "{{#ask:format=\"list\"|[[$aggregating_property{{PAGENAME}}]]}}\n";
     } else {
       $text .= "<ask format=\"list\">[[$aggregating_property{{PAGENAME}}]]</ask>\n";
