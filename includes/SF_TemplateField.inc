@@ -174,9 +174,16 @@ END;
     }
     $text .=<<<END
 ! $aggregating_label
-| <ask format="list">[[$aggregating_property{{PAGENAME}}]]</ask>
-
+| 
 END;
+    // make the actual inline query an #ask function, if that's supported
+    // by this version of SMW; otherwise use the old <ask> tag
+    global $wgParser;
+    if (in_array("ask", $wgParser->getFunctionHooks())) {
+      $text .= "{{#ask:format=\"list\"|[[$aggregating_property{{PAGENAME}}]]}}\n";
+    } else {
+      $text .= "<ask format=\"list\">[[$aggregating_property{{PAGENAME}}]]</ask>\n";
+    }
   }
   $text .= "|}\n";
   if ($category != '') {
