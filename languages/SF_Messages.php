@@ -887,6 +887,7 @@ $messages['gl'] = array(
 	'sf_createform_fieldproplist'        => 'Este campo define unha listaxe dos elementos que teñen a propiedade $1, da clase $2.',
 	'sf_createform_fieldpropunknowntype' => 'Este campo define a propiedade $1, de clase non especificada.',
 	'sf_createform_restricted'           => 'Restrinxido (só usuarios administradores poden modificalo)',
+	'sf_createform_mandatory'            => 'Obrigatorio',
 	'sf_createform_removetemplate'       => 'Eliminar modelo',
 	'sf_createform_addtemplate'          => 'Engadir modelo:',
 	'sf_createform_beforetemplate'       => 'Antes do modelo:',
