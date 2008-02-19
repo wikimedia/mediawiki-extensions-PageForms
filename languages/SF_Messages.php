@@ -1749,6 +1749,20 @@ $messages['sv'] = array(
 	'sf_editdata_title'            => 'Redigera $1: $2',
 );
 
+/** Telugu (తెలుగు)
+ * @author Veeven
+ */
+$messages['te'] = array(
+	'sf_createproperty_proptype'    => 'రకం:',
+	'templates'                     => 'మూసలు',
+	'sf_createtemplate_namelabel'   => 'మూస పేరు:',
+	'sf_createtemplate_aggregation' => 'సంకలనం',
+	'sf_createtemplate_deletefield' => 'తొలగించు',
+	'sf_createform_template'        => 'మూస:',
+	'sf_createform_add'             => 'చేర్చు',
+	'sf_createcategory_name'        => 'పేరు:',
+);
+
 /** Turkish (Türkçe)
  * @author Karduelis
  */
