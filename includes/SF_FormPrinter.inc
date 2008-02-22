@@ -746,16 +746,19 @@ class SFFormPrinter {
         } elseif ($tag_title == 'info') {
           // TODO: Generate an error message if this is included more than once
           foreach(array_slice($tag_components, 1) as $component) {
-            list($tag, $val) = explode('=', $component, 2);
+            $sub_components = explode('=', $component, 2);
+            $tag = $sub_components[0];
             if ($tag == 'add title') {
               // handle this only if we're adding a page
               if (! $this->mPageTitle->exists()) {
+                $val = $sub_components[1];
                 $form_page_title = $val;
               }
             }
             elseif($tag == 'edit title') {
               // handle this only if we're editing a page
               if ($this->mPageTitle->exists()) {
+                $val = $sub_components[1];
                 $form_page_title = $val;
               }
             }
@@ -1276,11 +1279,13 @@ END;
       $default_args = $hook_values[1];
       $other_args = $form_field->field_args;
       $other_args['possible_values'] = $template_field->possible_values;
-      $other_args['is_list'] = $template_field->is_list;
-      if ($template_field->is_relation) {
+      // the fact that this is a list can be specified in either the
+      // template or the form
+      $other_args['is_list'] = ($template_field->is_list || $form_field->is_list);
+      if ($template_field->is_relation)
         $other_args['is_relation'] = true;
+      if ($template_field->semantic_field != '')
         $other_args['semantic_field_name'] = $template_field->semantic_field;
-      }
       // merge default values and values from form - put the default values
       // first, so that if there's a conflict they'll be overridden
       $funcArgs[] = array_merge($default_args, $other_args);
@@ -1291,9 +1296,9 @@ END;
       if ($size == null) $size = 35;
       $field_args = array('size' => $size);
       list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
-    } else { // input type not defined in form, and not a relation
+    } else { // input type not defined in form
       $field_type = $template_field->field_type;
-      $is_list = $form_field->is_list || $template_field->is_list;
+      $is_list = ($form_field->is_list || $template_field->is_list);
       if ($field_type != '' &&
           array_key_exists($field_type, $this->mSemanticTypeHooks) &&
           isset($this->mSemanticTypeHooks[$field_type][$is_list])) {
@@ -1307,10 +1312,10 @@ END;
         // first, so that if there's a conflict they'll be overridden
         $other_args = array_merge($hook_values[1], $form_field->field_args);
         $other_args['possible_values'] = $template_field->possible_values;
-        if ($template_field->is_relation) {
+        if ($template_field->is_relation)
           $other_args['is_relation'] = true;
+        if ($template_field->semantic_field != '')
           $other_args['semantic_field_name'] = $template_field->semantic_field;
-        }
         $funcArgs[] = $other_args;
         list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
       } else { // anything else
