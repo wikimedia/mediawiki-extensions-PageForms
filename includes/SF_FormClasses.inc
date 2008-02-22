@@ -97,7 +97,12 @@ class SFTemplateInForm {
       // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
       foreach ($matches[1] as $i => $field_name) {
-        $is_relation = ($matches[3][$i] == "::");
+        // in SMW 0.7, we determine from the markup tag whether it's a relation
+        $smw_version = SMW_VERSION;
+        if ($smw_version{0} == '0')
+          $is_relation = ($matches[3][$i] == "::");
+        else
+          $is_relation = false;
         $semantic_field_name = $matches[2][$i];
         $full_field_text = $matches[0][$i];
         if (! in_array($field_name, $field_names_array)) {
@@ -117,7 +122,12 @@ class SFTemplateInForm {
       // this is a two-dimensional array; we need the last three of the four
       // sub-arrays; we also have to remove redundant values
       foreach ($matches[1] as $i => $semantic_field_name) {
-        $is_relation = ($matches[2][$i] == "::");
+        // in SMW 0.7, we determine from the markup tag whether it's a relation
+        $smw_version = SMW_VERSION;
+        if ($smw_version{0} == '0')
+          $is_relation = ($matches[2][$i] == "::");
+        else
+          $is_relation = false;
         $field_name = $matches[3][$i];
         $full_field_text = $matches[0][$i];
         if (! in_array($field_name, $field_names_array)) {
