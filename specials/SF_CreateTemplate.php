@@ -169,7 +169,7 @@ function doSpecialCreateTemplate() {
     }
   }
 
-  $text .= '	<form action="" method="get">' . "\n";
+  $text .= '	<form action="" method="post">' . "\n";
   // set 'title' field, in case there's no URL niceness
   $mw_namespace_labels = $wgContLang->getNamespaces();
   $special_namespace = $mw_namespace_labels[NS_SPECIAL];
