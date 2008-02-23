@@ -1815,15 +1815,24 @@ $messages['sv'] = array(
  * @author Veeven
  */
 $messages['te'] = array(
-	'sf_createproperty_propname'    => 'పేరు:',
-	'sf_createproperty_proptype'    => 'రకం:',
-	'templates'                     => 'మూసలు',
-	'sf_createtemplate_namelabel'   => 'మూస పేరు:',
-	'sf_createtemplate_aggregation' => 'సంకలనం',
-	'sf_createtemplate_deletefield' => 'తొలగించు',
-	'sf_createform_template'        => 'మూస:',
-	'sf_createform_add'             => 'చేర్చు',
-	'sf_createcategory_name'        => 'పేరు:',
+	'sf_createproperty_propname'         => 'పేరు:',
+	'sf_createproperty_proptype'         => 'రకం:',
+	'templates'                          => 'మూసలు',
+	'sf_templates_definescat'            => 'వర్గాన్ని నిర్వచిస్తుంది:',
+	'createtemplate'                     => 'మూసని సృష్టించండి',
+	'sf_createtemplate_namelabel'        => 'మూస పేరు:',
+	'sf_createtemplate_aggregation'      => 'సంకలనం',
+	'sf_createtemplate_aggregationlabel' => 'జాబితాకి శీర్షిక:',
+	'sf_createtemplate_deletefield'      => 'తొలగించు',
+	'sf_createform_template'             => 'మూస:',
+	'sf_createform_mandatory'            => 'తప్పనిసరి',
+	'sf_createform_add'                  => 'చేర్చు',
+	'createcategory'                     => 'వర్గాన్ని సృష్టించండి',
+	'sf_createcategory_name'             => 'పేరు:',
+	'sf_editdata_addanother'             => 'మరోటి చేర్చండి',
+	'sf_blank_error'                     => 'ఖాళీగా ఉండకూడదు',
+	'sf_form_freetextlabel'              => 'స్వేచ్ఛా పాఠ్యం',
+	'sf_category_desc'                   => 'ఇది $1 అనే వర్గం.',
 );
 
 /** Turkish (Türkçe)
