@@ -754,6 +754,7 @@ $messages['fi'] = array(
 /** French (Français)
  * @author Grondin
  * @author Sherbrooke
+ * @author Urhixidur
  * @author Dereckson
  */
 $messages['fr'] = array(
@@ -765,10 +766,10 @@ $messages['fr'] = array(
 	'sf_templates_docu'                       => 'Les modèles suivants existent dans le wiki.',
 	'sf_templates_definescat'                 => 'définit la catégorie :',
 	'createtemplate'                          => 'Créer un modèle',
-	'sf_createtemplate_namelabel'             => 'Nom de modèle:',
+	'sf_createtemplate_namelabel'             => 'Nom de modèle :',
 	'sf_createtemplate_categorylabel'         => 'Catégorie définie par ce modèle (facultatif) :',
 	'sf_createtemplate_templatefields'        => 'Champs de modèle',
-	'sf_createtemplate_fieldsdesc'            => "Pour un modèle qui n'utilise aucun nom pour les champs, entrez simplement son index (exemples : 1, 2, 3, etc.) pour le nom, au lieu du nom actuel.",
+	'sf_createtemplate_fieldsdesc'            => 'Pour un modèle qui n’utilise aucun nom pour les champs, entrez simplement son indice (exemples : 1, 2, 3, etc.) pour le nom, au lieu du nom actuel.',
 	'sf_createtemplate_fieldname'             => 'Nom du champ :',
 	'sf_createtemplate_displaylabel'          => "Étiquette pour l'affichage:",
 	'sf_createtemplate_semanticproperty'      => 'Propriété de la sémantique :',
@@ -780,18 +781,18 @@ $messages['fr'] = array(
 	'sf_createtemplate_standardformat'        => 'Standard',
 	'sf_createtemplate_infoboxformat'         => 'Infobox de droite',
 	'sf_createtemplate_addfield'              => 'Ajouter un champ',
-	'sf_createtemplate_deletefield'           => 'Efface',
+	'sf_createtemplate_deletefield'           => 'Supprimer',
 	'sf_createtemplate_addtemplatebeforesave' => 'Vous devez ajouter au moins un modèle à ce formulaire avant de pouvoir le sauvegarder.',
 	'forms'                                   => 'Formulaires',
 	'sf_forms_docu'                           => 'Les formulaires suivants existent dans le wiki.',
 	'createform'                              => 'Créer un formulaire',
 	'sf_createform_nameinput'                 => "Nom de formulaire (la convention est de nommer le formulaire après le modèle principal qu'il remplit) :",
-	'sf_createform_template'                  => 'Modèle:',
+	'sf_createform_template'                  => 'Modèle :',
 	'sf_createform_templatelabelinput'        => 'Étiquette de modèle (facultatif) :',
 	'sf_createform_allowmultiple'             => 'Permettre plusieurs (ou zéro) instances de ce modèle dans la page créée',
-	'sf_createform_field'                     => 'Champ:',
+	'sf_createform_field'                     => 'Champ :',
 	'sf_createform_fieldattr'                 => "Ce champ définit l'attribut $1, de type $2.",
-	'sf_createform_fieldattrlist'             => "Ce champs définit une liste des éléments qui ont l'attribut $1, du type $2.",
+	'sf_createform_fieldattrlist'             => 'Ce champ définit une liste des éléments qui ont l’attribut $1, du type $2.',
 	'sf_createform_fieldattrunknowntype'      => "Ce champ définit l'attribut $1, de type non spécifié.",
 	'sf_createform_fieldrel'                  => 'Ce champ définit la relation $1.',
 	'sf_createform_fieldrellist'              => 'Ce champ définit une liste des éléments qui ont la relation $1.',
@@ -800,7 +801,7 @@ $messages['fr'] = array(
 	'sf_createform_fieldpropunknowntype'      => "Ce champ définit la propriété $1, d'un type non indiqué.",
 	'sf_createform_inputtype'                 => "Type d'entrée :",
 	'sf_createform_inputtypedefault'          => '(par défaut)',
-	'sf_createform_formlabel'                 => 'Étiquette dans le formulaire:',
+	'sf_createform_formlabel'                 => 'Étiquette dans le formulaire :',
 	'sf_createform_hidden'                    => 'Caché',
 	'sf_createform_restricted'                => 'Restreint',
 	'sf_createform_mandatory'                 => 'Obligatoire',
@@ -1873,6 +1874,34 @@ $messages['tr'] = array(
 	'sf_editdata_remove'                 => 'Kaldır',
 	'sf_category_desc'                   => 'Bu $1 kategorisidir.',
 	'sf_blank_namespace'                 => 'Ana',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author Minh Nguyen
+ */
+$messages['vi'] = array(
+	'sf_createproperty_propname'       => 'Tên:',
+	'sf_createproperty_proptype'       => 'Loại:',
+	'sf_createtemplate_standardformat' => 'Chuẩn',
+	'sf_createtemplate_deletefield'    => 'Xóa',
+	'forms'                            => 'Các biểu mẫu',
+	'createform'                       => 'Tạo ra biểu mẫu',
+	'sf_createform_inputtypedefault'   => '(mặc định)',
+	'sf_createform_atend'              => 'Vào cuối',
+	'sf_createform_add'                => 'Thêm',
+	'sf_createcategory_name'           => 'Tên:',
+	'sf_createcategory_defaultform'    => 'Biểu mẫu mặc định:',
+	'addpage'                          => 'Thêm trang:',
+	'addoreditdata'                    => 'Thêm hay sửa đổi:',
+	'adddata'                          => 'Thêm dữ liệu:',
+	'sf_adddata_title'                 => 'Thêm $1: $2',
+	'editdata'                         => 'Sửa đổi dữ liệu',
+	'edit_source'                      => 'Sửa đổi mã nguồn',
+	'sf_editdata_title'                => 'Sửa đổi $1: $2',
+	'sf_editdata_remove'               => 'Dời',
+	'sf_editdata_addanother'           => 'Thêm tiếp',
+	'sf_editdata_none'                 => 'Không có',
+	'sf_blank_namespace'               => 'Chính',
 );
 
 /** Volapük (Volapük)
