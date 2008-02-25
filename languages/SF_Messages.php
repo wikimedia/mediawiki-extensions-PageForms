@@ -1091,9 +1091,24 @@ $messages['hu'] = array(
  * @author Chhorran
  */
 $messages['km'] = array(
-	'forms'                        => 'បែបបទ',
-	'createform'                   => 'បង្កើត មួយបែបបទ',
-	'sf_createform_removetemplate' => 'ដកចេញ គំរូខ្នាត',
+	'sf_createproperty_propname'       => 'ឈ្មោះ ៖',
+	'templates'                        => 'គំរូខ្នាត នានា',
+	'sf_templates_docu'                => 'គំរូខ្នាត ទាំងនេះ មានក្នុង វិគី ។',
+	'createtemplate'                   => 'បង្កើត មួយគំរូខ្នាត',
+	'sf_createtemplate_namelabel'      => 'ឈ្មោះ គំរូខ្នាត ៖',
+	'sf_createtemplate_deletefield'    => 'លុបចេញ',
+	'forms'                            => 'បែបបទ',
+	'createform'                       => 'បង្កើត មួយបែបបទ',
+	'sf_createform_template'           => 'គំរូខ្នាត ៖',
+	'sf_createform_templatelabelinput' => 'ប្លាកគំរូខ្នាត (ជំរើស):',
+	'sf_createform_removetemplate'     => 'ដកចេញ គំរូខ្នាត',
+	'sf_createform_addtemplate'        => 'បន្ថែម គំរូខ្នាត ៖',
+	'sf_createform_beforetemplate'     => 'មុន គំរូខ្នាត ៖',
+	'createcategory'                   => 'បង្កើត មួយចំណាត់ក្រុម',
+	'sf_createcategory_name'           => 'ឈ្មោះ ៖',
+	'sf_bad_email_error'               => 'ទំរង់អាស័យដ្ឋានអ៊ីមែវល៍ មិនត្រឹមត្រូវ',
+	'sf_template_docufooter'           => 'កែប្រែទំព័រ ដើម្បីឃើញ អត្ថបទ នៃគំរូខ្នាត ។',
+	'sf_category_hasdefaultform'       => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -1824,14 +1839,19 @@ $messages['te'] = array(
 	'sf_createtemplate_namelabel'        => 'మూస పేరు:',
 	'sf_createtemplate_aggregation'      => 'సంకలనం',
 	'sf_createtemplate_aggregationlabel' => 'జాబితాకి శీర్షిక:',
+	'sf_createtemplate_standardformat'   => 'ప్రామాణిక',
 	'sf_createtemplate_deletefield'      => 'తొలగించు',
 	'sf_createform_template'             => 'మూస:',
 	'sf_createform_mandatory'            => 'తప్పనిసరి',
+	'sf_createform_removetemplate'       => 'మూసని తొలగించండి',
 	'sf_createform_add'                  => 'చేర్చు',
 	'createcategory'                     => 'వర్గాన్ని సృష్టించండి',
 	'sf_createcategory_name'             => 'పేరు:',
+	'addpage'                            => 'పేజీని చేర్చండి',
+	'sf_editdata_formwarning'            => 'హెచ్చరిక: ఈ పేజీ <a href="$1">ఇప్పటికే ఉంది</a>, కానీ దానిలో ఈ ఫారం లేదు.',
 	'sf_editdata_addanother'             => 'మరోటి చేర్చండి',
 	'sf_blank_error'                     => 'ఖాళీగా ఉండకూడదు',
+	'sf_bad_date_error'                  => 'సరైన తేదీ అయివుండాలి',
 	'sf_form_freetextlabel'              => 'స్వేచ్ఛా పాఠ్యం',
 	'sf_category_desc'                   => 'ఇది $1 అనే వర్గం.',
 );
