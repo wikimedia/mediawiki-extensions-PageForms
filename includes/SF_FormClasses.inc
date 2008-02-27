@@ -379,9 +379,9 @@ class SFFormTemplateField {
       if ($template_field->is_relation) {
         $rel_link_text = sffLinkText(SMW_NS_RELATION, $template_field->semantic_field);
         if ($template_field->is_list)
-          $text .= '<p>' . wfMsg('sf_createform_fieldrel', $rel_link_text) . "</p>\n";
-        else
           $text .= '<p>' . wfMsg('sf_createform_fieldrellist', $rel_link_text) . "</p>\n";
+        else
+          $text .= '<p>' . wfMsg('sf_createform_fieldrel', $rel_link_text) . "</p>\n";
       } elseif ($template_field->field_type != null) {
         $attr_link_text = sffLinkText(SMW_NS_ATTRIBUTE, $template_field->semantic_field);
         // TODO - remove this probably-unnecessary check?
