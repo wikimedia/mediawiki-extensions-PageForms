@@ -17,7 +17,9 @@ function sf_autocomplete(input_name, container_name, values, delimiter) {
     this.oAutoComp.maxResultsDisplayed = 20;
     this.oAutoComp.animHoriz = false;
     this.oAutoComp.animVert = false;
-    this.oAutoComp.delimChar = delimiter;
+    if (delimiter != '') {
+        this.oAutoComp.delimChar = delimiter;
+    }
     // don't set IFrame, which is meant to improve formatting on Internet
     // Explorer - currently, it only messes up the formatting
     //this.oAutoComp.useIFrame = true;
