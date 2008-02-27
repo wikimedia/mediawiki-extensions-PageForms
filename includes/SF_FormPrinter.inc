@@ -433,6 +433,8 @@ class SFFormPrinter {
               $is_restricted = true;
             } elseif ($component == 'list') {
               $is_list = true;
+            } elseif ($component == 'autocomplete') {
+              $field_args['autocomplete'] = true;
             } else {
               $sub_components = explode('=', $component);
               if (count($sub_components) == 2) {
@@ -538,10 +540,17 @@ class SFFormPrinter {
                 // possibilities get added
                 if (count($cur_value) == 1) {
                   $words_for_false = explode(',', wfMsgForContent('smw_false_words'));
-                  // for the various languages, the second word in the 'false'
-                  // series tends to be "no" - go with that one
-                  if (count($words_for_false) > 2) {
-                    $no = $words_for_false[1];
+                  // for each languages, there's a series of words that are
+                  // equal to false - get the word in the series that matches
+                  // "no"; for SMW 0.7, that's the 2nd word, and for SMW 1.0
+                  // it's the third word
+                  $smw_version = SMW_VERSION;
+                  if ($smw_version{0} == '0')
+                    $index_of_no = 1;
+                  else
+                    $index_of_no = 2;
+                  if (count($words_for_false) > $index_of_no) {
+                    $no = $words_for_false[$index_of_no];
                   } elseif (count($words_for_false) == 0) {
                     $no = "0"; // some safe value if no words are found
                   } else {
@@ -550,10 +559,16 @@ class SFFormPrinter {
                   $cur_value_in_template = $no;
                 } elseif (count($cur_value) == 2) {
                   $words_for_true = explode(',', wfMsgForContent('smw_true_words'));
-                  // the second word in the 'true' series tends to be "yes" -
-                  // go with that one
-                  if (count($words_for_true) > 2) {
-                    $yes = $words_for_true[1];
+                  // get the value in the 'true' series that tends to be "yes",
+                  // and go with that one - for SMW 0.7, that's the 2nd word,
+                  // and for SMW 1.0 it's the third word
+                  $smw_version = SMW_VERSION;
+                  if ($smw_version{0} == '0')
+                    $index_of_yes = 1;
+                  else
+                    $index_of_yes = 2;
+                  if (count($words_for_true) > $index_of_yes) {
+                    $yes = $words_for_true[$index_of_yes];
                   } elseif (count($words_for_true) == 0) {
                     $yes = "1"; // some safe value if no words are found
                   } else {
@@ -806,7 +821,10 @@ class SFFormPrinter {
 
       if ($allow_multiple) {
         if (! $all_instances_printed) {
-          $section = str_replace('[num]', "[{$instance_num}]", $section);
+          // add the character "a' onto the instance number of this input
+          // in the form, to differentiate the inputs the form starts out
+          // with from any inputs added by the Javascript
+          $section = str_replace('[num]', "[{$instance_num}a]", $section);
           $remove_text = wfMsg('sf_editdata_remove');
           $form_text .=<<<END
 	<div id="wrapper_$sfgFieldNum" class="multiple_template">
@@ -1237,13 +1255,15 @@ function attachAutocompleteToField(input_id)
 				}
 				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], delimiter);
 			} else {
-				new Autocompleter.Local(input_id, div_id, autocompletestrings[field_string], {});
+				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null);
+				// new Autocompleter.Local(input_id, div_id, autocompletestrings[field_string], {});
 			}
 		}
 	}
 }
 
-Event.observe(window, 'load', attachAutocompleteToAllDocumentFields);
+//Event.observe(window, 'load', attachAutocompleteToAllDocumentFields);
+YAHOO.util.Event.addListener(window, 'load', attachAutocompleteToAllDocumentFields);
 
 END;
 
@@ -1331,7 +1351,7 @@ END;
     return array($text, $javascript_text);
   }
 
-  function getAllPagesForRelation_0_7($relation_name) {
+  function getAllPagesForProperty_0_7($is_relation, $property_name) {
     global $sfgMaxAutocompleteValues;
 
     $fname = "SFFormPrinter::getAllPagesForRelation_0_7";
@@ -1339,10 +1359,13 @@ END;
     $db = wfGetDB( DB_SLAVE );
     $sql_options = array();
     $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-    $conditions = "relation_title = '$relation_name'";
-    $sql_options['ORDER BY'] = 'object_title';
-    $res = $db->select( $db->tableName('smw_relations'),
-                        'DISTINCT object_title',
+    $property_field = ($is_relation) ? 'relation_title' : 'attribute_title'; 
+    $value_field = ($is_relation) ? 'object_title' : 'value_xsd'; 
+    $property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes'; 
+    $conditions = "$property_field = '$property_name'";
+    $sql_options['ORDER BY'] = $value_field;
+    $res = $db->select( $db->tableName($property_table),
+                        "DISTINCT $value_field",
                         $conditions, $fname, $sql_options);
     while ($row = $db->fetchRow($res)) {
       $cur_value = str_replace("'", "\'", $row[0]);
@@ -1410,20 +1433,20 @@ END;
 
   function createAutocompleteValuesArray($field_name, $autocomplete_field_type) {
     $names_array = array();
-    // the query depends on whether this field is a relation, category or
-    // namespace
-    if ($autocomplete_field_type == 'relation') {
+    // the query depends on whether this field is a relation (property of type
+    // Page), attribute (property of any other type), category or namespace
+    if ($autocomplete_field_type == 'relation' || $autocomplete_field_type == 'attribute') {
+      $is_relation = ($autocomplete_field_type == 'relation');
       $smw_version = SMW_VERSION;
       if ($smw_version{0} == '0') {
-        $names_array = $this->getAllPagesForRelation_0_7($field_name);
+        $names_array = $this->getAllPagesForProperty_0_7($is_relation, $field_name);
       } else {
-        // Unfortunately, there's no 1.0 version of this function yet,
-        // because it would require a function like
-        // SMWStore::getAllPropertyObjects(), which doesn't exist yet.
-        // For now, just use the 0.7 version - this forces the data store
-        // to be a database, but hopefully that's not a problem for any
-        // users yet
-        $names_array = $this->getAllPagesForRelation_0_7($field_name);
+        // TODO: Create the 1.0 version of this function, using
+        // SMWStore::getPropertyValues().
+        // For now, we'll just use the 0.7 version - this forces the data
+        // store to be a database, but hopefully that's not a problem for
+        // any users yet
+        $names_array = $this->getAllPagesForProperty_0_7($is_relation, $field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = $this->getAllPagesForCategory($field_name, 10);
@@ -1455,9 +1478,13 @@ END;
 
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if it's an autocomplete, call the with-autocomplete function instead
+    // we test to make sure that autocompletion hasn't been disabled, and
+    // that either the property is a relation (i.e. it's of type Page) or
+    // autocompletion has been specifified in the form
     $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
     if (! $autocompletion_disabled) {
       if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
+          array_key_exists('autocomplete', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
           array_key_exists('autocomplete on namespace', $other_args)) {
         return SFFormPrinter::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
@@ -1656,13 +1683,16 @@ END;
       $className .= " " . $other_args['class'];
     $disabled_text = ($is_disabled) ? "disabled" : "";
     if (array_key_exists('autocomplete on', $other_args)) {
-      $autocomplete_field_type = "category";
+      $autocomplete_field_type = 'category';
       $semantic_field_name = $other_args['autocomplete on'];
     } elseif (array_key_exists('autocomplete on namespace', $other_args)) {
-      $autocomplete_field_type = "namespace";
+      $autocomplete_field_type = 'namespace';
       $semantic_field_name = $other_args['autocomplete on namespace'];
+    } elseif (array_key_exists('is_relation', $other_args)) {
+      $autocomplete_field_type = 'relation';
+      $semantic_field_name = $other_args['semantic_field_name'];
     } else {
-      $autocomplete_field_type = "relation";
+      $autocomplete_field_type = 'attribute';
       $semantic_field_name = $other_args['semantic_field_name'];
     }
     $input_id = "input_" . $sfgFieldNum;
@@ -1701,11 +1731,7 @@ END;
       }
     }
     $autocomplete_values = $this->createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
-    if (array_key_exists('is_list', $other_args) && $other_args['is_list'] == true) {
-      $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
-    } else {
-      $autocomplete_string = "['" . implode("', '", $autocomplete_values) . "']";
-    }
+    $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
     $javascript_text =<<<END
 autocompletemappings[$sfgFieldNum] = '$options_str_key';
 autocompletestrings['$options_str_key'] = $autocomplete_string;
@@ -1729,6 +1755,7 @@ END;
     $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
     if (! $autocompletion_disabled) {
       if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
+          array_key_exists('autocomplete', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
           array_key_exists('autocomplete on namespace', $other_args)) {
         $other_args['input_type'] = "textarea";
