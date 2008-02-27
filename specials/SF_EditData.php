@@ -125,13 +125,6 @@ END;
 		'media' => "screen, projection",
 		'href' => $mainCssUrl
 	));
-	$scriptaculousCssUrl = $sfgScriptPath . '/skins/scriptaculous.css';
-	$wgOut->addLink( array(
-		'rel' => 'stylesheet',
-		'type' => 'text/css',
-		'media' => "screen, projection",
-		'href' => $scriptaculousCssUrl
-	));
 	$sfgYUIBase = "http://yui.yahooapis.com/2.4.1/build/";
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
@@ -145,8 +138,6 @@ END;
 		'media' => "screen, projection",
 		'href' => $sfgScriptPath . '/skins/SF_yui_autocompletion.css'
 	));
-	$wgOut->addScript('<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/lib/prototype.js" type="text/javascript"></script>' . "\n");
-	$wgOut->addScript('		<script src="' . $sfgScriptPath . '/libs/scriptaculous-js-1.7.0/src/scriptaculous.js" type="text/javascript"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'yahoo/yahoo-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'dom/dom-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'event/event-min.js"></script>' . "\n");
