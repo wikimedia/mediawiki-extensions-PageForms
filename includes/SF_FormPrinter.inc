@@ -62,7 +62,7 @@ class SFFormPrinter {
         $page_type = $datatypeLabels['_wpg'];
       }
       $this->setSemanticTypeHook($string_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string'));
-      $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string'));
+      $this->setSemanticTypeHook($string_type, true, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true'));
       $this->setSemanticTypeHook($text_type, false, array('SFFormPrinter', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($url_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'URL'));
       $this->setSemanticTypeHook($email_type, false, array('SFFormPrinter', 'textEntryHTML'), array('field_type' => 'email'));
@@ -349,7 +349,7 @@ class SFFormPrinter {
               if ($existing_page_content && $form_is_partial && $wgRequest->getCheck('partial')) {
               	// if something already exists, set the new insertion point
                 // to its position; otherwise just let it lie
-                if (strpos($existing_page_content, $matches[0])) {
+                if (strpos($existing_page_content, $matches[0]) !== false) {
                   $existing_page_content = str_replace('{{{insertionpoint}}}', '', $existing_page_content);
                   $existing_page_content = str_replace($matches[0], '{{{insertionpoint}}}', $existing_page_content);
                 }
@@ -468,6 +468,8 @@ class SFFormPrinter {
             $cur_value = '';
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
+            // ampersands don't need to be escaped - undo their encoding
+            $cur_value = str_replace('&amp;', '&', $cur_value);
           }
 
           if ($cur_value == null) {
@@ -485,6 +487,8 @@ class SFFormPrinter {
               $cur_value = '';
             if ($cur_value) {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
+              // ampersands don't need to be escaped - undo their encoding
+              $cur_value = str_replace('&amp;', '&', $cur_value);
             }
           }
 
@@ -803,7 +807,7 @@ class SFFormPrinter {
             $data_text .= $template_text . "\n";
             // if there is a placeholder in the text, we know that we are
             // doing a replace
-            if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0)) {
+            if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0) !== false) {
               $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}(\r?\n?)/', 
                 preg_replace('/\}\}/m', '}²',
                   preg_replace('/\{\{/m', '²{', $template_text)) .
@@ -1256,13 +1260,11 @@ function attachAutocompleteToField(input_id)
 				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], delimiter);
 			} else {
 				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null);
-				// new Autocompleter.Local(input_id, div_id, autocompletestrings[field_string], {});
 			}
 		}
 	}
 }
 
-//Event.observe(window, 'load', attachAutocompleteToAllDocumentFields);
 YAHOO.util.Event.addListener(window, 'load', attachAutocompleteToAllDocumentFields);
 
 END;
@@ -1286,7 +1288,9 @@ END;
     if ($form_field->is_hidden) {
       $text = $this->hiddenFieldHTML($form_field->input_name, $cur_value);
       $javascript_text = "";
-    } elseif ($form_field->input_type != '' && $this->mInputTypeHooks[$form_field->input_type] != null) {
+    } elseif ($form_field->input_type != '' &&
+              array_key_exists($form_field->input_type, $this->mInputTypeHooks) &&
+              $this->mInputTypeHooks[$form_field->input_type] != null) {
       $funcArgs = array();
       $funcArgs[] = $cur_value;
       $funcArgs[] = $form_field->input_name;
@@ -1901,7 +1905,7 @@ END;
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $check_set = false;
     if (! $is_mandatory) {
-      $text .= '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
+      $text = '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
       if (! $cur_value) {
         $text .= ' checked="checked"';
         $check_set = true;
@@ -1911,7 +1915,7 @@ END;
     // if it's mandatory, add a span around all the radiobuttons, since
     // some browsers don't support formatting of radiobuttons
     if ($is_mandatory)
-      $text .= '	<span class="mandatoryFieldsSpan">' . "\n";
+      $text = '	<span class="mandatoryFieldsSpan">' . "\n";
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
     foreach ($possible_values as $i => $possible_value) {
