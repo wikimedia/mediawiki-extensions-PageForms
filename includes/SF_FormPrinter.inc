@@ -1697,7 +1697,12 @@ END;
       $semantic_field_name = $other_args['semantic_field_name'];
     } else {
       $autocomplete_field_type = 'attribute';
-      $semantic_field_name = $other_args['semantic_field_name'];
+      if (array_key_exists('semantic_field_name', $other_args))
+        $semantic_field_name = $other_args['semantic_field_name'];
+      else
+        // there's some discrepancy between the form and template calls and
+        // the property for this field
+        $semantic_field_name = "";
     }
     $input_id = "input_" . $sfgFieldNum;
     $info_id = "info_" . $sfgFieldNum;
