@@ -3,6 +3,7 @@
     color: black;
     background-color: white;
     cursor: default;
+    padding-left: 3px;
     padding-right: 40px;
 }
 .yui-skin-sam .yui-ac-content li.yui-ac-highlight {
@@ -18,7 +19,10 @@
     *position: static; /* hack - IE-only */
 }
 .yui-ac-bd ul {
+    margin-left: 0;
     list-style-image: none;
+    list-style-type: none;
+    border: 1px solid #808080;
 }
 /* Override unneeded settings from YUI's CSS file */
 .yui-skin-sam .yui-ac-content {
