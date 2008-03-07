@@ -445,6 +445,7 @@ END;
   // part of multiple-instance template; this may change if handling of
   // such templates in form definitions gets more sophisticated
   function createMarkup($part_of_multiple, $is_last_field_in_template) {
+    $text = "";
     if ($this->template_field->label != "") {
       if ($part_of_multiple) {
         $text .= "'''" . $this->template_field->label .  ":''' ";
