@@ -32,6 +32,10 @@ function doSpecialAddPage($query = '') {
 		}
 	}
 
+	// remove forbidden characters from form name
+	$forbidden_chars = array('"', "'", '<', '>', '{', '}', '(', ')', '[', ']', '=');
+	$form_name = str_replace($forbidden_chars, "", $form_name);
+
 	// get title of form
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
 
