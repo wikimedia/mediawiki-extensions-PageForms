@@ -28,8 +28,9 @@ contact Yaron directly for any of these, at yaron57@gmail.com.
 
 == Credits to other projects ==
 
-* The Semantic Forms extension includes the entire
-script.aculo.us JavaScript library (http://script.aculo.us/). It
-is distributed via the MIT license, which is compatible with the
-GPL license under which Semantic Forms and Semantic MediaWiki
-are distributed.
+* The Semantic Forms extension makes external calls to the Yahoo!
+User Interface (YUI) JavaScript library
+(http://developer.yahoo.com/yui/). YUI is distributed via the
+BSD license (http://developer.yahoo.com/yui/license.html),
+which is compatible with the GPL license under which Semantic
+Forms is distributed.
