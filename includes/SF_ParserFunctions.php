@@ -51,7 +51,7 @@ function sfgParserFunctions () {
 	$wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
 }
 
-function sfgLanguageGetMagic( &$magicWords, $langCode = "en" ) {
+function sffLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	switch ( $langCode ) {
 	default:
 		$magicWords['forminput']	= array ( 0, 'forminput' );
