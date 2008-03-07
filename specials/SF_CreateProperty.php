@@ -144,7 +144,7 @@ END;
   $name_label = wfMsg('sf_createproperty_propname');
   $type_label = wfMsg('sf_createproperty_proptype');
   $text =<<<END
-	<form action="" method="get">
+	<form action="" method="post">
 	<input type="hidden" name="title" value="$special_namespace:CreateProperty">
 	<p>$name_label <input size="25" name="property_name" value="">
 	<span style="color: red;">$property_name_error_str</span>
