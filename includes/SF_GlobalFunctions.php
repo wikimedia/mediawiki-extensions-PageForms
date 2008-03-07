@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','0.9.7');
+define('SF_VERSION','0.9.8');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -15,7 +15,8 @@ define('SF_SP_HAS_ALTERNATE_FORM', 2);
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
-$wgHooks['LanguageGetMagic'][] = 'sfgLanguageGetMagic';
+$wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
+$wgHooks['BrokenLink'][] = 'sffSetBrokenLink';
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
@@ -453,7 +454,23 @@ function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespa
 }
 
 /**
- * Gets URL for form-based adding of a nonexistent (red-linked) page
+ * Sets the URL for form-based adding of a nonexistent (broken-linked, AKA
+ * red-linked) page
+ */
+function sffSetBrokenLink(&$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail) {
+	$smw_version = SMW_VERSION;
+	if ($smw_version{0} == '0') {
+		$link = sffAddDataLink_0_7($title);
+	} else {
+		$link = sffAddDataLink_1_0($title);
+	}
+	if ($link != '')
+		$u = $link;
+	return true;
+}
+
+/*
+ * Legacy function, for use with the old MediaWiki patch
  */
 function sffAddDataLink($title) {
 	$smw_version = SMW_VERSION;
