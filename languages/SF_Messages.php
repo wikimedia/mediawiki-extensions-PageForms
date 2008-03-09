@@ -1350,6 +1350,20 @@ $messages['li'] = array(
 	'sf_editdata_title'          => '$1 bewèrke: $2',
 );
 
+/** Marathi (मराठी)
+ * @author Mahitgar
+ */
+$messages['mr'] = array(
+	'sf_createproperty_propname'    => 'नाव:',
+	'sf_createproperty_proptype'    => 'प्रकार:',
+	'templates'                     => 'साचे',
+	'sf_createtemplate_deletefield' => 'वगळा',
+	'sf_form_freetextlabel'         => 'मुक्त मजकुर',
+	'sf_category_hasdefaultform'    => 'हे वर्गीकरण फॉर्म $1 वापरते.',
+	'sf_category_desc'              => 'हे $1 वर्गीकरण आहे.',
+	'sf_blank_namespace'            => 'मुख्य',
+);
+
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Siebrand
@@ -1725,10 +1739,12 @@ $messages['pt'] = array(
 	'sf_createform_template'             => 'Predefinição:',
 	'sf_createform_templatelabelinput'   => 'Etiqueta da predefinição (opcional):',
 	'sf_createform_field'                => 'Campo:',
+	'sf_createform_fieldattr'            => 'Este campo define o atributo $1, do tipo $2.',
 	'sf_createform_fieldattrlist'        => 'Este campo define a lista de elementos que possuem o atributo $1, do tipo $2.',
 	'sf_createform_fieldattrunknowntype' => 'Este campo define o atributo $1, de tipo não especificado.',
 	'sf_createform_fieldrel'             => 'Este campo define a relação $1.',
 	'sf_createform_fieldrellist'         => 'Este campo define a lista de elementos que possuem a relação $1.',
+	'sf_createform_fieldprop'            => 'Este campo define a propriedade $1, do tipo $2.',
 	'sf_createform_inputtypedefault'     => '(padrão)',
 	'sf_createform_formlabel'            => 'Etiqueta do formulário:',
 	'sf_createform_hidden'               => 'Oculto',
@@ -2402,6 +2418,17 @@ $messages['vo'] = array(
 	'sf_createproperty_propname' => 'Nem:',
 	'sf_createcategory_name'     => 'Nem:',
 	'sf_blank_namespace'         => 'Cifik',
+);
+
+/** Yiddish (ייִדיש)
+ * @author פוילישער
+ */
+$messages['yi'] = array(
+	'sf_createproperty_propname'  => 'נאמען:',
+	'templates'                   => 'מוסטערן',
+	'sf_templates_docu'           => 'די פאלגנדע מוסטערן עקזיסטירן אין דער וויקי.',
+	'sf_templates_definescat'     => 'דעפינירט קאטעגאריע:',
+	'sf_createtemplate_namelabel' => 'מוסטער נאמען:',
 );
 
 /** Mainland Chinese
