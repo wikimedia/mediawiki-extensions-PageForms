@@ -46,6 +46,11 @@ function printAltFormsList($alt_forms, $target_name) {
 function printAddForm($form_name, $target_name, $alt_forms) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
 
+	// initialize some variables
+	$page_title = NULL;
+	$target_title = NULL;
+	$page_name_formula = NULL;
+
 	// get contents of form and target page - if there's only one,
 	// it might be a target with only alternate forms
 	if ($form_name == '') {
