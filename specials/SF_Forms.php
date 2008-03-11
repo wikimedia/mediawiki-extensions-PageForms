@@ -54,12 +54,7 @@ class FormsPage extends QueryPage {
 
 	function formatResult($skin, $result) {
 		$title = Title::makeTitle( SF_NS_FORM, $result->value );
-		$text = $skin->makeLinkObj( $title, $title->getText() );
-		$ad = SpecialPage::getPage('AddPage');
-		$add_data_url = $ad->getTitle()->getFullURL() . "/" . $title->getText();
-		$text .= ' (<a href="' . $add_data_url . '">' . wfMsg('sf_forms_adddata') . '</a>)';
-
-		return $text;
+		return $skin->makeLinkObj( $title, $title->getText() );
 	}
 }
 
