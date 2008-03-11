@@ -98,7 +98,7 @@ class SFFormPrinter {
     $this->mInputTypeHooks[$input_type] = array($function_name, $default_args);
   }
 
-  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null) {
+  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
@@ -109,6 +109,7 @@ class SFFormPrinter {
     $sfgFieldNum = 1;
     $source_page_matches_this_form = false;
     $form_page_title = NULL;
+    $generated_page_name = $page_name_formula;
     // $form_is_partial is true if:
     // (a) 'partial' == 1 in the arguments
     // (b) 'partial form' is found in the form definition
@@ -138,7 +139,12 @@ class SFFormPrinter {
     // disable all form elements if user doesn't have edit permission -
     // two different checks are needed, because editing permissions can be
     // set in different ways
-    $this->mPageTitle = Title::newFromText($page_title);
+    // HACK - sometimes we don't know the page name in advance, but we still
+    // need to set a title here for testing permissions
+    if ($page_title == '')
+      $this->mPageTitle = Title::newFromText("Semantic Forms permissions test");
+    else
+      $this->mPageTitle = Title::newFromText($page_title);
     if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCanEdit()) {
       $form_is_disabled = false;
       $form_text = "";
@@ -624,6 +630,14 @@ class SFFormPrinter {
               $input_name = $query_template_name . '[num][' . $field_name . ']';
             else
               $input_name = $query_template_name . '[' . $field_name . ']';
+
+            // if we're creating the page name from a formula based on
+            // form values, see if the current input is part of that formula,
+            // and if so, substitute in the actual value
+            if ($form_submitted && $generated_page_name != '') {
+              $true_input_name = str_replace('_', ' ', $input_name);
+              $generated_page_name = str_ireplace("<$true_input_name>", $cur_value, $generated_page_name);
+            }
             // disable this field if either the whole form is disabled, or
             // it's a restricted field and user doesn't have sysop privileges
             $is_disabled = ($form_is_disabled ||
@@ -1275,7 +1289,7 @@ END;
     if($wgRequest->getCheck('partial'))
       $data_text = $existing_page_content;
     $javascript_text .= $fields_javascript_text;
-    return array($form_text, $javascript_text, $data_text, $form_page_title);
+    return array($form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name);
   }
 
   function formFieldHTML($form_field, $cur_value) {
