@@ -1256,33 +1256,35 @@ $messages['is'] = array(
 
 /** Khmer (ភាសាខ្មែរ)
  * @author Chhorran
+ * @author Lovekhmer
  */
 $messages['km'] = array(
 	'sf_createproperty_propname'       => 'ឈ្មោះ ៖',
-	'templates'                        => 'គំរូខ្នាត នានា',
-	'sf_templates_docu'                => 'គំរូខ្នាត ទាំងនេះ មានក្នុង វិគី ។',
+	'sf_createproperty_proptype'       => 'ប្រភេទ៖',
+	'templates'                        => 'ទំព័រគំរូ',
+	'sf_templates_docu'                => 'ខាងក្រោមនេះជាទំព័រគំរូដែលមានក្នុងវិគីនេះ។',
 	'sf_templates_definescat'          => 'ដាក់ឈ្មោះ ចំណាត់ក្រុម ៖',
-	'createtemplate'                   => 'បង្កើត មួយគំរូខ្នាត',
-	'sf_createtemplate_namelabel'      => 'ឈ្មោះ គំរូខ្នាត ៖',
+	'createtemplate'                   => 'បង្កើតទំព័រគំរូ',
+	'sf_createtemplate_namelabel'      => 'ឈ្មោះទំព័រគំរូ៖',
 	'sf_createtemplate_deletefield'    => 'លុបចេញ',
 	'forms'                            => 'បែបបទ',
 	'createform'                       => 'បង្កើត មួយបែបបទ',
-	'sf_createform_template'           => 'គំរូខ្នាត ៖',
+	'sf_createform_template'           => 'ទំព័រគំរូ៖',
 	'sf_createform_templatelabelinput' => 'ប្លាកគំរូខ្នាត (ជំរើស):',
 	'sf_createform_inputtypedefault'   => '(លំនាំដើម)',
-	'sf_createform_hidden'             => 'ត្រូវបាន បិទបាំង',
+	'sf_createform_hidden'             => 'ត្រូវបានលាក់',
 	'sf_createform_removetemplate'     => 'ដកចេញ គំរូខ្នាត',
 	'sf_createform_addtemplate'        => 'បន្ថែម គំរូខ្នាត ៖',
 	'sf_createform_beforetemplate'     => 'មុន គំរូខ្នាត ៖',
 	'sf_createform_add'                => 'បន្ថែម',
 	'createcategory'                   => 'បង្កើត មួយចំណាត់ក្រុម',
-	'sf_createcategory_name'           => 'ឈ្មោះ ៖',
+	'sf_createcategory_name'           => 'ឈ្មោះ៖',
 	'sf_createcategory_defaultform'    => 'បែបបទ លំនាំដើម ៖',
-	'addpage'                          => 'បន្ថែម ទំព័រ',
-	'addoreditdata'                    => 'បន្ថែម ឬ កែប្រែ',
-	'adddata'                          => 'បន្ថែម ទិន្នន័យ',
+	'addpage'                          => 'បន្ថែមទំព័រ',
+	'addoreditdata'                    => 'បន្ថែមឬកែប្រែ',
+	'adddata'                          => 'បន្ថែមទិន្នន័យ',
 	'editdata'                         => 'កែប្រែ ទិន្នន័យ',
-	'edit_source'                      => 'កែប្រែ អក្សរកូដ',
+	'edit_source'                      => 'កែប្រែកូដ',
 	'sf_editdata_remove'               => 'ដកចេញ',
 	'sf_editdata_addanother'           => 'បន្ថែម មួយផ្សេង',
 	'sf_bad_email_error'               => 'ទំរង់អាស័យដ្ឋានអ៊ីមែវល៍ មិនត្រឹមត្រូវ',
@@ -1663,6 +1665,17 @@ $messages['oc'] = array(
 	'sf_category_hasdefaultform'              => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc'                        => 'Aquò es la categoria « $1 ».',
 	'sf_blank_namespace'                      => 'Principal',
+);
+
+/** Polish (Polski)
+ * @author McMonster
+ */
+$messages['pl'] = array(
+	'sf_createtemplate_outputformat' => 'Format wyjścia:',
+	'sf_createform_field'            => 'Pole:',
+	'edit_source'                    => 'Edytuj źródło',
+	'sf_editdata_title'              => 'Edytuj $1: $2',
+	'sf_editdata_remove'             => 'Usuń',
 );
 
 /** Pashto (پښتو)
@@ -2165,7 +2178,7 @@ $messages['stq'] = array(
 
 /** Swedish (Svenska)
  * @author M.M.S.
- * @author Max sonnelid
+ * @author M.M.S.
  * @author Lejonel
  */
 $messages['sv'] = array(
@@ -2219,6 +2232,7 @@ $messages['te'] = array(
 	'sf_createtemplate_infoboxformat'    => 'కుడివైపు సమాచారపెట్టె',
 	'sf_createtemplate_deletefield'      => 'తొలగించు',
 	'sf_createform_template'             => 'మూస:',
+	'sf_createform_hidden'               => 'దాచినది',
 	'sf_createform_mandatory'            => 'తప్పనిసరి',
 	'sf_createform_removetemplate'       => 'మూసని తొలగించండి',
 	'sf_createform_addtemplate'          => 'మూసని చేర్చండి:',
@@ -2231,9 +2245,11 @@ $messages['te'] = array(
 	'sf_editdata_formwarning'            => 'హెచ్చరిక: ఈ పేజీ <a href="$1">ఇప్పటికే ఉంది</a>, కానీ దానిలో ఈ ఫారం లేదు.',
 	'sf_editdata_remove'                 => 'తొలగించు',
 	'sf_editdata_addanother'             => 'మరోటి చేర్చండి',
+	'sf_editdata_none'                   => 'ఏమీలేదు',
 	'sf_blank_error'                     => 'ఖాళీగా ఉండకూడదు',
 	'sf_bad_number_error'                => 'ఖచ్చితంగా ఓ సంఖ్య అయివుండాలి',
 	'sf_bad_date_error'                  => 'సరైన తేదీ అయివుండాలి',
+	'sf_property_isrelation'             => 'ఇది ఒక సంబంధం.',
 	'sf_form_freetextlabel'              => 'స్వేచ్ఛా పాఠ్యం',
 	'sf_category_hasdefaultform'         => 'ఈ వర్గం $1 అనే ఫారాన్ని వాడుతుంది.',
 	'sf_category_desc'                   => 'ఇది $1 అనే వర్గం.',
