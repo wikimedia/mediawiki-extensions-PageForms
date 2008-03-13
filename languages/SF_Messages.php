@@ -2255,6 +2255,15 @@ $messages['te'] = array(
 	'sf_category_desc'                   => 'ఇది $1 అనే వర్గం.',
 );
 
+/** Tajik (Тоҷикӣ)
+ * @author Ibrahim
+ */
+$messages['tg'] = array(
+	'sf_createproperty_propname' => 'Ном:',
+	'sf_createproperty_proptype' => 'Навъ:',
+	'templates'                  => 'Шаблонҳо',
+);
+
 /** Turkish (Türkçe)
  * @author Karduelis
  */
