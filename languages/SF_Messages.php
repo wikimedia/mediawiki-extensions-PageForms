@@ -1255,17 +1255,18 @@ $messages['is'] = array(
 );
 
 /** Khmer (ភាសាខ្មែរ)
- * @author Chhorran
  * @author Lovekhmer
+ * @author Chhorran
  */
 $messages['km'] = array(
-	'sf_createproperty_propname'       => 'ឈ្មោះ ៖',
+	'sf_createproperty_propname'       => 'ឈ្មោះ៖',
 	'sf_createproperty_proptype'       => 'ប្រភេទ៖',
 	'templates'                        => 'ទំព័រគំរូ',
 	'sf_templates_docu'                => 'ខាងក្រោមនេះជាទំព័រគំរូដែលមានក្នុងវិគីនេះ។',
-	'sf_templates_definescat'          => 'ដាក់ឈ្មោះ ចំណាត់ក្រុម ៖',
+	'sf_templates_definescat'          => 'ដាក់ឈ្មោះឱ្យចំណាត់ថ្នាក់ក្រុម៖',
 	'createtemplate'                   => 'បង្កើតទំព័រគំរូ',
 	'sf_createtemplate_namelabel'      => 'ឈ្មោះទំព័រគំរូ៖',
+	'sf_createtemplate_standardformat' => 'ស្តង់ដារ',
 	'sf_createtemplate_deletefield'    => 'លុបចេញ',
 	'forms'                            => 'បែបបទ',
 	'createform'                       => 'បង្កើត មួយបែបបទ',
@@ -1277,16 +1278,17 @@ $messages['km'] = array(
 	'sf_createform_addtemplate'        => 'បន្ថែម គំរូខ្នាត ៖',
 	'sf_createform_beforetemplate'     => 'មុន គំរូខ្នាត ៖',
 	'sf_createform_add'                => 'បន្ថែម',
-	'createcategory'                   => 'បង្កើត មួយចំណាត់ក្រុម',
+	'createcategory'                   => 'បង្កើតចំណាត់ថ្នាក់ក្រុម',
 	'sf_createcategory_name'           => 'ឈ្មោះ៖',
 	'sf_createcategory_defaultform'    => 'បែបបទ លំនាំដើម ៖',
 	'addpage'                          => 'បន្ថែមទំព័រ',
 	'addoreditdata'                    => 'បន្ថែមឬកែប្រែ',
 	'adddata'                          => 'បន្ថែមទិន្នន័យ',
-	'editdata'                         => 'កែប្រែ ទិន្នន័យ',
+	'editdata'                         => 'កែប្រែទិន្នន័យ',
 	'edit_source'                      => 'កែប្រែកូដ',
 	'sf_editdata_remove'               => 'ដកចេញ',
 	'sf_editdata_addanother'           => 'បន្ថែម មួយផ្សេង',
+	'sf_editdata_none'                 => 'ទទេ',
 	'sf_bad_email_error'               => 'ទំរង់អាស័យដ្ឋានអ៊ីមែវល៍ មិនត្រឹមត្រូវ',
 	'sf_template_docufooter'           => 'កែប្រែទំព័រ ដើម្បីឃើញ អត្ថបទ នៃគំរូខ្នាត ។',
 	'sf_category_hasdefaultform'       => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
@@ -1616,7 +1618,7 @@ $messages['oc'] = array(
 	'sf_createform_inputtypedefault'          => '(per defaut)',
 	'sf_createform_formlabel'                 => 'Etiqueta dins lo formulari:',
 	'sf_createform_hidden'                    => 'Amagat',
-	'sf_createform_restricted'                => 'Restrenhut',
+	'sf_createform_restricted'                => 'Restrench',
 	'sf_createform_mandatory'                 => 'Obligatòri',
 	'sf_createform_removetemplate'            => 'Levar aqueste modèl',
 	'sf_createform_addtemplate'               => 'Ajustar un modèl :',
