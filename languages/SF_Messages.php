@@ -1200,6 +1200,7 @@ $messages['hsb'] = array(
 
 /** Hungarian (Magyar)
  * @author Bdanee
+ * @author Tgr
  * @author Dorgan
  */
 $messages['hu'] = array(
@@ -1228,7 +1229,7 @@ $messages['hu'] = array(
 	'sf_createform_templatelabelinput'        => 'Sablon-címke (nem kötelező):',
 	'sf_createform_allowmultiple'             => 'A sablon többször is (vagy egyszer sem) szerepelhet az elkészült lapon',
 	'sf_createform_field'                     => 'Mező:',
-	'sf_createform_fieldattr'                 => 'Ez a mező definiálja a(z) %1 tulajdonságot, ami %1 típusú.',
+	'sf_createform_fieldattr'                 => 'Ez a mező definiálja a(z) $1 tulajdonságot, ami $1 típusú.',
 	'sf_createform_inputtype'                 => 'Bemenet típusa:',
 	'sf_createform_inputtypedefault'          => '(alapértelmezett)',
 	'sf_createform_formlabel'                 => 'Az űrlap címkéje:',
@@ -1405,7 +1406,7 @@ $messages['nl'] = array(
 	'sf_createform_inputtypedefault'          => '(standaard)',
 	'sf_createform_formlabel'                 => 'Formulierlabel:',
 	'sf_createform_hidden'                    => 'Verborgen',
-	'sf_createform_restricted'                => 'Beperkt alleen beheerders kunnen het bewerken)',
+	'sf_createform_restricted'                => 'Beperkt (alleen beheerders kunnen bewerken)',
 	'sf_createform_mandatory'                 => 'Verplicht',
 	'sf_createform_removetemplate'            => 'Sjabloon verwijderen',
 	'sf_createform_addtemplate'               => 'Sjabloon toevoegen:',
@@ -2261,9 +2262,32 @@ $messages['te'] = array(
  * @author Ibrahim
  */
 $messages['tg'] = array(
-	'sf_createproperty_propname' => 'Ном:',
-	'sf_createproperty_proptype' => 'Навъ:',
-	'templates'                  => 'Шаблонҳо',
+	'createproperty'                     => 'Вижагӣ бисозед',
+	'sf_createproperty_allowedvalsinput' => 'Агар мехоҳед ин вуруди танҳои миқдорҳои мушаххаси миҷоз дошта бошад, феҳристи миқдорҳои миҷозро ворид кунед ва онҳоро бо вергул ҷудо созед (агар миқдор вергул дошта бошад, онро бо "\\," иваз кунед):',
+	'sf_createproperty_propname'         => 'Ном:',
+	'sf_createproperty_proptype'         => 'Навъ:',
+	'templates'                          => 'Шаблонҳо',
+	'sf_templates_docu'                  => 'Шаблонҳои зер дар ин вики вуҷуд доранд.',
+	'sf_templates_definescat'            => 'таъйиди гурӯҳ:',
+	'createtemplate'                     => 'Шаблон бисозед',
+	'sf_createtemplate_namelabel'        => 'Номи шаблон:',
+	'sf_createtemplate_categorylabel'    => 'Таъйиди гурӯҳ бо воситаи шаблон (ихтиёрӣ):',
+	'sf_createtemplate_templatefields'   => 'Вурудиҳои шаблон',
+	'sf_createcategory_name'             => 'Ном:',
+	'sf_editdata_remove'                 => 'Ҳазф',
+	'sf_editdata_addanother'             => 'Иловаи дигаре',
+	'sf_editdata_none'                   => 'Ҳеҷ кадом',
+	'sf_formerrors_header'               => 'Хатоҳое дар вуруди форматон вуҷуд дорад; ба зер нигаред',
+	'sf_blank_error'                     => 'наметавон холӣ бошад',
+	'sf_property_isproperty'             => 'Ин як вижагӣ аз навъи $1 аст.',
+	'sf_property_isrelation'             => 'Ин як робита аст.',
+	'sf_template_docu'                   => "Ин шаблони '$1' аст. Бояд бо қолаби зерин фарохонӣ шавад:",
+	'sf_template_docufooter'             => 'Барои мушоҳидаи матни шаблон саҳифаро вироиш кунед.',
+	'sf_form_docu'                       => "Ин форми '$1' аст. Барои илова кардани як саҳифае бо ин форм, дар зер номи саҳифаро ворид кунед; агар саҳифае бо ин ном вуҷуд дошта бошад, ба форми вироиши саҳифа ҳидоят мешавед.",
+	'sf_form_freetextlabel'              => 'Матни дилхоҳ',
+	'sf_category_hasdefaultform'         => 'Ин гурӯҳ аз форми $1 истифода мекунад.',
+	'sf_category_desc'                   => 'Ин гурӯҳи $1 аст.',
+	'sf_blank_namespace'                 => 'Аслӣ',
 );
 
 /** Turkish (Türkçe)
