@@ -463,6 +463,21 @@ $messages['de'] = array(
 	'sf_category_desc'                        => 'Dies ist die Kategorie $1.',
 );
 
+/** Greek (Ελληνικά)
+ * @author Consta
+ */
+$messages['el'] = array(
+	'sf_createproperty_propname' => 'Όνομα:',
+	'sf_createproperty_proptype' => 'Τύπος:',
+	'templates'                  => 'Πρότυπο:',
+	'createtemplate'             => 'Δημιουργήστε ένα πρότυπο',
+	'sf_createform_template'     => 'Πρότυπο:',
+	'createcategory'             => 'Δημιουργήστε μια κατηγορία',
+	'sf_createcategory_name'     => 'Όνομα:',
+	'addpage'                    => 'Προσθέστε σελίδα',
+	'addoreditdata'              => 'Προσθέστε ή επεξεργαστείτε',
+);
+
 /** Esperanto (Esperanto)
  * @author Yekrats
  */
@@ -1446,7 +1461,7 @@ $messages['nl'] = array(
 	'sf_bad_date_error'                       => 'moet een geldige datum zijn',
 	'sf_property_isattribute'                 => 'Dit is een eigenschap van het type $1.',
 	'sf_property_isproperty'                  => 'Dit is een eigenschap van type $1.',
-	'sf_property_allowedvals'                 => 'De toegestane waarden voor deze eigenschap zijn:',
+	'sf_property_allowedvals'                 => 'De toegelaten waarden voor deze eigenschap zijn:',
 	'sf_property_isrelation'                  => 'Dit is een relatie.',
 	'sf_template_docu'                        => "Dit is het sjabloon '$1'. Gebruik het op de volgende wijze:",
 	'sf_template_docufooter'                  => 'Bewerk de pagina om de sjabloontekst te bekijken.',
@@ -2562,7 +2577,7 @@ $messages['zh-cn'] = array(
  * @author Roc michael
  */
 $messages['zh-tw'] = array(
-	'createproperty'                          => '新增語意(semantic)性質',
+	'createproperty'                          => '新增性質',
 	'sf_createproperty_allowedvalsinput'      => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\\,)：',
 	'sf_createproperty_propname'              => '名稱：',
 	'sf_createproperty_proptype'              => '型態:',
