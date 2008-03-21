@@ -450,6 +450,8 @@ class SFFormPrinter {
                   $default_value = $sub_components[1];
                 } elseif ($sub_components[0] == 'preload') {
                   $preload_page = $sub_components[1];
+                } elseif ($sub_components[0] == 'values') {
+                  $possible_values = explode(',', $sub_components[1]);
                 } else {
                   $field_args[$sub_components[0]] = $sub_components[1];
                 }
@@ -560,11 +562,11 @@ class SFFormPrinter {
                   else
                     $index_of_no = 2;
                   if (count($words_for_false) > $index_of_no) {
-                    $no = $words_for_false[$index_of_no];
+                    $no = ucwords($words_for_false[$index_of_no]);
                   } elseif (count($words_for_false) == 0) {
                     $no = "0"; // some safe value if no words are found
                   } else {
-                    $no = $words_for_false[0];
+                    $no = ucwords($words_for_false[0]);
                   }
                   $cur_value_in_template = $no;
                 } elseif (count($cur_value) == 2) {
@@ -578,11 +580,11 @@ class SFFormPrinter {
                   else
                     $index_of_yes = 2;
                   if (count($words_for_true) > $index_of_yes) {
-                    $yes = $words_for_true[$index_of_yes];
+                    $yes = ucwords($words_for_true[$index_of_yes]);
                   } elseif (count($words_for_true) == 0) {
                     $yes = "1"; // some safe value if no words are found
                   } else {
-                    $yes = $words_for_true[0];
+                    $yes = ucwords($words_for_true[0]);
                   }
                   $cur_value_in_template = $yes;
                 // if it's 3 or greater, assume it's a date or datetime
@@ -646,8 +648,8 @@ class SFFormPrinter {
             // parameters in the form definition, and any information from
             // the template definition (contained in the $all_fields parameter)
             $form_field = SFFormTemplateField::createFromDefinition($field_name, $input_name,
-              $is_mandatory, $is_hidden, $is_disabled, $is_list, $input_type,
-              $field_args, $all_fields, $strict_parsing);
+              $is_mandatory, $is_hidden, $possible_values, $is_disabled,
+              $is_list, $input_type, $field_args, $all_fields, $strict_parsing);
             // if this is not part of a 'multiple' template, incrememt the
             // global tab index (used for correct tabbing)
             if (! $field_args['part_of_multiple'])
@@ -942,7 +944,8 @@ END;
           // emit the initial javascript code
           $using_choosers = "true";
           $chooser_text .= <<<END
-<script type="text/javascript">
+<script type="text/javascript">/* <![CDATA[ */
+
 function updatechooserbutton(f,n)
 {
 	document.getElementById(n).disabled = (f.options[f.selectedIndex].value=="invalid");
@@ -986,7 +989,7 @@ function hideOrShowFieldset(element)
 	//Now show or hide fieldset
 	element.style.display = (show?"block":"none");
 }
-</script>
+/* ]]> */ </script>
 
 END;
         }
@@ -1289,7 +1292,8 @@ END;
     if($wgRequest->getCheck('partial'))
       $data_text = $existing_page_content;
     $javascript_text .= $fields_javascript_text;
-    return array($form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name);
+    return array($form_text, "/*<![CDATA[*/ $javascript_text /*]]>*/",
+      $data_text, $form_page_title, $generated_page_name);
   }
 
   function formFieldHTML($form_field, $cur_value) {
@@ -1316,7 +1320,12 @@ END;
       $hook_values = $this->mInputTypeHooks[$form_field->input_type];
       $default_args = $hook_values[1];
       $other_args = $form_field->field_args;
-      $other_args['possible_values'] = $template_field->possible_values;
+      // if the set of possible values were set in the form definition,
+      // go with that
+      if ($form_field->possible_values != null)
+        $other_args['possible_values'] = $form_field->possible_values;
+      else
+        $other_args['possible_values'] = $template_field->possible_values;
       // the fact that this is a list can be specified in either the
       // template or the form
       $other_args['is_list'] = ($template_field->is_list || $form_field->is_list);
@@ -1349,7 +1358,10 @@ END;
         // merge default values and values from form - put the default values
         // first, so that if there's a conflict they'll be overridden
         $other_args = array_merge($hook_values[1], $form_field->field_args);
-        $other_args['possible_values'] = $template_field->possible_values;
+        if ($form_field->possible_values != null)
+          $other_args['possible_values'] = $form_field->possible_values;
+        else
+          $other_args['possible_values'] = $template_field->possible_values;
         if ($template_field->is_relation)
           $other_args['is_relation'] = true;
         if ($template_field->semantic_field != '')
@@ -1363,6 +1375,8 @@ END;
           $other_args['is_list'] = true;
           $other_args['size'] = 100;
         }
+        if ($form_field->possible_values != null)
+          $other_args['possible_values'] = $form_field->possible_values;
         list($text, $javascript_text) = $this->textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args);
       }
     }
@@ -1508,6 +1522,10 @@ END;
         return SFFormPrinter::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
       }
     }
+
+    // if there are possible values specified, call the dropdown function
+    if ($other_args['possible_values'] != null)
+      return SFFormPrinter::dropdownHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
     global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
 
@@ -1743,7 +1761,7 @@ END;
     $text .=<<<END
 	<span id="$info_id" class="error_message"></span>
 	<div class="page_name_auto_complete" id="$div_name"></div>
-<script type="text/javascript">
+<script type="text/javascript">/* <![CDATA[ */
 
 END;
     $options_str_key = str_replace("'", "\'", $semantic_field_name);
@@ -1763,7 +1781,7 @@ END;
     if ($cur_value) {
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
-    $text .= "</script>\n";
+    $text .= "/* ]]> */</script>\n";
     return array($text, $javascript_text);
   }
 
