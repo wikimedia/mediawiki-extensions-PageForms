@@ -92,7 +92,7 @@ END;
 			<input type="submit" value="$button_str"></p>
 			</form>
 END;
-	return array($str, 'noparse' => 'true');
+	return array($str, 'noparse' => 'true', 'isHTML' => 'true');
 }
 
 /**
