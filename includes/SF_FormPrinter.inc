@@ -428,6 +428,7 @@ class SFFormPrinter {
           $input_type = null;
           $field_args = array();
           $default_value = "";
+          $possible_values = null;
           $preload_page = null;
           for ($i = 2; $i < count($tag_components); $i++) {
             $component = trim($tag_components[$i]);
@@ -515,7 +516,7 @@ class SFFormPrinter {
                 if (! array_key_exists('rows', $field_args))
                   $field_args['rows'] = 5;
                 if (! array_key_exists('cols', $field_args))
-                  $field_args['cols'] = 70;
+                  $field_args['cols'] = 80;
                 $sfgTabIndex++;
                 $sfgFieldNum++;
                 list($new_text, $new_javascript_text) = $this->textAreaHTML('<free_text>', 'free_text', false, $form_is_disabled, $field_args);
@@ -1524,7 +1525,7 @@ END;
     }
 
     // if there are possible values specified, call the dropdown function
-    if ($other_args['possible_values'] != null)
+    if (array_key_exists('possible_values', $other_args) && $other_args['possible_values'] != null)
       return SFFormPrinter::dropdownHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
     global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
@@ -1790,7 +1791,7 @@ END;
     if (! array_key_exists('rows', $other_args))
       $other_args['rows'] = 5;
     if (! array_key_exists('cols', $other_args))
-      $other_args['cols'] = 70;
+      $other_args['cols'] = 80;
 
     // if it's an autocomplete, call the with-autocomplete function instead
     $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
@@ -1981,7 +1982,7 @@ END;
     // can show up here either as an array or a string, depending on
     // whether it came from user input or a wiki page
     if (is_array($cur_value)) {
-      $checked_str = ($cur_value[value] == 'on') ? ' checked="checked"' : "";
+      $checked_str = (array_key_exists('value', $cur_value) && $cur_value[value] == 'on') ? ' checked="checked"' : "";
     } else {
       // default to false - no need to check if it matches a 'false' word
       $vlc = strtolower(trim($cur_value));
