@@ -369,6 +369,13 @@ $messages['bg'] = array(
 	'sf_category_desc'                   => 'Това е категорията $1.',
 );
 
+/** Bengali (বাংলা)
+ * @author Zaheen
+ */
+$messages['bn'] = array(
+	'sf_createtemplate_deletefield' => 'মুছে ফেলা হোক',
+);
+
 /** German (Deutsch)
  * @author Dominik Rodler
  * @author Cipher
