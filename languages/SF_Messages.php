@@ -376,6 +376,19 @@ $messages['bn'] = array(
 	'sf_createtemplate_deletefield' => 'মুছে ফেলা হোক',
 );
 
+/** Danish (Dansk)
+ * @author Jon Harald Søby
+ */
+$messages['da'] = array(
+	'sf_createproperty_propname'       => 'Navn:',
+	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_deletefield'    => 'Slet',
+	'sf_createform_template'           => 'Skabelon:',
+	'sf_createform_inputtypedefault'   => '(standard)',
+	'sf_createcategory_name'           => 'Navn:',
+	'sf_editdata_none'                 => 'Ingen',
+);
+
 /** German (Deutsch)
  * @author Dominik Rodler
  * @author Cipher
@@ -1479,6 +1492,21 @@ $messages['nl'] = array(
 	'sf_blank_namespace'                      => 'Hoofdnaamruimte',
 );
 
+/** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+ * @author Jon Harald Søby
+ */
+$messages['nn'] = array(
+	'sf_createproperty_propname'       => 'Namn',
+	'sf_createproperty_proptype'       => 'Type:',
+	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_deletefield'    => 'Slett',
+	'sf_createform_template'           => 'Mal:',
+	'sf_createform_inputtypedefault'   => '(standard)',
+	'sf_createcategory_name'           => 'Namn:',
+	'sf_editdata_remove'               => 'Fjern',
+	'sf_editdata_none'                 => 'Ingen',
+);
+
 /** Norwegian (‪Norsk (bokmål)‬)
  * @author Jon Harald Søby
  */
@@ -1719,6 +1747,7 @@ $messages['ps'] = array(
 	'sf_createform_addtemplate'          => 'کينډۍ ورګډول:',
 	'sf_createform_atend'                => 'په پای کې',
 	'sf_createform_add'                  => 'ورګډول',
+	'createcategory'                     => 'يوه وېشنيزه جوړول',
 	'sf_createcategory_name'             => 'نوم:',
 	'addpage'                            => 'مخ ورګډول',
 	'sf_editdata_addanother'             => 'يو بل ورګډول',
@@ -2203,11 +2232,12 @@ $messages['stq'] = array(
 
 /** Swedish (Svenska)
  * @author M.M.S.
- * @author M.M.S.
+ * @author Jon Harald Søby
  * @author Lejonel
  */
 $messages['sv'] = array(
 	'sf_createproperty_propname'       => 'Namn:',
+	'sf_createproperty_proptype'       => 'Typ:',
 	'templates'                        => 'Mallar',
 	'createtemplate'                   => 'Skapa en mall',
 	'sf_createtemplate_namelabel'      => 'Mallnamn:',
@@ -2236,7 +2266,7 @@ $messages['sv'] = array(
 	'sf_editdata_remove'               => 'Radera',
 	'sf_editdata_none'                 => 'Ingen',
 	'sf_template_docufooter'           => 'Redigera sidan för att se mall texten.',
-	'sf_form_freetextlabel'            => 'Fri text',
+	'sf_form_freetextlabel'            => 'Fritext',
 	'sf_category_desc'                 => 'Detta är $1 kategorin.',
 	'sf_blank_namespace'               => 'Huvud',
 );
@@ -2278,6 +2308,14 @@ $messages['te'] = array(
 	'sf_form_freetextlabel'              => 'స్వేచ్ఛా పాఠ్యం',
 	'sf_category_hasdefaultform'         => 'ఈ వర్గం $1 అనే ఫారాన్ని వాడుతుంది.',
 	'sf_category_desc'                   => 'ఇది $1 అనే వర్గం.',
+);
+
+/** Tetum (Tetun)
+ * @author MF-Warburg
+ */
+$messages['tet'] = array(
+	'sf_createproperty_propname' => 'Naran:',
+	'sf_createcategory_name'     => 'Naran:',
 );
 
 /** Tajik (Тоҷикӣ)
