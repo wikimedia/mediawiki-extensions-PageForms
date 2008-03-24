@@ -2314,8 +2314,9 @@ $messages['te'] = array(
  * @author MF-Warburg
  */
 $messages['tet'] = array(
-	'sf_createproperty_propname' => 'Naran:',
-	'sf_createcategory_name'     => 'Naran:',
+	'sf_createproperty_propname'    => 'Naran:',
+	'sf_createtemplate_deletefield' => 'Halakon',
+	'sf_createcategory_name'        => 'Naran:',
 );
 
 /** Tajik (Тоҷикӣ)
