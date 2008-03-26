@@ -387,6 +387,14 @@ $messages['bn'] = array(
 	'sf_createtemplate_deletefield' => 'মুছে ফেলা হোক',
 );
 
+/** Catalan (Català)
+ * @author SMP
+ */
+$messages['ca'] = array(
+	'sf_createform_template' => 'Plantilla:',
+	'sf_createform_hidden'   => 'Amagat',
+);
+
 /** Danish (Dansk)
  * @author Jon Harald Søby
  */
