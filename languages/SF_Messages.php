@@ -1364,7 +1364,13 @@ $messages['lb'] = array(
 	'sf_createform_hidden'          => 'Verstoppt',
 	'sf_createform_restricted'      => 'Gespaart (Nëmmen Administrateuren kënnen et änneren)',
 	'sf_createform_mandatory'       => 'Obligateresch',
+	'sf_createform_removetemplate'  => 'Schablon ewechhuelen',
+	'sf_createform_addtemplate'     => 'Schabloun derbäisetzen:',
+	'sf_createform_beforetemplate'  => "Virun d'Schabloun:",
+	'createcategory'                => 'Eng Kategorie maachen',
 	'sf_createcategory_name'        => 'Numm:',
+	'addpage'                       => 'Säit derbäisetzen',
+	'addoreditdata'                 => 'Derbäisetzen oder änneren',
 	'sf_editdata_title'             => 'Ännert $1: $2',
 	'sf_editdata_none'              => 'Keen',
 	'sf_blank_error'                => 'Däerf net eidel sinn!',
@@ -1526,7 +1532,7 @@ $messages['nn'] = array(
 	'sf_editdata_none'                 => 'Ingen',
 );
 
-/** Norwegian (‪Norsk (bokmål)‬)
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Jon Harald Søby
  */
 $messages['no'] = array(
@@ -1619,7 +1625,7 @@ $messages['no'] = array(
 	'sf_property_isrelation'                  => 'Dette er en relasjon.',
 	'sf_template_docu'                        => 'Dette er malen «$1». Den burde kalles opp med følgende format:',
 	'sf_template_docufooter'                  => 'Rediger siden for å se malteksten.',
-	'sf_form_docu'                            => 'Dette er skjemaet «$1». For å opprette en side med dette skjemaet, skriv inn sidenavnet nedenfor; om en side med det navnet finnes allerede vil du bli sendt til et skjema for redigering av den siden.',
+	'sf_form_docu'                            => 'Dette er skjemaet «$1». Skriv inn et sidenavn nedenfor for å opprette en side med dette skjemaet; om en side med det navnet finnes allerede vil du bli sendt til et skjema for redigering av den siden.',
 	'sf_form_freetextlabel'                   => 'Fritekst',
 	'sf_category_hasdefaultform'              => 'Denne kategorien bruker skjemaet $1.',
 	'sf_category_desc'                        => 'Dette er kategorien $1',
@@ -2481,7 +2487,7 @@ $messages['vi'] = array(
 	'sf_createcategory_name'                  => 'Tên:',
 	'sf_createcategory_defaultform'           => 'Biểu mẫu mặc định:',
 	'sf_createcategory_makesubcategory'       => 'Chuyển cái này thành thể loại con của một thể loại khác (tùy chọn):',
-	'addpage'                                 => 'Thêm trang:',
+	'addpage'                                 => 'Thêm trang',
 	'sf_addpage_badform'                      => 'Lỗi: không có trang mẫu nào tìm thấy tại $1',
 	'sf_addpage_docu'                         => 'Nhập vào tên trang ở đây, để có thể sửa đổi với mẫu ‘$1’. Nếu trang này đã tồn tại, bạn sẽ được chuyển đến mẫu để sửa đổi trang đó. Nếu không, bạn sẽ được chuyển đến mẫu để thêm trang.',
 	'sf_addpage_noform_docu'                  => 'Nhập tên trang vào đây, và chọn mẫu để sửa đổi với nó. Nếu trang này đã tồn tại, bạn sẽ được chuyển tới mẫu sửa đổi trang. Nếu không, bạn sẽ được chuyển đến mẫu để thêm trang.',
