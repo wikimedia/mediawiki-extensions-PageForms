@@ -1403,17 +1403,35 @@ $messages['li'] = array(
 );
 
 /** Marathi (मराठी)
+ * @author Kaustubh
  * @author Mahitgar
  */
 $messages['mr'] = array(
-	'sf_createproperty_propname'    => 'नाव:',
-	'sf_createproperty_proptype'    => 'प्रकार:',
-	'templates'                     => 'साचे',
-	'sf_createtemplate_deletefield' => 'वगळा',
-	'sf_form_freetextlabel'         => 'मुक्त मजकुर',
-	'sf_category_hasdefaultform'    => 'हे वर्गीकरण फॉर्म $1 वापरते.',
-	'sf_category_desc'              => 'हे $1 वर्गीकरण आहे.',
-	'sf_blank_namespace'            => 'मुख्य',
+	'createproperty'                     => 'एक गुणधर्म तयार करा',
+	'sf_createproperty_allowedvalsinput' => 'जर तुम्ही या रकान्यात फक्त काहीच किंमती भरू इच्छित असाल, तर त्यांची यादी बनवा, स्वल्पविरामाने किंमतींमध्ये फरक दाखवा (जर एखाद्या किंमतीतच स्वल्पविराम येत असेल, तर त्या जागी "\\," लिहा):',
+	'sf_createproperty_propname'         => 'नाव:',
+	'sf_createproperty_proptype'         => 'प्रकार:',
+	'templates'                          => 'साचे',
+	'sf_templates_docu'                  => 'या विकिवर खालील साचे उपलब्ध आहेत.',
+	'sf_templates_definescat'            => 'वर्गाची व्याख्या:',
+	'createtemplate'                     => 'साचा तयार करा',
+	'sf_createtemplate_namelabel'        => 'साच्याचे नाव:',
+	'sf_createtemplate_categorylabel'    => 'साचा कुठल्या वर्गात आहे (वैकल्पिक):',
+	'sf_createtemplate_templatefields'   => 'साच्यातील रकाने',
+	'sf_createtemplate_fieldsdesc'       => 'जर या साच्यातील रकान्यांना नावे द्यायची नसतील, तर खर्‍या नावांऐवजी फक्त क्रमांक द्या (उदा. १, २, ३, इ.).',
+	'sf_createtemplate_fieldname'        => 'रकाना नाव:',
+	'sf_createtemplate_displaylabel'     => 'दाखविण्याचे लेबल:',
+	'sf_createtemplate_semanticproperty' => 'सिमॅंटिक गुणधर्म:',
+	'sf_createtemplate_fieldislist'      => 'हा रकाना स्वल्पविरामाने वाटलेली किंमतींची यादी दर्शवितो',
+	'sf_createtemplate_aggregation'      => 'एकत्रीकरण',
+	'sf_createtemplate_deletefield'      => 'वगळा',
+	'sf_createcategory_name'             => 'नाव:',
+	'sf_editdata_none'                   => 'काहीही नाही',
+	'sf_blank_error'                     => 'रिकामे असू शकत नाही',
+	'sf_form_freetextlabel'              => 'मुक्त मजकुर',
+	'sf_category_hasdefaultform'         => 'हे वर्गीकरण फॉर्म $1 वापरते.',
+	'sf_category_desc'                   => 'हे $1 वर्गीकरण आहे.',
+	'sf_blank_namespace'                 => 'मुख्य',
 );
 
 /** Dutch (Nederlands)
@@ -1763,6 +1781,7 @@ $messages['ps'] = array(
 	'sf_createproperty_propname'         => 'نوم:',
 	'sf_createproperty_proptype'         => 'ډول:',
 	'templates'                          => 'کينډۍ',
+	'sf_templates_definescat'            => 'د وېشنيزې څرګندونه:',
 	'createtemplate'                     => 'يوه کينډۍ جوړول',
 	'sf_createtemplate_namelabel'        => 'د کينډۍ نوم:',
 	'sf_createtemplate_aggregationlabel' => 'د لړليک لپاره سرليک:',
