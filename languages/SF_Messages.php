@@ -1299,6 +1299,7 @@ $messages['hu'] = array(
 	'addpage'                                 => 'Oldal hozzáadása',
 	'addoreditdata'                           => 'Hozzáadás vagy szerkesztés',
 	'adddata'                                 => 'Adat hozzáadása',
+	'sf_editdata_none'                        => 'Nincs',
 );
 
 /** Icelandic (Íslenska)
@@ -1424,6 +1425,11 @@ $messages['mr'] = array(
 	'sf_createtemplate_semanticproperty' => 'सिमॅंटिक गुणधर्म:',
 	'sf_createtemplate_fieldislist'      => 'हा रकाना स्वल्पविरामाने वाटलेली किंमतींची यादी दर्शवितो',
 	'sf_createtemplate_aggregation'      => 'एकत्रीकरण',
+	'sf_createtemplate_aggregationlabel' => 'यादी साठी शीर्षक:',
+	'sf_createtemplate_outputformat'     => 'आउटपुटची रूपरेषा:',
+	'sf_createtemplate_standardformat'   => 'स्टॅंडर्ड',
+	'sf_createtemplate_infoboxformat'    => 'उजवीकडील माहितीचौकट',
+	'sf_createtemplate_addfield'         => 'रकाना वाढवा',
 	'sf_createtemplate_deletefield'      => 'वगळा',
 	'sf_createcategory_name'             => 'नाव:',
 	'sf_editdata_none'                   => 'काहीही नाही',
