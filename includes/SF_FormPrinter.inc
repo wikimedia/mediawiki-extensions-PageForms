@@ -592,10 +592,12 @@ class SFFormPrinter {
                 } elseif (count($cur_value) >= 3) {
                   $month = $cur_value['month'];
                   $day = $cur_value['day'];
-                  global $wgAmericanDates;
-                  if ($wgAmericanDates == false) {
+                  if ($day != '') {
+                    global $wgAmericanDates;
+                    if ($wgAmericanDates == false) {
                       // pad out day to always be two digits
-                     $day = str_pad($day, 2, "0", STR_PAD_LEFT);
+                      $day = str_pad($day, 2, "0", STR_PAD_LEFT);
+                    }
                   }
                   $year = $cur_value['year'];
                   if (isset($cur_value['hour'])) $hour = $cur_value['hour'];
@@ -607,7 +609,7 @@ class SFFormPrinter {
                     // special handling for American dates - otherwise, just
                     // the standard year/month/day (where month is a number)
                     global $wgAmericanDates;
-                    if ($wgAmericanDates) {
+                    if ($wgAmericanDates == true) {
                       $cur_value_in_template = "$month $day, $year";
                     } else {
                       $cur_value_in_template = "$year/$month/$day";
@@ -639,7 +641,7 @@ class SFFormPrinter {
             // and if so, substitute in the actual value
             if ($form_submitted && $generated_page_name != '') {
               $true_input_name = str_replace('_', ' ', $input_name);
-              $generated_page_name = str_ireplace("<$true_input_name>", $cur_value, $generated_page_name);
+              $generated_page_name = str_ireplace("<$true_input_name>", $cur_value_in_template, $generated_page_name);
             }
             // disable this field if either the whole form is disabled, or
             // it's a restricted field and user doesn't have sysop privileges
@@ -658,8 +660,9 @@ class SFFormPrinter {
             // increment the global field number regardless
             $sfgFieldNum++;
             // if the field is a date field, and its default value was set
-            // to 'now', set $cur_value to be the current date
-            if ($default_value == 'now') {
+            // to 'now', and it has no current value, set $cur_value to be
+            // the current date
+            if ($default_value == 'now' && $cur_value == '') {
               if ($input_type == 'date' || $input_type == 'datetime' ||
                   $input_type == 'datetime with timezone' ||
                   ($input_type == '' && $form_field->template_field->field_type == 'Date')) {
@@ -668,7 +671,7 @@ class SFFormPrinter {
                 $month = date("n", $cur_time);
                 $day = date("j", $cur_time);
                 global $wgAmericanDates;
-                if ($wgAmericanDates) {
+                if ($wgAmericanDates == true) {
                   $month_names = sffGetMonthNames();
                   $month_name = $month_names[$month - 1];
                   $cur_value = "$month_name $day, $year";
@@ -1833,7 +1836,7 @@ END;
     $month_names = sffGetMonthNames();
     foreach ($month_names as $i => $name) {
       // pad out month to always be two digits
-      $month_value = $wgAmericanDates ? $name : str_pad($i + 1, 2, "0", STR_PAD_LEFT);
+      $month_value = ($wgAmericanDates == true) ? $name : str_pad($i + 1, 2, "0", STR_PAD_LEFT);
       $text .= "	<option value=\"$month_value\"";
       if ($name == $cur_month || ($i + 1) == $cur_month) {$text .= " selected=\"selected\""; }
       $text .= ">$name</option>\n";
