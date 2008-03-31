@@ -2373,7 +2373,7 @@ $messages['tet'] = array(
 /** Tajik (Тоҷикӣ)
  * @author Ibrahim
  */
-$messages['tg'] = array(
+$messages['tg-cyrl'] = array(
 	'createproperty'                     => 'Вижагӣ бисозед',
 	'sf_createproperty_allowedvalsinput' => 'Агар мехоҳед ин вуруди танҳои миқдорҳои мушаххаси миҷоз дошта бошад, феҳристи миқдорҳои миҷозро ворид кунед ва онҳоро бо вергул ҷудо созед (агар миқдор вергул дошта бошад, онро бо "\\," иваз кунед):',
 	'sf_createproperty_propname'         => 'Ном:',
