@@ -2,6 +2,11 @@
  * The main CSS file for the Semantic Forms extension.
  */
 
+/* Override "width: 100%" setting in standard MediaWiki skins */
+textarea.createboxInput {
+	width: auto;
+}
+
 /* Used in 'create template' page */
 .field_box {
         border: 1px black solid;
