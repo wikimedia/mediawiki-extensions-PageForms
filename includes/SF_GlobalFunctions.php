@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','1.0.1');
+define('SF_VERSION','1.0.2');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -96,8 +96,7 @@ function sffInitNamespaces() {
 	// Register namespace identifiers
 	if (!is_array($wgExtraNamespaces)) { $wgExtraNamespaces=array(); }
 	$wgExtraNamespaces = $wgExtraNamespaces + $sfgContLang->getNamespaces();
-	// this code doesn't work, for some reason - leave it out for now
-	//$wgNamespaceAliases = $wgNamespaceAliases + $sfgContLang->getNamespaceAliases();
+	$wgNamespaceAliases = $wgNamespaceAliases + $sfgContLang->getNamespaceAliases();
 
 	// Support subpages only for talk pages by default
 	$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
