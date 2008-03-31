@@ -75,7 +75,9 @@ function autocompleteFunctionGenerator(values_list) {
         var primaryResults = [];
         var secondaryResults = [];
         if (sQuery && sQuery.length > 0) {
-            query_str = decodeURI(sQuery.toLowerCase());
+            // in some cases, decodeURI() doesn't handle colons correctly -
+            // replace them manually
+            query_str = decodeURI(sQuery).replace(/(%3A)/g, ":").toLowerCase();
             for (var i = 0; i < values_list.length; i++) {
                 subarray = values_list[i];
                 // workaround for strange IE bug
