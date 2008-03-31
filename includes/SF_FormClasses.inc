@@ -46,6 +46,7 @@ END;
     $free_text_label = wfMsgForContent('sf_form_freetextlabel');
     $text .=<<<END
 '''$free_text_label:'''
+
 {{{field|free text}}}
 
 
