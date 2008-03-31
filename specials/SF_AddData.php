@@ -63,7 +63,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 		$form_definition = $form_article->getContent();
 		$form_definition = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $form_definition);
 		$matches;
-		if (preg_match('/{{{info.*page name=([^\|}]*)/', $form_definition, $matches)) {
+		if (preg_match('/{{{info.*page name=([^\|}]*)/m', $form_definition, $matches)) {
 			$page_name_formula = str_replace('_', ' ', $matches[1]);
 		} else {
 			$wgOut->addWikiText( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
@@ -117,18 +117,30 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 			if ($page_name_formula != '') {
 				// replace "unique number" tag with one that
 				// won't get erased by the next line
-				$target_name = preg_replace('/<unique number>/', '{num}', $generated_page_name, 1);
+				$target_name = preg_replace('/<unique number(.*)>/', '{num\1}', $generated_page_name, 1);
 				// if any formula stuff is still in the name
 				// after the parsing, just remove it
 				$target_name = StringUtils::delimiterReplace('<', '>', '', $target_name);
-				if (strpos($target_name, '{num}')) {
+				if (strpos($target_name, '{num')) {
+					// get unique number start value from
+					// target name; if it's not there, or
+					// it's not a positive number,
+					// start it out as blank
+					preg_match('/{num.*start=([^;]*).*}/', $target_name, $matches);
+					if (count($matches) == 2 && is_numeric($matches[1]) && $matches[1] >= 0) {
+						$title_number = $matches[1];
+					} else {
+						$title_number = "";
+					}
 					// cycle through numbers for this tag
 					// until we find one that gives a
 					// nonexistent page title
-					$title_number = 1;
 					do {
-						$target_title = Title::newFromText(str_replace('{num}', $title_number, $target_name));
-						$title_number++;
+						$target_title = Title::newFromText(preg_replace('/{num.*}/', $title_number, $target_name));
+						// if title number is blank,
+						// change it to 2; otherwise,
+						// increment it
+						$title_number = ($title_number == "") ? 2 : $title_number + 1;
 					} while ($target_title->exists());
 				} else {
 					$target_title = Title::newFromText($target_name);
