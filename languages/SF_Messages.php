@@ -1104,6 +1104,25 @@ $messages['gl'] = array(
 	'sf_blank_namespace'                      => 'Principal',
 );
 
+/** Gujarati (ગુજરાતી)
+ * @author Dsvyas
+ */
+$messages['gu'] = array(
+	'sf_createform_hidden'              => 'છદ્મ',
+	'sf_createform_restricted'          => 'સંરક્ષિત (ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે)',
+	'sf_createform_mandatory'           => 'ફરજિયાત',
+	'sf_createform_removetemplate'      => 'ઢાંચો દૂર કરો',
+	'sf_createform_addtemplate'         => 'ઢાંચો ઉમેરો:',
+	'sf_createform_beforetemplate'      => 'ઢાંચા પહેલા:',
+	'sf_createform_atend'               => 'અંતમાં',
+	'sf_createform_add'                 => 'ઉમેરો',
+	'createcategory'                    => 'શ્રેણીની રચના કરો',
+	'sf_createcategory_name'            => 'નામ',
+	'sf_createcategory_makesubcategory' => 'આને અન્ય શ્રેણીની ઉપશ્રેણી બનાવો (વૈકલ્પિક):',
+	'addpage'                           => 'પાનું ઉમેરો',
+	'sf_blank_namespace'                => 'મુખ્ય',
+);
+
 /** Hebrew
  * @author Yaron Koren
  */
@@ -1696,9 +1715,9 @@ $messages['oc'] = array(
 	'sf_createtemplate_outputformat'          => 'Format de sortida :',
 	'sf_createtemplate_standardformat'        => 'Estandard',
 	'sf_createtemplate_infoboxformat'         => 'Infobox de drecha',
-	'sf_createtemplate_addfield'              => 'Ajustar un camp',
+	'sf_createtemplate_addfield'              => 'Apondre un camp',
 	'sf_createtemplate_deletefield'           => 'Escafa',
-	'sf_createtemplate_addtemplatebeforesave' => 'Devètz ajustar al mens un modèl a aqueste formulari abans de lo poder salvagardar.',
+	'sf_createtemplate_addtemplatebeforesave' => 'Devètz apondre al mens un modèl a aqueste formulari abans de lo poder salvagardar.',
 	'forms'                                   => 'Formularis',
 	'sf_forms_docu'                           => 'Los formularis seguents existisson dins lo wiki.',
 	'createform'                              => 'Crear un formulari',
@@ -1722,25 +1741,25 @@ $messages['oc'] = array(
 	'sf_createform_restricted'                => 'Restrench',
 	'sf_createform_mandatory'                 => 'Obligatòri',
 	'sf_createform_removetemplate'            => 'Levar aqueste modèl',
-	'sf_createform_addtemplate'               => 'Ajustar un modèl :',
+	'sf_createform_addtemplate'               => 'Apondre un modèl :',
 	'sf_createform_beforetemplate'            => 'Abans lo modèl :',
 	'sf_createform_atend'                     => 'A la fin',
-	'sf_createform_add'                       => 'Ajustar',
+	'sf_createform_add'                       => 'Apondre',
 	'sf_createform_choosefield'               => "Causissètz un camp d'ajustar",
 	'createcategory'                          => 'Crear una categoria',
 	'sf_createcategory_name'                  => 'Nom :',
 	'sf_createcategory_defaultform'           => 'Formulari per defaut :',
 	'sf_createcategory_makesubcategory'       => "Crea una soscategoria d'una autra categoria (facultatiu) :",
-	'addpage'                                 => 'Ajustar una pagina',
+	'addpage'                                 => 'Apondre una pagina',
 	'sf_addpage_badform'                      => 'Error : cap de pagina de formulari es pas estada trobada sus $1.',
-	'sf_addpage_docu'                         => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, serètz redirigit vèrs lo que permet de l'ajustar.",
-	'sf_addpage_noform_docu'                  => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb loqual serà editada. Se aquesta pagina existís ja, serètz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'ajustar.",
-	'addoreditdata'                           => 'Modificar o ajustar de donadas',
-	'adddata'                                 => 'Ajustar de donadas',
-	'sf_adddata_title'                        => 'Ajustar $1 : $2',
-	'sf_adddata_badurl'                       => "Aquò es la pagina per ajustar las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:AddData?form=&lt;nom de formulari&gt;&target=&lt;nom de pagina cibla&gt; » o « Special:AddData/&lt;nom de formulari&gt;/&lt;nom de pagina cibla&gt; ».",
-	'sf_adddata_altforms'                     => 'Podètz, a la plaça, ajustar aquesta pagina amb un dels formularis seguents :',
-	'sf_adddata_altformsonly'                 => 'Se vos plai, seleccionatz un dels formularis seguents per ajustar aquesta pagina :',
+	'sf_addpage_docu'                         => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'apondre.",
+	'sf_addpage_noform_docu'                  => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb loqual serà editada. Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'apondre.",
+	'addoreditdata'                           => 'Modificar o apondre de donadas',
+	'adddata'                                 => 'Apondre de donadas',
+	'sf_adddata_title'                        => 'Apondre $1 : $2',
+	'sf_adddata_badurl'                       => "Aquò es la pagina per apondre las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:AddData?form=&lt;nom de formulari&gt;&target=&lt;nom de pagina cibla&gt; » o « Special:AddData/&lt;nom de formulari&gt;/&lt;nom de pagina cibla&gt; ».",
+	'sf_adddata_altforms'                     => 'Podètz, a la plaça, apondre aquesta pagina amb un dels formularis seguents :',
+	'sf_adddata_altformsonly'                 => 'Se vos plai, seleccionatz un dels formularis seguents per apondre aquesta pagina :',
 	'editdata'                                => 'Modificar las donadas',
 	'form_edit'                               => 'Modificar amb un formulari',
 	'edit_source'                             => 'Editar la font',
@@ -1748,7 +1767,7 @@ $messages['oc'] = array(
 	'sf_editdata_badurl'                      => "Aquò es la pagina per modificar las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:EditData?form=&lt;nom de formulari&gt;&target=&lt;nom de pagina cibla&gt; » o « Special:EditData/&lt;nom de formulari&gt;/&lt;nom de pagina cibla&gt; ».",
 	'sf_editdata_formwarning'                 => 'Atencion : aquesta pagina <a href="$1">existís ja</a>, mas utiliza pas aqueste formulari.',
 	'sf_editdata_remove'                      => 'Levar',
-	'sf_editdata_addanother'                  => 'Ajustar un autre',
+	'sf_editdata_addanother'                  => 'Apondre un autre',
 	'sf_editdata_none'                        => 'Cap',
 	'sf_formerrors_header'                    => 'I a cèrtas errors dins lo formulari. Cf. çaijós.',
 	'sf_blank_error'                          => 'pòt pas èsser blanc',
@@ -1763,7 +1782,7 @@ $messages['oc'] = array(
 	'sf_property_isrelation'                  => 'Aquò es una relacion.',
 	'sf_template_docu'                        => 'Aquò es lo modèl « $1 ». Deuriá èsser apelat segon lo format seguent :',
 	'sf_template_docufooter'                  => 'Modificar la pagina per veire lo tèxt del modèl.',
-	'sf_form_docu'                            => "Aquò es lo formulari « $1 ». Per ajustar una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit vèrs un formulari destinat a l'editar.",
+	'sf_form_docu'                            => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit vèrs un formulari destinat a l'editar.",
 	'sf_form_freetextlabel'                   => 'Tèxt liure',
 	'sf_category_hasdefaultform'              => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc'                        => 'Aquò es la categoria « $1 ».',
@@ -2190,6 +2209,14 @@ $messages['sk'] = array(
 	'sf_blank_namespace'                      => 'Hlavná',
 );
 
+/** Serbian Cyrillic ekavian (ћирилица)
+ * @author Sasa Stefanovic
+ */
+$messages['sr-ec'] = array(
+	'sf_editdata_remove' => 'Уклони',
+	'sf_editdata_none'   => 'Нема',
+);
+
 /** Seeltersk (Seeltersk)
  * @author Pyt
  */
@@ -2370,7 +2397,7 @@ $messages['tet'] = array(
 	'sf_createcategory_name'        => 'Naran:',
 );
 
-/** Tajik (Тоҷикӣ)
+/** Tajik (Cyrillic) (Тоҷикӣ/tojikī (Cyrillic))
  * @author Ibrahim
  */
 $messages['tg-cyrl'] = array(
@@ -2385,7 +2412,11 @@ $messages['tg-cyrl'] = array(
 	'sf_createtemplate_namelabel'        => 'Номи шаблон:',
 	'sf_createtemplate_categorylabel'    => 'Таъйиди гурӯҳ бо воситаи шаблон (ихтиёрӣ):',
 	'sf_createtemplate_templatefields'   => 'Вурудиҳои шаблон',
+	'sf_createtemplate_deletefield'      => 'Ҳафз',
+	'sf_createform_template'             => 'Шаблон:',
+	'sf_createform_inputtypedefault'     => '(пешфарз)',
 	'sf_createcategory_name'             => 'Ном:',
+	'editdata'                           => 'Вироиши дода',
 	'sf_editdata_remove'                 => 'Ҳазф',
 	'sf_editdata_addanother'             => 'Иловаи дигаре',
 	'sf_editdata_none'                   => 'Ҳеҷ кадом',
