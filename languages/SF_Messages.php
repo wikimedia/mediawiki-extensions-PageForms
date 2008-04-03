@@ -1804,6 +1804,7 @@ $messages['pl'] = array(
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
+	'createproperty'                     => 'يوه ځانتيا ځانګړې کول',
 	'sf_createproperty_propname'         => 'نوم:',
 	'sf_createproperty_proptype'         => 'ډول:',
 	'templates'                          => 'کينډۍ',
@@ -1820,11 +1821,13 @@ $messages['ps'] = array(
 	'createcategory'                     => 'يوه وېشنيزه جوړول',
 	'sf_createcategory_name'             => 'نوم:',
 	'addpage'                            => 'مخ ورګډول',
+	'adddata'                            => 'مالومات ورګډول',
 	'sf_editdata_addanother'             => 'يو بل ورګډول',
 	'sf_editdata_none'                   => 'هېڅ',
 	'sf_bad_email_error'                 => 'بايد چې برېښليک پته يوه سمه بڼه ولري',
 	'sf_bad_number_error'                => 'بايد چې يوه سمه شمېره وي',
 	'sf_bad_date_error'                  => 'بايد چې يوه سمه نېټه وي',
+	'sf_form_freetextlabel'              => 'خپلواکه متن',
 	'sf_category_desc'                   => 'همدا د $1 وېشنيزه ده.',
 );
 
