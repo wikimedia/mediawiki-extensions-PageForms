@@ -1172,6 +1172,17 @@ $messages['he'] = array(
 	'sf_blank_error'                     => 'לא יכול להיות ריק',
 );
 
+/** Hindi (हिन्दी)
+ * @author Kaustubh
+ */
+$messages['hi'] = array(
+	'sf_createproperty_propname' => 'नाम:',
+	'sf_createform_add'          => 'बढायें',
+	'sf_createcategory_name'     => 'नाम:',
+	'addpage'                    => 'पन्ना बढायें',
+	'sf_editdata_remove'         => 'हटायें',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
