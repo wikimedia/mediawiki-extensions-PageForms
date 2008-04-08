@@ -1802,9 +1802,11 @@ $messages['oc'] = array(
 
 /** Polish (Polski)
  * @author McMonster
+ * @author Sp5uhe
  */
 $messages['pl'] = array(
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
+	'sf_createtemplate_deletefield'  => 'Usuń',
 	'sf_createform_field'            => 'Pole:',
 	'edit_source'                    => 'Edytuj źródło',
 	'sf_editdata_title'              => 'Edytuj $1: $2',
