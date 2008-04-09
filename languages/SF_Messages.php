@@ -395,6 +395,19 @@ $messages['ca'] = array(
 	'sf_createform_hidden'   => 'Amagat',
 );
 
+/** Czech (Česky)
+ * @author Matěj Grabovský
+ */
+$messages['cs'] = array(
+	'createproperty'                     => 'Vytvořit vlastnost',
+	'sf_createproperty_propname'         => 'Název:',
+	'sf_createproperty_proptype'         => 'Typ:',
+	'templates'                          => 'Šablony',
+	'sf_createtemplate_fieldname'        => 'Název pole:',
+	'sf_createtemplate_displaylabel'     => 'Zobrazované označení:',
+	'sf_createtemplate_semanticproperty' => 'Sémantická vlastnost:',
+);
+
 /** Danish (Dansk)
  * @author Jon Harald Søby
  */
@@ -1176,11 +1189,15 @@ $messages['he'] = array(
  * @author Kaustubh
  */
 $messages['hi'] = array(
-	'sf_createproperty_propname' => 'नाम:',
-	'sf_createform_add'          => 'बढायें',
-	'sf_createcategory_name'     => 'नाम:',
-	'addpage'                    => 'पन्ना बढायें',
-	'sf_editdata_remove'         => 'हटायें',
+	'sf_createproperty_propname'    => 'नाम:',
+	'sf_createtemplate_deletefield' => 'हटायें',
+	'sf_createform_field'           => 'फिल्ड़:',
+	'sf_createform_add'             => 'बढायें',
+	'sf_createcategory_name'        => 'नाम:',
+	'addpage'                       => 'पन्ना बढायें',
+	'sf_editdata_remove'            => 'हटायें',
+	'sf_editdata_none'              => 'बिल्कुल नहीं',
+	'sf_form_freetextlabel'         => 'मुक्त पाठ',
 );
 
 /** Upper Sorbian (Hornjoserbsce)
@@ -1728,7 +1745,7 @@ $messages['oc'] = array(
 	'sf_createtemplate_infoboxformat'         => 'Infobox de drecha',
 	'sf_createtemplate_addfield'              => 'Apondre un camp',
 	'sf_createtemplate_deletefield'           => 'Escafa',
-	'sf_createtemplate_addtemplatebeforesave' => 'Devètz apondre al mens un modèl a aqueste formulari abans de lo poder salvagardar.',
+	'sf_createtemplate_addtemplatebeforesave' => 'Devètz apondre almens un modèl a aqueste formulari abans de lo poder salvagardar.',
 	'forms'                                   => 'Formularis',
 	'sf_forms_docu'                           => 'Los formularis seguents existisson dins lo wiki.',
 	'createform'                              => 'Crear un formulari',
