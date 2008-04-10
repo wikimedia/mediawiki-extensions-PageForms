@@ -393,6 +393,7 @@ $messages['bn'] = array(
 $messages['ca'] = array(
 	'sf_createform_template' => 'Plantilla:',
 	'sf_createform_hidden'   => 'Amagat',
+	'sf_editdata_none'       => 'Cap',
 );
 
 /** Czech (Česky)
