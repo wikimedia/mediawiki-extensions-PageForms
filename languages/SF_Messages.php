@@ -2442,6 +2442,15 @@ $messages['sv'] = array(
 	'sf_blank_namespace'               => 'Huvud',
 );
 
+/** Silesian (ślůnski)
+ * @author Herr Kriss
+ */
+$messages['szl'] = array(
+	'sf_createproperty_propname' => 'Mjano:',
+	'sf_createform_add'          => 'Dodej',
+	'sf_createcategory_name'     => 'Mjano:',
+);
+
 /** Telugu (తెలుగు)
  * @author Veeven
  */
