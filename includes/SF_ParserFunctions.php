@@ -2,7 +2,7 @@
 /**
  * Parser functions for Semantic Forms.
  *
- * Two parser functions are currently defined: 'forminput' and 'arraymap'.
+ * Three parser functions are defined: 'forminput', 'formlink' and 'arraymap'.
  *
  * 'forminput' is called as:
  *
@@ -23,6 +23,29 @@
  * preload with the page called 'UserStub', you could call the following:
  *
  * {{#forminput:User|||Add or edit user|namespace=User&preload=UserStub}}
+ *
+ *
+ * 'formlink' is called as:
+ *
+ * {{#formlink:form_name|link_text|link_type|query_string}}
+ *
+ * This function returns HTML representing a link to a form; given that
+ * no page name is entered by the the user, the form must be one that
+ * creates an automatic page name, or else it will display an error
+ * message when the user clicks on the link.
+ *
+ * The first two arguments are mandatory: form_name is the name of the SF
+ * form, and link_text is the text of the link. link_type is the type of
+ * the link: if set to 'button', the link will be a button; if set to
+ * blank or anything else, it will be a standard hyperlink. query_string
+ * is the text to be added to the generated URL's query string.
+ *
+ * Example: to create a link to add data with a form called
+ * 'User' within a namespace also called 'User', and to have the form
+ * preload with the page called 'UserStub', you could call the following:
+ *
+ * {{#formlink:User|Add a user||namespace=User&preload=UserStub}}
+ *
  *
  * 'arraymap' is called as:
  *
@@ -48,6 +71,7 @@
 function sfgParserFunctions () {
 	global $wgParser;
 	$wgParser->setFunctionHook('forminput', 'sfRenderFormInput');
+	$wgParser->setFunctionHook('formlink', 'sfRenderFormLink');
 	$wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
 }
 
@@ -55,9 +79,26 @@ function sffLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 	switch ( $langCode ) {
 	default:
 		$magicWords['forminput']	= array ( 0, 'forminput' );
+		$magicWords['formlink']		= array ( 0, 'formlink' );
 		$magicWords['arraymap']		= array ( 0, 'arraymap' );
 	}
 	return true;
+}
+
+function sfRenderFormLink (&$parser, $inFormName = '', $inLinkStr = '', $inLinkType='', $inQueryStr = '') {
+	$ad = SpecialPage::getPage('AddData');
+	$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
+	if ($inQueryStr != '') {
+		$link_url .= (strstr($link_url, '?')) ? '&' : '?';
+		$link_url .= $inQueryStr;
+	}
+	$link_url = str_replace(' ', '_', $link_url);
+	if ($inLinkType == 'button') {
+		$str = "<form><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
+	} else {
+		$str = "<a href=\"$link_url\">$inLinkStr</a>";
+	}
+	return array($str, 'noparse' => 'true', 'isHTML' => 'true');
 }
 
 function sfRenderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue = '', $inButtonStr = '', $inQueryStr = '') {
