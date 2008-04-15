@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','1.0.2');
+define('SF_VERSION','1.0.3');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -17,19 +17,25 @@ $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 $wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
 $wgHooks['BrokenLink'][] = 'sffSetBrokenLink';
-$wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 require_once($sfgIP . '/languages/SF_Language.php');
+
+if (version_compare($wgVersion, '1.11', '>=' )) {
+	$wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
+} else {
+	$wgExtensionFunctions[] = 'sffLoadMessagesManually';
+}
 
 /**
  *  Do the actual intialisation of the extension. This is just a delayed init that makes sure
  *  MediaWiki is set up properly before we add our stuff.
  */
 function sfgSetupExtension() {
-	global $sfgVersion, $sfgNamespace, $sfgIP, $wgExtensionCredits, $wgArticlePath, $wgScriptPath, $wgServer;
+	global $sfgIP, $wgVersion, $wgExtensionCredits;
 
-	sffInitMessages();
+	if (version_compare($wgVersion, '1.11', '>=' ))
+		wfLoadExtensionMessages('SemanticForms');
 
 	/**********************************************/
 	/***** register specials                  *****/
@@ -175,7 +181,7 @@ function sffInitMessages() {
 
 /**
  * Setting of message cache for versions of MediaWiki that do not support
- * wgExtensionFunctions - based on ceContributionScores() in
+ * wgExtensionMessageFiles - based on ceContributionScores() in
  * ContributionScores extension
  */
 function sffLoadMessagesManually() {
