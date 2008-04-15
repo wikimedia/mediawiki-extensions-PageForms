@@ -468,6 +468,7 @@ class SFFormPrinter {
           // get the value from the request, if it's there, and if it's not
           // an array
           if (isset($template_instance_query_values) &&
+              $template_instance_query_values != null &&
               array_key_exists($field_name, $template_instance_query_values)) {
             $field_query_val = $template_instance_query_values[$field_name];
             if ($form_submitted || ($field_query_val && ! is_array($field_query_val))) {
@@ -662,7 +663,10 @@ class SFFormPrinter {
             // if the field is a date field, and its default value was set
             // to 'now', and it has no current value, set $cur_value to be
             // the current date
-            if ($default_value == 'now' && $cur_value == '') {
+            if ($default_value == 'now' &&
+                // if the date is hidden, cur_value will already be set
+                // to the default value
+                ($cur_value == '' || $cur_value == 'now')) {
               if ($input_type == 'date' || $input_type == 'datetime' ||
                   $input_type == 'datetime with timezone' ||
                   ($input_type == '' && $form_field->template_field->field_type == 'Date')) {
@@ -674,20 +678,20 @@ class SFFormPrinter {
                 if ($wgAmericanDates == true) {
                   $month_names = sffGetMonthNames();
                   $month_name = $month_names[$month - 1];
-                  $cur_value = "$month_name $day, $year";
+                  $cur_value_in_template = "$month_name $day, $year";
                 } else {
-                  $cur_value = "$year/$month/$day";
+                  $cur_value_in_template = "$year/$month/$day";
                 }
                 if ($input_type ==  'datetime' || $input_type == 'datetime with timezone') {
                   $hour = str_pad(intval(substr(date("g", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
                   $minute = str_pad(intval(substr(date("i", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
                   $second = str_pad(intval(substr(date("s", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
                   $ampm = date("A", $cur_time);
-                  $cur_value .= " $hour:$minute:$second $ampm";
+                  $cur_value_in_template .= " $hour:$minute:$second $ampm";
                 }
                 if ($input_type == 'datetime with timezone') {
                   $timezone = date("T", $cur_time);
-                  $cur_value .= " $timezone";
+                  $cur_value_in_template .= " $timezone";
                 }
               }
             }
