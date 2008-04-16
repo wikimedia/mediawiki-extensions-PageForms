@@ -1805,7 +1805,7 @@ $messages['oc'] = array(
 	'sf_createtemplate_infoboxformat'         => 'Infobox de drecha',
 	'sf_createtemplate_addfield'              => 'Apondre un camp',
 	'sf_createtemplate_deletefield'           => 'Escafa',
-	'sf_createtemplate_addtemplatebeforesave' => 'Devètz apondre almens un modèl a aqueste formulari abans de lo poder salvagardar.',
+	'sf_createtemplate_addtemplatebeforesave' => 'Vos cal apondre almens un modèl a aqueste formulari abans de lo poder salvagardar.',
 	'forms'                                   => 'Formularis',
 	'sf_forms_docu'                           => 'Los formularis seguents existisson dins lo wiki.',
 	'createform'                              => 'Crear un formulari',
@@ -2306,6 +2306,7 @@ $messages['sk'] = array(
  * @author Sasa Stefanovic
  */
 $messages['sr-ec'] = array(
+	'sf_createform_add'  => 'Додај',
 	'sf_editdata_remove' => 'Уклони',
 	'sf_editdata_none'   => 'Нема',
 );
