@@ -1888,6 +1888,7 @@ $messages['pl'] = array(
 	'edit_source'                    => 'Edytuj źródło',
 	'sf_editdata_title'              => 'Edytuj $1: $2',
 	'sf_editdata_remove'             => 'Usuń',
+	'sf_editdata_none'               => 'Brak',
 );
 
 /** Pashto (پښتو)
