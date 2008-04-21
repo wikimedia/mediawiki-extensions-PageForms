@@ -1935,8 +1935,8 @@ $messages['ps'] = array(
 
 /** Portuguese (Português)
  * @author 555
- * @author Lijealso
  * @author Malafaya
+ * @author Lijealso
  */
 $messages['pt'] = array(
 	'createproperty'                          => 'Criar uma propriedade',
@@ -1973,6 +1973,7 @@ $messages['pt'] = array(
 	'sf_createform_fieldrel'                  => 'Este campo define a relação $1.',
 	'sf_createform_fieldrellist'              => 'Este campo define a lista de elementos que possuem a relação $1.',
 	'sf_createform_fieldprop'                 => 'Este campo define a propriedade $1, do tipo $2.',
+	'sf_createform_fieldproplist'             => 'Este campo define uma lista de elementos que possuem a propriedade $1, do tipo $2.',
 	'sf_createform_inputtype'                 => 'Tipo de entrada:',
 	'sf_createform_inputtypedefault'          => '(padrão)',
 	'sf_createform_formlabel'                 => 'Etiqueta do formulário:',
