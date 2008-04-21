@@ -1887,6 +1887,13 @@ $messages['oc'] = array(
 	'sf_blank_namespace'                      => 'Principal',
 );
 
+/** Ossetic (Иронау)
+ * @author Amikeco
+ */
+$messages['os'] = array(
+	'sf_createtemplate_deletefield' => 'Аппар',
+);
+
 /** Polish (Polski)
  * @author McMonster
  * @author Sp5uhe
