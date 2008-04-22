@@ -5,14 +5,17 @@
  * for the specified form input, using the specified values and delimiter
  * (in the case that it's a multiple-values autocompletion)
  */
-function sf_autocomplete(input_name, container_name, values, data_type, delimiter, data_source) {
-    // Instantiate JS Function DataSource
+function sf_autocomplete(input_name, container_name, values, api_url, data_type, delimiter, data_source) {
+    // Instantiate JS Function DataSource - the type depends on whether
+    // it gets autocompletion values locallly or remotely (through Ajax);
+    // which in turn is set depending on whether the 'values' or the
+    // 'data_type' and 'api_url' parameters are set
     if (values != null) {
         this.oACDS = new YAHOO.widget.DS_JSFunction(autocompleteFunctionGenerator(values));
         this.oACDS.maxCacheEntries = 0;
         this.oAutoComp = new YAHOO.widget.AutoComplete(input_name, container_name, this.oACDS);
     } else {
-        var myServer = "http://discoursedb.org/w/api.php";
+        var myServer = api_url;
         var mySchema = ["sfautocomplete", "title"];
         this.oACDS = new YAHOO.widget.DS_XHR(myServer, mySchema);
         this.oACDS.scriptQueryParam = "substr";

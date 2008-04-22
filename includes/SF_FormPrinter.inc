@@ -99,7 +99,7 @@ class SFFormPrinter {
   }
 
   function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null) {
-    global $wgRequest, $wgUser, $wgParser;
+    global $wgRequest, $wgUser, $wgParser, $wgScriptPath;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
     global $sfgJSValidationCalls; // array of Javascript calls to determine if page can be saved
@@ -1289,9 +1289,9 @@ function attachAutocompleteToField(input_id)
 				}
 			}
 			if (autocompletestrings[field_string] != null) {
-				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null, delimiter, data_source);
+				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null, null, delimiter, data_source);
 			} else {
-				sf_autocomplete(input_id, div_id, null, autocompletedatatypes[field_string], delimiter, data_source);
+				sf_autocomplete(input_id, div_id, null, "{$wgScriptPath}/api.php", autocompletedatatypes[field_string], delimiter, data_source);
 			}
 		}
 	}
