@@ -442,6 +442,8 @@ class SFFormPrinter {
               $is_list = true;
             } elseif ($component == 'autocomplete') {
               $field_args['autocomplete'] = true;
+            } elseif ($component == 'remote autocompletion') {
+              $field_args['remote_autocompletion'] = true;
             } else {
               $sub_components = explode('=', $component);
               if (count($sub_components) == 2) {
@@ -1233,8 +1235,9 @@ function removeInstance(div_id) {
 		hideOrShowFieldset(parent);
 }
 
-var autocompletestrings = new Array();
 var autocompletemappings = new Array();
+var autocompletestrings = new Array();
+var autocompletedatatypes = new Array();
 
 //Activate autocomplete functionality for every field on the document
 function attachAutocompleteToAllDocumentFields()
@@ -1277,14 +1280,18 @@ function attachAutocompleteToField(input_id)
 			var div_id = input_id.replace(/input_/g, 'div_');
 			var field_values = new Array();
 			field_values = field_string.split(',');
+			var delimiter = null;
+			var data_source = field_values[0];
 			if (field_values[1] == 'list') {
-				var delimiter = ",";
+				delimiter = ",";
 				if (field_values[2] != null) {
 					delimiter = field_values[2];
 				}
-				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], delimiter);
+			}
+			if (autocompletestrings[field_string] != null) {
+				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null, delimiter, data_source);
 			} else {
-				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null);
+				sf_autocomplete(input_id, div_id, null, autocompletedatatypes[field_string], delimiter, data_source);
 			}
 		}
 	}
@@ -1391,86 +1398,6 @@ END;
     return array($text, $javascript_text);
   }
 
-  function getAllPagesForProperty_0_7($is_relation, $property_name) {
-    global $sfgMaxAutocompleteValues;
-
-    $fname = "SFFormPrinter::getAllPagesForRelation_0_7";
-    $pages = array();
-    $db = wfGetDB( DB_SLAVE );
-    $sql_options = array();
-    $sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-    $property_field = ($is_relation) ? 'relation_title' : 'attribute_title'; 
-    $value_field = ($is_relation) ? 'object_title' : 'value_xsd'; 
-    $property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes'; 
-    $conditions = "$property_field = '$property_name'";
-    $sql_options['ORDER BY'] = $value_field;
-    $res = $db->select( $db->tableName($property_table),
-                        "DISTINCT $value_field",
-                        $conditions, $fname, $sql_options);
-    while ($row = $db->fetchRow($res)) {
-      $cur_value = str_replace("'", "\'", $row[0]);
-      $pages[] = str_replace('_', ' ', $cur_value);
-    }
-    $db->freeResult($res);
-    return $pages;
-  }
-
-  /*
-   * Get all the pages that belong to a category and all its subcategories,
-   * down a certain number of levels - heavily based on SMW's
-   * SMWInlineQuery::includeSubcategories()
-   */
-  function getAllPagesForCategory($top_category, $num_levels) {
-    if (0 == $num_levels) return $top_category;
-    global $sfgMaxAutocompleteValues;
-
-    $db = wfGetDB( DB_SLAVE );
-    $fname = "SFFormPrinter::getAllPagesForCategory";
-    $categories = array($top_category);
-    $checkcategories = array($top_category);
-    $pages = array();
-    for ($level = $num_levels; $level > 0; $level--) {
-      $newcategories = array();
-      foreach ($checkcategories as $category) {
-        $res = $db->select( // make the query
-          array('categorylinks', 'page'),
-          array('page_title', 'page_namespace'),
-          array('cl_from = page_id',
-          'cl_to = '. $db->addQuotes($category)),
-          $fname);
-          if ($res) {
-            while ($res && $row = $db->fetchRow($res)) {
-            if (array_key_exists('page_title', $row)) {
-              $page_namespace = $row['page_namespace'];
-              if ($page_namespace == NS_CATEGORY) { 
-                $new_category = $row[ 'page_title' ];
-                if (!in_array($new_category, $categories)) {
-                  $newcategories[] = $new_category;
-                }
-              } else {
-                $cur_value = str_replace("'", "\'", $row['page_title']);
-                $pages[] = str_replace("_", " ", $cur_value);
-                // return if we've reached the maximum number of allowed values
-                if (count($pages) > $sfgMaxAutocompleteValues)
-                  return $pages;
-              }
-            }
-          }
-          $db->freeResult( $res );
-        }
-      }
-      if (count($newcategories) == 0) {
-        sort($pages);
-        return $pages;
-      } else {
-        $categories = array_merge($categories, $newcategories);
-      }
-      $checkcategories = array_diff($newcategories, array());
-    }
-    sort($pages);
-    return $pages;
-  }
-
   function createAutocompleteValuesArray($field_name, $autocomplete_field_type) {
     $names_array = array();
     // the query depends on whether this field is a relation (property of type
@@ -1479,39 +1406,19 @@ END;
       $is_relation = ($autocomplete_field_type == 'relation');
       $smw_version = SMW_VERSION;
       if ($smw_version{0} == '0') {
-        $names_array = $this->getAllPagesForProperty_0_7($is_relation, $field_name);
+        $names_array = sffGetAllPagesForProperty_0_7($is_relation, $field_name);
       } else {
         // TODO: Create the 1.0 version of this function, using
         // SMWStore::getPropertyValues().
         // For now, we'll just use the 0.7 version - this forces the data
         // store to be a database, but hopefully that's not a problem for
         // any users yet
-        $names_array = $this->getAllPagesForProperty_0_7($is_relation, $field_name);
+        $names_array = sffGetAllPagesForProperty_0_7($is_relation, $field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
-      $names_array = $this->getAllPagesForCategory($field_name, 10);
+      $names_array = sffGetAllPagesForCategory($field_name, 10);
     } else { // i.e., $autocomplete_field_type == 'namespace'
-      // cycle through all the namespace names for this language, and if
-      // one matches the namespace specified in the form, add the names
-      // of all the pages in that namespace to $names_array
-      global $wgContLang;
-      $namespaces = $wgContLang->getNamespaces();
-      $db = wfGetDB( DB_SLAVE );
-      $fname = "SFFormPrinter::createAutocompleteValuesArray";
-      foreach ($namespaces as $ns_code => $ns_name) {
-        if ($ns_name == $field_name) {
-          $conditions = "page_namespace = $ns_code";
-          $sql_options['ORDER BY'] = 'page_title';
-          $res = $db->select( $db->tableNames('page'),
-                              'page_title',
-                              $conditions, $fname, $sql_options);
-          while ($row = $db->fetchRow($res)) {
-            $cur_value = str_replace("'", "\'", $row[0]);
-            $names_array[] = str_replace('_', ' ', $cur_value);
-          }
-          $db->freeResult($res);
-        }
-      }
+      $names_array = sffGetAllPagesForNamespace($field_name);
     }
     return $names_array;
   }
@@ -1779,11 +1686,15 @@ END;
         $options_str_key .= "," . $other_args['delimiter'];
       }
     }
-    $autocomplete_values = $this->createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
-    $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
-    $javascript_text =<<<END
-autocompletemappings[$sfgFieldNum] = '$options_str_key';
-autocompletestrings['$options_str_key'] = $autocomplete_string;
+    $javascript_text = "autocompletemappings[$sfgFieldNum] = '$options_str_key';\n";
+    if (array_key_exists('remote_autocompletion', $other_args) &&
+        $other_args['remote_autocompletion'] == true) {
+      $javascript_text .= "autocompletedatatypes['$options_str_key'] = '$autocomplete_field_type';\n";
+    } else {
+      $autocomplete_values = $this->createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
+      $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
+      $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
+    }
 
 END;
     if ($cur_value) {
