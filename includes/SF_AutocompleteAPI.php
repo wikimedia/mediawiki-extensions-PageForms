@@ -25,10 +25,10 @@ class SFAutocompleteAPI extends ApiBase {
 
 		$params = $this->extractRequestParams();
 		$substr = $params['substr'];
-		$namespace = $params['namespace'];
+		$namespace = str_replace(' ', '_', $params['namespace']);
 		$relation = str_replace(' ', '_', $params['relation']);
 		$attribute = str_replace(' ', '_', $params['attribute']);
-		$category = $params['category'];
+		$category = str_replace(' ', '_', $params['category']);
 		$limit = $params['limit'];
 
 		if (strlen($substr) == 0)
