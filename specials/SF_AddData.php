@@ -44,7 +44,7 @@ function printAltFormsList($alt_forms, $target_name) {
 }
 
 function printAddForm($form_name, $target_name, $alt_forms) {
-	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
+	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
 	// initialize some variables
 	$page_title = NULL;
@@ -177,7 +177,6 @@ END;
 		'media' => "screen, projection",
 		'href' => $mainCssUrl
 	));
-	$sfgYUIBase = "http://yui.yahooapis.com/2.4.1/build/";
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
 		'type' => 'text/css',
@@ -193,6 +192,9 @@ END;
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'yahoo/yahoo-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'dom/dom-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'event/event-min.js"></script>' . "\n");
+	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'get/get-min.js"></script>' . "\n");
+	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'connection/connection-min.js"></script>' . "\n");
+	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'json/json-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'autocomplete/autocomplete-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
 	if (! empty($javascript_text))

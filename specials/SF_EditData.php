@@ -60,7 +60,7 @@ function sffEmbeddedEditForm($action, $article) {
 }
 
 function printEditForm($form_name, $target_name) {
-	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter;
+	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
 	$javascript_text = "";
 	// get contents of form definition file
@@ -125,7 +125,6 @@ END;
 		'media' => "screen, projection",
 		'href' => $mainCssUrl
 	));
-	$sfgYUIBase = "http://yui.yahooapis.com/2.4.1/build/";
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
 		'type' => 'text/css',
@@ -141,6 +140,9 @@ END;
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'yahoo/yahoo-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'dom/dom-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'event/event-min.js"></script>' . "\n");
+	$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'get/get-min.js"></script>' . "\n");
+	$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'connection/connection-min.js"></script>' . "\n");
+	$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'json/json-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'autocomplete/autocomplete-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
 	$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
