@@ -5,13 +5,30 @@
  * for the specified form input, using the specified values and delimiter
  * (in the case that it's a multiple-values autocompletion)
  */
-function sf_autocomplete(input_name, container_name, values, delimiter) {
+function sf_autocomplete(input_name, container_name, values, data_type, delimiter, data_source) {
     // Instantiate JS Function DataSource
-    this.oACDS = new YAHOO.widget.DS_JSFunction(autocompleteFunctionGenerator(values));
-    this.oACDS.maxCacheEntries = 0;
+    if (values != null) {
+        this.oACDS = new YAHOO.widget.DS_JSFunction(autocompleteFunctionGenerator(values));
+        this.oACDS.maxCacheEntries = 0;
+        this.oAutoComp = new YAHOO.widget.AutoComplete(input_name, container_name, this.oACDS);
+    } else {
+        var myServer = "http://discoursedb.org/w/api.php";
+        var mySchema = ["sfautocomplete", "title"];
+        this.oACDS = new YAHOO.widget.DS_XHR(myServer, mySchema);
+        this.oACDS.scriptQueryParam = "substr";
+        if (data_type == 'relation')
+            this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&relation=" + data_source;
+        else if (data_type == 'attribute')
+            this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&attribute=" + data_source;
+        else if (data_type == 'category')
+            this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&category=" + data_source;
+        else if (data_type == 'namespace')
+            this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&namespace=" + data_source;
+        this.oACDS.responseType = YAHOO.widget.DS_XHR.TYPE_JSON;
+        this.oAutoComp = new YAHOO.widget.AutoComplete(input_name, container_name, this.oACDS);
+    }
 
     // Instantiate AutoComplete
-    this.oAutoComp = new YAHOO.widget.AutoComplete(input_name, container_name, this.oACDS);
     this.oAutoComp.alwaysShowContainer = false;
     this.oAutoComp.minQueryLength = 1;
     this.oAutoComp.maxResultsDisplayed = 20;
