@@ -185,9 +185,9 @@ END;
     $dummy_state = null;
     smwfRegisterInlineQueries($parser, $dummy_text, $dummy_state);
     if (in_array("ask", $parser->getFunctionHooks())) {
-      $text .= "{{#ask:format=\"list\"|[[$aggregating_property{{PAGENAME}}]]}}\n";
+      $text .= "{{#ask:format=\"list\"|[[$aggregating_property{{SUBJECTPAGENAME}}]]}}\n";
     } else {
-      $text .= "<ask format=\"list\">[[$aggregating_property{{PAGENAME}}]]</ask>\n";
+      $text .= "<ask format=\"list\">[[$aggregating_property{{SUBJECTPAGENAME}}]]</ask>\n";
     }
   }
   $text .= "|}\n";
