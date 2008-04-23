@@ -1639,7 +1639,8 @@ END;
     } elseif (array_key_exists('autocomplete on namespace', $other_args)) {
       $autocomplete_field_type = 'namespace';
       $semantic_field_name = $other_args['autocomplete on namespace'];
-    } elseif (array_key_exists('is_relation', $other_args)) {
+    } elseif (array_key_exists('is_relation', $other_args) ||
+              (array_key_exists('field_type', $other_args) && $other_args['field_type'] == 'page')) {
       $autocomplete_field_type = 'relation';
       $semantic_field_name = $other_args['semantic_field_name'];
     } else {
@@ -1695,8 +1696,6 @@ END;
       $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
       $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
     }
-
-END;
     if ($cur_value) {
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
