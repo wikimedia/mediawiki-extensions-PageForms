@@ -659,6 +659,7 @@ function sffGetAllPagesForProperty_0_7($is_relation, $property_name, $substring 
   if ($substring != null) {
     $substring = str_replace(' ', '_', strtolower($substring));
     $substring = str_replace('_', '\_', $substring);
+    $substring = str_replace("'", "\'", $substring);
     $conditions .= " AND (LOWER($value_field) LIKE '" . $substring . "%' OR LOWER($value_field) LIKE '%\_" . $substring . "%')";
   }
   $sql_options['ORDER BY'] = $value_field;
@@ -697,6 +698,7 @@ function sffGetAllPagesForCategory($top_category, $num_levels, $substring = null
       if ($substring != null) {
         $substring = str_replace(' ', '_', strtolower($substring));
         $substring = str_replace('_', '\_', $substring);
+        $substring = str_replace("'", "\'", $substring);
         $conditions = 'cl_to = '. $db->addQuotes($category) . " AND (LOWER(page_title) LIKE '" . $substring . "%' OR LOWER(page_title) LIKE '%\_" . $substring . "%')";
       } else {
         $conditions = 'cl_to = '. $db->addQuotes($category);
@@ -757,6 +759,7 @@ function sffGetAllPagesForNamespace($namespace_name, $substring = null) {
       if ($substring != null) {
         $substring = str_replace(' ', '_', strtolower($substring));
         $substring = str_replace('_', '\_', $substring);
+        $substring = str_replace("'", "\'", $substring);
         $conditions .= " AND LOWER(page_title) LIKE '$substring%'";
       }
       $sql_options['ORDER BY'] = 'page_title';
