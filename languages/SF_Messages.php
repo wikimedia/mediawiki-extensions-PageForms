@@ -618,6 +618,7 @@ $messages['eo'] = array(
 
 /** Spanish (Español)
  * @author Cmitnick
+ * @author Jatrobat
  */
 $messages['es'] = array(
 	'createproperty'                          => 'Crear una propiedad',
