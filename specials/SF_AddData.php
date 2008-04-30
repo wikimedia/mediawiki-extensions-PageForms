@@ -65,7 +65,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 		$matches;
 		if (preg_match('/{{{info.*page name=([^\|}]*)/m', $form_definition, $matches)) {
 			$page_name_formula = str_replace('_', ' ', $matches[1]);
-		} else {
+		} elseif (count($alt_forms) == 0) {
 			$wgOut->addWikiText( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
 			return;
 		}
@@ -88,13 +88,19 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 		$page_title = str_replace('_', ' ', $target_name);
 	}
 
-	if (! $form_title || ! $form_title->exists() ) {
+	if (! $form_title || ! $form_title->exists()) {
 		if ($form_name == '')
-			$text = '<p>' . wfMsg('sf_adddata_badurl') . "</p>\n";
-		else
-			$text = '<p>' . wfMsg('sf_addpage_badform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+			$text = '<p class="error">' . wfMsg('sf_adddata_badurl') . "</p>\n";
+		else {
+			if (count($alt_forms) > 0) {
+				$text .= '<div class="infoMessage">' . wfMsg('sf_adddata_altformsonly') . ' ';
+				$text .= printAltFormsList($alt_forms, $form_name);
+				$text .= "</div>\n";
+			} else
+				$text = '<p class="error">' . wfMsg('sf_addpage_badform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+		}
 	} elseif ($target_name == '' && $page_name_formula == '') {
-		$text = '<p>' . wfMsg('sf_adddata_badurl') . "</p>\n";
+		$text = '<p class="error">' . wfMsg('sf_adddata_badurl') . "</p>\n";
 	} else {
 		$form_article = new Article($form_title);
 		$form_definition = $form_article->getContent();
@@ -159,7 +165,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 			}
 			$text = "";
 			if (count($alt_forms) > 0) {
-				$text .= '<div class="info_message">' . wfMsg('sf_adddata_altforms') . ' ';
+				$text .= '<div class="infoMessage">' . wfMsg('sf_adddata_altforms') . ' ';
 				$text .= printAltFormsList($alt_forms, $target_name);
 				$text .= "</div>\n";
 			}
