@@ -93,7 +93,7 @@ function printPropertiesDropdown($all_properties, $id, $property) {
 
 function printFieldEntryBox($id, $f, $all_properties) {
 	$dropdown_html = printPropertiesDropdown($all_properties, $id, $f->semantic_field_call);
-	$text = '	<div class="field_box">' . "\n";
+	$text = '	<div class="fieldBox">' . "\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
 	$text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
 	$text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
