@@ -857,7 +857,7 @@ class SFFormPrinter {
           $section = str_replace('[num]', "[{$instance_num}a]", $section);
           $remove_text = wfMsg('sf_editdata_remove');
           $form_text .=<<<END
-	<div id="wrapper_$sfgFieldNum" class="multiple_template">
+	<div id="wrapper_$sfgFieldNum" class="multipleTemplate">
         $section
         <input type="button" onclick="removeInstance('wrapper_$sfgFieldNum');" value="$remove_text" tabindex="$sfgTabIndex" class="remove" />
         </div>
@@ -872,7 +872,7 @@ END;
           // this is the last instance of this template - stick an 'add'
           // button in the form
         $form_text .=<<<END
-	<div id="starter_$query_template_name" class="multiple_template" style="display: none;">
+	<div id="starter_$query_template_name" class="multipleTemplate" style="display: none;">
         $section
         </div>
          <div id="main_$query_template_name"></div>
@@ -940,7 +940,7 @@ END;
     // add a warning in, if we're editing an existing page and that page
     // appears to not have been created with this form
     if ($this->mPageTitle->exists() && ($existing_page_content != '') && ! $source_page_matches_this_form) {
-      $form_text = '	<div class="warning_message">' . wfMsg('sf_editdata_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
+      $form_text = '	<div class="warningMessage">' . wfMsg('sf_editdata_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
     }
 
     //Substitute the choosers in here too.
@@ -1165,7 +1165,7 @@ END;
 		// add error header, if it's not there already
 		if (! document.getElementById("form_error_header")) {
 			var errorMsg = document.createElement('div');
-			errorMsg.innerHTML = "<div id=\"form_error_header\" class=\"warning_message\" style=\"font-size: medium\">$form_errors_header</div>";
+			errorMsg.innerHTML = "<div id=\"form_error_header\" class=\"warningMessage\" style=\"font-size: medium\">$form_errors_header</div>";
 			document.getElementById("contentSub").appendChild(errorMsg);
 		}
 		scroll(0, 0);
@@ -1184,7 +1184,7 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	//Create the new instance
 	var new_div = starter_div.cloneNode(true);
 	var div_id = 'div_gen_' + num_elements;
-	new_div.className = 'multiple_template';
+	new_div.className = 'multipleTemplate';
 	new_div.id = div_id;
 	new_div.style.display = 'block';
 	
@@ -1444,7 +1444,7 @@ END;
 
     global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
 
-    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $className = ($is_mandatory) ? "createboxInput mandatoryField" : "createboxInput";
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
@@ -1485,7 +1485,7 @@ END;
     $text =<<<END
 		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text"
         value="$cur_value" size="$size" $disabled_text/>
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 
 END;
     return array($text, null);
@@ -1516,7 +1516,7 @@ END;
     }
     $text .=<<<END
 	</select>
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 
 END;
     return array($text, null);
@@ -1567,7 +1567,7 @@ END;
     }
     $text .=<<<END
 	</select>
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 	<input type="hidden" name="$hidden_input_name" value="1" />
 
 END;
@@ -1614,7 +1614,7 @@ END;
     if ($is_mandatory)
       $text .= "	</span>";
     $text .=<<<END
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 	<input type="hidden" name="$hidden_input_name" value="1" />
 
 END;
@@ -1629,7 +1629,7 @@ END;
 
     global $sfgTabIndex, $sfgFieldNum;
 
-    $className = ($is_mandatory) ? "mandatoryField" : "autocompleteInput";
+    $className = ($is_mandatory) ? "autocompleteInput mandatoryField" : "autocompleteInput";
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
     $disabled_text = ($is_disabled) ? "disabled" : "";
@@ -1675,7 +1675,7 @@ END;
 END;
     }
     $text .=<<<END
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 	<div class="page_name_auto_complete" id="$div_name"></div>
 <script type="text/javascript">/* <![CDATA[ */
 
@@ -1736,7 +1736,7 @@ END;
 
     $text =<<<END
 	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text>$cur_value</textarea>
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 
 END;
     return array($text, null);
@@ -1794,7 +1794,7 @@ END;
     $text = $this->monthDropdownHTML($month, $input_name, $is_disabled);
     $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_day" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
     $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_year" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
-    $text .= "	<span id=\"$info_id\" class=\"error_message\"></span>";
+    $text .= "	<span id=\"$info_id\" class=\"errorMessage\"></span>";
     return array($text, null);
   }
 
@@ -1912,7 +1912,7 @@ END;
     $text =<<<END
 	<input name="{$input_name}[is_checkbox]" type="hidden" value="true" />
 	<input id="input_$sfgFieldNum" name="{$input_name}[value]" type="checkbox" class="$className" tabindex="$sfgTabIndex" $checked_str $disabled_text/>
-	<span id="$info_id" class="error_message"></span>
+	<span id="$info_id" class="errorMessage"></span>
 
 END;
     return array($text, null);
