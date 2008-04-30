@@ -8,7 +8,7 @@ textarea.createboxInput {
 }
 
 /* Used in 'create template' page */
-.field_box {
+.fieldBox {
         border: 1px black solid;
         background: #dddddd;
         padding: 10px 20px 10px 20px;
@@ -16,7 +16,7 @@ textarea.createboxInput {
 }
 
 /* Used in 'create form' page */
-.template_form {
+.templateForm {
         border: 1px black solid;
         background: #dddddd;
         padding: 0px 20px 10px 20px;
@@ -62,14 +62,14 @@ span.mandatoryFieldsSpan {
 	padding: 4px; */
 }
 
-div.info_message {
+div.infoMessage {
 	border: 1px solid #777777;
 	padding: 12px;
 	margin: 25px;
 	width:auto;
 	background: #eeeeee;
 }
-div.warning_message {
+div.warningMessage {
 	border: 1px solid #777777;
 	padding: 12px;
 	margin: 25px;
@@ -77,10 +77,10 @@ div.warning_message {
 	font-weight: bold;
 	color: red;
 }
-span.error_message {
+span.errorMessage {
 	color: red;
 }
-.multiple_template {
+.multipleTemplate {
 	background-color: #cccccc;
 	padding: 7px;
 	margin: 10px 0px 10px 0px;
