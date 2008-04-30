@@ -180,7 +180,7 @@ class SFTemplateInForm {
     $allow_multiple_text = wfMsg('sf_createform_allowmultiple');
     $text =<<<END
 	<input type="hidden" name="template_$template_num" value="$this->template_name">
-	<div class="template_form">
+	<div class="templateForm">
 	<h2>$template_str '$this->template_name'</h2>
 	<p>$template_label_input <input size=25 name="label_$template_num" value="$this->label"></p>
 	<p><input type="checkbox" name="allow_multiple_$template_num" $checked_str> $allow_multiple_text</p>
