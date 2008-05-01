@@ -202,8 +202,8 @@ $messages['ar'] = array(
 	'sf_adddata_altforms'                     => 'يمكنك كبديل إضافة هذه الصفحة مع واحد من الاستمارات التالية:',
 	'sf_adddata_altformsonly'                 => 'من فضلك اختر إحدى الاستمارات التالية لإضافة هذه الصفحة إليها:',
 	'editdata'                                => 'عدل البيانات',
-	'sf_formedit'                               => 'عدل مع الاستمارة',
-	'sf_editsource'                             => 'مصدر التعديل',
+	'sf_formedit'                             => 'عدل مع الاستمارة',
+	'sf_editsource'                           => 'مصدر التعديل',
 	'sf_editdata_title'                       => 'عدل $1: $2',
 	'sf_editdata_badurl'                      => "هذه هي الصفحة لتعديل البيانات. يجب عليك تحديد اسم استمارة وصفحة هدف في المسار؛ ينبغي أن تبدو ك 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' أو  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning'                 => 'تحذير: هذه الصفحة <a href="$1">موجودة بالفعل</a>، لكنها لا تستخدم هذه الاستمارة.',
@@ -291,8 +291,8 @@ $messages['avk'] = array(
 	'sf_adddata_title'                        => 'Loplekura va $1 : $2',
 	'sf_adddata_altformsonly'                 => 'Va tanoya vlevefa erurateza goloplekuna ko batu bu vay rebal :',
 	'editdata'                                => 'Origbetara',
-	'sf_formedit'                               => 'Betara kan erurateza',
-	'sf_editsource'                             => 'Klitabetara',
+	'sf_formedit'                             => 'Betara kan erurateza',
+	'sf_editsource'                           => 'Klitabetara',
 	'sf_editdata_title'                       => 'Betara va $1 : $2',
 	'sf_editdata_formwarning'                 => 'Obral ! Batu bu (<a href="$1">) ixam tir</a>, vexe va bata erurateza me faver.',
 	'sf_editdata_remove'                      => 'Dimplekura',
@@ -357,13 +357,13 @@ $messages['bg'] = array(
 	'createcategory'                          => 'Създаване на категория',
 	'sf_createcategory_name'                  => 'Име:',
 	'sf_createcategory_defaultform'           => 'Формуляр по подразбиране:',
-	'addpage'                                 => 'Добавяне на страница',
+	'addpage'                                 => 'Добавяне на страница с формуляр',
 	'addoreditdata'                           => 'Добавяне или редактиране',
 	'adddata'                                 => 'Добавяне на данни',
 	'sf_adddata_title'                        => 'Добавяне на $1: $2',
 	'editdata'                                => 'Редактиране на данните',
-	'sf_formedit'                               => 'Редактиране с формуляр',
-	'sf_editsource'                             => 'Редактиране на източника',
+	'sf_formedit'                             => 'Редактиране с формуляр',
+	'sf_editsource'                           => 'Редактиране на източника',
 	'sf_editdata_title'                       => 'Редактиране на $1: $2',
 	'sf_editdata_formwarning'                 => 'Внимание: Тази страница <a href="$1">вече съществува</a>, но не използва този формуляр.',
 	'sf_editdata_remove'                      => 'Премахване',
@@ -426,6 +426,7 @@ $messages['da'] = array(
 /** German (Deutsch)
  * @author Dominik Rodler
  * @author Cipher
+ * @author DaSch
  */
 $messages['de'] = array(
 	'createproperty'                          => 'Erstelle eine Eigenschaft',
@@ -492,13 +493,14 @@ $messages['de'] = array(
 	'sf_adddata_altforms'                     => 'Du kannst alternativ diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_adddata_altformsonly'                 => 'Bitte wähle eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'editdata'                                => 'Bearbeite Daten',
-	'sf_formedit'                               => 'Bearbeite mit Formular',
-	'sf_editsource'                             => 'Bearbeite Quelltext',
+	'sf_formedit'                             => 'Bearbeite mit Formular',
+	'sf_editsource'                           => 'Bearbeite Quelltext',
 	'sf_editdata_title'                       => 'Bearbeite $1: $2',
 	'sf_editdata_badurl'                      => "Dies ist die Seite zum Bearbeiten von Daten. Du musst den Namen eines Formulars UND die zu bearbeitende Seite in der URL angeben. Es sollte aussehen wie 'Special:EditData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;' oder 'Special:EditData/&lt;Formularname&gt;/&lt;Zielseite&gt;'.",
 	'sf_editdata_formwarning'                 => 'Warnung: Diese Seite <a href="$1">existiert bereits</a>, aber sie benutzt nicht dieses Formular.',
 	'sf_editdata_remove'                      => 'Entfernen',
 	'sf_editdata_addanother'                  => 'Weitere hinzufügen',
+	'sf_formerrors_header'                    => 'Deine Eingabe ist fehlerhaft; weiteres siehe unten',
 	'sf_blank_error'                          => 'Darf nicht leer sein!',
 	'sf_bad_url_error'                        => "muss das korrekte URL-Format haben, beginnend mit 'http://'",
 	'sf_bad_email_error'                      => 'muss ein gültiges Email-Adressformat haben',
@@ -515,6 +517,7 @@ $messages['de'] = array(
 	'sf_form_freetextlabel'                   => 'Freitext',
 	'sf_category_hasdefaultform'              => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc'                        => 'Dies ist die Kategorie $1.',
+	'sf_blank_namespace'                      => 'Seite',
 );
 
 /** Greek (Ελληνικά)
@@ -591,8 +594,8 @@ $messages['eo'] = array(
 	'sf_adddata_title'                        => 'Aldonu $1: $2',
 	'sf_adddata_altformsonly'                 => 'Bonvolu elekti unu el la jenaj kamparoj aldoni ĉi paĝon:',
 	'editdata'                                => 'Redaktu datenon.',
-	'sf_formedit'                               => 'Redaktu kun kamparo',
-	'sf_editsource'                             => 'Redaktu fonton',
+	'sf_formedit'                             => 'Redaktu kun kamparo',
+	'sf_editsource'                           => 'Redaktu fonton',
 	'sf_editdata_title'                       => 'Redaktu $1: $2',
 	'sf_editdata_formwarning'                 => 'Averto: Ĉi paĝo <a href="$1">jam ekzistas</a>, sed ĝi ne uzas ĉi kamparon.',
 	'sf_editdata_remove'                      => 'Forigu',
@@ -690,8 +693,8 @@ $messages['es'] = array(
 	'sf_adddata_altforms'                     => 'Usted puede también agregar esta página con uno de los siguientes formularios:',
 	'sf_adddata_altformsonly'                 => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
 	'editdata'                                => 'Editar datos',
-	'sf_formedit'                               => 'Editar con formulario',
-	'sf_editsource'                             => 'Editar fuente',
+	'sf_formedit'                             => 'Editar con formulario',
+	'sf_editsource'                           => 'Editar fuente',
 	'sf_editdata_title'                       => 'Editar $1: $2',
 	'sf_editdata_badurl'                      => "Este es la página para editar datos. Usted debe especificar tanto el nombre del formulario y la página de destino en el URL; debe verse algo como Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' o  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning'                 => 'Advertencia: Esta página <a href="$1">ya existe</a>, pero no usa este formulario.',
@@ -888,8 +891,8 @@ $messages['fi'] = array(
 	'sf_adddata_altforms'                     => 'Voit sen sijaan lisätä tämän sivun ja jonkun seuraavista lomakkeista:',
 	'sf_adddata_altformsonly'                 => 'Valitse jokin seuraavista lomakkeista, jonka haluat lisätä tällä sivulle:',
 	'editdata'                                => 'Muokkaa dataa',
-	'sf_formedit'                               => 'Muokkaa lomakkeella',
-	'sf_editsource'                             => 'Muokkaa lähdetekstiä',
+	'sf_formedit'                             => 'Muokkaa lomakkeella',
+	'sf_editsource'                           => 'Muokkaa lähdetekstiä',
 	'sf_editdata_title'                       => 'Muokkaa $1: $2',
 	'sf_editdata_badurl'                      => 'Tämä sivu on datan muokkaamista varten. Sinun täytyy määritellä sekä lomakkeen nimi ja kohdesivu URL-osoitteessa. Sen pitäisi olla muotoa ”Special:EditData?form=&lt;lomakkeen nimi&gt;&target=&lt;kohdesivu&gt;” tai ”Special:EditData/&lt;lomakkeen nimi&gt;/&lt;kohdesivu&gt;”.',
 	'sf_editdata_formwarning'                 => 'Varoitus: sivu <a href="$1">on jo olemassa</a>, mutta se ei käytä tätä lomaketta.',
@@ -991,8 +994,9 @@ $messages['fr'] = array(
 	'sf_adddata_altforms'                     => "Vous pouvez, à la place, ajouter cette page avec l'un des formulaires suivants :",
 	'sf_adddata_altformsonly'                 => "Vous êtes prié de sélectionner l'un des formulaires suivants pour ajouter cette page :",
 	'editdata'                                => 'Modifier les données',
-	'sf_formedit'                               => 'Modifier avec un formulaire',
-	'sf_editsource'                             => 'Éditer la source',
+	'sf_formedit'                             => 'Modifier avec un formulaire',
+	'sf_viewform'                             => 'Voir le formulaire',
+	'sf_editsource'                           => 'Éditer la source',
 	'sf_editdata_title'                       => 'Éditer $1 : $2',
 	'sf_editdata_badurl'                      => "Ceci est la page pour modifier les données. Il faut indiquer un nom de formulaire et une page cible dans l'URL; l'URL doit ressembler à « Special:EditData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:EditData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».",
 	'sf_editdata_formwarning'                 => 'Attention : cette page <a href="$1">existe déjà</a>, mais elle n\'utilise pas ce formulaire.',
@@ -1092,8 +1096,8 @@ $messages['gl'] = array(
 	'sf_adddata_altforms'                     => 'Vostede pode engadir esta páxina cun dos seguintes formularios:',
 	'sf_adddata_altformsonly'                 => 'Seleccione dun dos seguintes formularios para engadir a esta páxina:',
 	'editdata'                                => 'Editar datos',
-	'sf_formedit'                               => 'Editar con formulario',
-	'sf_editsource'                             => 'Editar orixe',
+	'sf_formedit'                             => 'Editar con formulario',
+	'sf_editsource'                           => 'Editar orixe',
 	'sf_editdata_title'                       => 'Editar $1: $2',
 	'sf_editdata_badurl'                      => "Esta é a páxina para editar os datos. Ha de especificar un nome de formulario e unha páxina de destino no URL; deberían ser algo así como \"Special:EditData?form=&lt;nome do formulario&gt;&target=&lt;páxina de destino&gt;' ou  'Special:EditData/&lt;nome do formulario&gt;/&lt;páxina de destino&gt;'.",
 	'sf_editdata_formwarning'                 => 'Aviso: Esta páxina <a href="$1">xa existe</a>, pero non usa este formulario.',
@@ -1245,8 +1249,8 @@ $messages['hi'] = array(
 	'adddata'                            => 'डाटा बढायें',
 	'sf_adddata_title'                   => 'बढायें $1: $2',
 	'editdata'                           => 'डाटा बदलें',
-	'sf_formedit'                          => 'फ़ार्म के साथ बदलें',
-	'sf_editsource'                        => 'स्रोत बदलें',
+	'sf_formedit'                        => 'फ़ार्म के साथ बदलें',
+	'sf_editsource'                      => 'स्रोत बदलें',
 	'sf_editdata_title'                  => 'बदलें $1: $2',
 	'sf_editdata_remove'                 => 'हटायें',
 	'sf_editdata_addanother'             => 'दूसरा बढायें',
@@ -1335,8 +1339,8 @@ $messages['hsb'] = array(
 	'sf_adddata_altforms'                     => 'Móžeš město toho tutu stronu z jednym ze slědowacych formularow přidać:',
 	'sf_adddata_altformsonly'                 => 'Wubjer přošu jedyn ze slědowacych formularow, zo by tutu stronu přidał:',
 	'editdata'                                => 'Daty wobdźěłać',
-	'sf_formedit'                               => 'Z formularom wobdźěłać',
-	'sf_editsource'                             => 'Žórło wobdźěłać',
+	'sf_formedit'                             => 'Z formularom wobdźěłać',
+	'sf_editsource'                           => 'Žórło wobdźěłać',
 	'sf_editdata_title'                       => '$1 wobdźěłać: $2',
 	'sf_editdata_badurl'                      => "To je strona za wobdźěłowanje datow. Dyrbiš formularne mjeno kaž tež cilowu stronu w URL podać; měło wupadać kaž 'Special:EditData?form=&lt;formularne mjeno&gt;&target=&lt;cilowa strona&gt;' abo 'Special:EditData/&lt;formularne mjeno&gt;/&lt;cilowa strona&gt;'.",
 	'sf_editdata_formwarning'                 => 'Warnowanje: Tuta strona <a href="$1">hižo eksistuje</a>, ale njewužiwa tutón formular.',
@@ -1365,8 +1369,8 @@ $messages['hsb'] = array(
 
 /** Hungarian (Magyar)
  * @author Dani
- * @author Tgr
  * @author Dorgan
+ * @author Tgr
  */
 $messages['hu'] = array(
 	'createproperty'                          => 'Tulajdonság létrehozása',
@@ -1421,6 +1425,16 @@ $messages['is'] = array(
 	'sf_createcategory_name'     => 'Nafn:',
 );
 
+/** Javanese (Basa Jawa)
+ * @author Meursault2004
+ */
+$messages['jv'] = array(
+	'createtemplate'     => 'Nggawé cithakan',
+	'sf_editdata_remove' => 'Busak',
+	'sf_bad_email_error' => 'kudu duwé format alamat e-mail sing absah',
+	'sf_blank_namespace' => 'Utama',
+);
+
 /** Khmer (ភាសាខ្មែរ)
  * @author Lovekhmer
  * @author Chhorran
@@ -1452,7 +1466,7 @@ $messages['km'] = array(
 	'addoreditdata'                    => 'បន្ថែមឬកែប្រែ',
 	'adddata'                          => 'បន្ថែមទិន្នន័យ',
 	'editdata'                         => 'កែប្រែទិន្នន័យ',
-	'sf_editsource'                      => 'កែប្រែកូដ',
+	'sf_editsource'                    => 'កែប្រែកូដ',
 	'sf_editdata_remove'               => 'ដកចេញ',
 	'sf_editdata_addanother'           => 'បន្ថែម មួយផ្សេង',
 	'sf_editdata_none'                 => 'ទទេ',
@@ -1514,9 +1528,20 @@ $messages['li'] = array(
 	'adddata'                    => 'Gegaeves toevoge',
 	'sf_adddata_title'           => '$1 toevoge: $2',
 	'editdata'                   => 'Gegaeves bewèrke',
-	'sf_formedit'                  => 'Bewèrke mit dit formeleer',
-	'sf_editsource'                => 'Brón bewèrke',
+	'sf_formedit'                => 'Bewèrke mit dit formeleer',
+	'sf_editsource'              => 'Brón bewèrke',
 	'sf_editdata_title'          => '$1 bewèrke: $2',
+);
+
+/** Malayalam (മലയാളം)
+ * @author Shijualex
+ */
+$messages['ml'] = array(
+	'sf_createproperty_propname'    => 'പേര്‌:',
+	'sf_createtemplate_deletefield' => 'മായ്ക്കുക',
+	'sf_createform_add'             => 'ചേര്‍ക്കുക',
+	'sf_createcategory_name'        => 'പേര്‌:',
+	'sf_editdata_remove'            => 'നീക്കം ചെയ്യുക',
 );
 
 /** Marathi (मराठी)
@@ -1596,8 +1621,8 @@ $messages['mr'] = array(
 	'sf_adddata_altforms'                     => 'हे पान तुम्ही या ऐवजी खालीलपैकी एक अर्ज वापरून वाढवू शकता:',
 	'sf_adddata_altformsonly'                 => 'हे पान वाढविण्यासाठी कृपया खालील पैकी एक अर्ज निवडा:',
 	'editdata'                                => 'डाटा बदला',
-	'sf_formedit'                               => 'अर्जासहित बदला',
-	'sf_editsource'                             => 'स्रोत संपादित करा',
+	'sf_formedit'                             => 'अर्जासहित बदला',
+	'sf_editsource'                           => 'स्रोत संपादित करा',
 	'sf_editdata_title'                       => 'संपादित करा $1: $2',
 	'sf_editdata_badurl'                      => "हे पान मजकूर बदलण्यासाठी आहे. तुम्ही एक अर्जाचे नाव व लक्ष्य पान दोन्ही URL मध्ये देणे आवश्यक आहे. URL अशी दिसेल 'Special:EditData?form=&lt;अर्जाचे नाव&gt;&target=&lt;लक्ष्य पान&gt;', किंवा  'Special:EditData/&lt;अर्जाचे नाव&gt;/&lt;लक्ष्य पान&gt;'.",
 	'sf_editdata_formwarning'                 => 'इशारा: हे पान <a href="$1">अस्तित्वात आहे</a>, पण ते पान ह्या अर्जाचा वापर करीत नाही.',
@@ -1815,8 +1840,9 @@ $messages['no'] = array(
 	'sf_adddata_altforms'                     => 'Du kan i stedet opprette siden ved å bruke et av følgende skjemaer:',
 	'sf_adddata_altformsonly'                 => 'Velg blant disse skjemaene for å opprette siden:',
 	'editdata'                                => 'Rediger data',
-	'sf_formedit'                               => 'Rediger med skjema',
-	'sf_editsource'                             => 'Rediger kilde',
+	'sf_formedit'                             => 'Rediger med skjema',
+	'sf_viewform'                             => 'Se skjema',
+	'sf_editsource'                           => 'Rediger kilde',
 	'sf_editdata_title'                       => 'Rediger $1: $2',
 	'sf_editdata_badurl'                      => 'Dette er siden for redigering av data. Du må angi både et skjemanavn og en målside i URL-en; det burde se slik ut: «Special:EditData?form=&lt;skjemanavn&gt;&target=&lt;målside&gt;» eller slik ut: «Special:EditData/&lt;skjemanavn&gt;/&lt;målside&gt;».',
 	'sf_editdata_formwarning'                 => 'Advarsel: Denne siden <a href="$1">finnes allerede</a>, men bruker ikke dette skjemaet.',
@@ -1928,8 +1954,8 @@ $messages['oc'] = array(
 	'sf_adddata_altforms'                     => 'Podètz, a la plaça, apondre aquesta pagina amb un dels formularis seguents :',
 	'sf_adddata_altformsonly'                 => 'Se vos plai, seleccionatz un dels formularis seguents per apondre aquesta pagina :',
 	'editdata'                                => 'Modificar las donadas',
-	'sf_formedit'                               => 'Modificar amb un formulari',
-	'sf_editsource'                             => 'Editar la font',
+	'sf_formedit'                             => 'Modificar amb un formulari',
+	'sf_editsource'                           => 'Editar la font',
 	'sf_editdata_title'                       => 'Editar $1 : $2',
 	'sf_editdata_badurl'                      => "Aquò es la pagina per modificar las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:EditData?form=&lt;nom de formulari&gt;&target=&lt;nom de pagina cibla&gt; » o « Special:EditData/&lt;nom de formulari&gt;/&lt;nom de pagina cibla&gt; ».",
 	'sf_editdata_formwarning'                 => 'Atencion : aquesta pagina <a href="$1">existís ja</a>, mas utiliza pas aqueste formulari.',
@@ -2074,8 +2100,8 @@ $messages['pt'] = array(
 	'sf_adddata_altforms'                     => 'Poderá, em alternativa, adicionar esta página aos seguintes formulários:',
 	'sf_adddata_altformsonly'                 => 'Por favor, seleccione um dos seguintes formulários para adicionar esta página:',
 	'editdata'                                => 'Editar dados',
-	'sf_formedit'                               => 'Editar com formulário',
-	'sf_editsource'                             => 'Editar a origem',
+	'sf_formedit'                             => 'Editar com formulário',
+	'sf_editsource'                           => 'Editar a origem',
 	'sf_editdata_title'                       => 'Editar $1: $2',
 	'sf_editdata_formwarning'                 => 'Aviso: Esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
 	'sf_editdata_remove'                      => 'Remover',
@@ -2270,8 +2296,8 @@ $messages['ru'] = array(
 	'sf_adddata_altforms'                     => 'Вы можете вместо этого добавить эту страницу с помощью одной из следующих форм:',
 	'sf_adddata_altformsonly'                 => 'Пожалуйста, выберите одну из следующих форм для добавления этой страницы:',
 	'editdata'                                => 'Редактировать данные',
-	'sf_formedit'                               => 'Править с помощью формы',
-	'sf_editsource'                             => 'Править исходники',
+	'sf_formedit'                             => 'Править с помощью формы',
+	'sf_editsource'                           => 'Править исходники',
 	'sf_editdata_title'                       => 'Редактирование $1: $2',
 	'sf_editdata_badurl'                      => 'Это служебная страница для редактирования данных. вы должны указать имя формы и целевую страницу в URL; это должно выглядеть подобно «Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;» или  «Special:EditData/&lt;form name&gt;/&lt;target page&gt;».',
 	'sf_editdata_formwarning'                 => 'Предупреждение. Эта страница <a href="$1">уже существует</a>, но не использует эту форму.',
@@ -2359,7 +2385,7 @@ $messages['sk'] = array(
 	'sf_createcategory_name'                  => 'Názov:',
 	'sf_createcategory_defaultform'           => 'Štandardný formulár:',
 	'sf_createcategory_makesubcategory'       => 'Táto kategória je podkategóriou inej kategórie (nepovinné):',
-	'addpage'                                 => 'Pridať stránku',
+	'addpage'                                 => 'Pridať stránku s formulárom',
 	'sf_addpage_badform'                      => 'Chyba: na $1 nebola nájdená žiadna stránka formulára',
 	'sf_addpage_docu'                         => 'Sem zadajte názov stránky, ktorá sa má upravovať formulárom „$1“. Ak táto stránka už existuje, budete presmerovaný na formulár pre úpravu tejto stránky. Inak budete presmerovaný na formulár pre pridanie tejto stránky.',
 	'sf_addpage_noform_docu'                  => 'Sem zadajte názov stránky a vyberte, ktorým formulárom sa má upravovať. Ak táto stránka už existuje, budete presmerovaný na formulár pre úpravu tejto stránky. Inak budete presmerovaný na formulár pre pridanie tejto stránky.',
@@ -2370,8 +2396,9 @@ $messages['sk'] = array(
 	'sf_adddata_altforms'                     => 'Namiesto toho môžete pridať túto stránku jedným z nasledovných formulárov:',
 	'sf_adddata_altformsonly'                 => 'Prosím, vyberte jeden z nasledovných formulárov, ktorým sa pridá táto stránka.',
 	'editdata'                                => 'Upraviť údaje',
-	'sf_formedit'                               => 'Upraviť pomocou formulára',
-	'sf_editsource'                             => 'Upraviť zdroj',
+	'sf_formedit'                             => 'Upraviť pomocou formulára',
+	'sf_viewform'                             => 'Zobraziť formulár',
+	'sf_editsource'                           => 'Upraviť zdroj',
 	'sf_editdata_title'                       => 'Upraviť $1: $2',
 	'sf_editdata_badurl'                      => 'Toto je stránka na úpravu údajov. Musíte v URL uviesť názov formulára aj cieľovú stránku. Mala by byť v tvare „Special:EditData?form=&lt;názov formulára&gt;&target=&lt;cieľová stránka&gt;“ alebo „Special:EditData/&lt;názov formulára&gt;/&lt;cieľová stránka&gt;“.',
 	'sf_editdata_formwarning'                 => 'Upozornenie: Táto stránka <a href="$1">už existuje</a>, ale nepoužíva tento formulár.',
@@ -2473,8 +2500,8 @@ $messages['stq'] = array(
 	'sf_adddata_altforms'                     => 'Du koast insteede deerfon disse Siede mäd een fon do foulgjende Formulare moakje:',
 	'sf_adddata_altformsonly'                 => 'Wääl een fon do foulgjende Formulare uut, uum disse Siede tou moakjen:',
 	'editdata'                                => 'Beoarbaidje Doaten',
-	'sf_formedit'                               => 'Beoarbaidje mäd Formular',
-	'sf_editsource'                             => 'Beoarbaidje Wältext',
+	'sf_formedit'                             => 'Beoarbaidje mäd Formular',
+	'sf_editsource'                           => 'Beoarbaidje Wältext',
 	'sf_editdata_title'                       => 'Beoarbaidje $1: $2',
 	'sf_editdata_badurl'                      => "Dit is ju Siede toun Beoarbaidjen fon Doaten. Du moast dän Noome fon dien Formular UN ju tou beoarbaidjende Siede in ju URL anreeke. Dät schuul uutsjo as 'Special:EditData?form=&lt;Formularnoome&gt;&target=&lt;Sielsiede&gt;' of 'Special:EditData/&lt;Formularnoome&gt;/&lt;Sielsiede&gt;'.",
 	'sf_editdata_formwarning'                 => 'Woarschauenge: Disse Siede <a href="$1">bestoant al</a>, oawers ju benutset dit Formular nit.',
@@ -2529,7 +2556,7 @@ $messages['sv'] = array(
 	'adddata'                          => 'Lägg till data',
 	'sf_adddata_title'                 => 'Lägg till $1: $2',
 	'editdata'                         => 'Redigera data',
-	'sf_editsource'                      => 'Redigera källa',
+	'sf_editsource'                    => 'Redigera källa',
 	'sf_editdata_title'                => 'Redigera $1: $2',
 	'sf_editdata_remove'               => 'Radera',
 	'sf_editdata_none'                 => 'Ingen',
@@ -2672,7 +2699,7 @@ $messages['tr'] = array(
 	'addpage'                            => 'Sayfa ekle',
 	'addoreditdata'                      => 'Ekle veya düzelt',
 	'adddata'                            => 'Veri ekle',
-	'sf_editsource'                        => 'Kaynak düzelt',
+	'sf_editsource'                      => 'Kaynak düzelt',
 	'sf_editdata_remove'                 => 'Kaldır',
 	'sf_category_desc'                   => 'Bu $1 kategorisidir.',
 	'sf_blank_namespace'                 => 'Ana',
@@ -2760,8 +2787,8 @@ $messages['vi'] = array(
 	'sf_adddata_altforms'                     => 'Thay vào đó bạn có thể thêm trang này vào một trong những mẫu sau:',
 	'sf_adddata_altformsonly'                 => 'Xin chọn một trong những mẫu dưới đây để thêm vào trang này:',
 	'editdata'                                => 'Sửa đổi dữ liệu',
-	'sf_formedit'                               => 'Sửa bằng mẫu này',
-	'sf_editsource'                             => 'Sửa đổi mã nguồn',
+	'sf_formedit'                             => 'Sửa bằng mẫu này',
+	'sf_editsource'                           => 'Sửa đổi mã nguồn',
 	'sf_editdata_title'                       => 'Sửa đổi $1: $2',
 	'sf_editdata_badurl'                      => "Đây là trang để sửa dữ liệu. Bạn phải xác định cả tên mẫu và trang đích ở dạng URL; nó sẽ có dạng 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' hoặc 'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning'                 => 'Cảnh báo: Trang này <a href="$1">đã tồn tại</a>, nhưng nó không dùng mẫu này.',
