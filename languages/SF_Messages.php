@@ -983,7 +983,7 @@ $messages['fr'] = array(
 	'sf_createcategory_name'                  => 'Nom :',
 	'sf_createcategory_defaultform'           => 'Formulaire par défaut :',
 	'sf_createcategory_makesubcategory'       => "Crée une sous-catégorie d'une autre catégorie (facultatif) :",
-	'addpage'                                 => 'Ajouter une page',
+	'addpage'                                 => 'Ajouter une page avec un formulaire',
 	'sf_addpage_badform'                      => "Erreur : aucune page de formulaire n'a été trouvée sur $1.",
 	'sf_addpage_docu'                         => "Entrez ici le nom de la page destinée à être éditée avec le formulaire « $1 ». Si cette page existe déjà, vous serez dirigé vers le formulaire afin de l'éditer. Dans le cas contraire, vous serez redirigé vers celui permettant de l'ajouter.",
 	'sf_addpage_noform_docu'                  => "Entrez ici le nom de la page puis sélectionner le formulaire avec lequel elle sera éditée. Si cette page existe déjà, vous serez dirigé vers le formulaire afin de l'éditer. Dans le cas contraire, vous serez redirigé vers celui permettant de l'ajouter.",
@@ -1268,6 +1268,13 @@ $messages['hi'] = array(
 	'sf_blank_namespace'                 => 'मुख्य',
 );
 
+/** Hiligaynon (Ilonggo)
+ * @author Jose77
+ */
+$messages['hil'] = array(
+	'sf_createtemplate_deletefield' => 'Panason',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
@@ -1429,10 +1436,27 @@ $messages['is'] = array(
  * @author Meursault2004
  */
 $messages['jv'] = array(
-	'createtemplate'     => 'Nggawé cithakan',
-	'sf_editdata_remove' => 'Busak',
-	'sf_bad_email_error' => 'kudu duwé format alamat e-mail sing absah',
-	'sf_blank_namespace' => 'Utama',
+	'sf_createproperty_propname'         => 'Jeneng:',
+	'sf_createproperty_proptype'         => 'Jenis:',
+	'createtemplate'                     => 'Nggawé cithakan',
+	'sf_createtemplate_namelabel'        => 'Jeneng cithakan:',
+	'sf_createtemplate_semanticproperty' => 'Sifat sémantik:',
+	'sf_createtemplate_standardformat'   => 'Baku',
+	'sf_createtemplate_deletefield'      => 'Busak',
+	'createform'                         => 'Nggawé formulir',
+	'sf_createform_field'                => 'Lapangan:',
+	'sf_createform_inputtype'            => 'Jenis input:',
+	'sf_createform_inputtypedefault'     => '(baku)',
+	'sf_createcategory_name'             => 'Jeneng:',
+	'editdata'                           => 'Sunting data',
+	'sf_editsource'                      => 'Sunting sumber',
+	'sf_editdata_title'                  => 'Sunting $1: $2',
+	'sf_editdata_remove'                 => 'Busak',
+	'sf_editdata_addanother'             => 'Tambah liyané',
+	'sf_blank_error'                     => 'ora olèh kosong',
+	'sf_bad_email_error'                 => 'kudu duwé format alamat e-mail sing absah',
+	'sf_form_freetextlabel'              => 'Tèks bébas',
+	'sf_blank_namespace'                 => 'Utama',
 );
 
 /** Khmer (ភាសាខ្មែរ)
@@ -1537,11 +1561,18 @@ $messages['li'] = array(
  * @author Shijualex
  */
 $messages['ml'] = array(
-	'sf_createproperty_propname'    => 'പേര്‌:',
-	'sf_createtemplate_deletefield' => 'മായ്ക്കുക',
-	'sf_createform_add'             => 'ചേര്‍ക്കുക',
-	'sf_createcategory_name'        => 'പേര്‌:',
-	'sf_editdata_remove'            => 'നീക്കം ചെയ്യുക',
+	'sf_createproperty_propname'     => 'പേര്‌:',
+	'createtemplate'                 => 'ഫലകം നിര്‍മ്മിക്കുക',
+	'sf_createtemplate_namelabel'    => 'ഫലകത്തിന്റെ പേര്‌:',
+	'sf_createtemplate_deletefield'  => 'മായ്ക്കുക',
+	'sf_createform_template'         => 'ഫലകം:',
+	'sf_createform_inputtypedefault' => '(സ്വതവെ)',
+	'sf_createform_hidden'           => 'മറഞ്ഞിരിക്കുന്നത്',
+	'sf_createform_add'              => 'ചേര്‍ക്കുക',
+	'sf_createcategory_name'         => 'പേര്‌:',
+	'sf_editdata_remove'             => 'നീക്കം ചെയ്യുക',
+	'sf_editdata_none'               => 'ഒന്നുമില്ല',
+	'sf_blank_namespace'             => 'മുഖ്യം',
 );
 
 /** Marathi (मराठी)
@@ -1714,7 +1745,7 @@ $messages['nl'] = array(
 	'sf_createcategory_name'                  => 'Naam:',
 	'sf_createcategory_defaultform'           => 'Standaard formulier:',
 	'sf_createcategory_makesubcategory'       => 'Deze categorie een ondercategorie van een andere categorie maken (optioneel):',
-	'addpage'                                 => 'Pagina toevoegen',
+	'addpage'                                 => 'Pagina toevoegen met formulier',
 	'sf_addpage_badform'                      => 'Fout: er is geen formulierpagina aangetroffen op $1',
 	'sf_addpage_docu'                         => "Voer de naam van de pagina die bewerkt wordt met het formulier '$1' hier in. Als deze pagina al bestaat, wordt u doorgestuurd naar het formulier om die pagina te bewerken. Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.",
 	'sf_addpage_noform_docu'                  => 'Voer de naam van de pagina hier in en selecteer het formulier waarmee die bewerkt wordt. Als deze pagina al bestaat, wordt u doorgestuurd naar het formulier om die pagina te bewerken. Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
@@ -1725,8 +1756,9 @@ $messages['nl'] = array(
 	'sf_adddata_altforms'                     => 'U kunt in de plaats deze pagina toevoegen met een van de volgende formulieren:',
 	'sf_adddata_altformsonly'                 => 'Gelieve te selecteren van een van de volgende formulieren om deze pagina toe te voegen:',
 	'editdata'                                => 'Gegevens bewerken',
-	'sf_formedit'                               => 'Bewerken met dit formulier',
-	'sf_editsource'                             => 'Bron bewerken',
+	'sf_formedit'                             => 'Bewerken met dit formulier',
+	'sf_viewform'                             => 'Formulier bekijken',
+	'sf_editsource'                           => 'Bron bewerken',
 	'sf_editdata_title'                       => '$1 bewerken: $2',
 	'sf_editdata_badurl'                      => "Dit is de pagina om gegevens te bewerken. Geeft zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' of  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning'                 => 'Deze pagina <a href="$1">bestaat al</a>, maar het gebruikt dit formulier niet.',
@@ -1943,7 +1975,7 @@ $messages['oc'] = array(
 	'sf_createcategory_name'                  => 'Nom :',
 	'sf_createcategory_defaultform'           => 'Formulari per defaut :',
 	'sf_createcategory_makesubcategory'       => "Crea una soscategoria d'una autra categoria (facultatiu) :",
-	'addpage'                                 => 'Apondre una pagina',
+	'addpage'                                 => 'Apondre una pagina amb un formulari',
 	'sf_addpage_badform'                      => 'Error : cap de pagina de formulari es pas estada trobada sus $1.',
 	'sf_addpage_docu'                         => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'apondre.",
 	'sf_addpage_noform_docu'                  => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb loqual serà editada. Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'apondre.",
@@ -1955,6 +1987,7 @@ $messages['oc'] = array(
 	'sf_adddata_altformsonly'                 => 'Se vos plai, seleccionatz un dels formularis seguents per apondre aquesta pagina :',
 	'editdata'                                => 'Modificar las donadas',
 	'sf_formedit'                             => 'Modificar amb un formulari',
+	'sf_viewform'                             => 'Veire lo formulari',
 	'sf_editsource'                           => 'Editar la font',
 	'sf_editdata_title'                       => 'Editar $1 : $2',
 	'sf_editdata_badurl'                      => "Aquò es la pagina per modificar las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:EditData?form=&lt;nom de formulari&gt;&target=&lt;nom de pagina cibla&gt; » o « Special:EditData/&lt;nom de formulari&gt;/&lt;nom de pagina cibla&gt; ».",
@@ -2037,8 +2070,8 @@ $messages['ps'] = array(
 
 /** Portuguese (Português)
  * @author 555
- * @author Malafaya
  * @author Lijealso
+ * @author Malafaya
  */
 $messages['pt'] = array(
 	'createproperty'                          => 'Criar uma propriedade',
@@ -2092,7 +2125,7 @@ $messages['pt'] = array(
 	'sf_createcategory_name'                  => 'Nome:',
 	'sf_createcategory_defaultform'           => 'Formulário padrão:',
 	'sf_createcategory_makesubcategory'       => 'Fazer desta categoria uma subcategoria de outra categoria (opcional):',
-	'addpage'                                 => 'Adicionar página',
+	'addpage'                                 => 'Adicionar página com formulário',
 	'sf_addpage_badform'                      => 'Erro: não foi encontrada página de formulário em $1',
 	'addoreditdata'                           => 'Adicionar ou editar',
 	'adddata'                                 => 'Adicionar dados',
