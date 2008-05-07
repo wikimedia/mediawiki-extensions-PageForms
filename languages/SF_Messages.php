@@ -123,11 +123,14 @@ if a page with that name already exists, you will be sent to a form to edit that
 
 /** Afrikaans (Afrikaans)
  * @author SPQRobin
+ * @author Arnobarnard
  */
 $messages['af'] = array(
 	'sf_createproperty_propname' => 'Naam:',
 	'sf_createform_template'     => 'Sjabloon:',
 	'sf_createcategory_name'     => 'Naam:',
+	'sf_editdata_remove'         => 'Skrap',
+	'sf_editdata_none'           => 'Geen',
 );
 
 /** Arabic (العربية)
@@ -1438,14 +1441,19 @@ $messages['is'] = array(
 $messages['jv'] = array(
 	'sf_createproperty_propname'         => 'Jeneng:',
 	'sf_createproperty_proptype'         => 'Jenis:',
+	'templates'                          => 'Cithakan-cithakan',
 	'sf_templates_docu'                  => 'Cithakan-cithakan iki ana ing wiki iki.',
 	'sf_templates_definescat'            => 'namtokaké kategori:',
 	'createtemplate'                     => 'Nggawé cithakan',
 	'sf_createtemplate_namelabel'        => 'Jeneng cithakan:',
 	'sf_createtemplate_semanticproperty' => 'Sifat sémantik:',
+	'sf_createtemplate_aggregationlabel' => 'Irah-irahan kanggo daftar:',
 	'sf_createtemplate_standardformat'   => 'Baku',
 	'sf_createtemplate_deletefield'      => 'Busak',
+	'forms'                              => 'Formulir-formulir',
 	'createform'                         => 'Nggawé formulir',
+	'sf_createform_template'             => 'Cithakan:',
+	'sf_createform_templatelabelinput'   => 'Label cithakan (opsional):',
 	'sf_createform_field'                => 'Lapangan:',
 	'sf_createform_inputtype'            => 'Jenis input:',
 	'sf_createform_inputtypedefault'     => '(baku)',
@@ -1462,8 +1470,12 @@ $messages['jv'] = array(
 	'sf_editdata_title'                  => 'Sunting $1: $2',
 	'sf_editdata_remove'                 => 'Busak',
 	'sf_editdata_addanother'             => 'Tambah liyané',
+	'sf_editdata_none'                   => 'Ora ana',
 	'sf_blank_error'                     => 'ora olèh kosong',
 	'sf_bad_email_error'                 => 'kudu duwé format alamat e-mail sing absah',
+	'sf_bad_number_error'                => 'kudu angka sing absah',
+	'sf_bad_integer_error'               => 'kudu integer sing absah',
+	'sf_bad_date_error'                  => 'kudu tanggal sing absah',
 	'sf_form_freetextlabel'              => 'Tèks bébas',
 	'sf_category_hasdefaultform'         => 'Kategori iki nganggo formulir $1.',
 	'sf_blank_namespace'                 => 'Utama',
@@ -1507,6 +1519,14 @@ $messages['km'] = array(
 	'sf_bad_email_error'               => 'ទំរង់អាស័យដ្ឋានអ៊ីមែវល៍ មិនត្រឹមត្រូវ',
 	'sf_template_docufooter'           => 'កែប្រែទំព័រ ដើម្បីឃើញ អត្ថបទ នៃគំរូខ្នាត ។',
 	'sf_category_hasdefaultform'       => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
+);
+
+/** Kinaray-a (Kinaray-a)
+ * @author Jose77
+ */
+$messages['krj'] = array(
+	'sf_createtemplate_deletefield' => 'Para',
+	'sf_createform_template'        => 'Template',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -1663,6 +1683,7 @@ $messages['mr'] = array(
 	'sf_adddata_altformsonly'                 => 'हे पान वाढविण्यासाठी कृपया खालील पैकी एक अर्ज निवडा:',
 	'editdata'                                => 'डाटा बदला',
 	'sf_formedit'                             => 'अर्जासहित बदला',
+	'sf_viewform'                             => 'अर्ज पहा',
 	'sf_editsource'                           => 'स्रोत संपादित करा',
 	'sf_editdata_title'                       => 'संपादित करा $1: $2',
 	'sf_editdata_badurl'                      => "हे पान मजकूर बदलण्यासाठी आहे. तुम्ही एक अर्जाचे नाव व लक्ष्य पान दोन्ही URL मध्ये देणे आवश्यक आहे. URL अशी दिसेल 'Special:EditData?form=&lt;अर्जाचे नाव&gt;&target=&lt;लक्ष्य पान&gt;', किंवा  'Special:EditData/&lt;अर्जाचे नाव&gt;/&lt;लक्ष्य पान&gt;'.",
