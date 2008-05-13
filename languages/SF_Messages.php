@@ -122,12 +122,14 @@ if a page with that name already exists, you will be sent to a form to edit that
 );
 
 /** Afrikaans (Afrikaans)
- * @author SPQRobin
  * @author Arnobarnard
+ * @author SPQRobin
  */
 $messages['af'] = array(
 	'sf_createproperty_propname' => 'Naam:',
+	'sf_createproperty_proptype' => 'Tipe:',
 	'sf_createform_template'     => 'Sjabloon:',
+	'sf_createform_add'          => 'Voeg by',
 	'sf_createcategory_name'     => 'Naam:',
 	'sf_editdata_remove'         => 'Skrap',
 	'sf_editdata_none'           => 'Geen',
@@ -1093,7 +1095,7 @@ $messages['gl'] = array(
 	'sf_createcategory_name'                  => 'Nome:',
 	'sf_createcategory_defaultform'           => 'Formulario predefinido:',
 	'sf_createcategory_makesubcategory'       => 'Facer unha subcategoría doutra categoría (opcional):',
-	'addpage'                                 => 'Engadir páxina',
+	'addpage'                                 => 'Engadir unha páxina con formulario',
 	'sf_addpage_badform'                      => 'Erro: non se atopou unha páxina de formulario en $1',
 	'sf_addpage_docu'                         => 'Introduza aquí o nome da páxina que se editará co formulario "$1". Se esta páxina xa existise, enviaráselle ao formulario para editar esa páxina. De non ser así, enviaráselle ao formulario para engadir a páxina.',
 	'sf_addpage_noform_docu'                  => 'Introduza aquí o nome da páxina e escolla o formulario co que a quer editar. Se esta páxina xa existise, enviaráselle ao formulario para editar esa páxina. De non ser así, enviaráselle ao formulario para engadir a páxina.',
