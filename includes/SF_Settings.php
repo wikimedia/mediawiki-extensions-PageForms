@@ -55,6 +55,7 @@ $sfgMaxAutocompleteValues = 1000;
 ###
 $sfgRenameEditTabs = false;
 $wgGroupPermissions['*'    ]['viewedittab']   = true;
+$wgAvailableRights[] = 'viewedittab';
 
 ###
 # List separator character
