@@ -1899,7 +1899,7 @@ END;
     // can show up here either as an array or a string, depending on
     // whether it came from user input or a wiki page
     if (is_array($cur_value)) {
-      $checked_str = (array_key_exists('value', $cur_value) && $cur_value[value] == 'on') ? ' checked="checked"' : "";
+      $checked_str = (array_key_exists('value', $cur_value) && $cur_value['value'] == 'on') ? ' checked="checked"' : "";
     } else {
       // default to false - no need to check if it matches a 'false' word
       $vlc = strtolower(trim($cur_value));
