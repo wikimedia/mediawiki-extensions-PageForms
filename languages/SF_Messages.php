@@ -1603,6 +1603,7 @@ $messages['li'] = array(
  */
 $messages['ml'] = array(
 	'sf_createproperty_propname'         => 'പേര്‌:',
+	'sf_createproperty_proptype'         => 'തരം:',
 	'templates'                          => 'ഫലകങ്ങള്‍',
 	'sf_templates_docu'                  => 'താഴെ പ്രദര്‍ശിപ്പിച്ചിരിക്കുന്ന ഫലകങ്ങള്‍ ഈ വിക്കിയില്‍ നിലവിലുണ്ട്.',
 	'sf_templates_definescat'            => 'വിഭാഗം നിര്‍‌വചിക്കുന്നു:',
