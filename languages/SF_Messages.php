@@ -2331,7 +2331,7 @@ $messages['pt-br'] = array(
 );
 
 /** Russian (Русский)
- * @author .:Ajvol:.
+ * @author Александр Сигачёв
  */
 $messages['ru'] = array(
 	'createproperty'                          => 'Создать свойство',
