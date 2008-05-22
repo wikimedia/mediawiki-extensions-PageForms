@@ -2788,7 +2788,7 @@ $messages['te'] = array(
 	'sf_createform_add'                  => 'చేర్చు',
 	'createcategory'                     => 'వర్గాన్ని సృష్టించండి',
 	'sf_createcategory_name'             => 'పేరు:',
-	'addpage'                            => 'పేజీని చేర్చండి',
+	'addpage'                            => 'ఫారంతో పేజీని చేర్చండి',
 	'sf_editdata_formwarning'            => 'హెచ్చరిక: ఈ పేజీ <a href="$1">ఇప్పటికే ఉంది</a>, కానీ దానిలో ఈ ఫారం లేదు.',
 	'sf_editdata_remove'                 => 'తొలగించు',
 	'sf_editdata_addanother'             => 'మరోటి చేర్చండి',
