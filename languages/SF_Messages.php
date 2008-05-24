@@ -138,6 +138,7 @@ $messages['af'] = array(
 
 /** Arabic (العربية)
  * @author Meno25
+ * @author OsamaK
  */
 $messages['ar'] = array(
 	'createproperty'                          => 'إنشاء خاصية',
@@ -197,7 +198,7 @@ $messages['ar'] = array(
 	'sf_createcategory_name'                  => 'الاسم:',
 	'sf_createcategory_defaultform'           => 'الاستمارة الافتراضية:',
 	'sf_createcategory_makesubcategory'       => 'اجعل هذا تصنيفا فرعيا لتصنيف آخر (اختياري):',
-	'addpage'                                 => 'إضافة صفحة',
+	'addpage'                                 => 'إضافة صفحة مع نموذج',
 	'sf_addpage_badform'                      => 'خطأ: لا صفحة استمارة تم العثور عليها في $1',
 	'sf_addpage_docu'                         => "أدخل اسم الصفحة هنا، لكي يتم تعديلها مع الاستمارة '$1'. إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة. أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.",
 	'sf_addpage_noform_docu'                  => 'أدخل اسم الصفحة هنا، واختر الاستمارة لتعديلها معها. إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة. أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.',
@@ -590,7 +591,7 @@ $messages['eo'] = array(
 	'sf_createform_addtemplate'               => 'Aldonu ŝablonon:',
 	'sf_createform_beforetemplate'            => 'Antaŭ ŝablono:',
 	'sf_createform_atend'                     => 'Ĉe fino',
-	'sf_createform_add'                       => 'Aldonu',
+	'sf_createform_add'                       => 'Aldoni',
 	'sf_createform_choosefield'               => 'Elektu kampon por aldoni',
 	'createcategory'                          => 'Kreu kategorion',
 	'sf_createcategory_name'                  => 'Nomo:',
@@ -1539,6 +1540,13 @@ $messages['km'] = array(
 $messages['krj'] = array(
 	'sf_createtemplate_deletefield' => 'Para',
 	'sf_createform_template'        => 'Template',
+);
+
+/** Ripoarisch (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'sf_createform_add' => 'Donn dobei',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
