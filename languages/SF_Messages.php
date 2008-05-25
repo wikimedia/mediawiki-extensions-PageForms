@@ -1574,6 +1574,7 @@ $messages['lb'] = array(
 	'sf_createcategory_name'             => 'Numm:',
 	'addpage'                            => 'Säit mat engem Formulaire derbäisetzen',
 	'addoreditdata'                      => 'Derbäisetzen oder änneren',
+	'sf_formedit'                        => 'Formulaire änneren',
 	'sf_editdata_title'                  => 'Ännert $1: $2',
 	'sf_editdata_remove'                 => 'Ewech huelen',
 	'sf_editdata_addanother'             => 'Nach een derbäisetzen',
