@@ -210,6 +210,7 @@ $messages['ar'] = array(
 	'sf_adddata_altformsonly'                 => 'من فضلك اختر إحدى الاستمارات التالية لإضافة هذه الصفحة إليها:',
 	'editdata'                                => 'عدل البيانات',
 	'sf_formedit'                             => 'عدل مع الاستمارة',
+	'sf_viewform'                             => 'عرض من',
 	'sf_editsource'                           => 'مصدر التعديل',
 	'sf_editdata_title'                       => 'عدل $1: $2',
 	'sf_editdata_badurl'                      => "هذه هي الصفحة لتعديل البيانات. يجب عليك تحديد اسم استمارة وصفحة هدف في المسار؛ ينبغي أن تبدو ك 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' أو  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
@@ -368,6 +369,7 @@ $messages['bg'] = array(
 	'addoreditdata'                           => 'Добавяне или редактиране',
 	'adddata'                                 => 'Добавяне на данни',
 	'sf_adddata_title'                        => 'Добавяне на $1: $2',
+	'sf_adddata_altformsonly'                 => 'Изберете един от следните формуляри за добавяне на страницата:',
 	'editdata'                                => 'Редактиране на данните',
 	'sf_formedit'                             => 'Редактиране с формуляр',
 	'sf_viewform'                             => 'Преглед на формуляра',
@@ -1546,7 +1548,9 @@ $messages['krj'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
-	'sf_createform_add' => 'Donn dobei',
+	'sf_createproperty_propname' => 'Name:',
+	'sf_createform_add'          => 'Donn dobei',
+	'sf_createcategory_name'     => 'Name:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
