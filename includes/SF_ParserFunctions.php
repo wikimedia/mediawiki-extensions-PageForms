@@ -2,7 +2,8 @@
 /**
  * Parser functions for Semantic Forms.
  *
- * Three parser functions are defined: 'forminput', 'formlink' and 'arraymap'.
+ * Four parser functions are defined: 'forminput', 'formlink', 'arraymap'
+ * and 'arraymaptemplate'.
  *
  * 'forminput' is called as:
  *
@@ -62,9 +63,28 @@
  * 'Has color' around each element in the list, you could call the
  * following:
  *
- * {#arraymap:blue;red;yellow|;|x|[[Has color:=x]]|;}}
+ * {{#arraymap:blue;red;yellow|;|x|[[Has color:=x]]|;}}
+ *
+ *
+ * 'arraymaptemplate' is called as:
+ *
+ * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
+ *
+ * This function makes the same template call for every section of a
+ * delimited string; each such section, as dictated by the 'delimiter'
+ * value, is passed as a first parameter to the template specified.
+ * Finally, the transformed strings are joined together using the
+ * 'new_delimiter' string. Both 'delimiter' and 'new_delimiter'
+ * default to commas.
+ *
+ * Example: to take a semicolon-delimited list, and call a template
+ * named 'Beautify' on each element in the list, you could call the
+ * following:
+ *
+ * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
  *
  * @author Yaron Koren
+ * @author Sergey Chernyshev
  */
 
 
@@ -73,6 +93,7 @@ function sfgParserFunctions () {
 	$wgParser->setFunctionHook('forminput', 'sfRenderFormInput');
 	$wgParser->setFunctionHook('formlink', 'sfRenderFormLink');
 	$wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
+	$wgParser->setFunctionHook('arraymaptemplate', 'sfRenderArrayMapTemplate');
 }
 
 function sffLanguageGetMagic( &$magicWords, $langCode = "en" ) {
@@ -81,6 +102,7 @@ function sffLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 		$magicWords['forminput']	= array ( 0, 'forminput' );
 		$magicWords['formlink']		= array ( 0, 'formlink' );
 		$magicWords['arraymap']		= array ( 0, 'arraymap' );
+		$magicWords['arraymaptemplate']	= array ( 0, 'arraymaptemplate' );
 	}
 	return true;
 }
@@ -140,18 +162,33 @@ END;
  * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
  */
 function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
-	$ret = "";
 	$values_array = explode($delimiter, $value);
-	foreach ($values_array as $i => $cur_value) {
-		if ($i > 0)
-			$ret .= $new_delimiter;
+	$results = array();
+	foreach ($values_array as $cur_value) {
+		$cur_value = trim($cur_value);
 		// ignore a value if it's null
 		if ('' != $cur_value) {
 			// remove whitespaces
-			$ret .= str_replace($var, trim($cur_value), $new_value);
+			$results[] = str_replace($var, $cur_value, $new_value);
 		}
 	}
-	return $ret;
+	return implode($new_delimiter, $results);
 }
 
-?>
+/**
+ * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
+ */
+function sfRenderArrayMapTemplate ( &$parser, $value = '', $template = '', $delimiter = ',', $new_delimiter = ', ' ) {
+	$values_array = explode($delimiter, $value);
+	$results = array();
+	$template = trim($template);
+	foreach ($values_array as $cur_value) {
+		$cur_value = trim($cur_value);
+		// ignore a value if it's null
+		if ('' != $cur_value) {
+			// remove whitespaces
+			$results[] = '{{'.$template.'|'.$cur_value.'}}';
+		}
+	}
+	return implode($new_delimiter, $results);
+}
