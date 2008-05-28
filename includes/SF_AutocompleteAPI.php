@@ -26,6 +26,7 @@ class SFAutocompleteAPI extends ApiBase {
 		$params = $this->extractRequestParams();
 		$substr = $params['substr'];
 		$namespace = str_replace(' ', '_', $params['namespace']);
+		$property = str_replace(' ', '_', $params['property']);
 		$relation = str_replace(' ', '_', $params['relation']);
 		$attribute = str_replace(' ', '_', $params['attribute']);
 		$category = str_replace(' ', '_', $params['category']);
@@ -35,7 +36,9 @@ class SFAutocompleteAPI extends ApiBase {
 		{
 			$this->dieUsage("The substring must be specified", 'param_substr');
 		}
-		if ($relation != '') {
+		if ($property != '') {
+			$data = sffGetAllPagesForProperty_1_0($property, $substr);
+		} elseif ($relation != '') {
 			$data = sffGetAllPagesForProperty_0_7(true, $relation, $substr);
 		} elseif ($attribute != '') {
 			$data = sffGetAllPagesForProperty_0_7(false, $attribute, $substr);
@@ -67,6 +70,7 @@ class SFAutocompleteAPI extends ApiBase {
 				ApiBase :: PARAM_MAX2 => ApiBase :: LIMIT_BIG2
 			),
 			'substr' => null,
+			'property' => null,
 			'relation' => null,
 			'attribute' => null,
 			'category' => null,
@@ -76,6 +80,7 @@ class SFAutocompleteAPI extends ApiBase {
 	protected function getParamDescription() {
 		return array (
 			'substr' => 'Search substring',
+			'property' => 'Property for which to search values',
 			'relation' => 'Relation for which to search values',
 			'attribute' => 'Attribute for which to search values',
 			'category' => 'Category for which to search values',
@@ -91,7 +96,7 @@ class SFAutocompleteAPI extends ApiBase {
 	protected function getExamples() {
 		return array (
 			'api.php?action=sfautocomplete&substr=te',
-			'api.php?action=sfautocomplete&substr=te&relation=Has_author',
+			'api.php?action=sfautocomplete&substr=te&property=Has_author',
 			'api.php?action=sfautocomplete&substr=te&attribute=Has_color',
 		);
 	}
