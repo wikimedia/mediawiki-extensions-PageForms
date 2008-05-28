@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','1.1.2');
+define('SF_VERSION','1.2');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -50,6 +50,7 @@ function sfgSetupExtension() {
 	require_once($sfgIP . '/specials/SF_AddPage.php');
 	require_once($sfgIP . '/specials/SF_AddData.php');
 	require_once($sfgIP . '/specials/SF_EditData.php');
+	require_once($sfgIP . '/specials/SF_UploadWindow.php');
 
 	/**********************************************/
 	/***** register hooks                     *****/
@@ -245,11 +246,9 @@ function sffTitleString($title) {
  * allows pages to spoof a normal edit page, that can preview, save,
  * etc.
  */
-function sffPrintRedirectForm($title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this) {
+function sffPrintRedirectForm($title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this, $start_time, $edit_time) {
 	$article = new Article($title);
 	$new_url = $title->getLocalURL('action=submit');
-	$starttime = wfTimestampNow();
-	$edittime = $article->getTimestamp();
 	global $wgUser;
 	if ( $wgUser->isLoggedIn() )
 		$token = htmlspecialchars($wgUser->editToken());
@@ -267,8 +266,8 @@ function sffPrintRedirectForm($title, $page_contents, $edit_summary, $is_save, $
 	<form id="editform" name="editform" method="post" action="$new_url">
 	<input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$page_contents" />
 	<input type="hidden" name="wpSummary" value="$edit_summary" />
-	<input type="hidden" name="wpStarttime" value="$starttime" />
-	<input type="hidden" name="wpEdittime" value="$edittime" />
+	<input type="hidden" name="wpStarttime" value="$start_time" />
+	<input type="hidden" name="wpEdittime" value="$edit_time" />
 	<input type="hidden" name="wpEditToken" value="$token" />
 	<input type="hidden" name="$action" />
 
@@ -676,6 +675,35 @@ function sffGetAllPagesForProperty_0_7($is_relation, $property_name, $substring 
   }
   $db->freeResult($res);
   return $pages;
+}
+
+function sffGetAllPagesForProperty_1_0($property_name, $substring = null) {
+	global $sfgMaxAutocompleteValues;
+
+	$store = smwfGetStore();
+	$requestoptions = new SMWRequestOptions();
+	$requestoptions->limit = $sfgMaxAutocompleteValues;
+	if ($substring != null) {
+		$requestoptions->addStringCondition($substring, SMW_STRCOND_PRE);
+	}
+	$property = Title::newFromText($property_name);
+	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
+	$pages = array();
+	foreach ($data_values as $dv) {
+		$pages[] = $dv->getXSDValue();
+	}
+	// if there was a substring specified, also find values that have
+	// it after a space, not just at the beginning of the value
+	if ($substring != null) {
+		$requestoptions2 = new SMWRequestOptions();
+		$requestoptions2->limit = $sfgMaxAutocompleteValues;
+		$requestoptions2->addStringCondition(" $substring", SMW_STRCOND_MID);
+		$data_values = $store->getPropertyValues(null, $property, $requestoptions2);
+		foreach ($data_values as $dv) {
+			$pages[] = $dv->getXSDValue();
+		}
+	}
+	return $pages;
 }
 
 /*
