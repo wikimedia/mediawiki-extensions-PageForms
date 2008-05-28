@@ -233,6 +233,7 @@ class SFFormTemplateField {
   var $possible_values;
   // the following fields are not set by the form-creation page
   // (though they could be)
+  var $is_uploadable;
   var $field_args;
   var $autocomplete_category;
   var $no_autocomplete;
@@ -253,11 +254,12 @@ class SFFormTemplateField {
     $f->is_mandatory = false;
     $f->is_hidden = false;
     $f->is_restricted = false;
+    $f->is_uploadable = false;
     $f->possible_values = null;
     return $f;
   }
 
-  function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $possible_values, $is_disabled, $is_list, $input_type, $field_args, $all_fields, $strict_parsing) {
+  function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_uploadable, $possible_values, $is_disabled, $is_list, $input_type, $field_args, $all_fields, $strict_parsing) {
     // see if this field matches one of the fields defined for this template -
     // if it is, use all available information about that field; if it's not,
     // either include it in the form or not, depending on whether the
@@ -281,6 +283,7 @@ class SFFormTemplateField {
     $f->template_field = $the_field;
     $f->is_mandatory = $is_mandatory;
     $f->is_hidden = $is_hidden;
+    $f->is_uploadable = $is_uploadable;
     $f->possible_values = $possible_values;
     $f->input_type = $input_type;
     $f->field_args = $field_args;
