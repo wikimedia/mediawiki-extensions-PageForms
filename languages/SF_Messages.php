@@ -420,6 +420,13 @@ $messages['cs'] = array(
 	'sf_createtemplate_semanticproperty' => 'Sémantická vlastnost:',
 );
 
+/** Church Slavic (Словѣньскъ)
+ * @author ОйЛ
+ */
+$messages['cu'] = array(
+	'sf_createtemplate_deletefield' => 'поничьжє́ниѥ',
+);
+
 /** Danish (Dansk)
  * @author Jon Harald Søby
  */
@@ -1438,6 +1445,13 @@ $messages['hu'] = array(
 	'sf_editdata_none'                        => 'Nincs',
 );
 
+/** Indonesian (Bahasa Indonesia)
+ * @author Rex
+ */
+$messages['id'] = array(
+	'sf_editdata_none' => 'Tidak ada',
+);
+
 /** Icelandic (Íslenska)
  * @author SPQRobin
  */
@@ -1548,9 +1562,10 @@ $messages['krj'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
-	'sf_createproperty_propname' => 'Name:',
-	'sf_createform_add'          => 'Donn dobei',
-	'sf_createcategory_name'     => 'Name:',
+	'sf_createproperty_propname'    => 'Name:',
+	'sf_createtemplate_deletefield' => 'Fottschmieße',
+	'sf_createform_add'             => 'Donn dobei',
+	'sf_createcategory_name'        => 'Name:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
@@ -3134,7 +3149,7 @@ $messages['zh-cn'] = array(
 	'sf_blank_namespace'                      => '主',
 );
 
-/** ‪中文(台灣)‬ (‪中文(台灣)‬)
+/** Taiwan Chinese (‪中文(台灣)‬)
  * @author Roc michael
  */
 $messages['zh-tw'] = array(
@@ -3206,8 +3221,9 @@ $messages['zh-tw'] = array(
 	'sf_adddata_altforms'                     => '您可選用下列其中一個的表單來新增此頁',
 	'sf_adddata_altformsonly'                 => '請從下列的表單中選出其中一個，並以該表單編輯此頁：',
 	'editdata'                                => '編輯資料',
-	'sf_formedit'                               => '以表單進行編輯',
-	'sf_editsource'                             => '編輯來源',
+	'sf_formedit'                             => '以表單進行編輯',
+	'sf_viewform'                             => '查看表單',
+	'sf_editsource'                           => '編輯來源',
 	'sf_editdata_title'                       => '編輯 $1: $2',
 	'sf_editdata_badurl'                      => "本頁為編輯資料之用，您必須在URL裡同時指定表單及目標頁面，它看起來應該像是'Special:EditData?form=&lt;表單名稱;&target=&lt;目標頁面&gt;' 或是  'Special:EditData/&lt;表單名稱&gt;/&lt;目標頁面&gt;'.",
 	'sf_editdata_formwarning'                 => '警告：<a href="$1">此頁</a>已經存在，只是尚未引用本表單。',
