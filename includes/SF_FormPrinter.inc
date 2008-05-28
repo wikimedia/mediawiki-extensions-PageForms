@@ -424,6 +424,7 @@ class SFFormPrinter {
           $is_mandatory = false;
           $is_hidden = false;
           $is_restricted = false;
+          $is_uploadable = false;
           $is_list = false;
           $input_type = null;
           $field_args = array();
@@ -438,10 +439,14 @@ class SFFormPrinter {
               $is_hidden = true;
             } elseif ($component == 'restricted') {
               $is_restricted = true;
+            } elseif ($component == 'uploadable') {
+              $field_args['is_uploadable'] = true;
             } elseif ($component == 'list') {
               $is_list = true;
             } elseif ($component == 'autocomplete') {
               $field_args['autocomplete'] = true;
+            } elseif ($component == 'no autocomplete') {
+              $field_args['no autocomplete'] = true;
             } elseif ($component == 'remote autocompletion') {
               $field_args['remote_autocompletion'] = true;
             } else {
@@ -458,10 +463,9 @@ class SFFormPrinter {
                 } else {
                   $field_args[$sub_components[0]] = $sub_components[1];
                 }
-                // special handling for this field, because it's overloaded -
-                // if it's empty, no automatic autocompleting should happen
+                // for backwards compatibility
                 if ($sub_components[0] == 'autocomplete on' && $sub_components[1] == null) {
-                    $field_args['no_autocomplete'] = true;
+                    $field_args['no autocomplete'] = true;
                   }
               }
             }
@@ -654,7 +658,7 @@ class SFFormPrinter {
             // parameters in the form definition, and any information from
             // the template definition (contained in the $all_fields parameter)
             $form_field = SFFormTemplateField::createFromDefinition($field_name, $input_name,
-              $is_mandatory, $is_hidden, $possible_values, $is_disabled,
+              $is_mandatory, $is_hidden, $is_uploadable, $possible_values, $is_disabled,
               $is_list, $input_type, $field_args, $all_fields, $strict_parsing);
             // if this is not part of a 'multiple' template, incrememt the
             // global tab index (used for correct tabbing)
@@ -1024,7 +1028,16 @@ END;
     // add form bottom, if no custom "standard inputs" have been defined
     if (! $this->standardInputsIncluded)
       $form_text .= $this->formBottom($form_is_disabled);
-    $form_text .= "\n	</form>\n";
+    $starttime = wfTimestampNow();
+    $page_article = new Article($this->mPageTitle);
+    $edittime = $page_article->getTimestamp();
+    $form_text .=<<<END
+
+	<input type="hidden" value="$starttime" name="wpStarttime" />
+	<input type="hidden" value="$edittime" name="wpEdittime" />
+	</form>
+
+END;
 
     // add general Javascript code
     $form_errors_header = wfMsg('sf_formerrors_header');
@@ -1402,18 +1415,13 @@ END;
     $names_array = array();
     // the query depends on whether this field is a relation (property of type
     // Page), attribute (property of any other type), category or namespace
-    if ($autocomplete_field_type == 'relation' || $autocomplete_field_type == 'attribute') {
-      $is_relation = ($autocomplete_field_type == 'relation');
+    if ($autocomplete_field_type == 'relation' || $autocomplete_field_type == 'attribute' || $autocomplete_field_type == 'property') {
       $smw_version = SMW_VERSION;
       if ($smw_version{0} == '0') {
+        $is_relation = ($autocomplete_field_type == 'relation');
         $names_array = sffGetAllPagesForProperty_0_7($is_relation, $field_name);
       } else {
-        // TODO: Create the 1.0 version of this function, using
-        // SMWStore::getPropertyValues().
-        // For now, we'll just use the 0.7 version - this forces the data
-        // store to be a database, but hopefully that's not a problem for
-        // any users yet
-        $names_array = sffGetAllPagesForProperty_0_7($is_relation, $field_name);
+        $names_array = sffGetAllPagesForProperty_1_0($field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = sffGetAllPagesForCategory($field_name, 10);
@@ -1432,6 +1440,8 @@ END;
     if (! $autocompletion_disabled) {
       if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
           array_key_exists('autocomplete', $other_args) ||
+          array_key_exists('autocomplete on property', $other_args) ||
+          array_key_exists('autocomplete on category', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
           array_key_exists('autocomplete on namespace', $other_args)) {
         return SFFormPrinter::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
@@ -1449,7 +1459,6 @@ END;
       $className .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
-    $disabled_text = ($is_disabled) ? "disabled" : "";
     // set size based on pre-set size, or field type - if field type is set,
     // possibly add validation too
     if (array_key_exists('size', $other_args)) {
@@ -1484,10 +1493,23 @@ END;
 
     $text =<<<END
 		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text"
-        value="$cur_value" size="$size" $disabled_text/>
+        value="$cur_value" size="$size"
+END;
+    if ($is_disabled)
+      $text .= " disabled";
+    if (array_key_exists('maxlength', $other_args))
+      $text .= ' maxlength="' . $other_args['maxlength'] . '"';
+    $text .=<<<END
+/>
 	<span id="$info_id" class="errorMessage"></span>
 
 END;
+    if (array_key_exists('is_uploadable', $other_args) && $other_args['is_uploadable'] == true) {
+      $upload_window_page = SpecialPage::getPage('UploadWindow');
+      $upload_window_url = $upload_window_page->getTitle()->getFullURL("wpInputID=$input_id");
+      $upload_label = wfMsg('upload');
+      $text .= " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
+    }
     return array($text, null);
   }
 
@@ -1623,8 +1645,8 @@ END;
 
   function textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if 'no autocomplete' was specified, call the regular text entry instead
-    if (array_key_exists('no_autocomplete', $other_args) &&
-        $other_args['no_autocomplete'] == true)
+    if (array_key_exists('no autocomplete', $other_args) &&
+        $other_args['no autocomplete'] == true)
       return SFFormPrinter::textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
     global $sfgTabIndex, $sfgFieldNum;
@@ -1633,9 +1655,15 @@ END;
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    if (array_key_exists('autocomplete on', $other_args)) {
+    if (array_key_exists('autocomplete on property', $other_args)) {
+      $autocomplete_field_type = 'property';
+      $semantic_field_name = $other_args['autocomplete on property'];
+    } elseif (array_key_exists('autocomplete on', $other_args)) { // for backwards-compatibility
       $autocomplete_field_type = 'category';
       $semantic_field_name = $other_args['autocomplete on'];
+    } elseif (array_key_exists('autocomplete on category', $other_args)) {
+      $autocomplete_field_type = 'category';
+      $semantic_field_name = $other_args['autocomplete on category'];
     } elseif (array_key_exists('autocomplete on namespace', $other_args)) {
       $autocomplete_field_type = 'namespace';
       $semantic_field_name = $other_args['autocomplete on namespace'];
@@ -1670,9 +1698,13 @@ END;
 
       $text =<<<END
         <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text"
-	value="" size="$size" class="$className" $disabled_text/>
-
+	value="" size="$size" class="$className"
 END;
+    if ($is_disabled)
+      $text .= " disabled";
+    if (array_key_exists('maxlength', $other_args))
+      $text .= ' maxlength="' . $other_args['maxlength'] . '"';
+    $text .= "/>\n";
     }
     $text .=<<<END
 	<span id="$info_id" class="errorMessage"></span>
