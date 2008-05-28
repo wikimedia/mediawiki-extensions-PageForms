@@ -23,7 +23,7 @@ file /languages/SF_Messages.php for the full listing.
 
 Most comments, questions, suggestions and bug reports should be
 submitted to the Semantic Forms mailing list/Google group at
-http://groups.google.com/group/semantic-forms . You can also
+http://groups.google.com/group/semantic-forms. You can also
 contact Yaron directly for any of these, at yaron57@gmail.com.
 
 == Credits to other projects ==
@@ -34,3 +34,9 @@ User Interface (YUI) JavaScript library
 BSD license (http://developer.yahoo.com/yui/license.html),
 which is compatible with the GPL license under which Semantic
 Forms is distributed.
+
+* Semantic Forms also includes the Floatbox Javascript library
+by Byron McGregor (http://randomous.com/tools/floatbox/). Floatbox
+is distributed via the Creative Commons Attribution 3.0 License
+(http://creativecommons.org/licenses/by/3.0/), which is compatible
+with the GPL license under which Semantic Forms is distributed.
