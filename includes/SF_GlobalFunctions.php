@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','1.2');
+define('SF_VERSION','1.2.1');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
