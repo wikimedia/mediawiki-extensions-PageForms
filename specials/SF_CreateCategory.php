@@ -59,7 +59,7 @@ function doSpecialCreateCategory() {
 			$full_text = createCategoryText($default_form, $category_name, $parent_category);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
-			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
+			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
 		}

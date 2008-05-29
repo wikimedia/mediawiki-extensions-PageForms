@@ -165,7 +165,7 @@ function doSpecialCreateTemplate() {
       $full_text = createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
       // HTML-encode
       $full_text = str_replace('"', '&quot;', $full_text);
-      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false);
+      $text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
     }
   }
 
