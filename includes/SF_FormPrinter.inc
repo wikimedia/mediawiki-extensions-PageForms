@@ -1706,6 +1706,12 @@ END;
       $text .= ' maxlength="' . $other_args['maxlength'] . '"';
     $text .= "/>\n";
     }
+    if (array_key_exists('is_uploadable', $other_args) && $other_args['is_uploadable'] == true) {
+      $upload_window_page = SpecialPage::getPage('UploadWindow');
+      $upload_window_url = $upload_window_page->getTitle()->getFullURL("wpInputID=$input_id");
+      $upload_label = wfMsg('upload');
+      $text .= " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
+    }
     $text .=<<<END
 	<span id="$info_id" class="errorMessage"></span>
 	<div class="page_name_auto_complete" id="$div_name"></div>
