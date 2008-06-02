@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','1.2.1');
+define('SF_VERSION','1.2.2');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -686,7 +686,7 @@ function sffGetAllPagesForProperty_1_0($property_name, $substring = null) {
 	if ($substring != null) {
 		$requestoptions->addStringCondition($substring, SMW_STRCOND_PRE);
 	}
-	$property = Title::newFromText($property_name);
+	$property = Title::newFromText($property_name, SMW_NS_PROPERTY);
 	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
 	$pages = array();
 	foreach ($data_values as $dv) {
