@@ -1118,6 +1118,7 @@ $messages['gl'] = array(
 	'sf_adddata_altformsonly'                 => 'Seleccione dun dos seguintes formularios para engadir a esta páxina:',
 	'editdata'                                => 'Editar datos',
 	'sf_formedit'                             => 'Editar con formulario',
+	'sf_viewform'                             => 'Ver o formulario',
 	'sf_editsource'                           => 'Editar orixe',
 	'sf_editdata_title'                       => 'Editar $1: $2',
 	'sf_editdata_badurl'                      => "Esta é a páxina para editar os datos. Ha de especificar un nome de formulario e unha páxina de destino no URL; deberían ser algo así como \"Special:EditData?form=&lt;nome do formulario&gt;&target=&lt;páxina de destino&gt;' ou  'Special:EditData/&lt;nome do formulario&gt;/&lt;páxina de destino&gt;'.",
@@ -1573,6 +1574,7 @@ $messages['ksh'] = array(
  */
 $messages['lb'] = array(
 	'sf_createproperty_propname'         => 'Numm:',
+	'sf_createproperty_proptype'         => 'Typ:',
 	'templates'                          => 'Schablounen',
 	'sf_templates_docu'                  => 'Dës Schabloune gëtt et op dëser Wiki.',
 	'sf_templates_definescat'            => "definéiert d'Kategorie:",
@@ -1599,6 +1601,7 @@ $messages['lb'] = array(
 	'sf_editdata_addanother'             => 'Nach een derbäisetzen',
 	'sf_editdata_none'                   => 'Keen',
 	'sf_blank_error'                     => 'Däerf net eidel sinn!',
+	'sf_bad_date_error'                  => 'muss e gëltegen Datum sinn',
 	'sf_form_freetextlabel'              => 'Fräien Text',
 	'sf_category_hasdefaultform'         => 'Dës Kategorie benotzt de Formulär $1.',
 	'sf_category_desc'                   => "Dëst ass d'$1 Kategorie.",
@@ -1793,6 +1796,14 @@ $messages['mr'] = array(
 	'sf_category_hasdefaultform'              => 'हे वर्गीकरण फॉर्म $1 वापरते.',
 	'sf_category_desc'                        => 'हे $1 वर्गीकरण आहे.',
 	'sf_blank_namespace'                      => 'मुख्य',
+);
+
+/** Low German (Plattdüütsch)
+ * @author Slomox
+ */
+$messages['nds'] = array(
+	'sf_createproperty_propname' => 'Naam:',
+	'sf_createcategory_name'     => 'Naam:',
 );
 
 /** Dutch (Nederlands)
