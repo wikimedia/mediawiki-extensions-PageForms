@@ -690,7 +690,11 @@ function sffGetAllPagesForProperty_1_0($property_name, $substring = null) {
 	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
 	$pages = array();
 	foreach ($data_values as $dv) {
-		$pages[] = $dv->getXSDValue();
+		// getPropertyValues() gets many repeat values - we want
+		// only one of each value
+		$string_value = $dv->getXSDValue();
+		if (array_search($string_value, $pages) === false)
+			$pages[] = $string_value;
 	}
 	// if there was a substring specified, also find values that have
 	// it after a space, not just at the beginning of the value
