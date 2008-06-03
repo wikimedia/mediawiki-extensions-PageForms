@@ -103,6 +103,7 @@ it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target 
 	'sf_bad_number_error'                => 'must be a valid number',
 	'sf_bad_integer_error'               => 'must be a valid integer',
 	'sf_bad_date_error'                  => 'must be a valid date',
+	'uploadwindow'                       => 'Upload window',
 
 	// content messages
 	'sf_property_isattribute'            => 'This is an attribute of type $1.',
