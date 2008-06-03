@@ -1896,6 +1896,7 @@ $messages['nl'] = array(
 	'sf_bad_number_error'                     => 'moet een geldig nummer zijn',
 	'sf_bad_integer_error'                    => 'moet een geldig geheel getal zijn',
 	'sf_bad_date_error'                       => 'moet een geldige datum zijn',
+	'uploadwindow'                            => 'Uploadscherm',
 	'sf_property_isattribute'                 => 'Dit is een eigenschap van het type $1.',
 	'sf_property_isproperty'                  => 'Dit is een eigenschap van type $1.',
 	'sf_property_allowedvals'                 => 'De toegelaten waarden voor deze eigenschap zijn:',
