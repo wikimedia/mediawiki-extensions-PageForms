@@ -172,7 +172,7 @@ END;
     } else {
        $delimiter = ",";
     }
-    $cur_values = $this->getValuesArray($cur_value, $delimiter);
+    $cur_values = SFFormInputs::getValuesArray($cur_value, $delimiter);
 
     $text =<<<END
 	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" multiple $disabled_text>
@@ -464,7 +464,7 @@ END;
       $timezone = "";
     }
 
-    list($text, $javascript_text) = $this->dateEntryHTML($datetime, $input_name, $is_mandatory, $is_disabled, $other_args);
+    list($text, $javascript_text) = SFFormInputs::dateEntryHTML($datetime, $input_name, $is_mandatory, $is_disabled, $other_args);
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text .= '  &nbsp;<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[hour]" type="text" value="' . $hour . '" size="2"/ ' . $disabled_text . '>';
     $sfgTabIndex++;
