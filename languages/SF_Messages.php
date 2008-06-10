@@ -541,6 +541,13 @@ $messages['de'] = array(
 	'sf_blank_namespace'                      => 'Seite',
 );
 
+/** Zazaki (Zazaki)
+ * @author Belekvor
+ */
+$messages['diq'] = array(
+	'sf_editdata_none' => 'çino',
+);
+
 /** Greek (Ελληνικά)
  * @author Consta
  */
@@ -2784,7 +2791,7 @@ det borde se ut som: ":EditData?form=&lt;formulärnamn&gt;&target=&lt;målsida&g
 	'sf_bad_number_error'                     => 'måste vara ett giltigt tal',
 	'sf_bad_integer_error'                    => 'måste vara ett giltigt heltal',
 	'sf_bad_date_error'                       => 'måste vara ett giltigt datum',
-	'uploadwindow'                            => 'Uppladdingsfönster',
+	'uploadwindow'                            => 'Uppladdningsfönster',
 	'sf_property_isattribute'                 => 'Det här är en attributt av typen $1.',
 	'sf_property_isproperty'                  => 'Det här är en egenskap av typen $1.',
 	'sf_property_allowedvals'                 => 'De tillåtna värdena för den här egenskapen är:',
@@ -2847,6 +2854,7 @@ $messages['te'] = array(
 	'sf_form_freetextlabel'              => 'స్వేచ్ఛా పాఠ్యం',
 	'sf_category_hasdefaultform'         => 'ఈ వర్గం $1 అనే ఫారాన్ని వాడుతుంది.',
 	'sf_category_desc'                   => 'ఇది $1 అనే వర్గం.',
+	'sf_blank_namespace'                 => 'ప్రధాన',
 );
 
 /** Tetum (Tetun)
