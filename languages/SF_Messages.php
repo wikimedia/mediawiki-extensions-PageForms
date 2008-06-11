@@ -1143,6 +1143,7 @@ $messages['gl'] = array(
 	'sf_bad_number_error'                     => 'debe ser un número válido',
 	'sf_bad_integer_error'                    => 'ha de ser un enteiro válido',
 	'sf_bad_date_error'                       => 'debe ser unha data válida',
+	'uploadwindow'                            => 'Cargar unha ventá',
 	'sf_property_isattribute'                 => 'Esto é un atributo da clase $1.',
 	'sf_property_isproperty'                  => 'Esta é unha propiedade de clase $1.',
 	'sf_property_allowedvals'                 => 'Os valores permitidos para esta propiedade son:',
