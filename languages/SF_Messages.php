@@ -1458,10 +1458,13 @@ $messages['hu'] = array(
 );
 
 /** Indonesian (Bahasa Indonesia)
+ * @author Irwangatot
  * @author Rex
  */
 $messages['id'] = array(
-	'sf_editdata_none' => 'Tidak ada',
+	'sf_createproperty_propname' => 'Nama:',
+	'sf_createcategory_name'     => 'Nama:',
+	'sf_editdata_none'           => 'Tidak ada',
 );
 
 /** Icelandic (Íslenska)
@@ -3032,6 +3035,7 @@ $messages['vi'] = array(
 	'sf_adddata_altformsonly'                 => 'Xin chọn một trong những mẫu dưới đây để thêm vào trang này:',
 	'editdata'                                => 'Sửa đổi dữ liệu',
 	'sf_formedit'                             => 'Sửa bằng mẫu này',
+	'sf_viewform'                             => 'Xem mẫu',
 	'sf_editsource'                           => 'Sửa đổi mã nguồn',
 	'sf_editdata_title'                       => 'Sửa đổi $1: $2',
 	'sf_editdata_badurl'                      => "Đây là trang để sửa dữ liệu. Bạn phải xác định cả tên mẫu và trang đích ở dạng URL; nó sẽ có dạng 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' hoặc 'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
@@ -3046,6 +3050,7 @@ $messages['vi'] = array(
 	'sf_bad_number_error'                     => 'phải có số đúng',
 	'sf_bad_integer_error'                    => 'phải là số nguyên đúng',
 	'sf_bad_date_error'                       => 'phải là ngày đúng',
+	'uploadwindow'                            => 'Cửa sổ tải',
 	'sf_property_isattribute'                 => 'Đây là thuộc tính thuộc kiểu $1.',
 	'sf_property_isproperty'                  => 'Đây là tính chất thuộc kiểu $1.',
 	'sf_property_allowedvals'                 => 'Giá trị cho phép của tính chất này là:',
