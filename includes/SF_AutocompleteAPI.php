@@ -37,7 +37,7 @@ class SFAutocompleteAPI extends ApiBase {
 			$this->dieUsage("The substring must be specified", 'param_substr');
 		}
 		if ($property != '') {
-			$data = sffGetAllPagesForProperty_1_0($property, $substr);
+			$data = sffGetAllPagesForProperty_1_2($property, $substr);
 		} elseif ($relation != '') {
 			$data = sffGetAllPagesForProperty_0_7(true, $relation, $substr);
 		} elseif ($attribute != '') {
