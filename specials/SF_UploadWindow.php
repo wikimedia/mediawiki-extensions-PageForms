@@ -5,10 +5,12 @@
  * a few changes to remove skin CSS and HTML, and to populate the relevant
  * field in the form with the name of the uploaded form.
  *
- * This class was created by Yaron Koren, and based almost entirely on the
- * upload functionality developed by the Chickipedia.com team.
+ * This class is based almost entirely on the upload functionality
+ * developed by the Chickipedia.com team.
  *
  * @addtogroup SpecialPage
+ *
+ * @author Yaron Koren
  */
 if (!defined('MEDIAWIKI')) die();
 
@@ -21,8 +23,8 @@ SpecialPage::addPage( new SpecialPage('UploadWindow','',true,'doSpecialUploadWin
  * Entry point
  */
 function doSpecialUploadWindow() {
-	global $wgRequest, $wgOut;
-	global $wgUser, $wgServer, $wgJsMimeType, $wgStylePath, $wgStyleVersion;
+	global $wgRequest, $wgOut, $wgUser, $wgServer;
+	global $wgScript, $wgJsMimeType, $wgStylePath, $wgStyleVersion;
 
 	// disable $wgOut - we'll print out the page manually, taking the
 	// body created by the form, plus the necessary Javascript files,
@@ -74,6 +76,7 @@ class UploadWindowForm {
 
 	# used by Semantic Forms
 	var $mInputID;
+	var $mDelimiter;
 
 	const SESSION_VERSION = 1;
 	/**#@-*/
@@ -88,7 +91,8 @@ class UploadWindowForm {
 		$this->mDesiredDestName   = $request->getText( 'wpDestFile' );
 		$this->mIgnoreWarning     = $request->getCheck( 'wpIgnoreWarning' );
 		$this->mComment           = $request->getText( 'wpUploadDescription' );
-		$this->mInputID           = $request->getText( 'wpInputID' );
+		$this->mInputID           = $request->getText( 'sfInputID' );
+		$this->mDelimiter         = $request->getText( 'sfDelimiter' );
 
 		if( !$request->wasPosted() ) {
 			# GET requests just give the main form; no data except destination
@@ -154,7 +158,8 @@ class UploadWindowForm {
 		$this->mSessionKey     = false;
 		$this->mStashed        = false;
 		$this->mRemoveTempFile = false; // PHP will handle this
-		$this->mInputID        = $request->getText( 'wpInputID' );
+		$this->mInputID        = $request->getText( 'sfInputID' );
+		$this->mDelimiter      = $request->getText( 'sfDelimiter' );
 	}
 
 	/**
@@ -175,8 +180,6 @@ class UploadWindowForm {
 
 		// PHP won't auto-cleanup the file
 		$this->mRemoveTempFile = file_exists( $local_file );
-		// this might not be necessary
-		$this->mInputID        = $request->getText( 'wpInputID' );
 	}
 
 	/**
@@ -490,11 +493,38 @@ class UploadWindowForm {
 			// Success, redirect to description page
 			//$wgOut->redirect( $this->mLocalFile->getTitle()->getFullURL() );
 
-			// Semantic Forms change - output Javascript to fill
-			// in field in original form, and close the Floatbox
-			$output =<<<END
-	<script type="text/javascript">
+			// Semantic Forms change - output Javascript to either
+			// fill in or append to the field in original form, and
+			// close the window
+			$basename = str_replace('_', ' ', $basename);
+			$output = '	<script type="text/javascript">' . "\n";
+			if ($this->mDelimiter == null) {
+				$output .=<<<END
 		parent.document.getElementById("{$this->mInputID}").value = '$basename';
+
+END;
+			} else {
+				$output .=<<<END
+		// if the current value is blank, set it to this file name;
+		// if it's not blank and ends in a space or delimiter, append
+		// the file name; if it ends with a normal character, append
+		// both a delimiter and a file name; and add on a delimiter
+		// at the end in any case
+		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
+		if (cur_value == '') {
+			parent.document.getElementById("{$this->mInputID}").value = '$basename' + '{$this->mDelimiter} ';
+		} else {
+			var last_char = cur_value.charAt(cur_value.length - 1);
+			if (last_char == '{$this->mDelimiter}' || last_char == ' ') {
+				parent.document.getElementById("{$this->mInputID}").value += '$basename' + '{$this->mDelimiter} ';
+			} else {
+				parent.document.getElementById("{$this->mInputID}").value += '{$this->mDelimiter} $basename{$this->mDelimiter} ';
+			}
+		}
+
+END;
+			}
+			$output .=<<<END
 		parent.fb.end();
 	</script>
 
@@ -775,7 +805,8 @@ END;
 		<input type='hidden' name='wpLicense' value=\"" . htmlspecialchars( $this->mLicense ) . "\" />
 		<input type='hidden' name='wpDestFile' value=\"" . htmlspecialchars( $this->mDesiredDestName ) . "\" />
 		<input type='hidden' name='wpWatchthis' value=\"" . htmlspecialchars( intval( $this->mWatchthis ) ) . "\" />
-		<input type='hidden' name='wpInputID' value=\"" . htmlspecialchars( $this->mInputID ) . "\" />
+		<input type='hidden' name='sfInputID' value=\"" . htmlspecialchars( $this->mInputID ) . "\" />
+		<input type='hidden' name='sfDelimiter' value=\"" . htmlspecialchars( $this->mInputID ) . "\" />
 	{$copyright}
 	<table border='0'>
 		<tr>
@@ -1015,7 +1046,8 @@ EOT
 
 	</table>
 	<input type='hidden' name='wpDestFileWarningAck' id='wpDestFileWarningAck' value=''/>
-	<input type='hidden' name='wpInputID' value=\"" . htmlspecialchars( $this->mInputID ) . "\" />
+	<input type='hidden' name='sfInputID' value=\"" . htmlspecialchars( $this->mInputID ) . "\" />
+	<input type='hidden' name='sfDelimiter' value=\"" . htmlspecialchars( $this->mDelimiter ) . "\" />
 	</form>" );
 	}
 
