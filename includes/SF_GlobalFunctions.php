@@ -7,7 +7,7 @@
  * @author Louis Gerbarg
  */
 
-define('SF_VERSION','1.2.2');
+define('SF_VERSION','1.2.3');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -677,7 +677,7 @@ function sffGetAllPagesForProperty_0_7($is_relation, $property_name, $substring 
   return $pages;
 }
 
-function sffGetAllPagesForProperty_1_0($property_name, $substring = null) {
+function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 	global $sfgMaxAutocompleteValues;
 
 	$store = smwfGetStore();
