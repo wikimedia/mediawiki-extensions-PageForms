@@ -212,5 +212,6 @@ END;
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/floatbox.js"></script>' . "\n");
 	if (! empty($javascript_text))
 		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
+	$wgOut->addMeta('robots','noindex,nofollow');
 	$wgOut->addHTML($text);
 }
