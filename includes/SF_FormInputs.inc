@@ -14,12 +14,11 @@ class SFFormInputs {
     // the query depends on whether this field is a relation (property of type
     // Page), attribute (property of any other type), category or namespace
     if ($autocomplete_field_type == 'relation' || $autocomplete_field_type == 'attribute' || $autocomplete_field_type == 'property') {
-      $smw_version = SMW_VERSION;
-      if ($smw_version{0} == '0') {
+      if (version_compare(SMW_VERSION, '1.2', '>=' )) {
+        $names_array = sffGetAllPagesForProperty_1_2($field_name);
+      } else {
         $is_relation = ($autocomplete_field_type == 'relation');
         $names_array = sffGetAllPagesForProperty_0_7($is_relation, $field_name);
-      } else {
-        $names_array = sffGetAllPagesForProperty_1_0($field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = sffGetAllPagesForCategory($field_name, 10);
@@ -29,19 +28,32 @@ class SFFormInputs {
     return $names_array;
   }
 
+  function uploadLinkHTML($input_id, $delimiter = null) {
+    $upload_window_page = SpecialPage::getPage('UploadWindow');
+    $query_string = "sfInputID=$input_id";
+    if ($delimiter != null)
+      $query_string .= "&sfDelimiter=$delimiter";
+    $upload_window_url = $upload_window_page->getTitle()->getFullURL($query_string);
+    $upload_label = wfMsg('upload');
+    $text = " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
+    return $text;
+  }
+
   function textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     // if it's an autocomplete, call the with-autocomplete function instead
     // we test to make sure that autocompletion hasn't been disabled, and
     // that either the property is a relation (i.e. it's of type Page) or
-    // autocompletion has been specifified in the form
-    $autocompletion_disabled = array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "";
+    // autocompletion has been specified in the form
+    $autocompletion_disabled = (array_key_exists('autocomplete on', $other_args) && $other_args['autocomplete on'] == "") ||
+      (array_key_exists('no autocomplete', $other_args) && $other_args['no autocomplete'] == true);
     if (! $autocompletion_disabled) {
       if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
           array_key_exists('autocomplete', $other_args) ||
           array_key_exists('autocomplete on property', $other_args) ||
           array_key_exists('autocomplete on category', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
-          array_key_exists('autocomplete on namespace', $other_args)) {
+          array_key_exists('autocomplete on namespace', $other_args) ||
+          array_key_exists('remote autocompletion', $other_args)) {
         return SFFormInputs::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
       }
     }
@@ -103,10 +115,16 @@ END;
 
 END;
     if (array_key_exists('is_uploadable', $other_args) && $other_args['is_uploadable'] == true) {
-      $upload_window_page = SpecialPage::getPage('UploadWindow');
-      $upload_window_url = $upload_window_page->getTitle()->getFullURL("wpInputID=$input_id");
-      $upload_label = wfMsg('upload');
-      $text .= " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
+      if (array_key_exists('is_list', $other_args) && $other_args['is_list'] == true) {
+        if (array_key_exists('delimiter', $other_args)) {
+          $delimiter = $other_args['delimiter'];
+        } else {
+          $delimiter = ",";
+        }
+      } else {
+        $delimiter = null;
+      }
+      $text .= SFFormInputs::uploadLinkHTML($input_id, $delimiter);
     }
     return array($text, null);
   }
@@ -304,11 +322,19 @@ END;
       $text .= ' maxlength="' . $other_args['maxlength'] . '"';
     $text .= "/>\n";
     }
+    // is_list and delimiter variables - needed later
+    $is_list = (array_key_exists('is_list', $other_args) && $other_args['is_list'] == true);
+    if ($is_list) {
+      if (array_key_exists('delimiter', $other_args)) {
+        $delimiter = $other_args['delimiter'];
+      } else {
+        $delimiter = ",";
+      }
+    } else {
+      $delimiter = null;
+    }
     if (array_key_exists('is_uploadable', $other_args) && $other_args['is_uploadable'] == true) {
-      $upload_window_page = SpecialPage::getPage('UploadWindow');
-      $upload_window_url = $upload_window_page->getTitle()->getFullURL("wpInputID=$input_id");
-      $upload_label = wfMsg('upload');
-      $text .= " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
+      $text .= SFFormInputs::uploadLinkHTML($input_id, $delimiter);
     }
     $text .=<<<END
 	<span id="$info_id" class="errorMessage"></span>
@@ -317,10 +343,10 @@ END;
 
 END;
     $options_str_key = str_replace("'", "\'", $semantic_field_name);
-    if (array_key_exists('is_list', $other_args) && $other_args['is_list'] == true) {
+    if ($is_list) {
       $options_str_key .= ",list";
-      if (array_key_exists('delimiter', $other_args) && $other_args['delimiter'] != ",") {
-        $options_str_key .= "," . $other_args['delimiter'];
+      if ($delimiter != ",") {
+        $options_str_key .= "," . $delimiter;
       }
     }
     $javascript_text = "autocompletemappings[$sfgFieldNum] = '$options_str_key';\n";
@@ -352,7 +378,8 @@ END;
       if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
           array_key_exists('autocomplete', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
-          array_key_exists('autocomplete on namespace', $other_args)) {
+          array_key_exists('autocomplete on namespace', $other_args) ||
+          array_key_exists('remote autocompletion', $other_args)) {
         $other_args['input_type'] = "textarea";
         return SFFormInputs::textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
       }
