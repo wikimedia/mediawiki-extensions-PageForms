@@ -6,6 +6,9 @@
 textarea.createboxInput {
 	width: auto;
 }
+textarea.mandatoryField {
+	width: auto;
+}
 
 /* Used in 'create template' page */
 .fieldBox {
