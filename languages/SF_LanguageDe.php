@@ -12,7 +12,7 @@ class SF_LanguageDe extends SF_Language {
 
 var $m_Namespaces = array(
 	SF_NS_FORM           => 'Formular',
-	SF_NS_FORM_TALK      => 'Formulardiskussion'
+	SF_NS_FORM_TALK      => 'Formular Diskussion'
 );
 
 }
