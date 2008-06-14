@@ -6,6 +6,12 @@
  * @author Yaron Koren
  */
 
+/**
+ * Protect against register_globals vulnerabilities.
+ * This line must be present before any global variable is referenced.
+ */
+if (!defined('MEDIAWIKI')) die();
+
 require_once ("$IP/includes/api/ApiBase.php");
 
 global $wgAPIModules;

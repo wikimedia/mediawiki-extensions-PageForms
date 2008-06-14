@@ -6,9 +6,14 @@
  * @author Yaron Koren
  */
 
+/**
+ * Protect against register_globals vulnerabilities.
+ * This line must be present before any global variable is referenced.
+ */
+if (!defined('MEDIAWIKI')) die();
+
 include_once $sfgIP . "/includes/SF_TemplateField.inc";
 
-if (!defined('MEDIAWIKI')) die();
 
 global $IP;
 require_once( "$IP/includes/SpecialPage.php" );

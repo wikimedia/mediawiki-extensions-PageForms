@@ -7,6 +7,12 @@
  * @author Louis Gerbarg
  */
 
+/**
+ * Protect against register_globals vulnerabilities.
+ * This line must be present before any global variable is referenced.
+ */
+if ( !defined( 'MEDIAWIKI' ) ) die();
+
 define('SF_VERSION','1.2.3');
 
 // constants for special properties
