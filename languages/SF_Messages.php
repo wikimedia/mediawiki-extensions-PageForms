@@ -226,6 +226,7 @@ $messages['ar'] = array(
 	'sf_bad_number_error'                     => 'يجب أن يكون عددا سليما',
 	'sf_bad_integer_error'                    => 'يجب أن يكون عددا صحيحا سليما',
 	'sf_bad_date_error'                       => 'يجب أن يكون تاريخا سليما',
+	'uploadwindow'                            => 'نافذة الرفع',
 	'sf_property_isattribute'                 => 'هذه صفة من نوع $1.',
 	'sf_property_isproperty'                  => 'هذه خاصية من نوع $1.',
 	'sf_property_allowedvals'                 => 'القيم المسموحة لهذه الخاصية هي:',
@@ -1186,6 +1187,15 @@ $messages['gv'] = array(
 	'sf_createcategory_name'        => 'Ennym:',
 );
 
+/** Hawaiian (Hawai`i)
+ * @author Singularity
+ */
+$messages['haw'] = array(
+	'sf_createproperty_propname' => 'Inoa:',
+	'sf_createform_add'          => 'Ho‘ohui',
+	'sf_createcategory_name'     => 'Inoa:',
+);
+
 /** Hebrew
  * @author Yaron Koren
  */
@@ -1642,6 +1652,111 @@ $messages['li'] = array(
 	'sf_formedit'                => 'Bewèrke mit dit formeleer',
 	'sf_editsource'              => 'Brón bewèrke',
 	'sf_editdata_title'          => '$1 bewèrke: $2',
+);
+
+/** Lithuanian (Lietuvių)
+ * @author Domas
+ */
+$messages['lt'] = array(
+	'createproperty'                          => 'Sukurti savybę',
+	'sf_createproperty_allowedvalsinput'      => 'Jeigu norite, kad šis laukas galėtų įgyti tik konkrečias reikšmes, surašykite visas leistinas reikšmes, atskirtas kableliais (jeigu reikšmė turi kablelį, pakeiskite jį į „\\,“):',
+	'sf_createproperty_propname'              => 'Vardas:',
+	'sf_createproperty_proptype'              => 'Tipas:',
+	'templates'                               => 'Šablonai',
+	'sf_templates_docu'                       => 'Šiame sąraše pateikiami visi šablonai.',
+	'sf_templates_definescat'                 => 'apibrėžia kategoriją:',
+	'createtemplate'                          => 'Sukurti šabloną',
+	'sf_createtemplate_namelabel'             => 'Šablono vardas:',
+	'sf_createtemplate_categorylabel'         => 'Kategorija apibrėžiama šiuo šablonu (nebūtina):',
+	'sf_createtemplate_templatefields'        => 'Šablono laukai',
+	'sf_createtemplate_fieldsdesc'            => 'Šablonui reikšmės gali būti nurodomos ir be laukų vardų. Tokiu atvėju šioje formoje vietoj konkrečių laukų vardų turėtų būti nurodomi indeksai (pvz. 1, 2, 3 ir t. t.).',
+	'sf_createtemplate_fieldname'             => 'Lauko vardas:',
+	'sf_createtemplate_displaylabel'          => 'Rodomas užrašas:',
+	'sf_createtemplate_semanticproperty'      => 'Semantinė savybė:',
+	'sf_createtemplate_fieldislist'           => 'Šis laukas gali turėti kelias kableliais atskirtas reikšmes.',
+	'sf_createtemplate_aggregation'           => 'Savybių surinkimas',
+	'sf_createtemplate_aggregationdesc'       => 'Užpildykite šiuos laukus, jeigu norite, kad kiekviename šį šabloną naudojančiame puslapyje būtų pateiktas straipsnių, kurie konkrečia savybe rodo į tą puslapį, sąrašas:',
+	'sf_createtemplate_aggregationlabel'      => 'Sąrašo pavadinimas:',
+	'sf_createtemplate_outputformat'          => 'Išvedimo formatas:',
+	'sf_createtemplate_standardformat'        => 'Standartinis',
+	'sf_createtemplate_infoboxformat'         => 'Informacinis langas dešinėje',
+	'sf_createtemplate_addfield'              => 'Pridėti lauką',
+	'sf_createtemplate_deletefield'           => 'Pašalinti',
+	'sf_createtemplate_addtemplatebeforesave' => 'Prieš išsaugant šią formą, būtina pridėti bent vieną lauką.',
+	'forms'                                   => 'Formos',
+	'sf_forms_docu'                           => 'Šiame sąraše pateikiamos visos formos.',
+	'createform'                              => 'Sukurti formą',
+	'sf_createform_nameinput'                 => 'Formos vardas (dažniausiai priimtina pavadinti pagrindinio formoje naudojamo šablono vardu):',
+	'sf_createform_template'                  => 'Šablonas:',
+	'sf_createform_templatelabelinput'        => 'Šablono kortelės užrašas (nebūtinas):',
+	'sf_createform_allowmultiple'             => 'Leisti kelis (arba nė vieno) šio šablono vienetus sukurtame puslapyje',
+	'sf_createform_field'                     => 'Laukas:',
+	'sf_createform_fieldattr'                 => 'Šis laukas apibrėžia „$2“ tipo žymę „$1“.',
+	'sf_createform_fieldattrlist'             => 'Šis laukas apibrėžia „$2“ tipo žymių „$1“ sąrašą.',
+	'sf_createform_fieldattrunknowntype'      => 'Šis laukas apibrėžia neapibrėžto tipo žymę „$1“.',
+	'sf_createform_fieldrel'                  => 'Šis laukas apibrėžia „$1“ ryšį.',
+	'sf_createform_fieldrellist'              => 'Šis laukas apibrėžia elementų, turinčių „$1“ ryšį, sąrašą.',
+	'sf_createform_fieldprop'                 => 'Šis laukas apibrėžia „$2“ tipo savybę „$1“.',
+	'sf_createform_fieldproplist'             => 'Šis laukas apibrėžia elementų turinčių „$2“ tipo savybę „$1“.',
+	'sf_createform_fieldpropunknowntype'      => 'Šis laukas apibrėžia neapibrėžto tipo savybę „$1“.',
+	'sf_createform_inputtype'                 => 'Įvedimo tipas:',
+	'sf_createform_inputtypedefault'          => '(pagrindinis)',
+	'sf_createform_formlabel'                 => 'Formos užrašas:',
+	'sf_createform_hidden'                    => 'Paslėptas',
+	'sf_createform_restricted'                => 'Apribotas (jį redaguoti gali tik sysop naudotojai)',
+	'sf_createform_mandatory'                 => 'Privalomas',
+	'sf_createform_removetemplate'            => 'Pašalinti šabloną',
+	'sf_createform_addtemplate'               => 'Pridėti šabloną:',
+	'sf_createform_beforetemplate'            => 'Prieš šabloną:',
+	'sf_createform_atend'                     => 'Pabaigoje',
+	'sf_createform_add'                       => 'Pridėti',
+	'sf_createform_choosefield'               => 'Pasirinkite pridedama lauką',
+	'createcategory'                          => 'Sukurti kategoriją',
+	'sf_createcategory_name'                  => 'Vardas:',
+	'sf_createcategory_defaultform'           => 'Pagrindinė forma:',
+	'sf_createcategory_makesubcategory'       => 'Padaryti kaip subkategoriją kitai kategorijai (nebūtina):',
+	'addpage'                                 => 'Sukurti puslapį naudojant formą',
+	'sf_addpage_badform'                      => 'Klaida: nerastas naudojantis formą $1 puslapis',
+	'sf_addpage_docu'                         => 'Įveskite puslapio vardą, kurį redaguosite su forma „$1“. Jeigu puslapis tokiu vardu egzistuoja, būsite nukreiptas į šio puslapio redagavimo formą. Kitu atveju, būsite nukreiptas į naujo puslapio kūrimo formą.',
+	'sf_addpage_noform_docu'                  => 'Įveskite puslapio vardą ir pasirinkite formą kuria jį redaguosite. Jeigu puslapis tokiu vardu egzistuoja, būsite nukreiptas į šio puslapio redagavimo formą. Kitu atveju, būsite nukreiptas į naujo puslapio kūrimo formą.',
+	'addoreditdata'                           => 'Pridėti ar keisti',
+	'adddata'                                 => 'Įvesti duomenis',
+	'sf_adddata_title'                        => 'Pridėti $1: $2',
+	'sf_adddata_badurl'                       => "Šis puslapis skirtas naujų duomenų įvedimui. Jūs turite adrese nurodyti formos vardą ir norimą redaguoti puslapį. Adresas turėtų atrodyti kaip „Specialus:AddData?form=&lt;formos vardas&gt;&target=&lt;puslapis&gt;“ arba „Specialus:AddData/&lt;formos vardas&gt;/&lt;puslapis&gt;'“.",
+	'sf_adddata_altforms'                     => 'Sukurti puslapį galite naudodami vieną iš šių formų:',
+	'sf_adddata_altformsonly'                 => 'Pasirinkite vieną iš šių formų puslapio sukūrimui:',
+	'editdata'                                => 'Keisti duomenis',
+	'sf_formedit'                             => 'Redaguoti su forma',
+	'sf_viewform'                             => 'Rodyti formą',
+	'sf_editsource'                           => 'Redaguoti kodą',
+	'sf_editdata_title'                       => 'Redaguoti $1: $2',
+	'sf_editdata_badurl'                      => "Šis puslapis skirtas duomenų keitimui. Jūs turite adrese nurodyti formos vardą ir norimą redaguoti puslapį. Adresas turėtų atrodyti kaip „Specialus:EditData?form=&lt;formos vardas&gt;&target=&lt;puslapis&gt;“ arba „Specialus:EditData/&lt;formos vardas&gt;/&lt;puslapis&gt;'“.",
+	'sf_editdata_formwarning'                 => 'Dėmesio: Šis puslapis <a href="$1">jau yra</a>, bet jis nenaudoja šios formos.',
+	'sf_editdata_remove'                      => 'Pašalinti',
+	'sf_editdata_addanother'                  => 'Pridėti kitą',
+	'sf_editdata_none'                        => 'Nieko',
+	'sf_formerrors_header'                    => 'Pildomoje formoje yra klaidų. Žiūrėkite žemiau',
+	'sf_blank_error'                          => 'negali būti tuščias',
+	'sf_bad_url_error'                        => 'turi būti taisyklinga nuoroda (URL), prasidedanti „http“',
+	'sf_bad_email_error'                      => 'turi būti taisyklingas el. pašto adresas',
+	'sf_bad_number_error'                     => 'turi būti skaičius',
+	'sf_bad_integer_error'                    => 'turi būti teigiamas skaičius',
+	'sf_bad_date_error'                       => 'turi būti taisyklinga data',
+	'uploadwindow'                            => 'Failo įkėlimo langas',
+	'sf_property_isattribute'                 => 'Tai yra „$1“ tipo žymė.',
+	'sf_property_isproperty'                  => 'Tai yra „$1“ tipo savybė.',
+	'sf_property_allowedvals'                 => 'Šios savybės leidžiamos reikšmės yra:',
+	'sf_property_isrelation'                  => 'Tai yra ryšys.',
+	'sf_template_docu'                        => 'Tai yra „$1“ šablonas.
+Jis turėtų būti kviečiamas šiuo formatu formatu:',
+	'sf_template_docufooter'                  => 'Norėdami matyti šablono tekstą, turite redaguoti puslapį.',
+	'sf_form_docu'                            => 'Tai yra „$1“ forma.
+Norėdami sukurti puslapį naudojantis šia forma, įveskite to pulslapio vardą žemiau.
+Jeigu puslapis tokiu vardu jau egzistuoja, šia forma galėsite jį redaguoti.',
+	'sf_form_freetextlabel'                   => 'Laisvas tekstas',
+	'sf_category_hasdefaultform'              => 'Ši kategorija naudoja „$1“ formą.',
+	'sf_category_desc'                        => 'Tai yra „$1“ kategorija.',
+	'sf_blank_namespace'                      => 'Pagrindinis',
 );
 
 /** Malayalam (മലയാളം)
@@ -2948,6 +3063,7 @@ $messages['tr'] = array(
 	'adddata'                            => 'Veri ekle',
 	'sf_editsource'                      => 'Kaynak düzelt',
 	'sf_editdata_remove'                 => 'Kaldır',
+	'sf_editdata_none'                   => 'Hiçbiri',
 	'sf_category_desc'                   => 'Bu $1 kategorisidir.',
 	'sf_blank_namespace'                 => 'Ana',
 );
