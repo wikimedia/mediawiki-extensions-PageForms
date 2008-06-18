@@ -172,7 +172,7 @@ function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x',
 			$results[] = str_replace($var, $cur_value, $new_value);
 		}
 	}
-	return implode($new_delimiter, $results);
+	return array(implode($new_delimiter, $results), 'noparse' => 'false', 'isHTML' => 'false');
 }
 
 /**
@@ -190,5 +190,5 @@ function sfRenderArrayMapTemplate ( &$parser, $value = '', $template = '', $deli
 			$results[] = '{{'.$template.'|'.$cur_value.'}}';
 		}
 	}
-	return implode($new_delimiter, $results);
+	return array(implode($new_delimiter, $results), 'noparse' => 'false', 'isHTML' => 'false');
 }
