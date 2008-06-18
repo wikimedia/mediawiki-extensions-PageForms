@@ -51,6 +51,9 @@ class SFAutocompleteAPI extends ApiBase {
 		} elseif ($category != '') {
 			$data = sffGetAllPagesForCategory($category, 3, $substr);
 		} elseif ($namespace != '') {
+			// special handling for main (blank) namespace
+			if ($namespace == 'main')
+				$namespace = '';
 			$data = sffGetAllPagesForNamespace($namespace, $substr);
 		} else {
 			$date = array();
