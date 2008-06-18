@@ -13,7 +13,7 @@
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.2.3');
+define('SF_VERSION','1.2.4');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -798,7 +798,7 @@ function sffGetAllPagesForNamespace($namespace_name, $substring = null) {
         $substring = str_replace(' ', '_', strtolower($substring));
         $substring = str_replace('_', '\_', $substring);
         $substring = str_replace("'", "\'", $substring);
-        $conditions .= " AND LOWER(page_title) LIKE '$substring%'";
+        $conditions .= " AND (LOWER(page_title) LIKE '$substring%' OR LOWER(page_title) LIKE '%\_$substring%')";
       }
       $sql_options['ORDER BY'] = 'page_title';
       $res = $db->select( $db->tableNames('page'),
