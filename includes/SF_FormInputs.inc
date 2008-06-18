@@ -23,6 +23,9 @@ class SFFormInputs {
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = sffGetAllPagesForCategory($field_name, 10);
     } else { // i.e., $autocomplete_field_type == 'namespace'
+      // switch back to blank for main namespace
+      if ($field_name == "main")
+        $field_name = "";
       $names_array = sffGetAllPagesForNamespace($field_name);
     }
     return $names_array;
@@ -283,6 +286,9 @@ END;
     } elseif (array_key_exists('autocomplete on namespace', $other_args)) {
       $autocomplete_field_type = 'namespace';
       $semantic_field_name = $other_args['autocomplete on namespace'];
+      // special handling for "main" (blank) namespace
+      if ($semantic_field_name == "")
+        $semantic_field_name = "main";
     } elseif (array_key_exists('is_relation', $other_args) ||
               (array_key_exists('field_type', $other_args) && $other_args['field_type'] == 'page')) {
       $autocomplete_field_type = 'relation';
