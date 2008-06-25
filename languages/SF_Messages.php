@@ -122,6 +122,14 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'sf_blank_namespace'                 => 'Main',
 );
 
+/** Eastern Mari (Олык Марий йылме)
+ * @author Сай
+ */
+$messages['mhr'] = array(
+	'sf_createtemplate_deletefield'  => 'Шӧраш',
+	'sf_createform_inputtypedefault' => '(ойлыде)',
+);
+
 /** Afrikaans (Afrikaans)
  * @author Arnobarnard
  * @author SPQRobin
@@ -385,6 +393,7 @@ $messages['bg'] = array(
 	'sf_bad_email_error'                      => 'необходимо е да съдържа валиден формат за е-поща',
 	'sf_bad_number_error'                     => 'необходимо е да е валидно число',
 	'sf_bad_date_error'                       => 'необходимо е да бъде валидна дата',
+	'uploadwindow'                            => 'Прозорец за качване',
 	'sf_property_isrelation'                  => 'Това е релация.',
 	'sf_template_docu'                        => "Това е шаблонът '$1'. Той следва да бъде извикван в следния формат:",
 	'sf_template_docufooter'                  => 'Редактирането на страницата ще покаже текста на шаблона.',
@@ -1194,6 +1203,7 @@ $messages['haw'] = array(
 	'sf_createproperty_propname' => 'Inoa:',
 	'sf_createform_add'          => 'Ho‘ohui',
 	'sf_createcategory_name'     => 'Inoa:',
+	'sf_editdata_remove'         => 'Kāpae',
 );
 
 /** Hebrew
