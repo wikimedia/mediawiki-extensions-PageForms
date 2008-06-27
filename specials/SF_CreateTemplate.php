@@ -20,7 +20,7 @@ require_once( "$IP/includes/SpecialPage.php" );
 
 SpecialPage::addPage( new SpecialPage('CreateTemplate','',true,'doSpecialCreateTemplate',false) );
 
-// Custom sort function, used in both getSemanticProperties() functions
+// Custom sort function, used in getSemanticProperties()
 function cmp($a, $b) {
 	if ($a == $b) {
 		return 0;
@@ -31,35 +31,7 @@ function cmp($a, $b) {
 	}
 }
 
-function getSemanticProperties_0_7() {
-	$dbr = wfGetDB( DB_SLAVE );
-	$all_properties = array();
-
-	$res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
-		" WHERE page_namespace = " . SMW_NS_ATTRIBUTE .
-		" AND page_is_redirect = 0");
-	while ($row = $dbr->fetchRow($res)) {
-		$attribute_name = str_replace('_', ' ', $row[0]);
-		$all_properties[$attribute_name . ":="] = $attribute_name;
-	}
-	$dbr->freeResult($res);
-
-	$res = $dbr->query("SELECT page_title FROM " . $dbr->tableName('page') .
-		" WHERE page_namespace = " . SMW_NS_RELATION .
-		" AND page_is_redirect = 0");
-	while ($row = $dbr->fetchRow($res)) {
-		$relation_name = str_replace('_', ' ', $row[0]);
-		$all_properties[$relation_name . "::"] = $relation_name;
-	}
-	$dbr->freeResult($res);
-
-	// sort properties list alphabetically - custom sort function is needed
-	// because the regular sort function destroys the "keys" of the array
-	uasort($all_properties, "cmp");
-	return $all_properties;
-}
-
-function getSemanticProperties_1_0() {
+function getSemanticProperties() {
 	$all_properties = array();
 
 	// set limit on results - a temporary fix until SMW's getProperties()
@@ -119,12 +91,7 @@ END;
 function doSpecialCreateTemplate() {
   global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
 
-  $smw_version = SMW_VERSION;
-  if ($smw_version{0} == '0') {
-    $all_properties = getSemanticProperties_0_7();
-  } else {
-    $all_properties = getSemanticProperties_1_0();
-  }
+  $all_properties = getSemanticProperties();
 
   $template_name = $wgRequest->getVal('template_name');
   $template_name_error_str = "";
