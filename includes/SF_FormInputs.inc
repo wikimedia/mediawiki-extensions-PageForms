@@ -18,7 +18,7 @@ class SFFormInputs {
         $names_array = sffGetAllPagesForProperty_1_2($field_name);
       } else {
         $is_relation = ($autocomplete_field_type == 'relation');
-        $names_array = sffGetAllPagesForProperty_0_7($is_relation, $field_name);
+        $names_array = sffGetAllPagesForProperty_orig($is_relation, $field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = sffGetAllPagesForCategory($field_name, 10);
