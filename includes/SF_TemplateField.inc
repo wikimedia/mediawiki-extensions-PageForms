@@ -24,47 +24,7 @@ class SFTemplateField {
     return $f;
   }
 
-  function setTypeAndPossibleValues_0_7() {
-    // HACK - set type (to 'relation') if it's a relation
-    if ($this->is_relation) {
-      $this->field_type = 'relation';
-      return;
-    }
-
-    global $smwgContLang;
-    $fname = 'SFTemplateField::getPossibleValues';
-
-    $db = wfGetDB( DB_SLAVE );
-    // value has underscores in the database
-    $semantic_field_db_str = str_replace(' ', '_', $this->semantic_field);
-    $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE . " AND subject_title = '$semantic_field_db_str' AND property_id = 1";
-    $res = $db->select( $db->tableName('smw_specialprops'),
-                        'value_string',
-                        $conditions, $fname);
-    if ($db->numRows( $res ) > 0) {
-      if ($row = $db->fetchObject($res)) {
-        $this->field_type = $row->value_string;
-        // set possible values if it's an enumeration
-        if ($this->field_type == $smwgContLang->getDatatypeLabel('smw_enum')) {
-          $conditions = "subject_namespace = " . SMW_NS_ATTRIBUTE .
-            " AND subject_title = '$semantic_field_db_str' AND property_id = " .
-            SMW_SP_POSSIBLE_VALUE;
-          $res2 = $db->select( $db->tableName('smw_specialprops'),
-            'value_string', $conditions, $fname);
-          if ($db->numRows( $res2 ) > 0) {
-            while ($row = $db->fetchObject($res2)) {
-              $this->possible_values[] = $row->value_string;
-            }
-          }
-          $db->freeResult($res2);
-        }
-      }
-    }
-    $db->freeResult($res);
-    return array();
-  }
-
-  function setTypeAndPossibleValues_1_0() {
+  function setTypeAndPossibleValues() {
     $proptitle = Title::newFromText($this->semantic_field, SMW_NS_PROPERTY);
     if ($proptitle === NULL)
       return;
@@ -100,12 +60,7 @@ class SFTemplateField {
     $this->possible_values = array();
     $this->is_list = $is_list;
     // set field type and possible values, if any
-    $smw_version = SMW_VERSION;
-    if ($smw_version{0} == '0') {
-      $this->setTypeAndPossibleValues_0_7();
-    } else {
-      $this->setTypeAndPossibleValues_1_0();
-    }
+    $this->setTypeAndPossibleValues();
   }
 }
 
