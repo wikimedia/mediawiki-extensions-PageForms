@@ -13,7 +13,7 @@
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.2.4');
+define('SF_VERSION','1.2.5');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -297,43 +297,6 @@ END;
  * (which should be a category, relation, or namespace page)
  */
 function sffGetDefaultForm($page_title, $page_namespace) {
-	$smw_version = SMW_VERSION;
-	if ($smw_version{0} == '0') {
-		return sffGetDefaultForm_0_7($page_title, $page_namespace);
-	} else {
-		return sffGetDefaultForm_1_0($page_title, $page_namespace);
-	}
-}
-
-// Version for SMW 0.7 and lower
-function sffGetDefaultForm_0_7($page_title, $page_namespace) {
-	global $sfgContLang;
-	$db = wfGetDB( DB_SLAVE );
-	$sf_props = $sfgContLang->getSpecialPropertiesArray();
-	$default_form_relation = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
-	$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
-	  "WHERE subject_title = '" . $db->strencode($page_title) .
-	  "' AND subject_namespace = '" . $page_namespace .
-	  "' AND (relation_title = '" . $db->strencode($default_form_relation) . "'";
-	// try aliases for SF_SP_HAS_DEFAULT_FORM, too
-	foreach ($sfgContLang->getSpecialPropertyAliases() as $alias => $property) {
-		if ($property == SF_SP_HAS_DEFAULT_FORM) {
-			$sql .= " OR relation_title = '" . str_replace(' ', '_', $alias) . "'";
-		}
-	}
-	$sql .= ") AND object_namespace = " . SF_NS_FORM;
-	$res = $db->query( $sql );
-	if ($db->numRows( $res ) > 0) {
-		$row = $db->fetchRow($res);
-		$form_name = $row[0];
-		return $form_name;
-	}
-	$db->freeResult($res);
-	return null;
-}
-
-// Version for SMW 1.0 and higher
-function sffGetDefaultForm_1_0($page_title, $page_namespace) {
 	if ($page_title == NULL)
 		return null;
 
@@ -377,40 +340,6 @@ function sffGetDefaultForm_1_0($page_title, $page_namespace) {
  * (which, for now, should always be a relation)
  */
 function sffGetAlternateForms($page_title, $page_namespace) {
-	$smw_version = SMW_VERSION;
-	if ($smw_version{0} == '0') {
-		return sffGetAlternateForms_0_7($page_title, $page_namespace);
-	} else {
-		return sffGetAlternateForms_1_0($page_title, $page_namespace);
-	}
-}
-
-// Version for SMW 0.7 and lower
-function sffGetAlternateForms_0_7($page_title, $page_namespace) {
-	global $sfgContLang;
-	$db = wfGetDB( DB_SLAVE );
-	$sf_props = $sfgContLang->getSpecialPropertiesArray();
-	$alternate_form_relation = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
-	$sql = "SELECT DISTINCT object_title FROM {$db->tableName('smw_relations')} " .
-	  "WHERE subject_title = '" . $db->strencode($page_title) .
-	  "' AND subject_namespace = '" . $page_namespace .
-	  "' AND (relation_title = '" . $db->strencode($alternate_form_relation);
-	// try English version too, if this is in another language
-	if ($alternate_form_relation != "Has_alternate_form") {
-		$sql .= "' OR relation_title = 'Has_alternate_form";
-	}
-	$sql .= "') AND object_namespace = " . SF_NS_FORM;
-	$res = $db->query( $sql );
-	$form_names = array();
-	while ($row = $db->fetchRow($res)) {
-		$form_names[] = $row[0];
-	}
-	$db->freeResult($res);
-	return $form_names;
-}
-
-// Version for SMW 1.0 and higher
-function sffGetAlternateForms_1_0($page_title, $page_namespace) {
 	if ($page_title == NULL)
 		return null;
 
@@ -469,31 +398,13 @@ function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespa
  * red-linked) page
  */
 function sffSetBrokenLink(&$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail) {
-	$smw_version = SMW_VERSION;
-	if ($smw_version{0} == '0') {
-		$link = sffAddDataLink_0_7($title);
-	} else {
-		$link = sffAddDataLink_1_0($title);
-	}
+	$link = sffAddDataLink($title);
 	if ($link != '')
 		$u = $link;
 	return true;
 }
 
-/*
- * Legacy function, for use with the old MediaWiki patch
- */
 function sffAddDataLink($title) {
-	$smw_version = SMW_VERSION;
-	if ($smw_version{0} == '0') {
-		return sffAddDataLink_0_7($title);
-	} else {
-		return sffAddDataLink_1_0($title);
-	}
-}
-
-// Version for SMW 1.0 and higher
-function sffAddDataLink_1_0($title) {
 	// get all properties pointing to this page, and if
 	// sffGetAddDataLinkForPage() returns a value with any of
 	// them, return that
@@ -521,37 +432,6 @@ function sffAddDataLink_1_0($title) {
 	// if nothing found still, return null
 	return null;
 }
-
-// Version for SMW 0.7 and lower
-function sffAddDataLink_0_7($title) {
-	// get all relations that have this page as an object,
-	// and see if any of them have a default form specified
-	$db = wfGetDB( DB_SLAVE );
-	$sql = "SELECT DISTINCT relation_title FROM {$db->tableName('smw_relations')} WHERE object_title = '" . $db->strencode($title->getDBkey()) . "' AND object_namespace = '" . $title->getNamespace() . "'";
-	$res = $db->query( $sql );
-	if ($db->numRows( $res ) > 0) {
-		while ($row = $db->fetchRow($res)) {
-			$relation = $row[0];
-			if ($add_data_link = sffGetAddDataLinkForPage($title, $relation, SMW_NS_RELATION)) {
-				return $add_data_link;
-			}
-		}
-	}
-	// if that didn't work, check if this page's namespace
-	// has a default form specified
-	$namespace = $title->getNsText();
-	if ('' === $namespace) {
-		// if it's in the main (blank) namespace, check for the file
-		// named with the word for "Main" in this language
-		$namespace = wfMsgForContent('sf_blank_namespace');
-	}
-	if ($add_data_link = sffGetAddDataLinkForPage($title, $namespace, NS_PROJECT)) {
-		return $add_data_link;
-	}
-	// if nothing found still, return null
-	return null;
-}
-
 
 /**
  * Helper function - gets names of categories for a page;
@@ -649,10 +529,10 @@ function sffGetMonthNames() {
 	);
 }
 
-function sffGetAllPagesForProperty_0_7($is_relation, $property_name, $substring = null) {
+function sffGetAllPagesForProperty_orig($is_relation, $property_name, $substring = null) {
   global $sfgMaxAutocompleteValues;
 
-  $fname = "sffGetAllPagesForProperty_0_7";
+  $fname = "sffGetAllPagesForProperty_orig";
   $pages = array();
   $db = wfGetDB( DB_SLAVE );
   $sql_options = array();
@@ -690,7 +570,7 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 	$requestoptions = new SMWRequestOptions();
 	$requestoptions->limit = $sfgMaxAutocompleteValues;
 	if ($substring != null) {
-		$requestoptions->addStringCondition($substring, SMW_STRCOND_PRE);
+		$requestoptions->addStringCondition($substring, SMWStringCondition::STRCOND_PRE);
 	}
 	$property = Title::newFromText($property_name, SMW_NS_PROPERTY);
 	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
@@ -707,7 +587,7 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 	if ($substring != null) {
 		$requestoptions2 = new SMWRequestOptions();
 		$requestoptions2->limit = $sfgMaxAutocompleteValues;
-		$requestoptions2->addStringCondition(" $substring", SMW_STRCOND_MID);
+		$requestoptions2->addStringCondition(" $substring", SMWStringCondition::STRCOND_MID);
 		$data_values = $store->getPropertyValues(null, $property, $requestoptions2);
 		foreach ($data_values as $dv) {
 			$pages[] = $dv->getXSDValue();
