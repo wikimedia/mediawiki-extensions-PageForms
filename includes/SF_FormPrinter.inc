@@ -25,43 +25,28 @@ class SFFormPrinter {
     // in the form definition
     $this->mSemanticTypeHooks = array();
     if ($smwgContLang != null) {
-      // set type strings based on the SMW version
-      $smw_version = SMW_VERSION;
-      if ($smw_version{0} == '0') {
-        $string_type = $smwgContLang->getDatatypeLabel('smw_string');
-        $text_type = 'text'; // placeholder - SMW 1.0+ only
-        $url_type = $smwgContLang->getDatatypeLabel('smw_url');
-        $email_type = $smwgContLang->getDatatypeLabel('smw_email');
-        $float_type = $smwgContLang->getDatatypeLabel('smw_float');
-        $int_type = $smwgContLang->getDatatypeLabel('smw_int');
-        $bool_type = $smwgContLang->getDatatypeLabel('smw_bool');
-        $date_type = $smwgContLang->getDatatypeLabel('smw_datetime');
-        $enum_type = $smwgContLang->getDatatypeLabel('smw_enum');
-        $page_type = 'relation';
+      $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+      $string_type = $datatypeLabels['_str'];
+      $text_type = $datatypeLabels['_txt'];
+      $url_type = $datatypeLabels['_uri'];
+      $email_type = $datatypeLabels['_ema'];
+      // backwards compatibility with SMW 1.0 alpha 1 - still used, for
+      // now, by the Halo extension
+      if (array_key_exists('_flt', $datatypeLabels)) {
+        $float_type = $datatypeLabels['_flt'];
+        $int_type = $datatypeLabels['_int'];
       } else {
-        $datatypeLabels =  $smwgContLang->getDatatypeLabels();
-        $string_type = $datatypeLabels['_str'];
-        $text_type = $datatypeLabels['_txt'];
-        $url_type = $datatypeLabels['_uri'];
-        $email_type = $datatypeLabels['_ema'];
-        // backwards compatibility with SMW 1.0 alpha 1 - still used, for
-        // now, by the Halo extension
-        if (array_key_exists('_flt', $datatypeLabels)) {
-          $float_type = $datatypeLabels['_flt'];
-          $int_type = $datatypeLabels['_int'];
-        } else {
-          $float_type = $datatypeLabels['_num'];
-          $int_type = 'integer'; // placeholder - no longer exists
-        }
-        // some old versions of SMW 1.0 don't support Boolean types
-        if (array_key_exists('_boo', $datatypeLabels))
-          $bool_type = $datatypeLabels['_boo'];
-        else
-          $bool_type = 'boolean';
-        $date_type = $datatypeLabels['_dat'];
-        $enum_type = 'enumeration'; // not a real type
-        $page_type = $datatypeLabels['_wpg'];
+        $float_type = $datatypeLabels['_num'];
+        $int_type = 'integer'; // placeholder - no longer exists
       }
+      // some old versions of SMW 1.0 don't support Boolean types
+      if (array_key_exists('_boo', $datatypeLabels))
+        $bool_type = $datatypeLabels['_boo'];
+      else
+        $bool_type = 'boolean';
+      $date_type = $datatypeLabels['_dat'];
+      $enum_type = 'enumeration'; // not a real type
+      $page_type = $datatypeLabels['_wpg'];
       $this->setSemanticTypeHook($string_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string'));
       $this->setSemanticTypeHook($string_type, true, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true'));
       $this->setSemanticTypeHook($text_type, false, array('SFFormInputs', 'textAreaHTML'), array());
@@ -561,15 +546,10 @@ class SFFormPrinter {
                 // possibilities get added
                 if (count($cur_value) == 1) {
                   $words_for_false = explode(',', wfMsgForContent('smw_false_words'));
-                  // for each languages, there's a series of words that are
+                  // for each language, there's a series of words that are
                   // equal to false - get the word in the series that matches
-                  // "no"; for SMW 0.7, that's the 2nd word, and for SMW 1.0
-                  // it's the third word
-                  $smw_version = SMW_VERSION;
-                  if ($smw_version{0} == '0')
-                    $index_of_no = 1;
-                  else
-                    $index_of_no = 2;
+                  // "no"; generally, that's the third word
+                  $index_of_no = 2;
                   if (count($words_for_false) > $index_of_no) {
                     $no = ucwords($words_for_false[$index_of_no]);
                   } elseif (count($words_for_false) == 0) {
@@ -581,13 +561,8 @@ class SFFormPrinter {
                 } elseif (count($cur_value) == 2) {
                   $words_for_true = explode(',', wfMsgForContent('smw_true_words'));
                   // get the value in the 'true' series that tends to be "yes",
-                  // and go with that one - for SMW 0.7, that's the 2nd word,
-                  // and for SMW 1.0 it's the third word
-                  $smw_version = SMW_VERSION;
-                  if ($smw_version{0} == '0')
-                    $index_of_yes = 1;
-                  else
-                    $index_of_yes = 2;
+                  // and go with that one - generally, that's the third word
+                  $index_of_yes = 2;
                   if (count($words_for_true) > $index_of_yes) {
                     $yes = ucwords($words_for_true[$index_of_yes]);
                   } elseif (count($words_for_true) == 0) {
