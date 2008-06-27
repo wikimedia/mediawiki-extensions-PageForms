@@ -63,7 +63,7 @@
  * 'Has color' around each element in the list, you could call the
  * following:
  *
- * {{#arraymap:blue;red;yellow|;|x|[[Has color:=x]]|;}}
+ * {{#arraymap:blue;red;yellow|;|x|[[Has color::x]]|;}}
  *
  *
  * 'arraymaptemplate' is called as:
@@ -110,11 +110,11 @@ function sffLanguageGetMagic( &$magicWords, $langCode = "en" ) {
 function sfRenderFormLink (&$parser, $inFormName = '', $inLinkStr = '', $inLinkType='', $inQueryStr = '') {
 	$ad = SpecialPage::getPage('AddData');
 	$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
+	$link_url = str_replace(' ', '_', $link_url);
 	if ($inQueryStr != '') {
 		$link_url .= (strstr($link_url, '?')) ? '&' : '?';
 		$link_url .= $inQueryStr;
 	}
-	$link_url = str_replace(' ', '_', $link_url);
 	if ($inLinkType == 'button') {
 		$str = "<form><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
 	} else {
