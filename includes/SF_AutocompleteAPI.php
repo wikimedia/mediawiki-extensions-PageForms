@@ -45,9 +45,9 @@ class SFAutocompleteAPI extends ApiBase {
 		if ($property != '') {
 			$data = sffGetAllPagesForProperty_1_2($property, $substr);
 		} elseif ($relation != '') {
-			$data = sffGetAllPagesForProperty_0_7(true, $relation, $substr);
+			$data = sffGetAllPagesForProperty_orig(true, $relation, $substr);
 		} elseif ($attribute != '') {
-			$data = sffGetAllPagesForProperty_0_7(false, $attribute, $substr);
+			$data = sffGetAllPagesForProperty_orig(false, $attribute, $substr);
 		} elseif ($category != '') {
 			$data = sffGetAllPagesForCategory($category, 3, $substr);
 		} elseif ($namespace != '') {
