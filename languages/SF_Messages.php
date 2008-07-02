@@ -122,12 +122,26 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'sf_blank_namespace'                 => 'Main',
 );
 
+/** Tarifit (Tarifit)
+ * @author Jose77
+ */
+$messages['rif'] = array(
+	'sf_createtemplate_deletefield' => 'Sfaḍ',
+);
+
 /** Eastern Mari (Олык Марий йылме)
  * @author Сай
  */
 $messages['mhr'] = array(
 	'sf_createtemplate_deletefield'  => 'Шӧраш',
 	'sf_createform_inputtypedefault' => '(ойлыде)',
+);
+
+/** Niuean (native name missing)
+ * @author Jose77
+ */
+$messages['niu'] = array(
+	'sf_createtemplate_deletefield' => 'Tamate',
 );
 
 /** Afrikaans (Afrikaans)
@@ -1196,6 +1210,13 @@ $messages['gv'] = array(
 	'sf_createcategory_name'        => 'Ennym:',
 );
 
+/** Hakka (Hak-kâ-fa)
+ * @author Hakka
+ */
+$messages['hak'] = array(
+	'sf_createtemplate_deletefield' => 'Chhù-thet',
+);
+
 /** Hawaiian (Hawai`i)
  * @author Singularity
  */
@@ -1475,6 +1496,13 @@ $messages['hu'] = array(
 	'addoreditdata'                           => 'Hozzáadás vagy szerkesztés',
 	'adddata'                                 => 'Adat hozzáadása',
 	'sf_editdata_none'                        => 'Nincs',
+);
+
+/** Interlingua (Interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'sf_createform_inputtypedefault' => '(predefinition)',
 );
 
 /** Indonesian (Bahasa Indonesia)
