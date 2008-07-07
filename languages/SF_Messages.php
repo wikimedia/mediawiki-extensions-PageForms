@@ -122,14 +122,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'sf_blank_namespace'                 => 'Main',
 );
 
-/** Tarifit (Tarifit)
- * @author Jose77
- */
-$messages['rif'] = array(
-	'sf_createtemplate_deletefield' => 'Sfaḍ',
-);
-
-/** Eastern Mari (Олык Марий йылме)
+/** Eastern Mari (Олык Марий)
  * @author Сай
  */
 $messages['mhr'] = array(
@@ -137,7 +130,7 @@ $messages['mhr'] = array(
 	'sf_createform_inputtypedefault' => '(ойлыде)',
 );
 
-/** Niuean (native name missing)
+/** Niuean (ko e vagahau Niuē)
  * @author Jose77
  */
 $messages['niu'] = array(
@@ -2554,6 +2547,13 @@ $messages['pt-br'] = array(
 	'sf_category_hasdefaultform'              => 'Esta categoria usa o formulário $1.',
 	'sf_category_desc'                        => 'Esta é a $1 categoria.',
 	'sf_blank_namespace'                      => 'Principal',
+);
+
+/** Tarifit (Tarifit)
+ * @author Jose77
+ */
+$messages['rif'] = array(
+	'sf_createtemplate_deletefield' => 'Sfaḍ',
 );
 
 /** Russian (Русский)
