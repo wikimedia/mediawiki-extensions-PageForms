@@ -676,6 +676,7 @@ $messages['eo'] = array(
 /** Spanish (Español)
  * @author Cmitnick
  * @author Jatrobat
+ * @author Siebrand
  */
 $messages['es'] = array(
 	'createproperty'                          => 'Crear una propiedad',
@@ -747,12 +748,14 @@ $messages['es'] = array(
 	'sf_adddata_altformsonly'                 => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
 	'editdata'                                => 'Editar datos',
 	'sf_formedit'                             => 'Editar con formulario',
+	'sf_viewform'                             => 'Ver el formulario',
 	'sf_editsource'                           => 'Editar fuente',
 	'sf_editdata_title'                       => 'Editar $1: $2',
 	'sf_editdata_badurl'                      => "Este es la página para editar datos. Usted debe especificar tanto el nombre del formulario y la página de destino en el URL; debe verse algo como Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' o  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning'                 => 'Advertencia: Esta página <a href="$1">ya existe</a>, pero no usa este formulario.',
 	'sf_editdata_remove'                      => 'Sacar',
 	'sf_editdata_addanother'                  => 'Agregar otro',
+	'sf_formerrors_header'                    => 'Hubo errores en los datos del formulario; vea más abajo',
 	'sf_blank_error'                          => 'no puede estar en blanco',
 	'sf_bad_url_error'                        => "debe tener el formato correcto de URL, comenzando con 'http'",
 	'sf_bad_email_error'                      => 'debe tener un formato de dirección de email válido',
