@@ -438,7 +438,7 @@ $messages['cs'] = array(
 	'sf_createtemplate_semanticproperty' => 'Sémantická vlastnost:',
 );
 
-/** Church Slavic (Словѣньскъ)
+/** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
  * @author ОйЛ
  */
 $messages['cu'] = array(
@@ -2322,7 +2322,7 @@ $messages['pl'] = array(
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
 	'sf_createtemplate_deletefield'  => 'Usuń',
 	'sf_createform_field'            => 'Pole:',
-	'sf_editsource'                    => 'Edytuj źródło',
+	'sf_editsource'                  => 'Edytuj źródło',
 	'sf_editdata_title'              => 'Edytuj $1: $2',
 	'sf_editdata_remove'             => 'Usuń',
 	'sf_editdata_none'               => 'Brak',
