@@ -584,10 +584,10 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
 	$pages = array();
 	foreach ($data_values as $dv) {
-print_r($dv);
 		// getPropertyValues() gets many repeat values - we want
 		// only one of each value
 		$string_value = str_replace('_', ' ', $dv->getXSDValue());
+		$string_value = str_replace("'", "\'", $string_value);
 		if (array_search($string_value, $pages) === false)
 			$pages[] = $string_value;
 	}
