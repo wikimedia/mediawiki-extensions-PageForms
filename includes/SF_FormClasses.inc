@@ -289,6 +289,11 @@ class SFFormTemplateField {
     $datatypeLabels =  $smwgContLang->getDatatypeLabels();
     $string_type = $datatypeLabels['_str'];
     $text_type = $datatypeLabels['_txt'];
+    // type introduced in SMW 1.2
+    if (array_key_exists('_cod', $datatypeLabels))
+      $code_type = $datatypeLabels['_cod'];
+    else
+      $code_type = 'code';
     $url_type = $datatypeLabels['_uri'];
     $email_type = $datatypeLabels['_ema'];
     $float_type = $datatypeLabels['_num'];
@@ -314,7 +319,7 @@ class SFFormTemplateField {
       } else {
         return array('text');
       }
-    } elseif ($semantic_field_type == $text_type) {
+    } elseif ($semantic_field_type == $text_type || $semantic_field_type == $code_type) {
       return array('textarea');
     } elseif ($semantic_field_type == $bool_type) {
       return array('checkbox');
