@@ -14,7 +14,9 @@ class SFFormInputs {
     // the query depends on whether this field is a relation (property of type
     // Page), attribute (property of any other type), category or namespace
     if ($autocomplete_field_type == 'relation' || $autocomplete_field_type == 'attribute' || $autocomplete_field_type == 'property') {
-      if (version_compare(SMW_VERSION, '1.2', '>=' )) {
+      $smw_version = SMW_VERSION;
+      if (version_compare(SMW_VERSION, '1.2', '>=' ) ||
+          substr($smw_version, 0, 3) == '1.2') { // temporary hack
         $names_array = sffGetAllPagesForProperty_1_2($field_name);
       } else {
         $is_relation = ($autocomplete_field_type == 'relation');
