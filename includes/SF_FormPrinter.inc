@@ -8,8 +8,6 @@
  * @author Harold Solbrig
  */
 
-require_once( $sfgIP . "/includes/SF_FormInputs.inc" );
-
 class SFFormPrinter {
 
   var $mSemanticTypeHooks;
@@ -28,32 +26,25 @@ class SFFormPrinter {
       $datatypeLabels =  $smwgContLang->getDatatypeLabels();
       $string_type = $datatypeLabels['_str'];
       $text_type = $datatypeLabels['_txt'];
+      // type introduced in SMW 1.2
+      if (array_key_exists('_cod', $datatypeLabels))
+        $code_type = $datatypeLabels['_cod'];
+      else
+        $code_type = 'code';
       $url_type = $datatypeLabels['_uri'];
       $email_type = $datatypeLabels['_ema'];
-      // backwards compatibility with SMW 1.0 alpha 1 - still used, for
-      // now, by the Halo extension
-      if (array_key_exists('_flt', $datatypeLabels)) {
-        $float_type = $datatypeLabels['_flt'];
-        $int_type = $datatypeLabels['_int'];
-      } else {
-        $float_type = $datatypeLabels['_num'];
-        $int_type = 'integer'; // placeholder - no longer exists
-      }
-      // some old versions of SMW 1.0 don't support Boolean types
-      if (array_key_exists('_boo', $datatypeLabels))
-        $bool_type = $datatypeLabels['_boo'];
-      else
-        $bool_type = 'boolean';
+      $float_type = $datatypeLabels['_num'];
+      $bool_type = $datatypeLabels['_boo'];
       $date_type = $datatypeLabels['_dat'];
       $enum_type = 'enumeration'; // not a real type
       $page_type = $datatypeLabels['_wpg'];
       $this->setSemanticTypeHook($string_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string'));
       $this->setSemanticTypeHook($string_type, true, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true'));
       $this->setSemanticTypeHook($text_type, false, array('SFFormInputs', 'textAreaHTML'), array());
+      $this->setSemanticTypeHook($code_type, false, array('SFFormInputs', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($url_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'URL'));
       $this->setSemanticTypeHook($email_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'email'));
       $this->setSemanticTypeHook($float_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'float'));
-      $this->setSemanticTypeHook($int_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'integer'));
       $this->setSemanticTypeHook($bool_type, false, array('SFFormInputs', 'checkboxHTML'), array());
       $this->setSemanticTypeHook($date_type, false, array('SFFormInputs', 'dateEntryHTML'), array());
       $this->setSemanticTypeHook($enum_type, false, array('SFFormInputs', 'dropdownHTML'), array());
@@ -1428,16 +1419,29 @@ END;
   }
 
   function watchInputHTML($is_disabled, $label = null) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $wgUser;
 
     $sfgTabIndex++;
+    $checked_text = "";
     $disabled_text = ($is_disabled) ? "disabled" : "";
+    // figure out if the checkbox should be checked - 
+    // this code borrowed from /includes/EditPage.php
+    if ($wgUser->getOption('watchdefault')) {
+      # Watch all edits
+      $checked_text = "checked";
+    } elseif ($wgUser->getOption('watchcreations') && !$this->mPageTitle->exists() ) {
+      # Watch creations
+      $checked_text = "checked";
+    } elseif ($this->mPageTitle->userIsWatching()) {
+      # Already watched
+      $checked_text = "checked";
+    }
     if ($label == null)
       $label = wfMsgExt('watchthis', array('parseinline'));
     $accesskey = htmlspecialchars(wfMsg('accesskey-watch'));
     $tooltip = htmlspecialchars(wfMsg('tooltip-watch'));
     $text =<<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis' $disabled_text/>
+	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis' $checked_text $disabled_text/>
         <label for="wpWatchthis" title="$tooltip">$label</label>
 
 END;
