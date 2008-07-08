@@ -8,60 +8,54 @@
  */
 
 class SFTemplateField {
-  var $field_name;
-  var $label;
-  var $semantic_field;
-  var $semantic_field_call;
-  var $is_relation;
-  var $field_type;
-  var $possible_values;
-  var $is_list;
+	var $field_name;
+	var $label;
+	var $semantic_field;
+	var $semantic_field_call;
+	var $is_relation;
+	var $field_type;
+	var $possible_values;
+	var $is_list;
 
-  function newWithValues($name, $label) {
-    $f = new SFTemplateField();
-    $f->field_name = str_replace('\\', '', $name);
-    $f->label = str_replace('\\', '', $label);
-    return $f;
-  }
+	function newWithValues($name, $label) {
+		$f = new SFTemplateField();
+		$f->field_name = str_replace('\\', '', $name);
+		$f->label = str_replace('\\', '', $label);
+		return $f;
+	}
 
-  function setTypeAndPossibleValues() {
-    $proptitle = Title::newFromText($this->semantic_field, SMW_NS_PROPERTY);
-    if ($proptitle === NULL)
-      return;
-    $store = smwfGetStore();
-    $types = $store->getSpecialValues($proptitle, SMW_SP_HAS_TYPE);
-    // TODO - need handling for the case of more than one type
-    if (count($types) > 0)
-      $this->field_type = $types[0]->getWikiValue();
+	function setTypeAndPossibleValues() {
+		$proptitle = Title::newFromText($this->semantic_field, SMW_NS_PROPERTY);
+		if ($proptitle === NULL)
+			return;
+		$store = smwfGetStore();
+		$types = $store->getSpecialValues($proptitle, SMW_SP_HAS_TYPE);
+		// TODO - need handling for the case of more than one type
+		if (count($types) > 0)
+			$this->field_type = $types[0]->getWikiValue();
 
-    // this returns an array of objects
-    $SMW_values = smwfGetStore()->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
-    foreach ($SMW_values as $value) {
-      if ($value instanceof SMWDataValue) {
-        $this->possible_values[] = $value->getXSDValue();
-      } else {
-        // backwards compatibility with SMW 1.0 alpha 1 - still used, for
-        // now, by the Halo extension
-        $this->possible_values[] = $value;
-      }
-    }
-    // HACK - if there were any possible values, set the field
-    // type to be 'enumeration', regardless of what the actual type is
-    if (count($this->possible_values) > 0) {
-      $this->field_type = 'enumeration';
-    }
-  }
+		// this returns an array of objects
+		$SMW_values = smwfGetStore()->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
+		foreach ($SMW_values as $value) {
+			$this->possible_values[] = $value->getXSDValue();
+		}
+		// HACK - if there were any possible values, set the field
+		// type to be 'enumeration', regardless of what the actual type is
+		if (count($this->possible_values) > 0) {
+			$this->field_type = 'enumeration';
+		}
+	}
 
-  // setSemanticData() - called when template is parsed during the creation
-  // of a form
-  function setSemanticData($semantic_field, $is_relation, $is_list) {
-    $this->semantic_field = str_replace('\\', '', $semantic_field);
-    $this->is_relation = $is_relation;
-    $this->possible_values = array();
-    $this->is_list = $is_list;
-    // set field type and possible values, if any
-    $this->setTypeAndPossibleValues();
-  }
+	// setSemanticData() - called when template is parsed during the creation
+	// of a form
+	function setSemanticData($semantic_field, $is_relation, $is_list) {
+		$this->semantic_field = str_replace('\\', '', $semantic_field);
+		$this->is_relation = $is_relation;
+		$this->possible_values = array();
+		$this->is_list = $is_list;
+		// set field type and possible values, if any
+		$this->setTypeAndPossibleValues();
+	}
 }
 
 function createTemplateText($template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format) {
