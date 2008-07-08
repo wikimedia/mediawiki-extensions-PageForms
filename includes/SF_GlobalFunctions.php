@@ -7,13 +7,9 @@
  * @author Louis Gerbarg
  */
 
-/**
- * Protect against register_globals vulnerabilities.
- * This line must be present before any global variable is referenced.
- */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.2.5');
+define('SF_VERSION','1.2.6');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -23,58 +19,57 @@ $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 $wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
 $wgHooks['BrokenLink'][] = 'sffSetBrokenLink';
+$wgHooks['UnknownAction'][] = 'sffEmbeddedEditForm';
 
+// register all special pages and other classes
+$wgSpecialPages['Forms'] = 'SFForms';
+$wgAutoloadClasses['SFForms'] = $sfgIP . '/specials/SF_Forms.php';
+$wgSpecialPages['CreateForm'] = 'SFCreateForm';
+$wgAutoloadClasses['SFCreateForm'] = $sfgIP . '/specials/SF_CreateForm.php';
+$wgSpecialPages['Templates'] = 'SFTemplates';
+$wgAutoloadClasses['SFTemplates'] = $sfgIP . '/specials/SF_Templates.php';
+$wgSpecialPages['CreateTemplate'] = 'SFCreateTemplate';
+$wgAutoloadClasses['SFCreateTemplate'] = $sfgIP . '/specials/SF_CreateTemplate.php';
+$wgSpecialPages['CreateProperty'] = 'SFCreateProperty';
+$wgAutoloadClasses['SFCreateProperty'] = $sfgIP . '/specials/SF_CreateProperty.php';
+$wgSpecialPages['CreateCategory'] = 'SFCreateCategory';
+$wgAutoloadClasses['SFCreateCategory'] = $sfgIP . '/specials/SF_CreateCategory.php';
+$wgSpecialPages['AddPage'] = 'SFAddPage';
+$wgAutoloadClasses['SFAddPage'] = $sfgIP . '/specials/SF_AddPage.php';
+$wgSpecialPages['AddData'] = 'SFAddData';
+$wgAutoloadClasses['SFAddData'] = $sfgIP . '/specials/SF_AddData.php';
+$wgSpecialPages['EditData'] = 'SFEditData';
+$wgAutoloadClasses['SFEditData'] = $sfgIP . '/specials/SF_EditData.php';
+$wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
+$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
+
+$wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.inc';
+$wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
+$wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
+$wgAutoloadClasses['SFFormTemplateField'] = $sfgIP . '/includes/SF_FormClasses.inc';
+$wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.inc';
+// SFFormPrinter is not autoloaded because it's needed right away, for the
+// $sfgFormPrinter variable
+//$wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
+$wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
+
+require_once($sfgIP . '/includes/SF_FormPrinter.inc');
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 require_once($sfgIP . '/languages/SF_Language.php');
 
-if (version_compare($wgVersion, '1.11', '>=' )) {
-	$wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
-} else {
-	$wgExtensionFunctions[] = 'sffLoadMessagesManually';
-}
+$wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 
 /**
- *  Do the actual intialisation of the extension. This is just a delayed init that makes sure
+ *  Do the actual intialization of the extension. This is just a delayed init that makes sure
  *  MediaWiki is set up properly before we add our stuff.
  */
 function sfgSetupExtension() {
-	global $sfgIP, $wgVersion, $wgExtensionCredits;
-
-	if (version_compare($wgVersion, '1.11', '>=' ))
-		wfLoadExtensionMessages('SemanticForms');
-
-	/**********************************************/
-	/***** register specials                  *****/
-	/**********************************************/
-
-	require_once($sfgIP . '/specials/SF_Forms.php');
-	require_once($sfgIP . '/specials/SF_CreateForm.php');
-	require_once($sfgIP . '/specials/SF_Templates.php');
-	require_once($sfgIP . '/specials/SF_CreateTemplate.php');
-	require_once($sfgIP . '/specials/SF_CreateProperty.php');
-	require_once($sfgIP . '/specials/SF_CreateCategory.php');
-	require_once($sfgIP . '/specials/SF_AddPage.php');
-	require_once($sfgIP . '/specials/SF_AddData.php');
-	require_once($sfgIP . '/specials/SF_EditData.php');
-	require_once($sfgIP . '/specials/SF_UploadWindow.php');
-
-	/**********************************************/
-	/***** register hooks                     *****/
-	/**********************************************/
+	global $sfgIP, $wgExtensionCredits;
 
 	require_once($sfgIP . '/includes/SF_FormEditTab.php');
-	require_once($sfgIP . '/includes/SF_AutocompleteAPI.php');
 
-	/**********************************************/
-	/***** create globals for outside hooks   *****/
-	/**********************************************/
+	wfLoadExtensionMessages('SemanticForms');
 
-	global $sfgFormPrinter;
-	$sfgFormPrinter = new SFFormPrinter();
-
-	/**********************************************/
-	/***** credits (see "Special:Version")    *****/
-	/**********************************************/
 	$wgExtensionCredits['specialpage'][]= array(
 		'name' => 'Semantic Forms',
 		'version' => SF_VERSION,
@@ -83,7 +78,11 @@ function sfgSetupExtension() {
 		'description' => 'Forms for adding and editing semantic data',
 	);
 
-	return true;
+	// this global variable is needed so that other extensions (such
+	// as Semantic Google Maps) can hook into to add their own input
+	// types
+	global $sfgFormPrinter;
+	$sfgFormPrinter = new SFFormPrinter();
 }
 
 /**********************************************/
@@ -172,37 +171,6 @@ function sffInitUserLanguage($langcode) {
 	}
 }
 
-/**
- * Initialize messages - these settings must be applied later on, since
- * the MessageCache does not exist yet when the settings are loaded in
- * LocalSettings.php.
- * Function based on version in ContributionScores extension
- */
-function sffInitMessages() {
-	global $wgVersion, $wgExtensionFunctions;
-	if (version_compare($wgVersion, '1.11', '>=' )) {
-		wfLoadExtensionMessages( 'SemanticForms' );
-	} else {
-		$wgExtensionFunctions[] = 'sffLoadMessagesManually';
-	}
-}
-
-/**
- * Setting of message cache for versions of MediaWiki that do not support
- * wgExtensionMessageFiles - based on ceContributionScores() in
- * ContributionScores extension
- */
-function sffLoadMessagesManually() {
-	global $sfgIP, $wgMessageCache;
-
-	# add messages
-	require($sfgIP . '/languages/SF_Messages.php');
-	foreach($messages as $key => $value) {
-		$wgMessageCache->addMessages($messages[$key], $key);
-	}
-}
-
-
 /**********************************************/
 /***** other global helpers               *****/
 /**********************************************/
@@ -229,11 +197,17 @@ function sffLinkText($namespace, $name, $text = NULL) {
  * some reason, doesn't include the namespace
  */
 function sffTitleURLString($title) {
+	global $wgCapitalLinks;
+
 	$namespace = wfUrlencode( $title->getNsText() );
 	if ( '' != $namespace ) {
 		$namespace .= ':';
 	}
-	return ($namespace . ucfirst($title->getPartialURL()));
+	if ($wgCapitalLinks) {
+		return $namespace . ucfirst($title->getPartialURL());
+	} else {
+		return $namespace . $title->getPartialURL();
+	}
 }
 
 /**
@@ -431,6 +405,37 @@ function sffAddDataLink($title) {
 	}
 	// if nothing found still, return null
 	return null;
+}
+
+/**
+ * The function called if we're in index.php (as opposed to one of the special
+ * pages)
+ */
+function sffEmbeddedEditForm($action, $article) {
+	global $sfgIP;
+
+	// for some reason, the code calling the 'UnknownAction' hook wants
+	// "true" if the hook failed, and "false" otherwise... this is
+	// probably a bug, but we'll just work with it
+	if ($action != 'formedit') {
+		return true;
+	}
+
+	$form_name = sffGetFormForArticle($article);
+	if ($form_name == '') {
+		return true;
+	}
+
+	$target_title = $article->getTitle();
+	$target_name = sffTitleString($target_title);
+	if ($target_title->exists()) {
+		require_once($sfgIP . '/specials/SF_EditData.php');
+		printEditForm($form_name, $target_name);
+	} else {
+		require_once($sfgIP . '/specials/SF_AddData.php');
+		printAddForm($form_name, $target_name, array());
+	}
+	return false;
 }
 
 /**
@@ -696,4 +701,41 @@ function sffGetAllPagesForNamespace($namespace_name, $substring = null) {
     }
   }
   return $pages;
+}
+
+// Custom sort function, used in sffGetAllProperties()
+function cmp($a, $b) {
+	if ($a == $b) {
+		return 0;
+	} elseif ($a < $b) {
+		return -1;
+	} else {
+		return 1;
+	}
+}
+
+function sffGetAllProperties() {
+	$all_properties = array();
+
+	// set limit on results - a temporary fix until SMW's getProperties()
+	// functions stop requiring a limit
+	global $smwgIP;
+	include_once($smwgIP . '/includes/storage/SMW_Store.php');
+	$options = new SMWRequestOptions();
+	$options->limit = 10000;
+	$used_properties = smwfGetStore()->getPropertiesSpecial($options);
+	foreach ($used_properties as $property) {
+		$property_name = $property[0]->getText();
+		$all_properties[$property_name . "::"] = $property_name;
+	}
+	$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
+	foreach ($unused_properties as $property) {
+		$property_name = $property->getText();
+		$all_properties[$property_name . "::"] = $property_name;
+	}
+
+	// sort properties list alphabetically - custom sort function is needed
+	// because the regular sort function destroys the "keys" of the array
+	uasort($all_properties, "cmp");
+	return $all_properties;
 }
