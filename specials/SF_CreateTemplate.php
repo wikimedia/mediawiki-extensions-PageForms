@@ -12,49 +12,20 @@
  */
 if (!defined('MEDIAWIKI')) die();
 
-include_once $sfgIP . "/includes/SF_TemplateField.inc";
+class SFCreateTemplate extends SpecialPage {
 
-
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
-
-SpecialPage::addPage( new SpecialPage('CreateTemplate','',true,'doSpecialCreateTemplate',false) );
-
-// Custom sort function, used in getSemanticProperties()
-function cmp($a, $b) {
-	if ($a == $b) {
-		return 0;
-	} elseif ($a < $b) {
-		return -1;
-	} else {
-		return 1;
-	}
-}
-
-function getSemanticProperties() {
-	$all_properties = array();
-
-	// set limit on results - a temporary fix until SMW's getProperties()
-	// functions stop requiring a limit
-	global $smwgIP;
-	include_once($smwgIP . '/includes/storage/SMW_Store.php');
-	$options = new SMWRequestOptions();
-	$options->limit = 10000;
-	$used_properties = smwfGetStore()->getPropertiesSpecial($options);
-	foreach ($used_properties as $property) {
-	$property_name = $property[0]->getText();
-		$all_properties[$property_name . "::"] = $property_name;
-	}
-	$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
-	foreach ($unused_properties as $property) {
-		$property_name = $property->getText();
-		$all_properties[$property_name . "::"] = $property_name;
+	/**
+	 * Constructor
+	 */
+	function SFCreateTemplate() {
+		SpecialPage::SpecialPage('CreateTemplate');
+		wfLoadExtensionMessages('SemanticForms');
 	}
 
-	// sort properties list alphabetically - custom sort function is needed
-	// because the regular sort function destroys the "keys" of the array
-	uasort($all_properties, "cmp");
-	return $all_properties;
+	function execute() {
+		$this->setHeaders();
+		doSpecialCreateTemplate();
+	}
 }
 
 function printPropertiesDropdown($all_properties, $id, $property) {
@@ -91,7 +62,7 @@ END;
 function doSpecialCreateTemplate() {
   global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
 
-  $all_properties = getSemanticProperties();
+  $all_properties = sffGetAllProperties();
 
   $template_name = $wgRequest->getVal('template_name');
   $template_name_error_str = "";

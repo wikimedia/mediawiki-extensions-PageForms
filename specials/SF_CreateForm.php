@@ -8,11 +8,21 @@
 
 if (!defined('MEDIAWIKI')) die();
 
-global $IP, $sfgIP;
-require_once( "$IP/includes/SpecialPage.php" );
-require_once( "$sfgIP/includes/SF_FormClasses.inc" );
+class SFCreateForm extends SpecialPage {
 
-SpecialPage::addPage( new SpecialPage('CreateForm','',true,'doSpecialCreateForm',false) );
+	/**
+	 * Constructor
+	 */
+	function SFCreateForm() {
+		SpecialPage::SpecialPage('CreateForm');
+		wfLoadExtensionMessages('SemanticForms');
+	}
+
+	function execute() {
+		$this->setHeaders();
+		doSpecialCreateForm();
+	}
+}
 
 function doSpecialCreateForm() {
   global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;

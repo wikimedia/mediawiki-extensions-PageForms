@@ -6,30 +6,34 @@
  */
 if (!defined('MEDIAWIKI')) die();
 
-global $sfgIP;
-require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
+class SFAddData extends SpecialPage {
 
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
-
-SpecialPage::addPage( new SpecialPage('AddData','',true,'doSpecialAddData',false) );
-
-function doSpecialAddData($query = '') {
-	global $wgRequest;
-
-	$form_name = $wgRequest->getVal('form');
-	$target_name = $wgRequest->getVal('target');
-
-	// if query string did not contain these variables, try the URL
-	if (! $form_name && ! $target_name) {
-		$queryparts = explode('/', $query, 2);
-		$form_name = isset($queryparts[0]) ? $queryparts[0] : '';
-		$target_name = isset($queryparts[1]) ? $queryparts[1] : '';
+	/**
+	 * Constructor
+	 */
+	function SFAddData() {
+		SpecialPage::SpecialPage('AddData');
+		wfLoadExtensionMessages('SemanticForms');
 	}
 
-	$alt_forms = $wgRequest->getArray('alt_form');
+	function execute($query = '') {
+		global $wgRequest;
 
-	printAddForm($form_name, $target_name, $alt_forms);
+		$this->setHeaders();
+		$form_name = $wgRequest->getVal('form');
+		$target_name = $wgRequest->getVal('target');
+
+		// if query string did not contain these variables, try the URL
+		if (! $form_name && ! $target_name) {
+			$queryparts = explode('/', $query, 2);
+			$form_name = isset($queryparts[0]) ? $queryparts[0] : '';
+			$target_name = isset($queryparts[1]) ? $queryparts[1] : '';
+		}
+
+		$alt_forms = $wgRequest->getArray('alt_form');
+
+		printAddForm($form_name, $target_name, $alt_forms);
+	}
 }
 
 function printAltFormsList($alt_forms, $target_name) {

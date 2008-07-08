@@ -9,10 +9,21 @@
  */
 if (!defined('MEDIAWIKI')) die();
 
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
+class SFAddPage extends SpecialPage {
 
-SpecialPage::addPage( new SpecialPage('AddPage','',true,'doSpecialAddPage',false) );
+	/**
+	 * Constructor
+	 */
+	function SFAddPage() {
+		SpecialPage::SpecialPage('AddPage');
+		wfLoadExtensionMessages('SemanticForms');
+	}
+
+	function execute($query = '') {
+		$this->setHeaders();
+		doSpecialAddPage($query);
+	}
+}
 
 function doSpecialAddPage($query = '') {
 	global $wgOut, $wgRequest, $sfgScriptPath;

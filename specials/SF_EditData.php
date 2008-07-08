@@ -11,13 +11,21 @@
  */
 if (!defined('MEDIAWIKI')) die();
 
-require_once( $sfgIP . "/includes/SF_FormPrinter.inc" );
+class SFEditData extends SpecialPage {
 
+	/**
+	 * Constructor
+	 */
+	function SFEditData() {
+		SpecialPage::SpecialPage('EditData');
+		wfLoadExtensionMessages('SemanticForms');
+	}
 
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
-
-SpecialPage::addPage( new SpecialPage('EditData','',true,'doSpecialEditData',false) );
+	function execute($query = '') {
+		$this->setHeaders();
+		doSpecialEditData($query);
+	}
+}
 
 function doSpecialEditData($query = '') {
 	global $wgRequest;
@@ -33,36 +41,6 @@ function doSpecialEditData($query = '') {
 	}
 
 	printEditForm($form_name, $target_name);
-}
-
-global $wgHooks;
-$wgHooks[ 'UnknownAction' ][] = 'sffEmbeddedEditForm';
-
-/**
- * The function called if we're in index.php (as opposed to one of the special
- * pages)
- */
-function sffEmbeddedEditForm($action, $article) {
-	// for some reason, the code calling the 'UnknownAction' hook wants
-	// "true" if the hook failed, and "false" otherwise... this is
-	// probably a bug, but we'll just work with it
-	if ($action != 'formedit') {
-		return true;
-	}
-
-	$form_name = sffGetFormForArticle($article);
-	if ($form_name == '') {
-		return true;
-	}
-
-	$target_title = $article->getTitle();
-	$target_name = sffTitleString($target_title);
-	if ($target_title->exists()) {
-		printEditForm($form_name, $target_name);
-	} else {
-		printAddForm($form_name, $target_name, array());
-	}
-	return false;
 }
 
 function printEditForm($form_name, $target_name) {

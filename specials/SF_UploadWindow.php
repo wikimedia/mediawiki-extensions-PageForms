@@ -14,10 +14,21 @@
  */
 if (!defined('MEDIAWIKI')) die();
 
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
+class SFUploadWindow extends SpecialPage {
 
-SpecialPage::addPage( new SpecialPage('UploadWindow','',true,'doSpecialUploadWindow',false) );
+	/**
+	 * Constructor
+	 */
+	function SFUploadWindow() {
+		SpecialPage::SpecialPage('UploadWindow');
+		wfLoadExtensionMessages('SemanticForms');
+	}
+
+	function execute() {
+		$this->setHeaders();
+		doSpecialUploadWindow();
+	}
+}
 
 /**
  * Entry point

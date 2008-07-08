@@ -6,19 +6,23 @@
  * @author Yaron Koren
  */
 
-/**
- * Protect against register_globals vulnerabilities.
- * This line must be present before any global variable is referenced.
- */
 if (!defined('MEDIAWIKI')) die();
 
-include_once $sfgIP . "/includes/SF_TemplateField.inc";
+class SFCreateProperty extends SpecialPage {
 
+	/**
+	 * Constructor
+	 */
+	function SFCreateProperty() {
+		SpecialPage::SpecialPage('CreateProperty');
+		wfLoadExtensionMessages('SemanticForms');
+	}
 
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
-
-SpecialPage::addPage( new SpecialPage('CreateProperty','',true,'doSpecialCreateProperty',false) );
+	function execute() {
+		$this->setHeaders();
+		doSpecialCreateProperty();
+	}
+}
 
 function createPropertyText($property_type, $allowed_values_str) {
   global $smwgContLang;
@@ -81,7 +85,7 @@ function doSpecialCreateProperty() {
     }
   }
 
-  $all_properties = getSemanticProperties();
+  $all_properties = sffGetAllProperties();
   $datatype_labels = $smwgContLang->getDatatypeLabels();
 
   $javascript_text =<<<END

@@ -8,10 +8,21 @@
 
 if (!defined('MEDIAWIKI')) die();
 
-global $IP;
-require_once( "$IP/includes/SpecialPage.php" );
+class SFCreateCategory extends SpecialPage {
 
-SpecialPage::addPage( new SpecialPage('CreateCategory','',true,'doSpecialCreateCategory',false) );
+	/**
+	 * Constructor
+	 */
+	function SFCreateCategory() {
+		SpecialPage::SpecialPage('CreateCategory');
+		wfLoadExtensionMessages('SemanticForms');
+	}
+
+	function execute() {
+		$this->setHeaders();
+		doSpecialCreateCategory();
+	}
+}
 
 function createCategoryText($default_form, $category_name, $parent_category) {
 	global $sfgContLang;
