@@ -17,9 +17,12 @@ define('SF_SP_HAS_ALTERNATE_FORM', 2);
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
+
 $wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
 $wgHooks['BrokenLink'][] = 'sffSetBrokenLink';
 $wgHooks['UnknownAction'][] = 'sffEmbeddedEditForm';
+
+$wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 
 // register all special pages and other classes
 $wgSpecialPages['Forms'] = 'SFForms';
@@ -581,6 +584,7 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
 	$pages = array();
 	foreach ($data_values as $dv) {
+print_r($dv);
 		// getPropertyValues() gets many repeat values - we want
 		// only one of each value
 		$string_value = str_replace('_', ' ', $dv->getXSDValue());
