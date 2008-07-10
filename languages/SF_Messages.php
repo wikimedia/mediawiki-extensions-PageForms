@@ -840,8 +840,9 @@ $messages['fa'] = array(
 	'sf_adddata_altforms'                     => 'می‌توانید این صفحه را به‌وسیله فرم‌های زیر نیز بسازید:',
 	'sf_adddata_altformsonly'                 => 'لطفا برای افزودن صفحه از یکی از فرم‌های زیر استفاده کنید:',
 	'editdata'                                => 'ویرایش اطلاعات',
-	'sf_formedit'                               => 'ویرایش با فرم',
-	'sf_editsource'                             => 'ویرایش مبدأ',
+	'sf_formedit'                             => 'ویرایش با فرم',
+	'sf_viewform'                             => 'نمایش فرم',
+	'sf_editsource'                           => 'ویرایش مبدأ',
 	'sf_editdata_title'                       => 'ویرایش $1: $2',
 	'sf_editdata_badurl'                      => 'این صفحه برای ویرایش اطلاعات است. شما باید هم نام فرم هم صفحه مقصد را در URL وارد کنید. چیزی شبیه به این <br /><span dir="ltr"> \'ویژه:EditData?form=&lt;نام فرم&gt;&target=&lt;صفحه مقصد&gt;\' </span><br />یا<br /><span dir="ltr"> \'ویژه:EditData/&lt;نام فرم&gt;/&lt;صفحه مقصد&gt;\' </span>.',
 	'sf_editdata_formwarning'                 => 'اخطار: این صفحه <a href="$1">هم‌اکنون وجود دارد</a>، ولی به‌وسیله این فرم ساخته نشده است.',
@@ -855,6 +856,7 @@ $messages['fa'] = array(
 	'sf_bad_number_error'                     => 'باید یک عدد معتبر باشد',
 	'sf_bad_integer_error'                    => 'باید یک عدد صحیح معتبر باشد',
 	'sf_bad_date_error'                       => 'باید یک تاریخ معتبر باشد',
+	'uploadwindow'                            => 'پنجره بارگذاری',
 	'sf_property_isattribute'                 => 'این یک صفت از نوع $1 است.',
 	'sf_property_isproperty'                  => 'این یک ویژگی از نوع $1 است.',
 	'sf_property_allowedvals'                 => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:',
@@ -1223,7 +1225,7 @@ $messages['haw'] = array(
 	'sf_editdata_remove'         => 'Kāpae',
 );
 
-/** Hebrew
+/** Hebrew (עברית)
  * @author Yaron Koren
  */
 $messages['he'] = array(
@@ -1262,14 +1264,14 @@ $messages['he'] = array(
 	'adddata'                            => 'הוסף מידע',
 	'sf_adddata_badurl'                  => "זה הדף עבור הוספת מידע. צריך לפרט שם טופס ב-URL; ה-URL צריך להראות כמו 'Special:AddData?form=&lt;form name&gt;', 'Special:AddData/&lt;form name&gt;'.",
 	'editdata'                           => 'עורך מידע',
-	'sf_formedit'                          => 'עריכה עם טופס',
+	'sf_formedit'                        => 'עריכה עם טופס',
 	'sf_editdata_badurl'                 => "זה הדף עבור עריכת מידע. צריך לפרט גם שם טופס וגם דף מטרה ב-URL; ה-URL צריך להראות כמו 'Special:EditData?form=&lt;form name&gt;&amp;target=&lt;target page&gt;', 'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_remove'                 => 'הוריד',
 	'sf_editdata_addanother'             => 'הוסיף עוד',
+	'sf_blank_error'                     => 'לא יכול להיות ריק',
 	'sf_template_docu'                   => 'זאת התבנית $1. צריך לקרוא לה בפורמט הזה:',
 	'sf_template_docufooter'             => 'ערוך את הדף כדי לראות את טקסט התבנית.',
 	'sf_form_freetextlabel'              => 'טקסט חופשי',
-	'sf_blank_error'                     => 'לא יכול להיות ריק',
 );
 
 /** Hindi (हिन्दी)
@@ -1595,15 +1597,19 @@ $messages['km'] = array(
 	'sf_createform_add'                => 'បន្ថែម',
 	'createcategory'                   => 'បង្កើតចំណាត់ថ្នាក់ក្រុម',
 	'sf_createcategory_name'           => 'ឈ្មោះ៖',
-	'sf_createcategory_defaultform'    => 'បែបបទ លំនាំដើម ៖',
+	'sf_createcategory_defaultform'    => 'បែបបទលំនាំដើម៖',
 	'addpage'                          => 'បន្ថែមទំព័រ',
 	'addoreditdata'                    => 'បន្ថែមឬកែប្រែ',
 	'adddata'                          => 'បន្ថែមទិន្នន័យ',
+	'sf_adddata_title'                 => 'បន្ថែម $1: $2',
 	'editdata'                         => 'កែប្រែទិន្នន័យ',
+	'sf_formedit'                      => 'កែប្រែបែបបទនេះ',
 	'sf_editsource'                    => 'កែប្រែកូដ',
+	'sf_editdata_title'                => 'កែប្រែ $1: $2',
 	'sf_editdata_remove'               => 'ដកចេញ',
-	'sf_editdata_addanother'           => 'បន្ថែម មួយផ្សេង',
+	'sf_editdata_addanother'           => 'បន្ថែមមួយផ្សេងទៀត',
 	'sf_editdata_none'                 => 'ទទេ',
+	'sf_blank_error'                   => 'មិនអាចទទេទេ',
 	'sf_bad_email_error'               => 'ទំរង់អាស័យដ្ឋានអ៊ីមែវល៍ មិនត្រឹមត្រូវ',
 	'sf_template_docufooter'           => 'កែប្រែទំព័រ ដើម្បីឃើញ អត្ថបទ នៃគំរូខ្នាត ។',
 	'sf_category_hasdefaultform'       => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
@@ -2453,12 +2459,12 @@ Ela deverá ser chamada no seguinte formato:",
 	'sf_blank_namespace'                      => 'Principal',
 );
 
-/** Brasilian Portugese
+/** Brazilian Portuguese (Português do Brasil)
  * @author Leonardo Costa
  */
 $messages['pt-br'] = array(
 	'createproperty'                          => 'Cria uma propriedade',
-	'sf_createproperty_allowedvalsinput'      => 'Se você quer que somente determinados valores sejam permitidos nesse campo, entre com a lista dos valores permitidos, separados por vírgulas (se um valor contém vírgula, substitua por "\,"):',
+	'sf_createproperty_allowedvalsinput'      => 'Se você quer que somente determinados valores sejam permitidos nesse campo, entre com a lista dos valores permitidos, separados por vírgulas (se um valor contém vírgula, substitua por "\\,"):',
 	'sf_createproperty_propname'              => 'Nome:',
 	'sf_createproperty_proptype'              => 'Tipo:',
 	'templates'                               => 'Predefinições',
@@ -2523,8 +2529,8 @@ $messages['pt-br'] = array(
 	'sf_adddata_altforms'                     => 'Você também pode adicionar está página com um dos seguintes formulários:',
 	'sf_adddata_altformsonly'                 => 'Por favor selecione através de um dos seguintes formulários para adicionar esta página:',
 	'editdata'                                => 'Editar dados',
-	'sf_formedit'                               => 'Editar com formulário',
-	'sf_editsource'                             => 'Editar fonte',
+	'sf_formedit'                             => 'Editar com formulário',
+	'sf_editsource'                           => 'Editar fonte',
 	'sf_editdata_title'                       => 'Editar $1: $2',
 	'sf_editdata_badurl'                      => "Está é a página para editar dados. Você deve especificar ambos um nome de formulário e uma página alvo na URL; deve ser semelhante a 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' or  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning'                 => 'Perigo: Esta página <a href="$1">already exists</a>, mas não use esse formulário.',
@@ -2971,7 +2977,7 @@ om en sida med det namnet redan finns kommer du skickas över till ett formulär
 	'sf_blank_namespace'                      => 'Huvud',
 );
 
-/** Silesian (ślůnski)
+/** Silesian (Ślůnski)
  * @author Herr Kriss
  */
 $messages['szl'] = array(
@@ -3244,12 +3250,12 @@ $messages['yi'] = array(
 	'sf_createtemplate_namelabel' => 'מוסטער נאמען:',
 );
 
-/** Mainland Chinese
+/** ‪Mainland Chinese‬ (‪中文(中国大陆)‬)
  * @author Roc Michael <roc.no1@gmail.com>
  */
 $messages['zh-cn'] = array(
 	'createproperty'                          => '新增语意(semantic)性质',
-	'sf_createproperty_allowedvalsinput'      => '如果您希望此栏位只能输入特定的值,请将那些值输入此处，并以半型的逗号(,)分隔，万一您所指定的值中已包含了半型逗号，请在该逗号前加上一个反斜线(\,)：',
+	'sf_createproperty_allowedvalsinput'      => '如果您希望此栏位只能输入特定的值,请将那些值输入此处，并以半型的逗号(,)分隔，万一您所指定的值中已包含了半型逗号，请在该逗号前加上一个反斜线(\\,)：',
 	'sf_createproperty_propname'              => '名称：',
 	'sf_createproperty_proptype'              => '型态:',
 	'templates'                               => '样板',
@@ -3316,8 +3322,8 @@ $messages['zh-cn'] = array(
 	'sf_adddata_altforms'                     => '您可选用下列其中一个的表单来新增此页',
 	'sf_adddata_altformsonly'                 => '请从下列的表单中选出其中一个，并以该表单编辑此页：',
 	'editdata'                                => '编辑资料',
-	'sf_formedit'                               => '以表单进行编辑',
-	'sf_editsource'                             => '编辑来源',
+	'sf_formedit'                             => '以表单进行编辑',
+	'sf_editsource'                           => '编辑来源',
 	'sf_editdata_title'                       => '编辑 $1: $2',
 	'sf_editdata_badurl'                      => "本页为编辑资料之用，您必须在URL里同时指定表单及目标页面，它看起来应该像是'Special:EditData?form=&lt;表单名称;&target=&lt;目标页面&gt;' 或是  'Special:EditData/&lt;表单名称&gt;/&lt;目标页面&gt;'.",
 	'sf_editdata_formwarning'                 => '警告：<a href="$1">此页</a>已经存在，只是尚未引用本表单。',
