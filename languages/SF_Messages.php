@@ -1500,6 +1500,7 @@ $messages['hu'] = array(
  * @author McDutchie
  */
 $messages['ia'] = array(
+	'sf_createtemplate_deletefield'  => 'Deler',
 	'sf_createform_inputtypedefault' => '(predefinition)',
 );
 
