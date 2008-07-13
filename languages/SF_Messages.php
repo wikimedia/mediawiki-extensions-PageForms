@@ -2324,11 +2324,14 @@ $messages['os'] = array(
 /** Polish (Polski)
  * @author McMonster
  * @author Sp5uhe
+ * @author Maikking
  */
 $messages['pl'] = array(
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
 	'sf_createtemplate_deletefield'  => 'Usuń',
 	'sf_createform_field'            => 'Pole:',
+	'sf_createform_restricted'       => 'Możliwość dokonania tej czynności zastrzeżona została dla użytkowników z uprawnieniami administratora',
+	'sf_createform_add'              => 'Dodaj',
 	'sf_editsource'                  => 'Edytuj źródło',
 	'sf_editdata_title'              => 'Edytuj $1: $2',
 	'sf_editdata_remove'             => 'Usuń',
