@@ -1502,6 +1502,7 @@ $messages['hu'] = array(
 $messages['ia'] = array(
 	'sf_createtemplate_deletefield'  => 'Deler',
 	'sf_createform_inputtypedefault' => '(predefinition)',
+	'sf_createform_add'              => 'Adder',
 );
 
 /** Indonesian (Bahasa Indonesia)
