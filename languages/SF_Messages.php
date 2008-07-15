@@ -1500,9 +1500,10 @@ $messages['hu'] = array(
  * @author McDutchie
  */
 $messages['ia'] = array(
-	'sf_createtemplate_deletefield'  => 'Deler',
-	'sf_createform_inputtypedefault' => '(predefinition)',
-	'sf_createform_add'              => 'Adder',
+	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_deletefield'    => 'Deler',
+	'sf_createform_inputtypedefault'   => '(predefinition)',
+	'sf_createform_add'                => 'Adder',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -1606,6 +1607,7 @@ $messages['km'] = array(
 	'sf_adddata_title'                 => 'បន្ថែម $1: $2',
 	'editdata'                         => 'កែប្រែទិន្នន័យ',
 	'sf_formedit'                      => 'កែប្រែបែបបទនេះ',
+	'sf_viewform'                      => 'មើលបែបបទ',
 	'sf_editsource'                    => 'កែប្រែកូដ',
 	'sf_editdata_title'                => 'កែប្រែ $1: $2',
 	'sf_editdata_remove'               => 'ដកចេញ',
