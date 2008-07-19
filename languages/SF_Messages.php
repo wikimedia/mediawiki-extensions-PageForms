@@ -140,16 +140,18 @@ $messages['niu'] = array(
 /** Afrikaans (Afrikaans)
  * @author Arnobarnard
  * @author SPQRobin
+ * @author Naudefj
  */
 $messages['af'] = array(
-	'sf_createproperty_propname'    => 'Naam:',
-	'sf_createproperty_proptype'    => 'Tipe:',
-	'sf_createtemplate_deletefield' => 'Skrap',
-	'sf_createform_template'        => 'Sjabloon:',
-	'sf_createform_add'             => 'Voeg by',
-	'sf_createcategory_name'        => 'Naam:',
-	'sf_editdata_remove'            => 'Skrap',
-	'sf_editdata_none'              => 'Geen',
+	'sf_createproperty_propname'       => 'Naam:',
+	'sf_createproperty_proptype'       => 'Tipe:',
+	'sf_createtemplate_standardformat' => 'Standaard',
+	'sf_createtemplate_deletefield'    => 'Skrap',
+	'sf_createform_template'           => 'Sjabloon:',
+	'sf_createform_add'                => 'Voeg by',
+	'sf_createcategory_name'           => 'Naam:',
+	'sf_editdata_remove'               => 'Skrap',
+	'sf_editdata_none'                 => 'Geen',
 );
 
 /** Arabic (العربية)
@@ -1974,6 +1976,14 @@ $messages['mr'] = array(
 	'sf_blank_namespace'                      => 'मुख्य',
 );
 
+/** Nahuatl (Nahuatl)
+ * @author Fluence
+ */
+$messages['nah'] = array(
+	'sf_createproperty_propname' => 'Tōcāitl:',
+	'sf_createcategory_name'     => 'Tōcāitl:',
+);
+
 /** Low German (Plattdüütsch)
  * @author Slomox
  */
@@ -2572,6 +2582,13 @@ $messages['pt-br'] = array(
  */
 $messages['rif'] = array(
 	'sf_createtemplate_deletefield' => 'Sfaḍ',
+);
+
+/** Romanian (Română)
+ * @author KlaudiuMihaila
+ */
+$messages['ro'] = array(
+	'sf_createtemplate_deletefield' => 'Şterge',
 );
 
 /** Russian (Русский)
