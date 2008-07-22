@@ -1980,8 +1980,9 @@ $messages['mr'] = array(
  * @author Fluence
  */
 $messages['nah'] = array(
-	'sf_createproperty_propname' => 'Tōcāitl:',
-	'sf_createcategory_name'     => 'Tōcāitl:',
+	'sf_createproperty_propname'    => 'Tōcāitl:',
+	'sf_createtemplate_deletefield' => 'Ticpoloāz',
+	'sf_createcategory_name'        => 'Tōcāitl:',
 );
 
 /** Low German (Plattdüütsch)
@@ -2588,7 +2589,12 @@ $messages['rif'] = array(
  * @author KlaudiuMihaila
  */
 $messages['ro'] = array(
+	'sf_createproperty_propname'    => 'Nume:',
+	'sf_createproperty_proptype'    => 'Tip:',
 	'sf_createtemplate_deletefield' => 'Şterge',
+	'sf_createform_hidden'          => 'Ascunse',
+	'sf_createcategory_name'        => 'Nume:',
+	'sf_editdata_remove'            => 'Elimină',
 );
 
 /** Russian (Русский)
