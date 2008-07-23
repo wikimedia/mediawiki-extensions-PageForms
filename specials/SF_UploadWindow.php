@@ -1493,7 +1493,7 @@ EOT
 	function showError( $description ) {
 		global $wgOut;
 		$wgOut->setPageTitle( wfMsg( "internalerror" ) );
-		$wgOut->setRobotpolicy( "noindex,nofollow" );
+		$wgOut->setRobotPolicy( "noindex,nofollow" );
 		$wgOut->setArticleRelated( false );
 		$wgOut->enableClientCache( false );
 		$wgOut->addWikiText( $description );
