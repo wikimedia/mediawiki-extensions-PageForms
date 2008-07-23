@@ -1981,7 +1981,7 @@ $messages['mr'] = array(
  */
 $messages['nah'] = array(
 	'sf_createproperty_propname'    => 'Tōcāitl:',
-	'sf_createtemplate_deletefield' => 'Ticpoloāz',
+	'sf_createtemplate_deletefield' => 'Ticpolōz',
 	'sf_createcategory_name'        => 'Tōcāitl:',
 );
 
