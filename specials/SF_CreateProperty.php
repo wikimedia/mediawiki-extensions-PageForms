@@ -33,8 +33,7 @@ function createPropertyText($property_type, $allowed_values_str) {
 	} else {
 		global $smwgContLang;
 		$specprops = $smwgContLang->getSpecialPropertiesArray();
-		$type_tag = "[[" . $specprops[SMW_SP_HAS_TYPE] .
-			"::$property_type|$property_type]]";
+		$type_tag = "[[{$specprops[SMW_SP_HAS_TYPE]}::$property_type]]";
 		$text = wfMsgForContent('sf_property_isproperty', $type_tag);
 		if ($allowed_values_str != '') {
 			$text .= "\n\n" . wfMsgForContent('sf_property_allowedvals');
@@ -44,7 +43,7 @@ function createPropertyText($property_type, $allowed_values_str) {
 			$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
 			$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
 			foreach ($allowed_values_array as $i => $value) {
-				// replace beep with comma, trim
+				// replace beep back with comma, trim
 				$value = str_replace("\a", $sfgListSeparator, trim($value));
 				$text .= "\n* [[" . $specprops[SMW_SP_POSSIBLE_VALUE] . "::$value]]";
 			}
