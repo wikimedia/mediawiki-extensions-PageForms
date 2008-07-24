@@ -170,6 +170,7 @@ class SFFormPrinter {
     $start_position = 0;
     $section_start = 0;
     $free_text_was_included = false;
+    $free_text_preload_page = null;
     $all_values_for_template = array();
     while ($brackets_loc = strpos($form_def, "{{{", $start_position)) {
       $brackets_end_loc = strpos($form_def, "}}}", $brackets_loc);
@@ -434,7 +435,12 @@ class SFFormPrinter {
                 } elseif ($sub_components[0] == 'default') {
                   $default_value = $sub_components[1];
                 } elseif ($sub_components[0] == 'preload') {
-                  $preload_page = $sub_components[1];
+                  // free text field has special handling
+                  if ($field_name == 'free text') {
+                    $free_text_preload_page = $sub_components[1];
+                  } else {
+                    $preload_page = $sub_components[1];
+                  }
                 } elseif ($sub_components[0] == 'values') {
                   $possible_values = explode(',', $sub_components[1]);
                 } else {
@@ -503,7 +509,7 @@ class SFFormPrinter {
                   $field_args['cols'] = 80;
                 $sfgTabIndex++;
                 $sfgFieldNum++;
-                list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('<free_text>', 'free_text', false, $form_is_disabled, $field_args);
+                list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('<free_text>', 'free_text', false, ($form_is_disabled || $is_restricted), $field_args);
               }
               $free_text_was_included = true;
               // add a similar placeholder to the data text
@@ -898,8 +904,8 @@ END;
         $data_text .= "<free_text>";
       }
     // or get it from the form definition
-    } elseif ($preload_page != null) {
-      $free_text = $this->getPreloadedText($preload_page);
+    } elseif ($free_text_preload_page != null) {
+      $free_text = $this->getPreloadedText($free_text_preload_page);
     } else {
       $free_text = null;
     }
