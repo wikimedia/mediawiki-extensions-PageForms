@@ -298,13 +298,9 @@ class SFFormTemplateField {
     $email_type = $datatypeLabels['_ema'];
     $float_type = $datatypeLabels['_num'];
     $int_type = $datatypeLabels['_num'];
-    // some old versions of SMW 1.0 don't support Boolean types
-    if (array_key_exists('_boo', $datatypeLabels))
-      $bool_type = $datatypeLabels['_boo'];
-    else
-      $bool_type = 'boolean';
+    $bool_type = $datatypeLabels['_boo'];
     $date_type = $datatypeLabels['_dat'];
-    $enum_type = 'enumeration'; // not a real type in SMW 1.0
+    $enum_type = 'enumeration'; // not a real type
     $page_type = $datatypeLabels['_wpg'];
 
     // then, return the array of possible input types, depending on the
