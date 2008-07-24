@@ -67,6 +67,7 @@ function doSpecialCreateForm() {
   if ($wgRequest->getVal('add_field') != null) {
     $form_template = SFTemplateInForm::create($wgRequest->getVal('new_template'), "", false);
     $new_template_loc = $wgRequest->getVal('before_template');
+    if ($new_template_loc === null) { $new_template_loc = 0; }
     # hack - array_splice() doesn't work for objects, so we have to
     # first insert a stub element into the array, then replace that with
     # the actual object
@@ -150,14 +151,27 @@ function doSpecialCreateForm() {
   }
 
   $text .= "	</select>\n";
-  $text .= '	' . wfMsg('sf_createform_beforetemplate') . "\n";
-  $text .= '	<select name="before_template">' . "\n";
+  // if a template has already been added, show a dropdown letting the
+  // user choose where in the list to add a new dropdown
+  if (count($form_templates) > 0) {
+    $before_template_msg = wfMsg('sf_createform_beforetemplate');
+    $at_end_msg = wfMsg('sf_createform_atend');
+    $text .=<<<END
+	$before_template_msg
+	<select name="before_template">
 
-  foreach ($form_templates as $i => $ft) {
-    $text .= "	<option value=\"$i\">{$ft->template_name}</option>\n";
+END;
+    foreach ($form_templates as $i => $ft) {
+      $text .= "	<option value=\"$i\">{$ft->template_name}</option>\n";
+    }
+    $final_index = count($form_templates);
+    $text .=<<<END
+	<option value="$final_index" selected="selected">$at_end_msg</option>
+	</select>
+
+END;
   }
 
-  $final_index = count($form_templates);
   // disable 'save' and 'preview' buttons if user has not yet added any
   // templates
   $disabled_text = (count($form_templates) == 0) ? "disabled" : "";
@@ -167,10 +181,7 @@ function doSpecialCreateForm() {
   $sk = $wgUser->getSkin();
   $ct = SpecialPage::getPage('CreateTemplate');
   $create_template_link = $sk->makeKnownLinkObj($ct->getTitle(), $ct->getDescription());
-  $text .= '	<option value="' . $final_index . '" selected="selected">' .
-    wfMsg('sf_createform_atend') . "</option>\n";
   $text .=<<<END
-	</select>
 	<input type="submit" name="add_field" value="$add_button_text"></p>
 	<br />
 	<div class="editButtons">
