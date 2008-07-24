@@ -63,12 +63,19 @@ function doSpecialAddPage($query = '') {
 		if ('' != $page_name) {
 			// Append the namespace prefix to the page name,
 			// if a namespace was not already entered.
-			if (strpos($page_name,":") === false)
+			if (strpos($page_name,":") === false && $target_namespace != '')
 				$page_name = $target_namespace . ":" . $page_name;
 			// find out whether this page already exists,
 			// and send user to the appropriate form
 			$page_title = Title::newFromText($page_name);
-			if ($page_title && $page_title->exists()) {
+			if (! $page_title) {
+				// if there was no page title, it's probably
+				// an invalid page name, containing forbidden
+				// characters
+				$error_msg = wfMsg('sf_addpage_badtitle', $page_name);
+				$wgOut->addHTML($error_msg);
+				return;
+			} elseif ($page_title->exists()) {
 				// it exists - see if page is a redirect; if
 				// it is, edit the target page instead
 				$article = new Article($page_title);
@@ -98,25 +105,22 @@ function doSpecialAddPage($query = '') {
 				// 'AddData' only 'preload' and specific form
 				// fields - we can tell the latter because
 				// they show up as 'arrays'
-				$first_val_added = false;
 				foreach ($_REQUEST as $key => $val) {
 					if (is_array($val)) {
 						$template_name = $key;
 						foreach ($val as $field_name => $value) {
-							$redirect_url .= ($first_val_added) ? '&' : '?';
+							$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
 							$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
-							$first_val_added = true;
 						}
 					} elseif ($key == 'preload') {
-						$redirect_url .= ($first_val_added) ? '&' : '?';
+						$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
 						$redirect_url .= "$key=$val";
-						$first_val_added = true;
 					}
 				}
 			}
 
 			if ('' != $params) {
-				$redirect_url .= ($first_val_added) ? '&' : '?';
+				$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
 				$redirect_url .= $params;
 			}
 
