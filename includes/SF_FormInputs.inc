@@ -361,7 +361,7 @@ END;
     if (array_key_exists('remote_autocompletion', $other_args) &&
         $other_args['remote_autocompletion'] == true) {
       $javascript_text .= "autocompletedatatypes['$options_str_key'] = '$autocomplete_field_type';\n";
-    } else {
+    } elseif ($semantic_field_name != '') {
       $autocomplete_values = SFFormInputs::createAutocompleteValuesArray(str_replace(' ', '_', $semantic_field_name), $autocomplete_field_type);
       $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
       $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
