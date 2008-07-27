@@ -173,7 +173,7 @@ $messages['ar'] = array(
 	'sf_createtemplate_fieldsdesc'            => 'لكي تجعل الحقول في هذا القالب لا تتطلب أسماء حقول، ببساطة أدخل فهرس كل حقل (مثل 1، 2، 3، إلى آخره.) كاسم، بدلا من اسم حقيقي.',
 	'sf_createtemplate_fieldname'             => 'اسم الحقل:',
 	'sf_createtemplate_displaylabel'          => 'علامة العرض:',
-	'sf_createtemplate_semanticproperty'      => 'ملكية سيمانتيك:',
+	'sf_createtemplate_semanticproperty'      => 'خاصية سيمانتيك:',
 	'sf_createtemplate_fieldislist'           => 'هذا الحقل يمكنه أن يحتوي على قائمة من القيم، مفصولة بفاصلات',
 	'sf_createtemplate_aggregation'           => 'أجريجاشن',
 	'sf_createtemplate_aggregationdesc'       => 'لعرض، على أية صفحة تستخدم هذا القالب، كل المقالات التي تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
@@ -204,7 +204,7 @@ $messages['ar'] = array(
 	'sf_createform_inputtypedefault'          => '(افتراضي)',
 	'sf_createform_formlabel'                 => 'علامة الاستمارة:',
 	'sf_createform_hidden'                    => 'مخفي',
-	'sf_createform_restricted'                => 'محمي (فقط المستخدمون الإداريون يمكنهم تعديله)',
+	'sf_createform_restricted'                => 'محمي (فقط المستخدمون مديرو النظام يمكنهم تعديله)',
 	'sf_createform_mandatory'                 => 'إلزامي',
 	'sf_createform_removetemplate'            => 'إزالة القالب',
 	'sf_createform_addtemplate'               => 'إضافة القالب:',
@@ -218,8 +218,12 @@ $messages['ar'] = array(
 	'sf_createcategory_makesubcategory'       => 'اجعل هذا تصنيفا فرعيا لتصنيف آخر (اختياري):',
 	'addpage'                                 => 'إضافة صفحة مع نموذج',
 	'sf_addpage_badform'                      => 'خطأ: لا صفحة استمارة تم العثور عليها في $1',
-	'sf_addpage_docu'                         => "أدخل اسم الصفحة هنا، لكي يتم تعديلها مع الاستمارة '$1'. إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة. أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.",
-	'sf_addpage_noform_docu'                  => 'أدخل اسم الصفحة هنا، واختر الاستمارة لتعديلها معها. إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة. أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.',
+	'sf_addpage_docu'                         => "أدخل اسم الصفحة هنا، لكي يتم تعديلها مع الاستمارة '$1'.
+إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة.
+أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.",
+	'sf_addpage_noform_docu'                  => 'أدخل اسم الصفحة هنا، واختر الاستمارة لتعديلها معها.
+إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة.
+أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.',
 	'addoreditdata'                           => 'أضف أو عدل',
 	'adddata'                                 => 'إضافة بيانات',
 	'sf_adddata_title'                        => 'أضف $1: $2',
@@ -248,9 +252,12 @@ $messages['ar'] = array(
 	'sf_property_isproperty'                  => 'هذه خاصية من نوع $1.',
 	'sf_property_allowedvals'                 => 'القيم المسموحة لهذه الخاصية هي:',
 	'sf_property_isrelation'                  => 'هذه علاقة.',
-	'sf_template_docu'                        => "هذا قالب '$1'. ينبغي استدعاؤه بالصيغة التالية:",
+	'sf_template_docu'                        => "هذا قالب '$1'.
+ينبغي استدعاؤه بالصيغة التالية:",
 	'sf_template_docufooter'                  => 'عدل الصفحة لرؤية نص القالب.',
-	'sf_form_docu'                            => "هذه استمارة '$1'. لإضافة صفحة مع هذه الاستمارة، أدخل اسم الصفحة بالأسفل؛ إذا كانت هناك صفحة موجودة بهذا الاسم، سيتم إرسالك إلى استمارة لتعديل هذه الصفحة.",
+	'sf_form_docu'                            => "هذه استمارة '$1'.
+لإضافة صفحة مع هذه الاستمارة، أدخل اسم الصفحة بالأسفل؛
+إذا كانت هناك صفحة موجودة بهذا الاسم، سيتم إرسالك إلى استمارة لتعديل هذه الصفحة.",
 	'sf_form_freetextlabel'                   => 'نص حر',
 	'sf_category_hasdefaultform'              => 'هذا التصنيف يستخدم الاستمارة $1.',
 	'sf_category_desc'                        => 'هذا $1 تصنيف.',
@@ -1986,7 +1993,9 @@ $messages['mr'] = array(
 $messages['nah'] = array(
 	'sf_createproperty_propname'    => 'Tōcāitl:',
 	'sf_createtemplate_deletefield' => 'Ticpolōz',
+	'sf_createform_add'             => 'Ticcētilīz',
 	'sf_createcategory_name'        => 'Tōcāitl:',
+	'sf_editdata_none'              => 'Ahtlein',
 );
 
 /** Low German (Plattdüütsch)
