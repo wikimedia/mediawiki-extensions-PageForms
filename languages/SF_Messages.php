@@ -1088,6 +1088,15 @@ $messages['fr'] = array(
 	'sf_blank_namespace'                      => 'Principal',
 );
 
+/** Western Frisian (Frysk)
+ * @author Snakesteuben
+ */
+$messages['fy'] = array(
+	'sf_createtemplate_standardformat' => 'Standert',
+	'sf_createtemplate_deletefield'    => 'Wiskje',
+	'sf_editdata_none'                 => 'Gjin',
+);
+
 /** Galician (Galego)
  * @author Alma
  * @author Xosé
@@ -1991,11 +2000,12 @@ $messages['mr'] = array(
  * @author Fluence
  */
 $messages['nah'] = array(
-	'sf_createproperty_propname'    => 'Tōcāitl:',
-	'sf_createtemplate_deletefield' => 'Ticpolōz',
-	'sf_createform_add'             => 'Ticcētilīz',
-	'sf_createcategory_name'        => 'Tōcāitl:',
-	'sf_editdata_none'              => 'Ahtlein',
+	'sf_createproperty_propname'     => 'Tōcāitl:',
+	'sf_createtemplate_deletefield'  => 'Ticpolōz',
+	'sf_createform_inputtypedefault' => '(ic default)',
+	'sf_createform_add'              => 'Ticcētilīz',
+	'sf_createcategory_name'         => 'Tōcāitl:',
+	'sf_editdata_none'               => 'Ahtlein',
 );
 
 /** Low German (Plattdüütsch)
