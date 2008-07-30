@@ -1094,6 +1094,7 @@ $messages['fr'] = array(
 $messages['fy'] = array(
 	'sf_createtemplate_standardformat' => 'Standert',
 	'sf_createtemplate_deletefield'    => 'Wiskje',
+	'sf_createform_inputtypedefault'   => '(standert)',
 	'sf_editdata_none'                 => 'Gjin',
 );
 
