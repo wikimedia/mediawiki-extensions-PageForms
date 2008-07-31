@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.2.7');
+define('SF_VERSION','1.2.8');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
@@ -669,6 +669,33 @@ function sffGetAllPagesForCategory($top_category, $num_levels, $substring = null
   }
   sort($pages);
   return $pages;
+}
+
+function sffGetAllPagesForConcept($concept_name, $substring = null) {
+	global $sfgMaxAutocompleteValues;
+
+	// TODO - substring isn't being handled. Is there a way to include
+	// it through the API?
+
+	$store = smwfGetStore();
+/*
+	$requestoptions = new SMWRequestOptions();
+	if ($substring != null) {
+		$requestoptions->addStringCondition($substring, SMWStringCondition::STRCOND_PRE);
+	}
+*/
+	$concept = Title::newFromText($concept_name, SMW_NS_CONCEPT);
+	$desc = new SMWConceptDescription($concept);
+	$printout = new SMWPrintRequest(SMWPrintRequest::PRINT_THIS, "");
+	$desc->addPrintRequest($printout);
+	$query = new SMWQuery($desc);
+	$query->setLimit($sfgMaxAutocompleteValues);
+	$query_result = $store->getQueryResult($query);
+	$pages = array();
+	while ($res = $query_result->getNext()) {
+		$pages[] = $res[0]->getNextWikiText();
+	}
+	return $pages;
 }
 
 function sffGetAllPagesForNamespace($namespace_name, $substring = null) {
