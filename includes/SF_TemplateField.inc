@@ -84,7 +84,7 @@ END;
 
 END;
   } else {
-    $text .= '{| border="0" cellpadding="4" cellspacing="4"' . "\n";
+    $text .= '{| class="wikitable"' . "\n";
   }
 
   foreach ($template_fields as $i => $field) {
