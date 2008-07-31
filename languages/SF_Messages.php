@@ -1547,6 +1547,13 @@ $messages['is'] = array(
 	'sf_createcategory_name'     => 'Nafn:',
 );
 
+/** Italian (Italiano)
+ * @author Darth Kule
+ */
+$messages['it'] = array(
+	'sf_createtemplate_deletefield' => 'Cancella',
+);
+
 /** Javanese (Basa Jawa)
  * @author Meursault2004
  */
