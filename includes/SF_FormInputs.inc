@@ -24,6 +24,8 @@ class SFFormInputs {
       }
     } elseif ($autocomplete_field_type == 'category') {
       $names_array = sffGetAllPagesForCategory($field_name, 10);
+    } elseif ($autocomplete_field_type == 'concept') {
+      $names_array = sffGetAllPagesForConcept($field_name);
     } else { // i.e., $autocomplete_field_type == 'namespace'
       // switch back to blank for main namespace
       if ($field_name == "main")
@@ -56,6 +58,7 @@ class SFFormInputs {
           array_key_exists('autocomplete', $other_args) ||
           array_key_exists('autocomplete on property', $other_args) ||
           array_key_exists('autocomplete on category', $other_args) ||
+          array_key_exists('autocomplete on concept', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
           array_key_exists('autocomplete on namespace', $other_args) ||
           array_key_exists('remote autocompletion', $other_args)) {
@@ -285,6 +288,9 @@ END;
     } elseif (array_key_exists('autocomplete on category', $other_args)) {
       $autocomplete_field_type = 'category';
       $semantic_field_name = $other_args['autocomplete on category'];
+    } elseif (array_key_exists('autocomplete on concept', $other_args)) {
+      $autocomplete_field_type = 'concept';
+      $semantic_field_name = $other_args['autocomplete on concept'];
     } elseif (array_key_exists('autocomplete on namespace', $other_args)) {
       $autocomplete_field_type = 'namespace';
       $semantic_field_name = $other_args['autocomplete on namespace'];
