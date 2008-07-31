@@ -287,13 +287,8 @@ class SFFormPrinter {
             // get the first instance of this template on the page being edited,
             // even if there are more
             if (preg_match('/\{\{' . $search_template_str . '\s*(?:(?:([\||:].*?)\}\})|()\}\})/mis', $existing_page_content, $matches)) {
-              $existing_template_text = $matches[1];
-              // create array of contents of this template
-              // somewhat of a hack - this array starts out with one element,
-              // so that adding fields with no corresponding key will give them
-              // an index starting with 1, not 0, to match MediaWiki's counting
-              // system
-              $template_contents = array(null);
+              $existing_template_text = trim($matches[1]);
+              $template_contents = array();
               // cycle through template call, splitting it up by pipes ('|'),
               // except when that pipe is part of a piped link
               $field = "";
@@ -302,23 +297,22 @@ class SFFormPrinter {
                 $c = $existing_template_text[$i];
                 if (($i == strlen($existing_template_text) - 1) ||
                     ($c == '|' && $uncompleted_square_brackets == 0)) {
-                  if ($field != null) {
-                    // if this was the last character in the template, append
-                    // this character
-                    if ($i == strlen($existing_template_text) - 1) {
-                      $field .= $c;
-                    }
-                    // either there's an equals sign near the beginning or not -
-                    // handling is similar in either way; if there's no equals
-                    // sign, the index of this field becomes the key
-                    $sub_fields = explode('=', $field, 2);
-                    if (count($sub_fields) > 1) {
-                      $template_contents[trim($sub_fields[0])] = trim($sub_fields[1]);
-                    } else {
-                      $template_contents[] = trim($sub_fields[0]);
-                    }
-                    $field = '';
+                  // if this was the last character in the template, append
+                  // this character
+                  if ($i == strlen($existing_template_text) - 1 &&
+                      $c != '|') {
+                    $field .= $c;
                   }
+                  // either there's an equals sign near the beginning or not -
+                  // handling is similar in either way; if there's no equals
+                  // sign, the index of this field becomes the key
+                  $sub_fields = explode('=', $field, 2);
+                  if (count($sub_fields) > 1) {
+                    $template_contents[trim($sub_fields[0])] = trim($sub_fields[1]);
+                  } else {
+                    $template_contents[] = trim($sub_fields[0]);
+                  }
+                  $field = '';
                 } else {
                   $field .= $c;
                   if ($c == '[') {
@@ -480,9 +474,9 @@ class SFFormPrinter {
           // the current template being processed, get the current template
           // field's value in the existing page
           if ($source_is_page && (! empty($existing_template_text))) {
-            if (isset($template_contents[$field_name]))
+            if (isset($template_contents[$field_name])) {
               $cur_value = $template_contents[$field_name];
-            else
+            } else
               $cur_value = '';
             if ($cur_value) {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
@@ -529,7 +523,7 @@ class SFFormPrinter {
                 }
                 foreach ($cur_value as $key => $val) {
                   if ($key !== "is_list") {
-		    if ($cur_value_in_template != "") {
+                    if ($cur_value_in_template != "") {
                       $cur_value_in_template .= $delimiter . " ";
                     }
                     $cur_value_in_template .= $val;
@@ -690,11 +684,9 @@ class SFFormPrinter {
             }
 
             if ($new_text) {
+              // include the field name only for non-numeric field names
               if (is_numeric($field_name)) {
-                // if the value is null, don't include it at all -
-                // TODO: this isn't quite right
-                if ($cur_value_in_template != '')
-                  $template_text .= "|$cur_value_in_template";
+                $template_text .= "|$cur_value_in_template";
               } else {
                 // if the value is null, don't include it at all
                 if ($cur_value_in_template != '')
@@ -801,21 +793,25 @@ class SFFormPrinter {
       } // end while
 
       if (! $all_instances_printed ) {
-        if ( $template_text != '' ) {
+        if ($template_text != '') {
+          // for mostly aesthetic purposes, if the template call ends with
+          // a bunch of pipes (i.e., it's an indexed template with unused
+          // parameters at the end), remove the pipes
+          $template_text = preg_replace('/\|*$/', '', $template_text);
           // add another newline before the final bracket, if this template
           // call is already more than one line
           if (strpos($template_text, "\n"))
             $template_text .= "\n";
-            $template_text .= "}}";
-            $data_text .= $template_text . "\n";
-            // if there is a placeholder in the text, we know that we are
-            // doing a replace
-            if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0) !== false) {
-              $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}(\r?\n?)/', 
-                preg_replace('/\}\}/m', '}²',
-                  preg_replace('/\{\{/m', '²{', $template_text)) .
-                "\n{{{insertionpoint}}}",
-                $existing_page_content);
+          $template_text .= "}}";
+          $data_text .= $template_text . "\n";
+          // if there is a placeholder in the text, we know that we are
+          // doing a replace
+          if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0) !== false) {
+            $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}(\r?\n?)/', 
+              preg_replace('/\}\}/m', '}²',
+                preg_replace('/\{\{/m', '²{', $template_text)) .
+              "\n{{{insertionpoint}}}",
+              $existing_page_content);
           // otherwise, if it's a partial form, we have to add the new
           // text somewhere
           } elseif ($form_is_partial && $wgRequest->getCheck('partial') ) {
