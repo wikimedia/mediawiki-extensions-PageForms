@@ -117,7 +117,7 @@ END;
 	</select>
 	<div id="allowed_values" style="margin-bottom: 15px;">
 	<p>$values_input</p>
-	<p><input size="35" name="values" value=""></p>
+	<p><input size="80" name="values" value=""></p>
 	</div>
 	<div class="editButtons">
 	<input id="wpSave" type="submit" name="wpSave" value="$save_button_text">
