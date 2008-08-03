@@ -3,7 +3,7 @@
  * @author Meno25
  */
 
-class SF_LanguageEn extends SF_Language {
+class SF_LanguageAr extends SF_Language {
 
     /* private */ var $m_SpecialProperties = array(
         // always start upper-case
