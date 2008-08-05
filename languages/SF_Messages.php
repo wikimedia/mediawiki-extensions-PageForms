@@ -349,6 +349,15 @@ $messages['avk'] = array(
 	'sf_blank_namespace'                      => 'Nelkaxo',
 );
 
+/** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+ * @author EugeneZelenko
+ */
+$messages['be-tarask'] = array(
+	'sf_createproperty_propname' => 'Назва:',
+	'sf_createproperty_proptype' => 'Тып:',
+	'sf_createcategory_name'     => 'Назва:',
+);
+
 /** Bulgarian (Български)
  * @author DCLXVI
  */
@@ -682,7 +691,7 @@ $messages['eo'] = array(
 /** Spanish (Español)
  * @author Cmitnick
  * @author Jatrobat
- * @author Siebrand
+ * @author Sanbec
  */
 $messages['es'] = array(
 	'createproperty'                          => 'Crear una propiedad',
@@ -708,7 +717,7 @@ $messages['es'] = array(
 	'sf_createtemplate_standardformat'        => 'Estándar',
 	'sf_createtemplate_infoboxformat'         => 'Caja de información del lado derecho',
 	'sf_createtemplate_addfield'              => 'Agregar campo',
-	'sf_createtemplate_deletefield'           => 'Eliminar',
+	'sf_createtemplate_deletefield'           => 'Borrar',
 	'sf_createtemplate_addtemplatebeforesave' => 'Debe agregar al menos una plantilla a este formulario antes de guardarlo.',
 	'forms'                                   => 'Formularios',
 	'sf_forms_docu'                           => 'Los siguientes formularios existen en el wiki.',
