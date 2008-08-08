@@ -591,15 +591,17 @@ $messages['diq'] = array(
  * @author Consta
  */
 $messages['el'] = array(
-	'sf_createproperty_propname' => 'Όνομα:',
-	'sf_createproperty_proptype' => 'Τύπος:',
-	'templates'                  => 'Πρότυπο:',
-	'createtemplate'             => 'Δημιουργήστε ένα πρότυπο',
-	'sf_createform_template'     => 'Πρότυπο:',
-	'createcategory'             => 'Δημιουργήστε μια κατηγορία',
-	'sf_createcategory_name'     => 'Όνομα:',
-	'addpage'                    => 'Προσθέστε σελίδα',
-	'addoreditdata'              => 'Προσθέστε ή επεξεργαστείτε',
+	'sf_createproperty_propname'  => 'Όνομα:',
+	'sf_createproperty_proptype'  => 'Τύπος:',
+	'templates'                   => 'Πρότυπο:',
+	'createtemplate'              => 'Δημιουργήστε ένα πρότυπο',
+	'sf_createtemplate_namelabel' => 'Όνομα προτύπου:',
+	'sf_createform_template'      => 'Πρότυπο:',
+	'sf_createform_field'         => 'Πεδίο:',
+	'createcategory'              => 'Δημιουργήστε μια κατηγορία',
+	'sf_createcategory_name'      => 'Όνομα:',
+	'addpage'                     => 'Προσθέστε σελίδα',
+	'addoreditdata'               => 'Προσθέστε ή επεξεργαστείτε',
 );
 
 /** Esperanto (Esperanto)
@@ -1104,6 +1106,7 @@ $messages['fy'] = array(
 	'sf_createtemplate_standardformat' => 'Standert',
 	'sf_createtemplate_deletefield'    => 'Wiskje',
 	'sf_createform_inputtypedefault'   => '(standert)',
+	'sf_createform_add'                => 'Tafoegje',
 	'sf_editdata_none'                 => 'Gjin',
 );
 
@@ -1689,6 +1692,7 @@ $messages['lb'] = array(
 	'sf_createtemplate_namelabel'        => 'Numm vun der Schabloun:',
 	'sf_createtemplate_displaylabel'     => 'Etiquette weisen:',
 	'sf_createtemplate_aggregationlabel' => "Titel fir d'Lëscht:",
+	'sf_createtemplate_standardformat'   => 'Standard',
 	'sf_createtemplate_deletefield'      => 'Läschen',
 	'forms'                              => 'Formulairen',
 	'sf_createform_template'             => 'Schabloun:',
@@ -1712,6 +1716,7 @@ $messages['lb'] = array(
 	'sf_editdata_none'                   => 'Keen',
 	'sf_blank_error'                     => 'Däerf net eidel sinn!',
 	'sf_bad_date_error'                  => 'muss e gëltegen Datum sinn',
+	'uploadwindow'                       => 'Fënster fir eropzelueden',
 	'sf_form_freetextlabel'              => 'Fräien Text',
 	'sf_category_hasdefaultform'         => 'Dës Kategorie benotzt de Formulär $1.',
 	'sf_category_desc'                   => "Dëst ass d'$1 Kategorie.",
