@@ -284,8 +284,7 @@ function sffGetDefaultForm($page_title, $page_namespace) {
 	$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
 	$property = Title::newFromText($default_form_property, SMW_NS_PROPERTY);
 	$res = $store->getPropertyValues($title, $property);
-	$num = count($res);
-	if ($num > 0) {
+	if (isset($res[0])) {
 		// make sure it's in the form namespace
 		if ($res[0]->getNamespace() == SF_NS_FORM) {
 			$form_name = $res[0]->getTitle()->getText();
@@ -299,8 +298,7 @@ function sffGetDefaultForm($page_title, $page_namespace) {
 		if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
 			$property = Title::newFromText($alias, SMW_NS_PROPERTY);
 			$res = $store->getPropertyValues($title, $property);
-			$num = count($res);
-			if ($num > 0) {
+			if (isset($res[0])) {
 				// make sure it's in the form namespace
 				if ($res[0]->getNamespace() == SF_NS_FORM) {
 					$form_name = $res[0]->getTitle()->getText();
