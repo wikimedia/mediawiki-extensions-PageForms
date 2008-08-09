@@ -162,7 +162,7 @@ END;
  * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
  */
 function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
-	$values_array = explode($delimiter, $value);
+	$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 	$results = array();
 	foreach ($values_array as $cur_value) {
 		$cur_value = trim($cur_value);
@@ -179,7 +179,7 @@ function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x',
  * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
  */
 function sfRenderArrayMapTemplate ( &$parser, $value = '', $template = '', $delimiter = ',', $new_delimiter = ', ' ) {
-	$values_array = explode($delimiter, $value);
+	$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 	$results = array();
 	$template = trim($template);
 	foreach ($values_array as $cur_value) {
