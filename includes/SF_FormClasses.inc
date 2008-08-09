@@ -86,61 +86,64 @@ class SFTemplateInForm {
 		// found. Also, every field gets replaced with a string of x's after
 		// being found, so it doesn't interfere with future parsing.
 		$template_title = Title::newFromText($this->template_name, NS_TEMPLATE);
-		$template_article = new Article($template_title);
-		$template_text = $template_article->getContent();
-		// ignore 'noinclude' sections and 'includeonly' tags
-		$template_text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $template_text);
-		$template_text = strtr($template_text, array('<includeonly>' => '', '</includeonly>' => ''));
-
-		// first, look for "arraymap" parser function calls that map a
-		// relation or attribute onto a list
-		if (preg_match_all('/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:=]*:?[^:=]*)(:[:=])/mis', $template_text, $matches)) {
-			// this is a two-dimensional array; we need the last three of the four
-			// sub-arrays; we also have to remove redundant values
-			foreach ($matches[1] as $i => $field_name) {
-				$is_relation = false;
-				$semantic_field_name = $matches[2][$i];
-				$full_field_text = $matches[0][$i];
-				if (! in_array($field_name, $field_names_array)) {
-					$template_field = SFTemplateField::newWithValues($field_name, ucfirst($field_name));
-					$template_field->setSemanticData($semantic_field_name, $is_relation, true);
-					$cur_pos = stripos($template_text, $full_field_text);
-					$template_fields[$cur_pos] = $template_field;
-					$field_names_array[] = $field_name;
-					$replacement = str_repeat("x", strlen($full_field_text));
-					$template_text = str_replace($full_field_text, $replacement, $template_text);
+		$template_article = null;
+		if(isset($template_title)) $template_article = new Article($template_title);
+		if(isset($template_article)) {
+			$template_text = $template_article->getContent();
+			// ignore 'noinclude' sections and 'includeonly' tags
+			$template_text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $template_text);
+			$template_text = strtr($template_text, array('<includeonly>' => '', '</includeonly>' => ''));
+	
+			// first, look for "arraymap" parser function calls that map a
+			// relation or attribute onto a list
+			if (preg_match_all('/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:=]*:?[^:=]*)(:[:=])/mis', $template_text, $matches)) {
+				// this is a two-dimensional array; we need the last three of the four
+				// sub-arrays; we also have to remove redundant values
+				foreach ($matches[1] as $i => $field_name) {
+					$is_relation = false;
+					$semantic_field_name = $matches[2][$i];
+					$full_field_text = $matches[0][$i];
+					if (! in_array($field_name, $field_names_array)) {
+						$template_field = SFTemplateField::newWithValues($field_name, ucfirst($field_name));
+						$template_field->setSemanticData($semantic_field_name, $is_relation, true);
+						$cur_pos = stripos($template_text, $full_field_text);
+						$template_fields[$cur_pos] = $template_field;
+						$field_names_array[] = $field_name;
+						$replacement = str_repeat("x", strlen($full_field_text));
+						$template_text = str_replace($full_field_text, $replacement, $template_text);
+					}
 				}
 			}
-		}
-
-		// second, look for normal relation/attribute calls
-		if (preg_match_all('/\[\[([^:=]*:*?[^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
-			// this is a two-dimensional array; we need the last three of the four
-			// sub-arrays; we also have to remove redundant values
-			foreach ($matches[1] as $i => $semantic_field_name) {
-				$is_relation = false;
-				$field_name = $matches[3][$i];
-				$full_field_text = $matches[0][$i];
-				if (! in_array($field_name, $field_names_array)) {
-					$template_field = SFTemplateField::newWithValues($field_name, ucfirst($field_name));
-					$template_field->setSemanticData($semantic_field_name, $is_relation, false);
-					$cur_pos = stripos($template_text, $full_field_text);
-					$template_fields[$cur_pos] = $template_field;
-					$field_names_array[] = $field_name;
-					$replacement = str_repeat("x", strlen($full_field_text));
-					$template_text = str_replace($full_field_text, $replacement, $template_text);
+	
+			// second, look for normal relation/attribute calls
+			if (preg_match_all('/\[\[([^:=]*:*?[^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $template_text, $matches)) {
+				// this is a two-dimensional array; we need the last three of the four
+				// sub-arrays; we also have to remove redundant values
+				foreach ($matches[1] as $i => $semantic_field_name) {
+					$is_relation = false;
+					$field_name = $matches[3][$i];
+					$full_field_text = $matches[0][$i];
+					if (! in_array($field_name, $field_names_array)) {
+						$template_field = SFTemplateField::newWithValues($field_name, ucfirst($field_name));
+						$template_field->setSemanticData($semantic_field_name, $is_relation, false);
+						$cur_pos = stripos($template_text, $full_field_text);
+						$template_fields[$cur_pos] = $template_field;
+						$field_names_array[] = $field_name;
+						$replacement = str_repeat("x", strlen($full_field_text));
+						$template_text = str_replace($full_field_text, $replacement, $template_text);
+					}
 				}
 			}
-		}
-
-		// finally, get any non-semantic fields defined
-		if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
-			foreach ($matches[1] as $i => $field_name) {
-				$full_field_text = $matches[0][$i];
-				if (($full_field_text != '') && (! in_array($field_name, $field_names_array))) {
-					$cur_pos = stripos($template_text, $full_field_text);
-					$template_fields[$cur_pos] = SFTemplateField::newWithValues($field_name, ucfirst($field_name));
-					$field_names_array[] = $field_name;
+	
+			// finally, get any non-semantic fields defined
+			if (preg_match_all('/{{{([^|}]*)/mis', $template_text, $matches)) {
+				foreach ($matches[1] as $i => $field_name) {
+					$full_field_text = $matches[0][$i];
+					if (($full_field_text != '') && (! in_array($field_name, $field_names_array))) {
+						$cur_pos = stripos($template_text, $full_field_text);
+						$template_fields[$cur_pos] = SFTemplateField::newWithValues($field_name, ucfirst($field_name));
+						$field_names_array[] = $field_name;
+					}
 				}
 			}
 		}
