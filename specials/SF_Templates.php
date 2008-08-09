@@ -58,7 +58,7 @@ class TemplatesPage extends QueryPage {
 			page_title as value
 			FROM $page
 			WHERE page_namespace = {$NStemp}";
-               }
+	}
 
 	function sortDescending() {
 		return false;

@@ -37,9 +37,9 @@ require_once('SF_GlobalFunctions.php');
 # than 150.
 ##
 if (!isset($sfgNamespaceIndex)) {
-        sffInitNamespaces(150);
+	sffInitNamespaces(150);
 } else {
-        sffInitNamespaces();
+	sffInitNamespaces();
 }
 
 ###
@@ -74,4 +74,3 @@ $sfgListSeparator = ",";
 ###
 $sfgYUIBase = "http://yui.yahooapis.com/2.5.1/build/";
 
-?>
