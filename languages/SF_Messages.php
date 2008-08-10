@@ -122,7 +122,9 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'sf_blank_namespace'                 => 'Main',
 );
 
-/** Message documentation (Message documentation) */
+/** Message documentation (Message documentation)
+ * @author Jon Harald Søby
+ */
 $messages['qqq'] = array(
 	'sf_createproperty_propname' => '{{Identical|Name}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
