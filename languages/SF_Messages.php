@@ -1405,6 +1405,13 @@ $messages['hil'] = array(
 	'sf_createtemplate_deletefield' => 'Panason',
 );
 
+/** Croatian (Hrvatski)
+ * @author Dalibor Bosits
+ */
+$messages['hr'] = array(
+	'sf_editdata_remove' => 'Ukloni',
+);
+
 /** Upper Sorbian (Hornjoserbsce)
  * @author Michawiki
  */
@@ -2653,6 +2660,7 @@ $messages['rif'] = array(
 
 /** Romanian (Română)
  * @author KlaudiuMihaila
+ * @author Mihai
  */
 $messages['ro'] = array(
 	'sf_createproperty_propname' => 'Nume:',
@@ -2661,6 +2669,7 @@ $messages['ro'] = array(
 	'sf_createform_hidden' => 'Ascunse',
 	'sf_createcategory_name' => 'Nume:',
 	'sf_editdata_remove' => 'Elimină',
+	'sf_editdata_none' => 'Nimic',
 );
 
 /** Russian (Русский)
