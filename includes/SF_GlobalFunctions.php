@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.2.8');
+define('SF_VERSION','1.2.9');
 
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
