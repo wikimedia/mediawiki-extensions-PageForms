@@ -51,8 +51,8 @@ function doSpecialCreateForm() {
 			# get the template declarations and work from there
 			list ($action, $id) = explode("_", $var, 2);
 			if ($action == "template") {
-				# if the button was pressed to remove this template, just don't
-				# add it to the array
+				# if the button was pressed to remove this
+				# template, just don't add it to the array
 				if ($wgRequest->getVal("del_$id") != null) {
 					$deleted_template_loc = $id;
 				} else {
@@ -69,8 +69,8 @@ function doSpecialCreateForm() {
 		$new_template_loc = $wgRequest->getVal('before_template');
 		if ($new_template_loc === null) { $new_template_loc = 0; }
 		# hack - array_splice() doesn't work for objects, so we have to
-		# first insert a stub element into the array, then replace that with
-		# the actual object
+		# first insert a stub element into the array, then replace that
+		# with the actual object
 		array_splice($form_templates, $new_template_loc, 0, "stub");
 		$form_templates[$new_template_loc] = $form_template;
 	} else {
@@ -81,14 +81,15 @@ function doSpecialCreateForm() {
 	# per the query variables
 	foreach ($form_templates as $i => $ft) {
 		foreach ($ft->fields as $j => $field) {
-			// handle the change in indexing if a new template was inserted
-			// before the end, or one was deleted
+			// handle the change in indexing if a new template was
+			// inserted before the end, or one was deleted
 			$old_i = $i;
 			if ($new_template_loc != null) {
 				if ($i > $new_template_loc) {
 					$old_i = $i - 1;
 				} elseif ($i == $new_template_loc) {
-					// it's the new template; it shouldn't get any query string data
+					// it's the new template; it shouldn't
+					// get any query string data
 					$old_i = -1;
 				}
 			} elseif ($deleted_template_loc != null) {
@@ -203,7 +204,6 @@ END;
 	<p>$create_template_link.</p>
 
 END;
-
 
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
