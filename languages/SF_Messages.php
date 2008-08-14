@@ -795,6 +795,7 @@ $messages['es'] = array(
 	'sf_editdata_formwarning' => 'Advertencia: Esta página <a href="$1">ya existe</a>, pero no usa este formulario.',
 	'sf_editdata_remove' => 'Sacar',
 	'sf_editdata_addanother' => 'Agregar otro',
+	'sf_editdata_none' => 'Ninguno',
 	'sf_formerrors_header' => 'Hubo errores en los datos del formulario; vea más abajo',
 	'sf_blank_error' => 'no puede estar en blanco',
 	'sf_bad_url_error' => "debe tener el formato correcto de URL, comenzando con 'http'",
