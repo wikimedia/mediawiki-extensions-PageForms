@@ -479,7 +479,13 @@ function sffGetFormForArticle($obj) {
 	}
 	// if we're still here, just return the default form for the namespace,
 	// which may well be null
-	return sffGetDefaultForm($obj->mTitle->getNsText(), NS_PROJECT);
+	$namespace = $obj->mTitle->getNsText();
+	if ('' === $namespace) {
+		// if it's in the main (blank) namespace, check for the file
+		// named with the word for "Main" in this language
+		$namespace = wfMsgForContent('sf_blank_namespace');
+	}
+	return sffGetDefaultForm($namespace, NS_PROJECT);
 }
 
 /**
