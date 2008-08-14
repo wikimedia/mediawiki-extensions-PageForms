@@ -75,8 +75,8 @@ function createTemplateText($template_name, $template_fields, $category, $aggreg
 END;
   	// topmost part depends on format
 	if ($template_format == 'infobox') {
-		// CSS style can't be used, unfortunately, since most MediaWiki setups
-		// don't have an 'infobox' or comparable CSS class
+		// CSS style can't be used, unfortunately, since most MediaWiki
+		// setups don't have an 'infobox' or comparable CSS class
 		$text .=<<<END
 {| style="width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;"
 ! style="text-align: center; background-color:#ccccff;" colspan="2" |<big>{{PAGENAME}}</big>
@@ -94,12 +94,13 @@ END;
 		$text .= "! " . $field->label . "\n";
 		if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
 			$text .= "| {{{" . $field->field_name . "|}}}\n";
-			// if this field is meant to contain a list, add on an 'arraymap' function,
-			// that will call this semantic markup tag on every element in the list
+			// if this field is meant to contain a list, add on an
+			// 'arraymap' function, that will call this semantic
+			// markup tag on every element in the list
 		} elseif ($field->is_list) {
-			// find a string that's not in the semantic field call, to be used as
-			// the variable
-			$var = "x"; // default - use this even if all the attempts fail
+			// find a string that's not in the semantic field call,
+			// to be used as the variable
+			$var = "x"; // default - use this if all the attempts fail
 			if (strstr($field->semantic_field_call, $var)) {
 				$var_options = array('y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc');
 				foreach ($var_options as $option) {
@@ -123,21 +124,9 @@ END;
 		}
 		$text .=<<<END
 ! $aggregating_label
-| 
+| {{#ask:[[$aggregating_property{{SUBJECTPAGENAME}}]]|format=list}}
+
 END;
-    	// make the actual inline query an #ask function, if that's supported
-		// by this version of SMW; otherwise use the old <ask> tag
-		// HACK - to find this out, create a new parser and call SMW's 'register'
-		// function on it
-		$parser = new Parser();
-		$dummy_text = "";
-		$dummy_state = null;
-		smwfRegisterInlineQueries($parser, $dummy_text, $dummy_state);
-		if (in_array("ask", $parser->getFunctionHooks())) {
-			$text .= "{{#ask:format=\"list\"|[[$aggregating_property{{SUBJECTPAGENAME}}]]}}\n";
-		} else {
-			$text .= "<ask format=\"list\">[[$aggregating_property{{SUBJECTPAGENAME}}]]</ask>\n";
-		}
 	}
 	$text .= "|}\n";
 	if ($category != '') {
