@@ -11,6 +11,14 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 
 define('SF_VERSION','1.2.9');
 
+$wgExtensionCredits['specialpage'][]= array(
+	'name' => 'Semantic Forms',
+	'version' => SF_VERSION,
+	'author' => 'Yaron Koren and others',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
+	'description' => 'Forms for adding and editing semantic data',
+);
+
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
 define('SF_SP_HAS_ALTERNATE_FORM', 2);
@@ -51,14 +59,13 @@ $wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFFormTemplateField'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.inc';
-// SFFormPrinter is not autoloaded because it's needed right away, for the
-// $sfgFormPrinter variable
-//$wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
+$wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 
-require_once($sfgIP . '/includes/SF_FormPrinter.inc');
+$wgAutoloadClasses['SF_Language'] = $sfgIP . '/languages/SF_Language.php';
+
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
-require_once($sfgIP . '/languages/SF_Language.php');
+require_once($sfgIP . '/includes/SF_FormEditTab.php');
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 
@@ -67,23 +74,11 @@ $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.ph
  *  MediaWiki is set up properly before we add our stuff.
  */
 function sfgSetupExtension() {
-	global $sfgIP, $wgExtensionCredits;
-
-	require_once($sfgIP . '/includes/SF_FormEditTab.php');
-
-	$wgExtensionCredits['specialpage'][]= array(
-		'name' => 'Semantic Forms',
-		'version' => SF_VERSION,
-		'author' => 'Yaron Koren and others',
-		'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
-		'description' => 'Forms for adding and editing semantic data',
-	);
-
 	// this global variable is needed so that other extensions (such
 	// as Semantic Google Maps) can hook into to add their own input
 	// types
 	global $sfgFormPrinter;
-	$sfgFormPrinter = new SFFormPrinter();
+	$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 }
 
 /**********************************************/

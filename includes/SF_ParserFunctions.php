@@ -89,11 +89,23 @@
 
 
 function sfgParserFunctions () {
-	global $wgParser;
-	$wgParser->setFunctionHook('forminput', 'sfRenderFormInput');
-	$wgParser->setFunctionHook('formlink', 'sfRenderFormLink');
-	$wgParser->setFunctionHook('arraymap', 'sfRenderArrayMap');
-	$wgParser->setFunctionHook('arraymaptemplate', 'sfRenderArrayMapTemplate');
+	global $wgHooks, $wgParser;
+	if( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
+		$wgHooks['ParserFirstCallInit'][] = 'sfgRegisterParser';
+	} else {
+		if ( class_exists( 'StubObject' ) && !StubObject::isRealObject( $wgParser ) ) {
+			$wgParser->_unstub();
+		}
+		sfgRegisterParser( $wgParser );
+	}
+}
+
+function sfgRegisterParser( &$parser ) {
+	$parser->setFunctionHook('forminput', 'sfRenderFormInput');
+	$parser->setFunctionHook('formlink', 'sfRenderFormLink');
+	$parser->setFunctionHook('arraymap', 'sfRenderArrayMap');
+	$parser->setFunctionHook('arraymaptemplate', 'sfRenderArrayMapTemplate');
+	return true;
 }
 
 function sffLanguageGetMagic( &$magicWords, $langCode = "en" ) {
