@@ -150,6 +150,7 @@ END;
 		$val = (isset($subcomponents[1])) ? $subcomponents[1] : '';
 		$str .= '			<input type="hidden" name="' . $key . '" value="' . $val . '">' . "\n";
 	}
+	wfLoadExtensionMessages('SemanticForms');
 	$button_str = ($inButtonStr != '') ? $inButtonStr : wfMsg('addoreditdata');
 	$str .= <<<END
 			<input type="submit" value="$button_str"></p>

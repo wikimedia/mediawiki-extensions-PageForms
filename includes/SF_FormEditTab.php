@@ -15,6 +15,8 @@ function sffFormEditTab($obj, $content_actions) {
 			global $wgRequest, $wgUser;
 			global $sfgRenameEditTabs;
 
+			wfLoadExtensionMessages('SemanticForms');
+
 			$user_can_edit = $wgUser->isAllowed('edit') && $obj->mTitle->userCanEdit();
 			// create the form edit tab, and apply whatever changes
 			// are specified by the edit-tab global variables

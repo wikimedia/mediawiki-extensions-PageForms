@@ -71,8 +71,6 @@ function sfgSetupExtension() {
 
 	require_once($sfgIP . '/includes/SF_FormEditTab.php');
 
-	wfLoadExtensionMessages('SemanticForms');
-
 	$wgExtensionCredits['specialpage'][]= array(
 		'name' => 'Semantic Forms',
 		'version' => SF_VERSION,
@@ -401,6 +399,7 @@ function sffAddDataLink($title) {
 	if ('' === $namespace) {
 		// if it's in the main (blank) namespace, check for the file
 		// named with the word for "Main" in this language
+		wfLoadExtensionMessages('SemanticForms');
 		$namespace = wfMsgForContent('sf_blank_namespace');
 	}
 	if ($add_data_link = sffGetAddDataLinkForPage($title, $namespace, NS_PROJECT)) {
@@ -485,6 +484,7 @@ function sffGetFormForArticle($obj) {
 	if ('' === $namespace) {
 		// if it's in the main (blank) namespace, check for the file
 		// named with the word for "Main" in this language
+		wfLoadExtensionMessages('SemanticForms');
 		$namespace = wfMsgForContent('sf_blank_namespace');
 	}
 	return sffGetDefaultForm($namespace, NS_PROJECT);

@@ -50,6 +50,8 @@ function printAltFormsList($alt_forms, $target_name) {
 function printAddForm($form_name, $target_name, $alt_forms) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
+	wfLoadExtensionMessages('SemanticForms');
+
 	// initialize some variables
 	$page_title = NULL;
 	$target_title = NULL;

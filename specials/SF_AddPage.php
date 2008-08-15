@@ -28,6 +28,8 @@ class SFAddPage extends SpecialPage {
 function doSpecialAddPage($query = '') {
 	global $wgOut, $wgRequest, $sfgScriptPath;
 
+	wfLoadExtensionMessages('SemanticForms');
+
 	$form_name = $wgRequest->getVal('form');
 	$target_namespace = $wgRequest->getVal('namespace');
 	$super_page = $wgRequest->getVal('super_page');

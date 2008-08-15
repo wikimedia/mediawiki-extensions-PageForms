@@ -27,6 +27,8 @@ class SFCreateProperty extends SpecialPage {
 function createPropertyText($property_type, $allowed_values_str) {
 	global $smwgContLang;
 
+	wfLoadExtensionMessages('SemanticForms');
+
 	$namespace_labels = $smwgContLang->getNamespaces();
 	if ($property_type == $namespace_labels[SMW_NS_RELATION]) {
 		$text = wfMsgForContent('sf_property_isrelation');
@@ -55,6 +57,8 @@ function createPropertyText($property_type, $allowed_values_str) {
 function doSpecialCreateProperty() {
 	global $wgOut, $wgRequest, $sfgScriptPath;
 	global $smwgContLang;
+
+	wfLoadExtensionMessages('SemanticForms');
 
 	# cycle through the query values, setting the appropriate local variables
 	$property_name = $wgRequest->getVal('property_name');

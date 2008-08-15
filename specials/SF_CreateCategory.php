@@ -27,6 +27,8 @@ class SFCreateCategory extends SpecialPage {
 function createCategoryText($default_form, $category_name, $parent_category) {
 	global $sfgContLang;
 
+	wfLoadExtensionMessages('SemanticForms');
+
 	if ($default_form == '') {
 		$text = wfMsgForContent('sf_category_desc', $category_name);
 	} else {
@@ -48,6 +50,8 @@ function createCategoryText($default_form, $category_name, $parent_category) {
 
 function doSpecialCreateCategory() {
 	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
+
+	wfLoadExtensionMessages('SemanticForms');
 
 	# cycle through the query values, setting the appropriate local variables
 	$category_name = $wgRequest->getVal('category_name');

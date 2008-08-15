@@ -28,6 +28,8 @@ function doSpecialCreateForm() {
 	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
 	$db = wfGetDB( DB_SLAVE );
 
+	wfLoadExtensionMessages('SemanticForms');
+
 	# get the names of all templates on this site
 	$all_templates = array();
 	$sql = "SELECT page_title FROM {$db->tableName( 'page' )} WHERE page_namespace=" . NS_TEMPLATE . " AND page_is_redirect = 0 ORDER BY page_title";

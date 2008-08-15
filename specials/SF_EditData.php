@@ -46,6 +46,8 @@ function doSpecialEditData($query = '') {
 function printEditForm($form_name, $target_name) {
 	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
+	wfLoadExtensionMessages('SemanticForms');
+
 	$javascript_text = "";
 	// get contents of form definition file
 	$form_title = Title::newFromText($form_name, SF_NS_FORM);
