@@ -127,9 +127,9 @@ function doSpecialAddPage($query = '') {
 			}
 
 			$text =<<<END
-        <script type="text/javascript">
-        window.location="$redirect_url";
-        </script>
+		<script type="text/javascript">
+		window.location="$redirect_url";
+		</script>
 
 END;
 			$wgOut->addHTML($text);

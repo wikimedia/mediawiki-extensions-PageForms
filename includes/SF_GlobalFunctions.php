@@ -114,7 +114,7 @@ function sffInitNamespaces() {
 
 	// Support subpages only for talk pages by default
 	$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
-		      SF_NS_FORM_TALK => true
+		SF_NS_FORM_TALK => true
 	);
 }
 

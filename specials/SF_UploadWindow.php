@@ -983,7 +983,7 @@ wgAjaxLicensePreview = {$alp};
 			<td align='$align2'>
 				<textarea tabindex='3' name='wpUploadDescription' id='wpUploadDescription' rows='4' 
 					cols='{$cols}'{$ew}>$encComment</textarea>
-	   {$this->uploadFormTextAfterSummary}
+		{$this->uploadFormTextAfterSummary}
 			</td>
 		</tr>
 		<tr>
@@ -1019,12 +1019,12 @@ EOT
 			$uploadsource = htmlspecialchars( $this->mCopyrightSource );
 
 			$wgOut->addHTML( "
-			        <td align='$align1' nowrap='nowrap'><label for='wpUploadCopyStatus'>$filestatus:</label></td>
+					<td align='$align1' nowrap='nowrap'><label for='wpUploadCopyStatus'>$filestatus:</label></td>
 					<td><input tabindex='5' type='text' name='wpUploadCopyStatus' id='wpUploadCopyStatus' 
 					  value=\"$copystatus\" size='40' /></td>
-		        </tr>
+			</tr>
 			<tr>
-		        	<td align='$align1'><label for='wpUploadCopyStatus'>$filesource:</label></td>
+					<td align='$align1'><label for='wpUploadCopyStatus'>$filesource:</label></td>
 					<td><input tabindex='6' type='text' name='wpUploadSource' id='wpUploadCopyStatus' 
 					  value=\"$uploadsource\" size='40' /></td>
 			</tr>
@@ -1123,7 +1123,7 @@ EOT
 		global $wgVerifyMimeType;
 		if ($wgVerifyMimeType) {
 
-		  wfDebug ( "\n\nmime: <$mime> extension: <$extension>\n\n");
+		wfDebug ( "\n\nmime: <$mime> extension: <$extension>\n\n");
 			#check mime type against file extension
 			if( !$this->verifyExtension( $mime, $extension ) ) {
 				return new WikiErrorMsg( 'uploadcorrupt' );
