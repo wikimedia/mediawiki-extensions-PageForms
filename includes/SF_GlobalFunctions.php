@@ -62,7 +62,7 @@ $wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.inc';
 $wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 
-$wgAutoloadClasses['SF_Language'] = $sfgIP . '/languages/SF_Language.php';
+require_once($sfgIP . '/languages/SF_Language.php');
 
 require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 require_once($sfgIP . '/includes/SF_FormEditTab.php');
