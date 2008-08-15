@@ -14,7 +14,7 @@
  */
 if (!defined('MEDIAWIKI')) die();
 
-class SFUploadWindow extends SpecialPage {
+class SFUploadWindow extends UnlistedSpecialPage {
 
 	/**
 	 * Constructor
