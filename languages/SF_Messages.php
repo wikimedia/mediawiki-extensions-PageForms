@@ -2073,6 +2073,7 @@ $messages['nds'] = array(
  * @author Siebrand
  */
 $messages['nl'] = array(
+	'specialpages-group-sf_group' => 'Semantische formulieren',
 	'createproperty' => 'Eigenschap aanmaken',
 	'sf_createproperty_allowedvalsinput' => 'Als dit veld alleen bepaalde waarden mag hebben, vul dan een lijst van waardes in, gescheiden door komma\'s (als een waarde komma\'s bevat, vervang die door "\\,"):',
 	'sf_createproperty_propname' => 'Naam:',
