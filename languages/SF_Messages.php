@@ -1026,6 +1026,7 @@ $messages['fi'] = array(
  * @author Urhixidur
  */
 $messages['fr'] = array(
+	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Définir une propriété',
 	'sf_createproperty_allowedvalsinput' => "Si vous décidez que ce champ n'accepte que certaines valeurs, entrez la liste des valeurs permises séparées par des virgules. (Si une valeur contient une virgule, remplacez-la par « \\, ») :",
 	'sf_createproperty_propname' => 'Nom :',
@@ -1411,6 +1412,7 @@ $messages['hil'] = array(
  * @author Dalibor Bosits
  */
 $messages['hr'] = array(
+	'sf_createtemplate_deletefield' => 'Izbriši',
 	'sf_editdata_remove' => 'Ukloni',
 );
 
@@ -2191,6 +2193,7 @@ $messages['nn'] = array(
  * @author Jon Harald Søby
  */
 $messages['no'] = array(
+	'specialpages-group-sf_group' => 'Semantiske skjemaer',
 	'createproperty' => 'Opprett en egenskap',
 	'sf_createproperty_allowedvalsinput' => 'Om du ønsker at dette feltet kun skal kunne ha visse verdier, skriv inn listen over tillatte verdier, adskilt med komma (om en verdi inneholder komma, erstatt det med «\\,»):',
 	'sf_createproperty_propname' => 'Navn:',
@@ -2365,7 +2368,7 @@ $messages['oc'] = array(
 	'sf_createcategory_makesubcategory' => "Crea una soscategoria d'una autra categoria (facultatiu) :",
 	'addpage' => 'Apondre una pagina amb un formulari',
 	'sf_addpage_badform' => 'Error : cap de pagina de formulari es pas estada trobada sus $1.',
-	'sf_addpage_docu' => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'apondre.",
+	'sf_addpage_docu' => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
 	'sf_addpage_noform_docu' => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb loqual serà editada. Se aquesta pagina existís ja, seretz dirigit vèrs lo formulari per l'editar. Dins lo cas contrari, seretz redirigit vèrs lo que permet de l'apondre.",
 	'addoreditdata' => 'Modificar o apondre de donadas',
 	'adddata' => 'Apondre de donadas',
@@ -2397,7 +2400,7 @@ $messages['oc'] = array(
 	'sf_property_isrelation' => 'Aquò es una relacion.',
 	'sf_template_docu' => 'Aquò es lo modèl « $1 ». Deuriá èsser apelat segon lo format seguent :',
 	'sf_template_docufooter' => 'Modificar la pagina per veire lo tèxt del modèl.',
-	'sf_form_docu' => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit vèrs un formulari destinat a l'editar.",
+	'sf_form_docu' => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit cap a un formulari destinat a l'editar.",
 	'sf_form_freetextlabel' => 'Tèxt liure',
 	'sf_category_hasdefaultform' => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc' => 'Aquò es la categoria « $1 ».',
