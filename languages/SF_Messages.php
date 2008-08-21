@@ -2309,6 +2309,7 @@ $messages['nso'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
+	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Definir una proprietat',
 	'sf_createproperty_allowedvalsinput' => "Se decidatz qu'aqueste camp accèpta pas que cèrtas valors, entratz la lista de las valors permesas separadas per de virgulas. (Se una valor conten una virgula, remplaçat-la per « \\, ») :",
 	'sf_createproperty_propname' => 'Nom :',
@@ -2782,6 +2783,7 @@ $messages['ru'] = array(
  * @author Helix84
  */
 $messages['sk'] = array(
+	'specialpages-group-sf_group' => 'Sémantické formuláre',
 	'createproperty' => 'Vytvoriť vlastnosť',
 	'sf_createproperty_allowedvalsinput' => 'Ak chcete povoliť tomuto poľu nadobúdať iba určité hodnoty, zadajte zoznam povolených hodnôt oddelených čiarkami (ak hodnota obsahuje čiarku, nahraďte ju „\\,“)',
 	'sf_createproperty_propname' => 'Názov:',
