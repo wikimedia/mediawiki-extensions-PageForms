@@ -1142,6 +1142,7 @@ $messages['fy'] = array(
  * @author Xosé
  */
 $messages['gl'] = array(
+	'specialpages-group-sf_group' => 'Formularios semánticos',
 	'createproperty' => 'Crear unha propiedade',
 	'sf_createproperty_allowedvalsinput' => 'Se quere obrigar a que este campo só teña determinados valores, introduza a lista de valores permitidos separados por vírgulas (se un valor contén unha vírgula, substitúaa por "\\,"):',
 	'sf_createproperty_propname' => 'Nome:',
