@@ -180,6 +180,7 @@ $messages['af'] = array(
  * @author OsamaK
  */
 $messages['ar'] = array(
+	'specialpages-group-sf_group' => 'منتديات سيمانتيك',
 	'createproperty' => 'إنشاء خاصية',
 	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد لهذا الحقل أن يحتوي على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب "\\,"):',
 	'sf_createproperty_propname' => 'الاسم:',
