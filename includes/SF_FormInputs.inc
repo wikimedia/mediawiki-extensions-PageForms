@@ -316,8 +316,17 @@ END;
     if (array_key_exists('input_type', $other_args) && $other_args['input_type'] == "textarea") {
       $rows = $other_args['rows'];
       $cols = $other_args['cols'];
+      if (array_key_exists('maxlength', $other_args)) {
+        $maxlength = $other_args['maxlength'];
+        // is this an unnecessary performance load? Get the substring of the
+        // text on every key press or release, regardless of the current length
+        // of the text
+        $js_call = " onKeyDown=\"this.value = this.value.substring(0, $maxlength);\" onKeyUp=\"this.value = this.value.substring(0, $maxlength);\"";
+      } else {
+        $js_call = "";
+      }
       $text =<<<END
-	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text></textarea>
+	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text $js_call></textarea>
 
 END;
     } else {
@@ -412,9 +421,18 @@ END;
 
     $rows = $other_args['rows'];
     $cols = $other_args['cols'];
+    if (array_key_exists('maxlength', $other_args)) {
+      $maxlength = $other_args['maxlength'];
+      // is this an unnecessary performance load? Get the substring of the
+      // text on every key press or release, regardless of the current length
+      // of the text
+      $js_call = " onKeyDown=\"this.value = this.value.substring(0, $maxlength);\" onKeyUp=\"this.value = this.value.substring(0, $maxlength);\"";
+    } else {
+      $js_call = "";
+    }
 
     $text =<<<END
-	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text>$cur_value</textarea>
+	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text $js_call>$cur_value</textarea>
 	<span id="$info_id" class="errorMessage"></span>
 
 END;
