@@ -158,7 +158,7 @@ class SFFormPrinter {
     // remove the '<nowiki>' tags, leaving us with what we need
     global $sfgDisableWikiTextParsing;
     if (! $sfgDisableWikiTextParsing) {
-      $form_def = strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+      $form_def = "__NOEDITSECTION__\n" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
       $wgParser->mOptions = new ParserOptions();
       $wgParser->mOptions->initialiseFromUser($wgUser);
       $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
@@ -172,6 +172,11 @@ class SFFormPrinter {
     $free_text_was_included = false;
     $free_text_preload_page = null;
     $all_values_for_template = array();
+    // replace HTML-encoded representations of curly brackets with actual
+    // curly brackets - this is a hack to allow for forms to include
+    // templates that themselves contain form elements - the escaping is
+    // needed to make sure that those elements don't get parsed too early
+    $form_def = str_replace(array('&#123;', '&#125;'), array('{', '}'), $form_def);
     while ($brackets_loc = strpos($form_def, "{{{", $start_position)) {
       $brackets_end_loc = strpos($form_def, "}}}", $brackets_loc);
       $bracketed_string = substr($form_def, $brackets_loc + 3, $brackets_end_loc - ($brackets_loc + 3));
@@ -505,6 +510,7 @@ class SFFormPrinter {
                 $sfgTabIndex++;
                 $sfgFieldNum++;
                 list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('<free_text>', 'free_text', false, ($form_is_disabled || $is_restricted), $field_args);
+                $fields_javascript_text .= $new_javascript_text;
               }
               $free_text_was_included = true;
               // add a similar placeholder to the data text
