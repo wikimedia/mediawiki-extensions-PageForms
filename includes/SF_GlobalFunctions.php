@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.2.9');
+define('SF_VERSION','1.2.10');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -420,9 +420,8 @@ function sffAddDataLink($title) {
 function sffEmbeddedEditForm($action, $article) {
 	global $sfgIP;
 
-	// for some reason, the code calling the 'UnknownAction' hook wants
-	// "true" if the hook failed, and "false" otherwise... this is
-	// probably a bug, but we'll just work with it
+	// return "true" if the call failed (meaning, pass on handling of
+	// the hook to others), and "false" otherwise
 	if ($action != 'formedit') {
 		return true;
 	}
@@ -636,7 +635,8 @@ function sffGetAllPagesForCategory($top_category, $num_levels, $substring = null
 				$substring = str_replace(' ', '_', strtolower($substring));
 				$substring = str_replace('_', '\_', $substring);
 				$substring = str_replace("'", "\'", $substring);
-				$conditions = 'cl_to = '. $db->addQuotes($category) . " AND (LOWER(page_title) LIKE '" . $substring . "%' OR LOWER(page_title) LIKE '%\_" . $substring . "%')";
+				$conditions = 'cl_to = '. $db->addQuotes($category) . " AND (LOWER(page_title) LIKE '" . $substring . "%' OR LOWER(page_title) LIKE '%\_" . $substring . "%' OR page_namespace = " . NS_CATEGORY . ")";
+
 			} else {
 				$conditions = 'cl_to = '. $db->addQuotes($category);
 			}
