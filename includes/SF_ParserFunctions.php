@@ -132,7 +132,7 @@ function sfRenderFormLink (&$parser, $inFormName = '', $inLinkStr = '', $inLinkT
 	} else {
 		$str = "<a href=\"$link_url\">$inLinkStr</a>";
 	}
-	return array($str, 'noparse' => 'true', 'isHTML' => 'true');
+	return array($str, 'noparse' => true, 'isHTML' => true);
 }
 
 function sfRenderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue = '', $inButtonStr = '', $inQueryStr = '') {
@@ -168,7 +168,7 @@ END;
 			<input type="submit" value="$button_str"></p>
 			</form>
 END;
-	return array($str, 'noparse' => 'true', 'isHTML' => 'true');
+	return array($str, 'noparse' => true, 'isHTML' => true);
 }
 
 /**
@@ -203,5 +203,5 @@ function sfRenderArrayMapTemplate ( &$parser, $value = '', $template = '', $deli
 			$results[] = '{{'.$template.'|'.$cur_value.'}}';
 		}
 	}
-	return implode($new_delimiter, $results);
+	return array(implode($new_delimiter, $results), 'noparse' => false, 'isHTML' => false);
 }
