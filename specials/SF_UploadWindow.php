@@ -36,6 +36,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 function doSpecialUploadWindow() {
 	global $wgRequest, $wgOut, $wgUser, $wgServer;
 	global $wgScript, $wgJsMimeType, $wgStylePath, $wgStyleVersion;
+	global $wgContLang, $wgLanguageCode, $wgXhtmlDefaultNamespace, $wgXhtmlNamespaces;
 
 	// disable $wgOut - we'll print out the page manually, taking the
 	// body created by the form, plus the necessary Javascript files,
@@ -43,14 +44,28 @@ function doSpecialUploadWindow() {
 	$wgOut->disable();
 	$form = new UploadWindowForm( $wgRequest );
 	$form->execute();
-	$user_js = "<script type=\"{$wgJsMimeType}\">" . $wgUser->getSkin()->getUserJs() . "; wgServer=\"{$wgServer}\"; wgScript=\"{$wgScript}\"</script>";
+	$sk = $wgUser->getSkin();
+	$sk->initPage($wgOut); // need to call this to set skin name correctly
+	$user_js = "<script type=\"{$wgJsMimeType}\">" . $sk->getUserJs() . "; wgServer=\"{$wgServer}\"; wgScript=\"{$wgScript}\"</script>";
+	$vars_js = Skin::makeGlobalVariablesScript(array('skinname' => $sk->getSkinName()));
 	$wikibits_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/wikibits.js?$wgStyleVersion\"></script>";
 	$ajax_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/ajax.js?$wgStyleVersion\"></script>";
 	$ajaxwatch_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/ajaxwatch.js?$wgStyleVersion\"></script>";
 	$text = <<<END
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="{$wgXhtmlDefaultNamespace}"
+END;
+	foreach($wgXhtmlNamespaces as $tag => $ns) {
+		$text .= "xmlns:{$tag}=\"{$ns}\" ";
+	}
+	$dir = $wgContLang->isRTL() ? "rtl" : "ltr";
+	$text .= "xml:lang=\"{$wgLanguageCode}\" lang=\"{$wgLanguageCode}\" dir=\"{$dir}\">";
+
+	$text .= <<<END
+
 <head>
 $user_js
+$vars_js
 $wikibits_include
 $ajax_include
 $ajaxwatch_include
@@ -66,7 +81,7 @@ END;
 }
 
 /**
- * implements Special:Upload
+ * implements Special:UploadWindow
  * @addtogroup SpecialPage
  */
 class UploadWindowForm {
