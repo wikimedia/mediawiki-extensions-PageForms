@@ -74,3 +74,13 @@ $sfgListSeparator = ",";
 ###
 $sfgYUIBase = "http://yui.yahooapis.com/2.5.1/build/";
 
+###
+# Extend the edit form from the internal EditPage class rather than using a
+# special page and hacking things up.
+# 
+# @note This is experimental and requires updates to EditPage which I have only
+#       added into MediaWiki 1.14a
+###
+$sfgUseFormEditPage = false;//version_compare( $wgVersion, '1.14alpha', '>=' );
+
+

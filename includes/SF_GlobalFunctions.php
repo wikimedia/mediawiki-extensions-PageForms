@@ -63,6 +63,7 @@ $wgSpecialPageGroups['EditData'] = 'sf_group';
 $wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
 $wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
 
+$wgAutoloadClasses['FormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
 $wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.inc';
 $wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
@@ -418,7 +419,7 @@ function sffAddDataLink($title) {
  * pages)
  */
 function sffEmbeddedEditForm($action, $article) {
-	global $sfgIP;
+	global $sfgIP, $sfgUseFormEditPage;
 
 	// return "true" if the call failed (meaning, pass on handling of
 	// the hook to others), and "false" otherwise
@@ -426,11 +427,21 @@ function sffEmbeddedEditForm($action, $article) {
 		return true;
 	}
 
+	// @todo: This looks like bad code. If we can't find a form, we should be
+	// showing an informative error page rather than making it look like an
+	// edit form page does not exist.
 	$form_name = sffGetFormForArticle($article);
 	if ($form_name == '') {
 		return true;
 	}
 
+	if( $sfgUseFormEditPage ) {
+		# Experimental new feature extending from the internal EditPage class
+		$editor = new FormEditPage( $article, $form_name );
+		$editor->submit();
+		return false;
+	}
+	
 	$target_title = $article->getTitle();
 	$target_name = sffTitleString($target_title);
 	if ($target_title->exists()) {
