@@ -511,7 +511,7 @@ $messages['de'] = array(
 	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit "\\,"):',
 	'sf_createproperty_propname' => 'Name:',
 	'sf_createproperty_proptype' => 'Typ:',
-	'templates' => 'Vorlage ',
+	'templates' => 'Vorlage',
 	'sf_templates_docu' => 'Die folgenden Vorlagen existieren in {{SITENAME}}.',
 	'sf_templates_definescat' => 'definiert Kategorie:',
 	'createtemplate' => 'Erstelle eine Vorlage',
@@ -1240,6 +1240,13 @@ $messages['gl'] = array(
 	'sf_category_hasdefaultform' => 'Esta categoría usa o formulario $1.',
 	'sf_category_desc' => 'Esta é a categoría $1.',
 	'sf_blank_namespace' => 'Principal',
+);
+
+/** Gothic (������������������������������������)
+ * @author Jocke Pirat
+ */
+$messages['got'] = array(
+	'sf_createtemplate_deletefield' => 'Taíran',
 );
 
 /** Gujarati (ગુજરાતી)
@@ -3397,7 +3404,7 @@ $messages['zh-cn'] = array(
 	'sf_createtemplate_standardformat' => '标准型',
 	'sf_createtemplate_infoboxformat' => '右置型信息招牌，广告牌',
 	'sf_createtemplate_addfield' => '新增栏位',
-	'sf_createtemplate_deletefield' => '删除 ',
+	'sf_createtemplate_deletefield' => '删除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您存贮它之前，您必须为这个表单加入至少一项样板。',
 	'forms' => '表单',
 	'sf_forms_docu' => '本wiki系统已建有下列的表单。',
@@ -3495,7 +3502,7 @@ $messages['zh-tw'] = array(
 	'sf_createtemplate_standardformat' => '標準型',
 	'sf_createtemplate_infoboxformat' => '右置型訊息看板',
 	'sf_createtemplate_addfield' => '新增欄位',
-	'sf_createtemplate_deletefield' => '刪除 ',
+	'sf_createtemplate_deletefield' => '刪除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您儲存它之前，您必須為這個表單加入至少一項樣板。',
 	'forms' => '表單',
 	'sf_forms_docu' => '本wiki系統已建有下列的表單。',
