@@ -103,8 +103,13 @@ function sfgParserFunctions () {
 function sfgRegisterParser( &$parser ) {
 	$parser->setFunctionHook('forminput', 'sfRenderFormInput');
 	$parser->setFunctionHook('formlink', 'sfRenderFormLink');
-	$parser->setFunctionHook('arraymap', 'sfRenderArrayMap');
-	$parser->setFunctionHook('arraymaptemplate', 'sfRenderArrayMapTemplate');
+	if( defined( get_class( $parser ) . '::SFH_OBJECT_ARGS' ) ) {
+		$parser->setFunctionHook('arraymap', 'sfRenderArrayMapObj', SFH_OBJECT_ARGS);
+		$parser->setFunctionHook('arraymaptemplate', 'sfRenderArrayMapTemplateObj', SFH_OBJECT_ARGS);
+	} else {
+		$parser->setFunctionHook('arraymap', 'sfRenderArrayMap');
+		$parser->setFunctionHook('arraymaptemplate', 'sfRenderArrayMapTemplate');
+	}
 	return true;
 }
 
@@ -174,7 +179,7 @@ END;
 /**
  * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
  */
-function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = '', $new_delimiter = ', ' ) {
+function sfRenderArrayMap( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = 'x', $new_delimiter = ', ' ) {
 	$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 	$results = array();
 	foreach ($values_array as $cur_value) {
@@ -189,9 +194,41 @@ function sfRenderArrayMap ( &$parser, $value = '', $delimiter = ',', $var = 'x',
 }
 
 /**
- * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
+ * SFH_OBJ_ARGS
+ * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
  */
-function sfRenderArrayMapTemplate ( &$parser, $value = '', $template = '', $delimiter = ',', $new_delimiter = ', ' ) {
+function sfRenderArrayMapObj( &$parser, $frame, $args ) {
+	# Set variables
+	$value         = isset($args[0]) ? $args[0] : '';
+	$delimiter     = isset($args[1]) ? $args[1] : ',';
+	$var           = isset($args[2]) ? $args[2] : 'x';
+	$new_value     = isset($args[3]) ? $args[3] : 'x';
+	$new_delimiter = isset($args[4]) ? $args[4] : ', ';
+	# Expand some
+	$value         = trim($frame->expand($value));
+	$delimiter     = trim($frame->expand($delimiter));
+	$var           = trim($frame->expand($var, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES));
+	$new_delimiter = trim($frame->expand($new_delimiter));
+	# Unstrip some
+	$delimiter = $parser->mStripState->unstripNoWiki($delimiter);
+	
+	$values_array = explode($delimiter, $value);
+	$results_array = array();
+	foreach( $values_array as $old_value ) {
+		$old_value = trim($old_value);
+		if( $old_value == '' ) continue;
+		$result_value = $frame->expand($new_value, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES);
+		$result_value  = str_replace($var, $old_value, $result_value);
+		$result_value  = $parser->preprocessToDom($result_value, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0);
+		$results_array[] = trim($frame->expand($result_value));
+	}
+	return implode($new_delimiter, $results_array);
+}
+
+/**
+ * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
+ */
+function sfRenderArrayMapTemplate( &$parser, $value = '', $template = '', $delimiter = ',', $new_delimiter = ', ' ) {
 	$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 	$results = array();
 	$template = trim($template);
@@ -204,4 +241,29 @@ function sfRenderArrayMapTemplate ( &$parser, $value = '', $template = '', $deli
 		}
 	}
 	return array(implode($new_delimiter, $results), 'noparse' => false, 'isHTML' => false);
+}
+
+/**
+ * SFH_OBJ_ARGS
+ * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
+ */
+function sfRenderArrayMapTemplateObj( &$parser, $frame, $args ) {
+	# Set variables
+	$value         = isset($args[0]) ? trim($frame->expand($args[0])) : '';
+	$template      = isset($args[1]) ? trim($frame->expand($args[1])) : '';
+	$delimiter     = isset($args[2]) ? trim($frame->expand($args[2])) : ',';
+	$new_delimiter = isset($args[3]) ? trim($frame->expand($args[3])) : ', ';
+	# Unstrip some
+	$delimiter = $parser->mStripState->unstripNoWiki($delimiter);
+	
+	$values_array = explode($delimiter, $value);
+	$results_array = array();
+	foreach( $values_array as $old_value ) {
+		$old_value = trim($old_value);
+		if( $old_value == '' ) continue;
+		$results_array[] = $parser->replaceVariables(
+			implode('', $frame->virtualBracketedImplode( '{{', '|', '}}',
+				$template, '1='.$old_value )), $frame);
+	}
+	return implode($new_delimiter, $results_array);
 }
