@@ -1605,7 +1605,9 @@ $messages['is'] = array(
  * @author Darth Kule
  */
 $messages['it'] = array(
+	'sf_createproperty_propname' => 'Nome:',
 	'sf_createtemplate_deletefield' => 'Cancella',
+	'sf_createcategory_name' => 'Nome:',
 );
 
 /** Javanese (Basa Jawa)
@@ -2058,6 +2060,15 @@ $messages['mr'] = array(
 	'sf_category_hasdefaultform' => 'हे वर्गीकरण फॉर्म $1 वापरते.',
 	'sf_category_desc' => 'हे $1 वर्गीकरण आहे.',
 	'sf_blank_namespace' => 'मुख्य',
+);
+
+/** Erzya (Эрзянь)
+ * @author Botuzhaleny-sodamo
+ */
+$messages['myv'] = array(
+	'sf_createproperty_propname' => 'Лемезэ:',
+	'sf_createcategory_name' => 'Лемезэ:',
+	'sf_editdata_remove' => 'Нардык',
 );
 
 /** Nahuatl (Nāhuatl)
@@ -3364,6 +3375,7 @@ $messages['vi'] = array(
 $messages['vo'] = array(
 	'sf_createproperty_propname' => 'Nem:',
 	'sf_createcategory_name' => 'Nem:',
+	'sf_editdata_none' => 'Nonik',
 	'sf_blank_namespace' => 'Cifik',
 );
 
