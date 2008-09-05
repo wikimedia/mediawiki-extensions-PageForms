@@ -78,7 +78,7 @@ require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 require_once($sfgIP . '/includes/SF_FormEditTab.php');
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
-$wgExtensionAliasesFiles['ReplaceText'] = $sfgIP . '/languages/SF_Aliases.php';
+$wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
 
 /**
  *  Do the actual intialization of the extension. This is just a delayed init that makes sure
