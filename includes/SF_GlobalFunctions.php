@@ -78,6 +78,7 @@ require_once($sfgIP . '/includes/SF_ParserFunctions.php');
 require_once($sfgIP . '/includes/SF_FormEditTab.php');
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
+$wgExtensionAliasesFiles['ReplaceText'] = $sfgIP . '/languages/SF_Aliases.php';
 
 /**
  *  Do the actual intialization of the extension. This is just a delayed init that makes sure
@@ -441,7 +442,7 @@ function sffEmbeddedEditForm($action, $article) {
 		$editor->submit();
 		return false;
 	}
-	
+
 	$target_title = $article->getTitle();
 	$target_name = sffTitleString($target_title);
 	if ($target_title->exists()) {
@@ -547,7 +548,7 @@ function sffGetMonthNames() {
 		wfMsgForContent('march'),
 		wfMsgForContent('april'),
 		wfMsgForContent('may'),
-		wfMsgForContent('june'), 
+		wfMsgForContent('june'),
 		wfMsgForContent('july'),
 		wfMsgForContent('august'),
 		wfMsgForContent('september'),
@@ -565,9 +566,9 @@ function sffGetAllPagesForProperty_orig($is_relation, $property_name, $substring
 	$db = wfGetDB( DB_SLAVE );
 	$sql_options = array();
 	$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-	$property_field = ($is_relation) ? 'relation_title' : 'attribute_title'; 
-	$value_field = ($is_relation) ? 'object_title' : 'value_xsd'; 
-	$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes'; 
+	$property_field = ($is_relation) ? 'relation_title' : 'attribute_title';
+	$value_field = ($is_relation) ? 'object_title' : 'value_xsd';
+	$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes';
 	$conditions = "$property_field = '$property_name'";
 	if ($substring != null) {
 		$substring = str_replace(' ', '_', strtolower($substring));
@@ -660,7 +661,7 @@ function sffGetAllPagesForCategory($top_category, $num_levels, $substring = null
 				while ($res && $row = $db->fetchRow($res)) {
 					if (array_key_exists('page_title', $row)) {
 						$page_namespace = $row['page_namespace'];
-						if ($page_namespace == NS_CATEGORY) { 
+						if ($page_namespace == NS_CATEGORY) {
 							$new_category = $row[ 'page_title' ];
 							if (!in_array($new_category, $categories)) {
 								$newcategories[] = $new_category;
