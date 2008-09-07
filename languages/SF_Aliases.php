@@ -22,7 +22,9 @@ $aliases['en'] = array(
 	'UploadWindow' => array( 'UploadWindow' ),
 );
 
-/** Arabic (العربية) */
+/** Arabic (العربية)
+ * @author Meno25
+ */
 $aliases['ar'] = array(
 	'AddData' => array( 'إضافة_بيانات' ),
 	'AddPage' => array( 'إضافة_صفحة' ),
@@ -36,7 +38,9 @@ $aliases['ar'] = array(
 	'UploadWindow' => array( 'نافذة_الرفع' ),
 );
 
-/** Egyptian Spoken Arabic (مصرى) */
+/** Egyptian Spoken Arabic (مصرى)
+ * @author Meno25
+ */
 $aliases['arz'] = array(
 	'AddData' => array( 'إضافة_بيانات' ),
 	'AddPage' => array( 'إضافة_صفحة' ),
