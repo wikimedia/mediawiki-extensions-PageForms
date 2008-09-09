@@ -62,6 +62,8 @@ $sfgRenameEditTabs = false;
 $wgGroupPermissions['*'    ]['viewedittab']   = true;
 $wgAvailableRights[] = 'viewedittab';
 
+$wgGroupPermissions['sysop']['editrestrictedfields'] = true;
+
 ###
 # List separator character
 ###
