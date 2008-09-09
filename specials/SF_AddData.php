@@ -48,7 +48,7 @@ function printAltFormsList($alt_forms, $target_name) {
 }
 
 function printAddForm($form_name, $target_name, $alt_forms) {
-	global $wgOut, $wgRequest, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
+	global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
 	wfLoadExtensionMessages('SemanticForms');
 
@@ -127,9 +127,13 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title, $page_name_formula);
 		if ($form_submitted) {
 			if ($page_name_formula != '') {
+				// append a namespace, if one was specified
+				if ($wgRequest->getCheck('namespace')) {
+					$target_name = $wgRequest->getVal('namespace') . ':' . $generated_page_name;
+				}
 				// replace "unique number" tag with one that
 				// won't get erased by the next line
-				$target_name = preg_replace('/<unique number(.*)>/', '{num\1}', $generated_page_name, 1);
+				$target_name = preg_replace('/<unique number(.*)>/', '{num\1}', $target_name, 1);
 				// if any formula stuff is still in the name
 				// after the parsing, just remove it
 				$target_name = StringUtils::delimiterReplace('<', '>', '', $target_name);
@@ -158,7 +162,9 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 					$target_title = Title::newFromText($target_name);
 				}
 			}
-			$text = sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
+			$wgOut->setArticleBodyOnly( true );
+			$text = "<p><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
+			$text .= sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
 		} else {
 			// override the default title for this page if
 			// a title was specified in the form
@@ -216,6 +222,10 @@ END;
 	$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'autocomplete/autocomplete-min.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
 	$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/floatbox.js"></script>' . "\n");
+
+        global $wgFCKEditorDir;
+        if ($wgFCKEditorDir)
+                $wgOut->addScript('<script type="text/javascript" src="' . "$wgScriptPath/$wgFCKEditorDir" . '/fckeditor.js"></script>' . "\n");
 	if (! empty($javascript_text))
 		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
 	$wgOut->addMeta('robots','noindex,nofollow');
