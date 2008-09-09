@@ -191,6 +191,10 @@ END;
     $info_id = "info_$sfgFieldNum";
     $hidden_input_name = $input_name . "[is_list]";
     $input_name .= "[]"; // needed so that this input will send an array
+    if (array_key_exists('size', $other_args))
+      $size_text = "size=". $other_args['size'];
+    else
+      $size_text = "";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     // get list delimiter - default is comma
     if (array_key_exists('delimiter', $other_args)) {
@@ -201,7 +205,7 @@ END;
     $cur_values = SFFormInputs::getValuesArray($cur_value, $delimiter);
 
     $text =<<<END
-	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" multiple $disabled_text>
+	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" multiple $size_text $disabled_text>
 
 END;
     if (($possible_values = $other_args['possible_values']) == null)
@@ -415,8 +419,9 @@ END;
     $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
     if (array_key_exists('class', $other_args))
       $className .= " " . $other_args['class'];
-    $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
+    // use a special ID for the free text field, for FCK's needs
+    $input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
 
     $rows = $other_args['rows'];
