@@ -23,6 +23,75 @@ class SFAddPage extends SpecialPage {
 		$this->setHeaders();
 		doSpecialAddPage($query);
 	}
+
+	function doRedirect($form_name, $page_name) {
+		global $wgOut;
+
+		$page_title = Title::newFromText($page_name);
+		if ($page_title->exists()) {
+			// it exists - see if page is a redirect; if
+			// it is, edit the target page instead
+			$article = new Article($page_title);
+			$article->loadContent();
+			$redirect_title = Title::newFromRedirect($article->fetchContent());
+			if ($redirect_title != NULL) {
+				$page_title = $redirect_title;
+			}
+			// HACK - if this is the default form for
+			// this page, send to the regular 'formedit'
+			// tab page; otherwise, send to the 'Special:EditData'
+			// page, with the form name hardcoded.
+			// Is this logic necessary? Or should we just
+			// out-guess the user and always send to the
+			// standard form-edit page, with the 'correct' form?
+			$default_form_name = sffGetFormForArticle($article);
+			if ($form_name == $default_form_name) {
+				$redirect_url = $page_title->getLocalURL('action=formedit');
+			} else {
+				$ed = SpecialPage::getPage('EditData');
+				$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+			}
+		} else {
+			$ad = SpecialPage::getPage('AddData');
+			$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+			// of all the request values, send on to
+			// 'AddData' only 'preload' and specific form
+			// fields - we can tell the latter because
+			// they show up as 'arrays'
+			foreach ($_REQUEST as $key => $val) {
+				if (is_array($val)) {
+					$template_name = $key;
+					foreach ($val as $field_name => $value) {
+						$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
+						$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
+					}
+				} elseif ($key == 'preload') {
+					$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
+					$redirect_url .= "$key=$val";
+				}
+			}
+		}
+
+		if ('' != $params) {
+			$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
+			$redirect_url .= $params;
+		}
+
+		$wgOut->setArticleBodyOnly( true );
+		// show "loading" animated image while people wait for the redirect
+		global $sfgScriptPath;
+		$text = "<p><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
+		$text .=<<<END
+		<script type="text/javascript">
+		window.onload = function() {
+			window.location="$redirect_url";
+		}
+		</script>
+
+END;
+		$wgOut->addHTML($text);
+		return;
+	}
 }
 
 function doSpecialAddPage($query = '') {
@@ -37,7 +106,15 @@ function doSpecialAddPage($query = '') {
 
 	// if query string did not contain form name, try the URL
 	if (! $form_name) {
-		$form_name = $query;
+		$queryparts = explode('/', $query, 2);
+		$form_name = isset($queryparts[0]) ? $queryparts[0] : '';
+		// if a target was specified, it means we should redirect
+		// to either 'AddData' or 'EditData' for this target page
+		if (isset($queryparts[1])) {
+			$target_name = $queryparts[1];
+			SFAddPage::doRedirect($form_name, $target_name);
+		}
+
 		// get namespace from  the URL, if it's there
 		if ($namespace_label_loc = strpos($form_name, "/Namespace:")) {
 			$target_namespace = substr($form_name, $namespace_label_loc + 11);
@@ -77,63 +154,10 @@ function doSpecialAddPage($query = '') {
 				$error_msg = wfMsg('sf_addpage_badtitle', $page_name);
 				$wgOut->addHTML($error_msg);
 				return;
-			} elseif ($page_title->exists()) {
-				// it exists - see if page is a redirect; if
-				// it is, edit the target page instead
-				$article = new Article($page_title);
-				$article->loadContent();
-				$redirect_title = Title::newFromRedirect($article->fetchContent());
-				if ($redirect_title != NULL) {
-					$page_title = $redirect_title;
-				}
-				// HACK - if this is the default form for
-				// this page, send to the regular 'formedit'
-				// tab page; otherwise, send to the 'Special:EditData'
-				// page, with the form name hardcoded.
-				// Is this logic necessary? Or should we just
-				// out-guess the user and always send to the
-				// standard form-edit page, with the 'correct' form?
-				$default_form_name = sffGetFormForArticle($article);
-				if ($form_name == $default_form_name) {
-					$redirect_url = $page_title->getLocalURL('action=formedit');
-				} else {
-					$ed = SpecialPage::getPage('EditData');
-					$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
-				}
 			} else {
-				$ad = SpecialPage::getPage('AddData');
-				$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
-				// of all the request values, send on to
-				// 'AddData' only 'preload' and specific form
-				// fields - we can tell the latter because
-				// they show up as 'arrays'
-				foreach ($_REQUEST as $key => $val) {
-					if (is_array($val)) {
-						$template_name = $key;
-						foreach ($val as $field_name => $value) {
-							$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
-							$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
-						}
-					} elseif ($key == 'preload') {
-						$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
-						$redirect_url .= "$key=$val";
-					}
-				}
+				SFAddPage::doRedirect($form_name, $page_name);
+				return;
 			}
-
-			if ('' != $params) {
-				$redirect_url .= (strpos($redirect_url, "?") > -1) ? '&' : '?';
-				$redirect_url .= $params;
-			}
-
-			$text =<<<END
-		<script type="text/javascript">
-		window.location="$redirect_url";
-		</script>
-
-END;
-			$wgOut->addHTML($text);
-			return;
 		}
 	}
 
