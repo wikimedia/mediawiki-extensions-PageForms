@@ -934,6 +934,7 @@ END;
         $free_text = SFFormUtils::prepareTextForFCK($free_text);
       }
     } else {
+      $showFCKEditor = 0;
       $free_text = Sanitizer::safeEncodeAttribute($free_text);
     }
     // now that we have it, substitute free text into the form and page
