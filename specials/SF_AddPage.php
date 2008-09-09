@@ -24,7 +24,7 @@ class SFAddPage extends SpecialPage {
 		doSpecialAddPage($query);
 	}
 
-	function doRedirect($form_name, $page_name) {
+	function doRedirect($form_name, $page_name, $params) {
 		global $wgOut;
 
 		$page_title = Title::newFromText($page_name);
@@ -112,7 +112,7 @@ function doSpecialAddPage($query = '') {
 		// to either 'AddData' or 'EditData' for this target page
 		if (isset($queryparts[1])) {
 			$target_name = $queryparts[1];
-			SFAddPage::doRedirect($form_name, $target_name);
+			SFAddPage::doRedirect($form_name, $target_name, $params);
 		}
 
 		// get namespace from  the URL, if it's there
@@ -155,7 +155,7 @@ function doSpecialAddPage($query = '') {
 				$wgOut->addHTML($error_msg);
 				return;
 			} else {
-				SFAddPage::doRedirect($form_name, $page_name);
+				SFAddPage::doRedirect($form_name, $page_name, $params);
 				return;
 			}
 		}
