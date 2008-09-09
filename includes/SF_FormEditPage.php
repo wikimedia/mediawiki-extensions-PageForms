@@ -7,7 +7,7 @@
 
 class FormEditPage extends EditPage {
 	
-	protected $form;
+	protected $form, $form_name;
 	
 	function __construct( $article, $form_name = '' ) {
 		global $wgRequest;
@@ -16,6 +16,7 @@ class FormEditPage extends EditPage {
 		$this->action = 'formedit';
 		$form_name = $wgRequest->getText('form', $form_name);
 		$this->form = Title::newFromText($form_name, SF_NS_FORM);
+		$this->form_name = $form_name;
 	}
 	
 	function setHeaders() {
@@ -33,9 +34,16 @@ class FormEditPage extends EditPage {
 			parent::showTextbox1();
 			return;
 		}
-		
-		
+		global $sfgIP;
+		$target_title = $this->mArticle->getTitle();
+		$target_name = sffTitleString($target_title);
+		if ($target_title->exists()) {
+			require_once($sfgIP . '/specials/SF_EditData.php');
+			printEditForm($this->form_name, $target_name);
+		} else {
+			require_once($sfgIP . '/specials/SF_AddData.php');
+			printAddForm($this->form_name, $target_name, array());
+		}
+
 	}
-	
-	
 }
