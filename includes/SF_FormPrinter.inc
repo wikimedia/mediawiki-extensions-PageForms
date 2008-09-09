@@ -76,7 +76,7 @@ class SFFormPrinter {
   }
 
   function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null) {
-    global $wgRequest, $wgUser, $wgParser, $wgScriptPath;
+    global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
     global $sfgJSValidationCalls; // array of Javascript calls to determine if page can be saved
@@ -158,7 +158,7 @@ class SFFormPrinter {
     // remove the '<nowiki>' tags, leaving us with what we need
     global $sfgDisableWikiTextParsing;
     if (! $sfgDisableWikiTextParsing) {
-      $form_def = "__NOEDITSECTION__\n" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+      $form_def = "__NOEDITSECTION__ " . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
       $wgParser->mOptions = new ParserOptions();
       $wgParser->mOptions->initialiseFromUser($wgUser);
       $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
@@ -274,16 +274,15 @@ class SFFormPrinter {
           $search_template_str = str_replace('/', '\/', $tif->template_name);
           $search_template_str = preg_replace('/[_| ]/', '[_| ]', $search_template_str);
           if ($source_is_page || $form_is_partial) {
-            $matches = array();
             if ($allow_multiple) {
-              // find the number of instances of this template in the page -
-              // if it's more than one, re-parse this section of the
+              // find instances of this template in the page -
+              // if there's at least one, re-parse this section of the
               // definition form for the subsequent template instances in
               // this page; if there's none, don't include fields at all.
               // there has to be a more efficient way to handle multiple
               // instances of templates, one that doesn't involve re-parsing
               // the same tags, but I don't know what it is.
-              if (preg_match_all('/\{\{' . $search_template_str . '\s*(?:(?:([\||:].*?)\}\})|()\}\})/mis', $existing_page_content, $matches)) {
+              if (stripos($existing_page_content, '{{' . $search_template_str) !== false) {
                 $instance_num++;
               } else {
                 $all_instances_printed = true;
@@ -291,22 +290,29 @@ class SFFormPrinter {
             }
             // get the first instance of this template on the page being edited,
             // even if there are more
-            if (preg_match('/\{\{' . $search_template_str . '\s*(?:(?:([\||:].*?)\}\})|()\}\})/mis', $existing_page_content, $matches)) {
-              $existing_template_text = trim($matches[1]);
-              $template_contents = array();
+            if (($start_char = stripos($existing_page_content, '{{' . $search_template_str)) !== false) {
+              $fields_start_char = $start_char + 2 + strlen($search_template_str);
+              // skip ahead to the first real character
+              while (in_array($existing_page_content[$fields_start_char], array(' ', '\n', '|'))) {
+                $fields_start_char++;
+              }
+              $template_contents = array('0' => '');
               // cycle through template call, splitting it up by pipes ('|'),
               // except when that pipe is part of a piped link
               $field = "";
               $uncompleted_square_brackets = 0;
-              for ($i = 0; $i < strlen($existing_template_text); $i++) {
-                $c = $existing_template_text[$i];
-                if (($i == strlen($existing_template_text) - 1) ||
-                    ($c == '|' && $uncompleted_square_brackets == 0)) {
-                  // if this was the last character in the template, append
-                  // this character
-                  if ($i == strlen($existing_template_text) - 1 &&
-                      $c != '|') {
-                    $field .= $c;
+              $uncompleted_curly_brackets = 2;
+              $template_ended = false;
+              for ($i = $fields_start_char; ! $template_ended && ($i <= strlen($existing_page_content)); $i++) {
+                $c = $existing_page_content[$i];
+                // handle an end to a field and/or template declaration
+                $template_ended = ($uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0);
+                $field_ended = ($c == '|' && $uncompleted_square_brackets == 0);
+                if ($template_ended || $field_ended) {
+                  // if this was the last character in the template, remove
+                  // the closing curly brackets
+                  if ($template_ended) {
+                    $field = substr($field, 0, -2);
                   }
                   // either there's an equals sign near the beginning or not -
                   // handling is similar in either way; if there's no equals
@@ -324,20 +330,25 @@ class SFFormPrinter {
                     $uncompleted_square_brackets++;
                   } elseif ($c == ']' && $uncompleted_square_brackets > 0) {
                     $uncompleted_square_brackets--;
+                  } elseif ($c == '{') {
+                    $uncompleted_curly_brackets++;
+                  } elseif ($c == '}' && $uncompleted_curly_brackets > 0) {
+                    $uncompleted_curly_brackets--;
                   }
                 }
               }
+              $existing_template_text = substr($existing_page_content, $start_char, $i - $start_char);
               // now remove this template from the text being edited
               // if this is a partial form, establish a new insertion point
               if ($existing_page_content && $form_is_partial && $wgRequest->getCheck('partial')) {
               	// if something already exists, set the new insertion point
                 // to its position; otherwise just let it lie
-                if (strpos($existing_page_content, $matches[0]) !== false) {
+                if (strpos($existing_page_content, $existing_template_text) !== false) {
                   $existing_page_content = str_replace('{{{insertionpoint}}}', '', $existing_page_content);
-                  $existing_page_content = str_replace($matches[0], '{{{insertionpoint}}}', $existing_page_content);
+                  $existing_page_content = str_replace($existing_template_text, '{{{insertionpoint}}}', $existing_page_content);
                 }
               } else {
-                $existing_page_content = str_replace($matches[0], '', $existing_page_content);
+                $existing_page_content = str_replace($existing_template_text, '', $existing_page_content);
               }
               // if this is not a multiple-instance template, and we've found
               // a match in the source page, there's a good chance that this
@@ -467,8 +478,9 @@ class SFFormPrinter {
             $cur_value = '';
           if ($cur_value && ! is_array($cur_value)) {
             $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
-            // ampersands don't need to be escaped - undo their encoding
+            // undo the encoding of ampersands and a few other characters
             $cur_value = str_replace('&amp;', '&', $cur_value);
+            $cur_value = str_replace(array('&#123;', '&#124;', '&#125;'), array('{', '|', '}'), $cur_value);
           }
 
           if ($cur_value == null) {
@@ -486,8 +498,9 @@ class SFFormPrinter {
               $cur_value = '';
             if ($cur_value) {
               $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
-              // ampersands don't need to be escaped - undo their encoding
+              // undo the encoding of ampersands and a few other characters
               $cur_value = str_replace('&amp;', '&', $cur_value);
+              $cur_value = str_replace(array('&#123;', '&#124;', '&#125;'), array('{', '|', '}'), $cur_value);
             }
           }
 
@@ -501,7 +514,7 @@ class SFFormPrinter {
               // the page, using <free_text> tags - once all the free text
               // is known (at the end), it will get substituted in
               if ($is_hidden) {
-                $new_text = $this->hiddenFieldHTML('free_text', '<free_text>');
+                $new_text = SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
               } else {
                 if (! array_key_exists('rows', $field_args))
                   $field_args['rows'] = 5;
@@ -627,7 +640,7 @@ class SFFormPrinter {
             // disable this field if either the whole form is disabled, or
             // it's a restricted field and user doesn't have sysop privileges
             $is_disabled = ($form_is_disabled ||
-              ($is_restricted && (! $wgUser || ! $wgUser->isAllowed('delete'))));
+              ($is_restricted && (! $wgUser || ! $wgUser->isAllowed('editrestrictedfields'))));
             // create an SFFormTemplateField instance based on all the
             // parameters in the form definition, and any information from
             // the template definition (contained in the $all_fields parameter)
@@ -682,11 +695,11 @@ class SFFormPrinter {
             // if this was field was disabled due to being 'restricted',
             // add a hidden field holding the value of this field, because
             // disabled inputs for some reason don't submit their value
-            if ($is_restricted && ! $wgUser->isAllowed('delete')) {
+            if ($is_restricted && ! $wgUser->isAllowed('editrestrictedfields')) {
               if ($field_name == 'free text') {
-                $new_text .= $this->hiddenFieldHTML('free_text', '<free_text>');
+                $new_text .= SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
               } else {
-                $new_text .= $this->hiddenFieldHTML($input_name, $cur_value);
+                $new_text .= SFFormUtils::hiddenFieldHTML($input_name, $cur_value);
               }
             }
 
@@ -746,19 +759,19 @@ class SFFormPrinter {
             }
           }
           if ($input_name == 'summary') {
-            $new_text = $this->summaryInputHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::summaryInputHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'minor edit') {
-            $new_text = $this->minorEditInputHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::minorEditInputHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'watch') {
-            $new_text = $this->watchInputHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::watchInputHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'save') {
-            $new_text = $this->saveButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::saveButtonHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'preview') {
-            $new_text = $this->showPreviewButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::showPreviewButtonHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'changes') {
-            $new_text = $this->showChangesButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::showChangesButtonHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'cancel') {
-            $new_text = $this->cancelLinkHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::cancelLinkHTML($form_is_disabled, $input_label);
           }
           $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
         // =====================================================
@@ -831,7 +844,7 @@ class SFFormPrinter {
 
       if ($allow_multiple) {
         if (! $all_instances_printed) {
-          // add the character "a' onto the instance number of this input
+          // add the character "a" onto the instance number of this input
           // in the form, to differentiate the inputs the form starts out
           // with from any inputs added by the Javascript
           $section = str_replace('[num]', "[{$instance_num}a]", $section);
@@ -878,7 +891,7 @@ END;
     // if it wasn't included in the form definition, add the
     // 'free text' input as a hidden field at the bottom
     if (! $free_text_was_included) {
-      $form_text .= $this->hiddenFieldHTML('free_text', '<free_text>');
+      $form_text .= SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
     }
     // get free text, and add to page data, as well as retroactively
     // inserting it into the form
@@ -889,7 +902,7 @@ END;
     if ($form_is_partial) {
        if(!$wgRequest->getCheck('partial')) {
          $free_text = $original_page_content;
-         $form_text .= $this->hiddenFieldHTML('partial', 1);
+         $form_text .= SFFormUtils::hiddenFieldHTML('partial', 1);
        } else {
          $free_text = null;
          $existing_page_content = preg_replace('/²\{(.*?)\}²/s', '{{\1}}', $existing_page_content);
@@ -908,11 +921,21 @@ END;
       }
     // or get it from the form definition
     } elseif ($free_text_preload_page != null) {
-      $free_text = $this->getPreloadedText($free_text_preload_page);
+      $free_text = SFFormUtils::getPreloadedText($free_text_preload_page);
     } else {
       $free_text = null;
     }
-    $free_text = Sanitizer::safeEncodeAttribute($free_text);
+    // if the FCKeditor extension is installed, use that for the free text input
+    global $wgFCKEditorDir;
+    if ($wgFCKEditorDir) {
+      $showFCKEditor = SFFormUtils::getShowFCKEditor();
+      $free_text = htmlspecialchars( $free_text );
+      if(!$form_submitted && ($showFCKEditor & RTE_VISIBLE)) {
+        $free_text = SFFormUtils::prepareTextForFCK($free_text);
+      }
+    } else {
+      $free_text = Sanitizer::safeEncodeAttribute($free_text);
+    }
     // now that we have it, substitute free text into the form and page
     $form_text = str_replace('<free_text>', $free_text, $form_text);
     $data_text = str_replace('<free_text>', $free_text, $data_text);
@@ -1003,7 +1026,7 @@ END;
 
     // add form bottom, if no custom "standard inputs" have been defined
     if (! $this->standardInputsIncluded)
-      $form_text .= $this->formBottom($form_is_disabled);
+      $form_text .= SFFormUtils::formBottom($form_is_disabled);
     $starttime = wfTimestampNow();
     $page_article = new Article($this->mPageTitle);
     $edittime = $page_article->getTimestamp();
@@ -1015,280 +1038,19 @@ END;
 
 END;
 
-    // add general Javascript code
-    $form_errors_header = wfMsg('sf_formerrors_header');
-    $blank_error_str = wfMsg('sf_blank_error');
-    $bad_url_error_str = wfMsg('sf_bad_url_error');
-    $bad_email_error_str = wfMsg('sf_bad_email_error');
-    $bad_number_error_str = wfMsg('sf_bad_number_error');
-    $bad_integer_error_str = wfMsg('sf_bad_integer_error');
-    $bad_date_error_str = wfMsg('sf_bad_date_error');
-    $javascript_text .=<<<END
-
-function validate_mandatory_field(field_id, info_id) {
-	field = document.getElementById(field_id);
-	if (field.value.replace(/\s+/, '') == '') {
-		infobox = document.getElementById(info_id);
-		infobox.innerHTML = "$blank_error_str";
-		return false;
-	} else {
-		return true;
-	}
-}
-
-// validate a mandatory field that exists across multiple instances of
-// a template - we have to find each one, matching on the pattern of its
-// ID, and validate it
-function validate_multiple_mandatory_fields(field_num) {
-	var num_errors = 0;
-	elems = document.getElementsByTagName("*");
-	var field_pattern = new RegExp('input_(.*)_' + field_num);
-	for (var i = 0; i < elems.length; i++) {
-		id = elems[i].id;
-		if (matches = field_pattern.exec(id)) {
-			instance_num = matches[1];
-			var input_name = "input_" + instance_num + "_" + field_num;
-			var info_name = "info_" + instance_num + "_" + field_num;
-			if (! validate_mandatory_field(input_name, info_name)) {
-				num_errors += 1;
-			}
-		}
-	}
-	return (num_errors == 0);
-}
-
-function validate_field_type(field_id, type, info_id) {
-	field = document.getElementById(field_id);
-	if (type != 'date' && field.value == '') {
-		return true;
-	} else {
-		if (type == 'URL') {
-			// code borrowed from http://snippets.dzone.com/posts/show/452
-			var url_regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-			if (url_regexp.test(field.value)) {
-				return true;
-			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_url_error_str";
-				return false;
-			}
-		} else if (type == 'email') {
-			// code borrowed from http://javascript.internet.com/forms/email-validation---basic.html
-			var email_regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-			if (email_regexp.test(field.value)) {
-				return true;
-			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_email_error_str";
-				return false;
-			}
-		} else if (type == 'float') {
-			if (field.value.match(/^[\d\.,]+$/)) {
-				return true;
-			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_number_error_str";
-				return false;
-			}
-		} else if (type == 'integer') {
-			var num_regexp = /[0-9,]*/;
-			if (field.value.match(/^[\d,]+$/)) {
-				return true;
-			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_integer_error_str";
-				return false;
-			}
-		} else if (type == 'date') {
-			// validate only if day and year fields are both filled in
-			day_field = document.getElementById(field_id + "_day");
-			year_field = document.getElementById(field_id + "_year");
-			if (day_field.value == '' || year_field.value == '') {
-				return true;
-			} else if (day_field.value.match(/^\d+$/) &&
-				   day_field.value <= 31 &&
-				   year_field.value.match(/^\d+$/)) {
-				return true;
-			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_date_error_str";
-				return false;
-			}
-		} else {
-			return true;
-		}
-	}
-}
-
-// same as validate_multiple_mandatory_fields(), but for type validation
-function validate_type_of_multiple_fields(field_num, type) {
-	var num_errors = 0;
-	elems = document.getElementsByTagName("*");
-	var field_pattern = new RegExp('input_(.*)_' + field_num);
-	for (var i = 0; i < elems.length; i++) {
-		id = elems[i].id;
-		if (matches = field_pattern.exec(id)) {
-			instance_num = matches[1];
-			var input_name = "input_" + instance_num + "_" + field_num;
-			var info_name = "info_" + instance_num + "_" + field_num;
-			if (! validate_field_type(input_name, type, info_name)) {
-				num_errors += 1;
-			}
-		}
-	}
-	return (num_errors == 0);
-}
-
-
-function validate_all() {
-	var num_errors = 0;
-
-END;
-    foreach ($sfgJSValidationCalls as $function_call) {
-      $javascript_text .= "	if (! $function_call) num_errors += 1;\n";
+    // add Javascript code for form-wide use
+    $javascript_text .= SFFormUtils::validationJavascript();
+    $javascript_text .= SFFormUtils::instancesJavascript($using_choosers);
+    $javascript_text .= SFFormUtils::autocompletionJavascript();
+    if ($free_text_was_included && $showFCKEditor > 0) {
+      $javascript_text .= SFFormUtils::mainFCKJavascript($showFCKEditor);
+      if ($showFCKEditor & (RTE_TOGGLE_LINK | RTE_POPUP)) {
+        $javascript_text .= SFFormUTils::FCKToggleJavascript();
+      }
+      if ($showFCKEditor & RTE_POPUP) {
+        $javascript_text .= SFFormUTils::FCKPopupJavascript();
+      }
     }
-    $remove_text = wfMsg('sf_editdata_remove');
-    $delimiter = '","';
-    $javascript_text .=<<<END
-	if (num_errors > 0) {
-		// add error header, if it's not there already
-		if (! document.getElementById("form_error_header")) {
-			var errorMsg = document.createElement('div');
-			errorMsg.innerHTML = "<div id=\"form_error_header\" class=\"warningMessage\" style=\"font-size: medium\">$form_errors_header</div>";
-			document.getElementById("contentSub").appendChild(errorMsg);
-		}
-		scroll(0, 0);
-	}
-	return (num_errors == 0);
-}
-
-var num_elements = 0;
-
-function addInstance(starter_div_id, main_div_id, tab_index)
-{
-	var starter_div = document.getElementById(starter_div_id);
-	var main_div = document.getElementById(main_div_id);
-	num_elements++;
-	
-	//Create the new instance
-	var new_div = starter_div.cloneNode(true);
-	var div_id = 'div_gen_' + num_elements;
-	new_div.className = 'multipleTemplate';
-	new_div.id = div_id;
-	new_div.style.display = 'block';
-	
-	// make internal ID unique for the relevant divs and spans, and replace
-	// the [num] index in the element names with an actual unique index
-	var children = new_div.getElementsByTagName('*');
-	var x;
-	for (x = 0; x < children.length; x++)
-	{
-		if (children[x].name)
-			children[x].name = children[x].name.replace(/\[num\]/g, '[' + num_elements + ']');
-		if (children[x].id)
-			children[x].id = children[x].id
-				.replace(/input_/g, 'input_' + num_elements + '_')
-				.replace(/info_/g, 'info_' + num_elements + '_')
-				.replace(/div_/g, 'div_' + num_elements + '_');
-	}
-
-	//Create remove button
-	var remove_button = document.createElement('input');
-	remove_button.type = 'button';
-	remove_button.value = "$remove_text";
-	remove_button.tabIndex = tab_index;
-	remove_button.onclick = removeInstanceEventHandler(div_id);
-	new_div.appendChild(remove_button);
-	
-	//Add the new instance
-	main_div.appendChild(new_div);
-	attachAutocompleteToAllFields(new_div);
-	
-	if ($using_choosers) {
-		hideOrShowFieldset(new_div);
-	}
-}
-
-function removeInstanceEventHandler(this_div_id)
-{
-	return function() {
-		removeInstance(this_div_id);
-	};
-}
-
-function removeInstance(div_id) {
-	var olddiv = document.getElementById(div_id);
-	var parent = olddiv.parentNode;
-	parent.removeChild(olddiv);
-	if ($using_choosers)
-		hideOrShowFieldset(parent);
-}
-
-var autocompletemappings = new Array();
-var autocompletestrings = new Array();
-var autocompletedatatypes = new Array();
-
-//Activate autocomplete functionality for every field on the document
-function attachAutocompleteToAllDocumentFields()
-{
-	var forms = document.getElementsByTagName("form");
-	var x;
-	for (x = 0; x < forms.length; x++) {
-		if (forms[x].name == "createbox") {
-			attachAutocompleteToAllFields(forms[x]);
-		}	
-	}
-}
-
-//Activate autocomplete functionality for every field under the specified element
-function attachAutocompleteToAllFields(base)
-{
-	var inputs = base.getElementsByTagName("input");
-	var y;
-	for (y = 0; y < inputs.length; y++) {
-		attachAutocompleteToField(inputs[y].id);
-	}
-	// don't forget the textareas
-	inputs = base.getElementsByTagName("textarea");
-	for (y = 0; y < inputs.length; y++) {
-		attachAutocompleteToField(inputs[y].id);
-	}
-}
-
-//Activate autocomplete functionality for the specified field
-function attachAutocompleteToField(input_id)
-{
-	//Check input id for the proper format, to ensure this is for SF
-	if (input_id.substr(0,6) == 'input_')
-	{
-		//Extract the field ID number from the input field
-		var field_num = parseInt(input_id.substring(input_id.lastIndexOf('_') + 1, input_id.length),10);
-		//Add the autocomplete string, if a mapping exists.
-		var field_string = autocompletemappings[field_num];
-		if (field_string) {
-			var div_id = input_id.replace(/input_/g, 'div_');
-			var field_values = new Array();
-			field_values = field_string.split(',');
-			var delimiter = null;
-			var data_source = field_values[0];
-			if (field_values[1] == 'list') {
-				delimiter = ",";
-				if (field_values[2] != null) {
-					delimiter = field_values[2];
-				}
-			}
-			if (autocompletestrings[field_string] != null) {
-				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null, null, delimiter, data_source);
-			} else {
-				sf_autocomplete(input_id, div_id, null, "{$wgScriptPath}/api.php", autocompletedatatypes[field_string], delimiter, data_source);
-			}
-		}
-	}
-}
-
-YAHOO.util.Event.addListener(window, 'load', attachAutocompleteToAllDocumentFields);
-
-END;
 
     // send the autocomplete values to the browser, along with the mappings
     // of which values should apply to which fields
@@ -1296,10 +1058,15 @@ END;
     if($wgRequest->getCheck('partial'))
       $data_text = $existing_page_content;
     $javascript_text .= $fields_javascript_text;
+    global $wgParser;
+    $new_text = $wgParser->preprocess(str_replace( "{{!}}", "|", $form_page_title ), $this->mPageTitle, new ParserOptions()); 
     return array($form_text, "/*<![CDATA[*/ $javascript_text /*]]>*/",
       $data_text, $form_page_title, $generated_page_name);
   }
 
+  /**
+   * Create the HTML and Javascript to display this field within a form
+   */
   function formFieldHTML($form_field, $cur_value) {
     global $smwgContLang;
 
@@ -1308,7 +1075,7 @@ END;
     $template_field = $form_field->template_field;
 
     if ($form_field->is_hidden) {
-      $text = $this->hiddenFieldHTML($form_field->input_name, $cur_value);
+      $text = SFFormUtils::hiddenFieldHTML($form_field->input_name, $cur_value);
       $javascript_text = "";
     } elseif ($form_field->input_type != '' &&
               array_key_exists($form_field->input_type, $this->mInputTypeHooks) &&
@@ -1386,208 +1153,5 @@ END;
     }
     return array($text, $javascript_text);
   }
-
-  function hiddenFieldHTML($input_name, $cur_value) {
-    $text =<<<END
-	<input type="hidden" name="$input_name" value="$cur_value" />
-
-END;
-    return $text;
-  }
-
-  function summaryInputHTML($is_disabled, $label = null) {
-    global $sfgTabIndex;
-
-    $sfgTabIndex++;
-    if ($label == null)
-      $label = wfMsg('summary');
-    $disabled_text = ($is_disabled) ? "disabled" : "";
-    $text =<<<END
-	<span id='wpSummaryLabel'><label for='wpSummary'>$label:</label></span>
-	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/>
-
-END;
-    return $text;
-  }
-
-  function minorEditInputHTML($is_disabled, $label = null) {
-    global $sfgTabIndex;
-
-    $sfgTabIndex++;
-    $disabled_text = ($is_disabled) ? "disabled" : "";
-    if ($label == null)
-      $label = wfMsgExt('minoredit', array('parseinline'));
-    $accesskey = wfMsg('accesskey-minoredit');
-    $tooltip = wfMsg('tooltip-minoredit');
-    $text =<<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit" $disabled_text/>
-	<label for="wpMinoredit" title="$tooltip">$label</label>
-
-END;
-    return $text;
-  }
-
-  function watchInputHTML($is_disabled, $label = null) {
-    global $sfgTabIndex, $wgUser;
-
-    $sfgTabIndex++;
-    $checked_text = "";
-    $disabled_text = ($is_disabled) ? "disabled" : "";
-    // figure out if the checkbox should be checked - 
-    // this code borrowed from /includes/EditPage.php
-    if ($wgUser->getOption('watchdefault')) {
-      # Watch all edits
-      $checked_text = "checked";
-    } elseif ($wgUser->getOption('watchcreations') && !$this->mPageTitle->exists() ) {
-      # Watch creations
-      $checked_text = "checked";
-    } elseif ($this->mPageTitle->userIsWatching()) {
-      # Already watched
-      $checked_text = "checked";
-    }
-    if ($label == null)
-      $label = wfMsgExt('watchthis', array('parseinline'));
-    $accesskey = htmlspecialchars(wfMsg('accesskey-watch'));
-    $tooltip = htmlspecialchars(wfMsg('tooltip-watch'));
-    $text =<<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis' $checked_text $disabled_text/>
-        <label for="wpWatchthis" title="$tooltip">$label</label>
-
-END;
-    return $text;
-  }
-
-  function saveButtonHTML($is_disabled, $label = null) {
-    global $sfgTabIndex;
-
-    $sfgTabIndex++;
-    $disabled_text = ($is_disabled) ? "disabled" : "";
-    if ($label == null)
-      $label = wfMsg('savearticle');
-    $temp = array(
-      'id'        => 'wpSave',
-      'name'      => 'wpSave',
-      'type'      => 'submit',
-      'tabindex'  => $sfgTabIndex,
-      'value'     => $label,
-      'accesskey' => wfMsg('accesskey-save'),
-      'title'     => wfMsg('tooltip-save'),
-      $disabled_text => '',
-    );
-    $text = "		" . wfElement('input', $temp, '') . "\n";
-    return $text;
-  }
-
-  function showPreviewButtonHTML($is_disabled, $label = null) {
-    global $sfgTabIndex;
-
-    $sfgTabIndex++;
-    $disabled_text = ($is_disabled) ? "disabled" : "";
-    if ($label == null)
-      $label = wfMsg('showpreview');
-    $temp = array(
-      'id'        => 'wpPreview',
-      'name'      => 'wpPreview',
-      'type'      => 'submit',
-      'tabindex'  => $sfgTabIndex,
-      'value'     => $label,
-      'accesskey' => wfMsg('accesskey-preview'),
-      'title'     => wfMsg('tooltip-preview'),
-      $disabled_text => '',
-    );
-    $text = "		" . wfElement('input', $temp, '') . "\n";
-    return $text;
-  }
-
-  function showChangesButtonHTML($is_disabled, $label = null) {
-    global $sfgTabIndex;
-
-    $sfgTabIndex++;
-    $disabled_text = ($is_disabled) ? "disabled" : "";
-    if ($label == null)
-      $label = wfMsg('showdiff');
-    $temp = array(
-      'id'        => 'wpDiff',
-      'name'      => 'wpDiff',
-      'type'      => 'submit',
-      'tabindex'  => $sfgTabIndex,
-      'value'     => $label,
-      'accesskey' => wfMsg('accesskey-diff'),
-      'title'     => wfMsg('tooltip-diff'),
-      $disabled_text => '',
-    );
-    $text = "		" . wfElement('input', $temp, '') . "\n";
-    return $text;
-  }
-
-  function cancelLinkHTML($is_disabled, $label = null) {
-    global $wgUser;
-
-    $sk = $wgUser->getSkin();
-    if ($label == null)
-      $label = wfMsgExt('cancel', array('parseinline'));
-    if ($this->mPageTitle == null)
-      $cancel = '';
-    else
-      $cancel = $sk->makeKnownLink( $this->mPageTitle->getPrefixedText(), $label);
-    $text = "		<span class='editHelp'>$cancel</span>\n";
-    return $text;
-  }
-
-  // Much of this function is based on MediaWiki's EditPage::showEditForm()
-  function formBottom($is_disabled) {
-    global $wgUser;
-    
-    $summary_text = $this->summaryInputHTML($is_disabled);
-    $text =<<<END
-	<br /><br />
-	<div class='editOptions'>
-$summary_text	<br />
-
-END;
-    if ( $wgUser->isAllowed('minoredit') ) {
-      $text .= $this->minorEditInputHTML($is_disabled);
-    }
-
-    if ( $wgUser->isLoggedIn() ) {
-      $text .= $this->watchInputHTML($is_disabled);
-    }
-
-    $text .=<<<END
-	<br />
-	<div class='editButtons'>
-
-END;
-    $text .= $this->saveButtonHTML($is_disabled);
-    $text .= $this->showPreviewButtonHTML($is_disabled);
-    $text .= $this->showChangesButtonHTML($is_disabled);
-    $text .= $this->cancelLinkHTML($is_disabled);
-    $text .=<<<END
-	</div><!-- editButtons -->
-	</div><!-- editOptions -->
-
-END;
-    return $text;
-  }
-
-  // based on MediaWiki's EditPage::getPreloadedText()
-  function getPreloadedText($preload) {
-    if ( $preload === '' ) {
-      return '';
-    } else {
-      $preloadTitle = Title::newFromText( $preload );
-      if ( isset( $preloadTitle ) && $preloadTitle->userCanRead() ) {
-        $rev = Revision::newFromTitle($preloadTitle);
-        if ( is_object( $rev ) ) {
-          $text = $rev->getText();
-          // Remove <noinclude> sections and <includeonly> tags from text
-          $text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $text);
-          $text = strtr($text, array('<includeonly>' => '', '</includeonly>' => ''));
-          return $text;
-        }
-      }
-      return '';
-    }
-  } 
 
 }
