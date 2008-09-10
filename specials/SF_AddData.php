@@ -118,7 +118,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 		// get 'preload' query value, if it exists
 		if (!$form_submitted && $wgRequest->getCheck('preload')) {
 			$page_is_source = true;
-			$page_contents = $sfgFormPrinter->getPreloadedText($wgRequest->getVal('preload'));
+			$page_contents = SFFormUtils::getPreloadedText($wgRequest->getVal('preload'));
 		} else {
 			$page_is_source = false;
 			$page_contents = null;
@@ -130,6 +130,8 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 				// append a namespace, if one was specified
 				if ($wgRequest->getCheck('namespace')) {
 					$target_name = $wgRequest->getVal('namespace') . ':' . $generated_page_name;
+				} else {
+					$target_name = $generated_page_name;
 				}
 				// replace "unique number" tag with one that
 				// won't get erased by the next line
