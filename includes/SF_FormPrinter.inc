@@ -158,7 +158,7 @@ class SFFormPrinter {
     // remove the '<nowiki>' tags, leaving us with what we need
     global $sfgDisableWikiTextParsing;
     if (! $sfgDisableWikiTextParsing) {
-      $form_def = "__NOEDITSECTION__ " . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+      $form_def = "__NOEDITSECTION__" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
       $wgParser->mOptions = new ParserOptions();
       $wgParser->mOptions->initialiseFromUser($wgUser);
       $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
@@ -268,11 +268,9 @@ class SFFormPrinter {
           // once in that page, and multiple values are allowed, repeat this
           // section
           $existing_template_text = null;
-          // special template string for preg_match calls - includes a
-          // regular expression, to allow matching of either spaces or
-          // underlines in name
-          $search_template_str = str_replace('/', '\/', $tif->template_name);
-          $search_template_str = preg_replace('/[_| ]/', '[_| ]', $search_template_str);
+          // replace underlines with spaces in template name, to allow for
+          // searching on either
+          $search_template_str = str_replace('_', ' ', $tif->template_name);
           if ($source_is_page || $form_is_partial) {
             if ($allow_multiple) {
               // find instances of this template in the page -
@@ -282,7 +280,7 @@ class SFFormPrinter {
               // there has to be a more efficient way to handle multiple
               // instances of templates, one that doesn't involve re-parsing
               // the same tags, but I don't know what it is.
-              if (stripos($existing_page_content, '{{' . $search_template_str) !== false) {
+              if (stripos(str_replace('_', ' ', $existing_page_content), '{{' . $search_template_str) !== false) {
                 $instance_num++;
               } else {
                 $all_instances_printed = true;
@@ -290,7 +288,7 @@ class SFFormPrinter {
             }
             // get the first instance of this template on the page being edited,
             // even if there are more
-            if (($start_char = stripos($existing_page_content, '{{' . $search_template_str)) !== false) {
+            if (($start_char = stripos(str_replace('_', ' ', $existing_page_content), '{{' . $search_template_str)) !== false) {
               $fields_start_char = $start_char + 2 + strlen($search_template_str);
               // skip ahead to the first real character
               while (in_array($existing_page_content[$fields_start_char], array(' ', '\n', '|'))) {
