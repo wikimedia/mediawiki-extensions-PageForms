@@ -301,7 +301,7 @@ class SFFormPrinter {
               $uncompleted_square_brackets = 0;
               $uncompleted_curly_brackets = 2;
               $template_ended = false;
-              for ($i = $fields_start_char; ! $template_ended && ($i <= strlen($existing_page_content)); $i++) {
+              for ($i = $fields_start_char; ! $template_ended && ($i < strlen($existing_page_content)); $i++) {
                 $c = $existing_page_content[$i];
                 // handle an end to a field and/or template declaration
                 $template_ended = ($uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0);
