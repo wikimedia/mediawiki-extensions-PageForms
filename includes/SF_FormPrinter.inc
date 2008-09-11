@@ -303,6 +303,15 @@ class SFFormPrinter {
               $template_ended = false;
               for ($i = $fields_start_char; ! $template_ended && ($i < strlen($existing_page_content)); $i++) {
                 $c = $existing_page_content[$i];
+                if ($c == '[') {
+                  $uncompleted_square_brackets++;
+                } elseif ($c == ']' && $uncompleted_square_brackets > 0) {
+                  $uncompleted_square_brackets--;
+                } elseif ($c == '{') {
+                  $uncompleted_curly_brackets++;
+                } elseif ($c == '}' && $uncompleted_curly_brackets > 0) {
+                  $uncompleted_curly_brackets--;
+                }
                 // handle an end to a field and/or template declaration
                 $template_ended = ($uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0);
                 $field_ended = ($c == '|' && $uncompleted_square_brackets == 0);
@@ -310,7 +319,7 @@ class SFFormPrinter {
                   // if this was the last character in the template, remove
                   // the closing curly brackets
                   if ($template_ended) {
-                    $field = substr($field, 0, -2);
+                    $field = substr($field, 0, -1);
                   }
                   // either there's an equals sign near the beginning or not -
                   // handling is similar in either way; if there's no equals
@@ -324,15 +333,6 @@ class SFFormPrinter {
                   $field = '';
                 } else {
                   $field .= $c;
-                  if ($c == '[') {
-                    $uncompleted_square_brackets++;
-                  } elseif ($c == ']' && $uncompleted_square_brackets > 0) {
-                    $uncompleted_square_brackets--;
-                  } elseif ($c == '{') {
-                    $uncompleted_curly_brackets++;
-                  } elseif ($c == '}' && $uncompleted_curly_brackets > 0) {
-                    $uncompleted_curly_brackets--;
-                  }
                 }
               }
               $existing_template_text = substr($existing_page_content, $start_char, $i - $start_char);
@@ -1041,6 +1041,13 @@ END;
     $javascript_text .= SFFormUtils::validationJavascript();
     $javascript_text .= SFFormUtils::instancesJavascript($using_choosers);
     $javascript_text .= SFFormUtils::autocompletionJavascript();
+    $confirm_script =<<<END
+	function confirm_text() { return "Changes to the form will not be saved."; }
+	window.onbeforeunload = confirm_text;
+
+END;
+    // commented out for now
+    //$javascript_text .= $confirm_script;
     if ($free_text_was_included && $showFCKEditor > 0) {
       $javascript_text .= SFFormUtils::mainFCKJavascript($showFCKEditor);
       if ($showFCKEditor & (RTE_TOGGLE_LINK | RTE_POPUP)) {
