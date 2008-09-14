@@ -2547,6 +2547,7 @@ $messages['os'] = array(
 );
 
 /** Polish (Polski)
+ * @author Jwitos
  * @author Maikking
  * @author McMonster
  * @author Sp5uhe
@@ -2557,6 +2558,7 @@ $messages['pl'] = array(
 	'sf_createform_field' => 'Pole:',
 	'sf_createform_restricted' => 'Możliwość dokonania tej czynności zastrzeżona została dla użytkowników z uprawnieniami administratora',
 	'sf_createform_add' => 'Dodaj',
+	'createcategory' => 'Stwórz kategorię',
 	'sf_editsource' => 'Edytuj źródło',
 	'sf_editdata_title' => 'Edytuj $1: $2',
 	'sf_editdata_remove' => 'Usuń',
