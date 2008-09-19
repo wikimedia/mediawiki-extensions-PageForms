@@ -37,6 +37,7 @@ function doSpecialUploadWindow() {
 	global $wgRequest, $wgOut, $wgUser, $wgServer;
 	global $wgScript, $wgJsMimeType, $wgStylePath, $wgStyleVersion;
 	global $wgContLang, $wgLanguageCode, $wgXhtmlDefaultNamespace, $wgXhtmlNamespaces;
+	global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
 
 	// disable $wgOut - we'll print out the page manually, taking the
 	// body created by the form, plus the necessary Javascript files,
@@ -46,7 +47,29 @@ function doSpecialUploadWindow() {
 	$form->execute();
 	$sk = $wgUser->getSkin();
 	$sk->initPage($wgOut); // need to call this to set skin name correctly
-	$user_js = "<script type=\"{$wgJsMimeType}\">" . $sk->getUserJs() . "; wgServer=\"{$wgServer}\"; wgScript=\"{$wgScript}\"</script>";
+	// call to get user JS was changed in MW 1.14
+	if (method_exists($sk, 'generateUserJs')) {
+		$skin_user_js = $sk->generateUserJs();
+	} else {
+		$skin_user_js = $sk->getUserJs();
+	}
+	$useAjaxDestCheck = $wgUseAjax && $wgAjaxUploadDestCheck;
+	$useAjaxLicensePreview = $wgUseAjax && $wgAjaxLicensePreview;
+	$adc = wfBoolToStr( $useAjaxDestCheck );
+	$alp = wfBoolToStr( $useAjaxLicensePreview );
+	$autofill = wfBoolToStr( true );
+
+	$user_js =<<<END
+<script type="{$wgJsMimeType}">
+$skin_user_js;
+wgServer="{$wgServer}";
+wgScript="{$wgScript}"
+wgAjaxUploadDestCheck = {$adc};
+wgAjaxLicensePreview = {$alp};
+wgUploadAutoFill = {$autofill};
+</script>
+
+END;
 	$vars_js = Skin::makeGlobalVariablesScript(array('skinname' => $sk->getSkinName()));
 	$wikibits_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/wikibits.js?$wgStyleVersion\"></script>";
 	$ajax_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/ajax.js?$wgStyleVersion\"></script>";
