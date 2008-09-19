@@ -62,6 +62,9 @@ $sfgRenameEditTabs = false;
 $wgGroupPermissions['*'    ]['viewedittab']   = true;
 $wgAvailableRights[] = 'viewedittab';
 
+###
+# Permission to edit form fields defined as 'restricted'
+###
 $wgGroupPermissions['sysop']['editrestrictedfields'] = true;
 
 ###
@@ -71,10 +74,16 @@ $sfgListSeparator = ",";
 
 ###
 # The base URL for all YUI Javascript files - to store the YUI library
-# locally, download it and change this to the URL of the local
-# installation's 'build' directory.
+# locally, download it (from http://developer.yahoo.com/yui/) and change this
+# value to the URL of the local installation's 'build' directory.
 ###
-$sfgYUIBase = "http://yui.yahooapis.com/2.5.1/build/";
+$sfgYUIBase = "http://yui.yahooapis.com/2.5.2/build/";
+
+###
+# Display a warning message if the user leaves a form page
+###
+if (! isset($sfgConfirmFormExit))
+	$sfgConfirmFormExit = false;
 
 ###
 # Extend the edit form from the internal EditPage class rather than using a
