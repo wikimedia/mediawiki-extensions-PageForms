@@ -56,87 +56,88 @@ class SFTemplateField {
 		// set field type and possible values, if any
 		$this->setTypeAndPossibleValues();
 	}
-}
 
-function createTemplateText($template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format) {
-	$text = "<noinclude>\n";
-	$text .= wfMsgForContent('sf_template_docu', $template_name) . "\n";
-	$text .= "<pre>\n";
-	$text .= "{{" . $template_name . "\n";
-	foreach ($template_fields as $field) {
-		$text .= "|" . $field->field_name . "=\n";
-	}
-	$text .= "}}\n";
-	$text .= "</pre>\n";
-	$text .= wfMsgForContent('sf_template_docufooter') . "\n";
-	$text .=<<<END
+	function createTemplateText($template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format) {
+		$text = "<noinclude>\n";
+		$text .= wfMsgForContent('sf_template_docu', $template_name) . "\n";
+		$text .= "<pre>\n";
+		$text .= "{{" . $template_name;
+		if (count($template_fields) > 0) { $text .= "\n"; }
+		foreach ($template_fields as $field) {
+			$text .= "|" . $field->field_name . "=\n";
+		}
+		$text .= "}}\n";
+		$text .= "</pre>\n";
+		$text .= wfMsgForContent('sf_template_docufooter') . "\n";
+		$text .=<<<END
 </noinclude><includeonly>
 
 END;
-  	// topmost part depends on format
-	if ($template_format == 'infobox') {
-		// CSS style can't be used, unfortunately, since most MediaWiki
-		// setups don't have an 'infobox' or comparable CSS class
-		$text .=<<<END
+  		// topmost part depends on format
+		if ($template_format == 'infobox') {
+			// CSS style can't be used, unfortunately, since most MediaWiki
+			// setups don't have an 'infobox' or comparable CSS class
+			$text .=<<<END
 {| style="width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;"
 ! style="text-align: center; background-color:#ccccff;" colspan="2" |<big>{{PAGENAME}}</big>
 |-
 
 END;
-	} else {
-		$text .= '{| class="wikitable"' . "\n";
-	}
-
-	foreach ($template_fields as $i => $field) {
-		if ($i > 0) {
-			$text .= "|-\n";
+		} else {
+			$text .= '{| class="wikitable"' . "\n";
 		}
-		$text .= "! " . $field->label . "\n";
-		if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
-			$text .= "| {{{" . $field->field_name . "|}}}\n";
-			// if this field is meant to contain a list, add on an
-			// 'arraymap' function, that will call this semantic
-			// markup tag on every element in the list
-		} elseif ($field->is_list) {
-			// find a string that's not in the semantic field call,
-			// to be used as the variable
-			$var = "x"; // default - use this if all the attempts fail
-			if (strstr($field->semantic_field_call, $var)) {
-				$var_options = array('y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc');
-				foreach ($var_options as $option) {
-					if (! strstr($field->semantic_field_call, $option)) {
-						$var = $option;
-						break;
+
+		foreach ($template_fields as $i => $field) {
+			if ($i > 0) {
+				$text .= "|-\n";
+			}
+			$text .= "! " . $field->label . "\n";
+			if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
+				$text .= "| {{{" . $field->field_name . "|}}}\n";
+				// if this field is meant to contain a list,
+				// add on an 'arraymap' function, that will
+				// call this semantic markup tag on every
+				// element in the list
+			} elseif ($field->is_list) {
+				// find a string that's not in the semantic
+				// field call, to be used as the variable
+				$var = "x"; // default - use this if all the attempts fail
+				if (strstr($field->semantic_field_call, $var)) {
+					$var_options = array('y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc');
+					foreach ($var_options as $option) {
+						if (! strstr($field->semantic_field_call, $option)) {
+							$var = $option;
+							break;
+						}
 					}
 				}
+				$text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_field_call . "$var]]}}\n";
+			} else {
+				$text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|}}}]]\n";
 			}
-			$text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_field_call . "$var]]}}\n";
-		} else {
-			$text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|}}}]]\n";
 		}
-	}
 
-	// add a row with an inline query to this table, for aggregation, if
-	// a property was specified
-	if ($aggregating_property != '') {
-		if (count($template_fields) > 0) {
-			$text .= "|-\n";
-		}
-		$text .=<<<END
+		// add a row with an inline query to this table, for aggregation, if
+		// a property was specified
+		if ($aggregating_property != '') {
+			if (count($template_fields) > 0) {
+				$text .= "|-\n";
+			}
+			$text .=<<<END
 ! $aggregating_label
 | {{#ask:[[$aggregating_property{{SUBJECTPAGENAME}}]]|format=list}}
 
 END;
-	}
-	$text .= "|}\n";
-	if ($category != '') {
-		global $wgContLang;
-		$namespace_labels = $wgContLang->getNamespaces();
-		$category_namespace = $namespace_labels[NS_CATEGORY];
-		$text .= "\n[[$category_namespace:$category]]\n";
+		}
+		$text .= "|}\n";
+		if ($category != '') {
+			global $wgContLang;
+			$namespace_labels = $wgContLang->getNamespaces();
+			$category_namespace = $namespace_labels[NS_CATEGORY];
+			$text .= "\n[[$category_namespace:$category]]\n";
+		}
+		$text .= "</includeonly>\n";
 
+		return $text;
 	}
-	$text .= "</includeonly>\n";
-
-	return $text;
 }
