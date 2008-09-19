@@ -686,6 +686,18 @@ class SFFormPrinter {
                 }
               }
             }
+            // if the field is a text field, and its default value was set
+            // to 'current user', and it has no current value, set $cur_value
+            // to be the current user
+            if ($default_value == 'current user' &&
+                // if the date is hidden, cur_value will already be set
+                // to the default value
+                ($cur_value == '' || $cur_value == 'current user')) {
+              if ($input_type == 'text' || $input_type == '') {
+                $cur_value_in_template = $wgUser->getName();
+                $cur_value = $cur_value_in_template;
+              }
+            }
             list($new_text, $new_javascript_text) = $this->formFieldHTML($form_field, $cur_value);
 
             $fields_javascript_text .= $new_javascript_text;
@@ -715,7 +727,8 @@ class SFFormPrinter {
               $input_id = "input_" . $sfgFieldNum;
               $info_id = "info_" . $sfgFieldNum;
               if ($is_mandatory) {
-                if ($input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone') {
+                if ($input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone' ||
+                    ($input_type == '' && $form_field->template_field->field_type == 'Date')) {
                   $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_month', '$info_id')";
                   $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_day', '$info_id')";
                   $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_year', '$info_id')";
@@ -728,7 +741,8 @@ class SFFormPrinter {
                 } else {
                   if ($allow_multiple) {
                     $sfgJSValidationCalls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
-                  } else {
+                  // if it's an enum...
+                  } elseif ($input_type != 'radiobutton' && $form_field->template_field->field_type != 'enumeration') {
                     $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
                   }
                 }
@@ -1042,12 +1056,22 @@ END;
     $javascript_text .= SFFormUtils::instancesJavascript($using_choosers);
     $javascript_text .= SFFormUtils::autocompletionJavascript();
     $confirm_script =<<<END
-	function confirm_text() { return "Changes to the form will not be saved."; }
+	// ask the user to confirm before leaving the page - due to
+	// Javascript strangeness, the question itself is hardcoded in
+	// English and can't be changed
+	function confirm_text(evt) {
+		// show this confirmation message only if the user didn't
+		// click on a form element
+		if (evt.target.className != "createbox") {
+			return "Changes to the form will not be saved.";
+		}
+	}
 	window.onbeforeunload = confirm_text;
 
 END;
-    // commented out for now
-    //$javascript_text .= $confirm_script;
+    global $sfgConfirmFormExit;
+    if ($sfgConfirmFormExit)
+      $javascript_text .= $confirm_script;
     if ($free_text_was_included && $showFCKEditor > 0) {
       $javascript_text .= SFFormUtils::mainFCKJavascript($showFCKEditor);
       if ($showFCKEditor & (RTE_TOGGLE_LINK | RTE_POPUP)) {
