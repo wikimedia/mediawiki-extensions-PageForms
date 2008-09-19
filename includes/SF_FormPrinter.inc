@@ -1174,7 +1174,8 @@ END;
         // set field to be a list if that was specified in the form definition
         if ($form_field->is_list) {
           $other_args['is_list'] = true;
-          $other_args['size'] = 100;
+          if (! array_key_exists('size', $other_args))
+            $other_args['size'] = 100;
         }
         if ($form_field->possible_values != null)
           $other_args['possible_values'] = $form_field->possible_values;
