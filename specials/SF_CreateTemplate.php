@@ -26,38 +26,38 @@ class SFCreateTemplate extends SpecialPage {
 		$this->setHeaders();
 		doSpecialCreateTemplate();
 	}
-}
 
-function printPropertiesDropdown($all_properties, $id, $property) {
-	$dropdown_str = "<select name=\"semantic_field_call_$id\">\n";
-	$dropdown_str .= "<option value=\"\"></option>\n";
-	foreach ($all_properties as $prop_id => $prop_name) {
-		$selected = ($property == $prop_id) ? "selected" : "";
-		$dropdown_str .= "<option value=\"$prop_id\" $selected>$prop_name</option>\n";
+	function printPropertiesDropdown($all_properties, $id, $property) {
+		$dropdown_str = "<select name=\"semantic_field_call_$id\">\n";
+		$dropdown_str .= "<option value=\"\"></option>\n";
+		foreach ($all_properties as $prop_id => $prop_name) {
+			$selected = ($property == $prop_id) ? "selected" : "";
+			$dropdown_str .= "<option value=\"$prop_id\" $selected>$prop_name</option>\n";
+		}
+		$dropdown_str .= "</select>\n";
+		return $dropdown_str;
 	}
-	$dropdown_str .= "</select>\n";
-	return $dropdown_str;
-}
 
-function printFieldEntryBox($id, $f, $all_properties) {
-	wfLoadExtensionMessages('SemanticForms');
-	$dropdown_html = printPropertiesDropdown($all_properties, $id, $f->semantic_field_call);
-	$text = '	<div class="fieldBox">' . "\n";
-	$text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
-	$text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
-	$text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
-	$checked_str = ($f->is_list) ? " checked" : "";
-	$text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' .  $checked_str . '> ' . wfMsg('sf_createtemplate_fieldislist') . "\n";
-
-	if ($id != "new") {
-		$text .= '	&nbsp;&nbsp;<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
-	}
-	$text .= <<<END
+	function printFieldEntryBox($id, $f, $all_properties) {
+		wfLoadExtensionMessages('SemanticForms');
+		$dropdown_html = SFCreateTemplate::printPropertiesDropdown($all_properties, $id, $f->semantic_field_call);
+		$text = '	<div class="fieldBox">' . "\n";
+		$text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
+		$text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
+		$text .= '	' . wfMsg('sf_createtemplate_semanticproperty') . ' ' . $dropdown_html . "</p>\n";
+		$checked_str = ($f->is_list) ? " checked" : "";
+		$text .= '	<p><input type="checkbox" name="is_list_' . $id . '"' .  $checked_str . '> ' . wfMsg('sf_createtemplate_fieldislist') . "\n";
+	
+		if ($id != "new") {
+			$text .= '	&nbsp;&nbsp;<input name="del_' . $id . '" type="submit" value="' . wfMsg('sf_createtemplate_deletefield') . '">' . "\n";
+		}
+		$text .= <<<END
 </p>
 </div>
 
 END;
-	return $text;
+		return $text;
+	}
 }
 
 function doSpecialCreateTemplate() {
@@ -106,12 +106,19 @@ function doSpecialCreateTemplate() {
 		if ($template_name == '') {
 			$template_name_error_str = wfMsg('sf_blank_error');
 		} else {
+			$wgOut->setArticleBodyOnly( true );
+			// show "loading" animated image while people wait for the redirect
+			global $sfgScriptPath;
+			$text = "<p><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
+
 			# redirect to wiki interface
 			$title = Title::newFromText($template_name, NS_TEMPLATE);
-			$full_text = createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
+			$full_text = SFTemplateField::createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
 			$text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
+			$wgOut->addHTML($text);
+			return;
 		}
 	}
 
@@ -127,17 +134,17 @@ function doSpecialCreateTemplate() {
 	$text .= '	<p>' . wfMsg('sf_createtemplate_fieldsdesc') . "</p>\n";
 
 	foreach ($fields as $i => $field) {
-		$text .= printFieldEntryBox($i + 1, $field, $all_properties);
+		$text .= SFCreateTemplate::printFieldEntryBox($i + 1, $field, $all_properties);
 	}
 	$new_field = new SFTemplateField();
-	$text .= printFieldEntryBox("new", $new_field, $all_properties);
+	$text .= SFCreateTemplate::printFieldEntryBox("new", $new_field, $all_properties);
 
 	$text .= '	<p><input type="submit" value="' . wfMsg('sf_createtemplate_addfield') . '"></p>' . "\n";
 	$text .= "	</fieldset>\n";
 	$text .= "	<fieldset>\n";
 	$text .= '	<legend>' . wfMsg('sf_createtemplate_aggregation') . "</legend>\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_aggregationdesc') . "</p>\n";
-	$text .= '	<p>' . wfMsg('sf_createtemplate_semanticproperty') . " " . printPropertiesDropdown($all_properties, "aggregation", $aggregating_property). "</p>\n";
+	$text .= '	<p>' . wfMsg('sf_createtemplate_semanticproperty') . " " . SFCreateTemplate::printPropertiesDropdown($all_properties, "aggregation", $aggregating_property). "</p>\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_aggregationlabel') . ' <input size="25" name="aggregation_label" value="' . $aggregation_label . '"></p>' . "\n";
 	$text .= "	</fieldset>\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_outputformat') . "\n";
