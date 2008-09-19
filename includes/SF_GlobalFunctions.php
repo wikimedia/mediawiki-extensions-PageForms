@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.3');
+define('SF_VERSION','1.3.1');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -27,7 +27,10 @@ $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 
 $wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
-$wgHooks['BrokenLink'][] = 'sffSetBrokenLink';
+// the 'BrokenLink' hook exists only in MediaWiki v1.13 - it was replaced
+// by 'LinkBegin' and 'LinkEnd'
+$wgHooks['BrokenLink'][] = 'sffSetBrokenLink_1_13';
+$wgHooks['LinkEnd'][] = 'sffSetBrokenLink';
 $wgHooks['UnknownAction'][] = 'sffEmbeddedEditForm';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
@@ -335,7 +338,7 @@ function sffGetAlternateForms($page_title, $page_namespace) {
 	$form_names = array();
 	foreach ($prop_vals as $prop_val) {
 		// make sure it's in the form namespace
-		if (($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title) &&
+		if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title) &&
 			$prop_val->getNamespace() == SF_NS_FORM) {
 			$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
 		}
@@ -345,7 +348,7 @@ function sffGetAlternateForms($page_title, $page_namespace) {
 		$property = Title::newFromText("Has_alternate_form", SMW_NS_PROPERTY);
 		$prop_vals = $store->getPropertyValues($title, $property);
 		foreach ($prop_vals as $prop_val) {
-			if (($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title)
+			if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title)
 				&& $prop_val->getNamespace() == SF_NS_FORM) {
 				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
 			}
@@ -381,10 +384,24 @@ function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespa
  * Sets the URL for form-based adding of a nonexistent (broken-linked, AKA
  * red-linked) page
  */
-function sffSetBrokenLink(&$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail) {
+function sffSetBrokenLink_1_13(&$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail) {
 	$link = sffAddDataLink($title);
 	if ($link != '')
 		$u = $link;
+	return true;
+}
+
+/**
+ * Sets the URL for form-based adding of a nonexistent (broken-linked, AKA
+ * red-linked) page
+ */
+function sffSetBrokenLink($linker, $target, $options, $text, &$attribs, &$ret) {
+	if (in_array('broken', $options)) {
+		$link = sffAddDataLink($target);
+		if ($link != '') {
+			$attribs['href'] = $link;
+		}
+	}
 	return true;
 }
 
