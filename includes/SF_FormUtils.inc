@@ -238,8 +238,7 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	// the [num] index in the element names with an actual unique index
 	var children = new_div.getElementsByTagName('*');
 	var x;
-	for (x = 0; x < children.length; x++)
-	{
+	for (x = 0; x < children.length; x++) {
 		if (children[x].name)
 			children[x].name = children[x].name.replace(/\[num\]/g, '[' + num_elements + ']');
 		if (children[x].id)
@@ -248,7 +247,16 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 				.replace(/info_/g, 'info_' + num_elements + '_')
 				.replace(/div_/g, 'div_' + num_elements + '_');
 	}
-
+	if (children[x]) {
+		//We clone the last object
+		if (children[x].href) {
+			children[x].href = children[x].href
+				.replace(/input_/g, 'input_' + num_elements + '_')
+				.replace(/info_/g, 'info_' + num_elements + '_')
+				.replace(/div_/g, 'div_' + num_elements + '_');
+		}
+	}
+	//Since we clone the first object and we have uploadable field we must replace the input_ in order to let the printer return the value into the right field
 	//Create remove button
 	var remove_button = document.createElement('input');
 	remove_button.type = 'button';
@@ -261,6 +269,8 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	main_div.appendChild(new_div);
 	attachAutocompleteToAllFields(new_div);
 	
+	//In order to add the new instances in multiple floatBox (multiple templates)
+	fb.tagAnchors(self.document);
 	if ($using_choosers) {
 		hideOrShowFieldset(new_div);
 	}
