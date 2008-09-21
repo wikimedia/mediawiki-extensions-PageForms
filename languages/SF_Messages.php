@@ -1828,7 +1828,9 @@ $messages['krj'] = array(
  */
 $messages['ksh'] = array(
 	'sf_createproperty_propname' => 'Name:',
+	'sf_createtemplate_standardformat' => 'Shtanndat',
 	'sf_createtemplate_deletefield' => 'Fottschmieße',
+	'sf_createform_atend' => 'Aam Engk',
 	'sf_createform_add' => 'Donn dobei',
 	'sf_createcategory_name' => 'Name:',
 );
@@ -2813,6 +2815,7 @@ $messages['ro'] = array(
 );
 
 /** Russian (Русский)
+ * @author QuestPC
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
@@ -2905,7 +2908,7 @@ $messages['ru'] = array(
 	'sf_property_isrelation' => 'Это отношение.',
 	'sf_template_docu' => 'Это шаблон «$1». Он должен вызываться следующим образом:',
 	'sf_template_docufooter' => 'Начните редактировать эту страницу, чтобы увидеть текст шаблона.',
-	'sf_form_docu' => 'Это форма «$1». Чтбы добавить страницу с помощью этой офрмы, введите имя страницы ниже; если страница с таким именем уже существует, вы будите направлены на форму редактирования этой страницы.',
+	'sf_form_docu' => 'Это форма «$1». Чтбы добавить страницу с помощью этой формы, введите имя страницы ниже; если страница с таким именем уже существует, вы будите направлены на форму редактирования этой страницы.',
 	'sf_form_freetextlabel' => 'Текст',
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',

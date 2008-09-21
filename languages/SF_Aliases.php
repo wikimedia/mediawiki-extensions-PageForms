@@ -66,6 +66,19 @@ $aliases['lb'] = array(
 	'UploadWindow' => array( 'Fënster eroplueden' ),
 );
 
+/** Nedersaksisch (Nedersaksisch) */
+$aliases['nds-nl'] = array(
+	'AddData' => array( 'Gegevens_toevoegen' ),
+	'AddPage' => array( 'Pagina_toevoegen' ),
+	'CreateCategory' => array( 'Kattegerie_anmaken' ),
+	'CreateForm' => array( 'Formelier_anmaken' ),
+	'CreateProperty' => array( 'Eigenschap_anmaken' ),
+	'CreateTemplate' => array( 'Sjabloon_anmaken' ),
+	'EditData' => array( 'Gegevens_bewarken' ),
+	'Forms' => array( 'Formelieren' ),
+	'UploadWindow' => array( 'Bestanstoevoegingsscharm' ),
+);
+
 /** Dutch (Nederlands) */
 $aliases['nl'] = array(
 	'AddData' => array( 'GegevensToevoegen' ),
@@ -78,5 +91,19 @@ $aliases['nl'] = array(
 	'Forms' => array( 'Formulieren' ),
 	'Templates' => array( 'Sjablonen' ),
 	'UploadWindow' => array( 'Uploadscherm' ),
+);
+
+/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬) */
+$aliases['no'] = array(
+	'AddData' => array( 'Legg til data' ),
+	'AddPage' => array( 'Legg til side' ),
+	'CreateCategory' => array( 'Opprett kategori' ),
+	'CreateForm' => array( 'Opprett skjema' ),
+	'CreateProperty' => array( 'Opprett egenskap' ),
+	'CreateTemplate' => array( 'Opprett mal' ),
+	'EditData' => array( 'Rediger data' ),
+	'Forms' => array( 'Skjemaer' ),
+	'Templates' => array( 'Maler' ),
+	'UploadWindow' => array( 'Opplastingsvindu' ),
 );
 
