@@ -475,10 +475,7 @@ class SFFormPrinter {
           } else
             $cur_value = '';
           if ($cur_value && ! is_array($cur_value)) {
-            $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
-            // undo the encoding of ampersands and a few other characters
-            $cur_value = str_replace('&amp;', '&', $cur_value);
-            $cur_value = str_replace(array('&#123;', '&#124;', '&#125;'), array('{', '|', '}'), $cur_value);
+            $cur_value = str_replace('"', '&quot;', $cur_value);
           }
 
           if ($cur_value == null) {
@@ -495,10 +492,7 @@ class SFFormPrinter {
             } else
               $cur_value = '';
             if ($cur_value) {
-              $cur_value = Sanitizer::safeEncodeAttribute($cur_value);
-              // undo the encoding of ampersands and a few other characters
-              $cur_value = str_replace('&amp;', '&', $cur_value);
-              $cur_value = str_replace(array('&#123;', '&#124;', '&#125;'), array('{', '|', '}'), $cur_value);
+              $cur_value = str_replace('"', '&quot;', $cur_value);
             }
           }
 
@@ -1061,7 +1055,14 @@ END;
 	// English and can't be changed
 	function confirm_text(evt) {
 		// show this confirmation message only if the user didn't
-		// click on a form element
+		// click on a form element.
+		// unfortunately, Internet Explorer doesn't pass in any value to
+		// this function, so we can't tell if it was called when a user
+		// hit "Save page", etc. - in the interest of not causing user
+		// confusion, we'll just do nothing if the browser is IE
+		if (typeof evt == 'undefined') {
+			return;
+		}
 		if (evt.target.className != "createbox") {
 			return "Changes to the form will not be saved.";
 		}
@@ -1091,7 +1092,7 @@ END;
     global $wgParser;
     $new_text = $wgParser->preprocess(str_replace( "{{!}}", "|", $form_page_title ), $this->mPageTitle, new ParserOptions()); 
     return array($form_text, "/*<![CDATA[*/ $javascript_text /*]]>*/",
-      $data_text, $form_page_title, $generated_page_name);
+      $data_text, $new_text, $generated_page_name);
   }
 
   /**
