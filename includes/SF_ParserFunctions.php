@@ -50,12 +50,12 @@
  *
  * 'arraymap' is called as:
  *
- * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
+ * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
  *
  * This function applies the same transformation to every section of a
  * delimited string; each such section, as dictated by the 'delimiter'
  * value, is given the same transformation that the 'var' string is
- * given in 'new_value'. Finally, the transformed strings are joined
+ * given in 'formula'. Finally, the transformed strings are joined
  * together using the 'new_delimiter' string. Both 'delimiter' and
  * 'new_delimiter' default to commas.
  *
@@ -86,6 +86,7 @@
  * @author Yaron Koren
  * @author Sergey Chernyshev
  * @author Daniel Friesen
+ * @author Barry Welch
  */
 
 
@@ -178,9 +179,9 @@ END;
 }
 
 /**
- * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
+ * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
  */
-function sfRenderArrayMap( &$parser, $value = '', $delimiter = ',', $var = 'x', $new_value = 'x', $new_delimiter = ', ' ) {
+function sfRenderArrayMap( &$parser, $value = '', $delimiter = ',', $var = 'x', $formula = 'x', $new_delimiter = ', ' ) {
 	$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 	$results = array();
 	foreach ($values_array as $cur_value) {
@@ -188,7 +189,7 @@ function sfRenderArrayMap( &$parser, $value = '', $delimiter = ',', $var = 'x', 
 		// ignore a value if it's null
 		if ('' != $cur_value) {
 			// remove whitespaces
-			$results[] = str_replace($var, $cur_value, $new_value);
+			$results[] = str_replace($var, $cur_value, $formula);
 		}
 	}
 	return implode($new_delimiter, $results);
@@ -196,20 +197,15 @@ function sfRenderArrayMap( &$parser, $value = '', $delimiter = ',', $var = 'x', 
 
 /**
  * SFH_OBJ_ARGS
- * {{#arraymap:value|delimiter|var|new_value|new_delimiter}}
+ * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
  */
 function sfRenderArrayMapObj( &$parser, $frame, $args ) {
 	# Set variables
-	$value         = isset($args[0]) ? $args[0] : '';
-	$delimiter     = isset($args[1]) ? $args[1] : ',';
-	$var           = isset($args[2]) ? $args[2] : 'x';
-	$new_value     = isset($args[3]) ? $args[3] : 'x';
-	$new_delimiter = isset($args[4]) ? $args[4] : ', ';
-	# Expand some
-	$value         = trim($frame->expand($value));
-	$delimiter     = trim($frame->expand($delimiter));
-	$var           = trim($frame->expand($var, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES));
-	$new_delimiter = trim($frame->expand($new_delimiter));
+	$value         = isset($args[0]) ? trim($frame->expand($args[0])) : '';
+	$delimiter     = isset($args[1]) ? trim($frame->expand($args[1])) : ',';
+	$var           = isset($args[2]) ? trim($frame->expand($args[2])) : 'x';
+	$formula       = isset($args[3]) ? trim($frame->expand($args[3])) : 'x';
+	$new_delimiter = isset($args[4]) ? trim($frame->expand($args[4])) : ', ';
 	# Unstrip some
 	$delimiter = $parser->mStripState->unstripNoWiki($delimiter);
 	
@@ -218,7 +214,7 @@ function sfRenderArrayMapObj( &$parser, $frame, $args ) {
 	foreach( $values_array as $old_value ) {
 		$old_value = trim($old_value);
 		if( $old_value == '' ) continue;
-		$result_value = $frame->expand($new_value, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES);
+		$result_value = $frame->expand($formula, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES);
 		$result_value  = str_replace($var, $old_value, $result_value);
 		$result_value  = $parser->preprocessToDom($result_value, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0);
 		$results_array[] = trim($frame->expand($result_value));
