@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.3.1');
+define('SF_VERSION','1.3.2');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -630,7 +630,11 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 		$string_value = str_replace('_', ' ', $dv->getXSDValue());
 		$string_value = str_replace("'", "\'", $string_value);
 		if (array_search($string_value, $pages) === false)
-			$pages[] = $string_value;
+			if ($substring != null)
+				$pages[] = array('title' => str_replace('_', ' '
+, $string_value));
+			else
+				$pages[] = $string_value;
 	}
 	// if there was a substring specified, also find values that have
 	// it after a space, not just at the beginning of the value
@@ -640,7 +644,7 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 		$requestoptions2->addStringCondition(" $substring", SMWStringCondition::STRCOND_MID);
 		$data_values = $store->getPropertyValues(null, $property, $requestoptions2);
 		foreach ($data_values as $dv) {
-			$pages[] = $dv->getXSDValue();
+			$pages[] = array('title' => str_replace('_', ' ', $dv->getXSDValue()));
 		}
 	}
 	return $pages;
