@@ -59,6 +59,7 @@ $aliases['lb'] = array(
 	'AddData' => array( 'Daten derbäisetzen' ),
 	'AddPage' => array( 'Säit derbäisetzen' ),
 	'CreateCategory' => array( 'Kategorie uleeën' ),
+	'CreateForm' => array( 'Formulaire uleeën' ),
 	'CreateTemplate' => array( 'Schabloun uleeën' ),
 	'EditData' => array( 'Daten änneren' ),
 	'Forms' => array( 'Formulairen' ),
