@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.3.2');
+define('SF_VERSION','1.3.3');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -253,7 +253,9 @@ function sffPrintRedirectForm($title, $page_contents, $edit_summary, $is_save, $
 	else // $is_diff
 		$action = "wpDiff";
 
+	global $sfgScriptPath;
 	$text =<<<END
+	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 	<form id="editform" name="editform" method="post" action="$new_url">
 	<input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$page_contents" />
 	<input type="hidden" name="wpSummary" value="$edit_summary" />
@@ -370,9 +372,9 @@ function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespa
 		return null;
 	$ad = SpecialPage::getPage('AddData');
 	if ($form_name)
-		$add_data_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
+		$add_data_url = $ad->getTitle()->getLinkURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
 	else
-		$add_data_url = $ad->getTitle()->getFullURL() . "/" . sffTitleURLString($target_page_title);
+		$add_data_url = $ad->getTitle()->getLinkURL() . "/" . sffTitleURLString($target_page_title);
 	foreach ($alt_forms as $i => $alt_form) {
 		$add_data_url .= ($i == 0) ? "?" : "&";
 		$add_data_url .= "alt_form[$i]=$alt_form";
@@ -578,11 +580,11 @@ function sffGetMonthNames() {
 	);
 }
 
-function sffGetAllPagesForProperty_orig($is_relation, $property_name, $substring = null) {
+function sffGetAllValuesForProperty_orig($is_relation, $property_name, $substring = null) {
 	global $sfgMaxAutocompleteValues;
 
-	$fname = "sffGetAllPagesForProperty_orig";
-	$pages = array();
+	$fname = "sffGetAllValuesForProperty_orig";
+	$values = array();
 	$db = wfGetDB( DB_SLAVE );
 	$sql_options = array();
 	$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
@@ -602,17 +604,17 @@ function sffGetAllPagesForProperty_orig($is_relation, $property_name, $substring
 		$conditions, $fname, $sql_options);
 	while ($row = $db->fetchRow($res)) {
 		if ($substring != null) {
-			$pages[] = array('title' => str_replace('_', ' ', $row[0]));
+			$values[] = array('title' => str_replace('_', ' ', $row[0]));
 		} else {
 			$cur_value = str_replace("'", "\'", $row[0]);
-			$pages[] = str_replace('_', ' ', $cur_value);
+			$values[] = str_replace('_', ' ', $cur_value);
 		}
 	}
 	$db->freeResult($res);
-	return $pages;
+	return $values;
 }
 
-function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
+function sffGetAllValuesForProperty_1_2($property_name, $substring = null) {
 	global $sfgMaxAutocompleteValues;
 
 	$store = smwfGetStore();
@@ -623,18 +625,14 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 	}
 	$property = Title::newFromText($property_name, SMW_NS_PROPERTY);
 	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
-	$pages = array();
+	$values = array();
 	foreach ($data_values as $dv) {
 		// getPropertyValues() gets many repeat values - we want
 		// only one of each value
 		$string_value = str_replace('_', ' ', $dv->getXSDValue());
 		$string_value = str_replace("'", "\'", $string_value);
-		if (array_search($string_value, $pages) === false)
-			if ($substring != null)
-				$pages[] = array('title' => str_replace('_', ' '
-, $string_value));
-			else
-				$pages[] = $string_value;
+		if (array_search($string_value, $values) === false)
+			$values[] = $string_value;
 	}
 	// if there was a substring specified, also find values that have
 	// it after a space, not just at the beginning of the value
@@ -644,10 +642,23 @@ function sffGetAllPagesForProperty_1_2($property_name, $substring = null) {
 		$requestoptions2->addStringCondition(" $substring", SMWStringCondition::STRCOND_MID);
 		$data_values = $store->getPropertyValues(null, $property, $requestoptions2);
 		foreach ($data_values as $dv) {
-			$pages[] = array('title' => str_replace('_', ' ', $dv->getXSDValue()));
+			$string_value = str_replace('_', ' ', $dv->getXSDValue());
+			if (array_search($string_value, $values) === false)
+				$values[] = $string_value;
 		}
 	}
-	return $pages;
+	if ($substring == null)
+		return $values;
+	else {
+		$autocomplete_vals = array();
+		foreach ($values as $value) {
+			// if these values are being returned for remote
+			// autocompletion, undo the apostrophe-escaping
+			$value = str_replace("\'", "'", $value);
+			$autocomplete_vals[] = array('title' => $value);
+		}
+		return $autocomplete_vals;
+	}
 }
 
 /*
