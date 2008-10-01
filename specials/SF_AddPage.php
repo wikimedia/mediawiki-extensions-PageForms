@@ -80,7 +80,7 @@ class SFAddPage extends SpecialPage {
 		$wgOut->setArticleBodyOnly( true );
 		// show "loading" animated image while people wait for the redirect
 		global $sfgScriptPath;
-		$text = "<p><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
+		$text = "<p style=\"position: absolute; left: 45%; top: 45%;\"><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
 		$text .=<<<END
 		<script type="text/javascript">
 		window.onload = function() {
