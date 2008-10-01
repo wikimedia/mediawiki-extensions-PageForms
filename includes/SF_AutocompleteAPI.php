@@ -39,11 +39,11 @@ class SFAutocompleteAPI extends ApiBase {
 			$this->dieUsage("The substring must be specified", 'param_substr');
 		}
 		if ($property != '') {
-			$data = sffGetAllPagesForProperty_1_2($property, $substr);
+			$data = sffGetAllValuesForProperty_1_2($property, $substr);
 		} elseif ($relation != '') {
-			$data = sffGetAllPagesForProperty_orig(true, $relation, $substr);
+			$data = sffGetAllValuesForProperty_orig(true, $relation, $substr);
 		} elseif ($attribute != '') {
-			$data = sffGetAllPagesForProperty_orig(false, $attribute, $substr);
+			$data = sffGetAllValuesForProperty_orig(false, $attribute, $substr);
 		} elseif ($category != '') {
 			$data = sffGetAllPagesForCategory($category, 3, $substr);
 		} elseif ($concept != '') {
