@@ -87,6 +87,25 @@ function validate_mandatory_field(field_id, info_id) {
 	}
 }
 
+function validate_mandatory_checkboxes(field_id, info_id) {
+	elems = document.getElementsByTagName("*");
+	var all_fields_unchecked = true;
+	for (var i = 0; i < elems.length; i++) {
+		if (elems[i].id == field_id) {
+			if (elems[i].checked) {
+				all_fields_unchecked = false;
+			}
+		}
+	}
+	if (all_fields_unchecked) {
+		infobox = document.getElementById(info_id);
+		infobox.innerHTML = "$blank_error_str";
+		return false;
+	} else {
+		return true;
+	}
+}
+
 // validate a mandatory field that exists across multiple instances of
 // a template - we have to find each one, matching on the pattern of its
 // ID, and validate it
