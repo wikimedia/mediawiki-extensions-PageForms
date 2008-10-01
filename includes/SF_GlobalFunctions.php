@@ -372,9 +372,9 @@ function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespa
 		return null;
 	$ad = SpecialPage::getPage('AddData');
 	if ($form_name)
-		$add_data_url = $ad->getTitle()->getLinkURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
+		$add_data_url = $ad->getTitle()->getLocalURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
 	else
-		$add_data_url = $ad->getTitle()->getLinkURL() . "/" . sffTitleURLString($target_page_title);
+		$add_data_url = $ad->getTitle()->getLocalURL() . "/" . sffTitleURLString($target_page_title);
 	foreach ($alt_forms as $i => $alt_form) {
 		$add_data_url .= ($i == 0) ? "?" : "&";
 		$add_data_url .= "alt_form[$i]=$alt_form";
