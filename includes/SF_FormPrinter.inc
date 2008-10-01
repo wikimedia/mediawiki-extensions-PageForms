@@ -735,7 +735,9 @@ class SFFormPrinter {
                 } else {
                   if ($allow_multiple) {
                     $sfgJSValidationCalls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
-                  // if it's an enum...
+                  } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
+                    $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
+                  // if it's not a radiobutton...
                   } elseif ($input_type != 'radiobutton' && $form_field->template_field->field_type != 'enumeration') {
                     $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
                   }
@@ -1049,30 +1051,6 @@ END;
     $javascript_text .= SFFormUtils::validationJavascript();
     $javascript_text .= SFFormUtils::instancesJavascript($using_choosers);
     $javascript_text .= SFFormUtils::autocompletionJavascript();
-    $confirm_script =<<<END
-	// ask the user to confirm before leaving the page - due to
-	// Javascript strangeness, the question itself is hardcoded in
-	// English and can't be changed
-	function confirm_text(evt) {
-		// show this confirmation message only if the user didn't
-		// click on a form element.
-		// unfortunately, Internet Explorer doesn't pass in any value to
-		// this function, so we can't tell if it was called when a user
-		// hit "Save page", etc. - in the interest of not causing user
-		// confusion, we'll just do nothing if the browser is IE
-		if (typeof evt == 'undefined') {
-			return;
-		}
-		if (evt.target.className != "createbox") {
-			return "Changes to the form will not be saved.";
-		}
-	}
-	window.onbeforeunload = confirm_text;
-
-END;
-    global $sfgConfirmFormExit;
-    if ($sfgConfirmFormExit)
-      $javascript_text .= $confirm_script;
     if ($free_text_was_included && $showFCKEditor > 0) {
       $javascript_text .= SFFormUtils::mainFCKJavascript($showFCKEditor);
       if ($showFCKEditor & (RTE_TOGGLE_LINK | RTE_POPUP)) {
