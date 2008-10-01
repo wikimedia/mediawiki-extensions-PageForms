@@ -203,8 +203,8 @@ function sfRenderArrayMapObj( &$parser, $frame, $args ) {
 	# Set variables
 	$value         = isset($args[0]) ? trim($frame->expand($args[0])) : '';
 	$delimiter     = isset($args[1]) ? trim($frame->expand($args[1])) : ',';
-	$var           = isset($args[2]) ? trim($frame->expand($args[2])) : 'x';
-	$formula       = isset($args[3]) ? trim($frame->expand($args[3])) : 'x';
+	$var           = isset($args[2]) ? trim($frame->expand($args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES)) : 'x';
+	$formula       = isset($args[3]) ? $args[3] : 'x';
 	$new_delimiter = isset($args[4]) ? trim($frame->expand($args[4])) : ', ';
 	# Unstrip some
 	$delimiter = $parser->mStripState->unstripNoWiki($delimiter);
