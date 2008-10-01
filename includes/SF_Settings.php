@@ -80,12 +80,6 @@ $sfgListSeparator = ",";
 $sfgYUIBase = "http://yui.yahooapis.com/2.5.2/build/";
 
 ###
-# Display a warning message if the user leaves a form page
-###
-if (! isset($sfgConfirmFormExit))
-	$sfgConfirmFormExit = false;
-
-###
 # Extend the edit form from the internal EditPage class rather than using a
 # special page and hacking things up.
 # 
