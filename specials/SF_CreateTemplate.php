@@ -106,17 +106,13 @@ function doSpecialCreateTemplate() {
 		if ($template_name == '') {
 			$template_name_error_str = wfMsg('sf_blank_error');
 		} else {
-			$wgOut->setArticleBodyOnly( true );
-			// show "loading" animated image while people wait for the redirect
-			global $sfgScriptPath;
-			$text = "<p><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
-
-			# redirect to wiki interface
+			// redirect to wiki interface
+			$wgOut->setArticleBodyOnly(true);
 			$title = Title::newFromText($template_name, NS_TEMPLATE);
 			$full_text = SFTemplateField::createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
-			$text .= sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
+			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
 		}
