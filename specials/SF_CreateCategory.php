@@ -69,6 +69,7 @@ function doSpecialCreateCategory() {
 			$category_name_error_str = wfMsg('sf_blank_error');
 		} else {
 			# redirect to wiki interface
+			$wgOut->setArticleBodyOnly(true);
 			$namespace = NS_CATEGORY;
 			$title = Title::newFromText($category_name, $namespace);
 			$full_text = createCategoryText($default_form, $category_name, $parent_category);

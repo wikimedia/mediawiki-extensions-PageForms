@@ -77,6 +77,7 @@ function doSpecialCreateProperty() {
 			$property_name_error_str = wfMsg('sf_blank_error');
 		} else {
 			# redirect to wiki interface
+			$wgOut->setArticleBodyOnly(true);
 			$namespace = SMW_NS_PROPERTY;
 			$title = Title::newFromText($property_name, $namespace);
 			$full_text = createPropertyText($property_type, $allowed_values);

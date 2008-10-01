@@ -125,9 +125,10 @@ function doSpecialCreateForm() {
 		if ($form->form_name == "") {
 			$form_name_error_str = wfMsg('sf_blank_error');
 		} else {
+			# redirect to wiki interface
+			$wgOut->setArticleBodyOnly(true);
 			$title = Title::newFromText($form->form_name, SF_NS_FORM);
 			$full_text = str_replace('"', '&quot;', $form->createMarkup());
-			# redirect to wiki interface
 			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
