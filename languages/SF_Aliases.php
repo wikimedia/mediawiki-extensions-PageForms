@@ -54,6 +54,11 @@ $aliases['arz'] = array(
 	'UploadWindow' => array( 'نافذة_الرفع' ),
 );
 
+/** Persian (فارسی) */
+$aliases['fa'] = array(
+	'Templates' => array( 'الگوها' ),
+);
+
 /** Luxembourgish (Lëtzebuergesch) */
 $aliases['lb'] = array(
 	'AddData' => array( 'Daten derbäisetzen' ),
