@@ -405,6 +405,7 @@ END;
       if ((array_key_exists('is_relation', $other_args) && $other_args['is_relation'] == true) ||
           array_key_exists('autocomplete', $other_args) ||
           array_key_exists('autocomplete on', $other_args) ||
+          array_key_exists('autocomplete on property', $other_args) ||
           array_key_exists('autocomplete on category', $other_args) ||
           array_key_exists('autocomplete on concept', $other_args) ||
           array_key_exists('autocomplete on namespace', $other_args) ||
