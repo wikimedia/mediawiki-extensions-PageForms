@@ -77,7 +77,7 @@ $sfgListSeparator = ",";
 # locally, download it (from http://developer.yahoo.com/yui/) and change this
 # value to the URL of the local installation's 'build' directory.
 ###
-$sfgYUIBase = "http://yui.yahooapis.com/2.5.2/build/";
+$sfgYUIBase = "http://yui.yahooapis.com/2.6.0/build/";
 
 ###
 # Extend the edit form from the internal EditPage class rather than using a
