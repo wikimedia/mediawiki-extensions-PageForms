@@ -139,7 +139,9 @@ function sfRenderFormLink (&$parser, $inFormName = '', $inLinkStr = '', $inLinkT
 	} else {
 		$str = "<a href=\"$link_url\">$inLinkStr</a>";
 	}
-	return array($str, 'noparse' => true, 'isHTML' => true);
+	// hack to remove newline from beginning of output, thanks to
+	// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
+	return $parser->insertStripItem($str, $parser->mStripState);
 }
 
 function sfRenderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue = '', $inButtonStr = '', $inQueryStr = '') {
@@ -154,7 +156,7 @@ END;
 	// (i.e., it's in the default URL style), add in the title as a
 	// hidden value
 	if (($pos = strpos($ap_url, "title=")) > -1) {
-		$str .= '			<input type="hidden" name="title" value="' . substr($ap_url, $pos + 6) . '">' . "\n";
+		$str .= '			<input type="hidden" name="title" value="' . urldecode(substr($ap_url, $pos + 6)) . '">' . "\n";
 	}
 	if ($inFormName == '') {
 		$str .= sffFormDropdownHTML();
