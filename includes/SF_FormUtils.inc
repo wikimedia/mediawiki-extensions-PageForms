@@ -144,7 +144,7 @@ function validate_field_type(field_id, type, info_id) {
 			}
 		} else if (type == 'email') {
 			// code borrowed from http://javascript.internet.com/forms/email-validation---basic.html
-			var email_regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+			var email_regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
 			if (email_regexp.test(field.value)) {
 				return true;
 			} else {
