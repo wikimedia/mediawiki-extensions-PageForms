@@ -177,6 +177,9 @@ class SFFormPrinter {
     // that themselves contain form elements - the escaping is needed
     // to make sure that those elements don't get parsed too early
     $form_def = str_replace(array('&#123;', '&#124;', '&#125;'), array('{', '|', '}'), $form_def);
+    // and another hack - replace the 'free text' standard input with
+    // a field declaration to get it to be handled as a field
+    $form_def = str_replace('standard input|free text', 'field|<freetext>', $form_def);
     while ($brackets_loc = strpos($form_def, "{{{", $start_position)) {
       $brackets_end_loc = strpos($form_def, "}}}", $brackets_loc);
       $bracketed_string = substr($form_def, $brackets_loc + 3, $brackets_end_loc - ($brackets_loc + 3));
@@ -444,7 +447,7 @@ class SFFormPrinter {
                   $default_value = $sub_components[1];
                 } elseif ($sub_components[0] == 'preload') {
                   // free text field has special handling
-                  if ($field_name == 'free text') {
+                  if ($field_name == 'free text' || $field_name = '<freetext>') {
                     $free_text_preload_page = $sub_components[1];
                   } else {
                     $preload_page = $sub_components[1];
@@ -496,33 +499,34 @@ class SFFormPrinter {
             }
           }
 
-          // handle non-template fields - 'page title' and 'free text'
-          if ($template_name == '') {
-            if ($field_name == 'page title') {
-              // the actual value should be non-null - stick it in
-              $new_text = $page_title;
-            } elseif ($field_name == 'free text') {
-              // add placeholders for the free text in both the form and
-              // the page, using <free_text> tags - once all the free text
-              // is known (at the end), it will get substituted in
-              if ($is_hidden) {
-                $new_text = SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
-              } else {
-                if (! array_key_exists('rows', $field_args))
-                  $field_args['rows'] = 5;
-                if (! array_key_exists('cols', $field_args))
-                  $field_args['cols'] = 80;
-                $sfgTabIndex++;
-                $sfgFieldNum++;
-                list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('<free_text>', 'free_text', false, ($form_is_disabled || $is_restricted), $field_args);
-                $fields_javascript_text .= $new_javascript_text;
-              }
-              $free_text_was_included = true;
-              // add a similar placeholder to the data text
-              $data_text .= "<free_text>\n";
+          // handle the free text field - if it was declared as
+          // "field|free text" (a deprecated usage), it has to be outside
+          // of a template
+          if (($template_name == '' && $field_name == 'free text') ||
+              $field_name == '<freetext>') {
+            // add placeholders for the free text in both the form and
+            // the page, using <free_text> tags - once all the free text
+            // is known (at the end), it will get substituted in
+            if ($is_hidden) {
+              $new_text = SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
+            } else {
+              if (! array_key_exists('rows', $field_args))
+                $field_args['rows'] = 5;
+              if (! array_key_exists('cols', $field_args))
+                $field_args['cols'] = 80;
+              $sfgTabIndex++;
+              $sfgFieldNum++;
+              list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('<free_text>', 'free_text', false, ($form_is_disabled || $is_restricted), $field_args);
+              $fields_javascript_text .= $new_javascript_text;
             }
+            $free_text_was_included = true;
+            // add a similar placeholder to the data text
+            $data_text .= "<free_text>\n";
+          }
+
+          if ($template_name == '') {
             $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
-          } else { // this field is part of a template
+          } else {
             if (is_array($cur_value)) {
               // first, check if it's a list
               if (array_key_exists('is_list', $cur_value) &&
@@ -700,7 +704,7 @@ class SFFormPrinter {
             // add a hidden field holding the value of this field, because
             // disabled inputs for some reason don't submit their value
             if ($is_restricted && ! $wgUser->isAllowed('editrestrictedfields')) {
-              if ($field_name == 'free text') {
+              if ($field_name == 'free text' || $field_name == '<freetext>') {
                 $new_text .= SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
               } else {
                 $new_text .= SFFormUtils::hiddenFieldHTML($input_name, $cur_value);
@@ -763,6 +767,12 @@ class SFFormPrinter {
             if (count($sub_components) == 2) {
               if ($sub_components[0] == 'label') {
                 $input_label = $sub_components[1];
+              }
+              // free text input needs more handling than the rest
+              if ($input_name == 'free text' || $input_name == '<freetext>') {
+                if ($sub_components[0] == 'preload') {
+                  $free_text_preload_page = $sub_components[1];
+                }
               }
             }
           }
