@@ -2281,7 +2281,14 @@ $messages['mr'] = array(
  */
 $messages['myv'] = array(
 	'sf_createproperty_propname' => 'Лемезэ:',
+	'sf_createtemplate_deletefield' => 'Нардамс',
+	'sf_createform_template' => 'Лопа парцунось:',
+	'sf_createform_field' => 'Паксясь:',
+	'sf_createform_hidden' => 'Кекшезь',
+	'sf_createform_add' => 'Поладомс',
+	'createcategory' => 'Шкамс категория',
 	'sf_createcategory_name' => 'Лемезэ:',
+	'sf_editsource' => 'Витнемс-петнемс лисьмапрянзо',
 	'sf_editdata_remove' => 'Нардык',
 );
 
