@@ -54,9 +54,23 @@ $aliases['arz'] = array(
 	'UploadWindow' => array( 'نافذة_الرفع' ),
 );
 
+/** Spanish (Español) */
+$aliases['es'] = array(
+	'Templates' => array( 'Plantillas' ),
+);
+
 /** Persian (فارسی) */
 $aliases['fa'] = array(
+	'AddData' => array( 'افزودن_داده' ),
+	'AddPage' => array( 'افزودن_صفحه' ),
+	'CreateCategory' => array( 'ایجاد_رده' ),
+	'CreateForm' => array( 'ایجاد_فرم' ),
+	'CreateProperty' => array( 'ایجاد_صفت' ),
+	'CreateTemplate' => array( 'ایجاد_الگو' ),
+	'EditData' => array( 'ویرایش_داده' ),
+	'Forms' => array( 'فرم‌ها' ),
 	'Templates' => array( 'الگوها' ),
+	'UploadWindow' => array( 'پنجره_بارگذاری' ),
 );
 
 /** Luxembourgish (Lëtzebuergesch) */
