@@ -73,6 +73,16 @@ $aliases['fa'] = array(
 	'UploadWindow' => array( 'پنجره_بارگذاری' ),
 );
 
+/** Khmer (ភាសាខ្មែរ) */
+$aliases['km'] = array(
+	'AddData' => array( 'បន្ថែមទិន្នន័យ' ),
+	'AddPage' => array( 'បន្ថែមទំព័រ' ),
+	'CreateCategory' => array( 'បង្កើតចំនាត់ថ្នាក់ក្រុម' ),
+	'CreateTemplate' => array( 'បង្កើតទំព័រគំរូ' ),
+	'EditData' => array( 'កែប្រែទិន្នន័យ' ),
+	'Templates' => array( 'ទំព័រគំរូ' ),
+);
+
 /** Luxembourgish (Lëtzebuergesch) */
 $aliases['lb'] = array(
 	'AddData' => array( 'Daten derbäisetzen' ),
