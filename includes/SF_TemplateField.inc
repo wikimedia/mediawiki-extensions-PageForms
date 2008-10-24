@@ -19,8 +19,8 @@ class SFTemplateField {
 
 	function newWithValues($name, $label) {
 		$f = new SFTemplateField();
-		$f->field_name = str_replace('\\', '', $name);
-		$f->label = str_replace('\\', '', $label);
+		$f->field_name = trim(str_replace('\\', '', $name));
+		$f->label = trim(str_replace('\\', '', $label));
 		return $f;
 	}
 
