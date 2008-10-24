@@ -73,6 +73,12 @@ $aliases['fa'] = array(
 	'UploadWindow' => array( 'پنجره_بارگذاری' ),
 );
 
+/** Upper Sorbian (Hornjoserbsce) */
+$aliases['hsb'] = array(
+	'Forms' => array( 'Formulary' ),
+	'Templates' => array( 'Předłohi' ),
+);
+
 /** Khmer (ភាសាខ្មែរ) */
 $aliases['km'] = array(
 	'AddData' => array( 'បន្ថែមទិន្នន័យ' ),
