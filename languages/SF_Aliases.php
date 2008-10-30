@@ -143,3 +143,14 @@ $aliases['no'] = array(
 	'UploadWindow' => array( 'Opplastingsvindu' ),
 );
 
+/** Occitan (Occitan) */
+$aliases['oc'] = array(
+	'AddPage' => array( 'Apondre una pagina', 'ApondrePagina' ),
+	'CreateCategory' => array( 'Crear una categoria', 'CrearCategoria' ),
+	'CreateForm' => array( 'Crear un formulari', 'CrearFormulari' ),
+	'CreateProperty' => array( 'Crear una proprietat', 'CrearProprietat' ),
+	'CreateTemplate' => array( 'Crear un modèl', 'CrearModèl' ),
+	'Forms' => array( 'Formularis' ),
+	'Templates' => array( 'Modèls' ),
+);
+
