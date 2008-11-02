@@ -54,6 +54,11 @@ $aliases['arz'] = array(
 	'UploadWindow' => array( 'نافذة_الرفع' ),
 );
 
+/** Breton (Brezhoneg) */
+$aliases['br'] = array(
+	'Templates' => array( 'Patromoù' ),
+);
+
 /** Spanish (Español) */
 $aliases['es'] = array(
 	'Templates' => array( 'Plantillas' ),
