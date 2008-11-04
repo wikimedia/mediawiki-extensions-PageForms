@@ -397,7 +397,7 @@ function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespa
 	else
 		$add_data_url = $ad->getTitle()->getLocalURL() . "/" . sffTitleURLString($target_page_title);
 	foreach ($alt_forms as $i => $alt_form) {
-		$add_data_url .= (strpos($add_data_url, "?")) ? "?" : "&";
+		$add_data_url .= (strpos($add_data_url, "?")) ? "&" : "?";
 		$add_data_url .= "alt_form[$i]=$alt_form";
 	}
 	return $add_data_url;
