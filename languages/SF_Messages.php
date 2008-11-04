@@ -561,6 +561,15 @@ $messages['bn'] = array(
 	'sf_createtemplate_deletefield' => 'মুছে ফেলা হোক',
 );
 
+/** Bosnian (Bosanski)
+ * @author CERminator
+ */
+$messages['bs'] = array(
+	'sf_createproperty_propname' => 'Naziv:',
+	'sf_createform_inputtypedefault' => '(standardno)',
+	'sf_createcategory_name' => 'Naziv:',
+);
+
 /** Catalan (Català)
  * @author Dvdgmz
  * @author SMP
