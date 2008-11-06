@@ -919,7 +919,7 @@ wgAjaxLicensePreview = {$alp};
 						wfMsgHtml( 'restorelink', $count )
 					)
 				);
-				$wgOut->addHtml( "<div id=\"contentSub2\">{$link}</div>" );
+				$wgOut->addHTML( "<div id=\"contentSub2\">{$link}</div>" );
 			}				
 		}
 
@@ -1043,7 +1043,7 @@ EOT
 			</tr>
 			<tr>" );
 			if( $useAjaxLicensePreview ) {
-				$wgOut->addHtml( "
+				$wgOut->addHTML( "
 					<td></td>
 					<td id=\"mw-license-preview\"></td>
 				</tr>
@@ -1071,7 +1071,7 @@ EOT
 		");
 		}
 
-		$wgOut->addHtml( "
+		$wgOut->addHTML( "
 		<td></td>
 		<td>
 			<input tabindex='7' type='checkbox' name='wpWatchthis' id='wpWatchthis' $watchChecked value='true' />
