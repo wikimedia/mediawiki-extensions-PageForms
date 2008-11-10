@@ -2035,6 +2035,13 @@ $messages['km'] = array(
 	'sf_category_hasdefaultform' => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
 );
 
+/** Krio (Krio)
+ * @author Jose77
+ */
+$messages['kri'] = array(
+	'sf_createtemplate_deletefield' => 'Dilit',
+);
+
 /** Kinaray-a (Kinaray-a)
  * @author Jose77
  */
@@ -3741,7 +3748,7 @@ $messages['yi'] = array(
 	'sf_createtemplate_namelabel' => 'מוסטער נאמען:',
 );
 
-/** ‪Mainland Chinese‬ (‪中文(中国大陆)‬)
+/** Chinese (China) (‪中文(中国大陆)‬)
  * @author Roc Michael <roc.no1@gmail.com>
  */
 $messages['zh-cn'] = array(
@@ -3839,7 +3846,7 @@ $messages['zh-cn'] = array(
 	'sf_blank_namespace' => '主',
 );
 
-/** Taiwan Chinese (‪中文(台灣)‬)
+/** Chinese (Taiwan) (‪中文(台灣)‬)
  * @author Roc michael
  */
 $messages['zh-tw'] = array(
