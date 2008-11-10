@@ -566,6 +566,7 @@ $messages['bn'] = array(
  */
 $messages['bs'] = array(
 	'sf_createproperty_propname' => 'Naziv:',
+	'sf_createtemplate_deletefield' => 'Obriši',
 	'sf_createform_inputtypedefault' => '(standardno)',
 	'sf_createcategory_name' => 'Naziv:',
 );

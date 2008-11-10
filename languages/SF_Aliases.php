@@ -78,6 +78,12 @@ $aliases['fa'] = array(
 	'UploadWindow' => array( 'پنجره_بارگذاری' ),
 );
 
+/** Galician (Galego) */
+$aliases['gl'] = array(
+	'Forms' => array( 'Formularios' ),
+	'Templates' => array( 'Modelos' ),
+);
+
 /** Upper Sorbian (Hornjoserbsce) */
 $aliases['hsb'] = array(
 	'Forms' => array( 'Formulary' ),
