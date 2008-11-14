@@ -568,7 +568,9 @@ $messages['bs'] = array(
 	'sf_createproperty_propname' => 'Naziv:',
 	'sf_createtemplate_deletefield' => 'Obriši',
 	'sf_createform_inputtypedefault' => '(standardno)',
+	'sf_createform_add' => 'Dodaj',
 	'sf_createcategory_name' => 'Naziv:',
+	'sf_editdata_remove' => 'Ukloni',
 );
 
 /** Catalan (Català)
@@ -2745,7 +2747,7 @@ $messages['oc'] = array(
 	'addpage' => 'Apondre una pagina amb un formulari',
 	'sf_addpage_badform' => 'Error : cap de pagina de formulari es pas estada trobada sus $1.',
 	'sf_addpage_docu' => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
-	'sf_addpage_noform_docu' => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb loquin serà editada. S'aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
+	'sf_addpage_noform_docu' => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb lo qual serà editada. S'aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
 	'addoreditdata' => 'Modificar o apondre de donadas',
 	'adddata' => 'Apondre de donadas',
 	'sf_adddata_title' => 'Apondre $1 : $2',

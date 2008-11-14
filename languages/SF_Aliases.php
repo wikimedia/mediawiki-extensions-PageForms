@@ -165,3 +165,8 @@ $aliases['oc'] = array(
 	'Templates' => array( 'Modèls' ),
 );
 
+/** Romanian (Română) */
+$aliases['ro'] = array(
+	'Templates' => array( 'Formate' ),
+);
+
