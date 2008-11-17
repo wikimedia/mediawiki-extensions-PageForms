@@ -29,14 +29,20 @@ class SFTemplateField {
 		if ($proptitle === NULL)
 			return;
 		$store = smwfGetStore();
-		$types = $store->getSpecialValues($proptitle, SMW_SP_HAS_TYPE);
+		if (class_exists('SMWPropertyValue')) {
+			$types = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Has type"));
+			// this returns an array of objects
+			$allowed_values = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Allows value"));
+		} else {
+			$types = $store->getSpecialValues($proptitle, SMW_SP_HAS_TYPE);
+			// this returns an array of objects
+			$allowed_values = $store->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
+		}
 		// TODO - need handling for the case of more than one type
 		if (count($types) > 0)
 			$this->field_type = $types[0]->getWikiValue();
 
-		// this returns an array of objects
-		$SMW_values = smwfGetStore()->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
-		foreach ($SMW_values as $value) {
+		foreach ($allowed_values as $value) {
 			$this->possible_values[] = $value->getXSDValue();
 		}
 		// HACK - if there were any possible values, set the field
