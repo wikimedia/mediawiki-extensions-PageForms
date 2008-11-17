@@ -242,12 +242,10 @@ class SFFormPrinter {
             if (count($sub_components) == 2) {
               if ($sub_components[0] == 'label') {
                 $template_label = $sub_components[1];
-              }
-              if ($sub_components[0] == 'chooser') {
+              } elseif ($sub_components[0] == 'chooser') {
                 $allow_multiple = true;
                 $chooser_name = $sub_components[1];
-              }
-              if ($sub_components[0] == 'chooser caption') {
+              } elseif ($sub_components[0] == 'chooser caption') {
                 $chooser_caption = $sub_components[1];
               }
             }
