@@ -34,8 +34,13 @@ function createPropertyText($property_type, $allowed_values_str) {
 		$text = wfMsgForContent('sf_property_isrelation');
 	} else {
 		global $smwgContLang;
-		$specprops = $smwgContLang->getSpecialPropertiesArray();
-		$type_tag = "[[{$specprops[SMW_SP_HAS_TYPE]}::$property_type]]";
+		if (class_exists('SMWPropertyValue')) {
+			$has_type_prop = SMWPropertyValue::makeUserProperty("Has type");
+			$type_tag = "[[{$has_type_prop->getWikiValue()}::$property_type]]";
+		} else {
+			$specprops = $smwgContLang->getSpecialPropertiesArray();
+			$type_tag = "[[{$specprops[SMW_SP_HAS_TYPE]}::$property_type]]";
+		}
 		$text = wfMsgForContent('sf_property_isproperty', $type_tag);
 		if ($allowed_values_str != '') {
 			$text .= "\n\n" . wfMsgForContent('sf_property_allowedvals');
