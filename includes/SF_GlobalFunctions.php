@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.3.5');
+define('SF_VERSION','1.3.6');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -32,6 +32,7 @@ $wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
 $wgHooks['BrokenLink'][] = 'sffSetBrokenLink_1_13';
 $wgHooks['LinkEnd'][] = 'sffSetBrokenLink';
 $wgHooks['UnknownAction'][] = 'sffEmbeddedEditForm';
+$wgHooks['smwInitProperties'][] = 'sffInitProperties';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 
@@ -186,6 +187,12 @@ function sffInitUserLanguage($langcode) {
 /***** other global helpers               *****/
 /**********************************************/
 
+function sffInitProperties() {
+	SMWPropertyValue::registerProperty('_SF_DF', '__spf', 'Has default form', true);
+	SMWPropertyValue::registerProperty('_SF_AF', '__spf', 'Has alternate form', true);
+	return true;
+}
+
 /**
  * Creates HTML linking to a wiki page
  */
@@ -313,6 +320,20 @@ function sffGetDefaultForm($page_title, $page_namespace) {
 	global $sfgContLang;
 	$store = smwfGetStore();
 	$title = Title::newFromText($page_title, $page_namespace);
+	// we can do this easily if we're using SMW 1.4 or higher
+	if (class_exists('SMWPropertyValue')) {
+		$default_form_property = SMWPropertyValue::makeProperty('_SF_DF');
+		$res = $store->getPropertyValues($title, $default_form_property);
+		// make sure it's in the form namespace
+		if (isset($res[0]) && ($res[0]->getNamespace() == SF_NS_FORM)) {
+			$form_name = $res[0]->getTitle()->getText();
+			return $form_name;
+		} else {
+			return null;
+		}
+	}
+
+	// otherwise, it's a bit more complex
 	$sf_props = $sfgContLang->getSpecialPropertiesArray();
 	$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
 	$property = sffCreateProperty($default_form_property);
@@ -349,11 +370,27 @@ function sffGetDefaultForm($page_title, $page_namespace) {
  */
 function sffGetAlternateForms($page_title, $page_namespace) {
 	if ($page_title == NULL)
-		return null;
+		return array();
 
 	global $sfgContLang;
 	$store = smwfGetStore();
 	$title = Title::newFromText($page_title, $page_namespace);
+	// we can do this easily if we're using SMW 1.4 or higher
+	if (class_exists('SMWPropertyValue')) {
+		$alternate_form_property = SMWPropertyValue::makeProperty('_SF_AF');
+		$res = $store->getPropertyValues($title, $alternate_form_property);
+		// there could be multiple alternate forms
+		$form_names = array();
+		foreach ($res as $wiki_page_value) {
+			// make sure it's in the form namespace
+			if ($wiki_page_value->getNamespace() == SF_NS_FORM) {
+				$form_names[] = $wiki_page_value->getTitle()->getText();
+			}
+		}
+		return $form_names;
+	}
+
+	// otherwise, it's a bit more complex
 	$sf_props = $sfgContLang->getSpecialPropertiesArray();
 	$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
 	$property = sffCreateProperty($alternate_form_property);
