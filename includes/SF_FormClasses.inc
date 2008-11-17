@@ -265,8 +265,13 @@ class SFFormTemplateField {
 			}
 		}
 		if ($the_field == null) {
-			if ($strict_parsing)
-				return null;
+			if ($strict_parsing) {
+				$dummy_ftf = new SFFormTemplateField();
+				$dummy_ftf->template_field = new SFTemplateField();
+				$dummy_ftf->is_list = false;
+				$dummy_ftf->field_args = array();
+				return $dummy_ftf;
+			}
 			$the_field = new SFTemplateField();
 		}
 
