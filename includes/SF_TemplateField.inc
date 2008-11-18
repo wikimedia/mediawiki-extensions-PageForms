@@ -43,7 +43,8 @@ class SFTemplateField {
 			$this->field_type = $types[0]->getWikiValue();
 
 		foreach ($allowed_values as $value) {
-			$this->possible_values[] = $value->getXSDValue();
+			// HTML-unencode each value
+			$this->possible_values[] = html_entity_decode($value->getXSDValue());
 		}
 		// HACK - if there were any possible values, set the field
 		// type to be 'enumeration', regardless of what the actual type is
