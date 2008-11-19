@@ -1469,12 +1469,17 @@ $messages['got'] = array(
 );
 
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
+ * @author Crazymadlover
  * @author Omnipaedista
  */
 $messages['grc'] = array(
 	'sf_createproperty_propname' => 'Ὄνομα:',
 	'sf_createproperty_proptype' => 'Τύπος:',
 	'templates' => 'Πρότυπα',
+	'sf_createform_hidden' => 'Κεκρυμμένη',
+	'sf_createform_add' => 'Προστιθέναι',
+	'sf_createcategory_name' => 'Ὄνομα:',
+	'sf_editdata_none' => 'Οὐδέν',
 );
 
 /** Gujarati (ગુજરાતી)
