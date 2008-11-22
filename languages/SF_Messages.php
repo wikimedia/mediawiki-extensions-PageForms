@@ -2797,6 +2797,7 @@ $messages['oc'] = array(
  */
 $messages['os'] = array(
 	'sf_createtemplate_deletefield' => 'Аппар',
+	'sf_editdata_none' => 'Нæй',
 );
 
 /** Polish (Polski)
