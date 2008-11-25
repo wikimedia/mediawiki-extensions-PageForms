@@ -2082,6 +2082,7 @@ $messages['lb'] = array(
 	'sf_templates_definescat' => "definéiert d'Kategorie:",
 	'createtemplate' => 'Eng nei Schabloun maachen',
 	'sf_createtemplate_namelabel' => 'Numm vun der Schabloun:',
+	'sf_createtemplate_categorylabel' => 'Kategorie déi duerch eng Schabloun definéiert ass (fakultativ):',
 	'sf_createtemplate_displaylabel' => 'Etiquette weisen:',
 	'sf_createtemplate_aggregationlabel' => "Titel fir d'Lëscht:",
 	'sf_createtemplate_standardformat' => 'Standard',
@@ -3066,6 +3067,13 @@ $messages['ro'] = array(
 	'sf_editdata_none' => 'Nimic',
 );
 
+/** Tarandíne (Tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'sf_createform_field' => 'Cambe:',
+);
+
 /** Russian (Русский)
  * @author Kaganer
  * @author QuestPC
@@ -3860,6 +3868,7 @@ $messages['zh-cn'] = array(
  * @author Roc michael
  */
 $messages['zh-tw'] = array(
+	'specialpages-group-sf_group' => '語意表單',
 	'createproperty' => '新增性質',
 	'sf_createproperty_allowedvalsinput' => '如果您希望此欄位只能輸入特定的值,請將那些值輸入此處，並以半型的逗號(,)分隔，萬一您所指定的值中已包含了半型逗號，請在該逗號前加上一個反斜線(\\,)：',
 	'sf_createproperty_propname' => '名稱：',

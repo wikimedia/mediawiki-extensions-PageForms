@@ -90,6 +90,20 @@ $aliases['hsb'] = array(
 	'Templates' => array( 'Předłohi' ),
 );
 
+/** Hungarian (Magyar) */
+$aliases['hu'] = array(
+	'AddData' => array( 'Adat hozzáadása' ),
+	'AddPage' => array( 'Oldal hozzáadása' ),
+	'CreateCategory' => array( 'Kategória készítés' ),
+	'CreateForm' => array( 'Űrlap készítése' ),
+	'CreateProperty' => array( 'Tulajdonság készítése' ),
+	'CreateTemplate' => array( 'Sablon készítése' ),
+	'EditData' => array( 'Adat szerkesztése' ),
+	'Forms' => array( 'Űrlapok' ),
+	'Templates' => array( 'Sablonok' ),
+	'UploadWindow' => array( 'Feltöltő ablak' ),
+);
+
 /** Khmer (ភាសាខ្មែរ) */
 $aliases['km'] = array(
 	'AddData' => array( 'បន្ថែមទិន្នន័យ' ),
