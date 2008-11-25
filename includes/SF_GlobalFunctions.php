@@ -113,8 +113,11 @@ function sffInitNamespaces() {
 		$sfgNamespaceIndex = 106;
 	}
 
-	define('SF_NS_FORM',       $sfgNamespaceIndex);
-	define('SF_NS_FORM_TALK',  $sfgNamespaceIndex+1);
+	// these namespaces are defined in versions 1.4 and later of SMW
+	if (defined('SF_NS_FORM'))
+		define('SF_NS_FORM',       $sfgNamespaceIndex);
+	if (defined('SF_NS_FORM_TALK'))
+		define('SF_NS_FORM_TALK',  $sfgNamespaceIndex+1);
 
 	sffInitContentLanguage($wgLanguageCode);
 
