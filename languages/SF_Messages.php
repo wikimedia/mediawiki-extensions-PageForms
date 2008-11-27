@@ -479,6 +479,7 @@ $messages['avk'] = array(
 $messages['be-tarask'] = array(
 	'sf_createproperty_propname' => 'Назва:',
 	'sf_createproperty_proptype' => 'Тып:',
+	'sf_createform_add' => 'Дадаць',
 	'sf_createcategory_name' => 'Назва:',
 );
 

@@ -184,3 +184,16 @@ $aliases['ro'] = array(
 	'Templates' => array( 'Formate' ),
 );
 
+/** Swahili (Kiswahili) */
+$aliases['sw'] = array(
+	'AddData' => array( 'WekaData' ),
+	'AddPage' => array( 'WekaKurasa' ),
+	'CreateCategory' => array( 'UndaJamii' ),
+	'CreateForm' => array( 'UndaFomu' ),
+	'CreateTemplate' => array( 'UndaKigezo' ),
+	'EditData' => array( 'HaririData' ),
+	'Forms' => array( 'Fomu' ),
+	'Templates' => array( 'Vigezo' ),
+	'UploadWindow' => array( 'DirishalaKupakizia' ),
+);
+
