@@ -550,6 +550,9 @@ class SFFormPrinter {
                 // - this handling will have to get more complex if other
                 // possibilities get added
                 if (count($cur_value) == 1) {
+                  // manually load SMW's message values here, in case they
+                  // didn't get loaded before
+                  wfLoadExtensionMessages('SemanticMediaWiki');
                   $words_for_false = explode(',', wfMsgForContent('smw_false_words'));
                   // for each language, there's a series of words that are
                   // equal to false - get the word in the series that matches
@@ -564,6 +567,7 @@ class SFFormPrinter {
                   }
                   $cur_value_in_template = $no;
                 } elseif (count($cur_value) == 2) {
+                  wfLoadExtensionMessages('SemanticMediaWiki');
                   $words_for_true = explode(',', wfMsgForContent('smw_true_words'));
                   // get the value in the 'true' series that tends to be "yes",
                   // and go with that one - generally, that's the third word

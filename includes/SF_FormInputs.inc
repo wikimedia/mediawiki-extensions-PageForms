@@ -608,6 +608,8 @@ END;
     } else {
       // default to false - no need to check if it matches a 'false' word
       $vlc = strtolower(trim($cur_value));
+      // manually load SMW's message values, if they weren't loaded before
+      wfLoadExtensionMessages('SemanticMediaWiki');
       if (in_array($vlc, explode(',', wfMsgForContent('smw_true_words')), TRUE)) {
         $checked_str = ' checked="checked"';
       } else {
