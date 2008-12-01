@@ -812,7 +812,7 @@ function sffGetAllPagesForConcept($concept_name, $substring = null) {
 	$query_result = $store->getQueryResult($query);
 	$pages = array();
 	while ($res = $query_result->getNext()) {
-		$pages[] = $res[0]->getNextWikiText();
+		$pages[] = $res[0]->getNextText(SMW_OUTPUT_WIKI);
 	}
 	return $pages;
 }
