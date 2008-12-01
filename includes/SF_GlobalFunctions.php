@@ -191,8 +191,10 @@ function sffInitUserLanguage($langcode) {
 /**********************************************/
 
 function sffInitProperties() {
-	SMWPropertyValue::registerProperty('_SF_DF', '__spf', 'Has default form', true);
-	SMWPropertyValue::registerProperty('_SF_AF', '__spf', 'Has alternate form', true);
+	global $sfgContLang;
+	$sf_props = $sfgContLang->getSpecialPropertiesArray();
+	SMWPropertyValue::registerProperty('_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM], true);
+	SMWPropertyValue::registerProperty('_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM], true);
 	return true;
 }
 
