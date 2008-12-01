@@ -3384,8 +3384,10 @@ $messages['stq'] = array(
  * @author Jon Harald Søby
  * @author Lejonel
  * @author M.M.S.
+ * @author Najami
  */
 $messages['sv'] = array(
+	'specialpages-group-sf_group' => 'Semantiska formulär',
 	'createproperty' => 'Skapa en egenskap',
 	'sf_createproperty_allowedvalsinput' => 'Om du önskar att detta fält endast ska kunna ha vissa värden, skriv in listan över tillåtna värden, separerade med komma (om ett värde innehåller komma, ersätt det med "\\,"):',
 	'sf_createproperty_propname' => 'Namn:',
