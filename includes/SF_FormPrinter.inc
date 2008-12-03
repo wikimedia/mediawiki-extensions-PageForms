@@ -632,10 +632,8 @@ class SFFormPrinter {
             // form values, see if the current input is part of that formula,
             // and if so, substitute in the actual value
             if ($form_submitted && $generated_page_name != '') {
-              $generated_page_name = str_replace('.', '_', $generated_page_name);
-              $generated_page_name = str_replace(' ', '_', $generated_page_name);
-              $generated_page_name = str_ireplace("<$input_name>", $cur_value_in_template, $generated_page_name);
-
+              $true_input_name = str_replace('_', ' ', $input_name); 
+              $generated_page_name = str_ireplace("<$true_input_name>", $cur_value_in_template, $generated_page_name);
             }
             // disable this field if either the whole form is disabled, or
             // it's a restricted field and user doesn't have sysop privileges
