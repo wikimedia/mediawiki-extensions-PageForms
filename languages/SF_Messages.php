@@ -167,6 +167,13 @@ $messages['af'] = array(
 	'sf_editdata_none' => 'Geen',
 );
 
+/** Aragonese (Aragonés)
+ * @author Juanpabl
+ */
+$messages['an'] = array(
+	'sf_bad_date_error' => "ha d'estar una calendata conforme",
+);
+
 /** Arabic (العربية)
  * @author Meno25
  * @author OsamaK
@@ -567,6 +574,7 @@ $messages['bn'] = array(
  */
 $messages['bs'] = array(
 	'sf_createproperty_propname' => 'Naziv:',
+	'sf_createproperty_proptype' => 'Vrsta:',
 	'sf_createtemplate_deletefield' => 'Obriši',
 	'sf_createform_inputtypedefault' => '(standardno)',
 	'sf_createform_add' => 'Dodaj',
@@ -722,8 +730,10 @@ $messages['da'] = array(
  * @author Cipher
  * @author DaSch
  * @author Dominik Rodler
+ * @author Umherirrender
  */
 $messages['de'] = array(
+	'specialpages-group-sf_group' => 'Semantische Formen',
 	'createproperty' => 'Erstelle eine Eigenschaft',
 	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit "\\,"):',
 	'sf_createproperty_propname' => 'Name:',
