@@ -171,6 +171,8 @@ $messages['af'] = array(
  * @author Juanpabl
  */
 $messages['an'] = array(
+	'sf_createproperty_propname' => 'Nombre:',
+	'sf_createcategory_name' => 'Nombre:',
 	'sf_bad_date_error' => "ha d'estar una calendata conforme",
 );
 
@@ -580,6 +582,7 @@ $messages['bs'] = array(
 	'sf_createform_add' => 'Dodaj',
 	'sf_createcategory_name' => 'Naziv:',
 	'sf_editdata_remove' => 'Ukloni',
+	'sf_editdata_none' => 'ništa',
 );
 
 /** Catalan (Català)
@@ -1677,6 +1680,7 @@ $messages['hr'] = array(
  * @author Michawiki
  */
 $messages['hsb'] = array(
+	'specialpages-group-sf_group' => 'Semantiske formulary',
 	'createproperty' => 'Wutwor kajkosć',
 	'sf_createproperty_allowedvalsinput' => 'Jeli chceš, zo su jenož wěste hódnoty za tute polo dowolene, zapodaj lisćinu dowolenych hódnotow, wotdźělene přez komy (jeli hódnota komu wobsahuje, narunaj ju přez "\\,"):',
 	'sf_createproperty_propname' => 'Mjeno:',
@@ -1697,6 +1701,7 @@ $messages['hsb'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Zo by na wšěch stronach, kotrež tutu předłohu wužiwaja, wšě nastawki nalistował, kotrež wěstu kajkosć maja a na te strony  wotkazuja, podaj tu wotpowědnu kajkosć:',
 	'sf_createtemplate_aggregationlabel' => 'Titul za lisćinu:',
 	'sf_createtemplate_outputformat' => 'Wudatny format:',
+	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_infoboxformat' => 'Naprawo zaměstnjeny infokašćik',
 	'sf_createtemplate_addfield' => 'Polo přidać',
 	'sf_createtemplate_deletefield' => 'Wušmórnyć',
@@ -1745,6 +1750,7 @@ $messages['hsb'] = array(
 	'sf_adddata_altformsonly' => 'Wubjer přošu jedyn ze slědowacych formularow, zo by tutu stronu přidał:',
 	'editdata' => 'Daty wobdźěłać',
 	'sf_formedit' => 'Z formularom wobdźěłać',
+	'sf_viewform' => 'Formular wobhladać',
 	'sf_editsource' => 'Žórło wobdźěłać',
 	'sf_editdata_title' => '$1 wobdźěłać: $2',
 	'sf_editdata_badurl' => "To je strona za wobdźěłowanje datow. Dyrbiš formularne mjeno kaž tež cilowu stronu w URL podać; měło wupadać kaž 'Special:EditData?form=&lt;formularne mjeno&gt;&target=&lt;cilowa strona&gt;' abo 'Special:EditData/&lt;formularne mjeno&gt;/&lt;cilowa strona&gt;'.",
@@ -1759,6 +1765,7 @@ $messages['hsb'] = array(
 	'sf_bad_number_error' => 'dyrbi płaćiwa ličba być',
 	'sf_bad_integer_error' => 'dyrbi płaćiwa cyła ličba być',
 	'sf_bad_date_error' => 'dyrbi płaćiwy datum być',
+	'uploadwindow' => 'Wokno nahraćow',
 	'sf_property_isattribute' => 'To je atribut typa $1.',
 	'sf_property_isproperty' => 'To je kajkosć typa $1.',
 	'sf_property_allowedvals' => 'Dowolene hódnoty za tutu kajkosć su:',
@@ -2100,6 +2107,7 @@ $messages['lb'] = array(
 	'sf_createtemplate_deletefield' => 'Läschen',
 	'forms' => 'Formulairen',
 	'sf_createform_template' => 'Schabloun:',
+	'sf_createform_inputtypedefault' => '(Standardwert)',
 	'sf_createform_hidden' => 'Verstoppt',
 	'sf_createform_restricted' => 'Gespaart (Nëmmen Administrateuren kënnen et änneren)',
 	'sf_createform_mandatory' => 'Obligateresch',
@@ -2121,6 +2129,7 @@ $messages['lb'] = array(
 	'sf_blank_error' => 'Däerf net eidel sinn!',
 	'sf_bad_date_error' => 'muss e gëltegen Datum sinn',
 	'uploadwindow' => 'Fënster fir eropzelueden',
+	'sf_template_docufooter' => "Ännert d'Säit fir den Text vun der Schabloun ze gesinn",
 	'sf_form_freetextlabel' => 'Fräien Text',
 	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formulär $1.',
 	'sf_category_desc' => "Dëst ass d'$1 Kategorie.",
