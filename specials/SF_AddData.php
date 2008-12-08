@@ -120,8 +120,10 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 			$page_is_source = true;
 			$page_contents = SFFormUtils::getPreloadedText($wgRequest->getVal('preload'));
 		} else {
-			$page_is_source = false;
 			$page_contents = null;
+			// let other extensions preload the page, if they want
+			wfRunHooks('sfEditFormPreloadText', array(&$page_contents, $target_title, $form_title));
+			$page_is_source = ($page_contents != null);
 		}
 		list ($form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name) =
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title, $page_name_formula);
