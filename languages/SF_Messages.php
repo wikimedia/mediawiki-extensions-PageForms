@@ -2475,6 +2475,13 @@ $messages['nds'] = array(
 	'sf_createcategory_name' => 'Naam:',
 );
 
+/** Nedersaksisch (Nedersaksisch)
+ * @author Servien
+ */
+$messages['nds-nl'] = array(
+	'sf_createform_add' => 'Toevoegen',
+);
+
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Siebrand
