@@ -12,6 +12,7 @@ $messages = array();
  */
 $messages['en'] = array(
 	// user messages
+	'semanticforms-desc'                 => 'Forms for adding and editing semantic data',
 	'specialpages-group-sf_group'        => 'Semantic Forms',
 	'createproperty'                     => 'Create a property',
 	'sf_createproperty_allowedvalsinput' => 'If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
