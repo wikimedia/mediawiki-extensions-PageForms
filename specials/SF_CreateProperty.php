@@ -29,30 +29,31 @@ function createPropertyText($property_type, $allowed_values_str) {
 
 	wfLoadExtensionMessages('SemanticForms');
 
-	$namespace_labels = $smwgContLang->getNamespaces();
-	if ($property_type == $namespace_labels[SMW_NS_RELATION]) {
-		$text = wfMsgForContent('sf_property_isrelation');
+	// handling of special property labels changed in SMW 1.4
+	if (method_exists($smwgContLang, 'getPropertyLabels')) {
+		$prop_labels = $smwgContLang->getPropertyLabels();
+		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
 	} else {
-		global $smwgContLang;
-		if (class_exists('SMWPropertyValue')) {
-			$has_type_prop = SMWPropertyValue::makeUserProperty("Has type");
-			$type_tag = "[[{$has_type_prop->getWikiValue()}::$property_type]]";
-		} else {
-			$specprops = $smwgContLang->getSpecialPropertiesArray();
-			$type_tag = "[[{$specprops[SMW_SP_HAS_TYPE]}::$property_type]]";
-		}
-		$text = wfMsgForContent('sf_property_isproperty', $type_tag);
-		if ($allowed_values_str != '') {
-			$text .= "\n\n" . wfMsgForContent('sf_property_allowedvals');
-			// replace the comma substitution character that has no chance of
-			// being included in the values list - namely, the ASCII beep
-			global $sfgListSeparator;
-			$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
-			$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
-			foreach ($allowed_values_array as $i => $value) {
-				// replace beep back with comma, trim
-				$value = str_replace("\a", $sfgListSeparator, trim($value));
-				$text .= "\n* [[" . $specprops[SMW_SP_POSSIBLE_VALUE] . "::$value]]";
+		$spec_props = $smwgContLang->getSpecialPropertiesArray();
+		$type_tag = "[[{$spec_props[SMW_SP_HAS_TYPE]}::$property_type]]";
+	}
+	$text = wfMsgForContent('sf_property_isproperty', $type_tag);
+	if ($allowed_values_str != '') {
+		$text .= "\n\n" . wfMsgForContent('sf_property_allowedvals');
+		// replace the comma substitution character that has no chance of
+		// being included in the values list - namely, the ASCII beep
+		global $sfgListSeparator;
+		$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
+		$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
+		foreach ($allowed_values_array as $i => $value) {
+			// replace beep back with comma, trim
+			$value = str_replace("\a", $sfgListSeparator, trim($value));
+			if (method_exists($smwgContLang, 'getPropertyLabels')) {
+				$prop_labels = $smwgContLang->getPropertyLabels();
+				$text .= "\n* [[" . $prop_labels['_PVAL'] . "::$value]]";
+			} else {
+				$spec_props = $smwgContLang->getSpecialPropertiesArray();
+				$text .= "\n* [[" . $spec_props[SMW_SP_POSSIBLE_VALUE] . "::$value]]";
 			}
 		}
 	}
