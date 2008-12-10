@@ -5,6 +5,7 @@
  * @author Yaron Koren
  * @author Jeffrey Stuckman
  * @author Matt Williamson
+ * @author Patrick Nagel
  */
 
 class SFFormInputs {
@@ -465,7 +466,7 @@ END;
   }
 
   function dateEntryHTML($date, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls;
+    global $sfgTabIndex, $sfgFieldNum, $sfgJSValidationCalls, $wgAmericanDates;
 
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
@@ -495,16 +496,22 @@ END;
       $month = $cur_date['month'];
       $day = null; // no need for day
     }
+    $text = "";
     $disabled_text = ($is_disabled) ? "disabled" : "";
-    $text = SFFormInputs::monthDropdownHTML($month, $input_name, $is_disabled);
-    $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_day" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
+    if ($wgAmericanDates) {
+      $text .= SFFormInputs::monthDropdownHTML($month, $input_name, $is_disabled);
+      $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_day" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
+    } else {
+      $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_day" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>' . "\n";
+      $text .= SFFormInputs::monthDropdownHTML($month, $input_name, $is_disabled);
+    }
     $text .= '  <input tabindex="' . $sfgTabIndex . '" id="' . $input_id . '_year" name="' . $input_name . '[year]" type="text" value="' . $year . '" size="4" ' . $disabled_text . '/>' . "\n";
     $text .= "	<span id=\"$info_id\" class=\"errorMessage\"></span>";
     return array($text, null);
   }
 
   function dateTimeEntryHTML($datetime, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfg24HourTime;
 
     $include_timezone = $other_args['include_timezone'];
  
@@ -515,14 +522,22 @@ END;
         if (isset($datetime['hour'])) $hour = $cur_value['hour'];
         if (isset($datetime['minute'])) $minute = $cur_value['minute'];
         if (isset($datetime['second'])) $second = $cur_value['second'];
-        if (isset($datetime['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
+        if (! $sfg24HourTime) {
+          if (isset($datetime['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
+        }
         if (isset($datetime['timezone'])) $timezone = $cur_value['timezone'];
       } else {
         $actual_date = strtotime($datetime);
-        $hour = date("g", $actual_date);
+        if ($sfg24HourTime) {
+          $hour = date("G", $actual_date);
+        } else {
+          $hour = date("g", $actual_date);
+        }
         $minute = date("i", $actual_date);
         $second = date("s", $actual_date);
-        $ampm24h = date("A", $actual_date);
+        if (! $sfg24HourTime) {
+          $ampm24h = date("A", $actual_date);
+        }
         $timezone = date("T", $actual_date);
       }
     } else {
@@ -541,15 +556,17 @@ END;
     $sfgTabIndex++;
     $text .= ':<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[second]" type="text" value="' . $second . '" size="2"/ ' . $disabled_text . '>' . "\n";
 
-    $sfgTabIndex++;
-    $text .= '   <select tabindex="' . $sfgTabIndex . '" name="' . $input_name . "[ampm24h]\" $disabled_text>\n";
-    $ampm24h_options = array('', 'AM', 'PM');
-    foreach ($ampm24h_options as $value) {
-      $text .= "        <option value=\"$value\"";
-      if ($value == $ampm24h) {$text .= " selected=\"selected\""; }
-      $text .= ">$value</option>\n";
+    if (! $sfg24HourTime) {
+      $sfgTabIndex++;
+      $text .= '   <select tabindex="' . $sfgTabIndex . '" name="' . $input_name . "[ampm24h]\" $disabled_text>\n";
+      $ampm24h_options = array('', 'AM', 'PM');
+      foreach ($ampm24h_options as $value) {
+        $text .= "        <option value=\"$value\"";
+        if ($value == $ampm24h) {$text .= " selected=\"selected\""; }
+        $text .= ">$value</option>\n";
+      }
+      $text .= "  </select>\n";
     }
-    $text .= "  </select>\n";
 
     if ($include_timezone) {
       $sfgTabIndex++;
