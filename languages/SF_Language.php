@@ -43,14 +43,14 @@ abstract class SF_Language {
 	/**
 	 * Function that returns the labels for the special properties.
 	 */
-	function getSpecialPropertiesArray() {
+	function getPropertyLabels() {
 		return $this->m_SpecialProperties;
 	}
 
 	/**
 	 * Aliases for special properties, if any.
 	 */
-	function getSpecialPropertyAliases() {
+	function getPropertyAliases() {
 		return $this->m_SpecialPropertyAliases;
 	}
 
