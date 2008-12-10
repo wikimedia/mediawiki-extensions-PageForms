@@ -545,6 +545,7 @@ END;
       $hour = null;
       $minute = null;
       $second = "00"; // default at least this value
+      $ampm24h = "";
       $timezone = "";
     }
 
