@@ -88,4 +88,7 @@ $sfgYUIBase = "http://yui.yahooapis.com/2.6.0/build/";
 ###
 $sfgUseFormEditPage = false;//version_compare( $wgVersion, '1.14alpha', '>=' );
 
-
+###
+# Use 24-hour time format in forms, e.g. 15:30 instead of 3:30 PM
+###
+$sfg24HourTime = false;
