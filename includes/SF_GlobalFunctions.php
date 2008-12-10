@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.3.8');
+define('SF_VERSION','1.3.9');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -17,6 +17,7 @@ $wgExtensionCredits['specialpage'][]= array(
 	'author' => 'Yaron Koren and others',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
 	'description' => 'Forms for adding and editing semantic data',
+	'descriptionmsg'  => 'semanticforms-desc',
 );
 
 // constants for special properties
@@ -192,7 +193,7 @@ function sffInitUserLanguage($langcode) {
 
 function sffInitProperties() {
 	global $sfgContLang;
-	$sf_props = $sfgContLang->getSpecialPropertiesArray();
+	$sf_props = $sfgContLang->getPropertyLabels();
 	SMWPropertyValue::registerProperty('_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM], true);
 	SMWPropertyValue::registerProperty('_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM], true);
 	return true;
@@ -329,17 +330,14 @@ function sffGetDefaultForm($page_title, $page_namespace) {
 	if (class_exists('SMWPropertyValue')) {
 		$default_form_property = SMWPropertyValue::makeProperty('_SF_DF');
 		$res = $store->getPropertyValues($title, $default_form_property);
-		// make sure it's in the form namespace
-		if (isset($res[0]) && ($res[0]->getNamespace() == SF_NS_FORM)) {
-			$form_name = $res[0]->getTitle()->getText();
-			return $form_name;
-		} else {
+		if (isset($res[0]))
+			return $res[0]->getTitle()->getText();
+		else
 			return null;
-		}
 	}
 
 	// otherwise, it's a bit more complex
-	$sf_props = $sfgContLang->getSpecialPropertiesArray();
+	$sf_props = $sfgContLang->getPropertyLabels();
 	$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
 	$property = sffCreateProperty($default_form_property);
 	$res = $store->getPropertyValues($title, $property);
@@ -352,7 +350,7 @@ function sffGetDefaultForm($page_title, $page_namespace) {
 	}
 	// if that didn't work, try any aliases that may exist
 	// for SF_SP_HAS_DEFAULT_FORM
-	$sf_props_aliases = $sfgContLang->getSpecialPropertyAliases();
+	$sf_props_aliases = $sfgContLang->getPropertyAliases();
 	foreach ($sf_props_aliases as $alias => $prop_code) {
 		if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
 			$property = sffCreateProperty($alias);
@@ -387,16 +385,13 @@ function sffGetAlternateForms($page_title, $page_namespace) {
 		// there could be multiple alternate forms
 		$form_names = array();
 		foreach ($res as $wiki_page_value) {
-			// make sure it's in the form namespace
-			if ($wiki_page_value->getNamespace() == SF_NS_FORM) {
-				$form_names[] = $wiki_page_value->getTitle()->getText();
-			}
+			$form_names[] = $wiki_page_value->getTitle()->getText();
 		}
 		return $form_names;
 	}
 
 	// otherwise, it's a bit more complex
-	$sf_props = $sfgContLang->getSpecialPropertiesArray();
+	$sf_props = $sfgContLang->getPropertyLabels();
 	$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
 	$property = sffCreateProperty($alternate_form_property);
 	$prop_vals = $store->getPropertyValues($title, $property);
