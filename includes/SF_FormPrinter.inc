@@ -670,7 +670,7 @@ class SFFormPrinter {
                 $year = date("Y", $cur_time);
                 $month = date("n", $cur_time);
                 $day = date("j", $cur_time);
-                global $wgAmericanDates;
+                global $wgAmericanDates, $sfg24HourTime;
                 if ($wgAmericanDates == true) {
                   $month_names = sffGetMonthNames();
                   $month_name = $month_names[$month - 1];
@@ -679,11 +679,19 @@ class SFFormPrinter {
                   $cur_value_in_template = "$year/$month/$day";
                 }
                 if ($input_type ==  'datetime' || $input_type == 'datetime with timezone') {
-                  $hour = str_pad(intval(substr(date("g", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
+                  if ($sfg24HourTime) {
+                    $hour = str_pad(intval(substr(date("G", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
+                  } else {
+                    $hour = str_pad(intval(substr(date("g", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
+                  }
                   $minute = str_pad(intval(substr(date("i", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
                   $second = str_pad(intval(substr(date("s", $cur_time),0,2)),2,'0',STR_PAD_LEFT);
-                  $ampm = date("A", $cur_time);
-                  $cur_value_in_template .= " $hour:$minute:$second $ampm";
+                  if ($sfg24HourTime) {
+                    $cur_value_in_template .= " $hour:$minute:$second";
+                  } else {
+                    $ampm = date("A", $cur_time);
+                    $cur_value_in_template .= " $hour:$minute:$second $ampm";
+                  }
                 }
                 if ($input_type == 'datetime with timezone') {
                   $timezone = date("T", $cur_time);
