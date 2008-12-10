@@ -519,13 +519,13 @@ END;
       // can show up here either as an array or a string, depending on
       // whether it came from user input or a wiki page
       if (is_array($datetime)) {
-        if (isset($datetime['hour'])) $hour = $cur_value['hour'];
-        if (isset($datetime['minute'])) $minute = $cur_value['minute'];
-        if (isset($datetime['second'])) $second = $cur_value['second'];
+        if (isset($datetime['hour'])) $hour = $datetime['hour'];
+        if (isset($datetime['minute'])) $minute = $datetime['minute'];
+        if (isset($datetime['second'])) $second = $datetime['second'];
         if (! $sfg24HourTime) {
-          if (isset($datetime['ampm24h'])) $ampm24h = $cur_value['ampm24h'];
+          if (isset($datetime['ampm24h'])) $ampm24h = $datetime['ampm24h'];
         }
-        if (isset($datetime['timezone'])) $timezone = $cur_value['timezone'];
+        if (isset($datetime['timezone'])) $timezone = $datetime['timezone'];
       } else {
         $actual_date = strtotime($datetime);
         if ($sfg24HourTime) {
