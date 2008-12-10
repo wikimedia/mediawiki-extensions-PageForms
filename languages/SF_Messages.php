@@ -733,28 +733,29 @@ $messages['da'] = array(
  * @author Cipher
  * @author DaSch
  * @author Dominik Rodler
+ * @author Goetz
  * @author Umherirrender
  */
 $messages['de'] = array(
 	'specialpages-group-sf_group' => 'Semantische Formen',
-	'createproperty' => 'Erstelle eine Eigenschaft',
+	'createproperty' => 'Ein Attribut erstellen',
 	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit "\\,"):',
 	'sf_createproperty_propname' => 'Name:',
 	'sf_createproperty_proptype' => 'Typ:',
 	'templates' => 'Vorlage',
 	'sf_templates_docu' => 'Die folgenden Vorlagen existieren in {{SITENAME}}.',
 	'sf_templates_definescat' => 'definiert Kategorie:',
-	'createtemplate' => 'Erstelle eine Vorlage',
+	'createtemplate' => 'Eine Vorlage erstellen',
 	'sf_createtemplate_namelabel' => 'Vorlagenname:',
 	'sf_createtemplate_categorylabel' => 'Durch Vorlage definierte Kategorie (optional):',
 	'sf_createtemplate_templatefields' => 'Vorlagenfelder',
 	'sf_createtemplate_fieldsdesc' => 'Wenn ein Feld einer Vorlage keinen Feldnamen benötigen soll, gib einfach anstatt eines tatsächlichen Namens die Indexnummer des Feldes als Name ein (z.B. 1, 2, 3 usw.).',
 	'sf_createtemplate_fieldname' => 'Feldname:',
 	'sf_createtemplate_displaylabel' => 'Anzuzeigende Feldbezeichnung:',
-	'sf_createtemplate_semanticproperty' => 'Semantische Eigenschaft:',
+	'sf_createtemplate_semanticproperty' => 'Semantisches Attribut:',
 	'sf_createtemplate_fieldislist' => 'Dieses Feld kann eine Liste von Werten enthalten, die durch Kommata getrennt werden.',
 	'sf_createtemplate_aggregation' => 'Zusammenfassung',
-	'sf_createtemplate_aggregationdesc' => 'Um auf allen Seiten, die diese Vorlage benutzen, alle Artikel aufzulisten, die eine bestimmte Eigenschaft besitzen und auf diese Seiten verlinkt sind, gib die gewünschte Eigenschaft hier an:',
+	'sf_createtemplate_aggregationdesc' => 'Um auf allen Seiten, die diese Vorlage benutzen, alle Artikel aufzulisten, die ein bestimmtes Attribut besitzen und auf diese Seiten verlinkt sind, gib das gewünschte Attribut hier an:',
 	'sf_createtemplate_aggregationlabel' => 'Titel für Liste:',
 	'sf_createtemplate_outputformat' => 'Ausgabeformat:',
 	'sf_createtemplate_standardformat' => 'Standard',
@@ -805,9 +806,9 @@ $messages['de'] = array(
 	'sf_adddata_altforms' => 'Du kannst alternativ diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_adddata_altformsonly' => 'Bitte wähle eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'editdata' => 'Bearbeite Daten',
-	'sf_formedit' => 'Bearbeite mit Formular',
-	'sf_viewform' => 'Zeige Formular',
-	'sf_editsource' => 'Bearbeite Quelltext',
+	'sf_formedit' => 'mit Formular bearbeiten',
+	'sf_viewform' => 'Formular anzeigen',
+	'sf_editsource' => 'Quelltext bearbeiten',
 	'sf_editdata_title' => 'Bearbeite $1: $2',
 	'sf_editdata_badurl' => "Dies ist die Seite zum Bearbeiten von Daten. Du musst den Namen eines Formulars UND die zu bearbeitende Seite in der URL angeben. Es sollte aussehen wie 'Special:EditData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;' oder 'Special:EditData/&lt;Formularname&gt;/&lt;Zielseite&gt;'.",
 	'sf_editdata_formwarning' => 'Warnung: Diese Seite <a href="$1">existiert bereits</a>, aber sie benutzt nicht dieses Formular.',
@@ -817,7 +818,7 @@ $messages['de'] = array(
 	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft; weiteres siehe unten',
 	'sf_blank_error' => 'Darf nicht leer sein!',
 	'sf_bad_url_error' => "muss das korrekte URL-Format haben, beginnend mit 'http://'",
-	'sf_bad_email_error' => 'muss ein gültiges Email-Adressformat haben',
+	'sf_bad_email_error' => 'muss ein gültiges E-Mail-Adressformat haben',
 	'sf_bad_number_error' => 'muss eine gültige Zahl sein',
 	'sf_bad_integer_error' => 'muss eine gültige Ganzzahl sein',
 	'sf_bad_date_error' => 'muss ein gültiges Datum sein',
@@ -2020,6 +2021,7 @@ $messages['jv'] = array(
 /** Khmer (ភាសាខ្មែរ)
  * @author Chhorran
  * @author Lovekhmer
+ * @author Thearith
  */
 $messages['km'] = array(
 	'sf_createproperty_propname' => 'ឈ្មោះ៖',
@@ -2057,7 +2059,7 @@ $messages['km'] = array(
 	'sf_editdata_addanother' => 'បន្ថែមមួយផ្សេងទៀត',
 	'sf_editdata_none' => 'ទទេ',
 	'sf_blank_error' => 'មិនអាចទទេទេ',
-	'sf_bad_email_error' => 'ទំរង់អាស័យដ្ឋានអ៊ីមែវល៍ មិនត្រឹមត្រូវ',
+	'sf_bad_email_error' => 'ទម្រង់អាសយដ្ឋានអ៊ីមែល មិនត្រឹមត្រូវ',
 	'sf_template_docufooter' => 'កែប្រែទំព័រ ដើម្បីឃើញ អត្ថបទ នៃគំរូខ្នាត ។',
 	'sf_category_hasdefaultform' => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
 );

@@ -84,6 +84,20 @@ $aliases['gl'] = array(
 	'Templates' => array( 'Modelos' ),
 );
 
+/** Swiss German (Alemannisch) */
+$aliases['gsw'] = array(
+	'AddData' => array( 'Date zuegee' ),
+	'AddPage' => array( 'Syte zuegee' ),
+	'CreateCategory' => array( 'Kategori aalege' ),
+	'CreateForm' => array( 'Form aalege' ),
+	'CreateProperty' => array( 'Eigeschaft aalege' ),
+	'CreateTemplate' => array( 'Template aalege' ),
+	'EditData' => array( 'Date bearbeite' ),
+	'Forms' => array( 'Form' ),
+	'Templates' => array( 'Templates' ),
+	'UploadWindow' => array( 'Fänschter zum Uffelade' ),
+);
+
 /** Upper Sorbian (Hornjoserbsce) */
 $aliases['hsb'] = array(
 	'Forms' => array( 'Formulary' ),
