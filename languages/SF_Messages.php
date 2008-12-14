@@ -1494,10 +1494,14 @@ $messages['grc'] = array(
 	'templates' => 'Πρότυπα',
 	'sf_createtemplate_deletefield' => 'Σβεννύναι',
 	'sf_createform_template' => 'Πρότυπον:',
+	'sf_createform_field' => 'Πεδίον:',
+	'sf_createform_inputtypedefault' => '(προκαθωρισμένη)',
 	'sf_createform_hidden' => 'Κεκρυμμένη',
 	'sf_createform_add' => 'Προστιθέναι',
 	'sf_createcategory_name' => 'Ὄνομα:',
+	'sf_editdata_remove' => 'Άφαιρεῖν',
 	'sf_editdata_none' => 'Οὐδέν',
+	'sf_form_freetextlabel' => 'Ἐλεύθερον κείμενον',
 );
 
 /** Gujarati (ગુજરાતી)
