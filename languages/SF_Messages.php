@@ -954,6 +954,8 @@ $messages['eo'] = array(
  * @author Sanbec
  */
 $messages['es'] = array(
+	'semanticforms-desc' => 'Formularios para añadir y editar datos semánticos',
+	'specialpages-group-sf_group' => 'Formularios semánticos',
 	'createproperty' => 'Crear una propiedad',
 	'sf_createproperty_allowedvalsinput' => 'Si usted desea que este campo solo permita tener ciertos valores, ingrese la lista de valores permitidos separados por comas (si un valor contiene una coma, reemplazelo con "\\,"):',
 	'sf_createproperty_propname' => 'Nombre:',
@@ -1011,7 +1013,7 @@ $messages['es'] = array(
 	'sf_createcategory_name' => 'Nombre:',
 	'sf_createcategory_defaultform' => 'Formulario por defecto:',
 	'sf_createcategory_makesubcategory' => 'Hacer esto una subcategoría de otra categoría (opcional):',
-	'addpage' => 'Agregar página',
+	'addpage' => 'Agregar página con formulario',
 	'sf_addpage_badform' => 'Error: no se encontró la página del formulario en $1',
 	'sf_addpage_docu' => "Ingresar el nombre de la página aqui, para ser editado con el formulario '$1'. Si esta página ya existe, usted será enviado al formulario para editar esa página. De otra forma, usted será enviado al formulario para agregar la página.",
 	'sf_addpage_noform_docu' => 'Ingresar el nombre de la página aqui, y seleccionar el formulario con el cual se editará. Si esta página ya existe, usted será enviado al formulario para editar esa página. De otra forma, usted será enviado al formulario para agregar la página.',
