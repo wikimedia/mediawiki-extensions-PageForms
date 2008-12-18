@@ -1975,6 +1975,13 @@ $messages['it'] = array(
 	'sf_createcategory_name' => 'Nome:',
 );
 
+/** Japanese (日本語)
+ * @author Fryed-peach
+ */
+$messages['ja'] = array(
+	'sf_editdata_none' => 'なし',
+);
+
 /** Javanese (Basa Jawa)
  * @author Meursault2004
  */
