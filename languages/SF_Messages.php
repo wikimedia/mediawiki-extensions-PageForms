@@ -1521,7 +1521,7 @@ $messages['gu'] = array(
 	'createcategory' => 'શ્રેણીની રચના કરો',
 	'sf_createcategory_name' => 'નામ',
 	'sf_createcategory_makesubcategory' => 'આને અન્ય શ્રેણીની ઉપશ્રેણી બનાવો (વૈકલ્પિક):',
-	'addpage' => 'પાનું ઉમેરો',
+	'addpage' => 'ફોર્મ વાળું પાનું ઉમેરો',
 	'sf_blank_namespace' => 'મુખ્ય',
 );
 
@@ -1556,8 +1556,15 @@ $messages['haw'] = array(
 
 /** Hebrew (עברית)
  * @author Yaron Koren
+ * @author YaronSh
  */
 $messages['he'] = array(
+	'semanticforms-desc' => 'טפסים להוספת ועריכת נתונים סמנטיים',
+	'specialpages-group-sf_group' => 'טפסים סמנטיים',
+	'createproperty' => 'יצירת מאפיין',
+	'sf_createproperty_allowedvalsinput' => 'אם ברצונכם שלשדה זה יהיו ערכים מסויימים, הזינו את רשימת הערכים המורשים, מופרדים בפסיקים (אם ישנו ערך המכיל פסיק החליפו אותו ב־"\\,"):',
+	'sf_createproperty_propname' => 'שם:',
+	'sf_createproperty_proptype' => 'סוג:',
 	'templates' => 'תבניות',
 	'sf_templates_docu' => 'התבניות הבאות קיימות בוויקי הזה.',
 	'sf_templates_definescat' => 'מגדיר את הקטגוריה:',
@@ -1569,6 +1576,11 @@ $messages['he'] = array(
 	'sf_createtemplate_fieldname' => 'שם השדה:',
 	'sf_createtemplate_displaylabel' => 'תוית תצוגה:',
 	'sf_createtemplate_semanticproperty' => 'זה השדה הסמנטי:',
+	'sf_createtemplate_fieldislist' => 'השדה יכול לאחסן רשימת ערכים, המופרדים בפסיקים',
+	'sf_createtemplate_aggregation' => 'מצבור',
+	'sf_createtemplate_aggregationdesc' => 'על מנת להציג את בכל דף המשתמש בתבנית זו, את כל הכתבות המכילות מאפיין המצביע לדף זה, ציינו את המאפיין להלן:',
+	'sf_createtemplate_aggregationlabel' => 'כותרת לרשימה:',
+	'sf_createtemplate_outputformat' => 'מבנה הפלט:',
 	'sf_createtemplate_addfield' => 'הוסף שדה',
 	'sf_createtemplate_deletefield' => 'מחק',
 	'forms' => 'טפסים',
