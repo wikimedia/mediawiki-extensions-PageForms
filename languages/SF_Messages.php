@@ -1261,10 +1261,12 @@ $messages['fi'] = array(
 /** French (Français)
  * @author Dereckson
  * @author Grondin
+ * @author IAlex
  * @author Sherbrooke
  * @author Urhixidur
  */
 $messages['fr'] = array(
+	'semanticforms-desc' => 'Formulaires pour ajouter et modifier des données sémantiques',
 	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Définir une propriété',
 	'sf_createproperty_allowedvalsinput' => "Si vous décidez que ce champ n'accepte que certaines valeurs, entrez la liste des valeurs permises séparées par des virgules. (Si une valeur contient une virgule, remplacez-la par « \\, ») :",
@@ -1381,6 +1383,7 @@ $messages['fy'] = array(
  * @author Xosé
  */
 $messages['gl'] = array(
+	'semanticforms-desc' => 'Formularios para engadir e editar datos semánticos',
 	'specialpages-group-sf_group' => 'Formularios semánticos',
 	'createproperty' => 'Crear unha propiedade',
 	'sf_createproperty_allowedvalsinput' => 'Se quere obrigar a que este campo só teña determinados valores, introduza a lista de valores permitidos separados por vírgulas (se un valor contén unha vírgula, substitúaa por "\\,"):',
@@ -1709,6 +1712,7 @@ $messages['hr'] = array(
  * @author Michawiki
  */
 $messages['hsb'] = array(
+	'semanticforms-desc' => 'Formulary za přidawanje a wobdźěłowanje semantiskich datow',
 	'specialpages-group-sf_group' => 'Semantiske formulary',
 	'createproperty' => 'Wutwor kajkosć',
 	'sf_createproperty_allowedvalsinput' => 'Jeli chceš, zo su jenož wěste hódnoty za tute polo dowolene, zapodaj lisćinu dowolenych hódnotow, wotdźělene přez komy (jeli hódnota komu wobsahuje, narunaj ju přez "\\,"):',
@@ -2143,6 +2147,7 @@ $messages['lb'] = array(
 	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_deletefield' => 'Läschen',
 	'forms' => 'Formulairen',
+	'createform' => 'E Formulaire uleeën',
 	'sf_createform_template' => 'Schabloun:',
 	'sf_createform_inputtypedefault' => '(Standardwert)',
 	'sf_createform_hidden' => 'Verstoppt',
@@ -2151,13 +2156,16 @@ $messages['lb'] = array(
 	'sf_createform_removetemplate' => 'Schablon ewechhuelen',
 	'sf_createform_addtemplate' => 'Schabloun derbäisetzen:',
 	'sf_createform_beforetemplate' => "Virun d'Schabloun:",
+	'sf_createform_atend' => 'Um Enn',
 	'sf_createform_add' => 'Derbäisetzen',
 	'createcategory' => 'Eng Kategorie maachen',
 	'sf_createcategory_name' => 'Numm:',
+	'sf_createcategory_defaultform' => 'Standard-Formulaire:',
 	'addpage' => 'Säit mat engem Formulaire derbäisetzen',
 	'addoreditdata' => 'Derbäisetzen oder änneren',
 	'editdata' => 'Donnéeën änneren',
 	'sf_formedit' => 'Formulaire änneren',
+	'sf_viewform' => 'Formulaire weisen',
 	'sf_editsource' => 'Quelltext änneren',
 	'sf_editdata_title' => 'Ännert $1: $2',
 	'sf_editdata_remove' => 'Ewech huelen',
@@ -2166,6 +2174,8 @@ $messages['lb'] = array(
 	'sf_blank_error' => 'Däerf net eidel sinn!',
 	'sf_bad_date_error' => 'muss e gëltegen Datum sinn',
 	'uploadwindow' => 'Fënster fir eropzelueden',
+	'sf_template_docu' => "Dëst ass d''$1'-Schabloun.
+Si soll an dësem Format opgeruff ginn:",
 	'sf_template_docufooter' => "Ännert d'Säit fir den Text vun der Schabloun ze gesinn",
 	'sf_form_freetextlabel' => 'Fräien Text',
 	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formulär $1.',
@@ -2524,6 +2534,7 @@ $messages['nds-nl'] = array(
  * @author Siebrand
  */
 $messages['nl'] = array(
+	'semanticforms-desc' => 'Formulieren voor het toevoegen en bewerken van semantische gegevens',
 	'specialpages-group-sf_group' => 'Semantische formulieren',
 	'createproperty' => 'Eigenschap aanmaken',
 	'sf_createproperty_allowedvalsinput' => 'Als dit veld alleen bepaalde waarden mag hebben, vul dan een lijst van waardes in, gescheiden door komma\'s (als een waarde komma\'s bevat, vervang die door "\\,"):',
@@ -2758,6 +2769,7 @@ $messages['nso'] = array(
  * @author Cedric31
  */
 $messages['oc'] = array(
+	'semanticforms-desc' => 'Formularis per apondre e modificar de donadas semanticas',
 	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Definir una proprietat',
 	'sf_createproperty_allowedvalsinput' => "Se decidatz qu'aqueste camp accèpta pas que cèrtas valors, entratz la lista de las valors permesas separadas per de virgulas. (Se una valor conten una virgula, remplaçat-la per « \\, ») :",
@@ -3245,6 +3257,7 @@ $messages['ru'] = array(
  * @author Helix84
  */
 $messages['sk'] = array(
+	'semanticforms-desc' => 'Formuláre na pridávanie a úpravu sémantických údajov',
 	'specialpages-group-sf_group' => 'Sémantické formuláre',
 	'createproperty' => 'Vytvoriť vlastnosť',
 	'sf_createproperty_allowedvalsinput' => 'Ak chcete povoliť tomuto poľu nadobúdať iba určité hodnoty, zadajte zoznam povolených hodnôt oddelených čiarkami (ak hodnota obsahuje čiarku, nahraďte ju „\\,“)',
