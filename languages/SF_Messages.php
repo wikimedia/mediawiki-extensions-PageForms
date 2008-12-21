@@ -1158,6 +1158,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Crt
  * @author Nike
  */
 $messages['fi'] = array(
@@ -1218,7 +1219,7 @@ $messages['fi'] = array(
 	'sf_createcategory_name' => 'Nimi',
 	'sf_createcategory_defaultform' => 'Oletuslomake',
 	'sf_createcategory_makesubcategory' => 'Tee tästä toisen luokan alaluokka (ei-pakollinen):',
-	'addpage' => 'Lisää sivu',
+	'addpage' => 'Lisää sivu lomakkeella',
 	'sf_addpage_badform' => 'Virhe: lomakesivua ei löytynyt kohteesta $1',
 	'sf_addpage_docu' => 'Anna sivun nimi, jota muokataan lomakkeella $1. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
 	'sf_addpage_noform_docu' => 'Anna sivun nimi ja valitse lomake, jolla haluat muokata sitä. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voit muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
@@ -1581,19 +1582,27 @@ $messages['he'] = array(
 	'sf_createtemplate_aggregationdesc' => 'על מנת להציג את בכל דף המשתמש בתבנית זו, את כל הכתבות המכילות מאפיין המצביע לדף זה, ציינו את המאפיין להלן:',
 	'sf_createtemplate_aggregationlabel' => 'כותרת לרשימה:',
 	'sf_createtemplate_outputformat' => 'מבנה הפלט:',
-	'sf_createtemplate_addfield' => 'הוסף שדה',
-	'sf_createtemplate_deletefield' => 'מחק',
+	'sf_createtemplate_standardformat' => 'תקני',
+	'sf_createtemplate_infoboxformat' => 'תיבת מידע מצד שמאל',
+	'sf_createtemplate_addfield' => 'הוספת שדה',
+	'sf_createtemplate_deletefield' => 'מחיקה',
+	'sf_createtemplate_addtemplatebeforesave' => 'עליכם להוסיף לפחות תבנית אחת לטופס זה לפני שתוכלו לשמור אותו.',
 	'forms' => 'טפסים',
 	'sf_forms_docu' => 'הטפסים הבאים קיימים בוויקי הזה.',
-	'createform' => 'צור טופס',
+	'createform' => 'יצירת טופס',
 	'sf_createform_nameinput' => 'שם הטופס (מקובל לתת לטופס שם בהתאם לשם התבנית העיקרית שהוא מגדיר)',
 	'sf_createform_template' => 'תבנית:',
 	'sf_createform_templatelabelinput' => 'תוית לתבנית (אופציונלי):',
 	'sf_createform_allowmultiple' => ' הרשה כפילויות (או אפס) מהתבנית הזאת בדף המיוצר',
 	'sf_createform_field' => 'שדה:',
 	'sf_createform_fieldattr' => 'השדה הזה מגדיר את התכונה $1, מטיפוס $2.',
+	'sf_createform_fieldattrlist' => 'שדה זה תוחם את רשימת הרכיבים להם יש את המאפיין $1, מסוג $2.',
 	'sf_createform_fieldattrunknowntype' => 'השדה הזה מגדיר את התכונה $1, לא מוגדר.',
 	'sf_createform_fieldrel' => 'השדה הזה מגדיר את היחס $1.',
+	'sf_createform_fieldrellist' => 'שדה זה תוחם את רשימת הרכיבים להם יש קשר עם $1.',
+	'sf_createform_fieldprop' => 'שדה זה תוחם את המאפיין $1, מסוג $2.',
+	'sf_createform_fieldproplist' => 'שדה זה תוחם את רשימת הרכיבים להם יש את המאפיין $1, מסוג $2.',
+	'sf_createform_fieldpropunknowntype' => 'שדה זה תוחם את המאפיין $1, מסוג לא מוגדר.',
 	'sf_createform_formlabel' => 'תוית בטופס:',
 	'sf_createform_hidden' => 'מוסתר',
 	'sf_createform_mandatory' => 'הכרחי',
@@ -2889,6 +2898,7 @@ $messages['ps'] = array(
 	'sf_createtemplate_aggregationlabel' => 'د لړليک لپاره سرليک:',
 	'sf_createtemplate_deletefield' => 'ړنګول',
 	'sf_createform_template' => 'کينډۍ:',
+	'sf_createform_inputtypedefault' => '(تلواليز)',
 	'sf_createform_hidden' => 'پټ',
 	'sf_createform_addtemplate' => 'کينډۍ ورګډول:',
 	'sf_createform_atend' => 'په پای کې',

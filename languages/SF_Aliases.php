@@ -123,8 +123,10 @@ $aliases['km'] = array(
 	'AddData' => array( 'បន្ថែមទិន្នន័យ' ),
 	'AddPage' => array( 'បន្ថែមទំព័រ' ),
 	'CreateCategory' => array( 'បង្កើតចំណាត់ត់ថ្នាក់ក្រុម' ),
+	'CreateForm' => array( 'បង្កើត​ទម្រង់' ),
 	'CreateTemplate' => array( 'បង្កើតទំព័រគំរូ' ),
 	'EditData' => array( 'កែប្រែទិន្នន័យ' ),
+	'Forms' => array( 'ទម្រង់​នានា' ),
 	'Templates' => array( 'ទំព័រគំរូ' ),
 );
 
