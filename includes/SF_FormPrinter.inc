@@ -455,9 +455,9 @@ class SFFormPrinter {
                 } elseif ($sub_components[0] == 'values') {
                   $possible_values = explode(',', $sub_components[1]);
                 } elseif ($sub_components[0] == 'values from category') {
-                  $possible_values = SFAutocompleteUtils::getAllPagesForCategory($sub_components[1], 10);
+                  $possible_values = SFUtils::getAllPagesForCategory($sub_components[1], 10);
                 } elseif ($sub_components[0] == 'values from concept') {
-                  $possible_values = SFAutocompleteUtils::getAllPagesForConcept($sub_components[1]);
+                  $possible_values = SFUtils::getAllPagesForConcept($sub_components[1]);
                 } else {
                   $field_args[$sub_components[0]] = $sub_components[1];
                 }
