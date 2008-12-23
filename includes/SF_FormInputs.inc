@@ -18,22 +18,23 @@ class SFFormInputs {
       $smw_version = SMW_VERSION;
       if (version_compare(SMW_VERSION, '1.2', '>=' ) ||
           substr($smw_version, 0, 3) == '1.2') { // temporary hack
-        $names_array = sffGetAllValuesForProperty_1_2($field_name);
+        $names_array = SFUtils::getAllValuesForProperty_1_2($field_name);
       } else {
         $is_relation = ($autocomplete_field_type == 'relation');
-        $names_array = sffGetAllValuesForProperty_orig($is_relation, $field_name);
+        $names_array = SFUtils::getAllValuesForProperty_orig($is_relation, $field_name);
       }
     } elseif ($autocomplete_field_type == 'category') {
-      $names_array = sffGetAllPagesForCategory($field_name, 10);
+      $names_array = SFUtils::getAllPagesForCategory($field_name, 10);
     } elseif ($autocomplete_field_type == 'concept') {
-      $names_array = sffGetAllPagesForConcept($field_name);
+      $names_array = SFUtils::getAllPagesForConcept($field_name);
     } else { // i.e., $autocomplete_field_type == 'namespace'
       // switch back to blank for main namespace
       if ($field_name == "main")
         $field_name = "";
-      $names_array = sffGetAllPagesForNamespace($field_name);
+      $names_array = SFUtils::getAllPagesForNamespace($field_name);
     }
-    return $names_array;
+    // escape quotes, to avoid Javascript errors
+    return array_map('addslashes', $names_array);
   }
 
   function uploadLinkHTML($input_id, $delimiter = null) {
@@ -453,7 +454,7 @@ END;
 
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $text = '	<select tabindex="' . $sfgTabIndex . '" id="input_' . $sfgFieldNum . '_month" name="' . $input_name . "[month]\" $disabled_text>\n";
-    $month_names = sffGetMonthNames();
+    $month_names = SFFormUtils::getMonthNames();
     foreach ($month_names as $i => $name) {
       // pad out month to always be two digits
       $month_value = ($wgAmericanDates == true) ? $name : str_pad($i + 1, 2, "0", STR_PAD_LEFT);
