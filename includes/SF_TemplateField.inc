@@ -11,7 +11,7 @@ class SFTemplateField {
 	var $field_name;
 	var $label;
 	var $semantic_field;
-	var $semantic_field_call;
+	var $semantic_property;
 	var $is_relation;
 	var $field_type;
 	var $possible_values;
@@ -99,7 +99,7 @@ END;
 				$text .= "|-\n";
 			}
 			$text .= "! " . $field->label . "\n";
-			if ($field->semantic_field_call == null || $field->semantic_field_call == '') {
+			if ($field->semantic_property == null || $field->semantic_property == '') {
 				$text .= "| {{{" . $field->field_name . "|}}}\n";
 				// if this field is meant to contain a list,
 				// add on an 'arraymap' function, that will
@@ -109,18 +109,18 @@ END;
 				// find a string that's not in the semantic
 				// field call, to be used as the variable
 				$var = "x"; // default - use this if all the attempts fail
-				if (strstr($field->semantic_field_call, $var)) {
+				if (strstr($field->semantic_property, $var)) {
 					$var_options = array('y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc');
 					foreach ($var_options as $option) {
-						if (! strstr($field->semantic_field_call, $option)) {
+						if (! strstr($field->semantic_property, $option)) {
 							$var = $option;
 							break;
 						}
 					}
 				}
-				$text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_field_call . "$var]]}}\n";
+				$text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_property . "::$var]]}}\n";
 			} else {
-				$text .= "| [[" . $field->semantic_field_call . "{{{" . $field->field_name . "|}}}]]\n";
+				$text .= "| [[" . $field->semantic_property . "::{{{" . $field->field_name . "|}}}]]\n";
 			}
 		}
 
@@ -132,7 +132,7 @@ END;
 			}
 			$text .=<<<END
 ! $aggregating_label
-| {{#ask:[[$aggregating_property{{SUBJECTPAGENAME}}]]|format=list}}
+| {{#ask:[[$aggregating_property::{{SUBJECTPAGENAME}}]]|format=list}}
 
 END;
 		}
