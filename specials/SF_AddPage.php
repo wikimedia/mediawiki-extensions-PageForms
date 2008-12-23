@@ -44,16 +44,16 @@ class SFAddPage extends SpecialPage {
 			// Is this logic necessary? Or should we just
 			// out-guess the user and always send to the
 			// standard form-edit page, with the 'correct' form?
-			$default_form_name = sffGetFormForArticle($article);
+			$default_form_name = SFUtils::getFormForArticle($article);
 			if ($form_name == $default_form_name) {
 				$redirect_url = $page_title->getLocalURL('action=formedit');
 			} else {
 				$ed = SpecialPage::getPage('EditData');
-				$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+				$redirect_url = $ed->getTitle()->getFullURL() . "/" . $form_name . "/" . SFLinkUtils::titleURLString($page_title);
 			}
 		} else {
 			$ad = SpecialPage::getPage('AddData');
-			$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . sffTitleURLString($page_title);
+			$redirect_url = $ad->getTitle()->getFullURL() . "/" . $form_name . "/" . SFLinkUtils::titleURLString($page_title);
 			// of all the request values, send on to
 			// 'AddData' only 'preload' and specific form
 			// fields - we can tell the latter because
@@ -162,7 +162,7 @@ function doSpecialAddPage($query = '') {
 	}
 
 	if ((! $form_title || ! $form_title->exists()) && ($form_name != '')) {
-		$text = '<p>' . wfMsg('sf_addpage_badform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+		$text = '<p>' . wfMsg('sf_addpage_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 	} else {
 		if ($form_name == '')
 			$description = wfMsg('sf_addpage_noform_docu', $form_name);
@@ -178,7 +178,7 @@ END;
 		// if no form was specified, display a dropdown letting
 		// the user choose the form
 		if ($form_name == '')
-			$text .= sffFormDropdownHTML();
+			$text .= SFUtils::formDropdownHTML();
 
 		$hidden_target_namespace = htmlspecialchars($target_namespace);
 		$hidden_super_page = htmlspecialchars($super_page);
