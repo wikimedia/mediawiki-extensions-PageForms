@@ -36,7 +36,7 @@ class FormEditPage extends EditPage {
 		}
 		global $sfgIP;
 		$target_title = $this->mArticle->getTitle();
-		$target_name = sffTitleString($target_title);
+		$target_name = SFLinkUtils::titleString($target_title);
 		if ($target_title->exists()) {
 			require_once($sfgIP . '/specials/SF_EditData.php');
 			printEditForm($this->form_name, $target_name);

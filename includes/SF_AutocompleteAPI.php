@@ -39,20 +39,20 @@ class SFAutocompleteAPI extends ApiBase {
 			$this->dieUsage("The substring must be specified", 'param_substr');
 		}
 		if ($property != '') {
-			$data = sffGetAllValuesForProperty_1_2($property, $substr);
+			$data = SFUtils::getAllValuesForProperty_1_2($property, $substr);
 		} elseif ($relation != '') {
-			$data = sffGetAllValuesForProperty_orig(true, $relation, $substr);
+			$data = SFUtils::getAllValuesForProperty_orig(true, $relation, $substr);
 		} elseif ($attribute != '') {
-			$data = sffGetAllValuesForProperty_orig(false, $attribute, $substr);
+			$data = SFUtils::getAllValuesForProperty_orig(false, $attribute, $substr);
 		} elseif ($category != '') {
-			$data = sffGetAllPagesForCategory($category, 3, $substr);
+			$data = SFUtils::getAllPagesForCategory($category, 3, $substr);
 		} elseif ($concept != '') {
-			$data = sffGetAllPagesForConcept($concept, $substr);
+			$data = SFUtils::getAllPagesForConcept($concept, $substr);
 		} elseif ($namespace != '') {
 			// special handling for main (blank) namespace
 			if ($namespace == 'main')
 				$namespace = '';
-			$data = sffGetAllPagesForNamespace($namespace, $substr);
+			$data = SFUtils::getAllPagesForNamespace($namespace, $substr);
 		} else {
 			$date = array();
 		}

@@ -29,7 +29,7 @@ class SFForm {
 	function createMarkup() {
 		$title = Title::makeTitle( SF_NS_FORM, $this->form_name );
 		$ad = SpecialPage::getPage('AddPage');
-		$add_data_url = sffTitleURLString($ad->getTitle()) . "/" . $title->getPartialURL();
+		$add_data_url = SFLinkUtils::titleURLString($ad->getTitle()) . "/" . $title->getPartialURL();
 		$form_description = wfMsgForContent('sf_form_docu', $this->form_name, $add_data_url);
 		$form_input = "{{#forminput:" . $this->form_name . "}}\n";
 		$text =<<<END
@@ -363,7 +363,7 @@ class SFFormTemplateField {
 		$field_form_text = $template_num . "_" . $this->num;
 		$template_field = $this->template_field;
 		$text = '<h3>' . wfMsg('sf_createform_field') . " '" . $template_field->field_name . "'</h3>\n";
-		$prop_link_text = sffLinkText(SMW_NS_PROPERTY, $template_field->semantic_field);
+		$prop_link_text = SFUtils::linkText(SMW_NS_PROPERTY, $template_field->semantic_field);
 		// TODO - remove this probably-unnecessary check?
 		if ($template_field->semantic_field == "") {
 			// print nothing if there's no semantic field
@@ -371,10 +371,10 @@ class SFFormTemplateField {
 			$text .= '<p>' . wfMsg('sf_createform_fieldpropunknowntype', $prop_link_text) . "</p>\n";
 		} elseif ($template_field->is_list) {
 			$text .= '<p>' . wfMsg('sf_createform_fieldproplist', $prop_link_text,
-				sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
+				SFUtils::linkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
 		} else {
 			$text .= '<p>' . wfMsg('sf_createform_fieldprop', $prop_link_text,
-				sffLinkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
+				SFUtils::linkText(SMW_NS_TYPE, $template_field->field_type)) . "</p>\n";
 		}
 		// if it's not a semantic field - don't add any text
 		$form_label_text = wfMsg('sf_createform_formlabel');
