@@ -325,7 +325,7 @@ class SFFormTemplateField {
 		} elseif ($semantic_field_type == $bool_type) {
 			return array('checkbox');
 		} elseif ($semantic_field_type == $date_type) {
-			return array('date', 'datetime', 'datetime with timezone');
+			return array('date', 'datetime', 'datetime with timezone', 'year');
 		} elseif ($semantic_field_type == $enum_type) {
 			if ($is_list) {
 				return array('checkboxes', 'listbox');
