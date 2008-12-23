@@ -44,7 +44,7 @@ class SFAddPage extends SpecialPage {
 			// Is this logic necessary? Or should we just
 			// out-guess the user and always send to the
 			// standard form-edit page, with the 'correct' form?
-			$default_form_name = SFUtils::getFormForArticle($article);
+			$default_form_name = SFLinkUtils::getFormForArticle($article);
 			if ($form_name == $default_form_name) {
 				$redirect_url = $page_title->getLocalURL('action=formedit');
 			} else {
