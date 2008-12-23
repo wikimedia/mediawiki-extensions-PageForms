@@ -589,6 +589,23 @@ END;
 		}
 	} 
 
+	function getMonthNames() {
+		return array(
+			wfMsgForContent('january'),
+			wfMsgForContent('february'),
+			wfMsgForContent('march'),
+			wfMsgForContent('april'),
+			wfMsgForContent('may'),
+			wfMsgForContent('june'),
+			wfMsgForContent('july'),
+			wfMsgForContent('august'),
+			wfMsgForContent('september'),
+			wfMsgForContent('october'),
+			wfMsgForContent('november'),
+			wfMsgForContent('december')
+		);
+	}
+
 	function getShowFCKEditor() {
 		global $wgUser;
 
