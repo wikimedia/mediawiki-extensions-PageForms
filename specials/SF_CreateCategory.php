@@ -79,13 +79,13 @@ function doSpecialCreateCategory() {
 			$full_text = createCategoryText($default_form, $category_name, $parent_category);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
-			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
+			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
 		}
 	}
 
-	$all_forms = sffGetAllForms();
+	$all_forms = SFUtils::getAllForms();
 
 	// set 'title' as hidden field, in case there's no URL niceness
 	global $wgContLang;
@@ -108,7 +108,7 @@ END;
 	}
 
 	$subcategory_label = wfMsg('sf_createcategory_makesubcategory');
-	$categories = sffGetCategoriesForArticle();
+	$categories = SFLinkUtils::getCategoriesForArticle();
 	$sk = $wgUser->getSkin();
 	$cf = SpecialPage::getPage('CreateForm');
 	$create_form_link = $sk->makeKnownLinkObj($cf->getTitle(), $cf->getDescription());
