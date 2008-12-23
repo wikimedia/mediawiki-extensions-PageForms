@@ -27,12 +27,33 @@ class SFCreateTemplate extends SpecialPage {
 		doSpecialCreateTemplate();
 	}
 
-	function printPropertiesDropdown($all_properties, $id, $property) {
-		$dropdown_str = "<select name=\"semantic_field_call_$id\">\n";
+	static function getAllPropertyNames() {
+		$all_properties = array();
+
+		// set limit on results - a temporary fix until SMW's
+		// getProperties() functions stop requiring a limit
+		$options = new SMWRequestOptions();
+		$options->limit = 10000;
+		$used_properties = smwfGetStore()->getPropertiesSpecial($options);
+		foreach ($used_properties as $property) {
+			$all_properties[] = SFUtils::getPropertyName($property[0]);
+		}
+		$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
+		foreach ($unused_properties as $property) {
+			$all_properties[] = SFUtils::getPropertyName($property);
+		}
+
+		// sort properties list alphabetically
+		sort($all_properties);
+		return $all_properties;
+	}
+
+	function printPropertiesDropdown($all_properties, $id, $selected_property) {
+		$dropdown_str = "<select name=\"semantic_property_$id\">\n";
 		$dropdown_str .= "<option value=\"\"></option>\n";
-		foreach ($all_properties as $prop_id => $prop_name) {
-			$selected = ($property == $prop_id) ? "selected" : "";
-			$dropdown_str .= "<option value=\"$prop_id\" $selected>$prop_name</option>\n";
+		foreach ($all_properties as $prop_name) {
+			$selected = ($selected_property == $prop_name) ? "selected" : "";
+			$dropdown_str .= "<option value=\"$prop_name\" $selected>$prop_name</option>\n";
 		}
 		$dropdown_str .= "</select>\n";
 		return $dropdown_str;
@@ -40,7 +61,7 @@ class SFCreateTemplate extends SpecialPage {
 
 	function printFieldEntryBox($id, $f, $all_properties) {
 		wfLoadExtensionMessages('SemanticForms');
-		$dropdown_html = SFCreateTemplate::printPropertiesDropdown($all_properties, $id, $f->semantic_field_call);
+		$dropdown_html = SFCreateTemplate::printPropertiesDropdown($all_properties, $id, $f->semantic_property);
 		$text = '	<div class="fieldBox">' . "\n";
 		$text .= '	<p>' . wfMsg('sf_createtemplate_fieldname') . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
 		$text .= '	' . wfMsg('sf_createtemplate_displaylabel') . ' <input size="15" name="label_' . $id . '" value="' . $f->label . '">' . "\n";
@@ -65,7 +86,7 @@ function doSpecialCreateTemplate() {
 
 	wfLoadExtensionMessages('SemanticForms');
 
-	$all_properties = sffGetAllProperties();
+	$all_properties = SFCreateTemplate::getAllPropertyNames();
 	
 	$template_name = $wgRequest->getVal('template_name');
 	$template_name_error_str = "";
@@ -85,14 +106,14 @@ function doSpecialCreateTemplate() {
 					# do nothing - this field won't get added to the new list
 				} else {
 					$field = SFTemplateField::newWithValues($val, $wgRequest->getVal('label_' . $old_id));
-					$field->semantic_field_call = $wgRequest->getVal('semantic_field_call_' . $old_id);
+					$field->semantic_property = $wgRequest->getVal('semantic_property_' . $old_id);
 					$field->is_list = $wgRequest->getCheck('is_list_' . $old_id);
 					$fields[] = $field;
 				}
 			}
 		}
 	}
-	$aggregating_property = $wgRequest->getVal('semantic_field_call_aggregation');
+	$aggregating_property = $wgRequest->getVal('semantic_property_aggregation');
 	$aggregation_label = $wgRequest->getVal('aggregation_label');
 	$template_format = $wgRequest->getVal('template_format');
 
@@ -112,7 +133,7 @@ function doSpecialCreateTemplate() {
 			$full_text = SFTemplateField::createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
-			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
+			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
 		}
