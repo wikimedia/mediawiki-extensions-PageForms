@@ -1577,14 +1577,15 @@ $messages['haw'] = array(
 );
 
 /** Hebrew (עברית)
+ * @author Rotemliss
  * @author Yaron Koren
  * @author YaronSh
  */
 $messages['he'] = array(
-	'semanticforms-desc' => 'טפסים להוספת ועריכת נתונים סמנטיים',
+	'semanticforms-desc' => 'טפסים להוספת ולעריכת נתונים סמנטיים',
 	'specialpages-group-sf_group' => 'טפסים סמנטיים',
 	'createproperty' => 'יצירת מאפיין',
-	'sf_createproperty_allowedvalsinput' => 'אם ברצונכם שלשדה זה יהיו ערכים מסויימים, הזינו את רשימת הערכים המורשים, מופרדים בפסיקים (אם ישנו ערך המכיל פסיק החליפו אותו ב־"\\,"):',
+	'sf_createproperty_allowedvalsinput' => 'אם ברצונכם שלשדה זה יהיו רק כמה ערכים מורשים, הזינו את רשימת הערכים המורשים, מופרדים בפסיקים (אם ערך כלשהו מכיל פסיק, החליפו אותו ב־"\\,"):',
 	'sf_createproperty_propname' => 'שם:',
 	'sf_createproperty_proptype' => 'סוג:',
 	'templates' => 'תבניות',
@@ -1598,9 +1599,9 @@ $messages['he'] = array(
 	'sf_createtemplate_fieldname' => 'שם השדה:',
 	'sf_createtemplate_displaylabel' => 'תוית תצוגה:',
 	'sf_createtemplate_semanticproperty' => 'זה השדה הסמנטי:',
-	'sf_createtemplate_fieldislist' => 'השדה יכול לאחסן רשימת ערכים, המופרדים בפסיקים',
+	'sf_createtemplate_fieldislist' => 'השדה יכול להכיל רשימת ערכים, המופרדים בפסיקים',
 	'sf_createtemplate_aggregation' => 'מצבור',
-	'sf_createtemplate_aggregationdesc' => 'על מנת להציג את בכל דף המשתמש בתבנית זו, את כל הכתבות המכילות מאפיין המצביע לדף זה, ציינו את המאפיין להלן:',
+	'sf_createtemplate_aggregationdesc' => 'כדי להציג בכל דף המשתמש בתבנית זו את כל הדפים המכילים מאפיין המצביע לדף זה, ציינו את המאפיין המתאים להלן:',
 	'sf_createtemplate_aggregationlabel' => 'כותרת לרשימה:',
 	'sf_createtemplate_outputformat' => 'מבנה הפלט:',
 	'sf_createtemplate_standardformat' => 'תקני',
@@ -1617,13 +1618,13 @@ $messages['he'] = array(
 	'sf_createform_allowmultiple' => ' הרשה כפילויות (או אפס) מהתבנית הזאת בדף המיוצר',
 	'sf_createform_field' => 'שדה:',
 	'sf_createform_fieldattr' => 'השדה הזה מגדיר את התכונה $1, מטיפוס $2.',
-	'sf_createform_fieldattrlist' => 'שדה זה תוחם את רשימת הרכיבים להם יש את המאפיין $1, מסוג $2.',
+	'sf_createform_fieldattrlist' => 'שדה זה מגדיר את רשימת הרכיבים שיש להם את המאפיין $1, מסוג $2.',
 	'sf_createform_fieldattrunknowntype' => 'השדה הזה מגדיר את התכונה $1, לא מוגדר.',
 	'sf_createform_fieldrel' => 'השדה הזה מגדיר את היחס $1.',
-	'sf_createform_fieldrellist' => 'שדה זה תוחם את רשימת הרכיבים להם יש קשר עם $1.',
-	'sf_createform_fieldprop' => 'שדה זה תוחם את המאפיין $1, מסוג $2.',
-	'sf_createform_fieldproplist' => 'שדה זה תוחם את רשימת הרכיבים להם יש את המאפיין $1, מסוג $2.',
-	'sf_createform_fieldpropunknowntype' => 'שדה זה תוחם את המאפיין $1, מסוג לא מוגדר.',
+	'sf_createform_fieldrellist' => 'שדה זה מגדיר את רשימת הרכיבים שיש להם קשר עם $1.',
+	'sf_createform_fieldprop' => 'שדה זה מגדיר את המאפיין $1, מסוג $2.',
+	'sf_createform_fieldproplist' => 'שדה זה מגדיר את רשימת הרכיבים שיש להם את המאפיין $1, מסוג $2.',
+	'sf_createform_fieldpropunknowntype' => 'שדה זה מגדיר את המאפיין $1, מסוג לא מוגדר.',
 	'sf_createform_formlabel' => 'תוית בטופס:',
 	'sf_createform_hidden' => 'מוסתר',
 	'sf_createform_mandatory' => 'הכרחי',
