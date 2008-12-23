@@ -103,7 +103,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 				$text .= printAltFormsList($alt_forms, $form_name);
 				$text .= "</div>\n";
 			} else
-				$text = '<p class="error">' . wfMsg('sf_addpage_badform', sffLinkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+				$text = '<p class="error">' . wfMsg('sf_addpage_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 		}
 	} elseif ($target_name == '' && $page_name_formula == '') {
 		$text = '<p class="error">' . wfMsg('sf_adddata_badurl') . "</p>\n";
@@ -171,7 +171,7 @@ function printAddForm($form_name, $target_name, $alt_forms) {
 				}
 			}
 			$wgOut->setArticleBodyOnly( true );
-			$text = sffPrintRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
+			$text = SFUtils::printRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
 		} else {
 			// override the default title for this page if
 			// a title was specified in the form
