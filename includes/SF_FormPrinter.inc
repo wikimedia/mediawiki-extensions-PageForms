@@ -58,6 +58,7 @@ class SFFormPrinter {
     $this->setInputTypeHook('date', array('SFFormInputs', 'dateEntryHTML'), array());
     $this->setInputTypeHook('datetime', array('SFFormInputs', 'dateTimeEntryHTML'), array('include_timezone' => false));
     $this->setInputTypeHook('datetime with timezone', array('SFFormInputs', 'dateTimeEntryHTML'), array('include_timezone' => true));
+    $this->setInputTypeHook('year', array('SFFormInputs', 'textEntryHTML'), array('size' => 4));
     $this->setInputTypeHook('checkbox', array('SFFormInputs', 'checkboxHTML'), array());
     $this->setInputTypeHook('radiobutton', array('SFFormInputs', 'radioButtonHTML'), array());
     $this->setInputTypeHook('checkboxes', array('SFFormInputs', 'checkboxesHTML'), array());
@@ -453,6 +454,10 @@ class SFFormPrinter {
                   }
                 } elseif ($sub_components[0] == 'values') {
                   $possible_values = explode(',', $sub_components[1]);
+                } elseif ($sub_components[0] == 'values from category') {
+                  $possible_values = SFAutocompleteUtils::getAllPagesForCategory($sub_components[1], 10);
+                } elseif ($sub_components[0] == 'values from concept') {
+                  $possible_values = SFAutocompleteUtils::getAllPagesForConcept($sub_components[1]);
                 } else {
                   $field_args[$sub_components[0]] = $sub_components[1];
                 }
@@ -635,7 +640,8 @@ class SFFormPrinter {
             if ($form_submitted && $generated_page_name != '') {
               $generated_page_name = str_replace('.', '_', $generated_page_name);
               $generated_page_name = str_replace(' ', '_', $generated_page_name);
-              $generated_page_name = str_ireplace("<$input_name>", $cur_value_in_template, $generated_page_name);
+              $escaped_input_name = str_replace(' ', '_', $input_name);
+              $generated_page_name = str_ireplace("<$escaped_input_name>", $cur_value_in_template, $generated_page_name);
               // once the substitution is done, replace underlines back
               // with spaces
               $generated_page_name = str_replace('_', ' ', $generated_page_name);
@@ -672,7 +678,7 @@ class SFFormPrinter {
                 $day = date("j", $cur_time);
                 global $wgAmericanDates, $sfg24HourTime;
                 if ($wgAmericanDates == true) {
-                  $month_names = sffGetMonthNames();
+                  $month_names = SFFormUtils::getMonthNames();
                   $month_name = $month_names[$month - 1];
                   $cur_value_in_template = "$month_name $day, $year";
                 } else {
