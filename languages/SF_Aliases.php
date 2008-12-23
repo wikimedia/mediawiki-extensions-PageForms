@@ -78,6 +78,13 @@ $aliases['fa'] = array(
 	'UploadWindow' => array( 'پنجره_بارگذاری' ),
 );
 
+/** French (Français) */
+$aliases['fr'] = array(
+	'CreateCategory' => array( 'CréerCatégorie', 'Créer catégorie' ),
+	'CreateTemplate' => array( 'CréerModèle', 'Créer modèle' ),
+	'Templates' => array( 'Modèles' ),
+);
+
 /** Galician (Galego) */
 $aliases['gl'] = array(
 	'Forms' => array( 'Formularios' ),
@@ -136,11 +143,25 @@ $aliases['lb'] = array(
 	'AddPage' => array( 'Säit derbäisetzen' ),
 	'CreateCategory' => array( 'Kategorie uleeën' ),
 	'CreateForm' => array( 'Formulaire uleeën' ),
+	'CreateProperty' => array( 'Eegeschaften uleeën' ),
 	'CreateTemplate' => array( 'Schabloun uleeën' ),
 	'EditData' => array( 'Daten änneren' ),
 	'Forms' => array( 'Formulairen' ),
 	'Templates' => array( 'Schablounen' ),
 	'UploadWindow' => array( 'Fënster eroplueden' ),
+);
+
+/** Macedonian (Македонски) */
+$aliases['mk'] = array(
+	'AddData' => array( 'ДодадиПодаток' ),
+	'AddPage' => array( 'ДодадиСтраница' ),
+	'CreateCategory' => array( 'КреирајКатегорија' ),
+	'CreateForm' => array( 'КреирајФорум' ),
+	'CreateProperty' => array( 'КреирајСвојство' ),
+	'CreateTemplate' => array( 'КреирајШаблон' ),
+	'EditData' => array( 'УредиПодаток' ),
+	'Forms' => array( 'Форми' ),
+	'Templates' => array( 'Шаблони' ),
 );
 
 /** Nedersaksisch (Nedersaksisch) */

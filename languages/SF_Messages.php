@@ -576,14 +576,32 @@ $messages['bn'] = array(
  * @author CERminator
  */
 $messages['bs'] = array(
+	'semanticforms-desc' => 'Obrasci za dodavanje i uređivanje semantičkih podataka',
+	'createproperty' => 'Napravi osobinu',
 	'sf_createproperty_propname' => 'Naziv:',
 	'sf_createproperty_proptype' => 'Vrsta:',
+	'templates' => 'Šabloni',
+	'sf_createtemplate_templatefields' => 'Polja šablona',
+	'sf_createtemplate_fieldname' => 'Ime polja:',
+	'sf_createtemplate_displaylabel' => 'Prikaži naljepnicu:',
 	'sf_createtemplate_deletefield' => 'Obriši',
+	'createform' => 'Napravi obrazac',
+	'sf_createform_template' => 'Šablon:',
+	'sf_createform_inputtype' => 'Tip unosa:',
 	'sf_createform_inputtypedefault' => '(standardno)',
+	'sf_createform_hidden' => 'sakrivena',
 	'sf_createform_add' => 'Dodaj',
 	'sf_createcategory_name' => 'Naziv:',
+	'sf_createcategory_defaultform' => 'Pretpostavljeni obrazac:',
+	'addpage' => 'Dodaj stranicu putem obrasca',
+	'addoreditdata' => 'Dodaj ili uredi',
+	'sf_adddata_altformsonly' => 'Molimo Vas da odaberete jedan od slijedećih obrazaca za dodavanje ovoj stranici:',
 	'sf_editdata_remove' => 'Ukloni',
 	'sf_editdata_none' => 'ništa',
+	'sf_blank_error' => 'ne može biti prazno',
+	'sf_bad_number_error' => 'mora biti validan broj',
+	'sf_property_isrelation' => 'Ovo je relacija.',
+	'sf_blank_namespace' => 'Glavno',
 );
 
 /** Catalan (Català)
