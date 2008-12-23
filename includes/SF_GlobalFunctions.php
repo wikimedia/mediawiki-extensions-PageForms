@@ -9,7 +9,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.3.9');
+define('SF_VERSION','1.4');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -27,13 +27,14 @@ define('SF_SP_HAS_ALTERNATE_FORM', 2);
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 
-$wgHooks['LanguageGetMagic'][] = 'sffLanguageGetMagic';
+$wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
 // the 'BrokenLink' hook exists only in MediaWiki v1.13 - it was replaced
 // by 'LinkBegin' and 'LinkEnd'
-$wgHooks['BrokenLink'][] = 'sffSetBrokenLink_1_13';
-$wgHooks['LinkEnd'][] = 'sffSetBrokenLink';
-$wgHooks['UnknownAction'][] = 'sffEmbeddedEditForm';
-$wgHooks['smwInitProperties'][] = 'sffInitProperties';
+$wgHooks['BrokenLink'][] = 'SFLinkUtils::setBrokenLink_1_13';
+$wgHooks['LinkEnd'][] = 'SFLinkUtils::setBrokenLink';
+$wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
+$wgHooks['SkinTemplateTabs'][] = 'SFFormEditTab::displayTab';
+$wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 
@@ -76,12 +77,13 @@ $wgAutoloadClasses['SFFormTemplateField'] = $sfgIP . '/includes/SF_FormClasses.i
 $wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
 $wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.inc';
 $wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.inc';
+$wgAutoloadClasses['SFFormEditTab'] = $sfgIP . '/includes/SF_FormEditTab.php';
+$wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.inc';
+$wgAutoloadClasses['SFLinkUtils'] = $sfgIP . '/includes/SF_LinkUtils.inc';
+$wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 
 require_once($sfgIP . '/languages/SF_Language.php');
-
-require_once($sfgIP . '/includes/SF_ParserFunctions.php');
-require_once($sfgIP . '/includes/SF_FormEditTab.php');
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
@@ -92,10 +94,22 @@ $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php'
  */
 function sfgSetupExtension() {
 	// this global variable is needed so that other extensions (such
-	// as Semantic Google Maps) can hook into to add their own input
+	// as Semantic Google Maps) can hook into it to add their own input
 	// types
 	global $sfgFormPrinter;
 	$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+}
+
+function sfgParserFunctions() {
+	global $wgHooks, $wgParser;
+	if( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
+		$wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
+	} else {
+		if ( class_exists( 'StubObject' ) && !StubObject::isRealObject( $wgParser ) ) {
+			$wgParser->_unstub();
+		}
+		SFParserFunctions::registerFunctions( $wgParser );
+	}
 }
 
 /**********************************************/
@@ -138,10 +152,10 @@ function sffInitNamespaces() {
 /**********************************************/
 
 /**
- * Initialise a global language object for content language. This
+ * Initialize a global language object for content language. This
  * must happen early on, even before user language is known, to
  * determine labels for additional namespaces. In contrast, messages
- * can be initialised much later when they are actually needed.
+ * can be initialised much later, when they are actually needed.
  */
 function sffInitContentLanguage($langcode) {
 	global $sfgIP, $sfgContLang;
@@ -163,7 +177,7 @@ function sffInitContentLanguage($langcode) {
 }
 
 /**
- * Initialise the global language object for user language. This
+ * Initialize the global language object for user language. This
  * must happen after the content language was initialised, since
  * this language is used as a fallback.
  */
@@ -185,704 +199,4 @@ function sffInitUserLanguage($langcode) {
 	} else {
 		$sfgLang = new $sfLangClass();
 	}
-}
-
-/**********************************************/
-/***** other global helpers               *****/
-/**********************************************/
-
-function sffInitProperties() {
-	global $sfgContLang;
-	$sf_props = $sfgContLang->getPropertyLabels();
-	SMWPropertyValue::registerProperty('_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM], true);
-	SMWPropertyValue::registerProperty('_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM], true);
-	return true;
-}
-
-/**
- * Creates HTML linking to a wiki page
- */
-function sffLinkText($namespace, $name, $text = NULL) {
-	global $wgContLang;
-
-	$inText = $wgContLang->getNsText($namespace) . ':' . $name;
-	$title = Title::newFromText( $inText );
-	if ($title === NULL) {
-		return $inText; // TODO maybe report an error here?
-	}
-	if ( NULL === $text ) $text = $title->getText();
-	$l = new Linker();
-	return $l->makeLinkObj($title, $text);
-}
-
-/**
- * Creates the name of the page that appears in the URL;
- * this method is necessary because Title::getPartialURL(), for
- * some reason, doesn't include the namespace
- */
-function sffTitleURLString($title) {
-	global $wgCapitalLinks;
-
-	$namespace = wfUrlencode( $title->getNsText() );
-	if ( '' != $namespace ) {
-		$namespace .= ':';
-	}
-	if ($wgCapitalLinks) {
-		return $namespace . ucfirst($title->getPartialURL());
-	} else {
-		return $namespace . $title->getPartialURL();
-	}
-}
-
-/**
- * A very similar function, to get the non-URL-encoded title string
- */
-function sffTitleString($title) {
-	$namespace = $title->getNsText();
-	if ( '' != $namespace ) {
-		$namespace .= ':';
-	}
-	return ($namespace . ucfirst($title->getText()));
-}
-
-/**
- * Prints the mini-form contained at the bottom of various pages, that
- * allows pages to spoof a normal edit page, that can preview, save,
- * etc.
- */
-function sffPrintRedirectForm($title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this, $start_time, $edit_time) {
-	$article = new Article($title);
-	$new_url = $title->getLocalURL('action=submit');
-	global $wgUser;
-	if ( $wgUser->isLoggedIn() )
-		$token = htmlspecialchars($wgUser->editToken());
-	else
-		$token = EDIT_TOKEN_SUFFIX;
-
-	if ($is_save)
-		$action = "wpSave";
-	elseif ($is_preview)
-		$action = "wpPreview";
-	else // $is_diff
-		$action = "wpDiff";
-
-	global $sfgScriptPath;
-	$text =<<<END
-	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
-	<form id="editform" name="editform" method="post" action="$new_url">
-	<input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$page_contents" />
-	<input type="hidden" name="wpSummary" value="$edit_summary" />
-	<input type="hidden" name="wpStarttime" value="$start_time" />
-	<input type="hidden" name="wpEdittime" value="$edit_time" />
-	<input type="hidden" name="wpEditToken" value="$token" />
-	<input type="hidden" name="$action" />
-
-END;
-	if ($is_minor_edit)
-		$text .= '    <input type="hidden" name="wpMinoredit">' . "\n";
-	if ($watch_this)
-		$text .= '    <input type="hidden" name="wpWatchthis">' . "\n";
-	$text .=<<<END
-	</form>
-	<script type="text/javascript">
-	window.onload = function() {
-		document.editform.submit();
-	}
-	</script>
-
-END;
-	return $text;
-}
-
-/**
- * A helper function to generate a property object given its name, since
- * the class for properties changed from Title to SMWPropertyValue in SMW 1.4
- */
-function sffCreateProperty($property_name) {
-	if (class_exists('SMWPropertyValue'))
-		return SMWPropertyValue::makeProperty($property_name);
-	else
-		return Title::newFromText($property_name, SMW_NS_PROPERTY);
-}
-
-/**
- * In the same spirit as sffCreateProperty
- */
-function sffGetPropertyName($property) {
-	if ($property instanceof Title)
-		return $property->getText();
-	else // $property instanceof SMWPropertyValue
-		return $property->getWikiValue();
-}
-
-/**
- * Gets the default form specified, if any, for a specific page
- * (which should be a category, relation, or namespace page)
- */
-function sffGetDefaultForm($page_title, $page_namespace) {
-	if ($page_title == NULL)
-		return null;
-
-	global $sfgContLang;
-	$store = smwfGetStore();
-	$title = Title::newFromText($page_title, $page_namespace);
-	// we can do this easily if we're using SMW 1.4 or higher
-	if (class_exists('SMWPropertyValue')) {
-		$default_form_property = SMWPropertyValue::makeProperty('_SF_DF');
-		$res = $store->getPropertyValues($title, $default_form_property);
-		if (isset($res[0]))
-			return $res[0]->getTitle()->getText();
-		else
-			return null;
-	}
-
-	// otherwise, it's a bit more complex
-	$sf_props = $sfgContLang->getPropertyLabels();
-	$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
-	$property = sffCreateProperty($default_form_property);
-	$res = $store->getPropertyValues($title, $property);
-	if (isset($res[0]) && ($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title)) {
-		// make sure it's in the form namespace
-		if ($res[0]->getNamespace() == SF_NS_FORM) {
-			$form_name = $res[0]->getTitle()->getText();
-			return $form_name;
-		}
-	}
-	// if that didn't work, try any aliases that may exist
-	// for SF_SP_HAS_DEFAULT_FORM
-	$sf_props_aliases = $sfgContLang->getPropertyAliases();
-	foreach ($sf_props_aliases as $alias => $prop_code) {
-		if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
-			$property = sffCreateProperty($alias);
-			$res = $store->getPropertyValues($title, $property);
-			if (isset($res[0]) && ($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title)) {
-				// make sure it's in the form namespace
-				if ($res[0]->getNamespace() == SF_NS_FORM) {
-					$form_name = $res[0]->getTitle()->getText();
-					return $form_name;
-				}
-			}
-		}
-	}
-	return null;
-}
-
-/**
- * Gets the alternate forms specified, if any, for a specific page
- * (which, for now, should always be a relation)
- */
-function sffGetAlternateForms($page_title, $page_namespace) {
-	if ($page_title == NULL)
-		return array();
-
-	global $sfgContLang;
-	$store = smwfGetStore();
-	$title = Title::newFromText($page_title, $page_namespace);
-	// we can do this easily if we're using SMW 1.4 or higher
-	if (class_exists('SMWPropertyValue')) {
-		$alternate_form_property = SMWPropertyValue::makeProperty('_SF_AF');
-		$res = $store->getPropertyValues($title, $alternate_form_property);
-		// there could be multiple alternate forms
-		$form_names = array();
-		foreach ($res as $wiki_page_value) {
-			$form_names[] = $wiki_page_value->getTitle()->getText();
-		}
-		return $form_names;
-	}
-
-	// otherwise, it's a bit more complex
-	$sf_props = $sfgContLang->getPropertyLabels();
-	$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
-	$property = sffCreateProperty($alternate_form_property);
-	$prop_vals = $store->getPropertyValues($title, $property);
-	$form_names = array();
-	foreach ($prop_vals as $prop_val) {
-		// make sure it's in the form namespace
-		if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title) &&
-			$prop_val->getNamespace() == SF_NS_FORM) {
-			$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
-		}
-	}
-	// try the English version too, if this isn't in English
-	if ($alternate_form_property != "Has_alternate_form") {
-		$property = sffCreateProperty("Has_alternate_form");
-		$prop_vals = $store->getPropertyValues($title, $property);
-		foreach ($prop_vals as $prop_val) {
-			if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title)
-				&& $prop_val->getNamespace() == SF_NS_FORM) {
-				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
-			}
-		}
-	}
-	return $form_names;
-}
-
-/**
- * Helper function for sffAddDataLink() - gets 'default form' and
- * 'alternate form' relations/properties, and creates the
- * corresponding 'add data' link, for a page, if any such
- * relation/properties are defined
- */
-function sffGetAddDataLinkForPage($target_page_title, $page_title, $page_namespace) {
-	$form_name = sffGetDefaultForm($page_title, $page_namespace);
-	$alt_forms = sffGetAlternateForms($page_title, $page_namespace);
-	if (! $form_name && count($alt_forms) == 0)
-		return null;
-	$ad = SpecialPage::getPage('AddData');
-	if ($form_name)
-		$add_data_url = $ad->getTitle()->getLocalURL() . "/" . $form_name . "/" . sffTitleURLString($target_page_title);
-	else
-		$add_data_url = $ad->getTitle()->getLocalURL() . "/" . sffTitleURLString($target_page_title);
-	foreach ($alt_forms as $i => $alt_form) {
-		$add_data_url .= (strpos($add_data_url, "?")) ? "&" : "?";
-		$add_data_url .= "alt_form[$i]=$alt_form";
-	}
-	return $add_data_url;
-}
-
-/**
- * Sets the URL for form-based adding of a nonexistent (broken-linked, AKA
- * red-linked) page
- */
-function sffSetBrokenLink_1_13(&$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail) {
-	$link = sffAddDataLink($title);
-	if ($link != '')
-		$u = $link;
-	return true;
-}
-
-/**
- * Sets the URL for form-based adding of a nonexistent (broken-linked, AKA
- * red-linked) page
- */
-function sffSetBrokenLink($linker, $target, $options, $text, &$attribs, &$ret) {
-	if (in_array('broken', $options)) {
-		$link = sffAddDataLink($target);
-		if ($link != '') {
-			$attribs['href'] = $link;
-		}
-	}
-	return true;
-}
-
-function sffAddDataLink($title) {
-	// get all properties pointing to this page, and if
-	// sffGetAddDataLinkForPage() returns a value with any of
-	// them, return that
-	$store = smwfGetStore();
-	$title_text = sffTitleString($title);
-	$value = SMWDataValueFactory::newTypeIDValue('_wpg', $title_text);
-	$incoming_properties = $store->getInProperties($value);
-	foreach ($incoming_properties as $property) {
-		$property_title = sffGetPropertyName($property);
-		if ($add_data_link = sffGetAddDataLinkForPage($title, $property_title, SMW_NS_PROPERTY)) {
-			return $add_data_link;
-		}
-	}
-
-	// if that didn't work, check if this page's namespace
-	// has a default form specified
-	$namespace = $title->getNsText();
-	if ('' === $namespace) {
-		// if it's in the main (blank) namespace, check for the file
-		// named with the word for "Main" in this language
-		wfLoadExtensionMessages('SemanticForms');
-		$namespace = wfMsgForContent('sf_blank_namespace');
-	}
-	if ($add_data_link = sffGetAddDataLinkForPage($title, $namespace, NS_PROJECT)) {
-		return $add_data_link;
-	}
-	// if nothing found still, return null
-	return null;
-}
-
-/**
- * The function called if we're in index.php (as opposed to one of the special
- * pages)
- */
-function sffEmbeddedEditForm($action, $article) {
-	global $sfgIP, $sfgUseFormEditPage;
-
-	// return "true" if the call failed (meaning, pass on handling of
-	// the hook to others), and "false" otherwise
-	if ($action != 'formedit') {
-		return true;
-	}
-
-	// @todo: This looks like bad code. If we can't find a form, we should be
-	// showing an informative error page rather than making it look like an
-	// edit form page does not exist.
-	$form_name = sffGetFormForArticle($article);
-	if ($form_name == '') {
-		return true;
-	}
-
-	if( $sfgUseFormEditPage ) {
-		# Experimental new feature extending from the internal EditPage class
-		$editor = new FormEditPage( $article, $form_name );
-		$editor->submit();
-		return false;
-	}
-
-	$target_title = $article->getTitle();
-	$target_name = sffTitleString($target_title);
-	if ($target_title->exists()) {
-		require_once($sfgIP . '/specials/SF_EditData.php');
-		printEditForm($form_name, $target_name);
-	} else {
-		require_once($sfgIP . '/specials/SF_AddData.php');
-		printAddForm($form_name, $target_name, array());
-	}
-	return false;
-}
-
-/**
- * Helper function - gets names of categories for a page;
- * based on Title::getParentCategories(), but simpler
- * - this function doubles as a function to get all categories on the
- * the site, if no article is specified
- */
-function sffGetCategoriesForArticle($article = NULL) {
-	$fname = 'sffGetCategoriesForArticle()';
-	$categories = array();
-	$db = wfGetDB( DB_SLAVE );
-	$conditions = null;
-	if ($article != NULL) {
-		$titlekey = $article->mTitle->getArticleId();
-		$conditions = "cl_from='$titlekey'";
-	}
-	$res = $db->select( $db->tableName('categorylinks'),
-		'distinct cl_to', $conditions, $fname);
-	if ($db->numRows( $res ) > 0) {
-		while ($row = $db->fetchRow($res)) {
-			$categories[] = $row[0];
-		}
-	}
-	$db->freeResult($res);
-	return $categories;
-}
-
-/**
- * Get the form used to edit this article: either the default form for a
- * category that this article belongs to (if there is one), or the default
- * form for the article's namespace, if there is one
- */
-function sffGetFormForArticle($obj) {
-	$categories = sffGetCategoriesForArticle($obj);
-	foreach ($categories as $category) {
-		if ($form_name = sffGetDefaultForm($category, NS_CATEGORY)) {
-			return $form_name;
-		}
-	}
-	// if we're still here, just return the default form for the namespace,
-	// which may well be null
-	$namespace = $obj->mTitle->getNsText();
-	if ('' === $namespace) {
-		// if it's in the main (blank) namespace, check for the file
-		// named with the word for "Main" in this language
-		wfLoadExtensionMessages('SemanticForms');
-		$namespace = wfMsgForContent('sf_blank_namespace');
-	}
-	return sffGetDefaultForm($namespace, NS_PROJECT);
-}
-
-/**
- * Return an array of all form names on this wiki
- */
-function sffGetAllForms() {
-	$dbr = wfGetDB( DB_SLAVE );
-	$query = "SELECT page_title FROM " . $dbr->tableName( 'page' ) .
-		" WHERE page_namespace = " . SF_NS_FORM .
-		" AND page_is_redirect = 0" .
-		" ORDER BY page_title";
-	$res = $dbr->query($query);
-	$form_names = array();
-	while ($row = $dbr->fetchRow($res)) {
-		$form_names[] = str_replace('_', ' ', $row[0]);
-	}
-	$dbr->freeResult($res);
-	return $form_names;
-}
-
-function sffFormDropdownHTML() {
-	// create a dropdown of possible form names
-	global $sfgContLang;
-	$namespace_labels = $sfgContLang->getNamespaces();
-	$form_label = $namespace_labels[SF_NS_FORM];
-	$str = <<<END
-		$form_label:
-			<select name="form">
-
-END;
-	$form_names = sffGetAllForms();
-	foreach ($form_names as $form_name) {
-		$str .= "			<option>$form_name</option>\n";
-	}
-	$str .= "			</select>\n";
-	return $str;
-}
-
-function sffGetMonthNames() {
-	return array(
-		wfMsgForContent('january'),
-		wfMsgForContent('february'),
-		wfMsgForContent('march'),
-		wfMsgForContent('april'),
-		wfMsgForContent('may'),
-		wfMsgForContent('june'),
-		wfMsgForContent('july'),
-		wfMsgForContent('august'),
-		wfMsgForContent('september'),
-		wfMsgForContent('october'),
-		wfMsgForContent('november'),
-		wfMsgForContent('december')
-	);
-}
-
-function sffGetAllValuesForProperty_orig($is_relation, $property_name, $substring = null) {
-	global $sfgMaxAutocompleteValues;
-
-	$fname = "sffGetAllValuesForProperty_orig";
-	$values = array();
-	$db = wfGetDB( DB_SLAVE );
-	$sql_options = array();
-	$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-	$property_field = ($is_relation) ? 'relation_title' : 'attribute_title';
-	$value_field = ($is_relation) ? 'object_title' : 'value_xsd';
-	$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes';
-	$conditions = "$property_field = '$property_name'";
-	if ($substring != null) {
-		$substring = str_replace(' ', '_', strtolower($substring));
-		$substring = str_replace('_', '\_', $substring);
-		$substring = str_replace("'", "\'", $substring);
-		$conditions .= " AND (LOWER($value_field) LIKE '" . $substring . "%' OR LOWER($value_field) LIKE '%\_" . $substring . "%')";
-	}
-	$sql_options['ORDER BY'] = $value_field;
-	$res = $db->select( $db->tableName($property_table),
-		"DISTINCT $value_field",
-		$conditions, $fname, $sql_options);
-	while ($row = $db->fetchRow($res)) {
-		if ($substring != null) {
-			$values[] = array('title' => str_replace('_', ' ', $row[0]));
-		} else {
-			$cur_value = str_replace("'", "\'", $row[0]);
-			$values[] = str_replace('_', ' ', $cur_value);
-		}
-	}
-	$db->freeResult($res);
-	return $values;
-}
-
-function sffGetAllValuesForProperty_1_2($property_name, $substring = null) {
-	global $sfgMaxAutocompleteValues;
-
-	$store = smwfGetStore();
-	$requestoptions = new SMWRequestOptions();
-	$requestoptions->limit = $sfgMaxAutocompleteValues;
-	if ($substring != null) {
-		$requestoptions->addStringCondition($substring, SMWStringCondition::STRCOND_PRE);
-	}
-	$property = sffCreateProperty($property_name);
-	$data_values = $store->getPropertyValues(null, $property, $requestoptions);
-	$values = array();
-	foreach ($data_values as $dv) {
-		// getPropertyValues() gets many repeat values - we want
-		// only one of each value
-		$string_value = str_replace('_', ' ', $dv->getXSDValue());
-		$string_value = str_replace("'", "\'", $string_value);
-		if (array_search($string_value, $values) === false)
-			$values[] = $string_value;
-	}
-	// if there was a substring specified, also find values that have
-	// it after a space, not just at the beginning of the value
-	if ($substring != null) {
-		$requestoptions2 = new SMWRequestOptions();
-		$requestoptions2->limit = $sfgMaxAutocompleteValues;
-		$requestoptions2->addStringCondition(" $substring", SMWStringCondition::STRCOND_MID);
-		$data_values = $store->getPropertyValues(null, $property, $requestoptions2);
-		foreach ($data_values as $dv) {
-			$string_value = str_replace('_', ' ', $dv->getXSDValue());
-			if (array_search($string_value, $values) === false)
-				$values[] = $string_value;
-		}
-	}
-	if ($substring == null)
-		return $values;
-	else {
-		$autocomplete_vals = array();
-		foreach ($values as $value) {
-			// if these values are being returned for remote
-			// autocompletion, undo the apostrophe-escaping
-			$value = str_replace("\'", "'", $value);
-			$autocomplete_vals[] = array('title' => $value);
-		}
-		return $autocomplete_vals;
-	}
-}
-
-/*
- * Get all the pages that belong to a category and all its subcategories,
- * down a certain number of levels - heavily based on SMW's
- * SMWInlineQuery::includeSubcategories()
- */
-function sffGetAllPagesForCategory($top_category, $num_levels, $substring = null) {
-	if (0 == $num_levels) return $top_category;
-	global $sfgMaxAutocompleteValues;
-
-	$db = wfGetDB( DB_SLAVE );
-	$fname = "sffGetAllPagesForCategory";
-	$categories = array($top_category);
-	$checkcategories = array($top_category);
-	$pages = array();
-	for ($level = $num_levels; $level > 0; $level--) {
-		$newcategories = array();
-		foreach ($checkcategories as $category) {
-			if ($substring != null) {
-				$substring = str_replace(' ', '_', strtolower($substring));
-				$substring = str_replace('_', '\_', $substring);
-				$substring = str_replace("'", "\'", $substring);
-				$conditions = 'cl_to = '. $db->addQuotes($category) . " AND (LOWER(page_title) LIKE '" . $substring . "%' OR LOWER(page_title) LIKE '%\_" . $substring . "%' OR page_namespace = " . NS_CATEGORY . ")";
-
-			} else {
-				$conditions = 'cl_to = '. $db->addQuotes($category);
-			}
-			$res = $db->select( // make the query
-				array('categorylinks', 'page'),
-				array('page_title', 'page_namespace'),
-				array('cl_from = page_id', $conditions),
-				$fname);
-			if ($res) {
-				while ($res && $row = $db->fetchRow($res)) {
-					if (array_key_exists('page_title', $row)) {
-						$page_namespace = $row['page_namespace'];
-						if ($page_namespace == NS_CATEGORY) {
-							$new_category = $row[ 'page_title' ];
-							if (!in_array($new_category, $categories)) {
-								$newcategories[] = $new_category;
-							}
-						} else {
-							$cur_value = str_replace("_", " ", $row['page_title']);
-							if ($substring == null)
-								$pages[] = str_replace("'", "\'", $cur_value);
-							else
-								$pages[] = array('title' => $cur_value);
-							// return if we've reached the maximum number of allowed values
-							if (count($pages) > $sfgMaxAutocompleteValues)
-								return $pages;
-						}
-					}
-				}
-				$db->freeResult( $res );
-			}
-		}
-		if (count($newcategories) == 0) {
-			sort($pages);
-			return $pages;
-		} else {
-			$categories = array_merge($categories, $newcategories);
-		}
-		$checkcategories = array_diff($newcategories, array());
-	}
-	sort($pages);
-	return $pages;
-}
-
-function sffGetAllPagesForConcept($concept_name, $substring = null) {
-	global $sfgMaxAutocompleteValues;
-
-	// TODO - substring isn't being handled. Is there a way to include
-	// it through the API?
-
-	$store = smwfGetStore();
-/*
-	$requestoptions = new SMWRequestOptions();
-	if ($substring != null) {
-		$requestoptions->addStringCondition($substring, SMWStringCondition::STRCOND_PRE);
-	}
-*/
-	$concept = Title::newFromText($concept_name, SMW_NS_CONCEPT);
-	$desc = new SMWConceptDescription($concept);
-	$printout = new SMWPrintRequest(SMWPrintRequest::PRINT_THIS, "");
-	$desc->addPrintRequest($printout);
-	$query = new SMWQuery($desc);
-	$query->setLimit($sfgMaxAutocompleteValues);
-	$query_result = $store->getQueryResult($query);
-	$pages = array();
-	while ($res = $query_result->getNext()) {
-		$pages[] = $res[0]->getNextText(SMW_OUTPUT_WIKI);
-	}
-	return $pages;
-}
-
-function sffGetAllPagesForNamespace($namespace_name, $substring = null) {
-	// cycle through all the namespace names for this language, and if
-	// one matches the namespace specified in the form, add the names
-	// of all the pages in that namespace to $names_array
-	global $wgContLang;
-	$namespaces = $wgContLang->getNamespaces();
-	$db = wfGetDB( DB_SLAVE );
-	$fname = "sffGetAllPagesForNamespace";
-	$pages = array();
-	foreach ($namespaces as $ns_code => $ns_name) {
-		if ($ns_name == $namespace_name) {
-			$conditions = "page_namespace = $ns_code";
-			if ($substring != null) {
-				$substring = str_replace(' ', '_', strtolower($substring));
-				$substring = str_replace('_', '\_', $substring);
-				$substring = str_replace("'", "\'", $substring);
-				$conditions .= " AND (LOWER(page_title) LIKE '$substring%' OR LOWER(page_title) LIKE '%\_$substring%')";
-			}
-			$sql_options['ORDER BY'] = 'page_title';
-			$res = $db->select( $db->tableNames('page'),
-				'page_title',
-				$conditions, $fname, $sql_options);
-			while ($row = $db->fetchRow($res)) {
-				$cur_value = str_replace('_', ' ', $row[0]);
-				if ($substring == null) {
-					$pages[] = str_replace("'", "\'", $cur_value);
-				} else {
-					$pages[] = array('title' => $cur_value);
-				}
-			}
-			$db->freeResult($res);
-		}
-	}
-	return $pages;
-}
-
-// Custom sort function, used in sffGetAllProperties()
-function cmp($a, $b) {
-	if ($a == $b) {
-		return 0;
-	} elseif ($a < $b) {
-		return -1;
-	} else {
-		return 1;
-	}
-}
-
-function sffGetAllProperties() {
-	$all_properties = array();
-
-	// set limit on results - a temporary fix until SMW's getProperties()
-	// functions stop requiring a limit
-	global $smwgIP;
-	include_once($smwgIP . '/includes/storage/SMW_Store.php');
-	$options = new SMWRequestOptions();
-	$options->limit = 10000;
-	$used_properties = smwfGetStore()->getPropertiesSpecial($options);
-	foreach ($used_properties as $property) {
-		$property_name = sffGetPropertyName($property[0]);
-		$all_properties[$property_name . "::"] = $property_name;
-	}
-	$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
-	foreach ($unused_properties as $property) {
-		$property_name = sffGetPropertyName($property);
-		$all_properties[$property_name . "::"] = $property_name;
-	}
-
-	// sort properties list alphabetically - custom sort function is needed
-	// because the regular sort function destroys the "keys" of the array
-	uasort($all_properties, "cmp");
-	return $all_properties;
 }
