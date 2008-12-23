@@ -129,7 +129,7 @@ function doSpecialCreateForm() {
 			$wgOut->setArticleBodyOnly(true);
 			$title = Title::newFromText($form->form_name, SF_NS_FORM);
 			$full_text = str_replace('"', '&quot;', $form->createMarkup());
-			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
+			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
 		}

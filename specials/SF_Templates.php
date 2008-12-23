@@ -85,7 +85,7 @@ class TemplatesPage extends QueryPage {
 		$text = $skin->makeLinkObj( $title, $title->getText() );
 		$category = $this->getCategoryDefinedByTemplate(new Article($title));
 		if ($category != '')
-			$text .= ' ' . wfMsg('sf_templates_definescat') . ' ' . sffLinkText(NS_CATEGORY, $category);
+			$text .= ' ' . wfMsg('sf_templates_definescat') . ' ' . SFUtils::linkText(NS_CATEGORY, $category);
 		return $text;
 	}
 }

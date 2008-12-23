@@ -89,13 +89,12 @@ function doSpecialCreateProperty() {
 			$full_text = createPropertyText($property_type, $allowed_values);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
-			$text = sffPrintRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
+			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
 		}
 	}
 
-	$all_properties = sffGetAllProperties();
 	$datatype_labels = $smwgContLang->getDatatypeLabels();
 
 	$javascript_text =<<<END
