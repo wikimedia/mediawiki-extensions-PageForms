@@ -758,7 +758,7 @@ $messages['da'] = array(
 $messages['de'] = array(
 	'specialpages-group-sf_group' => 'Semantische Formen',
 	'createproperty' => 'Ein Attribut erstellen',
-	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit "\\,"):',
+	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit „\\,“):',
 	'sf_createproperty_propname' => 'Name:',
 	'sf_createproperty_proptype' => 'Typ:',
 	'templates' => 'Vorlage',
@@ -2066,6 +2066,7 @@ $messages['it'] = array(
  * @author Fryed-peach
  */
 $messages['ja'] = array(
+	'addpage' => 'フォームを使ってページを追加',
 	'sf_editdata_none' => 'なし',
 );
 
