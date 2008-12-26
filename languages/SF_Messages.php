@@ -753,9 +753,11 @@ $messages['da'] = array(
  * @author DaSch
  * @author Dominik Rodler
  * @author Goetz
+ * @author Melancholie
  * @author Umherirrender
  */
 $messages['de'] = array(
+	'semanticforms-desc' => 'Formulare für das Hinzufügen und Bearbeiten von semantischen Daten',
 	'specialpages-group-sf_group' => 'Semantische Formen',
 	'createproperty' => 'Ein Attribut erstellen',
 	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit „\\,“):',
@@ -3204,6 +3206,7 @@ $messages['ro'] = array(
 	'sf_createproperty_proptype' => 'Tip:',
 	'sf_createtemplate_deletefield' => 'Şterge',
 	'sf_createform_hidden' => 'Ascunse',
+	'sf_createform_add' => 'Adaugă',
 	'sf_createcategory_name' => 'Nume:',
 	'sf_editdata_remove' => 'Elimină',
 	'sf_editdata_none' => 'Nimic',
@@ -3672,6 +3675,7 @@ $messages['te'] = array(
 	'sf_createform_add' => 'చేర్చు',
 	'createcategory' => 'వర్గాన్ని సృష్టించండి',
 	'sf_createcategory_name' => 'పేరు:',
+	'sf_createcategory_makesubcategory' => 'దీన్ని మరో వర్గానికి ఉపవర్గం చెయ్యి (ఐచ్ఛికం):',
 	'addpage' => 'ఫారంతో పేజీని చేర్చండి',
 	'sf_editdata_formwarning' => 'హెచ్చరిక: ఈ పేజీ <a href="$1">ఇప్పటికే ఉంది</a>, కానీ దానిలో ఈ ఫారం లేదు.',
 	'sf_editdata_remove' => 'తొలగించు',
@@ -4008,6 +4012,18 @@ $messages['zh-cn'] = array(
 	'sf_category_hasdefaultform' => '此项分类(category)使用$1表单。',
 	'sf_category_desc' => '这是$1分类(category)',
 	'sf_blank_namespace' => '主',
+);
+
+/** Traditional Chinese (‪中文(繁體)‬)
+ * @author Wrightbus
+ */
+$messages['zh-hant'] = array(
+	'sf_createproperty_propname' => '名稱:',
+	'sf_createproperty_proptype' => '類型:',
+	'templates' => '模板',
+	'sf_createtemplate_namelabel' => '模板名稱:',
+	'sf_createtemplate_standardformat' => '標準',
+	'sf_createform_hidden' => '隱藏',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)

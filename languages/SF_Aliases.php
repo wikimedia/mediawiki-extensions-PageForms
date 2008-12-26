@@ -216,6 +216,12 @@ $aliases['oc'] = array(
 	'Templates' => array( 'Modèls' ),
 );
 
+/** Brazilian Portuguese (Português do Brasil) */
+$aliases['pt-br'] = array(
+	'Forms' => array( 'Formulários' ),
+	'Templates' => array( 'Predefinições' ),
+);
+
 /** Romanian (Română) */
 $aliases['ro'] = array(
 	'Templates' => array( 'Formate' ),
