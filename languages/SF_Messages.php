@@ -182,6 +182,7 @@ $messages['an'] = array(
  * @author OsamaK
  */
 $messages['ar'] = array(
+	'semanticforms-desc' => 'نماذج لإضافة وتعديل بيانات سيمانتك',
 	'specialpages-group-sf_group' => 'منتديات سيمانتيك',
 	'createproperty' => 'إنشاء خاصية',
 	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد لهذا الحقل أن يحتوي على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب "\\,"):',
@@ -1180,6 +1181,7 @@ $messages['fa'] = array(
 /** Finnish (Suomi)
  * @author Crt
  * @author Nike
+ * @author Str4nd
  */
 $messages['fi'] = array(
 	'createproperty' => 'Luo ominaisuus',
@@ -1265,6 +1267,7 @@ $messages['fi'] = array(
 	'sf_bad_number_error' => 'pitää olla kelvollinen numero',
 	'sf_bad_integer_error' => 'pitää olla kelvollinen kokonaisluku',
 	'sf_bad_date_error' => 'pitää olla kelvollinen päiväys',
+	'uploadwindow' => 'Tallennusikkuna',
 	'sf_property_isattribute' => 'Tämä on attribuutti, jonka tyyppi on $1.',
 	'sf_property_isproperty' => 'Tämä on ominaisuus, jonka tyyppi on $1.',
 	'sf_property_allowedvals' => 'Sallitut arvot tälle ominaisuudelle ovat:',
@@ -3204,8 +3207,22 @@ $messages['rif'] = array(
 $messages['ro'] = array(
 	'sf_createproperty_propname' => 'Nume:',
 	'sf_createproperty_proptype' => 'Tip:',
+	'templates' => 'Formate',
+	'sf_createtemplate_namelabel' => 'Numele formatului:',
+	'sf_createtemplate_semanticproperty' => 'Proprietate semnatică:',
+	'sf_createtemplate_aggregation' => 'Agregare',
+	'sf_createtemplate_aggregationlabel' => 'Titlu pentru listă:',
+	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_deletefield' => 'Şterge',
+	'sf_createform_field' => 'Câmp:',
+	'sf_createform_fieldattr' => 'Acest câmp defineşte atributul $1, de tipul $2.',
+	'sf_createform_fieldattrlist' => 'Acest câmp defineşte o listă de elemente care au atributul $1, de tipul $2.',
+	'sf_createform_fieldattrunknowntype' => 'Acest câmp defineşte atributul $1, de tip nespecificat.',
+	'sf_createform_fieldrel' => 'Acest câmp defineşte relaţia $1.',
+	'sf_createform_fieldrellist' => 'Acest câmp defineşte o listă de elemente care au relaţia $1.',
+	'sf_createform_fieldprop' => 'Acest câmp defineşte proprietatea $1, de tipul $2.',
 	'sf_createform_hidden' => 'Ascunse',
+	'sf_createform_mandatory' => 'Obligatoriu',
 	'sf_createform_add' => 'Adaugă',
 	'sf_createcategory_name' => 'Nume:',
 	'sf_editdata_remove' => 'Elimină',
