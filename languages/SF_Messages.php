@@ -126,6 +126,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 
 /** Message documentation (Message documentation)
  * @author Jon Harald Søby
+ * @author Siebrand
  */
 $messages['qqq'] = array(
 	'sf_createproperty_propname' => '{{Identical|Name}}',
@@ -138,6 +139,7 @@ $messages['qqq'] = array(
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
 	'sf_createform_add' => '{{Identical|Add}}',
 	'sf_createcategory_name' => '{{Identical|Name}}',
+	'addpage' => 'Name of a special page.',
 	'sf_editdata_remove' => '{{Identical|Remove}}',
 	'sf_editdata_none' => '{{Identical|None}}',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
@@ -2069,10 +2071,20 @@ $messages['it'] = array(
 
 /** Japanese (日本語)
  * @author Fryed-peach
+ * @author Hosiryuhosi
  */
 $messages['ja'] = array(
+	'sf_createproperty_propname' => '名前:',
+	'sf_createproperty_proptype' => 'タイプ:',
+	'templates' => 'テンプレート',
+	'sf_createtemplate_standardformat' => '標準',
+	'sf_createtemplate_deletefield' => '削除',
+	'sf_createform_inputtypedefault' => '(デフォルト)',
+	'sf_createform_removetemplate' => 'テンプレートの削除',
+	'sf_createform_add' => '追加',
 	'addpage' => 'フォームを使ってページを追加',
 	'sf_editdata_none' => 'なし',
+	'sf_blank_namespace' => 'メイン',
 );
 
 /** Javanese (Basa Jawa)
@@ -2577,10 +2589,19 @@ $messages['myv'] = array(
  */
 $messages['nah'] = array(
 	'sf_createproperty_propname' => 'Tōcāitl:',
+	'templates' => 'Nemachiyōtīlli',
+	'createtemplate' => 'Ticchīhuāz cē nemachiyōtīlli',
+	'sf_createtemplate_namelabel' => 'Nemachiyōtīlli ītōca:',
 	'sf_createtemplate_deletefield' => 'Ticpolōz',
 	'sf_createform_inputtypedefault' => '(ic default)',
+	'sf_createform_hidden' => 'Ichtac',
+	'sf_createform_atend' => 'Tlamilizpan',
 	'sf_createform_add' => 'Ticcētilīz',
 	'sf_createcategory_name' => 'Tōcāitl:',
+	'addoreditdata' => 'Titlacēntilīz ahnozo titlapatlāz',
+	'sf_adddata_title' => 'Ticcēntilīz $1: $2',
+	'sf_editdata_title' => 'Ticpatlāz $1: $2',
+	'sf_editdata_addanother' => 'Titlacēntilīz occē',
 	'sf_editdata_none' => 'Ahtlein',
 );
 
@@ -3227,6 +3248,14 @@ $messages['ro'] = array(
 	'sf_createcategory_name' => 'Nume:',
 	'sf_editdata_remove' => 'Elimină',
 	'sf_editdata_none' => 'Nimic',
+	'sf_blank_error' => 'nu poate fi gol',
+	'sf_bad_number_error' => 'trebuie să fie un număr corect',
+	'sf_bad_integer_error' => 'trebuie să fie un număr întreg corect',
+	'sf_bad_date_error' => 'trebuie să fie o dată corectă',
+	'sf_property_isattribute' => 'Acesta este un atribut de tipul $1.',
+	'sf_property_isproperty' => 'Aceasta este o proprietate de tipul $1.',
+	'sf_property_allowedvals' => 'Valorile permise pentru această proprietate sunt:',
+	'sf_property_isrelation' => 'Aceasta este o relaţie.',
 );
 
 /** Tarandíne (Tarandíne)
@@ -4031,14 +4060,27 @@ $messages['zh-cn'] = array(
 	'sf_blank_namespace' => '主',
 );
 
+/** Simplified Chinese (‪中文(简体)‬)
+ * @author Gzdavidwong
+ */
+$messages['zh-hans'] = array(
+	'sf_createproperty_propname' => '名称：',
+	'sf_createproperty_proptype' => '类型：',
+	'templates' => '模板',
+	'sf_createtemplate_namelabel' => '模板名称：',
+	'sf_createtemplate_standardformat' => '标准',
+	'sf_createform_hidden' => '隐藏',
+);
+
 /** Traditional Chinese (‪中文(繁體)‬)
+ * @author Gzdavidwong
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
-	'sf_createproperty_propname' => '名稱:',
-	'sf_createproperty_proptype' => '類型:',
+	'sf_createproperty_propname' => '名稱：',
+	'sf_createproperty_proptype' => '類型：',
 	'templates' => '模板',
-	'sf_createtemplate_namelabel' => '模板名稱:',
+	'sf_createtemplate_namelabel' => '模板名稱：',
 	'sf_createtemplate_standardformat' => '標準',
 	'sf_createform_hidden' => '隱藏',
 );
