@@ -3791,6 +3791,7 @@ $messages['te'] = array(
 $messages['tet'] = array(
 	'sf_createproperty_propname' => 'Naran:',
 	'sf_createtemplate_deletefield' => 'Halakon',
+	'sf_createform_add' => 'Tau tan',
 	'sf_createcategory_name' => 'Naran:',
 );
 
