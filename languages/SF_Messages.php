@@ -170,6 +170,14 @@ $messages['af'] = array(
 	'sf_editdata_none' => 'Geen',
 );
 
+/** Amharic (አማርኛ)
+ * @author Codex Sinaiticus
+ */
+$messages['am'] = array(
+	'sf_createproperty_propname' => 'ስም:',
+	'sf_createcategory_name' => 'ስም:',
+);
+
 /** Aragonese (Aragonés)
  * @author Juanpabl
  */
