@@ -2777,21 +2777,116 @@ $messages['nl'] = array(
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+ * @author Harald Khan
  * @author Jon Harald Søby
  */
 $messages['nn'] = array(
-	'sf_createproperty_propname' => 'Namn',
+	'semanticforms-desc' => 'Skjema for å leggja til og endra semantiske data',
+	'specialpages-group-sf_group' => 'Semantiske skjema',
+	'createproperty' => 'Opprett ein eigenskap',
+	'sf_createproperty_allowedvalsinput' => 'Om du ønskjer at dette feltet berre skal kunna ha visse verdiar, skriv inn lista over tillatne verdiar med verdiane skilde med komma (om ein verdi inneheld eit komma, erstatt kommaet med «\\,»):',
+	'sf_createproperty_propname' => 'Namn:',
 	'sf_createproperty_proptype' => 'Type:',
+	'templates' => 'Malar',
+	'sf_templates_docu' => 'Følgjande malar finst på wikien.',
+	'sf_templates_definescat' => 'definerer kategori:',
+	'createtemplate' => 'Opprett ein mal',
+	'sf_createtemplate_namelabel' => 'Malnamn:',
+	'sf_createtemplate_categorylabel' => 'Kategori definert av mal (valfri):',
+	'sf_createtemplate_templatefields' => 'Malfelt',
+	'sf_createtemplate_fieldsdesc' => 'For at felta i malen ikkje lenger skal krevja feltnamn, skriv inn indeksnummeret til kvart felt (til dømes 1, 2, 3, osb.) som namn, i staden for eit faktisk namn:',
+	'sf_createtemplate_fieldname' => 'Feltnamn:',
+	'sf_createtemplate_displaylabel' => 'Vis merke:',
+	'sf_createtemplate_semanticproperty' => 'Semantisk eigenskap:',
+	'sf_createtemplate_fieldislist' => 'Dette feltet kan innehalda ei lista over verdiar skilde med komma',
+	'sf_createtemplate_aggregation' => 'Aggregering',
+	'sf_createtemplate_aggregationdesc' => 'For på kvar ei sida som nyttar denne malen, å lista opp alle artiklane med ein viss eigenskap som lenkjar til sida, oppgje eigenskapen nedanfor:',
+	'sf_createtemplate_aggregationlabel' => 'Listetittel:',
+	'sf_createtemplate_outputformat' => 'Resultatformat:',
 	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_infoboxformat' => 'Infoboks på høgre sida:',
+	'sf_createtemplate_addfield' => 'Legg til felt',
 	'sf_createtemplate_deletefield' => 'Slett',
+	'sf_createtemplate_addtemplatebeforesave' => 'Du må leggja til minst ein mal til skjemaet før du kan lagra det.',
+	'forms' => 'Skjema',
+	'sf_forms_docu' => 'Følgjande skjema finst på wikien.',
+	'createform' => 'Opprett eit skjema',
+	'sf_createform_nameinput' => 'Skjemanamn (standarden er å namngje skjemaet etter hovudmalen det folkeset):',
 	'sf_createform_template' => 'Mal:',
+	'sf_createform_templatelabelinput' => 'Malmerke (valfritt):',
+	'sf_createform_allowmultiple' => 'Tillat fleire (eller ingen) instansar av denne malen på den oppretta sida',
+	'sf_createform_field' => 'Felt:',
+	'sf_createform_fieldattr' => 'Dette feltet definerer eigenskapen $1, av type $2.',
+	'sf_createform_fieldattrlist' => 'Dette feltet definerer ei lista over element med eigenskapen $1, av type $2.',
+	'sf_createform_fieldattrunknowntype' => 'Dette feltet definerer eigenskapen $1, av uspesifisert type.',
+	'sf_createform_fieldrel' => 'Dette feltet definerer relasjonen $1.',
+	'sf_createform_fieldrellist' => 'Dette feltet definerer ei lista av element som har relasjonen $1.',
+	'sf_createform_fieldprop' => 'Dette feltet definerer eigenskapen $1, av type $2.',
+	'sf_createform_fieldproplist' => 'Dette feltet definerer ei lista over element som har eigenskapen $1, av type $2.',
+	'sf_createform_fieldpropunknowntype' => 'Dette feltet definerer eigenskapen $1, av uspesifisert type.',
+	'sf_createform_inputtype' => 'Innteksttype:',
 	'sf_createform_inputtypedefault' => '(standard)',
+	'sf_createform_formlabel' => 'Skjemamerke:',
+	'sf_createform_hidden' => 'Løynd',
+	'sf_createform_restricted' => 'Avgrensa (berre administratorar kan endra det)',
+	'sf_createform_mandatory' => 'Obligatorisk',
+	'sf_createform_removetemplate' => 'Fjern mal',
+	'sf_createform_addtemplate' => 'Legg til mal:',
+	'sf_createform_beforetemplate' => 'Før mal:',
+	'sf_createform_atend' => 'Ved slutten',
+	'sf_createform_add' => 'Legg til',
+	'sf_createform_choosefield' => 'Vel eit felt til å leggja til',
+	'createcategory' => 'Opprett ein kategori',
 	'sf_createcategory_name' => 'Namn:',
+	'sf_createcategory_defaultform' => 'Standardskjema:',
+	'sf_createcategory_makesubcategory' => 'Gjer dette til ein underkategori av ein annan kategori (valfritt):',
+	'addpage' => 'Legg til ei sida gjennom eit skjema',
+	'sf_addpage_badform' => 'Feil: fann ikkje noka skjemasida på $1',
+	'sf_addpage_docu' => 'Skriv inn namnet på sida som skal bli endra med skjemaet «$1» her. 
+Om sida finst frå før, vil du bli teken med til skjemaet for endring av ho.
+Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
+	'sf_addpage_noform_docu' => 'Skriv inn namnet på sida her, og vel kva skjema du vil nytta til å endra ho. Om sida finst frå før, vil du bli teken med til skjemaet for endring av ho. Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
+	'addoreditdata' => 'Legg til eller endr',
+	'adddata' => 'Legg til data',
+	'sf_adddata_title' => 'Legg til $1: $2',
+	'sf_adddata_badurl' => 'Dette er sida for å leggja til data. Du må oppgje både eit skjemanamn og ei målsida i adressa; det burde sjå slik ut: «Special:AddData?form=&lt;skjemanamn&gt;&target=&lt;målsida&gt;» eller slik ut: «Special:AddData/&lt;skjemanamn&gt;/&lt;målsida&gt;».',
+	'sf_adddata_altforms' => 'Du kan i staden oppretta sida ved å nytta eitt av dei følgande skjemaa:',
+	'sf_adddata_altformsonly' => 'Vel mellom desse skjemaa for å oppretta sida:',
+	'editdata' => 'Endra data',
+	'sf_formedit' => 'Endra med skjema',
+	'sf_viewform' => 'Sjå skjema',
+	'sf_editsource' => 'Endra kjelda',
+	'sf_editdata_title' => 'Endra $1: $2',
+	'sf_editdata_badurl' => 'Dette er sida for endring av data. Du må oppgje både eit skjemanamn og ei målsida i adressa; det burde sjå slik ut: «Special:EditData?form=&lt;skjemanamn&gt;&target=&lt;målsida&gt;» eller slik ut: «Special:EditData/&lt;skjemanamn&gt;/&lt;målsida&gt;».',
+	'sf_editdata_formwarning' => 'Åtvaring: Sida <a href="$1">finst frå før</a>, men nyttar ikkje dette skjemaet.',
 	'sf_editdata_remove' => 'Fjern',
+	'sf_editdata_addanother' => 'Legg til enno ein',
 	'sf_editdata_none' => 'Ingen',
+	'sf_formerrors_header' => 'Det var feil i skjemaet ditt; sjå nedanfor',
+	'sf_blank_error' => 'kan ikkje vera tom',
+	'sf_bad_url_error' => "må ha korrekt adresseformat, inkludert 'http'",
+	'sf_bad_email_error' => 'må ha gyldig format på e-postadressa',
+	'sf_bad_number_error' => 'må vera eit gyldig tal',
+	'sf_bad_integer_error' => 'må vera eit gyldig heiltal',
+	'sf_bad_date_error' => 'må vera ein gyldig dato',
+	'uploadwindow' => 'Opplastingsvindauga',
+	'sf_property_isattribute' => 'Dette er ein attributt av typen $1.',
+	'sf_property_isproperty' => 'Dette er ein eigenskap av typen $1.',
+	'sf_property_allowedvals' => 'Dei tillatne verdiane for denne eigenskapen er:',
+	'sf_property_isrelation' => 'Dette er ein relasjon.',
+	'sf_template_docu' => 'Dette er malen «$1».
+Han burde bli kalla opp med følgjande format:',
+	'sf_template_docufooter' => 'Endra sida for å sjå malteksten.',
+	'sf_form_docu' => 'Dette er skjemaet «$1». 
+Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om ei sida med dette namnet finst frå før, vil du bli sendt til eit skjema for endring av ho.',
+	'sf_form_freetextlabel' => 'Fritekst',
+	'sf_category_hasdefaultform' => 'Denne kategorien nyttar skjemaet «$1».',
+	'sf_category_desc' => 'Dett er kategorien $1.',
+	'sf_blank_namespace' => 'Hovud',
 );
 
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+ * @author Harald Khan
  * @author Jon Harald Søby
  */
 $messages['no'] = array(
@@ -2856,7 +2951,7 @@ $messages['no'] = array(
 	'addpage' => 'Legg til side',
 	'sf_addpage_badform' => 'Feil: ingen skjemaside funnet på $1',
 	'sf_addpage_docu' => 'Skriv inn navnet på siden som skal redigeres med skjemaet «$1» her. Om siden finnes allerede vil du bli tatt med til skjemaet for redigering av den siden. Hvis ikke vil du bli tatt med til skjemaet for å opprette siden.',
-	'sf_addpage_noform_docu' => 'Skriv inn navnet på siden her, og velg hvilket skjema du vil bruke til å redigere den. Om siden finnes alerede, vil du bli tatt med til skjemaet for redigering av den siden. Hvis ikke vil du bli tatt med til skjemaet for å opprette siden.',
+	'sf_addpage_noform_docu' => 'Skriv inn navnet på siden her, og velg hvilket skjema du vil bruke til å redigere den. Om siden finnes allerede, vil du bli tatt med til skjemaet for redigering av den siden. Hvis ikke vil du bli tatt med til skjemaet for å opprette siden.',
 	'addoreditdata' => 'Legg til eller rediger',
 	'adddata' => 'Legg til data',
 	'sf_adddata_title' => 'Legg til $1: $2',
@@ -3417,6 +3512,13 @@ $messages['ru'] = array(
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',
 	'sf_blank_namespace' => 'Основное',
+);
+
+/** Sanskrit (संस्कृत)
+ * @author Mahitgar
+ */
+$messages['sa'] = array(
+	'sf_blank_namespace' => 'मुख्य',
 );
 
 /** Slovak (Slovenčina)
