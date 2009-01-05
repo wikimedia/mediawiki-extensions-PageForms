@@ -125,6 +125,11 @@ $aliases['hu'] = array(
 	'UploadWindow' => array( 'Feltöltő ablak' ),
 );
 
+/** Georgian (ქართული) */
+$aliases['ka'] = array(
+	'Templates' => array( 'თარგები' ),
+);
+
 /** Khmer (ភាសាខ្មែរ) */
 $aliases['km'] = array(
 	'AddData' => array( 'បន្ថែមទិន្នន័យ' ),
@@ -162,6 +167,13 @@ $aliases['mk'] = array(
 	'EditData' => array( 'УредиПодаток' ),
 	'Forms' => array( 'Форми' ),
 	'Templates' => array( 'Шаблони' ),
+);
+
+/** Maltese (Malti) */
+$aliases['mt'] = array(
+	'AddData' => array( 'ŻidDati' ),
+	'AddPage' => array( 'ŻidPaġna' ),
+	'CreateCategory' => array( 'OħloqKategorija' ),
 );
 
 /** Nedersaksisch (Nedersaksisch) */

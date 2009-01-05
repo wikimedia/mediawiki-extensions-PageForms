@@ -1093,6 +1093,33 @@ $messages['es'] = array(
 	'sf_blank_namespace' => 'Principal',
 );
 
+/** Basque (Euskara)
+ * @author An13sa
+ */
+$messages['eu'] = array(
+	'createproperty' => 'Propietatea sortu',
+	'sf_createproperty_propname' => 'Izena:',
+	'sf_createproperty_proptype' => 'Mota:',
+	'templates' => 'Txantiloiak',
+	'createtemplate' => 'Txantiloia sortu',
+	'sf_createtemplate_namelabel' => 'Txantiloiaren izena:',
+	'sf_createtemplate_deletefield' => 'Ezabatu',
+	'sf_createform_template' => 'Txantiloia:',
+	'sf_createform_removetemplate' => 'Txantiloia kendu',
+	'sf_createform_addtemplate' => 'Txantiloia gehitu:',
+	'sf_createform_add' => 'Gehitu',
+	'createcategory' => 'Kategoria sortu',
+	'sf_createcategory_name' => 'Izena:',
+	'addoreditdata' => 'Gehitu edo aldatu',
+	'adddata' => 'Gehitu datuak',
+	'editdata' => 'Datuak aldatu',
+	'sf_editsource' => 'Iturria aldatu',
+	'sf_editdata_title' => '$1 aldatu: $2',
+	'sf_editdata_remove' => 'Kendu',
+	'sf_editdata_addanother' => 'Beste bat gehitu',
+	'sf_form_freetextlabel' => 'Testu askea',
+);
+
 /** Persian (فارسی)
  * @author Huji
  * @author Tofighi
@@ -3947,6 +3974,118 @@ $messages['tg-cyrl'] = array(
 	'sf_blank_namespace' => 'Аслӣ',
 );
 
+/** Tagalog (Tagalog)
+ * @author AnakngAraw
+ */
+$messages['tl'] = array(
+	'semanticforms-desc' => 'Mga pormularyo para sa paggawa ng mga dagdag at pagbabago sa dato hinggil sa kahulugan ng salita (semantiko)',
+	'specialpages-group-sf_group' => 'Mga Pormularyo ng Semantiko (hinggil sa kahulugan ng salita)',
+	'createproperty' => 'Lumikha ng pag-aari',
+	'sf_createproperty_allowedvalsinput' => 'Kung nais mong pahintulutan ang kahanayang ito na magkaroon lamang ng tiyak na mga halaga, ipasok ang talaan ng pinahihintulutang mga halaga, na pinaghihiwalay-hiwalay ng mga kuwit (kapag naglalaman ang isang halaga ng isang kuwit, palitan ito ng "\\,"):',
+	'sf_createproperty_propname' => 'Pangalan:',
+	'sf_createproperty_proptype' => 'Uri:',
+	'templates' => 'Mga suleras',
+	'sf_templates_docu' => 'Umiiral na sa wiki ang sumusunod na mga suleras.',
+	'sf_templates_definescat' => 'nagbibigay ng kahulugan sa kaurian/kategorya:',
+	'createtemplate' => 'Lumikha ng isang suleras',
+	'sf_createtemplate_namelabel' => 'Pangalan ng suleras:',
+	'sf_createtemplate_categorylabel' => 'Kauriang binibigyang kahulugan ng suleras (maaaring wala nito):',
+	'sf_createtemplate_templatefields' => 'Mga kahanayan ng suleras',
+	'sf_createtemplate_fieldsdesc' => 'Hindi na ngayon kailangan ang mga pangalan ng kahanayan upang magkaroon ng mga kahanayan sa suleras na ito, payak na ipasok/ilagay lamang ang paksaan (indeks) ng bawat kahanayan (halimbawa na ang 1, 2, 3, atbp.) bilang pangalan, sa halip na isang tunay na pangalan.',
+	'sf_createtemplate_fieldname' => 'Pangalan ng kahanayan:',
+	'sf_createtemplate_displaylabel' => 'Ipinakikitang tatak:',
+	'sf_createtemplate_semanticproperty' => 'Pag-aaring semantiko (hinggil sa kahulugan ng salita):',
+	'sf_createtemplate_fieldislist' => 'Makapaghahawak ng isang talaan ng mga halaga ang kahanayang ito, pinaghihiwa-hiwalay ng mga kuwit',
+	'sf_createtemplate_aggregation' => 'Pagkakakumpul-kumpol',
+	'sf_createtemplate_aggregationdesc' => 'Upang maitala sa anumang pahinang gumagamit ng ganitong suleras ang lahat ng mga lathalaing (artikulo) may isang tiyak na pag-aari na tumuturo patungo sa pahinang iyon, tukuyin ang naaangkop na ari-arian sa ibaba:',
+	'sf_createtemplate_aggregationlabel' => 'Pamagat ng talaan:',
+	'sf_createtemplate_outputformat' => 'Anyo/pormat ng kalalabasan:',
+	'sf_createtemplate_standardformat' => 'Pamantayan',
+	'sf_createtemplate_infoboxformat' => 'Kahon ng kabatirang nasa gawi ng kanang kamay',
+	'sf_createtemplate_addfield' => 'Magdagdag ng kahanayan',
+	'sf_createtemplate_deletefield' => 'Burahin',
+	'sf_createtemplate_addtemplatebeforesave' => 'Dapat kang magdagdag ng kahit na isang suleras sa pormularyong ito bago mo ito masagip.',
+	'forms' => 'Mga pormularyo',
+	'sf_forms_docu' => 'Umiiral na sa wiking ito ang sumusunod na mga pormularyo.',
+	'createform' => 'Lumikha ng isang pormularyo',
+	'sf_createform_nameinput' => 'Pangalan ng pormularyo (ang nakagawian ay ang pagpapangalan ng pormulayo mula sa pangunahing suleras na pinararami nito ang laman):',
+	'sf_createform_template' => 'Suleras:',
+	'sf_createform_templatelabelinput' => 'Tatak ng suleras (maaaring wala nito):',
+	'sf_createform_allowmultiple' => 'Nagpapahintulot para sa maramihang (o walang) mga halimbawa/huwaran ng ganitong suleras sa loob ng nalikhang pahina',
+	'sf_createform_field' => 'Kahanayan:',
+	'sf_createform_fieldattr' => 'Binibigyang kahulugan ng kahanayang ito ang katangiang $1, ng uring $2.',
+	'sf_createform_fieldattrlist' => 'Binibigyang kahulugan ng kahanayang ito ang isang talaan ng mga langkap na may katangiang $1, ng uring $2.',
+	'sf_createform_fieldattrunknowntype' => 'Binibigyang kahulugan ng kahanayang ito ang katangiang $1, na hindi tinutukoy ang uri.',
+	'sf_createform_fieldrel' => 'Binibigyang kahulugan ng kahanayang ito ang kaugnayang $1.',
+	'sf_createform_fieldrellist' => 'Binibigyang kahulugan ng kahanayang ito ang isang talaan ng mga langkat na mayroong kaugnayang $1.',
+	'sf_createform_fieldprop' => 'Binibigyang kahulugan ng kahanayang ito ang pag-aaring $1, ng uring $2.',
+	'sf_createform_fieldproplist' => 'Binibigyang kahulugan ng kahanayang ito ang isang talaan ng mga langkap na mayroong pag-aaring $1, ng uring $2.',
+	'sf_createform_fieldpropunknowntype' => 'Binibigyang kahanayan ng kahanayang ito ang pag-aaring $1, na hindi tinutukoy ang uri.',
+	'sf_createform_inputtype' => 'Uri ng ipinapasok:',
+	'sf_createform_inputtypedefault' => '(likas na katakdaan)',
+	'sf_createform_formlabel' => 'Tatak ng pormularyo:',
+	'sf_createform_hidden' => 'Nakatago',
+	'sf_createform_restricted' => "May hangganan (tanging mga tagagamit na ''sysop'' lamang ang makapagbabago nito)",
+	'sf_createform_mandatory' => 'Kailangang gawin talaga',
+	'sf_createform_removetemplate' => 'Tanggalin ang suleras',
+	'sf_createform_addtemplate' => 'Idagdag ang suleras:',
+	'sf_createform_beforetemplate' => 'Bago dumating ang suleras:',
+	'sf_createform_atend' => 'Sa hulihan',
+	'sf_createform_add' => 'Idagdag/magdagdag',
+	'sf_createform_choosefield' => 'Pumili ng kahanayang idaragdag',
+	'createcategory' => 'Lumikha ng isang kaurian (kategorya)',
+	'sf_createcategory_name' => 'Pangalan:',
+	'sf_createcategory_defaultform' => 'Likas na nakatakdang pormularyo:',
+	'sf_createcategory_makesubcategory' => 'Gawin itong isang kabahaging kaurian/kategorya ng iba pang kaurian (maaaring wala nito):',
+	'addpage' => 'Magdagdag ng pahinang may pormularyo',
+	'sf_addpage_badform' => 'Kamalian: walang natagpuang pahina ng pormularyong nasa $1',
+	'sf_addpage_docu' => "Ipasok dito ang pangalan ng pahina, na babaguhin sa pamamagitan ng pormularyong '$1'.
+Kung umiiral na ang pahinang ito, dadalhin ka patungo sa pormularyong para sa paggawa ng pagbabago sa pahinang iyon.
+At kung hindi, dadalhin ka naman patungo sa pormularyo para sa pagdaragdag ng pahina.",
+	'sf_addpage_noform_docu' => 'Dito ipasok/ilagay ang pangalan ng pahina, at piliin ang pormularyong gagamitin sa pagbago nito.
+Kung umiiral na ang pahinang ito, dadalhin ka patungo sa pormularyo para sa paggawa ng pagbabago para sa pahinang iyan.
+Kung hindi, dadalhin ka naman patungo sa pormularyo upang maidagdag ang pahina.',
+	'addoreditdata' => 'Idagdag o baguhin',
+	'adddata' => 'Magdagdag ng dato',
+	'sf_adddata_title' => 'Idagdag ang $1: $2',
+	'sf_adddata_badurl' => "Ito ang pahina para sa pagdaragdag ng dato.  Dapat mong tukuying kapwa ang isang pangalan ng pormularyo at isang tinutudla/puntiryang pahinang nasa loob ng URL;
+dapat itong magmukhang katulad ng 'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;', o 'Special:AddData/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_adddata_altforms' => 'Sa halip maaari mong idagdag ang pahinang ito na may isa sa sumusunod na mga pormularyo:',
+	'sf_adddata_altformsonly' => 'Pumili lamang po mula sa isa sa sumusunod na mga pormularyo upang maidagdag ang pahinang ito:',
+	'editdata' => 'Baguhin ang dato',
+	'sf_formedit' => 'Baguhin na may pormularyo',
+	'sf_viewform' => 'Tingnan ang pormularyo',
+	'sf_editsource' => 'Baguhin ang pinagmulan',
+	'sf_editdata_title' => 'Baguhin ang $1: $2',
+	'sf_editdata_badurl' => "Ito ang pahina para sa paggawa ng pagbabago sa dato.  Dapat mong tukuying kapwa ang isang pangalan ng pormularyo at isang tinutudla/puntiryang pahinang nasa loob ng URL; dapat itong magmukhang katulad ng 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;', o 'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_editdata_formwarning' => 'Babala: <a href="$1">Umiiral na</a> ang pahinang ito, ngunit hindi ito gumagamit ng ganitong pormularyo.',
+	'sf_editdata_remove' => 'Tanggalin',
+	'sf_editdata_addanother' => 'Magdagdag ng isa pa',
+	'sf_editdata_none' => 'Wala',
+	'sf_formerrors_header' => 'Mayroong mga kamalian sa mga ipinasok mo sa pormularyo; tingnan sa ibaba',
+	'sf_blank_error' => 'hindi maaaring walang laman',
+	'sf_bad_url_error' => "dapat na mayroong tamang anyo/pormat ng URL, na nagsisimula sa 'http'",
+	'sf_bad_email_error' => 'dapat na mayroong isang tanggap na anyo/pormat ng adres ng e-liham',
+	'sf_bad_number_error' => 'dapat na isang tanggap na bilang',
+	'sf_bad_integer_error' => "dapat na isang tanggap na buumbilang (''integer'')",
+	'sf_bad_date_error' => 'dapat na isang tanggap na petsa',
+	'uploadwindow' => 'Dungawan ng pagkarga',
+	'sf_property_isattribute' => 'Isa itong katangian ng uring $1.',
+	'sf_property_isproperty' => 'Isa itong pag-aari ng uring $1.',
+	'sf_property_allowedvals' => 'Ang pinahihintulutang mga halaga para sa pag-aaring ito ay:',
+	'sf_property_isrelation' => 'Mayroong isang kaugnayan.',
+	'sf_template_docu' => "Ito ang suleras na '$1'.
+Dapat na tawagin ito alinsunod sa sumusunod na anyo/pormat:",
+	'sf_template_docufooter' => 'Baguhin ang pahina upang makita ang teksto ng suleras.',
+	'sf_form_docu' => "Ito ang pormularyong '$1'.
+Upang magdagdag ng isang pahina sa pamamagitan ng pormularyong ito, ipasok/ilagay ang pangalan ng pahina sa ibaba;
+kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa isang pormularyo para makagawa ng pagbabago sa pahinang iyan.",
+	'sf_form_freetextlabel' => 'Malayang teksto',
+	'sf_category_hasdefaultform' => 'Ang kaurian/kategoryang ito ay gumagamit ng pormularyong $1.',
+	'sf_category_desc' => 'Ito ang kauriang $1.',
+	'sf_blank_namespace' => 'Pangunahin',
+);
+
 /** Turkish (Türkçe)
  * @author Karduelis
  */
@@ -4102,11 +4241,43 @@ $messages['vi'] = array(
 
 /** Volapük (Volapük)
  * @author Malafaya
+ * @author Smeira
  */
 $messages['vo'] = array(
 	'sf_createproperty_propname' => 'Nem:',
+	'sf_createproperty_proptype' => 'Sot:',
+	'templates' => 'Samafomots',
+	'createtemplate' => 'Jafön samafomoti',
+	'sf_createtemplate_namelabel' => 'Nem samafomota:',
+	'sf_createtemplate_templatefields' => 'Fels samafomota',
+	'sf_createtemplate_fieldname' => 'Felanem:',
+	'sf_createtemplate_aggregationlabel' => 'Tiäd liseda:',
+	'sf_createtemplate_addfield' => 'Läükön feli',
+	'sf_createtemplate_deletefield' => 'Moükön',
+	'forms' => 'Fomets',
+	'sf_forms_docu' => 'Fomets fovik dabinons in vük.',
+	'createform' => 'Jafön fometi',
+	'sf_createform_template' => 'Samafomot:',
+	'sf_createform_field' => 'Fel:',
+	'sf_createform_removetemplate' => 'Moükön samafomoti',
+	'sf_createform_addtemplate' => 'Läükön samafomoti',
+	'sf_createform_add' => 'Läükön',
+	'sf_createform_choosefield' => 'Välön feli läükabik',
 	'sf_createcategory_name' => 'Nem:',
+	'addpage' => 'Läükön padi me fomet',
+	'adddata' => 'Läükön nünodis',
+	'editdata' => 'Votükön nünodis',
+	'sf_formedit' => 'Redakön me fomet',
+	'sf_viewform' => 'Logön fometi',
+	'sf_editsource' => 'Redakön fonäti',
+	'sf_editdata_remove' => 'Moükön',
 	'sf_editdata_none' => 'Nonik',
+	'sf_bad_number_error' => 'muton binön num lonöföl',
+	'sf_bad_date_error' => 'muton binön dät lonöföl',
+	'uploadwindow' => 'Löpükamafenät',
+	'sf_form_freetextlabel' => 'Vödem libik',
+	'sf_category_hasdefaultform' => 'Klad at gebon fometi: $1.',
+	'sf_category_desc' => 'Atos binon klad: $1.',
 	'sf_blank_namespace' => 'Cifik',
 );
 
