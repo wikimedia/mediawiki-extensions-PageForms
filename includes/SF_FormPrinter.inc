@@ -316,7 +316,7 @@ class SFFormPrinter {
                 }
                 // handle an end to a field and/or template declaration
                 $template_ended = ($uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0);
-                $field_ended = ($c == '|' && $uncompleted_square_brackets == 0);
+                $field_ended = ($c == '|' && $uncompleted_square_brackets == 0 && $uncompleted_curly_brackets <= 2);
                 if ($template_ended || $field_ended) {
                   // if this was the last character in the template, remove
                   // the closing curly brackets
@@ -759,7 +759,11 @@ class SFFormPrinter {
                   }
                 } else {
                   if ($allow_multiple) {
-                    $sfgJSValidationCalls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
+                    if ($all_instances_printed) {
+                      $sfgJSValidationCalls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
+                    } else {
+                      $sfgJSValidationCalls[] = "validate_mandatory_field(\"input_$sfgFieldNum\", \"info_$sfgFieldNum\")";
+                    }
                   } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
                     $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
                   // if it's not a radiobutton...
@@ -1148,12 +1152,6 @@ END;
       // first, so that if there's a conflict they'll be overridden
       $funcArgs[] = array_merge($default_args, $other_args);
       list($text, $javascript_text) = call_user_func_array($hook_values[0], $funcArgs);
-    // escape out here if user doesn't have SMW installed
-    } elseif ($smwgContLang == null) {
-      $size = $template_field->field_args['size'];
-      if ($size == null) $size = 35;
-      $field_args = array('size' => $size);
-      list($text, $javascript_text) = SFFormInputs::textEntryHTML($cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $field_args);
     } else { // input type not defined in form
       $field_type = $template_field->field_type;
       $is_list = ($form_field->is_list || $template_field->is_list);
