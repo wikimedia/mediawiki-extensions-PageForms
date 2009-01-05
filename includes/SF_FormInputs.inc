@@ -274,10 +274,13 @@ END;
   }
 
   function textInputWithAutocompleteHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    // if 'no autocomplete' was specified, call the regular text entry instead
+    // if 'no autocomplete' was specified, print a regular text entry instead
     if (array_key_exists('no autocomplete', $other_args) &&
         $other_args['no autocomplete'] == true)
       return SFFormInputs::textEntryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
+    // if a set of values was specified, print a dropdown instead
+    if (array_key_exists('possible_values', $other_args) && $other_args['possible_values'] != null)
+      return SFFormInputs::dropdownHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args);
 
     global $sfgTabIndex, $sfgFieldNum;
 
