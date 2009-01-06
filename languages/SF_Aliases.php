@@ -64,6 +64,13 @@ $aliases['es'] = array(
 	'Templates' => array( 'Plantillas' ),
 );
 
+/** Basque (Euskara) */
+$aliases['eu'] = array(
+	'CreateCategory' => array( 'KategoriaSortu' ),
+	'CreateTemplate' => array( 'TxantiloiaSortu' ),
+	'Templates' => array( 'Txantiloiak' ),
+);
+
 /** Persian (فارسی) */
 $aliases['fa'] = array(
 	'AddData' => array( 'افزودن_داده' ),
