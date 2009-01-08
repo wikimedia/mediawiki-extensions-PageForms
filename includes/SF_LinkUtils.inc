@@ -56,7 +56,7 @@ class SFLinkUtils {
 	 * Gets the default form specified, if any, for a specific page
 	 * (which should be a category, property, or namespace page)
 	 */
-	function getDefaultForm($page_title, $page_namespace) {
+	static function getDefaultForm($page_title, $page_namespace) {
 		if ($page_title == NULL)
 			return null;
 
@@ -108,7 +108,7 @@ class SFLinkUtils {
 	 * Gets the alternate forms specified, if any, for a specific page
 	 * (which should always be a property page)
 	 */
-	function getAlternateForms($page_title, $page_namespace) {
+	static function getAlternateForms($page_title, $page_namespace) {
 		if ($page_title == NULL)
 			return array();
 

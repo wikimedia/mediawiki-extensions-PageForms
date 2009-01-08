@@ -17,7 +17,7 @@ class SFTemplateField {
 	var $possible_values;
 	var $is_list;
 
-	function newWithValues($name, $label) {
+	static function newWithValues($name, $label) {
 		$f = new SFTemplateField();
 		$f->field_name = trim(str_replace('\\', '', $name));
 		$f->label = trim(str_replace('\\', '', $label));

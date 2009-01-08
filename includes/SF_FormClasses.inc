@@ -11,7 +11,7 @@ class SFForm {
 	var $form_name;
 	var $templates;
 
-	function create($form_name, $templates) {
+	static function create($form_name, $templates) {
 		$form = new SFForm();
 		$form->form_name = ucfirst(str_replace('_', ' ', $form_name));
 		$form->templates = $templates;
@@ -151,7 +151,7 @@ class SFTemplateInForm {
 		return $template_fields;
 	}
 
-	function create($name, $label, $allow_multiple, $max_allowed = null) {
+	static function create($name, $label, $allow_multiple, $max_allowed = null) {
 		$tif = new SFTemplateInForm();
 		$tif->template_name = str_replace('_', ' ', $name);
 		$tif->fields = array();
@@ -239,7 +239,7 @@ class SFFormTemplateField {
 	var $input_name;
 	var $is_disabled;
 
-	function create($num, $template_field) {
+	static function create($num, $template_field) {
 		$f = new SFFormTemplateField();
 		$f->num = $num;
 		$f->template_field = $template_field;
@@ -252,7 +252,7 @@ class SFFormTemplateField {
 		return $f;
 	}
 
-	function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_uploadable, $possible_values, $is_disabled, $is_list, $input_type, $field_args, $all_fields, $strict_parsing) {
+	static function createFromDefinition($field_name, $input_name, $is_mandatory, $is_hidden, $is_uploadable, $possible_values, $is_disabled, $is_list, $input_type, $field_args, $all_fields, $strict_parsing) {
 		// see if this field matches one of the fields defined for this template -
 		// if it is, use all available information about that field; if it's not,
 		// either include it in the form or not, depending on whether the
