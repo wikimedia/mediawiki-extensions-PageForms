@@ -264,7 +264,7 @@ END;
 							} else {
 								$cur_value = str_replace("_", " ", $row['page_title']);
 								if ($substring == null)
-									$pages[] = str_replace("'", "\'", $cur_value);
+									$pages[] = $cur_value;
 								else
 									$pages[] = array('title' => $cur_value);
 								// return if we've reached the maximum number of allowed values
