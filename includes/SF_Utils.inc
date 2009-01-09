@@ -23,10 +23,9 @@ class SFUtils {
 	static function linkText($namespace, $name, $text = NULL) {
 		global $wgContLang;
 
-		$inText = $wgContLang->getNsText($namespace) . ':' . $name;
-		$title = Title::newFromText( $inText );
+		$title = Title::makeTitleSafe( $namespace, $name );
 		if ($title === NULL) {
-			return $inText; // TODO maybe report an error here?
+			return $name; // TODO maybe report an error here?
 		}
 		if ( NULL === $text ) $text = $title->getText();
 		$l = new Linker();
@@ -91,7 +90,7 @@ END;
 		if (class_exists('SMWPropertyValue'))
 			return SMWPropertyValue::makeProperty($property_name);
 		else
-			return Title::newFromText($property_name, SMW_NS_PROPERTY);
+			return Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
 	}
 
 	/**
@@ -152,6 +151,7 @@ END;
 		$property_field = ($is_relation) ? 'relation_title' : 'attribute_title';
 		$value_field = ($is_relation) ? 'object_title' : 'value_xsd';
 		$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes';
+		$property_name = str_replace(' ', '_', $property_name);
 		$conditions = "$property_field = '$property_name'";
 		if ($substring != null) {
 			$substring = str_replace(' ', '_', strtolower($substring));
@@ -233,6 +233,7 @@ END;
 
 		$db = wfGetDB( DB_SLAVE );
 		$fname = "getAllPagesForCategory";
+		$top_category = str_replace(' ', '_', $top_category);
 		$categories = array($top_category);
 		$checkcategories = array($top_category);
 		$pages = array();
@@ -300,7 +301,7 @@ END;
 			$requestoptions->addStringCondition($substring, SMWStringCondition::STRCOND_PRE);
 		}
 */
-		$concept = Title::newFromText($concept_name, SMW_NS_CONCEPT);
+		$concept = Title::makeTitleSafe(SMW_NS_CONCEPT, $concept_name);
 		$desc = new SMWConceptDescription($concept);
 		$printout = new SMWPrintRequest(SMWPrintRequest::PRINT_THIS, "");
 		$desc->addPrintRequest($printout);
