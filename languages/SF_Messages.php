@@ -1564,7 +1564,6 @@ $messages['gl'] = array(
 $messages['got'] = array(
 	'sf_createtemplate_deletefield' => 'Taíran',
 );
-
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
  * @author Crazymadlover
  * @author Omnipaedista
@@ -2134,6 +2133,7 @@ $messages['ja'] = array(
 	'sf_createform_removetemplate' => 'テンプレートの削除',
 	'sf_createform_add' => '追加',
 	'addpage' => 'フォームを使ってページを追加',
+	'sf_editdata_remove' => '削除',
 	'sf_editdata_none' => 'なし',
 	'sf_blank_namespace' => 'メイン',
 );
@@ -3203,6 +3203,7 @@ $messages['ps'] = array(
  * @author 555
  * @author Lijealso
  * @author Malafaya
+ * @author Waldir
  */
 $messages['pt'] = array(
 	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
@@ -3218,6 +3219,7 @@ $messages['pt'] = array(
 	'sf_createtemplate_namelabel' => 'Nome da predefinição:',
 	'sf_createtemplate_categorylabel' => 'Categoria definida pela predefinição (opcional):',
 	'sf_createtemplate_templatefields' => 'Campos da predefinição:',
+	'sf_createtemplate_fieldsdesc' => 'Para fazer com que os campos deste modelo não requiram descrições, simplesmente introduza o índice de cada campo (p.ex. 1, 2, 3, etc.) como o nome do campo, em vez de um nome real.',
 	'sf_createtemplate_fieldname' => 'Nome do campo:',
 	'sf_createtemplate_displaylabel' => 'Exibir etiqueta:',
 	'sf_createtemplate_semanticproperty' => 'Propriedade semântica:',
@@ -3265,9 +3267,17 @@ $messages['pt'] = array(
 	'sf_createcategory_makesubcategory' => 'Fazer desta categoria uma subcategoria de outra categoria (opcional):',
 	'addpage' => 'Adicionar página com formulário',
 	'sf_addpage_badform' => 'Erro: não foi encontrada página de formulário em $1',
+	'sf_addpage_docu' => "Introduza o nome da página aqui, para ser editada com o formulário '$1'.
+Se a página já existir, você será enviado para o formulário de edição dessa página.
+Caso contrário, você será enviado para o formulário de adição da página.",
+	'sf_addpage_noform_docu' => 'Introduza o nome da página aqui, e selecione um formulário a usar na sua edição.
+Se a página já existir, você será enviado para o formulário de edição dessa página.
+Caso contrário, você será enviado para o formulário de adição da página.',
 	'addoreditdata' => 'Adicionar ou editar',
 	'adddata' => 'Adicionar dados',
 	'sf_adddata_title' => 'Adicionar $1: $2',
+	'sf_adddata_badurl' => "Esta é a página para adicionar dados. Você deve esepcificar tanto o nome do formulário como uma página alvo na URL;
+deverá parecer-se com 'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:AddData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_adddata_altforms' => 'Poderá, em alternativa, adicionar esta página aos seguintes formulários:',
 	'sf_adddata_altformsonly' => 'Por favor, seleccione um dos seguintes formulários para adicionar esta página:',
 	'editdata' => 'Editar dados',
@@ -3275,6 +3285,8 @@ $messages['pt'] = array(
 	'sf_viewform' => 'Ver formulário',
 	'sf_editsource' => 'Editar a origem',
 	'sf_editdata_title' => 'Editar $1: $2',
+	'sf_editdata_badurl' => "Esta é a página para editar dados. Você deve esepcificar tanto o nome do formulário como uma página alvo na URL;
+deverá parecer-se com 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_formwarning' => 'Aviso: Esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
 	'sf_editdata_remove' => 'Remover',
 	'sf_editdata_addanother' => 'Adicionar outro',
