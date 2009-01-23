@@ -246,6 +246,12 @@ $aliases['ro'] = array(
 	'Templates' => array( 'Formate' ),
 );
 
+/** Albanian (Shqip) */
+$aliases['sq'] = array(
+	'Forms' => array( 'Format' ),
+	'Templates' => array( 'Stampat' ),
+);
+
 /** Swahili (Kiswahili) */
 $aliases['sw'] = array(
 	'AddData' => array( 'WekaData' ),
