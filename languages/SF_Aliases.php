@@ -132,6 +132,20 @@ $aliases['hu'] = array(
 	'UploadWindow' => array( 'Feltöltő ablak' ),
 );
 
+/** Japanese (日本語) */
+$aliases['ja'] = array(
+	'AddData' => array( 'データ追加' ),
+	'AddPage' => array( 'ページ追加' ),
+	'CreateCategory' => array( 'カテゴリ作成' ),
+	'CreateForm' => array( 'フォーム作成' ),
+	'CreateProperty' => array( 'プロパティ作成' ),
+	'CreateTemplate' => array( 'テンプレート作成' ),
+	'EditData' => array( 'データ編集' ),
+	'Forms' => array( 'フォーム' ),
+	'Templates' => array( 'テンプレート' ),
+	'UploadWindow' => array( 'アップロードウィンドウ' ),
+);
+
 /** Georgian (ქართული) */
 $aliases['ka'] = array(
 	'Templates' => array( 'თარგები' ),
