@@ -2043,8 +2043,12 @@ $messages['it'] = array(
  * @author Hosiryuhosi
  */
 $messages['ja'] = array(
+	'semanticforms-desc' => '意味データを追加および編集するためのフォーム',
+	'specialpages-group-sf_group' => 'セマンティック・フォーム',
+	'createproperty' => 'プロパティ作成',
+	'sf_createproperty_allowedvalsinput' => 'この欄には一部の値しか入力できないようにするには、許可する値のリストをコンマで区切って入力してください (値がコンマを含む場合は「\\,」に置き換えてください)。',
 	'sf_createproperty_propname' => '名前:',
-	'sf_createproperty_proptype' => 'タイプ:',
+	'sf_createproperty_proptype' => '型:',
 	'templates' => 'テンプレート',
 	'sf_createtemplate_standardformat' => '標準',
 	'sf_createtemplate_deletefield' => '削除',
