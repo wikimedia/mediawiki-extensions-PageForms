@@ -120,6 +120,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 );
 
 /** Message documentation (Message documentation)
+ * @author Fryed-peach
  * @author Jon Harald Søby
  * @author Siebrand
  */
@@ -135,6 +136,10 @@ $messages['qqq'] = array(
 	'sf_createform_add' => '{{Identical|Add}}',
 	'sf_createcategory_name' => '{{Identical|Name}}',
 	'addpage' => 'Name of a special page.',
+	'sf_adddata_title' => '* $1 is the main part of the title of a semantic form
+* $2 is the prefixed title, with spaces for the target page',
+	'sf_editdata_title' => '* $1 is the main part of the title of a semantic form
+* $2 is the prefixed title, with spaces for the target page',
 	'sf_editdata_remove' => '{{Identical|Remove}}',
 	'sf_editdata_none' => '{{Identical|None}}',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
@@ -733,6 +738,7 @@ $messages['da'] = array(
 );
 
 /** German (Deutsch)
+ * @author Als-Holder
  * @author Cipher
  * @author DaSch
  * @author Dominik Rodler
@@ -747,7 +753,7 @@ $messages['de'] = array(
 	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Feld nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses mit „\\,“):',
 	'sf_createproperty_propname' => 'Name:',
 	'sf_createproperty_proptype' => 'Typ:',
-	'templates' => 'Vorlage',
+	'templates' => 'Vorlagen',
 	'sf_templates_docu' => 'Die folgenden Vorlagen existieren in {{SITENAME}}.',
 	'sf_templates_definescat' => 'definiert Kategorie:',
 	'createtemplate' => 'Eine Vorlage erstellen',
@@ -1519,6 +1525,105 @@ $messages['grc'] = array(
 	'sf_form_freetextlabel' => 'Ἐλεύθερον κείμενον',
 );
 
+/** Swiss German (Alemannisch)
+ * @author Als-Holder
+ */
+$messages['gsw'] = array(
+	'semanticforms-desc' => 'Formular fir s Yyfiege un Bearbeite vu semantische Date',
+	'specialpages-group-sf_group' => 'Semantischi Formular',
+	'createproperty' => 'E Attribut aalege',
+	'sf_createproperty_allowedvalsinput' => 'Wänn Du fir des Fäld nume bstimmti Wärt witt megli mache, gib die bitte as kommatrännti Lischt yy (wänn s in eme Wärt e Komma het, ersetz des mit „\\,“):',
+	'sf_createproperty_propname' => 'Name:',
+	'sf_createproperty_proptype' => 'Typ:',
+	'templates' => 'Vorlage',
+	'sf_templates_docu' => 'Die Vorlage git s uf {{SITENAME}}.',
+	'sf_templates_definescat' => 'definiert Kategorii:',
+	'createtemplate' => 'E Vorlag aalege',
+	'sf_createtemplate_namelabel' => 'Vorlagename:',
+	'sf_createtemplate_categorylabel' => 'Dur Vorlag definierti Kategorii (optional):',
+	'sf_createtemplate_templatefields' => 'Vorlagefälder',
+	'sf_createtemplate_fieldsdesc' => 'Wänn e Fäld vum ere Vorlag kei Feldname meh bruucht, gib eifach statt eme ächte Name d Indexnummere vum Fäld as Name yy (z. B. 1, 2, 3 usw.).',
+	'sf_createtemplate_fieldname' => 'Fäldname:',
+	'sf_createtemplate_displaylabel' => 'Fäldname aazeige:',
+	'sf_createtemplate_semanticproperty' => 'Semantisch Attribut:',
+	'sf_createtemplate_fieldislist' => 'In däm Fäld cha s e Lischt vu Wärt haa, wu dur Komma trännt wäre.',
+	'sf_createtemplate_aggregation' => 'Zämmefassig',
+	'sf_createtemplate_aggregationdesc' => 'Zum uf allene Syte, wu die Vorlag bruuche, alli Artikel ufzlischte, wu ne bstimmt Attribut hän un uf die Syte vergleicht sin, gib s gwinscht Attribut do aa:',
+	'sf_createtemplate_aggregationlabel' => 'Titel fir Lischt:',
+	'sf_createtemplate_outputformat' => 'Uusgabformat:',
+	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_infoboxformat' => 'Infobox uf dr rächte Syte',
+	'sf_createtemplate_addfield' => 'Fieg Fäld yy',
+	'sf_createtemplate_deletefield' => 'Lesche',
+	'sf_createtemplate_addtemplatebeforesave' => 'Du muesch zmindescht ei Vorlag zue däm Formular zuefiege, voreb Du s cha spychere.',
+	'forms' => 'Formular',
+	'sf_forms_docu' => 'Die Formular git s in {{SITENAME}}:',
+	'createform' => 'Leg e Formular aa',
+	'sf_createform_nameinput' => 'Formularname (no dr Konvention wird e Formular no dr Hauptvorlag gnännt, wu s fillt):',
+	'sf_createform_template' => 'Vorlag:',
+	'sf_createform_templatelabelinput' => 'Vorlagename (optional):',
+	'sf_createform_allowmultiple' => 'Erlaub mehreri (oder null) Instanze vu däre Vorlag in dr aagleite Syte',
+	'sf_createform_field' => 'Fäld:',
+	'sf_createform_fieldprop' => 'Des Fäld definiert s Attribut $1 vum Typ $2.',
+	'sf_createform_fieldproplist' => 'Des Fäld definiert e Lischt vu Elemänt, wu s Attribut $1 vum Typ $2 hän.',
+	'sf_createform_fieldpropunknowntype' => 'Des Fäld definiert d Eigeschaft $1 mit eme nit spezifizierte Typ.',
+	'sf_createform_inputtype' => 'Gib dr Typ yy:',
+	'sf_createform_inputtypedefault' => '(Standardwärt)',
+	'sf_createform_formlabel' => 'Formularname:',
+	'sf_createform_hidden' => 'Versteckt',
+	'sf_createform_restricted' => 'Gsperrt (nume Ammanne chenne ebis ändere)',
+	'sf_createform_mandatory' => 'Pflichtfäld',
+	'sf_createform_removetemplate' => 'Vorlag useneh',
+	'sf_createform_addtemplate' => 'Vorlag zuefiege:',
+	'sf_createform_beforetemplate' => 'Vor Vorlag:',
+	'sf_createform_atend' => 'Am Änd',
+	'sf_createform_add' => 'Zuefiege',
+	'sf_createform_choosefield' => 'Wehl e Fäld uus, wu Du iwtt zuefiege',
+	'createcategory' => 'E Kategorii aalege',
+	'sf_createcategory_name' => 'Name:',
+	'sf_createcategory_defaultform' => 'Standardformular:',
+	'sf_createcategory_makesubcategory' => 'Mach die Kategorii zuen ere Subkategorii vun ere andere Kategorii (optional):',
+	'addpage' => 'Syte mit Formular zuefiege',
+	'sf_addpage_badform' => 'Fähler: s isch kei Syte gfunde wore bi $1',
+	'sf_addpage_docu' => 'Gib in des Täxtfäld dr Name vu dr Syte yy, wu mit em Formular „$1“ soll bearbeitet wäre. Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, wu Du die Syte chasch mit bearbeite. Suscht wirsch zuen eme Formular wytergleitet, wu Du die Syte chasch mit aalege.',
+	'sf_addpage_noform_docu' => 'Gib in des Täxtfäld dr Name vu dr Syte yy un wehl s Formular, wu d Syte mit soll bearbeitet wäre. Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, wu Du die Syte chasch mit bearbeite. Suscht wirsch zuen eme Formular wytergleitet, wu Du die Syte chasch mit aalege.',
+	'addoreditdata' => 'Zuefiege oder Bearbeite',
+	'adddata' => 'Date zuefiege',
+	'sf_adddata_title' => 'Fieg $1: $2 zue',
+	'sf_adddata_badurl' => 'Des isch d Syte zum Zuefiege vu Date. Du muesch dr Name vun eme Formulars UN d Ziilsyte, wu soll bearbeitet wäre, in dr URL aagee. S sott uussäh wie „Special:AddData?form=&lt;Formularname&gt;&target=&lt;Ziilsyte&gt;“ oder „Special:AddData/&lt;Formularname&gt;/&lt;Ziilsyte&gt;“.',
+	'sf_adddata_altforms' => 'Du chasch die Syte au mit eim vu däne Formular aalege:',
+	'sf_adddata_altformsonly' => 'Bitte wehl eis vu däne Formular uus go die Syte aalege:',
+	'editdata' => 'Date bearbeite',
+	'sf_formedit' => 'mit Formular bearbeite',
+	'sf_viewform' => 'Formular aazeige',
+	'sf_editsource' => 'Quälltäxt bearbeite',
+	'sf_editdata_title' => 'Bearbeit $1: $2',
+	'sf_editdata_badurl' => 'Des isch d Syte zum Bearbeite vu Date. Du muesch dr Name vun eme Formular UN Syte, wu soll bearbeitet wäre, in dr URL aagee. S sott uussäh wie „Special:EditData?form=&lt;Formularname&gt;&target=&lt;Ziilsyte&gt;“ oder „Special:EditData/&lt;Formularname&gt;/&lt;Ziilsyte&gt;“.',
+	'sf_editdata_formwarning' => 'Warnig: Die Syte <a href="$1">git s scho</a>, aber si bruucht nit des Formular.',
+	'sf_editdata_remove' => 'Useneh',
+	'sf_editdata_addanother' => 'Wyteri zuefiege',
+	'sf_editdata_none' => 'Keini',
+	'sf_formerrors_header' => 'Dyy Yygab isch fählerhaft; fir meh lueg unte',
+	'sf_blank_error' => 'derf nit läär syy',
+	'sf_bad_url_error' => 'muess s richtig URL-Format haa, wu aafangt mit „http://“',
+	'sf_bad_email_error' => 'muess e giltig E-Mail-Adrässformat haa',
+	'sf_bad_number_error' => 'muess e giltigi Zahl syy',
+	'sf_bad_integer_error' => 'muess e giltigi Ganzzahl syy',
+	'sf_bad_date_error' => 'muess e giltig Datum syy',
+	'uploadwindow' => 'Fänschter zum Uffelade',
+	'sf_property_isattribute' => 'Des isch e Attribut vum Typ $1.',
+	'sf_property_isproperty' => 'Des isch e Eigeschaft vum Typ $1.',
+	'sf_property_allowedvals' => 'Di erlaubte Wärt fir die Eigeschaft sin:',
+	'sf_property_isrelation' => 'Des isch e Beziejig.',
+	'sf_template_docu' => 'Des isch d Vorlag fir „$1“. Si sott in däm Format ufgruefe wäre:',
+	'sf_template_docufooter' => 'Die Syte bearbeite go dr Vorlagetäxt säh.',
+	'sf_form_docu' => 'Gib in des Täxtfäld dr Name vu dr Syte yy, wu mit em Formular „$1“ soll aagleit wäre. Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, wu Du die Syte chasch aalege mit.',
+	'sf_form_freetextlabel' => 'Frejtäxt',
+	'sf_category_hasdefaultform' => 'Die Kategorii bruucht s Formular $1.',
+	'sf_category_desc' => 'Des isch d Kategorii $1.',
+	'sf_blank_namespace' => 'Hauptsyte',
+);
+
 /** Gujarati (ગુજરાતી)
  * @author Dsvyas
  */
@@ -2103,6 +2208,7 @@ $messages['ja'] = array(
 	'sf_addpage_noform_docu' => 'ページの名前をここに入力し、編集に使うフォームを選んでください。そのページが既に存在する場合、そのページを編集するためのフォームへ転送されます。その他の場合は、そのページを追加するためのフォームへ転送されます。',
 	'addoreditdata' => '追加あるいは編集',
 	'adddata' => 'データ追加',
+	'sf_adddata_title' => '$1 を追加: $2',
 	'sf_adddata_badurl' => 'これはデータを追加するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
 "Special:AddData?form=&lt;フォーム名&gt;&target=&lt;対象ページ&gt;" あるいは "Special:AddData/&lt;フォーム名&gt;/&lt;対象ページ&gt;" というような形式になります。',
 	'sf_adddata_altforms' => '代わりに次のうちどれかのフォームを使って、このページを追加することができます:',
@@ -2111,6 +2217,7 @@ $messages['ja'] = array(
 	'sf_formedit' => 'フォームを使って編集',
 	'sf_viewform' => 'フォームを表示',
 	'sf_editsource' => 'ソースを編集',
+	'sf_editdata_title' => '$1 を編集: $2',
 	'sf_editdata_badurl' => 'これはデータを編集するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
 "Special:EditData?form=&lt;フォーム名&gt;&target=&lt;対象ページ&gt;" あるいは "Special:EditData/&lt;フォーム名&gt;/&lt;対象ページ&gt;" というような形式になります。',
 	'sf_editdata_formwarning' => '警告: このページは<a href="$1">既に存在します</a>が、このフォームを利用していません。',
@@ -2135,7 +2242,7 @@ $messages['ja'] = array(
 	'sf_form_freetextlabel' => '自由に記載',
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使っています。',
 	'sf_category_desc' => 'これは $1 カテゴリです。',
-	'sf_blank_namespace' => 'メイン',
+	'sf_blank_namespace' => '標準',
 );
 
 /** Javanese (Basa Jawa)
@@ -3279,10 +3386,13 @@ Ela deverá ser chamada no seguinte formato:",
 );
 
 /** Brazilian Portuguese (Português do Brasil)
+ * @author Eduardo.mps
  * @author Enqd
  * @author Leonardo Costa
  */
 $messages['pt-br'] = array(
+	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
+	'specialpages-group-sf_group' => 'Formulários Semânticos',
 	'createproperty' => 'Criar uma propriedade',
 	'sf_createproperty_allowedvalsinput' => 'Se você quer que somente determinados valores sejam permitidos nesse campo, entre com a lista dos valores permitidos, separados por vírgulas (se um valor contém vírgula, substitua por "\\,"):',
 	'sf_createproperty_propname' => 'Nome:',
@@ -3304,6 +3414,7 @@ $messages['pt-br'] = array(
 	'sf_createtemplate_aggregationlabel' => 'Título para a lista:',
 	'sf_createtemplate_outputformat' => 'Formato de saída:',
 	'sf_createtemplate_standardformat' => 'Padrão',
+	'sf_createtemplate_infoboxformat' => 'Caixa informativa do lado direito',
 	'sf_createtemplate_addfield' => 'Adicionar campo',
 	'sf_createtemplate_deletefield' => 'Deletar',
 	'sf_createtemplate_addtemplatebeforesave' => 'Você deve adicionar ao menos uma predefinição para este formulário antes de salvar.',

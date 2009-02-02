@@ -249,6 +249,14 @@ $aliases['oc'] = array(
 	'Templates' => array( 'Modèls' ),
 );
 
+/** Pashto (پښتو) */
+$aliases['ps'] = array(
+	'CreateCategory' => array( 'وېشنيزه جوړول' ),
+	'CreateProperty' => array( 'د جوړولو ځانتيا' ),
+	'CreateTemplate' => array( 'کينډۍ جوړول' ),
+	'Templates' => array( 'کينډۍ' ),
+);
+
 /** Brazilian Portuguese (Português do Brasil) */
 $aliases['pt-br'] = array(
 	'Forms' => array( 'Formulários' ),
