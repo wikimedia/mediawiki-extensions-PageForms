@@ -299,6 +299,7 @@ $messages['ar'] = array(
  * @author Meno25
  */
 $messages['arz'] = array(
+	'semanticforms-desc' => 'نماذج لإضافة وتعديل بيانات سيمانتك',
 	'specialpages-group-sf_group' => 'منتديات سيمانتيك',
 	'createproperty' => 'إنشاء خاصية',
 	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد لهذا الحقل أن يحتوى على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوى على فاصلة، استبدلها ب "\\,"):',
@@ -1086,9 +1087,12 @@ $messages['eu'] = array(
 
 /** Persian (فارسی)
  * @author Huji
+ * @author Momeni
  * @author Tofighi
  */
 $messages['fa'] = array(
+	'semanticforms-desc' => 'فرم‌هایی برای افزودن و ویرایش اطلاعات معنایی',
+	'specialpages-group-sf_group' => 'فرم‌های معنایی',
 	'createproperty' => 'ویژگی بسازید',
 	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\\،" جایگزین نمایید):',
 	'sf_createproperty_propname' => 'نام:',
@@ -3472,6 +3476,7 @@ $messages['pt-br'] = array(
 	'sf_bad_number_error' => 'deve ser um número válido',
 	'sf_bad_integer_error' => 'deve ser um válido integer',
 	'sf_bad_date_error' => 'deve ser uma data válida',
+	'uploadwindow' => 'Janela de carregamento',
 	'sf_property_isattribute' => 'Este é um atributo to tipo $1.',
 	'sf_property_isproperty' => 'Esta é uma propriedade do tipo $1.',
 	'sf_property_allowedvals' => 'Os valores permitidos para este propriedade são:',
