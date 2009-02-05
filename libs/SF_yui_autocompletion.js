@@ -39,6 +39,7 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
     this.oAutoComp.maxResultsDisplayed = 20;
     this.oAutoComp.animHoriz = false;
     this.oAutoComp.animVert = false;
+    this.oAutoComp.useIFrame = true;
     if (delimiter != '') {
         this.oAutoComp.delimChar = delimiter;
     }
