@@ -1,7 +1,6 @@
 <?php
 /**
- * Protect against register_globals vulnerabilities.
- * This line must be present before any global variable is referenced.
+ * Default settings for Semantic Forms
  */
 if (!defined('MEDIAWIKI')) die();
 
