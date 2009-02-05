@@ -1,15 +1,13 @@
 <?php
 /**
- * Global functions and constants for Semantic Forms.
+ * Constants and initializations for Semantic Forms.
  *
  * @author Yaron Koren
- * @author Harold Solbrig
- * @author Louis Gerbarg
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.4.2');
+define('SF_VERSION','1.5');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -73,7 +71,7 @@ $wgAutoloadClasses['FormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
 $wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.inc';
 $wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
-$wgAutoloadClasses['SFFormTemplateField'] = $sfgIP . '/includes/SF_FormClasses.inc';
+$wgAutoloadClasses['SFFormField'] = $sfgIP . '/includes/SF_FormField.inc';
 $wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
 $wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.inc';
 $wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.inc';
@@ -82,7 +80,6 @@ $wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.inc';
 $wgAutoloadClasses['SFLinkUtils'] = $sfgIP . '/includes/SF_LinkUtils.inc';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
-
 require_once($sfgIP . '/languages/SF_Language.php');
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
@@ -162,18 +159,17 @@ function sffInitContentLanguage($langcode) {
 
 	if (!empty($sfgContLang)) { return; }
 
-	$sfContLangClass = 'SF_Language' . str_replace( '-', '_', ucfirst( $langcode ) );
-	if (file_exists($sfgIP . '/languages/'. $sfContLangClass . '.php')) {
-		include_once( $sfgIP . '/languages/'. $sfContLangClass . '.php' );
-	}
-
+	$cont_lang_class = 'SF_Language' . str_replace( '-', '_', ucfirst( $langcode ) );
 	// fallback if language not supported
-	if ( !class_exists($sfContLangClass)) {
-		include_once($sfgIP . '/languages/SF_LanguageEn.php');
-		$sfContLangClass = 'SF_LanguageEn';
+	if ( !class_exists($cont_lang_class)) {
+		$cont_lang_class = 'SF_LanguageEn';
 	}
 
-	$sfgContLang = new $sfContLangClass();
+	if (file_exists($sfgIP . '/languages/'. $cont_lang_class . '.php')) {
+		include_once( $sfgIP . '/languages/'. $cont_lang_class . '.php' );
+	}
+
+	$sfgContLang = new $cont_lang_class();
 }
 
 /**
