@@ -1289,6 +1289,7 @@ $messages['fi'] = array(
 );
 
 /** French (Français)
+ * @author Crochet.david
  * @author Dereckson
  * @author Grondin
  * @author IAlex
@@ -1359,7 +1360,7 @@ $messages['fr'] = array(
 	'sf_adddata_title' => 'Ajouter $1 : $2',
 	'sf_adddata_badurl' => "Ceci est la page pour ajouter les données. Il faut indiquer un nom de formulaire et une page cible dans l'URL; l'URL doit ressembler à « Special:AddData?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:AddData/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».",
 	'sf_adddata_altforms' => "Vous pouvez, à la place, ajouter cette page avec l'un des formulaires suivants :",
-	'sf_adddata_altformsonly' => "Vous êtes prié de sélectionner l'un des formulaires suivants pour ajouter cette page :",
+	'sf_adddata_altformsonly' => "Vous êtes prié{{GENDER:||e|(e)}} de sélectionner l'un des formulaires suivants pour ajouter cette page :",
 	'editdata' => 'Modifier les données',
 	'sf_formedit' => 'Modifier avec un formulaire',
 	'sf_viewform' => 'Voir le formulaire',
