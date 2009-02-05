@@ -1,7 +1,7 @@
 <?php
 /**
  * A special page holding a form that allows the user to create a semantic
- * property (an attribute or relation).
+ * property.
  *
  * @author Yaron Koren
  */
@@ -18,7 +18,7 @@ class SFCreateProperty extends SpecialPage {
 		wfLoadExtensionMessages('SemanticForms');
 	}
 
-	function execute() {
+	function execute($query) {
 		$this->setHeaders();
 		doSpecialCreateProperty();
 	}
@@ -84,8 +84,7 @@ function doSpecialCreateProperty() {
 		} else {
 			# redirect to wiki interface
 			$wgOut->setArticleBodyOnly(true);
-			$namespace = SMW_NS_PROPERTY;
-			$title = Title::newFromText($property_name, $namespace);
+			$title = Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
 			$full_text = createPropertyText($property_type, $allowed_values);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
