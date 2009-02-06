@@ -90,7 +90,7 @@ END;
 	 * to display and work correctly
 	 */
 	static function addJavascriptAndCSS() {
-		global $wgOut, $sfgScriptPath, $sfgYUIBase, $wgFCKEditorDir;
+		global $wgOut, $sfgScriptPath, $sfgYUIBase, $wgScriptPath, $wgFCKEditorDir;
 
 		$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
 		$wgOut->addLink( array(
