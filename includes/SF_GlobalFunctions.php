@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.5');
+define('SF_VERSION','1.5.1');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -160,13 +160,13 @@ function sffInitContentLanguage($langcode) {
 	if (!empty($sfgContLang)) { return; }
 
 	$cont_lang_class = 'SF_Language' . str_replace( '-', '_', ucfirst( $langcode ) );
+	if (file_exists($sfgIP . '/languages/'. $cont_lang_class . '.php')) {
+		include_once( $sfgIP . '/languages/'. $cont_lang_class . '.php' );
+	}
+
 	// fallback if language not supported
 	if ( !class_exists($cont_lang_class)) {
 		$cont_lang_class = 'SF_LanguageEn';
-	}
-
-	if (file_exists($sfgIP . '/languages/'. $cont_lang_class . '.php')) {
-		include_once( $sfgIP . '/languages/'. $cont_lang_class . '.php' );
 	}
 
 	$sfgContLang = new $cont_lang_class();
