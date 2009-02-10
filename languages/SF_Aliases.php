@@ -287,3 +287,8 @@ $aliases['sw'] = array(
 	'UploadWindow' => array( 'DirishalaKupakizia' ),
 );
 
+/** Turkish (Türkçe) */
+$aliases['tr'] = array(
+	'Templates' => array( 'Şablonlar' ),
+);
+
