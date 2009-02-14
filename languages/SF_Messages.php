@@ -853,6 +853,7 @@ $messages['diq'] = array(
 
 /** Greek (Ελληνικά)
  * @author Consta
+ * @author Omnipaedista
  */
 $messages['el'] = array(
 	'sf_createproperty_propname' => 'Όνομα:',
@@ -864,7 +865,7 @@ $messages['el'] = array(
 	'sf_createform_field' => 'Πεδίο:',
 	'createcategory' => 'Δημιουργήστε μια κατηγορία',
 	'sf_createcategory_name' => 'Όνομα:',
-	'addpage' => 'Προσθέστε σελίδα',
+	'addpage' => 'Προσθέστε σελίδα με μορφή',
 	'addoreditdata' => 'Προσθέστε ή επεξεργαστείτε',
 );
 
@@ -2396,12 +2397,22 @@ $messages['krj'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'semanticforms-desc' => 'Fommulaare för Semantesch Date dabei ze donn, un och ze ändere',
+	'specialpages-group-sf_group' => 'Semantesch Fommulaare',
+	'createproperty' => 'Donn en Eijeschaff aanlääje',
 	'sf_createproperty_propname' => 'Name:',
+	'templates' => 'Schablone',
+	'sf_templates_definescat' => 'beshtemmp de Saachjrop:',
+	'createtemplate' => 'En Schabloon aanlääje',
+	'sf_createtemplate_namelabel' => 'Dä Schabloon iere Name:',
 	'sf_createtemplate_standardformat' => 'Shtanndat',
+	'sf_createtemplate_addfield' => 'E Feld dobei donn',
 	'sf_createtemplate_deletefield' => 'Fottschmieße',
 	'sf_createform_atend' => 'Aam Engk',
 	'sf_createform_add' => 'Donn dobei',
 	'sf_createcategory_name' => 'Name:',
+	'uploadwindow' => 'Dat Finster för zem Huhlaade',
+	'sf_form_freetextlabel' => 'Freije Tex',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
