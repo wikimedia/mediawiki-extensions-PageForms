@@ -605,6 +605,7 @@ $messages['bs'] = array(
  * @author SMP
  */
 $messages['ca'] = array(
+	'semanticforms-desc' => 'Formularis per afegir i editar continguts semàntics.',
 	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Crear una propietat',
 	'sf_createproperty_allowedvalsinput' => 'Si vols que aquest camp permeti només alguns valors específics, introdueix la llista de valors permesos, separats per comes (si un valor conté una coma, substitueix-la per "\\,"):',

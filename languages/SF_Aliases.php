@@ -287,8 +287,27 @@ $aliases['sw'] = array(
 	'UploadWindow' => array( 'DirishalaKupakizia' ),
 );
 
+/** Tagalog (Tagalog) */
+$aliases['tl'] = array(
+	'AddData' => array( 'Idagdag ang dato' ),
+	'AddPage' => array( 'Idagdag ang pahina' ),
+	'CreateCategory' => array( 'Likhain ang kaurian' ),
+	'CreateForm' => array( 'Likhain ang pormularyo' ),
+	'CreateProperty' => array( 'Likhain ang pag-aari' ),
+	'CreateTemplate' => array( 'Likhain ang suleras' ),
+	'EditData' => array( 'Baguhin ang dato' ),
+	'Forms' => array( 'Mga pormularyo' ),
+	'Templates' => array( 'Mga suleras' ),
+	'UploadWindow' => array( 'Bintana ng pagkarga' ),
+);
+
 /** Turkish (Türkçe) */
 $aliases['tr'] = array(
 	'Templates' => array( 'Şablonlar' ),
+);
+
+/** Vèneto (Vèneto) */
+$aliases['vec'] = array(
+	'Templates' => array( 'Modèi' ),
 );
 
