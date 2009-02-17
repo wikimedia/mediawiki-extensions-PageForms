@@ -132,6 +132,20 @@ $aliases['hu'] = array(
 	'UploadWindow' => array( 'Feltöltő ablak' ),
 );
 
+/** Interlingua (Interlingua) */
+$aliases['ia'] = array(
+	'AddData' => array( 'Adder datos' ),
+	'AddPage' => array( 'Adder pagina' ),
+	'CreateCategory' => array( 'Crear categoria' ),
+	'CreateForm' => array( 'Crear formulario' ),
+	'CreateProperty' => array( 'Crear proprietate' ),
+	'CreateTemplate' => array( 'Crear patrono' ),
+	'EditData' => array( 'Modificar datos' ),
+	'Forms' => array( 'Formularios' ),
+	'Templates' => array( 'Patronos' ),
+	'UploadWindow' => array( 'Cargar fenestra' ),
+);
+
 /** Japanese (日本語) */
 $aliases['ja'] = array(
 	'AddData' => array( 'データ追加' ),
