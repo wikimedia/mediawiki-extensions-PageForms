@@ -783,7 +783,7 @@ $messages['de'] = array(
 	'sf_createform_nameinput' => 'Formularname (laut Konvention wird ein Formular benannt nach der Hauptvorlage, die es befüllt):',
 	'sf_createform_template' => 'Vorlage:',
 	'sf_createform_templatelabelinput' => 'Vorlagebezeichnung (optional):',
-	'sf_createform_allowmultiple' => 'Erlaube mehrere (oder null) Instanzen dieser Vorlage in der erstellten Seite',
+	'sf_createform_allowmultiple' => 'Erlaube mehrere (oder Null) Instanzen dieser Vorlage in der erstellten Seite',
 	'sf_createform_field' => 'Feld:',
 	'sf_createform_fieldprop' => 'Dieses Feld definiert die Eigenschaft $1 vom Typ $2.',
 	'sf_createform_fieldproplist' => 'Dieses Feld definiert eine Liste an Elementen, die die Eigenschaft $1 vom Typ $2 besitzen.',
@@ -803,7 +803,7 @@ $messages['de'] = array(
 	'createcategory' => 'Erstelle eine Kategorie',
 	'sf_createcategory_name' => 'Name:',
 	'sf_createcategory_defaultform' => 'Standardformular:',
-	'sf_createcategory_makesubcategory' => 'Mache diese Kategorie zu einer Subkategorie einer anderen Kategorie (optional):',
+	'sf_createcategory_makesubcategory' => 'Mache diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
 	'addpage' => 'Füge Seite hinzu',
 	'sf_addpage_badform' => 'Fehler: es wurde keine Seite gefunden bei $1',
 	'sf_addpage_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
@@ -843,6 +843,29 @@ $messages['de'] = array(
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
 	'sf_blank_namespace' => 'Seite',
+);
+
+/** German (formal address) (Deutsch (Sie-Form))
+ * @author Dst
+ * @author Umherirrender
+ */
+$messages['de-formal'] = array(
+	'sf_createproperty_allowedvalsinput' => 'Wenn Sie für dieses Feld nur bestimmte Werte ermöglichen wollen, geben Sie diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetzen Sie das Komma mit „\\,“):',
+	'sf_createtemplate_fieldsdesc' => 'Wenn ein Feld einer Vorlage keinen Feldnamen benötigen soll, geben Sie einfach anstatt eines tatsächlichen Namens die Indexnummer des Feldes als Name ein (z.B. 1, 2, 3 usw.).',
+	'sf_createtemplate_aggregationdesc' => 'Um auf allen Seiten, die diese Vorlage benutzen, alle Artikel aufzulisten, die ein bestimmtes Attribut besitzen und auf diese Seiten verlinkt sind, geben Sie das gewünschte Attribut hier an:',
+	'sf_createtemplate_addtemplatebeforesave' => 'Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
+	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder Null) Instanzen dieser Vorlage in der erstellten Seite',
+	'sf_createform_choosefield' => 'Wählen Sie ein Feld aus, das Sie hinzufügen wollen.',
+	'sf_createcategory_makesubcategory' => 'Machen Sie diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
+	'sf_addpage_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
+	'sf_addpage_noform_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
+	'sf_adddata_badurl' => 'Dies ist die Seite zum Hinzufügen von Daten. Sie müssen den Namen eines Formulars UND die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:AddData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:AddData/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
+	'sf_adddata_altforms' => 'Alternativ können Sie diese Seite mit einem der folgenden Formulare erstellen:',
+	'sf_adddata_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
+	'sf_editdata_badurl' => 'Dies ist die Seite zum Bearbeiten von Daten. Sie müssen den Namen eines Formulars UND die zu bearbeitende Seite in der URL angeben. Es sollte aussehen wie „Special:EditData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:EditData/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
+	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft; weiteres siehe unten',
+	'sf_template_docufooter' => 'Bearbeiten Sie diese Seite, um den Vorlagentext zu sehen.',
+	'sf_form_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ erstellt werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können.',
 );
 
 /** Zazaki (Zazaki)
