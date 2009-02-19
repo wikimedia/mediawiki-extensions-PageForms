@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.5.1');
+define('SF_VERSION','1.5.2');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -166,6 +166,7 @@ function sffInitContentLanguage($langcode) {
 
 	// fallback if language not supported
 	if ( !class_exists($cont_lang_class)) {
+		include_once($sfgIP . '/languages/SF_LanguageEn.php');
 		$cont_lang_class = 'SF_LanguageEn';
 	}
 
