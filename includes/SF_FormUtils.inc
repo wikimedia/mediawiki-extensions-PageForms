@@ -439,7 +439,7 @@ END;
 			$label = wfMsg('summary');
 		$disabled_text = ($is_disabled) ? "disabled" : "";
 		$text =<<<END
-	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
+	<span id='wpSummaryLabel'><label for='wpSummary'>$label:</label></span>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/>
 
 END;
@@ -564,7 +564,19 @@ END;
 			$label = wfMsgExt('cancel', array('parseinline'));
 		if ($wgTitle == null)
 			$cancel = '';
-		else
+		// if this is the special 'AddData' or 'EditData' page, get
+		// the form name, and link to 'AddPage' with that form name
+		elseif (($wgTitle->getText() == 'AddData' || $wgTitle->getText() == 'EditData')
+			 && $wgTitle->getNamespace() == NS_SPECIAL) {
+			global $wgRequest;
+			$title_components = split('/', $wgRequest->data['title']);
+			if (count($title_components) >= 2) {
+				$add_page_title = Title::makeTitleSafe(NS_SPECIAL, 'AddPage');
+				$cancel = $sk->makeKnownLink($add_page_title->getPrefixedText() . '/' . $title_components[1], $label);
+			} else {
+				$cancel = '';
+			}
+		} else
 			$cancel = $sk->makeKnownLink( $wgTitle->getPrefixedText(), $label);
 		$text = "		<span class='editHelp'>$cancel</span>\n";
 		return $text;
