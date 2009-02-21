@@ -439,7 +439,7 @@ END;
 			$label = wfMsg('summary');
 		$disabled_text = ($is_disabled) ? "disabled" : "";
 		$text =<<<END
-	<span id='wpSummaryLabel'><label for='wpSummary'>$label:</label></span>
+	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/>
 
 END;
