@@ -875,6 +875,45 @@ $messages['diq'] = array(
 	'sf_editdata_none' => 'çino',
 );
 
+/** Lower Sorbian (Dolnoserbski)
+ * @author Michawiki
+ */
+$messages['dsb'] = array(
+	'semanticforms-desc' => 'Formulary za pśidawanje a wobźěłowanje semantiskich datow',
+	'specialpages-group-sf_group' => 'Semantiske formulary',
+	'createproperty' => 'Kakosć napóraś',
+	'sf_createproperty_allowedvalsinput' => 'Jolic coš za toś to pólo jano wěste gódnoty dowóliś, zapódaj lisćinu dowólonych gódnotow, wótźělonych pśez komy (jolic gódnota wopśimujo komu, wuměń ju pśez "\\,"):',
+	'sf_createproperty_propname' => 'Mě:',
+	'sf_createproperty_proptype' => 'Typ:',
+	'templates' => 'Pśedłogi',
+	'sf_templates_docu' => 'Slědujuce pśedłogi eksistěruju we wikiju.',
+	'sf_templates_definescat' => 'definěrujo kategoriju:',
+	'createtemplate' => 'Pśedłogu napóraś',
+	'sf_createtemplate_namelabel' => 'Mě pśedłogi:',
+	'sf_createtemplate_categorylabel' => 'Pśez kategoriju definěrowana pśedłoga (opcionalny):',
+	'sf_createtemplate_templatefields' => 'Póla pśedłogi',
+	'sf_createtemplate_fieldsdesc' => 'Jolic póla w toś tej pśedłoze wěcej njamaju pólowe mjenja měś, zapódaj jadnorje indeks kuždego póla (na pś. 1, 2, 3 atd.) ako mě město aktualnego mjenja.',
+	'sf_createtemplate_fieldname' => 'Mě póla:',
+	'sf_createtemplate_displaylabel' => 'Etiket za zwobraznjenje:',
+	'sf_createtemplate_semanticproperty' => 'Semantiska kakosć:',
+	'sf_createtemplate_fieldislist' => 'Toś to pólo móžo lisćinu gódnotow wopśimjeś, wótźělonych pśez komy',
+	'sf_createtemplate_aggregation' => 'Zrědowanje',
+	'sf_createtemplate_aggregationlabel' => 'Titel za lisćinu:',
+	'sf_createtemplate_outputformat' => 'Wudawański format:',
+	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_infoboxformat' => 'Infokašćik napšawo',
+	'sf_createtemplate_addfield' => 'Pólo pśidaś',
+	'sf_createtemplate_deletefield' => 'Wulašowaś',
+	'sf_createtemplate_addtemplatebeforesave' => 'Musyš nanejmjenjej jadnu pśedłogu toś tomu formularoju pśidaś, nježli až móžoš jen składowaś.',
+	'forms' => 'Formulary',
+	'sf_forms_docu' => 'Slědujuce formulary eksistěeruju we wikiju.',
+	'createform' => 'Formular napóraś',
+	'sf_createform_nameinput' => 'Mě formulara (pó konwenciji formular groni se pó głownej pśedłoze, kótaraž jen wopśimujo):',
+	'sf_createform_template' => 'Pśedłoga:',
+	'sf_createform_templatelabelinput' => 'Pomjenjenje pśedłogi (opcionalny):',
+	'sf_createform_field' => 'Pólo:',
+);
+
 /** Greek (Ελληνικά)
  * @author Consta
  * @author Omnipaedista
