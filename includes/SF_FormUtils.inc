@@ -1007,6 +1007,7 @@ END;
 	}
 
 	static function FCKPopupJavascript() {
+		global $wgFCKEditorExtDir;
 		$javascript_text = <<<END
 
 function FCKeditor_OpenPopup(jsID, textareaID)
