@@ -392,7 +392,8 @@ class SFFormPrinter {
         } elseif ($tag_title == 'end template') {
           if ($source_is_page) {
             // add any unhandled template fields in the page as hidden variables
-            $form_text .= SFFormUtils::unhandledFieldsHTML($template_contents);
+            if (isset($template_contents))
+              $form_text .= SFFormUtils::unhandledFieldsHTML($template_contents);
           }
           // remove this tag, reset some variables, and close off form HTML tag
           $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
