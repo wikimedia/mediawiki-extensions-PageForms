@@ -15,7 +15,8 @@ $messages['en'] = array(
 	'semanticforms-desc'                 => 'Forms for adding and editing semantic data',
 	'specialpages-group-sf_group'        => 'Semantic Forms',
 	'createproperty'                     => 'Create a property',
-	'sf_createproperty_allowedvalsinput' => 'If you want this field to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
+	'sf_createproperty_linktoform'       => 'This property will link to pages that use the form:',
+	'sf_createproperty_allowedvalsinput' => 'If you want this property to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
 	'sf_createproperty_propname'         => 'Name:',
 	'sf_createproperty_proptype'         => 'Type:',
 	'templates'                          => 'Templates',
@@ -104,6 +105,7 @@ it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target 
 
 	// content messages
 	'sf_property_isproperty'             => 'This is a property of type $1.',
+	'sf_property_linkstoform'            => 'It links to pages that use the form $1.',
 	'sf_property_allowedvals'            => 'The allowed values for this property are:',
 	'sf_template_docu'                   => 'This is the \'$1\' template.
 It should be called in the following format:',
