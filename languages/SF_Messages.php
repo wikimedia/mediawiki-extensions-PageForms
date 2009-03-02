@@ -540,10 +540,37 @@ $messages['be-tarask'] = array(
 	'sf_createcategory_makesubcategory' => 'Зрабіць гэта падкатэгорыяй іншай катэгорыі (неабавязкова):',
 	'addpage' => 'Дадаць старонку з формай',
 	'sf_addpage_badform' => 'Памылка: ня знойдзена старонка формы на $1',
+	'sf_addpage_docu' => "Увядзіце тут назву старонкі, якую трэба рэдагаваць з дапамогай формы '$1'. 
+Калі гэта старонка ўжо існуе, Вы будзеце накіраваны на форму рэдагаваньня старонкі. 
+У адваротным выпадку, Вы будзеце накіраваны на форму даданьня старонкі.",
+	'sf_addpage_noform_docu' => 'Увядзіце тут назву старонкі і выберыце форму, з дапамогай якой Вы будзеце рэдагаваць старонку.
+Калі гэта старонка ўжо існуе, Вы будзеце накіраваны на форму рэдагаваньня старонкі.
+У адваротным выпадку, Вы будзеце накіраваны на форму даданьня старонкі.',
+	'addoreditdata' => 'Дадаць ці рэдагаваць',
 	'adddata' => 'Дадаць зьвесткі',
+	'sf_adddata_title' => 'Даданьне $1: $2',
+	'sf_adddata_badurl' => "Гэта старонка для даданьня зьвестак. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
+гэта павінна выглядаць наступным чынам 'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;' альбо  'Special:AddData/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_adddata_altforms' => 'Замест гэтага Вы можаце дадаць гэту старонку з дапамогай наступных формаў:',
+	'sf_adddata_altformsonly' => 'Калі ласка, выберыце адну з наступных формаў для даданьня гэтай старонкі:',
 	'editdata' => 'Рэдагаваць зьвесткі',
+	'sf_formedit' => 'Рэдагаваць з дапамогай формы',
+	'sf_viewform' => 'Паказаць форму',
+	'sf_editsource' => 'Рэдагаваць крыніцу',
 	'sf_editdata_title' => 'Рэдагаваньне $1: $2',
+	'sf_editdata_badurl' => "Гэта старонка для рэдагаваньня зьвестак. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
+гэта павінна мець выгляд як 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' альбо  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_editdata_formwarning' => 'Увага: старонка <a href="$1">ужо існуе</a>, але яна не выкарыстоўвае гэтую форму.',
 	'sf_editdata_remove' => 'Выдаліць',
+	'sf_editdata_addanother' => 'Дадаць іншую',
+	'sf_editdata_none' => 'Нічога',
+	'sf_formerrors_header' => 'Знойдзеныя памылкі ў Вашай форме ўводу; глядзіце ніжэй',
+	'sf_blank_error' => 'ня можа быць пустым',
+	'sf_bad_url_error' => "павінна мець слушны фармат URL, пачынацца з 'http'",
+	'sf_bad_email_error' => 'павінна мець слушны фармат адрасу электроннай пошты',
+	'sf_bad_number_error' => 'павінна быць слушным лікам',
+	'sf_bad_integer_error' => 'павінна быць слушным цэлым лікам',
+	'sf_bad_date_error' => 'павінна быць слушнай датай',
 );
 
 /** Bulgarian (Български)
@@ -3316,7 +3343,8 @@ $messages['oc'] = array(
 	'semanticforms-desc' => 'Formularis per apondre e modificar de donadas semanticas',
 	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Definir una proprietat',
-	'sf_createproperty_allowedvalsinput' => "Se decidatz qu'aqueste camp accèpta pas que cèrtas valors, entratz la lista de las valors permesas separadas per de virgulas. (Se una valor conten una virgula, remplaçat-la per « \\, ») :",
+	'sf_createproperty_linktoform' => "Aquesta proprietat ligarà cap a las paginas qu'utilizan lo formulari :",
+	'sf_createproperty_allowedvalsinput' => "Se decidètz qu'aqueste camp accèpta pas que d'unas valors, picatz la lista de las valors permesas, separadas per de virgulas. (Se una valor conten una virgula, remplaçat-la per « \\, ») :",
 	'sf_createproperty_propname' => 'Nom :',
 	'sf_createproperty_proptype' => 'Tipe :',
 	'templates' => 'Modèls',
@@ -3396,6 +3424,7 @@ $messages['oc'] = array(
 	'sf_bad_date_error' => 'deu èsser una data valida',
 	'uploadwindow' => 'Importar la fenèstra',
 	'sf_property_isproperty' => 'Aquò es una proprietat del tipe $1.',
+	'sf_property_linkstoform' => "Liga cap a las paginas qu'utilizan lo formulari $1.",
 	'sf_property_allowedvals' => 'Las valors autorizadas per aquesta proprietat son :',
 	'sf_template_docu' => 'Aquò es lo modèl « $1 ». Deuriá èsser apelat segon lo format seguent :',
 	'sf_template_docufooter' => 'Modificar la pagina per veire lo tèxt del modèl.',
