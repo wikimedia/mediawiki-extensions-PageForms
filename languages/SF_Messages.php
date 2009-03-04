@@ -571,6 +571,19 @@ $messages['be-tarask'] = array(
 	'sf_bad_number_error' => 'павінна быць слушным лікам',
 	'sf_bad_integer_error' => 'павінна быць слушным цэлым лікам',
 	'sf_bad_date_error' => 'павінна быць слушнай датай',
+	'uploadwindow' => 'Акно загрузкі',
+	'sf_property_isproperty' => 'Гэта ўласьцівасьць тыпу $1.',
+	'sf_property_linkstoform' => 'Гэта ўласьцівасьць спасылаецца на старонкі, якія выкарыстоўваюць форму $1.',
+	'sf_property_allowedvals' => 'Дазволенымі значэньнямі для гэтай уласьцівасьці зьяўляюцца:',
+	'sf_template_docu' => "Гэта шаблён '$1', які павінен выклікацца наступным чынам:",
+	'sf_template_docufooter' => 'Рэдагуйце старонку, каб убачыць тэкст шаблёну.',
+	'sf_form_docu' => "Гэта форма '$1'.
+Каб дадаць старонку з гэтай формай, увядзіце назву старонкі ніжэй;
+калі старонка з такой назвай ужо існуе, Вы будзеце накіраваны на форму рэдагаваньня гэтай старонкі.",
+	'sf_form_freetextlabel' => 'Свабодны тэкст',
+	'sf_category_hasdefaultform' => 'Гэта катэгорыя выкарыстоўвае форму $1.',
+	'sf_category_desc' => 'Гэта катэгорыя $1.',
+	'sf_blank_namespace' => 'Галоўная',
 );
 
 /** Bulgarian (Български)
@@ -2237,7 +2250,8 @@ $messages['ia'] = array(
 	'semanticforms-desc' => 'Formularios pro adder e modificar datos semantic',
 	'specialpages-group-sf_group' => 'Formularios semantic',
 	'createproperty' => 'Crear un proprietate',
-	'sf_createproperty_allowedvalsinput' => 'Si tu vole que iste campo sia permittite a haber solmente certe valores, entra le lista del valores permittite, separate per commas (si un valor contine un comma, reimplacia lo con "\\,"):',
+	'sf_createproperty_linktoform' => 'Iste proprietate ligara verso paginas que usa le formulario:',
+	'sf_createproperty_allowedvalsinput' => 'Si tu vole que iste proprietate sia permittite a haber solmente certe valores, entra le lista del valores permittite, separate per commas (si un valor contine un comma, reimplacia lo con "\\,"):',
 	'sf_createproperty_propname' => 'Nomine:',
 	'sf_createproperty_proptype' => 'Typo:',
 	'templates' => 'Patronos',
@@ -2321,6 +2335,7 @@ Alteremente, tu esserea inviate al formulario pro modificar le pagina.',
 	'sf_bad_date_error' => 'debe esser un data valide',
 	'uploadwindow' => 'Cargar fenestra',
 	'sf_property_isproperty' => 'Isto es un proprietate del typo $1.',
+	'sf_property_linkstoform' => 'Illo liga verso paginas que usa le formulario $1.',
 	'sf_property_allowedvals' => 'Le valores permittite pro iste proprietate es:',
 	'sf_template_docu' => "Isto es le patrono '$1'.
 Illo debe esser appellate in le formato sequente:",
