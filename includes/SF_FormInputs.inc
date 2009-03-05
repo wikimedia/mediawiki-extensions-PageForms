@@ -351,6 +351,8 @@ END;
       $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
     }
     if ($cur_value) {
+      // replace newlines with the literal '\n' to not break the Javascript
+      $cur_value = str_replace("\n", '\n', $cur_value);
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
     $text .= "/* ]]> */</script>\n";
