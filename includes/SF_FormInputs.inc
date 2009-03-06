@@ -536,18 +536,20 @@ END;
 
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $check_set = false;
-    if (! $is_mandatory) {
-      $text = '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
-      if (! $cur_value) {
-        $text .= ' checked="checked"';
-        $check_set = true;
-      }
-      $text .= " $disabled_text/> " . wfMsg('sf_editdata_none') . "\n";
-    }
+    $text = "";
     // if it's mandatory, add a span around all the radiobuttons, since
     // some browsers don't support formatting of radiobuttons
     if ($is_mandatory)
-      $text = '	<span class="mandatoryFieldsSpan">' . "\n";
+      $text .= '	<span class="mandatoryFieldsSpan">' . "\n";
+
+    // start with an initial "None" value
+    $text .= '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
+    if (! $cur_value) {
+      $text .= ' checked="checked"';
+      $check_set = true;
+    }
+    $text .= " $disabled_text/> " . wfMsg('sf_editdata_none') . "\n";
+
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
     foreach ($possible_values as $i => $possible_value) {
