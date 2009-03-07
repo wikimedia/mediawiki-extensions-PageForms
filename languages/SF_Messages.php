@@ -1919,7 +1919,7 @@ $messages['he'] = array(
 	'semanticforms-desc' => 'טפסים להוספת ולעריכת נתונים סמנטיים',
 	'specialpages-group-sf_group' => 'טפסים סמנטיים',
 	'createproperty' => 'יצירת מאפיין',
-	'sf_createproperty_linktoform' => 'מאפיין זה יקשר אל הדפים המשתמשים בטופס:',
+	'sf_createproperty_linktoform' => 'מאפיין זה יקשר לדפים המשתמשים בטופס:',
 	'sf_createproperty_allowedvalsinput' => 'אם ברצונכם שלמאפיין זה יהיו רק כמה ערכים מורשים, הזינו את רשימת הערכים המורשים, מופרדים בפסיקים (אם ערך כלשהו מכיל פסיק, החליפו אותו ב־"\\,"):',
 	'sf_createproperty_propname' => 'שם:',
 	'sf_createproperty_proptype' => 'סוג:',
@@ -2004,7 +2004,7 @@ $messages['he'] = array(
 	'sf_bad_date_error' => 'עליו להיות תאריך תקין',
 	'uploadwindow' => 'חלון ההעלאה',
 	'sf_property_isproperty' => 'זהו מאפיין מסוג $1.',
-	'sf_property_linkstoform' => 'מקשר אל הדפים המשתמשים בטופס $1.',
+	'sf_property_linkstoform' => 'מקשר לדפים המשתמשים בטופס $1.',
 	'sf_property_allowedvals' => 'הערכים האפשריים למאפיין זה הם:',
 	'sf_template_docu' => "זוהי התבנית '$1'.
 שמה צריך להיות במבנה הבא:",
