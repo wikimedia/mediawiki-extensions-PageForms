@@ -87,8 +87,8 @@ $aliases['fa'] = array(
 
 /** French (Français) */
 $aliases['fr'] = array(
-	'CreateCategory' => array( 'CréerCatégorie', 'Créer catégorie' ),
-	'CreateTemplate' => array( 'CréerModèle', 'Créer modèle' ),
+	'CreateCategory' => array( 'Créer catégorie', 'CréerCatégorie' ),
+	'CreateTemplate' => array( 'Créer modèle', 'CréerModèle' ),
 	'Templates' => array( 'Modèles' ),
 );
 
