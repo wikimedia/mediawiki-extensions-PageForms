@@ -831,8 +831,9 @@ END;
                     }
                   } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
                     $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
-                  // if it's not a radiobutton...
-                  } elseif ($input_type != 'radiobutton' && $form_field->template_field->field_type != 'enumeration') {
+                  } elseif ($input_type == 'radiobutton') {
+                    $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
+                  } else {
                     $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
                   }
                 }
