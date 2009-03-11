@@ -532,7 +532,7 @@ END;
   }
 
   static function radioButtonHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
-    global $sfgTabIndex;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $check_set = false;
@@ -543,7 +543,9 @@ END;
       $text .= '	<span class="mandatoryFieldsSpan">' . "\n";
 
     // start with an initial "None" value
-    $text .= '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
+    $text .= '	<input type="radio" id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
     if (! $cur_value) {
       $text .= ' checked="checked"';
       $check_set = true;
@@ -563,6 +565,10 @@ END;
     // close span
     if ($is_mandatory)
       $text .= "	</span>";
+    $text .=<<<END
+	<span id="$info_id" class="errorMessage"></span>
+
+END;
     return array($text, null);
   }
 
