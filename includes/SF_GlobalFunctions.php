@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.5.3');
+define('SF_VERSION','1.5.4');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -39,7 +39,7 @@ $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 // register all special pages and other classes
 $wgSpecialPages['Forms'] = 'SFForms';
 $wgAutoloadClasses['SFForms'] = $sfgIP . '/specials/SF_Forms.php';
-$wgSpecialPageGroups['Forms'] = 'sf_group';
+$wgSpecialPageGroups['Forms'] = 'pages';
 $wgSpecialPages['CreateForm'] = 'SFCreateForm';
 $wgAutoloadClasses['SFCreateForm'] = $sfgIP . '/specials/SF_CreateForm.php';
 $wgSpecialPageGroups['CreateForm'] = 'sf_group';
