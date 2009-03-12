@@ -95,12 +95,12 @@ function validate_mandatory_field(field_id, info_id) {
 // is the first radiobutton, which has value of "None"
 function validate_mandatory_radiobutton(none_button_id, info_id) {
 	none_button = document.getElementById(none_button_id);
-	if (none_button.value.replace(/\s+/, '') == '') {
-		return true;
-	} else {
+	if (none_button.checked) {
 		infobox = document.getElementById(info_id);
 		infobox.innerHTML = "$blank_error_str";
 		return false;
+	} else {
+		return true;
 	}
 }
 
