@@ -1091,6 +1091,7 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 
 /** Greek (Ελληνικά)
  * @author Consta
+ * @author Crazymadlover
  * @author Omnipaedista
  */
 $messages['el'] = array(
@@ -1101,10 +1102,12 @@ $messages['el'] = array(
 	'sf_createtemplate_namelabel' => 'Όνομα προτύπου:',
 	'sf_createform_template' => 'Πρότυπο:',
 	'sf_createform_field' => 'Πεδίο:',
+	'sf_createform_add' => 'Προσθήκη',
 	'createcategory' => 'Δημιουργήστε μια κατηγορία',
 	'sf_createcategory_name' => 'Όνομα:',
 	'addpage' => 'Προσθέστε σελίδα με μορφή',
 	'addoreditdata' => 'Προσθέστε ή επεξεργαστείτε',
+	'sf_editdata_none' => 'Κανένα',
 );
 
 /** Esperanto (Esperanto)
