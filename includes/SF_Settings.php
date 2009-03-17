@@ -58,13 +58,14 @@ $sfgMaxAutocompleteValues = 1000;
 # by default all will see it.
 ###
 $sfgRenameEditTabs = false;
-$wgGroupPermissions['*'    ]['viewedittab']   = true;
+$wgGroupPermissions['*']['viewedittab']   = true;
 $wgAvailableRights[] = 'viewedittab';
 
 ###
 # Permission to edit form fields defined as 'restricted'
 ###
 $wgGroupPermissions['sysop']['editrestrictedfields'] = true;
+$wgAvailableRights[] = 'editrestrictedfields';
 
 ###
 # List separator character
