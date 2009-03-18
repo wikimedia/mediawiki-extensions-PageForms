@@ -61,7 +61,7 @@ class SFFormField {
 				$dummy_ff->template_field = new SFTemplateField();
 				$dummy_ff->is_list = false;
 				$dummy_ff->field_args = array();
-				return $dummy_ftf;
+				return $dummy_ff;
 			}
 			$the_field = new SFTemplateField();
 		}
