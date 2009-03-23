@@ -3490,6 +3490,7 @@ $messages['os'] = array(
  * @author Sp5uhe
  */
 $messages['pl'] = array(
+	'createtemplate' => 'Utwórz szablon',
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
 	'sf_createtemplate_deletefield' => 'Usuń',
 	'sf_createform_field' => 'Pole:',
@@ -4461,8 +4462,11 @@ $messages['uk'] = array(
  * @author Vinhtantran
  */
 $messages['vi'] = array(
+	'semanticforms-desc' => 'Mẫu để thêm và sửa đổi dữ liệu ngữ nghĩa',
+	'specialpages-group-sf_group' => 'Mẫu Ngữ Nghĩa',
 	'createproperty' => 'Tạo một thuộc tính',
-	'sf_createproperty_allowedvalsinput' => 'Nếu bạn muốn trường này chỉ cho phép một số giá trị nào đó, hãy nhập vào danh sách các giá trị cho phép, phân cách nhau bằng dấu phẩy (nếu một giá trị có chứa dấu phẩy, hãy thay nó bằng “\\,”):',
+	'sf_createproperty_linktoform' => 'Thuộc tính này sẽ liên kết đến các trang sử dụng mẫu:',
+	'sf_createproperty_allowedvalsinput' => 'Nếu bạn muốn thuộc tính này chỉ cho phép một số giá trị nào đó, hãy nhập vào danh sách các giá trị cho phép, phân cách nhau bằng dấu phẩy (nếu một giá trị có chứa dấu phẩy, hãy thay nó bằng “\\,”):',
 	'sf_createproperty_propname' => 'Tên:',
 	'sf_createproperty_proptype' => 'Loại:',
 	'templates' => 'Tiêu bản',
@@ -4542,6 +4546,7 @@ $messages['vi'] = array(
 	'sf_bad_date_error' => 'phải là ngày đúng',
 	'uploadwindow' => 'Cửa sổ tải',
 	'sf_property_isproperty' => 'Đây là tính chất thuộc kiểu $1.',
+	'sf_property_linkstoform' => 'Nó liên kết đến các trang sử dụng mẫu $1.',
 	'sf_property_allowedvals' => 'Giá trị cho phép của tính chất này là:',
 	'sf_template_docu' => 'Đây là tiêu bản ‘$1’. Nó nên được gọi theo định dạng sau:',
 	'sf_template_docufooter' => 'Sửa trang để xem văn bản tiêu bản.',
