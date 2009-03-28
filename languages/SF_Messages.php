@@ -4416,6 +4416,7 @@ kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa 
 );
 
 /** Turkish (Türkçe)
+ * @author Joseph
  * @author Karduelis
  */
 $messages['tr'] = array(
@@ -4446,7 +4447,7 @@ $messages['tr'] = array(
 	'sf_createform_add' => 'Ekle',
 	'sf_createcategory_name' => 'İsim:',
 	'sf_createcategory_defaultform' => 'Var sayılan form:',
-	'addpage' => 'Sayfa ekle',
+	'addpage' => 'Form ile sayfa ekle',
 	'addoreditdata' => 'Ekle veya düzelt',
 	'adddata' => 'Veri ekle',
 	'sf_editsource' => 'Kaynak düzelt',
