@@ -1121,6 +1121,7 @@ $messages['el'] = array(
 	'sf_createtemplate_namelabel' => 'Όνομα προτύπου:',
 	'sf_createform_template' => 'Πρότυπο:',
 	'sf_createform_field' => 'Πεδίο:',
+	'sf_createform_hidden' => 'Κρυμμένος',
 	'sf_createform_add' => 'Προσθήκη',
 	'createcategory' => 'Δημιουργήστε μια κατηγορία',
 	'sf_createcategory_name' => 'Όνομα:',
