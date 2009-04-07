@@ -28,7 +28,7 @@ class FormEditPage extends EditPage {
 		}
 	}
 	
-	protected function showTextbox1() {
+	protected function showTextbox1( $classes ) {
 		if( $this->isConflict ) {
 			// Fallback to normal mode when showing an editconflict
 			parent::showTextbox1();
