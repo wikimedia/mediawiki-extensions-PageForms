@@ -1769,11 +1769,14 @@ $messages['gl'] = array(
 );
 
 /** Gothic
+ * @author Crazymadlover
  * @author Jocke Pirat
+ * @author Omnipaedista
  */
 $messages['got'] = array(
 	'sf_createtemplate_deletefield' => 'Taíran',
 );
+
 /** Ancient Greek (Ἀρχαία ἑλληνικὴ)
  * @author Crazymadlover
  * @author Omnipaedista
@@ -4487,6 +4490,27 @@ $messages['uk'] = array(
 	'sf_createproperty_propname' => "Ім'я:",
 	'sf_createproperty_proptype' => 'Тип:',
 	'templates' => 'Шаблони',
+);
+
+/** Veps (Vepsan kel')
+ * @author Игорь Бродский
+ */
+$messages['vep'] = array(
+	'sf_createproperty_propname' => 'Nimi:',
+	'sf_createproperty_proptype' => 'Tip:',
+	'templates' => 'Šablonad',
+	'sf_templates_docu' => 'Wikiš om ningoižid šablonoid:',
+	'sf_templates_definescat' => 'märhapaneb kategorijan:',
+	'createtemplate' => 'Säta šablon',
+	'sf_createtemplate_namelabel' => 'Šablonan nimi:',
+	'sf_createtemplate_categorylabel' => 'Kategorii, kudamban märhapaneb šablon (opcionaližikš):',
+	'sf_createtemplate_templatefields' => 'Šablonan pöudod:',
+	'sf_createtemplate_addfield' => 'Läžata pöud',
+	'sf_createtemplate_deletefield' => 'Čuta poiš',
+	'sf_createform_hidden' => 'Peittud',
+	'sf_createform_add' => 'Ližata',
+	'editdata' => 'Redaktiruida andmused',
+	'sf_editdata_remove' => 'Čuta poiš',
 );
 
 /** Vietnamese (Tiếng Việt)
