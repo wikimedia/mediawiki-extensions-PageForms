@@ -301,6 +301,15 @@ $aliases['sw'] = array(
 	'UploadWindow' => array( 'DirishalaKupakizia' ),
 );
 
+/** Thai (ไทย) */
+$aliases['th'] = array(
+	'CreateCategory' => array( 'สร้างหมวดหมู่' ),
+	'CreateForm' => array( 'สร้างฟอร์ม' ),
+	'CreateTemplate' => array( 'สร้างแม่แบบ' ),
+	'Forms' => array( 'ฟอร์ม' ),
+	'Templates' => array( 'แม่แบบ' ),
+);
+
 /** Tagalog (Tagalog) */
 $aliases['tl'] = array(
 	'AddData' => array( 'Idagdag ang dato' ),

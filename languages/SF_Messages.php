@@ -2701,6 +2701,7 @@ $messages['lb'] = array(
 	'forms' => 'Formulairen',
 	'createform' => 'E Formulaire uleeën',
 	'sf_createform_template' => 'Schabloun:',
+	'sf_createform_field' => 'Feld:',
 	'sf_createform_inputtypedefault' => '(Standardwert)',
 	'sf_createform_hidden' => 'Verstoppt',
 	'sf_createform_restricted' => 'Gespaart (Nëmmen Administrateuren kënnen et änneren)',
