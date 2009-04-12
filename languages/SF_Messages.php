@@ -4328,10 +4328,12 @@ $messages['tg-cyrl'] = array(
 
 /** Thai (ไทย)
  * @author Octahedron80
+ * @author Passawuth
  */
 $messages['th'] = array(
 	'sf_createtemplate_deletefield' => 'ลบ',
 	'sf_createform_add' => 'เพิ่ม',
+	'sf_editdata_none' => 'ไม่มี',
 );
 
 /** Tagalog (Tagalog)
