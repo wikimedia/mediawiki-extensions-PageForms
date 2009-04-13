@@ -146,6 +146,20 @@ $aliases['ia'] = array(
 	'UploadWindow' => array( 'Cargar fenestra' ),
 );
 
+/** Italian (Italiano) */
+$aliases['it'] = array(
+	'AddData' => array( 'AggiungiDati' ),
+	'AddPage' => array( 'AggiungiPagina' ),
+	'CreateCategory' => array( 'CreaCategoria' ),
+	'CreateForm' => array( 'CreaModulo' ),
+	'CreateProperty' => array( 'CreaProprietà' ),
+	'CreateTemplate' => array( 'CreaTemplate' ),
+	'EditData' => array( 'ModificaDati' ),
+	'Forms' => array( 'Moduli' ),
+	'Templates' => array( 'Template' ),
+	'UploadWindow' => array( 'AggiornaFinestra' ),
+);
+
 /** Japanese (日本語) */
 $aliases['ja'] = array(
 	'AddData' => array( 'データ追加' ),
