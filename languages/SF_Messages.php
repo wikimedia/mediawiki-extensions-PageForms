@@ -3039,6 +3039,7 @@ $messages['mr'] = array(
  */
 $messages['myv'] = array(
 	'sf_createproperty_propname' => 'Лемезэ:',
+	'sf_createproperty_proptype' => 'Типезэ:',
 	'sf_createtemplate_deletefield' => 'Нардамс',
 	'sf_createform_template' => 'Лопа парцунось:',
 	'sf_createform_field' => 'Паксясь:',
