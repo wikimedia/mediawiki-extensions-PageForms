@@ -106,7 +106,7 @@ it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target 
 	// content messages
 	'sf_property_isproperty'             => 'This is a property of type $1.',
 	'sf_property_linkstoform'            => 'It links to pages that use the form $1.',
-	'sf_property_allowedvals'            => 'The allowed values for this property are:',
+	'sf_property_allowedvals'            => 'The allowed {{PLURAL:$1|value for this property is|values for this property are}}:',
 	'sf_template_docu'                   => 'This is the \'$1\' template.
 It should be called in the following format:',
 	'sf_template_docufooter'             => 'Edit the page to see the template text.',

@@ -45,12 +45,14 @@ function createPropertyText($property_type, $default_form, $allowed_values_str) 
 		$text .= ' ' . wfMsgForContent('sf_property_linkstoform', $default_form_tag);
 	}
 	if ($allowed_values_str != '') {
-		$text .= "\n\n" . wfMsgForContent('sf_property_allowedvals');
 		// replace the comma substitution character that has no chance of
 		// being included in the values list - namely, the ASCII beep
 		global $sfgListSeparator;
 		$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
 		$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
+
+		$text .= "\n\n" . wfMsgExtForContent('sf_property_allowedvals', 'parsemag', count( $allowed_values_array ) );
+
 		foreach ($allowed_values_array as $i => $value) {
 			// replace beep back with comma, trim
 			$value = str_replace("\a", $sfgListSeparator, trim($value));
