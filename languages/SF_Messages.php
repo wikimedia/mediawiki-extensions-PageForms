@@ -281,7 +281,7 @@ $messages['ar'] = array(
 	'uploadwindow' => 'نافذة الرفع',
 	'sf_property_isproperty' => 'هذه خاصية من نوع $1.',
 	'sf_property_linkstoform' => 'هي تصل إلى الصفحات التي تستخدم الاستمارة $1.',
-	'sf_property_allowedvals' => 'القيم المسموحة لهذه الخاصية هي:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|القيمة|القيم}} المسموح بها لهذه الخاصية هي:',
 	'sf_template_docu' => "هذا قالب '$1'.
 ينبغي استدعاؤه بالصيغة التالية:",
 	'sf_template_docufooter' => 'عدل الصفحة لرؤية نص القالب.',
@@ -574,7 +574,7 @@ $messages['be-tarask'] = array(
 	'uploadwindow' => 'Акно загрузкі',
 	'sf_property_isproperty' => 'Гэта ўласьцівасьць тыпу $1.',
 	'sf_property_linkstoform' => 'Гэта ўласьцівасьць спасылаецца на старонкі, якія выкарыстоўваюць форму $1.',
-	'sf_property_allowedvals' => 'Дазволенымі значэньнямі для гэтай уласьцівасьці зьяўляюцца:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Дазволенае значэньне|Дазволеныя значэньні}} для гэтай уласьцівасьці:',
 	'sf_template_docu' => "Гэта шаблён '$1', які павінен выклікацца наступным чынам:",
 	'sf_template_docufooter' => 'Рэдагуйце старонку, каб убачыць тэкст шаблёну.',
 	'sf_form_docu' => "Гэта форма '$1'.
@@ -964,7 +964,7 @@ $messages['de'] = array(
 	'uploadwindow' => 'Upload-Fenster',
 	'sf_property_isproperty' => 'Dies ist eine Eigenschaft des Typs $1.',
 	'sf_property_linkstoform' => 'Es verlinkt zu Seiten, welche das Formular „$1“ nutzen.',
-	'sf_property_allowedvals' => 'Die möglichen Werte für diese Eigenschaft sind:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für diese Eigenschaft ist|Die möglichen Werte für diese Eigenschaft sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage für „$1“. Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Bearbeite diese Seite, um den Vorlagentext zu sehen.',
 	'sf_form_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ erstellt werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst.',
@@ -1097,7 +1097,7 @@ Howac buźoš se k formularoju za pśidawanje boka dalej pósrědnjaś.',
 	'uploadwindow' => 'Wokno nagraśow',
 	'sf_property_isproperty' => 'To jo kakosć typa $1.',
 	'sf_property_linkstoform' => 'Wótkazujo k bokam, kótarež wužywaju formular $1.',
-	'sf_property_allowedvals' => 'Dowólone gódnoty za toś tu kakosć su:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Dowólona gódnota za toś tu kakosć jo|Dowólonej gódnośe za toś tu kakosć stej|Dowólone gódnoty za toś tu kakosć su|Dowólone gódnoty za toś tu kakosć su}}:',
 	'sf_template_docu' => "To jo pśedłof '$1'.
 By se měł w slědujucem formaśe wuwołaś:",
 	'sf_template_docufooter' => 'Wobźěłaj bok, aby wiźeł tekst pśedłogi.',
@@ -1129,6 +1129,7 @@ $messages['el'] = array(
 	'sf_createcategory_name' => 'Όνομα:',
 	'addpage' => 'Προσθέστε σελίδα με μορφή',
 	'addoreditdata' => 'Προσθέστε ή επεξεργαστείτε',
+	'sf_editdata_remove' => 'Αφαίρεση',
 	'sf_editdata_none' => 'Κανένα',
 );
 
@@ -1312,7 +1313,7 @@ $messages['es'] = array(
 	'uploadwindow' => 'Ventana para subir archivos',
 	'sf_property_isproperty' => 'Esta es una propiedad de tipo $1.',
 	'sf_property_linkstoform' => 'Vincula a páginas que usen el formulario $1.',
-	'sf_property_allowedvals' => 'Los valores permitidos para este atributo o propiedad son:',
+	'sf_property_allowedvals' => 'Los {{PLURAL:$1|valor permitido para esta propiedad es|valores permitidos para esta propiedad son}}:',
 	'sf_template_docu' => "Este es la plantilla '$1'. Debe ser llamada en el siguiente formato:",
 	'sf_template_docufooter' => 'Editar la página para ver el texto de la plantilla.',
 	'sf_form_docu' => "Este es el formulario '$1'. Para agregar una página con este formulario, ingresar el nombre de la página a continuación; si la página con ese nombre ya existe, usted será enviado al formulario para editar esa página.",
@@ -1644,7 +1645,7 @@ l’URL doit ressembler à « Special:EditData?form=&lt;nom de formulaire&gt;&ta
 	'uploadwindow' => 'Importer la fenêtre',
 	'sf_property_isproperty' => 'Ceci est une propriété du type $1.',
 	'sf_property_linkstoform' => 'Il lie vers les pages utilisant le formulaire $1.',
-	'sf_property_allowedvals' => 'Voici les valeurs autorisées pour cette propriété :',
+	'sf_property_allowedvals' => '{{PLURAL:$1|La valeur autorisée pour cette propriété est|Les valeurs autorisées pour cette propriété sont}} :',
 	'sf_template_docu' => 'Ceci est le modèle « $1 ». Il devrait être appelé selon le format suivant :',
 	'sf_template_docufooter' => 'Modifier la page pour voir le texte du modèle.',
 	'sf_form_docu' => 'Ceci est le formulaire « $1 ».
@@ -1758,7 +1759,7 @@ $messages['gl'] = array(
 	'uploadwindow' => 'Cargar unha ventá',
 	'sf_property_isproperty' => 'Esta é unha propiedade de clase $1.',
 	'sf_property_linkstoform' => 'Liga con páxinas que usan o formulario $1.',
-	'sf_property_allowedvals' => 'Os valores permitidos para esta propiedade son:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|O valor permitido|Os valores permitidos}} para esta propiedade {{PLURAL:$1|é|son}}:',
 	'sf_template_docu' => "Este é o modelo '$1'. Pode ser chamado no seguinte formato:",
 	'sf_template_docufooter' => 'Editar a páxina para ver o modelo de texto.',
 	'sf_form_docu' => 'Este é o formulario "$1". Para engadir unha páxina con este formulario, introduza o nome da páxina aquí embaixo; se xa existe un nome con esa páxina enviaráselle a un formulario para editar esa páxina.',
@@ -1886,7 +1887,7 @@ $messages['gsw'] = array(
 	'uploadwindow' => 'Fänschter zum Uffelade',
 	'sf_property_isproperty' => 'Des isch e Eigeschaft vum Typ $1.',
 	'sf_property_linkstoform' => 'Vergleicht zue Syte, wu s Format $1 bruuche.',
-	'sf_property_allowedvals' => 'Di erlaubte Wärt fir die Eigeschaft sin:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Dr erlaubt Wärt fir die Eigeschaft isch|Di erlaubte Wärt fir die Eigeschaft sin}}:',
 	'sf_template_docu' => 'Des isch d Vorlag fir „$1“. Si sott in däm Format ufgruefe wäre:',
 	'sf_template_docufooter' => 'Die Syte bearbeite go dr Vorlagetäxt säh.',
 	'sf_form_docu' => 'Gib in des Täxtfäld dr Name vu dr Syte yy, wu mit em Formular „$1“ soll aagleit wäre. Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, wu Du die Syte chasch aalege mit.',
@@ -2220,7 +2221,7 @@ $messages['hsb'] = array(
 	'uploadwindow' => 'Wokno nahraćow',
 	'sf_property_isproperty' => 'To je kajkosć typa $1.',
 	'sf_property_linkstoform' => 'Wotkazuje k stronam, kotrež formular $1 wužiwaja.',
-	'sf_property_allowedvals' => 'Dowolene hódnoty za tutu kajkosć su:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Dowolena hódnota za tutu kajkosć je|Dowolenej hódnoće za tutu kajkosć stej|Dowolene hódnoty za tutu kajkosć su|Dowolene hódnoty za tutu kajkosć su}}:',
 	'sf_template_docu' => "To je předłoha '$1'. Měła so w slědowacym formaće wołać:",
 	'sf_template_docufooter' => 'Wobdźěłaj tutu stronu, zo by tekst předłohi widźał.',
 	'sf_form_docu' => "To je formular '$1'. Přidaj stronu z tutym formularom, zapodaj deleka mjeno strony; jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, z kotrymž móžeš tutu stronu wobdźěłać.",
@@ -2414,6 +2415,7 @@ $messages['it'] = array(
 );
 
 /** Japanese (日本語)
+ * @author Aotake
  * @author Fryed-peach
  * @author Hosiryuhosi
  */
@@ -2663,6 +2665,7 @@ $messages['ksh'] = array(
 	'createproperty' => 'Donn en Eijeschaff aanlääje',
 	'sf_createproperty_propname' => 'Name:',
 	'templates' => 'Schablone',
+	'sf_templates_docu' => 'Hee di Schablone jidd_et em Wiki:',
 	'sf_templates_definescat' => 'beshtemmp de Saachjrop:',
 	'createtemplate' => 'En Schabloon aanlääje',
 	'sf_createtemplate_namelabel' => 'Dä Schabloon iere Name:',
@@ -2672,7 +2675,33 @@ $messages['ksh'] = array(
 	'sf_createform_atend' => 'Aam Engk',
 	'sf_createform_add' => 'Donn dobei',
 	'sf_createcategory_name' => 'Name:',
+	'editdata' => 'Date Änndere',
+	'sf_formedit' => 'Date övver e Fommullaa änndere',
+	'sf_viewform' => 'Dat Fommullaa aanzeije',
+	'sf_editsource' => 'Dä Quellkode Ändere',
+	'sf_editdata_title' => '$1 Ändere: $2',
+	'sf_editdata_badurl' => "Date hee is de Sigg för Date ze ändere.
+Mer moß dä ier <i lang=\"en\">URL</i> dä Name för et Fommulaa aanjevve,
+un och dä Name för de Sigg zem Ändere.
+Dat sullt esu ußsünn wieh:
+<code>{{#special:editData}}?form=''&lt;Fomullaa_Name&gt;''&target=''&lt;Sigge_Name&gt;''</code>,
+udder wi:
+<code>{{#special:editData}}/''&lt;Fomullaa_Name &gt;''/''&lt;Sigge_Name&gt;''</code>.",
+	'sf_editdata_formwarning' => 'Opjepaß: Di Sigg <a href="$1">jidd_et aldt</a>, ävver se deiht hee dat Fommulaa nit bruche.',
+	'sf_editdata_remove' => 'Fott nämme',
+	'sf_editdata_addanother' => 'Donn noch mieh dobei',
+	'sf_editdata_none' => 'Kei',
+	'sf_formerrors_header' => 'Mer han Fähler jefonge en däm, wat De enjejovve häß. Süsch doh:',
+	'sf_blank_error' => 'kam_mer nit leddisch lohße',
+	'sf_bad_url_error' => 'moß et reschteje Fomaat för en <i lang="en">URL</i> han un moß met <code>http</code> aanfange',
+	'sf_bad_email_error' => 'moß et reschteje Fomaat för en <i lang="en">e-mail</i>-Adräß hann',
+	'sf_bad_number_error' => 'moß en reschteje Zahl sin',
+	'sf_bad_integer_error' => 'moß en reschteje janze Zahl sin',
+	'sf_bad_date_error' => 'moß e reschtesch Dattum sin',
 	'uploadwindow' => 'Dat Finster för zem Huhlaade',
+	'sf_property_linkstoform' => 'Et hät ene Lengk op Sigge, di dat Fommulaa „$1“ verwende donn.',
+	'sf_property_allowedvals' => 'De müjjelesche Wääte för di Eijeschaff sin:',
+	'sf_template_docufooter' => 'Donn di Sigg zom Ändere oproofe, öm dä Schablone iere Enhalldt als Tex ze sinn ze krijje.',
 	'sf_form_freetextlabel' => 'Freije Tex',
 );
 
@@ -3177,7 +3206,7 @@ $messages['nl'] = array(
 	'uploadwindow' => 'Uploadscherm',
 	'sf_property_isproperty' => 'Dit is een eigenschap van type $1.',
 	'sf_property_linkstoform' => "Deze verwijst naar pagina's die gebruikmaken van het formulier $1.",
-	'sf_property_allowedvals' => 'De toegelaten waarden voor deze eigenschap zijn:',
+	'sf_property_allowedvals' => 'De toegelaten {{PLURAL:$1|waarde voor deze eigenschap is|waarden voor deze eigenschap zijn}}:',
 	'sf_template_docu' => "Dit is het sjabloon '$1'. Gebruik het op de volgende wijze:",
 	'sf_template_docufooter' => 'Bewerk de pagina om de sjabloontekst te bekijken.',
 	'sf_form_docu' => "Dit is het formulier '$1'. Om een pagina toe te voegen met dit formulier, typ de paginanaam hieronder in; als een pagina met die naam al bestaat, zal u het bewerkingsscherm zien en kunt u die pagina gewoon bewerken.",
@@ -3493,7 +3522,7 @@ $messages['oc'] = array(
 	'sf_property_linkstoform' => "Liga cap a las paginas qu'utilizan lo formulari $1.",
 	'sf_property_allowedvals' => 'Las valors autorizadas per aquesta proprietat son :',
 	'sf_template_docu' => 'Aquò es lo modèl « $1 ». Deuriá èsser apelat segon lo format seguent :',
-	'sf_template_docufooter' => 'Modificar la pagina per veire lo tèxt del modèl.',
+	'sf_template_docufooter' => 'Modificar la pagina per veire lo tèxte del modèl.',
 	'sf_form_docu' => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit cap a un formulari destinat a l'editar.",
 	'sf_form_freetextlabel' => 'Tèxt liure',
 	'sf_category_hasdefaultform' => 'Aquesta categoria utiliza lo formulari « $1 ».',
@@ -3675,6 +3704,7 @@ Ela deverá ser chamada no seguinte formato:",
 );
 
 /** Brazilian Portuguese (Português do Brasil)
+ * @author Crazymadlover
  * @author Eduardo.mps
  * @author Enqd
  * @author Leonardo Costa
@@ -3765,7 +3795,7 @@ $messages['pt-br'] = array(
 	'uploadwindow' => 'Janela de carregamento',
 	'sf_property_isproperty' => 'Esta é uma propriedade do tipo $1.',
 	'sf_property_linkstoform' => 'Liga às páginas que usam o formulário $1.',
-	'sf_property_allowedvals' => 'Os valores permitidos para este propriedade são:',
+	'sf_property_allowedvals' => 'Os {{PLURAL:$1|valor permitido para este propriedade é|valores permitidos para este propriedade são}}:',
 	'sf_template_docu' => "Esta é a '$1' predefinição. Ela deve ser chamada no seguinte formato:",
 	'sf_template_docufooter' => 'Edite a página para ver o texto da predefinição.',
 	'sf_form_docu' => "Este é o '$1' formulário. Para adicionar uma página usando esse formulário, adicione o nome da página abaixo; se já existir uma página com esse nome, você será reencaminhado para um formulário para editar essa página.",
@@ -4011,7 +4041,7 @@ $messages['sk'] = array(
 	'uploadwindow' => 'Okno nahrávania',
 	'sf_property_isproperty' => 'Toto je vlastnosť typu $1.',
 	'sf_property_linkstoform' => 'Odkazuje na stránky používajúce formulár $1.',
-	'sf_property_allowedvals' => 'Povolené hodnoty tejto vlastnosti sú:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Povolená hodnota|Povolené hodnoty}} tejto vlastnosti {{PLURAL:$1|je|sú}}:',
 	'sf_template_docu' => 'Toto je šablóna „$1“. Mala by byť volaná v nasledovnom tvare:',
 	'sf_template_docufooter' => 'Text šablóny uvidíte, keď začnete upravovať stránku.',
 	'sf_form_docu' => 'Toto je formulár „$1“. Novú stránku pomocou tohto formulára pridáte zadaním názvu stránky dolu; ak stránka s takým názvom už existuje, budete presmerovaný na formulár pre úpravu tejto stránky.',
@@ -4023,11 +4053,16 @@ $messages['sk'] = array(
 
 /** Serbian Cyrillic ekavian (ћирилица)
  * @author Sasa Stefanovic
+ * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
+	'sf_createtemplate_outputformat' => 'Излазни формат:',
 	'sf_createform_add' => 'Додај',
 	'sf_editdata_remove' => 'Уклони',
 	'sf_editdata_none' => 'Нема',
+	'sf_bad_number_error' => 'мора бити исправан број',
+	'sf_bad_integer_error' => 'мора бити исправан цели број',
+	'sf_bad_date_error' => 'мора бити исправан датум',
 );
 
 /** Seeltersk (Seeltersk)
