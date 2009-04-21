@@ -140,7 +140,7 @@ function doSpecialCreateForm() {
 	$mw_namespace_labels = $wgContLang->getNamespaces();
 	$special_namespace = $mw_namespace_labels[NS_SPECIAL];
 	$text .= '    <input type="hidden" name="title" value="' . $special_namespace . ':CreateForm">' . "\n";
-	$text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' <input size=25 name="form_name" value="' . $form_name . '">';
+	$text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' ' . wfMsg('sf_createform_nameinputdesc') . ' <input size=25 name="form_name" value="' . $form_name . '">';
 	if (! empty($form_name_error_str))
 		$text .= ' <font color="red">' . $form_name_error_str . '</font>';
 	$text .= "</p>\n";
