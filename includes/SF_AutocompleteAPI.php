@@ -110,16 +110,27 @@ class SFAutocompleteAPI extends ApiBase {
 	}
 
 	public static function getAllValuesForProperty($is_relation, $property_name, $substring = null) {
-		global $sfgMaxAutocompleteValues;
+		global $smwgStore, $sfgMaxAutocompleteValues;
 
 		$fname = "SFAutocompleteAPI::getAllValuesForProperty";
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
 		$sql_options = array();
 		$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-		$property_field = ($is_relation) ? 'relation_title' : 'attribute_title';
-		$value_field = ($is_relation) ? 'object_title' : 'value_xsd';
-		$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes';
+		if ($smwgStore == 'SMWSQLStore') {
+			$property_field = ($is_relation) ? 'relation_title' : 'attribute_title';
+			$value_field = ($is_relation) ? 'object_title' : 'value_xsd';
+			$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes';
+			$from_clause = $db->tableName($property_table);
+		} else {
+			$property_field = 'p_ids.smw_title';
+			$value_field = ($is_relation) ? 'o_ids.smw_title' : 'a.value_xsd';
+			if ($is_relation) {
+				$from_clause = $db->tableName('smw_rels2') . " r JOIN " . $db->tableName('smw_ids') . " p_ids ON r.p_id = p_ids.smw_id JOIN " . $db->tableName('smw_ids') . " o_ids ON r.o_id = o_ids.smw_id";
+			} else {
+				$from_clause = $db->tableName('smw_atts2') . " a JOIN " . $db->tableName('smw_ids') . " p_ids ON a.p_id = p_ids.smw_id";
+			}
+		}
 		$property_name = str_replace(' ', '_', $property_name);
 		$conditions = "$property_field = '$property_name'";
 		if ($substring != null) {
@@ -129,7 +140,7 @@ class SFAutocompleteAPI extends ApiBase {
 			$conditions .= " AND (LOWER($value_field) LIKE '" . $substring . "%' OR LOWER($value_field) LIKE '%\_" . $substring . "%')";
 		}
 		$sql_options['ORDER BY'] = $value_field;
-		$res = $db->select( $db->tableName($property_table),
+		$res = $db->select( $from_clause,
 			"DISTINCT $value_field",
 			$conditions, $fname, $sql_options);
 		while ($row = $db->fetchRow($res)) {
