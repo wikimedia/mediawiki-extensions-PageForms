@@ -60,9 +60,11 @@ class SFFormPrinter {
     $this->setInputTypeHook('datetime with timezone', array('SFFormInputs', 'dateTimeEntryHTML'), array('include_timezone' => true));
     $this->setInputTypeHook('year', array('SFFormInputs', 'textEntryHTML'), array('size' => 4));
     $this->setInputTypeHook('checkbox', array('SFFormInputs', 'checkboxHTML'), array());
-    $this->setInputTypeHook('radiobutton', array('SFFormInputs', 'radioButtonHTML'), array());
+    $this->setInputTypeHook('radiobutton', array('SFFormInputs', 'radiobuttonHTML'), array());
     $this->setInputTypeHook('checkboxes', array('SFFormInputs', 'checkboxesHTML'), array());
     $this->setInputTypeHook('listbox', array('SFFormInputs', 'listboxHTML'), array());
+    $this->setInputTypeHook('category', array('SFFormInputs', 'categoryHTML'), array());
+    $this->setInputTypeHook('categories', array('SFFormInputs', 'categoriesHTML'), array());
 
     // initialize other variables
     $this->standardInputsIncluded = false;
@@ -75,6 +77,44 @@ class SFFormPrinter {
   function setInputTypeHook($input_type, $function_name, $default_args) {
     $this->mInputTypeHooks[$input_type] = array($function_name, $default_args);
   }
+
+
+  /**
+   * Show the set of previous deletions for the page being added.
+   * This function is copied almost exactly from EditPage::showDeletionLog() -
+   * unfortunately, neither that function nor Article::showDeletionLog() can
+   * be called from here, since they're both protected
+   */
+  function showDeletionLog( $out ) {
+    global $wgUser;
+    $loglist = new LogEventsList( $wgUser->getSkin(), $out );
+    $pager = new LogPager( $loglist, 'delete', false, $this->mPageTitle->getPrefixedText() );
+    $count = $pager->getNumRows();
+    if ( $count > 0 ) {
+      $pager->mLimit = 10;
+      $out->addHTML( '<div class="mw-warning-with-logexcerpt">' );
+      $out->addWikiMsg( 'recreate-deleted-warn' );
+      $out->addHTML(
+        $loglist->beginLogEventsList() .
+        $pager->getBody() .
+        $loglist->endLogEventsList()
+      );
+      if($count > 10){
+        $out->addHTML( $wgUser->getSkin()->link(
+          SpecialPage::getTitleFor( 'Log' ),
+          wfMsgHtml( 'deletelog-fulllog' ),
+          array(),
+          array(
+            'type' => 'delete',
+            'page' => $this->mPageTitle->getPrefixedText() ) ) );
+      }
+      $out->addHTML( '</div>' );
+      return true;
+    }
+
+    return false;
+  }
+
 
   function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null) {
     global $wgRequest, $wgUser, $wgParser;
@@ -123,6 +163,10 @@ class SFFormPrinter {
       $this->mPageTitle = Title::newFromText("Semantic Forms permissions test");
     else
       $this->mPageTitle = Title::newFromText($page_title);
+    global $wgOut;
+    // show previous set of deletions for this page, if it's been deleted before
+    if (! $form_submitted && ! $this->mPageTitle->exists())
+      $this->showDeletionLog($wgOut);
     if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCanEdit()) {
       $form_is_disabled = false;
       $form_text = "";
@@ -499,6 +543,9 @@ class SFFormPrinter {
                   $possible_values = SFUtils::getAllPagesForConcept($sub_components[1]);
                 } elseif ($sub_components[0] == 'property') {
                   $semantic_property = $sub_components[1];
+                } elseif ($sub_components[0] == 'default filename') {
+                  $default_filename = str_replace('&lt;page name&gt;', $page_title, $sub_components[1]);
+                  $field_args['default filename'] = $default_filename;
                 } else {
                   $field_args[$sub_components[0]] = $sub_components[1];
                 }
@@ -737,6 +784,9 @@ END;
               if ($input_type == 'date' || $input_type == 'datetime' ||
                   $input_type == 'datetime with timezone' ||
                   ($input_type == '' && $form_field->template_field->propertyIsOfType('_dat'))) {
+                // get current time, for the time zone specified in the wiki
+                global $wgLocaltimezone;
+                putenv('TZ=' . $wgLocaltimezone);
                 $cur_time = time();
                 $year = date("Y", $cur_time);
                 $month = date("n", $cur_time);
