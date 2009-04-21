@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.5.4');
+define('SF_VERSION','1.6');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'name' => 'Semantic Forms',
@@ -55,6 +55,9 @@ $wgSpecialPageGroups['CreateProperty'] = 'sf_group';
 $wgSpecialPages['CreateCategory'] = 'SFCreateCategory';
 $wgAutoloadClasses['SFCreateCategory'] = $sfgIP . '/specials/SF_CreateCategory.php';
 $wgSpecialPageGroups['CreateCategory'] = 'sf_group';
+$wgSpecialPages['CreateClass'] = 'SFCreateClass';
+$wgAutoloadClasses['SFCreateClass'] = $sfgIP . '/specials/SF_CreateClass.php';
+$wgSpecialPageGroups['CreateClass'] = 'sf_group';
 $wgSpecialPages['AddPage'] = 'SFAddPage';
 $wgAutoloadClasses['SFAddPage'] = $sfgIP . '/specials/SF_AddPage.php';
 $wgSpecialPageGroups['AddPage'] = 'sf_group';
@@ -80,6 +83,8 @@ $wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.inc';
 $wgAutoloadClasses['SFLinkUtils'] = $sfgIP . '/includes/SF_LinkUtils.inc';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
+$wgJobClasses['createPage'] = 'SFCreatePageJob';
+$wgAutoloadClasses['SFCreatePageJob'] = $sfgIP . '/includes/SF_CreatePageJob.php';
 require_once($sfgIP . '/languages/SF_Language.php');
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
