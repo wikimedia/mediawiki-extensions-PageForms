@@ -22,50 +22,47 @@ class SFCreateProperty extends SpecialPage {
 		$this->setHeaders();
 		doSpecialCreateProperty();
 	}
-}
 
-function createPropertyText($property_type, $default_form, $allowed_values_str) {
-	global $smwgContLang;
+	function createPropertyText($property_type, $default_form, $allowed_values_str) {
+		global $smwgContLang;
 
-	wfLoadExtensionMessages('SemanticForms');
-
-	// handling of special property labels changed in SMW 1.4
-	if (method_exists($smwgContLang, 'getPropertyLabels')) {
-		$prop_labels = $smwgContLang->getPropertyLabels();
-		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
-	} else {
-		$spec_props = $smwgContLang->getSpecialPropertiesArray();
-		$type_tag = "[[{$spec_props[SMW_SP_HAS_TYPE]}::$property_type]]";
-	}
-	$text = wfMsgForContent('sf_property_isproperty', $type_tag);
-	if ($default_form != '') {
-		global $sfgContLang;
-		$sf_prop_labels = $sfgContLang->getPropertyLabels();
-		$default_form_tag = "[[{$sf_prop_labels[SF_SP_HAS_DEFAULT_FORM]}::$default_form]]";
-		$text .= ' ' . wfMsgForContent('sf_property_linkstoform', $default_form_tag);
-	}
-	if ($allowed_values_str != '') {
-		// replace the comma substitution character that has no chance of
-		// being included in the values list - namely, the ASCII beep
-		global $sfgListSeparator;
-		$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
-		$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
-
-		$text .= "\n\n" . wfMsgExtForContent('sf_property_allowedvals', 'parsemag', count( $allowed_values_array ) );
-
-		foreach ($allowed_values_array as $i => $value) {
-			// replace beep back with comma, trim
-			$value = str_replace("\a", $sfgListSeparator, trim($value));
-			if (method_exists($smwgContLang, 'getPropertyLabels')) {
-				$prop_labels = $smwgContLang->getPropertyLabels();
-				$text .= "\n* [[" . $prop_labels['_PVAL'] . "::$value]]";
-			} else {
-				$spec_props = $smwgContLang->getSpecialPropertiesArray();
-				$text .= "\n* [[" . $spec_props[SMW_SP_POSSIBLE_VALUE] . "::$value]]";
+		// handling of special property labels changed in SMW 1.4
+		if (method_exists($smwgContLang, 'getPropertyLabels')) {
+			$prop_labels = $smwgContLang->getPropertyLabels();
+			$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
+		} else {
+			$spec_props = $smwgContLang->getSpecialPropertiesArray();
+			$type_tag = "[[{$spec_props[SMW_SP_HAS_TYPE]}::$property_type]]";
+		}
+		$text = wfMsgForContent('sf_property_isproperty', $type_tag);
+		if ($default_form != '') {
+			global $sfgContLang;
+			$sf_prop_labels = $sfgContLang->getPropertyLabels();
+			$default_form_tag = "[[{$sf_prop_labels[SF_SP_HAS_DEFAULT_FORM]}::$default_form]]";
+			$text .= ' ' . wfMsgForContent('sf_property_linkstoform', $default_form_tag);
+		}
+		if ($allowed_values_str != '') {
+			// replace the comma substitution character that has no chance of
+			// being included in the values list - namely, the ASCII beep
+			global $sfgListSeparator;
+			$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
+			$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
+			$text .= "\n\n" . wfMsgExtForContent('sf_property_allowedvals', 'parsemag', count( $allowed_values_array ) );
+			foreach ($allowed_values_array as $i => $value) {
+				// replace beep back with comma, trim
+				$value = str_replace("\a", $sfgListSeparator, trim($value));
+				if (method_exists($smwgContLang, 'getPropertyLabels')) {
+					$prop_labels = $smwgContLang->getPropertyLabels();
+					$text .= "\n* [[" . $prop_labels['_PVAL'] . "::$value]]";
+				} else {
+					$spec_props = $smwgContLang->getSpecialPropertiesArray();
+					$text .= "\n* [[" . $spec_props[SMW_SP_POSSIBLE_VALUE] . "::$value]]";
+				}
 			}
 		}
+		return $text;
 	}
-	return $text;
+
 }
 
 function doSpecialCreateProperty() {
@@ -94,7 +91,7 @@ function doSpecialCreateProperty() {
 			# redirect to wiki interface
 			$wgOut->setArticleBodyOnly(true);
 			$title = Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
-			$full_text = createPropertyText($property_type, $default_form, $allowed_values);
+			$full_text = SFCreateProperty::createPropertyText($property_type, $default_form, $allowed_values);
 			// HTML-encode
 			$full_text = str_replace('"', '&quot;', $full_text);
 			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
