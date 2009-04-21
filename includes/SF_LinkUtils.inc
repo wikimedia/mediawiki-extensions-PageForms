@@ -57,27 +57,31 @@ class SFLinkUtils {
 	 * Gets the default form specified, if any, for a specific page
 	 * (which should be a category, property, or namespace page)
 	 */
-	static function getDefaultForm($page_title, $page_namespace) {
+	static function getDefaultForms($page_title, $page_namespace) {
 		if ($page_title == NULL)
-			return null;
+			return array();
 
 		global $sfgContLang;
+		// produce a useful error message if SMW isn't installed
+		if (! function_exists('smwfGetStore'))
+			die("ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!");
 		$store = smwfGetStore();
 		$title = Title::makeTitleSafe($page_namespace, $page_title);
 		// we can do this easily if we're using SMW 1.4 or higher
 		if (class_exists('SMWPropertyValue')) {
 			$default_form_property = SMWPropertyValue::makeProperty('_SF_DF');
 			$res = $store->getPropertyValues($title, $default_form_property);
-			if (isset($res[0]))
-				return $res[0]->getTitle()->getText();
+			$form_names = array();
+			foreach ($res as $wiki_page_value)
+				$form_names[] = $wiki_page_value->getTitle()->getText();
 			// if we're using a non-English language, check for the English string as well
 			if (! $sfgContLang instanceof SF_LanguageEn) {
 				$backup_default_form_property = SMWPropertyValue::makeProperty('_SF_DF_BACKUP');
 				$res = $store->getPropertyValues($title, $backup_default_form_property);
-				if (isset($res[0]))
-					return $res[0]->getTitle()->getText();
+				foreach ($res as $wiki_page_value)
+					$form_names[] = $wiki_page_value->getTitle()->getText();
 			}
-			return null;
+			return $form_names;
 		}
 
 		// otherwise, it's a bit more complex
@@ -108,7 +112,7 @@ class SFLinkUtils {
 				}
 			}
 		}
-		return null;
+		return array();
 	}
 
 	/**
@@ -173,13 +177,13 @@ class SFLinkUtils {
 	 * corresponding 'add data' link, if any such properties are defined
 	 */
 	static function getAddDataLinkForPage($target_page_title, $page_title, $page_namespace) {
-		$form_name = self::getDefaultForm($page_title, $page_namespace);
+		$default_forms = self::getDefaultForms($page_title, $page_namespace);
 		$alt_forms = self::getAlternateForms($page_title, $page_namespace);
-		if (! $form_name && count($alt_forms) == 0)
+		if ((count($default_forms) == 0) && (count($alt_forms) == 0))
 			return null;
 		$ad = SpecialPage::getPage('AddData');
-		if ($form_name)
-			$add_data_url = $ad->getTitle()->getLocalURL() . "/" . $form_name . "/" . self::titleURLString($target_page_title);
+		if (count($default_forms) > 0)
+			$add_data_url = $ad->getTitle()->getLocalURL() . "/" . $default_forms[0] . "/" . self::titleURLString($target_page_title);
 		else
 			$add_data_url = $ad->getTitle()->getLocalURL() . "/" . self::titleURLString($target_page_title);
 		foreach ($alt_forms as $i => $alt_form) {
@@ -218,6 +222,10 @@ class SFLinkUtils {
 		// get all properties pointing to this page, and if
 		// getAddDataLinkForPage() returns a value with any of
 		// them, return that
+
+		// produce a useful error message if SMW isn't installed
+		if (! function_exists('smwfGetStore'))
+			die("ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!");
 		$store = smwfGetStore();
 		$title_text = self::titleString($title);
 		$value = SMWDataValueFactory::newTypeIDValue('_wpg', $title_text);
@@ -276,23 +284,29 @@ class SFLinkUtils {
 	 * a category that this article belongs to, if there is one, or the
 	 * default form for the article's namespace, if there is one
 	 */
-	static function getFormForArticle($obj) {
-		$categories = self::getCategoriesForArticle($obj);
-		foreach ($categories as $category) {
-			if ($form_name = self::getDefaultForm($category, NS_CATEGORY)) {
-				return $form_name;
+	static function getFormsForArticle($obj) {
+		// if this is not a category page, look for a default form
+		// for its parent categories
+		$namespace = $obj->mTitle->getNamespace();
+		if (NS_CATEGORY !== $namespace) {
+			$default_forms = array();
+			$categories = self::getCategoriesForArticle($obj);
+			foreach ($categories as $category) {
+				$default_forms = array_merge($default_forms, self::getDefaultForms($category, NS_CATEGORY));
 			}
+			if (count($default_forms) > 0)
+				return $default_forms;
 		}
 		// if we're still here, just return the default form for the
 		// namespace, which may well be null
-		$namespace = $obj->mTitle->getNsText();
-		if ('' === $namespace) {
+		if (NS_MAIN === $namespace) {
 			// if it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language
 			wfLoadExtensionMessages('SemanticForms');
 			$namespace = wfMsgForContent('sf_blank_namespace');
 		}
-		return self::getDefaultForm($namespace, NS_PROJECT);
+		$default_forms = self::getDefaultForms($namespace, NS_PROJECT);
+		return $default_forms;
 	}
 
 }
