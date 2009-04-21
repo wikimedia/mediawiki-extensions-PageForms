@@ -86,7 +86,7 @@ $sfgYUIBase = "http://yui.yahooapis.com/2.6.0/build/";
 # @note This is experimental and requires updates to EditPage which I have only
 #       added into MediaWiki 1.14a
 ###
-$sfgUseFormEditPage = false;//version_compare( $wgVersion, '1.14alpha', '>=' );
+$sfgUseFormEditPage = false;//method_exists('EditPage', 'showFooter');
 
 ###
 # Use 24-hour time format in forms, e.g. 15:30 instead of 3:30 PM
