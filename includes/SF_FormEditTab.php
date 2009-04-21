@@ -20,10 +20,9 @@ class SFFormEditTab {
 		// Special:SMWAdmin for some reason, which is why the
 		// special-page check is there
 		if (isset($obj->mTitle) &&
-		($obj->mTitle->getNamespace() != NS_CATEGORY) &&
 		($obj->mTitle->getNamespace() != NS_SPECIAL)) {
-			$form_name = SFLinkUtils::getFormForArticle($obj);
-			if ($form_name) {  
+			$form_names = SFLinkUtils::getFormsForArticle($obj);
+			if (count($form_names) > 0) {  
 				global $wgRequest, $wgUser;
 				global $sfgRenameEditTabs;
 
@@ -105,10 +104,17 @@ class SFFormEditTab {
 		// @todo: This looks like bad code. If we can't find a form, we
 		// should be showing an informative error page rather than
 		// making it look like an edit form page does not exist.
-		$form_name = SFLinkUtils::getFormForArticle($article);
-		if ($form_name == '') {
+		$form_names = SFLinkUtils::getFormsForArticle($article);
+		if (count($form_names) == 0) {
 			return true;
 		}
+		if (count($form_names) > 1) {
+			wfLoadExtensionMessages('SemanticForms');
+			$warning_text = '    <div class="warningMessage">' . wfMsg('sf_editdata_morethanoneform') . "</div>\n";
+			global $wgOut;
+			$wgOut->addHTML($warning_text);
+		}
+		$form_name = $form_names[0];
 
 		if( $sfgUseFormEditPage ) {
 			# Experimental new feature extending from the internal
