@@ -34,11 +34,13 @@ class SFFormInputs {
     return array_map('addslashes', $names_array);
   }
 
-  static function uploadLinkHTML($input_id, $delimiter = null) {
+  static function uploadLinkHTML($input_id, $delimiter = null, $default_filename = null) {
     $upload_window_page = SpecialPage::getPage('UploadWindow');
     $query_string = "sfInputID=$input_id";
     if ($delimiter != null)
       $query_string .= "&sfDelimiter=$delimiter";
+    if ($default_filename != null)
+      $query_string .= "&wpDestFile=$default_filename";
     $upload_window_url = $upload_window_page->getTitle()->getFullURL($query_string);
     $upload_label = wfMsg('upload');
     $text = " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
@@ -117,7 +119,12 @@ END;
       } else {
         $delimiter = null;
       }
-      $text .= SFFormInputs::uploadLinkHTML($input_id, $delimiter);
+     if (array_key_exists('default filename', $other_args)) {
+        $default_filename = $other_args['default filename'];
+      } else {
+        $default_filename = "";
+      }
+      $text .= SFFormInputs::uploadLinkHTML($input_id, $delimiter, $default_filename);
     }
     return array($text, null);
   }
@@ -135,9 +142,12 @@ END;
 	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" $disabled_text>
 
 END;
-    // add a blank value at the beginning, regardless of whether this is
-    // a mandatory field
-    $text .= "  <option value=\"\"></option>\n";
+    // add a blank value at the beginning, unless this is a mandatory field
+    // and there's a current value in place (either through a default value
+    // or because we're editing an existing page)
+    if (! $is_mandatory || $cur_value == '') {
+      $text .= "  <option value=\"\"></option>\n";
+    }
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
     foreach ($possible_values as $possible_value) {
@@ -324,7 +334,12 @@ END;
       $delimiter = null;
     }
     if (array_key_exists('is_uploadable', $other_args) && $other_args['is_uploadable'] == true) {
-      $text .= SFFormInputs::uploadLinkHTML($input_id, $delimiter);
+     if (array_key_exists('default filename', $other_args)) {
+        $default_filename = $other_args['default filename'];
+      } else {
+        $default_filename = "";
+      }
+      $text .= SFFormInputs::uploadLinkHTML($input_id, $delimiter, $default_filename);
     }
     $text .=<<<END
 	<span id="$info_id" class="errorMessage"></span>
@@ -542,15 +557,19 @@ END;
     if ($is_mandatory)
       $text .= '	<span class="mandatoryFieldsSpan">' . "\n";
 
-    // start with an initial "None" value
-    $input_id = "input_$sfgFieldNum";
-    $info_id = "info_$sfgFieldNum";
-    $text .= '	<input type="radio" id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
-    if (! $cur_value) {
-      $text .= ' checked="checked"';
-      $check_set = true;
+    // start with an initial "None" value, unless this is a mandatory field
+    // and there's a current value in place (either through a default value
+    // or because we're editing an existing page)
+    if (! $is_mandatory || $cur_value == '') {
+      $input_id = "input_$sfgFieldNum";
+      $info_id = "info_$sfgFieldNum";
+      $text .= '	<input type="radio" id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
+      if (! $cur_value) {
+        $text .= ' checked="checked"';
+        $check_set = true;
+      }
+      $text .= " $disabled_text/> " . wfMsg('sf_editdata_none') . "\n";
     }
-    $text .= " $disabled_text/> " . wfMsg('sf_editdata_none') . "\n";
 
     if (($possible_values = $other_args['possible_values']) == null)
       $possible_values = array(); 
@@ -605,4 +624,118 @@ END;
     return array($text, null);
   }
 
+  static function categoryHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+    // escape if CategoryTree extension isn't included
+    if (! function_exists('efCategoryTreeParserHook'))
+      return array(null, null);
+
+    global $sfgTabIndex, $sfgFieldNum;
+
+    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
+    if (array_key_exists('top category', $other_args)) {
+      $top_category = $other_args['top category'];
+    } else {
+      // escape - we can't do anything
+      return array(null, null);
+    }
+    if (array_key_exists('height', $other_args)) {
+      $height = $other_args['height'];
+    } else {
+      $height = "100";
+    }
+    if (array_key_exists('width', $other_args)) {
+      $width = $other_args['width'];
+    } else {
+      $width = "500";
+    }
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
+
+    global $wgCategoryTreeMaxDepth;
+    $wgCategoryTreeMaxDepth = 10;
+    $tree = efCategoryTreeParserHook($top_category, array('mode' => 'categories', 'depth' => 10));
+    $tree = preg_replace('/(<a class="CategoryTreeLabel.*>)(.*)(<\/a>)/', '<input id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value="$2" type="radio"> $1$2$3', $tree);
+    $tree = str_replace("value=\"$cur_value\"", "value=\"$cur_value\" checked=\"checked\"", $tree);
+    // if it's disabled, set all to disabled
+    if ($is_disabled) {
+      $tree = str_replace('type="radio"', 'type="radio" disabled', $tree);
+    }
+    $text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
+
+    $text .=<<<END
+
+END;
+
+    return array($text, null);
+  }
+
+  static function categoriesHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
+    // escape if CategoryTree extension isn't included
+    if (! function_exists('efCategoryTreeParserHook'))
+      return array(null, null);
+
+    global $sfgTabIndex, $sfgFieldNum;
+
+    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    if (array_key_exists('class', $other_args))
+      $className .= " " . $other_args['class'];
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
+    $hidden_input_name = $input_name . "[is_list]";
+    // get list delimiter - default is comma
+    if (array_key_exists('delimiter', $other_args)) {
+      $delimiter = $other_args['delimiter'];
+    } else {
+      $delimiter = ",";
+    }
+    $cur_values = self::getValuesArray($cur_value, $delimiter);
+    if (array_key_exists('top category', $other_args)) {
+      $top_category = $other_args['top category'];
+    } else {
+      // escape - we can't do anything
+      return array(null, null);
+    }
+    if (array_key_exists('height', $other_args)) {
+      $height = $other_args['height'];
+    } else {
+      $height = "100";
+    }
+    if (array_key_exists('width', $other_args)) {
+      $width = $other_args['width'];
+    } else {
+      $width = "500";
+    }
+
+    global $wgCategoryTreeMaxDepth;
+    $wgCategoryTreeMaxDepth = 10;
+    $tree = efCategoryTreeParserHook($top_category, array('mode' => 'categories', 'depth' => 10));
+    // some string that will hopefully never show up in a category, template
+    // or field name
+    $dummy_str = 'REPLACE THIS STRING!';
+    $tree = preg_replace('/(<a class="CategoryTreeLabel.*>)(.*)(<\/a>)/', '<input id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[' . $dummy_str . ']" value="$2" type="checkbox"> $1$2$3', $tree);
+    // replace values one at a time, by an incrementing index -
+    // inspired by http://bugs.php.net/bug.php?id=11457
+    $i = 0;
+    while (($a = strpos($tree, $dummy_str)) > 0) {
+      $tree = substr($tree, 0, $a) . $i++ . substr($tree, $a + strlen($dummy_str));
+    }
+    // set all checkboxes matching $cur_values to checked
+    foreach ($cur_values as $value) {
+      $tree = str_replace("value=\"$value\"", "value=\"$value\" checked=\"checked\"", $tree);
+    }
+    // if it's disabled, set all to disabled
+    if ($is_disabled) {
+      $tree = str_replace('type="checkbox"', 'type="checkbox" disabled', $tree);
+    }
+    $text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
+
+    $text .=<<<END
+	<input type="hidden" name="$hidden_input_name" value="1" />
+
+END;
+
+    return array($text, null);
+  }
 }
