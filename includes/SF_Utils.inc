@@ -90,7 +90,7 @@ END;
 	 * to display and work correctly
 	 */
 	static function addJavascriptAndCSS() {
-		global $wgOut, $sfgScriptPath, $sfgYUIBase, $wgScriptPath, $wgFCKEditorDir;
+		global $wgOut, $sfgScriptPath, $sfgYUIBase, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir;
 
 		$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
 		$wgOut->addLink( array(
@@ -117,6 +117,12 @@ END;
 			'media' => "screen, projection",
 			'href' => $sfgScriptPath . '/skins/floatbox.css'
 		));
+		$wgOut->addLink( array(
+			'rel' => 'stylesheet',
+			'type' => 'text/css',
+			'media' => "screen, projection",
+			'href' => $smwgScriptPath . '/skins/SMW_custom.css'
+		));
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'yahoo/yahoo-min.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'dom/dom-min.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'event/event-min.js"></script>' . "\n");
@@ -127,6 +133,7 @@ END;
 		$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'autocomplete/autocomplete-min.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/floatbox.js"></script>' . "\n");
+		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_tooltip.js"></script>' . "\n");
 		if ($wgFCKEditorDir)
 			$wgOut->addScript('<script type="text/javascript" src="' . "$wgScriptPath/$wgFCKEditorDir" . '/fckeditor.js"></script>' . "\n");
 		$wgOut->addMeta('robots','noindex,nofollow');
