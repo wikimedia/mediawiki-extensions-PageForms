@@ -92,6 +92,20 @@ $aliases['fr'] = array(
 	'Templates' => array( 'Modèles' ),
 );
 
+/** Franco-Provençal (Arpetan) */
+$aliases['frp'] = array(
+	'AddData' => array( 'Apondre des balyês', 'ApondreDesBalyês' ),
+	'AddPage' => array( 'Apondre una pâge', 'ApondreUnaPâge' ),
+	'CreateCategory' => array( 'Fâre una catègorie', 'FâreUnaCatègorie' ),
+	'CreateForm' => array( 'Fâre un formulèro', 'FâreUnFormulèro' ),
+	'CreateProperty' => array( 'Dèfenir una propriètât', 'DèfenirUnaPropriètât' ),
+	'CreateTemplate' => array( 'Fâre un modèlo', 'FâreUnModèlo' ),
+	'EditData' => array( 'Changiér les balyês', 'ChangiérLesBalyês' ),
+	'Forms' => array( 'Formulèros' ),
+	'Templates' => array( 'Modèlos' ),
+	'UploadWindow' => array( 'Fenétra de tèlèchargement', 'FenétraDeTèlèchargement' ),
+);
+
 /** Galician (Galego) */
 $aliases['gl'] = array(
 	'Forms' => array( 'Formularios' ),
