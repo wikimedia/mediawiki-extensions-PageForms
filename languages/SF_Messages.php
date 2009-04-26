@@ -254,6 +254,9 @@ $messages['ar'] = array(
 	'sf_createcategory_name' => 'اسم التصنيف:',
 	'sf_createcategory_defaultform' => 'الاستمارة الافتراضية:',
 	'sf_createcategory_makesubcategory' => 'اجعل هذا تصنيفا فرعيا لتصنيف آخر (اختياري):',
+	'createclass' => 'أنشئ رتبة',
+	'sf_createclass_allowedvalues' => 'القيم المسموح بها',
+	'sf_createclass_listofvalues' => 'قائمة القيم',
 	'addpage' => 'إضافة صفحة مع نموذج',
 	'sf_addpage_badform' => 'خطأ: لا صفحة استمارة تم العثور عليها في $1',
 	'sf_addpage_docu' => "أدخل اسم الصفحة هنا، لكي يتم تعديلها مع الاستمارة '$1'.
@@ -1601,6 +1604,7 @@ $messages['fi'] = array(
  * @author Dereckson
  * @author Grondin
  * @author IAlex
+ * @author PieRRoMaN
  * @author Sherbrooke
  * @author Urhixidur
  */
@@ -1609,7 +1613,7 @@ $messages['fr'] = array(
 	'specialpages-group-sf_group' => 'Formulaires sémantiques',
 	'createproperty' => 'Définir une propriété',
 	'sf_createproperty_linktoform' => 'Cette propriété liera vers les pages utilisant le formulaire :',
-	'sf_createproperty_allowedvalsinput' => 'Si vous voulez restreindre ce champ à certaines valeurs, entrez la liste des valeurs permises séparées par des virgules (pour spécifier une valeur virgule, utilisez « \\, ») :',
+	'sf_createproperty_allowedvalsinput' => 'Si vous voulez restreindre ce champ à certaines valeurs, entrez la liste des valeurs permises séparées par des virgules (si une valeur contient une virgule, utilisez « \\, ») :',
 	'sf_createproperty_propname' => 'Nom de la propriété :',
 	'sf_createproperty_proptype' => 'Type :',
 	'templates' => 'Modèles',
@@ -1666,7 +1670,7 @@ $messages['fr'] = array(
 	'sf_createclass_allowedvalues' => 'Valeurs autorisées',
 	'sf_createclass_listofvalues' => 'Liste de valeurs',
 	'sf_createclass_leavefieldblank' => 'Si le nom du champ est le même que le nom de la propriété, vous pouvez laisser ce champ vide.',
-	'sf_createclass_missingvalues' => 'Les champs obligatoires n’ont pas tous été instruits.',
+	'sf_createclass_missingvalues' => 'Les champs obligatoires n’ont pas tous été remplis.',
 	'sf_createclass_success' => 'Les propriétés, modèle, formulaire et catégorie seront créés.',
 	'addpage' => 'Ajouter une page avec un formulaire',
 	'sf_addpage_badform' => 'Erreur : aucune page de formulaire n’a été trouvée sur $1.',
@@ -2502,9 +2506,10 @@ $messages['is'] = array(
  * @author Darth Kule
  */
 $messages['it'] = array(
-	'sf_createproperty_propname' => 'Nome:',
+	'sf_createproperty_propname' => 'Nome proprietà:',
+	'sf_createproperty_proptype' => 'Tipo:',
 	'sf_createtemplate_deletefield' => 'Cancella',
-	'sf_createcategory_name' => 'Nome:',
+	'sf_createcategory_name' => 'Nome categoria:',
 );
 
 /** Japanese (日本語)
@@ -3667,10 +3672,12 @@ $messages['oc'] = array(
 	'sf_createcategory_defaultform' => 'Formulari per defaut :',
 	'sf_createcategory_makesubcategory' => "Crea una soscategoria d'una autra categoria (facultatiu) :",
 	'createclass' => 'Crear una classa',
+	'sf_createclass_docu' => 'Especificatz aicí las donadas que servisson per crear las proprietats, modèl, formulari e categoria d’una classa. Per mai d’opcions, utilizatz puslèu las paginas $1.',
 	'sf_createclass_allowedvalues' => 'Valors autorizadas',
 	'sf_createclass_listofvalues' => 'Lista de valors',
 	'sf_createclass_leavefieldblank' => 'Se lo nom del champ es lo meteis que lo nom de la proprietat, podètz daissar aqueste camp void.',
 	'sf_createclass_missingvalues' => 'Los camps obligatòris son pas estats emplenats totes.',
+	'sf_createclass_success' => 'Las proprietats, modèl, formulari e categoria seràn creats.',
 	'addpage' => 'Apondre una pagina amb un formulari',
 	'sf_addpage_badform' => 'Error : cap de pagina de formulari es pas estada trobada sus $1.',
 	'sf_addpage_docu' => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
@@ -3687,6 +3694,7 @@ $messages['oc'] = array(
 	'sf_editsource' => 'Editar la font',
 	'sf_editdata_title' => 'Editar $1 : $2',
 	'sf_editdata_badurl' => "Aquò es la pagina per modificar las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:EditData?form=&lt;nom de formulari&gt;&target=&lt;nom de pagina cibla&gt; » o « Special:EditData/&lt;nom de formulari&gt;/&lt;nom de pagina cibla&gt; ».",
+	'sf_editdata_morethanoneform' => 'Avertiment : Mai d’un formulari per defaut es especificat per aquesta pagina.',
 	'sf_editdata_formwarning' => 'Atencion : aquesta pagina <a href="$1">existís ja</a>, mas utiliza pas aqueste formulari.',
 	'sf_editdata_remove' => 'Levar',
 	'sf_editdata_addanother' => 'Apondre un autre',
@@ -3787,7 +3795,7 @@ $messages['pt'] = array(
 	'createproperty' => 'Criar uma propriedade',
 	'sf_createproperty_linktoform' => 'Esta propriedade irá ligar às páginas que usem o formulário:',
 	'sf_createproperty_allowedvalsinput' => 'Se pretende que esta propriedade apenas possa conter determinados valores, introduza a lista de valores permitidos, separados por vírgulas (se um valor contém uma vírgula, substitua-a por "\\,"):',
-	'sf_createproperty_propname' => 'Nome:',
+	'sf_createproperty_propname' => 'Nome da propriedade:',
 	'sf_createproperty_proptype' => 'Tipo:',
 	'templates' => 'Predefinições',
 	'sf_templates_docu' => 'As seguintes predefinições existem neste wiki.',
@@ -3813,7 +3821,8 @@ $messages['pt'] = array(
 	'forms' => 'Formulários',
 	'sf_forms_docu' => 'Os seguintes formulários existem na wiki.',
 	'createform' => 'Criar um formulário',
-	'sf_createform_nameinput' => 'Nome do formulário (a convenção é a de nomear o formulário segundo a predefinição principal que preenche):',
+	'sf_createform_nameinput' => 'Nome do formulário',
+	'sf_createform_nameinputdesc' => '(a convenção é a de nomear o formulário segundo a predefinição principal que preenche):',
 	'sf_createform_template' => 'Predefinição:',
 	'sf_createform_templatelabelinput' => 'Etiqueta da predefinição (opcional):',
 	'sf_createform_allowmultiple' => 'Permitir múltiplas (ou zero) instâncias desta predefinição na página criada',
@@ -3834,7 +3843,7 @@ $messages['pt'] = array(
 	'sf_createform_add' => 'Adicionar',
 	'sf_createform_choosefield' => 'Escolha um campo a adicionar',
 	'createcategory' => 'Criar uma categoria',
-	'sf_createcategory_name' => 'Nome:',
+	'sf_createcategory_name' => 'Nome da categoria:',
 	'sf_createcategory_defaultform' => 'Formulário padrão:',
 	'sf_createcategory_makesubcategory' => 'Fazer desta categoria uma subcategoria de outra categoria (opcional):',
 	'addpage' => 'Adicionar página com formulário',
@@ -3896,7 +3905,7 @@ $messages['pt-br'] = array(
 	'createproperty' => 'Criar uma propriedade',
 	'sf_createproperty_linktoform' => 'Esta propriedade irá ligar às páginas que usem o formulário:',
 	'sf_createproperty_allowedvalsinput' => 'Se pretende que esta propriedade apenas possa conter determinados valores, introduza a lista de valores permitidos, separados por vírgulas (se um valor contém uma vírgula, substitua-a por "\\,"):',
-	'sf_createproperty_propname' => 'Nome:',
+	'sf_createproperty_propname' => 'Nome da propriedade:',
 	'sf_createproperty_proptype' => 'Tipo:',
 	'templates' => 'Predefinições',
 	'sf_templates_docu' => 'As seguintes predefinições existem na wiki.',
@@ -3922,7 +3931,8 @@ $messages['pt-br'] = array(
 	'forms' => 'Formulários',
 	'sf_forms_docu' => 'Os seguintes formulários existem na wiki.',
 	'createform' => 'Criar um formulário',
-	'sf_createform_nameinput' => 'Nome do formulário (convention is to name the form after the main template it populates):',
+	'sf_createform_nameinput' => 'Nome do formulário',
+	'sf_createform_nameinputdesc' => '(a convenção é a de nomear o formulário segundo a predefinição principal que preenche):',
 	'sf_createform_template' => 'Predefinição:',
 	'sf_createform_templatelabelinput' => 'Título da predefinição (opcional):',
 	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) dessa predefinição na página criada',
@@ -3943,9 +3953,16 @@ $messages['pt-br'] = array(
 	'sf_createform_add' => 'Adicionar',
 	'sf_createform_choosefield' => 'Escolha um campo para adicionar',
 	'createcategory' => 'Criar uma categoria',
-	'sf_createcategory_name' => 'Nome:',
+	'sf_createcategory_name' => 'Nome da Categoria:',
 	'sf_createcategory_defaultform' => 'Formulário padrão:',
 	'sf_createcategory_makesubcategory' => 'Faz desta uma subcategoria de outra categoria (opcional):',
+	'createclass' => 'Criar uma classe',
+	'sf_createclass_docu' => 'Introduza todos os dados aqui para criar as propriedades, predefinições, formulários e categorias para cada classe. Para mais opções, use as páginas $1.',
+	'sf_createclass_allowedvalues' => 'Valores permitidos',
+	'sf_createclass_listofvalues' => 'Lista de valores',
+	'sf_createclass_leavefieldblank' => 'Se o nome do campo é o mesmo que o nome da propriedade, você pode deixá-lo em branco.',
+	'sf_createclass_missingvalues' => 'Nem todos os campos requeridos foram preenchidos.',
+	'sf_createclass_success' => 'As propriedades, predefinições, os formulários e categorias serão criados.',
 	'addpage' => 'Adicionar página',
 	'sf_addpage_badform' => 'Erro: nenhum formulário de página foi encontrado em $1',
 	'sf_addpage_docu' => "Entre com o nome da página aqui, para ser editado com o formulário '$1'. Se esta página já existir, você será direcionado para o formulário para editar a página. Senão, você será direcionado para o formulário para adicionar a página.",
@@ -3962,6 +3979,7 @@ $messages['pt-br'] = array(
 	'sf_editsource' => 'Editar fonte',
 	'sf_editdata_title' => 'Editar $1: $2',
 	'sf_editdata_badurl' => "Está é a página para editar dados. Você deve especificar ambos um nome de formulário e uma página alvo na URL; deve ser semelhante a 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;' or  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_editdata_morethanoneform' => 'Aviso: Mais de um formulário padrão está definido para esta página.',
 	'sf_editdata_formwarning' => 'Perigo: Esta página <a href="$1">already exists</a>, mas não use esse formulário.',
 	'sf_editdata_remove' => 'Remover',
 	'sf_editdata_addanother' => 'Adicionar outro',
