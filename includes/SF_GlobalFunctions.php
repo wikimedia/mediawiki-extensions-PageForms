@@ -10,6 +10,7 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 define('SF_VERSION','1.6');
 
 $wgExtensionCredits['specialpage'][]= array(
+	'path' => __FILE__,
 	'name' => 'Semantic Forms',
 	'version' => SF_VERSION,
 	'author' => 'Yaron Koren and others',
