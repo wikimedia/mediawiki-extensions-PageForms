@@ -47,7 +47,7 @@ class SFCreateProperty extends SpecialPage {
 			global $sfgListSeparator;
 			$allowed_values_str = str_replace("\\$sfgListSeparator", "\a", $allowed_values_str);
 			$allowed_values_array = explode($sfgListSeparator, $allowed_values_str);
-			$text .= "\n\n" . wfMsgExtForContent('sf_property_allowedvals', 'parsemag', count( $allowed_values_array ) );
+			$text .= "\n\n" . wfMsgExt('sf_property_allowedvals', array( 'parsemag', 'content' ), count( $allowed_values_array ) );
 			foreach ($allowed_values_array as $i => $value) {
 				// replace beep back with comma, trim
 				$value = str_replace("\a", $sfgListSeparator, trim($value));
