@@ -1378,7 +1378,7 @@ $messages['es'] = array(
  */
 $messages['eu'] = array(
 	'createproperty' => 'Propietatea sortu',
-	'sf_createproperty_propname' => 'Izena:',
+	'sf_createproperty_propname' => 'Ezaugarriaren izena:',
 	'sf_createproperty_proptype' => 'Mota:',
 	'templates' => 'Txantiloiak',
 	'createtemplate' => 'Txantiloia sortu',
@@ -1389,7 +1389,7 @@ $messages['eu'] = array(
 	'sf_createform_addtemplate' => 'Txantiloia gehitu:',
 	'sf_createform_add' => 'Gehitu',
 	'createcategory' => 'Kategoria sortu',
-	'sf_createcategory_name' => 'Izena:',
+	'sf_createcategory_name' => 'Kategoriaren izena:',
 	'addoreditdata' => 'Gehitu edo aldatu',
 	'adddata' => 'Gehitu datuak',
 	'editdata' => 'Datuak aldatu',
@@ -3846,6 +3846,13 @@ $messages['pt'] = array(
 	'sf_createcategory_name' => 'Nome da categoria:',
 	'sf_createcategory_defaultform' => 'Formulário padrão:',
 	'sf_createcategory_makesubcategory' => 'Fazer desta categoria uma subcategoria de outra categoria (opcional):',
+	'createclass' => 'Criar uma classe',
+	'sf_createclass_docu' => 'Introduza todos os dados aqui para criar as propriedades, modelo, formulário e categoria para uma única classe. Para mais opções, utilize antes as páginas $1.',
+	'sf_createclass_allowedvalues' => 'Valores permitidos',
+	'sf_createclass_listofvalues' => 'Lista de valores',
+	'sf_createclass_leavefieldblank' => 'Se o nome do campo é o mesmo que o nome da propriedade, você pode deixá-lo em branco.',
+	'sf_createclass_missingvalues' => 'Os campos obrigatórios não foram todos preenchidos.',
+	'sf_createclass_success' => 'Propriedades, modelo, formulário e categoria serão criados.',
 	'addpage' => 'Adicionar página com formulário',
 	'sf_addpage_badform' => 'Erro: não foi encontrada página de formulário em $1',
 	'sf_addpage_docu' => "Introduza o nome da página aqui, para ser editada com o formulário '$1'.
@@ -3868,6 +3875,7 @@ deverá parecer-se com 'Special:AddData?form=&lt;form name&gt;&target=&lt;target
 	'sf_editdata_title' => 'Editar $1: $2',
 	'sf_editdata_badurl' => "Esta é a página para editar dados. Você deve esepcificar tanto o nome do formulário como uma página alvo na URL;
 deverá parecer-se com 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_editdata_morethanoneform' => 'Atenção: Mais de um formulário padrão está definido para esta página.',
 	'sf_editdata_formwarning' => 'Aviso: Esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
 	'sf_editdata_remove' => 'Remover',
 	'sf_editdata_addanother' => 'Adicionar outro',
