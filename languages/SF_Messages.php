@@ -1302,6 +1302,7 @@ $messages['es'] = array(
 	'sf_forms_docu' => 'Los siguientes formularios existen en el wiki.',
 	'createform' => 'Crear un formulario',
 	'sf_createform_nameinput' => 'Nombre del Formulario',
+	'sf_createform_nameinputdesc' => '(la convención es nombrar el formulario después de que la plantilla principal se rellena):',
 	'sf_createform_template' => 'Plantilla:',
 	'sf_createform_templatelabelinput' => 'Etiqueta de la plantilla (opcional):',
 	'sf_createform_allowmultiple' => 'Permitir múltiples (o ninguna) instancias de esta plantilla en la página creada',
