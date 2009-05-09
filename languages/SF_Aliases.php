@@ -205,6 +205,20 @@ $aliases['km'] = array(
 	'Templates' => array( 'ទំព័រគំរូ' ),
 );
 
+/** Ripoarisch (Ripoarisch) */
+$aliases['ksh'] = array(
+	'AddData' => array( 'Date dobei donn' ),
+	'AddPage' => array( 'Sigg dobei donn' ),
+	'CreateCategory' => array( 'Saachjropp aanlääje' ),
+	'CreateForm' => array( 'Fommulaa aanlääje' ),
+	'CreateProperty' => array( 'Eijeschaff aanlääje' ),
+	'CreateTemplate' => array( 'Schabloon aanlääje' ),
+	'EditData' => array( 'Date ändere' ),
+	'Forms' => array( 'Fommulaare' ),
+	'Templates' => array( 'Schabloone' ),
+	'UploadWindow' => array( 'Finster zum Huhlaade', 'Finster zom Huhlaade' ),
+);
+
 /** Luxembourgish (Lëtzebuergesch) */
 $aliases['lb'] = array(
 	'AddData' => array( 'Daten derbäisetzen' ),

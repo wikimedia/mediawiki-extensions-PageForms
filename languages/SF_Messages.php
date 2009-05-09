@@ -182,6 +182,7 @@ $messages['af'] = array(
  */
 $messages['am'] = array(
 	'sf_createproperty_propname' => 'ስም:',
+	'sf_createtemplate_standardformat' => 'መደበኛ',
 	'sf_createcategory_name' => 'ስም:',
 );
 
@@ -906,7 +907,7 @@ $messages['de'] = array(
 	'createproperty' => 'Ein Attribut erstellen',
 	'sf_createproperty_linktoform' => 'Dieses Attribut verweist auf Seiten, welche nachfolgendes Formular nutzen:',
 	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Attribut nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses durch „\\,“ ohne Anführungen):',
-	'sf_createproperty_propname' => 'Name:',
+	'sf_createproperty_propname' => 'Attributname:',
 	'sf_createproperty_proptype' => 'Typ:',
 	'templates' => 'Vorlagen',
 	'sf_templates_docu' => 'Die folgenden Vorlagen existieren in {{SITENAME}}.',
@@ -932,7 +933,7 @@ $messages['de'] = array(
 	'forms' => 'Formulare',
 	'sf_forms_docu' => 'Die folgenden Formulare existieren in {{SITENAME}}:',
 	'createform' => 'Erstelle ein Formular',
-	'sf_createform_nameinput' => 'Formularname (laut Konvention wird ein Formular benannt nach der Hauptvorlage, die es befüllt):',
+	'sf_createform_nameinput' => 'Formularname',
 	'sf_createform_template' => 'Vorlage:',
 	'sf_createform_templatelabelinput' => 'Vorlagebezeichnung (optional):',
 	'sf_createform_allowmultiple' => 'Erlaube mehrere (oder Null) Instanzen dieser Vorlage in der erstellten Seite',
@@ -2679,6 +2680,7 @@ $messages['jv'] = array(
  * @author Chhorran
  * @author Lovekhmer
  * @author Thearith
+ * @author វ័ណថារិទ្ធ
  */
 $messages['km'] = array(
 	'specialpages-group-sf_group' => 'ទម្រង់​និឃណ្ដសាស្ត្រ',
@@ -2741,12 +2743,15 @@ $messages['km'] = array(
 	'sf_bad_date_error' => 'ត្រូវតែ​ជា​កាលបរិច្ឆេទ​ត្រឹមត្រូវ',
 	'uploadwindow' => 'ផ្ទុក​បង្អួច​ឡើង',
 	'sf_property_isproperty' => 'នេះ​គឺជា​លក្ខណៈសម្បត្តិមួយ​នៃ​គំរូ $1 ។',
-	'sf_property_allowedvals' => 'តម្លៃ​ដែល​ត្រូវ​បាន​អនុញ្ញាត​សម្រាប់​លក្ខណៈសម្បត្តិ​នេះ​មាន:',
+	'sf_property_allowedvals' => 'តម្លៃ $1 ​ដែល​ត្រូវ​បាន​អនុញ្ញាត​សម្រាប់​លក្ខណៈសម្បត្តិ​នេះ​មាន៖',
 	'sf_template_docu' => "នេះ​គឺជា​ទំព័រគំរូ '$1' ។
-វា​នឹង​ត្រូវ​គេ​ហៅ​មកប្រើប្រាស់ នៅក្នុង​ទ្រង់ទ្រាយ​ដូចតទៅ:",
-	'sf_template_docufooter' => 'កែប្រែទំព័រ ដើម្បីឃើញ អត្ថបទ នៃគំរូខ្នាត ។',
+វា​នឹង​ត្រូវ​គេ​ហៅ​មកប្រើប្រាស់ នៅក្នុង​ទ្រង់ទ្រាយ​ដូចតទៅ៖",
+	'sf_template_docufooter' => 'កែប្រែទំព័រ ដើម្បីឃើញអត្ថបទគំរូ ។',
+	'sf_form_docu' => "នេះ​គឺ​ជាបែប​បទ​​ '$1'​។ ដើម្បី​បន្ថែម​ទំព័រ​មួយ​ជាមួយ​បែប​បទ​​នេះ​ សូមវាយ​បញ្ចូល​ឈ្មោះ​ទំព័រ​ខាង​ក្រោម​។​ ប្រសិន​បើ​មានទំព័រ​ដែល​មានឈ្មោះ​នោះ​រួច​ហើយ​ អ្នក​នឹង​ត្រូវ​បាន​ផ្ញើ​ទៅ​កាន់​បែប​បទ​​មួយ​ដើម្បី​កែប្រែ​ទំព័រ​នោះ​។​",
+	'sf_form_freetextlabel' => 'អត្ថបទ​សេរី​',
 	'sf_category_hasdefaultform' => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
 	'sf_category_desc' => 'នេះ​គឺជា​ចំណាត់ថ្នាក់ក្រុម $1 ។',
+	'sf_blank_namespace' => 'ចម្បង​',
 );
 
 /** Krio (Krio)
@@ -4490,7 +4495,7 @@ $messages['szl'] = array(
  * @author Veeven
  */
 $messages['te'] = array(
-	'sf_createproperty_propname' => 'పేరు:',
+	'sf_createproperty_propname' => 'లక్షణపు పేరు:',
 	'sf_createproperty_proptype' => 'రకం:',
 	'templates' => 'మూసలు',
 	'sf_templates_definescat' => 'వర్గాన్ని నిర్వచిస్తుంది:',
@@ -4512,7 +4517,7 @@ $messages['te'] = array(
 	'sf_createform_atend' => 'చివరన',
 	'sf_createform_add' => 'చేర్చు',
 	'createcategory' => 'వర్గాన్ని సృష్టించండి',
-	'sf_createcategory_name' => 'పేరు:',
+	'sf_createcategory_name' => 'వర్గపు పేరు:',
 	'sf_createcategory_makesubcategory' => 'దీన్ని మరో వర్గానికి ఉపవర్గం చెయ్యి (ఐచ్ఛికం):',
 	'addpage' => 'ఫారంతో పేజీని చేర్చండి',
 	'addoreditdata' => 'చేర్చు లేదా మార్చు',
