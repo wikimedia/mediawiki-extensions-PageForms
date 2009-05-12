@@ -754,6 +754,7 @@ Trebao bi se nazvati u slijedećem formatu:",
 /** Catalan (Català)
  * @author Dvdgmz
  * @author SMP
+ * @author Solde
  */
 $messages['ca'] = array(
 	'semanticforms-desc' => 'Formularis per afegir i editar continguts semàntics.',
@@ -845,7 +846,7 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 	'uploadwindow' => 'Finestra de càrrega',
 	'sf_property_isproperty' => 'Aquesta és una propietat del tipus $1.',
 	'sf_property_linkstoform' => 'Enllaça a pàgines que usen el formulari $1.',
-	'sf_property_allowedvals' => 'Els valors permesos per aquesta propietat són:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|El valor permès per aquesta propietat és|Els valors permesos per aquestes propietats són}}:',
 	'sf_template_docu' => "Aquesta és la plantilla '$1'.
 Que ha de ser cridada en el format següent:",
 	'sf_template_docufooter' => 'Edita la pàgina per veure el text de la plantilla.',
