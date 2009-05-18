@@ -126,6 +126,10 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'sf_category_hasdefaultform'         => 'This category uses the form $1.',
 	'sf_category_desc'                   => 'This is the $1 category.',
 	'sf_blank_namespace'                 => 'Main',
+
+	// user rights
+	'right-viewedittab'          => 'View "Edit" tab for pages editable by form',
+	'right-editrestrictedfields' => 'Edit restricted form fields',
 );
 
 /** Message documentation (Message documentation)
