@@ -135,6 +135,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 /** Message documentation (Message documentation)
  * @author Fryed-peach
  * @author Jon Harald Søby
+ * @author Purodha
  * @author Siebrand
  */
 $messages['qqq'] = array(
@@ -155,6 +156,8 @@ $messages['qqq'] = array(
 	'sf_editdata_none' => '{{Identical|None}}',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
+	'right-viewedittab' => '{{doc-right|viewedittab}}',
+	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 );
 
 /** Niuean (ko e vagahau Niuē)
@@ -608,6 +611,8 @@ $messages['be-tarask'] = array(
 	'sf_category_hasdefaultform' => 'Гэта катэгорыя выкарыстоўвае форму $1.',
 	'sf_category_desc' => 'Гэта катэгорыя $1.',
 	'sf_blank_namespace' => 'Галоўная',
+	'right-viewedittab' => 'прагляд закладак «Рэдагаваць» для старонак, якія можна рэдагаваць праз форму',
+	'right-editrestrictedfields' => 'рэдагаваньне абмежаваных палёў форм',
 );
 
 /** Bulgarian (Български)
@@ -840,7 +845,7 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 	'sf_editdata_title' => 'Editar $1: $2',
 	'sf_editdata_badurl' => "Aquesta és la pàgina per editar dades. Has d'especificar tant el nom d'un formulari com el de la pàgina de destí en la URL; ha de ser quelcom similar a 'Special:EditData?form=&lt;nom formulari&gt;&target=&lt;pàgina destí&gt;', or  'Special:EditData/&lt;nom formulari&gt;/&lt;pàgina destí&gt;'.",
 	'sf_editdata_formwarning' => 'Atenció: Aquesta pàgina <a href="$1">ja existeix</a>, però no fa servir aquest formulari.',
-	'sf_editdata_remove' => 'Esborrar',
+	'sf_editdata_remove' => 'Elimina',
 	'sf_editdata_addanother' => 'Afegir-ne un altre',
 	'sf_editdata_none' => 'Cap',
 	'sf_formerrors_header' => 'Hi ha hagut errors en les teves entrades al formulari; veure a continuació',
@@ -1013,6 +1018,8 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
 	'sf_blank_namespace' => 'Seite',
+	'right-viewedittab' => '„Bearbeiten“-Tab für Seiten zeigen, die per Formular bearbeitet werden können',
+	'right-editrestrictedfields' => 'Eingeschränkte Formularfelder bearbeiten',
 );
 
 /** German (formal address) (Deutsch (Sie-Form))
@@ -1159,6 +1166,8 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 	'sf_category_hasdefaultform' => 'Toś ta kategorija wužywa formular $1.',
 	'sf_category_desc' => 'To jo kategorija $1.',
 	'sf_blank_namespace' => 'Głowny',
+	'right-viewedittab' => 'Rejtark "Wobźěłaś" za boki, kótarež su wobźěłujobne pśez formular, se woglědaś',
+	'right-editrestrictedfields' => 'Wobgranicowane formularne póla wobźěłaś',
 );
 
 /** Greek (Ελληνικά)
@@ -1856,6 +1865,8 @@ $messages['gl'] = array(
 	'sf_category_hasdefaultform' => 'Esta categoría usa o formulario $1.',
 	'sf_category_desc' => 'Esta é a categoría $1.',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => 'Ver a lapela "Editar" nas páxinas editables por formularios',
+	'right-editrestrictedfields' => 'Editar os campos restrinxidos dos formularios',
 );
 
 /** Gothic
@@ -1993,6 +2004,8 @@ $messages['gsw'] = array(
 	'sf_category_hasdefaultform' => 'Die Kategorii bruucht s Formular $1.',
 	'sf_category_desc' => 'Des isch d Kategorii $1.',
 	'sf_blank_namespace' => 'Hauptsyte',
+	'right-viewedittab' => 'D "Bearbeite"-Regischtercharte fir bearbeitbari Syte no Format aaluege',
+	'right-editrestrictedfields' => 'Yygschränkti Formatfälde bearbeite',
 );
 
 /** Gujarati (ગુજરાતી)
@@ -2337,6 +2350,8 @@ Za dalše opcije wužij strony $1 město toho.',
 	'sf_category_hasdefaultform' => 'Tuta kategorija wužiwa formular $1.',
 	'sf_category_desc' => 'To je kategorija $1.',
 	'sf_blank_namespace' => 'Hłowny',
+	'right-viewedittab' => 'Rajtark "Wobźěłać" za strony, kotrež su přez formular wobźěłujomne, sej wobhladać',
+	'right-editrestrictedfields' => 'Wobmjezowane formularne pola wobdźěłać',
 );
 
 /** Hungarian (Magyar)
@@ -2501,6 +2516,8 @@ si un pagina con ille nomine existe ja, tu essera inviate a un formulario pro mo
 	'sf_category_hasdefaultform' => 'Iste categoria usa le formulario $1.',
 	'sf_category_desc' => 'Isto es le categoria $1.',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => 'Vider le scheda "Modificar" pro paginas modificabile per formulario',
+	'right-editrestrictedfields' => 'Modificar le campos restringite de formularios',
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -2642,6 +2659,8 @@ $messages['ja'] = array(
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使っています。',
 	'sf_category_desc' => 'これは $1 カテゴリです。',
 	'sf_blank_namespace' => '標準',
+	'right-viewedittab' => 'フォームによって編集可能なページの「編集」タブが表示される',
+	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集する',
 );
 
 /** Javanese (Basa Jawa)
@@ -2894,6 +2913,8 @@ $messages['ksh'] = array(
 	'sf_category_hasdefaultform' => 'Hee di Saachjropp bruch dat Fommulaa „$1“.',
 	'sf_category_desc' => 'Dat es de Saachjropp „$1“.',
 	'sf_blank_namespace' => '{{int:blanknamespace}}',
+	'right-viewedittab' => '„{{int:edit}}“-Lengk för Sigge, die mer övver Fommulaare ändere kann',
+	'right-editrestrictedfields' => 'Beschrängk zohjänglijje Felder en Fommulaare ändere',
 );
 
 /** Cornish (Kernewek)
@@ -3418,6 +3439,8 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_category_hasdefaultform' => 'Deze categorie gebruikt het formulier $1.',
 	'sf_category_desc' => 'Dit is de categorie $1.',
 	'sf_blank_namespace' => 'Hoofdnaamruimte',
+	'right-viewedittab' => 'Tabblad "Bewerken" zien op pagina\'s die via een formulier bewerkt kunnen worden',
+	'right-editrestrictedfields' => 'Beperkte formuliervelden bewerken',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
@@ -4291,6 +4314,8 @@ $messages['sk'] = array(
 	'sf_category_hasdefaultform' => 'Táto kategória používa formulár $1.',
 	'sf_category_desc' => 'Toto je kategória $1.',
 	'sf_blank_namespace' => 'Hlavná',
+	'right-viewedittab' => 'Zobraziť zíložku „Upraviť“ na stránkach, ktoré možno upraviť pomocou formulára',
+	'right-editrestrictedfields' => 'Upraviť polia formulára s obmedzeným prístupom',
 );
 
 /** Serbian Cyrillic ekavian (ћирилица)
