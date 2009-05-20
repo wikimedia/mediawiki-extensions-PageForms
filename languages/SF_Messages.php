@@ -1400,6 +1400,7 @@ $messages['es'] = array(
 	'sf_category_hasdefaultform' => 'Esta categoría usa el formulario $1.',
 	'sf_category_desc' => 'Esta es la categoría $1.',
 	'sf_blank_namespace' => 'Principal',
+	'right-editrestrictedfields' => 'Editar campos de formulario restringidos',
 );
 
 /** Basque (Euskara)
