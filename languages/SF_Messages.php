@@ -1400,6 +1400,7 @@ $messages['es'] = array(
 	'sf_category_hasdefaultform' => 'Esta categoría usa el formulario $1.',
 	'sf_category_desc' => 'Esta es la categoría $1.',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => 'Ver pestaña "Editar" para páginas editables por formulario',
 	'right-editrestrictedfields' => 'Editar campos de formulario restringidos',
 );
 
@@ -1745,6 +1746,8 @@ si elle existe déjà, vous serez dirigé vers un formulaire destiné à l’éd
 	'sf_category_hasdefaultform' => 'Cette catégorie utilise le formulaire « $1 ».',
 	'sf_category_desc' => 'Ceci est la catégorie « $1 ».',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => "Voir l'onglet « modifier » pour les pages modifiables via un formulaire",
+	'right-editrestrictedfields' => 'Modifier les champs restreints des formulaires',
 );
 
 /** Western Frisian (Frysk)
@@ -3765,6 +3768,8 @@ $messages['oc'] = array(
 	'sf_category_hasdefaultform' => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc' => 'Aquò es la categoria « $1 ».',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => "Veire l'onglet « modificar » per las paginas modificablas via un formulari",
+	'right-editrestrictedfields' => 'Modificar los camps restrenches dels formularis',
 );
 
 /** Ossetic (Иронау)
