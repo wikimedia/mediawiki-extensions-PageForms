@@ -4931,6 +4931,8 @@ $messages['vi'] = array(
 	'sf_category_hasdefaultform' => 'Thể loại này sử dụng mẫu $1.',
 	'sf_category_desc' => 'Đây là thể loại $1.',
 	'sf_blank_namespace' => 'Chính',
+	'right-viewedittab' => 'Xem thẻ “Sửa đổi” tại các trang có thể sửa đổi dùng biểu mẫu',
+	'right-editrestrictedfields' => 'Sửa đổi các trường biểu mẫu hạn chế',
 );
 
 /** Volapük (Volapük)
