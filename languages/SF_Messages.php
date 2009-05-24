@@ -3555,12 +3555,15 @@ Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om e
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Harald Khan
  * @author Jon Harald Søby
+ * @author Nghtwlkr
  */
 $messages['no'] = array(
+	'semanticforms-desc' => 'Skjema for å legge til og endre semantiske data',
 	'specialpages-group-sf_group' => 'Semantiske skjemaer',
 	'createproperty' => 'Opprett en egenskap',
+	'sf_createproperty_linktoform' => 'Denne egenskapen vil lenke til sider som bruker skjemaet:',
 	'sf_createproperty_allowedvalsinput' => 'Om du ønsker at dette feltet kun skal kunne ha visse verdier, skriv inn listen over tillatte verdier, adskilt med komma (om en verdi inneholder komma, erstatt det med «\\,»):',
-	'sf_createproperty_propname' => 'Navn:',
+	'sf_createproperty_propname' => 'Navn på egenskap:',
 	'sf_createproperty_proptype' => 'Type:',
 	'templates' => 'Maler',
 	'sf_templates_docu' => 'Følgende maler finnes på wikien.',
@@ -3586,7 +3589,8 @@ $messages['no'] = array(
 	'forms' => 'Skjemaer',
 	'sf_forms_docu' => 'Følgende skjemaer finnes på wikien.',
 	'createform' => 'Opprett et skjema',
-	'sf_createform_nameinput' => 'Skjemanavn (standarden er å kalle opp skjemaet etter malen det bruker):',
+	'sf_createform_nameinput' => 'Skjemanavn',
+	'sf_createform_nameinputdesc' => '(konvensjonen er å navngi skjemaet etter hovedmalen den finnes i):',
 	'sf_createform_template' => 'Mal:',
 	'sf_createform_templatelabelinput' => 'Malnavn (valgfritt):',
 	'sf_createform_allowmultiple' => 'Tillat flere (eller ingen) instanser av denne malen på siden som opprettes',
@@ -3607,10 +3611,17 @@ $messages['no'] = array(
 	'sf_createform_add' => 'Legg til',
 	'sf_createform_choosefield' => 'Velg et felt å legge til',
 	'createcategory' => 'Opprett en kategori',
-	'sf_createcategory_name' => 'Navn:',
+	'sf_createcategory_name' => 'Kategorinavn:',
 	'sf_createcategory_defaultform' => 'Standardskjema:',
 	'sf_createcategory_makesubcategory' => 'Gjør dette til en underkategori av en annen kategori (valgfritt):',
-	'addpage' => 'Legg til side',
+	'createclass' => 'Opprett en klasse',
+	'sf_createclass_docu' => 'Skriv inn alle data her for å opprette egenskaper, maler, skjemaer og kategorier for en enkelt klasse. For flere alternativer, bruk sidene $1 istedet.',
+	'sf_createclass_allowedvalues' => 'Tillatte verdier',
+	'sf_createclass_listofvalues' => 'Liste over verdier',
+	'sf_createclass_leavefieldblank' => 'Dersom feltnavnet er det samme som navnet på egenskapen kan du la den være blank.',
+	'sf_createclass_missingvalues' => 'Noen obligatoriske felt ble ikke fylt ut.',
+	'sf_createclass_success' => 'Egenskaper, maler, skjemaer og kategorier vil bli opprettet.',
+	'addpage' => 'Legg til side gjennom et skjema',
 	'sf_addpage_badform' => 'Feil: ingen skjemaside funnet på $1',
 	'sf_addpage_docu' => 'Skriv inn navnet på siden som skal redigeres med skjemaet «$1» her. Om siden finnes allerede vil du bli tatt med til skjemaet for redigering av den siden. Hvis ikke vil du bli tatt med til skjemaet for å opprette siden.',
 	'sf_addpage_noform_docu' => 'Skriv inn navnet på siden her, og velg hvilket skjema du vil bruke til å redigere den. Om siden finnes allerede, vil du bli tatt med til skjemaet for redigering av den siden. Hvis ikke vil du bli tatt med til skjemaet for å opprette siden.',
@@ -3626,7 +3637,8 @@ $messages['no'] = array(
 	'sf_editsource' => 'Rediger kilde',
 	'sf_editdata_title' => 'Rediger $1: $2',
 	'sf_editdata_badurl' => 'Dette er siden for redigering av data. Du må angi både et skjemanavn og en målside i URL-en; det burde se slik ut: «Special:EditData?form=&lt;skjemanavn&gt;&target=&lt;målside&gt;» eller slik ut: «Special:EditData/&lt;skjemanavn&gt;/&lt;målside&gt;».',
-	'sf_editdata_formwarning' => 'Advarsel: Denne siden <a href="$1">finnes allerede</a>, men bruker ikke dette skjemaet.',
+	'sf_editdata_morethanoneform' => "'''Advarsel:''' Mer enn ett standard skjema er definert for denne siden.",
+	'sf_editdata_formwarning' => "'''Advarsel:''' Denne siden <a href=\"\$1\">finnes allerede</a>, men bruker ikke dette skjemaet.",
 	'sf_editdata_remove' => 'Fjern',
 	'sf_editdata_addanother' => 'Legg til en til:',
 	'sf_editdata_none' => 'Ingen',
@@ -3639,7 +3651,8 @@ $messages['no'] = array(
 	'sf_bad_date_error' => 'må være en gyldig dato',
 	'uploadwindow' => 'Opplastingsvindu',
 	'sf_property_isproperty' => 'Dette er en egenskap av type $1.',
-	'sf_property_allowedvals' => 'De tillatte verdiene for denne egenskapen er:',
+	'sf_property_linkstoform' => 'Det lenker til sider som bruker skjemaet $1.',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Den tillatte verdien|De tillatte verdiene}} for denne egenskapen er:',
 	'sf_template_docu' => 'Dette er malen «$1». Den burde kalles opp med følgende format:',
 	'sf_template_docufooter' => 'Rediger siden for å se malteksten.',
 	'sf_form_docu' => 'Dette er skjemaet «$1». Skriv inn et sidenavn nedenfor for å opprette en side med dette skjemaet; om en side med det navnet finnes allerede vil du bli sendt til et skjema for redigering av den siden.',
@@ -3647,6 +3660,8 @@ $messages['no'] = array(
 	'sf_category_hasdefaultform' => 'Denne kategorien bruker skjemaet $1.',
 	'sf_category_desc' => 'Dette er kategorien $1',
 	'sf_blank_namespace' => 'Hoved',
+	'right-viewedittab' => 'Vis «Rediger»-fanen for sider som kan redigeres via skjema',
+	'right-editrestrictedfields' => 'Rediger begrensede skjemafelt',
 );
 
 /** Northern Sotho (Sesotho sa Leboa)
