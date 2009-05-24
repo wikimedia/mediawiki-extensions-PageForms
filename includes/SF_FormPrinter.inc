@@ -167,7 +167,7 @@ class SFFormPrinter {
     // show previous set of deletions for this page, if it's been deleted before
     if (! $form_submitted && ! $this->mPageTitle->exists())
       $this->showDeletionLog($wgOut);
-    if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCanEdit()) {
+    if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCan( 'edit', true ) ) {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
