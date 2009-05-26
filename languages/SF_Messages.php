@@ -738,10 +738,12 @@ $messages['bs'] = array(
 	'sf_createcategory_defaultform' => 'Pretpostavljeni obrazac:',
 	'sf_createcategory_makesubcategory' => 'Učini ovo subkategorijom neke kategorije (neobavezno):',
 	'createclass' => 'Napravi klasu',
+	'sf_createclass_allowedvalues' => 'Dopuštene vrijednosti',
 	'addpage' => 'Dodaj stranicu putem obrasca',
 	'sf_addpage_badform' => 'Greška: nije pronađena stranica obrasca na $1',
 	'addoreditdata' => 'Dodaj ili uredi',
 	'adddata' => 'Dodaj podatke',
+	'sf_adddata_title' => 'Dodaj $1: $2',
 	'sf_adddata_altformsonly' => 'Molimo Vas da odaberete jedan od slijedećih obrazaca za dodavanje ovoj stranici:',
 	'editdata' => 'Uredi podatke',
 	'sf_viewform' => 'Pogledaj obrazac',
@@ -757,6 +759,7 @@ $messages['bs'] = array(
 	'sf_template_docu' => "Ovo je '$1' obrazac.
 Trebao bi se nazvati u slijedećem formatu:",
 	'sf_form_freetextlabel' => 'Slobodni tekst',
+	'sf_category_hasdefaultform' => 'Ova kategorija koristi obrazac $1.',
 	'sf_blank_namespace' => 'Glavno',
 );
 
@@ -792,7 +795,7 @@ $messages['ca'] = array(
 	'sf_createtemplate_standardformat' => 'Estàndard',
 	'sf_createtemplate_infoboxformat' => 'Infocaixa a la dreta',
 	'sf_createtemplate_addfield' => 'Afegir camp',
-	'sf_createtemplate_deletefield' => 'Esborrar',
+	'sf_createtemplate_deletefield' => 'Elimina',
 	'sf_createtemplate_addtemplatebeforesave' => "Per poder guardar-lo has d'afegir com a mínim una plantilla a aquest formulari.",
 	'forms' => 'Formularis',
 	'sf_forms_docu' => 'Els formularis següents ja existeixen al wiki.',
@@ -1746,7 +1749,7 @@ si elle existe déjà, vous serez dirigé vers un formulaire destiné à l’éd
 	'sf_category_hasdefaultform' => 'Cette catégorie utilise le formulaire « $1 ».',
 	'sf_category_desc' => 'Ceci est la catégorie « $1 ».',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => "Voir l'onglet « modifier » pour les pages modifiables via un formulaire",
+	'right-viewedittab' => 'Voir l’onglet « modifier » pour les pages modifiables via un formulaire',
 	'right-editrestrictedfields' => 'Modifier les champs restreints des formulaires',
 );
 
@@ -4810,10 +4813,11 @@ $messages['tr'] = array(
 );
 
 /** Ukrainian (Українська)
+ * @author AS
  * @author Ahonc
  */
 $messages['uk'] = array(
-	'sf_createproperty_propname' => "Ім'я:",
+	'sf_createproperty_propname' => 'Назва властивості:',
 	'sf_createproperty_proptype' => 'Тип:',
 	'templates' => 'Шаблони',
 );
