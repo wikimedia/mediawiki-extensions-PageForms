@@ -176,6 +176,7 @@ END;
 		// let '\n' represent newlines - chances that anyone will
 		// actually need the '\n' literal are small
 		$delimiter = str_replace('\n', "\n", $delimiter);
+		$new_delimiter = str_replace('\n', "\n", $new_delimiter);
 		$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 		$results = array();
 		foreach ($values_array as $cur_value) {
@@ -204,6 +205,7 @@ END;
 		$delimiter = $parser->mStripState->unstripNoWiki($delimiter);
 		# let '\n' represent newlines
 		$delimiter = str_replace('\n', "\n", $delimiter);
+		$new_delimiter = str_replace('\n', "\n", $new_delimiter);
 	
 		$values_array = explode($delimiter, $value);
 		$results_array = array();
@@ -224,6 +226,7 @@ END;
 	static function renderArrayMapTemplate( &$parser, $value = '', $template = '', $delimiter = ',', $new_delimiter = ', ' ) {
 		# let '\n' represent newlines
 		$delimiter = str_replace('\n', "\n", $delimiter);
+		$new_delimiter = str_replace('\n', "\n", $new_delimiter);
 		$values_array = explode($parser->mStripState->unstripNoWiki($delimiter), $value);
 		$results = array();
 		$template = trim($template);
@@ -252,6 +255,7 @@ END;
 		$delimiter = $parser->mStripState->unstripNoWiki($delimiter);
 		# let '\n' represent newlines
 		$delimiter = str_replace('\n', "\n", $delimiter);
+		$new_delimiter = str_replace('\n', "\n", $new_delimiter);
 
 		$values_array = explode($delimiter, $value);
 		$results_array = array();
