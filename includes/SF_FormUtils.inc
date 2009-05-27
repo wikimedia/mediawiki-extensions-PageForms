@@ -651,6 +651,28 @@ END;
 		}
 	} 
 
+	/**
+	 * Used by 'RunQuery' page
+	 */
+	static function queryFormBottom() {
+		global $sfgTabIndex;
+
+		$sfgTabIndex++;
+		$disabled_text = ($is_disabled) ? "disabled" : "";
+		$label = wfMsg('sf_runquery');
+		$temp = array(
+			'id'        => 'wpRunQuery',
+			'name'      => 'wpRunQuery',
+			'type'      => 'submit',
+			'tabindex'  => $sfgTabIndex,
+			'value'     => $label,
+			'title'     => $label,
+			$disabled_text => '',
+		);
+		$text = "		" . wfElement('input', $temp, '') . "\n";
+		return $text;
+	}
+
 	static function getMonthNames() {
 		return array(
 			wfMsgForContent('january'),
