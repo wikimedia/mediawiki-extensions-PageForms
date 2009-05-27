@@ -303,9 +303,13 @@ class SFLinkUtils {
 			// if it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language
 			wfLoadExtensionMessages('SemanticForms');
-			$namespace = wfMsgForContent('sf_blank_namespace');
+			$namespace_label = wfMsgForContent('sf_blank_namespace');
+		} else {
+			global $wgContLang;
+			$namespace_labels = $wgContLang->getNamespaces();
+			$namespace_label = $namespace_labels[$namespace];
 		}
-		$default_forms = self::getDefaultForms($namespace, NS_PROJECT);
+		$default_forms = self::getDefaultForms($namespace_label, NS_PROJECT);
 		return $default_forms;
 	}
 
