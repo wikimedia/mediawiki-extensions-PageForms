@@ -909,10 +909,8 @@ function initEditor()
 	var toolbar = document.getElementById('free_text');
 	//show popup or toogle link
 	if (showFCKEditor & (RTE_POPUP|RTE_TOGGLE_LINK)){
-		//add new toolbar before wiki toolbar
 		var fckTools = document.createElement('div');
 		fckTools.setAttribute('id', 'fckTools');
-		toolbar.parentNode.insertBefore( fckTools, toolbar );
 		
 		var SRCtextarea = document.getElementById( "free_text" ) ;
 		if (showFCKEditor & RTE_VISIBLE) SRCtextarea.style.display = "none";
@@ -926,6 +924,11 @@ function initEditor()
 	{
 		var style = (showFCKEditor & RTE_VISIBLE) ? 'style="display:none"' : "";
 		fckTools.innerHTML+='<span ' + style + ' id="popup_free_text">[<a class="fckPopup" href="javascript:void(0)" onclick="ToggleFCKEditor(\'popup\',\'free_text\')">{$newWinMsg}</a>]</span>';
+	}
+
+	if (showFCKEditor & (RTE_POPUP|RTE_TOGGLE_LINK)){
+		//add new toolbar before wiki toolbar
+		toolbar.parentNode.insertBefore( fckTools, toolbar );
 	}
 
 	if (showFCKEditor & RTE_VISIBLE)
@@ -975,7 +978,13 @@ function ToggleFCKEditor(mode, objId)
 	if ( firstLoad )
 	{
 		// firstLoad = true => FCKeditor start invisible
-		if (oToggleLink) oToggleLink.innerHTML = "Loading...";
+		// "innerHTML" fails for IE - use "innerText" instead
+		if (oToggleLink) {
+			if (oToggleLink.innerText)
+				oToggleLink.innerText = "Loading...";
+			else
+				oToggleLink.innerHTML = "Loading...";
+		}
 		sajax_request_type = 'POST' ;
 		oFCKeditor.ready = false;
 		sajax_do_call('wfSajaxWikiToHTML', [SRCtextarea.value], function ( result ){
@@ -983,7 +992,13 @@ function ToggleFCKEditor(mode, objId)
 			{
 				SRCtextarea.value = result.responseText; //insert parsed text
 				onLoadFCKeditor();
-				if (oToggleLink) oToggleLink.innerHTML = editorMsgOff;
+				// "innerHTML" fails for IE - use "innerText" instead
+				if (oToggleLink) {
+					if (oToggleLink.innerText)
+						oToggleLink.innerText = editorMsgOff;
+					else
+						oToggleLink.innerHTML = editorMsgOff;
+				}
 				oFCKeditor.ready = true;
 			}
 		});
@@ -1011,7 +1026,12 @@ function ToggleFCKEditor(mode, objId)
 			sajax_request_type = 'GET' ;
 			sajax_do_call( 'wfSajaxToggleFCKeditor', ['hide'], function(){} ) ;		//remember closing in session
 		}
-		if (oToggleLink) oToggleLink.innerHTML = editorMsgOn;
+		if (oToggleLink) {
+			if (oToggleLink.innerText)
+				oToggleLink.innerText = editorMsgOn;
+			else
+				oToggleLink.innerHTML = editorMsgOn;
+		}
 		if (oPopupLink) oPopupLink.style.display = '';
 		showFCKEditor -= RTE_VISIBLE;
 		oEditorIframe.style.display = 'none';
@@ -1029,7 +1049,12 @@ function ToggleFCKEditor(mode, objId)
 		oEditorIframe.style.display = '';
 		if ( !bIsWysiwyg ) oEditorIns.SwitchEditMode();		//switch to WYSIWYG
 		showFCKEditor += RTE_VISIBLE;
-		if (oToggleLink) oToggleLink.innerHTML = editorMsgOff;
+		if (oToggleLink) {
+			if (oToggleLink.innerText)
+				oToggleLink.innerText = editorMsgOff;
+			else
+				oToggleLink.innerHTML = editorMsgOff;
+		}
 		if (oPopupLink) oPopupLink.style.display = 'none';
 	}
 	return true;
