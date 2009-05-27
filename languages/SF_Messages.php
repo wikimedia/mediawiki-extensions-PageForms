@@ -91,9 +91,10 @@ it should look like \'Special:AddData?form=&lt;form name&gt;&target=&lt;target p
 	'sf_adddata_altforms'                => 'You can instead add this page with one of the following forms:',
 	'sf_adddata_altformsonly'            => 'Please select from one of the following forms to add this page:',
 	'editdata'                           => 'Edit data',
-	'sf_formedit'                          => 'Edit with form',
+	'sf_formedit'                        => 'Edit with form',
+	'sf_formcreate'                      => 'Create with form',
 	'sf_viewform'                        => 'View form',
-	'sf_editsource'                        => 'Edit source',
+	'sf_editsource'                      => 'Edit source',
 	'sf_editdata_title'                  => 'Edit $1: $2',
 	'sf_editdata_badurl'                 => 'This is the page for editing data. You must specify both a form name and a target page in the URL;
 it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\', or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.',
