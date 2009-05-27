@@ -42,8 +42,10 @@ class SFUtils {
 	 * etc.
 	 */
 	static function printRedirectForm($title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this, $start_time, $edit_time) {
-		$article = new Article($title);
-		$new_url = $title->getLocalURL('action=submit');
+		if ($title instanceof Title)
+			$new_url = $title->getLocalURL('action=submit');
+		else
+			$new_url = $title;
 		global $wgUser;
 		if ( $wgUser->isLoggedIn() )
 			$token = htmlspecialchars($wgUser->editToken());
