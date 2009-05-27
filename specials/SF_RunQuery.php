@@ -39,6 +39,7 @@ class SFRunQuery extends SpecialPage {
 		$form_title = Title::makeTitleSafe(SF_NS_FORM, $form_name);
 
 		if (! $form_title || ! $form_title->exists() ) {
+			$javascript_text = "";
 			if ($form_name == '')
 				$text = '<p class="error">' . wfMsg('sf_runquery_badurl') . "</p>\n";
 			else
