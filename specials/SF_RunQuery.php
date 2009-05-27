@@ -62,6 +62,7 @@ class SFRunQuery extends SpecialPage {
 				$edit_content = $content;
 				$is_text_source = true;
 			} else {
+				$edit_content = null;
 				$is_text_source = true;
 			}
 			list ($form_text, $javascript_text, $data_text, $form_page_title) =
@@ -72,6 +73,7 @@ class SFRunQuery extends SpecialPage {
 				$new_url = $wgTitle->getLocalURL() . "/$form_name";
 				$text = SFUtils::printRedirectForm($new_url, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
 			} else {
+				$text = "";
 				// override the default title for this page if
 				// a title was specified in the form
 				if ($form_page_title != NULL) {
