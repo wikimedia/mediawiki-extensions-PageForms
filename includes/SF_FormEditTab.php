@@ -13,7 +13,7 @@ class SFFormEditTab {
 	 */
 	static function displayTab($obj, $content_actions) {
 		$fname = 'SFFormEditTab::displayTab';
-		// make sure that this is not a category or special page, and
+		// make sure that this is not a special page, and
 		// that the user is allowed to edit it
 		// - this function is almost never called on special pages,
 		// but before SMW is fully initialized, it's called on
@@ -28,7 +28,7 @@ class SFFormEditTab {
 
 				wfLoadExtensionMessages('SemanticForms');
 
-				$user_can_edit = $wgUser->isAllowed('edit') && $obj->mTitle->userCanEdit();
+				$user_can_edit = $wgUser->isAllowed('edit') && $obj->mTitle->userCan('edit');
 				// create the form edit tab, and apply whatever
 				// changes are specified by the edit-tab global
 				// variables
@@ -37,8 +37,10 @@ class SFFormEditTab {
 					if (array_key_exists('edit', $content_actions)) {
 						$content_actions['edit']['text'] = $user_can_edit ? wfMsg('sf_editsource') : wfMsg('viewsource');
 					}
+				} elseif ($user_can_edit) {
+					$form_edit_tab_text = $obj->mTitle->exists() ? wfMsg('sf_formedit') : wfMsg('sf_formcreate');
 				} else {
-					$form_edit_tab_text = $user_can_edit ? wfMsg('sf_formedit') : wfMsg('sf_viewform');
+					$form_edit_tab_text = wfMsg('sf_viewform');
 				}
 
 				$class_name = ($wgRequest->getVal('action') == 'formedit') ? 'selected' : '';
