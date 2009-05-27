@@ -659,7 +659,7 @@ END;
 
 		$sfgTabIndex++;
 		$disabled_text = ($is_disabled) ? "disabled" : "";
-		$label = wfMsg('sf_runquery');
+		$label = wfMsg('runquery');
 		$temp = array(
 			'id'        => 'wpRunQuery',
 			'name'      => 'wpRunQuery',
