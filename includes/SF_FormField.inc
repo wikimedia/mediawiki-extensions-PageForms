@@ -112,9 +112,9 @@ class SFFormField {
 			$semantic_type == $url_type ||
 			$semantic_type == $email_type) {
 			if ($is_list) {
-				return array('text', 'textarea');
+				return array('text', 'textarea', 'categories');
 			} else {
-				return array('text');
+				return array('text', 'category');
 			}
 		} elseif ($semantic_type == $text_type || $semantic_type == $code_type) {
 			return array('textarea');
@@ -135,7 +135,7 @@ class SFFormField {
 				return array('text');
 			}
 		} else { // blank or an unknown type
-			return array('text', 'textarea', 'checkbox', 'date', 'datetime', 'datetime with timezone');
+			return array('text', 'textarea', 'checkbox', 'date', 'datetime', 'datetime with timezone', 'category', 'categories');
 		}
 	}
 
