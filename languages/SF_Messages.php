@@ -102,8 +102,10 @@ it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target 
 	'sf_editdata_remove'                 => 'Remove',
 	'sf_editdata_addanother'             => 'Add another',
 	'sf_editdata_none'                   => 'None',
+	'runquery'                           => 'Run query',
+	'sf_runquery_badurl'                 => 'You must specify a form name in the URL;
+the URL should look like \'Special:RunQuery/&lt;form name&gt;\'.',
 	'sf_runquery_title'                  => 'Run query: $1',
-	'sf_runquery'                        => 'Run query',
 	'sf_runquery_additionalquery'        => 'Additional query',
 
 	'sf_formerrors_header'               => 'There were errors with your form input; see below',
