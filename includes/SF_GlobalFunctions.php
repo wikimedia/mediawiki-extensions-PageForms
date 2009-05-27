@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.6');
+define('SF_VERSION','1.7');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -34,6 +34,7 @@ $wgHooks['LinkEnd'][] = 'SFLinkUtils::setBrokenLink';
 $wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
 $wgHooks['SkinTemplateTabs'][] = 'SFFormEditTab::displayTab';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
+$wgHooks['AdminLinks'][] = 'sffAddToAdminLinks';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 
@@ -68,6 +69,9 @@ $wgSpecialPageGroups['AddData'] = 'sf_group';
 $wgSpecialPages['EditData'] = 'SFEditData';
 $wgAutoloadClasses['SFEditData'] = $sfgIP . '/specials/SF_EditData.php';
 $wgSpecialPageGroups['EditData'] = 'sf_group';
+$wgSpecialPages['RunQuery'] = 'SFRunQuery';
+$wgAutoloadClasses['SFRunQuery'] = $sfgIP . '/specials/SF_RunQuery.php';
+$wgSpecialPageGroups['RunQuery'] = 'sf_group';
 $wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
 $wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
 
@@ -202,4 +206,25 @@ function sffInitUserLanguage($langcode) {
 	} else {
 		$sfgLang = new $sfLangClass();
 	}
+}
+
+function sffAddToAdminLinks(&$admin_links_tree) {
+        $data_structure_section = $admin_links_tree->getSection('Data structure');
+	if (is_null($data_structure_section))
+		return true;
+        $smw_row = $data_structure_section->getRow('smw');
+        $smw_row->addItem(ALItem::newFromSpecialPage('Templates'), 'Properties');
+        $smw_row->addItem(ALItem::newFromSpecialPage('Forms'), 'SemanticStatistics');
+        $smw_admin_row = $data_structure_section->getRow('smw_admin');
+        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateClass'), 'SMWAdmin');
+        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateProperty'), 'SMWAdmin');
+        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateTemplate'), 'SMWAdmin');
+        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateForm'), 'SMWAdmin');
+        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateCategory'), 'SMWAdmin');
+        $smw_docu_row = $data_structure_section->getRow('smw_docu');
+        $sf_name = wfMsg('specialpages-group-sf_group');
+        $sf_docu_label = wfMsg('adminlinks_documentation', $sf_name);
+        $smw_docu_row->addItem(AlItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label));
+
+        return true;
 }
