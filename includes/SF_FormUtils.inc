@@ -70,13 +70,13 @@ END;
 	static function validationJavascript() {
 		global $sfgJSValidationCalls;
 
-		$form_errors_header = wfMsg('sf_formerrors_header');
-		$blank_error_str = wfMsg('sf_blank_error');
-		$bad_url_error_str = wfMsg('sf_bad_url_error');
-		$bad_email_error_str = wfMsg('sf_bad_email_error');
-		$bad_number_error_str = wfMsg('sf_bad_number_error');
-		$bad_integer_error_str = wfMsg('sf_bad_integer_error');
-		$bad_date_error_str = wfMsg('sf_bad_date_error');
+		$form_errors_header = Xml::escapeJsString(wfMsg('sf_formerrors_header'));
+		$blank_error_str = Xml::escapeJsString(wfMsg('sf_blank_error'));
+		$bad_url_error_str = Xml::escapeJsString(wfMsg('sf_bad_url_error'));
+		$bad_email_error_str = Xml::escapeJsString(wfMsg('sf_bad_email_error'));
+		$bad_number_error_str = Xml::escapeJsString(wfMsg('sf_bad_number_error'));
+		$bad_integer_error_str = Xml::escapeJsString(wfMsg('sf_bad_integer_error'));
+		$bad_date_error_str = Xml::escapeJsString(wfMsg('sf_bad_date_error'));
 
 		$javascript_text =<<<END
 
@@ -920,12 +920,12 @@ function initEditor()
 
 	if (showFCKEditor & RTE_TOGGLE_LINK)
 	{
-		fckTools.innerHTML='[<a class="fckToogle" id="toggle_wpTextbox1" href="javascript:void(0)" onclick="ToggleFCKEditor(\'toggle\',\'free_text\')">'+ editorLink +'</a>] ';
+		fckTools.innerHTML='[<a class="fckToogle" id="toggle_free_text" href="javascript:void(0)" onclick="ToggleFCKEditor(\'toggle\',\'free_text\')">'+ editorLink +'</a>] ';
 	}
 	if (showFCKEditor & RTE_POPUP)
 	{
 		var style = (showFCKEditor & RTE_VISIBLE) ? 'style="display:none"' : "";
-		fckTools.innerHTML+='<span ' + style + ' id="popup_wpTextbox1">[<a class="fckPopup" href="javascript:void(0)" onclick="ToggleFCKEditor(\'popup\',\'free_text\')">{$newWinMsg}</a>]</span>';
+		fckTools.innerHTML+='<span ' + style + ' id="popup_free_text">[<a class="fckPopup" href="javascript:void(0)" onclick="ToggleFCKEditor(\'popup\',\'free_text\')">{$newWinMsg}</a>]</span>';
 	}
 
 	if (showFCKEditor & RTE_VISIBLE)
@@ -1028,7 +1028,7 @@ function ToggleFCKEditor(mode, objId)
 		//FCKtoolbar.style.display = 'none';
 		oEditorIframe.style.display = '';
 		if ( !bIsWysiwyg ) oEditorIns.SwitchEditMode();		//switch to WYSIWYG
-		showFCKEditor += RTE_VISIBLE; // showFCKEditor+=RTE_VISIBLE
+		showFCKEditor += RTE_VISIBLE;
 		if (oToggleLink) oToggleLink.innerHTML = editorMsgOff;
 		if (oPopupLink) oPopupLink.style.display = 'none';
 	}
