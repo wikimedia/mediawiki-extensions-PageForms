@@ -6,6 +6,7 @@
  * @author Nils Oppermann
  * @author Jeffrey Stuckman
  * @author Harold Solbrig
+ * @author Daniel Hansch
  */
 
 class SFFormPrinter {
@@ -116,7 +117,7 @@ class SFFormPrinter {
   }
 
 
-  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null) {
+  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null, $is_query = false) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
@@ -135,6 +136,8 @@ class SFFormPrinter {
     // the parsing, so we have to assume that it will become a possibility
     $form_is_partial = false;
     $new_text = "";
+    // flag for placing "<includeonly>" and "<noinclude>" tags in form output
+    $includeonly_free_text;
     
     // if we have existing content and we're not in an active replacement
     // situation, preserve the original content. We do this because we want
@@ -167,7 +170,7 @@ class SFFormPrinter {
     // show previous set of deletions for this page, if it's been deleted before
     if (! $form_submitted && ! $this->mPageTitle->exists())
       $this->showDeletionLog($wgOut);
-    if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCan( 'edit', true ) ) {
+    if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCan('edit')) {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
@@ -632,7 +635,7 @@ END;
             $data_text .= "<free_text>\n";
           }
 
-          if ($template_name == '') {
+          if ($template_name == '' || $field_name == '<freetext>') {
             $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
           } else {
             if (is_array($cur_value)) {
@@ -896,6 +899,12 @@ END;
         // standard input processing
         // =====================================================
         } elseif ($tag_title == 'standard input') {
+          // if it's a query, ignore all standard inputs
+          if ($is_query) {
+            $new_text = "";
+            $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
+            continue;
+          }
           // set a flag so that the standard 'form bottom' won't get displayed
           $this->standardInputsIncluded = true;
           // handle all the possible values
@@ -963,8 +972,11 @@ END;
               $form_is_partial = true;
               // replacement pages may have minimal matches...
               $source_page_matches_this_form = true;
-              }
+           }
+            elseif($tag == 'includeonly free text') {           		
+              $includeonly_free_text = true;
             }
+          }
           $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
         // =====================================================
         // default outer level processing
@@ -1091,6 +1103,17 @@ END;
     } else {
       $free_text = null;
     }
+    // modify free text and data text to insert <noinclude> and <includeonly>
+    // tags, if necessary
+    if ($includeonly_free_text) {
+      $free_text = str_replace("<noinclude>",'', $free_text);
+      $free_text = str_replace("</noinclude>",'', $free_text);
+      $free_text = str_replace("<includeonly>",'', $free_text);
+      $free_text = str_replace("</includeonly>",'', $free_text);
+      $free_text = trim($free_text);
+      $data_text = str_replace('<free_text>','</noinclude><includeonly><free_text></includeonly><noinclude>', $data_text);
+      $data_text = "<noinclude>".$data_text."</noinclude>";
+    }
     // if the FCKeditor extension is installed, use that for the free text input
     global $wgFCKEditorDir;
     if ($wgFCKEditorDir) {
@@ -1192,7 +1215,9 @@ END;
     $form_text = str_replace('{{{choosers}}}', $chooser_text, $form_text);
 
     // add form bottom, if no custom "standard inputs" have been defined
-    if (! $this->standardInputsIncluded)
+    if ($is_query)
+      $form_text .= SFFormUtils::queryFormBottom($form_is_disabled);
+    elseif (! $this->standardInputsIncluded)
       $form_text .= SFFormUtils::formBottom($form_is_disabled);
     $starttime = wfTimestampNow();
     $page_article = new Article($this->mPageTitle);
