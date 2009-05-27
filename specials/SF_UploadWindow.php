@@ -88,9 +88,9 @@ END;
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-$user_js
 $vars_js
 $wikibits_include
+$user_js
 $ajax_include
 $ajaxwatch_include
 {$wgOut->getScript()}
