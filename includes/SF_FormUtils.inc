@@ -658,7 +658,6 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? "disabled" : "";
 		$label = wfMsg('runquery');
 		$temp = array(
 			'id'        => 'wpRunQuery',
@@ -667,7 +666,6 @@ END;
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
 			'title'     => $label,
-			$disabled_text => '',
 		);
 		$text = "		" . wfElement('input', $temp, '') . "\n";
 		return $text;
