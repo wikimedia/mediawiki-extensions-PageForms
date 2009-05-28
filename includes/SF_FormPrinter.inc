@@ -40,7 +40,8 @@ class SFFormPrinter {
       $enum_type = 'enumeration'; // not a real type
       $page_type = $datatypeLabels['_wpg'];
       $this->setSemanticTypeHook($string_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string'));
-      $this->setSemanticTypeHook($string_type, true, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true'));
+      $this->setSemanticTypeHook($string_type, true, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true', 'size' => '10
+0'));
       $this->setSemanticTypeHook($text_type, false, array('SFFormInputs', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($code_type, false, array('SFFormInputs', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($url_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'URL'));
@@ -141,7 +142,7 @@ class SFFormPrinter {
     $form_is_partial = false;
     $new_text = "";
     // flag for placing "<includeonly>" and "<noinclude>" tags in form output
-    $includeonly_free_text;
+    $includeonly_free_text = false;
     
     // if we have existing content and we're not in an active replacement
     // situation, preserve the original content. We do this because we want
