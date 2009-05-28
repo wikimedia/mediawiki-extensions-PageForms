@@ -87,6 +87,10 @@ class SFFormPrinter {
    * be called from here, since they're both protected
    */
   function showDeletionLog( $out ) {
+    // if MW doesn't have LogEventsList defined, exit immediately
+    if (! class_exists('LogEventsList'))
+      return false;
+
     global $wgUser;
     $loglist = new LogEventsList( $wgUser->getSkin(), $out );
     $pager = new LogPager( $loglist, 'delete', false, $this->mPageTitle->getPrefixedText() );
