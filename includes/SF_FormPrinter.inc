@@ -40,8 +40,7 @@ class SFFormPrinter {
       $enum_type = 'enumeration'; // not a real type
       $page_type = $datatypeLabels['_wpg'];
       $this->setSemanticTypeHook($string_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string'));
-      $this->setSemanticTypeHook($string_type, true, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true', 'size' => '10
-0'));
+      $this->setSemanticTypeHook($string_type, true, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'string', 'is_list' => 'true', 'size' => '100'));
       $this->setSemanticTypeHook($text_type, false, array('SFFormInputs', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($code_type, false, array('SFFormInputs', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($url_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'URL'));
