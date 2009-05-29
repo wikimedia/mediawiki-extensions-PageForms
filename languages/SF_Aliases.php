@@ -253,6 +253,7 @@ $aliases['mt'] = array(
 	'AddData' => array( 'ŻidDati' ),
 	'AddPage' => array( 'ŻidPaġna' ),
 	'CreateCategory' => array( 'OħloqKategorija' ),
+	'Templates' => array( 'Mudelli' ),
 );
 
 /** Nedersaksisch (Nedersaksisch) */
