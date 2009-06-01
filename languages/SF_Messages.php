@@ -4692,7 +4692,7 @@ $messages['tet'] = array(
 	'sf_createproperty_propname' => 'Naran:',
 	'sf_createtemplate_deletefield' => 'Halakon',
 	'sf_createform_add' => 'Tau tan',
-	'sf_createcategory_name' => 'Naran:',
+	'sf_createcategory_name' => 'Naran kategoria nian:',
 );
 
 /** Tajik (Cyrillic) (Тоҷикӣ (Cyrillic))
