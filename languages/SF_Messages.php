@@ -4895,6 +4895,13 @@ $messages['tr'] = array(
 	'sf_blank_namespace' => 'Ana',
 );
 
+/** Tatar (Cyrillic) (Tatarça/Татарча (Cyrillic))
+ * @author Ерней
+ */
+$messages['tt-cyrl'] = array(
+	'sf_createform_inputtypedefault' => '(килешү буенча)',
+);
+
 /** Ukrainian (Українська)
  * @author AS
  * @author Ahonc
