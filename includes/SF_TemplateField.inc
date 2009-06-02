@@ -14,6 +14,7 @@ class SFTemplateField {
 	var $field_type;
 	var $possible_values;
 	var $is_list;
+	var $input_type;
 
 	static function create($name, $label) {
 		$f = new SFTemplateField();
