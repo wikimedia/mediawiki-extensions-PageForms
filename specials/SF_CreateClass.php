@@ -49,7 +49,9 @@ function doSpecialCreateClass() {
 			# cycle through the query values, setting the appropriate local variables
 			$property_name = $wgRequest->getVal("property_name_$i");
 			if ($property_name != '') {
-				$field_name = $property_name;
+				$field_name = $wgRequest->getVal("field_name_$i");
+				if ($field_name === '')
+					$field_name = $property_name;
 				$property_type = $wgRequest->getVal("property_type_$i");
 				$allowed_values = $wgRequest->getVal("allowed_values_$i");
 				$is_list = $wgRequest->getCheck("is_list_$i");
