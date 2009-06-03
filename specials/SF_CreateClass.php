@@ -35,9 +35,9 @@ function doSpecialCreateClass() {
 	$property_name_error_str = '';
 	$save_page = $wgRequest->getCheck('wpSave');
 	if ($save_page) {
-		$template_name = $wgRequest->getVal("template_name");
-		$form_name = $wgRequest->getVal("form_name");
-		$category_name = $wgRequest->getVal("category_name");
+		$template_name = trim($wgRequest->getVal("template_name"));
+		$form_name = trim($wgRequest->getVal("form_name"));
+		$category_name = trim($wgRequest->getVal("category_name"));
 		if ($template_name == '' | $form_name == '' || $category_name == '') {
 			$text = "<p>" . wfMsg('sf_createclass_missingvalues') . "</p>";
 			$wgOut->addHTML($text);
@@ -47,9 +47,9 @@ function doSpecialCreateClass() {
 		$jobs = array();
 		for ($i = 1; $i <= 20; $i++) {
 			# cycle through the query values, setting the appropriate local variables
-			$property_name = $wgRequest->getVal("property_name_$i");
+			$property_name = trim($wgRequest->getVal("property_name_$i"));
 			if ($property_name != '') {
-				$field_name = $wgRequest->getVal("field_name_$i");
+				$field_name = trim($wgRequest->getVal("field_name_$i"));
 				if ($field_name === '')
 					$field_name = $property_name;
 				$property_type = $wgRequest->getVal("property_type_$i");
