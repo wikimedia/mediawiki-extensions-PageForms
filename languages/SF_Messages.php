@@ -318,6 +318,13 @@ $messages['ar'] = array(
 	'sf_blank_namespace' => 'رئيسي',
 );
 
+/** Aramaic (ܐܪܡܝܐ)
+ * @author Basharh
+ */
+$messages['arc'] = array(
+	'sf_blank_namespace' => 'ܪܫܝܬܐ',
+);
+
 /** Egyptian Spoken Arabic (مصرى)
  * @author Ghaly
  * @author Meno25
