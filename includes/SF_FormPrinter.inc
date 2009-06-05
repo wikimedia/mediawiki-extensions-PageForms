@@ -174,12 +174,13 @@ class SFFormPrinter {
     // show previous set of deletions for this page, if it's been deleted before
     if (! $form_submitted && ! $this->mPageTitle->exists())
       $this->showDeletionLog($wgOut);
-    if ($wgUser->isAllowed('edit') && $this->mPageTitle->userCan('edit')) {
+    if (($wgUser->isAllowed('edit') && $this->mPageTitle->userCan('edit')) || $is_query) {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
-      // anonymous - wikitext for bolding has to be replaced with HTML
-      if ($wgUser->isAnon()) {
+      // anonymous, and it's not a query -
+      // wikitext for bolding has to be replaced with HTML
+      if ($wgUser->isAnon() && ! $is_query) {
         $anon_edit_warning = preg_replace("/'''(.*)'''/", "<strong>$1</strong>", wfMsg('anoneditwarning'));
         $form_text .= "<p>$anon_edit_warning</p>\n";
       }
