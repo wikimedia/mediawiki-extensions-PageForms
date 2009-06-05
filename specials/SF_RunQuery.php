@@ -71,7 +71,7 @@ class SFRunQuery extends SpecialPage {
 				$wgOut->setArticleBodyOnly( true );
 				global $wgTitle;
 				$new_url = $wgTitle->getLocalURL() . "/$form_name";
-				$text = SFUtils::printRedirectForm($new_url, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
+				$text = SFUtils::printRedirectForm($new_url, $data_text, $wgRequest->getVal('wpSummary'), false, false, false, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
 			} else {
 				$text = "";
 				// override the default title for this page if
@@ -80,7 +80,7 @@ class SFRunQuery extends SpecialPage {
 					$wgOut->setPageTitle($form_page_title);
 				}
 				if ($wgRequest->getCheck('wpTextbox1')) {
-					global $wgParser, $wgTitle;
+					global $wgParser, $wgUser, $wgTitle;
 					$wgParser->mOptions = new ParserOptions();
 					$wgParser->mOptions->initialiseFromUser($wgUser);
 					$text = $wgParser->parse($content, $wgTitle, $wgParser->mOptions)->getText();
