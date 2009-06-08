@@ -266,6 +266,7 @@ $aliases['nds-nl'] = array(
 	'CreateTemplate' => array( 'Mal_anmaken' ),
 	'EditData' => array( 'Gegevens_bewarken' ),
 	'Forms' => array( 'Formelieren' ),
+	'Templates' => array( 'Mallen' ),
 	'UploadWindow' => array( 'Bestanstoevoegingsscharm' ),
 );
 

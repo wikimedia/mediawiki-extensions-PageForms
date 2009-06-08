@@ -3027,6 +3027,7 @@ $messages['lb'] = array(
 	'sf_createform_template' => 'Schabloun:',
 	'sf_createform_field' => 'Feld:',
 	'sf_createform_inputtypedefault' => '(Standardwert)',
+	'sf_createform_formlabel' => 'Etikett vum Formulaire:',
 	'sf_createform_hidden' => 'Verstoppt',
 	'sf_createform_restricted' => 'Gespaart (Nëmmen Administrateuren kënnen et änneren)',
 	'sf_createform_mandatory' => 'Obligateresch',
@@ -3059,6 +3060,7 @@ $messages['lb'] = array(
 	'sf_bad_date_error' => 'muss e gëltegen Datum sinn',
 	'uploadwindow' => 'Fënster fir eropzelueden',
 	'sf_property_linkstoform' => 'Et ass mat Säite verlinkt déi de Formulaire $1 benotzen.',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Den erlaabte Wert fir dëse Eegeschaft ass|Déi erlaabte Werter fir dës Eegeschaft sinn}}:',
 	'sf_template_docu' => "Dëst ass d''$1'-Schabloun.
 Si soll an dësem Format opgeruff ginn:",
 	'sf_template_docufooter' => "Ännert d'Säit fir den Text vun der Schabloun ze gesinn",
