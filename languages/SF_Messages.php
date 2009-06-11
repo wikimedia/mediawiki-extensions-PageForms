@@ -4215,12 +4215,14 @@ $messages['roa-tara'] = array(
 );
 
 /** Russian (Русский)
+ * @author Ferrer
  * @author Innv
  * @author Kaganer
  * @author QuestPC
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
+	'specialpages-group-sf_group' => 'Семантические формы',
 	'createproperty' => 'Создать свойство',
 	'sf_createproperty_allowedvalsinput' => 'Если вы хотите, чтобы в данное поле можно было ввести только определённые значения, введите через запятую список допустимых значений (если значение содержит запятую, то замените её на «\\,»):',
 	'sf_createproperty_propname' => 'Имя:',
@@ -4249,7 +4251,7 @@ $messages['ru'] = array(
 	'forms' => 'Формы',
 	'sf_forms_docu' => 'В вики существуют следующие формы.',
 	'createform' => 'Создать форму',
-	'sf_createform_nameinput' => 'Имя формы (обычно по имени шаблона, который она заполняет):',
+	'sf_createform_nameinput' => 'Название формы',
 	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_templatelabelinput' => 'Обозначение шаблона (необязательно):',
 	'sf_createform_allowmultiple' => 'Разрешить несколько (или ноль) экземпляров этого шаблона на создаваемой странице',
@@ -4270,9 +4272,12 @@ $messages['ru'] = array(
 	'sf_createform_add' => 'Добавить',
 	'sf_createform_choosefield' => 'Выберите поле для добавления',
 	'createcategory' => 'Создать категорию',
-	'sf_createcategory_name' => 'Имя:',
+	'sf_createcategory_name' => 'Название категории:',
 	'sf_createcategory_defaultform' => 'Форма по умолчанию:',
 	'sf_createcategory_makesubcategory' => 'Сделать это подкатегорией другой категории (необязательно):',
+	'createclass' => 'Создать класс',
+	'sf_createclass_allowedvalues' => 'Допустимые значения',
+	'sf_createclass_listofvalues' => 'Список значений',
 	'addpage' => 'Добавить страницу с формой',
 	'sf_addpage_badform' => 'Ошибка. Форма не найдена на $1',
 	'sf_addpage_docu' => 'Введите здесь название страницы, которую нужно править с помощью формы «$1». Если страница уже существует, вы будите направлены на форму редактирования страницы, иначе вы будите направлены на форму добавления страницы.',
@@ -4293,6 +4298,9 @@ $messages['ru'] = array(
 	'sf_editdata_remove' => 'Удалить',
 	'sf_editdata_addanother' => 'Добавить ещё',
 	'sf_editdata_none' => 'Ничего',
+	'runquery' => 'Запустить запрос',
+	'sf_runquery_title' => 'Запустить запрос: $1',
+	'sf_runquery_additionalquery' => 'Дополнительные запросы',
 	'sf_formerrors_header' => 'Были обнаружены ошибки в вашей форме ввода, см. ниже',
 	'sf_blank_error' => 'не может быть пустым',
 	'sf_bad_url_error' => 'должно иметь правильный URL-формат, начинаться с «http»',
@@ -4301,7 +4309,7 @@ $messages['ru'] = array(
 	'sf_bad_integer_error' => 'должно быть целым числом',
 	'sf_bad_date_error' => 'должно быть датой',
 	'sf_property_isproperty' => 'Это свойство типа $1.',
-	'sf_property_allowedvals' => 'Для данного свойства допускаются следующие значения:',
+	'sf_property_allowedvals' => 'Для данного свойства {{PLURAL:$1|допускается следующее значение|допускаются следующие значения}}:',
 	'sf_template_docu' => 'Это шаблон «$1». Он должен вызываться следующим образом:',
 	'sf_template_docufooter' => 'Начните редактировать эту страницу, чтобы увидеть текст шаблона.',
 	'sf_form_docu' => 'Это форма «$1». Чтбы добавить страницу с помощью этой формы, введите имя страницы ниже; если страница с таким именем уже существует, вы будите направлены на форму редактирования этой страницы.',
@@ -4309,6 +4317,8 @@ $messages['ru'] = array(
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',
 	'sf_blank_namespace' => 'Основное',
+	'right-viewedittab' => 'просмотр вкладки «править» для страниц, редактируемых формой',
+	'right-editrestrictedfields' => 'правка защищённых полей формы',
 );
 
 /** Sanskrit (संस्कृत)
