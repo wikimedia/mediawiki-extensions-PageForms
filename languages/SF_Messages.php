@@ -2593,8 +2593,8 @@ si un pagina con ille nomine existe ja, tu essera inviate a un formulario pro mo
  * @author Rex
  */
 $messages['id'] = array(
-	'sf_createproperty_propname' => 'Nama:',
-	'sf_createcategory_name' => 'Nama:',
+	'sf_createproperty_propname' => 'Nama properti:',
+	'sf_createcategory_name' => 'Nama kategori:',
 	'sf_editdata_none' => 'Tidak ada',
 );
 
@@ -4278,6 +4278,7 @@ $messages['ru'] = array(
 	'createclass' => 'Создать класс',
 	'sf_createclass_allowedvalues' => 'Допустимые значения',
 	'sf_createclass_listofvalues' => 'Список значений',
+	'sf_createclass_success' => 'Настройки, шаблоны, формы и категории будут созданы.',
 	'addpage' => 'Добавить страницу с формой',
 	'sf_addpage_badform' => 'Ошибка. Форма не найдена на $1',
 	'sf_addpage_docu' => 'Введите здесь название страницы, которую нужно править с помощью формы «$1». Если страница уже существует, вы будите направлены на форму редактирования страницы, иначе вы будите направлены на форму добавления страницы.',
@@ -4290,6 +4291,7 @@ $messages['ru'] = array(
 	'sf_adddata_altformsonly' => 'Пожалуйста, выберите одну из следующих форм для добавления этой страницы:',
 	'editdata' => 'Редактировать данные',
 	'sf_formedit' => 'Править с помощью формы',
+	'sf_formcreate' => 'Создать с формой',
 	'sf_viewform' => 'Смотреть форму',
 	'sf_editsource' => 'Править исходники',
 	'sf_editdata_title' => 'Редактирование $1: $2',
@@ -4317,7 +4319,7 @@ $messages['ru'] = array(
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',
 	'sf_blank_namespace' => 'Основное',
-	'right-viewedittab' => 'просмотр вкладки «править» для страниц, редактируемых формой',
+	'right-viewedittab' => 'вкладка «править» для страниц, редактируемых формой',
 	'right-editrestrictedfields' => 'правка защищённых полей формы',
 );
 
