@@ -3891,6 +3891,13 @@ $messages['os'] = array(
 	'sf_editdata_none' => 'Нæй',
 );
 
+/** Deitsch (Deitsch)
+ * @author Xqt
+ */
+$messages['pdc'] = array(
+	'sf_createtemplate_deletefield' => 'Lösche',
+);
+
 /** Polish (Polski)
  * @author Jwitos
  * @author Maikking
@@ -4284,7 +4291,7 @@ $messages['ru'] = array(
 	'createclass' => 'Создать класс',
 	'sf_createclass_allowedvalues' => 'Допустимые значения',
 	'sf_createclass_listofvalues' => 'Список значений',
-	'sf_createclass_success' => 'Настройки, шаблоны, формы и категории будут созданы.',
+	'sf_createclass_success' => 'Будут созданы настройки, шаблоны, формы и категории.',
 	'addpage' => 'Добавить страницу с формой',
 	'sf_addpage_badform' => 'Ошибка. Форма не найдена на $1',
 	'sf_addpage_docu' => 'Введите здесь название страницы, которую нужно править с помощью формы «$1». Если страница уже существует, вы будите направлены на форму редактирования страницы, иначе вы будите направлены на форму добавления страницы.',
