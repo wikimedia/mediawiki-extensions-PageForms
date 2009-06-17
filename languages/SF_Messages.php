@@ -1025,7 +1025,7 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_editdata_none' => 'Keine',
 	'runquery' => 'Abfrage ausführen',
 	'sf_runquery_badurl' => 'Es wurde kein Formular in der URL angegeben;
-Die URL sollte wie folgt aussehen: „Special:RunQuery/&lt;form name&gt;”',
+die URL sollte wie folgt aussehen: „Special:RunQuery/&lt;form name&gt;”',
 	'sf_runquery_title' => 'Ausgeführte Abfrage: $1',
 	'sf_runquery_additionalquery' => 'Ergänzende Abfrage',
 	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft; weiteres siehe unten',
@@ -3896,6 +3896,7 @@ $messages['os'] = array(
  */
 $messages['pdc'] = array(
 	'sf_createtemplate_deletefield' => 'Lösche',
+	'sf_editdata_none' => 'Ken',
 );
 
 /** Polish (Polski)
@@ -4337,10 +4338,11 @@ $messages['ru'] = array(
 );
 
 /** Sanskrit (संस्कृत)
+ * @author Hemant wikikosh1
  * @author Mahitgar
  */
 $messages['sa'] = array(
-	'sf_blank_namespace' => 'मुख्य',
+	'sf_blank_namespace' => 'प्रमुखम्',
 );
 
 /** Slovak (Slovenčina)
