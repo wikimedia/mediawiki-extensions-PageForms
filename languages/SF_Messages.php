@@ -4232,14 +4232,15 @@ $messages['roa-tara'] = array(
  * @author Ferrer
  * @author Innv
  * @author Kaganer
+ * @author Lockal
  * @author QuestPC
  * @author Александр Сигачёв
  */
 $messages['ru'] = array(
 	'specialpages-group-sf_group' => 'Семантические формы',
 	'createproperty' => 'Создать свойство',
-	'sf_createproperty_allowedvalsinput' => 'Если вы хотите, чтобы в данное поле можно было ввести только определённые значения, введите через запятую список допустимых значений (если значение содержит запятую, то замените её на «\\,»):',
-	'sf_createproperty_propname' => 'Имя:',
+	'sf_createproperty_allowedvalsinput' => 'Если вы хотите, чтобы данное свойство могло содержать только определённые значения, введите через запятую список допустимых значений (если значение содержит запятую, то замените её на «\\,»):',
+	'sf_createproperty_propname' => 'Имя свойства:',
 	'sf_createproperty_proptype' => 'Тип:',
 	'templates' => 'Шаблоны',
 	'sf_templates_docu' => 'Следующие шаблоны существуют в вики.',
@@ -4254,7 +4255,7 @@ $messages['ru'] = array(
 	'sf_createtemplate_semanticproperty' => 'Семантическое свойство:',
 	'sf_createtemplate_fieldislist' => 'Это поле может содержать список разделённых запятыми значений',
 	'sf_createtemplate_aggregation' => 'Соединение',
-	'sf_createtemplate_aggregationdesc' => 'Чтобы вывести на любую страницу, использующую этот шаблон, все статьи, у которых заданное свойство указывает на эту страницу, укажите соответствующее свойство ниже:',
+	'sf_createtemplate_aggregationdesc' => 'Чтобы вывести на любую страницу, использующую этот шаблон, все страницы, у которых заданное свойство указывает на эту страницу, укажите соответствующее свойство ниже:',
 	'sf_createtemplate_aggregationlabel' => 'Заголовок списка:',
 	'sf_createtemplate_outputformat' => 'Формат вывода:',
 	'sf_createtemplate_standardformat' => 'обычный',
@@ -4324,6 +4325,7 @@ $messages['ru'] = array(
 	'sf_bad_number_error' => 'должно быть числом',
 	'sf_bad_integer_error' => 'должно быть целым числом',
 	'sf_bad_date_error' => 'должно быть датой',
+	'uploadwindow' => 'Окно загрузки',
 	'sf_property_isproperty' => 'Это свойство типа $1.',
 	'sf_property_allowedvals' => 'Для данного свойства {{PLURAL:$1|допускается следующее значение|допускаются следующие значения}}:',
 	'sf_template_docu' => 'Это шаблон «$1». Он должен вызываться следующим образом:',
