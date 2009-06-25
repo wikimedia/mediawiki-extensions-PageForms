@@ -363,11 +363,13 @@ END;
       $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
       // replace any newlines in the string, just to avoid breaking the Javascript
       $autocomplete_string = str_replace("\n", ' ', $autocomplete_string);
+      $autocomplete_string = str_replace("\r", ' ', $autocomplete_string);
       $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
     }
     if ($cur_value) {
       // replace newlines with the literal '\n' to not break the Javascript
       $cur_value = str_replace("\n", '\n', $cur_value);
+      $cur_value = str_replace("\r", '\r', $cur_value);
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
     $text .= "/* ]]> */</script>\n";
