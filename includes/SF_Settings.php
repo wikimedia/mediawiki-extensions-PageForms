@@ -53,11 +53,14 @@ $sfgMaxAutocompleteValues = 1000;
 # $sfgRenameEditTabs renames the edit-with-form tab to just "Edit", and
 #   the traditional-editing tab, if it is visible, to "Edit source", in
 #   whatever language is being used.
+# $sfgRenameMainEditTab renames only the traditional editing tab, to
+#   "Edit source".
 # The wgGroupPermissions 'viewedittab' setting dictates which types of
 # visitors will see the "Edit" tab, for pages that are editable by form -
 # by default all will see it.
 ###
 $sfgRenameEditTabs = false;
+$sfgRenameMainEditTab = false;
 $wgGroupPermissions['*']['viewedittab']   = true;
 $wgAvailableRights[] = 'viewedittab';
 
