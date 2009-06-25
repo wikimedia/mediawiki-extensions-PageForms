@@ -2595,12 +2595,16 @@ si un pagina con ille nomine existe ja, tu essera inviate a un formulario pro mo
 );
 
 /** Indonesian (Bahasa Indonesia)
+ * @author Bennylin
  * @author Irwangatot
  * @author Rex
  */
 $messages['id'] = array(
 	'sf_createproperty_propname' => 'Nama properti:',
+	'sf_createform_inputtypedefault' => '(baku)',
+	'sf_createform_add' => 'Tambahkan',
 	'sf_createcategory_name' => 'Nama kategori:',
+	'sf_editdata_remove' => 'Hapus',
 	'sf_editdata_none' => 'Tidak ada',
 );
 
@@ -3062,7 +3066,11 @@ $messages['lb'] = array(
 	'sf_editdata_remove' => 'Ewech huelen',
 	'sf_editdata_addanother' => 'Nach een derbäisetzen',
 	'sf_editdata_none' => 'Keen',
+	'runquery' => 'Ufro ausféieren',
+	'sf_runquery_title' => 'ausféiere vu der Ufro: $1',
+	'sf_runquery_additionalquery' => 'Zousätzlech Ufro',
 	'sf_blank_error' => 'Däerf net eidel sinn!',
+	'sf_bad_url_error' => "muss de korrekten URL-format hunn, a mat 'http' ufänken",
 	'sf_bad_date_error' => 'muss e gëltegen Datum sinn',
 	'uploadwindow' => 'Fënster fir eropzelueden',
 	'sf_property_linkstoform' => 'Et ass mat Säite verlinkt déi de Formulaire $1 benotzen.',
