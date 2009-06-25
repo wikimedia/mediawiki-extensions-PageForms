@@ -266,10 +266,12 @@ END;
 								}
 							} else {
 								$cur_value = str_replace("_", " ", $row['page_title']);
-								if ($substring == null)
-									$pages[] = $cur_value;
-								else
-									$pages[] = array('title' => $cur_value);
+								if (! in_array($cur_value, $pages)) {
+									if ($substring == null)
+										$pages[] = $cur_value;
+									else
+										$pages[] = array('title' => $cur_value);
+								}
 								// return if we've reached the maximum number of allowed values
 								if (count($pages) > $sfgMaxAutocompleteValues)
 									return $pages;
