@@ -140,7 +140,7 @@ class SFFormPrinter {
     // the parsing, so we have to assume that it will become a possibility
     $form_is_partial = false;
     $new_text = "";
-    // flag for placing "<includeonly>" and "<noinclude>" tags in form output
+    // flag for placing "<onlyinclude>" tags in form output
     $includeonly_free_text = false;
     
     // if we have existing content and we're not in an active replacement
@@ -578,7 +578,7 @@ class SFFormPrinter {
           } else
             $cur_value = '';
           if ($cur_value && ! is_array($cur_value)) {
-            $cur_value = str_replace('"', '&quot;', $cur_value);
+            $cur_value = htmlspecialchars($cur_value);
           }
 
           if ($cur_value == null) {
@@ -599,7 +599,7 @@ class SFFormPrinter {
             } else
               $cur_value = '';
             if ($cur_value) {
-              $cur_value = str_replace('"', '&quot;', $cur_value);
+              $cur_value = htmlspecialchars($cur_value);
             }
           }
 
@@ -750,7 +750,8 @@ END;
             // form values, see if the current input is part of that formula,
             // and if so, substitute in the actual value
             if ($form_submitted && $generated_page_name != '') {
-              $generated_page_name = str_replace('.', '_', $generated_page_name);
+              // this line appears unnecessary
+              //$generated_page_name = str_replace('.', '_', $generated_page_name);
               $generated_page_name = str_replace(' ', '_', $generated_page_name);
               $escaped_input_name = str_replace(' ', '_', $input_name);
               $generated_page_name = str_ireplace("<$escaped_input_name>", $cur_value_in_template, $generated_page_name);
@@ -977,9 +978,9 @@ END;
               $form_is_partial = true;
               // replacement pages may have minimal matches...
               $source_page_matches_this_form = true;
-           }
-            elseif($tag == 'includeonly free text') {           		
-              $includeonly_free_text = true;
+            }
+            elseif($tag == 'includeonly free text' || $tag == 'onlyinclude free text') {           		
+              $onlyinclude_free_text = true;
             }
           }
           $section = substr_replace($section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
@@ -1108,16 +1109,12 @@ END;
     } else {
       $free_text = null;
     }
-    // modify free text and data text to insert <noinclude> and <includeonly>
-    // tags, if necessary
-    if ($includeonly_free_text) {
-      $free_text = str_replace("<noinclude>",'', $free_text);
-      $free_text = str_replace("</noinclude>",'', $free_text);
-      $free_text = str_replace("<includeonly>",'', $free_text);
-      $free_text = str_replace("</includeonly>",'', $free_text);
+    if ($onlyinclude_free_text) {
+      // modify free text and data text to insert <onlyinclude> tags
+      $free_text = str_replace("<onlyinclude>",'', $free_text);
+      $free_text = str_replace("</onlyinclude>",'', $free_text);
       $free_text = trim($free_text);
-      $data_text = str_replace('<free_text>','</noinclude><includeonly><free_text></includeonly><noinclude>', $data_text);
-      $data_text = "<noinclude>".$data_text."</noinclude>";
+      $data_text = str_replace('<free_text>','<onlyinclude><free_text></onlyinclude>', $data_text);
     }
     // if the FCKeditor extension is installed, use that for the free text input
     global $wgFCKEditorDir;
