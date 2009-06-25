@@ -141,7 +141,7 @@ class SFFormPrinter {
     $form_is_partial = false;
     $new_text = "";
     // flag for placing "<onlyinclude>" tags in form output
-    $includeonly_free_text = false;
+    $onlyinclude_free_text = false;
     
     // if we have existing content and we're not in an active replacement
     // situation, preserve the original content. We do this because we want
