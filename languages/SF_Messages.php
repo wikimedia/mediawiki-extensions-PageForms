@@ -2601,11 +2601,17 @@ si un pagina con ille nomine existe ja, tu essera inviate a un formulario pro mo
  */
 $messages['id'] = array(
 	'sf_createproperty_propname' => 'Nama properti:',
+	'sf_createproperty_proptype' => 'Tipe:',
+	'sf_createtemplate_deletefield' => 'Hapus',
+	'sf_createform_template' => 'Templat:',
 	'sf_createform_inputtypedefault' => '(baku)',
+	'sf_createform_hidden' => 'Tersembunyi',
 	'sf_createform_add' => 'Tambahkan',
 	'sf_createcategory_name' => 'Nama kategori:',
 	'sf_editdata_remove' => 'Hapus',
 	'sf_editdata_none' => 'Tidak ada',
+	'sf_blank_error' => 'tidak boleh kosong',
+	'sf_form_freetextlabel' => 'Teks gratis',
 );
 
 /** Icelandic (Íslenska)
