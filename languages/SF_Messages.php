@@ -2602,6 +2602,7 @@ si un pagina con ille nomine existe ja, tu essera inviate a un formulario pro mo
 $messages['id'] = array(
 	'sf_createproperty_propname' => 'Nama properti:',
 	'sf_createproperty_proptype' => 'Tipe:',
+	'sf_createtemplate_standardformat' => 'Standar',
 	'sf_createtemplate_deletefield' => 'Hapus',
 	'sf_createform_template' => 'Templat:',
 	'sf_createform_inputtypedefault' => '(baku)',
@@ -3658,6 +3659,7 @@ Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om e
 /** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
  * @author Harald Khan
  * @author Jon Harald Søby
+ * @author Laaknor
  * @author Nghtwlkr
  */
 $messages['no'] = array(
