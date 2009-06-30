@@ -1943,15 +1943,18 @@ $messages['grc'] = array(
 	'sf_createproperty_proptype' => 'Τύπος:',
 	'templates' => 'Πρότυπα',
 	'sf_createtemplate_deletefield' => 'Σβεννύναι',
+	'forms' => 'Μορφαί',
 	'sf_createform_template' => 'Πρότυπον:',
 	'sf_createform_field' => 'Πεδίον:',
 	'sf_createform_inputtypedefault' => '(προκαθωρισμένη)',
 	'sf_createform_hidden' => 'Κεκρυμμένη',
 	'sf_createform_add' => 'Προστιθέναι',
 	'sf_createcategory_name' => 'Ὄνομα κατηγορίας:',
+	'sf_editdata_title' => 'Μεταγράφειν $1: $2',
 	'sf_editdata_remove' => 'Άφαιρεῖν',
 	'sf_editdata_none' => 'Οὐδέν',
 	'sf_form_freetextlabel' => 'Ἐλεύθερον κείμενον',
+	'sf_blank_namespace' => 'Κύριον',
 );
 
 /** Swiss German (Alemannisch)
@@ -2755,9 +2758,10 @@ $messages['ja'] = array(
 
 /** Javanese (Basa Jawa)
  * @author Meursault2004
+ * @author Pras
  */
 $messages['jv'] = array(
-	'sf_createproperty_propname' => 'Jeneng:',
+	'sf_createproperty_propname' => 'Jeneng sifat/properti:',
 	'sf_createproperty_proptype' => 'Jenis:',
 	'templates' => 'Cithakan-cithakan',
 	'sf_templates_docu' => 'Cithakan-cithakan iki ana ing wiki iki.',
@@ -2782,7 +2786,7 @@ $messages['jv'] = array(
 	'sf_createform_removetemplate' => 'Ilangana cithakan',
 	'sf_createform_add' => 'Tambah',
 	'createcategory' => 'Gawé kategori',
-	'sf_createcategory_name' => 'Jeneng:',
+	'sf_createcategory_name' => 'Jeneng kategori:',
 	'sf_createcategory_defaultform' => 'Formulir baku:',
 	'adddata' => 'Tambah data',
 	'editdata' => 'Sunting data',
@@ -4207,11 +4211,12 @@ $messages['rif'] = array(
 );
 
 /** Romanian (Română)
+ * @author Firilacroco
  * @author KlaudiuMihaila
  * @author Mihai
  */
 $messages['ro'] = array(
-	'sf_createproperty_propname' => 'Nume:',
+	'sf_createproperty_propname' => 'Numele proprietăţii:',
 	'sf_createproperty_proptype' => 'Tip:',
 	'templates' => 'Formate',
 	'sf_templates_definescat' => 'defineşte o categorie:',
@@ -4226,7 +4231,7 @@ $messages['ro'] = array(
 	'sf_createform_hidden' => 'Ascunse',
 	'sf_createform_mandatory' => 'Obligatoriu',
 	'sf_createform_add' => 'Adaugă',
-	'sf_createcategory_name' => 'Nume:',
+	'sf_createcategory_name' => 'Numele categoriei:',
 	'sf_editdata_remove' => 'Elimină',
 	'sf_editdata_none' => 'Nimic',
 	'sf_blank_error' => 'nu poate fi gol',
@@ -4234,7 +4239,7 @@ $messages['ro'] = array(
 	'sf_bad_integer_error' => 'trebuie să fie un număr întreg corect',
 	'sf_bad_date_error' => 'trebuie să fie o dată corectă',
 	'sf_property_isproperty' => 'Aceasta este o proprietate de tipul $1.',
-	'sf_property_allowedvals' => 'Valorile permise pentru această proprietate sunt:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Valoarea admisă pentru această proprietate este|Valorile admise pentru această proprietate sunt}}:',
 );
 
 /** Tarandíne (Tarandíne)
