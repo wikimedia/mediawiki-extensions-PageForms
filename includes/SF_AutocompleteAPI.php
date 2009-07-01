@@ -110,34 +110,27 @@ class SFAutocompleteAPI extends ApiBase {
 	}
 
 	public static function getAllValuesForProperty($is_relation, $property_name, $substring = null) {
-		global $smwgStore, $sfgMaxAutocompleteValues;
+		global $sfgMaxAutocompleteValues;
 
 		$fname = "SFAutocompleteAPI::getAllValuesForProperty";
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
 		$sql_options = array();
 		$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-		if ($smwgStore == 'SMWSQLStore') {
-			$property_field = ($is_relation) ? 'relation_title' : 'attribute_title';
-			$value_field = ($is_relation) ? 'object_title' : 'value_xsd';
-			$property_table = ($is_relation) ? 'smw_relations' : 'smw_attributes';
-			$from_clause = $db->tableName($property_table);
+		if ($is_relation) {
+			$value_field = 'o_ids.smw_title';
+			$from_clause = $db->tableName('smw_rels2') . " r JOIN " . $db->tableName('smw_ids') . " p_ids ON r.p_id = p_ids.smw_id JOIN " . $db->tableName('smw_ids') . " o_ids ON r.o_id = o_ids.smw_id";
 		} else {
-			$property_field = 'p_ids.smw_title';
-			$value_field = ($is_relation) ? 'o_ids.smw_title' : 'a.value_xsd';
-			if ($is_relation) {
-				$from_clause = $db->tableName('smw_rels2') . " r JOIN " . $db->tableName('smw_ids') . " p_ids ON r.p_id = p_ids.smw_id JOIN " . $db->tableName('smw_ids') . " o_ids ON r.o_id = o_ids.smw_id";
-			} else {
-				$from_clause = $db->tableName('smw_atts2') . " a JOIN " . $db->tableName('smw_ids') . " p_ids ON a.p_id = p_ids.smw_id";
-			}
+			$value_field = 'a.value_xsd';
+			$from_clause = $db->tableName('smw_atts2') . " a JOIN " . $db->tableName('smw_ids') . " p_ids ON a.p_id = p_ids.smw_id";
 		}
 		$property_name = str_replace(' ', '_', $property_name);
-		$conditions = "$property_field = '$property_name'";
+		$conditions = "p_ids.smw_title = '$property_name'";
 		if ($substring != null) {
 			$substring = str_replace(' ', '_', strtolower($substring));
 			$substring = str_replace('_', '\_', $substring);
 			$substring = str_replace("'", "\'", $substring);
-			$conditions .= " AND (LOWER($value_field) LIKE '" . $substring . "%' OR LOWER($value_field) LIKE '%\_" . $substring . "%')";
+			$conditions .= " AND (LOWER(CONVERT($value_field USING utf8)) LIKE '" . $substring . "%' OR LOWER(CONVERT($value_field USING utf8)) LIKE '%\_" . $substring . "%')";
 		}
 		$sql_options['ORDER BY'] = $value_field;
 		$res = $db->select( $from_clause,
