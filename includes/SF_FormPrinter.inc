@@ -543,8 +543,9 @@ class SFFormPrinter {
                     $autocompletion_source = "main";
                   $field_args['autocompletion source'] = $autocompletion_source;
                 } elseif ($sub_components[0] == 'values') {
-                  // remove whitespaces from list
+                  // remove whitespaces, and un-escape characters
                   $possible_values = array_map('trim', explode(',', $sub_components[1]));
+                  $possible_values = array_map('htmlspecialchars_decode', $possible_values);
                 } elseif ($sub_components[0] == 'values from category') {
                   $possible_values = SFUtils::getAllPagesForCategory($sub_components[1], 10);
                 } elseif ($sub_components[0] == 'values from concept') {
@@ -596,10 +597,8 @@ class SFFormPrinter {
               // at the end we can have a list of all the fields that
               // weren't handled by the form
               unset($template_contents[$field_name]);
-            } else
+            } else {
               $cur_value = '';
-            if ($cur_value) {
-              $cur_value = htmlspecialchars($cur_value);
             }
           }
 
