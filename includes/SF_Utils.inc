@@ -246,7 +246,7 @@ END;
 					$substring = str_replace(' ', '_', strtolower($substring));
 					$substring = str_replace('_', '\_', $substring);
 					$substring = str_replace("'", "\'", $substring);
-					$conditions = 'cl_to = '. $db->addQuotes($category) . " AND (LOWER(page_title) LIKE '" . $substring . "%' OR LOWER(page_title) LIKE '%\_" . $substring . "%' OR page_namespace = " . NS_CATEGORY . ")";
+					$conditions = 'cl_to = '. $db->addQuotes($category) . " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '" . $substring . "%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_" . $substring . "%' OR page_namespace = " . NS_CATEGORY . ")";
 				} else {
 					$conditions = 'cl_to = '. $db->addQuotes($category);
 				}
@@ -338,7 +338,7 @@ END;
 					$substring = str_replace(' ', '_', strtolower($substring));
 					$substring = str_replace('_', '\_', $substring);
 					$substring = str_replace("'", "\'", $substring);
-					$conditions .= " AND (LOWER(page_title) LIKE '$substring%' OR LOWER(page_title) LIKE '%\_$substring%')";
+					$conditions .= " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '$substring%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_$substring%')";
 				}
 				$sql_options['ORDER BY'] = 'page_title';
 				$res = $db->select( $db->tableNames('page'),
