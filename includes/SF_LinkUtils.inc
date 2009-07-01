@@ -93,7 +93,7 @@ class SFLinkUtils {
 			// make sure it's in the form namespace
 			if ($res[0]->getNamespace() == SF_NS_FORM) {
 				$form_name = $res[0]->getTitle()->getText();
-				return $form_name;
+				return array($form_name);
 			}
 		}
 		// if that didn't work, try any aliases that may exist
@@ -107,7 +107,7 @@ class SFLinkUtils {
 					// make sure it's in the form namespace
 					if ($res[0]->getNamespace() == SF_NS_FORM) {
 						$form_name = $res[0]->getTitle()->getText();
-						return $form_name;
+						return array($form_name);
 					}
 				}
 			}
