@@ -95,6 +95,7 @@ class SFFormInputs {
     } else {
       $size = 35;
     }
+    $cur_value = htmlspecialchars($cur_value);
 
     $text =<<<END
 		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text"
@@ -367,7 +368,8 @@ END;
       $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
     }
     if ($cur_value) {
-      // replace newlines with the literal '\n' to not break the Javascript
+      // replace various values to not break the Javascript
+      $cur_value = str_replace('"', '\"', $cur_value);
       $cur_value = str_replace("\n", '\n', $cur_value);
       $cur_value = str_replace("\r", '\r', $cur_value);
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
