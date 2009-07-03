@@ -85,6 +85,12 @@ $aliases['fa'] = array(
 	'UploadWindow' => array( 'پنجره_بارگذاری' ),
 );
 
+/** Finnish (Suomi) */
+$aliases['fi'] = array(
+	'CreateTemplate' => array( 'Luo malline' ),
+	'Templates' => array( 'Mallineet' ),
+);
+
 /** French (Français) */
 $aliases['fr'] = array(
 	'AddData' => array( 'AjouterDonnées', 'Ajouter données' ),
@@ -246,6 +252,13 @@ $aliases['mk'] = array(
 	'EditData' => array( 'УредиПодаток' ),
 	'Forms' => array( 'Форми' ),
 	'Templates' => array( 'Шаблони' ),
+);
+
+/** Malayalam (മലയാളം) */
+$aliases['ml'] = array(
+	'CreateCategory' => array( 'വര്‍ഗ്ഗസൃഷ്ടി' ),
+	'Templates' => array( 'ഫലകങ്ങള്‍' ),
+	'UploadWindow' => array( 'അപ്‌ലോഡ്ജാലകം' ),
 );
 
 /** Maltese (Malti) */
