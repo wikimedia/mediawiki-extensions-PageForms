@@ -191,8 +191,8 @@ $aliases['ja'] = array(
 	'CreateProperty' => array( 'プロパティ作成' ),
 	'CreateTemplate' => array( 'テンプレート作成' ),
 	'EditData' => array( 'データ編集' ),
-	'Forms' => array( 'フォーム' ),
-	'Templates' => array( 'テンプレート' ),
+	'Forms' => array( 'フォーム一覧' ),
+	'Templates' => array( 'テンプレート一覧' ),
 	'UploadWindow' => array( 'アップロードウィンドウ' ),
 );
 

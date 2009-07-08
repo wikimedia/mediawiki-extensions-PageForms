@@ -146,6 +146,7 @@ if a page with that name already exists, you will be sent to a form to edit that
  */
 $messages['qqq'] = array(
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
+	'templates' => '{{Identical|Template}}',
 	'sf_createtemplate_standardformat' => '{{Identical|Standard}}',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
 	'sf_createform_template' => '{{Identical|Template}}',
@@ -2667,7 +2668,7 @@ $messages['ja'] = array(
 	'sf_createproperty_allowedvalsinput' => 'このプロパティに一部の値しか設定できないようにするには、許可する値一覧をコンマで区切って入力します (値がコンマを含む場合は「\\,」に置き換えてください)。',
 	'sf_createproperty_propname' => 'プロパティ名:',
 	'sf_createproperty_proptype' => '型:',
-	'templates' => 'テンプレート',
+	'templates' => 'テンプレート一覧',
 	'sf_templates_docu' => '次のテンプレートがウィキに存在します。',
 	'sf_templates_definescat' => 'カテゴリを定義:',
 	'createtemplate' => 'テンプレートの作成',
@@ -2688,7 +2689,7 @@ $messages['ja'] = array(
 	'sf_createtemplate_addfield' => 'フィールド追加',
 	'sf_createtemplate_deletefield' => '削除',
 	'sf_createtemplate_addtemplatebeforesave' => '保存する前に、最低でも1つのテンプレートをこのフォームに加えなければなりません。',
-	'forms' => 'フォーム',
+	'forms' => 'フォーム一覧',
 	'sf_forms_docu' => '次のフォームがウィキに存在します。',
 	'createform' => 'フォームの作成',
 	'sf_createform_nameinput' => 'フォーム名',
