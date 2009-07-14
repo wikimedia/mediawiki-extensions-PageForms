@@ -323,6 +323,19 @@ $messages['ar'] = array(
  * @author Basharh
  */
 $messages['arc'] = array(
+	'sf_createtemplate_deletefield' => 'ܫܘܦ',
+	'sf_createform_hidden' => 'ܛܘܫܝܐ',
+	'sf_createform_add' => 'ܐܘܣܦ',
+	'createcategory' => 'ܒܪܝ ܣܕܪܐ',
+	'sf_createcategory_name' => 'ܫܡܐ ܕܣܕܪܐ:',
+	'addoreditdata' => 'ܐܘܣܦ ܐܘ ܫܚܠܦ',
+	'adddata' => 'ܐܘܣܦ ܓܠܝܬ̈ܐ',
+	'editdata' => 'ܫܚܠܦ ܓܠܝܬ̈ܐ',
+	'sf_editsource' => 'ܫܚܠܦ ܥܩܪܐ',
+	'sf_editdata_title' => 'ܫܚܠܦ $1: $2',
+	'sf_editdata_addanother' => 'ܐܘܣܦ ܐܚܪܢܐ',
+	'sf_editdata_none' => 'ܠܐ ܡܕܡ',
+	'uploadwindow' => 'ܐܣܩ ܟܘܬܐ',
 	'sf_blank_namespace' => 'ܪܫܝܬܐ',
 );
 
