@@ -341,6 +341,20 @@ $aliases['ro'] = array(
 	'Templates' => array( 'Formate' ),
 );
 
+/** Slovak (Slovenčina) */
+$aliases['sk'] = array(
+	'AddData' => array( 'PridaťDáta' ),
+	'AddPage' => array( 'PridaťStránku' ),
+	'CreateCategory' => array( 'VytvoriťKategóriu' ),
+	'CreateForm' => array( 'VytvoriťFormulár' ),
+	'CreateProperty' => array( 'VytvoriťVlastnosť' ),
+	'CreateTemplate' => array( 'VytvoriťŠablónu' ),
+	'EditData' => array( 'UpraviťDáta' ),
+	'Forms' => array( 'Formuláre' ),
+	'Templates' => array( 'Šablóny' ),
+	'UploadWindow' => array( 'NahrávacieOkno' ),
+);
+
 /** Albanian (Shqip) */
 $aliases['sq'] = array(
 	'Forms' => array( 'Format' ),
