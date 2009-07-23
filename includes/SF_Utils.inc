@@ -14,9 +14,11 @@ class SFUtils {
 		$sf_props = $sfgContLang->getPropertyLabels();
 		SMWPropertyValue::registerProperty('_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM], true);
 		SMWPropertyValue::registerProperty('_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM], true);
+		SMWPropertyValue::registerProperty('_SF_CP', '__spf', $sf_props[SF_SP_CREATES_PAGES_WITH_FORM], true);
 		// also initialize hardcoded English values, if it's a non-English-language wiki
 		SMWPropertyValue::registerProperty('_SF_DF_BACKUP', '__spf', 'Has default form', true);
 		SMWPropertyValue::registerProperty('_SF_AF_BACKUP', '__spf', 'Has alternate form', true);
+		SMWPropertyValue::registerProperty('_SF_CP_BACKUP', '__spf', 'Creates pages with form', true);
 
 		return true;
 	}
@@ -136,6 +138,7 @@ END;
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/floatbox.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_tooltip.js"></script>' . "\n");
+		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_sorttable.js"></script>' . "\n");
 		if ($wgFCKEditorDir)
 			$wgOut->addScript('<script type="text/javascript" src="' . "$wgScriptPath/$wgFCKEditorDir" . '/fckeditor.js"></script>' . "\n");
 		$wgOut->addMeta('robots','noindex,nofollow');
