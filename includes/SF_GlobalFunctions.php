@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.7.3');
+define('SF_VERSION','1.8');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -22,6 +22,7 @@ $wgExtensionCredits['specialpage'][]= array(
 // constants for special properties
 define('SF_SP_HAS_DEFAULT_FORM', 1);
 define('SF_SP_HAS_ALTERNATE_FORM', 2);
+define('SF_SP_CREATES_PAGES_WITH_FORM', 3);
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
