@@ -169,21 +169,12 @@ function validate_field_type(field_id, type, info_id) {
 				infobox.innerHTML = "$bad_email_error_str";
 				return false;
 			}
-		} else if (type == 'float') {
+		} else if (type == 'number') {
 			if (field.value.match(/^[\d\.,]+$/)) {
 				return true;
 			} else {
 				infobox = document.getElementById(info_id);
 				infobox.innerHTML = "$bad_number_error_str";
-				return false;
-			}
-		} else if (type == 'integer') {
-			var num_regexp = /[0-9,]*/;
-			if (field.value.match(/^[\d,]+$/)) {
-				return true;
-			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_integer_error_str";
 				return false;
 			}
 		} else if (type == 'date') {
@@ -689,17 +680,16 @@ END;
 	}
 
 	static function getShowFCKEditor() {
-		global $wgUser;
+		global $wgUser, $wgDefaultUserOptions;
 
 		$showFCKEditor = 0;
-		if ( !$wgUser->getOption( 'riched_start_disabled' ) ) {
+		if ( !$wgUser->getOption( 'riched_start_disabled', $wgDefaultUserOptions['riched_start_disabled'] ) ) {
 			$showFCKEditor += RTE_VISIBLE;
-
 		}
-		if ( $wgUser->getOption( 'riched_use_popup' ) ) {
+		if ( $wgUser->getOption( 'riched_use_popup', $wgDefaultUserOptions['riched_use_popup'] ) ) {
 			$showFCKEditor += RTE_POPUP;
 		}
-		if ( $wgUser->getOption( 'riched_use_toggle' ) ) {
+		if ( $wgUser->getOption( 'riched_use_toggle', $wgDefaultUserOptions['riched_use_toggle'] ) ) {
 			$showFCKEditor += RTE_TOGGLE_LINK;
 		}
 
