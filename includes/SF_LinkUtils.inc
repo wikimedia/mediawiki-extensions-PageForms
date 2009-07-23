@@ -198,6 +198,9 @@ class SFLinkUtils {
 	 * AKA red-linked) page, for MediaWiki 1.13
 	 */
 	static function setBrokenLink_1_13(&$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail) {
+		if (self::createLinkedPage($title)) {
+			return true;
+		}
 		$link = self::addDataLink($title);
 		if ($link != '')
 			$u = $link;
@@ -210,12 +213,52 @@ class SFLinkUtils {
 	 */
 	static function setBrokenLink($linker, $target, $options, $text, &$attribs, &$ret) {
 		if (in_array('broken', $options)) {
+			if (self::createLinkedPage($target)) {
+				return true;
+			}
 			$link = self::addDataLink($target);
 			if ($link != '') {
 				$attribs['href'] = $link;
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Automatically creates a page that's red-linked from the page being
+	 * viewed, if there's a property pointing from anywhere to that page
+	 * that's defined with the 'Creates pages with form' special property
+	 */
+	static function createLinkedPage($title) {
+		$store = smwfGetStore();
+		$title_text = self::titleString($title);
+		$value = SMWDataValueFactory::newTypeIDValue('_wpg', $title_text);
+		$create_pages_property = SMWPropertyValue::makeProperty('_SF_CP_BACKUP');
+		$incoming_properties = $store->getInProperties($value);
+		foreach ($incoming_properties as $property) {
+			$property_name = SFUtils::getPropertyName($property);
+			$property_title = Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
+			$res = $store->getPropertyValues($property_title, $create_pages_property);
+			if (count($res) > 0) {
+				global $sfgFormPrinter;
+				$form_name = $res[0]->getTitle()->getText();
+				$form_title = Title::makeTitleSafe(SF_NS_FORM, $form_name);
+				$form_article = new Article($form_title);
+				$form_definition = $form_article->getContent();
+				list ($form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name) =
+					$sfgFormPrinter->formHTML($form_definition, false, false, null, 'Some very long page name that will hopefully never get created ABCDEF123', null);
+				$params = array();
+				global $wgUser;
+				$params['user_id'] = $wgUser->getId();
+				$params['page_text'] = $data_text;
+				$job = new SFCreatePageJob( $title, $params );
+				Job::batchInsert( array($job) );
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	static function addDataLink($title) {
