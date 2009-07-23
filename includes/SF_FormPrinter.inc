@@ -34,7 +34,7 @@ class SFFormPrinter {
         $code_type = 'code';
       $url_type = $datatypeLabels['_uri'];
       $email_type = $datatypeLabels['_ema'];
-      $float_type = $datatypeLabels['_num'];
+      $number_type = $datatypeLabels['_num'];
       $bool_type = $datatypeLabels['_boo'];
       $date_type = $datatypeLabels['_dat'];
       $enum_type = 'enumeration'; // not a real type
@@ -45,7 +45,7 @@ class SFFormPrinter {
       $this->setSemanticTypeHook($code_type, false, array('SFFormInputs', 'textAreaHTML'), array());
       $this->setSemanticTypeHook($url_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'URL'));
       $this->setSemanticTypeHook($email_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'email'));
-      $this->setSemanticTypeHook($float_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'float'));
+      $this->setSemanticTypeHook($number_type, false, array('SFFormInputs', 'textEntryHTML'), array('field_type' => 'number'));
       $this->setSemanticTypeHook($bool_type, false, array('SFFormInputs', 'checkboxHTML'), array());
       $this->setSemanticTypeHook($date_type, false, array('SFFormInputs', 'dateEntryHTML'), array());
       $this->setSemanticTypeHook($enum_type, false, array('SFFormInputs', 'dropdownHTML'), array());
@@ -611,7 +611,7 @@ class SFFormPrinter {
             // the page, using <free_text> tags - once all the free text
             // is known (at the end), it will get substituted in
             if ($is_hidden) {
-              $new_text = SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
+              $new_text = SFFormUtils::hiddenFieldHTML('free_text', '!free_text!');
             } else {
               if (! array_key_exists('rows', $field_args))
                 $field_args['rows'] = 5;
@@ -619,7 +619,7 @@ class SFFormPrinter {
                 $field_args['cols'] = 80;
               $sfgTabIndex++;
               $sfgFieldNum++;
-              list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('<free_text>', 'free_text', false, ($form_is_disabled || $is_restricted), $field_args);
+              list($new_text, $new_javascript_text) = SFFormInputs::textAreaHTML('!free_text!', 'free_text', false, ($form_is_disabled || $is_restricted), $field_args);
               if (in_array('edittools', $free_text_components)) {
                 // borrowed from EditPage::showEditTools()
                 $options[] = 'parse';
@@ -636,7 +636,7 @@ END;
             }
             $free_text_was_included = true;
             // add a similar placeholder to the data text
-            $data_text .= "<free_text>\n";
+            $data_text .= "!free_text!\n";
           }
 
           if ($template_name == '' || $field_name == '<freetext>') {
@@ -709,6 +709,7 @@ END;
                     }
                   }
                   $year = $cur_value['year'];
+                  $hour = $minute = $second = $ampm24h = $timezone = null;
                   if (isset($cur_value['hour'])) $hour = $cur_value['hour'];
                   if (isset($cur_value['minute'])) $minute = $cur_value['minute'];
                   if (isset($cur_value['second'])) $second = $cur_value['second'];
@@ -724,10 +725,14 @@ END;
                       $cur_value_in_template = "$year/$month/$day";
                     }
                     // include whatever time information we have
-                    if(isset($hour)) $cur_value_in_template .= " " . str_pad(intval(substr($hour,0,2)),2,'0',STR_PAD_LEFT) . ":" . str_pad(intval(substr($minute,0,2)),2,'0',STR_PAD_LEFT);
-                    if(isset($second)) $cur_value_in_template .= ":" . str_pad(intval(substr($second,0,2)),2,'0',STR_PAD_LEFT);
-                    if(isset($ampm24h)) $cur_value_in_template .= " $ampm24h";
-                    if(isset($timezone)) $cur_value_in_template .= " $timezone";
+                    if (! is_null($hour))
+                      $cur_value_in_template .= " " . str_pad(intval(substr($hour,0,2)),2,'0',STR_PAD_LEFT) . ":" . str_pad(intval(substr($minute,0,2)),2,'0',STR_PAD_LEFT);
+                    if (! is_null($second))
+                      $cur_value_in_template .= ":" . str_pad(intval(substr($second,0,2)),2,'0',STR_PAD_LEFT);
+                    if (! is_null($ampm24h))
+                      $cur_value_in_template .= " $ampm24h";
+                    if (! is_null($timezone))
+                      $cur_value_in_template .= " $timezone";
                   } else {
                     $cur_value_in_template = "";
                   }
@@ -849,7 +854,7 @@ END;
             // disabled inputs for some reason don't submit their value
             if ($is_restricted && ! $wgUser->isAllowed('editrestrictedfields')) {
               if ($field_name == 'free text' || $field_name == '<freetext>') {
-                $new_text .= SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
+                $new_text .= SFFormUtils::hiddenFieldHTML('free_text', '!free_text!');
               } else {
                 $new_text .= SFFormUtils::hiddenFieldHTML($input_name, $cur_value);
               }
@@ -1074,7 +1079,7 @@ END;
     // if it wasn't included in the form definition, add the
     // 'free text' input as a hidden field at the bottom
     if (! $free_text_was_included) {
-      $form_text .= SFFormUtils::hiddenFieldHTML('free_text', '<free_text>');
+      $form_text .= SFFormUtils::hiddenFieldHTML('free_text', '!free_text!');
     }
     // get free text, and add to page data, as well as retroactively
     // inserting it into the form
@@ -1100,7 +1105,7 @@ END;
     } elseif ($wgRequest->getCheck('free_text')) {
       $free_text = $wgRequest->getVal('free_text');
       if (! $free_text_was_included) {
-        $data_text .= "<free_text>";
+        $data_text .= "!free_text!";
       }
     // or get it from the form definition
     } elseif ($free_text_preload_page != null) {
@@ -1113,7 +1118,7 @@ END;
       $free_text = str_replace("<onlyinclude>",'', $free_text);
       $free_text = str_replace("</onlyinclude>",'', $free_text);
       $free_text = trim($free_text);
-      $data_text = str_replace('<free_text>','<onlyinclude><free_text></onlyinclude>', $data_text);
+      $data_text = str_replace('!free_text!','<onlyinclude>!free_text!</onlyinclude>', $data_text);
     }
     // if the FCKeditor extension is installed, use that for the free text input
     global $wgFCKEditorDir;
@@ -1128,8 +1133,8 @@ END;
       $free_text = Sanitizer::safeEncodeAttribute($free_text);
     }
     // now that we have it, substitute free text into the form and page
-    $form_text = str_replace('<free_text>', $free_text, $form_text);
-    $data_text = str_replace('<free_text>', $free_text, $data_text);
+    $form_text = str_replace('!free_text!', $free_text, $form_text);
+    $data_text = str_replace('!free_text!', $free_text, $data_text);
 
     // add a warning in, if we're editing an existing page and that page
     // appears to not have been created with this form
