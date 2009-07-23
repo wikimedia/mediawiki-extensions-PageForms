@@ -127,10 +127,10 @@ class SFAutocompleteAPI extends ApiBase {
 		$property_name = str_replace(' ', '_', $property_name);
 		$conditions = "p_ids.smw_title = '$property_name'";
 		if ($substring != null) {
-			$substring = str_replace(' ', '_', strtolower($substring));
-			$substring = str_replace('_', '\_', $substring);
-			$substring = str_replace("'", "\'", $substring);
-			$conditions .= " AND (LOWER(CONVERT($value_field USING utf8)) LIKE '" . $substring . "%' OR LOWER(CONVERT($value_field USING utf8)) LIKE '%\_" . $substring . "%')";
+			$substring = str_replace("'", "\'", strtolower($substring));
+			// utf8 conversion is needed in case MediaWiki is using
+			// binary data storage
+			$conditions .= " AND (REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '" . $substring . "%' OR REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '% " . $substring . "%')";
 		}
 		$sql_options['ORDER BY'] = $value_field;
 		$res = $db->select( $from_clause,
