@@ -96,8 +96,7 @@ class SFFormField {
 		$code_type = array_key_exists('_cod', $datatypeLabels) ? $datatypeLabels['_cod'] : 'code';
 		$url_type = $datatypeLabels['_uri'];
 		$email_type = $datatypeLabels['_ema'];
-		$float_type = $datatypeLabels['_num'];
-		$int_type = $datatypeLabels['_num'];
+		$number_type = $datatypeLabels['_num'];
 		$bool_type = $datatypeLabels['_boo'];
 		$date_type = $datatypeLabels['_dat'];
 		$enum_type = 'enumeration'; // not a real type
@@ -107,8 +106,7 @@ class SFFormField {
 		// the field type and whether this field will contain multiple
 		// values
 		if ($semantic_type == $string_type ||
-			$semantic_type == $float_type ||
-			$semantic_type == $int_type ||
+			$semantic_type == $number_type ||
 			$semantic_type == $url_type ||
 			$semantic_type == $email_type) {
 			if ($is_list) {
