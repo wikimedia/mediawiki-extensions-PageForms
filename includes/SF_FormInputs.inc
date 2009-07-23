@@ -73,9 +73,9 @@ class SFFormInputs {
       if ($other_args['field_type'] == 'integer') {
         $size = 10;
         $validation_type_str = 'integer';
-      } elseif ($other_args['field_type'] == 'float') {
+      } elseif ($other_args['field_type'] == 'number') {
         $size = 10;
-        $validation_type_str = 'float';
+        $validation_type_str = 'number';
       } elseif ($other_args['field_type'] == 'URL') {
         $size = 100;
         $validation_type_str = 'URL';
@@ -95,7 +95,8 @@ class SFFormInputs {
     } else {
       $size = 35;
     }
-    $cur_value = htmlspecialchars($cur_value);
+    if (! is_null($cur_value))
+      $cur_value = htmlspecialchars($cur_value);
 
     $text =<<<END
 		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text"
@@ -413,6 +414,7 @@ END;
       $js_call = "";
     }
 
+    $cur_value = htmlspecialchars($cur_value);
     $text =<<<END
 	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text $js_call>$cur_value</textarea>
 	<span id="$info_id" class="errorMessage"></span>
