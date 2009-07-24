@@ -573,7 +573,7 @@ END;
 		elseif (($wgTitle->getText() == 'AddData' || $wgTitle->getText() == 'EditData')
 			 && $wgTitle->getNamespace() == NS_SPECIAL) {
 			global $wgRequest;
-			$title_components = split('/', $wgRequest->data['title']);
+			$title_components = split('/', $wgRequest->getVal('title'));
 			if (count($title_components) >= 2) {
 				$add_page_title = Title::makeTitleSafe(NS_SPECIAL, 'AddPage');
 				$cancel = $sk->makeKnownLink($add_page_title->getPrefixedText() . '/' . $title_components[1], $label);
