@@ -547,7 +547,8 @@ class SFFormPrinter {
                   $possible_values = array_map('trim', explode(',', $sub_components[1]));
                   $possible_values = array_map('htmlspecialchars_decode', $possible_values);
                 } elseif ($sub_components[0] == 'values from category') {
-                  $possible_values = SFUtils::getAllPagesForCategory($sub_components[1], 10);
+                  $category_name = ucfirst($sub_components[1]);
+                  $possible_values = SFUtils::getAllPagesForCategory($category_name, 10);
                 } elseif ($sub_components[0] == 'values from concept') {
                   $possible_values = SFUtils::getAllPagesForConcept($sub_components[1]);
                 } elseif ($sub_components[0] == 'property') {
@@ -895,7 +896,10 @@ END;
                   } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
                     $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
                   } elseif ($input_type == 'radiobutton') {
-                    $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
+                    // only add this if there's a "None" option
+                    if (is_null($default_value)) {
+                      $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
+                    }
                   } else {
                     $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
                   }
