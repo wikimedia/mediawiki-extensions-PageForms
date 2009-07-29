@@ -99,6 +99,19 @@ class SFFormEditTab {
 	}
 
 	/**
+	 * Function currently called only for the 'Vector' skin, added in
+	 * MW 1.16 - will possibly be called for additional skins later
+	 */
+	static function displayTab2($obj, $links) {
+		// the old '$content_actions' array is thankfully just a
+		// sub-array of this one
+		$views_links = $links['views'];
+		self::displayTab($obj, &$views_links);
+		$links['views'] = $views_links;
+		return true;
+	}
+
+	/**
 	 * The function called if we're in index.php (as opposed to one of the
 	 * special pages)
 	 */

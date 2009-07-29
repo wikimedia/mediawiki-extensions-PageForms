@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.8');
+define('SF_VERSION','1.8.1');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -34,6 +34,7 @@ $wgHooks['BrokenLink'][] = 'SFLinkUtils::setBrokenLink_1_13';
 $wgHooks['LinkEnd'][] = 'SFLinkUtils::setBrokenLink';
 $wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
 $wgHooks['SkinTemplateTabs'][] = 'SFFormEditTab::displayTab';
+$wgHooks['SkinTemplateNavigation'][] = 'SFFormEditTab::displayTab2';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 $wgHooks['AdminLinks'][] = 'sffAddToAdminLinks';
 
