@@ -38,8 +38,11 @@
  * The first two arguments are mandatory: form_name is the name of the SF
  * form, and link_text is the text of the link. link_type is the type of
  * the link: if set to 'button', the link will be a button; if set to
- * blank or anything else, it will be a standard hyperlink. query_string
- * is the text to be added to the generated URL's query string.
+ * 'post button', the link will be a button that uses the 'POST' method to
+ * send other values to the form; if set to blank or anything else, it
+ * will be a standard hyperlink. query_string is the text to be added to
+ * the generated URL's query string (or, in the case of 'post button' to
+ * be sent as hidden inputs).
  *
  * Example: to create a link to add data with a form called
  * 'User' within a namespace also called 'User', and to have the form
@@ -120,11 +123,26 @@ class SFParserFunctions {
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
 		$link_url = str_replace(' ', '_', $link_url);
 		if ($inQueryStr != '') {
-			$link_url .= (strstr($link_url, '?')) ? '&' : '?';
-			$link_url .= $inQueryStr;
+			// special handling for 'post button' - query string
+			// has to be turned into hidden inputs
+			if ($inLinkType == 'post button') {
+				$hidden_inputs = "";
+				$query_components = explode('&', $inQueryStr);
+				foreach ($query_components as $query_component) {
+					$var_and_val = explode('=', $query_component);
+					if (count($var_and_val) == 2) {
+						$hidden_inputs .= '<input type="hidden" name="' . $var_and_val[0] . '" value="' . $var_and_val[1] . '" /> ';
+					}
+				}
+			} else {
+				$link_url .= (strstr($link_url, '?')) ? '&' : '?';
+				$link_url .= $inQueryStr;
+			}
 		}
 		if ($inLinkType == 'button') {
 			$str = "<form><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
+		} elseif ($inLinkType == 'post button') {
+			$str = "<form action=\"$link_url\" method=\"post\"><input type=\"submit\" value=\"$inLinkStr\">$hidden_inputs</form>";
 		} else {
 			$str = "<a href=\"$link_url\">$inLinkStr</a>";
 		}
