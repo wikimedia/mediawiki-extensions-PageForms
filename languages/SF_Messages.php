@@ -3057,6 +3057,7 @@ $messages['kw'] = array(
 );
 
 /** Luxembourgish (Lëtzebuergesch)
+ * @author Les Meloures
  * @author Robby
  */
 $messages['lb'] = array(
@@ -3123,7 +3124,7 @@ $messages['lb'] = array(
 Si soll an dësem Format opgeruff ginn:",
 	'sf_template_docufooter' => "Ännert d'Säit fir den Text vun der Schabloun ze gesinn",
 	'sf_form_freetextlabel' => 'Fräien Text',
-	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formulär $1.',
+	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formelär $1.',
 	'sf_category_desc' => "Dëst ass d'$1 Kategorie.",
 	'sf_blank_namespace' => 'Haapt',
 );
