@@ -1460,6 +1460,7 @@ el URL debería lucir como 'Special:RunQuery/&lt;form name&gt;'.",
 
 /** Basque (Euskara)
  * @author An13sa
+ * @author Kobazulo
  */
 $messages['eu'] = array(
 	'createproperty' => 'Propietatea sortu',
@@ -1483,6 +1484,7 @@ $messages['eu'] = array(
 	'sf_editdata_remove' => 'Kendu',
 	'sf_editdata_addanother' => 'Beste bat gehitu',
 	'sf_form_freetextlabel' => 'Testu askea',
+	'sf_blank_namespace' => 'Nagusia',
 );
 
 /** Persian (فارسی)
