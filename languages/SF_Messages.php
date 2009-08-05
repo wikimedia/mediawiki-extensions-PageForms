@@ -772,6 +772,7 @@ $messages['bs'] = array(
 	'sf_createcategory_makesubcategory' => 'Učini ovo subkategorijom neke kategorije (neobavezno):',
 	'createclass' => 'Napravi klasu',
 	'sf_createclass_allowedvalues' => 'Dopuštene vrijednosti',
+	'sf_createclass_listofvalues' => 'Spisak vrijednosti',
 	'addpage' => 'Dodaj stranicu putem obrasca',
 	'sf_addpage_badform' => 'Greška: nije pronađena stranica obrasca na $1',
 	'addoreditdata' => 'Dodaj ili uredi',
@@ -3054,8 +3055,8 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''&lt;Fomullaa_Name &gt;
  * @author Kw-Moon
  */
 $messages['kw'] = array(
-	'createtemplate' => 'Gwruthyl skantlyn',
-	'sf_createform_template' => 'Skantlyn:',
+	'createtemplate' => 'Gwruthyl scantlyn',
+	'sf_createform_template' => 'Scantlyn:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
