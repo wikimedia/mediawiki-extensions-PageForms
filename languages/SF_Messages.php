@@ -1470,6 +1470,7 @@ $messages['eu'] = array(
 	'templates' => 'Txantiloiak',
 	'createtemplate' => 'Txantiloia sortu',
 	'sf_createtemplate_namelabel' => 'Txantiloiaren izena:',
+	'sf_createtemplate_displaylabel' => 'Etiketa erakutsi:',
 	'sf_createtemplate_deletefield' => 'Ezabatu',
 	'sf_createform_template' => 'Txantiloia:',
 	'sf_createform_removetemplate' => 'Txantiloia kendu',
