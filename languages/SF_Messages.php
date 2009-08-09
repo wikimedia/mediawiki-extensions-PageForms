@@ -1669,6 +1669,7 @@ $messages['fi'] = array(
 	'sf_editdata_remove' => 'Poista',
 	'sf_editdata_addanother' => 'Lisää toinen',
 	'sf_editdata_none' => 'ei mikään',
+	'runquery' => 'Suorita kysely',
 	'sf_formerrors_header' => 'Syöttämissäsi tiedoissa on vikaa.',
 	'sf_blank_error' => 'ei voi olla tyhjä',
 	'sf_bad_url_error' => 'pitää olla kelvollinen URL-osoite, jonka protokolla on http',
@@ -2846,12 +2847,13 @@ $messages['jv'] = array(
  * @author Chhorran
  * @author Lovekhmer
  * @author Thearith
+ * @author គីមស៊្រុន
  * @author វ័ណថារិទ្ធ
  */
 $messages['km'] = array(
 	'specialpages-group-sf_group' => 'ទម្រង់​និឃណ្ដសាស្ត្រ',
 	'createproperty' => 'បង្កើត​លក្ខណៈសម្បត្តិ',
-	'sf_createproperty_propname' => 'ឈ្មោះ៖',
+	'sf_createproperty_propname' => 'ឈ្មោះលក្ខណៈសម្បត្តិ៖',
 	'sf_createproperty_proptype' => 'ប្រភេទ៖',
 	'templates' => 'ទំព័រគំរូ',
 	'sf_templates_docu' => 'ខាងក្រោមនេះជាទំព័រគំរូដែលមានក្នុងវិគីនេះ។',
@@ -2883,7 +2885,7 @@ $messages['km'] = array(
 	'sf_createform_add' => 'បន្ថែម',
 	'sf_createform_choosefield' => 'ជ្រើសរើស​វាល​ដើម្បី​បន្ថែម',
 	'createcategory' => 'បង្កើតចំណាត់ថ្នាក់ក្រុម',
-	'sf_createcategory_name' => 'ឈ្មោះ៖',
+	'sf_createcategory_name' => 'ឈ្មោះចំណាត់ថ្នាក់ក្រុម៖',
 	'sf_createcategory_defaultform' => 'បែបបទលំនាំដើម៖',
 	'sf_createcategory_makesubcategory' => 'ដាក់​ចំណាត់ថ្នាក់ក្រុមរង​នេះ ទៅនឹង​ចំណាត់ថ្នាក់ក្រុម​ដទៃ (តាមបំណង):',
 	'addpage' => 'បន្ថែមទំព័រ​ជាមួយ​ទម្រង់',
@@ -3954,7 +3956,15 @@ $messages['os'] = array(
  */
 $messages['pdc'] = array(
 	'sf_createtemplate_deletefield' => 'Lösche',
+	'sf_createform_add' => 'Dezu duh',
+	'addoreditdata' => 'Dezu duh odder Ennere',
+	'adddata' => 'Daade dezu duh',
+	'sf_adddata_title' => 'Duh $1: $2 dezu',
+	'editdata' => 'Daade ennere',
+	'sf_editdata_title' => '$1: $2 ennere',
+	'sf_editdata_addanother' => 'Weidere dezu duh',
 	'sf_editdata_none' => 'Ken',
+	'sf_blank_namespace' => 'Blatt',
 );
 
 /** Polish (Polski)
