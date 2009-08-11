@@ -1254,6 +1254,7 @@ $messages['el'] = array(
 	'sf_createform_nameinput' => 'Όνομα φόρμας',
 	'sf_createform_template' => 'Πρότυπο:',
 	'sf_createform_field' => 'Πεδίο:',
+	'sf_createform_inputtype' => 'Τύπος εισόδου:',
 	'sf_createform_inputtypedefault' => '(Προεπιλογή)',
 	'sf_createform_formlabel' => 'Ετικέτα φόρμας:',
 	'sf_createform_hidden' => 'Κρυμμένος',
@@ -1266,6 +1267,8 @@ $messages['el'] = array(
 	'createcategory' => 'Δημιουργήστε μια κατηγορία',
 	'sf_createcategory_name' => 'Όνομα κατηγορίας:',
 	'sf_createcategory_defaultform' => 'Προεπιλεγμένη φόρμα:',
+	'createclass' => 'Δημιουργία μίας κλάσης',
+	'sf_createclass_listofvalues' => 'Κατάλογος τιμών',
 	'addpage' => 'Προσθέστε σελίδα με μορφή',
 	'addoreditdata' => 'Προσθέστε ή επεξεργαστείτε',
 	'adddata' => 'Προσθήκη δεδομένων',
@@ -1625,6 +1628,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Cimon Avaro
  * @author Crt
  * @author Mobe
  * @author Nike
@@ -1688,7 +1692,9 @@ $messages['fi'] = array(
 	'sf_createcategory_makesubcategory' => 'Tee tästä toisen luokan alaluokka (ei-pakollinen):',
 	'createclass' => 'Luo luokka',
 	'sf_createclass_allowedvalues' => 'Sallitut arvot',
+	'sf_createclass_listofvalues' => 'Arvojen luettelo',
 	'sf_createclass_leavefieldblank' => 'Jos kentän nimi on sama kuin ominaisuuden nimi, voit jättää sen tyhjäksi.',
+	'sf_createclass_missingvalues' => 'Kaikkia pakollisia kenttiä ei ole täytetty.',
 	'addpage' => 'Lisää sivu lomakkeella',
 	'sf_addpage_badform' => 'Virhe: lomakesivua ei löytynyt kohteesta $1',
 	'sf_addpage_docu' => 'Anna sivun nimi, jota muokataan lomakkeella $1. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
@@ -1711,6 +1717,7 @@ $messages['fi'] = array(
 	'sf_editdata_none' => 'ei mikään',
 	'runquery' => 'Suorita kysely',
 	'sf_runquery_title' => 'Suorita kysely: $1',
+	'sf_runquery_additionalquery' => 'Lisähakukysely',
 	'sf_formerrors_header' => 'Syöttämissäsi tiedoissa on vikaa.',
 	'sf_blank_error' => 'ei voi olla tyhjä',
 	'sf_bad_url_error' => 'pitää olla kelvollinen URL-osoite, jonka protokolla on http',
@@ -2000,20 +2007,38 @@ $messages['got'] = array(
  * @author Omnipaedista
  */
 $messages['grc'] = array(
+	'specialpages-group-sf_group' => 'Σημασιολογικοὶ Τύποι',
+	'createproperty' => 'Ποιεῖν ἰδιότητα τινά',
 	'sf_createproperty_propname' => 'Ὄνομα ἰδιότητος:',
 	'sf_createproperty_proptype' => 'Τύπος:',
 	'templates' => 'Πρότυπα',
+	'sf_templates_definescat' => 'ὁρίζει κατηγορίαν:',
+	'createtemplate' => 'Ποιεῖν πρότυπόν τι',
+	'sf_createtemplate_namelabel' => 'Ὄνομα προτύπου:',
+	'sf_createtemplate_fieldname' => 'Ὄνομα πεδίου:',
+	'sf_createtemplate_addfield' => 'Προστιθέναι πεδίον',
 	'sf_createtemplate_deletefield' => 'Σβεννύναι',
-	'forms' => 'Μορφαί',
+	'forms' => 'Τύποι',
+	'createform' => 'Ποιεῖν τύπον τινά',
 	'sf_createform_template' => 'Πρότυπον:',
 	'sf_createform_field' => 'Πεδίον:',
 	'sf_createform_inputtypedefault' => '(προκαθωρισμένη)',
 	'sf_createform_hidden' => 'Κεκρυμμένη',
+	'sf_createform_mandatory' => 'Ὑποχρεωτικόν',
 	'sf_createform_add' => 'Προστιθέναι',
 	'sf_createcategory_name' => 'Ὄνομα κατηγορίας:',
+	'addoreditdata' => 'Προστιθέναι ἢ μεταγράφειν',
+	'adddata' => 'Προστιθέναι δεδομένα',
+	'sf_adddata_title' => 'Προστιθέναι $1: $2',
+	'editdata' => 'Μεταγράφειν δεδομένα',
+	'sf_viewform' => 'Ὁρᾶν τύπον',
+	'sf_editsource' => 'Μεταγράφειν πηγήν',
 	'sf_editdata_title' => 'Μεταγράφειν $1: $2',
 	'sf_editdata_remove' => 'Άφαιρεῖν',
 	'sf_editdata_none' => 'Οὐδέν',
+	'runquery' => 'Ἐκτελεῖν πεῦσιν',
+	'sf_runquery_title' => 'Ἐκτελεῖν πεῦσιν: $1',
+	'uploadwindow' => 'Ἐπιφορτίζειν θυρίδα',
 	'sf_form_freetextlabel' => 'Ἐλεύθερον κείμενον',
 	'sf_blank_namespace' => 'Κύριον',
 );
@@ -5527,6 +5552,10 @@ $messages['zh-hant'] = array(
 	'sf_createtemplate_namelabel' => '模板名稱：',
 	'sf_createtemplate_standardformat' => '標準',
 	'sf_createform_hidden' => '隱藏',
+	'sf_blank_error' => '不可留空',
+	'sf_bad_number_error' => '必須為有效數字',
+	'sf_bad_integer_error' => '必須為有效整數',
+	'sf_bad_date_error' => '必須為有效日期',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)
