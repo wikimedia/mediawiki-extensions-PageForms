@@ -796,7 +796,7 @@ END;
                 // to the default value
                 ($cur_value == '' || $cur_value == 'now')) {
               if ($input_type == 'date' || $input_type == 'datetime' ||
-                  $input_type == 'datetime with timezone' ||
+                  $input_type == 'datetime with timezone' || $input_type == 'year' ||
                   ($input_type == '' && $form_field->template_field->propertyIsOfType('_dat'))) {
                 // get current time, for the time zone specified in the wiki
                 global $wgLocaltimezone;
@@ -895,9 +895,9 @@ END;
                     }
                   } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
                     $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
-                  } elseif ($input_type == 'radiobutton') {
+                  } elseif ($input_type == 'radiobutton' || $input_type == 'category') {
                     // only add this if there's a "None" option
-                    if (is_null($default_value)) {
+                    if (empty($default_value)) {
                       $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
                     }
                   } else {
