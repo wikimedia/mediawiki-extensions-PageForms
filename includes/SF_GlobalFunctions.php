@@ -27,6 +27,7 @@ define('SF_SP_CREATES_PAGES_WITH_FORM', 3);
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';
 
+// FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
 // the 'BrokenLink' hook exists only in MediaWiki v1.13 - it was replaced
 // by 'LinkBegin' and 'LinkEnd'
