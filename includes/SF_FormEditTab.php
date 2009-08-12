@@ -11,7 +11,7 @@ class SFFormEditTab {
 	 * Adds an "action" (i.e., a tab) to edit the current article with
 	 * a form
 	 */
-	static function displayTab($obj, $content_actions) {
+	static function displayTab($obj, &$content_actions) {
 		$fname = 'SFFormEditTab::displayTab';
 		// make sure that this is not a special page, and
 		// that the user is allowed to edit it
@@ -102,11 +102,11 @@ class SFFormEditTab {
 	 * Function currently called only for the 'Vector' skin, added in
 	 * MW 1.16 - will possibly be called for additional skins later
 	 */
-	static function displayTab2($obj, $links) {
+	static function displayTab2($obj, &$links) {
 		// the old '$content_actions' array is thankfully just a
 		// sub-array of this one
 		$views_links = $links['views'];
-		self::displayTab($obj, &$views_links);
+		self::displayTab($obj, $views_links);
 		$links['views'] = $views_links;
 		return true;
 	}
