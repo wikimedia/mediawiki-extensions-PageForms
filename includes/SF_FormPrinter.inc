@@ -572,6 +572,7 @@ class SFFormPrinter {
           $escaped_field_name = str_replace("'", "\'", $field_name);
           if (isset($template_instance_query_values) &&
               $template_instance_query_values != null &&
+              is_array($template_instance_query_values) &&
               array_key_exists($escaped_field_name, $template_instance_query_values)) {
             $field_query_val = $template_instance_query_values[$escaped_field_name];
             if ($form_submitted || ($field_query_val && ! is_array($field_query_val))) {
