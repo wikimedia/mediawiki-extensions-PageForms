@@ -57,8 +57,8 @@ class SFLinkUtils {
 	 * Gets the default form specified, if any, for a specific page
 	 * (which should be a category, property, or namespace page)
 	 */
-	static function getDefaultForms($page_title, $page_namespace) {
-		if ($page_title == NULL)
+	static function getDefaultForms($page_name, $page_namespace) {
+		if ($page_name == NULL)
 			return array();
 
 		global $sfgContLang;
@@ -66,7 +66,7 @@ class SFLinkUtils {
 		if (! function_exists('smwfGetStore'))
 			die("ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!");
 		$store = smwfGetStore();
-		$title = Title::makeTitleSafe($page_namespace, $page_title);
+		$title = Title::makeTitleSafe($page_namespace, $page_name);
 		// we can do this easily if we're using SMW 1.4 or higher
 		if (class_exists('SMWPropertyValue')) {
 			$default_form_property = SMWPropertyValue::makeProperty('_SF_DF');
@@ -119,13 +119,13 @@ class SFLinkUtils {
 	 * Gets the alternate forms specified, if any, for a specific page
 	 * (which should always be a property page)
 	 */
-	static function getAlternateForms($page_title, $page_namespace) {
-		if ($page_title == NULL)
+	static function getAlternateForms($page_name, $page_namespace) {
+		if ($page_name == NULL)
 			return array();
 
 		global $sfgContLang;
 		$store = smwfGetStore();
-		$title = Title::makeTitleSafe($page_namespace, $page_title);
+		$title = Title::makeTitleSafe($page_namespace, $page_name);
 		// we can do this easily if we're using SMW 1.4 or higher
 		if (class_exists('SMWPropertyValue')) {
 			$alternate_form_property = SMWPropertyValue::makeProperty('_SF_AF');
@@ -176,9 +176,9 @@ class SFLinkUtils {
 	 * 'alternate form' properties for a page, and creates the
 	 * corresponding 'add data' link, if any such properties are defined
 	 */
-	static function getAddDataLinkForPage($target_page_title, $page_title, $page_namespace) {
-		$default_forms = self::getDefaultForms($page_title, $page_namespace);
-		$alt_forms = self::getAlternateForms($page_title, $page_namespace);
+	static function getAddDataLinkForPage($target_page_title, $page_name, $page_namespace) {
+		$default_forms = self::getDefaultForms($page_name, $page_namespace);
+		$alt_forms = self::getAlternateForms($page_name, $page_namespace);
 		if ((count($default_forms) == 0) && (count($alt_forms) == 0))
 			return null;
 		$ad = SpecialPage::getPage('AddData');
@@ -323,11 +323,18 @@ class SFLinkUtils {
 	}
 
 	/**
-	 * Get the form used to edit this article: either the default form for
-	 * a category that this article belongs to, if there is one, or the
-	 * default form for the article's namespace, if there is one
+	 * Get the form used to edit this article - either:
+	 * - the default form the page itself, if there is one; or
+	 * - the default form for a category that this article belongs to,
+	 * if there is one; or
+	 * - the default form for the article's namespace, if there is one
 	 */
 	static function getFormsForArticle($obj) {
+		// see if the page itself has a default form (or forms), and
+		// return it/them if so
+		$default_forms = self::getDefaultForms($obj->mTitle->getText(), $obj->mTitle->getNamespace());
+		if (count($default_forms) > 0)
+			return $default_forms;
 		// if this is not a category page, look for a default form
 		// for its parent categories
 		$namespace = $obj->mTitle->getNamespace();
