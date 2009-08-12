@@ -734,6 +734,23 @@ $messages['bn'] = array(
 	'sf_createtemplate_deletefield' => 'মুছে ফেলা হোক',
 );
 
+/** Breton (Brezhoneg)
+ * @author Fulup
+ */
+$messages['br'] = array(
+	'templates' => 'Patromoù',
+	'createtemplate' => 'Sevel ur patrom',
+	'sf_createtemplate_fieldname' => 'Anv ar vaezienn :',
+	'sf_createtemplate_deletefield' => 'Diverkañ',
+	'sf_createform_add' => 'Ouzhpennañ',
+	'createcategory' => 'Sevel ur rummad',
+	'sf_createclass_allowedvalues' => 'Talvoudennoù aotreet',
+	'sf_createclass_listofvalues' => 'Roll talvoudennoù',
+	'sf_adddata_title' => 'Ouzhpennañ $1 : $2',
+	'sf_editdata_remove' => 'Tennañ',
+	'sf_editdata_addanother' => 'Ouzhpennañ unan all',
+);
+
 /** Bosnian (Bosanski)
  * @author CERminator
  */
@@ -1883,6 +1900,10 @@ si elle existe déjà, vous serez dirigé vers un formulaire destiné à l’éd
  * @author Cedric31
  */
 $messages['frp'] = array(
+	'sf_createtemplate_deletefield' => 'Suprimar',
+	'sf_createform_add' => 'Apondre',
+	'createcategory' => 'Crèar una catègorie',
+	'sf_createcategory_name' => 'Nom de la catègorie :',
 	'sf_editdata_title' => 'Changiér $1: $2',
 );
 
