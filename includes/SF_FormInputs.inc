@@ -659,6 +659,22 @@ END;
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
 
+    $text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">';
+
+    // start with an initial "None" value, unless this is a mandatory field
+    // and there's a current value in place (either through a default value
+    // or because we're editing an existing page)
+    if (! $is_mandatory || $cur_value == '') {
+      $input_id = "input_$sfgFieldNum";
+      $info_id = "info_$sfgFieldNum";
+      $text .= '	<input type="radio" id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
+      if (! $cur_value) {
+        $text .= ' checked="checked"';
+        $check_set = true;
+      }
+      $text .= " $disabled_text/> <em>" . wfMsg('sf_editdata_none') . "</em>\n";
+    }
+
     global $wgCategoryTreeMaxDepth;
     $wgCategoryTreeMaxDepth = 10;
     $tree = efCategoryTreeParserHook($top_category, array('mode' => 'categories', 'depth' => 10));
@@ -668,9 +684,10 @@ END;
     if ($is_disabled) {
       $tree = str_replace('type="radio"', 'type="radio" disabled', $tree);
     }
-    $text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
+    $text .= $tree . '</div>';
 
     $text .=<<<END
+	<span id="$info_id" class="errorMessage"></span>
 
 END;
 
