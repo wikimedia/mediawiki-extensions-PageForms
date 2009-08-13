@@ -4374,6 +4374,7 @@ Ela deverá ser chamada no seguinte formato:",
  * @author Eduardo.mps
  * @author Enqd
  * @author Leonardo Costa
+ * @author Rafael Vargas
  */
 $messages['pt-br'] = array(
 	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
@@ -4460,6 +4461,7 @@ $messages['pt-br'] = array(
 	'sf_editdata_remove' => 'Remover',
 	'sf_editdata_addanother' => 'Adicionar outro',
 	'sf_editdata_none' => 'Nenhum',
+	'runquery' => 'Executar consulta',
 	'sf_formerrors_header' => 'Houve erros nas entradas do seu formulário; veja abaixo',
 	'sf_blank_error' => 'Não pode ficar em branco',
 	'sf_bad_url_error' => "deve ter o formato correto da URL, começando com 'http'",
