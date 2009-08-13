@@ -829,6 +829,7 @@ Trebao bi se nazvati u slijedećem formatu:",
 
 /** Catalan (Català)
  * @author Dvdgmz
+ * @author Paucabot
  * @author SMP
  * @author Solde
  */
@@ -915,6 +916,8 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 	'sf_editdata_remove' => 'Elimina',
 	'sf_editdata_addanother' => 'Afegir-ne un altre',
 	'sf_editdata_none' => 'Cap',
+	'sf_runquery_title' => 'Executa consulta: $1',
+	'sf_runquery_additionalquery' => 'Consulta addicional',
 	'sf_formerrors_header' => 'Hi ha hagut errors en les teves entrades al formulari; veure a continuació',
 	'sf_blank_error' => 'no es pot deixar en blanc',
 	'sf_bad_url_error' => "ha de tenir un format de URL correcte, començant per 'http'",
@@ -1319,6 +1322,7 @@ $messages['el'] = array(
 	'uploadwindow' => 'Φόρτωση παραθύρου',
 	'sf_property_isproperty' => 'Αυτή είναι μια ιδιότητα του τύπου $1.',
 	'sf_property_linkstoform' => 'Συνδέει σε σελίδες για χρήση μιας φόρμας $1.',
+	'sf_template_docufooter' => 'Επεξεργαστείτε τη σελίδα για να δείτε το κείμενο του προτύπου',
 	'sf_form_freetextlabel' => 'Ελεύθερο κείμενο',
 	'sf_blank_namespace' => 'Κύριος',
 );
@@ -1724,7 +1728,7 @@ $messages['fi'] = array(
 	'sf_createcategory_makesubcategory' => 'Tee tästä toisen luokan alaluokka (ei-pakollinen):',
 	'createclass' => 'Luo luokka',
 	'sf_createclass_allowedvalues' => 'Sallitut arvot',
-	'sf_createclass_listofvalues' => 'Arvojen luettelo',
+	'sf_createclass_listofvalues' => 'Lista arvoista',
 	'sf_createclass_leavefieldblank' => 'Jos kentän nimi on sama kuin ominaisuuden nimi, voit jättää sen tyhjäksi.',
 	'sf_createclass_missingvalues' => 'Kaikkia pakollisia kenttiä ei ole täytetty.',
 	'addpage' => 'Lisää sivu lomakkeella',
@@ -1898,13 +1902,14 @@ si elle existe déjà, vous serez dirigé vers un formulaire destiné à l’éd
 
 /** Franco-Provençal (Arpetan)
  * @author Cedric31
+ * @author ChrisPtDe
  */
 $messages['frp'] = array(
 	'sf_createtemplate_deletefield' => 'Suprimar',
 	'sf_createform_add' => 'Apondre',
 	'createcategory' => 'Crèar una catègorie',
 	'sf_createcategory_name' => 'Nom de la catègorie :',
-	'sf_editdata_title' => 'Changiér $1: $2',
+	'sf_editdata_title' => 'Changiér $1 : $2',
 );
 
 /** Western Frisian (Frysk)
