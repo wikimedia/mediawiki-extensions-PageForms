@@ -1907,7 +1907,7 @@ si elle existe déjà, vous serez dirigé vers un formulaire destiné à l’éd
 $messages['frp'] = array(
 	'sf_createtemplate_deletefield' => 'Suprimar',
 	'sf_createform_add' => 'Apondre',
-	'createcategory' => 'Crèar una catègorie',
+	'createcategory' => 'Fâre una catègorie',
 	'sf_createcategory_name' => 'Nom de la catègorie :',
 	'sf_editdata_title' => 'Changiér $1 : $2',
 );
@@ -2900,6 +2900,8 @@ se la pagina con il nome indicato è già esistente, verrai inviato al form di m
 	'sf_category_hasdefaultform' => 'Questa categoria usa il form $1.',
 	'sf_category_desc' => 'Questa è la categoria $1.',
 	'sf_blank_namespace' => 'Principale',
+	'right-viewedittab' => 'Visualizza la scheda "Modifica" per le pagine modificabili da form',
+	'right-editrestrictedfields' => 'Modifica campi di form riservati',
 );
 
 /** Japanese (日本語)
