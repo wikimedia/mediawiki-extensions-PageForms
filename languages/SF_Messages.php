@@ -1324,6 +1324,8 @@ $messages['el'] = array(
 	'sf_property_linkstoform' => 'Συνδέει σε σελίδες για χρήση μιας φόρμας $1.',
 	'sf_template_docufooter' => 'Επεξεργαστείτε τη σελίδα για να δείτε το κείμενο του προτύπου',
 	'sf_form_freetextlabel' => 'Ελεύθερο κείμενο',
+	'sf_category_hasdefaultform' => 'Αυτή η κατηγορία χρησιμοποιεί την φόρμα $1.',
+	'sf_category_desc' => 'Αυτή είναι η κατηγορία $1.',
 	'sf_blank_namespace' => 'Κύριος',
 );
 
