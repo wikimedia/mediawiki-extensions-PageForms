@@ -103,31 +103,31 @@ END;
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, projection",
+			'media' => "screen",
 			'href' => $mainCssUrl
 		));
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, projection",
+			'media' => "screen",
 			'href' => $sfgYUIBase . "autocomplete/assets/skins/sam/autocomplete.css"
 		));
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, projection",
+			'media' => "screen",
 			'href' => $sfgScriptPath . '/skins/SF_yui_autocompletion.css'
 		));
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, projection",
+			'media' => "screen",
 			'href' => $sfgScriptPath . '/skins/floatbox.css'
 		));
 		$wgOut->addLink( array(
 			'rel' => 'stylesheet',
 			'type' => 'text/css',
-			'media' => "screen, projection",
+			'media' => "screen",
 			'href' => $smwgScriptPath . '/skins/SMW_custom.css'
 		));
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'yahoo/yahoo-min.js"></script>' . "\n");

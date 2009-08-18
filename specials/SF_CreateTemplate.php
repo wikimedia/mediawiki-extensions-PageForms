@@ -184,7 +184,7 @@ END;
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
 		'type' => 'text/css',
-		'media' => "screen, projection",
+		'media' => "screen",
 		'href' => $sfgScriptPath . "/skins/SF_main.css"
 		));
 	$wgOut->addHTML($text);
