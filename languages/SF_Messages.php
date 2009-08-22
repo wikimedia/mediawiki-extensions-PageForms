@@ -189,6 +189,7 @@ $messages['af'] = array(
 	'sf_createtemplate_standardformat' => 'Standaard',
 	'sf_createtemplate_deletefield' => 'Skrap',
 	'sf_createform_template' => 'Sjabloon:',
+	'sf_createform_inputtypedefault' => '(standaard)',
 	'sf_createform_add' => 'Voeg by',
 	'sf_createcategory_name' => 'Naam:',
 	'sf_editdata_remove' => 'Skrap',
