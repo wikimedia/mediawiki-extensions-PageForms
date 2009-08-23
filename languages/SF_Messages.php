@@ -189,11 +189,16 @@ $messages['af'] = array(
 	'sf_createtemplate_standardformat' => 'Standaard',
 	'sf_createtemplate_deletefield' => 'Skrap',
 	'sf_createform_template' => 'Sjabloon:',
+	'sf_createform_field' => 'Veld:',
 	'sf_createform_inputtypedefault' => '(standaard)',
+	'sf_createform_hidden' => 'Verborge',
 	'sf_createform_add' => 'Voeg by',
 	'sf_createcategory_name' => 'Naam:',
 	'sf_editdata_remove' => 'Skrap',
 	'sf_editdata_none' => 'Geen',
+	'sf_blank_error' => 'mag nie leeg wees nie',
+	'sf_bad_date_error' => "moet 'n geldige datum wees",
+	'sf_form_freetextlabel' => 'Vrye teks',
 );
 
 /** Amharic (አማርኛ)
@@ -2054,7 +2059,7 @@ o URL debe ser do tipo "Special:RunQuery/&lt;nome do formulario&gt;".',
 	'right-editrestrictedfields' => 'Editar os campos restrinxidos dos formularios',
 );
 
-/** Gothic
+/** Gothic (Gothic)
  * @author Crazymadlover
  * @author Jocke Pirat
  * @author Omnipaedista
@@ -4916,7 +4921,7 @@ URL by malo byť v tvare „Special:RunQuery/&lt;názov formulára&gt;“',
 	'right-editrestrictedfields' => 'Upraviť polia formulára s obmedzeným prístupom',
 );
 
-/** Serbian Cyrillic ekavian (ћирилица)
+/** Serbian Cyrillic ekavian (Српски (ћирилица))
  * @author Sasa Stefanovic
  * @author Михајло Анђелковић
  */
@@ -4975,7 +4980,7 @@ $messages['sr-ec'] = array(
 	'sf_bad_date_error' => 'мора бити исправан датум',
 );
 
-/** latinica (latinica)
+/** Serbian Latin ekavian (Srpski (latinica))
  * @author Michaello
  */
 $messages['sr-el'] = array(
@@ -5489,7 +5494,7 @@ $messages['tr'] = array(
 	'sf_blank_namespace' => 'Ana',
 );
 
-/** Tatar (Cyrillic) (Tatarça/Татарча (Cyrillic))
+/** Tatar (Cyrillic) (Татарча/Tatarça (Cyrillic))
  * @author Ерней
  */
 $messages['tt-cyrl'] = array(
@@ -5714,11 +5719,14 @@ Ad läükön padi me fomet at, penolös padanemi dono; if pad labü nem at ya da
  * @author פוילישער
  */
 $messages['yi'] = array(
-	'sf_createproperty_propname' => 'נאמען:',
+	'sf_createproperty_propname' => 'אטריבוט נאמען:',
+	'sf_createproperty_proptype' => 'טיפ:',
 	'templates' => 'מוסטערן',
 	'sf_templates_docu' => 'די פאלגנדע מוסטערן עקזיסטירן אין דער וויקי.',
 	'sf_templates_definescat' => 'דעפינירט קאטעגאריע:',
+	'createtemplate' => 'באשאפן א מוסטער',
 	'sf_createtemplate_namelabel' => 'מוסטער נאמען:',
+	'sf_createtemplate_templatefields' => 'מוסטער פֿעלדער',
 );
 
 /** Chinese (China) (‪中文(中国大陆)‬)
