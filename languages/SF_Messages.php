@@ -4226,22 +4226,22 @@ $messages['pdc'] = array(
  * @author ToSter
  */
 $messages['pl'] = array(
-	'semanticforms-desc' => 'Formularze do dodawania i edycji semantycznych danych',
+	'semanticforms-desc' => 'Formularze do dodawania i edycji danych semantycznych',
 	'specialpages-group-sf_group' => 'Semantyczne formularze',
 	'createproperty' => 'Utwórz własność',
-	'sf_createproperty_linktoform' => 'Ta własność linkuje do stron, które używają formularza:',
-	'sf_createproperty_allowedvalsinput' => 'Jeśli chcesz, aby ta własność mogła zawierać tylko określone wartości, podaj listę dozwolonych wartości oddzielonych przecinkami (jeśli wartość zawiera przecinek, zamień go na "\\,"):',
-	'sf_createproperty_propname' => 'Nazwa własności:',
-	'sf_createproperty_proptype' => 'Typ:',
+	'sf_createproperty_linktoform' => 'Ta własność linkuje do stron, które korzystają z formularza',
+	'sf_createproperty_allowedvalsinput' => 'Jeśli chcesz, aby ta własność mogła zawierać tylko określone wartości, podaj listę dozwolonych wartości oddzielonych przecinkami (jeśli wartość zawiera przecinek, zastąp go „\\,”):',
+	'sf_createproperty_propname' => 'Nazwa własności',
+	'sf_createproperty_proptype' => 'Typ',
 	'templates' => 'Szablony',
 	'sf_templates_docu' => 'Następujące szablony istnieją w przestrzeni wiki.',
-	'sf_templates_definescat' => 'definiuje kategorię:',
+	'sf_templates_definescat' => 'definiuje kategorię',
 	'createtemplate' => 'Utwórz szablon',
-	'sf_createtemplate_namelabel' => 'Nazwa szablonu:',
-	'sf_createtemplate_categorylabel' => 'Kategoria zdefiniowana przez szablon (nieobowiązkowe):',
+	'sf_createtemplate_namelabel' => 'Nazwa szablonu',
+	'sf_createtemplate_categorylabel' => 'Kategoria zdefiniowana przez szablon (nieobowiązkowe)',
 	'sf_createtemplate_templatefields' => 'Pola szablonu',
-	'sf_createtemplate_fieldsdesc' => 'Aby pola szablonu nie wymagały już nazw pól, wprowadź po prostu indeks każdego pola (np. 1, 2, 3 itd.) jako nazwę.',
-	'sf_createtemplate_fieldname' => 'Nazwa pola:',
+	'sf_createtemplate_fieldsdesc' => 'Aby pola szablonu nie wymagały nazw pól, wprowadź indeks dla każdego pola (np. 1, 2, 3 itd.) jako nazwę.',
+	'sf_createtemplate_fieldname' => 'Nazwa pola',
 	'sf_createtemplate_displaylabel' => 'Wyświetlana etykieta:',
 	'sf_createtemplate_semanticproperty' => 'Własność semantyczna:',
 	'sf_createtemplate_fieldislist' => 'To pole może zawierać listę wartości oddzielonych przecinkami',
@@ -5822,6 +5822,7 @@ $messages['zh-cn'] = array(
 
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Gzdavidwong
+ * @author PhiLiP
  */
 $messages['zh-hans'] = array(
 	'sf_createproperty_propname' => '名称：',
@@ -5830,6 +5831,7 @@ $messages['zh-hans'] = array(
 	'sf_createtemplate_namelabel' => '模板名称：',
 	'sf_createtemplate_standardformat' => '标准',
 	'sf_createform_hidden' => '隐藏',
+	'sf_editdata_remove' => '移除',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
