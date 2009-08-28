@@ -5727,6 +5727,7 @@ $messages['yi'] = array(
 	'createtemplate' => 'באשאפן א מוסטער',
 	'sf_createtemplate_namelabel' => 'מוסטער נאמען:',
 	'sf_createtemplate_templatefields' => 'מוסטער פֿעלדער',
+	'sf_createtemplate_deletefield' => 'אויסמעקן',
 );
 
 /** Chinese (China) (‪中文(中国大陆)‬)
