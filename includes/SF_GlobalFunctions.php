@@ -24,8 +24,14 @@ define('SF_SP_HAS_DEFAULT_FORM', 1);
 define('SF_SP_HAS_ALTERNATE_FORM', 2);
 define('SF_SP_CREATES_PAGES_WITH_FORM', 3);
 
-$wgExtensionFunctions[] = 'sfgSetupExtension';
-$wgExtensionFunctions[] = 'sfgParserFunctions';
+if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
+	$wgHooks['ParserFirstCallInit'][] = 'sfgSetupExtension';
+	$wgHooks['ParserFirstCallInit'][] = 'sfgParserFunctions';
+} else {
+	// Legacy support
+	$wgExtensionFunctions[] = 'sfgSetupExtension';
+	$wgExtensionFunctions[] = 'sfgParserFunctions';
+}
 
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
@@ -108,6 +114,7 @@ function sfgSetupExtension() {
 	// types
 	global $sfgFormPrinter;
 	$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+	return true;
 }
 
 function sfgParserFunctions() {
@@ -120,6 +127,7 @@ function sfgParserFunctions() {
 		}
 		SFParserFunctions::registerFunctions( $wgParser );
 	}
+	return true;
 }
 
 /**********************************************/
