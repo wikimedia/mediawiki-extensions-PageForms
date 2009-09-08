@@ -395,6 +395,7 @@ END;
 	}
 
 	static function hiddenFieldHTML($input_name, $cur_value) {
+		$cur_value = str_replace('"', '&quot;', $cur_value);
 		$text =<<<END
 	<input type="hidden" name="$input_name" value="$cur_value" />
 
@@ -497,6 +498,15 @@ END;
 		return $text;
 	}
 
+	/**
+	 * Helper function to display a simple button
+	 */
+	static function buttonHTML($values) {
+		// for backwards-compatibility with pre-1.13 MW
+		$button_html = function_exists("Xml::element") ? Xml::element('input', $values, '') : wfElement('input', $values, '');
+		return "		$button_html\n";
+	}
+
 	static function saveButtonHTML($is_disabled, $label = null) {
 		global $sfgTabIndex;
 
@@ -514,8 +524,7 @@ END;
 			'title'     => wfMsg('tooltip-save'),
 			$disabled_text => '',
 		);
-		$text = "		" . wfElement('input', $temp, '') . "\n";
-		return $text;
+		return self::buttonHTML($temp);
 	}
 
 	static function showPreviewButtonHTML($is_disabled, $label = null) {
@@ -535,8 +544,7 @@ END;
 			'title'     => wfMsg('tooltip-preview'),
 			$disabled_text => '',
 		);
-		$text = "		" . wfElement('input', $temp, '') . "\n";
-		return $text;
+		return self::buttonHTML($temp);
 	}
 
 	static function showChangesButtonHTML($is_disabled, $label = null) {
@@ -556,8 +564,7 @@ END;
 			'title'     => wfMsg('tooltip-diff'),
 			$disabled_text => '',
 		);
-		$text = "		" . wfElement('input', $temp, '') . "\n";
-		return $text;
+		return self::buttonHTML($temp);
 	}
 
 	static function cancelLinkHTML($is_disabled, $label = null) {
@@ -658,8 +665,7 @@ END;
 			'value'     => $label,
 			'title'     => $label,
 		);
-		$text = "		" . wfElement('input', $temp, '') . "\n";
-		return $text;
+		return self::buttonHTML($temp);
 	}
 
 	static function getMonthNames() {
