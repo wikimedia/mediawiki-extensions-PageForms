@@ -555,6 +555,8 @@ END;
   static function radioButtonHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     global $sfgTabIndex, $sfgFieldNum;
 
+    $input_id = "input_$sfgFieldNum";
+    $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $check_set = false;
     $text = "";
@@ -567,8 +569,6 @@ END;
     // and there's a current value in place (either through a default value
     // or because we're editing an existing page)
     if (! $is_mandatory || $cur_value == '') {
-      $input_id = "input_$sfgFieldNum";
-      $info_id = "info_$sfgFieldNum";
       $text .= '	<input type="radio" id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
       if (! $cur_value) {
         $text .= ' checked="checked"';
