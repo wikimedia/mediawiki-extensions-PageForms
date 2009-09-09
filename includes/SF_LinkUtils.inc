@@ -54,10 +54,11 @@ class SFLinkUtils {
 	}
 
 	/**
-	 * Gets the default form specified, if any, for a specific page
+	 * Gets the forms specified, if any, of either type "default form",
+	 * "alternate form", or "default form for page", for a specific page
 	 * (which should be a category, property, or namespace page)
 	 */
-	static function getDefaultForms($page_name, $page_namespace) {
+	static function getFormsThatPagePointsTo($page_name, $page_namespace, $prop_smw_id, $backup_prop_smw_id, $prop_id) {
 		if ($page_name == NULL)
 			return array();
 
@@ -69,14 +70,14 @@ class SFLinkUtils {
 		$title = Title::makeTitleSafe($page_namespace, $page_name);
 		// we can do this easily if we're using SMW 1.4 or higher
 		if (class_exists('SMWPropertyValue')) {
-			$default_form_property = SMWPropertyValue::makeProperty('_SF_DF');
-			$res = $store->getPropertyValues($title, $default_form_property);
+			$property = SMWPropertyValue::makeProperty($prop_smw_id);
+			$res = $store->getPropertyValues($title, $property);
 			$form_names = array();
 			foreach ($res as $wiki_page_value)
 				$form_names[] = $wiki_page_value->getTitle()->getText();
 			// if we're using a non-English language, check for the English string as well
 			if (! $sfgContLang instanceof SF_LanguageEn) {
-				$backup_default_form_property = SMWPropertyValue::makeProperty('_SF_DF_BACKUP');
+				$backup_property = SMWPropertyValue::makeProperty($backup_prop_smw_id);
 				$res = $store->getPropertyValues($title, $backup_default_form_property);
 				foreach ($res as $wiki_page_value)
 					$form_names[] = $wiki_page_value->getTitle()->getText();
@@ -86,21 +87,22 @@ class SFLinkUtils {
 
 		// otherwise, it's a bit more complex
 		$sf_props = $sfgContLang->getPropertyLabels();
-		$default_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_DEFAULT_FORM]);
+		$default_form_property = str_replace(' ', '_', $sf_props[$prop_id]);
 		$property = SFUtils::createProperty($default_form_property);
-		$res = $store->getPropertyValues($title, $property);
-		if (isset($res[0]) && ($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title)) {
+		$prop_vals = $store->getPropertyValues($title, $property);
+		$form_names = array();
+		foreach ($prop_vals as $prop_val) {
 			// make sure it's in the form namespace
-			if ($res[0]->getNamespace() == SF_NS_FORM) {
-				$form_name = $res[0]->getTitle()->getText();
-				return array($form_name);
+			if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title) &&
+				($prop_val->getNamespace() == SF_NS_FORM)) {
+				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
 			}
 		}
 		// if that didn't work, try any aliases that may exist
-		// for SF_SP_HAS_DEFAULT_FORM
+		// for this property
 		$sf_props_aliases = $sfgContLang->getPropertyAliases();
 		foreach ($sf_props_aliases as $alias => $prop_code) {
-			if ($prop_code == SF_SP_HAS_DEFAULT_FORM) {
+			if ($prop_code == $prop_id) {
 				$property = SFUtils::createProperty($alias);
 				$res = $store->getPropertyValues($title, $property);
 				if (isset($res[0]) && ($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title)) {
@@ -116,69 +118,13 @@ class SFLinkUtils {
 	}
 
 	/**
-	 * Gets the alternate forms specified, if any, for a specific page
-	 * (which should always be a property page)
-	 */
-	static function getAlternateForms($page_name, $page_namespace) {
-		if ($page_name == NULL)
-			return array();
-
-		global $sfgContLang;
-		$store = smwfGetStore();
-		$title = Title::makeTitleSafe($page_namespace, $page_name);
-		// we can do this easily if we're using SMW 1.4 or higher
-		if (class_exists('SMWPropertyValue')) {
-			$alternate_form_property = SMWPropertyValue::makeProperty('_SF_AF');
-			$res = $store->getPropertyValues($title, $alternate_form_property);
-			// there could be multiple alternate forms
-			$form_names = array();
-			foreach ($res as $wiki_page_value)
-				$form_names[] = $wiki_page_value->getTitle()->getText();
-			// if we're using a non-English language, check for the English string as well
-			if (! $sfgContLang instanceof SF_LanguageEn) {
-				$backup_alternate_form_property = SMWPropertyValue::makeProperty('_SF_AF_BACKUP');
-				$res = $store->getPropertyValues($title, $backup_alternate_form_property);
-				foreach ($res as $wiki_page_value)
-					$form_names[] = $wiki_page_value->getTitle()->getText();
-			}
-			return $form_names;
-		}
-
-		// otherwise, it's a bit more complex
-		$sf_props = $sfgContLang->getPropertyLabels();
-		$alternate_form_property = str_replace(' ', '_', $sf_props[SF_SP_HAS_ALTERNATE_FORM]);
-		$property = SFUtils::createProperty($alternate_form_property);
-		$prop_vals = $store->getPropertyValues($title, $property);
-		$form_names = array();
-		foreach ($prop_vals as $prop_val) {
-			// make sure it's in the form namespace
-			if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title) &&
-				$prop_val->getNamespace() == SF_NS_FORM) {
-				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
-			}
-		}
-		// try the English version too, if this isn't in English
-		if ($alternate_form_property != "Has_alternate_form") {
-			$property = SFUtils::createProperty("Has_alternate_form");
-			$prop_vals = $store->getPropertyValues($title, $property);
-			foreach ($prop_vals as $prop_val) {
-				if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title)
-					&& $prop_val->getNamespace() == SF_NS_FORM) {
-					$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
-				}
-			}
-		}
-		return $form_names;
-	}
-
-	/**
 	 * Helper function for addDataLink() - gets the 'default form' and
 	 * 'alternate form' properties for a page, and creates the
 	 * corresponding 'add data' link, if any such properties are defined
 	 */
 	static function getAddDataLinkForPage($target_page_title, $page_name, $page_namespace) {
-		$default_forms = self::getDefaultForms($page_name, $page_namespace);
-		$alt_forms = self::getAlternateForms($page_name, $page_namespace);
+		$default_forms = self::getFormsThatPagePointsTo($page_name, $page_namespace, '_SF_DF', '_SF_DF_BACKUP', SF_SP_HAS_DEFAULT_FORM);
+		$alt_forms = self::getFormsThatPagePointsTo($page_name, $page_namespace, '_SF_AF', '_SF_AF_BACKUP', SF_SP_HAS_ALTERNATE_FORM);
 		if ((count($default_forms) == 0) && (count($alt_forms) == 0))
 			return null;
 		$ad = SpecialPage::getPage('AddData');
@@ -332,7 +278,7 @@ class SFLinkUtils {
 	static function getFormsForArticle($obj) {
 		// see if the page itself has a default form (or forms), and
 		// return it/them if so
-		$default_forms = self::getDefaultForms($obj->mTitle->getText(), $obj->mTitle->getNamespace());
+		$default_forms = self::getFormsThatPagePointsTo($obj->mTitle->getText(), $obj->mTitle->getNamespace(), '_SF_PDF', '_SF_PDF_BACKUP', SF_SP_PAGE_HAS_DEFAULT_FORM);
 		if (count($default_forms) > 0)
 			return $default_forms;
 		// if this is not a category page, look for a default form
@@ -342,7 +288,7 @@ class SFLinkUtils {
 			$default_forms = array();
 			$categories = self::getCategoriesForArticle($obj);
 			foreach ($categories as $category) {
-				$default_forms = array_merge($default_forms, self::getDefaultForms($category, NS_CATEGORY));
+				$default_forms = array_merge($default_forms, self::getFormsThatPagePointsTo($category, NS_CATEGORY, '_SF_DF', '_SF_DF_BACKUP', SF_SP_HAS_DEFAULT_FORM));
 			}
 			if (count($default_forms) > 0)
 				return $default_forms;
@@ -359,7 +305,7 @@ class SFLinkUtils {
 			$namespace_labels = $wgContLang->getNamespaces();
 			$namespace_label = $namespace_labels[$namespace];
 		}
-		$default_forms = self::getDefaultForms($namespace_label, NS_PROJECT);
+		$default_forms = self::getFormsThatPagePointsTo($namespace_label, NS_PROJECT, '_SF_DF', '_SF_DF_BACKUP', SF_SP_HAS_DEFAULT_FORM);
 		return $default_forms;
 	}
 
