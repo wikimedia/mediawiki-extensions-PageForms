@@ -98,7 +98,11 @@ class SFFormPrinter {
     if ( $count > 0 ) {
       $pager->mLimit = 10;
       $out->addHTML( '<div class="mw-warning-with-logexcerpt">' );
-      $out->addWikiMsg( 'recreate-deleted-warn' );
+      // the message name changed in MW 1.16
+      if (wfMsg( 'moveddeleted-notice' ) != '')
+        $out->addWikiMsg( 'moveddeleted-notice' );
+      else
+        $out->addWikiMsg( 'recreate-deleted-warn' );
       $out->addHTML(
         $loglist->beginLogEventsList() .
         $pager->getBody() .
@@ -500,7 +504,10 @@ class SFFormPrinter {
               $free_text_components[] = 'edittools';
             } else {
               $sub_components = explode('=', $component);
-              if (count($sub_components) == 2) {
+              if (count($sub_components) == 1) {
+                // add handling for single-value params, for custom input types
+                $field_args[$sub_components[0]] = null;
+              } elseif (count($sub_components) == 2) {
                 if ($sub_components[0] == 'input type') {
                   $input_type = $sub_components[1];
                 } elseif ($sub_components[0] == 'default') {
@@ -562,7 +569,7 @@ class SFFormPrinter {
                 // for backwards compatibility
                 if ($sub_components[0] == 'autocomplete on' && $sub_components[1] == null) {
                     $field_args['no autocomplete'] = true;
-                  }
+                }
               }
             }
           }
@@ -783,6 +790,14 @@ END;
             // SFFormField::setSemanticProperty() function just for this call
             if ($semantic_property != null)
                $form_field->template_field->setSemanticProperty($semantic_property);
+
+            // call hooks - unfortunately this has to be split into two
+            // separate calls, because of the different variable names in
+            // each case
+            if ($form_submitted)
+              wfRunHooks('sfCreateFormField', array(&$form_field, &$cur_value_in_template, true));
+            else
+              wfRunHooks('sfCreateFormField', array(&$form_field, &$cur_value, false));
             // if this is not part of a 'multiple' template, increment the
             // global tab index (used for correct tabbing)
             if (! $field_args['part_of_multiple'])
