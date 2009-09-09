@@ -99,7 +99,7 @@ class SFFormPrinter {
       $pager->mLimit = 10;
       $out->addHTML( '<div class="mw-warning-with-logexcerpt">' );
       // the message name changed in MW 1.16
-      if (wfMsg( 'moveddeleted-notice' ) != '')
+      if (! wfEmptyMsg( 'moveddeleted-notice', wfMsg('moveddeleted-notice') ))
         $out->addWikiMsg( 'moveddeleted-notice' );
       else
         $out->addWikiMsg( 'recreate-deleted-warn' );
