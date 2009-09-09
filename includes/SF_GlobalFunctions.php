@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.8.2');
+define('SF_VERSION','1.8.3');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -23,15 +23,10 @@ $wgExtensionCredits['specialpage'][]= array(
 define('SF_SP_HAS_DEFAULT_FORM', 1);
 define('SF_SP_HAS_ALTERNATE_FORM', 2);
 define('SF_SP_CREATES_PAGES_WITH_FORM', 3);
+define('SF_SP_PAGE_HAS_DEFAULT_FORM', 4);
 
-if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-	$wgHooks['ParserFirstCallInit'][] = 'sfgSetupExtension';
-	$wgHooks['ParserFirstCallInit'][] = 'sfgParserFunctions';
-} else {
-	// Legacy support
-	$wgExtensionFunctions[] = 'sfgSetupExtension';
-	$wgExtensionFunctions[] = 'sfgParserFunctions';
-}
+$wgExtensionFunctions[] = 'sfgSetupExtension';
+$wgExtensionFunctions[] = 'sfgParserFunctions';
 
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
@@ -114,7 +109,6 @@ function sfgSetupExtension() {
 	// types
 	global $sfgFormPrinter;
 	$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
-	return true;
 }
 
 function sfgParserFunctions() {
@@ -127,7 +121,6 @@ function sfgParserFunctions() {
 		}
 		SFParserFunctions::registerFunctions( $wgParser );
 	}
-	return true;
 }
 
 /**********************************************/
@@ -220,22 +213,22 @@ function sffInitUserLanguage($langcode) {
 }
 
 function sffAddToAdminLinks(&$admin_links_tree) {
-        $data_structure_section = $admin_links_tree->getSection('Data structure');
+	$data_structure_section = $admin_links_tree->getSection('Data structure');
 	if (is_null($data_structure_section))
 		return true;
-        $smw_row = $data_structure_section->getRow('smw');
-        $smw_row->addItem(ALItem::newFromSpecialPage('Templates'), 'Properties');
-        $smw_row->addItem(ALItem::newFromSpecialPage('Forms'), 'SemanticStatistics');
-        $smw_admin_row = $data_structure_section->getRow('smw_admin');
-        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateClass'), 'SMWAdmin');
-        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateProperty'), 'SMWAdmin');
-        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateTemplate'), 'SMWAdmin');
-        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateForm'), 'SMWAdmin');
-        $smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateCategory'), 'SMWAdmin');
-        $smw_docu_row = $data_structure_section->getRow('smw_docu');
-        $sf_name = wfMsg('specialpages-group-sf_group');
-        $sf_docu_label = wfMsg('adminlinks_documentation', $sf_name);
-        $smw_docu_row->addItem(AlItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label));
+	$smw_row = $data_structure_section->getRow('smw');
+	$smw_row->addItem(ALItem::newFromSpecialPage('Templates'), 'Properties');
+	$smw_row->addItem(ALItem::newFromSpecialPage('Forms'), 'SemanticStatistics');
+	$smw_admin_row = $data_structure_section->getRow('smw_admin');
+	$smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateClass'), 'SMWAdmin');
+	$smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateProperty'), 'SMWAdmin');
+	$smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateTemplate'), 'SMWAdmin');
+	$smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateForm'), 'SMWAdmin');
+	$smw_admin_row->addItem(ALItem::newFromSpecialPage('CreateCategory'), 'SMWAdmin');
+	$smw_docu_row = $data_structure_section->getRow('smw_docu');
+	$sf_name = wfMsg('specialpages-group-sf_group');
+	$sf_docu_label = wfMsg('adminlinks_documentation', $sf_name);
+	$smw_docu_row->addItem(AlItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label));
 
-        return true;
+	return true;
 }
