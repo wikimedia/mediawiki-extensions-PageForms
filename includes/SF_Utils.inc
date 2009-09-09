@@ -18,10 +18,13 @@ class SFUtils {
 			SMWPropertyValue::registerProperty('_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM], true);
 		if (array_key_exists(SF_SP_CREATES_PAGES_WITH_FORM, $sf_props))
 			SMWPropertyValue::registerProperty('_SF_CP', '__spf', $sf_props[SF_SP_CREATES_PAGES_WITH_FORM], true);
+		if (array_key_exists(SF_SP_PAGE_HAS_DEFAULT_FORM, $sf_props))
+			SMWPropertyValue::registerProperty('_SF_PDF', '__spf', $sf_props[SF_SP_PAGE_HAS_DEFAULT_FORM], true);
 		// also initialize hardcoded English values, if it's a non-English-language wiki
 		SMWPropertyValue::registerProperty('_SF_DF_BACKUP', '__spf', 'Has default form', true);
 		SMWPropertyValue::registerProperty('_SF_AF_BACKUP', '__spf', 'Has alternate form', true);
 		SMWPropertyValue::registerProperty('_SF_CP_BACKUP', '__spf', 'Creates pages with form', true);
+		SMWPropertyValue::registerProperty('_SF_PDF_BACKUP', '__spf', 'Page has default form', true);
 
 		return true;
 	}
@@ -139,6 +142,7 @@ END;
 		$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'datasource/datasource-min.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'autocomplete/autocomplete-min.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
+		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_ajax_form_preview.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/floatbox.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_tooltip.js"></script>' . "\n");
 		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_sorttable.js"></script>' . "\n");
