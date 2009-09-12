@@ -5541,7 +5541,7 @@ $messages['uk'] = array(
  * @author Игорь Бродский
  */
 $messages['vep'] = array(
-	'sf_createproperty_propname' => 'Nimi:',
+	'sf_createproperty_propname' => 'Ičendan nimi:',
 	'sf_createproperty_proptype' => 'Tip:',
 	'templates' => 'Šablonad',
 	'sf_templates_docu' => 'Wikiš om ningoižid šablonoid:',
@@ -5550,12 +5550,27 @@ $messages['vep'] = array(
 	'sf_createtemplate_namelabel' => 'Šablonan nimi:',
 	'sf_createtemplate_categorylabel' => 'Kategorii, kudamban märhapaneb šablon (opcionaližikš):',
 	'sf_createtemplate_templatefields' => 'Šablonan pöudod:',
+	'sf_createtemplate_outputformat' => 'Lähtmižformat:',
+	'sf_createtemplate_standardformat' => 'Standartine',
 	'sf_createtemplate_addfield' => 'Läžata pöud',
 	'sf_createtemplate_deletefield' => 'Čuta poiš',
+	'forms' => 'Formad',
+	'createform' => 'Säta form',
+	'sf_createform_nameinput' => 'Forman nimi',
+	'sf_createform_template' => 'Šablon:',
+	'sf_createform_field' => 'Pöud:',
 	'sf_createform_hidden' => 'Peittud',
 	'sf_createform_add' => 'Ližata',
+	'createcategory' => 'Säta kategorii',
+	'sf_createcategory_name' => 'Kategorijan nimi:',
+	'sf_createcategory_defaultform' => 'Form augotižjärgendusen mödhe:',
+	'addoreditdata' => 'Ližada vai redaktirui',
+	'adddata' => 'Ližata andmusid',
 	'editdata' => 'Redaktiruida andmused',
+	'sf_editsource' => 'Redaktiruida purde',
 	'sf_editdata_remove' => 'Čuta poiš',
+	'sf_editdata_addanother' => 'Ližata völ',
+	'sf_form_freetextlabel' => 'Joudai tekst',
 );
 
 /** Vietnamese (Tiếng Việt)
