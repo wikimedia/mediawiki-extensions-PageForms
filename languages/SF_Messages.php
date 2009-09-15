@@ -1272,6 +1272,7 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
  * @author ZaDiak
  */
 $messages['el'] = array(
+	'semanticforms-desc' => 'Φόρμες για την προσθήκη και επεξεργασία σημασιολογικών δεδομένων',
 	'specialpages-group-sf_group' => 'Σημασιολογικές Φόρμες',
 	'createproperty' => 'Δημιουργήστε μια ιδιότητα',
 	'sf_createproperty_propname' => 'Όνομα ιδιότητας:',
@@ -1344,6 +1345,7 @@ $messages['el'] = array(
 	'sf_category_hasdefaultform' => 'Αυτή η κατηγορία χρησιμοποιεί την φόρμα $1.',
 	'sf_category_desc' => 'Αυτή είναι η κατηγορία $1.',
 	'sf_blank_namespace' => 'Κύριος',
+	'right-editrestrictedfields' => 'Επεξεργασία περιορισμένων πεδίων φορμών',
 );
 
 /** Esperanto (Esperanto)
@@ -3328,12 +3330,13 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''&lt;Fomullaa_Name &gt;
 	'right-editrestrictedfields' => 'Beschrängk zohjänglijje Felder en Fommulaare ändere',
 );
 
-/** Cornish (Kernewek)
+/** Cornish (Kernowek)
+ * @author Kernoweger
  * @author Kw-Moon
  */
 $messages['kw'] = array(
-	'createtemplate' => 'Gwruthyl skantlyn',
-	'sf_createform_template' => 'Skantlyn:',
+	'createtemplate' => 'Gruthyl scantlyn',
+	'sf_createform_template' => 'Scantlyn:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
