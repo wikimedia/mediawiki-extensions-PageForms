@@ -4226,7 +4226,9 @@ l'URL deuriá èsser coma « Special:RunQuery/&lt;nom del formulari&gt; ».",
  */
 $messages['os'] = array(
 	'sf_createproperty_proptype' => 'Тип:',
+	'templates' => 'Шаблонтæ',
 	'sf_createtemplate_deletefield' => 'Аппар',
+	'sf_createform_template' => 'Шаблон:',
 	'sf_editdata_none' => 'Нæй',
 );
 
