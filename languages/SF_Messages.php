@@ -3335,8 +3335,8 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''&lt;Fomullaa_Name &gt;
  * @author Kw-Moon
  */
 $messages['kw'] = array(
-	'createtemplate' => 'Gruthyl scantlyn',
-	'sf_createform_template' => 'Scantlyn:',
+	'createtemplate' => 'Gruthyl skantlyn',
+	'sf_createform_template' => 'Skantlyn:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
