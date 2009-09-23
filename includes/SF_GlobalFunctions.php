@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.8.3');
+define('SF_VERSION','1.8.4');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -79,7 +79,6 @@ $wgSpecialPageGroups['RunQuery'] = 'sf_group';
 $wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
 $wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
 
-$wgAutoloadClasses['FormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
 $wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.inc';
 $wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
