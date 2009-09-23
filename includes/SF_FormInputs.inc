@@ -287,7 +287,9 @@ END;
     $disabled_text = ($is_disabled) ? "disabled" : "";
     if (array_key_exists('autocomplete field type', $other_args)) {
       $autocomplete_field_type = $other_args['autocomplete field type'];
-      $autocompletion_source = ucfirst($other_args['autocompletion source']);
+      $autocompletion_source = $other_args['autocompletion source'];
+      if ($autocomplete_field_type != 'external_url')
+        $autocompletion_source = ucfirst($autocompletion_source);
     }
     $input_id = "input_" . $sfgFieldNum;
     $info_id = "info_" . $sfgFieldNum;
