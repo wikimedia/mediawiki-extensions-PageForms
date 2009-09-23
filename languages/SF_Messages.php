@@ -120,7 +120,7 @@ the URL should look like \'Special:RunQuery/&lt;form name&gt;\'.',
 	'sf_bad_integer_error'               => 'must be a valid integer',
 	'sf_bad_date_error'                  => 'must be a valid date',
 	'uploadwindow'                       => 'Upload window', // Description for Special:UploadWindow
-	'sf_deletionlog'                     => 'deletion log',
+	'sf_deletionlog'                     => 'Deletion log',
 
 	// content messages
 	'sf_property_isproperty'             => 'This is a property of type $1.',
