@@ -213,13 +213,10 @@ class SFFormPrinter {
     // add '<nowiki>' tags around every triple-bracketed form definition
     // element, so that the wiki parser won't touch it - the parser will
     // remove the '<nowiki>' tags, leaving us with what we need
-    global $sfgDisableWikiTextParsing;
-    if (! $sfgDisableWikiTextParsing) {
-      $form_def = "__NOEDITSECTION__" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
-      $wgParser->mOptions = new ParserOptions();
-      $wgParser->mOptions->initialiseFromUser($wgUser);
-      $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
-    }
+    $form_def = "__NOEDITSECTION__" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+    $wgParser->mOptions = new ParserOptions();
+    $wgParser->mOptions->initialiseFromUser($wgUser);
+    $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
 
     // turn form definition file into an array of sections, one for each
     // template definition (plus the first section)
@@ -549,6 +546,11 @@ class SFFormPrinter {
                   if ($autocompletion_source == "")
                     $autocompletion_source = "main";
                   $field_args['autocompletion source'] = $autocompletion_source;
+                } elseif ($sub_components[0] == 'autocomplete from url') {
+                  $field_args['autocomplete field type'] = 'external_url';
+                  $field_args['autocompletion source'] = $sub_components[1];
+                  // 'external' autocompletion is always done remotely, i.e. via API
+                  $field_args['remote autocompletion'] = true;
                 } elseif ($sub_components[0] == 'values') {
                   // remove whitespaces, and un-escape characters
                   $possible_values = array_map('trim', explode(',', $sub_components[1]));
@@ -866,10 +868,10 @@ END;
 
             $fields_javascript_text .= $new_javascript_text;
 
-            // if this was field was disabled due to being 'restricted',
-            // add a hidden field holding the value of this field, because
-            // disabled inputs for some reason don't submit their value
-            if ($is_restricted && ! $wgUser->isAllowed('editrestrictedfields')) {
+            // if this field is disabled, add a hidden field holding
+            // the value of this field, because disabled inputs for some
+            // reason don't submit their value
+            if ($form_field->is_disabled) {
               if ($field_name == 'free text' || $field_name == '<freetext>') {
                 $new_text .= SFFormUtils::hiddenFieldHTML('free_text', '!free_text!');
               } else {
