@@ -80,6 +80,7 @@ $messages['en'] = array(
 	'sf_createclass_success'             => 'Properties, template, form and category will be created.',
 	'addpage'                            => 'Add page with form',
 	'sf_addpage_badform'                 => 'Error: no form page was found at $1',
+	'sf_addpage_badtitle'                => 'Error: \'$1\' is an invalid title for a page.',
 	'sf_addpage_docu'                    => 'Enter the name of the page here, to be edited with the form \'$1\'.
 If this page already exists, you will be sent to the form for editing that page.
 Otherwise, you will be sent to the form for adding the page.',
