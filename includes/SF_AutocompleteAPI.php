@@ -31,6 +31,7 @@ class SFAutocompleteAPI extends ApiBase {
 		$relation = $params['relation'];
 		$category = $params['category'];
 		$concept = $params['concept'];
+		$external_url = $params['external_url'];
 		$limit = $params['limit'];
 
 		if (strlen($substr) == 0)
@@ -50,6 +51,8 @@ class SFAutocompleteAPI extends ApiBase {
 			if ($namespace == 'main')
 				$namespace = '';
 			$data = SFUtils::getAllPagesForNamespace($namespace, $substr);
+		} elseif ($external_url != '') {
+			$data = SFUtils::getValuesFromExternalURL($external_url, $substr);
 		} else {
 			$data = array();
 		}
@@ -65,7 +68,6 @@ class SFAutocompleteAPI extends ApiBase {
 
 	protected function getAllowedParams() {
 		return array (
-			'namespace' => null,
 			'limit' => array (
 				ApiBase :: PARAM_TYPE => 'limit',
 				ApiBase :: PARAM_DFLT => 10,
@@ -78,6 +80,8 @@ class SFAutocompleteAPI extends ApiBase {
 			'relation' => null,
 			'category' => null,
 			'concept' => null,
+			'namespace' => null,
+			'external_url' => null,
 		);
 	}
 
@@ -89,6 +93,7 @@ class SFAutocompleteAPI extends ApiBase {
 			'category' => 'Category for which to search values',
 			'concept' => 'Concept for which to search values',
 			'namespace' => 'Namespace for which to search values',
+			'external_url' => 'Alias for external URL from which to get values',
 			'limit' => 'Limit how many entries to return',
 		);
 	}
