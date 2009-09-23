@@ -46,11 +46,17 @@ class SFLinkUtils {
 	 * non-URL-encoded title string
 	 */
 	static function titleString($title) {
+		global $wgCapitalLinks;
+
 		$namespace = $title->getNsText();
 		if ( '' != $namespace ) {
 			$namespace .= ':';
 		}
-		return ($namespace . ucfirst($title->getText()));
+		if ($wgCapitalLinks) {
+			return $namespace . ucfirst($title->getText());
+		} else {
+			return $namespace . $title->getText();
+		}
 	}
 
 	/**
