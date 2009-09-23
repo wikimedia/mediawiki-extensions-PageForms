@@ -92,6 +92,7 @@ END;
 	</script>
 
 END;
+		wfRunHooks('sfPrintRedirectForm', array($is_save, $is_preview, $is_diff, &$text));
 		return $text;
 	}
 
@@ -366,6 +367,23 @@ END;
 			}
 		}
 		return $pages;
+	}
+
+	static function getValuesFromExternalURL($external_url_alias, $substring) {
+		global $sfgAutocompletionURLs;
+		if (empty($sfgAutocompletionURLs)) return array();
+		$url = $sfgAutocompletionURLs[$external_url_alias];
+		if (empty($url)) return array();
+		$url = str_replace('<substr>', $substring, $url);
+		$page_contents = Http::get($url);
+		if (empty($page_contents)) return array();
+		$data = json_decode($page_contents);
+		if (empty($data)) return array();
+		$return_values = array();
+		foreach ($data->sfautocomplete as $val) {
+			$return_values[] = (array)$val;
+		}
+		return $return_values;
 	}
 
 }
