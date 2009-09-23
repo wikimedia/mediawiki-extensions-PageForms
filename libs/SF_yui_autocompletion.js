@@ -29,6 +29,8 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
             this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&category=" + data_source;
         else if (data_type == 'namespace')
             this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&namespace=" + data_source;
+        else if (data_type == 'external_url')
+            this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&external_url=" + data_source;
         this.oACDS.responseType = YAHOO.widget.DS_XHR.TYPE_JSON;
         this.oAutoComp = new YAHOO.widget.AutoComplete(input_name, container_name, this.oACDS);
     }
