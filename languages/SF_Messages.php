@@ -80,8 +80,8 @@ $messages['en'] = array(
 	'sf_createclass_success'             => 'Properties, template, form and category will be created.',
 	'addpage'                            => 'Add page with form',
 	'sf_addpage_badform'                 => 'Error: no form page was found at $1',
-	'sf_addpage_badtitle'                => 'Error: \'$1\' is an invalid title for a page.',
-	'sf_addpage_docu'                    => 'Enter the name of the page here, to be edited with the form \'$1\'.
+	'sf_addpage_badtitle'                => 'Error: "$1" is an invalid title for a page.',
+	'sf_addpage_docu'                    => 'Enter the name of the page here, to be edited with the form "$1".
 If this page already exists, you will be sent to the form for editing that page.
 Otherwise, you will be sent to the form for adding the page.',
 	'sf_addpage_noform_docu'             => 'Enter the name of the page here, and select the form to edit it with.
@@ -127,10 +127,10 @@ the URL should look like \'Special:RunQuery/&lt;form name&gt;\'.',
 	'sf_property_isproperty'             => 'This is a property of type $1.',
 	'sf_property_linkstoform'            => 'It links to pages that use the form $1.',
 	'sf_property_allowedvals'            => 'The allowed {{PLURAL:$1|value for this property is|values for this property are}}:',
-	'sf_template_docu'                   => 'This is the \'$1\' template.
+	'sf_template_docu'                   => 'This is the "$1" template.
 It should be called in the following format:',
 	'sf_template_docufooter'             => 'Edit the page to see the template text.',
-	'sf_form_docu'                       => 'This is the \'$1\' form.
+	'sf_form_docu'                       => 'This is the "$1" form.
 To add a page with this form, enter the page name below;
 if a page with that name already exists, you will be sent to a form to edit that page.',
 	'sf_form_freetextlabel'          => 'Free text',
