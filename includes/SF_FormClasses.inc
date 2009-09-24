@@ -72,6 +72,7 @@ class SFTemplateInForm {
 	var $fields;
 
 	function getAllFields() {
+		global $wgContLang;
 		$template_fields = array();
 		$field_names_array = array();
 
@@ -103,7 +104,7 @@ class SFTemplateInForm {
 					$semantic_property = $matches[2][$i];
 					$full_field_text = $matches[0][$i];
 					if (! in_array($field_name, $field_names_array)) {
-						$template_field = SFTemplateField::create($field_name, ucfirst($field_name));
+						$template_field = SFTemplateField::create($field_name, $wgContLang->ucfirst($field_name));
 						$template_field->setSemanticProperty($semantic_property);
 						$template_field->is_list = true;
 						$cur_pos = stripos($template_text, $full_field_text);
@@ -123,7 +124,7 @@ class SFTemplateInForm {
 					$field_name = $matches[3][$i];
 					$full_field_text = $matches[0][$i];
 					if (! in_array($field_name, $field_names_array)) {
-						$template_field = SFTemplateField::create($field_name, ucfirst($field_name));
+						$template_field = SFTemplateField::create($field_name, $wgContLang->ucfirst($field_name));
 						$template_field->setSemanticProperty($semantic_property);
 						$cur_pos = stripos($template_text, $full_field_text);
 						$template_fields[$cur_pos] = $template_field;
@@ -140,7 +141,7 @@ class SFTemplateInForm {
 					$full_field_text = $matches[0][$i];
 					if (($full_field_text != '') && (! in_array($field_name, $field_names_array))) {
 						$cur_pos = stripos($template_text, $full_field_text);
-						$template_fields[$cur_pos] = SFTemplateField::create($field_name, ucfirst($field_name));
+						$template_fields[$cur_pos] = SFTemplateField::create($field_name, $wgContLang->ucfirst($field_name));
 						$field_names_array[] = $field_name;
 					}
 				}

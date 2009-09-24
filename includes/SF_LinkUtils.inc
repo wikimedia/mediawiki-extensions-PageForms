@@ -35,7 +35,8 @@ class SFLinkUtils {
 			$namespace .= ':';
 		}
 		if ($wgCapitalLinks) {
-			return $namespace . ucfirst($title->getPartialURL());
+			global $wgContLang;
+			return $namespace . $wgContLang->ucfirst($title->getPartialURL());
 		} else {
 			return $namespace . $title->getPartialURL();
 		}
@@ -53,7 +54,8 @@ class SFLinkUtils {
 			$namespace .= ':';
 		}
 		if ($wgCapitalLinks) {
-			return $namespace . ucfirst($title->getText());
+			global $wgContLang;
+			return $namespace . $wgContLang->ucfirst($title->getText());
 		} else {
 			return $namespace . $title->getText();
 		}
