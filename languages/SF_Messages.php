@@ -1521,6 +1521,7 @@ $messages['es'] = array(
 	'sf_createclass_success' => 'Propiedades, plantilla, formulario y categoría serán creadas.',
 	'addpage' => 'Agregar página con formulario',
 	'sf_addpage_badform' => 'Error: no se encontró la página del formulario en $1',
+	'sf_addpage_badtitle' => 'Error: "$1" es un título inválido para una página.',
 	'sf_addpage_docu' => "Ingresar el nombre de la página aqui, para ser editado con el formulario '$1'. Si esta página ya existe, usted será enviado al formulario para editar esa página. De otra forma, usted será enviado al formulario para agregar la página.",
 	'sf_addpage_noform_docu' => 'Ingresar el nombre de la página aqui, y seleccionar el formulario con el cual se editará. Si esta página ya existe, usted será enviado al formulario para editar esa página. De otra forma, usted será enviado al formulario para agregar la página.',
 	'addoreditdata' => 'Agregar o editar',
