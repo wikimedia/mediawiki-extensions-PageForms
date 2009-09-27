@@ -148,8 +148,10 @@ if a page with that name already exists, you will be sent to a form to edit that
  * @author Jon Harald Søby
  * @author Purodha
  * @author Siebrand
+ * @author Umherirrender
  */
 $messages['qqq'] = array(
+	'semanticforms-desc' => '{{desc}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
 	'sf_createtemplate_standardformat' => '{{Identical|Standard}}',
@@ -2757,6 +2759,7 @@ $messages['ia'] = array(
 	'sf_createclass_success' => 'Proprietates, patrono, formulario e categoria essera create.',
 	'addpage' => 'Adder pagina con formulario',
 	'sf_addpage_badform' => 'Error: nulle pagina de formulario esseva trovate a $1',
+	'sf_addpage_badtitle' => 'Error: "$1" es un titulo invalide pro un pagina.',
 	'sf_addpage_docu' => "Entra le nomine de un pagina hic, pro esser modificate con le formulario '$1'.
 Si iste pagina existe ja, tu essera inviate al formulario pro modificar ille pagina.
 Alteremente, tu essera inviate al formulario pro adder le pagina.",
@@ -4204,6 +4207,7 @@ $messages['oc'] = array(
 	'sf_createclass_success' => 'Las proprietats, modèl, formulari e categoria seràn creats.',
 	'addpage' => 'Apondre una pagina amb un formulari',
 	'sf_addpage_badform' => 'Error : cap de pagina de formulari es pas estada trobada sus $1.',
+	'sf_addpage_badtitle' => 'Error : « $1 » es un títol de pagina invalid.',
 	'sf_addpage_docu' => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
 	'sf_addpage_noform_docu' => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb lo qual serà editada. S'aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
 	'addoreditdata' => 'Modificar o apondre de donadas',
@@ -4237,6 +4241,7 @@ l'URL deuriá èsser coma « Special:RunQuery/&lt;nom del formulari&gt; ».",
 	'sf_bad_integer_error' => 'deu èsser un nombre entièr valid',
 	'sf_bad_date_error' => 'deu èsser una data valida',
 	'uploadwindow' => 'Importar la fenèstra',
+	'sf_deletionlog' => 'Istoric de las supressions',
 	'sf_property_isproperty' => 'Aquò es una proprietat del tipe $1.',
 	'sf_property_linkstoform' => "Liga cap a las paginas qu'utilizan lo formulari $1.",
 	'sf_property_allowedvals' => '{{PLURAL:$1|La valor autorizada per aquesta proprietat es|Las valors autorizadas per aquesta proprietat son}} :',
