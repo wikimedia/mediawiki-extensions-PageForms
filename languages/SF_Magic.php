@@ -14,6 +14,11 @@ $magicWords['ar'] = array(
 	'arraymaptemplate'   => array( '0', 'قالب_خريطة_المصفوفة', 'arraymaptemplate' ),
 );
 
+$magicWords['mr'] = array(
+	'arraymap'           => array( '0', 'नकाशेरचना', 'arraymap' ),
+	'arraymaptemplate'   => array( '0', 'नकाशेसाचारचना', 'arraymaptemplate' ),
+);
+
 $magicWords['nl'] = array(
 	'forminput'          => array( '0', 'formulierinvoer', 'forminput' ),
 	'formlink'           => array( '0', 'formulierverwijzing', 'formlink' ),
