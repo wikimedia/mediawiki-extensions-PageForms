@@ -220,6 +220,7 @@ $messages['am'] = array(
  */
 $messages['an'] = array(
 	'sf_createproperty_propname' => 'Nombre:',
+	'sf_createtemplate_deletefield' => 'Borrar',
 	'sf_createcategory_name' => 'Nombre:',
 	'sf_bad_date_error' => "ha d'estar una calendata conforme",
 );
