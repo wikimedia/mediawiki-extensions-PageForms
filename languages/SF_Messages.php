@@ -1002,6 +1002,7 @@ $messages['da'] = array(
  * @author Dominik Rodler
  * @author Goetz
  * @author Melancholie
+ * @author Pill
  * @author Purodha
  * @author Umherirrender
  */
@@ -1072,6 +1073,7 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_createclass_success' => 'Attribute, die Vorlage, das Formular und die Kategorie werden erstellt.',
 	'addpage' => 'Füge Seite hinzu',
 	'sf_addpage_badform' => 'Fehler: es wurde keine Seite gefunden bei $1',
+	'sf_addpage_badtitle' => 'Fehler: „$1“ ist kein gültiger Seitentitel.',
 	'sf_addpage_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
 	'sf_addpage_noform_docu' => 'Gib in dieses Textfeld den Namen der Seite ein und wähle das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
 	'addoreditdata' => 'Hinzufügen oder Bearbeiten',
@@ -1105,6 +1107,7 @@ die URL sollte wie folgt aussehen: „Special:RunQuery/&lt;form name&gt;”',
 	'sf_bad_integer_error' => 'muss eine gültige Ganzzahl sein',
 	'sf_bad_date_error' => 'muss ein gültiges Datum sein',
 	'uploadwindow' => 'Upload-Fenster',
+	'sf_deletionlog' => 'Lösch-Logbuch',
 	'sf_property_isproperty' => 'Dies ist eine Eigenschaft des Typs $1.',
 	'sf_property_linkstoform' => 'Es verlinkt zu Seiten, welche das Formular „$1“ nutzen.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für diese Eigenschaft ist|Die möglichen Werte für diese Eigenschaft sind}}:',
