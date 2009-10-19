@@ -5819,6 +5819,7 @@ $messages['yi'] = array(
 	'sf_createtemplate_namelabel' => 'מוסטער נאמען:',
 	'sf_createtemplate_templatefields' => 'מוסטער פֿעלדער',
 	'sf_createtemplate_deletefield' => 'אויסמעקן',
+	'sf_createform_add' => 'צולייגן',
 	'sf_editdata_none' => 'קיין',
 );
 
