@@ -4279,6 +4279,7 @@ $messages['os'] = array(
  * @author Xqt
  */
 $messages['pdc'] = array(
+	'templates' => 'Moddle',
 	'sf_createtemplate_deletefield' => 'Lösche',
 	'sf_createform_add' => 'Dezu duh',
 	'addoreditdata' => 'Dezu duh odder Ennere',
