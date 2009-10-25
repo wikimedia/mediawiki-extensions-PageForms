@@ -2983,6 +2983,7 @@ se la pagina con il nome indicato è già esistente, verrai inviato al form di m
  * @author Aotake
  * @author Fryed-peach
  * @author Hosiryuhosi
+ * @author Whym
  */
 $messages['ja'] = array(
 	'semanticforms-desc' => '意味的データを追加および編集するためのフォーム',
@@ -2997,7 +2998,7 @@ $messages['ja'] = array(
 	'sf_templates_definescat' => 'カテゴリを定義:',
 	'createtemplate' => 'テンプレートの作成',
 	'sf_createtemplate_namelabel' => 'テンプレート名:',
-	'sf_createtemplate_categorylabel' => 'テンプレートが定義するカテゴリ (任意):',
+	'sf_createtemplate_categorylabel' => 'テンプレートが定義するカテゴリ (省略可能):',
 	'sf_createtemplate_templatefields' => 'テンプレートのフィールド',
 	'sf_createtemplate_fieldsdesc' => 'このテンプレートにフィールドをもたせるのにフィールド名は必要はありません。実際の名前の代わりに、単に各フィールドの番号 (1、2、3、など) を名前として入力してください。',
 	'sf_createtemplate_fieldname' => 'フィールド名:',
@@ -3019,7 +3020,7 @@ $messages['ja'] = array(
 	'sf_createform_nameinput' => 'フォーム名',
 	'sf_createform_nameinputdesc' => '(慣例では、フォームがデータを投入する本体のテンプレートの名前から命名します):',
 	'sf_createform_template' => 'テンプレート:',
-	'sf_createform_templatelabelinput' => 'テンプレートのラベル (任意):',
+	'sf_createform_templatelabelinput' => 'テンプレートのラベル (省略可能):',
 	'sf_createform_allowmultiple' => '作成されたページでこのテンプレートを複数 (もしくはゼロ) 回使用できるようにする',
 	'sf_createform_field' => 'フィールド:',
 	'sf_createform_fieldprop' => 'このフィールドは型 $2 のプロパティ $1 を定義します。',
