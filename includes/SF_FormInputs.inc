@@ -224,9 +224,10 @@ END;
   static function checkboxesHTML($cur_value, $input_name, $is_mandatory, $is_disabled, $other_args) {
     global $sfgTabIndex, $sfgFieldNum;
 
-    $className = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $checkbox_class = ($is_mandatory) ? "mandatoryField" : "createboxInput";
+    $span_class = "checkboxSpan";
     if (array_key_exists('class', $other_args))
-      $className .= " " . $other_args['class'];
+      $span_class .= " " . $other_args['class'];
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $hidden_input_name = $input_name . "[is_list]";
@@ -250,9 +251,7 @@ END;
       $cur_input_name = $input_name . "[" . $key . "]";
       $checked_text = (in_array($possible_value, $cur_values)) ? 'checked="checked"' : "";
       $text .=<<<END
-	<span class="checkboxSpan">
-	<input type="checkbox" id="$input_id" tabindex="$sfgTabIndex" name="$cur_input_name" value="$possible_value" class="$className" $checked_text $disabled_text/> $possible_value
-	</span>
+	<span class="$span_class"><input type="checkbox" id="$input_id" tabindex="$sfgTabIndex" name="$cur_input_name" value="$possible_value" class="$checkbox_class" $checked_text $disabled_text/> $possible_value</span>
 
 END;
       $sfgTabIndex++;
@@ -676,6 +675,7 @@ END;
         $text .= ' checked="checked"';
         $check_set = true;
       }
+      $disabled_text = ($is_disabled) ? "disabled" : "";
       $text .= " $disabled_text/> <em>" . wfMsg('sf_editdata_none') . "</em>\n";
     }
 
