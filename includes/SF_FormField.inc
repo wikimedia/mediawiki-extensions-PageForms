@@ -217,7 +217,8 @@ END;
 		}
 		if (! $part_of_multiple) { $text .= "| "; }
 		$text .= "{{{field|" . $this->template_field->field_name;
-		if ($this->template_field->input_type != '') {
+		if (isset($this->template_field->input_type) &&
+			$this->template_field->input_type != null) {
 			$text .= "|input type=" . $this->template_field->input_type;
 		}
 		if ($this->is_mandatory) {
