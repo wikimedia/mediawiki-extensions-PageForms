@@ -36,14 +36,14 @@ class SFEditData extends SpecialPage {
 
 /*
 		global $sfgUseFormEditPage;
-                if( $sfgUseFormEditPage ) {
-                        # Experimental new feature extending from the internal
-                        # EditPage class
+		if( $sfgUseFormEditPage ) {
+			# Experimental new feature extending from the internal
+			# EditPage class
 			$article = new Article(Title::newFromText($target_name));
-                        $editor = new FormEditPage( $article, $form_name );
-                        $editor->submit();
-                        return;
-                }
+			$editor = new FormEditPage( $article, $form_name );
+			$editor->submit();
+			return;
+		}
 */
 
 		self::printEditForm($form_name, $target_name);
