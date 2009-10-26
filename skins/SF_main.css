@@ -46,6 +46,7 @@ table.formtable2 th, table.formtable2 td {
 corresponding label are not torn apart by a line break */
 span.checkboxSpan {
 	white-space: nowrap;
+	padding-right: 5px;
 }
 /* the "remove" and "add another" buttons used for multiple templates */
 input.remove, input.addanother {
