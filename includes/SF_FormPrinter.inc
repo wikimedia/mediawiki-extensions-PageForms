@@ -324,10 +324,11 @@ class SFFormPrinter {
           // once in that page, and multiple values are allowed, repeat this
           // section
           $existing_template_text = null;
-          // replace underlines with spaces in template name, to allow for
-          // searching on either
-          $search_template_str = str_replace('_', ' ', $tif->template_name);
           if ($source_is_page || $form_is_partial) {
+            // replace underlines with spaces in template name, to allow for
+            // searching on either
+            $search_template_str = str_replace('_', ' ', $tif->template_name);
+            $found_instance = preg_match('/{{' . $search_template_str . '\s*[\|}]/i', str_replace('_', ' ', $existing_page_content));
             if ($allow_multiple) {
               // find instances of this template in the page -
               // if there's at least one, re-parse this section of the
@@ -336,7 +337,7 @@ class SFFormPrinter {
               // there has to be a more efficient way to handle multiple
               // instances of templates, one that doesn't involve re-parsing
               // the same tags, but I don't know what it is.
-              if (stripos(str_replace('_', ' ', $existing_page_content), '{{' . $search_template_str) !== false) {
+              if ($found_instance) {
                 $instance_num++;
               } else {
                 $all_instances_printed = true;
@@ -344,7 +345,7 @@ class SFFormPrinter {
             }
             // get the first instance of this template on the page being edited,
             // even if there are more
-            if (($start_char = stripos(str_replace('_', ' ', $existing_page_content), '{{' . $search_template_str)) !== false) {
+            if ($found_instance && ($start_char = stripos(str_replace('_', ' ', $existing_page_content), '{{' . $search_template_str)) !== false) {
               $fields_start_char = $start_char + 2 + strlen($search_template_str);
               // skip ahead to the first real character
               while (in_array($existing_page_content[$fields_start_char], array(' ', '\n', '|'))) {
@@ -1146,7 +1147,7 @@ END;
     global $wgFCKEditorDir;
     if ($wgFCKEditorDir) {
       $showFCKEditor = SFFormUtils::getShowFCKEditor();
-      $free_text = htmlspecialchars( $free_text );
+      $free_text = str_replace( '"', '&quot;', $free_text );
       if(!$form_submitted && ($showFCKEditor & RTE_VISIBLE)) {
         $free_text = SFFormUtils::prepareTextForFCK($free_text);
       }
