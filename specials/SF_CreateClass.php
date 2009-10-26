@@ -71,9 +71,9 @@ function doSpecialCreateClass() {
 
 		$full_text = SFTemplateField::createTemplateText($template_name, $fields, $category_name, '', '', '');
 		$template_title = Title::makeTitleSafe(NS_TEMPLATE, $template_name);
-                $template_article = new Article($template_title);
-                $edit_summary = '';
-                $template_article->doEdit($full_text, $edit_summary);
+		$template_article = new Article($template_title);
+		$edit_summary = '';
+		$template_article->doEdit($full_text, $edit_summary);
 
 		$form_template = SFTemplateInForm::create($template_name, '', false);
 		$form_templates = array($form_template);
