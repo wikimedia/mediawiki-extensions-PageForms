@@ -60,6 +60,7 @@ class SFUtils {
 		else
 			$token = EDIT_TOKEN_SUFFIX;
 
+		$edit_summary = htmlspecialchars($edit_summary);
 		if ($is_save)
 			$action = "wpSave";
 		elseif ($is_preview)
