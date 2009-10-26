@@ -100,10 +100,11 @@ function autocompleteFunctionGenerator(values_list) {
         var primaryResults = [];
         var secondaryResults = [];
         if (sQuery && sQuery.length > 0) {
-            // in some cases, decodeURI() doesn't handle colons and dollar
-            // signs correctly - replace them manually
+            // in some cases, decodeURI() doesn't handle certain characters
+            // correctly - replace them manually
             query_str = decodeURI(sQuery).replace(/(%3A)/g, ":").toLowerCase();
             query_str = query_str.replace(/(%24)/g, "$");
+            query_str = query_str.replace(/(%2f)/g, "/");
             for (var i = 0; i < values_list.length; i++) {
                 subarray = values_list[i];
                 // workaround for strange IE bug
