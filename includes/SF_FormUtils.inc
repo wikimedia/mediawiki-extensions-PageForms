@@ -184,8 +184,9 @@ function validate_field_type(field_id, type, info_id) {
 			if (day_field.value == '' || year_field.value == '') {
 				return true;
 			} else if (day_field.value.match(/^\d+$/) &&
-				day_field.value <= 31 &&
-				year_field.value.match(/^\d+$/)) {
+				day_field.value <= 31) {
+				// no year validation, since it can also include
+				// 'BC' and possibly other non-number strings
 				return true;
 			} else {
 				infobox = document.getElementById(info_id);
