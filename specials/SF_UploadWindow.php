@@ -630,7 +630,7 @@ END;
 				$dlink2 = '';
 			}
 
-			$warning .= '<li>' . wfMsgExt( 'fileexists', 'parseline', $dlink ) . '</li>' . $dlink2;
+			$warning .= '<li>' . wfMsgExt( 'fileexists', 'parseinline', $dlink ) . '</li>' . $dlink2;
 
 		} elseif ( $file_lc && $file_lc->exists() ) {
 			# Check if image with lowercase extension exists.
