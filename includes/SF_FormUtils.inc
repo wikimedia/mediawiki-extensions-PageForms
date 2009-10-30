@@ -265,6 +265,8 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	// make internal ID unique for the relevant divs and spans, and replace
 	// the [num] index in the element names with an actual unique index
 	var children = new_div.getElementsByTagName('*');
+	// this array is needed to counteract an IE bug
+	var orig_children = starter_div.getElementsByTagName('*');
 	var x;
 	for (x = 0; x < children.length; x++) {
 		if (children[x].name)
@@ -274,6 +276,14 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 				.replace(/input_/g, 'input_' + num_elements + '_')
 				.replace(/info_/g, 'info_' + num_elements + '_')
 				.replace(/div_/g, 'div_' + num_elements + '_');
+		if (children[x].href)
+			children[x].href = children[x].href
+				.replace(/input_/g, 'input_' + num_elements + '_');
+		// for dropdowns, copy over selectedIndex from original div,
+		// to get around a bug in IE
+		if (children[x].type == 'select-one') {
+			children[x].selectedIndex = orig_children[x].selectedIndex;
+		}
 	}
 	if (children[x]) {
 		//We clone the last object
@@ -284,7 +294,9 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 				.replace(/div_/g, 'div_' + num_elements + '_');
 		}
 	}
-	//Since we clone the first object and we have uploadable field we must replace the input_ in order to let the printer return the value into the right field
+	// Since we clone the first object and we have uploadable field
+	// we must replace the input_ in order to let the printer return
+	// the value into the right field
 	//Create remove button
 	var remove_button = document.createElement('input');
 	remove_button.type = 'button';
