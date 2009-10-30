@@ -463,10 +463,14 @@ END;
         $month = $date['month'];
         $day = $date['day'];
       } else {
-        $actual_date = strtotime($date);
-        $year = date("Y", $actual_date);
-        $month = date("n", $actual_date);
-        $day = date("j", $actual_date);
+        $actual_date = new SMWTimeValue('_dat');
+        $actual_date->setUserValue($date);
+        $year = $actual_date->getYear();
+        // TODO - the code to convert from negative to BC notation should
+        // be in SMW itself
+        if ($year < 0) {$year = ($year * -1 + 1) . " BC";}
+        $month = $actual_date->getMonth();
+        $day = $actual_date->getDay();
       }
     } else {
       $cur_date = getdate();
@@ -505,6 +509,8 @@ END;
         }
         if (isset($datetime['timezone'])) $timezone = $datetime['timezone'];
       } else {
+        // TODO - this should change to use SMW's own date-handling class,
+        // just like dateEntryHTML() does
         $actual_date = strtotime($datetime);
         if ($sfg24HourTime) {
           $hour = date("G", $actual_date);
