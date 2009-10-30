@@ -47,7 +47,7 @@ END;
 		$text .=<<<END
 '''$free_text_label:'''
 
-{{{standard input|free text}}}
+{{{standard input|free text|rows=10}}}
 
 
 {{{standard input|summary}}}
