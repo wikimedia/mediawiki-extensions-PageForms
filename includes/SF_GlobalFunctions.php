@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.8.4');
+define('SF_VERSION','1.8.5');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -227,7 +227,7 @@ function sffAddToAdminLinks(&$admin_links_tree) {
 	$smw_docu_row = $data_structure_section->getRow('smw_docu');
 	$sf_name = wfMsg('specialpages-group-sf_group');
 	$sf_docu_label = wfMsg('adminlinks_documentation', $sf_name);
-	$smw_docu_row->addItem(AlItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label));
+	$smw_docu_row->addItem(ALItem::newFromExternalLink("http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label));
 
 	return true;
 }
