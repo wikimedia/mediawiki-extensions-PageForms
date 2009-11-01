@@ -170,7 +170,7 @@ function validate_field_type(field_id, type, info_id) {
 				return false;
 			}
 		} else if (type == 'number') {
-			if (field.value.match(/^[\d\.,]+$/)) {
+			if (field.value.match(/^\-?[\d\.,]+$/)) {
 				return true;
 			} else {
 				infobox = document.getElementById(info_id);
