@@ -463,6 +463,8 @@ END;
         $month = $date['month'];
         $day = $date['day'];
       } else {
+        // handle 'default=now'
+        if ($date == 'now') $date = date('Y/m/d');
         $actual_date = new SMWTimeValue('_dat');
         $actual_date->setUserValue($date);
         $year = $actual_date->getYear();
