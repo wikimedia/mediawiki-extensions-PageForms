@@ -2668,6 +2668,7 @@ $messages['hu'] = array(
 	'specialpages-group-sf_group' => 'Szemantikus űrlapok',
 	'createproperty' => 'Tulajdonság létrehozása',
 	'sf_createproperty_linktoform' => 'Ez a tulajdonság hivatkozni fog azokra a lapokra, amelyek használják az űrlapot:',
+	'sf_createproperty_allowedvalsinput' => 'Ha azt szeretnéd, hogy ez a tulajdonság csak bizonyos értékeket vehessen fel, add meg az engedélyezett értékek listáját, vesszővel elválasztva (ha az érték tartalmaz vesszőt, használd a „\\,” alakot):',
 	'sf_createproperty_propname' => 'Tulajdonságnév:',
 	'sf_createproperty_proptype' => 'Típus:',
 	'templates' => 'Sablonok',
@@ -2677,11 +2678,13 @@ $messages['hu'] = array(
 	'sf_createtemplate_namelabel' => 'A sablon neve:',
 	'sf_createtemplate_categorylabel' => 'A sablon által megadott kategória (nem kötelező):',
 	'sf_createtemplate_templatefields' => 'A sablon mezői:',
+	'sf_createtemplate_fieldsdesc' => 'Ha azt szeretnéd, hogy a sablonban lévő mezőknek ne kelljen mezőneveket adni, egyszerűen írd be a mező indexét (pl. 1, 2, 3 stb.) névként a valódi név helyett.',
 	'sf_createtemplate_fieldname' => 'Mező neve:',
 	'sf_createtemplate_displaylabel' => 'Megjelenített szöveg:',
 	'sf_createtemplate_semanticproperty' => 'Szemantikus tulajdonság:',
 	'sf_createtemplate_fieldislist' => 'Ez a mező értékek vesszővel elválasztott listáját tartalmazhatja.',
 	'sf_createtemplate_aggregation' => 'Aggregáció',
+	'sf_createtemplate_aggregationdesc' => 'A listázáshoz bármelyik lapon, ami ezt a sablont használja, az összes olyen lapnak, melynek van egy bizonyos tulajdonsága, ami arra a lapra mutat, add meg az alább látható tulajdonságot:',
 	'sf_createtemplate_aggregationlabel' => 'Lista címe:',
 	'sf_createtemplate_outputformat' => 'Kimeneti formátum:',
 	'sf_createtemplate_standardformat' => 'Alapértelmezett',
@@ -2693,6 +2696,7 @@ $messages['hu'] = array(
 	'sf_forms_docu' => 'A következő űrlapok találhatóak meg a wikiben.',
 	'createform' => 'Űrlap létrehozása.',
 	'sf_createform_nameinput' => 'Űrlap neve',
+	'sf_createform_nameinputdesc' => '(a szokás az, hogy az űrlapot az azt felépítő fő sablon után nevezzük el):',
 	'sf_createform_template' => 'Sablon:',
 	'sf_createform_templatelabelinput' => 'Sablon-címke (nem kötelező):',
 	'sf_createform_allowmultiple' => 'A sablon többször is (vagy egyszer sem) szerepelhet az elkészült lapon',
@@ -2715,30 +2719,46 @@ $messages['hu'] = array(
 	'createcategory' => 'Kategória létrehozása',
 	'sf_createcategory_name' => 'Kategórianév:',
 	'sf_createcategory_defaultform' => 'Alapértelmezett űrlap:',
+	'sf_createcategory_makesubcategory' => 'Legyen ez egy kategória alkategóriája (nem kötelező):',
 	'createclass' => 'Osztály létrehozása',
+	'sf_createclass_docu' => 'Add meg itt az összes adatot a tulajdonságok, a sablon és a kategória létrehozásához egyetlen osztályhoz. További beállításokat a(z) $1 lapon végezhetsz.',
 	'sf_createclass_allowedvalues' => 'Megengedett értékek',
 	'sf_createclass_listofvalues' => 'Értékek listája',
+	'sf_createclass_leavefieldblank' => 'Ha a mező neve megegyezik a tulajdonság nevével, üresen hagyhatod.',
 	'sf_createclass_missingvalues' => 'Nem töltötted ki az összes kötelező mezőt.',
 	'sf_createclass_success' => 'Tulajdonságok, sablon, űrlap és kategória lesz létrehozva.',
 	'addpage' => 'Oldal hozzáadása űrlappal',
 	'sf_addpage_badform' => 'Hiba: nem található űrlap a(z) $1 címen',
 	'sf_addpage_badtitle' => 'Hiba: a(z) „$1” érvénytelen lapcím.',
+	'sf_addpage_docu' => 'Add meg annak a lapnak a nevét, amit a(z) „$1” űrlap segítségével szeretnél szerkeszteni.
+Ha ez a lap már létezik, ahhoz az űrlaphoz leszel irányítva a lap szerkesztéséhez.
+Egyébként a lap hozzáadása űrlaphoz leszel küldve.',
+	'sf_addpage_noform_docu' => 'Add meg annak a lapnak a nevét, majd válaszd ki az űrlapot, amivel szerkeszteni akarod.
+Ha ez a lap már létezik, ahhoz az űrlaphoz leszel irányítva a lap szerkesztéséhez.
+Egyébként a lap hozzáadása űrlaphoz leszel küldve.',
 	'addoreditdata' => 'Hozzáadás vagy szerkesztés',
 	'adddata' => 'Adat hozzáadása',
 	'sf_adddata_title' => '$1 hozzáadása: $2',
+	'sf_adddata_badurl' => 'Ezen a lapon adhatsz hozzá adatokat. Meg kell adnod az űrlap nevét és a céllap URL-címét is;
+a következőképpen kell kinéznie: „Special:AddData?form=&lt;űrlap neve&gt;&target=&lt;céllap&gt;”, vagy „Special:AddData/&lt;űrlap neve&gt;/&lt;céllap&gt;”.',
 	'sf_adddata_altforms' => 'Helyette hozzáadhatod ezt a lapot a következő űrlapok egyikével:',
+	'sf_adddata_altformsonly' => 'Válassz egyet a következő űrlapok közül, amit hozzá szeretnél adni ehhez a laphoz:',
 	'editdata' => 'Adatok szerkesztése',
 	'sf_formedit' => 'Szerkesztés űrlappal',
 	'sf_formcreate' => 'Létrehozás űrlappal',
 	'sf_viewform' => 'Űrlap megtekintése',
 	'sf_editsource' => 'Forrás szerkesztése',
 	'sf_editdata_title' => '$1: $2 szerkesztése',
+	'sf_editdata_badurl' => 'Ezen a lapon szerkesztheted az adatokat. Meg kell adnod az űrlap nevét és a céllap URL-címét is;
+a következőképpen kell kinéznie: „Special:EditData?form=&lt;űrlap neve&gt;&target=&lt;céllap&gt;”, vagy „Special:EditData/&lt;űrlap neve&gt;/&lt;céllap&gt;”.',
 	'sf_editdata_morethanoneform' => "'''Figyelmeztetés:''' több mint egy alapértelmezett űrlap van megadva ehhez a laphoz.",
 	'sf_editdata_formwarning' => "'''Figyelem:''' Ez a lap <a href=\"\$1\">már létezik</a>, de nem használja ezt az űrlapot.",
 	'sf_editdata_remove' => 'Eltávolítás',
 	'sf_editdata_addanother' => 'Másik hozzáadása',
 	'sf_editdata_none' => 'Nincs',
 	'runquery' => 'Lekérdezés futtatása',
+	'sf_runquery_badurl' => "Meg kell adnod egy űrlap nevét az URL-ben;
+az URL-nek így kell kinéznie: 'Special:RunQuery/&lt;űrlap neve&gt;'.",
 	'sf_runquery_title' => 'Lekérdezés futtatása: $1',
 	'sf_runquery_additionalquery' => 'További lekérdezés',
 	'sf_formerrors_header' => 'Hibák voltak az űrlapon megadott adatokban; lásd lentebb',
@@ -2752,12 +2772,18 @@ $messages['hu'] = array(
 	'sf_deletionlog' => 'Törlési napló',
 	'sf_property_isproperty' => 'Ez egy „$1” típusú tulajdonság.',
 	'sf_property_linkstoform' => 'Hivatkozik azokra a lapokra, amelyek a(z) $1 űrlapot használják.',
+	'sf_property_allowedvals' => 'A tulajdonság a következő {{PLURAL:$1|értéket|értékeket}} veheti fel:',
 	'sf_template_docu' => 'Ez a(z) „$1” sablon.
 A következő formátumban kell meghívni:',
 	'sf_template_docufooter' => 'Szerkeszd a lapot, hogy láthasd a sablon szövegét.',
+	'sf_form_docu' => 'Ez a(z) „$1”-űrlap.
+Ha új lapot szeretnél hozzáadni ezzel az űrlappal, írd be alább a lap nevét;
+ha ez a lap már létezik, egy űrlaphoz leszel irányítva, ahol szerkesztheted a lapot.',
+	'sf_form_freetextlabel' => 'Szabad szöveg',
 	'sf_category_hasdefaultform' => 'Ez a kategória a(z) „$1” űrlapot használja.',
 	'sf_category_desc' => 'Ez a(z) $1 kategória.',
 	'sf_blank_namespace' => 'Fő',
+	'right-viewedittab' => 'Nézd a „Szerkesztés” fület azokhoz a lapokhoz, melyek űrlappal szerkeszthetőek',
 	'right-editrestrictedfields' => 'korlátozott űrlap-mezők szerkesztése',
 );
 
@@ -3752,6 +3778,20 @@ Jeigu puslapis tokiu vardu jau egzistuoja, šia forma galėsite jį redaguoti.',
 $messages['mhr'] = array(
 	'sf_createtemplate_deletefield' => 'Шӧраш',
 	'sf_createform_inputtypedefault' => '(ойлыде)',
+);
+
+/** Macedonian (Македонски)
+ * @author Bjankuloski06
+ */
+$messages['mk'] = array(
+	'sf_viewform' => 'Поглед на формата',
+	'sf_editsource' => 'Уреди го изворот',
+	'sf_editdata_title' => 'Уреди $1: $2',
+	'sf_editdata_none' => 'Нема',
+	'runquery' => 'Пушти барање',
+	'sf_runquery_additionalquery' => 'Дополнително прашање',
+	'uploadwindow' => 'Прозорец за подигање',
+	'sf_deletionlog' => 'Дневник на бришења',
 );
 
 /** Malayalam (മലയാളം)
