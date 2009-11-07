@@ -5796,11 +5796,20 @@ $messages['tt-cyrl'] = array(
 /** Ukrainian (Українська)
  * @author AS
  * @author Ahonc
+ * @author Prima klasy4na
  */
 $messages['uk'] = array(
+	'semanticforms-desc' => 'Форми для додавання і редагування семантичних даних',
+	'specialpages-group-sf_group' => 'Семантичні форми',
+	'createproperty' => 'Створити властивість',
+	'sf_createproperty_linktoform' => 'Ця властивість містить посилання на сторінки, які використовують форму:',
 	'sf_createproperty_propname' => 'Назва властивості:',
 	'sf_createproperty_proptype' => 'Тип:',
 	'templates' => 'Шаблони',
+	'sf_createtemplate_namelabel' => 'Назва шаблону:',
+	'sf_createtemplate_deletefield' => 'Вилучити',
+	'sf_createform_field' => 'Поле:',
+	'sf_editdata_remove' => 'Вилучити',
 );
 
 /** Veps (Vepsan kel')
