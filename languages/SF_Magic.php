@@ -19,6 +19,12 @@ $magicWords['mr'] = array(
 	'arraymaptemplate'   => array( '0', 'नकाशेसाचारचना', 'arraymaptemplate' ),
 );
 
+$magicWords['nds-nl'] = array(
+	'forminput'          => array( '0', 'formelierinvoer', 'formulierinvoer', 'forminput' ),
+	'formlink'           => array( '0', 'formelierverwiezing', 'formulierverwijzing', 'formlink' ),
+	'arraymaptemplate'   => array( '0', 'arraymapmal', 'arraymapsjabloon', 'arraymaptemplate' ),
+);
+
 $magicWords['nl'] = array(
 	'forminput'          => array( '0', 'formulierinvoer', 'forminput' ),
 	'formlink'           => array( '0', 'formulierverwijzing', 'formlink' ),
