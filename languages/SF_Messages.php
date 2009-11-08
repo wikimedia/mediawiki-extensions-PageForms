@@ -170,6 +170,7 @@ $messages['qqq'] = array(
 	'sf_editdata_none' => '{{Identical|None}}',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => 'Special page name for [[Special:UploadWindow]].',
+	'sf_deletionlog' => '{{Identical|Deletion log}}',
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
@@ -203,6 +204,7 @@ $messages['af'] = array(
 	'sf_editdata_none' => 'Geen',
 	'sf_blank_error' => 'mag nie leeg wees nie',
 	'sf_bad_date_error' => "moet 'n geldige datum wees",
+	'sf_deletionlog' => 'Skraplogboek',
 	'sf_form_freetextlabel' => 'Vrye teks',
 );
 
@@ -794,7 +796,7 @@ $messages['br'] = array(
 	'sf_bad_number_error' => 'a rank bezañ un niver reizh',
 	'sf_bad_date_error' => 'a rank bezañ un deiziad reizh',
 	'sf_form_freetextlabel' => 'Testenn dieub',
-	'sf_category_desc' => 'Ar rummad $1 eo.',
+	'sf_category_desc' => 'Ar rummad $1 eo hemañ.',
 	'sf_blank_namespace' => 'Pennañ',
 );
 
@@ -1393,12 +1395,14 @@ $messages['el'] = array(
 );
 
 /** Esperanto (Esperanto)
+ * @author Michawiki
  * @author Yekrats
  */
 $messages['eo'] = array(
+	'semanticforms-desc' => 'Formularoj por aldonado kaj redaktado de semantikaj datumoj',
 	'specialpages-group-sf_group' => 'Semantikaj Kamparoj',
-	'createproperty' => 'Kreu econ',
-	'sf_createproperty_propname' => 'Nomo:',
+	'createproperty' => 'Kreu atributon',
+	'sf_createproperty_propname' => 'Nomo de la atributo:',
 	'sf_createproperty_proptype' => 'Speco:',
 	'templates' => 'Ŝablonoj',
 	'sf_templates_docu' => 'La jenaj ŝablonoj ekzistas en la vikio.',
@@ -1409,7 +1413,7 @@ $messages['eo'] = array(
 	'sf_createtemplate_templatefields' => 'Kampoj de ŝablono',
 	'sf_createtemplate_fieldname' => 'Nomo de kampo:',
 	'sf_createtemplate_displaylabel' => 'Montru etikedon:',
-	'sf_createtemplate_semanticproperty' => 'Semantika eco:',
+	'sf_createtemplate_semanticproperty' => 'Semantika atributo:',
 	'sf_createtemplate_fieldislist' => 'Ĉi kampo povas enhavi liston da valoroj, apartigitaj de komoj',
 	'sf_createtemplate_aggregation' => 'Agregaĵo',
 	'sf_createtemplate_aggregationlabel' => 'Titolo por listo:',
@@ -1422,12 +1426,12 @@ $messages['eo'] = array(
 	'forms' => 'Kamparoj',
 	'sf_forms_docu' => 'La jenaj kampoj ekzistas en la vikio.',
 	'createform' => 'Kreu kamparon',
-	'sf_createform_nameinput' => 'Kampara nomo (konvencio estas nomi la kamparon pro la ĉefa ŝablono kiun ĝi plenumas):',
+	'sf_createform_nameinput' => 'Nomo de la formularo',
 	'sf_createform_template' => 'Ŝablono:',
 	'sf_createform_templatelabelinput' => 'Etikedo de ŝablono (nedevige):',
 	'sf_createform_allowmultiple' => 'Akomodi multajn (aŭ nul) ekzemplerojn de ĉi ŝablono en la kreita paĝo',
 	'sf_createform_field' => 'Kampo:',
-	'sf_createform_fieldprop' => 'Ĉi kampo difinas la eco $1, de speco $2.',
+	'sf_createform_fieldprop' => 'Ĉi tiu kampo difinas la atributon $1, de speco $2.',
 	'sf_createform_fieldproplist' => 'Ĉi tiu kampo difinas liston de elementoj kiu havas la atributon $1, de tipo $2.',
 	'sf_createform_fieldpropunknowntype' => 'Ĉi tiu kampo difinas la atributon $1, de nespecifa tipo.',
 	'sf_createform_inputtype' => 'Eniga speco:',
@@ -1473,8 +1477,8 @@ $messages['eo'] = array(
 	'sf_bad_integer_error' => 'devas esti valida enjero',
 	'sf_bad_date_error' => 'devas esti valida dato',
 	'uploadwindow' => 'Alŝuta fenestro',
-	'sf_property_isproperty' => 'Ĉi tiu estas eco de speco $1.',
-	'sf_property_allowedvals' => 'La permesitaj valoroj de ĉi atribuo estas:',
+	'sf_property_isproperty' => 'Ĉi tiu estas atributo de speco $1.',
+	'sf_property_allowedvals' => 'La {{PLURAL:$1|permesita valoro por ĉi tiu atributo|permesitaj valoroj por ĉi tiuj atributoj}} estas:',
 	'sf_template_docu' => "Ĉi tiu estas la '$1' ŝablono. Ĝi estu vokita en la jena formato:",
 	'sf_template_docufooter' => 'Redaktu la paĝo por vidi la ŝablonan tekston.',
 	'sf_form_freetextlabel' => 'Libera teksto',
@@ -4657,6 +4661,7 @@ $messages['ps'] = array(
 
 /** Portuguese (Português)
  * @author 555
+ * @author Hamilton Abreu
  * @author Lijealso
  * @author Malafaya
  * @author Waldir
@@ -4678,7 +4683,7 @@ $messages['pt'] = array(
 	'sf_createtemplate_templatefields' => 'Campos da predefinição:',
 	'sf_createtemplate_fieldsdesc' => 'Para fazer com que os campos deste modelo não requiram descrições, simplesmente introduza o índice de cada campo (p.ex. 1, 2, 3, etc.) como o nome do campo, em vez de um nome real.',
 	'sf_createtemplate_fieldname' => 'Nome do campo:',
-	'sf_createtemplate_displaylabel' => 'Exibir etiqueta:',
+	'sf_createtemplate_displaylabel' => 'Mostrar etiqueta:',
 	'sf_createtemplate_semanticproperty' => 'Propriedade semântica:',
 	'sf_createtemplate_fieldislist' => 'Este campo permite uma lista de valores, separados por vírgulas',
 	'sf_createtemplate_aggregation' => 'Agregação',
