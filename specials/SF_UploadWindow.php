@@ -972,7 +972,7 @@ wgAjaxLicensePreview = {$alp};
 				     "toggle_element_activation(\"wpUploadFileURL\",\"wpUploadFile\");" .
 				     "toggle_element_check(\"wpSourceTypeFile\",\"wpSourceTypeURL\")'" .
 				($this->mDesiredDestName?"":"onchange='fillDestFilename(\"wpUploadFile\")' ") . "size='40' />" .
-				wfMsgHTML( 'upload_source_file' ) . "<br/>" .
+				wfMsgHTML( 'upload_source_file' ) . "<br />" .
 				"<input type='radio' id='wpSourceTypeURL' name='wpSourceType' value='web' " .
 				  "onchange='toggle_element_activation(\"wpUploadFile\",\"wpUploadFileURL\")' />" .
 				"<input tabindex='1' type='text' name='wpUploadFileURL' id='wpUploadFileURL' " .
