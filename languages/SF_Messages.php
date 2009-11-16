@@ -4733,32 +4733,39 @@ $messages['pt'] = array(
 	'sf_createclass_missingvalues' => 'Os campos obrigatórios não foram todos preenchidos.',
 	'sf_createclass_success' => 'Propriedades, modelo, formulário e categoria serão criados.',
 	'addpage' => 'Adicionar página com formulário',
-	'sf_addpage_badform' => 'Erro: não foi encontrada página de formulário em $1',
+	'sf_addpage_badform' => 'Erro: não foi encontrada nenhuma página de formulário em $1',
+	'sf_addpage_badtitle' => 'Erro: "$1" é um título inválido para uma página.',
 	'sf_addpage_docu' => "Introduza o nome da página aqui, para ser editada com o formulário '$1'.
-Se a página já existir, você será enviado para o formulário de edição dessa página.
-Caso contrário, você será enviado para o formulário de adição da página.",
+Se a página já existir, será enviado para o formulário de edição dessa página.
+Caso contrário, será enviado para o formulário de adição da página.",
 	'sf_addpage_noform_docu' => 'Introduza o nome da página aqui, e selecione um formulário a usar na sua edição.
-Se a página já existir, você será enviado para o formulário de edição dessa página.
-Caso contrário, você será enviado para o formulário de adição da página.',
+Se a página já existir, será enviado para o formulário de edição dessa página.
+Caso contrário, será enviado para o formulário de adição da página.',
 	'addoreditdata' => 'Adicionar ou editar',
 	'adddata' => 'Adicionar dados',
 	'sf_adddata_title' => 'Adicionar $1: $2',
-	'sf_adddata_badurl' => "Esta é a página para adicionar dados. Você deve esepcificar tanto o nome do formulário como uma página alvo na URL;
+	'sf_adddata_badurl' => "Esta é a página para adicionar dados. Deve especificar tanto um nome de formulário como uma página alvo na URL;
 deverá parecer-se com 'Special:AddData?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:AddData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_adddata_altforms' => 'Poderá, em alternativa, adicionar esta página aos seguintes formulários:',
 	'sf_adddata_altformsonly' => 'Por favor, seleccione um dos seguintes formulários para adicionar esta página:',
 	'editdata' => 'Editar dados',
 	'sf_formedit' => 'Editar com formulário',
+	'sf_formcreate' => 'Criar com formulário',
 	'sf_viewform' => 'Ver formulário',
 	'sf_editsource' => 'Editar a origem',
 	'sf_editdata_title' => 'Editar $1: $2',
-	'sf_editdata_badurl' => "Esta é a página para editar dados. Você deve esepcificar tanto o nome do formulário como uma página alvo na URL;
+	'sf_editdata_badurl' => "Esta é a página para editar dados. Deve especificar tanto um nome de formulário como uma página alvo na URL;
 deverá parecer-se com 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_editdata_morethanoneform' => 'Atenção: Mais de um formulário padrão está definido para esta página.',
 	'sf_editdata_formwarning' => 'Aviso: Esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
 	'sf_editdata_remove' => 'Remover',
 	'sf_editdata_addanother' => 'Adicionar outro',
 	'sf_editdata_none' => 'Nenhum',
+	'runquery' => 'Executar consulta',
+	'sf_runquery_badurl' => "Deve especificar um nome de formulário na URL;
+deverá parecer-se com 'Special:RunQuery/&lt;form name&gt;'.",
+	'sf_runquery_title' => 'Executar consulta: $1',
+	'sf_runquery_additionalquery' => 'Consulta adicional',
 	'sf_formerrors_header' => 'Houve erros nas entradas do seu formulário; veja abaixo',
 	'sf_blank_error' => 'não pode estar em branco',
 	'sf_bad_url_error' => "Tem de ter o formato de URL correcto, começando com 'http'",
@@ -4767,6 +4774,7 @@ deverá parecer-se com 'Special:EditData?form=&lt;form name&gt;&target=&lt;targe
 	'sf_bad_integer_error' => 'deverá introduzir um inteiro válido',
 	'sf_bad_date_error' => 'deverá introduzir uma data válida',
 	'uploadwindow' => 'Janela de carregamento',
+	'sf_deletionlog' => 'Registo de eliminações',
 	'sf_property_isproperty' => 'Esta é uma propriedade do tipo $1.',
 	'sf_property_linkstoform' => 'Liga às páginas que usam o formulário $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|O valor permitido para esta propriedade é|Os valores permitidos para esta propriedade são}}:',
@@ -4778,6 +4786,8 @@ Ela deverá ser chamada no seguinte formato:",
 	'sf_category_hasdefaultform' => 'Esta categoria usa o formulário $1.',
 	'sf_category_desc' => 'Esta é a categoria $1.',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => 'Ver o separador "Editar" para páginas editáveis por formulário',
+	'right-editrestrictedfields' => 'Editar os campos restritos de formulários',
 );
 
 /** Brazilian Portuguese (Português do Brasil)
