@@ -3048,6 +3048,14 @@ jika halaman dengan nama tersebut sudah ada, Anda akan diarahkan ke formulir unt
 	'right-editrestrictedfields' => 'Sunting kolom formulir terbatas',
 );
 
+/** Ido (Ido)
+ * @author Malafaya
+ */
+$messages['io'] = array(
+	'templates' => 'Shabloni',
+	'sf_createform_template' => 'Shablono:',
+);
+
 /** Icelandic (Íslenska)
  * @author S.Örvarr.S
  */
