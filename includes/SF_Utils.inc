@@ -20,11 +20,14 @@ class SFUtils {
 			SMWPropertyValue::registerProperty('_SF_CP', '__spf', $sf_props[SF_SP_CREATES_PAGES_WITH_FORM], true);
 		if (array_key_exists(SF_SP_PAGE_HAS_DEFAULT_FORM, $sf_props))
 			SMWPropertyValue::registerProperty('_SF_PDF', '__spf', $sf_props[SF_SP_PAGE_HAS_DEFAULT_FORM], true);
+		if (array_key_exists(SF_SP_HAS_FIELD_LABEL_FORMAT, $sf_props))
+			SMWPropertyValue::registerProperty('_SF_FLF', '_str', $sf_props[SF_SP_HAS_FIELD_LABEL_FORMAT], true);
 		// also initialize hardcoded English values, if it's a non-English-language wiki
 		SMWPropertyValue::registerProperty('_SF_DF_BACKUP', '__spf', 'Has default form', true);
 		SMWPropertyValue::registerProperty('_SF_AF_BACKUP', '__spf', 'Has alternate form', true);
 		SMWPropertyValue::registerProperty('_SF_CP_BACKUP', '__spf', 'Creates pages with form', true);
 		SMWPropertyValue::registerProperty('_SF_PDF_BACKUP', '__spf', 'Page has default form', true);
+		SMWPropertyValue::registerProperty('_SF_FLF_BACKUP', '_str', 'Has field label format', true);
 
 		return true;
 	}

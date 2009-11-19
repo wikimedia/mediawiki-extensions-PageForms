@@ -24,6 +24,7 @@ define('SF_SP_HAS_DEFAULT_FORM', 1);
 define('SF_SP_HAS_ALTERNATE_FORM', 2);
 define('SF_SP_CREATES_PAGES_WITH_FORM', 3);
 define('SF_SP_PAGE_HAS_DEFAULT_FORM', 4);
+define('SF_SP_HAS_FIELD_LABEL_FORMAT', 5);
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgExtensionFunctions[] = 'sfgParserFunctions';

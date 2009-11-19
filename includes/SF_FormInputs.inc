@@ -155,7 +155,12 @@ END;
     foreach ($possible_values as $possible_value) {
       $text .= "  <option value=\"$possible_value\"";
       if ($possible_value == $cur_value) {$text .= " selected=\"selected\""; }
-      $text .= ">$possible_value</option>\n";
+      $text .= ">";
+      if ( $other_args['value_labels'] && $other_args['value_labels'][$possible_value] )
+      	$text .= htmlspecialchars($other_args['value_labels'][$possible_value]);
+      else
+      	$text .= $possible_value;
+      $text .= "</option>\n";
     }
     $text .=<<<END
 	</select>
@@ -210,7 +215,12 @@ END;
     foreach ($possible_values as $possible_value) {
       $text .= "  <option value=\"$possible_value\"";
       if (in_array($possible_value, $cur_values)) {$text .= " selected"; }
-      $text .= ">$possible_value</option>\n";
+      $text .= ">";
+      if ( $other_args['value_labels'] && $other_args['value_labels'][$possible_value] )
+      	$text .= htmlspecialchars($other_args['value_labels'][$possible_value]);
+      else
+      	$text .= $possible_value;
+      $text .= "</option>\n";
     }
     $text .=<<<END
 	</select>
@@ -250,8 +260,12 @@ END;
     foreach ($possible_values as $key => $possible_value) {
       $cur_input_name = $input_name . "[" . $key . "]";
       $checked_text = (in_array($possible_value, $cur_values)) ? 'checked="checked"' : "";
+      if ( $other_args['value_labels'] && $other_args['value_labels'][$possible_value] )
+      	$label = htmlspecialchars($other_args['value_labels'][$possible_value]);
+      else
+      	$label = $possible_value;
       $text .=<<<END
-	<span class="$span_class"><input type="checkbox" id="$input_id" tabindex="$sfgTabIndex" name="$cur_input_name" value="$possible_value" class="$checkbox_class" $checked_text $disabled_text/> $possible_value</span>
+	<span class="$span_class"><input type="checkbox" id="$input_id" tabindex="$sfgTabIndex" name="$cur_input_name" value="$possible_value" class="$checkbox_class" $checked_text $disabled_text/> $label</span>
 
 END;
       $sfgTabIndex++;
@@ -596,7 +610,11 @@ END;
         $text .= ' checked="checked"';
         $check_set = true;
       }
-      $text .= " $disabled_text/> $possible_value\n";
+      if ( $other_args['value_labels'] && $other_args['value_labels'][$possible_value] )
+      	$label = htmlspecialchars($other_args['value_labels'][$possible_value]);
+      else
+      	$label = $possible_value;
+      $text .= " $disabled_text/> $label\n";
     }
     // close span
     if ($is_mandatory)

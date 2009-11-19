@@ -250,8 +250,10 @@ END;
 		// the coresponding value for the template field
 		if ($this->possible_values != null)
 			$other_args['possible_values'] = $this->possible_values;
-		else
+		else {
 			$other_args['possible_values'] = $this->template_field->possible_values;
+			$other_args['value_labels'] = $this->template_field->value_labels;
+		}
 		$other_args['is_list'] = ($this->is_list || $this->template_field->is_list);
 		if ($this->template_field->semantic_property != '' && ! array_key_exists('semantic_property', $other_args))
 			$other_args['semantic_property'] = $this->template_field->semantic_property;
