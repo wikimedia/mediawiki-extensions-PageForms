@@ -99,8 +99,7 @@ class SFFormInputs {
       $cur_value = htmlspecialchars($cur_value);
 
     $text =<<<END
-		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text"
-        value="$cur_value" size="$size"
+		<input id="$input_id" tabindex="$sfgTabIndex" class="$className" name="$input_name" type="text" value="$cur_value" size="$size"
 END;
     if ($is_disabled)
       $text .= " disabled";

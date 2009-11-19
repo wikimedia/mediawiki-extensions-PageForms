@@ -7,13 +7,13 @@
 
 if (!defined('MEDIAWIKI')) die();
 
-class SFRunQuery extends SpecialPage {
+class SFRunQuery extends IncludableSpecialPage {
 
 	/**
 	 * Constructor
 	 */
 	function SFRunQuery() {
-		SpecialPage::SpecialPage('RunQuery');
+		parent::__construct('RunQuery');
 		wfLoadExtensionMessages('SemanticForms');
 	}
 
@@ -27,10 +27,10 @@ class SFRunQuery extends SpecialPage {
 			$form_name = $query;
 		}
 
-		self::printQueryForm($form_name);
+		self::printQueryForm($form_name, $this->including());
 	}
 
-	static function printQueryForm($form_name) {
+	static function printQueryForm($form_name, $embedded = false) {
 		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
 		wfLoadExtensionMessages('SemanticForms');
@@ -67,36 +67,32 @@ class SFRunQuery extends SpecialPage {
 			}
 			list ($form_text, $javascript_text, $data_text, $form_page_title) =
 				$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, null, null, true);
+			$text = "";
+			// override the default title for this page if
+			// a title was specified in the form
+			if ($form_page_title != NULL) {
+				$wgOut->setPageTitle($form_page_title);
+			}
 			if ($form_submitted) {
-				$wgOut->setArticleBodyOnly( true );
-				global $wgTitle;
-				$new_url = $wgTitle->getLocalURL() . "/$form_name";
-				$text = SFUtils::printRedirectForm($new_url, $data_text, $wgRequest->getVal('wpSummary'), false, false, false, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
-			} else {
-				$text = "";
-				// override the default title for this page if
-				// a title was specified in the form
-				if ($form_page_title != NULL) {
-					$wgOut->setPageTitle($form_page_title);
-				}
-				if ($wgRequest->getCheck('wpTextbox1')) {
-					global $wgParser, $wgUser, $wgTitle;
-					$wgParser->mOptions = new ParserOptions();
-					$wgParser->mOptions->initialiseFromUser($wgUser);
-					$text = $wgParser->parse($content, $wgTitle, $wgParser->mOptions)->getText();
-					$additional_query = wfMsg('sf_runquery_additionalquery');
-					$text .= "\n<h2>$additional_query</h2>\n";
-				}
-				$text .=<<<END
-	<form name="createbox" onsubmit="return validate_all()" action="" method="post" class="createbox">
+				global $wgParser, $wgUser, $wgTitle;
+				$wgParser->mOptions = new ParserOptions();
+				$wgParser->mOptions->initialiseFromUser($wgUser);
+				$text = $wgParser->parse($data_text, $wgTitle, $wgParser->mOptions)->getText();
+				$additional_query = wfMsg('sf_runquery_additionalquery');
+				$text .= "\n<h2>$additional_query</h2>\n";
+			}
+			$action = htmlspecialchars(SpecialPage::getTitleFor("RunQuery", $form_name)->getLocalURL());
+			$text .=<<<END
+	<form name="createbox" onsubmit="return validate_all()" action="$action" method="post" class="createbox">
 	<input type="hidden" name="query" value="true" />
 
 END;
-				$text .= $form_text;
-			}
+			$text .= $form_text;
 		}
 		SFUtils::addJavascriptAndCSS();
 		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
+		if ( $embedded )
+			$text = "<div class='runQueryEmbedded'>$text</div>";
 		$wgOut->addHTML($text);
 	}
 }
