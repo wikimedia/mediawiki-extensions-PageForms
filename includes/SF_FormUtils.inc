@@ -605,6 +605,24 @@ END;
 		$text = "		<span class='editHelp'>$cancel</span>\n";
 		return $text;
 	}
+	
+	static function runQueryButtonHTML($is_disabled = false, $label = null) {
+		// is_disabled is currently ignored
+		global $sfgTabIndex;
+
+		$sfgTabIndex++;
+		$disabled_text = ($is_disabled) ? "disabled" : "";
+		if ($label == null)
+			$label = wfMsg('runquery');
+		return self::buttonHTML(array(
+			'id'        => 'wpRunQuery',
+			'name'      => 'wpRunQuery',
+			'type'      => 'submit',
+			'tabindex'  => $sfgTabIndex,
+			'value'     => $label,
+			'title'     => $label,
+		));
+	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()
 	static function formBottom($is_disabled) {
@@ -666,19 +684,7 @@ END;
 	 * Used by 'RunQuery' page
 	 */
 	static function queryFormBottom() {
-		global $sfgTabIndex;
-
-		$sfgTabIndex++;
-		$label = wfMsg('runquery');
-		$temp = array(
-			'id'        => 'wpRunQuery',
-			'name'      => 'wpRunQuery',
-			'type'      => 'submit',
-			'tabindex'  => $sfgTabIndex,
-			'value'     => $label,
-			'title'     => $label,
-		);
-		return self::buttonHTML($temp);
+		return self::runQueryButtonHTML( false );
 	}
 
 	static function getMonthNames() {

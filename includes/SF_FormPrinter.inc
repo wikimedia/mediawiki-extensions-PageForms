@@ -932,17 +932,18 @@ END;
         // standard input processing
         // =====================================================
         } elseif ($tag_title == 'standard input') {
-          // if it's a query, ignore all standard inputs
-          if ($is_query) {
+          // handle all the possible values
+          $input_name = $tag_components[1];
+          $input_label = null;
+          
+          // if it's a query, ignore all standard inputs except run query
+          if (($is_query && $input_name != 'run query') || (!$is_query && $input_name == 'run query')) {
             $new_text = "";
             $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
             continue;
           }
           // set a flag so that the standard 'form bottom' won't get displayed
           $this->standardInputsIncluded = true;
-          // handle all the possible values
-          $input_name = $tag_components[1];
-          $input_label = null;
           // cycle through the other components
           for ($i = 2; $i < count($tag_components); $i++) {
             $component = $tag_components[$i];
@@ -977,6 +978,8 @@ END;
             $new_text = SFFormUtils::showChangesButtonHTML($form_is_disabled, $input_label);
           } elseif ($input_name == 'cancel') {
             $new_text = SFFormUtils::cancelLinkHTML($form_is_disabled, $input_label);
+          } elseif ($input_name == 'run query') {
+            $new_text = SFFormUtils::runQueryButtonHTML($form_is_disabled, $input_label);
           }
           $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
         // =====================================================
@@ -1244,17 +1247,22 @@ END;
     $form_text = str_replace('{{{choosers}}}', $chooser_text, $form_text);
 
     // add form bottom, if no custom "standard inputs" have been defined
-    if ($is_query)
-      $form_text .= SFFormUtils::queryFormBottom($form_is_disabled);
-    elseif (! $this->standardInputsIncluded)
-      $form_text .= SFFormUtils::formBottom($form_is_disabled);
+    if ( !$this->standardInputsIncluded ) {
+      if ($is_query)
+        $form_text .= SFFormUtils::queryFormBottom($form_is_disabled);
+      else
+        $form_text .= SFFormUtils::formBottom($form_is_disabled);
+    }
     $starttime = wfTimestampNow();
     $page_article = new Article($this->mPageTitle);
     $edittime = $page_article->getTimestamp();
-    $form_text .=<<<END
+    if (!$is_query)
+    	$form_text .=<<<END
 
 	<input type="hidden" value="$starttime" name="wpStarttime" />
 	<input type="hidden" value="$edittime" name="wpEdittime" />
+END;
+    $form_text .=<<<END
 	</form>
 
 END;
