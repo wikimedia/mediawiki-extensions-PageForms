@@ -20,12 +20,7 @@ class SFRunQuery extends IncludableSpecialPage {
 	function execute($query) {
 		global $wgRequest;
 		$this->setHeaders();
-		$form_name = $wgRequest->getVal('form');
-
-		// if query string did not contain this variable, try the URL
-		if (! $form_name) {
-			$form_name = $query;
-		}
+		$form_name = $this->including() ? $query : $wgRequest->getVal('form', $query);
 
 		self::printQueryForm($form_name, $this->including());
 	}
@@ -50,12 +45,21 @@ class SFRunQuery extends IncludableSpecialPage {
 			$form_article = new Article($form_title);
 			$form_definition = $form_article->getContent();
 			$submit_url = $form_title->getLocalURL('action=submit');
-			$run_query = $wgRequest->getCheck('wpRunQuery');
-			$content = $wgRequest->getVal('wpTextbox1');
+			if ( $embedded ) {
+				$run_query = false;
+				$content = NULL;
+				$raw = false;
+			} else {
+				$run_query = $wgRequest->getCheck('wpRunQuery');
+				$content = $wgRequest->getVal('wpTextbox1');
+				$raw = $wgRequest->getBool('raw', false);
+			}
 			$form_submitted = ($run_query);
+			if ( $raw )
+				$wgOut->setArticleBodyOnly( true );
 			// if user already made some action, ignore the edited
 			// page and just get data from the query string
-			if ($wgRequest->getVal('query') == 'true') {
+			if (!$embedded && $wgRequest->getVal('query') == 'true') {
 				$edit_content = null;
 				$is_text_source = false;
 			} elseif ($content != null) {
@@ -79,15 +83,18 @@ class SFRunQuery extends IncludableSpecialPage {
 				$wgParser->mOptions->initialiseFromUser($wgUser);
 				$text = $wgParser->parse($data_text, $wgTitle, $wgParser->mOptions)->getText();
 				$additional_query = wfMsg('sf_runquery_additionalquery');
-				$text .= "\n<h2>$additional_query</h2>\n";
+				if ( !$raw )
+					$text .= "\n<h2>$additional_query</h2>\n";
 			}
-			$action = htmlspecialchars(SpecialPage::getTitleFor("RunQuery", $form_name)->getLocalURL());
-			$text .=<<<END
+			if ( !$raw ) {
+				$action = htmlspecialchars(SpecialPage::getTitleFor("RunQuery", $form_name)->getLocalURL());
+				$text .=<<<END
 	<form name="createbox" onsubmit="return validate_all()" action="$action" method="post" class="createbox">
 	<input type="hidden" name="query" value="true" />
 
 END;
-			$text .= $form_text;
+				$text .= $form_text;
+			}
 		}
 		SFUtils::addJavascriptAndCSS();
 		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
