@@ -449,62 +449,65 @@ END;
 		return $additional_template_text;
 	}
 
-	static function summaryInputHTML($is_disabled, $label = null) {
+	static function summaryInputHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
 		if ($label == null)
 			$label = wfMsg('summary');
-		$disabled_text = ($is_disabled) ? "disabled" : "";
+		$disabled_text = ($is_disabled) ? " disabled" : "";
+		$attr = Xml::expandAttributes($attr);
 		$text =<<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
-	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60' $disabled_text/>
+	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
 
 END;
 		return $text;
 	}
 
-	static function minorEditInputHTML($is_disabled, $label = null) {
+	static function minorEditInputHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? "disabled" : "";
+		$disabled_text = ($is_disabled) ? " disabled" : "";
 		if ($label == null)
 			$label = wfMsgExt('minoredit', array('parseinline'));
 		$accesskey = wfMsg('accesskey-minoredit');
 		$tooltip = wfMsg('tooltip-minoredit');
+		$attr = Xml::expandAttributes($attr);
 		$text =<<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit" $disabled_text/>
+	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
 	<label for="wpMinoredit" title="$tooltip">$label</label>
 
 END;
 		return $text;
 	}
 
-	static function watchInputHTML($is_disabled, $label = null) {
+	static function watchInputHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex, $wgUser, $wgTitle;
 
 		$sfgTabIndex++;
 		$checked_text = "";
-		$disabled_text = ($is_disabled) ? "disabled" : "";
+		$disabled_text = ($is_disabled) ? " disabled" : "";
 		// figure out if the checkbox should be checked - 
 		// this code borrowed from /includes/EditPage.php
 		if ($wgUser->getOption('watchdefault')) {
 			# Watch all edits
-			$checked_text = "checked";
+			$checked_text = " checked";
 		} elseif ($wgUser->getOption('watchcreations') && !$wgTitle->exists() ) {
 			# Watch creations
-			$checked_text = "checked";
+			$checked_text = " checked";
 		} elseif ($wgTitle->userIsWatching()) {
 			# Already watched
-			$checked_text = "checked";
+			$checked_text = " checked";
 		}
 		if ($label == null)
 			$label = wfMsgExt('watchthis', array('parseinline'));
 		$accesskey = htmlspecialchars(wfMsg('accesskey-watch'));
 		$tooltip = htmlspecialchars(wfMsg('tooltip-watch'));
+		$attr = Xml::expandAttributes($attr);
 		$text =<<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis' $checked_text $disabled_text/>
+	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis'$checked_text$disabled_text$attr/>
 	<label for="wpWatchthis" title="$tooltip">$label</label>
 
 END;
@@ -520,7 +523,7 @@ END;
 		return "		$button_html\n";
 	}
 
-	static function saveButtonHTML($is_disabled, $label = null) {
+	static function saveButtonHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
@@ -536,11 +539,11 @@ END;
 			'accesskey' => wfMsg('accesskey-save'),
 			'title'     => wfMsg('tooltip-save'),
 			$disabled_text => '',
-		);
+		) + $attr;
 		return self::buttonHTML($temp);
 	}
 
-	static function showPreviewButtonHTML($is_disabled, $label = null) {
+	static function showPreviewButtonHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
@@ -556,11 +559,11 @@ END;
 			'accesskey' => wfMsg('accesskey-preview'),
 			'title'     => wfMsg('tooltip-preview'),
 			$disabled_text => '',
-		);
+		) + $attr;
 		return self::buttonHTML($temp);
 	}
 
-	static function showChangesButtonHTML($is_disabled, $label = null) {
+	static function showChangesButtonHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
@@ -576,11 +579,11 @@ END;
 			'accesskey' => wfMsg('accesskey-diff'),
 			'title'     => wfMsg('tooltip-diff'),
 			$disabled_text => '',
-		);
+		) + $attr;
 		return self::buttonHTML($temp);
 	}
 
-	static function cancelLinkHTML($is_disabled, $label = null) {
+	static function cancelLinkHTML($is_disabled, $label = null, $attr = array()) {
 		global $wgUser, $wgTitle;
 
 		$sk = $wgUser->getSkin();
@@ -606,7 +609,7 @@ END;
 		return $text;
 	}
 	
-	static function runQueryButtonHTML($is_disabled = false, $label = null) {
+	static function runQueryButtonHTML($is_disabled = false, $label = null, $attr = array()) {
 		// is_disabled is currently ignored
 		global $sfgTabIndex;
 
@@ -621,7 +624,7 @@ END;
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
 			'title'     => $label,
-		));
+		) + $attr);
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()

@@ -935,6 +935,7 @@ END;
           // handle all the possible values
           $input_name = $tag_components[1];
           $input_label = null;
+          $attr = array();
           
           // if it's a query, ignore all standard inputs except run query
           if (($is_query && $input_name != 'run query') || (!$is_query && $input_name == 'run query')) {
@@ -953,8 +954,14 @@ END;
                 $free_text_components[] = 'edittools';
               }
             } elseif (count($sub_components) == 2) {
-              if ($sub_components[0] == 'label') {
+              switch($sub_components[0]) {
+              case 'label':
                 $input_label = $sub_components[1];
+                break;
+              case 'class':
+              case 'style':
+                $attr[$sub_components[0]] = $sub_components[1];
+                break;
               }
               // free text input needs more handling than the rest
               if ($input_name == 'free text' || $input_name == '<freetext>') {
@@ -965,21 +972,21 @@ END;
             }
           }
           if ($input_name == 'summary') {
-            $new_text = SFFormUtils::summaryInputHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::summaryInputHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'minor edit') {
-            $new_text = SFFormUtils::minorEditInputHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::minorEditInputHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'watch') {
-            $new_text = SFFormUtils::watchInputHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::watchInputHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'save') {
-            $new_text = SFFormUtils::saveButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::saveButtonHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'preview') {
-            $new_text = SFFormUtils::showPreviewButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::showPreviewButtonHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'changes') {
-            $new_text = SFFormUtils::showChangesButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::showChangesButtonHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'cancel') {
-            $new_text = SFFormUtils::cancelLinkHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::cancelLinkHTML($form_is_disabled, $input_label, $attr);
           } elseif ($input_name == 'run query') {
-            $new_text = SFFormUtils::runQueryButtonHTML($form_is_disabled, $input_label);
+            $new_text = SFFormUtils::runQueryButtonHTML($form_is_disabled, $input_label, $attr);
           }
           $section = substr_replace($section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc);
         // =====================================================

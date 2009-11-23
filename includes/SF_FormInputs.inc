@@ -331,8 +331,7 @@ END;
         $size = "35";
 
       $text =<<<END
-        <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text"
-	value="" size="$size" class="$className"
+        <input tabindex="$sfgTabIndex" id="$input_id" name="$input_name" type="text" value="" size="$size" class="$className"
 END;
     if ($is_disabled)
       $text .= " disabled";
