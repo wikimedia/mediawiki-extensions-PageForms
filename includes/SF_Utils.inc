@@ -103,57 +103,78 @@ END;
 	/**
 	 * Includes the necessary Javascript and CSS files for the form
 	 * to display and work correctly
+	 * 
+	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
-	static function addJavascriptAndCSS() {
-		global $wgOut, $sfgScriptPath, $sfgYUIBase, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir;
+	static function addJavascriptAndCSS($parser = NULL) {
+		global $wgOut, $sfgScriptPath, $sfgYUIBase, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir, $wgJsMimeType;
 
-		$mainCssUrl = $sfgScriptPath . '/skins/SF_main.css';
-		$wgOut->addLink( array(
-			'rel' => 'stylesheet',
-			'type' => 'text/css',
-			'media' => "screen",
-			'href' => $mainCssUrl
-		));
-		$wgOut->addLink( array(
-			'rel' => 'stylesheet',
-			'type' => 'text/css',
-			'media' => "screen",
-			'href' => $sfgYUIBase . "autocomplete/assets/skins/sam/autocomplete.css"
-		));
-		$wgOut->addLink( array(
-			'rel' => 'stylesheet',
-			'type' => 'text/css',
-			'media' => "screen",
-			'href' => $sfgScriptPath . '/skins/SF_yui_autocompletion.css'
-		));
-		$wgOut->addLink( array(
-			'rel' => 'stylesheet',
-			'type' => 'text/css',
-			'media' => "screen",
-			'href' => $sfgScriptPath . '/skins/floatbox.css'
-		));
-		$wgOut->addLink( array(
-			'rel' => 'stylesheet',
-			'type' => 'text/css',
-			'media' => "screen",
-			'href' => $smwgScriptPath . '/skins/SMW_custom.css'
-		));
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'yahoo/yahoo-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'dom/dom-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'event/event-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'get/get-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'connection/connection-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgYUIBase . 'json/json-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'datasource/datasource-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' .  $sfgYUIBase . 'autocomplete/autocomplete-min.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_yui_autocompletion.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/SF_ajax_form_preview.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $sfgScriptPath . '/libs/floatbox.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_tooltip.js"></script>' . "\n");
-		$wgOut->addScript('<script type="text/javascript" src="' . $smwgScriptPath . '/skins/SMW_sorttable.js"></script>' . "\n");
+		$links = array(
+			array(
+				'rel' => 'stylesheet',
+				'type' => 'text/css',
+				'media' => "screen",
+				'href' => $sfgScriptPath . '/skins/SF_main.css'
+			),
+			array(
+				'rel' => 'stylesheet',
+				'type' => 'text/css',
+				'media' => "screen",
+				'href' => $sfgYUIBase . "autocomplete/assets/skins/sam/autocomplete.css"
+			),
+			array(
+				'rel' => 'stylesheet',
+				'type' => 'text/css',
+				'media' => "screen",
+				'href' => $sfgScriptPath . '/skins/SF_yui_autocompletion.css'
+			),
+			array(
+				'rel' => 'stylesheet',
+				'type' => 'text/css',
+				'media' => "screen",
+				'href' => $sfgScriptPath . '/skins/floatbox.css'
+			),
+			array(
+				'rel' => 'stylesheet',
+				'type' => 'text/css',
+				'media' => "screen",
+				'href' => $smwgScriptPath . '/skins/SMW_custom.css'
+			),
+		);
+		foreach( $links as $link ) {
+			if ( $parser )
+				$parser->getOutput()->addHeadItem(Xml::element( 'link', $link ));
+			else
+				$wgOut->addLink($link);
+		}
+		
+		
+		$scripts = array(
+			"{$sfgYUIBase}yahoo/yahoo-min.js",
+			"{$sfgYUIBase}dom/dom-min.js",
+			"{$sfgYUIBase}event/event-min.js",
+			"{$sfgYUIBase}get/get-min.js",
+			"{$sfgYUIBase}connection/connection-min.js",
+			"{$sfgYUIBase}json/json-min.js",
+			"{$sfgYUIBase}datasource/datasource-min.js",
+			"{$sfgYUIBase}autocomplete/autocomplete-min.js",
+			"$sfgScriptPath/libs/SF_yui_autocompletion.js",
+			"$sfgScriptPath/libs/SF_ajax_form_preview.js",
+			"$sfgScriptPath/libs/floatbox.js",
+			"$smwgScriptPath/skins/SMW_tooltip.js",
+			"$smwgScriptPath/skins/SMW_sorttable.js",
+		);
 		if ($wgFCKEditorDir)
-			$wgOut->addScript('<script type="text/javascript" src="' . "$wgScriptPath/$wgFCKEditorDir" . '/fckeditor.js"></script>' . "\n");
-		$wgOut->addMeta('robots','noindex,nofollow');
+			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
+		foreach( $scripts as $js ) {
+			$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
+			if ( $parser )
+				$parser->getOutput()->addHeadItem($script);
+			else
+				$wgOut->addScript($script);
+		}
+		if ( !$parser )
+			$wgOut->addMeta('robots','noindex,nofollow');
 	}
 
 	/**

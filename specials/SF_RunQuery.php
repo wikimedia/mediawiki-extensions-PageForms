@@ -27,7 +27,7 @@ class SFRunQuery extends IncludableSpecialPage {
 	}
 
 	static function printQueryForm($form_name, $embedded = false) {
-		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
+		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase, $wgParser;
 
 		// get contents of form definition file
 		$form_title = Title::makeTitleSafe(SF_NS_FORM, $form_name);
@@ -78,7 +78,7 @@ class SFRunQuery extends IncludableSpecialPage {
 				$wgOut->setPageTitle($form_page_title);
 			}
 			if ($form_submitted) {
-				global $wgParser, $wgUser, $wgTitle;
+				global $wgUser, $wgTitle;
 				$wgParser->mOptions = new ParserOptions();
 				$wgParser->mOptions->initialiseFromUser($wgUser);
 				$text = $wgParser->parse($data_text, $wgTitle, $wgParser->mOptions)->getText();
@@ -96,8 +96,12 @@ END;
 				$text .= $form_text;
 			}
 		}
-		SFUtils::addJavascriptAndCSS();
-		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
+		SFUtils::addJavascriptAndCSS($embedded?$wgParser:NULL);
+		$script = '		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
+		if ( $embedded )
+			$wgParser->getOutput()->addHeadItem($script);
+		else
+			$wgOut->addScript($script);
 		if ( $embedded )
 			$text = "<div class='runQueryEmbedded'>$text</div>";
 		$wgOut->addHTML($text);
