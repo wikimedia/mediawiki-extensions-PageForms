@@ -125,7 +125,7 @@ class SFFormPrinter {
   }
 
 
-  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null, $is_query = false) {
+  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null, $is_query = false, $embedded = false) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
@@ -214,10 +214,13 @@ class SFFormPrinter {
     // element, so that the wiki parser won't touch it - the parser will
     // remove the '<nowiki>' tags, leaving us with what we need
     $form_def = "__NOEDITSECTION__" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+    $old_strip_state = $wgParser->mStripState;
+    $wgParser->mStripState = new StripState();
     $wgParser->mOptions = new ParserOptions();
     $wgParser->mOptions->initialiseFromUser($wgUser);
     $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
-
+    $wgParser->mStripState = $old_strip_state;
+    
     // turn form definition file into an array of sections, one for each
     // template definition (plus the first section)
     $form_def_sections = array();
@@ -1295,7 +1298,10 @@ END;
       $data_text = $existing_page_content;
     $javascript_text .= $fields_javascript_text;
     global $wgParser;
-    $new_text = $wgParser->preprocess(str_replace( "{{!}}", "|", $form_page_title ), $this->mPageTitle, new ParserOptions()); 
+    $new_text = "";
+    if ( !$embedded )
+		$wgParser->preprocess(str_replace( "{{!}}", "|", $form_page_title ), $this->mPageTitle, new ParserOptions()); 
+    
     return array($form_text, "/*<![CDATA[*/ $javascript_text /*]]>*/",
       $data_text, $new_text, $generated_page_name);
   }

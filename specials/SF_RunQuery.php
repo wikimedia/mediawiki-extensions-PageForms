@@ -19,7 +19,8 @@ class SFRunQuery extends IncludableSpecialPage {
 
 	function execute($query) {
 		global $wgRequest;
-		$this->setHeaders();
+		if ( !$this->including() )
+			$this->setHeaders();
 		$form_name = $this->including() ? $query : $wgRequest->getVal('form', $query);
 
 		self::printQueryForm($form_name, $this->including());
@@ -27,8 +28,6 @@ class SFRunQuery extends IncludableSpecialPage {
 
 	static function printQueryForm($form_name, $embedded = false) {
 		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
-
-		wfLoadExtensionMessages('SemanticForms');
 
 		// get contents of form definition file
 		$form_title = Title::makeTitleSafe(SF_NS_FORM, $form_name);
@@ -41,7 +40,8 @@ class SFRunQuery extends IncludableSpecialPage {
 				$text = '<p class="error">Error: No form page was found at ' . SFUtils::linkText(SF_NS_FORM, $form_name) . ".</p>\n";
 		} else {
 			$s = wfMsg('sf_runquery_title', $form_title->getText());
-			$wgOut->setPageTitle($s);
+			if ( !$embedded )
+				$wgOut->setPageTitle($s);
 			$form_article = new Article($form_title);
 			$form_definition = $form_article->getContent();
 			$submit_url = $form_title->getLocalURL('action=submit');
@@ -70,11 +70,11 @@ class SFRunQuery extends IncludableSpecialPage {
 				$is_text_source = true;
 			}
 			list ($form_text, $javascript_text, $data_text, $form_page_title) =
-				$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, null, null, true);
+				$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, null, null, true, $embedded);
 			$text = "";
 			// override the default title for this page if
 			// a title was specified in the form
-			if ($form_page_title != NULL) {
+			if ($form_page_title != NULL && !$embedded) {
 				$wgOut->setPageTitle($form_page_title);
 			}
 			if ($form_submitted) {
