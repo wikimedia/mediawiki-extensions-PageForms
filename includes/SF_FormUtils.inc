@@ -408,12 +408,15 @@ END;
 	}
 
 	static function hiddenFieldHTML($input_name, $cur_value) {
-		$cur_value = str_replace('"', '&quot;', $cur_value);
-		$text =<<<END
-	<input type="hidden" name="$input_name" value="$cur_value" />
+		$input = self::buttonHTML(array(
+			'type' => 'hidden',
+			'name' => $input_name,
+			'value' => $cur_value,
+		));
+		return <<<END
+	$input
 
 END;
-		return $text;
 	}
 
 	/**
@@ -423,12 +426,8 @@ END;
 	static function unhandledFieldsHTML($template_contents) {
 		$text = "";
 		foreach ($template_contents as $key => $value) {
-			if ($key != '' && !is_numeric($key)) {
-				$text .=<<<END
-	<input type="hidden" name="_unhandled_$key" value="$value" />
-
-END;
-			}
+			if ($key != '' && !is_numeric($key))
+				$text .= self::hiddenFieldHTML("_unhandled_$key", $value);
 		}
 		return $text;
 	}
