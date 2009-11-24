@@ -155,7 +155,7 @@ END;
       $text .= "  <option value=\"$possible_value\"";
       if ($possible_value == $cur_value) {$text .= " selected=\"selected\""; }
       $text .= ">";
-      if ( $other_args['value_labels'] && $other_args['value_labels'][$possible_value] )
+      if ( isset($other_args['value_labels']) && isset($other_args['value_labels'][$possible_value]) )
       	$text .= htmlspecialchars($other_args['value_labels'][$possible_value]);
       else
       	$text .= $possible_value;
