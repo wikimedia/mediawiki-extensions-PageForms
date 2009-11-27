@@ -5594,6 +5594,7 @@ $messages['te'] = array(
 	'createcategory' => 'వర్గాన్ని సృష్టించండి',
 	'sf_createcategory_name' => 'వర్గపు పేరు:',
 	'sf_createcategory_makesubcategory' => 'దీన్ని మరో వర్గానికి ఉపవర్గం చెయ్యి (ఐచ్ఛికం):',
+	'sf_createclass_listofvalues' => 'విలువల యొక్క జాబితా',
 	'addpage' => 'ఫారంతో పేజీని చేర్చండి',
 	'addoreditdata' => 'చేర్చు లేదా మార్చు',
 	'sf_editdata_formwarning' => 'హెచ్చరిక: ఈ పేజీ <a href="$1">ఇప్పటికే ఉంది</a>, కానీ దానిలో ఈ ఫారం లేదు.',
