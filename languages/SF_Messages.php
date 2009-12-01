@@ -3077,6 +3077,7 @@ $messages['is'] = array(
 /** Italian (Italiano)
  * @author Alessandro Rosà
  * @author Darth Kule
+ * @author Melos
  */
 $messages['it'] = array(
 	'semanticforms-desc' => 'Form per aggiungere e modificare dati semantici',
@@ -3144,6 +3145,7 @@ $messages['it'] = array(
 	'sf_createclass_success' => 'Proprietà, template, form e categorie verranno create.',
 	'addpage' => 'Aggiungi pagina usando un form',
 	'sf_addpage_badform' => 'Errore: nessun form è stato trovato alla pagina $1',
+	'sf_addpage_badtitle' => 'Errore: "$1" non è un titolo valido per la pagina',
 	'sf_addpage_docu' => "Inserisci il nome della pagina qui, per esser modificata con il form '$1'.
 Se questa pagina esiste già, verrai indirizzato ad un form che ti permette di modificarla.
 Altrimenti, verrai indirizzato ad un nuovo form che ti permetterà di aggiungere la nuova pagina.",
@@ -3183,6 +3185,7 @@ l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name
 	'sf_bad_integer_error' => "Dev'\\esser un'\\intero valido",
 	'sf_bad_date_error' => "Dev'\\esser una data valida",
 	'uploadwindow' => 'Finestra di upload',
+	'sf_deletionlog' => 'Log cancellazioni',
 	'sf_property_isproperty' => 'Questa è una proprietà di tipo $1.',
 	'sf_property_linkstoform' => 'Ti collegherà alle pagine che usano il form $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Il valore permesso per questa proprità è|I valori permessi per questa proprietà sono}}:',
