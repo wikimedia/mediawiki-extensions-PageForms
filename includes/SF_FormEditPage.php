@@ -6,7 +6,7 @@
  * @author Yaron Koren
  */
 
-class FormEditPage extends EditPage {
+class SFFormEditPage extends EditPage {
 
 	protected $form, $form_name;
 
@@ -18,6 +18,10 @@ class FormEditPage extends EditPage {
 		$form_name = $wgRequest->getText('form', $form_name);
 		$this->form = Title::makeTitleSafe(SF_NS_FORM, $form_name);
 		$this->form_name = $form_name;
+	}
+	
+	protected function isSectionEditSupported() {
+		return false; // sections and forms don't mix
 	}
 
 	function setHeaders() {
@@ -33,13 +37,12 @@ class FormEditPage extends EditPage {
 		if ($this->textbox1 != null)
 			parent::displayPreviewArea($previewOutput);
 	}
-
-	protected function showTextbox1( $classes ) {
-		if( $this->isConflict ) {
-			// Fallback to normal mode when showing an editconflict
-			parent::showTextbox1();
-			return;
-		}
+	
+	protected function importContentFormData( &$request ) {
+		// @todo This is where $request to save&preview page text should go
+	}
+	
+	protected function showContentForm() {
 		global $sfgIP;
 		$target_title = $this->mArticle->getTitle();
 		$target_name = SFLinkUtils::titleString($target_title);
@@ -48,7 +51,7 @@ class FormEditPage extends EditPage {
 		} else {
 			SFAddData::printAddForm($this->form_name, $target_name, array(), $this->textbox1);
 		}
-
+		// @todo This needs a proper form builder
 	}
 
 	function showFooter() {

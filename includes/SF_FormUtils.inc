@@ -529,7 +529,7 @@ END;
 		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('savearticle');
-		$temp = array(
+		$temp = $attr + array(
 			'id'        => 'wpSave',
 			'name'      => 'wpSave',
 			'type'      => 'submit',
@@ -538,7 +538,7 @@ END;
 			'accesskey' => wfMsg('accesskey-save'),
 			'title'     => wfMsg('tooltip-save'),
 			$disabled_text => '',
-		) + $attr;
+		);
 		return self::buttonHTML($temp);
 	}
 
@@ -549,7 +549,7 @@ END;
 		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('showpreview');
-		$temp = array(
+		$temp = $attr + array(
 			'id'        => 'wpPreview',
 			'name'      => 'wpPreview',
 			'type'      => 'submit',
@@ -558,7 +558,7 @@ END;
 			'accesskey' => wfMsg('accesskey-preview'),
 			'title'     => wfMsg('tooltip-preview'),
 			$disabled_text => '',
-		) + $attr;
+		);
 		return self::buttonHTML($temp);
 	}
 
@@ -569,7 +569,7 @@ END;
 		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('showdiff');
-		$temp = array(
+		$temp = $attr + array(
 			'id'        => 'wpDiff',
 			'name'      => 'wpDiff',
 			'type'      => 'submit',
@@ -578,7 +578,7 @@ END;
 			'accesskey' => wfMsg('accesskey-diff'),
 			'title'     => wfMsg('tooltip-diff'),
 			$disabled_text => '',
-		) + $attr;
+		);
 		return self::buttonHTML($temp);
 	}
 
@@ -616,14 +616,14 @@ END;
 		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('runquery');
-		return self::buttonHTML(array(
+		return self::buttonHTML($attr + array(
 			'id'        => 'wpRunQuery',
 			'name'      => 'wpRunQuery',
 			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
 			'title'     => $label,
-		) + $attr);
+		));
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()

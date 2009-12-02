@@ -107,7 +107,7 @@ END;
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
 	static function addJavascriptAndCSS($parser = NULL) {
-		global $wgOut, $sfgScriptPath, $sfgYUIBase, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir, $wgJsMimeType;
+		global $wgOut, $sfgScriptPath, $sfgYUIBase, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir, $wgJsMimeType, $sfgUseFormEditPage;
 
 		$links = array(
 			array(
@@ -149,21 +149,21 @@ END;
 		}
 		
 		
-		$scripts = array(
-			"{$sfgYUIBase}yahoo/yahoo-min.js",
-			"{$sfgYUIBase}dom/dom-min.js",
-			"{$sfgYUIBase}event/event-min.js",
-			"{$sfgYUIBase}get/get-min.js",
-			"{$sfgYUIBase}connection/connection-min.js",
-			"{$sfgYUIBase}json/json-min.js",
-			"{$sfgYUIBase}datasource/datasource-min.js",
-			"{$sfgYUIBase}autocomplete/autocomplete-min.js",
-			"$sfgScriptPath/libs/SF_yui_autocompletion.js",
-			"$sfgScriptPath/libs/SF_ajax_form_preview.js",
-			"$sfgScriptPath/libs/floatbox.js",
-			"$smwgScriptPath/skins/SMW_tooltip.js",
-			"$smwgScriptPath/skins/SMW_sorttable.js",
-		);
+		$scripts = array();
+		$scripts[] = "{$sfgYUIBase}yahoo/yahoo-min.js";
+		$scripts[] = "{$sfgYUIBase}dom/dom-min.js";
+		$scripts[] = "{$sfgYUIBase}event/event-min.js";
+		$scripts[] = "{$sfgYUIBase}get/get-min.js";
+		$scripts[] = "{$sfgYUIBase}connection/connection-min.js";
+		$scripts[] = "{$sfgYUIBase}json/json-min.js";
+		$scripts[] = "{$sfgYUIBase}datasource/datasource-min.js";
+		$scripts[] = "{$sfgYUIBase}autocomplete/autocomplete-min.js";
+		$scripts[] = "$sfgScriptPath/libs/SF_yui_autocompletion.js";
+		if ( !$sfgUseFormEditPage )
+			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
+		$scripts[] = "$sfgScriptPath/libs/floatbox.js";
+		$scripts[] = "$smwgScriptPath/skins/SMW_tooltip.js";
+		$scripts[] = "$smwgScriptPath/skins/SMW_sorttable.js";
 		if ($wgFCKEditorDir)
 			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
 		foreach( $scripts as $js ) {
