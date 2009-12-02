@@ -942,10 +942,16 @@ wgAjaxLicensePreview = {$alp};
 		$destfilename = wfMsgHtml( 'destfilename' );
 		$summary = wfMsgExt( 'fileuploadsummary', 'parseinline' );
 
-		$licenses = new Licenses();
 		$license = wfMsgExt( 'license', array( 'parseinline' ) );
 		$nolicense = wfMsgHtml( 'nolicense' );
-		$licenseshtml = $licenses->getHtml();
+		// class changed in MW 1.16
+		if (method_exists('Licenses', 'getInputHtml')) {
+			$licenses = new Licenses( array() );
+			$licenseshtml = $licenses->getInputHtml( null );
+		} else {
+			$licenses = new Licenses();
+			$licenseshtml = $licenses->getHtml();
+		}
 
 		$ulb = wfMsgHtml( 'uploadbtn' );
 
