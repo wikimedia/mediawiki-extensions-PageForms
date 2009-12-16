@@ -185,7 +185,9 @@ END;
 			<input type="submit" value="$button_str"></p>
 			</form>
 END;
-		return array($str, 'noparse' => true, 'isHTML' => true);
+		// hack to remove newline from beginning of output, thanks to
+		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
+		return $parser->insertStripItem($str, $parser->mStripState);
 	}
 
 	/**
