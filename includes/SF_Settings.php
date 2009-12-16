@@ -27,19 +27,7 @@ $sfgIP = $IP . '/extensions/SemanticForms';
 // load global functions
 require_once('SF_GlobalFunctions.php');
 
-###
-# If you already have custom namespaces on your site, insert
-# $sfgNamespaceIndex = ???;
-# into your LocalSettings.php *before* including this file.
-# The number ??? must be the smallest even namespace number
-# that is not in use yet. However, it must not be smaller
-# than 150.
-##
-if (!isset($sfgNamespaceIndex)) {
-	sffInitNamespaces(150);
-} else {
-	sffInitNamespaces();
-}
+sffInitNamespaces();
 
 ###
 # The number of allowed values per autocomplete - too many might
