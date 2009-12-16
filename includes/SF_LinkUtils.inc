@@ -76,53 +76,19 @@ class SFLinkUtils {
 			die("ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!");
 		$store = smwfGetStore();
 		$title = Title::makeTitleSafe($page_namespace, $page_name);
-		// we can do this easily if we're using SMW 1.4 or higher
-		if (class_exists('SMWPropertyValue')) {
-			$property = SMWPropertyValue::makeProperty($prop_smw_id);
-			$res = $store->getPropertyValues($title, $property);
-			$form_names = array();
+		$property = SMWPropertyValue::makeProperty($prop_smw_id);
+		$res = $store->getPropertyValues($title, $property);
+		$form_names = array();
+		foreach ($res as $wiki_page_value)
+			$form_names[] = $wiki_page_value->getTitle()->getText();
+		// if we're using a non-English language, check for the English string as well
+		if (! $sfgContLang instanceof SF_LanguageEn) {
+			$backup_property = SMWPropertyValue::makeProperty($backup_prop_smw_id);
+			$res = $store->getPropertyValues($title, $backup_property);
 			foreach ($res as $wiki_page_value)
 				$form_names[] = $wiki_page_value->getTitle()->getText();
-			// if we're using a non-English language, check for the English string as well
-			if (! $sfgContLang instanceof SF_LanguageEn) {
-				$backup_property = SMWPropertyValue::makeProperty($backup_prop_smw_id);
-				$res = $store->getPropertyValues($title, $backup_property);
-				foreach ($res as $wiki_page_value)
-					$form_names[] = $wiki_page_value->getTitle()->getText();
-			}
-			return $form_names;
 		}
-
-		// otherwise, it's a bit more complex
-		$sf_props = $sfgContLang->getPropertyLabels();
-		$default_form_property = str_replace(' ', '_', $sf_props[$prop_id]);
-		$property = SFUtils::createProperty($default_form_property);
-		$prop_vals = $store->getPropertyValues($title, $property);
-		$form_names = array();
-		foreach ($prop_vals as $prop_val) {
-			// make sure it's in the form namespace
-			if (($prop_val instanceof SMWWikiPageValue || $prop_val instanceof Title) &&
-				($prop_val->getNamespace() == SF_NS_FORM)) {
-				$form_names[] = str_replace(' ', '_', $prop_val->getTitle()->getText());
-			}
-		}
-		// if that didn't work, try any aliases that may exist
-		// for this property
-		$sf_props_aliases = $sfgContLang->getPropertyAliases();
-		foreach ($sf_props_aliases as $alias => $prop_code) {
-			if ($prop_code == $prop_id) {
-				$property = SFUtils::createProperty($alias);
-				$res = $store->getPropertyValues($title, $property);
-				if (isset($res[0]) && ($res[0] instanceof SMWWikiPageValue || $res[0] instanceof Title)) {
-					// make sure it's in the form namespace
-					if ($res[0]->getNamespace() == SF_NS_FORM) {
-						$form_name = $res[0]->getTitle()->getText();
-						return array($form_name);
-					}
-				}
-			}
-		}
-		return array();
+		return $form_names;
 	}
 
 	/**
