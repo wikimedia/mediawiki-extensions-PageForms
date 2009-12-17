@@ -331,7 +331,11 @@ class SFFormPrinter {
             // replace underlines with spaces in template name, to allow for
             // searching on either
             $search_template_str = str_replace('_', ' ', $tif->template_name);
-            $found_instance = preg_match('/{{' . str_replace('/','\/',$search_template_str) . '\s*[\|}]/i', str_replace('_', ' ', $existing_page_content));
+            $preg_match_template_str = str_replace(
+              array('/', '(', ')'),
+              array('\/', '\(', '\)'),
+              $search_template_str);
+            $found_instance = preg_match('/{{' . $preg_match_template_str . '\s*[\|}]/i', str_replace('_', ' ', $existing_page_content));
             if ($allow_multiple) {
               // find instances of this template in the page -
               // if there's at least one, re-parse this section of the
