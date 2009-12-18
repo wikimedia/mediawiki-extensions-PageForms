@@ -132,11 +132,14 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $page_contents, $page_title, $page_name_formula);
 		if ($form_submitted) {
 			if ($page_name_formula != '') {
-				// append a namespace, if one was specified
+				$target_name = $generated_page_name;
+				// prepend a super-page, if one was specified
+				if ($wgRequest->getCheck('super_page')) {
+					$target_name = $wgRequest->getVal('super_page') . '/' . $target_name;
+				}
+				// prepend a namespace, if one was specified
 				if ($wgRequest->getCheck('namespace')) {
-					$target_name = $wgRequest->getVal('namespace') . ':' . $generated_page_name;
-				} else {
-					$target_name = $generated_page_name;
+					$target_name = $wgRequest->getVal('namespace') . ':' . $target_name;
 				}
 				// replace "unique number" tag with one that
 				// won't get erased by the next line
@@ -162,8 +165,13 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 						$target_title = Title::newFromText(preg_replace('/{num.*}/', $title_number, $target_name));
 						// if title number is blank,
 						// change it to 2; otherwise,
-						// increment it
-						$title_number = ($title_number == "") ? 2 : $title_number + 1;
+						// increment it, and if necessary
+						// pad it with leading 0s as well
+						if ($title_number == "") {
+							$title_number = 2;
+						} else {
+							$title_number = str_pad($title_number + 1, strlen($title_number), '0', STR_PAD_LEFT);
+						}
 					} while ($target_title->exists());
 				} else {
 					$target_title = Title::newFromText($target_name);
