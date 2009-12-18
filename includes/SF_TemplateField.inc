@@ -70,12 +70,6 @@ class SFTemplateField {
 		if (count($types) > 0)
 			$this->field_type = $types[0]->getWikiValue();
 
-		// HACK - if there were any possible values, set the field
-		// type to be 'enumeration', regardless of what the actual type is
-		if (count($this->possible_values) > 0) {
-			$this->field_type = 'enumeration';
-		}
-
 		foreach ($allowed_values as $value) {
 			// HTML-unencode each value
 			$wiki_value = html_entity_decode($value->getWikiValue());
@@ -87,6 +81,12 @@ class SFTemplateField {
 				$label_value->setOutputFormat($label_format);
 				$this->value_labels[$wiki_value] = html_entity_decode($label_value->getWikiValue());
 			}
+		}
+
+		// HACK - if there were any possible values, set the field
+		// type to be 'enumeration', regardless of what the actual type is
+		if (count($this->possible_values) > 0) {
+			$this->field_type = 'enumeration';
 		}
 	}
 
