@@ -25,15 +25,8 @@ class SFCreateProperty extends SpecialPage {
 
 	function createPropertyText($property_type, $default_form, $allowed_values_str) {
 		global $smwgContLang;
-
-		// handling of special property labels changed in SMW 1.4
-		if (method_exists($smwgContLang, 'getPropertyLabels')) {
-			$prop_labels = $smwgContLang->getPropertyLabels();
-			$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
-		} else {
-			$spec_props = $smwgContLang->getSpecialPropertiesArray();
-			$type_tag = "[[{$spec_props[SMW_SP_HAS_TYPE]}::$property_type]]";
-		}
+		$prop_labels = $smwgContLang->getPropertyLabels();
+		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
 		$text = wfMsgForContent('sf_property_isproperty', $type_tag);
 		if ($default_form != '') {
 			global $sfgContLang;
