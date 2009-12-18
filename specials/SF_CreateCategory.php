@@ -31,15 +31,7 @@ class SFCreateCategory extends SpecialPage {
 		} else {
 			global $sfgContLang;
 			$specprops = $sfgContLang->getPropertyLabels();
-			// a simpler call is possible in SMW 1.4 and higher
-			if (class_exists('SMWPropertyValue')) {
-				$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] . "::$default_form]]";
-			} else {
-				$namespace_labels = $sfgContLang->getNamespaces();
-				$form_label = $namespace_labels[SF_NS_FORM];
-				$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] .
-					"::$form_label:$default_form|$default_form]]";
-			}
+			$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] . "::$default_form]]";
 			$text = wfMsgForContent('sf_category_hasdefaultform', $form_tag);
 		}
 		if ($parent_category != '') {
