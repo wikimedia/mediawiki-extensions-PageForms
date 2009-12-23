@@ -1,9 +1,11 @@
 <?php
 /**
- * SF_UploadWindow - used for uploading files from within a form
- * This class is nearly identical to MediaWiki's SpecialUpload class, with
- * a few changes to remove skin CSS and HTML, and to populate the relevant
- * field in the form with the name of the uploaded form.
+ * SF_UploadWindow - used for uploading files from within a form, for
+ * versions of MediaWiki below 1.16.
+ * This class is nearly identical to the pre-1.16 version of MediaWiki's
+ * SpecialUpload class, but with a few changes to remove skin CSS and
+ * HTML, and to populate the relevant field in the form with the name
+ * of the uploaded form.
  *
  * This class is based almost entirely on the upload functionality
  * developed by the Chickipedia.com team.
@@ -550,7 +552,7 @@ class UploadWindowForm {
 			$output = '	<script type="text/javascript">' . "\n";
 			if ($this->mDelimiter == null) {
 				$output .=<<<END
-		parent.document.getElementById("{$this->mInputID}").value = '$basename';
+		parent.document.getElementById("{$this->mInputID}").value = "$basename";
 
 END;
 			} else {
@@ -562,13 +564,13 @@ END;
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
 		if (cur_value == '') {
-			parent.document.getElementById("{$this->mInputID}").value = '$basename' + '{$this->mDelimiter} ';
+			parent.document.getElementById("{$this->mInputID}").value = "$basename {$this->mDelimiter} ";
 		} else {
 			var last_char = cur_value.charAt(cur_value.length - 1);
 			if (last_char == '{$this->mDelimiter}' || last_char == ' ') {
-				parent.document.getElementById("{$this->mInputID}").value += '$basename' + '{$this->mDelimiter} ';
+				parent.document.getElementById("{$this->mInputID}").value += "$basename {$this->mDelimiter} ";
 			} else {
-				parent.document.getElementById("{$this->mInputID}").value += '{$this->mDelimiter} $basename{$this->mDelimiter} ';
+				parent.document.getElementById("{$this->mInputID}").value += "{$this->mDelimiter} $basename{$this->mDelimiter} ";
 			}
 		}
 
@@ -934,9 +936,11 @@ wgAjaxLicensePreview = {$alp};
 			$wgOut->addHTML( "<h2>{$sub}</h2>\n" .
 			  "<span class='error'>{$msg}</span>\n" );
 		}
-		$wgOut->addHTML( '<div id="uploadtext">' );
-		$wgOut->addWikiText( wfMsgNoTrans( 'uploadtext', $this->mDesiredDestName ) );
-		$wgOut->addHTML( '</div>' );
+		// the 'uploadtext' message is not displayed in this window,
+		// because most of it is irrelevant to a form-based upload
+		//$wgOut->addHTML( '<div id="uploadtext">' );
+		//$wgOut->addWikiText( wfMsgNoTrans( 'uploadtext', $this->mDesiredDestName ) );
+		//$wgOut->addHTML( '</div>' );
 
 		$sourcefilename = wfMsgHtml( 'sourcefilename' );
 		$destfilename = wfMsgHtml( 'destfilename' );
@@ -945,6 +949,7 @@ wgAjaxLicensePreview = {$alp};
 		$license = wfMsgExt( 'license', array( 'parseinline' ) );
 		$nolicense = wfMsgHtml( 'nolicense' );
 		// class changed in MW 1.16
+		/*
 		if (method_exists('Licenses', 'getInputHtml')) {
 			$licenses = new Licenses( array() );
 			$licenseshtml = $licenses->getInputHtml( null );
@@ -952,6 +957,8 @@ wgAjaxLicensePreview = {$alp};
 			$licenses = new Licenses();
 			$licenseshtml = $licenses->getHtml();
 		}
+		*/
+		$licenseshtml = '';
 
 		$ulb = wfMsgHtml( 'uploadbtn' );
 
