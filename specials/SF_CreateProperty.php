@@ -119,16 +119,16 @@ END;
 	<p>$name_label <input size="25" name="property_name" value="">
 	<span style="color: red;">$property_name_error_str</span>
 	$type_label
-	<select id="property_dropdown" name="property_type" onChange="toggleDefaultForm(this.value);">
 END;
+	$select_body = "";
 	foreach ($datatype_labels as $label) {
-		$text .= "	<option>$label</option>\n";
+		$select_body .= "	" . Xml::element('option', null, $label) . "\n";
 	}
+	$text .= Xml::tags('select', array('id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value);'), $select_body) . "\n";
 
 	$default_form_input = wfMsg('sf_createproperty_linktoform');
 	$values_input = wfMsg('sf_createproperty_allowedvalsinput');
 	$text .=<<<END
-	</select>
 	<div id="default_form_div" style="padding: 5px 0 5px 0; margin: 7px 0 7px 0;">
 	<p>$default_form_input
 	<input size="20" name="default_form" value=""></p>
@@ -137,13 +137,13 @@ END;
 	<p>$values_input</p>
 	<p><input size="80" name="values" value=""></p>
 	</div>
-	<div class="editButtons">
-	<input id="wpSave" type="submit" name="wpSave" value="$save_button_text">
-	<input id="wpPreview" type="submit" name="wpPreview" value="$preview_button_text">
-	</div>
-	</form>
 
 END;
+	$edit_buttons = '	' . Xml::element('input', array('id' => 'wpSave', 'type' => 'submit', 'name' => 'wpSave', 'value' => $save_button_text));
+	$edit_buttons .= '	' . Xml::element('input', array('id' => 'wpPreview', 'type' => 'submit', 'name' => 'wpPreview', 'value' => $preview_button_text));
+	$text .= '	' . Xml::tags('div', array('class' => 'editButtons'), $edit_buttons) . "\n";
+	$text .= "	</form>\n";
+
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
 		'type' => 'text/css',

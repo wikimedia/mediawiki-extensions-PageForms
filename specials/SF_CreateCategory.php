@@ -113,7 +113,7 @@ END;
 END;
 	foreach ($categories as $category) {
 		$category = str_replace('_', ' ', $category);
-		$text .= "	<option>$category</option>\n";
+		$text .= "	" . Xml::element('option', null, $category) . "\n";
 	}
 	$text .=<<<END
 	</select>
@@ -123,10 +123,10 @@ END;
 	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text"></p>
 	</div>
 	<br /><hr /<br />
-	<p>$create_form_link.</p>
 
 END;
 
+	$text .= "	" . Xml::tags('p', null, $create_form_link . '.') . "\n";
 	$text .= "	</form>\n";
 
 	$wgOut->addLink( array(

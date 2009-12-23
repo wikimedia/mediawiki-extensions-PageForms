@@ -142,38 +142,31 @@ function doSpecialCreateForm() {
 	$text .= '    <input type="hidden" name="title" value="' . $special_namespace . ':CreateForm">' . "\n";
 	$text .= '	<p>' . wfMsg('sf_createform_nameinput') . ' ' . wfMsg('sf_createform_nameinputdesc') . ' <input size=25 name="form_name" value="' . $form_name . '">';
 	if (! empty($form_name_error_str))
-		$text .= ' <font color="red">' . $form_name_error_str . '</font>';
+		$text .= '	' . Xml::element('font', array('color' => 'red'), $form_name_error_str);
 	$text .= "</p>\n";
 
 	$text .= $form->creationHTML();
 
 	$text .= '	<p>' . wfMsg('sf_createform_addtemplate') . "\n";
-	$text .= '	<select name="new_template">' . "\n";
 
+	$select_body = "";
 	foreach ($all_templates as $template) {
-		$text .= "	<option value=\"$template\">$template</option>\n";
+		$select_body .= "	" . Xml::element('option', array('value' => $template), $template) . "\n";
 	}
-
-	$text .= "	</select>\n";
+	$text .= '	' . Xml::tags('select', array('name' => 'new_template'), $select_body) . "\n";
 	// if a template has already been added, show a dropdown letting the
 	// user choose where in the list to add a new dropdown
 	if (count($form_templates) > 0) {
 		$before_template_msg = wfMsg('sf_createform_beforetemplate');
-		$at_end_msg = wfMsg('sf_createform_atend');
-		$text .=<<<END
-	$before_template_msg
-	<select name="before_template">
-
-END;
+		$text .= $before_template_msg;
+		$select_body = "";
 		foreach ($form_templates as $i => $ft) {
-			$text .= "	<option value=\"$i\">{$ft->template_name}</option>\n";
+			$select_body .= "	" . Xml::element('option', array('value' => $i), $ft->template_name) . "\n";
 		}
 		$final_index = count($form_templates);
-		$text .=<<<END
-	<option value="$final_index" selected="selected">$at_end_msg</option>
-	</select>
-
-END;
+		$at_end_msg = wfMsg('sf_createform_atend');
+		$select_body .= '	' . Xml::element('option', array('value' => $final_index, 'selected' => 'selected'), $at_end_msg);
+		$text .= Xml::tags('select', array('name' => 'before_template'), $select_body) . "\n";
 	}
 
 	// disable 'save' and 'preview' buttons if user has not yet added any
@@ -199,14 +192,14 @@ END;
 	// explanatory message if buttons are disabled because no templates
 	// have been added
 	if (count($form_templates) == 0) {
-		$text .= "	<p>(" . wfMsg('sf_createtemplate_addtemplatebeforesave') . ")</p>";
+		$text .= "	" . Xml::element('p', null, "(" . wfMsg('sf_createtemplate_addtemplatebeforesave') . ")");
 	}
 	$text .=<<<END
 	</form>
 	<hr /><br />
-	<p>$create_template_link.</p>
 
 END;
+	$text .= "	" . Xml::tags('p', null, $create_template_link . '.');
 
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
