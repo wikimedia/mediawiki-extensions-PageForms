@@ -39,13 +39,13 @@ function doSpecialCreateClass() {
 		$form_name = trim($wgRequest->getVal("form_name"));
 		$category_name = trim($wgRequest->getVal("category_name"));
 		if ($template_name == '' | $form_name == '' || $category_name == '') {
-			$text = "<p>" . wfMsg('sf_createclass_missingvalues') . "</p>";
+			$text = Xml::element('p', null, wfMsg('sf_createclass_missingvalues'));
 			$wgOut->addHTML($text);
 			return;
 		}
 		$fields = array();
 		$jobs = array();
-		for ($i = 1; $i <= 20; $i++) {
+		for ($i = 1; $i <= 25; $i++) {
 			# cycle through the query values, setting the appropriate local variables
 			$property_name = trim($wgRequest->getVal("property_name_$i"));
 			if ($property_name != '') {
@@ -93,7 +93,7 @@ function doSpecialCreateClass() {
 		$jobs[] = new SFCreatePageJob( $category_title, $params );
 		Job::batchInsert( $jobs );
 
-		$text = "<p>" . wfMsg('sf_createclass_success') . "</p>";
+		$text = Xml::element('p', null, wfMsg('sf_createclass_success'));
 		$wgOut->addHTML($text);
 		return;
 	}
@@ -144,7 +144,7 @@ function doSpecialCreateClass() {
 	</tr>
 
 END;
-	for ($i = 1; $i <= 20; $i++) {
+	for ($i = 1; $i <= 25; $i++) {
 		$text .=<<<END
 	<tr>
 	<td>$i. <input type="text" size="25" name="property_name_$i" /></td>
@@ -157,6 +157,7 @@ END;
 			$text .= "	<option>$label</option>\n";
 		}
 		$text .=<<<END
+	</select>
 	</td>
 	<td><input type="text" size="25" name="allowed_values_$i" /></td>
 	<td><input type="checkbox" name="is_list_$i" /></td>
