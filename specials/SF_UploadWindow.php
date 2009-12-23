@@ -564,11 +564,11 @@ END;
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
 		if (cur_value == '') {
-			parent.document.getElementById("{$this->mInputID}").value = "$basename {$this->mDelimiter} ";
+			parent.document.getElementById("{$this->mInputID}").value = "$basename{$this->mDelimiter} ";
 		} else {
 			var last_char = cur_value.charAt(cur_value.length - 1);
 			if (last_char == '{$this->mDelimiter}' || last_char == ' ') {
-				parent.document.getElementById("{$this->mInputID}").value += "$basename {$this->mDelimiter} ";
+				parent.document.getElementById("{$this->mInputID}").value += "$basename{$this->mDelimiter} ";
 			} else {
 				parent.document.getElementById("{$this->mInputID}").value += "{$this->mDelimiter} $basename{$this->mDelimiter} ";
 			}
