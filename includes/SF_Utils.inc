@@ -74,21 +74,22 @@ class SFUtils {
 		global $sfgScriptPath;
 		$text =<<<END
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
-	<form id="editform" name="editform" method="post" action="$new_url">
-	<input type="hidden" name="wpTextbox1" id="wpTextbox1" value="$page_contents" />
-	<input type="hidden" name="wpSummary" value="$edit_summary" />
-	<input type="hidden" name="wpStarttime" value="$start_time" />
-	<input type="hidden" name="wpEdittime" value="$edit_time" />
-	<input type="hidden" name="wpEditToken" value="$token" />
-	<input type="hidden" name="$action" />
 
 END;
+		$form_body = '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpTextbox1', 'id' => 'wpTextbox1', 'value' => $page_contents), null) . "\n";
+		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpSummary', 'value' => $edit_summary), null) . "\n";
+		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpStarttime', 'value' => $start_time), null) . "\n";
+		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpEdittime', 'value' => $edit_time), null) . "\n";
+		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpEditToken', 'value' => $token), null) . "\n";
+		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => $action), null) . "\n";
+
 		if ($is_minor_edit)
-			$text .= '    <input type="hidden" name="wpMinoredit">' . "\n";
+			$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpMinorEdit'), null) . "\n";
 		if ($watch_this)
-			$text .= '    <input type="hidden" name="wpWatchthis">' . "\n";
+			$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpWatchthis'), null) . "\n";
+		$text .= Xml::tags('form', array('id' => 'editform', 'name' => 'editform', 'method' => 'post', 'action' => $new_url), $form_body);
+
 		$text .=<<<END
-	</form>
 	<script type="text/javascript">
 	window.onload = function() {
 		document.editform.submit();
@@ -178,28 +179,6 @@ END;
 	}
 
 	/**
-	 * A helper function to generate a property object given its name,
-	 * since the class for properties changed from Title to
-	 * SMWPropertyValue in SMW 1.4
-	 */
-	static function createProperty($property_name) {
-		if (class_exists('SMWPropertyValue'))
-			return SMWPropertyValue::makeProperty($property_name);
-		else
-			return Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
-	}
-
-	/**
-	 * Same idea as createProperty()
-	 */
-	static function getPropertyName($property) {
-		if ($property instanceof Title)
-			return $property->getText();
-		else // $property instanceof SMWPropertyValue
-			return $property->getWikiValue();
-	}
-
-	/**
 	 * Return an array of all form names on this wiki
  	*/
 	static function getAllForms() {
@@ -222,16 +201,12 @@ END;
 		global $sfgContLang;
 		$namespace_labels = $sfgContLang->getNamespaces();
 		$form_label = $namespace_labels[SF_NS_FORM];
-		$str = <<<END
-		$form_label:
-			<select name="form">
-
-END;
 		$form_names = SFUtils::getAllForms();
+		$select_body = "";
 		foreach ($form_names as $form_name) {
-			$str .= "			<option>$form_name</option>\n";
+			$select_body .= '	' . Xml::element('option', null, $form_name) . "\n";
 		}
-		$str .= "			</select>\n";
+		$str = "	$form_label:" . Xml::tags('select', array('name' => 'form'), $select_body) . "\n";
 		return $str;
 	}
 
@@ -247,7 +222,7 @@ END;
 		$store = smwfGetStore();
 		$requestoptions = new SMWRequestOptions();
 		$requestoptions->limit = $sfgMaxAutocompleteValues;
-		$property = SFUtils::createProperty($property_name);
+		$property = SMWPropertyValue::makeProperty($property_name);
 		$data_values = $store->getPropertyValues(null, $property, $requestoptions);
 		$values = array();
 		foreach ($data_values as $dv) {
