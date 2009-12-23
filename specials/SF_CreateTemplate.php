@@ -36,11 +36,11 @@ class SFCreateTemplate extends SpecialPage {
 		$options->limit = 10000;
 		$used_properties = smwfGetStore()->getPropertiesSpecial($options);
 		foreach ($used_properties as $property) {
-			$all_properties[] = SFUtils::getPropertyName($property[0]);
+			$all_properties[] = $property[0]->getWikiValue();
 		}
 		$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial($options);
 		foreach ($unused_properties as $property) {
-			$all_properties[] = SFUtils::getPropertyName($property);
+			$all_properties[] = $property->getWikiValue();
 		}
 
 		// sort properties list alphabetically
@@ -147,8 +147,8 @@ function doSpecialCreateTemplate() {
 	$text .= '	<p>' . wfMsg('sf_createtemplate_namelabel') . ' <input size="25" name="template_name" value="' . $template_name . '"> <font color="red">' . $template_name_error_str . '</font></p>' . "\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_categorylabel') . ' <input size="25" name="category" value="' . $category . '"></p>' . "\n";
 	$text .= "	<fieldset>\n";
-	$text .= '	<legend>' . wfMsg('sf_createtemplate_templatefields') . "</legend>\n";
-	$text .= '	<p>' . wfMsg('sf_createtemplate_fieldsdesc') . "</p>\n";
+	$text .= '	' . Xml::element('legend', null, wfMsg('sf_createtemplate_templatefields')) . "\n";
+	$text .= '	' . Xml::element('p', null, wfMsg('sf_createtemplate_fieldsdesc')) . "\n";
 
 	foreach ($fields as $i => $field) {
 		$text .= SFCreateTemplate::printFieldEntryBox($i + 1, $field, $all_properties);
@@ -159,8 +159,8 @@ function doSpecialCreateTemplate() {
 	$text .= '	<p><input type="submit" value="' . wfMsg('sf_createtemplate_addfield') . '"></p>' . "\n";
 	$text .= "	</fieldset>\n";
 	$text .= "	<fieldset>\n";
-	$text .= '	<legend>' . wfMsg('sf_createtemplate_aggregation') . "</legend>\n";
-	$text .= '	<p>' . wfMsg('sf_createtemplate_aggregationdesc') . "</p>\n";
+	$text .= '	' . Xml::element('legend', null, wfMsg('sf_createtemplate_aggregation')) . "\n";
+	$text .= '	' . Xml::element('p', null, wfMsg('sf_createtemplate_aggregationdesc')) . "\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_semanticproperty') . " " . SFCreateTemplate::printPropertiesDropdown($all_properties, "aggregation", $aggregating_property). "</p>\n";
 	$text .= '	<p>' . wfMsg('sf_createtemplate_aggregationlabel') . ' <input size="25" name="aggregation_label" value="' . $aggregation_label . '"></p>' . "\n";
 	$text .= "	</fieldset>\n";
@@ -179,7 +179,7 @@ END;
 	$cp = SpecialPage::getPage('CreateProperty');
 	$create_property_link = $sk->makeKnownLinkObj($cp->getTitle(), $cp->getDescription());
 	$text .= "	<br /><hr /><br />\n";
-	$text .= "	<p>$create_property_link.</p>\n";
+	$text .= "	" . Xml::tags('p', null, $create_property_link . '.') . "\n";
 
 	$wgOut->addLink( array(
 		'rel' => 'stylesheet',
