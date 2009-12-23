@@ -171,7 +171,8 @@ class SFFormPrinter {
     // HACK - sometimes we don't know the page name in advance, but we still
     // need to set a title here for testing permissions
     if ($page_title == '')
-      $this->mPageTitle = Title::newFromText("Semantic Forms permissions test");
+      $this->mPageTitle = Title::newFromText(
+        $wgRequest->getVal('namespace') . ":Semantic Forms permissions test");
     else
       $this->mPageTitle = Title::newFromText($page_title);
     global $wgOut;
@@ -597,9 +598,9 @@ class SFFormPrinter {
             }
           } else
             $cur_value = '';
-          if ($cur_value && ! is_array($cur_value)) {
-            $cur_value = htmlspecialchars($cur_value);
-          }
+          //if ($cur_value && ! is_array($cur_value)) {
+            //$cur_value = htmlspecialchars($cur_value);
+          //}
 
           if ($cur_value == null) {
             // set to default value specified in the form, if it's there
