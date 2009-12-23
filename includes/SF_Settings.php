@@ -17,7 +17,7 @@ $sfgScriptPath = $wgScriptPath . '/extensions/SemanticForms';
 # seen on your local filesystem. Used against some PHP file path
 # issues.
 ##
-$sfgIP = $IP . '/extensions/SemanticForms';
+$sfgIP = dirname(__FILE__) . '/..';
 ##
 
 
