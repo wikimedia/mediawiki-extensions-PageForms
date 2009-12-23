@@ -43,7 +43,12 @@ class SFFormInputs {
       $query_string .= "&wpDestFile=$default_filename";
     $upload_window_url = $upload_window_page->getTitle()->getFullURL($query_string);
     $upload_label = wfMsg('upload');
-    $text = " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"width:550 height:380\">$upload_label</a>";
+    // window needs to be bigger for MediaWiki version 1.16+
+    if (class_exists('HTMLForm'))
+      $style = "width:650 height:500";
+    else
+      $style = '';
+    $text = " <a href=\"$upload_window_url\" title=\"$upload_label\" rel=\"iframe\" rev=\"$style\">$upload_label</a>";
     return $text;
   }
 
