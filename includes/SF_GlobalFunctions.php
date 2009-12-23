@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.8.5');
+define('SF_VERSION','1.8.6');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -77,9 +77,14 @@ $wgSpecialPageGroups['EditData'] = 'sf_group';
 $wgSpecialPages['RunQuery'] = 'SFRunQuery';
 $wgAutoloadClasses['SFRunQuery'] = $sfgIP . '/specials/SF_RunQuery.php';
 $wgSpecialPageGroups['RunQuery'] = 'sf_group';
-$wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
-$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
-
+// different upload-window class for MW 1.16+
+if (class_exists('HTMLForm')) { // added in MW 1.16
+	$wgSpecialPages['UploadWindow'] = 'SFUploadWindow2';
+	$wgAutoloadClasses['SFUploadWindow2'] = $sfgIP . '/specials/SF_UploadWindow2.php';
+} else {
+	$wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
+	$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
+}
 $wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.inc';
 $wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
 $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
@@ -134,17 +139,7 @@ function sfgParserFunctions() {
  * greater or equal to 100.
  */
 function sffInitNamespaces() {
-	global $sfgNamespaceIndex, $wgExtraNamespaces, $wgNamespaceAliases, $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
-
-	if (!isset($sfgNamespaceIndex)) {
-		$sfgNamespaceIndex = 106;
-	}
-
-	// these namespaces are defined in versions 1.4 and later of SMW
-	if (! defined('SF_NS_FORM'))
-		define('SF_NS_FORM',       $sfgNamespaceIndex);
-	if (! defined('SF_NS_FORM_TALK'))
-		define('SF_NS_FORM_TALK',  $sfgNamespaceIndex+1);
+	global $wgExtraNamespaces, $wgNamespaceAliases, $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
 
 	sffInitContentLanguage($wgLanguageCode);
 
