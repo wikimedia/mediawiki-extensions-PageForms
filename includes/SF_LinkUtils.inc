@@ -156,7 +156,7 @@ class SFLinkUtils {
 		$create_pages_property = SMWPropertyValue::makeProperty('_SF_CP_BACKUP');
 		$incoming_properties = $store->getInProperties($value);
 		foreach ($incoming_properties as $property) {
-			$property_name = SFUtils::getPropertyName($property);
+			$property_name = $property->getWikiValue();
 			$property_title = Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
 			$res = $store->getPropertyValues($property_title, $create_pages_property);
 			if (count($res) > 0) {
@@ -194,7 +194,7 @@ class SFLinkUtils {
 		$value = SMWDataValueFactory::newTypeIDValue('_wpg', $title_text);
 		$incoming_properties = $store->getInProperties($value);
 		foreach ($incoming_properties as $property) {
-			$property_title = SFUtils::getPropertyName($property);
+			$property_title = $property->getWikiValue();
 			if ($add_data_link = self::getAddDataLinkForPage($title, $property_title, SMW_NS_PROPERTY)) {
 				return $add_data_link;
 			}
