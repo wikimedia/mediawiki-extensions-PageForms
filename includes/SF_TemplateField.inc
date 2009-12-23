@@ -55,17 +55,10 @@ class SFTemplateField {
 		if ($proptitle === NULL)
 			return;
 		$store = smwfGetStore();
-		if (class_exists('SMWPropertyValue')) {
-			$types = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Has type"));
-			// this returns an array of objects
-			$allowed_values = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Allows value"));
-			$label_formats = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Has field label format"));
-		} else {
-			$types = $store->getSpecialValues($proptitle, SMW_SP_HAS_TYPE);
-			// this returns an array of objects
-			$allowed_values = $store->getSpecialValues($proptitle, SMW_SP_POSSIBLE_VALUE);
-			$label_formats = $store->getSpecialValues($proptitle, SF_SP_HAS_FIELD_LABEL_FORMAT);
-		}
+		$types = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Has type"));
+		// this returns an array of objects
+		$allowed_values = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Allows value"));
+		$label_formats = $store->getPropertyValues($proptitle, SMWPropertyValue::makeUserProperty("Has field label format"));
 		// TODO - need handling for the case of more than one type
 		if (count($types) > 0)
 			$this->field_type = $types[0]->getWikiValue();
