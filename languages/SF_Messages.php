@@ -252,7 +252,7 @@ $messages['ar'] = array(
 	'sf_createtemplate_semanticproperty' => 'خاصية سيمانتيك:',
 	'sf_createtemplate_fieldislist' => 'هذا الحقل يمكنه أن يحتوي على قائمة من القيم، مفصولة بفاصلات',
 	'sf_createtemplate_aggregation' => 'أجريجاشن',
-	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل المقالات التي تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
+	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل الصفحات التي تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
 	'sf_createtemplate_aggregationlabel' => 'العنوان للقائمة:',
 	'sf_createtemplate_outputformat' => 'صيغة الخرج:',
 	'sf_createtemplate_standardformat' => 'قياسي',
@@ -264,6 +264,7 @@ $messages['ar'] = array(
 	'sf_forms_docu' => 'الاستمارات التالية موجودة في الويكي.',
 	'createform' => 'إنشاء استمارة',
 	'sf_createform_nameinput' => 'اسم الاستمارة',
+	'sf_createform_nameinputdesc' => '(العادة أن تتم تسمية النموذج بعد القالب الرئيسي الذي يشهره):',
 	'sf_createform_template' => 'القالب:',
 	'sf_createform_templatelabelinput' => 'علامة القالب (اختياري):',
 	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب في الصفحة المنشأة',
@@ -288,6 +289,7 @@ $messages['ar'] = array(
 	'sf_createcategory_defaultform' => 'الاستمارة الافتراضية:',
 	'sf_createcategory_makesubcategory' => 'اجعل هذا تصنيفا فرعيا لتصنيف آخر (اختياري):',
 	'createclass' => 'أنشئ رتبة',
+	'sf_createclass_docu' => 'أدخل كل البيانات هنا لإنشاء الخواص، القوالب، النماذج والتصنيفات لرتبة واحدة. لمزيد من الخيارات، استخدم الصفحات $1 كبديل.',
 	'sf_createclass_allowedvalues' => 'القيم المسموح بها',
 	'sf_createclass_listofvalues' => 'قائمة القيم',
 	'sf_createclass_leavefieldblank' => 'إذا كان اسم الحقل هو نفسه اسم الخاصية، فتستطيع تركه فارغًا.',
@@ -295,6 +297,7 @@ $messages['ar'] = array(
 	'sf_createclass_success' => 'سوف تنشأ الخصائص والقالب والنموذج والتصنيف.',
 	'addpage' => 'إضافة صفحة مع نموذج',
 	'sf_addpage_badform' => 'خطأ: لا صفحة استمارة تم العثور عليها في $1',
+	'sf_addpage_badtitle' => 'خطأ: "$1" عنوان غير صحيح لصفحة.',
 	'sf_addpage_docu' => "أدخل اسم الصفحة هنا، لكي يتم تعديلها مع الاستمارة '$1'.
 إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة.
 أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.",
@@ -320,6 +323,8 @@ $messages['ar'] = array(
 	'sf_editdata_addanother' => 'إضافة آخر',
 	'sf_editdata_none' => 'لا شيء',
 	'runquery' => 'شغّل استعلامًا',
+	'sf_runquery_badurl' => "يجب أن تحدد اسم نموذج في المسار;
+المسار ينبغي أن يبدو ك 'Special:RunQuery/&lt;form name&gt;'.",
 	'sf_runquery_title' => 'تشغيل الاستعلام: $1',
 	'sf_runquery_additionalquery' => 'استعلام إضافي',
 	'sf_formerrors_header' => 'هناك أخطاء في مدخلات استمارتك؛ انظر بالأسفل',
@@ -330,6 +335,7 @@ $messages['ar'] = array(
 	'sf_bad_integer_error' => 'يجب أن يكون عددا صحيحا سليما',
 	'sf_bad_date_error' => 'يجب أن يكون تاريخا سليما',
 	'uploadwindow' => 'نافذة الرفع',
+	'sf_deletionlog' => 'سجل الحذف',
 	'sf_property_isproperty' => 'هذه خاصية من نوع $1.',
 	'sf_property_linkstoform' => 'هي تصل إلى الصفحات التي تستخدم الاستمارة $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1||القيمة المسموح بها لهذه الخاصية هي|القيمتان المسموح بهما لهذه الخاصية هما|القيم المسموح بها لهذه الخاصية هي}}:',
@@ -1857,6 +1863,7 @@ $messages['fi'] = array(
 	'sf_bad_integer_error' => 'pitää olla kelvollinen kokonaisluku',
 	'sf_bad_date_error' => 'pitää olla kelvollinen päiväys',
 	'uploadwindow' => 'Tallennusikkuna',
+	'sf_deletionlog' => 'Poistoloki',
 	'sf_property_isproperty' => 'Tämä on ominaisuus, jonka tyyppi on $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Sallittu arvo tälle ominaisuudelle on|Sallitut arvot tälle ominaisuudelle ovat}}:',
 	'sf_template_docu' => 'Tämä on malline $1. Sitä käytetään seuraavasti:',
@@ -4952,10 +4959,13 @@ $messages['rif'] = array(
  * @author Mihai
  */
 $messages['ro'] = array(
+	'specialpages-group-sf_group' => 'Formulare semantice',
+	'createproperty' => 'Creaţi o proprietate',
 	'sf_createproperty_propname' => 'Numele proprietăţii:',
 	'sf_createproperty_proptype' => 'Tip:',
 	'templates' => 'Formate',
 	'sf_templates_definescat' => 'defineşte o categorie:',
+	'createtemplate' => 'Creaţi un format',
 	'sf_createtemplate_namelabel' => 'Numele formatului:',
 	'sf_createtemplate_fieldname' => 'Numele câmpului:',
 	'sf_createtemplate_semanticproperty' => 'Proprietate semnatică:',
@@ -4972,10 +4982,18 @@ $messages['ro'] = array(
 	'sf_createform_field' => 'Câmp:',
 	'sf_createform_fieldprop' => 'Acest câmp defineşte proprietatea $1, de tipul $2.',
 	'sf_createform_inputtype' => 'Tip intrare:',
+	'sf_createform_formlabel' => 'Eticheta formularului',
 	'sf_createform_hidden' => 'Ascunse',
 	'sf_createform_mandatory' => 'Obligatoriu',
+	'sf_createform_removetemplate' => 'Ştergeţi formatul',
+	'sf_createform_addtemplate' => 'Introduceţi format:',
+	'sf_createform_beforetemplate' => 'Înainte de format:',
+	'sf_createform_atend' => 'La sfârşit',
 	'sf_createform_add' => 'Adaugă',
+	'sf_createform_choosefield' => 'Alegeţi un câmp de introdus',
+	'createcategory' => 'Creaţi o categorie',
 	'sf_createcategory_name' => 'Numele categoriei:',
+	'sf_createcategory_defaultform' => 'Formular iniţial:',
 	'sf_createclass_allowedvalues' => 'Valori permise',
 	'sf_createclass_listofvalues' => 'Listă de valori',
 	'sf_createclass_missingvalues' => 'Nu toate câmpurile necesare au fost completate.',
@@ -4997,8 +5015,11 @@ $messages['ro'] = array(
 	'sf_bad_number_error' => 'trebuie să fie un număr corect',
 	'sf_bad_integer_error' => 'trebuie să fie un număr întreg corect',
 	'sf_bad_date_error' => 'trebuie să fie o dată corectă',
+	'uploadwindow' => 'Fereastra de încărcare',
+	'sf_deletionlog' => 'Jurnalul ştergerilor',
 	'sf_property_isproperty' => 'Aceasta este o proprietate de tipul $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Valoarea admisă pentru această proprietate este|Valorile admise pentru această proprietate sunt}}:',
+	'sf_form_freetextlabel' => 'Text liber',
 	'sf_blank_namespace' => 'Principal',
 );
 
@@ -5464,6 +5485,7 @@ $messages['stq'] = array(
  * @author Lejonel
  * @author M.M.S.
  * @author Najami
+ * @author Per
  */
 $messages['sv'] = array(
 	'semanticforms-desc' => 'Formulär för att lägga till och redigera semantisk data',
@@ -5546,6 +5568,8 @@ det borde se ut som: ":EditData?form=&lt;formulärnamn&gt;&target=&lt;målsida&g
 	'sf_editdata_remove' => 'Radera',
 	'sf_editdata_addanother' => 'Lägg till en annan',
 	'sf_editdata_none' => 'Ingen',
+	'runquery' => 'Kör sökning',
+	'sf_runquery_title' => 'Kör sökning: $1',
 	'sf_formerrors_header' => 'Det fanns fel i ditt formulär; se nedan',
 	'sf_blank_error' => 'kan inte vara tom',
 	'sf_bad_url_error' => 'måste ha korrekt URL-format, inkluderande "http"',
@@ -5554,6 +5578,7 @@ det borde se ut som: ":EditData?form=&lt;formulärnamn&gt;&target=&lt;målsida&g
 	'sf_bad_integer_error' => 'måste vara ett giltigt heltal',
 	'sf_bad_date_error' => 'måste vara ett giltigt datum',
 	'uploadwindow' => 'Uppladdningsfönster',
+	'sf_deletionlog' => 'Raderingslogg',
 	'sf_property_isproperty' => 'Det här är en egenskap av typen $1.',
 	'sf_property_allowedvals' => 'De tillåtna värdena för den här egenskapen är:',
 	'sf_template_docu' => 'Det här är mallen "$1".
@@ -5596,6 +5621,7 @@ $messages['te'] = array(
 	'sf_createform_nameinput' => 'ఫారం పేరు',
 	'sf_createform_template' => 'మూస:',
 	'sf_createform_templatelabelinput' => 'మూస పేరు (ఐచ్చికం):',
+	'sf_createform_inputtypedefault' => '(అప్రమేయం)',
 	'sf_createform_hidden' => 'దాచినది',
 	'sf_createform_mandatory' => 'తప్పనిసరి',
 	'sf_createform_removetemplate' => 'మూసని తొలగించండి',
