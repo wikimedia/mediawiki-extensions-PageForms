@@ -1171,7 +1171,9 @@ END;
       }
     } else {
       $showFCKEditor = 0;
-      $free_text = Sanitizer::safeEncodeAttribute($free_text);
+      // for some reason, the following call was once necessary, but now
+      // causes problems
+      //$free_text = Sanitizer::safeEncodeAttribute($free_text);
     }
     // now that we have it, substitute free text into the form and page
     $form_text = str_replace('!free_text!', $free_text, $form_text);
