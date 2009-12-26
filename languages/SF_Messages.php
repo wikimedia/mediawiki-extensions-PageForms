@@ -383,23 +383,23 @@ $messages['arz'] = array(
 	'semanticforms-desc' => 'نماذج لإضافة وتعديل بيانات سيمانتك',
 	'specialpages-group-sf_group' => 'منتديات سيمانتيك',
 	'createproperty' => 'إنشاء خاصية',
-	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد أن تحتوي هذه الخاصية فقط على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب "\\,"):',
+	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد أن تحتوى هذه الخاصية فقط على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوى على فاصلة، استبدلها ب "\\,"):',
 	'sf_createproperty_propname' => 'اسم الخاصية:',
 	'sf_createproperty_proptype' => 'النوع:',
 	'templates' => 'قوالب',
-	'sf_templates_docu' => 'القوالب التالية موجودة فى الويكي.',
+	'sf_templates_docu' => 'القوالب التالية موجودة فى الويكى.',
 	'sf_templates_definescat' => 'يعرف التصنيف:',
 	'createtemplate' => 'إنشاء قالب',
 	'sf_createtemplate_namelabel' => 'اسم القالب:',
 	'sf_createtemplate_categorylabel' => 'التصنيف معرف بواسطة قالب (اختياري):',
 	'sf_createtemplate_templatefields' => 'حقول القالب',
-	'sf_createtemplate_fieldsdesc' => 'لكى تجعل الحقول فى هذا القالب لا تتطلب أسماء حقول، ببساطة أدخل فهرس كل حقل (مثل 1، 2، 3، إلى آخره.) كاسم، بدلا من اسم حقيقي.',
+	'sf_createtemplate_fieldsdesc' => 'لكى تجعل الحقول فى هذا القالب لا تتطلب أسماء حقول، ببساطة أدخل فهرس كل حقل (مثل 1، 2، 3، إلى آخره.) كاسم، بدلا من اسم حقيقى.',
 	'sf_createtemplate_fieldname' => 'اسم الحقل:',
 	'sf_createtemplate_displaylabel' => 'علامة العرض:',
 	'sf_createtemplate_semanticproperty' => 'خاصية سيمانتيك:',
 	'sf_createtemplate_fieldislist' => 'هذا الحقل يمكنه أن يحتوى على قائمة من القيم، مفصولة بفاصلات',
 	'sf_createtemplate_aggregation' => 'أجريجاشن',
-	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل الصفحات التي تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
+	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل الصفحات التى تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
 	'sf_createtemplate_aggregationlabel' => 'العنوان للقائمة:',
 	'sf_createtemplate_outputformat' => 'صيغة الخرج:',
 	'sf_createtemplate_standardformat' => 'قياسي',
@@ -408,7 +408,7 @@ $messages['arz'] = array(
 	'sf_createtemplate_deletefield' => 'حذف',
 	'sf_createtemplate_addtemplatebeforesave' => 'يجب أن تضيف على الأقل قالبا واحدا إلى هذه الاستمارة قبل حفظها.',
 	'forms' => 'استمارات',
-	'sf_forms_docu' => 'الاستمارات التالية موجودة فى الويكي.',
+	'sf_forms_docu' => 'الاستمارات التالية موجودة فى الويكى.',
 	'createform' => 'إنشاء استمارة',
 	'sf_createform_nameinput' => 'اسم الاستمارة',
 	'sf_createform_template' => 'القالب:',
@@ -6232,6 +6232,7 @@ $messages['zh-cn'] = array(
 
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Gzdavidwong
+ * @author Liangent
  * @author PhiLiP
  */
 $messages['zh-hans'] = array(
@@ -6241,11 +6242,17 @@ $messages['zh-hans'] = array(
 	'sf_createtemplate_namelabel' => '模板名称：',
 	'sf_createtemplate_standardformat' => '标准',
 	'sf_createform_hidden' => '隐藏',
+	'sf_viewform' => '检视表格',
 	'sf_editdata_remove' => '移除',
+	'sf_blank_error' => '不可留空',
+	'sf_bad_number_error' => '必须为有效数字',
+	'sf_bad_integer_error' => '必须为有效整数',
+	'sf_bad_date_error' => '必须为有效日期',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
  * @author Gzdavidwong
+ * @author Liangent
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
@@ -6256,6 +6263,7 @@ $messages['zh-hant'] = array(
 	'sf_createtemplate_standardformat' => '標準',
 	'sf_createform_hidden' => '隱藏',
 	'sf_viewform' => '檢視表格',
+	'sf_editdata_remove' => '移除',
 	'sf_blank_error' => '不可留空',
 	'sf_bad_number_error' => '必須為有效數字',
 	'sf_bad_integer_error' => '必須為有效整數',
