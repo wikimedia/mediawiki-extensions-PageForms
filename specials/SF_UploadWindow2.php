@@ -203,7 +203,7 @@ class SFUploadWindow2 extends SpecialPage {
 		global $wgOut;
 		
 		# Initialize form
-		$form = new UploadForm( array(
+		$form = new SFUploadForm( array(
 			'watch' => $this->watchCheck(), 
 			'forreupload' => $this->mForReUpload, 
 			'sessionkey' => $sessionKey,
@@ -691,7 +691,7 @@ END;
 /**
  * Sub class of HTMLForm that provides the form section of SpecialUpload
  */
-class UploadForm extends HTMLForm {
+class SFUploadForm extends HTMLForm {
 	protected $mWatch;
 	protected $mForReUpload;
 	protected $mSessionKey;
@@ -762,7 +762,7 @@ class UploadForm extends HTMLForm {
 
 		$descriptor = array();
 		$descriptor['UploadFile'] = array(
-				'class' => 'UploadSourceField',
+				'class' => 'SFUploadSourceField',
 				'section' => 'source',
 				'type' => 'file',
 				'id' => 'wpUploadFile',
@@ -780,7 +780,7 @@ class UploadForm extends HTMLForm {
 		if ( $canUploadByUrl ) {
 			global $wgMaxUploadSize;
 			$descriptor['UploadFileURL'] = array(
-				'class' => 'UploadSourceField',
+				'class' => 'SFUploadSourceField',
 				'section' => 'source',
 				'id' => 'wpUploadFileURL',
 				'label-message' => 'sourceurl',
@@ -1047,7 +1047,7 @@ print $text;
 /**
  * A form field that contains a radio box in the label
  */
-class UploadSourceField extends HTMLTextField {
+class SFUploadSourceField extends HTMLTextField {
 	function getLabelHtml() {
 		$id = "wpSourceType{$this->mParams['upload-type']}";
 		$label = Html::rawElement( 'label', array( 'for' => $id ), $this->mLabel  );
