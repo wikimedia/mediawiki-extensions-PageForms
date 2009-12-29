@@ -1772,13 +1772,15 @@ $messages['fa'] = array(
  * @author Nike
  * @author Silvonen
  * @author Str4nd
+ * @author ZeiP
  */
 $messages['fi'] = array(
 	'semanticforms-desc' => 'Mahdollisuus semanttisen tiedon syöttämiseen ja muokkaamiseen.',
 	'specialpages-group-sf_group' => 'Semanttiset lomakkeet',
 	'createproperty' => 'Luo ominaisuus',
-	'sf_createproperty_allowedvalsinput' => 'Jos haluat kentän sisältävän vain tiettyjä arvoja, anna pilkuin erotettu lista arvoista (pilkut arvoissa pitää neutralisoida laittamalla niiden eteen \\-merkki):',
-	'sf_createproperty_propname' => 'Nimi',
+	'sf_createproperty_linktoform' => 'Tämä ominaisuus linkittää sivuille, jotka käyttävät lomaketta:',
+	'sf_createproperty_allowedvalsinput' => 'Jos haluat kentän voivan sisältää vain tiettyjä arvoja, anna pilkuin erotettu lista sallituista arvoista (jos arvo sisältää pilkun, korvaa pilkku kenoviivalla, esim. ”\\,”):',
+	'sf_createproperty_propname' => 'Ominaisuuden nimi:',
 	'sf_createproperty_proptype' => 'Tyyppi',
 	'templates' => 'Mallineet',
 	'sf_templates_docu' => 'Tässä Wikissä on seuraavat mallineet:',
@@ -1805,6 +1807,7 @@ $messages['fi'] = array(
 	'sf_forms_docu' => 'Tässä wikissä on seuraavat lomakkeet:',
 	'createform' => 'Luo lomake',
 	'sf_createform_nameinput' => 'Lomakkeen nimi',
+	'sf_createform_nameinputdesc' => '(hyvä tapa on nimetä lomake sen pääasiallisen mallineen mukaan):',
 	'sf_createform_template' => 'Malline',
 	'sf_createform_templatelabelinput' => 'Mallineen näyttönimi (ei-pakollinen)',
 	'sf_createform_allowmultiple' => 'Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan',
@@ -1835,6 +1838,7 @@ $messages['fi'] = array(
 	'sf_createclass_missingvalues' => 'Kaikkia pakollisia kenttiä ei ole täytetty.',
 	'addpage' => 'Lisää sivu lomakkeella',
 	'sf_addpage_badform' => 'Virhe: lomakesivua ei löytynyt kohteesta $1',
+	'sf_addpage_badtitle' => 'Virhe: ”$1” on virheellinen nimi sivulle.',
 	'sf_addpage_docu' => 'Anna sivun nimi, jota muokataan lomakkeella $1. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
 	'sf_addpage_noform_docu' => 'Anna sivun nimi ja valitse lomake, jolla haluat muokata sitä. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voit muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
 	'addoreditdata' => 'Lisää tai muokkaa',
@@ -1845,15 +1849,19 @@ $messages['fi'] = array(
 	'sf_adddata_altformsonly' => 'Valitse jokin seuraavista lomakkeista, jonka haluat lisätä tällä sivulle:',
 	'editdata' => 'Muokkaa dataa',
 	'sf_formedit' => 'Muokkaa lomakkeella',
+	'sf_formcreate' => 'Luo lomakkeella',
 	'sf_viewform' => 'Näytä lomake',
 	'sf_editsource' => 'Muokkaa lähdetekstiä',
 	'sf_editdata_title' => 'Muokkaa $1: $2',
 	'sf_editdata_badurl' => 'Tämä sivu on datan muokkaamista varten. Sinun täytyy määritellä sekä lomakkeen nimi ja kohdesivu URL-osoitteessa. Sen pitäisi olla muotoa ”Special:EditData?form=&lt;lomakkeen nimi&gt;&target=&lt;kohdesivu&gt;” tai ”Special:EditData/&lt;lomakkeen nimi&gt;/&lt;kohdesivu&gt;”.',
+	'sf_editdata_morethanoneform' => "'''Virhe:''' Tälle sivulle on määritetty enemmän kuin yksi oletuslomake.",
 	'sf_editdata_formwarning' => 'Varoitus: sivu <a href="$1">on jo olemassa</a>, mutta se ei käytä tätä lomaketta.',
 	'sf_editdata_remove' => 'Poista',
 	'sf_editdata_addanother' => 'Lisää toinen',
 	'sf_editdata_none' => 'ei mikään',
 	'runquery' => 'Suorita kysely',
+	'sf_runquery_badurl' => 'Sinun tulee antaa lomakkeen nimi URL-osoitteessa;
+osoitteen tulisi näyttää esimerkiksi tältä: ”Special:RunQuery/&lt;form name&gt;”.',
 	'sf_runquery_title' => 'Suorita kysely: $1',
 	'sf_runquery_additionalquery' => 'Lisähakukysely',
 	'sf_formerrors_header' => 'Syöttämissäsi tiedoissa on vikaa.',
@@ -1866,6 +1874,7 @@ $messages['fi'] = array(
 	'uploadwindow' => 'Tallennusikkuna',
 	'sf_deletionlog' => 'Poistoloki',
 	'sf_property_isproperty' => 'Tämä on ominaisuus, jonka tyyppi on $1.',
+	'sf_property_linkstoform' => 'Linkittää sivuille, jotka käyttävät lomaketta $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Sallittu arvo tälle ominaisuudelle on|Sallitut arvot tälle ominaisuudelle ovat}}:',
 	'sf_template_docu' => 'Tämä on malline $1. Sitä käytetään seuraavasti:',
 	'sf_template_docufooter' => 'Muokkaa tätä sivua, jos haluat nähdä mallineen tekstin.',
@@ -1874,6 +1883,7 @@ $messages['fi'] = array(
 	'sf_category_hasdefaultform' => 'Tämä luokka käyttää lomaketta $1.',
 	'sf_category_desc' => 'Tämä on luokka $1.',
 	'sf_blank_namespace' => 'Päänimiavaruus',
+	'right-viewedittab' => 'Näytä ”Muokkaa”-välilehti lomakkein muokattaville sivuille',
 	'right-editrestrictedfields' => 'Muokata rajoitettuja lomakekenttiä',
 );
 
@@ -3630,15 +3640,18 @@ $messages['lb'] = array(
 	'sf_createtemplate_categorylabel' => 'Kategorie déi duerch eng Schabloun definéiert ass (fakultativ):',
 	'sf_createtemplate_fieldname' => 'Numm vum Feld:',
 	'sf_createtemplate_displaylabel' => 'Etiquette weisen:',
+	'sf_createtemplate_aggregation' => 'Resumé',
 	'sf_createtemplate_aggregationlabel' => "Titel fir d'Lëscht:",
 	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_addfield' => 'Feld derbäisetzen',
 	'sf_createtemplate_deletefield' => 'Läschen',
 	'sf_createtemplate_addtemplatebeforesave' => 'Dir musst mindestens eng Schabloun an dëser Formulaire drasetzen ier Dir e späichere kënnt.',
 	'forms' => 'Formulairen',
+	'sf_forms_docu' => 'Dës Formulaire gëtt et op dëser Wiki.',
 	'createform' => 'E Formulaire uleeën',
 	'sf_createform_nameinput' => 'Numm vum Formulaire',
 	'sf_createform_template' => 'Schabloun:',
+	'sf_createform_templatelabelinput' => 'Etiquette vun der Schabloun (fakultativ)',
 	'sf_createform_field' => 'Feld:',
 	'sf_createform_inputtypedefault' => '(Standardwert)',
 	'sf_createform_formlabel' => 'Etikett vum Formulaire:',
@@ -3676,6 +3689,7 @@ $messages['lb'] = array(
 	'runquery' => 'Ufro ausféieren',
 	'sf_runquery_title' => 'ausféiere vu der Ufro: $1',
 	'sf_runquery_additionalquery' => 'Zousätzlech Ufro',
+	'sf_formerrors_header' => 'Et ware Feeler andeem wat Dir an de Formulaire aginn hutt; kuckt hei ënnendrënner',
 	'sf_blank_error' => 'Däerf net eidel sinn!',
 	'sf_bad_url_error' => "muss de korrekten URL-format hunn, a mat 'http' ufänken",
 	'sf_bad_email_error' => 'muss e valabelen E-Mailadresse-Format hunn',
@@ -3693,6 +3707,7 @@ Si soll an dësem Format opgeruff ginn:",
 	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formelär $1.',
 	'sf_category_desc' => "Dëst ass d'$1 Kategorie.",
 	'sf_blank_namespace' => 'Haapt',
+	'right-viewedittab' => '"Änneren"-Tab fir Säiten, déi duerch e Formlaire geännert kënne ginn, weisen',
 );
 
 /** Limburgish (Limburgs)
@@ -5761,6 +5776,14 @@ $messages['th'] = array(
 	'sf_createtemplate_deletefield' => 'ลบ',
 	'sf_createform_add' => 'เพิ่ม',
 	'sf_editdata_none' => 'ไม่มี',
+);
+
+/** Turkmen (Türkmençe)
+ * @author Hanberke
+ */
+$messages['tk'] = array(
+	'sf_createtemplate_deletefield' => 'Öçür',
+	'sf_editdata_remove' => 'Aýyr',
 );
 
 /** Tagalog (Tagalog)
