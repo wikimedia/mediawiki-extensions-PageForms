@@ -4970,6 +4970,7 @@ Ela deverá ser chamada no seguinte formato:",
  * @author Eduardo.mps
  * @author Enqd
  * @author Leonardo Costa
+ * @author Luckas Blade
  * @author Rafael Vargas
  */
 $messages['pt-br'] = array(
@@ -5038,6 +5039,7 @@ $messages['pt-br'] = array(
 	'sf_createclass_success' => 'As propriedades, predefinições, os formulários e categorias serão criados.',
 	'addpage' => 'Adicionar página',
 	'sf_addpage_badform' => 'Erro: nenhum formulário de página foi encontrado em $1',
+	'sf_addpage_badtitle' => 'Erro: "$1" é um título inválido para uma página.',
 	'sf_addpage_docu' => "Entre com o nome da página aqui, para ser editado com o formulário '$1'. Se esta página já existir, você será direcionado para o formulário para editar a página. Senão, você será direcionado para o formulário para adicionar a página.",
 	'sf_addpage_noform_docu' => 'Entre com o nome da página aqui, e selecione o formulário na qual a página será editada. Se esta página já existir, você será direcionado para o formulário para editar a página.  Senão, você será direcionado para o formulário para adicionar a página.',
 	'addoreditdata' => 'Adicionar ou editar',
