@@ -10,6 +10,15 @@ $magicWords['en'] = array(
 );
 
 $magicWords['ar'] = array(
+	'forminput'          => array( '0', 'مدخل_النموذج', 'forminput' ),
+	'formlink'           => array( '0', 'وصلة_النموذج', 'formlink' ),
+	'arraymap'           => array( '0', 'خريطة_المصفوفة', 'arraymap' ),
+	'arraymaptemplate'   => array( '0', 'قالب_خريطة_المصفوفة', 'arraymaptemplate' ),
+);
+
+$magicWords['arz'] = array(
+	'forminput'          => array( '0', 'مدخل_النموذج', 'forminput' ),
+	'formlink'           => array( '0', 'وصلة_النموذج', 'formlink' ),
 	'arraymap'           => array( '0', 'خريطة_المصفوفة', 'arraymap' ),
 	'arraymaptemplate'   => array( '0', 'قالب_خريطة_المصفوفة', 'arraymaptemplate' ),
 );
