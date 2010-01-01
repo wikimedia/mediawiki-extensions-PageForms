@@ -1183,6 +1183,7 @@ die URL sollte wie folgt aussehen: „Special:RunQuery/&lt;form name&gt;”',
 
 /** German (formal address) (Deutsch (Sie-Form))
  * @author Dst
+ * @author Imre
  * @author Umherirrender
  */
 $messages['de-formal'] = array(
@@ -1193,6 +1194,8 @@ $messages['de-formal'] = array(
 	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder Null) Instanzen dieser Vorlage in der erstellten Seite',
 	'sf_createform_choosefield' => 'Wählen Sie ein Feld aus, das Sie hinzufügen wollen.',
 	'sf_createcategory_makesubcategory' => 'Machen Sie diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
+	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
+Für mehrere Optionen nutzen Sie bitte die Seite $1.',
 	'sf_addpage_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
 	'sf_addpage_noform_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
 	'sf_adddata_badurl' => 'Dies ist die Seite zum Hinzufügen von Daten. Sie müssen den Namen eines Formulars UND die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:AddData?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:AddData/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
@@ -6013,8 +6016,11 @@ kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa 
 /** Turkish (Türkçe)
  * @author Joseph
  * @author Karduelis
+ * @author Vito Genovese
  */
 $messages['tr'] = array(
+	'specialpages-group-sf_group' => 'Anlamsal Formlar',
+	'createproperty' => 'Bir özellik oluştur',
 	'sf_createproperty_propname' => 'Özellik ismi:',
 	'sf_createproperty_proptype' => 'Tip:',
 	'templates' => 'Şablonlar',
@@ -6022,6 +6028,8 @@ $messages['tr'] = array(
 	'sf_createtemplate_namelabel' => 'Şablon adı:',
 	'sf_createtemplate_templatefields' => 'Şablon alanları',
 	'sf_createtemplate_fieldname' => 'Alan adı:',
+	'sf_createtemplate_displaylabel' => 'Etiketi görüntüle:',
+	'sf_createtemplate_semanticproperty' => 'Anlamsal özellik:',
 	'sf_createtemplate_aggregationlabel' => 'Liste için başlık:',
 	'sf_createtemplate_outputformat' => 'Çıktı biçimi:',
 	'sf_createtemplate_standardformat' => 'Standart',
@@ -6039,17 +6047,31 @@ $messages['tr'] = array(
 	'sf_createform_mandatory' => 'Zorunlu',
 	'sf_createform_removetemplate' => 'Şablon kaldır',
 	'sf_createform_addtemplate' => 'Şablon ekle:',
+	'sf_createform_beforetemplate' => 'Şablondan önce:',
 	'sf_createform_add' => 'Ekle',
+	'sf_createform_choosefield' => 'Eklenecek bir alan seçin',
+	'createcategory' => 'Bir kategori oluştur',
 	'sf_createcategory_name' => 'Kategori ismi:',
 	'sf_createcategory_defaultform' => 'Var sayılan form:',
+	'sf_createclass_allowedvalues' => 'İzin verilen değerler',
+	'sf_createclass_listofvalues' => 'Değerlerin listesi',
 	'addpage' => 'Form ile sayfa ekle',
 	'addoreditdata' => 'Ekle veya düzelt',
 	'adddata' => 'Veri ekle',
+	'editdata' => 'Verileri düzenle',
+	'sf_viewform' => 'Formu gör',
 	'sf_editsource' => 'Kaynak düzelt',
 	'sf_editdata_remove' => 'Kaldır',
 	'sf_editdata_none' => 'Hiçbiri',
+	'sf_runquery_additionalquery' => 'Ek sorgu',
+	'sf_blank_error' => 'boş olamaz',
+	'sf_bad_number_error' => 'geçerli bir sayı olmalı',
+	'sf_bad_integer_error' => 'geçerli bir tamsayı olmalı',
+	'sf_bad_date_error' => 'geçerli bir tarih olmalı',
+	'sf_form_freetextlabel' => 'Serbest metin',
 	'sf_category_desc' => 'Bu $1 kategorisidir.',
 	'sf_blank_namespace' => 'Ana',
+	'right-editrestrictedfields' => 'Kısıtlanmış form alanlarını değiştirir',
 );
 
 /** Tatar (Cyrillic) (Татарча/Tatarça (Cyrillic))
