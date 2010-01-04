@@ -4002,7 +4002,7 @@ $messages['ml'] = array(
 	'createcategory' => 'വര്‍ഗ്ഗം സൃഷ്ടിക്കുക',
 	'sf_createcategory_name' => 'പേര്‌:',
 	'sf_createcategory_defaultform' => 'സ്വതവെയുള്ള ഫോം:',
-	'sf_createcategory_makesubcategory' => 'ഇതു മറ്റൊരു വിഭാഗത്തിന്റെ ഉപവിഭാഗമാക്കുക (നിര്‍ബന്ധമില്ല):',
+	'sf_createcategory_makesubcategory' => 'ഇതു മറ്റൊരു വർഗ്ഗത്തിന്റെ ഉപവർഗ്ഗമാക്കുക (നിര്‍ബന്ധമില്ല):',
 	'sf_addpage_badform' => 'പിഴവ്: $1ല്‍ ഫോം താള്‍ ഒന്നും കണ്ടില്ല',
 	'addoreditdata' => 'ചേര്‍ക്കുക അല്ലെങ്കില്‍ തിരുത്തുക',
 	'adddata' => 'ഡാറ്റ ചേര്‍ക്കുക',
@@ -4025,7 +4025,7 @@ $messages['ml'] = array(
 	'sf_bad_date_error' => 'സാധുവായ തീയതി നിര്‍ബന്ധമാണ്‌',
 	'sf_template_docufooter' => 'ഫലകത്തിന്റെ ഉള്ളടക്കം കാണാന്‍ താള്‍ തിരുത്തുക.',
 	'sf_category_hasdefaultform' => 'ഈ വര്‍ഗ്ഗം $1 എന്ന ഫോം ഉപയോഗിക്കുന്നു.',
-	'sf_category_desc' => 'ഇതു $1 എന്ന വിഭാഗമാണ്‌.',
+	'sf_category_desc' => 'ഇതു $1 എന്ന വർഗ്ഗമാണ്‌.',
 	'sf_blank_namespace' => 'മുഖ്യം',
 );
 
