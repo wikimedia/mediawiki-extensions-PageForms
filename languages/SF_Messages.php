@@ -895,16 +895,21 @@ $messages['bs'] = array(
 	'sf_editdata_none' => 'ništa',
 	'runquery' => 'Pokreni upit',
 	'sf_runquery_title' => 'Pokreni upit: $1',
+	'sf_runquery_additionalquery' => 'Dodatni upiti',
 	'sf_blank_error' => 'ne može biti prazno',
 	'sf_bad_email_error' => 'mora se navesti valjan format e-mail adrese',
 	'sf_bad_number_error' => 'mora biti validan broj',
 	'sf_bad_integer_error' => 'mora biti valjan cijeli broj',
 	'sf_bad_date_error' => 'mora biti valjan datum',
+	'uploadwindow' => 'Prozor za postavljanje',
+	'sf_deletionlog' => 'Zapisnik brisanja',
 	'sf_template_docu' => "Ovo je '$1' obrazac.
 Trebao bi se nazvati u slijedećem formatu:",
 	'sf_form_freetextlabel' => 'Slobodni tekst',
 	'sf_category_hasdefaultform' => 'Ova kategorija koristi obrazac $1.',
+	'sf_category_desc' => 'Ovo je $1 kategorija.',
 	'sf_blank_namespace' => 'Glavno',
+	'right-editrestrictedfields' => 'Uređivanje ograničenih polja obrazca',
 );
 
 /** Catalan (Català)
