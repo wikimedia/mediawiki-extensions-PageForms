@@ -34,7 +34,7 @@ class SFAddPage extends SpecialPage {
 			$article = new Article($page_title);
 			$article->loadContent();
 			$redirect_title = Title::newFromRedirect($article->fetchContent());
-			if ($redirect_title != NULL) {
+			if ($redirect_title != null) {
 				$page_title = $redirect_title;
 			}
 			// HACK - if this is the default form for

@@ -71,13 +71,13 @@ class SFFormEditTab {
 				$edit_tab_location = array_search('edit', $tab_keys);
 				// if there's no 'edit' tab, look for the
 				// 'view source' tab instead
-				if ($edit_tab_location == NULL)
+				if ($edit_tab_location == null)
 					$edit_tab_location = array_search('viewsource', $tab_keys);
 				// this should rarely happen, but if there was
 				// no edit *or* view source tab, set the
 				// location index to -1, so the tab shows up
 				// near the end
-				if ($edit_tab_location == NULL)
+				if ($edit_tab_location == null)
 					$edit_tab_location = -1;
 				array_splice($tab_keys, $edit_tab_location, 0, 'form_edit');
 				array_splice($tab_values, $edit_tab_location, 0, array($form_edit_tab));

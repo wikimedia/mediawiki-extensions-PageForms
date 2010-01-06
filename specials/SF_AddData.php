@@ -52,9 +52,9 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 	wfLoadExtensionMessages('SemanticForms');
 
 	// initialize some variables
-	$page_title = NULL;
-	$target_title = NULL;
-	$page_name_formula = NULL;
+	$page_title = null;
+	$target_title = null;
+	$page_name_formula = null;
 
 	// get contents of form and target page - if there's only one,
 	// it might be a target with only alternate forms
@@ -182,7 +182,7 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 		} else {
 			// override the default title for this page if
 			// a title was specified in the form
-			if ($form_page_title != NULL) {
+			if ($form_page_title != null) {
 				if ($target_name == '') {
 					$wgOut->setPageTitle($form_page_title);
 				} else {

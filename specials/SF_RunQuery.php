@@ -47,7 +47,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			$submit_url = $form_title->getLocalURL('action=submit');
 			if ( $embedded ) {
 				$run_query = false;
-				$content = NULL;
+				$content = null;
 				$raw = false;
 			} else {
 				$run_query = $wgRequest->getCheck('wpRunQuery');
@@ -74,7 +74,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			$text = "";
 			// override the default title for this page if
 			// a title was specified in the form
-			if ($form_page_title != NULL && !$embedded) {
+			if ($form_page_title != null && !$embedded) {
 				$wgOut->setPageTitle($form_page_title);
 			}
 			if ($form_submitted) {
@@ -96,7 +96,7 @@ END;
 				$text .= $form_text;
 			}
 		}
-		SFUtils::addJavascriptAndCSS($embedded?$wgParser:NULL);
+		SFUtils::addJavascriptAndCSS($embedded?$wgParser:null);
 		$script = '		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
 		if ( $embedded )
 			$wgParser->getOutput()->addHeadItem($script);

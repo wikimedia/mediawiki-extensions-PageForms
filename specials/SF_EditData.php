@@ -103,7 +103,7 @@ static function printEditForm($form_name, $target_name, $content = null) {
 		} else {
 			// override the default title for this page if
 			// a title was specified in the form
-			if ($form_page_title != NULL) {
+			if ($form_page_title != null) {
 				$wgOut->setPageTitle("$form_page_title: {$target_title->getPrefixedText()}");
 			}
 			$text =<<<END

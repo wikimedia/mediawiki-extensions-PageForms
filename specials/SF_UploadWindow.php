@@ -1229,7 +1229,7 @@ EOT
 
 		$match= $magic->isMatchingExtension($extension,$mime);
 
-		if ($match===NULL) {
+		if ($match===null) {
 			wfDebug( __METHOD__.": no file extension known for mime type $mime, passing file\n" );
 			return true;
 		} elseif ($match===true) {
@@ -1274,7 +1274,7 @@ EOT
 		#decode from UTF-16 if needed (could be used for obfuscation).
 		if (substr($chunk,0,2)=="\xfe\xff") $enc= "UTF-16BE";
 		elseif (substr($chunk,0,2)=="\xff\xfe") $enc= "UTF-16LE";
-		else $enc= NULL;
+		else $enc= null;
 
 		if ($enc) $chunk= iconv($enc,"ASCII//IGNORE",$chunk);
 
@@ -1357,7 +1357,7 @@ EOT
 
 		if ( !$wgAntivirus ) {
 			wfDebug( __METHOD__.": virus scanner disabled\n");
-			return NULL;
+			return null;
 		}
 
 		if ( !$wgAntivirusSetup[$wgAntivirus] ) {
@@ -1413,12 +1413,12 @@ EOT
 			if ( $wgAntivirusRequired ) { 
 				return "scan failed (code $exitCode)"; 
 			} else { 
-				return NULL; 
+				return null; 
 			}
 		} else if ( $mappedCode === AV_SCAN_ABORTED ) { 
 			# scan failed because filetype is unknown (probably imune)
 			wfDebug( __METHOD__.": unsupported file type $file (code $exitCode).\n" );
-			return NULL;
+			return null;
 		} else if ( $mappedCode === AV_NO_VIRUS ) {
 			# no virus found
 			wfDebug( __METHOD__.": file passed virus scan.\n" );
