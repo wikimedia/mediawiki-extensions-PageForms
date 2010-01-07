@@ -160,7 +160,7 @@ END;
       $text .= "  <option value=\"$possible_value\"";
       if ($possible_value == $cur_value) {$text .= " selected=\"selected\""; }
       $text .= ">";
-      if (array_key_exists('value_labels', $other_args) && array_key_exists($possible_value, $other_args['value_labels']))
+      if (array_key_exists('value_labels', $other_args) && is_array($other_args['value_labels']) && array_key_exists($possible_value, $other_args['value_labels']))
       	$text .= htmlspecialchars($other_args['value_labels'][$possible_value]);
       else
       	$text .= $possible_value;
@@ -220,7 +220,7 @@ END;
       $text .= "  <option value=\"$possible_value\"";
       if (in_array($possible_value, $cur_values)) {$text .= " selected"; }
       $text .= ">";
-      if (array_key_exists('value_labels', $other_args) && array_key_exists($possible_value, $other_args['value_labels']))
+      if (array_key_exists('value_labels', $other_args) && is_array($other_args['value_labels']) && array_key_exists($possible_value, $other_args['value_labels']))
       	$text .= htmlspecialchars($other_args['value_labels'][$possible_value]);
       else
       	$text .= $possible_value;
@@ -264,7 +264,7 @@ END;
     foreach ($possible_values as $key => $possible_value) {
       $cur_input_name = $input_name . "[" . $key . "]";
       $checked_text = (in_array($possible_value, $cur_values)) ? 'checked="checked"' : "";
-      if (array_key_exists('value_labels', $other_args) && array_key_exists($possible_value, $other_args['value_labels']))
+      if (array_key_exists('value_labels', $other_args) && is_array($other_args['value_labels']) && array_key_exists($possible_value, $other_args['value_labels']))
       	$label = htmlspecialchars($other_args['value_labels'][$possible_value]);
       else
       	$label = $possible_value;
@@ -613,7 +613,7 @@ END;
         $text .= ' checked="checked"';
         $check_set = true;
       }
-      if (array_key_exists('value_labels', $other_args) && array_key_exists($possible_value, $other_args['value_labels']))
+      if (array_key_exists('value_labels', $other_args) && is_array($other_args['value_labels']) && array_key_exists($possible_value, $other_args['value_labels']))
       	$label = htmlspecialchars($other_args['value_labels'][$possible_value]);
       else
       	$label = $possible_value;
