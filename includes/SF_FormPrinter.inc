@@ -419,9 +419,13 @@ class SFFormPrinter {
               // send the user a warning
               // (multiple-instance templates have a greater chance of
               // getting repeated from one form to the next)
-              if (! $allow_multiple) {
+              // - on second thought, allow even the presence of multiple-
+              // instance templates to validate that this is the correct
+              // form: the problem is that some forms contain *only* mutliple-
+              // instance templates
+              //if (! $allow_multiple) {
                 $source_page_matches_this_form = true;
-              }
+              //}
             }
           }
           // if the input is from the form (meaning the user has hit one
