@@ -924,13 +924,13 @@ END;
                     } else {
                       $sfgJSValidationCalls[] = "validate_mandatory_field(\"input_$sfgFieldNum\", \"info_$sfgFieldNum\")";
                     }
-                  } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
-                    $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
                   } elseif ($input_type == 'radiobutton' || $input_type == 'category') {
                     // only add this if there's a "None" option
                     if (empty($default_value)) {
                       $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
                     }
+                  } elseif (($form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox') || ($input_type == 'checkboxes')) {
+                    $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
                   } else {
                     $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
                   }
