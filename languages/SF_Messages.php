@@ -765,15 +765,18 @@ $messages['bn'] = array(
  * @author Y-M D
  */
 $messages['br'] = array(
+	'specialpages-group-sf_group' => 'Furmskridoù semantek',
 	'createproperty' => 'Krouiñ ur perzh',
 	'sf_createproperty_propname' => 'Anv ar perzh :',
 	'sf_createproperty_proptype' => 'Seurt :',
 	'templates' => 'Patromoù',
+	'sf_templates_docu' => 'Ar patromoù-mañ zo anezho dija er wiki.',
 	'sf_templates_definescat' => 'termeniñ a ra ar rummad :',
 	'createtemplate' => 'Sevel ur patrom',
 	'sf_createtemplate_namelabel' => 'Anv ar patrom :',
 	'sf_createtemplate_templatefields' => 'Maeziennoù skouer',
 	'sf_createtemplate_fieldname' => 'Anv ar vaezienn :',
+	'sf_createtemplate_semanticproperty' => 'Perzh semantek :',
 	'sf_createtemplate_aggregationlabel' => 'Titl evit al listenn :',
 	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_addfield' => 'Ouzhpennañ ur vaezienn',
@@ -783,6 +786,7 @@ $messages['br'] = array(
 	'sf_createform_nameinput' => 'Anv ar furmskrid',
 	'sf_createform_template' => 'Patrom :',
 	'sf_createform_field' => 'Maezienn :',
+	'sf_createform_fieldprop' => 'Ar vaezienn-mañ a dermen ar perzh $1, eus ar seurt $2.',
 	'sf_createform_inputtypedefault' => '(dre ziouer)',
 	'sf_createform_hidden' => 'Kuzhet',
 	'sf_createform_mandatory' => 'Rekis',
@@ -822,10 +826,15 @@ $messages['br'] = array(
 	'sf_bad_integer_error' => 'a rank bezañ un niver anterin reizh',
 	'sf_bad_date_error' => 'a rank bezañ un deiziad reizh',
 	'uploadwindow' => 'Kargañ ar prenestr',
+	'sf_deletionlog' => 'Marilh an dilamadennoù',
 	'sf_property_isproperty' => 'Ar perzh-mañ zo eus ar seurt $1.',
+	'sf_property_linkstoform' => 'Liammañ a ra ouzh ar pajennoù a implij ar furmskrid $1.',
+	'sf_template_docufooter' => 'Aozañ ar bajenn evit gwelet testenn ar patrom.',
 	'sf_form_freetextlabel' => 'Testenn dieub',
+	'sf_category_hasdefaultform' => 'Ar rummad-mañ a implij ar furmskrid $1.',
 	'sf_category_desc' => 'Ar rummad $1 eo hemañ.',
 	'sf_blank_namespace' => 'Pennañ',
+	'right-editrestrictedfields' => 'Aozañ maeziennoù strishaet ar furmskridoù',
 );
 
 /** Bosnian (Bosanski)
