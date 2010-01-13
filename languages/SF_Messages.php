@@ -5754,6 +5754,7 @@ det borde se ut som: ":EditData?form=&lt;formulärnamn&gt;&target=&lt;målsida&g
 	'uploadwindow' => 'Uppladdningsfönster',
 	'sf_deletionlog' => 'Raderingslogg',
 	'sf_property_isproperty' => 'Det här är en egenskap av typen $1.',
+	'sf_property_linkstoform' => 'Det länkar till sidor som använder formuläret $1',
 	'sf_property_allowedvals' => 'De tillåtna värdena för den här egenskapen är:',
 	'sf_template_docu' => 'Det här är mallen "$1".
 Det borde namnges i följande format:',
