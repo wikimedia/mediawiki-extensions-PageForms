@@ -780,6 +780,7 @@ $messages['br'] = array(
 	'sf_createtemplate_templatefields' => 'Maeziennoù skouer',
 	'sf_createtemplate_fieldname' => 'Anv ar vaezienn :',
 	'sf_createtemplate_semanticproperty' => 'Perzh semantek :',
+	'sf_createtemplate_fieldislist' => "Er vaezienn-mañ e c'hall bezañ ur roll talvoudoù, dispartiet gant virgulennoù",
 	'sf_createtemplate_aggregationlabel' => 'Titl evit al listenn :',
 	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_addfield' => 'Ouzhpennañ ur vaezienn',
@@ -821,10 +822,14 @@ $messages['br'] = array(
 	'sf_viewform' => 'Gwelet ar furmskrid',
 	'sf_editsource' => 'Kemmañ ar mamenn',
 	'sf_editdata_title' => 'Aozañ $1: $2',
+	'sf_editdata_morethanoneform' => "'''Evezh : ''' Ouzhpenn ur furmskrid dre ziouer zo termenet evit ar bajenn-mañ.",
+	'sf_editdata_formwarning' => 'Evezh : Ar bajenn-mañ <a href="$1">zo anezhi dija</a>, met ne implij ket ar furmskrid-mañ.',
 	'sf_editdata_remove' => 'Tennañ',
 	'sf_editdata_addanother' => 'Ouzhpennañ unan all',
 	'sf_editdata_none' => 'Hini ebet',
 	'runquery' => 'Seveniñ ar reked',
+	'sf_runquery_badurl' => "Ret eo deoc'h diferañ un anv furmskrid en URL ;
+Dleet e vefe d'an URL bezañ evel « Special:RunQuery/&lt;anv ar furmskrid&gt; ».",
 	'sf_runquery_title' => 'Seveniñ ar reked : $1',
 	'sf_runquery_additionalquery' => 'Reked ouzhpenn',
 	'sf_blank_error' => "ne c'hall ket bezañ goullo",
@@ -839,6 +844,9 @@ $messages['br'] = array(
 	'sf_template_docu' => 'Hemañ eo ar patrom « $1 ».
 Dleet e vefe bezañ galvet er furmad-mañ :',
 	'sf_template_docufooter' => 'Aozañ ar bajenn evit gwelet testenn ar patrom.',
+	'sf_form_docu' => "Setu amañ ar furmskrid « $1 ».
+Evit ouzhpennañ ur bajenn gant ar furmskrid-mañ, ebarzhit anv ar bajenn amañ dindan ;
+Ma'z eus ur bajenn en anv-se dija, e viot kaset d'ur furmskrid a dalvez d'hec'h aozañ.",
 	'sf_form_freetextlabel' => 'Testenn dieub',
 	'sf_category_hasdefaultform' => 'Ar rummad-mañ a implij ar furmskrid $1.',
 	'sf_category_desc' => 'Ar rummad $1 eo hemañ.',
