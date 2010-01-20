@@ -4064,6 +4064,13 @@ $messages['ml'] = array(
 	'sf_blank_namespace' => 'മുഖ്യം',
 );
 
+/** Mongolian (Монгол)
+ * @author Chinneeb
+ */
+$messages['mn'] = array(
+	'sf_deletionlog' => 'Устгалын лог',
+);
+
 /** Marathi (मराठी)
  * @author Kaustubh
  * @author Mahitgar
