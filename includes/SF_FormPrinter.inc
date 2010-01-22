@@ -1180,7 +1180,8 @@ END;
       //$free_text = Sanitizer::safeEncodeAttribute($free_text);
     }
     // now that we have it, substitute free text into the form and page
-    $form_text = str_replace('!free_text!', $free_text, $form_text);
+    $escaped_free_text = Sanitizer::safeEncodeAttribute( $free_text );
+    $form_text = str_replace('!free_text!', $escaped_free_text, $form_text);
     $data_text = str_replace('!free_text!', $free_text, $data_text);
 
     // add a warning in, if we're editing an existing page and that page
