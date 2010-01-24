@@ -4848,6 +4848,15 @@ Jeśli strona z tą nazwą już istnieje, otwarty zostanie formularz edycji tej 
 	'right-editrestrictedfields' => 'Edytuj zabezpieczone pola formularza',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'semanticforms-desc' => 'Forme për gionté e selessioné dat semàntich',
+	'specialpages-group-sf_group' => 'Forme Semàntiche',
+	'createproperty' => 'Crea na proprietà',
+);
+
 /** Pashto (پښتو)
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
