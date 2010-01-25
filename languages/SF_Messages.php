@@ -779,6 +779,7 @@ $messages['br'] = array(
 	'sf_createtemplate_categorylabel' => 'Rummad termenet gant ar patrom-mañ (diret) :',
 	'sf_createtemplate_templatefields' => 'Maeziennoù skouer',
 	'sf_createtemplate_fieldname' => 'Anv ar vaezienn :',
+	'sf_createtemplate_displaylabel' => 'Tikedenn diskwel :',
 	'sf_createtemplate_semanticproperty' => 'Perzh semantek :',
 	'sf_createtemplate_fieldislist' => "Er vaezienn-mañ e c'hall bezañ ur roll talvoudoù, dispartiet gant virgulennoù",
 	'sf_createtemplate_aggregationlabel' => 'Titl evit al listenn :',
@@ -811,6 +812,7 @@ $messages['br'] = array(
 	'sf_createclass_listofvalues' => 'Roll talvoudennoù',
 	'sf_createclass_missingvalues' => "N'eo ket bet leuniet an holl vaeziennoù ret.",
 	'addpage' => 'Ouzhpennañ ur bajenn gant ur furmskrid',
+	'sf_addpage_badform' => "Fazi : n'eus bet kavet pajenn furmskrid ebet en $1.",
 	'sf_addpage_badtitle' => "Fazi : « $1 » n'eo ket un titl reizh evit ur bajenn.",
 	'addoreditdata' => 'Ouzhpennañ dre aozañ',
 	'adddata' => 'Ouzhpennañ roadennoù',
@@ -4849,12 +4851,16 @@ Jeśli strona z tą nazwą już istnieje, otwarty zostanie formularz edycji tej 
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  */
 $messages['pms'] = array(
-	'semanticforms-desc' => 'Forme për gionté e selessioné dat semàntich',
-	'specialpages-group-sf_group' => 'Forme Semàntiche',
+	'semanticforms-desc' => 'Formolari për gionté e selessioné dat semàntich',
+	'specialpages-group-sf_group' => 'Formolari Semàntich',
 	'createproperty' => 'Crea na proprietà',
+	'sf_createproperty_linktoform' => "Sta proprietà-sì a mandrà a le pàgine ch'a deuvro ël formolari:",
+	'sf_createproperty_allowedvalsinput' => "S'a veul che costa proprietà-sì a peussa mach avèj serti valor, ch'a anserissa la lista dij valor possìbij, separà da 'd vìrgole (se un valor a conten na vìrgola, rimpiassla con \"\\,\"):",
+	'sf_createproperty_propname' => 'Nòm dla proprietà:',
 );
 
 /** Pashto (پښتو)
