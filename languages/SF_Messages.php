@@ -3665,7 +3665,7 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''&lt;Fomullaa_Name &gt;
  * @author Kw-Moon
  */
 $messages['kw'] = array(
-	'createtemplate' => 'Gruthyl skantlyn',
+	'createtemplate' => 'Gwruthyl skantlyn',
 	'sf_createform_template' => 'Skantlyn:',
 );
 
