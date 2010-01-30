@@ -951,6 +951,7 @@ Trebao bi se nazvati u slijedećem formatu:",
  * @author Paucabot
  * @author SMP
  * @author Solde
+ * @author Toniher
  */
 $messages['ca'] = array(
 	'semanticforms-desc' => 'Formularis per afegir i editar continguts semàntics.',
@@ -978,7 +979,7 @@ $messages['ca'] = array(
 	'sf_createtemplate_outputformat' => 'Format de sortida:',
 	'sf_createtemplate_standardformat' => 'Estàndard',
 	'sf_createtemplate_infoboxformat' => 'Infocaixa a la dreta',
-	'sf_createtemplate_addfield' => 'Afegir camp',
+	'sf_createtemplate_addfield' => 'Afegeix un camp',
 	'sf_createtemplate_deletefield' => 'Elimina',
 	'sf_createtemplate_addtemplatebeforesave' => "Per poder guardar-lo has d'afegir com a mínim una plantilla a aquest formulari.",
 	'forms' => 'Formularis',
@@ -999,10 +1000,10 @@ $messages['ca'] = array(
 	'sf_createform_restricted' => 'Restringit (només els usuaris sysop, administradors, poden modificar-lo)',
 	'sf_createform_mandatory' => 'Obligat omplir',
 	'sf_createform_removetemplate' => 'Esborrar plantilla',
-	'sf_createform_addtemplate' => 'Afegir plantilla:',
+	'sf_createform_addtemplate' => 'Afegeix una plantilla:',
 	'sf_createform_beforetemplate' => 'Plantilla anterior:',
 	'sf_createform_atend' => 'Al final',
-	'sf_createform_add' => 'Afegir',
+	'sf_createform_add' => 'Afegeix',
 	'sf_createform_choosefield' => 'Escull un camp per afegir',
 	'createcategory' => 'Crea una categoria',
 	'sf_createcategory_name' => 'Nom de la categoria:',
@@ -1019,22 +1020,24 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 	'sf_addpage_noform_docu' => "Introdueix aquí el nom de la pàgina i selecciona un formulari per editar-la.
 Si aquesta pàgina ja existeix, se t'obrirà el formulari per editar-la.
 Si no, se t'obrirà el formulari per afegir una pàgina nova.",
-	'addoreditdata' => 'Afegir o editar',
+	'addoreditdata' => 'Afegeix o edita',
 	'adddata' => 'Afegeix dades',
-	'sf_adddata_title' => 'Afegir $1: $2',
+	'sf_adddata_title' => 'Afegeix $1: $2',
 	'sf_adddata_badurl' => "Aquesta és la pàgina per afegir dades. Has d'especificar tant el nom del formulari com la pàgina de destí a la URL; ha de ser quelcom similar a 'Special:AddData?form=&lt;nom formulari&gt;&target=&lt;pàgina destí&gt;', o bé 'Special:AddData/&lt;nom formulari&gt;/&lt;pàgina destí&gt;'.",
 	'sf_adddata_altforms' => 'Alternativament pots afegir aquesta pàgina amb un dels formularis següents:',
 	'sf_adddata_altformsonly' => 'Seleccioneu un formulari entre els següents per afegir aquesta pàgina:',
 	'editdata' => 'Edita dades',
 	'sf_formedit' => 'Edita via formulari',
+	'sf_formcreate' => 'Crea amb formulari',
 	'sf_viewform' => 'Veure el formulari',
 	'sf_editsource' => 'Editar font',
 	'sf_editdata_title' => 'Editar $1: $2',
 	'sf_editdata_badurl' => "Aquesta és la pàgina per editar dades. Has d'especificar tant el nom d'un formulari com el de la pàgina de destí en la URL; ha de ser quelcom similar a 'Special:EditData?form=&lt;nom formulari&gt;&target=&lt;pàgina destí&gt;', or  'Special:EditData/&lt;nom formulari&gt;/&lt;pàgina destí&gt;'.",
 	'sf_editdata_formwarning' => 'Atenció: Aquesta pàgina <a href="$1">ja existeix</a>, però no fa servir aquest formulari.',
 	'sf_editdata_remove' => 'Elimina',
-	'sf_editdata_addanother' => 'Afegir-ne un altre',
+	'sf_editdata_addanother' => 'Afegeix-ne un altre',
 	'sf_editdata_none' => 'Cap',
+	'runquery' => 'Executa la consulta',
 	'sf_runquery_title' => 'Executa consulta: $1',
 	'sf_runquery_additionalquery' => 'Consulta addicional',
 	'sf_formerrors_header' => 'Hi ha hagut errors en les teves entrades al formulari; veure a continuació',
@@ -1058,6 +1061,7 @@ si la pàgina amb aquest nom ja existís, s'obrirà un formulari per editar-la."
 	'sf_category_hasdefaultform' => 'Aquesta categoria fa servir el formulari $1.',
 	'sf_category_desc' => 'Aquesta és la categoria $1.',
 	'sf_blank_namespace' => 'Principal',
+	'right-editrestrictedfields' => 'Edita els camps restringits del formulari',
 );
 
 /** Czech (Česky)
@@ -4935,6 +4939,7 @@ Dësnò, a sarà mandà al formolari për gionté la pàgina.",
 	'sf_adddata_badurl' => "Costa-sì a l'é la pàgina për gionté dij dat. A deuv spessifiché sia un nòm ëd formolari sia na pàgina obietiv ant l'adrëssa dl'aragnà;
 A dovrìa smijé a 'Special:AddData?form=&lt;form name&gt;&target=&lt;pagina obietiv&gt;', or  
 'Special:AddData/&lt;form name&gt;/&lt;pagina obietiv&gt;'.",
+	'sf_adddata_altforms' => 'A peul anvece gionté sta pàgina-sì con un dij formolari sì-sota:',
 );
 
 /** Pashto (پښتو)
