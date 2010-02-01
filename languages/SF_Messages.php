@@ -4940,50 +4940,50 @@ Dësnò, a sarà mandà al formolari për gionté la pàgina.",
 A dovrìa smijé a 'Special:AddData?form=&lt;form name&gt;&target=&lt;pagina obietiv&gt;', or  
 'Special:AddData/&lt;form name&gt;/&lt;pagina obietiv&gt;'.",
 	'sf_adddata_altforms' => 'A peul anvece gionté sta pàgina-sì con un dij formolari sì-sota:',
-	'sf_adddata_altformsonly' => 'Për piasì selession-a da un-a dle forme sota për gionté sta pàgina-sì:',
+	'sf_adddata_altformsonly' => "Për piasì, ch'a selession-a un dij formolari sì-sota për gionté costa pàgina:",
 	'editdata' => 'Modìfica dat',
-	'sf_formedit' => 'Modìfica con forma',
-	'sf_formcreate' => 'Crea con forma',
-	'sf_viewform' => 'Visualisa forma',
-	'sf_editsource' => 'Modìfica sorziss',
+	'sf_formedit' => 'Modifiché con un formolari',
+	'sf_formcreate' => 'Creé con un formolari',
+	'sf_viewform' => 'Visualisé ël formolari',
+	'sf_editsource' => 'Modifiché la sorgiss',
 	'sf_editdata_title' => 'Modìfica $1: $2',
-	'sf_editdata_badurl' => "Sta sì a l'é la pàgina për modifiché dat. It deuve spessifié sia un nòm forma sia na pàgina ëd destinassion ant l'URL; 
-a dovrìa esse com 'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;', o 
-'Special:EditData/&lt;form name&gt;/&lt;target page&gt;'.",
-	'sf_editdata_morethanoneform' => "'''Atension:''' Pi che na forma ëd default a l'é definìa për sta pàgina-sì.",
-	'sf_editdata_formwarning' => 'Atension: Sta pàgina-sì <a href="$1">a esist già</a>, ma a dòvra pa sta forma-sì.',
+	'sf_editdata_badurl' => "Costa-sì a l'é la pàgina për modifiché dij dat. A venta spessifiché sia un nòm ëd formolari sia na pàgina ëd destinassion ant l'adrëssa dl'aragnà; 
+a dovrìa esse com 'Special:EditData?form=&lt;nom ed formolari&gt;&target=&lt;pagina obietiv&gt;', o 
+'Special:EditData/&lt;nom ed formolari&gt;/&lt;pagina obietiv&gt;'.",
+	'sf_editdata_morethanoneform' => "'''Atension:''' Pi che un formolari dë stàndard a l'é spessificà për costa pàgina.",
+	'sf_editdata_formwarning' => 'Atension: Sta pàgina-sì <a href="$1">a esist già</a>, ma a deuvra pa cost formolari.',
 	'sf_editdata_remove' => 'Gava',
-	'sf_editdata_addanother' => "Ginta n'àutr",
+	'sf_editdata_addanother' => "Gionté n'àutr",
 	'sf_editdata_none' => 'Gnun',
 	'runquery' => 'Consulté la base dat',
-	'sf_runquery_badurl' => "It deuve spessifié un nòm forma ant la URL;
-l'URL a dovrìa esse com 'Special:RunQuery/&lt;form name&gt;'.",
-	'sf_runquery_title' => 'Fà viré query: $1',
-	'sf_runquery_additionalquery' => 'Query adissional',
-	'sf_formerrors_header' => "A l'é stàit-ie dj'eror con l'input ëd toa forma; varda sota",
+	'sf_runquery_badurl' => "A deuv spessifiché un nòm ëd formolari ant l'adrëssa dl'aragnà;
+l'adrëssa a dovrìa esse com 'Special:RunQuery/&lt;nom del formolari&gt;'.",
+	'sf_runquery_title' => "Fé andé l'arcesta: $1",
+	'sf_runquery_additionalquery' => 'Arcesta adissional',
+	'sf_formerrors_header' => "A-i son ëstaje d'eror con l'imission ëd sò formolari; beiché sì-sota",
 	'sf_blank_error' => 'a peul pa esse veuid',
-	'sf_bad_url_error' => "a deuv avèj ël formà URL giust, an partend con 'http'",
-	'sf_bad_email_error' => "a deuv avèj un formà bon ëd l'adrëssa email",
+	'sf_bad_url_error' => "a deuv avèj ël formà d'adrëssa giust, partend con 'http'",
+	'sf_bad_email_error' => "a deuv avèj un formà bon ëd l'adrëssa ëd pòsta eletrònica",
 	'sf_bad_number_error' => 'a deuv esse un nùmer bon',
-	'sf_bad_integer_error' => "a deuv esse n'anter bon",
+	'sf_bad_integer_error' => "a deuv esse n'antregh ch'a vada bin",
 	'sf_bad_date_error' => 'a deuv esse na data bon-a',
-	'uploadwindow' => 'Fnesta ëd caria',
+	'uploadwindow' => 'Carié la fnestra',
 	'sf_deletionlog' => 'Registr djë scancelament',
-	'sf_property_isproperty' => "Sta sì a l'é na proprietà ëd sòrt $1.",
-	'sf_property_linkstoform' => "A colega a pàgine ch'a dòvra la forma $1.",
+	'sf_property_isproperty' => "Costa-sì a l'é na proprietà ëd sòrt $1.",
+	'sf_property_linkstoform' => "A colega a le pàgine ch'a deuvro ël formolari $1.",
 	'sf_property_allowedvals' => "{{PLURAL:$1|Ël valor përmëttù për sta proprietà-sì a l'é|Ij valor përmëttù për sta proprietà-sì a son}}:",
-	'sf_template_docu' => 'Sto sì a l\'é lë stamp "$1".
-A dovrìa esse ciamà ant ël formà sota:',
+	'sf_template_docu' => 'Cost-sì a l\'é lë stamp "$1".
+A dovrìa esse arciamà ant ël formà sì-sota:',
 	'sf_template_docufooter' => 'Modìfica la pàgina për vëdde ël test ëd lë stamp.',
-	'sf_form_docu' => 'Sta sì a l\'é la forma "$1".
-Për gionté na pàgina con sta forma-sì, ansëriss ël nòm pàgina sota;
-se na pàgina con col nòm a esist già, it saras mandà a na forma për modifiché cola pàgina.',
+	'sf_form_docu' => 'Cost-sì a l\'é ël formolari "$1".
+Për gionté na pàgina con cost formolari, ch\'a anserissa ël nòm ëd la pàgina sì-sota;
+se na pàgina con col nòm a esist già, a sarà mandà a \'n formolari për modifiché cola pàgina.',
 	'sf_form_freetextlabel' => 'Test lìber.',
-	'sf_category_hasdefaultform' => 'Sta categorìa-sì a dòvra la forma $1.',
-	'sf_category_desc' => "Sta sì a l'é la categorìa $1.",
+	'sf_category_hasdefaultform' => 'Sta categorìa-sì a deuvra ël formolari $1.',
+	'sf_category_desc' => "Costa a l'é la categorìa $1.",
 	'sf_blank_namespace' => 'Prinsipal',
-	'right-viewedittab' => 'Visualisa ël tab "Modìfica" për pàgine modificable da forma',
-	'right-editrestrictedfields' => 'Modìfica camp ëd forma arzervà',
+	'right-viewedittab' => 'Visualisé ël boton "Modifiché" për le pàgine modificàbij con un formolari',
+	'right-editrestrictedfields' => 'Modìfiché ij camp ëd formolari arservà',
 );
 
 /** Pashto (پښتو)
