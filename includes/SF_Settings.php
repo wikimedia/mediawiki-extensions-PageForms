@@ -83,3 +83,9 @@ $sfgUseFormEditPage = false;//method_exists('EditPage', 'showFooter');
 # Use 24-hour time format in forms, e.g. 15:30 instead of 3:30 PM
 ###
 $sfg24HourTime = false;
+
+###
+# Cache parsed form definitions in the page_props table, to improve loading
+# speed
+###
+$sfgCacheFormDefinitions = false;
