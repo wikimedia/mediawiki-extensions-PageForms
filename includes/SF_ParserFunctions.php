@@ -7,40 +7,46 @@
  *
  * 'forminput' is called as:
  *
- * {{#forminput:form_name|size|value|button_text|query_string}}
+ * {{#forminput:form=|size=|default value=|button text=|query string=
+ * |autocomplete on category=|autocomplete on namespace=}}
  *
  * This function returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
- * arguments are optional. form_name is the name of the SF form to be used;
+ * arguments are optional. 'form' is the name of the SF form to be used;
  * if it is left empty, a dropdown will appear, letting the user chose among
- * all existing forms. size represents the size of the text input (default
- * is 25), and value is the starting value of the input (default is blank).
- * button_text is the text that will appear on the "submit" button, and
- * query_string is the set of values that you want passed in through the
- * query string to the form.
+ * all existing forms. 'size' represents the size of the text input (default
+ * is 25), and 'default value' is the starting value of the input.
+ * 'button text' is the text that will appear on the "submit" button, and
+ * 'query string' is the set of values that you want passed in through the
+ * query string to the form. Finally, you can can specify that the user will
+ * get autocompletion using the values from a category or namespace of your
+ * choice, using 'autocomplete on category' or 'autocomplete on namespace'
+ * (you can only use one). To autcomplete on all pages in the main (blank)
+ * namespace, specify "autocomplete on namespace=main".
  *
  * Example: to create an input to add or edit a page with a form called
  * 'User' within a namespace also called 'User', and to have the form
  * preload with the page called 'UserStub', you could call the following:
  *
- * {{#forminput:User|||Add or edit user|namespace=User&preload=UserStub}}
+ * {{#forminput:form=User|button text=Add or edit user
+ * |query string=namespace=User&preload=UserStub}}
  *
  *
  * 'formlink' is called as:
  *
- * {{#formlink:form_name|link_text|link_type|query_string}}
+ * {{#formlink:form=|link text=|link type=|query string=}}
  *
  * This function returns HTML representing a link to a form; given that
  * no page name is entered by the the user, the form must be one that
  * creates an automatic page name, or else it will display an error
  * message when the user clicks on the link.
  *
- * The first two arguments are mandatory: form_name is the name of the SF
- * form, and link_text is the text of the link. link_type is the type of
+ * The first two arguments are mandatory: 'form' is the name of the SF
+ * form, and 'link text' is the text of the link. 'link type' is the type of
  * the link: if set to 'button', the link will be a button; if set to
  * 'post button', the link will be a button that uses the 'POST' method to
- * send other values to the form; if set to blank or anything else, it
- * will be a standard hyperlink. query_string is the text to be added to
+ * send other values to the form; if set to anything else or not called, it
+ * will be a standard hyperlink. 'query string' is the text to be added to
  * the generated URL's query string (or, in the case of 'post button' to
  * be sent as hidden inputs).
  *
@@ -48,7 +54,8 @@
  * 'User' within a namespace also called 'User', and to have the form
  * preload with the page called 'UserStub', you could call the following:
  *
- * {{#formlink:User|Add a user||namespace=User&preload=UserStub}}
+ * {{#formlink:form=User|link text=Add a user
+ * |query string=namespace=User&preload=UserStub}}
  *
  *
  * 'arraymap' is called as:
@@ -94,6 +101,10 @@
 
 class SFParserFunctions {
 
+	// static variable to guarantee that Javascript for autocompletion
+	// only gets added to the page once
+	static $num_autocompletion_inputs = 0;
+
 	static function registerFunctions( &$parser ) {
 		$parser->setFunctionHook('forminput', array('SFParserFunctions', 'renderFormInput'));
 		$parser->setFunctionHook('formlink', array('SFParserFunctions', 'renderFormLink'));
@@ -119,7 +130,40 @@ class SFParserFunctions {
 		return true;
 	}
 
-	static function renderFormLink (&$parser, $inFormName = '', $inLinkStr = '', $inLinkType='', $inQueryStr = '') {
+	static function renderFormLink (&$parser) {
+		$params = func_get_args();
+		array_shift( $params ); // don't need the parser
+		// set defaults
+		$inFormName = $inLinkStr = $inLinkType = $inQueryStr = '';
+		// assign params - support unlabelled params, for backwards compatibility
+		foreach ($params as $i => $param) {
+			$elements = explode('=', $param, 2);
+			$param_name = null;
+			$value = $param;
+			if (count($elements) > 1) {
+				$param_name = $elements[0];
+				$value = $elements[1];
+			}
+			if ($param_name == 'form')
+				$inFormName = $value;
+			elseif ($param_name == 'link text')
+				$inLinkStr = $value;
+			elseif ($param_name == 'link type')
+				$inLinkType = $value;
+			elseif ($param_name == 'query string')
+				$inQueryStr = $value;
+			elseif ($i == 0)
+				$inFormName = $value;
+			elseif ($i == 1)
+				$inFormSize = $value;
+			elseif ($i == 2)
+				$inLinkStr = $value;
+			elseif ($i == 3)
+				$inLinkType = $value;
+			elseif ($i == 4)
+				$inQueryStr = $value;
+		}
+
 		$ad = SpecialPage::getPage('AddData');
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
 		$link_url = str_replace(' ', '_', $link_url);
@@ -137,6 +181,8 @@ class SFParserFunctions {
 				}
 			} else {
 				$link_url .= (strstr($link_url, '?')) ? '&' : '?';
+				// URL-encode any spaces in the query string
+				$inQueryStr = str_replace(' ', '%20', $inQueryStr);
 				$link_url .= $inQueryStr;
 			}
 		}
@@ -152,14 +198,95 @@ class SFParserFunctions {
 		return $parser->insertStripItem($str, $parser->mStripState);
 	}
 
-	static function renderFormInput (&$parser, $inFormName = '', $inSize = '25', $inValue = '', $inButtonStr = '', $inQueryStr = '') {
-		$ap = SpecialPage::getPage('AddPage');
-		$ap_url = $ap->getTitle()->getLocalURL();
-		$str = <<<END
-			<form action="$ap_url" method="get">
-			<p><input type="text" name="page_name" size="$inSize" value="$inValue">
+	static function renderFormInput (&$parser) {
+		$params = func_get_args();
+		array_shift( $params ); // don't need the parser
+		// set defaults
+		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
+		$inAutocompletionSource = '';
+		$inSize = 25;
+		// assign params - support unlabelled params, for backwards compatibility
+		foreach ($params as $i => $param) {
+			$elements = explode('=', $param, 2);
+			$param_name = null;
+			$value = $param;
+			if (count($elements) > 1) {
+				$param_name = $elements[0];
+				$value = $elements[1];
+			}
+			if ($param_name == 'form')
+				$inFormName = $value;
+			elseif ($param_name == 'size')
+				$inFormSize = $value;
+			elseif ($param_name == 'default value')
+				$inValue = $value;
+			elseif ($param_name == 'button text')
+				$inButtonStr = $value;
+			elseif ($param_name == 'query string')
+				$inQueryStr = $value;
+			elseif ($param_name == 'autocomplete on category') {
+				$inAutocompletionSource = $value;
+				$autocompletion_type = 'category';
+			} elseif ($param_name == 'autocomplete on namespace') {
+				$inAutocompletionSource = $value;
+				$autocompletion_type = 'namespace';
+			}
+			elseif ($i == 0)
+				$inFormName = $value;
+			elseif ($i == 1)
+				$inFormSize = $value;
+			elseif ($i == 2)
+				$inValue = $value;
+			elseif ($i == 3)
+				$inButtonStr = $value;
+			elseif ($i == 4)
+				$inQueryStr = $value;
+		}
+
+		$input_num = 1;
+		if (! empty($inAutocompletionSource)) {
+			self::$num_autocompletion_inputs++;
+			$input_num = self::$num_autocompletion_inputs;
+			// place the necessary Javascript on the page, and
+			// disable the cache (so the Javascript will show up) -
+			// if there's more than one autocompleted #forminput
+			// on the page, we only need to do this the first time
+			$autocompletion_javascript = '';
+			if ($input_num == 1) {
+				$parser->disableCache();
+				SFUtils::addJavascriptAndCSS();
+				$autocompletion_javascript = SFFormUtils::autocompletionJavascript();
+			}
+			$autocompletion_str = SFFormInputs::createAutocompleteValuesString($inAutocompletionSource, $autocompletion_type);
+			$javascript_text =<<<END
+		<script type="text/javascript"> 
+/*<![CDATA[*/ 
+$autocompletion_javascript
+autocompletemappings[$input_num] = 'input_{$input_num}';
+autocompletestrings['input_{$input_num}'] = $autocompletion_str;
+ /*]]>*/</script>
 
 END;
+			global $wgOut;
+			$wgOut->addScript($javascript_text);
+		}
+
+		$ap = SpecialPage::getPage('AddPage');
+		$ap_url = $ap->getTitle()->getLocalURL();
+		if (empty($inAutocompletionSource)) {
+			$str = <<<END
+			<form action="$ap_url" method="get">
+			<p><input type="text" name="page_name" size="$inSize" value="$inValue" />
+
+END;
+		} else {
+			$str = <<<END
+			<form name="createbox" action="$ap_url" method="get">
+			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput" />
+	<div class="page_name_auto_complete" id="div_$input_num"></div>
+
+END;
+		}
 		// if the add page URL looks like "index.php?title=Special:AddPage"
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
@@ -184,7 +311,9 @@ END;
 		$str .= <<<END
 			<input type="submit" value="$button_str"></p>
 			</form>
+
 END;
+
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
 		return $parser->insertStripItem($str, $parser->mStripState);
