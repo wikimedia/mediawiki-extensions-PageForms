@@ -14,7 +14,7 @@ class SFFormInputs {
    * Create a comma-delimited string of values that match the specified
    * source name and type, for use by Javascript autocompletion.
    */
-  static function createAutocompleteValuesArray($source_name, $source_type) {
+  static function createAutocompleteValuesString($source_name, $source_type) {
     $names_array = array();
     // the query depends on whether this is a property, category, concept
     // or namespace
@@ -31,7 +31,12 @@ class SFFormInputs {
       $names_array = SFUtils::getAllPagesForNamespace($source_name);
     }
     // escape quotes, to avoid Javascript errors
-    return array_map('addslashes', $names_array);
+    $names_array = array_map('addslashes', $names_array);
+    $autocomplete_string = "[['" . implode("'], ['", $names_array) . "']]";
+    // replace any newlines in the string, just to avoid breaking the Javascript
+    $autocomplete_string = str_replace("\n", ' ', $autocomplete_string);
+    $autocomplete_string = str_replace("\r", ' ', $autocomplete_string);
+    return $autocomplete_string;
   }
 
   static function uploadLinkHTML($input_id, $delimiter = null, $default_filename = null) {
@@ -381,11 +386,7 @@ END;
         $other_args['remote autocompletion'] == true) {
       $javascript_text .= "autocompletedatatypes['$options_str_key'] = '$autocomplete_field_type';\n";
     } elseif ($autocompletion_source != '') {
-      $autocomplete_values = self::createAutocompleteValuesArray($autocompletion_source, $autocomplete_field_type);
-      $autocomplete_string = "[['" . implode("'], ['", $autocomplete_values) . "']]";
-      // replace any newlines in the string, just to avoid breaking the Javascript
-      $autocomplete_string = str_replace("\n", ' ', $autocomplete_string);
-      $autocomplete_string = str_replace("\r", ' ', $autocomplete_string);
+      $autocomplete_string = self::createAutocompleteValuesString($autocompletion_source, $autocomplete_field_type);
       $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
     }
     if ($cur_value) {
