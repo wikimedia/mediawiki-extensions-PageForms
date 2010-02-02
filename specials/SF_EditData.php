@@ -96,7 +96,7 @@ static function printEditForm($form_name, $target_name, $content = null) {
 			$is_text_source = true;
 		}
 		list ($form_text, $javascript_text, $data_text, $form_page_title) =
-			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $edit_content, $page_title);
+			$sfgFormPrinter->formHTML($form_definition, $form_article->getID(), $form_submitted, $is_text_source, $edit_content, $page_title);
 		if ($form_submitted) {
 			$wgOut->setArticleBodyOnly( true );
 			$text = SFUtils::printRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
