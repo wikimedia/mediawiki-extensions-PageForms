@@ -245,7 +245,7 @@ END;
 		global $sfgMaxAutocompleteValues;
 
 		$db = wfGetDB( DB_SLAVE );
-		$fname = "getAllPagesForCategory";
+		$fname = "SFUtils;:getAllPagesForCategory";
 		$top_category = str_replace(' ', '_', $top_category);
 		$categories = array($top_category);
 		$checkcategories = array($top_category);
@@ -358,7 +358,7 @@ END;
 				while ($row = $db->fetchRow($res)) {
 					$cur_value = str_replace('_', ' ', $row[0]);
 					if ($substring == null) {
-						$pages[] = str_replace("'", "\'", $cur_value);
+						$pages[] = $cur_value;
 					} else {
 						$pages[] = array('title' => $cur_value);
 					}
@@ -384,6 +384,32 @@ END;
 			$return_values[] = (array)$val;
 		}
 		return $return_values;
+	}
+
+	/**
+	 * Parse the form definition and store the resulting HTML in the
+	 * page_props table, if caching has been specified in LocalSettings.php
+	 */
+	function cacheFormDefinition($parser, $text) {
+		global $sfgCacheFormDefinitions;
+		if (! $sfgCacheFormDefinitions)
+			return true;
+
+		if ($parser->getTitle()->getNamespace() != SF_NS_FORM) return true;
+		// Remove <noinclude> sections and <includeonly> tags from form definition
+		$form_def = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $text);
+		$form_def = strtr($form_def, array('<includeonly>' => '', '</includeonly>' => ''));
+
+		// parse wiki-text
+		// add '<nowiki>' tags around every triple-bracketed form definition
+		// element, so that the wiki parser won't touch it - the parser will
+		// remove the '<nowiki>' tags, leaving us with what we need
+		$form_def = "__NOEDITSECTION__" . strtr($form_def, array('{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>'));
+		$dummy_title = Title::newFromText('Form definition title for caching purposes');
+		$form_def = $parser->parse($form_def, $dummy_title, $parser->mOptions)->getText();
+
+		$parser->mOutput->setProperty( 'formdefinition', $form_def );
+		return true;
 	}
 
 }
