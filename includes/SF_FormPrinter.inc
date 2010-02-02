@@ -124,8 +124,7 @@ class SFFormPrinter {
     return false;
   }
 
-
-  function formHTML($form_def, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null, $is_query = false, $embedded = false) {
+  function formHTML($form_def, $form_id, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null, $is_query = false, $embedded = false) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
@@ -219,7 +218,22 @@ class SFFormPrinter {
     $wgParser->mStripState = new StripState();
     $wgParser->mOptions = new ParserOptions();
     $wgParser->mOptions->initialiseFromUser($wgUser);
-    $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
+
+    // get the form definition from the cache, if we're using caching and it's
+    // there
+    $got_form_def_from_cache = false;
+    global $sfgCacheFormDefinitions;
+    if ($sfgCacheFormDefinitions) {
+      $db =& wfGetDB( DB_MASTER );
+      $res = $db->select('page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = $form_id");
+      if ($res->numRows() >  0) {
+        $form_def = $res->fetchObject()->pp_value;
+        $got_form_def_from_cache = true;
+      }
+    }
+    // otherwise, parse it
+    if (! $got_form_def_from_cache)
+      $form_def = $wgParser->parse($form_def, $this->mPageTitle, $wgParser->mOptions)->getText();
     $wgParser->mStripState = $old_strip_state;
     
     // turn form definition file into an array of sections, one for each
@@ -1175,9 +1189,6 @@ END;
       }
     } else {
       $showFCKEditor = 0;
-      // for some reason, the following call was once necessary, but now
-      // causes problems
-      //$free_text = Sanitizer::safeEncodeAttribute($free_text);
     }
     // now that we have it, substitute free text into the form and page
     $escaped_free_text = Sanitizer::safeEncodeAttribute( $free_text );
