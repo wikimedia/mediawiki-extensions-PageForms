@@ -419,7 +419,7 @@ class UploadWindowForm {
 		 * Filter out illegal characters, and try to make a legible name
 		 * out of it. We'll strip some silently that Title would die on.
 		 */
-		$filtered = preg_replace ( "/[^".Title::legalChars()."]|:/", '-', $filtered );
+		$filtered = wfStripIllegalFilenameChars ( $filtered );
 		$nt = Title::makeTitleSafe( NS_IMAGE, $filtered );
 		if( is_null( $nt ) ) {
 			$this->uploadError( wfMsgWikiHtml( 'illegalfilename', htmlspecialchars( $filtered ) ) );
