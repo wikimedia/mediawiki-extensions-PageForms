@@ -187,6 +187,8 @@ class SFParserFunctions {
 			}
 		}
 		if ($inLinkType == 'button') {
+			$link_url = html_entity_decode($link_url, ENT_QUOTES);
+			$link_url = str_replace("'", "\'", $link_url);
 			$str = "<form><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
 		} elseif ($inLinkType == 'post button') {
 			$str = "<form action=\"$link_url\" method=\"post\"><input type=\"submit\" value=\"$inLinkStr\">$hidden_inputs</form>";
