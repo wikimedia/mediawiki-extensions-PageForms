@@ -82,7 +82,7 @@ class SFLinkUtils {
 		foreach ($res as $wiki_page_value)
 			$form_names[] = $wiki_page_value->getTitle()->getText();
 		// if we're using a non-English language, check for the English string as well
-		if (! $sfgContLang instanceof SF_LanguageEn) {
+		if (! class_exists('SF_LanguageEn') || ! $sfgContLang instanceof SF_LanguageEn) {
 			$backup_property = SMWPropertyValue::makeProperty($backup_prop_smw_id);
 			$res = $store->getPropertyValues($title, $backup_property);
 			foreach ($res as $wiki_page_value)
