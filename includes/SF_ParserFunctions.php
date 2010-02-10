@@ -155,7 +155,7 @@ class SFParserFunctions {
 			elseif ($i == 0)
 				$inFormName = $value;
 			elseif ($i == 1)
-				$inFormSize = $value;
+				$inSize = $value;
 			elseif ($i == 2)
 				$inLinkStr = $value;
 			elseif ($i == 3)
@@ -219,7 +219,7 @@ class SFParserFunctions {
 			if ($param_name == 'form')
 				$inFormName = $value;
 			elseif ($param_name == 'size')
-				$inFormSize = $value;
+				$inSize = $value;
 			elseif ($param_name == 'default value')
 				$inValue = $value;
 			elseif ($param_name == 'button text')
@@ -236,7 +236,7 @@ class SFParserFunctions {
 			elseif ($i == 0)
 				$inFormName = $value;
 			elseif ($i == 1)
-				$inFormSize = $value;
+				$inSize = $value;
 			elseif ($i == 2)
 				$inValue = $value;
 			elseif ($i == 3)
@@ -282,10 +282,16 @@ END;
 
 END;
 		} else {
+			// if there's autocompletion, we need to place it in
+			// a table so that the autocompletion <div> won't lead
+			// to the button being on a separate line (this can
+			// probably be done just with CSS instead, but I don't
+			// know how)
 			$str = <<<END
 			<form name="createbox" action="$ap_url" method="get">
-			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput" />
-	<div class="page_name_auto_complete" id="div_$input_num"></div>
+			<table><tr><td><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput" />
+			<div class="page_name_auto_complete" id="div_$input_num"></div>
+			</td>
 
 END;
 		}
@@ -299,6 +305,7 @@ END;
 			$str .= SFUtils::formDropdownHTML();
 		} else {
 			$str .= '			<input type="hidden" name="form" value="' . $inFormName . '">' . "\n";
+			$str .= '			<input type="hidden" name="form2" value="' . $inFormName . '">' . "\n";
 		}
 		// recreate the passed-in query string as a set of hidden variables
 		$query_components = explode('&', $inQueryStr);
@@ -306,15 +313,24 @@ END;
 			$subcomponents = explode('=', $component, 2);
 			$key = (isset($subcomponents[0])) ? $subcomponents[0] : '';
 			$val = (isset($subcomponents[1])) ? $subcomponents[1] : '';
-			$str .= '			<input type="hidden" name="' . $key . '" value="' . $val . '">' . "\n";
+			if (! empty($key))
+				$str .= '			<input type="hidden" name="' . $key . '" value="' . $val . '">' . "\n";
 		}
 		wfLoadExtensionMessages('SemanticForms');
 		$button_str = ($inButtonStr != '') ? $inButtonStr : wfMsg('addoreditdata');
-		$str .= <<<END
+		if (empty($inAutocompletionSource)) {
+			$str .= <<<END
 			<input type="submit" value="$button_str"></p>
 			</form>
 
 END;
+		} else {
+			$str .= <<<END
+			<td><input type="submit" value="$button_str"></td></tr></table>
+			</form>
+
+END;
+		}
 
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
