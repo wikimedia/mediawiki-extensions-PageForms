@@ -153,15 +153,13 @@ class SFParserFunctions {
 			elseif ($param_name == 'query string')
 				$inQueryStr = $value;
 			elseif ($i == 0)
-				$inFormName = $value;
+				$inFormName = $param;
 			elseif ($i == 1)
-				$inSize = $value;
+				$inLinkStr = $param;
 			elseif ($i == 2)
-				$inLinkStr = $value;
+				$inLinkType = $param;
 			elseif ($i == 3)
-				$inLinkType = $value;
-			elseif ($i == 4)
-				$inQueryStr = $value;
+				$inQueryStr = $param;
 		}
 
 		$ad = SpecialPage::getPage('AddData');
@@ -174,6 +172,7 @@ class SFParserFunctions {
 				$hidden_inputs = "";
 				$query_components = explode('&', $inQueryStr);
 				foreach ($query_components as $query_component) {
+					$query_component = urldecode($query_component);
 					$var_and_val = explode('=', $query_component);
 					if (count($var_and_val) == 2) {
 						$hidden_inputs .= '<input type="hidden" name="' . $var_and_val[0] . '" value="' . $var_and_val[1] . '" /> ';
@@ -234,15 +233,15 @@ class SFParserFunctions {
 				$autocompletion_type = 'namespace';
 			}
 			elseif ($i == 0)
-				$inFormName = $value;
+				$inFormName = $param;
 			elseif ($i == 1)
-				$inSize = $value;
+				$inSize = $param;
 			elseif ($i == 2)
-				$inValue = $value;
+				$inValue = $param;
 			elseif ($i == 3)
-				$inButtonStr = $value;
+				$inButtonStr = $param;
 			elseif ($i == 4)
-				$inQueryStr = $value;
+				$inQueryStr = $param;
 		}
 
 		$input_num = 1;
