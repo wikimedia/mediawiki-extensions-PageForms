@@ -224,7 +224,7 @@ class SFFormPrinter {
     $got_form_def_from_cache = false;
     global $sfgCacheFormDefinitions;
     if ($sfgCacheFormDefinitions) {
-      $db =& wfGetDB( DB_MASTER );
+      $db = wfGetDB( DB_MASTER );
       $res = $db->select('page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = $form_id");
       if ($res->numRows() >  0) {
         $form_def = $res->fetchObject()->pp_value;
@@ -1075,15 +1075,15 @@ END;
           // doing a replace
           if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0) !== false) {
             $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}(\r?\n?)/', 
-              preg_replace('/\}\}/m', '}²',
-                preg_replace('/\{\{/m', '²{', $template_text)) .
+              preg_replace('/\}\}/m', '}ï¿½',
+                preg_replace('/\{\{/m', 'ï¿½{', $template_text)) .
               "\n{{{insertionpoint}}}",
               $existing_page_content);
           // otherwise, if it's a partial form, we have to add the new
           // text somewhere
           } elseif ($form_is_partial && $wgRequest->getCheck('partial') ) {
-            $existing_page_content = preg_replace('/\}\}/m', '}²',
-              preg_replace('/\{\{/m', '²{', $template_text)) .
+            $existing_page_content = preg_replace('/\}\}/m', '}ï¿½',
+              preg_replace('/\{\{/m', 'ï¿½{', $template_text)) .
                 "\n{{{insertionpoint}}}\n" . $existing_page_content;
           }
         }
@@ -1152,7 +1152,7 @@ END;
          $form_text .= SFFormUtils::hiddenFieldHTML('partial', 1);
        } else {
          $free_text = null;
-         $existing_page_content = preg_replace('/²\{(.*?)\}²/s', '{{\1}}', $existing_page_content);
+         $existing_page_content = preg_replace('/ï¿½\{(.*?)\}ï¿½/s', '{{\1}}', $existing_page_content);
          $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content);
          $existing_page_content = Sanitizer::safeEncodeAttribute($existing_page_content);
        }
