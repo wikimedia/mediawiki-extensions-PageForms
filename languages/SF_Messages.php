@@ -1814,6 +1814,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (Suomi)
+ * @author Centerlink
  * @author Cimon Avaro
  * @author Crt
  * @author Mobe
@@ -1880,10 +1881,12 @@ $messages['fi'] = array(
 	'sf_createcategory_defaultform' => 'Oletuslomake',
 	'sf_createcategory_makesubcategory' => 'Tee tästä toisen luokan alaluokka (ei-pakollinen):',
 	'createclass' => 'Luo luokka',
+	'sf_createclass_docu' => 'Kirjoita kaikki tiedot tähän ominaisuuksien, mallinneen, muodon ja luokan luomiseksi yksittäisluokkaan. Käytä lisävalitsimia varten sen sijaan sivuja $1.',
 	'sf_createclass_allowedvalues' => 'Sallitut arvot',
 	'sf_createclass_listofvalues' => 'Lista arvoista',
 	'sf_createclass_leavefieldblank' => 'Jos kentän nimi on sama kuin ominaisuuden nimi, voit jättää sen tyhjäksi.',
 	'sf_createclass_missingvalues' => 'Kaikkia pakollisia kenttiä ei ole täytetty.',
+	'sf_createclass_success' => 'Ominaisuudet, mallinne, muoto ja luokka luodaan.',
 	'addpage' => 'Lisää sivu lomakkeella',
 	'sf_addpage_badform' => 'Virhe: lomakesivua ei löytynyt kohteesta $1',
 	'sf_addpage_badtitle' => 'Virhe: ”$1” on virheellinen nimi sivulle.',
@@ -2905,7 +2908,7 @@ $messages['ia'] = array(
 	'sf_createtemplate_aggregationlabel' => 'Titulo pro lista:',
 	'sf_createtemplate_outputformat' => 'Formato de output:',
 	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Quadro de information a derecta',
+	'sf_createtemplate_infoboxformat' => 'Quadro de information a dextra',
 	'sf_createtemplate_addfield' => 'Adder campo',
 	'sf_createtemplate_deletefield' => 'Deler',
 	'sf_createtemplate_addtemplatebeforesave' => 'Tu debe adder al minus un patrono a iste formulario ante que tu pote immagazinar lo.',
