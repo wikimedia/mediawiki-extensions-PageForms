@@ -15,7 +15,6 @@ $wgExtensionCredits['specialpage'][]= array(
 	'version' => SF_VERSION,
 	'author' => 'Yaron Koren and others',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
-	'description' => 'Forms for adding and editing semantic data',
 	'descriptionmsg'  => 'semanticforms-desc',
 );
 
