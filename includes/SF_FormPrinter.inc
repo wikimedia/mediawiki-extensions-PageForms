@@ -1154,7 +1154,6 @@ END;
          $free_text = null;
          $existing_page_content = preg_replace('/�\{(.*?)\}�/s', '{{\1}}', $existing_page_content);
          $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content);
-         $existing_page_content = Sanitizer::safeEncodeAttribute($existing_page_content);
        }
     } elseif ($source_is_page) {
       // if the page is the source, free_text will just be whatever in the
