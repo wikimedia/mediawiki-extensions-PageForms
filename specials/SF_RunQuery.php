@@ -70,7 +70,7 @@ class SFRunQuery extends IncludableSpecialPage {
 				$is_text_source = true;
 			}
 			list ($form_text, $javascript_text, $data_text, $form_page_title) =
-				$sfgFormPrinter->formHTML($form_definition, $form_article->getID(), $form_submitted, $is_text_source, $edit_content, null, null, true, $embedded);
+				$sfgFormPrinter->formHTML($form_definition, $form_submitted, $is_text_source, $form_article->getID(), $edit_content, null, null, true, $embedded);
 			$text = "";
 			// override the default title for this page if
 			// a title was specified in the form
