@@ -12,7 +12,6 @@ class SFFormEditTab {
 	 * a form
 	 */
 	static function displayTab($obj, &$content_actions) {
-		$fname = 'SFFormEditTab::displayTab';
 		// make sure that this is not a special page, and
 		// that the user is allowed to edit it
 		// - this function is almost never called on special pages,
@@ -39,7 +38,7 @@ class SFFormEditTab {
 					}
 				} else {
 					if ($user_can_edit)
-						$form_edit_tab_text = $obj->mTitle->exists() ? wfMsg('sf_formedit') : wfMsg('sf_formcreate');
+						$form_edit_tab_text = $obj->mTitle->exists() ? wfMsg('formedit') : wfMsg('sf_formcreate');
 					else
 						$form_edit_tab_text = wfMsg('sf_viewform');
 					// check for renaming of main edit tab
@@ -149,11 +148,7 @@ class SFFormEditTab {
 
 		$target_title = $article->getTitle();
 		$target_name = SFLinkUtils::titleString($target_title);
-		if ($target_title->exists()) {
-			SFEditData::printEditForm($form_name, $target_name);
-		} else {
-			SFAddData::printAddForm($form_name, $target_name, array());
-		}
+		SFFormEdit::printForm($form_name, $target_name);
 		return false;
 	}
 
