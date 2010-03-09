@@ -100,9 +100,6 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
                 if ($wgRequest->getVal('query') == 'true') {
                         $page_contents = null;
                         $page_is_source = false;
-                } elseif ($content != null) {
-                        $page_contents = $content;
-                        $page_is_source = true;
                 } else {
                         $target_article = new Article($target_title);
                         $page_contents = $target_article->getContent();
