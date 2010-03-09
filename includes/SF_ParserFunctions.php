@@ -318,7 +318,7 @@ END;
 				$str .= '			<input type="hidden" name="' . $key . '" value="' . $val . '">' . "\n";
 		}
 		wfLoadExtensionMessages('SemanticForms');
-		$button_str = ($inButtonStr != '') ? $inButtonStr : wfMsg('addoreditdata');
+		$button_str = ($inButtonStr != '') ? $inButtonStr : wfMsg('createoredit');
 		if (empty($inAutocompletionSource)) {
 			$str .= <<<END
 			<input type="submit" value="$button_str"></p>

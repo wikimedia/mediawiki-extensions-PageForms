@@ -244,7 +244,7 @@ END;
 	}
 
 	static function instancesJavascript($using_choosers) {
-		$remove_text = wfMsg('sf_editdata_remove');
+		$remove_text = wfMsg('sf_formedit_remove');
 		$javascript_text =<<<END
 
 var num_elements = 0;

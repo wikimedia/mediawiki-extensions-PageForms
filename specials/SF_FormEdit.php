@@ -60,7 +60,7 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 	// get contents of form and target page - if there's only one,
 	// it might be a target with only alternate forms
 	if ($form_name == '') {
-		$wgOut->addHTML( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
+		$wgOut->addHTML( "<p class='error'>" . wfMsg('sf_formedit_badurl') . '</p>');
 		return;
 	} elseif ($target_name == '') {
 		// parse the form to see if it has a 'page name' value set
@@ -77,7 +77,7 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 				$page_name_formula = substr($page_name_formula, 0, $pos);
 			}
 		} elseif (count($alt_forms) == 0) {
-			$wgOut->addWikiText( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
+			$wgOut->addWikiText( "<p class='error'>" . wfMsg('sf_formedit_badurl') . '</p>');
 			return;
 		}
 	}
@@ -87,9 +87,9 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 	if ($target_name != '') {
 		$target_title = Title::newFromText($target_name);
 		if ($target_title->exists()) {
-			$s = wfMsg('sf_editdata_title', $form_title->getText(), $target_title->getPrefixedText());
+			$s = wfMsg('sf_formedit_edittitle', $form_title->getText(), $target_title->getPrefixedText());
 		} else {
-			$s = wfMsg('sf_adddata_title', $form_title->getText(), $target_title->getPrefixedText());
+			$s = wfMsg('sf_formedit_createtitle', $form_title->getText(), $target_title->getPrefixedText());
 		}
 		$wgOut->setPageTitle($s);
 	}
@@ -114,17 +114,17 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 
 	if (! $form_title || ! $form_title->exists()) {
 		if ($form_name == '')
-			$text = '<p class="error">' . wfMsg('sf_adddata_badurl') . "</p>\n";
+			$text = '<p class="error">' . wfMsg('sf_formedit_badurl') . "</p>\n";
 		else {
 			if (count($alt_forms) > 0) {
-				$text .= '<div class="infoMessage">' . wfMsg('sf_adddata_altformsonly') . ' ';
+				$text .= '<div class="infoMessage">' . wfMsg('sf_formedit_altformsonly') . ' ';
 				$text .= self::printAltFormsList($alt_forms, $form_name);
 				$text .= "</div>\n";
 			} else
 				$text = '<p class="error">' . wfMsg('sf_formstart_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 		}
 	} elseif ($target_name == '' && $page_name_formula == '') {
-		$text = '<p class="error">' . wfMsg('sf_adddata_badurl') . "</p>\n";
+		$text = '<p class="error">' . wfMsg('sf_formedit_badurl') . "</p>\n";
 	} else {
 		$form_article = new Article($form_title);
 		$form_definition = $form_article->getContent();
@@ -218,7 +218,7 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 			}
 			$text = "";
 			if (count($alt_forms) > 0) {
-				$text .= '<div class="infoMessage">' . wfMsg('sf_adddata_altforms') . ' ';
+				$text .= '<div class="infoMessage">' . wfMsg('sf_formedit_altforms') . ' ';
 				$text .= self::printAltFormsList($alt_forms, $target_name);
 				$text .= "</div>\n";
 			}

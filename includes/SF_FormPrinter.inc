@@ -1113,7 +1113,7 @@ END;
           // in the form, to differentiate the inputs the form starts out
           // with from any inputs added by the Javascript
           $section = str_replace('[num]', "[{$instance_num}a]", $section);
-          $remove_text = wfMsg('sf_editdata_remove');
+          $remove_text = wfMsg('sf_formedit_remove');
           $form_text .=<<<END
 	<div id="wrapper_$sfgFieldNum" class="multipleTemplate">
         $section
@@ -1136,7 +1136,7 @@ END;
          <div id="main_$query_template_name"></div>
 
 END;
-          $add_another = wfMsg('sf_editdata_addanother');
+          $add_another = wfMsg('sf_formedit_addanother');
           $form_text .=<<<END
 	<p style="margin-left:10px;">
 	<p><input type="button" onclick="addInstance('starter_$query_template_name', 'main_$query_template_name', '$sfgFieldNum');" value="$add_another" tabindex="$sfgTabIndex" class="addAnother" /></p>
@@ -1215,7 +1215,7 @@ END;
     // add a warning in, if we're editing an existing page and that page
     // appears to not have been created with this form
     if ($this->mPageTitle->exists() && ($existing_page_content != '') && ! $source_page_matches_this_form) {
-      $form_text = '	<div class="warningMessage">' . wfMsg('sf_editdata_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
+      $form_text = '	<div class="warningMessage">' . wfMsg('sf_formedit_formwarning', $this->mPageTitle->getFullURL()) . "</div>\n" . $form_text;
     }
 
     //Substitute the choosers in here too.
@@ -1291,7 +1291,7 @@ END;
         }
         $chooser_text .= "</select>\n";
       }
-      $chooser_text .= "<input type='button' onclick=\"addInstanceFromChooser('chooserselect$chooser_count');\" value='" . wfMsg('sf_editdata_addanother') . "' disabled='true' id='chooserbutton$chooser_count'></p>";
+      $chooser_text .= "<input type='button' onclick=\"addInstanceFromChooser('chooserselect$chooser_count');\" value='" . wfMsg('sf_formedit_addanother') . "' disabled='true' id='chooserbutton$chooser_count'></p>";
     }
 	
     $form_text = str_replace('{{{choosers}}}', $chooser_text, $form_text);

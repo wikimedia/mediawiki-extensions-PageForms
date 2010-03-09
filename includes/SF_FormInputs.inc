@@ -681,7 +681,7 @@ END;
         $text .= ' checked="checked"';
         $check_set = true;
       }
-      $text .= " $disabled_text $javascript_text/> " . wfMsg('sf_editdata_none') . "\n";
+      $text .= " $disabled_text $javascript_text/> " . wfMsg('sf_formedit_none') . "\n";
     }
 
     if (($possible_values = $other_args['possible_values']) == null)
@@ -801,7 +801,7 @@ END;
         $check_set = true;
       }
       $disabled_text = ($is_disabled) ? "disabled" : "";
-      $text .= " $disabled_text/> <em>" . wfMsg('sf_editdata_none') . "</em>\n";
+      $text .= " $disabled_text/> <em>" . wfMsg('sf_formedit_none') . "</em>\n";
     }
 
     global $wgCategoryTreeMaxDepth;

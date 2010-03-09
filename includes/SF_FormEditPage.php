@@ -28,7 +28,7 @@ class SFFormEditPage extends EditPage {
 		parent::setHeaders();
 		global $wgOut, $wgTitle;
 		if( !$this->isConflict ) {
-			$wgOut->setPageTitle( wfMsg( 'sf_editdata_title',
+			$wgOut->setPageTitle( wfMsg( 'sf_formedit_title',
 				$this->form->getText(), $wgTitle->getPrefixedText() ) );
 		}
 	}

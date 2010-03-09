@@ -132,7 +132,7 @@ class SFFormEditTab {
 		}
 		if (count($form_names) > 1) {
 			wfLoadExtensionMessages('SemanticForms');
-			$warning_text = '    <div class="warningMessage">' . wfMsg('sf_editdata_morethanoneform') . "</div>\n";
+			$warning_text = '    <div class="warningMessage">' . wfMsg('sf_formedit_morethanoneform') . "</div>\n";
 			global $wgOut;
 			$wgOut->addHTML($warning_text);
 		}
