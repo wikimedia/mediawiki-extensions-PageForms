@@ -93,7 +93,7 @@ class SFFormStart extends SpecialPage {
 				$description = wfMsg('sf_formstart_noform_docu', $form_name);
 			else
 				$description = wfMsg('sf_formstart_docu', $form_name);
-			$button_text = wfMsg('createoredit');
+			$button_text = wfMsg('sf_formstart_createoredit');
 			$text =<<<END
 	<form action="" method="post">
 	<p>$description</p>
