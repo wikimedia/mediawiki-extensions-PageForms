@@ -76,7 +76,7 @@ class SFFormStart extends SpecialPage {
 					// if there was no page title, it's
 					// probably an invalid page name,
 					// containing forbidden characters
-					$error_msg = wfMsg('sf_addpage_badtitle', $page_name);
+					$error_msg = wfMsg('sf_formstart_badtitle', $page_name);
 					$wgOut->addHTML($error_msg);
 					return;
 				} else {
@@ -87,12 +87,12 @@ class SFFormStart extends SpecialPage {
 		}
 
 		if ((! $form_title || ! $form_title->exists()) && ($form_name != '')) {
-			$text = '<p>' . wfMsg('sf_addpage_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+			$text = '<p>' . wfMsg('sf_formstart_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 		} else {
 			if ($form_name == '')
-				$description = wfMsg('sf_addpage_noform_docu', $form_name);
+				$description = wfMsg('sf_formstart_noform_docu', $form_name);
 			else
-				$description = wfMsg('sf_addpage_docu', $form_name);
+				$description = wfMsg('sf_formstart_docu', $form_name);
 			$button_text = wfMsg('addoreditdata');
 			$text =<<<END
 	<form action="" method="post">

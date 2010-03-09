@@ -121,7 +121,7 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 				$text .= self::printAltFormsList($alt_forms, $form_name);
 				$text .= "</div>\n";
 			} else
-				$text = '<p class="error">' . wfMsg('sf_addpage_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
+				$text = '<p class="error">' . wfMsg('sf_formstart_badform', SFUtils::linkText(SF_NS_FORM, $form_name)) . ".</p>\n";
 		}
 	} elseif ($target_name == '' && $page_name_formula == '') {
 		$text = '<p class="error">' . wfMsg('sf_adddata_badurl') . "</p>\n";
