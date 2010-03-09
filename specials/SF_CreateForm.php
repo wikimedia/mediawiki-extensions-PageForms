@@ -32,8 +32,9 @@ function doSpecialCreateForm() {
 
 	# get the names of all templates on this site
 	$all_templates = array();
-	$sql = "SELECT page_title FROM {$db->tableName( 'page' )} WHERE page_namespace=" . NS_TEMPLATE . " AND page_is_redirect = 0 ORDER BY page_title";
-	$res = $db->query( $sql );
+	$res = $db->select( 'page', 'page_title',
+		array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
+		array( 'ORDER BY' => 'page_title' ) );
 	if ($db->numRows( $res ) > 0) {
 		while ($row = $db->fetchRow($res)) {
 			$template_name = str_replace('_', ' ', $row[0]);
@@ -128,7 +129,7 @@ function doSpecialCreateForm() {
 			# redirect to wiki interface
 			$wgOut->setArticleBodyOnly(true);
 			$title = Title::makeTitleSafe(SF_NS_FORM, $form->form_name);
-			$full_text = str_replace('"', '&quot;', $form->createMarkup());
+			$full_text = $form->createMarkup();
 			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
