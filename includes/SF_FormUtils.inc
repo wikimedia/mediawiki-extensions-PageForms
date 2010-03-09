@@ -517,8 +517,7 @@ END;
 	 * Helper function to display a simple button
 	 */
 	static function buttonHTML($values) {
-		// for backwards-compatibility with pre-1.13 MW
-		$button_html = function_exists("Xml::element") ? Xml::element('input', $values, '') : wfElement('input', $values, '');
+		$button_html = Xml::element('input', $values, '');
 		return "		$button_html\n";
 	}
 
