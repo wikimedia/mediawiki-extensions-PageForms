@@ -162,7 +162,7 @@ class SFParserFunctions {
 				$inQueryStr = $param;
 		}
 
-		$ad = SpecialPage::getPage('AddData');
+		$ad = SpecialPage::getPage('FormEdit');
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
 		$link_url = str_replace(' ', '_', $link_url);
 		if ($inQueryStr != '') {
@@ -180,8 +180,10 @@ class SFParserFunctions {
 				}
 			} else {
 				$link_url .= (strstr($link_url, '?')) ? '&' : '?';
-				// URL-encode any spaces in the query string
-				$inQueryStr = str_replace(' ', '%20', $inQueryStr);
+				// URL-encode any spaces or plus-signs in the query string
+				$inQueryStr = str_replace(array(' ', '+'),
+					array('%20', '%2B'),
+					$inQueryStr);
 				$link_url .= $inQueryStr;
 			}
 		}
@@ -272,11 +274,11 @@ END;
 			$wgOut->addScript($javascript_text);
 		}
 
-		$ap = SpecialPage::getPage('AddPage');
-		$ap_url = $ap->getTitle()->getLocalURL();
+		$fs = SpecialPage::getPage('FormStart');
+		$fs_url = $fs->getTitle()->getLocalURL();
 		if (empty($inAutocompletionSource)) {
 			$str = <<<END
-			<form action="$ap_url" method="get">
+			<form action="$fs_url" method="get">
 			<p><input type="text" name="page_name" size="$inSize" value="$inValue" />
 
 END;
@@ -287,7 +289,7 @@ END;
 			// probably be done just with CSS instead, but I don't
 			// know how)
 			$str = <<<END
-			<form name="createbox" action="$ap_url" method="get">
+			<form name="createbox" action="$fs_url" method="get">
 			<table><tr><td><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput" />
 			<div class="page_name_auto_complete" id="div_$input_num"></div>
 			</td>
@@ -297,8 +299,8 @@ END;
 		// if the add page URL looks like "index.php?title=Special:AddPage"
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
-		if (($pos = strpos($ap_url, "title=")) > -1) {
-			$str .= '			<input type="hidden" name="title" value="' . urldecode(substr($ap_url, $pos + 6)) . '">' . "\n";
+		if (($pos = strpos($fs_url, "title=")) > -1) {
+			$str .= '			<input type="hidden" name="title" value="' . urldecode(substr($fs_url, $pos + 6)) . '">' . "\n";
 		}
 		if ($inFormName == '') {
 			$str .= SFUtils::formDropdownHTML();
