@@ -117,7 +117,6 @@ class SFAutocompleteAPI extends ApiBase {
 	public static function getAllValuesForProperty($is_relation, $property_name, $substring = null) {
 		global $sfgMaxAutocompleteValues;
 
-		$fname = "SFAutocompleteAPI::getAllValuesForProperty";
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
 		$sql_options = array();
@@ -138,9 +137,8 @@ class SFAutocompleteAPI extends ApiBase {
 			$conditions .= " AND (REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '" . $substring . "%' OR REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '% " . $substring . "%')";
 		}
 		$sql_options['ORDER BY'] = $value_field;
-		$res = $db->select( $from_clause,
-			"DISTINCT $value_field",
-			$conditions, $fname, $sql_options);
+		$res = $db->select($from_clause, "DISTINCT $value_field",
+			$conditions, __METHOD__, $sql_options);
 		while ($row = $db->fetchRow($res)) {
 			if ($substring != null) {
 				$values[] = array('title' => str_replace('_', ' ', $row[0]));
