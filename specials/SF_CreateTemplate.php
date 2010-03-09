@@ -131,8 +131,6 @@ function doSpecialCreateTemplate() {
 			$wgOut->setArticleBodyOnly(true);
 			$title = Title::makeTitleSafe(NS_TEMPLATE, $template_name);
 			$full_text = SFTemplateField::createTemplateText($template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format);
-			// HTML-encode
-			$full_text = str_replace('"', '&quot;', $full_text);
 			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
