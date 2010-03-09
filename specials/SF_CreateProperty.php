@@ -85,8 +85,6 @@ function doSpecialCreateProperty() {
 			$wgOut->setArticleBodyOnly(true);
 			$title = Title::makeTitleSafe(SMW_NS_PROPERTY, $property_name);
 			$full_text = SFCreateProperty::createPropertyText($property_type, $default_form, $allowed_values);
-			// HTML-encode
-			$full_text = str_replace('"', '&quot;', $full_text);
 			$text = SFUtils::printRedirectForm($title, $full_text, "", $save_page, $preview_page, false, false, false, null, null);
 			$wgOut->addHTML($text);
 			return;
