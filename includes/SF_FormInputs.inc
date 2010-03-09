@@ -96,7 +96,7 @@ class SFFormInputs {
         $size = 35;
       }
       if ($validation_type_str != '') {
-        if ($other_args['part_of_multiple']) {
+        if (array_key_exists('part_of_multiple', $other_args)) {
           $sfgJSValidationCalls[] = "validate_type_of_multiple_fields($sfgFieldNum, '$validation_type_str')";
         } else {
           $sfgJSValidationCalls[] = "validate_field_type('$input_id', '$validation_type_str', '$info_id')";
@@ -150,8 +150,8 @@ END;
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $javascript_text = '';
-    $return_js_text;
-    if (count($other_args['show on select']) > 0 ) {
+    $return_js_text = '';
+    if (array_key_exists('show on select', $other_args)) {
       $javascript_text = 'onChange="';
       foreach ($other_args['show on select'] as $div_id => $options) {
         $options_str = implode("', '", $options);
@@ -229,7 +229,7 @@ END;
 
     $javascript_text = '';
     $return_js_text;
-    if (count($other_args['show on select']) > 0 ) {
+    if (array_key_exists('show on select', $other_args)) {
       $javascript_text = 'onChange="';
       foreach ($other_args['show on select'] as $div_id => $options) {
         $options_str = implode("', '", $options);
@@ -322,11 +322,13 @@ END;
 END;
 
     $return_js_text = '';
-    if (count($other_args['show on select']) > 0) {
+    if (array_key_exists('show on select', $other_args)) {
       foreach ($other_args['show on select'] as $div_id => $options) {
         $cur_input_ids = array();
         foreach ($options as $option) {
-          $cur_input_ids[] = $enum_input_ids[$option];
+          if (array_key_exists($option, $enum_input_ids)) {
+            $cur_input_ids[] = $enum_input_ids[$option];
+          }
         }
         $options_str = "['" . implode("', '", $cur_input_ids) . "']";
         $cur_js_text = "showIfChecked($options_str, '$div_id'); ";
@@ -533,7 +535,7 @@ END;
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     // add to validation calls
-    if ($other_args['part_of_multiple']) {
+    if (array_key_exists('part_of_multiple', $other_args)) {
       $sfgJSValidationCalls[] = "validate_type_of_multiple_fields($sfgFieldNum, 'date')";
     } else {
       $sfgJSValidationCalls[] = "validate_field_type('$input_id', 'date', '$info_id')";
@@ -656,7 +658,7 @@ END;
     $check_set = false;
     $javascript_text = '';
     $return_js_text = '';
-    if (count($other_args['show on select']) > 0) {
+    if (array_key_exists('show on select', $other_args)) {
       $javascript_text = 'onClick="';
       foreach($other_args['show on select'] as $div_id => $options) {
         $options_str = implode("', '", $options);
@@ -718,7 +720,7 @@ END;
     $input_id = "input_$sfgFieldNum";
     $disabled_text = ($is_disabled) ? "disabled" : "";
     $return_js_text = '';
-    if (count($other_args['show on select'] > 0)) {
+    if (array_key_exists('show on select', $other_args)) {
       $div_id = key($other_args['show on select']);
       $this_js_text = "showIfChecked(['$input_id'], '$div_id');";
       // we use addClickHandler(), instead of adding the Javascript via

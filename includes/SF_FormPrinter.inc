@@ -618,9 +618,11 @@ class SFFormPrinter {
                 }
               }
             }
-          } // for
-          $field_args['part_of_multiple'] = $allow_multiple;
-          $field_args['show on select'] = $show_on_select;
+          } // end for
+          if ($allow_multiple)
+            $field_args['part_of_multiple'] = $allow_multiple;
+          if (count($show_on_select) > 0)
+            $field_args['show on select'] = $show_on_select;
           // get the value from the request, if it's there, and if it's not
           // an array
           $escaped_field_name = str_replace("'", "\'", $field_name);
@@ -847,7 +849,7 @@ END;
               wfRunHooks('sfCreateFormField', array(&$form_field, &$cur_value, false));
             // if this is not part of a 'multiple' template, increment the
             // global tab index (used for correct tabbing)
-            if (! $field_args['part_of_multiple'])
+            if (! array_key_exists('part_of_multiple', $field_args))
               $sfgTabIndex++;
             // increment the global field number regardless
             $sfgFieldNum++;
