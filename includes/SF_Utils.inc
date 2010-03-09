@@ -76,7 +76,7 @@ class SFUtils {
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 
 END;
-		$form_body = '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpTextbox1', 'id' => 'wpTextbox1', 'value' => $page_contents), null) . "\n";
+		$form_body = '	' . Xml::tags('input', array('type' => 'hidden', 'name' => 'wpTextbox1', 'id' => 'wpTextbox1', 'value' => $page_contents), null) . "\n";
 		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpSummary', 'value' => $edit_summary), null) . "\n";
 		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpStarttime', 'value' => $start_time), null) . "\n";
 		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpEdittime', 'value' => $edit_time), null) . "\n";
@@ -245,7 +245,7 @@ END;
 		global $sfgMaxAutocompleteValues;
 
 		$db = wfGetDB( DB_SLAVE );
-		$fname = "SFUtils;:getAllPagesForCategory";
+		$fname = "SFUtils::getAllPagesForCategory";
 		$top_category = str_replace(' ', '_', $top_category);
 		$categories = array($top_category);
 		$checkcategories = array($top_category);
@@ -265,7 +265,8 @@ END;
 					array('categorylinks', 'page'),
 					array('page_title', 'page_namespace'),
 					array('cl_from = page_id', $conditions),
-					$fname);
+					$fname,
+					'SORT BY cl_sortkey');
 				if ($res) {
 					while ($res && $row = $db->fetchRow($res)) {
 						if (array_key_exists('page_title', $row)) {
@@ -293,14 +294,12 @@ END;
 				}
 			}
 			if (count($newcategories) == 0) {
-				sort($pages);
 				return $pages;
 			} else {
 				$categories = array_merge($categories, $newcategories);
 			}
 			$checkcategories = array_diff($newcategories, array());
 		}
-		sort($pages);
 		return $pages;
 	}
 
@@ -330,6 +329,7 @@ END;
 		while ($res = $query_result->getNext()) {
 			$pages[] = $res[0]->getNextText(SMW_OUTPUT_WIKI);
 		}
+		sort($pages);
 		return $pages;
 	}
 
