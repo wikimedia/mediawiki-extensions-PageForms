@@ -59,6 +59,12 @@ $wgGroupPermissions['sysop']['editrestrictedfields'] = true;
 $wgAvailableRights[] = 'editrestrictedfields';
 
 ###
+# Permission to view, and create pages with, Special:CreateClass
+###
+$wgGroupPermissions['user']['createclass'] = true;
+$wgAvailableRights[] = 'createclass';
+
+###
 # List separator character
 ###
 $sfgListSeparator = ",";
