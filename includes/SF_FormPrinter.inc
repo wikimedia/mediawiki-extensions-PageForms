@@ -61,7 +61,7 @@ class SFFormPrinter {
     $this->setInputTypeHook('datetime with timezone', array('SFFormInputs', 'dateTimeEntryHTML'), array('include_timezone' => true));
     $this->setInputTypeHook('year', array('SFFormInputs', 'textEntryHTML'), array('size' => 4));
     $this->setInputTypeHook('checkbox', array('SFFormInputs', 'checkboxHTML'), array());
-    $this->setInputTypeHook('radiobutton', array('SFFormInputs', 'radiobuttonHTML'), array());
+    $this->setInputTypeHook('radiobutton', array('SFFormInputs', 'radioButtonHTML'), array());
     $this->setInputTypeHook('checkboxes', array('SFFormInputs', 'checkboxesHTML'), array());
     $this->setInputTypeHook('listbox', array('SFFormInputs', 'listboxHTML'), array());
     $this->setInputTypeHook('category', array('SFFormInputs', 'categoryHTML'), array());
@@ -124,7 +124,7 @@ class SFFormPrinter {
     return false;
   }
 
-  function formHTML($form_def, $form_id, $form_submitted, $source_is_page, $existing_page_content = null, $page_title = null, $page_name_formula = null, $is_query = false, $embedded = false) {
+  function formHTML($form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
@@ -169,11 +169,11 @@ class SFFormPrinter {
     // set in different ways
     // HACK - sometimes we don't know the page name in advance, but we still
     // need to set a title here for testing permissions
-    if ($page_title == '')
+    if ($page_name == '')
       $this->mPageTitle = Title::newFromText(
         $wgRequest->getVal('namespace') . ":Semantic Forms permissions test");
     else
-      $this->mPageTitle = Title::newFromText($page_title);
+      $this->mPageTitle = Title::newFromText($page_name);
     global $wgOut;
     // show previous set of deletions for this page, if it's been deleted before
     if (! $form_submitted && ! $this->mPageTitle->exists())
@@ -223,9 +223,9 @@ class SFFormPrinter {
     // there
     $got_form_def_from_cache = false;
     global $sfgCacheFormDefinitions;
-    if ($sfgCacheFormDefinitions) {
+    if ($sfgCacheFormDefinitions && ! is_null($form_id)) {
       $db = wfGetDB( DB_MASTER );
-      $res = $db->select('page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = $form_id");
+      $res = $db->select('page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = '$form_id'");
       if ($res->numRows() >  0) {
         $form_def = $res->fetchObject()->pp_value;
         $got_form_def_from_cache = true;
@@ -311,7 +311,7 @@ class SFFormPrinter {
             $component = $tag_components[$i];
             if ($component == 'multiple') $allow_multiple = true;
             if ($component == 'strict') $strict_parsing = true;
-            $sub_components = explode('=', $component);
+            $sub_components = explode('=', $component, 2);
             if (count($sub_components) == 2) {
               if ($sub_components[0] == 'label') {
                 $template_label = $sub_components[1];
@@ -438,7 +438,7 @@ class SFFormPrinter {
               // form: the problem is that some forms contain *only* mutliple-
               // instance templates
               //if (! $allow_multiple) {
-                $source_page_matches_this_form = true;
+              $source_page_matches_this_form = true;
               //}
             }
           }
@@ -502,6 +502,7 @@ class SFFormPrinter {
           $is_list = false;
           $input_type = null;
           $field_args = array();
+          $show_on_select = array();
           $default_value = "";
           $possible_values = null;
           $semantic_property = null;
@@ -527,7 +528,7 @@ class SFFormPrinter {
             } elseif ($component == 'edittools') { // free text only
               $free_text_components[] = 'edittools';
             } else {
-              $sub_components = explode('=', $component);
+              $sub_components = explode('=', $component, 2);
               if (count($sub_components) == 1) {
                 // add handling for single-value params, for custom input types
                 $field_args[$sub_components[0]] = null;
@@ -543,6 +544,22 @@ class SFFormPrinter {
                   } else {
                     // this variable is not used
                     $preload_page = $sub_components[1];
+                  }
+                } elseif ($sub_components[0] == 'show on select') {
+                  // html_entity_decode() is needed to turn '&gt;' to '>'
+                  $vals = explode(';', html_entity_decode($sub_components[1]));
+                  foreach ($vals as $val) {
+                    $option_div_pair = explode('=>', $val, 2);
+                    if (count($option_div_pair) > 1) {
+                      $option = $option_div_pair[0];
+                      $div_id = $option_div_pair[1];
+                      if (array_key_exists($div_id, $show_on_select))
+                        $show_on_select[$div_id][] = $option;
+                      else
+                        $show_on_select[$div_id] = array($option);
+                    } else {
+                      $show_on_select[$val] = array();
+                    }
                   }
                 } elseif ($sub_components[0] == 'autocomplete on property') {
                   // HACK - we need to figure out if this property is a
@@ -590,7 +607,7 @@ class SFFormPrinter {
                 } elseif ($sub_components[0] == 'property') {
                   $semantic_property = $sub_components[1];
                 } elseif ($sub_components[0] == 'default filename') {
-                  $default_filename = str_replace('&lt;page name&gt;', $page_title, $sub_components[1]);
+                  $default_filename = str_replace('&lt;page name&gt;', $page_name, $sub_components[1]);
                   $field_args['default filename'] = $default_filename;
                 } else {
                   $field_args[$sub_components[0]] = $sub_components[1];
@@ -601,8 +618,9 @@ class SFFormPrinter {
                 }
               }
             }
-          }
+          } // for
           $field_args['part_of_multiple'] = $allow_multiple;
+          $field_args['show on select'] = $show_on_select;
           // get the value from the request, if it's there, and if it's not
           // an array
           $escaped_field_name = str_replace("'", "\'", $field_name);
@@ -1023,7 +1041,7 @@ END;
           foreach(array_slice($tag_components, 1) as $component) {
             $sub_components = explode('=', $component, 2);
             $tag = $sub_components[0];
-            if ($tag == 'add title') {
+            if ($tag == 'create title' || $tag == 'add title') {
               // handle this only if we're adding a page
               if (! $this->mPageTitle->exists()) {
                 $val = $sub_components[1];
@@ -1075,15 +1093,15 @@ END;
           // doing a replace
           if ($existing_page_content && strpos($existing_page_content, '{{{insertionpoint}}}', 0) !== false) {
             $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}(\r?\n?)/', 
-              preg_replace('/\}\}/m', '}ï¿½',
-                preg_replace('/\{\{/m', 'ï¿½{', $template_text)) .
+              preg_replace('/\}\}/m', '}²',
+                preg_replace('/\{\{/m', '²{', $template_text)) .
               "\n{{{insertionpoint}}}",
               $existing_page_content);
           // otherwise, if it's a partial form, we have to add the new
           // text somewhere
           } elseif ($form_is_partial && $wgRequest->getCheck('partial') ) {
-            $existing_page_content = preg_replace('/\}\}/m', '}ï¿½',
-              preg_replace('/\{\{/m', 'ï¿½{', $template_text)) .
+            $existing_page_content = preg_replace('/\}\}/m', '}²',
+              preg_replace('/\{\{/m', '²{', $template_text)) .
                 "\n{{{insertionpoint}}}\n" . $existing_page_content;
           }
         }
@@ -1152,7 +1170,7 @@ END;
          $form_text .= SFFormUtils::hiddenFieldHTML('partial', 1);
        } else {
          $free_text = null;
-         $existing_page_content = preg_replace('/ï¿½\{(.*?)\}ï¿½/s', '{{\1}}', $existing_page_content);
+         $existing_page_content = preg_replace('/²\{(.*?)\}²/s', '{{\1}}', $existing_page_content);
          $existing_page_content = preg_replace('/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content);
        }
     } elseif ($source_is_page) {
