@@ -7,7 +7,7 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define('SF_VERSION','1.8.8');
+define('SF_VERSION','1.9');
 
 $wgExtensionCredits['specialpage'][]= array(
 	'path' => __FILE__,
@@ -67,20 +67,17 @@ $wgSpecialPageGroups['CreateCategory'] = 'sf_group';
 $wgSpecialPages['CreateClass'] = 'SFCreateClass';
 $wgAutoloadClasses['SFCreateClass'] = $sfgIP . '/specials/SF_CreateClass.php';
 $wgSpecialPageGroups['CreateClass'] = 'sf_group';
-$wgSpecialPages['AddPage'] = 'SFAddPage';
-$wgAutoloadClasses['SFAddPage'] = $sfgIP . '/specials/SF_AddPage.php';
-$wgSpecialPageGroups['AddPage'] = 'sf_group';
-$wgSpecialPages['AddData'] = 'SFAddData';
-$wgAutoloadClasses['SFAddData'] = $sfgIP . '/specials/SF_AddData.php';
-$wgSpecialPageGroups['AddData'] = 'sf_group';
-$wgSpecialPages['EditData'] = 'SFEditData';
-$wgAutoloadClasses['SFEditData'] = $sfgIP . '/specials/SF_EditData.php';
-$wgSpecialPageGroups['EditData'] = 'sf_group';
+$wgSpecialPages['FormStart'] = 'SFFormStart';
+$wgAutoloadClasses['SFFormStart'] = $sfgIP . '/specials/SF_FormStart.php';
+$wgSpecialPageGroups['FormStart'] = 'sf_group';
+$wgSpecialPages['FormEdit'] = 'SFFormEdit';
+$wgAutoloadClasses['SFFormEdit'] = $sfgIP . '/specials/SF_FormEdit.php';
+$wgSpecialPageGroups['FormEdit'] = 'sf_group';
 $wgSpecialPages['RunQuery'] = 'SFRunQuery';
 $wgAutoloadClasses['SFRunQuery'] = $sfgIP . '/specials/SF_RunQuery.php';
 $wgSpecialPageGroups['RunQuery'] = 'sf_group';
 // different upload-window class for MW 1.16+
-if (class_exists('HTMLForm')) { // added in MW 1.16
+if (class_exists('HTMLTextField')) { // added in MW 1.16
 	$wgSpecialPages['UploadWindow'] = 'SFUploadWindow2';
 	$wgAutoloadClasses['SFUploadWindow2'] = $sfgIP . '/specials/SF_UploadWindow2.php';
 } else {
@@ -211,7 +208,8 @@ function sffInitUserLanguage($langcode) {
 }
 
 function sffAddToAdminLinks(&$admin_links_tree) {
-	$data_structure_section = $admin_links_tree->getSection('Data structure');
+	$data_structure_label = wfMsg('smw_adminlinks_datastructure');
+	$data_structure_section = $admin_links_tree->getSection($data_structure_label);
 	if (is_null($data_structure_section))
 		return true;
 	$smw_row = $data_structure_section->getRow('smw');
