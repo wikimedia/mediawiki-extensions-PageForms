@@ -140,3 +140,36 @@ function autocompleteFunctionGenerator(values_list) {
         }
     }
 }
+
+/*
+ * The following two functions are not related to YUI or autocompletion -
+ * there just wasn't a better place to put them, and it seemed like overkill
+ * to create a separate file just for them
+ */
+
+// show the relevant div if any one of the relevant options are passed in
+// to the relevant dropdown - otherwise, hide it
+function showIfSelected(dropdown, options_array, div_id) {
+	actual_div = document.getElementById(div_id);
+        for (var i in options_array) {
+		if (dropdown.value == options_array[i]) {
+			actual_div.style.display = 'block';
+			return;
+		}
+	}
+	actual_div.style.display = 'none';
+}
+
+// show the relevant div if any one of the relevant checkboxes are
+// checked - otherwise, hide it
+function showIfChecked(checkbox_inputs, div_id) {
+	actual_div = document.getElementById(div_id);
+        for (var i in checkbox_inputs) {
+		checkbox = document.getElementById(checkbox_inputs[i]);
+		if (checkbox.checked) {
+			actual_div.style.display = 'block';
+			return;
+		}
+	}
+	actual_div.style.display = 'none';
+}
