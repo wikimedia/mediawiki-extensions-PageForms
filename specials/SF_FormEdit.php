@@ -1,18 +1,19 @@
 <?php
 /**
- * Displays a pre-defined form for adding data.
+ * Displays a pre-defined form for either creating a new page or editing an
+ * existing one.
  *
  * @author Yaron Koren
  */
 if (!defined('MEDIAWIKI')) die();
 
-class SFAddData extends SpecialPage {
+class SFFormEdit extends SpecialPage {
 
 	/**
 	 * Constructor
 	 */
-	function SFAddData() {
-		SpecialPage::SpecialPage('AddData');
+	function SFFormEdit() {
+		SpecialPage::SpecialPage('FormEdit');
 		wfLoadExtensionMessages('SemanticForms');
 	}
 
@@ -32,27 +33,27 @@ class SFAddData extends SpecialPage {
 
 		$alt_forms = $wgRequest->getArray('alt_form');
 
-		self::printAddForm($form_name, $target_name, $alt_forms);
+		self::printForm($form_name, $target_name, $alt_forms);
 	}
 
 	static function printAltFormsList($alt_forms, $target_name) {
 		$text = "";
-		$ad = SpecialPage::getPage('AddData');
+		$fe = SpecialPage::getPage('FormEdit');
+		$fe_url = $fe->getTitle()->getFullURL();
 		$i = 0;
 		foreach ($alt_forms as $alt_form) {
 			if ($i++ > 0) { $text .= ", "; }
-			$text .= '<a href="' . $ad->getTitle()->getFullURL() . "/" . $alt_form . "/" . $target_name . '">' . str_replace('_', ' ', $alt_form) . "</a>";
+			$text .= "<a href=\"$fe_url/$alt_form/$target_name\">" . str_replace('_', ' ', $alt_form) . "</a>";
 		}
 		return $text;
 	}
 
-static function printAddForm($form_name, $target_name, $alt_forms) {
+static function printForm($form_name, $target_name, $alt_forms = array()) {
 	global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
 
 	wfLoadExtensionMessages('SemanticForms');
 
 	// initialize some variables
-	$page_title = null;
 	$target_title = null;
 	$page_name_formula = null;
 
@@ -68,8 +69,13 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 		$form_definition = $form_article->getContent();
 		$form_definition = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $form_definition);
 		$matches;
-		if (preg_match('/{{{info.*page name=([^\|}]*)/m', $form_definition, $matches)) {
+		if (preg_match('/{{{info.*page name=([^\|]*)/m', $form_definition, $matches)) {
 			$page_name_formula = str_replace('_', ' ', $matches[1]);
+			// if the tag close ('}}}') is in here, chop off that
+			// and everything after it
+			if ($pos = strpos($page_name_formula, '}}}')) {
+				$page_name_formula = substr($page_name_formula, 0, $pos);
+			}
 		} elseif (count($alt_forms) == 0) {
 			$wgOut->addWikiText( "<p class='error'>" . wfMsg('sf_adddata_badurl') . '</p>');
 			return;
@@ -80,17 +86,30 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 
 	if ($target_name != '') {
 		$target_title = Title::newFromText($target_name);
-		$s = wfMsg('sf_adddata_title', $form_title->getText(), $target_title->getPrefixedText());
+		if ($target_title->exists()) {
+			$s = wfMsg('sf_editdata_title', $form_title->getText(), $target_title->getPrefixedText());
+		} else {
+			$s = wfMsg('sf_adddata_title', $form_title->getText(), $target_title->getPrefixedText());
+		}
 		$wgOut->setPageTitle($s);
 	}
 
-	// target_title should be null - we shouldn't be adding a page that
-	// already exists
+	// handling is different depending on whether page already exists
+	// or not
 	if ($target_title && $target_title->exists()) {
-		$wgOut->addWikiText( "<p class='error'>" . wfMsg('articleexists') . '</p>');
-		return;
+                if ($wgRequest->getVal('query') == 'true') {
+                        $page_contents = null;
+                        $page_is_source = false;
+                } elseif ($content != null) {
+                        $page_contents = $content;
+                        $page_is_source = true;
+                } else {
+                        $target_article = new Article($target_title);
+                        $page_contents = $target_article->getContent();
+                        $page_is_source = true;
+                }
 	} elseif ($target_name != '') {
-		$page_title = str_replace('_', ' ', $target_name);
+		$target_name = str_replace('_', ' ', $target_name);
 	}
 
 	if (! $form_title || ! $form_title->exists()) {
@@ -129,7 +148,7 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 			$page_contents = null;
 		}
 		list ($form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name) =
-			$sfgFormPrinter->formHTML($form_definition, $form_article->getID(), $form_submitted, $page_is_source, $page_contents, $page_title, $page_name_formula);
+			$sfgFormPrinter->formHTML($form_definition, $form_submitted, $page_is_source, $form_article->getID(), $page_contents, $target_name, $page_name_formula);
 		if ($form_submitted) {
 			if ($page_name_formula != '') {
 				$target_name = $generated_page_name;
@@ -147,6 +166,11 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 				// if any formula stuff is still in the name
 				// after the parsing, just remove it
 				$target_name = StringUtils::delimiterReplace('<', '>', '', $target_name);
+
+				// now run the parser on it
+				global $wgParser;
+				$target_name = $wgParser->recursiveTagParse($target_name);
+
 				if (strpos($target_name, '{num')) {
 					// get unique number start value from
 					// target name; if it's not there, or
@@ -177,6 +201,9 @@ static function printAddForm($form_name, $target_name, $alt_forms) {
 					$target_title = Title::newFromText($target_name);
 				}
 			}
+			if (is_null($target_title)) {
+				die (wfMsg('img-auth-badtitle', $target_name));
+			}
 			$wgOut->setArticleBodyOnly( true );
 			$text = SFUtils::printRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
 		} else {
@@ -203,9 +230,18 @@ END;
 		}
 	}
 	SFUtils::addJavascriptAndCSS();
-	if (! empty($javascript_text))
-		$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
+	// instead of adding the Javascript using addScript(), which is the
+	// standard approach, we add it using addHTML(), below the form text -
+	// that's so the Javascript created for fields with a 'show on select'
+	// parameter, if there are any, get placed below the form HTML, so
+	// that they can affect (i.e., hide) the relevant form fields.
+	// if there's a less hacky way to do this, the code should switch to
+	// that.
+	//if (! empty($javascript_text))
+	//	$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
 	$wgOut->addHTML($text);
+	if (! empty($javascript_text))
+		$wgOut->addHTML('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
 }
 
 }
