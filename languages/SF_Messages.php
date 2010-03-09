@@ -81,10 +81,10 @@ $messages['en'] = array(
 	'formstart'                          => 'Start of form',
 	'sf_formstart_badform'               => 'Error: no form page was found at $1',
 	'sf_formstart_badtitle'              => 'Error: "$1" is an invalid title for a page.',
-	'sf_formstart_docu'                  => 'Enter the name of the page here, to be edited with the form "$1".
+	'sf_formstart_docu'                  => 'Enter the name of a page here, to be edited with the form "$1".
 If this page already exists, you will be sent to the form for editing that page.
 Otherwise, you will be sent to the form for adding the page.',
-	'sf_formstart_noform_docu'           => 'Enter the name of the page here, and select the form to edit it with.
+	'sf_formstart_noform_docu'           => 'Enter the name of a page here, and select the form to edit it with.
 If this page already exists, you will be sent to the form for editing that page.
 Otherwise, you will be sent to the form for adding the page.',
 	'sf_formstart_createoredit'          => 'Create or edit',
@@ -98,7 +98,6 @@ it should look like \'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target 
 	'sf_viewform'                        => 'View form',
 	'sf_editsource'                      => 'Edit source',
 	'sf_formedit_edittitle'                  => 'Edit $1: $2',
-it should look like \'Special:EditData?form=&lt;form name&gt;&target=&lt;target page&gt;\', or  \'Special:EditData/&lt;form name&gt;/&lt;target page&gt;\'.',
 	'sf_formedit_morethanoneform'        => "'''Warning:''' More than one default form is defined for this page.",
 	'sf_formedit_formwarning'            => 'Warning: This page <a href="$1">already exists</a>, but it does not use this form.',
 	'sf_formedit_remove'                 => 'Remove',
