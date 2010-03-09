@@ -76,7 +76,7 @@ class SFUtils {
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 
 END;
-		$form_body = '	' . Xml::tags('input', array('type' => 'hidden', 'name' => 'wpTextbox1', 'id' => 'wpTextbox1', 'value' => $page_contents), null) . "\n";
+		$form_body = '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpTextbox1', 'id' => 'wpTextbox1', 'value' => $page_contents), null) . "\n";
 		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpSummary', 'value' => $edit_summary), null) . "\n";
 		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpStarttime', 'value' => $start_time), null) . "\n";
 		$form_body .= '	' . Xml::element('input', array('type' => 'hidden', 'name' => 'wpEdittime', 'value' => $edit_time), null) . "\n";
@@ -245,7 +245,6 @@ END;
 		global $sfgMaxAutocompleteValues;
 
 		$db = wfGetDB( DB_SLAVE );
-		$fname = "SFUtils::getAllPagesForCategory";
 		$top_category = str_replace(' ', '_', $top_category);
 		$categories = array($top_category);
 		$checkcategories = array($top_category);
@@ -265,7 +264,7 @@ END;
 					array('categorylinks', 'page'),
 					array('page_title', 'page_namespace'),
 					array('cl_from = page_id', $conditions),
-					$fname,
+					__METHOD__,
 					'SORT BY cl_sortkey');
 				if ($res) {
 					while ($res && $row = $db->fetchRow($res)) {
@@ -340,7 +339,6 @@ END;
 		global $wgContLang;
 		$namespaces = $wgContLang->getNamespaces();
 		$db = wfGetDB( DB_SLAVE );
-		$fname = "SFUtils::getAllPagesForNamespace";
 		$pages = array();
 		foreach ($namespaces as $ns_code => $ns_name) {
 			if ($ns_name == $namespace_name) {
@@ -354,7 +352,7 @@ END;
 				$sql_options['ORDER BY'] = 'page_title';
 				$res = $db->select( $db->tableNames('page'),
 					'page_title',
-					$conditions, $fname, $sql_options);
+					$conditions, __METHOD__, $sql_options);
 				while ($row = $db->fetchRow($res)) {
 					$cur_value = str_replace('_', ' ', $row[0]);
 					if ($substring == null) {
