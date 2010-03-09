@@ -72,7 +72,7 @@ class TemplatesPage extends QueryPage {
 
 		$template_text = $template_article->getContent();
 		$cat_ns_name = $wgContLang->getNsText(14);
-		if (preg_match_all("/\[\[$cat_ns_name:(.*)\]\]/", $template_text, $matches)) {
+		if (preg_match_all("/\[\[(Category|$cat_ns_name):(.*)\]\]/", $template_text, $matches)) {
 			// get the last match - if there's more than one
 			// category tag, there's a good chance that the last
 			// one will be the relevant one - the others are
