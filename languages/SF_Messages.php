@@ -127,7 +127,7 @@ the URL should look like \'Special:RunQuery/&lt;form name&gt;\'.',
 It should be called in the following format:',
 	'sf_template_docufooter'             => 'Edit the page to see the template text.',
 	'sf_form_docu'                       => 'This is the "$1" form.
-To add a page with this form, enter the page name below;
+To create a page with this form, enter the page name below;
 if a page with that name already exists, you will be sent to a form to edit that page.',
 	'sf_form_freetextlabel'          => 'Free text',
 	'sf_category_hasdefaultform'         => 'This category uses the form $1.',
