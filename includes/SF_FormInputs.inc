@@ -155,7 +155,7 @@ END;
       $javascript_text = 'onChange="';
       foreach ($other_args['show on select'] as $div_id => $options) {
         $options_str = implode("', '", $options);
-        $this_js_text = "showIfSelected(this, ['$options_str'], '$div_id'); ";
+        $this_js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
         $javascript_text .= $this_js_text;
         $return_js_text .= $this_js_text . "\n";
       }
@@ -233,7 +233,7 @@ END;
       $javascript_text = 'onChange="';
       foreach ($other_args['show on select'] as $div_id => $options) {
         $options_str = implode("', '", $options);
-        $this_js_text = "showIfSelected(this, ['$options_str'], '$div_id'); ";
+        $this_js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
         $javascript_text .= $this_js_text;
         $return_js_text .= $this_js_text . "\n";
       }
@@ -662,7 +662,7 @@ END;
       $javascript_text = 'onClick="';
       foreach($other_args['show on select'] as $div_id => $options) {
         $options_str = implode("', '", $options);
-          $this_js_text = "showIfSelected(this, ['$options_str'], '$div_id'); ";
+          $this_js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
           $javascript_text .= $this_js_text;
           $return_js_text .= $this_js_text . "\n";
       }

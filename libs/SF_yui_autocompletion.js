@@ -149,27 +149,28 @@ function autocompleteFunctionGenerator(values_list) {
 
 // show the relevant div if any one of the relevant options are passed in
 // to the relevant dropdown - otherwise, hide it
-function showIfSelected(dropdown, options_array, div_id) {
-	actual_div = document.getElementById(div_id);
+function showIfSelected(input_id, options_array, div_id) {
+	the_input = document.getElementById(input_id);
+	the_div = document.getElementById(div_id);
         for (var i in options_array) {
-		if (dropdown.value == options_array[i]) {
-			actual_div.style.display = 'block';
+		if (the_input.value == options_array[i]) {
+			the_div.style.display = 'block';
 			return;
 		}
 	}
-	actual_div.style.display = 'none';
+	the_div.style.display = 'none';
 }
 
 // show the relevant div if any one of the relevant checkboxes are
 // checked - otherwise, hide it
 function showIfChecked(checkbox_inputs, div_id) {
-	actual_div = document.getElementById(div_id);
+	the_div = document.getElementById(div_id);
         for (var i in checkbox_inputs) {
 		checkbox = document.getElementById(checkbox_inputs[i]);
 		if (checkbox.checked) {
-			actual_div.style.display = 'block';
+			the_div.style.display = 'block';
 			return;
 		}
 	}
-	actual_div.style.display = 'none';
+	the_div.style.display = 'none';
 }
