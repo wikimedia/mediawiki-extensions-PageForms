@@ -166,6 +166,12 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 
 				// now run the parser on it
 				global $wgParser;
+				// ...but first, replace spaces back with
+				// underlines, in case a magic word or parser
+				// function name contains underlines -
+				// hopefully this won't cause problems of
+				// its own
+				$target_name = str_replace(' ', '_', $target_name);
 				$target_name = $wgParser->recursiveTagParse($target_name);
 
 				if (strpos($target_name, '{num')) {
@@ -199,7 +205,7 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 				}
 			}
 			if (is_null($target_title)) {
-				die (wfMsg('img-auth-badtitle', $target_name));
+				die (wfMsg('badtitle') . ": $target_name"));
 			}
 			$wgOut->setArticleBodyOnly( true );
 			$text = SFUtils::printRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
