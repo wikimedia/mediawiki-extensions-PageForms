@@ -205,7 +205,7 @@ static function printForm($form_name, $target_name, $alt_forms = array()) {
 				}
 			}
 			if (is_null($target_title)) {
-				die (wfMsg('badtitle') . ": $target_name"));
+				die (wfMsg('badtitle') . ": $target_name");
 			}
 			$wgOut->setArticleBodyOnly( true );
 			$text = SFUtils::printRedirectForm($target_title, $data_text, $wgRequest->getVal('wpSummary'), $save_page, $preview_page, $diff_page, $wgRequest->getCheck('wpMinoredit'), $wgRequest->getCheck('wpWatchthis'), $wgRequest->getVal('wpStarttime'), $wgRequest->getVal('wpEdittime'));
