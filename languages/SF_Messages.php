@@ -300,7 +300,7 @@ $messages['ar'] = array(
 	'sf_formstart_noform_docu' => 'أدخل اسم الصفحة هنا، واختر الاستمارة لتعديلها معها.
 إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة.
 أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.',
-	'sf_formstart_createoredit' => 'أضف أو عدل',
+	'sf_formstart_createoredit' => 'أضف أو عدّل',
 	'formedit' => 'عدل مع الاستمارة',
 	'sf_formedit_createtitle' => 'أضف $1: $2',
 	'sf_formedit_badurl' => "هذه هي الصفحة لإضافة البيانات. يجب عليك تحديد اسم صفحة وصفحة هدف في المسار؛ ينبغي أن تبدو ك 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;' أو  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
@@ -336,8 +336,8 @@ $messages['ar'] = array(
 ينبغي استدعاؤه بالصيغة التالية:",
 	'sf_template_docufooter' => 'عدل الصفحة لرؤية نص القالب.',
 	'sf_form_docu' => "هذه استمارة '$1'.
-لإضافة صفحة مع هذه الاستمارة، أدخل اسم الصفحة بالأسفل؛
-إذا كانت هناك صفحة موجودة بهذا الاسم، سيتم إرسالك إلى استمارة لتعديل هذه الصفحة.",
+لإنشاء صفحة بهذه الاستمارة، أدخل اسم الصفحة بالأسفل؛
+إذا وُجدت صفحة بهذا الاسم، فسيتم إرسالك إلى استمارة لتعديل تلك الصفحة.",
 	'sf_form_freetextlabel' => 'نص حر',
 	'sf_category_hasdefaultform' => 'هذا التصنيف يستخدم الاستمارة $1.',
 	'sf_category_desc' => 'هذا $1 تصنيف.',
@@ -625,8 +625,8 @@ $messages['be-tarask'] = array(
 	'sf_formstart_createoredit' => 'Стварыць альбо рэдагаваць',
 	'formedit' => 'Рэдагаваць з дапамогай формы',
 	'sf_formedit_createtitle' => 'Стварыць $1: $2',
-	'sf_formedit_badurl' => "Гэта старонка для даданьня зьвестак. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
-гэта павінна выглядаць наступным чынам 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;' альбо  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_badurl' => "Гэтая старонка для рэдагаваньня зьвестак. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
+гэта павінна выглядаць наступным чынам: 'Special:FormEdit?form=&lt;назва формы&gt;&target=&lt;мэтавая старонка&gt;' альбо  'Special:FormEdit/&lt;назва формы&gt;/&lt;мэтавая старонка&gt;'.",
 	'sf_formedit_altforms' => 'Замест гэтага Вы можаце дадаць гэту старонку з дапамогай наступных формаў:',
 	'sf_formedit_altformsonly' => 'Калі ласка, выберыце адну з наступных формаў для даданьня гэтай старонкі:',
 	'sf_formcreate' => 'Стварыць з дапамогай формы',
@@ -657,9 +657,9 @@ URL-адрас павінен мець выгляд 'Special:RunQuery/&lt;наз
 	'sf_property_allowedvals' => '{{PLURAL:$1|Дазволенае значэньне|Дазволеныя значэньні}} для гэтай уласьцівасьці:',
 	'sf_template_docu' => "Гэта шаблён '$1', які павінен выклікацца наступным чынам:",
 	'sf_template_docufooter' => 'Рэдагуйце старонку, каб убачыць тэкст шаблёну.',
-	'sf_form_docu' => "Гэта форма '$1'.
-Каб дадаць старонку з гэтай формай, увядзіце назву старонкі ніжэй;
-калі старонка з такой назвай ужо існуе, Вы будзеце накіраваны на форму рэдагаваньня гэтай старонкі.",
+	'sf_form_docu' => 'Гэта форма «$1».
+Каб стварыць старонку з гэтай формай, увядзіце назву старонкі ніжэй;
+калі старонка з такой назвай ужо існуе, Вы будзеце накіраваны на форму рэдагаваньня гэтай старонкі.',
 	'sf_form_freetextlabel' => 'Свабодны тэкст',
 	'sf_category_hasdefaultform' => 'Гэта катэгорыя выкарыстоўвае форму $1.',
 	'sf_category_desc' => 'Гэта катэгорыя $1.',
@@ -795,7 +795,7 @@ $messages['br'] = array(
 	'formstart' => 'Ouzhpennañ ur bajenn gant ur furmskrid',
 	'sf_formstart_badform' => "Fazi : n'eus bet kavet pajenn furmskrid ebet en $1.",
 	'sf_formstart_badtitle' => "Fazi : « $1 » n'eo ket un titl reizh evit ur bajenn.",
-	'sf_formstart_createoredit' => 'Ouzhpennañ dre aozañ',
+	'sf_formstart_createoredit' => 'Ouzhpennañ pe kemmañ',
 	'formedit' => 'Aozañ gant ur furmskrid',
 	'sf_formedit_createtitle' => 'Ouzhpennañ $1 : $2',
 	'sf_formedit_altformsonly' => 'Diuzit unan eus ar furmskridoù-mañ evit ouzhpennañ ar bajenn-mañ :',
@@ -1899,6 +1899,7 @@ osoitteen tulisi näyttää esimerkiksi tältä: ”Special:RunQuery/&lt;form na
  * @author Dereckson
  * @author Grondin
  * @author IAlex
+ * @author Peter17
  * @author PieRRoMaN
  * @author Sherbrooke
  * @author Urhixidur
@@ -1972,10 +1973,10 @@ $messages['fr'] = array(
 	'sf_formstart_badtitle' => 'Erreur : « $1 » est un titre de page invalide.',
 	'sf_formstart_docu' => 'Entrez ici le nom de la page destinée à être modifiée avec le formulaire « $1 ». Si cette page existe déjà, vous serez dirigé vers le formulaire afin de le modifier. Dans le cas contraire, vous serez redirigé vers celui permettant de l’ajouter.',
 	'sf_formstart_noform_docu' => 'Entrez ici le nom de la page, puis sélectionnez le formulaire qui servira à la modifier. Si cette page existe déjà, vous serez dirigé vers le formulaire afin de le modifier. Dans le cas contraire, vous serez redirigé vers celui permettant de l’ajouter.',
-	'sf_formstart_createoredit' => 'Modifier ou ajouter des données',
+	'sf_formstart_createoredit' => 'Créer ou modifier',
 	'formedit' => 'Modifier avec un formulaire',
-	'sf_formedit_createtitle' => 'Ajouter $1 : $2',
-	'sf_formedit_badurl' => 'Ceci est la page d’ajout de données. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;
+	'sf_formedit_createtitle' => 'Créer $1 : $2',
+	'sf_formedit_badurl' => 'Ceci est la page pour modifier les données en utilisant un formulaire. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;
 l’URL doit ressembler à « <tt>Special:FormEdit?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt;</tt> » ou « <tt>Special:FormEdit/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt;</tt> ».',
 	'sf_formedit_altforms' => 'Vous pouvez, à la place, ajouter cette page avec l’un des formulaires suivants :',
 	'sf_formedit_altformsonly' => 'Vous êtes prié{{GENDER:||e|(e)}} de sélectionner l’un des formulaires suivants pour ajouter cette page :',
@@ -2008,8 +2009,8 @@ l'URL devrait être comme « Special:RunQuery/&lt;nom du formulaire&gt; ».",
 	'sf_template_docu' => 'Ceci est le modèle « $1 ». Il devrait être appelé selon le format suivant :',
 	'sf_template_docufooter' => 'Modifier la page pour voir le texte du modèle.',
 	'sf_form_docu' => 'Ceci est le formulaire « $1 ».
-Entrez le nom d’une page à ajouter ou modifier avec ce formulaire ;
-si elle existe déjà, vous serez dirigé vers un formulaire destiné à l’éditer.',
+Pour créer une page avec ce formulaire, entrez le nom de la page ci-dessous ;
+si une page avec ce nom existe déjà, vous serez dirigé vers un formulaire pour l’éditer.',
 	'sf_form_freetextlabel' => 'Texte libre',
 	'sf_category_hasdefaultform' => 'Cette catégorie utilise le formulaire « $1 ».',
 	'sf_category_desc' => 'Ceci est la catégorie « $1 ».',
@@ -2645,10 +2646,10 @@ Za dalše opcije wužij strony $1 město toho.',
 	'sf_formstart_badtitle' => 'Zmylk: "$1" je njepłaćiwy titul za stronu.',
 	'sf_formstart_docu' => "Zapodaj tu mjeno strony, kotraž so ma z formularom '$1' wobdźěłać. Jeli tuta strona hižo eksistuje, posrědkuješ k formularej, z kotrymž móžeš tut stronu wobdźěłać. Hewak posrědkuješ so k formularej, z kotrymž móžeš stronu přidać.",
 	'sf_formstart_noform_docu' => 'Zapodaj tu mjeno strony a wubjer formular, z kotrymž chceš ju wobdźěłać. Jeli strona hižo eksistuje, posrědkuješ so k formularej, z kotrymž tutu stronu wobdźěłać. Hewak posrědkujes so k formularej, z kotrymž móžeš přidać.',
-	'sf_formstart_createoredit' => 'Přidać abo wobdźěłać',
+	'sf_formstart_createoredit' => 'Wutworić abo wobdźěłać',
 	'formedit' => 'Z formularom wobdźěłać',
-	'sf_formedit_createtitle' => '$1 přidać: $2',
-	'sf_formedit_badurl' => "To je strona za pridaće datow. Dyrbiš formularne mjeno kaž tež cilowu stronu w URL podać; Měło wupadać kaž 'Special:FormEdit?form=&lt;formularne mjeno&gt;&target=&lt;cilowa strona&gt;' abo  'Special:FormEdit/&lt;formularne mjeno&gt;/&lt;cilowa strona&gt;'",
+	'sf_formedit_createtitle' => '$1 wutworić: $2',
+	'sf_formedit_badurl' => "To je strona za wobdźěłowanje z formularom. Dyrbiš formularne mjeno kaž tež cilowu stronu w URL podać; měło kaž 'Special:FormEdit?form=&lt;formularne mjeno&gt;&target=&lt;cilowa strona&gt;' abo  'Special:FormEdit/&lt;formularne mjeno&gt;/&lt;cilowa strona&gt;' wupadać.",
 	'sf_formedit_altforms' => 'Móžeš město toho tutu stronu z jednym ze slědowacych formularow přidać:',
 	'sf_formedit_altformsonly' => 'Wubjer přošu jedyn ze slědowacych formularow, zo by tutu stronu přidał:',
 	'sf_formcreate' => 'Z formularom wutworić',
@@ -2679,7 +2680,9 @@ URL měł wupadać kaž 'Special:RunQuery/&lt;formularne mjeno&gt;'.",
 	'sf_property_allowedvals' => '{{PLURAL:$1|Dowolena hódnota za tutu kajkosć je|Dowolenej hódnoće za tutu kajkosć stej|Dowolene hódnoty za tutu kajkosć su|Dowolene hódnoty za tutu kajkosć su}}:',
 	'sf_template_docu' => "To je předłoha '$1'. Měła so w slědowacym formaće wołać:",
 	'sf_template_docufooter' => 'Wobdźěłaj tutu stronu, zo by tekst předłohi widźał.',
-	'sf_form_docu' => "To je formular '$1'. Přidaj stronu z tutym formularom, zapodaj deleka mjeno strony; jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, z kotrymž móžeš tutu stronu wobdźěłać.",
+	'sf_form_docu' => 'To je formular "$1".
+Zo by stronu z tutym formularom wutworił, zapodaj deleka mjeno strony; 
+jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, z kotrymž móžeš tutu stronu wobdźěłać.',
 	'sf_form_freetextlabel' => 'Swobodny tekst',
 	'sf_category_hasdefaultform' => 'Tuta kategorija wužiwa formular $1.',
 	'sf_category_desc' => 'To je kategorija $1.',
@@ -3635,9 +3638,9 @@ $messages['lb'] = array(
 	'formstart' => 'Säit mat engem Formulaire derbäisetzen',
 	'sf_formstart_badform' => 'Feeler: et gouf keng Formulaire-Säit op $1 fonnt.',
 	'sf_formstart_badtitle' => 'Feeler: "$1" ass kee valaben Titel fir eng Säit',
-	'sf_formstart_createoredit' => 'Derbäisetzen oder änneren',
+	'sf_formstart_createoredit' => 'Uleeën oder änneren',
 	'formedit' => 'Formulaire änneren',
-	'sf_formedit_createtitle' => '$1: $2 derbäisetzen',
+	'sf_formedit_createtitle' => '$1: $2 uleeën',
 	'sf_formedit_altformsonly' => 'Sicht w.e.g. e vun dëse Formulairen eraus fir dës Säit derbäizesetzen:',
 	'sf_formcreate' => 'Mat engem Formulaire gemaach',
 	'sf_viewform' => 'Formulaire weisen',
@@ -3870,10 +3873,10 @@ $messages['mk'] = array(
 	'sf_formstart_noform_docu' => 'Тука внесете го името на страницата, и одберете го образецот со кој ќе уредувате.
 Ако оваа страница веќе постои, ќе ви бидете пренасочени кон образецот за уредување.
 Ако не постои, ќе бидете пренасочени кон образецот за додавање на страницата.',
-	'sf_formstart_createoredit' => 'Додај или уреди',
+	'sf_formstart_createoredit' => 'Создај или уреди',
 	'formedit' => 'Уреди со образец',
-	'sf_formedit_createtitle' => 'Додај $1: $2',
-	'sf_formedit_badurl' => 'Ова е страницата за уредување на податоци. Мора да назначите име на образецот и целна страница во URL-адресата;
+	'sf_formedit_createtitle' => 'Создај $1: $2',
+	'sf_formedit_badurl' => 'Ова е страницата за уредување со образец. Мора да назначите име на образецот и целна страница во URL-адресата;
 треба да изгледа нешто како „Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;“, или  „Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;“.',
 	'sf_formedit_altforms' => 'Наместо тоа, можете да ја додадете оваа страница со еден од следниве обрасци:',
 	'sf_formedit_altformsonly' => 'Одберете еден од следните обрасци за додавање на страницата:',
@@ -3907,7 +3910,7 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 Треба да се повикува во следниов формат:',
 	'sf_template_docufooter' => 'Почнете со уредување на страницата за да го видите текстот на шаблонот.',
 	'sf_form_docu' => 'Ова е образецот „$1“.
-За да додадете страница со овој образец, внесете го името на страницата подолу;
+За да создадете страница со овој образец, внесете го името на страницата подолу;
 ако веќе постои така именувана страница, ќе бидете пренасочени кон образец за уредување на таа страница.',
 	'sf_form_freetextlabel' => 'Слободен текст',
 	'sf_category_hasdefaultform' => 'Оваа категорија го користи образецот $1.',
@@ -4819,12 +4822,12 @@ Dësnò, a sarà mandà al formolari për gionté la pàgina.',
 	'sf_formstart_noform_docu' => "Ch'a anserissa ël nòm ëd la pàgina ambelessì, e ch'a selession-a ël formolari për modifichela.
 Se sta pàgina-sì a esist già, a sarà mandà al formolari për modifiché cola pàgina.
 Dësnò, a sarà mandà al formolari për gionté la pàgina.",
-	'sf_formstart_createoredit' => 'Gionta o modìfica',
+	'sf_formstart_createoredit' => 'Crea o modìfica',
 	'formedit' => 'Modifiché con un formolari',
-	'sf_formedit_createtitle' => 'Gionta $1: $2',
-	'sf_formedit_badurl' => "Costa-sì a l'é la pàgina për gionté dij dat. A deuv spessifiché sia un nòm ëd formolari sia na pàgina obietiv ant l'adrëssa dl'aragnà;
-A dovrìa smijé a 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;pagina obietiv&gt;', or  
-'Special:FormEdit/&lt;form name&gt;/&lt;pagina obietiv&gt;'.",
+	'sf_formedit_createtitle' => 'Crea $1: $2',
+	'sf_formedit_badurl' => "Costa-sì a l'é la pàgina për modifiché con un formolari. A deuv spessifiché sia un nòm ëd formolari sia na pàgina obietiv ant l'adrëssa dl'aragnà;
+a dovrìa smijé a 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', or  
+'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'A peul anvece gionté sta pàgina-sì con un dij formolari sì-sota:',
 	'sf_formedit_altformsonly' => "Për piasì, ch'a selession-a un dij formolari sì-sota për gionté costa pàgina:",
 	'sf_formcreate' => 'Creé con un formolari',
@@ -4857,7 +4860,7 @@ l'adrëssa a dovrìa esse com 'Special:RunQuery/&lt;nom del formolari&gt;'.",
 A dovrìa esse arciamà ant ël formà sì-sota:',
 	'sf_template_docufooter' => 'Modìfica la pàgina për vëdde ël test ëd lë stamp.',
 	'sf_form_docu' => 'Cost-sì a l\'é ël formolari "$1".
-Për gionté na pàgina con cost formolari, ch\'a anserissa ël nòm ëd la pàgina sì-sota;
+Për creé na pàgina con cost formolari, ch\'a anserissa ël nòm ëd la pàgina sì-sota;
 se na pàgina con col nòm a esist già, a sarà mandà a \'n formolari për modifiché cola pàgina.',
 	'sf_form_freetextlabel' => 'Test lìber.',
 	'sf_category_hasdefaultform' => 'Sta categorìa-sì a deuvra ël formolari $1.',
@@ -5302,10 +5305,11 @@ $messages['ru'] = array(
 	'sf_formstart_badtitle' => 'Ошибка. «$1» — недопустимое название страницы.',
 	'sf_formstart_docu' => 'Введите здесь название страницы, которую нужно править с помощью формы «$1». Если страница уже существует, вы будите направлены на форму редактирования страницы, иначе вы будите направлены на форму добавления страницы.',
 	'sf_formstart_noform_docu' => 'Введите здесь название страницы и выберите форму, с помощью которой ей следует редактировать. Если эта страница уже существует, вы будите направлены на форму редактирования страницы, иначе вы будите направлены на форму добавления страницы.',
-	'sf_formstart_createoredit' => 'Добавить или редактировать',
+	'sf_formstart_createoredit' => 'Создать или править',
 	'formedit' => 'Править с помощью формы',
-	'sf_formedit_createtitle' => 'Добавление $1: $2',
-	'sf_formedit_badurl' => 'Это служебная страница для добавления данных. Вы должны указать имя формы и целевую страницу в URL; это должно выглядеть подобно «Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;» или   «Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;».',
+	'sf_formedit_createtitle' => 'Создание $1: $2',
+	'sf_formedit_badurl' => 'Это страница для редактирования с помощью формы. Вы должны указать имя формы и целевую страницу в URL;
+выглядеть это должно на подобии «Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;» или «Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;».',
 	'sf_formedit_altforms' => 'Вы можете вместо этого добавить эту страницу с помощью одной из следующих форм:',
 	'sf_formedit_altformsonly' => 'Пожалуйста, выберите одну из следующих форм для добавления этой страницы:',
 	'sf_formcreate' => 'Создать с формой',
@@ -5336,7 +5340,9 @@ URL должен выглядеть так: «Special:RunQuery/&lt;form name&gt;
 	'sf_property_allowedvals' => 'Для данного свойства {{PLURAL:$1|допускается следующее значение|допускаются следующие значения}}:',
 	'sf_template_docu' => 'Это шаблон «$1». Он должен вызываться следующим образом:',
 	'sf_template_docufooter' => 'Начните редактировать эту страницу, чтобы увидеть текст шаблона.',
-	'sf_form_docu' => 'Это форма «$1». Чтбы добавить страницу с помощью этой формы, введите имя страницы ниже; если страница с таким именем уже существует, вы будите направлены на форму редактирования этой страницы.',
+	'sf_form_docu' => 'Это форма «$1».
+Чтобы создать страницу с помощью этой формы, введите ниже название страницы;
+если страница с таким именем уже существует, вы будите направлены на форму редактирования этой страницы.',
 	'sf_form_freetextlabel' => 'Текст',
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',
