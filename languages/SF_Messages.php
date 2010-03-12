@@ -797,7 +797,7 @@ $messages['br'] = array(
 	'sf_formstart_badtitle' => "Fazi : « $1 » n'eo ket un titl reizh evit ur bajenn.",
 	'sf_formstart_createoredit' => 'Ouzhpennañ pe kemmañ',
 	'formedit' => 'Aozañ gant ur furmskrid',
-	'sf_formedit_createtitle' => 'Ouzhpennañ $1 : $2',
+	'sf_formedit_createtitle' => 'Krouiñ $1 : $2',
 	'sf_formedit_altformsonly' => 'Diuzit unan eus ar furmskridoù-mañ evit ouzhpennañ ar bajenn-mañ :',
 	'sf_formcreate' => 'Krouiñ gant ur furmskrid',
 	'sf_viewform' => 'Gwelet ar furmskrid',
@@ -4137,6 +4137,7 @@ $messages['nds-nl'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author McDutchie
  * @author SPQRobin
  * @author Siebrand
  */
@@ -4210,10 +4211,10 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_formstart_badtitle' => 'Fout: "$1" is een ongeldige paginanaam.',
 	'sf_formstart_docu' => "Voer de naam van de pagina die bewerkt wordt met het formulier '$1' hier in. Als deze pagina al bestaat, wordt u doorgestuurd naar het formulier om die pagina te bewerken. Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.",
 	'sf_formstart_noform_docu' => 'Voer de naam van de pagina hier in en selecteer het formulier waarmee die bewerkt wordt. Als deze pagina al bestaat, wordt u doorgestuurd naar het formulier om die pagina te bewerken. Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
-	'sf_formstart_createoredit' => 'Toevoegen of bewerken',
+	'sf_formstart_createoredit' => 'Aanmaken of bewerken',
 	'formedit' => 'Bewerken met dit formulier',
-	'sf_formedit_createtitle' => '$1 toevoegen: $2',
-	'sf_formedit_badurl' => "Dit is de pagina om gegevens toe te voegen. Geef zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;' of  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_createtitle' => '$1 aanmaken: $2',
+	'sf_formedit_badurl' => "Op deze pagina kunt u bewerkingen uitvoeren met behulp van een formulier. Geef zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als 'Special:FormEdit?form=&lt;formuliernaam&gt;&target=&lt;doelpagina&gt;' of  'Special:FormEdit/&lt;formuliernaam&gt;/&lt;doelpagina&gt;'.",
 	'sf_formedit_altforms' => 'U kunt in de plaats deze pagina toevoegen met een van de volgende formulieren:',
 	'sf_formedit_altformsonly' => 'Gelieve te selecteren van een van de volgende formulieren om deze pagina toe te voegen:',
 	'sf_formcreate' => 'Via formulier aanmaken',
@@ -4244,7 +4245,7 @@ De URL moet er als volgt uitzien: "Special:RunQuery/&lt;formuliernaam&gt;".',
 	'sf_property_allowedvals' => 'De toegelaten {{PLURAL:$1|waarde voor deze eigenschap is|waarden voor deze eigenschap zijn}}:',
 	'sf_template_docu' => "Dit is het sjabloon '$1'. Gebruik het op de volgende wijze:",
 	'sf_template_docufooter' => 'Bewerk de pagina om de sjabloontekst te bekijken.',
-	'sf_form_docu' => "Dit is het formulier '$1'. Om een pagina toe te voegen met dit formulier, typ de paginanaam hieronder in; als een pagina met die naam al bestaat, zal u het bewerkingsscherm zien en kunt u die pagina gewoon bewerken.",
+	'sf_form_docu' => 'Dit is het formulier "$1". Om een pagina aan te maken met dit formulier typt u de paginanaam hieronder in; als een pagina met die naam al bestaat, zult u het bewerkingsscherm zien en kunt u die pagina gewoon bewerken.',
 	'sf_form_freetextlabel' => 'Vrije tekst',
 	'sf_category_hasdefaultform' => 'Deze categorie gebruikt het formulier $1.',
 	'sf_category_desc' => 'Dit is de categorie $1.',
@@ -4985,7 +4986,7 @@ Caso contrário, será enviado para o formulário de adição da página.',
 	'sf_formstart_createoredit' => 'Adicionar ou editar',
 	'formedit' => 'Editar com formulário',
 	'sf_formedit_createtitle' => 'Adicionar $1: $2',
-	'sf_formedit_badurl' => "Esta é a página para adicionar dados. Deve especificar tanto um nome de formulário como uma página alvo na URL;
+	'sf_formedit_badurl' => "Esta é a página para edição com um formulário. Na URL deve especificar um nome de formulário e uma página alvo;
 deverá parecer-se com 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'Poderá, em alternativa, adicionar esta página aos seguintes formulários:',
 	'sf_formedit_altformsonly' => 'Por favor, seleccione um dos seguintes formulários para adicionar esta página:',
