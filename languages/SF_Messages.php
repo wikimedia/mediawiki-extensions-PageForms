@@ -1534,6 +1534,7 @@ $messages['eo'] = array(
  * @author Crazymadlover
  * @author Dvdgmz
  * @author Jatrobat
+ * @author Peter17
  * @author Sanbec
  */
 $messages['es'] = array(
@@ -1605,9 +1606,9 @@ $messages['es'] = array(
 	'sf_formstart_badtitle' => 'Error: "$1" es un título inválido para una página.',
 	'sf_formstart_docu' => "Ingresar el nombre de la página aqui, para ser editado con el formulario '$1'. Si esta página ya existe, usted será enviado al formulario para editar esa página. De otra forma, usted será enviado al formulario para agregar la página.",
 	'sf_formstart_noform_docu' => 'Ingresar el nombre de la página aqui, y seleccionar el formulario con el cual se editará. Si esta página ya existe, usted será enviado al formulario para editar esa página. De otra forma, usted será enviado al formulario para agregar la página.',
-	'sf_formstart_createoredit' => 'Agregar o editar',
+	'sf_formstart_createoredit' => 'Crear o editar',
 	'formedit' => 'Editar con formulario',
-	'sf_formedit_createtitle' => 'Agregar $1: $2',
+	'sf_formedit_createtitle' => 'Crear $1: $2',
 	'sf_formedit_badurl' => "Este es la página para agregar datos. Usted debe especificar tanto el nombre del formulario como la página de destino en el URL; debe verse algo como 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;' o 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'Usted puede también agregar esta página con uno de los siguientes formularios:',
 	'sf_formedit_altformsonly' => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
@@ -2115,19 +2116,19 @@ $messages['gl'] = array(
 	'sf_formstart_badform' => 'Erro: non se atopou unha páxina de formulario en $1',
 	'sf_formstart_badtitle' => 'Erro: "$1" é un título incorrecto para unha páxina.',
 	'sf_formstart_docu' => 'Introduza aquí o nome da páxina que se editará co formulario "$1". Se esta páxina xa existise, enviaráselle ao formulario para editar esa páxina. De non ser así, enviaráselle ao formulario para engadir a páxina.',
-	'sf_formstart_noform_docu' => 'Introduza aquí o nome da páxina e escolla o formulario co que a quer editar. Se esta páxina xa existise, enviaráselle ao formulario para editar esa páxina. De non ser así, enviaráselle ao formulario para engadir a páxina.',
-	'sf_formstart_createoredit' => 'Engadir ou editar',
+	'sf_formstart_noform_docu' => 'Introduza aquí o nome da páxina e escolla o formulario co que a quere editar. Se esta páxina xa existise, enviaráselle ao formulario para editar esa páxina. De non ser así, enviaráselle ao formulario para engadir a páxina.',
+	'sf_formstart_createoredit' => 'Crear ou editar',
 	'formedit' => 'Editar con formulario',
-	'sf_formedit_createtitle' => 'Engadir $1: $2',
-	'sf_formedit_badurl' => 'Esta páxina é para engadir datos. Ten que especificar un nome de formulario e unha páxina de destino no URL; deberían ser algo así como "Special:FormEdit?form=&lt;nome do formulario&gt;&target=&lt;páxina de destino&gt;" ou  "Special:FormEdit/&lt;nome do formulario&gt;/&lt;páxina de destino&gt;".',
+	'sf_formedit_createtitle' => 'Crear $1: $2',
+	'sf_formedit_badurl' => 'Esta é a páxina para editar cun formulario. Ten que especificar un nome de formulario e unha páxina de destino no URL; deberían ser algo así como "Special:FormEdit?form=&lt;nome do formulario&gt;&target=&lt;páxina de destino&gt;" ou  "Special:FormEdit/&lt;nome do formulario&gt;/&lt;páxina de destino&gt;".',
 	'sf_formedit_altforms' => 'Vostede pode engadir esta páxina cun dos seguintes formularios:',
-	'sf_formedit_altformsonly' => 'Seleccione dun dos seguintes formularios para engadir a esta páxina:',
+	'sf_formedit_altformsonly' => 'Seleccione un dos seguintes formularios para engadir esta páxina:',
 	'sf_formcreate' => 'Crear cun formulario',
 	'sf_viewform' => 'Ver o formulario',
 	'sf_editsource' => 'Editar orixe',
 	'sf_formedit_edittitle' => 'Editar $1: $2',
-	'sf_formedit_morethanoneform' => 'Aviso: hai máis dun formulario por defecto definido para esta páxina.',
-	'sf_formedit_formwarning' => 'Aviso: esta páxina <a href="$1">xa existe</a>, pero non usa esta forma.',
+	'sf_formedit_morethanoneform' => "'''Aviso:''' hai máis dun formulario definido por defecto para esta páxina.",
+	'sf_formedit_formwarning' => 'Aviso: esta páxina <a href="$1">xa existe</a>, pero non usa este formulario.',
 	'sf_formedit_remove' => 'Eliminar',
 	'sf_formedit_addanother' => 'Engadir outro',
 	'sf_formedit_none' => 'Ningún',
@@ -2150,7 +2151,9 @@ o URL debe ser do tipo "Special:RunQuery/&lt;nome do formulario&gt;".',
 	'sf_property_allowedvals' => '{{PLURAL:$1|O valor permitido|Os valores permitidos}} para esta propiedade {{PLURAL:$1|é|son}}:',
 	'sf_template_docu' => "Este é o modelo '$1'. Pode ser chamado no seguinte formato:",
 	'sf_template_docufooter' => 'Editar a páxina para ver o modelo de texto.',
-	'sf_form_docu' => 'Este é o formulario "$1". Para engadir unha páxina con este formulario, introduza o nome da páxina aquí embaixo; se xa existe un nome con esa páxina enviaráselle a un formulario para editar esa páxina.',
+	'sf_form_docu' => 'Este é o formulario "$1".
+Para crear unha páxina con este formulario, introduza o nome da páxina a continuación;
+se xa existe unha páxina con ese nome enviaráselle a un formulario para editar esa páxina.',
 	'sf_form_freetextlabel' => 'Texto libre',
 	'sf_category_hasdefaultform' => 'Esta categoría usa o formulario $1.',
 	'sf_category_desc' => 'Esta é a categoría $1.',
@@ -2193,8 +2196,8 @@ $messages['grc'] = array(
 	'sf_createform_mandatory' => 'Ὑποχρεωτικόν',
 	'sf_createform_add' => 'Προστιθέναι',
 	'sf_createcategory_name' => 'Ὄνομα κατηγορίας:',
-	'sf_formstart_createoredit' => 'Προστιθέναι ἢ μεταγράφειν',
-	'sf_formedit_createtitle' => 'Προστιθέναι $1: $2',
+	'sf_formstart_createoredit' => 'Ποιεῖν ἢ μεταγράφειν',
+	'sf_formedit_createtitle' => 'Ποιεῖν $1: $2',
 	'sf_viewform' => 'Ὁρᾶν τύπον',
 	'sf_editsource' => 'Μεταγράφειν πηγήν',
 	'sf_formedit_edittitle' => 'Μεταγράφειν $1: $2',
