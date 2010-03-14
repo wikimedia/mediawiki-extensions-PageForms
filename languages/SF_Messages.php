@@ -827,7 +827,7 @@ Dleet e vefe d'an URL bezañ evel « Special:RunQuery/&lt;anv ar furmskrid&gt; �
 Dleet e vefe bezañ galvet er furmad-mañ :',
 	'sf_template_docufooter' => 'Aozañ ar bajenn evit gwelet testenn ar patrom.',
 	'sf_form_docu' => "Setu amañ ar furmskrid « $1 ».
-Evit ouzhpennañ ur bajenn gant ar furmskrid-mañ, ebarzhit anv ar bajenn amañ dindan ;
+Evit krouiñ ur bajenn gant ar furmskrid-mañ, ebarzhit anv ar bajenn amañ dindan ;
 Ma'z eus ur bajenn en anv-se dija, e viot kaset d'ur furmskrid a dalvez d'hec'h aozañ.",
 	'sf_form_freetextlabel' => 'Testenn dieub',
 	'sf_category_hasdefaultform' => 'Ar rummad-mañ a implij ar furmskrid $1.',
@@ -3599,6 +3599,7 @@ $messages['kw'] = array(
  * @author Robby
  */
 $messages['lb'] = array(
+	'specialpages-group-sf_group' => 'Semantesch Formulairen',
 	'sf_createproperty_propname' => 'Numm vun der Eegeschaft:',
 	'sf_createproperty_proptype' => 'Typ:',
 	'templates' => 'Schablounen',
@@ -3644,6 +3645,7 @@ $messages['lb'] = array(
 	'sf_formstart_createoredit' => 'Uleeën oder änneren',
 	'formedit' => 'Formulaire änneren',
 	'sf_formedit_createtitle' => '$1: $2 uleeën',
+	'sf_formedit_altforms' => 'Dir kënnt dës Säit och mat engem vun dëse Formulairen derbäisetzen:',
 	'sf_formedit_altformsonly' => 'Sicht w.e.g. e vun dëse Formulairen eraus fir dës Säit derbäizesetzen:',
 	'sf_formcreate' => 'Mat engem Formulaire gemaach',
 	'sf_viewform' => 'Formulaire weisen',
