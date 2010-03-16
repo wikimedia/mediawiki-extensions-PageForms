@@ -1668,7 +1668,7 @@ $messages['eu'] = array(
 	'sf_createform_add' => 'Gehitu',
 	'createcategory' => 'Kategoria sortu',
 	'sf_createcategory_name' => 'Kategoriaren izena:',
-	'sf_formstart_createoredit' => 'Gehitu edo aldatu',
+	'sf_formstart_createoredit' => 'Sortu edo aldatu',
 	'sf_editsource' => 'Iturria aldatu',
 	'sf_formedit_edittitle' => '$1 aldatu: $2',
 	'sf_formedit_remove' => 'Kendu',
@@ -1852,9 +1852,9 @@ $messages['fi'] = array(
 	'sf_formstart_badtitle' => 'Virhe: ”$1” on virheellinen nimi sivulle.',
 	'sf_formstart_docu' => 'Anna sivun nimi, jota muokataan lomakkeella $1. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
 	'sf_formstart_noform_docu' => 'Anna sivun nimi ja valitse lomake, jolla haluat muokata sitä. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voit muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
-	'sf_formstart_createoredit' => 'Lisää tai muokkaa',
+	'sf_formstart_createoredit' => 'Luo tai muokkaa',
 	'formedit' => 'Muokkaa lomakkeella',
-	'sf_formedit_createtitle' => 'Lisää $1: $2',
+	'sf_formedit_createtitle' => 'Luo $1: $2',
 	'sf_formedit_badurl' => 'Tämä sivu on datan lisäämistä varten. Sinun täytyy määritellä sekä lomakkeen nimi että kohdesivu URL-osoitteessa. Osoitteen pitäisi olla muotoa ”Special:FormEdit?form=&lt;lomakkeen nimi&gt;&target=&lt;kohdesivu&gt;” tai ”Special:FormEdit/&lt;lomakkeen nimi&gt;/&lt;kohdesivu&gt;”.',
 	'sf_formedit_altforms' => 'Voit sen sijaan lisätä tämän sivun ja jonkun seuraavista lomakkeista:',
 	'sf_formedit_altformsonly' => 'Valitse jokin seuraavista lomakkeista, jonka haluat lisätä tällä sivulle:',
@@ -4103,6 +4103,13 @@ $messages['myv'] = array(
 	'sf_createcategory_name' => 'Лемезэ:',
 	'sf_editsource' => 'Витнемс-петнемс лисьмапрянзо',
 	'sf_formedit_remove' => 'Нардык',
+);
+
+/** Mazanderani (مازِرونی)
+ * @author محک
+ */
+$messages['mzn'] = array(
+	'sf_formedit_badurl' => 'این صفحه برای افزودن ایطیلاعات هسته. شما ونه هم ایسم فورم هم ولگی که خانی بوری ره در URL دله بیارین. چیزی شبیه اینتا <br /><span dir="ltr"> \'شاء:FormEdit?form=&lt;نام فرم&gt;&target=&lt;ولگی که خانی بوری&gt;\' </span><br />یا<br /><span dir="ltr"> \'شاء:FormEdit/&lt;ایسم فرم&gt;/&lt;ولگی که خانی بوری&gt;\' </span>.',
 );
 
 /** Nahuatl (Nāhuatl)
