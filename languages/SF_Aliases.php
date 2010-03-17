@@ -246,7 +246,7 @@ $aliases['ko'] = array(
 	'Templates' => array( '틀' ),
 );
 
-/** Ripoarisch (Ripoarisch) */
+/** Colognian (Ripoarisch) */
 $aliases['ksh'] = array(
 	'AddData' => array( 'Date dobei donn' ),
 	'AddPage' => array( 'Sigg dobei donn' ),
