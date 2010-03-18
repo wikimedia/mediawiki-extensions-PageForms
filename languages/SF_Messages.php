@@ -1308,9 +1308,9 @@ Howac buźoš se k formularoju za pśidawanje boka dalej pósrědnjaś.",
 	'sf_formstart_noform_docu' => 'Zapódaj how mě boka a wubjeŕ formular, z kótarymž coš jen wobźěłaś.
 Jolic toś ten bok južo eksistěrujo, buźoš se k formularoju za wobźěłowanje togo boka dalej pósrědnjaś.
 Howac buźoš se k formularoju za pśidawanje boka dalej pósrědnjaś.',
-	'sf_formstart_createoredit' => 'Pśidaś abo wobźěłaś',
+	'sf_formstart_createoredit' => 'Napóraś abo wobźěłaś',
 	'formedit' => 'Z formularom wobźěłaś',
-	'sf_formedit_createtitle' => '$1 pśidaś: $2',
+	'sf_formedit_createtitle' => '$1 napóraś: $2',
 	'sf_formedit_badurl' => "To jo bok za pśidawanje datow. Musyš ako mě formulara tak teke celowy bok w URL pódaś; URL by měł kaž 'Special:FormEdit?form=&lt;mě formulara&gt;&target=&lt;celowy bok&gt;' abo  'Special:FormEdit/&lt;mě formulara&gt;/&lt;celowy bok&gt;' wuglědaś.",
 	'sf_formedit_altforms' => 'Móžoš město togo toś ten bok z jadnym ze slědujucych formularow pśidaś:',
 	'sf_formedit_altformsonly' => 'Pšosym wubjeŕ jaden ze slědujucych formularow, aby pśidał toś ten bok:',
@@ -4995,9 +4995,9 @@ Caso contrário, será enviado para o formulário de adição da página.",
 	'sf_formstart_noform_docu' => 'Introduza o nome da página aqui, e selecione um formulário a usar na sua edição.
 Se a página já existir, será enviado para o formulário de edição dessa página.
 Caso contrário, será enviado para o formulário de adição da página.',
-	'sf_formstart_createoredit' => 'Adicionar ou editar',
+	'sf_formstart_createoredit' => 'Criar ou editar',
 	'formedit' => 'Editar com formulário',
-	'sf_formedit_createtitle' => 'Adicionar $1: $2',
+	'sf_formedit_createtitle' => 'Criar $1: $2',
 	'sf_formedit_badurl' => "Esta é a página para edição com um formulário. Na URL deve especificar um nome de formulário e uma página alvo;
 deverá parecer-se com 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'Poderá, em alternativa, adicionar esta página aos seguintes formulários:',
@@ -5031,7 +5031,9 @@ deverá parecer-se com 'Special:RunQuery/&lt;form name&gt;'.",
 	'sf_template_docu' => "Esta é a predefinição '$1'.
 Ela deverá ser chamada no seguinte formato:",
 	'sf_template_docufooter' => 'Edite a página para visualizar o texto da predefinição',
-	'sf_form_docu' => "Este é o formulário '$1'. Para adicionar uma página a este formulário, introduza o nome da págian abaixo; se a página com esse nome já existir, será reencaminhado para um formulário para editar essa página.",
+	'sf_form_docu' => 'Este é o formulário "$1".
+Para criar uma página com este formulário, introduza o nome da página abaixo;
+se já existir uma página com o mesmo nome, será reencaminhado para um formulário para editar essa página.',
 	'sf_form_freetextlabel' => 'Texto livre',
 	'sf_category_hasdefaultform' => 'Esta categoria usa o formulário $1.',
 	'sf_category_desc' => 'Esta é a categoria $1.',
