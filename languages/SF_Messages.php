@@ -1084,6 +1084,7 @@ $messages['da'] = array(
  * @author Melancholie
  * @author Pill
  * @author Purodha
+ * @author The Evil IP address
  * @author Umherirrender
  */
 $messages['de'] = array(
@@ -1156,10 +1157,10 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_formstart_badtitle' => 'Fehler: „$1“ ist kein gültiger Seitentitel.',
 	'sf_formstart_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
 	'sf_formstart_noform_docu' => 'Gib in dieses Textfeld den Namen der Seite ein und wähle das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
-	'sf_formstart_createoredit' => 'Hinzufügen oder Bearbeiten',
+	'sf_formstart_createoredit' => 'Erstellen oder Bearbeiten',
 	'formedit' => 'mit Formular bearbeiten',
-	'sf_formedit_createtitle' => 'Füge $1: $2 hinzu',
-	'sf_formedit_badurl' => 'Dies ist die Seite zum Hinzufügen von Daten. Du musst den Namen eines Formulars UND die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:FormEdit/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
+	'sf_formedit_createtitle' => 'Erstelle $1: $2',
+	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Du musst den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:FormEdit/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
 	'sf_formedit_altforms' => 'Du kannst alternativ diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wähle eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formcreate' => 'Mit Formular erstellt',
@@ -1190,7 +1191,9 @@ die URL sollte wie folgt aussehen: „Special:RunQuery/&lt;form name&gt;”',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für diese Eigenschaft ist|Die möglichen Werte für diese Eigenschaft sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage für „$1“. Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Bearbeite diese Seite, um den Vorlagentext zu sehen.',
-	'sf_form_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ erstellt werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst.',
+	'sf_form_docu' => 'Dies ist das „$1“-Formular.
+Um eine Seite mit diesem Formular zu erstellen, gebe den Seitennamen unten ein;
+wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular zum Bearbeiten der Seite weitergeleitet.',
 	'sf_form_freetextlabel' => 'Freitext',
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
@@ -3285,7 +3288,7 @@ $messages['ja'] = array(
 	'sf_formstart_badtitle' => 'エラー:「$1」はページ名として無効です。',
 	'sf_formstart_docu' => 'フォーム「$1」で編集するページの名前をここに入力してください。そのページが既に存在する場合、そのページを編集するためのフォームへ転送されます。その他の場合は、そのページを追加するためのフォームへ転送されます。',
 	'sf_formstart_noform_docu' => 'ページの名前をここに入力し、編集に使うフォームを選んでください。そのページが既に存在する場合、そのページを編集するためのフォームへ転送されます。その他の場合は、そのページを追加するためのフォームへ転送されます。',
-	'sf_formstart_createoredit' => '追加あるいは編集',
+	'sf_formstart_createoredit' => '作成、または編集',
 	'formedit' => 'フォームを使って編集',
 	'sf_formedit_createtitle' => '$1 を追加: $2',
 	'sf_formedit_badurl' => 'これはデータを追加するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
