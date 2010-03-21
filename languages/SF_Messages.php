@@ -1159,7 +1159,7 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_formstart_noform_docu' => 'Gib in dieses Textfeld den Namen der Seite ein und wähle das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
 	'sf_formstart_createoredit' => 'Erstellen oder Bearbeiten',
 	'formedit' => 'mit Formular bearbeiten',
-	'sf_formedit_createtitle' => 'Erstelle $1: $2',
+	'sf_formedit_createtitle' => '$1 erstellen: $2',
 	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Du musst den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:FormEdit/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
 	'sf_formedit_altforms' => 'Du kannst alternativ diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wähle eines der folgenden Formulare aus, um diese Seite zu erstellen:',
@@ -1229,9 +1229,10 @@ Für mehrere Optionen nutzen Sie bitte die Seite $1.',
 
 /** Zazaki (Zazaki)
  * @author Belekvor
+ * @author Mirzali
  */
 $messages['diq'] = array(
-	'sf_formedit_none' => 'çino',
+	'sf_formedit_none' => 'Çıniyo',
 );
 
 /** Lower Sorbian (Dolnoserbski)
