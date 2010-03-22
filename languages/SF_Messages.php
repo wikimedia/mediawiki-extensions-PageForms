@@ -1315,7 +1315,7 @@ Howac buźoš se k formularoju za pśidawanje boka dalej pósrědnjaś.',
 	'sf_formstart_createoredit' => 'Napóraś abo wobźěłaś',
 	'formedit' => 'Z formularom wobźěłaś',
 	'sf_formedit_createtitle' => '$1 napóraś: $2',
-	'sf_formedit_badurl' => "To jo bok za pśidawanje datow. Musyš ako mě formulara tak teke celowy bok w URL pódaś; URL by měł kaž 'Special:FormEdit?form=&lt;mě formulara&gt;&target=&lt;celowy bok&gt;' abo  'Special:FormEdit/&lt;mě formulara&gt;/&lt;celowy bok&gt;' wuglědaś.",
+	'sf_formedit_badurl' => "To jo bok za wobźěłowanje z formularom. Musyš ako mě formulara tak teke celowy bok w URL pódaś; URL by měł kaž 'Special:FormEdit?form=&lt;mě formulara&gt;&target=&lt;celowy bok&gt;' abo  'Special:FormEdit/&lt;mě formulara&gt;/&lt;celowy bok&gt;' wuglědaś.",
 	'sf_formedit_altforms' => 'Móžoš město togo toś ten bok z jadnym ze slědujucych formularow pśidaś:',
 	'sf_formedit_altformsonly' => 'Pšosym wubjeŕ jaden ze slědujucych formularow, aby pśidał toś ten bok:',
 	'sf_formcreate' => 'Z formularom napóraś',
@@ -1347,9 +1347,9 @@ URL měł wuglědaś ako 'Special:RunQuery/&lt;formularne mě&gt;'.",
 	'sf_template_docu' => "To jo pśedłof '$1'.
 By se měł w slědujucem formaśe wuwołaś:",
 	'sf_template_docufooter' => 'Wobźěłaj bok, aby wiźeł tekst pśedłogi.',
-	'sf_form_docu' => "To jo formular '$1'.
-Aby pśidał bok z toś tym formularom, zapódaj dołojce mě boka;
-jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósrědnjaś, aby ten bok wobźěłał.",
+	'sf_form_docu' => 'To jo formular "$1".
+Aby napórał bok z toś tym formularom, zapódaj dołojce mě boka;
+jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósrědnjaś, aby ten bok wobźěłał.',
 	'sf_form_freetextlabel' => 'Lichy tekst',
 	'sf_category_hasdefaultform' => 'Toś ta kategorija wužywa formular $1.',
 	'sf_category_desc' => 'To jo kategorija $1.',
