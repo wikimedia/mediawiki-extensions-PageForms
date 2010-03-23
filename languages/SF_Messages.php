@@ -2777,9 +2777,9 @@ Egyébként a lap hozzáadása űrlaphoz leszel küldve.',
 	'sf_formstart_noform_docu' => 'Add meg annak a lapnak a nevét, majd válaszd ki az űrlapot, amivel szerkeszteni akarod.
 Ha ez a lap már létezik, ahhoz az űrlaphoz leszel irányítva a lap szerkesztéséhez.
 Egyébként a lap hozzáadása űrlaphoz leszel küldve.',
-	'sf_formstart_createoredit' => 'Hozzáadás vagy szerkesztés',
+	'sf_formstart_createoredit' => 'Létrehozás vagy szerkesztés',
 	'formedit' => 'Szerkesztés űrlappal',
-	'sf_formedit_createtitle' => '$1 hozzáadása: $2',
+	'sf_formedit_createtitle' => '$1 létrehozása: $2',
 	'sf_formedit_badurl' => 'Ezen a lapon adhatsz hozzá adatokat. Meg kell adnod az űrlap nevét és a céllap URL-címét is;
 a következőképpen kell kinéznie: „Special:FormEdit?form=&lt;űrlap neve&gt;&target=&lt;céllap&gt;”, vagy „Special:FormEdit/&lt;űrlap neve&gt;/&lt;céllap&gt;”.',
 	'sf_formedit_altforms' => 'Helyette hozzáadhatod ezt a lapot a következő űrlapok egyikével:',
@@ -2813,9 +2813,9 @@ az URL-nek így kell kinéznie: 'Special:RunQuery/&lt;űrlap neve&gt;'.",
 	'sf_template_docu' => 'Ez a(z) „$1” sablon.
 A következő formátumban kell meghívni:',
 	'sf_template_docufooter' => 'Szerkeszd a lapot, hogy láthasd a sablon szövegét.',
-	'sf_form_docu' => 'Ez a(z) „$1”-űrlap.
-Ha új lapot szeretnél hozzáadni ezzel az űrlappal, írd be alább a lap nevét;
-ha ez a lap már létezik, egy űrlaphoz leszel irányítva, ahol szerkesztheted a lapot.',
+	'sf_form_docu' => 'Ez a(z) „$1” űrlap.
+Ha új lapot szeretnél létrehozni ezzel az űrlappal, írd be alább a lap nevét.
+Ha már létezik ilyen nevű lap, egy űrlaphoz leszel irányítva, ahol szerkesztheted a lapot.',
 	'sf_form_freetextlabel' => 'Szabad szöveg',
 	'sf_category_hasdefaultform' => 'Ez a kategória a(z) „$1” űrlapot használja.',
 	'sf_category_desc' => 'Ez a(z) $1 kategória.',
