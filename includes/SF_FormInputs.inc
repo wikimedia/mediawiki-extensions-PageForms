@@ -105,7 +105,7 @@ class SFFormInputs {
     } else {
       $size = 35;
     }
-    if (! is_null($cur_value))
+    if (! is_null($cur_value) && ! is_array($cur_value))
       $cur_value = htmlspecialchars($cur_value);
 
     $text =<<<END
@@ -228,7 +228,7 @@ END;
     $cur_values = self::getValuesArray($cur_value, $delimiter);
 
     $javascript_text = '';
-    $return_js_text;
+    $return_js_text = '';
     if (array_key_exists('show on select', $other_args)) {
       $javascript_text = 'onChange="';
       foreach ($other_args['show on select'] as $div_id => $options) {
