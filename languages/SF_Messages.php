@@ -1997,8 +1997,8 @@ l’URL doit ressembler à « <tt>Special:FormEdit?form=&lt;nom de formulaire&gt
 	'sf_formedit_addanother' => 'Ajouter une autre',
 	'sf_formedit_none' => 'Aucune',
 	'runquery' => 'Exécuter la requête',
-	'sf_runquery_badurl' => "Vous devez un nom de formulaire dans l'URL ;
-l'URL devrait être comme « Special:RunQuery/&lt;nom du formulaire&gt; ».",
+	'sf_runquery_badurl' => 'Vous devez spécifier un nom de formulaire dans l’URL ;
+quelque chose comme « Special:RunQuery/&lt;nom du formulaire&gt; ».',
 	'sf_runquery_title' => 'Exécuter la requête : $1',
 	'sf_runquery_additionalquery' => 'Requête additionnelle',
 	'sf_formerrors_header' => 'Il y a certaines erreurs dans le formulaire. Cf. ci-dessous.',
