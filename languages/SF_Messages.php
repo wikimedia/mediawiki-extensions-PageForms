@@ -1540,6 +1540,7 @@ $messages['eo'] = array(
  * @author Crazymadlover
  * @author Dvdgmz
  * @author Jatrobat
+ * @author Pertile
  * @author Peter17
  * @author Sanbec
  */
@@ -1615,7 +1616,7 @@ $messages['es'] = array(
 	'sf_formstart_createoredit' => 'Crear o editar',
 	'formedit' => 'Editar con formulario',
 	'sf_formedit_createtitle' => 'Crear $1: $2',
-	'sf_formedit_badurl' => "Este es la página para agregar datos. Usted debe especificar tanto el nombre del formulario como la página de destino en el URL; debe verse algo como 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;' o 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_badurl' => "Este es la página para agregar datos con un formulario. Debe especificar tanto el nombre del formulario como la página de destino en el URL; debe verse algo como 'Especial:EditarFormulario?form=&lt;nombre del formulario&gt;&target=&lt;página destino&gt;' o 'Epecial:EditarFormulario/&lt;nombre del formulario&gt;/&lt;página destino&gt;'.",
 	'sf_formedit_altforms' => 'Usted puede también agregar esta página con uno de los siguientes formularios:',
 	'sf_formedit_altformsonly' => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
 	'sf_formcreate' => 'Crear con formulario',
@@ -1646,7 +1647,7 @@ el URL debería lucir como 'Special:RunQuery/&lt;form name&gt;'.",
 	'sf_property_allowedvals' => 'Los {{PLURAL:$1|valor permitido para esta propiedad es|valores permitidos para esta propiedad son}}:',
 	'sf_template_docu' => "Este es la plantilla '$1'. Debe ser llamada en el siguiente formato:",
 	'sf_template_docufooter' => 'Editar la página para ver el texto de la plantilla.',
-	'sf_form_docu' => "Este es el formulario '$1'. Para agregar una página con este formulario, ingresar el nombre de la página a continuación; si la página con ese nombre ya existe, usted será enviado al formulario para editar esa página.",
+	'sf_form_docu' => "Este es el formulario ''$1''. Para agregar una página con este formulario, ingresar el nombre de la página a continuación; si la página con ese nombre ya existe, usted será dirigido al formulario para editar esa página.",
 	'sf_form_freetextlabel' => 'Texto libre',
 	'sf_category_hasdefaultform' => 'Esta categoría usa el formulario $1.',
 	'sf_category_desc' => 'Esta es la categoría $1.',
