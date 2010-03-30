@@ -79,8 +79,12 @@ class SFLinkUtils {
 		$property = SMWPropertyValue::makeProperty($prop_smw_id);
 		$res = $store->getPropertyValues($title, $property);
 		$form_names = array();
-		foreach ($res as $wiki_page_value)
-			$form_names[] = $wiki_page_value->getTitle()->getText();
+		foreach ($res as $wiki_page_value) {
+			$form_title = $wiki_page_value->getTitle();
+			if ( ! is_null( $form_title ) ) {
+				$form_names[] = $form_title->getText();
+			}
+		}
 		// if we're using a non-English language, check for the English string as well
 		if (! class_exists('SF_LanguageEn') || ! $sfgContLang instanceof SF_LanguageEn) {
 			$backup_property = SMWPropertyValue::makeProperty($backup_prop_smw_id);
