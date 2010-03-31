@@ -154,7 +154,7 @@ function showIfSelected(input_id, options_array, div_id) {
 	the_div = document.getElementById(div_id);
         for (var i in options_array) {
 		if (the_input.value == options_array[i]) {
-			the_div.style.display = 'block';
+			the_div.style.display = 'inline';
 			return;
 		}
 	}
@@ -168,7 +168,7 @@ function showIfChecked(checkbox_inputs, div_id) {
         for (var i in checkbox_inputs) {
 		checkbox = document.getElementById(checkbox_inputs[i]);
 		if (checkbox.checked) {
-			the_div.style.display = 'block';
+			the_div.style.display = 'inline';
 			return;
 		}
 	}
