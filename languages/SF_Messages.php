@@ -3094,6 +3094,7 @@ $messages['is'] = array(
 
 /** Italian (Italiano)
  * @author Alessandro Rosà
+ * @author Civvì
  * @author Darth Kule
  * @author Melos
  */
@@ -3170,10 +3171,10 @@ Altrimenti, verrai indirizzato ad un nuovo form che ti permetterà di aggiungere
 	'sf_formstart_noform_docu' => 'Inserisci il nome della pagina qui, e selezione il form con cui la vuoi modificare.
 	Se questa pagina esiste già, verrai indirizzato ad un form che ti permette di modificarla.
 	Altrimenti, verrai indirizzato ad un nuovo form che ti permetterà di aggiungere la nuova pagina.',
-	'sf_formstart_createoredit' => 'Aggiungi o modifica',
+	'sf_formstart_createoredit' => 'Crea o modifica',
 	'formedit' => 'Modifica con un form',
-	'sf_formedit_createtitle' => 'Aggiungi $1: $2',
-	'sf_formedit_badurl' => "Questa è la pagina per modificare i dati inseriti. Devi specificare per entrambi il nome del form e indirizzo della pagina nello spazio dell '\\ URL;
+	'sf_formedit_createtitle' => 'Crea $1: $2',
+	'sf_formedit_badurl' => "Questa è la pagina per modificare i dati inseriti tramite un modulo. Nell'URL devi specificare sia il nome del modulo e sia la pagina da modificare;
 dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&target=<target page>', oppure 'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'Invece puoi aggiungere una pagina con uno dei seguenti form già creati:',
 	'sf_formedit_altformsonly' => 'Per favore seleziona una dei seguenti form per aggiungere questa pagina:',
@@ -3206,9 +3207,8 @@ l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name
 	'sf_template_docu' => "Questo è il template '$1'.
 Dovrebbe esser chiamato con il seguente formato:",
 	'sf_template_docufooter' => 'Modificare la pagine per vedere il testo del template.',
-	'sf_form_docu' => "Questè è il form '$1'.
-Per aggiungere una pagina con questo form, inserire il nome della pagina qui sotto;
-se la pagina con il nome indicato è già esistente, verrai inviato al form di modifica della pagina.",
+	'sf_form_docu' => "Questo è il modulo '$1'.
+Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto; se la pagina con il nome indicato esiste già, verrai inviato al modulo di modifica della pagina.",
 	'sf_form_freetextlabel' => 'Testo libero',
 	'sf_category_hasdefaultform' => 'Questa categoria usa il form $1.',
 	'sf_category_desc' => 'Questa è la categoria $1.',
@@ -3615,6 +3615,7 @@ $messages['lb'] = array(
 	'createtemplate' => 'Eng nei Schabloun maachen',
 	'sf_createtemplate_namelabel' => 'Numm vun der Schabloun:',
 	'sf_createtemplate_categorylabel' => 'Kategorie déi duerch eng Schabloun definéiert ass (fakultativ):',
+	'sf_createtemplate_templatefields' => 'Schablounefelder',
 	'sf_createtemplate_fieldname' => 'Numm vum Feld:',
 	'sf_createtemplate_displaylabel' => 'Etiquette weisen:',
 	'sf_createtemplate_aggregation' => 'Resumé',
@@ -4761,8 +4762,8 @@ Jeśli strona z tą nazwą już istnieje, otwarty zostanie formularz edycji tej 
 	'sf_category_hasdefaultform' => 'Ta kategoria używa formularza $1.',
 	'sf_category_desc' => 'To jest kategoria $1.',
 	'sf_blank_namespace' => 'Główna',
-	'right-viewedittab' => 'Widzi zakładkę „Edytuj” dla stron, które można edytować korzystając z formularza',
-	'right-editrestrictedfields' => 'Edytuj zabezpieczone pola formularza',
+	'right-viewedittab' => 'Widoczność zakładki „Edytuj” dla stron, które można edytować korzystając z formularza',
+	'right-editrestrictedfields' => 'Edycja zabezpieczonych pól formularzy',
 );
 
 /** Piedmontese (Piemontèis)
