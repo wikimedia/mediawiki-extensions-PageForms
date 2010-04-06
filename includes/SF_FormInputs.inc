@@ -26,7 +26,7 @@ class SFFormInputs {
       $names_array = SFUtils::getAllPagesForConcept($source_name);
     } else { // i.e., $source_type == 'namespace'
       // switch back to blank for main namespace
-      if ($source_name == "main")
+      if ($source_name == "Main")
         $source_name = "";
       $names_array = SFUtils::getAllPagesForNamespace($source_name);
     }
