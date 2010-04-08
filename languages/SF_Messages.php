@@ -356,7 +356,7 @@ $messages['arc'] = array(
 	'sf_createform_add' => 'ܐܘܣܦ',
 	'createcategory' => 'ܒܪܝ ܣܕܪܐ',
 	'sf_createcategory_name' => 'ܫܡܐ ܕܣܕܪܐ:',
-	'sf_formstart_createoredit' => 'ܐܘܣܦ ܐܘ ܫܚܠܦ',
+	'sf_formstart_createoredit' => 'ܒܪܝ ܐܘ ܫܚܠܦ',
 	'sf_editsource' => 'ܫܚܠܦ ܥܩܪܐ',
 	'sf_formedit_edittitle' => 'ܫܚܠܦ $1: $2',
 	'sf_formedit_remove' => 'ܠܚܝ',
@@ -625,7 +625,7 @@ $messages['be-tarask'] = array(
 	'sf_formstart_createoredit' => 'Стварыць альбо рэдагаваць',
 	'formedit' => 'Рэдагаваць з дапамогай формы',
 	'sf_formedit_createtitle' => 'Стварыць $1: $2',
-	'sf_formedit_badurl' => "Гэтая старонка для рэдагаваньня зьвестак. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
+	'sf_formedit_badurl' => "Гэтая старонка для рэдагаваньня праз форму. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
 гэта павінна выглядаць наступным чынам: 'Special:FormEdit?form=&lt;назва формы&gt;&target=&lt;мэтавая старонка&gt;' альбо  'Special:FormEdit/&lt;назва формы&gt;/&lt;мэтавая старонка&gt;'.",
 	'sf_formedit_altforms' => 'Замест гэтага Вы можаце дадаць гэту старонку з дапамогай наступных формаў:',
 	'sf_formedit_altformsonly' => 'Калі ласка, выберыце адну з наступных формаў для даданьня гэтай старонкі:',
@@ -762,6 +762,7 @@ $messages['br'] = array(
 	'sf_createtemplate_displaylabel' => 'Tikedenn diskwel :',
 	'sf_createtemplate_semanticproperty' => 'Perzh semantek :',
 	'sf_createtemplate_fieldislist' => "Er vaezienn-mañ e c'hall bezañ ur roll talvoudoù, dispartiet gant virgulennoù",
+	'sf_createtemplate_aggregation' => 'Skolveuriadur',
 	'sf_createtemplate_aggregationlabel' => 'Titl evit al listenn :',
 	'sf_createtemplate_outputformat' => 'Furmad moned er-maez :',
 	'sf_createtemplate_standardformat' => 'Standard',
@@ -773,6 +774,7 @@ $messages['br'] = array(
 	'createform' => 'Krouiñ ur furmskrid',
 	'sf_createform_nameinput' => 'Anv ar furmskrid',
 	'sf_createform_template' => 'Patrom :',
+	'sf_createform_templatelabelinput' => 'Tikedenn patrom (diret) :',
 	'sf_createform_field' => 'Maezienn :',
 	'sf_createform_fieldprop' => 'Ar vaezienn-mañ a dermen ar perzh $1, eus ar seurt $2.',
 	'sf_createform_inputtype' => 'Doare moned :',
@@ -797,7 +799,7 @@ $messages['br'] = array(
 	'formstart' => 'Ouzhpennañ ur bajenn gant ur furmskrid',
 	'sf_formstart_badform' => "Fazi : n'eus bet kavet pajenn furmskrid ebet en $1.",
 	'sf_formstart_badtitle' => "Fazi : « $1 » n'eo ket un titl reizh evit ur bajenn.",
-	'sf_formstart_createoredit' => 'Ouzhpennañ pe kemmañ',
+	'sf_formstart_createoredit' => 'Krouiñ pe kemmañ',
 	'formedit' => 'Aozañ gant ur furmskrid',
 	'sf_formedit_createtitle' => 'Krouiñ $1 : $2',
 	'sf_formedit_altformsonly' => 'Diuzit unan eus ar furmskridoù-mañ evit ouzhpennañ ar bajenn-mañ :',
@@ -835,6 +837,7 @@ Ma'z eus ur bajenn en anv-se dija, e viot kaset d'ur furmskrid a dalvez d'hec'h 
 	'sf_category_hasdefaultform' => 'Ar rummad-mañ a implij ar furmskrid $1.',
 	'sf_category_desc' => 'Ar rummad $1 eo hemañ.',
 	'sf_blank_namespace' => 'Pennañ',
+	'right-viewedittab' => 'Gwelet an ivinell "kemmañ" evit ar pajennoù kemmus dre ur furmskrid',
 	'right-editrestrictedfields' => 'Aozañ maeziennoù strishaet ar furmskridoù',
 );
 
@@ -1616,7 +1619,7 @@ $messages['es'] = array(
 	'sf_formstart_createoredit' => 'Crear o editar',
 	'formedit' => 'Editar con formulario',
 	'sf_formedit_createtitle' => 'Crear $1: $2',
-	'sf_formedit_badurl' => "Este es la página para agregar datos con un formulario. Debe especificar tanto el nombre del formulario como la página de destino en el URL; debe verse algo como 'Especial:EditarFormulario?form=&lt;nombre del formulario&gt;&target=&lt;página destino&gt;' o 'Epecial:EditarFormulario/&lt;nombre del formulario&gt;/&lt;página destino&gt;'.",
+	'sf_formedit_badurl' => "Esta es la página para la edición con un formulario. Debe especificar tanto el nombre del formulario como la página de destino en la URL; el resultado se debería ver 'Especial:EditarFormulario?form=&lt;nombre del formulario&gt;&target=&lt;página destino&gt;' o 'Epecial:EditarFormulario/&lt;nombre del formulario&gt;/&lt;página destino&gt;'.",
 	'sf_formedit_altforms' => 'Usted puede también agregar esta página con uno de los siguientes formularios:',
 	'sf_formedit_altformsonly' => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
 	'sf_formcreate' => 'Crear con formulario',
@@ -1647,7 +1650,8 @@ el URL debería lucir como 'Special:RunQuery/&lt;form name&gt;'.",
 	'sf_property_allowedvals' => 'Los {{PLURAL:$1|valor permitido para esta propiedad es|valores permitidos para esta propiedad son}}:',
 	'sf_template_docu' => "Este es la plantilla '$1'. Debe ser llamada en el siguiente formato:",
 	'sf_template_docufooter' => 'Editar la página para ver el texto de la plantilla.',
-	'sf_form_docu' => "Este es el formulario ''$1''. Para agregar una página con este formulario, ingresar el nombre de la página a continuación; si la página con ese nombre ya existe, usted será dirigido al formulario para editar esa página.",
+	'sf_form_docu' => "Este es el formulario ''$1''.
+Para crear una página con este formulario, ingrese el nombre de la página a continuación; si la página con ese nombre ya existe, será dirigido al formulario para editar esa página.",
 	'sf_form_freetextlabel' => 'Texto libre',
 	'sf_category_hasdefaultform' => 'Esta categoría usa el formulario $1.',
 	'sf_category_desc' => 'Esta es la categoría $1.',
@@ -1785,6 +1789,7 @@ $messages['fa'] = array(
  * @author Cimon Avaro
  * @author Crt
  * @author Mobe
+ * @author Nedergard
  * @author Nike
  * @author Silvonen
  * @author Str4nd
@@ -1893,7 +1898,9 @@ osoitteen tulisi näyttää esimerkiksi tältä: ”Special:RunQuery/&lt;form na
 	'sf_property_allowedvals' => '{{PLURAL:$1|Sallittu arvo tälle ominaisuudelle on|Sallitut arvot tälle ominaisuudelle ovat}}:',
 	'sf_template_docu' => 'Tämä on malline $1. Sitä käytetään seuraavasti:',
 	'sf_template_docufooter' => 'Muokkaa tätä sivua, jos haluat nähdä mallineen tekstin.',
-	'sf_form_docu' => 'Tämä on lomake $1. Jos haluat lisätä sivun, jossa on tämä lomake, kirjoita sivun nimi alle. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä sivua.',
+	'sf_form_docu' => 'Tämä on lomake $1.
+Jos haluat luoda sivun, jossa on tämä lomake, kirjoita sivun nimi alle.
+Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä sivua.',
 	'sf_form_freetextlabel' => 'Vapaamuotoinen teksti',
 	'sf_category_hasdefaultform' => 'Tämä luokka käyttää lomaketta $1.',
 	'sf_category_desc' => 'Tämä on luokka $1.',
@@ -1985,7 +1992,7 @@ $messages['fr'] = array(
 	'formedit' => 'Modifier avec un formulaire',
 	'sf_formedit_createtitle' => 'Créer $1 : $2',
 	'sf_formedit_badurl' => 'Ceci est la page pour modifier les données en utilisant un formulaire. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;
-l’URL doit ressembler à « <tt>Special:FormEdit?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt;</tt> » ou « <tt>Special:FormEdit/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt;</tt> ».',
+l’URL doit ressembler à « Special:FormEdit?form=&lt;nom de formulaire&gt;&target=&lt;nom de page cible&gt; » ou « Special:FormEdit/&lt;nom de formulaire&gt;/&lt;nom de page cible&gt; ».',
 	'sf_formedit_altforms' => 'Vous pouvez, à la place, ajouter cette page avec l’un des formulaires suivants :',
 	'sf_formedit_altformsonly' => 'Vous êtes prié{{GENDER:||e|(e)}} de sélectionner l’un des formulaires suivants pour ajouter cette page :',
 	'sf_formcreate' => 'Créer avec un formulaire',
@@ -2127,7 +2134,8 @@ $messages['gl'] = array(
 	'sf_formstart_createoredit' => 'Crear ou editar',
 	'formedit' => 'Editar con formulario',
 	'sf_formedit_createtitle' => 'Crear $1: $2',
-	'sf_formedit_badurl' => 'Esta é a páxina para editar cun formulario. Ten que especificar un nome de formulario e unha páxina de destino no URL; deberían ser algo así como "Special:FormEdit?form=&lt;nome do formulario&gt;&target=&lt;páxina de destino&gt;" ou  "Special:FormEdit/&lt;nome do formulario&gt;/&lt;páxina de destino&gt;".',
+	'sf_formedit_badurl' => 'Esta é a páxina para editar cun formulario. Ten que especificar un nome de formulario e unha páxina de destino no URL;
+debería ser algo así como "Special:FormEdit?form=&lt;nome do formulario&gt;&target=&lt;páxina de destino&gt;" ou  "Special:FormEdit/&lt;nome do formulario&gt;/&lt;páxina de destino&gt;".',
 	'sf_formedit_altforms' => 'Vostede pode engadir esta páxina cun dos seguintes formularios:',
 	'sf_formedit_altformsonly' => 'Seleccione un dos seguintes formularios para engadir esta páxina:',
 	'sf_formcreate' => 'Crear cun formulario',
@@ -2783,7 +2791,7 @@ Egyébként a lap hozzáadása űrlaphoz leszel küldve.',
 	'sf_formstart_createoredit' => 'Létrehozás vagy szerkesztés',
 	'formedit' => 'Szerkesztés űrlappal',
 	'sf_formedit_createtitle' => '$1 létrehozása: $2',
-	'sf_formedit_badurl' => 'Ezen a lapon adhatsz hozzá adatokat. Meg kell adnod az űrlap nevét és a céllap URL-címét is;
+	'sf_formedit_badurl' => 'Ezen a lapon űrlap segítségével szerkeszthetsz. Meg kell adnod az űrlap nevét és a céllap URL-címét is;
 a következőképpen kell kinéznie: „Special:FormEdit?form=&lt;űrlap neve&gt;&target=&lt;céllap&gt;”, vagy „Special:FormEdit/&lt;űrlap neve&gt;/&lt;céllap&gt;”.',
 	'sf_formedit_altforms' => 'Helyette hozzáadhatod ezt a lapot a következő űrlapok egyikével:',
 	'sf_formedit_altformsonly' => 'Válassz egyet a következő űrlapok közül, amit hozzá szeretnél adni ehhez a laphoz:',
@@ -3476,7 +3484,7 @@ $messages['krj'] = array(
 	'sf_createform_template' => 'Template',
 );
 
-/** Ripoarisch (Ripoarisch)
+/** Colognian (Ripoarisch)
  * @author Purodha
  */
 $messages['ksh'] = array(
@@ -3888,9 +3896,9 @@ $messages['mk'] = array(
 Ако не постои, ќе бидете пренасочени кон образецот за додавање на страницата.',
 	'sf_formstart_createoredit' => 'Создај или уреди',
 	'formedit' => 'Уреди со образец',
-	'sf_formedit_createtitle' => 'Создај $1: $2',
-	'sf_formedit_badurl' => 'Ова е страницата за уредување со образец. Мора да назначите име на образецот и целна страница во URL-адресата;
-треба да изгледа нешто како „Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;“, или  „Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;“.',
+	'sf_formedit_createtitle' => 'Создавање на $1: $2',
+	'sf_formedit_badurl' => 'Оваа страница служи за уредување со помош на образец. Мора да назначите име на образецот и целна страница во URL-адресата;
+тоа треба да изгледа како „Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;“ или „Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;“.',
 	'sf_formedit_altforms' => 'Наместо тоа, можете да ја додадете оваа страница со еден од следниве обрасци:',
 	'sf_formedit_altformsonly' => 'Одберете еден од следните обрасци за додавање на страницата:',
 	'sf_formcreate' => 'Создај со образец',
@@ -4234,7 +4242,7 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_formstart_createoredit' => 'Aanmaken of bewerken',
 	'formedit' => 'Bewerken met dit formulier',
 	'sf_formedit_createtitle' => '$1 aanmaken: $2',
-	'sf_formedit_badurl' => "Op deze pagina kunt u bewerkingen uitvoeren met behulp van een formulier. Geef zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als 'Special:FormEdit?form=&lt;formuliernaam&gt;&target=&lt;doelpagina&gt;' of  'Special:FormEdit/&lt;formuliernaam&gt;/&lt;doelpagina&gt;'.",
+	'sf_formedit_badurl' => 'Op deze pagina kunt u bewerkingen uitvoeren met behulp van een formulier. Geef zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als "Special:FormEdit?form=&lt;formuliernaam&gt;&target=&lt;doelpagina&gt;" of  "Special:FormEdit/&lt;formuliernaam&gt;/&lt;doelpagina&gt;".',
 	'sf_formedit_altforms' => 'U kunt in de plaats deze pagina toevoegen met een van de volgende formulieren:',
 	'sf_formedit_altformsonly' => 'Gelieve te selecteren van een van de volgende formulieren om deze pagina toe te voegen:',
 	'sf_formcreate' => 'Via formulier aanmaken',
@@ -4265,7 +4273,9 @@ De URL moet er als volgt uitzien: "Special:RunQuery/&lt;formuliernaam&gt;".',
 	'sf_property_allowedvals' => 'De toegelaten {{PLURAL:$1|waarde voor deze eigenschap is|waarden voor deze eigenschap zijn}}:',
 	'sf_template_docu' => "Dit is het sjabloon '$1'. Gebruik het op de volgende wijze:",
 	'sf_template_docufooter' => 'Bewerk de pagina om de sjabloontekst te bekijken.',
-	'sf_form_docu' => 'Dit is het formulier "$1". Om een pagina aan te maken met dit formulier typt u de paginanaam hieronder in; als een pagina met die naam al bestaat, zult u het bewerkingsscherm zien en kunt u die pagina gewoon bewerken.',
+	'sf_form_docu' => 'Dit is het formulier "$1".
+Om een pagina aan te maken via dit formulier typt u de paginanaam hieronder in;
+als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en kunt u die pagina via een formulier bewerken.',
 	'sf_form_freetextlabel' => 'Vrije tekst',
 	'sf_category_hasdefaultform' => 'Deze categorie gebruikt het formulier $1.',
 	'sf_category_desc' => 'Dit is de categorie $1.',
@@ -4455,7 +4465,7 @@ $messages['no'] = array(
 	'formedit' => 'Rediger med skjema',
 	'sf_formedit_createtitle' => 'Opprett $1: $2',
 	'sf_formedit_badurl' => 'Dette er siden for å redigere med et skjema. Du må angi både et skjemanavn og en målside i URL-en;
-det burde se slik ut «Special:FormEdit?form=&lt;skjemanavn&gt;&target=&lt;målside&gt;» eller slik «Special:FormEdit/&lt;skjemanavn&gt;/&lt;målside&gt;».',
+det burde se slik ut «Special:FormEdit?form=&lt;skjemanavn&gt;&target=&lt;målside&gt;», eller slik «Special:FormEdit/&lt;skjemanavn&gt;/&lt;målside&gt;».',
 	'sf_formedit_altforms' => 'Du kan i stedet opprette siden ved å bruke et av følgende skjemaer:',
 	'sf_formedit_altformsonly' => 'Velg blant disse skjemaene for å opprette siden:',
 	'sf_formcreate' => 'Opprett med skjema',
@@ -5006,8 +5016,7 @@ Caso contrário, será enviado para o formulário de adição da página.',
 	'sf_formstart_createoredit' => 'Criar ou editar',
 	'formedit' => 'Editar com formulário',
 	'sf_formedit_createtitle' => 'Criar $1: $2',
-	'sf_formedit_badurl' => "Esta é a página para edição com um formulário. Na URL deve especificar um nome de formulário e uma página alvo;
-deverá parecer-se com 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', ou  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_badurl' => "Esta é a página para editar com um formulário. Na URL deve especificar um nome de formulário e uma página alvo; deverá parecer-se com 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', ou 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'Poderá, em alternativa, adicionar esta página aos seguintes formulários:',
 	'sf_formedit_altformsonly' => 'Por favor, seleccione um dos seguintes formulários para adicionar esta página:',
 	'sf_formcreate' => 'Criar com formulário',
