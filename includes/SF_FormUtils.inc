@@ -448,6 +448,21 @@ END;
 		return $additional_template_text;
 	}
 
+	/**
+	 * Helper function, for versions of MediaWiki that don't have
+	 * Xml::expandAttributes (i.e., before 1.13)
+	 */
+	static function expandAttributes( $attribs ) {
+		if ( method_exists( 'Xml', 'expandAttributes' ) ) {
+			return Xml::expandAttributes( $attribs );
+		} else {
+			$out = '';
+                        foreach( $attribs as $name => $val )
+                                $out .= " {$name}=\"" . Sanitizer::encodeAttribute( $val ) . '"';
+                        return $out;
+		}
+	}
+
 	static function summaryInputHTML($is_disabled, $label = null, $attr = array()) {
 		global $sfgTabIndex;
 
@@ -455,7 +470,7 @@ END;
 		if ($label == null)
 			$label = wfMsg('summary');
 		$disabled_text = ($is_disabled) ? " disabled" : "";
-		$attr = Xml::expandAttributes($attr);
+		$attr = self::expandAttributes($attr);
 		$text =<<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
@@ -473,7 +488,7 @@ END;
 			$label = wfMsgExt('minoredit', array('parseinline'));
 		$accesskey = wfMsg('accesskey-minoredit');
 		$tooltip = wfMsg('tooltip-minoredit');
-		$attr = Xml::expandAttributes($attr);
+		$attr = self::expandAttributes($attr);
 		$text =<<<END
 	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
 	<label for="wpMinoredit" title="$tooltip">$label</label>
@@ -504,7 +519,7 @@ END;
 			$label = wfMsgExt('watchthis', array('parseinline'));
 		$accesskey = htmlspecialchars(wfMsg('accesskey-watch'));
 		$tooltip = htmlspecialchars(wfMsg('tooltip-watch'));
-		$attr = Xml::expandAttributes($attr);
+		$attr = self::expandAttributes($attr);
 		$text =<<<END
 	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis'$checked_text$disabled_text$attr/>
 	<label for="wpWatchthis" title="$tooltip">$label</label>
@@ -525,7 +540,6 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('savearticle');
 		$temp = $attr + array(
@@ -536,8 +550,10 @@ END;
 			'value'     => $label,
 			'accesskey' => wfMsg('accesskey-save'),
 			'title'     => wfMsg('tooltip-save'),
-			$disabled_text => '',
 		);
+		if ( $is_disabled ) {
+			$temp['disabled'] = '';
+		}
 		return self::buttonHTML($temp);
 	}
 
@@ -545,7 +561,6 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('showpreview');
 		$temp = $attr + array(
@@ -556,8 +571,10 @@ END;
 			'value'     => $label,
 			'accesskey' => wfMsg('accesskey-preview'),
 			'title'     => wfMsg('tooltip-preview'),
-			$disabled_text => '',
 		);
+		if ( $is_disabled ) {
+			$temp['disabled'] = '';
+		}
 		return self::buttonHTML($temp);
 	}
 
@@ -565,7 +582,6 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('showdiff');
 		$temp = $attr + array(
@@ -576,8 +592,10 @@ END;
 			'value'     => $label,
 			'accesskey' => wfMsg('accesskey-diff'),
 			'title'     => wfMsg('tooltip-diff'),
-			$disabled_text => '',
 		);
+		if ( $is_disabled ) {
+			$temp['disabled'] = '';
+		}
 		return self::buttonHTML($temp);
 	}
 
@@ -605,7 +623,6 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? "disabled" : "";
 		if ($label == null)
 			$label = wfMsg('runquery');
 		return self::buttonHTML($attr + array(
