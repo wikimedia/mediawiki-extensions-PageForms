@@ -3215,8 +3215,8 @@ l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name
 	'sf_template_docu' => "Questo è il template '$1'.
 Dovrebbe esser chiamato con il seguente formato:",
 	'sf_template_docufooter' => 'Modificare la pagine per vedere il testo del template.',
-	'sf_form_docu' => "Questo è il modulo '$1'.
-Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto; se la pagina con il nome indicato esiste già, verrai inviato al modulo di modifica della pagina.",
+	'sf_form_docu' => 'Questo è il modulo "$1".
+Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto; se la pagina con il nome indicato esiste già, verrai inviato al modulo di modifica della pagina.',
 	'sf_form_freetextlabel' => 'Testo libero',
 	'sf_category_hasdefaultform' => 'Questa categoria usa il form $1.',
 	'sf_category_desc' => 'Questa è la categoria $1.',
@@ -4856,9 +4856,9 @@ Dësnò, a sarà mandà al formolari për gionté la pàgina.",
 	'sf_formstart_createoredit' => 'Crea o modìfica',
 	'formedit' => 'Modifiché con un formolari',
 	'sf_formedit_createtitle' => 'Crea $1: $2',
-	'sf_formedit_badurl' => "Costa-sì a l'é la pàgina për modifiché con un formolari. A deuv spessifiché sia un nòm ëd formolari sia na pàgina obietiv ant l'adrëssa dl'aragnà;
-a dovrìa smijé a 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', or  
-'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_badurl' => "Costa-sì a l'é la pàgina për modifiché con un formolari. A dev spessifiché sia un nòm ëd formolari sia na pàgina obietiv ant l'adrëssa dl'aragnà;
+a dovrìa smijé a 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;nòm dla pàgina&gt;', or  
+'Special:FormEdit/&lt;form name&gt;/&lt;nòm dla pàgina&gt;'.",
 	'sf_formedit_altforms' => 'A peul anvece gionté sta pàgina-sì con un dij formolari sì-sota:',
 	'sf_formedit_altformsonly' => "Për piasì, ch'a selession-a un dij formolari sì-sota për gionté costa pàgina:",
 	'sf_formcreate' => 'Creé con un formolari',
