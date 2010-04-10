@@ -955,7 +955,7 @@ $messages['ca'] = array(
 	'sf_createtemplate_semanticproperty' => 'Propietat semàntica:',
 	'sf_createtemplate_fieldislist' => 'Aquest camp pot suportar una llista de valors, separats per comes',
 	'sf_createtemplate_aggregation' => 'Agregació',
-	'sf_createtemplate_aggregationdesc' => 'Per crear una llista, a qualsevol pàgina que utilitzi aquesta plantilla, de tots els articles que tenen alguna propietat apuntant a aquesta pàgina, especifica la propietat adequada a continuació:',
+	'sf_createtemplate_aggregationdesc' => 'Per crear una llista, a qualsevol pàgina que utilitzi aquesta plantilla, de tots els articles que tenen alguna propietat que apunta a aquesta pàgina, especifiqueu la propietat adequada a continuació:',
 	'sf_createtemplate_aggregationlabel' => 'Títol del llistat:',
 	'sf_createtemplate_outputformat' => 'Format de sortida:',
 	'sf_createtemplate_standardformat' => 'Estàndard',
@@ -1003,9 +1003,9 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 	'sf_formstart_noform_docu' => "Introdueix aquí el nom de la pàgina i selecciona un formulari per editar-la.
 Si aquesta pàgina ja existeix, se t'obrirà el formulari per editar-la.
 Si no, se t'obrirà el formulari per afegir una pàgina nova.",
-	'sf_formstart_createoredit' => 'Afegeix o edita',
+	'sf_formstart_createoredit' => 'Crea o edita',
 	'formedit' => 'Edita via formulari',
-	'sf_formedit_createtitle' => 'Afegeix $1: $2',
+	'sf_formedit_createtitle' => 'Crea $1: $2',
 	'sf_formedit_badurl' => "Aquesta és la pàgina per afegir dades. Has d'especificar tant el nom del formulari com la pàgina de destí a la URL; ha de ser quelcom similar a 'Special:FormEdit?form=&lt;nom formulari&gt;&target=&lt;pàgina destí&gt;', o bé 'Special:FormEdit/&lt;nom formulari&gt;/&lt;pàgina destí&gt;'.",
 	'sf_formedit_altforms' => 'Alternativament pots afegir aquesta pàgina amb un dels formularis següents:',
 	'sf_formedit_altformsonly' => 'Seleccioneu un formulari entre els següents per afegir aquesta pàgina:',
@@ -1037,8 +1037,8 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 Que ha de ser cridada en el format següent:",
 	'sf_template_docufooter' => 'Edita la pàgina per veure el text de la plantilla.',
 	'sf_form_docu' => "Aquest és el formulari '$1'.
-Per afegir una pàgina amb aquest formulari, entra el nom de la pàgina a continuació;
-si la pàgina amb aquest nom ja existís, s'obrirà un formulari per editar-la.",
+Per crear una pàgina amb aquest formulari, entreu el nom de la pàgina a continuació;
+si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la.",
 	'sf_form_freetextlabel' => 'Text lliure',
 	'sf_category_hasdefaultform' => 'Aquesta categoria fa servir el formulari $1.',
 	'sf_category_desc' => 'Aquesta és la categoria $1.',
@@ -3230,6 +3230,7 @@ Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto
  * @author Fryed-peach
  * @author Hosiryuhosi
  * @author Whym
+ * @author 青子守歌
  */
 $messages['ja'] = array(
 	'semanticforms-desc' => '意味的データを追加および編集するためのフォーム',
@@ -3302,7 +3303,7 @@ $messages['ja'] = array(
 	'sf_formstart_noform_docu' => 'ページの名前をここに入力し、編集に使うフォームを選んでください。そのページが既に存在する場合、そのページを編集するためのフォームへ転送されます。その他の場合は、そのページを追加するためのフォームへ転送されます。',
 	'sf_formstart_createoredit' => '作成、または編集',
 	'formedit' => 'フォームを使って編集',
-	'sf_formedit_createtitle' => '$1 を追加: $2',
+	'sf_formedit_createtitle' => '$1を作成：$2',
 	'sf_formedit_badurl' => 'これはデータを追加するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
 "Special:FormEdit?form=&lt;フォーム名&gt;&target=&lt;対象ページ&gt;" あるいは "Special:FormEdit/&lt;フォーム名&gt;/&lt;対象ページ&gt;" というような形式になります。',
 	'sf_formedit_altforms' => '代わりに次のうちどれかのフォームを使って、このページを追加することができます:',
