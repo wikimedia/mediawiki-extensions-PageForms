@@ -3304,7 +3304,7 @@ $messages['ja'] = array(
 	'sf_formstart_createoredit' => '作成、または編集',
 	'formedit' => 'フォームを使って編集',
 	'sf_formedit_createtitle' => '$1を作成：$2',
-	'sf_formedit_badurl' => 'これはデータを追加するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
+	'sf_formedit_badurl' => 'これはフォームを使って編集するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
 "Special:FormEdit?form=&lt;フォーム名&gt;&target=&lt;対象ページ&gt;" あるいは "Special:FormEdit/&lt;フォーム名&gt;/&lt;対象ページ&gt;" というような形式になります。',
 	'sf_formedit_altforms' => '代わりに次のうちどれかのフォームを使って、このページを追加することができます:',
 	'sf_formedit_altformsonly' => 'このページを追加するために、次のうちどれかのフォームを選んでください:',
@@ -3335,7 +3335,7 @@ $messages['ja'] = array(
 	'sf_property_allowedvals' => 'このプロパティが取ることのできる{{PLURAL:$1|値}}:',
 	'sf_template_docu' => 'これは「$1」テンプレートです。次の形式で呼び出します:',
 	'sf_template_docufooter' => 'テンプレートの内容を見るにはページを編集してください。',
-	'sf_form_docu' => 'これは「$1」フォームです。このフォームを使ってページを追加するには、下でページ名を入力してください。その名前のページが既に存在する場合、そのページを編集するフォームに転送されます。',
+	'sf_form_docu' => 'これは「$1」フォームです。このフォームを使ってページを追加するには、下にページ名を入力してください。その名前のページが既に存在する場合、そのページを編集するフォームに転送されます。',
 	'sf_form_freetextlabel' => '自由に記載',
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使っています。',
 	'sf_category_desc' => 'これは $1 カテゴリです。',
