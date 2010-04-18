@@ -176,9 +176,12 @@ class SFFormPrinter {
       $this->mPageTitle = Title::newFromText($page_name);
     global $wgOut;
     // show previous set of deletions for this page, if it's been deleted before
-    if (! $form_submitted && ! $this->mPageTitle->exists())
+    if (! $form_submitted && ! $this->mPageTitle->exists()) {
       $this->showDeletionLog($wgOut);
-    if (($wgUser->isAllowed('edit') && $this->mPageTitle->userCan('edit')) || $is_query) {
+    }
+    $user_can_edit_page = ($wgUser->isAllowed('edit') && $this->mPageTitle->userCan('edit'));
+    wfRunHooks('sfUserCanEditPage', array(&$user_can_edit_page));
+    if ($user_can_edit_page || $is_query) {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
@@ -631,7 +634,7 @@ class SFFormPrinter {
               is_array($template_instance_query_values) &&
               array_key_exists($escaped_field_name, $template_instance_query_values)) {
             $field_query_val = $template_instance_query_values[$escaped_field_name];
-            if ($form_submitted || ($field_query_val && ! is_array($field_query_val))) {
+            if ($form_submitted || ($field_query_val != '' && ! is_array($field_query_val))) {
               $cur_value = $field_query_val;
             }
           } else
