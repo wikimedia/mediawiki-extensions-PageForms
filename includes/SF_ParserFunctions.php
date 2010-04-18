@@ -431,9 +431,15 @@ END;
 		foreach ( $values_array as $old_value ) {
 			$old_value = trim( $old_value );
 			if ( $old_value == '' ) continue;
+			$bracketed_value = $frame->virtualBracketedImplode( '{{', '|', '}}',
+				$template, '1=' . $old_value );
+			// special handling if preprocessor class is set to
+			// 'Preprocessor_Hash'
+			if ($bracketed_value instanceof PPNode_Hash_Array) {
+				$bracketed_value = $bracketed_value->value;
+			}
 			$results_array[] = $parser->replaceVariables(
-				implode( '', $frame->virtualBracketedImplode( '{{', '|', '}}',
-					$template, '1=' . $old_value ) ), $frame );
+				implode( '', $bracketed_value ), $frame );
 		}
 		return implode( $new_delimiter, $results_array );
 	}
