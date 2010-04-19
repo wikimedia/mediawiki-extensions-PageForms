@@ -393,6 +393,8 @@ END;
 		if (! $sfgCacheFormDefinitions)
 			return true;
 
+		$title = $parser->getTitle();
+		if (empty($title)) return true;
 		if ($parser->getTitle()->getNamespace() != SF_NS_FORM) return true;
 		// Remove <noinclude> sections and <includeonly> tags from form definition
 		$form_def = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $text);
