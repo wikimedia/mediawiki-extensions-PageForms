@@ -805,7 +805,7 @@ $messages['br'] = array(
 	'sf_formedit_altformsonly' => 'Diuzit unan eus ar furmskridoù-mañ evit ouzhpennañ ar bajenn-mañ :',
 	'sf_formcreate' => 'Krouiñ gant ur furmskrid',
 	'sf_viewform' => 'Gwelet ar furmskrid',
-	'sf_editsource' => 'Kemmañ ar mamenn',
+	'sf_editsource' => 'Kemmañ ar vammenn',
 	'sf_formedit_edittitle' => 'Aozañ $1: $2',
 	'sf_formedit_morethanoneform' => "'''Evezh : ''' Ouzhpenn ur furmskrid dre ziouer zo termenet evit ar bajenn-mañ.",
 	'sf_formedit_formwarning' => 'Evezh : Ar bajenn-mañ <a href="$1">zo anezhi dija</a>, met ne implij ket ar furmskrid-mañ.',
