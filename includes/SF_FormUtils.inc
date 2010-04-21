@@ -70,15 +70,15 @@ END;
 	static function validationJavascript() {
 		global $sfgJSValidationCalls;
 
-		$form_errors_header = Xml::escapeJsString(wfMsg('sf_formerrors_header'));
-		$blank_error_str = Xml::escapeJsString(wfMsg('sf_blank_error'));
-		$bad_url_error_str = Xml::escapeJsString(wfMsg('sf_bad_url_error'));
-		$bad_email_error_str = Xml::escapeJsString(wfMsg('sf_bad_email_error'));
-		$bad_number_error_str = Xml::escapeJsString(wfMsg('sf_bad_number_error'));
-		$bad_integer_error_str = Xml::escapeJsString(wfMsg('sf_bad_integer_error'));
-		$bad_date_error_str = Xml::escapeJsString(wfMsg('sf_bad_date_error'));
+		$form_errors_header = Xml::escapeJsString( wfMsg( 'sf_formerrors_header' ) );
+		$blank_error_str = Xml::escapeJsString( wfMsg( 'sf_blank_error' ) );
+		$bad_url_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_url_error' ) );
+		$bad_email_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_email_error' ) );
+		$bad_number_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_number_error' ) );
+		$bad_integer_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_integer_error' ) );
+		$bad_date_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_date_error' ) );
 
-		$javascript_text =<<<END
+		$javascript_text = <<<END
 
 function validate_mandatory_field(field_id, info_id) {
 	field = document.getElementById(field_id);
@@ -223,10 +223,10 @@ function validate_all() {
 	var num_errors = 0;
 
 END;
-		foreach ($sfgJSValidationCalls as $function_call) {
+		foreach ( $sfgJSValidationCalls as $function_call ) {
 			$javascript_text .= "	if (! $function_call) num_errors += 1;\n";
 		}
-		$javascript_text .=<<<END
+		$javascript_text .= <<<END
 	if (num_errors > 0) {
 		// add error header, if it's not there already
 		if (! document.getElementById("form_error_header")) {
@@ -243,9 +243,9 @@ END;
 		return $javascript_text;
 	}
 
-	static function instancesJavascript($using_choosers) {
-		$remove_text = wfMsg('sf_formedit_remove');
-		$javascript_text =<<<END
+	static function instancesJavascript( $using_choosers ) {
+		$remove_text = wfMsg( 'sf_formedit_remove' );
+		$javascript_text = <<<END
 
 var num_elements = 0;
 
@@ -338,7 +338,7 @@ END;
 	static function autocompletionJavascript() {
 		global $wgScriptPath;
 
-		$javascript_text =<<<END
+		$javascript_text = <<<END
 var autocompletemappings = new Array();
 var autocompletestrings = new Array();
 var autocompletedatatypes = new Array();
@@ -407,12 +407,12 @@ END;
 		return $javascript_text;
 	}
 
-	static function hiddenFieldHTML($input_name, $cur_value) {
-		$input = self::buttonHTML(array(
+	static function hiddenFieldHTML( $input_name, $cur_value ) {
+		$input = self::buttonHTML( array(
 			'type' => 'hidden',
 			'name' => $input_name,
 			'value' => $cur_value,
-		));
+		) );
 		return <<<END
 	$input
 
@@ -423,11 +423,11 @@ END;
 	 * Add a hidden input for each field in the template call that's
 	 * not handled by the form itself
 	 */
-	static function unhandledFieldsHTML($template_contents) {
+	static function unhandledFieldsHTML( $template_contents ) {
 		$text = "";
-		foreach ($template_contents as $key => $value) {
-			if ($key != '' && !is_numeric($key))
-				$text .= self::hiddenFieldHTML("_unhandled_$key", $value);
+		foreach ( $template_contents as $key => $value ) {
+			if ( $key != '' && !is_numeric( $key ) )
+				$text .= self::hiddenFieldHTML( "_unhandled_$key", $value );
 		}
 		return $text;
 	}
@@ -439,9 +439,9 @@ END;
 	static function addUnhandledFields() {
 		global $wgRequest;
 		$additional_template_text = "";
-		foreach ($wgRequest->getValues() as $key => $value) {
-			if (substr($key, 0, 11) == '_unhandled_') {
-				$field_name = substr($key, 11);
+		foreach ( $wgRequest->getValues() as $key => $value ) {
+			if ( substr( $key, 0, 11 ) == '_unhandled_' ) {
+				$field_name = substr( $key, 11 );
 				$additional_template_text .= "|$field_name=$value\n";
 			}
 		}
@@ -457,21 +457,21 @@ END;
 			return Xml::expandAttributes( $attribs );
 		} else {
 			$out = '';
-                        foreach( $attribs as $name => $val )
+                        foreach ( $attribs as $name => $val )
                                 $out .= " {$name}=\"" . Sanitizer::encodeAttribute( $val ) . '"';
                         return $out;
 		}
 	}
 
-	static function summaryInputHTML($is_disabled, $label = null, $attr = array()) {
+	static function summaryInputHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ($label == null)
-			$label = wfMsg('summary');
-		$disabled_text = ($is_disabled) ? " disabled" : "";
-		$attr = self::expandAttributes($attr);
-		$text =<<<END
+		if ( $label == null )
+			$label = wfMsg( 'summary' );
+		$disabled_text = ( $is_disabled ) ? " disabled" : "";
+		$attr = self::expandAttributes( $attr );
+		$text = <<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
 
@@ -479,17 +479,17 @@ END;
 		return $text;
 	}
 
-	static function minorEditInputHTML($is_disabled, $label = null, $attr = array()) {
+	static function minorEditInputHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ($is_disabled) ? " disabled" : "";
-		if ($label == null)
-			$label = wfMsgExt('minoredit', array('parseinline'));
-		$accesskey = wfMsg('accesskey-minoredit');
-		$tooltip = wfMsg('tooltip-minoredit');
-		$attr = self::expandAttributes($attr);
-		$text =<<<END
+		$disabled_text = ( $is_disabled ) ? " disabled" : "";
+		if ( $label == null )
+			$label = wfMsgExt( 'minoredit', array( 'parseinline' ) );
+		$accesskey = wfMsg( 'accesskey-minoredit' );
+		$tooltip = wfMsg( 'tooltip-minoredit' );
+		$attr = self::expandAttributes( $attr );
+		$text = <<<END
 	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
 	<label for="wpMinoredit" title="$tooltip">$label</label>
 
@@ -497,30 +497,30 @@ END;
 		return $text;
 	}
 
-	static function watchInputHTML($is_disabled, $label = null, $attr = array()) {
+	static function watchInputHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex, $wgUser, $wgTitle;
 
 		$sfgTabIndex++;
 		$checked_text = "";
-		$disabled_text = ($is_disabled) ? " disabled" : "";
+		$disabled_text = ( $is_disabled ) ? " disabled" : "";
 		// figure out if the checkbox should be checked - 
 		// this code borrowed from /includes/EditPage.php
-		if ($wgUser->getOption('watchdefault')) {
+		if ( $wgUser->getOption( 'watchdefault' ) ) {
 			# Watch all edits
 			$checked_text = " checked";
-		} elseif ($wgUser->getOption('watchcreations') && !$wgTitle->exists() ) {
+		} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
 			# Watch creations
 			$checked_text = " checked";
-		} elseif ($wgTitle->userIsWatching()) {
+		} elseif ( $wgTitle->userIsWatching() ) {
 			# Already watched
 			$checked_text = " checked";
 		}
-		if ($label == null)
-			$label = wfMsgExt('watchthis', array('parseinline'));
-		$accesskey = htmlspecialchars(wfMsg('accesskey-watch'));
-		$tooltip = htmlspecialchars(wfMsg('tooltip-watch'));
-		$attr = self::expandAttributes($attr);
-		$text =<<<END
+		if ( $label == null )
+			$label = wfMsgExt( 'watchthis', array( 'parseinline' ) );
+		$accesskey = htmlspecialchars( wfMsg( 'accesskey-watch' ) );
+		$tooltip = htmlspecialchars( wfMsg( 'tooltip-watch' ) );
+		$attr = self::expandAttributes( $attr );
+		$text = <<<END
 	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis'$checked_text$disabled_text$attr/>
 	<label for="wpWatchthis" title="$tooltip">$label</label>
 
@@ -531,139 +531,139 @@ END;
 	/**
 	 * Helper function to display a simple button
 	 */
-	static function buttonHTML($values) {
-		$button_html = Xml::element('input', $values, '');
+	static function buttonHTML( $values ) {
+		$button_html = Xml::element( 'input', $values, '' );
 		return "		$button_html\n";
 	}
 
-	static function saveButtonHTML($is_disabled, $label = null, $attr = array()) {
+	static function saveButtonHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ($label == null)
-			$label = wfMsg('savearticle');
+		if ( $label == null )
+			$label = wfMsg( 'savearticle' );
 		$temp = $attr + array(
 			'id'        => 'wpSave',
 			'name'      => 'wpSave',
 			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
-			'accesskey' => wfMsg('accesskey-save'),
-			'title'     => wfMsg('tooltip-save'),
+			'accesskey' => wfMsg( 'accesskey-save' ),
+			'title'     => wfMsg( 'tooltip-save' ),
 		);
 		if ( $is_disabled ) {
 			$temp['disabled'] = '';
 		}
-		return self::buttonHTML($temp);
+		return self::buttonHTML( $temp );
 	}
 
-	static function showPreviewButtonHTML($is_disabled, $label = null, $attr = array()) {
+	static function showPreviewButtonHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ($label == null)
-			$label = wfMsg('showpreview');
+		if ( $label == null )
+			$label = wfMsg( 'showpreview' );
 		$temp = $attr + array(
 			'id'        => 'wpPreview',
 			'name'      => 'wpPreview',
 			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
-			'accesskey' => wfMsg('accesskey-preview'),
-			'title'     => wfMsg('tooltip-preview'),
+			'accesskey' => wfMsg( 'accesskey-preview' ),
+			'title'     => wfMsg( 'tooltip-preview' ),
 		);
 		if ( $is_disabled ) {
 			$temp['disabled'] = '';
 		}
-		return self::buttonHTML($temp);
+		return self::buttonHTML( $temp );
 	}
 
-	static function showChangesButtonHTML($is_disabled, $label = null, $attr = array()) {
+	static function showChangesButtonHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ($label == null)
-			$label = wfMsg('showdiff');
+		if ( $label == null )
+			$label = wfMsg( 'showdiff' );
 		$temp = $attr + array(
 			'id'        => 'wpDiff',
 			'name'      => 'wpDiff',
 			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
-			'accesskey' => wfMsg('accesskey-diff'),
-			'title'     => wfMsg('tooltip-diff'),
+			'accesskey' => wfMsg( 'accesskey-diff' ),
+			'title'     => wfMsg( 'tooltip-diff' ),
 		);
 		if ( $is_disabled ) {
 			$temp['disabled'] = '';
 		}
-		return self::buttonHTML($temp);
+		return self::buttonHTML( $temp );
 	}
 
-	static function cancelLinkHTML($is_disabled, $label = null, $attr = array()) {
+	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $wgUser, $wgTitle;
 
 		$sk = $wgUser->getSkin();
-		if ($label == null)
-			$label = wfMsgExt('cancel', array('parseinline'));
-		if ($wgTitle == null)
+		if ( $label == null )
+			$label = wfMsgExt( 'cancel', array( 'parseinline' ) );
+		if ( $wgTitle == null )
 			$cancel = '';
 		// if we're on the special 'FormEdit' page, just send the user
 		// back to the previous page they were on
-		elseif ($wgTitle->getText() == 'FormEdit'
-			 && $wgTitle->getNamespace() == NS_SPECIAL) {
+		elseif ( $wgTitle->getText() == 'FormEdit'
+			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
 			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
 		} else
-			$cancel = $sk->makeKnownLink( $wgTitle->getPrefixedText(), $label);
+			$cancel = $sk->makeKnownLink( $wgTitle->getPrefixedText(), $label );
 		$text = "		<span class='editHelp'>$cancel</span>\n";
 		return $text;
 	}
 	
-	static function runQueryButtonHTML($is_disabled = false, $label = null, $attr = array()) {
+	static function runQueryButtonHTML( $is_disabled = false, $label = null, $attr = array() ) {
 		// is_disabled is currently ignored
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ($label == null)
-			$label = wfMsg('runquery');
-		return self::buttonHTML($attr + array(
+		if ( $label == null )
+			$label = wfMsg( 'runquery' );
+		return self::buttonHTML( $attr + array(
 			'id'        => 'wpRunQuery',
 			'name'      => 'wpRunQuery',
 			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
 			'value'     => $label,
 			'title'     => $label,
-		));
+		) );
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()
-	static function formBottom($is_disabled) {
+	static function formBottom( $is_disabled ) {
 		global $wgUser;
 
-		$summary_text = SFFormUtils::summaryInputHTML($is_disabled);
-		$text =<<<END
+		$summary_text = SFFormUtils::summaryInputHTML( $is_disabled );
+		$text = <<<END
 	<br /><br />
 	<div class='editOptions'>
 $summary_text	<br />
 
 END;
-		if ( $wgUser->isAllowed('minoredit') ) {
-			$text .= SFFormUtils::minorEditInputHTML($is_disabled);
+		if ( $wgUser->isAllowed( 'minoredit' ) ) {
+			$text .= SFFormUtils::minorEditInputHTML( $is_disabled );
 		}
 
 		if ( $wgUser->isLoggedIn() ) {
-			$text .= SFFormUtils::watchInputHTML($is_disabled);
+			$text .= SFFormUtils::watchInputHTML( $is_disabled );
 		}
 
-		$text .=<<<END
+		$text .= <<<END
 	<br />
 	<div class='editButtons'>
 
 END;
-		$text .= SFFormUtils::saveButtonHTML($is_disabled);
-		$text .= SFFormUtils::showPreviewButtonHTML($is_disabled);
-		$text .= SFFormUtils::showChangesButtonHTML($is_disabled);
-		$text .= SFFormUtils::cancelLinkHTML($is_disabled);
-		$text .=<<<END
+		$text .= SFFormUtils::saveButtonHTML( $is_disabled );
+		$text .= SFFormUtils::showPreviewButtonHTML( $is_disabled );
+		$text .= SFFormUtils::showChangesButtonHTML( $is_disabled );
+		$text .= SFFormUtils::cancelLinkHTML( $is_disabled );
+		$text .= <<<END
 	</div><!-- editButtons -->
 	</div><!-- editOptions -->
 
@@ -672,24 +672,24 @@ END;
 	}
 
 	// based on MediaWiki's EditPage::getPreloadedText()
-	static function getPreloadedText($preload) {
+	static function getPreloadedText( $preload ) {
 		if ( $preload === '' ) {
 			return '';
 		} else {
 			$preloadTitle = Title::newFromText( $preload );
 			if ( isset( $preloadTitle ) && $preloadTitle->userCanRead() ) {
-				$rev = Revision::newFromTitle($preloadTitle);
+				$rev = Revision::newFromTitle( $preloadTitle );
 				if ( is_object( $rev ) ) {
 					$text = $rev->getText();
 					// Remove <noinclude> sections and <includeonly> tags from text
-					$text = StringUtils::delimiterReplace('<noinclude>', '</noinclude>', '', $text);
-					$text = strtr($text, array('<includeonly>' => '', '</includeonly>' => ''));
+					$text = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $text );
+					$text = strtr( $text, array( '<includeonly>' => '', '</includeonly>' => '' ) );
 					return $text;
 				}
 			}
 			return '';
 		}
-	} 
+	}
 
 	/**
 	 * Used by 'RunQuery' page
@@ -700,18 +700,18 @@ END;
 
 	static function getMonthNames() {
 		return array(
-			wfMsgForContent('january'),
-			wfMsgForContent('february'),
-			wfMsgForContent('march'),
-			wfMsgForContent('april'),
-			wfMsgForContent('may'),
-			wfMsgForContent('june'),
-			wfMsgForContent('july'),
-			wfMsgForContent('august'),
-			wfMsgForContent('september'),
-			wfMsgForContent('october'),
-			wfMsgForContent('november'),
-			wfMsgForContent('december')
+			wfMsgForContent( 'january' ),
+			wfMsgForContent( 'february' ),
+			wfMsgForContent( 'march' ),
+			wfMsgForContent( 'april' ),
+			wfMsgForContent( 'may' ),
+			wfMsgForContent( 'june' ),
+			wfMsgForContent( 'july' ),
+			wfMsgForContent( 'august' ),
+			wfMsgForContent( 'september' ),
+			wfMsgForContent( 'october' ),
+			wfMsgForContent( 'november' ),
+			wfMsgForContent( 'december' )
 		);
 	}
 
@@ -729,43 +729,43 @@ END;
 			$showFCKEditor += RTE_TOGGLE_LINK;
 		}
 
-		if( (!empty($_SESSION['showMyFCKeditor'])) && ($wgUser->getOption( 'riched_toggle_remember_state' )))
+		if ( ( !empty( $_SESSION['showMyFCKeditor'] ) ) && ( $wgUser->getOption( 'riched_toggle_remember_state' ) ) )
 		{
-			//clear RTE_VISIBLE flag
+			// clear RTE_VISIBLE flag
 			$showFCKEditor &= ~RTE_VISIBLE ;
-			//get flag from session
-			$showFCKEditor |= $_SESSION['showMyFCKeditor'] ;			
+			// get flag from session
+			$showFCKEditor |= $_SESSION['showMyFCKeditor'] ;
 		}
 		return $showFCKEditor;
 	}
 
-	static function prepareTextForFCK($text) {
+	static function prepareTextForFCK( $text ) {
 		global $wgTitle;
 
 		$options = new FCKeditorParserOptions();
-		$options->setTidy(true);
+		$options->setTidy( true );
 		$parser = new FCKeditorParser();
-		$parser->setOutputType(OT_HTML);
-		$text = $parser->parse($text, $wgTitle, $options)->getText();
+		$parser->setOutputType( OT_HTML );
+		$text = $parser->parse( $text, $wgTitle, $options )->getText();
 		return $text;
 	}
 
-	static function mainFCKJavascript($showFCKEditor) {
+	static function mainFCKJavascript( $showFCKEditor ) {
 		global $wgUser, $wgScriptPath, $wgFCKEditorExtDir, $wgFCKEditorDir, $wgFCKEditorToolbarSet, $wgFCKEditorHeight;
 
-		$newWinMsg = wfMsg('rich_editor_new_window');
+		$newWinMsg = wfMsg( 'rich_editor_new_window' );
 		$javascript_text = '
-var showFCKEditor = '. $showFCKEditor .';
+var showFCKEditor = ' . $showFCKEditor . ';
 var popup = false;		//pointer to popup document
 var firstLoad = true;
-var editorMsgOn = "'. wfMsg( 'textrichditor' ) .'";
-var editorMsgOff = "'. wfMsg( 'tog-riched_disable' ) .'";
-var editorLink = "'. (($showFCKEditor & RTE_VISIBLE)? wfMsg( 'tog-riched_disable' ): wfMsg( 'textrichditor' )) .'";		
-var saveSetting = '. ($wgUser->getOption( 'riched_toggle_remember_state' ) ?  1 : 0) .';
-var RTE_VISIBLE = '.RTE_VISIBLE.';
-var RTE_TOGGLE_LINK = '.RTE_TOGGLE_LINK.';
-var RTE_POPUP = '.RTE_POPUP.';
-';		
+var editorMsgOn = "' . wfMsg( 'textrichditor' ) . '";
+var editorMsgOff = "' . wfMsg( 'tog-riched_disable' ) . '";
+var editorLink = "' . ( ( $showFCKEditor & RTE_VISIBLE ) ? wfMsg( 'tog-riched_disable' ): wfMsg( 'textrichditor' ) ) . '";		
+var saveSetting = ' . ( $wgUser->getOption( 'riched_toggle_remember_state' ) ?  1 : 0 ) . ';
+var RTE_VISIBLE = ' . RTE_VISIBLE . ';
+var RTE_TOGGLE_LINK = ' . RTE_TOGGLE_LINK . ';
+var RTE_POPUP = ' . RTE_POPUP . ';
+';
 		
 		$javascript_text .= <<<END
 var oFCKeditor = new FCKeditor( "free_text" );
@@ -981,7 +981,7 @@ END;
 	}
 
 	static function FCKToggleJavascript() {
-		//add toggle link and handler
+		// add toggle link and handler
 		$javascript_text = <<<END
 
 function ToggleFCKEditor(mode, objId)
