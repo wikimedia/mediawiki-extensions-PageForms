@@ -28,6 +28,8 @@ function ajaxFormPreviewInit(){
     btn.value2 = btn.value;
  
     btn.accessKey = btnOld.accessKey;
+    btn.disabled = btnOld.disabled;
+    btn.tabIndex = btnOld.tabIndex;
  
     btnOld.parentNode.replaceChild(btn, btnOld);
 }
@@ -186,6 +188,7 @@ function ajaxFormPreviewRun(btn){
 
 			ifr.style.display="block";
 			vish = visible.clientHeight;
+			if (vish == 0) vish = visible.scrollHeight; //IE
 
 			while (visible.tagName.toLowerCase() != "body") {
 
