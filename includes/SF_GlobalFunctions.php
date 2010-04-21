@@ -84,17 +84,17 @@ if ( class_exists( 'HTMLTextField' ) ) { // added in MW 1.16
 	$wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
 	$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
 }
-$wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.inc';
-$wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
-$wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.inc';
-$wgAutoloadClasses['SFFormField'] = $sfgIP . '/includes/SF_FormField.inc';
-$wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.inc';
-$wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.inc';
-$wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.inc';
+$wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.php';
+$wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.php';
+$wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.php';
+$wgAutoloadClasses['SFFormField'] = $sfgIP . '/includes/SF_FormField.php';
+$wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.php';
+$wgAutoloadClasses['SFFormInputs'] = $sfgIP . '/includes/SF_FormInputs.php';
+$wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.php';
 $wgAutoloadClasses['SFFormEditTab'] = $sfgIP . '/includes/SF_FormEditTab.php';
 $wgAutoloadClasses['SFFormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
-$wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.inc';
-$wgAutoloadClasses['SFLinkUtils'] = $sfgIP . '/includes/SF_LinkUtils.inc';
+$wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.php';
+$wgAutoloadClasses['SFLinkUtils'] = $sfgIP . '/includes/SF_LinkUtils.php';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 $wgJobClasses['createPage'] = 'SFCreatePageJob';
