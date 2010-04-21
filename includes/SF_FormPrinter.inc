@@ -1205,7 +1205,6 @@ END;
     global $wgFCKEditorDir;
     if ($wgFCKEditorDir) {
       $showFCKEditor = SFFormUtils::getShowFCKEditor();
-      $free_text = str_replace( '"', '&quot;', $free_text );
       if(!$form_submitted && ($showFCKEditor & RTE_VISIBLE)) {
         $free_text = SFFormUtils::prepareTextForFCK($free_text);
       }
