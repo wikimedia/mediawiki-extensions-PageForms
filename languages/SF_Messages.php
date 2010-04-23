@@ -3123,7 +3123,7 @@ $messages['it'] = array(
 	'sf_createtemplate_namelabel' => 'Nome template:',
 	'sf_createtemplate_categorylabel' => 'Categorie definite attraverso template (opzionale):',
 	'sf_createtemplate_templatefields' => 'Campi template',
-	'sf_createtemplate_fieldsdesc' => "Per richiamare i campi di questo template non è necessario usare il loro nome, semplicemente inserisci il numero d'' indice del campo (per esempio 1, 2, 3, etc) al posto del nome.",
+	'sf_createtemplate_fieldsdesc' => "Per richiamare i campi di questo template non è necessario usare il loro nome, semplicemente inserisci il numero d'indice del campo (per esempio 1, 2, 3, etc) al posto del nome.",
 	'sf_createtemplate_fieldname' => 'Nome campo:',
 	'sf_createtemplate_displaylabel' => 'Parola da mostrare:',
 	'sf_createtemplate_semanticproperty' => 'Proprietà semantiche:',
@@ -3134,9 +3134,9 @@ $messages['it'] = array(
 	'sf_createtemplate_outputformat' => 'Formato di output:',
 	'sf_createtemplate_standardformat' => 'Predefinito',
 	'sf_createtemplate_infoboxformat' => 'Infobox nella parte destra',
-	'sf_createtemplate_addfield' => 'Aggiungi Campo',
+	'sf_createtemplate_addfield' => 'Aggiungi campo',
 	'sf_createtemplate_deletefield' => 'Cancella',
-	'sf_createtemplate_addtemplatebeforesave' => 'Devi aggiungere minimo un template a questo modulo prima di poterlo salvare.',
+	'sf_createtemplate_addtemplatebeforesave' => 'Devi aggiungere almeno un template a questo modulo prima di poterlo salvare.',
 	'forms' => 'Moduli',
 	'sf_forms_docu' => 'I seguenti moduli già esistono nel wiki.',
 	'createform' => 'Crea un nuovo modulo',
@@ -3151,7 +3151,7 @@ $messages['it'] = array(
 	'sf_createform_fieldpropunknowntype' => 'Questo campo definisce la proprietà $1, di tipo non specificato.',
 	'sf_createform_inputtype' => 'Tipo input:',
 	'sf_createform_inputtypedefault' => '(predefinito)',
-	'sf_createform_formlabel' => 'Nome da visualizzare form:',
+	'sf_createform_formlabel' => 'Etcihetta del modulo:',
 	'sf_createform_hidden' => 'Nascosto',
 	'sf_createform_restricted' => 'Riservato (solo utenti di tipo sysop possono modificarlo)',
 	'sf_createform_mandatory' => 'Obbligatorio',
@@ -3166,33 +3166,33 @@ $messages['it'] = array(
 	'sf_createcategory_defaultform' => 'Modulo predefinito:',
 	'sf_createcategory_makesubcategory' => 'Falla diventare una sottocategoria di una categoria già presente (opzionale):',
 	'createclass' => 'Crea una classe',
-	'sf_createclass_docu' => 'Aggiungi tutte le informazioni qui per creare le proprietà, template, form e le categoria per una singola classe. Per ulteriori opzioni invece vai alla pagina $1.',
+	'sf_createclass_docu' => 'Aggiungi qui tutte le informazioni per creare le proprietà, i template, i moduli e le categoria per una singola classe. Per ulteriori opzioni invece vai alla pagina $1.',
 	'sf_createclass_allowedvalues' => 'Valori permessi',
 	'sf_createclass_listofvalues' => 'Lista di valori',
-	'sf_createclass_leavefieldblank' => 'Se il nome del campo è lo stesso del nome della proprietà. non puoi lasciarli vuoti.',
+	'sf_createclass_leavefieldblank' => 'Se il nome del campo è lo stesso del nome della proprietà, non puoi lasciarli vuoti.',
 	'sf_createclass_missingvalues' => 'Campi richiesti non completamente riempiti.',
-	'sf_createclass_success' => 'Proprietà, template, form e categorie verranno create.',
-	'formstart' => 'Aggiungi pagina usando un form',
-	'sf_formstart_badform' => 'Errore: nessun form è stato trovato alla pagina $1',
+	'sf_createclass_success' => 'Proprietà, template, moduli e categorie verranno create.',
+	'formstart' => 'Aggiungi pagina usando un modulo',
+	'sf_formstart_badform' => 'Errore: nessun modulo è stato trovato alla pagina $1',
 	'sf_formstart_badtitle' => 'Errore: "$1" non è un titolo valido per la pagina',
-	'sf_formstart_docu' => "Inserisci il nome della pagina qui, per esser modificata con il form '$1'.
-Se questa pagina esiste già, verrai indirizzato ad un form che ti permette di modificarla.
-Altrimenti, verrai indirizzato ad un nuovo form che ti permetterà di aggiungere la nuova pagina.",
-	'sf_formstart_noform_docu' => 'Inserisci il nome della pagina qui, e selezione il form con cui la vuoi modificare.
-	Se questa pagina esiste già, verrai indirizzato ad un form che ti permette di modificarla.
-	Altrimenti, verrai indirizzato ad un nuovo form che ti permetterà di aggiungere la nuova pagina.',
+	'sf_formstart_docu' => "Inserisci il nome della pagina qui, per esser modificata con il modulo '$1'.
+Se questa pagina esiste già, verrai indirizzato ad un modulo che ti permette di modificarla.
+Altrimenti, verrai indirizzato ad un nuovo modulo che ti permetterà di aggiungere la nuova pagina.",
+	'sf_formstart_noform_docu' => 'Inserisci il nome della pagina qui, e selezione il modulo con cui la vuoi modificare.
+	Se questa pagina esiste già, verrai indirizzato ad un modulo che ti permette di modificarla.
+	Altrimenti, verrai indirizzato ad un nuovo modulo che ti permetterà di aggiungere la nuova pagina.',
 	'sf_formstart_createoredit' => 'Crea o modifica',
-	'formedit' => 'Modifica con un form',
+	'formedit' => 'Modifica tramite un modulo',
 	'sf_formedit_createtitle' => 'Crea $1: $2',
 	'sf_formedit_badurl' => "Questa è la pagina per modificare i dati inseriti tramite un modulo. Nell'URL devi specificare sia il nome del modulo e sia la pagina da modificare;
 dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&target=<target page>', oppure 'Special:FormEdit/<form name>/<target page>'.",
-	'sf_formedit_altforms' => 'Invece puoi aggiungere una pagina con uno dei seguenti form già creati:',
-	'sf_formedit_altformsonly' => 'Per favore seleziona una dei seguenti form per aggiungere questa pagina:',
-	'sf_formcreate' => 'Crea con un form',
-	'sf_viewform' => 'Visualizza form',
+	'sf_formedit_altforms' => 'Invece puoi aggiungere una pagina con uno dei seguenti moduli già creati:',
+	'sf_formedit_altformsonly' => 'Per favore seleziona una dei seguenti moduli per aggiungere questa pagina:',
+	'sf_formcreate' => 'Crea con un modulo',
+	'sf_viewform' => 'Visualizza modulo',
 	'sf_editsource' => 'Modifica sorgente',
 	'sf_formedit_edittitle' => 'Modifica $1: $2',
-	'sf_formedit_morethanoneform' => "'''Attenzione:''' Più di un form predefinito è stato definito per questa pagina.",
+	'sf_formedit_morethanoneform' => "'''Attenzione:''' Più di un modulo predefinito è stato definito per questa pagina.",
 	'sf_formedit_formwarning' => 'Attenzione: Questa pagina <a href="$1">esiste già</a>, ma non usa questo form.',
 	'sf_formedit_remove' => 'Rimuovi',
 	'sf_formedit_addanother' => "Aggiungi un'\\altro",
@@ -3212,7 +3212,7 @@ l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name
 	'uploadwindow' => 'Finestra di upload',
 	'sf_deletionlog' => 'Log cancellazioni',
 	'sf_property_isproperty' => 'Questa è una proprietà di tipo $1.',
-	'sf_property_linkstoform' => 'Ti collegherà alle pagine che usano il form $1.',
+	'sf_property_linkstoform' => 'Ti collegherà alle pagine che usano il modulo $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Il valore permesso per questa proprità è|I valori permessi per questa proprietà sono}}:',
 	'sf_template_docu' => "Questo è il template '$1'.
 Dovrebbe esser chiamato con il seguente formato:",
@@ -3220,11 +3220,11 @@ Dovrebbe esser chiamato con il seguente formato:",
 	'sf_form_docu' => 'Questo è il modulo "$1".
 Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto; se la pagina con il nome indicato esiste già, verrai inviato al modulo di modifica della pagina.',
 	'sf_form_freetextlabel' => 'Testo libero',
-	'sf_category_hasdefaultform' => 'Questa categoria usa il form $1.',
+	'sf_category_hasdefaultform' => 'Questa categoria usa il modulo $1.',
 	'sf_category_desc' => 'Questa è la categoria $1.',
 	'sf_blank_namespace' => 'Principale',
-	'right-viewedittab' => 'Visualizza la scheda "Modifica" per le pagine modificabili da form',
-	'right-editrestrictedfields' => 'Modifica campi di form riservati',
+	'right-viewedittab' => 'Visualizza la scheda "Modifica" per le pagine modificabili tramite modulo',
+	'right-editrestrictedfields' => 'Modifica campi riservati di moduli',
 );
 
 /** Japanese (日本語)
@@ -3470,6 +3470,13 @@ $messages['km'] = array(
 	'sf_category_hasdefaultform' => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
 	'sf_category_desc' => 'នេះ​គឺជា​ចំណាត់ថ្នាក់ក្រុម $1 ។',
 	'sf_blank_namespace' => 'ចម្បង​',
+);
+
+/** Kannada (ಕನ್ನಡ)
+ * @author Nayvik
+ */
+$messages['kn'] = array(
+	'sf_createtemplate_deletefield' => 'ಅಳಿಸು',
 );
 
 /** Krio (Krio)
