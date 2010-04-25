@@ -140,9 +140,11 @@ if a page with that name already exists, you will be sent to a form to edit that
 );
 
 /** Message documentation (Message documentation)
+ * @author EugeneZelenko
  * @author Fryed-peach
  * @author Jon Harald Søby
  * @author Purodha
+ * @author Raymond
  * @author Siebrand
  * @author Umherirrender
  */
@@ -159,7 +161,8 @@ $messages['qqq'] = array(
 	'sf_createform_add' => '{{Identical|Add}}',
 	'formstart' => 'Name of a special page.',
 	'sf_formedit_createtitle' => '* $1 is the main part of the title of a semantic form
-* $2 is the prefixed title, with spaces for the target page',
+* $2 is the prefixed title, with spaces for the target page
+{{Identical|Create}}',
 	'sf_formedit_edittitle' => '* $1 is the main part of the title of a semantic form
 * $2 is the prefixed title, with spaces for the target page',
 	'sf_formedit_remove' => '{{Identical|Remove}}',
@@ -1212,26 +1215,30 @@ wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular z
 /** German (formal address) (Deutsch (Sie-Form))
  * @author Dst
  * @author Imre
+ * @author Kghbln
+ * @author The Evil IP address
  * @author Umherirrender
  */
 $messages['de-formal'] = array(
 	'sf_createproperty_allowedvalsinput' => 'Wenn Sie für dieses Attribut nur bestimmte Werte ermöglichen wollen, geben Sie diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetzen Sie das Komma mit „\\,“):',
 	'sf_createtemplate_fieldsdesc' => 'Wenn ein Feld einer Vorlage keinen Feldnamen benötigen soll, geben Sie einfach anstatt eines tatsächlichen Namens die Indexnummer des Feldes als Name ein (z.B. 1, 2, 3 usw.).',
 	'sf_createtemplate_aggregationdesc' => 'Um auf allen Seiten, die diese Vorlage benutzen, alle Seiten aufzulisten, die ein bestimmtes Attribut besitzen und auf diese Seiten verlinkt sind, geben Sie das gewünschte Attribut hier an:',
-	'sf_createtemplate_addtemplatebeforesave' => 'Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
-	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder Null) Instanzen dieser Vorlage in der erstellten Seite',
+	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
+	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
 	'sf_createform_choosefield' => 'Wählen Sie ein Feld aus, das Sie hinzufügen wollen.',
 	'sf_createcategory_makesubcategory' => 'Machen Sie diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
 Für mehrere Optionen nutzen Sie bitte die Seite $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
 	'sf_formstart_noform_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
-	'sf_formedit_badurl' => 'Dies ist die Seite zum Hinzufügen von Daten. Sie müssen den Namen eines Formulars UND die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:FormEdit/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
+	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Sie müssen den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:FormEdit/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
 	'sf_formedit_altforms' => 'Alternativ können Sie diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft; weiteres siehe unten',
 	'sf_template_docufooter' => 'Bearbeiten Sie diese Seite, um den Vorlagentext zu sehen.',
-	'sf_form_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ erstellt werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können.',
+	'sf_form_docu' => 'Dies ist das „$1“-Formular.
+Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten ein;
+wenn eine Seite mit diesem Namen bereits existiert, werden Sie zu einem Formular zum Bearbeiten der Seite weitergeleitet.',
 );
 
 /** Zazaki (Zazaki)
@@ -3611,7 +3618,7 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''&lt;Fomullaa_Name &gt;
 	'right-editrestrictedfields' => 'Beschrängk zohjänglijje Felder en Fommulaare ändere',
 );
 
-/** Cornish (Kernowek)
+/** Cornish (Kernewek)
  * @author Kernoweger
  * @author Kw-Moon
  */
@@ -6479,11 +6486,11 @@ $messages['zh-cn'] = array(
 	'sf_formstart_docu' => "输入页面名称以便以'$1'表单编辑。如果此页已存在的话，您便能以表单编辑该页，否则，您便能以表单新增此页面。",
 	'sf_formstart_noform_docu' => '请于此处输入页面名称，再选取表单对其进行编辑，如果此页已存在的话，您便能以表单编辑该页，否则，您便能以表单新增此页面。',
 	'sf_formstart_createoredit' => '新增或编辑',
+	'formedit' => '以表单进行编辑',
 	'sf_formedit_createtitle' => '增加 $1： $2',
 	'sf_formedit_badurl' => "本页为新增资料之用，您必须在URL里同时指定表单及目标页面，它看起来应该像是'Special:FormEdit?form=&lt;表单名称&gt;&target=&lt;目标页面&gt;' 或是 'Special:FormEdit/&lt;表单名称&gt;/&lt;目标页面&gt;'。",
 	'sf_formedit_altforms' => '您可选用下列其中一个的表单来新增此页',
 	'sf_formedit_altformsonly' => '请从下列的表单中选出其中一个，并以该表单编辑此页：',
-	'formedit' => '以表单进行编辑',
 	'sf_editsource' => '编辑来源',
 	'sf_formedit_edittitle' => '编辑 $1: $2',
 	'sf_formedit_formwarning' => '警告：<a href="$1">此页</a>已经存在，只是尚未引用本表单。',
@@ -6619,11 +6626,11 @@ Enter all the data here to create the properties, template, form and category fo
 	'sf_formstart_docu' => "輸入頁面名稱以便以'$1'表單編輯。如果此頁已存在的話，您便能以表單編輯該頁，否則，您便能以表單新增此頁面。",
 	'sf_formstart_noform_docu' => '請於此處輸入頁面名稱，再選取表單對其進行編輯，如果此頁已存在的話，您便能以表單編輯該頁，否則，您便能以表單新增此頁面。',
 	'sf_formstart_createoredit' => '新增或編輯',
+	'formedit' => '以表單進行編輯',
 	'sf_formedit_createtitle' => '增加 $1： $2',
 	'sf_formedit_badurl' => "本頁為新增資料之用，您必須在URL裡同時指定表單及目標頁面，它看起來應該像是'Special:FormEdit?form=&lt;表單名稱&gt;&target=&lt;目標頁面&gt;' 或是 'Special:FormEdit/&lt;表單名稱&gt;/&lt;目標頁面&gt;'。",
 	'sf_formedit_altforms' => '您可選用下列其中一個的表單來新增此頁',
 	'sf_formedit_altformsonly' => '請從下列的表單中選出其中一個，並以該表單編輯此頁：',
-	'formedit' => '以表單進行編輯',
 	'sf_formcreate' => '以表單建立',
 	'sf_viewform' => '查看表單',
 	'sf_editsource' => '編輯來源',
