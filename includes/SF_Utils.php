@@ -284,8 +284,10 @@ END;
 										$pages[] = array( 'title' => $cur_value );
 								}
 								// return if we've reached the maximum number of allowed values
-								if ( count( $pages ) > $sfgMaxAutocompleteValues )
+								if ( count( $pages ) > $sfgMaxAutocompleteValues ) {
+									sort( $pages );
 									return $pages;
+								}
 							}
 						}
 					}
@@ -293,12 +295,14 @@ END;
 				}
 			}
 			if ( count( $newcategories ) == 0 ) {
+				sort( $pages );
 				return $pages;
 			} else {
 				$categories = array_merge( $categories, $newcategories );
 			}
 			$checkcategories = array_diff( $newcategories, array() );
 		}
+		sort( $pages );
 		return $pages;
 	}
 
@@ -388,7 +392,7 @@ END;
 	 * Parse the form definition and store the resulting HTML in the
 	 * page_props table, if caching has been specified in LocalSettings.php
 	 */
-	function cacheFormDefinition( $parser, $text ) {
+	static function cacheFormDefinition( $parser, $text ) {
 		global $sfgCacheFormDefinitions;
 		if ( ! $sfgCacheFormDefinitions )
 			return true;
