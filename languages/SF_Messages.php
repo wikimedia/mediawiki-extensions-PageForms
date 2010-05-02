@@ -221,8 +221,11 @@ $messages['am'] = array(
  */
 $messages['an'] = array(
 	'sf_createproperty_propname' => 'Nombre:',
+	'templates' => 'Plantillas',
 	'sf_createtemplate_deletefield' => 'Borrar',
+	'sf_createform_template' => 'Plantilla:',
 	'sf_createcategory_name' => 'Nombre:',
+	'sf_formedit_createtitle' => 'Creyar $1: $2',
 	'sf_bad_date_error' => "ha d'estar una calendata conforme",
 );
 
@@ -5084,6 +5087,7 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
  * @author Leonardo Costa
  * @author Luckas Blade
  * @author Rafael Vargas
+ * @author 555
  */
 $messages['pt-br'] = array(
 	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
@@ -5094,14 +5098,14 @@ $messages['pt-br'] = array(
 	'sf_createproperty_propname' => 'Nome da propriedade:',
 	'sf_createproperty_proptype' => 'Tipo:',
 	'templates' => 'Predefinições',
-	'sf_templates_docu' => 'As seguintes predefinições existem na wiki.',
+	'sf_templates_docu' => 'Existem as seguintes predefinições neste wiki.',
 	'sf_templates_definescat' => 'define categoria:',
 	'createtemplate' => 'Criar uma predefinição',
 	'sf_createtemplate_namelabel' => 'Nome da predefinição:',
 	'sf_createtemplate_categorylabel' => 'Categoria definida por predefinição (opcional):',
 	'sf_createtemplate_templatefields' => 'Campos da predefinição',
 	'sf_createtemplate_fieldsdesc' => 'Para ter os campos nesta predefinição não é necessário o nome dos campos, simplesmente entre com o índice de cada campo (e.g. 1, 2, 3, etc.) como nome, ao invés de um nome atual.',
-	'sf_createtemplate_fieldname' => 'Nome do Campo:',
+	'sf_createtemplate_fieldname' => 'Nome do campo:',
 	'sf_createtemplate_displaylabel' => 'Exibir rótulo:',
 	'sf_createtemplate_semanticproperty' => 'Propriedade semântica:',
 	'sf_createtemplate_fieldislist' => 'Este campo pode manter uma lista de valores, separados por vírgulas',
@@ -5115,7 +5119,7 @@ $messages['pt-br'] = array(
 	'sf_createtemplate_deletefield' => 'Deletar',
 	'sf_createtemplate_addtemplatebeforesave' => 'Você deve adicionar ao menos uma predefinição para este formulário antes de salvar.',
 	'forms' => 'Formulários',
-	'sf_forms_docu' => 'Os seguintes formulários existem na wiki.',
+	'sf_forms_docu' => 'Existem os seguintes formulários neste wiki.',
 	'createform' => 'Criar um formulário',
 	'sf_createform_nameinput' => 'Nome do formulário',
 	'sf_createform_nameinputdesc' => '(a convenção é a de nomear o formulário segundo a predefinição principal que preenche):',
@@ -5139,7 +5143,7 @@ $messages['pt-br'] = array(
 	'sf_createform_add' => 'Adicionar',
 	'sf_createform_choosefield' => 'Escolha um campo para adicionar',
 	'createcategory' => 'Criar uma categoria',
-	'sf_createcategory_name' => 'Nome da Categoria:',
+	'sf_createcategory_name' => 'Nome da categoria:',
 	'sf_createcategory_defaultform' => 'Formulário padrão:',
 	'sf_createcategory_makesubcategory' => 'Faz desta uma subcategoria de outra categoria (opcional):',
 	'createclass' => 'Criar uma classe',
@@ -5154,10 +5158,11 @@ $messages['pt-br'] = array(
 	'sf_formstart_badtitle' => 'Erro: "$1" é um título inválido para uma página.',
 	'sf_formstart_docu' => "Entre com o nome da página aqui, para ser editado com o formulário '$1'. Se esta página já existir, você será direcionado para o formulário para editar a página. Senão, você será direcionado para o formulário para adicionar a página.",
 	'sf_formstart_noform_docu' => 'Entre com o nome da página aqui, e selecione o formulário na qual a página será editada. Se esta página já existir, você será direcionado para o formulário para editar a página.  Senão, você será direcionado para o formulário para adicionar a página.',
-	'sf_formstart_createoredit' => 'Adicionar ou editar',
+	'sf_formstart_createoredit' => 'Criar ou editar',
 	'formedit' => 'Editar com formulário',
-	'sf_formedit_createtitle' => 'Adicionar $1: $2',
-	'sf_formedit_badurl' => "Esta é a página para adicionar dados. Você deve especificar ambos um nome de formulário e uma página alvo na URL; deve ser semelhante a 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;' or  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_createtitle' => 'Criar $1: $2',
+	'sf_formedit_badurl' => "Esta é a página para editar com um formulário. É necessário especificar na URL um nome de formulário e uma página alvo; 
+ficará algo como 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', ou 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'Você também pode adicionar está página com um dos seguintes formulários:',
 	'sf_formedit_altformsonly' => 'Por favor selecione através de um dos seguintes formulários para adicionar esta página:',
 	'sf_formcreate' => 'Criar com formulário',
@@ -5182,12 +5187,16 @@ a URL deve se parecer com 'Special:RunQuery/&lt;form name&gt;'.",
 	'sf_bad_integer_error' => 'deve ser um válido integer',
 	'sf_bad_date_error' => 'deve ser uma data válida',
 	'uploadwindow' => 'Janela de carregamento',
+	'sf_deletionlog' => 'Registro de eliminações',
 	'sf_property_isproperty' => 'Esta é uma propriedade do tipo $1.',
 	'sf_property_linkstoform' => 'Liga às páginas que usam o formulário $1.',
 	'sf_property_allowedvals' => 'Os {{PLURAL:$1|valor permitido para este propriedade é|valores permitidos para este propriedade são}}:',
-	'sf_template_docu' => "Esta é a '$1' predefinição. Ela deve ser chamada no seguinte formato:",
+	'sf_template_docu' => "Esta é a '$1' predefinição.
+Ela deve ser chamada no seguinte formato:",
 	'sf_template_docufooter' => 'Edite a página para ver o texto da predefinição.',
-	'sf_form_docu' => "Este é o '$1' formulário. Para adicionar uma página usando esse formulário, adicione o nome da página abaixo; se já existir uma página com esse nome, você será reencaminhado para um formulário para editar essa página.",
+	'sf_form_docu' => 'Este é o formulário "$1".
+Para criar uma página com este formulário, insira o nome da página abaixo;
+se já existir uma página com o mesmo nome, você será encaminhado para um formulário, para editar essa página.',
 	'sf_form_freetextlabel' => 'Texto livre',
 	'sf_category_hasdefaultform' => 'Esta categoria usa o formulário $1.',
 	'sf_category_desc' => 'Esta é a $1 categoria.',
