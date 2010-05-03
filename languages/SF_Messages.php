@@ -5081,13 +5081,13 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
 );
 
 /** Brazilian Portuguese (Português do Brasil)
+ * @author 555
  * @author Crazymadlover
  * @author Eduardo.mps
  * @author Enqd
  * @author Leonardo Costa
  * @author Luckas Blade
  * @author Rafael Vargas
- * @author 555
  */
 $messages['pt-br'] = array(
 	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
