@@ -634,7 +634,7 @@ class SFFormPrinter {
               is_array( $template_instance_query_values ) &&
               array_key_exists( $escaped_field_name, $template_instance_query_values ) ) {
             $field_query_val = $template_instance_query_values[$escaped_field_name];
-            if ( $form_submitted || ( $field_query_val != '' && ! is_array( $field_query_val ) ) ) {
+            if ( $form_submitted || ( ! is_null( $field_query_val ) && ! is_array( $field_query_val ) ) ) {
               $cur_value = $field_query_val;
             }
           } else
