@@ -1693,10 +1693,12 @@ $messages['eu'] = array(
 	'createcategory' => 'Kategoria sortu',
 	'sf_createcategory_name' => 'Kategoriaren izena:',
 	'sf_formstart_createoredit' => 'Sortu edo aldatu',
+	'sf_formedit_createtitle' => '$1 aldatu: $2',
 	'sf_editsource' => 'Iturria aldatu',
 	'sf_formedit_edittitle' => '$1 aldatu: $2',
 	'sf_formedit_remove' => 'Kendu',
 	'sf_formedit_addanother' => 'Beste bat gehitu',
+	'sf_deletionlog' => 'Ezabaketa erregistroa',
 	'sf_form_freetextlabel' => 'Testu askea',
 	'sf_blank_namespace' => 'Nagusia',
 );
@@ -3841,6 +3843,7 @@ $messages['mhr'] = array(
 
 /** Macedonian (Македонски)
  * @author Bjankuloski06
+ * @author Brest
  */
 $messages['mk'] = array(
 	'semanticforms-desc' => 'Обрасци за додавање и уредување на семантички податоци',
@@ -3898,7 +3901,7 @@ $messages['mk'] = array(
 	'createcategory' => 'Создај категорија',
 	'sf_createcategory_name' => 'Име на категоријата:',
 	'sf_createcategory_defaultform' => 'Основен образец:',
-	'sf_createcategory_makesubcategory' => 'Направи ова да биде поткатегорија на друга категорија (незадолжително):',
+	'sf_createcategory_makesubcategory' => 'Направи ова да биде подкатегорија на друга категорија (изборно):',
 	'createclass' => 'Создај класа',
 	'sf_createclass_docu' => 'Тука внесете ги сите податоци за да ги создадете својствата, шаблонот, образецот и категориајта за една класа. За повеќе можности за нагодување, употребете ја страницата $1.',
 	'sf_createclass_allowedvalues' => 'Дозволени вредности',
