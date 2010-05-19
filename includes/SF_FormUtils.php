@@ -796,7 +796,14 @@ function onLoadFCKeditor()
 	if ( realTextarea )
 	{
 		// Create the editor instance and replace the textarea.
-		oFCKeditor.Height = 300;
+		var height = $wgFCKEditorHeight;
+		if (height == 0) {
+			// the original onLoadFCKEditor() has a bunch of
+			// browser-based calculations here, but let's just
+			// keep it simple
+			height = 300;
+		}
+		oFCKeditor.Height = height;
 		oFCKeditor.ReplaceTextarea() ;
 		
 		FCKeditorInsertTags = function (tagOpen, tagClose, sampleText, oDoc)
