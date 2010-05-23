@@ -6077,7 +6077,7 @@ $messages['tl'] = array(
 	'createproperty' => 'Lumikha ng pag-aari',
 	'sf_createproperty_linktoform' => 'Ang pag-aaring ito ay kakawing patungo sa mga pahinang gumagamit ng pormularyong:',
 	'sf_createproperty_allowedvalsinput' => 'Kung nais mong pahintulutan ang pag-aaring ito na magkaroon lamang ng partikular na mga halaga, ipasok ang talaan ng pinahihintulutang mga halaga, na pinaghihiwalay-hiwalay ng mga kuwit (kapag naglalaman ang isang halaga ng isang kuwit, palitan ito ng "\\,"):',
-	'sf_createproperty_propname' => 'Pangalan:',
+	'sf_createproperty_propname' => 'Pangalan ng pag-aari:',
 	'sf_createproperty_proptype' => 'Uri:',
 	'templates' => 'Mga suleras',
 	'sf_templates_docu' => 'Umiiral na sa wiki ang sumusunod na mga suleras.',
@@ -6092,7 +6092,7 @@ $messages['tl'] = array(
 	'sf_createtemplate_semanticproperty' => 'Pag-aaring semantiko (hinggil sa kahulugan ng salita):',
 	'sf_createtemplate_fieldislist' => 'Makapaghahawak ng isang talaan ng mga halaga ang kahanayang ito, pinaghihiwa-hiwalay ng mga kuwit',
 	'sf_createtemplate_aggregation' => 'Pagkakakumpul-kumpol',
-	'sf_createtemplate_aggregationdesc' => 'Upang maitala sa anumang pahinang gumagamit ng ganitong suleras ang lahat ng mga lathalaing (artikulo) may isang tiyak na pag-aari na tumuturo patungo sa pahinang iyon, tukuyin ang naaangkop na ari-arian sa ibaba:',
+	'sf_createtemplate_aggregationdesc' => 'Upang maitala, sa anumang pahinang gumagamit ng ganitong suleras ang lahat ng mga pahinang may isang tiyak na pag-aari na tumuturo patungo sa pahinang iyon, tukuyin ang naaangkop na ari-ariang nasa ibaba:',
 	'sf_createtemplate_aggregationlabel' => 'Pamagat ng talaan:',
 	'sf_createtemplate_outputformat' => 'Anyo/pormat ng kalalabasan:',
 	'sf_createtemplate_standardformat' => 'Pamantayan',
@@ -6103,7 +6103,7 @@ $messages['tl'] = array(
 	'forms' => 'Mga pormularyo',
 	'sf_forms_docu' => 'Umiiral na sa wiking ito ang sumusunod na mga pormularyo.',
 	'createform' => 'Lumikha ng isang pormularyo',
-	'sf_createform_nameinput' => 'Pangalan ng pormularyo (ang nakagawian ay ang pagpapangalan ng pormulayo mula sa pangunahing suleras na pinararami nito ang laman):',
+	'sf_createform_nameinput' => 'Pangalan ng pormularyo',
 	'sf_createform_template' => 'Suleras:',
 	'sf_createform_templatelabelinput' => 'Tatak ng suleras (maaaring wala nito):',
 	'sf_createform_allowmultiple' => 'Nagpapahintulot para sa maramihang (o walang) mga halimbawa/huwaran ng ganitong suleras sa loob ng nalikhang pahina',
@@ -6124,7 +6124,7 @@ $messages['tl'] = array(
 	'sf_createform_add' => 'Idagdag/magdagdag',
 	'sf_createform_choosefield' => 'Pumili ng kahanayang idaragdag',
 	'createcategory' => 'Lumikha ng isang kaurian (kategorya)',
-	'sf_createcategory_name' => 'Pangalan:',
+	'sf_createcategory_name' => 'Pangalan ng kategorya:',
 	'sf_createcategory_defaultform' => 'Likas na nakatakdang pormularyo:',
 	'sf_createcategory_makesubcategory' => 'Gawin itong isang kabahaging kaurian/kategorya ng iba pang kaurian (maaaring wala nito):',
 	'formstart' => 'Magdagdag ng pahinang may pormularyo',
@@ -6135,12 +6135,12 @@ At kung hindi, dadalhin ka naman patungo sa pormularyo para sa pagdaragdag ng pa
 	'sf_formstart_noform_docu' => 'Dito ipasok/ilagay ang pangalan ng pahina, at piliin ang pormularyong gagamitin sa pagbago nito.
 Kung umiiral na ang pahinang ito, dadalhin ka patungo sa pormularyo para sa paggawa ng pagbabago para sa pahinang iyan.
 Kung hindi, dadalhin ka naman patungo sa pormularyo upang maidagdag ang pahina.',
-	'sf_formstart_createoredit' => 'Idagdag o baguhin',
+	'sf_formstart_createoredit' => 'Likhain o baguhin',
 	'formedit' => 'Baguhin na may pormularyo',
-	'sf_formedit_createtitle' => 'Idagdag ang $1: $2',
-	'sf_formedit_badurl' => "Ito ang pahina para sa pagdaragdag ng dato.  Dapat mong tukuying kapwa ang isang pangalan ng pormularyo at isang tinutudla/puntiryang pahinang nasa loob ng URL;
-dapat itong magmukhang katulad ng 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', o 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
-	'sf_formedit_altforms' => 'Sa halip maaari mong idagdag ang pahinang ito na may isa sa sumusunod na mga pormularyo:',
+	'sf_formedit_createtitle' => 'Likhain ang $1: $2',
+	'sf_formedit_badurl' => "Ito ang pahina para sa pagdaragdag na may pormularyo.  Dapat mong tukuying kapwa ang isang pangalan ng pormularyo at isang pinupuntiryang pahinang nasa loob ng URL;
+dapat itong magmukhang katulad ng 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', o  'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_altforms' => 'Sa halip, maaari mong idagdag ang pahinang ito na may isa sa sumusunod na mga pormularyo:',
 	'sf_formedit_altformsonly' => 'Pumili lamang po mula sa isa sa sumusunod na mga pormularyo upang maidagdag ang pahinang ito:',
 	'sf_viewform' => 'Tingnan ang pormularyo',
 	'sf_editsource' => 'Baguhin ang pinagmulan',
@@ -6159,13 +6159,13 @@ dapat itong magmukhang katulad ng 'Special:FormEdit?form=&lt;form name&gt;&targe
 	'uploadwindow' => 'Dungawan ng pagkarga',
 	'sf_property_isproperty' => 'Isa itong pag-aari ng uring $1.',
 	'sf_property_linkstoform' => 'Kumakawing ito sa mga pahinang gumagamit ng pormularyong $1.',
-	'sf_property_allowedvals' => 'Ang pinahihintulutang mga halaga para sa pag-aaring ito ay:',
+	'sf_property_allowedvals' => 'Ang pinahihintulutang {{PLURAL:$1|halaga para sa pag-aaring ito ay|mga halaga para sa pag-aaring ito ay}}:',
 	'sf_template_docu' => "Ito ang suleras na '$1'.
 Dapat na tawagin ito alinsunod sa sumusunod na anyo/pormat:",
 	'sf_template_docufooter' => 'Baguhin ang pahina upang makita ang teksto ng suleras.',
 	'sf_form_docu' => "Ito ang pormularyong '$1'.
-Upang magdagdag ng isang pahina sa pamamagitan ng pormularyong ito, ipasok/ilagay ang pangalan ng pahina sa ibaba;
-kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa isang pormularyo para makagawa ng pagbabago sa pahinang iyan.",
+Upang makalikha ng isang pahina na may ganitong pormularyo, ipasok ang pangalan ng pahina sa ibaba;
+kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa isang pormularyo upang mabago ang pahinyang iyan.",
 	'sf_form_freetextlabel' => 'Malayang teksto',
 	'sf_category_hasdefaultform' => 'Ang kaurian/kategoryang ito ay gumagamit ng pormularyong $1.',
 	'sf_category_desc' => 'Ito ang kauriang $1.',
