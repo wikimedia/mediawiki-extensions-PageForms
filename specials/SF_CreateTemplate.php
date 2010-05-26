@@ -19,7 +19,6 @@ class SFCreateTemplate extends SpecialPage {
 	 */
 	function SFCreateTemplate() {
 		SpecialPage::SpecialPage( 'CreateTemplate' );
-		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
 	function execute( $query ) {
@@ -60,7 +59,6 @@ class SFCreateTemplate extends SpecialPage {
 	}
 
 	function printFieldEntryBox( $id, $f, $all_properties ) {
-		wfLoadExtensionMessages( 'SemanticForms' );
 		$dropdown_html = SFCreateTemplate::printPropertiesDropdown( $all_properties, $id, $f->semantic_property );
 		$text = '	<div class="fieldBox">' . "\n";
 		$text .= '	<p>' . wfMsg( 'sf_createtemplate_fieldname' ) . ' <input size="15" name="name_' . $id . '" value="' . $f->field_name . '">' . "\n";
@@ -83,8 +81,6 @@ END;
 
 function doSpecialCreateTemplate() {
 	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
-
-	wfLoadExtensionMessages( 'SemanticForms' );
 
 	$all_properties = SFCreateTemplate::getAllPropertyNames();
 	

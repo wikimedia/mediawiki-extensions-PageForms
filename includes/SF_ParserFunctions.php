@@ -317,7 +317,6 @@ END;
 			if ( ! empty( $key ) )
 				$str .= '			<input type="hidden" name="' . $key . '" value="' . $val . '">' . "\n";
 		}
-		wfLoadExtensionMessages( 'SemanticForms' );
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
 		if ( empty( $inAutocompletionSource ) ) {
 			$str .= <<<END

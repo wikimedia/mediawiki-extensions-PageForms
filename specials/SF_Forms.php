@@ -14,7 +14,6 @@ class SFForms extends SpecialPage {
 	 */
 	function SFForms() {
 		SpecialPage::SpecialPage( 'Forms' );
-		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
 	function execute( $query ) {
@@ -36,8 +35,6 @@ class FormsPage extends QueryPage {
 
 	function getPageHeader() {
 		global $wgUser;
-		
-		wfLoadExtensionMessages( 'SemanticForms' );
 		
 		$sk = $wgUser->getSkin();
 		$cf = SpecialPage::getPage( 'CreateForm' );

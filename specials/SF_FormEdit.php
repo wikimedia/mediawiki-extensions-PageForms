@@ -14,7 +14,6 @@ class SFFormEdit extends SpecialPage {
 	 */
 	function SFFormEdit() {
 		SpecialPage::SpecialPage( 'FormEdit' );
-		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
 	function execute( $query ) {
@@ -51,8 +50,6 @@ class SFFormEdit extends SpecialPage {
 
 	static function printForm( $form_name, $target_name, $alt_forms = array() ) {
 		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $sfgYUIBase;
-
-		wfLoadExtensionMessages( 'SemanticForms' );
 
 		// initialize some variables
 		$target_title = null;

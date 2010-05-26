@@ -23,7 +23,6 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 */
 	function SFUploadWindow() {
 		SpecialPage::SpecialPage( 'UploadWindow' );
-		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
 	function execute( $query ) {
