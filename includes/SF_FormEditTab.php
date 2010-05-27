@@ -25,6 +25,8 @@ class SFFormEditTab {
 				global $wgRequest, $wgUser;
 				global $sfgRenameEditTabs, $sfgRenameMainEditTab;
 
+				wfLoadExtensionMessages( 'SemanticForms' );
+
 				$user_can_edit = $wgUser->isAllowed( 'edit' ) && $obj->mTitle->userCan( 'edit' );
 				// create the form edit tab, and apply whatever
 				// changes are specified by the edit-tab global
@@ -129,6 +131,7 @@ class SFFormEditTab {
 			return true;
 		}
 		if ( count( $form_names ) > 1 ) {
+			wfLoadExtensionMessages( 'SemanticForms' );
 			$warning_text = '    <div class="warningMessage">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
 			global $wgOut;
 			$wgOut->addHTML( $warning_text );

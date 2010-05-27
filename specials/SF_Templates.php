@@ -14,6 +14,7 @@ class SFTemplates extends SpecialPage {
 	 */
 	function SFTemplates() {
 		SpecialPage::SpecialPage( 'Templates' );
+		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
 	function execute( $query ) {
@@ -35,6 +36,8 @@ class TemplatesPage extends QueryPage {
 
 	function getPageHeader() {
 		global $wgUser;
+		
+		wfLoadExtensionMessages( 'SemanticForms' );
 		
 		$sk = $wgUser->getSkin();
 		$ct = SpecialPage::getPage( 'CreateTemplate' );
@@ -80,6 +83,7 @@ class TemplatesPage extends QueryPage {
 	}
 
 	function formatResult( $skin, $result ) {
+		wfLoadExtensionMessages( 'SemanticForms' );
 		$title = Title::makeTitle( NS_TEMPLATE, $result->value );
 		$text = $skin->makeLinkObj( $title, $title->getText() );
 		$category = $this->getCategoryDefinedByTemplate( new Article( $title ) );

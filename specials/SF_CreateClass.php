@@ -28,6 +28,7 @@ class SFCreateClass extends SpecialPage {
                 }
 
 		$this->setHeaders();
+		wfLoadExtensionMessages( 'SemanticForms' );
 
 		$create_button_text = wfMsg( 'create' );
 
