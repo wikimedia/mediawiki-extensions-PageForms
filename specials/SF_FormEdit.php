@@ -70,7 +70,7 @@ class SFFormEdit extends SpecialPage {
 			$form_definition = $form_article->getContent();
 			$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 			$matches;
-			if ( preg_match( '/{{{info.*page name=([^\|]*)/m', $form_definition, $matches ) ) {
+			if ( preg_match( '/{{{info.*page name\s*=\s*([^\|]*)/m', $form_definition, $matches ) ) {
 				$page_name_formula = str_replace( '_', ' ', $matches[1] );
 				// if the tag close ('}}}') is in here, chop off
 				// that and everything after it
@@ -181,7 +181,7 @@ class SFFormEdit extends SpecialPage {
 						// from target name; if it's not
 						// there, or it's not a positive
 						// number, start it out as blank
-						preg_match( '/{num.*start=([^;]*).*}/', $target_name, $matches );
+						preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $target_name, $matches );
 						if ( count( $matches ) == 2 && is_numeric( $matches[1] ) && $matches[1] >= 0 ) {
 							$title_number = $matches[1];
 						} else {
