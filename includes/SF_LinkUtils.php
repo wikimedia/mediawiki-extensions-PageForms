@@ -31,7 +31,7 @@ class SFLinkUtils {
 		global $wgCapitalLinks;
 
 		$namespace = wfUrlencode( $title->getNsText() );
-		if ( '' != $namespace ) {
+		if ( $namespace != '' ) {
 			$namespace .= ':';
 		}
 		if ( $wgCapitalLinks ) {
@@ -50,7 +50,7 @@ class SFLinkUtils {
 		global $wgCapitalLinks;
 
 		$namespace = $title->getNsText();
-		if ( '' != $namespace ) {
+		if ( $namespace != '' ) {
 			$namespace .= ':';
 		}
 		if ( $wgCapitalLinks ) {
@@ -67,13 +67,17 @@ class SFLinkUtils {
 	 * (which should be a category, property, or namespace page)
 	 */
 	static function getFormsThatPagePointsTo( $page_name, $page_namespace, $prop_smw_id, $backup_prop_smw_id, $prop_id ) {
-		if ( $page_name == NULL )
+		if ( $page_name == NULL ) {
 			return array();
+		}
 
 		global $sfgContLang;
-		// produce a useful error message if SMW isn't installed
-		if ( ! function_exists( 'smwfGetStore' ) )
+		
+		// Produce a useful error message if SMW isn't installed.
+		if ( ! function_exists( 'smwfGetStore' ) ) {
 			die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
+		}
+			
 		$store = smwfGetStore();
 		$title = Title::makeTitleSafe( $page_namespace, $page_name );
 		$property = SMWPropertyValue::makeProperty( $prop_smw_id );
