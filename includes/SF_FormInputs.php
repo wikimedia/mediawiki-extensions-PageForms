@@ -623,7 +623,7 @@ END;
 
     list( $text, $javascript_text ) = SFFormInputs::dateEntryHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args );
     $disabled_text = ( $is_disabled ) ? "disabled" : "";
-    $text .= '  &nbsp;<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[hour]" type="text" value="' . $hour . '" size="2"/ ' . $disabled_text . '>';
+    $text .= '  &#160;<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[hour]" type="text" value="' . $hour . '" size="2"/ ' . $disabled_text . '>';
     $sfgTabIndex++;
     $text .= '  :<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[minute]" type="text" value="' . $minute . '" size="2"/ ' . $disabled_text . '>';
     $sfgTabIndex++;

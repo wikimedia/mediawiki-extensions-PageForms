@@ -699,7 +699,7 @@ END;
 			// if there isn't an exact match...
 			$file = wfLocalFile( $filename );
 		}
-		$s = '&nbsp;';
+		$s = '&#160;';
 		if ( $file ) {
 			$warning = self::getExistsWarning( $file );
 			if ( $warning !== '' ) {
@@ -1002,7 +1002,7 @@ wgAjaxLicensePreview = {$alp};
 				"<input type='hidden' name='wpSourceType' value='file' />" ;
 		}
 		if ( $useAjaxDestCheck ) {
-			$warningRow = "<tr><td colspan='2' id='wpDestFile-warning'>&nbsp;</td></tr>";
+			$warningRow = "<tr><td colspan='2' id='wpDestFile-warning'>&#160;</td></tr>";
 			$destOnkeyup = 'onkeyup="wgUploadWarningObj.keypress();"';
 		} else {
 			$warningRow = '';

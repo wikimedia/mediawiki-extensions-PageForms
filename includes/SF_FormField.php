@@ -176,7 +176,7 @@ class SFFormField {
 		$input_type_text = wfMsg( 'sf_createform_inputtype' );
 		$text .= <<<END
 	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
-	&nbsp; $input_type_text
+	&#160; $input_type_text
 
 END;
 		$possible_input_types = $this->possibleInputTypes( $template_field->field_type, $template_field->is_list );

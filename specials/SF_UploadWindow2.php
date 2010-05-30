@@ -634,7 +634,7 @@ END;
 			// if there isn't an exact match...
 			$file = wfLocalFile( $filename );
 		}
-		$s = '&nbsp;';
+		$s = '&#160;';
 		if ( $file ) {
 			$exists = UploadBase::getExistsWarning( $file );
 			$warning = self::getExistsWarning( $exists );
