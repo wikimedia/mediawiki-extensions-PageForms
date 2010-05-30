@@ -818,6 +818,7 @@ $messages['br'] = array(
 	'sf_createtemplate_aggregationlabel' => 'Titl evit al listenn :',
 	'sf_createtemplate_outputformat' => 'Furmad moned er-maez :',
 	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_infoboxformat' => 'Infobox dehou',
 	'sf_createtemplate_addfield' => 'Ouzhpennañ ur vaezienn',
 	'sf_createtemplate_deletefield' => 'Diverkañ',
 	'sf_createtemplate_addtemplatebeforesave' => "Ret eo deoc'h ouzhpennañ ur patrom da nebeutañ d'ar furmskrid-mañ a-raok gallout e enrollañ.",
@@ -871,6 +872,7 @@ Dleet e vefe d'an URL bezañ evel « Special:RunQuery/&lt;anv ar furmskrid&gt; �
 	'sf_runquery_additionalquery' => 'Reked ouzhpenn',
 	'sf_formerrors_header' => 'Fazioù zo er furmskrid; gw. amañ dindan',
 	'sf_blank_error' => "ne c'hall ket bezañ goullo",
+	'sf_bad_url_error' => 'a rank kaout ur furmad URL reizh, o kregiñ gant "http"',
 	'sf_bad_email_error' => "a rank kaout ur furmad chomlec'h postel reizh",
 	'sf_bad_number_error' => 'a rank bezañ un niver reizh',
 	'sf_bad_integer_error' => 'a rank bezañ un niver anterin reizh',
@@ -879,6 +881,7 @@ Dleet e vefe d'an URL bezañ evel « Special:RunQuery/&lt;anv ar furmskrid&gt; �
 	'sf_deletionlog' => 'Marilh an dilamadennoù',
 	'sf_property_isproperty' => 'Ar perzh-mañ zo eus ar seurt $1.',
 	'sf_property_linkstoform' => 'Liammañ a ra ouzh ar pajennoù a implij ar furmskrid $1.',
+	'sf_property_allowedvals' => 'An talvoudenn{{PLURAL:$1||où}} aotreet evit ar perzh-se a zo :',
 	'sf_template_docu' => 'Hemañ eo ar patrom « $1 ».
 Dleet e vefe bezañ galvet er furmad-mañ :',
 	'sf_template_docufooter' => 'Aozañ ar bajenn evit gwelet testenn ar patrom.',
