@@ -15,6 +15,7 @@ class SFCreateClass extends SpecialPage {
 	 */
 	public function __construct() {
 		parent::__construct( 'CreateClass', 'createclass' );
+		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
 	function execute( $query ) {
@@ -28,7 +29,6 @@ class SFCreateClass extends SpecialPage {
                 }
 
 		$this->setHeaders();
-		wfLoadExtensionMessages( 'SemanticForms' );
 
 		$create_button_text = wfMsg( 'create' );
 
