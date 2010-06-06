@@ -10,7 +10,8 @@
  * This class is based almost entirely on the upload functionality
  * developed by the Chickipedia.com team.
  *
- * @addtogroup SpecialPage
+ * @file
+ * @ingroup SpecialPage
  *
  * @author Yaron Koren
  */
@@ -108,7 +109,7 @@ END;
 
 /**
  * implements Special:UploadWindow
- * @addtogroup SpecialPage
+ * @ingroup SpecialPage
  */
 class UploadWindowForm {
 	/**#@+

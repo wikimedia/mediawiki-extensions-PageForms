@@ -6,7 +6,7 @@
  * a few changes to remove skin CSS and HTML, and to populate the relevant
  * field in the form with the name of the uploaded form.
  *
- * @addtogroup SpecialPage
+ * @ingroup SpecialPage
  *
  * @author Yaron Koren
  */

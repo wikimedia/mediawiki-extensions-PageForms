@@ -13,7 +13,7 @@
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
 /**
- * @addtogroup API
+ * @ingroup API
  */
 class SFAutocompleteAPI extends ApiBase {
 
