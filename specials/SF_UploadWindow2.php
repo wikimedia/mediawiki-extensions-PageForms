@@ -955,7 +955,7 @@ class SFUploadForm extends HTMLForm {
 	$wgOut->disable();
 	$sk = $wgUser->getSkin();
 	$sk->initPage( $wgOut ); // need to call this to set skin name correctly
-	$wgTitle = Title::makeTitleSafe( NS_SPECIAL, 'Upload' );
+	$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 	$skin_user_js = $sk->generateUserJs();
 
 	$user_js = <<<END
