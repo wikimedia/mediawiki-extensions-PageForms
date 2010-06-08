@@ -30,7 +30,7 @@ class SFFormEdit extends SpecialPage {
 			$form_name = isset( $queryparts[0] ) ? $queryparts[0] : '';
 			$target_name = isset( $queryparts[1] ) ? $queryparts[1] : '';
 		}
-		wfRunHooks( 'sfSetTargetName', array( &$target_name ) );
+		wfRunHooks( 'sfSetTargetName', array( &$target_name, $query ) );
 
 		$alt_forms = $wgRequest->getArray( 'alt_form' );
 
