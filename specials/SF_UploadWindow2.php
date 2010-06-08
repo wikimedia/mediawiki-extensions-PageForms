@@ -949,8 +949,9 @@ class SFUploadForm extends HTMLForm {
 	// body created by the form, plus the necessary Javascript files,
 	// and turning them into an HTML page
 	global $wgOut, $wgUser, $wgTitle, $wgJsMimeType,
-	$wgStylePath, $wgStyleVersion,
+	$wgLanguageCode, $wgStylePath, $wgStyleVersion,
 	$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
+
 	$wgOut->disable();
 	$sk = $wgUser->getSkin();
 	$sk->initPage( $wgOut ); // need to call this to set skin name correctly
