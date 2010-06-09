@@ -264,8 +264,7 @@ END;
 					array( 'categorylinks', 'page' ),
 					array( 'page_title', 'page_namespace' ),
 					array( 'cl_from = page_id', $conditions ),
-					__METHOD__,
-					'SORT BY cl_sortkey' );
+					__METHOD__ );
 				if ( $res ) {
 					while ( $res && $row = $db->fetchRow( $res ) ) {
 						if ( array_key_exists( 'page_title', $row ) ) {
