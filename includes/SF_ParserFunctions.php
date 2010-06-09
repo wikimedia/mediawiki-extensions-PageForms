@@ -139,10 +139,10 @@ class SFParserFunctions {
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
 			$param_name = null;
-			$value = $param;
+			$value = trim( $param );
 			if ( count( $elements ) > 1 ) {
-				$param_name = $elements[0];
-				$value = $elements[1];
+				$param_name = trim( $elements[0] );
+				$value = trim( $elements[1] );
 			}
 			if ( $param_name == 'form' )
 				$inFormName = $value;
@@ -212,10 +212,10 @@ class SFParserFunctions {
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
 			$param_name = null;
-			$value = $param;
+			$value = trim( $param );
 			if ( count( $elements ) > 1 ) {
-				$param_name = $elements[0];
-				$value = $elements[1];
+				$param_name = trim( $elements[0] );
+				$value = trim( $elements[1] );
 			}
 			if ( $param_name == 'form' )
 				$inFormName = $value;
