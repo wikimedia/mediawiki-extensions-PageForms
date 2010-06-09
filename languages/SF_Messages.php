@@ -267,11 +267,11 @@ $messages['am'] = array(
  * @author Juanpabl
  */
 $messages['an'] = array(
-	'sf_createproperty_propname' => 'Nombre:',
+	'sf_createproperty_propname' => "Nombre d'a propiedat:",
 	'templates' => 'Plantillas',
 	'sf_createtemplate_deletefield' => 'Borrar',
 	'sf_createform_template' => 'Plantilla:',
-	'sf_createcategory_name' => 'Nombre:',
+	'sf_createcategory_name' => "Nombre d'a categoría:",
 	'sf_formedit_createtitle' => 'Creyar $1: $2',
 	'sf_bad_date_error' => "ha d'estar una calendata conforme",
 );
