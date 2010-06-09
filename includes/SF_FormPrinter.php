@@ -370,79 +370,87 @@ class SFFormPrinter {
             }
             // get the first instance of this template on the page being edited,
             // even if there are more
-            if ( $found_instance && ( $start_char = stripos( str_replace( '_', ' ', $existing_page_content ), '{{' . $search_template_str ) ) !== false ) {
-              $fields_start_char = $start_char + 2 + strlen( $search_template_str );
-              // skip ahead to the first real character
-              while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n', '|' ) ) ) {
-                $fields_start_char++;
-              }
-              $template_contents = array( '0' => '' );
-              // cycle through template call, splitting it up by pipes ('|'),
-              // except when that pipe is part of a piped link
-              $field = "";
-              $uncompleted_square_brackets = 0;
-              $uncompleted_curly_brackets = 2;
-              $template_ended = false;
-              for ( $i = $fields_start_char; ! $template_ended && ( $i < strlen( $existing_page_content ) ); $i++ ) {
-                $c = $existing_page_content[$i];
-                if ( $c == '[' ) {
-                  $uncompleted_square_brackets++;
-                } elseif ( $c == ']' && $uncompleted_square_brackets > 0 ) {
-                  $uncompleted_square_brackets--;
-                } elseif ( $c == '{' ) {
-                  $uncompleted_curly_brackets++;
-                } elseif ( $c == '}' && $uncompleted_curly_brackets > 0 ) {
-                  $uncompleted_curly_brackets--;
+	    if ( $found_instance ) {
+              $matches = array();
+              $search_pattern = '/{{' . $search_template_str . '\s*[\|}]/i';
+              $content_str = str_replace( '_', ' ', $existing_page_content );
+              preg_match($search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE);
+	      // is this check necessary?
+              if ( array_key_exists( 0, $matches ) && array_key_exists( 1, $matches[0] ) ) {
+                $start_char = $matches[0][1];
+                $fields_start_char = $start_char + 2 + strlen( $search_template_str );
+                // skip ahead to the first real character
+                while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n', '|' ) ) ) {
+                  $fields_start_char++;
                 }
-                // handle an end to a field and/or template declaration
-                $template_ended = ( $uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0 );
-                $field_ended = ( $c == '|' && $uncompleted_square_brackets == 0 && $uncompleted_curly_brackets <= 2 );
-                if ( $template_ended || $field_ended ) {
-                  // if this was the last character in the template, remove
-                  // the closing curly brackets
-                  if ( $template_ended ) {
-                    $field = substr( $field, 0, - 1 );
+                $template_contents = array( '0' => '' );
+                // cycle through template call, splitting it up by pipes ('|'),
+                // except when that pipe is part of a piped link
+                $field = "";
+                $uncompleted_square_brackets = 0;
+                $uncompleted_curly_brackets = 2;
+                $template_ended = false;
+                for ( $i = $fields_start_char; ! $template_ended && ( $i < strlen( $existing_page_content ) ); $i++ ) {
+                  $c = $existing_page_content[$i];
+                  if ( $c == '[' ) {
+                    $uncompleted_square_brackets++;
+                  } elseif ( $c == ']' && $uncompleted_square_brackets > 0 ) {
+                    $uncompleted_square_brackets--;
+                  } elseif ( $c == '{' ) {
+                    $uncompleted_curly_brackets++;
+                  } elseif ( $c == '}' && $uncompleted_curly_brackets > 0 ) {
+                    $uncompleted_curly_brackets--;
                   }
-                  // either there's an equals sign near the beginning or not -
-                  // handling is similar in either way; if there's no equals
-                  // sign, the index of this field becomes the key
-                  $sub_fields = explode( '=', $field, 2 );
-                  if ( count( $sub_fields ) > 1 ) {
-                    $template_contents[trim( $sub_fields[0] )] = trim( $sub_fields[1] );
+                  // handle an end to a field and/or template declaration
+                  $template_ended = ( $uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0 );
+                  $field_ended = ( $c == '|' && $uncompleted_square_brackets == 0 && $uncompleted_curly_brackets <= 2 );
+                  if ( $template_ended || $field_ended ) {
+                    // if this was the last character in the template, remove
+                    // the closing curly brackets
+                    if ( $template_ended ) {
+                      $field = substr( $field, 0, - 1 );
+                    }
+                    // either there's an equals sign near the beginning or not -
+                    // handling is similar in either way; if there's no equals
+                    // sign, the index of this field becomes the key
+                    $sub_fields = explode( '=', $field, 2 );
+                    if ( count( $sub_fields ) > 1 ) {
+                      $template_contents[trim( $sub_fields[0] )] = trim( $sub_fields[1] );
+                    } else {
+                      $template_contents[] = trim( $sub_fields[0] );
+                    }
+                    $field = '';
                   } else {
-                    $template_contents[] = trim( $sub_fields[0] );
+                    $field .= $c;
                   }
-                  $field = '';
+                }
+                $existing_template_text = substr( $existing_page_content, $start_char, $i - $start_char );
+                // now remove this template from the text being edited
+                // if this is a partial form, establish a new insertion point
+                if ( $existing_page_content && $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
+                  // if something already exists, set the new insertion point
+                  // to its position; otherwise just let it lie
+                  if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
+                    $existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
+                    $existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
+                  }
                 } else {
-                  $field .= $c;
+                  $existing_page_content = str_replace( $existing_template_text, '', $existing_page_content );
                 }
+                // if this is not a multiple-instance template, and we've found
+                // a match in the source page, there's a good chance that this
+                // page was created with this form - note that, so we don't
+                // send the user a warning
+                // (multiple-instance templates have a greater chance of
+                // getting repeated from one form to the next)
+                // - on second thought, allow even the presence of multiple-
+                // instance templates to validate that this is the correct
+                // form: the problem is that some forms contain *only* mutliple-
+                // instance templates
+                // if (! $allow_multiple) {
+                $source_page_matches_this_form = true;
+                // }
               }
-              $existing_template_text = substr( $existing_page_content, $start_char, $i - $start_char );
-              // now remove this template from the text being edited
-              // if this is a partial form, establish a new insertion point
-              if ( $existing_page_content && $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
-              	// if something already exists, set the new insertion point
-                // to its position; otherwise just let it lie
-                if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
-                  $existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
-                  $existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
-                }
-              } else {
-                $existing_page_content = str_replace( $existing_template_text, '', $existing_page_content );
-              }
-              // if this is not a multiple-instance template, and we've found
-              // a match in the source page, there's a good chance that this
-              // page was created with this form - note that, so we don't
-              // send the user a warning
-              // (multiple-instance templates have a greater chance of
-              // getting repeated from one form to the next)
-              // - on second thought, allow even the presence of multiple-
-              // instance templates to validate that this is the correct
-              // form: the problem is that some forms contain *only* mutliple-
-              // instance templates
-              // if (! $allow_multiple) {
-              $source_page_matches_this_form = true;
-              // }
             }
           }
           // if the input is from the form (meaning the user has hit one
@@ -637,11 +645,9 @@ class SFFormPrinter {
             if ( $form_submitted || ( ! is_null( $field_query_val ) && ! is_array( $field_query_val ) ) ) {
               $cur_value = $field_query_val;
             }
-          } else
+          } else {
             $cur_value = '';
-          // if ($cur_value && ! is_array($cur_value)) {
-            // $cur_value = htmlspecialchars($cur_value);
-          // }
+	  }
 
           if ( $cur_value == null ) {
             // set to default value specified in the form, if it's there
