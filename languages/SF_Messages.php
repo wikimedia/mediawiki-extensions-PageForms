@@ -5707,6 +5707,11 @@ $messages['sr-el'] = array(
 	'sf_createcategory_defaultform' => 'Podrazumevana forma:',
 	'createclass' => 'Napravi klasu',
 	'sf_createclass_allowedvalues' => 'Dozvoljene vrednosti',
+	'sf_createclass_listofvalues' => 'Spisak vrednosti',
+	'formstart' => 'Početak forme',
+	'sf_formstart_createoredit' => 'Napravi ili izmeni',
+	'formedit' => 'Izmeni formom',
+	'sf_formedit_createtitle' => 'Napravi $1: $2',
 	'sf_editsource' => 'Izmeni sors',
 	'sf_formedit_edittitle' => 'Izmeni $1: $2',
 	'sf_formedit_remove' => 'Ukloni',
@@ -5714,6 +5719,8 @@ $messages['sr-el'] = array(
 	'sf_bad_number_error' => 'mora biti ispravan broj',
 	'sf_bad_integer_error' => 'mora biti ispravan celi broj',
 	'sf_bad_date_error' => 'mora biti ispravan datum',
+	'uploadwindow' => 'Prozor za slanje',
+	'sf_deletionlog' => 'Istorija brisanja',
 );
 
 /** Seeltersk (Seeltersk)
