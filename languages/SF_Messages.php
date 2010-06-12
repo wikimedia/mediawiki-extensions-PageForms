@@ -5629,6 +5629,7 @@ $messages['sr-ec'] = array(
 	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_field' => 'Поље:',
 	'sf_createform_fieldprop' => 'Ово поље дефинише особину $1, типа $2.',
+	'sf_createform_inputtype' => 'Врста уноса:',
 	'sf_createform_inputtypedefault' => '(подразумевано)',
 	'sf_createform_formlabel' => 'Из лабеле:',
 	'sf_createform_hidden' => 'Сакривено',
@@ -5657,6 +5658,7 @@ $messages['sr-ec'] = array(
 	'sf_bad_date_error' => 'мора бити исправан датум',
 	'uploadwindow' => 'Прозор за слање',
 	'sf_deletionlog' => 'Историја брисања',
+	'sf_form_freetextlabel' => 'Слободан текст',
 );
 
 /** Serbian Latin ekavian (Srpski (latinica))
