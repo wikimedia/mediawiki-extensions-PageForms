@@ -5695,6 +5695,7 @@ $messages['sr-el'] = array(
 	'sf_createform_template' => 'Šablon:',
 	'sf_createform_field' => 'Polje:',
 	'sf_createform_fieldprop' => 'Ovo polje definiše osobinu $1, tipa $2.',
+	'sf_createform_inputtype' => 'Vrsta unosa:',
 	'sf_createform_inputtypedefault' => '(podrazumevano)',
 	'sf_createform_formlabel' => 'Iz labele:',
 	'sf_createform_hidden' => 'Sakriveno',
@@ -5723,6 +5724,7 @@ $messages['sr-el'] = array(
 	'sf_bad_date_error' => 'mora biti ispravan datum',
 	'uploadwindow' => 'Prozor za slanje',
 	'sf_deletionlog' => 'Istorija brisanja',
+	'sf_form_freetextlabel' => 'Slobodan tekst',
 );
 
 /** Seeltersk (Seeltersk)
