@@ -124,6 +124,9 @@ class SFFormPrinter {
     return false;
   }
 
+  /**
+   * FIXME: This method has only 1231 lines, which is not over 9000! O_o
+   */  
   function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false ) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
