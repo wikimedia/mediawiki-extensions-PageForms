@@ -5013,6 +5013,7 @@ $messages['ps'] = array(
 	'sf_deletionlog' => 'د ړنګولو يادښت',
 	'sf_form_freetextlabel' => 'خپلواکه متن',
 	'sf_category_desc' => 'همدا د $1 وېشنيزه ده.',
+	'sf_blank_namespace' => 'اصلي',
 );
 
 /** Portuguese (Português)
