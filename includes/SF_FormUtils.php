@@ -10,59 +10,6 @@
 
 class SFFormUtils {
 
-	static function chooserJavascript() {
-		$javascript_text = <<<END
-<script type="text/javascript">/* <![CDATA[ */
-
-function updatechooserbutton(f,n)
-{
-	document.getElementById(n).disabled = (f.options[f.selectedIndex].value=="invalid");
-}
-
-function addInstanceFromChooser(chooserid)
-{
-	var chooser = document.getElementById(chooserid);
-	var optionstring = chooser.options[chooser.selectedIndex].value;
-	var pos = optionstring.indexOf(",");
-	var tabindex = optionstring.substr(0,pos);
-	var chooservalue = optionstring.substr(pos+1);
-	addInstance('starter_' + chooservalue, 'main_' + chooservalue, parseInt(tabindex));
-}
-
-//The fieldset containing the given element was just updated. If the fieldset is associated with a chooser,
-//ensure that the fieldset is hidden if and only if there are no template instances inside.
-function hideOrShowFieldset(element)
-{
-	//Find fieldset
-	while (element.tagName.toLowerCase() != "fieldset")
-		element = element.parentNode;
-	//Bail out if fieldset is not part of chooser
-	if (!element.getAttribute("haschooser"))
-		return;
-	//Now look for "input" or "select" tags that don't look like they're part of the starter template
-	var inputs = element.getElementsByTagName("input");
-	var x;
-	var show = false;
-	for (x=0;x<inputs.length;x++)
-	{
-		if (inputs[x].type=="text" && inputs[x].name.indexOf("[num]") == -1)
-			show = true;
-	}
-	var selects = element.getElementsByTagName("select");
-	for (x=0;x<selects.length;x++)
-	{
-		if (selects[x].name.indexOf("[num]") == -1)
-			show = true;
-	}
-	//Now show or hide fieldset
-	element.style.display = (show?"block":"none");
-}
-/* ]]> */ </script>
-
-END;
-		return $javascript_text;
-	}
-
 	/**
 	 * All the Javascript calls to validate both the type of each
 	 * form field and their presence, for mandatory fields
@@ -243,7 +190,7 @@ END;
 		return $javascript_text;
 	}
 
-	static function instancesJavascript( $using_choosers ) {
+	static function instancesJavascript() {
 		$remove_text = wfMsg( 'sf_formedit_remove' );
 		$javascript_text = <<<END
 
@@ -311,9 +258,6 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	
 	//In order to add the new instances in multiple floatBox (multiple templates)
 	fb.tagAnchors(self.document);
-	if ($using_choosers) {
-		hideOrShowFieldset(new_div);
-	}
 }
 
 function removeInstanceEventHandler(this_div_id)
@@ -327,8 +271,6 @@ function removeInstance(div_id) {
 	var olddiv = document.getElementById(div_id);
 	var parent = olddiv.parentNode;
 	parent.removeChild(olddiv);
-	if ($using_choosers)
-		hideOrShowFieldset(parent);
 }
 
 END;
@@ -752,6 +694,7 @@ END;
 
 	static function mainFCKJavascript( $showFCKEditor ) {
 		global $wgUser, $wgScriptPath, $wgFCKEditorExtDir, $wgFCKEditorDir, $wgFCKEditorToolbarSet, $wgFCKEditorHeight;
+		global $wgHooks, $wgExtensionFunctions;
 
 		$newWinMsg = wfMsg( 'rich_editor_new_window' );
 		$javascript_text = '
@@ -766,6 +709,17 @@ var RTE_VISIBLE = ' . RTE_VISIBLE . ';
 var RTE_TOGGLE_LINK = ' . RTE_TOGGLE_LINK . ';
 var RTE_POPUP = ' . RTE_POPUP . ';
 ';
+
+		$showRef = 'false';
+		if ( (isset($wgHooks['ParserFirstCallInit']) && in_array('wfCite',$wgHooks['ParserFirstCallInit'])) || (isset($wgExtensionFunctions) && in_array('wfCite',$wgExtensionFunctions)) ) {
+			$showRef = 'true';
+		}
+
+		$showSource = 'false';
+		if ( (isset ($wgHooks['ParserFirstCallInit']) && in_array('efSyntaxHighlight_GeSHiSetup', $wgHooks['ParserFirstCallInit']))
+			|| (isset ($wgExtensionFunctions) && in_array('efSyntaxHighlight_GeSHiSetup', $wgExtensionFunctions)) ) {
+			$showSource = 'true';
+		}
 		
 		$javascript_text .= <<<END
 var oFCKeditor = new FCKeditor( "free_text" );
@@ -774,6 +728,8 @@ var oFCKeditor = new FCKeditor( "free_text" );
 oFCKeditor.BasePath = '$wgScriptPath/$wgFCKEditorDir/';
 oFCKeditor.Config["CustomConfigurationsPath"] = "$wgScriptPath/$wgFCKEditorExtDir/fckeditor_config.js" ;
 oFCKeditor.Config["EditorAreaCSS"] = "$wgScriptPath/$wgFCKEditorExtDir/css/fckeditor.css" ;
+oFCKeditor.Config["showreferences"] = '$showRef';
+oFCKeditor.Config["showsource"] = '$showSource';
 oFCKeditor.ToolbarSet = "$wgFCKEditorToolbarSet" ; 
 oFCKeditor.ready = true;
 
