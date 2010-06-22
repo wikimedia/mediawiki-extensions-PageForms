@@ -78,10 +78,14 @@ class SFRunQuery extends IncludableSpecialPage {
 				$wgOut->setPageTitle( $form_page_title );
 			}
 			if ( $form_submitted ) {
-				global $wgUser, $wgTitle;
+				global $wgUser, $wgTitle, $wgOut;
 				$wgParser->mOptions = new ParserOptions();
 				$wgParser->mOptions->initialiseFromUser( $wgUser );
 				$text = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
+				foreach ( $wgParser->getOutput()->getHeadItems() as $key => $item ) {
+					$wgOut->addHeadItem( $key, "\t\t" . $item . "\n" );
+				}
+
 				$additional_query = wfMsg( 'sf_runquery_additionalquery' );
 				if ( !$raw )
 					$text .= "\n<h2>$additional_query</h2>\n";
