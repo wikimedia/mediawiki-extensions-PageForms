@@ -27,6 +27,8 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
             this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&attribute=" + data_source;
         else if (data_type == 'category')
             this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&category=" + data_source;
+        else if (data_type == 'concept')
+            this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&concept=" + data_source;
         else if (data_type == 'namespace')
             this.oACDS.scriptQueryAppend = "action=sfautocomplete&format=json&namespace=" + data_source;
         else if (data_type == 'external_url')

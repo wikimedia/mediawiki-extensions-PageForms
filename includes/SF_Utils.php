@@ -329,7 +329,17 @@ END;
 		$query_result = $store->getQueryResult( $query );
 		$pages = array();
 		while ( $res = $query_result->getNext() ) {
-			$pages[] = $res[0]->getNextText( SMW_OUTPUT_WIKI );
+			$page_name = $res[0]->getNextText( SMW_OUTPUT_WIKI );
+			if ( ! is_null( $substring ) ) {
+				// until SMW queries can handle substrings, we
+				// have to filter out pages manually
+				if ( stripos( $page_name, $substring ) === 0 ||
+				stristr( $page_name, ' ' . $substring ) ) {
+					$pages[] = $page_name;
+				}
+			} else {
+				$pages[] = $page_name;
+			}
 		}
 		sort( $pages );
 		return $pages;
