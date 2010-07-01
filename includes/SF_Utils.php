@@ -325,7 +325,7 @@ END;
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
 		$query = new SMWQuery( $desc );
-		$query->setLimit( $sfgMaxAutocompleteValues );
+		//$query->setLimit( $sfgMaxAutocompleteValues );
 		$query_result = $store->getQueryResult( $query );
 		$pages = array();
 		while ( $res = $query_result->getNext() ) {
@@ -339,6 +339,12 @@ END;
 				}
 			} else {
 				$pages[] = $page_name;
+			}
+			// return if we've reached the maximum number of
+			// allowed values
+			if ( count( $pages ) > $sfgMaxAutocompleteValues ) {
+				sort( $pages );
+				return $pages;
 			}
 		}
 		sort( $pages );
