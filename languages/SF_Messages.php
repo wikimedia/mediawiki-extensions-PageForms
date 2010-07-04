@@ -1431,6 +1431,11 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 	'right-editrestrictedfields' => 'Wobgranicowane formularne póla wobźěłaś',
 );
 
+/** Ewe (Eʋegbe) */
+$messages['ee'] = array(
+	'sf_createtemplate_deletefield' => 'Tutui',
+);
+
 /** Greek (Ελληνικά)
  * @author Consta
  * @author Crazymadlover
