@@ -10,13 +10,15 @@ $aliases = array();
 
 /** English */
 $aliases['en'] = array(
-	'FormStart' => array( 'FormStart', 'AddPage' ),
 	'CreateCategory' => array( 'CreateCategory' ),
+	'CreateClass' => array( 'CreateClass' ),
 	'CreateForm' => array( 'CreateForm' ),
 	'CreateProperty' => array( 'CreateProperty' ),
 	'CreateTemplate' => array( 'CreateTemplate' ),
 	'FormEdit' => array( 'FormEdit', 'AddData', 'EditData' ),
+	'FormStart' => array( 'FormStart', 'AddPage' ),
 	'Forms' => array( 'Forms' ),
+	'RunQuery' => array( 'RunQuery' ),
 	'Templates' => array( 'Templates' ),
 	'UploadWindow' => array( 'UploadWindow' ),
 );
