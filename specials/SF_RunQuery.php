@@ -82,7 +82,13 @@ class SFRunQuery extends IncludableSpecialPage {
 				$wgParser->mOptions = new ParserOptions();
 				$wgParser->mOptions->initialiseFromUser( $wgUser );
 				$text = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
-				foreach ( $wgParser->getOutput()->getHeadItems() as $key => $item ) {
+				// method was added in MW 1.16
+				if ( method_exists( 'getHeadItems', $wgParser->getOutput() ) ) {
+					$headItems = $wgParser->getOutput()->getHeadItems();
+				} else {
+					$headItems = $wgParser->getOutput()->mHeadItems;
+				}
+				foreach ( $headItems as $key => $item ) {
 					$wgOut->addHeadItem( $key, "\t\t" . $item . "\n" );
 				}
 
