@@ -5485,6 +5485,18 @@ URL должен выглядеть так: «Special:RunQuery/&lt;form name&gt;
 	'right-editrestrictedfields' => 'правка защищённых полей формы',
 );
 
+/** Rusyn (русиньскый язык)
+ * @author Gazeb
+ */
+$messages['rue'] = array(
+	'sf_createproperty_proptype' => 'Тіп:',
+	'templates' => 'Шаблоны',
+	'sf_createtemplate_deletefield' => 'Вымазати',
+	'sf_createform_add' => 'Придати',
+	'createcategory' => 'Створити катеґорію',
+	'sf_createcategory_name' => 'Мено катеґорії:',
+);
+
 /** Sanskrit (संस्कृत)
  * @author Hemant wikikosh1
  * @author Mahitgar
