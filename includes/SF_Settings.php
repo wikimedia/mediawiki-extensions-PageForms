@@ -1,6 +1,10 @@
 <?php
 /**
- * Default settings for Semantic Forms
+ * Default settings for Semantic Forms.
+ * 
+ * Note: 
+ * Do not use this file as entry point,
+ * use SemanticForms.php in this extensions root instead.
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 

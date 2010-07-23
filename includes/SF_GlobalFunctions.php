@@ -13,7 +13,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Forms',
 	'version' => SF_VERSION,
-	'author' => 'Yaron Koren and others',
+	'author' => '[http://www.mediawiki.org/wiki/User:Yaron_Koren Yaron Koren] and [http://www.ohloh.net/p/semantic-forms/contributors others]',
 	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
 	'descriptionmsg'  => 'semanticforms-desc',
 );
