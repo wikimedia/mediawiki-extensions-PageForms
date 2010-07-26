@@ -3161,9 +3161,12 @@ jika halaman dengan nama tersebut sudah ada, Anda akan diarahkan ke formulir unt
 	'right-editrestrictedfields' => 'Sunting kolom formulir terbatas',
 );
 
-/** Igbo (Igbo) */
+/** Igbo (Igbo)
+ * @author Ukabia
+ */
 $messages['ig'] = array(
 	'sf_createtemplate_deletefield' => 'Gbakashia',
+	'sf_createform_template' => 'Àtụ:',
 );
 
 /** Ido (Ido)
