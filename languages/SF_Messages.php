@@ -3167,6 +3167,7 @@ jika halaman dengan nama tersebut sudah ada, Anda akan diarahkan ke formulir unt
 $messages['ig'] = array(
 	'sf_createtemplate_deletefield' => 'Gbakashia',
 	'sf_createform_template' => 'Àtụ:',
+	'sf_createform_add' => 'Tinyé',
 );
 
 /** Ido (Ido)
