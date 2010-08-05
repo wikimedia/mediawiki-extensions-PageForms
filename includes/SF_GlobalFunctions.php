@@ -26,7 +26,6 @@ define( 'SF_SP_PAGE_HAS_DEFAULT_FORM', 4 );
 define( 'SF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
 
 $wgExtensionFunctions[] = 'sfgSetupExtension';
-$wgExtensionFunctions[] = 'sfgParserFunctions';
 
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
@@ -42,6 +41,7 @@ $wgHooks['SkinTemplateNavigation'][] = 'SFFormEditTab::displayTab2';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 $wgHooks['AdminLinks'][] = 'sffAddToAdminLinks';
 $wgHooks['ParserBeforeStrip'][] = 'SFUtils::cacheFormDefinition';
+$wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 
@@ -114,18 +114,6 @@ function sfgSetupExtension() {
 	// types
 	global $sfgFormPrinter;
 	$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
-}
-
-function sfgParserFunctions() {
-	global $wgHooks, $wgParser;
-	if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
-		$wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
-	} else {
-		if ( class_exists( 'StubObject' ) && !StubObject::isRealObject( $wgParser ) ) {
-			$wgParser->_unstub();
-		}
-		SFParserFunctions::registerFunctions( $wgParser );
-	}
 }
 
 /**********************************************/
