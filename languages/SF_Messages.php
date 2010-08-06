@@ -2448,6 +2448,11 @@ $messages['gv'] = array(
 	'sf_createcategory_name' => 'Ennym:',
 );
 
+/** Hausa (هَوُسَ) */
+$messages['ha'] = array(
+	'sf_createtemplate_deletefield' => 'Soke',
+);
+
 /** Hakka (Hak-kâ-fa)
  * @author Hakka
  */
