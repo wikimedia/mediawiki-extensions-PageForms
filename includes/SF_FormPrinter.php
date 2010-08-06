@@ -124,6 +124,25 @@ class SFFormPrinter {
     return false;
   }
 
+  /**
+   * Like PHP's str_replace(), but only replaces the first found instance -
+   * unfortunately, str_replace() doesn't allow for that.
+   * This code is basically copied directly from
+   * http://www.php.net/manual/en/function.str-replace.php#86177
+   * - this might make sense in some SF utils class, if it's useful in
+   * other places.
+   */
+  function strReplaceOnce( $search, $replace, $subject) {
+    $firstChar = strpos( $subject, $search );
+    if ( $firstChar !== false ) {
+      $beforeStr = substr( $subject, 0, $firstChar );
+      $afterStr = substr( $subject, $firstChar + strlen( $search ) );
+      return $beforeStr . $replace . $afterStr;
+    } else {
+      return $subject;
+    }
+  }
+
   function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false ) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
@@ -421,7 +440,7 @@ class SFFormPrinter {
                     $existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
                   }
                 } else {
-                  $existing_page_content = str_replace( $existing_template_text, '', $existing_page_content );
+                  $existing_page_content = self::strReplaceOnce( $existing_template_text, '', $existing_page_content );
                 }
                 // if this is not a multiple-instance template, and we've found
                 // a match in the source page, there's a good chance that this
