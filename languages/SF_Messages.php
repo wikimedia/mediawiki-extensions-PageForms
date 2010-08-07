@@ -1111,6 +1111,11 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
 	'right-editrestrictedfields' => 'Edita els camps restringits del formulari',
 );
 
+/** Sorani (کوردی) */
+$messages['ckb'] = array(
+	'sf_createtemplate_deletefield' => 'سڕینەوە',
+);
+
 /** Czech (Česky)
  * @author Matěj Grabovský
  */
