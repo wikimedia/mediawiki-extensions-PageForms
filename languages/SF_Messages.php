@@ -601,6 +601,7 @@ $messages['avk'] = array(
  * @author EugeneZelenko
  * @author Jim-by
  * @author Red Winged Duck
+ * @author Wizardist
  */
 $messages['be-tarask'] = array(
 	'semanticforms-desc' => 'Формы для даданьня і рэдагаваньня сэмантычных зьвестак',
@@ -680,7 +681,7 @@ $messages['be-tarask'] = array(
 	'sf_formedit_createtitle' => 'Стварыць $1: $2',
 	'sf_formedit_badurl' => "Гэтая старонка для рэдагаваньня праз форму. Вам неабходна пазначыць назву формы і мэтавую старонку ў URL-адрасе;
 гэта павінна выглядаць наступным чынам: 'Special:FormEdit?form=&lt;назва формы&gt;&target=&lt;мэтавая старонка&gt;' альбо  'Special:FormEdit/&lt;назва формы&gt;/&lt;мэтавая старонка&gt;'.",
-	'sf_formedit_altforms' => 'Замест гэтага Вы можаце дадаць гэту старонку з дапамогай наступных формаў:',
+	'sf_formedit_altforms' => 'Замест гэтага Вы можаце дадаць старонку з дапамогай наступных формаў:',
 	'sf_formedit_altformsonly' => 'Калі ласка, выберыце адну з наступных формаў для даданьня гэтай старонкі:',
 	'sf_formcreate' => 'Стварыць з дапамогай формы',
 	'sf_viewform' => 'Паказаць форму',
