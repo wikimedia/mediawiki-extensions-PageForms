@@ -9,7 +9,7 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 
 define( 'SF_VERSION', '1.9.1' );
 
-$wgExtensionCredits['specialpage'][] = array(
+$wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Forms',
 	'version' => SF_VERSION,
