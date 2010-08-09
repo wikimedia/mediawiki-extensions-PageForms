@@ -99,3 +99,8 @@ $sfg24HourTime = false;
 # speed
 # ##
 $sfgCacheFormDefinitions = false;
+
+# ##
+# Page properties, used for the API
+# ##
+$wgPageProps['formdefinition'] = 'Definition of the semantic form used on the page';
