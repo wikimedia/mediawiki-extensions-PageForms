@@ -1237,7 +1237,7 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'formedit' => 'mit Formular bearbeiten',
 	'sf_formedit_createtitle' => '$1 erstellen: $2',
 	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Du musst den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=&lt;Formularname&gt;&target=&lt;Zielseite&gt;“ oder „Special:FormEdit/&lt;Formularname&gt;/&lt;Zielseite&gt;“.',
-	'sf_formedit_altforms' => 'Alternativ kannst Du diese Seite mit einem der folgenden Formulare erstellen:',
+	'sf_formedit_altforms' => 'Alternativ kannst du diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wähle eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formcreate' => 'Mit Formular erstellt',
 	'sf_viewform' => 'Formular anzeigen',
@@ -1772,6 +1772,7 @@ $messages['eu'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Ebraminio
  * @author Huji
  * @author Momeni
  * @author Tofighi
@@ -1848,6 +1849,8 @@ $messages['fa'] = array(
 	'sf_formedit_remove' => 'حذف',
 	'sf_formedit_addanother' => 'افزدون دیگری',
 	'sf_formedit_none' => 'هیچکدام',
+	'runquery' => 'اجرای پرس و جو',
+	'sf_runquery_additionalquery' => 'پرس و جوی اضافی',
 	'sf_formerrors_header' => 'خطاهایی در ورودی فرمتان وجود دارد؛ قسمت پایین را ببینید',
 	'sf_blank_error' => 'نمی‌تواند خالی باشد',
 	'sf_bad_url_error' => "باید قالب URL درستی داشته باشد و با 'http' شروع شود",
@@ -1856,6 +1859,7 @@ $messages['fa'] = array(
 	'sf_bad_integer_error' => 'باید یک عدد صحیح معتبر باشد',
 	'sf_bad_date_error' => 'باید یک تاریخ معتبر باشد',
 	'uploadwindow' => 'پنجره بارگذاری',
+	'sf_deletionlog' => 'سیاههٔ حذف',
 	'sf_property_isproperty' => 'این یک ویژگی از نوع $1 است.',
 	'sf_property_allowedvals' => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:',
 	'sf_template_docu' => "این الگوی '$1' است. باید با این قالب فراخوانی شود:",
