@@ -4846,9 +4846,13 @@ $messages['pl'] = array(
 	'sf_createclass_success' => 'Zostaną utworzone: własności, szablon, formularz oraz kategoria.',
 	'formstart' => 'Dodaj stronę z formularzem',
 	'sf_formstart_badform' => 'Błąd – na $1 nie odnaleziono żadnego formularza',
-	'sf_formstart_createoredit' => 'Dodaj lub edytuj',
+	'sf_formstart_badtitle' => 'Błąd – „$1” nie jest prawidłową nazwą strony.',
+	'sf_formstart_docu' => 'Wprowadź tutaj nazwę strony, która ma być edytowana z użyciem formularza „$1”.
+Jeśli strona istnieje, zostanie otwarta do edycji w tym formularzu.
+W przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stronę.',
+	'sf_formstart_createoredit' => 'Utwórz lub edytuj',
 	'formedit' => 'Edytuj korzystając z formularza',
-	'sf_formedit_createtitle' => 'Dodaj $1: $2',
+	'sf_formedit_createtitle' => 'Utwórz $1: $2',
 	'sf_formedit_altforms' => 'Zamiast tego możesz dodać stronę z jednym z następujących formularzy:',
 	'sf_formedit_altformsonly' => 'Wybierz jeden z poniższych formularzy, aby dodać tę stronę:',
 	'sf_formcreate' => 'Utwórz korzystając z formularza',
@@ -4871,6 +4875,7 @@ $messages['pl'] = array(
 	'sf_bad_integer_error' => 'musi być poprawną liczbą całkowitą',
 	'sf_bad_date_error' => 'musi być poprawną datą',
 	'uploadwindow' => 'Okno przesyłania plików',
+	'sf_deletionlog' => 'Rejestr usunięć',
 	'sf_property_isproperty' => 'To jest własność typu $1.',
 	'sf_property_linkstoform' => 'Linkuje do stron, używających formularza $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Dopuszczalna wartość dla tej własności to|Dopuszczalne wartości dla tej własności to:}}',
@@ -4879,7 +4884,7 @@ Powinien zostać wywołany w następującym formacie:',
 	'sf_template_docufooter' => 'Edytuj stronę, aby zobaczyć tekst szablonu.',
 	'sf_form_docu' => 'To jest formularz „$1”.
 Aby dodać stronę za pomocą tego formularza, wpisz poniżej nazwę strony.
-Jeśli strona z tą nazwą już istnieje, otwarty zostanie formularz edycji tej strony.',
+Jeśli strona o tej nazwie już istnieje, otwarty zostanie formularz edycji tej strony.',
 	'sf_form_freetextlabel' => 'Dowolny tekst',
 	'sf_category_hasdefaultform' => 'Ta kategoria używa formularza $1.',
 	'sf_category_desc' => 'To jest kategoria $1.',
