@@ -202,6 +202,6 @@ END;
 END;
 	$text .= "	" . Xml::tags( 'p', null, $create_template_link . '.' );
 
-	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SF_main.css" );
+	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 	$wgOut->addHTML( $text );
 }

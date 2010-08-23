@@ -142,7 +142,7 @@ END;
 	$text .= '	' . Xml::tags( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 	$text .= "	</form>\n";
 
-	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SF_main.css" );
+	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 	$wgOut->addScript( '<script type="text/javascript">' . $javascript_text . '</script>' );
 	$wgOut->addHTML( $text );
 }

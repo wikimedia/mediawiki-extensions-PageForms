@@ -30,7 +30,7 @@ class SFCreateClass extends SpecialPage {
                 }
 
 		$this->setHeaders();
-		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SF_main.css" );
+		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 
 		$numStartingRows = 10;
 

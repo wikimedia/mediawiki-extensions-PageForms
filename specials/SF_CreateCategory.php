@@ -125,6 +125,6 @@ END;
 	$text .= "	" . Xml::tags( 'p', null, $create_form_link . '.' ) . "\n";
 	$text .= "	</form>\n";
 
-	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SF_main.css" );
+	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 	$wgOut->addHTML( $text );
 }
