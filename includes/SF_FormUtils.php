@@ -28,10 +28,19 @@ class SFFormUtils {
 		$javascript_text = <<<END
 
 function validate_mandatory_field(field_id, info_id) {
-	field = document.getElementById(field_id);
+	var field = document.getElementById(field_id);
+	// if there's nothing at that field ID, ignore it - it's probably
+	// a hidden field
+	if (field == null) {
+		return true;
+	}
 	if (field.value.replace(/\s+/, '') == '') {
-		infobox = document.getElementById(info_id);
-		infobox.innerHTML = "$blank_error_str";
+		var info_span = document.getElementById(info_id);
+		if ( info_span == null ) {
+			alert ("no info span found at " + info_id + "!");
+		} else {
+			info_span.innerHTML = "$blank_error_str";
+		}
 		return false;
 	} else {
 		return true;
@@ -43,8 +52,32 @@ function validate_mandatory_field(field_id, info_id) {
 function validate_mandatory_radiobutton(none_button_id, info_id) {
 	none_button = document.getElementById(none_button_id);
 	if (none_button && none_button.checked) {
-		infobox = document.getElementById(info_id);
-		infobox.innerHTML = "$blank_error_str";
+		info_span = document.getElementById(info_id);
+		info_span.innerHTML = "$blank_error_str";
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function validate_mandatory_combobox(field_id, info_id) {
+	var field = jQuery('input#' + field_id);
+	// if there's nothing at that field ID, ignore it - it's probably
+	// a hidden field
+	if (field == null) {
+		return true;
+	}
+	// FIXME
+	// field.val() unfortunately doesn't work in IE - it just returns
+	// "undefined". For now, if that happens, just exit
+	var value = field.val();
+	if (value == undefined) {
+		alert(field.html());
+		return true;
+	}
+	if (value.replace(/\s+/, '') == '') {
+		var info_span = document.getElementById(info_id);
+		info_span.innerHTML = "$blank_error_str";
 		return false;
 	} else {
 		return true;
@@ -52,18 +85,18 @@ function validate_mandatory_radiobutton(none_button_id, info_id) {
 }
 
 function validate_mandatory_checkboxes(field_id, info_id) {
-	elems = document.getElementsByTagName("*");
-	var all_fields_unchecked = true;
-	for (var i = 0; i < elems.length; i++) {
-		if (elems[i].id == field_id) {
-			if (elems[i].checked) {
-				all_fields_unchecked = false;
-			}
+	// get all checkboxes - the "field_id" in this case is the span
+	// surrounding all the checkboxes
+	var checkboxes = jQuery('span#' + field_id + " > span > input");
+	var all_unchecked = true;
+	for (var i = 0; i < checkboxes.length; i++) {
+		if (checkboxes[i].checked) {
+			all_unchecked = false;
 		}
 	}
-	if (all_fields_unchecked) {
-		infobox = document.getElementById(info_id);
-		infobox.innerHTML = "$blank_error_str";
+	if (all_unchecked) {
+		info_span = document.getElementById(info_id);
+		info_span.innerHTML = "$blank_error_str";
 		return false;
 	} else {
 		return true;
@@ -102,26 +135,26 @@ function validate_field_type(field_id, type, info_id) {
 			if (url_regexp.test(field.value)) {
 				return true;
 			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_url_error_str";
+				info_span = document.getElementById(info_id);
+				info_span.innerHTML = "$bad_url_error_str";
 				return false;
 			}
 		} else if (type == 'email') {
 			// code borrowed from http://javascript.internet.com/forms/email-validation---basic.html
-			var email_regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
+			var email_regexp = /^\s*\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+\s*$/;
 			if (email_regexp.test(field.value)) {
 				return true;
 			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_email_error_str";
+				info_span = document.getElementById(info_id);
+				info_span.innerHTML = "$bad_email_error_str";
 				return false;
 			}
 		} else if (type == 'number') {
-			if (field.value.match(/^\-?[\d\.,]+$/)) {
+			if (field.value.match(/^\s*\-?[\d\.,]+\s*$/)) {
 				return true;
 			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_number_error_str";
+				info_span = document.getElementById(info_id);
+				info_span.innerHTML = "$bad_number_error_str";
 				return false;
 			}
 		} else if (type == 'date') {
@@ -136,8 +169,8 @@ function validate_field_type(field_id, type, info_id) {
 				// 'BC' and possibly other non-number strings
 				return true;
 			} else {
-				infobox = document.getElementById(info_id);
-				infobox.innerHTML = "$bad_date_error_str";
+				info_span = document.getElementById(info_id);
+				info_span.innerHTML = "$bad_date_error_str";
 				return false;
 			}
 		} else {
@@ -278,7 +311,11 @@ END;
 	}
 
 	static function autocompletionJavascript() {
-		global $wgScriptPath;
+		global $wgScriptPath, $wgOut, $smwgScriptPath, $smwgJQueryIncluded;
+		if ( !$smwgJQueryIncluded ) {
+			$wgOut->addScriptFile( "$smwgScriptPath/libs/jquery-1.4.2.min.js" );
+			$smwgJQueryIncluded = true;
+		}
 
 		$javascript_text = <<<END
 var autocompletemappings = new Array();
@@ -343,7 +380,7 @@ function attachAutocompleteToField(input_id)
 	}
 }
 
-YAHOO.util.Event.addListener(window, 'load', attachAutocompleteToAllDocumentFields);
+jQuery.event.add(window, "load", attachAutocompleteToAllDocumentFields);
 
 END;
 		return $javascript_text;
@@ -399,9 +436,9 @@ END;
 			return Xml::expandAttributes( $attribs );
 		} else {
 			$out = '';
-                        foreach ( $attribs as $name => $val )
-                                $out .= " {$name}=\"" . Sanitizer::encodeAttribute( $val ) . '"';
-                        return $out;
+			foreach ( $attribs as $name => $val )
+				$out .= " {$name}=\"" . Sanitizer::encodeAttribute( $val ) . '"';
+			return $out;
 		}
 	}
 
@@ -711,13 +748,13 @@ var RTE_POPUP = ' . RTE_POPUP . ';
 ';
 
 		$showRef = 'false';
-		if ( (isset($wgHooks['ParserFirstCallInit']) && in_array('wfCite',$wgHooks['ParserFirstCallInit'])) || (isset($wgExtensionFunctions) && in_array('wfCite',$wgExtensionFunctions)) ) {
+		if ( ( isset( $wgHooks['ParserFirstCallInit'] ) && in_array( 'wfCite', $wgHooks['ParserFirstCallInit'] ) ) || ( isset( $wgExtensionFunctions ) && in_array( 'wfCite', $wgExtensionFunctions ) ) ) {
 			$showRef = 'true';
 		}
 
 		$showSource = 'false';
-		if ( (isset ($wgHooks['ParserFirstCallInit']) && in_array('efSyntaxHighlight_GeSHiSetup', $wgHooks['ParserFirstCallInit']))
-			|| (isset ($wgExtensionFunctions) && in_array('efSyntaxHighlight_GeSHiSetup', $wgExtensionFunctions)) ) {
+		if ( ( isset( $wgHooks['ParserFirstCallInit'] ) && in_array( 'efSyntaxHighlight_GeSHiSetup', $wgHooks['ParserFirstCallInit'] ) )
+			|| ( isset( $wgExtensionFunctions ) && in_array( 'efSyntaxHighlight_GeSHiSetup', $wgExtensionFunctions ) ) ) {
 			$showSource = 'true';
 		}
 		
