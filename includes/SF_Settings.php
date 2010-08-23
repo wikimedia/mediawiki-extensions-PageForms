@@ -74,13 +74,6 @@ $wgAvailableRights[] = 'createclass';
 $sfgListSeparator = ",";
 
 # ##
-# The base URL for all YUI Javascript files - to store the YUI library
-# locally, download it (from http://developer.yahoo.com/yui/) and change this
-# value to the URL of the local installation's 'build' directory.
-# ##
-$sfgYUIBase = "http://yui.yahooapis.com/2.7.0/build/";
-
-# ##
 # Extend the edit form from the internal EditPage class rather than using a
 # special page and hacking things up.
 # 
@@ -104,3 +97,9 @@ $sfgCacheFormDefinitions = false;
 # Page properties, used for the API
 # ##
 $wgPageProps['formdefinition'] = 'Definition of the semantic form used on the page';
+
+# ##
+# Ensures that the FancyBox Javascript library is only included once
+# ##
+$sfgFancyBoxIncluded = false;
+
