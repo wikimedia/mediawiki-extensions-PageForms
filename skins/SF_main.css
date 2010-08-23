@@ -91,3 +91,19 @@ span.errorMessage {
 	padding: 7px;
 	margin: 10px 0px 10px 0px;
 }
+
+.autoGrow {
+	overflow: hidden;
+	height: auto;
+	width: 326px;
+}
+
+/* Override some jQuery UI settings */
+.ui-button { margin-left: -1px; }
+.ui-button-icon-only .ui-button-text { padding: 0.35em; }
+button.ui-button-icon-only {
+	width: 1.7em;
+	height: 1.5em;
+	vertical-align: bottom;
+	margin-top: 0.2em;
+} /* button elements seem to need a little more width */
