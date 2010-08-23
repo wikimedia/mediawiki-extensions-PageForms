@@ -172,12 +172,12 @@ function doSpecialCreateTemplate() {
 	$text .= '	<p>' . wfMsg( 'sf_createtemplate_aggregationlabel' ) . ' <input size="25" name="aggregation_label" value="' . $aggregation_label . '"></p>' . "\n";
 	$text .= "	</fieldset>\n";
 	$text .= '	<p>' . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
-	$text .= '	<input type="radio" name="template_format" checked value="standard">' . wfMsg( 'sf_createtemplate_standardformat' ) . "\n";
-	$text .= '	<input type="radio" name="template_format" value="infobox">' . wfMsg( 'sf_createtemplate_infoboxformat' ) . "</p>\n";
+	$text .= '	<input type="radio" name="template_format" checked value="standard" />' . wfMsg( 'sf_createtemplate_standardformat' ) . "\n";
+	$text .= '	<input type="radio" name="template_format" value="infobox" />' . wfMsg( 'sf_createtemplate_infoboxformat' ) . "</p>\n";
 	$text .= <<<END
 	<div class="editButtons">
-	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text">
-	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text">
+	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text" />
+	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text" />
 	</div>
 	</form>
 
@@ -188,11 +188,6 @@ END;
 	$text .= "	<br /><hr /><br />\n";
 	$text .= "	" . Xml::tags( 'p', null, $create_property_link . '.' ) . "\n";
 
-	$wgOut->addLink( array(
-		'rel' => 'stylesheet',
-		'type' => 'text/css',
-		'media' => "screen",
-		'href' => $sfgScriptPath . "/skins/SF_main.css"
-		) );
+	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SF_main.css" );
 	$wgOut->addHTML( $text );
 }
