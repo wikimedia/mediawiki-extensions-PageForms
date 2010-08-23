@@ -64,6 +64,7 @@ class SFFormPrinter {
     $this->setInputTypeHook( 'radiobutton', array( 'SFFormInputs', 'radioButtonHTML' ), array() );
     $this->setInputTypeHook( 'checkboxes', array( 'SFFormInputs', 'checkboxesHTML' ), array() );
     $this->setInputTypeHook( 'listbox', array( 'SFFormInputs', 'listboxHTML' ), array() );
+    $this->setInputTypeHook( 'combobox', array( 'SFFormInputs', 'comboboxHTML' ), array() );
     $this->setInputTypeHook( 'category', array( 'SFFormInputs', 'categoryHTML' ), array() );
     $this->setInputTypeHook( 'categories', array( 'SFFormInputs', 'categoriesHTML' ), array() );
 
@@ -132,7 +133,7 @@ class SFFormPrinter {
    * - this might make sense in some SF utils class, if it's useful in
    * other places.
    */
-  function strReplaceOnce( $search, $replace, $subject) {
+  function strReplaceFirst( $search, $replace, $subject) {
     $firstChar = strpos( $subject, $search );
     if ( $firstChar !== false ) {
       $beforeStr = substr( $subject, 0, $firstChar );
@@ -254,8 +255,9 @@ class SFFormPrinter {
       }
     }
     // otherwise, parse it
-    if ( ! $got_form_def_from_cache )
+    if ( ! $got_form_def_from_cache ) {
       $form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
+    }
     $wgParser->mStripState = $old_strip_state;
     
     // turn form definition file into an array of sections, one for each
@@ -440,7 +442,7 @@ class SFFormPrinter {
                     $existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
                   }
                 } else {
-                  $existing_page_content = self::strReplaceOnce( $existing_template_text, '', $existing_page_content );
+                  $existing_page_content = self::strReplaceFirst( $existing_template_text, '', $existing_page_content );
                 }
                 // if this is not a multiple-instance template, and we've found
                 // a match in the source page, there's a good chance that this
@@ -822,7 +824,7 @@ END;
             // form values, see if the current input is part of that formula,
             // and if so, substitute in the actual value
             if ( $form_submitted && $generated_page_name != '' ) {
-              // this line appears unnecessary
+              // this line appears to be unnecessary
               // $generated_page_name = str_replace('.', '_', $generated_page_name);
               $generated_page_name = str_replace( ' ', '_', $generated_page_name );
               $escaped_input_name = str_replace( ' ', '_', $input_name );
@@ -973,6 +975,8 @@ END;
                     if ( empty( $default_value ) ) {
                       $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
                     }
+                  } elseif ( $input_type == 'combobox' ) {
+                    $sfgJSValidationCalls[] = "validate_mandatory_combobox('$input_id', '$info_id')";
                   } elseif ( ( $form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox' ) || ( $input_type == 'checkboxes' ) ) {
                     $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
                   } else {
@@ -1267,6 +1271,12 @@ END;
     $new_text = "";
     if ( !$embedded )
       $new_text = $wgParser->preprocess( str_replace( "{{!}}", "|", $form_page_title ), $this->mPageTitle, new ParserOptions() );
+
+    // keep it simple - if the form has already been submitted, i.e. this is
+    // just the redirect page, get rid of all the Javascript, to avoid JS errors
+    if ( $form_submitted ) {
+      $javascript_text = '';
+    }
     
     return array( $form_text, "/*<![CDATA[*/ $javascript_text /*]]>*/",
       $data_text, $new_text, $generated_page_name );
