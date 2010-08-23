@@ -119,7 +119,7 @@ END;
 		$css_files = array(
 			"$smwgScriptPath/skins/SMW_custom.css",
 			"$sfgScriptPath/skins/jquery-ui/base/jquery.ui.all.css",
-			"$sfgScriptPath/skins/SF_main.css",
+			"$sfgScriptPath/skins/SemanticForms.css",
 			"$sfgScriptPath/skins/jquery.fancybox-1.3.1.css"
 		);
 		foreach ( $css_files as $css_file ) {
