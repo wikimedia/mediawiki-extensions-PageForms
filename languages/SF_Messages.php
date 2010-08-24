@@ -3715,8 +3715,8 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''&lt;Fomullaa_Name &gt;
  * @author Kw-Moon
  */
 $messages['kw'] = array(
-	'createtemplate' => 'Gwruthyl skantlyn',
-	'sf_createform_template' => 'Skantlyn:',
+	'createtemplate' => 'Gwruthyl scantlyn',
+	'sf_createform_template' => 'Scantlyn:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
