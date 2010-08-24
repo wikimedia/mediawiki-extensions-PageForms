@@ -1040,6 +1040,14 @@ END;
     global $wgCategoryTreeMaxDepth;
     $wgCategoryTreeMaxDepth = 10;
     $tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10 ) );
+
+    // capitalize the first letter, if first letters always get capitalized
+    global $wgCapitalLinks;
+    if ( $wgCapitalLinks ) {
+      global $wgContLang;
+      $cur_value = $wgContLang->ucfirst( $cur_value );
+    }
+
     $tree = preg_replace( '/(<a class="CategoryTreeLabel.*>)(.*)(<\/a>)/', '<input id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value="$2" type="radio"> $1$2$3', $tree );
     $tree = str_replace( "value=\"$cur_value\"", "value=\"$cur_value\" checked=\"checked\"", $tree );
     // if it's disabled, set all to disabled
@@ -1061,7 +1069,7 @@ END;
     if ( ! function_exists( 'efCategoryTreeParserHook' ) )
       return array( null, null );
 
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $wgCapitalLinks;
 
     $className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -1108,6 +1116,12 @@ END;
     }
     // set all checkboxes matching $cur_values to checked
     foreach ( $cur_values as $value ) {
+      // capitalize the first letter, if first letters always get capitalized
+      if ( $wgCapitalLinks ) {
+        global $wgContLang;
+        $value = $wgContLang->ucfirst( $value );
+      }
+
       $tree = str_replace( "value=\"$value\"", "value=\"$value\" checked=\"checked\"", $tree );
     }
     // if it's disabled, set all to disabled
