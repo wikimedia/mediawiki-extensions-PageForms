@@ -4241,6 +4241,7 @@ $messages['mzn'] = array(
 
 /** Nahuatl (Nāhuatl)
  * @author Fluence
+ * @author Ricardo gs
  */
 $messages['nah'] = array(
 	'sf_createproperty_propname' => 'Tōcāitl:',
@@ -4252,9 +4253,9 @@ $messages['nah'] = array(
 	'sf_createform_hidden' => 'Ichtac',
 	'sf_createform_atend' => 'Tlamilizpan',
 	'sf_createform_add' => 'Ticcētilīz',
-	'sf_createcategory_name' => 'Tōcāitl:',
-	'sf_formstart_createoredit' => 'Titlacēntilīz ahnozo titlapatlāz',
-	'sf_formedit_createtitle' => 'Ticcēntilīz $1: $2',
+	'sf_createcategory_name' => 'Neneuhcāyōtl tōcāitl:',
+	'sf_formstart_createoredit' => 'Titlayōcoyāz ahnozo titlapatlāz',
+	'sf_formedit_createtitle' => 'Ticyōcoyāz $1: $2',
 	'sf_formedit_edittitle' => 'Ticpatlāz $1: $2',
 	'sf_formedit_addanother' => 'Titlacēntilīz occē',
 	'sf_formedit_none' => 'Ahtlein',
