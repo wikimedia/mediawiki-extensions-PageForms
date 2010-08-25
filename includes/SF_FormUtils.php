@@ -757,17 +757,24 @@ var RTE_POPUP = ' . RTE_POPUP . ';
 			|| ( isset( $wgExtensionFunctions ) && in_array( 'efSyntaxHighlight_GeSHiSetup', $wgExtensionFunctions ) ) ) {
 			$showSource = 'true';
 		}
+
+		// at some point, the variable $wgFCKEditorDir got a "/"
+		// appended to it - this makes a big difference. To support
+		// all FCKeditor versions, append a slash if it's not there
+		if ( substr( $wgFCKEditorDir, -1 ) != '/' ) {
+			$wgFCKEditorDir .= '/';
+		}
 		
 		$javascript_text .= <<<END
 var oFCKeditor = new FCKeditor( "free_text" );
 
 //Set config
-oFCKeditor.BasePath = '$wgScriptPath/$wgFCKEditorDir/';
+oFCKeditor.BasePath = '$wgScriptPath/$wgFCKEditorDir';
 oFCKeditor.Config["CustomConfigurationsPath"] = "$wgScriptPath/$wgFCKEditorExtDir/fckeditor_config.js" ;
 oFCKeditor.Config["EditorAreaCSS"] = "$wgScriptPath/$wgFCKEditorExtDir/css/fckeditor.css" ;
 oFCKeditor.Config["showreferences"] = '$showRef';
 oFCKeditor.Config["showsource"] = '$showSource';
-oFCKeditor.ToolbarSet = "$wgFCKEditorToolbarSet" ; 
+oFCKeditor.ToolbarSet = "$wgFCKEditorToolbarSet"; 
 oFCKeditor.ready = true;
 
 //IE hack to call func from popup
