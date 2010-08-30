@@ -205,14 +205,14 @@ function ajaxFormPreviewRun(btn){
 
 			    pv = visible;
 			    
-			    while(pv.previousSibling) {
+			    while (pv.previousSibling) {
 				pv = pv.previousSibling;
 				if (pv.style) pv.style.display="none";
 			    }
 
 			    pv = visible;
 				
-			    while(pv.nextSibling) {
+			    while (pv.nextSibling) {
 				pv = pv.nextSibling;
 				if (pv.style) pv.style.display="none";
 			    }
