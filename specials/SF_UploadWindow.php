@@ -23,7 +23,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * Constructor
 	 */
 	function __construct() {
-		SpecialPage::SpecialPage( 'UploadWindow' );
+		parent::__construct( 'UploadWindow' );
 		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 

@@ -14,7 +14,7 @@ class SFCreateProperty extends SpecialPage {
 	 * Constructor
 	 */
 	function __construct() {
-		SpecialPage::SpecialPage( 'CreateProperty' );
+		parent::__construct( 'CreateProperty' );
 		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 

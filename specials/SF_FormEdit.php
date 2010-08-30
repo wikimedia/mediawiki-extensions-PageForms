@@ -13,7 +13,7 @@ class SFFormEdit extends SpecialPage {
 	 * Constructor
 	 */
 	function __construct() {
-		SpecialPage::SpecialPage( 'FormEdit' );
+		parent::__construct( 'FormEdit' );
 		wfLoadExtensionMessages( 'SemanticForms' );
 	}
 
