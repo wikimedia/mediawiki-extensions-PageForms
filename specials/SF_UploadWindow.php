@@ -22,7 +22,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	/**
 	 * Constructor
 	 */
-	function SFUploadWindow() {
+	function __construct() {
 		SpecialPage::SpecialPage( 'UploadWindow' );
 		wfLoadExtensionMessages( 'SemanticForms' );
 	}
@@ -139,7 +139,7 @@ class UploadWindowForm {
 	 * Get data POSTed through the form and assign them to the object
 	 * @param $request Data posted.
 	 */
-	function UploadWindowForm( &$request ) {
+	function __construct( &$request ) {
 		global $wgAllowCopyUploads;
 		$this->mDesiredDestName   = $request->getText( 'wpDestFile' );
 		$this->mIgnoreWarning     = $request->getCheck( 'wpIgnoreWarning' );

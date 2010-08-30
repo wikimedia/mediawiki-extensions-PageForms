@@ -13,7 +13,7 @@ class SFCreateForm extends SpecialPage {
 	/**
 	 * Constructor
 	 */
-	function SFCreateForm() {
+	function __construct() {
 		SpecialPage::SpecialPage( 'CreateForm' );
 		wfLoadExtensionMessages( 'SemanticForms' );
 	}

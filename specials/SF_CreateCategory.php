@@ -13,7 +13,7 @@ class SFCreateCategory extends SpecialPage {
 	/**
 	 * Constructor
 	 */
-	function SFCreateCategory() {
+	function __construct() {
 		SpecialPage::SpecialPage( 'CreateCategory' );
 		wfLoadExtensionMessages( 'SemanticForms' );
 	}

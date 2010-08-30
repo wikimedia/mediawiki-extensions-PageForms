@@ -16,7 +16,7 @@ class SFFormPrinter {
   var $standardInputsIncluded;
   var $mPageTitle;
 
-  function SFFormPrinter() {
+  function __construct() {
     global $smwgContLang;
 
     // initialize the set of hooks for the entry-field functions to call for
