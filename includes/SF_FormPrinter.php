@@ -379,7 +379,7 @@ class SFFormPrinter {
             // even if there are more
 	    if ( $found_instance ) {
               $matches = array();
-              $search_pattern = '/{{' . $search_template_str . '\s*[\|}]/i';
+              $search_pattern = '/{{' . $preg_match_template_str . '\s*[\|}]/i';
               $content_str = str_replace( '_', ' ', $existing_page_content );
               preg_match($search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE);
 	      // is this check necessary?
