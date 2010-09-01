@@ -215,9 +215,9 @@ END;
       if ( $possible_value == $cur_value ) { $text .= " selected=\"selected\""; }
       $text .= ">";
       if ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) )
-      	$text .= htmlspecialchars( $other_args['value_labels'][$possible_value] );
+        $text .= htmlspecialchars( $other_args['value_labels'][$possible_value] );
       else
-      	$text .= $possible_value;
+        $text .= $possible_value;
       $text .= "</option>\n";
     }
     $text .= <<<END
@@ -288,9 +288,9 @@ END;
       if ( in_array( $possible_value, $cur_values ) ) { $text .= " selected"; }
       $text .= ">";
       if ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) )
-      	$text .= htmlspecialchars( $other_args['value_labels'][$possible_value] );
+        $text .= htmlspecialchars( $other_args['value_labels'][$possible_value] );
       else
-      	$text .= $possible_value;
+        $text .= $possible_value;
       $text .= "</option>\n";
     }
     $text .= <<<END
@@ -331,9 +331,9 @@ END;
       $cur_input_name = $input_name . "[" . $key . "]";
 
       if ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) )
-      	$label = htmlspecialchars( $other_args['value_labels'][$possible_value] );
+        $label = htmlspecialchars( $other_args['value_labels'][$possible_value] );
       else
-      	$label = $possible_value;
+        $label = $possible_value;
 
       $checkbox_attrs = array(
         'type' => 'checkbox',
@@ -447,7 +447,7 @@ END;
     $info_id = "info_" . $sfgFieldNum;
     $div_name = "div_" . $sfgFieldNum;
        
-    $options_str_key = $autocompletion_source;
+    $options_str_key = str_replace( "'", "\'", $autocompletion_source );
     $javascript_text = "autocompletemappings[$sfgFieldNum] = '$options_str_key';\n";
     
     $values = array();
@@ -538,7 +538,7 @@ END;
 </script>
 
 END;
-	$className .= ' autoGrow';
+        $className .= ' autoGrow';
       }
 
       $text .= <<<END
@@ -593,6 +593,7 @@ END;
         $options_str_key .= "," . $delimiter;
       }
     }
+    $options_str_key = str_replace( "'", "\'", $options_str_key );
     $javascript_text = "autocompletemappings[$sfgFieldNum] = '$options_str_key';\n";
     if ( array_key_exists( 'remote autocompletion', $other_args ) &&
         $other_args['remote autocompletion'] == true ) {
@@ -877,12 +878,12 @@ END;
       if ( $possible_value == '' ) // blank/"None" value
         $label = wfMsg( 'sf_formedit_none' );
       elseif ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) )
-      	$label = htmlspecialchars( $other_args['value_labels'][$possible_value] );
+        $label = htmlspecialchars( $other_args['value_labels'][$possible_value] );
       else
-      	$label = $possible_value;
+        $label = $possible_value;
 
       $radiobutton_text = '	' .
-	      Xml::element ( 'input', $radiobutton_attrs ) . " $label\n";
+        Xml::element ( 'input', $radiobutton_attrs ) . " $label\n";
 
       // There's special handling for the "None" radiobutton, if it exists,
       // because it's created last but displayed first - see above.
@@ -919,9 +920,9 @@ END;
         foreach ( $possible_values as $key => $possible_value ) {
           // We need to add each click handler to each radiobutton,
           // because there doesn't seem to be any way for a radiobutton
-	  // to know that it was unchecked - rather, the newly-checked
-	  // radiobutton has to handle the change.
-	  foreach ( $enum_input_ids as $cur_input_id ) {
+          // to know that it was unchecked - rather, the newly-checked
+          // radiobutton has to handle the change.
+          foreach ( $enum_input_ids as $cur_input_id ) {
             // we use addClickHandler(), instead of adding the Javascript via
             // onClick="", because MediaWiki's wikibits.js does its own handling
             // of checkboxes, which impacts their behavior in IE
