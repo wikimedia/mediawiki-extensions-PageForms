@@ -247,6 +247,7 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	var children = new_div.getElementsByTagName('*');
 	// this array is needed to counteract an IE bug
 	var orig_children = starter_div.getElementsByTagName('*');
+	var fancybox_ids = new Array();
 	var x;
 	for (x = 0; x < children.length; x++) {
 		if (children[x].name)
@@ -259,6 +260,10 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 		if (children[x].href)
 			children[x].href = children[x].href
 				.replace(/input_/g, 'input_' + num_elements + '_');
+		if (children[x].id.match("^fancybox")) {
+			fancybox_ids.push(children[x].id);
+		}
+
 		// for dropdowns, copy over selectedIndex from original div,
 		// to get around a bug in IE
 		if (children[x].type == 'select-one') {
@@ -288,9 +293,21 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 	//Add the new instance
 	main_div.appendChild(new_div);
 	attachAutocompleteToAllFields(new_div);
-	
-	//In order to add the new instances in multiple floatBox (multiple templates)
-	fb.tagAnchors(self.document);
+
+	// For each 'upload file' link in this latest instance,
+	// add a call to fancybox()
+	for (x = 0; x < fancybox_ids.length; x++) {
+		jQuery("#" + fancybox_ids[x]).fancybox({
+			'width'         : '75%',
+			'height'        : '75%',
+			'autoScale'     : false,
+			'transitionIn'  : 'none',
+			'transitionOut' : 'none',
+			'type'          : 'iframe',
+			'overlayColor'  : '#222',
+			'overlayOpacity' : '0.8',
+		});
+	}
 }
 
 function removeInstanceEventHandler(this_div_id)
