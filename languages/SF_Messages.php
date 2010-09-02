@@ -4933,6 +4933,8 @@ W przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stro
 	'sf_formedit_addanother' => 'Dodaj kolejny',
 	'sf_formedit_none' => 'Brak',
 	'runquery' => 'Uruchom zapytanie',
+	'sf_runquery_badurl' => 'Musisz podać nazwę formularza w adresie URL,
+który powinien wyglądać podobnie do „Specjalna:RunQuery/&lt;nazwa formularza&gt;”.',
 	'sf_runquery_title' => 'Uruchom zapytanie: $1',
 	'sf_runquery_additionalquery' => 'Dodatkowe zapytanie',
 	'sf_formerrors_header' => 'We wprowadzonych przez Ciebie danych wystąpiły błędy; zobacz poniżej',
