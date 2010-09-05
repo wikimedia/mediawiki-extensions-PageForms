@@ -3826,6 +3826,7 @@ $messages['lb'] = array(
 	'sf_createform_beforetemplate' => "Virun d'Schabloun:",
 	'sf_createform_atend' => 'Um Enn',
 	'sf_createform_add' => 'Derbäisetzen',
+	'sf_createform_choosefield' => 'Sicht e Feld eraus fir derbäizesetzen',
 	'createcategory' => 'Eng Kategorie maachen',
 	'sf_createcategory_name' => 'Numm vun der Kategorie:',
 	'sf_createcategory_defaultform' => 'Standard-Formulaire:',
