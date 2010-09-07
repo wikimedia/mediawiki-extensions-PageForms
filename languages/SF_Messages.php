@@ -4919,9 +4919,13 @@ $messages['pl'] = array(
 	'sf_formstart_docu' => 'Wprowadź tutaj nazwę strony, która ma być edytowana z użyciem formularza „$1”.
 Jeśli strona istnieje, zostanie otwarta do edycji w tym formularzu.
 W przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stronę.',
+	'sf_formstart_noform_docu' => 'Wprowadź tutaj nazwę strony, a następnie wybierz formularz z użyciem którego ma być edytowana.
+Jeśli strona istnieje, zostanie otwarta do edycji w tym formularzu.
+W przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stronę.',
 	'sf_formstart_createoredit' => 'Utwórz lub edytuj',
 	'formedit' => 'Edytuj korzystając z formularza',
 	'sf_formedit_createtitle' => 'Utwórz $1: $2',
+	'sf_formedit_badurl' => 'Tę stronę edytuje się przy użyciu formularza. Musisz określić w adresie URL nazwę formularza i stronę docelową. Powinno to wyglądać podobnie do „Special:FormEdit?form=&lt;nazwa formularza&gt;&target=&lt;strona docelowa&gt;” lub  „Special:FormEdit/&lt;nazwa formularza&gt;/&lt;strona docelowa&gt;”.',
 	'sf_formedit_altforms' => 'Zamiast tego możesz dodać stronę z jednym z następujących formularzy:',
 	'sf_formedit_altformsonly' => 'Wybierz jeden z poniższych formularzy, aby dodać tę stronę:',
 	'sf_formcreate' => 'Utwórz korzystając z formularza',
