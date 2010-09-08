@@ -1128,6 +1128,15 @@ $messages['cs'] = array(
 	'sf_createtemplate_fieldname' => 'Název pole:',
 	'sf_createtemplate_displaylabel' => 'Zobrazované označení:',
 	'sf_createtemplate_semanticproperty' => 'Sémantická vlastnost:',
+	'sf_createtemplate_deletefield' => 'Smazat',
+	'forms' => 'Formuláře',
+	'sf_createform_field' => 'Pole:',
+	'sf_createform_hidden' => 'Skrytý',
+	'sf_createform_add' => 'Přidat',
+	'sf_formedit_remove' => 'Odstranit',
+	'sf_formedit_none' => 'Nic',
+	'sf_deletionlog' => 'Kniha smazaných stránek',
+	'sf_blank_namespace' => 'Hlavní',
 );
 
 /** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
@@ -6759,13 +6768,21 @@ $messages['zh-hans'] = array(
 	'templates' => '模板',
 	'sf_createtemplate_namelabel' => '模板名称：',
 	'sf_createtemplate_standardformat' => '标准',
+	'sf_createtemplate_deletefield' => '删除',
+	'sf_createform_template' => '模板:',
+	'sf_createform_field' => '事件:',
+	'sf_createform_inputtypedefault' => '(默认)',
 	'sf_createform_hidden' => '隐藏',
+	'sf_createform_add' => '添加',
 	'sf_viewform' => '检视表格',
 	'sf_formedit_remove' => '移除',
+	'sf_formedit_none' => '无',
 	'sf_blank_error' => '不可留空',
 	'sf_bad_number_error' => '必须为有效数字',
 	'sf_bad_integer_error' => '必须为有效整数',
 	'sf_bad_date_error' => '必须为有效日期',
+	'sf_deletionlog' => '删除日志',
+	'sf_blank_namespace' => '首页',
 );
 
 /** Traditional Chinese (‪中文(繁體)‬)
