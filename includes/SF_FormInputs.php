@@ -83,7 +83,7 @@ jQuery(document).ready(function() {
 		'transitionOut'	: 'none',
 		'type'		: 'iframe',
 		'overlayColor'  : '#222',
-		'overlayOpacity' : '0.8',
+		'overlayOpacity' : '0.8'
 	});
 });
 </script>

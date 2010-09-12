@@ -305,7 +305,7 @@ function addInstance(starter_div_id, main_div_id, tab_index)
 			'transitionOut' : 'none',
 			'type'          : 'iframe',
 			'overlayColor'  : '#222',
-			'overlayOpacity' : '0.8',
+			'overlayOpacity' : '0.8'
 		});
 	}
 }
