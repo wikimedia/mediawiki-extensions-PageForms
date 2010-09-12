@@ -914,6 +914,10 @@ END;
             $cur_input_ids[] = $enum_input_ids[$option];
           }
         }
+	// If there were no matches to existing radiobutton options, escape
+	if ( count( $cur_input_ids ) == 0 ) {
+		continue;
+	}
         $options_str = "['" . implode( "', '", $cur_input_ids ) . "']";
         $cur_js_text = "showIfChecked($options_str, '$div_id'); ";
         $return_js_text .= $cur_js_text . "\n";
