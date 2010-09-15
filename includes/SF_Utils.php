@@ -84,7 +84,7 @@ END;
 		$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => $action ), null ) . "\n";
 
 		if ( $is_minor_edit )
-			$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpMinorEdit' ), null ) . "\n";
+			$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpMinoredit' ), null ) . "\n";
 		if ( $watch_this )
 			$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpWatchthis' ), null ) . "\n";
 		$text .= Xml::tags( 'form', array( 'id' => 'editform', 'name' => 'editform', 'method' => 'post', 'action' => $new_url ), $form_body );
