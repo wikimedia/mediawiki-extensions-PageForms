@@ -486,7 +486,7 @@ END;
 		$tooltip = wfMsg( 'tooltip-minoredit' );
 		$attr = self::expandAttributes( $attr );
 		$text = <<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" value="1" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
+	<input tabindex="$sfgTabIndex" type="checkbox" value="" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
 	<label for="wpMinoredit" title="$tooltip">$label</label>
 
 END;
