@@ -5594,7 +5594,7 @@ URL должен выглядеть так: «Special:RunQuery/&lt;form name&gt;
 	'right-editrestrictedfields' => 'правка защищённых полей формы',
 );
 
-/** Rusyn (русиньскый язык)
+/** Rusyn (Русиньскый)
  * @author Gazeb
  */
 $messages['rue'] = array(
