@@ -189,11 +189,18 @@ class SFFormPrinter {
     // set in different ways
     // HACK - sometimes we don't know the page name in advance, but we still
     // need to set a title here for testing permissions
-    if ( $page_name == '' )
+    if ( $embedded ) {
+      // if this is an embedded form (probably a 'RunQuery'), just use the
+      // name of the actual page we're on
+      global $wgTitle;
+      $this->mPageTitle = $wgTitle;
+    } elseif ( $page_name == '' ) {
       $this->mPageTitle = Title::newFromText(
         $wgRequest->getVal( 'namespace' ) . ":Semantic Forms permissions test" );
-    else
+    } else {
       $this->mPageTitle = Title::newFromText( $page_name );
+    }
+
     global $wgOut;
     // show previous set of deletions for this page, if it's been deleted before
     if ( ! $form_submitted && ! $this->mPageTitle->exists() ) {
