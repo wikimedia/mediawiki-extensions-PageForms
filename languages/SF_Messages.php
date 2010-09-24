@@ -4296,7 +4296,7 @@ $messages['mr'] = array(
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
-	'sf_createproperty_propname' => 'Лемезэ:',
+	'sf_createproperty_propname' => 'Йонксонть лемезэ:',
 	'sf_createproperty_proptype' => 'Типезэ:',
 	'sf_createtemplate_deletefield' => 'Нардамс',
 	'sf_createform_template' => 'Лопа парцунось:',
@@ -4304,7 +4304,7 @@ $messages['myv'] = array(
 	'sf_createform_hidden' => 'Кекшезь',
 	'sf_createform_add' => 'Поладомс',
 	'createcategory' => 'Шкамс категория',
-	'sf_createcategory_name' => 'Лемезэ:',
+	'sf_createcategory_name' => 'Кужонть лемезэ:',
 	'sf_editsource' => 'Витнемс-петнемс лисьмапрянзо',
 	'sf_formedit_remove' => 'Нардык',
 );
