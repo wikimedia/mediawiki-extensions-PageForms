@@ -2014,6 +2014,7 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
  * @author PieRRoMaN
  * @author Sherbrooke
  * @author Urhixidur
+ * @author Verdy p
  */
 $messages['fr'] = array(
 	'semanticforms-desc' => 'Formulaires pour ajouter ou modifier des données sémantiques',
