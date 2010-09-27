@@ -38,7 +38,11 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
 /* extending jquery functions  */
       jQuery.extend( jQuery.ui.autocomplete, {	
 	filter: function(array, term) {
-		var matcher = new RegExp("\\b"+ jQuery.ui.autocomplete.escapeRegex(term), "i" );
+		if ( autocompleteOnAllChars ) {
+			var matcher = new RegExp(jQuery.ui.autocomplete.escapeRegex(term), "i" );
+		} else {
+			var matcher = new RegExp("\\b" + jQuery.ui.autocomplete.escapeRegex(term), "i" );
+		}
 		return jQuery.grep( array, function(value) {
 			return matcher.test( value.label || value.value || value );
 		});
@@ -239,7 +243,11 @@ function showIfChecked(checkbox_inputs, div_id) {
 				.insertAfter(select)
 				.autocomplete({
 					source: function(request, response) {
-						var matcher = new RegExp("\\b"+request.term, "i");
+						if ( autocompleteOnAllChars ) {
+							var matcher = new RegExp(request.term, "i");
+						} else {
+							var matcher = new RegExp("\\b" + request.term, "i");
+						}
 						response(select.children("option").map(function() {
 							var text = jQuery(this).text();
 							if (this.value && (!request.term || matcher.test(text))) {

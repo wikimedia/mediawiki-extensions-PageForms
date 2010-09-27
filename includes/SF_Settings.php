@@ -40,6 +40,14 @@ sffInitNamespaces();
 $sfgMaxAutocompleteValues = 1000;
 
 # ##
+# Whether to autocomplete on all characters in a string, not just the
+# beginning of words - this is especially important for Unicode strings,
+# since the use of the '\b' regexp character to match on the beginnings
+# of words fails for them.
+# ##
+$sfgAutocompleteOnAllChars = false;
+
+# ##
 # Global variables for handling the two edit tabs (for traditional editing
 # and for editing with a form):
 # $sfgRenameEditTabs renames the edit-with-form tab to just "Edit", and

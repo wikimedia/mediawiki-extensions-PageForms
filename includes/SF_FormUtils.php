@@ -329,12 +329,24 @@ END;
 
 	static function autocompletionJavascript() {
 		global $wgScriptPath, $wgOut, $smwgScriptPath, $smwgJQueryIncluded;
+		global $sfgAutocompleteOnAllChars;
+
 		if ( !$smwgJQueryIncluded ) {
 			$wgOut->addScriptFile( "$smwgScriptPath/libs/jquery-1.4.2.min.js" );
 			$smwgJQueryIncluded = true;
 		}
 
+		// set a Javascript variable so that the matcher knows
+		// whether to match on characters anywhere within each string,
+		// or just (as is the default) the beginning of each word
+		if ( $sfgAutocompleteOnAllChars ) {
+			$autocompleteOnAllCharsStr = 'true';
+		} else {
+			$autocompleteOnAllCharsStr = 'false';
+		}
+
 		$javascript_text = <<<END
+var autocompleteOnAllChars = $autocompleteOnAllCharsStr;
 var autocompletemappings = new Array();
 var autocompletestrings = new Array();
 var autocompletedatatypes = new Array();
