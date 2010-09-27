@@ -166,6 +166,8 @@ class SFLinkUtils {
 		// links, even if they've since been recreated. The same might
 		// hold true for other special pages.
 		global $wgTitle;
+		if ( empty( $wgTitle ) )
+			return false;
 		if ( $wgTitle->getNamespace() == NS_SPECIAL )
 			return false;
 
