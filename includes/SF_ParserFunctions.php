@@ -171,6 +171,10 @@ class SFParserFunctions {
 			// has to be turned into hidden inputs
 			if ( $inLinkType == 'post button' ) {
 				$hidden_inputs = "";
+				// Change HTML-encoded ampersands to
+				// URL-encoded ampersands, so that the string
+				// doesn't get split up on the '&'.
+				$inQueryStr = str_replace( '&amp;', '%26', $inQueryStr );
 				$query_components = explode( '&', $inQueryStr );
 				foreach ( $query_components as $query_component ) {
 					$query_component = urldecode( $query_component );
@@ -181,9 +185,11 @@ class SFParserFunctions {
 				}
 			} else {
 				$link_url .= ( strstr( $link_url, '?' ) ) ? '&' : '?';
-				// URL-encode any spaces or plus-signs in the query string
-				$inQueryStr = str_replace( array( ' ', '+' ),
-					array( '%20', '%2B' ),
+				// URL-encode any spaces, plus-signs or
+				// ampersands in the query string
+				// (should this just be a general urlencode?)
+				$inQueryStr = str_replace( array( ' ', '+', '&amp;' ),
+					array( '%20', '%2B', '%26' ),
 					$inQueryStr );
 				$link_url .= $inQueryStr;
 			}
@@ -301,9 +307,15 @@ END;
 		} else {
 			$str .= '			<input type="hidden" name="form" value="' . $inFormName . '">' . "\n";
 		}
-		// recreate the passed-in query string as a set of hidden variables
+		// Recreate the passed-in query string as a set of hidden
+		// variables.
+		// Change HTML-encoded ampersands to URL-encoded ampersands, so
+		// that the string doesn't get split up on the '&'.
+		$inQueryStr = str_replace( '&amp;', '%26', $inQueryStr );
 		$query_components = explode( '&', $inQueryStr );
 		foreach ( $query_components as $component ) {
+			// change URL-encoded ampersands back
+			$component = str_replace( '%26', '&', $component );
 			$subcomponents = explode( '=', $component, 2 );
 			$key = ( isset( $subcomponents[0] ) ) ? $subcomponents[0] : '';
 			$val = ( isset( $subcomponents[1] ) ) ? $subcomponents[1] : '';
