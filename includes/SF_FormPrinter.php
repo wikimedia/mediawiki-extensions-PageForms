@@ -818,14 +818,14 @@ END;
             } else { // value is not an array
               $cur_value_in_template = $cur_value;
             }
-            if ( $query_template_name == null || $query_template_name == '' )
+            if ( $template_name == null || $template_name == '' )
               $input_name = $field_name;
             elseif ( $allow_multiple )
               // 'num' will get replaced by an actual index, either in PHP
               // or in Javascript, later on
-              $input_name = $query_template_name . '[num][' . $field_name . ']';
+              $input_name = $template_name . '[num][' . $field_name . ']';
             else
-              $input_name = $query_template_name . '[' . $field_name . ']';
+              $input_name = $template_name . '[' . $field_name . ']';
 
             // if we're creating the page name from a formula based on
             // form values, see if the current input is part of that formula,
@@ -1214,7 +1214,7 @@ END;
     }
     // if the FCKeditor extension is installed, use that for the free text input
     global $wgFCKEditorDir;
-    if ( $wgFCKEditorDir ) {
+    if ( $wgFCKEditorDir && strpos( $existing_page_content, '__NORICHEDITOR__' ) === false ) {
       $showFCKEditor = SFFormUtils::getShowFCKEditor();
       if ( !$form_submitted && ( $showFCKEditor & RTE_VISIBLE ) ) {
         $free_text = SFFormUtils::prepareTextForFCK( $free_text );
