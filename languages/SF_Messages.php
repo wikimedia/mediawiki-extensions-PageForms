@@ -3653,6 +3653,7 @@ $messages['km'] = array(
  * @author Nayvik
  */
 $messages['kn'] = array(
+	'templates' => 'ಟೆಂಪ್ಲೇಟು',
 	'sf_createtemplate_deletefield' => 'ಅಳಿಸು',
 );
 
@@ -3830,7 +3831,7 @@ $messages['lb'] = array(
 	'sf_createform_formlabel' => 'Etikett vum Formulaire:',
 	'sf_createform_hidden' => 'Verstoppt',
 	'sf_createform_restricted' => 'Gespaart (Nëmmen Administrateuren kënnen et änneren)',
-	'sf_createform_mandatory' => 'Obligateresch',
+	'sf_createform_mandatory' => 'Obligatoresch',
 	'sf_createform_removetemplate' => 'Schablon ewechhuelen',
 	'sf_createform_addtemplate' => 'Schabloun derbäisetzen:',
 	'sf_createform_beforetemplate' => "Virun d'Schabloun:",
