@@ -953,6 +953,7 @@ $messages['bs'] = array(
 	'createclass' => 'Napravi klasu',
 	'sf_createclass_allowedvalues' => 'Dopuštene vrijednosti',
 	'sf_createclass_listofvalues' => 'Spisak vrijednosti',
+	'sf_createclass_missingvalues' => 'Nisu popunjena sva neophodna polja.',
 	'formstart' => 'Dodaj stranicu putem obrasca',
 	'sf_formstart_badform' => 'Greška: nije pronađena stranica obrasca na $1',
 	'sf_formstart_createoredit' => 'Napravi ili uredi',
