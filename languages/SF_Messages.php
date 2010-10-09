@@ -1067,7 +1067,7 @@ Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 Si aquesta pàgina ja existeix, se t'obrirà el formulari per editar-la.
 Si no, se t'obrirà el formulari per afegir una pàgina nova.",
 	'sf_formstart_createoredit' => 'Crea o edita',
-	'formedit' => 'Edita amb formulari',
+	'formedit' => 'Modifica amb formulari',
 	'sf_formedit_createtitle' => 'Crea $1: $2',
 	'sf_formedit_badurl' => "Aquesta és la pàgina per editar amb un formulari. Cal que especifiqueu a l'URL tant un nom de formulari com una pàgina de destí; 
 ha de ser quelcom similar a 'Especial:FormEdit?form=&lt;nom_formulari&gt;&target=&lt;pàgina_destí&gt;', o bé 'Especial:FormEdit/&lt;nom_formulari&gt;/&lt;pàgina_destí&gt;'.",
@@ -1075,7 +1075,7 @@ ha de ser quelcom similar a 'Especial:FormEdit?form=&lt;nom_formulari&gt;&target
 	'sf_formedit_altformsonly' => 'Seleccioneu un formulari entre els següents per afegir aquesta pàgina:',
 	'sf_formcreate' => 'Crea amb formulari',
 	'sf_viewform' => 'Visualitza el formulari',
-	'sf_editsource' => 'Edita el codi font',
+	'sf_editsource' => 'Modifica el codi',
 	'sf_formedit_edittitle' => 'Edita $1: $2',
 	'sf_formedit_morethanoneform' => "'''Avís:''' s'ha definit més d'un formulari per defecte en aquesta pàgina.",
 	'sf_formedit_formwarning' => 'Atenció: Aquesta pàgina <a href="$1">ja existeix</a>, però no fa servir aquest formulari.',
