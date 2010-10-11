@@ -6077,6 +6077,16 @@ $messages['szl'] = array(
 	'sf_createcategory_name' => 'Mjano:',
 );
 
+/** Tamil (தமிழ்)
+ * @author TRYPPN
+ */
+$messages['ta'] = array(
+	'sf_createproperty_proptype' => 'வகை:',
+	'templates' => 'வார்ப்புருக்கள்',
+	'sf_createtemplate_deletefield' => 'நீக்கவும்',
+	'sf_blank_namespace' => 'முதன்மையானது',
+);
+
 /** Telugu (తెలుగు)
  * @author Veeven
  */
