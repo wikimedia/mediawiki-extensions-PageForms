@@ -403,6 +403,7 @@ $messages['ar'] = array(
  * @author Basharh
  */
 $messages['arc'] = array(
+	'sf_createtemplate_aggregationlabel' => 'ܟܘܢܝܐ ܕܡܟܬܒܘܬܐ:',
 	'sf_createtemplate_deletefield' => 'ܫܘܦ',
 	'sf_createform_hidden' => 'ܛܘܫܝܐ',
 	'sf_createform_removetemplate' => 'ܠܚܝ ܩܠܒܐ',
