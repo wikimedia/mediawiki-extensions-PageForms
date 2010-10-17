@@ -3657,6 +3657,7 @@ $messages['km'] = array(
 $messages['kn'] = array(
 	'templates' => 'ಟೆಂಪ್ಲೇಟು',
 	'sf_createtemplate_deletefield' => 'ಅಳಿಸು',
+	'sf_createform_add' => 'ಸೇರಿಸು',
 );
 
 /** Krio (Krio)
@@ -4481,6 +4482,7 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
  * @author Gunnernett
  * @author Harald Khan
  * @author Jon Harald Søby
+ * @author Nghtwlkr
  */
 $messages['nn'] = array(
 	'semanticforms-desc' => 'Skjema for å leggja til og endra semantiske data',
@@ -4544,12 +4546,13 @@ $messages['nn'] = array(
 Om sida finst frå før, vil du bli teken med til skjemaet for endring av ho.
 Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
 	'sf_formstart_noform_docu' => 'Skriv inn namnet på sida her, og vel kva skjema du vil nytta til å endra ho. Om sida finst frå før, vil du bli teken med til skjemaet for endring av ho. Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
-	'sf_formstart_createoredit' => 'Legg til eller endr',
+	'sf_formstart_createoredit' => 'Opprett eller endr',
 	'formedit' => 'Endra med skjema',
-	'sf_formedit_createtitle' => 'Legg til $1: $2',
+	'sf_formedit_createtitle' => 'Opprett $1: $2',
 	'sf_formedit_badurl' => 'Dette er sida for å leggja til data. Du må oppgje både eit skjemanamn og ei målsida i adressa; det burde sjå slik ut: «Special:FormEdit?form=&lt;skjemanamn&gt;&target=&lt;målsida&gt;» eller slik ut: «Special:FormEdit/&lt;skjemanamn&gt;/&lt;målsida&gt;».',
 	'sf_formedit_altforms' => 'Du kan i staden oppretta sida ved å nytta eitt av dei følgande skjemaa:',
 	'sf_formedit_altformsonly' => 'Vel mellom desse skjemaa for å oppretta sida:',
+	'sf_formcreate' => 'Opprett med skjema',
 	'sf_viewform' => 'Sjå skjema',
 	'sf_editsource' => 'Endra kjelda',
 	'sf_formedit_edittitle' => 'Endra $1: $2',
@@ -5404,6 +5407,7 @@ $messages['rif'] = array(
  * @author Firilacroco
  * @author KlaudiuMihaila
  * @author Mihai
+ * @author Stelistcristi
  */
 $messages['ro'] = array(
 	'specialpages-group-sf_group' => 'Formulare semantice',
@@ -5429,6 +5433,7 @@ $messages['ro'] = array(
 	'sf_createform_field' => 'Câmp:',
 	'sf_createform_fieldprop' => 'Acest câmp definește proprietatea $1, de tipul $2.',
 	'sf_createform_inputtype' => 'Tip intrare:',
+	'sf_createform_inputtypedefault' => '(implicit)',
 	'sf_createform_formlabel' => 'Eticheta formularului',
 	'sf_createform_hidden' => 'Ascunse',
 	'sf_createform_mandatory' => 'Obligatoriu',
