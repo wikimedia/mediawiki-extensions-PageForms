@@ -4195,6 +4195,7 @@ $messages['ml'] = array(
  * @author Chinneeb
  */
 $messages['mn'] = array(
+	'sf_createform_add' => 'Нэмэх',
 	'sf_deletionlog' => 'Устгалын лог',
 );
 
