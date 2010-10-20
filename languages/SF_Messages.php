@@ -5739,6 +5739,13 @@ URL by malo byť v tvare „Special:RunQuery/&lt;názov formulára&gt;“',
 	'right-editrestrictedfields' => 'Upraviť polia formulára s obmedzeným prístupom',
 );
 
+/** Slovenian (Slovenščina)
+ * @author Dbc334
+ */
+$messages['sl'] = array(
+	'sf_createform_add' => 'Dodaj',
+);
+
 /** Serbian Cyrillic ekavian (Српски (ћирилица))
  * @author Sasa Stefanovic
  * @author Михајло Анђелковић
@@ -6441,6 +6448,7 @@ $messages['tt-cyrl'] = array(
  * @author AS
  * @author Ahonc
  * @author Prima klasy4na
+ * @author Тест
  */
 $messages['uk'] = array(
 	'semanticforms-desc' => 'Форми для додавання і редагування семантичних даних',
@@ -6450,10 +6458,27 @@ $messages['uk'] = array(
 	'sf_createproperty_propname' => 'Назва властивості:',
 	'sf_createproperty_proptype' => 'Тип:',
 	'templates' => 'Шаблони',
+	'createtemplate' => 'Створити шаблон',
 	'sf_createtemplate_namelabel' => 'Назва шаблону:',
+	'sf_createtemplate_aggregationlabel' => 'Заголовок списку:',
+	'sf_createtemplate_addfield' => 'Додати поле',
 	'sf_createtemplate_deletefield' => 'Вилучити',
+	'createform' => 'Створити форму',
+	'sf_createform_nameinput' => 'Назва форми',
+	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_field' => 'Поле:',
+	'sf_createform_hidden' => 'Прихована',
+	'sf_createform_removetemplate' => 'Вилучити шаблон',
+	'sf_createform_addtemplate' => 'Додати шаблон:',
+	'sf_createform_add' => 'Додати',
+	'createcategory' => 'Створити категорію',
+	'sf_createcategory_name' => 'Назва категорії:',
+	'sf_createcategory_defaultform' => 'Форма за умовчанням:',
+	'sf_createclass_listofvalues' => 'Список значень',
+	'sf_formedit_createtitle' => 'Створити $1: $2',
 	'sf_formedit_remove' => 'Вилучити',
+	'sf_blank_error' => 'не може бути порожнім',
+	'sf_category_desc' => 'Це категорія $1.',
 );
 
 /** Veps (Vepsan kel')
