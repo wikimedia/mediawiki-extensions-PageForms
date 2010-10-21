@@ -598,6 +598,15 @@ $messages['avk'] = array(
 	'sf_blank_namespace' => 'Nelkaxo',
 );
 
+/** Belarusian (Беларуская)
+ * @author Тест
+ */
+$messages['be'] = array(
+	'sf_createproperty_proptype' => 'Тып:',
+	'templates' => 'Шаблоны',
+	'sf_createform_template' => 'Шаблон:',
+);
+
 /** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
  * @author EugeneZelenko
  * @author Jim-by
@@ -6467,6 +6476,7 @@ $messages['uk'] = array(
 	'sf_createform_nameinput' => 'Назва форми',
 	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_field' => 'Поле:',
+	'sf_createform_inputtypedefault' => '(за умовчанням)',
 	'sf_createform_hidden' => 'Прихована',
 	'sf_createform_removetemplate' => 'Вилучити шаблон',
 	'sf_createform_addtemplate' => 'Додати шаблон:',
