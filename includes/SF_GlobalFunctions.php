@@ -34,14 +34,15 @@ $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
 $wgHooks['BrokenLink'][] = 'SFLinkUtils::setBrokenLink_1_13';
 $wgHooks['LinkEnd'][] = 'SFLinkUtils::setBrokenLink';
 $wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
-// 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the 'Vector' skin
-// for MediaWiki v1.16
+// 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
 $wgHooks['SkinTemplateTabs'][] = 'SFFormEditTab::displayTab';
 $wgHooks['SkinTemplateNavigation'][] = 'SFFormEditTab::displayTab2';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 $wgHooks['AdminLinks'][] = 'sffAddToAdminLinks';
 $wgHooks['ParserBeforeStrip'][] = 'SFUtils::cacheFormDefinition';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
+$wgHooks['ResourceLoaderRegisterModules'][] = 'SFUtils::registerModules';
+$wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 
