@@ -76,6 +76,7 @@ class SFUploadWindow2 extends SpecialPage {
 		$this->mLicense	   = $request->getText( 'wpLicense' );
 
 
+		$this->mDestWarningAck    = $request->getText( 'wpDestFileWarningAck' );
 		$this->mIgnoreWarning     = $request->getCheck( 'wpIgnoreWarning' )
 			|| $request->getCheck( 'wpUploadIgnoreWarning' );
 		$this->mWatchthis	 = $request->getBool( 'wpWatchthis' );
@@ -934,6 +935,12 @@ class SFUploadForm extends HTMLForm {
 				'section' => 'options',
 			);
 		}
+		$descriptor['wpDestFileWarningAck'] = array(
+			'type' => 'hidden',
+			'id' => 'wpDestFileWarningAck',
+			'default' => $this->mDestWarningAck ? '1' : '',
+		);
+
 
 		return $descriptor;
 
@@ -945,57 +952,60 @@ class SFUploadForm extends HTMLForm {
 	public function show() {
 		$this->addUploadJS();
 		parent::show();
-	// disable $wgOut - we'll print out the page manually, taking the
-	// body created by the form, plus the necessary Javascript files,
-	// and turning them into an HTML page
-	global $wgOut, $wgUser, $wgTitle, $wgJsMimeType,
-	$wgLanguageCode, $wgStylePath, $wgStyleVersion,
-	$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
+		// disable $wgOut - we'll print out the page manually,
+		// taking the body created by the form, plus the necessary
+		// Javascript files, and turning them into an HTML page
+		global $wgOut, $wgUser, $wgTitle, $wgLanguageCode,
+		$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
 
-	$wgOut->disable();
-	$sk = $wgUser->getSkin();
-	$sk->initPage( $wgOut ); // need to call this to set skin name correctly
-	$wgTitle = SpecialPage::getTitleFor( 'Upload' );
-	$skin_user_js = $sk->generateUserJs();
+		$wgOut->disable();
+		$sk = $wgUser->getSkin();
+		$sk->initPage( $wgOut ); // need to call this to set skin name correctly
+		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
-	$user_js = <<<END
-<script type="{$wgJsMimeType}">
-$skin_user_js;
-</script>
+		if ( method_exists( $wgOut, 'addModules' ) ) {
+			$head_scripts = '';
+			$wgOut->addModules( array( 'mediawiki.legacy.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax', 'mediawiki.legacy.ajaxwatch' ) );
+			$body_scripts = $wgOut->getHeadScripts( $sk );
+		} else {
+			global $wgJsMimeType, $wgStylePath, $wgStyleVersion;
+			$vars_js = Skin::makeGlobalVariablesScript( array( 'skinname' => $sk->getSkinName() ) );
+			$head_scripts = <<<END
+$vars_js
+<script type="{$wgJsMimeType}" src="{$wgStylePath}/common/wikibits.js?$wgStyleVersion"></script>
+{$wgOut->getScript()}
+<script type="{$wgJsMimeType}" src="{$wgStylePath}/common/ajax.js?$wgStyleVersion"></script>
+<script type="{$wgJsMimeType}" src="{$wgStylePath}/common/ajaxwatch.js?$wgStyleVersion"></script>
 
 END;
-	$vars_js = Skin::makeGlobalVariablesScript( array( 'skinname' => $sk->getSkinName() ) );
-	$wikibits_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/wikibits.js?$wgStyleVersion\"></script>";
-	$ajax_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/ajax.js?$wgStyleVersion\"></script>";
-	$ajaxwatch_include = "<script type=\"{$wgJsMimeType}\" src=\"{$wgStylePath}/common/ajaxwatch.js?$wgStyleVersion\"></script>";
-	$text = <<<END
+			$body_scripts = '';
+		}
+
+		$text = <<<END
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="{$wgXhtmlDefaultNamespace}"
 END;
-	foreach ( $wgXhtmlNamespaces as $tag => $ns ) {
-		$text .= "xmlns:{$tag}=\"{$ns}\" ";
-	}
-	$dir = $wgContLang->isRTL() ? "rtl" : "ltr";
-	$text .= "xml:lang=\"{$wgLanguageCode}\" lang=\"{$wgLanguageCode}\" dir=\"{$dir}\">";
+		foreach ( $wgXhtmlNamespaces as $tag => $ns ) {
+			$text .= "xmlns:{$tag}=\"{$ns}\" ";
+		}
+		$dir = $wgContLang->isRTL() ? "rtl" : "ltr";
+		$text .= "xml:lang=\"{$wgLanguageCode}\" lang=\"{$wgLanguageCode}\" dir=\"{$dir}\">";
 
-	$text .= <<<END
+		$text .= <<<END
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-$vars_js
-$wikibits_include
-{$wgOut->getScript()}
-$ajax_include
-$ajaxwatch_include
+$head_scripts
 </head>
 <body>
 {$wgOut->getHTML()}
+$body_scripts
 </body>
 </html>
 
 
 END;
-print $text;
+		print $text;
 	}
 
 	/**
@@ -1006,6 +1016,7 @@ print $text;
 	 */
 	protected function addUploadJS( $autofill = true ) {
 		global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
+		global $wgStrictFileExtensions;
 		global $wgEnableFirefogg, $wgEnableJS2system;
 		global $wgOut;
 
@@ -1018,19 +1029,24 @@ print $text;
 			'wgEnableFirefogg' => (bool)$wgEnableFirefogg,
 			'wgUploadAutoFill' => (bool)$autofill,
 			'wgUploadSourceIds' => $this->mSourceIds,
+			'wgStrictFileExtensions' => $wgStrictFileExtensions,
+			'wgCapitalizeUploads' => MWNamespace::isCapitalized( NS_FILE ),
 		);
 
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
-		
-		// For <charinsert> support; not provided by js2 yet
-		$wgOut->addScriptFile( 'edit.js' );
-		
-		if ( $wgEnableJS2system ) {
-			// JS2 upload scripts
-			$wgOut->addScriptClass( 'uploadPage' );
-		} else {
-			// Legacy upload javascript
-			$wgOut->addScriptFile( 'upload.js' );
+
+		// MW < 1.17
+		if ( ! class_exists( 'ResourceLoader' ) ) {
+			// For <charinsert> support; not provided by js2 yet
+			$wgOut->addScriptFile( 'edit.js' );
+
+			if ( $wgEnableJS2system ) {
+				// JS2 upload scripts
+				$wgOut->addScriptClass( 'uploadPage' );
+			} else {
+				// Legacy upload javascript
+				$wgOut->addScriptFile( 'upload.js' );
+			}
 		}
 	}
 
