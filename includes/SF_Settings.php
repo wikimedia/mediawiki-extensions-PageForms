@@ -13,7 +13,8 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 # seen from the web. Change it if required ($wgScriptPath is the
 # path to the base directory of your wiki). No final slash.
 # #
-$sfgScriptPath = $wgScriptPath . '/extensions/SemanticForms';
+$sfgPartialPath = '/extensions/SemanticForms';
+$sfgScriptPath = $wgScriptPath . $sfgPartialPath;
 # #
 
 # ##
@@ -111,3 +112,15 @@ $wgPageProps['formdefinition'] = 'Definition of the semantic form used on the pa
 # ##
 $sfgFancyBoxIncluded = false;
 
+# ##
+# Global variables for Javascript
+# ##
+$sfgAdderButtons = array();
+$sfgRemoverButtons = array();
+$sfgShowOnSelectCalls = array();
+$sfgJSValidationCalls = array();
+$sfgAutocompleteMappings = array();
+$sfgAutocompleteDataTypes = array();
+$sfgAutocompleteValues = array();
+$sfgComboBoxInputs = array();
+$sfgAutogrowInputs = array();
