@@ -14,7 +14,7 @@ class SFFormInputs {
    * Creates an array of values that match the specified source name and type,
    * for use by both Javascript autocompletion and comboboxes.
    */
-  static function createAutocompleteValuesArray( $source_name, $source_type ) {
+  static function getAutocompleteValues( $source_name, $source_type ) {
     $names_array = array();
     // the query depends on whether this is a property, category, concept
     // or namespace
@@ -31,22 +31,6 @@ class SFFormInputs {
       $names_array = SFUtils::getAllPagesForNamespace( $source_name );
     }
     return $names_array;
-  }
-
-
-  /**
-   * Creates a comma-delimited string of values that match the specified
-   * source name and type, for use by Javascript autocompletion.
-   */
-  static function createAutocompleteValuesString( $source_name, $source_type ) {
-    $names_array = self::createAutocompleteValuesArray( $source_name, $source_type );
-    // escape quotes, to avoid Javascript errors
-    $names_array = array_map( 'addslashes', $names_array );
-    $autocomplete_string = "['" . implode( "', '", $names_array ) . "']";
-    // replace any newlines in the string, just to avoid breaking the Javascript
-    $autocomplete_string = str_replace( "\n", ' ', $autocomplete_string );
-    $autocomplete_string = str_replace( "\r", ' ', $autocomplete_string );
-    return $autocomplete_string;
   }
 
   static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
@@ -69,6 +53,7 @@ class SFFormInputs {
 
     if ( !$sfgFancyBoxIncluded ) {
       $sfgFancyBoxIncluded = true;
+      global $wgOut;
       $wgOut->addScriptFile( "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js" );
     }
 
@@ -178,7 +163,7 @@ END;
   }
 
   static function dropdownHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelectCalls;
 
     $className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -186,20 +171,16 @@ END;
     $input_id = "input_$sfgFieldNum";
     $info_id = "info_$sfgFieldNum";
     $disabled_text = ( $is_disabled ) ? "disabled" : "";
-    $javascript_text = '';
-    $return_js_text = '';
     if ( array_key_exists( 'show on select', $other_args ) ) {
-      $javascript_text = 'onChange="';
       foreach ( $other_args['show on select'] as $div_id => $options ) {
         $options_str = implode( "', '", $options );
-        $this_js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
-        $javascript_text .= $this_js_text;
-        $return_js_text .= $this_js_text . "\n";
+        $js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
+        $sfgShowOnSelectCalls[] = "$('#$input_id').change( function() { $js_text } );";
+        $sfgShowOnSelectCalls[] = $js_text;
       }
-      $javascript_text .= '"';
     }
     $text = <<<END
-	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" $disabled_text $javascript_text>
+	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" $disabled_text>
 
 END;
     // add a blank value at the beginning, unless this is a mandatory field
@@ -225,7 +206,7 @@ END;
 	<span id="$info_id" class="errorMessage"></span>
 
 END;
-    return array( $text, $return_js_text );
+    return array( $text, null );
   }
 
   /**
@@ -242,7 +223,7 @@ END;
   }
 
   static function listboxHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelectCalls;
 
     $className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -264,26 +245,17 @@ END;
     }
     $cur_values = self::getValuesArray( $cur_value, $delimiter );
 
-    $javascript_text = '';
-    $return_js_text = '';
-    if ( array_key_exists( 'show on select', $other_args ) ) {
-      $javascript_text = 'onChange="';
-      foreach ( $other_args['show on select'] as $div_id => $options ) {
-        $options_str = implode( "', '", $options );
-        $this_js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
-        $javascript_text .= $this_js_text;
-        $return_js_text .= $this_js_text . "\n";
-      }
-      $javascript_text .= '"';
-    }
-
     $text = <<<END
-	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" multiple $size_text $disabled_text $javascript_text>
+	<select id="$input_id" tabindex="$sfgTabIndex" name="$input_name" class="$className" multiple $size_text $disabled_text>
 
 END;
     if ( ( $possible_values = $other_args['possible_values'] ) == null )
       $possible_values = array();
+    $enum_input_ids = array();
     foreach ( $possible_values as $possible_value ) {
+      // create array $enum_input_ids to associate values with their input IDs,
+      // for use in creating the 'show on select' Javascript later
+      $enum_input_ids[$possible_value] = $input_id;
       $text .= "  <option value=\"$possible_value\"";
       if ( in_array( $possible_value, $cur_values ) ) { $text .= " selected"; }
       $text .= ">";
@@ -299,11 +271,32 @@ END;
 	<input type="hidden" name="$hidden_input_name" value="1" />
 
 END;
-    return array( $text, $return_js_text );
+
+    if ( array_key_exists( 'show on select', $other_args ) ) {
+      foreach ( $other_args['show on select'] as $div_id => $options ) {
+        $cur_input_ids = array();
+        foreach ( $options as $option ) {
+          if ( array_key_exists( $option, $enum_input_ids ) ) {
+            $cur_input_ids[] = $enum_input_ids[$option];
+          }
+        }
+        $options_str = "['" . implode( "', '", $options ) . "']";
+        $js_text = "showIfSelectedInListBox('$input_id', $options_str, '$div_id'); ";
+        $sfgShowOnSelectCalls[] = $js_text;
+        foreach ( $possible_values as $key => $possible_value ) {
+          $cur_input_id = $enum_input_ids[$possible_value];
+          if ( in_array( $possible_value, $options ) ) {
+            $sfgShowOnSelectCalls[] = "$('#$cur_input_id').click( function() { $js_text } );";
+          }
+        }
+      }
+    }
+
+    return array( $text, null );
   }
 
   static function checkboxesHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelectCalls;
 
     $checkbox_class = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     $span_class = "checkboxSpan";
@@ -322,7 +315,6 @@ END;
     if ( ( $possible_values = $other_args['possible_values'] ) == null )
       $possible_values = array();
     $text = "";
-    $return_js_text = "";
     $enum_input_ids = array();
     foreach ( $possible_values as $key => $possible_value ) {
       // create array $enum_input_ids to associate values with their input IDs,
@@ -374,7 +366,6 @@ END;
 
 END;
 
-    $return_js_text = '';
     if ( array_key_exists( 'show on select', $other_args ) ) {
       foreach ( $other_args['show on select'] as $div_id => $options ) {
         $cur_input_ids = array();
@@ -384,35 +375,22 @@ END;
           }
         }
         $options_str = "['" . implode( "', '", $cur_input_ids ) . "']";
-        $cur_js_text = "showIfChecked($options_str, '$div_id'); ";
-        $return_js_text .= $cur_js_text . "\n";
+        $js_text = "showIfChecked($options_str, '$div_id'); ";
+        $sfgShowOnSelectCalls[] = $js_text;
         foreach ( $possible_values as $key => $possible_value ) {
           $cur_input_id = $enum_input_ids[$possible_value];
-          // we use addClickHandler(), instead of adding the Javascript via
-          // onClick="", because MediaWiki's wikibits.js does its own handling
-          // of checkboxes, which impacts their behavior in IE
           if ( in_array( $possible_value, $options ) ) {
-            $return_js_text .= <<<END
-addClickHandler(
-	document.getElementById('$cur_input_id'),
-	function() { $cur_js_text }
-);
-
-END;
+            $sfgShowOnSelectCalls[] = "$('#$cur_input_id').click( function() { $js_text } );";
           }
         }
       }
     }
 
-    // do the replacements
-    foreach ( $enum_input_ids as $enum_val => $input_id ) {
-      $return_js_text = str_replace( "<<$enum_val>>", "'$input_id'", $return_js_text );
-    }
-    return array( $text, $return_js_text );
+    return array( $text, null );
   }
 
   static function comboboxHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-        if ( array_key_exists( 'no autocomplete', $other_args ) &&
+    if ( array_key_exists( 'no autocomplete', $other_args ) &&
         $other_args['no autocomplete'] == true ) {
       unset( $other_args['autocompletion source'] );
       return SFFormInputs::textEntryHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
@@ -421,7 +399,9 @@ END;
     if ( array_key_exists( 'possible_values', $other_args ) && $other_args['possible_values'] != null )
       return SFFormInputs::dropdownHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
-    global $sfgTabIndex, $sfgFieldNum,$wgOut, $sfgScriptPath,$wgJsMimeType, $smwgScriptPath,$smwgJqUIAutoIncluded;
+    global $sfgTabIndex, $sfgFieldNum, $wgOut, $sfgScriptPath, $wgJsMimeType;
+    global $smwgScriptPath, $smwgJqUIAutoIncluded;
+    global $sfgAutocompleteMappings, $sfgComboBoxInputs, $sfgAutogrowInputs;
 
     $autocomplete_field_type = "";
     $autocompletion_source = "";
@@ -448,11 +428,9 @@ END;
     $div_name = "div_" . $sfgFieldNum;
        
     $options_str_key = str_replace( "'", "\'", $autocompletion_source );
-    $javascript_text = "autocompletemappings[$sfgFieldNum] = '$options_str_key';\n";
+    $sfgAutocompleteMappings[$sfgFieldNum] = $options_str_key;
     
-    $values = array();
-    $values = self::createAutocompleteValuesArray($autocompletion_source, $autocomplete_field_type );
-   
+    $values = self::getAutocompleteValues($autocompletion_source, $autocomplete_field_type );
 
     /*adding code for displaying dropdown of autocomplete values*/
 
@@ -469,10 +447,8 @@ END;
 	</select>
 	<span id="$info_id" class="errorMessage"></span>
 </div>
-<script type="text/javascript" >
-jQuery(function() {jQuery("#input_$sfgFieldNum").combobox();});
-</script>
 END;
+    $sfgComboBoxInputs[] = $sfgFieldNum;
     // there's no direct correspondence between the 'size=' attribute for
     // text inputs and the number of pixels, but multiplying by 6 seems to
     // be about right for the major browsers
@@ -483,7 +459,7 @@ input#input_$sfgFieldNum { width: {$pixel_width}px; }
 </style>
 END;
     $wgOut->addScript($combobox_css);
-    return array( $text, $javascript_text );
+    return array( $text, null );
   }
 
   static function textInputWithAutocompleteHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
@@ -497,12 +473,12 @@ END;
     if ( array_key_exists( 'possible_values', $other_args ) && $other_args['possible_values'] != null )
       return SFFormInputs::dropdownHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
-    global $sfgTabIndex, $sfgFieldNum, $wgOut, $sfgScriptPath,$wgJsMimeType, $smwgScriptPath,$smwgJqUIAutoIncluded;
+    global $sfgTabIndex, $sfgFieldNum, $sfgScriptPath, $wgJsMimeType, $smwgScriptPath, $smwgJqUIAutoIncluded;
+    global $sfgAutogrowInputs, $sfgAutocompleteMappings, $sfgAutocompleteDataTypes, $sfgAutocompleteValues;
 
     $className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
       $className .= " " . $other_args['class'];
-    $disabled_text = ( $is_disabled ) ? "disabled" : "";
     if ( array_key_exists( 'autocomplete field type', $other_args ) ) {
       $autocomplete_field_type = $other_args['autocomplete field type'];
       $autocompletion_source = $other_args['autocompletion source'];
@@ -518,32 +494,37 @@ END;
        
       $rows = $other_args['rows'];
       $cols = $other_args['cols'];
+      $text = "";
+      if ( array_key_exists( 'autogrow', $other_args ) ) {
+        $sfgAutogrowInputs[] = $input_id;
+        $className .= ' autoGrow';
+        if ( ! method_exists( 'OutputPage', 'addModules' ) ) {
+          global $wgOut;
+          $wgOut->addScriptFile( "$sfgScriptPath/libs/SF_autogrow.js" );
+        }
+      }
+
+      $textarea_attrs = array(
+        'tabindex' => $sfgTabIndex,
+        'id' => $input_id,
+        'name' => $input_name,
+        'rows' => $rows,
+        'cols' => $cols,
+        'class' => $className,
+      );
+      if ( $is_disabled ) {
+        $textarea_attrs['disabled'] = 'disabled';
+      }
       if ( array_key_exists( 'maxlength', $other_args ) ) {
         $maxlength = $other_args['maxlength'];
         // is this an unnecessary performance load? Get the substring of the
         // text on every key press or release, regardless of the current length
         // of the text
-        $js_call = " onKeyDown=\"this.value = this.value.substring(0, $maxlength);\" onKeyUp=\"this.value = this.value.substring(0, $maxlength);\"";
-      } else {
-        $js_call = "";
+	$textarea_attrs['onKeyDown'] = "this.value = this.value.substring(0, $maxlength);";
+        $textarea_attrs['onKeyUp'] = "this.value = this.value.substring(0, $maxlength);";
       }
-      $text = "";
-      if ( array_key_exists( 'autogrow', $other_args ) ) {
-        $text .= <<<END
-<script type="text/javascript">
-	jQuery.noConflict();
-	jQuery(document).ready(function() {
-		jQuery("#$input_id").autoGrow();
-	});
-</script>
-
-END;
-        $className .= ' autoGrow';
-      }
-
-      $text .= <<<END
-	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text $js_call></textarea>            
-END;
+      $textarea_input = Xml::element('textarea', $textarea_attrs, '', false);
+      $text .= $textarea_input;
     } else {
       if ( array_key_exists( 'size', $other_args ) )
         $size = $other_args['size'];
@@ -593,14 +574,13 @@ END;
         $options_str_key .= "," . $delimiter;
       }
     }
-    $options_str_key = str_replace( "'", "\'", $options_str_key );
-    $javascript_text = "autocompletemappings[$sfgFieldNum] = '$options_str_key';\n";
+    $sfgAutocompleteMappings[$sfgFieldNum] = $options_str_key;
     if ( array_key_exists( 'remote autocompletion', $other_args ) &&
         $other_args['remote autocompletion'] == true ) {
-      $javascript_text .= "autocompletedatatypes['$options_str_key'] = '$autocomplete_field_type';\n";
+      $sfgAutocompleteDataTypes[$options_str_key] = $autocomplete_field_type;
     } elseif ( $autocompletion_source != '' ) {
-      $autocomplete_string = self::createAutocompleteValuesString( $autocompletion_source, $autocomplete_field_type );
-      $javascript_text .= "autocompletestrings['$options_str_key'] = $autocomplete_string;\n";
+      $autocomplete_values = self::getAutocompleteValues( $autocompletion_source, $autocomplete_field_type );
+      $sfgAutocompleteValues[$options_str_key] = $autocomplete_values;
     }
     if ( $cur_value ) {
       // replace various values to not break the Javascript
@@ -610,7 +590,7 @@ END;
       $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
     }
     $text .= '/* ]]> */</script>';
-    return array( $text, $javascript_text );
+    return array( $text, null );
   }
 
   static function textAreaHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
@@ -627,7 +607,7 @@ END;
         return SFFormInputs::textInputWithAutocompleteHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
     }
 
-    global $sfgTabIndex, $sfgFieldNum, $smwgScriptPath, $sfgScriptPath,$wgOut;
+    global $sfgTabIndex, $sfgFieldNum, $smwgScriptPath, $sfgScriptPath, $sfgAutogrowInputs;
 
     $className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -635,39 +615,43 @@ END;
     $info_id = "info_$sfgFieldNum";
     // use a special ID for the free text field, for FCK's needs
     $input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
-    $disabled_text = ( $is_disabled ) ? "disabled" : "";
 
     $rows = $other_args['rows'];
     $cols = $other_args['cols'];
+
+    $cur_value = htmlspecialchars( $cur_value );
+    $text = "";
+    if ( array_key_exists( 'autogrow', $other_args ) ) {
+      $sfgAutogrowInputs[] = $input_id;
+      $className .= ' autoGrow';
+      if ( ! method_exists( 'OutputPage', 'addModules' ) ) {
+        global $wgOut;
+        $wgOut->addScriptFile( "$sfgScriptPath/libs/SF_autogrow.js" );
+      }
+    }
+
+    $textarea_attrs = array(
+      'tabindex' => $sfgTabIndex,
+      'id' => $input_id,
+      'name' => $input_name,
+      'rows' => $rows,
+      'cols' => $cols,
+      'class' => $className,
+    );
+    if ( $is_disabled ) {
+      $textarea_attrs['disabled'] = 'disabled';
+    }
     if ( array_key_exists( 'maxlength', $other_args ) ) {
       $maxlength = $other_args['maxlength'];
       // is this an unnecessary performance load? Get the substring of the
       // text on every key press or release, regardless of the current length
       // of the text
-      $js_call = " onKeyDown=\"this.value = this.value.substring(0, $maxlength);\" onKeyUp=\"this.value = this.value.substring(0, $maxlength);\"";
-    } else {
-      $js_call = "";
+      $textarea_attrs['onKeyDown'] = "this.value = this.value.substring(0, $maxlength);";
+      $textarea_attrs['onKeyUp'] = "this.value = this.value.substring(0, $maxlength);";
     }
-
-    $cur_value = htmlspecialchars( $cur_value );
-    $text = "";
-    if ( array_key_exists( 'autogrow', $other_args ) ) {
-      $wgOut->addScriptFile( "$sfgScriptPath/libs/SF_autogrow.js" );
-      $text .= <<<END
-<script type="text/javascript">
-	jQuery.noConflict();
-	jQuery(document).ready(function(){
-		jQuery("#$input_id").autoGrow();
-	});
-</script>
-
-END;
-      $className .= ' autoGrow';
-    }
-
+    $textarea_input = Xml::element( 'textarea', $textarea_attrs, '', false );
     $text .= <<<END
-
-	<textarea tabindex="$sfgTabIndex" id="$input_id" name="$input_name" rows="$rows" cols="$cols" class="$className" $disabled_text $js_call>$cur_value</textarea>
+	$textarea_input
 	<span id="$info_id" class="errorMessage"></span>
 
 END;
@@ -808,11 +792,11 @@ END;
       $text .= '  <input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[timezone]" type="text" value="' . $timezone . '" size="2"/ ' . $disabled_text . '>' . "\n";
     }
 
-    return array( $text, $javascript_text );
+    return array( $text, null );
   }
 
   static function radioButtonHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelectCalls;
 
     $span_class = "checkboxSpan";
     if ( array_key_exists( 'class', $other_args ) )
@@ -905,7 +889,6 @@ END;
 END;
 
     // Finally, we do the 'show on select' handling.
-    $return_js_text = '';
     if ( array_key_exists( 'show on select', $other_args ) ) {
       foreach ( $other_args['show on select'] as $div_id => $options ) {
         $cur_input_ids = array();
@@ -919,32 +902,23 @@ END;
 		continue;
 	}
         $options_str = "['" . implode( "', '", $cur_input_ids ) . "']";
-        $cur_js_text = "showIfChecked($options_str, '$div_id'); ";
-        $return_js_text .= $cur_js_text . "\n";
+        $js_text = "showIfChecked($options_str, '$div_id');";
+        $sfgShowOnSelectCalls[] = $js_text;
         foreach ( $possible_values as $key => $possible_value ) {
           // We need to add each click handler to each radiobutton,
           // because there doesn't seem to be any way for a radiobutton
           // to know that it was unchecked - rather, the newly-checked
           // radiobutton has to handle the change.
           foreach ( $enum_input_ids as $cur_input_id ) {
-            // we use addClickHandler(), instead of adding the Javascript via
-            // onClick="", because MediaWiki's wikibits.js does its own handling
-            // of checkboxes, which impacts their behavior in IE
             if ( in_array( $possible_value, $options ) ) {
-              $return_js_text .= <<<END
-addClickHandler(
-	document.getElementById('$cur_input_id'),
-	function() { $cur_js_text }
-);
-
-END;
+              $sfgShowOnSelectCalls[] = "$('#$cur_input_id').click( function() { $js_text } );";
             }
           }
         }
       }
     }
 
-    return array( $text, $return_js_text );
+    return array( $text, null );
   }
 
   static function checkboxHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
@@ -956,21 +930,10 @@ END;
     $info_id = "info_$sfgFieldNum";
     $input_id = "input_$sfgFieldNum";
     $disabled_text = ( $is_disabled ) ? "disabled" : "";
-    $return_js_text = '';
     if ( array_key_exists( 'show on select', $other_args ) ) {
       $div_id = key( $other_args['show on select'] );
-      $this_js_text = "showIfChecked(['$input_id'], '$div_id');";
-      // we use addClickHandler(), instead of adding the Javascript via
-      // onClick="", because MediaWiki's wikibits.js does its own handling
-      // of checkboxes, which impacts their behavior in IE
-      $return_js_text = <<<END
-$this_js_text;
-addClickHandler(
-	document.getElementById("$input_id"),
-	function() { $this_js_text }
-);
-
-END;
+      $js_text = "showIfChecked(['$input_id'], '$div_id');";
+      $sfgShowOnSelectCalls[] = "$('#$input_id').click( function() { $js_text } );";
     }
 
     // can show up here either as an array or a string, depending on
@@ -994,7 +957,7 @@ END;
 	<span id="$info_id" class="errorMessage"></span>
 
 END;
-    return array( $text, $return_js_text );
+    return array( $text, null );
   }
 
   static function categoryHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
