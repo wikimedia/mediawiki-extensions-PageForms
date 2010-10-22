@@ -102,12 +102,86 @@ END;
 	}
 
 	/**
+	 * Defines all the ResourceLoader modules needed for SF Javascript
+	 * and CSS
+	 */
+	static function registerModules( $resourceLoader ) {
+		global $sfgPartialPath, $smwgScriptPath;
+
+		$resourceLoader->register(
+			array(
+				'semanticforms.main' =>
+				new ResourceLoaderFileModule(
+					array(
+						'scripts' =>
+						"$sfgPartialPath/libs/SemanticForms.js",
+						'styles' =>
+						array(
+							"$sfgPartialPath/skins/SemanticForms.css",
+							"$sfgPartialPath/skins/SF_jquery_ui_overrides.css",
+						),
+					)
+				),
+				'semanticforms.fancybox' =>
+				new ResourceLoaderFileModule(
+					array(
+						'scripts' =>
+						"$sfgPartialPath/libs/jquery.fancybox-1.3.1.js",
+						'styles' =>
+						"$sfgPartialPath/skins/jquery.fancybox-1.3.1.css",
+					)
+				),
+				'semanticforms.autogrow' =>
+				new ResourceLoaderFileModule(
+					array(
+						'scripts' =>
+						"$sfgPartialPath/libs/SF_autogrow.js",
+					)
+				),
+				'semanticforms.smw_utilities' =>
+				new ResourceLoaderFileModule(
+					array(
+						'scripts' =>
+						// no $smwgPartialPath variable exists yet
+						"/extensions/SemanticMediaWiki/skins/SMW_tooltip.js",
+						"/extension/SemanticMediaWiki/skins/SMW_sorttable.js",
+					)
+				),
+			)
+		);
+
+		return true;
+	}
+
+	/**
+	 * Uses the ResourceLoader (available with MediaWiki 1.17 and higher)
+	 * to load all the necessary JS and CSS files for Semantic Forms.
+	 */
+	static function loadJavascriptAndCSS() {
+		global $wgOut;
+		$wgOut->addModules( 'jquery' );
+		$wgOut->addModules( 'jquery.ui.autocomplete' );
+		$wgOut->addModules( 'jquery.ui.button' );
+		$wgOut->addModules( 'semanticforms.main' );
+		$wgOut->addModules( 'semanticforms.fancybox' );
+		$wgOut->addModules( 'semanticforms.autogrow' );
+		$wgOut->addModules( 'semanticforms.smw_utilities' );
+		global $sfgFancyBoxIncluded;
+		$sfgFancyBoxIncluded = true;
+	}
+
+	/**
 	 * Includes the necessary Javascript and CSS files for the form
 	 * to display and work correctly
 	 * 
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
 	static function addJavascriptAndCSS( $parser = NULL ) {
+		// MW 1.17 +
+		if ( class_exists( 'ResourceLoader' ) ) {
+			self::loadJavascriptAndCSS();
+			return;
+		}
 		global $wgOut, $sfgScriptPath, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir, $wgJsMimeType, $sfgUseFormEditPage;
 		global $smwgJQueryIncluded, $smwgJQUIAutoIncluded;
 		// jQuery and jQuery UI are used so often in forms, we might as
@@ -134,7 +208,6 @@ END;
 			else
 				$wgOut->addLink( $link );
 		}
-		$wgOut->addStyle( "$sfgScriptPath/skins/SF_IEfixes.css", 'screen', 'IE' );
 		
 		$scripts = array();
 		if ( !$sfgUseFormEditPage )
@@ -160,6 +233,7 @@ END;
 				$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
 				$parser->getOutput()->addHeadItem( $script );
 			} else {
+				global $wgOut;
 				$wgOut->addScriptFile( $js );
 			}
 		}
