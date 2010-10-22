@@ -27,31 +27,31 @@ class SFUploadWindow2 extends SpecialPage {
 	}
 
 	/** Misc variables **/
-	protected $mRequest;			// The WebRequest or FauxRequest this form is supposed to handle
-	protected $mSourceType;
-	protected $mUpload;
-	protected $mLocalFile;
-	protected $mUploadClicked;
+	public $mRequest;			// The WebRequest or FauxRequest this form is supposed to handle
+	public $mSourceType;
+	public $mUpload;
+	public $mLocalFile;
+	public $mUploadClicked;
 
 	/** User input variables from the "description" section **/
-	protected $mDesiredDestName;	// The requested target file name
-	protected $mComment;
-	protected $mLicense;
+	public $mDesiredDestName;	// The requested target file name
+	public $mComment;
+	public $mLicense;
 
 	/** User input variables from the root section **/
-	protected $mIgnoreWarning;
-	protected $mWatchThis;
-	protected $mCopyrightStatus;
-	protected $mCopyrightSource;
+	public $mIgnoreWarning;
+	public $mWatchThis;
+	public $mCopyrightStatus;
+	public $mCopyrightSource;
 
 	/** Hidden variables **/
-	protected $mForReUpload;		// The user followed an "overwrite this file" link
-	protected $mCancelUpload;		// The user clicked "Cancel and return to upload form" button
-	protected $mTokenOk;
+	public $mForReUpload;		// The user followed an "overwrite this file" link
+	public $mCancelUpload;		// The user clicked "Cancel and return to upload form" button
+	public $mTokenOk;
 
 	/** used by Semantic Forms **/
-	protected $mInputID;
-	protected $mDelimiter;
+	public $mInputID;
+	public $mDelimiter;
 
 	/**
 	 * Initialize instance variables from request and create an Upload handler
@@ -697,6 +697,7 @@ class SFUploadForm extends HTMLForm {
 	protected $mForReUpload;
 	protected $mSessionKey;
 	protected $mHideIgnoreWarning;
+	protected $mDestWarningAck;
 	
 	protected $mSourceIds;
 
