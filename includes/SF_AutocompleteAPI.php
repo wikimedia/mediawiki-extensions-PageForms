@@ -60,9 +60,13 @@ class SFAutocompleteAPI extends ApiBase {
 			$data = array();
 		}
 		
+		// to prevent JS parsing problems, display should be the same
+		// even if there are no results
+		/*
 		if ( count( $data ) <= 0 ) {
 			return;
 		}
+		 */
 
 		// Set top-level elements.
 		$result = $this->getResult();
