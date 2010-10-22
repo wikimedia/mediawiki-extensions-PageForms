@@ -265,20 +265,11 @@ class SFParserFunctions {
 			if ( $input_num == 1 ) {
 				$parser->disableCache();
 				SFUtils::addJavascriptAndCSS();
-				$autocompletion_javascript = SFFormUtils::autocompletionJavascript();
 			}
-			$autocompletion_str = SFFormInputs::createAutocompleteValuesString( $inAutocompletionSource, $autocompletion_type );
-			$javascript_text = <<<END
-		<script type="text/javascript"> 
-/*<![CDATA[*/ 
-$autocompletion_javascript
-autocompletemappings[$input_num] = 'input_{$input_num}';
-autocompletestrings['input_{$input_num}'] = $autocompletion_str;
- /*]]>*/</script>
-
-END;
-			global $wgOut;
-			$wgOut->addScript( $javascript_text );
+			$autocompletion_values = SFFormInputs::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
+			global $sfgAutocompleteMappings, $sfgAutocompleteValues;
+			$sfgAutocompleteMappings[$input_num] = "input_$input_num";
+			$sfgAutocompleteValues["input_$input_num"] = $autocompletion_values;
 		}
 
 		$fs = SpecialPage::getPage( 'FormStart' );
