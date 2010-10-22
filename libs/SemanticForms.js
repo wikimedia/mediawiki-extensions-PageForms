@@ -56,11 +56,21 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
             
    /* delimiter != '' means multiple autocomplete */
 
-        if (delimiter != null) {
+	if (delimiter != null) {
+	   // Special handling for "\n" - if it's that, change it to an
+	   // actual newline - otherwise, add a space to the end.
+	   // This doesn't cover the case of a delimiter that's a newline
+	   // plus something else, like ".\n" or "\n\n", but in our
+	   // experience no one has yet needed that.
+	   if ( delimiter == "\\n" ) {
+		delimiter = "\n";
+	    } else {
+		delimiter += " ";
+	    }
 
             jQuery(document).ready(function(){
                 function split(val) {
-                    return val.split(delimiter+" ");
+                    return val.split(delimiter);
                 }
 		function extractLast(term) {
 			return split(term).pop();
@@ -84,7 +94,7 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
 				terms.push( ui.item.value );
 				// add placeholder to get the comma-and-space at the end
 				terms.push("");
-				this.value = terms.join(delimiter+" ");
+				this.value = terms.join(delimiter);
 				return false;
 			}
 		});              
@@ -595,8 +605,7 @@ function attachAutocompleteToField(input_id)
 		var field_string = sfgAutocompleteMappings[field_num];
 		if (field_string) {
 			var div_id = input_id.replace(/input_/g, 'div_');
-			var field_values = new Array();
-			field_values = field_string.split(',');
+			var field_values = field_string.split(',');
 			var delimiter = null;
 			var data_source = field_values[0];
 			if (field_values[1] == 'list') {
