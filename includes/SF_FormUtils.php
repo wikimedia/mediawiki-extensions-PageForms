@@ -9,410 +9,31 @@
  */
 
 class SFFormUtils {
+	static function setGlobalJSVariables( &$vars ) {
+		global $sfgAdderButtons, $sfgRemoverButtons;
+		global $sfgAutocompleteMappings, $sfgAutocompleteDataTypes, $sfgAutocompleteValues;
+		global $sfgAutocompleteOnAllChars, $sfgComboBoxInputs, $sfgAutogrowInputs;
+		global $sfgJSValidationCalls, $sfgShowOnSelectCalls;
 
-	/**
-	 * All the Javascript calls to validate both the type of each
-	 * form field and their presence, for mandatory fields
-	 */
-	static function validationJavascript() {
-		global $sfgJSValidationCalls;
-
-		$form_errors_header = Xml::escapeJsString( wfMsg( 'sf_formerrors_header' ) );
-		$blank_error_str = Xml::escapeJsString( wfMsg( 'sf_blank_error' ) );
-		$bad_url_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_url_error' ) );
-		$bad_email_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_email_error' ) );
-		$bad_number_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_number_error' ) );
-		$bad_integer_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_integer_error' ) );
-		$bad_date_error_str = Xml::escapeJsString( wfMsg( 'sf_bad_date_error' ) );
-
-		$javascript_text = <<<END
-
-function validate_mandatory_field(field_id, info_id) {
-	var field = document.getElementById(field_id);
-	// if there's nothing at that field ID, ignore it - it's probably
-	// a hidden field
-	if (field == null) {
+		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
+		$vars['sfgAdderButtons'] = $sfgAdderButtons;
+		$vars['sfgRemoverButtons'] = $sfgRemoverButtons;
+		$vars['autocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
+		$vars['sfgAutocompleteMappings'] = $sfgAutocompleteMappings;
+		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
+		$vars['sfgAutocompleteDataTypes'] = $sfgAutocompleteDataTypes;
+		$vars['sfgComboBoxInputs'] = $sfgComboBoxInputs;
+		$vars['sfgAutogrowInputs'] = $sfgAutogrowInputs;
+		$vars['sfgFormErrorsHeader'] = Xml::escapeJsString( wfMsg( 'sf_formerrors_header' ) );
+		$vars['sfgBlankErrorStr'] = Xml::escapeJsString( wfMsg( 'sf_blank_error' ) );
+		$vars['sfgBadURLErrorStr'] = Xml::escapeJsString( wfMsg( 'sf_bad_url_error' ) );
+		$vars['sfgBadEmailErrorStr'] = Xml::escapeJsString( wfMsg( 'sf_bad_email_error' ) );
+		$vars['sfgBadNumberErrorStr'] = Xml::escapeJsString( wfMsg( 'sf_bad_number_error' ) );
+		$vars['sfgBadIntegerErrorStr'] = Xml::escapeJsString( wfMsg( 'sf_bad_integer_error' ) );
+		$vars['sfgBadDateErrorStr'] = Xml::escapeJsString( wfMsg( 'sf_bad_date_error' ) );
+		$vars['sfgJSValidationCalls'] = $sfgJSValidationCalls;
+		$vars['sfgShowOnSelectCalls'] = $sfgShowOnSelectCalls;
 		return true;
-	}
-	if (field.value.replace(/\s+/, '') == '') {
-		var info_span = document.getElementById(info_id);
-		if ( info_span == null ) {
-			alert ("no info span found at " + info_id + "!");
-		} else {
-			info_span.innerHTML = "$blank_error_str";
-		}
-		return false;
-	} else {
-		return true;
-	}
-}
-
-// special handling for radiobuttons, because what's being checked
-// is the first radiobutton, which has value of "None"
-function validate_mandatory_radiobutton(none_button_id, info_id) {
-	none_button = document.getElementById(none_button_id);
-	if (none_button && none_button.checked) {
-		info_span = document.getElementById(info_id);
-		info_span.innerHTML = "$blank_error_str";
-		return false;
-	} else {
-		return true;
-	}
-}
-
-function validate_mandatory_combobox(field_id, info_id) {
-	var field = jQuery('input#' + field_id);
-	// if there's nothing at that field ID, ignore it - it's probably
-	// a hidden field
-	if (field == null) {
-		return true;
-	}
-	// FIXME
-	// field.val() unfortunately doesn't work in IE - it just returns
-	// "undefined". For now, if that happens, just exit
-	var value = field.val();
-	if (value == undefined) {
-		alert(field.html());
-		return true;
-	}
-	if (value.replace(/\s+/, '') == '') {
-		var info_span = document.getElementById(info_id);
-		info_span.innerHTML = "$blank_error_str";
-		return false;
-	} else {
-		return true;
-	}
-}
-
-function validate_mandatory_checkboxes(field_id, info_id) {
-	// get all checkboxes - the "field_id" in this case is the span
-	// surrounding all the checkboxes
-	var checkboxes = jQuery('span#' + field_id + " > span > input");
-	var all_unchecked = true;
-	for (var i = 0; i < checkboxes.length; i++) {
-		if (checkboxes[i].checked) {
-			all_unchecked = false;
-		}
-	}
-	if (all_unchecked) {
-		info_span = document.getElementById(info_id);
-		info_span.innerHTML = "$blank_error_str";
-		return false;
-	} else {
-		return true;
-	}
-}
-
-// validate a mandatory field that exists across multiple instances of
-// a template - we have to find each one, matching on the pattern of its
-// ID, and validate it
-function validate_multiple_mandatory_fields(field_num) {
-	var num_errors = 0;
-	elems = document.getElementsByTagName("*");
-	var field_pattern = new RegExp('input_(.*)_' + field_num);
-	for (var i = 0; i < elems.length; i++) {
-		id = elems[i].id;
-		if (matches = field_pattern.exec(id)) {
-			instance_num = matches[1];
-			var input_name = "input_" + instance_num + "_" + field_num;
-			var info_name = "info_" + instance_num + "_" + field_num;
-			if (! validate_mandatory_field(input_name, info_name)) {
-				num_errors += 1;
-			}
-		}
-	}
-	return (num_errors == 0);
-}
-
-function validate_field_type(field_id, type, info_id) {
-	field = document.getElementById(field_id);
-	if (type != 'date' && field.value == '') {
-		return true;
-	} else {
-		if (type == 'URL') {
-			// code borrowed from http://snippets.dzone.com/posts/show/452
-			var url_regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-			if (url_regexp.test(field.value)) {
-				return true;
-			} else {
-				info_span = document.getElementById(info_id);
-				info_span.innerHTML = "$bad_url_error_str";
-				return false;
-			}
-		} else if (type == 'email') {
-			// code borrowed from http://javascript.internet.com/forms/email-validation---basic.html
-			var email_regexp = /^\s*\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+\s*$/;
-			if (email_regexp.test(field.value)) {
-				return true;
-			} else {
-				info_span = document.getElementById(info_id);
-				info_span.innerHTML = "$bad_email_error_str";
-				return false;
-			}
-		} else if (type == 'number') {
-			if (field.value.match(/^\s*\-?[\d\.,]+\s*$/)) {
-				return true;
-			} else {
-				info_span = document.getElementById(info_id);
-				info_span.innerHTML = "$bad_number_error_str";
-				return false;
-			}
-		} else if (type == 'date') {
-			// validate only if day and year fields are both filled in
-			day_field = document.getElementById(field_id + "_day");
-			year_field = document.getElementById(field_id + "_year");
-			if (day_field.value == '' || year_field.value == '') {
-				return true;
-			} else if (day_field.value.match(/^\d+$/) &&
-				day_field.value <= 31) {
-				// no year validation, since it can also include
-				// 'BC' and possibly other non-number strings
-				return true;
-			} else {
-				info_span = document.getElementById(info_id);
-				info_span.innerHTML = "$bad_date_error_str";
-				return false;
-			}
-		} else {
-			return true;
-		}
-	}
-}
-
-// same as validate_multiple_mandatory_fields(), but for type validation
-function validate_type_of_multiple_fields(field_num, type) {
-	var num_errors = 0;
-	elems = document.getElementsByTagName("*");
-	var field_pattern = new RegExp('input_(.*)_' + field_num);
-	for (var i = 0; i < elems.length; i++) {
-		id = elems[i].id;
-		if (matches = field_pattern.exec(id)) {
-			instance_num = matches[1];
-			var input_name = "input_" + instance_num + "_" + field_num;
-			var info_name = "info_" + instance_num + "_" + field_num;
-			if (! validate_field_type(input_name, type, info_name)) {
-				num_errors += 1;
-			}
-		}
-	}
-	return (num_errors == 0);
-}
-
-
-function validate_all() {
-	var num_errors = 0;
-
-END;
-		foreach ( $sfgJSValidationCalls as $function_call ) {
-			$javascript_text .= "	if (! $function_call) num_errors += 1;\n";
-		}
-		$javascript_text .= <<<END
-	if (num_errors > 0) {
-		// add error header, if it's not there already
-		if (! document.getElementById("form_error_header")) {
-			var errorMsg = document.createElement('div');
-			errorMsg.innerHTML = "<div id=\"form_error_header\" class=\"warningMessage\" style=\"font-size: medium\">$form_errors_header</div>";
-			document.getElementById("contentSub").appendChild(errorMsg);
-		}
-		scroll(0, 0);
-	}
-	return (num_errors == 0);
-}
-
-END;
-		return $javascript_text;
-	}
-
-	static function instancesJavascript() {
-		$remove_text = wfMsg( 'sf_formedit_remove' );
-		$javascript_text = <<<END
-
-var num_elements = 0;
-
-function addInstance(starter_div_id, main_div_id, tab_index)
-{
-	var starter_div = document.getElementById(starter_div_id);
-	var main_div = document.getElementById(main_div_id);
-	num_elements++;
-	
-	//Create the new instance
-	var new_div = starter_div.cloneNode(true);
-	var div_id = 'div_gen_' + num_elements;
-	new_div.className = 'multipleTemplate';
-	new_div.id = div_id;
-	new_div.style.display = 'block';
-	
-	// make internal ID unique for the relevant divs and spans, and replace
-	// the [num] index in the element names with an actual unique index
-	var children = new_div.getElementsByTagName('*');
-	// this array is needed to counteract an IE bug
-	var orig_children = starter_div.getElementsByTagName('*');
-	var fancybox_ids = new Array();
-	var x;
-	for (x = 0; x < children.length; x++) {
-		if (children[x].name)
-			children[x].name = children[x].name.replace(/\[num\]/g, '[' + num_elements + ']');
-		if (children[x].id)
-			children[x].id = children[x].id
-				.replace(/input_/g, 'input_' + num_elements + '_')
-				.replace(/info_/g, 'info_' + num_elements + '_')
-				.replace(/div_/g, 'div_' + num_elements + '_');
-		if (children[x].href)
-			children[x].href = children[x].href
-				.replace(/input_/g, 'input_' + num_elements + '_');
-		if (children[x].id.match("^fancybox")) {
-			fancybox_ids.push(children[x].id);
-		}
-
-		// for dropdowns, copy over selectedIndex from original div,
-		// to get around a bug in IE
-		if (children[x].type == 'select-one') {
-			children[x].selectedIndex = orig_children[x].selectedIndex;
-		}
-	}
-	if (children[x]) {
-		//We clone the last object
-		if (children[x].href) {
-			children[x].href = children[x].href
-				.replace(/input_/g, 'input_' + num_elements + '_')
-				.replace(/info_/g, 'info_' + num_elements + '_')
-				.replace(/div_/g, 'div_' + num_elements + '_');
-		}
-	}
-	// Since we clone the first object and we have uploadable field
-	// we must replace the input_ in order to let the printer return
-	// the value into the right field
-	//Create remove button
-	var remove_button = document.createElement('input');
-	remove_button.type = 'button';
-	remove_button.value = "$remove_text";
-	remove_button.tabIndex = tab_index;
-	remove_button.onclick = removeInstanceEventHandler(div_id);
-	new_div.appendChild(remove_button);
-	
-	//Add the new instance
-	main_div.appendChild(new_div);
-	attachAutocompleteToAllFields(new_div);
-
-	// For each 'upload file' link in this latest instance,
-	// add a call to fancybox()
-	for (x = 0; x < fancybox_ids.length; x++) {
-		jQuery("#" + fancybox_ids[x]).fancybox({
-			'width'         : '75%',
-			'height'        : '75%',
-			'autoScale'     : false,
-			'transitionIn'  : 'none',
-			'transitionOut' : 'none',
-			'type'          : 'iframe',
-			'overlayColor'  : '#222',
-			'overlayOpacity' : '0.8'
-		});
-	}
-}
-
-function removeInstanceEventHandler(this_div_id)
-{
-	return function() {
-		removeInstance(this_div_id);
-	};
-}
-
-function removeInstance(div_id) {
-	var olddiv = document.getElementById(div_id);
-	var parent = olddiv.parentNode;
-	parent.removeChild(olddiv);
-}
-
-END;
-		return $javascript_text;
-	}
-
-	static function autocompletionJavascript() {
-		global $wgScriptPath, $wgOut, $smwgScriptPath, $smwgJQueryIncluded;
-		global $sfgAutocompleteOnAllChars;
-
-		if ( !$smwgJQueryIncluded ) {
-			$wgOut->addScriptFile( "$smwgScriptPath/libs/jquery-1.4.2.min.js" );
-			$smwgJQueryIncluded = true;
-		}
-
-		// set a Javascript variable so that the matcher knows
-		// whether to match on characters anywhere within each string,
-		// or just (as is the default) the beginning of each word
-		if ( $sfgAutocompleteOnAllChars ) {
-			$autocompleteOnAllCharsStr = 'true';
-		} else {
-			$autocompleteOnAllCharsStr = 'false';
-		}
-
-		$javascript_text = <<<END
-var autocompleteOnAllChars = $autocompleteOnAllCharsStr;
-var autocompletemappings = new Array();
-var autocompletestrings = new Array();
-var autocompletedatatypes = new Array();
-
-//Activate autocomplete functionality for every field on the document
-function attachAutocompleteToAllDocumentFields()
-{
-	var forms = document.getElementsByTagName("form");
-	var x;
-	for (x = 0; x < forms.length; x++) {
-		if (forms[x].name == "createbox") {
-			attachAutocompleteToAllFields(forms[x]);
-		}	
-	}
-}
-
-//Activate autocomplete functionality for every field under the specified element
-function attachAutocompleteToAllFields(base)
-{
-	var inputs = base.getElementsByTagName("input");
-	var y;
-	for (y = 0; y < inputs.length; y++) {
-		attachAutocompleteToField(inputs[y].id);
-	}
-	// don't forget the textareas
-	inputs = base.getElementsByTagName("textarea");
-	for (y = 0; y < inputs.length; y++) {
-		attachAutocompleteToField(inputs[y].id);
-	}
-}
-
-//Activate autocomplete functionality for the specified field
-function attachAutocompleteToField(input_id)
-{
-	//Check input id for the proper format, to ensure this is for SF
-	if (input_id.substr(0,6) == 'input_')
-	{
-		//Extract the field ID number from the input field
-		var field_num = parseInt(input_id.substring(input_id.lastIndexOf('_') + 1, input_id.length),10);
-		//Add the autocomplete string, if a mapping exists.
-		var field_string = autocompletemappings[field_num];
-		if (field_string) {
-			var div_id = input_id.replace(/input_/g, 'div_');
-			var field_values = new Array();
-			field_values = field_string.split(',');
-			var delimiter = null;
-			var data_source = field_values[0];
-			if (field_values[1] == 'list') {
-				delimiter = ",";
-				if (field_values[2] != null) {
-					delimiter = field_values[2];
-				}
-			}
-			if (autocompletestrings[field_string] != null) {
-				sf_autocomplete(input_id, div_id, autocompletestrings[field_string], null, null, delimiter, data_source);
-			} else {
-				sf_autocomplete(input_id, div_id, null, "{$wgScriptPath}/api.php", autocompletedatatypes[field_string], delimiter, data_source);
-			}
-		}
-	}
-}
-
-jQuery.event.add(window, "load", attachAutocompleteToAllDocumentFields);
-
-END;
-		return $javascript_text;
 	}
 
 	static function hiddenFieldHTML( $input_name, $cur_value ) {
@@ -456,21 +77,6 @@ END;
 		return $additional_template_text;
 	}
 
-	/**
-	 * Helper function, for versions of MediaWiki that don't have
-	 * Xml::expandAttributes (i.e., before 1.13)
-	 */
-	static function expandAttributes( $attribs ) {
-		if ( method_exists( 'Xml', 'expandAttributes' ) ) {
-			return Xml::expandAttributes( $attribs );
-		} else {
-			$out = '';
-			foreach ( $attribs as $name => $val )
-				$out .= " {$name}=\"" . Sanitizer::encodeAttribute( $val ) . '"';
-			return $out;
-		}
-	}
-
 	static function summaryInputHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
@@ -478,7 +84,7 @@ END;
 		if ( $label == null )
 			$label = wfMsg( 'summary' );
 		$disabled_text = ( $is_disabled ) ? " disabled" : "";
-		$attr = self::expandAttributes( $attr );
+		$attr = Xml::expandAttributes( $attr );
 		$text = <<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
@@ -496,7 +102,7 @@ END;
 			$label = wfMsgExt( 'minoredit', array( 'parseinline' ) );
 		$accesskey = wfMsg( 'accesskey-minoredit' );
 		$tooltip = wfMsg( 'tooltip-minoredit' );
-		$attr = self::expandAttributes( $attr );
+		$attr = Xml::expandAttributes( $attr );
 		$text = <<<END
 	<input tabindex="$sfgTabIndex" type="checkbox" value="" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
 	<label for="wpMinoredit" title="$tooltip">$label</label>
@@ -527,7 +133,7 @@ END;
 			$label = wfMsgExt( 'watchthis', array( 'parseinline' ) );
 		$accesskey = htmlspecialchars( wfMsg( 'accesskey-watch' ) );
 		$tooltip = htmlspecialchars( wfMsg( 'tooltip-watch' ) );
-		$attr = self::expandAttributes( $attr );
+		$attr = Xml::expandAttributes( $attr );
 		$text = <<<END
 	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis'$checked_text$disabled_text$attr/>
 	<label for="wpWatchthis" title="$tooltip">$label</label>
