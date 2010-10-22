@@ -99,7 +99,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			if ( !$raw ) {
 				$action = htmlspecialchars( SpecialPage::getTitleFor( "RunQuery", $form_name )->getLocalURL() );
 				$text .= <<<END
-	<form name="createbox" onsubmit="return validate_all()" action="$action" method="post" class="createbox">
+	<form id="sfForm" name="createbox" action="$action" method="post" class="createbox">
 	<input type="hidden" name="query" value="true" />
 
 END;
