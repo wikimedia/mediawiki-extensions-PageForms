@@ -403,20 +403,33 @@ $messages['ar'] = array(
  * @author Basharh
  */
 $messages['arc'] = array(
+	'sf_createproperty_proptype' => 'ܐܕܫܐ:',
+	'templates' => 'ܩܠܒ̈ܐ',
+	'createtemplate' => 'ܒܪܝ ܩܠܒܐ',
+	'sf_createtemplate_namelabel' => 'ܫܡܐ ܕܩܠܒܐ:',
+	'sf_createtemplate_templatefields' => 'ܚܩܠ̈ܐ ܕܩܠܒ̈ܐ',
+	'sf_createtemplate_fieldname' => 'ܫܡܐ ܕܚܩܠܐ:',
 	'sf_createtemplate_aggregationlabel' => 'ܟܘܢܝܐ ܕܡܟܬܒܘܬܐ:',
 	'sf_createtemplate_deletefield' => 'ܫܘܦ',
+	'sf_createform_template' => 'ܩܠܒܐ:',
+	'sf_createform_field' => 'ܚܩܠܐ:',
 	'sf_createform_hidden' => 'ܛܘܫܝܐ',
 	'sf_createform_removetemplate' => 'ܠܚܝ ܩܠܒܐ',
+	'sf_createform_addtemplate' => 'ܐܘܣܦ ܩܠܒܐ:',
+	'sf_createform_beforetemplate' => 'ܩܕܡ ܩܠܒܐ:',
 	'sf_createform_add' => 'ܐܘܣܦ',
 	'createcategory' => 'ܒܪܝ ܣܕܪܐ',
 	'sf_createcategory_name' => 'ܫܡܐ ܕܣܕܪܐ:',
 	'sf_formstart_createoredit' => 'ܒܪܝ ܐܘ ܫܚܠܦ',
+	'sf_formedit_createtitle' => 'ܒܪܝ $1: $2',
 	'sf_editsource' => 'ܫܚܠܦ ܥܩܪܐ',
 	'sf_formedit_edittitle' => 'ܫܚܠܦ $1: $2',
 	'sf_formedit_remove' => 'ܠܚܝ',
 	'sf_formedit_addanother' => 'ܐܘܣܦ ܐܚܪܢܐ',
 	'sf_formedit_none' => 'ܠܐ ܡܕܡ',
 	'uploadwindow' => 'ܐܣܩ ܟܘܬܐ',
+	'sf_deletionlog' => 'ܣܓܠܐ ܕܫܝܦܐ',
+	'sf_form_freetextlabel' => 'ܟܬܒܬܐ ܚܐܪܬܐ',
 	'sf_blank_namespace' => 'ܪܫܝܬܐ',
 );
 
@@ -4144,6 +4157,7 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 );
 
 /** Malayalam (മലയാളം)
+ * @author Praveenp
  * @author Shijualex
  */
 $messages['ml'] = array(
@@ -4177,9 +4191,9 @@ $messages['ml'] = array(
 	'sf_createcategory_defaultform' => 'സ്വതവെയുള്ള ഫോം:',
 	'sf_createcategory_makesubcategory' => 'ഇതു മറ്റൊരു വർഗ്ഗത്തിന്റെ ഉപവർഗ്ഗമാക്കുക (നിർബന്ധമില്ല):',
 	'sf_formstart_badform' => 'പിഴവ്: $1ല്‍ ഫോം താള്‍ ഒന്നും കണ്ടില്ല',
-	'sf_formstart_createoredit' => 'ചേര്‍ക്കുക അല്ലെങ്കില്‍ തിരുത്തുക',
+	'sf_formstart_createoredit' => 'സൃഷ്ടിക്കുക അല്ലെങ്കിൽ തിരുത്തുക',
 	'formedit' => 'ഫോം ഉപയോഗിച്ചു തിരുത്തുക',
-	'sf_formedit_createtitle' => '$1 ചേര്‍ക്കുക: $2',
+	'sf_formedit_createtitle' => '$1 സൃഷ്ടിക്കുക: $2',
 	'sf_formedit_altformsonly' => 'ഈ താള്‍ ചേര്‍ക്കുവാന്‍ താഴെ കൊടുത്തിട്ടുള്ള ഫോമുകളില്‍ ഒന്ന് തിരഞ്ഞെടുക്കുക:',
 	'sf_viewform' => 'ഫോം കാണുക',
 	'sf_editsource' => 'മൂലരൂപം തിരുത്തുക',
@@ -6152,6 +6166,7 @@ $messages['te'] = array(
 	'sf_bad_number_error' => 'ఖచ్చితంగా ఓ సంఖ్య అయివుండాలి',
 	'sf_bad_integer_error' => 'సరైన పూర్ణసంఖ్య అయివుండాలి',
 	'sf_bad_date_error' => 'సరైన తేదీ అయివుండాలి',
+	'uploadwindow' => 'ఎక్కింపు కిటికీ',
 	'sf_deletionlog' => 'తొలగింపు చిట్టా',
 	'sf_form_freetextlabel' => 'స్వేచ్ఛా పాఠ్యం',
 	'sf_category_hasdefaultform' => 'ఈ వర్గం $1 అనే ఫారాన్ని వాడుతుంది.',
