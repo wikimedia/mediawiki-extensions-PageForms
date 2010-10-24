@@ -22,24 +22,37 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
     jQuery.noConflict();
 
 /* extending jquery functions for custom highlighting */
-     jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
+    jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
-          var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + this.term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi");
-          var loc = item.label.search(re);
-	  if (loc >= 0) {
-          	var t = item.label.substr(0, loc) + '<strong>' + item.label.substr(loc, this.term.length) + '</strong>' + item.label.substr(loc + this.term.length);
+	var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + this.term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi");
+	var loc = item.label.search(re);
+	if (loc >= 0) {
+		var t = item.label.substr(0, loc) + '<strong>' + item.label.substr(loc, this.term.length) + '</strong>' + item.label.substr(loc + this.term.length);
 	} else {
 		var t = item.label;
 	}
-          return jQuery( "<li></li>" )
-              .data( "item.autocomplete", item )
-              .append( " <a>" + t + "</a>" )
-              .appendTo( ul );
-      };
+        return jQuery( "<li></li>" )
+		.data( "item.autocomplete", item )
+		.append( " <a>" + t + "</a>" )
+		.appendTo( ul );
+	};
 
-/* extending jquery functions  */
-      jQuery.extend( jQuery.ui.autocomplete, {	
-	filter: function(array, term) {
+	// Modify the delimiter. If it's "\n", change it to an actual
+	// newline - otherwise, add a space to the end.
+	// This doesn't cover the case of a delimiter that's a newline
+	// plus something else, like ".\n" or "\n\n", but as far as we
+	// know no one has yet needed that.
+	if ( delimiter != null ) {
+	   if ( delimiter == "\\n" ) {
+		delimiter = "\n";
+	    } else {
+		delimiter += " ";
+	    }
+	}
+
+	/* extending jquery functions  */
+	jQuery.extend( jQuery.ui.autocomplete, {	
+	    filter: function(array, term) {
 		if ( autocompleteOnAllChars ) {
 			var matcher = new RegExp(jQuery.ui.autocomplete.escapeRegex(term), "i" );
 		} else {
@@ -48,26 +61,14 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
 		return jQuery.grep( array, function(value) {
 			return matcher.test( value.label || value.value || value );
 		});
-	}
-    });
-
+	    }
+	});
 
     if (values != null) {
             
    /* delimiter != '' means multiple autocomplete */
 
 	if (delimiter != null) {
-	   // Special handling for "\n" - if it's that, change it to an
-	   // actual newline - otherwise, add a space to the end.
-	   // This doesn't cover the case of a delimiter that's a newline
-	   // plus something else, like ".\n" or "\n\n", but in our
-	   // experience no one has yet needed that.
-	   if ( delimiter == "\\n" ) {
-		delimiter = "\n";
-	    } else {
-		delimiter += " ";
-	    }
-
             jQuery(document).ready(function(){
                 function split(val) {
                     return val.split(delimiter);
@@ -126,50 +127,50 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
             
             jQuery(document).ready(function(){
                 function split(val) {
-			return val.split(delimiter + " ");
+			return val.split(delimiter);
 		}
 		function extractLast(term) {
 			return split(term).pop();
 		}
-                        jQuery("#" + input_name).autocomplete({
-			source: function(request, response) {
-				jQuery.getJSON(myServer, {
-					substr: extractLast(request.term)
-				}, function( data ) {
-                            response(jQuery.map(data.sfautocomplete, function(item) {
-                                return {
-                                    value: item.title
-                                }
-                            }))
+		jQuery("#" + input_name).autocomplete({
+		source: function(request, response) {
+			jQuery.getJSON(myServer, {
+				substr: extractLast(request.term)
+			}, function( data ) {
+				response(jQuery.map(data.sfautocomplete, function(item) {
+					return {
+						value: item.title
+					}
+				}))
 
-					});
-			},
-			search: function() {
-				// custom minLength
-				var term = extractLast(this.value);
-				if (term.length < 1) {
-					return false;
-				}
-			},
-			focus: function() {
-				// prevent value inserted on focus
-				return false;
-			},
-			select: function(event, ui) {
-				var terms = split( this.value );
-				// remove the current input
-				terms.pop();
-				// add the selected item
-				terms.push( ui.item.value );
-				// add placeholder to get the comma-and-space at the end
-				terms.push("");
-				this.value = terms.join(delimiter+" ");
+			});
+		},
+		search: function() {
+			// custom minLength
+			var term = extractLast(this.value);
+			if (term.length < 1) {
 				return false;
 			}
-		});	
+		},
+		focus: function() {
+			// prevent value inserted on focus
+			return false;
+		},
+		select: function(event, ui) {
+			var terms = split( this.value );
+			// remove the current input
+			terms.pop();
+			// add the selected item
+			terms.push( ui.item.value );
+			// add placeholder to get the comma-and-space at the end
+			terms.push("");
+			this.value = terms.join(delimiter);
+			return false;
+		}
+	    });	
 
               
-            } );
+          } );
         } else {
 		jQuery(document).ready(function(){
 		jQuery("#" + input_name).autocomplete({
@@ -205,7 +206,7 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
 };
 
 /*
- * Functions for handling 'show on select' and 'show on check'
+ * Functions for handling 'show on select'
  */
 
 // show the relevant div if any one of the relevant options are passed in
@@ -222,6 +223,7 @@ function showIfSelected(input_id, options_array, div_id) {
 	the_div.style.display = 'none';
 }
 
+// Like showIfSelected(), but only for list boxes
 function showIfSelectedInListBox(input_id, options_array, div_id) {
 	the_input = document.getElementById(input_id);
 	the_div = document.getElementById(div_id);
@@ -257,6 +259,8 @@ function showIfChecked(checkbox_inputs, div_id) {
 	the_div.style.display = 'none';
 }
 
+// Evaluate an array of passed-in JS calls - this is a hack, but I can't
+// think of a better solution
 for (var i = 0; i < sfgShowOnSelectCalls.length; i++ ) {
 	eval(sfgShowOnSelectCalls[i]);
 }
@@ -281,7 +285,7 @@ function validate_mandatory_field(field_id, info_id) {
 	}
 }
 
-// special handling for radiobuttons, because what's being checked
+// Special handling for radiobuttons, because what's being checked
 // is the first radiobutton, which has value of "None"
 function validate_mandatory_radiobutton(none_button_id, info_id) {
 	none_button = document.getElementById(none_button_id);
@@ -414,7 +418,7 @@ function validate_field_type(field_id, type, info_id) {
 	}
 }
 
-// same as validate_multiple_mandatory_fields(), but for type validation
+// Same as validate_multiple_mandatory_fields(), but for type validation
 function validate_type_of_multiple_fields(field_num, type) {
 	var num_errors = 0;
 	elems = document.getElementsByTagName("*");
@@ -439,6 +443,8 @@ jQuery('#sfForm').submit( function() { return validate_all(); } );
 function validate_all() {
 	var num_errors = 0;
 
+	// evaluate all the passed-in JS validation calls - as with the
+	// "show on select" calls, this is a hack.
 	for (var i = 0; i < sfgJSValidationCalls.length; i++ ) {
 		if (! eval(sfgJSValidationCalls[i]) ) num_errors += 1;
 	}
@@ -566,7 +572,7 @@ function removeInstanceEventHandler(divID)
 	};
 }
 
-//Activate autocomplete functionality for every field on the document
+// Activate autocomplete functionality for every field on the document
 function attachAutocompleteToAllDocumentFields()
 {
 	var forms = document.getElementsByTagName("form");
@@ -578,7 +584,8 @@ function attachAutocompleteToAllDocumentFields()
 	}
 }
 
-//Activate autocomplete functionality for every field under the specified element
+// Activate autocomplete functionality for every field under the specified
+// element
 function attachAutocompleteToAllFields(base)
 {
 	var inputs = base.getElementsByTagName("input");
@@ -593,15 +600,15 @@ function attachAutocompleteToAllFields(base)
 	}
 }
 
-//Activate autocomplete functionality for the specified field
+// Activate autocomplete functionality for the specified field
 function attachAutocompleteToField(input_id)
 {
-	//Check input id for the proper format, to ensure this is for SF
+	// Check input id for the proper format, to ensure this is for SF
 	if (input_id.substr(0,6) == 'input_')
 	{
-		//Extract the field ID number from the input field
+		// Extract the field ID number from the input field
 		var field_num = parseInt(input_id.substring(input_id.lastIndexOf('_') + 1, input_id.length),10);
-		//Add the autocomplete string, if a mapping exists.
+		// Add the autocomplete string, if a mapping exists.
 		var field_string = sfgAutocompleteMappings[field_num];
 		if (field_string) {
 			var div_id = input_id.replace(/input_/g, 'div_');
@@ -713,4 +720,3 @@ for (var i = 0; i < sfgAutogrowInputs.length; i++ ) {
 	});
 
 })(jQuery);
-
