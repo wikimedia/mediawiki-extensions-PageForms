@@ -135,7 +135,7 @@ class SFParserFunctions {
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 		// set defaults
-		$inFormName = $inLinkStr = $inLinkType = $inQueryStr = '';
+		$inFormName = $inLinkStr = $inLinkType = $inQueryStr = $inTargetName = '';
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -153,6 +153,8 @@ class SFParserFunctions {
 				$inLinkType = $value;
 			elseif ( $param_name == 'query string' )
 				$inQueryStr = $value;
+			elseif ( $param_name == 'target' )
+				$inTargetName = $value;
 			elseif ( $i == 0 )
 				$inFormName = $param;
 			elseif ( $i == 1 )
@@ -165,6 +167,9 @@ class SFParserFunctions {
 
 		$ad = SpecialPage::getPage( 'FormEdit' );
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
+		if ( ! empty( $inTargetName ) ) {
+			$link_url .= "/$inTargetName";
+		}
 		$link_url = str_replace( ' ', '_', $link_url );
 		if ( $inQueryStr != '' ) {
 			// special handling for 'post button' - query string
