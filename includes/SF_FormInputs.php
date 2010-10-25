@@ -649,7 +649,7 @@ END;
       $textarea_attrs['onKeyDown'] = "this.value = this.value.substring(0, $maxlength);";
       $textarea_attrs['onKeyUp'] = "this.value = this.value.substring(0, $maxlength);";
     }
-    $textarea_input = Xml::element( 'textarea', $textarea_attrs, '', false );
+    $textarea_input = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
     $text .= <<<END
 	$textarea_input
 	<span id="$info_id" class="errorMessage"></span>
