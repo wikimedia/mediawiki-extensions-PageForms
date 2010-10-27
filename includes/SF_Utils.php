@@ -106,46 +106,39 @@ END;
 	 * and CSS
 	 */
 	static function registerModules( $resourceLoader ) {
-		global $sfgPartialPath, $smwgScriptPath;
+		global $wgExtensionAssetsPath;
+		$localpath = dirname( dirname( __FILE__ ) );
+		$remotepath = "$wgExtensionAssetsPath/SemanticForms";
 
 		$resourceLoader->register(
 			array(
-				'semanticforms.main' =>
-				new ResourceLoaderFileModule(
+				'semanticforms.main' => new ResourceLoaderFileModule(
 					array(
-						'scripts' =>
-						"$sfgPartialPath/libs/SemanticForms.js",
-						'styles' =>
-						array(
-							"$sfgPartialPath/skins/SemanticForms.css",
-							"$sfgPartialPath/skins/SF_jquery_ui_overrides.css",
+						'scripts' => 'libs/SemanticForms.js',
+						'styles' => array(
+							'skins/SemanticForms.css',
+							'skins/SF_jquery_ui_overrides.css',
 						),
-					)
+					), $localpath, $remotepath
 				),
-				'semanticforms.fancybox' =>
-				new ResourceLoaderFileModule(
+				'semanticforms.fancybox' => new ResourceLoaderFileModule(
 					array(
-						'scripts' =>
-						"$sfgPartialPath/libs/jquery.fancybox-1.3.1.js",
-						'styles' =>
-						"$sfgPartialPath/skins/jquery.fancybox-1.3.1.css",
-					)
+						'scripts' => 'libs/jquery.fancybox-1.3.1.js',
+						'styles' => 'skins/jquery.fancybox-1.3.1.css',
+					), $localpath, $remotepath
 				),
-				'semanticforms.autogrow' =>
-				new ResourceLoaderFileModule(
+				'semanticforms.autogrow' => new ResourceLoaderFileModule(
 					array(
-						'scripts' =>
-						"$sfgPartialPath/libs/SF_autogrow.js",
-					)
+						'scripts' => 'libs/SF_autogrow.js',
+					), $localpath, $remotepath
 				),
-				'semanticforms.smw_utilities' =>
-				new ResourceLoaderFileModule(
+				'semanticforms.smw_utilities' => new ResourceLoaderFileModule(
 					array(
-						'scripts' =>
-						// no $smwgPartialPath variable exists yet
-						"/extensions/SemanticMediaWiki/skins/SMW_tooltip.js",
-						"/extension/SemanticMediaWiki/skins/SMW_sorttable.js",
-					)
+						'scripts' => array(
+							'skins/SMW_tooltip.js',
+							'skins/SMW_sorttable.js',
+						)
+					), $localpath, $remotepath
 				),
 			)
 		);
