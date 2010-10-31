@@ -106,14 +106,15 @@ END;
 				$text .= $form_text;
 			}
 		}
-		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser:null );
-		$script = '		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
-		if ( $embedded )
-			$wgParser->getOutput()->addHeadItem( $script );
-		else
-			$wgOut->addScript( $script );
 		if ( $embedded )
 			$text = "<div class='runQueryEmbedded'>$text</div>";
 		$wgOut->addHTML( $text );
+		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser:null );
+		$script = '		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
+		if ( $embedded ) {
+			$wgParser->getOutput()->addHeadItem( $script );
+		} else {
+			$wgOut->addScript( $script );
+		}
 	}
 }
