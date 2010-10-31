@@ -124,7 +124,6 @@ class SFFormEdit extends SpecialPage {
 		} elseif ( $target_name == '' && $page_name_formula == '' ) {
 			$text = '<p class="error">' . wfMsg( 'sf_formedit_badurl' ) . "</p>\n";
 		} else {
-			SFUtils::addJavascriptAndCSS();
 			$form_article = new Article( $form_title );
 			$form_definition = $form_article->getContent();
 
@@ -249,6 +248,7 @@ END;
 		// if (! empty($javascript_text))
 		//	$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
 		$wgOut->addHTML( $text );
+		SFUtils::addJavascriptAndCSS();
 		if ( ! empty( $javascript_text ) ) {
 			$wgOut->addHTML( '		<script type="text/javascript">' . "\n$javascript_text\n" . '</script>' . "\n" );
 		}
