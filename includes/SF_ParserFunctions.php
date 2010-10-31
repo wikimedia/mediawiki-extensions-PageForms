@@ -266,7 +266,6 @@ class SFParserFunctions {
 			// disable the cache (so the Javascript will show up) -
 			// if there's more than one autocompleted #forminput
 			// on the page, we only need to do this the first time
-			$autocompletion_javascript = '';
 			if ( $input_num == 1 ) {
 				$parser->disableCache();
 				SFUtils::addJavascriptAndCSS();
