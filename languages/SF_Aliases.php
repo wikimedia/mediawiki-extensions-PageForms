@@ -72,6 +72,7 @@ $specialPageAliases['bs'] = array(
 
 /** Spanish (Español) */
 $specialPageAliases['es'] = array(
+	'CreateCategory' => array( 'CrearCategoría', 'Crear_categoría' ),
 	'Templates' => array( 'Plantillas' ),
 );
 
@@ -97,7 +98,7 @@ $specialPageAliases['fa'] = array(
 
 /** Finnish (Suomi) */
 $specialPageAliases['fi'] = array(
-	'CreateTemplate' => array( 'Luo malline' ),
+	'CreateTemplate' => array( 'Luo_malline' ),
 	'Templates' => array( 'Mallineet' ),
 );
 
@@ -162,15 +163,17 @@ $specialPageAliases['hu'] = array(
 
 /** Interlingua (Interlingua) */
 $specialPageAliases['ia'] = array(
-	'CreateCategory' => array( 'Crear categoria' ),
-	'CreateForm' => array( 'Crear formulario' ),
-	'CreateProperty' => array( 'Crear proprietate' ),
-	'CreateTemplate' => array( 'Crear patrono' ),
-	'FormEdit' => array( 'Modificar datos' ),
-	'FormStart' => array( 'Adder pagina' ),
+	'CreateCategory' => array( 'Crear_categoria' ),
+	'CreateClass' => array( 'Crear_classe' ),
+	'CreateForm' => array( 'Crear_formulario' ),
+	'CreateProperty' => array( 'Crear_proprietate' ),
+	'CreateTemplate' => array( 'Crear_patrono' ),
+	'FormEdit' => array( 'Modificar_datos' ),
+	'FormStart' => array( 'Adder_pagina' ),
 	'Forms' => array( 'Formularios' ),
+	'RunQuery' => array( 'Executar_consulta' ),
 	'Templates' => array( 'Patronos' ),
-	'UploadWindow' => array( 'Cargar fenestra' ),
+	'UploadWindow' => array( 'Cargar_fenestra' ),
 );
 
 /** Indonesian (Bahasa Indonesia) */
@@ -204,12 +207,14 @@ $specialPageAliases['it'] = array(
 /** Japanese (日本語) */
 $specialPageAliases['ja'] = array(
 	'CreateCategory' => array( 'カテゴリ作成' ),
+	'CreateClass' => array( 'クラス作成' ),
 	'CreateForm' => array( 'フォーム作成' ),
 	'CreateProperty' => array( 'プロパティ作成' ),
 	'CreateTemplate' => array( 'テンプレート作成' ),
 	'FormEdit' => array( 'データ編集' ),
 	'FormStart' => array( 'ページ追加' ),
 	'Forms' => array( 'フォーム一覧' ),
+	'RunQuery' => array( 'クエリ実行' ),
 	'Templates' => array( 'テンプレート一覧' ),
 	'UploadWindow' => array( 'アップロードウィンドウ' ),
 );
@@ -232,11 +237,11 @@ $specialPageAliases['km'] = array(
 
 /** Korean (한국어) */
 $specialPageAliases['ko'] = array(
-	'CreateCategory' => array( '카테고리 추가' ),
-	'CreateForm' => array( '양식 추가' ),
-	'CreateTemplate' => array( '틀 추가' ),
-	'FormEdit' => array( '데이터 편집' ),
-	'FormStart' => array( '페이지 추가' ),
+	'CreateCategory' => array( '카테고리추가' ),
+	'CreateForm' => array( '양식추가' ),
+	'CreateTemplate' => array( '틀추가' ),
+	'FormEdit' => array( '데이터편집' ),
+	'FormStart' => array( '페이지추가' ),
 	'Templates' => array( '틀' ),
 );
 
