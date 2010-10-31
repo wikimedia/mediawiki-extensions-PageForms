@@ -109,6 +109,10 @@ END;
 		global $wgExtensionAssetsPath;
 		$localpath = dirname( dirname( __FILE__ ) );
 		$remotepath = "$wgExtensionAssetsPath/SemanticForms";
+		// temporary workaround - using $wgExtensionAssetsPath
+		// doesn't currently work
+		global $sfgPartialPath;
+		$remotepath = $sfgPartialPath;
 
 		$resourceLoader->register(
 			array(
@@ -159,8 +163,6 @@ END;
 		$wgOut->addModules( 'semanticforms.fancybox' );
 		$wgOut->addModules( 'semanticforms.autogrow' );
 		$wgOut->addModules( 'semanticforms.smw_utilities' );
-		global $sfgFancyBoxIncluded;
-		$sfgFancyBoxIncluded = true;
 	}
 
 	/**
@@ -217,19 +219,24 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.button.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.position.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.autocomplete.min.js";
-		$scripts[] = "$sfgScriptPath/libs/SemanticForms.js";
 
 		if ( $wgFCKEditorDir )
 			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
+		global $wgOut;
 		foreach ( $scripts as $js ) {
 			if ( $parser ) {
 				$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
 				$parser->getOutput()->addHeadItem( $script );
 			} else {
-				global $wgOut;
 				$wgOut->addScriptFile( $js );
 			}
 		}
+		// The Semantic Forms custom Javascript needs to be included
+		// at the end of the page, after the relevant HTML elements
+		// have been defined.
+		$js = "$sfgScriptPath/libs/SemanticForms.js";
+		$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
+		$wgOut->addHTML( $script );
 		if ( !$parser )
 			$wgOut->addMeta( 'robots', 'noindex,nofollow' );
 	}
