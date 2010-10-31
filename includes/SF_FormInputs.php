@@ -51,7 +51,7 @@ class SFFormInputs {
     else
       $style = '';
 
-    if ( !$sfgFancyBoxIncluded ) {
+    if ( !$sfgFancyBoxIncluded &&  !class_exists( 'ResourceLoader' ) ) {
       $sfgFancyBoxIncluded = true;
       global $wgOut;
       $wgOut->addScriptFile( "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js" );
