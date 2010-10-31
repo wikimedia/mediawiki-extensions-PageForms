@@ -109,14 +109,10 @@ END;
 		global $wgExtensionAssetsPath;
 		$localpath = dirname( dirname( __FILE__ ) );
 		$remotepath = "$wgExtensionAssetsPath/SemanticForms";
-		// temporary workaround - using $wgExtensionAssetsPath
-		// doesn't currently work
-		global $sfgPartialPath;
-		$remotepath = $sfgPartialPath;
 
 		$resourceLoader->register(
 			array(
-				'semanticforms.main' => new ResourceLoaderFileModule(
+				'ext.semanticforms.main' => new ResourceLoaderFileModule(
 					array(
 						'scripts' => 'libs/SemanticForms.js',
 						'styles' => array(
@@ -125,23 +121,15 @@ END;
 						),
 					), $localpath, $remotepath
 				),
-				'semanticforms.fancybox' => new ResourceLoaderFileModule(
+				'ext.semanticforms.fancybox' => new ResourceLoaderFileModule(
 					array(
 						'scripts' => 'libs/jquery.fancybox-1.3.1.js',
 						'styles' => 'skins/jquery.fancybox-1.3.1.css',
 					), $localpath, $remotepath
 				),
-				'semanticforms.autogrow' => new ResourceLoaderFileModule(
+				'ext.semanticforms.autogrow' => new ResourceLoaderFileModule(
 					array(
 						'scripts' => 'libs/SF_autogrow.js',
-					), $localpath, $remotepath
-				),
-				'semanticforms.smw_utilities' => new ResourceLoaderFileModule(
-					array(
-						'scripts' => array(
-							'skins/SMW_tooltip.js',
-							'skins/SMW_sorttable.js',
-						)
 					), $localpath, $remotepath
 				),
 			)
@@ -159,10 +147,11 @@ END;
 		$wgOut->addModules( 'jquery' );
 		$wgOut->addModules( 'jquery.ui.autocomplete' );
 		$wgOut->addModules( 'jquery.ui.button' );
-		$wgOut->addModules( 'semanticforms.main' );
-		$wgOut->addModules( 'semanticforms.fancybox' );
-		$wgOut->addModules( 'semanticforms.autogrow' );
-		$wgOut->addModules( 'semanticforms.smw_utilities' );
+		$wgOut->addModules( 'ext.semanticforms.main' );
+		$wgOut->addModules( 'ext.semanticforms.fancybox' );
+		$wgOut->addModules( 'ext.semanticforms.autogrow' );
+		$wgOut->addModules( 'ext.smw.tooltips' );
+		$wgOut->addModules( 'ext.smw.sorttable' );
 	}
 
 	/**
