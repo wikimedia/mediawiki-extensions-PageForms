@@ -330,6 +330,7 @@ class SFFormPrinter {
           $template_name = trim( $tag_components[1] );
           $tif->template_name = $template_name;
           $query_template_name = str_replace( ' ', '_', $template_name );
+          $add_button_text = wfMsg( 'sf_formedit_addanother' );
           // also replace periods with underlines, since that's what
           // POST does to strings anyway
           $query_template_name = str_replace( '.', '_', $query_template_name );
@@ -342,6 +343,8 @@ class SFFormPrinter {
             if ( count( $sub_components ) == 2 ) {
               if ( $sub_components[0] == 'label' ) {
                 $template_label = $sub_components[1];
+              } elseif ( $sub_components[0] == 'add button text' ) {
+                $add_button_text = $sub_components[1];
               }
             }
           }
@@ -1159,11 +1162,10 @@ END;
          <div id="main_$query_template_name"></div>
 
 END;
-          $add_another = wfMsg( 'sf_formedit_addanother' );
           $adderID = "adder_$sfgFieldNum";
           $form_text .= <<<END
 	<p style="margin-left:10px;">
-	<p><input type="button" id="$adderID" value="$add_another" tabindex="$sfgTabIndex" class="addAnother" /></p>
+	<p><input type="button" id="$adderID" value="$add_button_text" tabindex="$sfgTabIndex" class="addAnother" /></p>
 
 END;
           $sfgAdderButtons[] = "$adderID,$query_template_name,$sfgFieldNum";
