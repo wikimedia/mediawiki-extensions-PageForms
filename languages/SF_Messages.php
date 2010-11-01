@@ -401,6 +401,7 @@ $messages['ar'] = array(
 
 /** Aramaic (ܐܪܡܝܐ)
  * @author Basharh
+ * @author Michaelovic
  */
 $messages['arc'] = array(
 	'sf_createproperty_proptype' => 'ܐܕܫܐ:',
@@ -422,7 +423,7 @@ $messages['arc'] = array(
 	'sf_createcategory_name' => 'ܫܡܐ ܕܣܕܪܐ:',
 	'sf_formstart_createoredit' => 'ܒܪܝ ܐܘ ܫܚܠܦ',
 	'sf_formedit_createtitle' => 'ܒܪܝ $1: $2',
-	'sf_editsource' => 'ܫܚܠܦ ܥܩܪܐ',
+	'sf_editsource' => 'ܫܚܠܦ ܡܒܘܥܐ',
 	'sf_formedit_edittitle' => 'ܫܚܠܦ $1: $2',
 	'sf_formedit_remove' => 'ܠܚܝ',
 	'sf_formedit_addanother' => 'ܐܘܣܦ ܐܚܪܢܐ',
