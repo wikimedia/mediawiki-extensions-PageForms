@@ -254,6 +254,10 @@ class SFLinkUtils {
 		$conditions = null;
 		if ( $article != NULL ) {
 			$titlekey = $article->mTitle->getArticleId();
+			if ( $titlekey == 0 ) {
+				// Something's wrong - exit
+				return $categories;
+			}
 			$conditions = "cl_from='$titlekey'";
 		}
 		$res = $db->select( $db->tableName( 'categorylinks' ),
