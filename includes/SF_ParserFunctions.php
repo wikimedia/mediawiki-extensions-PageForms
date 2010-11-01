@@ -281,13 +281,13 @@ class SFParserFunctions {
 		if ( empty( $inAutocompletionSource ) ) {
 			$str = <<<END
 			<form action="$fs_url" method="get">
-			<p><input type="text" name="page_name" size="$inSize" value="$inValue" />
+			<p><input type="text" name="page_name" size="$inSize" value="$inValue" class="formInput" />
 
 END;
 		} else {
 			$str = <<<END
 			<form name="createbox" action="$fs_url" method="get">
-			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput" />
+			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput formInput" />
 
 END;
 		}
