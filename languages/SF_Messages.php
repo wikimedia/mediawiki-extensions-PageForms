@@ -6690,9 +6690,9 @@ Voto ologol fometi ad läükön padi.',
 	'sf_formstart_noform_docu' => 'Penolös is padanemi e välolös fometi, me kel vilol redakön oni.
 If pad at ya dabinons, ologol fometi ad redakön padi dabinöl at.
 Voto ologol fometi ad läükön padi.',
-	'sf_formstart_createoredit' => 'Läükön u votükön',
+	'sf_formstart_createoredit' => 'Jafön u votükön',
 	'formedit' => 'Redakön me fomet',
-	'sf_formedit_createtitle' => 'Läükön $1: $2',
+	'sf_formedit_createtitle' => 'Jafön $1: $2-i',
 	'sf_formedit_badurl' => 'Pad at pagebon ad läükön nünodis. Mutoy penön fometanemi e zeilapadi ini el URL, kel muton logotön so: „Special:FormEdit?form=&lt;fometanem&gt;&target=&lt;zeilapad&gt;“, u: „Special:FormEdit/&lt;fometanem&gt;/&lt;zeilapad&gt;“.',
 	'sf_formedit_altforms' => 'Kanol plao läükön padi at me bal fometas fovik:',
 	'sf_formedit_altformsonly' => 'Välolös bali fometas sököl ad läükön padi at:',
