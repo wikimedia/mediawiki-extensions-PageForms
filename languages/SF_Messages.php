@@ -2554,10 +2554,10 @@ $messages['gu'] = array(
  * @author MacTire02
  */
 $messages['gv'] = array(
-	'sf_createproperty_propname' => 'Ennym:',
+	'sf_createproperty_propname' => 'Ennym tro:',
 	'sf_createtemplate_deletefield' => 'Scryss',
 	'createcategory' => 'Croo ronney',
-	'sf_createcategory_name' => 'Ennym:',
+	'sf_createcategory_name' => 'Ennym ronney:',
 );
 
 /** Hausa (هَوُسَ) */
