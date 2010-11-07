@@ -175,7 +175,7 @@ END;
       foreach ( $other_args['show on select'] as $div_id => $options ) {
         $options_str = implode( "', '", $options );
         $js_text = "showIfSelected('$input_id', ['$options_str'], '$div_id'); ";
-        $sfgShowOnSelectCalls[] = "$('#$input_id').change( function() { $js_text } );";
+        $sfgShowOnSelectCalls[] = "jQuery('#$input_id').change( function() { $js_text } );";
         $sfgShowOnSelectCalls[] = $js_text;
       }
     }
@@ -286,7 +286,7 @@ END;
         foreach ( $possible_values as $key => $possible_value ) {
           $cur_input_id = $enum_input_ids[$possible_value];
           if ( in_array( $possible_value, $options ) ) {
-            $sfgShowOnSelectCalls[] = "$('#$cur_input_id').click( function() { $js_text } );";
+            $sfgShowOnSelectCalls[] = "jQuery('#$cur_input_id').click( function() { $js_text } );";
           }
         }
       }
@@ -380,7 +380,7 @@ END;
         foreach ( $possible_values as $key => $possible_value ) {
           $cur_input_id = $enum_input_ids[$possible_value];
           if ( in_array( $possible_value, $options ) ) {
-            $sfgShowOnSelectCalls[] = "$('#$cur_input_id').click( function() { $js_text } );";
+            $sfgShowOnSelectCalls[] = "jQuery('#$cur_input_id').click( function() { $js_text } );";
           }
         }
       }
@@ -911,7 +911,7 @@ END;
           // radiobutton has to handle the change.
           foreach ( $enum_input_ids as $cur_input_id ) {
             if ( in_array( $possible_value, $options ) ) {
-              $sfgShowOnSelectCalls[] = "$('#$cur_input_id').click( function() { $js_text } );";
+              $sfgShowOnSelectCalls[] = "jQuery('#$cur_input_id').click( function() { $js_text } );";
             }
           }
         }
@@ -922,7 +922,7 @@ END;
   }
 
   static function checkboxHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-    global $sfgTabIndex, $sfgFieldNum;
+    global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelectCalls;
 
     $className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -933,7 +933,8 @@ END;
     if ( array_key_exists( 'show on select', $other_args ) ) {
       $div_id = key( $other_args['show on select'] );
       $js_text = "showIfChecked(['$input_id'], '$div_id');";
-      $sfgShowOnSelectCalls[] = "$('#$input_id').click( function() { $js_text } );";
+      $sfgShowOnSelectCalls[] = $js_text;
+      $sfgShowOnSelectCalls[] = "jQuery('#$input_id').click( function() { $js_text } );";
     }
 
     // can show up here either as an array or a string, depending on
