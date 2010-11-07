@@ -119,6 +119,10 @@ END;
 							'skins/SemanticForms.css',
 							'skins/SF_jquery_ui_overrides.css',
 						),
+						'dependencies' => array(
+							'jquery.ui.autocomplete',
+							'jquery.ui.button'
+						),
 					), $localpath, $remotepath
 				),
 				'ext.semanticforms.fancybox' => new ResourceLoaderFileModule(
@@ -144,9 +148,6 @@ END;
 	 */
 	static function loadJavascriptAndCSS() {
 		global $wgOut;
-		$wgOut->addModules( 'jquery' );
-		$wgOut->addModules( 'jquery.ui.autocomplete' );
-		$wgOut->addModules( 'jquery.ui.button' );
 		$wgOut->addModules( 'ext.semanticforms.main' );
 		$wgOut->addModules( 'ext.semanticforms.fancybox' );
 		$wgOut->addModules( 'ext.semanticforms.autogrow' );
