@@ -270,7 +270,7 @@ class SFParserFunctions {
 				$parser->disableCache();
 				SFUtils::addJavascriptAndCSS();
 			}
-			$autocompletion_values = SFFormInputs::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
+			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
 			global $sfgAutocompleteMappings, $sfgAutocompleteValues;
 			$sfgAutocompleteMappings[$input_num] = "input_$input_num";
 			$sfgAutocompleteValues["input_$input_num"] = $autocompletion_values;
