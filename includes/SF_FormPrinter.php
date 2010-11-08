@@ -699,7 +699,12 @@ class SFFormPrinter {
                 $field_args['cols'] = 80;
               $sfgTabIndex++;
               $sfgFieldNum++;
-              list( $new_text, $new_javascript_text ) = SFFormInputs::textAreaHTML( '!free_text!', 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
+              if ( $cur_value == '' ) {
+                $default_value = '!free_text!';
+              } else {
+                $default_value = $cur_value;
+              }
+              list( $new_text, $new_javascript_text ) = SFFormInputs::textAreaHTML( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
               if ( in_array( 'edittools', $free_text_components ) ) {
                 // borrowed from EditPage::showEditTools()
                 $options[] = 'parse';
