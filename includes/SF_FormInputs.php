@@ -619,7 +619,6 @@ END;
     $rows = $other_args['rows'];
     $cols = $other_args['cols'];
 
-    $cur_value = htmlspecialchars( $cur_value );
     $text = "";
     if ( array_key_exists( 'autogrow', $other_args ) ) {
       $sfgAutogrowInputs[] = $input_id;
