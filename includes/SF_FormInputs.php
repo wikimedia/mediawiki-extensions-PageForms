@@ -92,7 +92,7 @@ END;
   static function getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
     // if it's an autocomplete, call the with-autocomplete function instead
     if ( array_key_exists( 'autocompletion source', $other_args ) ) {
-        return self::textInputWithAutocompleteHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
+        return SFTextWithAutocompleteInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
     }
 
     // if there are possible values specified, call the dropdown function
