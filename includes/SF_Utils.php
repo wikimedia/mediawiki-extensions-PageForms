@@ -425,6 +425,42 @@ END;
 		return $pages;
 	}
 
+	/**
+	 * Creates an array of values that match the specified source name and type,
+	 * for use by both Javascript autocompletion and comboboxes.
+	 */
+	static function getAutocompleteValues( $source_name, $source_type ) {
+		$names_array = array();
+		// the query depends on whether this is a property, category, concept
+		// or namespace
+		if ( $source_type == 'property' || $source_type == 'attribute' || $source_type == 'relation' ) {
+			$names_array = self::getAllValuesForProperty( $source_name );
+		} elseif ( $source_type == 'category' ) {
+			$names_array = self::getAllPagesForCategory( $source_name, 10 );
+		} elseif ( $source_type == 'concept' ) {
+			$names_array = self::getAllPagesForConcept( $source_name );
+		} else { // i.e., $source_type == 'namespace'
+			// switch back to blank for main namespace
+			if ( $source_name == "Main" )
+				$source_name = "";
+			$names_array = self::getAllPagesForNamespace( $source_name );
+		}
+		return $names_array;
+	}
+
+	/**
+	 * Helper function to get an array of values out of what may be either
+	 * an array or a delimited string
+	 */
+	static function getValuesArray( $value, $delimiter ) {
+		if ( is_array( $value ) ) {
+			return $value;
+		} else {
+			// remove extra spaces
+			return array_map( 'trim', explode( $delimiter, $value ) );
+		}
+	}
+
 	static function getValuesFromExternalURL( $external_url_alias, $substring ) {
 		global $sfgAutocompletionURLs;
 		if ( empty( $sfgAutocompletionURLs ) ) return array();
