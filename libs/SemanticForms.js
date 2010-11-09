@@ -214,6 +214,7 @@ function sf_autocomplete(input_name, container_name, values, api_url, data_type,
 function showIfSelected(input_id, options_array, div_id) {
 	the_input = document.getElementById(input_id);
 	the_div = document.getElementById(div_id);
+	if ( the_div == null ) { return; }
         for (var i in options_array) {
 		if (the_input.value == options_array[i]) {
 			the_div.style.display = ''; // return to default
