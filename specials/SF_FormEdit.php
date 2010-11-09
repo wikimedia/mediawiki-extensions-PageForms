@@ -49,6 +49,11 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
+	static function makeRandomNumber() {
+		srand( time() );
+		return rand() % 1000000;
+	}
+
 	static function printForm( $form_name, $target_name, $alt_forms = array() ) {
 		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter;
 
@@ -177,15 +182,22 @@ class SFFormEdit extends SpecialPage {
 					$target_name = $wgParser->recursiveTagParse( $target_name );
 
 					if ( strpos( $target_name, '{num' ) ) {
+						$title_number = "";
+						$isRandom = false;
 						// get unique number start value
 						// from target name; if it's not
 						// there, or it's not a positive
 						// number, start it out as blank
 						preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $target_name, $matches );
 						if ( count( $matches ) == 2 && is_numeric( $matches[1] ) && $matches[1] >= 0 ) {
+							// the "start" value"
 							$title_number = $matches[1];
 						} else {
-							$title_number = "";
+							// random number
+							if ( preg_match( '/{num;random}/', $target_name, $matches ) ) {
+								$isRandom = true;
+								$title_number = self::makeRandomNumber();
+							}
 						}
 						// cycle through numbers for
 						// this tag until we find one
@@ -193,11 +205,18 @@ class SFFormEdit extends SpecialPage {
 						// title
 						do {
 							$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $target_name ) );
+							// create another title
+							// number in case we
+							// need it for the
+							// next loop
+							if ( $isRandom ) {
+								$title_number = self::makeRandomNumber();
+							}
 							// if title number is blank,
 							// change it to 2; otherwise,
 							// increment it, and if necessary
 							// pad it with leading 0s as well
-							if ( $title_number == "" ) {
+							elseif ( $title_number == "" ) {
 								$title_number = 2;
 							} else {
 								$title_number = str_pad( $title_number + 1, strlen( $title_number ), '0', STR_PAD_LEFT );
