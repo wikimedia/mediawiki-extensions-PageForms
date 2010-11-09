@@ -119,10 +119,10 @@ class SFUploadWindow2 extends SpecialPage {
 	 */
 	public function execute( $par ) {
 		global $wgUser, $wgOut, $wgRequest;
-	// disable $wgOut - we'll print out the page manually, taking the
-	// body created by the form, plus the necessary Javascript files,
-	// and turning them into an HTML page
-	$wgOut->disable();
+		// disable $wgOut - we'll print out the page manually, taking
+		// the body created by the form, plus the necessary Javascript
+		// files, and turning them into an HTML page
+		$wgOut->disable();
 
 		$this->setHeaders();
 		$this->outputHeader();
@@ -130,6 +130,7 @@ class SFUploadWindow2 extends SpecialPage {
 		# Check uploading enabled
 		if ( !UploadBase::isEnabled() ) {
 			$wgOut->showErrorPage( 'uploaddisabled', 'uploaddisabledtext' );
+			print $wgOut->getHTML();
 			return;
 		}
 
@@ -143,18 +144,21 @@ class SFUploadWindow2 extends SpecialPage {
 			} else {
 				$wgOut->permissionRequired( 'upload' );
 			}
+			print $wgOut->getHTML();
 			return;
 		}
 
 		# Check blocks
 		if ( $wgUser->isBlocked() ) {
 			$wgOut->blockedPage();
+			print $wgOut->getHTML();
 			return;
 		}
 
 		# Check whether we actually want to allow changing stuff
 		if ( wfReadOnly() ) {
 			$wgOut->readOnlyPage();
+			print $wgOut->getHTML();
 			return;
 		}
 
