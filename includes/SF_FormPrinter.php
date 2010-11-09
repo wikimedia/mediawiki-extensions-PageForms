@@ -573,6 +573,8 @@ class SFFormPrinter {
                   // html_entity_decode() is needed to turn '&gt;' to '>'
                   $vals = explode( ';', html_entity_decode( $sub_components[1] ) );
                   foreach ( $vals as $val ) {
+                    $val = trim( $val );
+                    if ( empty( $val ) ) continue;
                     $option_div_pair = explode( '=>', $val, 2 );
                     if ( count( $option_div_pair ) > 1 ) {
                       $option = $option_div_pair[0];
