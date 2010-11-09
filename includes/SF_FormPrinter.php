@@ -1077,23 +1077,23 @@ END;
             if ( $tag == 'create title' || $tag == 'add title' ) {
               // handle this only if we're adding a page
               if ( ! $this->mPageTitle->exists() ) {
-                $val = $sub_components[1];
-                $form_page_title = $val;
+                $form_page_title = $sub_components[1];
               }
-            }
-            elseif ( $tag == 'edit title' ) {
+            } elseif ( $tag == 'edit title' ) {
               // handle this only if we're editing a page
               if ( $this->mPageTitle->exists() ) {
-                $val = $sub_components[1];
-                $form_page_title = $val;
+                $form_page_title = $sub_components[1];
               }
-            }
-            elseif ( $tag == 'partial form' ) {
+            } elseif ( $tag == 'query title' ) {
+              // handle this only if we're in 'RunQuery'
+              if ( $is_query ) {
+                $form_page_title = $sub_components[1];
+              }
+            } elseif ( $tag == 'partial form' ) {
               $form_is_partial = true;
               // replacement pages may have minimal matches...
               $source_page_matches_this_form = true;
-            }
-            elseif ( $tag == 'includeonly free text' || $tag == 'onlyinclude free text' ) {
+            } elseif ( $tag == 'includeonly free text' || $tag == 'onlyinclude free text' ) {
               $onlyinclude_free_text = true;
             }
           }
