@@ -197,8 +197,13 @@ END;
 		$scripts = array();
 		if ( !$sfgUseFormEditPage )
 			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
-		$scripts[] = "$smwgScriptPath/skins/SMW_tooltip.js";
-		$scripts[] = "$smwgScriptPath/skins/SMW_sorttable.js";
+		if ( method_exists( 'SMWOutputs', 'requireHeadItem' ) ) {
+			SMWOutputs::requireHeadItem( SMW_HEADER_TOOLTIP );
+			SMWOutputs::requireHeadItem( SMW_HEADER_SORTTABLE );
+		} else {
+			$scripts[] = "$smwgScriptPath/skins/SMW_tooltip.js";
+			$scripts[] = "$smwgScriptPath/skins/SMW_sorttable.js";
+		}
 		if ( method_exists( 'OutputPage', 'includeJQuery' ) ) {
 			$wgOut->includeJQuery();
 		} else {
