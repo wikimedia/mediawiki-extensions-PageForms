@@ -96,7 +96,7 @@ class SFLinkUtils {
 			foreach ( $res as $wiki_page_value )
 				$form_names[] = $wiki_page_value->getTitle()->getText();
 		}
-		return $form_names;
+		return array_unique( $form_names );
 	}
 
 	/**
