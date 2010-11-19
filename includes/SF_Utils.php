@@ -102,47 +102,6 @@ END;
 	}
 
 	/**
-	 * Defines all the ResourceLoader modules needed for SF Javascript
-	 * and CSS
-	 */
-	static function registerModules( $resourceLoader ) {
-		global $wgExtensionAssetsPath;
-		$localpath = dirname( dirname( __FILE__ ) );
-		$remotepath = "$wgExtensionAssetsPath/SemanticForms";
-
-		$resourceLoader->register(
-			array(
-				'ext.semanticforms.main' => new ResourceLoaderFileModule(
-					array(
-						'scripts' => 'libs/SemanticForms.js',
-						'styles' => array(
-							'skins/SemanticForms.css',
-							'skins/SF_jquery_ui_overrides.css',
-						),
-						'dependencies' => array(
-							'jquery.ui.autocomplete',
-							'jquery.ui.button'
-						),
-					), $localpath, $remotepath
-				),
-				'ext.semanticforms.fancybox' => new ResourceLoaderFileModule(
-					array(
-						'scripts' => 'libs/jquery.fancybox-1.3.1.js',
-						'styles' => 'skins/jquery.fancybox-1.3.1.css',
-					), $localpath, $remotepath
-				),
-				'ext.semanticforms.autogrow' => new ResourceLoaderFileModule(
-					array(
-						'scripts' => 'libs/SF_autogrow.js',
-					), $localpath, $remotepath
-				),
-			)
-		);
-
-		return true;
-	}
-
-	/**
 	 * Uses the ResourceLoader (available with MediaWiki 1.17 and higher)
 	 * to load all the necessary JS and CSS files for Semantic Forms.
 	 */

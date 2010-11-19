@@ -41,7 +41,6 @@ $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 $wgHooks['AdminLinks'][] = 'sffAddToAdminLinks';
 $wgHooks['ParserBeforeStrip'][] = 'SFUtils::cacheFormDefinition';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
-$wgHooks['ResourceLoaderRegisterModules'][] = 'SFUtils::registerModules';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
@@ -116,6 +115,28 @@ require_once( $sfgIP . '/languages/SF_Language.php' );
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
+
+// register client-side modules
+$sfgResourceTemplate = array(
+	'localBasePath' => $sfgIP,
+	'remoteExtPath' => 'SemanticForms'
+);
+$wgResourceModules += array(
+	'ext.semanticforms.main' => $sfgResourceTemplate + array(
+		'scripts' => 'libs/SemanticForms.js',
+		'styles' => array(
+			'skins/SemanticForms.css',
+			'skins/SF_jquery_ui_overrides.css',
+		),
+	),
+	'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
+		'scripts' => 'libs/jquery.fancybox-1.3.1.js',
+		'styles' => 'skins/jquery.fancybox-1.3.1.css',
+	),
+	'ext.semanticforms.autogrow' => $sfgResourceTemplate + array(
+		'scripts' => 'libs/SF_autogrow.js',
+	),
+);
 
 /**
  *  Do the actual intialization of the extension. This is just a delayed init that makes sure
