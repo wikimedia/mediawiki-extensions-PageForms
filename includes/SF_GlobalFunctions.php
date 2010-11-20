@@ -129,6 +129,10 @@ if ( isset( $wgResourceModules ) ) {
 				'skins/SemanticForms.css',
 				'skins/SF_jquery_ui_overrides.css',
 			),
+			'dependencies' => array(
+				'jquery.ui.autocomplete',
+				'jquery.ui.button'
+			),
 		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/jquery.fancybox-1.3.1.js',
