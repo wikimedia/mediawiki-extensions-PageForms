@@ -117,7 +117,7 @@ $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.ph
 $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
 
 // register client-side modules
-if ( isset( $wgResourceModules ) ) {
+if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 	$sfgResourceTemplate = array(
 		'localBasePath' => $sfgIP,
 		'remoteExtPath' => 'SemanticForms'
