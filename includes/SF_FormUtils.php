@@ -19,9 +19,11 @@ class SFFormUtils {
 		$vars['sfgAdderButtons'] = $sfgAdderButtons;
 		$vars['sfgRemoverButtons'] = $sfgRemoverButtons;
 		$vars['autocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
-		$vars['sfgAutocompleteMappings'] = $sfgAutocompleteMappings;
-		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
-		$vars['sfgAutocompleteDataTypes'] = $sfgAutocompleteDataTypes;
+		// variables that are associative arrays need to be cast as
+		// objects, to work with MW 1.15 and earlier
+		$vars['sfgAutocompleteMappings'] = (object)$sfgAutocompleteMappings;
+		$vars['sfgAutocompleteValues'] = (object)$sfgAutocompleteValues;
+		$vars['sfgAutocompleteDataTypes'] = (object)$sfgAutocompleteDataTypes;
 		$vars['sfgComboBoxInputs'] = $sfgComboBoxInputs;
 		$vars['sfgAutogrowInputs'] = $sfgAutogrowInputs;
 		$vars['sfgFormErrorsHeader'] = Xml::escapeJsString( wfMsg( 'sf_formerrors_header' ) );
