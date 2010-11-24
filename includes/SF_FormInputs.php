@@ -533,11 +533,15 @@ class SFTextWithAutocompleteInput extends SFTextInput {
       }
       if ( array_key_exists( 'maxlength', $other_args ) ) {
         $maxlength = $other_args['maxlength'];
-        // is this an unnecessary performance load? Get the substring of the
-        // text on every key press or release, regardless of the current length
-        // of the text
-	$textarea_attrs['onKeyDown'] = "this.value = this.value.substring(0, $maxlength);";
-        $textarea_attrs['onKeyUp'] = "this.value = this.value.substring(0, $maxlength);";
+        // For every actual character pressed (i.e., excluding things like the
+        // Shift key), reduce the string to its allowed length if it's exceeded
+        // that.
+        // This JS code is complicated so that it'll work correctly in IE - IE
+        // moves the cursor to the end whenever this.value is reset, so we'll
+        // make sure to do that only when we need to.
+        $maxLengthJSCheck = "if (window.event && window.event.keyCode < 48 && window.event.keyCode != 13) return; if (this.value.length > $maxlength) { this.value = this.value.substring(0, $maxlength); }";
+        $textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
+        $textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
       }
       $textarea_input = Xml::element('textarea', $textarea_attrs, '', false);
       $text .= $textarea_input;
@@ -668,11 +672,15 @@ class SFTextAreaInput extends SFFormInput {
     }
     if ( array_key_exists( 'maxlength', $other_args ) ) {
       $maxlength = $other_args['maxlength'];
-      // is this an unnecessary performance load? Get the substring of the
-      // text on every key press or release, regardless of the current length
-      // of the text
-      $textarea_attrs['onKeyDown'] = "this.value = this.value.substring(0, $maxlength);";
-      $textarea_attrs['onKeyUp'] = "this.value = this.value.substring(0, $maxlength);";
+      // For every actual character pressed (i.e., excluding things like the
+      // Shift key), reduce the string to its allowed length if it's exceeded
+      // that.
+      // This JS code is complicated so that it'll work correctly in IE - IE
+      // moves the cursor to the end whenever this.value is reset, so we'll
+      // make sure to do that only when we need to.
+      $maxLengthJSCheck = "if (window.event && window.event.keyCode < 48 && window.event.keyCode != 13) return; if (this.value.length > $maxlength) { this.value = this.value.substring(0, $maxlength); }";
+      $textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
+      $textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
     }
     $textarea_input = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
     $text .= <<<END
