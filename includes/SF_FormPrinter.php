@@ -216,9 +216,9 @@ class SFFormPrinter {
     $permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
     $userCanEditPage = count( $permissionErrors ) == 0;
     wfRunHooks( 'sfUserCanEditPage', array( &$userCanEditPage ) );
+    $form_text = "";
     if ( $userCanEditPage || $is_query ) {
       $form_is_disabled = false;
-      $form_text = "";
       // show "Your IP address will be recorded" warning if user is
       // anonymous, and it's not a query -
       // wikitext for bolding has to be replaced with HTML
