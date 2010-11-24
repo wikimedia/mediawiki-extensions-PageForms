@@ -207,9 +207,16 @@ class SFFormPrinter {
     if ( ! $form_submitted && ! $this->mPageTitle->exists() ) {
       $this->showDeletionLog( $wgOut );
     }
-    $user_can_edit_page = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
-    wfRunHooks( 'sfUserCanEditPage', array( &$user_can_edit_page ) );
-    if ( $user_can_edit_page || $is_query ) {
+    // Unfortunately, we can't just call userCan() here because, as of MW 1.16,
+    // it has a bug in which it ignores a setting of
+    // "$wgEmailConfirmToEdit = true;". Instead, we'll just get the
+    // permission errors from the start, and use those to determine whether
+    // the page is editable.
+    //$userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
+    $permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
+    $userCanEditPage = count( $permissionErrors ) == 0;
+    wfRunHooks( 'sfUserCanEditPage', array( &$userCanEditPage ) );
+    if ( $userCanEditPage || $is_query ) {
       $form_is_disabled = false;
       $form_text = "";
       // show "Your IP address will be recorded" warning if user is
@@ -221,16 +228,8 @@ class SFFormPrinter {
       }
     } else {
       $form_is_disabled = true;
-      // display a message to the user explaining why they can't edit the
-      // page - borrowed heavily from EditPage.php
-      if ( $wgUser->isAnon() ) {
-        $skin = $wgUser->getSkin();
-        $loginTitle = SpecialPage::getTitleFor( 'Userlogin' );
-        $loginLink = $skin->makeKnownLinkObj( $loginTitle, wfMsgHtml( 'loginreqlink' ) );
-        $form_text = wfMsgWikiHtml( 'whitelistedittext', $loginLink );
-      } else {
-        $form_text = wfMsg( 'protectedpagetext' );
-      }
+      $wgOut->readOnlyPage( null, false, $permissionErrors, 'edit' );
+      $wgOut->addHTML( "\n<hr />\n" );
     }
     $javascript_text = "";
     $fields_javascript_text = "";
