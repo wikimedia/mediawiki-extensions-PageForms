@@ -1304,7 +1304,7 @@ die URL sollte wie folgt aussehen: „Special:RunQuery/&lt;form name&gt;”',
 	'sf_template_docu' => 'Dies ist die Vorlage für „$1“. Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Bearbeite diese Seite, um den Vorlagentext zu sehen.',
 	'sf_form_docu' => 'Dies ist das „$1“-Formular.
-Um eine Seite mit diesem Formular zu erstellen, gebe den Seitennamen unten ein;
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten ein;
 wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular zum Bearbeiten der Seite weitergeleitet.',
 	'sf_form_freetextlabel' => 'Freitext',
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
