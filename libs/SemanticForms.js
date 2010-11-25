@@ -268,7 +268,12 @@ for (var i = 0; i < sfgShowOnSelectCalls.length; i++ ) {
 }
 
 function existsAndVisible(field) {
-	return (field && field.offsetWidth);
+	// there's a major bug in the current implementation, which is that
+	// it ignores fields hidden by the Header Tabs extension and others -
+	// for now, we'll just override the attempted smartness and say that
+	// everything is visible.
+	return true;
+	//return (field && field.offsetWidth);
 }
 
 function validate_mandatory_field(field_id, info_id) {
