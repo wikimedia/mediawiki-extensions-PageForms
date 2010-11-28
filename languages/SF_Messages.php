@@ -1200,7 +1200,7 @@ $messages['da'] = array(
  * @author Umherirrender
  */
 $messages['de'] = array(
-	'semanticforms-desc' => 'Stellt Formulare zum Hinzufügen und Bearbeiten semantischer Daten bereit',
+	'semanticforms-desc' => 'Ermöglicht Formulare zum Hinzufügen und Bearbeiten semantischer Daten',
 	'specialpages-group-sf_group' => 'Semantische Formulare',
 	'createproperty' => 'Ein Attribut erstellen',
 	'sf_createproperty_linktoform' => 'Dieses Attribut verweist auf Seiten, welche nachfolgendes Formular nutzen:',
