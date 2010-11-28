@@ -450,7 +450,7 @@ class SFComboBoxInput extends SFFormInput {
 
     $text =<<<END
 <div class="ui-widget">
-	<select id="input_$sfgFieldNum" name="$input_name">
+	<select id="input_$sfgFieldNum" name="$input_name" tabindex="$sfgTabIndex">
 		<option value="$cur_value"></option>
 
 END;
