@@ -294,7 +294,8 @@ END;
 									$newcategories[] = $new_category;
 								}
 							} else {
-								$cur_value = str_replace( "_", " ", $row['page_title'] );
+								$cur_title = Title::makeTitleSafe( $row['page_namespace'], $row['page_title'] );
+								$cur_value = SFLinkUtils::titleString( $cur_title );
 								if ( ! in_array( $cur_value, $pages ) ) {
 									if ( $substring == null )
 										$pages[] = $cur_value;
