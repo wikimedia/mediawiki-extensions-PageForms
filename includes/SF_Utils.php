@@ -200,11 +200,12 @@ END;
  	*/
 	static function getAllForms() {
 		$dbr = wfGetDB( DB_SLAVE );
-		$query = "SELECT page_title FROM " . $dbr->tableName( 'page' ) .
-			" WHERE page_namespace = " . SF_NS_FORM .
-			" AND page_is_redirect = 0" .
-			" ORDER BY page_title";
-		$res = $dbr->query( $query );
+		$res = $dbr->select( $dbr->tableNames( 'page' ),
+			'page_title',
+			array( 'page_namespace' => SF_NS_FORM,
+				'page_is_redirect' => false ),
+			__METHOD__,
+			array( 'ORDER BY' => 'page_title' ) );
 		$form_names = array();
 		while ( $row = $dbr->fetchRow( $res ) ) {
 			$form_names[] = str_replace( '_', ' ', $row[0] );
@@ -372,10 +373,10 @@ END;
 					$substring = str_replace( "'", "\'", $substring );
 					$conditions .= " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '$substring%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_$substring%')";
 				}
-				$sql_options['ORDER BY'] = 'page_title';
 				$res = $db->select( $db->tableNames( 'page' ),
 					'page_title',
-					$conditions, __METHOD__, $sql_options );
+					$conditions, __METHOD__,
+					array( 'ORDER BY' => 'page_title' ) );
 				while ( $row = $db->fetchRow( $res ) ) {
 					$cur_value = str_replace( '_', ' ', $row[0] );
 					if ( $substring == null ) {
