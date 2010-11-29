@@ -213,6 +213,7 @@ class SFUploadWindow2 extends SpecialPage {
 			'forreupload' => $this->mForReUpload,
 			'sessionkey' => $sessionKey,
 			'hideignorewarning' => $hideIgnoreWarning,
+			'destfile' => $this->mDesiredDestName,
 			'sfInputID' => $this->mInputID,
 			'sfDelimiter' => $this->mDelimiter,
 		) );
@@ -713,6 +714,7 @@ class SFUploadForm extends HTMLForm {
 		$this->mSessionKey = isset( $options['sessionkey'] )
 				? $options['sessionkey'] : '';
 		$this->mHideIgnoreWarning = !empty( $options['hideignorewarning'] );
+		$this->mDestFile = isset( $options['destfile'] ) ? $options['destfile'] : '';
 
 		$sourceDescriptor = $this->getSourceSection();
 		$descriptor = $sourceDescriptor
@@ -1032,7 +1034,10 @@ END;
 			'wgAjaxUploadDestCheck' => $wgUseAjax && $wgAjaxUploadDestCheck,
 			'wgAjaxLicensePreview' => $wgUseAjax && $wgAjaxLicensePreview,
 			'wgEnableFirefogg' => (bool)$wgEnableFirefogg,
-			'wgUploadAutoFill' => (bool)$autofill,
+			'wgUploadAutoFill' => (bool)$autofill &&
+				// If we received mDestFile from the request, don't autofill
+				// the wpDestFile textbox
+				$this->mDestFile === '',
 			'wgUploadSourceIds' => $this->mSourceIds,
 			'wgStrictFileExtensions' => $wgStrictFileExtensions,
 			'wgCapitalizeUploads' => MWNamespace::isCapitalized( NS_FILE ),
