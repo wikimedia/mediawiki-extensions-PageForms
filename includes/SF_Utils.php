@@ -200,7 +200,7 @@ END;
  	*/
 	static function getAllForms() {
 		$dbr = wfGetDB( DB_SLAVE );
-		$res = $dbr->select( $dbr->tableNames( 'page' ),
+		$res = $dbr->select( 'page',
 			'page_title',
 			array( 'page_namespace' => SF_NS_FORM,
 				'page_is_redirect' => false ),
@@ -373,7 +373,7 @@ END;
 					$substring = str_replace( "'", "\'", $substring );
 					$conditions .= " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '$substring%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_$substring%')";
 				}
-				$res = $db->select( $db->tableNames( 'page' ),
+				$res = $db->select( 'page',
 					'page_title',
 					$conditions, __METHOD__,
 					array( 'ORDER BY' => 'page_title' ) );
