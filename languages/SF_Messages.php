@@ -1220,7 +1220,7 @@ $messages['de'] = array(
 	'sf_createtemplate_semanticproperty' => 'Semantisches Attribut:',
 	'sf_createtemplate_fieldislist' => 'Dieses Feld kann eine Liste von Werten enthalten, die durch Kommata getrennt werden.',
 	'sf_createtemplate_aggregation' => 'Zusammenfassung',
-	'sf_createtemplate_aggregationdesc' => 'Um alle Seiten auflisten zu können, die über ein bestimmtes Attribut verfügen, das auf eine Seite mit dieser Vorlage verweist, muss das entsprechende Attribut hier angegeben werden:',
+	'sf_createtemplate_aggregationdesc' => 'Um auf allen Seiten die diese Vorlage verwenden alle Seiten auflisten zu können, die über ein bestimmtes Attribut verfügen, das auf dieselbe verweist, muss das entsprechende Attribut hier angegeben werden:',
 	'sf_createtemplate_aggregationlabel' => 'Titel für die Liste:',
 	'sf_createtemplate_outputformat' => 'Ausgabeformat:',
 	'sf_createtemplate_standardformat' => 'Standard',
@@ -2664,10 +2664,10 @@ $messages['he'] = array(
 	'sf_formstart_noform_docu' => 'כתבו כאן את שם הדף, ובחרו את הטופס באמצעותו תבוצע עריכת הדף.
 אם דף זה כבר קיים, תועברו אל הטופס לעריכת אותו הדף.
 אחרת, תועברו אל הטופס להוספת הדף.',
-	'sf_formstart_createoredit' => 'הוספה או עריכה',
+	'sf_formstart_createoredit' => 'יצירה או עריכה',
 	'formedit' => 'עריכה באמצעות טופס',
-	'sf_formedit_createtitle' => 'הוספת $1: $2',
-	'sf_formedit_badurl' => "דף זה משמש להוספת נתונים. עליכם לפרט גם את שם הטופס וגם את כתובת דף היעד; התוצאה אמורה להראות כך: 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', או כך - 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
+	'sf_formedit_createtitle' => 'יצירת $1: $2',
+	'sf_formedit_badurl' => "דף זה משמש לעריכה באמצעות טופס. עליך לפרט גם את שם הטופס וגם את כתובת דף היעד; התוצאה אמורה להיראות כך: 'Special:FormEdit?form=&lt;form name&gt;&target=&lt;target page&gt;', או כך - 'Special:FormEdit/&lt;form name&gt;/&lt;target page&gt;'.",
 	'sf_formedit_altforms' => 'במקום זאת תוכלו להוסיף דף זה באמצעות אחד מהטפסים הבאים:',
 	'sf_formedit_altformsonly' => 'אנא בחרו מאחד הטפסים הבאים להוספת דף זה:',
 	'sf_formcreate' => 'יצירה עם טופס',
@@ -2700,7 +2700,7 @@ $messages['he'] = array(
 שמה צריך להיות במבנה הבא:",
 	'sf_template_docufooter' => 'ערכו את הדף כדי לצפות בטקסט התבנית.',
 	'sf_form_docu' => "זהו הטופס '$1'.
-על מנת להוסיף דף עם טופס זה, כתבו את שם הדף להלן;
+על מנת ליצור דף עם טופס זה, יש לכתוב את שם הדף להלן;
 אם דף בשם זה כבר קיים, תועברו אל טופס לעריכת הדף.",
 	'sf_form_freetextlabel' => 'טקסט חופשי',
 	'sf_category_hasdefaultform' => 'קטגוריה זו משתמשת בטופס $1.',
