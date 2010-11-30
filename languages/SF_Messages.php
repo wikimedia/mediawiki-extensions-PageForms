@@ -112,7 +112,7 @@ the URL should look like \'Special:RunQuery/&lt;form name&gt;\'.',
 
 	'sf_formerrors_header'               => 'There were errors with your form input; see below',
 	'sf_blank_error'                     => 'cannot be blank',
-	'sf_bad_url_error'                   => 'must have the correct URL format, starting with \'http\'',
+	'sf_bad_url_error'                   => 'must have the correct URL format, starting with "http"',
 	'sf_bad_email_error'                 => 'must have a valid email address format',
 	'sf_bad_number_error'                => 'must be a valid number',
 	'sf_bad_integer_error'               => 'must be a valid integer',
