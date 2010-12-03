@@ -44,11 +44,12 @@ class SFMultiEnumInput extends SFEnumInput {
 
 class SFTextInput extends SFFormInput {
   static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
-    global $wgOut, $sfgScriptPath, $sfgFancyBoxIncluded;
+    global $wgOut, $sfgScriptPath, $sfgFancyBoxInputs;
 
     $upload_window_page = SpecialPage::getPage( 'UploadWindow' );
     $query_string = "sfInputID=$input_id";
     $fancybox_id = "fancybox_$input_id";
+    $sfgFancyBoxInputs[] = $input_id;
     if ( $delimiter != null )
       $query_string .= "&sfDelimiter=$delimiter";
     if ( $default_filename != null )
@@ -61,31 +62,7 @@ class SFTextInput extends SFFormInput {
     else
       $style = '';
 
-    if ( !$sfgFancyBoxIncluded &&  !class_exists( 'ResourceLoader' ) ) {
-      $sfgFancyBoxIncluded = true;
-      global $wgOut;
-      $wgOut->addScriptFile( "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js" );
-    }
-
-    $fancybox_js =<<<END
-<script type="text/javascript">
-jQuery(document).ready(function() {
-	jQuery("#$fancybox_id").fancybox({
-		'width'		: '75%',
-		'height'	: '75%',
-		'autoScale'	: false,
-		'transitionIn'	: 'none',
-		'transitionOut'	: 'none',
-		'type'		: 'iframe',
-		'overlayColor'  : '#222',
-		'overlayOpacity' : '0.8'
-	});
-});
-</script>
-END;
-    $wgOut->addScript($fancybox_js);     
-
-    $text = " <a id = \"$fancybox_id\"  href=\"$upload_window_url\" title=\"$upload_label\" rev=\"$style\">$upload_label</a>";    
+    $text = " <a id=\"$fancybox_id\" href=\"$upload_window_url\" title=\"$upload_label\" rev=\"$style\">$upload_label</a>";    
     return $text;
   }
 
@@ -583,7 +560,6 @@ END;
     $text .= <<<END
 	<span id="$info_id" class="errorMessage"></span>
 	<div class="page_name_auto_complete" id="$div_name"></div>
-<script type="text/javascript">/* <![CDATA[ */
 
 END;
     
@@ -607,9 +583,13 @@ END;
       $cur_value = str_replace( '"', '\"', $cur_value );
       $cur_value = str_replace( "\n", '\n', $cur_value );
       $cur_value = str_replace( "\r", '\r', $cur_value );
-      $text .= "document.getElementById('$input_id').value = \"$cur_value\"\n";
+      $text .= <<<END
+	<script type="text/javascript">/* <![CDATA[ */
+ 	document.getElementById('$input_id').value = "$cur_value"
+	/* ]]> */</script>
+
+END;
     }
-    $text .= '/* ]]> */</script>';
     return array( $text, null );
   }
 
