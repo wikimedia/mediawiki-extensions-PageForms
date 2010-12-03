@@ -12,7 +12,8 @@ class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAdderButtons, $sfgRemoverButtons;
 		global $sfgAutocompleteMappings, $sfgAutocompleteDataTypes, $sfgAutocompleteValues;
-		global $sfgAutocompleteOnAllChars, $sfgComboBoxInputs, $sfgAutogrowInputs;
+		global $sfgAutocompleteOnAllChars;
+		global $sfgComboBoxInputs, $sfgAutogrowInputs, $sfgFancyBoxInputs;
 		global $sfgJSValidationCalls, $sfgShowOnSelectCalls;
 
 		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
@@ -26,6 +27,7 @@ class SFFormUtils {
 		$vars['sfgAutocompleteDataTypes'] = (object)$sfgAutocompleteDataTypes;
 		$vars['sfgComboBoxInputs'] = $sfgComboBoxInputs;
 		$vars['sfgAutogrowInputs'] = $sfgAutogrowInputs;
+		$vars['sfgFancyBoxInputs'] = $sfgFancyBoxInputs;
 		$vars['sfgFormErrorsHeader'] = wfMsg( 'sf_formerrors_header' );
 		$vars['sfgBlankErrorStr'] = wfMsg( 'sf_blank_error' );
 		$vars['sfgBadURLErrorStr'] = wfMsg( 'sf_bad_url_error' );
