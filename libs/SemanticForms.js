@@ -602,21 +602,30 @@ function attachAutocompleteToField(input) {
 	}
 }
 
-for (var i = 0; i < sfgComboBoxInputs.length; i++ ) {
-	var input_num = sfgComboBoxInputs[i];
-	jQuery(document).ready(function() {
-		jQuery("#input_" + input_num).combobox();
-	});
-}
+jQuery(document).ready(function() {
+	for (var i = 0; i < sfgComboBoxInputs.length; i++ ) {
+		jQuery("#input_" + sfgComboBoxInputs[i]).combobox();
+	}
+
+	for (var i = 0; i < sfgAutogrowInputs.length; i++ ) {
+		jQuery("#" + sfgAutogrowInputs[i]).autoGrow();
+	}
+
+	for (var i = 0; i < sfgFancyBoxInputs.length; i++ ) {
+		jQuery("#fancybox_" + sfgFancyBoxInputs[i]).fancybox({
+			'width'         : '75%',
+			'height'        : '75%',
+			'autoScale'     : false,
+			'transitionIn'  : 'none',
+			'transitionOut' : 'none',
+			'type'          : 'iframe',
+			'overlayColor'  : '#222',
+			'overlayOpacity' : '0.8'
+		});
+	}
+});
 
 jQuery.event.add(window, "load", attachAutocompleteToAllDocumentFields);
-
-for (var i = 0; i < sfgAutogrowInputs.length; i++ ) {
-	var input_num = sfgAutogrowInputs[i];
-	jQuery(document).ready(function() {
-		jQuery("#" + input_num).autoGrow();
-	});
-}
 
 
 /* extending jquery functions  */
