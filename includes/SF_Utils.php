@@ -177,6 +177,8 @@ END;
 
 		if ( $wgFCKEditorDir )
 			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
+		$scripts[] = "$sfgScriptPath/libs/SemanticForms.js";
+
 		global $wgOut;
 		foreach ( $scripts as $js ) {
 			if ( $parser ) {
@@ -186,12 +188,6 @@ END;
 				$wgOut->addScriptFile( $js );
 			}
 		}
-		// The Semantic Forms custom Javascript needs to be included
-		// at the end of the page, after the relevant HTML elements
-		// have been defined.
-		$js = "$sfgScriptPath/libs/SemanticForms.js";
-		$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
-		$wgOut->addHTML( $script );
 		if ( !$parser )
 			$wgOut->addMeta( 'robots', 'noindex,nofollow' );
 	}
