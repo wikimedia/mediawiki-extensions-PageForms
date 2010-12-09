@@ -471,10 +471,6 @@ class SFTextWithAutocompleteInput extends SFTextInput {
       $text = "";
       if ( array_key_exists( 'autogrow', $other_args ) ) {
         $className .= ' autoGrow';
-        if ( ! method_exists( 'OutputPage', 'addModules' ) ) {
-          global $wgOut;
-          $wgOut->addScriptFile( "$sfgScriptPath/libs/SF_autogrow.js" );
-        }
       }
 
       $textarea_attrs = array(
@@ -604,10 +600,6 @@ class SFTextAreaInput extends SFFormInput {
 
     if ( array_key_exists( 'autogrow', $other_args ) ) {
       $className .= ' autoGrow';
-      if ( ! method_exists( 'OutputPage', 'addModules' ) ) {
-        global $wgOut;
-        $wgOut->addScriptFile( "$sfgScriptPath/libs/SF_autogrow.js" );
-      }
     }
 
     $textarea_attrs = array(

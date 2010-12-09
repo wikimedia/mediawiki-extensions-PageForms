@@ -174,6 +174,7 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.position.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.autocomplete.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js";
+		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
 
 		if ( $wgFCKEditorDir )
 			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
