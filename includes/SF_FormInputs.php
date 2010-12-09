@@ -93,6 +93,7 @@ class SFTextInput extends SFFormInput {
     // set size based on pre-set size, or field type - if field type is set,
     // possibly add validation too
     $size = 35;
+    $inputType = '';
     if ( array_key_exists( 'field_type', $other_args ) ) {
       if ( $other_args['field_type'] == 'number' ) {
         $size = 10;
@@ -144,7 +145,9 @@ class SFTextInput extends SFFormInput {
       $text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
     }
     $spanClass = "inputSpan";
-    $spanClass .= " {$inputType}Input";
+    if ( $inputType != '' ) {
+      $spanClass .= " {$inputType}Input";
+    }
     if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
     $text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
     return $text;
@@ -260,10 +263,7 @@ class SFListBoxInput extends SFMultiEnumInput {
       $selectAttrs['disabled'] = 'disabled';
     }
     $text = Xml::tags( 'select', $selectAttrs, $optionsText );
-    $hiddenInputAttrs = array(
-      'value' => 1,
-    );
-    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', $hiddenInputAttrs ) . "\n";
+    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
     if ( $is_mandatory ) {
       $text = Xml::tags( 'span', array( 'class' => 'inputSpan mandatoryFieldSpan' ), $text );
     }
@@ -352,7 +352,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
       }
     }
 
-    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', array( 'value' => 1 ) ) . "\n";
+    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
     $outerSpanAttrs = array( 'id' => $outerSpanID, 'class' => $outerSpanClass );
     $text = "\t" . Xml::tags( 'span', $outerSpanAttrs, $text ) . "\n";
 
@@ -1057,7 +1057,7 @@ class SFCategoriesInput {
     }
     $text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
 
-    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', array( 'value' => 1 ) ) . "\n";
+    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
     $spanClass = "checkboxesSpan";
     if ( $is_mandatory) { $spanClass .= " mandatoryFieldSpan"; }
     $text = "\t" . Xml::tags( 'span', array( 'class' => $spanClass ), $text ) . "\n";
