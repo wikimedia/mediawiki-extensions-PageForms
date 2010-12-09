@@ -148,8 +148,7 @@ class SFFormPrinter {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
-    global $sfgJSValidationCalls; // array of Javascript calls to determine if page can be saved
-    global $sfgAdderButtons, $sfgRemoverButtons;
+    global $sfgAdderButtons;
 
     // initialize some variables
     $sfgTabIndex = 1;
@@ -231,8 +230,6 @@ class SFFormPrinter {
       $wgOut->readOnlyPage( null, false, $permissionErrors, 'edit' );
       $wgOut->addHTML( "\n<hr />\n" );
     }
-    $javascript_text = "";
-    $fields_javascript_text = "";
 
     // Remove <noinclude> sections and <includeonly> tags from form definition
     $form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
@@ -705,7 +702,7 @@ class SFFormPrinter {
               } else {
                 $default_value = $cur_value;
               }
-              list( $new_text, $new_javascript_text ) = SFTextAreaInput::getText( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
+              $new_text = SFTextAreaInput::getText( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
               if ( in_array( 'edittools', $free_text_components ) ) {
                 // borrowed from EditPage::showEditTools()
                 $options[] = 'parse';
@@ -718,7 +715,6 @@ class SFFormPrinter {
 
 END;
               }
-              $fields_javascript_text .= $new_javascript_text;
             }
             $free_text_was_included = true;
             // add a similar placeholder to the data text
@@ -939,9 +935,7 @@ END;
                 $cur_value = $cur_value_in_template;
               }
             }
-            list( $new_text, $new_javascript_text ) = $this->formFieldHTML( $form_field, $cur_value );
-
-            $fields_javascript_text .= $new_javascript_text;
+            $new_text = $this->formFieldHTML( $form_field, $cur_value );
 
             // if this field is disabled, add a hidden field holding
             // the value of this field, because disabled inputs for some
@@ -964,40 +958,6 @@ END;
                   $template_text .= "\n|$field_name=$cur_value_in_template";
               }
               $section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
-              // also add to Javascript validation code
-              $input_id = "input_" . $sfgFieldNum;
-              $info_id = "info_" . $sfgFieldNum;
-              if ( $is_mandatory ) {
-                if ( $input_type == 'date' || $input_type == 'datetime' || $input_type == 'datetime with timezone' ||
-                    ( $input_type == '' && $form_field->template_field->propertyIsOfType( '_dat' ) ) ) {
-                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_month', '$info_id')";
-                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_day', '$info_id')";
-                  $sfgJSValidationCalls[] = "validate_mandatory_field ('$input_id" . "_year', '$info_id')";
-                  if ( $input_type == 'datetime' || $input_type == 'datetime with timezone' ) {
-                    // TODO - validate the time fields
-                    if ( $input_type == 'datetime with timezone' ) {
-                       // TODO - validate the timezone
-                    }
-                  }
-                } else {
-                  if ( $allow_multiple ) {
-                    if ( $all_instances_printed ) {
-                      $sfgJSValidationCalls[] = "validate_multiple_mandatory_fields($sfgFieldNum)";
-                    } else {
-                      $sfgJSValidationCalls[] = "validate_mandatory_field(\"input_$sfgFieldNum\", \"info_$sfgFieldNum\")";
-                    }
-                  } elseif ( $input_type == 'radiobutton' || $input_type == 'category' ) {
-                    // only add this if there's a "None" option
-                    if ( empty( $default_value ) ) {
-                      $sfgJSValidationCalls[] = "validate_mandatory_radiobutton('$input_id', '$info_id')";
-                    }
-                  } elseif ( ( $form_field->template_field->is_list && $form_field->template_field->field_type == 'enumeration' && $input_type != 'listbox' ) || ( $input_type == 'checkboxes' ) ) {
-                    $sfgJSValidationCalls[] = "validate_mandatory_checkboxes('$input_id', '$info_id')";
-                  } else {
-                    $sfgJSValidationCalls[] = "validate_mandatory_field('$input_id', '$info_id')";
-                  }
-                }
-              }
             } else {
               $start_position = $brackets_end_loc;
             }
@@ -1143,24 +1103,21 @@ END;
           // in the form, to differentiate the inputs the form starts out
           // with from any inputs added by the Javascript
           $section = str_replace( '[num]', "[{$instance_num}a]", $section );
-	  $wrapperID = "wrapper_$sfgFieldNum";
-	  $removerID = "remover_$sfgFieldNum";
           $remove_text = wfMsg( 'sf_formedit_remove' );
           $form_text .= <<<END
-	<div id="$wrapperID" class="multipleTemplate">
+	<div class="multipleTemplate">
         $section
-        <input type="button" id="$removerID" value="$remove_text" tabindex="$sfgTabIndex" class="remove" />
+        <input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
         </div>
 
 END;
-          $sfgRemoverButtons[] = "$removerID,$wrapperID";
           // this will cause the section to be re-parsed on the next go
           $section_num--;
 	} else {
           // this is the last instance of this template - stick an 'add'
           // button in the form
         $form_text .= <<<END
-	<div id="starter_$query_template_name" class="multipleTemplate" style="display: none;">
+	<div id="starter_$query_template_name" class="multipleTemplateStarter" style="display: none;">
         $section
         </div>
          <div id="main_$query_template_name"></div>
@@ -1266,6 +1223,7 @@ END;
 END;
 
     // add Javascript code for form-wide use
+    $javascript_text = "";
     if ( $free_text_was_included && $showFCKEditor > 0 ) {
       $javascript_text .= SFFormUtils::mainFCKJavascript( $showFCKEditor );
       if ( $showFCKEditor & ( RTE_TOGGLE_LINK | RTE_POPUP ) ) {
@@ -1281,7 +1239,7 @@ END;
     // if doing a replace, the data text is actually the modified original page
     if ( $wgRequest->getCheck( 'partial' ) )
       $data_text = $existing_page_content;
-    $javascript_text .= $fields_javascript_text;
+
     global $wgParser;
     $new_text = "";
     if ( !$embedded )
@@ -1309,7 +1267,6 @@ END;
 
     if ( $form_field->is_hidden ) {
       $text = SFFormUtils::hiddenFieldHTML( $form_field->input_name, $cur_value );
-      $javascript_text = "";
     } elseif ( $form_field->input_type != '' &&
               array_key_exists( $form_field->input_type, $this->mInputTypeHooks ) &&
               $this->mInputTypeHooks[$form_field->input_type] != null ) {
@@ -1324,7 +1281,7 @@ END;
       $hook_values = $this->mInputTypeHooks[$form_field->input_type];
       $other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
       $funcArgs[] = $other_args;
-      list( $text, $javascript_text ) = call_user_func_array( $hook_values[0], $funcArgs );
+      $text = call_user_func_array( $hook_values[0], $funcArgs );
     } else { // input type not defined in form
       $field_type = $template_field->field_type;
       $is_list = ( $form_field->is_list || $template_field->is_list );
@@ -1339,7 +1296,7 @@ END;
         $hook_values = $this->mSemanticTypeHooks[$field_type][$is_list];
         $other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
         $funcArgs[] = $other_args;
-        list( $text, $javascript_text ) = call_user_func_array( $hook_values[0], $funcArgs );
+        $text = call_user_func_array( $hook_values[0], $funcArgs );
       } else { // anything else
         $other_args = $form_field->getArgumentsForInputCall();
         // special call to ensure that a list input is the right default size
@@ -1347,10 +1304,10 @@ END;
           if ( ! array_key_exists( 'size', $other_args ) )
             $other_args['size'] = 100;
         }
-        list( $text, $javascript_text ) = SFTextInput::getText( $cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args );
+        $text = SFTextInput::getText( $cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args );
       }
     }
-    return array( $text, $javascript_text );
+    return $text;
   }
 
 }
