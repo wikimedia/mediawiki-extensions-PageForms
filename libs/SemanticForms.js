@@ -479,10 +479,11 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 	// Create remove button
 	var removeButton = jQuery("<input>").attr({
 		type: 'button',
-		class: 'remover',
 		value: sfgRemoveText,
-		tabIndex: tab_index,
-	});
+		tabIndex: tab_index
+	}).addClass("remover");
+	// (class can't be set as an attr() parameter, because it causes
+	// an error in IE.)
 	new_div.append(removeButton);
 	
 	// Add the new instance
@@ -494,7 +495,6 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 	});
 
 	// Enable autocompletion
-	//alert(new_div.find('.autocompleteInput').size());
 	new_div.find('.autocompleteInput').attachAutocomplete();
 
 	// Apply the relevant Javascript call for all FancyBox, combobox
