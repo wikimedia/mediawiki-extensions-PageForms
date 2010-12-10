@@ -47,12 +47,7 @@ function ajaxFormPreviewRun(btn){
     var el = document.getElementById("form_error_header");
     if (el) el.parentNode.removeChild(el);
  
-    var elts = document.body.getElementsByTagName("span");
- 
-    for (var i = 0; i < elts.length; ++i)
-	if (elts[i].className == 'errorMessage') elts[i].innerHTML = '';
- 
-    if (!wkPreview || !form || !aj || !aj2 || !validate_all() ) return;
+    if (!wkPreview || !form || !aj || !aj2 || !validateAll() ) return;
  
     var frag=document.createElement("div");
  
