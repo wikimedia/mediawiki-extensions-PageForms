@@ -386,9 +386,6 @@ jQuery.fn.validateDateField = function() {
 	}
 }
 
-// If the form is submitted, validate everything!
-jQuery('#sfForm').submit( function() { return validateAll(); } );
-
 function validateAll() {
 	var num_errors = 0;
 
@@ -600,6 +597,9 @@ jQuery(document).ready(function() {
 		fieldNum = components[2];
 		jQuery('#' + adderID).click( addInstanceEventHandler(templateName, fieldNum) );
 	}
+
+	// If the form is submitted, validate everything!
+	jQuery('#sfForm').submit( function() { return validateAll(); } );
 });
 
 /* extending jquery functions  */
