@@ -352,7 +352,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
       }
     }
 
-    $text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
+    $text .= "\n" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
     $outerSpanAttrs = array( 'id' => $outerSpanID, 'class' => $outerSpanClass );
     $text = "\t" . Xml::tags( 'span', $outerSpanAttrs, $text ) . "\n";
 
@@ -519,7 +519,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
       if ( array_key_exists( 'maxlength', $other_args ) ) {
         $text .= ' maxlength="' . $other_args['maxlength'] . '"';
       }
-      $text = "\t" . Xml::element( 'input', $inputAttrs ) . "\n";
+      $text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
     }
     // is_list and delimiter variables - needed later
     $is_list = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
@@ -543,7 +543,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 
     $spanClass = "inputSpan";
     if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
-    $text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+    $text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
     
     $options_str_key = $autocompletion_source;
     if ( $is_list ) {
@@ -960,6 +960,8 @@ class SFCategoryInput extends SFFormInput {
     $wgCategoryTreeMaxDepth = 10;
     $tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10 ) );
 
+    // CategoryTree HTML-escapes all values
+    $cur_value = htmlentities( $cur_value );
     // capitalize the first letter, if first letters always get capitalized
     global $wgCapitalLinks;
     if ( $wgCapitalLinks ) {
@@ -1035,6 +1037,8 @@ class SFCategoriesInput {
     }
     // set all checkboxes matching $cur_values to checked
     foreach ( $cur_values as $value ) {
+      // CategoryTree HTML-escapes all values
+      $value = htmlentities( $value );
       // capitalize the first letter, if first letters always get capitalized
       if ( $wgCapitalLinks ) {
         global $wgContLang;
@@ -1052,7 +1056,7 @@ class SFCategoriesInput {
     $text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
     $spanClass = "checkboxesSpan";
     if ( $is_mandatory) { $spanClass .= " mandatoryFieldSpan"; }
-    $text = "\t" . Xml::tags( 'span', array( 'class' => $spanClass ), $text ) . "\n";
+    $text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text ) . "\n";
 
     return $text;
   }
