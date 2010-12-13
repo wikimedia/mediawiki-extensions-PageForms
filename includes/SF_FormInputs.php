@@ -373,7 +373,6 @@ class SFComboBoxInput extends SFFormInput {
 
     global $sfgTabIndex, $sfgFieldNum, $wgOut, $sfgScriptPath, $wgJsMimeType;
     global $smwgScriptPath, $smwgJqUIAutoIncluded;
-    global $sfgAutocompleteMappings;
 
     $autocomplete_field_type = "";
     $autocompletion_source = "";
@@ -401,10 +400,8 @@ class SFComboBoxInput extends SFFormInput {
 
     $input_id = "input_" . $sfgFieldNum;
  
-    $options_str_key = str_replace( "'", "\'", $autocompletion_source );
-    $sfgAutocompleteMappings[$sfgFieldNum] = $options_str_key;
-    
     $values = SFUtils::getAutocompleteValues($autocompletion_source, $autocomplete_field_type );
+    $autocompletion_source = str_replace( "'", "\'", $autocompletion_source );
 
     /*adding code for displaying dropdown of autocomplete values*/
 
@@ -412,7 +409,7 @@ class SFComboBoxInput extends SFFormInput {
     if ($is_mandatory) { $divClass .= " mandatory"; }
     $text =<<<END
 <div class="$divClass">
-	<select id="input_$sfgFieldNum" name="$input_name" class="$className" tabindex="$sfgTabIndex">
+	<select id="input_$sfgFieldNum" name="$input_name" class="$className" tabindex="$sfgTabIndex" autocompletesettings="$autocompletion_source">
 		<option value="$cur_value"></option>
 
 END;
@@ -450,7 +447,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
       return SFDropdownInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
     global $sfgTabIndex, $sfgFieldNum, $sfgScriptPath, $wgJsMimeType, $smwgScriptPath, $smwgJqUIAutoIncluded;
-    global $sfgAutocompleteMappings, $sfgAutocompleteDataTypes, $sfgAutocompleteValues;
+    global $sfgAutocompleteDataTypes, $sfgAutocompleteValues;
 
     $className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -464,6 +461,22 @@ class SFTextWithAutocompleteInput extends SFTextInput {
       }
     }
     $input_id = "input_" . $sfgFieldNum;
+
+    // Set autocomplete-settings attribute, and delimiter value (it's needed
+    // also for the 'uploadable' link, if there is one).
+    $autocompleteSettings = $autocompletion_source;
+    $is_list = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
+    if ( $is_list ) {
+      $autocompleteSettings .= ",list";
+      if ( array_key_exists( 'delimiter', $other_args ) ) {
+        $delimiter = $other_args['delimiter'];
+        $autocompleteSettings .= "," . $delimiter;
+      } else {
+        $delimiter = ",";
+      }
+    } else {
+      $delimiter = null;
+    }
     if ( array_key_exists( 'input_type', $other_args ) && $other_args['input_type'] == "textarea" ) {
        
       $rows = $other_args['rows'];
@@ -480,6 +493,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
         'rows' => $rows,
         'cols' => $cols,
         'class' => $className,
+        'autocompletesettings' => $autocompleteSettings,
       );
       if ( $is_disabled ) {
         $textarea_attrs['disabled'] = 'disabled';
@@ -512,6 +526,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
         'size' => $size,
         'class' => $className,
         'tabindex' => $sfgTabIndex,
+        'autocompletesettings' => $autocompleteSettings,
       );
       if ( $is_disabled ) {
         $inputAttrs['disabled'] = 'disabled';
@@ -520,17 +535,6 @@ class SFTextWithAutocompleteInput extends SFTextInput {
         $text .= ' maxlength="' . $other_args['maxlength'] . '"';
       }
       $text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
-    }
-    // is_list and delimiter variables - needed later
-    $is_list = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
-    if ( $is_list ) {
-      if ( array_key_exists( 'delimiter', $other_args ) ) {
-        $delimiter = $other_args['delimiter'];
-      } else {
-        $delimiter = ",";
-      }
-    } else {
-      $delimiter = null;
     }
     if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
      if ( array_key_exists( 'default filename', $other_args ) ) {
@@ -545,20 +549,12 @@ class SFTextWithAutocompleteInput extends SFTextInput {
     if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
     $text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
     
-    $options_str_key = $autocompletion_source;
-    if ( $is_list ) {
-      $options_str_key .= ",list";
-      if ( $delimiter != "," ) {
-        $options_str_key .= "," . $delimiter;
-      }
-    }
-    $sfgAutocompleteMappings[$sfgFieldNum] = $options_str_key;
     if ( array_key_exists( 'remote autocompletion', $other_args ) &&
         $other_args['remote autocompletion'] == true ) {
-      $sfgAutocompleteDataTypes[$options_str_key] = $autocomplete_field_type;
+      $sfgAutocompleteDataTypes[$autocompleteSettings] = $autocomplete_field_type;
     } elseif ( $autocompletion_source != '' ) {
       $autocomplete_values = SFUtils::getAutocompleteValues( $autocompletion_source, $autocomplete_field_type );
-      $sfgAutocompleteValues[$options_str_key] = $autocomplete_values;
+      $sfgAutocompleteValues[$autocompleteSettings] = $autocomplete_values;
     }
     return $text;
   }
