@@ -271,8 +271,7 @@ class SFParserFunctions {
 				SFUtils::addJavascriptAndCSS();
 			}
 			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
-			global $sfgAutocompleteMappings, $sfgAutocompleteValues;
-			$sfgAutocompleteMappings[$input_num] = "input_$input_num";
+			global $sfgAutocompleteValues;
 			$sfgAutocompleteValues["input_$input_num"] = $autocompletion_values;
 		}
 
@@ -287,7 +286,7 @@ END;
 		} else {
 			$str = <<<END
 			<form name="createbox" action="$fs_url" method="get">
-			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput formInput" />
+			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput formInput" autocompletesettings="input_$input_num" />
 
 END;
 		}
