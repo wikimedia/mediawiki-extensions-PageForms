@@ -28,7 +28,6 @@
 		}
 	}
 
-    var myServer = wgScriptPath + "/api.php";
     jQuery.noConflict();
 
     /* extending jQuery functions for custom highlighting */
@@ -91,7 +90,9 @@
 		jQuery(this).autocomplete({
 			minLength: 0,
 			source: function(request, response) {
-
+				// We need to re-get the set of values, since
+				// the "values" variable gets overwritten.
+				values = sfgAutocompleteValues[field_string];
 				response(jQuery.ui.autocomplete.filter(values, extractLast(request.term)));
 			},
 			focus: function() {
@@ -119,7 +120,8 @@
         }
     } else {
 	// Remote autocompletion
-	data_type = sfgAutocompleteDataTypes[field_string];
+	var myServer = wgScriptPath + "/api.php";
+	var data_type = jQuery(this).attr("autocompletedatatype");
         if (data_type == 'property')
             myServer += "?action=sfautocomplete&format=json&property=" + data_source;
         else if (data_type == 'relation')
