@@ -496,7 +496,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
         $textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
         $textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
       }
-      $textarea_input = Xml::element('textarea', $textarea_attrs, '', false);
+      $textarea_input = Xml::element('textarea', $textarea_attrs, $cur_value, false);
       $text .= $textarea_input;
     } else {
       if ( array_key_exists( 'size', $other_args ) )
