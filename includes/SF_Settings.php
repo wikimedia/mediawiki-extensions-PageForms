@@ -117,6 +117,5 @@ $sfgFancyBoxIncluded = false;
 # ##
 $sfgAdderButtons = array();
 $sfgShowOnSelect = array();
-$sfgAutocompleteMappings = array();
 $sfgAutocompleteDataTypes = array();
 $sfgAutocompleteValues = array();
