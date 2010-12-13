@@ -10,8 +10,25 @@
  * @author Eugene Mednikov
  */
 
-jQuery.fn.sfAutocomplete = function(values, api_url, data_type, delimiter, data_source) {
-    var myServer = api_url;
+// Activate autocomplete functionality for the specified field
+(function(jQuery) {
+  jQuery.fn.attachAutocomplete = function() {
+    return this.each(function() {
+        // Get all the necessary values from the input's "autocompletesettings"
+	// attribute. This should probably be done as three separate attributes,
+	// instead.
+	var field_string = jQuery(this).attr("autocompletesettings");
+	var field_values = field_string.split(',');
+	var delimiter = null;
+	var data_source = field_values[0];
+	if (field_values[1] == 'list') {
+		delimiter = ",";
+		if (field_values[2] != null) {
+			delimiter = field_values[2];
+		}
+	}
+
+    var myServer = wgScriptPath + "/api.php";
     jQuery.noConflict();
 
     /* extending jQuery functions for custom highlighting */
@@ -46,7 +63,7 @@ jQuery.fn.sfAutocomplete = function(values, api_url, data_type, delimiter, data_
 	/* extending jquery functions  */
 	jQuery.extend( jQuery.ui.autocomplete, {	
 	    filter: function(array, term) {
-		if ( autocompleteOnAllChars ) {
+		if ( sfgAutocompleteOnAllChars ) {
 			var matcher = new RegExp(jQuery.ui.autocomplete.escapeRegex(term), "i" );
 		} else {
 			var matcher = new RegExp("\\b" + jQuery.ui.autocomplete.escapeRegex(term), "i" );
@@ -57,6 +74,7 @@ jQuery.fn.sfAutocomplete = function(values, api_url, data_type, delimiter, data_
 	    }
 	});
 
+    values = sfgAutocompleteValues[field_string];
     if (values != null) {
         // Local autocompletion
             
@@ -101,6 +119,7 @@ jQuery.fn.sfAutocomplete = function(values, api_url, data_type, delimiter, data_
         }
     } else {
 	// Remote autocompletion
+	data_type = sfgAutocompleteDataTypes[field_string];
         if (data_type == 'property')
             myServer += "?action=sfautocomplete&format=json&property=" + data_source;
         else if (data_type == 'relation')
@@ -185,7 +204,9 @@ jQuery.fn.sfAutocomplete = function(values, api_url, data_type, delimiter, data_
 		} );
 	}
     }
-};
+   });
+  };
+})( jQuery );
 
 /*
  * Functions for handling 'show on select'
@@ -446,6 +467,10 @@ function addInstanceEventHandler(templateName, fieldNum) {
 	}
 }
 
+/**
+ * Functions for multiple-instance templates.
+ */
+
 function addInstance(starter_div_id, main_div_id, tab_index) {
 	num_elements++;
 	
@@ -517,35 +542,6 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 	new_div.find('.autoGrow').autoGrow();
 }
 
-// Activate autocomplete functionality for the specified field
-jQuery.fn.attachAutocomplete = function() {
-	input_id = this.attr("id");
-	// For some reason, the find() call that calls this function will
-	// still call it even if no elements are found - if that happens,
-	// escape here to avoid an error.
-	if (input_id == null) return;
-	// Extract the field ID number from the input field
-	var field_num = parseInt(input_id.substring(input_id.lastIndexOf('_') + 1, input_id.length),10);
-	// Add the autocomplete string, if a mapping exists.
-	var field_string = sfgAutocompleteMappings[field_num];
-	if (field_string) {
-		var field_values = field_string.split(',');
-		var delimiter = null;
-		var data_source = field_values[0];
-		if (field_values[1] == 'list') {
-			delimiter = ",";
-			if (field_values[2] != null) {
-				delimiter = field_values[2];
-			}
-		}
-		if (sfgAutocompleteValues[field_string] != null) {
-			this.sfAutocomplete(sfgAutocompleteValues[field_string], null, null, delimiter, data_source);
-		} else {
-			this.sfAutocomplete(null, wgScriptPath + "/api.php", sfgAutocompleteDataTypes[field_string], delimiter, data_source);
-		}
-	}
-}
-
 var num_elements = 0;
 
 // Once the document has finished loading, set up everything!
@@ -605,7 +601,6 @@ jQuery(document).ready(function() {
 /* extending jquery functions  */
     
 (function(jQuery) {
-     
 	jQuery.widget("ui.combobox", {
 		_create: function() {
 			var self = this;
@@ -616,9 +611,10 @@ jQuery(document).ready(function() {
 			var input = jQuery("<input id=\"" + id + "\" type=\"text\" name=\" " + name + " \" value=\"" + curval + "\">")
 				.insertAfter(select)
 				.attr("tabIndex", select.attr("tabIndex"))
+				.attr("autocompletesettings", select.attr("autocompletesettings"))
 				.autocomplete({
 					source: function(request, response) {
-						if ( autocompleteOnAllChars ) {
+						if ( sfgAutocompleteOnAllChars ) {
 							var matcher = new RegExp(request.term, "i");
 						} else {
 							var matcher = new RegExp("\\b" + request.term, "i");
