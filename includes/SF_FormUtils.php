@@ -10,10 +10,8 @@
 
 class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
-		global $sfgAdderButtons;
-		global $sfgAutocompleteDataTypes, $sfgAutocompleteValues;
-		global $sfgAutocompleteOnAllChars;
-		global $sfgShowOnSelect;
+		global $sfgAdderButtons, $sfgShowOnSelect;
+		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 
 		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
 		$vars['sfgAdderButtons'] = $sfgAdderButtons;
@@ -21,7 +19,6 @@ class SFFormUtils {
 		// variables that are associative arrays need to be cast as
 		// objects, to work with MW 1.15 and earlier
 		$vars['sfgAutocompleteValues'] = (object)$sfgAutocompleteValues;
-		$vars['sfgAutocompleteDataTypes'] = (object)$sfgAutocompleteDataTypes;
 		$vars['sfgShowOnSelect'] = (object)$sfgShowOnSelect;
 		$vars['sfgFormErrorsHeader'] = wfMsg( 'sf_formerrors_header' );
 		$vars['sfgBlankErrorStr'] = wfMsg( 'sf_blank_error' );
