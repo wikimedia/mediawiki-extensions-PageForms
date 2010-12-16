@@ -751,6 +751,7 @@ END;
                 if ( count( $cur_value ) == 1 ) {
                   // manually load SMW's message values here, in case they
                   // didn't get loaded before
+                  global $wgVersion;
                   if ( version_compare( $wgVersion, '1.16', '<' ) ) {
                     wfLoadExtensionMessages( 'SemanticMediaWiki' );
                   }
@@ -768,6 +769,7 @@ END;
                   }
                   $cur_value_in_template = $no;
                 } elseif ( count( $cur_value ) == 2 ) {
+                  global $wgVersion;
                   if ( version_compare( $wgVersion, '1.16', '<' ) ) {
                     wfLoadExtensionMessages( 'SemanticMediaWiki' );
                   }

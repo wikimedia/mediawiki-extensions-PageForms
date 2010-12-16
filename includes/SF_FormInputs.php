@@ -901,6 +901,7 @@ class SFCheckboxInput extends SFFormInput {
       // default to false - no need to check if it matches a 'false' word
       $vlc = strtolower( trim( $cur_value ) );
       // manually load SMW's message values, if they weren't loaded before
+      global $wgVersion;
       if ( version_compare( $wgVersion, '1.16', '<' ) ) {
         wfLoadExtensionMessages( 'SemanticMediaWiki' );
       }
