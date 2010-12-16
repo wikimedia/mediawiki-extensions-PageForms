@@ -14,7 +14,7 @@ class SFForms extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'Forms' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -37,7 +37,7 @@ class FormsPage extends QueryPage {
 	function getPageHeader() {
 		global $wgUser;
 		
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 		
 		$sk = $wgUser->getSkin();
 		$cf = SpecialPage::getPage( 'CreateForm' );

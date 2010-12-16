@@ -16,7 +16,7 @@ class SFCreateClass extends SpecialPage {
 	 */
 	public function __construct() {
 		parent::__construct( 'CreateClass', 'createclass' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {

@@ -232,7 +232,7 @@ class SFLinkUtils {
 		if ( '' === $namespace ) {
 			// if it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language
-			wfLoadExtensionMessages( 'SemanticForms' );
+			SFUtils::loadMessages();
 			$namespace = wfMsgForContent( 'sf_blank_namespace' );
 		}
 		if ( $form_edit_link = self::getFormEditLinkForPage( $title, $namespace, NS_PROJECT ) ) {
@@ -301,7 +301,7 @@ class SFLinkUtils {
 		if ( NS_MAIN === $namespace ) {
 			// if it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language
-			wfLoadExtensionMessages( 'SemanticForms' );
+			SFUtils::loadMessages();
 			$namespace_label = wfMsgForContent( 'sf_blank_namespace' );
 		} else {
 			global $wgContLang;

@@ -15,7 +15,7 @@ class SFCreateProperty extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'CreateProperty' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -62,7 +62,7 @@ function doSpecialCreateProperty() {
 	global $wgOut, $wgRequest, $sfgScriptPath;
 	global $smwgContLang;
 
-	wfLoadExtensionMessages( 'SemanticForms' );
+	SFUtils::loadMessages();
 
 	# cycle through the query values, setting the appropriate local variables
 	$property_name = $wgRequest->getVal( 'property_name' );

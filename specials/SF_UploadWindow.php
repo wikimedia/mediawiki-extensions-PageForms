@@ -24,7 +24,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'UploadWindow' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {

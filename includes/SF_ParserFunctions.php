@@ -324,7 +324,7 @@ END;
 					) . "\n";
 			}
 		}
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
 		$str .= <<<END
 			<input type="submit" value="$button_str" /></p>

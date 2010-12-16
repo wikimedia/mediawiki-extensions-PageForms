@@ -15,7 +15,7 @@ class SFCreateForm extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'CreateForm' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -28,7 +28,7 @@ function doSpecialCreateForm() {
 	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
 	$db = wfGetDB( DB_SLAVE );
 
-	wfLoadExtensionMessages( 'SemanticForms' );
+	SFUtils::loadMessages();
 
 	# get the names of all templates on this site
 	$all_templates = array();

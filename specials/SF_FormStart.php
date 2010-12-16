@@ -15,7 +15,7 @@ class SFFormStart extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'FormStart' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -23,7 +23,7 @@ class SFFormStart extends SpecialPage {
 
 		$this->setHeaders();
 
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 		$form_name = $wgRequest->getVal( 'form' );
 		$target_namespace = $wgRequest->getVal( 'namespace' );
 		$super_page = $wgRequest->getVal( 'super_page' );

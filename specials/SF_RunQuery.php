@@ -14,7 +14,7 @@ class SFRunQuery extends IncludableSpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'RunQuery' );
-		wfLoadExtensionMessages( 'SemanticForms' );
+		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
