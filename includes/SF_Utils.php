@@ -470,4 +470,13 @@ END;
 		$parser->mOutput->setProperty( 'formdefinition', $form_def );
 		return true;
 	}
+
+	/*
+	 * Loads messages only for MediaWiki versions that need it (< 1.16)
+	 */
+	public static function loadMessages() {
+		if ( version_compare( $wgVersion, '1.16', '<' ) ) {
+			wfLoadExtensionMessages( 'SemanticForms' );
+		}
+	}
 }
