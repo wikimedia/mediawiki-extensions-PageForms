@@ -1163,7 +1163,9 @@ END;
          $form_text .= SFFormUtils::hiddenFieldHTML( 'partial', 1 );
        } else {
          $free_text = null;
-         $existing_page_content = preg_replace( '/²\{(.*?)\}²/s', '{{\1}}', $existing_page_content );
+         $existing_page_content = preg_replace( array( '/²\{/m','/\}²/m' ),
+           array( '{{','}}' ),
+           $existing_page_content );
          $existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content );
        }
     } elseif ( $source_is_page ) {
