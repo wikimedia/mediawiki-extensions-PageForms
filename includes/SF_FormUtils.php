@@ -31,15 +31,7 @@ class SFFormUtils {
 	}
 
 	static function hiddenFieldHTML( $input_name, $cur_value ) {
-		$input = self::buttonHTML( array(
-			'type' => 'hidden',
-			'name' => $input_name,
-			'value' => $cur_value,
-		) );
-		return <<<END
-	$input
-
-END;
+		return "\t\t\t" . Xml::hidden( $input_name, $cur_value ) . "\n";
 	}
 
 	/**
@@ -142,8 +134,7 @@ END;
 	 * Helper function to display a simple button
 	 */
 	static function buttonHTML( $values ) {
-		$button_html = Xml::element( 'input', $values, '' );
-		return "		$button_html\n";
+		return "\t\t" . Xml::element( 'input', $values, '' ) . "\n";
 	}
 
 	static function saveButtonHTML( $is_disabled, $label = null, $attr = array() ) {
