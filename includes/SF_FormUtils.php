@@ -49,8 +49,10 @@ END;
 	static function unhandledFieldsHTML( $template_contents ) {
 		$text = "";
 		foreach ( $template_contents as $key => $value ) {
-			if ( $key != '' && !is_numeric( $key ) )
+			if ( !is_null( $key ) && !is_numeric( $key ) ) {
+				$key = urlencode( $key );
 				$text .= self::hiddenFieldHTML( "_unhandled_$key", $value );
+			}
 		}
 		return $text;
 	}
@@ -64,7 +66,7 @@ END;
 		$additional_template_text = "";
 		foreach ( $wgRequest->getValues() as $key => $value ) {
 			if ( substr( $key, 0, 11 ) == '_unhandled_' ) {
-				$field_name = substr( $key, 11 );
+				$field_name = urldecode( substr( $key, 11 ) );
 				$additional_template_text .= "|$field_name=$value\n";
 			}
 		}
