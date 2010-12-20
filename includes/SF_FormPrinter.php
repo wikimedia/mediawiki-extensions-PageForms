@@ -559,10 +559,9 @@ class SFFormPrinter {
                   $default_value = $sub_components[1];
                 } elseif ( $sub_components[0] == 'preload' ) {
                   // free text field has special handling
-                  if ( $field_name == 'free text' || $field_name = '<freetext>' ) {
+                  if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
                     $free_text_preload_page = $sub_components[1];
                   } else {
-                    // this variable is not used
                     $preload_page = $sub_components[1];
                   }
                 } elseif ( $sub_components[0] == 'show on select' ) {
@@ -660,9 +659,13 @@ class SFFormPrinter {
             $cur_value = '';
 	  }
 
-          if ( $cur_value == null ) {
-            // set to default value specified in the form, if it's there
-            $cur_value = $default_value;
+          if ( is_null( $cur_value ) ) {
+            if ( $default_value ) {
+              // Set to the default value specified in the form, if it's there.
+              $cur_value = $default_value;
+            } elseif ( $preload_page ) {
+              $cur_value = SFFormUtils::getPreloadedText( $preload_page );
+            }
           }
 
           // if the user is editing a page, and that page contains a call to
