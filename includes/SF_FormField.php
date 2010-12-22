@@ -170,7 +170,7 @@ class SFFormField {
 			$text .= '<p>' . wfMsg( 'sf_createform_fieldprop', $prop_link_text,
 				SFUtils::linkText( SMW_NS_TYPE, $template_field->field_type ) ) . "</p>\n";
 		}
-		// if it's not a semantic field - don't add any text
+		// If it's not a semantic field - don't add any text.
 		$form_label_text = wfMsg( 'sf_createform_formlabel' );
 		$field_label = $template_field->label;
 		$input_type_text = wfMsg( 'sf_createform_inputtype' );
@@ -257,10 +257,10 @@ END;
 		$other_args['is_list'] = ( $this->is_list || $this->template_field->is_list );
 		if ( $this->template_field->semantic_property != '' && ! array_key_exists( 'semantic_property', $other_args ) )
 			$other_args['semantic_property'] = $this->template_field->semantic_property;
-		// if autocompletion hasn't already been hardcoded in the form,
+		// If autocompletion hasn't already been hardcoded in the form,
 		// and it's a property of type page, or a property of another
 		// type with 'autocomplete' specified, set the necessary
-		// parameters
+		// parameters.
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
 			if ( $this->template_field->propertyIsOfType( '_wpg' ) ) {
 				$other_args['autocompletion source'] = $this->template_field->semantic_property;
@@ -270,9 +270,9 @@ END;
 				$other_args['autocomplete field type'] = 'attribute';
 			}
 		}
-		// now merge in the default values set by SFFormPrinter, if
+		// Now merge in the default values set by SFFormPrinter, if
 		// there were any - put the default values first, so that if
-		// there's a conflict they'll be overridden
+		// there's a conflict they'll be overridden.
 		if ( $default_args != null )
 			$other_args = array_merge( $default_args, $other_args );
 		return $other_args;
