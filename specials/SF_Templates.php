@@ -21,11 +21,19 @@ class SFTemplates extends SpecialPage {
 		$this->setHeaders();
 		list( $limit, $offset ) = wfCheckLimits();
 		$rep = new TemplatesPage();
-		return $rep->doQuery( $offset, $limit );
+		if ( method_exists( $rep, 'execute' ) ) {
+			$rep->execute( $query );
+		} else {
+			return $rep->doQuery( $offset, $limit );
+		}
 	}
 }
 
 class TemplatesPage extends QueryPage {
+	public function __construct( $name = 'Templates' ) {
+		parent::__construct( $name );
+	}
+	
 	function getName() {
 		return "Templates";
 	}

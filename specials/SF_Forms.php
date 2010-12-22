@@ -7,13 +7,37 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-class SFForms extends QueryPage {
+class SFForms extends SpecialPage {
+
 	/**
 	 * Constructor
 	 */
-	function __construct( $name = 'Forms' ) {
-		parent::__construct( $name );
+	function __construct() {
+		parent::__construct( 'Forms' );
 		SFUtils::loadMessages();
+	}
+
+	function execute( $query ) {
+		$this->setHeaders();
+		list( $limit, $offset ) = wfCheckLimits();
+		$rep = new FormsPage();
+		if ( method_exists( $rep, 'execute' ) ) {
+			return $rep->execute( $query );
+		} else {
+			return $rep->doQuery( $offset, $limit );
+		}
+	}
+}
+
+class FormsPage extends QueryPage {
+	public function __construct( $name = 'Forms' ) {
+		if ( $this instanceof SpecialPage ) {
+			parent::__construct( $name );
+		}
+	}
+	
+	function getName() {
+		return "Forms";
 	}
 
 	function isExpensive() { return false; }
@@ -49,7 +73,7 @@ class SFForms extends QueryPage {
 			WHERE page_namespace = {$NSform}
 			AND page_is_redirect = 0";
 	}
-
+	
 	function getQueryInfo() {
 		return array(
 			'tables' => array( 'page' ),
