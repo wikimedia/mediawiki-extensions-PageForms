@@ -63,6 +63,14 @@ class TemplatesPage extends QueryPage {
 			WHERE page_namespace = {$NStemp}";
 	}
 
+	function getQueryInfo() {
+		return array(
+			'tables' => array( 'page' ),
+			'fields' => array( 'page_title AS title', 'page_title AS value' ),
+			'conds' => array( 'page_namespace' => NS_TEMPLATE )
+		);
+	}
+
 	function sortDescending() {
 		return false;
 	}
