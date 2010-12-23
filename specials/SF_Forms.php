@@ -21,6 +21,7 @@ class SFForms extends SpecialPage {
 		$this->setHeaders();
 		list( $limit, $offset ) = wfCheckLimits();
 		$rep = new FormsPage();
+		// execute() method added in 1.18
 		if ( method_exists( $rep, 'execute' ) ) {
 			return $rep->execute( $query );
 		} else {
@@ -31,6 +32,7 @@ class SFForms extends SpecialPage {
 
 class FormsPage extends QueryPage {
 	public function __construct( $name = 'Forms' ) {
+		// For MW <= 1.17
 		if ( $this instanceof SpecialPage ) {
 			parent::__construct( $name );
 		}
@@ -74,6 +76,7 @@ class FormsPage extends QueryPage {
 			AND page_is_redirect = 0";
 	}
 	
+	// For MW 1.18+
 	function getQueryInfo() {
 		return array(
 			'tables' => array( 'page' ),
