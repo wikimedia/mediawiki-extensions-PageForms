@@ -74,19 +74,16 @@ class SFTemplateInForm {
 
 	/**
 	 * For a field name and its attached property name located in the
-	 * template text, add the two to the $templateFields array, and
-	 * then 'x' them out in the template text to prevent them from being
-	 * parsed twice.
+	 * template text, create an SFTemplateField object out of it, and
+	 * add it to the $templateFields array.
 	 */
-	function handlePropertySettingInTemplate( $fieldName, $propertyName, $isList, &$templateFields, $fullFieldText, &$templateText ) {
+	function handlePropertySettingInTemplate( $fieldName, $propertyName, $isList, &$templateFields, $templateText ) {
 		global $wgContLang;
 		$templateField = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
 		$templateField->setSemanticProperty( $propertyName );
 		$templateField->is_list = $isList;
 		$cur_pos = stripos( $templateText, $fieldName );
 		$templateFields[$cur_pos] = $templateField;
-		$replacement = str_repeat( "x", strlen( $fullFieldText ) );
-		$templateText = str_replace( $fullFieldText, $replacement, $templateText );
 	}
 
 	/**
@@ -101,13 +98,10 @@ class SFTemplateInForm {
 		// The way this works is that fields are found and then stored
 		// in an array based on their location in the template text, so
 		// that they can be returned in the order in which they appear
-		// in the template, even though they were found in a different
-		// order.
+		// in the template, not the order in which they were found.
 		// Some fields can be found more than once (especially if
 		// they're part of an "#if" statement), so they're only
-		// recorded the first time they're found. Also, every field
-		// gets replaced with a string of x's after being found, so it
-		// doesn't interfere with future parsing.
+		// recorded the first time they're found.
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $this->template_name );
 		$template_article = null;
 		if ( isset( $template_title ) ) $template_article = new Article( $template_title );
@@ -119,30 +113,23 @@ class SFTemplateInForm {
 	
 			// First, look for "arraymap" parser function calls
 			// that map a property onto a list.
-			if ( preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:=]*:?[^:=]*)(:[:=])/mis', $templateText, $matches ) ) {
-				// This is a two-dimensional array; we need
-				// the last three of the four sub-arrays; we
-				// also have to remove redundant values.
+			if ( preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $templateText, $matches ) ) {
 				foreach ( $matches[1] as $i => $field_name ) {
 					if ( ! in_array( $field_name, $fieldNamesArray ) ) {
 						$propertyName = $matches[2][$i];
-						$full_field_text = $matches[0][$i];
-						self::handlePropertySettingInTemplate( $field_name, $propertyName, true, &$templateFields, $full_field_text, &$templateText );
+						self::handlePropertySettingInTemplate( $field_name, $propertyName, true, &$templateFields, $templateText );
 						$fieldNamesArray[] = $field_name;
 					}
 				}
 			}
 	
 			// Second, look for normal property calls.
-			if ( preg_match_all( '/\[\[([^:=]*:*?[^:=]*)(:[:=]){{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
-				// This is a two-dimensional array; we need
-				// the last three of the four sub-arrays; we
-				// also have to remove redundant values.
+			if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
 				foreach ( $matches[1] as $i => $propertyName ) {
-					$field_name = $matches[3][$i];
+					$field_name = trim( $matches[2][$i] );
 					if ( ! in_array( $field_name, $fieldNamesArray ) ) {
-						$full_field_text = $matches[0][$i];
-						self::handlePropertySettingInTemplate( $field_name, $propertyName, false, &$templateFields, $full_field_text, &$templateText );
+						$propertyName = trim( $propertyName );
+						self::handlePropertySettingInTemplate( $field_name, $propertyName, false, &$templateFields, $templateText );
 						$fieldNamesArray[] = $field_name;
 					}
 				}
@@ -152,17 +139,12 @@ class SFTemplateInForm {
 			// (thankfully, they have basically the same syntax).
 			if ( preg_match_all( '/#(set|set_internal):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
 				foreach ( $matches[2] as $i => $match ) {
-					$match = str_replace( '{{{', '', $match );
-					$match = str_replace( '}}}', '', $match );
-					$setValues = explode( '|', $match );
-					foreach( $setValues as $valuePair ) {
-						$keyAndVal = explode( '=', $valuePair );
-						if ( count( $keyAndVal ) == 2) {
-							$propertyName = trim( $keyAndVal[0] );
-							$fieldName = trim( $keyAndVal[1] );
+					if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
+						foreach ( $matches2[1] as $i => $propertyName ) {
+							$fieldName = trim( $matches2[2][$i] );
 							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
-								$full_field_text = $matches[0][$i];
-								self::handlePropertySettingInTemplate( $fieldName, $propertyName, false, &$templateFields, $full_field_text, &$templateText );
+								$propertyName = trim( $propertyName );
+								self::handlePropertySettingInTemplate( $fieldName, $propertyName, false, &$templateFields, $templateText );
 								$fieldNamesArray[] = $fieldName;
 							}
 						}
@@ -180,8 +162,8 @@ class SFTemplateInForm {
 							$propertyName = trim( $keyAndVal[0] );
 							$fieldName = trim( $keyAndVal[1] );
 							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
-								$full_field_text = $matches[0][$i];
-								self::handlePropertySettingInTemplate( $fieldName, $propertyName, false, &$templateFields, $full_field_text, &$templateText );
+								self::handlePropertySettingInTemplate( $fieldName, $propertyName, false, &$templateFields, $templateText );
+								$fieldNamesArray[] = $fieldName;
 							}
 						}
 					}
@@ -190,12 +172,12 @@ class SFTemplateInForm {
 	
 			// Finally, get any non-semantic fields defined.
 			if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $i => $field_name ) {
-					$full_field_text = $matches[0][$i];
-					if ( ( $full_field_text != '' ) && ( ! in_array( $field_name, $fieldNamesArray ) ) ) {
-						$cur_pos = stripos( $templateText, $full_field_text );
-						$templateFields[$cur_pos] = SFTemplateField::create( $field_name, $wgContLang->ucfirst( $field_name ) );
-						$fieldNamesArray[] = $field_name;
+				foreach ( $matches[1] as $i => $fieldName ) {
+					$fieldName = trim( $fieldName );
+					if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
+						$cur_pos = stripos( $templateText, $fieldName );
+						$templateFields[$cur_pos] = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
+						$fieldNamesArray[] = $fieldName;
 					}
 				}
 			}
