@@ -21,6 +21,7 @@ class SFTemplates extends SpecialPage {
 		$this->setHeaders();
 		list( $limit, $offset ) = wfCheckLimits();
 		$rep = new TemplatesPage();
+		// execute() method added in MW 1.18
 		if ( method_exists( $rep, 'execute' ) ) {
 			$rep->execute( $query );
 		} else {
@@ -31,7 +32,10 @@ class SFTemplates extends SpecialPage {
 
 class TemplatesPage extends QueryPage {
 	public function __construct( $name = 'Templates' ) {
-		parent::__construct( $name );
+		// For MW <= 1.17
+                if ( $this instanceof SpecialPage ) {
+			parent::__construct( $name );
+		}
 	}
 	
 	function getName() {
@@ -71,6 +75,7 @@ class TemplatesPage extends QueryPage {
 			WHERE page_namespace = {$NStemp}";
 	}
 
+	// For MW 1.18+
 	function getQueryInfo() {
 		return array(
 			'tables' => array( 'page' ),
