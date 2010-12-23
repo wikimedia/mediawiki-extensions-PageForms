@@ -659,7 +659,7 @@ class SFFormPrinter {
             $cur_value = '';
 	  }
 
-          if ( is_null( $cur_value ) ) {
+          if ( empty( $cur_value ) ) {
             if ( $default_value ) {
               // Set to the default value specified in the form, if it's there.
               $cur_value = $default_value;
