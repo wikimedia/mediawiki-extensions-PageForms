@@ -9,6 +9,74 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 
 class SFUtils {
 
+	/**
+	 * Creates the name of the page that appears in the URL;
+	 * this method is necessary because Title::getPartialURL(), for
+	 * some reason, doesn't include the namespace
+	 */
+	static function titleURLString( $title ) {
+		global $wgCapitalLinks;
+
+		$namespace = wfUrlencode( $title->getNsText() );
+		if ( $namespace != '' ) {
+			$namespace .= ':';
+		}
+		if ( $wgCapitalLinks ) {
+			global $wgContLang;
+			return $namespace . $wgContLang->ucfirst( $title->getPartialURL() );
+		} else {
+			return $namespace . $title->getPartialURL();
+		}
+	}
+
+	/**
+	 * A very similar function to titleURLString(), to get the
+	 * non-URL-encoded title string
+	 */
+	static function titleString( $title ) {
+		global $wgCapitalLinks;
+
+		$namespace = $title->getNsText();
+		if ( $namespace != '' ) {
+			$namespace .= ':';
+		}
+		if ( $wgCapitalLinks ) {
+			global $wgContLang;
+			return $namespace . $wgContLang->ucfirst( $title->getText() );
+		} else {
+			return $namespace . $title->getText();
+		}
+	}
+
+	/**
+	 * Helper function - gets names of categories for a page;
+	 * based on Title::getParentCategories(), but simpler
+	 * - this function doubles as a function to get all categories on
+	 * the site, if no article is specified
+	 */
+	static function getCategoriesForPage( $title = NULL ) {
+		$categories = array();
+		$db = wfGetDB( DB_SLAVE );
+		$conditions = null;
+		if ( !is_null( $title ) ) {
+			$titlekey = $title->getArticleId();
+			if ( $titlekey == 0 ) {
+				// Something's wrong - exit
+				return $categories;
+			}
+			$conditions = "cl_from='$titlekey'";
+		}
+		$res = $db->select( $db->tableName( 'categorylinks' ),
+			'distinct cl_to', $conditions, __METHOD__ );
+		if ( $db->numRows( $res ) > 0 ) {
+			while ( $row = $db->fetchRow( $res ) ) {
+				$categories[] = $row[0];
+			}
+		}
+		$db->freeResult( $res );
+		return $categories;
+	}
+
 	static function initProperties() {
 		global $sfgContLang;
 		$sf_props = $sfgContLang->getPropertyLabels();
@@ -294,7 +362,7 @@ END;
 								}
 							} else {
 								$cur_title = Title::makeTitleSafe( $row['page_namespace'], $row['page_title'] );
-								$cur_value = SFLinkUtils::titleString( $cur_title );
+								$cur_value = self::titleString( $cur_title );
 								if ( ! in_array( $cur_value, $pages ) ) {
 									if ( $substring == null )
 										$pages[] = $cur_value;
