@@ -144,6 +144,16 @@ class SFFormPrinter {
     }
   }
 
+  /**
+   * This function is the real heart of the entire Semantic Forms
+   * extension. It handles two main actions: (1) displaying a form on the
+   * screen, given a form definition and possibly page contents (if an
+   * existing page is being edited); and (2) creating actual page contents,
+   * if the form was already submitted by the user.
+   *
+   * It also does some related tasks, like figuring out the page name (if
+   * only a page formula exists).
+   */
   function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false ) {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
@@ -184,9 +194,9 @@ class SFFormPrinter {
        }
     }
 
-    // disable all form elements if user doesn't have edit permission -
+    // Disable all form elements if user doesn't have edit permission -
     // two different checks are needed, because editing permissions can be
-    // set in different ways
+    // set in different ways.
     // HACK - sometimes we don't know the page name in advance, but we still
     // need to set a title here for testing permissions
     if ( $embedded ) {
@@ -218,9 +228,9 @@ class SFFormPrinter {
     $form_text = "";
     if ( $userCanEditPage || $is_query ) {
       $form_is_disabled = false;
-      // show "Your IP address will be recorded" warning if user is
+      // Show "Your IP address will be recorded" warning if user is
       // anonymous, and it's not a query -
-      // wikitext for bolding has to be replaced with HTML
+      // wiki-text for bolding has to be replaced with HTML.
       if ( $wgUser->isAnon() && ! $is_query ) {
         $anon_edit_warning = preg_replace( "/'''(.*)'''/", "<strong>$1</strong>", wfMsg( 'anoneditwarning' ) );
         $form_text .= "<p>$anon_edit_warning</p>\n";
@@ -231,14 +241,14 @@ class SFFormPrinter {
       $wgOut->addHTML( "\n<hr />\n" );
     }
 
-    // Remove <noinclude> sections and <includeonly> tags from form definition
+    // Remove <noinclude> sections and <includeonly> tags from form definition.
     $form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
     $form_def = strtr( $form_def, array( '<includeonly>' => '', '</includeonly>' => '' ) );
 
-    // parse wiki-text
-    // add '<nowiki>' tags around every triple-bracketed form definition
+    // Parse wiki-text.
+    // Add '<nowiki>' tags around every triple-bracketed form definition
     // element, so that the wiki parser won't touch it - the parser will
-    // remove the '<nowiki>' tags, leaving us with what we need
+    // remove the '<nowiki>' tags, leaving us with what we need.
     $form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
     $old_strip_state = $wgParser->mStripState;
     $wgParser->mStripState = new StripState();
@@ -272,13 +282,13 @@ class SFFormPrinter {
     $free_text_preload_page = null;
     $free_text_components = array();
     $all_values_for_template = array();
-    // unencode and HTML-encoded representations of curly brackets and
+    // Unencode any HTML-encoded representations of curly brackets and
     // pipes - this is a hack to allow for forms to include templates
-    // that themselves contain form elements - the escaping is needed
-    // to make sure that those elements don't get parsed too early
+    // that themselves contain form elements - the escaping was needed
+    // to make sure that those elements don't get parsed too early.
     $form_def = str_replace( array( '&#123;', '&#124;', '&#125;' ), array( '{', '|', '}' ), $form_def );
-    // and another hack - replace the 'free text' standard input with
-    // a field declaration to get it to be handled as a field
+    // And another hack - replace the 'free text' standard input with
+    // a field declaration to get it to be handled as a field.
     $form_def = str_replace( 'standard input|free text', 'field|<freetext>', $form_def );
     while ( $brackets_loc = strpos( $form_def, "{{{", $start_position ) ) {
       $brackets_end_loc = strpos( $form_def, "}}}", $brackets_loc );
@@ -327,10 +337,10 @@ class SFFormPrinter {
           $tif->template_name = $template_name;
           $query_template_name = str_replace( ' ', '_', $template_name );
           $add_button_text = wfMsg( 'sf_formedit_addanother' );
-          // also replace periods with underlines, since that's what
-          // POST does to strings anyway
+          // Also replace periods with underlines, since that's what
+          // POST does to strings anyway.
           $query_template_name = str_replace( '.', '_', $query_template_name );
-	  // cycle through the other components
+          // Cycle through the other components.
           for ( $i = 2; $i < count( $tag_components ); $i++ ) {
             $component = $tag_components[$i];
             if ( $component == 'multiple' ) $allow_multiple = true;
@@ -344,7 +354,8 @@ class SFFormPrinter {
               }
             }
           }
-          // if this is the first instance, add the label in the form
+          // If this is the first instance, add the label into the form, if
+          // there is one.
           if ( ( $old_template_name != $template_name ) && isset( $template_label ) ) {
             $form_text .= "<fieldset>\n";
             $form_text .= "<legend>$template_label</legend>\n";
@@ -383,12 +394,12 @@ class SFFormPrinter {
             }
             // get the first instance of this template on the page being edited,
             // even if there are more
-	    if ( $found_instance ) {
+            if ( $found_instance ) {
               $matches = array();
               $search_pattern = '/{{' . $preg_match_template_str . '\s*[\|}]/i';
               $content_str = str_replace( '_', ' ', $existing_page_content );
               preg_match($search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE);
-	      // is this check necessary?
+              // is this check necessary?
               if ( array_key_exists( 0, $matches ) && array_key_exists( 1, $matches[0] ) ) {
                 $start_char = $matches[0][1];
                 $fields_start_char = $start_char + 2 + strlen( $search_template_str );
@@ -450,7 +461,7 @@ class SFFormPrinter {
                 } else {
                   $existing_page_content = self::strReplaceFirst( $existing_template_text, '', $existing_page_content );
                 }
-                // if this is not a multiple-instance template, and we've found
+                // If this is not a multiple-instance template, and we've found
                 // a match in the source page, there's a good chance that this
                 // page was created with this form - note that, so we don't
                 // send the user a warning
@@ -459,19 +470,19 @@ class SFFormPrinter {
                 // - on second thought, allow even the presence of multiple-
                 // instance templates to validate that this is the correct
                 // form: the problem is that some forms contain *only* mutliple-
-                // instance templates
+                // instance templates.
                 // if (! $allow_multiple) {
                 $source_page_matches_this_form = true;
                 // }
               }
             }
           }
-          // if the input is from the form (meaning the user has hit one
+          // If the input is from the form (meaning the user has hit one
           // of the bottom row of buttons), and we're dealing with a
           // multiple template, get the values for this instance of this
           // template, then delete them from the array, so we can get the
           // next group next time - the next() command for arrays doesn't
-          // seem to work here
+          // seem to work here.
           if ( ( ! $source_is_page ) && $allow_multiple && $wgRequest ) {
             $all_instances_printed = true;
             if ( $old_template_name != $template_name ) {
@@ -590,10 +601,11 @@ class SFFormPrinter {
                   $property_name = $sub_components[1];
                   $dummy_field = new SFTemplateField();
                   $dummy_field->setSemanticProperty( $property_name );
-                  if ( $dummy_field->propertyIsOfType( '_wpg' ) )
+                  if ( $dummy_field->propertyIsOfType( '_wpg' ) ) {
                     $field_args['autocomplete field type'] = 'relation';
-                  else
+                  } else {
                     $field_args['autocomplete field type'] = 'attribute';
+                  }
                   $field_args['autocompletion source'] = $sub_components[1];
                 } elseif ( $sub_components[0] == 'autocomplete on' ) { // for backwards-compatibility
                   $field_args['autocomplete field type'] = 'category';
@@ -657,7 +669,7 @@ class SFFormPrinter {
             }
           } else {
             $cur_value = '';
-	  }
+          }
 
           if ( empty( $cur_value ) ) {
             if ( $default_value ) {
@@ -683,14 +695,14 @@ class SFFormPrinter {
             }
           }
 
-          // handle the free text field - if it was declared as
+          // Handle the free text field - if it was declared as
           // "field|free text" (a deprecated usage), it has to be outside
-          // of a template
+          // of a template.
           if ( ( $template_name == '' && $field_name == 'free text' ) ||
               $field_name == '<freetext>' ) {
-            // add placeholders for the free text in both the form and
+            // Add placeholders for the free text in both the form and
             // the page, using <free_text> tags - once all the free text
-            // is known (at the end), it will get substituted in
+            // is known (at the end), it will get substituted in.
             if ( $is_hidden ) {
               $new_text = SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
             } else {
@@ -858,13 +870,14 @@ END;
             // it's a restricted field and user doesn't have sysop privileges
             $is_disabled = ( $form_is_disabled ||
               ( $is_restricted && ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) ) ) );
-            // create an SFFormField instance based on all the
-            // parameters in the form definition, and any information from
-            // the template definition (contained in the $all_fields parameter)
-            $form_field = SFFormField::createFromDefinition( $field_name, $input_name,
-              $is_mandatory, $is_hidden, $is_uploadable, $possible_values, $is_disabled,
-              $is_list, $input_type, $field_args, $all_fields, $strict_parsing );
-            // if a property was set in the form definition, overwrite whatever
+            // Create an SFFormField instance based on all the parameters
+            // in the form definition, and any information from the template
+            // definition (contained in the $all_fields parameter).
+            $form_field = SFFormField::createFromDefinition( $field_name,
+              $input_name, $is_mandatory, $is_hidden, $is_uploadable,
+              $possible_values, $is_disabled, $is_list, $input_type,
+              $field_args, $all_fields, $strict_parsing );
+            // If a property was set in the form definition, overwrite whatever
             // is set in the template field - this is somewhat of a hack, since
             // parameters set in the form definition are meant to go into the
             // SFFormField object, not the SFTemplateField object it contains;
@@ -1115,21 +1128,21 @@ END;
           $remove_text = wfMsg( 'sf_formedit_remove' );
           $form_text .= <<<END
 	<div class="multipleTemplate">
-        $section
-        <input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
-        </div>
+	$section
+	<input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
+	</div>
 
 END;
           // this will cause the section to be re-parsed on the next go
           $section_num--;
-	} else {
+        } else {
           // this is the last instance of this template - stick an 'add'
           // button in the form
-        $form_text .= <<<END
+          $form_text .= <<<END
 	<div id="starter_$query_template_name" class="multipleTemplateStarter" style="display: none;">
-        $section
-        </div>
-         <div id="main_$query_template_name"></div>
+	$section
+	</div>
+	<div id="main_$query_template_name"></div>
 
 END;
           $adderID = "adder_$sfgFieldNum";
@@ -1209,7 +1222,7 @@ END;
     // add a warning in, if we're editing an existing page and that page
     // appears to not have been created with this form
     if ( $this->mPageTitle->exists() && ( $existing_page_content != '' ) && ! $source_page_matches_this_form ) {
-      $form_text = '	<div class="warningMessage">' . wfMsg( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() ) . "</div>\n" . $form_text;
+      $form_text = "\t" . '<div class="warningMessage">' . wfMsg( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() ) . "</div>\n" . $form_text;
     }
 
     // add form bottom, if no custom "standard inputs" have been defined
@@ -1222,12 +1235,13 @@ END;
     $starttime = wfTimestampNow();
     $page_article = new Article( $this->mPageTitle );
     $edittime = $page_article->getTimestamp();
-    if ( !$is_query )
-    	$form_text .= <<<END
+    if ( !$is_query ) {
+      $form_text .= <<<END
 
 	<input type="hidden" value="$starttime" name="wpStarttime" />
 	<input type="hidden" value="$edittime" name="wpEdittime" />
 END;
+    }
     $form_text .= <<<END
 	</form>
 
@@ -1245,25 +1259,25 @@ END;
       }
     }
 
-    // send the autocomplete values to the browser, along with the mappings
-    // of which values should apply to which fields
-    // if doing a replace, the data text is actually the modified original page
+    // Send the autocomplete values to the browser, along with the mappings
+    // of which values should apply to which fields.
+    // If doing a replace, the data text is actually the modified original page
     if ( $wgRequest->getCheck( 'partial' ) )
       $data_text = $existing_page_content;
 
     global $wgParser;
     $new_text = "";
-    if ( !$embedded )
+    if ( !$embedded ) {
       $new_text = $wgParser->preprocess( str_replace( "{{!}}", "|", $form_page_title ), $this->mPageTitle, new ParserOptions() );
+    }
 
-    // keep it simple - if the form has already been submitted, i.e. this is
-    // just the redirect page, get rid of all the Javascript, to avoid JS errors
+    // If the form has already been submitted, i.e. this is just the redirect
+    // page, get rid of all the Javascript, to avoid JS errors.
     if ( $form_submitted ) {
       $javascript_text = '';
     }
     
-    return array( $form_text, $javascript_text,
-      $data_text, $new_text, $generated_page_name );
+    return array( $form_text, $javascript_text, $data_text, $new_text, $generated_page_name );
   }
 
   /**
