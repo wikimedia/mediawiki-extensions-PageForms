@@ -97,7 +97,7 @@ END;
 	}
 
 	$subcategory_label = wfMsg( 'sf_createcategory_makesubcategory' );
-	$categories = SFLinkUtils::getCategoriesForArticle();
+	$categories = SFUtils::getCategoriesForPage();
 	$sk = $wgUser->getSkin();
 	$cf = SpecialPage::getPage( 'CreateForm' );
 	$create_form_link = $sk->makeKnownLinkObj( $cf->getTitle(), $cf->getDescription() );
