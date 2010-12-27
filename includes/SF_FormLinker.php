@@ -1,64 +1,72 @@
 <?php
 /**
- * Helper functions for linking to pages and forms
+ * Gets the form(s) used to edit a page, both for existing pages and for
+ * not-yet-created, red-linked pages. This class uses its own in-memory
+ * caching to try to minimize the number of calls to the Semantic
+ * MediaWiki data store.
  *
  * @author Yaron Koren
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-class SFLinkUtils {
+class SFFormLinker {
+	const DEFAULT_FORM = 1;
+	const ALTERNATE_FORM = 2;
+	const AUTO_CREATE_FORM = 3;
 
-	static function linkText( $namespace, $name, $text = NULL ) {
-		global $wgContLang;
+	// An in-memory cache of data already retrieved for the current page.
+	static $mLinkedForms = array();
+	static $mLinkedPages = array();
+	static $mLinkedPagesRetrieved = false;
 
-		$inText = $wgContLang->getNsText( $namespace ) . ':' . $name;
-		$title = Title::newFromText( $inText );
-		if ( $title === NULL ) {
-			return $inText; // TODO maybe report an error here?
+	/**
+	 * Gets the set of all properties that point to this page, anywhere
+	 * in the wiki.
+	 */
+	static function getIncomingProperties( $title ) {
+		// produce a useful error message if SMW isn't installed
+		if ( ! function_exists( 'smwfGetStore' ) ) {
+			die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
 		}
-		if ( NULL === $text ) $text = $title->getText();
-		$l = new Linker();
-		return $l->makeLinkObj( $title, $text );
+		$store = smwfGetStore();
+		$title_text = SFUtils::titleString( $title );
+		$value = SMWDataValueFactory::newTypeIDValue( '_wpg', $title_text );
+		$properties = $store->getInProperties( $value );
+		$propertyNames = array();
+		foreach( $properties as $property ) {
+			$property_name = $property->getWikiValue();
+			if ( !empty( $property_name ) ) {
+				$propertyNames[] = $property_name;
+			}
+		}
+		return $propertyNames;
 	}
 
 	/**
-	 * Creates the name of the page that appears in the URL;
-	 * this method is necessary because Title::getPartialURL(), for
-	 * some reason, doesn't include the namespace
+	 * Gets the properties pointing from the current page to this one.
 	 */
-	static function titleURLString( $title ) {
-		global $wgCapitalLinks;
-
-		$namespace = wfUrlencode( $title->getNsText() );
-		if ( $namespace != '' ) {
-			$namespace .= ':';
+	static function getPagePropertiesOfPage( $title ) {
+		if ( self::$mLinkedPagesRetrieved ) {
+			return;
 		}
-		if ( $wgCapitalLinks ) {
-			global $wgContLang;
-			return $namespace . $wgContLang->ucfirst( $title->getPartialURL() );
-		} else {
-			return $namespace . $title->getPartialURL();
+		$store = smwfGetStore();
+		$data = $store->getSemanticData( $title );
+		foreach ( $data->getProperties() as $property ) {
+			$propertyValues = $data->getPropertyValues( $property );
+			foreach ( $propertyValues as $propertyValue ) {
+				if ( $propertyValue instanceof SMWWikiPageValue ) {
+					$propertyName = $property->getWikiValue();
+					$linkedPageName = $propertyValue->getWikiValue();
+					if ( array_key_exists( $linkedPageName, self::$mLinkedPages ) ) {
+						self::$mLinkedPages[$linkedPageName][] = $propertyName;
+					} else {
+						self::$mLinkedPages[$linkedPageName] = array( $propertyName );
+					}
+				}
+			}
 		}
-	}
-
-	/**
-	 * A very similar function to titleURLString(), to get the
-	 * non-URL-encoded title string
-	 */
-	static function titleString( $title ) {
-		global $wgCapitalLinks;
-
-		$namespace = $title->getNsText();
-		if ( $namespace != '' ) {
-			$namespace .= ':';
-		}
-		if ( $wgCapitalLinks ) {
-			global $wgContLang;
-			return $namespace . $wgContLang->ucfirst( $title->getText() );
-		} else {
-			return $namespace . $title->getText();
-		}
+		self::$mLinkedPagesRetrieved = true;
 	}
 
 	/**
@@ -66,8 +74,38 @@ class SFLinkUtils {
 	 * "alternate form", or "default form for page", for a specific page
 	 * (which should be a category, property, or namespace page)
 	 */
-	static function getFormsThatPagePointsTo( $page_name, $page_namespace, $prop_smw_id, $backup_prop_smw_id, $prop_id ) {
+	static function getFormsThatPagePointsTo( $page_name, $page_namespace, $form_connection_type ) {
 		if ( $page_name == NULL ) {
+			return array();
+		}
+
+		// Check if we've already gotten the set of forms for this
+		// combination of page and "form connection type" (default,
+		// alternate or "creates pages with"). If so, use that -
+		// otherwise, prepare the array so that we can add this
+		// data to it.
+		$page_key = "$page_namespace:$page_name";
+		if ( array_key_exists( $page_key, self::$mLinkedForms ) ) {
+			if ( array_key_exists( $form_connection_type, self::$mLinkedForms[$page_key] ) ) {
+				return self::$mLinkedForms[$page_key][$form_connection_type];
+			} else {
+				// Do nothing - an entry with this key will
+				// be added at the end of this method.
+			}
+		} else {
+			self::$mLinkedForms[$page_key] = array();
+		}
+
+		if ( $form_connection_type == self::DEFAULT_FORM ) {
+			$prop_smw_id = '_SF_DF';
+			$backup_prop_smw_id = '_SF_DF_BACKUP';
+		} elseif ( $form_connection_type == self::ALTERNATE_FORM ) {
+			$prop_smw_id = '_SF_AF';
+			$backup_prop_smw_id = '_SF_AF_BACKUP';
+		} elseif ( $form_connection_type == self::AUTO_CREATE_FORM ) {
+			$prop_smw_id = '_SF_CP';
+			$backup_prop_smw_id = '_SF_CP_BACKUP';
+		} else {
 			return array();
 		}
 
@@ -96,62 +134,10 @@ class SFLinkUtils {
 			foreach ( $res as $wiki_page_value )
 				$form_names[] = $wiki_page_value->getTitle()->getText();
 		}
-		return array_unique( $form_names );
-	}
-
-	/**
-	 * Helper function for formEditLink() - gets the 'default form' and
-	 * 'alternate form' properties for a page, and creates the
-	 * corresponding Special:FormEdit link, if any such properties are
-	 * defined
-	 */
-	static function getFormEditLinkForPage( $target_page_title, $page_name, $page_namespace ) {
-		$default_forms = self::getFormsThatPagePointsTo( $page_name, $page_namespace, '_SF_DF', '_SF_DF_BACKUP', SF_SP_HAS_DEFAULT_FORM );
-		$alt_forms = self::getFormsThatPagePointsTo( $page_name, $page_namespace, '_SF_AF', '_SF_AF_BACKUP', SF_SP_HAS_ALTERNATE_FORM );
-		if ( ( count( $default_forms ) == 0 ) && ( count( $alt_forms ) == 0 ) )
-			return null;
-		$fe = SpecialPage::getPage( 'FormEdit' );
-		$fe_url = $fe->getTitle()->getLocalURL();
-		if ( count( $default_forms ) > 0 )
-			$form_edit_url = $fe_url . "/" . $default_forms[0] . "/" . self::titleURLString( $target_page_title );
-		else
-			$form_edit_url = $fe_url . "/" . self::titleURLString( $target_page_title );
-		foreach ( $alt_forms as $i => $alt_form ) {
-			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
-			$form_edit_url .= "alt_form[$i]=$alt_form";
-		}
-		return $form_edit_url;
-	}
-
-	/**
-	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
-	 * AKA red-linked) page, for MediaWiki 1.13
-	 */
-	static function setBrokenLink_1_13( &$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail ) {
-		if ( self::createLinkedPage( $title ) ) {
-			return true;
-		}
-		$link = self::formEditLink( $title );
-		if ( $link != '' )
-			$u = $link;
-		return true;
-	}
-
-	/**
-	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
-	 * AKA red-linked) page
-	 */
-	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
-		if ( in_array( 'broken', $options ) ) {
-			if ( self::createLinkedPage( $target ) ) {
-				return true;
-			}
-			$link = self::formEditLink( $target );
-			if ( $link != '' ) {
-				$attribs['href'] = $link;
-			}
-		}
-		return true;
+		$form_names = array_unique( $form_names );
+		// Add this data to the "cache".
+		self::$mLinkedForms[$page_key][$form_connection_type] = $form_names;
+		return $form_names;
 	}
 
 	/**
@@ -159,7 +145,7 @@ class SFLinkUtils {
 	 * viewed, if there's a property pointing from anywhere to that page
 	 * that's defined with the 'Creates pages with form' special property
 	 */
-	static function createLinkedPage( $title ) {
+	static function createLinkedPage( $title, $incoming_properties ) {
 		// if we're in a 'special' page, just exit - this is to prevent
 		// constant additions being made from the 'Special:RecentChanges'
 		// page, which shows pages that were previously deleted as red
@@ -171,15 +157,8 @@ class SFLinkUtils {
 		if ( $wgTitle->getNamespace() == NS_SPECIAL )
 			return false;
 
-		$store = smwfGetStore();
-		$title_text = self::titleString( $title );
-		$value = SMWDataValueFactory::newTypeIDValue( '_wpg', $title_text );
-		$incoming_properties = $store->getInProperties( $value );
-		foreach ( $incoming_properties as $property ) {
-			$property_name = $property->getWikiValue();
-			if ( empty( $property_name ) ) continue;
-			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
-			$auto_create_forms = self::getFormsThatPagePointsTo( $property_name, SMW_NS_PROPERTY, '_SF_CP', '_SF_CP_BACKUP', SF_SP_CREATES_PAGES_WITH_FORM );
+		foreach ( $incoming_properties as $property_name ) {
+			$auto_create_forms = self::getFormsThatPagePointsTo( $property_name, SMW_NS_PROPERTY, self::AUTO_CREATE_FORM );
 			if ( count( $auto_create_forms ) > 0 ) {
 				global $sfgFormPrinter;
 				$form_name = $auto_create_forms[0];
@@ -203,104 +182,147 @@ class SFLinkUtils {
 	}
 
 	/**
+	 * Helper function for formEditLink() - gets the 'default form' and
+	 * 'alternate form' properties for a page, and creates the
+	 * corresponding Special:FormEdit link, if any such properties are
+	 * defined
+	 */
+	static function getFormEditLinkForPage( $target_page_title, $page_name, $page_namespace ) {
+		$default_forms = self::getFormsThatPagePointsTo( $page_name, $page_namespace, self::DEFAULT_FORM );
+		$alt_forms = self::getFormsThatPagePointsTo( $page_name, $page_namespace, self::ALTERNATE_FORM );
+
+		if ( ( count( $default_forms ) == 0 ) && ( count( $alt_forms ) == 0 ) ) {
+			return null;
+		}
+
+		$fe = SpecialPage::getPage( 'FormEdit' );
+		$fe_url = $fe->getTitle()->getLocalURL();
+		if ( count( $default_forms ) > 0 ) {
+			$form_edit_url = $fe_url . "/" . $default_forms[0] . "/" . SFUtils::titleURLString( $target_page_title );
+		} else {
+			$form_edit_url = $fe_url . "/" . SFUtils::titleURLString( $target_page_title );
+		}
+		foreach ( $alt_forms as $i => $alt_form ) {
+			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
+			$form_edit_url .= "alt_form[$i]=$alt_form";
+		}
+		return $form_edit_url;
+	}
+
+	/**
 	 * Returns the URL for the Special:FormEdit page for a specific page,
 	 * given its default and alternate form(s) - we can't just point to
 	 * '&action=formedit', because that one doesn't reflect alternate forms
 	 */
-	static function formEditLink( $title ) {
-		// get all properties pointing to this page, and if
+	static function formEditLink( $title, $incoming_properties ) {
+		// Get all properties pointing to this page, and if
 		// getFormEditLinkForPage() returns a value with any of
-		// them, return that
+		// them, return that.
 
-		// produce a useful error message if SMW isn't installed
-		if ( ! function_exists( 'smwfGetStore' ) )
-			die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
-		$store = smwfGetStore();
-		$title_text = self::titleString( $title );
-		$value = SMWDataValueFactory::newTypeIDValue( '_wpg', $title_text );
-		$incoming_properties = $store->getInProperties( $value );
-		foreach ( $incoming_properties as $property ) {
-			$property_title = $property->getWikiValue();
-			if ( $form_edit_link = self::getFormEditLinkForPage( $title, $property_title, SMW_NS_PROPERTY ) ) {
+		foreach ( $incoming_properties as $property_name ) {
+			if ( $form_edit_link = self::getFormEditLinkForPage( $title, $property_name, SMW_NS_PROPERTY ) ) {
 				return $form_edit_link;
 			}
 		}
 
-		// if that didn't work, check if this page's namespace
-		// has a default form specified
-		$namespace = $title->getNsText();
-		if ( '' === $namespace ) {
-			// if it's in the main (blank) namespace, check for the
-			// file named with the word for "Main" in this language
+		// If that didn't work, check if this page's namespace
+		// has a default form specified.
+		$namespace_name = $title->getNsText();
+		if ( '' === $namespace_name ) {
+			// If it's in the main (blank) namespace, check for the
+			// file named with the word for "Main" in this language.
 			SFUtils::loadMessages();
-			$namespace = wfMsgForContent( 'sf_blank_namespace' );
+			$namespace_name = wfMsgForContent( 'sf_blank_namespace' );
 		}
-		if ( $form_edit_link = self::getFormEditLinkForPage( $title, $namespace, NS_PROJECT ) ) {
+		if ( $form_edit_link = self::getFormEditLinkForPage( $title, $namespace_name, NS_PROJECT ) ) {
 			return $form_edit_link;
 		}
-		// if nothing found still, return null
+		// If nothing found still, return null.
 		return null;
 	}
 
 	/**
-	 * Helper function - gets names of categories for a page;
-	 * based on Title::getParentCategories(), but simpler
-	 * - this function doubles as a function to get all categories on
-	 * the site, if no article is specified
+	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
+	 * AKA red-linked) page, for MediaWiki 1.13
 	 */
-	static function getCategoriesForArticle( $article = NULL ) {
-		$categories = array();
-		$db = wfGetDB( DB_SLAVE );
-		$conditions = null;
-		if ( $article != NULL ) {
-			$titlekey = $article->mTitle->getArticleId();
-			if ( $titlekey == 0 ) {
-				// Something's wrong - exit
-				return $categories;
+	static function setBrokenLink_1_13( &$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail ) {
+		global $sfgRedLinksCheckOnlyLocalProps;
+		if ( $sfgRedLinksCheckOnlyLocalProps ) {
+			self::getPagePropertiesOfPage( $linker->getTitle() );
+			$targetName = $title->getText();
+			if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
+				$incoming_properties = self::$mLinkedPages[$targetName];
+			} else {
+				$incoming_properties = array();
 			}
-			$conditions = "cl_from='$titlekey'";
+		} else {
+			$incoming_properties = self::getIncomingProperties( $title );
 		}
-		$res = $db->select( $db->tableName( 'categorylinks' ),
-			'distinct cl_to', $conditions, __METHOD__ );
-		if ( $db->numRows( $res ) > 0 ) {
-			while ( $row = $db->fetchRow( $res ) ) {
-				$categories[] = $row[0];
-			}
-		}
-		$db->freeResult( $res );
-		return $categories;
+		self::createLinkedPage( $title, $incoming_properties );
+		$link = self::formEditLink( $title, $incoming_properties );
+		if ( $link != '' )
+			$u = $link;
+		return true;
 	}
 
 	/**
-	 * Get the form used to edit this article - either:
-	 * - the default form the page itself, if there is one; or
-	 * - the default form for a category that this article belongs to,
-	 * if there is one; or
-	 * - the default form for the article's namespace, if there is one
+	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
+	 * AKA red-linked) page
 	 */
-	static function getFormsForArticle( $obj ) {
-		// see if the page itself has a default form (or forms), and
-		// return it/them if so
-		$default_forms = self::getFormsThatPagePointsTo( $obj->mTitle->getText(), $obj->mTitle->getNamespace(), '_SF_PDF', '_SF_PDF_BACKUP', SF_SP_PAGE_HAS_DEFAULT_FORM );
+	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
+		if ( in_array( 'broken', $options ) ) {
+			global $sfgRedLinksCheckOnlyLocalProps;
+			if ( $sfgRedLinksCheckOnlyLocalProps ) {
+				self::getPagePropertiesOfPage( $linker->getTitle() );
+				$targetName = $target->getText();
+				if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
+					$incoming_properties = self::$mLinkedPages[$targetName];
+				} else {
+					$incoming_properties = array();
+				}
+			} else {
+				$incoming_properties = self::getIncomingProperties( $target );
+			}
+			self::createLinkedPage( $target, $incoming_properties );
+			$link = self::formEditLink( $target, $incoming_properties );
+			if ( $link != '' ) {
+				$attribs['href'] = $link;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Get the form(s) used to edit this page - either:
+	 * - the default form(s) for the page itself, if there are any; or
+	 * - the default form(s) for a category that this article belongs to,
+	 * if there are any; or
+	 * - the default form(s) for the article's namespace, if there are any.
+	 */
+	static function getDefaultFormsForPage( $title ) {
+		// See if the page itself has a default form (or forms), and
+		// return it/them if so.
+		$default_forms = self::getFormsThatPagePointsTo( $title->getText(), $title->getNamespace(), self::DEFAULT_FORM );
 		if ( count( $default_forms ) > 0 )
 			return $default_forms;
-		// if this is not a category page, look for a default form
-		// for its parent categories
-		$namespace = $obj->mTitle->getNamespace();
+		// If this is not a category page, look for a default form
+		// for its parent category or categories.
+		$namespace = $title->getNamespace();
 		if ( NS_CATEGORY !== $namespace ) {
 			$default_forms = array();
-			$categories = self::getCategoriesForArticle( $obj );
+			$categories = SFUtils::getCategoriesForPage( $title );
 			foreach ( $categories as $category ) {
-				$default_forms = array_merge( $default_forms, self::getFormsThatPagePointsTo( $category, NS_CATEGORY, '_SF_DF', '_SF_DF_BACKUP', SF_SP_HAS_DEFAULT_FORM ) );
+				$default_forms = array_merge( $default_forms, self::getFormsThatPagePointsTo( $category, NS_CATEGORY, self::DEFAULT_FORM ) );
 			}
-			if ( count( $default_forms ) > 0 )
+			if ( count( $default_forms ) > 0 ) {
 				return $default_forms;
+			}
 		}
-		// if we're still here, just return the default form for the
-		// namespace, which may well be null
+		// If we're still here, just return the default form for the
+		// namespace, which may well be null.
 		if ( NS_MAIN === $namespace ) {
-			// if it's in the main (blank) namespace, check for the
-			// file named with the word for "Main" in this language
+			// If it's in the main (blank) namespace, check for the
+			// file named with the word for "Main" in this language.
 			SFUtils::loadMessages();
 			$namespace_label = wfMsgForContent( 'sf_blank_namespace' );
 		} else {
@@ -308,7 +330,7 @@ class SFLinkUtils {
 			$namespace_labels = $wgContLang->getNamespaces();
 			$namespace_label = $namespace_labels[$namespace];
 		}
-		$default_forms = self::getFormsThatPagePointsTo( $namespace_label, NS_PROJECT, '_SF_DF', '_SF_DF_BACKUP', SF_SP_HAS_DEFAULT_FORM );
+		$default_forms = self::getFormsThatPagePointsTo( $namespace_label, NS_PROJECT, self::DEFAULT_FORM );
 		return $default_forms;
 	}
 
