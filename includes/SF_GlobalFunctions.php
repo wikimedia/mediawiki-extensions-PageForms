@@ -31,8 +31,8 @@ $wgExtensionFunctions[] = 'sfgSetupExtension';
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
 // the 'BrokenLink' hook exists only in MediaWiki v1.13 - it was replaced
 // by 'LinkBegin' and 'LinkEnd'
-$wgHooks['BrokenLink'][] = 'SFLinkUtils::setBrokenLink_1_13';
-$wgHooks['LinkEnd'][] = 'SFLinkUtils::setBrokenLink';
+$wgHooks['BrokenLink'][] = 'SFFormLinker::setBrokenLink_1_13';
+$wgHooks['LinkEnd'][] = 'SFFormLinker::setBrokenLink';
 $wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
 // 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
 $wgHooks['SkinTemplateTabs'][] = 'SFFormEditTab::displayTab';
@@ -106,7 +106,7 @@ $wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.php';
 $wgAutoloadClasses['SFFormEditTab'] = $sfgIP . '/includes/SF_FormEditTab.php';
 $wgAutoloadClasses['SFFormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
 $wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.php';
-$wgAutoloadClasses['SFLinkUtils'] = $sfgIP . '/includes/SF_LinkUtils.php';
+$wgAutoloadClasses['SFFormLinker'] = $sfgIP . '/includes/SF_FormLinker.php';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 $wgJobClasses['createPage'] = 'SFCreatePageJob';
