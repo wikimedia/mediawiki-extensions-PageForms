@@ -33,9 +33,8 @@ class SFRunQuery extends IncludableSpecialPage {
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
 		if ( ! $form_title || ! $form_title->exists() ) {
-			$javascript_text = "";
 			if ( $form_name == '' ) {
-				$text = '<p class="error">' . wfMsg( 'sf_runquery_badurl' ) . "</p>\n";
+				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
 			} else {
 				$text = '<p class="error">Error: No form page was found at ' . SFUtils::linkText( SF_NS_FORM, $form_name ) . ".</p>\n";
 			}
@@ -120,12 +119,13 @@ class SFRunQuery extends IncludableSpecialPage {
 END;
 			$text .= $form_text;
 		}
-		if ( $embedded )
+		if ( $embedded ) {
 			$text = "<div class='runQueryEmbedded'>$text</div>";
+		}
 
 		// Now write everything to the screen.
 		$wgOut->addHTML( $text );
-		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser:null );
+		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser : null );
 		$script = '		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
 		if ( $embedded ) {
 			$wgParser->getOutput()->addHeadItem( $script );

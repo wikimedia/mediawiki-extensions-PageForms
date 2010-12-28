@@ -66,7 +66,7 @@ class SFFormEdit extends SpecialPage {
 		// get contents of form and target page - if there's only one,
 		// it might be a target with only alternate forms
 		if ( $form_name == '' ) {
-			$wgOut->addHTML( "<p class='error'>" . wfMsg( 'sf_formedit_badurl' ) . '</p>' );
+			$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) );
 			return;
 		} elseif ( $target_name == '' ) {
 			// parse the form to see if it has a 'page name' value set
@@ -83,7 +83,7 @@ class SFFormEdit extends SpecialPage {
 					$page_name_formula = substr( $page_name_formula, 0, $pos );
 				}
 			} elseif ( count( $alt_forms ) == 0 ) {
-				$wgOut->addWikiText( "<p class='error'>" . wfMsg( 'sf_formedit_badurl' ) . '</p>' );
+				$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) );
 				return;
 			}
 		}
@@ -117,17 +117,18 @@ class SFFormEdit extends SpecialPage {
 
 		if ( ! $form_title || ! $form_title->exists() ) {
 			if ( $form_name == '' ) {
-				$text = '<p class="error">' . wfMsg( 'sf_formedit_badurl' ) . "</p>\n";
+				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
 			} else {
 				if ( count( $alt_forms ) > 0 ) {
 					$text .= '<div class="infoMessage">' . wfMsg( 'sf_formedit_altformsonly' ) . ' ';
 					$text .= self::printAltFormsList( $alt_forms, $form_name );
 					$text .= "</div>\n";
-				} else
-					$text = '<p class="error">' . wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) . ".</p>\n";
+				} else {
+					$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+				}
 			}
 		} elseif ( $target_name == '' && $page_name_formula == '' ) {
-			$text = '<p class="error">' . wfMsg( 'sf_formedit_badurl' ) . "</p>\n";
+			$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
 		} else {
 			$form_article = new Article( $form_title );
 			$form_definition = $form_article->getContent();
