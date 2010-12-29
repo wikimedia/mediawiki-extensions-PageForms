@@ -130,7 +130,7 @@ class SFFormPrinter {
    * unfortunately, str_replace() doesn't allow for that.
    * This code is basically copied directly from
    * http://www.php.net/manual/en/function.str-replace.php#86177
-   * - this might make sense in some SF utils class, if it's useful in
+   * - this might make sense in the SFUtils class, if it's useful in
    * other places.
    */
   function strReplaceFirst( $search, $replace, $subject) {
@@ -255,8 +255,8 @@ class SFFormPrinter {
     $wgParser->mOptions = new ParserOptions();
     $wgParser->mOptions->initialiseFromUser( $wgUser );
 
-    // get the form definition from the cache, if we're using caching and it's
-    // there
+    // Get the form definition from the cache, if we're using caching and it's
+    // there.
     $got_form_def_from_cache = false;
     global $sfgCacheFormDefinitions;
     if ( $sfgCacheFormDefinitions && ! is_null( $form_id ) ) {
@@ -267,7 +267,7 @@ class SFFormPrinter {
         $got_form_def_from_cache = true;
       }
     }
-    // otherwise, parse it
+    // Otherwise, parse it.
     if ( ! $got_form_def_from_cache ) {
       $form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
     }
@@ -293,7 +293,7 @@ class SFFormPrinter {
     while ( $brackets_loc = strpos( $form_def, "{{{", $start_position ) ) {
       $brackets_end_loc = strpos( $form_def, "}}}", $brackets_loc );
       $bracketed_string = substr( $form_def, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
-      $tag_components = explode( '|', $bracketed_string );
+      $tag_components = SFUtils::getFormTagComponents( $bracketed_string );
       $tag_title = trim( $tag_components[0] );
       if ( $tag_title == 'for template' || $tag_title == 'end template' ) {
         // create a section for everything up to here
@@ -326,7 +326,7 @@ class SFFormPrinter {
       while ( $brackets_loc = strpos( $section, '{{{', $start_position ) ) {
         $brackets_end_loc = strpos( $section, "}}}", $brackets_loc );
         $bracketed_string = substr( $section, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
-        $tag_components = explode( '|', $bracketed_string );
+        $tag_components = SFUtils::getFormTagComponents( $bracketed_string );
         $tag_title = trim( $tag_components[0] );
         // =====================================================
         // for template processing
