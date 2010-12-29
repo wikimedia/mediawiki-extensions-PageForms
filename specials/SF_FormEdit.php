@@ -75,13 +75,9 @@ class SFFormEdit extends SpecialPage {
 			$form_definition = $form_article->getContent();
 			$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 			$matches;
-			if ( preg_match( '/{{{info.*page name\s*=\s*([^\|]*)/m', $form_definition, $matches ) ) {
-				$page_name_formula = str_replace( '_', ' ', $matches[1] );
-				// if the tag close ('}}}') is in here, chop off
-				// that and everything after it
-				if ( $pos = strpos( $page_name_formula, '}}}' ) ) {
-					$page_name_formula = substr( $page_name_formula, 0, $pos );
-				}
+			if ( preg_match( '/{{{info.*page name\s*=\s*(.*)}}}/m', $form_definition, $matches ) ) {
+				$page_name_elements = SFUtils::getFormTagComponents( $matches[1] );
+				$page_name_formula = $page_name_elements[0];
 			} elseif ( count( $alt_forms ) == 0 ) {
 				$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) );
 				return;
