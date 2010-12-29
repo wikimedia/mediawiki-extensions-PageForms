@@ -511,6 +511,30 @@ END;
 	}
 
 	/**
+	 * A helper function, used by getFormTagComponents().
+	 */
+	static function convertBackToPipes( $s ) {
+		return str_replace( "\1", '|', $s );
+	}
+
+	/**
+	 * This function is basically equivalent to calling
+	 * explode( '|', $str ), except that it doesn't split on pipes
+	 * that are within parser function calls - i.e., pipes within
+	 * double curly brackets.
+	 */
+	static function getFormTagComponents( $str ) {
+		// Turn each pipe within double curly brackets into another,
+		// unused character (here, "\1"), then do the explode, then
+		// convert them back.
+		$pattern = '/({{.*)\|(.*}})/';
+		while ( preg_match($pattern, $str, $matches) ) {
+			$str = preg_replace($pattern, "$1" . "\1" . "$2", $str);
+		}
+		return array_map( array(self, 'convertBackToPipes'), explode('|', $str) );
+	}
+
+	/**
 	 * Parse the form definition and store the resulting HTML in the
 	 * page_props table, if caching has been specified in LocalSettings.php
 	 */
