@@ -531,7 +531,7 @@ END;
 		while ( preg_match($pattern, $str, $matches) ) {
 			$str = preg_replace($pattern, "$1" . "\1" . "$2", $str);
 		}
-		return array_map( array(self, 'convertBackToPipes'), explode('|', $str) );
+		return array_map( array('SFUtils', 'convertBackToPipes'), explode('|', $str) );
 	}
 
 	/**
