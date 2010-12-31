@@ -13,7 +13,8 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 class SFFormLinker {
 	const DEFAULT_FORM = 1;
 	const ALTERNATE_FORM = 2;
-	const AUTO_CREATE_FORM = 3;
+	const PAGE_DEFAULT_FORM = 3;
+	const AUTO_CREATE_FORM = 4;
 
 	// An in-memory cache of data already retrieved for the current page.
 	static $mLinkedForms = array();
@@ -102,6 +103,9 @@ class SFFormLinker {
 		} elseif ( $form_connection_type == self::ALTERNATE_FORM ) {
 			$prop_smw_id = '_SF_AF';
 			$backup_prop_smw_id = '_SF_AF_BACKUP';
+		} elseif ( $form_connection_type == self::PAGE_DEFAULT_FORM ) {
+			$prop_smw_id = '_SF_PDF';
+			$backup_prop_smw_id = '_SF_PDF_BACKUP';
 		} elseif ( $form_connection_type == self::AUTO_CREATE_FORM ) {
 			$prop_smw_id = '_SF_CP';
 			$backup_prop_smw_id = '_SF_CP_BACKUP';
@@ -302,7 +306,7 @@ class SFFormLinker {
 	static function getDefaultFormsForPage( $title ) {
 		// See if the page itself has a default form (or forms), and
 		// return it/them if so.
-		$default_forms = self::getFormsThatPagePointsTo( $title->getText(), $title->getNamespace(), self::DEFAULT_FORM );
+		$default_forms = self::getFormsThatPagePointsTo( $title->getText(), $title->getNamespace(), self::PAGE_DEFAULT_FORM );
 		if ( count( $default_forms ) > 0 )
 			return $default_forms;
 		// If this is not a category page, look for a default form
