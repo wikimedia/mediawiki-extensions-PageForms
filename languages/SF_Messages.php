@@ -6832,11 +6832,12 @@ $messages['zh-cn'] = array(
 
 /** Simplified Chinese (‪中文(简体)‬)
  * @author Gzdavidwong
+ * @author Hydra
  * @author Liangent
  * @author PhiLiP
  */
 $messages['zh-hans'] = array(
-	'sf_createproperty_propname' => '名称：',
+	'sf_createproperty_propname' => '属性名称：',
 	'sf_createproperty_proptype' => '类型：',
 	'templates' => '模板',
 	'sf_createtemplate_namelabel' => '模板名称：',
