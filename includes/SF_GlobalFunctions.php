@@ -141,6 +141,9 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.autogrow' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autogrow.js',
 		),
+		'ext.semanticforms.preview' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/SF_ajax_form_preview.js',
+		),
 	);
 }
 

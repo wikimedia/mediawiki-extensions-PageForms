@@ -35,7 +35,7 @@ function ajaxFormPreviewInit(){
 }
  
 function ajaxFormPreviewClick(){ajaxFormPreviewRun(this)}
- 
+
 function ajaxFormPreviewRun(btn){
  
     wkPreview = document.getElementById('wikiPreview');
@@ -181,7 +181,7 @@ function ajaxFormPreviewRun(btn){
 		    if (currentfr && !window.opera){
 
 			if (currentfr.contentDocument) { //ns6 syntax
-			    doc = currentfr.contentDocument; 
+			    doc = currentfr.contentDocument;
 			} else if (currentfr.Document && currentfr.Document.body.scrollHeight) { //ie5+ syntax
 			    doc = currentfr.Document;
 			}
@@ -199,14 +199,14 @@ function ajaxFormPreviewRun(btn){
 			    visible.style.border="0px";
 
 			    pv = visible;
-			    
+
 			    while (pv.previousSibling) {
 				pv = pv.previousSibling;
 				if (pv.style) pv.style.display="none";
 			    }
 
 			    pv = visible;
-				
+
 			    while (pv.nextSibling) {
 				pv = pv.nextSibling;
 				if (pv.style) pv.style.display="none";
@@ -245,4 +245,5 @@ function ajaxFormPreviewRun(btn){
 }
 
 if (wgAction=='formedit' || wgCanonicalSpecialPageName == 'FormEdit')
-    addOnloadHook(ajaxFormPreviewInit);
+//    addOnloadHook(ajaxFormPreviewInit);
+	jQuery(function(){ajaxFormPreviewInit()});

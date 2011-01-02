@@ -210,6 +210,108 @@
   };
 })( jQuery );
 
+
+/*
+ * Functions to register/unregister methods for the initialisation/validation
+ * of inputs
+ */
+
+// Initialise data object to hold initialisation and validation data
+function setupSF() {
+
+	jQuery("#sfForm").data("SemanticForms",{
+		initialisation : new Array(),
+		validation : new Array
+	});
+
+}
+
+// Register a validation method
+//
+// More than one method may be registered for one input by subsequent calls to
+// registerValidation.
+//
+// @param valfunction The validation functions. Must take a string (the input's id) and an object as parameters
+// @param param The parameter object given to the validation function
+jQuery.fn.registerValidation = function(valfunction, param) {
+
+	if ( ! this.attr("id") ) return this;
+
+	if ( ! jQuery("#sfForm").data("SemanticForms") ) {
+		setupSF();
+	}
+
+	if ( ! jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")] ) {
+		jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")] = new Array();
+	}
+
+	jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")].push({
+		valfunction : valfunction,
+		parameters : param
+	});
+
+	return this;
+};
+
+// Register an initialisation method
+//
+// More than one method may be registered for one input by subsequent calls to
+// registerInitialisation. This method also executes the inifunction if the
+// element referenced by /this/ is not part of a multipleTemplateStarter.
+//
+// @param inifunction The initialisation functions. Must take a string (the input's id) and an object as parameters
+// @param param The parameter object given to the initialisation function
+jQuery.fn.registerInitialisation = function( inifunction, param ) {
+
+	// return if element has no id
+	if ( ! this.attr("id") ) return this;
+
+	// setup data structure if necessary
+	if ( ! jQuery("#sfForm").data("SemanticForms") ) {
+		setupSF();
+	}
+
+	// if no initialisation function for this input registered yet, create entry
+	if ( ! jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")] ) {
+		jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")] = new Array();
+	}
+
+	// record initialisation function
+	jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")].push({
+		inifunction : inifunction,
+		parameters : param
+	});
+
+	// execute initialisation if input is not part of multipleTemplateStarter
+	if ( this.closest(".multipleTemplateStarter").length == 0 ) {
+		var input = this;
+		// ensure inifunction is only exectued after doc structure is complete
+		jQuery(function(){inifunction ( input.attr("id"), param )});
+	}
+
+	return this;
+};
+
+// Unregister all validation methods for the element referenced by /this/
+jQuery.fn.unregisterValidation = function() {
+
+	if ( this.attr("id") && jQuery("#sfForm").data("SemanticForms") ) {
+		delete jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")];
+	}
+
+	return this;
+}
+
+// Unregister all initialisation methods for the element referenced by /this/
+jQuery.fn.unregisterInitialisation = function() {
+
+	if ( this.attr("id") && jQuery("#sfForm").data("SemanticForms") ) {
+		delete jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")];
+	}
+
+	return this;
+}
+
 /*
  * Functions for handling 'show on select'
  */
@@ -409,7 +511,7 @@ jQuery.fn.validateDateField = function() {
 	}
 }
 
-function validateAll() {
+window.validateAll = function () {
 	var num_errors = 0;
 
 	// Remove all old error messages.
@@ -446,6 +548,25 @@ function validateAll() {
 	jQuery("span.dateInput").not(".hiddenBySF").each( function() {
 		if (! jQuery(this).validateDateField() ) num_errors += 1;
 	});
+
+	// call registered validation functions
+	var sfdata = jQuery("#sfForm").data('SemanticForms');
+
+	if (sfdata) { // found data object?
+
+		// for every registered input
+		for ( var id in sfdata.validation ) { 
+
+			// if input is not part of multipleTemplateStarter
+			if ( jQuery("#" + id).closest(".multipleTemplateStarter").length == 0 ) {
+
+				for ( var i in sfdata.validation[id]) { // every validation method for that input
+					if (! sfdata.validation[id][i].valfunction(id, sfdata.validation[id][i].parameters) )
+						num_errors += 1;
+				}
+			}
+		}
+	}
 
 	if (num_errors > 0) {
 		// add error header, if it's not there already
@@ -489,10 +610,42 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 		function() {
 			if (this.name)
 				this.name = this.name.replace(/\[num\]/g, '[' + num_elements + ']');
-			if (this.id)
-				this.id = this.id.replace(/input_/g, 'input_' + num_elements + '_')
+
+			if (this.id) {
+
+				var old_id = this.id;
+
+				this.id = this.id.replace(/input_/g, 'input_' + num_elements + '_');
+
+				// register initialisation and validation methods for new inputs
+
+				var sfdata = jQuery("#sfForm").data('SemanticForms');
+				if (sfdata) { // found data object?
+
+					// for every initialisation method for input with id old_id
+					for ( var i in sfdata.initialisation[old_id] ) {
+
+						// take initialisation method and register for new input
+						jQuery(this).registerInitialisation(
+							sfdata.initialisation[old_id][i].inifunction,
+							sfdata.initialisation[old_id][i].parameters
+						);
+					}
+
+					// for every validation method for input with id old_id
+					for ( i in sfdata.validation[old_id] ) {
+
+						// take validation method and register for new input
+						jQuery(this).registerValidation(
+							sfdata.validation[old_id][i].valfunction,
+							sfdata.validation[old_id][i].parameters
+						);
+					}
+				}
+			}
 		}
 	);
+
 	new_div.find('a').attr('href', function() {
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
@@ -515,6 +668,17 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 
 	// Enable the new remover
 	new_div.find('.remover').click( function() {
+
+		// unregister initialisation and validation for deleted inputs
+		// probably unnecessary as the used id's will never be assigned a second
+		// time, but it's the clean solution (if only to free memory)
+		jQuery(this).parent().find("input, select, textarea").each(
+			function() {
+				jQuery(this).unregisterInitialisation();
+				jQuery(this).unregisterValidation();
+			}
+		);
+
 		jQuery(this).parent().remove();
 	});
 
@@ -542,6 +706,27 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 
 	// Handle AutoGrow as well.
 	new_div.find('.autoGrow').autoGrow();
+
+	// initialise new inputs
+	new_div.find("input, select, textarea").each(
+		function() {
+
+			if (this.id) {
+
+				var sfdata = jQuery("#sfForm").data('SemanticForms');
+				if (sfdata) { // if anything registered at all
+
+					for ( var i in sfdata.initialisation[this.id] ) { // every initialisation method for this input
+						sfdata.initialisation[this.id][i].inifunction(
+							this.id,
+							sfdata.initialisation[this.id][i].parameters
+						)
+					}
+				}
+			}
+		}
+	);
+
 }
 
 var num_elements = 0;

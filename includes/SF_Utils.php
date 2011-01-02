@@ -178,6 +178,7 @@ END;
 		$wgOut->addModules( 'ext.semanticforms.main' );
 		$wgOut->addModules( 'ext.semanticforms.fancybox' );
 		$wgOut->addModules( 'ext.semanticforms.autogrow' );
+		$wgOut->addModules( 'ext.semanticforms.preview' );
 		$wgOut->addModules( 'ext.smw.tooltips' );
 		$wgOut->addModules( 'ext.smw.sorttable' );
 	}
