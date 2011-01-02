@@ -261,7 +261,8 @@ jQuery.fn.registerValidation = function(valfunction, param) {
 //
 // @param inifunction The initialisation functions. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the initialisation function
-jQuery.fn.registerInitialisation = function( inifunction, param ) {
+// @param noexecute If set, the initialisation method will not be executed here
+jQuery.fn.registerInitialisation = function( inifunction, param, noexecute ) {
 
 	// return if element has no id
 	if ( ! this.attr("id") ) return this;
@@ -283,7 +284,8 @@ jQuery.fn.registerInitialisation = function( inifunction, param ) {
 	});
 
 	// execute initialisation if input is not part of multipleTemplateStarter
-	if ( this.closest(".multipleTemplateStarter").length == 0 ) {
+	// and if not forbidden
+	if ( this.closest(".multipleTemplateStarter").length == 0 && !noexecute) {
 		var input = this;
 		// ensure inifunction is only exectued after doc structure is complete
 		jQuery(function(){inifunction ( input.attr("id"), param )});
@@ -628,7 +630,8 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 						// take initialisation method and register for new input
 						jQuery(this).registerInitialisation(
 							sfdata.initialisation[old_id][i].inifunction,
-							sfdata.initialisation[old_id][i].parameters
+							sfdata.initialisation[old_id][i].parameters,
+							true //do not yet execute
 						);
 					}
 
