@@ -5773,6 +5773,7 @@ $messages['sl'] = array(
 );
 
 /** Serbian Cyrillic ekavian (Српски (ћирилица))
+ * @author Rancher
  * @author Sasa Stefanovic
  * @author Михајло Анђелковић
  */
@@ -5835,7 +5836,7 @@ $messages['sr-ec'] = array(
 	'sf_bad_integer_error' => 'мора бити исправан цели број',
 	'sf_bad_date_error' => 'мора бити исправан датум',
 	'uploadwindow' => 'Прозор за слање',
-	'sf_deletionlog' => 'Историја брисања',
+	'sf_deletionlog' => 'Историјат брисања',
 	'sf_form_freetextlabel' => 'Слободан текст',
 );
 
