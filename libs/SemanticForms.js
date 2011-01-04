@@ -5,6 +5,7 @@
  *
  * @author Yaron Koren
  * @author Sanyam Goyal
+ * @author Stephan Gambke
  * @author Jeffrey Stuckman
  * @author Harold Solbrig
  * @author Eugene Mednikov
@@ -212,16 +213,16 @@
 
 
 /*
- * Functions to register/unregister methods for the initialisation/validation
- * of inputs
+ * Functions to register/unregister methods for the initialization and
+ * validation of inputs.
  */
 
-// Initialise data object to hold initialisation and validation data
+// Initialize data object to hold initialization and validation data
 function setupSF() {
 
 	jQuery("#sfForm").data("SemanticForms",{
-		initialisation : new Array(),
-		validation : new Array
+		initFunctions : new Array(),
+		validationFunctions : new Array
 	});
 
 }
@@ -229,11 +230,11 @@ function setupSF() {
 // Register a validation method
 //
 // More than one method may be registered for one input by subsequent calls to
-// registerValidation.
+// SemanticForms_registerInputValidation.
 //
 // @param valfunction The validation functions. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the validation function
-jQuery.fn.registerValidation = function(valfunction, param) {
+jQuery.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 
 	if ( ! this.attr("id") ) return this;
 
@@ -241,11 +242,11 @@ jQuery.fn.registerValidation = function(valfunction, param) {
 		setupSF();
 	}
 
-	if ( ! jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")] ) {
-		jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")] = new Array();
+	if ( ! jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")] ) {
+		jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")] = new Array();
 	}
 
-	jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")].push({
+	jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")].push({
 		valfunction : valfunction,
 		parameters : param
 	});
@@ -253,16 +254,16 @@ jQuery.fn.registerValidation = function(valfunction, param) {
 	return this;
 };
 
-// Register an initialisation method
+// Register an initialization method
 //
 // More than one method may be registered for one input by subsequent calls to
-// registerInitialisation. This method also executes the inifunction if the
+// SemanticForms_registerInputInit. This method also executes the initFunction if the
 // element referenced by /this/ is not part of a multipleTemplateStarter.
 //
-// @param inifunction The initialisation functions. Must take a string (the input's id) and an object as parameters
-// @param param The parameter object given to the initialisation function
-// @param noexecute If set, the initialisation method will not be executed here
-jQuery.fn.registerInitialisation = function( inifunction, param, noexecute ) {
+// @param initFunction The initialization function. Must take a string (the input's id) and an object as parameters
+// @param param The parameter object given to the initialization function
+// @param noexecute If set, the initialization method will not be executed here
+jQuery.fn.SemanticForms_registerInputInit = function( initFunction, param, noexecute ) {
 
 	// return if element has no id
 	if ( ! this.attr("id") ) return this;
@@ -272,43 +273,44 @@ jQuery.fn.registerInitialisation = function( inifunction, param, noexecute ) {
 		setupSF();
 	}
 
-	// if no initialisation function for this input registered yet, create entry
-	if ( ! jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")] ) {
-		jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")] = new Array();
+	// if no initialization function for this input was registered yet,
+	// create entry
+	if ( ! jQuery("#sfForm").data("SemanticForms").initFunctions[this.attr("id")] ) {
+		jQuery("#sfForm").data("SemanticForms").initFunctions[this.attr("id")] = new Array();
 	}
 
-	// record initialisation function
-	jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")].push({
-		inifunction : inifunction,
+	// record initialization function
+	jQuery("#sfForm").data("SemanticForms").initFunctions[this.attr("id")].push({
+		initFunction : initFunction,
 		parameters : param
 	});
 
-	// execute initialisation if input is not part of multipleTemplateStarter
+	// execute initialization if input is not part of multipleTemplateStarter
 	// and if not forbidden
 	if ( this.closest(".multipleTemplateStarter").length == 0 && !noexecute) {
 		var input = this;
-		// ensure inifunction is only exectued after doc structure is complete
-		jQuery(function(){inifunction ( input.attr("id"), param )});
+		// ensure initFunction is only exectued after doc structure is complete
+		jQuery(function() {initFunction ( input.attr("id"), param )});
 	}
 
 	return this;
 };
 
 // Unregister all validation methods for the element referenced by /this/
-jQuery.fn.unregisterValidation = function() {
+jQuery.fn.SemanticForms_unregisterInputValidation = function() {
 
 	if ( this.attr("id") && jQuery("#sfForm").data("SemanticForms") ) {
-		delete jQuery("#sfForm").data("SemanticForms").validation[this.attr("id")];
+		delete jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")];
 	}
 
 	return this;
 }
 
-// Unregister all initialisation methods for the element referenced by /this/
-jQuery.fn.unregisterInitialisation = function() {
+// Unregister all initialization methods for the element referenced by /this/
+jQuery.fn.SemanticForms_unregisterInputInit = function() {
 
 	if ( this.attr("id") && jQuery("#sfForm").data("SemanticForms") ) {
-		delete jQuery("#sfForm").data("SemanticForms").initialisation[this.attr("id")];
+		delete jQuery("#sfForm").data("SemanticForms").initFunctions[this.attr("id")];
 	}
 
 	return this;
@@ -557,13 +559,14 @@ window.validateAll = function () {
 	if (sfdata) { // found data object?
 
 		// for every registered input
-		for ( var id in sfdata.validation ) { 
+		for ( var id in sfdata.validationFunctions ) { 
 
 			// if input is not part of multipleTemplateStarter
 			if ( jQuery("#" + id).closest(".multipleTemplateStarter").length == 0 ) {
 
-				for ( var i in sfdata.validation[id]) { // every validation method for that input
-					if (! sfdata.validation[id][i].valfunction(id, sfdata.validation[id][i].parameters) )
+				// Call every validation method for this input.
+				for ( var i in sfdata.validationFunctions[id]) {
+					if (! sfdata.validationFunctions[id][i].valfunction(id, sfdata.validationFunctions[id][i].parameters) )
 						num_errors += 1;
 				}
 			}
@@ -619,29 +622,31 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 
 				this.id = this.id.replace(/input_/g, 'input_' + num_elements + '_');
 
-				// register initialisation and validation methods for new inputs
+				// register initialization and validation methods for new inputs
 
 				var sfdata = jQuery("#sfForm").data('SemanticForms');
 				if (sfdata) { // found data object?
 
-					// for every initialisation method for input with id old_id
-					for ( var i in sfdata.initialisation[old_id] ) {
+					// For every initialization method for
+					// input with id old_id, register the
+					// method for the new input.
+					for ( var i in sfdata.initFunctions[old_id] ) {
 
-						// take initialisation method and register for new input
-						jQuery(this).registerInitialisation(
-							sfdata.initialisation[old_id][i].inifunction,
-							sfdata.initialisation[old_id][i].parameters,
+						jQuery(this).SemanticForms_registerInputInit(
+							sfdata.initFunctions[old_id][i].initFunction,
+							sfdata.initFunctions[old_id][i].parameters,
 							true //do not yet execute
 						);
 					}
 
-					// for every validation method for input with id old_id
-					for ( i in sfdata.validation[old_id] ) {
+					// For every validation method for the
+					// input with ID old_id, register it
+					// for the new input.
+					for ( i in sfdata.validationFunctions[old_id] ) {
 
-						// take validation method and register for new input
-						jQuery(this).registerValidation(
-							sfdata.validation[old_id][i].valfunction,
-							sfdata.validation[old_id][i].parameters
+						jQuery(this).SemanticForms_registerInputValidation(
+							sfdata.validationFunctions[old_id][i].valfunction,
+							sfdata.validationFunctions[old_id][i].parameters
 						);
 					}
 				}
@@ -672,13 +677,14 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 	// Enable the new remover
 	new_div.find('.remover').click( function() {
 
-		// unregister initialisation and validation for deleted inputs
-		// probably unnecessary as the used id's will never be assigned a second
-		// time, but it's the clean solution (if only to free memory)
+		// Unregister initialization and validation for deleted inputs -
+		// probably unnecessary, since the used IDs will never be
+		// assigned a second time, but it's the clean solution (if
+		// only to free memory)
 		jQuery(this).parent().find("input, select, textarea").each(
 			function() {
-				jQuery(this).unregisterInitialisation();
-				jQuery(this).unregisterValidation();
+				jQuery(this).SemanticForms_unregisterInputInit();
+				jQuery(this).SemanticForms_unregisterInputValidation();
 			}
 		);
 
@@ -710,7 +716,7 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 	// Handle AutoGrow as well.
 	new_div.find('.autoGrow').autoGrow();
 
-	// initialise new inputs
+	// Initialize new inputs
 	new_div.find("input, select, textarea").each(
 		function() {
 
@@ -718,11 +724,12 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 
 				var sfdata = jQuery("#sfForm").data('SemanticForms');
 				if (sfdata) { // if anything registered at all
-
-					for ( var i in sfdata.initialisation[this.id] ) { // every initialisation method for this input
-						sfdata.initialisation[this.id][i].inifunction(
+					// Call every initialization method
+					// for this input
+					for ( var i in sfdata.initFunctions[this.id] ) {
+						sfdata.initFunctions[this.id][i].initFunction(
 							this.id,
-							sfdata.initialisation[this.id][i].parameters
+							sfdata.initFunctions[this.id][i].parameters
 						)
 					}
 				}
