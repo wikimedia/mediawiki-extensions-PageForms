@@ -688,7 +688,8 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 			}
 		);
 
-		jQuery(this).parent().remove();
+		// Remove the encompassing div for this instance.
+		jQuery(this).parents(".multipleTemplate").remove();
 	});
 
 	// Enable autocompletion
@@ -765,7 +766,8 @@ jQuery(document).ready(function() {
 	});
 
 	jQuery(".remover").click( function() {
-		jQuery(this).parent().remove();
+		// Remove the encompassing div for this instance.
+		jQuery(this).parents(".multipleTemplate").remove();
 	});
 	jQuery(".autocompleteInput").attachAutocomplete();
 	jQuery(".sfComboBox").combobox();
