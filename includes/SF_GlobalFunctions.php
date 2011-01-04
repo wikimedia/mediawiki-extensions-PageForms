@@ -124,7 +124,10 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 	);
 	$wgResourceModules += array(
 		'ext.semanticforms.main' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/SemanticForms.js',
+			'scripts' => array(
+				'libs/SemanticForms.js',
+				'libs/SF_ajax_form_preview.js',
+			),
 			'styles' => array(
 				'skins/SemanticForms.css',
 				'skins/SF_jquery_ui_overrides.css',
@@ -140,9 +143,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		),
 		'ext.semanticforms.autogrow' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autogrow.js',
-		),
-		'ext.semanticforms.preview' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/SF_ajax_form_preview.js',
 		),
 	);
 }
