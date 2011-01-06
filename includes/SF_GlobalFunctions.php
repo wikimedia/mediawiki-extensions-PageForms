@@ -115,6 +115,8 @@ require_once( $sfgIP . '/languages/SF_Language.php' );
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
+// Allow for file-upload windows for MW >= 1.16.1
+$wgEditPageFrameOptions = 'SAMEORIGIN';
 
 // register client-side modules
 if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
