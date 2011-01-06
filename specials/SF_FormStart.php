@@ -66,8 +66,8 @@ class SFFormStart extends SpecialPage {
 			}
 			if ( $page_name != '' ) {
 				// Append the namespace prefix to the page name,
-				// if a namespace was not already entered.
-				if ( strpos( $page_name, ":" ) === false && $target_namespace != '' )
+				// if this namespace was not already entered.
+				if ( strpos( $page_name, $target_namespace . ":" ) === false && $target_namespace != '' )
 					$page_name = $target_namespace . ":" . $page_name;
 				// find out whether this page already exists,
 				// and send user to the appropriate form
