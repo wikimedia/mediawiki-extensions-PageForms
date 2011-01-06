@@ -468,7 +468,7 @@ jQuery.fn.validateMandatoryCheckboxes = function() {
 jQuery.fn.validateURLField = function() {
 	var fieldVal = this.find("input").val();
 	// code borrowed from http://snippets.dzone.com/posts/show/452
-	var url_regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+	var url_regexp = /(ftp|http|https|rtsp):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 	if (fieldVal == "" || url_regexp.test(fieldVal)) {
 		return true;
 	} else {
