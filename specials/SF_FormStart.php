@@ -76,7 +76,7 @@ class SFFormStart extends SpecialPage {
 					// if there was no page title, it's
 					// probably an invalid page name,
 					// containing forbidden characters
-					$error_msg = wfMsg( 'sf_formstart_badtitle', $page_name );
+					$error_msg = wfMsg( 'sf_formstart_badtitle', htmlspecialchars( $page_name ) );
 					$wgOut->addHTML( $error_msg );
 					return;
 				} else {
