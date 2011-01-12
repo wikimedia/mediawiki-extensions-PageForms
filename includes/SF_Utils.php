@@ -173,13 +173,20 @@ END;
 	 * Uses the ResourceLoader (available with MediaWiki 1.17 and higher)
 	 * to load all the necessary JS and CSS files for Semantic Forms.
 	 */
-	static function loadJavascriptAndCSS() {
-		global $wgOut;
-		$wgOut->addModules( 'ext.semanticforms.main' );
-		$wgOut->addModules( 'ext.semanticforms.fancybox' );
-		$wgOut->addModules( 'ext.semanticforms.autogrow' );
-		$wgOut->addModules( 'ext.smw.tooltips' );
-		$wgOut->addModules( 'ext.smw.sorttable' );
+	static function loadJavascriptAndCSS( $parser = null ) {
+		// Handling depends on whether or not this form is embedded
+		// in another page.
+		if ( !is_null( $parser ) ) {
+			$output = $parser->getOutput();
+		} else {
+			global $wgOut;
+			$output = $wgOut;
+		}
+		$output->addModules( 'ext.semanticforms.main' );
+		$output->addModules( 'ext.semanticforms.fancybox' );
+		$output->addModules( 'ext.semanticforms.autogrow' );
+		$output->addModules( 'ext.smw.tooltips' );
+		$output->addModules( 'ext.smw.sorttable' );
 	}
 
 	/**
@@ -191,7 +198,7 @@ END;
 	static function addJavascriptAndCSS( $parser = NULL ) {
 		// MW 1.17 +
 		if ( class_exists( 'ResourceLoader' ) ) {
-			self::loadJavascriptAndCSS();
+			self::loadJavascriptAndCSS( $parser );
 			return;
 		}
 		global $wgOut, $sfgScriptPath, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir, $wgJsMimeType, $sfgUseFormEditPage;
@@ -215,10 +222,11 @@ END;
 				'media' => "screen",
 				'href' => $css_file
 			);
-			if ( $parser )
+			if ( !is_null( $parser ) ) {
 				$parser->getOutput()->addHeadItem( Xml::element( 'link', $link ) );
-			else
+			} else {
 				$wgOut->addLink( $link );
+			}
 		}
 		
 		$scripts = array();
