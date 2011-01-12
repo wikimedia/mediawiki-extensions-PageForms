@@ -1139,6 +1139,15 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
 	'right-editrestrictedfields' => 'Edita els camps restringits del formulari',
 );
 
+/** Chechen (Нохчийн)
+ * @author Sasan700
+ */
+$messages['ce'] = array(
+	'templates' => 'Куцкепаш',
+	'sf_createform_template' => 'Куцкеп:',
+	'sf_createform_addtemplate' => 'Тlетоха куцкеп:',
+);
+
 /** Sorani (کوردی) */
 $messages['ckb'] = array(
 	'sf_createtemplate_deletefield' => 'سڕینەوە',
