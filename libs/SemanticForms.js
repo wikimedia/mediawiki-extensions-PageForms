@@ -257,8 +257,8 @@ jQuery.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 // Register an initialization method
 //
 // More than one method may be registered for one input by subsequent calls to
-// SemanticForms_registerInputInit. This method also executes the initFunction if the
-// element referenced by /this/ is not part of a multipleTemplateStarter.
+// SemanticForms_registerInputInit. This method also executes the initFunction
+// if the element referenced by /this/ is not part of a multipleTemplateStarter.
 //
 // @param initFunction The initialization function. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the initialization function
@@ -589,23 +589,21 @@ window.validateAll = function () {
 	return (num_errors == 0);
 }
 
-function addInstanceEventHandler(templateName, fieldNum) {
-	return function() {
-		addInstance('starter_' + templateName, 'main_' + templateName, fieldNum);
-	}
-}
-
 /**
  * Functions for multiple-instance templates.
  */
 
-function addInstance(starter_div_id, main_div_id, tab_index) {
+jQuery.fn.addInstance = function() {
+	// Global variable.
 	num_elements++;
 	
 	// Create the new instance
-	var new_div = jQuery('#' + starter_div_id).clone()
+	var new_div = this.closest(".multipleTemplateWrapper")
+		.find(".multipleTemplateStarter")
+		.clone()
 		.removeClass('multipleTemplateStarter')
-		.addClass('multipleTemplate')
+		.addClass('multipleTemplateInstance')
+		.addClass('multipleTemplate') // backwards compatibility
 		.removeAttr("id")
 		.css("display", "block");
 	
@@ -661,18 +659,20 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
 
-	// Create remove button
+	// Create remove button, and add it to the new instance.
 	var removeButton = jQuery("<input>").attr({
 		type: 'button',
 		value: sfgRemoveText,
-		tabIndex: tab_index
+		tabIndex: this.attr("tabIndex")
 	}).addClass("remover");
 	// (class can't be set as an attr() parameter, because it causes
 	// an error in IE.)
 	new_div.append(removeButton);
 	
 	// Add the new instance
-	jQuery('#' + main_div_id).append(new_div);
+	this.closest(".multipleTemplateWrapper")
+		.find(".multipleTemplatePlaceholder")
+		.append(new_div);
 
 	// Enable the new remover
 	new_div.find('.remover').click( function() {
@@ -689,7 +689,8 @@ function addInstance(starter_div_id, main_div_id, tab_index) {
 		);
 
 		// Remove the encompassing div for this instance.
-		jQuery(this).parents(".multipleTemplate").remove();
+		jQuery(this).closest(".multipleTemplateInstance")
+			.fadeOut('fast', function() { jQuery(this).remove(); });
 	});
 
 	// Enable autocompletion
@@ -767,7 +768,8 @@ jQuery(document).ready(function() {
 
 	jQuery(".remover").click( function() {
 		// Remove the encompassing div for this instance.
-		jQuery(this).parents(".multipleTemplate").remove();
+		jQuery(this).closest(".multipleTemplateInstance")
+			.fadeOut('fast', function() { jQuery(this).remove(); });
 	});
 	jQuery(".autocompleteInput").attachAutocomplete();
 	jQuery(".sfComboBox").combobox();
@@ -783,15 +785,7 @@ jQuery(document).ready(function() {
 		'overlayOpacity' : '0.8'
 	});
 
-	// Could this be done via classes and attributes, instead of a
-	// global variable?
-	for (var i in sfgAdderButtons) {
-		var components = sfgAdderButtons[i].split(',');
-		adderID = components[0];
-		templateName = components[1];
-		fieldNum = components[2];
-		jQuery('#' + adderID).click( addInstanceEventHandler(templateName, fieldNum) );
-	}
+	jQuery('.multipleTemplateAdder').click( function() { jQuery(this).addInstance(); } );
 
 	// If the form is submitted, validate everything!
 	jQuery('#sfForm').submit( function() { return validateAll(); } );
