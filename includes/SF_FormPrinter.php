@@ -158,7 +158,6 @@ class SFFormPrinter {
     global $wgRequest, $wgUser, $wgParser;
     global $sfgTabIndex; // used to represent the current tab index in the form
     global $sfgFieldNum; // used for setting various HTML IDs
-    global $sfgAdderButtons;
 
     // initialize some variables
     $sfgTabIndex = 1;
@@ -355,23 +354,29 @@ class SFFormPrinter {
             }
           }
           // If this is the first instance, add the label into the form, if
-          // there is one.
-          if ( ( $old_template_name != $template_name ) && isset( $template_label ) ) {
-            $form_text .= "<fieldset>\n";
-            $form_text .= "<legend>$template_label</legend>\n";
+          // there is one, and add the appropriate wrapper div, if this is
+          // a multiple-instance template.
+          if ( $old_template_name != $template_name ) {
+            if ( isset( $template_label ) ) {
+              $form_text .= "<fieldset>\n";
+              $form_text .= "<legend>$template_label</legend>\n";
+            }
+            if ($allow_multiple) {
+              $form_text .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
+            }
           }
           $template_text .= "{{" . $tif->template_name;
           $all_fields = $tif->getAllFields();
           // remove template tag
           $section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
           $template_instance_query_values = $wgRequest->getArray( $query_template_name );
-          // if we are editing a page, and this template can be found more than
+          // If we are editing a page, and this template can be found more than
           // once in that page, and multiple values are allowed, repeat this
-          // section
+          // section.
           $existing_template_text = null;
           if ( $source_is_page || $form_is_partial ) {
-            // replace underlines with spaces in template name, to allow for
-            // searching on either
+            // Replace underlines with spaces in template name, to allow for
+            // searching on either.
             $search_template_str = str_replace( '_', ' ', $tif->template_name );
             $preg_match_template_str = str_replace(
               array( '/', '(', ')' ),
@@ -1126,32 +1131,30 @@ END;
           // with from any inputs added by the Javascript
           $section = str_replace( '[num]', "[{$instance_num}a]", $section );
           $remove_text = wfMsg( 'sf_formedit_remove' );
+	  // The "multipleTemplate" class is there for backwards-compatibility
+	  // with any custom CSS on people's wikis.
           $form_text .= <<<END
-	<div class="multipleTemplate">
-	$section
-	<input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
-	</div>
+		<div class="multipleTemplateInstance multipleTemplate">
+			$section
+			<input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
+		</div>
 
 END;
           // this will cause the section to be re-parsed on the next go
           $section_num--;
         } else {
-          // this is the last instance of this template - stick an 'add'
-          // button in the form
+          // This is the last instance of this template - print all the
+          // sections necessary for adding additional instances.
           $form_text .= <<<END
-	<div id="starter_$query_template_name" class="multipleTemplateStarter" style="display: none;">
-	$section
+		<div class="multipleTemplateStarter" style="display: none;">
+		$section
+		</div>
+		<div class="multipleTemplatePlaceholder"></div>
+		<p style="margin-left:10px;" />
+		<p><input type="button" value="$add_button_text" tabindex="$sfgTabIndex" class="multipleTemplateAdder" /></p>
 	</div>
-	<div id="main_$query_template_name"></div>
 
 END;
-          $adderID = "adder_$sfgFieldNum";
-          $form_text .= <<<END
-	<p style="margin-left:10px;">
-	<p><input type="button" id="$adderID" value="$add_button_text" tabindex="$sfgTabIndex" class="addAnother" /></p>
-
-END;
-          $sfgAdderButtons[] = "$adderID,$query_template_name,$sfgFieldNum";
         }
       } else {
         $form_text .= $section;
