@@ -117,6 +117,5 @@ $wgPageProps['formdefinition'] = 'Definition of the semantic form used on the pa
 # ##
 # Global variables for Javascript
 # ##
-$sfgAdderButtons = array();
 $sfgShowOnSelect = array();
 $sfgAutocompleteValues = array();
