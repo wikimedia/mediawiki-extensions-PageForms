@@ -5849,8 +5849,9 @@ $messages['sr-ec'] = array(
 	'sf_form_freetextlabel' => 'Слободан текст',
 );
 
-/** Serbian Latin ekavian (Srpski (latinica))
+/** Serbian Latin ekavian (‪Srpski (latinica)‬)
  * @author Michaello
+ * @author Жељко Тодоровић
  */
 $messages['sr-el'] = array(
 	'specialpages-group-sf_group' => 'Semantičke Forme',
@@ -5911,7 +5912,7 @@ $messages['sr-el'] = array(
 	'sf_bad_integer_error' => 'mora biti ispravan celi broj',
 	'sf_bad_date_error' => 'mora biti ispravan datum',
 	'uploadwindow' => 'Prozor za slanje',
-	'sf_deletionlog' => 'Istorija brisanja',
+	'sf_deletionlog' => 'Istorijat brisanja',
 	'sf_form_freetextlabel' => 'Slobodan tekst',
 );
 
