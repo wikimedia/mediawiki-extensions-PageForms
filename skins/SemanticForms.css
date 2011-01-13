@@ -86,8 +86,9 @@ div.warningMessage {
 span.errorMessage {
 	color: red;
 }
-.multipleTemplate {
-	background-color: #cccccc;
+.multipleTemplateInstance {
+	background-color: #dddddd;
+	border: 1px solid #cccccc;
 	padding: 7px;
 	margin: 10px 0px 10px 0px;
 }
