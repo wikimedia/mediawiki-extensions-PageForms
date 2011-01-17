@@ -145,6 +145,35 @@ class SFFormPrinter {
   }
 
   /**
+   * Creates the HTML for the inner table for every instance of a
+   * multiple-instance template in the form.
+   */
+  function multipleTemplateInstanceTableHTML( $mainText ) {
+    global $sfgTabIndex, $sfgScriptPath;
+
+    $remove_text = wfMsg( 'sf_formedit_remove' );
+    $text =<<<END
+
+			<table>
+			<tr>
+			<td>
+			$mainText
+			</td>
+			<td class="removeButton">
+			<input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
+			</td>
+			<td class="instanceRearranger">
+			<img src="$sfgScriptPath/skins/rearranger.png" class="rearrangerImage" />
+			</td>
+			</tr>
+			</table>
+
+END;
+
+    return $text;
+  }
+
+  /**
    * This function is the real heart of the entire Semantic Forms
    * extension. It handles two main actions: (1) displaying a form on the
    * screen, given a form definition and possibly page contents (if an
@@ -363,6 +392,7 @@ class SFFormPrinter {
             }
             if ($allow_multiple) {
               $form_text .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
+              $form_text .= "\t" . '<div class="multipleTemplateList">' . "\n";
             }
           }
           $template_text .= "{{" . $tif->template_name;
@@ -1130,29 +1160,33 @@ END;
           // in the form, to differentiate the inputs the form starts out
           // with from any inputs added by the Javascript
           $section = str_replace( '[num]', "[{$instance_num}a]", $section );
-          $remove_text = wfMsg( 'sf_formedit_remove' );
-	  // The "multipleTemplate" class is there for backwards-compatibility
-	  // with any custom CSS on people's wikis.
-          $form_text .= <<<END
-		<div class="multipleTemplateInstance multipleTemplate">
-			$section
-			<input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
-		</div>
+          $form_text .= "\t\t" . Xml::tags( 'div',
+            array(
+              // The "multipleTemplate" class is there for
+              // backwards-compatibility with any custom CSS on people's
+              // wikis before SF 2.0.9.
+              'class' => "multipleTemplateInstance multipleTemplate"
+            ),
+            self::multipleTemplateInstanceTableHTML( $section )
+          ) . "\n";
 
-END;
           // this will cause the section to be re-parsed on the next go
           $section_num--;
         } else {
           // This is the last instance of this template - print all the
           // sections necessary for adding additional instances.
+          $form_text .= "\t\t" . Xml::tags( 'div',
+            array(
+              'class' => "multipleTemplateStarter",
+              'style' => "display: none",
+            ),
+            self::multipleTemplateInstanceTableHTML( $section )
+          ) . "\n";
           $form_text .= <<<END
-		<div class="multipleTemplateStarter" style="display: none;">
-		$section
-		</div>
-		<div class="multipleTemplatePlaceholder"></div>
+	</div><!-- multipleTemplateList -->
 		<p style="margin-left:10px;" />
 		<p><input type="button" value="$add_button_text" tabindex="$sfgTabIndex" class="multipleTemplateAdder" /></p>
-	</div>
+	</div><!-- multipleTemplateWrapper -->
 
 END;
         }
