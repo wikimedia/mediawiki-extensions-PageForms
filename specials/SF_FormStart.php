@@ -72,7 +72,7 @@ class SFFormStart extends SpecialPage {
 				// find out whether this page already exists,
 				// and send user to the appropriate form
 				$page_title = Title::newFromText( $page_name );
-				if ( ! $page_title ) {
+				if ( !$page_title ) {
 					//If there was no page title, it's probably an invalid page name,
 					// containing forbidden characters.
 					$wgOut->addHTML( htmlspecialchars( wfMsg( 'sf_formstart_badtitle', $page_name ) ) );

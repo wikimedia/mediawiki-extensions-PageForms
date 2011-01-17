@@ -121,25 +121,18 @@ class SFUtils {
 	 * etc.
 	 */
 	static function printRedirectForm( $title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this, $start_time, $edit_time ) {
-		if ( $title instanceof Title )
-			$new_url = $title->getLocalURL( 'action=submit' );
-		else
-			$new_url = $title;
-		global $wgUser;
-		if ( $wgUser->isLoggedIn() )
-			$token = htmlspecialchars( $wgUser->editToken() );
-		else
-			$token = EDIT_TOKEN_SUFFIX;
-
-		$edit_summary = htmlspecialchars( $edit_summary );
-		if ( $is_save )
+		global $wgUser, $sfgScriptPath;
+		
+		if ( $is_save ) {
 			$action = "wpSave";
-		elseif ( $is_preview )
+		}
+		elseif ( $is_preview ) {
 			$action = "wpPreview";
-		else // $is_diff
+		}
+		else { // $is_diff
 			$action = "wpDiff";
+		}
 
-		global $sfgScriptPath;
 		$text = <<<END
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 
@@ -148,14 +141,23 @@ END;
 		$form_body .= "\t" . Xml::hidden( 'wpSummary', $edit_summary ) . "\n";
 		$form_body .= "\t" . Xml::hidden( 'wpStarttime', $start_time ) . "\n";
 		$form_body .= "\t" . Xml::hidden( 'wpEdittime', $edit_time ) . "\n";
-		$form_body .= "\t" . Xml::hidden( 'wpEditToken', $token ) . "\n";
+		$form_body .= "\t" . Xml::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX ) . "\n";
 		$form_body .= "\t" . Xml::hidden( $action, null ) . "\n";
 
 		if ( $is_minor_edit )
 			$form_body .= "\t" . Xml::hidden( 'wpMinoredit' , null ) . "\n";
 		if ( $watch_this )
 			$form_body .= "\t" . Xml::hidden( 'wpWatchthis', null ) . "\n";
-		$text .= Xml::tags( 'form', array( 'id' => 'editform', 'name' => 'editform', 'method' => 'post', 'action' => $new_url ), $form_body );
+		$text .= Xml::tags(
+			'form',
+			array(
+				'id' => 'editform',
+				'name' => 'editform',
+				'method' => 'post',
+				'action' => $title instanceof Title ? $title->getLocalURL( 'action=submit' ) : $title
+			),
+			$form_body
+		);
 
 		$text .= <<<END
 	<script type="text/javascript">
