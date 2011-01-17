@@ -663,19 +663,9 @@ jQuery.fn.addInstance = function() {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
 
-	// Create remove button, and add it to the new instance.
-	var removeButton = jQuery("<input>").attr({
-		type: 'button',
-		value: sfgRemoveText,
-		tabIndex: this.attr("tabIndex")
-	}).addClass("remover");
-	// (class can't be set as an attr() parameter, because it causes
-	// an error in IE.)
-	new_div.append(removeButton);
-	
 	// Add the new instance
 	this.closest(".multipleTemplateWrapper")
-		.find(".multipleTemplatePlaceholder")
+		.find(".multipleTemplateList")
 		.append(new_div);
 
 	// Enable the new remover
@@ -695,7 +685,7 @@ jQuery.fn.addInstance = function() {
 		// Remove the encompassing div for this instance.
 		jQuery(this).closest(".multipleTemplateInstance")
 			.fadeOut('fast', function() { jQuery(this).remove(); });
-			});
+	});
 
 	// Enable autocompletion
 	new_div.find('.autocompleteInput').attachAutocomplete();
@@ -790,6 +780,11 @@ jQuery(document).ready(function() {
 	});
 
 	jQuery('.multipleTemplateAdder').click( function() { jQuery(this).addInstance(); } );
+	jQuery('.multipleTemplateList').sortable({
+		axis: 'y',
+		handle: '.rearrangerImage'
+	});
+
 
 	// If the form is submitted, validate everything!
 	jQuery('#sfForm').submit( function() { return validateAll(); } );
@@ -809,6 +804,7 @@ jQuery(document).ready(function() {
 				.insertAfter(select)
 				.attr("tabIndex", select.attr("tabIndex"))
 				.attr("autocompletesettings", select.attr("autocompletesettings"))
+				.css("width", select.attr("comboboxwidth"))
 				.autocomplete({
 					source: function(request, response) {
 						if ( sfgAutocompleteOnAllChars ) {
