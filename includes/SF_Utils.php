@@ -144,17 +144,17 @@ class SFUtils {
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 
 END;
-		$form_body = '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpTextbox1', 'id' => 'wpTextbox1', 'value' => $page_contents ), null ) . "\n";
-		$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpSummary', 'value' => $edit_summary ), null ) . "\n";
-		$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpStarttime', 'value' => $start_time ), null ) . "\n";
-		$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpEdittime', 'value' => $edit_time ), null ) . "\n";
-		$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpEditToken', 'value' => $token ), null ) . "\n";
-		$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => $action ), null ) . "\n";
+		$form_body = "\t" . Xml::hidden( 'wpTextbox1', $page_contents ) . "\n";
+		$form_body .= "\t" . Xml::hidden( 'wpSummary', $edit_summary ) . "\n";
+		$form_body .= "\t" . Xml::hidden( 'wpStarttime', $start_time ) . "\n";
+		$form_body .= "\t" . Xml::hidden( 'wpEdittime', $edit_time ) . "\n";
+		$form_body .= "\t" . Xml::hidden( 'wpEditToken', $token ) . "\n";
+		$form_body .= "\t" . Xml::hidden( $action, null ) . "\n";
 
 		if ( $is_minor_edit )
-			$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpMinoredit' ), null ) . "\n";
+			$form_body .= "\t" . Xml::hidden( 'wpMinoredit' , null ) . "\n";
 		if ( $watch_this )
-			$form_body .= '	' . Xml::element( 'input', array( 'type' => 'hidden', 'name' => 'wpWatchthis' ), null ) . "\n";
+			$form_body .= "\t" . Xml::hidden( 'wpWatchthis', null ) . "\n";
 		$text .= Xml::tags( 'form', array( 'id' => 'editform', 'name' => 'editform', 'method' => 'post', 'action' => $new_url ), $form_body );
 
 		$text .= <<<END
@@ -249,6 +249,8 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.button.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.position.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.autocomplete.min.js";
+		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.mouse.min.js";
+		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.sortable.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
 
