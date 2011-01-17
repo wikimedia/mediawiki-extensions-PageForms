@@ -44,8 +44,6 @@ class SFMultiEnumInput extends SFEnumInput {
 
 class SFTextInput extends SFFormInput {
   static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
-    global $wgOut, $sfgScriptPath;
-
     $upload_window_page = SpecialPage::getPage( 'UploadWindow' );
     $query_string = "sfInputID=$input_id";
     if ( $delimiter != null )
@@ -371,8 +369,7 @@ class SFComboBoxInput extends SFFormInput {
     if ( array_key_exists( 'possible_values', $other_args ) && $other_args['possible_values'] != null )
       return SFDropdownInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
-    global $sfgTabIndex, $sfgFieldNum, $wgOut, $sfgScriptPath, $wgJsMimeType;
-    global $smwgScriptPath, $smwgJqUIAutoIncluded;
+    global $sfgTabIndex;
 
     $autocomplete_field_type = "";
     $autocompletion_source = "";
@@ -397,8 +394,10 @@ class SFComboBoxInput extends SFFormInput {
       $size = $other_args['size'];
     else
       $size = "35";
-
-    $input_id = "input_" . $sfgFieldNum;
+    // There's no direct correspondence between the 'size=' attribute for
+    // text inputs and the number of pixels, but multiplying by 6 seems to
+    // be about right for the major browsers
+    $pixel_width = $size * 6 . "px";
  
     $values = SFUtils::getAutocompleteValues($autocompletion_source, $autocomplete_field_type );
     $autocompletion_source = str_replace( "'", "\'", $autocompletion_source );
@@ -407,7 +406,7 @@ class SFComboBoxInput extends SFFormInput {
     if ($is_mandatory) { $divClass .= " mandatory"; }
     $text =<<<END
 <div class="$divClass">
-	<select id="input_$sfgFieldNum" name="$input_name" class="$className" tabindex="$sfgTabIndex" autocompletesettings="$autocompletion_source">
+	<select id="input_$sfgFieldNum" name="$input_name" class="$className" tabindex="$sfgTabIndex" autocompletesettings="$autocompletion_source" comboboxwidth="$pixel_width">
 		<option value="$cur_value"></option>
 
 END;
@@ -418,16 +417,7 @@ END;
 	</select>
 </div>
 END;
-    // there's no direct correspondence between the 'size=' attribute for
-    // text inputs and the number of pixels, but multiplying by 6 seems to
-    // be about right for the major browsers
-    $pixel_width = $size * 6;
-    $combobox_css =<<<END
-<style type="text/css">
-input#input_$sfgFieldNum { width: {$pixel_width}px; }
-</style>
-END;
-    $wgOut->addScript($combobox_css);
+
     return $text;
   }
 }
@@ -444,8 +434,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
     if ( array_key_exists( 'possible_values', $other_args ) && $other_args['possible_values'] != null )
       return SFDropdownInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
-    global $sfgTabIndex, $sfgFieldNum, $sfgScriptPath, $wgJsMimeType, $smwgScriptPath, $smwgJqUIAutoIncluded;
-    global $sfgAutocompleteValues;
+    global $sfgTabIndex, $sfgFieldNum, $sfgAutocompleteValues;
 
     $className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
@@ -590,7 +579,7 @@ class SFTextAreaInput extends SFFormInput {
         return SFTextWithAutocompleteInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
     }
 
-    global $sfgTabIndex, $sfgFieldNum, $smwgScriptPath, $sfgScriptPath;
+    global $sfgTabIndex, $sfgFieldNum;
 
     $className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
     if ( array_key_exists( 'class', $other_args ) )
