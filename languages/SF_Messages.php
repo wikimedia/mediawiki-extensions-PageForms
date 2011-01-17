@@ -6873,21 +6873,30 @@ $messages['zh-hans'] = array(
 /** Traditional Chinese (‪中文(繁體)‬)
  * @author Gzdavidwong
  * @author Liangent
+ * @author Mark85296341
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
-	'sf_createproperty_propname' => '名稱：',
+	'sf_createproperty_propname' => '屬性名稱：',
 	'sf_createproperty_proptype' => '類型：',
 	'templates' => '模板',
+	'createtemplate' => '建立一個模板',
 	'sf_createtemplate_namelabel' => '模板名稱：',
 	'sf_createtemplate_standardformat' => '標準',
+	'sf_createtemplate_deletefield' => '删除',
+	'sf_createform_template' => '模板：',
+	'sf_createform_inputtypedefault' => '(預設)',
 	'sf_createform_hidden' => '隱藏',
+	'sf_formstart_createoredit' => '建立或編輯',
 	'sf_viewform' => '檢視表格',
 	'sf_formedit_remove' => '移除',
 	'sf_blank_error' => '不可留空',
 	'sf_bad_number_error' => '必須為有效數字',
 	'sf_bad_integer_error' => '必須為有效整數',
 	'sf_bad_date_error' => '必須為有效日期',
+	'sf_deletionlog' => '刪除紀錄',
+	'sf_form_freetextlabel' => '自由文字',
+	'sf_blank_namespace' => '首頁',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)
