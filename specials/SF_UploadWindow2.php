@@ -119,10 +119,12 @@ class SFUploadWindow2 extends SpecialPage {
 	 */
 	public function execute( $par ) {
 		global $wgUser, $wgOut, $wgRequest;
-		// disable $wgOut - we'll print out the page manually, taking
+		// Disable $wgOut - we'll print out the page manually, taking
 		// the body created by the form, plus the necessary Javascript
-		// files, and turning them into an HTML page
+		// files, and turning them into an HTML page.
 		$wgOut->disable();
+		// This line is needed to get around Squid caching.
+		$wgOut->sendCacheControl();
 
 		$this->setHeaders();
 		$this->outputHeader();
