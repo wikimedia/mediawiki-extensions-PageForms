@@ -67,17 +67,15 @@ class SFFormStart extends SpecialPage {
 			if ( $page_name != '' ) {
 				// Append the namespace prefix to the page name,
 				// if this namespace was not already entered.
-				if ( strpos( $page_name, $target_namespace . ":" ) === false && $target_namespace != '' )
-					$page_name = $target_namespace . ":" . $page_name;
+				if ( strpos( $page_name, $target_namespace . ':' ) === false && $target_namespace != '' )
+					$page_name = $target_namespace . ':' . $page_name;
 				// find out whether this page already exists,
 				// and send user to the appropriate form
 				$page_title = Title::newFromText( $page_name );
 				if ( ! $page_title ) {
-					// if there was no page title, it's
-					// probably an invalid page name,
-					// containing forbidden characters
-					$error_msg = wfMsg( 'sf_formstart_badtitle', htmlspecialchars( $page_name ) );
-					$wgOut->addHTML( $error_msg );
+					//If there was no page title, it's probably an invalid page name,
+					// containing forbidden characters.
+					$wgOut->addHTML( htmlspecialchars( wfMsg( 'sf_formstart_badtitle', $page_name ) ) );
 					return;
 				} else {
 					SFFormStart::doRedirect( $form_name, $page_name, $params );
@@ -87,13 +85,16 @@ class SFFormStart extends SpecialPage {
 		}
 
 		if ( ( ! $form_title || ! $form_title->exists() ) && ( $form_name != '' ) ) {
-			$text = '<p>' . wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) . ".</p>\n";
+			$text = '<p>' . htmlspecialchars( wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . ".</p>\n";
 		} else {
-			if ( $form_name == '' )
-				$description = wfMsg( 'sf_formstart_noform_docu', $form_name );
-			else
-				$description = wfMsg( 'sf_formstart_docu', $form_name );
-			$button_text = wfMsg( 'sf_formstart_createoredit' );
+			if ( $form_name == '' ) {
+				$description = htmlspecialchars( wfMsg( 'sf_formstart_noform_docu', $form_name ) );
+			}
+			else {
+				$description = htmlspecialchars( wfMsg( 'sf_formstart_docu', $form_name ) );
+			}
+				
+			$button_text = htmlspecialchars( wfMsg( 'sf_formstart_createoredit' ) );
 			$text = <<<END
 	<form action="" method="post">
 	<p>$description</p>
