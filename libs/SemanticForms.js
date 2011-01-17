@@ -221,8 +221,8 @@
 function setupSF() {
 
 	jQuery("#sfForm").data("SemanticForms",{
-		initFunctions : new Array(),
-		validationFunctions : new Array
+		initFunctions : [],
+		validationFunctions : []
 	});
 
 }
@@ -231,6 +231,8 @@ function setupSF() {
 //
 // More than one method may be registered for one input by subsequent calls to
 // SemanticForms_registerInputValidation.
+//
+// Validation functions and their data are stored in a numbered array
 //
 // @param valfunction The validation functions. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the validation function
@@ -242,11 +244,8 @@ jQuery.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 		setupSF();
 	}
 
-	if ( ! jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")] ) {
-		jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")] = new Array();
-	}
-
-	jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")].push({
+	jQuery("#sfForm").data("SemanticForms").validationFunctions.push({
+		input : this.attr("id"),
 		valfunction : valfunction,
 		parameters : param
 	});
@@ -259,6 +258,8 @@ jQuery.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 // More than one method may be registered for one input by subsequent calls to
 // SemanticForms_registerInputInit. This method also executes the initFunction
 // if the element referenced by /this/ is not part of a multipleTemplateStarter.
+//
+// Initialization functions and their data are stored in a associative array
 //
 // @param initFunction The initialization function. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the initialization function
@@ -556,19 +557,19 @@ window.validateAll = function () {
 	// call registered validation functions
 	var sfdata = jQuery("#sfForm").data('SemanticForms');
 
-	if (sfdata) { // found data object?
+	if ( sfdata && sfdata.validationFunctions.length > 0 ) { // found data object?
 
 		// for every registered input
-		for ( var id in sfdata.validationFunctions ) { 
+		for ( var i = 0; i < sfdata.validationFunctions.length; ++i ) {
 
 			// if input is not part of multipleTemplateStarter
-			if ( jQuery("#" + id).closest(".multipleTemplateStarter").length == 0 ) {
+			if ( jQuery("#" + sfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length == 0 ) {
 
-				// Call every validation method for this input.
-				for ( var i in sfdata.validationFunctions[id]) {
-					if (! sfdata.validationFunctions[id][i].valfunction(id, sfdata.validationFunctions[id][i].parameters) )
-						num_errors += 1;
-				}
+				if (! sfdata.validationFunctions[i].valfunction(
+						sfdata.validationFunctions[i].input,
+						sfdata.validationFunctions[i].parameters)
+					)
+					num_errors += 1;
 			}
 		}
 	}
@@ -640,12 +641,15 @@ jQuery.fn.addInstance = function() {
 					// For every validation method for the
 					// input with ID old_id, register it
 					// for the new input.
-					for ( i in sfdata.validationFunctions[old_id] ) {
+					for ( var i = 0; i < sfdata.validationFunctions.length; ++i ) {
 
-						jQuery(this).SemanticForms_registerInputValidation(
-							sfdata.validationFunctions[old_id][i].valfunction,
-							sfdata.validationFunctions[old_id][i].parameters
-						);
+						if ( sfdata.validationFunctions[i].input == old_id ) {
+
+							jQuery(this).SemanticForms_registerInputValidation(
+								sfdata.validationFunctions[i].valfunction,
+								sfdata.validationFunctions[i].parameters
+							);
+						}
 					}
 				}
 			}
@@ -691,7 +695,7 @@ jQuery.fn.addInstance = function() {
 		// Remove the encompassing div for this instance.
 		jQuery(this).closest(".multipleTemplateInstance")
 			.fadeOut('fast', function() { jQuery(this).remove(); });
-	});
+			});
 
 	// Enable autocompletion
 	new_div.find('.autocompleteInput').attachAutocomplete();
