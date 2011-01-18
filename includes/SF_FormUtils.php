@@ -84,17 +84,26 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		$disabled_text = ( $is_disabled ) ? " disabled" : "";
 		if ( $label == null )
 			$label = wfMsgExt( 'minoredit', array( 'parseinline' ) );
-		$accesskey = wfMsg( 'accesskey-minoredit' );
 		$tooltip = wfMsg( 'tooltip-minoredit' );
-		$attr = Xml::expandAttributes( $attr );
-		$text = <<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" value="" name="wpMinoredit" accesskey="$accesskey" id="wpMinoredit"$disabled_text$attr/>
-	<label for="wpMinoredit" title="$tooltip">$label</label>
+		$attrs = $attr + array(
+			'type' => 'checkbox',
+			'value' => '',
+			'name' => 'wpMinoredit'
+			'id' => 'wpMinoredit',
+			'accesskey' => wfMsg( 'accesskey-minoredit' ),
+			'tabindex' => $sfgTabIndex,
+		);
+		if ( $is_disabled ) {
+			$attrs['disabled'] = 'disabled';
+		}
+		$text = "\t" . Xml::element( 'input', $attrs ) . "\n";
+		$text .= "\t" . Xml::element( 'input', array(
+			'for' => 'wpMinoredit',
+			'title' => $tooltip
+		), $label ) . "\n";
 
-END;
 		return $text;
 	}
 
@@ -223,8 +232,9 @@ END;
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = wfMsg( 'runquery' );
+		}
 		return self::buttonHTML( $attr + array(
 			'id'        => 'wpRunQuery',
 			'name'      => 'wpRunQuery',
