@@ -612,8 +612,10 @@ jQuery.fn.addInstance = function() {
 	// the [num] index in the element names with an actual unique index
 	new_div.find("input, select, textarea").each(
 		function() {
+			// Add in a 'b' at the end of the name to reduce the
+			// chance of name collision with another field
 			if (this.name)
-				this.name = this.name.replace(/\[num\]/g, '[' + num_elements + ']');
+				this.name = this.name.replace(/\[num\]/g, '[' + num_elements + 'b]');
 
 			if (this.id) {
 
