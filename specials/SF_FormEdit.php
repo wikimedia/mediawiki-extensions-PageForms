@@ -43,8 +43,8 @@ class SFFormEdit extends SpecialPage {
 		$fe_url = $fe->getTitle()->getFullURL();
 		$i = 0;
 		foreach ( $alt_forms as $alt_form ) {
-			if ( $i++ > 0 ) { $text .= ", "; }
-			$text .= "<a href=\"$fe_url/$alt_form/$target_name\">" . str_replace( '_', ' ', $alt_form ) . "</a>";
+			if ( $i++ > 0 ) { $text .= ', '; }
+			$text .= "<a href=\"$fe_url/$alt_form/$target_name\">" . str_replace( '_', ' ', $alt_form ) . '</a>';
 		}
 		return $text;
 	}
