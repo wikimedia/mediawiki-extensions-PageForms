@@ -15,7 +15,7 @@
 (function(jQuery) {
   jQuery.fn.attachAutocomplete = function() {
     return this.each(function() {
-        // Get all the necessary values from the input's "autocompletesettings"
+	// Get all the necessary values from the input's "autocompletesettings"
 	// attribute. This should probably be done as three separate attributes,
 	// instead.
 	var field_string = jQuery(this).attr("autocompletesettings");
@@ -29,7 +29,7 @@
 		}
 	}
 
-    jQuery.noConflict();
+	jQuery.noConflict();
 
     /* extending jQuery functions for custom highlighting */
     jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
@@ -41,7 +41,7 @@
 	} else {
 		var t = item.label;
 	}
-        return jQuery( "<li></li>" )
+	return jQuery( "<li></li>" )
 		.data( "item.autocomplete", item )
 		.append( " <a>" + t + "</a>" )
 		.appendTo( ul );
@@ -53,14 +53,14 @@
 	// plus something else, like ".\n" or "\n\n", but as far as we
 	// know no one has yet needed that.
 	if ( delimiter != null ) {
-	   if ( delimiter == "\\n" ) {
-		delimiter = "\n";
-	    } else {
-		delimiter += " ";
-	    }
+		if ( delimiter == "\\n" ) {
+			delimiter = "\n";
+		} else {
+			delimiter += " ";
+		}
 	}
 
-	/* extending jquery functions  */
+	/* extending jquery functions */
 	jQuery.extend( jQuery.ui.autocomplete, {	
 	    filter: function(array, term) {
 		if ( sfgAutocompleteOnAllChars ) {
@@ -76,14 +76,14 @@
 
     values = sfgAutocompleteValues[field_string];
     if (values != null) {
-        // Local autocompletion
-            
+	// Local autocompletion
+
 	if (delimiter != null) {
 		// Autocomplete for multiple values
 
-                function split(val) {
-                    return val.split(delimiter);
-                }
+		function split(val) {
+			return val.split(delimiter);
+		}
 		function extractLast(term) {
 			return split(term).pop();
 		}
@@ -111,7 +111,7 @@
 				this.value = terms.join(delimiter);
 				return false;
 			}
-		});              
+		});
             
         } else {
 		// Autocomplete for a single value
@@ -134,11 +134,10 @@
         else if (data_type == 'namespace')
             myServer += "?action=sfautocomplete&format=json&namespace=" + data_source;
         else if (data_type == 'external_url')
-            myServer += "?action=sfautocomplete&format=json&external_url=" + data_source;                   
-       
-       if (delimiter != null) {
-            
-                function split(val) {
+            myServer += "?action=sfautocomplete&format=json&external_url=" + data_source;
+
+	if (delimiter != null) {
+		function split(val) {
 			return val.split(delimiter);
 		}
 		function extractLast(term) {
@@ -179,7 +178,7 @@
 				return false;
 			}
 		} );
-        } else {
+	} else {
 		jQuery(this).autocomplete({
 			minLength: 1,
 			source: function(request, response) {
@@ -187,15 +186,15 @@
 					url: myServer,
 					dataType: "json",
 					data: { 
-                                            substr:request.term
-                                        },
+						substr:request.term
+					},
 					success: function( data ) {
 						response(jQuery.map(data.sfautocomplete, function(item) {
 							return {
 								value: item.title
 							}
 						}))
-					}                                         
+					}
 				});
 			},
 			open: function() {
@@ -792,8 +791,8 @@ jQuery(document).ready(function() {
 	jQuery('#sfForm').submit( function() { return validateAll(); } );
 });
 
-/* extending jquery functions  */
-    
+/* extending jquery functions */
+
 (function(jQuery) {
 	jQuery.widget("ui.combobox", {
 		_create: function() {
