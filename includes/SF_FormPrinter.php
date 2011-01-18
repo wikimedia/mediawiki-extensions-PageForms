@@ -438,13 +438,17 @@ END;
               if ( array_key_exists( 0, $matches ) && array_key_exists( 1, $matches[0] ) ) {
                 $start_char = $matches[0][1];
                 $fields_start_char = $start_char + 2 + strlen( $search_template_str );
-                // skip ahead to the first real character
-                while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n', '|' ) ) ) {
+                // Skip ahead to the first real character.
+		while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n' ) ) ) {
+                  $fields_start_char++;
+                }
+		// If the next character is a pipe, skip that too.
+		if( $existing_page_content[$fields_start_char] == '|' ) {
                   $fields_start_char++;
                 }
                 $template_contents = array( '0' => '' );
-                // cycle through template call, splitting it up by pipes ('|'),
-                // except when that pipe is part of a piped link
+                // Cycle through template call, splitting it up by pipes ('|'),
+                // except when that pipe is part of a piped link.
                 $field = "";
                 $uncompleted_square_brackets = 0;
                 $uncompleted_curly_brackets = 2;
@@ -526,6 +530,7 @@ END;
             if ( $all_values_for_template ) {
               $cur_key = key( $all_values_for_template );
               // skip the input coming in from the "starter" div
+              // TODO: this code is probably no longer necessary
               if ( $cur_key == 'num' ) {
                 unset( $all_values_for_template[$cur_key] );
                 $cur_key = key( $all_values_for_template );
