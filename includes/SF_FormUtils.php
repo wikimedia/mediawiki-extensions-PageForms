@@ -90,7 +90,7 @@ END;
 		$attrs = $attr + array(
 			'type' => 'checkbox',
 			'value' => '',
-			'name' => 'wpMinoredit'
+			'name' => 'wpMinoredit',
 			'id' => 'wpMinoredit',
 			'accesskey' => wfMsg( 'accesskey-minoredit' ),
 			'tabindex' => $sfgTabIndex,
