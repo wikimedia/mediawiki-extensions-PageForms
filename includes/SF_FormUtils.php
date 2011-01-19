@@ -99,7 +99,7 @@ END;
 			$attrs['disabled'] = 'disabled';
 		}
 		$text = "\t" . Xml::element( 'input', $attrs ) . "\n";
-		$text .= "\t" . Xml::element( 'input', array(
+		$text .= "\t" . Xml::element( 'label', array(
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
 		), $label ) . "\n";
