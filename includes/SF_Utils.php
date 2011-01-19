@@ -234,7 +234,12 @@ END;
 		$scripts = array();
 		if ( !$sfgUseFormEditPage )
 			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
-		if ( method_exists( 'SMWOutputs', 'requireHeadItem' ) ) {
+		// The calls to requireHeadItem(), in some circumstances,
+		// don't work - the two libraries don't get loaded. For now,
+		// just always load these manually.
+		// TODO - figure this out.
+		//if ( method_exists( 'SMWOutputs', 'requireHeadItem' ) ) {
+		if ( false ) {
 			SMWOutputs::requireHeadItem( SMW_HEADER_TOOLTIP );
 			SMWOutputs::requireHeadItem( SMW_HEADER_SORTTABLE );
 		} else {
