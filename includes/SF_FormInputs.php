@@ -378,7 +378,7 @@ class SFComboBoxInput extends SFFormInput {
 		if ( array_key_exists( 'possible_values', $other_args ) && $other_args['possible_values'] != null )
 			return SFDropdownInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
-		global $sfgTabIndex;
+		global $sfgTabIndex, $sfgFieldNum;
 
 		$autocomplete_field_type = "";
 		$autocompletion_source = "";
