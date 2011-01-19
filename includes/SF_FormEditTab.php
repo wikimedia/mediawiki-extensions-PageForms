@@ -22,7 +22,7 @@ class SFFormEditTab {
 			( $obj->mTitle->getNamespace() == NS_SPECIAL ) ) {
 			return true;
 		}
-		$title = $obj->mTitle; // getTitle method doesn't work for MW 1.15.x
+		$title = $obj->mTitle;
 		$form_names = SFFormLinker::getDefaultFormsForPage( $title );
 		if ( count( $form_names ) == 0 ) {
 			return true;
