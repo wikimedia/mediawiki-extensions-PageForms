@@ -1146,6 +1146,7 @@ $messages['ce'] = array(
 	'templates' => 'Куцкепаш',
 	'sf_createform_template' => 'Куцкеп:',
 	'sf_createform_addtemplate' => 'Тlетоха куцкеп:',
+	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
 
 /** Sorani (کوردی) */
