@@ -234,14 +234,12 @@ END;
 		$scripts = array();
 		if ( !$sfgUseFormEditPage )
 			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
-		// The calls to requireHeadItem(), in some circumstances,
-		// don't work - the two libraries don't get loaded. For now,
-		// just always load these manually.
-		// TODO - figure this out.
-		//if ( method_exists( 'SMWOutputs', 'requireHeadItem' ) ) {
-		if ( false ) {
+		if ( method_exists( 'SMWOutputs', 'requireHeadItem' ) ) {
 			SMWOutputs::requireHeadItem( SMW_HEADER_TOOLTIP );
 			SMWOutputs::requireHeadItem( SMW_HEADER_SORTTABLE );
+			// TODO - should this be called directly here, or is
+			// there a "smarter" (in some way) place to put it?
+			SMWOutputs::commitToOutputPage( $wgOut );
 		} else {
 			$scripts[] = "$smwgScriptPath/skins/SMW_tooltip.js";
 			$scripts[] = "$smwgScriptPath/skins/SMW_sorttable.js";
