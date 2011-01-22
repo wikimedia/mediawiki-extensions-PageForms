@@ -3826,6 +3826,17 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''<Fomullaa_Name >''</co
 	'right-editrestrictedfields' => 'Beschrängk zohjänglijje Felder en Fommulaare ändere',
 );
 
+/** Kurdish (Latin) (Kurdî (Latin))
+ * @author George Animal
+ */
+$messages['ku-latn'] = array(
+	'sf_createproperty_proptype' => 'Cure:',
+	'createtemplate' => 'Şablonekî çêke',
+	'sf_createtemplate_namelabel' => 'Navê şablonê:',
+	'sf_createform_template' => 'Şablon:',
+	'sf_createcategory_name' => 'Navê kategorîyê:',
+);
+
 /** Cornish (Kernewek)
  * @author Kernoweger
  * @author Kw-Moon
@@ -5852,6 +5863,7 @@ $messages['sr-ec'] = array(
 
 /** Serbian Latin ekavian (‪Srpski (latinica)‬)
  * @author Michaello
+ * @author Rancher
  * @author Жељко Тодоровић
  */
 $messages['sr-el'] = array(
@@ -5868,7 +5880,7 @@ $messages['sr-el'] = array(
 	'sf_createtemplate_namelabel' => 'Ime šablona:',
 	'sf_createtemplate_categorylabel' => 'Kategorija definisana šablonom (opciono):',
 	'sf_createtemplate_templatefields' => 'Polja šablona',
-	'sf_createtemplate_fieldname' => 'Ime polja:',
+	'sf_createtemplate_fieldname' => 'Naziv polja:',
 	'sf_createtemplate_displaylabel' => 'Prikaži labelu:',
 	'sf_createtemplate_semanticproperty' => 'Semantička osobina:',
 	'sf_createtemplate_fieldislist' => 'Ovo polje može da sadrži spisak vrednosti, odvojenih zarezima',
