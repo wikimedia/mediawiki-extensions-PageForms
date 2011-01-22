@@ -621,7 +621,7 @@ $messages['be'] = array(
 	'sf_createform_template' => 'Шаблон:',
 );
 
-/** Belarusian (Taraškievica orthography) (Беларуская (тарашкевіца))
+/** Belarusian (Taraškievica orthography) (‪Беларуская (тарашкевіца)‬)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Red Winged Duck
@@ -1324,7 +1324,7 @@ wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular z
 	'right-editrestrictedfields' => 'Eingeschränkte Formularfelder bearbeiten',
 );
 
-/** German (formal address) (Deutsch (Sie-Form))
+/** German (formal address) (‪Deutsch (Sie-Form)‬)
  * @author Dst
  * @author Imre
  * @author Kghbln
@@ -3837,7 +3837,7 @@ $messages['ku-latn'] = array(
 	'sf_createcategory_name' => 'Navê kategorîyê:',
 );
 
-/** Cornish (Kernewek)
+/** Cornish (Kernowek)
  * @author Kernoweger
  * @author Kw-Moon
  */
@@ -5793,7 +5793,7 @@ $messages['sl'] = array(
 	'sf_createform_add' => 'Dodaj',
 );
 
-/** Serbian Cyrillic ekavian (Српски (ћирилица))
+/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
  * @author Rancher
  * @author Sasa Stefanovic
  * @author Михајло Анђелковић
