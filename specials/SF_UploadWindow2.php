@@ -12,7 +12,7 @@
  */
 
 
-class SFUploadWindow2 extends SpecialPage {
+class SFUploadWindow2 extends UnlistedSpecialPage {
 	/**
 	 * Constructor : initialise object
 	 * Get data POSTed through the form and assign them to the object
