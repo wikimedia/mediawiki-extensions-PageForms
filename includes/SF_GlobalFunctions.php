@@ -147,6 +147,11 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.autogrow' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autogrow.js',
 		),
+		'ext.semanticforms.floatedit' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/SF_floatedit.js',
+			'styles' => 'skins/SF_floatedit.css',
+			'dependencies' => array( 'jquery' ),
+		),
 	);
 }
 

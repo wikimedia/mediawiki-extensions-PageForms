@@ -136,6 +136,7 @@ class SFParserFunctions {
 		array_shift( $params ); // don't need the parser
 		// set defaults
 		$inFormName = $inLinkStr = $inLinkType = $inQueryStr = $inTargetName = '';
+		$popupClassString = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -155,6 +156,10 @@ class SFParserFunctions {
 				$inQueryStr = $value;
 			elseif ( $param_name == 'target' )
 				$inTargetName = $value;
+			elseif ( $param_name == null && $value == 'popup' ) {
+				self::loadScriptsForFloatWindow( $parser );
+				$popupClassString = 'class="floatlink"';
+			}
 			elseif ( $i == 0 )
 				$inFormName = $param;
 			elseif ( $i == 1 )
@@ -171,11 +176,11 @@ class SFParserFunctions {
 			$link_url .= "/$inTargetName";
 		}
 		$link_url = str_replace( ' ', '_', $link_url );
+		$hidden_inputs = "";
 		if ( $inQueryStr != '' ) {
 			// special handling for 'post button' - query string
 			// has to be turned into hidden inputs
 			if ( $inLinkType == 'post button' ) {
-				$hidden_inputs = "";
 				// Change HTML-encoded ampersands to
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
@@ -202,11 +207,11 @@ class SFParserFunctions {
 		if ( $inLinkType == 'button' ) {
 			$link_url = html_entity_decode( $link_url, ENT_QUOTES );
 			$link_url = str_replace( "'", "\'", $link_url );
-			$str = "<form><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
+			$str = "<form $popupClassString><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
 		} elseif ( $inLinkType == 'post button' ) {
-			$str = "<form action=\"$link_url\" method=\"post\"><input type=\"submit\" value=\"$inLinkStr\" />$hidden_inputs</form>";
+			$str = "<form action=\"$link_url\" method=\"post\" $popupClassString><input type=\"submit\" value=\"$inLinkStr\" />$hidden_inputs</form>";
 		} else {
-			$str = "<a href=\"$link_url\">$inLinkStr</a>";
+			$str = "<a href=\"$link_url\" $popupClassString>$inLinkStr</a>";
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
@@ -220,6 +225,7 @@ class SFParserFunctions {
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
 		$inAutocompletionSource = '';
 		$inSize = 25;
+		$popupClassString = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -245,6 +251,9 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'autocomplete on namespace' ) {
 				$inAutocompletionSource = $value;
 				$autocompletion_type = 'namespace';
+			} elseif ( $param_name == null && $value == 'popup' ) {
+				self::loadScriptsForFloatWindow( $parser );
+				$popupClassString = 'class="floatinput"';
 			}
 			elseif ( $i == 0 )
 				$inFormName = $param;
@@ -279,13 +288,13 @@ class SFParserFunctions {
 		$fs_url = $fs->getTitle()->getLocalURL();
 		if ( empty( $inAutocompletionSource ) ) {
 			$str = <<<END
-			<form action="$fs_url" method="get">
+			<form action="$fs_url" method="get" $popupClassString>
 			<p><input type="text" name="page_name" size="$inSize" value="$inValue" class="formInput" />
 
 END;
 		} else {
 			$str = <<<END
-			<form name="createbox" action="$fs_url" method="get">
+			<form name="createbox" action="$fs_url" method="get" $popupClassString>
 			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput formInput" autocompletesettings="input_$input_num" />
 
 END;
@@ -486,4 +495,43 @@ END;
 		return implode( $new_delimiter, $results_array );
 	}
 
+	static function loadScriptsForFloatWindow ( &$parser ) {
+
+		global $sfgScriptPath;
+
+		wfDebug( "loadScriptsForFloatWindow \n" );
+
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+
+			// on MW 1.17+ just request the ResourceLoader to include modules
+
+			$parser->getOutput()->addModules( 'ext.semanticforms.floatedit' );
+
+		} else {
+
+			// on MW pre1.17 insert the necessary headers into the page head
+
+			static $loaded = false;
+
+			// load JavaScript and CSS files only once
+			if ( $loaded ) return true;
+
+			// load extensions JavaScript
+			$parser->getOutput()->addHeadItem(
+				'<script type="text/javascript" src="' . $sfgScriptPath
+				. '/libs/SF_floatedit.js"></script> ' . "\n"
+			);
+
+			// load extensions style sheet
+			$parser->getOutput()->addHeadItem(
+				'<link rel="stylesheet" href="' . $sfgScriptPath
+				. '/skins/SF_floatedit.css"/> ' . "\n"
+			);
+
+			$loaded = true;
+
+		}
+
+		return true;
+	}
 }
