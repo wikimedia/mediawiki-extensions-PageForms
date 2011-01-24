@@ -307,6 +307,7 @@ window.ext.floatedit = new function() {
 		jQuery( window ).resize( adjustFrameSize );
 
 		var form = content.find("#sfForm");
+		var innerwdw = window.frames['floatedit-iframe' + instance];
 
 		if (form.length > 0) {
 
@@ -331,8 +332,6 @@ window.ext.floatedit = new function() {
 				
 			});
 
-			var innerwdw = window.frames['floatedit-iframe' + instance];
-
 			// catch inner form submit event
 			innerwdw.jQuery(form[0])
 			.bind( "submit", function( event ) {
@@ -342,10 +341,19 @@ window.ext.floatedit = new function() {
 			})
 		}
 
-		// catch 'Cancel'-Link (and other 'back'-links) and close frame instead of going back
-		var allLinks = content.find("a[href]");
-		var backlinks = allLinks.filter('a[href="javascript:history.go(-1);"]');
+		innerwdw.jQuery( innerwdw[0] ).unload(function (event) {
+			return false;
+		});
 
+		// find all links. Have to use inner jQuery so event.result below
+		// reflects the result of inner event handlers. We (hopefully) come last
+		// in the chain of event handlers as we only attach when the frame is
+		// already completely loaded, i.e. every inner event handler is already
+		// attached.
+		var allLinks = innerwdw.jQuery("a[href]");
+
+		// catch 'Cancel'-Link (and other 'back'-links) and close frame instead of going back
+		var backlinks = allLinks.filter('a[href="javascript:history.go(-1);"]');
 		backlinks.click(handleCloseFrame);
 
 		// promote any other links to open in main window, prevent nested browsing
@@ -354,7 +362,7 @@ window.ext.floatedit = new function() {
 		.not('a[target]')              // targeted links
 		.not('a[href^="#"]')           // local links
 		.click(function(event){
-			if ( event.result != false ) {
+			if ( event.result != false ) {  // if not already caught by somebody else
 				closeFrameAndFollowLink( event.target.getAttribute('href') )
 			}
 			return false;
@@ -431,8 +439,6 @@ window.ext.floatedit = new function() {
 				else url = url.substr( 0, start - 1 );
 
 			}
-
-			
 
 			var form = jQuery('<form action="' + url + '" method="POST"><input type="hidden" name="action" value="purge"></form>')
 			.appendTo('body');
