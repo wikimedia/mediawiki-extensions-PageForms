@@ -130,7 +130,16 @@ END;
 		if ( $embedded ) {
 			$wgParser->getOutput()->addHeadItem( $script );
 		} else {
-			$wgOut->addScript( $script . implode($wgParser->getOutput()->getHeadItems()) );
+			// method was added in MW 1.16
+			if ( method_exists( $wgParser->getOutput(), 'getHeadItems' ) ) {
+				$wgOut->addScript( $script . implode($wgParser->getOutput()->getHeadItems() ) );
+			} else {
+				$wgOut->addScript( $script . implode($wgParser->getOutput()->mHeadItems ) );
+			}
+			// include modules registered with the ResourceLoader
+			if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+				$wgOut->addModules( $wgParser->getOutput()->getModules() );
+			}
 		}
 	}
 }
