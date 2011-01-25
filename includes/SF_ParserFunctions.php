@@ -162,8 +162,8 @@ class SFParserFunctions {
 			elseif ( $param_name == 'target' )
 				$inTargetName = $value;
 			elseif ( $param_name == null && $value == 'popup' ) {
-				self::loadScriptsForFloatWindow( $parser );
-				$popupClassString = 'class="floatlink"';
+				self::loadScriptsForPopupForm( $parser );
+				$popupClassString = 'class="popupformlink"';
 			}
 			elseif ( $i == 0 )
 				$inFormName = $param;
@@ -257,8 +257,8 @@ class SFParserFunctions {
 				$inAutocompletionSource = $value;
 				$autocompletion_type = 'namespace';
 			} elseif ( $param_name == null && $value == 'popup' ) {
-				self::loadScriptsForFloatWindow( $parser );
-				$popupClassString = 'class="floatinput"';
+				self::loadScriptsForPopupForm( $parser );
+				$popupClassString = 'class="popupforminput"';
 			}
 			elseif ( $i == 0 )
 				$inFormName = $param;
@@ -500,17 +500,15 @@ END;
 		return implode( $new_delimiter, $results_array );
 	}
 
-	static function loadScriptsForFloatWindow ( &$parser ) {
+	static function loadScriptsForPopupForm ( &$parser ) {
 
 		global $sfgScriptPath;
-
-		wfDebug( "loadScriptsForFloatWindow \n" );
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 
 			// on MW 1.17+ just request the ResourceLoader to include modules
 
-			$parser->getOutput()->addModules( 'ext.semanticforms.floatedit' );
+			$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
 
 		} else {
 
@@ -524,13 +522,13 @@ END;
 			// load extensions JavaScript
 			$parser->getOutput()->addHeadItem(
 				'<script type="text/javascript" src="' . $sfgScriptPath
-				. '/libs/SF_floatedit.js"></script> ' . "\n"
+				. '/libs/SF_popupform.js"></script> ' . "\n"
 			);
 
 			// load extensions style sheet
 			$parser->getOutput()->addHeadItem(
 				'<link rel="stylesheet" href="' . $sfgScriptPath
-				. '/skins/SF_floatedit.css"/> ' . "\n"
+				. '/skins/SF_popupform.css"/> ' . "\n"
 			);
 
 			$loaded = true;

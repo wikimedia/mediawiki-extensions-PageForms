@@ -1,22 +1,12 @@
-/* 
-    Document   : floatedit.css
-    Created on : 05.01.2011, 20:56:24
-    Author     : fox
-    Description:
-        Purpose of the stylesheet follows.
-*/
+/**
+ * Styles for popup forms
+ */
 
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
-div.floatlink, div.floatinput,
-div.floatlink form, div.floatinput form {
+.popupformlink, .popupforminput {
 	display: inline;
 }
 
-div.floatedit-wrapper {
+div.popupform-wrapper {
 	position: fixed;
 	left: 0px;
 	top: 0px;
@@ -24,7 +14,7 @@ div.floatedit-wrapper {
 	width: 100%;
 }
 
-div.floatedit-background {
+div.popupform-background {
 	left: 0px;
 	top: 0px;
 	height: 100%;
@@ -34,7 +24,7 @@ div.floatedit-background {
 
 }
 
-div.floatedit-anchor {
+div.popupform-anchor {
     position: fixed;
 	left: 50%;
 	top: 50%;
@@ -43,19 +33,19 @@ div.floatedit-anchor {
 	z-index: 6;
 }
 
-div.floatedit-container {
+div.popupform-container {
     position: absolute;
 	background-color: white;
 	border: 2px solid midnightblue;
 }
 
-iframe.floatedit-innerdocument {
+iframe.popupform-innerdocument {
 	width: 100%;
 	height: 100%;
 	border: none;
 }
 
-div.floatedit-close {
+div.popupform-close {
 	position: absolute;
 	right: -25px;
 	top: -25px;
@@ -65,14 +55,14 @@ div.floatedit-close {
 	background-image: url('../skins/fancy_close.png');
 }
 
-div.floatedit-loading {
+div.popupform-loading {
 	position: fixed;
 	left: 50%;
 	top: 50%;
 	z-index: 5;
 }
 
-div.floatedit-loadingbg {
+div.popupform-loadingbg {
 	position: absolute;
 	left: -63px;
 	top: -63px;
@@ -82,7 +72,7 @@ div.floatedit-loadingbg {
 	background-image: url('../skins/loadingbg.png');
 }
 
-div.floatedit-loadingfg {
+div.popupform-loadingfg {
 	position: absolute;
 	left: -15px;
 	top: -15px;

@@ -1,8 +1,7 @@
 /**
- * Javascript code to be used with extension FloatEdit.
+ * Javascript code to be used with extension SemanticForms for popup forms.
  *
  * @author Stephan Gambke
- * @version 0.1 alpha
  *
  */
 
@@ -12,12 +11,12 @@ jQuery(function(){
 	// register eventhandlers on 'edit' links and buttons
 
 	// register formlink with link
-	jQuery('a.floatlink').click(function(evt){
-		return ext.floatedit.handleFloatLink( evt.target.getAttribute('href'), this );
+	jQuery('a.popupformlink').click(function(evt){
+		return ext.popupform.handlePopupFormLink( evt.target.getAttribute('href'), this );
 	});
 
 	// register formlink with button
-	jQuery( 'form.floatlink[method!="post"] input' ).each(function() {
+	jQuery( 'form.popupformlink[method!="post"] input' ).each(function() {
 		
 		var input = jQuery(this);
 
@@ -30,19 +29,19 @@ jQuery(function(){
 		input.data( "target", target ) // extract link target from event handler
 		.attr( "onclick", null ) // and remove event handler
 		.click( function( evt ){
-			return ext.floatedit.handleFloatLink( jQuery( this ).data( "target" ), this);
+			return ext.popupform.handlePopupFormLink( jQuery( this ).data( "target" ), this);
 		});
 	})
 
 	// register formlink with post button
-	jQuery( 'form.floatlink[method="post"]' ).submit(function(evt){
-		return ext.floatedit.handleFloatLink( this.getAttribute( 'action' ), this );
+	jQuery( 'form.popupformlink[method="post"]' ).submit(function(evt){
+		return ext.popupform.handlePopupFormLink( this.getAttribute( 'action' ), this );
 	});
 
 
 	// register forminput
-	jQuery( 'form.floatinput' ).submit(function(evt){
-		return ext.floatedit.handleFloatInput( this.getAttribute( 'action' ), this );
+	jQuery( 'form.popupforminput' ).submit(function(evt){
+		return ext.popupform.handlePopupFormInput( this.getAttribute( 'action' ), this );
 	});
 
 });
@@ -52,7 +51,7 @@ if ( typeof( window[ 'ext' ] ) == "undefined" ) {
 	window[ 'ext' ] = {};
 }
 
-window.ext.floatedit = new function() {
+window.ext.popupform = new function() {
 
 	var wrapper;
 	var background;
@@ -67,7 +66,7 @@ window.ext.floatedit = new function() {
 
 	var brokenBrowser, brokenChrome;
 
-	function handleFloatInput( ptarget, elem ) {
+	function handlePopupFormInput( ptarget, elem ) {
 
 		showForm();
 
@@ -77,11 +76,11 @@ window.ext.floatedit = new function() {
 			return false;
 		})
 
-		elem.target = 'floatedit-iframe' + instance;
+		elem.target = 'popupform-iframe' + instance;
 		return true;
 	}
 
-	function handleFloatLink( ptarget, elem ) {
+	function handlePopupFormLink( ptarget, elem ) {
 
 		showForm();
 
@@ -90,7 +89,7 @@ window.ext.floatedit = new function() {
 
 		if ( elem.tagName == 'FORM' ) {
 
-			elem.target = 'floatedit-iframe' + instance;
+			elem.target = 'popupform-iframe' + instance;
 			return true;
 			
 		} else {
@@ -98,7 +97,7 @@ window.ext.floatedit = new function() {
 			var delim = ptarget.indexOf( '?' );
 			var form = document.createElement("form");
 
-			form.target = 'floatedit-iframe' + instance;
+			form.target = 'popupform-iframe' + instance;
 
 			// Do we have parameters?
 			if ( delim > 0 ) {
@@ -136,19 +135,19 @@ window.ext.floatedit = new function() {
 
 		brokenBrowser= jQuery.browser.msie ||brokenChrome;
 
-		wrapper = jQuery( "<div class='floatedit-wrapper' >" );
-		background = jQuery( "<div class='floatedit-background' >" );
+		wrapper = jQuery( "<div class='popupform-wrapper' >" );
+		background = jQuery( "<div class='popupform-background' >" );
 
-		var waitIndicatorWrapper = jQuery(  "<div class='floatedit-loading'>" );
+		var waitIndicatorWrapper = jQuery(  "<div class='popupform-loading'>" );
 
-		waitIndicator = jQuery(  "<div class='floatedit-loadingbg'></div><div class='floatedit-loadingfg'></div>" );
+		waitIndicator = jQuery(  "<div class='popupform-loadingbg'></div><div class='popupform-loadingfg'></div>" );
 
-		var anchor = jQuery( "<div class='floatedit-anchor' >" );
+		var anchor = jQuery( "<div class='popupform-anchor' >" );
 
-		container = jQuery( "<div class='floatedit-container' >" );
-		iframe = jQuery( "<iframe class='floatedit-innerdocument' name='floatedit-iframe" + instance + "' id='floatedit-iframe" + instance + "' >");
+		container = jQuery( "<div class='popupform-container' >" );
+		iframe = jQuery( "<iframe class='popupform-innerdocument' name='popupform-iframe" + instance + "' id='popupform-iframe" + instance + "' >");
 
-		var closeBtn = jQuery( "<div class='floatedit-close'></div> " );
+		var closeBtn = jQuery( "<div class='popupform-close'></div> " );
 
 		// initially hide background and waitIndicator
 		if (brokenChrome) background.css("background", "transparent");
@@ -307,7 +306,7 @@ window.ext.floatedit = new function() {
 		jQuery( window ).resize( adjustFrameSize );
 
 		var form = content.find("#sfForm");
-		var innerwdw = window.frames['floatedit-iframe' + instance];
+		var innerwdw = window.frames['popupform-iframe' + instance];
 
 		if (form.length > 0) {
 
@@ -582,7 +581,7 @@ window.ext.floatedit = new function() {
 	}
 
 	// export public funcitons
-	this.handleFloatInput = handleFloatInput;
-	this.handleFloatLink = handleFloatLink;
+	this.handlePopupFormInput = handlePopupFormInput;
+	this.handlePopupFormLink = handlePopupFormLink;
 
 }
