@@ -130,7 +130,7 @@ END;
 		if ( $embedded ) {
 			$wgParser->getOutput()->addHeadItem( $script );
 		} else {
-			$wgOut->addScript( $script );
+			$wgOut->addScript( $script . implode($wgParser->getOutput()->getHeadItems()) );
 		}
 	}
 }

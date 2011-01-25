@@ -116,6 +116,11 @@ class SFParserFunctions {
 			$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMap' ) );
 			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ) );
 		}
+
+		// load jQuery
+		global $wgOut;
+		$wgOut->includeJQuery();  // only necessary in MW 1.16, does nothing in MW 1.17+
+		
 		return true;
 	}
 
