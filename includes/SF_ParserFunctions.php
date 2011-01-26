@@ -149,7 +149,7 @@ class SFParserFunctions {
 			$value = trim( $param );
 			if ( count( $elements ) > 1 ) {
 				$param_name = trim( $elements[0] );
-				$value = trim( $elements[1] );
+				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
 			}
 			if ( $param_name == 'form' )
 				$inFormName = $value;
@@ -238,7 +238,7 @@ class SFParserFunctions {
 			$value = trim( $param );
 			if ( count( $elements ) > 1 ) {
 				$param_name = trim( $elements[0] );
-				$value = trim( $elements[1] );
+				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
 			}
 			if ( $param_name == 'form' )
 				$inFormName = $value;
@@ -522,13 +522,15 @@ END;
 			// load extensions JavaScript
 			$parser->getOutput()->addHeadItem(
 				'<script type="text/javascript" src="' . $sfgScriptPath
-				. '/libs/SF_popupform.js"></script> ' . "\n"
+				. '/libs/SF_popupform.js"></script> ' . "\n",
+				'sf_poup_script'
 			);
 
 			// load extensions style sheet
 			$parser->getOutput()->addHeadItem(
 				'<link rel="stylesheet" href="' . $sfgScriptPath
-				. '/skins/SF_popupform.css"/> ' . "\n"
+				. '/skins/SF_popupform.css"/> ' . "\n",
+				'sf_poup_style'
 			);
 
 			$loaded = true;

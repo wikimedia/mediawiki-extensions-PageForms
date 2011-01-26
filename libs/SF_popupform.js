@@ -12,7 +12,7 @@ jQuery(function(){
 
 	// register formlink with link
 	jQuery('a.popupformlink').click(function(evt){
-		return ext.popupform.handlePopupFormLink( evt.target.getAttribute('href'), this );
+		return ext.popupform.handlePopupFormLink( this.getAttribute('href'), this );
 	});
 
 	// register formlink with button
