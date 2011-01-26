@@ -135,6 +135,14 @@ window.ext.popupform = new function() {
 
 		brokenBrowser= jQuery.browser.msie ||brokenChrome;
 
+		var maxZIndex = 0;
+
+		jQuery("*").each(function() {
+			var curr = parseInt( jQuery( this ).css( "z-index" ) );
+			maxZIndex = curr > maxZIndex ? curr : maxZIndex;
+		});
+
+
 		wrapper = jQuery( "<div class='popupform-wrapper' >" );
 		background = jQuery( "<div class='popupform-background' >" );
 
@@ -168,6 +176,7 @@ window.ext.popupform = new function() {
 		.append(container);
 
 		wrapper
+		.css( "z-index", maxZIndex + 1 )
 		.append( background )
 		.append( waitIndicatorWrapper )
 		.append( anchor )
