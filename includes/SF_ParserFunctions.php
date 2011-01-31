@@ -118,8 +118,11 @@ class SFParserFunctions {
 		}
 
 		// load jQuery
-		global $wgOut;
-		$wgOut->includeJQuery();  // only necessary in MW 1.16, does nothing in MW 1.17+
+		// only necessary in MW 1.16, does nothing in MW 1.17+
+		global $wgVersion, $wgOut;
+		if ( version_compare( $wgVersion, '1.17', '<=' ) && is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
+			$wgOut->includeJQuery(); // Fixme: this is including jQuery on every page load
+		}
 		
 		return true;
 	}
