@@ -107,6 +107,9 @@ class SFParserFunctions {
 	static $num_autocompletion_inputs = 0;
 
 	static function registerFunctions( &$parser ) {
+
+		global $wgOut;
+
 		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
 		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
 		if ( defined( get_class( $parser ) . '::SFH_OBJECT_ARGS' ) ) {
@@ -117,11 +120,9 @@ class SFParserFunctions {
 			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ) );
 		}
 
-		// load jQuery
-		// only necessary in MW 1.16, does nothing in MW 1.17+
-		global $wgVersion, $wgOut;
-		if ( version_compare( $wgVersion, '1.17', '<=' ) && is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
-			$wgOut->includeJQuery(); // Fixme: this is including jQuery on every page load
+		// load jQuery on MW 1.16
+		if ( is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
+			$wgOut -> includeJQuery();
 		}
 		
 		return true;
@@ -140,6 +141,9 @@ class SFParserFunctions {
 	}
 
 	static function renderFormLink ( &$parser ) {
+
+		global $wgVersion;
+
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 		// set defaults
@@ -164,7 +168,8 @@ class SFParserFunctions {
 				$inQueryStr = $value;
 			elseif ( $param_name == 'target' )
 				$inTargetName = $value;
-			elseif ( $param_name == null && $value == 'popup' ) {
+			elseif ( $param_name == null && $value == 'popup'
+				&& version_compare( $wgVersion, '1.16', '>=' )) {
 				self::loadScriptsForPopupForm( $parser );
 				$popupClassString = 'class="popupformlink"';
 			}
@@ -259,7 +264,8 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'autocomplete on namespace' ) {
 				$inAutocompletionSource = $value;
 				$autocompletion_type = 'namespace';
-			} elseif ( $param_name == null && $value == 'popup' ) {
+			} elseif ( $param_name == null && $value == 'popup'
+				&& version_compare( $wgVersion, '1.16', '>=' )) {
 				self::loadScriptsForPopupForm( $parser );
 				$popupClassString = 'class="popupforminput"';
 			}
