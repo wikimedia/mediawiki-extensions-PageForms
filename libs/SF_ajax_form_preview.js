@@ -244,6 +244,8 @@ function ajaxFormPreviewRun(btn){
     }
 }
 
-if (wgAction=='formedit' || wgCanonicalSpecialPageName == 'FormEdit')
-//    addOnloadHook(ajaxFormPreviewInit);
-	jQuery(function(){ajaxFormPreviewInit()});
+if (wgAction=='formedit' || wgCanonicalSpecialPageName == 'FormEdit') {
+	if ( typeof( addOnloadHook ) != 'undefined' ) addOnloadHook(ajaxFormPreviewInit);
+	else if ( typeof( jQuery ) != 'undefined' ) jQuery(function(){ajaxFormPreviewInit()});
+	// else sorry, no Ajax preview for you
+}
