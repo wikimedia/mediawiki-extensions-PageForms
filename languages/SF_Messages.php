@@ -5796,6 +5796,7 @@ $messages['sl'] = array(
 /** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
  * @author Rancher
  * @author Sasa Stefanovic
+ * @author Жељко Тодоровић
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
@@ -5857,7 +5858,7 @@ $messages['sr-ec'] = array(
 	'sf_bad_integer_error' => 'мора бити исправан цели број',
 	'sf_bad_date_error' => 'мора бити исправан датум',
 	'uploadwindow' => 'Прозор за слање',
-	'sf_deletionlog' => 'Историјат брисања',
+	'sf_deletionlog' => 'Историја брисања',
 	'sf_form_freetextlabel' => 'Слободан текст',
 );
 
@@ -5925,7 +5926,7 @@ $messages['sr-el'] = array(
 	'sf_bad_integer_error' => 'mora biti ispravan celi broj',
 	'sf_bad_date_error' => 'mora biti ispravan datum',
 	'uploadwindow' => 'Prozor za slanje',
-	'sf_deletionlog' => 'Istorijat brisanja',
+	'sf_deletionlog' => 'Istorija brisanja',
 	'sf_form_freetextlabel' => 'Slobodan tekst',
 );
 
