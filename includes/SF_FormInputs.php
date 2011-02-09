@@ -434,6 +434,45 @@ END;
 }
 
 class SFTextWithAutocompleteInput extends SFTextInput {
+	static function setAutocompleteValues( $field_args ) {
+		global $sfgAutocompleteValues;
+	       
+		if ( array_key_exists( 'autocomplete field type', $field_args ) ) {
+			$autocomplete_field_type = $field_args['autocomplete field type'];
+			$autocompletion_source = $field_args['autocompletion source'];
+			if ( $autocomplete_field_type != 'external_url' ) {
+				global $wgContLang;
+				$autocompletion_source = $wgContLang->ucfirst( $autocompletion_source );
+			}
+		}
+
+		// Get all autocomplete-related values, plus delimiter value
+		// (it's needed also for the 'uploadable' link, if there is one).
+		$autocompleteSettings = $autocompletion_source;
+		$is_list = ( array_key_exists( 'is_list', $field_args ) && $field_args['is_list'] == true );
+		if ( $is_list ) {
+			$autocompleteSettings .= ",list";
+			if ( array_key_exists( 'delimiter', $field_args ) ) {
+				$delimiter = $field_args['delimiter'];
+				$autocompleteSettings .= "," . $delimiter;
+			} else {
+				$delimiter = ",";
+			}
+		} else {
+			$delimiter = null;
+		}
+
+		$remoteDataType = null;
+		if ( array_key_exists( 'remote autocompletion', $field_args ) &&
+				$field_args['remote autocompletion'] == true ) {
+			$remoteDataType = $autocomplete_field_type;
+		} elseif ( $autocompletion_source != '' ) {
+			$autocomplete_values = SFUtils::getAutocompleteValues( $autocompletion_source, $autocomplete_field_type );
+			$sfgAutocompleteValues[$autocompleteSettings] = $autocomplete_values;
+		}
+		return array( $autocompleteSettings, $remoteDataType, $delimiter );
+	}
+
 	static function getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// If 'no autocomplete' was specified, print a regular text
 		// entry instead.
@@ -446,117 +485,45 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		if ( array_key_exists( 'possible_values', $other_args ) && $other_args['possible_values'] != null )
 			return SFDropdownInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 
-		global $sfgTabIndex, $sfgFieldNum, $sfgAutocompleteValues;
+		global $sfgTabIndex, $sfgFieldNum;
+
+		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
 
 		$className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
 		if ( array_key_exists( 'class', $other_args ) )
 			$className .= " " . $other_args['class'];
-		if ( array_key_exists( 'autocomplete field type', $other_args ) ) {
-			$autocomplete_field_type = $other_args['autocomplete field type'];
-			$autocompletion_source = $other_args['autocompletion source'];
-			if ( $autocomplete_field_type != 'external_url' ) {
-				global $wgContLang;
-				$autocompletion_source = $wgContLang->ucfirst( $autocompletion_source );
-			}
-		}
 		$input_id = "input_" . $sfgFieldNum;
 
-		// Get all autocomplete-related values, plus delimiter value
-		// (it's needed also for the 'uploadable' link, if there is one).
-		$autocompleteSettings = $autocompletion_source;
-		$is_list = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
-		if ( $is_list ) {
-			$autocompleteSettings .= ",list";
-			if ( array_key_exists( 'delimiter', $other_args ) ) {
-				$delimiter = $other_args['delimiter'];
-				$autocompleteSettings .= "," . $delimiter;
-			} else {
-				$delimiter = ",";
-			}
-		} else {
-			$delimiter = null;
+
+		if ( array_key_exists( 'size', $other_args ) )
+			$size = $other_args['size'];
+		else
+			$size = "35";
+
+		$inputAttrs = array(
+			'type' => 'text',
+			'id' => $input_id,
+			'name' => $input_name,
+			'value' => $cur_value,
+			'size' => $size,
+			'class' => $className,
+			'tabindex' => $sfgTabIndex,
+			'autocompletesettings' => $autocompleteSettings,
+		);
+		if ( !is_null( $remoteDataType ) ) {
+			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
-
-		$remoteDataType = null;
-		if ( array_key_exists( 'remote autocompletion', $other_args ) &&
-				$other_args['remote autocompletion'] == true ) {
-			$remoteDataType = $autocomplete_field_type;
-		} elseif ( $autocompletion_source != '' ) {
-			$autocomplete_values = SFUtils::getAutocompleteValues( $autocompletion_source, $autocomplete_field_type );
-			$sfgAutocompleteValues[$autocompleteSettings] = $autocomplete_values;
+		if ( $is_disabled ) {
+			$inputAttrs['disabled'] = 'disabled';
 		}
-
-		if ( array_key_exists( 'input_type', $other_args ) && $other_args['input_type'] == "textarea" ) {
-			 
-			$rows = $other_args['rows'];
-			$cols = $other_args['cols'];
-			$text = "";
-			if ( array_key_exists( 'autogrow', $other_args ) ) {
-				$className .= ' autoGrow';
-			}
-
-			$textarea_attrs = array(
-				'tabindex' => $sfgTabIndex,
-				'id' => $input_id,
-				'name' => $input_name,
-				'rows' => $rows,
-				'cols' => $cols,
-				'class' => $className,
-				'autocompletesettings' => $autocompleteSettings,
-			);
-			if ( !is_null( $remoteDataType ) ) {
-				$textarea_attrs['autocompletedatatype'] = $remoteDataType;
-			}
-			if ( $is_disabled ) {
-				$textarea_attrs['disabled'] = 'disabled';
-			}
-			if ( array_key_exists( 'maxlength', $other_args ) ) {
-				$maxlength = $other_args['maxlength'];
-				// For every actual character pressed (i.e.,
-				// excluding things like the Shift key),
-				// reduce the string to its allowed length if
-				// it's exceeded that.
-				// This JS code is complicated so that it'll
-				// work correctly in IE - IE moves the cursor
-				// to the end whenever this.value is reset,
-				// so we'll make sure to do that only when
-				// we need to.
-				$maxLengthJSCheck = "if (window.event && window.event.keyCode < 48 && window.event.keyCode != 13) return; if (this.value.length > $maxlength) { this.value = this.value.substring(0, $maxlength); }";
-				$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
-				$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
-			}
-			$textarea_input = Xml::element('textarea', $textarea_attrs, $cur_value, false);
-			$text .= $textarea_input;
-		} else {
-			if ( array_key_exists( 'size', $other_args ) )
-				$size = $other_args['size'];
-			else
-				$size = "35";
-
-			$inputAttrs = array(
-				'type' => 'text',
-				'id' => $input_id,
-				'name' => $input_name,
-				'value' => $cur_value,
-				'size' => $size,
-				'class' => $className,
-				'tabindex' => $sfgTabIndex,
-				'autocompletesettings' => $autocompleteSettings,
-			);
-			if ( !is_null( $remoteDataType ) ) {
-				$inputAttrs['autocompletedatatype'] = $remoteDataType;
-			}
-			if ( $is_disabled ) {
-				$inputAttrs['disabled'] = 'disabled';
-			}
-			if ( array_key_exists( 'maxlength', $other_args ) ) {
-				$text .= ' maxlength="' . $other_args['maxlength'] . '"';
-			}
-			$text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
+		if ( array_key_exists( 'maxlength', $other_args ) ) {
+			$text .= ' maxlength="' . $other_args['maxlength'] . '"';
 		}
+		$text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
+
 		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
-		 if ( array_key_exists( 'default filename', $other_args ) ) {
-				$default_filename = $other_args['default filename'];
+			if ( array_key_exists( 'default filename', $other_args ) ) {
+					$default_filename = $other_args['default filename'];
 			} else {
 				$default_filename = "";
 			}
@@ -579,6 +546,91 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 }
 
+class SFTextAreaWithAutocompleteInput extends SFTextWithAutocompleteInput {
+	static function getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+		// If 'no autocomplete' was specified, print a regular
+		// textarea instead.
+		if ( array_key_exists( 'no autocomplete', $other_args ) &&
+				$other_args['no autocomplete'] == true ) {
+			unset( $other_args['autocompletion source'] );
+			return SFTextAreaInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
+		}
+
+		global $sfgTabIndex, $sfgFieldNum;
+
+		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
+
+		$className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
+		if ( array_key_exists( 'class', $other_args ) )
+			$className .= " " . $other_args['class'];
+		$input_id = "input_" . $sfgFieldNum;
+
+		$rows = $other_args['rows'];
+		$cols = $other_args['cols'];
+		$text = "";
+		if ( array_key_exists( 'autogrow', $other_args ) ) {
+			$className .= ' autoGrow';
+		}
+
+		$textarea_attrs = array(
+			'tabindex' => $sfgTabIndex,
+			'id' => $input_id,
+			'name' => $input_name,
+			'rows' => $rows,
+			'cols' => $cols,
+			'class' => $className,
+			'autocompletesettings' => $autocompleteSettings,
+		);
+		if ( !is_null( $remoteDataType ) ) {
+			$textarea_attrs['autocompletedatatype'] = $remoteDataType;
+		}
+		if ( $is_disabled ) {
+			$textarea_attrs['disabled'] = 'disabled';
+		}
+		if ( array_key_exists( 'maxlength', $other_args ) ) {
+			$maxlength = $other_args['maxlength'];
+			// For every actual character pressed (i.e.,
+			// excluding things like the Shift key),
+			// reduce the string to its allowed length if
+			// it's exceeded that.
+			// This JS code is complicated so that it'll
+			// work correctly in IE - IE moves the cursor
+			// to the end whenever this.value is reset,
+			// so we'll make sure to do that only when
+			// we need to.
+			$maxLengthJSCheck = "if (window.event && window.event.keyCode < 48 && window.event.keyCode != 13) return; if (this.value.length > $maxlength) { this.value = this.value.substring(0, $maxlength); }";
+			$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
+			$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
+		}
+		$textarea_input = Xml::element('textarea', $textarea_attrs, $cur_value, false);
+		$text .= $textarea_input;
+
+		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
+		 if ( array_key_exists( 'default filename', $other_args ) ) {
+				$default_filename = $other_args['default filename'];
+			} else {
+				$default_filename = "";
+			}
+			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
+		}
+
+		$spanClass = "inputSpan";
+		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		
+		return $text;
+	}
+
+	public static function getParameters() {
+		$params = array();
+		$params[] = array( 'name' => 'maxlength', 'type' => 'int' );
+		$params[] = array( 'name' => 'list', 'type' => 'boolean' );
+		$params[] = array( 'name' => 'remote autocompletion', 'type' => 'boolean' );
+		$params[] = array( 'name' => 'autogrow', 'type' => 'boolean' );
+		return array();
+	}
+}
+
 class SFTextAreaInput extends SFFormInput {
 	static function getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// set size values
@@ -593,8 +645,7 @@ class SFTextAreaInput extends SFFormInput {
 		// If it's an autocomplete, call the with-autocomplete
 		// function instead.
 		if ( array_key_exists( 'autocompletion source', $other_args ) ) {
-			$other_args['input_type'] = "textarea";
-			return SFTextWithAutocompleteInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
+			return SFTextAreaWithAutocompleteInput::getText( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 		}
 
 		global $sfgTabIndex, $sfgFieldNum;
