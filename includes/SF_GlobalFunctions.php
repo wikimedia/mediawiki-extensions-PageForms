@@ -7,13 +7,13 @@
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'SF_VERSION', '2.0.9' );
+define( 'SF_VERSION', '2.1alpha' );
 
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Forms',
 	'version' => SF_VERSION,
-	'author' => array( 'Yaron Koren', '...' ),
+	'author' => array( 'Yaron Koren', 'Stephan Gambke', '...' ),
 	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
 	'descriptionmsg'  => 'semanticforms-desc',
 );
