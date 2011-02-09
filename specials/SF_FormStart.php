@@ -29,32 +29,32 @@ class SFFormStart extends SpecialPage {
 		$super_page = $wgRequest->getVal( 'super_page' );
 		$params = $wgRequest->getVal( 'params' );
 
-		// if query string did not contain form name, try the URL
+		// If the query string did not contain a form name, try the URL
 		if ( ! $form_name ) {
 			$queryparts = explode( '/', $query, 2 );
 			$form_name = isset( $queryparts[0] ) ? $queryparts[0] : '';
-			// if a target was specified, it means we should
-			// redirect to 'FormEdit' for this target page
+			// If a target was specified, it means we should
+			// redirect to 'FormEdit' for this target page.
 			if ( isset( $queryparts[1] ) ) {
 				$target_name = $queryparts[1];
 				SFFormStart::doRedirect( $form_name, $target_name, $params );
 			}
 
-			// get namespace from  the URL, if it's there
+			// Get namespace from the URL, if it's there.
 			if ( $namespace_label_loc = strpos( $form_name, "/Namespace:" ) ) {
 				$target_namespace = substr( $form_name, $namespace_label_loc + 11 );
 				$form_name = substr( $form_name, 0, $namespace_label_loc );
 			}
 		}
 
-		// remove forbidden characters from form name
+		// Remove forbidden characters from the form name.
 		$forbidden_chars = array( '"', "'", '<', '>', '{', '}', '(', ')', '[', ']', '=' );
 		$form_name = str_replace( $forbidden_chars, "", $form_name );
 
-		// get title of form
+		// Get title of form.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
-		// handle submission
+		// Handle submission of this form.
 		$form_submitted = $wgRequest->getCheck( 'page_name' );
 		if ( $form_submitted ) {
 			$page_name = $wgRequest->getVal( 'page_name' );
@@ -69,12 +69,12 @@ class SFFormStart extends SpecialPage {
 				// if this namespace was not already entered.
 				if ( strpos( $page_name, $target_namespace . ':' ) === false && $target_namespace != '' )
 					$page_name = $target_namespace . ':' . $page_name;
-				// find out whether this page already exists,
-				// and send user to the appropriate form
+				// If there was no page title, it's probably an
+				// invalid page name, containing forbidden
+				// characters - in that case, display an error
+				// message.
 				$page_title = Title::newFromText( $page_name );
 				if ( !$page_title ) {
-					//If there was no page title, it's probably an invalid page name,
-					// containing forbidden characters.
 					$wgOut->addHTML( htmlspecialchars( wfMsg( 'sf_formstart_badtitle', $page_name ) ) );
 					return;
 				} else {
@@ -101,8 +101,8 @@ class SFFormStart extends SpecialPage {
 	<p><input type="text" size="40" name="page_name">
 
 END;
-			// if no form was specified, display a dropdown letting
-			// the user choose the form
+			// If no form was specified, display a dropdown letting
+			// the user choose the form.
 			if ( $form_name == '' )
 				$text .= SFUtils::formDropdownHTML();
 
@@ -157,9 +157,9 @@ END;
 		} else {
 			$fe = SpecialPage::getPage( 'FormEdit' );
 			$redirect_url = $fe->getTitle()->getFullURL() . "/" . $form_name . "/" . SFUtils::titleURLString( $page_title );
-			// of all the request values, send on to 'FormEdit'
+			// Of all the request values, send on to 'FormEdit'
 			// only 'preload' and specific form fields - we can
-			// tell the latter because they show up as arrays
+			// identify the latter because they show up as arrays.
 			foreach ( $_REQUEST as $key => $val ) {
 				if ( is_array( $val ) ) {
 					$template_name = $key;
@@ -180,7 +180,8 @@ END;
 		}
 
 		$wgOut->setArticleBodyOnly( true );
-		// show "loading" animated image while people wait for the redirect
+		// Show "loading" animated image while people wait for the
+		// redirect.
 		global $sfgScriptPath;
 		$text = "<p style=\"position: absolute; left: 45%; top: 45%;\"><img src=\"$sfgScriptPath/skins/loading.gif\" /></p>\n";
 		$text .= <<<END
