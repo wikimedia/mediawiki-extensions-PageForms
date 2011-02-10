@@ -746,7 +746,17 @@ class SFDateInput extends SFFormInput {
 				$day = $date['day'];
 			} else {
 				// handle 'default=now'
-				if ( $date == 'now' ) $date = date( 'Y/m/d' );
+				if ( $date == 'now' ) {
+					global $wgLocaltimezone;
+					if ( isset( $wgLocaltimezone ) ) {
+						$serverTimezone = date_default_timezone_get();
+						date_default_timezone_set( $wgLocaltimezone );
+					}
+					$date = date( 'Y/m/d' );
+					if ( isset( $wgLocaltimezone ) ) {
+						date_default_timezone_set( $serverTimezone );
+					}
+				}
 				$actual_date = new SMWTimeValue( '_dat' );
 				$actual_date->setUserValue( $date );
 				$year = $actual_date->getYear();
@@ -805,8 +815,19 @@ class SFDateTimeInput extends SFDateInput {
 			} else {
 				// TODO - this should change to use SMW's own
 				// date-handling class, just like
-				// dateEntryHTML() does
-				$actual_date = strtotime( $datetime );
+				// dateEntryHTML() does.
+
+				// Handle 'default=now'.
+				if ( $datetime == 'now' ) {
+					global $wgLocaltimezone;
+					if ( isset( $wgLocaltimezone ) ) {
+						$serverTimezone = date_default_timezone_get();
+						date_default_timezone_set( $wgLocaltimezone );
+					}
+					$actual_date = time();
+				} else {
+					$actual_date = strtotime( $datetime );
+				}
 				if ( $sfg24HourTime ) {
 					$hour = date( "G", $actual_date );
 				} else {
@@ -818,6 +839,12 @@ class SFDateTimeInput extends SFDateInput {
 					$ampm24h = date( "A", $actual_date );
 				}
 				$timezone = date( "T", $actual_date );
+				// Restore back to the server's timezone.
+				if ( $datetime == 'now' ) {
+					if ( isset( $wgLocaltimezone ) ) {
+						date_default_timezone_set( $serverTimezone );
+					}
+				}
 			}
 		} else {
 			$cur_date = getdate();
@@ -850,7 +877,7 @@ class SFDateTimeInput extends SFDateInput {
 
 		if ( $include_timezone ) {
 			$sfgTabIndex++;
-			$text .= '	<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[timezone]" type="text" value="' . $timezone . '" size="2"/ ' . $disabled_text . '>' . "\n";
+			$text .= '	<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[timezone]" type="text" value="' . $timezone . '" size="3"/ ' . $disabled_text . '>' . "\n";
 		}
 
 		return $text;

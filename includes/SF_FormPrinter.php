@@ -949,9 +949,12 @@ END;
               if ( $input_type == 'date' || $input_type == 'datetime' ||
                   $input_type == 'datetime with timezone' || $input_type == 'year' ||
                   ( $input_type == '' && $form_field->template_field->propertyIsOfType( '_dat' ) ) ) {
-                // get current time, for the time zone specified in the wiki
+                // Get current time, for the time zone specified in the wiki.
                 global $wgLocaltimezone;
-                putenv( 'TZ=' . $wgLocaltimezone );
+                if ( isset( $wgLocaltimezone ) ) {
+                  $serverTimezone = date_default_timezone_get();
+                  date_default_timezone_set( $wgLocaltimezone );
+                }
                 $cur_time = time();
                 $year = date( "Y", $cur_time );
                 $month = date( "n", $cur_time );
@@ -963,6 +966,9 @@ END;
                   $cur_value_in_template = "$month_name $day, $year";
                 } else {
                   $cur_value_in_template = "$year/$month/$day";
+                }
+                if ( isset( $wgLocaltimezone ) ) {
+                  date_default_timezone_set( $serverTimezone );
                 }
                 if ( $input_type ==  'datetime' || $input_type == 'datetime with timezone' ) {
                   if ( $sfg24HourTime ) {
