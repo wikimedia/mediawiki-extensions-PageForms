@@ -1,21 +1,12 @@
 <?php
+
 /**
  * Adds and handles the 'sfautocomplete' action to the MediaWiki API.
  *
+ * @ingroup API
+ *
  * @author Sergey Chernyshev
  * @author Yaron Koren
- */
-
-/**
- * Protect against register_globals vulnerabilities.
- * This line must be present before any global variable is referenced.
- */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die( 'Not an entry point.' );
-}
-
-/**
- * @ingroup API
  */
 class SFAutocompleteAPI extends ApiBase {
 
