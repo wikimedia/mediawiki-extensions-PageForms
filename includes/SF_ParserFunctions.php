@@ -232,6 +232,8 @@ class SFParserFunctions {
 	}
 
 	static function renderFormInput ( &$parser ) {
+		global  $wgVersion;
+		
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 		// set defaults
