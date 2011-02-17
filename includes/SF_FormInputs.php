@@ -611,6 +611,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	static function setAutocompleteValues( $field_args ) {
 		global $sfgAutocompleteValues;
 	       
+		$autocompletion_source = null;
 		if ( array_key_exists( 'autocomplete field type', $field_args ) ) {
 			$autocomplete_field_type = $field_args['autocomplete field type'];
 			$autocompletion_source = $field_args['autocompletion source'];
@@ -748,15 +749,23 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 		global $sfgTabIndex, $sfgFieldNum;
 
-		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
+		list( $autocompleteSettings, $remoteDataType, $delimiter ) = SFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
 
 		$className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
 		if ( array_key_exists( 'class', $other_args ) )
 			$className .= " " . $other_args['class'];
 		$input_id = "input_" . $sfgFieldNum;
 
-		$rows = $other_args['rows'];
-		$cols = $other_args['cols'];
+		if (  array_key_exists( 'rows', $other_args ) ) {
+			$rows = $other_args['rows'];
+		} else {
+			$rows = 5;
+		}
+		if (  array_key_exists( 'cols', $other_args ) ) {
+			$cols = $other_args['cols'];
+		} else {
+			$cols = 80;
+		}
 		$text = "";
 		if ( array_key_exists( 'autogrow', $other_args ) ) {
 			$className .= ' autoGrow';
@@ -863,8 +872,16 @@ class SFTextAreaInput extends SFFormInput {
 		// Use a special ID for the free text field, for FCK's needs.
 		$input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
 
-		$rows = $other_args['rows'];
-		$cols = $other_args['cols'];
+		if (  array_key_exists( 'rows', $other_args ) ) {
+			$rows = $other_args['rows'];
+		} else {
+			$rows = 5;
+		}
+		if (  array_key_exists( 'cols', $other_args ) ) {
+			$cols = $other_args['cols'];
+		} else {
+			$cols = 80;
+		}
 
 		if ( array_key_exists( 'autogrow', $other_args ) ) {
 			$className .= ' autoGrow';
@@ -1126,16 +1143,6 @@ class SFDateTimeInput extends SFDateInput {
 class SFRadioButtonInput extends SFEnumInput {
 	public static function getName() {
 		return 'radiobutton';
-	}
-
-	public static function getDefaultPropTypes() {
-		return array(
-			'enumeration' => array()
-		);
-	}
-
-	public static function getOtherPropTypeListsHandled() {
-		return array();
 	}
 
 	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {

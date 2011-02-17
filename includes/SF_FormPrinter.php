@@ -66,6 +66,7 @@ class SFFormPrinter {
     foreach ( $defaultProperties as $propertyTypeID => $additionalValues ) {
       if ( $smwgContLang != null ) {
         $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+        $datatypeLabels['enumeration'] = 'enumeration';
         $propertyType = $datatypeLabels[$propertyTypeID];
         $this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
       }
@@ -74,6 +75,7 @@ class SFFormPrinter {
     foreach ( $defaultPropertyLists as $propertyTypeID => $additionalValues ) {
       if ( $smwgContLang != null ) {
         $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+        $datatypeLabels['enumeration'] = 'enumeration';
         $propertyType = $datatypeLabels[$propertyTypeID];
         $this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
       }
