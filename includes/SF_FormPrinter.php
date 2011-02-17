@@ -19,57 +19,26 @@ class SFFormPrinter {
   function __construct() {
     global $smwgContLang;
 
-    // initialize the set of hooks for the entry-field functions to call for
-    // fields of both a specific semantic "type" and a defined "input type"
-    // in the form definition
+    // Initialize variables.
     $this->mSemanticTypeHooks = array();
-    if ( $smwgContLang != null ) {
-      $datatypeLabels =  $smwgContLang->getDatatypeLabels();
-      $string_type = $datatypeLabels['_str'];
-      $text_type = $datatypeLabels['_txt'];
-      // type introduced in SMW 1.2
-      if ( array_key_exists( '_cod', $datatypeLabels ) )
-        $code_type = $datatypeLabels['_cod'];
-      else
-        $code_type = 'code';
-      $url_type = $datatypeLabels['_uri'];
-      $email_type = $datatypeLabels['_ema'];
-      $number_type = $datatypeLabels['_num'];
-      $bool_type = $datatypeLabels['_boo'];
-      $date_type = $datatypeLabels['_dat'];
-      $enum_type = 'enumeration'; // not a real type
-      $page_type = $datatypeLabels['_wpg'];
-      $this->setSemanticTypeHook( $string_type, false, array( 'SFTextInput', 'getText' ), array( 'field_type' => 'string' ) );
-      $this->setSemanticTypeHook( $string_type, true, array( 'SFTextInput', 'getText' ), array( 'field_type' => 'string', 'is_list' => 'true', 'size' => '100' ) );
-      $this->setSemanticTypeHook( $text_type, false, array( 'SFTextAreaInput', 'getText' ), array() );
-      $this->setSemanticTypeHook( $code_type, false, array( 'SFTextAreaInput', 'getText' ), array() );
-      $this->setSemanticTypeHook( $url_type, false, array( 'SFTextInput', 'getText' ), array( 'field_type' => 'URL' ) );
-      $this->setSemanticTypeHook( $email_type, false, array( 'SFTextInput', 'getText' ), array( 'field_type' => 'email' ) );
-      $this->setSemanticTypeHook( $number_type, false, array( 'SFTextInput', 'getText' ), array( 'field_type' => 'number' ) );
-      $this->setSemanticTypeHook( $bool_type, false, array( 'SFCheckboxInput', 'getText' ), array() );
-      $this->setSemanticTypeHook( $date_type, false, array( 'SFDateInput', 'getText' ), array() );
-      $this->setSemanticTypeHook( $enum_type, false, array( 'SFDropdownInput', 'getText' ), array() );
-      $this->setSemanticTypeHook( $enum_type, true, array( 'SFCheckboxesInput', 'getText' ), array() );
-      $this->setSemanticTypeHook( $page_type, false, array( 'SFTextWithAutocompleteInput', 'getText' ), array( 'field_type' => 'page' ) );
-      $this->setSemanticTypeHook( $page_type, true, array( 'SFTextWithAutocompleteInput', 'getText' ), array( 'field_type' => 'page', 'size' => '100', 'is_list' => 'true' ) );
-    }
     $this->mInputTypeHooks = array();
-    $this->setInputTypeHook( 'text', array( 'SFTextInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'textarea', array( 'SFTextAreaInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'date', array( 'SFDateInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'datetime', array( 'SFDateTimeInput', 'getText' ), array( 'include_timezone' => false ) );
-    $this->setInputTypeHook( 'datetime with timezone', array( 'SFDateTimeInput', 'getText' ), array( 'include_timezone' => true ) );
-    $this->setInputTypeHook( 'year', array( 'SFTextInput', 'getText' ), array( 'size' => 4 ) );
-    $this->setInputTypeHook( 'checkbox', array( 'SFCheckboxInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'radiobutton', array( 'SFRadioButtonInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'checkboxes', array( 'SFCheckboxesInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'listbox', array( 'SFListBoxInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'combobox', array( 'SFComboBoxInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'category', array( 'SFCategoryInput', 'getText' ), array() );
-    $this->setInputTypeHook( 'categories', array( 'SFCategoriesInput', 'getText' ), array() );
-
-    // initialize other variables
+    $this->mInputTypeClasses = array();
     $this->standardInputsIncluded = false;
+
+    $this->registerInputType( 'SFTextInput' );
+    $this->registerInputType( 'SFTextWithAutocompleteInput' );
+    $this->registerInputType( 'SFTextAreaInput' );
+    $this->registerInputType( 'SFTextAreaWithAutocompleteInput' );
+    $this->registerInputType( 'SFDateInput' );
+    $this->registerInputType( 'SFDateTimeInput' );
+    $this->registerInputType( 'SFCheckboxInput' );
+    $this->registerInputType( 'SFDropdownInput' );
+    $this->registerInputType( 'SFRadioButtonInput' );
+    $this->registerInputType( 'SFCheckboxesInput' );
+    $this->registerInputType( 'SFListBoxInput' );
+    $this->registerInputType( 'SFComboBoxInput' );
+    $this->registerInputType( 'SFCategoryInput' );
+    $this->registerInputType( 'SFCategoriesInput' );
   }
 
   function setSemanticTypeHook( $type, $is_list, $function_name, $default_args ) {
@@ -80,6 +49,86 @@ class SFFormPrinter {
     $this->mInputTypeHooks[$input_type] = array( $function_name, $default_args );
   }
 
+  /**
+   * Register all information about the passed-in form input class.
+   */
+  function registerInputType( $inputTypeClass ) {
+    global $smwgContLang;
+ 
+    $inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
+    $this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
+    $this->setInputTypeHook( $inputTypeName, array( $inputTypeClass, 'getHTML' ), array() );
+    $alternateInputTypes = call_user_func( array( $inputTypeClass, 'getAlternateInputTypes' ) );
+    foreach ( $alternateInputTypes as $altInputTypeName => $additionalValues ) {
+      $this->setInputTypeHook( $altInputTypeName, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+    }
+    $defaultProperties = call_user_func( array( $inputTypeClass, 'getDefaultPropTypes' ) );
+    foreach ( $defaultProperties as $propertyTypeID => $additionalValues ) {
+      if ( $smwgContLang != null ) {
+        $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+        $propertyType = $datatypeLabels[$propertyTypeID];
+        $this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+      }
+    }
+    $defaultPropertyLists = call_user_func( array( $inputTypeClass, 'getDefaultPropTypeLists' ) );
+    foreach ( $defaultPropertyLists as $propertyTypeID => $additionalValues ) {
+      if ( $smwgContLang != null ) {
+        $datatypeLabels =  $smwgContLang->getDatatypeLabels();
+        $propertyType = $datatypeLabels[$propertyTypeID];
+        $this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+      }
+    }
+  }
+
+  function getInputType( $inputTypeName ) {
+    if ( array_key_exists( $inputTypeName, $this->mInputTypeClasses ) ) {
+      return $this->mInputTypeClasses[$inputTypeName];
+    } else {
+      return null;
+    }
+  }
+
+  // TODO - this is very inefficient; the information should be stored in a
+  // separate array, populated within registerInputType().
+  public function getDefaultInputType( $isList, $propertyType ) {
+    foreach ( $this->mInputTypeClasses as $inputTypeName => $className ) {
+      if ( $isList ) {
+        $defaultPropTypes = call_user_func( array( $className, 'getDefaultPropTypeLists' ) );
+        if ( array_key_exists( $propertyType, $defaultPropTypes ) ) {
+          return $inputTypeName;
+        }
+      } else {
+        $defaultPropTypes = call_user_func( array( $className, 'getDefaultPropTypes' ) );
+        if ( array_key_exists( $propertyType, $defaultPropTypes ) ) {
+          return $inputTypeName;
+        }
+      }
+    }
+  }
+
+  // TODO - this is very inefficient; the information should be stored in a
+  // separate array, populated within registerInputType().
+  public function getPossibleInputTypes( $isList, $propertyType ) {
+    $possibleInputTypes = array();
+    foreach ( $this->mInputTypeClasses as $inputTypeName => $className ) {
+      if ( $isList ) {
+        $handledPropTypes = call_user_func( array( $className, 'getOtherPropTypeListsHandled' ) );
+        if ( in_array( $propertyType, $handledPropTypes ) ) {
+          $possibleInputTypes[] = $inputTypeName;
+        }
+      } else {
+        $handledPropTypes = call_user_func( array( $className, 'getOtherPropTypesHandled' ) );
+        if ( in_array( $propertyType, $handledPropTypes ) ) {
+          $possibleInputTypes[] = $inputTypeName;
+        }
+      }
+    }
+    return $possibleInputTypes;
+  }
+
+  public function getAllInputTypes() {
+    return array_keys( $this->mInputTypeClasses );
+  }
 
   /**
    * Show the set of previous deletions for the page being added.
@@ -204,9 +253,9 @@ END;
     // flag for placing "<onlyinclude>" tags in form output
     $onlyinclude_free_text = false;
     
-    // if we have existing content and we're not in an active replacement
+    // If we have existing content and we're not in an active replacement
     // situation, preserve the original content. We do this because we want
-    // to pass the original content on IF this is a partial form
+    // to pass the original content on IF this is a partial form.
     // TODO: A better approach here would be to pass the revision id of the
     // existing page content through the replace value, which would
     // minimize the html traffic and would allow us to do a concurrent
@@ -439,11 +488,11 @@ END;
                 $start_char = $matches[0][1];
                 $fields_start_char = $start_char + 2 + strlen( $search_template_str );
                 // Skip ahead to the first real character.
-		while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n' ) ) ) {
+                while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n' ) ) ) {
                   $fields_start_char++;
                 }
-		// If the next character is a pipe, skip that too.
-		if( $existing_page_content[$fields_start_char] == '|' ) {
+                // If the next character is a pipe, skip that too.
+                if( $existing_page_content[$fields_start_char] == '|' ) {
                   $fields_start_char++;
                 }
                 $template_contents = array( '0' => '' );
@@ -634,14 +683,9 @@ END;
                     }
                   }
                 } elseif ( $sub_components[0] == 'autocomplete on property' ) {
-                  // HACK - we need to figure out if this property is a
-                  // relation or attribute, i.e. whether it points to wiki
-                  // pages or not; so construct an SFTemplateField object
-                  // with this property, and determine it that way
                   $property_name = $sub_components[1];
-                  $dummy_field = new SFTemplateField();
-                  $dummy_field->setSemanticProperty( $property_name );
-                  if ( $dummy_field->propertyIsOfType( '_wpg' ) ) {
+                  $propValue = SMWPropertyValue::makeUserProperty( $this->semantic_property );
+                  if ( $propValue->getPropertyID() == '_wpg' ) {
                     $field_args['autocomplete field type'] = 'relation';
                   } else {
                     $field_args['autocomplete field type'] = 'attribute';
@@ -757,7 +801,7 @@ END;
               } else {
                 $default_value = $cur_value;
               }
-              $new_text = SFTextAreaInput::getText( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
+              $new_text = SFTextAreaInput::getHTML( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
               if ( in_array( 'edittools', $free_text_components ) ) {
                 // borrowed from EditPage::showEditTools()
                 $options[] = 'parse';
@@ -948,7 +992,7 @@ END;
                 ( $cur_value == '' || $cur_value == 'now' ) ) {
               if ( $input_type == 'date' || $input_type == 'datetime' ||
                   $input_type == 'datetime with timezone' || $input_type == 'year' ||
-                  ( $input_type == '' && $form_field->template_field->propertyIsOfType( '_dat' ) ) ) {
+                  ( $input_type == '' && $form_field->template_field->field_type_id == '_dat' ) ) {
                 // Get current time, for the time zone specified in the wiki.
                 global $wgLocaltimezone;
                 if ( isset( $wgLocaltimezone ) ) {
@@ -1316,7 +1360,7 @@ END;
     global $wgParser;
     $new_text = "";
     if ( !$embedded ) {
-		$new_text = $wgParser->recursiveTagParse (str_replace( "{{!}}", "|", $form_page_title ) );
+      $new_text = $wgParser->recursiveTagParse (str_replace( "{{!}}", "|", $form_page_title ) );
     }
 
     // If the form has already been submitted, i.e. this is just the redirect
@@ -1377,7 +1421,7 @@ END;
           if ( ! array_key_exists( 'size', $other_args ) )
             $other_args['size'] = 100;
         }
-        $text = SFTextInput::getText( $cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args );
+        $text = SFTextInput::getHTML( $cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args );
       }
     }
     return $text;
