@@ -13,6 +13,7 @@ class SFTemplateField {
 	var $label;
 	var $semantic_property;
 	var $field_type;
+	var $field_type_id;
 	var $possible_values;
 	var $is_list;
 	var $input_type;
@@ -51,6 +52,7 @@ class SFTemplateField {
 	}
 
 	function setTypeAndPossibleValues() {
+		$propValue = SMWPropertyValue::makeUserProperty( $this->semantic_property );
 		$proptitle = Title::makeTitleSafe( SMW_NS_PROPERTY, $this->semantic_property );
 		if ( $proptitle === NULL )
 			return;
@@ -60,8 +62,10 @@ class SFTemplateField {
 		$allowed_values = $store->getPropertyValues( $proptitle, SMWPropertyValue::makeUserProperty( "Allows value" ) );
 		$label_formats = $store->getPropertyValues( $proptitle, SMWPropertyValue::makeUserProperty( "Has field label format" ) );
 		// TODO - need handling for the case of more than one type
-		if ( count( $types ) > 0 )
+		$this->field_type_id = $propValue->getPropertyTypeID();
+		if ( count( $types ) > 0 ) {
 			$this->field_type = $types[0]->getWikiValue();
+		}
 
 		foreach ( $allowed_values as $value ) {
 			// HTML-unencode each value
@@ -80,6 +84,7 @@ class SFTemplateField {
 		// type to be 'enumeration', regardless of what the actual type is
 		if ( count( $this->possible_values ) > 0 ) {
 			$this->field_type = 'enumeration';
+			$this->field_type_id = 'enumeration';
 		}
 	}
 
@@ -91,17 +96,6 @@ class SFTemplateField {
 		$this->possible_values = array();
 		// set field type and possible values, if any
 		$this->setTypeAndPossibleValues();
-	}
-
-	/**
-	 * Returns whether the semantic property represented by this field
-	 * has the passed-in type constant (e.g., '_str', '_wpg')
-	 */
-	function propertyIsOfType( $type_constant ) {
-                global $smwgContLang;
-                $datatypeLabels =  $smwgContLang->getDatatypeLabels();
-                $page_type = $datatypeLabels[$type_constant];
-		return ( $this->field_type == $page_type );
 	}
 
 	function createTemplateText( $template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format ) {
