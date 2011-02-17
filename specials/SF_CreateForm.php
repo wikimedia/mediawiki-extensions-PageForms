@@ -19,10 +19,27 @@ class SFCreateForm extends SpecialPage {
 	}
 
 	function execute( $query ) {
+		global $wgRequest, $wgOut;
+
 		$this->setHeaders();
-		doSpecialCreateForm();
+		if ( $wgRequest->getCheck( 'showinputtypeoptions' ) ) {
+			$wgOut->disable();
+
+			// handle Ajax action
+			$inputType = $wgRequest->getVal( 'showinputtypeoptions' );
+			$fieldFormText = $wgRequest->getVal( 'formfield' );
+			$paramValues = array();
+			foreach ( $wgRequest->getArray('params') as $key => $value ) {
+				if ( ( $pos = strpos( $key, '_' . $fieldFormText ) ) != false ) {
+					$paramName = substr( $key, 0, $pos );
+					$paramValues[$paramName] = $value;
+				}
+			}
+			echo self::showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
+		} else {
+			self::doSpecialCreateForm();
+		}
 	}
-}
 
 function doSpecialCreateForm() {
 	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
@@ -30,7 +47,34 @@ function doSpecialCreateForm() {
 
 	SFUtils::loadMessages();
 
-	# get the names of all templates on this site
+	// Create Javascript to populate fields to let the user input
+	// parameters for the field, based on the input type selected in the
+	// dropdown.
+	global $wgUser;
+	$skin = $wgUser->getSkin();
+	$url = $skin->makeSpecialUrl( 'CreateForm', "showinputtypeoptions=' + this.val() + '&formfield=' + this.attr('formfieldid') + '" );
+	foreach ( $wgRequest->getValues() as $param => $value ) {
+		$url .= '&params[' . Xml::escapeJsString( $param ) . ']=' . Xml::escapeJsString( $value );
+	}
+
+	$wgOut->addScript("<script>
+jQuery.fn.displayInputParams = function() {
+	inputParamsDiv = this.closest('.formField').find('.otherInputParams');
+	jQuery.ajax({
+		url: '$url',
+		context: document.body,
+		success: function(data){
+			inputParamsDiv.html(data);
+		}
+        });
+};
+jQuery('.inputTypeSelector').change( function() {
+	jQuery(this).displayInputParams();
+});
+</script>");
+
+
+	// Get the names of all templates on this site.
 	$all_templates = array();
 	$res = $db->select( 'page', 'page_title',
 		array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
@@ -80,8 +124,8 @@ function doSpecialCreateForm() {
 		$new_template_loc = null;
 	}
 
-	# now cycle through the templates and fields, modifying each one
-	# per the query variables
+	// Now cycle through the templates and fields, modifying each one
+	// per the query variables.
 	foreach ( $form_templates as $i => $ft ) {
 		foreach ( $ft->fields as $j => $field ) {
 			// handle the change in indexing if a new template was
@@ -92,7 +136,7 @@ function doSpecialCreateForm() {
 					$old_i = $i - 1;
 				} elseif ( $i == $new_template_loc ) {
 					// it's the new template; it shouldn't
-					// get any query string data
+					// get any query-string data
 					$old_i = - 1;
 				}
 			} elseif ( $deleted_template_loc != null ) {
@@ -100,25 +144,45 @@ function doSpecialCreateForm() {
 					$old_i = $i + 1;
 				}
 			}
-			$new_label = $wgRequest->getVal( "label_" . $old_i . "_" . $j );
-			if ( $new_label )
-				$field->template_field->label = $new_label;
-			$input_type = $wgRequest->getVal( "input_type_" . $old_i . "_" . $j );
-			$field->template_field->input_type = $input_type;
-			if ( $wgRequest->getVal( "hidden_" . $old_i . "_" . $j ) == "hidden" ) {
-				$field->is_hidden = true;
-			}
-			if ( $wgRequest->getVal( "restricted_" . $old_i . "_" . $j ) == "restricted" ) {
-				$field->is_restricted = true;
-			}
-			if ( $wgRequest->getVal( "mandatory_" . $old_i . "_" . $j ) == "mandatory" ) {
-				$field->is_mandatory = true;
+			foreach ( $wgRequest->getValues() as $key => $value ) {
+				if ( ( $pos = strpos( $key, '_' . $old_i . '_' . $j ) ) != false ) {
+					$paramName = substr( $key, 0, $pos );
+				} else {
+					continue;
+				}
+
+				if ( $paramName == 'label' ) {
+					$field->template_field->label = $value;
+				} elseif ( $paramName == 'input_type' ) {
+					$input_type = $wgRequest->getVal( "input_type_" . $old_i . "_" . $j );
+					if ( $input_type == 'hidden' ) {
+						$field->template_field->input_type = $input_type;
+						$field->is_hidden = true;
+					} elseif ( substr( $input_type, 0, 1 ) == '.' ) {
+						// It's the default input type -
+						// don't do anything.
+					} else {
+						$field->template_field->input_type = $input_type;
+					}
+				} elseif ( $paramName == 'restricted' ) {
+					$field->is_restricted = true;
+				} elseif ( $paramName == 'mandatory' ) {
+					$field->is_mandatory = true;
+				} else {
+					if ( ! empty( $value ) ) {
+						if ( $value == 'on' ) {
+							$value = true;
+						}
+						$field->field_args[$paramName] = $value;
+					}
+				}
 			}
 		}
 	}
 	$form = SFForm::create( $form_name, $form_templates );
 
-	# if submit button was pressed, create the form definitions file, then redirect
+	// If a submit button was pressed, create the form-definition file,
+	// then redirect.
 	$save_page = $wgRequest->getCheck( 'wpSave' );
 	$preview_page = $wgRequest->getCheck( 'wpPreview' );
 	if ( $save_page || $preview_page ) {
@@ -137,10 +201,10 @@ function doSpecialCreateForm() {
 	}
 
 	$text = '	<form action="" method="post">' . "\n";
-	// set 'title' field, in case there's no URL niceness
+	// Set 'title' field, in case there's no URL niceness.
 	$mw_namespace_labels = $wgContLang->getNamespaces();
 	$special_namespace = $mw_namespace_labels[NS_SPECIAL];
-	$text .= '    <input type="hidden" name="title" value="' . $special_namespace . ':CreateForm">' . "\n";
+	$text .= "\t" . Xml::hidden( 'title', "$special_namespace:CreateForm" ) . "\n";
 	$text .= '	<p>' . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . ' <input size=25 name="form_name" value="' . $form_name . '">';
 	if ( ! empty( $form_name_error_str ) )
 		$text .= '	' . Xml::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
@@ -204,4 +268,109 @@ END;
 
 	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 	$wgOut->addHTML( $text );
+}
+
+	/**
+	 * Prints an input for a form-field parameter.
+	 * Code borrowed heavily from Semantic MediaWiki's
+	 * SMWAskPage::addOptionInput().
+	 */
+	public static function inputTypeParamInput( $type, $param_name, $cur_value, array $param, array $paramValues, $fieldFormText ) {
+		if ( $type == 'int' ) {
+			return Html::input(
+				$param_name . '_' . $fieldFormText,
+				$cur_value,
+				'text',
+				array(
+					'size' => 6 
+				)
+			);
+		} elseif ( $type == 'string' ) {
+			return Html::input(
+				$param_name . '_' . $fieldFormText,
+				$cur_value,
+				'text',
+				array(
+					'size' => 32 
+				)
+			); 
+		} elseif ( $type == 'enumeration' ) {
+			$text = '<select name="p[' . htmlspecialchars( $param_name ) . ']">';
+			$text .= "\n	<option value=''></option>\n";
+				
+			$parts = array();
+			foreach ( $param['values'] as $value ) {
+				$parts[] = '<option value="' . htmlspecialchars( $value ) . '"' .
+				( $cur_value == $value ? ' selected' : '' ) . '>' .
+				htmlspecialchars( $value ) . '</option>';
+			}
+
+			$text .= implode( "\n", $parts ) . "\n</select>";
+			return $text;
+		} elseif ( $type == 'enum-list' ) {
+			$cur_values = explode( ',', $cur_value );
+			foreach ( $param['values'] as $val ) {
+				$text .= '<span style="white-space: nowrap; padding-right: 5px;"><input type="checkbox" name="p[' .
+					htmlspecialchars( $param_name ) . '][' . htmlspecialchars( $val ). ']" value="true"' .
+					( in_array( $val, $cur_values ) ? ' checked' : '' ) . '/> <tt>' . htmlspecialchars( $val ) . "</tt></span>\n";
+			}
+			return $text;
+		} elseif ( $type == 'boolean' ) {
+			return Html::input(
+				$param_name . '_' . $fieldFormText,
+				null,
+				'checkbox'
+			);
+		}
+	}
+
+	/**
+	 * Display a form section showing the options for a given format,
+	 * based on the getParameters() value for that format's query printer.
+	 *
+	 * @param string $format
+	 * @param array $paramValues
+	 *
+	 * @return string
+	 */
+	public static function showInputTypeOptions( $inputType, $fieldFormText, $paramValues ) {
+		global $sfgFormPrinter;
+
+		$text = '';
+
+		// Handle default types, which start with a '.' to differentiate
+		// them.
+		if ( substr( $inputType, 0, 1) == '.' ) {
+			$inputType = substr( $inputType, 1 );
+		}
+
+		$inputTypeClass = $sfgFormPrinter->getInputType( $inputType );
+
+		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( array( $inputTypeClass, 'getParameters' ) ) : array();
+
+		foreach ( $params as $i => $param ) {
+			$param_name = $param['name'];
+			$type = $param['type'];
+			//$desc = $param['description'];
+
+			$cur_value = ( array_key_exists( $param_name, $paramValues ) ) ? $paramValues[$param_name] : '';
+
+			// 3 values per row, with alternating colors for rows
+			if ( $i % 3 == 0 ) {
+				$bgcolor = ( $i % 6 ) == 0 ? '#eee' : 'white';
+				$text .= "<div style=\"background: $bgcolor;\">";
+			}
+
+			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$param_name:\n";
+
+			$text .= self::inputTypeParamInput( $type, $param_name, $cur_value, $param, array(), $fieldFormText );
+			//$text .= "\n    <br /><em>$desc</em>\n</div>\n";
+			$text .= "\n</div>\n";
+
+			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
+				$text .= "<div style=\"clear: both\";></div></div>\n";
+			}
+		}
+		return $text;
+	}
 }
