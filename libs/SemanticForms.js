@@ -29,7 +29,7 @@
 		}
 	}
 
-	jQuery.noConflict();
+	//jQuery.noConflict();
 
     /* extending jQuery functions for custom highlighting */
     jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
