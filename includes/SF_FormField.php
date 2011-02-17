@@ -39,6 +39,7 @@ class SFFormField {
 		$f->is_restricted = false;
 		$f->is_uploadable = false;
 		$f->possible_values = null;
+		$f->field_args = array();
 		return $f;
 	}
 
@@ -60,7 +61,6 @@ class SFFormField {
 				$dummy_ff = new SFFormField();
 				$dummy_ff->template_field = new SFTemplateField();
 				$dummy_ff->is_list = false;
-				$dummy_ff->field_args = array();
 				return $dummy_ff;
 			}
 			$the_field = new SFTemplateField();
@@ -82,74 +82,30 @@ class SFFormField {
 		return $f;
 	}
 
-	/**
-	 * Get the set of possible form input types for either a specific
-	 * SMW property type or a list of such types
-	 */
-	function possibleInputTypes( $semantic_type, $is_list ) {
-		// first, get the list of field types, to determine which one this is
-		global $smwgContLang;
-		$datatypeLabels =  $smwgContLang->getDatatypeLabels();
-		$string_type = $datatypeLabels['_str'];
-		$text_type = $datatypeLabels['_txt'];
-		// type introduced in SMW 1.2
-		$code_type = array_key_exists( '_cod', $datatypeLabels ) ? $datatypeLabels['_cod'] : 'code';
-		$url_type = $datatypeLabels['_uri'];
-		$email_type = $datatypeLabels['_ema'];
-		$number_type = $datatypeLabels['_num'];
-		$bool_type = $datatypeLabels['_boo'];
-		$date_type = $datatypeLabels['_dat'];
-		$enum_type = 'enumeration'; // not a real type
-		$page_type = $datatypeLabels['_wpg'];
-
-		// then, return the array of possible input types, depending on
-		// the field type and whether this field will contain multiple
-		// values
-		if ( $semantic_type == $string_type ||
-			$semantic_type == $number_type ||
-			$semantic_type == $url_type ||
-			$semantic_type == $email_type ) {
-			if ( $is_list ) {
-				return array( 'text', 'textarea', 'categories' );
-			} else {
-				return array( 'text', 'category' );
-			}
-		} elseif ( $semantic_type == $text_type || $semantic_type == $code_type ) {
-			return array( 'textarea' );
-		} elseif ( $semantic_type == $bool_type ) {
-			return array( 'checkbox' );
-		} elseif ( $semantic_type == $date_type ) {
-			return array( 'date', 'datetime', 'datetime with timezone', 'year' );
-		} elseif ( $semantic_type == $enum_type ) {
-			if ( $is_list ) {
-				return array( 'checkboxes', 'listbox' );
-			} else {
-				return array( 'dropdown', 'radiobutton' );
-			}
-		} elseif ( $semantic_type == $page_type ) {
-			if ( $is_list ) {
-				return array( 'text', 'textarea' );
-			} else {
-				return array( 'text' );
-			}
-		} else { // blank or an unknown type
-			return array( 'text', 'textarea', 'checkbox', 'date', 'datetime', 'datetime with timezone', 'category', 'categories' );
+	function inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $cur_input_type ) {
+		if ( !is_null( $default_input_type ) ) {
+			array_unshift( $possible_input_types, $default_input_type );
 		}
-	}
-
-	function inputTypeDropdownHTML( $dropdown_name, $possible_input_types, $cur_input_type ) {
 		// create the dropdown HTML for a list of possible input types
-		$text = "	<select name=\"$dropdown_name\">\n";
+		$dropdownHTML = "";
 		foreach ( $possible_input_types as $i => $input_type ) {
 			if ( $i == 0 ) {
-				$text .= "	<option value=\"\">$input_type " .
+				$dropdownHTML .= "	<option value=\".$input_type\">$input_type " .
 				wfMsg( 'sf_createform_inputtypedefault' ) . "</option>\n";
 			} else {
 				$selected_str = ( $cur_input_type == $input_type ) ? "selected" : "";
-				$text .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
+				$dropdownHTML .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
 			}
 		}
-		$text .= "	</select>\n";
+		$hidden_text = wfMsg( 'sf_createform_hidden' );
+		$selected_str = ( $cur_input_type == 'hidden' ) ? "selected" : "";
+		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
+		$text = "\t" . Xml::tags( 'select',
+			array(
+				'class' => 'inputTypeSelector',
+				'name' => 'input_type_' . $field_form_text,
+				'formfieldid' => $field_form_text
+			), $dropdownHTML ) . "\n";
 		return $text;
 	}
 
@@ -175,28 +131,51 @@ class SFFormField {
 		$field_label = $template_field->label;
 		$input_type_text = wfMsg( 'sf_createform_inputtype' );
 		$text .= <<<END
+	<div class="formField">
 	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
 	&#160; $input_type_text
 
 END;
-		$possible_input_types = $this->possibleInputTypes( $template_field->field_type, $template_field->is_list );
-		if ( count( $possible_input_types ) > 1 ) {
-			$text .= $this->inputTypeDropdownHTML( "input_type_$field_form_text", $possible_input_types, $template_field->input_type );
+		global $sfgFormPrinter;
+		if ( is_null( $template_field->field_type_id ) ) {
+			$default_input_type = null;
+			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
 		} else {
-			$text .= $possible_input_types[0];
+			$default_input_type = $sfgFormPrinter->getDefaultInputType( $template_field->is_list, $template_field->field_type_id );
+			$possible_input_types = $sfgFormPrinter->getPossibleInputTypes( $template_field->is_list, $template_field->field_type_id );
 		}
+		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->input_type );
+
+		if (! is_null( $template_field->input_type ) ) {
+			$cur_input_type = $template_field->input_type;
+		} elseif (! is_null( $default_input_type ) ) {
+			$cur_input_type = $default_input_type;
+		} else {
+			$cur_input_type = $possible_input_types[0];
+		}
+
+		global $wgRequest;
+		$paramValues = array();
+		foreach ( $wgRequest->getValues() as $key => $value ) {
+			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
+				$paramName = substr( $key, 0, $pos );
+				$paramValues[$paramName] = $value;
+			}
+		}
+
+		$text .= "<fieldset><legend>Other parameters</legend>\n";
+		$text .= "<div class=\"otherInputParams\">" . SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) . "</div>";
+		$text .= "</fieldset>\n";
 		$mandatory_checked_str = ( $this->is_mandatory ) ? "checked" : "";
 		$mandatory_text = wfMsg( 'sf_createform_mandatory' );
-		$hidden_checked_str = ( $this->is_hidden ) ? "checked" : "";
-		$hidden_text = wfMsg( 'sf_createform_hidden' );
 		$restricted_checked_str = ( $this->is_restricted ) ? "checked" : "";
 		$restricted_text = wfMsg( 'sf_createform_restricted' );
 		$text .= <<<END
 	</p>
 	<p>
 	<input type="checkbox" name="mandatory_$field_form_text" value="mandatory" $mandatory_checked_str /> $mandatory_text
-	<input type="checkbox" name="hidden_$field_form_text" value="hidden" $hidden_checked_str /> $hidden_text
 	<input type="checkbox" name="restricted_$field_form_text" value="restricted" $restricted_checked_str /> $restricted_text</p>
+	</div>
 	<hr>
 
 END;
@@ -217,14 +196,21 @@ END;
 		}
 		if ( ! $part_of_multiple ) { $text .= "| "; }
 		$text .= "{{{field|" . $this->template_field->field_name;
-		if ( isset( $this->template_field->input_type ) &&
+		if ( $this->is_hidden ) {
+			$text .= "|hidden";
+		} elseif ( isset( $this->template_field->input_type ) &&
 			$this->template_field->input_type != null ) {
 			$text .= "|input type=" . $this->template_field->input_type;
 		}
+		foreach ( $this->field_args as $arg => $value ) {
+			if ( $value === true ) {
+				$text .= "|$arg";
+			} else {
+				$text .= "|$arg=$value";
+			}
+		}
 		if ( $this->is_mandatory ) {
 			$text .= "|mandatory";
-		} elseif ( $this->is_hidden ) {
-			$text .= "|hidden";
 		} elseif ( $this->is_restricted ) {
 			$text .= "|restricted";
 		}
@@ -262,7 +248,7 @@ END;
 		// type with 'autocomplete' specified, set the necessary
 		// parameters.
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
-			if ( $this->template_field->propertyIsOfType( '_wpg' ) ) {
+			if ( $this->template_field->field_type_id == '_wpg' ) {
 				$other_args['autocompletion source'] = $this->template_field->semantic_property;
 				$other_args['autocomplete field type'] = 'relation';
 			} elseif ( array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
