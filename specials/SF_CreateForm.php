@@ -68,8 +68,10 @@ jQuery.fn.displayInputParams = function() {
 		}
         });
 };
-jQuery('.inputTypeSelector').change( function() {
-	jQuery(this).displayInputParams();
+jQuery(document).ready(function() {
+	jQuery('.inputTypeSelector').change( function() {
+		jQuery(this).displayInputParams();
+	});
 });
 </script>");
 
