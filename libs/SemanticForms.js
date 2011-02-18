@@ -123,9 +123,7 @@
 	// Remote autocompletion
 	var myServer = wgScriptPath + "/api.php";
 	var data_type = jQuery(this).attr("autocompletedatatype");
-        if (data_type == 'property')
-            myServer += "?action=sfautocomplete&format=json&property=" + data_source;
-        else if (data_type == 'relation')
+        if (data_type == 'relation')
             myServer += "?action=sfautocomplete&format=json&relation=" + data_source;
         else if (data_type == 'attribute')
             myServer += "?action=sfautocomplete&format=json&attribute=" + data_source;
