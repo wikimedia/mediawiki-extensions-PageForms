@@ -686,15 +686,12 @@ END;
                   }
                 } elseif ( $sub_components[0] == 'autocomplete on property' ) {
                   $property_name = $sub_components[1];
-                  $propValue = SMWPropertyValue::makeUserProperty( $this->semantic_property );
-                  if ( $propValue->getPropertyID() == '_wpg' ) {
+                  $propValue = SMWPropertyValue::makeUserProperty( $property_name );
+                  if ( $propValue->getPropertyTypeID() == '_wpg' ) {
                     $field_args['autocomplete field type'] = 'relation';
                   } else {
                     $field_args['autocomplete field type'] = 'attribute';
                   }
-                  $field_args['autocompletion source'] = $sub_components[1];
-                } elseif ( $sub_components[0] == 'autocomplete on' ) { // for backwards-compatibility
-                  $field_args['autocomplete field type'] = 'category';
                   $field_args['autocompletion source'] = $sub_components[1];
                 } elseif ( $sub_components[0] == 'autocomplete on category' ) {
                   $field_args['autocomplete field type'] = 'category';
@@ -718,23 +715,27 @@ END;
                   // remove whitespaces, and un-escape characters
                   $possible_values = array_map( 'trim', explode( ',', $sub_components[1] ) );
                   $possible_values = array_map( 'htmlspecialchars_decode', $possible_values );
+                } elseif ( $sub_components[0] == 'values from property' ) {
+                  $propertyName = $sub_components[1];
+                  $propValue = SMWPropertyValue::makeUserProperty( $propertyName );
+                  $isRelation = $propValue->getPropertyTypeID() == '_wpg';
+                  $possible_values = SFAutocompleteAPI::getAllValuesForProperty( $isRelation, $propertyName );
                 } elseif ( $sub_components[0] == 'values from category' ) {
                   $category_name = ucfirst( $sub_components[1] );
                   $possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
                 } elseif ( $sub_components[0] == 'values from concept' ) {
                   $possible_values = SFUtils::getAllPagesForConcept( $sub_components[1] );
+                } elseif ( $sub_components[0] == 'values from namespace' ) {
+                  $possible_values = SFUtils::getAllPagesForNamespace( $sub_components[1] );
                 } elseif ( $sub_components[0] == 'property' ) {
                   $semantic_property = $sub_components[1];
                 } elseif ( $sub_components[0] == 'default filename' ) {
                   $default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
                   $field_args['default filename'] = $default_filename;
-                } else {
-                  $field_args[$sub_components[0]] = $sub_components[1];
                 }
-                // for backwards compatibility
-                if ( $sub_components[0] == 'autocomplete on' && $sub_components[1] == null ) {
-                    $field_args['no autocomplete'] = true;
-                }
+
+                // Also set each value as its own entry in $field_args
+                $field_args[$sub_components[0]] = $sub_components[1];
               }
             }
           } // end for
@@ -1420,8 +1421,9 @@ END;
         $other_args = $form_field->getArgumentsForInputCall();
         // special call to ensure that a list input is the right default size
         if ( $form_field->is_list ) {
-          if ( ! array_key_exists( 'size', $other_args ) )
+          if ( ! array_key_exists( 'size', $other_args ) ) {
             $other_args['size'] = 100;
+          }
         }
         $text = SFTextInput::getHTML( $cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args );
       }
