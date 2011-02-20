@@ -71,9 +71,10 @@ class SFFormInput {
 	 */
 	public static function getParameters() {
 		$params = array();
-		$params[] = array( 'name' => 'class', 'type' => 'string' );
-		$params[] = array( 'name' => 'default', 'type' => 'string' );
-		$params[] = array( 'name' => 'preload', 'type' => 'string' );
+		$params[] = array( 'name' => 'class', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_class' ) );
+		$params[] = array( 'name' => 'default', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_default' ) );
+		$params[] = array( 'name' => 'preload', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_preload' ) );
+		$params[] = array( 'name' => 'property', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_property' ) );
 		return $params;
 	}
 }
@@ -87,14 +88,20 @@ class SFEnumInput extends SFFormInput {
 		return array( 'enumeration' );
 	}
 
+	public static function getValuesParameters() {
+		$params = array();
+		$params[] = array( 'name' => 'values', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_values' ) );
+		$params[] = array( 'name' => 'values from property', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromproperty' ) );
+		$params[] = array( 'name' => 'values from category', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromcategory' ) );
+		$params[] = array( 'name' => 'values from namespace', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromnamespace' ) );
+		$params[] = array( 'name' => 'values from concept', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromconcept' ) );
+		return $params;
+	}
+
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'values', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from property', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from category', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from namespace', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from concept', 'type' => 'string' );
-		$params[] = array( 'name' => 'show on select', 'type' => 'string' );
+		$params = array_merge( $params, self::getValuesParameters() );
+		$params[] = array( 'name' => 'show on select', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_showonselect' ) );
 		return $params;
 	}
 }
@@ -263,10 +270,10 @@ class SFTextInput extends SFFormInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'size', 'type' => 'int' );
-		$params[] = array( 'name' => 'maxlength', 'type' => 'int' );
-		$params[] = array( 'name' => 'uploadable', 'type' => 'boolean' );
-		$params[] = array( 'name' => 'default filename', 'type' => 'string' );
+		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_size' ) );
+		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
+		$params[] = array( 'name' => 'uploadable', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_uploadable' ) );
+		$params[] = array( 'name' => 'default filename', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_defaultfilename' ) );
 		return $params;
 	}
 }
@@ -740,16 +747,18 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		return $text;
 	}
 
+	public static function getAutocompletionParameters() {
+		$params = SFEnumInput::getValuesParameters();
+		$params[] = array( 'name' => 'values from url', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromurl' ) );
+		$params[] = array( 'name' => 'remote autocompletion', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_remoteautocompletion' ) );
+		$params[] = array( 'name' => 'list', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_list' ) );
+		$params[] = array( 'name' => 'delimiter', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_delimiter' ) );
+		return $params;
+	}
+
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'values from property', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from category', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from namespace', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from concept', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from url', 'type' => 'string' );
-		$params[] = array( 'name' => 'values', 'type' => 'string' );
-		$params[] = array( 'name' => 'list', 'type' => 'boolean' );
-		$params[] = array( 'name' => 'remote autocompletion', 'type' => 'boolean' );
+		$params = array_merge( $params, self::getAutocompletionParameters() );
 		return $params;
 	}
 }
@@ -849,14 +858,7 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'values from property', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from category', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from namespace', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from concept', 'type' => 'string' );
-		$params[] = array( 'name' => 'values from url', 'type' => 'string' );
-		$params[] = array( 'name' => 'values', 'type' => 'string' );
-		$params[] = array( 'name' => 'list', 'type' => 'boolean' );
-		$params[] = array( 'name' => 'remote autocompletion', 'type' => 'boolean' );
+		$params = array_merge( $params, SFTextWithAutocompleteInput::getAutocompletionParameters() );
 		return $params;
 	}
 }
@@ -950,10 +952,10 @@ class SFTextAreaInput extends SFFormInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'rows', 'type' => 'int' );
-		$params[] = array( 'name' => 'cols', 'type' => 'int' );
-		$params[] = array( 'name' => 'maxlength', 'type' => 'int' );
-		$params[] = array( 'name' => 'autogrow', 'type' => 'boolean' );
+		$params[] = array( 'name' => 'rows', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_rows' ) );
+		$params[] = array( 'name' => 'cols', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_cols' ) );
+		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
+		$params[] = array( 'name' => 'autogrow', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_autogrow' ) );
 		return $params;
 	}
 }
@@ -1165,7 +1167,7 @@ class SFDateTimeInput extends SFDateInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'include timezone', 'type' => 'boolean' );
+		$params[] = array( 'name' => 'include timezone', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_includetimezone' ) );
 		return $params;
 	}
 }
@@ -1392,9 +1394,9 @@ class SFCategoryInput extends SFFormInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'top category', 'type' => 'string' );
-		$params[] = array( 'name' => 'height', 'type' => 'int' );
-		$params[] = array( 'name' => 'width', 'type' => 'int' );
+		$params[] = array( 'name' => 'top category', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_topcategory' ) );
+		$params[] = array( 'name' => 'height', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_height' ) );
+		$params[] = array( 'name' => 'width', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_width' ) );
 		return $params;
 	}
 }
