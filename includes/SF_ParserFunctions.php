@@ -534,14 +534,14 @@ END;
 			$parser->getOutput()->addHeadItem(
 				'<script type="text/javascript" src="' . $sfgScriptPath
 				. '/libs/SF_popupform.js"></script> ' . "\n",
-				'sf_poup_script'
+				'sf_popup_script'
 			);
 
 			// load extensions style sheet
 			$parser->getOutput()->addHeadItem(
 				'<link rel="stylesheet" href="' . $sfgScriptPath
 				. '/skins/SF_popupform.css"/> ' . "\n",
-				'sf_poup_style'
+				'sf_popup_style'
 			);
 
 			$loaded = true;
