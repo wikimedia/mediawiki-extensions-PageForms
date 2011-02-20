@@ -476,17 +476,21 @@ window.ext.popupform = new function() {
 
 			iframe[0].style.overflow = "auto";
 
-			if ( docWidth > availW * .85 ) {
+			// For now, just ignore docWidth and docHeight - at
+			// least on Vector, they're getting set to values
+			// that are far too small.
+			// TODO: fix this
+			//if ( docWidth > availW * .85 ) {
 				w = ( availW * .8 );
-			} else {
-				w = docWidth + 20;
-			}
+			//} else {
+			//	w = docWidth + 20;
+			//}
 
-			if ( docHeight > availH * .85 ) {
+			//if ( docHeight > availH * .85 ) {
 				h = ( availH * .8 );
-			} else {
-				h = docHeight + 20;
-			}
+			//} else {
+			//	h = docHeight + 20;
+			//}
 
 		} else {
 			iframe[0].style.overflow = "hidden";
