@@ -121,7 +121,7 @@ class SFMultiEnumInput extends SFEnumInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'delimiter', 'type' => 'string' );
+		$params[] = array( 'name' => 'delimiter', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_delimiter' ) );
 		return $params;
 	}
 }
