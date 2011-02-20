@@ -353,7 +353,7 @@ END;
 		foreach ( $params as $i => $param ) {
 			$param_name = $param['name'];
 			$type = $param['type'];
-			//$desc = $param['description'];
+			$desc = $param['description'];
 
 			$cur_value = ( array_key_exists( $param_name, $paramValues ) ) ? $paramValues[$param_name] : '';
 
@@ -366,8 +366,7 @@ END;
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$param_name:\n";
 
 			$text .= self::inputTypeParamInput( $type, $param_name, $cur_value, $param, array(), $fieldFormText );
-			//$text .= "\n    <br /><em>$desc</em>\n</div>\n";
-			$text .= "\n</div>\n";
+			$text .= "\n    <br /><em>$desc</em>\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";
