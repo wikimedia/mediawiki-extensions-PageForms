@@ -489,7 +489,10 @@ jQuery.fn.validateEmailField = function() {
 
 jQuery.fn.validateNumberField = function() {
 	var fieldVal = this.find("input").val();
-	if (fieldVal == '' || fieldVal.match(/^\s*\-?[\d\.,]+\s*$/)) {
+	// Handle "E notation"/scientific notation ("1.2e-3") in addition
+	// to regular numbers
+	if (fieldVal == '' ||
+	fieldVal.match(/^\s*[\-+]?((\d+[\.,]?\d*)|(\d*[\.,]?\d+))([eE]?[\-\+]?\d+)?\s*$/)) {
 		return true;
 	} else {
 		this.addErrorMessage(sfgBadNumberErrorStr);
