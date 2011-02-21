@@ -974,7 +974,7 @@ class SFUploadForm extends HTMLForm {
 
 		if ( method_exists( $wgOut, 'addModules' ) ) {
 			$head_scripts = '';
-			$wgOut->addModules( array( 'mediawiki.legacy.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax', 'mediawiki.legacy.ajaxwatch' ) );
+			$wgOut->addModules( array( 'mediawiki.legacy.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
 			$body_scripts = $wgOut->getHeadScripts( $sk );
 		} else {
 			global $wgJsMimeType, $wgStylePath, $wgStyleVersion;
