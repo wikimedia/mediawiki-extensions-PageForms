@@ -99,8 +99,7 @@ END;
 	$subcategory_label = wfMsg( 'sf_createcategory_makesubcategory' );
 	$categories = SFUtils::getCategoriesForPage();
 	$sk = $wgUser->getSkin();
-	$cf = SpecialPage::getPage( 'CreateForm' );
-	$create_form_link = $sk->makeKnownLinkObj( $cf->getTitle(), $cf->getDescription() );
+	$create_form_link = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
 	$text .= <<<END
 	</select>
 	<p>$subcategory_label

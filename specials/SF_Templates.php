@@ -52,8 +52,7 @@ class TemplatesPage extends QueryPage {
 		SFUtils::loadMessages();
 		
 		$sk = $wgUser->getSkin();
-		$ct = SpecialPage::getPage( 'CreateTemplate' );
-		$create_template_link = $sk->makeKnownLinkObj( $ct->getTitle(), $ct->getDescription() );
+		$create_template_link = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
 		$header = "<p>" . $create_template_link . ".</p>\n";
 		$header .= '<p>' . wfMsg( 'sf_templates_docu' ) . "</p><br />\n";
 		return $header;

@@ -183,8 +183,7 @@ function doSpecialCreateTemplate() {
 
 END;
 	$sk = $wgUser->getSkin();
-	$cp = SpecialPage::getPage( 'CreateProperty' );
-	$create_property_link = $sk->makeKnownLinkObj( $cp->getTitle(), $cp->getDescription() );
+	$create_property_link = SFUtils::linkForSpecialPage( $sk, 'CreateProperty' );
 	$text .= "	<br /><hr /><br />\n";
 	$text .= "	" . Xml::tags( 'p', null, $create_property_link . '.' ) . "\n";
 

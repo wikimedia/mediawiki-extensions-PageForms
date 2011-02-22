@@ -52,8 +52,7 @@ class FormsPage extends QueryPage {
 		SFUtils::loadMessages();
 		
 		$sk = $wgUser->getSkin();
-		$cf = SpecialPage::getPage( 'CreateForm' );
-		$create_form_link = $sk->makeKnownLinkObj( $cf->getTitle(), $cf->getDescription() );
+		$create_form_link = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
 		$header = "<p>" . $create_form_link . ".</p>\n";
 		$header .= '<p>' . wfMsg( 'sf_forms_docu' ) . "</p><br />\n";
 		return $header;

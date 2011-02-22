@@ -119,14 +119,10 @@ class SFCreateClass extends SpecialPage {
 		// link to them at the top of the page
 		$sk = $wgUser->getSkin();
 		$creation_links = array();
-		$cp = SpecialPage::getPage( 'CreateProperty' );
-		$creation_links[] = $sk->makeKnownLinkObj( $cp->getTitle(), $cp->getDescription() );
-		$ct = SpecialPage::getPage( 'CreateTemplate' );
-		$creation_links[] = $sk->makeKnownLinkObj( $ct->getTitle(), $ct->getDescription() );
-		$cf = SpecialPage::getPage( 'CreateForm' );
-		$creation_links[] = $sk->makeKnownLinkObj( $cf->getTitle(), $cf->getDescription() );
-		$cc = SpecialPage::getPage( 'CreateCategory' );
-		$creation_links[] = $sk->makeKnownLinkObj( $cc->getTitle(), $cc->getDescription() );
+		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateProperty' );
+		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
+		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
+		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateCategory' );
 		$create_class_docu = wfMsg( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) );
 		$leave_field_blank = wfMsg( 'sf_createclass_leavefieldblank' );
 		$form_name_label = wfMsg( 'sf_createform_nameinput' );

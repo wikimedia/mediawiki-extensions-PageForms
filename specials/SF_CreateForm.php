@@ -243,8 +243,7 @@ jQuery(document).ready(function() {
 	$preview_button_text = wfMsg( 'preview' );
 	$add_button_text = wfMsg( 'sf_createform_add' );
 	$sk = $wgUser->getSkin();
-	$ct = SpecialPage::getPage( 'CreateTemplate' );
-	$create_template_link = $sk->makeKnownLinkObj( $ct->getTitle(), $ct->getDescription() );
+	$create_template_link = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
 	$text .= <<<END
 	<input type="submit" name="add_field" value="$add_button_text" /></p>
 	<br />
