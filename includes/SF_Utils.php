@@ -10,6 +10,19 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 class SFUtils {
 
 	/**
+	 * Creates a link to a special page, using that page's top-level description as the link text.
+	 */
+	public static function linkForSpecialPage( $skin, $specialPageName ) {
+		$specialPage = SpecialPage::getPage( $specialPageName );
+		// link() method was added in MW 1.16
+		if ( method_exists( $skin, 'link' ) ) {
+			return $skin->link( $specialPage->getTitle(), $specialPage->getDescription() );
+		} else {
+			return $skin->makeKnownLinkObj( $specialPage->getTitle(), $specialPage->getDescription() );
+		}
+	}
+
+	/**
 	 * Creates the name of the page that appears in the URL;
 	 * this method is necessary because Title::getPartialURL(), for
 	 * some reason, doesn't include the namespace
