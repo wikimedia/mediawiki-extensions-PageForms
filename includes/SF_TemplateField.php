@@ -98,7 +98,7 @@ class SFTemplateField {
 		$this->setTypeAndPossibleValues();
 	}
 
-	function createTemplateText( $template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format ) {
+	public static function createTemplateText( $template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format ) {
 		$template_header = wfMsgForContent( 'sf_template_docu', $template_name );
 		$text = <<<END
 <noinclude>
