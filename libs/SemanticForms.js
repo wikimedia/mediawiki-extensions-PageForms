@@ -828,8 +828,10 @@ jQuery(document).ready(function() {
 					delay: 0,
 					change: function(event, ui) {
 						if (!ui.item) {
-							// remove invalid value, as it didn't match anything
-							//jQuery(this).val("");
+							if (select.attr("existingvaluesonly") == 'true') {
+								// remove invalid value, as it didn't match anything
+								jQuery(this).val("");
+							}
 							return false;
 						}
 						select.val(ui.item.id);
