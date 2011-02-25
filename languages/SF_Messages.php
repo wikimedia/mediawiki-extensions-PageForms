@@ -66,6 +66,7 @@ $messages['en'] = array(
 	'sf_forminputs_list'                 => 'Mark this input as holding a list of values',
 	'sf_forminputs_delimiter'            => 'The delimiter between field values, if this input holds a list of them',
 	'sf_forminputs_remoteautocompletion' => 'Use remote autocompletion',
+	'sf_forminputs_existingvaluesonly'   => 'Allow only values already in the list',
 	'sf_forminputs_showonselect'         => 'Page elements to display only if certain values are selected (example: "value1=>div1;value2=>div2")',
 	'sf_forminputs_includetimezone'      => 'Include an input for the time zone',
 	'sf_forminputs_topcategory'          => 'The parent category of this set of categories (required)',
