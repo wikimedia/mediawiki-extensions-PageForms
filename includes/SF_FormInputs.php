@@ -524,6 +524,7 @@ class SFComboBoxInput extends SFFormInput {
 	}
 
 	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+		// For backward compatibility with pre-SF-2.1 forms
 		if ( array_key_exists( 'no autocomplete', $other_args ) &&
 				$other_args['no autocomplete'] == true ) {
 			unset( $other_args['autocompletion source'] );
@@ -565,23 +566,36 @@ class SFComboBoxInput extends SFFormInput {
 		$values = SFUtils::getAutocompleteValues($autocompletion_source, $autocomplete_field_type );
 		$autocompletion_source = str_replace( "'", "\'", $autocompletion_source );
 
+		$optionsText = Xml::element( 'option', array( 'value' => $cur_value ), null, false ) . "\n";
+		foreach ( $values as $value ) {
+			$optionsText .= Xml::element( 'option', array( 'value' => $value ), $value ) . "\n";
+		}
+
+		$selectAttrs = array(
+			'id' => "input_$sfgFieldNum",
+			'name' => $input_name,
+			'class' => $className,
+			'tabindex' => $sfgTabIndex,
+			'autocompletesettings' => $autocompletion_source,
+			'comboboxwidth' => $pixel_width,
+		);
+		if ( array_key_exists( 'existing values only', $other_args ) ) {
+			$selectAttrs['existingvaluesonly'] = 'true';
+		}
+		$selectText = Xml::tags( 'select', $selectAttrs, $optionsText );
+
 		$divClass = "ui-widget";
 		if ($is_mandatory) { $divClass .= " mandatory"; }
-		$text =<<<END
-<div class="$divClass">
-	<select id="input_$sfgFieldNum" name="$input_name" class="$className" tabindex="$sfgTabIndex" autocompletesettings="$autocompletion_source" comboboxwidth="$pixel_width">
-		<option value="$cur_value"></option>
-
-END;
-		foreach ($values as $value) {
-			$text .= "		<option value=\"$value\">$value</option>\n";
-		}
-		$text .= <<<END
-	</select>
-</div>
-END;
-
+		$text = Xml::tags( 'div', array( 'class' => $divClass ), $selectText );
 		return $text;
+	}
+
+	public static function getParameters() {
+		$params = parent::getParameters();
+		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_size' ) );
+		$params = array_merge( $params, SFEnumInput::getValuesParameters() );
+		$params[] = array( 'name' => 'existing values only', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_existingvaluesonly' ) );
+		return $params;
 	}
 }
 
