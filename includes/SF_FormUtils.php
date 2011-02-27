@@ -19,6 +19,8 @@ class SFFormUtils {
 		// objects, to work with MW 1.15 and earlier
 		$vars['sfgAutocompleteValues'] = (object)$sfgAutocompleteValues;
 		$vars['sfgShowOnSelect'] = (object)$sfgShowOnSelect;
+		$vars['sfgInitJSFunctions'] = (object)$sfgInitJSFunctions;
+		$vars['sfgValidationJSFunctions'] = (object)$sfgValidationJSFunctions;
 		$vars['sfgFormErrorsHeader'] = wfMsg( 'sf_formerrors_header' );
 		$vars['sfgBlankErrorStr'] = wfMsg( 'sf_blank_error' );
 		$vars['sfgBadURLErrorStr'] = wfMsg( 'sf_bad_url_error' );
