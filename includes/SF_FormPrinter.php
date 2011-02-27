@@ -53,7 +53,9 @@ class SFFormPrinter {
    * Register all information about the passed-in form input class.
    */
   function registerInputType( $inputTypeClass ) {
-    global $smwgContLang;
+    global $smwgContLang, $sfgDefaultInputForPropType, $sfgDefaultInputForPropTypeList;
+    global $sfgPossibleInputsForPropType, $sfgPossibleInputsForPropTypeList;
+    global $sfgInitJSFunctions, $sfgValidationJSFunctions;
  
     $inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
     $this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
@@ -70,6 +72,7 @@ class SFFormPrinter {
         $propertyType = $datatypeLabels[$propertyTypeID];
         $this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
       }
+      $sfgDefaultInputForPropType[$propertyTypeID] = $inputTypeName;
     }
     $defaultPropertyLists = call_user_func( array( $inputTypeClass, 'getDefaultPropTypeLists' ) );
     foreach ( $defaultPropertyLists as $propertyTypeID => $additionalValues ) {
@@ -79,6 +82,33 @@ class SFFormPrinter {
         $propertyType = $datatypeLabels[$propertyTypeID];
         $this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
       }
+      $sfgDefaultInputForPropTypeList[$propertyTypeID] = $inputTypeName;
+    }
+
+    $otherProperties = call_user_func( array( $inputTypeClass, 'getOtherPropTypesHandled' ) );
+    foreach ( $otherProperties as $propertyTypeID ) {
+      if ( array_key_exists( $propertyTypeID, $sfgPossibleInputsForPropType ) ) {
+        $sfgPossibleInputsForPropType[$propertyTypeID][] = $inputTypeName;
+      } else {
+        $sfgPossibleInputsForPropType[$propertyTypeID] = array( $inputTypeName );
+      }
+    }
+    $otherPropertyLists = call_user_func( array( $inputTypeClass, 'getOtherPropTypeListsHandled' ) );
+    foreach ( $otherPropertyLists as $propertyTypeID ) {
+      if ( array_key_exists( $propertyTypeID, $sfgPossibleInputsForPropTypeList ) ) {
+        $sfgPossibleInputsForPropTypeList[$propertyTypeID][] = $inputTypeName;
+      } else {
+        $sfgPossibleInputsForPropTypeList[$propertyTypeID] = array( $inputTypeName );
+      }
+    }
+
+    $initJSFunction = call_user_func( array( $inputTypeClass, 'getInitJSFunction' ) );
+    if ( !is_null( $initJSFunction ) ) {
+      $sfgInitJSFunctions[] = $initJSFunction;
+    }
+    $validationJSFunctions = call_user_func( array( $inputTypeClass, 'getValidationJSFunctions' ) );
+    if ( count( $validationJSFunctions ) > 0 ) {
+      $sfgValidationJSFunctions = array_merge( $sfgValidationJSFunctions, $initJSFunction );
     }
   }
 
@@ -90,42 +120,32 @@ class SFFormPrinter {
     }
   }
 
-  // TODO - this is very inefficient; the information should be stored in a
-  // separate array, populated within registerInputType().
   public function getDefaultInputType( $isList, $propertyType ) {
-    foreach ( $this->mInputTypeClasses as $inputTypeName => $className ) {
-      if ( $isList ) {
-        $defaultPropTypes = call_user_func( array( $className, 'getDefaultPropTypeLists' ) );
-        if ( array_key_exists( $propertyType, $defaultPropTypes ) ) {
-          return $inputTypeName;
-        }
-      } else {
-        $defaultPropTypes = call_user_func( array( $className, 'getDefaultPropTypes' ) );
-        if ( array_key_exists( $propertyType, $defaultPropTypes ) ) {
-          return $inputTypeName;
-        }
-      }
+    if ( $isList ) {
+      global $sfgDefaultInputForPropTypeList;
+      return $sfgDefaultInputForPropTypeList[$propertyType];
+    } else {
+      global $sfgDefaultInputForPropType;
+      return $sfgDefaultInputForPropType[$propertyType];
     }
   }
 
-  // TODO - this is very inefficient; the information should be stored in a
-  // separate array, populated within registerInputType().
   public function getPossibleInputTypes( $isList, $propertyType ) {
-    $possibleInputTypes = array();
-    foreach ( $this->mInputTypeClasses as $inputTypeName => $className ) {
-      if ( $isList ) {
-        $handledPropTypes = call_user_func( array( $className, 'getOtherPropTypeListsHandled' ) );
-        if ( in_array( $propertyType, $handledPropTypes ) ) {
-          $possibleInputTypes[] = $inputTypeName;
-        }
+    if ( $isList ) {
+      global $sfgPossibleInputsForPropTypeList;
+      if ( array_key_exists( $propertyType, $sfgPossibleInputsForPropTypeList ) ) {
+        return $sfgPossibleInputsForPropTypeList[$propertyType];
       } else {
-        $handledPropTypes = call_user_func( array( $className, 'getOtherPropTypesHandled' ) );
-        if ( in_array( $propertyType, $handledPropTypes ) ) {
-          $possibleInputTypes[] = $inputTypeName;
-        }
+        return array();
+      }
+    } else {
+      global $sfgPossibleInputsForPropType;
+      if ( array_key_exists( $propertyType, $sfgPossibleInputsForPropType ) ) {
+        return $sfgPossibleInputsForPropType[$propertyType];
+      } else {
+        return array();
       }
     }
-    return $possibleInputTypes;
   }
 
   public function getAllInputTypes() {
@@ -1363,7 +1383,7 @@ END;
     global $wgParser;
     $new_text = "";
     if ( !$embedded ) {
-      $new_text = $wgParser->recursiveTagParse (str_replace( "{{!}}", "|", $form_page_title ) );
+      $new_text = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
     }
 
     // If the form has already been submitted, i.e. this is just the redirect
