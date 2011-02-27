@@ -77,6 +77,26 @@ class SFFormInput {
 		$params[] = array( 'name' => 'property', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_property' ) );
 		return $params;
 	}
+
+	/**
+	 * Returns the name and parameters for the initialization Javascript
+	 * function for this input type, if any.
+	 *
+	 * This function is not used yet.
+	 */
+	public static function getInitJSFunction() {
+		return null;
+	}
+
+	/**
+	 * Returns the name and parameters for the validation Javascript
+	 * functions for this input type, if any.
+	 *
+	 * This function is not used yet.
+	 */
+	public static function getValidationJSFunctions() {
+		return array();
+	}
 }
 
 /**
@@ -780,6 +800,10 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 	public static function getName() {
 		return 'textarea with autocomplete';
+	}
+
+	public static function getDefaultPropTypes() {
+		return array();
 	}
 
 	public static function getOtherPropTypesHandled() {
