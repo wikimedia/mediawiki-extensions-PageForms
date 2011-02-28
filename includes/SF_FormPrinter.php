@@ -349,10 +349,9 @@ END;
     // element, so that the wiki parser won't touch it - the parser will
     // remove the '<nowiki>' tags, leaving us with what we need.
     $form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
-    $old_strip_state = $wgParser->mStripState;
-    $wgParser->mStripState = new StripState();
-    $wgParser->mOptions = new ParserOptions();
-    $wgParser->mOptions->initialiseFromUser( $wgUser );
+    if ( empty( $wgParser->mOptions ) ) {
+      $wgParser->mOptions = new ParserOptions();
+    }
 
     // Get the form definition from the cache, if we're using caching and it's
     // there.
@@ -370,7 +369,6 @@ END;
     if ( ! $got_form_def_from_cache ) {
       $form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
     }
-    $wgParser->mStripState = $old_strip_state;
     
     // turn form definition file into an array of sections, one for each
     // template definition (plus the first section)
