@@ -56,10 +56,11 @@ class SFRunQuery extends IncludableSpecialPage {
 			$raw = $wgRequest->getBool( 'raw', false );
 		}
 		$form_submitted = ( $run_query );
-		if ( $raw )
+		if ( $raw ) {
 			$wgOut->setArticleBodyOnly( true );
-		// if user already made some action, ignore the edited
-		// page and just get data from the query string
+		}
+		// If user already made some action, ignore the edited
+		// page and just get data from the query string.
 		if ( !$embedded && $wgRequest->getVal( 'query' ) == 'true' ) {
 			$edit_content = null;
 			$is_text_source = false;
@@ -114,19 +115,21 @@ class SFRunQuery extends IncludableSpecialPage {
 			$action = htmlspecialchars( SpecialPage::getTitleFor( "RunQuery", $form_name )->getLocalURL() );
 			$text .= <<<END
 	<form id="sfForm" name="createbox" action="$action" method="post" class="createbox">
-	<input type="hidden" name="query" value="true" />
 
 END;
+			$text .= "\t" . Xml::hidden( 'query', 'true' ) . "\n";
 			$text .= $form_text;
 		}
 		if ( $embedded ) {
 			$text = "<div class='runQueryEmbedded'>$text</div>";
 		}
 
+		// Armor against doBlockLevels()
+		$text = preg_replace( '/^ +/m', '', $text );
 		// Now write everything to the screen.
 		$wgOut->addHTML( $text );
 		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser : null );
-		$script = '		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
+		$script = "\t\t" . '<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
 		if ( $embedded ) {
 			$wgParser->getOutput()->addHeadItem( $script );
 		} else {
