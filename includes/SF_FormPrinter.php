@@ -367,10 +367,15 @@ END;
     }
     // Otherwise, parse it.
     if ( ! $got_form_def_from_cache ) {
-      $form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
+      if ( $embedded) {
+        $form_def = $wgParser->recursiveTagParse( $form_def );
+        $form_def = $wgParser->mStripState->unstripBoth( $form_def );
+      } else {
+        $form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
+      }
     }
     
-    // turn form definition file into an array of sections, one for each
+    // Turn form definition file into an array of sections, one for each
     // template definition (plus the first section)
     $form_def_sections = array();
     $start_position = 0;
@@ -393,7 +398,7 @@ END;
       $tag_components = SFUtils::getFormTagComponents( $bracketed_string );
       $tag_title = trim( $tag_components[0] );
       if ( $tag_title == 'for template' || $tag_title == 'end template' ) {
-        // create a section for everything up to here
+        // Create a section for everything up to here
         $section = substr( $form_def, $section_start, $brackets_loc - $section_start );
         $form_def_sections[] = $section;
         $section_start = $brackets_loc;
@@ -402,9 +407,9 @@ END;
     } // end while
     $form_def_sections[] = trim( substr( $form_def, $section_start ) );
 
-    // cycle through form definition file (and possibly an existing article
+    // Cycle through form definition file (and possibly an existing article
     // as well), finding template and field declarations and replacing them
-    // with form elements, either blank or pre-populated, as appropriate
+    // with form elements, either blank or pre-populated, as appropriate.
     $all_fields = array();
     $data_text = "";
     $template_name = "";
