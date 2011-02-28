@@ -239,33 +239,34 @@ jQuery(document).ready(function() {
 	// disable 'save' and 'preview' buttons if user has not yet added any
 	// templates
 	$disabled_text = ( count( $form_templates ) == 0 ) ? "disabled" : "";
-	$save_button_text = wfMsg( 'savearticle' );
-	$preview_button_text = wfMsg( 'preview' );
 	$add_button_text = wfMsg( 'sf_createform_add' );
 	$sk = $wgUser->getSkin();
 	$create_template_link = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
+	$text .= "\t" . Xml::element( 'input', array( 'type' => 'submit', 'name' => 'add_field', 'value' => $add_button_text ) );
 	$text .= <<<END
-	<input type="submit" name="add_field" value="$add_button_text" /></p>
+</p>
 	<br />
-	<div class="editButtons">
-	<p>
-	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text" $disabled_text />
-	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text" $disabled_text />
-	</p>
-	</div>
 
 END;
+	$saveAttrs = array( 'type' => 'submit', 'id' => 'wpSave', 'name' => 'wpSave', 'value' => wfMsg( 'savearticle' ) );
+	if ( count( $form_templates ) == 0 ) { $saveAttrs['disabled'] = 'disabled'; }
+	$editButtonsText .= "\t" . Xml::element( 'input', $saveAttrs ) . "\n";
+	$previewAttrs = array( 'type' => 'submit', 'id' => 'wpPreview', 'name' => 'wpPreview', 'value' => wfMsg( 'preview' ) );
+	if ( count( $form_templates ) == 0 ) { $previewAttrs['disabled'] = 'disabled'; }
+	$editButtonsText .= "\t" . Xml::element( 'input', $previewAttrs ) . "\n";
+	$text .= "\t" . Xml::tags( 'div', array( 'class' => 'editButtons' ),
+		Xml::tags( 'p', array(), $editButtonsText ) . "\n" ) . "\n";
 	// explanatory message if buttons are disabled because no templates
 	// have been added
 	if ( count( $form_templates ) == 0 ) {
-		$text .= "	" . Xml::element( 'p', null, "(" . wfMsg( 'sf_createtemplate_addtemplatebeforesave' ) . ")" );
+		$text .= "\t" . Xml::element( 'p', null, "(" . wfMsg( 'sf_createtemplate_addtemplatebeforesave' ) . ")" );
 	}
 	$text .= <<<END
 	</form>
 	<hr /><br />
 
 END;
-	$text .= "	" . Xml::tags( 'p', null, $create_template_link . '.' );
+	$text .= "\t" . Xml::tags( 'p', null, $create_template_link . '.' );
 
 	$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 	$wgOut->addHTML( $text );
@@ -278,23 +279,19 @@ END;
 	 */
 	public static function inputTypeParamInput( $type, $param_name, $cur_value, array $param, array $paramValues, $fieldFormText ) {
 		if ( $type == 'int' ) {
-			return Html::input(
-				$param_name . '_' . $fieldFormText,
-				$cur_value,
-				'text',
-				array(
-					'size' => 6 
-				)
-			);
+			return Xml::element( 'input', array(
+				'type' => 'text',
+				'name' => $param_name . '_' . $fieldFormText,
+				'value' => $cur_value,
+				'size' => 6
+			) );
 		} elseif ( $type == 'string' ) {
-			return Html::input(
-				$param_name . '_' . $fieldFormText,
-				$cur_value,
-				'text',
-				array(
-					'size' => 32 
-				)
-			); 
+			return Xml::element( 'input', array(
+				'type' => 'text',
+				'name' => $param_name . '_' . $fieldFormText,
+				'value' => $cur_value,
+				'size' => 32 
+			) ); 
 		} elseif ( $type == 'enumeration' ) {
 			$text = '<select name="p[' . htmlspecialchars( $param_name ) . ']">';
 			$text .= "\n	<option value=''></option>\n";
@@ -317,11 +314,12 @@ END;
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
-			return Html::input(
-				$param_name . '_' . $fieldFormText,
-				null,
-				'checkbox'
+			$checkboxAttrs = array(
+				'type' => 'checkbox',
+				'name' => $param_name . '_' . $fieldFormText
 			);
+			if ( $cur_value) { $checkboxAttrs['checked'] = 'checked'; }
+			return Xml::element( 'input', $checkboxAttrs );
 		}
 	}
 
@@ -365,7 +363,7 @@ END;
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$param_name:\n";
 
 			$text .= self::inputTypeParamInput( $type, $param_name, $cur_value, $param, array(), $fieldFormText );
-			$text .= "\n    <br /><em>$desc</em>\n</div>\n";
+			$text .= "\n<br />" . Xml::element( 'em', null, $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";
