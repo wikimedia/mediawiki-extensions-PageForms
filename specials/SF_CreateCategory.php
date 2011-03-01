@@ -54,8 +54,6 @@ function doSpecialCreateCategory() {
 	$default_form = $wgRequest->getVal( 'default_form' );
 	$parent_category = $wgRequest->getVal( 'parent_category' );
 
-	$save_button_text = wfMsg( 'savearticle' );
-	$preview_button_text = wfMsg( 'preview' );
 	$category_name_error_str = '';
 	$save_page = $wgRequest->getCheck( 'wpSave' );
 	$preview_page = $wgRequest->getCheck( 'wpPreview' );
@@ -84,8 +82,11 @@ function doSpecialCreateCategory() {
 	$form_label = wfMsg( 'sf_createcategory_defaultform' );
 	$text = <<<END
 	<form action="" method="get">
-	<input type="hidden" name="title" value="$special_namespace:CreateCategory">
-	<p>$name_label <input size="25" name="category_name" value="">
+
+END;
+	$text .= "\t" . Xml::hidden( 'title', "$special_namespace:CreateCategory" ) . "\n";
+	$text .= <<<END
+	<p>$name_label <input size="25" name="category_name" value="" />
 	<span style="color: red;">$category_name_error_str</span>
 	$form_label
 	<select id="form_dropdown" name="default_form">
@@ -93,7 +94,7 @@ function doSpecialCreateCategory() {
 
 END;
 	foreach ( $all_forms as $form ) {
-		$text .= '	' . Xml::element( 'option', null, $form ) . "\n";
+		$text .= "\t" . Xml::element( 'option', null, $form ) . "\n";
 	}
 
 	$subcategory_label = wfMsg( 'sf_createcategory_makesubcategory' );
@@ -109,14 +110,13 @@ END;
 END;
 	foreach ( $categories as $category ) {
 		$category = str_replace( '_', ' ', $category );
-		$text .= "	" . Xml::element( 'option', null, $category ) . "\n";
+		$text .= "\t" . Xml::element( 'option', null, $category ) . "\n";
 	}
+	$text .= "\t</select>\n";
+	$editButtonsText = "\t" . Xml::element( 'input', array( 'type' => 'submit', 'id' => 'wpSave', 'name' => 'wpSave', 'value' => wfMsg( 'savearticle' ) ) ) . "\n";
+	$editButtonsText .= "\t" . Xml::element( 'input', array( 'type' => 'submit', 'id' => 'wpPreview', 'name' => 'wpPreview', 'value' => wfMsg( 'preview' ) ) ) . "\n";
+	$text .= "\t" . Xml::tags( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";
 	$text .= <<<END
-	</select>
-	<div class="editButtons">
-	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text">
-	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text">
-	</div>
 	<br /><hr /<br />
 
 END;
