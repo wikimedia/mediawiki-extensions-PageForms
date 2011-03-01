@@ -164,17 +164,21 @@ END;
 		}
 
 		$text .= "<fieldset><legend>Other parameters</legend>\n";
-		$text .= "<div class=\"otherInputParams\">" . SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) . "</div>";
+		$text .= Xml::tags( 'div', array( 'class' => 'otherInputParams' ),
+			SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
-		$mandatory_checked_str = ( $this->is_mandatory ) ? "checked" : "";
-		$mandatory_text = wfMsg( 'sf_createform_mandatory' );
-		$restricted_checked_str = ( $this->is_restricted ) ? "checked" : "";
-		$restricted_text = wfMsg( 'sf_createform_restricted' );
 		$text .= <<<END
 	</p>
 	<p>
-	<input type="checkbox" name="mandatory_$field_form_text" value="mandatory" $mandatory_checked_str /> $mandatory_text
-	<input type="checkbox" name="restricted_$field_form_text" value="restricted" $restricted_checked_str /> $restricted_text</p>
+
+END;
+		$mandatoryCheckboxAtrs = array( 'type' => 'checkbox', 'name' => "mandatory_$field_form_text", 'value' => 'mandatory' );
+		if ( $this->is_mandatory ) { $mandatoryCheckboxAtrs['checked'] = 'checked'; }
+		$text .= "\t" . Xml::element( 'input', $mandatoryCheckboxAtrs, wfMsg( 'sf_createform_mandatory' ) ) . "\n";
+		$restrictedCheckboxAtrs = array( 'type' => 'checkbox', 'name' => "restricted_$field_form_text", 'value' => 'restricted' );
+		if ( $this->is_restricted ) { $restrictedCheckboxAtrs['checked'] = 'checked'; }
+		$text .= "\t" . Xml::element( 'input', $restrictedCheckboxAtrs, wfMsg( 'sf_createform_restricted' ) ) . "\n";
+		$text .= <<<END
 	</div>
 	<hr>
 
