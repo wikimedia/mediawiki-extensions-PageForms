@@ -158,29 +158,30 @@ class SFParserFunctions {
 				$param_name = trim( $elements[0] );
 				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
 			}
-			if ( $param_name == 'form' )
+			if ( $param_name == 'form' ) {
 				$inFormName = $value;
-			elseif ( $param_name == 'link text' )
+			} elseif ( $param_name == 'link text' ) {
 				$inLinkStr = $value;
-			elseif ( $param_name == 'link type' )
+			} elseif ( $param_name == 'link type' ) {
 				$inLinkType = $value;
-			elseif ( $param_name == 'query string' )
+			} elseif ( $param_name == 'query string' ) {
 				$inQueryStr = $value;
-			elseif ( $param_name == 'target' )
+			} elseif ( $param_name == 'target' ) {
 				$inTargetName = $value;
-			elseif ( $param_name == null && $value == 'popup'
+			} elseif ( $param_name == null && $value == 'popup'
 				&& version_compare( $wgVersion, '1.16', '>=' )) {
 				self::loadScriptsForPopupForm( $parser );
 				$popupClassString = 'class="popupformlink"';
 			}
-			elseif ( $i == 0 )
+			elseif ( $i == 0 ) {
 				$inFormName = $param;
-			elseif ( $i == 1 )
+			} elseif ( $i == 1 ) {
 				$inLinkStr = $param;
-			elseif ( $i == 2 )
+			} elseif ( $i == 2 ) {
 				$inLinkType = $param;
-			elseif ( $i == 3 )
+			} elseif ( $i == 3 ) {
 				$inQueryStr = $param;
+			}
 		}
 
 		$ad = SpecialPage::getPage( 'FormEdit' );
@@ -203,7 +204,7 @@ class SFParserFunctions {
 					$query_component = urldecode( $query_component );
 					$var_and_val = explode( '=', $query_component );
 					if ( count( $var_and_val ) == 2 ) {
-						$hidden_inputs .= '<input type="hidden" name="' . $var_and_val[0] . '" value="' . $var_and_val[1] . '" /> ';
+						$hidden_inputs .= Xml::hidden( $var_and_val[0], $var_and_val[1] ) . "\n";
 					}
 				}
 			} else {
@@ -220,9 +221,16 @@ class SFParserFunctions {
 		if ( $inLinkType == 'button' ) {
 			$link_url = html_entity_decode( $link_url, ENT_QUOTES );
 			$link_url = str_replace( "'", "\'", $link_url );
-			$str = "<form $popupClassString><input type=\"button\" value=\"$inLinkStr\" onclick=\"window.location.href='$link_url'\"></form>";
+			$str = "<form $popupClassString>";
+			$str .= Xml::element( 'input', array(
+				'type' => 'button',
+				'value' => $inLinkStr,
+				'onclick' => 'window.location.href=' . $link_url
+			) ) . "</form>";
 		} elseif ( $inLinkType == 'post button' ) {
-			$str = "<form action=\"$link_url\" method=\"post\" $popupClassString><input type=\"submit\" value=\"$inLinkStr\" />$hidden_inputs</form>";
+			$str = "<form action=\"$link_url\" method=\"post\" $popupClassString>";
+			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
+			$str .= "$hidden_inputs</form>";
 		} else {
 			$str = "<a href=\"$link_url\" $popupClassString>$inLinkStr</a>";
 		}
@@ -305,26 +313,37 @@ class SFParserFunctions {
 		if ( empty( $inAutocompletionSource ) ) {
 			$str = <<<END
 			<form action="$fs_url" method="get" $popupClassString>
-			<p><input type="text" name="page_name" size="$inSize" value="$inValue" class="formInput" />
+			<p>
 
 END;
+			$str .= Xml::element( 'input',
+				array( 'type' => 'text', 'name' => 'page_name', 'size' => $inSize, 'value' => $inValue, 'class' => 'formInput' ) );
 		} else {
 			$str = <<<END
 			<form name="createbox" action="$fs_url" method="get" $popupClassString>
-			<p><input type="text" name="page_name" id="input_$input_num" size="$inSize" value="$inValue"  class="autocompleteInput createboxInput formInput" autocompletesettings="input_$input_num" />
+			<p>
 
 END;
+			$str .= Xml::element( 'input', array(
+				'type' => 'text',
+				'name' => 'page_name',
+				'id' => 'input_' . $input_num,
+				'size' => $inSize,
+				'value' => $inValue,
+				'class' => 'autocompleteInput createboxInput formInput',
+				'autocompletesettings' => 'input_' . $input_num
+		       	) );
 		}
 		// if the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
 		if ( ( $pos = strpos( $fs_url, "title=" ) ) > - 1 ) {
-			$str .= '			<input type="hidden" name="title" value="' . urldecode( substr( $fs_url, $pos + 6 ) ) . '">' . "\n";
+			$str .= "\t\t\t" . Xml::hidden( "title", urldecode( substr( $fs_url, $pos + 6 ) ) ) . "\n";
 		}
 		if ( $inFormName == '' ) {
 			$str .= SFUtils::formDropdownHTML();
 		} else {
-			$str .= '			<input type="hidden" name="form" value="' . $inFormName . '">' . "\n";
+			$str .= "\t\t\t" . Xml::hidden( "form", $inFormName ) . "\n";
 		}
 		// Recreate the passed-in query string as a set of hidden
 		// variables.
