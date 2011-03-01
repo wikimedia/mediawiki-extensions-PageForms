@@ -85,7 +85,7 @@ class SFFormStart extends SpecialPage {
 		}
 
 		if ( ( ! $form_title || ! $form_title->exists() ) && ( $form_name != '' ) ) {
-			$text = '<p>' . htmlspecialchars( wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . ".</p>\n";
+			$text = Xml::element( 'p', null, wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 		} else {
 			if ( $form_name == '' ) {
 				$description = htmlspecialchars( wfMsg( 'sf_formstart_noform_docu', $form_name ) );
@@ -94,11 +94,10 @@ class SFFormStart extends SpecialPage {
 				$description = htmlspecialchars( wfMsg( 'sf_formstart_docu', $form_name ) );
 			}
 				
-			$button_text = htmlspecialchars( wfMsg( 'sf_formstart_createoredit' ) );
 			$text = <<<END
 	<form action="" method="post">
 	<p>$description</p>
-	<p><input type="text" size="40" name="page_name">
+	<p><input type="text" size="40" name="page_name" />
 
 END;
 			// If no form was specified, display a dropdown letting
@@ -106,19 +105,12 @@ END;
 			if ( $form_name == '' )
 				$text .= SFUtils::formDropdownHTML();
 
-			$hidden_target_namespace = htmlspecialchars( $target_namespace );
-			$hidden_super_page = htmlspecialchars( $super_page );
-			$hidden_params = htmlspecialchars( $params );
-
-			$text .= <<<END
-	</p>
-	<input type="hidden" name="namespace" value="$hidden_target_namespace">
-	<input type="hidden" name="super_page" value="$hidden_super_page">
-	<input type="hidden" name="params" value="$hidden_params">
-	<input type="Submit" value="$button_text">
-	</form>
-
-END;
+			$text .= "\t</p>\n";
+			$text .= "\t" . Xml::hidden( 'namespace', $target_namespace ) . "\n";
+			$text .= "\t" . Xml::hidden( 'super_page', $super_page ) . "\n";
+			$text .= "\t" . Xml::hidden( 'params', $params ) . "\n";
+			$text .= "\t" . Xml::element( 'input', array( 'type' => 'submit', 'value' => wfMsg( 'sf_formstart_createoredit' ) ) ) . "\n";
+			$text .= "\t</form>\n";
 		}
 		$wgOut->addHTML( $text );
 	}
