@@ -57,14 +57,17 @@ window.ext.popupform = new function() {
 	var background;
 	var container;
 	var iframe;
+	var content;
 	var waitIndicator;
 	var instance = 0;
 
 	var doc;
-	var docWidth;
-	var docHeight;
+//	var docW;
+//	var docH;
 
 	var brokenBrowser, brokenChrome;
+
+	var padding = 20;
 
 	function handlePopupFormInput( ptarget, elem ) {
 
@@ -204,7 +207,7 @@ window.ext.popupform = new function() {
 		container.show();
 
 		// GuMaxDD has #content but keeps headlines in #gumax-content-body
-		var content = iframecontents.find("#gumax-content-body");
+		content = iframecontents.find("#gumax-content-body");
 
 		// normal skins use #content (e.g. Vector, Monobook)
 		if ( content.length == 0 ) content = iframecontents.find("#content");
@@ -220,11 +223,12 @@ window.ext.popupform = new function() {
 		var siblings = content
 		.css( {
 			margin: 0,
-			padding: "1em",
+			padding: padding,
 			width: "auto",
 			height: "auto",
 			minWidth: "0px",
-			minHeight:"0px"
+			minHeight:"0px",
+			overflow: "visible"
 		} )
 		.parents().css( {
 			margin: 0,
@@ -232,7 +236,8 @@ window.ext.popupform = new function() {
 			width: "auto",
 			height: "auto",
 			minWidth: "0px",
-			minHeight:"0px"
+			minHeight:"0px",
+			overflow: "visible"
 		})
 		.andSelf().siblings();
 
@@ -276,36 +281,14 @@ window.ext.popupform = new function() {
 		//.children().css("position", "static");
 		}
 
-		// find content document
-		doc = iframe[0].contentWindow || iframe[0].contentDocument;
+//		// find content document
+//		doc = iframe[0].contentWindow || iframe[0].contentDocument;
+//
+//		if (doc.document) {
+//			doc = doc.document;
+//		}
 
-		if (doc.document) {
-			doc = doc.document;
-		}
-
-		// first try if the content enforces its dimensions (e.g. GuMaxDD)
-		docWidth = content.outerWidth(true);
-		docHeight = content.outerHeight(true);
-
-		// then try if it grows to its dimensions given enough space (e.g. Vector)
-		var origPos = content[0].style.position;
-		content[0].style.position = "fixed";
-
-		if ( content.outerWidth(true) > docWidth || content.outerHeight(true) > docHeight ) {
-			docWidth = content.outerWidth(true);
-			docHeight = content.outerHeight(true);
-		}
-
-		content[0].style.position = origPos;
-
-		// default for broken browsers
-		if ( docWidth == 0 || docHeight == 0 ) {
-
-			docWidth = jQuery(window).width();
-			docHeight = jQuery(window).height();
-			
-		}
-
+		container.show();
 
 		// adjust frame size to dimensions just calculated
 		adjustFrameSize();
@@ -465,45 +448,108 @@ window.ext.popupform = new function() {
 
 	function adjustFrameSize() {
 
-		var availW = jQuery(window).width();
-		var availH = jQuery(window).height();
+		// Inputs
 
-		var w, h;
+		var availW = Math.floor( jQuery(window).width() * .8 );
+		var availH = Math.floor( jQuery(window).height() * .8 );
 
-		// Standard max height/width is 80% of viewport, but we will allow
-		// up to 85% to avoid scrollbars with nearly nothing to scroll
-		if ( docWidth > availW * .85 || docHeight > availH * .85 ) {
+		var emergencyW = Math.floor( jQuery(window).width() * .85 );
+		var emergencyH = Math.floor( jQuery(window).height() * .85 );
 
-			iframe[0].style.overflow = "auto";
+		// FIXME: these might not be the true values
+		var scrollW = 20;
+		var scrollH = 20;
 
-			// For now, just ignore docWidth and docHeight - at
-			// least on Vector, they're getting set to values
-			// that are far too small.
-			// TODO: fix this
-			//if ( docWidth > availW * .85 ) {
-				w = ( availW * .8 );
-			//} else {
-			//	w = docWidth + 20;
-			//}
 
-			//if ( docHeight > availH * .85 ) {
-				h = ( availH * .8 );
-			//} else {
-			//	h = docHeight + 20;
-			//}
+		// find the dimensions of the document
 
+		// set max dimensions for layout of content
+		container
+		.width( emergencyW )
+		.height( emergencyH );
+
+		var origPos = content[0].style.position; // save original positioning
+		content[0].style.position = "fixed";
+
+		// initiate layout
+		content
+		.width( 'auto' )
+		.height( 'auto' );
+
+		// get dimension values
+		var docW = content.width();
+		var docH = content.height();
+
+		var docpW = docW + 2 * padding;
+		var docpH = docH + 2 * padding;
+
+		content[0].style.position = origPos; // reset original positioning
+
+		// Flags
+
+		var needsHScroll = docpW > emergencyW || ( docpW > emergencyW - scrollW && docpH > emergencyH );
+		var needsVScroll = docpH > emergencyH || ( docpH > emergencyH - scrollH && docpW > emergencyW );
+
+		var needsWStretch =
+			( docpW > availW && docpW <= emergencyW ) && ( docpH <= emergencyH ) ||
+			( docpW > availW - scrollW && docpW <= emergencyW - scrollW ) && ( docpH > emergencyH );
+
+		var needsHStretch =
+			( docpH > availH && docpH <= emergencyH ) && ( docpW <= emergencyW ) ||
+			( docpH > availH - scrollH && docpH <= emergencyH - scrollH ) && ( docpW > emergencyW );
+
+		// Outputs
+
+		var frameW;
+		var frameH;
+
+		var contW;
+		var contH;
+
+		if ( needsWStretch ) {
+			contW = docW;
+			frameW = docpW;
+		} else if ( docpW > availW ) { // form does not even fit with stretching
+			contW = docW;
+			frameW = availW;
 		} else {
-			iframe[0].style.overflow = "hidden";
-			w = docWidth;
-			h = docHeight;
+			//contW = Math.max( Math.min( 1.5 * docW, availW ), availW / 2 );
+			contW = docW;
+			frameW = docpW;
+		}
+
+		if ( needsVScroll ){
+			frameW += scrollW;
+		}
+
+		if ( needsHStretch ) {
+			contH = docH;
+			frameH = docpH;
+		} else if ( docpH > availH ) { // form does not even fit with stretching
+			contH = docH;
+			frameH = availH;
+		} else {
+			//contH = Math.min( 1.1 * docH, availH);
+			contH = docH;
+			frameH = docpH;
+		}
+		
+		if ( needsHScroll ){
+			frameH += scrollH;
 		}
 
 		with ( container[0].style ) {
-			width = ( w ) + "px";
-			height = ( h ) + "px";
-			top = (( - h ) / 2) + "px";
-			left = (( - w ) / 2) + "px";
-			}
+			top = (( - frameH ) / 2) + "px";
+			left = (( - frameW ) / 2) + "px";
+		}
+
+		container
+		.width( frameW )
+		.height ( frameH )
+
+		content
+		.width ( contW )
+		.height ( contH );
 
 	}
 
