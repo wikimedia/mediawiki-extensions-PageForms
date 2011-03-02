@@ -440,6 +440,12 @@ class SFListBoxInput extends SFMultiEnumInput {
 
 		return $text;
 	}
+
+	public static function getParameters() {
+		$params = parent::getParameters();
+		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_listboxsize' ) );
+		return $params;
+	}
 }
 
 class SFCheckboxesInput extends SFMultiEnumInput {
