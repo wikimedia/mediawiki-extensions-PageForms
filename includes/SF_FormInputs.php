@@ -647,8 +647,13 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	static function setAutocompleteValues( $field_args ) {
 		global $sfgAutocompleteValues;
 
-		if ( array_key_exists( 'values from property', $field_args ) ) {
-			$autocompletionSource = $field_args['values from property'];
+		if ( array_key_exists( 'values from property', $field_args ) ||
+			array_key_exists( 'semantic_property', $field_args ) ) {
+			if ( array_key_exists( 'values from property', $field_args ) ) {
+				$autocompletionSource = $field_args['values from property'];
+			} else { // if ( array_key_exists( 'semantic_property', $field_args ) ) {
+				$autocompletionSource = $field_args['semantic_property'];
+			}
 			$propValue = SMWPropertyValue::makeUserProperty( $autocompletionSource );
 			if ( $propValue->getPropertyTypeID() == '_wpg' ) {
 				$autocompleteFieldType = 'relation';
