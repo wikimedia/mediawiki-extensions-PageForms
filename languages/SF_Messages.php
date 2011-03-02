@@ -68,6 +68,7 @@ $messages['en'] = array(
 	'sf_forminputs_remoteautocompletion' => 'Use remote autocompletion',
 	'sf_forminputs_existingvaluesonly'   => 'Allow only values already in the list',
 	'sf_forminputs_showonselect'         => 'Page elements to display only if certain values are selected (example: "value1=>div1;value2=>div2")',
+	'sf_forminputs_listboxsize'          => 'The height of this listbox, in rows',
 	'sf_forminputs_includetimezone'      => 'Include an input for the time zone',
 	'sf_forminputs_topcategory'          => 'The parent category of this set of categories (required)',
 	'sf_forminputs_height'               => 'The height of this input, in pixels',
