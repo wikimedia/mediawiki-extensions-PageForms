@@ -169,16 +169,6 @@ END;
 		$text .= "</fieldset>\n";
 		$text .= <<<END
 	</p>
-	<p>
-
-END;
-		$mandatoryCheckboxAtrs = array( 'type' => 'checkbox', 'name' => "mandatory_$field_form_text", 'value' => 'mandatory' );
-		if ( $this->is_mandatory ) { $mandatoryCheckboxAtrs['checked'] = 'checked'; }
-		$text .= "\t" . Xml::element( 'input', $mandatoryCheckboxAtrs, wfMsg( 'sf_createform_mandatory' ) ) . "\n";
-		$restrictedCheckboxAtrs = array( 'type' => 'checkbox', 'name' => "restricted_$field_form_text", 'value' => 'restricted' );
-		if ( $this->is_restricted ) { $restrictedCheckboxAtrs['checked'] = 'checked'; }
-		$text .= "\t" . Xml::element( 'input', $restrictedCheckboxAtrs, wfMsg( 'sf_createform_restricted' ) ) . "\n";
-		$text .= <<<END
 	</div>
 	<hr>
 
