@@ -209,12 +209,6 @@ class SFTextInput extends SFFormInput {
 	}
 
 	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		// If it's an autocomplete, call the with-autocomplete function
-		// instead.
-		if ( array_key_exists( 'autocompletion source', $other_args ) ) {
-				return SFTextWithAutocompleteInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
-		}
-
 		global $sfgTabIndex, $sfgFieldNum;
 
 		$className = "createboxInput";
@@ -925,20 +919,6 @@ class SFTextAreaInput extends SFFormInput {
 	}
 
 	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		// set size values
-		if ( ! array_key_exists( 'rows', $other_args ) ) {
-			$other_args['rows'] = 5;
-		}
-		if ( ! array_key_exists( 'cols', $other_args ) ) {
-			$other_args['cols'] = 80;
-		}
-
-		// If it's an autocomplete, call the with-autocomplete
-		// function instead.
-		if ( array_key_exists( 'autocompletion source', $other_args ) ) {
-			return SFTextAreaWithAutocompleteInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
-		}
-
 		global $sfgTabIndex, $sfgFieldNum;
 
 		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
