@@ -123,16 +123,7 @@
 	// Remote autocompletion
 	var myServer = wgScriptPath + "/api.php";
 	var data_type = jQuery(this).attr("autocompletedatatype");
-        if (data_type == 'relation')
-            myServer += "?action=sfautocomplete&format=json&relation=" + data_source;
-        else if (data_type == 'attribute')
-            myServer += "?action=sfautocomplete&format=json&attribute=" + data_source;
-        else if (data_type == 'category')
-            myServer += "?action=sfautocomplete&format=json&category=" + data_source;
-        else if (data_type == 'namespace')
-            myServer += "?action=sfautocomplete&format=json&namespace=" + data_source;
-        else if (data_type == 'external_url')
-            myServer += "?action=sfautocomplete&format=json&external_url=" + data_source;
+	myServer += "?action=sfautocomplete&format=json&" + data_type + "=" + data_source;
 
 	if (delimiter != null) {
 		function split(val) {
