@@ -166,10 +166,6 @@ jQuery(document).ready(function() {
 					} else {
 						$field->template_field->input_type = $input_type;
 					}
-				} elseif ( $paramName == 'restricted' ) {
-					$field->is_restricted = true;
-				} elseif ( $paramName == 'mandatory' ) {
-					$field->is_mandatory = true;
 				} else {
 					if ( ! empty( $value ) ) {
 						if ( $value == 'on' ) {
