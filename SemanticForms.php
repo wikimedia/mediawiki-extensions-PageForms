@@ -22,7 +22,7 @@ $sfgScriptPath = $wgScriptPath . $sfgPartialPath;
 # seen on your local filesystem. Used against some PHP file path
 # issues.
 # #
-$sfgIP = dirname( __FILE__ ) . '/..';
+$sfgIP = dirname( __FILE__ );
 # #
 
 
@@ -30,7 +30,7 @@ $sfgIP = dirname( __FILE__ ) . '/..';
 // $pathfix = $IP . $sfgScriptPath;
 
 // load global functions
-require_once( 'SF_GlobalFunctions.php' );
+require_once( 'includes/SF_GlobalFunctions.php' );
 
 sffInitNamespaces();
 
