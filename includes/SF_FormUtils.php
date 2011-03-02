@@ -317,7 +317,8 @@ END;
 			wfMsgForContent( 'february' ),
 			wfMsgForContent( 'march' ),
 			wfMsgForContent( 'april' ),
-			wfMsgForContent( 'may' ),
+			// Needed to avoid using 3-letter abbreviation
+			wfMsgForContent( 'may_long' ),
 			wfMsgForContent( 'june' ),
 			wfMsgForContent( 'july' ),
 			wfMsgForContent( 'august' ),
