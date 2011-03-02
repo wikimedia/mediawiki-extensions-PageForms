@@ -56,25 +56,15 @@ class SFFormInput {
 	}
 
 	/**
-	 * Returns the set of parameters that every form input will have
-	 * automatically, and that don't need to be declared.
-	 */
-	public static function getStandardParameters() {
-		$params = array();
-		$params[] = array( 'name' => 'restricted', 'type' => 'boolean'	);
-		$params[] = array( 'name' => 'mandatory', 'type' => 'boolean' );
-		return $params;
-	}
-
-	/**
 	 * Returns the set of parameters for this form input.
 	 */
 	public static function getParameters() {
 		$params = array();
+		$params[] = array( 'name' => 'mandatory', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_mandatory' ) );
+		$params[] = array( 'name' => 'restricted', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_restricted' ) );
 		$params[] = array( 'name' => 'class', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_class' ) );
-		$params[] = array( 'name' => 'default', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_default' ) );
-		$params[] = array( 'name' => 'preload', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_preload' ) );
 		$params[] = array( 'name' => 'property', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_property' ) );
+		$params[] = array( 'name' => 'default', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_default' ) );
 		return $params;
 	}
 
@@ -981,6 +971,7 @@ class SFTextAreaInput extends SFFormInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
+		$params[] = array( 'name' => 'preload', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_preload' ) );
 		$params[] = array( 'name' => 'rows', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_rows' ) );
 		$params[] = array( 'name' => 'cols', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_cols' ) );
 		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
@@ -1339,6 +1330,18 @@ class SFCheckboxInput extends SFFormInput {
 
 END;
 		return $text;
+	}
+
+	public static function getParameters() {
+		// Remove the 'mandatory' option - it doesn't make sense for
+		// checkboxes.
+		$params = array();
+		foreach( parent::getParameters() as $param ) {
+			if ( $param['name'] != 'mandatory' ) {
+				$params[] = $param;
+			}
+		}
+		return $params;
 	}
 }
 
