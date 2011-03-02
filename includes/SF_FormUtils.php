@@ -317,7 +317,7 @@ END;
 			wfMsgForContent( 'february' ),
 			wfMsgForContent( 'march' ),
 			wfMsgForContent( 'april' ),
-			wfMsgForContent( 'may_long' ),
+			wfMsgForContent( 'may' ),
 			wfMsgForContent( 'june' ),
 			wfMsgForContent( 'july' ),
 			wfMsgForContent( 'august' ),
