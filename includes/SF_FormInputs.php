@@ -14,15 +14,6 @@
  */
 class SFFormInput {
 	/**
-	 * Returns the set of input types, other than the main one, defined
-	 * by this class; with the set of additional field arguments to
-	 * be passed to each one.
-	 */
-	public static function getAlternateInputTypes() {
-		return array();
-	}
-
-	/**
 	 * Returns the set of SMW property types for which this input is
 	 * meant to be the default one - ideally, no more than one input
 	 * should declare itself the default for any specific type.
@@ -139,12 +130,6 @@ class SFMultiEnumInput extends SFEnumInput {
 class SFTextInput extends SFFormInput {
 	public static function getName() {
 		return 'text';
-	}
-
-	public static function getAlternateInputTypes() {
-		return array(
-			array( 'year', array( 'size' => 4 ) )
-		);
 	}
 
 	public static function getDefaultPropTypes() {
@@ -792,6 +777,90 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 }
 
+class SFTextAreaInput extends SFFormInput {
+	public static function getName() {
+		return 'textarea';
+	}
+
+	public static function getDefaultPropTypes() {
+		return array( '_txt' => array(), '_cod' => array() );
+	}
+
+	public static function getOtherPropTypesHandled() {
+		return array( '_wpg', '_str' );
+	}
+
+	public static function getOtherPropTypeListsHandled() {
+		return array( '_wpg', '_str' );
+	}
+
+	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+		global $sfgTabIndex, $sfgFieldNum;
+
+		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
+		if ( array_key_exists( 'class', $other_args ) ) {
+			$className .= " " . $other_args['class'];
+		}
+		// Use a special ID for the free text field, for FCK's needs.
+		$input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
+
+		if (  array_key_exists( 'rows', $other_args ) ) {
+			$rows = $other_args['rows'];
+		} else {
+			$rows = 5;
+		}
+		if (  array_key_exists( 'cols', $other_args ) ) {
+			$cols = $other_args['cols'];
+		} else {
+			$cols = 80;
+		}
+
+		if ( array_key_exists( 'autogrow', $other_args ) ) {
+			$className .= ' autoGrow';
+		}
+
+		$textarea_attrs = array(
+			'tabindex' => $sfgTabIndex,
+			'id' => $input_id,
+			'name' => $input_name,
+			'rows' => $rows,
+			'cols' => $cols,
+			'class' => $className,
+		);
+		if ( $is_disabled ) {
+			$textarea_attrs['disabled'] = 'disabled';
+		}
+		if ( array_key_exists( 'maxlength', $other_args ) ) {
+			$maxlength = $other_args['maxlength'];
+			// For every actual character pressed (i.e., excluding
+			// things like the Shift key), reduce the string to its
+			// allowed length if it's exceeded that.
+			// This JS code is complicated so that it'll work
+			// correctly in IE - IE moves the cursor to the end
+			// whenever this.value is reset, so we'll make sure to
+			// do that only when we need to.
+			$maxLengthJSCheck = "if (window.event && window.event.keyCode < 48 && window.event.keyCode != 13) return; if (this.value.length > $maxlength) { this.value = this.value.substring(0, $maxlength); }";
+			$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
+			$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
+		}
+		$text = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
+		$spanClass = "inputSpan";
+		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		return $text;
+	}
+
+	public static function getParameters() {
+		$params = parent::getParameters();
+		$params[] = array( 'name' => 'preload', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_preload' ) );
+		$params[] = array( 'name' => 'rows', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_rows' ) );
+		$params[] = array( 'name' => 'cols', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_cols' ) );
+		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
+		$params[] = array( 'name' => 'autogrow', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_autogrow' ) );
+		return $params;
+	}
+}
+
 class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 	public static function getName() {
 		return 'textarea with autocomplete';
@@ -892,90 +961,6 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params = array_merge( $params, SFTextWithAutocompleteInput::getAutocompletionParameters() );
-		return $params;
-	}
-}
-
-class SFTextAreaInput extends SFFormInput {
-	public static function getName() {
-		return 'textarea';
-	}
-
-	public static function getDefaultPropTypes() {
-		return array( '_txt' => array(), '_cod' => array() );
-	}
-
-	public static function getOtherPropTypesHandled() {
-		return array( '_wpg', '_str' );
-	}
-
-	public static function getOtherPropTypeListsHandled() {
-		return array( '_wpg', '_str' );
-	}
-
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $sfgTabIndex, $sfgFieldNum;
-
-		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
-		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= " " . $other_args['class'];
-		}
-		// Use a special ID for the free text field, for FCK's needs.
-		$input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
-
-		if (  array_key_exists( 'rows', $other_args ) ) {
-			$rows = $other_args['rows'];
-		} else {
-			$rows = 5;
-		}
-		if (  array_key_exists( 'cols', $other_args ) ) {
-			$cols = $other_args['cols'];
-		} else {
-			$cols = 80;
-		}
-
-		if ( array_key_exists( 'autogrow', $other_args ) ) {
-			$className .= ' autoGrow';
-		}
-
-		$textarea_attrs = array(
-			'tabindex' => $sfgTabIndex,
-			'id' => $input_id,
-			'name' => $input_name,
-			'rows' => $rows,
-			'cols' => $cols,
-			'class' => $className,
-		);
-		if ( $is_disabled ) {
-			$textarea_attrs['disabled'] = 'disabled';
-		}
-		if ( array_key_exists( 'maxlength', $other_args ) ) {
-			$maxlength = $other_args['maxlength'];
-			// For every actual character pressed (i.e., excluding
-			// things like the Shift key), reduce the string to its
-			// allowed length if it's exceeded that.
-			// This JS code is complicated so that it'll work
-			// correctly in IE - IE moves the cursor to the end
-			// whenever this.value is reset, so we'll make sure to
-			// do that only when we need to.
-			$maxLengthJSCheck = "if (window.event && window.event.keyCode < 48 && window.event.keyCode != 13) return; if (this.value.length > $maxlength) { this.value = this.value.substring(0, $maxlength); }";
-			$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
-			$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
-		}
-		$text = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
-		$spanClass = "inputSpan";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
-		return $text;
-	}
-
-	public static function getParameters() {
-		$params = parent::getParameters();
-		$params[] = array( 'name' => 'preload', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_preload' ) );
-		$params[] = array( 'name' => 'rows', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_rows' ) );
-		$params[] = array( 'name' => 'cols', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_cols' ) );
-		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
-		$params[] = array( 'name' => 'autogrow', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_autogrow' ) );
 		return $params;
 	}
 }
@@ -1083,12 +1068,6 @@ class SFDateTimeInput extends SFDateInput {
 		return 'datetime';
 	}
 
-	public static function getAlternateInputTypes() {
-		return array(
-			array( 'datetime with timezone', array( 'include_timezone' => true ) )
-		);
-	}
-
 	public static function getDefaultPropTypes() {
 		return array();
 	}
@@ -1100,7 +1079,7 @@ class SFDateTimeInput extends SFDateInput {
 	static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfg24HourTime;
 
-		$include_timezone = $other_args['include_timezone'];
+		$include_timezone = array_key_exists( 'include timezone', $other_args );
  
 		if ( $datetime ) {
 			// Can show up here either as an array or a string,
@@ -1188,6 +1167,35 @@ class SFDateTimeInput extends SFDateInput {
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params[] = array( 'name' => 'include timezone', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_includetimezone' ) );
+		return $params;
+	}
+}
+
+class SFYearInput extends SFTextInput {
+	public static function getName() {
+		return 'year';
+	}
+
+	public static function getDefaultPropTypes() {
+		return array();
+	}
+
+	public static function getOtherPropTypesHandled() {
+		return array( '_dat' );
+	}
+
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+		$other_args['size'] = 4;
+		return parent::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
+	}
+
+	public static function getParameters() {
+		$params = array();
+		$params[] = array( 'name' => 'mandatory', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_mandatory' ) );
+		$params[] = array( 'name' => 'restricted', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_restricted' ) );
+		$params[] = array( 'name' => 'class', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_class' ) );
+		$params[] = array( 'name' => 'default', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_default' ) );
+		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_size' ) );
 		return $params;
 	}
 }
