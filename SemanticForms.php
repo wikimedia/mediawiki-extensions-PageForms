@@ -115,14 +115,6 @@ $sfgRedLinksCheckOnlyLocalProps = false;
 $wgPageProps['formdefinition'] = 'Definition of the semantic form used on the page';
  
 # ##
-# Global variables for registering input types
-# ##
-$sfgDefaultInputForPropType = array();
-$sfgDefaultInputForPropTypeList = array();
-$sfgPossibleInputsForPropType = array();
-$sfgPossibleInputsForPropTypeList = array();
-
-# ##
 # Global variables for Javascript
 # ##
 $sfgShowOnSelect = array();
