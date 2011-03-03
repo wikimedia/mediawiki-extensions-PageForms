@@ -23,6 +23,11 @@ class SFFormPrinter {
     $this->mSemanticTypeHooks = array();
     $this->mInputTypeHooks = array();
     $this->mInputTypeClasses = array();
+    $this->mDefaultInputForPropType = array();
+    $this->mDefaultInputForPropTypeList = array();
+    $this->mPossibleInputsForPropType = array();
+    $this->mPossibleInputsForPropTypeList = array();
+
     $this->standardInputsIncluded = false;
 
     $this->registerInputType( 'SFTextInput' );
@@ -31,6 +36,7 @@ class SFFormPrinter {
     $this->registerInputType( 'SFTextAreaWithAutocompleteInput' );
     $this->registerInputType( 'SFDateInput' );
     $this->registerInputType( 'SFDateTimeInput' );
+    $this->registerInputType( 'SFYearInput' );
     $this->registerInputType( 'SFCheckboxInput' );
     $this->registerInputType( 'SFDropdownInput' );
     $this->registerInputType( 'SFRadioButtonInput' );
@@ -53,17 +59,13 @@ class SFFormPrinter {
    * Register all information about the passed-in form input class.
    */
   function registerInputType( $inputTypeClass ) {
-    global $smwgContLang, $sfgDefaultInputForPropType, $sfgDefaultInputForPropTypeList;
-    global $sfgPossibleInputsForPropType, $sfgPossibleInputsForPropTypeList;
+    global $smwgContLang;
     global $sfgInitJSFunctions, $sfgValidationJSFunctions;
  
     $inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
     $this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
     $this->setInputTypeHook( $inputTypeName, array( $inputTypeClass, 'getHTML' ), array() );
-    $alternateInputTypes = call_user_func( array( $inputTypeClass, 'getAlternateInputTypes' ) );
-    foreach ( $alternateInputTypes as $altInputTypeName => $additionalValues ) {
-      $this->setInputTypeHook( $altInputTypeName, array( $inputTypeClass, 'getHTML' ), $additionalValues );
-    }
+
     $defaultProperties = call_user_func( array( $inputTypeClass, 'getDefaultPropTypes' ) );
     foreach ( $defaultProperties as $propertyTypeID => $additionalValues ) {
       if ( $smwgContLang != null ) {
@@ -72,7 +74,7 @@ class SFFormPrinter {
         $propertyType = $datatypeLabels[$propertyTypeID];
         $this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
       }
-      $sfgDefaultInputForPropType[$propertyTypeID] = $inputTypeName;
+      $this->mDefaultInputForPropType[$propertyTypeID] = $inputTypeName;
     }
     $defaultPropertyLists = call_user_func( array( $inputTypeClass, 'getDefaultPropTypeLists' ) );
     foreach ( $defaultPropertyLists as $propertyTypeID => $additionalValues ) {
@@ -82,23 +84,23 @@ class SFFormPrinter {
         $propertyType = $datatypeLabels[$propertyTypeID];
         $this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
       }
-      $sfgDefaultInputForPropTypeList[$propertyTypeID] = $inputTypeName;
+      $this->mDefaultInputForPropTypeList[$propertyTypeID] = $inputTypeName;
     }
 
     $otherProperties = call_user_func( array( $inputTypeClass, 'getOtherPropTypesHandled' ) );
     foreach ( $otherProperties as $propertyTypeID ) {
-      if ( array_key_exists( $propertyTypeID, $sfgPossibleInputsForPropType ) ) {
-        $sfgPossibleInputsForPropType[$propertyTypeID][] = $inputTypeName;
+      if ( array_key_exists( $propertyTypeID, $this->mPossibleInputsForPropType ) ) {
+        $this->mPossibleInputsForPropType[$propertyTypeID][] = $inputTypeName;
       } else {
-        $sfgPossibleInputsForPropType[$propertyTypeID] = array( $inputTypeName );
+        $this->mPossibleInputsForPropType[$propertyTypeID] = array( $inputTypeName );
       }
     }
     $otherPropertyLists = call_user_func( array( $inputTypeClass, 'getOtherPropTypeListsHandled' ) );
     foreach ( $otherPropertyLists as $propertyTypeID ) {
-      if ( array_key_exists( $propertyTypeID, $sfgPossibleInputsForPropTypeList ) ) {
-        $sfgPossibleInputsForPropTypeList[$propertyTypeID][] = $inputTypeName;
+      if ( array_key_exists( $propertyTypeID, $this->mPossibleInputsForPropTypeList ) ) {
+        $this->mPossibleInputsForPropTypeList[$propertyTypeID][] = $inputTypeName;
       } else {
-        $sfgPossibleInputsForPropTypeList[$propertyTypeID] = array( $inputTypeName );
+        $this->mPossibleInputsForPropTypeList[$propertyTypeID] = array( $inputTypeName );
       }
     }
 
@@ -122,26 +124,22 @@ class SFFormPrinter {
 
   public function getDefaultInputType( $isList, $propertyType ) {
     if ( $isList ) {
-      global $sfgDefaultInputForPropTypeList;
-      return $sfgDefaultInputForPropTypeList[$propertyType];
+      return $this->mDefaultInputForPropTypeList[$propertyType];
     } else {
-      global $sfgDefaultInputForPropType;
-      return $sfgDefaultInputForPropType[$propertyType];
+      return $this->mDefaultInputForPropType[$propertyType];
     }
   }
 
   public function getPossibleInputTypes( $isList, $propertyType ) {
     if ( $isList ) {
-      global $sfgPossibleInputsForPropTypeList;
-      if ( array_key_exists( $propertyType, $sfgPossibleInputsForPropTypeList ) ) {
-        return $sfgPossibleInputsForPropTypeList[$propertyType];
+      if ( array_key_exists( $propertyType, $this->mPossibleInputsForPropTypeList ) ) {
+        return $this->mPossibleInputsForPropTypeList[$propertyType];
       } else {
         return array();
       }
     } else {
-      global $sfgPossibleInputsForPropType;
-      if ( array_key_exists( $propertyType, $sfgPossibleInputsForPropType ) ) {
-        return $sfgPossibleInputsForPropType[$propertyType];
+      if ( array_key_exists( $propertyType, $this->mPossibleInputsForPropType ) ) {
+        return $this->mPossibleInputsForPropType[$propertyType];
       } else {
         return array();
       }
@@ -762,6 +760,11 @@ END;
               }
             }
           } // end for
+          // Backwards compatibility
+          if ( $input_type == 'datetime with timezone' ) {
+            $input_type = 'datetime';
+            $field_args['include timezone'] = true;
+          }
           if ( $allow_multiple )
             $field_args['part_of_multiple'] = $allow_multiple;
           if ( count( $show_on_select ) > 0 )
@@ -1017,7 +1020,7 @@ END;
                 // to the default value
                 ( $cur_value == '' || $cur_value == 'now' ) ) {
               if ( $input_type == 'date' || $input_type == 'datetime' ||
-                  $input_type == 'datetime with timezone' || $input_type == 'year' ||
+                  $input_type == 'year' ||
                   ( $input_type == '' && $form_field->template_field->field_type_id == '_dat' ) ) {
                 // Get current time, for the time zone specified in the wiki.
                 global $wgLocaltimezone;
@@ -1040,7 +1043,7 @@ END;
                 if ( isset( $wgLocaltimezone ) ) {
                   date_default_timezone_set( $serverTimezone );
                 }
-                if ( $input_type ==  'datetime' || $input_type == 'datetime with timezone' ) {
+                if ( $input_type ==  'datetime' ) {
                   if ( $sfg24HourTime ) {
                     $hour = str_pad( intval( substr( date( "G", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
                   } else {
@@ -1055,7 +1058,7 @@ END;
                     $cur_value_in_template .= " $hour:$minute:$second $ampm";
                   }
                 }
-                if ( $input_type == 'datetime with timezone' ) {
+                if ( array_key_exists( 'include timezone', $field_args ) ) {
                   $timezone = date( "T", $cur_time );
                   $cur_value_in_template .= " $timezone";
                 }
