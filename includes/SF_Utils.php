@@ -22,19 +22,28 @@ class SFUtils {
 		}
 	}
 
+	public static function isCapitalized( $title ) {
+		// Method was added in MW 1.16.
+		if ( method_exists( 'MWNamespace', 'isCapitalized' ) ) {
+			return MWNamespace::isCapitalized( $title->getNamespace() );
+		} else {
+			global $wgCapitalLinks;
+			return $wgCapitalLinks;
+		}
+
+	}
+
 	/**
 	 * Creates the name of the page that appears in the URL;
 	 * this method is necessary because Title::getPartialURL(), for
 	 * some reason, doesn't include the namespace
 	 */
-	static function titleURLString( $title ) {
-		global $wgCapitalLinks;
-
+	public static function titleURLString( $title ) {
 		$namespace = wfUrlencode( $title->getNsText() );
 		if ( $namespace != '' ) {
 			$namespace .= ':';
 		}
-		if ( $wgCapitalLinks ) {
+		if ( self::isCapitalized( $title ) ) {
 			global $wgContLang;
 			return $namespace . $wgContLang->ucfirst( $title->getPartialURL() );
 		} else {
@@ -47,13 +56,11 @@ class SFUtils {
 	 * non-URL-encoded title string
 	 */
 	static function titleString( $title ) {
-		global $wgCapitalLinks;
-
 		$namespace = $title->getNsText();
 		if ( $namespace != '' ) {
 			$namespace .= ':';
 		}
-		if ( $wgCapitalLinks ) {
+		if ( self::isCapitalized( $title ) ) {
 			global $wgContLang;
 			return $namespace . $wgContLang->ucfirst( $title->getText() );
 		} else {
