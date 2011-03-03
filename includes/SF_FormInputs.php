@@ -158,7 +158,7 @@ class SFTextInput extends SFFormInput {
 		return array( '_wpg' );
 	}
 
-	static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
+	public static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
 		$upload_window_page = SpecialPage::getPage( 'UploadWindow' );
 		$query_string = "sfInputID=$input_id";
 		if ( $delimiter != null )
@@ -183,7 +183,7 @@ class SFTextInput extends SFFormInput {
 		return $text;
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum;
 
 		$className = "createboxInput";
@@ -282,7 +282,7 @@ class SFDropdownInput extends SFEnumInput {
 		return array();
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
 		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
@@ -345,7 +345,7 @@ class SFListBoxInput extends SFMultiEnumInput {
 		return 'listbox';
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
 		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
@@ -432,7 +432,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 		return array();
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
 		$checkbox_class = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
@@ -518,7 +518,7 @@ class SFComboBoxInput extends SFFormInput {
 		return array( '_wpg', '_str' );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// For backward compatibility with pre-SF-2.1 forms
 		if ( array_key_exists( 'no autocomplete', $other_args ) &&
 				$other_args['no autocomplete'] == true ) {
@@ -528,9 +528,6 @@ class SFComboBoxInput extends SFFormInput {
 
 		global $sfgTabIndex, $sfgFieldNum;
 
-		$autocomplete_field_type = "";
-		$autocompletion_source = "";
-
 		$className = "sfComboBox";
 		if ( $is_mandatory ) {
 			$className .= " mandatoryField";
@@ -539,14 +536,7 @@ class SFComboBoxInput extends SFFormInput {
 			$className .= " " . $other_args['class'];
 		}
 		$disabled_text = ( $is_disabled ) ? "disabled" : "";
-		if ( array_key_exists( 'autocomplete field type', $other_args ) ) {
-			$autocomplete_field_type = $other_args['autocomplete field type'];
-			$autocompletion_source = $other_args['autocompletion source'];
-			if ( $autocomplete_field_type != 'external_url' ) {
-				global $wgContLang;
-				$autocompletion_source = $wgContLang->ucfirst( $autocompletion_source );
-			}
-		}
+
 		if ( array_key_exists( 'size', $other_args ) ) {
 			$size = $other_args['size'];
 		} else {
@@ -558,8 +548,10 @@ class SFComboBoxInput extends SFFormInput {
 		// browsers.
 		$pixel_width = $size * 6 . "px";
  
-		$values = SFUtils::getAutocompleteValues($autocompletion_source, $autocomplete_field_type );
-		$autocompletion_source = str_replace( "'", "\'", $autocompletion_source );
+		list( $autocompleteFieldType, $autocompletionSource ) =
+			SFTextWithAutocompleteInput::getAutocompletionTypeAndSource( $other_args );
+		$values = SFUtils::getAutocompleteValues($autocompletionSource, $autocompleteFieldType );
+		$autocompletionSource = str_replace( "'", "\'", $autocompletionSource );
 
 		$optionsText = Xml::element( 'option', array( 'value' => $cur_value ), null, false ) . "\n";
 		foreach ( $values as $value ) {
@@ -571,7 +563,7 @@ class SFComboBoxInput extends SFFormInput {
 			'name' => $input_name,
 			'class' => $className,
 			'tabindex' => $sfgTabIndex,
-			'autocompletesettings' => $autocompletion_source,
+			'autocompletesettings' => $autocompletionSource,
 			'comboboxwidth' => $pixel_width,
 		);
 		if ( array_key_exists( 'existing values only', $other_args ) ) {
@@ -619,9 +611,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		return array( '_str' );
 	}
 
-	static function setAutocompleteValues( $field_args ) {
-		global $sfgAutocompleteValues;
-
+	public static function getAutocompletionTypeAndSource( $field_args ) {
 		if ( array_key_exists( 'values from property', $field_args ) ||
 			array_key_exists( 'semantic_property', $field_args ) ) {
 			if ( array_key_exists( 'values from property', $field_args ) ) {
@@ -667,8 +657,16 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			$autocompletionSource = $wgContLang->ucfirst( $autocompletionSource );
 		}
 
+		return array( $autocompleteFieldType, $autocompletionSource );
+	}
+
+	public static function setAutocompleteValues( $field_args ) {
+		global $sfgAutocompleteValues;
+
 		// Get all autocomplete-related values, plus delimiter value
 		// (it's needed also for the 'uploadable' link, if there is one).
+		list( $autocompleteFieldType, $autocompletionSource ) =
+			self::getAutocompletionTypeAndSource( $field_args );
 		$autocompleteSettings = $autocompletionSource;
 		$is_list = ( array_key_exists( 'is_list', $field_args ) && $field_args['is_list'] == true );
 		if ( $is_list ) {
@@ -698,7 +696,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		return array( $autocompleteSettings, $remoteDataType, $delimiter );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// Backwards compatibility, for pre-SF-2.1 forms:
 		// if 'no autocomplete' was specified, switch to SFTextInput.
 		if ( array_key_exists( 'no autocomplete', $other_args ) &&
@@ -794,7 +792,7 @@ class SFTextAreaInput extends SFFormInput {
 		return array( '_wpg', '_str' );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum;
 
 		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
@@ -878,7 +876,7 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		return array( '_wpg', '_str' );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// If 'no autocomplete' was specified, print a regular
 		// textarea instead.
 		if ( array_key_exists( 'no autocomplete', $other_args ) &&
@@ -974,7 +972,7 @@ class SFDateInput extends SFFormInput {
 		return array( '_dat' => array() );
 	}
 
-	static function monthDropdownHTML( $cur_month, $input_name, $is_disabled ) {
+	public static function monthDropdownHTML( $cur_month, $input_name, $is_disabled ) {
 		global $sfgTabIndex, $wgAmericanDates;
 
 		$optionsText = "";
@@ -1000,7 +998,7 @@ class SFDateInput extends SFFormInput {
 		return $text;
 	}
 
-	static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $wgAmericanDates;
 
 		$input_id = "input_$sfgFieldNum";
@@ -1054,7 +1052,7 @@ class SFDateInput extends SFFormInput {
 		return $text;
 	}
 	
-	static function getHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		$text = self::getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args );
 		$spanClass = "dateInput";
 		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
@@ -1076,7 +1074,7 @@ class SFDateTimeInput extends SFDateInput {
 		return array( '_dat' );
 	}
 
-	static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfg24HourTime;
 
 		$include_timezone = array_key_exists( 'include timezone', $other_args );
@@ -1205,7 +1203,7 @@ class SFRadioButtonInput extends SFEnumInput {
 		return 'radiobutton';
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
 		if ( ( $possible_values = $other_args['possible_values'] ) == null )
@@ -1298,7 +1296,7 @@ class SFCheckboxInput extends SFFormInput {
 		return array( '_boo' => array() );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
 		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
@@ -1362,7 +1360,7 @@ class SFCategoryInput extends SFFormInput {
 		return array( '_wpg' );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// escape if CategoryTree extension isn't included
 		if ( ! function_exists( 'efCategoryTreeParserHook' ) )
 			return null;
@@ -1450,7 +1448,7 @@ class SFCategoriesInput extends SFCategoryInput {
 		return array( '_wpg' );
 	}
 
-	static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// escape if CategoryTree extension isn't included
 		if ( ! function_exists( 'efCategoryTreeParserHook' ) )
 			return null;
