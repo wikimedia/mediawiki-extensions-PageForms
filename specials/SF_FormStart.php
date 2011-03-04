@@ -37,7 +37,7 @@ class SFFormStart extends SpecialPage {
 			// redirect to 'FormEdit' for this target page.
 			if ( isset( $queryparts[1] ) ) {
 				$target_name = $queryparts[1];
-				SFFormStart::doRedirect( $form_name, $target_name, $params );
+				self::doRedirect( $form_name, $target_name, $params );
 			}
 
 			// Get namespace from the URL, if it's there.
@@ -78,7 +78,7 @@ class SFFormStart extends SpecialPage {
 					$wgOut->addHTML( htmlspecialchars( wfMsg( 'sf_formstart_badtitle', $page_name ) ) );
 					return;
 				} else {
-					SFFormStart::doRedirect( $form_name, $page_name, $params );
+					self::doRedirect( $form_name, $page_name, $params );
 					return;
 				}
 			}
@@ -154,8 +154,10 @@ END;
 			// identify the latter because they show up as arrays.
 			foreach ( $_REQUEST as $key => $val ) {
 				if ( is_array( $val ) ) {
-					$template_name = $key;
+					$template_name = urlencode( $key );
 					foreach ( $val as $field_name => $value ) {
+						$field_name = urlencode( $field_name );
+						$value = urlencode( $value );
 						$redirect_url .= ( strpos( $redirect_url, "?" ) > - 1 ) ? '&' : '?';
 						$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
 					}
