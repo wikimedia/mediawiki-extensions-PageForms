@@ -56,14 +56,13 @@ window.ext.popupform = new function() {
 	var wrapper;
 	var background;
 	var container;
+	var innerContainer;
 	var iframe;
 	var content;
 	var waitIndicator;
 	var instance = 0;
 
 	var doc;
-//	var docW;
-//	var docH;
 
 	var brokenBrowser, brokenChrome;
 
@@ -133,7 +132,7 @@ window.ext.popupform = new function() {
 		instance++;
 
 		brokenChrome =
-			( navigator.userAgent.indexOf("Chrome") >= 0 &&
+		( navigator.userAgent.indexOf("Chrome") >= 0 &&
 			navigator.platform.indexOf("Linux x86_64") >= 0 );
 
 		brokenBrowser= jQuery.browser.msie ||brokenChrome;
@@ -156,6 +155,7 @@ window.ext.popupform = new function() {
 		var anchor = jQuery( "<div class='popupform-anchor' >" );
 
 		container = jQuery( "<div class='popupform-container' >" );
+		innerContainer = jQuery( "<div class='popupform-innercontainer' >" );
 		iframe = jQuery( "<iframe class='popupform-innerdocument' name='popupform-iframe" + instance + "' id='popupform-iframe" + instance + "' >");
 
 		var closeBtn = jQuery( "<div class='popupform-close'></div> " );
@@ -171,9 +171,12 @@ window.ext.popupform = new function() {
 		waitIndicatorWrapper
 		.append( waitIndicator );
 
+		innerContainer
+		.append( iframe );
+
 		container
 		.append( closeBtn )
-		.append( iframe );
+		.append( innerContainer );
 
 		anchor
 		.append(container);
@@ -191,8 +194,6 @@ window.ext.popupform = new function() {
 
 		// attach event handler to close button
 		closeBtn.click( handleCloseFrame );
-
-	// TODO: wrapper must be set to max z-index;
 
 	}
 
@@ -228,7 +229,8 @@ window.ext.popupform = new function() {
 			height: "auto",
 			minWidth: "0px",
 			minHeight:"0px",
-			overflow: "visible"
+			overflow: "visible",
+			position: "absolute"
 		} )
 		.parents().css( {
 			margin: 0,
@@ -237,17 +239,18 @@ window.ext.popupform = new function() {
 			height: "auto",
 			minWidth: "0px",
 			minHeight:"0px",
-			overflow: "visible"
+			overflow: "visible",
+			background: "transparent"
 		})
 		.andSelf().siblings();
 
-		if ( jQuery.browser.msie && jQuery.browser.version < "6" ) {
+		if ( jQuery.browser.msie && jQuery.browser.version < "8" ) {
 			siblings.hide();
 		} else {
 			siblings
 			.each( function(){
 				var elem = jQuery(this);
-//				if ( ( elem.outerWidth(true) > 0 && elem.outerHeight(true) > 0 ) &&
+				//				if ( ( elem.outerWidth(true) > 0 && elem.outerHeight(true) > 0 ) &&
 				if ( getStyle(this, "display") != "none"
 					&& ( getStyle( this, "width") != "0px" || getStyle( this, "height") != "0px" )
 					&& ! (
@@ -281,13 +284,6 @@ window.ext.popupform = new function() {
 		//.children().css("position", "static");
 		}
 
-//		// find content document
-//		doc = iframe[0].contentWindow || iframe[0].contentDocument;
-//
-//		if (doc.document) {
-//			doc = doc.document;
-//		}
-
 		container.show();
 
 		// adjust frame size to dimensions just calculated
@@ -295,10 +291,15 @@ window.ext.popupform = new function() {
 
 		// and attach event handler to adjust frame size every time the window
 		// size changes
-		jQuery( window ).resize( adjustFrameSize );
+		jQuery( window ).resize( function() {
+			adjustFrameSize();
+		} );
+
+		//interval = setInterval(adjustFrameSize, 100);
 
 		var form = content.find("#sfForm");
 		var innerwdw = window.frames['popupform-iframe' + instance];
+		var innerJ = innerwdw.jQuery;
 
 		if (form.length > 0) {
 
@@ -324,24 +325,50 @@ window.ext.popupform = new function() {
 			});
 
 			// catch inner form submit event
-			innerwdw.jQuery(form[0])
-			.bind( "submit", function( event ) {
-				submitok = event.result;
+			if ( innerJ ) {
+				innerwdw.jQuery(form[0])
+				.bind( "submit", function( event ) {
+					submitok = event.result;
+					innersubmitprocessed = true;
+					return false;
+				});
+			} else {
+				submitok = true;
 				innersubmitprocessed = true;
-				return false;
-			})
+			}
 		}
 
-		innerwdw.jQuery( innerwdw[0] ).unload(function (event) {
-			return false;
-		});
+		if (innerJ) {
+			// FIXME: Why did I put this in?
+			innerwdw.jQuery( innerwdw[0] ).unload(function (event) {
+				return false;
+			});
+			
+			//
+			content.bind( 'click', function() {
+				var foundQueue = false;
+				innerJ('*', content[0]).each( function() {
+					if ( innerJ(this).queue().length > 0 ) {
+						foundQueue = true;
+						innerJ(this).queue( function(){
+							setTimeout( adjustFrameSize, 100, true );
+							innerJ(this).dequeue();
+						});
+					}
+				});
+				if ( ! foundQueue ) {
+					adjustFrameSize( true );
+				}
+				return true;
+			});
+		}
 
 		// find all links. Have to use inner jQuery so event.result below
 		// reflects the result of inner event handlers. We (hopefully) come last
 		// in the chain of event handlers as we only attach when the frame is
 		// already completely loaded, i.e. every inner event handler is already
 		// attached.
-		var allLinks = innerwdw.jQuery("a[href]");
+		var allLinks = (innerJ)?innerJ("a[href]"):jQuery("a[href]");
 
 		// catch 'Cancel'-Link (and other 'back'-links) and close frame instead of going back
 		var backlinks = allLinks.filter('a[href="javascript:history.go(-1);"]');
@@ -446,9 +473,14 @@ window.ext.popupform = new function() {
 		}
 	}
 
-	function adjustFrameSize() {
+	function adjustFrameSize( animate ) {
 
-		// Inputs
+		// set some inputs
+
+		var oldFrameW = container.width();
+		var oldFrameH = container.height();
+		var oldContW = content.width();
+		var oldContH = content.height();
 
 		var availW = Math.floor( jQuery(window).width() * .8 );
 		var availH = Math.floor( jQuery(window).height() * .8 );
@@ -457,33 +489,53 @@ window.ext.popupform = new function() {
 		var emergencyH = Math.floor( jQuery(window).height() * .85 );
 
 		// FIXME: these might not be the true values
-		var scrollW = 20;
-		var scrollH = 20;
+		var scrollW = 25;
+		var scrollH = 25;
 
 
 		// find the dimensions of the document
 
-		// set max dimensions for layout of content
-		container
-		.width( emergencyW )
-		.height( emergencyH );
+		var html = content.closest('html');
+		var scrollTgt = html;
 
-		var origPos = content[0].style.position; // save original positioning
-		content[0].style.position = "fixed";
+		if( jQuery.browser.webkit || jQuery.browser.safari ){
+			scrollTgt = content.closest('body');
+		}
 
-		// initiate layout
+		var scrollTop = scrollTgt.scrollTop()
+		var scrollLeft = scrollTgt.scrollLeft();
+
 		content
 		.width( 'auto' )
 		.height( 'auto' );
+
+		// set max dimensions for layout of content
+		iframe
+		.width( emergencyW )
+		.height( emergencyH );
 
 		// get dimension values
 		var docW = content.width();
 		var docH = content.height();
 
-		var docpW = docW + 2 * padding;
-		var docpH = docH + 2 * padding;
+		// set old dimensions for layout of content
+		iframe
+		.width( '100%' )
+		.height( '100%' );
 
-		content[0].style.position = origPos; // reset original positioning
+		content
+		.width( oldContW )
+		.height( oldContH );
+
+		var docW, docH;
+
+		if ( jQuery.browser.msie ) {
+			docW += 20;
+			docH += 20;
+		}
+
+		docpW = docW + 2 * padding;
+		docpH = docH + 2 * padding;
 
 		// Flags
 
@@ -491,12 +543,12 @@ window.ext.popupform = new function() {
 		var needsVScroll = docpH > emergencyH || ( docpH > emergencyH - scrollH && docpW > emergencyW );
 
 		var needsWStretch =
-			( docpW > availW && docpW <= emergencyW ) && ( docpH <= emergencyH ) ||
-			( docpW > availW - scrollW && docpW <= emergencyW - scrollW ) && ( docpH > emergencyH );
+		( docpW > availW && docpW <= emergencyW ) && ( docpH <= emergencyH ) ||
+		( docpW > availW - scrollW && docpW <= emergencyW - scrollW ) && ( docpH > emergencyH );
 
 		var needsHStretch =
-			( docpH > availH && docpH <= emergencyH ) && ( docpW <= emergencyW ) ||
-			( docpH > availH - scrollH && docpH <= emergencyH - scrollH ) && ( docpW > emergencyW );
+		( docpH > availH && docpH <= emergencyH ) && ( docpW <= emergencyW ) ||
+		( docpH > availH - scrollH && docpH <= emergencyH - scrollH ) && ( docpW > emergencyW );
 
 		// Outputs
 
@@ -520,6 +572,8 @@ window.ext.popupform = new function() {
 
 		if ( needsVScroll ){
 			frameW += scrollW;
+		} else {
+			scrollTop = 0;
 		}
 
 		if ( needsHStretch ) {
@@ -536,21 +590,70 @@ window.ext.popupform = new function() {
 		
 		if ( needsHScroll ){
 			frameH += scrollH;
+		} else {
+			scrollLeft = 0;
 		}
 
-		with ( container[0].style ) {
-			top = (( - frameH ) / 2) + "px";
-			left = (( - frameW ) / 2) + "px";
+		if ( frameW != oldFrameW || frameH != oldFrameH ) {
+			if ( animate ) {
+				iframe[0].style.overflow="hidden";
+				html[0].style.overflow="hidden";
+
+				content
+				.width ( 'auto' )
+				.height ( 'auto' );
+
+				container.animate({
+					width: frameW,
+					height: frameH,
+					top: ( - frameH ) / 2,
+					left: ( - frameW ) / 2
+				}, {
+					duration: 500,
+					complete: function() {
+						iframe[0].style.overflow="visible";
+						html[0].style.overflow="visible";
+
+						if ( jQuery.browser.mozilla ) {
+							content
+							.width ( contW )
+							.height ( contH );
+						} else {
+							content
+							.width ( 'auto' )
+							.height ( 'auto' );
+						}
+					}
+				});
+
+			} else {
+
+				container
+				.width( frameW )
+				.height ( frameH );
+
+				with ( container[0].style ) {
+					top = (( - frameH ) / 2) + "px";
+					left = (( - frameW ) / 2) + "px";
+					}
+
+				content
+				.width ( 'auto' )
+				.height ( 'auto' );
+
+			}
+		} else {
+			content
+			.width ( 'auto' )
+			.height ( 'auto' );
+
 		}
 
-		container
-		.width( frameW )
-		.height ( frameH )
+		scrollTgt
+		.scrollTop(Math.min(scrollTop, docpH - frameH))
+		.scrollLeft(scrollLeft);
 
-		content
-		.width ( contW )
-		.height ( contH );
-
+		return true;
 	}
 
 	function closeFrameAndFollowLink( link ){
