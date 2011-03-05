@@ -301,6 +301,10 @@ window.ext.popupform = new function() {
 		var innerwdw = window.frames['popupform-iframe' + instance];
 		var innerJ = innerwdw.jQuery;
 
+//		content.bind("DOMSubtreeModified", function( evt ){
+//			adjustFrameSize( true );
+//		});
+
 		if (form.length > 0) {
 
 			var submitok = false;
@@ -360,6 +364,10 @@ window.ext.popupform = new function() {
 					adjustFrameSize( true );
 				}
 				return true;
+			});
+		} else {
+			content.bind( 'click', function() {
+					adjustFrameSize( true );
 			});
 		}
 
@@ -745,5 +753,6 @@ window.ext.popupform = new function() {
 	// export public funcitons
 	this.handlePopupFormInput = handlePopupFormInput;
 	this.handlePopupFormLink = handlePopupFormLink;
+	this.adjustFrameSize =adjustFrameSize;
 
 }
