@@ -13,12 +13,11 @@ Notes on installing Semantic Forms can be found in the file INSTALL.
 
 Semantic Forms was created, and mostly written by, Yaron Koren.
 
+Significant parts of the Javascript were contributed by Stephan Gambke.
+
 Much of the jQuery and related Javascript functionality was initially
 created by Sanyam Goyal as part of the 2010 Google Summer of Code
 program.
-
-Significant parts of the Javascript, including the Ajax form-preview
-code, were contributed by Stephan Gambke.
 
 Important code contributions were also made by Christoph Burgmer,
 Daniel Friesen, Daniel Hansch, Eugene Mednikov, Harold Solbrig, Jayson
