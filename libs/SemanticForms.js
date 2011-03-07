@@ -741,14 +741,14 @@ jQuery(document).ready(function() {
 	
 	jQuery(".sfShowIfChecked").each( function() {
 		jQuery(this).showIfChecked();
-		jQuery(this).change( function() {
+		jQuery(this).click( function() {
 			jQuery(this).showIfChecked();
 		});
 	});
 	
 	jQuery(".sfShowIfCheckedCheckbox").each( function() {
 		jQuery(this).showIfCheckedCheckbox();
-		jQuery(this).change( function() {
+		jQuery(this).click( function() {
 			jQuery(this).showIfCheckedCheckbox();
 		});
 	});
