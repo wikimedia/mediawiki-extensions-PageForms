@@ -186,6 +186,11 @@ class SFTextInput extends SFFormInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum;
 
+		// For backward compatibility with pre-SF-2.1 forms
+		if ( array_key_exists( 'autocomplete field type', $other_args ) ) {
+			return SFTextWithAutocompleteInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
+		}
+
 		$className = "createboxInput";
 		if ( $is_mandatory ) {
 			$className .= " mandatoryField";
@@ -772,7 +777,10 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 
 	public static function getAutocompletionTypeAndSource( $field_args ) {
-		if ( array_key_exists( 'values from property', $field_args ) ||
+		if ( array_key_exists( 'autocomplete field type', $field_args ) ) {
+			$autocompleteFieldType = $field_args['autocomplete field type'];
+			$autocompletionSource = $field_args['autocompletion source'];
+		} elseif ( array_key_exists( 'values from property', $field_args ) ||
 			array_key_exists( 'semantic_property', $field_args ) ) {
 			if ( array_key_exists( 'values from property', $field_args ) ) {
 				$autocompletionSource = $field_args['values from property'];
@@ -804,9 +812,6 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			global $sfgFieldNum;
 			$autocompleteFieldType = 'values';
 			$autocompletionSource = "values-$sfgFieldNum";
-		} elseif ( array_key_exists( 'autocomplete field type', $field_args ) ) {
-			$autocompleteFieldType = $field_args['autocomplete field type'];
-			$autocompletionSource = $field_args['autocompletion source'];
 		} else {
 			$autocompleteFieldType = null;
 			$autocompletionSource = null;
@@ -846,7 +851,10 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 				$field_args['remote autocompletion'] == true ) {
 			$remoteDataType = $autocompleteFieldType;
 		} elseif ( $autocompletionSource != '' ) {
-			if ( $autocompleteFieldType == 'values' ) {
+			if ( array_key_exists( 'possible_values', $field_args ) &&
+			count( $field_args['possible_values'] ) > 0 ) {
+				$autocompleteValues = $field_args['possible_values'];
+			} elseif ( $autocompleteFieldType == 'values' ) {
 				$autocompleteValues = explode( ',', $field_args['values'] );
 			} else {
 				$autocompleteValues = SFUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
