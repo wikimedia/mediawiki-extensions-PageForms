@@ -764,6 +764,12 @@ END;
 					if ( $input_type == 'datetime with timezone' ) {
 						$input_type = 'datetime';
 						$field_args['include timezone'] = true;
+					} elseif ( $input_type == 'text' || $input_type == 'textarea' ) {
+						// Also for backwards compatibility,
+						// in that once b/c goes away,
+						// this will no longer be
+						// necessary.
+						$field_args['no autocomplete'] = true;
 					}
 					if ( $allow_multiple )
 						$field_args['part_of_multiple'] = $allow_multiple;
