@@ -777,23 +777,14 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 
 	public static function getAutocompletionTypeAndSource( $field_args ) {
-		if ( array_key_exists( 'autocomplete field type', $field_args ) ) {
-			$autocompleteFieldType = $field_args['autocomplete field type'];
-			$autocompletionSource = $field_args['autocompletion source'];
-		} elseif ( array_key_exists( 'values from property', $field_args ) ||
-			array_key_exists( 'semantic_property', $field_args ) ) {
-			if ( array_key_exists( 'values from property', $field_args ) ) {
-				$autocompletionSource = $field_args['values from property'];
-			} else { // if ( array_key_exists( 'semantic_property', $field_args ) ) {
-				$autocompletionSource = $field_args['semantic_property'];
-			}
+		if ( array_key_exists( 'values from property', $field_args ) ) {
+			$autocompletionSource = $field_args['values from property'];
 			$propValue = SMWPropertyValue::makeUserProperty( $autocompletionSource );
 			if ( $propValue->getPropertyTypeID() == '_wpg' ) {
 				$autocompleteFieldType = 'relation';
 			} else {
 				$autocompleteFieldType = 'attribute';
 			}
-
 		} elseif ( array_key_exists( 'values from category', $field_args ) ) {
 			$autocompleteFieldType = 'category';
 			$autocompletionSource = $field_args['values from category'];
@@ -812,6 +803,17 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			global $sfgFieldNum;
 			$autocompleteFieldType = 'values';
 			$autocompletionSource = "values-$sfgFieldNum";
+		} elseif ( array_key_exists( 'autocomplete field type', $field_args ) ) {
+			$autocompleteFieldType = $field_args['autocomplete field type'];
+			$autocompletionSource = $field_args['autocompletion source'];
+		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
+			$autocompletionSource = $field_args['semantic_property'];
+			$propValue = SMWPropertyValue::makeUserProperty( $autocompletionSource );
+			if ( $propValue->getPropertyTypeID() == '_wpg' ) {
+				$autocompleteFieldType = 'relation';
+			} else {
+				$autocompleteFieldType = 'attribute';
+			}
 		} else {
 			$autocompleteFieldType = null;
 			$autocompletionSource = null;
@@ -851,6 +853,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 				$field_args['remote autocompletion'] == true ) {
 			$remoteDataType = $autocompleteFieldType;
 		} elseif ( $autocompletionSource != '' ) {
+			// @TODO - that count() check shouldn't be necessary
 			if ( array_key_exists( 'possible_values', $field_args ) &&
 			count( $field_args['possible_values'] ) > 0 ) {
 				$autocompleteValues = $field_args['possible_values'];
