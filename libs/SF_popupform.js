@@ -135,7 +135,7 @@ window.ext.popupform = new function() {
 		( navigator.userAgent.indexOf("Chrome") >= 0 &&
 			navigator.platform.indexOf("Linux x86_64") >= 0 );
 
-		brokenBrowser= jQuery.browser.msie ||brokenChrome;
+		brokenBrowser= jQuery.browser.msie || brokenChrome;
 
 		var maxZIndex = 0;
 
@@ -600,9 +600,11 @@ window.ext.popupform = new function() {
 		}
 
 		if ( frameW != oldFrameW || frameH != oldFrameH ) {
+
+			iframe[0].style.overflow="hidden";
+			html[0].style.overflow="hidden";
+
 			if ( animate ) {
-				iframe[0].style.overflow="hidden";
-				html[0].style.overflow="hidden";
 
 				content
 				.width ( 'auto' )
@@ -611,13 +613,19 @@ window.ext.popupform = new function() {
 				container.animate({
 					width: frameW,
 					height: frameH,
-					top: ( - frameH ) / 2,
-					left: ( - frameW ) / 2
+					top: Math.floor(( - frameH ) / 2),
+					left: Math.floor(( - frameW ) / 2)
 				}, {
 					duration: 500,
 					complete: function() {
-						iframe[0].style.overflow="auto";
-						html[0].style.overflow="auto";
+
+						if ( jQuery.browser.msie ) {
+							iframe[0].style.overflow="auto";
+							html[0].style.overflow="auto";
+						} else {
+							iframe[0].style.overflow="visible";
+							html[0].style.overflow="visible";
+						}
 
 						if ( jQuery.browser.mozilla ) {
 							content
@@ -638,13 +646,29 @@ window.ext.popupform = new function() {
 				.height ( frameH );
 
 				with ( container[0].style ) {
-					top = (( - frameH ) / 2) + "px";
-					left = (( - frameW ) / 2) + "px";
-					}
+					top = (Math.floor(( - frameH ) / 2)) + "px";
+					left = (Math.floor(( - frameW ) / 2)) + "px";
+				}
 
-				content
-				.width ( 'auto' )
-				.height ( 'auto' );
+				setTimeout(function(){
+					if ( jQuery.browser.msie ) {
+						iframe[0].style.overflow="auto";
+						html[0].style.overflow="auto";
+					} else {
+						iframe[0].style.overflow="visible";
+						html[0].style.overflow="visible";
+					}
+				}, 100);
+
+				if ( jQuery.browser.mozilla ) {
+					content
+					.width ( contW )
+					.height ( contH );
+				} else {
+					content
+					.width ( 'auto' )
+					.height ( 'auto' );
+				}
 
 			}
 		} else {
@@ -652,6 +676,15 @@ window.ext.popupform = new function() {
 			.width ( 'auto' )
 			.height ( 'auto' );
 
+			if ( jQuery.browser.safari ) { // Google chrome needs a kick
+
+				// turn scrollbars off and on again to really only show them when needed
+				html[0].style.overflow="hidden";
+
+				setTimeout(function(){
+						html[0].style.overflow="visible";
+				}, 1);
+			}
 		}
 
 		scrollTgt

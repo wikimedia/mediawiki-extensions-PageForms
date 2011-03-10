@@ -51,6 +51,7 @@ iframe.popupform-innerdocument {
 	border: none;
 	background: transparent;
 	position: relative;
+	overflow: hidden;
 }
 
 div.popupform-close {
