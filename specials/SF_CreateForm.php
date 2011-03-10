@@ -32,6 +32,9 @@ class SFCreateForm extends SpecialPage {
 			foreach ( $wgRequest->getArray('params') as $key => $value ) {
 				if ( ( $pos = strpos( $key, '_' . $fieldFormText ) ) != false ) {
 					$paramName = substr( $key, 0, $pos );
+					// Spaces got replaced by underlines in
+					// the query.
+					$paramName = str_replace( '_', ' ', $paramName );
 					$paramValues[$paramName] = $value;
 				}
 			}
@@ -149,13 +152,16 @@ jQuery(document).ready(function() {
 			foreach ( $wgRequest->getValues() as $key => $value ) {
 				if ( ( $pos = strpos( $key, '_' . $old_i . '_' . $j ) ) != false ) {
 					$paramName = substr( $key, 0, $pos );
+					// Spaces got replaced by underlines
+					// in the query.
+					$paramName = str_replace( '_', ' ', $paramName );
 				} else {
 					continue;
 				}
 
 				if ( $paramName == 'label' ) {
 					$field->template_field->label = $value;
-				} elseif ( $paramName == 'input_type' ) {
+				} elseif ( $paramName == 'input type' ) {
 					$input_type = $wgRequest->getVal( "input_type_" . $old_i . "_" . $j );
 					if ( $input_type == 'hidden' ) {
 						$field->template_field->input_type = $input_type;
@@ -273,23 +279,23 @@ END;
 	 * Code borrowed heavily from Semantic MediaWiki's
 	 * SMWAskPage::addOptionInput().
 	 */
-	public static function inputTypeParamInput( $type, $param_name, $cur_value, array $param, array $paramValues, $fieldFormText ) {
+	public static function inputTypeParamInput( $type, $paramName, $cur_value, array $param, array $paramValues, $fieldFormText ) {
 		if ( $type == 'int' ) {
 			return Xml::element( 'input', array(
 				'type' => 'text',
-				'name' => $param_name . '_' . $fieldFormText,
+				'name' => $paramName . '_' . $fieldFormText,
 				'value' => $cur_value,
 				'size' => 6
 			) );
 		} elseif ( $type == 'string' ) {
 			return Xml::element( 'input', array(
 				'type' => 'text',
-				'name' => $param_name . '_' . $fieldFormText,
+				'name' => $paramName . '_' . $fieldFormText,
 				'value' => $cur_value,
 				'size' => 32 
 			) ); 
 		} elseif ( $type == 'enumeration' ) {
-			$text = '<select name="p[' . htmlspecialchars( $param_name ) . ']">';
+			$text = '<select name="p[' . htmlspecialchars( $paramName ) . ']">';
 			$text .= "\n	<option value=''></option>\n";
 				
 			$parts = array();
@@ -305,14 +311,14 @@ END;
 			$cur_values = explode( ',', $cur_value );
 			foreach ( $param['values'] as $val ) {
 				$text .= '<span style="white-space: nowrap; padding-right: 5px;"><input type="checkbox" name="p[' .
-					htmlspecialchars( $param_name ) . '][' . htmlspecialchars( $val ). ']" value="true"' .
+					htmlspecialchars( $paramName ) . '][' . htmlspecialchars( $val ). ']" value="true"' .
 					( in_array( $val, $cur_values ) ? ' checked' : '' ) . '/> <tt>' . htmlspecialchars( $val ) . "</tt></span>\n";
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
 			$checkboxAttrs = array(
 				'type' => 'checkbox',
-				'name' => $param_name . '_' . $fieldFormText
+				'name' => $paramName . '_' . $fieldFormText
 			);
 			if ( $cur_value) { $checkboxAttrs['checked'] = 'checked'; }
 			return Xml::element( 'input', $checkboxAttrs );
@@ -344,11 +350,11 @@ END;
 		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( array( $inputTypeClass, 'getParameters' ) ) : array();
 
 		foreach ( $params as $i => $param ) {
-			$param_name = $param['name'];
+			$paramName = $param['name'];
 			$type = $param['type'];
 			$desc = $param['description'];
 
-			$cur_value = ( array_key_exists( $param_name, $paramValues ) ) ? $paramValues[$param_name] : '';
+			$cur_value = ( array_key_exists( $paramName, $paramValues ) ) ? $paramValues[$paramName] : '';
 
 			// 3 values per row, with alternating colors for rows
 			if ( $i % 3 == 0 ) {
@@ -356,9 +362,9 @@ END;
 				$text .= "<div style=\"background: $bgcolor;\">";
 			}
 
-			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$param_name:\n";
+			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$paramName:\n";
 
-			$text .= self::inputTypeParamInput( $type, $param_name, $cur_value, $param, array(), $fieldFormText );
+			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $fieldFormText );
 			$text .= "\n<br />" . Xml::element( 'em', null, $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {

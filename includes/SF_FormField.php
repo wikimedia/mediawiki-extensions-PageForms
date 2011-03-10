@@ -159,6 +159,9 @@ END;
 		foreach ( $wgRequest->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
 				$paramName = substr( $key, 0, $pos );
+				// Spaces got replaced by underlines in the
+				// query.
+				$paramName = str_replace( '_', ' ', $paramName );
 				$paramValues[$paramName] = $value;
 			}
 		}
