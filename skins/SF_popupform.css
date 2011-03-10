@@ -71,20 +71,20 @@ div.popupform-loading {
 
 div.popupform-loadingbg {
 	position: absolute;
-	left: -63px;
-	top: -63px;
-	width: 127px;
-	height: 127px;
+	left: -64px;
+	top: -64px;
+	width: 128px;
+	height: 128px;
 	background-color: transparent;
 	background-image: url('../skins/loadingbg.png');
 }
 
 div.popupform-loadingfg {
 	position: absolute;
-	left: -15px;
-	top: -15px;
-	width: 30px;
-	height: 30px;
+	left: -16px;
+	top: -16px;
+	width: 32px;
+	height: 32px;
 	background-color: transparent;
 	background-image: url('../skins/loading.gif');
 }

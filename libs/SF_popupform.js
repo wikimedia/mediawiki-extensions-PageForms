@@ -250,7 +250,8 @@ window.ext.popupform = new function() {
 			siblings
 			.each( function(){
 				var elem = jQuery(this);
-				//				if ( ( elem.outerWidth(true) > 0 && elem.outerHeight(true) > 0 ) &&
+
+				// TODO: Does this really help?
 				if ( getStyle(this, "display") != "none"
 					&& ( getStyle( this, "width") != "0px" || getStyle( this, "height") != "0px" )
 					&& ! (
@@ -300,10 +301,6 @@ window.ext.popupform = new function() {
 		var form = content.find("#sfForm");
 		var innerwdw = window.frames['popupform-iframe' + instance];
 		var innerJ = innerwdw.jQuery;
-
-//		content.bind("DOMSubtreeModified", function( evt ){
-//			adjustFrameSize( true );
-//		});
 
 		if (form.length > 0) {
 
@@ -619,8 +616,8 @@ window.ext.popupform = new function() {
 				}, {
 					duration: 500,
 					complete: function() {
-						iframe[0].style.overflow="visible";
-						html[0].style.overflow="visible";
+						iframe[0].style.overflow="auto";
+						html[0].style.overflow="auto";
 
 						if ( jQuery.browser.mozilla ) {
 							content
@@ -753,6 +750,6 @@ window.ext.popupform = new function() {
 	// export public funcitons
 	this.handlePopupFormInput = handlePopupFormInput;
 	this.handlePopupFormLink = handlePopupFormLink;
-	this.adjustFrameSize =adjustFrameSize;
+	this.adjustFrameSize = adjustFrameSize;
 
 }
