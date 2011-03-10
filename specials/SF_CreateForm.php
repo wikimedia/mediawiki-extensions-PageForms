@@ -246,7 +246,7 @@ jQuery(document).ready(function() {
 END;
 	$saveAttrs = array( 'type' => 'submit', 'id' => 'wpSave', 'name' => 'wpSave', 'value' => wfMsg( 'savearticle' ) );
 	if ( count( $form_templates ) == 0 ) { $saveAttrs['disabled'] = 'disabled'; }
-	$editButtonsText .= "\t" . Xml::element( 'input', $saveAttrs ) . "\n";
+	$editButtonsText = "\t" . Xml::element( 'input', $saveAttrs ) . "\n";
 	$previewAttrs = array( 'type' => 'submit', 'id' => 'wpPreview', 'name' => 'wpPreview', 'value' => wfMsg( 'preview' ) );
 	if ( count( $form_templates ) == 0 ) { $previewAttrs['disabled'] = 'disabled'; }
 	$editButtonsText .= "\t" . Xml::element( 'input', $previewAttrs ) . "\n";
