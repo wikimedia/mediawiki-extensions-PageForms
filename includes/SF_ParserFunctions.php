@@ -225,7 +225,7 @@ class SFParserFunctions {
 			$str .= Xml::element( 'input', array(
 				'type' => 'button',
 				'value' => $inLinkStr,
-				'onclick' => 'window.location.href=' . $link_url
+				'onclick' => "window.location.href='$link_url'",
 			) ) . "</form>";
 		} elseif ( $inLinkType == 'post button' ) {
 			$str = "<form action=\"$link_url\" method=\"post\" $popupClassString>";
