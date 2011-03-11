@@ -8,7 +8,7 @@
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
-define( 'SF_VERSION', '2.1' );
+define( 'SF_VERSION', '2.1.1-alpha' );
 
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
@@ -48,9 +48,6 @@ $wgExtensionFunctions[] = 'sfgSetupExtension';
 
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
-// the 'BrokenLink' hook exists only in MediaWiki v1.13 - it was replaced
-// by 'LinkBegin' and 'LinkEnd'
-$wgHooks['BrokenLink'][] = 'SFFormLinker::setBrokenLink_1_13';
 $wgHooks['LinkEnd'][] = 'SFFormLinker::setBrokenLink';
 $wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
 // 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
