@@ -247,30 +247,6 @@ class SFFormLinker {
 
 	/**
 	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
-	 * AKA red-linked) page, for MediaWiki 1.13
-	 */
-	static function setBrokenLink_1_13( &$linker, $title, $query, &$u, &$style, &$prefix, &$text, &$inside, &$trail ) {
-		global $sfgRedLinksCheckOnlyLocalProps;
-		if ( $sfgRedLinksCheckOnlyLocalProps ) {
-			self::getPagePropertiesOfPage( $linker->getTitle() );
-			$targetName = $title->getText();
-			if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
-				$incoming_properties = self::$mLinkedPages[$targetName];
-			} else {
-				$incoming_properties = array();
-			}
-		} else {
-			$incoming_properties = self::getIncomingProperties( $title );
-		}
-		self::createLinkedPage( $title, $incoming_properties );
-		$link = self::formEditLink( $title, $incoming_properties );
-		if ( $link != '' )
-			$u = $link;
-		return true;
-	}
-
-	/**
-	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
 	 * AKA red-linked) page
 	 */
 	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
