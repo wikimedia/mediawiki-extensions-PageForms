@@ -75,15 +75,6 @@ class SFRunQuery extends IncludableSpecialPage {
 			$sfgFormPrinter->formHTML( $form_definition, $form_submitted, $is_text_source, $form_article->getID(), $edit_content, null, null, true, $embedded );
 		$text = "";
 
-		// Set the page title.
-		if ( !$embedded ) {
-			if ( $form_page_title != null ) {
-				$wgOut->setPageTitle( $form_page_title );
-			} else {
-				$s = wfMsg( 'sf_runquery_title', $form_title->getText() );
-				$wgOut->setPageTitle( $s );
-			}
-		}
 		if ( $form_submitted ) {
 			global $wgUser, $wgTitle, $wgOut;
 			$wgParser->mOptions = new ParserOptions();
@@ -135,6 +126,17 @@ END;
 		} else {
 			$wgOut->addScript( $script );
 			$wgOut->addParserOutputNoText( $wgParser->getOutput() );
+		}
+
+		// Finally, set the page title - for MW <= 1.16, this has to be
+		// called after addParserOutputNoText() for it to take effect.
+		if ( !$embedded ) {
+			if ( $form_page_title != null ) {
+				$wgOut->setPageTitle( $form_page_title );
+			} else {
+				$s = wfMsg( 'sf_runquery_title', $form_title->getText() );
+				$wgOut->setPageTitle( $s );
+			}
 		}
 	}
 }
