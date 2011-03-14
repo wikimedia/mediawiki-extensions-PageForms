@@ -261,7 +261,7 @@ END;
 		$sfgTabIndex = 1;
 		$sfgFieldNum = 1;
 		$source_page_matches_this_form = false;
-		$form_page_title = NULL;
+		$form_page_title = null;
 		$generated_page_name = $page_name_formula;
 		// $form_is_partial is true if:
 		// (a) 'partial' == 1 in the arguments
@@ -1179,17 +1179,20 @@ END;
 						$sub_components = explode( '=', $component, 2 );
 						$tag = $sub_components[0];
 						if ( $tag == 'create title' || $tag == 'add title' ) {
-							// handle this only if we're adding a page
-							if ( ! $this->mPageTitle->exists() ) {
+							// Handle this only if
+							// we're adding a page.
+							if ( !$is_query && !$this->mPageTitle->exists() ) {
 								$form_page_title = $sub_components[1];
 							}
 						} elseif ( $tag == 'edit title' ) {
-							// handle this only if we're editing a page
-							if ( $this->mPageTitle->exists() ) {
+							// Handle this only if
+							// we're editing a page.
+							if ( !$is_query && $this->mPageTitle->exists() ) {
 								$form_page_title = $sub_components[1];
 							}
 						} elseif ( $tag == 'query title' ) {
-							// handle this only if we're in 'RunQuery'
+							// Handle this only if
+							// we're in 'RunQuery'.
 							if ( $is_query ) {
 								$form_page_title = $sub_components[1];
 							}
@@ -1392,10 +1395,11 @@ END;
 		if ( $wgRequest->getCheck( 'partial' ) )
 			$data_text = $existing_page_content;
 
-		global $wgParser;
-		$new_text = "";
 		if ( !$embedded ) {
-			$new_text = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
+			global $wgParser;
+			$form_page_title = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
+		} else {
+			$form_page_title = null;
 		}
 
 		// If the form has already been submitted, i.e. this is just the redirect
@@ -1404,7 +1408,7 @@ END;
 			$javascript_text = '';
 		}
 		
-		return array( $form_text, $javascript_text, $data_text, $new_text, $generated_page_name );
+		return array( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name );
 	}
 
 	/**
