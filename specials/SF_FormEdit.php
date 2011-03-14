@@ -88,12 +88,6 @@ class SFFormEdit extends SpecialPage {
 
 		if ( $target_name != '' ) {
 			$target_title = Title::newFromText( $target_name );
-			if ( $target_title->exists() ) {
-				$s = wfMsg( 'sf_formedit_edittitle', $form_title->getText(), $target_title->getPrefixedText() );
-			} else {
-				$s = wfMsg( 'sf_formedit_createtitle', $form_title->getText(), $target_title->getPrefixedText() );
-			}
-			$wgOut->setPageTitle( $s );
 		}
 
 		// handling is different depending on whether or not page
@@ -150,6 +144,18 @@ class SFFormEdit extends SpecialPage {
 			}
 			list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
 				$sfgFormPrinter->formHTML( $form_definition, $form_submitted, $page_is_source, $form_article->getID(), $page_contents, $target_name, $page_name_formula );
+
+			// Before we do anything else, set the form header
+			// title - this needs to be done after formHTML() is
+			// called, because otherwise it doesn't take hold
+			// for some reason if the form is disabled.
+			if ( $target_title->exists() ) {
+				$s = wfMsg( 'sf_formedit_edittitle', $form_title->getText(), $target_title->getPrefixedText() );
+			} else {
+				$s = wfMsg( 'sf_formedit_createtitle', $form_title->getText(), $target_title->getPrefixedText() );
+			}
+			$wgOut->setPageTitle( $s );
+
 			if ( $form_submitted ) {
 				if ( $page_name_formula != '' ) {
 					$target_name = $generated_page_name;
