@@ -348,7 +348,7 @@ END;
 		// remove the '<nowiki>' tags, leaving us with what we need.
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
 		if ( empty( $wgParser->mOptions ) ) {
-			$wgParser->mOptions = new ParserOptions();
+			$wgParser -> startExternalParse( $title, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );
 		}
 
 		// Get the form definition from the cache, if we're using caching and it's
@@ -679,7 +679,7 @@ END;
 								if ( $sub_components[0] == 'input type' ) {
 									$input_type = $sub_components[1];
 								} elseif ( $sub_components[0] == 'default' ) {
-									$default_value = $sub_components[1];
+									$default_value = $wgParser -> recursiveTagParse( $sub_components[1] );
 								} elseif ( $sub_components[0] == 'preload' ) {
 									// free text field has special handling
 									if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
