@@ -149,7 +149,9 @@ class SFFormEdit extends SpecialPage {
 			// title - this needs to be done after formHTML() is
 			// called, because otherwise it doesn't take hold
 			// for some reason if the form is disabled.
-			if ( $target_title->exists() ) {
+			if ( empty( $target_title ) ) {
+				$s = wfMsg( 'sf_formedit_createtitlenotarget', $form_title->getText() );
+			} elseif ( $target_title->exists() ) {
 				$s = wfMsg( 'sf_formedit_edittitle', $form_title->getText(), $target_title->getPrefixedText() );
 			} else {
 				$s = wfMsg( 'sf_formedit_createtitle', $form_title->getText(), $target_title->getPrefixedText() );
