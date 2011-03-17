@@ -19,6 +19,28 @@ class SFCreateClass extends SpecialPage {
 		SFUtils::loadMessages();
 	}
 
+	static function addJavascript( $numStartingRows ) {
+		global $wgOut;
+
+		SFUtils::addJavascriptAndCSS();
+
+		$jsText =<<<END
+<script>
+var rowNum = $numStartingRows;
+function createClassAddRow() {
+	rowNum++;
+	newRow = jQuery('#starterRow').clone().css('display', '');
+	newHTML = newRow.html().replace(/starter/g, rowNum);
+	newRow.html(newHTML);
+	jQuery('#mainTable').append(newRow);
+}
+
+</script>
+
+END;
+		$wgOut->addScript( $jsText );
+	}
+
 	function execute( $query ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 		global $wgLang, $smwgContLang;
@@ -31,8 +53,8 @@ class SFCreateClass extends SpecialPage {
 
 		$this->setHeaders();
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
-
 		$numStartingRows = 10;
+		self::addJavascript( $numStartingRows );
 
 		$create_button_text = wfMsg( 'create' );
 
@@ -130,57 +152,14 @@ class SFCreateClass extends SpecialPage {
 		$list_of_values_label = wfMsg( 'sf_createclass_listofvalues' ) . '?';
 
 		$text = <<<END
-                <script>
-        
-var NumOfRow = $numStartingRows;
-function addRowDynamic(options) {
-	NumOfRow++;
-	// get the reference of the main div
-	var mainDiv = document.getElementById('addrows');
-
-	// create new div that will work as a container
-	var newDiv = document.createElement('div');
-	newDiv.setAttribute('id','innerDiv' + NumOfRow);
-
-	//create span to contain the text
-	var newtable = document.createElement('table');
-	var newRow = document.createElement('tr');
-	var newCol1 = document.createElement('td');
-	newCol1.innerHTML="<input type=\"text\" size=\"25\" name=\"property_name_" + NumOfRow + "\" />";
-	var newCol2 = document.createElement('td');
-	newCol2.innerHTML="<input type=\"text\" size=\"25\" name=\"field_name_" + NumOfRow + "\" />";
-	var newCol3 = document.createElement('td');
-	newCol3.innerHTML = "<input type=\"text\" size=\"25\" name=\"allowed_values_" + NumOfRow + "\" />";
-	var newCol4 = document.createElement('td');
-	newCol4.innerHTML = "<input type=\"checkbox\"  name=\"is_list_" + NumOfRow + "\" />";
-
-	var selectCol = document.createElement('td');
-	var s = "<select id=\"property_dropdown_" + NumOfRow + "\"  name=\"property_type_" + NumOfRow + "\">" + options + "</select>";
-	var optionString = "";
-	var myArray = options.split(',');
- 
-	for (i=0; i<myArray.length-1; i++) {
-		optionString += "<option>" + myArray[i] + "</option>";
-	}
-	selectCol.innerHTML = "<select id=\"property_dropdown_" + NumOfRow + "\"  name=\"property_type_" + NumOfRow + "\">" + optionString + "</select>";
-
-	newRow.innerHTML = newCol1.innerHTML+newCol2.innerHTML + newCol3.innerHTML;
-	newtable.innerHTML = "<tr>" + "<td>" + NumOfRow + ". " + newCol1.innerHTML + "</td>" + "<td>" + newCol2.innerHTML + "</td>" + "<td>" + selectCol.innerHTML + "</td>" + "<td>" + newCol3.innerHTML + "</td>" + "<td>" + newCol4.innerHTML + "</td></tr>";
-	newDiv.appendChild(newtable);
-
-	// finally append the new div to the main div
-	mainDiv.appendChild(newDiv);
-}
-</script>
-
 <form action="" method="post">
 	<p>$create_class_docu</p>
 	<p>$leave_field_blank</p>
 	<p>$template_name_label <input type="text" size="30" name="template_name"></p>
 	<p>$form_name_label: <input type="text" size="30" name="form_name"></p>
 	<p>$category_name_label <input type="text" size="30" name="category_name"></p>
-	<div id="addrows">
-                <table>
+	<div>
+                <table id="mainTable">
 		<tr>
 			<th colspan="2">$property_name_label</th>
 			<th>$field_name_label</th>
@@ -190,14 +169,24 @@ function addRowDynamic(options) {
 		</tr>
 
 END;
-		for ( $i = 1; $i <= $numStartingRows; $i++ ) {
+		// Make one more row than what we're displaying - use the
+		// last row as a "starter row", to be cloned when the
+		// "Add another" button is pressed.
+		for ( $i = 1; $i <= $numStartingRows + 1; $i++ ) {
+			if ( $i == $numStartingRows + 1 ) {
+				$rowString = 'id="starterRow" style="display: none"';
+				$n = 'starter';
+			} else {
+				$rowString = '';
+				$n = $i;
+			}
 			$text .= <<<END
-		<tr>
-			<td>$i.</td>
-			<td><input type="text" size="25" name="property_name_$i" /></td>
-			<td><input type="text" size="25" name="field_name_$i" /></td>
+		<tr $rowString>
+			<td>$n.</td>
+			<td><input type="text" size="25" name="property_name_$n" /></td>
+			<td><input type="text" size="25" name="field_name_$n" /></td>
 			<td>
-			<select id="property_dropdown_$i" name="property_type_$i">
+			<select name="property_type_$n">
 
 END;
                         $optionsStr ="";                       
@@ -208,8 +197,8 @@ END;
 			$text .= <<<END
 			</select>
 			</td>
-			<td><input type="text" size="25" name="allowed_values_$i" /></td>
-			<td><input type="checkbox" name="is_list_$i" /></td>
+			<td><input type="text" size="25" name="allowed_values_$n" /></td>
+			<td><input type="checkbox" name="is_list_$n" /></td>
 
 END;
 		}
@@ -223,7 +212,7 @@ END;
 			array(
 				'type' => 'button',
 				'value' => wfMsg( 'sf_formedit_addanother' ),
-				'onclick' => "addRowDynamic('$optionsStr')"
+				'onclick' => "createClassAddRow()"
 			)
 		);
 		$text .= Xml::tags( 'p', null, $add_another_button ) . "\n";
