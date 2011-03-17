@@ -138,7 +138,7 @@ END;
 				// redirect to wiki interface
 				$wgOut->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
-				$full_text = SFTemplateField::createTemplateText( $template_name, $fields, $category, $aggregating_property, $aggregation_label, $template_format );
+				$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category, $aggregating_property, $aggregation_label, $template_format );
 				$text = SFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
 				$wgOut->addHTML( $text );
 				return;

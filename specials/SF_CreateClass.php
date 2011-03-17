@@ -77,7 +77,7 @@ class SFCreateClass extends SpecialPage {
 			}
 
 			// create the template, and save it
-			$full_text = SFTemplateField::createTemplateText( $template_name, $fields, $category_name, '', '', '' );
+			$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, null );
 			$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 			$template_article = new Article( $template_title );
 			$edit_summary = '';
