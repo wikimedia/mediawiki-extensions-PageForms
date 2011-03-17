@@ -98,7 +98,14 @@ class SFTemplateField {
 		$this->setTypeAndPossibleValues();
 	}
 
-	public static function createTemplateText( $template_name, $template_fields, $category, $aggregating_property, $aggregating_label, $template_format ) {
+	/**
+	 * Creates the text of a template, when called from either
+	 * Special:CreateTemplate or Special:CreateClass.
+	 *
+	 * @TODO: There's really no good reason why this method is contained
+	 * within this class.
+	 */
+	public static function createTemplateText( $template_name, $template_fields, $internal_obj_property, $category, $aggregating_property, $aggregating_label, $template_format ) {
 		$template_header = wfMsgForContent( 'sf_template_docu', $template_name );
 		$text = <<<END
 <noinclude>
@@ -119,31 +126,46 @@ $template_footer
 </noinclude><includeonly>
 
 END;
-  		// topmost part depends on format
+		// Only add a call to #set_internal if the Semantic Internal
+		// Objects extension is also installed.
+		if ( !empty( $internal_obj_property) && class_exists( 'SIOInternalObject' ) ) {
+			$setInternalText = '{{#set_internal:' . $internal_obj_property;
+		} else {
+			$setInternalText = null;
+		}
+
+  		// Topmost part of table depends on format
 		if ( $template_format == 'infobox' ) {
-			// CSS style can't be used, unfortunately, since most MediaWiki
-			// setups don't have an 'infobox' or comparable CSS class
-			$text .= <<<END
+			// A CSS style can't be used, unfortunately, since most
+			// MediaWiki setups don't have an 'infobox' or
+			// comparable CSS class.
+			$tableText .= <<<END
 {| style="width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;"
 ! style="text-align: center; background-color:#ccccff;" colspan="2" |<big>{{PAGENAME}}</big>
 |-
 
 END;
 		} else {
-			$text .= '{| class="wikitable"' . "\n";
+			$tableText .= '{| class="wikitable"' . "\n";
 		}
 
 		foreach ( $template_fields as $i => $field ) {
 			if ( $i > 0 ) {
-				$text .= "|-\n";
+				$tableText .= "|-\n";
 			}
-			$text .= "! " . $field->label . "\n";
+			$tableText .= "! " . $field->label . "\n";
 			if ( $field->semantic_property == null || $field->semantic_property == '' ) {
-				$text .= "| {{{" . $field->field_name . "|}}}\n";
+				$tableText .= "| {{{" . $field->field_name . "|}}}\n";
 				// if this field is meant to contain a list,
 				// add on an 'arraymap' function, that will
 				// call this semantic markup tag on every
 				// element in the list
+			} elseif ( !is_null( $setInternalText ) ) {
+				if ( $field->is_list ) {
+					$setInternalText .= '|' . $field->semantic_property . '#list={{{' . $field->field_name . '|}}}';
+				} else {
+					$setInternalText .= '|' . $field->semantic_property . '={{{' . $field->field_name . '|}}}';
+				}
 			} elseif ( $field->is_list ) {
 				// find a string that's not in the semantic
 				// field call, to be used as the variable
@@ -157,25 +179,31 @@ END;
 						}
 					}
 				}
-				$text .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_property . "::$var]]}}\n";
+				$tableText .= "| {{#arraymap:{{{" . $field->field_name . "|}}}|,|$var|[[" . $field->semantic_property . "::$var]]}}\n";
 			} else {
-				$text .= "| [[" . $field->semantic_property . "::{{{" . $field->field_name . "|}}}]]\n";
+				$tableText .= "| [[" . $field->semantic_property . "::{{{" . $field->field_name . "|}}}]]\n";
 			}
 		}
 
-		// add a row with an inline query to this table, for aggregation, if
-		// a property was specified
+		// Add a row with an inline query to this table, for
+		// aggregation, if a property was specified.
 		if ( $aggregating_property != '' ) {
 			if ( count( $template_fields ) > 0 ) {
-				$text .= "|-\n";
+				$tableText .= "|-\n";
 			}
-			$text .= <<<END
+			$tableText .= <<<END
 ! $aggregating_label
 | {{#ask:[[$aggregating_property::{{SUBJECTPAGENAME}}]]|format=list}}
 
 END;
 		}
-		$text .= "|}\n";
+		$tableText .= "|}\n";
+		if ( !is_null( $setInternalText ) ) {
+			$setInternalText .= "}}\n";
+			$text .= $setInternalText;
+		}
+
+		$text .= $tableText;
 		if ( $category != '' ) {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
