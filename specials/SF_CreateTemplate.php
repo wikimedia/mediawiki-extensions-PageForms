@@ -108,23 +108,25 @@ function createTemplateAddField() {
 	jQuery('#fieldsList').append(newField);
 }
 
-jQuery(".deleteField").click( function() {
-	// Remove the encompassing div for this instance.
-	jQuery(this).closest(".fieldBox")
-		.fadeOut('fast', function() { jQuery(this).remove(); });
-});
-
 function validateCreateTemplateForm() {
 	templateName = jQuery('#template_name').val();
 	if (templateName == '') {
 		scroll(0, 0);
-		jQuery('#template_name_p').append('<font color="red">$template_name_error_str</font>');
+		jQuery('#template_name_p').append(' <font color="red">$template_name_error_str</font>');
 		return false;
 	} else {
 		return true;
 	}
 }
-jQuery('#createTemplateForm').submit( function() { return validateCreateTemplateForm(); } );
+
+jQuery(document).ready(function() {
+	jQuery(".deleteField").click( function() {
+		// Remove the encompassing div for this instance.
+		jQuery(this).closest(".fieldBox")
+			.fadeOut('fast', function() { jQuery(this).remove(); });
+	});
+	jQuery('#createTemplateForm').submit( function() { return validateCreateTemplateForm(); } );
+});
 </script>
 
 END;
