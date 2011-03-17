@@ -45,7 +45,7 @@ class SFCreateForm extends SpecialPage {
 	}
 
 function doSpecialCreateForm() {
-	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
+	global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 	$db = wfGetDB( DB_SLAVE );
 
 	SFUtils::loadMessages();
@@ -53,7 +53,6 @@ function doSpecialCreateForm() {
 	// Create Javascript to populate fields to let the user input
 	// parameters for the field, based on the input type selected in the
 	// dropdown.
-	global $wgUser;
 	$skin = $wgUser->getSkin();
 	$url = $skin->makeSpecialUrl( 'CreateForm', "showinputtypeoptions=' + this.val() + '&formfield=' + this.attr('formfieldid') + '" );
 	foreach ( $wgRequest->getValues() as $param => $value ) {
@@ -205,10 +204,10 @@ jQuery(document).ready(function() {
 	}
 
 	$text = '	<form action="" method="post">' . "\n";
+
 	// Set 'title' field, in case there's no URL niceness.
-	$mw_namespace_labels = $wgContLang->getNamespaces();
-	$special_namespace = $mw_namespace_labels[NS_SPECIAL];
-	$text .= "\t" . Xml::hidden( 'title', "$special_namespace:CreateForm" ) . "\n";
+	$cf = Title::makeTitleSafe( NS_SPECIAL, 'CreateForm' );
+	$text .= "\t" . Xml::hidden( 'title', SFUtils::titleURLString( $cf ) ) . "\n";
 	$text .= '	<p>' . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . ' <input size=25 name="form_name" value="' . $form_name . '">';
 	if ( ! empty( $form_name_error_str ) )
 		$text .= '	' . Xml::element( 'font', array( 'color' => 'red' ), $form_name_error_str );

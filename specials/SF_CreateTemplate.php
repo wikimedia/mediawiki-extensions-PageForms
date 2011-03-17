@@ -6,10 +6,6 @@
  * @author Yaron Koren
  */
 
-/**
- * Protect against register_globals vulnerabilities.
- * This line must be present before any global variable is referenced.
- */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
 class SFCreateTemplate extends SpecialPage {
@@ -30,10 +26,11 @@ class SFCreateTemplate extends SpecialPage {
 	public static function getAllPropertyNames() {
 		$all_properties = array();
 
-		// set limit on results - a temporary fix until SMW's
+		// Set limit on results - we don't want a massive dropdown
+		// of properties, if there are a lot of properties in this wiki.
 		// getProperties() functions stop requiring a limit
 		$options = new SMWRequestOptions();
-		$options->limit = 10000;
+		$options->limit = 500;
 		$used_properties = smwfGetStore()->getPropertiesSpecial( $options );
 		
 		foreach ( $used_properties as $property ) {
@@ -92,7 +89,7 @@ END;
 	}
 
 	static function printCreateTemplateForm() {
-		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath, $wgContLang;
+		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 
 		SFUtils::loadMessages();
 
@@ -103,7 +100,8 @@ END;
 		$category = $wgRequest->getVal( 'category' );
 		$cur_id = 1;
 		$fields = array();
-		# cycle through the query values, setting the appropriate local variables
+		// Cycle through the query values, setting the appropriate
+		// local variables.
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			$var_elements = explode( "_", $var );
 			// we only care about query variables of the form "a_b"
@@ -148,10 +146,10 @@ END;
 		}
 
 		$text .= '	<form action="" method="post">' . "\n";
+
 		// set 'title' field, in case there's no URL niceness
-		$mw_namespace_labels = $wgContLang->getNamespaces();
-		$special_namespace = $mw_namespace_labels[NS_SPECIAL];
-		$text .= "\t" . '<input type="hidden" name="title" value="' . $special_namespace . ':CreateTemplate">' . "\n";
+		$ct = Title::makeTitleSafe( NS_SPECIAL, 'CreateTemplate' );
+		$text .= "\t" . Xml::hidden( 'title', SFUtils::titleURLString( $ct ) ) . "\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" name="template_name" value="' . $template_name . '"> <font color="red">' . $template_name_error_str . '</font></p>' . "\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_categorylabel' ) . ' <input size="25" name="category" value="' . $category . '"></p>' . "\n";
 		$text .= "\t<fieldset>\n";

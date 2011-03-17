@@ -110,11 +110,6 @@ class SFCreateClass extends SpecialPage {
 
 		$datatype_labels = $smwgContLang->getDatatypeLabels();
 
-		// set 'title' as hidden field, in case there's no URL niceness
-		global $wgContLang;
-		$mw_namespace_labels = $wgContLang->getNamespaces();
-		$special_namespace = $mw_namespace_labels[NS_SPECIAL];
-
 		// make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page
 		$sk = $wgUser->getSkin();
@@ -231,14 +226,10 @@ END;
 				'onclick' => "addRowDynamic('$optionsStr')"
 			)
 		);
-		$text .= Xml::tags( 'p', null, $add_another_button );
-		$text .= Xml::element( 'input',
-			array(
-				'type' => 'hidden',
-				'name' => 'title',
-				'value' => "$special_namespace:CreateClass",
-			)
-		);
+		$text .= Xml::tags( 'p', null, $add_another_button ) . "\n";
+		// Set 'title' as hidden field, in case there's no URL niceness
+		$cc = Title::makeTitleSafe( NS_SPECIAL, 'CreateClass' );
+		$text .= Xml::hidden( 'title', SFUtils::titleURLString( $cc ) ) . "\n";
 		$text .= Xml::element( 'input',
 			array(
 				'type' => 'submit',
