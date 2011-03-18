@@ -139,14 +139,14 @@ END;
 			// A CSS style can't be used, unfortunately, since most
 			// MediaWiki setups don't have an 'infobox' or
 			// comparable CSS class.
-			$tableText .= <<<END
+			$tableText = <<<END
 {| style="width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;"
 ! style="text-align: center; background-color:#ccccff;" colspan="2" |<big>{{PAGENAME}}</big>
 |-
 
 END;
 		} else {
-			$tableText .= '{| class="wikitable"' . "\n";
+			$tableText = '{| class="wikitable"' . "\n";
 		}
 
 		foreach ( $template_fields as $i => $field ) {
