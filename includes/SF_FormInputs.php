@@ -300,12 +300,12 @@ class SFTextAreaInput extends SFFormInput {
 		// Use a special ID for the free text field, for FCK's needs.
 		$input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
 
-		if (  array_key_exists( 'rows', $other_args ) ) {
+		if ( array_key_exists( 'rows', $other_args ) ) {
 			$rows = $other_args['rows'];
 		} else {
 			$rows = 5;
 		}
-		if (  array_key_exists( 'cols', $other_args ) ) {
+		if ( array_key_exists( 'cols', $other_args ) ) {
 			$cols = $other_args['cols'];
 		} else {
 			$cols = 80;
@@ -982,12 +982,12 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 			$className .= " " . $other_args['class'];
 		$input_id = "input_" . $sfgFieldNum;
 
-		if (  array_key_exists( 'rows', $other_args ) ) {
+		if ( array_key_exists( 'rows', $other_args ) ) {
 			$rows = $other_args['rows'];
 		} else {
 			$rows = 5;
 		}
-		if (  array_key_exists( 'cols', $other_args ) ) {
+		if ( array_key_exists( 'cols', $other_args ) ) {
 			$cols = $other_args['cols'];
 		} else {
 			$cols = 80;
@@ -1345,6 +1345,14 @@ class SFYearInput extends SFTextInput {
 
 	public static function getOtherPropTypesHandled() {
 		return array( '_dat' );
+	}
+
+	public static function getDefaultPropTypeLists() {
+		return array();
+	}
+
+	public static function getOtherPropTypeListsHandled() {
+		return array();
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
