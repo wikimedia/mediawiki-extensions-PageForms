@@ -1,10 +1,6 @@
 <?php
 /**
  * Default settings for Semantic Forms.
- * 
- * Note: 
- * Do not use this file as entry point,
- * use SemanticForms.php in this extensions root instead.
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
@@ -108,13 +104,14 @@ $wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.php';
 $wgAutoloadClasses['SFTextInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFTextAreaInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFTextWithAutocompleteInput'] = $sfgIP . '/includes/SF_FormInputs.php';
+$wgAutoloadClasses['SFTextAreaWithAutocompleteInput'] = $sfgIP . '/includes/SF_FormInputs.php';
+$wgAutoloadClasses['SFCheckboxInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFDateInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFDateTimeInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFDropdownInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFRadioButtonInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFListBoxInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFCheckboxesInput'] = $sfgIP . '/includes/SF_FormInputs.php';
-$wgAutoloadClasses['SFCheckboxInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFComboBoxInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFCategoryInput'] = $sfgIP . '/includes/SF_FormInputs.php';
 $wgAutoloadClasses['SFCategoriesInput'] = $sfgIP . '/includes/SF_FormInputs.php';
