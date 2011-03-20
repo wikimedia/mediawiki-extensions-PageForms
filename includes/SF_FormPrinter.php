@@ -348,30 +348,30 @@ END;
 		// remove the '<nowiki>' tags, leaving us with what we need.
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
 		if ( empty( $wgParser->mOptions ) ) {
-			$wgParser -> startExternalParse( $title, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );
+			$wgParser -> startExternalParse( &$this->mPageTitle, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );
 		}
 
 		// Get the form definition from the cache, if we're using caching and it's
 		// there.
-		$got_form_def_from_cache = false;
-		global $sfgCacheFormDefinitions;
-		if ( $sfgCacheFormDefinitions && ! is_null( $form_id ) ) {
-			$db = wfGetDB( DB_MASTER );
-			$res = $db->select( 'page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = '$form_id'" );
-			if ( $res->numRows() >	0 ) {
-				$form_def = $res->fetchObject()->pp_value;
-				$got_form_def_from_cache = true;
-			}
-		}
+//		$got_form_def_from_cache = false;
+//		global $sfgCacheFormDefinitions;
+//		if ( $sfgCacheFormDefinitions && ! is_null( $form_id ) ) {
+//			$db = wfGetDB( DB_MASTER );
+//			$res = $db->select( 'page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = '$form_id'" );
+//			if ( $res->numRows() >	0 ) {
+//				$form_def = $res->fetchObject()->pp_value;
+//				$got_form_def_from_cache = true;
+//			}
+//		}
 		// Otherwise, parse it.
-		if ( ! $got_form_def_from_cache ) {
-			if ( $embedded) {
-				$form_def = $wgParser->recursiveTagParse( $form_def );
-				$form_def = $wgParser->mStripState->unstripBoth( $form_def );
-			} else {
-				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
-			}
-		}
+//		if ( ! $got_form_def_from_cache ) {
+//			if ( $embedded) {
+		$form_def = $wgParser->recursiveTagParse( $form_def );
+		$form_def = $wgParser->mStripState->unstripBoth( $form_def );
+//			} else {
+//				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
+//			}
+//		}
 		
 		// Turn form definition file into an array of sections, one for each
 		// template definition (plus the first section)
