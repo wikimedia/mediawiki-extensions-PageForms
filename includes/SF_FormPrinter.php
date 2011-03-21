@@ -365,8 +365,11 @@ END;
 //		}
 		// Otherwise, parse it.
 //		if ( ! $got_form_def_from_cache ) {
-//			if ( $embedded) {
-		$form_def = $wgParser->recursiveTagParse( $form_def );
+		if ( !$embedded) {
+			$wgParser->clearState();
+		}
+		
+  		$form_def = $wgParser->recursiveTagParse( $form_def );
 		$form_def = $wgParser->mStripState->unstripBoth( $form_def );
 //			} else {
 //				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
