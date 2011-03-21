@@ -987,7 +987,7 @@ $messages['bs'] = array(
 	'forms' => 'Obrasci',
 	'sf_forms_docu' => 'Slijedeći obrasci postoje u wikiju.',
 	'sf_forminputs_mandatory' => 'Obavezno',
-	'sf_forminputs_restricted' => 'Ograničeni (samo administratori ga mogu mijenjati)',
+	'sf_forminputs_restricted' => 'Samo administratori mogu mijenjati ovaj unos',
 	'createform' => 'Napravi obrazac',
 	'sf_createform_nameinput' => 'Naziv obrasca',
 	'sf_createform_template' => 'Šablon:',
@@ -1017,6 +1017,7 @@ $messages['bs'] = array(
 	'sf_formstart_createoredit' => 'Napravi ili uredi',
 	'formedit' => 'Uredi sa obrascem',
 	'sf_formedit_createtitle' => 'Napravi $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Napravi $1',
 	'sf_formedit_altformsonly' => 'Molimo Vas da odaberete jedan od slijedećih obrazaca za dodavanje ovoj stranici:',
 	'sf_formcreate' => 'Napravi sa obrascem',
 	'sf_viewform' => 'Pogledaj obrazac',
@@ -2106,6 +2107,7 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
  * @author Crochet.david
  * @author Dereckson
  * @author Grondin
+ * @author Hashar
  * @author IAlex
  * @author Peter17
  * @author PieRRoMaN
@@ -2146,6 +2148,19 @@ $messages['fr'] = array(
 	'sf_forms_docu' => 'Les formulaires suivants existent dans le wiki.',
 	'sf_forminputs_mandatory' => 'Obligatoire',
 	'sf_forminputs_restricted' => 'Restreint',
+	'sf_forminputs_class' => "L'attribut « classe » pour cette entrée",
+	'sf_forminputs_default' => 'La valeur par défaut pour cette entrée',
+	'sf_forminputs_property' => 'Une propriété sémantique à laquelle ce champ fait référence',
+	'sf_forminputs_size' => 'La taille de ce champ de texte, en caractères',
+	'sf_forminputs_maxlength' => 'La longueur de texte maximale autorisée pour ce champ',
+	'sf_forminputs_uploadable' => 'Placez un lien « Télécharger le fichier » à côté de cette entrée',
+	'sf_forminputs_defaultfilename' => 'Le nom de fichier par défaut pour les fichiers téléchargés',
+	'sf_forminputs_rows' => 'Le nombre de lignes pour cette entrée.',
+	'sf_forminputs_cols' => 'Le nombre de colonnes pour cette entrée.',
+	'sf_forminputs_autogrow' => "Autoriser cette entrée à s'agrandir si la longueur du texte dépasse les limites",
+	'sf_forminputs_includetimezone' => 'Ajouter un champ pour le fuseau horaire',
+	'sf_forminputs_height' => 'La hauteur de cette entrée, en pixels',
+	'sf_forminputs_width' => 'La largeur de cette entrée, en pixels',
 	'createform' => 'Créer un formulaire',
 	'sf_createform_nameinput' => 'Nom de formulaire',
 	'sf_createform_nameinputdesc' => '(la convention est de nommer le formulaire selon le modèle principal qu’il remplit)',
@@ -2185,6 +2200,7 @@ $messages['fr'] = array(
 	'sf_formstart_createoredit' => 'Créer ou modifier',
 	'formedit' => 'Modifier avec un formulaire',
 	'sf_formedit_createtitle' => 'Créer $1 : $2',
+	'sf_formedit_createtitlenotarget' => 'Créer $1',
 	'sf_formedit_badurl' => 'Ceci est la page pour modifier les données en utilisant un formulaire. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;
 l’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<nom de page cible> » ou « Special:FormEdit/<nom de formulaire>/<nom de page cible> ».',
 	'sf_formedit_altforms' => 'Vous pouvez, à la place, ajouter cette page avec l’un des formulaires suivants :',
@@ -5704,6 +5720,7 @@ $messages['roa-tara'] = array(
 
 /** Russian (Русский)
  * @author Ferrer
+ * @author Haffman
  * @author Innv
  * @author Kaganer
  * @author Lockal
@@ -5743,6 +5760,7 @@ $messages['ru'] = array(
 	'sf_forms_docu' => 'В вики существуют следующие формы.',
 	'sf_forminputs_mandatory' => 'обязательная',
 	'sf_forminputs_restricted' => 'ограниченная (править могут только администраторы)',
+	'sf_forminputs_size' => 'Размер этого текстового поля в символах',
 	'createform' => 'Создать форму',
 	'sf_createform_nameinput' => 'Название формы',
 	'sf_createform_nameinputdesc' => '(конвенция названия формы после заполнения основного шаблона):',
@@ -5782,6 +5800,7 @@ $messages['ru'] = array(
 	'sf_formstart_createoredit' => 'Создать или править',
 	'formedit' => 'Править с помощью формы',
 	'sf_formedit_createtitle' => 'Создание $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Создать $1',
 	'sf_formedit_badurl' => 'Это страница для редактирования с помощью формы. Вы должны указать имя формы и целевую страницу в URL;
 выглядеть это должно на подобии «Special:FormEdit?form=<form name>&target=<target page>» или «Special:FormEdit/<form name>/<target page>».',
 	'sf_formedit_altforms' => 'Вы можете вместо этого добавить эту страницу с помощью одной из следующих форм:',
