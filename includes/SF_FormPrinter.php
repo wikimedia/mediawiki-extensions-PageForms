@@ -365,12 +365,9 @@ END;
 //		}
 		// Otherwise, parse it.
 //		if ( ! $got_form_def_from_cache ) {
-		if ( !$embedded) {
-			$wgParser->clearState();
-		}
-		
   		$form_def = $wgParser->recursiveTagParse( $form_def );
-		$form_def = $wgParser->mStripState->unstripBoth( $form_def );
+		$form_def = $wgParser->mStripState->unstripNoWiki( $form_def );
+		$form_def = $wgParser -> doBlockLevels( $form_def, true );
 //			} else {
 //				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
 //			}
