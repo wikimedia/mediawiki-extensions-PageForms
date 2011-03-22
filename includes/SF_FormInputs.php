@@ -777,7 +777,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		return array( '_str' );
 	}
 
-	public static function getAutocompletionTypeAndSource( $field_args ) {
+	public static function getAutocompletionTypeAndSource( &$field_args ) {
 		if ( array_key_exists( 'values from property', $field_args ) ) {
 			$autocompletionSource = $field_args['values from property'];
 			$propValue = SMWPropertyValue::makeUserProperty( $autocompletionSource );
@@ -797,9 +797,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			$autocompletionSource = $field_args['values from namespace'];
 		} elseif ( array_key_exists( 'values from url', $field_args ) ) {
 			$autocompleteFieldType = 'external_url';
-			$autocompletionSource = $field_args['values from namespace'];
+			$autocompletionSource = $field_args['values from url'];
 			// Autocompletion from URL is always done remotely.
-			$field_args['remote autocompletion'] == true;
+			$field_args['remote autocompletion'] = true;
 		} elseif ( array_key_exists( 'values', $field_args ) ) {
 			global $sfgFieldNum;
 			$autocompleteFieldType = 'values';
