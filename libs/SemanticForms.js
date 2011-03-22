@@ -308,74 +308,102 @@ jQuery.fn.SemanticForms_unregisterInputInit = function() {
  */
 
 // Display a div that would otherwise be hidden by "show on select".
-function showDiv(div_id) {
-	jQuery('#' + div_id).find(".hiddenBySF").removeClass('hiddenBySF');
-	jQuery('#' + div_id).show();
+function showDiv(div_id, instanceWrapperDiv) {
+	if (instanceWrapperDiv != null) {
+		instanceWrapperDiv.find('[origID=' + div_id + ']').find(".hiddenBySF").removeClass('hiddenBySF');
+		instanceWrapperDiv.find('[origID=' + div_id + ']').show();
+	} else {
+		jQuery('#' + div_id).find(".hiddenBySF").removeClass('hiddenBySF');
+		jQuery('#' + div_id).show();
+	}
 }
 
 // Hide a div due to "show on select". The CSS class is there so that SF can
 // ignore the div's contents when the form is submitted.
-function hideDiv(div_id) {
-	jQuery('#' + div_id).find("span, div").addClass('hiddenBySF');
-	jQuery('#' + div_id).hide();
+function hideDiv(div_id, instanceWrapperDiv) {
+	if (instanceWrapperDiv != null) {
+		instanceWrapperDiv.find('[origID=' + div_id + ']').find("span, div").addClass('hiddenBySF');
+		instanceWrapperDiv.find('[origID=' + div_id + ']').hide();
+	} else {
+		jQuery('#' + div_id).find("span, div").addClass('hiddenBySF');
+		jQuery('#' + div_id).hide();
+	}
 }
 
 // Show this div if the current value is any of the relevant options -
 // otherwise, hide it.
-function showDivIfSelected(options, div_id, inputVal) {
+function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv) {
 	for (var j in options) {
 		// If it's a listbox and the user has selected more than one
 		// value, it'll be an array - handle either case.
 		if ((jQuery.isArray(inputVal) && jQuery.inArray(options[j], inputVal) >= 0) ||
 		    (!jQuery.isArray(inputVal) && (inputVal == options[j]))) {
-			showDiv(div_id);
+			showDiv(div_id, instanceWrapperDiv);
 			return;
 		}
 	}
-	hideDiv(div_id);
+	hideDiv(div_id, instanceWrapperDiv);
 }
 
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
-jQuery.fn.showIfSelected = function() {
+jQuery.fn.showIfSelected = function(partOfMultiple) {
 	var inputVal = this.val();
-	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+	if (partOfMultiple) {
+		var showOnSelectVals = sfgShowOnSelect[this.attr("origID")];
+		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
+	} else {
+		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+		var instanceWrapperDiv = null;
+	}
 	for (i in showOnSelectVals) {
 		var options = showOnSelectVals[i][0];
 		var div_id = showOnSelectVals[i][1];
-		showDivIfSelected(options, div_id, inputVal);
+		showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv);
 	}
 }
 
 // Show this div if any of the relevant selections are checked -
 // otherwise, hide it.
-jQuery.fn.showDivIfChecked = function(options, div_id) {
+jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv) {
 	for (var i in options) {
 		if (jQuery(this).find('[value="' + options[i] + '"]').is(":checked")) {
-			showDiv(div_id);
+			showDiv(div_id, instanceWrapperDiv);
 			return;
 		}
 	}
-	hideDiv(div_id);
+	hideDiv(div_id, instanceWrapperDiv);
 }
 
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
-jQuery.fn.showIfChecked = function() {
-	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+jQuery.fn.showIfChecked = function(partOfMultiple) {
+	if (partOfMultiple) {
+		var showOnSelectVals = sfgShowOnSelect[this.attr("origID")];
+		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
+	} else {
+		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+		var instanceWrapperDiv = null;
+	}
 	for (i in showOnSelectVals) {
 		var options = showOnSelectVals[i][0];
 		var div_id = showOnSelectVals[i][1];
-		this.showDivIfChecked(options, div_id);
+		this.showDivIfChecked(options, div_id, instanceWrapperDiv);
 	}
 }
 
 // Used for handling 'show on select' for the 'checkbox' input.
-jQuery.fn.showIfCheckedCheckbox = function() {
-	var div_id = sfgShowOnSelect[this.attr("id")];
-	if (jQuery(this).is(":checked")) {
-		showDiv(div_id);
+jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple) {
+	if (partOfMultiple) {
+		var div_id = sfgShowOnSelect[this.attr("origID")];
+		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
 	} else {
-		hideDiv(div_id);
+		var div_id = sfgShowOnSelect[this.attr("id")];
+		var instanceWrapperDiv = null;
+	}
+	if (jQuery(this).is(":checked")) {
+		showDiv(div_id, instanceWrapperDiv);
+	} else {
+		hideDiv(div_id, instanceWrapperDiv);
 	}
 }
 
@@ -596,8 +624,16 @@ jQuery.fn.addInstance = function() {
 		.addClass('multipleTemplate') // backwards compatibility
 		.removeAttr("id")
 		.css("display", "block");
+
+	// Add on a new attribute, "origID", representing the ID of all
+	// HTML elements that had an ID; and delete the actual ID attribute
+	// of any divs and spans (presumably, these exist only for the
+	// sake of "show on select"). We do the deletions because no two
+	// elements on the page are allowed to have the same ID.
+	new_div.find('[id!=""]').attr('origID', function() { return this.id; });
+	new_div.find('div[id!=""], span[id!=""]').removeAttr('id');
 	
-	// Make internal ID unique for the relevant divs and spans, and replace
+	// Make internal ID unique for the relevant form elements, and replace
 	// the [num] index in the element names with an actual unique index
 	new_div.find("input, select, textarea").each(
 		function() {
@@ -650,9 +686,11 @@ jQuery.fn.addInstance = function() {
 	new_div.find('a').attr('href', function() {
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
+	/*
 	new_div.find('span').attr('id', function() {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
+	*/
 
 	// Add the new instance
 	this.closest(".multipleTemplateWrapper")
@@ -678,30 +716,13 @@ jQuery.fn.addInstance = function() {
 			.fadeOut('fast', function() { jQuery(this).remove(); });
 	});
 
-	// Enable autocompletion
-	new_div.find('.autocompleteInput').attachAutocomplete();
-
-	// Apply the relevant Javascript call for all FancyBox, combobox
-	// and autogrow instances in this div.
-	new_div.find('.sfFancyBox').fancybox({
-			'width'         : '75%',
-			'height'        : '75%',
-			'autoScale'     : false,
-			'transitionIn'  : 'none',
-			'transitionOut' : 'none',
-			'type'          : 'iframe',
-			'overlayColor'  : '#222',
-			'overlayOpacity' : '0.8'
-	});
 	// Somewhat of a hack - remove the divs that the combobox() call
 	// adds on, so that we can just call combobox() again without
 	// duplicating anything. There's probably a nicer way to do this,
 	// that doesn't involve removing and then recreating divs.
 	new_div.find('.sfComboBoxActual').remove();
-	new_div.find('.sfComboBox').combobox();
 
-	// Handle AutoGrow as well.
-	new_div.find('.autoGrow').autoGrow();
+	new_div.initializeJSElements(true);
 
 	// Initialize new inputs
 	new_div.find("input, select, textarea").each(
@@ -726,40 +747,42 @@ jQuery.fn.addInstance = function() {
 
 }
 
-var num_elements = 0;
-
-// Once the document has finished loading, set up everything!
-jQuery(document).ready(function() {
-	jQuery(".sfShowIfSelected").each( function() {
-		jQuery(this).showIfSelected();
+/**
+ * Initialize all the JS-using elements contained within this block - can be
+ * called for either the entire HTML body, or for a div representing an
+ * instance of a multiple-instance template.
+ */
+jQuery.fn.initializeJSElements = function(partOfMultiple) {
+	this.find(".sfShowIfSelected").each( function() {
+		jQuery(this).showIfSelected(partOfMultiple);
 		jQuery(this).change( function() {
-			jQuery(this).showIfSelected();
+			jQuery(this).showIfSelected(partOfMultiple);
 		});
 	});
 	
-	jQuery(".sfShowIfChecked").each( function() {
-		jQuery(this).showIfChecked();
+	this.find(".sfShowIfChecked").each( function() {
+		jQuery(this).showIfChecked(partOfMultiple);
 		jQuery(this).click( function() {
-			jQuery(this).showIfChecked();
+			jQuery(this).showIfChecked(partOfMultiple);
 		});
 	});
 	
-	jQuery(".sfShowIfCheckedCheckbox").each( function() {
-		jQuery(this).showIfCheckedCheckbox();
+	this.find(".sfShowIfCheckedCheckbox").each( function() {
+		jQuery(this).showIfCheckedCheckbox(partOfMultiple);
 		jQuery(this).click( function() {
-			jQuery(this).showIfCheckedCheckbox();
+			jQuery(this).showIfCheckedCheckbox(partOfMultiple);
 		});
 	});
 
-	jQuery(".remover").click( function() {
+	this.find(".remover").click( function() {
 		// Remove the encompassing div for this instance.
 		jQuery(this).closest(".multipleTemplateInstance")
 			.fadeOut('fast', function() { jQuery(this).remove(); });
 	});
-	jQuery(".autocompleteInput").attachAutocomplete();
-	jQuery(".sfComboBox").combobox();
-	jQuery(".autoGrow").autoGrow();
-	jQuery(".sfFancyBox").fancybox({
+	this.find('.autocompleteInput').attachAutocomplete();
+	this.find('.sfComboBox').combobox();
+	this.find('.autoGrow').autoGrow();
+	this.find('.sfFancyBox').fancybox({
 		'width'         : '75%',
 		'height'        : '75%',
 		'autoScale'     : false,
@@ -769,6 +792,13 @@ jQuery(document).ready(function() {
 		'overlayColor'  : '#222',
 		'overlayOpacity' : '0.8'
 	});
+}
+
+var num_elements = 0;
+
+// Once the document has finished loading, set up everything!
+jQuery(document).ready(function() {
+	jQuery('body').initializeJSElements(false);
 
 	jQuery('.multipleTemplateAdder').click( function() { jQuery(this).addInstance(); } );
 	jQuery('.multipleTemplateList').sortable({
