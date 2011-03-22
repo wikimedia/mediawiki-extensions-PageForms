@@ -1008,14 +1008,16 @@ END;
 						// call hooks - unfortunately this has to be split into two
 						// separate calls, because of the different variable names in
 						// each case
-						if ( $form_submitted )
+						if ( $form_submitted ) {
 							wfRunHooks( 'sfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
-						else
+						} else {
 							wfRunHooks( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
+						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
-						if ( ! array_key_exists( 'part_of_multiple', $field_args ) )
+						if ( ! array_key_exists( 'part_of_multiple', $field_args ) ) {
 							$sfgTabIndex++;
+						}
 						// increment the global field number regardless
 						$sfgFieldNum++;
 						// if the field is a date field, and its default value was set
@@ -1366,16 +1368,10 @@ END;
 		$page_article = new Article( $this->mPageTitle );
 		$edittime = $page_article->getTimestamp();
 		if ( !$is_query ) {
-			$form_text .= <<<END
-
-	<input type="hidden" value="$starttime" name="wpStarttime" />
-	<input type="hidden" value="$edittime" name="wpEdittime" />
-END;
+			$form_text .= "\t" . Xml::hidden( 'wpStarttime', wfTimestampNow() ) . "\n";
+			$form_text .= "\t" . Xml::hidden( 'wpEdittime', $page_article->getTimestamp() ) . "\n";
 		}
-		$form_text .= <<<END
-	</form>
-
-END;
+		$form_text .= "\t</form>\n";
 
 		// add Javascript code for form-wide use
 		$javascript_text = "";
