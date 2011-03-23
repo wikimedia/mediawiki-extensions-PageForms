@@ -368,6 +368,7 @@ END;
   		$form_def = $wgParser->recursiveTagParse( $form_def );
 		$form_def = $wgParser->mStripState->unstripBoth( $form_def );
 		$form_def = $wgParser -> doBlockLevels( $form_def, true );
+		wfRunHooks( 'ParserAfterTidy', array( &$wgParser, &$form_def ) );
 //			} else {
 //				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
 //			}
