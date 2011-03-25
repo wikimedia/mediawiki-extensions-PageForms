@@ -365,9 +365,9 @@ END;
 //		}
 		// Otherwise, parse it.
 //		if ( ! $got_form_def_from_cache ) {
-  		$form_def = $wgParser->recursiveTagParse( $form_def );
+		$form_def = $wgParser->recursiveTagParse( $form_def );
 		$form_def = $wgParser->mStripState->unstripBoth( $form_def );
-		$form_def = $wgParser -> doBlockLevels( $form_def, true );
+		$form_def = $wgParser->doBlockLevels( $form_def, true );
 		wfRunHooks( 'ParserAfterTidy', array( &$wgParser, &$form_def ) );
 //			} else {
 //				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
@@ -680,7 +680,7 @@ END;
 								if ( $sub_components[0] == 'input type' ) {
 									$input_type = $sub_components[1];
 								} elseif ( $sub_components[0] == 'default' ) {
-									$default_value = $wgParser -> recursiveTagParse( $sub_components[1] );
+									$default_value = $wgParser->recursiveTagParse( $sub_components[1] );
 								} elseif ( $sub_components[0] == 'preload' ) {
 									// free text field has special handling
 									if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
@@ -836,6 +836,16 @@ END;
 								$default_value = '!free_text!';
 							} else {
 								$default_value = $cur_value;
+								// If the FCKeditor extension is installed and
+								// active, the default value needs to be parsed
+								// for use in the editor.
+								global $wgFCKEditorDir;
+								if ( $wgFCKEditorDir && strpos( $existing_page_content, '__NORICHEDITOR__' ) === false ) {
+									$showFCKEditor = SFFormUtils::getShowFCKEditor();
+									if ( !$form_submitted && ( $showFCKEditor & RTE_VISIBLE ) ) {
+										$default_value = SFFormUtils::prepareTextForFCK( $cur_value );
+									}
+								}
 							}
 							$new_text = SFTextAreaInput::getHTML( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
 							if ( in_array( 'edittools', $free_text_components ) ) {
