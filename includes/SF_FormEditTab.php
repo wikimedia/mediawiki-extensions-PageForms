@@ -119,6 +119,7 @@ class SFFormEditTab {
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
+		global $wgOut;
 		global $sfgIP, $sfgUseFormEditPage;
 
 		// return "true" if the call failed (meaning, pass on handling
@@ -138,7 +139,6 @@ class SFFormEditTab {
 		if ( count( $form_names ) > 1 ) {
 			SFUtils::loadMessages();
 			$warning_text = '    <div class="warningMessage">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
-			global $wgOut;
 			$wgOut->addHTML( $warning_text );
 		}
 		$form_name = $form_names[0];
@@ -152,7 +152,25 @@ class SFFormEditTab {
 		}
 
 		$page_name = SFUtils::titleString( $title );
-		SFFormEdit::printForm( $form_name, $page_name );
+
+		$msg = SFFormEdit::printForm( $form_name, $page_name );
+
+		if ( $msg ) {
+			// some error occurred
+
+			$msgdata = null;
+
+			if ( is_array( $msg ) ) {
+				if ( count( $msg ) > 1 ) {
+					$msgdata = $msg[ 1 ];
+				}
+				$msg = $msg[ 0 ];
+			}
+
+			$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
+
+		}
+
 		return false;
 	}
 
