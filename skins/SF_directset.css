@@ -1,0 +1,44 @@
+/* 
+*/
+
+.directset {
+	display: inline;
+}
+
+.directset-trigger {
+	cursor: pointer;
+}
+
+.directset-trigger-wait {
+	margin-right: 1em;
+	cursor: pointer;
+}
+
+.directset-trigger-error {
+	display: none;
+}
+
+.directset-trigger-ok {
+	display: none;
+}
+
+.directset-result {
+    
+}
+
+.directset-result-wait {
+    color: #555;
+	cursor: progress;
+}
+
+.directset-result-error {
+    color: #a00;
+}
+
+.directset-result-ok {
+    color: #0a0;
+}
+
+.directset-data {
+	display: none;
+}

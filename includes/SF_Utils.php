@@ -207,6 +207,7 @@ END;
 		$output->addModules( 'ext.semanticforms.main' );
 		$output->addModules( 'ext.semanticforms.fancybox' );
 		$output->addModules( 'ext.semanticforms.autogrow' );
+		$output->addModules( 'ext.semanticforms.submit' );
 		$output->addModules( 'ext.smw.tooltips' );
 		$output->addModules( 'ext.smw.sorttable' );
 	}
@@ -235,6 +236,7 @@ END;
 			"$smwgScriptPath/skins/SMW_custom.css",
 			"$sfgScriptPath/skins/jquery-ui/base/jquery.ui.all.css",
 			"$sfgScriptPath/skins/SemanticForms.css",
+			"$sfgScriptPath/skins/SF_submit.css",
 			"$sfgScriptPath/skins/jquery.fancybox-1.3.1.css"
 		);
 		foreach ( $css_files as $css_file ) {
@@ -278,6 +280,7 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.sortable.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
+		$scripts[] = "$sfgScriptPath/libs/SF_submit.js";
 
 		if ( $wgFCKEditorDir )
 			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
@@ -607,4 +610,64 @@ END;
 			wfLoadExtensionMessages( 'SemanticForms' );
 		}
 	}
+
+	/**
+	 * Tranlates an EditPage storing error into the corresponding message id
+	 * @param $error The error code
+	 * @return String
+	 */
+	static function processEditErrors ( $error ) {
+
+		switch ( $error ) {
+			case EditPage::AS_SUCCESS_NEW_ARTICLE:
+			case EditPage::AS_SUCCESS_UPDATE:
+				return null;
+
+			case EditPage::AS_SPAM_ERROR:
+				return 'spamprotectiontext';
+
+			case EditPage::AS_BLOCKED_PAGE_FOR_USER:
+				return 'blockedtitle';
+
+			case EditPage::AS_IMAGE_REDIRECT_ANON:
+				return 'uploadnologin';
+
+			case EditPage::AS_READ_ONLY_PAGE_ANON:
+				return 'loginreqtitle';
+
+			case EditPage::AS_READ_ONLY_PAGE_LOGGED:
+			case EditPage::AS_READ_ONLY_PAGE:
+				return array( 'readonlytext', array ( wfReadOnlyReason() ) );
+
+			case EditPage::AS_RATE_LIMITED:
+				return 'actionthrottledtext';
+
+			case EditPage::AS_NO_CREATE_PERMISSION:
+				return 'nocreatetext';
+
+			case EditPage::AS_BLANK_ARTICLE:
+				return 'directset-blankpage';
+
+			case EditPage::AS_IMAGE_REDIRECT_LOGGED:
+				return 'badaccess';
+
+			case EditPage::AS_HOOK_ERROR_EXPECTED:
+			case EditPage::AS_HOOK_ERROR:
+				return 'sf_formedit_hookerror';
+
+			case EditPage::AS_CONFLICT_DETECTED:
+				return 'editconflict';
+
+			case EditPage::AS_CONTENT_TOO_BIG:
+			case EditPage::AS_ARTICLE_WAS_DELETED:
+			case EditPage::AS_SUMMARY_NEEDED:
+			case EditPage::AS_TEXTBOX_EMPTY:
+			case EditPage::AS_MAX_ARTICLE_SIZE_EXCEEDED:
+			case EditPage::AS_END:
+			case EditPage::AS_FILTERING:
+			default:
+				return array( 'internalerror_text', array ( $error ) );
+		}
+	}
+
 }

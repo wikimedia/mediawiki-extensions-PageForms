@@ -12,7 +12,7 @@ class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
-		global $sfgShowOnSelect;
+		global $sfgShowOnSelect, $wgParser;
 
 		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
@@ -29,6 +29,7 @@ class SFFormUtils {
 		$vars['sfgBadNumberErrorStr'] = wfMsg( 'sf_bad_number_error' );
 		$vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
 		$vars['sfgBadDateErrorStr'] = wfMsg( 'sf_bad_date_error' );
+		$vars['sfgAnonEditWarning'] = StringUtils::delimiterReplace( '<', '>', '', $wgParser->recursiveTagParse( wfMsg( 'anoneditwarning' ) ) );
 		return true;
 	}
 
@@ -166,6 +167,34 @@ END;
 		if ( $is_disabled ) {
 			$temp['disabled'] = '';
 		}
+		return self::buttonHTML( $temp );
+	}
+
+	static function saveAndContinueButtonHTML( $is_disabled, $label = null, $attr = array() ) {
+		global $sfgTabIndex;
+
+		$sfgTabIndex++;
+
+		if ( $label == null )
+			$label = wfMsg( 'sf_formedit_saveandcontinueediting' );
+
+		$temp = $attr + array(
+			'id'        => 'wpSaveAndContinue',
+			'name'      => 'wpSaveAndContinue',
+			'type'      => 'button',
+			'tabindex'  => $sfgTabIndex,
+			'value'     => $label,
+			'disabled'  => 'disabled',
+			'accesskey' => wfMsg( 'sf_formedit_accesskey_saveandcontinueediting' ),
+			'title'     => wfMsg( 'sf_formedit_tooltip_saveandcontinueediting' ),
+		);
+
+		if ( $is_disabled ) {
+			$temp['class'] = 'sf-save_and_continue disabled';
+		} else {
+			$temp['class'] = 'sf-save_and_continue';
+		}
+
 		return self::buttonHTML( $temp );
 	}
 

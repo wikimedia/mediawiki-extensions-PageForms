@@ -120,6 +120,8 @@ class SFParserFunctions {
 			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ) );
 		}
 
+		$parser->setFunctionHook( 'directset', array( 'SFParserFunctions', 'renderDirectSet' ) );
+
 		// load jQuery on MW 1.16
 		if ( is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
 			$wgOut -> includeJQuery();
@@ -136,6 +138,7 @@ class SFParserFunctions {
 			$magicWords['formlink']	= array ( 0, 'formlink' );
 			$magicWords['arraymap']	= array ( 0, 'arraymap' );
 			$magicWords['arraymaptemplate'] = array ( 0, 'arraymaptemplate' );
+			$magicWords['directset'] = array( 0, 'directset' );
 		}
 		return true;
 	}
@@ -530,6 +533,74 @@ END;
 		return implode( $new_delimiter, $results_array );
 	}
 
+
+	static function renderDirectSet ( &$parser ) {
+
+		// set defaults
+		$formcontent = '';
+
+		$linkString = null;
+		$linkType = 'span';
+
+		$classString = 'directset-trigger';
+
+		// parse parameters
+		$params = func_get_args();
+		array_shift( $params ); // don't need the parser
+
+		foreach ( $params as $i => $param ) {
+
+			$elements = explode( '=', $param, 2 );
+
+			$key = trim( $elements[ 0 ] );
+			$value = ( count( $elements ) > 1 ) ? trim( $elements[ 1 ] ) : '';
+
+			switch ( $key ) {
+				case 'link text':
+					$linkString = $parser -> recursiveTagParse( $value );
+					break;
+				case 'link type':
+					$linkType = $parser -> recursiveTagParse( $value );
+					break;
+				case 'reload':
+					$classString .= ' reload';
+					break;
+				default :
+					$formcontent .=
+						Xml::tags( 'input', array(
+							'type' => 'hidden',
+							'name' => $key,
+							'value' => urldecode( $value )
+							), '' );
+			}
+		}
+
+		if ( !$linkString ) return null;
+
+		if ( $linkType == 'button' ) {
+			$linkElement = Xml::tags( "button", array( 'class' => $classString ), $linkString );
+		} elseif ( $linkType == 'link' ) {
+			$linkElement = Xml::tags( "a", array( 'class' => $classString, 'href' => "#" ), $linkString );
+		} else {
+			$linkElement = Xml::tags( "span", array( 'class' => $classString ), $linkString );
+		}
+
+		$form = Xml::tags( 'form', array( 'class' => 'directset-data' ), $formcontent );
+
+		// ensure loading of jQuery and style sheets
+		self::loadScriptsForDirectSet( $parser );
+
+		$output = Xml::tags( "div", array( 'class' => "directset" ),
+				$linkElement .
+				Xml::tags( "span", array( 'class' => "directset-result" ), null ) .
+				$form
+		);
+
+		// return output HTML
+		return $parser -> insertStripItem( $output, $parser -> mStripState );
+	}
+
+
 	static function loadScriptsForPopupForm ( &$parser ) {
 
 		global $sfgScriptPath;
@@ -547,26 +618,63 @@ END;
 			static $loaded = false;
 
 			// load JavaScript and CSS files only once
-			if ( $loaded ) return true;
+			if ( !$loaded ) {
 
-			// load extensions JavaScript
-			$parser->getOutput()->addHeadItem(
-				'<script type="text/javascript" src="' . $sfgScriptPath
-				. '/libs/SF_popupform.js"></script> ' . "\n",
-				'sf_popup_script'
-			);
+				// load extensions JavaScript
+				$parser->getOutput()->addHeadItem(
+					'<script type="text/javascript" src="' . $sfgScriptPath
+					. '/libs/SF_popupform.js"></script> ' . "\n",
+					'sf_popup_script'
+				);
 
-			// load extensions style sheet
-			$parser->getOutput()->addHeadItem(
-				'<link rel="stylesheet" href="' . $sfgScriptPath
-				. '/skins/SF_popupform.css"/> ' . "\n",
-				'sf_popup_style'
-			);
+				// load extensions style sheet
+				$parser->getOutput()->addHeadItem(
+					'<link rel="stylesheet" href="' . $sfgScriptPath
+					. '/skins/SF_popupform.css"/> ' . "\n",
+					'sf_popup_style'
+				);
 
-			$loaded = true;
+				$loaded = true;
+			}
 
 		}
 
 		return true;
 	}
+	
+	// load scripts and style files for DirectSet
+	private static function loadScriptsForDirectSet ( &$parser ) {
+
+		global $sfgScriptPath;
+
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+			$parser -> getOutput() -> addModules( 'ext.semanticforms.directset' );
+		} else {
+
+			static $loaded = false;
+
+			// load JavaScript and CSS files only once
+			if ( !$loaded ) {
+
+				// load extensions JavaScript
+				$parser -> getOutput() -> addHeadItem(
+					'<script type="text/javascript" src="' . $sfgScriptPath
+					. '/libs/SF_directset.js"></script> ' ."\n",
+					'sf_directset_script'
+				);
+
+				// load extensions style sheet
+				$parser -> getOutput() -> addHeadItem(
+					'<link rel="stylesheet" href="' . $sfgScriptPath
+					. '/skins/SF_directset.css"/> ' ."\n",
+					'sf_directset_style'
+				);
+
+				$loaded = true;
+			}
+		}
+
+		return true;
+	}
+
 }

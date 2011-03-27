@@ -9,6 +9,10 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
 
 class SFFormEdit extends SpecialPage {
 
+	public $mTarget;
+	public $mForm;
+	public $mError;
+
 	/**
 	 * Constructor
 	 */
@@ -18,23 +22,43 @@ class SFFormEdit extends SpecialPage {
 	}
 
 	function execute( $query ) {
-		global $wgRequest;
+		global $wgRequest, $wgOut;
 
 		$this->setHeaders();
-		$form_name = $wgRequest->getVal( 'form' );
-		$target_name = $wgRequest->getVal( 'target' );
+		$this->mForm = $wgRequest->getVal( 'form' );
+		$this->mTarget = $wgRequest->getVal( 'target' );
 
 		// if query string did not contain these variables, try the URL
-		if ( ! $form_name && ! $target_name ) {
+		if ( ! $this->mForm && ! $this->mTarget ) {
 			$queryparts = explode( '/', $query, 2 );
-			$form_name = isset( $queryparts[0] ) ? $queryparts[0] : '';
-			$target_name = isset( $queryparts[1] ) ? $queryparts[1] : '';
+			$this->mForm = isset( $queryparts[0] ) ? $queryparts[0] : '';
+			$this->mTarget = isset( $queryparts[1] ) ? $queryparts[1] : '';
 		}
-		wfRunHooks( 'sfSetTargetName', array( &$target_name, $query ) );
+		wfRunHooks( 'sfSetTargetName', array( &$this->mTarget, $query ) );
 
 		$alt_forms = $wgRequest->getArray( 'alt_form' );
 
-		self::printForm( $form_name, $target_name, $alt_forms );
+		$msg = self::printForm( $this->mForm, $this->mTarget, $alt_forms );
+
+		if ( $msg ) {
+			// some error occurred
+
+			$msgdata = null;
+
+			if ( is_array( $msg ) ) {
+				if ( count( $msg ) > 1 ) {
+					$msgdata = $msg[ 1 ];
+				}
+				$msg = $msg[ 0 ];
+			}
+
+			$this->mError = wfMsg( $msg, $msgdata );
+
+			$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), $this->mError ) );
+
+		} else {
+			$this->mError = null;
+		}
 	}
 
 	static function printAltFormsList( $alt_forms, $target_name ) {
@@ -54,90 +78,86 @@ class SFFormEdit extends SpecialPage {
 		return rand() % 1000000;
 	}
 
-	static function printForm( $form_name, $target_name, $alt_forms = array() ) {
-		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter;
+	static function printForm( &$form_name, &$target_name, $alt_forms = array() ) {
+		global $wgOut, $wgRequest, $wgUser, $sfgFormPrinter;
 
 		SFUtils::loadMessages();
+
+		// If we have no form name we might as well stop right away
+		if ( $form_name == '' ) {
+			return 'sf_formedit_badurl';
+		}
 
 		// initialize some variables
 		$target_title = null;
 		$page_name_formula = null;
 
-		// get contents of form and target page - if there's only one,
-		// it might be a target with only alternate forms
-		if ( $form_name == '' ) {
-			$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) );
-			return;
-		} elseif ( $target_name == '' ) {
+		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+
+		$form_article = new Article( $form_title );
+		$form_definition = $form_article->getContent();
+		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
+
+		if ( $target_name == '' ) {
+
 			// parse the form to see if it has a 'page name' value set
-			$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
-			$form_article = new Article( $form_title );
-			$form_definition = $form_article->getContent();
-			$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 			$matches;
 			if ( preg_match( '/{{{info.*page name\s*=\s*(.*)}}}/m', $form_definition, $matches ) ) {
 				$page_name_elements = SFUtils::getFormTagComponents( $matches[1] );
 				$page_name_formula = $page_name_elements[0];
 			} elseif ( count( $alt_forms ) == 0 ) {
-				$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) );
-				return;
+				return 'sf_formedit_badurl';
 			}
-		}
-
-		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
-
-		if ( $target_name != '' ) {
+		} else {
 			$target_title = Title::newFromText( $target_name );
-		}
 
-		// handling is different depending on whether or not page
-		// already exists
-		if ( $target_title && $target_title->exists() ) {
-			if ( $wgRequest->getVal( 'query' ) == 'true' ) {
-				$page_contents = null;
-				$page_is_source = false;
+			if ( $target_title->exists() ) {
+				if ( $wgRequest->getVal( 'query' ) == 'true' ) {
+					$page_contents = null;
+					//$page_is_source = false;
+				} else {
+					$target_article = new Article( $target_title );
+					$page_contents = $target_article->getContent();
+					//$page_is_source = true;
+				}
 			} else {
-				$target_article = new Article( $target_title );
-				$page_contents = $target_article->getContent();
-				$page_is_source = true;
+				$target_name = str_replace( '_', ' ', $target_name );
 			}
-		} elseif ( $target_name != '' ) {
-			$target_name = str_replace( '_', ' ', $target_name );
+
 		}
 
 		if ( ! $form_title || ! $form_title->exists() ) {
-			if ( $form_name == '' ) {
-				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
+			if ( count( $alt_forms ) > 0 ) {
+
+				$text = '<div class="infoMessage">'
+					. wfMsg( 'sf_formedit_altformsonly' ) . ' '
+					. self::printAltFormsList( $alt_forms, $form_name )
+					. "</div>\n";
+
 			} else {
-				if ( count( $alt_forms ) > 0 ) {
-					$text .= '<div class="infoMessage">' . wfMsg( 'sf_formedit_altformsonly' ) . ' ';
-					$text .= self::printAltFormsList( $alt_forms, $form_name );
-					$text .= "</div>\n";
-				} else {
-					$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
-				}
+				$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
 		} elseif ( $target_name == '' && $page_name_formula == '' ) {
 			$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
 		} else {
-			$form_article = new Article( $form_title );
-			$form_definition = $form_article->getContent();
 
 			$save_page = $wgRequest->getCheck( 'wpSave' );
 			$preview_page = $wgRequest->getCheck( 'wpPreview' );
 			$diff_page = $wgRequest->getCheck( 'wpDiff' );
 			$form_submitted = ( $save_page || $preview_page || $diff_page );
+
 			// get 'preload' query value, if it exists
 			if ( ! $form_submitted ) {
+
 				if ( $wgRequest->getCheck( 'preload' ) ) {
 					$page_is_source = true;
 					$page_contents = SFFormUtils::getPreloadedText( $wgRequest->getVal( 'preload' ) );
 				} else {
-					// let other extensions preload the
-					// page, if they want
+					// let other extensions preload the page, if they want
 					wfRunHooks( 'sfEditFormPreloadText', array( &$page_contents, $target_title, $form_title ) );
 					$page_is_source = ( $page_contents != null );
 				}
+
 			} else {
 				$page_is_source = false;
 				$page_contents = null;
@@ -186,34 +206,38 @@ class SFFormEdit extends SpecialPage {
 					$target_name = str_replace( ' ', '_', $target_name );
 					$target_name = $wgParser->recursiveTagParse( $target_name );
 
+					$title_number = "";
+					$isRandom = false;
+
 					if ( strpos( $target_name, '{num' ) ) {
-						$title_number = "";
-						$isRandom = false;
-						// get unique number start value
-						// from target name; if it's not
-						// there, or it's not a positive
-						// number, start it out as blank
-						preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $target_name, $matches );
-						if ( count( $matches ) == 2 && is_numeric( $matches[1] ) && $matches[1] >= 0 ) {
-							// the "start" value"
-							$title_number = $matches[1];
+
+						// random number
+						if ( preg_match( '/{num;random}/', $target_name, $matches ) ) {
+							$isRandom = true;
+							$title_number = self::makeRandomNumber();
 						} else {
-							// random number
-							if ( preg_match( '/{num;random}/', $target_name, $matches ) ) {
-								$isRandom = true;
-								$title_number = self::makeRandomNumber();
+							// get unique number start value
+							// from target name; if it's not
+							// there, or it's not a positive
+							// number, start it out as blank
+							preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $target_name, $matches );
+							if ( count( $matches ) == 2 && is_numeric( $matches[ 1 ] ) && $matches[ 1 ] >= 0 ) {
+								// the "start" value"
+								$title_number = $matches[ 1 ];
 							}
+
 						}
+
+						// set target title
+						$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $target_name ) );
+
+						// if title exists already
 						// cycle through numbers for
 						// this tag until we find one
 						// that gives a nonexistent page
 						// title
-						do {
-							$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $target_name ) );
-							// create another title
-							// number in case we
-							// need it for the
-							// next loop
+						while ( $target_title->exists() ) {
+
 							if ( $isRandom ) {
 								$title_number = self::makeRandomNumber();
 							}
@@ -226,16 +250,72 @@ class SFFormEdit extends SpecialPage {
 							} else {
 								$title_number = str_pad( $title_number + 1, strlen( $title_number ), '0', STR_PAD_LEFT );
 							}
-						} while ( $target_title->exists() );
+
+							$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $target_name ) );
+						}
+
+						$target_name = $target_title->getPrefixedText();
+
 					} else {
 						$target_title = Title::newFromText( $target_name );
 					}
 				}
+
 				if ( is_null( $target_title ) ) {
-					die ( wfMsg( 'badtitle' ) . ": $target_name" );
+					if ( $target_name )	return array ( 'sf_formstart_badtitle' , array( $target_name ) );
+					else return 'sf_formedit_emptytitle';
 				}
-				$wgOut->setArticleBodyOnly( true );
-				$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );
+
+				//$wgOut->setArticleBodyOnly( true );
+
+				if ( $save_page ) {
+
+					////////////////////////////////////////////////////////////
+					// Store article
+
+					$data = array(
+						'wpTextbox1' => $data_text,
+						'wpSummary' => $wgRequest -> getVal( 'wpSummary' ),
+						'wpStarttime' => $wgRequest -> getVal( 'wpStarttime' ),
+						'wpEdittime' => $wgRequest -> getVal( 'wpEdittime' ),
+						'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
+						'wpSave' => '',
+						'action' => 'submit',
+					);
+
+					if ( $wgRequest -> getCheck( 'wpMinoredit' ) )
+						$data['wpMinoredit'] = '';
+
+					if ( $wgRequest -> getCheck( 'wpWatchthis' ) )
+						$data['wpWatchthis'] = '';
+
+					//$wgOut -> clearHTML();
+					$oldRequest = $wgRequest;
+					$wgRequest = new FauxRequest( $data, true );
+
+					// find existing article if it exists, else create new one
+					$article = new Article( $target_title );
+
+					$editor = new EditPage( $article );
+					$editor -> importFormData( $wgRequest );
+
+					$resultDetails = false;
+
+					$numerror = $editor -> internalAttemptSave( $resultDetails );  // store the article
+
+					$wgRequest = $oldRequest;
+
+					if ( $numerror == EditPage::AS_SUCCESS_UPDATE ) {
+						$wgOut -> redirect( $target_title -> getFullURL() );
+					}
+
+					return SFUtils::processEditErrors( $numerror );
+
+				} else {
+					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest -> getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest -> getCheck( 'wpMinoredit' ), $wgRequest -> getCheck( 'wpWatchthis' ), $wgRequest -> getVal( 'wpStarttime' ), $wgRequest -> getVal( 'wpEdittime' ) );  // extract its data
+				}
+
+
 			} else {
 				// override the default title for this page if
 				// a title was specified in the form
@@ -276,6 +356,7 @@ END;
 		if ( ! empty( $javascript_text ) ) {
 			$wgOut->addHTML( '		<script type="text/javascript">' . "\n$javascript_text\n" . '</script>' . "\n" );
 		}
+		return null;
 	}
 
 }

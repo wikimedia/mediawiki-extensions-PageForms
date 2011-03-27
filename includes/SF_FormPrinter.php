@@ -1173,6 +1173,8 @@ END;
 						$new_text = SFFormUtils::watchInputHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'save' ) {
 						$new_text = SFFormUtils::saveButtonHTML( $form_is_disabled, $input_label, $attr );
+					} elseif ( $input_name == 'save and continue' ) {
+						$new_text = SFFormUtils::saveAndContinueButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'preview' ) {
 						$new_text = SFFormUtils::showPreviewButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'changes' ) {
