@@ -1,53 +1,53 @@
 /**
- * Javascript handler for the directset parser function
+ * Javascript handler for the autoedit parser function
  *
  * @author Stephan Gambke
  */
 
 jQuery(function($){
 
-	$('.directset-trigger').click(function(){
+	$('.autoedit-trigger').click(function(){
 
 		if ( wgUserName == null ) {
 			if ( confirm( sfgAnonEditWarning ) ) {
-				handleDirectSet( this );
+				handleAutoEdit( this );
 			}
 		} else {
-			handleDirectSet( this );
+			handleAutoEdit( this );
 		}
 
 		return false;
 	});
 
-	function handleDirectSet( trigger ){
+	function handleAutoEdit( trigger ){
 		var jtrigger = jQuery( trigger );
-		var jdirectset = jtrigger.closest( '.directset' );
-		var jresult = jdirectset.find('.directset-result');
+		var jautoedit = jtrigger.closest( '.autoedit' );
+		var jresult = jautoedit.find('.autoedit-result');
 
 		var reload = jtrigger.hasClass( 'reload' );
 
 		var data = new Array();
-		data.push( jdirectset.find('form.directset-data').serialize() );
+		data.push( jautoedit.find('form.autoedit-data').serialize() );
 
-		jtrigger.attr('class', 'directset-trigger directset-trigger-wait');
-		jresult.attr('class', 'directset-result directset-result-wait');
+		jtrigger.attr('class', 'autoedit-trigger autoedit-trigger-wait');
+		jresult.attr('class', 'autoedit-result autoedit-result-wait');
 
 		jresult[0].innerHTML="Wait..."; // TODO: replace by localized message
 
 		sajax_request_type = 'POST';
 
-		sajax_do_call( 'SFDirectSetAjaxHandler::handleDirectSet', data, function( ajaxHeader ){
+		sajax_do_call( 'SFAutoEditAjaxHandler::handleAutoEdit', data, function( ajaxHeader ){
 			jresult.empty().append( ajaxHeader.responseText );
 
 			if ( ajaxHeader.status == 200 ) {
 
 				if ( reload ) window.location.reload();
 
-				jresult.removeClass('directset-result-wait').addClass('directset-result-ok');
-				jtrigger.removeClass('directset-trigger-wait').addClass('directset-trigger-ok');
+				jresult.removeClass('autoedit-result-wait').addClass('autoedit-result-ok');
+				jtrigger.removeClass('autoedit-trigger-wait').addClass('autoedit-trigger-ok');
 			} else {
-				jresult.removeClass('directset-result-wait').addClass('directset-result-error');
-				jtrigger.removeClass('directset-trigger-wait').addClass('directset-trigger-error');
+				jresult.removeClass('autoedit-result-wait').addClass('autoedit-result-error');
+				jtrigger.removeClass('autoedit-trigger-wait').addClass('autoedit-trigger-error');
 			}
 		} );
 	}

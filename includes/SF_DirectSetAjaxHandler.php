@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Ajax handler for the directset parser function and for the
+ * Ajax handler for the autoedit parser function and for the
  * submit and continue button in forms
  *
  * @author Stephan Gambke
  */
-class SFDirectSetAjaxHandler {
+class SFAutoEditAjaxHandler {
 
 	private $mOptions = array( );
 
-	static function handleDirectSet ( $optionsString = null, $prefillFromExisting = 'true' ) {
+	static function handleAutoEdit ( $optionsString = null, $prefillFromExisting = 'true' ) {
 		$handler = new self( $optionsString );
 		return $handler -> storeSemanticData( $prefillFromExisting === 'true' );
 	}
@@ -56,7 +56,7 @@ class SFDirectSetAjaxHandler {
 		global $wgOut, $wgRequest, $wgUser, $wgParser, $wgTitle;
 
 		if ( !array_key_exists( 'ok text', $this -> mOptions ) ) {
-			$this -> mOptions[ 'ok text' ] = wfMsg( 'sf_directset_success' );
+			$this -> mOptions[ 'ok text' ] = wfMsg( 'sf_autoedit_success' );
 		}
 
 		if ( !array_key_exists( 'error text', $this -> mOptions ) ) {
@@ -68,13 +68,13 @@ class SFDirectSetAjaxHandler {
 
 		// If the wiki is read-only we might as well stop right away
 		if ( wfReadOnly ( ) ) {
-			return array( 'directset-readonly', wfReadOnlyReason() );
+			return array( 'autoedit-readonly', wfReadOnlyReason() );
 		}
 
 		// If we have no target article and no form we might as well stop right away
 		if ( !array_key_exists( 'target', $this -> mOptions )
 			&& !array_key_exists( 'form', $this -> mOptions ) ) {
-			return 'directset-notargetspecified';
+			return 'autoedit-notargetspecified';
 		}
 
 		// check if form was specified
@@ -87,12 +87,12 @@ class SFDirectSetAjaxHandler {
 
 			// if no form can be found, return
 			if ( count( $form_names ) == 0 ) {
-				return 'directset-noformfound';
+				return 'autoedit-noformfound';
 			}
 
 			// if more than one form found, return
 			if ( count( $form_names ) > 1 ) {
-				return 'directset-toomanyformsfound';
+				return 'autoedit-toomanyformsfound';
 			}
 
 			// use the first found form
@@ -126,7 +126,7 @@ class SFDirectSetAjaxHandler {
 			if ( !$form ) {
 				// something went wrong
 				return array(
-					'directset-nosemanticform',
+					'autoedit-nosemanticform',
 					array(
 						$this -> mOptions[ 'target' ],
 						$this -> mOptions[ 'form' ]
@@ -285,7 +285,7 @@ class SFDirectSetAjaxHandler {
 	 * @param String $queryString
 	 * @param Boolean $expand  If this is set to true, field values will get urldecoded and expanded
 	 *  This allows to slip parser functions by the MW parser on page creation
-	 *  (by urlencoding them) and to pass them to directset to expand them now.
+	 *  (by urlencoding them) and to pass them to autoedit to expand them now.
 	 *  Expanding parser functions on page creation already might lead to cache
 	 *  issues, e.g. for the {{#time:}} parser function
 	 * @return <type>

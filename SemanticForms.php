@@ -122,12 +122,12 @@ $wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.php';
 $wgAutoloadClasses['SFFormLinker'] = $sfgIP . '/includes/SF_FormLinker.php';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
-$wgAutoloadClasses['SFDirectSetAjaxHandler'] = $sfgIP . '/includes/SF_DirectSetAjaxHandler.php';
+$wgAutoloadClasses['SFAutoEditAjaxHandler'] = $sfgIP . '/includes/SF_AutoEditAjaxHandler.php';
 $wgJobClasses['createPage'] = 'SFCreatePageJob';
 $wgAutoloadClasses['SFCreatePageJob'] = $sfgIP . '/includes/SF_CreatePageJob.php';
 require_once( $sfgIP . '/languages/SF_Language.php' );
 
-$wgAjaxExportList[] = 'SFDirectSetAjaxHandler::handleDirectSet';
+$wgAjaxExportList[] = 'SFAutoEditAjaxHandler::handleAutoEdit';
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
@@ -168,9 +168,9 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'styles' => 'skins/SF_popupform.css',
 			'dependencies' => array( 'jquery' ),
 		),
-		'ext.semanticforms.directset' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/SF_directset.js',
-			'styles' => 'skins/SF_directset.css',
+		'ext.semanticforms.autoedit' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/SF_autoedit.js',
+			'styles' => 'skins/SF_autoedit.css',
 			'dependencies' => array( 'jquery' ),
 		),
 		'ext.semanticforms.submit' => $sfgResourceTemplate + array(

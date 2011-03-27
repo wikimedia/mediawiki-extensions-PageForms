@@ -1,44 +1,44 @@
 /* 
 */
 
-.directset {
+.autoedit {
 	display: inline;
 }
 
-.directset-trigger {
+.autoedit-trigger {
 	cursor: pointer;
 }
 
-.directset-trigger-wait {
+.autoedit-trigger-wait {
 	margin-right: 1em;
 	cursor: pointer;
 }
 
-.directset-trigger-error {
+.autoedit-trigger-error {
 	display: none;
 }
 
-.directset-trigger-ok {
+.autoedit-trigger-ok {
 	display: none;
 }
 
-.directset-result {
+.autoedit-result {
     
 }
 
-.directset-result-wait {
+.autoedit-result-wait {
     color: #555;
 	cursor: progress;
 }
 
-.directset-result-error {
+.autoedit-result-error {
     color: #a00;
 }
 
-.directset-result-ok {
+.autoedit-result-ok {
     color: #0a0;
 }
 
-.directset-data {
+.autoedit-data {
 	display: none;
 }

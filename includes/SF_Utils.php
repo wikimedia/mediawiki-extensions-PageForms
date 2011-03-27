@@ -646,7 +646,7 @@ END;
 				return 'nocreatetext';
 
 			case EditPage::AS_BLANK_ARTICLE:
-				return 'directset-blankpage';
+				return 'autoedit-blankpage';
 
 			case EditPage::AS_IMAGE_REDIRECT_LOGGED:
 				return 'badaccess';

@@ -137,7 +137,7 @@ it should look like \'Special:FormEdit?form=<form name>&target=<target page>\', 
 	'sf_formedit_saveandcontinueediting' => 'Save and Continue',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Save data and continue editing',
 	'sf_formedit_accesskey_saveandcontinueediting' => 'a',
-	'sf_directset_success'               => 'Successfully modified [[$1]] using form $2.',
+	'sf_autoedit_success'               => 'Successfully modified [[$1]] using form $2.',
 	'runquery'                           => 'Run query',
 	'sf_runquery_badurl'                 => 'You must specify a form name in the URL;
 the URL should look like \'Special:RunQuery/<form name>\'.',

@@ -120,7 +120,7 @@ class SFParserFunctions {
 			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ) );
 		}
 
-		$parser->setFunctionHook( 'directset', array( 'SFParserFunctions', 'renderDirectSet' ) );
+		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
 
 		// load jQuery on MW 1.16
 		if ( is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
@@ -138,7 +138,7 @@ class SFParserFunctions {
 			$magicWords['formlink']	= array ( 0, 'formlink' );
 			$magicWords['arraymap']	= array ( 0, 'arraymap' );
 			$magicWords['arraymaptemplate'] = array ( 0, 'arraymaptemplate' );
-			$magicWords['directset'] = array( 0, 'directset' );
+			$magicWords['autoedit'] = array( 0, 'autoedit' );
 		}
 		return true;
 	}
@@ -534,7 +534,7 @@ END;
 	}
 
 
-	static function renderDirectSet ( &$parser ) {
+	static function renderAutoEdit ( &$parser ) {
 
 		// set defaults
 		$formcontent = '';
@@ -542,7 +542,7 @@ END;
 		$linkString = null;
 		$linkType = 'span';
 
-		$classString = 'directset-trigger';
+		$classString = 'autoedit-trigger';
 
 		// parse parameters
 		$params = func_get_args();
@@ -585,14 +585,14 @@ END;
 			$linkElement = Xml::tags( "span", array( 'class' => $classString ), $linkString );
 		}
 
-		$form = Xml::tags( 'form', array( 'class' => 'directset-data' ), $formcontent );
+		$form = Xml::tags( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 
 		// ensure loading of jQuery and style sheets
-		self::loadScriptsForDirectSet( $parser );
+		self::loadScriptsForAutoEdit( $parser );
 
-		$output = Xml::tags( "div", array( 'class' => "directset" ),
+		$output = Xml::tags( "div", array( 'class' => "autoedit" ),
 				$linkElement .
-				Xml::tags( "span", array( 'class' => "directset-result" ), null ) .
+				Xml::tags( "span", array( 'class' => "autoedit-result" ), null ) .
 				$form
 		);
 
@@ -642,13 +642,13 @@ END;
 		return true;
 	}
 	
-	// load scripts and style files for DirectSet
-	private static function loadScriptsForDirectSet ( &$parser ) {
+	// load scripts and style files for AutoEdit
+	private static function loadScriptsForAutoEdit ( &$parser ) {
 
 		global $sfgScriptPath;
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-			$parser -> getOutput() -> addModules( 'ext.semanticforms.directset' );
+			$parser -> getOutput() -> addModules( 'ext.semanticforms.autoedit' );
 		} else {
 
 			static $loaded = false;
@@ -659,15 +659,15 @@ END;
 				// load extensions JavaScript
 				$parser -> getOutput() -> addHeadItem(
 					'<script type="text/javascript" src="' . $sfgScriptPath
-					. '/libs/SF_directset.js"></script> ' ."\n",
-					'sf_directset_script'
+					. '/libs/SF_autoedit.js"></script> ' ."\n",
+					'sf_autoedit_script'
 				);
 
 				// load extensions style sheet
 				$parser -> getOutput() -> addHeadItem(
 					'<link rel="stylesheet" href="' . $sfgScriptPath
-					. '/skins/SF_directset.css"/> ' ."\n",
-					'sf_directset_style'
+					. '/skins/SF_autoedit.css"/> ' ."\n",
+					'sf_autoedit_style'
 				);
 
 				$loaded = true;
