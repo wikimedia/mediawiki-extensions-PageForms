@@ -1240,6 +1240,7 @@ $messages['da'] = array(
  * @author Cipher
  * @author DaSch
  * @author Dominik Rodler
+ * @author F.trott
  * @author Goetz
  * @author Kghbln
  * @author Melancholie
@@ -1361,6 +1362,11 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_formedit_remove' => 'Entfernen',
 	'sf_formedit_addanother' => 'Weitere hinzufügen',
 	'sf_formedit_none' => 'Keine',
+	'sf_formedit_emptytitle' => 'Fehler: Die eingegebenen Daten ergeben einen leeren Seitentitel.',
+	'sf_formedit_hookerror' => 'Fehler: Eine MediaWiki-Softwareerweiterung hat die Änderung des Zielartikels verhindert.',
+	'sf_formedit_saveandcontinueediting' => 'Zwischenspeichern',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Eingaben speichern und Bearbeitung fortsetzen',
+	'sf_autoedit_success' => '[[$1]] mittels Formular $2 erfolgreich geändert .',
 	'runquery' => 'Abfrage ausführen',
 	'sf_runquery_badurl' => 'Es wurde kein Formular in der URL angegeben;
 die URL sollte wie folgt aussehen: „Special:RunQuery/<form name>”',
@@ -3271,6 +3277,10 @@ Alteremente, tu esserea inviate al formulario pro modificar le pagina.',
 	'sf_formedit_remove' => 'Remover',
 	'sf_formedit_addanother' => 'Adder un altere',
 	'sf_formedit_none' => 'Nulle',
+	'sf_formedit_emptytitle' => 'Error: Le datos inserite resulta in un titulo de pagina vacue.',
+	'sf_formedit_hookerror' => 'Error: Un extension de MediaWiki impediva le modification del articulo de destination.',
+	'sf_formedit_saveandcontinueediting' => 'Salveguardar e continuar',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Salveguardar le datos e continuar le modification',
 	'runquery' => 'Executar consulta',
 	'sf_runquery_badurl' => "Es necessari specificar le nomine de un formulario in le URL;
 le URL debe esser in le forma 'Special:RunQuery/<nomine del formulario>'.",
@@ -4317,6 +4327,11 @@ $messages['mk'] = array(
 	'sf_formedit_remove' => 'Отстрани',
 	'sf_formedit_addanother' => 'Додај уште',
 	'sf_formedit_none' => 'Нема',
+	'sf_formedit_emptytitle' => 'Грешка: Вметнатите податоци предизвикуваат празен наслов на статијата.',
+	'sf_formedit_hookerror' => 'Грешка: Менувањето на целната статија е спречено од додаток на МедијаВики.',
+	'sf_formedit_saveandcontinueediting' => 'Зачувај и продолжи',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Зачувајте ги податоците и продолжите со уредување',
+	'sf_autoedit_success' => 'Измените на [[$1]] се успешно извршени користејќи го образецот $2.',
 	'runquery' => 'Пушти барање',
 	'sf_runquery_badurl' => 'Мора да назначите име на образецот во URL-адресата;
 URL-адресата треба да изгледа вака: „Special:RunQuery/<form name>“.',
