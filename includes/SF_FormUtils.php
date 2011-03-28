@@ -12,7 +12,7 @@ class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
-		global $sfgShowOnSelect, $wgParser;
+		global $sfgShowOnSelect, $wgParser, $wgUser;
 
 		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
@@ -29,7 +29,17 @@ class SFFormUtils {
 		$vars['sfgBadNumberErrorStr'] = wfMsg( 'sf_bad_number_error' );
 		$vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
 		$vars['sfgBadDateErrorStr'] = wfMsg( 'sf_bad_date_error' );
-		$vars['sfgAnonEditWarning'] = StringUtils::delimiterReplace( '<', '>', '', $wgParser->recursiveTagParse( wfMsg( 'anoneditwarning' ) ) );
+
+		// $wgParser might not be initialized, e.g. on Special pages
+		if ( $wgParser->mOptions == null ) {
+			$parser = new Parser();
+			$msg = $parser -> parse (wfMsg( 'anoneditwarning' ), new Title(), ParserOptions::newFromUser( $wgUser ) ) -> getText();
+		} else {
+			$msg = $wgParser->recursiveTagParse( wfMsg( 'anoneditwarning' ) );
+		}
+
+		$vars['sfgAnonEditWarning'] = StringUtils::delimiterReplace( '<', '>', '', $msg );
+
 		return true;
 	}
 
