@@ -29,16 +29,7 @@ class SFFormUtils {
 		$vars['sfgBadNumberErrorStr'] = wfMsg( 'sf_bad_number_error' );
 		$vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
 		$vars['sfgBadDateErrorStr'] = wfMsg( 'sf_bad_date_error' );
-
-		// $wgParser might not be initialized, e.g. on Special pages
-		if ( $wgParser->mOptions == null ) {
-			$parser = new Parser();
-			$msg = $parser -> parse (wfMsg( 'anoneditwarning' ), new Title(), ParserOptions::newFromUser( $wgUser ) ) -> getText();
-		} else {
-			$msg = $wgParser->recursiveTagParse( wfMsg( 'anoneditwarning' ) );
-		}
-
-		$vars['sfgAnonEditWarning'] = StringUtils::delimiterReplace( '<', '>', '', $msg );
+		$vars['sfgAnonEditWarning'] = wfMsg( 'sf_autoedit_anoneditwarning' );
 
 		return true;
 	}

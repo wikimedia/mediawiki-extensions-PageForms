@@ -137,7 +137,8 @@ it should look like \'Special:FormEdit?form=<form name>&target=<target page>\', 
 	'sf_formedit_saveandcontinueediting' => 'Save and Continue',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Save data and continue editing',
 	'sf_formedit_accesskey_saveandcontinueediting' => 'a',
-	'sf_autoedit_success'               => 'Successfully modified [[$1]] using form $2.',
+	'sf_autoedit_anoneditwarning'        => 'Warning: You are not logged in. Your IP address will be recorded in this page\'s edit history.',
+	'sf_autoedit_success'                => 'Successfully modified [[$1]] using form $2.',
 	'runquery'                           => 'Run query',
 	'sf_runquery_badurl'                 => 'You must specify a form name in the URL;
 the URL should look like \'Special:RunQuery/<form name>\'.',
@@ -208,6 +209,7 @@ $messages['qqq'] = array(
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
+	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
 );
 
 /** Niuean (ko e vagahau Niuē)
