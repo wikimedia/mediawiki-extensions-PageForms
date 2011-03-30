@@ -203,13 +203,13 @@ $messages['qqq'] = array(
 * $2 is the prefixed title, with spaces for the target page',
 	'sf_formedit_remove' => '{{Identical|Remove}}',
 	'sf_formedit_none' => '{{Identical|None}}',
+	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => 'Special page name for [[Special:UploadWindow]].',
 	'sf_deletionlog' => '{{Identical|Deletion log}}',
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
-	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
 );
 
 /** Niuean (ko e vagahau Niuē)
@@ -787,6 +787,7 @@ URL-адрас павінен мець выгляд 'Special:RunQuery/<назв�
  * @author DCLXVI
  */
 $messages['bg'] = array(
+	'specialpages-group-sf_group' => 'Семантични формуляри',
 	'sf_createproperty_propname' => 'Име:',
 	'sf_createproperty_proptype' => 'Вид:',
 	'templates' => 'Шаблони',
@@ -1368,6 +1369,7 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_formedit_hookerror' => 'Fehler: Eine MediaWiki-Softwareerweiterung hat die Änderung des Zielartikels verhindert.',
 	'sf_formedit_saveandcontinueediting' => 'Zwischenspeichern',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Eingaben speichern und Bearbeitung fortsetzen',
+	'sf_autoedit_anoneditwarning' => "Warnung: Diese Seite wird gerade unangemeldet bearbeitet. Beim Speichern wird die aktuelle IP-Adresse des Bearbeiters in der Versionsgeschichte aufgezeichnet und ist damit unwiderruflich '''öffentlich''' einsehbar.",
 	'sf_autoedit_success' => '[[$1]] mittels Formular $2 erfolgreich geändert .',
 	'runquery' => 'Abfrage ausführen',
 	'sf_runquery_badurl' => 'Es wurde kein Formular in der URL angegeben;
@@ -2386,6 +2388,14 @@ $messages['gl'] = array(
 	'sf_forms_docu' => 'Os seguintes formularios existen neste wiki.',
 	'sf_forminputs_mandatory' => 'Obrigatorio',
 	'sf_forminputs_restricted' => 'Só os administradores poden modificar esta entrada',
+	'sf_forminputs_default' => 'O valor por defecto para esta entrada',
+	'sf_forminputs_size' => 'O tamaño deste campo de texto, en caracteres',
+	'sf_forminputs_defaultfilename' => 'O nome de ficheiro por defecto para os ficheiros cargados',
+	'sf_forminputs_rows' => 'O número de liñas para esta entrada',
+	'sf_forminputs_cols' => 'O número de columnas para esta entrada',
+	'sf_forminputs_remoteautocompletion' => 'Empregar o completado automático remoto',
+	'sf_forminputs_height' => 'A altura desta entrada, en píxeles',
+	'sf_forminputs_width' => 'O largo desta entrada, en píxeles',
 	'createform' => 'Crear un formulario',
 	'sf_createform_nameinput' => 'Nome do formulario',
 	'sf_createform_nameinputdesc' => '(normalmente, o formulario recibe o mesmo nome có seu modelo principal):',
@@ -2439,6 +2449,8 @@ debería ser algo así como "Special:FormEdit?form=<nome do formulario>&target=<
 	'sf_formedit_remove' => 'Eliminar',
 	'sf_formedit_addanother' => 'Engadir outro',
 	'sf_formedit_none' => 'Ningún',
+	'sf_formedit_saveandcontinueediting' => 'Gardar e continuar',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Gardar os datos e continuar a edición',
 	'runquery' => 'Executar a pescuda',
 	'sf_runquery_badurl' => 'Debe especificar un nome de formulario no enderezo URL;
 o URL debe ser do tipo "Special:RunQuery/<nome do formulario>".',
