@@ -3295,6 +3295,7 @@ Alteremente, tu esserea inviate al formulario pro modificar le pagina.',
 	'sf_formedit_hookerror' => 'Error: Un extension de MediaWiki impediva le modification del articulo de destination.',
 	'sf_formedit_saveandcontinueediting' => 'Salveguardar e continuar',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Salveguardar le datos e continuar le modification',
+	'sf_autoedit_anoneditwarning' => 'Attention: Tu non ha aperite un session. Tu adresse IP essera registrate in le historia de modificationes de iste pagina.',
 	'sf_autoedit_success' => '[[$1]] ha essite modificate usante le formulario $2.',
 	'runquery' => 'Executar consulta',
 	'sf_runquery_badurl' => "Es necessari specificar le nomine de un formulario in le URL;
@@ -4346,6 +4347,7 @@ $messages['mk'] = array(
 	'sf_formedit_hookerror' => 'Грешка: Менувањето на целната статија е спречено од додаток на МедијаВики.',
 	'sf_formedit_saveandcontinueediting' => 'Зачувај и продолжи',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Зачувајте ги податоците и продолжите со уредување',
+	'sf_autoedit_anoneditwarning' => 'Предупредување: Не сте најавени. Вашата IP-адреса ќе биде заведена во историјата на страницава.',
 	'sf_autoedit_success' => 'Измените на [[$1]] се успешно извршени користејќи го образецот $2.',
 	'runquery' => 'Пушти барање',
 	'sf_runquery_badurl' => 'Мора да назначите име на образецот во URL-адресата;
