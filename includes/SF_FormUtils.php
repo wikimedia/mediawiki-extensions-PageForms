@@ -12,7 +12,7 @@ class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
-		global $sfgShowOnSelect, $wgParser, $wgUser;
+		global $sfgShowOnSelect;
 
 		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
@@ -85,17 +85,15 @@ END;
 		return $text;
 	}
 
-	static function minorEditInputHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $sfgTabIndex;
+	static function minorEditInputHTML( $is_disabled, $label = null, $attrs = array() ) {
+		global $sfgTabIndex, $wgUser;
 
 		$sfgTabIndex++;
+		$checked = $wgUser->getOption( 'minordefault' );
 		if ( $label == null )
 			$label = wfMsgExt( 'minoredit', array( 'parseinline' ) );
 		$tooltip = wfMsg( 'tooltip-minoredit' );
-		$attrs = $attr + array(
-			'type' => 'checkbox',
-			'value' => '',
-			'name' => 'wpMinoredit',
+		$attrs += array(
 			'id' => 'wpMinoredit',
 			'accesskey' => wfMsg( 'accesskey-minoredit' ),
 			'tabindex' => $sfgTabIndex,
@@ -103,7 +101,7 @@ END;
 		if ( $is_disabled ) {
 			$attrs['disabled'] = 'disabled';
 		}
-		$text = "\t" . Xml::element( 'input', $attrs ) . "\n";
+		$text = "\t" . Xml::check( 'wpMinoredit', $checked, $attrs ) . "\n";
 		$text .= "\t" . Xml::element( 'label', array(
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
@@ -112,34 +110,40 @@ END;
 		return $text;
 	}
 
-	static function watchInputHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function watchInputHTML( $is_disabled, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgTitle;
 
 		$sfgTabIndex++;
-		$checked_text = "";
-		$disabled_text = ( $is_disabled ) ? " disabled" : "";
+		$checked = "";
 		// figure out if the checkbox should be checked - 
 		// this code borrowed from /includes/EditPage.php
 		if ( $wgUser->getOption( 'watchdefault' ) ) {
 			# Watch all edits
-			$checked_text = " checked";
+			$checked = true;
 		} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
 			# Watch creations
-			$checked_text = " checked";
+			$checked = true;
 		} elseif ( $wgTitle->userIsWatching() ) {
 			# Already watched
-			$checked_text = " checked";
+			$checked = true;
 		}
 		if ( $label == null )
 			$label = wfMsgExt( 'watchthis', array( 'parseinline' ) );
-		$accesskey = htmlspecialchars( wfMsg( 'accesskey-watch' ) );
+		$attrs += array(
+			'id' => 'wpWatchthis',
+			'accesskey' => wfMsg( 'accesskey-watch' ),
+			'tabindex' => $sfgTabIndex,
+		);
+		if ( $is_disabled ) {
+			$attrs['disabled'] = 'disabled';
+		}
+		$text = "\t" . Xml::check( 'wpWatchthis', $checked, $attrs ) . "\n";
 		$tooltip = htmlspecialchars( wfMsg( 'tooltip-watch' ) );
-		$attr = Xml::expandAttributes( $attr );
-		$text = <<<END
-	<input tabindex="$sfgTabIndex" type="checkbox" name="wpWatchthis" accesskey="$accesskey" id='wpWatchthis'$checked_text$disabled_text$attr/>
-	<label for="wpWatchthis" title="$tooltip">$label</label>
+		$text .= "\t" . Xml::element( 'label', array(
+			'for' => 'wpWatchthis',
+			'title' => $tooltip
+		), $label ) . "\n";
 
-END;
 		return $text;
 	}
 
@@ -176,8 +180,9 @@ END;
 
 		$sfgTabIndex++;
 
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = wfMsg( 'sf_formedit_saveandcontinueediting' );
+		}
 
 		$temp = $attr + array(
 			'id'        => 'wpSaveAndContinue',
