@@ -173,7 +173,7 @@ class SFAutoEditAjaxHandler {
 			header( "X-Form: " . $formedit -> mForm );
 			header( "X-Target: " . $formedit -> mTarget );
 
-			$msg = $wgParser -> parse( wfMsgReplaceArgs( $this -> mOptions[ 'ok text' ], array( $formedit -> mTarget, $formedit -> mForm ) ), $wgTitle, $wgParser -> getOptions() ) -> getText();
+			$msg = $wgParser -> recursiveTagParse( wfMsgReplaceArgs( $this -> mOptions[ 'ok text' ], array( $formedit -> mTarget, $formedit -> mForm ) ) );
 
 			$result = new AjaxResponse( $msg );
 			return $result;
@@ -305,7 +305,7 @@ class SFAutoEditAjaxHandler {
 			if ( $key == "query string" ) {
 				$this -> parseDataFromQueryString( $data, $value, $expand );
 			} elseif ( $expand ) {
-				$this -> addToArray( $data, $key, $wgParser -> recursiveTagParse( $value ) );
+				$this -> addToArray( $data, $key, $value );
 			} else {
 				$this -> addToArray( $data, $key, $value );
 			}
