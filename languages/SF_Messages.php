@@ -4728,6 +4728,7 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_formedit_hookerror' => 'Fout: een MediaWiki-uitbreiding voorkomt het wijzigen van de doelpagina.',
 	'sf_formedit_saveandcontinueediting' => 'Opslaan en doorgaan',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Gegevens opslaan en doorgaan met bewerken',
+	'sf_autoedit_anoneditwarning' => 'Waarschuwing: U bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.',
 	'sf_autoedit_success' => '[[$1]] is gewijzigd via het formulier $2.',
 	'runquery' => 'Zoekopdracht uitvoeren',
 	'sf_runquery_badurl' => 'U moet een formuliernaam aangeven in de URL.
