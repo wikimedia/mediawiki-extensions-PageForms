@@ -12,17 +12,22 @@ class SFFormEditTab {
 	 * a form
 	 */
 	static function displayTab( $obj, &$content_actions ) {
+		if ( method_exists ( $obj, 'getTitle' ) ) {
+			$title = $obj->getTitle();
+		} else {
+			$title = $obj->mTitle;
+		}
 		// Make sure that this is not a special page, and
 		// that the user is allowed to edit it
 		// - this function is almost never called on special pages,
 		// but before SMW is fully initialized, it's called on
 		// Special:SMWAdmin for some reason, which is why the
 		// special-page check is there.
-		if ( !isset( $obj->mTitle ) ||
-			( $obj->mTitle->getNamespace() == NS_SPECIAL ) ) {
+		if ( !isset( $title ) ||
+			( $title->getNamespace() == NS_SPECIAL ) ) {
 			return true;
 		}
-		$title = $obj->mTitle;
+
 		$form_names = SFFormLinker::getDefaultFormsForPage( $title );
 		if ( count( $form_names ) == 0 ) {
 			return true;
