@@ -24,7 +24,8 @@ class SFUtils {
 
 	public static function isCapitalized( $title ) {
 		// Method was added in MW 1.16.
-		if ( method_exists( 'MWNamespace', 'isCapitalized' ) ) {
+		$realFunction = array( 'MWNamespace', 'isCapitalized' );
+		if ( is_callable( $realFunction ) ) {
 			return MWNamespace::isCapitalized( $title->getNamespace() );
 		} else {
 			global $wgCapitalLinks;
@@ -256,7 +257,8 @@ END;
 		$scripts = array();
 		if ( !$sfgUseFormEditPage )
 			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
-		if ( method_exists( 'SMWOutputs', 'requireHeadItem' ) ) {
+		$realFunction = array( 'SMWOutputs', 'requireHeadItem' );
+		if ( is_callable( $realFunction ) ) {
 			SMWOutputs::requireHeadItem( SMW_HEADER_TOOLTIP );
 			SMWOutputs::requireHeadItem( SMW_HEADER_SORTTABLE );
 			// TODO - should this be called directly here, or is
@@ -266,7 +268,8 @@ END;
 			$scripts[] = "$smwgScriptPath/skins/SMW_tooltip.js";
 			$scripts[] = "$smwgScriptPath/skins/SMW_sorttable.js";
 		}
-		if ( method_exists( 'OutputPage', 'includeJQuery' ) ) {
+		$realFunction = array( 'OutputPage', 'includeJQuery' );
+		if ( is_callable( $realFunction ) ) {
 			$wgOut->includeJQuery();
 		} else {
 			$scripts[] = "$sfgScriptPath/libs/jquery-1.4.2.min.js";

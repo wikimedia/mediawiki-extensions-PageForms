@@ -951,7 +951,8 @@ wgAjaxLicensePreview = {$alp};
 		$nolicense = wfMsgHtml( 'nolicense' );
 		// class changed in MW 1.16
 		/*
-		if (method_exists('Licenses', 'getInputHtml')) {
+		$realFunction = array( 'Licenses', 'getInputHtml' );
+		if ( is_callable( $realFunction ) ) {
 			$licenses = new Licenses( array() );
 			$licenseshtml = $licenses->getInputHtml( null );
 		} else {
