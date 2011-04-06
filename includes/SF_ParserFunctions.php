@@ -567,11 +567,7 @@ END;
 					break;
 				default :
 					$formcontent .=
-						Xml::tags( 'input', array(
-							'type' => 'hidden',
-							'name' => $key,
-							'value' => urldecode( $value )
-							), '' );
+						Xml::input( $key, false, urldecode( $value ) , array( 'type' => 'hidden') );
 			}
 		}
 

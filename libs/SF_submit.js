@@ -95,6 +95,11 @@ jQuery(function($){
 					.addClass("sf-save_and_continue-error")
 					.removeClass("sf-save_and_continue-wait");
 					
+					// Remove all old error messages and set new one
+					jQuery(".errorMessage").remove();
+					jQuery("#contentSub").append('<div id="form_error_header" class="warningMessage" style="font-size: medium">' + ajaxHeader.responseText + '</div>');
+					scroll(0, 0);
+
 				}
 
 			} );
