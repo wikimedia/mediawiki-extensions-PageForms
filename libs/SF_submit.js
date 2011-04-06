@@ -121,8 +121,14 @@ jQuery(function($){
 			var stop = url.indexOf("?");
 			if ( stop > 0 ) url = url.substring(0, stop);
 
-			var start = url.indexOf( wgPageName ) + String(wgPageName).length + 1;
-			stop = url.indexOf("/", start);
+			var start = url.indexOf( wgPageName ); // find start of page name
+			start = url.indexOf("/", start) + 1; // find start of subpage
+
+			if ( start >= 0 ) {
+				stop = url.indexOf("/", start); // find end of first subpage
+			} else {
+				stop = -1;
+			}
 
 			if (stop >= 0) {
 				params += "&form=" + encodeURIComponent( url.substring(start, stop) );
