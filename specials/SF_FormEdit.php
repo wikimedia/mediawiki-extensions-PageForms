@@ -266,53 +266,47 @@ class SFFormEdit extends SpecialPage {
 					else return 'sf_formedit_emptytitle';
 				}
 
-				//$wgOut->setArticleBodyOnly( true );
-
 				if ( $save_page ) {
 
-					////////////////////////////////////////////////////////////
-					// Store article
-
+					// Set up all the variables for the
+					// page save.
 					$data = array(
 						'wpTextbox1' => $data_text,
-						'wpSummary' => $wgRequest -> getVal( 'wpSummary' ),
-						'wpStarttime' => $wgRequest -> getVal( 'wpStarttime' ),
-						'wpEdittime' => $wgRequest -> getVal( 'wpEdittime' ),
+						'wpSummary' => $wgRequest->getVal( 'wpSummary' ),
+						'wpStarttime' => $wgRequest->getVal( 'wpStarttime' ),
+						'wpEdittime' => $wgRequest->getVal( 'wpEdittime' ),
 						'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
 						'wpSave' => '',
 						'action' => 'submit',
 					);
 
-					if ( $wgRequest -> getCheck( 'wpMinoredit' ) )
-						$data['wpMinoredit'] = '';
+					if ( $wgRequest->getCheck( 'wpMinoredit' ) ) {
+						$data['wpMinoredit'] = true;
+					}
+					if ( $wgRequest->getCheck( 'wpWatchthis' ) ) {
+						$data['wpWatchthis'] = true;
+					}
 
-					if ( $wgRequest -> getCheck( 'wpWatchthis' ) )
-						$data['wpWatchthis'] = '';
+					$request = new FauxRequest( $data, true );
 
-					//$wgOut -> clearHTML();
-					$oldRequest = $wgRequest;
-					$wgRequest = new FauxRequest( $data, true );
-
-					// find existing article if it exists, else create new one
+					// Find existing article if it exists,
+					// or create a new one.
 					$article = new Article( $target_title );
 
 					$editor = new EditPage( $article );
-					$editor -> importFormData( $wgRequest );
+					$editor->importFormData( $request );
 
-					$resultDetails = false;
+					// Try to save the page!
+					$resultDetails = array();
+					$saveResultCode = $editor->internalAttemptSave( $resultDetails );
 
-					$numerror = $editor -> internalAttemptSave( $resultDetails );  // store the article
-
-					$wgRequest = $oldRequest;
-
-					if ( $numerror == EditPage::AS_SUCCESS_UPDATE ) {
-						$wgOut -> redirect( $target_title -> getFullURL() );
+					if ( $saveResultCode == EditPage::AS_SUCCESS_UPDATE || $saveResultCode == EditPage::AS_SUCCESS_NEW_ARTICLE ) {
+						$wgOut->redirect( $target_title->getFullURL() );
 					}
 
-					return SFUtils::processEditErrors( $numerror );
-
+					return SFUtils::processEditErrors( $saveResultCode );
 				} else {
-					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest -> getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest -> getCheck( 'wpMinoredit' ), $wgRequest -> getCheck( 'wpWatchthis' ), $wgRequest -> getVal( 'wpStarttime' ), $wgRequest -> getVal( 'wpEdittime' ) );  // extract its data
+					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );  // extract its data
 				}
 
 
@@ -342,7 +336,7 @@ END;
 				$text .= $form_text;
 			}
 		}
-		// instead of adding the Javascript using addScript(), which is
+		// Instead of adding the Javascript using addScript(), which is
 		// the standard approach, we add it using addHTML(), below the
 		// form text - that's so the Javascript created for fields with
 		// a 'show on select' parameter, if there are any, get placed
