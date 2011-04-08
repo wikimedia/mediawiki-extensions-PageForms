@@ -619,11 +619,13 @@ END;
 				// =====================================================
 				} elseif ( $tag_title == 'end template' ) {
 					if ( $source_is_page ) {
-						// add any unhandled template fields in the page as hidden variables
-						if ( isset( $template_contents ) )
+						// Add any unhandled template fields in the page as hidden variables.
+						if ( isset( $template_contents ) ) {
 							$form_text .= SFFormUtils::unhandledFieldsHTML( $template_contents );
+							$template_contents = null;
+						}
 					}
-					// remove this tag, reset some variables, and close off form HTML tag
+					// Remove this tag, reset some variables, and close off form HTML tag.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					$template_name = null;
 					if ( isset( $template_label ) ) {
@@ -791,7 +793,7 @@ END;
 						$cur_value = '';
 					}
 
-					if ( empty( $cur_value ) ) {
+					if ( empty( $cur_value ) && !$form_submitted ) {
 						if ( $default_value ) {
 							// Set to the default value specified in the form, if it's there.
 							$cur_value = $default_value;
@@ -1109,13 +1111,14 @@ END;
 						}
 
 						if ( $new_text ) {
-							// include the field name only for non-numeric field names
+							// Include the field name only for non-numeric field names.
 							if ( is_numeric( $field_name ) ) {
 								$template_text .= "|$cur_value_in_template";
 							} else {
-								// if the value is null, don't include it at all
-								if ( $cur_value_in_template != '' )
+								// If the value is null, don't include it at all.
+								if ( $cur_value_in_template != '' ) {
 									$template_text .= "\n|$field_name=$cur_value_in_template";
+								}
 							}
 							$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 						} else {
@@ -1231,21 +1234,24 @@ END;
 
 			if ( ! $all_instances_printed ) {
 				if ( $template_text != '' ) {
-					// for mostly aesthetic purposes, if the template call ends with
+					// For mostly aesthetic purposes, if the template call ends with
 					// a bunch of pipes (i.e., it's an indexed template with unused
-					// parameters at the end), remove the pipes
+					// parameters at the end), remove the pipes.
 					$template_text = preg_replace( '/\|*$/', '', $template_text );
 					// add another newline before the final bracket, if this template
 					// call is already more than one line
-					if ( strpos( $template_text, "\n" ) )
+					if ( strpos( $template_text, "\n" ) ) {
 						$template_text .= "\n";
-					// if we're editing an existing page, and there were fields in
-					// the template call not handled by this form, preserve those
-					$template_text .= SFFormUtils::addUnhandledFields();
+					}
+					// If we're editing an existing page, and there were fields in
+					// the template call not handled by this form, preserve those.
+					if ( !$allow_multiple ) {
+						$template_text .= SFFormUtils::addUnhandledFields();
+					}
 					$template_text .= "}}";
 					$data_text .= $template_text . "\n";
-					// if there is a placeholder in the text, we know that we are
-					// doing a replace
+					// If there is a placeholder in the text, we know that we are
+					// doing a replace.
 					if ( $existing_page_content && strpos( $existing_page_content, '{{{insertionpoint}}}', 0 ) !== false ) {
 						$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}(\r?\n?)/',
 							preg_replace( '/\}\}/m', '}�',
