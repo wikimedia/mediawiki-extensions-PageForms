@@ -6,6 +6,8 @@
  * MediaWiki data store.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();

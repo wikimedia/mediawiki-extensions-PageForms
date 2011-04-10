@@ -1,7 +1,45 @@
 <?php
 /**
  * Default settings for Semantic Forms.
+ *
+ * @file
+ * @ingroup SF
  */
+
+/**
+ * Forms for adding and editing semantic data
+ *
+ * @defgroup SF Semantic Forms
+ */
+
+/**
+ * The module Form Inputs contains form input classes
+ * @defgroup SFFormInput Form Inputs
+ * @ingroup SF
+ */
+
+/**
+ * The module Special Pages contains all Special Pages defined by
+ * Semantic Forms.
+ *
+ * @defgroup SFSpecialPages Special Pages
+ * @ingroup SF
+ */
+
+/**
+ * The module Language contains all language-related classes.
+ *
+ * @defgroup SFLanguage Language
+ * @ingroup SF
+ */
+
+
+/**
+ * Forms for adding and editing semantic data
+ *
+ * @defgroup SF Semantic Forms
+ */
+
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
 define( 'SF_VERSION', '2.2-alpha' );

@@ -5,10 +5,15 @@
  *
  * @author Yaron Koren
  * @author Sanyam Goyal
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFCreateClass extends SpecialPage {
 
 	/**

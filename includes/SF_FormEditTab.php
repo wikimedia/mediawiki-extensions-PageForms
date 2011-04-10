@@ -1,9 +1,15 @@
 <?php
+/**
+ *
+ * @file
+ * @ingroup SF
+ */
 
 /**
  * Utility class for 'edit with form' tab and page
  *
  * @author Yaron Koren
+ * @ingroup SF
  */
 class SFFormEditTab {
 

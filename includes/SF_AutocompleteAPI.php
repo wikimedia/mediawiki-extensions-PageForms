@@ -1,9 +1,13 @@
 <?php
+/**
+ * @file
+ * @ingroup SF
+ */
 
 /**
  * Adds and handles the 'sfautocomplete' action to the MediaWiki API.
  *
- * @ingroup API
+ * @ingroup SF
  *
  * @author Sergey Chernyshev
  * @author Yaron Koren

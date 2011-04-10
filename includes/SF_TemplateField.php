@@ -5,6 +5,8 @@
  * templates and displaying user-created forms
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 class SFTemplateField {

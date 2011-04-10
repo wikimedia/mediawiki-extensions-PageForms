@@ -4,9 +4,14 @@
  * existing one.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFFormEdit extends SpecialPage {
 
 	public $mTarget;

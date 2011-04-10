@@ -7,10 +7,13 @@
  * @author Matt Williamson
  * @author Patrick Nagel
  * @author Sanyam Goyal
+ * @file
+ * @ingroup SF
  */
 
 /**
  * Parent class for all form input classes.
+ * @ingroup SFFormInput
  */
 class SFFormInput {
 	/**
@@ -83,6 +86,7 @@ class SFFormInput {
 /**
  * The base class for every form input that holds a pre-set enumeration
  * of values.
+ * @ingroup SFFormInput
  */
 class SFEnumInput extends SFFormInput {
 	public static function getOtherPropTypesHandled() {
@@ -110,6 +114,7 @@ class SFEnumInput extends SFFormInput {
 /**
  * The base class for every form input that holds a list of elements, each
  * one from a pre-set enumeration of values.
+ * @ingroup SFFormInput
  */
 class SFMultiEnumInput extends SFEnumInput {
 	public static function getOtherPropTypesHandled() {
@@ -127,6 +132,9 @@ class SFMultiEnumInput extends SFEnumInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFTextInput extends SFFormInput {
 	public static function getName() {
 		return 'text';
@@ -273,6 +281,9 @@ class SFTextInput extends SFFormInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFTextAreaInput extends SFFormInput {
 	public static function getName() {
 		return 'textarea';
@@ -357,6 +368,9 @@ class SFTextAreaInput extends SFFormInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFCheckboxInput extends SFFormInput {
 	public static function getName() {
 		return 'checkbox';
@@ -421,6 +435,9 @@ END;
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFDropdownInput extends SFEnumInput {
 	public static function getName() {
 		return 'dropdown';
@@ -494,6 +511,9 @@ class SFDropdownInput extends SFEnumInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFRadioButtonInput extends SFEnumInput {
 	public static function getName() {
 		return 'radiobutton';
@@ -583,6 +603,9 @@ class SFRadioButtonInput extends SFEnumInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFListBoxInput extends SFMultiEnumInput {
 	public static function getName() {
 		return 'listbox';
@@ -660,6 +683,9 @@ class SFListBoxInput extends SFMultiEnumInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFCheckboxesInput extends SFMultiEnumInput {
 	public static function getName() {
 		return 'checkboxes';
@@ -752,6 +778,9 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFTextWithAutocompleteInput extends SFTextInput {
 	public static function getName() {
 		return 'text with autocomplete';
@@ -947,6 +976,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 	public static function getName() {
 		return 'textarea with autocomplete';
@@ -1051,6 +1083,9 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFComboBoxInput extends SFFormInput {
 	public static function getName() {
 		return 'combobox';
@@ -1128,6 +1163,9 @@ class SFComboBoxInput extends SFFormInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFDateInput extends SFFormInput {
 	public static function getName() {
 		return 'date';
@@ -1226,6 +1264,9 @@ class SFDateInput extends SFFormInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFDateTimeInput extends SFDateInput {
 	public static function getName() {
 		return 'datetime';
@@ -1334,6 +1375,9 @@ class SFDateTimeInput extends SFDateInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFYearInput extends SFTextInput {
 	public static function getName() {
 		return 'year';
@@ -1371,6 +1415,9 @@ class SFYearInput extends SFTextInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFCategoryInput extends SFFormInput {
 	public static function getName() {
 		return 'category';
@@ -1459,6 +1506,9 @@ class SFCategoryInput extends SFFormInput {
 	}
 }
 
+/**
+ * @ingroup SFFormInput
+ */
 class SFCategoriesInput extends SFCategoryInput {
 	public static function getName() {
 		return 'categories';

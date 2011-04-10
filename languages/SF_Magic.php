@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * @ingroup SF
+ */
 
 $magicWords = array();
 

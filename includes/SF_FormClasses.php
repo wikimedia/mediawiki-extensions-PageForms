@@ -4,8 +4,14 @@
  * form and a template contained within that form, respectively.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
+/**
+ * Represents a user-defined form.
+ * @ingroup SF
+ */
 class SFForm {
 	var $form_name;
 	var $templates;
@@ -65,6 +71,10 @@ END;
 
 }
 
+/**
+ * Represents a template in a user-defined form.
+ * @ingroup SF
+ */
 class SFTemplateInForm {
 	var $template_name;
 	var $label;

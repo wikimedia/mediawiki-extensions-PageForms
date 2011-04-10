@@ -3,10 +3,15 @@
  * Displays a pre-defined form that a user can run a query with.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFRunQuery extends IncludableSpecialPage {
 
 	/**

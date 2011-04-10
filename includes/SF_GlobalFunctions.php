@@ -3,6 +3,8 @@
  * Global functions for Semantic Forms.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();

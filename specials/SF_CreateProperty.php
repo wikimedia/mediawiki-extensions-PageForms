@@ -4,10 +4,15 @@
  * property.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFCreateProperty extends SpecialPage {
 
 	/**

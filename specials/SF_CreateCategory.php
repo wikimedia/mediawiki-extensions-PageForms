@@ -4,10 +4,15 @@
  * page, with SF forms associated with it
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFCreateCategory extends SpecialPage {
 
 	/**

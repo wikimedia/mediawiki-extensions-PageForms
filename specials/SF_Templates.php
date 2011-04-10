@@ -3,10 +3,15 @@
  * Shows list of all templates on the site.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFTemplates extends SpecialPage {
 
 	/**
@@ -30,6 +35,9 @@ class SFTemplates extends SpecialPage {
 	}
 }
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class TemplatesPage extends QueryPage {
 	public function __construct( $name = 'Templates' ) {
 		// For MW <= 1.17

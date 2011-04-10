@@ -4,6 +4,7 @@
  *
  * @file
  * @ingroup Extensions
+ * @ingroup SF
  */
 
 // FIXME: Can be enabled when new style magic words are used (introduced in r52503)

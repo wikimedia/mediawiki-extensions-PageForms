@@ -1,10 +1,16 @@
 <?php
+/**
+ *
+ * @file
+ * @ingroup SF
+ */
 
 /**
  * Ajax handler for the autoedit parser function and for the
  * submit and continue button in forms
  *
  * @author Stephan Gambke
+ * @ingroup SF
  */
 class SFAutoEditAjaxHandler {
 

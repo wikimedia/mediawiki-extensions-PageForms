@@ -10,13 +10,15 @@
  * This class is based almost entirely on the upload functionality
  * developed by the Chickipedia.com team.
  *
- * @file
- * @ingroup SpecialPage
- *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFUploadWindow extends UnlistedSpecialPage {
 
 	/**
@@ -109,7 +111,7 @@ END;
 
 /**
  * implements Special:UploadWindow
- * @ingroup SpecialPage
+ * @ingroup SFSpecialPages
  */
 class UploadWindowForm {
 	/**#@+

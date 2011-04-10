@@ -3,6 +3,8 @@
  * Helper functions for the Semantic Forms extension.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();

@@ -4,10 +4,15 @@
  * with semantic fields.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFCreateTemplate extends SpecialPage {
 
 	/**

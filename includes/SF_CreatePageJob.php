@@ -1,9 +1,15 @@
 <?php
+/**
+ *
+ * @file
+ * @ingroup SF
+ */
 
 /**
  * Background job to create a new page, for use by the 'CreateClass' special page
  *
  * @author Yaron Koren
+ * @ingroup SF
  */
 class SFCreatePageJob extends Job {
 

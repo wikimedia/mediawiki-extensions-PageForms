@@ -1,10 +1,13 @@
 <?php
 /**
- * @ingroup Language
- * @ingroup SFLanguage
  * @author Siebrand Mazeland
+ * @file
+ * @ingroup SF
  */
 
+/**
+ * @ingroup SFLanguage
+ */
 class SF_LanguageNl extends SF_Language {
 	/* private */ var $m_SpecialProperties = array(
 		// always start upper-case

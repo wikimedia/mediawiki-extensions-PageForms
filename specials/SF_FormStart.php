@@ -5,9 +5,14 @@
  *
  * @author Yaron Koren
  * @author Jeffrey Stuckman
+ * @file
+ * @ingroup SF
  */
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFFormStart extends SpecialPage {
 
 	/**

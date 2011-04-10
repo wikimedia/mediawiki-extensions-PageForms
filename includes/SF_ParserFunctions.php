@@ -2,6 +2,8 @@
 /**
  * Parser functions for Semantic Forms.
  *
+ * @file
+ * @ingroup SF
  * Four parser functions are defined: 'forminput', 'formlink', 'arraymap'
  * and 'arraymaptemplate'.
  *

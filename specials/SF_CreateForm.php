@@ -4,10 +4,15 @@
  * form.
  *
  * @author Yaron Koren
+ * @file
+ * @ingroup SF
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
+/**
+ * @ingroup SFSpecialPages
+ */
 class SFCreateForm extends SpecialPage {
 
 	/**

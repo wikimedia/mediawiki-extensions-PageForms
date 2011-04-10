@@ -6,6 +6,8 @@
  * @author Jeffrey Stuckman
  * @author Harold Solbrig
  * @author Eugene Mednikov
+ * @file
+ * @ingroup SF
  */
 
 class SFFormUtils {
