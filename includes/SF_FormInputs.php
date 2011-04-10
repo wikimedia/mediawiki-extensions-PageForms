@@ -911,7 +911,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			$inputAttrs['disabled'] = 'disabled';
 		}
 		if ( array_key_exists( 'maxlength', $other_args ) ) {
-			$text .= ' maxlength="' . $other_args['maxlength'] . '"';
+			$inputAttrs['maxlength'] = $other_args['maxlength'];
 		}
 		$text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
 
