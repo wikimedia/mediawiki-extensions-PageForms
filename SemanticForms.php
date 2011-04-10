@@ -34,12 +34,6 @@
  */
 
 
-/**
- * Forms for adding and editing semantic data
- *
- * @defgroup SF Semantic Forms
- */
-
 if ( !defined( 'MEDIAWIKI' ) ) die();
 
 define( 'SF_VERSION', '2.2-alpha' );
