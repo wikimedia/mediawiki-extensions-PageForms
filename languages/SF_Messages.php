@@ -1178,8 +1178,8 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
 	'sf_category_hasdefaultform' => 'Aquesta categoria fa servir el formulari $1.',
 	'sf_category_desc' => 'Aquesta és la categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Visualitza la pestanya «Edita» a les pàgines que es poden editar amb un formulari',
-	'right-editrestrictedfields' => 'Edita els camps restringits del formulari',
+	'right-viewedittab' => 'Visualitzar la pestanya «Edita» a les pàgines que es poden editar amb un formulari',
+	'right-editrestrictedfields' => 'Editar les caselles restringides del formulari',
 );
 
 /** Chechen (Нохчийн)
