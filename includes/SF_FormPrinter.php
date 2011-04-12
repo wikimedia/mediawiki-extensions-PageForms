@@ -350,7 +350,8 @@ END;
 		// remove the '<nowiki>' tags, leaving us with what we need.
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
 		if ( empty( $wgParser->mOptions ) ) {
-			$wgParser->startExternalParse( $this->mPageTitle, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );
+			$title = $this->mPageTitle;
+			$wgParser->startExternalParse( $title, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );
 		}
 
 		// Get the form definition from the cache, if we're using caching and it's
