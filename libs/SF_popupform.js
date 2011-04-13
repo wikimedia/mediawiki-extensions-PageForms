@@ -230,7 +230,10 @@ window.ext.popupform = new function() {
 			minWidth: "0px",
 			minHeight:"0px",
 			overflow: "visible",
-			position: "absolute"
+			position: "absolute",
+			top: "0",
+			left: "0",
+			border: "none"
 		} )
 		.parents().css( {
 			margin: 0,
