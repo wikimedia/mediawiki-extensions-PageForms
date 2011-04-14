@@ -130,8 +130,7 @@ class SFFormEditTab {
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
-		global $wgOut;
-		global $sfgIP, $sfgUseFormEditPage;
+		global $wgOut, $sfgUseFormEditPage;
 
 		// return "true" if the call failed (meaning, pass on handling
 		// of the hook to others), and "false" otherwise

@@ -45,7 +45,7 @@ class SFCreateForm extends SpecialPage {
 			}
 			echo self::showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
 		} else {
-			self::doSpecialCreateForm();
+			$this->doSpecialCreateForm();
 		}
 	}
 
@@ -89,7 +89,7 @@ jQuery(document).ready(function() {
 		array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
 		array( 'ORDER BY' => 'page_title' ) );
 	if ( $db->numRows( $res ) > 0 ) {
-		while ( $row = $db->fetchRow( $res ) ) {
+		foreach ( $res as $row ) {
 			$template_name = str_replace( '_', ' ', $row[0] );
 			$all_templates[] = $template_name;
 		}

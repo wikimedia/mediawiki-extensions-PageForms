@@ -32,7 +32,7 @@ class SFRunQuery extends IncludableSpecialPage {
 	}
 
 	static function printPage( $form_name, $embedded = false ) {
-		global $wgOut, $wgRequest, $wgScriptPath, $sfgScriptPath, $sfgFormPrinter, $wgParser;
+		global $wgOut, $wgRequest, $sfgFormPrinter, $wgParser;
 
 		// Get contents of form-definition page.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );

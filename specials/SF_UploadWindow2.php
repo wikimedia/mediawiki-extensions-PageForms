@@ -120,7 +120,7 @@ class SFUploadWindow2 extends UnlistedSpecialPage {
 	 * Special page entry point
 	 */
 	public function execute( $par ) {
-		global $wgUser, $wgOut, $wgRequest;
+		global $wgUser, $wgOut;
 		// Disable $wgOut - we'll print out the page manually, taking
 		// the body created by the form, plus the necessary Javascript
 		// files, and turning them into an HTML page.
@@ -296,11 +296,7 @@ class SFUploadWindow2 extends UnlistedSpecialPage {
 	 * @param array $warnings
 	 */
 	protected function uploadWarning( $warnings ) {
-		global $wgUser;
-
 		$sessionKey = $this->mUpload->stashSession();
-
-		$sk = $wgUser->getSkin();
 
 		$warningHtml = '<h2>' . wfMsgHtml( 'uploadwarning' ) . "</h2>\n"
 			. '<ul class="warning">';
@@ -582,7 +578,7 @@ END;
 	 * consisting of one or more <li> elements if there is a warning.
 	 */
 	public static function getExistsWarning( $exists ) {
-		global $wgUser, $wgContLang;
+		global $wgUser;
 
 		if ( !$exists )
 			return '';
@@ -711,8 +707,6 @@ class SFUploadForm extends HTMLForm {
 	protected $mSourceIds;
 
 	public function __construct( $options = array() ) {
-		global $wgLang;
-
 		$this->mWatch = !empty( $options['watch'] );
 		$this->mForReUpload = !empty( $options['forreupload'] );
 		$this->mSessionKey = isset( $options['sessionkey'] )
@@ -928,8 +922,6 @@ class SFUploadForm extends HTMLForm {
 	 * @return array Descriptor array
 	 */
 	protected function getOptionsSection() {
-		global $wgOut;
-
 		$descriptor = array(
 			'Watchthis' => array(
 				'type' => 'check',
@@ -1030,9 +1022,6 @@ END;
 		global $wgStrictFileExtensions;
 		global $wgEnableFirefogg, $wgEnableJS2system;
 		global $wgOut;
-
-		$useAjaxDestCheck = $wgUseAjax && $wgAjaxUploadDestCheck;
-		$useAjaxLicensePreview = $wgUseAjax && $wgAjaxLicensePreview;
 
 		$scriptVars = array(
 			'wgAjaxUploadDestCheck' => $wgUseAjax && $wgAjaxUploadDestCheck,

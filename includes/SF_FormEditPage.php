@@ -49,7 +49,6 @@ class SFFormEditPage extends EditPage {
 	}
 	
 	protected function showContentForm() {
-		global $sfgIP;
 		$target_title = $this->mArticle->getTitle();
 		$target_name = SFUtils::titleString( $target_title );
 		if ( $target_title->exists() ) {

@@ -19,8 +19,6 @@ class SFFormPrinter {
 	var $mPageTitle;
 
 	public function __construct() {
-		global $smwgContLang;
-
 		// Initialize variables.
 		$this->mSemanticTypeHooks = array();
 		$this->mInputTypeHooks = array();
@@ -574,7 +572,7 @@ END;
 										$existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
 									}
 								} else {
-									$existing_page_content = self::strReplaceFirst( $existing_template_text, '', $existing_page_content );
+									$existing_page_content = $this->strReplaceFirst( $existing_template_text, '', $existing_page_content );
 								}
 								// If this is not a multiple-instance template, and we've found
 								// a match in the source page, there's a good chance that this
@@ -1284,7 +1282,7 @@ END;
 							// wikis before SF 2.0.9.
 							'class' => "multipleTemplateInstance multipleTemplate"
 						),
-						self::multipleTemplateInstanceTableHTML( $section )
+						$this->multipleTemplateInstanceTableHTML( $section )
 					) . "\n";
 
 					// this will cause the section to be re-parsed on the next go
@@ -1297,7 +1295,7 @@ END;
 							'class' => "multipleTemplateStarter",
 							'style' => "display: none",
 						),
-						self::multipleTemplateInstanceTableHTML( $section )
+						$this->multipleTemplateInstanceTableHTML( $section )
 					) . "\n";
 					$form_text .= <<<END
 	</div><!-- multipleTemplateList -->
@@ -1433,8 +1431,6 @@ END;
 	 * Create the HTML and Javascript to display this field within a form
 	 */
 	function formFieldHTML( $form_field, $cur_value ) {
-		global $smwgContLang;
-
 		// also get the actual field, with all the semantic information (type is
 		// SFTemplateField, instead of SFFormField)
 		$template_field = $form_field->template_field;

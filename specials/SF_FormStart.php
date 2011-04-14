@@ -24,7 +24,7 @@ class SFFormStart extends SpecialPage {
 	}
 
 	function execute( $query ) {
-		global $wgOut, $wgRequest, $sfgScriptPath;
+		global $wgOut, $wgRequest;
 
 		$this->setHeaders();
 
@@ -42,7 +42,7 @@ class SFFormStart extends SpecialPage {
 			// redirect to 'FormEdit' for this target page.
 			if ( isset( $queryparts[1] ) ) {
 				$target_name = $queryparts[1];
-				self::doRedirect( $form_name, $target_name, $params );
+				$this->doRedirect( $form_name, $target_name, $params );
 			}
 
 			// Get namespace from the URL, if it's there.
@@ -83,7 +83,7 @@ class SFFormStart extends SpecialPage {
 					$wgOut->addHTML( htmlspecialchars( wfMsg( 'sf_formstart_badtitle', $page_name ) ) );
 					return;
 				} else {
-					self::doRedirect( $form_name, $page_name, $params );
+					$this->doRedirect( $form_name, $page_name, $params );
 					return;
 				}
 			}

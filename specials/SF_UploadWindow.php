@@ -744,7 +744,6 @@ END;
 	 * @access private
 	 */
 	function saveTempUploadedFile( $saveName, $tempName ) {
-		global $wgOut;
 		$repo = RepoGroup::singleton()->getLocalRepo();
 		$status = $repo->storeTemp( $saveName, $tempName );
 		if ( !$status->isGood() ) {
@@ -891,7 +890,7 @@ END;
 	function mainUploadWindowForm( $msg = '' ) {
 		global $wgOut, $wgUser, $wgContLang;
 		global $wgUseCopyrightUpload, $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
-		global $wgRequest, $wgAllowCopyUploads;
+		global $wgAllowCopyUploads;
 		global $wgStylePath, $wgStyleVersion;
 
 		$useAjaxDestCheck = $wgUseAjax && $wgAjaxUploadDestCheck;
@@ -1047,7 +1046,6 @@ EOT
 		);
 
 		if ( $licenseshtml != '' ) {
-			global $wgStylePath;
 			$wgOut->addHTML( "
 			<td align='$align1'><label for='wpLicense'>$license</label></td>
 			<td align='$align2'>

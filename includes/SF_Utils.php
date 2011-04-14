@@ -92,7 +92,7 @@ class SFUtils {
 		$res = $db->select( $db->tableName( 'categorylinks' ),
 			'distinct cl_to', $conditions, __METHOD__ );
 		if ( $db->numRows( $res ) > 0 ) {
-			while ( $row = $db->fetchRow( $res ) ) {
+			foreach ( $res as $row ) {
 				$categories[] = $row[0];
 			}
 		}
@@ -127,8 +127,6 @@ class SFUtils {
 	 * Creates HTML linking to a wiki page
 	 */
 	static function linkText( $namespace, $name, $text = NULL ) {
-		global $wgContLang;
-
 		$title = Title::makeTitleSafe( $namespace, $name );
 		if ( $title === NULL ) {
 			return $name; // TODO maybe report an error here?
@@ -316,7 +314,7 @@ END;
 			__METHOD__,
 			array( 'ORDER BY' => 'page_title' ) );
 		$form_names = array();
-		while ( $row = $dbr->fetchRow( $res ) ) {
+		foreach ( $res as $row ) {
 			$form_names[] = str_replace( '_', ' ', $row[0] );
 		}
 		$dbr->freeResult( $res );
@@ -486,7 +484,7 @@ END;
 					'page_title',
 					$conditions, __METHOD__,
 					array( 'ORDER BY' => 'page_title' ) );
-				while ( $row = $db->fetchRow( $res ) ) {
+				foreach ( $res as $row ) {
 					$cur_value = str_replace( '_', ' ', $row[0] );
 					if ( $substring == null ) {
 						$pages[] = $cur_value;

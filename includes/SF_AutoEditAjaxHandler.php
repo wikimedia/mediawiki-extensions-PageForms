@@ -59,7 +59,7 @@ class SFAutoEditAjaxHandler {
 	 */
 	private function storeSemanticData ( $prefillFromExisting = true ) {
 
-		global $wgOut, $wgRequest, $wgUser, $wgParser, $wgTitle;
+		global $wgOut, $wgRequest, $wgParser, $wgTitle;
 
 		if ( !array_key_exists( 'ok text', $this -> mOptions ) ) {
 			$this -> mOptions[ 'ok text' ] = wfMsg( 'sf_autoedit_success' );
@@ -187,9 +187,6 @@ class SFAutoEditAjaxHandler {
 	}
 
 	private function parseDataFromHTMLFrag ( &$data, $html, $formID ) {
-
-		global $wgOut;
-
 		$doc = new DOMDocument();
 		@$doc -> loadHTML(
 				'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
@@ -297,9 +294,6 @@ class SFAutoEditAjaxHandler {
 	 * @return <type>
 	 */
 	private function parseDataFromQueryString ( &$data, $queryString, $expand = false ) {
-
-		global $wgParser, $wgOut;
-
 		$params = explode( '&', $queryString );
 
 		foreach ( $params as $i => $param ) {
@@ -326,9 +320,6 @@ class SFAutoEditAjaxHandler {
 	// Format: 1stLevelName[2ndLevel][3rdLevel][...], i.e. normal array notation
 	// $value: the value to insert
 	private function addToArray ( &$array, $key, $value ) {
-
-		global $wgOut, $wgParser;
-
 		$matches = array( );
 
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {

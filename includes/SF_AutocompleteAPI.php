@@ -19,8 +19,6 @@ class SFAutocompleteAPI extends ApiBase {
 	}
 
 	public function execute() {
-		global $wgContLang;
-
 		$params = $this->extractRequestParams();
 		$substr = $params['substr'];
 		$namespace = $params['namespace'];
@@ -147,7 +145,7 @@ class SFAutocompleteAPI extends ApiBase {
 		$res = $db->select( $from_clause, "DISTINCT $value_field",
 			$conditions, __METHOD__, $sql_options );
 			
-		while ( $row = $db->fetchRow( $res ) ) {
+		foreach ( $res as $row ) {
 			if ( $substring != null ) {
 				$values[] = array( 'title' => str_replace( '_', ' ', $row[0] ) );
 			} else {

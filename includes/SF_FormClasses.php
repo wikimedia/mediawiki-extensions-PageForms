@@ -127,7 +127,7 @@ class SFTemplateInForm {
 				foreach ( $matches[1] as $i => $field_name ) {
 					if ( ! in_array( $field_name, $fieldNamesArray ) ) {
 						$propertyName = $matches[2][$i];
-						self::handlePropertySettingInTemplate( $field_name, $propertyName, true, $templateFields, $templateText );
+						$this->handlePropertySettingInTemplate( $field_name, $propertyName, true, $templateFields, $templateText );
 						$fieldNamesArray[] = $field_name;
 					}
 				}
@@ -139,7 +139,7 @@ class SFTemplateInForm {
 					$field_name = trim( $matches[2][$i] );
 					if ( ! in_array( $field_name, $fieldNamesArray ) ) {
 						$propertyName = trim( $propertyName );
-						self::handlePropertySettingInTemplate( $field_name, $propertyName, false, $templateFields, $templateText );
+						$this->handlePropertySettingInTemplate( $field_name, $propertyName, false, $templateFields, $templateText );
 						$fieldNamesArray[] = $field_name;
 					}
 				}
@@ -154,7 +154,7 @@ class SFTemplateInForm {
 							$fieldName = trim( $matches2[2][$i] );
 							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
 								$propertyName = trim( $propertyName );
-								self::handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
+								$this->handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
 								$fieldNamesArray[] = $fieldName;
 							}
 						}
@@ -172,7 +172,7 @@ class SFTemplateInForm {
 							$propertyName = trim( $keyAndVal[0] );
 							$fieldName = trim( $keyAndVal[1] );
 							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
-								self::handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
+								$this->handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
 								$fieldNamesArray[] = $fieldName;
 							}
 						}
