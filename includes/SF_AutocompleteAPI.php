@@ -145,7 +145,7 @@ class SFAutocompleteAPI extends ApiBase {
 		$res = $db->select( $from_clause, "DISTINCT $value_field",
 			$conditions, __METHOD__, $sql_options );
 			
-		foreach ( $res as $row ) {
+		while ( $row = $db->fetchRow( $res ) ) {
 			if ( $substring != null ) {
 				$values[] = array( 'title' => str_replace( '_', ' ', $row[0] ) );
 			} else {

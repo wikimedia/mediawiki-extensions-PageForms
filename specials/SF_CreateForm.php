@@ -8,8 +8,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 /**
  * @ingroup SFSpecialPages
  */
@@ -85,11 +83,15 @@ jQuery(document).ready(function() {
 
 	// Get the names of all templates on this site.
 	$all_templates = array();
-	$res = $db->select( 'page', 'page_title',
+	$res = $db->select(
+		'page',
+		'page_title',
 		array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
-		array( 'ORDER BY' => 'page_title' ) );
+		array( 'ORDER BY' => 'page_title' ) 
+	);
+	
 	if ( $db->numRows( $res ) > 0 ) {
-		foreach ( $res as $row ) {
+		while ( $row = $db->fetchRow( $res ) ) {
 			$template_name = str_replace( '_', ' ', $row[0] );
 			$all_templates[] = $template_name;
 		}
