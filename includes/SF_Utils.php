@@ -314,7 +314,7 @@ END;
 			__METHOD__,
 			array( 'ORDER BY' => 'page_title' ) );
 		$form_names = array();
-		while ( $row = $db->fetchRow( $res ) ) {
+		while ( $row = $dbr->fetchRow( $res ) ) {
 			$form_names[] = str_replace( '_', ' ', $row[0] );
 		}
 		$dbr->freeResult( $res );
