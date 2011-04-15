@@ -800,6 +800,7 @@ var num_elements = 0;
 jQuery(document).ready(function() {
 	jQuery('body').initializeJSElements(false);
 
+	jQuery('.multipleTemplateInstance').initializeJSElements(true);
 	jQuery('.multipleTemplateAdder').click( function() { jQuery(this).addInstance(); } );
 	jQuery('.multipleTemplateList').sortable({
 		axis: 'y',

@@ -1271,10 +1271,13 @@ END;
 
 			if ( $allow_multiple ) {
 				if ( ! $all_instances_printed ) {
-					// add the character "a" onto the instance number of this input
+					// Add the character "a" onto the instance number of this input
 					// in the form, to differentiate the inputs the form starts out
-					// with from any inputs added by the Javascript
+					// with from any inputs added by the Javascript.
 					$section = str_replace( '[num]', "[{$instance_num}a]", $section );
+					// @TODO - this replacement should be
+					// case- and spacing-insensitive
+					$section = str_replace( ' id=', ' origID=', $section );
 					$form_text .= "\t\t" . Xml::tags( 'div',
 						array(
 							// The "multipleTemplate" class is there for
