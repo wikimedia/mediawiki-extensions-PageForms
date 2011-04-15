@@ -43,7 +43,7 @@ class SFFormEdit extends SpecialPage {
 
 		$alt_forms = $wgRequest->getArray( 'alt_form' );
 
-		$msg = self::printForm( $this->mForm, $this->mTarget, $alt_forms );
+		$msg = self::printForm( $this->mForm, $this->mTarget, $alt_forms, true );
 
 		if ( $msg ) {
 			// some error occurred
@@ -83,7 +83,7 @@ class SFFormEdit extends SpecialPage {
 		return rand() % 1000000;
 	}
 
-	static function printForm( &$form_name, &$target_name, $alt_forms = array() ) {
+	static function printForm( &$form_name, &$target_name, $alt_forms = array(), $redirectOnError = false ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgFormPrinter;
 
 		SFUtils::loadMessages();
@@ -305,11 +305,21 @@ class SFFormEdit extends SpecialPage {
 					$resultDetails = array();
 					$saveResultCode = $editor->internalAttemptSave( $resultDetails );
 
-					if ( $saveResultCode == EditPage::AS_SUCCESS_UPDATE || $saveResultCode == EditPage::AS_SUCCESS_NEW_ARTICLE ) {
-						$wgOut->redirect( $target_title->getFullURL() );
-					}
+					if ( ( $saveResultCode == EditPage::AS_HOOK_ERROR || $saveResultCode == EditPage::AS_HOOK_ERROR_EXPECTED ) && $redirectOnError ) {
 
-					return SFUtils::processEditErrors( $saveResultCode );
+						$wgOut->clearHTML();
+						$wgOut->setArticleBodyOnly(true);
+						$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );
+
+					} else {
+
+						if ( $saveResultCode == EditPage::AS_SUCCESS_UPDATE || $saveResultCode == EditPage::AS_SUCCESS_NEW_ARTICLE ) {
+							$wgOut->redirect( $target_title->getFullURL() );
+						}
+
+						return SFUtils::processEditErrors( $saveResultCode );
+					}
+					
 				} else {
 					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );  // extract its data
 				}
