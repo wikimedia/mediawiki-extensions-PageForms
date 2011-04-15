@@ -26,7 +26,7 @@ class SFFormEdit extends SpecialPage {
 		SFUtils::loadMessages();
 	}
 
-	function execute( $query ) {
+	function execute( $query, $redirectOnError = true ) {
 		global $wgRequest, $wgOut;
 
 		$this->setHeaders();
@@ -43,7 +43,7 @@ class SFFormEdit extends SpecialPage {
 
 		$alt_forms = $wgRequest->getArray( 'alt_form' );
 
-		$msg = self::printForm( $this->mForm, $this->mTarget, $alt_forms, true );
+		$msg = self::printForm( $this->mForm, $this->mTarget, $alt_forms, $redirectOnError );
 
 		if ( $msg ) {
 			// some error occurred

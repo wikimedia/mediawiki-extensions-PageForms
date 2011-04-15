@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @file
@@ -27,23 +28,15 @@ class SFAutoEditAjaxHandler {
 
 		$title = new Title();
 
-		if ( version_compare( substr( $wgVersion, 0, 4 ), '1.17', '<' ) ) {
-			// TODO: remove work around for bug in MW 1.16
-			// get any contents already in putput buffer
-			$obcontents = ob_get_contents();
+//		if ( version_compare( substr( $wgVersion, 0, 4 ), '1.17', '<' ) ) {
+			if ( !StubObject::isRealObject( $wgParser ) )
+				$wgParser -> _unstub();
 
 			// perform offensive operation
-			eval( '$wgParser -> startExternalParse( & $title, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );' );
-
-			// clean out the deprecation message (and everything else in the output buffer)
-			ob_clean();
-
-			// put former output buffer contents back in
-			if ( $obcontents )
-				echo $obcontents;
-		} else {
 			$wgParser -> startExternalParse( $title, ParserOptions::newFromUser( $wgUser ), Parser::OT_HTML, true );
-		}
+//		} else {
+//			$wgParser -> startExternalParse( $title, ParserOptions::newFromUser( $wgUser ), Parser::OT_HTML, true );
+//		}
 
 		// parse options
 		$this -> parseDataFromQueryString( $this -> mOptions, $options, true );
@@ -152,9 +145,9 @@ class SFAutoEditAjaxHandler {
 
 		// get the MW form
 		if ( array_key_exists( 'target', $this -> mOptions ) ) {
-			$formedit -> execute( $this -> mOptions[ 'form' ] . '/' . $this -> mOptions[ 'target' ] );
+			$formedit -> execute( $this -> mOptions[ 'form' ] . '/' . $this -> mOptions[ 'target' ], false );
 		} else {
-			$formedit -> execute( $this -> mOptions[ 'form' ] );
+			$formedit -> execute( $this -> mOptions[ 'form' ], false );
 		}
 
 		$wgParser -> getOptions() -> enableLimitReport( false );
@@ -164,15 +157,14 @@ class SFAutoEditAjaxHandler {
 			$msg = $formedit -> mError; // Should this be sanitized? I.e. all html tags removed?
 
 			$msg = $wgParser -> parse(
-				wfMsgReplaceArgs( $this -> mOptions[ 'error text' ], array( $msg ) ),
-				$wgTitle,
-				$wgParser -> getOptions()
+					wfMsgReplaceArgs( $this -> mOptions[ 'error text' ], array( $msg ) ),
+					$wgTitle,
+					$wgParser -> getOptions()
 				) -> getText();
 
 			$result = new AjaxResponse( $msg );
 			$result -> setResponseCode( '400 Bad Request' );
 			return $result;
-			
 		} else {
 
 			header( "X-Location: " . $wgOut -> getRedirect() );

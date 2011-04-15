@@ -26,6 +26,10 @@
     
 }
 
+.autoedit-result > p:first-child {
+	display:inline;
+}
+
 .autoedit-result-wait {
     color: #555;
 	cursor: progress;
