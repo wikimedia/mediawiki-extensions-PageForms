@@ -92,7 +92,7 @@ class SFUtils {
 		$res = $db->select( $db->tableName( 'categorylinks' ),
 			'distinct cl_to', $conditions, __METHOD__ );
 		if ( $db->numRows( $res ) > 0 ) {
-			foreach ( $res as $row ) {
+			while ( $row = $db->fetchRow( $res ) ) {
 				$categories[] = $row[0];
 			}
 		}
@@ -314,7 +314,7 @@ END;
 			__METHOD__,
 			array( 'ORDER BY' => 'page_title' ) );
 		$form_names = array();
-		foreach ( $res as $row ) {
+		while ( $row = $db->fetchRow( $res ) ) {
 			$form_names[] = str_replace( '_', ' ', $row[0] );
 		}
 		$dbr->freeResult( $res );
@@ -484,7 +484,7 @@ END;
 					'page_title',
 					$conditions, __METHOD__,
 					array( 'ORDER BY' => 'page_title' ) );
-				foreach ( $res as $row ) {
+				while ( $row = $db->fetchRow( $res ) ) {
 					$cur_value = str_replace( '_', ' ', $row[0] );
 					if ( $substring == null ) {
 						$pages[] = $cur_value;
