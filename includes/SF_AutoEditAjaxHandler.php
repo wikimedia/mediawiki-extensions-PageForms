@@ -26,7 +26,7 @@ class SFAutoEditAjaxHandler {
 
 		global $wgParser, $wgUser, $wgVersion;
 
-		$title = new Title();
+		$title = Title::newFromText( 'DummyTitle' );
 
 //		if ( version_compare( substr( $wgVersion, 0, 4 ), '1.17', '<' ) ) {
 			if ( !StubObject::isRealObject( $wgParser ) )
