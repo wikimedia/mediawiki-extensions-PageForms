@@ -112,7 +112,7 @@ class SFUploadWindow2 extends UnlistedSpecialPage {
 	 * @param User $user
 	 * @return bool
 	 */
-	public function userCanExecute( $user ) {
+	public function userCanExecute( User $user ) {
 		return UploadBase::isEnabled() && parent::userCanExecute( $user );
 	}
 
