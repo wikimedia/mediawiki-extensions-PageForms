@@ -180,6 +180,7 @@ if a page with that name already exists, you will be sent to a form to edit that
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Jon Harald Søby
+ * @author McDutchie
  * @author Purodha
  * @author Raymond
  * @author Siebrand
@@ -206,7 +207,9 @@ $messages['qqq'] = array(
 	'sf_formedit_none' => '{{Identical|None}}',
 	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
-	'uploadwindow' => 'Special page name for [[Special:UploadWindow]].',
+	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
+
+'''This is about a window for uploading files. The window is not the thing being uploaded.'''",
 	'sf_deletionlog' => '{{Identical|Deletion log}}',
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
@@ -2133,6 +2136,7 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
  * @author Grondin
  * @author Hashar
  * @author IAlex
+ * @author McDutchie
  * @author Peter17
  * @author PieRRoMaN
  * @author Sherbrooke
@@ -2250,7 +2254,7 @@ quelque chose comme « Special:RunQuery/<nom du formulaire> ».',
 	'sf_bad_number_error' => 'doit être un nombre valide',
 	'sf_bad_integer_error' => 'doit être un nombre entier valide',
 	'sf_bad_date_error' => 'doit être une date valide',
-	'uploadwindow' => 'Téléverser (importer) la fenêtre',
+	'uploadwindow' => 'Fenêtre de téléversement',
 	'sf_deletionlog' => 'Historique des suppressions',
 	'sf_property_isproperty' => 'Cette propriété est de type $1.',
 	'sf_property_linkstoform' => 'Elle pointe sur les pages utilisant le formulaire $1.',
@@ -2360,6 +2364,7 @@ $messages['fy'] = array(
 
 /** Galician (Galego)
  * @author Alma
+ * @author McDutchie
  * @author Toliño
  * @author Xosé
  */
@@ -2471,7 +2476,7 @@ o URL debe ser do tipo "Special:RunQuery/<nome do formulario>".',
 	'sf_bad_number_error' => 'debe ser un número válido',
 	'sf_bad_integer_error' => 'ha de ser un enteiro válido',
 	'sf_bad_date_error' => 'debe ser unha data válida',
-	'uploadwindow' => 'Cargar unha ventá',
+	'uploadwindow' => 'Ventá de subida',
 	'sf_deletionlog' => 'Rexistro de borrados',
 	'sf_property_isproperty' => 'Esta é unha propiedade de clase $1.',
 	'sf_property_linkstoform' => 'Liga con páxinas que usan o formulario $1.',
@@ -3317,7 +3322,7 @@ le URL debe esser in le forma 'Special:RunQuery/<nomine del formulario>'.",
 	'sf_bad_number_error' => 'debe esser un numero valide',
 	'sf_bad_integer_error' => 'debe esser un numero integre valide',
 	'sf_bad_date_error' => 'debe esser un data valide',
-	'uploadwindow' => 'Cargar fenestra',
+	'uploadwindow' => 'Fenestra de incargamento',
 	'sf_deletionlog' => 'registro de deletiones',
 	'sf_property_isproperty' => 'Isto es un proprietate del typo $1.',
 	'sf_property_linkstoform' => 'Illo liga verso paginas que usa le formulario $1.',
@@ -5008,6 +5013,7 @@ $messages['nso'] = array(
 
 /** Occitan (Occitan)
  * @author Cedric31
+ * @author McDutchie
  */
 $messages['oc'] = array(
 	'semanticforms-desc' => 'Formularis per apondre e modificar de donadas semanticas',
@@ -5277,6 +5283,7 @@ Jeśli strona o tej nazwie już istnieje, otwarty zostanie formularz edycji tej 
 /** Piedmontese (Piemontèis)
  * @author Borichèt
  * @author Dragonòt
+ * @author McDutchie
  */
 $messages['pms'] = array(
 	'semanticforms-desc' => 'Formolari për gionté e selessioné dat semàntich',
@@ -6596,6 +6603,7 @@ $messages['tl'] = array(
 	'sf_forminputs_uploadable' => 'Maglagay ng isang kawing na "Ikarga ang talaksan" na kasunod ng pagpapasok na ito',
 	'sf_forminputs_defaultfilename' => 'Ang likas na nakatakdang pangalan ng talaksan para sa pagkakargang papaitaas ng mga talaksan',
 	'sf_forminputs_rows' => 'Ang bilang ng mga hilerang ito para sa pagpapasok na ito',
+	'sf_forminputs_cols' => 'Ang bilang ng mga haligi para sa pagpapasok na ito',
 	'createform' => 'Lumikha ng isang pormularyo',
 	'sf_createform_nameinput' => 'Pangalan ng pormularyo',
 	'sf_createform_nameinputdesc' => '(ang pormularyo ay nakagawiang binibigyan ng kaparehong pangalan na katulad ng pangunahing suleras):',
@@ -6639,6 +6647,7 @@ Kung hindi, dadalhin ka naman patungo sa pormularyo upang maidagdag ang pahina.'
 	'sf_formstart_createoredit' => 'Likhain o baguhin',
 	'formedit' => 'Baguhin na may pormularyo',
 	'sf_formedit_createtitle' => 'Likhain ang $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Likhain ang $1',
 	'sf_formedit_badurl' => "Ito ang pahina para sa pagdaragdag na may pormularyo.  Dapat mong tukuying kapwa ang isang pangalan ng pormularyo at isang pinupuntiryang pahinang nasa loob ng URL;
 dapat itong magmukhang katulad ng 'Special:FormEdit?form=<form name>&target=<target page>', o  'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'Sa halip, maaari mong idagdag ang pahinang ito na may isa sa sumusunod na mga pormularyo:',
@@ -6652,6 +6661,7 @@ dapat itong magmukhang katulad ng 'Special:FormEdit?form=<form name>&target=<tar
 	'sf_formedit_remove' => 'Tanggalin',
 	'sf_formedit_addanother' => 'Magdagdag ng isa pa',
 	'sf_formedit_none' => 'Wala',
+	'sf_formedit_saveandcontinueediting' => 'Sagipin at magpatuloy',
 	'runquery' => 'Patakbuhin ang tanong',
 	'sf_runquery_badurl' => "Kailangan kang tumukoy ng isang pangalan ng pormularyo sa loob ng URL;
 dapat magmukhang katulad ng 'Special:RunQuery/<form name>' ang URL.",
