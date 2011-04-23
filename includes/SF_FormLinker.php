@@ -125,7 +125,11 @@ class SFFormLinker {
 		$store = smwfGetStore();
 		$title = Title::makeTitleSafe( $page_namespace, $page_name );
 		$property = SMWPropertyValue::makeProperty( $prop_smw_id );
+		
 		$res = $store->getPropertyValues( $title, $property );
+		// FIXME: should probably change into something like this for SMW 1.6:
+		//$res = $store->getPropertyValues( $title, new SMWDIProperty( $title->getDBkey() ) );
+		
 		$form_names = array();
 		foreach ( $res as $wiki_page_value ) {
 			$form_title = $wiki_page_value->getTitle();
