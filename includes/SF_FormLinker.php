@@ -33,12 +33,22 @@ class SFFormLinker {
 			die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
 		}
 		$store = smwfGetStore();
-		$title_text = SFUtils::titleString( $title );
-		$value = SMWDataValueFactory::newTypeIDValue( '_wpg', $title_text );
+		// SMW 1.6+
+		if ( class_exists( 'SMWDataItem' ) ) {
+			$value = new SMWDIWikiPage( $title->getText(), $title->getNamespace(), null );
+		} else {
+			$title_text = SFUtils::titleString( $title );
+			$value = SMWDataValueFactory::newTypeIDValue( '_wpg', $title_text );
+		}
 		$properties = $store->getInProperties( $value );
 		$propertyNames = array();
 		foreach( $properties as $property ) {
-			$property_name = $property->getWikiValue();
+			// SMW 1.6+
+			if ( $property instanceof SMWDIProperty ) {
+				$property_name = $property->getKey();
+			} else {
+				$property_name = $property->getWikiValue();
+			}
 			if ( !empty( $property_name ) ) {
 				$propertyNames[] = $property_name;
 			}
@@ -123,12 +133,7 @@ class SFFormLinker {
 		}
 			
 		$store = smwfGetStore();
-		$title = Title::makeTitleSafe( $page_namespace, $page_name );
-		$property = SMWPropertyValue::makeProperty( $prop_smw_id );
-		
-		$res = $store->getPropertyValues( $title, $property );
-		// FIXME: should probably change into something like this for SMW 1.6:
-		//$res = $store->getPropertyValues( $title, new SMWDIProperty( $title->getDBkey() ) );
+		$res = SFUtils::getSMWPropertyValues( $store, $page_name, $page_namespace, $prop_smw_id );
 		
 		$form_names = array();
 		foreach ( $res as $wiki_page_value ) {
@@ -139,8 +144,7 @@ class SFFormLinker {
 		}
 		// if we're using a non-English language, check for the English string as well
 		if ( ! class_exists( 'SF_LanguageEn' ) || ! $sfgContLang instanceof SF_LanguageEn ) {
-			$backup_property = SMWPropertyValue::makeProperty( $backup_prop_smw_id );
-			$res = $store->getPropertyValues( $title, $backup_property );
+			$res = SFUtils::getSMWPropertyValues( $store, $page_name, $page_namespace, $backup_prop_smw_id );
 			foreach ( $res as $wiki_page_value )
 				$form_names[] = $wiki_page_value->getTitle()->getText();
 		}

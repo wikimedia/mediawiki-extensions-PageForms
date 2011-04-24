@@ -72,6 +72,24 @@ class SFUtils {
 	}
 
 	/**
+	 * Helper function to handle getPropertyValues() in both SMW 1.6
+	 * and earlier versions.
+	 */
+	public static function getSMWPropertyValues( $store, $pageName, $pageNamespace, $propID, $requestOptions = null ) {
+		// SMWDIProperty was added in SMW 1.6
+		if ( class_exists( 'SMWDIProperty' ) ) {
+
+			$page = new SMWDIWikiPage( $pageName, $pageNamespace, null );
+			$property = new SMWDIProperty( $propID );
+			return $store->getPropertyValues( $page, $property, $requestOptions );
+		} else {
+			$title = Title::makeTitleSafe( $pageNamespace, $pageName );
+			$property = SMWPropertyValue::makeProperty( $propID );
+			return $store->getPropertyValues( $title, $property, $requestOptions );
+		}
+	}
+
+	/**
 	 * Helper function - gets names of categories for a page;
 	 * based on Title::getParentCategories(), but simpler
 	 * - this function doubles as a function to get all categories on
@@ -348,7 +366,8 @@ END;
 		$requestoptions = new SMWRequestOptions();
 		$requestoptions->limit = $sfgMaxAutocompleteValues;
 		$property = SMWPropertyValue::makeProperty( $property_name );
-		$data_values = $store->getPropertyValues( null, $property, $requestoptions );
+		//$data_values = $store->getPropertyValues( null, $property, $requestoptions );
+		$data_values = self::getSMWPropertyValues( $store, null, null, $property, $requestoptions );
 		$values = array();
 		foreach ( $data_values as $dv ) {
 			// getPropertyValues() gets many repeat values - we want
