@@ -365,9 +365,7 @@ END;
 		$store = smwfGetStore();
 		$requestoptions = new SMWRequestOptions();
 		$requestoptions->limit = $sfgMaxAutocompleteValues;
-		$property = SMWPropertyValue::makeProperty( $property_name );
-		//$data_values = $store->getPropertyValues( null, $property, $requestoptions );
-		$data_values = self::getSMWPropertyValues( $store, null, null, $property, $requestoptions );
+		$data_values = self::getSMWPropertyValues( $store, null, null, $property_name, $requestoptions );
 		$values = array();
 		foreach ( $data_values as $dv ) {
 			// getPropertyValues() gets many repeat values - we want
