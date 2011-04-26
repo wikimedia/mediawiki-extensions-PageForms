@@ -54,17 +54,23 @@ class SFTemplateField {
 	}
 
 	function setTypeAndPossibleValues() {
-		$propValue = SMWPropertyValue::makeUserProperty( $this->semantic_property );
 		$proptitle = Title::makeTitleSafe( SMW_NS_PROPERTY, $this->semantic_property );
 		if ( $proptitle === NULL )
 			return;
 		$store = smwfGetStore();
-		$types = $store->getPropertyValues( $proptitle, SMWPropertyValue::makeUserProperty( "Has type" ) );
+		$types = SFUtils::getSMWPropertyValues( $store, $this->semantic_property, SMW_NS_PROPERTY, "Has type" );
 		// this returns an array of objects
-		$allowed_values = $store->getPropertyValues( $proptitle, SMWPropertyValue::makeUserProperty( "Allows value" ) );
-		$label_formats = $store->getPropertyValues( $proptitle, SMWPropertyValue::makeUserProperty( "Has field label format" ) );
-		// TODO - need handling for the case of more than one type
-		$this->field_type_id = $propValue->getPropertyTypeID();
+		$allowed_values = SFUtils::getSMWPropertyValues( $store, $this->semantic_property, SMW_NS_PROPERTY, "Allows value" );
+		$label_formats = SFUtils::getSMWPropertyValues( $store, $this->semantic_property, SMW_NS_PROPERTY, "Has field label format" );
+		// SMW 1.6+
+		if ( class_exists( 'SMWDIProperty' ) ) {
+			$propValue = new SMWDIProperty( $this->semantic_property );
+			$this->field_type_id = $propValue->findPropertyTypeID();
+		} else {
+			$propValue = SMWPropertyValue::makeUserProperty( $this->semantic_property );
+			$this->field_type_id = $propValue->getPropertyTypeID();
+		}
+		// TODO - need handling for the case of more than one type.
 		if ( count( $types ) > 0 ) {
 			$this->field_type = $types[0]->getWikiValue();
 		}
