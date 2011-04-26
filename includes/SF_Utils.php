@@ -78,8 +78,11 @@ class SFUtils {
 	public static function getSMWPropertyValues( $store, $pageName, $pageNamespace, $propID, $requestOptions = null ) {
 		// SMWDIProperty was added in SMW 1.6
 		if ( class_exists( 'SMWDIProperty' ) ) {
-
-			$page = new SMWDIWikiPage( $pageName, $pageNamespace, null );
+			if ( is_null( $pageName ) ) {
+				$page = null;
+			} else {
+				$page = new SMWDIWikiPage( $pageName, $pageNamespace, null );
+			}
 			$property = new SMWDIProperty( $propID );
 			return $store->getPropertyValues( $page, $property, $requestOptions );
 		} else {
