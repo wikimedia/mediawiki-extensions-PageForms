@@ -795,7 +795,7 @@ END;
 					}
 
 					if ( empty( $cur_value ) && !$form_submitted ) {
-						if ( $default_value ) {
+						if ( !is_null( $default_value ) ) {
 							// Set to the default value specified in the form, if it's there.
 							$cur_value = $default_value;
 						} elseif ( $preload_page ) {
