@@ -786,6 +786,10 @@ $messages['be-tarask'] = array(
 	'sf_formedit_addanother' => 'Дадаць іншую',
 	'sf_formedit_none' => 'Нічога',
 	'sf_formedit_emptytitle' => 'Памылка: уведзеныя выніковыя зьвесткі ў пустой назьве старонкі.',
+	'sf_formedit_hookerror' => 'Памылка: Пашырэньне MediaWiki, не дае магчымасьці зьмены мэтавай старонкі.',
+	'sf_formedit_saveandcontinueediting' => 'Захаваць і працягваць',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Захаваць зьветкі і працягваць рэдагаваньне',
+	'sf_autoedit_anoneditwarning' => 'Папярэджаньне: Вы не ўвайшлі. Ваш IP-адрас будзе запісаны ў гісторыі гэтай старонкі.',
 	'runquery' => 'Выканаць запыт',
 	'sf_runquery_badurl' => "Вам неабходна пазначыць назву формы ў URL-адрасе;
 URL-адрас павінен мець выгляд 'Special:RunQuery/<назва формы>'.",
@@ -882,10 +886,46 @@ $messages['bg'] = array(
 );
 
 /** Bengali (বাংলা)
+ * @author Wikitanvir
  * @author Zaheen
  */
 $messages['bn'] = array(
+	'sf_createproperty_proptype' => 'ধরন:',
+	'templates' => 'টেম্পলেটসমূহ',
+	'sf_templates_docu' => 'উইকিটিতে নিচের টেমপ্লেটগুলো রয়েছে।',
+	'sf_createtemplate_fieldname' => 'ফিল্ডের নাম:',
+	'sf_createtemplate_aggregationlabel' => 'তালিকার শিরোনাম:',
+	'sf_createtemplate_outputformat' => 'আউটপুটের বিন্যাস:',
+	'sf_createtemplate_standardformat' => 'আদর্শ',
+	'sf_createtemplate_infoboxformat' => 'ডান-হাতি তথ্যছক',
+	'sf_createtemplate_addfield' => 'ফিল্ড যোগ',
 	'sf_createtemplate_deletefield' => 'মুছে ফেলা হোক',
+	'forms' => 'ফরম',
+	'sf_forms_docu' => 'উইকিটিতে নিচের ফর্মগুলো রয়েছে।',
+	'createform' => 'ফর্ম তৈরি করুন',
+	'sf_createform_nameinput' => 'ফর্মের নাম',
+	'sf_createform_template' => 'টেম্পলেট:',
+	'sf_createform_field' => 'ফিল্ড:',
+	'sf_createform_hidden' => 'লুকায়িত',
+	'sf_createform_removetemplate' => 'টেমপ্লেট অপসারণ',
+	'sf_createform_addtemplate' => 'টেমপ্লেট যোগ:',
+	'createcategory' => 'একটি বিষয়শ্রেণী যোগ করুন',
+	'sf_createcategory_name' => 'বিষয়শ্রেণীর নাম:',
+	'sf_createcategory_defaultform' => 'পূর্বনির্ধারিত ফর্ম:',
+	'sf_formstart_createoredit' => 'তৈরি অথবা সম্পাদনা করুন',
+	'formedit' => 'ফর্মসহ সম্পাদনা',
+	'sf_formedit_createtitle' => 'তৈরি করুন $1: $2',
+	'sf_formedit_createtitlenotarget' => 'তৈরি করুন $1',
+	'sf_viewform' => 'ফর্ম দেখাও',
+	'sf_editsource' => 'উৎস সম্পাদনা',
+	'sf_formedit_edittitle' => 'সম্পাদনা $1: $2',
+	'sf_formedit_remove' => 'অপসারণ',
+	'sf_formedit_addanother' => 'অপর একটি যোগ করুন',
+	'sf_formedit_none' => 'কোনটিই নয়',
+	'sf_runquery_additionalquery' => 'অতিরিক্ত কোয়েরি',
+	'sf_deletionlog' => 'অপসারণ লগ',
+	'sf_form_freetextlabel' => 'মুক্ত লেখা',
+	'sf_blank_namespace' => 'প্রধান',
 );
 
 /** Breton (Brezhoneg)
