@@ -505,11 +505,9 @@ window.ext.popupform = new function() {
 
 		var html = content.closest('html');
 
-		var scrollTgt;
+		var scrollTgt = html;
 			
-		if ( jQuery.browser.msie || jQuery.browser.opera ) {
-			scrollTgt = html;
-		} else {
+		if ( jQuery.browser.webkit || jQuery.browser.safari ) {
 			scrollTgt = content.closest('body');
 		}
 
