@@ -504,9 +504,12 @@ window.ext.popupform = new function() {
 		// find the dimensions of the document
 
 		var html = content.closest('html');
-		var scrollTgt = html;
 
-		if( jQuery.browser.webkit || jQuery.browser.safari ){
+		var scrollTgt;
+			
+		if ( jQuery.browser.msie || jQuery.browser.opera ) {
+			scrollTgt = html;
+		} else {
 			scrollTgt = content.closest('body');
 		}
 
@@ -535,15 +538,13 @@ window.ext.popupform = new function() {
 		.width( oldContW )
 		.height( oldContH );
 
-		var docW, docH;
-
 		if ( jQuery.browser.msie ) {
 			docW += 20;
 			docH += 20;
 		}
 
-		docpW = docW + 2 * padding;
-		docpH = docH + 2 * padding;
+		var docpW = docW + 2 * padding;
+		var docpH = docH + 2 * padding;
 
 		// Flags
 
