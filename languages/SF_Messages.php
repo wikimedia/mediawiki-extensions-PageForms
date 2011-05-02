@@ -786,10 +786,10 @@ $messages['be-tarask'] = array(
 	'sf_formedit_addanother' => 'Дадаць іншую',
 	'sf_formedit_none' => 'Нічога',
 	'sf_formedit_emptytitle' => 'Памылка: уведзеныя выніковыя зьвесткі ў пустой назьве старонкі.',
-	'sf_formedit_hookerror' => 'Памылка: Пашырэньне MediaWiki, не дае магчымасьці зьмены мэтавай старонкі.',
+	'sf_formedit_hookerror' => 'Памылка: пашырэньне MediaWiki не дазваляе зьмены мэтавай старонкі.',
 	'sf_formedit_saveandcontinueediting' => 'Захаваць і працягваць',
-	'sf_formedit_tooltip_saveandcontinueediting' => 'Захаваць зьветкі і працягваць рэдагаваньне',
-	'sf_autoedit_anoneditwarning' => 'Папярэджаньне: Вы не ўвайшлі. Ваш IP-адрас будзе запісаны ў гісторыі гэтай старонкі.',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Захаваць зьвесткі і працягваць рэдагаваньне',
+	'sf_autoedit_anoneditwarning' => 'Папярэджаньне: Вы не ўвайшлі ў сыстэму. Ваш IP-адрас будзе запісаны ў гісторыі гэтай старонкі.',
 	'runquery' => 'Выканаць запыт',
 	'sf_runquery_badurl' => "Вам неабходна пазначыць назву формы ў URL-адрасе;
 URL-адрас павінен мець выгляд 'Special:RunQuery/<назва формы>'.",
@@ -3617,7 +3617,7 @@ Ia harus dipanggil dengan format berikut:',
 	'sf_form_docu' => 'Ini adalah formulir "$1".
 Untuk menambah halaman dengan menggunakan formulir ini, masukkan nama halaman di bawah ini;
 jika halaman dengan nama tersebut sudah ada, Anda akan diarahkan ke formulir untuk menyunting halaman tersebut.',
-	'sf_form_freetextlabel' => 'Teks gratis',
+	'sf_form_freetextlabel' => 'Teks bebas',
 	'sf_category_hasdefaultform' => 'Kategori ini menggunakan formulir $1.',
 	'sf_category_desc' => 'Ini adalah kategori $1.',
 	'sf_blank_namespace' => 'Utama',
