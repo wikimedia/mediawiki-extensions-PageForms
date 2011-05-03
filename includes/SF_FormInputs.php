@@ -1473,9 +1473,8 @@ class SFCategoryInput extends SFFormInput {
 		$wgCategoryTreeMaxDepth = 10;
 		$tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10 ) );
 
-		// CategoryTree HTML-escapes all values
-		$cur_value = htmlentities( $cur_value );
-		// capitalize the first letter, if first letters always get capitalized
+		// Capitalize the first letter, if first letters always get
+		// capitalized.
 		global $wgCapitalLinks;
 		if ( $wgCapitalLinks ) {
 			global $wgContLang;
@@ -1569,9 +1568,8 @@ class SFCategoriesInput extends SFCategoryInput {
 		}
 		// set all checkboxes matching $cur_values to checked
 		foreach ( $cur_values as $value ) {
-			// CategoryTree HTML-escapes all values
-			$value = htmlentities( $value );
-			// capitalize the first letter, if first letters always get capitalized
+			// Capitalize the first letter, if first letters
+			// always get capitalized.
 			if ( $wgCapitalLinks ) {
 				global $wgContLang;
 				$value = $wgContLang->ucfirst( $value );
