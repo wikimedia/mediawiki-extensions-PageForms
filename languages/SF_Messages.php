@@ -653,6 +653,14 @@ $messages['avk'] = array(
 	'sf_blank_namespace' => 'Nelkaxo',
 );
 
+/** Azerbaijani (Azərbaycanca)
+ * @author Cekli829
+ */
+$messages['az'] = array(
+	'sf_createtemplate_deletefield' => 'Sil',
+	'sf_createform_template' => 'Şablon:',
+);
+
 /** Belarusian (Беларуская)
  * @author Тест
  */
@@ -3538,6 +3546,18 @@ $messages['id'] = array(
 	'sf_forminputs_valuesfromcategory' => 'Kategori yang halamannya menjadi nilai untuk masukan ini',
 	'sf_forminputs_valuesfromnamespace' => 'Ruang nama yang halamannya menjadi nilai untuk masukan ini',
 	'sf_forminputs_valuesfromconcept' => 'Halaman "konsep" Semantic MediaWiki yang halamannya menjadi nilai masukan ini',
+	'sf_forminputs_valuesfromurl' => 'URL penyimpan data terstruktur yang harus menjadi set nilai masukan ini',
+	'sf_forminputs_values' => 'Set nilai masukan ini, dipisahkan oleh koma',
+	'sf_forminputs_list' => 'Tandai masukan ini menyimpan daftar nilai',
+	'sf_forminputs_delimiter' => 'Pembatas antara nilai bidang, jika masukan ini menyimpan daftar nilai berbagai bidang',
+	'sf_forminputs_remoteautocompletion' => 'Gunakan pelengkapan otomatis jarak jauh',
+	'sf_forminputs_existingvaluesonly' => 'Hanya izinkan nilai yang sudah ada dalam daftar',
+	'sf_forminputs_showonselect' => 'Elemen halaman yang ditampilkan hanya jika nilai tertentu dipilih (contoh: "nilai1=>div1;nilai2=>div2")',
+	'sf_forminputs_listboxsize' => 'Tinggi kotak daftar ini, dalam baris',
+	'sf_forminputs_includetimezone' => 'Sertakan masukan untuk zona waktu',
+	'sf_forminputs_topcategory' => 'Kategori induk dari set kategori ini (wajib diisi)',
+	'sf_forminputs_height' => 'Tinggi masukan, dalam piksel',
+	'sf_forminputs_width' => 'Lebar masukan, dalam piksel',
 	'createform' => 'Buat formulir',
 	'sf_createform_nameinput' => 'Nama formulir',
 	'sf_createform_nameinputdesc' => '(formulir ini biasanya diberi nama yang sama dengan templat utamanya):',
@@ -3581,6 +3601,7 @@ Jika belum, Anda akan diarahkan ke formulir untuk menambahkan halaman.',
 	'sf_formstart_createoredit' => 'Buat atau sunting',
 	'formedit' => 'Sunting dengan formulir',
 	'sf_formedit_createtitle' => 'Buat $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Buat $1',
 	'sf_formedit_badurl' => "Ini adalah halaman untuk menyunting menggunakan formulir. Anda harus memberikan baik nama formulir maupun nama halaman target di URL;
 bentuknya harus seperti 'Special:FormEdit?form=<form name>&target=<target page>', atau 'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'Sebagai gantinya, Anda dapat menambahkan halaman ini dengan salah satu dari formulir berikut:',
@@ -3594,6 +3615,12 @@ bentuknya harus seperti 'Special:FormEdit?form=<form name>&target=<target page>'
 	'sf_formedit_remove' => 'Hapus',
 	'sf_formedit_addanother' => 'Tambah lagi',
 	'sf_formedit_none' => 'Tidak ada',
+	'sf_formedit_emptytitle' => 'Galat: Data yang disisipkan menghasilkan judul halaman kosong.',
+	'sf_formedit_hookerror' => 'Galat: Ekstensi MediaWiki menghalangi modifikasi halaman sasaran.',
+	'sf_formedit_saveandcontinueediting' => 'Simpan dan lanjutkan',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Simpan dan lanjutkan penyuntingan',
+	'sf_autoedit_anoneditwarning' => 'Peringatan: Anda belum masuk. Alamat IP Anda akan tercatat dalam riwayat suntingan halaman ini.',
+	'sf_autoedit_success' => 'Berhasil mengubah [[$1]] dengan menggunakan formulir $2.',
 	'runquery' => 'Jalankan query',
 	'sf_runquery_badurl' => "Anda harus menentukan suatu nama formulir di URL;
 bentuknya harus seperti 'Special:RunQuery/<form name>'.",
