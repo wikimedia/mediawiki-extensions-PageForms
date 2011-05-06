@@ -111,9 +111,9 @@ END;
 				$text .= SFUtils::formDropdownHTML();
 
 			$text .= "\t</p>\n";
-			$text .= "\t" . Xml::hidden( 'namespace', $target_namespace ) . "\n";
-			$text .= "\t" . Xml::hidden( 'super_page', $super_page ) . "\n";
-			$text .= "\t" . Xml::hidden( 'params', $params ) . "\n";
+			$text .= "\t" . Html::Hidden( 'namespace', $target_namespace ) . "\n";
+			$text .= "\t" . Html::Hidden( 'super_page', $super_page ) . "\n";
+			$text .= "\t" . Html::Hidden( 'params', $params ) . "\n";
 			$text .= "\t" . Xml::element( 'input', array( 'type' => 'submit', 'value' => wfMsg( 'sf_formstart_createoredit' ) ) ) . "\n";
 			$text .= "\t</form>\n";
 		}

@@ -658,7 +658,7 @@ class SFListBoxInput extends SFMultiEnumInput {
 			$selectAttrs['disabled'] = 'disabled';
 		}
 		$text = Xml::tags( 'select', $selectAttrs, $optionsText );
-		$text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
+		$text .= "\t" . Html::Hidden( $input_name . '[is_list]', 1 ) . "\n";
 		if ( $is_mandatory ) {
 			$text = Xml::tags( 'span', array( 'class' => 'inputSpan mandatoryFieldSpan' ), $text );
 		}
@@ -770,7 +770,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			}
 		}
 
-		$text .= "\n" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
+		$text .= "\n" . Html::Hidden( $input_name . '[is_list]', 1 ) . "\n";
 		$outerSpanAttrs = array( 'id' => $outerSpanID, 'class' => $outerSpanClass );
 		$text = "\t" . Xml::tags( 'span', $outerSpanAttrs, $text ) . "\n";
 
@@ -1583,7 +1583,7 @@ class SFCategoriesInput extends SFCategoryInput {
 		}
 		$text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
 
-		$text .= "\t" . Xml::hidden( $input_name . '[is_list]', 1 ) . "\n";
+		$text .= "\t" . Html::Hidden( $input_name . '[is_list]', 1 ) . "\n";
 		$spanClass = "checkboxesSpan";
 		if ( $is_mandatory) { $spanClass .= " mandatoryFieldSpan"; }
 		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text ) . "\n";

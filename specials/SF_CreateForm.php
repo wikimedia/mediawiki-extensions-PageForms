@@ -214,7 +214,7 @@ jQuery(document).ready(function() {
 
 	// Set 'title' field, in case there's no URL niceness.
 	$cf = Title::makeTitleSafe( NS_SPECIAL, 'CreateForm' );
-	$text .= "\t" . Xml::hidden( 'title', SFUtils::titleURLString( $cf ) ) . "\n";
+	$text .= "\t" . Html::Hidden( 'title', SFUtils::titleURLString( $cf ) ) . "\n";
 	$text .= '	<p>' . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . ' <input size=25 name="form_name" value="' . $form_name . '">';
 	if ( ! empty( $form_name_error_str ) )
 		$text .= '	' . Xml::element( 'font', array( 'color' => 'red' ), $form_name_error_str );

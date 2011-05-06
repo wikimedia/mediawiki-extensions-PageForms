@@ -179,17 +179,17 @@ class SFUtils {
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 
 END;
-		$form_body = "\t" . Xml::hidden( 'wpTextbox1', $page_contents ) . "\n";
-		$form_body .= "\t" . Xml::hidden( 'wpSummary', $edit_summary ) . "\n";
-		$form_body .= "\t" . Xml::hidden( 'wpStarttime', $start_time ) . "\n";
-		$form_body .= "\t" . Xml::hidden( 'wpEdittime', $edit_time ) . "\n";
-		$form_body .= "\t" . Xml::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX ) . "\n";
-		$form_body .= "\t" . Xml::hidden( $action, null ) . "\n";
+		$form_body = "\t" . Html::Hidden( 'wpTextbox1', $page_contents ) . "\n";
+		$form_body .= "\t" . Html::Hidden( 'wpSummary', $edit_summary ) . "\n";
+		$form_body .= "\t" . Html::Hidden( 'wpStarttime', $start_time ) . "\n";
+		$form_body .= "\t" . Html::Hidden( 'wpEdittime', $edit_time ) . "\n";
+		$form_body .= "\t" . Html::Hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX ) . "\n";
+		$form_body .= "\t" . Html::Hidden( $action, null ) . "\n";
 
 		if ( $is_minor_edit )
-			$form_body .= "\t" . Xml::hidden( 'wpMinoredit' , null ) . "\n";
+			$form_body .= "\t" . Html::Hidden( 'wpMinoredit' , null ) . "\n";
 		if ( $watch_this )
-			$form_body .= "\t" . Xml::hidden( 'wpWatchthis', null ) . "\n";
+			$form_body .= "\t" . Html::Hidden( 'wpWatchthis', null ) . "\n";
 		$text .= Xml::tags(
 			'form',
 			array(

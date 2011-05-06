@@ -223,7 +223,7 @@ END;
 		$text .= Xml::tags( 'p', null, $add_another_button ) . "\n";
 		// Set 'title' as hidden field, in case there's no URL niceness
 		$cc = Title::makeTitleSafe( NS_SPECIAL, 'CreateClass' );
-		$text .= Xml::hidden( 'title', SFUtils::titleURLString( $cc ) ) . "\n";
+		$text .= Html::Hidden( 'title', SFUtils::titleURLString( $cc ) ) . "\n";
 		$text .= Xml::element( 'input',
 			array(
 				'type' => 'submit',

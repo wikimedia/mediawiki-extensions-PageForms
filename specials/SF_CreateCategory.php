@@ -89,7 +89,7 @@ function doSpecialCreateCategory() {
 	<form action="" method="get">
 
 END;
-	$text .= "\t" . Xml::hidden( 'title', "$special_namespace:CreateCategory" ) . "\n";
+	$text .= "\t" . Html::Hidden( 'title', "$special_namespace:CreateCategory" ) . "\n";
 	$text .= <<<END
 	<p>$name_label <input size="25" name="category_name" value="" />
 	<span style="color: red;">$category_name_error_str</span>

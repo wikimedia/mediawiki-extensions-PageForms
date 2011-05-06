@@ -184,7 +184,7 @@ END;
 
 		// Set 'title' field, in case there's no URL niceness
 		$ct = Title::makeTitleSafe( NS_SPECIAL, 'CreateTemplate' );
-		$text .= "\t" . Xml::hidden( 'title', SFUtils::titleURLString( $ct ) ) . "\n";
+		$text .= "\t" . Html::Hidden( 'title', SFUtils::titleURLString( $ct ) ) . "\n";
 		$text .= "\t<p id=\"template_name_p\">" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_categorylabel' ) . ' <input size="25" name="category" /></p>' . "\n";
 		$text .= "\t<fieldset>\n";

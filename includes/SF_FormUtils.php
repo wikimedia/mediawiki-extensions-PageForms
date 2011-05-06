@@ -39,7 +39,7 @@ class SFFormUtils {
 	}
 
 	static function hiddenFieldHTML( $input_name, $cur_value ) {
-		return "\t\t\t" . Xml::hidden( $input_name, $cur_value ) . "\n";
+		return "\t\t\t" . Html::Hidden( $input_name, $cur_value ) . "\n";
 	}
 
 	/**

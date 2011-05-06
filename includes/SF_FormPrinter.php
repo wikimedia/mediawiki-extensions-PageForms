@@ -1383,8 +1383,8 @@ END;
 		$page_article = new Article( $this->mPageTitle );
 		$edittime = $page_article->getTimestamp();
 		if ( !$is_query ) {
-			$form_text .= "\t" . Xml::hidden( 'wpStarttime', wfTimestampNow() ) . "\n";
-			$form_text .= "\t" . Xml::hidden( 'wpEdittime', $page_article->getTimestamp() ) . "\n";
+			$form_text .= "\t" . Html::Hidden( 'wpStarttime', wfTimestampNow() ) . "\n";
+			$form_text .= "\t" . Html::Hidden( 'wpEdittime', $page_article->getTimestamp() ) . "\n";
 		}
 		$form_text .= "\t</form>\n";
 

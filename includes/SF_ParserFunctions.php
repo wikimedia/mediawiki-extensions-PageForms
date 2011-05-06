@@ -209,7 +209,7 @@ class SFParserFunctions {
 					$query_component = urldecode( $query_component );
 					$var_and_val = explode( '=', $query_component );
 					if ( count( $var_and_val ) == 2 ) {
-						$hidden_inputs .= Xml::hidden( $var_and_val[0], $var_and_val[1] ) . "\n";
+						$hidden_inputs .= Html::Hidden( $var_and_val[0], $var_and_val[1] ) . "\n";
 					}
 				}
 			} else {
@@ -343,12 +343,12 @@ END;
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
 		if ( ( $pos = strpos( $fs_url, "title=" ) ) > - 1 ) {
-			$str .= "\t\t\t" . Xml::hidden( "title", urldecode( substr( $fs_url, $pos + 6 ) ) ) . "\n";
+			$str .= "\t\t\t" . Html::Hidden( "title", urldecode( substr( $fs_url, $pos + 6 ) ) ) . "\n";
 		}
 		if ( $inFormName == '' ) {
 			$str .= SFUtils::formDropdownHTML();
 		} else {
-			$str .= "\t\t\t" . Xml::hidden( "form", $inFormName ) . "\n";
+			$str .= "\t\t\t" . Html::Hidden( "form", $inFormName ) . "\n";
 		}
 		// Recreate the passed-in query string as a set of hidden
 		// variables.
