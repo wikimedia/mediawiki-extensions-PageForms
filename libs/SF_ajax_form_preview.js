@@ -88,10 +88,12 @@ function ajaxFormPreviewRun(btn){
  
 	for (i=0; i < elts.length; ++i) {
 		if (elts[i].name && elts[i].name != '' && !elts[i].disabled &&
-			((elts[i].type!='submit' && elts[i].type!='radio' && elts[i].type!='checkbox') || elts[i].checked)) {
+			((elts[i].type!='submit' && elts[i].type!='button' && elts[i].type!='radio' && elts[i].type!='checkbox') || elts[i].checked)) {
 			addData (elts[i].name, elts[i].value);
 		}
 	}
+
+	addData ('wpPreview', 'Show Preview');
 
 	btn.style.width = Math.max(btn.scrollWidth, btn.offsetWidth) + 'px';
 	btn.value = '...';
