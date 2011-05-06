@@ -253,7 +253,7 @@ END;
 	 * only a page formula exists).
 	 */
 	function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false ) {
-		global $wgRequest, $wgUser, $wgParser;
+		global $wgRequest, $wgUser;
 		global $sfgTabIndex; // used to represent the current tab index in the form
 		global $sfgFieldNum; // used for setting various HTML IDs
 
