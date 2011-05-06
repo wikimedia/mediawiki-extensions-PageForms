@@ -347,10 +347,8 @@ END;
 		// element, so that the wiki parser won't touch it - the parser will
 		// remove the '<nowiki>' tags, leaving us with what we need.
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
-		if ( empty( $wgParser->mOptions ) ) {
-			if ( !StubObject::isRealObject($wgParser) ) $wgParser -> _unstub();
-			$wgParser->startExternalParse( $this->mPageTitle, ParserOptions::newFromUser($wgUser), Parser::OT_HTML, true );
-		}
+
+		$parser = new Parser();
 
 		// Get the form definition from the cache, if we're using caching and it's
 		// there.
@@ -366,15 +364,9 @@ END;
 //		}
 		// Otherwise, parse it.
 //		if ( ! $got_form_def_from_cache ) {
-		$form_def = $wgParser->recursiveTagParse( $form_def );
-		$form_def = $wgParser->mStripState->unstripBoth( $form_def );
-		$form_def = $wgParser->doBlockLevels( $form_def, true );
-		wfRunHooks( 'ParserAfterTidy', array( &$wgParser, &$form_def ) );
-//			} else {
-//				$form_def = $wgParser->parse( $form_def, $this->mPageTitle, $wgParser->mOptions )->getText();
-//			}
+		$form_def = $parser->parse($form_def, $this->mPageTitle, ParserOptions::newFromUser($wgUser))->getText();
 //		}
-		
+
 		// Turn form definition file into an array of sections, one for each
 		// template definition (plus the first section)
 		$form_def_sections = array();
@@ -683,7 +675,7 @@ END;
 								if ( $sub_components[0] == 'input type' ) {
 									$input_type = $sub_components[1];
 								} elseif ( $sub_components[0] == 'default' ) {
-									$default_value = $wgParser->recursiveTagParse( $sub_components[1] );
+									$default_value = $parser->recursiveTagParse( $sub_components[1] );
 								} elseif ( $sub_components[0] == 'preload' ) {
 									// free text field has special handling
 									if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
@@ -1415,8 +1407,7 @@ END;
 			$data_text = $existing_page_content;
 
 		if ( !$embedded ) {
-			global $wgParser;
-			$form_page_title = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
+			$form_page_title = $parser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
 		} else {
 			$form_page_title = null;
 		}
