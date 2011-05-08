@@ -113,7 +113,7 @@ class TemplatesPage extends QueryPage {
 	function formatResult( $skin, $result ) {
 		SFUtils::loadMessages();
 		$title = Title::makeTitle( NS_TEMPLATE, $result->value );
-		$text = $skin->makeLinkObj( $title, $title->getText() );
+		$text = $skin->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
 		$category = $this->getCategoryDefinedByTemplate( new Article( $title ) );
 		if ( $category != '' )
 			$text .= ' ' . wfMsg( 'sf_templates_definescat' ) . ' ' . SFUtils::linkText( NS_CATEGORY, $category );

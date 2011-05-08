@@ -98,6 +98,6 @@ class FormsPage extends QueryPage {
 
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( SF_NS_FORM, $result->value );
-		return $skin->makeLinkObj( $title, $title->getText() );
+		return $skin->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
 	}
 }

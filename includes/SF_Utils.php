@@ -153,8 +153,8 @@ class SFUtils {
 			return $name; // TODO maybe report an error here?
 		}
 		if ( NULL === $text ) $text = $title->getText();
-		$l = new Linker();
-		return $l->makeLinkObj( $title, $text );
+		$l = class_exists('DummyLinker') ? new DummyLinker : new Linker;
+		return $l->makeLinkObj( $title, htmlspecialchars( $text ) );
 	}
 
 	/**
