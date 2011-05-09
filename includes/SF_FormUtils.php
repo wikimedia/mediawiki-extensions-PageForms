@@ -264,7 +264,7 @@ END;
 			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
 			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
 		} else
-			$cancel = $sk->makeKnownLink( $wgTitle->getPrefixedText(), $label );
+			$cancel = Linker::link( $wgTitle, $label, array(), array(), 'known' );
 		$text = "		<span class='editHelp'>$cancel</span>\n";
 		return $text;
 	}
