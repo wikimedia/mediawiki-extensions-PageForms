@@ -189,8 +189,8 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/jquery.fancybox-1.3.1.js',
-			'styles' => 'skins/jquery.fancybox-1.3.1.css',
+			'scripts' => 'libs/jquery.fancybox.js',
+			'styles' => 'skins/jquery.fancybox.css',
 		),
 		'ext.semanticforms.autogrow' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autogrow.js',

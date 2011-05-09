@@ -259,7 +259,7 @@ END;
 			"$sfgScriptPath/skins/jquery-ui/base/jquery.ui.all.css",
 			"$sfgScriptPath/skins/SemanticForms.css",
 			"$sfgScriptPath/skins/SF_submit.css",
-			"$sfgScriptPath/skins/jquery.fancybox-1.3.1.css"
+			"$sfgScriptPath/skins/jquery.fancybox.css"
 		);
 		foreach ( $css_files as $css_file ) {
 			$link = array(
@@ -302,7 +302,7 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.autocomplete.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.mouse.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.sortable.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox-1.3.1.js";
+		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_submit.js";
 
