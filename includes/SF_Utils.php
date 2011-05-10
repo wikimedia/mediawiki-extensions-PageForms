@@ -432,6 +432,8 @@ END;
 								}
 								// return if we've reached the maximum number of allowed values
 								if ( count( $pages ) > $sfgMaxAutocompleteValues ) {
+									// Remove duplicates, and put in alphabetical order.
+									$pages = array_unique( $pages );
 									sort( $pages );
 									return $pages;
 								}
@@ -442,6 +444,8 @@ END;
 				}
 			}
 			if ( count( $newcategories ) == 0 ) {
+				// Remove duplicates, and put in alphabetical order.
+				$pages = array_unique( $pages );
 				sort( $pages );
 				return $pages;
 			} else {
@@ -449,6 +453,8 @@ END;
 			}
 			$checkcategories = array_diff( $newcategories, array() );
 		}
+		// Remove duplicates, and put in alphabetical order.
+		$pages = array_unique( $pages );
 		sort( $pages );
 		return $pages;
 	}
