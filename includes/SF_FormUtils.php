@@ -373,13 +373,13 @@ END;
 		global $wgUser, $wgDefaultUserOptions;
 
 		$showFCKEditor = 0;
-		if ( !$wgUser->getOption( 'riched_start_disabled', $wgDefaultUserOptions['riched_start_disabled'] ) ) {
+		if ( !array_key_exists( 'riched_start_disabled', $wgDefaultUserOptions) && !$wgUser->getOption( 'riched_start_disabled' ) ) {
 			$showFCKEditor += RTE_VISIBLE;
 		}
-		if ( $wgUser->getOption( 'riched_use_popup', $wgDefaultUserOptions['riched_use_popup'] ) ) {
+		if ( array_key_exists( 'riched_use_popup', $wgDefaultUserOptions ) || $wgUser->getOption( 'riched_use_popup' ) ) {
 			$showFCKEditor += RTE_POPUP;
 		}
-		if ( $wgUser->getOption( 'riched_use_toggle', $wgDefaultUserOptions['riched_use_toggle'] ) ) {
+		if ( array_key_exists( 'riched_use_toggle', $wgDefaultUserOptions ) || $wgUser->getOption( 'riched_use_toggle' ) ) {
 			$showFCKEditor += RTE_TOGGLE_LINK;
 		}
 
@@ -440,7 +440,8 @@ var RTE_POPUP = ' . RTE_POPUP . ';
 			$wgFCKEditorDir .= '/';
 		}
 		
-		$javascript_text .= <<<END
+		if ( class_exists('FCKeditor') ) {
+			$javascript_text .= <<<END
 var oFCKeditor = new FCKeditor( "free_text" );
 
 //Set config
@@ -659,12 +660,17 @@ function initEditor()
 addOnloadHook( initEditor );
 
 END;
+		} else {
+			// CKeditor instead of FCKeditor
+			$javascript_text = CKeditor_MediaWiki::InitializeScripts('free_text', $newWinMsg);
+		}
 		return $javascript_text;
 	}
 
 	static function FCKToggleJavascript() {
 		// add toggle link and handler
-		$javascript_text = <<<END
+		if ( class_exists('FCKeditor') ) {
+			$javascript_text = <<<END
 
 function ToggleFCKEditor(mode, objId)
 {
@@ -769,6 +775,10 @@ function ToggleFCKEditor(mode, objId)
 }
 
 END;
+		} else {
+			// CKeditor instead of FCKeditor
+			$javascript_text = CKeditor_MediaWiki::ToggleScript();
+		}
 		return $javascript_text;
 	}
 
