@@ -263,8 +263,9 @@ END;
 		elseif ( $wgTitle->getText() == 'FormEdit'
 			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
 			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
-		} else
-			$cancel = Linker::link( $wgTitle, $label, array(), array(), 'known' );
+		} else {
+			$cancel = $sk->link( $wgTitle, $label, array(), array(), 'known' );
+		}
 		$text = "		<span class='editHelp'>$cancel</span>\n";
 		return $text;
 	}
