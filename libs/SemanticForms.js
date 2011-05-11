@@ -333,11 +333,11 @@ function hideDiv(div_id, instanceWrapperDiv) {
 // Show this div if the current value is any of the relevant options -
 // otherwise, hide it.
 function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv) {
-	for (var j in options) {
+	for ( var i = 0; i < options.length; i++ ) {
 		// If it's a listbox and the user has selected more than one
 		// value, it'll be an array - handle either case.
-		if ((jQuery.isArray(inputVal) && jQuery.inArray(options[j], inputVal) >= 0) ||
-		    (!jQuery.isArray(inputVal) && (inputVal == options[j]))) {
+		if ((jQuery.isArray(inputVal) && jQuery.inArray(options[i], inputVal) >= 0) ||
+		    (!jQuery.isArray(inputVal) && (inputVal == options[i]))) {
 			showDiv(div_id, instanceWrapperDiv);
 			return;
 		}
@@ -355,7 +355,7 @@ jQuery.fn.showIfSelected = function(partOfMultiple) {
 		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 		var instanceWrapperDiv = null;
 	}
-	for (i in showOnSelectVals) {
+	for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 		var options = showOnSelectVals[i][0];
 		var div_id = showOnSelectVals[i][1];
 		showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv);
@@ -365,7 +365,7 @@ jQuery.fn.showIfSelected = function(partOfMultiple) {
 // Show this div if any of the relevant selections are checked -
 // otherwise, hide it.
 jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv) {
-	for (var i in options) {
+	for ( var i = 0; i < options.length; i++ ) {
 		if (jQuery(this).find('[value="' + options[i] + '"]').is(":checked")) {
 			showDiv(div_id, instanceWrapperDiv);
 			return;
@@ -384,7 +384,7 @@ jQuery.fn.showIfChecked = function(partOfMultiple) {
 		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 		var instanceWrapperDiv = null;
 	}
-	for (i in showOnSelectVals) {
+	for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 		var options = showOnSelectVals[i][0];
 		var div_id = showOnSelectVals[i][1];
 		this.showDivIfChecked(options, div_id, instanceWrapperDiv);
@@ -577,7 +577,7 @@ window.validateAll = function () {
 	if ( sfdata && sfdata.validationFunctions.length > 0 ) { // found data object?
 
 		// for every registered input
-		for ( var i = 0; i < sfdata.validationFunctions.length; ++i ) {
+		for ( var i = 0; i < sfdata.validationFunctions.length; i++ ) {
 
 			// if input is not part of multipleTemplateStarter
 			if ( jQuery("#" + sfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length == 0 ) {
@@ -656,7 +656,7 @@ jQuery.fn.addInstance = function() {
 					// For every initialization method for
 					// input with id old_id, register the
 					// method for the new input.
-					for ( var i in sfdata.initFunctions[old_id] ) {
+					for ( var i = 0; i < sfdata.initFunctions[old_id].length; i++ ) {
 
 						jQuery(this).SemanticForms_registerInputInit(
 							sfdata.initFunctions[old_id][i].initFunction,
@@ -668,7 +668,7 @@ jQuery.fn.addInstance = function() {
 					// For every validation method for the
 					// input with ID old_id, register it
 					// for the new input.
-					for ( var i = 0; i < sfdata.validationFunctions.length; ++i ) {
+					for ( var i = 0; i < sfdata.validationFunctions.length; i++ ) {
 
 						if ( sfdata.validationFunctions[i].input == old_id ) {
 
@@ -734,7 +734,7 @@ jQuery.fn.addInstance = function() {
 				if (sfdata) { // if anything registered at all
 					// Call every initialization method
 					// for this input
-					for ( var i in sfdata.initFunctions[this.id] ) {
+					for ( var i = 0; i < sfdata.initFunctions[this.id].length; i++ ) {
 						sfdata.initFunctions[this.id][i].initFunction(
 							this.id,
 							sfdata.initFunctions[this.id][i].parameters
