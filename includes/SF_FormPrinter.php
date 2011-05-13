@@ -253,9 +253,11 @@ END;
 	 * only a page formula exists).
 	 */
 	function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false ) {
-		global $wgRequest, $wgUser;
+		global $wgRequest, $wgUser, $wgOut;
 		global $sfgTabIndex; // used to represent the current tab index in the form
 		global $sfgFieldNum; // used for setting various HTML IDs
+
+		wfProfileIn( __METHOD__ );
 
 		// initialize some variables
 		$sfgTabIndex = 1;
@@ -1417,7 +1419,11 @@ END;
 		if ( $form_submitted ) {
 			$javascript_text = '';
 		}
-		
+
+		$wgOut -> addParserOutputNoText( $parser->getOutput() );
+
+		wfProfileOut( __METHOD__ );
+
 		return array( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name );
 	}
 

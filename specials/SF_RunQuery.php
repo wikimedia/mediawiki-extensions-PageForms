@@ -130,7 +130,9 @@ END;
 			$wgParser->getOutput()->addHeadItem( $script );
 		} else {
 			$wgOut->addScript( $script );
-			$wgOut->addParserOutputNoText( $wgParser->getOutput() );
+			if ($wgParser->getOutput()) {
+				$wgOut->addParserOutputNoText( $wgParser->getOutput() );
+			}
 		}
 
 		// Finally, set the page title - for MW <= 1.16, this has to be

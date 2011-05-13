@@ -355,10 +355,12 @@ jQuery.fn.showIfSelected = function(partOfMultiple) {
 		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 		var instanceWrapperDiv = null;
 	}
-	for ( var i = 0; i < showOnSelectVals.length; i++ ) {
-		var options = showOnSelectVals[i][0];
-		var div_id = showOnSelectVals[i][1];
-		showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv);
+	if ( showOnSelectVals !== undefined ) {
+		for ( var i = 0; i < showOnSelectVals.length; i++ ) {
+			var options = showOnSelectVals[i][0];
+			var div_id = showOnSelectVals[i][1];
+			showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv);
+		}
 	}
 }
 
