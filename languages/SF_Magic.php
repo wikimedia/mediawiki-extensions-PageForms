@@ -16,10 +16,10 @@ $magicWords['en'] = array(
 
 /** Arabic (العربية) */
 $magicWords['ar'] = array(
-	'forminput' => array( 0, 'مدخل_النموذج', 'forminput' ),
-	'formlink' => array( 0, 'وصلة_النموذج', 'formlink' ),
-	'arraymap' => array( 0, 'خريطة_المصفوفة', 'arraymap' ),
-	'arraymaptemplate' => array( 0, 'قالب_خريطة_المصفوفة', 'arraymaptemplate' ),
+	'forminput' => array( 0, 'مدخل_النموذج' ),
+	'formlink' => array( 0, 'وصلة_النموذج' ),
+	'arraymap' => array( 0, 'خريطة_المصفوفة' ),
+	'arraymaptemplate' => array( 0, 'قالب_خريطة_المصفوفة' ),
 );
 
 /** Egyptian Spoken Arabic (مصرى) */
@@ -36,6 +36,14 @@ $magicWords['ja'] = array(
 	'formlink' => array( 0, 'リンクフォーム' ),
 	'arraymap' => array( 0, '配列マップ' ),
 	'arraymaptemplate' => array( 0, '配列マップテンプレート' ),
+);
+
+/** Macedonian (Македонски) */
+$magicWords['mk'] = array(
+	'forminput' => array( 0, 'вносзаформа' ),
+	'formlink' => array( 0, 'врсказаформа' ),
+	'arraymap' => array( 0, 'картананиза' ),
+	'arraymaptemplate' => array( 0, 'шаблоннакартазаниза' ),
 );
 
 /** Marathi (मराठी) */
@@ -56,4 +64,10 @@ $magicWords['nl'] = array(
 	'forminput' => array( 0, 'formulierinvoer' ),
 	'formlink' => array( 0, 'formulierverwijzing' ),
 	'arraymaptemplate' => array( 0, 'arraymapsjabloon' ),
+);
+
+/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬) */
+$magicWords['sr-ec'] = array(
+	'forminput' => array( 0, 'формирајулаз', 'формирај_улаз' ),
+	'formlink' => array( 0, 'формирај_везу' ),
 );
