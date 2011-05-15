@@ -191,6 +191,7 @@ $messages['qqq'] = array(
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
 	'sf_createtemplate_standardformat' => '{{Identical|Standard}}',
+	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
 	'sf_createform_template' => '{{Identical|Template}}',
 	'sf_createform_field' => '{{Identical|Field}}',
@@ -1518,7 +1519,6 @@ wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular z
 $messages['de-formal'] = array(
 	'sf_createproperty_allowedvalsinput' => 'Wenn Sie für dieses Attribut nur bestimmte Werte ermöglichen wollen, geben Sie diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetzen Sie das Komma mit „\\,“):',
 	'sf_createtemplate_fieldsdesc' => 'Wenn ein Feld einer Vorlage keinen Feldnamen benötigen soll, geben Sie einfach anstatt eines tatsächlichen Namens die Indexnummer des Feldes als Name ein (z.B. 1, 2, 3 usw.).',
-	'sf_createtemplate_aggregationdesc' => 'Um auf allen Seiten, die diese Vorlage benutzen, alle Seiten aufzulisten, die ein bestimmtes Attribut besitzen und auf diese Seiten verlinkt sind, geben Sie das gewünschte Attribut hier an:',
 	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
 	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
 	'sf_createform_choosefield' => 'Wählen Sie ein Feld aus, das Sie hinzufügen wollen.',
