@@ -84,8 +84,12 @@ class SFRunQuery extends IncludableSpecialPage {
 			global $wgUser, $wgTitle, $wgOut;
 			$wgParser->mOptions = new ParserOptions();
 			$wgParser->mOptions->initialiseFromUser( $wgUser );
+			// @TODO - fix RunQuery's parsing so that this check
+			// isn't needed.
+			if ( $wgParser->getOutput() == null ) {
+				$headItems = array();
 			// method was added in MW 1.16
-			if ( method_exists( $wgParser->getOutput(), 'getHeadItems' ) ) {
+			} elseif ( method_exists( $wgParser->getOutput(), 'getHeadItems' ) ) {
 				$headItems = $wgParser->getOutput()->getHeadItems();
 			} else {
 				$headItems = $wgParser->getOutput()->mHeadItems;
