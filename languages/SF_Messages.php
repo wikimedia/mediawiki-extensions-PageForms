@@ -1527,6 +1527,7 @@ $messages['de-formal'] = array(
 Für mehrere Optionen nutzen Sie bitte die Seite $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
 	'sf_formstart_noform_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
+	'sf_formedit_createtitlenotarget' => 'Erstellen Sie $1',
 	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Sie müssen den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=<Formularname>&target=<Zielseite>“ oder „Special:FormEdit/<Formularname>/<Zielseite>“.',
 	'sf_formedit_altforms' => 'Alternativ können Sie diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
