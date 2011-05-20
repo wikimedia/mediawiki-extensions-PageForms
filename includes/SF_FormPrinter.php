@@ -823,10 +823,6 @@ END;
 						if ( $is_hidden ) {
 							$new_text = SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
 						} else {
-							if ( ! array_key_exists( 'rows', $field_args ) )
-								$field_args['rows'] = 5;
-							if ( ! array_key_exists( 'cols', $field_args ) )
-								$field_args['cols'] = 80;
 							$sfgTabIndex++;
 							$sfgFieldNum++;
 							if ( $cur_value == '' ) {
@@ -1414,13 +1410,14 @@ END;
 			$form_page_title = null;
 		}
 
-		// If the form has already been submitted, i.e. this is just the redirect
-		// page, get rid of all the Javascript, to avoid JS errors.
+		// If the form has already been submitted, i.e. this is just
+		// the redirect page, get rid of all the Javascript, to avoid
+		// JS errors.
 		if ( $form_submitted ) {
 			$javascript_text = '';
 		}
 
-		$wgOut -> addParserOutputNoText( $parser->getOutput() );
+		$wgOut->addParserOutputNoText( $parser->getOutput() );
 
 		wfProfileOut( __METHOD__ );
 
