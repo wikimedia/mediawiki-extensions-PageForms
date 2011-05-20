@@ -137,9 +137,14 @@ class SFFormLinker {
 		
 		$form_names = array();
 		foreach ( $res as $wiki_page_value ) {
-			$form_title = $wiki_page_value->getTitle();
-			if ( ! is_null( $form_title ) ) {
-				$form_names[] = $form_title->getText();
+			// SMW 1.6+
+			if ( $wiki_page_value instanceof SMWDIWikiPage ) {
+				$form_names[] = $wiki_page_value->getDBkey();
+			} else {
+				$form_title = $wiki_page_value->getTitle();
+				if ( ! is_null( $form_title ) ) {
+					$form_names[] = $form_title->getText();
+				}
 			}
 		}
 		// if we're using a non-English language, check for the English string as well
