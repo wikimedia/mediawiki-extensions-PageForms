@@ -27,6 +27,10 @@ textarea.mandatoryField {
 }
 
 /* Used in form pages */
+table.formtable {
+	width: 100%;
+}
+
 table.formtable th {
 	text-align: left;
 	vertical-align: top;
