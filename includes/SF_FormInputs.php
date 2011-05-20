@@ -316,11 +316,6 @@ class SFTextAreaInput extends SFFormInput {
 		} else {
 			$rows = 5;
 		}
-		if ( array_key_exists( 'cols', $other_args ) ) {
-			$cols = $other_args['cols'];
-		} else {
-			$cols = 80;
-		}
 
 		if ( array_key_exists( 'autogrow', $other_args ) ) {
 			$className .= ' autoGrow';
@@ -331,9 +326,15 @@ class SFTextAreaInput extends SFFormInput {
 			'id' => $input_id,
 			'name' => $input_name,
 			'rows' => $rows,
-			'cols' => $cols,
 			'class' => $className,
 		);
+
+		if ( array_key_exists( 'cols', $other_args ) ) {
+			$textarea_attrs['cols'] = $other_args['cols'];
+		} else {
+			$textarea_attrs['style'] = "width: 100%";
+		}
+
 		if ( $is_disabled ) {
 			$textarea_attrs['disabled'] = 'disabled';
 		}
