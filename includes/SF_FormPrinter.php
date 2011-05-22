@@ -58,12 +58,13 @@ class SFFormPrinter {
 	/**
 	 * Register all information about the passed-in form input class.
 	 *
-	 * @param Class $inputTypeClass The class representing the new input. Must be derived from SFFormInput.
+	 * @param Class $inputTypeClass The class representing the new input.
+	 * Must be derived from SFFormInput.
 	 */
 	public function registerInputType( $inputTypeClass ) {
 		global $smwgContLang;
 		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
-
+ 
 		$inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
 		$this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
 		$this->setInputTypeHook( $inputTypeName, array( $inputTypeClass, 'getHTML' ), array() );
@@ -362,7 +363,7 @@ END;
 		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
 		$wgParser->clearState();
 
-	// Get the form definition from the cache, if we're using caching and it's
+		// Get the form definition from the cache, if we're using caching and it's
 		// there.
 //		$got_form_def_from_cache = false;
 //		global $sfgCacheFormDefinitions;
@@ -1359,6 +1360,8 @@ END;
 			$free_text = trim( $free_text );
 			$data_text = str_replace( '!free_text!', '<onlyinclude>!free_text!</onlyinclude>', $data_text );
 		}
+
+		wfRunHooks( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
 		// if the FCKeditor extension is installed, use that for the free text input
 		global $wgFCKEditorDir;
 		if ( $wgFCKEditorDir && strpos( $existing_page_content, '__NORICHEDITOR__' ) === false ) {
@@ -1374,8 +1377,8 @@ END;
 		$form_text = str_replace( '!free_text!', $escaped_free_text, $form_text );
 		$data_text = str_replace( '!free_text!', $free_text, $data_text );
 
-		// add a warning in, if we're editing an existing page and that page
-		// appears to not have been created with this form
+		// Add a warning in, if we're editing an existing page and that
+		// page appears to not have been created with this form.
 		if ( $this->mPageTitle->exists() && ( $existing_page_content != '' ) && ! $source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningMessage">' . wfMsg( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() ) . "</div>\n" . $form_text;
 		}
@@ -1396,10 +1399,14 @@ END;
 		}
 		$form_text .= "\t</form>\n";
 
-		// add Javascript code for form-wide use
+		// Add general Javascript code.
+		wfRunHooks( 'sfAddJavascriptToForm', array( &$javascript_text ) );
+
+		// @TODO The FCKeditor Javascript should be handled within
+		// the FCKeditor extension itself, using the hook.
 		$javascript_text = "";
 		if ( $free_text_was_included && $showFCKEditor > 0 ) {
-			$javascript_text .= SFFormUtils::mainFCKJavascript( $showFCKEditor );
+			$javascript_text .= SFFormUtils::mainFCKJavascript( $showFCKEditor, $field_args );
 			if ( $showFCKEditor & ( RTE_TOGGLE_LINK | RTE_POPUP ) ) {
 				$javascript_text .= SFFormUTils::FCKToggleJavascript();
 			}
@@ -1408,8 +1415,8 @@ END;
 			}
 		}
 
-		// Send the autocomplete values to the browser, along with the mappings
-		// of which values should apply to which fields.
+		// Send the autocomplete values to the browser, along with the
+		// mappings of which values should apply to which fields.
 		// If doing a replace, the data text is actually the modified original page
 		if ( $wgRequest->getCheck( 'partial' ) )
 			$data_text = $existing_page_content;
