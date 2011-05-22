@@ -415,6 +415,7 @@ END;
 		global $wgHooks, $wgExtensionFunctions;
 
 		$numRows = isset( $fieldArgs['rows'] ) && $fieldArgs['rows'] > 0 ? $fieldArgs['rows'] : 5;
+		$FCKEditorHeight = ($wgFCKEditorHeight < 300) ? 300 : $wgFCKEditorHeight;
 
 		$newWinMsg = wfMsg( 'rich_editor_new_window' );
 		$javascript_text = '
