@@ -372,14 +372,20 @@ END;
 	static function getShowFCKEditor() {
 		global $wgUser, $wgDefaultUserOptions;
 
+		// Differentiate between FCKeditor and the newer CKeditor,
+		// which isn't handled here
+		if ( !class_exists( 'FCKeditor' ) ) {
+			return false;
+		}
+
 		$showFCKEditor = 0;
-		if ( !array_key_exists( 'riched_start_disabled', $wgDefaultUserOptions) && !$wgUser->getOption( 'riched_start_disabled' ) ) {
+		if ( !$wgUser->getOption( 'riched_start_disabled' ) ) {
 			$showFCKEditor += RTE_VISIBLE;
 		}
-		if ( array_key_exists( 'riched_use_popup', $wgDefaultUserOptions ) || $wgUser->getOption( 'riched_use_popup' ) ) {
+		if ( $wgUser->getOption( 'riched_use_popup' ) ) {
 			$showFCKEditor += RTE_POPUP;
 		}
-		if ( array_key_exists( 'riched_use_toggle', $wgDefaultUserOptions ) || $wgUser->getOption( 'riched_use_toggle' ) ) {
+		if ( $wgUser->getOption( 'riched_use_toggle' ) ) {
 			$showFCKEditor += RTE_TOGGLE_LINK;
 		}
 
@@ -404,9 +410,11 @@ END;
 		return $text;
 	}
 
-	static function mainFCKJavascript( $showFCKEditor ) {
+	static function mainFCKJavascript( $showFCKEditor, $fieldArgs ) {
 		global $wgUser, $wgScriptPath, $wgFCKEditorExtDir, $wgFCKEditorDir, $wgFCKEditorToolbarSet, $wgFCKEditorHeight;
 		global $wgHooks, $wgExtensionFunctions;
+
+		$numRows = isset( $fieldArgs['rows'] ) && $fieldArgs['rows'] > 0 ? $fieldArgs['rows'] : 5;
 
 		$newWinMsg = wfMsg( 'rich_editor_new_window' );
 		$javascript_text = '
@@ -440,8 +448,7 @@ var RTE_POPUP = ' . RTE_POPUP . ';
 			$wgFCKEditorDir .= '/';
 		}
 		
-		if ( class_exists('FCKeditor') ) {
-			$javascript_text .= <<<END
+		$javascript_text .= <<<END
 var oFCKeditor = new FCKeditor( "free_text" );
 
 //Set config
@@ -461,6 +468,32 @@ function FCK_sajax(func_name, args, target) {
 		target(x);
 		}
 	);
+}
+
+// If the rows attribute was defined in the form, use the font size to
+// calculate the editor window height
+function getFontSize(el) {
+	var x = document.getElementById(el);
+	if (x.currentStyle) {
+		// IE
+		var y = x.currentStyle['lineheight'];
+	} else if (window.getComputedStyle) {
+		// FF, Opera
+		var y = document.defaultView.getComputedStyle(x,null).getPropertyValue('line-height');
+	}
+	return y;
+}
+function getWindowHeight4editor() {
+	var fsize = getFontSize('free_text');
+	// if value was not determined, return default val from $wgFCKEditorHeight
+	if (!fsize) return $FCKEditorHeight;
+	if (fsize.indexOf('px') == -1)  // we didn't get pixels
+		// arbitary value, don't hassle with caluclating
+		return $FCKEditorHeight;
+	var px = parseFloat(fsize.replace(/\w{2}$/, ''));
+	// the text in the edit window is slightly larger than the determined value
+	px = px * 1.25;
+	return Math.round( px * $numRows );
 }
 
 function onLoadFCKeditor()
@@ -660,17 +693,12 @@ function initEditor()
 addOnloadHook( initEditor );
 
 END;
-		} else {
-			// CKeditor instead of FCKeditor
-			$javascript_text = CKeditor_MediaWiki::InitializeScripts('free_text', $newWinMsg);
-		}
 		return $javascript_text;
 	}
 
 	static function FCKToggleJavascript() {
 		// add toggle link and handler
-		if ( class_exists('FCKeditor') ) {
-			$javascript_text = <<<END
+		$javascript_text = <<<END
 
 function ToggleFCKEditor(mode, objId)
 {
@@ -775,10 +803,6 @@ function ToggleFCKEditor(mode, objId)
 }
 
 END;
-		} else {
-			// CKeditor instead of FCKeditor
-			$javascript_text = CKeditor_MediaWiki::ToggleScript();
-		}
 		return $javascript_text;
 	}
 
