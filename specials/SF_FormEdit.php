@@ -351,21 +351,13 @@ END;
 				$text .= $form_text;
 			}
 		}
-		// Instead of adding the Javascript using addScript(), which is
-		// the standard approach, we add it using addHTML(), below the
-		// form text - that's so the Javascript created for fields with
-		// a 'show on select' parameter, if there are any, get placed
-		// below the form HTML, so that they can affect (i.e., hide) the
-		// relevant form fields. if there's a less hacky way to do this,
-		// the code should switch to that.
-		// if (! empty($javascript_text))
-		//	$wgOut->addScript('		<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n");
-		$wgOut->addHTML( $text );
+
 		SFUtils::addJavascriptAndCSS();
 		if ( ! empty( $javascript_text ) ) {
-			$wgOut->addHTML( '		<script type="text/javascript">' . "\n$javascript_text\n" . '</script>' . "\n" );
+			$wgOut->addScript( '		<script type="text/javascript">' . "\n$javascript_text\n" . '</script>' . "\n" );
 		}
+		$wgOut->addHTML( $text );
+
 		return null;
 	}
-
 }
