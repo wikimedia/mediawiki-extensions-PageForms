@@ -98,7 +98,7 @@ class SFUtils {
 	 * - this function doubles as a function to get all categories on
 	 * the site, if no article is specified
 	 */
-	static function getCategoriesForPage( $title = NULL ) {
+	static function getCategoriesForPage( $title = null ) {
 		$categories = array();
 		$db = wfGetDB( DB_SLAVE );
 		$conditions = null;
@@ -147,12 +147,14 @@ class SFUtils {
 	/**
 	 * Creates HTML linking to a wiki page
 	 */
-	static function linkText( $namespace, $name, $text = NULL ) {
+	static function linkText( $namespace, $name, $text = null ) {
 		$title = Title::makeTitleSafe( $namespace, $name );
-		if ( $title === NULL ) {
+		if ( is_null( $title ) ) {
 			return $name; // TODO maybe report an error here?
 		}
-		if ( NULL === $text ) $text = $title->getText();
+		if ( is_null( $text ) ) {
+			$text = $title->getText();
+		}
 		$l = class_exists('DummyLinker') ? new DummyLinker : new Linker;
 		return $l->makeLinkObj( $title, htmlspecialchars( $text ) );
 	}
@@ -235,18 +237,54 @@ END;
 	}
 
 	/**
+	 * Javascript files to be added regardless of the MediaWiki version
+	 * (i.e., even if the ResourceLoader is installed).
+	 */
+	static function addJavascriptFiles( $parser ) {
+		global $wgOut, $wgFCKEditorDir, $wgScriptPath, $wgJsMimeType;
+
+		$scripts = array();
+
+		wfRunHooks( 'sfAddJavascriptFiles', array( &$scripts ) );
+
+		// The FCKeditor extension has no defined ResourceLoader
+		// modules yet, so we have to call the scripts directly.
+		// @TODO Move this code into the FCKeditor extension.
+		if ( $wgFCKEditorDir && class_exists( 'FCKEditor' ) ) {
+			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
+		}
+
+		foreach ( $scripts as $js ) {
+			if ( $parser ) {
+				$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
+				$parser->getOutput()->addHeadItem( $script );
+			} else {
+				$wgOut->addScriptFile( $js );
+			}
+		}
+	}
+
+	/**
 	 * Includes the necessary Javascript and CSS files for the form
 	 * to display and work correctly
 	 * 
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
-	static function addJavascriptAndCSS( $parser = NULL ) {
+	static function addJavascriptAndCSS( $parser = null ) {
+		global $wgOut;
+
+		if ( !$parser ) {
+			$wgOut->addMeta( 'robots', 'noindex,nofollow' );
+		}
+
+		self::addJavascriptFiles( $parser );
+
 		// MW 1.17 +
 		if ( class_exists( 'ResourceLoader' ) ) {
 			self::loadJavascriptAndCSS( $parser );
 			return;
 		}
-		global $wgOut, $sfgScriptPath, $smwgScriptPath, $wgScriptPath, $wgFCKEditorDir, $wgJsMimeType, $sfgUseFormEditPage;
+		global $sfgScriptPath, $smwgScriptPath, $wgScriptPath, $wgJsMimeType, $sfgUseFormEditPage;
 		global $smwgJQueryIncluded, $smwgJQUIAutoIncluded;
 		// jQuery and jQuery UI are used so often in forms, we might as
 		// well assume they'll always be used, and include them in
@@ -305,9 +343,6 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_submit.js";
-
-		if ( $wgFCKEditorDir )
-			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
 		$scripts[] = "$sfgScriptPath/libs/SemanticForms.js";
 
 		global $wgOut;
@@ -319,8 +354,6 @@ END;
 				$wgOut->addScriptFile( $js );
 			}
 		}
-		if ( !$parser )
-			$wgOut->addMeta( 'robots', 'noindex,nofollow' );
 	}
 
 	/**
