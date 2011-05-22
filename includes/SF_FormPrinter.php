@@ -57,11 +57,13 @@ class SFFormPrinter {
 
 	/**
 	 * Register all information about the passed-in form input class.
+	 *
+	 * @param Class $inputTypeClass The class representing the new input. Must be derived from SFFormInput.
 	 */
 	public function registerInputType( $inputTypeClass ) {
 		global $smwgContLang;
 		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
- 
+
 		$inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
 		$this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
 		$this->setInputTypeHook( $inputTypeName, array( $inputTypeClass, 'getHTML' ), array() );
@@ -104,14 +106,19 @@ class SFFormPrinter {
 			}
 		}
 
-		$initJSFunction = call_user_func( array( $inputTypeClass, 'getInitJSFunction' ) );
-		if ( !is_null( $initJSFunction ) ) {
-			$sfgInitJSFunctions[] = $initJSFunction;
-		}
-		$validationJSFunctions = call_user_func( array( $inputTypeClass, 'getValidationJSFunctions' ) );
-		if ( count( $validationJSFunctions ) > 0 ) {
-			$sfgValidationJSFunctions = array_merge( $sfgValidationJSFunctions, $initJSFunction );
-		}
+		// FIXME: No need to register these functions explicitly. Instead
+		// formFieldHTML should call $someInput -> getJsInitFunctionData() and
+		// store its return value. formHTML should at some (late) point use the
+		// stored data.
+//		$initJSFunction = call_user_func( array( $inputTypeClass, 'getJsInitFunctionData' ) );
+//		if ( !is_null( $initJSFunction ) ) {
+//			$sfgInitJSFunctions[] = $initJSFunction;
+//		}
+//
+//		$validationJSFunctions = call_user_func( array( $inputTypeClass, 'getJsValidationFunctionData' ) );
+//		if ( count( $validationJSFunctions ) > 0 ) {
+//			$sfgValidationJSFunctions = array_merge( $sfgValidationJSFunctions, $initJSFunction );
+//		}
 	}
 
 	public function getInputType( $inputTypeName ) {
@@ -253,7 +260,7 @@ END;
 	 * only a page formula exists).
 	 */
 	function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $embedded = false ) {
-		global $wgRequest, $wgUser, $wgOut;
+		global $wgRequest, $wgUser, $wgOut, $wgParser;
 		global $sfgTabIndex; // used to represent the current tab index in the form
 		global $sfgFieldNum; // used for setting various HTML IDs
 
@@ -350,9 +357,12 @@ END;
 		// remove the '<nowiki>' tags, leaving us with what we need.
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
 
-		$parser = new Parser();
+		$oldParser = $wgParser;
 
-		// Get the form definition from the cache, if we're using caching and it's
+		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
+		$wgParser->clearState();
+
+	// Get the form definition from the cache, if we're using caching and it's
 		// there.
 //		$got_form_def_from_cache = false;
 //		global $sfgCacheFormDefinitions;
@@ -366,7 +376,7 @@ END;
 //		}
 		// Otherwise, parse it.
 //		if ( ! $got_form_def_from_cache ) {
-		$form_def = $parser->parse($form_def, $this->mPageTitle, ParserOptions::newFromUser($wgUser))->getText();
+		$form_def = $wgParser->parse($form_def, $this->mPageTitle, ParserOptions::newFromUser($wgUser))->getText();
 //		}
 
 		// Turn form definition file into an array of sections, one for each
@@ -677,7 +687,7 @@ END;
 								if ( $sub_components[0] == 'input type' ) {
 									$input_type = $sub_components[1];
 								} elseif ( $sub_components[0] == 'default' ) {
-									$default_value = $parser->recursiveTagParse( $sub_components[1] );
+									$default_value = $wgParser->recursiveTagParse( $sub_components[1] );
 								} elseif ( $sub_components[0] == 'preload' ) {
 									// free text field has special handling
 									if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
@@ -1405,7 +1415,7 @@ END;
 			$data_text = $existing_page_content;
 
 		if ( !$embedded ) {
-			$form_page_title = $parser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
+			$form_page_title = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
 		} else {
 			$form_page_title = null;
 		}
@@ -1417,7 +1427,9 @@ END;
 			$javascript_text = '';
 		}
 
-		$wgOut->addParserOutputNoText( $parser->getOutput() );
+		$wgOut->addParserOutputNoText( $wgParser->getOutput() );
+
+		$wgParser = $oldParser;
 
 		wfProfileOut( __METHOD__ );
 
