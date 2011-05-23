@@ -63,7 +63,6 @@ class SFFormPrinter {
 	 */
 	public function registerInputType( $inputTypeClass ) {
 		global $smwgContLang;
-		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
  
 		$inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
 		$this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
@@ -361,8 +360,7 @@ END;
 		$oldParser = $wgParser;
 
 		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
-		$wgParser->clearState();
-
+		
 		// Get the form definition from the cache, if we're using caching and it's
 		// there.
 //		$got_form_def_from_cache = false;
