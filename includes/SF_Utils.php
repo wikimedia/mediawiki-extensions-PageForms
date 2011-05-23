@@ -495,19 +495,18 @@ END;
 	static function getAllPagesForConcept( $concept_name, $substring = null ) {
 		global $sfgMaxAutocompleteValues;
 
-		// TODO - substring isn't being handled. Is there a way to
-		// include it through the API?
 		$store = smwfGetStore();
-/*
-		$requestoptions = new SMWRequestOptions();
-		if ($substring != null) {
-			$requestoptions->addStringCondition($substring, SMWStringCondition::STRCOND_PRE);
-		}
-*/
+
 		$concept = Title::makeTitleSafe( SMW_NS_CONCEPT, $concept_name );
-		// escape if there's a problem
-		if ( $concept == null )
+		if ( !is_null( $substring ) ) {
+			$substring = strtolower( $substring );
+		}
+
+		// Escape if there's a problem.
+		if ( $concept == null ) {
 			return array();
+		}
+
 		$desc = new SMWConceptDescription( $concept );
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
@@ -516,7 +515,20 @@ END;
 		$query_result = $store->getQueryResult( $query );
 		$pages = array();
 		while ( $res = $query_result->getNext() ) {
-			$pages[] = $res[0]->getNextText( SMW_OUTPUT_WIKI );
+			$pageName = $res[0]->getNextText( SMW_OUTPUT_WIKI );
+			if ( is_null( $substring ) ) {
+				$pages[] = $pageName;
+			} else {
+				// Filter on the substring manually. It would
+				// be better to do this filtering in the
+				// original SMW query, but that doesn't seem
+				// possible yet.
+				$lowercasePageName = strtolower( $pageName );
+				if ( strpos( $lowercasePageName, $substring ) === 0 ||
+					strpos( $lowercasePageName, ' ' . $substring ) > 0 ) {
+						$pages[] = array( 'title' => $pageName );
+					}
+			}
 		}
 		sort( $pages );
 		return $pages;
