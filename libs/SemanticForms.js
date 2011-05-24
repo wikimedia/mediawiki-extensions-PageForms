@@ -655,7 +655,7 @@ jQuery.fn.addInstance = function() {
 				// register initialization and validation methods for new inputs
 
 				var sfdata = jQuery("#sfForm").data('SemanticForms');
-				if (sfdata) { // found data object?
+				if ( sfdata && sfdata.initFunctions[old_id] ) { // found data object?
 
 					// For every initialization method for
 					// input with id old_id, register the
@@ -735,7 +735,7 @@ jQuery.fn.addInstance = function() {
 			if (this.id) {
 
 				var sfdata = jQuery("#sfForm").data('SemanticForms');
-				if (sfdata) { // if anything registered at all
+				if ( sfdata && sfdata.initFunctions[this.id] ) { // if anything registered at all
 					// Call every initialization method
 					// for this input
 					for ( var i = 0; i < sfdata.initFunctions[this.id].length; i++ ) {
