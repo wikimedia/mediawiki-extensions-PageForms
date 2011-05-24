@@ -106,6 +106,20 @@ function toggleDefaultForm(property_type) {
 	}
 }
 
+function toggleAllowedValues(property_type) {
+	var allowed_values_div = document.getElementById("allowed_values");
+	// Page, String, Number, Email - is that a reasonable set of types
+	// for which enumerations should be allowed?
+	if (property_type == '{$datatype_labels['_wpg']}' ||
+		property_type == '{$datatype_labels['_str']}' ||
+		property_type == '{$datatype_labels['_num']}' ||
+		property_type == '{$datatype_labels['_ema']}') {
+		allowed_values_div.style.display = "";
+	} else {
+		allowed_values_div.style.display = "none";
+	}
+}
+
 END;
 
 		// set 'title' as hidden field, in case there's no URL niceness
@@ -125,7 +139,7 @@ END;
 		foreach ( $datatype_labels as $label ) {
 			$select_body .= "	" . Xml::element( 'option', null, $label ) . "\n";
 		}
-		$text .= Xml::tags( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value);' ), $select_body ) . "\n";
+		$text .= Xml::tags( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value); toggleAllowedValues(this.value);' ), $select_body ) . "\n";
 
 		$default_form_input = wfMsg( 'sf_createproperty_linktoform' );
 		$values_input = wfMsg( 'sf_createproperty_allowedvalsinput' );
