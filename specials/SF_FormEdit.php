@@ -29,6 +29,8 @@ class SFFormEdit extends SpecialPage {
 	function execute( $query, $redirectOnError = true ) {
 		global $wgRequest, $wgOut;
 
+		wfProfileIn( __METHOD__ );
+
 		$this->setHeaders();
 		$this->mForm = $wgRequest->getVal( 'form' );
 		$this->mTarget = $wgRequest->getVal( 'target' );
@@ -64,6 +66,9 @@ class SFFormEdit extends SpecialPage {
 		} else {
 			$this->mError = null;
 		}
+		
+		wfProfileOut( __METHOD__ );
+
 	}
 
 	static function printAltFormsList( $alt_forms, $target_name ) {
@@ -209,7 +214,7 @@ class SFFormEdit extends SpecialPage {
 					// underlines - hopefully this won't
 					// cause problems of its own
 					$target_name = str_replace( ' ', '_', $target_name );
-					$target_name = $wgParser->recursiveTagParse( $target_name );
+					$target_name = $wgParser->transformMsg( $target_name, ParserOptions::newFromUser( null ) );
 
 					$title_number = "";
 					$isRandom = false;
