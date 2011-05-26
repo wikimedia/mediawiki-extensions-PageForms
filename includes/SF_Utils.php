@@ -121,25 +121,33 @@ class SFUtils {
 		return $categories;
 	}
 
+	static function registerProperty( $id, $typeid, $label ) {
+		if ( class_exists( 'SMWDIProperty' ) ) {
+			SMWDIProperty::registerProperty( $id, $typeid, $label, true );
+		} else {
+			SMWPropertyValue::registerProperty( $id, $typeid, $label, true );
+		}
+	}
+
 	static function initProperties() {
 		global $sfgContLang;
 		$sf_props = $sfgContLang->getPropertyLabels();
 		if ( array_key_exists( SF_SP_HAS_DEFAULT_FORM, $sf_props ) )
-			SMWPropertyValue::registerProperty( '_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM], true );
+			self::registerProperty( '_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM] );
 		if ( array_key_exists( SF_SP_HAS_ALTERNATE_FORM, $sf_props ) )
-			SMWPropertyValue::registerProperty( '_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM], true );
+			self::registerProperty( '_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM] );
 		if ( array_key_exists( SF_SP_CREATES_PAGES_WITH_FORM, $sf_props ) )
-			SMWPropertyValue::registerProperty( '_SF_CP', '__spf', $sf_props[SF_SP_CREATES_PAGES_WITH_FORM], true );
+			self::registerProperty( '_SF_CP', '__spf', $sf_props[SF_SP_CREATES_PAGES_WITH_FORM] );
 		if ( array_key_exists( SF_SP_PAGE_HAS_DEFAULT_FORM, $sf_props ) )
-			SMWPropertyValue::registerProperty( '_SF_PDF', '__spf', $sf_props[SF_SP_PAGE_HAS_DEFAULT_FORM], true );
+			self::registerProperty( '_SF_PDF', '__spf', $sf_props[SF_SP_PAGE_HAS_DEFAULT_FORM] );
 		if ( array_key_exists( SF_SP_HAS_FIELD_LABEL_FORMAT, $sf_props ) )
-			SMWPropertyValue::registerProperty( '_SF_FLF', '_str', $sf_props[SF_SP_HAS_FIELD_LABEL_FORMAT], true );
+			self::registerProperty( '_SF_FLF', '_str', $sf_props[SF_SP_HAS_FIELD_LABEL_FORMAT] );
 		// also initialize hardcoded English values, if it's a non-English-language wiki
-		SMWPropertyValue::registerProperty( '_SF_DF_BACKUP', '__spf', 'Has default form', true );
-		SMWPropertyValue::registerProperty( '_SF_AF_BACKUP', '__spf', 'Has alternate form', true );
-		SMWPropertyValue::registerProperty( '_SF_CP_BACKUP', '__spf', 'Creates pages with form', true );
-		SMWPropertyValue::registerProperty( '_SF_PDF_BACKUP', '__spf', 'Page has default form', true );
-		SMWPropertyValue::registerProperty( '_SF_FLF_BACKUP', '_str', 'Has field label format', true );
+		self::registerProperty( '_SF_DF_BACKUP', '__spf', 'Has default form' );
+		self::registerProperty( '_SF_AF_BACKUP', '__spf', 'Has alternate form' );
+		self::registerProperty( '_SF_CP_BACKUP', '__spf', 'Creates pages with form' );
+		self::registerProperty( '_SF_PDF_BACKUP', '__spf', 'Page has default form' );
+		self::registerProperty( '_SF_FLF_BACKUP', '_str', 'Has field label format' );
 
 		return true;
 	}
