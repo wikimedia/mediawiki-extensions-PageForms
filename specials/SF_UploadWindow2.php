@@ -1087,9 +1087,9 @@ class SFUploadSourceField extends HTMLTextField {
 
 global $wgVersion;
 // @TODO The "User" class was added to the function header
-// for SpecialPage::userCanExecute in MW 1.19 (r86407) - somehow
+// for SpecialPage::userCanExecute in MW 1.18 (r86407) - somehow
 // both the old and new signatures need to be supported. When support
-// is dropped for MW below 1.19 this should be reintegrated into one
+// is dropped for MW below 1.18 this should be reintegrated into one
 // class.
 if ( version_compare( $wgVersion, '1.18alpha', '<' )) {
 
