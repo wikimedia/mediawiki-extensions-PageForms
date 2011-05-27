@@ -112,7 +112,12 @@ class SFUploadWindow2 extends UnlistedSpecialPage {
 	 * @param User $user
 	 * @return bool
 	 */
-	public function userCanExecute( User $user ) {
+	// @TODO The "User" class was added to the function header
+	// for SpecialPage::userCanExecute in MW 1.19 (r86407) - somehow
+	// both the old and new signatures need to be supported. For now,
+	// though, support only the old signature, since that's used by
+	// the vast majority of users.
+	public function userCanExecute( $user ) {
 		return UploadBase::isEnabled() && parent::userCanExecute( $user );
 	}
 
