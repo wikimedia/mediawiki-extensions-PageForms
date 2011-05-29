@@ -4782,6 +4782,13 @@ $messages['mr'] = array(
 	'sf_blank_namespace' => 'मुख्य',
 );
 
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'sf_createform_inputtypedefault' => '(tersedia)',
+);
+
 /** Erzya (Эрзянь)
  * @author Botuzhaleny-sodamo
  */
