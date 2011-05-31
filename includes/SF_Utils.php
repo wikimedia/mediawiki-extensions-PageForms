@@ -99,12 +99,12 @@ class SFUtils {
 			$values = array();
 			foreach ( $res as $value ) {
 				if ( method_exists( $value, 'getTitle' ) ) {
-					$title = $value->getTitle();
-					if ( !is_null( $title ) ) {
-						$values[] = $title->getText();
+					$valueTitle = $value->getTitle();
+					if ( !is_null( $valueTitle ) ) {
+						$values[] = $valueTitle->getText();
 					}
 				} else {
-					$values[] = str_replace( '_' , ' ', $title->getWikiValue() );
+					$values[] = str_replace( '_' , ' ', $value->getWikiValue() );
 				}
 			}
 			return array_unique( $values );
