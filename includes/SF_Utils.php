@@ -75,14 +75,13 @@ class SFUtils {
 	 * Helper function to handle getPropertyValues() in both SMW 1.6
 	 * and earlier versions.
 	 */
-	public static function getSMWPropertyValues( $store, $pageName, $pageNamespace, $propID, $requestOptions = null ) {
+	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
 		// SMWDIProperty was added in SMW 1.6
 		if ( class_exists( 'SMWDIProperty' ) ) {
-			if ( is_null( $pageName ) ) {
+			if ( is_null( $subject ) ) {
 				$page = null;
 			} else {
-				$pageName = str_replace( ' ', '_', $pageName );
-				$page = new SMWDIWikiPage( $pageName, $pageNamespace, null );
+				$page = SMWDIWikiPage::newFromTitle( $subject );
 			}
 			$property = SMWDIProperty::newFromUserLabel( $propID );
 			$res = $store->getPropertyValues( $page, $property, $requestOptions );
@@ -99,9 +98,8 @@ class SFUtils {
 			}
 			return $values;
 		} else {
-			$title = Title::makeTitleSafe( $pageNamespace, $pageName );
 			$property = SMWPropertyValue::makeProperty( $propID );
-			$res = $store->getPropertyValues( $title, $property, $requestOptions );
+			$res = $store->getPropertyValues( $subject, $property, $requestOptions );
 			$values = array();
 			foreach ( $res as $value ) {
 				if ( method_exists( $value, 'getTitle' ) ) {
@@ -433,7 +431,7 @@ END;
 		$store = smwfGetStore();
 		$requestoptions = new SMWRequestOptions();
 		$requestoptions->limit = $sfgMaxAutocompleteValues;
-		$values = self::getSMWPropertyValues( $store, null, null, $property_name, $requestoptions );
+		$values = self::getSMWPropertyValues( $store, null, $property_name, $requestoptions );
 		sort( $values );
 		return $values;
 	}
@@ -531,6 +529,10 @@ END;
 			return array();
 		}
 
+		if ( class_exists( 'SMWDIWikiPage' ) ) {
+			// SMW 1.6
+			$concept = SMWDIWikiPage::newFromTitle( $concept );
+		}
 		$desc = new SMWConceptDescription( $concept );
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
