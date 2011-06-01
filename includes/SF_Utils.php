@@ -81,15 +81,21 @@ class SFUtils {
 			if ( is_null( $pageName ) ) {
 				$page = null;
 			} else {
+				$pageName = str_replace( ' ', '_', $pageName );
 				$page = new SMWDIWikiPage( $pageName, $pageNamespace, null );
 			}
 			$property = SMWDIProperty::newFromUserLabel( $propID );
 			$res = $store->getPropertyValues( $page, $property, $requestOptions );
 			$values = array();
 			foreach ( $res as $value ) {
-				// getSortKey() seems to return the correct
-				// value for every data type.
-				$values[] = $value->getSortKey();
+				if ( $value instanceof SMWDIUri ) {
+					$values[] = $value->getFragment();
+				} else {
+					// getSortKey() seems to return the
+					// correct value for all the other
+					// data types.
+					$values[] = str_replace( '_', ' ', $value->getSortKey() );
+				}
 			}
 			return $values;
 		} else {
