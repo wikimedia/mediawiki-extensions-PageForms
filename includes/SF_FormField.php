@@ -144,12 +144,12 @@ class SFFormField {
 
 END;
 		global $sfgFormPrinter;
-		if ( is_null( $template_field->field_type_id ) ) {
+		if ( is_null( $template_field->property_type ) ) {
 			$default_input_type = null;
 			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
 		} else {
-			$default_input_type = $sfgFormPrinter->getDefaultInputType( $template_field->is_list, $template_field->field_type_id );
-			$possible_input_types = $sfgFormPrinter->getPossibleInputTypes( $template_field->is_list, $template_field->field_type_id );
+			$default_input_type = $sfgFormPrinter->getDefaultInputType( $template_field->is_list, $template_field->property_type );
+			$possible_input_types = $sfgFormPrinter->getPossibleInputTypes( $template_field->is_list, $template_field->property_type );
 		}
 		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->input_type );
 
@@ -252,7 +252,7 @@ END;
 		// type with 'autocomplete' specified, set the necessary
 		// parameters.
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
-			if ( $this->template_field->field_type_id == '_wpg' ) {
+			if ( $this->template_field->property_type == '_wpg' ) {
 				$other_args['autocompletion source'] = $this->template_field->semantic_property;
 				$other_args['autocomplete field type'] = 'relation';
 			} elseif ( array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
