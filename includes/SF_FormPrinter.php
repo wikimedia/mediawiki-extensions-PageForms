@@ -62,43 +62,19 @@ class SFFormPrinter {
 	 * Must be derived from SFFormInput.
 	 */
 	public function registerInputType( $inputTypeClass ) {
-		global $smwgContLang;
- 
 		$inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
 		$this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
 		$this->setInputTypeHook( $inputTypeName, array( $inputTypeClass, 'getHTML' ), array() );
 
 		$defaultProperties = call_user_func( array( $inputTypeClass, 'getDefaultPropTypes' ) );
-		foreach ( $defaultProperties as $propertyTypeID => $additionalValues ) {
-			if ( $smwgContLang != null ) {
-				if ( class_exists( 'SMWDIProperty' ) ) {
-					// For SMW 1.6+, we use the ID of each
-					// property, instead of its label.
-					$propertyType = $propertyTypeID;
-				} else {
-					$datatypeLabels = $smwgContLang->getDatatypeLabels();
-					$datatypeLabels['enumeration'] = 'enumeration';
-					$propertyType = $datatypeLabels[$propertyTypeID];
-				}
-				$this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
-			}
-			$this->mDefaultInputForPropType[$propertyTypeID] = $inputTypeName;
+		foreach ( $defaultProperties as $propertyType => $additionalValues ) {
+			$this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->mDefaultInputForPropType[$propertyType] = $inputTypeName;
 		}
 		$defaultPropertyLists = call_user_func( array( $inputTypeClass, 'getDefaultPropTypeLists' ) );
-		foreach ( $defaultPropertyLists as $propertyTypeID => $additionalValues ) {
-			if ( $smwgContLang != null ) {
-				if ( class_exists( 'SMWDIProperty' ) ) {
-					// For SMW 1.6+, we use the ID of each
-					// property, instead of its label.
-					$propertyType = $propertyTypeID;
-				} else {
-					$datatypeLabels = $smwgContLang->getDatatypeLabels();
-					$datatypeLabels['enumeration'] = 'enumeration';
-					$propertyType = $datatypeLabels[$propertyTypeID];
-				}
-				$this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
-			}
-			$this->mDefaultInputForPropTypeList[$propertyTypeID] = $inputTypeName;
+		foreach ( $defaultPropertyLists as $propertyType => $additionalValues ) {
+			$this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->mDefaultInputForPropTypeList[$propertyType] = $inputTypeName;
 		}
 
 		$otherProperties = call_user_func( array( $inputTypeClass, 'getOtherPropTypesHandled' ) );
