@@ -123,15 +123,32 @@ class SFFormField {
 		$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->semantic_property );
 		// TODO - remove this probably-unnecessary check?
 		if ( $template_field->semantic_property == "" ) {
-			// print nothing if there's no semantic field
-		} elseif ( $template_field->field_type == "" ) {
+			// Print nothing if there's no semantic property.
+		} elseif ( $template_field->property_type == "" ) {
 			$text .= '<p>' . wfMsg( 'sf_createform_fieldpropunknowntype', $prop_link_text ) . "</p>\n";
-		} elseif ( $template_field->is_list ) {
-			$text .= '<p>' . wfMsg( 'sf_createform_fieldproplist', $prop_link_text,
-				SFUtils::linkText( SMW_NS_TYPE, $template_field->field_type ) ) . "</p>\n";
 		} else {
-			$text .= '<p>' . wfMsg( 'sf_createform_fieldprop', $prop_link_text,
-				SFUtils::linkText( SMW_NS_TYPE, $template_field->field_type ) ) . "</p>\n";
+			if ( $template_field->is_list ) {
+				$propDisplayMsg = 'sf_createform_fieldproplist';
+			} else {
+				$propDisplayMsg = 'sf_createform_fieldprop';
+			}
+
+			// Get the display label for this property type.
+			global $smwgContLang;
+			$propertyTypeStr = '';
+			if ( $smwgContLang != null ) {
+				$datatypeLabels = $smwgContLang->getDatatypeLabels();
+				$datatypeLabels['enumeration'] = 'enumeration';
+				$propertyType = $datatypeLabels[$template_field->property_type];
+				if ( class_exists( 'SMWDIProperty' ) ) {
+					// "Type:" namespace was removed in SMW 1.6.
+					// TODO: link to Special:Types instead?
+					$propertyTypeStr = $propertyType;
+				} else {
+					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyType );
+				}
+			}
+			$text .= Xml::tags( 'p', null, wfMsg( $propDisplayMsg, $prop_link_text, $propertyTypeStr ) ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
 		$form_label_text = wfMsg( 'sf_createform_formlabel' );
