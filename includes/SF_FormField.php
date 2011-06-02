@@ -152,11 +152,17 @@ class SFFormField {
 		}
 		// If it's not a semantic field - don't add any text.
 		$form_label_text = wfMsg( 'sf_createform_formlabel' );
-		$field_label = $template_field->label;
+		$form_label_input = Xml::element( 'input',
+			array(
+				'type' => 'text',
+				'name' => 'label_' . $field_form_text,
+				'size' => 20,
+				'value' => $template_field->label,
+			), null );
 		$input_type_text = wfMsg( 'sf_createform_inputtype' );
 		$text .= <<<END
 	<div class="formField">
-	<p>$form_label_text <input type="text" name="label_$field_form_text" size=20 value="$field_label" />
+	<p>$form_label_text $form_label_input
 	&#160; $input_type_text
 
 END;
