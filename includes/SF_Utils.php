@@ -480,10 +480,7 @@ END;
 								$cur_title = Title::makeTitleSafe( $row['page_namespace'], $row['page_title'] );
 								$cur_value = self::titleString( $cur_title );
 								if ( ! in_array( $cur_value, $pages ) ) {
-									if ( $substring == null )
-										$pages[] = $cur_value;
-									else
-										$pages[] = array( 'title' => $cur_value );
+									$pages[] = $cur_value;
 								}
 								// return if we've reached the maximum number of allowed values
 								if ( count( $pages ) > $sfgMaxAutocompleteValues ) {
@@ -520,6 +517,7 @@ END;
 		$store = smwfGetStore();
 
 		$concept = Title::makeTitleSafe( SMW_NS_CONCEPT, $concept_name );
+
 		if ( !is_null( $substring ) ) {
 			$substring = strtolower( $substring );
 		}
@@ -552,7 +550,7 @@ END;
 				$lowercasePageName = strtolower( $pageName );
 				if ( strpos( $lowercasePageName, $substring ) === 0 ||
 					strpos( $lowercasePageName, ' ' . $substring ) > 0 ) {
-						$pages[] = array( 'title' => $pageName );
+						$pages[] = $pageName;
 					}
 			}
 		}
@@ -582,12 +580,7 @@ END;
 					$conditions, __METHOD__,
 					array( 'ORDER BY' => 'page_title' ) );
 				while ( $row = $db->fetchRow( $res ) ) {
-					$cur_value = str_replace( '_', ' ', $row[0] );
-					if ( $substring == null ) {
-						$pages[] = $cur_value;
-					} else {
-						$pages[] = array( 'title' => $cur_value );
-					}
+					$pages[] = str_replace( '_', ' ', $row[0] );
 				}
 				$db->freeResult( $res );
 			}
