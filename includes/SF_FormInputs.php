@@ -483,7 +483,7 @@ class SFDropdownInput extends SFEnumInput {
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
 			// If it's a Boolean property, display 'Yes' and 'No'
 			// as the values.
-			if ( $other_args['property_type'] == '_boo' ) {
+			if ( array_key_exists( 'property_type', $other_args ) && $other_args['property_type'] == '_boo' ) {
 				$possible_values = array(
 					SFUtils::getWordForYesOrNo( true ),
 					SFUtils::getWordForYesOrNo( false ),
