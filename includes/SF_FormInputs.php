@@ -1463,6 +1463,7 @@ class SFCategoryInput extends SFFormInput {
 			// escape - we can't do anything
 			return null;
 		}
+		$hideroot = array_key_exists( 'hideroot', $other_args );
 		if ( array_key_exists( 'height', $other_args ) ) {
 			$height = $other_args['height'];
 		} else {
@@ -1491,7 +1492,7 @@ class SFCategoryInput extends SFFormInput {
 
 		global $wgCategoryTreeMaxDepth;
 		$wgCategoryTreeMaxDepth = 10;
-		$tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10 ) );
+		$tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10, 'hideroot' => $hideroot ) );
 
 		// Capitalize the first letter, if first letters always get
 		// capitalized.
@@ -1519,6 +1520,7 @@ class SFCategoryInput extends SFFormInput {
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params[] = array( 'name' => 'top category', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_topcategory' ) );
+		$params[] = array( 'name' => 'hideroot', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_hideroot' ) );
 		$params[] = array( 'name' => 'height', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_height' ) );
 		$params[] = array( 'name' => 'width', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_width' ) );
 		return $params;
@@ -1562,6 +1564,7 @@ class SFCategoriesInput extends SFCategoryInput {
 			// escape - we can't do anything
 			return null;
 		}
+		$hideroot = array_key_exists( 'hideroot', $other_args );
 		if ( array_key_exists( 'height', $other_args ) ) {
 			$height = $other_args['height'];
 		} else {
@@ -1575,7 +1578,7 @@ class SFCategoriesInput extends SFCategoryInput {
 
 		global $wgCategoryTreeMaxDepth;
 		$wgCategoryTreeMaxDepth = 10;
-		$tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10 ) );
+		$tree = efCategoryTreeParserHook( $top_category, array( 'mode' => 'categories', 'depth' => 10, 'hideroot' => $hideroot ) );
 		// Some string that will hopefully never show up in a category,
 		// template or field name.
 		$dummy_str = 'REPLACE THIS STRING!';
