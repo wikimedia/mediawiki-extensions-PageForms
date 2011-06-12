@@ -886,42 +886,9 @@ END;
 								// - this handling will have to get more complex if other
 								// possibilities get added
 								if ( count( $cur_value ) == 1 ) {
-									// manually load SMW's message values here, in case they
-									// didn't get loaded before
-									global $wgVersion;
-									if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-										wfLoadExtensionMessages( 'SemanticMediaWiki' );
-									}
-									$words_for_false = explode( ',', wfMsgForContent( 'smw_false_words' ) );
-									// for each language, there's a series of words that are
-									// equal to false - get the word in the series that matches
-									// "no"; generally, that's the third word
-									$index_of_no = 2;
-									if ( count( $words_for_false ) > $index_of_no ) {
-										$no = ucwords( $words_for_false[$index_of_no] );
-									} elseif ( count( $words_for_false ) == 0 ) {
-										$no = "0"; // some safe value if no words are found
-									} else {
-										$no = ucwords( $words_for_false[0] );
-									}
-									$cur_value_in_template = $no;
+									$cur_value_in_template = SFUtils::getWordForYesOrNo( false );
 								} elseif ( count( $cur_value ) == 2 ) {
-									global $wgVersion;
-									if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-										wfLoadExtensionMessages( 'SemanticMediaWiki' );
-									}
-									$words_for_true = explode( ',', wfMsgForContent( 'smw_true_words' ) );
-									// get the value in the 'true' series that tends to be "yes",
-									// and go with that one - generally, that's the third word
-									$index_of_yes = 2;
-									if ( count( $words_for_true ) > $index_of_yes ) {
-										$yes = ucwords( $words_for_true[$index_of_yes] );
-									} elseif ( count( $words_for_true ) == 0 ) {
-										$yes = "1"; // some safe value if no words are found
-									} else {
-										$yes = ucwords( $words_for_true[0] );
-									}
-									$cur_value_in_template = $yes;
+									$cur_value_in_template = SFUtils::getWordForYesOrNo( true );
 								// if it's 3 or greater, assume it's a date or datetime
 								} elseif ( count( $cur_value ) >= 3 ) {
 									$month = $cur_value['month'];

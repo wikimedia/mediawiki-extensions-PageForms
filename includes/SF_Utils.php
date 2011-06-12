@@ -705,6 +705,32 @@ END;
 	}
 
 	/**
+	 * Gets the word in the wiki's language, as defined in Semantic
+	 * MediaWiki, for either the value 'yes' or 'no'.
+	 */
+	public static function getWordForYesOrNo( $isYes ) {
+		global $wgVersion;
+		// Manually load SMW's message values here, in case they
+		// didn't get loaded before.
+		if ( version_compare( $wgVersion, '1.16', '<' ) ) {
+			wfLoadExtensionMessages( 'SemanticMediaWiki' );
+		}
+
+		$wordsMsg = ( $isYes ) ? 'smw_true_words' : 'smw_false_words';
+		$possibleWords = explode( ',', wfMsgForContent( $wordsMsg ) );
+		// Get the value in the series that tends to be "yes" or "no" -
+		// generally, that's the third word.
+		$preferredIndex = 2;
+		if ( count( $possibleWords ) > $preferredIndex ) {
+			return ucwords( $possibleWords[$preferredIndex] );
+		} elseif ( count( $possibleWords ) > 0 ) {
+			return ucwords( $possibleWords[0] );
+		}
+		// If no values are found, just return a number.
+		 return ( $isYes ) ? '1' : '0';
+	}
+
+	/**
 	 * Translates an EditPage error code into a corresponding message ID
 	 * @param $error The error code
 	 * @return String
