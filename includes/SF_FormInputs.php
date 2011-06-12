@@ -90,7 +90,7 @@ class SFFormInput {
  */
 class SFEnumInput extends SFFormInput {
 	public static function getOtherPropTypesHandled() {
-		return array( 'enumeration' );
+		return array( 'enumeration', '_boo' );
 	}
 
 	public static function getValuesParameters() {
@@ -451,7 +451,7 @@ class SFDropdownInput extends SFEnumInput {
 	}
 
 	public static function getOtherPropTypesHandled() {
-		return array();
+		return array( '_boo' );
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
@@ -481,7 +481,16 @@ class SFDropdownInput extends SFEnumInput {
 			$innerDropdown .= "	<option value=\"\"></option>\n";
 		}
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
-			$possible_values = array();
+			// If it's a Boolean property, display 'Yes' and 'No'
+			// as the values.
+			if ( $other_args['property_type'] == '_boo' ) {
+				$possible_values = array(
+					SFUtils::getWordForYesOrNo( true ),
+					SFUtils::getWordForYesOrNo( false ),
+				);
+			} else {
+				$possible_values = array();
+			}
 		}
 		foreach ( $possible_values as $possible_value ) {
 			$optionAttrs = array( 'value' => $possible_value );
@@ -523,8 +532,18 @@ class SFRadioButtonInput extends SFEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
-		if ( ( $possible_values = $other_args['possible_values'] ) == null )
-			$possible_values = array();
+		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
+			// If it's a Boolean property, display 'Yes' and 'No'
+			// as the values.
+			if ( $other_args['property_type'] == '_boo' ) {
+				$possible_values = array(
+					SFUtils::getWordForYesOrNo( true ),
+					SFUtils::getWordForYesOrNo( false ),
+				);
+			} else {
+				$possible_values = array();
+			}
+		}
 
 		// Add a "None" value at the beginning, unless this is a
 		// mandatory field and there's a current value in place (either
