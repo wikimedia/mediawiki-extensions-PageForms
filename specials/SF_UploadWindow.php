@@ -465,7 +465,6 @@ class UploadWindowForm {
 		 */
 		if ( !$this->mStashed ) {
 			$this->mFileProps = File::getPropsFromPath( $this->mTempPath, $finalExt );
-			$this->checkMacBinary();
 			$veri = $this->verify( $this->mTempPath, $finalExt );
 
 			if ( $veri !== true ) { // it's a wiki error...
@@ -1443,32 +1442,6 @@ EOT
 			wfDebug( __METHOD__ . ": FOUND VIRUS! scanner feedback: $output" );
 			return $output;
 		}
-	}
-
-	/**
-	 * Check if the temporary file is MacBinary-encoded, as some uploads
-	 * from Internet Explorer on Mac OS Classic and Mac OS X will be.
-	 * If so, the data fork will be extracted to a second temporary file,
-	 * which will then be checked for validity and either kept or discarded.
-	 *
-	 * @access private
-	 */
-	function checkMacBinary() {
-		$macbin = new MacBinary( $this->mTempPath );
-		if ( $macbin->isValid() ) {
-			$dataFile = tempnam( wfTempDir(), "WikiMacBinary" );
-			$dataHandle = fopen( $dataFile, 'wb' );
-
-			wfDebug( "SpecialUpload::checkMacBinary: Extracting MacBinary data fork to $dataFile\n" );
-			$macbin->extractData( $dataHandle );
-
-			$this->mTempPath = $dataFile;
-			$this->mFileSize = $macbin->dataForkLength();
-
-			// We'll have to manually remove the new file if it's not kept.
-			$this->mRemoveTempFile = true;
-		}
-		$macbin->close();
 	}
 
 	/**
