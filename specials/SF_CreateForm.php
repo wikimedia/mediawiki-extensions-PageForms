@@ -62,6 +62,13 @@ function doSpecialCreateForm() {
 		$url .= '&params[' . Xml::escapeJsString( $param ) . ']=' . Xml::escapeJsString( $value );
 	}
 
+	// Only add 'collapsible' ability if the ResourceLoader exists, i.e.
+	// for MW 1.17 - adding backwards compatibility doesn't seem worth
+	// it for this relatively minor piece of functionality.
+	if ( method_exists( $wgOut, 'addModules' ) ) {
+		$wgOut->addModules( 'ext.semanticforms.collapsible' );
+	}
+
 	$wgOut->addScript("<script>
 jQuery.fn.displayInputParams = function() {
 	inputParamsDiv = this.closest('.formField').find('.otherInputParams');

@@ -196,7 +196,7 @@ END;
 			}
 		}
 
-		$text .= "<fieldset><legend>Other parameters</legend>\n";
+		$text .= "<fieldset class=\"sfCollapsibleFieldset\"><legend>Other parameters</legend>\n";
 		$text .= Xml::tags( 'div', array( 'class' => 'otherInputParams' ),
 			SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";

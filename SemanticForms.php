@@ -210,6 +210,11 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'styles' => 'skins/SF_submit.css',
 			'dependencies' => array( 'jquery' ),
 		),
+		'ext.semanticforms.collapsible' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/SF_collapsible.js',
+			'styles' => 'skins/SF_collapsible.css',
+			'dependencies' => array( 'jquery' ),
+		),
 	);
 }
 
