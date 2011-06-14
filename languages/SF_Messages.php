@@ -1419,6 +1419,7 @@ $messages['de'] = array(
 	'sf_forminputs_listboxsize' => 'Die Höhe dieses Listenfelds in Zeilen',
 	'sf_forminputs_includetimezone' => 'Ein Eingabefeld für die Zeitzone bereitstellen',
 	'sf_forminputs_topcategory' => 'Die übergeordnete Kategorie dieser Reihe von Kategorien (erforderliche Angabe)',
+	'sf_forminputs_hideroot' => 'Die übergeordnete Kategorie ausblenden',
 	'sf_forminputs_height' => 'Die Höhe dieses Eingabefelds (in Pixeln)',
 	'sf_forminputs_width' => 'Die Breite dieses Eingabefelds (in Pixeln)',
 	'createform' => 'Erstelle ein Formular',
@@ -2299,6 +2300,7 @@ $messages['fr'] = array(
 	'sf_forminputs_listboxsize' => 'La hauteur de cette zone de liste, en nombre de lignes',
 	'sf_forminputs_includetimezone' => 'Ajouter un champ pour le fuseau horaire',
 	'sf_forminputs_topcategory' => 'La catégorie parente de cet ensemble de catégories (obligatoire)',
+	'sf_forminputs_hideroot' => 'Masquer la catégorie parente',
 	'sf_forminputs_height' => 'La hauteur de cette entrée, en pixels',
 	'sf_forminputs_width' => 'La largeur de cette entrée, en pixels',
 	'createform' => 'Créer un formulaire',
@@ -4825,7 +4827,7 @@ $messages['mzn'] = array(
  * @author Ricardo gs
  */
 $messages['nah'] = array(
-	'sf_createproperty_propname' => 'Tōcāitl:',
+	'sf_createproperty_propname' => 'Āxcāitl tōcāitl:',
 	'templates' => 'Nemachiyōtīlli',
 	'createtemplate' => 'Ticchīhuāz cē nemachiyōtīlli',
 	'sf_createtemplate_namelabel' => 'Nemachiyōtīlli ītōca:',
