@@ -46,12 +46,12 @@ class SFFormUtils {
 	 * Add a hidden input for each field in the template call that's
 	 * not handled by the form itself
 	 */
-	static function unhandledFieldsHTML( $template_contents ) {
+	static function unhandledFieldsHTML( $templateName, $templateContents ) {
 		$text = "";
-		foreach ( $template_contents as $key => $value ) {
+		foreach ( $templateContents as $key => $value ) {
 			if ( !is_null( $key ) && !is_numeric( $key ) ) {
 				$key = urlencode( $key );
-				$text .= self::hiddenFieldHTML( "_unhandled_$key", $value );
+				$text .= self::hiddenFieldHTML( '_unhandled_' . $templateName . '_' . $key, $value );
 			}
 		}
 		return $text;
@@ -61,12 +61,15 @@ class SFFormUtils {
 	 * Add unhandled fields back into the template call that the form
 	 * generates, so that editing with a form will have no effect on them
 	 */
-	static function addUnhandledFields() {
+	static function addUnhandledFields( $templateName ) {
 		global $wgRequest;
+
+		$prefix = '_unhandled_' . $templateName . '_';
+		$prefixSize = strlen( $prefix );
 		$additional_template_text = "";
 		foreach ( $wgRequest->getValues() as $key => $value ) {
-			if ( substr( $key, 0, 11 ) == '_unhandled_' ) {
-				$field_name = urldecode( substr( $key, 11 ) );
+			if ( strpos( $key, $prefix ) === 0 ) {
+				$field_name = urldecode( substr( $key, $prefixSize ) );
 				$additional_template_text .= "|$field_name=$value\n";
 			}
 		}

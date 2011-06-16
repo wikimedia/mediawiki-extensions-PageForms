@@ -615,7 +615,7 @@ END;
 					if ( $source_is_page ) {
 						// Add any unhandled template fields in the page as hidden variables.
 						if ( isset( $template_contents ) ) {
-							$form_text .= SFFormUtils::unhandledFieldsHTML( $template_contents );
+							$form_text .= SFFormUtils::unhandledFieldsHTML( $template_name, $template_contents );
 							$template_contents = null;
 						}
 					}
@@ -1203,7 +1203,7 @@ END;
 					// If we're editing an existing page, and there were fields in
 					// the template call not handled by this form, preserve those.
 					if ( !$allow_multiple ) {
-						$template_text .= SFFormUtils::addUnhandledFields();
+						$template_text .= SFFormUtils::addUnhandledFields( $template_name );
 					}
 					$template_text .= "}}";
 					$data_text .= $template_text . "\n";
