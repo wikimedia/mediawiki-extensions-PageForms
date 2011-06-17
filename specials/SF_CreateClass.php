@@ -50,11 +50,11 @@ END;
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 		global $wgLang, $smwgContLang;
 
-                # Check permissions
-                if ( !$wgUser->isAllowed( 'createclass' ) ) {
-                        $this->displayRestrictionError();
-                        return;
-                }
+		# Check permissions
+		if ( !$wgUser->isAllowed( 'createclass' ) ) {
+			$this->displayRestrictionError();
+			return;
+		}
 
 		$this->setHeaders();
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
@@ -164,7 +164,7 @@ END;
 	<p>$form_name_label: <input type="text" size="30" name="form_name"></p>
 	<p>$category_name_label <input type="text" size="30" name="category_name"></p>
 	<div>
-                <table id="mainTable">
+		<table id="mainTable">
 		<tr>
 			<th colspan="2">$property_name_label</th>
 			<th>$field_name_label</th>
@@ -194,10 +194,10 @@ END;
 			<select name="property_type_$n">
 
 END;
-                        $optionsStr ="";                       
+			$optionsStr ="";
 			foreach ( $datatype_labels as $label ) {
-				$text .= "				<option>$label</option>\n";                                
-                                $optionsStr .= $label . ",";
+				$text .= "				<option>$label</option>\n";
+				$optionsStr .= $label . ",";
 			}
 			$text .= <<<END
 			</select>
