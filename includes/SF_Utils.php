@@ -154,18 +154,41 @@ class SFUtils {
 
 	public static function initProperties() {
 		global $sfgContLang;
+
+		// Register all the special properties, in both the wiki's
+		// language and, as a backup, in English.
+		// For every special property, if it hasn't been translated
+		// into the wiki's current language, use the English-language
+		// value for both the main special property and the backup.
 		$sf_props = $sfgContLang->getPropertyLabels();
-		if ( array_key_exists( SF_SP_HAS_DEFAULT_FORM, $sf_props ) )
+		if ( array_key_exists( SF_SP_HAS_DEFAULT_FORM, $sf_props ) ) {
 			self::registerProperty( '_SF_DF', '__spf', $sf_props[SF_SP_HAS_DEFAULT_FORM] );
-		if ( array_key_exists( SF_SP_HAS_ALTERNATE_FORM, $sf_props ) )
+		} else {
+			self::registerProperty( '_SF_DF', '__spf', 'Has default form' );
+		}
+		if ( array_key_exists( SF_SP_HAS_ALTERNATE_FORM, $sf_props ) ) {
 			self::registerProperty( '_SF_AF', '__spf', $sf_props[SF_SP_HAS_ALTERNATE_FORM] );
-		if ( array_key_exists( SF_SP_CREATES_PAGES_WITH_FORM, $sf_props ) )
+		} else {
+			self::registerProperty( '_SF_AF', '__spf', 'Has alternate form' );
+		}
+		if ( array_key_exists( SF_SP_CREATES_PAGES_WITH_FORM, $sf_props ) ) {
 			self::registerProperty( '_SF_CP', '__spf', $sf_props[SF_SP_CREATES_PAGES_WITH_FORM] );
-		if ( array_key_exists( SF_SP_PAGE_HAS_DEFAULT_FORM, $sf_props ) )
+		} else {
+			self::registerProperty( '_SF_CP', '__spf', 'Creates pages with form' );
+		}
+		if ( array_key_exists( SF_SP_PAGE_HAS_DEFAULT_FORM, $sf_props ) ) {
 			self::registerProperty( '_SF_PDF', '__spf', $sf_props[SF_SP_PAGE_HAS_DEFAULT_FORM] );
-		if ( array_key_exists( SF_SP_HAS_FIELD_LABEL_FORMAT, $sf_props ) )
+		} else {
+			self::registerProperty( '_SF_PDF', '__spf', 'Page has default form' );
+		}
+		if ( array_key_exists( SF_SP_HAS_FIELD_LABEL_FORMAT, $sf_props ) ) {
 			self::registerProperty( '_SF_FLF', '_str', $sf_props[SF_SP_HAS_FIELD_LABEL_FORMAT] );
-		// also initialize hardcoded English values, if it's a non-English-language wiki
+		} else {
+			self::registerProperty( '_SF_FLF', '_str', 'Has field label format' );
+		}
+
+		// Use hardcoded English values as a backup, in case it's a
+		// non-English-language wiki.
 		self::registerProperty( '_SF_DF_BACKUP', '__spf', 'Has default form' );
 		self::registerProperty( '_SF_AF_BACKUP', '__spf', 'Has alternate form' );
 		self::registerProperty( '_SF_CP_BACKUP', '__spf', 'Creates pages with form' );
