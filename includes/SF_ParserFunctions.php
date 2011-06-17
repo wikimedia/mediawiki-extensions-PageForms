@@ -153,7 +153,7 @@ class SFParserFunctions {
 		array_shift( $params ); // don't need the parser
 		// set defaults
 		$inFormName = $inLinkStr = $inLinkType = $inQueryStr = $inTargetName = '';
-		$popupClassString = "";
+		$classStr = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -176,7 +176,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == null && $value == 'popup'
 				&& version_compare( $wgVersion, '1.16', '>=' )) {
 				self::loadScriptsForPopupForm( $parser );
-				$popupClassString = 'class="popupformlink"';
+				$classStr = 'popupformlink';
 			}
 			elseif ( $i == 0 ) {
 				$inFormName = $param;
@@ -226,18 +226,23 @@ class SFParserFunctions {
 		if ( $inLinkType == 'button' ) {
 			$link_url = html_entity_decode( $link_url, ENT_QUOTES );
 			$link_url = str_replace( "'", "\'", $link_url );
-			$str = "<form $popupClassString>";
+			$str = "<form class=\"$classStr\">";
 			$str .= Xml::element( 'input', array(
 				'type' => 'button',
 				'value' => $inLinkStr,
 				'onclick' => "window.location.href='$link_url'",
 			) ) . "</form>";
 		} elseif ( $inLinkType == 'post button' ) {
-			$str = "<form action=\"$link_url\" method=\"post\" $popupClassString>";
+			$str = "<form action=\"$link_url\" method=\"post\" class=\"$classStr\">";
 			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
 			$str .= "$hidden_inputs</form>";
 		} else {
-			$str = "<a href=\"$link_url\" $popupClassString>$inLinkStr</a>";
+			// If target page doesn't exist, make it a red link
+			$targetTitle = Title::newFromText( $inTargetName );
+			if ( !$targetTitle->exists() ) {
+				$classStr .= " new";
+			}
+			$str = "<a href=\"$link_url\" class=\"$classStr\">$inLinkStr</a>";
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
@@ -253,7 +258,7 @@ class SFParserFunctions {
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
 		$inAutocompletionSource = '';
 		$inSize = 25;
-		$popupClassString = "";
+		$classStr = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -282,7 +287,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == null && $value == 'popup'
 				&& version_compare( $wgVersion, '1.16', '>=' )) {
 				self::loadScriptsForPopupForm( $parser );
-				$popupClassString = 'class="popupforminput"';
+				$classStr = 'popupforminput';
 			}
 			elseif ( $i == 0 )
 				$inFormName = $param;
@@ -317,7 +322,7 @@ class SFParserFunctions {
 		$fs_url = $fs->getTitle()->getLocalURL();
 		if ( empty( $inAutocompletionSource ) ) {
 			$str = <<<END
-			<form action="$fs_url" method="get" $popupClassString>
+			<form action="$fs_url" method="get" class="$classStr">
 			<p>
 
 END;
@@ -325,7 +330,7 @@ END;
 				array( 'type' => 'text', 'name' => 'page_name', 'size' => $inSize, 'value' => $inValue, 'class' => 'formInput' ) );
 		} else {
 			$str = <<<END
-			<form name="createbox" action="$fs_url" method="get" $popupClassString>
+			<form name="createbox" action="$fs_url" method="get" class="$classStr">
 			<p>
 
 END;
