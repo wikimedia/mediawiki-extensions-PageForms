@@ -119,9 +119,17 @@ class SFFormPrinter {
 
 	public function getDefaultInputType( $isList, $propertyType ) {
 		if ( $isList ) {
-			return $this->mDefaultInputForPropTypeList[$propertyType];
+			if ( array_key_exists( $propertyType, $this->mDefaultInputForPropTypeList ) ) {
+				return $this->mDefaultInputForPropTypeList[$propertyType];
+			} else {
+				return null;
+			}
 		} else {
-			return $this->mDefaultInputForPropType[$propertyType];
+			if ( array_key_exists( $propertyType, $this->mDefaultInputForPropType ) ) {
+				return $this->mDefaultInputForPropType[$propertyType];
+			} else {
+				return null;
+			}
 		}
 	}
 
