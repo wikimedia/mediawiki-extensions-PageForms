@@ -29,7 +29,7 @@ class SFCreatePageJob extends Job {
 			wfProfileOut( __METHOD__ );
 			return false;
 		}
-                $article = new Article( $this->title );
+                $article = new Article( $this->title, 0 );
                 if ( !$article ) {
                         $this->error = 'createPage: Article not found "' . $this->title->getPrefixedDBkey() . '"';
                         wfProfileOut( __METHOD__ );
