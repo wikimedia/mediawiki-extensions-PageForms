@@ -2926,6 +2926,7 @@ $messages['he'] = array(
 	'sf_forminputs_listboxsize' => 'גובה תיבת הרשימה הזאת, בשורות',
 	'sf_forminputs_includetimezone' => 'לכלול קלט עבור אותו אזור זמן',
 	'sf_forminputs_topcategory' => 'הקטגוריה האם של קבוצת הקטגוריות האלו (נדרש)',
+	'sf_forminputs_hideroot' => 'להסתיר את הקטגוריה',
 	'sf_forminputs_height' => 'גובה הקלט הזה, בפיקסלים',
 	'sf_forminputs_width' => 'רוחב הקלט הזה, בפיקסלים',
 	'createform' => 'יצירת טופס',
@@ -4825,6 +4826,7 @@ $messages['mzn'] = array(
 /** Nahuatl (Nāhuatl)
  * @author Fluence
  * @author Ricardo gs
+ * @author Teòtlalili
  */
 $messages['nah'] = array(
 	'sf_createproperty_propname' => 'Āxcāitl tōcāitl:',
@@ -4836,7 +4838,7 @@ $messages['nah'] = array(
 	'sf_createform_hidden' => 'Ichtac',
 	'sf_createform_atend' => 'Tlamilizpan',
 	'sf_createform_add' => 'Ticcētilīz',
-	'sf_createcategory_name' => 'Neneuhcāyōtl tōcāitl:',
+	'sf_createcategory_name' => 'Tlaìxmatkàtlàlilòtokâtli:',
 	'sf_formstart_createoredit' => 'Titlayōcoyāz ahnozo titlapatlāz',
 	'sf_formedit_createtitle' => 'Ticyōcoyāz $1: $2',
 	'sf_formedit_edittitle' => 'Ticpatlāz $1: $2',
