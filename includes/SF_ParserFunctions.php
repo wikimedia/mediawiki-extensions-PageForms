@@ -239,7 +239,7 @@ class SFParserFunctions {
 		} else {
 			// If target page doesn't exist, make it a red link
 			$targetTitle = Title::newFromText( $inTargetName );
-			if ( !$targetTitle->exists() ) {
+			if ( is_null( $targetTitle) || !$targetTitle->exists() ) {
 				$classStr .= " new";
 			}
 			$str = "<a href=\"$link_url\" class=\"$classStr\">$inLinkStr</a>";
