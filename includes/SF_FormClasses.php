@@ -228,8 +228,12 @@ END;
 		foreach ( $this->fields as $field ) {
 			$text .= $field->creationHTML( $template_num );
 		}
-		$text .= '	<p><input type="submit" name="del_' . $template_num .
-		  '" value="' . wfMsg( 'sf_createform_removetemplate' ) . '"></p>' . "\n";
+		$removeTemplateButton = Xml::element( 'input', array(
+			'type' => 'submit',
+			'name' => 'del_' . $template_num,
+			'value' => wfMsg( 'sf_createform_removetemplate' )
+		) );
+		$text .= "\t" . Xml::tags( 'p', null, $removeTemplateButton ) . "\n";
 		$text .= "	</div>\n";
 		return $text;
 	}
@@ -237,13 +241,16 @@ END;
 	function createMarkup() {
 		$text = "";
 		$text .= "{{{for template|" . $this->template_name;
-		if ( $this->allow_multiple )
+		if ( $this->allow_multiple ) {
 			$text .= "|multiple";
-		if ( $this->label != '' )
+		}
+		if ( $this->label != '' ) {
 			$text .= "|label=" . $this->label;
+		}
 		$text .= "}}}\n";
-		// for now, HTML for templates differs for multiple-instance templates;
-		// this may change if handling of form definitions gets more sophisticated
+		// For now, HTML for templates differs for multiple-instance
+		// templates; this may change if handling of form definitions
+		// gets more sophisticated.
 		if ( ! $this->allow_multiple ) { $text .= "{| class=\"formtable\"\n"; }
 		foreach ( $this->fields as $i => $field ) {
 			$is_last_field = ( $i == count( $this->fields ) - 1 );
