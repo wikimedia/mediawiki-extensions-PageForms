@@ -7,8 +7,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 class SFUtils {
 
 	/**
@@ -242,10 +240,12 @@ END;
 		$form_body .= "\t" . Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX ) . "\n";
 		$form_body .= "\t" . Html::hidden( $action, null ) . "\n";
 
-		if ( $is_minor_edit )
+		if ( $is_minor_edit ) {
 			$form_body .= "\t" . Html::hidden( 'wpMinoredit' , null ) . "\n";
-		if ( $watch_this )
+		}
+		if ( $watch_this ) {
 			$form_body .= "\t" . Html::hidden( 'wpWatchthis', null ) . "\n";
+		}
 		$text .= Xml::tags(
 			'form',
 			array(
@@ -292,7 +292,7 @@ END;
 
 	/**
 	 * Javascript files to be added regardless of the MediaWiki version
-	 * (i.e., even if the ResourceLoader is installed).
+	 * (i.e., even if the ResourceLoader exists).
 	 */
 	public static function addJavascriptFiles( $parser ) {
 		global $wgOut, $wgFCKEditorDir, $wgScriptPath, $wgJsMimeType;
@@ -320,7 +320,7 @@ END;
 
 	/**
 	 * Includes the necessary Javascript and CSS files for the form
-	 * to display and work correctly
+	 * to display and work correctly.
 	 * 
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
@@ -612,13 +612,13 @@ END;
 	}
 
 	/**
-	 * Creates an array of values that match the specified source name and type,
-	 * for use by both Javascript autocompletion and comboboxes.
+	 * Creates an array of values that match the specified source name and
+	 * type, for use by both Javascript autocompletion and comboboxes.
 	 */
 	public static function getAutocompleteValues( $source_name, $source_type ) {
 		$names_array = array();
-		// the query depends on whether this is a property, category, concept
-		// or namespace
+		// The query depends on whether this is a property, category,
+		// concept or namespace.
 		if ( $source_type == 'property' || $source_type == 'attribute' || $source_type == 'relation' ) {
 			$names_array = self::getAllValuesForProperty( $source_name );
 		} elseif ( $source_type == 'category' ) {
