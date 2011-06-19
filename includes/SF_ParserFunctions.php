@@ -126,7 +126,7 @@ class SFParserFunctions {
 
 		// load jQuery on MW 1.16
 		if ( is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
-			$wgOut -> includeJQuery();
+			$wgOut->includeJQuery();
 		}
 		
 		return true;
@@ -250,7 +250,7 @@ class SFParserFunctions {
 	}
 
 	static function renderFormInput ( &$parser ) {
-		global  $wgVersion;
+		global $wgVersion;
 		
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
@@ -342,7 +342,7 @@ END;
 				'value' => $inValue,
 				'class' => 'autocompleteInput createboxInput formInput',
 				'autocompletesettings' => 'input_' . $input_num
-		       	) );
+			) );
 		}
 		// if the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
@@ -438,10 +438,10 @@ END;
 	 */
 	static function renderArrayMapObj( &$parser, $frame, $args ) {
 		# Set variables
-		$value         = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
-		$delimiter     = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
-		$var           = isset( $args[2] ) ? trim( $frame->expand( $args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) ) : 'x';
-		$formula       = isset( $args[3] ) ? $args[3] : 'x';
+		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
+		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
+		$var = isset( $args[2] ) ? trim( $frame->expand( $args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) ) : 'x';
+		$formula = isset( $args[3] ) ? $args[3] : 'x';
 		$new_delimiter = isset( $args[4] ) ? trim( $frame->expand( $args[4] ) ) : ', ';
 		# Unstrip some
 		$delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
@@ -462,8 +462,8 @@ END;
 			$old_value = trim( $old_value );
 			if ( $old_value == '' ) continue;
 			$result_value = $frame->expand( $formula, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES );
-			$result_value  = str_replace( $var, $old_value, $result_value );
-			$result_value  = $parser->preprocessToDom( $result_value, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0 );
+			$result_value = str_replace( $var, $old_value, $result_value );
+			$result_value = $parser->preprocessToDom( $result_value, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0 );
 			$result_value = trim( $frame->expand( $result_value ) );
 			if ( $result_value == '' ) continue;
 			$results_array[] = $result_value;
@@ -507,9 +507,9 @@ END;
 	 */
 	static function renderArrayMapTemplateObj( &$parser, $frame, $args ) {
 		# Set variables
-		$value         = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
-		$template      = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
-		$delimiter     = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : ',';
+		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
+		$template = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
+		$delimiter = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : ',';
 		$new_delimiter = isset( $args[3] ) ? trim( $frame->expand( $args[3] ) ) : ', ';
 		# Unstrip some
 		$delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
@@ -564,10 +564,10 @@ END;
 
 			switch ( $key ) {
 				case 'link text':
-					$linkString = $parser -> recursiveTagParse( $value );
+					$linkString = $parser->recursiveTagParse( $value );
 					break;
 				case 'link type':
-					$linkType = $parser -> recursiveTagParse( $value );
+					$linkType = $parser->recursiveTagParse( $value );
 					break;
 				case 'reload':
 					$classString .= ' reload';
@@ -600,7 +600,7 @@ END;
 		);
 
 		// return output HTML
-		return $parser -> insertStripItem( $output, $parser -> mStripState );
+		return $parser->insertStripItem( $output, $parser->mStripState );
 	}
 
 
@@ -651,7 +651,7 @@ END;
 		global $sfgScriptPath;
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-			$parser -> getOutput() -> addModules( 'ext.semanticforms.autoedit' );
+			$parser->getOutput()->addModules( 'ext.semanticforms.autoedit' );
 		} else {
 
 			static $loaded = false;
@@ -660,14 +660,14 @@ END;
 			if ( !$loaded ) {
 
 				// load extensions JavaScript
-				$parser -> getOutput() -> addHeadItem(
+				$parser->getOutput()->addHeadItem(
 					'<script type="text/javascript" src="' . $sfgScriptPath
 					. '/libs/SF_autoedit.js"></script> ' ."\n",
 					'sf_autoedit_script'
 				);
 
 				// load extensions style sheet
-				$parser -> getOutput() -> addHeadItem(
+				$parser->getOutput()->addHeadItem(
 					'<link rel="stylesheet" href="' . $sfgScriptPath
 					. '/skins/SF_autoedit.css"/> ' ."\n",
 					'sf_autoedit_style'
