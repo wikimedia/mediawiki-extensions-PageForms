@@ -782,8 +782,8 @@ END;
 						$field_args['part_of_multiple'] = $allow_multiple;
 					if ( count( $show_on_select ) > 0 )
 						$field_args['show on select'] = $show_on_select;
-					// get the value from the request, if it's there, and if it's not
-					// an array
+					// Get the value from the request, if
+					// it's there, and if it's not an array.
 					$escaped_field_name = str_replace( "'", "\'", $field_name );
 					if ( isset( $template_instance_query_values ) &&
 							$template_instance_query_values != null &&
@@ -821,11 +821,8 @@ END;
 						}
 					}
 
-					// Handle the free text field - if it was declared as
-					// "field|free text" (a deprecated usage), it has to be outside
-					// of a template.
-					if ( ( $template_name == '' && $field_name == 'free text' ) ||
-							$field_name == '<freetext>' ) {
+					// Handle the free text field.
+					if ( $field_name == '<freetext>' ) {
 						// Add placeholders for the free text in both the form and
 						// the page, using <free_text> tags - once all the free text
 						// is known (at the end), it will get substituted in.
@@ -943,14 +940,15 @@ END;
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
 						}
-						if ( $template_name == null || $template_name == '' )
+						if ( $template_name == null || $template_name == '' ) {
 							$input_name = $field_name;
-						elseif ( $allow_multiple )
+						} elseif ( $allow_multiple ) {
 							// 'num' will get replaced by an actual index, either in PHP
 							// or in Javascript, later on
 							$input_name = $template_name . '[num][' . $field_name . ']';
-						else
+						} else {
 							$input_name = $template_name . '[' . $field_name . ']';
+						}
 
 						// if we're creating the page name from a formula based on
 						// form values, see if the current input is part of that formula,
@@ -1193,8 +1191,8 @@ END;
 				// =====================================================
 				// default outer level processing
 				// =====================================================
-				} else { // tag is not one of the three allowed values
-					// ignore tag
+				} else { // Tag is not one of the three allowed values -
+					// ignore the tag.
 					$start_position = $brackets_end_loc;
 				} // end if
 			} // end while
@@ -1288,8 +1286,8 @@ END;
 		if ( ! $free_text_was_included ) {
 			$form_text .= SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
 		}
-		// get free text, and add to page data, as well as retroactively
-		// inserting it into the form
+		// Get free text, and add to page data, as well as retroactively
+		// inserting it into the form.
 
 		// If $form_is_partial is true then either:
 		// (a) we're processing a replacement (param 'partial' == 1)
