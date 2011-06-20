@@ -72,7 +72,7 @@ define( 'SF_SP_CREATES_PAGES_WITH_FORM', 3 );
 define( 'SF_SP_PAGE_HAS_DEFAULT_FORM', 4 );
 define( 'SF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
 
-$wgExtensionFunctions[] = 'sfgSetupExtension';
+$wgExtensionFunctions[] = 'sffSetupExtension';
 
 // FIXME: Can be removed when new style magic words are used (introduced in r52503)
 $wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';

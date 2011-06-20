@@ -13,7 +13,7 @@ if ( !defined( 'MEDIAWIKI' ) ) die();
  *  This is a delayed init that makes sure that MediaWiki is set up
  *  properly before we add our stuff.
  */
-function sfgSetupExtension() {
+function sffSetupExtension() {
 	// This global variable is needed so that other extensions can hook
 	// into it to add their own input types.
 	global $sfgFormPrinter;
