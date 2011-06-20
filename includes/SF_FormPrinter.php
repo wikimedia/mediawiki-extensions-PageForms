@@ -681,6 +681,10 @@ END;
 								// add handling for single-value params, for custom input types
 								$field_args[$sub_components[0]] = null;
 							} elseif ( count( $sub_components ) == 2 ) {
+								// First, set each value as its own entry in $field_args.
+								$field_args[$sub_components[0]] = $sub_components[1];
+
+								// Then, do all special handling.
 								if ( $sub_components[0] == 'input type' ) {
 									$input_type = $sub_components[1];
 								} elseif ( $sub_components[0] == 'default' ) {
@@ -758,12 +762,9 @@ END;
 								} elseif ( $sub_components[0] == 'default filename' ) {
 									$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
 									// Parse value, so default filename can include parser functions.
-									$default_value = $wgParser->recursiveTagParse( $default_filename );
+									$default_filename = $wgParser->recursiveTagParse( $default_filename );
 									$field_args['default filename'] = $default_filename;
 								}
-
-								// Also set each value as its own entry in $field_args
-								$field_args[$sub_components[0]] = $sub_components[1];
 							}
 						}
 					} // end for
