@@ -255,7 +255,7 @@ class SFTextInput extends SFFormInput {
 			} else {
 				$delimiter = null;
 			}
-		 if ( array_key_exists( 'default filename', $other_args ) ) {
+			if ( array_key_exists( 'default filename', $other_args ) ) {
 				$default_filename = $other_args['default filename'];
 			} else {
 				$default_filename = "";
@@ -966,7 +966,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 
 		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
-					$default_filename = $other_args['default filename'];
+				$default_filename = $other_args['default filename'];
 			} else {
 				$default_filename = "";
 			}
@@ -1081,7 +1081,7 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		$text .= $textarea_input;
 
 		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
-		 if ( array_key_exists( 'default filename', $other_args ) ) {
+			if ( array_key_exists( 'default filename', $other_args ) ) {
 				$default_filename = $other_args['default filename'];
 			} else {
 				$default_filename = "";
