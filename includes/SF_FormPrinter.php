@@ -757,6 +757,8 @@ END;
 									$semantic_property = $sub_components[1];
 								} elseif ( $sub_components[0] == 'default filename' ) {
 									$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
+									// Parse value, so default filename can include parser functions.
+									$default_value = $wgParser->recursiveTagParse( $default_filename );
 									$field_args['default filename'] = $default_filename;
 								}
 
