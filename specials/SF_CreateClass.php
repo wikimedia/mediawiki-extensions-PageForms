@@ -224,7 +224,7 @@ END;
 			array(
 				'type' => 'submit',
 				'name' => 'save',
-				'value' => wfMsg( 'sf_createclass_create' );
+				'value' => wfMsg( 'sf_createclass_create' )
 			)
 		);
 		$text .= "</form>\n";
