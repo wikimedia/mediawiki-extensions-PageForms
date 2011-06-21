@@ -1508,6 +1508,10 @@ class SFCategoryInput extends SFFormInput {
 		if ( $is_disabled ) {
 			$tree = str_replace( 'type="radio"', 'type="radio" disabled', $tree );
 		}
+
+		// Get rid of all the 'no subcategories' messages.
+		$tree = str_replace( '<div class="CategoryTreeChildren" style="display:block"><i class="CategoryTreeNotice">' . wfMsg( 'categorytree-no-subcategories' ) . '</i></div>', '', $tree );
+
 		$text .= $tree . '</div>';
 
 		$spanClass = "radioButtonSpan";
@@ -1604,6 +1608,10 @@ class SFCategoriesInput extends SFCategoryInput {
 		if ( $is_disabled ) {
 			$tree = str_replace( 'type="checkbox"', 'type="checkbox" disabled', $tree );
 		}
+
+		// Get rid of all the 'no subcategories' messages.
+		$tree = str_replace( '<div class="CategoryTreeChildren" style="display:block"><i class="CategoryTreeNotice">' . wfMsg( 'categorytree-no-subcategories' ) . '</i></div>', '', $tree );
+
 		$text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
 
 		$text .= "\t" . Html::Hidden( $input_name . '[is_list]', 1 ) . "\n";
