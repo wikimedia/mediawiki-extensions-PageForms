@@ -4820,6 +4820,7 @@ $messages['mr'] = array(
  * @author Anakmalaysia
  */
 $messages['ms'] = array(
+	'sf_createproperty_proptype' => 'Jenis:',
 	'sf_createform_inputtypedefault' => '(tersedia)',
 	'sf_formedit_createtitle' => 'Cipta $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Cipta $1',
