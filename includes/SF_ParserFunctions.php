@@ -237,10 +237,13 @@ class SFParserFunctions {
 			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
 			$str .= "$hidden_inputs</form>";
 		} else {
-			// If target page doesn't exist, make it a red link
-			$targetTitle = Title::newFromText( $inTargetName );
-			if ( is_null( $targetTitle) || !$targetTitle->exists() ) {
-				$classStr .= " new";
+			// If a target page has been specified but it doesn't
+			// exist, make it a red link.
+			if ( ! empty( $inTargetName ) ) {
+				$targetTitle = Title::newFromText( $inTargetName );
+				if ( is_null( $targetTitle) || !$targetTitle->exists() ) {
+					$classStr .= " new";
+				}
 			}
 			$str = "<a href=\"$link_url\" class=\"$classStr\">$inLinkStr</a>";
 		}
