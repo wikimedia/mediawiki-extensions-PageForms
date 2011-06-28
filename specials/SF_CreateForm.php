@@ -78,7 +78,7 @@ jQuery.fn.displayInputParams = function() {
 		success: function(data){
 			inputParamsDiv.html(data);
 		}
-        });
+	});
 };
 jQuery(document).ready(function() {
 	jQuery('.inputTypeSelector').change( function() {
@@ -218,10 +218,6 @@ jQuery(document).ready(function() {
 	}
 
 	$text = '	<form action="" method="post">' . "\n";
-
-	// Set 'title' field, in case there's no URL niceness.
-	$cf = Title::makeTitleSafe( NS_SPECIAL, 'CreateForm' );
-	$text .= "\t" . Html::Hidden( 'title', SFUtils::titleURLString( $cf ) ) . "\n";
 	$text .= '	<p>' . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . ' <input size=25 name="form_name" value="' . $form_name . '">';
 	if ( ! empty( $form_name_error_str ) )
 		$text .= '	' . Xml::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
