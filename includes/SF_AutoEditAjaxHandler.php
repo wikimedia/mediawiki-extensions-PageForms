@@ -29,17 +29,17 @@ class SFAutoEditAjaxHandler {
 		$title = Title::newFromText( 'DummyTitle' );
 
 //		if ( version_compare( substr( $wgVersion, 0, 4 ), '1.17', '<' ) ) {
-			if ( !StubObject::isRealObject( $wgParser ) )
-				$wgParser->_unstub();
+		if ( !StubObject::isRealObject( $wgParser ) )
+			$wgParser->_unstub();
 
-			// perform offensive operation
-			$wgParser->startExternalParse( $title, ParserOptions::newFromUser( $wgUser ), Parser::OT_HTML, true );
+		// perform offensive operation
+		$wgParser->startExternalParse( $title, ParserOptions::newFromUser( $wgUser ), Parser::OT_HTML, true );
 //		} else {
 //			$wgParser->startExternalParse( $title, ParserOptions::newFromUser( $wgUser ), Parser::OT_HTML, true );
 //		}
 
 		// parse options
-		$this->parseDataFromQueryString( $this->mOptions, $options, true );
+		$this->parseDataFromQueryString( $this->mOptions, $options );
 	}
 
 	/**
@@ -285,7 +285,7 @@ class SFAutoEditAjaxHandler {
 	 *  {{#time:}} parser function.
 	 * @return <type>
 	 */
-	private function parseDataFromQueryString ( &$data, $queryString, $expand = false ) {
+	private function parseDataFromQueryString ( &$data, $queryString ) {
 		$params = explode( '&', $queryString );
 
 		foreach ( $params as $i => $param ) {
@@ -295,11 +295,9 @@ class SFAutoEditAjaxHandler {
 			$value = count( $elements ) > 1 ? urldecode( $elements[1] ) : null;
 
 			if ( $key == "query string" ) {
-				$this->parseDataFromQueryString( $data, $value, $expand );
-			} elseif ( $expand ) {
-				$this->addToArray( $data, $key, $value );
+				$this->parseDataFromQueryString( $data, $value );
 			} else {
-				$this->addToArray( $data, $key, $value );
+				$this->addToArray( $data, $key, $value, true );
 			}
 		}
 
@@ -311,24 +309,28 @@ class SFAutoEditAjaxHandler {
 	// $key identifies path to position in tree.
 	// Format: 1stLevelName[2ndLevel][3rdLevel][...], i.e. normal array notation
 	// $value: the value to insert
-	private function addToArray ( &$array, $key, $value ) {
-		$matches = array( );
+	// $toplevel: if this is a toplevel value.
+	private function addToArray( &$array, $key, $value, $toplevel = false ) {
+		$matches = array();
 
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
 
-			$key = str_replace( ' ', '_', $matches[1] );
-			$key = str_replace( '.', '_', $key );
+			// for some reason toplevel keys get their spaces encoded by MW.
+			// We have to imitate that.
+			// FIXME: Are there other cases than spaces?
+			if ( $toplevel ) {
+				$key = str_replace( ' ', '_', $matches[1] );
+			} else {
+				$key = $matches[1];
+			}
 
 			if ( !array_key_exists( $key, $array ) )
-				$array[$key] = array( );
+				$array[$key] = array();
 
 			$this->addToArray( $array[$key], $matches[2] . $matches[3], $value );
 		} else {
 
 			if ( $key ) {
-//				$key = str_replace( ' ', '_', $key );
-//				$key = str_replace( '.', '_', $key );
-//				var_dump($key);
 				$array[$key] = $value;
 			} else {
 				array_push( $array, $value );
