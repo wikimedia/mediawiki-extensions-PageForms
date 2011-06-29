@@ -25,7 +25,7 @@ class SFCreateTemplate extends SpecialPage {
 
 	public function execute( $query ) {
 		$this->setHeaders();
-		self::printCreateTemplateForm();
+		$this->printCreateTemplateForm();
 	}
 
 	public static function getAllPropertyNames() {
@@ -149,7 +149,7 @@ END;
 		$wgOut->addScript( $jsText );
 	}
 
-	static function printCreateTemplateForm() {
+	function printCreateTemplateForm() {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 
 		SFUtils::loadMessages();
@@ -192,6 +192,8 @@ END;
 		}
 
 		$text .= '	<form id="createTemplateForm" action="" method="post">' . "\n";
+		// Set 'title' field, in case there's no URL niceness
+		$text .= "\t" . Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
 		$text .= "\t<p id=\"template_name_p\">" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_categorylabel' ) . ' <input size="25" name="category" /></p>' . "\n";
 		$text .= "\t<fieldset>\n";
