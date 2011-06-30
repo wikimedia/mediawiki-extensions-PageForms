@@ -785,12 +785,11 @@ END;
 						$field_args['show on select'] = $show_on_select;
 					// Get the value from the request, if
 					// it's there, and if it's not an array.
-					$escaped_field_name = str_replace( "'", "\'", $field_name );
 					if ( isset( $template_instance_query_values ) &&
 							$template_instance_query_values != null &&
 							is_array( $template_instance_query_values ) &&
-							array_key_exists( $escaped_field_name, $template_instance_query_values ) ) {
-						$field_query_val = $template_instance_query_values[$escaped_field_name];
+							array_key_exists( $field_name, $template_instance_query_values ) ) {
+						$field_query_val = $template_instance_query_values[$field_name];
 						if ( $form_submitted || ( ! is_null( $field_query_val ) && ! is_array( $field_query_val ) ) ) {
 							$cur_value = $field_query_val;
 						}
