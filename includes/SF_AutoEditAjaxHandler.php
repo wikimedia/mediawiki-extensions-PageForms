@@ -123,6 +123,7 @@ class SFAutoEditAjaxHandler {
 
 			if ( !$form ) {
 				// something went wrong
+				$wgRequest = $oldRequest;
 				return array(
 					'autoedit-nosemanticform',
 					array(
@@ -151,19 +152,18 @@ class SFAutoEditAjaxHandler {
 
 		$wgParser->getOptions()->enableLimitReport( false );
 
+		$wgRequest = $oldRequest;
+
 		if ( $formedit->mError ) {
-			// TODO Should this be sanitized? i.e. all HTML tags removed?
-			$msg = $formedit->mError;
 
 			$msg = $wgParser->parse(
-					wfMsgReplaceArgs( $this->mOptions['error text'], array( $msg ) ),
+					wfMsgReplaceArgs( $this->mOptions['error text'], array( $formedit->mError ) ),
 					$wgTitle,
 					$wgParser->getOptions()
 				)->getText();
 
 			$result = new AjaxResponse( $msg );
 			$result->setResponseCode( '400 Bad Request' );
-			return $result;
 		} else {
 
 			header( "X-Location: " . $wgOut->getRedirect() );
@@ -173,8 +173,9 @@ class SFAutoEditAjaxHandler {
 			$msg = $wgParser->recursiveTagParse( wfMsgReplaceArgs( $this->mOptions['ok text'], array( $formedit->mTarget, $formedit->mForm ) ) );
 
 			$result = new AjaxResponse( $msg );
-			return $result;
 		}
+
+		return $result;
 	}
 
 	private function parseDataFromHTMLFrag ( &$data, $html, $formID ) {
