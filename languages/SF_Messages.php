@@ -4636,6 +4636,11 @@ $messages['mk'] = array(
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Зачувајте ги податоците и продолжите со уредување',
 	'sf_autoedit_anoneditwarning' => 'Предупредување: Не сте најавени. Вашата IP-адреса ќе биде заведена во историјата на страницава.',
 	'sf_autoedit_success' => 'Измените на [[$1]] се успешно извршени користејќи го образецот $2.',
+	'sf_autoedit_notargetspecified' => 'Нема наведено целна страница',
+	'sf_autoedit_noformfound' => 'Нема наведено образец',
+	'sf_autoedit_toomanyformsfound' => 'На располагање имате повеќе од еден образец за страницата.',
+	'sf_autoedit_readonly' => 'Базата на податоци моментално е заклучена поради измени. Причина: $1',
+	'sf_autoedit_nosemanticform' => 'Не можев да го добијам образецот $2 за страницата $1. Поподробно на [[{{#special:FormEdit}}/$2/$1]].',
 	'runquery' => 'Пушти барање',
 	'sf_runquery_badurl' => 'Мора да назначите име на образецот во URL-адресата;
 URL-адресата треба да изгледа вака: „Special:RunQuery/<form name>“.',
@@ -4967,6 +4972,7 @@ $messages['nl'] = array(
 	'sf_forminputs_listboxsize' => 'De hoogte van dit lijstveld, in rijen',
 	'sf_forminputs_includetimezone' => 'Invoer voor de tijdzone opnemen',
 	'sf_forminputs_topcategory' => 'De bovenliggende categorie van deze verzameling categorieën (vereist)',
+	'sf_forminputs_hideroot' => 'De bovenliggende categorie verbergen',
 	'sf_forminputs_height' => 'De hoogte van deze invoer, in pixels',
 	'sf_forminputs_width' => 'De breedte van deze invoer, in pixels',
 	'createform' => 'Formulier aanmaken',
@@ -5030,6 +5036,11 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Gegevens opslaan en doorgaan met bewerken',
 	'sf_autoedit_anoneditwarning' => 'Waarschuwing: U bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.',
 	'sf_autoedit_success' => '[[$1]] is gewijzigd via het formulier $2.',
+	'sf_autoedit_notargetspecified' => 'Geen doelpagina opgegeven.',
+	'sf_autoedit_noformfound' => 'Geen formulier opgegeven.',
+	'sf_autoedit_toomanyformsfound' => 'Meer dan één formulier beschikbaar voor de pagina.',
+	'sf_autoedit_readonly' => 'De database is momenteel afgesloten voor wijzigingen. Reden: $1',
+	'sf_autoedit_nosemanticform' => 'Kon het formulier $2 voor pagina $1 niet krijgen. Zie [[{{#special:FormEdit}}/$2/$1]] voor details.',
 	'runquery' => 'Zoekopdracht uitvoeren',
 	'sf_runquery_badurl' => 'U moet een formuliernaam aangeven in de URL.
 De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
@@ -5839,7 +5850,7 @@ $messages['pt'] = array(
 	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) desta predefinição na página criada',
 	'sf_createform_field' => 'Campo:',
 	'sf_createform_fieldprop' => 'Este campo define a propriedade $1, do tipo $2.',
-	'sf_createform_fieldproplist' => 'Este campo define uma lista de elementos que possuem a propriedade $1, do tipo $2.',
+	'sf_createform_fieldproplist' => 'Este campo define uma lista de elementos que têm a propriedade $1, do tipo $2.',
 	'sf_createform_fieldpropunknowntype' => 'Este campo define uma propriedade $1, de tipo não especificado.',
 	'sf_createform_inputtype' => 'Tipo de entrada:',
 	'sf_createform_inputtypedefault' => '(padrão)',
@@ -7487,6 +7498,7 @@ $messages['zh-cn'] = array(
  * @author Hydra
  * @author Liangent
  * @author PhiLiP
+ * @author Xiaomingyan
  */
 $messages['zh-hans'] = array(
 	'semanticforms-desc' => '用于添加和编辑语义数据的表单',
@@ -7624,7 +7636,7 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
 	'sf_bad_integer_error' => '必须为有效整数',
 	'sf_bad_date_error' => '必须为有效日期',
 	'uploadwindow' => '上传窗口',
-	'sf_deletionlog' => '删除日志',
+	'sf_deletionlog' => '删除记录',
 	'sf_property_isproperty' => '这是一个类型为$1的属性。',
 	'sf_property_linkstoform' => '它链接到使用表单$1的页面。',
 	'sf_property_allowedvals' => '这个属性允许的值为：',
