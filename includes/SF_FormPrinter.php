@@ -449,7 +449,7 @@ END;
 						$component = $tag_components[$i];
 						if ( $component == 'multiple' ) $allow_multiple = true;
 						if ( $component == 'strict' ) $strict_parsing = true;
-						$sub_components = explode( '=', $component, 2 );
+						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
 						if ( count( $sub_components ) == 2 ) {
 							if ( $sub_components[0] == 'label' ) {
 								$template_label = $sub_components[1];
@@ -678,7 +678,7 @@ END;
 						} elseif ( $component == 'edittools' ) { // free text only
 							$free_text_components[] = 'edittools';
 						} else {
-							$sub_components = explode( '=', $component, 2 );
+							$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
 							if ( count( $sub_components ) == 1 ) {
 								// add handling for single-value params, for custom input types
 								$field_args[$sub_components[0]] = null;
