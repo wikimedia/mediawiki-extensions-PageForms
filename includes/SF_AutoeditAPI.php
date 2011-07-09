@@ -64,7 +64,7 @@ class SFAutoeditAPI extends ApiBase {
 		return array(
 			'form' => 'The form to use.',
 			'target' => 'The target page.',
-			'query' => 'The query string. Format: template[parameter]=value'
+			'query' => "The query string.\nFormat: template[parameter]=value\nMerge assignations using %26, i.e. template[parameter1]=value1%26template[parameter2]=value2"
 		);
 	}
 
@@ -73,7 +73,15 @@ class SFAutoeditAPI extends ApiBase {
 	 * @return mixed string or array of strings
 	 */
 	function getDescription() {
-		return 'This module is used to remotely create or edit pages using Semantic Forms';
+		return "This module is used to remotely create or edit pages using Semantic Forms";
+	}
+
+	/**
+	 * Returns usage examples for this module.
+	 * @return mixed string or array of strings
+	 */
+	protected function getExamples() {
+		return 'api.php?action=sfautoedit&form=Event&target=SomeEvent&query=Event[Start]=2011/07/09%26Event[End]=2011/07/10';
 	}
 
 	/**
