@@ -25,8 +25,23 @@ class SFAutoeditAPI extends ApiBase {
 	 * the result.
 	 */
 	function execute() {
-		$this->mOptions = $this->extractRequestParams();
-		$this->parseDataFromQueryString( $this->mOptions, $this->mOptions['query'] );
+		$this->mOptions = $_POST + $_GET;
+
+		// ensure 'form' key exists
+		if ( !array_key_exists( 'form', $this->mOptions ) ) {
+			$this->mOptions['form'] = null;
+		}
+
+		// ensure 'target' key exists
+		if ( !array_key_exists( 'target', $this->mOptions ) ) {
+			$this->mOptions['target'] = null;
+		}
+
+		// if query parameter was used, unpack it
+		if ( array_key_exists( 'query', $this->mOptions ) ) {
+			$this->parseDataFromQueryString( $this->mOptions, $this->mOptions['query'] );
+			unset( $this->mOptions['query'] );
+		}
 
 		$this->storeSemanticData();
 	}
@@ -64,7 +79,7 @@ class SFAutoeditAPI extends ApiBase {
 		return array(
 			'form' => 'The form to use.',
 			'target' => 'The target page.',
-			'query' => "The query string.\nFormat: template[parameter]=value\nMerge assignations using %26, i.e. template[parameter1]=value1%26template[parameter2]=value2"
+			'query' => 'The query string.'
 		);
 	}
 
@@ -73,7 +88,15 @@ class SFAutoeditAPI extends ApiBase {
 	 * @return mixed string or array of strings
 	 */
 	function getDescription() {
-		return "This module is used to remotely create or edit pages using Semantic Forms";
+		return <<<END
+This module is used to remotely create or edit pages using Semantic Forms.
+
+Add "template-name[field-name]=field-value" to the query string parameter, to set the value for a specific field.
+To set values for more than one field use "&", or rather its URL encoded version "%26": "template-name[field-name-1]=field-value-1%26template-name[field-name-2]=field-value-2".
+See the first example below.
+
+In addition to the query parameter, any parameter in the URL of the form "template-name[field-name]=field-value" will be treated as part of the query. See the second example.
+END;
 	}
 
 	/**
@@ -81,7 +104,10 @@ class SFAutoeditAPI extends ApiBase {
 	 * @return mixed string or array of strings
 	 */
 	protected function getExamples() {
-		return 'api.php?action=sfautoedit&form=Event&target=SomeEvent&query=Event[Start]=2011/07/09%26Event[End]=2011/07/10';
+		return array(
+			'With query parameter:    api.php?action=sfautoedit&form=form-name&target=page-name&query=template-name[field-name-1]=field-value-1%26template-name[field-name-2]=field-value-2',
+			'Without query parameter: api.php?action=sfautoedit&form=form-name&target=page-name&template-name[field-name-1]=field-value-1&template-name[field-name-2]=field-value-2'
+		);
 	}
 
 	/**
