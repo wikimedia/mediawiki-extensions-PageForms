@@ -19,31 +19,101 @@ if ( !defined( 'SF_VERSION' ) ) {
 class SFAutoeditAPI extends ApiBase {
 
 	private $mOptions;
+	private $mIsApiQuery = true;
+
+	static function handleAutoEdit( $optionsString = null, $prefillFromExisting = 'true' ) {
+
+		global $wgParser;
+
+		$handler = new self( null, 'sfautoedit' );
+		$handler->isApiQuery( false );
+		$options = $handler->setOptionsString( $optionsString );
+
+		// get oktext (or use default)
+		if ( array_key_exists( 'ok text', $options ) ) {
+			$oktext = $options['ok text'];
+		} else {
+			$oktext = wfMsg( 'sf_autoedit_success' );
+		}
+
+		// get errortext (or use default)
+		if ( array_key_exists( 'error text', $options ) ) {
+			$errortext = $options['error text'];
+		} else {
+			$errortext = '$1';
+		}
+
+		// process data
+		// result will be true or an error message
+		$result = $handler->storeSemanticData( $prefillFromExisting === 'true' );
+
+		// wrap result in ok/error message
+		if ( $result === true ) {
+
+			$options = $handler->getOptions();
+			$result = wfMsgReplaceArgs( $oktext, array($options['target'], $options['form']) );
+
+		} else {
+
+			$result = wfMsgReplaceArgs( $errortext, array($result) );
+		}
+
+		// initialize parser
+		$title = Title::newFromText( 'DummyTitle' );
+
+		if ( !StubObject::isRealObject( $wgParser ) ) {
+			$wgParser->_unstub();
+		}
+
+		$wgParser->getOptions()->enableLimitReport( false );
+
+
+		return $wgParser->parse( $result, $title, $wgParser->getOptions() )->getText();
+	}
 
 	/**
-	 * Evaluates the parameters, performs the requested query, and sets up
+	 * Getter/setter for the ApiQuery flag.
+	 * 
+	 * If this is set, we are in an API query, else we are in an Ajax query.
+	 * 
+	 * @param bool $isApiQuery Optional. The new value
+	 * @return The old value
+	 */
+	function isApiQuery() {
+		$ret = $this->mIsApiQuery;
+
+		$params = func_get_args();
+
+		if ( isset( $params[0] ) ) {
+			$this->mIsApiQuery = $params[0];
+		}
+		return $ret;
+	}
+
+	function setOptionsString( $options ) {
+		return $this->parseDataFromQueryString( $this->mOptions, $options );
+	}
+
+	function getOptions() {
+		return $this->mOptions;
+	}
+
+	/**
+	 * Evaluates the parameters, performs the requested API query, and sets up
 	 * the result.
 	 */
 	function execute() {
 		$this->mOptions = $_POST + $_GET;
+		$this->isApiQuery( true );
 
-		// ensure 'form' key exists
-		if ( !array_key_exists( 'form', $this->mOptions ) ) {
-			$this->mOptions['form'] = null;
-		}
-
-		// ensure 'target' key exists
-		if ( !array_key_exists( 'target', $this->mOptions ) ) {
-			$this->mOptions['target'] = null;
-		}
-
-		// if query parameter was used, unpack it
+		// if this is an Ajax request
 		if ( array_key_exists( 'query', $this->mOptions ) ) {
-			$this->parseDataFromQueryString( $this->mOptions, $this->mOptions['query'] );
+			// if 'query' parameter was used, unpack it
+			$this->setOptionsString( $this->mOptions['query'] );
 			unset( $this->mOptions['query'] );
 		}
 
-		$this->storeSemanticData();
+		return $this->storeSemanticData();
 	}
 
 	/**
@@ -121,29 +191,37 @@ END;
 	}
 
 	/**
-	 *
-	 * @global $wgOut
-	 * @global $wgRequest
-	 * @global <type> $wgUser
-	 * @global <type> $wgParser
-	 * @return <type>
+	 *	This method will try to store the data in mOptions.
+	 * 
+	 * It will return true on success or an error message on failure.
+	 * The used form and target page will be available in mOptions after
+	 * execution of the method.
+	 * 
+	 * @param bool $prefillFromExisting If this is set, existing values in the page will be used to prefill the form.
+	 * @return true or an error message
 	 */
 	private function storeSemanticData( $prefillFromExisting = true ) {
 
-		global $wgOut, $wgRequest, $wgParser, $wgTitle;
+		global $wgOut, $wgRequest;
 
 		// If the wiki is read-only we might as well stop right away
 		if ( wfReadOnly ( ) ) {
+			return $this->reportError( wfMsg( 'sf_autoedit_readonly', wfReadOnlyReason() ) );
+		}
 
-			$this->reportError( wfMsg( 'sf_autoedit_readonly', wfReadOnlyReason() ) );
-			return;
+		// ensure 'form' key exists
+		if ( !array_key_exists( 'form', $this->mOptions ) ) {
+			$this->mOptions['form'] = null;
+		}
+
+		// ensure 'target' key exists
+		if ( !array_key_exists( 'target', $this->mOptions ) ) {
+			$this->mOptions['target'] = null;
 		}
 
 		// If we have no target article and no form we might as well stop right away
 		if ( !$this->mOptions['target'] && !$this->mOptions['form'] ) {
-
-			$this->reportError( wfMsg( 'sf_autoedit_notargetspecified' ) );
-			return;
+			return $this->reportError( wfMsg( 'sf_autoedit_notargetspecified' ) );
 		}
 
 		// check if form was specified
@@ -156,14 +234,12 @@ END;
 
 			// if no form can be found, return
 			if ( count( $form_names ) == 0 ) {
-				$this->reportError( wfMsg( 'sf_autoedit_noformfound' ) );
-				return;
+				return $this->reportError( wfMsg( 'sf_autoedit_noformfound' ) );
 			}
 
 			// if more than one form found, return
 			if ( count( $form_names ) > 1 ) {
-				$this->reportError( wfMsg( 'sf_autoedit_toomanyformsfound' ) );
-				return;
+				return $this->reportError( wfMsg( 'sf_autoedit_toomanyformsfound' ) );
 			}
 
 			// There should now be exactly one form.
@@ -199,12 +275,11 @@ END;
 				// something went wrong
 				$wgRequest = $oldRequest;
 
-				$this->reportError( wfMsg( 'sf_autoedit_nosemanticform',
+				return $this->reportError( wfMsg( 'sf_autoedit_nosemanticform',
 						array(
 							$this->mOptions['target'],
 							$this->mOptions['form']) )
 				);
-				return;
 			}
 		} else {
 			$this->addToArray( $data, "wpSave", "Save" );
@@ -224,30 +299,33 @@ END;
 			$formedit->execute( $this->mOptions['form'], false );
 		}
 
-		$wgParser->getOptions()->enableLimitReport( false );
+		$this->mOptions['form'] = $formedit->mForm;
+		$this->mOptions['target'] = $formedit->mTarget;
 
 		$wgRequest = $oldRequest;
 
 		if ( $formedit->mError ) {
 
-			$this->reportError( $msg );
+			return $this->reportError( $formedit->mError );
 		} else {
 
 			header( "X-Location: " . $wgOut->getRedirect() );
 			header( "X-Form: " . $formedit->mForm );
 			header( "X-Target: " . $formedit->mTarget );
 
-			$this->getResult()->addValue( null, 'result',
-				array(
-					'code' => '200',
-					'location' => $wgOut->getRedirect(),
-					'form' => $formedit->mForm,
-					'target' => $formedit->mTarget
-				)
-			);
+			if ( $this->isApiQuery() ) {
+				$this->getResult()->addValue( null, 'result',
+					array(
+						'code' => '200',
+						'location' => $wgOut->getRedirect(),
+						'form' => $formedit->mForm,
+						'target' => $formedit->mTarget
+					)
+				);
+			}
 		}
 
-		return;
+		return true;
 	}
 
 	private function parseDataFromHTMLFrag( &$data, $html, $formID ) {
@@ -365,7 +443,7 @@ END;
 			$key = trim( urldecode( $elements[0] ) );
 			$value = count( $elements ) > 1 ? urldecode( $elements[1] ) : null;
 
-			if ( $key == "query" ) {
+			if ( $key == "query" || $key == "query string" ) {
 				$this->parseDataFromQueryString( $data, $value );
 			} else {
 				$this->addToArray( $data, $key, $value );
@@ -449,7 +527,10 @@ END;
 	 */
 	private function reportError( $msg ) {
 		header( 'HTTP/Status: 400 Bad Request' );
-		$this->getResult()->addValue( null, 'result', array('code' => '400', '*' => $msg) );
+		if ( $this->isApiQuery() ) {
+			$this->getResult()->addValue( null, 'result', array('code' => '400', '*' => $msg) );
+		}
+		return $msg;
 	}
 
 }

@@ -156,12 +156,11 @@ $wgAutoloadClasses['SFFormLinker'] = $sfgIP . '/includes/SF_FormLinker.php';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 $wgAutoloadClasses['SFAutoeditAPI'] = $sfgIP . '/includes/SF_AutoeditAPI.php';
-$wgAutoloadClasses['SFAutoEditAjaxHandler'] = $sfgIP . '/includes/SF_AutoEditAjaxHandler.php';
 $wgJobClasses['createPage'] = 'SFCreatePageJob';
 $wgAutoloadClasses['SFCreatePageJob'] = $sfgIP . '/includes/SF_CreatePageJob.php';
 require_once( $sfgIP . '/languages/SF_Language.php' );
 
-$wgAjaxExportList[] = 'SFAutoEditAjaxHandler::handleAutoEdit';
+$wgAjaxExportList[] = 'SFAutoeditAPI::handleAutoEdit';
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionAliasesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Aliases.php';
