@@ -4846,11 +4846,18 @@ $messages['mr'] = array(
  * @author Anakmalaysia
  */
 $messages['ms'] = array(
+	'createproperty' => 'Wujudkan sifat',
+	'sf_createproperty_linktoform' => 'Sifat ini akan dipautkan dengan laman-laman yang menggunakan borang ini:',
+	'sf_createproperty_allowedvalsinput' => 'Jika anda mahu sifat ini hanya dibenarkan mempunyai nilai-nilai tertentu, isikan senarai nilai yang dibenarkan, diikuti oleh tanda koma (jika sesuatu nilai ada tanda koma, gantinya dengan "\\,".):',
 	'sf_createproperty_proptype' => 'Jenis:',
 	'sf_createtemplate_deletefield' => 'Hapuskan',
 	'sf_createform_inputtypedefault' => '(tersedia)',
+	'sf_createform_formlabel' => 'Label borang:',
+	'sf_createcategory_defaultform' => 'Borang sediaan:',
 	'sf_formedit_createtitle' => 'Cipta $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Cipta $1',
+	'right-viewedittab' => 'Melihat tab "Sunting" untuk laman yang boleh disunting dengan borang',
+	'right-editrestrictedfields' => 'Menyunting ruangan borang yang terhad',
 );
 
 /** Erzya (Эрзянь)
