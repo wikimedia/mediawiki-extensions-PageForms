@@ -152,7 +152,7 @@ class SFUtils {
     /**
 	* Function to return the Property based on the xml passed from the PageSchema extension 
 	*/
-	public static function sfCreatePageSchemasObject( $objectName, $xmlForField, &$object ) {
+	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
 		$sfarray = array();
 		if ( $objectName == "FormInput" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
@@ -175,28 +175,25 @@ class SFUtils {
 
 	/**
 	*/
-	public static function sfGetPageList( $psSchemaObj, &$genPageList ) {
+	public static function getPageList( $psSchemaObj, &$genPageList ) {
 		global $wgOut, $wgUser;
-		$template_all = $psSchemaObj->getTemplates();				
-		$form_templates = array();
-		foreach ( $template_all as $template ) {		
+		$template_all = $psSchemaObj->getTemplates();		
+		foreach ( $template_all as $template ) {
 			$title =  Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
-			$genPageList[] = 'Template:'.$title->getText();
-			//Creating Form Templates at this time
-			$form_template = SFTemplateInForm::create( $template->getName(),
-					$template->getLabel(),
-					$template->isMultiple() );
-			$form_templates[] = $form_template;
+			$genPageList[] = $title;
 		}
 		$form_name = $psSchemaObj->getFormName();
-		$form = SFForm::create( $form_name, $form_templates );
-		$title = Title::makeTitleSafe( SF_NS_FORM, $form->form_name );
-		$genPageList[] = 'Form:'.$title->getText();		
+		if( $form_name == null ){
+			return true;
+		}
+		//$form = SFForm::create( $form_name, $form_templates );
+		$title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+		$genPageList[] = $title;
 		return true;
 	}
 	/**
 	*/
-	public static function sfGeneratePages( $psSchemaObj, $toGenPageList ) {
+	public static function generatePages( $psSchemaObj, $toGenPageList ) {
 		global $wgOut, $wgUser;
 		$template_all = $psSchemaObj->getTemplates();				
 		$form_templates = array();
@@ -221,7 +218,8 @@ class SFUtils {
 			}
 			$template_text = SFTemplateField::createTemplateText( $template->getName(), $template_fields, null, $psSchemaObj->categoryName, null, 	null, null );
 			$title =  Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
-			if( in_array('Template:'.$title->getText(), $toGenPageList )){
+			$key_title = PageSchemas::titleString( $title );
+			if( in_array($key_title, $toGenPageList )){
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $template_text;		
@@ -233,9 +231,13 @@ class SFUtils {
 			$form_templates[] = $form_template;
 		}		
 		$form_name = $psSchemaObj->getFormName();
+		if( $form_name == null ){
+			return true;
+		}
 		$form = SFForm::create( $form_name, $form_templates );		
 		$title = Title::makeTitleSafe( SF_NS_FORM, $form->form_name );
-		if( in_array('Form:'.$title->getText(), $toGenPageList )){
+		$key_title = PageSchemas::titleString( $title );
+		if( in_array($key_title, $toGenPageList )){
 		$full_text = $form->createMarkup();				
 			$params = array();
 			$params['user_id'] = $wgUser->getId();
@@ -248,7 +250,7 @@ class SFUtils {
 	/**
 	*Thi Function parses the Field elements in the xml of the pages. Hooks for PageSchemas extension
 	*/
-	public static function sfParseFieldElements( $field_xml, &$text_object ) {
+	public static function parseFieldElements( $field_xml, &$text_object ) {
 		foreach ( $field_xml->children() as $tag => $child ) {
 				if ( $tag == "FormInput" ) {
 					$text = "";
