@@ -671,6 +671,13 @@ $messages['az'] = array(
 	'sf_createform_template' => 'Şablon:',
 );
 
+/** Bavarian (Boarisch)
+ * @author Mucalexx
+ */
+$messages['bar'] = array(
+	'formedit' => 'Mid Formular beorweiten',
+);
+
 /** Belarusian (Беларуская)
  * @author Тест
  */
@@ -4853,6 +4860,7 @@ $messages['ms'] = array(
 	'sf_createtemplate_deletefield' => 'Hapuskan',
 	'sf_createform_inputtypedefault' => '(tersedia)',
 	'sf_createform_formlabel' => 'Label borang:',
+	'sf_createform_add' => 'Tambahkan',
 	'sf_createcategory_defaultform' => 'Borang sediaan:',
 	'sf_formedit_createtitle' => 'Cipta $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Cipta $1',
