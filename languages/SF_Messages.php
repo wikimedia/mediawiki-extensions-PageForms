@@ -7160,6 +7160,7 @@ $messages['tt-cyrl'] = array(
 /** Ukrainian (Українська)
  * @author AS
  * @author Ahonc
+ * @author Microcell
  * @author Prima klasy4na
  * @author Тест
  */
@@ -7189,6 +7190,7 @@ $messages['uk'] = array(
 	'sf_createcategory_name' => 'Назва категорії:',
 	'sf_createcategory_defaultform' => 'Форма за умовчанням:',
 	'sf_createclass_listofvalues' => 'Список значень?',
+	'formedit' => 'Редагувати з допомогою форми',
 	'sf_formedit_createtitle' => 'Створити $1: $2',
 	'sf_formedit_remove' => 'Вилучити',
 	'sf_blank_error' => 'не може бути порожнім',
