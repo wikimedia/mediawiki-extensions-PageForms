@@ -806,8 +806,6 @@ END;
 						} elseif ( array_key_exists( $field_name, $template_instance_query_values ) ) {
 							$field_query_val = $template_instance_query_values[$field_name];
 						}
-						// Escaping of quotes is necessary.
-						$field_query_val = str_replace( '"', '&quot;', $field_query_val );
 						if ( $form_submitted || ( ! empty( $field_query_val ) && ! is_array( $field_query_val ) ) ) {
 							$cur_value = $field_query_val;
 						}
