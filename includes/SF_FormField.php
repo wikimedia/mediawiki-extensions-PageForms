@@ -289,8 +289,18 @@ END;
 		// Now merge in the default values set by SFFormPrinter, if
 		// there were any - put the default values first, so that if
 		// there's a conflict they'll be overridden.
-		if ( $default_args != null )
+		if ( $default_args != null ) {
 			$other_args = array_merge( $default_args, $other_args );
+		}
+
+		global $wgParser;
+		foreach ( $other_args as $argname => $argvalue ) {
+			if ( is_string( $argvalue ) ) {
+				$other_args[$argname] =
+					$wgParser->recursiveTagParse( $argvalue );
+			}
+		}
+
 		return $other_args;
 	}
 }
