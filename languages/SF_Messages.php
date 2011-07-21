@@ -2475,10 +2475,13 @@ $messages['frp'] = array(
 	'createclass' => 'Fâre una cllâsse',
 	'sf_createclass_allowedvalues' => 'Valors ôtorisâs :',
 	'sf_createclass_listofvalues' => 'Lista de valors ?',
+	'sf_createclass_nameinput' => 'Nom du formulèro :',
+	'sf_createclass_create' => 'Fâre',
 	'formstart' => 'Apondre una pâge avouéc un formulèro',
 	'sf_formstart_createoredit' => 'Fâre ou ben changiér',
 	'formedit' => 'Changiér avouéc un formulèro',
 	'sf_formedit_createtitle' => 'Fâre $1 : $2',
+	'sf_formedit_createtitlenotarget' => 'Fâre $1',
 	'sf_formcreate' => 'Fâre avouéc un formulèro',
 	'sf_viewform' => 'Vêre lo formulèro',
 	'sf_editsource' => 'Changiér la sôrsa',
@@ -6443,6 +6446,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
  */
 $messages['sl'] = array(
 	'sf_createform_add' => 'Dodaj',
+	'formedit' => 'Uredi z obrazcem',
 );
 
 /** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
