@@ -195,7 +195,7 @@ class SFUtils {
 	*/
 	public static function generatePages( $psSchemaObj, $toGenPageList ) {
 		global $wgOut, $wgUser;
-		$template_all = $psSchemaObj->getTemplates();				
+		$template_all = $psSchemaObj->getTemplates();		
 		$form_templates = array();
 		$jobs = array();
 		foreach ( $template_all as $template ) {
@@ -231,11 +231,15 @@ class SFUtils {
 			$form_templates[] = $form_template;
 		}		
 		$form_name = $psSchemaObj->getFormName();
+		$form_array = $psSchemaObj->getFormArray();		
 		if( $form_name == null ){
 			return true;
 		}
-		$form = SFForm::create( $form_name, $form_templates );		
-		$title = Title::makeTitleSafe( SF_NS_FORM, $form->form_name );
+		$form = SFForm::create( $form_name, $form_templates );
+		$form->setPageNameFormula( $form_array['PageNameFormula'] );
+		$form->setCreateTitle( $form_array['CreateTite'] );
+		$form->setEditTitle( $form_array['EditTitle'] );
+		$title = Title::makeTitleSafe( SF_NS_FORM, $form->mFormName );
 		$key_title = PageSchemas::titleString( $title );
 		if( in_array($key_title, $toGenPageList )){
 		$full_text = $form->createMarkup();				
@@ -255,7 +259,7 @@ class SFUtils {
 				if ( $tag == "FormInput" ) {
 					$text = "";
 					$text = PageSchemas::tableMessageRowHTML( "paramAttr", "SemanticForms", (string)$tag );										
-					foreach ( $child->children() as $prop ) {				
+					foreach ( $child->children() as $prop ) {
 						if( $prop->getName() == 'InputType' ){
 							$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop->getName(), $prop );
 						}else {
