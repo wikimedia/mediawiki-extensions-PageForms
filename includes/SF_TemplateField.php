@@ -17,14 +17,20 @@ class SFTemplateField {
 	private $mPropertyType;
 	private $mPossibleValues;
 	private $mIsList;
+	private $mDelimiter;
 	private $mInputType;
 
-	static function create( $name, $label, $semanticProperty = null, $isList = null ) {
+	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null ) {
 		$f = new SFTemplateField();
 		$f->mFieldName = trim( str_replace( '\\', '', $name ) );
 		$f->mLabel = trim( str_replace( '\\', '', $label ) );
 		$f->setSemanticProperty( $semanticProperty );
 		$f->mIsList = $isList;
+		$f->mDelimiter = $delimiter;
+		// Delimiter should default to ','.
+		if ( !empty( $isList ) && empty( $delimiter ) ) {
+			$f->mDelimiter = ',';
+		}
 		return $f;
 	}
 
@@ -224,7 +230,7 @@ END;
 						}
 					}
 				}
-				$tableText .= "| {{#arraymap:{{{" . $field->mFieldName . "|}}}|,|$var|[[" . $field->mSemanticProperty . "::$var]]}}\n";
+				$tableText .= "| {{#arraymap:{{{" . $field->mFieldName . "|}}}|" . $field->mDelimiter . "|$var|[[" . $field->mSemanticProperty . "::$var]]}}\n";
 			} else {
 				$tableText .= "| [[" . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]]\n";
 			}
