@@ -1446,16 +1446,16 @@ END;
 		// (type is SFTemplateField, instead of SFFormField)
 		$template_field = $form_field->getTemplateField();
 
-		if ( $form_field->is_hidden ) {
+		if ( $form_field->isHidden() ) {
 			$text = SFFormUtils::hiddenFieldHTML( $form_field->input_name, $cur_value );
 		} elseif ( $form_field->getInputType() != '' &&
 							array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 							$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
 			$funcArgs = array();
 			$funcArgs[] = $cur_value;
-			$funcArgs[] = $form_field->input_name;
-			$funcArgs[] = $form_field->is_mandatory;
-			$funcArgs[] = $form_field->is_disabled;
+			$funcArgs[] = $form_field->getInputName();
+			$funcArgs[] = $form_field->isMandatory();
+			$funcArgs[] = $form_field->isDisabled();
 			// last argument to function should be a hash, merging the default
 			// values for this input type with all other properties set in
 			// the form definition, plus some semantic-related arguments
@@ -1465,15 +1465,15 @@ END;
 			$text = call_user_func_array( $hook_values[0], $funcArgs );
 		} else { // input type not defined in form
 			$property_type = $template_field->getPropertyType();
-			$is_list = ( $form_field->is_list || $template_field->getIsList() );
+			$is_list = ( $form_field->isList() || $template_field->isList() );
 			if ( $property_type != '' &&
 				array_key_exists( $property_type, $this->mSemanticTypeHooks ) &&
 				isset( $this->mSemanticTypeHooks[$property_type][$is_list] ) ) {
 				$funcArgs = array();
 				$funcArgs[] = $cur_value;
-				$funcArgs[] = $form_field->input_name;
-				$funcArgs[] = $form_field->is_mandatory;
-				$funcArgs[] = $form_field->is_disabled;
+				$funcArgs[] = $form_field->getInputName();
+				$funcArgs[] = $form_field->isMandatory();
+				$funcArgs[] = $form_field->isDisabled();
 				$hook_values = $this->mSemanticTypeHooks[$property_type][$is_list];
 				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
 				$funcArgs[] = $other_args;
@@ -1481,12 +1481,12 @@ END;
 			} else { // anything else
 				$other_args = $form_field->getArgumentsForInputCall();
 				// special call to ensure that a list input is the right default size
-				if ( $form_field->is_list ) {
+				if ( $form_field->isList() ) {
 					if ( ! array_key_exists( 'size', $other_args ) ) {
 						$other_args['size'] = 100;
 					}
 				}
-				$text = SFTextInput::getHTML( $cur_value, $form_field->input_name, $form_field->is_mandatory, $form_field->is_disabled, $other_args );
+				$text = SFTextInput::getHTML( $cur_value, $form_field->getInputName(), $form_field->isMandatory(), $form_field->isDisabled(), $other_args );
 			}
 		}
 		return $text;

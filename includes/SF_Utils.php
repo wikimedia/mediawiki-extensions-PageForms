@@ -237,7 +237,7 @@ class SFUtils {
 		$form->setPageNameFormula( $form_array['PageNameFormula'] );
 		$form->setCreateTitle( $form_array['CreateTite'] );
 		$form->setEditTitle( $form_array['EditTitle'] );
-		$title = Title::makeTitleSafe( SF_NS_FORM, $form->mFormName );
+		$title = Title::makeTitleSafe( SF_NS_FORM, $form->getFormName() );
 		$key_title = PageSchemas::titleString( $title );
 		if( in_array($key_title, $toGenPageList )){
 		$full_text = $form->createMarkup();				

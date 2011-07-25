@@ -180,7 +180,7 @@ jQuery(document).ready(function() {
 						$input_type = $wgRequest->getVal( "input_type_" . $old_i . "_" . $j );
 						if ( $input_type == 'hidden' ) {
 							$field->template_field->setInputType( $input_type );
-							$field->is_hidden = true;
+							$field->setIsHidden( true );
 						} elseif ( substr( $input_type, 0, 1 ) == '.' ) {
 							// It's the default input type -
 							// don't do anything.
