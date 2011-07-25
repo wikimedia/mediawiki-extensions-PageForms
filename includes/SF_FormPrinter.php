@@ -1095,7 +1095,7 @@ END;
 						// if this field is disabled, add a hidden field holding
 						// the value of this field, because disabled inputs for some
 						// reason don't submit their value
-						if ( $form_field->is_disabled ) {
+						if ( $form_field->isDisabled() ) {
 							if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
 								$new_text .= SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
 							} else {
