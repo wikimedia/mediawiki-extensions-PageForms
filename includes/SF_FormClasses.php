@@ -267,7 +267,7 @@ class SFTemplateInForm {
 	<input type="hidden" name="template_$template_num" value="$this->mTemplateName">
 	<div class="templateForm">
 	<h2>$template_str '$this->mTemplateName'</h2>
-	<p>$template_label_input <input size=25 name="label_$template_num" value="$this->label"></p>
+	<p>$template_label_input <input size=25 name="label_$template_num" value="$this->mLabel"></p>
 	<p><input type="checkbox" name="allow_multiple_$template_num" $checked_str> $allow_multiple_text</p>
 	<hr>
 
