@@ -127,7 +127,7 @@ class SFTemplateField {
 		return $this->mPossibleValues;
 	}
 
-	function getIsList() {
+	function isList() {
 		return $this->mIsList;
 	}
 
