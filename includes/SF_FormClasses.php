@@ -13,17 +13,21 @@
  * @ingroup SF
  */
 class SFForm {
-	var $mFormName = null;
-	var $mTemplates = null;
-	var $mPageNameFormula = null;
-	var $mCreateTitle = null;
-	var $mEditTitle = null;
+	private $mFormName;
+	private $mTemplates;
+	private $mPageNameFormula;
+	private $mCreateTitle;
+	private $mEditTitle;
 
 	static function create( $formName, $templates ) {
 		$form = new SFForm();
 		$form->mFormName = ucfirst( str_replace( '_', ' ', $formName ) );
 		$form->mTemplates = $templates;
 		return $form;
+	}
+
+	function getFormName() {
+		return $this->mFormName;
 	}
 
 	function setPageNameFormula( $pageNameFormula ) {
@@ -107,11 +111,11 @@ END;
  * @ingroup SF
  */
 class SFTemplateInForm {
-	var $template_name;
-	var $label;
-	var $allow_multiple;
-	var $max_allowed;
-	var $fields;
+	private $template_name;
+	private $label;
+	private $allow_multiple;
+	private $max_allowed;
+	private $fields;
 
 	/**
 	 * For a field name and its attached property name located in the
@@ -120,9 +124,7 @@ class SFTemplateInForm {
 	 */
 	function handlePropertySettingInTemplate( $fieldName, $propertyName, $isList, &$templateFields, $templateText ) {
 		global $wgContLang;
-		$templateField = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
-		$templateField->setSemanticProperty( $propertyName );
-		$templateField->is_list = $isList;
+		$templateField = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ), $propertyName, $isList );
 		$cur_pos = stripos( $templateText, $fieldName );
 		$templateFields[$cur_pos] = $templateField;
 	}
@@ -233,7 +235,7 @@ class SFTemplateInForm {
 		return $templateFields;
 	}
 
-	static function create( $name, $label, $allow_multiple, $max_allowed = null ) {
+	static function create( $name, $label = null, $allow_multiple = null, $max_allowed = null ) {
 		$tif = new SFTemplateInForm();
 		$tif->template_name = str_replace( '_', ' ', $name );
 		$tif->fields = array();
@@ -246,6 +248,14 @@ class SFTemplateInForm {
 		$tif->allow_multiple = $allow_multiple;
 		$tif->max_allowed = $max_allowed;
 		return $tif;
+	}
+
+	function getTemplateName() {
+		return $this->template_name;
+	}
+
+	function getFields() {
+		return $this->fields;
 	}
 
 	function creationHTML( $template_num ) {
