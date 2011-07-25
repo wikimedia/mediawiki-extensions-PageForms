@@ -1174,7 +1174,7 @@ class SFComboBoxInput extends SFFormInput {
 		$selectText = Xml::tags( 'select', $selectAttrs, $optionsText );
 
 		$divClass = "ui-widget";
-		if ($is_mandatory) { $divClass .= " mandatory"; }
+		if ( $is_mandatory ) { $divClass .= " mandatory"; }
 		$text = Xml::tags( 'div', array( 'class' => $divClass ), $selectText );
 		return $text;
 	}
