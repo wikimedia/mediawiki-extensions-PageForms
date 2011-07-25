@@ -13,28 +13,25 @@
  * @ingroup SF
  */
 class SFFormField {
-	var $num;
-	var $template_field;
-	var $input_type;
-	var $is_mandatory;
-	var $is_hidden;
-	var $is_restricted;
-	var $possible_values;
+	private $num;
+	public $template_field;
+	private $input_type;
+	public $is_mandatory;
+	public $is_hidden;
+	private $is_restricted;
+	private $possible_values;
+	public $is_list;
 	// the following fields are not set by the form-creation page
 	// (though they could be)
-	var $is_uploadable;
-	var $field_args;
-	var $autocomplete_source;
-	var $autocomplete_field_type;
-	var $no_autocomplete;
-	var $part_of_multiple;
+	private $is_uploadable;
+	private $field_args;
 	// somewhat of a hack - these two fields are for a field in a specific
 	// representation of a form, not the form definition; ideally these
 	// should be contained in a third 'field' class, called something like
 	// SFFormInstanceField, that holds these fields plus an instance of
 	// SFFormField. Too much work?
-	var $input_name;
-	var $is_disabled;
+	public $input_name;
+	public $is_disabled;
 
 	static function create( $num, $template_field ) {
 		$f = new SFFormField();
@@ -58,7 +55,7 @@ class SFFormField {
 		// setting in the form definition
 		$the_field = null;
 		foreach ( $all_fields as $cur_field ) {
-			if ( $field_name == $cur_field->field_name ) {
+			if ( $field_name == $cur_field->getFieldName() ) {
 				$the_field = $cur_field;
 				break;
 			}
@@ -87,6 +84,22 @@ class SFFormField {
 		$f->is_disabled = $is_disabled;
 		$f->is_list = $is_list;
 		return $f;
+	}
+
+	public function getTemplateField() {
+		return $this->template_field;
+	}
+
+	public function getInputType() {
+		return $this->input_type;
+	}
+
+	public function setTemplateField( $templateField ) {
+		$this->template_field = $templateField;
+	}
+
+	public function setSemanticProperty( $semanticProperty ) {
+		$this->template_field->setSemanticProperty( $semanticProperty );
 	}
 
 	function inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $cur_input_type ) {
@@ -119,15 +132,15 @@ class SFFormField {
 	function creationHTML( $template_num ) {
 		$field_form_text = $template_num . "_" . $this->num;
 		$template_field = $this->template_field;
-		$text = '<h3>' . wfMsg( 'sf_createform_field' ) . " '" . $template_field->field_name . "'</h3>\n";
-		$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->semantic_property );
+		$text = '<h3>' . wfMsg( 'sf_createform_field' ) . " '" . $template_field->getFieldName() . "'</h3>\n";
+		$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
 		// TODO - remove this probably-unnecessary check?
-		if ( $template_field->semantic_property == "" ) {
+		if ( $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
-		} elseif ( $template_field->property_type == "" ) {
+		} elseif ( $template_field->getPropertyType() == "" ) {
 			$text .= '<p>' . wfMsg( 'sf_createform_fieldpropunknowntype', $prop_link_text ) . "</p>\n";
 		} else {
-			if ( $template_field->is_list ) {
+			if ( $template_field->getIsList() ) {
 				$propDisplayMsg = 'sf_createform_fieldproplist';
 			} else {
 				$propDisplayMsg = 'sf_createform_fieldprop';
@@ -139,13 +152,13 @@ class SFFormField {
 			if ( $smwgContLang != null ) {
 				$datatypeLabels = $smwgContLang->getDatatypeLabels();
 				$datatypeLabels['enumeration'] = 'enumeration';
-				$propertyType = $datatypeLabels[$template_field->property_type];
+				$propertyTypeLabel = $datatypeLabels[$template_field->getPropertyType()];
 				if ( class_exists( 'SMWDIProperty' ) ) {
 					// "Type:" namespace was removed in SMW 1.6.
 					// TODO: link to Special:Types instead?
-					$propertyTypeStr = $propertyType;
+					$propertyTypeStr = $propertyTypeLabel;
 				} else {
-					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyType );
+					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyTypeLabel );
 				}
 			}
 			$text .= Xml::tags( 'p', null, wfMsg( $propDisplayMsg, $prop_link_text, $propertyTypeStr ) ) . "\n";
@@ -157,7 +170,7 @@ class SFFormField {
 				'type' => 'text',
 				'name' => 'label_' . $field_form_text,
 				'size' => 20,
-				'value' => $template_field->label,
+				'value' => $template_field->getLabel(),
 			), null );
 		$input_type_text = wfMsg( 'sf_createform_inputtype' );
 		$text .= <<<END
@@ -167,17 +180,17 @@ class SFFormField {
 
 END;
 		global $sfgFormPrinter;
-		if ( is_null( $template_field->property_type ) ) {
+		if ( is_null( $template_field->getPropertyType() ) ) {
 			$default_input_type = null;
 			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
 		} else {
-			$default_input_type = $sfgFormPrinter->getDefaultInputType( $template_field->is_list, $template_field->property_type );
-			$possible_input_types = $sfgFormPrinter->getPossibleInputTypes( $template_field->is_list, $template_field->property_type );
+			$default_input_type = $sfgFormPrinter->getDefaultInputType( $template_field->getIsList(), $template_field->getPropertyType() );
+			$possible_input_types = $sfgFormPrinter->getPossibleInputTypes( $template_field->getIsList(), $template_field->getPropertyType() );
 		}
-		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->input_type );
+		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->getInputType() );
 
-		if (! is_null( $template_field->input_type ) ) {
-			$cur_input_type = $template_field->input_type;
+		if (! is_null( $template_field->getInputType() ) ) {
+			$cur_input_type = $template_field->getInputType();
 		} elseif (! is_null( $default_input_type ) ) {
 			$cur_input_type = $default_input_type;
 		} else {
@@ -214,20 +227,19 @@ END;
 	// such templates in form definitions gets more sophisticated
 	function createMarkup( $part_of_multiple, $is_last_field_in_template ) {
 		$text = "";
-		if ( $this->template_field->label != "" ) {
+		if ( $this->template_field->getLabel() != '' ) {
 			if ( $part_of_multiple ) {
-				$text .= "'''" . $this->template_field->label .  ":''' ";
+				$text .= "'''" . $this->template_field->getLabel() . ":''' ";
 			} else {
-				$text .= "! " . $this->template_field->label . ":\n";
+				$text .= "! " . $this->template_field->getLabel() . ":\n";
 			}
 		}
 		if ( ! $part_of_multiple ) { $text .= "| "; }
-		$text .= "{{{field|" . $this->template_field->field_name;
+		$text .= "{{{field|" . $this->template_field->getFieldName();
 		if ( $this->is_hidden ) {
 			$text .= "|hidden";
-		} elseif ( isset( $this->template_field->input_type ) &&
-			$this->template_field->input_type != null ) {
-			$text .= "|input type=" . $this->template_field->input_type;
+		} elseif ( $this->template_field->getInputType() != '' ) {
+			$text .= "|input type=" . $this->template_field->getInputType();
 		}
 		foreach ( $this->field_args as $arg => $value ) {
 			if ( $value === true ) {
@@ -264,25 +276,25 @@ END;
 		if ( $this->possible_values != null )
 			$other_args['possible_values'] = $this->possible_values;
 		else {
-			$other_args['possible_values'] = $this->template_field->possible_values;
-			$other_args['value_labels'] = $this->template_field->value_labels;
+			$other_args['possible_values'] = $this->template_field->getPossibleValues();
+			$other_args['value_labels'] = $this->template_field->getValueLabels();
 		}
-		$other_args['is_list'] = ( $this->is_list || $this->template_field->is_list );
-		if ( $this->template_field->semantic_property != '' &&
+		$other_args['is_list'] = ( $this->is_list || $this->template_field->getIsList() );
+		if ( $this->template_field->getSemanticProperty() != '' &&
 			! array_key_exists( 'semantic_property', $other_args ) ) {
-			$other_args['semantic_property'] = $this->template_field->semantic_property;
-			$other_args['property_type'] = $this->template_field->property_type;
+			$other_args['semantic_property'] = $this->template_field->getSemanticProperty();
+			$other_args['property_type'] = $this->template_field->getPropertyType();
 		}
 		// If autocompletion hasn't already been hardcoded in the form,
 		// and it's a property of type page, or a property of another
 		// type with 'autocomplete' specified, set the necessary
 		// parameters.
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
-			if ( $this->template_field->property_type == '_wpg' ) {
-				$other_args['autocompletion source'] = $this->template_field->semantic_property;
+			if ( $this->template_field->getPropertyType() == '_wpg' ) {
+				$other_args['autocompletion source'] = $this->template_field->getSemanticProperty();
 				$other_args['autocomplete field type'] = 'relation';
 			} elseif ( array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
-				$other_args['autocompletion source'] = $this->template_field->semantic_property;
+				$other_args['autocompletion source'] = $this->template_field->getSemanticProperty();
 				$other_args['autocomplete field type'] = 'attribute';
 			}
 		}
