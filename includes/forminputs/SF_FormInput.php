@@ -90,7 +90,7 @@ abstract class SFFormInput {
 	/**
 	 * Returns the set of parameters for this form input.
 	 */
-	public static function getAllowedParameters() {
+	public static function getParameters() {
 		$params = array();
 		$params[] = array( 'name' => 'mandatory', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_mandatory' ) );
 		$params[] = array( 'name' => 'restricted', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_restricted' ) );
