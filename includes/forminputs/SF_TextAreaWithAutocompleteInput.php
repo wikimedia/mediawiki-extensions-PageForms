@@ -93,6 +93,11 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 			$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
 			$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
 		}
+		// Bug in Xml::element()? It doesn't close the textarea tag
+		// properly if the text inside is null - set it to '' instead.
+		if ( is_null( $cur_value ) ) {
+			$cur_value = '';
+		}
 		$textarea_input = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
 		$text .= $textarea_input;
 
