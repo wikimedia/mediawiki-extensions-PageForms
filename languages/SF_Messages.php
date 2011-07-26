@@ -4934,7 +4934,7 @@ $messages['nds'] = array(
  * @author Servien
  */
 $messages['nds-nl'] = array(
-	'sf_createform_add' => 'Toevoegen',
+	'sf_createform_add' => 'Derbie doon',
 );
 
 /** Dutch (Nederlands)
