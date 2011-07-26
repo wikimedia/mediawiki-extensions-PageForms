@@ -663,7 +663,7 @@ END;
 						} elseif ( $component == 'hidden' ) {
 							$is_hidden = true;
 						} elseif ( $component == 'restricted' ) {
-							$is_restricted = true;
+							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
 						} elseif ( $component == 'uploadable' ) {
 							$field_args['is_uploadable'] = true;
 						} elseif ( $component == 'list' ) {
@@ -765,6 +765,11 @@ END;
 									// Parse value, so default filename can include parser functions.
 									$default_filename = $wgParser->recursiveTagParse( $default_filename );
 									$field_args['default filename'] = $default_filename;
+								} elseif ( $sub_components[0] == 'restricted' ) {
+									$is_restricted = !array_intersect(
+											$wgUser->getEffectiveGroups(),
+											array_map( 'trim', explode( ',', $sub_components[1] ) )
+									);
 								}
 							}
 						}
@@ -992,8 +997,7 @@ END;
 						}
 						// disable this field if either the whole form is disabled, or
 						// it's a restricted field and user doesn't have sysop privileges
-						$is_disabled = ( $form_is_disabled ||
-							( $is_restricted && ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) ) ) );
+						$is_disabled = ( $form_is_disabled || $is_restricted );
 						// Create an SFFormField instance based on all the parameters
 						// in the form definition, and any information from the template
 						// definition (contained in the $all_fields parameter).
