@@ -211,7 +211,7 @@ class SFUtils {
 				$form_input_array = $sf_array['sf'];
 				$smw_array = $fieldObj->getObject('Property');   //this returns an array with property values filled			
 				$prop_array = $smw_array['smw'];
-				$field_t = SFTemplateField::create( $fieldObj->getName(), $fieldObj->getLabel(), $prop_array['name'], $fieldObj->isList() );
+				$field_t = SFTemplateField::create( $fieldObj->getName(), $fieldObj->getLabel(), $prop_array['name'], $fieldObj->isList() ,$fieldObj->getDelimiter());
 				$template_fields[] = $field_t;
 			}
 			$template_text = SFTemplateField::createTemplateText( $template->getName(), $template_fields, null, $psSchemaObj->categoryName, null, 	null, null );
