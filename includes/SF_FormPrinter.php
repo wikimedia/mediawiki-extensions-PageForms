@@ -328,7 +328,7 @@ END;
 		//$userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
 		$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
 		$userCanEditPage = count( $permissionErrors ) == 0;
-		wfRunHooks( 'sfUserCanEditPage', array( &$userCanEditPage ) );
+		wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
 		$form_text = "";
 		if ( $userCanEditPage || $is_query ) {
 			$form_is_disabled = false;
