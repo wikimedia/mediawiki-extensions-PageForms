@@ -1451,7 +1451,7 @@ END;
 		$template_field = $form_field->getTemplateField();
 
 		if ( $form_field->isHidden() ) {
-			$text = SFFormUtils::hiddenFieldHTML( $form_field->input_name, $cur_value );
+			$text = SFFormUtils::hiddenFieldHTML( $form_field->getInputName(), $cur_value );
 		} elseif ( $form_field->getInputType() != '' &&
 							array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 							$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
