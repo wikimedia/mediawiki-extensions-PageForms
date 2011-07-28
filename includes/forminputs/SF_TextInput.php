@@ -49,17 +49,20 @@ class SFTextInput extends SFFormInput {
 	public static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
 		$upload_window_page = SpecialPage::getPage( 'UploadWindow' );
 		$query_string = "sfInputID=$input_id";
-		if ( $delimiter != null )
+		if ( $delimiter != null ) {
 			$query_string .= "&sfDelimiter=$delimiter";
-		if ( $default_filename != null )
+		}
+		if ( $default_filename != null ) {
 			$query_string .= "&wpDestFile=$default_filename";
+		}
 		$upload_window_url = $upload_window_page->getTitle()->getFullURL( $query_string );
 		$upload_label = wfMsg( 'upload' );
 		// window needs to be bigger for MediaWiki version 1.16+
-		if ( class_exists( 'HTMLForm' ) )
+		if ( class_exists( 'HTMLForm' ) ) {
 			$style = "width:650 height:500";
-		else
+		} else {
 			$style = '';
+		}
 
 		$linkAttrs = array(
 			'href' => $upload_window_url,
@@ -80,12 +83,12 @@ class SFTextInput extends SFFormInput {
 			return SFTextWithAutocompleteInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 		}
 
-		$className = "createboxInput";
+		$className = 'createboxInput';
 		if ( $is_mandatory ) {
-			$className .= " mandatoryField";
+			$className .= ' mandatoryField';
 		}
 		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= " " . $other_args['class'];
+			$className .= ' ' . $other_args['class'];
 		}
 		$input_id = "input_$sfgFieldNum";
 		// Set size based on pre-set size, or field type - if field
@@ -130,7 +133,7 @@ class SFTextInput extends SFFormInput {
 				if ( array_key_exists( 'delimiter', $other_args ) ) {
 					$delimiter = $other_args['delimiter'];
 				} else {
-					$delimiter = ",";
+					$delimiter = ',';
 				}
 			} else {
 				$delimiter = null;
@@ -138,25 +141,43 @@ class SFTextInput extends SFFormInput {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
 				$default_filename = $other_args['default filename'];
 			} else {
-				$default_filename = "";
+				$default_filename = '';
 			}
 			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
 		}
-		$spanClass = "inputSpan";
+		$spanClass = 'inputSpan';
 		if ( $inputType != '' ) {
 			$spanClass .= " {$inputType}Input";
 		}
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_size' ) );
-		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
-		$params[] = array( 'name' => 'uploadable', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_uploadable' ) );
-		$params[] = array( 'name' => 'default filename', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_defaultfilename' ) );
+		$params[] = array(
+			'name' => 'size',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_size' )
+		);
+		$params[] = array(
+			'name' => 'maxlength',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_maxlength' )
+		);
+		$params[] = array(
+			'name' => 'uploadable',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_uploadable' )
+		);
+		$params[] = array(
+			'name' => 'default filename',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_defaultfilename' )
+		);
 		return $params;
 	}
 
@@ -164,6 +185,12 @@ class SFTextInput extends SFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

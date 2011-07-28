@@ -24,26 +24,31 @@ class SFListBoxInput extends SFMultiEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
-		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
+		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= " " . $other_args['class'];
+			$className .= ' ' . $other_args['class'];
 		}
 		$input_id = "input_$sfgFieldNum";
 		// get list delimiter - default is comma
 		if ( array_key_exists( 'delimiter', $other_args ) ) {
 			$delimiter = $other_args['delimiter'];
 		} else {
-			 $delimiter = ",";
+			$delimiter = ',';
 		}
 		$cur_values = SFUtils::getValuesArray( $cur_value, $delimiter );
-		$className .= " sfShowIfSelected";
+		$className .= ' sfShowIfSelected';
 
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
 			$possible_values = array();
 		}
-		$optionsText = "";
+		$optionsText = '';
 		foreach ( $possible_values as $possible_value ) {
-			if ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) ) {
+			if (
+				array_key_exists( 'value_labels', $other_args ) &&
+				is_array( $other_args['value_labels'] ) &&
+				array_key_exists( $possible_value, $other_args['value_labels'] )
+			)
+			{
 				$optionLabel = $other_args['value_labels'][$possible_value];
 			} else {
 				$optionLabel = $possible_value;
@@ -88,7 +93,11 @@ class SFListBoxInput extends SFMultiEnumInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_listboxsize' ) );
+		$params[] = array(
+			'name' => 'size',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_listboxsize' )
+		);
 		return $params;
 	}
 
@@ -96,6 +105,12 @@ class SFListBoxInput extends SFMultiEnumInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

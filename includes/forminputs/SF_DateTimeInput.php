@@ -38,13 +38,23 @@ class SFDateTimeInput extends SFDateInput {
 			// depending on whether it came from user input or a
 			// wiki page.
 			if ( is_array( $datetime ) ) {
-				if ( isset( $datetime['hour'] ) ) $hour = $datetime['hour'];
-				if ( isset( $datetime['minute'] ) ) $minute = $datetime['minute'];
-				if ( isset( $datetime['second'] ) ) $second = $datetime['second'];
-				if ( ! $sfg24HourTime ) {
-					if ( isset( $datetime['ampm24h'] ) ) $ampm24h = $datetime['ampm24h'];
+				if ( isset( $datetime['hour'] ) ) {
+					$hour = $datetime['hour'];
 				}
-				if ( isset( $datetime['timezone'] ) ) $timezone = $datetime['timezone'];
+				if ( isset( $datetime['minute'] ) ) {
+					$minute = $datetime['minute'];
+				}
+				if ( isset( $datetime['second'] ) ) {
+					$second = $datetime['second'];
+				}
+				if ( !$sfg24HourTime ) {
+					if ( isset( $datetime['ampm24h'] ) ) {
+						$ampm24h = $datetime['ampm24h'];
+					}
+				}
+				if ( isset( $datetime['timezone'] ) ) {
+					$timezone = $datetime['timezone'];
+				}
 			} else {
 				// TODO - this should change to use SMW's own
 				// date-handling class, just like
@@ -62,16 +72,16 @@ class SFDateTimeInput extends SFDateInput {
 					$actual_date = strtotime( $datetime );
 				}
 				if ( $sfg24HourTime ) {
-					$hour = date( "G", $actual_date );
+					$hour = date( 'G', $actual_date );
 				} else {
-					$hour = date( "g", $actual_date );
+					$hour = date( 'g', $actual_date );
 				}
-				$minute = date( "i", $actual_date );
-				$second = date( "s", $actual_date );
-				if ( ! $sfg24HourTime ) {
-					$ampm24h = date( "A", $actual_date );
+				$minute = date( 'i', $actual_date );
+				$second = date( 's', $actual_date );
+				if ( !$sfg24HourTime ) {
+					$ampm24h = date( 'A', $actual_date );
 				}
-				$timezone = date( "T", $actual_date );
+				$timezone = date( 'T', $actual_date );
 				// Restore back to the server's timezone.
 				if ( $datetime == 'now' ) {
 					if ( isset( $wgLocaltimezone ) ) {
@@ -83,20 +93,20 @@ class SFDateTimeInput extends SFDateInput {
 			$cur_date = getdate();
 			$hour = null;
 			$minute = null;
-			$second = "00"; // default at least this value
-			$ampm24h = "";
-			$timezone = "";
+			$second = '00'; // default at least this value
+			$ampm24h = '';
+			$timezone = '';
 		}
 
 		$text = parent::getMainHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args );
-		$disabled_text = ( $is_disabled ) ? "disabled" : "";
+		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
 		$text .= '	&#160;<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[hour]" type="text" value="' . $hour . '" size="2"/ ' . $disabled_text . '>';
 		$sfgTabIndex++;
 		$text .= '	:<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[minute]" type="text" value="' . $minute . '" size="2"/ ' . $disabled_text . '>';
 		$sfgTabIndex++;
 		$text .= ':<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[second]" type="text" value="' . $second . '" size="2"/ ' . $disabled_text . '>' . "\n";
 
-		if ( ! $sfg24HourTime ) {
+		if ( !$sfg24HourTime ) {
 			$sfgTabIndex++;
 			$text .= '	 <select tabindex="' . $sfgTabIndex . '" name="' . $input_name . "[ampm24h]\" $disabled_text>\n";
 			$ampm24h_options = array( '', 'AM', 'PM' );
@@ -118,7 +128,11 @@ class SFDateTimeInput extends SFDateInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'include timezone', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_includetimezone' ) );
+		$params[] = array(
+			'name' => 'include timezone',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_includetimezone' )
+		);
 		return $params;
 	}
 
@@ -126,6 +140,12 @@ class SFDateTimeInput extends SFDateInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

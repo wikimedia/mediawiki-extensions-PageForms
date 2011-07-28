@@ -36,7 +36,6 @@ abstract class SFFormInput {
 	private $mJsInitFunctionData = array();
 	private $mJsValidationFunctionData = array();
 
-
 	/**
 	 * Constructor for the SFFormInput class.
 	 *
@@ -53,13 +52,11 @@ abstract class SFFormInput {
 	 *		An associative array of other parameters that were present in the
 	 *		input definition.
 	 */
-	public function __construct ( $input_number, $cur_value, $input_name, $other_args ) {
-
+	public function __construct( $input_number, $cur_value, $input_name, $other_args ) {
 		$this->mInputNumber = $input_number;
 		$this->mCurrentValue = $cur_value;
 		$this->mInputName = $input_name;
 		$this->mOtherArgs = $other_args;
-
 	}
 
 	/**
@@ -92,11 +89,31 @@ abstract class SFFormInput {
 	 */
 	public static function getParameters() {
 		$params = array();
-		$params[] = array( 'name' => 'mandatory', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_mandatory' ) );
-		$params[] = array( 'name' => 'restricted', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_restricted' ) );
-		$params[] = array( 'name' => 'class', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_class' ) );
-		$params[] = array( 'name' => 'property', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_property' ) );
-		$params[] = array( 'name' => 'default', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_default' ) );
+		$params[] = array(
+			'name' => 'mandatory',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_mandatory' )
+		);
+		$params[] = array(
+			'name' => 'restricted',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_restricted' )
+		);
+		$params[] = array(
+			'name' => 'class',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_class' )
+		);
+		$params[] = array(
+			'name' => 'property',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_property' )
+		);
+		$params[] = array(
+			'name' => 'default',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_default' )
+		);
 		return $params;
 	}
 
@@ -114,7 +131,7 @@ abstract class SFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 *
 	 * Ideally this HTML code should provide a basic functionality even if the
-	 * browser is not Javascript capable. I.e. even without Javascript the user
+	 * browser is not JavaScript capable. I.e. even without JavaScript the user
 	 * should be able to input values.
 	 *
 	 * This function is not used yet.
@@ -131,8 +148,8 @@ abstract class SFFormInput {
 		return false;
 	}
 
-		/**
-	 * Returns the name and parameters for the initialization Javascript
+	/**
+	 * Returns the name and parameters for the initialization JavaScript
 	 * function for this input type, if any.
 	 *
 	 * This function is not used yet.
@@ -142,7 +159,7 @@ abstract class SFFormInput {
 	}
 
 	/**
-	 * Returns the name and parameters for the validation Javascript
+	 * Returns the name and parameters for the validation JavaScript
 	 * functions for this input type, if any.
 	 *
 	 * This function is not used yet.
@@ -206,14 +223,6 @@ abstract class SFFormInput {
 	final public function addJsValidationFunctionData( $name, $param ) {
 		$this->mJsInitFunctionData[] = array( 'name' => $name, 'param' => $param );
 	}
-
-
-
-
-
-
-
-
 
 	/**
 	 * Returns the set of SMW property types for which this input is

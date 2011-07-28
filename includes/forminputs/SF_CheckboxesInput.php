@@ -34,29 +34,37 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
-		$checkbox_class = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
-		$span_class = "checkboxSpan";
-		if ( array_key_exists( 'class', $other_args ) )
-			$span_class .= " " . $other_args['class'];
+		$checkbox_class = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
+		$span_class = 'checkboxSpan';
+		if ( array_key_exists( 'class', $other_args ) ) {
+			$span_class .= ' ' . $other_args['class'];
+		}
 		$input_id = "input_$sfgFieldNum";
 		// get list delimiter - default is comma
 		if ( array_key_exists( 'delimiter', $other_args ) ) {
 			$delimiter = $other_args['delimiter'];
 		} else {
-			$delimiter = ",";
+			$delimiter = ',';
 		}
 		$cur_values = SFUtils::getValuesArray( $cur_value, $delimiter );
 
-		if ( ( $possible_values = $other_args['possible_values'] ) == null )
+		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
 			$possible_values = array();
-		$text = "";
+		}
+		$text = '';
 		foreach ( $possible_values as $key => $possible_value ) {
-			$cur_input_name = $input_name . "[" . $key . "]";
+			$cur_input_name = $input_name . '[' . $key . ']';
 
-			if ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) )
+			if (
+				array_key_exists( 'value_labels', $other_args ) &&
+				is_array( $other_args['value_labels'] ) &&
+				array_key_exists( $possible_value, $other_args['value_labels'] )
+			)
+			{
 				$label = $other_args['value_labels'][$possible_value];
-			else
+			} else {
 				$label = $possible_value;
+			}
 
 			$checkbox_attrs = array(
 				'type' => 'checkbox',
@@ -84,13 +92,13 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 		}
 
 		$outerSpanID = "span_$sfgFieldNum";
-		$outerSpanClass = "checkboxesSpan";
+		$outerSpanClass = 'checkboxesSpan';
 		if ( $is_mandatory ) {
-			$outerSpanClass .= " mandatoryFieldSpan";
+			$outerSpanClass .= ' mandatoryFieldSpan';
 		}
 
 		if ( array_key_exists( 'show on select', $other_args ) ) {
-			$outerSpanClass .= " sfShowIfChecked";
+			$outerSpanClass .= ' sfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $outerSpanID, $sfgShowOnSelect ) ) {
 					$sfgShowOnSelect[$outerSpanID][] = array( $options, $div_id );
@@ -111,6 +119,12 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

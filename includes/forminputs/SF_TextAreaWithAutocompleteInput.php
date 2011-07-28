@@ -45,10 +45,11 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = SFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
 
-		$className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
-		if ( array_key_exists( 'class', $other_args ) )
-			$className .= " " . $other_args['class'];
-		$input_id = "input_" . $sfgFieldNum;
+		$className = ( $is_mandatory ) ? 'autocompleteInput mandatoryField' : 'autocompleteInput createboxInput';
+		if ( array_key_exists( 'class', $other_args ) ) {
+			$className .= ' ' . $other_args['class'];
+		}
+		$input_id = 'input_' . $sfgFieldNum;
 
 		if ( array_key_exists( 'rows', $other_args ) ) {
 			$rows = $other_args['rows'];
@@ -60,7 +61,7 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		} else {
 			$cols = 80;
 		}
-		$text = "";
+		$text = '';
 		if ( array_key_exists( 'autogrow', $other_args ) ) {
 			$className .= ' autoGrow';
 		}
@@ -105,13 +106,15 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
 				$default_filename = $other_args['default filename'];
 			} else {
-				$default_filename = "";
+				$default_filename = '';
 			}
 			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
 		}
 
-		$spanClass = "inputSpan";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$spanClass = 'inputSpan';
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
@@ -127,6 +130,12 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

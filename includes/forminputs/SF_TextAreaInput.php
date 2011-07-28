@@ -35,12 +35,12 @@ class SFTextAreaInput extends SFFormInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum;
 
-		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
+		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= " " . $other_args['class'];
 		}
 		// Use a special ID for the free text field, for FCK's needs.
-		$input_id = $input_name == "free_text" ? "free_text" : "input_$sfgFieldNum";
+		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
 
 		if ( array_key_exists( 'rows', $other_args ) ) {
 			$rows = $other_args['rows'];
@@ -63,7 +63,7 @@ class SFTextAreaInput extends SFFormInput {
 		if ( array_key_exists( 'cols', $other_args ) ) {
 			$textarea_attrs['cols'] = $other_args['cols'];
 		} else {
-			$textarea_attrs['style'] = "width: 100%";
+			$textarea_attrs['style'] = 'width: 100%';
 		}
 
 		if ( $is_disabled ) {
@@ -88,19 +88,41 @@ class SFTextAreaInput extends SFFormInput {
 			$cur_value = '';
 		}
 		$text = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
-		$spanClass = "inputSpan";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$spanClass = 'inputSpan';
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'preload', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_preload' ) );
-		$params[] = array( 'name' => 'rows', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_rows' ) );
-		$params[] = array( 'name' => 'cols', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_cols' ) );
-		$params[] = array( 'name' => 'maxlength', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_maxlength' ) );
-		$params[] = array( 'name' => 'autogrow', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_autogrow' ) );
+		$params[] = array(
+			'name' => 'preload',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_preload' )
+		);
+		$params[] = array(
+			'name' => 'rows',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_rows' )
+		);
+		$params[] = array(
+			'name' => 'cols',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_cols' )
+		);
+		$params[] = array(
+			'name' => 'maxlength',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_maxlength' )
+		);
+		$params[] = array(
+			'name' => 'autogrow',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_autogrow' )
+		);
 		return $params;
 	}
 
@@ -108,6 +130,12 @@ class SFTextAreaInput extends SFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

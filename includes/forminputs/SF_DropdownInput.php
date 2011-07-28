@@ -33,13 +33,13 @@ class SFDropdownInput extends SFEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
-		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
+		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= " " . $other_args['class'];
+			$className .= ' ' . $other_args['class'];
 		}
 		$input_id = "input_$sfgFieldNum";
 		if ( array_key_exists( 'show on select', $other_args ) ) {
-			$className .= " sfShowIfSelected";
+			$className .= ' sfShowIfSelected';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $input_id, $sfgShowOnSelect ) ) {
 					$sfgShowOnSelect[$input_id][] = array( $options, $div_id );
@@ -48,12 +48,12 @@ class SFDropdownInput extends SFEnumInput {
 				}
 			}
 		}
-		$innerDropdown = "";
+		$innerDropdown = '';
 		// Add a blank value at the beginning, unless this is a
 		// mandatory field and there's a current value in place
 		// (either through a default value or because we're editing
 		// an existing page).
-		if ( ! $is_mandatory || $cur_value == '' ) {
+		if ( !$is_mandatory || $cur_value == '' ) {
 			$innerDropdown .= "	<option value=\"\"></option>\n";
 		}
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
@@ -73,7 +73,12 @@ class SFDropdownInput extends SFEnumInput {
 			if ( $possible_value == $cur_value ) {
 				$optionAttrs['selected'] = "selected";
 			}
-			if ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) ) {
+			if (
+				array_key_exists( 'value_labels', $other_args ) &&
+				is_array( $other_args['value_labels'] ) &&
+				array_key_exists( $possible_value, $other_args['value_labels'] )
+			)
+			{
 				$label = $other_args['value_labels'][$possible_value];
 			} else {
 				$label = $possible_value;
@@ -90,8 +95,10 @@ class SFDropdownInput extends SFEnumInput {
 			$selectAttrs['disabled'] = 'disabled';
 		}
 		$text = Xml::tags( 'select', $selectAttrs, $innerDropdown );
-		$spanClass = "inputSpan";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$spanClass = 'inputSpan';
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
@@ -100,6 +107,12 @@ class SFDropdownInput extends SFEnumInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

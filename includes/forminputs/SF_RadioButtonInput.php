@@ -40,26 +40,27 @@ class SFRadioButtonInput extends SFEnumInput {
 		// mandatory field and there's a current value in place (either
 		// through a default value or because we're editing an existing
 		// page).
-		if ( ! $is_mandatory || $cur_value == '' ) {
+		if ( !$is_mandatory || $cur_value == '' ) {
 			array_unshift( $possible_values, '' );
 		}
 
 		// Set $cur_value to be one of the allowed options, if it isn't
 		// already - that makes it easier to automatically have one of
 		// the radiobuttons be checked at the beginning.
-		if ( ! in_array( $cur_value, $possible_values ) ) {
-			if ( in_array( '', $possible_values ) )
+		if ( !in_array( $cur_value, $possible_values ) ) {
+			if ( in_array( '', $possible_values ) ) {
 				$cur_value = '';
-			else
+			} else {
 				$cur_value = $possible_values[0];
+			}
 		}
 
 		$text = '';
-		$itemClass = "radioButtonItem";
+		$itemClass = 'radioButtonItem';
 		if ( array_key_exists( 'class', $other_args ) ) {
-			$itemClass .= " " . $other_args['class'];
+			$itemClass .= ' ' . $other_args['class'];
 		}
-		$itemAttrs = array ( 'class' => $itemClass );
+		$itemAttrs = array( 'class' => $itemClass );
 
 		foreach ( $possible_values as $i => $possible_value ) {
 			$sfgTabIndex++;
@@ -79,29 +80,37 @@ class SFRadioButtonInput extends SFEnumInput {
 			if ( $is_disabled ) {
 				$radiobutton_attrs['disabled'] = 'disabled';
 			}
-			if ( $possible_value == '' ) // blank/"None" value
+			if ( $possible_value == '' ) { // blank/"None" value
 				$label = wfMsg( 'sf_formedit_none' );
-			elseif ( array_key_exists( 'value_labels', $other_args ) && is_array( $other_args['value_labels'] ) && array_key_exists( $possible_value, $other_args['value_labels'] ) )
+			} elseif (
+				array_key_exists( 'value_labels', $other_args ) &&
+				is_array( $other_args['value_labels'] ) &&
+				array_key_exists( $possible_value, $other_args['value_labels'] )
+			)
+			{
 				$label = htmlspecialchars( $other_args['value_labels'][$possible_value] );
-			else
+			} else {
 				$label = $possible_value;
+			}
 
-			$text .= "\t" . Xml::openElement( 'span', $itemAttrs ) . Xml::element ( 'input', $radiobutton_attrs ) . " $label\n" . Xml::closeElement( 'span' );
+			$text .= "\t" . Xml::openElement( 'span', $itemAttrs ) .
+				Xml::element( 'input', $radiobutton_attrs ) . " $label\n" .
+				Xml::closeElement( 'span' );
 		}
 
-		$spanClass = "radioButtonSpan";
+		$spanClass = 'radioButtonSpan';
 		if ( array_key_exists( 'class', $other_args ) ) {
-			$spanClass .= " " . $other_args['class'];
+			$spanClass .= ' ' . $other_args['class'];
 		}
 		if ( $is_mandatory ) {
-			$spanClass .= " mandatoryFieldSpan";
+			$spanClass .= ' mandatoryFieldSpan';
 		}
 
 		$spanID = "span_$sfgFieldNum";
 
 		// Do the 'show on select' handling.
 		if ( array_key_exists( 'show on select', $other_args ) ) {
-			$spanClass .= " sfShowIfChecked";
+			$spanClass .= ' sfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $spanID, $sfgShowOnSelect ) ) {
 					$sfgShowOnSelect[$spanID][] = array( $options, $div_id );
@@ -123,6 +132,12 @@ class SFRadioButtonInput extends SFEnumInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

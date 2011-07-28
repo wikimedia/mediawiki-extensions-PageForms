@@ -27,11 +27,11 @@ class SFDateInput extends SFFormInput {
 	public static function monthDropdownHTML( $cur_month, $input_name, $is_disabled ) {
 		global $sfgTabIndex, $wgAmericanDates;
 
-		$optionsText = "";
+		$optionsText = '';
 		$month_names = SFFormUtils::getMonthNames();
 		foreach ( $month_names as $i => $name ) {
 			// pad out month to always be two digits
-			$month_value = ( $wgAmericanDates == true ) ? $name : str_pad( $i + 1, 2, "0", STR_PAD_LEFT );
+			$month_value = ( $wgAmericanDates == true ) ? $name : str_pad( $i + 1, 2, '0', STR_PAD_LEFT );
 			$optionAttrs = array ( 'value' => $month_value );
 			if ( $name == $cur_month || ( $i + 1 ) == $cur_month ) {
 				$optionAttrs['selected'] = 'selected';
@@ -81,7 +81,9 @@ class SFDateInput extends SFFormInput {
 				$year = $actual_date->getYear();
 				// TODO - the code to convert from negative to
 				// BC notation should be in SMW itself.
-				if ( $year < 0 ) { $year = ( $year * - 1 + 1 ) . " BC"; }
+				if ( $year < 0 ) {
+					$year = ( $year * - 1 + 1 ) . ' BC';
+				}
 				$month = $actual_date->getMonth();
 				$day = $actual_date->getDay();
 			}
@@ -92,7 +94,7 @@ class SFDateInput extends SFFormInput {
 			$day = null; // no need for day
 		}
 		$text = "";
-		$disabled_text = ( $is_disabled ) ? "disabled" : "";
+		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
 		$monthInput = self::monthDropdownHTML( $month, $input_name, $is_disabled );
 		$dayInput = '	<input tabindex="' . $sfgTabIndex . '" class="dayInput" name="' . $input_name . '[day]" type="text" value="' . $day . '" size="2" ' . $disabled_text . '/>';
 		if ( $wgAmericanDates ) {
@@ -106,8 +108,10 @@ class SFDateInput extends SFFormInput {
 
 	public static function getHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		$text = self::getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args );
-		$spanClass = "dateInput";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$spanClass = 'dateInput';
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
@@ -116,6 +120,12 @@ class SFDateInput extends SFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

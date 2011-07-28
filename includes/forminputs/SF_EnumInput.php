@@ -25,18 +25,42 @@ abstract class SFEnumInput extends SFFormInput {
 
 	public static function getValuesParameters() {
 		$params = array();
-		$params[] = array( 'name' => 'values', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_values' ) );
-		$params[] = array( 'name' => 'values from property', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromproperty' ) );
-		$params[] = array( 'name' => 'values from category', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromcategory' ) );
-		$params[] = array( 'name' => 'values from namespace', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromnamespace' ) );
-		$params[] = array( 'name' => 'values from concept', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromconcept' ) );
+		$params[] = array(
+			'name' => 'values',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_values' )
+		);
+		$params[] = array(
+			'name' => 'values from property',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_valuesfromproperty' )
+		);
+		$params[] = array(
+			'name' => 'values from category',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_valuesfromcategory' )
+		);
+		$params[] = array(
+			'name' => 'values from namespace',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_valuesfromnamespace' )
+		);
+		$params[] = array(
+			'name' => 'values from concept',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_valuesfromconcept' )
+		);
 		return $params;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params = array_merge( $params, self::getValuesParameters() );
-		$params[] = array( 'name' => 'show on select', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_showonselect' ) );
+		$params[] = array(
+			'name' => 'show on select',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_showonselect' )
+		);
 		return $params;
 	}
 }

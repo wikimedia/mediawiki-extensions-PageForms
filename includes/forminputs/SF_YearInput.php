@@ -43,11 +43,31 @@ class SFYearInput extends SFTextInput {
 
 	public static function getParameters() {
 		$params = array();
-		$params[] = array( 'name' => 'mandatory', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_mandatory' ) );
-		$params[] = array( 'name' => 'restricted', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_restricted' ) );
-		$params[] = array( 'name' => 'class', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_class' ) );
-		$params[] = array( 'name' => 'default', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_default' ) );
-		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_size' ) );
+		$params[] = array(
+			'name' => 'mandatory',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_mandatory' )
+		);
+		$params[] = array(
+			'name' => 'restricted',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_restricted' )
+		);
+		$params[] = array(
+			'name' => 'class',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_class' )
+		);
+		$params[] = array(
+			'name' => 'default',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_default' )
+		);
+		$params[] = array(
+			'name' => 'size',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_size' )
+		);
 		return $params;
 	}
 
@@ -55,6 +75,12 @@ class SFYearInput extends SFTextInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

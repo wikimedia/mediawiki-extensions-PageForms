@@ -101,12 +101,12 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		$autocompleteSettings = $autocompletionSource;
 		$is_list = ( array_key_exists( 'is_list', $field_args ) && $field_args['is_list'] == true );
 		if ( $is_list ) {
-			$autocompleteSettings .= ",list";
+			$autocompleteSettings .= ',list';
 			if ( array_key_exists( 'delimiter', $field_args ) ) {
 				$delimiter = $field_args['delimiter'];
-				$autocompleteSettings .= "," . $delimiter;
+				$autocompleteSettings .= ',' . $delimiter;
 			} else {
-				$delimiter = ",";
+				$delimiter = ',';
 			}
 		} else {
 			$delimiter = null;
@@ -144,17 +144,18 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
 
-		$className = ( $is_mandatory ) ? "autocompleteInput mandatoryField" : "autocompleteInput createboxInput";
-		if ( array_key_exists( 'class', $other_args ) )
-			$className .= " " . $other_args['class'];
-		$input_id = "input_" . $sfgFieldNum;
+		$className = ( $is_mandatory ) ? 'autocompleteInput mandatoryField' : 'autocompleteInput createboxInput';
+		if ( array_key_exists( 'class', $other_args ) ) {
+			$className .= ' ' . $other_args['class'];
+		}
+		$input_id = 'input_' . $sfgFieldNum;
 
 		if ( array_key_exists( 'size', $other_args ) ) {
 			$size = $other_args['size'];
 		} elseif ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] ) {
-			$size = "100";
+			$size = '100';
 		} else {
-			$size = "35";
+			$size = '35';
 		}
 
 		$inputAttrs = array(
@@ -182,13 +183,15 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
 				$default_filename = $other_args['default filename'];
 			} else {
-				$default_filename = "";
+				$default_filename = '';
 			}
 			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
 		}
 
-		$spanClass = "inputSpan";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$spanClass = 'inputSpan';
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
@@ -196,10 +199,26 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 
 	public static function getAutocompletionParameters() {
 		$params = SFEnumInput::getValuesParameters();
-		$params[] = array( 'name' => 'values from url', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_valuesfromurl' ) );
-		$params[] = array( 'name' => 'remote autocompletion', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_remoteautocompletion' ) );
-		$params[] = array( 'name' => 'list', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_list' ) );
-		$params[] = array( 'name' => 'delimiter', 'type' => 'string', 'description' => wfMsg( 'sf_forminputs_delimiter' ) );
+		$params[] = array(
+			'name' => 'values from url',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_valuesfromurl' )
+		);
+		$params[] = array(
+			'name' => 'remote autocompletion',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_remoteautocompletion' )
+		);
+		$params[] = array(
+			'name' => 'list',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_list' )
+		);
+		$params[] = array(
+			'name' => 'delimiter',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_delimiter' )
+		);
 		return $params;
 	}
 
@@ -213,6 +232,12 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName, 
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

@@ -34,25 +34,25 @@ class SFComboBoxInput extends SFFormInput {
 
 		global $sfgTabIndex, $sfgFieldNum;
 
-		$className = "sfComboBox";
+		$className = 'sfComboBox';
 		if ( $is_mandatory ) {
-			$className .= " mandatoryField";
+			$className .= ' mandatoryField';
 		}
 		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= " " . $other_args['class'];
+			$className .= ' ' . $other_args['class'];
 		}
-		$disabled_text = ( $is_disabled ) ? "disabled" : "";
+		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
 
 		if ( array_key_exists( 'size', $other_args ) ) {
 			$size = $other_args['size'];
 		} else {
-			$size = "35";
+			$size = '35';
 		}
 		// There's no direct correspondence between the 'size='
 		// attribute for text inputs and the number of pixels, but
 		// multiplying by 6 seems to be about right for the major
 		// browsers.
-		$pixel_width = $size * 6 . "px";
+		$pixel_width = $size * 6 . 'px';
 
 		list( $autocompleteFieldType, $autocompletionSource ) =
 			SFTextWithAutocompleteInput::getAutocompletionTypeAndSource( $other_args );
@@ -87,17 +87,27 @@ class SFComboBoxInput extends SFFormInput {
 		}
 		$selectText = Xml::tags( 'select', $selectAttrs, $optionsText );
 
-		$divClass = "ui-widget";
-		if ( $is_mandatory ) { $divClass .= " mandatory"; }
+		$divClass = 'ui-widget';
+		if ( $is_mandatory ) {
+			$divClass .= ' mandatory';
+		}
 		$text = Xml::tags( 'div', array( 'class' => $divClass ), $selectText );
 		return $text;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array( 'name' => 'size', 'type' => 'int', 'description' => wfMsg( 'sf_forminputs_size' ) );
+		$params[] = array(
+			'name' => 'size',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_size' )
+		);
 		$params = array_merge( $params, SFEnumInput::getValuesParameters() );
-		$params[] = array( 'name' => 'existing values only', 'type' => 'boolean', 'description' => wfMsg( 'sf_forminputs_existingvaluesonly' ) );
+		$params[] = array(
+			'name' => 'existing values only',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_existingvaluesonly' )
+		);
 		return $params;
 	}
 
@@ -105,6 +115,12 @@ class SFComboBoxInput extends SFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

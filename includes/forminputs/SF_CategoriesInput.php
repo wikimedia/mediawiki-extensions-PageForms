@@ -26,21 +26,23 @@ class SFCategoriesInput extends SFCategoryInput {
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// escape if CategoryTree extension isn't included
-		if ( ! function_exists( 'efCategoryTreeParserHook' ) )
+		if ( !function_exists( 'efCategoryTreeParserHook' ) ) {
 			return null;
+		}
 
 		global $sfgTabIndex, $sfgFieldNum, $wgCapitalLinks;
 
-		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
-		if ( array_key_exists( 'class', $other_args ) )
-			$className .= " " . $other_args['class'];
+		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
+		if ( array_key_exists( 'class', $other_args ) ) {
+			$className .= ' ' . $other_args['class'];
+		}
 		$input_id = "input_$sfgFieldNum";
 		$info_id = "info_$sfgFieldNum";
 		// get list delimiter - default is comma
 		if ( array_key_exists( 'delimiter', $other_args ) ) {
 			$delimiter = $other_args['delimiter'];
 		} else {
-			$delimiter = ",";
+			$delimiter = ',';
 		}
 		$cur_values = SFUtils::getValuesArray( $cur_value, $delimiter );
 		if ( array_key_exists( 'top category', $other_args ) ) {
@@ -53,12 +55,12 @@ class SFCategoriesInput extends SFCategoryInput {
 		if ( array_key_exists( 'height', $other_args ) ) {
 			$height = $other_args['height'];
 		} else {
-			$height = "100";
+			$height = '100';
 		}
 		if ( array_key_exists( 'width', $other_args ) ) {
 			$width = $other_args['width'];
 		} else {
-			$width = "500";
+			$width = '500';
 		}
 
 		global $wgCategoryTreeMaxDepth;
@@ -74,7 +76,13 @@ class SFCategoriesInput extends SFCategoryInput {
 		// Some string that will hopefully never show up in a category,
 		// template or field name.
 		$dummy_str = 'REPLACE THIS STRING!';
-		$tree = preg_replace( '/(<a class="CategoryTreeLabel.*>)(.*)(<\/a>)/', '<input id="' . $input_id . '" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[' . $dummy_str . ']" value="$2" type="checkbox"> $1$2$3', $tree );
+		$tree = preg_replace(
+			'/(<a class="CategoryTreeLabel.*>)(.*)(<\/a>)/',
+			'<input id="' . $input_id . '" tabindex="' . $sfgTabIndex .
+				'" name="' . $input_name . '[' . $dummy_str .
+				']" value="$2" type="checkbox"> $1$2$3',
+			$tree
+		);
 		// replace values one at a time, by an incrementing index -
 		// inspired by http://bugs.php.net/bug.php?id=11457
 		$i = 0;
@@ -98,13 +106,20 @@ class SFCategoriesInput extends SFCategoryInput {
 		}
 
 		// Get rid of all the 'no subcategories' messages.
-		$tree = str_replace( '<div class="CategoryTreeChildren" style="display:block"><i class="CategoryTreeNotice">' . wfMsg( 'categorytree-no-subcategories' ) . '</i></div>', '', $tree );
+		$tree = str_replace(
+			'<div class="CategoryTreeChildren" style="display:block"><i class="CategoryTreeNotice">' .
+				wfMsg( 'categorytree-no-subcategories' ) . '</i></div>',
+			'',
+			$tree
+		);
 
 		$text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
 
 		$text .= SFFormUtils::hiddenFieldHTML( $input_name . '[is_list]', 1 );
-		$spanClass = "checkboxesSpan";
-		if ( $is_mandatory ) { $spanClass .= " mandatoryFieldSpan"; }
+		$spanClass = 'checkboxesSpan';
+		if ( $is_mandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
+		}
 		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text ) . "\n";
 
 		return $text;
@@ -114,6 +129,12 @@ class SFCategoriesInput extends SFCategoryInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }

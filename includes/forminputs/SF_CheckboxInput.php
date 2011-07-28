@@ -27,13 +27,14 @@ class SFCheckboxInput extends SFFormInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
-		$className = ( $is_mandatory ) ? "mandatoryField" : "createboxInput";
-		if ( array_key_exists( 'class', $other_args ) )
-			$className .= " " . $other_args['class'];
+		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
+		if ( array_key_exists( 'class', $other_args ) ) {
+			$className .= ' ' . $other_args['class'];
+		}
 		$input_id = "input_$sfgFieldNum";
-		$disabled_text = ( $is_disabled ) ? "disabled" : "";
+		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
 		if ( array_key_exists( 'show on select', $other_args ) ) {
-			$className .= " sfShowIfCheckedCheckbox";
+			$className .= ' sfShowIfCheckedCheckbox';
 			$div_id = key( $other_args['show on select'] );
 			$sfgShowOnSelect[$input_id] = $div_id;
 		}
@@ -41,7 +42,7 @@ class SFCheckboxInput extends SFFormInput {
 		// Can show up here either as an array or a string, depending on
 		// whether it came from user input or a wiki page
 		if ( is_array( $cur_value ) ) {
-			$checked_str = ( array_key_exists( 'value', $cur_value ) && $cur_value['value'] == 'on' ) ? ' checked="checked"' : "";
+			$checked_str = ( array_key_exists( 'value', $cur_value ) && $cur_value['value'] == 'on' ) ? ' checked="checked"' : '';
 		} else {
 			// Default to false - no need to check if it matches
 			// a 'false' word.
@@ -52,10 +53,10 @@ class SFCheckboxInput extends SFFormInput {
 			if ( version_compare( $wgVersion, '1.16', '<' ) ) {
 				wfLoadExtensionMessages( 'SemanticMediaWiki' );
 			}
-			if ( in_array( $vlc, explode( ',', wfMsgForContent( 'smw_true_words' ) ), TRUE ) ) {
+			if ( in_array( $vlc, explode( ',', wfMsgForContent( 'smw_true_words' ) ), true ) ) {
 				$checked_str = ' checked="checked"';
 			} else {
-				$checked_str = "";
+				$checked_str = '';
 			}
 		}
 		$text = <<<END
@@ -82,6 +83,12 @@ END;
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		return self::getHTML( $this -> mCurrentValue, $this -> mInputName, $this -> mIsMandatory, $this -> mIsDisabled, $mOtherArgs );
+		return self::getHTML(
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$mOtherArgs
+		);
 	}
 }
