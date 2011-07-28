@@ -129,10 +129,14 @@ class SFUtils {
 				// Something's wrong - exit
 				return $categories;
 			}
-			$conditions = "cl_from='$titlekey'";
+			$conditions['cl_from'] = $titlekey;
 		}
-		$res = $db->select( $db->tableName( 'categorylinks' ),
-			'distinct cl_to', $conditions, __METHOD__ );
+		$res = $db->select(
+			'categorylinks',
+			'DISTINCT cl_to',
+			$conditions,
+			__METHOD__
+		);
 		if ( $db->numRows( $res ) > 0 ) {
 			while ( $row = $db->fetchRow( $res ) ) {
 				$categories[] = $row[0];
