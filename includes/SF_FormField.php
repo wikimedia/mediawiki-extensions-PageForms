@@ -122,8 +122,8 @@ class SFFormField {
 		$this->mIsHidden = $isHidden;
 	}
 
-	public function setSemanticProperty( $semanticProperty ) {
-		$this->template_field->setSemanticProperty( $semanticProperty );
+	public function setFieldArg( $key, $value ) {
+		$this->mFieldArgs[$key] = $value;
 	}
 
 	function inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $cur_input_type ) {
