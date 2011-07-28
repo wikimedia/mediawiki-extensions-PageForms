@@ -1012,7 +1012,7 @@ END;
 						// it seemed like too much work, though, to create an
 						// SFFormField::setSemanticProperty() function just for this call
 						if ( $semantic_property != null ) {
-							$form_field->setSemanticProperty( $semantic_property );
+							$form_field->template_field->setSemanticProperty( $semantic_property );
 						}
 
 						// call hooks - unfortunately this has to be split into two
