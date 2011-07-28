@@ -192,7 +192,7 @@ jQuery(document).ready(function() {
 							if ( $value == 'on' ) {
 								$value = true;
 							}
-							$field->field_args[$paramName] = $value;
+							$field->setFieldArg( $paramName, $value );
 						}
 					}
 				}
