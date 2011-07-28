@@ -149,6 +149,10 @@ class SFTemplateField {
 		$this->mLabel = $label;
 	}
 
+	function setInputType( $inputType ) {
+		$this->mInputType = $inputType;
+	}
+
 	/**
 	 * Creates the text of a template, when called from either
 	 * Special:CreateTemplate or Special:CreateClass.
