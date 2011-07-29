@@ -176,7 +176,16 @@ class SFUtils {
 		}
 		return true;
 	}
-
+	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
+		$html_text = "";
+		$html_text .= '<p><legend>semanticForms:FormInput</legend> </p>
+		<p> Input-Type: <input size="15" name="sf_input_type_starter"></p>
+		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>
+		<p><input value="" name="sf_key_values_starter" size="80"></p>';
+		
+		$text_extensions['sf'] = $html_text;
+		return true;
+	}
 	/**
 	*/
 	public static function getPageList( $psSchemaObj, &$genPageList ) {
