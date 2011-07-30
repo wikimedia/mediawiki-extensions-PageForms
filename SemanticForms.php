@@ -93,7 +93,7 @@ $wgHooks['PageSchemasGeneratePages'][] = 'SFUtils::generatePages' ; //Hook for  
 $wgHooks['PSParseFieldElements'][] = 'SFUtils::parseFieldElements' ; //Hook for  creating Pages
 $wgHooks['PageSchemasGetPageList'][] = 'SFUtils::getPageList' ; //Hook for  creating Pages
 $wgHooks['getHtmlTextForFieldInputs'][] = 'SFUtils::getHtmlTextForPS' ; //Hook for  retuning html text to PS schema
-
+$wgHooks['getXmlTextForFieldInputs'][] = 'SFUtils::getXMLTextForPS' ; //Hook for  retuning html text to PS schema
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
