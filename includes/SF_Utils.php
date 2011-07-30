@@ -176,6 +176,41 @@ class SFUtils {
 		}
 		return true;
 	}
+	public static function getXMLTextForPS( $wgRequest, &$text_extensions ){
+	
+		$Xmltext = "";
+		$templateNum = -1;
+		foreach ( $wgRequest->getValues() as $var => $val ) {
+			if(substr($var,0,14) == 'sf_input_type_'){
+				$templateNum = substr($var,14,1);
+				$Xmltext .= '<FormInput>';
+				$Xmltext .= '<InputType>'.$val.'</InputType>';
+			}else if(substr($var,0,14) == 'sf_key_values_'){
+				if ( $val != '' ) {
+					// replace the comma substitution character that has no chance of
+					// being included in the values list - namely, the ASCII beep
+					$listSeparator = ',';
+					$key_values_str = str_replace( "\\$listSeparator", "\a", $val );
+					$key_values_array = explode( $listSeparator, $key_values_str );
+					foreach ( $key_values_array as $i => $value ) {
+						// replace beep back with comma, trim
+						$value = str_replace( "\a", $listSeparator, trim( $value ) );
+						$param_value = explode( "=", $value );
+						if($param_value[1] != null ) {
+						//handles Parameter name="size">20</Parameter>
+							$Xmltext .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
+						}else{
+						//handlers <Parameter name="mandatory" />
+							$Xmltext .= '<Parameter name="'.$param_value[0].'"/>';
+						}
+					}
+				}		
+			}			
+		}
+		$Xmltext .= '</FormInput>';
+		$text_extensions['sf'] = $Xmltext;
+		return true;
+	}
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
 		$html_text = "";
 		$html_text .= '<p><legend>semanticForms:FormInput</legend> </p>
