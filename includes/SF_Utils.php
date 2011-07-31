@@ -180,6 +180,7 @@ class SFUtils {
 	
 		$Xmltext = "";
 		$templateNum = -1;
+		$xml_text_array = array();
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if(substr($var,0,14) == 'sf_input_type_'){
 				$templateNum = substr($var,14,1);
@@ -204,11 +205,13 @@ class SFUtils {
 							$Xmltext .= '<Parameter name="'.$param_value[0].'"/>';
 						}
 					}
+					$Xmltext .= '</FormInput>';
+					$xml_text_array[] = $Xmltext;
+					$Xmltext = '';
 				}		
 			}			
-		}
-		$Xmltext .= '</FormInput>';
-		$text_extensions['sf'] = $Xmltext;
+		}		
+		$text_extensions['sf'] = $xml_text_array;
 		return true;
 	}
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
