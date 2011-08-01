@@ -214,6 +214,38 @@ class SFUtils {
 		$text_extensions['sf'] = $xml_text_array;
 		return true;
 	}
+	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ){
+		$template_fields = array();
+		$html_text = "";	
+		$template_all = $pageSchemaObj->getTemplates();						
+		foreach ( $template_all as $template ) {
+			$field_all = $template->getFields();			
+			$field_count = 0; //counts the number of fields
+			$html_text_array = array();			
+			foreach( $field_all as $field ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type 
+				$field_count++;	
+				$sf_array = $field->getObject('FormInput');//this returns an array with property values filled
+				$form_input_array = $sf_array['sf'];				
+				$html_text = '<p><legend>semanticForms:FormInput</legend> </p>
+		<p> Input-Type: <input size="15" name="sf_input_type_starter" value='.$form_input_array['InputType'].'></p>
+		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>';
+				$param_value_str= "";
+				foreach($form_input_array as $param => $value){
+					if($param != 'InputType'){
+						if( $value != null ){
+							$param_value_str .= $param.'='.$value.', ';
+						}else{
+							$param_value_str .= $param.'=true, ';
+						}
+					}
+				}
+				$html_text .= '<p><input name="sf_key_values_starter" size="80" value="'.$param_value_str.'" ></p>';
+				$html_text_array[] = $html_text;
+			}
+		}
+		$text_extensions['sf'] = $html_text_array;
+		return true;
+	}
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
 		$html_text = "";
 		$html_text .= '<p><legend>semanticForms:FormInput</legend> </p>
