@@ -64,13 +64,24 @@ class SFFormLinker {
 			return;
 		}
 		$store = smwfGetStore();
-		$data = $store->getSemanticData( $title );
+		if ( class_exists( 'SMWDataItem' ) ) {
+			$value = SMWDIWikiPage::newFromTitle( $title );
+		} else {
+			$value = $title;
+		}
+		$data = $store->getSemanticData( $value );
 		foreach ( $data->getProperties() as $property ) {
 			$propertyValues = $data->getPropertyValues( $property );
 			foreach ( $propertyValues as $propertyValue ) {
-				if ( $propertyValue instanceof SMWWikiPageValue ) {
+				$linkedPageName = null;
+				if ( $propertyValue instanceof SMWDIWikiPage ) {
+					$propertyName = $property->getKey();
+					$linkedPageName = $propertyValue->getDBkey();
+				} elseif ( $propertyValue instanceof SMWWikiPageValue ) {
 					$propertyName = $property->getWikiValue();
 					$linkedPageName = $propertyValue->getWikiValue();
+				}
+				if ( !is_null( $linkedPageName ) ) {
 					if ( array_key_exists( $linkedPageName, self::$mLinkedPages ) ) {
 						self::$mLinkedPages[$linkedPageName][] = $propertyName;
 					} else {
@@ -256,7 +267,13 @@ class SFFormLinker {
 		if ( in_array( 'broken', $options ) ) {
 			global $sfgRedLinksCheckOnlyLocalProps;
 			if ( $sfgRedLinksCheckOnlyLocalProps ) {
-				self::getPagePropertiesOfPage( $linker->getTitle() );
+				if ( $linker instanceof DummyLinker ) {
+					global $wgTitle;
+					$curTitle = $wgTitle;
+				} else {
+					$curTitle = $linker->getTitle();
+				}
+				self::getPagePropertiesOfPage( $curTitle );
 				$targetName = $target->getText();
 				if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
 					$incoming_properties = self::$mLinkedPages[$targetName];
