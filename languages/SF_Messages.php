@@ -819,6 +819,7 @@ $messages['be-tarask'] = array(
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Захаваць зьвесткі і працягваць рэдагаваньне',
 	'sf_autoedit_anoneditwarning' => 'Папярэджаньне: Вы не ўвайшлі ў сыстэму. Ваш IP-адрас будзе запісаны ў гісторыі гэтай старонкі.',
 	'sf_autoedit_success' => 'Пасьпяхова зьменены [[$1]] з дапамогай формы $2.',
+	'sf_autoedit_notargetspecified' => 'Не пазначаная мэтавая старонка.',
 	'runquery' => 'Выканаць запыт',
 	'sf_runquery_badurl' => "Вам неабходна пазначыць назву формы ў URL-адрасе;
 URL-адрас павінен мець выгляд 'Special:RunQuery/<назва формы>'.",
