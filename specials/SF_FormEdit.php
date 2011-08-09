@@ -313,8 +313,9 @@ class SFFormEdit extends SpecialPage {
 
 						$wgOut->clearHTML();
 						$wgOut->setArticleBodyOnly(true);
+						// Lets other code process additional form-definition syntax
+						wfRunHooks( 'sfWritePageData', array( $form_name, $target_title, &$data_text ) );
 						$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );
-
 					} else {
 
 						if ( $saveResultCode == EditPage::AS_SUCCESS_UPDATE || $saveResultCode == EditPage::AS_SUCCESS_NEW_ARTICLE ) {
@@ -325,6 +326,8 @@ class SFFormEdit extends SpecialPage {
 					}
 					
 				} else {
+					// Lets other code process additional form-definition syntax
+					wfRunHooks( 'sfWritePageData', array( $form_name, $target_title, &$data_text ) );
 					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );  // extract its data
 				}
 
