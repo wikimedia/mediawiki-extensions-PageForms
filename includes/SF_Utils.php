@@ -198,7 +198,7 @@ class SFUtils {
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if(substr($var,0,14) == 'sf_input_type_'){
 				$templateNum = substr($var,14,1);
-				$Xmltext .= '<FormInput>';
+				$Xmltext .= '<semanticforms:FormInput>';
 				$Xmltext .= '<InputType>'.$val.'</InputType>';
 			}else if(substr($var,0,14) == 'sf_key_values_'){
 				if ( $val != '' ) {
@@ -219,7 +219,7 @@ class SFUtils {
 							$Xmltext .= '<Parameter name="'.$param_value[0].'"/>';
 						}
 					}
-					$Xmltext .= '</FormInput>';
+					$Xmltext .= '</semanticforms:FormInput>';
 					$xml_text_array[] = $Xmltext;
 					$Xmltext = '';
 				}		
