@@ -157,7 +157,21 @@ class SFUtils {
 	* Function to return the Property based on the xml passed from the PageSchema extension 
 	*/
 	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
-		$sfarray = array();
+		$sfarray = array();		
+		$formName="";		
+		if ( $objectName == "Form" ) {
+			foreach ( $xmlForField->children() as $tag => $child ) {
+				if ( $tag == $objectName ) {
+					$formName = (string) $child->attributes()->name;
+					$sfarray['name'] = $formName;
+					foreach ($child->children() as $tag => $formelem) {
+						$sfarray[(string)$tag] = (string)$formelem;
+					}
+				}
+			}
+			$object['sf'] = $sfarray;
+			return true;
+		}
 		if ( $objectName == "FormInput" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
@@ -217,11 +231,12 @@ class SFUtils {
 	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ){
 		$template_fields = array();
 		$html_text = "";	
-		$template_all = $pageSchemaObj->getTemplates();						
+		$template_all = $pageSchemaObj->getTemplates();
+		$html_text_array = array();
 		foreach ( $template_all as $template ) {
 			$field_all = $template->getFields();			
 			$field_count = 0; //counts the number of fields
-			$html_text_array = array();			
+			
 			foreach( $field_all as $field ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type 
 				$field_count++;	
 				$sf_array = $field->getObject('FormInput');//this returns an array with property values filled
@@ -336,6 +351,7 @@ class SFUtils {
 	*Thi Function parses the Field elements in the xml of the pages. Hooks for PageSchemas extension
 	*/
 	public static function parseFieldElements( $field_xml, &$text_object ) {
+		
 		foreach ( $field_xml->children() as $tag => $child ) {
 				if ( $tag == "FormInput" ) {
 					$text = "";
