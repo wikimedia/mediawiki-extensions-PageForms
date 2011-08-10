@@ -193,13 +193,23 @@ class SFUtils {
 	public static function getXMLTextForPS( $wgRequest, &$text_extensions ){
 	
 		$Xmltext = "";
+		$form_xml_text = "";
 		$templateNum = -1;
 		$xml_text_array = array();
 		foreach ( $wgRequest->getValues() as $var => $val ) {
-			if(substr($var,0,14) == 'sf_input_type_'){
+			if(substr($var,0,13) == 'sf_form_name_'){				
+				$form_xml_text .= '<semanticforms:Form name="'.$val.'" >';				
+			}else if(substr($var,0,14) == 'sf_input_type_'){
 				$templateNum = substr($var,14,1);
 				$Xmltext .= '<semanticforms:FormInput>';
 				$Xmltext .= '<InputType>'.$val.'</InputType>';
+			}else if(substr($var,0,21) == 'sf_page_name_formula_'){								
+				$form_xml_text .= '<PageNameFormula>'.$val.'</PageNameFormula>';
+			}else if(substr($var,0,16) == 'sf_create_title_'){								
+				$form_xml_text .= '<CreateTite>'.$val.'</CreateTite>';
+			}else if(substr($var,0,14) == 'sf_edit_title_'){								
+				$form_xml_text .= '<EditTitle>'.$val.'</EditTitle>';
+				$form_xml_text .= '</semanticforms:Form>';
 			}else if(substr($var,0,14) == 'sf_key_values_'){
 				if ( $val != '' ) {
 					// replace the comma substitution character that has no chance of
@@ -222,17 +232,37 @@ class SFUtils {
 					$Xmltext .= '</semanticforms:FormInput>';
 					$xml_text_array[] = $Xmltext;
 					$Xmltext = '';
-				}		
+				}	
 			}			
 		}		
 		$text_extensions['sf'] = $xml_text_array;
+		$text_extensions['sf_form'] = $form_xml_text;
 		return true;
 	}
-	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ){
+	public static function getFilledSchemaHtmlTextForPS( $pageSchemaObj, &$text_extensions ){
+		$pageXml = $pageSchemaObj->pageXml;
+		foreach ( $pageXml->children() as $tag => $template_xml ) {
+			if ( $tag == 'Form' ){
+			
+			}
+		}
+		return true;
+	}
+	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ){	
 		$template_fields = array();
 		$html_text = "";	
 		$template_all = $pageSchemaObj->getTemplates();
 		$html_text_array = array();
+		$form_html_text = "";
+		$obj = $pageSchemaObj->getObject('Form');
+		$form_array = $obj['sf'];
+		
+		$form_html_text .= '<p><legend>semanticForms:Form</legend> </p>
+		<p> Name: <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
+		<p> PageNameFormula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
+		<p> CreateTite: <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTite'].'" ></p>
+		<p> EditTitle: <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
+		';		
 		foreach ( $template_all as $template ) {
 			$field_all = $template->getFields();			
 			$field_count = 0; //counts the number of fields
@@ -259,16 +289,27 @@ class SFUtils {
 			}
 		}
 		$text_extensions['sf'] = $html_text_array;
+		$text_extensions['sf_form']= $form_html_text;		
 		return true;
-	}
+	}	
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
 		$html_text = "";
+		$form_text = "" ;
+		
+		$form_text .= '<p><legend>semanticForms:Form</legend> </p>
+		<p> Name: <input size="15" name="sf_form_name_starter"></p>
+		<p> PageNameFormula: <input size="20" name="sf_page_name_formula_starter"></p>
+		<p> CreateTite: <input size="25" name="sf_create_title_starter"></p>
+		<p> EditTitle: <input size="25" name="sf_edit_title_starter"></p>		
+		';
+		
 		$html_text .= '<p><legend>semanticForms:FormInput</legend> </p>
 		<p> Input-Type: <input size="15" name="sf_input_type_starter"></p>
 		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>
 		<p><input value="" name="sf_key_values_starter" size="80"></p>';
 		
 		$text_extensions['sf'] = $html_text;
+		$text_extensions['sf_form'] = $form_text;
 		return true;
 	}
 	/**
