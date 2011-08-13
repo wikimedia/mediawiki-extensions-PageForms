@@ -213,7 +213,7 @@ class SFFormEdit extends SpecialPage {
 					// underlines - hopefully this won't
 					// cause problems of its own
 					$target_name = str_replace( ' ', '_', $target_name );
-					$target_name = $wgParser->transformMsg( $target_name, ParserOptions::newFromUser( null ) );
+					$target_name = $wgParser->preprocess( $target_name, $wgOut->getTitle(), ParserOptions::newFromUser( null ) );
 
 					$title_number = "";
 					$isRandom = false;
