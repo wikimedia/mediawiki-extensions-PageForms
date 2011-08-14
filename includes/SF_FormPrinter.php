@@ -1192,7 +1192,8 @@ END;
 					// TODO: Generate an error message if this is included more than once
 					foreach ( array_slice( $tag_components, 1 ) as $component ) {
 						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-						$tag = $sub_components[0];
+						// Tag names are case-insensitive
+						$tag = strtolower( $sub_components[0] );
 						if ( $tag == 'create title' || $tag == 'add title' ) {
 							// Handle this only if
 							// we're adding a page.
