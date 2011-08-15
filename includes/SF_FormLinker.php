@@ -28,10 +28,6 @@ class SFFormLinker {
 	 * in the wiki.
 	 */
 	static function getIncomingProperties( $title ) {
-		// produce a useful error message if SMW isn't installed
-		if ( ! function_exists( 'smwfGetStore' ) ) {
-			die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
-		}
 		$store = smwfGetStore();
 		// SMW 1.6+
 		if ( class_exists( 'SMWDataItem' ) ) {
@@ -138,11 +134,6 @@ class SFFormLinker {
 
 		global $sfgContLang;
 		
-		// Produce a useful error message if SMW isn't installed.
-		if ( ! function_exists( 'smwfGetStore' ) ) {
-			die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
-		}
-			
 		$store = smwfGetStore();
 		$subject = Title::makeTitleSafe( $page_namespace, $page_name );
 		$form_names = SFUtils::getSMWPropertyValues( $store, $subject, $prop_smw_id );
