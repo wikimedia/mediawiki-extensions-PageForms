@@ -605,7 +605,7 @@ window.validateAll = function () {
 	if (num_errors > 0) {
 		// add error header, if it's not there already
 		if (jQuery("#form_error_header").size() == 0) {
-			jQuery("#contentSub").append('<div id="form_error_header" class="warningMessage" style="font-size: medium">' + sfgFormErrorsHeader + '</div>');
+			jQuery("#contentSub").append('<div id="form_error_header" class="warningMessage" style="font-size: medium"><img src="' + sfgScriptPath + '/skins/MW-Icon-AlertMark.png" />' + sfgFormErrorsHeader + '</div>');
 		}
 		scroll(0, 0);
 	} else {

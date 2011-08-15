@@ -13,11 +13,13 @@
 class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
+		global $sfgScriptPath;
 //		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
 		global $sfgShowOnSelect;
 
 		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
+		$vars['sfgScriptPath'] = $sfgScriptPath;
 		// variables that are associative arrays need to be cast as
 		// objects, to work with MW 1.15 and earlier
 		$vars['sfgAutocompleteValues'] = (object)$sfgAutocompleteValues;
