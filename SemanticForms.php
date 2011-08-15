@@ -143,8 +143,8 @@ if ( class_exists( 'HTMLTextField' ) ) { // added in MW 1.16
 	$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
 }
 $wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.php';
-$wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_FormClasses.php';
-$wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_FormClasses.php';
+$wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_Form.php';
+$wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_TemplateInForm.php';
 $wgAutoloadClasses['SFFormField'] = $sfgIP . '/includes/SF_FormField.php';
 $wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.php';
 $wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.php';
