@@ -31,7 +31,6 @@ class SFUtils {
 			global $wgCapitalLinks;
 			return $wgCapitalLinks;
 		}
-
 	}
 
 	/**
@@ -112,7 +111,6 @@ class SFUtils {
 			return array_unique( $values );
 		}
 	}
-
 	/**
 	 * Helper function - gets names of categories for a page;
 	 * based on Title::getParentCategories(), but simpler
@@ -257,12 +255,12 @@ class SFUtils {
 		$obj = $pageSchemaObj->getObject('Form');
 		$form_array = $obj['sf'];
 		
-		$form_html_text .= '<p><legend>semanticForms:Form</legend> </p>
+		$form_html_text .= '<fieldset style="background: #00FF00;"><p><legend>Form</legend> </p>
 		<p> Name: <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
-		<p> PageNameFormula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
-		<p> CreateTite: <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTite'].'" ></p>
-		<p> EditTitle: <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
-		';		
+		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
+		<p> Create tite: <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTite'].'" ></p>
+		<p> Edit title: <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
+		</fieldset>';		
 		foreach ( $template_all as $template ) {
 			$field_all = $template->getFields();			
 			$field_count = 0; //counts the number of fields
@@ -271,8 +269,8 @@ class SFUtils {
 				$field_count++;	
 				$sf_array = $field->getObject('FormInput');//this returns an array with property values filled
 				$form_input_array = $sf_array['sf'];				
-				$html_text = '<p><legend>semanticForms:FormInput</legend> </p>
-		<p> Input-Type: <input size="15" name="sf_input_type_starter" value='.$form_input_array['InputType'].'></p>
+				$html_text = '<fieldset style="background: #00FF00;"><p><legend>Form input</legend> </p>
+		<p> Input type: <input size="15" name="sf_input_type_starter" value='.$form_input_array['InputType'].'></p>
 		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>';
 				$param_value_str= "";
 				foreach($form_input_array as $param => $value){
@@ -284,7 +282,7 @@ class SFUtils {
 						}
 					}
 				}
-				$html_text .= '<p><input name="sf_key_values_starter" size="80" value="'.$param_value_str.'" ></p>';
+				$html_text .= '<p><input name="sf_key_values_starter" size="80" value="'.$param_value_str.'" ></fieldset></p>';
 				$html_text_array[] = $html_text;
 			}
 		}
@@ -295,18 +293,18 @@ class SFUtils {
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
 		$html_text = "";
 		$form_text = "" ;
-		
-		$form_text .= '<p><legend>semanticForms:Form</legend> </p>
+		//'<fieldset style="background: #00FF00;"><p><legend>Form input</legend> </p>
+		$form_text .= '<fieldset style="background: #00FF00;"><p><legend>Form</legend> </p>
 		<p> Name: <input size="15" name="sf_form_name_starter"></p>
-		<p> PageNameFormula: <input size="20" name="sf_page_name_formula_starter"></p>
-		<p> CreateTite: <input size="25" name="sf_create_title_starter"></p>
-		<p> EditTitle: <input size="25" name="sf_edit_title_starter"></p>		
-		';
+		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter"></p>
+		<p> Create tite: <input size="25" name="sf_create_title_starter"></p>
+		<p> Edit title: <input size="25" name="sf_edit_title_starter"></p>		
+		</fieldset>';
 		
-		$html_text .= '<p><legend>semanticForms:FormInput</legend> </p>
-		<p> Input-Type: <input size="15" name="sf_input_type_starter"></p>
+		$html_text .= '<fieldset style="background: #00FF00;"> <p><legend>Form input</legend> </p>
+		<p> Input type: <input size="15" name="sf_input_type_starter"></p>
 		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>
-		<p><input value="" name="sf_key_values_starter" size="80"></p>';
+		<p><input value="" name="sf_key_values_starter" size="80"></p></fieldset>';
 		
 		$text_extensions['sf'] = $html_text;
 		$text_extensions['sf_form'] = $form_text;
