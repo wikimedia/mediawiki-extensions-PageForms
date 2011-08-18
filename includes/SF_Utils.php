@@ -256,10 +256,10 @@ class SFUtils {
 		$form_array = $obj['sf'];
 		
 		$form_html_text .= '<fieldset style="background: #CF9;"><legend>Form</legend> 
-		<p> Name: <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
+		<p> Name:              <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
 		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
-		<p> Create tite: <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTite'].'" ></p>
-		<p> Edit title: <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
+		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTite'].'" ></p>
+		<p> Title of form for existing pages:        <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
 		</fieldset>';		
 		foreach ( $template_all as $template ) {
 			$field_all = $template->getFields();			
@@ -292,13 +292,12 @@ class SFUtils {
 	}	
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
 		$html_text = "";
-		$form_text = "" ;
-		//'<fieldset style="background: #00FF00;"><p><legend>Form input</legend> </p>
+		$form_text = "" ;		
 		$form_text .= '<fieldset style="background: #00FF00;"><legend>Form</legend> 
-		<p> Name: <input size="15" name="sf_form_name_starter"></p>
+		<p> Name: 			   <input size="15" name="sf_form_name_starter"></p>
 		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter"></p>
-		<p> Create tite: <input size="25" name="sf_create_title_starter"></p>
-		<p> Edit title: <input size="25" name="sf_edit_title_starter"></p>		
+		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter"></p>
+		<p> Title of form for existing pages:        <input size="25" name="sf_edit_title_starter"></p>		
 		</fieldset>';
 		
 		$html_text .= '<fieldset style="background: #00FF00;"> <legend>Form input</legend>
