@@ -293,14 +293,14 @@ class SFUtils {
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
 		$html_text = "";
 		$form_text = "" ;		
-		$form_text .= '<fieldset style="background: #00FF00;"><legend>Form</legend> 
+		$form_text .= '<fieldset style="background: #CF9;"><legend>Form</legend> 
 		<p> Name: 			   <input size="15" name="sf_form_name_starter"></p>
 		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter"></p>
 		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter"></p>
 		<p> Title of form for existing pages:        <input size="25" name="sf_edit_title_starter"></p>		
 		</fieldset>';
 		
-		$html_text .= '<fieldset style="background: #00FF00;"> <legend>Form input</legend>
+		$html_text .= '<fieldset style="background: #CF9;"> <legend>Form input</legend>
 		<p> Input type: <input size="15" name="sf_input_type_starter"></p>
 		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>
 		<p><input value="" name="sf_key_values_starter" size="80"></p></fieldset>';
