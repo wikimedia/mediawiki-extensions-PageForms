@@ -157,7 +157,7 @@ class SFUtils {
 	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
 		$sfarray = array();		
 		$formName="";		
-		if ( $objectName == "Form" ) {
+		if ( $objectName == "semanticforms_Form" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
 					$formName = (string) $child->attributes()->name;
@@ -170,7 +170,7 @@ class SFUtils {
 			$object['sf'] = $sfarray;
 			return true;
 		}
-		if ( $objectName == "FormInput" ) {
+		if ( $objectName == "semanticforms_FormInput" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
 					foreach ( $child->children() as $prop ) {
@@ -196,10 +196,10 @@ class SFUtils {
 		$xml_text_array = array();
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if(substr($var,0,13) == 'sf_form_name_'){				
-				$form_xml_text .= '<semanticforms:Form name="'.$val.'" >';				
+				$form_xml_text .= '<semanticforms_Form name="'.$val.'" >';				
 			}else if(substr($var,0,14) == 'sf_input_type_'){
 				$templateNum = substr($var,14,1);
-				$Xmltext .= '<semanticforms:FormInput>';
+				$Xmltext .= '<semanticforms_FormInput>';
 				$Xmltext .= '<InputType>'.$val.'</InputType>';
 			}else if(substr($var,0,21) == 'sf_page_name_formula_'){								
 				$form_xml_text .= '<PageNameFormula>'.$val.'</PageNameFormula>';
@@ -207,7 +207,7 @@ class SFUtils {
 				$form_xml_text .= '<CreateTite>'.$val.'</CreateTite>';
 			}else if(substr($var,0,14) == 'sf_edit_title_'){								
 				$form_xml_text .= '<EditTitle>'.$val.'</EditTitle>';
-				$form_xml_text .= '</semanticforms:Form>';
+				$form_xml_text .= '</semanticforms_Form>';
 			}else if(substr($var,0,14) == 'sf_key_values_'){
 				if ( $val != '' ) {
 					// replace the comma substitution character that has no chance of
@@ -227,7 +227,7 @@ class SFUtils {
 							$Xmltext .= '<Parameter name="'.$param_value[0].'"/>';
 						}
 					}
-					$Xmltext .= '</semanticforms:FormInput>';
+					$Xmltext .= '</semanticforms_FormInput>';
 					$xml_text_array[] = $Xmltext;
 					$Xmltext = '';
 				}	
@@ -252,7 +252,8 @@ class SFUtils {
 		$template_all = $pageSchemaObj->getTemplates();
 		$html_text_array = array();
 		$form_html_text = "";
-		$obj = $pageSchemaObj->getObject('Form');
+		$obj = $pageSchemaObj->getObject('semanticforms_Form');
+		
 		$form_array = $obj['sf'];
 		
 		$form_html_text .= '<fieldset style="background: #CF9;"><legend>Form</legend> 
@@ -267,7 +268,7 @@ class SFUtils {
 			
 			foreach( $field_all as $field ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type 
 				$field_count++;	
-				$sf_array = $field->getObject('FormInput');//this returns an array with property values filled
+				$sf_array = $field->getObject('semanticforms_FormInput');//this returns an array with property values filled
 				$form_input_array = $sf_array['sf'];				
 				$html_text = '<fieldset style="background: #CF9;"><legend>Form input</legend>
 		<p> Input type: <input size="15" name="sf_input_type_starter" value='.$form_input_array['InputType'].'></p>
@@ -343,9 +344,9 @@ class SFUtils {
 			$template_fields = array();	
 			foreach( $field_all as $fieldObj ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type 
 				$field_count++;																
-				$sf_array = $fieldObj->getObject('FormInput');//this returns an array with property values filled
+				$sf_array = $fieldObj->getObject('semanticforms_FormInput');//this returns an array with property values filled
 				$form_input_array = $sf_array['sf'];
-				$smw_array = $fieldObj->getObject('Property');   //this returns an array with property values filled			
+				$smw_array = $fieldObj->getObject('semanticmediawiki_Property');   //this returns an array with property values filled			
 				$prop_array = $smw_array['smw'];
 				$field_t = SFTemplateField::create( $fieldObj->getName(), $fieldObj->getLabel(), $prop_array['name'], $fieldObj->isList() ,$fieldObj->getDelimiter());
 				$template_fields[] = $field_t;
@@ -391,7 +392,7 @@ class SFUtils {
 	public static function parseFieldElements( $field_xml, &$text_object ) {
 		
 		foreach ( $field_xml->children() as $tag => $child ) {
-				if ( $tag == "FormInput" ) {
+				if ( $tag == "semanticforms_FormInput" ) {
 					$text = "";
 					$text = PageSchemas::tableMessageRowHTML( "paramAttr", "SemanticForms", (string)$tag );										
 					foreach ( $child->children() as $prop ) {
