@@ -204,7 +204,7 @@ class SFUtils {
 			}else if(substr($var,0,21) == 'sf_page_name_formula_'){								
 				$form_xml_text .= '<PageNameFormula>'.$val.'</PageNameFormula>';
 			}else if(substr($var,0,16) == 'sf_create_title_'){								
-				$form_xml_text .= '<CreateTite>'.$val.'</CreateTite>';
+				$form_xml_text .= '<CreateTitle>'.$val.'</CreateTitle>';
 			}else if(substr($var,0,14) == 'sf_edit_title_'){								
 				$form_xml_text .= '<EditTitle>'.$val.'</EditTitle>';
 				$form_xml_text .= '</semanticforms_Form>';
@@ -237,15 +237,7 @@ class SFUtils {
 		$text_extensions['sf_form'] = $form_xml_text;
 		return true;
 	}
-	public static function getFilledSchemaHtmlTextForPS( $pageSchemaObj, &$text_extensions ){
-		$pageXml = $pageSchemaObj->pageXml;
-		foreach ( $pageXml->children() as $tag => $template_xml ) {
-			if ( $tag == 'Form' ){
-			
-			}
-		}
-		return true;
-	}
+	
 	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ){	
 		$template_fields = array();
 		$html_text = "";	
@@ -259,7 +251,7 @@ class SFUtils {
 		$form_html_text .= '<fieldset style="background: #CF9;"><legend>Form</legend> 
 		<p> Name:              <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
 		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
-		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTite'].'" ></p>
+		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTitle'].'" ></p>
 		<p> Title of form for existing pages:        <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
 		</fieldset>';		
 		foreach ( $template_all as $template ) {
@@ -372,7 +364,7 @@ class SFUtils {
 		}
 		$form = SFForm::create( $form_name, $form_templates );
 		$form->setPageNameFormula( $form_array['PageNameFormula'] );
-		$form->setCreateTitle( $form_array['CreateTite'] );
+		$form->setCreateTitle( $form_array['CreateTitle'] );
 		$form->setEditTitle( $form_array['EditTitle'] );
 		$title = Title::makeTitleSafe( SF_NS_FORM, $form->getFormName() );
 		$key_title = PageSchemas::titleString( $title );
