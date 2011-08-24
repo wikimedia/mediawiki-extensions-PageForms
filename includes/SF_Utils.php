@@ -351,12 +351,12 @@ class SFUtils {
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $template_text;		
 				$jobs[] = new PSCreatePageJob( $title, $params );
-				Job::batchInsert( $jobs );
 			}
 			//Creating Form Templates at this time
 			$form_template = SFTemplateInForm::create( $template->getName(), $template->getLabel(), $template->isMultiple() );
 			$form_templates[] = $form_template;
 		}		
+		Job::batchInsert( $jobs );
 		$form_name = $psSchemaObj->getFormName();
 		$form_array = $psSchemaObj->getFormArray();		
 		if( $form_name == null ){
@@ -373,7 +373,7 @@ class SFUtils {
 			$params = array();
 			$params['user_id'] = $wgUser->getId();
 			$params['page_text'] = $full_text;		
-			$jobs[] = new PSCreatePageJob( $title, $params );
+			$jobs = array( new PSCreatePageJob( $title, $params ) );
 			Job::batchInsert( $jobs );		
 		}
 		return true;
