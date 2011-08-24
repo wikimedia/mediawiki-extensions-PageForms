@@ -4378,6 +4378,7 @@ $messages['lb'] = array(
 	'createcategory' => 'Eng Kategorie maachen',
 	'sf_createcategory_name' => 'Numm vun der Kategorie:',
 	'sf_createcategory_defaultform' => 'Standard-Formulaire:',
+	'sf_createcategory_makesubcategory' => 'Aus dëser Kategorie eng Ënnerkategorie vun enger anerer Kategorie maachen (optional):',
 	'sf_createclass_allowedvalues' => 'Erlaabte Wäerter:',
 	'sf_createclass_listofvalues' => 'Lëscht vun de Wäerter?',
 	'sf_createclass_nameinput' => 'Numm vum Formulaire:',
