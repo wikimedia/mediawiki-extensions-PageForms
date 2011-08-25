@@ -886,6 +886,14 @@ jQuery(document).ready(function() {
 				text: false
 			}).removeClass("ui-corner-all")
 			.addClass("ui-corner-right ui-button-icon sfComboBoxActual")
+			// Add some inline CSS, to override CSS set by the
+			// jquery.ui.tabs module - this is necessary if form is
+			// used in conjunction with the Header Tabs extension.
+			// 'cssText' attribute is needed because the normal
+			// .css() calls don't allow for setting "!important",
+			// which is needed to counteract "!important" coming
+			// from the jquery.ui.tabs CSS.
+			.css('cssText', 'padding: 0 !important; margin: 0 !important; -moz-border-radius: 0; -webkit-border-radius: 0; width: 1.7em;')
 			.click(function() {
 				// close if already visible
 				if (input.autocomplete("widget").is(":visible")) {
