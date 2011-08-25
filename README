@@ -21,9 +21,9 @@ program.
 
 Important code contributions were also made by Christoph Burgmer,
 Daniel Friesen, Daniel Hansch, Eugene Mednikov, Harold Solbrig, Jayson
-Harshbarger, Jeffrey Stuckman, Jeroen De Dauw, Louis Gerbarg,
-Matt Williamson, Nils Opperman, Patrick Nagel, Remco de Boer, Sergey
-Chernyshev and wheresmytab.
+Harshbarger, Jeffrey Stuckman, Jeroen De Dauw, Louis Gerbarg, Matt
+Williamson, Nils Opperman, Patrick Nagel, Remco de Boer, Sergey
+Chernyshev, wheresmytab and others.
 
 Language translations were provided by many people; see the
 files /languages/SF_Messages.php and /languages/SF_Aliases.php for
@@ -47,9 +47,9 @@ Bug reports should be submitted at the MediaWiki Bugzilla site:
 
 * The Semantic Forms extension includes the jQuery and jQuery UI
 JavaScript libraries (http://jquery.org, http://jqueryui.com).
-Both libraries are distributed under both the MIT and GPL
-licenses, both of which are compatible with the GPL license under
-which Semantic Forms is distributed.
+Both libraries are distributed under both the MIT and GPL licenses,
+both of which are compatible with the GPL license under which
+Semantic Forms is distributed.
 
 * Semantic Forms also includes the FancyBox JavaScript library by
 Janis Skarnelis (http://fancybox.net). FancyBox is distributed
