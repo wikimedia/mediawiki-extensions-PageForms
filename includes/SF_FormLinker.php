@@ -255,30 +255,37 @@ class SFFormLinker {
 	 * AKA red-linked) page
 	 */
 	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
-		if ( in_array( 'broken', $options ) ) {
-			global $sfgRedLinksCheckOnlyLocalProps;
-			if ( $sfgRedLinksCheckOnlyLocalProps ) {
-				if ( $linker instanceof DummyLinker ) {
-					global $wgTitle;
-					$curTitle = $wgTitle;
-				} else {
-					$curTitle = $linker->getTitle();
-				}
-				self::getPagePropertiesOfPage( $curTitle );
-				$targetName = $target->getText();
-				if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
-					$incoming_properties = self::$mLinkedPages[$targetName];
-				} else {
-					$incoming_properties = array();
-				}
+		// If it's not a broken (red) link, exit.
+		if ( !in_array( 'broken', $options ) ) {
+			return true;
+		}
+		// If the link is to a special page, exit.
+		if ( $target->getNamespace() == NS_SPECIAL ) {
+			return true;
+		}
+
+		global $sfgRedLinksCheckOnlyLocalProps;
+		if ( $sfgRedLinksCheckOnlyLocalProps ) {
+			if ( $linker instanceof DummyLinker ) {
+				global $wgTitle;
+				$curTitle = $wgTitle;
 			} else {
-				$incoming_properties = self::getIncomingProperties( $target );
+				$curTitle = $linker->getTitle();
 			}
-			self::createLinkedPage( $target, $incoming_properties );
-			$link = self::formEditLink( $target, $incoming_properties );
-			if ( $link != '' ) {
-				$attribs['href'] = $link;
+			self::getPagePropertiesOfPage( $curTitle );
+			$targetName = $target->getText();
+			if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
+				$incoming_properties = self::$mLinkedPages[$targetName];
+			} else {
+				$incoming_properties = array();
 			}
+		} else {
+			$incoming_properties = self::getIncomingProperties( $target );
+		}
+		self::createLinkedPage( $target, $incoming_properties );
+		$link = self::formEditLink( $target, $incoming_properties );
+		if ( $link != '' ) {
+			$attribs['href'] = $link;
 		}
 		return true;
 	}
