@@ -1909,6 +1909,7 @@ $messages['eo'] = array(
  * @author Cmitnick
  * @author Crazymadlover
  * @author Dvdgmz
+ * @author Fitoschido
  * @author Jatrobat
  * @author Pertile
  * @author Peter17
@@ -1990,7 +1991,7 @@ $messages['es'] = array(
 	'sf_formedit_altforms' => 'Usted puede también agregar esta página con uno de los siguientes formularios:',
 	'sf_formedit_altformsonly' => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
 	'sf_formcreate' => 'Crear con formulario',
-	'sf_viewform' => 'Ver el formulario',
+	'sf_viewform' => 'Ver formulario',
 	'sf_editsource' => 'Editar fuente',
 	'sf_formedit_edittitle' => 'Editar $1: $2',
 	'sf_formedit_morethanoneform' => 'Advertencia: Más de un formulario por defecto está definido para esta página.',
@@ -5333,8 +5334,10 @@ $messages['no'] = array(
 	'sf_createclass_allowedvalues' => 'Lovlige verdier:',
 	'sf_createclass_listofvalues' => 'Verdiliste?',
 	'sf_createclass_leavefieldblank' => 'Dersom feltnavnet er det samme som navnet på egenskapen kan du la den være blank.',
+	'sf_createclass_nameinput' => 'Skjemanavn:',
 	'sf_createclass_missingvalues' => 'Noen obligatoriske felt ble ikke fylt ut.',
 	'sf_createclass_success' => 'Egenskaper, maler, skjemaer og kategorier vil bli opprettet.',
+	'sf_createclass_create' => 'Opprett',
 	'formstart' => 'Legg til side gjennom et skjema',
 	'sf_formstart_badform' => 'Feil: ingen skjemaside funnet på $1',
 	'sf_formstart_badtitle' => 'Feil: «$1» er en ugyldig tittel for en side.',
@@ -5343,6 +5346,7 @@ $messages['no'] = array(
 	'sf_formstart_createoredit' => 'Opprett eller rediger',
 	'formedit' => 'Rediger med skjema',
 	'sf_formedit_createtitle' => 'Opprett $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Opprett $1',
 	'sf_formedit_badurl' => 'Dette er siden for å redigere med et skjema. Du må angi både et skjemanavn og en målside i URL-en;
 det burde se slik ut «Special:FormEdit?form=<skjemanavn>&target=<målside>», eller slik «Special:FormEdit/<skjemanavn>/<målside>».',
 	'sf_formedit_altforms' => 'Du kan i stedet opprette siden ved å bruke et av følgende skjemaer:',
@@ -5356,6 +5360,17 @@ det burde se slik ut «Special:FormEdit?form=<skjemanavn>&target=<målside>», e
 	'sf_formedit_remove' => 'Fjern',
 	'sf_formedit_addanother' => 'Legg til en til:',
 	'sf_formedit_none' => 'Ingen',
+	'sf_formedit_emptytitle' => 'Feil: De innlagte data resulterer i en tom sidetittel.',
+	'sf_formedit_hookerror' => 'Feil: En MediaWiki-utvidelse forhindret endring av målsiden.',
+	'sf_formedit_saveandcontinueediting' => 'Lagre og fortsett',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Lagre data og fortsett redigering',
+	'sf_autoedit_anoneditwarning' => 'Advarsel: Du er ikke innlogget. Din IP-adresse vil logges i denne sidens redigeringshistorikk.',
+	'sf_autoedit_success' => 'Vellykket endring av [[$1]] med bruk av skjema $2.',
+	'sf_autoedit_notargetspecified' => 'Ingen målside angitt.',
+	'sf_autoedit_noformfound' => 'Intet skjema angitt.',
+	'sf_autoedit_toomanyformsfound' => 'Flere enn et skjema tilgjengelig for siden.',
+	'sf_autoedit_readonly' => 'Databasen er nå låst mot endringer. Årsak: $1',
+	'sf_autoedit_nosemanticform' => 'Finner ikke skjema $2 for side $1. Sjekk [[{{#special:FormEdit}}/$2/$1]] for detaljer.',
 	'runquery' => 'Utfør spørring',
 	'sf_runquery_badurl' => "Du må angi et skjemanavn i nettadressen;
 nettadressen burde være på formen 'Special:RunQuery/<form name>'.",
