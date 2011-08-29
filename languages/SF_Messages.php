@@ -2217,23 +2217,25 @@ $messages['fi'] = array(
 	'sf_createform_formlabel' => 'Lomakkeen näyttönimi',
 	'sf_createform_hidden' => 'Piilotettu',
 	'sf_createform_removetemplate' => 'Poista malline',
-	'sf_createform_addtemplate' => 'Lisää malline:',
+	'sf_createform_addtemplate' => 'Lisää malline',
 	'sf_createform_beforetemplate' => 'Ennen mallinetta',
 	'sf_createform_atend' => 'Lopussa',
 	'sf_createform_add' => 'Lisää',
 	'sf_createform_choosefield' => 'Valitse lisättävä kenttä',
 	'createcategory' => 'Luo luokka',
-	'sf_createcategory_name' => 'Luokkanimi',
+	'sf_createcategory_name' => 'Luokan nimi',
 	'sf_createcategory_defaultform' => 'Oletuslomake',
 	'sf_createcategory_makesubcategory' => 'Tee tästä toisen luokan alaluokka (ei-pakollinen):',
-	'createclass' => 'Luo luokka',
+	'createclass' => 'Luo semanttinen tietotyyppi',
 	'sf_createclass_docu' => 'Kirjoita kaikki tiedot tähän ominaisuuksien, mallineen, muodon ja luokan luomiseksi yksittäisluokkaan. Käytä lisäasetuksia varten sen sijaan sivuja $1.',
 	'sf_createclass_allowedvalues' => 'Sallitut arvot',
-	'sf_createclass_listofvalues' => 'Lista arvoista',
+	'sf_createclass_listofvalues' => 'Listatyyppinen?',
 	'sf_createclass_leavefieldblank' => 'Jos kentän nimi on sama kuin ominaisuuden nimi, voit jättää sen tyhjäksi.',
+	'sf_createclass_nameinput' => 'Lomakkeen nimi',
 	'sf_createclass_missingvalues' => 'Kaikkia pakollisia kenttiä ei ole täytetty.',
-	'sf_createclass_success' => 'Ominaisuudet, malline, muoto ja luokka luodaan.',
-	'formstart' => 'Lisää sivu lomakkeella',
+	'sf_createclass_success' => 'Ominaisuudet, malline, lomake ja luokka luodaan.',
+	'sf_createclass_create' => 'Luo',
+	'formstart' => 'Lomakkeen alku',
 	'sf_formstart_badform' => 'Virhe: lomakesivua ei löytynyt kohteesta $1',
 	'sf_formstart_badtitle' => 'Virhe: ”$1” on virheellinen nimi sivulle.',
 	'sf_formstart_docu' => 'Anna sivun nimi, jota muokataan lomakkeella $1. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
@@ -2286,6 +2288,7 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
 /** French (Français)
  * @author Crochet.david
  * @author Dereckson
+ * @author Gomoko
  * @author Grondin
  * @author Hashar
  * @author IAlex
@@ -2418,6 +2421,11 @@ l’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Sauvegarder les données et continuer la modification',
 	'sf_autoedit_anoneditwarning' => 'Attention : vous n’êtes pas identifié(e). Votre adresse IP sera enregistrée dans l’historique des modifications de cette page.',
 	'sf_autoedit_success' => '[[$1]] modifié avec succès en utilisant le formulaire $2.',
+	'sf_autoedit_notargetspecified' => 'Aucune page cible spécifiée.',
+	'sf_autoedit_noformfound' => 'Pas de formulaire spécifié.',
+	'sf_autoedit_toomanyformsfound' => "Plus d'un formulaire est disponible pour la page.",
+	'sf_autoedit_readonly' => 'La base de données est actuellement verrouillé pour modifications. Motif: $1',
+	'sf_autoedit_nosemanticform' => "Impossible d'obtenir le formulaire $2 pour la page $1. Voyez [[{{#special:FormEdit}}/$2/$1]] pour plus de détails.",
 	'runquery' => 'Exécuter la requête',
 	'sf_runquery_badurl' => 'Vous devez spécifier un nom de formulaire dans l’URL ;
 quelque chose comme « Special:RunQuery/<nom du formulaire> ».',
