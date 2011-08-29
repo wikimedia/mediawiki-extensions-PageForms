@@ -307,7 +307,8 @@ class SFFormEdit extends SpecialPage {
 
 					// Try to save the page!
 					$resultDetails = array();
-					$saveResultCode = $editor->internalAttemptSave( $resultDetails );
+					$saveResult = $editor->internalAttemptSave( $resultDetails );
+					$saveResultCode = $saveResult->value;
 
 					if ( ( $saveResultCode == EditPage::AS_HOOK_ERROR || $saveResultCode == EditPage::AS_HOOK_ERROR_EXPECTED ) && $redirectOnError ) {
 
