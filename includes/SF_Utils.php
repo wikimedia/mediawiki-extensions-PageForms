@@ -151,12 +151,13 @@ class SFUtils {
 			SMWPropertyValue::registerProperty( $id, $typeid, $label, true );
 		}
 	}
-    /**
-	* Function to return the Property based on the xml passed from the PageSchema extension 
-	*/
+
+	/**
+	 * Function to return the property based on the XML passed from the Page Schemas extension
+	 */
 	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
-		$sfarray = array();		
-		$formName="";		
+		$sfarray = array();
+		$formName="";
 		if ( $objectName == "semanticforms_Form" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
@@ -174,41 +175,41 @@ class SFUtils {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
 					foreach ( $child->children() as $prop ) {
-						if($prop->getName() ==  'InputType'){
+						if ( $prop->getName() == 'InputType' ) {
 							$sfarray[$prop->getName()] = (string)$prop;
-						}else{
-						//Remember these values  can be null also. While polulating in the page text, take care of that.
+						} else {
+							//Remember these values can be null also. While polulating in the page text, take care of that.
 							$sfarray[(string)$prop->attributes()->name] = (string)$prop;
 						}
-					}			
+					}
 				}
 			}
-			//Setting value specific to SF in 'sf' index. 
+			//Setting value specific to SF in 'sf' index.
 			$object['sf'] = $sfarray;
 		}
 		return true;
 	}
-	public static function getXMLTextForPS( $wgRequest, &$text_extensions ){
-	
+
+	public static function getXMLTextForPS( $wgRequest, &$text_extensions ) {
 		$Xmltext = "";
 		$form_xml_text = "";
 		$templateNum = -1;
 		$xml_text_array = array();
 		foreach ( $wgRequest->getValues() as $var => $val ) {
-			if(substr($var,0,13) == 'sf_form_name_'){				
-				$form_xml_text .= '<semanticforms_Form name="'.$val.'" >';				
-			}else if(substr($var,0,14) == 'sf_input_type_'){
-				$templateNum = substr($var,14,1);
+			if ( substr( $var, 0, 13) == 'sf_form_name_' ) {
+				$form_xml_text .= '<semanticforms_Form name="'.$val.'" >';
+			} elseif ( substr( $var, 0, 14 ) == 'sf_input_type_') {
+				$templateNum = substr( $var, 14, 1 );
 				$Xmltext .= '<semanticforms_FormInput>';
 				$Xmltext .= '<InputType>'.$val.'</InputType>';
-			}else if(substr($var,0,21) == 'sf_page_name_formula_'){								
+			} elseif ( substr( $var, 0, 21 ) == 'sf_page_name_formula_') {
 				$form_xml_text .= '<PageNameFormula>'.$val.'</PageNameFormula>';
-			}else if(substr($var,0,16) == 'sf_create_title_'){								
+			} elseif ( substr( $var, 0, 16 ) == 'sf_create_title_' ) {
 				$form_xml_text .= '<CreateTitle>'.$val.'</CreateTitle>';
-			}else if(substr($var,0,14) == 'sf_edit_title_'){								
+			} elseif ( substr( $var, 0, 14 ) == 'sf_edit_title_' ) {
 				$form_xml_text .= '<EditTitle>'.$val.'</EditTitle>';
 				$form_xml_text .= '</semanticforms_Form>';
-			}else if(substr($var,0,14) == 'sf_key_values_'){
+			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
 				if ( $val != '' ) {
 					// replace the comma substitution character that has no chance of
 					// being included in the values list - namely, the ASCII beep
@@ -219,58 +220,58 @@ class SFUtils {
 						// replace beep back with comma, trim
 						$value = str_replace( "\a", $listSeparator, trim( $value ) );
 						$param_value = explode( "=", $value );
-						if($param_value[1] != null ) {
-						//handles Parameter name="size">20</Parameter>
+						if ( $param_value[1] != null ) {
+							//handles Parameter name="size">20</Parameter>
 							$Xmltext .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
-						}else{
-						//handlers <Parameter name="mandatory" />
+						} else {
+							//handles <Parameter name="mandatory" />
 							$Xmltext .= '<Parameter name="'.$param_value[0].'"/>';
 						}
 					}
 					$Xmltext .= '</semanticforms_FormInput>';
 					$xml_text_array[] = $Xmltext;
 					$Xmltext = '';
-				}	
-			}			
-		}		
+				}
+			}
+		}
 		$text_extensions['sf'] = $xml_text_array;
 		$text_extensions['sf_form'] = $form_xml_text;
 		return true;
 	}
-	
-	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ){	
+
+	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ) {
 		$template_fields = array();
-		$html_text = "";	
+		$html_text = "";
 		$template_all = $pageSchemaObj->getTemplates();
 		$html_text_array = array();
 		$form_html_text = "";
 		$obj = $pageSchemaObj->getObject('semanticforms_Form');
-		
+
 		$form_array = $obj['sf'];
-		
-		$form_html_text .= '<fieldset style="background: #CF9;"><legend>Form</legend> 
-		<p> Name:              <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
+
+		$form_html_text .= '<fieldset style="background: #CF9;"><legend>Form</legend>
+		<p> Name: <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
 		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
-		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTitle'].'" ></p>
-		<p> Title of form for existing pages:        <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>		
-		</fieldset>';		
+		<p> Title of form for new pages: <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTitle'].'" ></p>
+		<p> Title of form for existing pages: <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>
+		</fieldset>';
 		foreach ( $template_all as $template ) {
-			$field_all = $template->getFields();			
+			$field_all = $template->getFields();
 			$field_count = 0; //counts the number of fields
-			
-			foreach( $field_all as $field ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type 
-				$field_count++;	
+
+			foreach( $field_all as $field ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type
+				$field_count++;
 				$sf_array = $field->getObject('semanticforms_FormInput');//this returns an array with property values filled
-				$form_input_array = $sf_array['sf'];				
+				$form_input_array = $sf_array['sf'];
 				$html_text = '<fieldset style="background: #CF9;"><legend>Form input</legend>
 		<p> Input type: <input size="15" name="sf_input_type_starter" value='.$form_input_array['InputType'].'></p>
 		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>';
 				$param_value_str= "";
-				foreach($form_input_array as $param => $value){
-					if($param != 'InputType'){
-						if( $value != null ){
+				foreach($form_input_array as $param => $value) {
+					if ( $param != 'InputType' ) {
+						if ( $value != null ) {
 							$param_value_str .= $param.'='.$value.', ';
-						}else{
+						} else {
 							$param_value_str .= $param.'=true, ';
 						}
 					}
@@ -280,24 +281,24 @@ class SFUtils {
 			}
 		}
 		$text_extensions['sf'] = $html_text_array;
-		$text_extensions['sf_form']= $form_html_text;		
+		$text_extensions['sf_form']= $form_html_text;
 		return true;
-	}	
-	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {	
+	}
+	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {
 		$html_text = "";
-		$form_text = "" ;		
-		$form_text .= '<fieldset style="background: #CF9;"><legend>Form</legend> 
-		<p> Name: 			   <input size="15" name="sf_form_name_starter"></p>
+		$form_text = "" ;
+		$form_text .= '<fieldset style="background: #CF9;"><legend>Form</legend>
+		<p> Name: <input size="15" name="sf_form_name_starter"></p>
 		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter"></p>
-		<p> Title of form for new pages:       <input size="25" name="sf_create_title_starter"></p>
-		<p> Title of form for existing pages:        <input size="25" name="sf_edit_title_starter"></p>		
+		<p> Title of form for new pages: <input size="25" name="sf_create_title_starter"></p>
+		<p> Title of form for existing pages: <input size="25" name="sf_edit_title_starter"></p>
 		</fieldset>';
-		
+
 		$html_text .= '<fieldset style="background: #CF9;"> <legend>Form input</legend>
 		<p> Input type: <input size="15" name="sf_input_type_starter"></p>
 		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>
 		<p><input value="" name="sf_key_values_starter" size="80"></p></fieldset>';
-		
+
 		$text_extensions['sf'] = $html_text;
 		$text_extensions['sf_form'] = $form_text;
 		return true;
@@ -306,13 +307,13 @@ class SFUtils {
 	*/
 	public static function getPageList( $psSchemaObj, &$genPageList ) {
 		global $wgOut, $wgUser;
-		$template_all = $psSchemaObj->getTemplates();		
+		$template_all = $psSchemaObj->getTemplates();
 		foreach ( $template_all as $template ) {
-			$title =  Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
+			$title = Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
 			$genPageList[] = $title;
 		}
 		$form_name = $psSchemaObj->getFormName();
-		if( $form_name == null ){
+		if( $form_name == null ) {
 			return true;
 		}
 		//$form = SFForm::create( $form_name, $form_templates );
@@ -324,42 +325,42 @@ class SFUtils {
 	*/
 	public static function generatePages( $psSchemaObj, $toGenPageList ) {
 		global $wgOut, $wgUser;
-		$template_all = $psSchemaObj->getTemplates();		
+		$template_all = $psSchemaObj->getTemplates();
 		$form_templates = array();
 		$jobs = array();
 		foreach ( $template_all as $template ) {
-			$template_array = array();			
+			$template_array = array();
 			$template_array['name'] = $template->getName();
 			$template_array['category_name'] = $psSchemaObj->categoryName;
-			$field_all = $template->getFields();			
+			$field_all = $template->getFields();
 			$field_count = 0; //counts the number of fields
-			$template_fields = array();	
-			foreach( $field_all as $fieldObj ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type 
-				$field_count++;																
+			$template_fields = array();
+			foreach( $field_all as $fieldObj ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type
+				$field_count++;
 				$sf_array = $fieldObj->getObject('semanticforms_FormInput');//this returns an array with property values filled
 				$form_input_array = $sf_array['sf'];
-				$smw_array = $fieldObj->getObject('semanticmediawiki_Property');   //this returns an array with property values filled			
+				$smw_array = $fieldObj->getObject('semanticmediawiki_Property'); //this returns an array with property values filled
 				$prop_array = $smw_array['smw'];
 				$field_t = SFTemplateField::create( $fieldObj->getName(), $fieldObj->getLabel(), $prop_array['name'], $fieldObj->isList() ,$fieldObj->getDelimiter());
 				$template_fields[] = $field_t;
 			}
-			$template_text = SFTemplateField::createTemplateText( $template->getName(), $template_fields, null, $psSchemaObj->categoryName, null, 	null, null );
-			$title =  Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
+			$template_text = SFTemplateField::createTemplateText( $template->getName(), $template_fields, null, $psSchemaObj->categoryName, null, null, null );
+			$title = Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
 			$key_title = PageSchemas::titleString( $title );
-			if( in_array($key_title, $toGenPageList )){
+			if ( in_array( $key_title, $toGenPageList ) ) {
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
-				$params['page_text'] = $template_text;		
+				$params['page_text'] = $template_text;
 				$jobs[] = new PSCreatePageJob( $title, $params );
 			}
 			//Creating Form Templates at this time
 			$form_template = SFTemplateInForm::create( $template->getName(), $template->getLabel(), $template->isMultiple() );
 			$form_templates[] = $form_template;
-		}		
+		}
 		Job::batchInsert( $jobs );
 		$form_name = $psSchemaObj->getFormName();
-		$form_array = $psSchemaObj->getFormArray();		
-		if( $form_name == null ){
+		$form_array = $psSchemaObj->getFormArray();
+		if ( $form_name == null ) {
 			return true;
 		}
 		$form = SFForm::create( $form_name, $form_templates );
@@ -368,38 +369,40 @@ class SFUtils {
 		$form->setEditTitle( $form_array['EditTitle'] );
 		$title = Title::makeTitleSafe( SF_NS_FORM, $form->getFormName() );
 		$key_title = PageSchemas::titleString( $title );
-		if( in_array($key_title, $toGenPageList )){
-		$full_text = $form->createMarkup();				
+		if( in_array($key_title, $toGenPageList )) {
+			$full_text = $form->createMarkup();
 			$params = array();
 			$params['user_id'] = $wgUser->getId();
-			$params['page_text'] = $full_text;		
+			$params['page_text'] = $full_text;
 			$jobs = array( new PSCreatePageJob( $title, $params ) );
-			Job::batchInsert( $jobs );		
+			Job::batchInsert( $jobs );
 		}
 		return true;
 	}
+
 	/**
-	*Thi Function parses the Field elements in the xml of the pages. Hooks for PageSchemas extension
-	*/
+	 * This function parses the field elements in the XML of the pages. Hooks for Page Schemas extension.
+	 */
 	public static function parseFieldElements( $field_xml, &$text_object ) {
-		
+
 		foreach ( $field_xml->children() as $tag => $child ) {
-				if ( $tag == "semanticforms_FormInput" ) {
-					$text = "";
-					$text = PageSchemas::tableMessageRowHTML( "paramAttr", "SemanticForms", (string)$tag );										
-					foreach ( $child->children() as $prop ) {
-						if( $prop->getName() == 'InputType' ){
-							$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop->getName(), $prop );
-						}else {
-							$prop_name = (string)$prop->attributes()->name;
-							$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop_name, (string)$prop );
-						}
+			if ( $tag == "semanticforms_FormInput" ) {
+				$text = PageSchemas::tableMessageRowHTML( "paramAttr", "SemanticForms", (string)$tag );
+				foreach ( $child->children() as $prop ) {
+					if ( $prop->getName() == 'InputType' ) {
+						$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop->getName(), $prop );
+					} else {
+						$prop_name = (string)$prop->attributes()->name;
+						$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop_name, (string)$prop );
 					}
-					$text_object['sf']=$text;
 				}
+				$text_object['sf'] = $text;
+				break;
 			}
-			return true;
+		}
+		return true;
 	}
+
 	public static function initProperties() {
 		global $sfgContLang;
 
@@ -468,14 +471,12 @@ class SFUtils {
 	 */
 	public static function printRedirectForm( $title, $page_contents, $edit_summary, $is_save, $is_preview, $is_diff, $is_minor_edit, $watch_this, $start_time, $edit_time ) {
 		global $wgUser, $sfgScriptPath;
-		
+
 		if ( $is_save ) {
 			$action = "wpSave";
-		}
-		elseif ( $is_preview ) {
+		} elseif ( $is_preview ) {
 			$action = "wpPreview";
-		}
-		else { // $is_diff
+		} else { // $is_diff
 			$action = "wpDiff";
 		}
 
@@ -616,7 +617,7 @@ END;
 				$wgOut->addLink( $link );
 			}
 		}
-		
+
 		$scripts = array();
 		if ( !$sfgUseFormEditPage )
 			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
