@@ -120,7 +120,7 @@ class SFFormEdit extends SpecialPage {
 		} else {
 			$target_title = Title::newFromText( $target_name );
 
-			if ( $target_title->exists() ) {
+			if ( $target_title && $target_title->exists() ) {
 				if ( $wgRequest->getVal( 'query' ) == 'true' ) {
 					$page_contents = null;
 					//$page_is_source = false;
