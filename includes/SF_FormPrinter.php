@@ -317,7 +317,7 @@ END;
 
 		global $wgOut;
 		// show previous set of deletions for this page, if it's been deleted before
-		if ( ! $form_submitted && ! $this->mPageTitle->exists() ) {
+		if ( ! $form_submitted && ( $this->mPageTitle && !$this->mPageTitle->exists() ) ) {
 			$this->showDeletionLog( $wgOut );
 		}
 		// Unfortunately, we can't just call userCan() here because, as of MW 1.16,
