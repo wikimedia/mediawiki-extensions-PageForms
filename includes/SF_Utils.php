@@ -178,13 +178,14 @@ class SFUtils {
 						if ( $prop->getName() == 'InputType' ) {
 							$sfarray[$prop->getName()] = (string)$prop;
 						} else {
-							//Remember these values can be null also. While polulating in the page text, take care of that.
+							// Remember these values can be null also.
+							// While polulating in the page text, take care of that.
 							$sfarray[(string)$prop->attributes()->name] = (string)$prop;
 						}
 					}
 				}
 			}
-			//Setting value specific to SF in 'sf' index.
+			// Setting value specific to SF in 'sf' index.
 			$object['sf'] = $sfarray;
 		}
 		return true;
@@ -244,7 +245,6 @@ class SFUtils {
 	}
 
 	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ) {
-		$template_fields = array();
 		$html_text = "";
 		$template_all = $pageSchemaObj->getTemplates();
 		$html_text_array = array();
@@ -288,6 +288,7 @@ class SFUtils {
 		$text_extensions['sf_form']= $form_html_text;
 		return true;
 	}
+
 	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {
 		$html_text = "";
 		$form_text = "" ;
@@ -307,17 +308,31 @@ class SFUtils {
 		$text_extensions['sf_form'] = $form_text;
 		return true;
 	}
+
+	public static function getFormName( $psSchemaObj ) {
+		$formData = $psSchemaObj->getObject( 'semanticforms_Form' );
+		return $formData['sf']['name'];
+	}
+
+	public static function getFormArray( $psSchemaObj ) {
+		$formData = $psSchemaObj->getObject( 'semanticforms_Form' );
+		return $formData['sf'];
+	}
+
 	/**
-	*/
+	 * Return the list of pages that Semantic Forms could generate from
+	 * the current Page Schemas schema.
+	 */
 	public static function getPageList( $psSchemaObj, &$genPageList ) {
 		global $wgOut, $wgUser;
+
 		$template_all = $psSchemaObj->getTemplates();
 		foreach ( $template_all as $template ) {
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
 			$genPageList[] = $title;
 		}
-		$form_name = $psSchemaObj->getFormName();
-		if( $form_name == null ) {
+		$form_name = self::getFormName( $psSchemaObj );
+		if ( $form_name == null ) {
 			return true;
 		}
 		//$form = SFForm::create( $form_name, $form_templates );
@@ -325,61 +340,93 @@ class SFUtils {
 		$genPageList[] = $title;
 		return true;
 	}
+
 	/**
-	*/
+	 * Creates wiki-text for a template, based on the contents of a <PageSchema> tag.
+	 */
+	public static function templateTextFromPSTemplateData( $templateName, $templateFromSchema, $categoryName ) {
+		$field_all = $templateFromSchema->getFields();
+		$template_fields = array();
+		foreach( $field_all as $fieldObj ) {
+			$smw_array = $fieldObj->getObject('semanticmediawiki_Property');
+			$propertyName = $smw_array['smw']['name'];
+			$templateField = SFTemplateField::create(
+				$fieldObj->getName(),
+				$fieldObj->getLabel(),
+				$propertyName,
+				$fieldObj->isList(),
+				$fieldObj->getDelimiter()
+			);
+			$template_fields[] = $templateField;
+		}
+		return SFTemplateField::createTemplateText( $templateName,
+			$template_fields, null, $categoryName, null, null, null );
+	}
+
+	public static function generateForm( $formName, $formTitle, $formTemplates, $formDataFromSchema ) {
+		global $wgUser;
+
+		$form = SFForm::create( $formName, $formTemplates );
+		if ( array_key_exists( 'PageNameFormula', $formDataFromSchema ) ) {
+			$form->setPageNameFormula( $formDataFromSchema['PageNameFormula'] );
+		}
+		if ( array_key_exists( 'CreateTitle', $formDataFromSchema ) ) {
+			$form->setCreateTitle( $formDataFromSchema['CreateTitle'] );
+		}
+		if ( array_key_exists( 'EditTitle', $formDataFromSchema ) ) {
+			$form->setEditTitle( $formDataFromSchema['EditTitle'] );
+		}
+		$formContents = $form->createMarkup();
+		$params = array();
+		$params['user_id'] = $wgUser->getId();
+		$params['page_text'] = $formContents;
+		$job = new PSCreatePageJob( $formTitle, $params );
+		Job::batchInsert( array( $job ) );
+	}
+
+	/**
+	 * Generate pages (form and templates) specified in the list.
+	 */
 	public static function generatePages( $psSchemaObj, $toGenPageList ) {
 		global $wgOut, $wgUser;
-		$template_all = $psSchemaObj->getTemplates();
+
+		$templatesFromSchema = $psSchemaObj->getTemplates();
 		$form_templates = array();
 		$jobs = array();
-		foreach ( $template_all as $template ) {
-			$template_array = array();
-			$template_array['name'] = $template->getName();
-			$template_array['category_name'] = $psSchemaObj->categoryName;
-			$field_all = $template->getFields();
-			$field_count = 0; //counts the number of fields
-			$template_fields = array();
-			foreach( $field_all as $fieldObj ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type
-				$field_count++;
-				$sf_array = $fieldObj->getObject('semanticforms_FormInput');//this returns an array with property values filled
-				$form_input_array = $sf_array['sf'];
-				$smw_array = $fieldObj->getObject('semanticmediawiki_Property'); //this returns an array with property values filled
-				$prop_array = $smw_array['smw'];
-				$field_t = SFTemplateField::create( $fieldObj->getName(), $fieldObj->getLabel(), $prop_array['name'], $fieldObj->isList() ,$fieldObj->getDelimiter());
-				$template_fields[] = $field_t;
-			}
-			$template_text = SFTemplateField::createTemplateText( $template->getName(), $template_fields, null, $psSchemaObj->categoryName, null, null, null );
-			$title = Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
-			$key_title = PageSchemas::titleString( $title );
-			if ( in_array( $key_title, $toGenPageList ) ) {
+		foreach ( $templatesFromSchema as $templateFromSchema ) {
+			// Generate every specified template
+			$templateName = $templateFromSchema->getName();
+			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
+			$fullTemplateName = PageSchemas::titleString( $templateTitle );
+			if ( in_array( $fullTemplateName, $toGenPageList ) ) {
+				$templateText = self::templateTextFromPSTemplateData( $templateName,
+					$templateFromSchema, $psSchemaObj->categoryName );
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
-				$params['page_text'] = $template_text;
-				$jobs[] = new PSCreatePageJob( $title, $params );
+				$params['page_text'] = $templateText;
+				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
 			}
-			//Creating Form Templates at this time
-			$form_template = SFTemplateInForm::create( $template->getName(), $template->getLabel(), $template->isMultiple() );
+
+			// Create template info for form, for use in generating the form
+			// (if it will be generated).
+			$form_template = SFTemplateInForm::create(
+				$templateName,
+				$templateFromSchema->getLabel(),
+				$templateFromSchema->isMultiple()
+			);
 			$form_templates[] = $form_template;
 		}
 		Job::batchInsert( $jobs );
-		$form_name = $psSchemaObj->getFormName();
-		$form_array = $psSchemaObj->getFormArray();
-		if ( $form_name == null ) {
-			return true;
-		}
-		$form = SFForm::create( $form_name, $form_templates );
-		$form->setPageNameFormula( $form_array['PageNameFormula'] );
-		$form->setCreateTitle( $form_array['CreateTitle'] );
-		$form->setEditTitle( $form_array['EditTitle'] );
-		$title = Title::makeTitleSafe( SF_NS_FORM, $form->getFormName() );
-		$key_title = PageSchemas::titleString( $title );
-		if( in_array($key_title, $toGenPageList )) {
-			$full_text = $form->createMarkup();
-			$params = array();
-			$params['user_id'] = $wgUser->getId();
-			$params['page_text'] = $full_text;
-			$jobs = array( new PSCreatePageJob( $title, $params ) );
-			Job::batchInsert( $jobs );
+
+		// Create form, if it's specified.
+		$form_name = self::getFormName( $psSchemaObj );
+		if ( !empty( $form_name ) ) {
+			$form_array = self::getFormArray( $psSchemaObj );
+			$formTitle = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+			$fullFormName = PageSchemas::titleString( $formTitle );
+			if ( in_array( $fullFormName, $toGenPageList ) ) {
+				self::generateForm( $form_name, $formTitle, $form_templates, $form_array );
+			}
 		}
 		return true;
 	}
