@@ -88,7 +88,7 @@ class SFFormStart extends SpecialPage {
 			}
 		}
 
-		if ( ( ! $form_title || ! $form_title->exists() ) && ( $form_name != '' ) ) {
+		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name != '' ) ) {
 			$text = Xml::element( 'p', null, wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 		} else {
 			if ( $form_name == '' ) {
@@ -126,7 +126,7 @@ END;
 		if ( $page_title->exists() ) {
 			// It exists - see if page is a redirect; if
 			// it is, edit the target page instead.
-			$article = new Article( $page_title );
+			$article = new Article( $page_title, 0 );
 			$article->loadContent();
 			$redirect_title = Title::newFromRedirect( $article->fetchContent() );
 			if ( $redirect_title != null ) {

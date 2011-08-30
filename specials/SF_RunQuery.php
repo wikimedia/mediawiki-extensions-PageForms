@@ -35,10 +35,11 @@ class SFRunQuery extends IncludableSpecialPage {
 		// Get contents of form-definition page.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
-		if ( ! $form_title || ! $form_title->exists() ) {
+		if ( !$form_title || !$form_title->exists() ) {
 			if ( $form_name == '' ) {
 				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
 			} else {
+				/// FIXME: i18n
 				$text = '<p class="error">Error: No form page was found at ' . SFUtils::linkText( SF_NS_FORM, $form_name ) . ".</p>\n";
 			}
 			$wgOut->addHTML( $text );
@@ -46,7 +47,7 @@ class SFRunQuery extends IncludableSpecialPage {
 		}
 
 		// Initialize variables.
-		$form_article = new Article( $form_title );
+		$form_article = new Article( $form_title, 0 );
 		$form_definition = $form_article->getContent();
 		$submit_url = $form_title->getLocalURL( 'action=submit' );
 		if ( $embedded ) {
@@ -110,7 +111,7 @@ class SFRunQuery extends IncludableSpecialPage {
 				$text .= "\n<h2>$additional_query</h2>\n";
 		}
 		if ( !$raw ) {
-			$action = htmlspecialchars( SpecialPage::getTitleFor( "RunQuery", $form_name )->getLocalURL() );
+			$action = htmlspecialchars( $this->getTitle( $form_name )->getLocalURL() );
 			$text .= <<<END
 	<form id="sfForm" name="createbox" action="$action" method="post" class="createbox">
 

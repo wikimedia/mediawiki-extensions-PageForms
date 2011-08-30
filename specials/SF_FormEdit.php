@@ -103,7 +103,7 @@ class SFFormEdit extends SpecialPage {
 
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
-		$form_article = new Article( $form_title );
+		$form_article = new Article( $form_title, 0 );
 		$form_definition = $form_article->getContent();
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 
@@ -125,7 +125,7 @@ class SFFormEdit extends SpecialPage {
 					$page_contents = null;
 					//$page_is_source = false;
 				} else {
-					$target_article = new Article( $target_title );
+					$target_article = new Article( $target_title, 0 );
 					$page_contents = $target_article->getContent();
 					//$page_is_source = true;
 				}
@@ -300,7 +300,7 @@ class SFFormEdit extends SpecialPage {
 
 					// Find existing article if it exists,
 					// or create a new one.
-					$article = new Article( $target_title );
+					$article = new Article( $target_title, 0 );
 
 					$editor = new EditPage( $article );
 					$editor->importFormData( $request );
