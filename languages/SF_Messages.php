@@ -182,6 +182,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 	// user rights
 	'right-viewedittab'          => 'View "Edit" tab for pages editable by form',
 	'right-editrestrictedfields' => 'Edit restricted form fields',
+	'right-createclass'          => 'Create new semantic classes',
 );
 
 /** Message documentation (Message documentation)
