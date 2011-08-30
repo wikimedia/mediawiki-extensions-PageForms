@@ -1390,7 +1390,7 @@ END;
 				$form_text .= SFFormUtils::formBottom( $form_is_disabled );
 		}
 		$starttime = wfTimestampNow();
-		$page_article = new Article( $this->mPageTitle );
+		$page_article = new Article( $this->mPageTitle, 0 );
 		$edittime = $page_article->getTimestamp();
 		if ( !$is_query ) {
 			$form_text .= SFFormUtils::hiddenFieldHTML( 'wpStarttime', wfTimestampNow() );

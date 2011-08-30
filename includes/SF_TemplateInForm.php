@@ -42,7 +42,7 @@ class SFTemplateInForm {
 		// recorded the first time they're found.
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
 		$template_article = null;
-		if ( isset( $template_title ) ) $template_article = new Article( $template_title );
+		if ( isset( $template_title ) ) $template_article = new Article( $template_title, 0 );
 		if ( isset( $template_article ) ) {
 			$templateText = $template_article->getContent();
 			// Ignore 'noinclude' sections and 'includeonly' tags.
