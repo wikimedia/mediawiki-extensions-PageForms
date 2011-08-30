@@ -190,25 +190,31 @@ class SFUtils {
 		return true;
 	}
 
-	public static function getXMLTextForPS( $wgRequest, &$text_extensions ) {
-		$Xmltext = "";
-		$form_xml_text = "";
-		$templateNum = -1;
-		$xml_text_array = array();
-		foreach ( $wgRequest->getValues() as $var => $val ) {
+	public static function getSchemaXMLForPS( $request, &$xmlArray ) {
+		foreach ( $request->getValues() as $var => $val ) {
 			if ( substr( $var, 0, 13) == 'sf_form_name_' ) {
-				$form_xml_text .= '<semanticforms_Form name="'.$val.'" >';
-			} elseif ( substr( $var, 0, 14 ) == 'sf_input_type_') {
-				$templateNum = substr( $var, 14, 1 );
-				$Xmltext .= '<semanticforms_FormInput>';
-				$Xmltext .= '<InputType>'.$val.'</InputType>';
+				$xml = '<semanticforms_Form name="'.$val.'" >';
 			} elseif ( substr( $var, 0, 21 ) == 'sf_page_name_formula_') {
-				$form_xml_text .= '<PageNameFormula>'.$val.'</PageNameFormula>';
+				$xml .= '<PageNameFormula>'.$val.'</PageNameFormula>';
 			} elseif ( substr( $var, 0, 16 ) == 'sf_create_title_' ) {
-				$form_xml_text .= '<CreateTitle>'.$val.'</CreateTitle>';
+				$xml .= '<CreateTitle>'.$val.'</CreateTitle>';
 			} elseif ( substr( $var, 0, 14 ) == 'sf_edit_title_' ) {
-				$form_xml_text .= '<EditTitle>'.$val.'</EditTitle>';
-				$form_xml_text .= '</semanticforms_Form>';
+				$xml .= '<EditTitle>'.$val.'</EditTitle>';
+				$xml .= '</semanticforms_Form>';
+			}
+		}
+		$xmlArray['sf'] = $xml;
+		return true;
+	}
+
+	public static function getFieldXMLForPS( $request, &$xmlArray ) {
+		$xmlPerField = array();
+		$templateNum = -1;
+		foreach ( $request->getValues() as $var => $val ) {
+			if ( substr( $var, 0, 14 ) == 'sf_input_type_') {
+				$templateNum = substr( $var, 14, 1 );
+				$xml = '<semanticforms_FormInput>';
+				$xml .= '<InputType>'.$val.'</InputType>';
 			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
 				if ( $val != '' ) {
 					// replace the comma substitution character that has no chance of
@@ -222,20 +228,18 @@ class SFUtils {
 						$param_value = explode( "=", $value );
 						if ( $param_value[1] != null ) {
 							//handles Parameter name="size">20</Parameter>
-							$Xmltext .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
+							$xml .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
 						} else {
 							//handles <Parameter name="mandatory" />
-							$Xmltext .= '<Parameter name="'.$param_value[0].'"/>';
+							$xml .= '<Parameter name="'.$param_value[0].'"/>';
 						}
 					}
-					$Xmltext .= '</semanticforms_FormInput>';
-					$xml_text_array[] = $Xmltext;
-					$Xmltext = '';
+					$xml .= '</semanticforms_FormInput>';
+					$xmlPerField[] = $xml;
 				}
 			}
 		}
-		$text_extensions['sf'] = $xml_text_array;
-		$text_extensions['sf_form'] = $form_xml_text;
+		$xmlArray['sf'] = $xmlPerField;
 		return true;
 	}
 
