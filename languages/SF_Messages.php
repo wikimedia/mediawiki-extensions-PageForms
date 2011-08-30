@@ -1563,6 +1563,7 @@ wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular z
 	'sf_blank_namespace' => 'Seite',
 	'right-viewedittab' => '„Bearbeiten“-Tab für Seiten zeigen, die per Formular bearbeitet werden können',
 	'right-editrestrictedfields' => 'Eingeschränkte Formularfelder bearbeiten',
+	'right-createclass' => 'Erstellen neuer semantischer Klassen',
 );
 
 /** German (formal address) (‪Deutsch (Sie-Form)‬)
@@ -2455,6 +2456,7 @@ si une page avec ce nom existe déjà, vous serez dirigé vers un formulaire pou
 	'sf_blank_namespace' => 'Principal',
 	'right-viewedittab' => 'Voir l’onglet « modifier » pour les pages modifiables via un formulaire',
 	'right-editrestrictedfields' => 'Modifier les champs restreints des formulaires',
+	'right-createclass' => 'Créer de nouvelles classes sémantiques',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -4587,7 +4589,7 @@ $messages['mk'] = array(
 	'sf_createtemplate_templatefields' => 'Полиња на шаблонот:',
 	'sf_createtemplate_fieldsdesc' => 'Ако сакате полињата во шаблонов повеќе да не бараат имиња, едноставно внесете индекс за секое поле (на пр. 1, 2, 3, и тн.) наместо фактичко име.',
 	'sf_createtemplate_fieldname' => 'Име на полето:',
-	'sf_createtemplate_displaylabel' => 'Наслов за прика:',
+	'sf_createtemplate_displaylabel' => 'Натпис за приказ:',
 	'sf_createtemplate_semanticproperty' => 'Семантичко својство:',
 	'sf_createtemplate_fieldislist' => 'Ова поле може да содржи список на вредности, одделени со запирки',
 	'sf_createtemplate_aggregation' => 'Насобирање',
@@ -5140,6 +5142,7 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
 	'sf_blank_namespace' => 'Hoofdnaamruimte',
 	'right-viewedittab' => 'Tabblad "Bewerken" zien op pagina\'s die via een formulier bewerkt kunnen worden',
 	'right-editrestrictedfields' => 'Beperkte formuliervelden bewerken',
+	'right-createclass' => 'Nieuwe semantische klassen aanmaken',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
