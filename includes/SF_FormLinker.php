@@ -317,6 +317,14 @@ class SFFormLinker {
 				return $default_forms;
 			}
 		}
+
+		// All that's left is checking for the namespace. If this is
+		// a subpage, exit out - default forms for namespaces don't
+		// apply to subpages.
+		if ( $title->isSubpage() ) {
+			return array();
+		}
+		
 		// If we're still here, just return the default form for the
 		// namespace, which may well be null.
 		if ( NS_MAIN === $namespace ) {
