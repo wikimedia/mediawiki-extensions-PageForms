@@ -2720,6 +2720,7 @@ se xa existe unha páxina con ese nome enviaráselle a un formulario para editar
 	'sf_blank_namespace' => 'Principal',
 	'right-viewedittab' => 'Ver a lapela "Editar" nas páxinas editables por formularios',
 	'right-editrestrictedfields' => 'Editar os campos restrinxidos dos formularios',
+	'right-createclass' => 'Crear novas clases semánticas',
 );
 
 /** Gothic (Gothic)
@@ -4421,6 +4422,9 @@ $messages['lb'] = array(
 	'sf_formedit_saveandcontinueediting' => 'Späicheren a virufueren',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Date späicheren a mam Ännere virufueren',
 	'sf_autoedit_anoneditwarning' => 'Opgepasst: Dir sidd net ageloggt. Dowéinst gëtt amplaz vun engem Benotzernumm Är IP Adress am Historique vun dëser Säit gespäichert.',
+	'sf_autoedit_noformfound' => 'Kee Formulaire uginn.',
+	'sf_autoedit_toomanyformsfound' => 'Fir dës Säit gëtt et méi wéi ee Formulaire.',
+	'sf_autoedit_readonly' => "D'Datebank ass elo fir Ännerunge gespaart. Grond: $1",
 	'runquery' => 'Ufro ausféieren',
 	'sf_runquery_title' => 'ausféiere vu der Ufro: $1',
 	'sf_runquery_additionalquery' => 'Zousätzlech Ufro',
@@ -4732,6 +4736,7 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 	'sf_blank_namespace' => 'Главен',
 	'right-viewedittab' => 'Приказ на јазиче „Уреди“ за страниците уредливи со образец',
 	'right-editrestrictedfields' => 'Уредување на ограничени полиња на обрасци',
+	'right-createclass' => 'Создавање на нови семантички класи',
 );
 
 /** Malayalam (മലയാളം)
@@ -5411,6 +5416,7 @@ om en side med det navnet finnes allerede vil du bli sendt til et skjema for red
 	'sf_blank_namespace' => 'Hoved',
 	'right-viewedittab' => 'Vis «Rediger»-fanen for sider som kan redigeres via skjema',
 	'right-editrestrictedfields' => 'Rediger begrensede skjemafelt',
+	'right-createclass' => 'Opprett nye semantiske klasser',
 );
 
 /** Northern Sotho (Sesotho sa Leboa)
