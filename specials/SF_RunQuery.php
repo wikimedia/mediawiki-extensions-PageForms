@@ -22,14 +22,16 @@ class SFRunQuery extends IncludableSpecialPage {
 
 	function execute( $query ) {
 		global $wgRequest;
-		if ( !$this->including() )
+
+		if ( !$this->including() ) {
 			$this->setHeaders();
+		}
 		$form_name = $this->including() ? $query : $wgRequest->getVal( 'form', $query );
 
-		self::printPage( $form_name, $this->including() );
+		$this->printPage( $form_name, $this->including() );
 	}
 
-	static function printPage( $form_name, $embedded = false ) {
+	function printPage( $form_name, $embedded = false ) {
 		global $wgOut, $wgRequest, $sfgFormPrinter, $wgParser;
 
 		// Get contents of form-definition page.
@@ -39,8 +41,8 @@ class SFRunQuery extends IncludableSpecialPage {
 			if ( $form_name == '' ) {
 				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
 			} else {
-				/// FIXME: i18n
-				$text = '<p class="error">Error: No form page was found at ' . SFUtils::linkText( SF_NS_FORM, $form_name ) . ".</p>\n";
+				$text = Xml::tags( 'p', array( 'class' => 'error' ),
+					wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
 			$wgOut->addHTML( $text );
 			return;
