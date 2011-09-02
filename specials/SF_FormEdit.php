@@ -308,10 +308,10 @@ class SFFormEdit extends SpecialPage {
 					// Try to save the page!
 					$resultDetails = array();
 					$saveResult = $editor->internalAttemptSave( $resultDetails );
-					if ( method_exists( $saveResult, 'value' ) ) {
+					// Return value was made an object in MW 1.19
+					if ( is_object( $saveResult ) ) {
 						$saveResultCode = $saveResult->value;
 					} else {
-						// Compatibility with MW < 1.19
 						$saveResultCode = $saveResult;
 					}
 
