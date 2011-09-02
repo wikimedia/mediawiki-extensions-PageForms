@@ -308,7 +308,12 @@ class SFFormEdit extends SpecialPage {
 					// Try to save the page!
 					$resultDetails = array();
 					$saveResult = $editor->internalAttemptSave( $resultDetails );
-					$saveResultCode = $saveResult->value;
+					if ( method_exists( $saveResult, 'value' ) ) {
+						$saveResultCode = $saveResult->value;
+					} else {
+						// Compatibility with MW < 1.19
+						$saveResultCode = $saveResult;
+					}
 
 					if ( ( $saveResultCode == EditPage::AS_HOOK_ERROR || $saveResultCode == EditPage::AS_HOOK_ERROR_EXPECTED ) && $redirectOnError ) {
 
