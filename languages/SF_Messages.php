@@ -3937,6 +3937,7 @@ Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto
  * @author Aotake
  * @author Fryed-peach
  * @author Hosiryuhosi
+ * @author Schu
  * @author Whym
  * @author 青子守歌
  */
@@ -3972,10 +3973,25 @@ $messages['ja'] = array(
 	'forms' => 'フォーム一覧',
 	'sf_forms_docu' => '次のフォームがウィキに存在します。',
 	'sf_forminputs_mandatory' => '必須',
-	'sf_forminputs_restricted' => '制限的 (管理者のみが変更できる)',
+	'sf_forminputs_restricted' => '管理者だけがこの入力を編集することができます',
+	'sf_forminputs_class' => 'この入力のための HTML の"クラス"属性',
+	'sf_forminputs_default' => 'この入力のデフォルト値',
+	'sf_forminputs_size' => 'このテキストフ​​ィールドの文字数でのサイズ',
+	'sf_forminputs_maxlength' => 'このフィールド内のテキストに許される最大長',
+	'sf_forminputs_rows' => 'この入力の行数',
+	'sf_forminputs_cols' => 'この入力の列数',
+	'sf_forminputs_valuesfromproperty' => 'そのウィキ内の値のプロパティは、この値の入力のセットになります',
+	'sf_forminputs_valuesfromcategory' => 'そのページの値のこの入力のセットがあるはずのカテゴリー',
+	'sf_forminputs_valuesfromnamespace' => 'そのページの名前空間は、この値の入力のセットになります',
+	'sf_forminputs_listboxsize' => 'このリストボックスの行数での高さ',
+	'sf_forminputs_includetimezone' => 'タイムゾーンの入力が含まれています',
+	'sf_forminputs_topcategory' => 'カテゴリのこのセット (必須) の親カテゴリ',
+	'sf_forminputs_hideroot' => '親カテゴリを非表示',
+	'sf_forminputs_height' => 'この入力のピクセル単位での高さ',
+	'sf_forminputs_width' => 'この入力のピクセル単位で幅',
 	'createform' => 'フォームの作成',
 	'sf_createform_nameinput' => 'フォーム名',
-	'sf_createform_nameinputdesc' => '(慣例では、フォームがデータを投入する本体のテンプレートの名前から命名します):',
+	'sf_createform_nameinputdesc' => '（フォームは通常、メインテンプレートと同じ名前を与えられます）:',
 	'sf_createform_template' => 'テンプレート:',
 	'sf_createform_templatelabelinput' => 'テンプレートのラベル (省略可能):',
 	'sf_createform_allowmultiple' => '作成されたページでこのテンプレートを複数 (もしくはゼロ) 回使用できるようにする',
@@ -3999,11 +4015,13 @@ $messages['ja'] = array(
 	'sf_createcategory_makesubcategory' => 'これを別のカテゴリのサブカテゴリとする (任意選択):',
 	'createclass' => 'クラスの作成',
 	'sf_createclass_docu' => '単一のクラスに対応する、プロパティ群、テンプレート、フォーム、およびカテゴリを作成するためのデータすべてをここに入力してください。より多くの選択肢が必要な場合、ページ $1 を使ってください。',
-	'sf_createclass_allowedvalues' => '許容される値',
-	'sf_createclass_listofvalues' => '値の一覧',
+	'sf_createclass_allowedvalues' => '許可される値 :',
+	'sf_createclass_listofvalues' => '値のリスト？',
 	'sf_createclass_leavefieldblank' => 'フィールド名がプロパティ名と同一の場合は空欄にできます。',
+	'sf_createclass_nameinput' => 'フォーム名:',
 	'sf_createclass_missingvalues' => '必須のフィールドに未入力のものがあります。',
 	'sf_createclass_success' => 'プロパティ群、テンプレート、フォーム、およびカテゴリが作成されます。',
+	'sf_createclass_create' => '作成',
 	'formstart' => 'フォームによるページの追加',
 	'sf_formstart_badform' => 'エラー: $1 にはフォームページが見つかりませんでした',
 	'sf_formstart_badtitle' => 'エラー:「$1」はページ名として無効です。',
@@ -4012,6 +4030,7 @@ $messages['ja'] = array(
 	'sf_formstart_createoredit' => '作成、または編集',
 	'formedit' => 'フォームを使って編集',
 	'sf_formedit_createtitle' => '$1を作成：$2',
+	'sf_formedit_createtitlenotarget' => '$1 を作成',
 	'sf_formedit_badurl' => 'これはフォームを使って編集するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
 "Special:FormEdit?form=<フォーム名>&target=<対象ページ>" あるいは "Special:FormEdit/<フォーム名>/<対象ページ>" というような形式になります。',
 	'sf_formedit_altforms' => '代わりに次のうちどれかのフォームを使って、このページを追加することができます:',
@@ -4050,6 +4069,7 @@ $messages['ja'] = array(
 	'sf_blank_namespace' => '標準',
 	'right-viewedittab' => 'フォームによって編集可能なページの「編集」タブが表示される',
 	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集する',
+	'right-createclass' => '新しいセマンティククラスを作成',
 );
 
 /** Javanese (Basa Jawa)
