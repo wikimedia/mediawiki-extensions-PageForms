@@ -3619,6 +3619,7 @@ si un pagina con iste nomine ja existe, tu essera inviate a un formulario pro mo
 	'sf_blank_namespace' => 'Principal',
 	'right-viewedittab' => 'Vider le scheda "Modificar" pro paginas modificabile per formulario',
 	'right-editrestrictedfields' => 'Modificar le campos restringite de formularios',
+	'right-createclass' => 'Crear nove classes semantic',
 );
 
 /** Indonesian (Bahasa Indonesia)
