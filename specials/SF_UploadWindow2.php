@@ -383,6 +383,8 @@ class SFUploadWindow2Proto extends UnlistedSpecialPage {
 		}
 
 		$basename = str_replace( '_', ' ', $basename );
+		// UTF8-decoding is needed for IE
+		$basename = utf8_decode( $basename );
 		$output = '     <script type="text/javascript">' . "\n";
 		if ( $this->mDelimiter == null ) {
 			$output .= <<<END
@@ -926,7 +928,7 @@ class SFUploadForm extends HTMLForm {
 				'section' => 'options',
 			);
 		}
-		$descriptor['wpDestFileWarningAck'] = array(
+		$descriptor['DestFileWarningAck'] = array(
 			'type' => 'hidden',
 			'id' => 'wpDestFileWarningAck',
 			'default' => $this->mDestWarningAck ? '1' : '',
@@ -1014,13 +1016,12 @@ END;
 	protected function addUploadJS( $autofill = true ) {
 		global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
 		global $wgStrictFileExtensions;
-		global $wgEnableFirefogg, $wgEnableJS2system;
+		global $wgEnableJS2system;
 		global $wgOut;
 
 		$scriptVars = array(
 			'wgAjaxUploadDestCheck' => $wgUseAjax && $wgAjaxUploadDestCheck,
 			'wgAjaxLicensePreview' => $wgUseAjax && $wgAjaxLicensePreview,
-			'wgEnableFirefogg' => (bool)$wgEnableFirefogg,
 			'wgUploadAutoFill' => (bool)$autofill &&
 				// If we received mDestFile from the request, don't autofill
 				// the wpDestFile textbox
