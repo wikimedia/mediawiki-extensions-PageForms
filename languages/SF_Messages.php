@@ -670,8 +670,12 @@ $messages['avk'] = array(
  * @author Cekli829
  */
 $messages['az'] = array(
+	'sf_createproperty_proptype' => 'Tipi:',
 	'sf_createtemplate_deletefield' => 'Sil',
 	'sf_createform_template' => 'Şablon:',
+	'sf_createform_hidden' => 'Gizlədilib',
+	'sf_createform_add' => 'Əlavə et',
+	'sf_formedit_none' => 'Heç biri',
 );
 
 /** Bavarian (Boarisch)
