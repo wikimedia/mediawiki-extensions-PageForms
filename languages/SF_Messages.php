@@ -4940,7 +4940,7 @@ $messages['ms'] = array(
 	'templates' => 'Templat',
 	'sf_createtemplate_deletefield' => 'Hapuskan',
 	'sf_createform_template' => 'Templat:',
-	'sf_createform_inputtypedefault' => '(tersedia)',
+	'sf_createform_inputtypedefault' => '(asali)',
 	'sf_createform_formlabel' => 'Label borang:',
 	'sf_createform_add' => 'Tambahkan',
 	'sf_createcategory_defaultform' => 'Borang sediaan:',
@@ -5118,7 +5118,7 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_formstart_docu' => "Voer de naam van de pagina die bewerkt wordt met het formulier '$1' hier in. Als deze pagina al bestaat, wordt u doorgestuurd naar het formulier om die pagina te bewerken. Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.",
 	'sf_formstart_noform_docu' => 'Voer de naam van de pagina hier in en selecteer het formulier waarmee die bewerkt wordt. Als deze pagina al bestaat, wordt u doorgestuurd naar het formulier om die pagina te bewerken. Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
 	'sf_formstart_createoredit' => 'Aanmaken of bewerken',
-	'formedit' => 'Bewerken met dit formulier',
+	'formedit' => 'Bewerken met formulier',
 	'sf_formedit_createtitle' => '$1 aanmaken: $2',
 	'sf_formedit_createtitlenotarget' => '$1 aanmaken',
 	'sf_formedit_badurl' => 'Op deze pagina kunt u bewerkingen uitvoeren met behulp van een formulier. Geef zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als "Special:FormEdit?form=<formuliernaam>&target=<doelpagina>" of  "Special:FormEdit/<formuliernaam>/<doelpagina>".',
@@ -6567,6 +6567,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
 $messages['sl'] = array(
 	'sf_createform_add' => 'Dodaj',
 	'formedit' => 'Uredi z obrazcem',
+	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca',
 );
 
 /** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
