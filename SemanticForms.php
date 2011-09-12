@@ -91,15 +91,16 @@ $wgHooks['ParserBeforeStrip'][] = 'SFUtils::cacheFormDefinition';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 
-//PSSchema Hooks
-$wgHooks['PageSchemasGetObject'][] = 'SFUtils::createPageSchemasObject' ; //Hook for  returning PageSchema(extension)  object from a given xml 
-$wgHooks['PageSchemasGeneratePages'][] = 'SFUtils::generatePages' ; //Hook for  creating Pages
-$wgHooks['PSParseFieldElements'][] = 'SFUtils::parseFieldElements' ; //Hook for  creating Pages
-$wgHooks['PageSchemasGetPageList'][] = 'SFUtils::getPageList' ; //Hook for  creating Pages
-$wgHooks['getHtmlTextForFieldInputs'][] = 'SFUtils::getHtmlTextForPS' ; //Hook for  retuning html text to PS schema
+// Page Schemas extension hooks
+$wgHooks['PageSchemasGetObject'][] = 'SFUtils::createPageSchemasObject' ;
+$wgHooks['PageSchemasGeneratePages'][] = 'SFUtils::generatePages' ;
+$wgHooks['PSParseFieldElements'][] = 'SFUtils::parseFieldElements' ;
+$wgHooks['PageSchemasGetPageList'][] = 'SFUtils::getPageList' ; 
+$wgHooks['PageSchemasGetSchemaHTML'][] = 'SFUtils::getSchemaHTMLForPS' ;
+$wgHooks['PageSchemasGetFieldHTML'][] = 'SFUtils::getFieldHTMLForPS' ;
 $wgHooks['PageSchemasGetSchemaXML'][] = 'SFUtils::getSchemaXMLForPS';
 $wgHooks['PageSchemasGetFieldXML'][] = 'SFUtils::getFieldXMLForPS';
-$wgHooks['getFilledHtmlTextForFieldInputs'][] = 'SFUtils::getFilledHtmlTextForPS' ; //Hook for  retuning html text to PS schema
+//$wgHooks['getFilledHtmlTextForFieldInputs'][] = 'SFUtils::getFilledHtmlTextForPS' ;
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';

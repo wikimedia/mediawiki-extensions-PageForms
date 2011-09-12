@@ -3,6 +3,7 @@
  * Helper functions for the Semantic Forms extension.
  *
  * @author Yaron Koren
+ * @author Ankit Garg
  * @file
  * @ingroup SF
  */
@@ -193,13 +194,13 @@ class SFUtils {
 
 	public static function getSchemaXMLForPS( $request, &$xmlArray ) {
 		foreach ( $request->getValues() as $var => $val ) {
-			if ( substr( $var, 0, 13) == 'sf_form_name_' ) {
+			if ( $var == 'sf_form_name' ) {
 				$xml = '<semanticforms_Form name="'.$val.'" >';
-			} elseif ( substr( $var, 0, 21 ) == 'sf_page_name_formula_') {
+			} elseif ( $var == 'sf_page_name_formula' ) {
 				$xml .= '<PageNameFormula>'.$val.'</PageNameFormula>';
-			} elseif ( substr( $var, 0, 16 ) == 'sf_create_title_' ) {
+			} elseif ( $var == 'sf_create_title' ) {
 				$xml .= '<CreateTitle>'.$val.'</CreateTitle>';
-			} elseif ( substr( $var, 0, 14 ) == 'sf_edit_title_' ) {
+			} elseif ( $var == 'sf_edit_title' ) {
 				$xml .= '<EditTitle>'.$val.'</EditTitle>';
 				$xml .= '</semanticforms_Form>';
 			}
@@ -244,68 +245,79 @@ class SFUtils {
 		return true;
 	}
 
-	public static function getFilledHtmlTextForPS( $pageSchemaObj, &$text_extensions ) {
-		$html_text = "";
-		$template_all = $pageSchemaObj->getTemplates();
-		$html_text_array = array();
-		$form_html_text = "";
-		$obj = $pageSchemaObj->getObject('semanticforms_Form');
-
-		$form_array = $obj['sf'];
-
-		$form_html_text .= '<fieldset style="background: #CF9;"><legend>Form</legend>
-		<p> Name: <input size="15" name="sf_form_name_starter" value= "'.$form_array['name'].'" ></p>
-		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter" value="'.$form_array['PageNameFormula'].'" ></p>
-		<p> Title of form for new pages: <input size="25" name="sf_create_title_starter" value="'.$form_array['CreateTitle'].'" ></p>
-		<p> Title of form for existing pages: <input size="25" name="sf_edit_title_starter" value="'.$form_array['EditTitle'].'" ></p>
-		</fieldset>';
-		foreach ( $template_all as $template ) {
-			$field_all = $template->getFields();
-			$field_count = 0; //counts the number of fields
-
-			foreach( $field_all as $field ) { //for each Field, retrieve smw properties and fill $prop_name , $prop_type
-				$field_count++;
-				$sf_array = $field->getObject('semanticforms_FormInput');//this returns an array with property values filled
-				$form_input_array = $sf_array['sf'];
-				$html_text = '<fieldset style="background: #CF9;"><legend>Form input</legend>
-		<p> Input type: <input size="15" name="sf_input_type_starter" value='.$form_input_array['InputType'].'></p>
-		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>';
-				$param_value_str= "";
-				foreach($form_input_array as $param => $value) {
-					if ( $param != 'InputType' ) {
-						if ( $value != null ) {
-							$param_value_str .= $param.'='.$value.', ';
-						} else {
-							$param_value_str .= $param.'=true, ';
-						}
-					}
-				}
-				$html_text .= '<p><input name="sf_key_values_starter" size="80" value="'.$param_value_str.'" ></fieldset></p>';
-				$html_text_array[] = $html_text;
-			}
+	public static function getSchemaHTMLForPS( $pageSchemaObj, &$text_extensions ) {
+		if ( is_null( $pageSchemaObj ) ) {
+			$form_array = array();
+		} else {
+			$obj = $pageSchemaObj->getObject('semanticforms_Form');
+			$form_array = $obj['sf'];
 		}
-		$text_extensions['sf'] = $html_text_array;
-		$text_extensions['sf_form']= $form_html_text;
+		if ( array_key_exists( 'name', $form_array ) ) {
+			$formName = $form_array['name'];
+		} else {
+			$formName = '';
+		}
+		$text = "\t<p>" . 'Name:' . ' ' . Html::input( 'sf_form_name', $formName, 'text', array( 'size' => 15 ) ) . "</p>\n";
+		if ( array_key_exists( 'PageNameFormula', $form_array ) ) {
+			$pageNameFormula = $form_array['PageNameFormula'];
+		} else {
+			$pageNameFormula = '';
+		}
+		$text .= "\t<p>" . 'Page name formula:' . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 20 ) ) . "</p>\n";
+		if ( array_key_exists( 'CreateTitle', $form_array ) ) {
+			$createTitle = $form_array['CreateTitle'];
+		} else {
+			$createTitle = '';
+		}
+		$text .= "\t<p>" . 'Title of form for new pages:' . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+		if ( array_key_exists( 'EditTitle', $form_array ) ) {
+			$editTitle = $form_array['EditTitle'];
+		} else {
+			$editTitle = '';
+		}
+		$text .= "\t<p>" . 'Title of form for existing pages:' . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+		$text_extensions['sf'] = array( 'Form', '#CF9', $text );
+
 		return true;
 	}
 
-	public static function getHtmlTextForPS( &$js_extensions ,&$text_extensions ) {
-		$html_text = "";
-		$form_text = "" ;
-		$form_text .= '<fieldset style="background: #CF9;"><legend>Form</legend>
-		<p> Name: <input size="15" name="sf_form_name_starter"></p>
-		<p> Page name formula: <input size="20" name="sf_page_name_formula_starter"></p>
-		<p> Title of form for new pages: <input size="25" name="sf_create_title_starter"></p>
-		<p> Title of form for existing pages: <input size="25" name="sf_edit_title_starter"></p>
-		</fieldset>';
+	public static function getFieldHTMLForPS( $field, &$text_extensions ) {
+		if ( is_null( $field ) ) {
+			$fieldValues = array();
+		} else {
+			$sf_array = $field->getObject('semanticforms_FormInput'); //this returns an array with property values filled
+			if ( array_key_exists( 'sf', $sf_array ) ) {
+				$fieldValues = $sf_array['sf'];
+			} else {
+				$fieldValues = array();
+			}
+		}
 
-		$html_text .= '<fieldset style="background: #CF9;"> <legend>Form input</legend>
-		<p> Input type: <input size="15" name="sf_input_type_starter"></p>
-		<p>Parameter name and its value as a key=value pair,seperated by comma (if a value contains a comma, replace it with "\,"): For eg. Size=20,mandatory=true</p>
-		<p><input value="" name="sf_key_values_starter" size="80"></p></fieldset>';
+		if ( array_key_exists( 'InputType', $fieldValues ) ) {
+			$inputType = $fieldValues['InputType'];
+		} else {
+			$inputType = '';
+		}
+		$inputTypeAttrs = array( 'size' => 15 );
+		$inputTypeInput = Html::input( 'sf_input_type_num', $inputType, 'text', $inputTypeAttrs );
+		$text = '<p>Input type: ' . $inputTypeInput . '</p>';
+		$text .= "\t" . '<p>Parameter name and its value as a key=value pair, separated by commas (if a value contains a comma, replace it with "\,"): For example: size=20,mandatory</p>' . "\n";
+		$paramValues = array();
+		foreach ( $fieldValues as $param => $value ) {
+			if ( !empty( $param ) && $param != 'InputType' ) {
+				if ( !empty( $value ) ) {
+					$paramValues[] = $param . '=' . $value;
+				} else {
+					$paramValues[] = $param;
+				}
+			}
+		}
+		$param_value_str = implode( ', ', $paramValues );
+		$inputParamsAttrs = array( 'size' => 80 );
+		$inputParamsInput = Html::input( 'sf_key_values_num', $param_value_str, 'text', $inputParamsAttrs );
+		$text .= "\t<p>$inputParamsInput</p>\n";
+		$text_extensions['sf'] = array( 'Form input', '#CF9', $text );
 
-		$text_extensions['sf'] = $html_text;
-		$text_extensions['sf_form'] = $form_text;
 		return true;
 	}
 
@@ -713,8 +725,8 @@ END;
 	}
 
 	/**
-	 * Return an array of all form names on this wiki
- 	*/
+	 * Returns an array of all form names on this wiki.
+	*/
 	public static function getAllForms() {
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select( 'page',
