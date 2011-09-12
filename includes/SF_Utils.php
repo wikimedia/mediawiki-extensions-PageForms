@@ -1122,7 +1122,7 @@ END;
 			case EditPage::AS_END:
 			case EditPage::AS_FILTERING:
 			default:
-				return array( 'internalerror_text', array ( $error ) );
+				return array( 'internalerror_info', array ( $error ) );
 		}
 	}
 
