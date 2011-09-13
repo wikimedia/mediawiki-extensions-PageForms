@@ -30,6 +30,12 @@ $magicWords['arz'] = array(
 	'arraymaptemplate' => array( 0, 'قالب_خريطة_المصفوفة', 'arraymaptemplate' ),
 );
 
+/** German (Deutsch) */
+$magicWords['de'] = array(
+	'forminput' => array( 0, 'formulareingabe' ),
+	'formlink' => array( 0, 'formularverweis' ),
+);
+
 /** Japanese (日本語) */
 $magicWords['ja'] = array(
 	'forminput' => array( 0, '入力フォーム' ),
@@ -54,9 +60,9 @@ $magicWords['mr'] = array(
 
 /** Nedersaksisch (Nedersaksisch) */
 $magicWords['nds-nl'] = array(
-	'forminput' => array( 0, 'formelierinvoer', 'formulierinvoer', 'forminput' ),
-	'formlink' => array( 0, 'formelierverwiezing', 'formulierverwijzing', 'formlink' ),
-	'arraymaptemplate' => array( 0, 'arraymapmal', 'arraymapsjabloon', 'arraymaptemplate' ),
+	'forminput' => array( 0, 'formulierinvoer' ),
+	'formlink' => array( 0, 'formulierverwiezing', 'formulierverwijzing' ),
+	'arraymaptemplate' => array( 0, 'arraymapmal', 'arraymapsjabloon' ),
 );
 
 /** Dutch (Nederlands) */
@@ -66,7 +72,7 @@ $magicWords['nl'] = array(
 	'arraymaptemplate' => array( 0, 'arraymapsjabloon' ),
 );
 
-/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬) */
 $magicWords['sr-ec'] = array(
 	'forminput' => array( 0, 'формирајулаз', 'формирај_улаз' ),
 	'formlink' => array( 0, 'формирај_везу' ),
