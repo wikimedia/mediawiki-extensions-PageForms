@@ -387,6 +387,7 @@ window.ext.popupform = new function() {
 		.not('a[href*="javascript:"]') // scripted links
 		.not('a[target]')              // targeted links
 		.not('a[href^="#"]')           // local links
+		.not('a.sfFancyBox')           // link to file upload
 		.click(function(event){
 			if ( event.result != false ) {  // if not already caught by somebody else
 				closeFrameAndFollowLink( event.target.getAttribute('href') )
