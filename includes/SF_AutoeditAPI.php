@@ -73,10 +73,17 @@ class SFAutoeditAPI extends ApiBase {
 			$wgParser->_unstub();
 		}
 
-		$wgParser->getOptions()->enableLimitReport( false );
+		$parseroptions = $wgParser->getOptions();
+
+		if ( $parseroptions == null ) {
+			$parseroptions = new ParserOptions();
+			$wgParser->Options($parseroptions);
+		}
+
+		$parseroptions->enableLimitReport( false );
 
 
-		return $wgParser->parse( $result, $title, $wgParser->getOptions() )->getText();
+		return $wgParser->parse( $result, $title, $parseroptions )->getText();
 	}
 
 	/**
