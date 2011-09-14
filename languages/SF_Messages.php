@@ -827,6 +827,8 @@ $messages['be-tarask'] = array(
 	'sf_autoedit_anoneditwarning' => 'Папярэджаньне: Вы не ўвайшлі ў сыстэму. Ваш IP-адрас будзе запісаны ў гісторыі гэтай старонкі.',
 	'sf_autoedit_success' => 'Пасьпяхова зьменены [[$1]] з дапамогай формы $2.',
 	'sf_autoedit_notargetspecified' => 'Не пазначаная мэтавая старонка.',
+	'sf_autoedit_noformfound' => 'Форма не пазначаная.',
+	'sf_autoedit_toomanyformsfound' => 'Для старонкі даступна болей чым адна форма.',
 	'runquery' => 'Выканаць запыт',
 	'sf_runquery_badurl' => "Вам неабходна пазначыць назву формы ў URL-адрасе;
 URL-адрас павінен мець выгляд 'Special:RunQuery/<назва формы>'.",
@@ -2304,6 +2306,7 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
  * @author Sherbrooke
  * @author Urhixidur
  * @author Verdy p
+ * @author Wyz
  */
 $messages['fr'] = array(
 	'semanticforms-desc' => 'Formulaires pour ajouter ou modifier des données sémantiques',
@@ -2405,7 +2408,7 @@ $messages['fr'] = array(
 	'sf_formstart_docu' => 'Entrez ici le nom de la page destinée à être modifiée avec le formulaire « $1 ». Si cette page existe déjà, vous serez dirigé vers le formulaire afin de le modifier. Dans le cas contraire, vous serez redirigé vers celui permettant de l’ajouter.',
 	'sf_formstart_noform_docu' => 'Entrez ici le nom de la page, puis sélectionnez le formulaire qui servira à la modifier. Si cette page existe déjà, vous serez dirigé vers le formulaire afin de le modifier. Dans le cas contraire, vous serez redirigé vers celui permettant de l’ajouter.',
 	'sf_formstart_createoredit' => 'Créer ou modifier',
-	'formedit' => 'Modifier avec un formulaire',
+	'formedit' => 'Modifier avec formulaire',
 	'sf_formedit_createtitle' => 'Créer $1 : $2',
 	'sf_formedit_createtitlenotarget' => 'Créer $1',
 	'sf_formedit_badurl' => 'Ceci est la page pour modifier les données en utilisant un formulaire. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;
