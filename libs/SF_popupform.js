@@ -202,7 +202,7 @@ window.ext.popupform = new function() {
 		var iframe = jQuery( event.target );
 		var iframecontents = iframe.contents();
 		
-		if ( brokenChrome ) container[0].style.visibility = "hidden";
+		if ( brokenBrowser ) container[0].style.visibility = "hidden";
 		else container[0].style.opacity = 0;
 
 		container.show();
@@ -230,19 +230,16 @@ window.ext.popupform = new function() {
 			minWidth: "0px",
 			minHeight:"0px",
 			overflow: "visible",
-			position: "absolute",
+			position: "relative",
 			top: "0",
 			left: "0",
 			border: "none"
 		} )
-		.parents().css( {
+		.parents('body').css( {
 			margin: 0,
 			padding: 0,
-			width: "auto",
-			height: "auto",
 			minWidth: "0px",
 			minHeight:"0px",
-			overflow: "visible",
 			background: "transparent"
 		})
 		.andSelf().siblings();
@@ -504,18 +501,20 @@ window.ext.popupform = new function() {
 
 		// find the dimensions of the document
 
-		var html = content.closest('html');
+		var body = content.closest('body');
+		var html = body.parent();
 
 		var scrollTgt = html;
 			
 		if ( jQuery.browser.webkit || jQuery.browser.safari ) {
-			scrollTgt = content.closest('body');
+			scrollTgt = body;
 		}
 
 		var scrollTop = scrollTgt.scrollTop()
 		var scrollLeft = scrollTgt.scrollLeft();
 
 		content
+		.css('position', 'absolute')
 		.width( 'auto' )
 		.height( 'auto' );
 
@@ -534,6 +533,7 @@ window.ext.popupform = new function() {
 		.height( '100%' );
 
 		content
+		.css('position', 'relative')
 		.width( oldContW )
 		.height( oldContH );
 
@@ -696,8 +696,14 @@ window.ext.popupform = new function() {
 		}
 
 		scrollTgt
+		.css('overflow', 'auto')
 		.scrollTop(Math.min(scrollTop, docpH - frameH))
 		.scrollLeft(scrollLeft);
+
+		if ( jQuery.browser.mozilla ) {
+			body
+			.css('overflow', 'auto')
+		}
 
 		return true;
 	}
