@@ -42,7 +42,6 @@ div.popupform-innercontainer {
 	height: 100%;
 	border: none;
 	background: transparent;
-	overflow: hidden;
 }
 
 iframe.popupform-innerdocument {
@@ -50,7 +49,6 @@ iframe.popupform-innerdocument {
 	height: 100%;
 	border: none;
 	background: transparent;
-	position: relative;
 	overflow: hidden;
 }
 

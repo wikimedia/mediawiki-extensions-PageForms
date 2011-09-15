@@ -209,15 +209,18 @@ window.ext.popupform = new function() {
 
 		// GuMaxDD has #content but keeps headlines in #gumax-content-body
 		content = iframecontents.find("#gumax-content-body");
-
+		
 		// normal skins use #content (e.g. Vector, Monobook)
 		if ( content.length == 0 ) content = iframecontents.find("#content");
 
 		// some skins use #mw_content (e.g. Modern)
 		if ( content.length == 0 ) content = iframecontents.find("#mw_content");
 
+		var iframebody = content.closest("body");
+		var iframedoc = iframebody.parent();
+
 		// this is not a normal MW page (or it uses an unknown skin)
-		if ( content.length == 0 ) content = iframecontents.find("body");
+		if ( content.length == 0 ) content = iframebody;
 
 		// the huge left margin looks ugly in Vector, reduce it
 		// (How does this look for other skins?)
@@ -229,20 +232,30 @@ window.ext.popupform = new function() {
 			height: "auto",
 			minWidth: "0px",
 			minHeight:"0px",
-			overflow: "visible",
-			position: "relative",
-			top: "0",
-			left: "0",
+//			overflow: "visible",
+//			position: "relative",
+//			top: "0",
+//			left: "0",
 			border: "none"
 		} )
-		.parents('body').css( {
+		.parentsUntil('html')
+		.css( {
 			margin: 0,
 			padding: 0,
+			width: "auto",
+			height: "auto",
 			minWidth: "0px",
-			minHeight:"0px",
+			minHeight: "0px",
+			"float": "none",  // Cavendish skin uses floating -> unfloat content
+//			position: "relative",
+//			top: "0",
+//			left: "0",
 			background: "transparent"
 		})
 		.andSelf().siblings();
+
+		iframedoc.height('100%').width('100%');
+		iframebody.height('100%').width('100%');
 
 		if ( jQuery.browser.msie && jQuery.browser.version < "8" ) {
 			siblings.hide();
