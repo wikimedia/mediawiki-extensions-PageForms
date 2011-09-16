@@ -92,15 +92,14 @@ $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 
 // Page Schemas extension hooks
-$wgHooks['PageSchemasGetObject'][] = 'SFUtils::createPageSchemasObject' ;
-$wgHooks['PageSchemasGeneratePages'][] = 'SFUtils::generatePages' ;
-$wgHooks['PSParseFieldElements'][] = 'SFUtils::parseFieldElements' ;
-$wgHooks['PageSchemasGetPageList'][] = 'SFUtils::getPageList' ; 
-$wgHooks['PageSchemasGetSchemaHTML'][] = 'SFUtils::getSchemaHTMLForPS' ;
-$wgHooks['PageSchemasGetFieldHTML'][] = 'SFUtils::getFieldHTMLForPS' ;
-$wgHooks['PageSchemasGetSchemaXML'][] = 'SFUtils::getSchemaXMLForPS';
-$wgHooks['PageSchemasGetFieldXML'][] = 'SFUtils::getFieldXMLForPS';
-//$wgHooks['getFilledHtmlTextForFieldInputs'][] = 'SFUtils::getFilledHtmlTextForPS' ;
+$wgHooks['PageSchemasGetObject'][] = 'SFPageSchemas::createPageSchemasObject' ;
+$wgHooks['PageSchemasGeneratePages'][] = 'SFPageSchemas::generatePages' ;
+$wgHooks['PSParseFieldElements'][] = 'SFPageSchemas::parseFieldElements' ;
+$wgHooks['PageSchemasGetPageList'][] = 'SFPageSchemas::getPageList' ; 
+$wgHooks['PageSchemasGetSchemaHTML'][] = 'SFPageSchemas::getSchemaHTML' ;
+$wgHooks['PageSchemasGetFieldHTML'][] = 'SFPageSchemas::getFieldHTML' ;
+$wgHooks['PageSchemasGetSchemaXML'][] = 'SFPageSchemas::getSchemaXML';
+$wgHooks['PageSchemasGetFieldXML'][] = 'SFPageSchemas::getFieldXML';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
@@ -154,6 +153,7 @@ $wgAutoloadClasses['SFFormEditTab'] = $sfgIP . '/includes/SF_FormEditTab.php';
 $wgAutoloadClasses['SFFormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
 $wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.php';
 $wgAutoloadClasses['SFFormLinker'] = $sfgIP . '/includes/SF_FormLinker.php';
+$wgAutoloadClasses['SFPageSchemas'] = $sfgIP . '/includes/SF_PageSchemas.php';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 $wgAutoloadClasses['SFAutoeditAPI'] = $sfgIP . '/includes/SF_AutoeditAPI.php';
