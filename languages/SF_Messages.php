@@ -829,6 +829,8 @@ $messages['be-tarask'] = array(
 	'sf_autoedit_notargetspecified' => 'Не пазначаная мэтавая старонка.',
 	'sf_autoedit_noformfound' => 'Форма не пазначаная.',
 	'sf_autoedit_toomanyformsfound' => 'Для старонкі даступна болей чым адна форма.',
+	'sf_autoedit_readonly' => 'У цяперашні момант база зьвестак заблякаваная для зьменаў. Прычына: $1',
+	'sf_autoedit_nosemanticform' => 'Немагчыма атрымаць форму $2 для старонкі $1. Глядзіце падрабязнасьці на [[{{#special:FormEdit}}/$2/$1]].',
 	'runquery' => 'Выканаць запыт',
 	'sf_runquery_badurl' => "Вам неабходна пазначыць назву формы ў URL-адрасе;
 URL-адрас павінен мець выгляд 'Special:RunQuery/<назва формы>'.",
@@ -857,6 +859,7 @@ URL-адрас павінен мець выгляд 'Special:RunQuery/<назв�
 	'sf_blank_namespace' => 'Галоўная',
 	'right-viewedittab' => 'прагляд закладак «Рэдагаваць» для старонак, якія можна рэдагаваць праз форму',
 	'right-editrestrictedfields' => 'рэдагаваньне абмежаваных палёў форм',
+	'right-createclass' => 'стварэньне новых сэмантычных клясаў',
 );
 
 /** Bulgarian (Български)
@@ -2599,7 +2602,7 @@ $messages['gl'] = array(
 	'sf_createtemplate_standardformat' => 'Estándar',
 	'sf_createtemplate_infoboxformat' => 'Caixa de información da dereita',
 	'sf_createtemplate_addfield' => 'Engadir un campo',
-	'sf_createtemplate_deletefield' => 'Eliminar',
+	'sf_createtemplate_deletefield' => 'Borrar',
 	'sf_createtemplate_addtemplatebeforesave' => 'Ten que engadir un modelo polo menos a este formulario antes de podelo gardar.',
 	'forms' => 'Formularios',
 	'sf_forms_docu' => 'Os seguintes formularios existen neste wiki.',
