@@ -118,8 +118,20 @@ class SFFormField {
 		$this->template_field = $templateField;
 	}
 
+	public function setInputType( $inputType ) {
+		$this->mInputType = $inputType;
+	}
+
+	public function setIsMandatory( $isMandatory ) {
+		$this->mIsMandatory = $isMandatory;
+	}
+
 	public function setIsHidden( $isHidden ) {
 		$this->mIsHidden = $isHidden;
+	}
+
+	public function setIsRestricted( $isRestricted ) {
+		$this->mIsRestricted = $isRestricted;
 	}
 
 	public function setFieldArg( $key, $value ) {
