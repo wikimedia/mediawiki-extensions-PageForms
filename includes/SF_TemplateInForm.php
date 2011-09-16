@@ -130,14 +130,18 @@ class SFTemplateInForm {
 		return $templateFields;
 	}
 
-	static function create( $name, $label = null, $allowMultiple = null, $maxAllowed = null ) {
+	static function create( $name, $label = null, $allowMultiple = null, $maxAllowed = null, $formFields = null ) {
 		$tif = new SFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', $name );
 		$tif->mFields = array();
-		$fields = $tif->getAllFields();
-		$field_num = 0;
-		foreach ( $fields as $field ) {
-			$tif->mFields[] = SFFormField::create( $field_num++, $field );
+		if ( is_null( $formFields ) ) {
+			$fields = $tif->getAllFields();
+			$field_num = 0;
+			foreach ( $fields as $field ) {
+				$tif->mFields[] = SFFormField::create( $field_num++, $field );
+			}
+		} else {
+			$tif->mFields = $formFields;
 		}
 		$tif->mLabel = $label;
 		$tif->mAllowMultiple = $allowMultiple;
