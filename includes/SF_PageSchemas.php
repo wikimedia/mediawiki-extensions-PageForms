@@ -1,6 +1,7 @@
 <?php
 /**
- * Static functions for Semantic Forms, for use by the Page Schemas extension.
+ * Static functions for Semantic Forms, for use by the Page Schemas
+ * extension.
  *
  * @author Yaron Koren
  * @author Ankit Garg
@@ -11,11 +12,12 @@
 class SFPageSchemas {
 
 	/**
-	 * Function to return the property based on the XML passed from the Page Schemas extension
+	 * Creates an object to hold form-wide information, based on an XML
+	 * object from the Page Schemas extension.
 	 */
 	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
 		$sfarray = array();
-		$formName="";
+		$formName = "";
 		if ( $objectName == "semanticforms_Form" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
@@ -36,12 +38,9 @@ class SFPageSchemas {
 						if ( $prop->getName() == 'InputType' ) {
 							$sfarray[$prop->getName()] = (string)$prop;
 						} else {
-							// Remember these values can be null also.
-							// While polulating in the page text, take care of that.
 							$sfarray[(string)$prop->attributes()->name] = (string)$prop;
 						}
 					}
-					// Setting value specific to SF in 'sf' index.
 					$object['sf'] = $sfarray;
 					return true;
 				}
@@ -50,6 +49,9 @@ class SFPageSchemas {
 		return true;
 	}
 
+	/**
+	 * Creates Page Schemas XML for form-wide information.
+	 */
 	public static function getSchemaXML( $request, &$xmlArray ) {
 		foreach ( $request->getValues() as $var => $val ) {
 			if ( $var == 'sf_form_name' ) {
@@ -67,6 +69,9 @@ class SFPageSchemas {
 		return true;
 	}
 
+	/**
+	 * Creates Page Schemas XML for a specific form field.
+	 */
 	public static function getFieldXML( $request, &$xmlArray ) {
 		$xmlPerField = array();
 		$fieldNum = -1;
@@ -126,19 +131,19 @@ class SFPageSchemas {
 		} else {
 			$pageNameFormula = '';
 		}
-		$text .= "\t<p>" . 'Page name formula:' . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 20 ) ) . "</p>\n";
+		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-pagenameformula' ) . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 20 ) ) . "</p>\n";
 		if ( array_key_exists( 'CreateTitle', $form_array ) ) {
 			$createTitle = $form_array['CreateTitle'];
 		} else {
 			$createTitle = '';
 		}
-		$text .= "\t<p>" . 'Title of form for new pages:' . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-createtitle' ) . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		if ( array_key_exists( 'EditTitle', $form_array ) ) {
 			$editTitle = $form_array['EditTitle'];
 		} else {
 			$editTitle = '';
 		}
-		$text .= "\t<p>" . 'Title of form for existing pages:' . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-edittitle' ) . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		$text_extensions['sf'] = array( 'Form', '#CF9', $text, $hasExistingValues );
 
 		return true;
@@ -149,16 +154,13 @@ class SFPageSchemas {
 	 * within the Page Schemas 'edit schema' page.
 	 */
 	public static function getFieldHTML( $field, &$text_extensions ) {
-		if ( is_null( $field ) ) {
-			$fieldValues = array();
-		} else {
-			$sf_array = $field->getObject('semanticforms_FormInput'); //this returns an array with property values filled
+		$hasExistingValues = false;
+		$fieldValues = array();
+		if ( !is_null( $field ) ) {
+			$sf_array = $field->getObject('semanticforms_FormInput');
 			if ( array_key_exists( 'sf', $sf_array ) ) {
 				$fieldValues = $sf_array['sf'];
 				$hasExistingValues = true;
-			} else {
-				$fieldValues = array();
-				$hasExistingValues = false;
 			}
 		}
 
@@ -167,10 +169,21 @@ class SFPageSchemas {
 		} else {
 			$inputType = '';
 		}
-		$inputTypeAttrs = array( 'size' => 15 );
-		$inputTypeInput = Html::input( 'sf_input_type_num', $inputType, 'text', $inputTypeAttrs );
-		$text = '<p>Input type: ' . $inputTypeInput . '</p>';
-		$text .= "\t" . '<p>Parameter name and its value as a key=value pair, separated by commas (if a value contains a comma, replace it with "\,"): For example: size=20,mandatory</p>' . "\n";
+
+		global $sfgFormPrinter;
+		$possibleInputTypes = $sfgFormPrinter->getAllInputTypes();
+		$inputTypeDropdownHTML = '';
+		foreach ( $possibleInputTypes as $possibleInputType ) {
+			$inputTypeOptionAttrs = array();
+			if ( $possibleInputType == $inputType ) {
+				$inputTypeOptionAttrs['selected'] = true;
+			}
+			$inputTypeDropdownHTML .= Html::element( 'option', $inputTypeOptionAttrs, $possibleInputType ) . "\n";
+		}
+		$inputTypeDropdown = Html::rawElement( 'select', array( 'name' => 'sf_input_type_num' ), $inputTypeDropdownHTML );
+		$text = '<p>' . wfMsg( 'sf_createform_inputtype' ) . ' ' . $inputTypeDropdown . '</p>';
+
+		$text .= "\t" . '<p>Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,") For example: size=20, mandatory</p>' . "\n";
 		$paramValues = array();
 		foreach ( $fieldValues as $param => $value ) {
 			if ( !empty( $param ) && $param != 'InputType' ) {
@@ -357,7 +370,7 @@ class SFPageSchemas {
 
 		foreach ( $field_xml->children() as $tag => $child ) {
 			if ( $tag == "semanticforms_FormInput" ) {
-				$text = PageSchemas::tableMessageRowHTML( "paramAttr", "SemanticForms", (string)$tag );
+				$text = PageSchemas::tableMessageRowHTML( "paramAttr", wfMsg( 'specialpages-group-sf_group' ), (string)$tag );
 				foreach ( $child->children() as $prop ) {
 					if ( $prop->getName() == 'InputType' ) {
 						$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop->getName(), $prop );
