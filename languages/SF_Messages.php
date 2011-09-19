@@ -163,6 +163,9 @@ the URL should look like \'Special:RunQuery/<form name>\'.',
 	'sf_bad_date_error'                  => 'must be a valid date',
 	'uploadwindow'                       => 'Upload window', // Description for Special:UploadWindow
 	'sf_deletionlog'                     => 'Deletion log',
+	'sf-pageschemas-pagenameformula'     => 'Page name formula:',
+	'sf-pageschemas-createtitle'         => 'Title of form for new pages:',
+	'sf-pageschemas-edittitle'           => 'Title of form for existing pages:',
 
 	// content messages
 	'sf_property_isproperty'             => 'This is a property of type $1.',
