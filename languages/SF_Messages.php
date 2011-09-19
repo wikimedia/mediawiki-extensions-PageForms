@@ -166,6 +166,7 @@ the URL should look like \'Special:RunQuery/<form name>\'.',
 	'sf-pageschemas-pagenameformula'     => 'Page name formula:',
 	'sf-pageschemas-createtitle'         => 'Title of form for new pages:',
 	'sf-pageschemas-edittitle'           => 'Title of form for existing pages:',
+	'sf-pageschemas-inputtype'           => 'Input type (leave blank to set to default):',
 
 	// content messages
 	'sf_property_isproperty'             => 'This is a property of type $1.',
