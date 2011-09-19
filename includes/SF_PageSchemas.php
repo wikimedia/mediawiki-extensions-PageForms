@@ -172,7 +172,7 @@ class SFPageSchemas {
 
 		global $sfgFormPrinter;
 		$possibleInputTypes = $sfgFormPrinter->getAllInputTypes();
-		$inputTypeDropdownHTML = '';
+		$inputTypeDropdownHTML = Html::element( 'option', null, null );
 		foreach ( $possibleInputTypes as $possibleInputType ) {
 			$inputTypeOptionAttrs = array();
 			if ( $possibleInputType == $inputType ) {
@@ -181,7 +181,7 @@ class SFPageSchemas {
 			$inputTypeDropdownHTML .= Html::element( 'option', $inputTypeOptionAttrs, $possibleInputType ) . "\n";
 		}
 		$inputTypeDropdown = Html::rawElement( 'select', array( 'name' => 'sf_input_type_num' ), $inputTypeDropdownHTML );
-		$text = '<p>' . wfMsg( 'sf_createform_inputtype' ) . ' ' . $inputTypeDropdown . '</p>';
+		$text = '<p>' . wfMsg( 'sf-pageschemas-inputtype' ) . ' ' . $inputTypeDropdown . '</p>';
 
 		$text .= "\t" . '<p>Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,") For example: size=20, mandatory</p>' . "\n";
 		$paramValues = array();
