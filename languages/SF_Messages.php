@@ -2549,6 +2549,7 @@ $messages['frp'] = array(
 	'sf_formedit_saveandcontinueediting' => 'Sôvar et pués continuar',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Sôvar les balyês et pués continuar lo changement',
 	'sf_autoedit_success' => '[[$1]] changiê avouéc reusséta en utilisent lo formulèro $2.',
+	'sf_autoedit_notargetspecified' => 'Gins de pâge ciba spècefiâ.',
 	'sf_autoedit_noformfound' => 'Gins de formulèro spècefiâ.',
 	'runquery' => 'Ègzécutar la requéta',
 	'sf_runquery_title' => 'Ègzécutar la requéta : $1',
@@ -5186,6 +5187,10 @@ De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_bad_date_error' => 'moet een geldige datum zijn',
 	'uploadwindow' => 'Uploadscherm',
 	'sf_deletionlog' => 'Verwijderlogboek',
+	'sf-pageschemas-pagenameformula' => 'Paginanaamformule:',
+	'sf-pageschemas-createtitle' => "Naam voor het formulier voor nieuwe pagina's:",
+	'sf-pageschemas-edittitle' => "Naam voor het formulier voor bestaande pagina's:",
+	'sf-pageschemas-inputtype' => 'Invoertype (laat leeg voor standaard instelling):',
 	'sf_property_isproperty' => 'Dit is een eigenschap van type $1.',
 	'sf_property_linkstoform' => "Deze verwijst naar pagina's die gebruikmaken van het formulier $1.",
 	'sf_property_allowedvals' => 'De toegelaten {{PLURAL:$1|waarde voor deze eigenschap is|waarden voor deze eigenschap zijn}}:',
@@ -6598,7 +6603,7 @@ $messages['sl'] = array(
 	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca',
 );
 
-/** Serbian Cyrillic ekavian (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
  * @author Rancher
  * @author Sasa Stefanovic
  * @author Жељко Тодоровић
@@ -6655,7 +6660,7 @@ $messages['sr-ec'] = array(
 	'sf_formstart_createoredit' => 'Направи или измени',
 	'formedit' => 'Измени формом',
 	'sf_formedit_createtitle' => 'Направи $1: $2',
-	'sf_editsource' => 'Измени сорс',
+	'sf_editsource' => 'Уреди извор',
 	'sf_formedit_edittitle' => 'Измени $1: $2',
 	'sf_formedit_remove' => 'Уклони',
 	'sf_formedit_none' => 'Нема',
