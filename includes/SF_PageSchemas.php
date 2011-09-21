@@ -55,13 +55,19 @@ class SFPageSchemas {
 	public static function getSchemaXML( $request, &$xmlArray ) {
 		foreach ( $request->getValues() as $var => $val ) {
 			if ( $var == 'sf_form_name' ) {
-				$xml = '<semanticforms_Form name="'.$val.'" >';
+				$xml = '<semanticforms_Form name="' . $val . '" >';
 			} elseif ( $var == 'sf_page_name_formula' ) {
-				$xml .= '<PageNameFormula>'.$val.'</PageNameFormula>';
+				if ( !empty( $val ) ) {
+					$xml .= '<PageNameFormula>' . $val . '</PageNameFormula>';
+				}
 			} elseif ( $var == 'sf_create_title' ) {
-				$xml .= '<CreateTitle>'.$val.'</CreateTitle>';
+				if ( !empty( $val ) ) {
+					$xml .= '<CreateTitle>' . $val . '</CreateTitle>';
+				}
 			} elseif ( $var == 'sf_edit_title' ) {
-				$xml .= '<EditTitle>'.$val.'</EditTitle>';
+				if ( !empty( $val ) ) {
+					$xml .= '<EditTitle>' . $val . '</EditTitle>';
+				}
 				$xml .= '</semanticforms_Form>';
 			}
 		}
@@ -264,14 +270,17 @@ class SFPageSchemas {
 	}
 
 	/**
-	 * Creates wiki-text for a template, based on the contents of a
-	 * <PageSchema> tag.
+	 * Returns an array of SFTemplateField objects, representing the fields
+	 * of a template, based on the contents of a <PageSchema> tag.
 	 */
 	public static function getFieldsFromTemplateSchema( $templateFromSchema ) {
 		$field_all = $templateFromSchema->getFields();
 		$template_fields = array();
 		foreach( $field_all as $fieldObj ) {
 			$smw_array = $fieldObj->getObject('semanticmediawiki_Property');
+			if ( !array_key_exists( 'smw', $smw_array ) ) {
+				continue;
+			}
 			$propertyName = $smw_array['smw']['name'];
 			if ( $fieldObj->getLabel() == '' ) {
 				$fieldLabel = $fieldObj->getName();
@@ -290,6 +299,10 @@ class SFPageSchemas {
 		return $template_fields;
 	}
 
+	/**
+	 * Creates a form page, when called from the 'generatepages' page
+	 * of Page Schemas.
+	 */
 	public static function generateForm( $formName, $formTitle, $formTemplates, $formDataFromSchema ) {
 		global $wgUser;
 
