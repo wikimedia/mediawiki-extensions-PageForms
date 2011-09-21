@@ -278,10 +278,11 @@ class SFPageSchemas {
 		$template_fields = array();
 		foreach( $field_all as $fieldObj ) {
 			$smw_array = $fieldObj->getObject('semanticmediawiki_Property');
-			if ( !array_key_exists( 'smw', $smw_array ) ) {
-				continue;
+			if ( array_key_exists( 'smw', $smw_array ) ) {
+				$propertyName = $smw_array['smw']['name'];
+			} else {
+				$propertName = null;
 			}
-			$propertyName = $smw_array['smw']['name'];
 			if ( $fieldObj->getLabel() == '' ) {
 				$fieldLabel = $fieldObj->getName();
 			} else {
