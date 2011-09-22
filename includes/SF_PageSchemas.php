@@ -100,10 +100,10 @@ class SFPageSchemas {
 						$value = str_replace( "\a", $listSeparator, trim( $value ) );
 						$param_value = explode( "=", $value );
 						if ( $param_value[1] != null ) {
-							//handles Parameter name="size">20</Parameter>
+							// Handles <Parameter name="size">20</Parameter>
 							$xml .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
 						} else {
-							//handles <Parameter name="mandatory" />
+							// Handles <Parameter name="mandatory" />
 							$xml .= '<Parameter name="'.$param_value[0].'"/>';
 						}
 					}
@@ -116,7 +116,7 @@ class SFPageSchemas {
 		return true;
 	}
 
-	public static function getSchemaHTML( $pageSchemaObj, &$text_extensions ) {
+	public static function getSchemaHTML( $pageSchemaObj, &$extensionsHTML ) {
 		$form_array = array();
 		$hasExistingValues = false;
 		if ( !is_null( $pageSchemaObj ) ) {
@@ -150,7 +150,7 @@ class SFPageSchemas {
 			$editTitle = '';
 		}
 		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-edittitle' ) . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
-		$text_extensions['sf'] = array( 'Form', '#CF9', $text, $hasExistingValues );
+		$extensionsHTML['sf'] = array( 'Form', '#CF9', $text, $hasExistingValues );
 
 		return true;
 	}
@@ -159,7 +159,7 @@ class SFPageSchemas {
 	 * Returns the HTML for inputs to define a single form field,
 	 * within the Page Schemas 'edit schema' page.
 	 */
-	public static function getFieldHTML( $field, &$text_extensions ) {
+	public static function getFieldHTML( $field, &$extensionsHTML ) {
 		$hasExistingValues = false;
 		$fieldValues = array();
 		if ( !is_null( $field ) ) {
@@ -204,7 +204,7 @@ class SFPageSchemas {
 		$inputParamsAttrs = array( 'size' => 80 );
 		$inputParamsInput = Html::input( 'sf_key_values_num', $param_value_str, 'text', $inputParamsAttrs );
 		$text .= "\t<p>$inputParamsInput</p>\n";
-		$text_extensions['sf'] = array( 'Form input', '#CF9', $text, $hasExistingValues );
+		$extensionsHTML['sf'] = array( 'Form input', '#CF9', $text, $hasExistingValues );
 
 		return true;
 	}
@@ -214,7 +214,7 @@ class SFPageSchemas {
 		if ( is_null( $mainFormInfo ) || !array_key_exists( 'name', $mainFormInfo ) ) {
 			return null;
 		}
-		return $mainFormInfo['name']
+		return $mainFormInfo['name'];
 	}
 
 	public static function getMainFormInfo( $psSchemaObj ) {
@@ -287,7 +287,7 @@ class SFPageSchemas {
 			if ( array_key_exists( 'smw', $smw_array ) ) {
 				$propertyName = $smw_array['smw']['name'];
 			} else {
-				$propertName = null;
+				$propertyName = null;
 			}
 			if ( $fieldObj->getLabel() == '' ) {
 				$fieldLabel = $fieldObj->getName();
@@ -393,11 +393,11 @@ class SFPageSchemas {
 				$text = PageSchemas::tableMessageRowHTML( "paramAttr", wfMsg( 'specialpages-group-sf_group' ), (string)$tag );
 				foreach ( $child->children() as $prop ) {
 					if ( $prop->getName() == 'InputType' ) {
-						$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop->getName(), $prop );
+						$propName = 'Input type';
 					} else {
-						$prop_name = (string)$prop->attributes()->name;
-						$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $prop_name, (string)$prop );
+						$propName = (string)$prop->attributes()->name;
 					}
+					$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $propName, (string)$prop );
 				}
 				$text_object['sf'] = $text;
 				break;
