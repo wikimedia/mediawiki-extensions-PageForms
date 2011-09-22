@@ -311,12 +311,14 @@ class SFFormLinker {
 			$default_forms = array();
 			$categories = SFUtils::getCategoriesForPage( $title );
 			foreach ( $categories as $category ) {
-				// Check the Page Schema, if one exists.
-				$psSchema = new PSSchema( $category );
-				if ( $psSchema->isPSDefined() ) {
-					$formName = SFPageSchemas::getFormName( $psSchema );
-					if ( !is_null( $formName ) ) {
-						$default_forms[] = $formName;
+				if ( class_exists( 'PSSchema' ) ) {
+					// Check the Page Schema, if one exists.
+					$psSchema = new PSSchema( $category );
+					if ( $psSchema->isPSDefined() ) {
+						$formName = SFPageSchemas::getFormName( $psSchema );
+						if ( !is_null( $formName ) ) {
+							$default_forms[] = $formName;
+						}
 					}
 				}
 				$default_forms = array_merge( $default_forms, self::getFormsThatPagePointsTo( $category, NS_CATEGORY, self::DEFAULT_FORM ) );
