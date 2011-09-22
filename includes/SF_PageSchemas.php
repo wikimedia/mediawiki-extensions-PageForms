@@ -17,13 +17,12 @@ class SFPageSchemas {
 	 */
 	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
 		$sfarray = array();
-		$formName = "";
 		if ( $objectName == "semanticforms_Form" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
 					$formName = (string) $child->attributes()->name;
 					$sfarray['name'] = $formName;
-					foreach ($child->children() as $tag => $formelem) {
+					foreach ( $child->children() as $tag => $formelem ) {
 						$sfarray[(string)$tag] = (string)$formelem;
 					}
 					$object['sf'] = $sfarray;
@@ -53,6 +52,7 @@ class SFPageSchemas {
 	 * Creates Page Schemas XML for form-wide information.
 	 */
 	public static function getSchemaXML( $request, &$xmlArray ) {
+		$xml = '';
 		foreach ( $request->getValues() as $var => $val ) {
 			if ( $var == 'sf_form_name' ) {
 				$xml = '<semanticforms_Form name="' . $val . '" >';
@@ -210,12 +210,18 @@ class SFPageSchemas {
 	}
 
 	public static function getFormName( $psSchemaObj ) {
-		$formData = $psSchemaObj->getObject( 'semanticforms_Form' );
-		return $formData['sf']['name'];
+		$mainFormInfo = self::getMainFormInfo( $psSchemaObj );
+		if ( is_null( $mainFormInfo ) || !array_key_exists( 'name', $mainFormInfo ) ) {
+			return null;
+		}
+		return $mainFormInfo['name']
 	}
 
 	public static function getMainFormInfo( $psSchemaObj ) {
 		$formData = $psSchemaObj->getObject( 'semanticforms_Form' );
+		if ( !array_key_exists( 'sf', $formData ) ) {
+			return null;
+		}
 		return $formData['sf'];
 	}
 
