@@ -543,8 +543,8 @@ END;
 					// template.
 					if ( $old_template_name != $template_name ) {
 						if ( isset( $template_label ) ) {
-							$form_text .= "<fieldset>\n";
-							$form_text .= "<legend>$template_label</legend>\n";
+							$multipleTemplateString .= "<fieldset>\n";
+							$multipleTemplateString .= "<legend>$template_label</legend>\n";
 						}
 						// If $curPlaceholder is set, it means we want to insert a
 						// multiple template form's HTML into the main form's HTML.
@@ -552,10 +552,10 @@ END;
  						if ($allow_multiple) {						
  							$multipleTemplateString .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
  							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList">' . "\n";
-							if ( $curPlaceholder == null ) {
-								$form_text .= $multipleTemplateString;						
-							}
  						}
+					}
+					if ( $curPlaceholder == null ) {
+						$form_text .= $multipleTemplateString;						
 					}
 					$template_text .= "{{" . $template_name;
 					$all_fields = $tif->getAllFields();
@@ -719,7 +719,7 @@ END;
 					// Remove this tag, reset some variables, and close off form HTML tag.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					$template_name = null;
-					if ( isset( $template_label ) ) {
+					if ( isset( $template_label ) && $curPlaceholder == null ) {
 						$form_text .= "</fieldset>\n";
 						unset ( $template_label );
 					}
@@ -1424,6 +1424,10 @@ END;
 					// current placeholder tag, but also add another
 					// placeholder tag, to keep track of it.
 					$multipleTemplateString .= self::makePlaceholderInFormHTML( $curPlaceholder );
+					if ( isset( $template_label ) ) {
+						$multipleTemplateString .= "</fieldset>\n";
+						unset ( $template_label );
+					}
 					$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $curPlaceholder ) . '/',
 					       $multipleTemplateString, $form_text );
 				}
