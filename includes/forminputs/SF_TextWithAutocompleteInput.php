@@ -6,10 +6,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'SF_VERSION' ) ) {
-	die( 'This file is part of the SemanticForms extension, it is not a valid entry point.' );
-}
-
 /**
  * The SFTextWithAutocompleteInput class.
  *
@@ -176,6 +172,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		}
 		if ( array_key_exists( 'maxlength', $other_args ) ) {
 			$inputAttrs['maxlength'] = $other_args['maxlength'];
+		}
+		if ( array_key_exists( 'placeholder', $other_args ) ) {
+			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
 		$text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
 

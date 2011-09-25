@@ -6,10 +6,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'SF_VERSION' ) ) {
-	die( 'This file is part of the SemanticForms extension, it is not a valid entry point.' );
-}
-
 /**
  * The SFTextInput class.
  *
@@ -126,6 +122,9 @@ class SFTextInput extends SFFormInput {
 		if ( array_key_exists( 'maxlength', $other_args ) ) {
 			$inputAttrs['maxlength'] = $other_args['maxlength'];
 		}
+		if ( array_key_exists( 'placeholder', $other_args ) ) {
+			$inputAttrs['placeholder'] = $other_args['placeholder'];
+		}
 		$text = Xml::element( 'input', $inputAttrs );
 
 		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
@@ -167,6 +166,11 @@ class SFTextInput extends SFFormInput {
 			'name' => 'maxlength',
 			'type' => 'int',
 			'description' => wfMsg( 'sf_forminputs_maxlength' )
+		);
+		$params[] = array(
+			'name' => 'placeholder',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_placeholder' )
 		);
 		$params[] = array(
 			'name' => 'uploadable',

@@ -6,10 +6,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'SF_VERSION' ) ) {
-	die( 'This file is part of the SemanticForms extension, it is not a valid entry point.' );
-}
-
 /**
  * The SFTextAreaInput class.
  *
@@ -82,6 +78,10 @@ class SFTextAreaInput extends SFFormInput {
 			$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
 			$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
 		}
+		if ( array_key_exists( 'placeholder', $other_args ) ) {
+			$textarea_attrs['placeholder'] = $other_args['placeholder'];
+		}
+
 		// Bug in Xml::element()? It doesn't close the textarea tag
 		// properly if the text inside is null - set it to '' instead.
 		if ( is_null( $cur_value ) ) {
@@ -117,6 +117,11 @@ class SFTextAreaInput extends SFFormInput {
 			'name' => 'maxlength',
 			'type' => 'int',
 			'description' => wfMsg( 'sf_forminputs_maxlength' )
+		);
+		$params[] = array(
+			'name' => 'placeholder',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_placeholder' )
 		);
 		$params[] = array(
 			'name' => 'autogrow',
