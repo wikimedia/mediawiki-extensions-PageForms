@@ -55,6 +55,7 @@ $messages['en'] = array(
 	'sf_forminputs_property'             => 'A semantic property that this field corresponds to',
 	'sf_forminputs_size'                 => 'The size of this text field, in characters',
 	'sf_forminputs_maxlength'            => 'The maximum allowed length of the text in this field',
+	'sf_forminputs_placeholder'          => 'Help text that appears in the input until the user clicks on it',
 	'sf_forminputs_uploadable'           => 'Place an "Upload file" link next to this input',
 	'sf_forminputs_defaultfilename'      => 'The default filename for uploaded files',
 	'sf_forminputs_rows'                 => 'The number of rows for this input',
