@@ -231,6 +231,7 @@ $messages['qqq'] = array(
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
+	'right-createclass' => '{{doc-right|createclass}}',
 );
 
 /** Niuean (ko e vagahau Niuē)
