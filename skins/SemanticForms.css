@@ -80,13 +80,12 @@ div.infoMessage {
 	width: auto;
 	background: #eeeeee;
 }
-div.warningMessage {
+#sfForm div.warningbox {
 	border: 2px solid red;
 	padding: 5px 10px 5px 10px;
 	margin: 25px;
 	width: auto;
-	font-weight: bold;
-	color: black;
+	float:none;
 }
 span.errorMessage {
 	color: red;
