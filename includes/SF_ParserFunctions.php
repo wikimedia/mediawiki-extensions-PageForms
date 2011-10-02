@@ -197,9 +197,9 @@ class SFParserFunctions {
 		$link_url = str_replace( ' ', '_', $link_url );
 		$hidden_inputs = "";
 		if ( $inQueryStr != '' ) {
-			// special handling for 'post button' - query string
-			// has to be turned into hidden inputs
-			if ( $inLinkType == 'post button' ) {
+			// Special handling for the buttons - query string
+			// has to be turned into hidden inputs.
+			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
 				// Change HTML-encoded ampersands to
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
@@ -214,24 +214,19 @@ class SFParserFunctions {
 				}
 			} else {
 				$link_url .= ( strstr( $link_url, '?' ) ) ? '&' : '?';
-				// URL-encode any spaces, plus-signs or
-				// ampersands in the query string
-				// (should this just be a general urlencode?)
-				$inQueryStr = str_replace( array( ' ', '+', '&amp;' ),
-					array( '%20', '%2B', '%26' ),
+				// URL-encode the spaces, newlines, ampersands etc.
+				// in the query string.
+				// (Should this just be a general urlencode?)
+				$inQueryStr = str_replace( array( ' ', '+', '&amp;', "\n", '#' ),
+					array( '%20', '%2B', '%26', '%0A', '%23' ),
 					$inQueryStr );
 				$link_url .= $inQueryStr;
 			}
 		}
 		if ( $inLinkType == 'button' ) {
-			$link_url = html_entity_decode( $link_url, ENT_QUOTES );
-			$link_url = str_replace( "'", "\'", $link_url );
-			$str = "<form class=\"$classStr\">";
-			$str .= Xml::element( 'input', array(
-				'type' => 'button',
-				'value' => $inLinkStr,
-				'onclick' => "window.location.href='$link_url'",
-			) ) . "</form>";
+			$str = "<form action=\"$link_url\" method=\"get\" class=\"$classStr\">";
+			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
+			$str .= "$hidden_inputs</form>";
 		} elseif ( $inLinkType == 'post button' ) {
 			$str = "<form action=\"$link_url\" method=\"post\" class=\"$classStr\">";
 			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
