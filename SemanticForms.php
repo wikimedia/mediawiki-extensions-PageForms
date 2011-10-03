@@ -324,6 +324,8 @@ $sfgCacheFormDefinitions = false;
 # ##
 $sfgRedLinksCheckOnlyLocalProps = false;
 
+$sfgRunQueryFormAtTop = false;
+
 # ##
 # Page properties, used for the API
 # ##

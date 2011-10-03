@@ -32,7 +32,7 @@ class SFRunQuery extends IncludableSpecialPage {
 	}
 
 	function printPage( $form_name, $embedded = false ) {
-		global $wgOut, $wgRequest, $sfgFormPrinter, $wgParser;
+		global $wgOut, $wgRequest, $sfgFormPrinter, $wgParser, $sfgRunQueryFormAtTop;
 
 		// Get contents of form-definition page.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
@@ -100,27 +100,43 @@ class SFRunQuery extends IncludableSpecialPage {
 			}
 		}
 
-		// Display the text of the results.
+		// Get the text of the results.
+		$resultsText = '';
 		if ( $form_submitted ) {
-			$text = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
+			$resultsText = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
 		}
 
-		// Display the "additional query" header, if the form has
-		// already been submitted.
-		if ( $form_submitted ) {
-			$additional_query = wfMsg( 'sf_runquery_additionalquery' );
-			if ( !$raw )
-				$text .= "\n<h2>$additional_query</h2>\n";
-		}
+		// Get the full text of the form.
+		$fullFormText = '';
+		$additionalQueryHeader = '';
 		if ( !$raw ) {
+			// The "additional query" header - displayed if the form has
+			// already been submitted.
+			if ( $form_submitted ) {
+				$additionalQueryHeader = "\n" . Xml::element( 'h2', null, wfMsg( 'sf_runquery_additionalquery' ) ) . "\n";
+			}
 			$action = htmlspecialchars( $this->getTitle( $form_name )->getLocalURL() );
-			$text .= <<<END
+			$fullFormText .= <<<END
 	<form id="sfForm" name="createbox" action="$action" method="post" class="createbox">
 
 END;
-			$text .= SFFormUtils::hiddenFieldHTML( 'query', 'true' );
-			$text .= $form_text;
+			$fullFormText .= SFFormUtils::hiddenFieldHTML( 'query', 'true' );
+			$fullFormText .= $form_text;
 		}
+
+		// Either display the query form at the top, and the results at
+		// the bottom, or the other way around, depending on the
+		// settings - the display is slightly different in each case.
+		if ( $sfgRunQueryFormAtTop ) {
+			$text .= $fullFormText;
+			$text .= "\n<hr style=\"margin: 15px 0;\" />\n";
+			$text .= $resultsText;
+		} else {
+			$text .= $resultsText;
+			$text .= $additionalQueryHeader;
+			$text .= $fullFormText;
+		}
+
 		if ( $embedded ) {
 			$text = "<div class='runQueryEmbedded'>$text</div>";
 		}
