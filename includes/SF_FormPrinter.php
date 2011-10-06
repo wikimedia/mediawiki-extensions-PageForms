@@ -514,6 +514,8 @@ END;
 					// Also replace periods with underlines, since that's what
 					// POST does to strings anyway.
 					$query_template_name = str_replace( '.', '_', $query_template_name );
+					//  ...and escape apostrophes.
+					$query_template_name = str_replace( "'", "\'", $query_template_name );
 					// Cycle through the other components.
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 						$component = $tag_components[$i];
@@ -1372,17 +1374,15 @@ END;
 						$template_text .= SFFormUtils::addUnhandledFields( $template_name );
 					}
 					$template_text .= "}}";
-					
-					
-					
-					/*used on submission on the template form level
-					 1. the base $template_text  will contain strings like "@replace_xxx@" in the hidden fields when the form will be submitted	
-					 on the following loops, the text for the multiple form templates is progressively reinserted in the main data, always keeping a trailing @replace_xxx@ for a given field
-					 the trailing @replace_xxx@ will be deleted at the end with the data from 
-					
-						note: this clean up step could also be done with a regexp instead of keeping a track array /@replace_(.*)@/		
-					*/
-					
+
+					// The base $template_text will contain strings like "@replace_xxx@"
+					// in the hidden fields when the form is submitted.
+					// On the following loops, the text for the multiple-instance templates
+					// is progressively reinserted in the main data, always keeping a
+					// trailing @replace_xxx@ for a given field
+					// The trailing @replace_xxx@ is then deleted at the end.
+					// Note: this cleanup step could also be done with a regexp, instead of
+					// keeping a track array (e.g., /@replace_(.*)@/)
 					$reptmp = self::makePlaceholderInWikiText( $curPlaceholder );
 					if ( $curPlaceholder != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false) {
 						$data_text = preg_replace( '/' . $reptmp . '/', $template_text . $reptmp, $data_text );
