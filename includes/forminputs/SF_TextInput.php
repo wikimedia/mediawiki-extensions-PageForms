@@ -89,9 +89,12 @@ class SFTextInput extends SFFormInput {
 		$input_id = "input_$sfgFieldNum";
 		// Set size based on pre-set size, or field type - if field
 		// type is set, possibly add validation too.
+		// (This special handling should only be done if the field
+		// holds a single value, not a list of values.)
 		$size = 35;
 		$inputType = '';
-		if ( array_key_exists( 'field_type', $other_args ) ) {
+		if ( array_key_exists( 'field_type', $other_args )  &&
+			!array_key_exists( 'is_list', $other_args ) ) {
 			if ( $other_args['field_type'] == 'number' ) {
 				$size = 10;
 				$inputType = 'number';
