@@ -10,7 +10,8 @@
  * 'forminput' is called as:
  *
  * {{#forminput:form=|size=|default value=|button text=|query string=
- * |autocomplete on category=|autocomplete on namespace=}}
+ * |autocomplete on category=|autocomplete on namespace=
+ * |remote autocompletion}}
  *
  * This function returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
@@ -25,6 +26,10 @@
  * choice, using 'autocomplete on category' or 'autocomplete on namespace'
  * (you can only use one). To autcomplete on all pages in the main (blank)
  * namespace, specify "autocomplete on namespace=main".
+ *
+ * If the "remote autocompletion" parameter is added, autocompletion
+ * is done via an external URL, which can allow autocompletion on a much
+ * larger set of values.
  *
  * Example: to create an input to add or edit a page with a form called
  * 'User' within a namespace also called 'User', and to have the form
@@ -255,6 +260,7 @@ class SFParserFunctions {
 		// set defaults
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
 		$inAutocompletionSource = '';
+		$inRemoteAutocompletion = false;
 		$inSize = 25;
 		$classStr = "";
 		// assign params - support unlabelled params, for backwards compatibility
@@ -282,6 +288,8 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'autocomplete on namespace' ) {
 				$inAutocompletionSource = $value;
 				$autocompletion_type = 'namespace';
+			} elseif ( $param_name == 'remote autocompletion' ) {
+				$inRemoteAutocompletion = true;
 			} elseif ( $param_name == null && $value == 'popup'
 				&& version_compare( $wgVersion, '1.16', '>=' )) {
 				self::loadScriptsForPopupForm( $parser );
@@ -299,8 +307,27 @@ class SFParserFunctions {
 				$inQueryStr = $param;
 		}
 
+		$fs = SpecialPage::getPage( 'FormStart' );
+		$fs_url = $fs->getTitle()->getLocalURL();
+		$str = <<<END
+			<form name="createbox" action="$fs_url" method="get" class="$classStr">
+			<p>
+
+END;
+		$formInputAttrs = array(
+			'type' => 'text',
+			'name' => 'page_name',
+			'size' => $inSize,
+			'value' => $inValue,
+		);
+
+		// Now apply the necessary settings and Javascript, depending
+		// on whether or not there's autocompletion (and whether the
+		// autocompletion is local or remote).
 		$input_num = 1;
-		if ( ! empty( $inAutocompletionSource ) ) {
+		if ( empty( $inAutocompletionSource ) ) {
+			$formInputAttrs['class'] = 'formInput';
+		} else {
 			self::$num_autocompletion_inputs++;
 			$input_num = self::$num_autocompletion_inputs;
 			// place the necessary Javascript on the page, and
@@ -311,37 +338,23 @@ class SFParserFunctions {
 				$parser->disableCache();
 				SFUtils::addJavascriptAndCSS();
 			}
-			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
-			global $sfgAutocompleteValues;
-			$sfgAutocompleteValues["input_$input_num"] = $autocompletion_values;
+
+			$inputID = 'input_' . $input_num;
+			$formInputAttrs['id'] = $inputID;
+			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
+			if ( $inRemoteAutocompletion ) {
+				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
+				$formInputAttrs['autocompletedatatype'] = $autocompletion_type;
+			} else {
+				$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
+				global $sfgAutocompleteValues;
+				$sfgAutocompleteValues[$inputID] = $autocompletion_values;
+				$formInputAttrs['autocompletesettings'] = $inputID;
+			}
 		}
 
-		$fs = SpecialPage::getPage( 'FormStart' );
-		$fs_url = $fs->getTitle()->getLocalURL();
-		if ( empty( $inAutocompletionSource ) ) {
-			$str = <<<END
-			<form action="$fs_url" method="get" class="$classStr">
-			<p>
+		$str .= "\t" . Xml::element( 'input', $formInputAttrs ) . "\n";
 
-END;
-			$str .= Xml::element( 'input',
-				array( 'type' => 'text', 'name' => 'page_name', 'size' => $inSize, 'value' => $inValue, 'class' => 'formInput' ) );
-		} else {
-			$str = <<<END
-			<form name="createbox" action="$fs_url" method="get" class="$classStr">
-			<p>
-
-END;
-			$str .= Xml::element( 'input', array(
-				'type' => 'text',
-				'name' => 'page_name',
-				'id' => 'input_' . $input_num,
-				'size' => $inSize,
-				'value' => $inValue,
-				'class' => 'autocompleteInput createboxInput formInput',
-				'autocompletesettings' => 'input_' . $input_num
-			) );
-		}
 		// if the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
