@@ -109,11 +109,15 @@ class SFRunQuery extends IncludableSpecialPage {
 		// Get the full text of the form.
 		$fullFormText = '';
 		$additionalQueryHeader = '';
+		$dividerText = '';
 		if ( !$raw ) {
-			// The "additional query" header - displayed if the form has
-			// already been submitted.
+			// Create the "additional query" header, and the
+			// divider text - one of these (depending on whether
+			// the query form is at the top or bottom) is displayed
+			// if the form has already been submitted.
 			if ( $form_submitted ) {
 				$additionalQueryHeader = "\n" . Xml::element( 'h2', null, wfMsg( 'sf_runquery_additionalquery' ) ) . "\n";
+				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
 			$action = htmlspecialchars( $this->getTitle( $form_name )->getLocalURL() );
 			$fullFormText .= <<<END
@@ -129,7 +133,7 @@ END;
 		// settings - the display is slightly different in each case.
 		if ( $sfgRunQueryFormAtTop ) {
 			$text .= $fullFormText;
-			$text .= "\n<hr style=\"margin: 15px 0;\" />\n";
+			$text .= $dividerText;
 			$text .= $resultsText;
 		} else {
 			$text .= $resultsText;
