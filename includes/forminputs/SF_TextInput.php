@@ -94,7 +94,8 @@ class SFTextInput extends SFFormInput {
 		$size = 35;
 		$inputType = '';
 		if ( array_key_exists( 'field_type', $other_args )  &&
-			!array_key_exists( 'is_list', $other_args ) ) {
+			( !array_key_exists( 'is_list', $other_args ) ||
+	       		!$other_args['is_list']	) ) {
 			if ( $other_args['field_type'] == 'number' ) {
 				$size = 10;
 				$inputType = 'number';
