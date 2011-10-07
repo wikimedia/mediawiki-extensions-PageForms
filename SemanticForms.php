@@ -40,7 +40,7 @@ if ( !defined( 'SMW_VERSION' ) ) {
 	die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
 }
 
-define( 'SF_VERSION', '2.2.1' );
+define( 'SF_VERSION', '2.3-alpha' );
 
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
@@ -324,6 +324,11 @@ $sfgCacheFormDefinitions = false;
 # ##
 $sfgRedLinksCheckOnlyLocalProps = false;
 
+# ##
+# Displays the form above, instead of below, the results, in the
+# Special:RunQuery page.
+# (This is actually an undocumented variable, used by the code.)
+# ##
 $sfgRunQueryFormAtTop = false;
 
 # ##
