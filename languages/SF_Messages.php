@@ -1580,9 +1580,9 @@ die URL sollte wie folgt aussehen: „Special:RunQuery/<form name>”',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für diese Eigenschaft ist|Die möglichen Werte für diese Eigenschaft sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage für „$1“. Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Bearbeite diese Seite, um den Vorlagentext zu sehen.',
-	'sf_form_docu' => 'Dies ist das „$1“-Formular.
-Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten ein;
-wenn eine Seite mit diesem Namen bereits existiert, wirst du zu einem Formular zum Bearbeiten der Seite weitergeleitet.',
+	'sf_form_docu' => 'Dies ist das Formular „$1“.
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten in das Eingabefeld ein. 
+Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
 	'sf_form_freetextlabel' => 'Freitext',
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
@@ -1616,9 +1616,9 @@ Für mehrere Optionen nutzen Sie bitte die Seite $1.',
 	'sf_formedit_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
 	'sf_template_docufooter' => 'Bearbeiten Sie diese Seite, um den Vorlagentext zu sehen.',
-	'sf_form_docu' => 'Dies ist das „$1“-Formular.
-Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten ein;
-wenn eine Seite mit diesem Namen bereits existiert, werden Sie zu einem Formular zum Bearbeiten der Seite weitergeleitet.',
+	'sf_form_docu' => 'Dies ist das Formular „$1“.
+Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten in das Eingabefeld ein. 
+Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
 );
 
 /** Zazaki (Zazaki)
