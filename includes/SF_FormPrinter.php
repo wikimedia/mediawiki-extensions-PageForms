@@ -1345,6 +1345,13 @@ END;
 							$source_page_matches_this_form = true;
 						} elseif ( $tag == 'includeonly free text' || $tag == 'onlyinclude free text' ) {
 							$onlyinclude_free_text = true;
+						} elseif ( $tag == 'query form at top' ) {
+							// TODO - this should be made a field of
+							// some non-static class that actually
+							// prints the form, instead of requiring
+							// a global variable.
+							global $sfgRunQueryFormAtTop;
+							$sfgRunQueryFormAtTop = true;
 						}
 					}
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
