@@ -1434,7 +1434,7 @@ $messages['de'] = array(
 	'specialpages-group-sf_group' => 'Semantische Formulare',
 	'createproperty' => 'Ein Attribut erstellen',
 	'sf_createproperty_linktoform' => 'Dieses Attribut verweist auf Seiten, welche nachfolgendes Formular nutzen:',
-	'sf_createproperty_allowedvalsinput' => 'Wenn du für dieses Attribut nur bestimmte Werte ermöglichen willst, gib diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetze dieses durch „\\,“ ohne Anführungen):',
+	'sf_createproperty_allowedvalsinput' => 'Sofern du für dieses Attribut nur bestimmte Werte zulassen möchtest, gib diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, musst du es durch „\\,“ ersetzen):',
 	'sf_createproperty_propname' => 'Attributname:',
 	'sf_createproperty_proptype' => 'Datentyp:',
 	'templates' => 'Vorlagen',
@@ -1579,7 +1579,7 @@ die URL sollte wie folgt aussehen: „Special:RunQuery/<form name>”',
 	'sf_property_linkstoform' => 'Es verlinkt zu Seiten, welche das Formular „$1“ nutzen.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für diese Eigenschaft ist|Die möglichen Werte für diese Eigenschaft sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage für „$1“. Sie sollte im folgenden Format aufgerufen werden:',
-	'sf_template_docufooter' => 'Bearbeite diese Seite, um den Vorlagentext zu sehen.',
+	'sf_template_docufooter' => 'Klicke auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
 Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten in das Eingabefeld ein. 
 Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
@@ -1587,7 +1587,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
 	'sf_blank_namespace' => 'Seite',
-	'right-viewedittab' => '„Bearbeiten“-Tab für Seiten zeigen, die per Formular bearbeitet werden können',
+	'right-viewedittab' => 'Den Reiter „Bearbeiten“ auf Seiten sehen, die per Formular bearbeitet werden können',
 	'right-editrestrictedfields' => 'Eingeschränkte Formularfelder bearbeiten',
 	'right-createclass' => 'Erstellen neuer semantischer Klassen',
 );
@@ -1600,7 +1600,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
  * @author Umherirrender
  */
 $messages['de-formal'] = array(
-	'sf_createproperty_allowedvalsinput' => 'Wenn Sie für dieses Attribut nur bestimmte Werte ermöglichen wollen, geben Sie diese bitte als kommagetrennte Liste ein (wenn ein Wert ein Komma enthält, ersetzen Sie das Komma mit „\\,“):',
+	'sf_createproperty_allowedvalsinput' => 'Sofern Sie für dieses Attribut nur bestimmte Werte zulassen möchten, geben Sie diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, müssen Sie es durch „\\,“ ersetzen):',
 	'sf_createtemplate_fieldsdesc' => 'Wenn ein Feld einer Vorlage keinen Feldnamen benötigen soll, geben Sie einfach anstatt eines tatsächlichen Namens die Indexnummer des Feldes als Name ein (z.B. 1, 2, 3 usw.).',
 	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
 	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
@@ -1615,7 +1615,7 @@ Für mehrere Optionen nutzen Sie bitte die Seite $1.',
 	'sf_formedit_altforms' => 'Alternativ können Sie diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
-	'sf_template_docufooter' => 'Bearbeiten Sie diese Seite, um den Vorlagentext zu sehen.',
+	'sf_template_docufooter' => 'Klicken Sie auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
 Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten in das Eingabefeld ein. 
 Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
@@ -4729,7 +4729,7 @@ $messages['mk'] = array(
 	'sf_createcategory_defaultform' => 'Основен образец:',
 	'sf_createcategory_makesubcategory' => 'Направи ова да биде поткатегорија на друга категорија (незадолжително):',
 	'createclass' => 'Создај класа',
-	'sf_createclass_docu' => 'Тука внесете ги сите податоци за да ги создадете својствата, шаблонот, образецот и категориајта за една класа. За повеќе можности за нагодување, употребете ја страницата $1.',
+	'sf_createclass_docu' => 'Тука внесете ги сите податоци за да ги создадете својствата, шаблонот, образецот и категоријата за една класа. За повеќе можности за нагодување, употребете ја страницата $1.',
 	'sf_createclass_allowedvalues' => 'Дозволени вредности:',
 	'sf_createclass_listofvalues' => 'Список на вредности?',
 	'sf_createclass_leavefieldblank' => 'Ако името на полето е исто како името на својството, тогаш оставете го празно.',
