@@ -266,18 +266,21 @@ class SFFormLinker {
 
 		global $sfgRedLinksCheckOnlyLocalProps;
 		if ( $sfgRedLinksCheckOnlyLocalProps ) {
+			$incoming_properties = array();
 			if ( $linker instanceof DummyLinker ) {
 				global $wgTitle;
 				$curTitle = $wgTitle;
 			} else {
 				$curTitle = $linker->getTitle();
 			}
-			self::getPagePropertiesOfPage( $curTitle );
-			$targetName = $target->getText();
-			if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
-				$incoming_properties = self::$mLinkedPages[$targetName];
-			} else {
-				$incoming_properties = array();
+			// If this is called from the command line, $wgTitle
+			// might not have been set.
+			if ( !is_null( $curTitle ) ) {
+				self::getPagePropertiesOfPage( $curTitle );
+				$targetName = $target->getText();
+				if ( array_key_exists( $targetName, self::$mLinkedPages ) ) {
+					$incoming_properties = self::$mLinkedPages[$targetName];
+				}
 			}
 		} else {
 			$incoming_properties = self::getIncomingProperties( $target );
