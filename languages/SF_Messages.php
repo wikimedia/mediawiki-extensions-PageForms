@@ -2313,6 +2313,13 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
 	'right-editrestrictedfields' => 'Muokata rajoitettuja lomakekenttiä',
 );
 
+/** Faroese (Føroyskt)
+ * @author Diupwijk
+ */
+$messages['fo'] = array(
+	'templates' => 'Fyrimyndir',
+);
+
 /** French (Français)
  * @author Crochet.david
  * @author Dereckson
