@@ -225,9 +225,9 @@ END;
 		}
 		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->getInputType() );
 
-		if (! is_null( $template_field->getInputType() ) ) {
+		if ( !is_null( $template_field->getInputType() ) ) {
 			$cur_input_type = $template_field->getInputType();
-		} elseif (! is_null( $default_input_type ) ) {
+		} elseif ( !is_null( $default_input_type ) ) {
 			$cur_input_type = $default_input_type;
 		} else {
 			$cur_input_type = $possible_input_types[0];
@@ -272,8 +272,12 @@ END;
 		}
 		if ( ! $part_of_multiple ) { $text .= "| "; }
 		$text .= "{{{field|" . $this->template_field->getFieldName();
+		// TODO - why is there an input type field in both the form field and the template
+		// field? One of them should probably be removed.
 		if ( $this->mIsHidden ) {
 			$text .= "|hidden";
+		} elseif ( !is_null( $this->getInputType() ) ) {
+			$text .= "|input type=" . $this->getInputType();
 		} elseif ( $this->template_field->getInputType() != '' ) {
 			$text .= "|input type=" . $this->template_field->getInputType();
 		}
