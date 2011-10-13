@@ -448,7 +448,7 @@ END;
 			$template_fields = array();
 			$fullTemplateName = PageSchemas::titleString( $templateTitle );
 			$template_fields = self::getFieldsFromTemplateSchema( $templateFromSchema );
-			if ( class_exists( 'SIOPageSchemas' ) {
+			if ( class_exists( 'SIOPageSchemas' ) ) {
 				$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $templateFromSchema );
 			} else {
 				$internalObjProperty = null;
