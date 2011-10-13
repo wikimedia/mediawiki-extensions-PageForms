@@ -12,11 +12,13 @@ class SFForm {
 	private $mPageNameFormula;
 	private $mCreateTitle;
 	private $mEditTitle;
+	private $mAssociatedCategory;
 
 	static function create( $formName, $templates ) {
 		$form = new SFForm();
 		$form->mFormName = ucfirst( str_replace( '_', ' ', $formName ) );
 		$form->mTemplates = $templates;
+		$form->mAssociatedCategory = null;
 		return $form;
 	}
 
@@ -36,6 +38,10 @@ class SFForm {
 		$this->mEditTitle = $editTitle;
 	}
 
+	function setAssociatedCategory( $associatedCategory ) {
+		$this->mAssociatedCategory = $associatedCategory;
+	}
+
 	function creationHTML() {
 		$text = "";
 		foreach ( $this->mTemplates as $i => $ft ) {
@@ -49,7 +55,11 @@ class SFForm {
 		$fs = SpecialPage::getPage( 'FormStart' );
 		$form_start_url = SFUtils::titleURLString( $fs->getTitle() ) . "/" . $title->getPartialURL();
 		$form_description = wfMsgForContent( 'sf_form_docu', $this->mFormName, $form_start_url );
-		$form_input = "{{#forminput:form=" . $this->mFormName . "}}\n";
+		$form_input = "{{#forminput:form=" . $this->mFormName;
+		if ( !is_null( $this->mAssociatedCategory ) ) {
+			$form_input .= "|autocomplete on category=" . $this->mAssociatedCategory;
+		}
+	       	$form_input .= "}}\n";
 		$text = <<<END
 <noinclude>
 $form_description
