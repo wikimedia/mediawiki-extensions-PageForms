@@ -30,6 +30,17 @@ class SFPageSchemas {
 				}
 			}
 		}
+		if ( $objectName == "semanticforms_TemplateDetails" ) {
+			foreach ( $xmlForField->children() as $tag => $child ) {
+				if ( $tag == $objectName ) {
+					foreach ( $child->children() as $tag => $formelem ) {
+						$sfarray[(string)$tag] = (string)$formelem;
+					}
+					$object['sf'] = $sfarray;
+					return true;
+				}
+			}
+		}
 		if ( $objectName == "semanticforms_FormInput" ) {
 			foreach ( $xmlForField->children() as $tag => $child ) {
 				if ( $tag == $objectName ) {
@@ -76,7 +87,32 @@ class SFPageSchemas {
 	}
 
 	/**
-	 * Creates Page Schemas XML for a specific form field.
+	 * Creates Page Schemas XML for form information on templates.
+	 */
+	public static function getTemplateXML( $request, &$xmlArray ) {
+		$xmlPerTemplate = array();
+		$templateNum = -1;
+		foreach ( $request->getValues() as $var => $val ) {
+			if ( substr( $var, 0, 18 ) == 'sf_template_label_' ) {
+				$templateNum = substr( $var, 18 );
+				$xml = '<semanticforms_TemplateDetails>';
+				if ( !empty( $val ) ) {
+					$xml .= "<Label>$val</Label>";
+				}
+			} elseif ( substr( $var, 0, 23 ) == 'sf_template_addanother_' ) {
+				if ( !empty( $val ) ) {
+					$xml .= "<AddAnotherText>$val</AddAnotherText>";
+				}
+				$xml .= '</semanticforms_TemplateDetails>';
+				$xmlPerTemplate[$templateNum] = $xml;
+			}
+		}
+		$xmlArray['sf'] = $xmlPerTemplate;
+		return true;
+	}
+
+	/**
+	 * Creates Page Schemas XML for form fields.
 	 */
 	public static function getFieldXML( $request, &$xmlArray ) {
 		$xmlPerField = array();
@@ -126,31 +162,93 @@ class SFPageSchemas {
 				$hasExistingValues = true;
 			}
 		}
+
+		// Get all the values from the page schema.
 		if ( array_key_exists( 'name', $form_array ) ) {
 			$formName = $form_array['name'];
 		} else {
 			$formName = '';
 		}
-		$text = "\t<p>" . 'Name:' . ' ' . Html::input( 'sf_form_name', $formName, 'text', array( 'size' => 15 ) ) . "</p>\n";
 		if ( array_key_exists( 'PageNameFormula', $form_array ) ) {
 			$pageNameFormula = $form_array['PageNameFormula'];
 		} else {
 			$pageNameFormula = '';
 		}
-		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-pagenameformula' ) . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 20 ) ) . "</p>\n";
 		if ( array_key_exists( 'CreateTitle', $form_array ) ) {
 			$createTitle = $form_array['CreateTitle'];
 		} else {
 			$createTitle = '';
 		}
-		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-createtitle' ) . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		if ( array_key_exists( 'EditTitle', $form_array ) ) {
 			$editTitle = $form_array['EditTitle'];
 		} else {
 			$editTitle = '';
 		}
-		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-edittitle' ) . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+
+		$text = "\t<p>" . wfMsg( 'ps-namelabel' ) . ' ' . Html::input( 'sf_form_name', $formName, 'text', array( 'size' => 15 ) ) . "</p>\n";
+		// The checkbox isn't actually a field in the page schema -
+		// we set it based on whether or not a page formula has been
+		// specified.
+		$twoStepProcessAttrs = array( 'id' => 'sf-two-step-process' );
+		if ( $pageNameFormula == '' ) {
+			$twoStepProcessAttrs['checked'] = true;
+		}
+		$text .= '<p>' . Html::input( 'sf_two_step_process', null, 'checkbox', $twoStepProcessAttrs );
+		$text .= ' Users must enter the page name before getting to the form (default)';
+		$text .= "</p>\n";
+		$text .= "\t<p id=\"sf-page-name-formula\">" . wfMsg( 'sf-pageschemas-pagenameformula' ) . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 30 ) ) . "</p>\n";
+		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-createtitle' ) . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+		$text .= "\t<p id=\"sf-edit-title\">" . wfMsg( 'sf-pageschemas-edittitle' ) . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+
+		// Javascript for getting the checkbox to hide certain fields
+		$text .= <<<END
+<script type="text/javascript">
+jQuery.fn.toggleFormDataDisplay = function() {
+	if (jQuery(this).is(":checked")) {
+		jQuery('#sf-page-name-formula').css('display', 'none');
+		jQuery('#sf-edit-title').css('display', 'block');
+	} else {
+		jQuery('#sf-page-name-formula').css('display', 'block');
+		jQuery('#sf-edit-title').css('display', 'none');
+	}
+}
+jQuery('#sf-two-step-process').toggleFormDataDisplay();
+jQuery('#sf-two-step-process').click( function() {
+	jQuery(this).toggleFormDataDisplay();
+} );
+</script>
+
+END;
+
 		$extensionsHTML['sf'] = array( 'Form', '#CF9', $text, $hasExistingValues );
+
+		return true;
+	}
+
+	public static function getTemplateHTML( $templateObj, &$extensionsHTML ) {
+		$form_array = array();
+		$hasExistingValues = false;
+		$templateLabel = null;
+		$addAnotherText = null;
+		if ( !is_null( $templateObj ) ) {
+			$obj = $templateObj->getObject( 'semanticforms_TemplateDetails' );
+			if ( array_key_exists( 'sf', $obj ) ) {
+				$form_array = $obj['sf'];
+				$hasExistingValues = true;
+			}
+			if ( array_key_exists( 'Label', $form_array ) ) {
+				$templateLabel = $form_array['Label'];
+			}
+			if ( array_key_exists( 'AddAnotherText', $form_array ) ) {
+				$addAnotherText = $form_array['AddAnotherText'];
+			}
+		}
+
+		$text = "\t<p>" . "The following fields are useful if there can be multiple instances of this template." . "</p>\n";
+		$text .= "\t<p>" . 'Label:' . ' ' . Html::input( 'sf_template_label_num', $templateLabel, 'text', array( 'size' => 15 ) ) . "</p>\n";
+		$text .= "\t<p>" . 'Text of button to add another instance (default is "Add another"):' . ' ' . Html::input( 'sf_template_addanother_num', $addAnotherText, 'text', array( 'size' => 25 ) ) . "</p>\n";
+
+		$extensionsHTML['sf'] = array( 'Details for template in form', '#CF9', $text, $hasExistingValues );
 
 		return true;
 	}
@@ -310,10 +408,12 @@ class SFPageSchemas {
 	 * Creates a form page, when called from the 'generatepages' page
 	 * of Page Schemas.
 	 */
-	public static function generateForm( $formName, $formTitle, $formTemplates, $formDataFromSchema ) {
+	public static function generateForm( $formName, $formTitle,
+		$formTemplates, $formDataFromSchema, $categoryName ) {
 		global $wgUser;
 
 		$form = SFForm::create( $formName, $formTemplates );
+		$form->setAssociatedCategory( $categoryName );
 		if ( array_key_exists( 'PageNameFormula', $formDataFromSchema ) ) {
 			$form->setPageNameFormula( $formDataFromSchema['PageNameFormula'] );
 		}
@@ -338,6 +438,7 @@ class SFPageSchemas {
 		global $wgOut, $wgUser;
 
 		$templatesFromSchema = $psSchemaObj->getTemplates();
+
 		$form_templates = array();
 		$jobs = array();
 		foreach ( $templatesFromSchema as $templateFromSchema ) {
@@ -347,21 +448,40 @@ class SFPageSchemas {
 			$template_fields = array();
 			$fullTemplateName = PageSchemas::titleString( $templateTitle );
 			$template_fields = self::getFieldsFromTemplateSchema( $templateFromSchema );
+			$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $templateFromSchema );
+			// TODO - actually, the category-setting should be
+			// smarter than this: if there's more than one
+			// template in the schema, it should probably be only
+			// the first non-multiple template that includes the
+			// category tag.
+			if ( $templateFromSchema->isMultiple() ) {
+				$categoryName = null;
+			} else {
+				$categoryName = $psSchemaObj->getCategoryName();
+			}
 			$templateText = SFTemplateField::createTemplateText( $templateName,
-				$template_fields, null, $psSchemaObj->categoryName, null, null, null );
+				$template_fields, $internalObjProperty, $categoryName, null, null, null );
 			if ( in_array( $fullTemplateName, $toGenPageList ) ) {
+			//	print_r($templateFromSchema);
+			//print "$templateText";
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $templateText;
 				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
 			}
 
+			$templateValues = self::getTemplateValues( $templateFromSchema );
+			if ( array_key_exists( 'Label', $templateValues ) ) {
+				$templateLabel = $templateValues['Label'];
+			} else {
+				$templateLabel = null;
+			}
 			$form_fields = self::getFormFieldInfo( $templateFromSchema, $template_fields );
 			// Create template info for form, for use in generating
 			// the form (if it will be generated).
 			$form_template = SFTemplateInForm::create(
 				$templateName,
-				$templateFromSchema->getLabel(),
+				$templateLabel,
 				$templateFromSchema->isMultiple(),
 				null,
 				$form_fields
@@ -371,35 +491,88 @@ class SFPageSchemas {
 		Job::batchInsert( $jobs );
 
 		// Create form, if it's specified.
-		$form_name = self::getFormName( $psSchemaObj );
-		if ( !empty( $form_name ) ) {
+		$formName = self::getFormName( $psSchemaObj );
+		if ( !empty( $formName ) ) {
 			$formInfo = self::getMainFormInfo( $psSchemaObj );
-			$formTitle = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+			$formTitle = Title::makeTitleSafe( SF_NS_FORM, $formName );
 			$fullFormName = PageSchemas::titleString( $formTitle );
 			if ( in_array( $fullFormName, $toGenPageList ) ) {
-				self::generateForm( $form_name, $formTitle, $form_templates, $formInfo );
+				self::generateForm( $formName, $formTitle,
+					$form_templates, $formInfo, $categoryName );
 			}
 		}
 		return true;
 	}
 
-	/**
-	 * Parses the field elements in the Page Schemas XML.
-	 */
-	public static function parseFieldElements( $field_xml, &$text_object ) {
+	public static function getFormDisplayInfo( $schemaXML, &$text_object ) {
+		foreach ( $schemaXML->children() as $tag => $child ) {
+			if ( $tag == "semanticforms_Form" ) {
+				$formName = $child->attributes()->name;
+				$values = array();
+				foreach ( $child->children() as $tagName => $prop ) {
+					$values[$tagName] = (string)$prop;
+				}
+				$text_object['sf'] = array( 'Form', $formName, '#CF9', $values );
+				break;
+			}
+		}
+		return true;
+	}
 
-		foreach ( $field_xml->children() as $tag => $child ) {
+	public static function getTemplateValues( $psTemplate ) {
+		$values = array();
+		if ( $psTemplate instanceof PSTemplate ) {
+			$psTemplate = $psTemplate->templateXML;
+		}
+		foreach ( $psTemplate->children() as $tag => $child ) {
+			if ( $tag == "semanticforms_TemplateDetails" ) {
+				foreach ( $child->children() as $prop ) {
+					$values[$prop->getName()] = (string)$prop;
+				}
+			}
+		}
+		return $values;
+	}
+
+	/**
+	 * Displays form details for one template in the Page Schemas XML.
+	 */
+	public static function getTemplateDisplayInfo( $templateXML, &$text_object ) {
+		$templateValues = self::getTemplateValues( $templateXML );
+		if ( count( $templateValues ) == 0 ) {
+			return true;
+		}
+
+		$displayValues = array();
+		foreach ( $templateValues as $key => $value ) {
+			if ( $key == 'Label' ) {
+				$propName = 'Label';
+			} elseif ( $key == 'AddAnotherText' ) {
+				$propName = "'Add another' button";
+			}
+			$displayValues[$propName] = $value;
+		}
+		$text_object['sf'] = array( 'Details for template in form', null, '#CF9', $displayValues );
+		return true;
+	}
+
+	/**
+	 * Displays data on a single form input in the Page Schemas XML.
+	 */
+	public static function getFormInputDisplayInfo( $fieldXML, &$text_object ) {
+		foreach ( $fieldXML->children() as $tag => $child ) {
 			if ( $tag == "semanticforms_FormInput" ) {
-				$text = PageSchemas::tableMessageRowHTML( "paramAttr", wfMsg( 'specialpages-group-sf_group' ), (string)$tag );
+				$inputName = $child->attributes()->name;
+				$values = array();
 				foreach ( $child->children() as $prop ) {
 					if ( $prop->getName() == 'InputType' ) {
 						$propName = 'Input type';
 					} else {
 						$propName = (string)$prop->attributes()->name;
 					}
-					$text .= PageSchemas::tableMessageRowHTML("paramAttrMsg", $propName, (string)$prop );
+					$values[$propName] = (string)$prop;
 				}
-				$text_object['sf'] = $text;
+				$text_object['sf'] = array( 'Form input', $inputName, '#CF9', $values );
 				break;
 			}
 		}

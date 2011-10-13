@@ -93,12 +93,16 @@ $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 
 // Page Schemas extension hooks
 $wgHooks['PageSchemasGetObject'][] = 'SFPageSchemas::createPageSchemasObject' ;
-$wgHooks['PageSchemasGeneratePages'][] = 'SFPageSchemas::generatePages' ;
-$wgHooks['PSParseFieldElements'][] = 'SFPageSchemas::parseFieldElements' ;
 $wgHooks['PageSchemasGetPageList'][] = 'SFPageSchemas::getPageList' ; 
+$wgHooks['PageSchemasGeneratePages'][] = 'SFPageSchemas::generatePages' ;
+$wgHooks['PageSchemasGetSchemaDisplayInfo'][] = 'SFPageSchemas::getFormDisplayInfo' ;
+$wgHooks['PageSchemasGetTemplateDisplayInfo'][] = 'SFPageSchemas::getTemplateDisplayInfo' ;
+$wgHooks['PageSchemasGetFieldDisplayInfo'][] = 'SFPageSchemas::getFormInputDisplayInfo' ;
 $wgHooks['PageSchemasGetSchemaHTML'][] = 'SFPageSchemas::getSchemaHTML' ;
+$wgHooks['PageSchemasGetTemplateHTML'][] = 'SFPageSchemas::getTemplateHTML' ;
 $wgHooks['PageSchemasGetFieldHTML'][] = 'SFPageSchemas::getFieldHTML' ;
 $wgHooks['PageSchemasGetSchemaXML'][] = 'SFPageSchemas::getSchemaXML';
+$wgHooks['PageSchemasGetTemplateXML'][] = 'SFPageSchemas::getTemplateXML';
 $wgHooks['PageSchemasGetFieldXML'][] = 'SFPageSchemas::getFieldXML';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
