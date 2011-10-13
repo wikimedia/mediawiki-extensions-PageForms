@@ -154,8 +154,9 @@ class SFTemplateField {
 	}
 
 	/**
-	 * Creates the text of a template, when called from either
-	 * Special:CreateTemplate or Special:CreateClass.
+	 * Creates the text of a template, when called from
+	 * Special:CreateTemplate, Special:CreateClass or the Page Schemas
+	 * extension.
 	 *
 	 * @TODO: There's really no good reason why this method is contained
 	 * within this class.
@@ -179,11 +180,10 @@ END;
 </pre>
 $template_footer
 </noinclude><includeonly>
-
 END;
 		// Only add a call to #set_internal if the Semantic Internal
 		// Objects extension is also installed.
-		if ( !empty( $internal_obj_property) && class_exists( 'SIOInternalObject' ) ) {
+		if ( !empty( $internal_obj_property ) && class_exists( 'SIOInternalObject' ) ) {
 			$setInternalText = '{{#set_internal:' . $internal_obj_property;
 		} else {
 			$setInternalText = null;
@@ -211,19 +211,20 @@ END;
 			$tableText .= "! " . $field->mLabel . "\n";
 			if ( empty( $field->mSemanticProperty ) ) {
 				$tableText .= "| {{{" . $field->mFieldName . "|}}}\n";
-				// if this field is meant to contain a list,
-				// add on an 'arraymap' function, that will
-				// call this semantic markup tag on every
-				// element in the list
 			} elseif ( !is_null( $setInternalText ) ) {
+				$tableText .= "| {{{" . $field->mFieldName . "|}}}\n";
 				if ( $field->mIsList ) {
 					$setInternalText .= '|' . $field->mSemanticProperty . '#list={{{' . $field->mFieldName . '|}}}';
 				} else {
 					$setInternalText .= '|' . $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}';
 				}
 			} elseif ( $field->mIsList ) {
-				// find a string that's not in the semantic
-				// field call, to be used as the variable
+				// If this field is meant to contain a list,
+				// add on an 'arraymap' function, that will
+				// call this semantic markup tag on every
+				// element in the list.
+				// Find a string that's not in the semantic
+				// field call, to be used as the variable.
 				$var = "x"; // default - use this if all the attempts fail
 				if ( strstr( $field->mSemanticProperty, $var ) ) {
 					$var_options = array( 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' );
@@ -252,9 +253,14 @@ END;
 
 END;
 		}
-		$tableText .= "|}\n";
-		if ( !is_null( $setInternalText ) ) {
-			$setInternalText .= "}}\n";
+		$tableText .= "|}";
+		// Leave out newlines if there's an internal property
+		// set here (which would mean that there are meant to be
+		// multiple instances of this template.)
+		if ( is_null( $setInternalText ) ) {
+			$tableText .= "\n";
+		} else {
+			$setInternalText .= "}}";
 			$text .= $setInternalText;
 		}
 
