@@ -448,7 +448,11 @@ END;
 			$template_fields = array();
 			$fullTemplateName = PageSchemas::titleString( $templateTitle );
 			$template_fields = self::getFieldsFromTemplateSchema( $templateFromSchema );
-			$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $templateFromSchema );
+			if ( class_exists( 'SIOPageSchemas' ) {
+				$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $templateFromSchema );
+			} else {
+				$internalObjProperty = null;
+			}
 			// TODO - actually, the category-setting should be
 			// smarter than this: if there's more than one
 			// template in the schema, it should probably be only
@@ -462,8 +466,6 @@ END;
 			$templateText = SFTemplateField::createTemplateText( $templateName,
 				$template_fields, $internalObjProperty, $categoryName, null, null, null );
 			if ( in_array( $fullTemplateName, $toGenPageList ) ) {
-			//	print_r($templateFromSchema);
-			//print "$templateText";
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $templateText;
