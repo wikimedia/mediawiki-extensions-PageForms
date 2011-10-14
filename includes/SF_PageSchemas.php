@@ -200,8 +200,9 @@ class SFPageSchemas {
 		$text .= "\t<p>" . wfMsg( 'sf-pageschemas-createtitle' ) . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		$text .= "\t<p id=\"sf-edit-title\">" . wfMsg( 'sf-pageschemas-edittitle' ) . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 
-		// Javascript for getting the checkbox to hide certain fields
-		$text .= <<<END
+		// Separately, add Javascript for getting the checkbox to
+		// hide certain fields.
+		$jsText = <<<END
 <script type="text/javascript">
 jQuery.fn.toggleFormDataDisplay = function() {
 	if (jQuery(this).is(":checked")) {
@@ -219,6 +220,8 @@ jQuery('#sf-two-step-process').click( function() {
 </script>
 
 END;
+		global $wgOut;
+		$wgOut->addScript( $jsText );
 
 		$extensionsHTML['sf'] = array( 'Form', '#CF9', $text, $hasExistingValues );
 
