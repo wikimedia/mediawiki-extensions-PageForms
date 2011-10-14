@@ -225,13 +225,13 @@ END;
 		return true;
 	}
 
-	public static function getTemplateHTML( $templateObj, &$extensionsHTML ) {
+	public static function getTemplateHTML( $psTemplate, &$extensionsHTML ) {
 		$form_array = array();
 		$hasExistingValues = false;
 		$templateLabel = null;
 		$addAnotherText = null;
-		if ( !is_null( $templateObj ) ) {
-			$obj = $templateObj->getObject( 'semanticforms_TemplateDetails' );
+		if ( !is_null( $psTemplate ) ) {
+			$obj = $psTemplate->getObject( 'semanticforms_TemplateDetails' );
 			if ( array_key_exists( 'sf', $obj ) ) {
 				$form_array = $obj['sf'];
 				$hasExistingValues = true;
@@ -287,7 +287,7 @@ END;
 		$inputTypeDropdown = Html::rawElement( 'select', array( 'name' => 'sf_input_type_num' ), $inputTypeDropdownHTML );
 		$text = '<p>' . wfMsg( 'sf-pageschemas-inputtype' ) . ' ' . $inputTypeDropdown . '</p>';
 
-		$text .= "\t" . '<p>Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,") For example: size=20, mandatory</p>' . "\n";
+		$text .= "\t" . '<p>Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,"). For example: size=20, mandatory</p>' . "\n";
 		$paramValues = array();
 		foreach ( $fieldValues as $param => $value ) {
 			if ( !empty( $param ) && $param != 'InputType' ) {
@@ -323,12 +323,12 @@ END;
 		return $formData['sf'];
 	}
 
-	public static function getFormFieldInfo( $psTemplateObj, $template_fields ) {
+	public static function getFormFieldInfo( $psTemplate, $template_fields ) {
 		$form_fields = array();
-		$fieldsInfo = $psTemplateObj->getFields();
-		foreach ( $fieldsInfo as $i => $psFieldObj ) {
-			$fieldName = $psFieldObj->getName();
-			$fieldFormInfo = $psFieldObj->getObject( 'semanticforms_FormInput' );
+		$fieldsInfo = $psTemplate->getFields();
+		foreach ( $fieldsInfo as $i => $psField ) {
+			$fieldName = $psField->getName();
+			$fieldFormInfo = $psField->getObject( 'semanticforms_FormInput' );
 			if ( !is_null( $fieldFormInfo ) && array_key_exists( 'sf', $fieldFormInfo ) ) {
 				$formField = SFFormField::create( $i, $template_fields[$i] );
 				$fieldFormArray = $fieldFormInfo['sf'];
@@ -358,16 +358,15 @@ END;
 	public static function getPageList( $psSchemaObj, &$genPageList ) {
 		global $wgOut, $wgUser;
 
-		$template_all = $psSchemaObj->getTemplates();
-		foreach ( $template_all as $template ) {
-			$title = Title::makeTitleSafe( NS_TEMPLATE, $template->getName() );
+		$psTemplates = $psSchemaObj->getTemplates();
+		foreach ( $psTemplates as $psTemplate ) {
+			$title = Title::makeTitleSafe( NS_TEMPLATE, $psTemplate->getName() );
 			$genPageList[] = $title;
 		}
 		$form_name = self::getFormName( $psSchemaObj );
 		if ( $form_name == null ) {
 			return true;
 		}
-		//$form = SFForm::create( $form_name, $form_templates );
 		$title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 		$genPageList[] = $title;
 		return true;
@@ -377,31 +376,31 @@ END;
 	 * Returns an array of SFTemplateField objects, representing the fields
 	 * of a template, based on the contents of a <PageSchema> tag.
 	 */
-	public static function getFieldsFromTemplateSchema( $templateFromSchema ) {
-		$field_all = $templateFromSchema->getFields();
-		$template_fields = array();
-		foreach( $field_all as $fieldObj ) {
-			$smw_array = $fieldObj->getObject('semanticmediawiki_Property');
+	public static function getFieldsFromTemplateSchema( $psTemplate ) {
+		$psFields = $psTemplate->getFields();
+		$templateFields = array();
+		foreach( $psFields as $psField ) {
+			$smw_array = $psField->getObject('semanticmediawiki_Property');
 			if ( array_key_exists( 'smw', $smw_array ) ) {
 				$propertyName = $smw_array['smw']['name'];
 			} else {
 				$propertyName = null;
 			}
-			if ( $fieldObj->getLabel() == '' ) {
-				$fieldLabel = $fieldObj->getName();
+			if ( $psField->getLabel() == '' ) {
+				$fieldLabel = $psField->getName();
 			} else {
-				$fieldLabel = $fieldObj->getLabel();
+				$fieldLabel = $psField->getLabel();
 			}
 			$templateField = SFTemplateField::create(
-				$fieldObj->getName(),
+				$psField->getName(),
 				$fieldLabel,
 				$propertyName,
-				$fieldObj->isList(),
-				$fieldObj->getDelimiter()
+				$psField->isList(),
+				$psField->getDelimiter()
 			);
-			$template_fields[] = $templateField;
+			$templateFields[] = $templateField;
 		}
-		return $template_fields;
+		return $templateFields;
 	}
 
 	/**
@@ -437,19 +436,18 @@ END;
 	public static function generatePages( $psSchemaObj, $toGenPageList ) {
 		global $wgOut, $wgUser;
 
-		$templatesFromSchema = $psSchemaObj->getTemplates();
+		$psTemplates = $psSchemaObj->getTemplates();
 
 		$form_templates = array();
 		$jobs = array();
-		foreach ( $templatesFromSchema as $templateFromSchema ) {
+		foreach ( $psTemplates as $psTemplate ) {
 			// Generate every specified template
-			$templateName = $templateFromSchema->getName();
+			$templateName = $psTemplate->getName();
 			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
-			$template_fields = array();
 			$fullTemplateName = PageSchemas::titleString( $templateTitle );
-			$template_fields = self::getFieldsFromTemplateSchema( $templateFromSchema );
+			$template_fields = self::getFieldsFromTemplateSchema( $psTemplate );
 			if ( class_exists( 'SIOPageSchemas' ) ) {
-				$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $templateFromSchema );
+				$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $psTemplate );
 			} else {
 				$internalObjProperty = null;
 			}
@@ -458,7 +456,7 @@ END;
 			// template in the schema, it should probably be only
 			// the first non-multiple template that includes the
 			// category tag.
-			if ( $templateFromSchema->isMultiple() ) {
+			if ( $psTemplate->isMultiple() ) {
 				$categoryName = null;
 			} else {
 				$categoryName = $psSchemaObj->getCategoryName();
@@ -472,19 +470,19 @@ END;
 				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
 			}
 
-			$templateValues = self::getTemplateValues( $templateFromSchema );
+			$templateValues = self::getTemplateValues( $psTemplate );
 			if ( array_key_exists( 'Label', $templateValues ) ) {
 				$templateLabel = $templateValues['Label'];
 			} else {
 				$templateLabel = null;
 			}
-			$form_fields = self::getFormFieldInfo( $templateFromSchema, $template_fields );
+			$form_fields = self::getFormFieldInfo( $psTemplate, $template_fields );
 			// Create template info for form, for use in generating
 			// the form (if it will be generated).
 			$form_template = SFTemplateInForm::create(
 				$templateName,
 				$templateLabel,
-				$templateFromSchema->isMultiple(),
+				$psTemplate->isMultiple(),
 				null,
 				$form_fields
 			);
@@ -522,9 +520,10 @@ END;
 	}
 
 	public static function getTemplateValues( $psTemplate ) {
+		// TODO - fix this.
 		$values = array();
 		if ( $psTemplate instanceof PSTemplate ) {
-			$psTemplate = $psTemplate->templateXML;
+			$psTemplate = $psTemplate->getXML();
 		}
 		foreach ( $psTemplate->children() as $tag => $child ) {
 			if ( $tag == "semanticforms_TemplateDetails" ) {
