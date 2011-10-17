@@ -553,12 +553,15 @@ END;
 
 
 	static function renderAutoEdit ( &$parser ) {
+		
+		global $wgTitle;
 
 		// set defaults
 		$formcontent = '';
 
 		$linkString = null;
 		$linkType = 'span';
+		$summary = null;
 
 		$classString = 'autoedit-trigger';
 
@@ -583,13 +586,16 @@ END;
 				case 'reload':
 					$classString .= ' reload';
 					break;
+				case 'summary':
+					$summary = $parser->recursiveTagParse( $value );
+					break;
 				default :
 					$formcontent .=
 						Xml::input( $key, false, urldecode( $value ) , array( 'type' => 'hidden') );
 			}
 		}
 
-		if ( !$linkString ) return null;
+		if ( $linkString == null ) return null;
 
 		if ( $linkType == 'button' ) {
 			$linkElement = Xml::tags( "button", array( 'class' => $classString ), $linkString );
@@ -598,6 +604,13 @@ END;
 		} else {
 			$linkElement = Xml::tags( "span", array( 'class' => $classString ), $linkString );
 		}
+
+		if ( $summary == null ) {
+			$summary = wfMsg('sf_autoedit_summary', $wgTitle );
+		}
+		
+		$formcontent .=
+			Xml::input( 'wpSummary', false, urldecode( $summary ), array('type' => 'hidden') );
 
 		$form = Xml::tags( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 
