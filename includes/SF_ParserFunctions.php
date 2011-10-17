@@ -606,7 +606,7 @@ END;
 		}
 
 		if ( $summary == null ) {
-			$summary = wfMsg('sf_autoedit_summary', $wgTitle );
+			$summary = wfMsg('sf_autoedit_summary', "[[$wgTitle]]" );
 		}
 		
 		$formcontent .=

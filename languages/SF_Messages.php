@@ -149,7 +149,7 @@ it should look like \'Special:FormEdit?form=<form name>&target=<target page>\', 
 	'sf_autoedit_toomanyformsfound'      => "More than one form available for page.",
 	'sf_autoedit_readonly'               => "The database is currently locked to modifications. Reason: $1",
 	'sf_autoedit_nosemanticform'         => "Could not get form $2 for page $1. See [[{{#special:FormEdit}}/$2/$1]] for details.",
-	'sf_autoedit_summary'                => "Edited automatically from page [[$1]].",
+	'sf_autoedit_summary'                => "Edited automatically from page $1.",
 	'runquery'                           => 'Run query',
 	'sf_runquery_badurl'                 => 'You must specify a form name in the URL;
 the URL should look like \'Special:RunQuery/<form name>\'.',
