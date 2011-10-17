@@ -83,8 +83,7 @@ class SFRunQuery extends IncludableSpecialPage {
 
 		if ( $form_submitted ) {
 			global $wgUser, $wgTitle, $wgOut;
-			$wgParser->mOptions = new ParserOptions();
-			$wgParser->mOptions->initialiseFromUser( $wgUser );
+			$wgParser->mOptions = ParserOptions::newFromUser( $wgUser );
 			// @TODO - fix RunQuery's parsing so that this check
 			// isn't needed.
 			if ( $wgParser->getOutput() == null ) {
