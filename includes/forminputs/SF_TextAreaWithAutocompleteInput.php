@@ -55,7 +55,7 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		if ( array_key_exists( 'cols', $other_args ) ) {
 			$cols = $other_args['cols'];
 		} else {
-			$cols = 80;
+			$cols = 90;
 		}
 		$text = '';
 		if ( array_key_exists( 'autogrow', $other_args ) ) {
