@@ -10,6 +10,11 @@
  */
 
 class SFPageSchemas extends PSExtensionHandler {
+	public static function registerClass() {
+		global $wgPageSchemasHandlerClasses;
+		$wgPageSchemasHandlerClasses[] = 'SFPageSchemas';
+		return true;
+	}
 
 	/**
 	 * Creates an object to hold form-wide information, based on an XML

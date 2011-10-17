@@ -90,11 +90,7 @@ $wgHooks['AdminLinks'][] = 'SFUtils::addToAdminLinks';
 $wgHooks['ParserBeforeStrip'][] = 'SFUtils::cacheFormDefinition';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
-
-// Register class with the Page Schemas extension
-if ( isset( $wgPageSchemasHandlerClasses ) ) {
-	$wgPageSchemasHandlerClasses[] = 'SFPageSchemas';
-}
+$wgHooks['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
