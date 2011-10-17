@@ -18,15 +18,17 @@ class SFTemplateField {
 	private $mPossibleValues;
 	private $mIsList;
 	private $mDelimiter;
+	private $mDisplay;
 	private $mInputType;
 
-	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null ) {
+	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null ) {
 		$f = new SFTemplateField();
 		$f->mFieldName = trim( str_replace( '\\', '', $name ) );
 		$f->mLabel = trim( str_replace( '\\', '', $label ) );
 		$f->setSemanticProperty( $semanticProperty );
 		$f->mIsList = $isList;
 		$f->mDelimiter = $delimiter;
+		$f->mDisplay = $display;
 		// Delimiter should default to ','.
 		if ( !empty( $isList ) && empty( $delimiter ) ) {
 			$f->mDelimiter = ',';
@@ -188,6 +190,7 @@ END;
 		} else {
 			$setInternalText = null;
 		}
+		$setText = '';
 
  		// Topmost part of table depends on format.
 		if ( $template_format == 'infobox' ) {
@@ -205,10 +208,20 @@ END;
 		}
 
 		foreach ( $template_fields as $i => $field ) {
-			if ( $i > 0 ) {
-				$tableText .= "|-\n";
-			}
-			$tableText .= "! " . $field->mLabel . "\n";
+			// Header/field label column
+			if ( $field->mDisplay == '' ) {
+				if ( $i > 0 ) {
+					$tableText .= "|-\n";
+				}
+				$tableText .= '! ' . $field->mLabel . "\n";
+			} elseif ( $field->mDisplay == 'nonempty' ) {
+				$tableText .= '{{#if:{{{' . $field->mFieldName . '|}}}|';
+				if ( $i > 0 ) {
+					$tableText .= "{{!}}-\n";
+				}
+				$tableText .= '! ' . $field->mLabel . "\n";
+			} // If it's 'hidden', do nothing
+			// Value column
 			if ( empty( $field->mSemanticProperty ) ) {
 				$tableText .= "| {{{" . $field->mFieldName . "|}}}\n";
 			} elseif ( !is_null( $setInternalText ) ) {
@@ -218,6 +231,14 @@ END;
 				} else {
 					$setInternalText .= '|' . $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}';
 				}
+			} elseif ( $field->mDisplay == 'hidden' ) {
+				if ( $field->mIsList ) {
+					$setText .= $field->mSemanticProperty . '#list={{{' . $field->mFieldName . '|}}}|';
+				} else {
+					$setText .= $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}|';
+				}
+			} elseif ( $field->mDisplay == 'nonempty' ) {
+				$tableText .= '{{!}} [[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}}\n";
 			} elseif ( $field->mIsList ) {
 				// If this field is meant to contain a list,
 				// add on an 'arraymap' function, that will
@@ -262,6 +283,12 @@ END;
 		} else {
 			$setInternalText .= "}}";
 			$text .= $setInternalText;
+		}
+
+		// Add a call to #set, if necessary
+		if ( $setText != '' ) {
+			$setText = '{{#set:' . $setText . "}}\n";
+			$text .= $setText;
 		}
 
 		$text .= $tableText;
