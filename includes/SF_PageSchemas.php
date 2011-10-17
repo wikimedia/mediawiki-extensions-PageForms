@@ -9,41 +9,39 @@
  * @ingroup SF
  */
 
-class SFPageSchemas {
+class SFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Creates an object to hold form-wide information, based on an XML
 	 * object from the Page Schemas extension.
 	 */
-	public static function createPageSchemasObject( $objectName, $xmlForField, &$object ) {
+	public static function createPageSchemasObject( $tagName, $xml ) {
 		$sfarray = array();
-		if ( $objectName == "semanticforms_Form" ) {
-			foreach ( $xmlForField->children() as $tag => $child ) {
-				if ( $tag == $objectName ) {
-					$formName = (string) $child->attributes()->name;
+		if ( $tagName == "semanticforms_Form" ) {
+			foreach ( $xml->children() as $tag => $child ) {
+				if ( $tag == $tagName ) {
+					$formName = (string)$child->attributes()->name;
 					$sfarray['name'] = $formName;
 					foreach ( $child->children() as $tag => $formelem ) {
-						$sfarray[(string)$tag] = (string)$formelem;
+						$sfarray[$tag] = (string)$formelem;
 					}
-					$object['sf'] = $sfarray;
-					return true;
+					return $sfarray;
 				}
 			}
 		}
-		if ( $objectName == "semanticforms_TemplateDetails" ) {
-			foreach ( $xmlForField->children() as $tag => $child ) {
-				if ( $tag == $objectName ) {
+		if ( $tagName == "semanticforms_TemplateDetails" ) {
+			foreach ( $xml->children() as $tag => $child ) {
+				if ( $tag == $tagName ) {
 					foreach ( $child->children() as $tag => $formelem ) {
-						$sfarray[(string)$tag] = (string)$formelem;
+						$sfarray[$tag] = (string)$formelem;
 					}
-					$object['sf'] = $sfarray;
-					return true;
+					return $sfarray;
 				}
 			}
 		}
-		if ( $objectName == "semanticforms_FormInput" ) {
-			foreach ( $xmlForField->children() as $tag => $child ) {
-				if ( $tag == $objectName ) {
+		if ( $tagName == "semanticforms_FormInput" ) {
+			foreach ( $xml->children() as $tag => $child ) {
+				if ( $tag == $tagName ) {
 					foreach ( $child->children() as $prop ) {
 						if ( $prop->getName() == 'InputType' ) {
 							$sfarray[$prop->getName()] = (string)$prop;
@@ -51,20 +49,21 @@ class SFPageSchemas {
 							$sfarray[(string)$prop->attributes()->name] = (string)$prop;
 						}
 					}
-					$object['sf'] = $sfarray;
-					return true;
+					return $sfarray;
 				}
 			}
 		}
-		return true;
+		return null;
 	}
 
 	/**
 	 * Creates Page Schemas XML for form-wide information.
 	 */
-	public static function getSchemaXML( $request, &$xmlArray ) {
+	public static function createSchemaXMLFromForm() {
+		global $wgRequest;
+
 		$xml = '';
-		foreach ( $request->getValues() as $var => $val ) {
+		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if ( $var == 'sf_form_name' ) {
 				$xml = '<semanticforms_Form name="' . $val . '" >';
 			} elseif ( $var == 'sf_page_name_formula' ) {
@@ -82,17 +81,18 @@ class SFPageSchemas {
 				$xml .= '</semanticforms_Form>';
 			}
 		}
-		$xmlArray['sf'] = $xml;
-		return true;
+		return $xml;
 	}
 
 	/**
-	 * Creates Page Schemas XML for form information on templates.
+	 * Creates Page Schemas XML from form information on templates.
 	 */
-	public static function getTemplateXML( $request, &$xmlArray ) {
+	public static function createTemplateXMLFromForm() {
+		global $wgRequest;
+
 		$xmlPerTemplate = array();
 		$templateNum = -1;
-		foreach ( $request->getValues() as $var => $val ) {
+		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if ( substr( $var, 0, 18 ) == 'sf_template_label_' ) {
 				$templateNum = substr( $var, 18 );
 				$xml = '<semanticforms_TemplateDetails>';
@@ -107,17 +107,18 @@ class SFPageSchemas {
 				$xmlPerTemplate[$templateNum] = $xml;
 			}
 		}
-		$xmlArray['sf'] = $xmlPerTemplate;
-		return true;
+		return $xmlPerTemplate;
 	}
 
 	/**
 	 * Creates Page Schemas XML for form fields.
 	 */
-	public static function getFieldXML( $request, &$xmlArray ) {
+	public static function createFieldXMLFromForm() {
+		global $wgRequest;
+
 		$xmlPerField = array();
 		$fieldNum = -1;
-		foreach ( $request->getValues() as $var => $val ) {
+		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if ( substr( $var, 0, 14 ) == 'sf_input_type_' ) {
 				$fieldNum = substr( $var, 14 );
 				$xml = '<semanticforms_FormInput>';
@@ -148,42 +149,32 @@ class SFPageSchemas {
 				$xmlPerField[$fieldNum] = $xml;
 			}
 		}
-		$xmlArray['sf'] = $xmlPerField;
-		return true;
+		return $xmlPerField;
 	}
 
-	public static function getSchemaHTML( $pageSchemaObj, &$extensionsHTML ) {
+	public static function getSchemaDisplayString() {
+		return 'Form';
+	}
+
+	public static function getDisplayColor() {
+		return '#CF9';
+	}
+
+	public static function getSchemaEditingHTML( $pageSchemaObj ) {
 		$form_array = array();
 		$hasExistingValues = false;
 		if ( !is_null( $pageSchemaObj ) ) {
-			$obj = $pageSchemaObj->getObject('semanticforms_Form');
-			if ( array_key_exists( 'sf', $obj ) ) {
-				$form_array = $obj['sf'];
+			$form_array = $pageSchemaObj->getObject('semanticforms_Form');
+			if ( !is_null( $form_array ) ) {
 				$hasExistingValues = true;
 			}
 		}
 
 		// Get all the values from the page schema.
-		if ( array_key_exists( 'name', $form_array ) ) {
-			$formName = $form_array['name'];
-		} else {
-			$formName = '';
-		}
-		if ( array_key_exists( 'PageNameFormula', $form_array ) ) {
-			$pageNameFormula = $form_array['PageNameFormula'];
-		} else {
-			$pageNameFormula = '';
-		}
-		if ( array_key_exists( 'CreateTitle', $form_array ) ) {
-			$createTitle = $form_array['CreateTitle'];
-		} else {
-			$createTitle = '';
-		}
-		if ( array_key_exists( 'EditTitle', $form_array ) ) {
-			$editTitle = $form_array['EditTitle'];
-		} else {
-			$editTitle = '';
-		}
+		$formName = PageSchemas::getValueFromObject( $form_array, 'name' );
+		$pageNameFormula = PageSchemas::getValueFromObject( $form_array, 'PageNameFormula' );
+		$createTitle = PageSchemas::getValueFromObject( $form_array, 'CreateTitle' );
+		$editTitle = PageSchemas::getValueFromObject( $form_array, 'EditTitle' );
 
 		$text = "\t<p>" . wfMsg( 'ps-namelabel' ) . ' ' . Html::input( 'sf_form_name', $formName, 'text', array( 'size' => 15 ) ) . "</p>\n";
 		// The checkbox isn't actually a field in the page schema -
@@ -223,27 +214,20 @@ END;
 		global $wgOut;
 		$wgOut->addScript( $jsText );
 
-		$extensionsHTML['sf'] = array( 'Form', '#CF9', $text, $hasExistingValues );
-
-		return true;
+		return array( $text, $hasExistingValues );
 	}
 
-	public static function getTemplateHTML( $psTemplate, &$extensionsHTML ) {
+	public static function getTemplateEditingHTML( $psTemplate ) {
 		$form_array = array();
 		$hasExistingValues = false;
 		$templateLabel = null;
 		$addAnotherText = null;
 		if ( !is_null( $psTemplate ) ) {
-			$obj = $psTemplate->getObject( 'semanticforms_TemplateDetails' );
-			if ( array_key_exists( 'sf', $obj ) ) {
-				$form_array = $obj['sf'];
+			$form_array = $psTemplate->getObject( 'semanticforms_TemplateDetails' );
+			if ( !is_null( $form_array ) ) {
 				$hasExistingValues = true;
-			}
-			if ( array_key_exists( 'Label', $form_array ) ) {
-				$templateLabel = $form_array['Label'];
-			}
-			if ( array_key_exists( 'AddAnotherText', $form_array ) ) {
-				$addAnotherText = $form_array['AddAnotherText'];
+				$templateLabel = PageSchemas::getValueFromObject( $form_array, 'Label' );
+				$addAnotherText = PageSchemas::getValueFromObject( $form_array, 'AddAnotherText' );
 			}
 		}
 
@@ -251,30 +235,25 @@ END;
 		$text .= "\t<p>" . 'Label:' . ' ' . Html::input( 'sf_template_label_num', $templateLabel, 'text', array( 'size' => 15 ) ) . "</p>\n";
 		$text .= "\t<p>" . 'Text of button to add another instance (default is "Add another"):' . ' ' . Html::input( 'sf_template_addanother_num', $addAnotherText, 'text', array( 'size' => 25 ) ) . "</p>\n";
 
-		$extensionsHTML['sf'] = array( 'Details for template in form', '#CF9', $text, $hasExistingValues );
-
-		return true;
+		return array( $text, $hasExistingValues );
 	}
 
 	/**
 	 * Returns the HTML for inputs to define a single form field,
 	 * within the Page Schemas 'edit schema' page.
 	 */
-	public static function getFieldHTML( $field, &$extensionsHTML ) {
-		$hasExistingValues = false;
+	public static function getFieldEditingHTML( $psField ) {
 		$fieldValues = array();
-		if ( !is_null( $field ) ) {
-			$sf_array = $field->getObject('semanticforms_FormInput');
-			if ( array_key_exists( 'sf', $sf_array ) ) {
-				$fieldValues = $sf_array['sf'];
+		$hasExistingValues = false;
+		$inputType = null;
+		if ( !is_null( $psField ) ) {
+			$fieldValues = $psField->getObject('semanticforms_FormInput');
+			if ( !is_null( $fieldValues ) ) {
 				$hasExistingValues = true;
+				$inputType = PageSchemas::getValueFromObject( $fieldValues, 'InputType' );
+			} else {
+				$fieldValues = array();
 			}
-		}
-
-		if ( array_key_exists( 'InputType', $fieldValues ) ) {
-			$inputType = $fieldValues['InputType'];
-		} else {
-			$inputType = '';
 		}
 
 		global $sfgFormPrinter;
@@ -305,25 +284,19 @@ END;
 		$inputParamsAttrs = array( 'size' => 80 );
 		$inputParamsInput = Html::input( 'sf_key_values_num', $param_value_str, 'text', $inputParamsAttrs );
 		$text .= "\t<p>$inputParamsInput</p>\n";
-		$extensionsHTML['sf'] = array( 'Form input', '#CF9', $text, $hasExistingValues );
-
-		return true;
+		return array( $text, $hasExistingValues );
 	}
 
-	public static function getFormName( $psSchemaObj ) {
-		$mainFormInfo = self::getMainFormInfo( $psSchemaObj );
+	public static function getFormName( $pageSchemaObj ) {
+		$mainFormInfo = self::getMainFormInfo( $pageSchemaObj );
 		if ( is_null( $mainFormInfo ) || !array_key_exists( 'name', $mainFormInfo ) ) {
 			return null;
 		}
 		return $mainFormInfo['name'];
 	}
 
-	public static function getMainFormInfo( $psSchemaObj ) {
-		$formData = $psSchemaObj->getObject( 'semanticforms_Form' );
-		if ( !array_key_exists( 'sf', $formData ) ) {
-			return null;
-		}
-		return $formData['sf'];
+	public static function getMainFormInfo( $pageSchemaObj ) {
+		return $pageSchemaObj->getObject( 'semanticforms_Form' );
 	}
 
 	public static function getFormFieldInfo( $psTemplate, $template_fields ) {
@@ -331,10 +304,9 @@ END;
 		$fieldsInfo = $psTemplate->getFields();
 		foreach ( $fieldsInfo as $i => $psField ) {
 			$fieldName = $psField->getName();
-			$fieldFormInfo = $psField->getObject( 'semanticforms_FormInput' );
-			if ( !is_null( $fieldFormInfo ) && array_key_exists( 'sf', $fieldFormInfo ) ) {
+			$fieldFormArray = $psField->getObject( 'semanticforms_FormInput' );
+			if ( !is_null( $fieldFormArray ) ) {
 				$formField = SFFormField::create( $i, $template_fields[$i] );
-				$fieldFormArray = $fieldFormInfo['sf'];
 				foreach ($fieldFormArray as $var => $val ) {
 					if ( $var == 'InputType' ) {
 						$formField->setInputType( $val );
@@ -358,21 +330,21 @@ END;
 	 * Return the list of pages that Semantic Forms could generate from
 	 * the current Page Schemas schema.
 	 */
-	public static function getPageList( $psSchemaObj, &$genPageList ) {
+	public static function getPagesToGenerate( $pageSchemaObj ) {
 		global $wgOut, $wgUser;
 
-		$psTemplates = $psSchemaObj->getTemplates();
+		$psTemplates = $pageSchemaObj->getTemplates();
 		foreach ( $psTemplates as $psTemplate ) {
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $psTemplate->getName() );
 			$genPageList[] = $title;
 		}
-		$form_name = self::getFormName( $psSchemaObj );
+		$form_name = self::getFormName( $pageSchemaObj );
 		if ( $form_name == null ) {
-			return true;
+			return array();
 		}
 		$title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 		$genPageList[] = $title;
-		return true;
+		return $genPageList;
 	}
 
 	/**
@@ -383,12 +355,8 @@ END;
 		$psFields = $psTemplate->getFields();
 		$templateFields = array();
 		foreach( $psFields as $psField ) {
-			$smw_array = $psField->getObject('semanticmediawiki_Property');
-			if ( array_key_exists( 'smw', $smw_array ) ) {
-				$propertyName = $smw_array['smw']['name'];
-			} else {
-				$propertyName = null;
-			}
+			$prop_array = $psField->getObject('semanticmediawiki_Property');
+			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
 			if ( $psField->getLabel() == '' ) {
 				$fieldLabel = $psField->getName();
 			} else {
@@ -399,7 +367,8 @@ END;
 				$fieldLabel,
 				$propertyName,
 				$psField->isList(),
-				$psField->getDelimiter()
+				$psField->getDelimiter(),
+				$psField->getDisplay()
 			);
 			$templateFields[] = $templateField;
 		}
@@ -436,10 +405,10 @@ END;
 	/**
 	 * Generate pages (form and templates) specified in the list.
 	 */
-	public static function generatePages( $psSchemaObj, $toGenPageList ) {
+	public static function generatePages( $pageSchemaObj, $selectedPages ) {
 		global $wgOut, $wgUser;
 
-		$psTemplates = $psSchemaObj->getTemplates();
+		$psTemplates = $pageSchemaObj->getTemplates();
 
 		$form_templates = array();
 		$jobs = array();
@@ -462,11 +431,11 @@ END;
 			if ( $psTemplate->isMultiple() ) {
 				$categoryName = null;
 			} else {
-				$categoryName = $psSchemaObj->getCategoryName();
+				$categoryName = $pageSchemaObj->getCategoryName();
 			}
 			$templateText = SFTemplateField::createTemplateText( $templateName,
 				$template_fields, $internalObjProperty, $categoryName, null, null, null );
-			if ( in_array( $fullTemplateName, $toGenPageList ) ) {
+			if ( in_array( $fullTemplateName, $selectedPages ) ) {
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $templateText;
@@ -491,23 +460,24 @@ END;
 			);
 			$form_templates[] = $form_template;
 		}
+		//print_r($form_templates);
+		//die;
 		Job::batchInsert( $jobs );
 
 		// Create form, if it's specified.
-		$formName = self::getFormName( $psSchemaObj );
+		$formName = self::getFormName( $pageSchemaObj );
 		if ( !empty( $formName ) ) {
-			$formInfo = self::getMainFormInfo( $psSchemaObj );
+			$formInfo = self::getMainFormInfo( $pageSchemaObj );
 			$formTitle = Title::makeTitleSafe( SF_NS_FORM, $formName );
 			$fullFormName = PageSchemas::titleString( $formTitle );
-			if ( in_array( $fullFormName, $toGenPageList ) ) {
+			if ( in_array( $fullFormName, $selectedPages ) ) {
 				self::generateForm( $formName, $formTitle,
 					$form_templates, $formInfo, $categoryName );
 			}
 		}
-		return true;
 	}
 
-	public static function getFormDisplayInfo( $schemaXML, &$text_object ) {
+	public static function getSchemaDisplayValues( $schemaXML ) {
 		foreach ( $schemaXML->children() as $tag => $child ) {
 			if ( $tag == "semanticforms_Form" ) {
 				$formName = $child->attributes()->name;
@@ -515,11 +485,10 @@ END;
 				foreach ( $child->children() as $tagName => $prop ) {
 					$values[$tagName] = (string)$prop;
 				}
-				$text_object['sf'] = array( 'Form', $formName, '#CF9', $values );
-				break;
+				return array( $formName, $values );
 			}
 		}
-		return true;
+		return null;
 	}
 
 	public static function getTemplateValues( $psTemplate ) {
@@ -538,13 +507,17 @@ END;
 		return $values;
 	}
 
+	public static function getTemplateDisplayString() {
+		return 'Details for template in form';
+	}
+
 	/**
 	 * Displays form details for one template in the Page Schemas XML.
 	 */
-	public static function getTemplateDisplayInfo( $templateXML, &$text_object ) {
+	public static function getTemplateDisplayValues( $templateXML ) {
 		$templateValues = self::getTemplateValues( $templateXML );
 		if ( count( $templateValues ) == 0 ) {
-			return true;
+			return null;
 		}
 
 		$displayValues = array();
@@ -556,14 +529,17 @@ END;
 			}
 			$displayValues[$propName] = $value;
 		}
-		$text_object['sf'] = array( 'Details for template in form', null, '#CF9', $displayValues );
-		return true;
+		return array( null, $displayValues );
+	}
+
+	public static function getFieldDisplayString() {
+		return 'Form input';
 	}
 
 	/**
 	 * Displays data on a single form input in the Page Schemas XML.
 	 */
-	public static function getFormInputDisplayInfo( $fieldXML, &$text_object ) {
+	public static function getFieldDisplayInfo( $fieldXML ) {
 		foreach ( $fieldXML->children() as $tag => $child ) {
 			if ( $tag == "semanticforms_FormInput" ) {
 				$inputName = $child->attributes()->name;
@@ -576,10 +552,9 @@ END;
 					}
 					$values[$propName] = (string)$prop;
 				}
-				$text_object['sf'] = array( 'Form input', $inputName, '#CF9', $values );
-				break;
+				return array( $inputName, $values );
 			}
 		}
-		return true;
+		return null;
 	}
 }

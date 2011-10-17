@@ -91,19 +91,10 @@ $wgHooks['ParserBeforeStrip'][] = 'SFUtils::cacheFormDefinition';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 
-// Page Schemas extension hooks
-$wgHooks['PageSchemasGetObject'][] = 'SFPageSchemas::createPageSchemasObject' ;
-$wgHooks['PageSchemasGetPageList'][] = 'SFPageSchemas::getPageList' ; 
-$wgHooks['PageSchemasGeneratePages'][] = 'SFPageSchemas::generatePages' ;
-$wgHooks['PageSchemasGetSchemaDisplayInfo'][] = 'SFPageSchemas::getFormDisplayInfo' ;
-$wgHooks['PageSchemasGetTemplateDisplayInfo'][] = 'SFPageSchemas::getTemplateDisplayInfo' ;
-$wgHooks['PageSchemasGetFieldDisplayInfo'][] = 'SFPageSchemas::getFormInputDisplayInfo' ;
-$wgHooks['PageSchemasGetSchemaHTML'][] = 'SFPageSchemas::getSchemaHTML' ;
-$wgHooks['PageSchemasGetTemplateHTML'][] = 'SFPageSchemas::getTemplateHTML' ;
-$wgHooks['PageSchemasGetFieldHTML'][] = 'SFPageSchemas::getFieldHTML' ;
-$wgHooks['PageSchemasGetSchemaXML'][] = 'SFPageSchemas::getSchemaXML';
-$wgHooks['PageSchemasGetTemplateXML'][] = 'SFPageSchemas::getTemplateXML';
-$wgHooks['PageSchemasGetFieldXML'][] = 'SFPageSchemas::getFieldXML';
+// Register class with the Page Schemas extension
+if ( isset( $wgPageSchemasHandlerClasses ) ) {
+	$wgPageSchemasHandlerClasses[] = 'SFPageSchemas';
+}
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
