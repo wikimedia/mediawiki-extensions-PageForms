@@ -58,6 +58,12 @@ class SFTextAreaInput extends SFFormInput {
 
 		if ( array_key_exists( 'cols', $other_args ) ) {
 			$textarea_attrs['cols'] = $other_args['cols'];
+		} elseif ( array_key_exists( 'autogrow', $other_args ) ) {
+			// If 'autogrow' has been set, automatically set
+			// the number of columns - otherwise, the Javascript
+			// won't be able to know how many characters there
+			// are per line, and thus won't work.
+			$textarea_attrs['cols'] = 90;
 		} else {
 			$textarea_attrs['style'] = 'width: 100%';
 		}
