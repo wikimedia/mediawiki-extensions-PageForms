@@ -59,8 +59,9 @@ jQuery(function($){
 			
 			sajax_request_type = 'POST';
 			var form = $('#sfForm');
+			var formdata = collectData( form );
 
-			sajax_do_call( 'SFAutoeditAPI::handleAutoEdit', new Array(collectData( form ), false), function( ajaxHeader ){
+			sajax_do_call( 'SFAutoeditAPI::handleAutoEdit', new Array(formdata, false), function( ajaxHeader ){
 
 				if ( ajaxHeader.status == 200 ) {
 
@@ -111,6 +112,28 @@ jQuery(function($){
 	function collectData( form ) {
 
 		var params = form.serialize();
+		
+		var summaryfield = jQuery("#wpSummary", form);
+		if ( summaryfield.length > 0 ) {
+			
+			var oldsummary = summaryfield.attr("value");
+			
+			if ( oldsummary != "" ) {
+				summaryfield.attr("value", oldsummary + " (" + sfgSaveAndContinueSummary + ")");
+			} else {
+				summaryfield.attr("value", sfgSaveAndContinueSummary);
+			}
+
+			var params = form.serialize();
+
+			summaryfield.attr("value", oldsummary );
+			
+		} else {
+			
+			var params = form.serialize();
+			params += "&wpSummary=" + sfgSaveAndContinueSummary;
+			
+		}
 
 		if (wgAction == "formedit") {
 			params += "&target=" + encodeURIComponent( wgPageName );
@@ -143,7 +166,7 @@ jQuery(function($){
 		}
 
 		params += "&wpMinoredit=1";
-
+		
 		return params;
 	}
 

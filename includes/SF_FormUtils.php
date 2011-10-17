@@ -36,6 +36,7 @@ class SFFormUtils {
 		//$vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
 		$vars['sfgBadDateErrorStr'] = wfMsg( 'sf_bad_date_error' );
 		$vars['sfgAnonEditWarning'] = wfMsg( 'sf_autoedit_anoneditwarning' );
+		$vars['sfgSaveAndContinueSummary'] = wfMsg( 'sf_formedit_saveandcontinue_summary', wfMsg( 'sf_formedit_saveandcontinueediting' ) );
 
 		return true;
 	}
