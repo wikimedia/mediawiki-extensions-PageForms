@@ -234,6 +234,8 @@ $messages['qqq'] = array(
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
+	'sf_formedit_saveandcontinue_summary'=> 'Summary logged in the page history for revisions that were created using the "Save and continue" button.',
+	'sf_autoedit_summary'                => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
 );
 
 /** Niuean (ko e vagahau Niuē)
