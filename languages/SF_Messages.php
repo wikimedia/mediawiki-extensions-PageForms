@@ -224,7 +224,12 @@ $messages['qqq'] = array(
 * $2 is the prefixed title, with spaces for the target page',
 	'sf_formedit_remove' => '{{Identical|Remove}}',
 	'sf_formedit_none' => '{{Identical|None}}',
+	'sf_formedit_saveandcontinue_summary' => 'Summary logged in the page history for revisions that were created using the "Save and continue" button.
+
+Parameters:
+* $1 is replaced with {{msg-mw|sf_formedit_saveandcontinueediting}}.',
 	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
+	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
 
@@ -234,8 +239,6 @@ $messages['qqq'] = array(
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
-	'sf_formedit_saveandcontinue_summary'=> 'Summary logged in the page history for revisions that were created using the "Save and continue" button.',
-	'sf_autoedit_summary'                => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
 );
 
 /** Niuean (ko e vagahau Niuē)
@@ -1553,7 +1556,7 @@ Für mehrere Optionen nutze bitte die Seite $1.',
 	'sf_formedit_emptytitle' => 'Fehler: Die eingegebenen Daten ergeben einen leeren Seitentitel.',
 	'sf_formedit_hookerror' => 'Fehler: Eine MediaWiki-Softwareerweiterung hat die Änderung des Zielartikels verhindert.',
 	'sf_formedit_saveandcontinueediting' => 'Zwischenspeichern',
-	'sf_formedit_saveandcontinue_summary' => 'Mit Schaltfläche „$1“ im Formular gespeichert',
+	'sf_formedit_saveandcontinue_summary' => 'Wurde mit Schaltfläche „$1“ im Formular gespeichert',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Eingaben speichern und Bearbeitung fortsetzen',
 	'sf_autoedit_anoneditwarning' => "Warnung: Diese Seite wird gerade unangemeldet bearbeitet. Beim Speichern wird die aktuelle IP-Adresse des Bearbeiters in der Versionsgeschichte aufgezeichnet und ist damit unwiderruflich '''öffentlich''' einsehbar.",
 	'sf_autoedit_success' => '[[$1]] mittels Formular $2 erfolgreich geändert.',
