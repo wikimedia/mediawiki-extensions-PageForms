@@ -3165,6 +3165,7 @@ $messages['he'] = array(
 	'sf_blank_namespace' => 'ראשי',
 	'right-viewedittab' => 'צפייה בלשונית "עריכה" של דפים הניתנים לעריכה על ידי טופס',
 	'right-editrestrictedfields' => 'עריכת שדות טופס מוגבלים',
+	'right-createclass' => 'יצירת מחלקות סמנטיות חדשות',
 );
 
 /** Hindi (हिन्दी)
@@ -5408,12 +5409,12 @@ $messages['no'] = array(
 	'sf_forminputs_rows' => 'Antall rader for denne typen inndata',
 	'sf_forminputs_cols' => 'Antall kolonner for denne typen inndata',
 	'sf_forminputs_autogrow' => 'Angi at denne typen inndata kan øke i størrelse hvis teksten overskrider sine grenser',
-	'sf_forminputs_valuesfromproperty' => 'En egenskap der wiki-verdiene burde være verdiene til denne typen inndata',
-	'sf_forminputs_valuesfromcategory' => 'En kategori der sidene burde være denne typen inndatas verdisett',
-	'sf_forminputs_valuesfromnamespace' => 'Et navnerom der sidene burde være denne typen inndatas verdisett',
-	'sf_forminputs_valuesfromconcept' => 'En begrepsside for Semantic MediaWiki med sider som burde være verdisettet til denne typen inndata',
-	'sf_forminputs_valuesfromurl' => 'En URL som inneholder strukturerte data som burde være verdisettet for denne typen inndata',
-	'sf_forminputs_values' => 'Verdisett for denne typen inndata, kommaseparert',
+	'sf_forminputs_valuesfromproperty' => 'En egenskap der dennes verdier i wikien burde representere verdiene til denne typen inndata',
+	'sf_forminputs_valuesfromcategory' => 'En kategori der sidene burde representere denne typen inndatas verdisett',
+	'sf_forminputs_valuesfromnamespace' => 'Et navnerom der sidene burde representere denne typen inndatas verdisett',
+	'sf_forminputs_valuesfromconcept' => 'En begrepsside for Semantic MediaWiki med sider som burde representere verdisettet til denne typen inndata',
+	'sf_forminputs_valuesfromurl' => 'En URL som inneholder strukturerte data som burde representere verdisettet for denne typen inndata',
+	'sf_forminputs_values' => 'Verdisettet for denne typen inndata, kommaseparert',
 	'sf_forminputs_list' => 'Marker at denne typen inndata inneholder en verdiliste',
 	'sf_forminputs_delimiter' => 'Skilletegnet mellom feltverdier, hvis denne typen inndata inneholder en liste av slike',
 	'sf_forminputs_remoteautocompletion' => 'Bruke ekstern autofullføring',
