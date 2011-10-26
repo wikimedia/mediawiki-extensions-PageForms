@@ -1382,6 +1382,7 @@ $messages['ckb'] = array(
 
 /** Czech (Česky)
  * @author Matěj Grabovský
+ * @author Mormegil
  */
 $messages['cs'] = array(
 	'createproperty' => 'Vytvořit vlastnost',
@@ -1400,6 +1401,9 @@ $messages['cs'] = array(
 	'sf_formedit_none' => 'Nic',
 	'sf_deletionlog' => 'Kniha smazaných stránek',
 	'sf_blank_namespace' => 'Hlavní',
+	'right-viewedittab' => 'Zobrazování záložky „Editovat“ na stránkách editovatelných pomocí formuláře',
+	'right-editrestrictedfields' => 'Editování polí formulářů s omezeným přístupem',
+	'right-createclass' => 'Zakládání nových sémantických tříd',
 );
 
 /** Church Slavic (Словѣ́ньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
@@ -2592,6 +2596,7 @@ $messages['frp'] = array(
 	'sf_bad_date_error' => 'dêt étre una dâta valida',
 	'uploadwindow' => 'Fenétra de tèlèchargement',
 	'sf_deletionlog' => 'Jornal de les suprèssions',
+	'sf-pageschemas-pagenameformula' => 'Formula du nom de pâge :',
 	'sf_property_isproperty' => 'Ceta propriètât est de tipo « $1 ».',
 	'sf_form_freetextlabel' => 'Tèxto abado',
 	'sf_category_hasdefaultform' => 'Ceta catègorie utilise lo formulèro « $1 ».',
@@ -7409,7 +7414,7 @@ $messages['uk'] = array(
 	'sf_createcategory_name' => 'Назва категорії:',
 	'sf_createcategory_defaultform' => 'Форма за умовчанням:',
 	'sf_createclass_listofvalues' => 'Список значень?',
-	'formedit' => 'Редагувати з допомогою форми',
+	'formedit' => 'Редагувати з формою',
 	'sf_formedit_createtitle' => 'Створити $1: $2',
 	'sf_formedit_remove' => 'Вилучити',
 	'sf_blank_error' => 'не може бути порожнім',
