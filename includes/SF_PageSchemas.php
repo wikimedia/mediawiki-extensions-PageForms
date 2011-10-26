@@ -157,12 +157,12 @@ class SFPageSchemas extends PSExtensionHandler {
 		return $xmlPerField;
 	}
 
-	public static function getSchemaDisplayString() {
-		return 'Form';
-	}
-
 	public static function getDisplayColor() {
 		return '#CF9';
+	}
+
+	public static function getSchemaDisplayString() {
+		return 'Form';
 	}
 
 	public static function getSchemaEditingHTML( $pageSchemaObj ) {
@@ -301,7 +301,25 @@ END;
 	}
 
 	public static function getMainFormInfo( $pageSchemaObj ) {
-		return $pageSchemaObj->getObject( 'semanticforms_Form' );
+		//return $pageSchemaObj->getObject( 'semanticforms_Form' );
+		// We don't just call getObject() here, because sometimes, for
+		// some reason, this gets called before SF registers itself
+		// with Page Schemas, which means that getObject() would return
+		// null. Instead, we directly call the code that would have
+		// been called.
+		$xml = $pageSchemaObj->getXML();
+		foreach ( $xml->children() as $tag => $child ) {
+			if ( $tag == "semanticforms_Form" ) {
+				$sfarray = array();
+				$formName = (string)$child->attributes()->name;
+				$sfarray['name'] = $formName;
+				foreach ( $child->children() as $tag => $formelem ) {
+					$sfarray[$tag] = (string)$formelem;
+				}
+				return $sfarray;
+			}
+		}
+		return array();
 	}
 
 	public static function getFormFieldInfo( $psTemplate, $template_fields ) {
@@ -465,8 +483,6 @@ END;
 			);
 			$form_templates[] = $form_template;
 		}
-		//print_r($form_templates);
-		//die;
 		Job::batchInsert( $jobs );
 
 		// Create form, if it's specified.
@@ -544,7 +560,7 @@ END;
 	/**
 	 * Displays data on a single form input in the Page Schemas XML.
 	 */
-	public static function getFieldDisplayInfo( $fieldXML ) {
+	public static function getFieldDisplayValues( $fieldXML ) {
 		foreach ( $fieldXML->children() as $tag => $child ) {
 			if ( $tag == "semanticforms_FormInput" ) {
 				$inputName = $child->attributes()->name;
