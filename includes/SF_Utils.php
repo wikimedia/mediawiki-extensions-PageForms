@@ -321,7 +321,7 @@ END;
 	/**
 	 * Includes the necessary Javascript and CSS files for the form
 	 * to display and work correctly.
-	 * 
+	 *
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
 	public static function addJavascriptAndCSS( $parser = null ) {
@@ -442,7 +442,7 @@ END;
 		return "\t$form_label:" . Xml::tags( 'select', array( 'name' => 'form' ), $select_body ) . "\n";
 	}
 
-	/*
+	/**
 	 * This function, unlike the others, doesn't take in a substring
 	 * because it uses the SMW data store, which can't perform
 	 * case-insensitive queries; for queries with a substring, the
@@ -459,7 +459,7 @@ END;
 		return $values;
 	}
 
-	/*
+	/**
 	 * Get all the pages that belong to a category and all its
 	 * subcategories, down a certain number of levels - heavily based on
 	 * SMW's SMWInlineQuery::includeSubcategories()
@@ -717,7 +717,7 @@ END;
 		return true;
 	}
 
-	/*
+	/**
 	 * Loads messages only for MediaWiki versions that need it (< 1.16)
 	 */
 	public static function loadMessages() {

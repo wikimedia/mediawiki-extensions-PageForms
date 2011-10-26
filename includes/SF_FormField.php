@@ -302,7 +302,7 @@ END;
 		return $text;
 	}
 
-	/*
+	/**
 	 * Since Semantic Forms uses a hook system for the functions that
 	 * create HTML inputs, most arguments are contained in the "$other_args"
 	 * array - create this array, using the attributes of this form
