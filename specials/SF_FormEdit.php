@@ -90,6 +90,7 @@ class SFFormEdit extends SpecialPage {
 	static function printForm( &$form_name, &$target_name, $alt_forms = array(), $redirectOnError = false ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgFormPrinter;
 
+		wfRunHooks( 'EditPage::showEditForm:initial', array( &$this ) );
 		SFUtils::loadMessages();
 
 		// If we have no form name we might as well stop right away

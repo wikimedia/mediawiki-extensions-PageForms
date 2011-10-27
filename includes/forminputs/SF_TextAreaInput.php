@@ -29,6 +29,7 @@ class SFTextAreaInput extends SFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+		global $wgOut;
 		global $sfgTabIndex, $sfgFieldNum;
 
 		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
@@ -99,6 +100,20 @@ class SFTextAreaInput extends SFFormInput {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
 		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+
+		if ( array_key_exists( 'wikieditor', $other_args ) &&
+			array_search( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) !== FALSE ) {
+
+			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
+
+			$jstext = <<<JAVASCRIPT
+jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
+JAVASCRIPT;
+
+			// write JS code directly to the page's code
+			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
+		}
+
 		return $text;
 	}
 

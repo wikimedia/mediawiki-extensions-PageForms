@@ -117,6 +117,20 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		}
 		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 
+
+		if ( array_key_exists( 'wikieditor', $other_args ) &&
+			array_search( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) !== FALSE ) {
+
+			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
+
+			$jstext = <<<JAVASCRIPT
+jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
+JAVASCRIPT;
+
+			// write JS code directly to the page's code
+			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
+		}
+
 		return $text;
 	}
 

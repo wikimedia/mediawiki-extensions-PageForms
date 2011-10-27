@@ -229,6 +229,11 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'styles' => 'skins/SF_collapsible.css',
 			'dependencies' => array( 'jquery' ),
 		),
+		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
+		'scripts' => 'libs/SF_wikieditor.js',
+//			'styles' => 'skins/SF_wikieditor.css',  // no styles necessary?
+		'dependencies' => array('jquery.wikiEditor'),
+		),
 	);
 }
 
