@@ -309,13 +309,8 @@ jQuery.fn.SemanticForms_unregisterInputInit = function() {
 
 // Display a div that would otherwise be hidden by "show on select".
 function showDiv(div_id, instanceWrapperDiv) {
-	if (instanceWrapperDiv != null) {
-		instanceWrapperDiv.find('[origID=' + div_id + ']').find(".hiddenBySF").removeClass('hiddenBySF');
-		instanceWrapperDiv.find('[origID=' + div_id + ']').show();
-	} else {
-		jQuery('#' + div_id).find(".hiddenBySF").removeClass('hiddenBySF');
-		jQuery('#' + div_id).show();
-	}
+		jQuery('[id="' + div_id + '"]', instanceWrapperDiv).find(".hiddenBySF").removeClass('hiddenBySF');
+		jQuery('[id="' + div_id + '"]', instanceWrapperDiv).show();
 }
 
 // Hide a div due to "show on select". The CSS class is there so that SF can
@@ -328,13 +323,9 @@ function hideDiv(div_id, instanceWrapperDiv) {
 		// hardcoded in English.
 		alert( "Warning: this form has \"show on select\" pointing to an invalid element ID (\"" + div_id + "\") - IDs in HTML cannot contain spaces." );
 	}
-	if (instanceWrapperDiv != null) {
-		instanceWrapperDiv.find('[origID=' + div_id + ']').find("span, div").addClass('hiddenBySF');
-		instanceWrapperDiv.find('[origID=' + div_id + ']').hide();
-	} else {
-		jQuery('#' + div_id).find("span, div").addClass('hiddenBySF');
-		jQuery('#' + div_id).hide();
-	}
+	
+	jQuery('[id="' + div_id + '"]', instanceWrapperDiv).find("span, div").addClass('hiddenBySF');
+	jQuery('[id="' + div_id + '"]', instanceWrapperDiv).hide();
 }
 
 // Show this div if the current value is any of the relevant options -
@@ -355,13 +346,9 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv) {
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
 jQuery.fn.showIfSelected = function(partOfMultiple) {
 	var inputVal = this.val();
-	if (partOfMultiple) {
-		var showOnSelectVals = sfgShowOnSelect[this.attr("origID")];
-		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
-	} else {
-		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
-		var instanceWrapperDiv = null;
-	}
+	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+	var instanceWrapperDiv = null;
+	
 	if ( showOnSelectVals !== undefined ) {
 		for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
@@ -386,13 +373,10 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv) {
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
 jQuery.fn.showIfChecked = function(partOfMultiple) {
-	if (partOfMultiple) {
-		var showOnSelectVals = sfgShowOnSelect[this.attr("origID")];
-		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
-	} else {
-		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
-		var instanceWrapperDiv = null;
-	}
+
+	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+	var instanceWrapperDiv = null;
+
 	if ( showOnSelectVals !== undefined ) {
 		for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
@@ -404,13 +388,10 @@ jQuery.fn.showIfChecked = function(partOfMultiple) {
 
 // Used for handling 'show on select' for the 'checkbox' input.
 jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple) {
-	if (partOfMultiple) {
-		var div_id = sfgShowOnSelect[this.attr("origID")];
-		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
-	} else {
-		var div_id = sfgShowOnSelect[this.attr("id")];
-		var instanceWrapperDiv = null;
-	}
+
+	var div_id = sfgShowOnSelect[this.attr("id")];
+	var instanceWrapperDiv = null;
+
 	if (jQuery(this).is(":checked")) {
 		showDiv(div_id, instanceWrapperDiv);
 	} else {

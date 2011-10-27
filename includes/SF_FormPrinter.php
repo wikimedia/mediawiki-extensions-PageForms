@@ -272,9 +272,7 @@ END;
 			// in the form, to differentiate the inputs the form starts out
 			// with from any inputs added by the Javascript.
 			$section = str_replace( '[num]', "[{$instance_num}a]", $section );
-			// @TODO - this replacement should be
-			// case- and spacing-insensitive
-			$section = str_replace( ' id=', ' origID=', $section );
+
 			$text = "\t\t" . Xml::tags( 'div',
 				array(
 					// The "multipleTemplate" class is there for
@@ -1206,15 +1204,14 @@ END;
 						// to 'current user', and it has no current value, set $cur_value
 						// to be the current user.
 						if ( $default_value == 'current user' &&
-								// if the date is hidden, cur_value will already be set
-								// to the default value
-								( $cur_value == '' || $cur_value == 'current user' ) ) {
-							if ( $input_type == 'text' || $input_type == '' ) {
-								$cur_value_in_template = $wgUser->getName();
-								$cur_value = $cur_value_in_template;
-							}
+							// if the date is hidden, cur_value will already be set
+							// to the default value
+							( $cur_value == '' || $cur_value == 'current user' ) ) {
+
+							$cur_value_in_template = $wgUser->getName();
+							$cur_value = $cur_value_in_template;
 						}
-						
+
 						// Generate a hidden field with a placeholder value that will be replaced
 						// by the multiple-instances template output at form submission.
 						////<input type="hidden" value="@replace_Town___mayors@" name="Town[town_mayors]" />
