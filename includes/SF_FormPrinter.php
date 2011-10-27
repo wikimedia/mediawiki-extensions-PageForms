@@ -514,7 +514,7 @@ END;
 					// Also replace periods with underlines, since that's what
 					// POST does to strings anyway.
 					$query_template_name = str_replace( '.', '_', $query_template_name );
-					//  ...and escape apostrophes.
+					// ...and escape apostrophes.
 					$query_template_name = str_replace( "'", "\'", $query_template_name );
 					// Cycle through the other components.
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
@@ -652,6 +652,14 @@ END;
 									} else {
 										$field .= $c;
 									}
+								}
+								// If there are uncompleted opening brackets, the whole form will get messed up -
+								// display a warning.
+								// (If there are too many *closing* brackets, some template stuff will end up in
+								// the "free text" field - which is bad, but it's harder for the code to detect
+								// the problem - though hopefully, easier for users.)
+								if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
+									$form_text .= "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_mismatchedbrackets', $this->mPageTitle->getFullURL( array( 'action' => 'edit' ) ) ) . "</div>\n<br clear=\"both\" />\n";
 								}
 								$existing_template_text = substr( $existing_page_content, $start_char, $i - $start_char );
 								// now remove this template from the text being edited
@@ -1436,7 +1444,7 @@ END;
 						unset ( $template_label );
 					}
 					$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $curPlaceholder ) . '/',
-					       $multipleTemplateString, $form_text );
+						$multipleTemplateString, $form_text );
 				}
 				if ( ! $all_instances_printed ) {
 					// This will cause the section to be
