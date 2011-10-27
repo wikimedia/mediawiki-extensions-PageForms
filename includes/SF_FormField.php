@@ -272,11 +272,12 @@ END;
 		}
 		if ( ! $part_of_multiple ) { $text .= "| "; }
 		$text .= "{{{field|" . $this->template_field->getFieldName();
-		// TODO - why is there an input type field in both the form field and the template
-		// field? One of them should probably be removed.
+		// TODO - why is there an input type field in both the form
+		// field and the template field? One of them should probably
+		// be removed.
 		if ( $this->mIsHidden ) {
 			$text .= "|hidden";
-		} elseif ( !is_null( $this->getInputType() ) ) {
+		} elseif ( $this->getInputType() != '' ) {
 			$text .= "|input type=" . $this->getInputType();
 		} elseif ( $this->template_field->getInputType() != '' ) {
 			$text .= "|input type=" . $this->template_field->getInputType();
