@@ -231,7 +231,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		),
 		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
 		'scripts' => 'libs/SF_wikieditor.js',
-//			'styles' => 'skins/SF_wikieditor.css',  // no styles necessary?
+		'styles' => 'skins/SF_wikieditor.css',
 		'dependencies' => array('jquery.wikiEditor'),
 		),
 	);

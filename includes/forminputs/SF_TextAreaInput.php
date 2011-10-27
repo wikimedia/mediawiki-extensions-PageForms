@@ -29,15 +29,34 @@ class SFTextAreaInput extends SFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+		
 		global $wgOut;
 		global $sfgTabIndex, $sfgFieldNum;
 
-		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
+		// Use a special ID for the free text field, for FCK's needs.
+		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
+
+		if ( array_key_exists( 'wikieditor', $other_args ) &&
+			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
+
+			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
+
+			$jstext = <<<JAVASCRIPT
+jQuery(function(){ jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
+JAVASCRIPT;
+
+			// write JS code directly to the page's code
+			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
+			
+			$className = "wikieditor ";
+		} else {
+			$className = "";
+		}
+
+		$className .= ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= " " . $other_args['class'];
 		}
-		// Use a special ID for the free text field, for FCK's needs.
-		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
 
 		if ( array_key_exists( 'rows', $other_args ) ) {
 			$rows = $other_args['rows'];
@@ -100,19 +119,6 @@ class SFTextAreaInput extends SFFormInput {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
 		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
-
-		if ( array_key_exists( 'wikieditor', $other_args ) &&
-			array_search( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) !== FALSE ) {
-
-			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
-
-			$jstext = <<<JAVASCRIPT
-jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
-JAVASCRIPT;
-
-			// write JS code directly to the page's code
-			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
-		}
 
 		return $text;
 	}

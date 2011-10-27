@@ -4,7 +4,7 @@
 
 /* Override "width: 100%" setting in standard MediaWiki skins */
 textarea.createboxInput {
-	width: auto;
+/*	width: auto;*/
 }
 textarea.mandatoryField {
 	width: auto;
@@ -134,7 +134,7 @@ img.rearrangerImage {
 .autoGrow {
 	overflow: hidden;
 	height: auto;
-	width: 326px;
+/*	width: 326px;*/
 }
 
 /* Override some jQuery UI settings */
