@@ -38,13 +38,14 @@ class SFTextAreaInput extends SFFormInput {
 
 		static $hasRun = false;
 
-		if ( !$hasRun &&
-			array_key_exists( 'wikieditor', $other_args ) &&
+		if ( array_key_exists( 'wikieditor', $other_args ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
 
-			WikiEditorHooks::editPageShowEditFormInitial( $this );
-			
-			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
+			if ( !$hasRun ) {
+				$hasRun = true;
+				WikiEditorHooks::editPageShowEditFormInitial( $this );
+				$wgOut->addModules( 'ext.semanticforms.wikieditor' );
+			}
 
 			$jstext = <<<JAVASCRIPT
 jQuery(function(){ jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
