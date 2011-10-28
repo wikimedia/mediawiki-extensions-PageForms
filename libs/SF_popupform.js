@@ -16,25 +16,7 @@ jQuery(function(){
 	});
 
 	// register formlink with button
-	jQuery( 'form.popupformlink[method!="post"] input' ).each(function() {
-		
-		var input = jQuery(this);
-
-		// Yay, IE 4 lines, FF 0 lines
-		var target = String (this.getAttribute("onclick"));
-		var start = target.indexOf("window.location.href='") + 22;
-		var stop = target.indexOf("'", start);
-		target = target.substring( start, stop );
-
-		input.data( "target", target ) // extract link target from event handler
-		.attr( "onclick", null ) // and remove event handler
-		.click( function( evt ){
-			return ext.popupform.handlePopupFormLink( jQuery( this ).data( "target" ), this);
-		});
-	})
-
-	// register formlink with post button
-	jQuery( 'form.popupformlink[method="post"]' ).submit(function(evt){
+	jQuery( 'form.popupformlink' ).submit(function(evt){
 		return ext.popupform.handlePopupFormLink( this.getAttribute( 'action' ), this );
 	});
 
@@ -460,7 +442,7 @@ window.ext.popupform = new function() {
 			// Send the form data off, we do not care for the returned data
 			var innerformdata = innerform.serialize();
 			jQuery.post( innerform.attr("action"), innerformdata );
-
+				
 			// build new url for outer page (we have to ask for a purge)
 
 			var url = location.href;
