@@ -6,8 +6,8 @@
  */
 
 /**
- * This class is distinct from SFTemplateField in that it represents a
- * template field defined in a form - it contains a SFTemplateField object
+ * This class is distinct from SFTemplateField in that it represents a template
+ * field defined in a form definition - it contains a SFTemplateField object
  * within it (the $template_field variable), along with the other properties
  * for that field that are set within the form
  * @ingroup SF

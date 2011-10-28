@@ -18,7 +18,7 @@ if ( !defined( 'SF_VERSION' ) ) {
  */
 class SFAutoeditAPI extends ApiBase {
 
-	private $mOptions;
+	private $mOptions = array();
 	private $mIsApiQuery = true;
 
 	/**
@@ -83,7 +83,11 @@ class SFAutoeditAPI extends ApiBase {
 		$parseroptions->enableLimitReport( false );
 
 
-		return $wgParser->parse( $result, $title, $parseroptions )->getText();
+		$result = new AjaxResponse($wgParser->parse( $result, $title, $parseroptions )->getText());
+		$result->setResponseCode('400 Bad Request');
+		$result->setContentType('text/html');
+			
+		return $result;
 	}
 
 	/**
@@ -482,7 +486,7 @@ END;
 	// $toplevel: if this is a toplevel value.
 	private function addToArray( &$array, $key, $value, $toplevel = true ) {
 		$matches = array();
-
+		
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
 
 			// for some reason toplevel keys get their spaces encoded by MW.
@@ -547,8 +551,8 @@ END;
 	 * @param String $msg
 	 */
 	private function reportError( $msg ) {
-		header( 'HTTP/Status: 400 Bad Request' );
 		if ( $this->isApiQuery() ) {
+			header( 'HTTP/Status: 400 Bad Request' );
 			$this->getResult()->addValue( null, 'result', array('code' => '400', '*' => $msg) );
 		}
 		return $msg;
