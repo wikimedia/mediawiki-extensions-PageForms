@@ -36,9 +36,14 @@ class SFTextAreaInput extends SFFormInput {
 		// Use a special ID for the free text field, for FCK's needs.
 		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
 
-		if ( array_key_exists( 'wikieditor', $other_args ) &&
+		static $hasRun = false;
+
+		if ( !$hasRun &&
+			array_key_exists( 'wikieditor', $other_args ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
 
+			WikiEditorHooks::editPageShowEditFormInitial( $this );
+			
 			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
 
 			$jstext = <<<JAVASCRIPT
@@ -46,7 +51,7 @@ jQuery(function(){ jQuery('#$input_id').SemanticForms_registerInputInit( ext.wik
 JAVASCRIPT;
 
 			// write JS code directly to the page's code
-			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
+			$wgOut->addScript( Html::inlineScript( $jstext ) );
 			
 			$className = "wikieditor ";
 		} else {
