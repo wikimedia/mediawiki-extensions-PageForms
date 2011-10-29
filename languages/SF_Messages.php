@@ -2841,6 +2841,7 @@ $messages['grc'] = array(
 );
 
 /** Swiss German (Alemannisch)
+ * @author Als-Chlämens
  * @author Als-Holder
  */
 $messages['gsw'] = array(
@@ -2875,7 +2876,18 @@ $messages['gsw'] = array(
 	'forms' => 'Formular',
 	'sf_forms_docu' => 'Die Formular git s in {{SITENAME}}:',
 	'sf_forminputs_mandatory' => 'Pflichtfäld',
-	'sf_forminputs_restricted' => 'Gsperrt (nume Ammanne chenne ebis ändere)',
+	'sf_forminputs_restricted' => 'Nume Ammanne chenne des Yygabefäld ändere',
+	'sf_forminputs_class' => 'S HTML-Attribut „class“ für sell Yygabefäld',
+	'sf_forminputs_default' => 'De Standardwärt für des Yygabefäld',
+	'sf_forminputs_preload' => 'E Wiki-Syte, wo de Inhalt devo de Standardwärt vo däm Yygabefäld wird',
+	'sf_forminputs_property' => 'E semantischs Attribut, wo des Yygabefäld entspricht',
+	'sf_forminputs_size' => 'D Grössi vo däm Teggstfäld in Zeiche',
+	'sf_forminputs_maxlength' => 'Di maximali Längi vo däm Teggst in däm Yygabefäld, wo zuelässig isch',
+	'sf_forminputs_placeholder' => 'De Hilfeteggst, wo aazeigt wird, bis dass de Benutzer druff klickt',
+	'sf_forminputs_uploadable' => 'En Link zum Uffelade vunere Datei näbe däm Yygabefäld platziere',
+	'sf_forminputs_defaultfilename' => 'De Standarddateiname für Dateie, wommer uffeglade het',
+	'sf_forminputs_rows' => 'D Zyylezaal für des Yygabefäld',
+	'sf_forminputs_cols' => 'D Spaltezaal für des Yygabefäld',
 	'createform' => 'Leg e Formular aa',
 	'sf_createform_nameinput' => 'Formularname',
 	'sf_createform_nameinputdesc' => '(no dr Konvention wird e Formular no dr Hauptvorlag gnännt, wu s fillt):',
