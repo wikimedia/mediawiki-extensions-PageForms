@@ -30,6 +30,8 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		
+		// TODO: Lots of duplication of code in the parent class. Needs refactoring!
+		
 		global $wgOut;
 		
 		// If 'no autocomplete' was specified, print a regular
@@ -49,10 +51,14 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		static $hasRun = false;
 
 		if ( array_key_exists( 'wikieditor', $other_args ) &&
+			method_exists($wgOut, 'getResourceLoader') &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
 			
 			if ( !$hasRun ) {
+								
 				$hasRun = true;
+				
+				// one time initialization
 				WikiEditorHooks::editPageShowEditFormInitial( $this );
 				$wgOut->addModules( 'ext.semanticforms.wikieditor' );
 			}

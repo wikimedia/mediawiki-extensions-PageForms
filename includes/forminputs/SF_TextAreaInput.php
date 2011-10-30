@@ -39,10 +39,14 @@ class SFTextAreaInput extends SFFormInput {
 		static $hasRun = false;
 
 		if ( array_key_exists( 'wikieditor', $other_args ) &&
+			method_exists($wgOut, 'getResourceLoader') &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
 
 			if ( !$hasRun ) {
+								
 				$hasRun = true;
+				
+				// one time initialization
 				WikiEditorHooks::editPageShowEditFormInitial( $this );
 				$wgOut->addModules( 'ext.semanticforms.wikieditor' );
 			}
