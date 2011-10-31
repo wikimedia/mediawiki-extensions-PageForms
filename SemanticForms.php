@@ -197,9 +197,11 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'skins/SF_jquery_ui_overrides.css',
 			),
 			'dependencies' => array(
+				'jquery.ui.core',
 				'jquery.ui.autocomplete',
 				'jquery.ui.button',
 				'jquery.ui.sortable',
+				'jquery.ui.widget',
 			),
 		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
