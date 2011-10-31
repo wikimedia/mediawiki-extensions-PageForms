@@ -277,6 +277,11 @@ class SFFormEdit extends SpecialPage {
 
 				if ( $save_page ) {
 
+					$permErrors = $target_title->getUserPermissionsErrors( 'edit', $wgUser );
+					if ( $permErrors ) {
+						// just return the first error and let them fix it one by one
+						return array_shift( $permErrors );
+					}
 					// Set up all the variables for the
 					// page save.
 					$data = array(

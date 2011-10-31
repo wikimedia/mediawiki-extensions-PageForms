@@ -64,7 +64,7 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 			}
 
 			$jstext = <<<JAVASCRIPT
-jQuery(function(){ jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
+mediaWiki.loader.using( 'ext.semanticforms.wikieditor', function(){ jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
 JAVASCRIPT;
 
 			// write JS code directly to the page's code
