@@ -1,8 +1,3 @@
-// setup wikieditor functionality
-jQuery(function(){
-	ext.wikieditor.setup();
-});
-
 // create ext if it does not exist yet
 if ( typeof( window[ 'ext' ] ) == "undefined" ) {
 	window[ 'ext' ] = {};
@@ -11,6 +6,7 @@ if ( typeof( window[ 'ext' ] ) == "undefined" ) {
 window.ext.wikieditor = new function(){
 	
 	var config;
+	var isSetUp = false;
 	
 	// common setup for all editor instances
 	function setup () {
@@ -20,6 +16,12 @@ window.ext.wikieditor = new function(){
 
 	// initialize the wikieditor on the specified element
 	function init  ( input_id, params ) {
+		
+		if ( !isSetUp ) {
+			isSetUp = true;
+			setup();
+		}
+		
 		var input = jQuery( '#' + input_id );
 		input.wikiEditor( 'addModule', config );
 	}
