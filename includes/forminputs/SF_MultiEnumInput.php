@@ -6,10 +6,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'SF_VERSION' ) ) {
-	die( 'This file is part of the SemanticForms extension, it is not a valid entry point.' );
-}
-
 /**
  * The SFMultiEnumInput class.
  * The base class for every form input that holds a list of elements, each
