@@ -53,7 +53,12 @@ class SFTextAreaInput extends SFFormInput {
 
 			$jstext = <<<JAVASCRIPT
 if ( window.mediaWiki ) {
-  mediaWiki.loader.using( 'ext.semanticforms.wikieditor', function(){ jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ); });
+	mediaWiki.loader.using(
+		[ 'ext.semanticforms.wikieditor', 'jquery.wikiEditor.toolbar.config' ], 
+		function(){
+			jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null );
+		}
+	);
 }
 JAVASCRIPT;
 
