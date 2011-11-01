@@ -15,24 +15,18 @@ window.ext.wikieditor = new function(){
 //	}
 
 	// initialize the wikieditor on the specified element
-	function init  ( input_id, params ) {
+	this.init = function init  ( input_id, params ) {
 		
 //		if ( !isSetUp ) {
 //			isSetUp = true;
 //			setup();
 //		}
 		
-//		jQuery( document ).ready( function() {
-			if ( !jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toolbar ) ) {
-				return;
+		jQuery( document ).ready( function() {
+			if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toolbar ) ) {
+				jQuery( '#' + input_id ).wikiEditor( 'addModule', jQuery.wikiEditor.modules.toolbar.config.getDefaultConfig() );
 			}
-			var input = jQuery( '#' + input_id );
-			input.wikiEditor( 'addModule', jQuery.wikiEditor.modules.toolbar.config.getDefaultConfig() );
-//		});
+		});
 	}
-
-	// export public funcitons
-//	this.setup = setup;
-	this.init = init;
 
 };
