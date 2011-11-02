@@ -41,7 +41,7 @@
  *
  * 'formlink' is called as:
  *
- * {{#formlink:form=|link text=|link type=|query string=}}
+ * {{#formlink:form=|link text=|link type=|title=|query string=|target=}}
  *
  * This function returns HTML representing a link to a form; given that
  * no page name is entered by the the user, the form must be one that
@@ -53,9 +53,12 @@
  * the link: if set to 'button', the link will be a button; if set to
  * 'post button', the link will be a button that uses the 'POST' method to
  * send other values to the form; if set to anything else or not called, it
- * will be a standard hyperlink. 'query string' is the text to be added to
- * the generated URL's query string (or, in the case of 'post button' to
- * be sent as hidden inputs).
+ * will be a standard hyperlink. 'title' sets the 'title' HTML attribute
+ * for the link, if it's an actual link; i.e., the hovering tooltip text.
+ * 'query string' is the text to be added to the generated URL's query
+ * string (or, in the case of 'post button' to be sent as hidden inputs).
+ * 'target' is an optional value, setting the name of the page to be
+ * edited by the form.
  *
  * Example: to create a link to add data with a form called
  * 'User' within a namespace also called 'User', and to have the form
@@ -155,9 +158,10 @@ class SFParserFunctions {
 		global $wgVersion;
 
 		$params = func_get_args();
-		array_shift( $params ); // don't need the parser
-		// set defaults
-		$inFormName = $inLinkStr = $inLinkType = $inQueryStr = $inTargetName = '';
+		array_shift( $params ); // We don't need the parser.
+		// Set defaults.
+		$inFormName = $inLinkStr = $inLinkType = $inTitle =
+			$inQueryStr = $inTargetName = '';
 		$classStr = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
@@ -176,6 +180,8 @@ class SFParserFunctions {
 				$inLinkType = $value;
 			} elseif ( $param_name == 'query string' ) {
 				$inQueryStr = $value;
+			} elseif ( $param_name == 'title' ) {
+				$inTitle = $value;
 			} elseif ( $param_name == 'target' ) {
 				$inTargetName = $value;
 			} elseif ( $param_name == null && $value == 'popup'
@@ -245,7 +251,7 @@ class SFParserFunctions {
 					$classStr .= " new";
 				}
 			}
-			$str = "<a href=\"$link_url\" class=\"$classStr\">$inLinkStr</a>";
+			$str = Xml::element( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTitle ), $inLinkStr );
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
