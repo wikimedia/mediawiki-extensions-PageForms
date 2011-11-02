@@ -181,7 +181,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'query string' ) {
 				$inQueryStr = $value;
 			} elseif ( $param_name == 'title' ) {
-				$inTitle = $value;
+				$inTitle = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
 				$inTargetName = $value;
 			} elseif ( $param_name == null && $value == 'popup'
