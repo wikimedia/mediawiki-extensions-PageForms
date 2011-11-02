@@ -22,23 +22,25 @@ window.ext.wikieditor = new function(){
 		//			setup();
 		//		}
 		
-		jQuery( document ).ready( function() {
-			if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toolbar ) ) {
+		if ( window.mediaWiki ) {
+			mediaWiki.loader.using(	'ext.semanticforms.wikieditor', function(){
+					if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toolbar ) ) {
 				
-				if (jQuery.wikiEditor.modules.toolbar.config !== undefined ) {
-					jQuery( '#' + input_id ).wikiEditor( 'addModule', jQuery.wikiEditor.modules.toolbar.config.getDefaultConfig() );
-				} else {
-					
-					// TODO: this is nasty. Take it out if at all possible.
-					var timeout = setTimeout(function () {
 						if (jQuery.wikiEditor.modules.toolbar.config !== undefined ) {
 							jQuery( '#' + input_id ).wikiEditor( 'addModule', jQuery.wikiEditor.modules.toolbar.config.getDefaultConfig() );
-							clearTimeout(timeout);
-						}						
-					}, 1000);
-				}
-			}
-		});
+						} else {
+					
+							// TODO: this is nasty. Take it out if at all possible.
+							var timeout = setTimeout(function () {
+								if (jQuery.wikiEditor.modules.toolbar.config !== undefined ) {
+									jQuery( '#' + input_id ).wikiEditor( 'addModule', jQuery.wikiEditor.modules.toolbar.config.getDefaultConfig() );
+									clearTimeout(timeout);
+								}						
+							}, 1000);
+						}
+					}
+				} )
+		}
 	}
 
 };

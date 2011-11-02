@@ -1,4 +1,5 @@
 <?php
+
 /**
  * File holding the SFTextAreaInput class
  *
@@ -12,59 +13,49 @@
  * @ingroup SFFormInput
  */
 class SFTextAreaInput extends SFFormInput {
+
 	public static function getName() {
 		return 'textarea';
 	}
 
 	public static function getDefaultPropTypes() {
-		return array( '_txt' => array(), '_cod' => array() );
+		return array('_txt' => array(), '_cod' => array());
 	}
 
 	public static function getOtherPropTypesHandled() {
-		return array( '_wpg', '_str' );
+		return array('_wpg', '_str');
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		return array( '_wpg', '_str' );
+		return array('_wpg', '_str');
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		
+
 		global $wgOut;
 		global $sfgTabIndex, $sfgFieldNum;
 
 		// Use a special ID for the free text field, for FCK's needs.
 		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
 
-		static $hasRun = false;
-
 		if ( array_key_exists( 'wikieditor', $other_args ) &&
-			method_exists($wgOut, 'getResourceLoader') &&
-			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
-
-			if ( !$hasRun ) {
-								
-				$hasRun = true;
+			
+			method_exists( $wgOut, 'getResourceLoader' ) &&
+			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
 				
-				// one time initialization
-				WikiEditorHooks::editPageShowEditFormInitial( $this );
-				$wgOut->addModules( 'ext.semanticforms.wikieditor' );
-			}
+			class_exists( 'WikiEditorHooks' ) &&
+			WikiEditorHooks::isEnabled( 'toolbar' ) ) {
+
+
+			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
 
 			$jstext = <<<JAVASCRIPT
-if ( window.mediaWiki ) {
-	mediaWiki.loader.using(
-		[ 'ext.semanticforms.wikieditor', 'jquery.wikiEditor.toolbar.config' ], 
-		function(){
-			jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null );
-		}
-	);
-}
+			jQuery( jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ) );
 JAVASCRIPT;
 
 			// write JS code directly to the page's code
 			$wgOut->addScript( Html::inlineScript( $jstext ) );
-			
+
 			$className = "wikieditor ";
 		} else {
 			$className = "";
@@ -135,7 +126,7 @@ JAVASCRIPT;
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = Xml::tags( 'span', array('class' => $spanClass), $text );
 
 		return $text;
 	}
@@ -180,11 +171,8 @@ JAVASCRIPT;
 	 */
 	public function getHtmlText() {
 		return self::getHTML(
-			$this->mCurrentValue,
-			$this->mInputName,
-			$this->mIsMandatory,
-			$this->mIsDisabled,
-			$mOtherArgs
+				$this->mCurrentValue, $this->mInputName, $this->mIsMandatory, $this->mIsDisabled, $mOtherArgs
 		);
 	}
+
 }

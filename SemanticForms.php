@@ -235,10 +235,9 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'scripts' => 'libs/SF_wikieditor.js',
 		'styles' => 'skins/SF_wikieditor.css',
 		'dependencies' => array(
-			'jquery.wikiEditor',
 			'jquery.wikiEditor.toolbar',
 			'jquery.wikiEditor.toolbar.config',
-			
+
 			),
 		),
 	);
@@ -303,7 +302,7 @@ $sfgListSeparator = ",";
 # ##
 # Extend the edit form from the internal EditPage class rather than using a
 # special page and hacking things up.
-# 
+#
 # @note This is experimental and requires updates to EditPage which I have only
 #       added into MediaWiki 1.14a
 # ##
@@ -338,7 +337,7 @@ $sfgRunQueryFormAtTop = false;
 # Page properties, used for the API
 # ##
 $wgPageProps['formdefinition'] = 'Definition of the semantic form used on the page';
- 
+
 # ##
 # Global variables for Javascript
 # ##

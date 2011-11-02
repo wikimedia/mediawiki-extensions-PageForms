@@ -48,35 +48,24 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 		$input_id = 'input_' . $sfgFieldNum;
 
-		static $hasRun = false;
-
 		if ( array_key_exists( 'wikieditor', $other_args ) &&
-			method_exists($wgOut, 'getResourceLoader') &&
-			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) ) {
 			
-			if ( !$hasRun ) {
-								
-				$hasRun = true;
+			method_exists( $wgOut, 'getResourceLoader' ) &&
+			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
 				
-				// one time initialization
-				WikiEditorHooks::editPageShowEditFormInitial( $this );
-				$wgOut->addModules( 'ext.semanticforms.wikieditor' );
-			}
+			class_exists( 'WikiEditorHooks' ) &&
+			WikiEditorHooks::isEnabled( 'toolbar' ) ) {
+
+
+			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
 
 			$jstext = <<<JAVASCRIPT
-if ( window.mediaWiki ) {
-	mediaWiki.loader.using(
-		[ 'ext.semanticforms.wikieditor', 'jquery.wikiEditor.toolbar.config' ], 
-		function(){
-			jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null );
-		}
-	);
-}
+			jQuery( jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ) );
 JAVASCRIPT;
 
 			// write JS code directly to the page's code
 			$wgOut->addScript( Html::inlineScript( $jstext ) );
-			
+
 			$className = "wikieditor ";
 		} else {
 			$className = "";
