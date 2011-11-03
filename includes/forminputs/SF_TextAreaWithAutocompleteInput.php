@@ -50,13 +50,14 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 		if ( array_key_exists( 'editor', $other_args ) &&
 			$other_args['editor'] == 'wikieditor' &&
-
+			
 			method_exists( $wgOut, 'getResourceLoader' ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
+				
+			class_exists( 'WikiEditorHooks' ) ) {
 
-			class_exists( 'WikiEditorHooks' ) &&
-			WikiEditorHooks::isEnabled( 'toolbar' ) ) {
-
+			// load modules for all enabled features
+			WikiEditorHooks::editPageShowEditFormInitial( $this );
 
 			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
 

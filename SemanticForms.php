@@ -232,13 +232,8 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'dependencies' => array( 'jquery' ),
 		),
 		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
-		'scripts' => 'libs/SF_wikieditor.js',
-		'styles' => 'skins/SF_wikieditor.css',
-		'dependencies' => array(
-			'jquery.wikiEditor.toolbar',
-			'jquery.wikiEditor.toolbar.config',
-
-			),
+			'scripts' => 'libs/SF_wikieditor.js',
+			'styles' => 'skins/SF_wikieditor.css',
 		),
 	);
 }
