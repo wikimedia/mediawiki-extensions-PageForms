@@ -76,7 +76,7 @@ class SFYearInput extends SFTextInput {
 			$this->mInputName,
 			$this->mIsMandatory,
 			$this->mIsDisabled,
-			$mOtherArgs
+			$this->mOtherArgs
 		);
 	}
 }

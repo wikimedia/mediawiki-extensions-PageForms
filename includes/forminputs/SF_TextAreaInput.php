@@ -171,7 +171,7 @@ JAVASCRIPT;
 	 */
 	public function getHtmlText() {
 		return self::getHTML(
-				$this->mCurrentValue, $this->mInputName, $this->mIsMandatory, $this->mIsDisabled, $mOtherArgs
+				$this->mCurrentValue, $this->mInputName, $this->mIsMandatory, $this->mIsDisabled, $this->mOtherArgs
 		);
 	}
 

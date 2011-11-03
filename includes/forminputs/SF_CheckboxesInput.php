@@ -120,7 +120,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			$this->mInputName,
 			$this->mIsMandatory,
 			$this->mIsDisabled,
-			$mOtherArgs
+			$this->mOtherArgs
 		);
 	}
 }

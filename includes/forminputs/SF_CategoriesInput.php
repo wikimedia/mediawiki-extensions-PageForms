@@ -130,7 +130,7 @@ class SFCategoriesInput extends SFCategoryInput {
 			$this->mInputName,
 			$this->mIsMandatory,
 			$this->mIsDisabled,
-			$mOtherArgs
+			$this->mOtherArgs
 		);
 	}
 }
