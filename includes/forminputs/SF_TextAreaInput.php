@@ -38,7 +38,8 @@ class SFTextAreaInput extends SFFormInput {
 		// Use a special ID for the free text field, for FCK's needs.
 		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
 
-		if ( array_key_exists( 'wikieditor', $other_args ) &&
+		if ( array_key_exists( 'editor', $other_args ) &&
+			$other_args['editor'] == 'wikieditor' &&
 
 			method_exists( $wgOut, 'getResourceLoader' ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
@@ -170,9 +171,15 @@ JAVASCRIPT;
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
+		
 		return self::getHTML(
-				$this->mCurrentValue, $this->mInputName, $this->mIsMandatory, $this->mIsDisabled, $this->mOtherArgs
+			$this->mCurrentValue,
+			$this->mInputName,
+			$this->mIsMandatory,
+			$this->mIsDisabled,
+			$this->mOtherArgs
 		);
+		
 	}
 
 }

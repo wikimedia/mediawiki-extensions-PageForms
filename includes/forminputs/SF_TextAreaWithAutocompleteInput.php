@@ -48,7 +48,8 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 		$input_id = 'input_' . $sfgFieldNum;
 
-		if ( array_key_exists( 'wikieditor', $other_args ) &&
+		if ( array_key_exists( 'editor', $other_args ) &&
+			$other_args['editor'] == 'wikieditor' &&
 
 			method_exists( $wgOut, 'getResourceLoader' ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
