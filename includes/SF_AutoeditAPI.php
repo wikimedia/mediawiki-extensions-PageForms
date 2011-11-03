@@ -63,6 +63,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		} else {
 
+			$result->setResponseCode('400 Bad Request');
 			$result = wfMsgReplaceArgs( $errortext, array($result) );
 		}
 
@@ -84,7 +85,6 @@ class SFAutoeditAPI extends ApiBase {
 
 
 		$result = new AjaxResponse($wgParser->parse( $result, $title, $parseroptions )->getText());
-		$result->setResponseCode('400 Bad Request');
 		$result->setContentType('text/html');
 			
 		return $result;
