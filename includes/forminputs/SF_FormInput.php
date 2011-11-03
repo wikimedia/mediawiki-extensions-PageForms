@@ -268,48 +268,4 @@ abstract class SFFormInput {
 		return array();
 	}
 
-
-//	/**
-//	 * SFFormPrinter depends on a statically callable function.
-//	 *
-//	 * @deprecated
-//	 * @param <type> $cur_value
-//	 * @param <type> $input_name
-//	 * @param <type> $is_mandatory
-//	 * @param <type> $is_disabled
-//	 * @param <type> $other_args
-//	 */
-//	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-//		global $sfgFieldNum;
-//
-//		$input = new self( $sfgFieldNum, $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
-//
-//		$initFunctionData = $input->getJsInitFunctionData();
-//
-//		if ( $initFunctionData ) {
-//			$jstext = <<<JAVASCRIPT
-// jQuery(function(){ jQuery('#input_{$sfgFieldNum}').SemanticForms_registerInputInit( {$initFunctionData['name']}, {$initFunctionData['param']} ); });
-// JAVASCRIPT;
-//
-//			// insert the code of the JS init function into the pages code
-//			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
-//		}
-//
-//		$validationFunctionData = $input->getJsValidationFunctionData();
-//
-//		if ( $validationFunctionData ) {
-//			$validationFunctionName = $validationFunctionData['name'];
-//			$validationFunctionParam = $validationFunctionData['param'];
-//
-//			$jstext = <<<JAVASCRIPT
-// jQuery(function(){ jQuery('#input_{$sfgFieldNum}').SemanticForms_registerInputValidation( {$validationFunctionData['name']}, {$validationFunctionData['param']} ); });
-// JAVASCRIPT;
-//
-//			// insert the code of the JS init function into the pages code
-//			$wgOut->addScript( '<script type="text/javascript">' . $jstext . '</script>' );
-//		}
-//
-//		return $input->getHtmlText();
-//	}
-
 }
