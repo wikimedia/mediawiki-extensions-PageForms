@@ -233,7 +233,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	public function getHtmlText() {
 		return self::getHTML(
 			$this->mCurrentValue,
-			$this->mInputName, 
+			$this->mInputName,
 			$this->mIsMandatory,
 			$this->mIsDisabled,
 			$this->mOtherArgs
