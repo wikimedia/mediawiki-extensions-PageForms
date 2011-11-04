@@ -236,11 +236,11 @@ class SFParserFunctions {
 		}
 		if ( $inLinkType == 'button' ) {
 			$str = "<form action=\"$link_url\" method=\"get\" class=\"$classStr\">";
-			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
+			$str .= Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr );
 			$str .= "$hidden_inputs</form>";
 		} elseif ( $inLinkType == 'post button' ) {
 			$str = "<form action=\"$link_url\" method=\"post\" class=\"$classStr\">";
-			$str .= Xml::element( 'input', array( 'type' => 'submit', 'value' => $inLinkStr ) );
+			$str .= Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr );
 			$str .= "$hidden_inputs</form>";
 		} else {
 			// If a target page has been specified but it doesn't
@@ -251,7 +251,7 @@ class SFParserFunctions {
 					$classStr .= " new";
 				}
 			}
-			$str = Xml::element( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTitle ), $inLinkStr );
+			$str = Xml::tags( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTitle ), $inLinkStr );
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
