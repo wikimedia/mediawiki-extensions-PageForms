@@ -235,13 +235,21 @@ class SFParserFunctions {
 			}
 		}
 		if ( $inLinkType == 'button' ) {
-			$str = "<form action=\"$link_url\" method=\"get\" class=\"$classStr\">";
-			$str .= Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr );
-			$str .= "$hidden_inputs</form>";
+			$str =
+				Xml::openElement( 'form', array('action' => $link_url, 'method' => 'get', 'class' => $classStr) ) .
+				Xml::openElement( 'button', array('type' => 'submit', 'value' => $inLinkStr) ) .
+				$inLinkStr .
+				Xml::closeElement( 'button' ) .
+				$hidden_inputs .
+				Xml::closeElement( 'form' );
 		} elseif ( $inLinkType == 'post button' ) {
-			$str = "<form action=\"$link_url\" method=\"post\" class=\"$classStr\">";
-			$str .= Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr );
-			$str .= "$hidden_inputs</form>";
+			$str =
+				Xml::openElement( 'form', array('action' => $link_url, 'method' => 'post', 'class' => $classStr) ) .
+				Xml::openElement( 'button', array('type' => 'submit', 'value' => $inLinkStr) ) .
+				$inLinkStr .
+				Xml::closeElement( 'button' ) .
+				$hidden_inputs .
+				Xml::closeElement( 'form' );
 		} else {
 			// If a target page has been specified but it doesn't
 			// exist, make it a red link.
@@ -251,7 +259,10 @@ class SFParserFunctions {
 					$classStr .= " new";
 				}
 			}
-			$str = Xml::tags( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTitle ), $inLinkStr );
+			$str =
+				Xml::openElement( 'a', array('href' => $link_url, 'class' => $classStr, 'title' => $inTitle) ) .
+				$inLinkStr .
+				Xml::closeElement( 'a' );
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
