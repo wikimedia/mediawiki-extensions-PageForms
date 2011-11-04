@@ -607,8 +607,12 @@ END;
 					$summary = $parser->recursiveTagParse( $value );
 					break;
 				default :
+					// The decode-encode sequence allows users to pass wikitext
+					// to the target form without having it parsed right away.
+					// To do that they need to use htmlentities instead of
+					// braces and brackets
 					$formcontent .=
-						Xml::input( $key, false, urldecode( $value ) , array( 'type' => 'hidden') );
+						Xml::input( $key, false, htmlentities( html_entity_decode( $value ) ) , array( 'type' => 'hidden') );
 			}
 		}
 
