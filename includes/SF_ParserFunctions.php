@@ -163,15 +163,29 @@ class SFParserFunctions {
 		$inFormName = $inLinkStr = $inLinkType = $inTitle =
 			$inQueryStr = $inTargetName = '';
 		$classStr = "";
-		// assign params - support unlabelled params, for backwards compatibility
+		// assign params
+		// - support unlabelled params, for backwards compatibility
+		// - parse and sanitize all parameter values
 		foreach ( $params as $i => $param ) {
+			
 			$elements = explode( '=', $param, 2 );
-			$param_name = null;
-			$value = trim( $param );
+
+			// set param_name and value
 			if ( count( $elements ) > 1 ) {
+				
 				$param_name = trim( $elements[0] );
+				
+				// parse (and sanitize) parameter values
 				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
+				
+			} else {
+				
+				$param_name = null;
+
+				// parse (and sanitize) parameter values
+				$value = trim( $parser->recursiveTagParse( $param ) );
 			}
+
 			if ( $param_name == 'form' ) {
 				$inFormName = $value;
 			} elseif ( $param_name == 'link text' ) {
@@ -190,13 +204,13 @@ class SFParserFunctions {
 				$classStr = 'popupformlink';
 			}
 			elseif ( $i == 0 ) {
-				$inFormName = $param;
+				$inFormName = $value;
 			} elseif ( $i == 1 ) {
-				$inLinkStr = $param;
+				$inLinkStr = $value;
 			} elseif ( $i == 2 ) {
-				$inLinkType = $param;
+				$inLinkType = $value;
 			} elseif ( $i == 3 ) {
-				$inQueryStr = $param;
+				$inQueryStr = $value;
 			}
 		}
 
@@ -236,20 +250,16 @@ class SFParserFunctions {
 		}
 		if ( $inLinkType == 'button' ) {
 			$str =
-				Xml::openElement( 'form', array('action' => $link_url, 'method' => 'get', 'class' => $classStr) ) .
-				Xml::openElement( 'button', array('type' => 'submit', 'value' => $inLinkStr) ) .
-				$inLinkStr .
-				Xml::closeElement( 'button' ) .
-				$hidden_inputs .
-				Xml::closeElement( 'form' );
+				Xml::tags( 'form', array('action' => $link_url, 'method' => 'get', 'class' => $classStr),
+					Xml::tags( 'button', array('type' => 'submit', 'value' => $inLinkStr), $inLinkStr ) .
+					$hidden_inputs
+				);
 		} elseif ( $inLinkType == 'post button' ) {
 			$str =
-				Xml::openElement( 'form', array('action' => $link_url, 'method' => 'post', 'class' => $classStr) ) .
-				Xml::openElement( 'button', array('type' => 'submit', 'value' => $inLinkStr) ) .
-				$inLinkStr .
-				Xml::closeElement( 'button' ) .
-				$hidden_inputs .
-				Xml::closeElement( 'form' );
+				Xml::tags( 'form', array('action' => $link_url, 'method' => 'get', 'class' => $classStr),
+					Xml::tags( 'button', array('type' => 'submit', 'value' => $inLinkStr), $inLinkStr ) .
+					$hidden_inputs
+				);
 		} else {
 			// If a target page has been specified but it doesn't
 			// exist, make it a red link.
@@ -259,10 +269,7 @@ class SFParserFunctions {
 					$classStr .= " new";
 				}
 			}
-			$str =
-				Xml::openElement( 'a', array('href' => $link_url, 'class' => $classStr, 'title' => $inTitle) ) .
-				$inLinkStr .
-				Xml::closeElement( 'a' );
+			$str = Xml::tags( 'a', array('href' => $link_url, 'class' => $classStr, 'title' => $inTitle),	$inLinkStr );
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
