@@ -612,7 +612,7 @@ END;
 					// To do that they need to use htmlentities instead of
 					// braces and brackets
 					$formcontent .=
-						Xml::input( $key, false, htmlentities( html_entity_decode( $value ) ) , array( 'type' => 'hidden') );
+						Xml::input( $key, false, Sanitizer::decodeCharReferences( $value ) , array( 'type' => 'hidden' ) );
 			}
 		}
 
@@ -631,7 +631,7 @@ END;
 		}
 		
 		$formcontent .=
-			Xml::input( 'wpSummary', false, urldecode( $summary ), array('type' => 'hidden') );
+			Xml::input( 'wpSummary', false, $summary, array('type' => 'hidden') );
 
 		$form = Xml::tags( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 
