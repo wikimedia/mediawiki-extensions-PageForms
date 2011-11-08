@@ -385,7 +385,7 @@ END;
 			if ( !$name )
 				continue;
 
-			if ( $type == '' )
+			if ( $type === '' )
 				$type = 'text';
 
 			switch ( $type ) {

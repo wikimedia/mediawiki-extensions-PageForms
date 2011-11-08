@@ -38,7 +38,7 @@ class SFRunQuery extends IncludableSpecialPage {
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
 		if ( !$form_title || !$form_title->exists() ) {
-			if ( $form_name == '' ) {
+			if ( $form_name === '' ) {
 				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
 			} else {
 				$text = Xml::tags( 'p', array( 'class' => 'error' ),

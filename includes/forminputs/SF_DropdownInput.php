@@ -49,7 +49,7 @@ class SFDropdownInput extends SFEnumInput {
 		// mandatory field and there's a current value in place
 		// (either through a default value or because we're editing
 		// an existing page).
-		if ( !$is_mandatory || $cur_value == '' ) {
+		if ( !$is_mandatory || $cur_value === '' ) {
 			$innerDropdown .= "	<option value=\"\"></option>\n";
 		}
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {

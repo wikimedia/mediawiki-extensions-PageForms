@@ -209,7 +209,7 @@ END;
 
 		foreach ( $template_fields as $i => $field ) {
 			// Header/field label column
-			if ( $field->mDisplay == '' ) {
+			if ( $field->mDisplay === '' ) {
 				if ( $i > 0 ) {
 					$tableText .= "|-\n";
 				}
@@ -264,7 +264,7 @@ END;
 
 		// Add a row with an inline query to this table, for
 		// aggregation, if a property was specified.
-		if ( $aggregating_property != '' ) {
+		if ( $aggregating_property !== '' ) {
 			if ( count( $template_fields ) > 0 ) {
 				$tableText .= "|-\n";
 			}
@@ -286,13 +286,13 @@ END;
 		}
 
 		// Add a call to #set, if necessary
-		if ( $setText != '' ) {
+		if ( $setText !== '' ) {
 			$setText = '{{#set:' . $setText . "}}\n";
 			$text .= $setText;
 		}
 
 		$text .= $tableText;
-		if ( $category != '' ) {
+		if ( $category !== '' ) {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
 			$category_namespace = $namespace_labels[NS_CATEGORY];

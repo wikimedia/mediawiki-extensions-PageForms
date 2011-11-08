@@ -40,7 +40,7 @@ class SFUtils {
 	 */
 	public static function titleURLString( $title ) {
 		$namespace = wfUrlencode( $title->getNsText() );
-		if ( $namespace != '' ) {
+		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
 		if ( self::isCapitalized( $title ) ) {
@@ -57,7 +57,7 @@ class SFUtils {
 	 */
 	public static function titleString( $title ) {
 		$namespace = $title->getNsText();
-		if ( $namespace != '' ) {
+		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
 		if ( self::isCapitalized( $title ) ) {

@@ -29,7 +29,7 @@ class SFCreateCategory extends SpecialPage {
 	static function createCategoryText( $default_form, $category_name, $parent_category ) {
 		SFUtils::loadMessages();
 
-		if ( $default_form == '' ) {
+		if ( $default_form === '' ) {
 			$text = wfMsgForContent( 'sf_category_desc', $category_name );
 		} else {
 			global $sfgContLang;
@@ -37,7 +37,7 @@ class SFCreateCategory extends SpecialPage {
 			$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] . "::$default_form]]";
 			$text = wfMsgForContent( 'sf_category_hasdefaultform', $form_tag );
 		}
-		if ( $parent_category != '' ) {
+		if ( $parent_category !== '' ) {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
 			$category_namespace = $namespace_labels[NS_CATEGORY];
@@ -62,7 +62,7 @@ function doSpecialCreateCategory() {
 	$preview_page = $wgRequest->getCheck( 'wpPreview' );
 	if ( $save_page || $preview_page ) {
 		# validate category name
-		if ( $category_name == '' ) {
+		if ( $category_name === '' ) {
 			$category_name_error_str = wfMsg( 'sf_blank_error' );
 		} else {
 			# redirect to wiki interface

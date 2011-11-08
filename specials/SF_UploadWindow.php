@@ -380,7 +380,7 @@ class UploadWindowForm {
 		/**
 		 * If there was no filename or a zero size given, give up quick.
 		 */
-		if ( trim( $this->mSrcName ) == '' || empty( $this->mFileSize ) ) {
+		if ( trim( $this->mSrcName ) === '' || empty( $this->mFileSize ) ) {
 			$this->mainUploadWindowForm( wfMsgHtml( 'emptyfile' ) );
 			return;
 		}
@@ -449,7 +449,7 @@ class UploadWindowForm {
 		/* Don't allow users to override the blacklist (check file extension) */
 		global $wgStrictFileExtensions;
 		global $wgFileExtensions, $wgFileBlacklist;
-		if ( $finalExt == '' ) {
+		if ( $finalExt === '' ) {
 			return $this->uploadError( wfMsgExt( 'filetype-missing', array ( 'parseinline' ) ) );
 		} elseif ( $this->checkFileExtensionList( $ext, $wgFileBlacklist ) ||
 				( $wgStrictFileExtensions && !$this->checkFileExtension( $finalExt, $wgFileExtensions ) ) ) {
@@ -517,7 +517,7 @@ class UploadWindowForm {
 			if ( !$this->mDestWarningAck ) {
 				$warning .= self::getExistsWarning( $this->mLocalFile );
 			}
-			if ( $warning != '' ) {
+			if ( $warning !== '' ) {
 				/**
 				 * Stash the file in a temporary location; the user can choose
 				 * to let it through and we'll complete the upload then.
@@ -564,7 +564,7 @@ END;
 		// both a delimiter and a file name; and add on a delimiter
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
-		if (cur_value == '') {
+		if (cur_value === '') {
 			parent.document.getElementById("{$this->mInputID}").value = "$basename{$this->mDelimiter} ";
 		} else {
 			var last_char = cur_value.charAt(cur_value.length - 1);
@@ -971,7 +971,7 @@ wgAjaxLicensePreview = {$alp};
 
 		$watchChecked =
 			( $wgUser->getOption( 'watchdefault' ) ||
-				( $wgUser->getOption( 'watchcreations' ) && $this->mDesiredDestName == '' ) )
+				( $wgUser->getOption( 'watchcreations' ) && $this->mDesiredDestName === '' ) )
 			? 'checked="checked"'
 			: '';
 		$warningChecked = $this->mIgnoreWarning ? 'checked' : '';
@@ -1043,7 +1043,7 @@ wgAjaxLicensePreview = {$alp};
 EOT
 		);
 
-		if ( $licenseshtml != '' ) {
+		if ( $licenseshtml !== '' ) {
 			$wgOut->addHTML( "
 			<td align='$align1'><label for='wpLicense'>$license</label></td>
 			<td align='$align2'>
@@ -1531,7 +1531,7 @@ EOT
 	static function getInitialPageText( $comment, $license, $copyStatus, $source ) {
 		global $wgUseCopyrightUpload;
 		if ( $wgUseCopyrightUpload ) {
-			if ( $license != '' ) {
+			if ( $license !== '' ) {
 				$licensetxt = '== ' . wfMsgForContent( 'license' ) . " ==\n" . '{{' . $license . '}}' . "\n";
 			}
 			$pageText = '== ' . wfMsg ( 'filedesc' ) . " ==\n" . $comment . "\n" .
@@ -1539,8 +1539,8 @@ EOT
 			  "$licensetxt" .
 			  '== ' . wfMsgForContent ( 'filesource' ) . " ==\n" . $source ;
 		} else {
-			if ( $license != '' ) {
-				$filedesc = $comment == '' ? '' : '== ' . wfMsg ( 'filedesc' ) . " ==\n" . $comment . "\n";
+			if ( $license !== '' ) {
+				$filedesc = $comment === '' ? '' : '== ' . wfMsg ( 'filedesc' ) . " ==\n" . $comment . "\n";
 				 $pageText = $filedesc .
 					 '== ' . wfMsgForContent ( 'license' ) . " ==\n" . '{{' . $license . '}}' . "\n";
 			} else {

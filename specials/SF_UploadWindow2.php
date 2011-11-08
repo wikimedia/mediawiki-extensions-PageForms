@@ -399,7 +399,7 @@ END;
 		// both a delimiter and a file name; and add on a delimiter
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
-		if (cur_value == '') {
+		if (cur_value === '') {
 			parent.document.getElementById("{$this->mInputID}").value = '$basename' + '{$this->mDelimiter} ';
 		} else {
 			var last_char = cur_value.charAt(cur_value.length - 1);
@@ -431,7 +431,7 @@ END;
 		global $wgUseCopyrightUpload;
 		if ( $wgUseCopyrightUpload ) {
 			$licensetxt = '';
-			if ( $license != '' ) {
+			if ( $license !== '' ) {
 				$licensetxt = '== ' . wfMsgForContent( 'license-header' ) . " ==\n" . '{{' . $license . '}}' . "\n";
 			}
 			$pageText = '== ' . wfMsgForContent ( 'filedesc' ) . " ==\n" . $comment . "\n" .
@@ -439,8 +439,8 @@ END;
 			  "$licensetxt" .
 			  '== ' . wfMsgForContent ( 'filesource' ) . " ==\n" . $source ;
 		} else {
-			if ( $license != '' ) {
-				$filedesc = $comment == '' ? '' : '== ' . wfMsgForContent ( 'filedesc' ) . " ==\n" . $comment . "\n";
+			if ( $license !== '' ) {
+				$filedesc = $comment === '' ? '' : '== ' . wfMsgForContent ( 'filedesc' ) . " ==\n" . $comment . "\n";
 				 $pageText = $filedesc .
 					 '== ' . wfMsgForContent ( 'license-header' ) . " ==\n" . '{{' . $license . '}}' . "\n";
 			} else {

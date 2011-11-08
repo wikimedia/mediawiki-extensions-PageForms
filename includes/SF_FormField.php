@@ -263,7 +263,7 @@ END;
 	// such templates in form definitions gets more sophisticated
 	function createMarkup( $part_of_multiple, $is_last_field_in_template ) {
 		$text = "";
-		if ( $this->template_field->getLabel() != '' ) {
+		if ( $this->template_field->getLabel() !== '' ) {
 			if ( $part_of_multiple ) {
 				$text .= "'''" . $this->template_field->getLabel() . ":''' ";
 			} else {
@@ -277,9 +277,9 @@ END;
 		// be removed.
 		if ( $this->mIsHidden ) {
 			$text .= "|hidden";
-		} elseif ( $this->getInputType() != '' ) {
+		} elseif ( $this->getInputType() !== '' ) {
 			$text .= "|input type=" . $this->getInputType();
-		} elseif ( $this->template_field->getInputType() != '' ) {
+		} elseif ( $this->template_field->getInputType() !== '' ) {
 			$text .= "|input type=" . $this->template_field->getInputType();
 		}
 		foreach ( $this->mFieldArgs as $arg => $value ) {
@@ -321,7 +321,7 @@ END;
 			$other_args['value_labels'] = $this->template_field->getValueLabels();
 		}
 		$other_args['is_list'] = ( $this->mIsList || $this->template_field->isList() );
-		if ( $this->template_field->getSemanticProperty() != '' &&
+		if ( $this->template_field->getSemanticProperty() !== '' &&
 			! array_key_exists( 'semantic_property', $other_args ) ) {
 			$other_args['semantic_property'] = $this->template_field->getSemanticProperty();
 			$other_args['property_type'] = $this->template_field->getPropertyType();

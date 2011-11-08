@@ -65,7 +65,7 @@ END;
 			$template_name = trim( $wgRequest->getVal( "template_name" ) );
 			$form_name = trim( $wgRequest->getVal( "form_name" ) );
 			$category_name = trim( $wgRequest->getVal( "category_name" ) );
-			if ( $template_name == '' | $form_name == '' || $category_name == '' ) {
+			if ( $template_name === '' | $form_name === '' || $category_name === '' ) {
 				$wgOut->addWikiMsg( 'sf_createclass_missingvalues' );
 				return;
 			}

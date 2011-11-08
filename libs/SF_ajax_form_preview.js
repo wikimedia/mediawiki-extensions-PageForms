@@ -87,7 +87,7 @@ function ajaxFormPreviewRun(btn){
 	elts = form.elements;
  
 	for (i=0; i < elts.length; ++i) {
-		if (elts[i].name && elts[i].name != '' && !elts[i].disabled &&
+		if (elts[i].name && elts[i].name !== '' && !elts[i].disabled &&
 			((elts[i].type!='submit' && elts[i].type!='button' && elts[i].type!='radio' && elts[i].type!='checkbox') || elts[i].checked)) {
 			addData (elts[i].name, elts[i].value);
 		}
@@ -124,7 +124,7 @@ function ajaxFormPreviewRun(btn){
 		elts = frag.getElementsByTagName("form")["editform"].elements;
 
 		for (i=0; i < elts.length; ++i)
-			if (elts[i].name && elts[i].name != '') addData (elts[i].name, elts[i].value);
+			if (elts[i].name && elts[i].name !== '') addData (elts[i].name, elts[i].value);
 
 		aj2.open('POST', action, true);
 		aj2.setRequestHeader('Content-Type', 'multipart/form-data; boundary='+boundary);

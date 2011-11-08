@@ -56,7 +56,7 @@ class SFCategoryInput extends SFFormInput {
 		// mandatory field and there's a current value in place
 		// (either through a default value or because we're editing
 		// an existing page)
-		if ( !$is_mandatory || $cur_value == '' ) {
+		if ( !$is_mandatory || $cur_value === '' ) {
 			$text .= '	<input type="radio" tabindex="' . $sfgTabIndex . '" name="' . $input_name . '" value=""';
 			if ( !$cur_value ) {
 				$text .= ' checked="checked"';

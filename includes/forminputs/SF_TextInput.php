@@ -149,7 +149,7 @@ class SFTextInput extends SFFormInput {
 			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
 		}
 		$spanClass = 'inputSpan';
-		if ( $inputType != '' ) {
+		if ( $inputType !== '' ) {
 			$spanClass .= " {$inputType}Input";
 		}
 		if ( $is_mandatory ) {

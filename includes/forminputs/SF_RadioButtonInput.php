@@ -36,7 +36,7 @@ class SFRadioButtonInput extends SFEnumInput {
 		// mandatory field and there's a current value in place (either
 		// through a default value or because we're editing an existing
 		// page).
-		if ( !$is_mandatory || $cur_value == '' ) {
+		if ( !$is_mandatory || $cur_value === '' ) {
 			array_unshift( $possible_values, '' );
 		}
 
@@ -76,7 +76,7 @@ class SFRadioButtonInput extends SFEnumInput {
 			if ( $is_disabled ) {
 				$radiobutton_attrs['disabled'] = 'disabled';
 			}
-			if ( $possible_value == '' ) { // blank/"None" value
+			if ( $possible_value === '' ) { // blank/"None" value
 				$label = wfMsg( 'sf_formedit_none' );
 			} elseif (
 				array_key_exists( 'value_labels', $other_args ) &&

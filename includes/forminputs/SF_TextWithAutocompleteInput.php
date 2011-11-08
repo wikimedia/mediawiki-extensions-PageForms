@@ -112,7 +112,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		if ( array_key_exists( 'remote autocompletion', $field_args ) &&
 				$field_args['remote autocompletion'] == true ) {
 			$remoteDataType = $autocompleteFieldType;
-		} elseif ( $autocompletionSource != '' ) {
+		} elseif ( $autocompletionSource !== '' ) {
 			// @TODO - that count() check shouldn't be necessary
 			if ( array_key_exists( 'possible_values', $field_args ) &&
 			count( $field_args['possible_values'] ) > 0 ) {

@@ -131,7 +131,7 @@ class SFPageSchemas extends PSExtensionHandler {
 					$xml .= '<InputType>' . $val . '</InputType>';
 				}
 			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
-				if ( $val != '' ) {
+				if ( $val !== '' ) {
 					// replace the comma substitution character that has no chance of
 					// being included in the values list - namely, the ASCII beep
 					$listSeparator = ',';
@@ -186,7 +186,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		// we set it based on whether or not a page formula has been
 		// specified.
 		$twoStepProcessAttrs = array( 'id' => 'sf-two-step-process' );
-		if ( $pageNameFormula == '' ) {
+		if ( $pageNameFormula === '' ) {
 			$twoStepProcessAttrs['checked'] = true;
 		}
 		$text .= '<p>' . Html::input( 'sf_two_step_process', null, 'checkbox', $twoStepProcessAttrs );
@@ -380,7 +380,7 @@ END;
 		foreach( $psFields as $psField ) {
 			$prop_array = $psField->getObject('semanticmediawiki_Property');
 			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
-			if ( $psField->getLabel() == '' ) {
+			if ( $psField->getLabel() === '' ) {
 				$fieldLabel = $psField->getName();
 			} else {
 				$fieldLabel = $psField->getLabel();

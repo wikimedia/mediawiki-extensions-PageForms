@@ -93,7 +93,7 @@ class SFFormEdit extends SpecialPage {
 		SFUtils::loadMessages();
 
 		// If we have no form name we might as well stop right away
-		if ( $form_name == '' ) {
+		if ( $form_name === '' ) {
 			return 'sf_formedit_badurl';
 		}
 
@@ -107,7 +107,7 @@ class SFFormEdit extends SpecialPage {
 		$form_definition = $form_article->getContent();
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 
-		if ( $target_name == '' ) {
+		if ( $target_name === '' ) {
 
 			// parse the form to see if it has a 'page name' value set
 			$matches;
@@ -146,7 +146,7 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
-		} elseif ( $target_name == '' && $page_name_formula == '' ) {
+		} elseif ( $target_name === '' && $page_name_formula === '' ) {
 			$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
 		} else {
 
@@ -188,7 +188,7 @@ class SFFormEdit extends SpecialPage {
 			$wgOut->setPageTitle( $s );
 
 			if ( $form_submitted ) {
-				if ( $page_name_formula != '' ) {
+				if ( !is_null( $page_name_formula ) && $page_name_formula !== '' ) {
 					$target_name = $generated_page_name;
 					// prepend a super-page, if one was specified
 					if ( $wgRequest->getCheck( 'super_page' ) ) {
@@ -271,8 +271,12 @@ class SFFormEdit extends SpecialPage {
 				}
 
 				if ( is_null( $target_title ) ) {
-					if ( $target_name )	return array ( 'sf_formstart_badtitle' , array( $target_name ) );
-					else return 'sf_formedit_emptytitle';
+					if ( $target_name )	{
+						return array ( 'sf_formstart_badtitle' , array( $target_name ) );
+					}
+					else {
+						return 'sf_formedit_emptytitle';
+					}
 				}
 
 				if ( $save_page ) {
@@ -347,7 +351,7 @@ class SFFormEdit extends SpecialPage {
 				// override the default title for this page if
 				// a title was specified in the form
 				if ( $form_page_title != null ) {
-					if ( $target_name == '' ) {
+					if ( $target_name === '' ) {
 						$wgOut->setPageTitle( $form_page_title );
 					} else {
 						$wgOut->setPageTitle( "$form_page_title: {$target_title->getPrefixedText()}" );

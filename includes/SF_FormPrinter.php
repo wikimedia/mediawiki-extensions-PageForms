@@ -366,7 +366,7 @@ END;
 			// just use the name of the actual page we're on.
 			global $wgTitle;
 			$this->mPageTitle = $wgTitle;
-		} elseif ( $page_name == '' ) {
+		} elseif ( $page_name === '' ) {
 			$this->mPageTitle = Title::newFromText(
 				$wgRequest->getVal( 'namespace' ) . ":Semantic Forms permissions test" );
 		} else {
@@ -967,7 +967,7 @@ END;
 						} else {
 							$sfgTabIndex++;
 							$sfgFieldNum++;
-							if ( $cur_value == '' ) {
+							if ( $cur_value === '' ) {
 								$default_value = '!free_text!';
 							} else {
 								$default_value = $cur_value;
@@ -1001,7 +1001,7 @@ END;
 						$data_text .= "!free_text!\n";
 					}
 
-					if ( $template_name == '' || $field_name == '<freetext>' ) {
+					if ( $template_name === '' || $field_name == '<freetext>' ) {
 						$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					} else {
 						if ( is_array( $cur_value ) ) {
@@ -1036,7 +1036,7 @@ END;
 								} elseif ( count( $cur_value ) >= 3 ) {
 									$month = $cur_value['month'];
 									$day = $cur_value['day'];
-									if ( $day != '' ) {
+									if ( $day !== '' ) {
 										global $wgAmericanDates;
 										if ( $wgAmericanDates == false ) {
 											// pad out day to always be two digits
@@ -1050,7 +1050,7 @@ END;
 									if ( isset( $cur_value['second'] ) ) $second = $cur_value['second'];
 									if ( isset( $cur_value['ampm24h'] ) ) $ampm24h = $cur_value['ampm24h'];
 									if ( isset( $cur_value['timezone'] ) ) $timezone = $cur_value['timezone'];
-									if ( $month != '' && $day != '' && $year != '' ) {
+									if ( $month !== '' && $day !== '' && $year !== '' ) {
 										// special handling for American dates - otherwise, just
 										// the standard year/month/day (where month is a number)
 										global $wgAmericanDates;
@@ -1076,7 +1076,7 @@ END;
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
 						}
-						if ( $template_name == null || $template_name == '' ) {
+						if ( $template_name == null || $template_name === '' ) {
 							$input_name = $field_name;
 						} elseif ( $allow_multiple ) {
 							// 'num' will get replaced by an actual index, either in PHP
@@ -1103,7 +1103,7 @@ END;
 						// if we're creating the page name from a formula based on
 						// form values, see if the current input is part of that formula,
 						// and if so, substitute in the actual value
-						if ( $form_submitted && $generated_page_name != '' ) {
+						if ( $form_submitted && $generated_page_name !== '' ) {
 							// this line appears to be unnecessary
 							// $generated_page_name = str_replace('.', '_', $generated_page_name);
 							$generated_page_name = str_replace( ' ', '_', $generated_page_name );
@@ -1154,10 +1154,10 @@ END;
 						if ( $default_value == 'now' &&
 								// if the date is hidden, cur_value will already be set
 								// to the default value
-								( $cur_value == '' || $cur_value == 'now' ) ) {
+								( $cur_value === '' || $cur_value == 'now' ) ) {
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
-									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
+									( $input_type === '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
 								// Get current time, for the time zone specified in the wiki.
 								global $wgLocaltimezone;
 								if ( isset( $wgLocaltimezone ) ) {
@@ -1206,7 +1206,7 @@ END;
 						if ( $default_value == 'current user' &&
 							// if the date is hidden, cur_value will already be set
 							// to the default value
-							( $cur_value == '' || $cur_value == 'current user' ) ) {
+							( $cur_value === '' || $cur_value == 'current user' ) ) {
 
 							$cur_value_in_template = $wgUser->getName();
 							$cur_value = $cur_value_in_template;
@@ -1245,7 +1245,7 @@ END;
 								$template_text .= "|$cur_value_in_template";
 							} else {
 								// If the value is null, don't include it at all.
-								if ( $cur_value_in_template != '' ) {
+								if ( $cur_value_in_template !== '' ) {
 									$template_text .= "\n|$field_name=$cur_value_in_template";
 								}
 							}
@@ -1370,7 +1370,7 @@ END;
 			} // end while
 
 			if ( ! $all_instances_printed ) {
-				if ( $template_text != '' ) {
+				if ( $template_text !== '' ) {
 					// For mostly aesthetic purposes, if the template call ends with
 					// a bunch of pipes (i.e., it's an indexed template with unused
 					// parameters at the end), remove the pipes.
@@ -1529,7 +1529,7 @@ END;
 
 		// Add a warning in, if we're editing an existing page and that
 		// page appears to not have been created with this form.
-		if ( $this->mPageTitle->exists() && ( $existing_page_content != '' ) && ! $source_page_matches_this_form ) {
+		if ( $this->mPageTitle->exists() && ( $existing_page_content !== '' ) && ! $source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() ) . "</div>\n<br clear=\"both\" />\n" . $form_text;
 		}
 
@@ -1604,7 +1604,7 @@ END;
 
 		if ( $form_field->isHidden() ) {
 			$text = SFFormUtils::hiddenFieldHTML( $form_field->getInputName(), $cur_value );
-		} elseif ( $form_field->getInputType() != '' &&
+		} elseif ( $form_field->getInputType() !== '' &&
 							array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 							$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
 			$funcArgs = array();
@@ -1622,7 +1622,7 @@ END;
 		} else { // input type not defined in form
 			$property_type = $template_field->getPropertyType();
 			$is_list = ( $form_field->isList() || $template_field->isList() );
-			if ( $property_type != '' &&
+			if ( $property_type !== '' &&
 				array_key_exists( $property_type, $this->mSemanticTypeHooks ) &&
 				isset( $this->mSemanticTypeHooks[$property_type][$is_list] ) ) {
 				$funcArgs = array();

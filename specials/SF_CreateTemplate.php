@@ -124,7 +124,7 @@ function createTemplateAddField() {
 
 function validateCreateTemplateForm() {
 	templateName = jQuery('#template_name').val();
-	if (templateName == '') {
+	if (templateName === '') {
 		scroll(0, 0);
 		jQuery('#template_name_p').append(' <font color="red">$template_name_error_str</font>');
 		return false;

@@ -31,13 +31,13 @@ class SFCreateProperty extends SpecialPage {
 		$prop_labels = $smwgContLang->getPropertyLabels();
 		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
 		$text = wfMsgForContent( 'sf_property_isproperty', $type_tag );
-		if ( $default_form != '' ) {
+		if ( $default_form !== '' ) {
 			global $sfgContLang;
 			$sf_prop_labels = $sfgContLang->getPropertyLabels();
 			$default_form_tag = "[[{$sf_prop_labels[SF_SP_HAS_DEFAULT_FORM]}::$default_form]]";
 			$text .= ' ' . wfMsgForContent( 'sf_property_linkstoform', $default_form_tag );
 		}
-		if ( $allowed_values_str != '' ) {
+		if ( $allowed_values_str !== '' ) {
 			// replace the comma substitution character that has no chance of
 			// being included in the values list - namely, the ASCII beep
 			global $sfgListSeparator;
@@ -74,7 +74,7 @@ class SFCreateProperty extends SpecialPage {
 		$preview_page = $wgRequest->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
 			# validate property name
-			if ( $property_name == '' ) {
+			if ( $property_name === '' ) {
 				$property_name_error_str = wfMsg( 'sf_blank_error' );
 			} else {
 				# redirect to wiki interface

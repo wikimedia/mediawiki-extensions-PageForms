@@ -64,14 +64,14 @@ class SFFormStart extends SpecialPage {
 			$page_name = $wgRequest->getVal( 'page_name' );
 			// This form can be used to create a sub-page for an
 			// existing page
-			if ( $super_page != '' )
+			if ( $super_page !== '' )
 			{
 				$page_name = "$super_page/$page_name";
 			}
-			if ( $page_name != '' ) {
+			if ( $page_name !== '' ) {
 				// Append the namespace prefix to the page name,
 				// if this namespace was not already entered.
-				if ( strpos( $page_name, $target_namespace . ':' ) === false && $target_namespace != '' )
+				if ( strpos( $page_name, $target_namespace . ':' ) === false && $target_namespace !== '' )
 					$page_name = $target_namespace . ':' . $page_name;
 				// If there was no page title, it's probably an
 				// invalid page name, containing forbidden
@@ -88,10 +88,10 @@ class SFFormStart extends SpecialPage {
 			}
 		}
 
-		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name != '' ) ) {
+		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name !== '' ) ) {
 			$text = Xml::element( 'p', null, wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 		} else {
-			if ( $form_name == '' ) {
+			if ( $form_name === '' ) {
 				$description = htmlspecialchars( wfMsg( 'sf_formstart_noform_docu', $form_name ) );
 			}
 			else {
@@ -106,7 +106,7 @@ class SFFormStart extends SpecialPage {
 END;
 			// If no form was specified, display a dropdown letting
 			// the user choose the form.
-			if ( $form_name == '' )
+			if ( $form_name === '' )
 				$text .= SFUtils::formDropdownHTML();
 
 			$text .= "\t</p>\n";
@@ -172,7 +172,7 @@ END;
 			}
 		}
 
-		if ( $params != '' ) {
+		if ( $params !== '' ) {
 			$redirect_url .= ( strpos( $redirect_url, "?" ) > - 1 ) ? '&' : '?';
 			$redirect_url .= $params;
 		}
