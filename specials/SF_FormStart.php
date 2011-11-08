@@ -64,10 +64,11 @@ class SFFormStart extends SpecialPage {
 			$page_name = $wgRequest->getVal( 'page_name' );
 			// This form can be used to create a sub-page for an
 			// existing page
-			if ( $super_page !== '' )
-			{
+			
+			if ( !is_null( $super_page ) && $super_page !== '' ) {
 				$page_name = "$super_page/$page_name";
 			}
+			
 			if ( $page_name !== '' ) {
 				// Append the namespace prefix to the page name,
 				// if this namespace was not already entered.
@@ -162,18 +163,18 @@ END;
 					foreach ( $val as $field_name => $value ) {
 						$field_name = urlencode( $field_name );
 						$value = urlencode( $value );
-						$redirect_url .= ( strpos( $redirect_url, "?" ) > - 1 ) ? '&' : '?';
+						$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 						$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
 					}
 				} elseif ( $key == 'preload' ) {
-					$redirect_url .= ( strpos( $redirect_url, "?" ) > - 1 ) ? '&' : '?';
+					$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 					$redirect_url .= "$key=$val";
 				}
 			}
 		}
 
-		if ( $params !== '' ) {
-			$redirect_url .= ( strpos( $redirect_url, "?" ) > - 1 ) ? '&' : '?';
+		if ( !is_null( $params ) && $params !== '' ) {
+			$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 			$redirect_url .= $params;
 		}
 
