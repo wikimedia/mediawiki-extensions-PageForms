@@ -399,7 +399,8 @@ END;
 			}
 		} else {
 			$form_is_disabled = true;
-			$wgOut->readOnlyPage( null, false, $permissionErrors, 'edit' );
+			$wgOut->setPageTitle( wfMsg( 'badaccess' ) );
+			$wgOut->addWikiText( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
 			$wgOut->addHTML( "\n<hr />\n" );
 		}
 
