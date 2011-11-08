@@ -616,6 +616,11 @@ END;
 	 * type, for use by both Javascript autocompletion and comboboxes.
 	 */
 	public static function getAutocompleteValues( $source_name, $source_type ) {
+		
+		if ( $source_name == null ) {
+			return null;
+		}
+		
 		$names_array = array();
 		// The query depends on whether this is a property, category,
 		// concept or namespace.

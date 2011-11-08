@@ -256,7 +256,7 @@ class SFParserFunctions {
 				);
 		} elseif ( $inLinkType == 'post button' ) {
 			$str =
-				Xml::tags( 'form', array('action' => $link_url, 'method' => 'get', 'class' => $classStr),
+				Xml::tags( 'form', array('action' => $link_url, 'method' => 'post', 'class' => $classStr),
 					Xml::tags( 'button', array('type' => 'submit', 'value' => $inLinkStr), $inLinkStr ) .
 					$hidden_inputs
 				);
