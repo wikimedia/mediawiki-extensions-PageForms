@@ -154,7 +154,7 @@ class SFFormEditTab {
 			# Experimental new feature extending from the internal
 			# EditPage class
 			$editor = new SFFormEditPage( $article, $form_name );
-			$editor->submit();
+			$editor->edit();
 			return false;
 		}
 
