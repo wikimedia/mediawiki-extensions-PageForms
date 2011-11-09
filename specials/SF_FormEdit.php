@@ -188,7 +188,7 @@ class SFFormEdit extends SpecialPage {
 			$wgOut->setPageTitle( $s );
 
 			if ( $form_submitted ) {
-				if ( !is_null( $page_name_formula ) && $page_name_formula !== '' ) {
+				if ( !empty( $page_name_formula ) ) {
 					$target_name = $generated_page_name;
 					// prepend a super-page, if one was specified
 					if ( $wgRequest->getCheck( 'super_page' ) ) {
