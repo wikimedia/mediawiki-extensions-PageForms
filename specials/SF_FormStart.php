@@ -65,7 +65,7 @@ class SFFormStart extends SpecialPage {
 			// This form can be used to create a sub-page for an
 			// existing page
 			
-			if ( !is_null( $super_page ) && $super_page !== '' ) {
+			if ( $super_page !== '' ) {
 				$page_name = "$super_page/$page_name";
 			}
 			
@@ -173,7 +173,7 @@ END;
 			}
 		}
 
-		if ( !is_null( $params ) && $params !== '' ) {
+		if ( $params !== '' ) {
 			$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 			$redirect_url .= $params;
 		}
