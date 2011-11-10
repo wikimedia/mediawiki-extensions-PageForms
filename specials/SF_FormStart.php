@@ -120,6 +120,19 @@ END;
 		$wgOut->addHTML( $text );
 	}
 
+	/**
+	 * Helper function - returns a URL that includes Special:FormEdit.
+	 */
+	static function getFormEditURL( $formName, $targetTitle) {
+		$fe = SpecialPage::getPage( 'FormEdit' );
+		$targetName = SFUtils::titleURLString( $targetTitle );
+		// Special handling for forms whose name contains a slash.
+		if ( strpos( $formName, '/' ) !== false ) {
+			return $fe->getTitle()->getFullURL( array( 'form' => $formName, 'target' => $targetName ) );
+		}
+		return $fe->getTitle()->getFullURL() . "/" . $formName . "/" . $targetName;
+	}
+
 	function doRedirect( $form_name, $page_name, $params ) {
 		global $wgOut;
 
@@ -148,12 +161,10 @@ END;
 			if ( $form_name == $default_form_name ) {
 				$redirect_url = $page_title->getLocalURL( 'action=formedit' );
 			} else {
-				$fe = SpecialPage::getPage( 'FormEdit' );
-				$redirect_url = $fe->getTitle()->getFullURL() . "/" . $form_name . "/" . SFUtils::titleURLString( $page_title );
+				$redirect_url = self::getFormEditURL( $form_name, $page_title );
 			}
 		} else {
-			$fe = SpecialPage::getPage( 'FormEdit' );
-			$redirect_url = $fe->getTitle()->getFullURL() . "/" . $form_name . "/" . SFUtils::titleURLString( $page_title );
+			$redirect_url = self::getFormEditURL( $form_name, $page_title );
 			// Of all the request values, send on to 'FormEdit'
 			// only 'preload' and specific form fields - we can
 			// identify the latter because they show up as arrays.
