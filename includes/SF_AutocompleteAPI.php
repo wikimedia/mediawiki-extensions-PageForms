@@ -33,21 +33,21 @@ class SFAutocompleteAPI extends ApiBase {
 			$this->dieUsage( 'The substring must be specified', 'param_substr' );
 		}
 		
-		if ( $attribute !== '' ) {
+		if ( !is_null( $attribute ) ) {
 			$data = self::getAllValuesForProperty( false, $attribute, $substr );
-		} elseif ( $relation !== '' ) {
+		} elseif ( !is_null( $relation ) ) {
 			$data = self::getAllValuesForProperty( true, $relation, $substr );
-		} elseif ( $category !== '' ) {
+		} elseif ( !is_null( $category ) ) {
 			$data = SFUtils::getAllPagesForCategory( $category, 3, $substr );
-		} elseif ( $concept !== '' ) {
+		} elseif ( !is_null( $concept ) ) {
 			$data = SFUtils::getAllPagesForConcept( $concept, $substr );
-		} elseif ( $namespace !== '' ) {
+		} elseif ( !is_null( $namespace ) ) {
 			// Special handling for main (blank) namespace.
 			if ( $namespace == 'main' ) {
 				$namespace = '';
 			}
 			$data = SFUtils::getAllPagesForNamespace( $namespace, $substr );
-		} elseif ( $external_url !== '' ) {
+		} elseif ( !is_null( $external_url ) ) {
 			$data = SFUtils::getValuesFromExternalURL( $external_url, $substr );
 		} else {
 			$data = array();
