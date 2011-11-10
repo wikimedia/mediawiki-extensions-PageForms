@@ -29,8 +29,8 @@
 		}
 	}
 
-    /* extending jQuery functions for custom highlighting */
-    jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
+	/* extending jQuery functions for custom highlighting */
+	jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
 	var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + this.term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi");
 	var loc = item.label.search(re);
@@ -883,7 +883,7 @@ jQuery(document).ready(function() {
 							if (this.value && (!request.term || matcher.test(text))) {
 								return {
 									id: this.value,
-									label: text.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + jQuery.ui.autocomplete.escapeRegex(request.term) + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>"),
+									label: text,
 									value: text
 								};
 							}
