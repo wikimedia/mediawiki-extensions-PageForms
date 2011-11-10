@@ -366,6 +366,8 @@ END;
 			// just use the name of the actual page we're on.
 			global $wgTitle;
 			$this->mPageTitle = $wgTitle;
+		} elseif ( $is_query ) {
+			$this->mPageTitle = Title::newFromText( 'RunQuery dummy title' );
 		} elseif ( $page_name === '' ) {
 			$this->mPageTitle = Title::newFromText(
 				$wgRequest->getVal( 'namespace' ) . ":Semantic Forms permissions test" );
@@ -383,10 +385,12 @@ END;
 		// "$wgEmailConfirmToEdit = true;". Instead, we'll just get the
 		// permission errors from the start, and use those to determine whether
 		// the page is editable.
-		//$userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
-		$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
-		$userCanEditPage = count( $permissionErrors ) == 0;
-		wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
+		if ( !$is_query ) {
+			//$userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
+			$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
+			$userCanEditPage = count( $permissionErrors ) == 0;
+			wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
+		}
 		$form_text = "";
 		if ( $userCanEditPage || $is_query ) {
 			$form_is_disabled = false;
