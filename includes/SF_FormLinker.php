@@ -287,7 +287,7 @@ class SFFormLinker {
 		}
 		self::createLinkedPage( $target, $incoming_properties );
 		$link = self::formEditLink( $target, $incoming_properties );
-		if ( $link !== '' ) {
+		if ( !is_null( $link ) ) {
 			$attribs['href'] = $link;
 		}
 		return true;
