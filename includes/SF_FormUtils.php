@@ -833,4 +833,99 @@ function FCKeditor_OpenPopup(jsID, textareaID)
 END;
 		return $javascript_text;
 	}
+
+	
+	/**
+	 * Parse the form definition and store the resulting HTML in the
+	 * main cache, if caching has been specified in LocalSettings.php
+	 */
+	public static function getFormDefinition( $parser, $form_def = null, $form_id = null ) {
+		
+		global $sfgCacheFormDefinitions, $wgRequest;
+		
+		$cachekey = null;
+		
+		// use cache if allowed
+		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
+			
+			$cachekey = wfMemcKey('ext.SemanticForms.formdefinition', $form_id);
+			$cached_def = wfGetMainCache()->get( $cachekey );
+			
+			// Cache hit?
+			if ( $cached_def !== false && $cached_def !== null ) {
+				
+				wfDebug( "Cache hit: Got formdefinition $cachekey from cache\n" );
+				return $cached_def; 
+			} else {
+				wfDebug( "Cache miss: Formdefinition $cachekey not found in cache\n" );
+			}
+			
+		}
+
+		if ( $form_id !== null ) {
+			
+			$form_article = Article::newFromID( $form_id );
+			$form_def = $form_article->getContent();
+			
+		} else if ( $form_def == null ) {
+			
+			// No id, no text -> nothing to do
+			return '';
+			
+		}
+
+		// Remove <noinclude> sections and <includeonly> tags from form definition
+		$form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
+		$form_def = strtr( $form_def, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+
+		// add '<nowiki>' tags around every triple-bracketed form
+		// definition element, so that the wiki parser won't touch
+		// it - the parser will remove the '<nowiki>' tags, leaving
+		// us with what we need
+		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
+
+		$title = new Title();
+		$tmpParser = unserialize( serialize( $parser ) ); // deep clone of parser
+
+		// parse wiki-text
+		$output = $tmpParser->parse( $form_def, $title, $tmpParser->getOptions() );
+		$form_def = $output->getText();
+
+		// store in  cache if allowed
+		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
+			
+			if ( $output->getCacheTime() == -1 ) {
+				wfDebug( "Caching disabled for formdefinition $cachekey\n" );
+				self::purgeCache( $form_article );
+			} else {
+				wfGetMainCache()->add( $cachekey, $form_def );
+				wfDebug( "Cached formdefinition $cachekey\n" );
+			}
+			
+		}
+
+		return $form_def;
+	}
+	
+	/**
+	 * Deletes the formdefinition associated with the given wikipage from the
+	 * main cache.
+	 * 
+	 * @param Page $wikipage
+	 * @return Bool
+	 */
+	public static function purgeCache ( &$wikipage ) {
+		
+		if ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) {
+			
+			$id = $wikipage->getId();
+			$key = wfMemcKey('ext.SemanticForms.formdefinition', $id);
+			
+			if ( wfGetMainCache()->delete($key) ) {
+				wfDebug( "Deleted cached formdefinition $key.\n" );
+			}
+		}
+		
+		return true;
+	}
 }

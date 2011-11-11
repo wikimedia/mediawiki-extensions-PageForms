@@ -321,7 +321,7 @@ END;
 		global $sfgFieldNum; // used for setting various HTML IDs
 
 		wfProfileIn( __METHOD__ );
-
+		
 		// initialize some variables
 		$sfgTabIndex = 1;
 		$sfgFieldNum = 1;
@@ -408,37 +408,15 @@ END;
 			$wgOut->addHTML( "\n<hr />\n" );
 		}
 
-		// Remove <noinclude> sections and <includeonly> tags from form definition.
-		$form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
-		$form_def = strtr( $form_def, array( '<includeonly>' => '', '</includeonly>' => '' ) );
-
-		// Parse wiki-text.
-		// Add '<nowiki>' tags around every triple-bracketed form definition
-		// element, so that the wiki parser won't touch it - the parser will
-		// remove the '<nowiki>' tags, leaving us with what we need.
-		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
-
 		$oldParser = $wgParser;
 
 		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
+		$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
+		$wgParser->Title( $this->mPageTitle );
+		$wgParser->clearState();
 		
-		// Get the form definition from the cache, if we're using caching and it's
-		// there.
-//		$got_form_def_from_cache = false;
-//		global $sfgCacheFormDefinitions;
-//		if ( $sfgCacheFormDefinitions && ! is_null( $form_id ) ) {
-//			$db = wfGetDB( DB_MASTER );
-//			$res = $db->select( 'page_props', 'pp_value', "pp_propname = 'formdefinition' AND pp_page = '$form_id'" );
-//			if ( $res->numRows() >	0 ) {
-//				$form_def = $res->fetchObject()->pp_value;
-//				$got_form_def_from_cache = true;
-//			}
-//		}
-		// Otherwise, parse it.
-//		if ( ! $got_form_def_from_cache ) {
-		$form_def = $wgParser->parse($form_def, $this->mPageTitle, ParserOptions::newFromUser($wgUser))->getText();
-//		}
-
+		$form_def = SFFormUtils::getFormDefinition( $wgParser, $form_def, $form_id );
+		
 		// Turn form definition file into an array of sections, one for each
 		// template definition (plus the first section)
 		$form_def_sections = array();
