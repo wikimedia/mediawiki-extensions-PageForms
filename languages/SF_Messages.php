@@ -1046,6 +1046,7 @@ $messages['br'] = array(
 	'sf_createclass_allowedvalues' => 'Talvoudennoù aotreet :',
 	'sf_createclass_listofvalues' => 'Roll talvoudennoù ?',
 	'sf_createclass_leavefieldblank' => "Mard eo heñvel anv ar vaezienn ouzh anv ar berc'henniezh e c'hallit lezel goullo ar vaezienn.",
+	'sf_createclass_nameinput' => 'Anv ar furmskrid :',
 	'sf_createclass_missingvalues' => "N'eo ket bet leuniet an holl vaeziennoù ret.",
 	'sf_createclass_success' => 'Krouet e vo ar perzhioù, ar patrom ar furmskrid hag ar rummad.',
 	'sf_createclass_create' => 'Krouiñ',
