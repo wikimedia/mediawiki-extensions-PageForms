@@ -385,11 +385,16 @@ class SFUploadWindow2Proto extends UnlistedSpecialPage {
 		$basename = str_replace( '_', ' ', $basename );
 		// UTF8-decoding is needed for IE
 		$basename = utf8_decode( $basename );
-		$output = '     <script type="text/javascript">' . "\n";
+		
+		$output .= <<<END
+		<script type="text/javascript">
+		var input = parent.window.jQuery( parent.document.getElementById("{$this->mInputID}") );
+END;
+		
 		if ( $this->mDelimiter == null ) {
 			$output .= <<<END
-		parent.document.getElementById("{$this->mInputID}").value = '$basename';
-
+		input.val( '$basename' );
+		input.change();
 END;
 		} else {
 			$output .= <<<END
@@ -399,14 +404,18 @@ END;
 		// both a delimiter and a file name; and add on a delimiter
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
+		
 		if (cur_value === '') {
-			parent.document.getElementById("{$this->mInputID}").value = '$basename' + '{$this->mDelimiter} ';
+			input.val( '$basename' + '{$this->mDelimiter} ' );
+			input.change();
 		} else {
 			var last_char = cur_value.charAt(cur_value.length - 1);
 			if (last_char == '{$this->mDelimiter}' || last_char == ' ') {
 				parent.document.getElementById("{$this->mInputID}").value += '$basename' + '{$this->mDelimiter} ';
+				input.change();
 			} else {
 				parent.document.getElementById("{$this->mInputID}").value += '{$this->mDelimiter} $basename{$this->mDelimiter} ';
+				input.change();
 			}
 		}
 

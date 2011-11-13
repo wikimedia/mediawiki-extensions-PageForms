@@ -236,6 +236,9 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'scripts' => 'libs/SF_wikieditor.js',
 			'styles' => 'skins/SF_wikieditor.css',
 		),
+		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/SF_imagePreview.js',
+		),
 	);
 }
 

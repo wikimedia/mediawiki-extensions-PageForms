@@ -42,7 +42,7 @@ class SFTextInput extends SFFormInput {
 		return array( '_wpg' );
 	}
 
-	public static function uploadLinkHTML( $input_id, $delimiter = null, $default_filename = null ) {
+	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', $other_args = array() ) {
 		$upload_window_page = SpecialPage::getPage( 'UploadWindow' );
 		$query_string = "sfInputID=$input_id";
 		if ( $delimiter != null ) {
@@ -60,13 +60,48 @@ class SFTextInput extends SFFormInput {
 			$style = '';
 		}
 
+		$cssClasses = array( 'sfFancyBox', 'sfUploadable' );
+		
+		$showPreview = array_key_exists( 'imagepreview', $other_args ) && trim( $other_args['imagepreview'] == 'on' );
+		
+		if ( $showPreview ) {
+			$cssClasses[] = 'sfImagePreview';
+		}
+		
 		$linkAttrs = array(
 			'href' => $upload_window_url,
-			'class' => 'sfFancyBox',
+			'class' => implode( ' ', $cssClasses ),
 			'title' => $upload_label,
-			'rev' => $style
+			'rev' => $style,
+			'data-input-id' => $input_id
 		);
+		
 		$text = "\t" . Xml::element( 'a', $linkAttrs, $upload_label ) . "\n";
+		
+		if ( $showPreview ) {
+			$previewImage = null;
+			
+			if ( $cur_value !== '' ) {
+				$imageTitle = Title::newFromText( $cur_value, NS_FILE );
+
+				if ( !is_null( $imageTitle ) && $imageTitle->getNamespace() == NS_FILE && $imageTitle->exists() ) {
+					$imagePage = new ImagePage( $imageTitle );
+					$url = $imagePage->getDisplayedFile()->transform( array( 'width' => 200 ) )->getURL();
+					
+					$previewImage =  Html::element(
+						'img',
+						array( 'src' => $url )
+					);
+				}
+			}
+			
+			$text .= Html::rawElement(
+				'div',
+				array( 'id' => $input_id . '_imagepreview' ),
+				$previewImage
+			);
+		}
+		
 		return $text;
 	}
 
@@ -146,7 +181,8 @@ class SFTextInput extends SFFormInput {
 			} else {
 				$default_filename = '';
 			}
-			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
+			
+			$text .= self::uploadableHTML( $input_id, $delimiter, $default_filename, $cur_value, $other_args );
 		}
 		$spanClass = 'inputSpan';
 		if ( $inputType !== '' ) {

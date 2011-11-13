@@ -284,6 +284,7 @@ END;
 		}
 		$output->addModules( 'ext.semanticforms.main' );
 		$output->addModules( 'ext.semanticforms.fancybox' );
+		$output->addModules( 'ext.semanticforms.imagepreview' );
 		$output->addModules( 'ext.semanticforms.autogrow' );
 		$output->addModules( 'ext.semanticforms.submit' );
 		$output->addModules( 'ext.smw.tooltips' );
@@ -395,6 +396,7 @@ END;
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.mouse.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.sortable.min.js";
 		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox.js";
+		$scripts[] = "$sfgScriptPath/libs/SF_imagePreview.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
 		$scripts[] = "$sfgScriptPath/libs/SF_submit.js";
 		$scripts[] = "$sfgScriptPath/libs/SemanticForms.js";

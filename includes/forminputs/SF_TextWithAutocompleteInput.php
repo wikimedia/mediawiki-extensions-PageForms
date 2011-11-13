@@ -184,7 +184,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			} else {
 				$default_filename = '';
 			}
-			$text .= self::uploadLinkHTML( $input_id, $delimiter, $default_filename );
+			$text .= self::uploadableHTML( $input_id, $delimiter, $default_filename, $cur_value, $other_args );
 		}
 
 		$spanClass = 'inputSpan';
