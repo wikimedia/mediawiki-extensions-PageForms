@@ -849,7 +849,7 @@ END;
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
 			
 			$cachekey = wfMemcKey('ext.SemanticForms.formdefinition', $form_id);
-			$cached_def = wfGetMainCache()->get( $cachekey );
+			$cached_def =  self::getFormCache()->get( $cachekey );
 			
 			// Cache hit?
 			if ( $cached_def !== false && $cached_def !== null ) {
@@ -918,14 +918,22 @@ END;
 		
 		if ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) {
 			
-			$id = $wikipage->getId();
-			$key = wfMemcKey('ext.SemanticForms.formdefinition', $id);
+			$key = wfMemcKey('ext.SemanticForms.formdefinition', $wikipage->getId() );
 			
-			if ( wfGetMainCache()->delete($key) ) {
+			if ( self::getFormCache()->delete($key) ) {
 				wfDebug( "Deleted cached formdefinition $key.\n" );
 			}
 		}
 		
 		return true;
 	}
+	
+	/**
+	 *  Get the cache object used by the form cache
+	 */
+	public static function getFormCache() {
+		global $sfgFormCacheType, $wgParserCacheType;
+		$ret = & wfGetCache( ( $sfgFormCacheType !== null ) ? $sfgFormCacheType : $wgParserCacheType  );
+		return $ret;
+}
 }

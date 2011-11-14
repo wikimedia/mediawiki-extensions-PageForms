@@ -318,6 +318,18 @@ $sfg24HourTime = false;
 # ##
 $sfgCacheFormDefinitions = false;
 
+/**
+ * The cache type for storing form definitions. This cache is similar in
+ * function to the parser cache. Is is used to store form data which is
+ * expensive to regenerate, and benefits from having plenty of storage space.
+ *
+ * If this setting remains at null the setting for the $wgParserCacheType will
+ * be used.
+ * 
+ * For available types see $wgMainCacheType.
+ */
+$sfgFormCacheType = null;
+
 # ##
 # When modifying red links to potentially point to a form to edit that page,
 # check only the properties pointing to that missing page from the page the
