@@ -67,10 +67,11 @@ class SFPageSchemas extends PSExtensionHandler {
 	public static function createSchemaXMLFromForm() {
 		global $wgRequest;
 
+		$formName = null;
 		$xml = '';
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			if ( $var == 'sf_form_name' ) {
-				$xml = '<semanticforms_Form name="' . $val . '" >';
+				$formName = $val;
 			} elseif ( $var == 'sf_page_name_formula' ) {
 				if ( !empty( $val ) ) {
 					$xml .= '<PageNameFormula>' . $val . '</PageNameFormula>';
@@ -83,9 +84,10 @@ class SFPageSchemas extends PSExtensionHandler {
 				if ( !empty( $val ) ) {
 					$xml .= '<EditTitle>' . $val . '</EditTitle>';
 				}
-				$xml .= '</semanticforms_Form>';
 			}
 		}
+		$xml = '<semanticforms_Form name="' . $formName . '" >' . $xml;
+		$xml .= '</semanticforms_Form>';
 		return $xml;
 	}
 
@@ -186,7 +188,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		// we set it based on whether or not a page formula has been
 		// specified.
 		$twoStepProcessAttrs = array( 'id' => 'sf-two-step-process' );
-		if ( $pageNameFormula === '' ) {
+		if ( is_null( $pageNameFormula ) ) {
 			$twoStepProcessAttrs['checked'] = true;
 		}
 		$text .= '<p>' . Html::input( 'sf_two_step_process', null, 'checkbox', $twoStepProcessAttrs );
