@@ -950,7 +950,7 @@ END;
 						} else {
 							$sfgTabIndex++;
 							$sfgFieldNum++;
-							if ( $cur_value === '' ) {
+							if ( is_null( $cur_value )  ) {
 								$default_value = '!free_text!';
 							} else {
 								$default_value = $cur_value;
