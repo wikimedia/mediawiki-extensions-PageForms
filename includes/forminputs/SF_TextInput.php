@@ -62,7 +62,7 @@ class SFTextInput extends SFFormInput {
 
 		$cssClasses = array( 'sfFancyBox', 'sfUploadable' );
 		
-		$showPreview = array_key_exists( 'imagepreview', $other_args ) && trim( $other_args['imagepreview'] == 'on' );
+		$showPreview = array_key_exists( 'imagepreview', $other_args );
 		
 		if ( $showPreview ) {
 			$cssClasses[] = 'sfImagePreview';
