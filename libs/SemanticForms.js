@@ -13,6 +13,29 @@
 
 // Activate autocomplete functionality for the specified field
 (function(jQuery) {
+
+	/* extending jQuery functions for custom highlighting */
+	jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
+
+		var delim  = this.element.context.delimiter;
+		if ( delim == null ) {
+			term = this.term;
+		} else {
+			term = this.term.split( delim ).pop();
+		}
+		var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi");
+		var loc = item.label.search(re);
+		if (loc >= 0) {
+			var t = item.label.substr(0, loc) + '<strong>' + item.label.substr(loc, term.length) + '</strong>' + item.label.substr(loc + term.length);
+		} else {
+			var t = item.label;
+		}
+		return jQuery( "<li></li>" )
+			.data( "item.autocomplete", item )
+			.append( " <a>" + t + "</a>" )
+			.appendTo( ul );
+	};
+
   jQuery.fn.attachAutocomplete = function() {
     return this.each(function() {
 	// Get all the necessary values from the input's "autocompletesettings"
@@ -29,22 +52,6 @@
 		}
 	}
 
-	/* extending jQuery functions for custom highlighting */
-	jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
-
-	var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + this.term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi");
-	var loc = item.label.search(re);
-	if (loc >= 0) {
-		var t = item.label.substr(0, loc) + '<strong>' + item.label.substr(loc, this.term.length) + '</strong>' + item.label.substr(loc + this.term.length);
-	} else {
-		var t = item.label;
-	}
-	return jQuery( "<li></li>" )
-		.data( "item.autocomplete", item )
-		.append( " <a>" + t + "</a>" )
-		.appendTo( ul );
-	};
-
 	// Modify the delimiter. If it's "\n", change it to an actual
 	// newline - otherwise, add a space to the end.
 	// This doesn't cover the case of a delimiter that's a newline
@@ -57,6 +64,9 @@
 			delimiter += " ";
 		}
 	}
+	// Store this value within the object, so that it can be used
+	// during highlighting of the search term as well.
+	this.delimiter = delimiter;
 
 	/* extending jquery functions */
 	jQuery.extend( jQuery.ui.autocomplete, {	
