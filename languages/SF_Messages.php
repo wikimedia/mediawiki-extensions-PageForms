@@ -5701,7 +5701,7 @@ $messages['os'] = array(
  */
 $messages['pdc'] = array(
 	'templates' => 'Moddle',
-	'sf_createtemplate_deletefield' => 'Lösche',
+	'sf_createtemplate_deletefield' => 'Lesche',
 	'sf_createform_template' => 'Moddel:',
 	'sf_createform_add' => 'Dezu duh',
 	'sf_formstart_createoredit' => 'Dezu duh odder ennere',
