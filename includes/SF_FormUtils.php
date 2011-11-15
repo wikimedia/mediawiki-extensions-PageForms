@@ -854,10 +854,10 @@ END;
 			// Cache hit?
 			if ( $cached_def !== false && $cached_def !== null ) {
 				
-				wfDebug( "Cache hit: Got formdefinition $cachekey from cache\n" );
+				wfDebug( "Cache hit: Got form definition $cachekey from cache\n" );
 				return $cached_def; 
 			} else {
-				wfDebug( "Cache miss: Formdefinition $cachekey not found in cache\n" );
+				wfDebug( "Cache miss: Form definition $cachekey not found in cache\n" );
 			}
 			
 		}
@@ -895,11 +895,11 @@ END;
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
 			
 			if ( $output->getCacheTime() == -1 ) {
-				wfDebug( "Caching disabled for formdefinition $cachekey\n" );
+				wfDebug( "Caching disabled for form definition $cachekey\n" );
 				self::purgeCache( $form_article );
 			} else {
 				wfGetMainCache()->add( $cachekey, $form_def );
-				wfDebug( "Cached formdefinition $cachekey\n" );
+				wfDebug( "Cached form definition $cachekey\n" );
 			}
 			
 		}
@@ -908,20 +908,19 @@ END;
 	}
 	
 	/**
-	 * Deletes the formdefinition associated with the given wikipage from the
-	 * main cache.
+	 * Deletes the form definition associated with the given wiki page
+	 * from the main cache.
 	 * 
 	 * @param Page $wikipage
 	 * @return Bool
 	 */
 	public static function purgeCache ( &$wikipage ) {
-		
 		if ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) {
 			
 			$key = wfMemcKey('ext.SemanticForms.formdefinition', $wikipage->getId() );
 			
 			if ( self::getFormCache()->delete($key) ) {
-				wfDebug( "Deleted cached formdefinition $key.\n" );
+				wfDebug( "Deleted cached form definition $key.\n" );
 			}
 		}
 		
