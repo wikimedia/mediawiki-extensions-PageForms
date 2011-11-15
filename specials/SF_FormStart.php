@@ -64,8 +64,7 @@ class SFFormStart extends SpecialPage {
 			$page_name = $wgRequest->getVal( 'page_name' );
 			// This form can be used to create a sub-page for an
 			// existing page
-			
-			if ( !empty( $super_page ) ) {
+			if ( !is_null( $super_page ) && $super_page !== '' ) {
 				$page_name = "$super_page/$page_name";
 			}
 			
@@ -184,7 +183,7 @@ END;
 			}
 		}
 
-		if ( !empty( $params ) ) {
+		if ( !is_null( $params ) && $params !== '' ) {
 			$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 			$redirect_url .= $params;
 		}
