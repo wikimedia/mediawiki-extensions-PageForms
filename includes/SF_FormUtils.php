@@ -892,16 +892,21 @@ END;
 		// parse wiki-text
 		$output = $tmpParser->parse( $form_def, $title, $tmpParser->getOptions() );
 		$form_def = $output->getText();
-		$expiry = $output->getCacheExpiry();
 
 		// store in  cache if allowed
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
 			
-			if ( $expiry == 0 ) {
+			if ( $output->getCacheTime() == -1 ) {
 				self::purgeCache( $form_article );
 				wfDebug( "Caching disabled for form definition $cachekey\n" );
 			} else {
-				self::getFormCache()->set( $cachekey, $form_def, $expiry );
+				
+				if ( method_exists( $output, 'getCacheExpiry' ) ) { // MW 1.17+
+					self::getFormCache()->set( $cachekey, $form_def, $output->getCacheExpiry() );
+				} else { // MW 1.16
+					self::getFormCache()->set( $cachekey, $form_def );
+				}
+				
 				wfDebug( "Cached form definition $cachekey\n" );
 			}
 			
@@ -968,10 +973,11 @@ END;
 		} else if ( is_null( $parser ) ) {
 			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId );
 		} else {
-			if ( method_exists( 'ParserOptions', 'optionsHash' ) ) {
+			
+			if ( method_exists( 'ParserOptions', 'optionsHash' ) ) { // MW 1.17+
 				$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
-			} else {
-				$optionsHash = $parser->getOptions()->getUser()->getPageRenderingHash();
+			} else { // MW 1.16
+				$optionsHash = $parser->getOptions()->mUser->getPageRenderingHash();
 			}
 
 			return wfMemcKey(
