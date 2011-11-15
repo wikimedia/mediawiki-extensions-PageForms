@@ -848,7 +848,9 @@ END;
 		// use cache if allowed
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
 			
-			$cachekey = wfMemcKey('ext.SemanticForms.formdefinition', $form_id);
+			// create a cache key consisting of owner name, article id and user options
+			$cachekey = self::getCacheKey( $form_id, $parser );
+
 			$cached_def =  self::getFormCache()->get( $cachekey );
 			
 			// Cache hit?
@@ -890,15 +892,16 @@ END;
 		// parse wiki-text
 		$output = $tmpParser->parse( $form_def, $title, $tmpParser->getOptions() );
 		$form_def = $output->getText();
+		$expiry = $output->getCacheExpiry();
 
 		// store in  cache if allowed
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
 			
-			if ( $output->getCacheTime() == -1 ) {
-				wfDebug( "Caching disabled for form definition $cachekey\n" );
+			if ( $expiry == 0 ) {
 				self::purgeCache( $form_article );
+				wfDebug( "Caching disabled for form definition $cachekey\n" );
 			} else {
-				wfGetMainCache()->add( $cachekey, $form_def );
+				self::getFormCache()->set( $cachekey, $form_def, $expiry );
 				wfDebug( "Cached form definition $cachekey\n" );
 			}
 			
@@ -914,13 +917,27 @@ END;
 	 * @param Page $wikipage
 	 * @return Bool
 	 */
-	public static function purgeCache ( &$wikipage ) {
-		if ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) {
+	public static function purgeCache ( &$wikipage = null ) {
+		
+		if ( is_null( $wikipage ) || ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) ) {
 			
-			$key = wfMemcKey('ext.SemanticForms.formdefinition', $wikipage->getId() );
+			$keyToPurge = self::getCacheKey( ( is_null( $wikipage ) ) ? null : $wikipage->getId()  );
+
+			$len = strlen( $keyToPurge );
 			
-			if ( self::getFormCache()->delete($key) ) {
-				wfDebug( "Deleted cached form definition $key.\n" );
+			$cache = self::getFormCache(); 
+			$keysInCache = $cache->keys();
+			
+			foreach ( $keysInCache as $curKey ) {
+				
+				if ( strncmp( $curKey, $keyToPurge, $len ) === 0 ) {
+					
+					if ( self::getFormCache()->delete( $curKey ) ) {
+						wfDebug( "Deleted cached form definition $curKey.\n" );
+					}
+					
+				}
+				
 			}
 		}
 		
@@ -934,5 +951,33 @@ END;
 		global $sfgFormCacheType, $wgParserCacheType;
 		$ret = & wfGetCache( ( $sfgFormCacheType !== null ) ? $sfgFormCacheType : $wgParserCacheType  );
 		return $ret;
-}
+	}
+
+	
+	/**
+	 * Get a cache key.
+	 * 
+	 * @param $formId or null
+	 * @param Parser $parser or null
+	 * @return String 
+	 */
+	public static function getCacheKey( $formId = null, &$parser = null ) {
+
+		if ( is_null( $formId ) ) {
+			return wfMemcKey( 'ext.SemanticForms.formdefinition' );
+		} else if ( is_null( $parser ) ) {
+			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId );
+		} else {
+			if ( method_exists( 'ParserOptions', 'optionsHash' ) ) {
+				$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
+			} else {
+				$optionsHash = $parser->getOptions()->getUser()->getPageRenderingHash();
+			}
+
+			return wfMemcKey(
+					'ext.SemanticForms.formdefinition', $formId, $optionsHash
+			);
+		}
+	}
+
 }
