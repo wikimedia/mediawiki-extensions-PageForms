@@ -85,7 +85,7 @@ class SFUtils {
 			$values = array();
 			foreach ( $res as $value ) {
 				if ( $value instanceof SMWDIUri ) {
-					$values[] = $value->getFragment();
+					$values[] = $value->getURI();
 				} else {
 					// getSortKey() seems to return the
 					// correct value for all the other
