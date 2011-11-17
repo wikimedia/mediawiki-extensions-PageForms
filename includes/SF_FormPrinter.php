@@ -392,7 +392,7 @@ END;
 			wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
 		}
 		$form_text = "";
-		if ( $userCanEditPage || $is_query ) {
+		if ( $is_query || $userCanEditPage ) {
 			$form_is_disabled = false;
 			// Show "Your IP address will be recorded" warning if
 			// user is anonymous, and it's not a query -

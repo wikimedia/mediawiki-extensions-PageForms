@@ -154,8 +154,9 @@ END;
 			$wgParser->getOutput()->addHeadItem( $script );
 		} else {
 			$wgOut->addScript( $script );
-			if ($wgParser->getOutput()) {
-				$wgOut->addParserOutputNoText( $wgParser->getOutput() );
+			$po = $wgParser->getOutput();
+			if ( $po ) {
+				$wgOut->addParserOutputNoText( $po );
 			}
 		}
 
