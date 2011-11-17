@@ -62,7 +62,7 @@ class SFTextInput extends SFFormInput {
 
 		$cssClasses = array( 'sfFancyBox', 'sfUploadable' );
 		
-		$showPreview = array_key_exists( 'imagepreview', $other_args );
+		$showPreview = array_key_exists( 'image preview', $other_args );
 		
 		if ( $showPreview ) {
 			$cssClasses[] = 'sfImagePreview';
@@ -97,7 +97,7 @@ class SFTextInput extends SFFormInput {
 			
 			$text .= Html::rawElement(
 				'div',
-				array( 'id' => $input_id . '_imagepreview' ),
+				array( 'id' => $input_id . '_imagepreview', 'class' => 'sfImagePreviewWrapper' ),
 				$previewImage
 			);
 		}
