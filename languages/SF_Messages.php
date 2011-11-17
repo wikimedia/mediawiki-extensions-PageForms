@@ -3417,6 +3417,7 @@ jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, 
 
 /** Hungarian (Magyar)
  * @author Dani
+ * @author Dj
  * @author Dorgan
  * @author Glanthor Reviol
  * @author Tgr
@@ -3454,9 +3455,9 @@ $messages['hu'] = array(
 	'sf_forms_docu' => 'A következő űrlapok találhatóak meg a wikiben.',
 	'sf_forminputs_mandatory' => 'Kötelező',
 	'sf_forminputs_restricted' => 'Korlátozott (csak adminisztrátorok módosíthatják)',
-	'createform' => 'Űrlap létrehozása.',
+	'createform' => 'Űrlap létrehozása',
 	'sf_createform_nameinput' => 'Űrlap neve',
-	'sf_createform_nameinputdesc' => '(a szokás az, hogy az űrlapot az azt felépítő fő sablon után nevezzük el):',
+	'sf_createform_nameinputdesc' => '(az űrlapot szokás szerint a fő sablon után nevezzük el):',
 	'sf_createform_template' => 'Sablon:',
 	'sf_createform_templatelabelinput' => 'Sablon-címke (nem kötelező):',
 	'sf_createform_allowmultiple' => 'A sablon többször is (vagy egyszer sem) szerepelhet az elkészült lapon',
@@ -3480,11 +3481,13 @@ $messages['hu'] = array(
 	'sf_createcategory_makesubcategory' => 'Legyen ez egy kategória alkategóriája (nem kötelező):',
 	'createclass' => 'Osztály létrehozása',
 	'sf_createclass_docu' => 'Add meg itt az összes adatot a tulajdonságok, a sablon és a kategória létrehozásához egyetlen osztályhoz. További beállításokat a(z) $1 lapon végezhetsz.',
-	'sf_createclass_allowedvalues' => 'Megengedett értékek',
-	'sf_createclass_listofvalues' => 'Értékek listája',
+	'sf_createclass_allowedvalues' => 'Megengedett értékek:',
+	'sf_createclass_listofvalues' => 'Értékek listája?',
 	'sf_createclass_leavefieldblank' => 'Ha a mező neve megegyezik a tulajdonság nevével, üresen hagyhatod.',
+	'sf_createclass_nameinput' => 'Űrlap neve:',
 	'sf_createclass_missingvalues' => 'Nem töltötted ki az összes kötelező mezőt.',
 	'sf_createclass_success' => 'Tulajdonságok, sablon, űrlap és kategória lesz létrehozva.',
+	'sf_createclass_create' => 'Létrehozás',
 	'formstart' => 'Oldal hozzáadása űrlappal',
 	'sf_formstart_badform' => 'Hiba: nem található űrlap a(z) $1 címen',
 	'sf_formstart_badtitle' => 'Hiba: a(z) „$1” érvénytelen lapcím.',
