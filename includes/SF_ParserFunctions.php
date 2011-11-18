@@ -41,22 +41,23 @@
  *
  * 'formlink' is called as:
  *
- * {{#formlink:form=|link text=|link type=|title=|query string=|target=}}
+ * {{#formlink:form=|link text=|link type=|tooltip=|query string=|target=
+ * |popup}}
  *
  * This function returns HTML representing a link to a form; given that
  * no page name is entered by the the user, the form must be one that
  * creates an automatic page name, or else it will display an error
  * message when the user clicks on the link.
  *
- * The first two arguments are mandatory: 'form' is the name of the SF
- * form, and 'link text' is the text of the link. 'link type' is the type of
- * the link: if set to 'button', the link will be a button; if set to
- * 'post button', the link will be a button that uses the 'POST' method to
- * send other values to the form; if set to anything else or not called, it
- * will be a standard hyperlink. 'title' sets the 'title' HTML attribute
- * for the link, if it's an actual link; i.e., the hovering tooltip text.
- * 'query string' is the text to be added to the generated URL's query
- * string (or, in the case of 'post button' to be sent as hidden inputs).
+ * The first two arguments are mandatory:
+ * 'form' is the name of the SF form, and 'link text' is the text of the link.
+ * 'link type' is the type of the link: if set to 'button', the link will be
+ * a button; if set to 'post button', the link will be a button that uses the
+ * 'POST' method to send other values to the form; if set to anything else or
+ * not called, it will be a standard hyperlink.
+ * 'tooltip' sets a hovering tooltip text, if it's an actual link.
+ * 'query string' is the text to be added to the generated URL's query string
+ * (or, in the case of 'post button', to be sent as hidden inputs).
  * 'target' is an optional value, setting the name of the page to be
  * edited by the form.
  *
@@ -160,7 +161,7 @@ class SFParserFunctions {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
 		// Set defaults.
-		$inFormName = $inLinkStr = $inLinkType = $inTitle =
+		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
 			$inQueryStr = $inTargetName = '';
 		$classStr = "";
 		// assign params
@@ -194,8 +195,8 @@ class SFParserFunctions {
 				$inLinkType = $value;
 			} elseif ( $param_name == 'query string' ) {
 				$inQueryStr = $value;
-			} elseif ( $param_name == 'title' ) {
-				$inTitle = Sanitizer::decodeCharReferences( $value );
+			} elseif ( $param_name == 'tooltip' ) {
+				$inTooltip = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
 				$inTargetName = $value;
 			} elseif ( $param_name == null && $value == 'popup'
@@ -269,7 +270,7 @@ class SFParserFunctions {
 					$classStr .= " new";
 				}
 			}
-			$str = Xml::tags( 'a', array('href' => $link_url, 'class' => $classStr, 'title' => $inTitle),	$inLinkStr );
+			$str = Xml::tags( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip ), $inLinkStr );
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
