@@ -166,7 +166,7 @@ class SFTextInput extends SFFormInput {
 		}
 		$text = Xml::element( 'input', $inputAttrs );
 
-		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
+		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true ) {
 				if ( array_key_exists( 'delimiter', $other_args ) ) {
 					$delimiter = $other_args['delimiter'];

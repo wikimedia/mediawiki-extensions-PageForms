@@ -178,7 +178,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		}
 		$text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
 
-		if ( array_key_exists( 'is_uploadable', $other_args ) && $other_args['is_uploadable'] == true ) {
+		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
 				$default_filename = $other_args['default filename'];
 			} else {
