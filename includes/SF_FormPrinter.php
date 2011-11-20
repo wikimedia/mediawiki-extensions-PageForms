@@ -737,128 +737,123 @@ END;
 					$semantic_property = null;
 					$preload_page = null;
 					$holds_template = false;
+					
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
+						
 						$component = trim( $tag_components[$i] );
+						
 						if ( $component == 'mandatory' ) {
 							$is_mandatory = true;
 						} elseif ( $component == 'hidden' ) {
 							$is_hidden = true;
 						} elseif ( $component == 'restricted' ) {
 							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
-						} elseif ( $component == 'uploadable' ) {
-							$field_args['is_uploadable'] = true;
 						} elseif ( $component == 'list' ) {
 							$is_list = true;
-						} elseif ( $component == 'autocomplete' ) {
-							$field_args['autocomplete'] = true;
-						} elseif ( $component == 'no autocomplete' ) {
-							$field_args['no autocomplete'] = true;
-						} elseif ( $component == 'remote autocompletion' ) {
-							$field_args['remote autocompletion'] = true;
 						} elseif ( $component == 'edittools' ) { // free text only
 							$free_text_components[] = 'edittools';
-						} else {
-							$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-							if ( count( $sub_components ) == 1 ) {
-								// add handling for single-value params, for custom input types
-								$field_args[$sub_components[0]] = null;
+						} 
+						
+						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
+						
+						if ( count( $sub_components ) == 1 ) {
+							// add handling for single-value params, for custom input types
+							$field_args[$sub_components[0]] = true;
 
-								if ( $component == 'holds template' ) {
-									$is_hidden = true;
-									$holds_template = true;
-									$placeholderFields[] = self::placeholderFormat( $template_name, $field_name );
-								} 
-							} elseif ( count( $sub_components ) == 2 ) {
-								// First, set each value as its own entry in $field_args.
-								$field_args[$sub_components[0]] = $sub_components[1];
+							if ( $component == 'holds template' ) {
+								$is_hidden = true;
+								$holds_template = true;
+								$placeholderFields[] = self::placeholderFormat( $template_name, $field_name );
+							}
+						} elseif ( count( $sub_components ) == 2 ) {
+							// First, set each value as its own entry in $field_args.
+							$field_args[$sub_components[0]] = $sub_components[1];
 
-								// Then, do all special handling.
-								if ( $sub_components[0] == 'input type' ) {
-									$input_type = $sub_components[1];
-								} elseif ( $sub_components[0] == 'default' ) {
-									$default_value = $wgParser->recursiveTagParse( $sub_components[1] );
-								} elseif ( $sub_components[0] == 'preload' ) {
-									// free text field has special handling
-									if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
-										$free_text_preload_page = $sub_components[1];
-									} else {
-										$preload_page = $sub_components[1];
-									}
-								} elseif ( $sub_components[0] == 'show on select' ) {
-									// html_entity_decode() is needed to turn '&gt;' to '>'
-									$vals = explode( ';', html_entity_decode( $sub_components[1] ) );
-									foreach ( $vals as $val ) {
-										$val = trim( $val );
-										if ( empty( $val ) ) continue;
-										$option_div_pair = explode( '=>', $val, 2 );
-										if ( count( $option_div_pair ) > 1 ) {
-											$option = $option_div_pair[0];
-											$div_id = $option_div_pair[1];
-											if ( array_key_exists( $div_id, $show_on_select ) )
-												$show_on_select[$div_id][] = $option;
-											else
-												$show_on_select[$div_id] = array( $option );
-										} else {
-											$show_on_select[$val] = array();
-										}
-									}
-								} elseif ( $sub_components[0] == 'autocomplete on property' ) {
-									$property_name = $sub_components[1];
-									$propValue = SMWPropertyValue::makeUserProperty( $property_name );
-									if ( $propValue->getPropertyTypeID() == '_wpg' ) {
-										$field_args['autocomplete field type'] = 'relation';
-									} else {
-										$field_args['autocomplete field type'] = 'attribute';
-									}
-									$field_args['autocompletion source'] = $sub_components[1];
-								} elseif ( $sub_components[0] == 'autocomplete on category' ) {
-									$field_args['autocomplete field type'] = 'category';
-									$field_args['autocompletion source'] = $sub_components[1];
-								} elseif ( $sub_components[0] == 'autocomplete on concept' ) {
-									$field_args['autocomplete field type'] = 'concept';
-									$field_args['autocompletion source'] = $sub_components[1];
-								} elseif ( $sub_components[0] == 'autocomplete on namespace' ) {
-									$field_args['autocomplete field type'] = 'namespace';
-									$autocompletion_source = $sub_components[1];
-									// special handling for "main" (blank) namespace
-									if ( $autocompletion_source == "" )
-										$autocompletion_source = "main";
-									$field_args['autocompletion source'] = $autocompletion_source;
-								} elseif ( $sub_components[0] == 'autocomplete from url' ) {
-									$field_args['autocomplete field type'] = 'external_url';
-									$field_args['autocompletion source'] = $sub_components[1];
-									// 'external' autocompletion is always done remotely, i.e. via API
-									$field_args['remote autocompletion'] = true;
-								} elseif ( $sub_components[0] == 'values' ) {
-									// Handle this one only after 'delimiter' has
-									// also been set.
-									$values = $sub_components[1];
-								} elseif ( $sub_components[0] == 'values from property' ) {
-									$propertyName = $sub_components[1];
-									$propValue = SMWPropertyValue::makeUserProperty( $propertyName );
-									$isRelation = $propValue->getPropertyTypeID() == '_wpg';
-									$possible_values = SFAutocompleteAPI::getAllValuesForProperty( $isRelation, $propertyName );
-								} elseif ( $sub_components[0] == 'values from category' ) {
-									$category_name = ucfirst( $sub_components[1] );
-									$possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
-								} elseif ( $sub_components[0] == 'values from concept' ) {
-									$possible_values = SFUtils::getAllPagesForConcept( $sub_components[1] );
-								} elseif ( $sub_components[0] == 'values from namespace' ) {
-									$possible_values = SFUtils::getAllPagesForNamespace( $sub_components[1] );
-								} elseif ( $sub_components[0] == 'property' ) {
-									$semantic_property = $sub_components[1];
-								} elseif ( $sub_components[0] == 'default filename' ) {
-									$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
-									// Parse value, so default filename can include parser functions.
-									$default_filename = $wgParser->recursiveTagParse( $default_filename );
-									$field_args['default filename'] = $default_filename;
-								} elseif ( $sub_components[0] == 'restricted' ) {
-									$is_restricted = !array_intersect(
-										$wgUser->getEffectiveGroups(),
-										array_map( 'trim', explode( ',', $sub_components[1] ) )
-									);
+							// Then, do all special handling.
+							if ( $sub_components[0] == 'input type' ) {
+								$input_type = $sub_components[1];
+							} elseif ( $sub_components[0] == 'default' ) {
+								$default_value = $wgParser->recursiveTagParse( $sub_components[1] );
+							} elseif ( $sub_components[0] == 'preload' ) {
+								// free text field has special handling
+								if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
+									$free_text_preload_page = $sub_components[1];
+								} else {
+									$preload_page = $sub_components[1];
 								}
-
+							} elseif ( $sub_components[0] == 'show on select' ) {
+								// html_entity_decode() is needed to turn '&gt;' to '>'
+								$vals = explode( ';', html_entity_decode( $sub_components[1] ) );
+								foreach ( $vals as $val ) {
+									$val = trim( $val );
+									if ( empty( $val ) )
+										continue;
+									$option_div_pair = explode( '=>', $val, 2 );
+									if ( count( $option_div_pair ) > 1 ) {
+										$option = $option_div_pair[0];
+										$div_id = $option_div_pair[1];
+										if ( array_key_exists( $div_id, $show_on_select ) )
+											$show_on_select[$div_id][] = $option;
+										else
+											$show_on_select[$div_id] = array($option);
+									} else {
+										$show_on_select[$val] = array();
+									}
+								}
+							} elseif ( $sub_components[0] == 'autocomplete on property' ) {
+								$property_name = $sub_components[1];
+								$propValue = SMWPropertyValue::makeUserProperty( $property_name );
+								if ( $propValue->getPropertyTypeID() == '_wpg' ) {
+									$field_args['autocomplete field type'] = 'relation';
+								} else {
+									$field_args['autocomplete field type'] = 'attribute';
+								}
+								$field_args['autocompletion source'] = $sub_components[1];
+							} elseif ( $sub_components[0] == 'autocomplete on category' ) {
+								$field_args['autocomplete field type'] = 'category';
+								$field_args['autocompletion source'] = $sub_components[1];
+							} elseif ( $sub_components[0] == 'autocomplete on concept' ) {
+								$field_args['autocomplete field type'] = 'concept';
+								$field_args['autocompletion source'] = $sub_components[1];
+							} elseif ( $sub_components[0] == 'autocomplete on namespace' ) {
+								$field_args['autocomplete field type'] = 'namespace';
+								$autocompletion_source = $sub_components[1];
+								// special handling for "main" (blank) namespace
+								if ( $autocompletion_source == "" )
+									$autocompletion_source = "main";
+								$field_args['autocompletion source'] = $autocompletion_source;
+							} elseif ( $sub_components[0] == 'autocomplete from url' ) {
+								$field_args['autocomplete field type'] = 'external_url';
+								$field_args['autocompletion source'] = $sub_components[1];
+								// 'external' autocompletion is always done remotely, i.e. via API
+								$field_args['remote autocompletion'] = true;
+							} elseif ( $sub_components[0] == 'values' ) {
+								// Handle this one only after 'delimiter' has
+								// also been set.
+								$values = $sub_components[1];
+							} elseif ( $sub_components[0] == 'values from property' ) {
+								$propertyName = $sub_components[1];
+								$propValue = SMWPropertyValue::makeUserProperty( $propertyName );
+								$isRelation = $propValue->getPropertyTypeID() == '_wpg';
+								$possible_values = SFAutocompleteAPI::getAllValuesForProperty( $isRelation, $propertyName );
+							} elseif ( $sub_components[0] == 'values from category' ) {
+								$category_name = ucfirst( $sub_components[1] );
+								$possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
+							} elseif ( $sub_components[0] == 'values from concept' ) {
+								$possible_values = SFUtils::getAllPagesForConcept( $sub_components[1] );
+							} elseif ( $sub_components[0] == 'values from namespace' ) {
+								$possible_values = SFUtils::getAllPagesForNamespace( $sub_components[1] );
+							} elseif ( $sub_components[0] == 'property' ) {
+								$semantic_property = $sub_components[1];
+							} elseif ( $sub_components[0] == 'default filename' ) {
+								$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
+								// Parse value, so default filename can include parser functions.
+								$default_filename = $wgParser->recursiveTagParse( $default_filename );
+								$field_args['default filename'] = $default_filename;
+							} elseif ( $sub_components[0] == 'restricted' ) {
+								$is_restricted = !array_intersect(
+										$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
+								);
 							}
 						}
 					} // end for
