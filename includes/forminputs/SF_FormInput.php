@@ -25,12 +25,12 @@ abstract class SFFormInput {
 	protected $mInputNumber;
 	protected $mCurrentValue;
 	protected $mInputName;
-	protected $mIsMandatory;
+	protected $mIsMandatory; // @deprecated, check for array_key_exists('mandatory', $this->mOtherArgs) instead
 	protected $mIsDisabled;
 	protected $mOtherArgs;
 
-	private $mJsInitFunctionData = array();
-	private $mJsValidationFunctionData = array();
+	protected $mJsInitFunctionData = array();
+	protected $mJsValidationFunctionData = array();
 
 	/**
 	 * Constructor for the SFFormInput class.
@@ -48,11 +48,13 @@ abstract class SFFormInput {
 	 *		An associative array of other parameters that were present in the
 	 *		input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $other_args ) {
+	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
 		$this->mInputNumber = $input_number;
 		$this->mCurrentValue = $cur_value;
 		$this->mInputName = $input_name;
 		$this->mOtherArgs = $other_args;
+		$this->mIsDisabled = $disabled;
+		$this->mIsMandatory = array_key_exists( 'mandatory', $other_args );
 	}
 
 	/**
@@ -72,7 +74,7 @@ abstract class SFFormInput {
 
 	/**
 	 * Returns the set of SMW property types which this input can
-	 * handle.
+	 * handle. See SMW's SMW_DataValueFactory.php
 	 *
 	 * @return Array of Strings
 	 */
@@ -150,7 +152,7 @@ abstract class SFFormInput {
 	 *
 	 * This function is not used yet.
 	 */
-	final public function getJsInitFunctionData() {
+	public function getJsInitFunctionData() {
 		return $this->mJsInitFunctionData;
 	}
 
@@ -160,7 +162,7 @@ abstract class SFFormInput {
 	 *
 	 * This function is not used yet.
 	 */
-	final public function getJsValidationFunctionData() {
+	public function getJsValidationFunctionData() {
 		return $this->mJsValidationFunctionData;
 	}
 
@@ -188,7 +190,7 @@ abstract class SFFormInput {
 	 * @param String $name The name of the initialization function.
 	 * @param String $param The parameter passed to the initialization function.
 	 */
-	final public function addJsInitFunctionData( $name, $param ) {
+	public function addJsInitFunctionData( $name, $param = 'null' ) {
 		$this->mJsInitFunctionData[] = array( 'name' => $name, 'param' => $param );
 	}
 
@@ -216,8 +218,8 @@ abstract class SFFormInput {
 	 * @param String $name The name of the initialization function.
 	 * @param String $param The parameter passed to the initialization function.
 	 */
-	final public function addJsValidationFunctionData( $name, $param ) {
-		$this->mJsInitFunctionData[] = array( 'name' => $name, 'param' => $param );
+	public function addJsValidationFunctionData( $name, $param = 'null' ) {
+		$this->mJsValidationFunctionData[] = array( 'name' => $name, 'param' => $param );
 	}
 
 	/**
@@ -266,6 +268,46 @@ abstract class SFFormInput {
 	 */
 	public static function getOtherPropTypeListsHandled() {
 		return array();
+	}
+
+	/**
+	 * Method to make new style input types compatible with old-style call from
+	 * the SF parser.
+	 * 
+	 * @deprecated Do not use/override this in new input type classes
+	 * 
+	 * TODO: remove/refactor once SF uses forminput objects properly
+	 */
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+
+		global $sfgFieldNum, $wgOut;
+
+		// create an input of the called class
+		$calledClass = get_called_class();
+		$input = new $calledClass ( $sfgFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
+
+		// create calls to JS initialization and validation
+		// TODO: This data should be transferred as a JSON blob and then be evaluated from a dedicated JS file
+		$jstext = '';
+
+		foreach ( $input->getJsInitFunctionData() as $jsInitFunctionData ) {
+
+			$jstext .= <<<JAVASCRIPT
+jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit({$jsInitFunctionData['name']}, {$jsInitFunctionData['param']} ); });
+JAVASCRIPT;
+		}
+
+		foreach ( $input->getJsValidationFunctionData() as $jsValidationFunctionData ) {
+
+			$jstext .= <<<JAVASCRIPT
+jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputValidation( {$jsValidationFunctionData['name']}, {$jsValidationFunctionData['param']}); });
+JAVASCRIPT;
+		}
+
+		// write JS code directly to the page's code
+		$wgOut->addScript( Html::inlineScript(  $jstext ) );
+
+		return $input->getHtmlText();
 	}
 
 }
