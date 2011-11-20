@@ -218,7 +218,7 @@ class SFFormEdit extends SpecialPage {
 					$title_number = "";
 					$isRandom = false;
 
-					if ( strpos( $target_name, '{num' ) ) {
+					if ( strpos( $target_name, '{num' ) !== false ) {
 
 						// random number
 						if ( preg_match( '/{num;random}/', $target_name, $matches ) ) {
