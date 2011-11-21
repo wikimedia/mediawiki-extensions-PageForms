@@ -3663,7 +3663,7 @@ Alteremente, tu esserea inviate al formulario pro modificar le pagina.',
 	'sf_editsource' => 'Modificar fonte',
 	'sf_formedit_edittitle' => 'Modificar $1: $2',
 	'sf_formedit_morethanoneform' => 'Attention: Plus de un formulario predefinite es definite pro iste pagina.',
-	'sf_formedit_formwarning' => 'Attention: Iste pagina <a href="$1">existe ja</a>, sed non usa iste formulario.',
+	'sf_formedit_formwarning' => 'Attention: Iste pagina <a href="$1">jam existe</a>, ma illo non usa iste formulario.',
 	'sf_formedit_mismatchedbrackets' => 'Attention: Iste pagina contine parentheses crispe o quadrate que non es claudite, de sorta que le pagina non essera maneate correctemente per le formulario. Per favor <a href="$1">repara le error in le texto fonte</a> ante de continuar.',
 	'sf_formedit_remove' => 'Remover',
 	'sf_formedit_addanother' => 'Adder un altere',
@@ -6693,7 +6693,7 @@ $messages['sl'] = array(
  * @author Михајло Анђелковић
  */
 $messages['sr-ec'] = array(
-	'specialpages-group-sf_group' => 'Семантичке Форме',
+	'specialpages-group-sf_group' => 'Семантички обрасци',
 	'createproperty' => 'Направи особину',
 	'sf_createproperty_linktoform' => 'Ова особина ће повезивати на стране, које користе форму:',
 	'sf_createproperty_allowedvalsinput' => 'Ако желите да овој особини буде дозвољено да има само одређене вредности, унесите списак дозвољених вредност, одвојених зарезима (ако вредност садржи зарез, пишите га као „\\,“):',
@@ -6737,8 +6737,8 @@ $messages['sr-ec'] = array(
 	'sf_createcategory_name' => 'Име категорије:',
 	'sf_createcategory_defaultform' => 'Подразумевана форма:',
 	'createclass' => 'Направи класу',
-	'sf_createclass_allowedvalues' => 'Дозвољене вредности',
-	'sf_createclass_listofvalues' => 'Списак вредности',
+	'sf_createclass_allowedvalues' => 'Дозвољене вредности:',
+	'sf_createclass_listofvalues' => 'Списак вредности?',
 	'formstart' => 'Почетак форме',
 	'sf_formstart_createoredit' => 'Направи или измени',
 	'formedit' => 'Измени формом',
