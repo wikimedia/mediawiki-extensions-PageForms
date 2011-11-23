@@ -127,9 +127,9 @@ END;
 		$targetName = SFUtils::titleURLString( $targetTitle );
 		// Special handling for forms whose name contains a slash.
 		if ( strpos( $formName, '/' ) !== false ) {
-			return $fe->getTitle()->getFullURL( array( 'form' => $formName, 'target' => $targetName ) );
+			return $fe->getTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
 		}
-		return $fe->getTitle()->getFullURL() . "/" . $formName . "/" . $targetName;
+		return $fe->getTitle( "$formName/$targetName" )->getLocalURL();
 	}
 
 	function doRedirect( $form_name, $page_name, $params ) {
