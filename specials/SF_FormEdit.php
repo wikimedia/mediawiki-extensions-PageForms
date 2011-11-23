@@ -107,6 +107,10 @@ class SFFormEdit extends SpecialPage {
 		$form_definition = $form_article->getContent();
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 
+		if ( is_null( $target_name ) ) {
+			$target_name = '';
+		}
+
 		if ( $target_name === '' ) {
 
 			// parse the form to see if it has a 'page name' value set
