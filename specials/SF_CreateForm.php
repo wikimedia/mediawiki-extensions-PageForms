@@ -95,9 +95,9 @@ jQuery(document).ready(function() {
 			'page',
 			'page_title',
 			array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
-			array( 'ORDER BY' => 'page_title' ) 
+			array( 'ORDER BY' => 'page_title' )
 		);
-	
+
 		if ( $db->numRows( $res ) > 0 ) {
 			while ( $row = $db->fetchRow( $res ) ) {
 				$template_name = str_replace( '_', ' ', $row[0] );
@@ -305,17 +305,17 @@ END;
 				'type' => 'text',
 				'name' => $paramName . '_' . $fieldFormText,
 				'value' => $cur_value,
-				'size' => 32 
-			) ); 
+				'size' => 32
+			) );
 		} elseif ( $type == 'text' ) {
 			return Xml::element( 'textarea', array(
 				'name' => $paramName . '_' . $fieldFormText,
-				'rows' => 4 
-			), $cur_value ); 
+				'rows' => 4
+			), $cur_value );
 		} elseif ( $type == 'enumeration' ) {
 			$text = '<select name="p[' . htmlspecialchars( $paramName ) . ']">';
 			$text .= "\n	<option value=''></option>\n";
-				
+
 			$parts = array();
 			foreach ( $param['values'] as $value ) {
 				$parts[] = '<option value="' . htmlspecialchars( $value ) . '"' .
@@ -375,7 +375,7 @@ END;
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
-			} else if ( array_key_exists( 'default', $param ) ) {
+			} elseif ( array_key_exists( 'default', $param ) ) {
 				$cur_value = $param['default'];
 			} else {
 				$cur_value = '';

@@ -489,7 +489,7 @@ function getFontSize(el) {
 	if (x.currentStyle) {
 		// IE
 		var y = x.currentStyle['lineheight'];
-	} else if (window.getComputedStyle) {
+	} elseif (window.getComputedStyle) {
 		// FF, Opera
 		var y = document.defaultView.getComputedStyle(x,null).getPropertyValue('line-height');
 	}
@@ -535,7 +535,7 @@ function onLoadFCKeditor()
 			{
 				txtarea = oDoc.FCK.EditingArea.Textarea ;
 			}
-			else if (oDoc.editform)
+			elseif (oDoc.editform)
 			{
 				// if we have FCK enabled, behave differently...
 				if ( showFCKEditor & RTE_VISIBLE )
@@ -581,7 +581,7 @@ function onLoadFCKeditor()
 				//save window scroll position
 				if ( oDoc.documentElement && oDoc.documentElement.scrollTop )
 					var winScroll = oDoc.documentElement.scrollTop ;
-				else if ( oDoc.body )
+				elseif ( oDoc.body )
 					var winScroll = oDoc.body.scrollTop ;
 
 				//get current selection
@@ -603,11 +603,11 @@ function onLoadFCKeditor()
 				//restore window scroll position
 				if ( oDoc.documentElement && oDoc.documentElement.scrollTop )
 					oDoc.documentElement.scrollTop = winScroll ;
-				else if ( oDoc.body )
+				elseif ( oDoc.body )
 					oDoc.body.scrollTop = winScroll ;
 
 			}
-			else if ( txtarea.selectionStart || txtarea.selectionStart == '0' )
+			elseif ( txtarea.selectionStart || txtarea.selectionStart == '0' )
 			{ // Mozilla
 
 				//save textarea scroll position
@@ -624,7 +624,7 @@ function onLoadFCKeditor()
 					selText = sampleText ;
 					isSample = true ;
 				}
-				else if (selText.charAt(selText.length - 1) == ' ')
+				elseif (selText.charAt(selText.length - 1) == ' ')
 				{ //exclude ending space char
 					selText = selText.substring(0, selText.length - 1) ;
 					tagClose += ' ' ;
@@ -653,7 +653,7 @@ function checkSelected()
 	if (!selText) {
 		selText = sampleText;
 		isSample = true;
-	} else if (selText.charAt(selText.length - 1) == ' ') { //exclude ending space char
+	} elseif (selText.charAt(selText.length - 1) == ' ') { //exclude ending space char
 		selText = selText.substring(0, selText.length - 1);
 		tagClose += ' '
 	}
@@ -834,46 +834,46 @@ END;
 		return $javascript_text;
 	}
 
-	
+
 	/**
 	 * Parse the form definition and store the resulting HTML in the
 	 * main cache, if caching has been specified in LocalSettings.php
 	 */
 	public static function getFormDefinition( $parser, $form_def = null, $form_id = null ) {
-		
+
 		global $sfgCacheFormDefinitions, $wgRequest;
-		
+
 		$cachekey = null;
-		
+
 		// use cache if allowed
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
-			
+
 			// create a cache key consisting of owner name, article id and user options
 			$cachekey = self::getCacheKey( $form_id, $parser );
 
 			$cached_def =  self::getFormCache()->get( $cachekey );
-			
+
 			// Cache hit?
 			if ( $cached_def !== false && $cached_def !== null ) {
-				
+
 				wfDebug( "Cache hit: Got form definition $cachekey from cache\n" );
-				return $cached_def; 
+				return $cached_def;
 			} else {
 				wfDebug( "Cache miss: Form definition $cachekey not found in cache\n" );
 			}
-			
+
 		}
 
 		if ( $form_id !== null ) {
-			
+
 			$form_article = Article::newFromID( $form_id );
 			$form_def = $form_article->getContent();
-			
-		} else if ( $form_def == null ) {
-			
+
+		} elseif ( $form_def == null ) {
+
 			// No id, no text -> nothing to do
 			return '';
-			
+
 		}
 
 		// Remove <noinclude> sections and <includeonly> tags from form definition
@@ -895,60 +895,60 @@ END;
 
 		// store in  cache if allowed
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
-			
+
 			if ( $output->getCacheTime() == -1 ) {
 				self::purgeCache( $form_article );
 				wfDebug( "Caching disabled for form definition $cachekey\n" );
 			} else {
-				
+
 				if ( method_exists( $output, 'getCacheExpiry' ) ) { // MW 1.17+
 					self::getFormCache()->set( $cachekey, $form_def, $output->getCacheExpiry() );
 				} else { // MW 1.16
 					self::getFormCache()->set( $cachekey, $form_def );
 				}
-				
+
 				wfDebug( "Cached form definition $cachekey\n" );
 			}
-			
+
 		}
 
 		return $form_def;
 	}
-	
+
 	/**
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
-	 * 
+	 *
 	 * @param Page $wikipage
 	 * @return Bool
 	 */
 	public static function purgeCache ( &$wikipage = null ) {
-		
+
 		if ( is_null( $wikipage ) || ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) ) {
-			
+
 			$keyToPurge = self::getCacheKey( ( is_null( $wikipage ) ) ? null : $wikipage->getId()  );
 
 			$len = strlen( $keyToPurge );
-			
-			$cache = self::getFormCache(); 
+
+			$cache = self::getFormCache();
 			$keysInCache = $cache->keys();
-			
+
 			foreach ( $keysInCache as $curKey ) {
-				
+
 				if ( strncmp( $curKey, $keyToPurge, $len ) === 0 ) {
-					
+
 					if ( self::getFormCache()->delete( $curKey ) ) {
 						wfDebug( "Deleted cached form definition $curKey.\n" );
 					}
-					
+
 				}
-				
+
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 *  Get the cache object used by the form cache
 	 */
@@ -958,22 +958,22 @@ END;
 		return $ret;
 	}
 
-	
+
 	/**
 	 * Get a cache key.
-	 * 
+	 *
 	 * @param $formId or null
 	 * @param Parser $parser or null
-	 * @return String 
+	 * @return String
 	 */
 	public static function getCacheKey( $formId = null, &$parser = null ) {
 
 		if ( is_null( $formId ) ) {
 			return wfMemcKey( 'ext.SemanticForms.formdefinition' );
-		} else if ( is_null( $parser ) ) {
+		} elseif ( is_null( $parser ) ) {
 			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId );
 		} else {
-			
+
 			if ( method_exists( 'ParserOptions', 'optionsHash' ) ) { // MW 1.17+
 				$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
 			} else { // MW 1.16
