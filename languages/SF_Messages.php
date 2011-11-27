@@ -244,9 +244,9 @@ Parameters:
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
-	'action-viewedittab' => '{{doc-action|viewedittab}}',
-	'action-editrestrictedfields' => '{{doc-action|editrestrictedfields}}',
 	'action-createclass' => '{{doc-action|createclass}}',
+	'action-editrestrictedfields' => '{{doc-action|editrestrictedfields}}',
+	'action-viewedittab' => '{{doc-action|viewedittab}}',
 );
 
 /** Niuean (ko e vagahau Niuē)
@@ -1613,8 +1613,11 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
 	'sf_blank_namespace' => 'Seite',
 	'right-viewedittab' => 'Den Reiter „Bearbeiten“ auf Seiten sehen, die per Formular bearbeitet werden können',
-	'right-editrestrictedfields' => 'Eingeschränkte Formularfelder bearbeiten',
+	'right-editrestrictedfields' => 'Für die Bearbeitung beschränkte Formularfelder bearbeiten',
 	'right-createclass' => 'Erstellen neuer semantischer Klassen',
+	'action-createclass' => 'neue semantische Klassen zu erstellen',
+	'action-editrestrictedfields' => 'für die Bearbeitung beschränkte Formularfelder zu bearbeiten',
+	'action-viewedittab' => 'den Reiter „Bearbeiten“ auf Seiten zu sehen, die per Formular bearbeitet werden können',
 );
 
 /** German (formal address) (‪Deutsch (Sie-Form)‬)
@@ -2359,6 +2362,7 @@ $messages['fo'] = array(
  * @author Urhixidur
  * @author Verdy p
  * @author Wyz
+ * @author Zebulon84
  */
 $messages['fr'] = array(
 	'semanticforms-desc' => 'Formulaires pour ajouter ou modifier des données sémantiques',
@@ -2524,6 +2528,9 @@ si une page avec ce nom existe déjà, vous serez dirigé vers un formulaire pou
 	'right-viewedittab' => 'Voir l’onglet « modifier » pour les pages modifiables via un formulaire',
 	'right-editrestrictedfields' => 'Modifier les champs restreints des formulaires',
 	'right-createclass' => 'Créer de nouvelles classes sémantiques',
+	'action-createclass' => 'créer de nouvelles classes sémantiques',
+	'action-editrestrictedfields' => 'Modifier les champs de formulaire protégés',
+	'action-viewedittab' => 'voir l’onglet « modifier » pour les pages modifiables via un formulaire',
 );
 
 /** Franco-Provençal (Arpetan)
@@ -2799,6 +2806,9 @@ se xa existe unha páxina con ese nome enviaráselle a un formulario para editar
 	'right-viewedittab' => 'Ver a lapela "Editar" nas páxinas editables por formularios',
 	'right-editrestrictedfields' => 'Editar os campos restrinxidos dos formularios',
 	'right-createclass' => 'Crear novas clases semánticas',
+	'action-createclass' => 'crear novas clases semánticas',
+	'action-editrestrictedfields' => 'editar os campos restrinxidos dos formularios',
+	'action-viewedittab' => 'ver a lapela "Editar" nas páxinas editables por formularios',
 );
 
 /** Gothic (Gothic)
@@ -4867,8 +4877,11 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 	'sf_category_desc' => 'Ова е категоријата $1.',
 	'sf_blank_namespace' => 'Главен',
 	'right-viewedittab' => 'Приказ на јазиче „Уреди“ за страниците уредливи со образец',
-	'right-editrestrictedfields' => 'Уредување на ограничени полиња на обрасци',
+	'right-editrestrictedfields' => 'Уредување на заштитени полиња на обрасци',
 	'right-createclass' => 'Создавање на нови семантички класи',
+	'action-createclass' => 'создавање на нови семантички класи',
+	'action-editrestrictedfields' => 'уредување на заштитени полиња на обрасци',
+	'action-viewedittab' => 'приказ на јазичето „Уреди“ кај страниците уредливи со образец',
 );
 
 /** Malayalam (മലയാളം)
