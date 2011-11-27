@@ -191,6 +191,10 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'right-viewedittab'          => 'View "Edit" tab for pages editable by form',
 	'right-editrestrictedfields' => 'Edit restricted form fields',
 	'right-createclass'          => 'Create new semantic classes',
+
+	'action-createclass' => 'create new semantic classes',
+	'action-editrestrictedfields' => 'edit restricted form fields',
+	'action-viewedittab' => 'view the "Edit" tab for pages editable by form',
 );
 
 /** Message documentation (Message documentation)
@@ -240,6 +244,9 @@ Parameters:
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
+	'action-viewedittab' => '{{doc-action|viewedittab}}',
+	'action-editrestrictedfields' => '{{doc-action|editrestrictedfields}}',
+	'action-createclass' => '{{doc-action|createclass}}',
 );
 
 /** Niuean (ko e vagahau Niuē)
