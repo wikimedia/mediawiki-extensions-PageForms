@@ -29,6 +29,9 @@ class SFDropdownInput extends SFEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
+		// Standardize $cur_value
+		if ( is_null( $cur_value ) ) { $cur_value = ''; }
+
 		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];

@@ -19,6 +19,9 @@ class SFRadioButtonInput extends SFEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 
+		// Standardize $cur_value
+		if ( is_null( $cur_value ) ) { $cur_value = ''; }
+
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
 			// If it's a Boolean property, display 'Yes' and 'No'
 			// as the values.
