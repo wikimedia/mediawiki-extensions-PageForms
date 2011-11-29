@@ -2706,7 +2706,7 @@ $messages['gl'] = array(
 	'sf_forminputs_width' => 'O largo desta entrada, en píxeles',
 	'createform' => 'Crear un formulario',
 	'sf_createform_nameinput' => 'Nome do formulario',
-	'sf_createform_nameinputdesc' => '(normalmente, o formulario recibe o mesmo nome có seu modelo principal):',
+	'sf_createform_nameinputdesc' => '(normalmente, o formulario recibe o mesmo nome ca o seu modelo principal):',
 	'sf_createform_template' => 'Modelo:',
 	'sf_createform_templatelabelinput' => 'Etiqueta do modelo (opcional):',
 	'sf_createform_allowmultiple' => 'Permitir un número múltiple (ou cero) deste modelo na páxina creada',
@@ -2732,7 +2732,7 @@ $messages['gl'] = array(
 	'sf_createclass_docu' => 'Insira todos os datos aquí para crear as propiedades, o modelo, o formulario e a categoría para unha única clase. Para ollar máis opcións, use as páxinas $1 no canto desta.',
 	'sf_createclass_allowedvalues' => 'Valores permitidos:',
 	'sf_createclass_listofvalues' => 'Lista de valores?',
-	'sf_createclass_leavefieldblank' => 'Se o nome do campo é o mesmo có nome da propiedade, pode deixalo en branco.',
+	'sf_createclass_leavefieldblank' => 'Se o nome do campo é o mesmo ca o nome da propiedade, pode deixalo en branco.',
 	'sf_createclass_nameinput' => 'Nome do formulario:',
 	'sf_createclass_missingvalues' => 'Non todos os campos obrigatorios foron enchidos.',
 	'sf_createclass_success' => 'As propiedades, o modelo, o formulario e a categoría serán creados.',
@@ -5316,6 +5316,9 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
 	'right-viewedittab' => 'Tabblad "Bewerken" zien op pagina\'s die via een formulier bewerkt kunnen worden',
 	'right-editrestrictedfields' => 'Beperkte formuliervelden bewerken',
 	'right-createclass' => 'Nieuwe semantische klassen aanmaken',
+	'action-createclass' => 'nieuwe semantische klassen aan te maken',
+	'action-editrestrictedfields' => 'beperkte formuliervelden te bewerken',
+	'action-viewedittab' => 'het tabblad "Bewerken" te zien voor pagina\'s die via een formulier te bewerken zijn',
 );
 
 /** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
