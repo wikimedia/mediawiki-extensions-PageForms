@@ -270,6 +270,8 @@ class SFFormLinker {
 			if ( $linker instanceof DummyLinker ) {
 				global $wgTitle;
 				$curTitle = $wgTitle;
+			} elseif ( is_callable( array( $linker, 'getContext' ) ) ) {
+				$curTitle = $linker->getContext()->getTitle();
 			} else {
 				$curTitle = $linker->getTitle();
 			}
