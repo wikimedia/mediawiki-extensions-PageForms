@@ -142,8 +142,8 @@ class SFPageSchemas extends PSExtensionHandler {
 					foreach ( $key_values_array as $i => $value ) {
 						// replace beep back with comma, trim
 						$value = str_replace( "\a", $listSeparator, trim( $value ) );
-						$param_value = explode( "=", $value );
-						if ( $param_value[1] != null ) {
+						$param_value = explode( "=", $value, 2 );
+						if ( count( $param_value ) == 2 && $param_value[1] != null ) {
 							// Handles <Parameter name="size">20</Parameter>
 							$xml .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
 						} else {
