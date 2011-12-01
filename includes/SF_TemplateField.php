@@ -264,7 +264,7 @@ END;
 
 		// Add a row with an inline query to this table, for
 		// aggregation, if a property was specified.
-		if ( $aggregating_property !== '' ) {
+		if ( !is_null( $aggregating_property ) && $aggregating_property !== '' ) {
 			if ( count( $template_fields ) > 0 ) {
 				$tableText .= "|-\n";
 			}
