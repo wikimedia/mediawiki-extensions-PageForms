@@ -189,7 +189,7 @@ END;
 		if ( $this->mAllowMultiple ) {
 			$text .= "|multiple";
 		}
-		if ( $this->mLabel !== '' ) {
+		if ( !is_null( $this->mLabel ) ) {
 			$text .= "|label=" . $this->mLabel;
 		}
 		$text .= "}}}\n";
