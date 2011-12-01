@@ -71,7 +71,7 @@ class SFFormStart extends SpecialPage {
 			if ( $page_name !== '' ) {
 				// Append the namespace prefix to the page name,
 				// if this namespace was not already entered.
-				if ( strpos( $page_name, $target_namespace . ':' ) === false && $target_namespace !== '' )
+				if ( strpos( $page_name, $target_namespace . ':' ) === false && !is_null( $target_namespace ) )
 					$page_name = $target_namespace . ':' . $page_name;
 				// If there was no page title, it's probably an
 				// invalid page name, containing forbidden
@@ -122,9 +122,8 @@ END;
 	/**
 	 * Helper function - returns a URL that includes Special:FormEdit.
 	 */
-	static function getFormEditURL( $formName, $targetTitle) {
+	static function getFormEditURL( $formName, $targetName) {
 		$fe = SpecialPage::getPage( 'FormEdit' );
-		$targetName = SFUtils::titleURLString( $targetTitle );
 		// Special handling for forms whose name contains a slash.
 		if ( strpos( $formName, '/' ) !== false ) {
 			return $fe->getTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
@@ -144,10 +143,11 @@ END;
 			$redirect_title = Title::newFromRedirect( $article->fetchContent() );
 			if ( $redirect_title != null ) {
 				$page_title = $redirect_title;
+				$page_name = SFUtils::titleURLString( $redirect_title );
 			}
 			// HACK - if this is the default form for
 			// this page, send to the regular 'formedit'
-			// tab page; otherwise, send to the 'Special:EditData'
+			// tab page; otherwise, send to the 'Special:FormEdit'
 			// page, with the form name hardcoded.
 			// Is this logic necessary? Or should we just
 			// out-guess the user and always send to the
@@ -160,10 +160,10 @@ END;
 			if ( $form_name == $default_form_name ) {
 				$redirect_url = $page_title->getLocalURL( 'action=formedit' );
 			} else {
-				$redirect_url = self::getFormEditURL( $form_name, $page_title );
+				$redirect_url = self::getFormEditURL( $form_name, $page_name );
 			}
 		} else {
-			$redirect_url = self::getFormEditURL( $form_name, $page_title );
+			$redirect_url = self::getFormEditURL( $form_name, $page_name );
 			// Of all the request values, send on to 'FormEdit'
 			// only 'preload' and specific form fields - we can
 			// identify the latter because they show up as arrays.
