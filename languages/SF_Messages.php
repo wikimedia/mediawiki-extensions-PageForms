@@ -4185,7 +4185,8 @@ $messages['ja'] = array(
 	'sf_blank_namespace' => '標準',
 	'right-viewedittab' => 'フォームによって編集可能なページの「編集」タブが表示される',
 	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集する',
-	'right-createclass' => '新しいセマンティククラスを作成',
+	'right-createclass' => '新しい意味クラスの作成',
+	'action-createclass' => '新しい意味クラスの作成',
 );
 
 /** Javanese (Basa Jawa)
