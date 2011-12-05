@@ -209,7 +209,7 @@ END;
 
 		foreach ( $template_fields as $i => $field ) {
 			// Header/field label column
-			if ( $field->mDisplay === '' ) {
+			if ( is_null( $field->mDisplay ) ) {
 				if ( $i > 0 ) {
 					$tableText .= "|-\n";
 				}

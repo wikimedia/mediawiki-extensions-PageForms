@@ -37,7 +37,7 @@ class SFFormField {
 		$f = new SFFormField();
 		$f->mNum = $num;
 		$f->template_field = $template_field;
-		$f->mInputType = "";
+		$f->mInputType = null;
 		$f->mIsMandatory = false;
 		$f->mIsHidden = false;
 		$f->mIsRestricted = false;
@@ -277,9 +277,9 @@ END;
 		// be removed.
 		if ( $this->mIsHidden ) {
 			$text .= "|hidden";
-		} elseif ( $this->getInputType() !== '' ) {
+		} elseif ( !is_null( $this->getInputType() ) ) {
 			$text .= "|input type=" . $this->getInputType();
-		} elseif ( $this->template_field->getInputType() !== '' ) {
+		} elseif ( $this->template_field->getInputType() != '' ) {
 			$text .= "|input type=" . $this->template_field->getInputType();
 		}
 		foreach ( $this->mFieldArgs as $arg => $value ) {
