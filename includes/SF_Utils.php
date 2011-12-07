@@ -584,32 +584,59 @@ END;
 	}
 
 	public static function getAllPagesForNamespace( $namespace_name, $substring = null ) {
-		// cycle through all the namespace names for this language, and
-		// if one matches the namespace specified in the form, add the
-		// names of all the pages in that namespace to $names_array
-		global $wgContLang;
+		global $wgContLang, $wgLanguageCode;
+
+		// Cycle through all the namespace names for this language, and
+		// if one matches the namespace specified in the form, get the
+		// names of all the pages in that namespace.
+
+		// Switch to blank for the string 'Main'.
+		if ( $namespace_name == 'Main' || $namespace_name == 'main' ) {
+			$namespace_name = '';
+		}
+		$matchingNamespaceCode = null;
 		$namespaces = $wgContLang->getNamespaces();
-		$db = wfGetDB( DB_SLAVE );
-		$pages = array();
-		foreach ( $namespaces as $ns_code => $ns_name ) {
-			if ( $ns_name == $namespace_name ) {
-				$conditions = "page_namespace = $ns_code";
-				if ( $substring != null ) {
-					$substring = str_replace( ' ', '_', strtolower( $substring ) );
-					$substring = str_replace( '_', '\_', $substring );
-					$substring = str_replace( "'", "\'", $substring );
-					$conditions .= " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '$substring%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_$substring%')";
-				}
-				$res = $db->select( 'page',
-					'page_title',
-					$conditions, __METHOD__,
-					array( 'ORDER BY' => 'page_title' ) );
-				while ( $row = $db->fetchRow( $res ) ) {
-					$pages[] = str_replace( '_', ' ', $row[0] );
-				}
-				$db->freeResult( $res );
+		foreach ( $namespaces as $curNSCode => $curNSName ) {
+			if ( $curNSName == $namespace_name ) {
+				$matchingNamespaceCode = $curNSCode;
 			}
 		}
+
+		// If that didn't find anything, and we're in a language
+		// other than English, check English as well.
+		if ( is_null( $matchingNamespaceCode ) && $wgLanguageCode != 'en' ) {
+			$englishLang = Language::factory( 'en' );
+			$namespaces = $englishLang->getNamespaces();
+			foreach ( $namespaces as $curNSCode => $curNSName ) {
+				if ( $curNSName == $namespace_name ) {
+					$matchingNamespaceCode = $curNSCode;
+				}
+			}
+		}
+
+		if ( is_null( $matchingNamespaceCode ) ) {
+			return array();
+		}
+
+		$db = wfGetDB( DB_SLAVE );
+		$conditions = "page_namespace = $matchingNamespaceCode";
+		if ( $substring != null ) {
+			$substring = str_replace( ' ', '_', strtolower( $substring ) );
+			$substring = str_replace( '_', '\_', $substring );
+			$substring = str_replace( "'", "\'", $substring );
+			$conditions .= " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '$substring%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_$substring%')";
+		}
+		$res = $db->select( 'page',
+			'page_title',
+			$conditions, __METHOD__,
+			array( 'ORDER BY' => 'page_title' ) );
+
+		$pages = array();
+		while ( $row = $db->fetchRow( $res ) ) {
+			$pages[] = str_replace( '_', ' ', $row[0] );
+		}
+		$db->freeResult( $res );
+
 		return $pages;
 	}
 
@@ -633,9 +660,6 @@ END;
 		} elseif ( $source_type == 'concept' ) {
 			$names_array = self::getAllPagesForConcept( $source_name );
 		} else { // i.e., $source_type == 'namespace'
-			// switch back to blank for main namespace
-			if ( $source_name == "Main" )
-				$source_name = "";
 			$names_array = self::getAllPagesForNamespace( $source_name );
 		}
 		return $names_array;

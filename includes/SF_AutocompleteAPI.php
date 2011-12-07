@@ -42,10 +42,6 @@ class SFAutocompleteAPI extends ApiBase {
 		} elseif ( !is_null( $concept ) ) {
 			$data = SFUtils::getAllPagesForConcept( $concept, $substr );
 		} elseif ( !is_null( $namespace ) ) {
-			// Special handling for main (blank) namespace.
-			if ( $namespace == 'main' ) {
-				$namespace = '';
-			}
 			$data = SFUtils::getAllPagesForNamespace( $namespace, $substr );
 		} elseif ( !is_null( $external_url ) ) {
 			$data = SFUtils::getValuesFromExternalURL( $external_url, $substr );
