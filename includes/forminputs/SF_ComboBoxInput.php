@@ -58,10 +58,9 @@ class SFComboBoxInput extends SFFormInput {
 		count( $other_args['possible_values'] ) > 0 ) {
 			$values = $other_args['possible_values'];
 		} elseif ( $autocompleteFieldType == 'values' ) {
-			$autocompleteValues = explode( ',', $other_args['values'] );
+			$values = explode( ',', $other_args['values'] );
 		} else {
 			$values = SFUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
-			$autocompleteValues = SFUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
 		}
 		$autocompletionSource = str_replace( "'", "\'", $autocompletionSource );
 
