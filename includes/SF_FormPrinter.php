@@ -833,9 +833,7 @@ END;
 								$values = $sub_components[1];
 							} elseif ( $sub_components[0] == 'values from property' ) {
 								$propertyName = $sub_components[1];
-								$propValue = SMWPropertyValue::makeUserProperty( $propertyName );
-								$isRelation = $propValue->getPropertyTypeID() == '_wpg';
-								$possible_values = SFAutocompleteAPI::getAllValuesForProperty( $isRelation, $propertyName );
+								$possible_values = SFUtils::getAllValuesForProperty( $propertyName );
 							} elseif ( $sub_components[0] == 'values from category' ) {
 								$category_name = ucfirst( $sub_components[1] );
 								$possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
