@@ -1611,7 +1611,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 	'sf_form_freetextlabel' => 'Freitext',
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
-	'sf_blank_namespace' => 'Seite',
+	'sf_blank_namespace' => 'Startseite',
 	'right-viewedittab' => 'Den Reiter „Bearbeiten“ auf Seiten sehen, die per Formular bearbeitet werden können',
 	'right-editrestrictedfields' => 'Für die Bearbeitung beschränkte Formularfelder bearbeiten',
 	'right-createclass' => 'Erstellen neuer semantischer Klassen',
