@@ -886,11 +886,10 @@ END;
 		// us with what we need
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
 
-		$title = new Title();
-		$tmpParser = unserialize( serialize( $parser ) ); // deep clone of parser
+		$title = is_object( $parser->getTitle() )?$parser->getTitle():new Title();
 
 		// parse wiki-text
-		$output = $tmpParser->parse( $form_def, $title, $tmpParser->getOptions() );
+		$output = $parser->parse( $form_def, $title, $parser->getOptions() );
 		$form_def = $output->getText();
 
 		// store in  cache if allowed
