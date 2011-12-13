@@ -47,7 +47,7 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'special
 	'name' => 'Semantic Forms',
 	'version' => SF_VERSION,
 	'author' => array( 'Yaron Koren', 'Stephan Gambke', '...' ),
-	'url' => 'http://www.mediawiki.org/wiki/Extension:Semantic_Forms',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Forms',
 	'descriptionmsg'  => 'semanticforms-desc',
 );
 
