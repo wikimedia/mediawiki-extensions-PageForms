@@ -93,7 +93,6 @@ JAVASCRIPT;
 			'id' => $input_id,
 			'name' => $input_name,
 			'rows' => $rows,
-			'cols' => $cols,
 			'class' => $className,
 			'autocompletesettings' => $autocompleteSettings,
 		);
