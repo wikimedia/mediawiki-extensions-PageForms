@@ -835,7 +835,7 @@ END;
 		$iw = wfMsgWikiHtml( 'ignorewarning' );
 		$reup = wfMsgWikiHtml( 'reuploaddesc' );
 		$titleObj = SpecialPage::getTitleFor( 'Upload' );
-		$action = $titleObj->escapeLocalURL( 'action=submit' );
+		$action = htmlspecialchars( $titleObj->getLocalURL( 'action=submit' ) );
 		$align1 = $wgContLang->isRTL() ? 'left' : 'right';
 		$align2 = $wgContLang->isRTL() ? 'right' : 'left';
 
@@ -965,7 +965,7 @@ wgAjaxLicensePreview = {$alp};
 
 
 		$titleObj = SpecialPage::getTitleFor( 'UploadWindow' );
-		$action = $titleObj->escapeLocalURL();
+		$action = htmlspecialchars( $titleObj->getLocalURL() );
 
 		$encDestName = htmlspecialchars( $this->mDesiredDestName );
 
