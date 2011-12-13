@@ -215,7 +215,7 @@ class SFParserFunctions {
 			}
 		}
 
-		$ad = SpecialPage::getPage( 'FormEdit' );
+		$ad = SFUtils::getSpecialPage( 'FormEdit' );
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
 		if ( ! empty( $inTargetName ) ) {
 			$link_url .= "/$inTargetName";
@@ -332,7 +332,8 @@ class SFParserFunctions {
 				$inQueryStr = $param;
 		}
 
-		$fs = SpecialPage::getPage( 'FormStart' );
+		$fs = SFUtils::getSpecialPage( 'FormStart' );
+		
 		$fs_url = $fs->getTitle()->getLocalURL();
 		$str = <<<END
 			<form name="createbox" action="$fs_url" method="get" class="$classStr">

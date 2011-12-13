@@ -836,4 +836,21 @@ END;
 
 		return true;
 	}
+	
+	/**
+	 * Compatibility helper function.
+	 * Since 1.17 SpecialPageFactory::getPage should be used.
+	 * SpecialPage::getPage is deprecated in 1.18.
+	 * 
+	 * @since 2.3.3
+	 * 
+	 * @param string $pageName
+	 * 
+	 * @return SpecialPage|null
+	 */
+	public static function getSpecialPage( $pageName ) {
+		$hasFactory = class_exists( 'SpecialPageFactory' ) && method_exists( 'SpecialPageFactory', 'getPage' );
+		return $hasFactory ? SpecialPageFactory::getPage( $pageName ) : SpecialPage::getPage( $pageName );
+	}
+	
 }

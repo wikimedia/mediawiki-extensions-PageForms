@@ -43,7 +43,7 @@ class SFTextInput extends SFFormInput {
 	}
 
 	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', $other_args = array() ) {
-		$upload_window_page = SpecialPage::getPage( 'UploadWindow' );
+		$upload_window_page = SFUtils::getSpecialPage( 'UploadWindow' );
 		$query_string = "sfInputID=$input_id";
 		if ( $delimiter != null ) {
 			$query_string .= "&sfDelimiter=$delimiter";

@@ -204,7 +204,8 @@ class SFFormLinker {
 			return null;
 		}
 
-		$fe = SpecialPage::getPage( 'FormEdit' );
+		$fe = SFUtils::getSpecialPage( 'FormEdit' );
+			
 		$fe_url = $fe->getTitle()->getLocalURL();
 		if ( count( $default_forms ) > 0 ) {
 			$form_edit_url = $fe_url . "/" . $default_forms[0] . "/" . SFUtils::titleURLString( $target_page_title );
