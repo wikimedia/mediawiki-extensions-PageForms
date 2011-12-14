@@ -42,16 +42,15 @@
 			var $uploadLink = $( domElement );
 			var inputId = $uploadLink.attr( 'data-input-id' );
 			var $input = $( '#' + inputId );
+			var $previewDiv = $( '#' + inputId + '_imagepreview' );
 			
-			$input.change( function() {
+			var showPreview = function() {
 				_this.getPreviewImage(
 					{
 						'title': $input.val(),
 						'width': 200
 					},
 					function( url ) {
-						$previewDiv = $( '#' + inputId + '_imagepreview' );
-						
 						if ( url === false ) {
 							$previewDiv.html( '' );
 						}
@@ -60,7 +59,13 @@
 						}
 					}
 				);
-			} );
+			};
+			
+			$input.change( showPreview );
+			
+//			if ( $previewDiv.html() === '' ) {
+//				showPreview();
+//			}
 		} );
 	} );
 	

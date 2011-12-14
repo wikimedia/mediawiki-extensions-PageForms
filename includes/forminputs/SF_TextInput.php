@@ -41,6 +41,57 @@ class SFTextInput extends SFFormInput {
 	public static function getOtherPropTypeListsHandled() {
 		return array( '_wpg' );
 	}
+	
+	/**
+	 * Gets the HTML for the preview image or null if there is none.
+	 * 
+	 * @since 2.3.3
+	 * 
+	 * @param string $imageName
+	 * 
+	 * @return string|null
+	 */
+	protected static function getPreviewImage( $imageName ) {
+		$previewImage = null;
+		
+		$imageTitle = Title::newFromText( $imageName, NS_FILE );
+		
+		if ( !is_object( $imageTitle ) ) {
+			return $previewImage;
+		}
+		
+		$api = new ApiMain( new FauxRequest( array(
+			'action' => 'query',
+			'format' => 'json',
+			'prop' => 'imageinfo',
+			'iiprop' => 'url',
+			'titles' => $imageTitle->getFullText(),
+			'iiurlwidth' => 200
+		), true ), true );
+		
+		$api->execute();
+		$result = $api->getResultData();
+
+		$url = false;
+		
+		if ( array_key_exists( 'query', $result ) && array_key_exists( 'pages', $result['query'] ) ) {
+			foreach ( $result['query']['pages'] as $page ) {
+				foreach ( $page['imageinfo'] as $imageInfo ) {
+					$url = $imageInfo['thumburl'];
+					break;
+				}
+			}
+		}
+		
+		if ( $url !== false ) {
+			$previewImage = Html::element(
+				'img',
+				array( 'src' => $url )
+			);
+		}
+		
+		return $previewImage;
+	}
 
 	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', $other_args = array() ) {
 		$upload_window_page = SFUtils::getSpecialPage( 'UploadWindow' );
@@ -79,26 +130,10 @@ class SFTextInput extends SFFormInput {
 		$text = "\t" . Xml::element( 'a', $linkAttrs, $upload_label ) . "\n";
 		
 		if ( $showPreview ) {
-			$previewImage = null;
-			
-			if ( $cur_value !== '' ) {
-				$imageTitle = Title::newFromText( $cur_value, NS_FILE );
-
-				if ( !is_null( $imageTitle ) && $imageTitle->getNamespace() == NS_FILE && $imageTitle->exists() ) {
-					$imagePage = new ImagePage( $imageTitle );
-					$url = $imagePage->getDisplayedFile()->transform( array( 'width' => 200 ) )->getURL();
-					
-					$previewImage =  Html::element(
-						'img',
-						array( 'src' => $url )
-					);
-				}
-			}
-			
 			$text .= Html::rawElement(
 				'div',
 				array( 'id' => $input_id . '_imagepreview', 'class' => 'sfImagePreviewWrapper' ),
-				$previewImage
+				self::getPreviewImage( $cur_value )
 			);
 		}
 		
