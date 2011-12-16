@@ -836,34 +836,16 @@ END;
 
 
 	/**
-	 * Parse the form definition and store the resulting HTML in the
-	 * main cache, if caching has been specified in LocalSettings.php
+	 * Parse the form definition and return it
 	 */
-	public static function getFormDefinition( $parser, $form_def = null, $form_id = null ) {
+	public static function getFormDefinition( &$parser, &$form_def = null, &$form_id = null ) {
 
-		global $sfgCacheFormDefinitions, $wgRequest;
-
-		$cachekey = null;
-
-		// use cache if allowed
-		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
-
-			// create a cache key consisting of owner name, article id and user options
-			$cachekey = self::getCacheKey( $form_id, $parser );
-
-			$cached_def =  self::getFormCache()->get( $cachekey );
-
-			// Cache hit?
-			if ( $cached_def !== false && $cached_def !== null ) {
-
-				wfDebug( "Cache hit: Got form definition $cachekey from cache\n" );
-				return $cached_def;
-			} else {
-				wfDebug( "Cache miss: Form definition $cachekey not found in cache\n" );
-			}
-
+		$cachedDef = self::getFormDefinitionFromCache( $form_id, $parser );
+		
+		if ( $cachedDef ) {
+			return $cachedDef;
 		}
-
+		
 		if ( $form_id !== null ) {
 
 			$form_article = Article::newFromID( $form_id );
@@ -892,28 +874,91 @@ END;
 		$output = $parser->parse( $form_def, $title, $parser->getOptions() );
 		$form_def = $output->getText();
 
+		self::cacheFormDefinition( $form_id, $parser, $output );
+
+		return $form_def;
+	}
+
+	/**
+	 *	Get a form definition from cache
+	 */
+	protected static function getFormDefinitionFromCache ( &$form_id, &$parser ) {
+		
+		global $sfgCacheFormDefinitions;
+
+		// use cache if allowed
+		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
+
+			$cache = self::getFormCache();
+
+			// create a cache key consisting of owner name, article id and user options
+			$cachekey = self::getCacheKey( $form_id, $parser );
+
+			$cached_def = $cache->get( $cachekey );
+
+			// Cache hit?
+			if ( $cached_def !== false && $cached_def !== null ) {
+
+				wfDebug( "Cache hit: Got form definition $cachekey from cache\n" );
+				return $cached_def;
+				
+			} else {
+				wfDebug( "Cache miss: Form definition $cachekey not found in cache\n" );
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 *	Store a form definition in cache
+	 */
+	protected static function cacheFormDefinition ( &$form_id, &$parser, &$output ) {
+		
+		global $sfgCacheFormDefinitions;
+
 		// store in  cache if allowed
 		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
 
+			$cache = self::getFormCache();
+			$cachekey = self::getCacheKey( $form_id, $parser );
+
 			if ( $output->getCacheTime() == -1 ) {
+				
+				$form_article = Article::newFromID( $form_id );
 				self::purgeCache( $form_article );
 				wfDebug( "Caching disabled for form definition $cachekey\n" );
+				
 			} else {
 
-				if ( method_exists( $output, 'getCacheExpiry' ) ) { // MW 1.17+
-					self::getFormCache()->set( $cachekey, $form_def, $output->getCacheExpiry() );
-				} else { // MW 1.16
-					self::getFormCache()->set( $cachekey, $form_def );
-				}
+				$cachekeyForForm = self::getCacheKey( $form_id );
+				
+				// update list of form definitions
+				$arrayOfStoredDatasets = $cache->get( $cachekeyForForm );
+				$arrayOfStoredDatasets[ $cachekey ] = $cachekey; // just need the key defined, don't care for the value
+				
+				// We cache indefinitely ignoring $wgParserCacheExpireTime.
+				// The reasoning is that there really is not point in expiring
+				// rarely changed forms automatically (after one day per
+				// default). Instead the cache is purged on storing/purging a
+				// form definition.
+				// A side effect of this is, that there is no need to
+				// distinguish between MW <1.17 and >=1.17.
+				
+				// store form definition with current user options
+				$cache->set( $cachekey, $output->getText() );
+				
+				// store updated list of form definitions
+				$cache->set( $cachekeyForForm, $arrayOfStoredDatasets );
 
 				wfDebug( "Cached form definition $cachekey\n" );
 			}
 
 		}
-
-		return $form_def;
+		
+		return null;
 	}
-
+	
 	/**
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
@@ -921,28 +966,31 @@ END;
 	 * @param Page $wikipage
 	 * @return Bool
 	 */
-	public static function purgeCache ( &$wikipage = null ) {
+	public static function purgeCache ( &$wikipage ) {
 
-		if ( is_null( $wikipage ) || ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) ) {
-
-			$keyToPurge = self::getCacheKey( ( is_null( $wikipage ) ) ? null : $wikipage->getId()  );
-
-			$len = strlen( $keyToPurge );
+		if ( ! is_null( $wikipage ) && ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) ) {
 
 			$cache = self::getFormCache();
-			$keysInCache = $cache->keys();
 
-			foreach ( $keysInCache as $curKey ) {
+			$cachekeyForForm = self::getCacheKey( $wikipage->getId() );
 
-				if ( strncmp( $curKey, $keyToPurge, $len ) === 0 ) {
-
-					if ( self::getFormCache()->delete( $curKey ) ) {
-						wfDebug( "Deleted cached form definition $curKey.\n" );
-					}
-
+			// get references to stored datasets
+			$arrayOfStoredDatasets = $cache->get( $cachekeyForForm );
+			
+			if ( $arrayOfStoredDatasets !== false ) {
+				
+				// delete stored datasets
+				foreach ( $arrayOfStoredDatasets as $key ) {
+					$cache->delete( $key );
+					wfDebug( "Deleted cached form definition $key.\n" );
 				}
-
+			
+				// delete references to datasets
+				$cache->delete( $cachekeyForForm );
+				wfDebug( "Deleted cached form definition references $cachekeyForForm.\n" );
 			}
+
+			
 		}
 
 		return true;
