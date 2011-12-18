@@ -441,7 +441,7 @@ END;
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Xml::element( 'option', null, $form_name ) . "\n";
 		}
-		return "\t$form_label:" . Xml::tags( 'select', array( 'name' => 'form' ), $select_body ) . "\n";
+		return "\t$form_label" . wfMsg( 'colon-separator' ) . Xml::tags( 'select', array( 'name' => 'form' ), $select_body ) . "\n";
 	}
 
 	/**
