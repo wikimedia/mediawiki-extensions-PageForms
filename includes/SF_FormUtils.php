@@ -17,7 +17,6 @@ class SFFormUtils {
 //		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
 		global $sfgShowOnSelect;
 
-		$vars['sfgRemoveText'] = wfMsg( 'sf_formedit_remove' );
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
 		$vars['sfgScriptPath'] = $sfgScriptPath;
 		// variables that are associative arrays need to be cast as

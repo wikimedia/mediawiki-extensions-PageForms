@@ -235,26 +235,35 @@ class SFFormPrinter {
 	 * Creates the HTML for the inner table for every instance of a
 	 * multiple-instance template in the form.
 	 */
-	function multipleTemplateInstanceTableHTML( $mainText ) {
+	function multipleTemplateInstanceTableHTML( $form_is_disabled, $mainText ) {
 		global $sfgTabIndex, $sfgScriptPath;
 
-		$remove_text = wfMsg( 'sf_formedit_remove' );
-		$text =<<<END
+		$attributes = array(
+			'type' => 'button',
+			'value' => wfMsg( 'sf_formedit_remove' ),
+			'tabindex' => $sfgTabIndex,
+			'class' => 'remover',
+		);
 
+		$rearranger = 'class="rearrangerImage"';
+
+		if ( $form_is_disabled ) {
+			$attributes['disabled'] = 'disabled';
+			$rearranger = '';
+		}
+
+		$removeButton = Xml::element( 'input', $attributes );
+
+		$text =<<<END
 			<table>
 			<tr>
-			<td>
-			$mainText
-			</td>
-			<td class="removeButton">
-			<input type="button" value="$remove_text" tabindex="$sfgTabIndex" class="remover" />
-			</td>
+			<td>$mainText</td>
+			<td class="removeButton">$removeButton</td>
 			<td class="instanceRearranger">
-			<img src="$sfgScriptPath/skins/rearranger.png" class="rearrangerImage" />
+			<img src="$sfgScriptPath/skins/rearranger.png" $rearranger />
 			</td>
 			</tr>
 			</table>
-
 END;
 
 		return $text;
@@ -264,7 +273,7 @@ END;
 	 * Creates the HTML for a single instance of a multiple-instance template;
 	 * plus the end tags for the full multiple-instance HTML.
 	 */
-	function multipleTemplateInstanceHTML( $all_instances_printed, &$section, $instance_num, $add_button_text ) {
+	function multipleTemplateInstanceHTML( $form_is_disabled, $all_instances_printed, &$section, $instance_num, $add_button_text ) {
 		global $sfgTabIndex;
 
 		if ( ! $all_instances_printed ) {
@@ -280,7 +289,7 @@ END;
 					// wikis before SF 2.0.9.
 					'class' => "multipleTemplateInstance multipleTemplate"
 				),
-				$this->multipleTemplateInstanceTableHTML( $section )
+				$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 			) . "\n";
 
 		} else { //if ( $all_instances_printed ) {
@@ -293,12 +302,20 @@ END;
 					'class' => "multipleTemplateStarter",
 					'style' => "display: none",
 				),
-				$this->multipleTemplateInstanceTableHTML( $section )
+				$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 			) . "\n";
+			
+			$attributes = array(
+				'type' => 'button',
+				'value' => Sanitizer::decodeCharReferences( $add_button_text ),
+				'tabindex' => $sfgTabIndex,
+				'class' => 'multipleTemplateAdder',
+			);
+			if ( $form_is_disabled ) $attributes['disabled'] = 'disabled';
+			$button = Xml::element( 'input', $attributes );
 			$text .= <<<END
 	</div><!-- multipleTemplateList -->
-		<p style="margin-left:10px;" />
-		<p><input type="button" value="$add_button_text" tabindex="$sfgTabIndex" class="multipleTemplateAdder" /></p>
+		<p>$button</p>
 	</div><!-- multipleTemplateWrapper -->
 END;
 		}
@@ -1400,14 +1417,14 @@ END;
 			if ( $allow_multiple ) {
 				if ( $curPlaceholder == null ) {
 					// The normal process.
-					$form_text .= $this->multipleTemplateInstanceHTML( $all_instances_printed, $section, $instance_num, $add_button_text );
+					$form_text .= $this->multipleTemplateInstanceHTML( $form_is_disabled, $all_instances_printed, $section, $instance_num, $add_button_text );
 				} else { // if ( $curPlaceholder != null ){
 					// The template text won't be appended at the end of the template like for usual multiple template forms.
 					// The HTML text will then be stored in the $multipleTemplateString variable,
 					// and then added in the right @insertHTML_".$placeHolderField."@"; position
 					// Optimization: actually, instead of separating the processes, the usual multiple
 					// template forms could also be handled this way if a fitting placeholder tag was added.
-					$multipleTemplateString .= $this->multipleTemplateInstanceHTML( $all_instances_printed, $section, $instance_num, $add_button_text );
+					$multipleTemplateString .= $this->multipleTemplateInstanceHTML( $form_is_disabled, $all_instances_printed, $section, $instance_num, $add_button_text );
 					// We replace the $multipleTemplateString HTML into the
 					// current placeholder tag, but also add another
 					// placeholder tag, to keep track of it.
