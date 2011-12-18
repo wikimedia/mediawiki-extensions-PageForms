@@ -1374,6 +1374,9 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
 	'right-viewedittab' => 'Visualitzar la pestanya «Edita» a les pàgines que es poden editar amb un formulari',
 	'right-editrestrictedfields' => 'Editar les caselles restringides del formulari',
 	'right-createclass' => 'Crea noves classes semàntiques',
+	'action-createclass' => 'crea classes semàntiques noves',
+	'action-editrestrictedfields' => 'modifica els camps de formulari restringits',
+	'action-viewedittab' => 'mostra la pestanya «Modifica» a les pàgines editables amb formulari',
 );
 
 /** Chechen (Нохчийн)
@@ -2234,7 +2237,7 @@ $messages['fi'] = array(
 	'sf_createproperty_propname' => 'Ominaisuuden nimi',
 	'sf_createproperty_proptype' => 'Tyyppi',
 	'templates' => 'Mallineet',
-	'sf_templates_docu' => 'Tässä Wikissä on seuraavat mallineet:',
+	'sf_templates_docu' => 'Tässä wikissä on seuraavat mallineet:',
 	'sf_templates_definescat' => 'määrittelee luokan',
 	'createtemplate' => 'Luo malline',
 	'sf_createtemplate_namelabel' => 'Mallineen nimi',
@@ -2291,7 +2294,7 @@ $messages['fi'] = array(
 	'sf_createclass_missingvalues' => 'Kaikkia pakollisia kenttiä ei ole täytetty.',
 	'sf_createclass_success' => 'Ominaisuudet, malline, lomake ja luokka luodaan.',
 	'sf_createclass_create' => 'Luo',
-	'formstart' => 'Lomakkeen alku',
+	'formstart' => 'Lomakeluonti',
 	'sf_formstart_badform' => 'Virhe: lomakesivua ei löytynyt kohteesta $1',
 	'sf_formstart_badtitle' => 'Virhe: ”$1” on virheellinen nimi sivulle.',
 	'sf_formstart_docu' => 'Anna sivun nimi, jota muokataan lomakkeella $1. Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata sitä sivua. Muussa tapauksessa sinut ohjataan sivunlisäyslomakkeelle.',
