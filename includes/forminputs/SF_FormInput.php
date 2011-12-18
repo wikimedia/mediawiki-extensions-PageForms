@@ -273,9 +273,9 @@ abstract class SFFormInput {
 	/**
 	 * Method to make new style input types compatible with old-style call from
 	 * the SF parser.
-	 * 
+	 *
 	 * @deprecated Do not use/override this in new input type classes
-	 * 
+	 *
 	 * TODO: remove/refactor once SF uses forminput objects properly
 	 */
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {

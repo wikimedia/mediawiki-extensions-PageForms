@@ -32,7 +32,7 @@ class SFFormUtils {
 		$vars['sfgBadNumberErrorStr'] = wfMsg( 'sf_bad_number_error' );
 		// This error message isn't currently used, but it might be
 		// in the future, if SMW begins to support integers again.
-		//$vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
+		// $vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
 		$vars['sfgBadDateErrorStr'] = wfMsg( 'sf_bad_date_error' );
 		$vars['sfgAnonEditWarning'] = wfMsg( 'sf_autoedit_anoneditwarning' );
 		$vars['sfgSaveAndContinueSummary'] = wfMsg( 'sf_formedit_saveandcontinue_summary', wfMsg( 'sf_formedit_saveandcontinueediting' ) );
@@ -425,7 +425,7 @@ END;
 		global $wgHooks, $wgExtensionFunctions;
 
 		$numRows = isset( $fieldArgs['rows'] ) && $fieldArgs['rows'] > 0 ? $fieldArgs['rows'] : 5;
-		$FCKEditorHeight = ($wgFCKEditorHeight < 300) ? 300 : $wgFCKEditorHeight;
+		$FCKEditorHeight = ( $wgFCKEditorHeight < 300 ) ? 300 : $wgFCKEditorHeight;
 
 		$newWinMsg = wfMsg( 'rich_editor_new_window' );
 		$javascript_text = '
@@ -840,11 +840,11 @@ END;
 	public static function getFormDefinition( &$parser, &$form_def = null, &$form_id = null ) {
 
 		$cachedDef = self::getFormDefinitionFromCache( $form_id, $parser );
-		
+
 		if ( $cachedDef ) {
 			return $cachedDef;
 		}
-		
+
 		if ( $form_id !== null ) {
 
 			$form_article = Article::newFromID( $form_id );
@@ -867,7 +867,7 @@ END;
 		// us with what we need
 		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
 
-		$title = is_object( $parser->getTitle() )?$parser->getTitle():new Title();
+		$title = is_object( $parser->getTitle() ) ? $parser->getTitle():new Title();
 
 		// parse wiki-text
 		$output = $parser->parse( $form_def, $title, $parser->getOptions() );
@@ -882,7 +882,7 @@ END;
 	 *	Get a form definition from cache
 	 */
 	protected static function getFormDefinitionFromCache ( &$form_id, &$parser ) {
-		
+
 		global $sfgCacheFormDefinitions;
 
 		// use cache if allowed
@@ -900,20 +900,20 @@ END;
 
 				wfDebug( "Cache hit: Got form definition $cachekey from cache\n" );
 				return $cached_def;
-				
+
 			} else {
 				wfDebug( "Cache miss: Form definition $cachekey not found in cache\n" );
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 *	Store a form definition in cache
 	 */
 	protected static function cacheFormDefinition ( &$form_id, &$parser, &$output ) {
-		
+
 		global $sfgCacheFormDefinitions;
 
 		// store in  cache if allowed
@@ -923,19 +923,19 @@ END;
 			$cachekey = self::getCacheKey( $form_id, $parser );
 
 			if ( $output->getCacheTime() == -1 ) {
-				
+
 				$form_article = Article::newFromID( $form_id );
 				self::purgeCache( $form_article );
 				wfDebug( "Caching disabled for form definition $cachekey\n" );
-				
+
 			} else {
 
 				$cachekeyForForm = self::getCacheKey( $form_id );
-				
+
 				// update list of form definitions
 				$arrayOfStoredDatasets = $cache->get( $cachekeyForForm );
 				$arrayOfStoredDatasets[ $cachekey ] = $cachekey; // just need the key defined, don't care for the value
-				
+
 				// We cache indefinitely ignoring $wgParserCacheExpireTime.
 				// The reasoning is that there really is not point in expiring
 				// rarely changed forms automatically (after one day per
@@ -943,10 +943,10 @@ END;
 				// form definition.
 				// A side effect of this is, that there is no need to
 				// distinguish between MW <1.17 and >=1.17.
-				
+
 				// store form definition with current user options
 				$cache->set( $cachekey, $output->getText() );
-				
+
 				// store updated list of form definitions
 				$cache->set( $cachekeyForForm, $arrayOfStoredDatasets );
 
@@ -954,10 +954,10 @@ END;
 			}
 
 		}
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
@@ -975,21 +975,21 @@ END;
 
 			// get references to stored datasets
 			$arrayOfStoredDatasets = $cache->get( $cachekeyForForm );
-			
+
 			if ( $arrayOfStoredDatasets !== false ) {
-				
+
 				// delete stored datasets
 				foreach ( $arrayOfStoredDatasets as $key ) {
 					$cache->delete( $key );
 					wfDebug( "Deleted cached form definition $key.\n" );
 				}
-			
+
 				// delete references to datasets
 				$cache->delete( $cachekeyForForm );
 				wfDebug( "Deleted cached form definition references $cachekeyForForm.\n" );
 			}
 
-			
+
 		}
 
 		return true;

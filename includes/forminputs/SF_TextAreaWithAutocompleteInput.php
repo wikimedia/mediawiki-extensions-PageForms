@@ -50,10 +50,10 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 
 		if ( array_key_exists( 'editor', $other_args ) &&
 			$other_args['editor'] == 'wikieditor' &&
-			
+
 			method_exists( $wgOut, 'getResourceLoader' ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
-				
+
 			class_exists( 'WikiEditorHooks' ) ) {
 
 			// load modules for all enabled features

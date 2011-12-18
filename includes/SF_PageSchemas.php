@@ -145,10 +145,10 @@ class SFPageSchemas extends PSExtensionHandler {
 						$param_value = explode( "=", $value, 2 );
 						if ( count( $param_value ) == 2 && $param_value[1] != null ) {
 							// Handles <Parameter name="size">20</Parameter>
-							$xml .= '<Parameter name="'.$param_value[0].'">'.$param_value[1].'</Parameter>';
+							$xml .= '<Parameter name="' . $param_value[0] . '">' . $param_value[1] . '</Parameter>';
 						} else {
 							// Handles <Parameter name="mandatory" />
-							$xml .= '<Parameter name="'.$param_value[0].'"/>';
+							$xml .= '<Parameter name="' . $param_value[0] . '"/>';
 						}
 					}
 				}
@@ -171,7 +171,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		$form_array = array();
 		$hasExistingValues = false;
 		if ( !is_null( $pageSchemaObj ) ) {
-			$form_array = $pageSchemaObj->getObject('semanticforms_Form');
+			$form_array = $pageSchemaObj->getObject( 'semanticforms_Form' );
 			if ( !is_null( $form_array ) ) {
 				$hasExistingValues = true;
 			}
@@ -254,7 +254,7 @@ END;
 		$hasExistingValues = false;
 		$inputType = null;
 		if ( !is_null( $psField ) ) {
-			$fieldValues = $psField->getObject('semanticforms_FormInput');
+			$fieldValues = $psField->getObject( 'semanticforms_FormInput' );
 			if ( !is_null( $fieldValues ) ) {
 				$hasExistingValues = true;
 				$inputType = PageSchemas::getValueFromObject( $fieldValues, 'InputType' );
@@ -303,7 +303,7 @@ END;
 	}
 
 	public static function getMainFormInfo( $pageSchemaObj ) {
-		//return $pageSchemaObj->getObject( 'semanticforms_Form' );
+		// return $pageSchemaObj->getObject( 'semanticforms_Form' );
 		// We don't just call getObject() here, because sometimes, for
 		// some reason, this gets called before SF registers itself
 		// with Page Schemas, which means that getObject() would return
@@ -332,7 +332,7 @@ END;
 			$fieldFormArray = $psField->getObject( 'semanticforms_FormInput' );
 			if ( !is_null( $fieldFormArray ) ) {
 				$formField = SFFormField::create( $i, $template_fields[$i] );
-				foreach ($fieldFormArray as $var => $val ) {
+				foreach ( $fieldFormArray as $var => $val ) {
 					if ( $var == 'InputType' ) {
 						$formField->setInputType( $val );
 					} elseif ( $var == 'mandatory' ) {
@@ -379,8 +379,8 @@ END;
 	public static function getFieldsFromTemplateSchema( $psTemplate ) {
 		$psFields = $psTemplate->getFields();
 		$templateFields = array();
-		foreach( $psFields as $psField ) {
-			$prop_array = $psField->getObject('semanticmediawiki_Property');
+		foreach ( $psFields as $psField ) {
+			$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
 			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
 			if ( $psField->getLabel() === '' ) {
 				$fieldLabel = $psField->getName();

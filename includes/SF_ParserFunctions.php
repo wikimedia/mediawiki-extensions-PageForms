@@ -137,7 +137,7 @@ class SFParserFunctions {
 		if ( is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
 			$wgOut->includeJQuery();
 		}
-		
+
 		return true;
 	}
 
@@ -168,19 +168,19 @@ class SFParserFunctions {
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
 		foreach ( $params as $i => $param ) {
-			
+
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value
 			if ( count( $elements ) > 1 ) {
-				
+
 				$param_name = trim( $elements[0] );
-				
+
 				// parse (and sanitize) parameter values
 				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
-				
+
 			} else {
-				
+
 				$param_name = null;
 
 				// parse (and sanitize) parameter values
@@ -200,7 +200,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'target' ) {
 				$inTargetName = $value;
 			} elseif ( $param_name == null && $value == 'popup'
-				&& version_compare( $wgVersion, '1.16', '>=' )) {
+				&& version_compare( $wgVersion, '1.16', '>=' ) ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
 			}
@@ -251,14 +251,14 @@ class SFParserFunctions {
 		}
 		if ( $inLinkType == 'button' ) {
 			$str =
-				Xml::tags( 'form', array('action' => $link_url, 'method' => 'get', 'class' => $classStr),
-					Xml::tags( 'button', array('type' => 'submit', 'value' => $inLinkStr), $inLinkStr ) .
+				Xml::tags( 'form', array( 'action' => $link_url, 'method' => 'get', 'class' => $classStr ),
+					Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
 					$hidden_inputs
 				);
 		} elseif ( $inLinkType == 'post button' ) {
 			$str =
-				Xml::tags( 'form', array('action' => $link_url, 'method' => 'post', 'class' => $classStr),
-					Xml::tags( 'button', array('type' => 'submit', 'value' => $inLinkStr), $inLinkStr ) .
+				Xml::tags( 'form', array( 'action' => $link_url, 'method' => 'post', 'class' => $classStr ),
+					Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
 					$hidden_inputs
 				);
 		} else {
@@ -266,7 +266,7 @@ class SFParserFunctions {
 			// exist, make it a red link.
 			if ( ! empty( $inTargetName ) ) {
 				$targetTitle = Title::newFromText( $inTargetName );
-				if ( is_null( $targetTitle) || !$targetTitle->exists() ) {
+				if ( is_null( $targetTitle ) || !$targetTitle->exists() ) {
 					$classStr .= " new";
 				}
 			}
@@ -279,7 +279,7 @@ class SFParserFunctions {
 
 	static function renderFormInput ( &$parser ) {
 		global $wgVersion;
-		
+
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 		// set defaults
@@ -316,7 +316,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'remote autocompletion' ) {
 				$inRemoteAutocompletion = true;
 			} elseif ( $param_name == null && $value == 'popup'
-				&& version_compare( $wgVersion, '1.16', '>=' )) {
+				&& version_compare( $wgVersion, '1.16', '>=' ) ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupforminput';
 			}
@@ -333,7 +333,7 @@ class SFParserFunctions {
 		}
 
 		$fs = SFUtils::getSpecialPage( 'FormStart' );
-		
+
 		$fs_url = $fs->getTitle()->getLocalURL();
 		$str = <<<END
 			<form name="createbox" action="$fs_url" method="get" class="$classStr">
@@ -404,7 +404,7 @@ END;
 			$subcomponents = explode( '=', $component, 2 );
 			$key = ( isset( $subcomponents[0] ) ) ? $subcomponents[0] : '';
 			$val = ( isset( $subcomponents[1] ) ) ? $subcomponents[1] : '';
-			if ( ! empty( $key ) ){
+			if ( ! empty( $key ) ) {
 				$str .= '			' .
 					Xml::element( 'input',
 						array(
@@ -485,7 +485,7 @@ END;
 		# let '\n' represent newlines
 		$delimiter = str_replace( '\n', "\n", $delimiter );
 		$new_delimiter = str_replace( '\n', "\n", $new_delimiter );
-	
+
 		if ( $delimiter == '' ) {
 			$values_array = preg_split( '/(.)/u', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
 		} else {
@@ -525,7 +525,7 @@ END;
 
 		$results = array();
 		$template = trim( $template );
-		
+
 		foreach ( $values_array as $cur_value ) {
 			$cur_value = trim( $cur_value );
 			// ignore a value if it's null
@@ -534,7 +534,7 @@ END;
 				$results[] = '{{' . $template . '|' . $cur_value . '}}';
 			}
 		}
-		
+
 		return array( implode( $new_delimiter, $results ), 'noparse' => false, 'isHTML' => false );
 	}
 
@@ -568,7 +568,7 @@ END;
 				$template, '1=' . $old_value );
 			// special handling if preprocessor class is set to
 			// 'Preprocessor_Hash'
-			if ($bracketed_value instanceof PPNode_Hash_Array) {
+			if ( $bracketed_value instanceof PPNode_Hash_Array ) {
 				$bracketed_value = $bracketed_value->value;
 			}
 			$results_array[] = $parser->replaceVariables(
@@ -579,7 +579,7 @@ END;
 
 
 	static function renderAutoEdit ( &$parser ) {
-		
+
 		global $wgTitle;
 
 		// set defaults
@@ -636,11 +636,11 @@ END;
 		}
 
 		if ( $summary == null ) {
-			$summary = wfMsg('sf_autoedit_summary', "[[$wgTitle]]" );
+			$summary = wfMsg( 'sf_autoedit_summary', "[[$wgTitle]]" );
 		}
-		
+
 		$formcontent .=
-			Xml::input( 'wpSummary', false, $summary, array('type' => 'hidden') );
+			Xml::input( 'wpSummary', false, $summary, array( 'type' => 'hidden' ) );
 
 		$form = Xml::tags( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 
@@ -698,7 +698,7 @@ END;
 
 		return true;
 	}
-	
+
 	// load scripts and style files for AutoEdit
 	private static function loadScriptsForAutoEdit ( &$parser ) {
 
@@ -716,14 +716,14 @@ END;
 				// load extensions JavaScript
 				$parser->getOutput()->addHeadItem(
 					'<script type="text/javascript" src="' . $sfgScriptPath
-					. '/libs/SF_autoedit.js"></script> ' ."\n",
+					. '/libs/SF_autoedit.js"></script> ' . "\n",
 					'sf_autoedit_script'
 				);
 
 				// load extensions style sheet
 				$parser->getOutput()->addHeadItem(
 					'<link rel="stylesheet" href="' . $sfgScriptPath
-					. '/skins/SF_autoedit.css"/> ' ."\n",
+					. '/skins/SF_autoedit.css"/> ' . "\n",
 					'sf_autoedit_style'
 				);
 

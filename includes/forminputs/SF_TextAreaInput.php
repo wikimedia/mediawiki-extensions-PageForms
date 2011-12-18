@@ -19,15 +19,15 @@ class SFTextAreaInput extends SFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array('_txt' => array(), '_cod' => array());
+		return array( '_txt' => array(), '_cod' => array() );
 	}
 
 	public static function getOtherPropTypesHandled() {
-		return array('_wpg', '_str');
+		return array( '_wpg', '_str' );
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		return array('_wpg', '_str');
+		return array( '_wpg', '_str' );
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
@@ -40,10 +40,10 @@ class SFTextAreaInput extends SFFormInput {
 
 		if ( array_key_exists( 'editor', $other_args ) &&
 			$other_args['editor'] == 'wikieditor' &&
-			
+
 			method_exists( $wgOut, 'getResourceLoader' ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
-				
+
 			class_exists( 'WikiEditorHooks' ) ) {
 
 			// load modules for all enabled features
@@ -132,7 +132,7 @@ JAVASCRIPT;
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array('class' => $spanClass), $text );
+		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
 	}

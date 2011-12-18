@@ -38,7 +38,7 @@ class SFFormLinker {
 		}
 		$properties = $store->getInProperties( $value );
 		$propertyNames = array();
-		foreach( $properties as $property ) {
+		foreach ( $properties as $property ) {
 			// SMW 1.6+
 			if ( $property instanceof SMWDIProperty ) {
 				$property_name = $property->getKey();
@@ -133,11 +133,11 @@ class SFFormLinker {
 		}
 
 		global $sfgContLang;
-		
+
 		$store = smwfGetStore();
 		$subject = Title::makeTitleSafe( $page_namespace, $page_name );
 		$form_names = SFUtils::getSMWPropertyValues( $store, $subject, $prop_smw_id );
-		
+
 		// If we're using a non-English language, check for the English
 		// string as well.
 		if ( ! class_exists( 'SF_LanguageEn' ) || ! $sfgContLang instanceof SF_LanguageEn ) {
@@ -205,7 +205,7 @@ class SFFormLinker {
 		}
 
 		$fe = SFUtils::getSpecialPage( 'FormEdit' );
-			
+
 		$fe_url = $fe->getTitle()->getLocalURL();
 		if ( count( $default_forms ) > 0 ) {
 			$form_edit_url = $fe_url . "/" . $default_forms[0] . "/" . SFUtils::titleURLString( $target_page_title );
@@ -333,7 +333,7 @@ class SFFormLinker {
 		if ( $title->isSubpage() ) {
 			return array();
 		}
-		
+
 		// If we're still here, just return the default form for the
 		// namespace, which may well be null.
 		if ( NS_MAIN === $namespace ) {

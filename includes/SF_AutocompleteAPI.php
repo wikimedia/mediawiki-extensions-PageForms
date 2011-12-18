@@ -32,7 +32,7 @@ class SFAutocompleteAPI extends ApiBase {
 		if ( strlen( $substr ) == 0 ) {
 			$this->dieUsage( 'The substring must be specified', 'param_substr' );
 		}
-		
+
 		if ( !is_null( $attribute ) ) {
 			$data = self::getAllValuesForProperty( false, $attribute, $substr );
 		} elseif ( !is_null( $relation ) ) {
@@ -48,7 +48,7 @@ class SFAutocompleteAPI extends ApiBase {
 		} else {
 			$data = array();
 		}
-		
+
 		// to prevent JS parsing problems, display should be the same
 		// even if there are no results
 		/*
@@ -124,7 +124,7 @@ class SFAutocompleteAPI extends ApiBase {
 		$db = wfGetDB( DB_SLAVE );
 		$sql_options = array();
 		$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
-		
+
 		if ( $is_relation ) {
 			$value_field = 'o_ids.smw_title';
 			$from_clause = $db->tableName( 'smw_rels2' ) . " r JOIN " . $db->tableName( 'smw_ids' ) . " p_ids ON r.p_id = p_ids.smw_id JOIN " . $db->tableName( 'smw_ids' ) . " o_ids ON r.o_id = o_ids.smw_id";
@@ -132,21 +132,21 @@ class SFAutocompleteAPI extends ApiBase {
 			$value_field = 'a.value_xsd';
 			$from_clause = $db->tableName( 'smw_atts2' ) . " a JOIN " . $db->tableName( 'smw_ids' ) . " p_ids ON a.p_id = p_ids.smw_id";
 		}
-		
+
 		$property_name = str_replace( ' ', '_', $property_name );
 		$conditions = "p_ids.smw_title = '$property_name'";
-		
+
 		if ( $substring != null ) {
 			$substring = str_replace( "'", "\'", strtolower( $substring ) );
 			// utf8 conversion is needed in case MediaWiki is using
 			// binary data storage
 			$conditions .= " AND (REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '" . $substring . "%' OR REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '% " . $substring . "%')";
 		}
-		
+
 		$sql_options['ORDER BY'] = $value_field;
 		$res = $db->select( $from_clause, "DISTINCT $value_field",
 			$conditions, __METHOD__, $sql_options );
-			
+
 		while ( $row = $db->fetchRow( $res ) ) {
 			if ( $substring != null ) {
 				$values[] = str_replace( '_', ' ', $row[0] );
@@ -156,8 +156,8 @@ class SFAutocompleteAPI extends ApiBase {
 			}
 		}
 		$db->freeResult( $res );
-		
+
 		return $values;
 	}
-	
+
 }

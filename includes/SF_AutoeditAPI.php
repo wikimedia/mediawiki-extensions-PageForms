@@ -2,7 +2,7 @@
 
 /**
  * File holding the SFAutoEditAPI class
- * 
+ *
  * @author Stephan Gambke
  * @file
  * @ingroup SemanticForms
@@ -59,12 +59,12 @@ class SFAutoeditAPI extends ApiBase {
 		if ( $result === true ) {
 
 			$options = $handler->getOptions();
-			$result = wfMsgReplaceArgs( $oktext, array($options['target'], $options['form']) );
+			$result = wfMsgReplaceArgs( $oktext, array( $options['target'], $options['form'] ) );
 
 		} else {
 
-			$result->setResponseCode('400 Bad Request');
-			$result = wfMsgReplaceArgs( $errortext, array($result) );
+			$result->setResponseCode( '400 Bad Request' );
+			$result = wfMsgReplaceArgs( $errortext, array( $result ) );
 		}
 
 		// initialize parser
@@ -78,23 +78,23 @@ class SFAutoeditAPI extends ApiBase {
 
 		if ( $parseroptions == null ) {
 			$parseroptions = new ParserOptions();
-			$wgParser->Options($parseroptions);
+			$wgParser->Options( $parseroptions );
 		}
 
 		$parseroptions->enableLimitReport( false );
 
 
-		$result = new AjaxResponse($wgParser->parse( $result, $title, $parseroptions )->getText());
-		$result->setContentType('text/html');
-			
+		$result = new AjaxResponse( $wgParser->parse( $result, $title, $parseroptions )->getText() );
+		$result->setContentType( 'text/html' );
+
 		return $result;
 	}
 
 	/**
 	 * Getter/setter for the ApiQuery flag.
-	 * 
+	 *
 	 * If this is set, we are in an API query, else we are in an Ajax query.
-	 * 
+	 *
 	 * @param bool $isApiQuery Optional. The new value
 	 * @return The old value
 	 */
@@ -111,7 +111,7 @@ class SFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Converts an options string into an options array and stores it
-	 * 
+	 *
 	 * @param string $options
 	 * @return the options array
 	 */
@@ -221,13 +221,13 @@ END;
 
 	/**
 	 *	This method will try to store the data in mOptions.
-	 * 
+	 *
 	 * It will return true on success or an error message on failure.
 	 * The used form and target page will be available in mOptions after
 	 * execution of the method.
 	 *
 	 * This method also sets HTTP response headers according to the result.
-	 * 
+	 *
 	 * @param bool $prefillFromExisting If this is set, existing values in the page will be used to prefill the form.
 	 * @return true or an error message
 	 */
@@ -309,7 +309,7 @@ END;
 				return $this->reportError( wfMsg( 'sf_autoedit_nosemanticform',
 						array(
 							$this->mOptions['target'],
-							$this->mOptions['form']) )
+							$this->mOptions['form'] ) )
 				);
 			}
 		} else {
@@ -320,7 +320,7 @@ END;
 
 		////////////////////////////////////////////////////////////////////////
 		// Store the modified form
-		//$wgOut->clearHTML();
+		// $wgOut->clearHTML();
 		$wgRequest = new FauxRequest( $data, true );
 
 		// get the MW form
@@ -395,12 +395,12 @@ END;
 						$this->addToArray( $data, $name, $input->getAttribute( 'value' ) );
 					break;
 
-				//case 'button':
+				// case 'button':
 				case 'hidden':
 				case 'image':
 				case 'password':
-				//case 'reset':
-				//case 'submit':
+				// case 'reset':
+				// case 'submit':
 				case 'text':
 					$this->addToArray( $data, $name, $input->getAttribute( 'value' ) );
 					break;
@@ -425,7 +425,7 @@ END;
 			$values = array();
 			$options = $select->getElementsByTagName( 'option' );
 
-			if ( count( $options ) && (!$select->hasAttribute( "multiple" ) || $options->item( 0 )->hasAttribute( 'selected' ) ) ) {
+			if ( count( $options ) && ( !$select->hasAttribute( "multiple" ) || $options->item( 0 )->hasAttribute( 'selected' ) ) ) {
 				$this->addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
 			}
 
@@ -486,7 +486,7 @@ END;
 	// $toplevel: if this is a toplevel value.
 	private function addToArray( &$array, $key, $value, $toplevel = true ) {
 		$matches = array();
-		
+
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
 
 			// for some reason toplevel keys get their spaces encoded by MW.
@@ -553,7 +553,7 @@ END;
 	private function reportError( $msg ) {
 		if ( $this->isApiQuery() ) {
 			header( 'HTTP/Status: 400 Bad Request' );
-			$this->getResult()->addValue( null, 'result', array('code' => '400', '*' => $msg) );
+			$this->getResult()->addValue( null, 'result', array( 'code' => '400', '*' => $msg ) );
 		}
 		return $msg;
 	}

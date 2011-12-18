@@ -208,7 +208,7 @@ class SFFormPrinter {
 	 * - this might make sense in the SFUtils class, if it's useful in
 	 * other places.
 	 */
-	function strReplaceFirst( $search, $replace, $subject) {
+	function strReplaceFirst( $search, $replace, $subject ) {
 		$firstChar = strpos( $subject, $search );
 		if ( $firstChar !== false ) {
 			$beforeStr = substr( $subject, 0, $firstChar );
@@ -254,7 +254,7 @@ class SFFormPrinter {
 
 		$removeButton = Xml::element( 'input', $attributes );
 
-		$text =<<<END
+		$text = <<<END
 			<table>
 			<tr>
 			<td>$mainText</td>
@@ -292,7 +292,7 @@ END;
 				$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 			) . "\n";
 
-		} else { //if ( $all_instances_printed ) {
+		} else { // if ( $all_instances_printed ) {
 			// This is the last instance of this
 			// template - print all the sections
 			// necessary for adding additional
@@ -304,7 +304,7 @@ END;
 				),
 				$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 			) . "\n";
-			
+
 			$attributes = array(
 				'type' => 'button',
 				'value' => Sanitizer::decodeCharReferences( $add_button_text ),
@@ -338,7 +338,7 @@ END;
 		global $sfgFieldNum; // used for setting various HTML IDs
 
 		wfProfileIn( __METHOD__ );
-		
+
 		// initialize some variables
 		$sfgTabIndex = 1;
 		$sfgFieldNum = 1;
@@ -354,7 +354,7 @@ END;
 		$new_text = "";
 		// flag for placing "<onlyinclude>" tags in form output
 		$onlyinclude_free_text = false;
-		
+
 		// If we have existing content and we're not in an active replacement
 		// situation, preserve the original content. We do this because we want
 		// to pass the original content on IF this is a partial form.
@@ -403,7 +403,7 @@ END;
 		// permission errors from the start, and use those to determine whether
 		// the page is editable.
 		if ( !$is_query ) {
-			//$userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
+			// $userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
 			$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
 			$userCanEditPage = count( $permissionErrors ) == 0;
 			wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
@@ -431,9 +431,9 @@ END;
 		$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
 		$wgParser->Title( $this->mPageTitle );
 		$wgParser->clearState();
-		
+
 		$form_def = SFFormUtils::getFormDefinition( $wgParser, $form_def, $form_id );
-		
+
 		// Turn form definition file into an array of sections, one for each
 		// template definition (plus the first section)
 		$form_def_sections = array();
@@ -477,14 +477,14 @@ END;
 		$instance_num = 0;
 		$all_instances_printed = false;
 		$strict_parsing = false;
-		
+
 		// Placeholder name in the form
 		$curPlaceholder = null;
-		// Used to store the HTML code of the multiple template, to reinsert it into the right spot	
-		$multipleTemplateString = "";	
+		// Used to store the HTML code of the multiple template, to reinsert it into the right spot
+		$multipleTemplateString = "";
 		// This array will keep track of all the replaced @<name>@ strings
-		$placeholderFields = array();	
-		
+		$placeholderFields = array();
+
 		for ( $section_num = 0; $section_num < count( $form_def_sections ); $section_num++ ) {
 			$start_position = 0;
 			$template_text = "";
@@ -492,9 +492,9 @@ END;
 			// array doesn't get modified; is it necessary?
 			$section = " " . $form_def_sections[$section_num];
 
-			
-			$multipleTemplateString="";
-			
+
+			$multipleTemplateString = "";
+
 			while ( $brackets_loc = strpos( $section, '{{{', $start_position ) ) {
 				$brackets_end_loc = strpos( $section, "}}}", $brackets_loc );
 				$bracketed_string = substr( $section, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
@@ -525,14 +525,14 @@ END;
 								$template_label = $sub_components[1];
 							} elseif ( $sub_components[0] == 'add button text' ) {
 								$add_button_text = $sub_components[1];
-							} elseif ($sub_components[0] == 'embed in field') {
+							} elseif ( $sub_components[0] == 'embed in field' ) {
 								// Placeholder on form template level. Assume that the template form def
 								// will have a multiple+placeholder parameters, and get the placeholder value.
 								// We expect something like TemplateName[fieldName], and convert it to the
 								// TemplateName___fieldName form used internally.
 								preg_match( '/\s*(.*)\[(.*)\]\s*/', $sub_components[1], $matches );
 								$curPlaceholder = ( count( $matches ) > 2 ) ? self::placeholderFormat( $matches[1], $matches[2] ) : null;
-								unset ($matches);
+								unset ( $matches );
 							}
 						}
 					}
@@ -549,13 +549,13 @@ END;
 						// If $curPlaceholder is set, it means we want to insert a
 						// multiple template form's HTML into the main form's HTML.
  						// So, the HTML will be stored in $multipleTemplateString.
- 						if ($allow_multiple) {						
+ 						if ( $allow_multiple ) {
  							$multipleTemplateString .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
  							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList">' . "\n";
  						}
 					}
 					if ( $curPlaceholder == null ) {
-						$form_text .= $multipleTemplateString;						
+						$form_text .= $multipleTemplateString;
 					}
 					$template_text .= "{{" . $template_name;
 					$all_fields = $tif->getAllFields();
@@ -597,7 +597,7 @@ END;
 							$matches = array();
 							$search_pattern = '/{{' . $preg_match_template_str . '\s*[\|}]/i';
 							$content_str = str_replace( '_', ' ', $existing_page_content );
-							preg_match($search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE);
+							preg_match( $search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE );
 							// is this check necessary?
 							if ( array_key_exists( 0, $matches ) && array_key_exists( 1, $matches[0] ) ) {
 								$start_char = $matches[0][1];
@@ -607,7 +607,7 @@ END;
 									$fields_start_char++;
 								}
 								// If the next character is a pipe, skip that too.
-								if( $existing_page_content[$fields_start_char] == '|' ) {
+								if ( $existing_page_content[$fields_start_char] == '|' ) {
 									$fields_start_char++;
 								}
 								$template_contents = array( '0' => '' );
@@ -754,11 +754,11 @@ END;
 					$semantic_property = null;
 					$preload_page = null;
 					$holds_template = false;
-					
+
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
-						
+
 						$component = trim( $tag_components[$i] );
-						
+
 						if ( $component == 'mandatory' ) {
 							$is_mandatory = true;
 						} elseif ( $component == 'hidden' ) {
@@ -769,10 +769,10 @@ END;
 							$is_list = true;
 						} elseif ( $component == 'edittools' ) { // free text only
 							$free_text_components[] = 'edittools';
-						} 
-						
+						}
+
 						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-						
+
 						if ( count( $sub_components ) == 1 ) {
 							// add handling for single-value params, for custom input types
 							$field_args[$sub_components[0]] = true;
@@ -812,7 +812,7 @@ END;
 										if ( array_key_exists( $div_id, $show_on_select ) )
 											$show_on_select[$div_id][] = $option;
 										else
-											$show_on_select[$div_id] = array($option);
+											$show_on_select[$div_id] = array( $option );
 									} else {
 										$show_on_select[$val] = array();
 									}
@@ -1207,20 +1207,20 @@ END;
 
 						// Generate a hidden field with a placeholder value that will be replaced
 						// by the multiple-instances template output at form submission.
-						////<input type="hidden" value="@replace_Town___mayors@" name="Town[town_mayors]" />
+						//// <input type="hidden" value="@replace_Town___mayors@" name="Town[town_mayors]" />
 						if ( $holds_template ) {
-							$cur_value = self::makePlaceholderInWikiText( self::placeholderFormat($template_name,$field_name) );
+							$cur_value = self::makePlaceholderInWikiText( self::placeholderFormat( $template_name, $field_name ) );
 						}
-			
+
 						$new_text = $this->formFieldHTML( $form_field, $cur_value );
 
-						// Add a field just after the hidden field, within the HTML, to locate 
+						// Add a field just after the hidden field, within the HTML, to locate
 						// where the multiple-templates HTML, stored in $multipleTemplateString,
 						// should be inserted.
 						if ( $holds_template ) {
 							$new_text .= self::makePlaceholderInFormHTML( self::placeholderFormat( $template_name, $field_name ) );
 						}
-						
+
 						// If this field is disabled, add a hidden field holding
 						// the value of this field, because disabled inputs for some
 						// reason don't submit their value.
@@ -1255,7 +1255,7 @@ END;
 					$input_name = $tag_components[1];
 					$input_label = null;
 					$attr = array();
-					
+
 					// if it's a query, ignore all standard inputs except run query
 					if ( ( $is_query && $input_name != 'run query' ) || ( !$is_query && $input_name == 'run query' ) ) {
 						$new_text = "";
@@ -1389,7 +1389,7 @@ END;
 					// Note: this cleanup step could also be done with a regexp, instead of
 					// keeping a track array (e.g., /@replace_(.*)@/)
 					$reptmp = self::makePlaceholderInWikiText( $curPlaceholder );
-					if ( $curPlaceholder != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false) {
+					if ( $curPlaceholder != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false ) {
 						$data_text = preg_replace( '/' . $reptmp . '/', $template_text . $reptmp, $data_text );
 					} else {
 						$data_text .= $template_text . "\n";
@@ -1441,7 +1441,7 @@ END;
 					// re-parsed on the next go.
 					$section_num--;
 				}
-			} else { //if ( $allow_multiple ) {
+			} else { // if ( $allow_multiple ) {
 				$form_text .= $section;
 			}
 			$curPlaceholder = null;
@@ -1451,13 +1451,13 @@ END;
 		// Remove all the remaining placeholder
 		// tags in the HTML and wiki-text.
 		foreach ( $placeholderFields as $stringToReplace ) {
-			//remove the @<replacename>@ tags from the data that is submitted
-			$data_text = preg_replace('/'.self::makePlaceholderInWikiText( $stringToReplace ).'/', '',$data_text);	
-			
-			//remove the @<insertHTML>@ tags from the generated HTML form
-			$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $stringToReplace ) . '/', '', $form_text );	
+			// remove the @<replacename>@ tags from the data that is submitted
+			$data_text = preg_replace( '/' . self::makePlaceholderInWikiText( $stringToReplace ) . '/', '', $data_text );
+
+			// remove the @<insertHTML>@ tags from the generated HTML form
+			$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $stringToReplace ) . '/', '', $form_text );
 		}
-		
+
 		// if it wasn't included in the form definition, add the
 		// 'free text' input as a hidden field at the bottom
 		if ( ! $free_text_was_included ) {
@@ -1475,8 +1475,8 @@ END;
 				$form_text .= SFFormUtils::hiddenFieldHTML( 'partial', 1 );
 			} else {
 				$free_text = null;
-				$existing_page_content = preg_replace( array( '/�\{/m','/\}�/m' ),
-					array( '{{','}}' ),
+				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
+					array( '{{', '}}' ),
 					$existing_page_content );
 				$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content );
 			}

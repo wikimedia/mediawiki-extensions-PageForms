@@ -48,7 +48,7 @@ class SFTemplateInForm {
 			// Ignore 'noinclude' sections and 'includeonly' tags.
 			$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
 			$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
-	
+
 			// First, look for "arraymap" parser function calls
 			// that map a property onto a list.
 			if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $templateText, $matches ) ) {
@@ -66,7 +66,7 @@ class SFTemplateInForm {
 					print 'Semantic Forms error: backtrace limit exceeded during parsing! Please increase the value of <a href="http://www.php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit">pcre.backtrack-limit</a> in the PHP settings.';
 				}
 			}
-	
+
 			// Second, look for normal property calls.
 			if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
 				foreach ( $matches[1] as $i => $propertyName ) {
@@ -100,9 +100,9 @@ class SFTemplateInForm {
 			if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
 				foreach ( $matches[1] as $i => $match ) {
 					$setValues = explode( '|', $match );
-					foreach( $setValues as $valuePair ) {
+					foreach ( $setValues as $valuePair ) {
 						$keyAndVal = explode( '=', $valuePair );
-						if ( count( $keyAndVal ) == 2) {
+						if ( count( $keyAndVal ) == 2 ) {
 							$propertyName = trim( $keyAndVal[0] );
 							$fieldName = trim( $keyAndVal[1] );
 							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
@@ -113,7 +113,7 @@ class SFTemplateInForm {
 					}
 				}
 			}
-	
+
 			// Finally, get any non-semantic fields defined.
 			if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
 				foreach ( $matches[1] as $i => $fieldName ) {

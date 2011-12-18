@@ -41,25 +41,25 @@ class SFTextInput extends SFFormInput {
 	public static function getOtherPropTypeListsHandled() {
 		return array( '_wpg' );
 	}
-	
+
 	/**
 	 * Gets the HTML for the preview image or null if there is none.
-	 * 
+	 *
 	 * @since 2.3.3
-	 * 
+	 *
 	 * @param string $imageName
-	 * 
+	 *
 	 * @return string|null
 	 */
 	protected static function getPreviewImage( $imageName ) {
 		$previewImage = null;
-		
+
 		$imageTitle = Title::newFromText( $imageName, NS_FILE );
-		
+
 		if ( !is_object( $imageTitle ) ) {
 			return $previewImage;
 		}
-		
+
 		$api = new ApiMain( new FauxRequest( array(
 			'action' => 'query',
 			'format' => 'json',
@@ -68,12 +68,12 @@ class SFTextInput extends SFFormInput {
 			'titles' => $imageTitle->getFullText(),
 			'iiurlwidth' => 200
 		), true ), true );
-		
+
 		$api->execute();
 		$result = $api->getResultData();
 
 		$url = false;
-		
+
 		if ( array_key_exists( 'query', $result ) && array_key_exists( 'pages', $result['query'] ) ) {
 			foreach ( $result['query']['pages'] as $page ) {
 				foreach ( $page['imageinfo'] as $imageInfo ) {
@@ -82,14 +82,14 @@ class SFTextInput extends SFFormInput {
 				}
 			}
 		}
-		
+
 		if ( $url !== false ) {
 			$previewImage = Html::element(
 				'img',
 				array( 'src' => $url )
 			);
 		}
-		
+
 		return $previewImage;
 	}
 
@@ -112,13 +112,13 @@ class SFTextInput extends SFFormInput {
 		}
 
 		$cssClasses = array( 'sfFancyBox', 'sfUploadable' );
-		
+
 		$showPreview = array_key_exists( 'image preview', $other_args );
-		
+
 		if ( $showPreview ) {
 			$cssClasses[] = 'sfImagePreview';
 		}
-		
+
 		$linkAttrs = array(
 			'href' => $upload_window_url,
 			'class' => implode( ' ', $cssClasses ),
@@ -126,9 +126,9 @@ class SFTextInput extends SFFormInput {
 			'rev' => $style,
 			'data-input-id' => $input_id
 		);
-		
+
 		$text = "\t" . Xml::element( 'a', $linkAttrs, $upload_label ) . "\n";
-		
+
 		if ( $showPreview ) {
 			$text .= Html::rawElement(
 				'div',
@@ -136,7 +136,7 @@ class SFTextInput extends SFFormInput {
 				self::getPreviewImage( $cur_value )
 			);
 		}
-		
+
 		return $text;
 	}
 
@@ -216,7 +216,7 @@ class SFTextInput extends SFFormInput {
 			} else {
 				$default_filename = '';
 			}
-			
+
 			$text .= self::uploadableHTML( $input_id, $delimiter, $default_filename, $cur_value, $other_args );
 		}
 		$spanClass = 'inputSpan';

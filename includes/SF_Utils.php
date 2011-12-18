@@ -209,7 +209,7 @@ class SFUtils {
 		if ( is_null( $text ) ) {
 			$text = $title->getText();
 		}
-		$l = class_exists('DummyLinker') ? new DummyLinker : new Linker;
+		$l = class_exists( 'DummyLinker' ) ? new DummyLinker : new Linker;
 		return $l->makeLinkObj( $title, htmlspecialchars( $text ) );
 	}
 
@@ -645,11 +645,11 @@ END;
 	 * type, for use by both Javascript autocompletion and comboboxes.
 	 */
 	public static function getAutocompleteValues( $source_name, $source_type ) {
-		
+
 		if ( $source_name == null ) {
 			return null;
 		}
-		
+
 		$names_array = array();
 		// The query depends on whether this is a property, category,
 		// concept or namespace.
@@ -713,10 +713,10 @@ END;
 		// unused character (here, "\1"), then do the explode, then
 		// convert them back.
 		$pattern = '/({{.*)\|(.*}})/';
-		while ( preg_match($pattern, $str, $matches) ) {
-			$str = preg_replace($pattern, "$1" . "\1" . "$2", $str);
+		while ( preg_match( $pattern, $str, $matches ) ) {
+			$str = preg_replace( $pattern, "$1" . "\1" . "$2", $str );
 		}
-		return array_map( array('SFUtils', 'convertBackToPipes'), explode('|', $str) );
+		return array_map( array( 'SFUtils', 'convertBackToPipes' ), explode( '|', $str ) );
 	}
 
 	/**
@@ -836,21 +836,21 @@ END;
 
 		return true;
 	}
-	
+
 	/**
 	 * Compatibility helper function.
 	 * Since 1.17 SpecialPageFactory::getPage should be used.
 	 * SpecialPage::getPage is deprecated in 1.18.
-	 * 
+	 *
 	 * @since 2.3.3
-	 * 
+	 *
 	 * @param string $pageName
-	 * 
+	 *
 	 * @return SpecialPage|null
 	 */
 	public static function getSpecialPage( $pageName ) {
 		$hasFactory = class_exists( 'SpecialPageFactory' ) && method_exists( 'SpecialPageFactory', 'getPage' );
 		return $hasFactory ? SpecialPageFactory::getPage( $pageName ) : SpecialPage::getPage( $pageName );
 	}
-	
+
 }

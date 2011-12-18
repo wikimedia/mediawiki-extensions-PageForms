@@ -1,7 +1,7 @@
 <?php
 /**
  * Contains Form Edit Page inheriting from EditPage
- * 
+ *
  * @author Daniel Friesen
  * @author Yaron Koren
  * @file
@@ -25,7 +25,7 @@ class SFFormEditPage extends EditPage {
 		$this->form = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 		$this->form_name = $form_name;
 	}
-	
+
 	protected function isSectionEditSupported() {
 		return false; // sections and forms don't mix
 	}
@@ -43,11 +43,11 @@ class SFFormEditPage extends EditPage {
 		if ( $this->textbox1 != null )
 			parent::displayPreviewArea( $previewOutput );
 	}
-	
+
 	protected function importContentFormData( &$request ) {
 		// @todo This is where $request to save&preview page text should go
 	}
-	
+
 	protected function showContentForm() {
 		$target_title = $this->mArticle->getTitle();
 		$target_name = SFUtils::titleString( $target_title );
