@@ -437,11 +437,11 @@ END;
 		$namespace_labels = $sfgContLang->getNamespaces();
 		$form_label = $namespace_labels[SF_NS_FORM];
 		$form_names = SFUtils::getAllForms();
-		$select_body = "";
+		$select_body = "\n";
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Xml::element( 'option', null, $form_name ) . "\n";
 		}
-		return "\t$form_label" . wfMsg( 'colon-separator' ) . Xml::tags( 'select', array( 'name' => 'form' ), $select_body ) . "\n";
+		return "\t" . Xml::tags( 'label', array( 'for' => 'formSelector' ), $form_label . wfMsg( 'colon-separator' ) ) . "\n" . Xml::tags( 'select', array( 'id' => 'formSelector', 'name' => 'form' ), $select_body ) . "\n";
 	}
 
 	/**
