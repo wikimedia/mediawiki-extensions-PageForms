@@ -42,7 +42,7 @@ class SFRunQuery extends IncludableSpecialPage {
 				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
 			} else {
 				$text = Xml::tags( 'p', array( 'class' => 'error' ),
-					wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+					wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
 			$wgOut->addHTML( $text );
 			return;

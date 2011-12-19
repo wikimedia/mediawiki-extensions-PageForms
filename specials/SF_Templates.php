@@ -116,7 +116,7 @@ class TemplatesPage extends QueryPage {
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
 			SFUtils::loadMessages();
-			$text .= ' ' . wfMsg( 'sf_templates_definescat', SFUtils::linkText( NS_CATEGORY, $category ) );
+			$text .= ' ' . wfMsgExt( 'sf_templates_definescat', 'parseinline', SFUtils::linkText( NS_CATEGORY, $category ) );
 		}
 		return $text;
 	}

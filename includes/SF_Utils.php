@@ -199,7 +199,7 @@ class SFUtils {
 	}
 
 	/**
-	 * Creates HTML linking to a wiki page
+	 * Creates wiki-text for a link to a wiki page
 	 */
 	public static function linkText( $namespace, $name, $text = null ) {
 		$title = Title::makeTitleSafe( $namespace, $name );
@@ -207,10 +207,10 @@ class SFUtils {
 			return $name; // TODO maybe report an error here?
 		}
 		if ( is_null( $text ) ) {
-			$text = $title->getText();
+			return '[[:' . $title->getPrefixedText() . '|' . $name . ']]';
+		} else {
+			return '[[:' . $title->getPrefixedText() . '|' . $text . ']]';
 		}
-		$l = class_exists( 'DummyLinker' ) ? new DummyLinker : new Linker;
-		return $l->makeLinkObj( $title, htmlspecialchars( $text ) );
 	}
 
 	/**

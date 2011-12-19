@@ -67,7 +67,7 @@ class SFFormStart extends SpecialPage {
 			if ( !is_null( $super_page ) && $super_page !== '' ) {
 				$page_name = "$super_page/$page_name";
 			}
-			
+
 			if ( $page_name !== '' ) {
 				// Append the namespace prefix to the page name,
 				// if this namespace was not already entered.
@@ -89,7 +89,7 @@ class SFFormStart extends SpecialPage {
 		}
 
 		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name !== '' ) ) {
-			$text = Xml::element( 'p', null, wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+			$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 		} else {
 			if ( $form_name === '' ) {
 				$description = htmlspecialchars( wfMsg( 'sf_formstart_noform_docu', $form_name ) );
@@ -97,7 +97,7 @@ class SFFormStart extends SpecialPage {
 			else {
 				$description = htmlspecialchars( wfMsg( 'sf_formstart_docu', $form_name ) );
 			}
-				
+
 			$text = <<<END
 	<form action="" method="post">
 	<p>$description</p>

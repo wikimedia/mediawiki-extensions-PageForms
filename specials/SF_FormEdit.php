@@ -148,7 +148,7 @@ class SFFormEdit extends SpecialPage {
 					. "</div>\n";
 
 			} else {
-				$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+				$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
 		} elseif ( $target_name === '' && $page_name_formula === '' ) {
 			$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
