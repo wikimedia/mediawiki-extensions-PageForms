@@ -2655,7 +2655,7 @@ $messages['gl'] = array(
 	'sf_createproperty_proptype' => 'Tipo:',
 	'templates' => 'Modelos',
 	'sf_templates_docu' => 'Os seguintes modelos existen neste wiki.',
-	'sf_templates_definescat' => 'defina a categoría: $1',
+	'sf_templates_definescat' => 'define a categoría: $1',
 	'createtemplate' => 'Crear un modelo',
 	'sf_createtemplate_namelabel' => 'Nome do modelo:',
 	'sf_createtemplate_categorylabel' => 'Categoría definida polo modelo (opcional):',
@@ -5332,6 +5332,7 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
  * @author Harald Khan
  * @author Jon Harald Søby
  * @author Nghtwlkr
+ * @author Njardarlogar
  */
 $messages['nn'] = array(
 	'semanticforms-desc' => 'Skjema for å leggja til og endra semantiske data',
@@ -5493,7 +5494,7 @@ $messages['no'] = array(
 	'sf_forminputs_delimiter' => 'Skilletegnet mellom feltverdier, hvis denne typen inndata inneholder en liste av slike',
 	'sf_forminputs_remoteautocompletion' => 'Bruke ekstern autofullføring',
 	'sf_forminputs_existingvaluesonly' => 'Tillat bare verdier som allerede er i listen',
-	'sf_forminputs_showonselect' => 'Sideelementer som bare vises hvis bestemte verdier er valgt (eksempel "verdi1=>div1;verdi2=>div2")',
+	'sf_forminputs_showonselect' => 'Sideelementer som bare vises, hvis bestemte verdier er valgt (eksempel "verdi1=>div1;verdi2=>div2")',
 	'sf_forminputs_listboxsize' => 'Antall rader for denne listeboksen',
 	'sf_forminputs_includetimezone' => 'Ta med angivelse av tidssone',
 	'sf_forminputs_topcategory' => 'Foreldrekategorien for dette kategorisettet (påkrevet)',
@@ -5528,7 +5529,7 @@ $messages['no'] = array(
 	'sf_createclass_docu' => 'Skriv inn alle data her for å opprette egenskaper, maler, skjemaer og kategorier for en enkelt klasse. For flere alternativer, bruk sidene $1 istedet.',
 	'sf_createclass_allowedvalues' => 'Lovlige verdier:',
 	'sf_createclass_listofvalues' => 'Verdiliste?',
-	'sf_createclass_leavefieldblank' => 'Dersom feltnavnet er det samme som navnet på egenskapen kan du la den være blank.',
+	'sf_createclass_leavefieldblank' => 'Dersom feltnavnet er det samme som navnet på egenskapen, kan du la den være blank.',
 	'sf_createclass_nameinput' => 'Skjemanavn:',
 	'sf_createclass_missingvalues' => 'Noen obligatoriske felt ble ikke fylt ut.',
 	'sf_createclass_success' => 'Egenskaper, maler, skjemaer og kategorier vil bli opprettet.',
@@ -5602,6 +5603,9 @@ om en side med det navnet finnes allerede vil du bli sendt til et skjema for red
 	'right-viewedittab' => 'Vis «Rediger»-fanen for sider som kan redigeres via skjema',
 	'right-editrestrictedfields' => 'Rediger begrensede skjemafelt',
 	'right-createclass' => 'Opprett nye semantiske klasser',
+	'action-createclass' => 'opprett nye semantiske klasser',
+	'action-editrestrictedfields' => 'rediger begrensede skjemafelter',
+	'action-viewedittab' => 'vis «Rediger»-fanen for sider som kan redigeres via skjema',
 );
 
 /** Northern Sotho (Sesotho sa Leboa)
@@ -7491,7 +7495,7 @@ $messages['uk'] = array(
 	'sf_category_desc' => 'Це категорія $1.',
 );
 
-/** Veps (Vepsan kel')
+/** Veps (Vepsän kel')
  * @author Игорь Бродский
  */
 $messages['vep'] = array(
