@@ -399,6 +399,21 @@ $specialPageAliases['myv'] = array(
 	'Templates' => array( 'ЛопаПарцунт' ),
 );
 
+/** Norwegian Bokmål (‪Norsk (bokmål)‬) */
+$specialPageAliases['nb'] = array(
+	'CreateCategory' => array( 'Opprett_kategori' ),
+	'CreateClass' => array( 'Opprett_klasse' ),
+	'CreateForm' => array( 'Opprett_skjema' ),
+	'CreateProperty' => array( 'Opprett_egenskap' ),
+	'CreateTemplate' => array( 'Opprett_mal' ),
+	'FormEdit' => array( 'Rediger_data', 'Legg_til_data' ),
+	'FormStart' => array( 'Legg_til_side' ),
+	'Forms' => array( 'Skjemaer' ),
+	'RunQuery' => array( 'Kjør_spørring' ),
+	'Templates' => array( 'Maler' ),
+	'UploadWindow' => array( 'Opplastingsvindu' ),
+);
+
 /** Nedersaksisch (Nedersaksisch) */
 $specialPageAliases['nds-nl'] = array(
 	'CreateCategory' => array( 'Kategorie_anmaken' ),
@@ -427,21 +442,6 @@ $specialPageAliases['nl'] = array(
 	'RunQuery' => array( 'ZoekopdrachtUitvoeren' ),
 	'Templates' => array( 'Sjablonen' ),
 	'UploadWindow' => array( 'Uploadscherm' ),
-);
-
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬) */
-$specialPageAliases['nb'] = array(
-	'CreateCategory' => array( 'Opprett_kategori' ),
-	'CreateClass' => array( 'Opprett_klasse' ),
-	'CreateForm' => array( 'Opprett_skjema' ),
-	'CreateProperty' => array( 'Opprett_egenskap' ),
-	'CreateTemplate' => array( 'Opprett_mal' ),
-	'FormEdit' => array( 'Rediger_data', 'Legg_til_data' ),
-	'FormStart' => array( 'Legg_til_side' ),
-	'Forms' => array( 'Skjemaer' ),
-	'RunQuery' => array( 'Kjør_spørring' ),
-	'Templates' => array( 'Maler' ),
-	'UploadWindow' => array( 'Opplastingsvindu' ),
 );
 
 /** Occitan (Occitan) */
@@ -489,15 +489,15 @@ $specialPageAliases['ps'] = array(
 
 /** Portuguese (Português) */
 $specialPageAliases['pt'] = array(
-	'CreateCategory' => array( 'Criar categoria' ),
-	'CreateForm' => array( 'Criar formulário' ),
-	'CreateProperty' => array( 'Criar propriedade' ),
-	'CreateTemplate' => array( 'Criar modelo' ),
-	'FormEdit' => array( 'Editar dados' ),
-	'FormStart' => array( 'Adicionar página' ),
+	'CreateCategory' => array( 'Criar_categoria' ),
+	'CreateForm' => array( 'Criar_formulário' ),
+	'CreateProperty' => array( 'Criar_propriedade' ),
+	'CreateTemplate' => array( 'Criar_modelo' ),
+	'FormEdit' => array( 'Editar_dados' ),
+	'FormStart' => array( 'Adicionar_página' ),
 	'Forms' => array( 'Formulários' ),
 	'Templates' => array( 'Modelos' ),
-	'UploadWindow' => array( 'Janela de carregamento' ),
+	'UploadWindow' => array( 'Janela_de_carregamento' ),
 );
 
 /** Brazilian Portuguese (Português do Brasil) */
@@ -612,8 +612,3 @@ $specialPageAliases['vec'] = array(
 	'Templates' => array( 'Modèi' ),
 	'UploadWindow' => array( 'AjornaFenestra' ),
 );
-
-/**
- * For backwards compatibility with MediaWiki 1.15 and earlier.
- */
-$aliases =& $specialPageAliases;

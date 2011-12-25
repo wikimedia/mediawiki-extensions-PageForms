@@ -34,6 +34,8 @@ $magicWords['arz'] = array(
 $magicWords['de'] = array(
 	'forminput' => array( 0, 'formulareingabe' ),
 	'formlink' => array( 0, 'formularverweis' ),
+	'arraymap' => array( 0, 'werteanordnung' ),
+	'arraymaptemplate' => array( 0, 'werteanordnungsvorlage' ),
 );
 
 /** Japanese (日本語) */
@@ -76,4 +78,12 @@ $magicWords['nl'] = array(
 $magicWords['sr-ec'] = array(
 	'forminput' => array( 0, 'формирајулаз', 'формирај_улаз' ),
 	'formlink' => array( 0, 'формирај_везу' ),
+);
+
+/** Serbian (Latin script) (‪Srpski (latinica)‬) */
+$magicWords['sr-el'] = array(
+	'forminput' => array( 0, 'obrazuj_ulaz' ),
+	'formlink' => array( 0, 'obrazuj_vezu' ),
+	'arraymap' => array( 0, 'niz_mape' ),
+	'arraymaptemplate' => array( 0, 'šablon_niza_mape' ),
 );
