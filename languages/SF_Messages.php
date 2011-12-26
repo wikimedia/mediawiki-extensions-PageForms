@@ -7734,6 +7734,7 @@ $messages['yi'] = array(
 	'createcategory' => 'שאפֿן א קאטעגאריע',
 	'sf_createcategory_name' => 'קאטעגאריע נאָמען:',
 	'sf_formedit_none' => 'קיין',
+	'sf_bad_date_error' => 'דארף זײַן א גילטיקע דאַטע',
 );
 
 /** Chinese (China) (‪中文(中国大陆)‬)
