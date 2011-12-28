@@ -1655,9 +1655,11 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch
 
 /** Zazaki (Zazaki)
  * @author Belekvor
+ * @author Erdemaslancan
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'sf_formedit_remove' => 'Hewad',
 	'sf_formedit_none' => 'Çıniyo',
 );
 
