@@ -1522,7 +1522,7 @@ END;
 
 		// Add a warning in, if we're editing an existing page and that
 		// page appears to not have been created with this form.
-		if ( $this->mPageTitle->exists() && ( $existing_page_content !== '' ) && ! $source_page_matches_this_form ) {
+		if ( !$is_query && $this->mPageTitle->exists() && ( $existing_page_content !== '' ) && ! $source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() ) . "</div>\n<br clear=\"both\" />\n" . $form_text;
 		}
 
