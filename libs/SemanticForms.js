@@ -910,7 +910,7 @@ jQuery(document).ready(function() {
 						}
 						select.val(ui.item.id);
 						self._trigger("selected", event, {
-							item: select.find("[value='" + ui.item.id + "']")
+							item: select.find("[value='" + ui.item.id.replace("'", "\\'") + "']")
 						});
 
 					},
