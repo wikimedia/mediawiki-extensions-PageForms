@@ -127,14 +127,8 @@ $wgSpecialPageGroups['FormEdit'] = 'sf_group';
 $wgSpecialPages['RunQuery'] = 'SFRunQuery';
 $wgAutoloadClasses['SFRunQuery'] = $sfgIP . '/specials/SF_RunQuery.php';
 $wgSpecialPageGroups['RunQuery'] = 'sf_group';
-// different upload-window class for MW 1.16+
-if ( class_exists( 'HTMLTextField' ) ) { // added in MW 1.16
-	$wgSpecialPages['UploadWindow'] = 'SFUploadWindow2';
-	$wgAutoloadClasses['SFUploadWindow2'] = $sfgIP . '/specials/SF_UploadWindow2.php';
-} else {
-	$wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
-	$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
-}
+$wgSpecialPages['UploadWindow'] = 'SFUploadWindow';
+$wgAutoloadClasses['SFUploadWindow'] = $sfgIP . '/specials/SF_UploadWindow.php';
 $wgAutoloadClasses['SFTemplateField'] = $sfgIP . '/includes/SF_TemplateField.php';
 $wgAutoloadClasses['SFForm'] = $sfgIP . '/includes/SF_Form.php';
 $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_TemplateInForm.php';

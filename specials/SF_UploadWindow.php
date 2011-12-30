@@ -1,7 +1,6 @@
 <?php
 /**
- * SFUploadWindow2 - used for uploading files from within a form, for
- * MediaWiki version 1.16+.
+ * SFUploadWindow - used for uploading files from within a form.
  * This class is nearly identical to MediaWiki's SpecialUpload class, with
  * a few changes to remove skin CSS and HTML, and to populate the relevant
  * field in the form with the name of the uploaded form.
@@ -14,7 +13,7 @@
 /**
  * @ingroup SFSpecialPages
  */
-class SFUploadWindow2Proto extends UnlistedSpecialPage {
+class SFUploadWindowProto extends UnlistedSpecialPage {
 	/**
 	 * Constructor : initialise object
 	 * Get data POSTed through the form and assign them to the object
@@ -1114,7 +1113,7 @@ if ( $uceParams[0]->getClass() ) { // found a class definition for param $user
 	/**
 	 * Class variant for MW 1.18+
 	 */
-	class SFUploadWindow2 extends SFUploadWindow2Proto {
+	class SFUploadWindow extends SFUploadWindowProto {
 		/**
 		 * This page can be shown if uploading is enabled.
 		 * Handle permission checking elsewhere in order to be able to show
@@ -1135,7 +1134,7 @@ if ( $uceParams[0]->getClass() ) { // found a class definition for param $user
 	/**
 	 * Class variant for MW up to 1.17
 	 */
-	class SFUploadWindow2 extends SFUploadWindow2Proto {
+	class SFUploadWindow extends SFUploadWindowProto {
 		/**
 		 * This page can be shown if uploading is enabled.
 		 * Handle permission checking elsewhere in order to be able to show
