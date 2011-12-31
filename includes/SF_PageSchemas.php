@@ -139,7 +139,7 @@ class SFPageSchemas extends PSExtensionHandler {
 					$listSeparator = ',';
 					$key_values_str = str_replace( "\\$listSeparator", "\a", $val );
 					$key_values_array = explode( $listSeparator, $key_values_str );
-					foreach ( $key_values_array as $i => $value ) {
+					foreach ( $key_values_array as $value ) {
 						// replace beep back with comma, trim
 						$value = str_replace( "\a", $listSeparator, trim( $value ) );
 						$param_value = explode( "=", $value, 2 );
@@ -225,7 +225,6 @@ END;
 	}
 
 	public static function getTemplateEditingHTML( $psTemplate ) {
-		$form_array = array();
 		$hasExistingValues = false;
 		$templateLabel = null;
 		$addAnotherText = null;
@@ -328,7 +327,6 @@ END;
 		$form_fields = array();
 		$fieldsInfo = $psTemplate->getFields();
 		foreach ( $fieldsInfo as $i => $psField ) {
-			$fieldName = $psField->getName();
 			$fieldFormArray = $psField->getObject( 'semanticforms_FormInput' );
 			if ( !is_null( $fieldFormArray ) ) {
 				$formField = SFFormField::create( $i, $template_fields[$i] );
@@ -356,8 +354,6 @@ END;
 	 * the current Page Schemas schema.
 	 */
 	public static function getPagesToGenerate( $pageSchemaObj ) {
-		global $wgOut, $wgUser;
-
 		$psTemplates = $pageSchemaObj->getTemplates();
 		foreach ( $psTemplates as $psTemplate ) {
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $psTemplate->getName() );
@@ -431,7 +427,7 @@ END;
 	 * Generate pages (form and templates) specified in the list.
 	 */
 	public static function generatePages( $pageSchemaObj, $selectedPages ) {
-		global $wgOut, $wgUser;
+		global $wgUser;
 
 		$psTemplates = $pageSchemaObj->getTemplates();
 

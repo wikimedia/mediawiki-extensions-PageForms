@@ -339,7 +339,7 @@ END;
 			self::loadJavascriptAndCSS( $parser );
 			return;
 		}
-		global $sfgScriptPath, $smwgScriptPath, $wgScriptPath, $wgJsMimeType, $sfgUseFormEditPage;
+		global $sfgScriptPath, $smwgScriptPath, $wgJsMimeType, $sfgUseFormEditPage;
 		global $smwgJQueryIncluded, $smwgJQUIAutoIncluded;
 		// jQuery and jQuery UI are used so often in forms, we might as
 		// well assume they'll always be used, and include them in
@@ -650,7 +650,6 @@ END;
 			return null;
 		}
 
-		$names_array = array();
 		// The query depends on whether this is a property, category,
 		// concept or namespace.
 		if ( $source_type == 'property' || $source_type == 'attribute' || $source_type == 'relation' ) {

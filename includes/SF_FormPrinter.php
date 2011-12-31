@@ -333,7 +333,7 @@ END;
 	 * only a page formula exists).
 	 */
 	function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $is_embedded = false ) {
-		global $wgRequest, $wgUser, $wgOut, $wgParser;
+		global $wgRequest, $wgUser, $wgParser;
 		global $sfgTabIndex; // used to represent the current tab index in the form
 		global $sfgFieldNum; // used for setting various HTML IDs
 
@@ -481,7 +481,6 @@ END;
 		// Placeholder name in the form
 		$curPlaceholder = null;
 		// Used to store the HTML code of the multiple template, to reinsert it into the right spot
-		$multipleTemplateString = "";
 		// This array will keep track of all the replaced @<name>@ strings
 		$placeholderFields = array();
 
@@ -1533,13 +1532,14 @@ END;
 			else
 				$form_text .= SFFormUtils::formBottom( $form_is_disabled );
 		}
-		$starttime = wfTimestampNow();
+
 		$page_article = new Article( $this->mPageTitle, 0 );
-		$edittime = $page_article->getTimestamp();
+
 		if ( !$is_query ) {
 			$form_text .= SFFormUtils::hiddenFieldHTML( 'wpStarttime', wfTimestampNow() );
 			$form_text .= SFFormUtils::hiddenFieldHTML( 'wpEdittime', $page_article->getTimestamp() );
 		}
+
 		$form_text .= "\t</form>\n";
 
 		// Add general Javascript code.

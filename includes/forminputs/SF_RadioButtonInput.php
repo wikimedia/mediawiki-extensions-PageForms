@@ -64,7 +64,7 @@ class SFRadioButtonInput extends SFEnumInput {
 		}
 		$itemAttrs = array( 'class' => $itemClass );
 
-		foreach ( $possible_values as $i => $possible_value ) {
+		foreach ( $possible_values as $possible_value ) {
 			$sfgTabIndex++;
 			$sfgFieldNum++;
 			$input_id = "input_$sfgFieldNum";

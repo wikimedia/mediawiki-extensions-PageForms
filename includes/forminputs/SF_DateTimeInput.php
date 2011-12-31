@@ -86,7 +86,6 @@ class SFDateTimeInput extends SFDateInput {
 				}
 			}
 		} else {
-			$cur_date = getdate();
 			$hour = null;
 			$minute = null;
 			$second = '00'; // default at least this value

@@ -422,7 +422,6 @@ END;
 			if ( !$name )
 				continue;
 
-			$values = array();
 			$options = $select->getElementsByTagName( 'option' );
 
 			if ( count( $options ) && ( !$select->hasAttribute( "multiple" ) || $options->item( 0 )->hasAttribute( 'selected' ) ) ) {
@@ -462,7 +461,7 @@ END;
 	private function parseDataFromQueryString( &$data, $queryString ) {
 		$params = explode( '&', $queryString );
 
-		foreach ( $params as $i => $param ) {
+		foreach ( $params as $param ) {
 			$elements = explode( '=', $param, 2 );
 
 			$key = trim( urldecode( $elements[0] ) );

@@ -27,7 +27,6 @@ class SFAutocompleteAPI extends ApiBase {
 		$category = $params['category'];
 		$concept = $params['concept'];
 		$external_url = $params['external_url'];
-		$limit = $params['limit'];
 
 		if ( strlen( $substr ) == 0 ) {
 			$this->dieUsage( 'The substring must be specified', 'param_substr' );

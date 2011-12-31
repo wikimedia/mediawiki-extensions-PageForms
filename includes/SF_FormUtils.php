@@ -380,7 +380,7 @@ END;
 	}
 
 	static function getShowFCKEditor() {
-		global $wgUser, $wgDefaultUserOptions;
+		global $wgUser;
 
 		// Differentiate between FCKeditor and the newer CKeditor,
 		// which isn't handled here

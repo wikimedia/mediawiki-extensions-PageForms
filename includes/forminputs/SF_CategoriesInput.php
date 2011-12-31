@@ -28,12 +28,7 @@ class SFCategoriesInput extends SFCategoryInput {
 
 		global $sfgTabIndex, $sfgFieldNum, $wgCapitalLinks;
 
-		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
-		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= ' ' . $other_args['class'];
-		}
 		$input_id = "input_$sfgFieldNum";
-		$info_id = "info_$sfgFieldNum";
 		// get list delimiter - default is comma
 		if ( array_key_exists( 'delimiter', $other_args ) ) {
 			$delimiter = $other_args['delimiter'];

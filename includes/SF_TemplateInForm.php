@@ -82,7 +82,7 @@ class SFTemplateInForm {
 			// Then, get calls to #set and #set_internal
 			// (thankfully, they have basically the same syntax).
 			if ( preg_match_all( '/#(set|set_internal):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
-				foreach ( $matches[2] as $i => $match ) {
+				foreach ( $matches[2] as $match ) {
 					if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
 						foreach ( $matches2[1] as $i => $propertyName ) {
 							$fieldName = trim( $matches2[2][$i] );
@@ -98,7 +98,7 @@ class SFTemplateInForm {
 
 			// Then, get calls to #declare.
 			if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $i => $match ) {
+				foreach ( $matches[1] as $match ) {
 					$setValues = explode( '|', $match );
 					foreach ( $setValues as $valuePair ) {
 						$keyAndVal = explode( '=', $valuePair );
@@ -116,7 +116,7 @@ class SFTemplateInForm {
 
 			// Finally, get any non-semantic fields defined.
 			if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $i => $fieldName ) {
+				foreach ( $matches[1] as $fieldName ) {
 					$fieldName = trim( $fieldName );
 					if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
 						$cur_pos = stripos( $templateText, $fieldName );

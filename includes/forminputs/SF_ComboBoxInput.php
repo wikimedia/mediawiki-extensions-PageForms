@@ -37,7 +37,6 @@ class SFComboBoxInput extends SFFormInput {
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
-		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
 
 		if ( array_key_exists( 'size', $other_args ) ) {
 			$size = $other_args['size'];

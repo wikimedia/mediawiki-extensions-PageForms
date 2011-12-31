@@ -26,12 +26,8 @@ class SFCategoryInput extends SFFormInput {
 			return null;
 		}
 
-		global $sfgTabIndex, $sfgFieldNum;
+		global $sfgTabIndex;
 
-		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
-		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= ' ' . $other_args['class'];
-		}
 		if ( array_key_exists( 'top category', $other_args ) ) {
 			$top_category = $other_args['top category'];
 		} else {

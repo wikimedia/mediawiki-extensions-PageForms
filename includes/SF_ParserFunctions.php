@@ -595,7 +595,7 @@ END;
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
-		foreach ( $params as $i => $param ) {
+		foreach ( $params as $param ) {
 
 			$elements = explode( '=', $param, 2 );
 

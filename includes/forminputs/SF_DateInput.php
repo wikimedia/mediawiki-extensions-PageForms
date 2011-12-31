@@ -49,8 +49,6 @@ class SFDateInput extends SFFormInput {
 	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $wgAmericanDates;
 
-		$input_id = "input_$sfgFieldNum";
-
 		if ( $date ) {
 			// Can show up here either as an array or a string,
 			// depending on whether it came from user input or a
