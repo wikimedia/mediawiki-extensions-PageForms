@@ -1661,6 +1661,9 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch
 $messages['diq'] = array(
 	'sf_formedit_remove' => 'Hewad',
 	'sf_formedit_none' => 'Çıniyo',
+	'sf_template_docu' => 'Na sablona "$1" ia
+Zey format dê cêrêni cıgeyrê',
+	'sf_template_docufooter' => 'Qandê Nusne na sabloner vinayışi na peler bıvurnê',
 );
 
 /** Lower Sorbian (Dolnoserbski)
