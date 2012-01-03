@@ -41,12 +41,7 @@ class SFFormUtils {
 	}
 
 	static function hiddenFieldHTML( $input_name, $cur_value ) {
-		// 'Html' class was added in MW 1.16
-		if ( class_exists( 'Html' ) ) {
-			return "\t" . Html::hidden( $input_name, $cur_value ) . "\n";
-		} else {
-			return "\t" . Xml::hidden( $input_name, $cur_value ) . "\n";
-		}
+		return "\t" . Html::hidden( $input_name, $cur_value ) . "\n";
 	}
 
 	/**

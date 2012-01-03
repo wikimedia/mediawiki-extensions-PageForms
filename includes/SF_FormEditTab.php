@@ -37,8 +37,6 @@ class SFFormEditTab {
 		global $wgRequest, $wgUser;
 		global $sfgRenameEditTabs, $sfgRenameMainEditTab;
 
-		SFUtils::loadMessages();
-
 		$user_can_edit = $wgUser->isAllowed( 'edit' ) && $title->userCan( 'edit' );
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
@@ -144,7 +142,6 @@ class SFFormEditTab {
 			return true;
 		}
 		if ( count( $form_names ) > 1 ) {
-			SFUtils::loadMessages();
 			$warning_text = "\t" . '<div class="warningMessage">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
 			$wgOut->addHTML( $warning_text );
 		}

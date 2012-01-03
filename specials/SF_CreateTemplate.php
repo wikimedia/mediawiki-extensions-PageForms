@@ -18,7 +18,6 @@ class SFCreateTemplate extends SpecialPage {
 	 */
 	public function SFCreateTemplate() {
 		parent::__construct( 'CreateTemplate' );
-		SFUtils::loadMessages();
 	}
 
 	public function execute( $query ) {
@@ -73,8 +72,6 @@ class SFCreateTemplate extends SpecialPage {
 	}
 
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
-		SFUtils::loadMessages();
-
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_fieldname' ) . ' ' .
@@ -150,7 +147,6 @@ END;
 	function printCreateTemplateForm() {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 
-		SFUtils::loadMessages();
 		self::addJavascript();
 
 		$text = '';

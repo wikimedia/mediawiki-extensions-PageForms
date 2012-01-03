@@ -17,7 +17,6 @@ class SFForms extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'Forms' );
-		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -54,8 +53,6 @@ class FormsPage extends QueryPage {
 
 	function getPageHeader() {
 		global $wgUser;
-		
-		SFUtils::loadMessages();
 		
 		$sk = $wgUser->getSkin();
 		$create_form_link = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );

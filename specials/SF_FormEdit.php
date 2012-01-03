@@ -22,7 +22,6 @@ class SFFormEdit extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'FormEdit' );
-		SFUtils::loadMessages();
 	}
 
 	function execute( $query, $redirectOnError = true ) {
@@ -89,8 +88,6 @@ class SFFormEdit extends SpecialPage {
 
 	static function printForm( &$form_name, &$target_name, $alt_forms = array(), $redirectOnError = false ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgFormPrinter;
-
-		SFUtils::loadMessages();
 
 		// If we have no form name we might as well stop right away
 		if ( $form_name === '' ) {

@@ -18,7 +18,6 @@ class SFCreateForm extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'CreateForm' );
-		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -50,8 +49,6 @@ class SFCreateForm extends SpecialPage {
 	function doSpecialCreateForm() {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 		$db = wfGetDB( DB_SLAVE );
-
-		SFUtils::loadMessages();
 
 		// Create Javascript to populate fields to let the user input
 		// parameters for the field, based on the input type selected

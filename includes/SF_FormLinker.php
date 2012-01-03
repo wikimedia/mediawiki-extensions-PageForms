@@ -241,7 +241,6 @@ class SFFormLinker {
 		if ( '' === $namespace_name ) {
 			// If it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language.
-			SFUtils::loadMessages();
 			$namespace_name = wfMsgForContent( 'sf_blank_namespace' );
 		}
 		if ( $form_edit_link = self::getFormEditLinkForPage( $title, $namespace_name, NS_PROJECT ) ) {
@@ -339,7 +338,6 @@ class SFFormLinker {
 		if ( NS_MAIN === $namespace ) {
 			// If it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language.
-			SFUtils::loadMessages();
 			$namespace_label = wfMsgForContent( 'sf_blank_namespace' );
 		} else {
 			global $wgContLang;

@@ -19,7 +19,6 @@ class SFCreateClass extends SpecialPage {
 	 */
 	public function __construct() {
 		parent::__construct( 'CreateClass', 'createclass' );
-		SFUtils::loadMessages();
 	}
 
 	static function addJavascript( $numStartingRows ) {

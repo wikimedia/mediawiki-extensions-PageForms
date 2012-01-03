@@ -199,8 +199,7 @@ class SFParserFunctions {
 				$inTooltip = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
 				$inTargetName = $value;
-			} elseif ( $param_name == null && $value == 'popup'
-				&& version_compare( $wgVersion, '1.16', '>=' ) ) {
+			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
 			}
@@ -315,8 +314,7 @@ class SFParserFunctions {
 				$autocompletion_type = 'namespace';
 			} elseif ( $param_name == 'remote autocompletion' ) {
 				$inRemoteAutocompletion = true;
-			} elseif ( $param_name == null && $value == 'popup'
-				&& version_compare( $wgVersion, '1.16', '>=' ) ) {
+			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupforminput';
 			}
@@ -415,7 +413,6 @@ END;
 					) . "\n";
 			}
 		}
-		SFUtils::loadMessages();
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
 		$str .= <<<END
 			<input type="submit" value="$button_str" /></p>

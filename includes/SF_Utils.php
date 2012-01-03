@@ -14,23 +14,7 @@ class SFUtils {
 	 */
 	public static function linkForSpecialPage( $skin, $specialPageName ) {
 		$specialPage = SpecialPage::getPage( $specialPageName );
-		// link() method was added in MW 1.16
-		if ( method_exists( $skin, 'link' ) ) {
-			return $skin->link( $specialPage->getTitle(), $specialPage->getDescription() );
-		} else {
-			return $skin->makeKnownLinkObj( $specialPage->getTitle(), $specialPage->getDescription() );
-		}
-	}
-
-	public static function isCapitalized( $title ) {
-		// Method was added in MW 1.16.
-		$realFunction = array( 'MWNamespace', 'isCapitalized' );
-		if ( is_callable( $realFunction ) ) {
-			return MWNamespace::isCapitalized( $title->getNamespace() );
-		} else {
-			global $wgCapitalLinks;
-			return $wgCapitalLinks;
-		}
+		return $skin->link( $specialPage->getTitle(), $specialPage->getDescription() );
 	}
 
 	/**
@@ -43,7 +27,7 @@ class SFUtils {
 		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
-		if ( self::isCapitalized( $title ) ) {
+		if ( MWNamespace::isCapitalized( $title->getNamespace() ) ) {
 			global $wgContLang;
 			return $namespace . $wgContLang->ucfirst( $title->getPartialURL() );
 		} else {
@@ -60,7 +44,7 @@ class SFUtils {
 		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
-		if ( self::isCapitalized( $title ) ) {
+		if ( MWNamespace::isCapitalized( $title->getNamespace() ) ) {
 			global $wgContLang;
 			return $namespace . $wgContLang->ucfirst( $title->getText() );
 		} else {
@@ -652,7 +636,7 @@ END;
 
 		// The query depends on whether this is a property, category,
 		// concept or namespace.
-		if ( $source_type == 'property' || $source_type == 'attribute' || $source_type == 'relation' ) {
+		if ( $source_type == 'property' ) {
 			$names_array = self::getAllValuesForProperty( $source_name );
 		} elseif ( $source_type == 'category' ) {
 			$names_array = self::getAllPagesForCategory( $source_name, 10 );
@@ -719,27 +703,10 @@ END;
 	}
 
 	/**
-	 * Loads messages only for MediaWiki versions that need it (< 1.16)
-	 */
-	public static function loadMessages() {
-		global $wgVersion;
-		if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-			wfLoadExtensionMessages( 'SemanticForms' );
-		}
-	}
-
-	/**
 	 * Gets the word in the wiki's language, as defined in Semantic
 	 * MediaWiki, for either the value 'yes' or 'no'.
 	 */
 	public static function getWordForYesOrNo( $isYes ) {
-		global $wgVersion;
-		// Manually load SMW's message values here, in case they
-		// didn't get loaded before.
-		if ( version_compare( $wgVersion, '1.16', '<' ) ) {
-			wfLoadExtensionMessages( 'SemanticMediaWiki' );
-		}
-
 		$wordsMsg = ( $isYes ) ? 'smw_true_words' : 'smw_false_words';
 		$possibleWords = explode( ',', wfMsgForContent( $wordsMsg ) );
 		// Get the value in the series that tends to be "yes" or "no" -

@@ -17,7 +17,6 @@ class SFTemplates extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'Templates' );
-		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -55,8 +54,6 @@ class TemplatesPage extends QueryPage {
 
 	function getPageHeader() {
 		global $wgUser;
-		
-		SFUtils::loadMessages();
 		
 		$sk = $wgUser->getSkin();
 		$create_template_link = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
@@ -115,7 +112,6 @@ class TemplatesPage extends QueryPage {
 		$text = $skin->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
-			SFUtils::loadMessages();
 			$text .= ' ' . wfMsgExt( 'sf_templates_definescat', 'parseinline', SFUtils::linkText( NS_CATEGORY, $category ) );
 		}
 		return $text;

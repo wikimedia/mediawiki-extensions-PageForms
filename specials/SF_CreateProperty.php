@@ -18,7 +18,6 @@ class SFCreateProperty extends SpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'CreateProperty' );
-		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -57,8 +56,6 @@ class SFCreateProperty extends SpecialPage {
 	static function printCreatePropertyForm() {
 		global $wgOut, $wgRequest, $sfgScriptPath;
 		global $smwgContLang;
-
-		SFUtils::loadMessages();
 
 		# cycle through the query values, setting the appropriate local variables
 		$property_name = $wgRequest->getVal( 'property_name' );

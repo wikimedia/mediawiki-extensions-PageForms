@@ -17,7 +17,6 @@ class SFRunQuery extends IncludableSpecialPage {
 	 */
 	function __construct() {
 		parent::__construct( 'RunQuery' );
-		SFUtils::loadMessages();
 	}
 
 	function execute( $query ) {
@@ -88,11 +87,8 @@ class SFRunQuery extends IncludableSpecialPage {
 			// isn't needed.
 			if ( $wgParser->getOutput() == null ) {
 				$headItems = array();
-			// method was added in MW 1.16
-			} elseif ( method_exists( $wgParser->getOutput(), 'getHeadItems' ) ) {
-				$headItems = $wgParser->getOutput()->getHeadItems();
 			} else {
-				$headItems = $wgParser->getOutput()->mHeadItems;
+				$headItems = $wgParser->getOutput()->getHeadItems();
 			}
 			foreach ( $headItems as $key => $item ) {
 				$wgOut->addHeadItem( $key, "\t\t" . $item . "\n" );
