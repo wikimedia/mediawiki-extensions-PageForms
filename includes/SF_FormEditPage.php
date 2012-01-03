@@ -19,7 +19,6 @@ class SFFormEditPage extends EditPage {
 	function __construct( $article, $form_name = '' ) {
 		global $wgRequest;
 		parent::__construct( $article );
-		SFUtils::loadMessages();
 		$this->action = 'formedit';
 		$form_name = $wgRequest->getText( 'form', $form_name );
 		$this->form = Title::makeTitleSafe( SF_NS_FORM, $form_name );
