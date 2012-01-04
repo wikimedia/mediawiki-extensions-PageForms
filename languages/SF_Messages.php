@@ -202,6 +202,7 @@ if a page with that name already exists, you will be sent to a form to edit that
  * @author Fryed-peach
  * @author Jon Harald Søby
  * @author McDutchie
+ * @author Nemo bis
  * @author Purodha
  * @author Raymond
  * @author Siebrand
@@ -211,7 +212,8 @@ $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
-	'sf_templates_definescat' => '$1 is the name of the category that this template adds pages to',
+	'sf_templates_definescat' => 'The message is shown on [[Special:Templates]], the list of templates in the wiki, after the name of each template, to describe it. 
+<code>$1</code> is the name of the category that this template adds pages to.',
 	'sf_createtemplate_standardformat' => '{{Identical|Standard}}',
 	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
