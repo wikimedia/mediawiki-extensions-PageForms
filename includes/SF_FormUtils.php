@@ -19,12 +19,10 @@ class SFFormUtils {
 
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
 		$vars['sfgScriptPath'] = $sfgScriptPath;
-		// variables that are associative arrays need to be cast as
-		// objects, to work with MW 1.15 and earlier
-		$vars['sfgAutocompleteValues'] = (object)$sfgAutocompleteValues;
-		$vars['sfgShowOnSelect'] = (object)$sfgShowOnSelect;
-//		$vars['sfgInitJSFunctions'] = (object)$sfgInitJSFunctions;
-//		$vars['sfgValidationJSFunctions'] = (object)$sfgValidationJSFunctions;
+		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
+		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
+//		$vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
+//		$vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
 		$vars['sfgFormErrorsHeader'] = wfMsg( 'sf_formerrors_header' );
 		$vars['sfgBlankErrorStr'] = wfMsg( 'sf_blank_error' );
 		$vars['sfgBadURLErrorStr'] = wfMsg( 'sf_bad_url_error' );
