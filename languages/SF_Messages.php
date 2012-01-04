@@ -211,6 +211,7 @@ $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
+	'sf_templates_definescat' => '$1 is the name of the category that this template adds pages to',
 	'sf_createtemplate_standardformat' => '{{Identical|Standard}}',
 	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
