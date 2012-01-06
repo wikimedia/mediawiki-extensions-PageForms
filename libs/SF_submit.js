@@ -31,7 +31,7 @@ jQuery( function( $ ) {
 
 	function setChanged( event ) {
 		sacButtons
-			.removeAttr("disabled");
+			.removeAttr("disabled")
 			.addClass("sf-save_and_continue-changed");
 
 		return true;
