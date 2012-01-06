@@ -10,7 +10,7 @@ var interval;
 
 function ajaxFormPreviewInit(){
 
-	if ((mw.config.get( 'mw.config.get( 'wgNamespaceNumber' )' ) % 2 == 0) && /\.(js|css)$/.test(mw.config.get( 'wgTitle' ))) return;
+	if ((mw.config.get( 'wgNamespaceNumber' ) % 2 == 0) && /\.(js|css)$/.test(mw.config.get( 'wgTitle' ))) return;
 
 	if(!document.getElementById('wikiPreview')) return;
 
