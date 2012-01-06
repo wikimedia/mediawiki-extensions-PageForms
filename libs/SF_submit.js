@@ -47,7 +47,7 @@ jQuery(function($){
 		var el = document.getElementById("form_error_header");
 
 		if (el) el.parentNode.removeChild(el);
-		
+
 		if (validateAll()) {
 
 			// disable save and continue button
@@ -56,7 +56,7 @@ jQuery(function($){
 			sacButtons
 			.addClass("sf-save_and_continue-wait")
 			.removeClass("sf-save_and_continue-changed");
-			
+
 			sajax_request_type = 'POST';
 			var form = $('#sfForm');
 
@@ -94,7 +94,7 @@ jQuery(function($){
 					sacButtons
 					.addClass("sf-save_and_continue-error")
 					.removeClass("sf-save_and_continue-wait");
-					
+
 					// Remove all old error messages and set new one
 					jQuery(".errorMessage").remove();
 					jQuery("#contentSub").append('<div id="form_error_header" class="warningMessage" style="font-size: medium">' + ajaxHeader.responseText + '</div>');
@@ -112,9 +112,9 @@ jQuery(function($){
 
 		var summaryfield = jQuery("#wpSummary", form);
 		if ( summaryfield.length > 0 ) {
-			
+
 			var oldsummary = summaryfield.attr("value");
-			
+
 			if ( oldsummary != "" ) {
 				summaryfield.attr("value", oldsummary + " (" + sfgSaveAndContinueSummary + ")");
 			} else {
@@ -124,12 +124,12 @@ jQuery(function($){
 			var params = form.serialize();
 
 			summaryfield.attr("value", oldsummary );
-			
+
 		} else {
-			
+
 			var params = form.serialize();
 			params += "&wpSummary=" + sfgSaveAndContinueSummary;
-			
+
 		}
 
 		if (wgAction == "formedit") {
@@ -163,7 +163,7 @@ jQuery(function($){
 		}
 
 		params += "&wpMinoredit=1";
-		
+
 		return params;
 	}
 

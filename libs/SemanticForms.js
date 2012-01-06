@@ -69,7 +69,7 @@
 	this.delimiter = delimiter;
 
 	/* extending jquery functions */
-	jQuery.extend( jQuery.ui.autocomplete, {	
+	jQuery.extend( jQuery.ui.autocomplete, {
 	    filter: function(array, term) {
 		if ( sfgAutocompleteOnAllChars ) {
 			var matcher = new RegExp(jQuery.ui.autocomplete.escapeRegex(term), "i" );
@@ -120,7 +120,7 @@
 				return false;
 			}
 		});
-            
+
         } else {
 		// Autocomplete for a single value
                 jQuery(this).autocomplete({
@@ -182,7 +182,7 @@
 				jQuery.ajax({
 					url: myServer,
 					dataType: "json",
-					data: { 
+					data: {
 						substr:request.term
 					},
 					success: function( data ) {
@@ -324,7 +324,7 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 
 	elem.each( function() {
 		if ( jQuery(this).css('display') == 'none' ) {
-			
+
 			jQuery(this).slideDown(speed, function() {
 				jQuery(this).fadeTo(speed,1);
 			});
@@ -343,13 +343,13 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 		// hardcoded in English.
 		alert( "Warning: this form has \"show on select\" pointing to an invalid element ID (\"" + div_id + "\") - IDs in HTML cannot contain spaces." );
 	}
-	
+
 	var elem = jQuery('[id="' + div_id + '"]', instanceWrapperDiv);
 	elem.find("span, div").addClass('hiddenBySF');
-	
+
 	elem.each( function() {
 		if ( jQuery(this).css('display') != 'none' ) {
-		
+
 			// if 'display' is not 'hidden', but the element is hidden otherwise
 			// (e.g. by having height = 0), just hide it, else animate the hiding
 			if ( jQuery(this).is(':hidden') ) {
@@ -387,7 +387,7 @@ jQuery.fn.showIfSelected = function(initPage) {
 	if ( instanceWrapperDiv.length == 0 ) {
 		instanceWrapperDiv = null;
 	}
-	
+
 	if ( showOnSelectVals !== undefined ) {
 		for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
@@ -395,7 +395,7 @@ jQuery.fn.showIfSelected = function(initPage) {
 			showDivIfSelected( options, div_id, inputVal, instanceWrapperDiv, initPage );
 		}
 	}
-	
+
 	return this;
 }
 
@@ -409,7 +409,7 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initP
 		}
 	}
 	hideDiv(div_id, instanceWrapperDiv);
-	
+
 	return this;
 }
 
@@ -423,7 +423,7 @@ jQuery.fn.showIfChecked = function(initPage) {
 	if ( instanceWrapperDiv.length == 0 ) {
 		instanceWrapperDiv = null;
 	}
-	
+
 	if ( showOnSelectVals !== undefined ) {
 		for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
@@ -431,7 +431,7 @@ jQuery.fn.showIfChecked = function(initPage) {
 			this.showDivIfChecked(options, div_id, instanceWrapperDiv, initPage );
 		}
 	}
-	
+
 	return this;
 }
 
@@ -444,13 +444,13 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
 	if ( instanceWrapperDiv.length == 0 ) {
 		instanceWrapperDiv = null;
 	}
-	
+
 	if (jQuery(this).is(":checked")) {
 		showDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
 	} else {
 		hideDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
 	}
-		
+
 	return this;
 }
 
@@ -661,7 +661,7 @@ window.validateAll = function () {
 jQuery.fn.addInstance = function() {
 	// Global variable.
 	num_elements++;
-	
+
 	// Create the new instance
 	var new_div = this.closest(".multipleTemplateWrapper")
 		.find(".multipleTemplateStarter")
@@ -805,7 +805,7 @@ jQuery.fn.initializeJSElements = function() {
 			jQuery(this).showIfSelected(false);
 		});
 	});
-	
+
 	this.find(".sfShowIfChecked").each( function() {
 		jQuery(this)
 		.showIfChecked(true)
@@ -813,7 +813,7 @@ jQuery.fn.initializeJSElements = function() {
 			jQuery(this).showIfChecked(false);
 		});
 	});
-	
+
 	this.find(".sfShowIfCheckedCheckbox").each( function() {
 		jQuery(this)
 		.showIfCheckedCheckbox(true)
@@ -827,11 +827,11 @@ jQuery.fn.initializeJSElements = function() {
 		jQuery(this).closest(".multipleTemplateInstance")
 		.fadeTo('fast', 0, function() {
 			jQuery(this).slideUp('fast', function() {
-				jQuery(this).remove(); 
+				jQuery(this).remove();
 			});
 		});
 	});
-	
+
 	this.find('.autocompleteInput').attachAutocomplete();
 	this.find('.sfComboBox').combobox();
 	this.find('.autoGrow').autoGrow();

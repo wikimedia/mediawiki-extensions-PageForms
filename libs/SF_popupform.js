@@ -5,7 +5,7 @@
  *
  */
 
-// initialise 
+// initialise
 jQuery(function(){
 
 	// register eventhandlers on 'edit' links and buttons
@@ -75,7 +75,7 @@ window.ext.popupform = new function() {
 
 			elem.target = 'popupform-iframe' + instance;
 			return true;
-			
+
 		} else {
 
 			var delim = ptarget.indexOf( '?' );
@@ -95,7 +95,7 @@ window.ext.popupform = new function() {
 					input.name = decodeURIComponent( param[0] );
 					input.value = decodeURIComponent( param[1] );
 					form.appendChild( input );
-					
+
 				}
 			} else {
 				form.action = ptarget;
@@ -180,10 +180,10 @@ window.ext.popupform = new function() {
 	}
 
 	function handleLoadFrame( event ){
-		
+
 		var iframe = jQuery( event.target );
 		var iframecontents = iframe.contents();
-		
+
 		if ( brokenBrowser ) container[0].style.visibility = "hidden";
 		else container[0].style.opacity = 0;
 
@@ -191,7 +191,7 @@ window.ext.popupform = new function() {
 
 		// GuMaxDD has #content but keeps headlines in #gumax-content-body
 		content = iframecontents.find("#gumax-content-body");
-		
+
 		// normal skins use #content (e.g. Vector, Monobook)
 		if ( content.length == 0 ) content = iframecontents.find("#content");
 
@@ -317,7 +317,7 @@ window.ext.popupform = new function() {
 				}, 10)
 				event.stopPropagation();
 				return false;
-				
+
 			});
 
 			// catch inner form submit event
@@ -339,7 +339,7 @@ window.ext.popupform = new function() {
 			innerwdw.jQuery( innerwdw[0] ).unload(function (event) {
 				return false;
 			});
-			
+
 			//
 			content.bind( 'click', function() {
 				var foundQueue = false;
@@ -393,7 +393,7 @@ window.ext.popupform = new function() {
 		});
 
 		return false;
-		
+
 	}
 
 	function handleSubmitData( event ){
@@ -442,7 +442,7 @@ window.ext.popupform = new function() {
 			// Send the form data off, we do not care for the returned data
 			var innerformdata = innerform.serialize();
 			jQuery.post( innerform.attr("action"), innerformdata );
-				
+
 			// build new url for outer page (we have to ask for a purge)
 
 			var url = location.href;
@@ -500,7 +500,7 @@ window.ext.popupform = new function() {
 		var html = body.parent();
 
 		var scrollTgt = html;
-			
+
 		if ( jQuery.browser.webkit || jQuery.browser.safari ) {
 			scrollTgt = body;
 		}
@@ -590,7 +590,7 @@ window.ext.popupform = new function() {
 			contH = docH;
 			frameH = docpH;
 		}
-		
+
 		if ( needsHScroll ){
 			frameH += scrollH;
 		} else {

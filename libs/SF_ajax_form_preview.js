@@ -9,14 +9,14 @@ var wkPreview;
 var interval;
 
 function ajaxFormPreviewInit(){
- 
+
 	if ((wgNamespaceNumber % 2 == 0) && /\.(js|css)$/.test(wgTitle)) return;
- 
+
 	if(!document.getElementById('wikiPreview')) return;
- 
+
 	var btnOld = document.getElementById('wpPreview');
 	if (!btnOld || !document.getElementById('wikiPreview')) return;  // need preview-button and preview-placeholder
- 
+
 	var btn = document.createElement('input');
 	btn.type = 'button';
 	btn.onclick = ajaxFormPreviewClick;
@@ -24,68 +24,68 @@ function ajaxFormPreviewInit(){
 	btn.name = btnOld.name;
 	btn.value = btnOld.value;
 	btn.title = btnOld.title;
- 
+
 	btn.value2 = btn.value;
- 
+
 	btn.accessKey = btnOld.accessKey;
 	btn.disabled = btnOld.disabled;
 	btn.tabIndex = btnOld.tabIndex;
- 
+
 	btnOld.parentNode.replaceChild(btn, btnOld);
 }
- 
+
 function ajaxFormPreviewClick(){
 	ajaxFormPreviewRun(this)
 	}
 
 function ajaxFormPreviewRun(btn){
- 
+
 	wkPreview = document.getElementById('wikiPreview');
 	var form = document.createbox;
 	var aj = sajax_init_object();
 	var aj2 = sajax_init_object();
- 
+
 	// remove old error messages
 	var el = document.getElementById("form_error_header");
 	if (el) el.parentNode.removeChild(el);
- 
+
 	if (!wkPreview || !form || !aj || !aj2 || !validateAll() ) return;
- 
+
 	var frag=document.createElement("div");
- 
+
 	var htm;
- 
+
 	// gray out old preview
 	wkPreview.style.opacity = '0.3';
 	wkPreview.style.color = 'gray';
- 
+
 	document.body.style.cursor = 'wait';
-  
+
 	//prepare
 	var action = document.URL;
 	if (wgAction=='formedit') action += '&live';
- 
+
 	var boundary = '--------123xyz';
 	var data = '';
- 
+
 	//FCKeditor visible? update free text first
 	// if (!oFCKeditor.ready) return false;    //sajax_do_call in action - what do we do?
 	if ( typeof FCKeditorAPI != "undefined" )
 		if ( showFCKEditor & RTE_VISIBLE ) {
-	    
+
 			var SRCtextarea = document.getElementById( 'free_text' );
-	    
+
 			if ( SRCtextarea ) {
-		
+
 				var oEditorIns = FCKeditorAPI.GetInstance( 'free_text' );
 				SRCtextarea.value = oEditorIns.GetData( oEditorIns.Config.FormatSource );
-		
+
 			}
-	    
+
 		}
- 
+
 	elts = form.elements;
- 
+
 	for (i=0; i < elts.length; ++i) {
 		if (elts[i].name && elts[i].name !== '' && !elts[i].disabled &&
 			((elts[i].type!='submit' && elts[i].type!='button' && elts[i].type!='radio' && elts[i].type!='checkbox') || elts[i].checked)) {
@@ -98,20 +98,20 @@ function ajaxFormPreviewRun(btn){
 	btn.style.width = Math.max(btn.scrollWidth, btn.offsetWidth) + 'px';
 	btn.value = '...';
 	btn.disabled='1';
- 
+
 	//send
- 
+
 	aj.open('POST', action, true);
 	aj.setRequestHeader('Content-Type', 'multipart/form-data; boundary='+boundary);
 	aj.send(data + '--' + boundary);
 	aj.onreadystatechange = function(){
- 
+
 		if (aj.readyState != 4) return;
- 
+
 		// Got Wikitext. Now fetch HTML...
-	
+
 		frag.innerHTML = aj.responseText;
- 
+
 		if (!frag.getElementsByTagName("form")["editform"]) {
 			wkPreview.innerHTML = aj.responseText;
 		}
@@ -169,7 +169,7 @@ function ajaxFormPreviewRun(btn){
 			doc.open();
 			doc.write(htm);
 			doc.close();
- 
+
 			interval=setInterval(function(){
 
 				if ( ! doc.getElementById("SF_PREVIEW_EOD") ) return;
@@ -238,7 +238,7 @@ function ajaxFormPreviewRun(btn){
 
 				}
 			},100);
-	    
+
 			wkPreview.style.opacity = '';
 			wkPreview.style.color = '';
 			wkPreview.style.display='block';
