@@ -7,7 +7,7 @@ jQuery(function($){
 	var sacButtons;
 	var form;
 
-	if ( wgAction == "formedit"	|| wgCanonicalSpecialPageName == "FormEdit" ) {
+	if ( mw.config.get( 'wgAction' ) == "formedit"	|| mw.config.get( 'wgCanonicalSpecialPageName' ) == "FormEdit" ) {
 
 		form = $('#sfForm');
 
@@ -132,16 +132,16 @@ jQuery(function($){
 
 		}
 
-		if (wgAction == "formedit") {
-			params += "&target=" + encodeURIComponent( wgPageName );
-		} else if ( wgCanonicalSpecialPageName == "FormEdit") {
+		if (mw.config.get( 'wgAction' ) == "formedit") {
+			params += "&target=" + encodeURIComponent( mw.config.get( 'wgPageName' ) );
+		} else if ( mw.config.get( 'wgCanonicalSpecialPageName' ) == "FormEdit") {
 
 			var url = String(window.location);
 
 			var stop = url.indexOf("?");
 			if ( stop > 0 ) url = url.substring(0, stop);
 
-			var start = url.indexOf( wgPageName ); // find start of page name
+			var start = url.indexOf( mw.config.get( 'wgPageName' ) ); // find start of page name
 			start = url.indexOf("/", start) + 1; // find start of subpage
 
 			if ( start >= 0 ) {

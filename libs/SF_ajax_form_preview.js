@@ -10,7 +10,7 @@ var interval;
 
 function ajaxFormPreviewInit(){
 
-	if ((wgNamespaceNumber % 2 == 0) && /\.(js|css)$/.test(wgTitle)) return;
+	if ((mw.config.get( 'mw.config.get( 'wgNamespaceNumber' )' ) % 2 == 0) && /\.(js|css)$/.test(mw.config.get( 'wgTitle' ))) return;
 
 	if(!document.getElementById('wikiPreview')) return;
 
@@ -63,7 +63,7 @@ function ajaxFormPreviewRun(btn){
 
 	//prepare
 	var action = document.URL;
-	if (wgAction=='formedit') action += '&live';
+	if (mw.config.get( 'wgAction' )=='formedit') action += '&live';
 
 	var boundary = '--------123xyz';
 	var data = '';
@@ -253,7 +253,7 @@ function ajaxFormPreviewRun(btn){
 	}
 }
 
-if (wgAction=='formedit' || wgCanonicalSpecialPageName == 'FormEdit') {
+if (mw.config.get( 'wgAction' )=='formedit' || mw.config.get( 'wgCanonicalSpecialPageName' ) == 'FormEdit') {
 	if ( typeof( addOnloadHook ) != 'undefined' ) addOnloadHook(ajaxFormPreviewInit);
 	else if ( typeof( jQuery ) != 'undefined' ) jQuery(function(){
 		ajaxFormPreviewInit()

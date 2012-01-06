@@ -11,7 +11,7 @@
 
 	this.getPreviewImage = function( args, callback ) {
 		$.getJSON(
-			wgScriptPath + '/api.php',
+			mw.config.get( 'wgScriptPath' ) + '/api.php',
 			{
 				'action': 'query',
 				'format': 'json',
