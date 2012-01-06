@@ -1,12 +1,12 @@
 // create ext if it does not exist yet
-if ( typeof( window[ 'ext' ] ) == "undefined" ) {
-	window[ 'ext' ] = {};
+if ( typeof( window.ext' ) === "undefined" ) {
+	window.ext = {};
 }
 
 window.ext.wikieditor = new function(){
 
 	// initialize the wikieditor on the specified element
-	this.init = function init  ( input_id, params ) {
+	this.init = function init ( input_id, params ) {
 
 		if ( window.mediaWiki ) {
 			mediaWiki.loader.using(	'ext.semanticforms.wikieditor', function(){
@@ -14,7 +14,7 @@ window.ext.wikieditor = new function(){
 				var input = jQuery( '#' + input_id );
 
 				// load toolbar
-				mediaWiki.loader.using(	['jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config'] , function(){
+				mediaWiki.loader.using( ['jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config'] , function(){
 					if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toolbar ) ) {
 
 						input.wikiEditor( 'addModule', jQuery.wikiEditor.modules.toolbar.config.getDefaultConfig() );
@@ -32,7 +32,7 @@ window.ext.wikieditor = new function(){
 				});
 
 				// load dialogs
-				mediaWiki.loader.using(	['jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config'] , function(){
+				mediaWiki.loader.using( ['jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config'] , function(){
 					if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.dialogs ) ) {
 
 						jQuery.wikiEditor.modules.dialogs.config.replaceIcons( input );
@@ -43,7 +43,7 @@ window.ext.wikieditor = new function(){
 
 				// load toc
 				// TODO: Can this be enabled? Should it?
-//				mediaWiki.loader.using(	['jquery.wikiEditor.toc' ] , function(){
+//				mediaWiki.loader.using( ['jquery.wikiEditor.toc' ] , function(){
 //					if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toc ) ) {
 //
 //						input.wikiEditor( 'addModule', 'toc' );

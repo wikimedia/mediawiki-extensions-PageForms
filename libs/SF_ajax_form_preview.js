@@ -253,10 +253,6 @@ function ajaxFormPreviewRun(btn){
 	}
 }
 
-if (mw.config.get( 'wgAction' )=='formedit' || mw.config.get( 'wgCanonicalSpecialPageName' ) == 'FormEdit') {
-	if ( typeof( addOnloadHook ) != 'undefined' ) addOnloadHook(ajaxFormPreviewInit);
-	else if ( typeof( jQuery ) != 'undefined' ) jQuery(function(){
-		ajaxFormPreviewInit()
-		});
-// else sorry, no Ajax preview for you
+if ( mw.config.get( 'wgAction' ) ==='formedit' || mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
+	jQuery( ajaxFormPreviewInit );
 }

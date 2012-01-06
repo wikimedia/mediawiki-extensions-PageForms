@@ -4,7 +4,7 @@
  * @author Stephan Gambke
  */
 
-jQuery(function($){
+jQuery( function( $ ) {
 
 	$('.autoedit-trigger').click(function(){
 

@@ -2,12 +2,12 @@
 * Javascript handler for the save-and-continue button
  */
 
-jQuery(function($){
+jQuery( function( $ ) {
 
 	var sacButtons;
 	var form;
 
-	if ( mw.config.get( 'wgAction' ) == "formedit"	|| mw.config.get( 'wgCanonicalSpecialPageName' ) == "FormEdit" ) {
+	if ( mw.config.get( 'wgAction' ) === "formedit" || mw.config.get( 'wgCanonicalSpecialPageName' ) === "FormEdit" ) {
 
 		form = $('#sfForm');
 
@@ -30,11 +30,9 @@ jQuery(function($){
 	}
 
 	function setChanged( event ) {
-
-		sacButtons.removeAttr("disabled");
-
 		sacButtons
-		.addClass("sf-save_and_continue-changed");
+			.removeAttr("disabled");
+			.addClass("sf-save_and_continue-changed");
 
 		return true;
 	}
