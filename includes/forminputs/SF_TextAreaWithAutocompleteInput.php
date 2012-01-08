@@ -113,6 +113,9 @@ JAVASCRIPT;
 			$textarea_attrs['style'] = 'width: 100%';
 		}
 
+		if ( array_key_exists( 'origName', $other_args ) ) {
+			$inputAttrs['origName'] = $other_args['origName'];
+		}
 		if ( !is_null( $remoteDataType ) ) {
 			$textarea_attrs['autocompletedatatype'] = $remoteDataType;
 		}

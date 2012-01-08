@@ -348,3 +348,5 @@ $wgPageProps['formdefinition'] = 'Definition of the semantic form used on the pa
 # ##
 $sfgShowOnSelect = array();
 $sfgAutocompleteValues = array();
+$sfgFieldProperties = array();
+$sfgDependentFields = array();

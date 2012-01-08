@@ -734,6 +734,7 @@ END;
 				// =====================================================
 				} elseif ( $tag_title == 'field' ) {
 					$field_name = trim( $tag_components[1] );
+					$fullFieldName = $template_name . '[' . $field_name . ']';
 					// cycle through the other components
 					$is_mandatory = false;
 					$is_hidden = false;
@@ -853,6 +854,9 @@ END;
 								$possible_values = SFUtils::getAllPagesForConcept( $sub_components[1] );
 							} elseif ( $sub_components[0] == 'values from namespace' ) {
 								$possible_values = SFUtils::getAllPagesForNamespace( $sub_components[1] );
+							} elseif ( $sub_components[0] == 'values dependent on' ) {
+								global $sfgDependentFields;
+								$sfgDependentFields[$sub_components[1]] = $fullFieldName;
 							} elseif ( $sub_components[0] == 'property' ) {
 								$semantic_property = $sub_components[1];
 							} elseif ( $sub_components[0] == 'default filename' ) {
@@ -862,7 +866,7 @@ END;
 								$field_args['default filename'] = $default_filename;
 							} elseif ( $sub_components[0] == 'restricted' ) {
 								$is_restricted = !array_intersect(
-										$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
+									$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
 								);
 							}
 						}
@@ -1070,6 +1074,7 @@ END;
 							// 'num' will get replaced by an actual index, either in PHP
 							// or in Javascript, later on
 							$input_name = $template_name . '[num][' . $field_name . ']';
+							$field_args['origName'] = $template_name . '[' . $field_name . ']';
 						} else {
 							$input_name = $template_name . '[' . $field_name . ']';
 						}
@@ -1120,6 +1125,12 @@ END;
 						if ( $semantic_property != null ) {
 							$form_field->template_field->setSemanticProperty( $semantic_property );
 						}
+						$semantic_property = $form_field->template_field->getSemanticProperty();
+						if ( !is_null( $semantic_property ) ) {
+							global $sfgFieldProperties;
+							$sfgFieldProperties[$fullFieldName] = $semantic_property;
+						}
+
 
 						// call hooks - unfortunately this has to be split into two
 						// separate calls, because of the different variable names in

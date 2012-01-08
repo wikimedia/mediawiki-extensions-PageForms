@@ -39,12 +39,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	public static function getAutocompletionTypeAndSource( &$field_args ) {
 		if ( array_key_exists( 'values from property', $field_args ) ) {
 			$autocompletionSource = $field_args['values from property'];
-			$propValue = SMWPropertyValue::makeUserProperty( $autocompletionSource );
-			if ( $propValue->getPropertyTypeID() == '_wpg' ) {
-				$autocompleteFieldType = 'relation';
-			} else {
-				$autocompleteFieldType = 'attribute';
-			}
+			$autocompleteFieldType = 'property';
 		} elseif ( array_key_exists( 'values from category', $field_args ) ) {
 			$autocompleteFieldType = 'category';
 			$autocompletionSource = $field_args['values from category'];
@@ -68,12 +63,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			$autocompletionSource = $field_args['autocompletion source'];
 		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
 			$autocompletionSource = $field_args['semantic_property'];
-			$propValue = SMWPropertyValue::makeUserProperty( $autocompletionSource );
-			if ( $propValue->getPropertyTypeID() == '_wpg' ) {
-				$autocompleteFieldType = 'relation';
-			} else {
-				$autocompleteFieldType = 'attribute';
-			}
+			$autocompleteFieldType = 'property';
 		} else {
 			$autocompleteFieldType = null;
 			$autocompletionSource = null;
@@ -164,6 +154,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			'tabindex' => $sfgTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 		);
+		if ( array_key_exists( 'origName', $other_args ) ) {
+			$inputAttrs['origName'] = $other_args['origName'];
+		}
 		if ( !is_null( $remoteDataType ) ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}

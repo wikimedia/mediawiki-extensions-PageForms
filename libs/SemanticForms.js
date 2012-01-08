@@ -82,7 +82,10 @@
 	    }
 	});
 
-    values = sfgAutocompleteValues[field_string];
+    values = jQuery(this).data('autocompletevalues');
+    if ( !values ) {
+	values = sfgAutocompleteValues[field_string];
+    }
     if (values != null) {
 	// Local autocompletion
 
@@ -96,12 +99,17 @@
 			return split(term).pop();
 		}
 
+		var thisInput = jQuery(this);
+
 		jQuery(this).autocomplete({
 			minLength: 0,
 			source: function(request, response) {
 				// We need to re-get the set of values, since
 				// the "values" variable gets overwritten.
-				values = sfgAutocompleteValues[field_string];
+				values = thisInput.data( 'autocompletevalues' );
+				if ( !values ) {
+					values = sfgAutocompleteValues[field_string];
+				}
 				response(jQuery.ui.autocomplete.filter(values, extractLast(request.term)));
 			},
 			focus: function() {
@@ -681,8 +689,11 @@ jQuery.fn.addInstance = function() {
 		function() {
 			// Add in a 'b' at the end of the name to reduce the
 			// chance of name collision with another field
-			if (this.name)
+			if (this.name) {
+				var old_name = this.name.replace(/\[num\]/g, '');
+				jQuery(this).attr('origName', old_name);
 				this.name = this.name.replace(/\[num\]/g, '[' + num_elements + 'b]');
+			}
 
 			if (this.id) {
 
@@ -767,7 +778,7 @@ jQuery.fn.addInstance = function() {
 	// that doesn't involve removing and then recreating divs.
 	new_div.find('.sfComboBoxActual').remove();
 
-	new_div.initializeJSElements();
+	new_div.initializeJSElements(true);
 
 	// Initialize new inputs
 	new_div.find("input, select, textarea").each(
@@ -792,12 +803,76 @@ jQuery.fn.addInstance = function() {
 
 }
 
+// The first argument is needed, even though it's an attribute of the element
+// on which this function is called, because it's the 'name' attribute for
+// regular inputs, and the 'origName' attribute for inputs in multiple-instance
+// templates.
+jQuery.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue ) {
+	propName = sfgFieldProperties[dependentField];
+	baseProp = sfgFieldProperties[baseField];
+	var myServer = wgScriptPath + "/api.php";
+	myServer += "?action=sfautocomplete&format=json&property=" + propName + "&baseprop=" + baseProp + "&basevalue=" + baseValue;
+	var dependentValues = [];
+	var thisInput = jQuery(this);
+	// We use jQuery.ajax() here instead of jQuery.getJSON() so that the
+	// 'async' parameter can be set. That, in turn, is set because
+	// if the 2nd, "dependent" field is a combo box, it can have weird
+	// behavior: clicking on the down arrow for the combo box leads to a
+	// "blur" event for the base field, which causes the possible
+	// values to get recalculated, but not in time for the dropdown to
+	// change values - it still shows the old values. By setting
+	// "async: false", we guarantee that old values won't be shown - if
+	// the values haven't been recalculated yet, the dropdown won't
+	// appear at all.
+	// @TODO - handle this the right way, by having special behavior for
+	// the dropdown - it should get delayed until the values are
+	// calculated, then appear.
+	jQuery.ajax({
+		url: myServer,
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			realData = data.sfautocomplete;
+			jQuery.each(realData, function(key, val) {
+				dependentValues.push(val.title);
+			});
+			thisInput.data('autocompletevalues', dependentValues);
+			thisInput.attachAutocomplete();
+		}
+	});
+}
+
+/**
+ * Called on a 'base' field (e.g., for a country) - sets the autocompletion
+ * for its 'dependent' field (e.g., for a city).
+ */
+jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
+	curValue = jQuery(this).val();
+	if ( curValue == null ) { return this; }
+
+	nameAttr = partOfMultiple ? 'origName' : 'name';
+	name = jQuery(this).attr(nameAttr);
+	dependentField = sfgDependentFields[name];
+	if ( dependentField != null ) {
+		if ( partOfMultiple ) {
+			jQuery(this).closest(".multipleTemplateInstance")
+				.find('[origName="' + dependentField + '"]')
+				.setDependentAutocompletion(dependentField, name, curValue);
+		} else {
+			jQuery('[name="' + dependentField + '"]')
+				.setDependentAutocompletion(dependentField, name, curValue);
+		}
+	}
+
+	return this;
+}
+
 /**
  * Initialize all the JS-using elements contained within this block - can be
  * called for either the entire HTML body, or for a div representing an
  * instance of a multiple-instance template.
  */
-jQuery.fn.initializeJSElements = function() {
+jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 	this.find(".sfShowIfSelected").each( function() {
 		jQuery(this)
 		.showIfSelected(true)
@@ -845,6 +920,20 @@ jQuery.fn.initializeJSElements = function() {
 		'overlayColor'  : '#222',
 		'overlayOpacity' : '0.8'
 	});
+
+	this.find('input, select')
+		.setAutocompleteForDependentField( partOfMultiple )
+		.blur( function() {
+			jQuery(this).setAutocompleteForDependentField( partOfMultiple );
+		});
+	// The 'blur' event doesn't get triggered for radio buttons for
+	// Chrome and Safari (the WebKit-based browsers) so use the 'change'
+	// event in addition.
+	// @TODO - blur() shuldn't be called at all for radio buttons.
+	this.find('input:radio')
+		.change( function() {
+			jQuery(this).setAutocompleteForDependentField( partOfMultiple );
+		});
 }
 
 var num_elements = 0;
@@ -876,7 +965,7 @@ jQuery(document).ready(function() {
 			var id = select[0].id;
 			var curval = select[0].options[0].value;
 			curval = curval.replace('"', '&quot;' );
-			var input = jQuery("<input id=\"" + id + "\" type=\"text\" name=\" " + name + " \" value=\"" + curval + "\">")
+			var input = jQuery("<input id=\"" + id + "\" type=\"text\" name=\"" + name + "\" value=\"" + curval + "\">")
 				.insertAfter(select)
 				.attr("tabIndex", select.attr("tabIndex"))
 				.attr("autocompletesettings", select.attr("autocompletesettings"))
@@ -917,6 +1006,7 @@ jQuery(document).ready(function() {
 					minLength: 0
 				})
 			.addClass("ui-widget ui-widget-content ui-corner-left sfComboBoxActual");
+		input.attr("origname", select.attr("origname"));
 		jQuery('<button type="button">&nbsp;</button>')
 			.attr("tabIndex", -1)
 			.attr("title", "Show All Items")

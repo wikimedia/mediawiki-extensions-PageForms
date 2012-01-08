@@ -76,6 +76,9 @@ class SFComboBoxInput extends SFFormInput {
 			'autocompletesettings' => $autocompletionSource,
 			'comboboxwidth' => $pixel_width,
 		);
+		if ( array_key_exists( 'origName', $other_args ) ) {
+			$selectAttrs['origname'] = $other_args['origName'];
+		}
 		if ( array_key_exists( 'existing values only', $other_args ) ) {
 			$selectAttrs['existingvaluesonly'] = 'true';
 		}

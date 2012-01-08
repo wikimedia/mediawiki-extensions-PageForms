@@ -48,11 +48,11 @@ class SFFormField {
 	}
 
 	static function createFromDefinition( $fieldName, $inputName, $isMandatory, $isHidden, $isUploadable, $possibleValues, $isDisabled, $isList, $inputType, $fieldArgs, $allFields, $strictParsing ) {
-		// see if this field matches one of the fields defined for this
+		// See if this field matches one of the fields defined for this
 		// template - if it is, use all available information about
 		// that field; if it's not, either include it in the form or
 		// not, depending on whether the template has a 'strict'
-		// setting in the form definition
+		// setting in the form definition.
 		$the_field = null;
 		foreach ( $allFields as $cur_field ) {
 			if ( $fieldName == $cur_field->getFieldName() ) {
@@ -333,10 +333,10 @@ END;
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
 			if ( $this->template_field->getPropertyType() == '_wpg' ) {
 				$other_args['autocompletion source'] = $this->template_field->getSemanticProperty();
-				$other_args['autocomplete field type'] = 'relation';
+				$other_args['autocomplete field type'] = 'property';
 			} elseif ( array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
 				$other_args['autocompletion source'] = $this->template_field->getSemanticProperty();
-				$other_args['autocomplete field type'] = 'attribute';
+				$other_args['autocomplete field type'] = 'property';
 			}
 		}
 		// Now merge in the default values set by SFFormPrinter, if

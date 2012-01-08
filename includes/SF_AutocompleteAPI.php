@@ -22,20 +22,24 @@ class SFAutocompleteAPI extends ApiBase {
 		$params = $this->extractRequestParams();
 		$substr = $params['substr'];
 		$namespace = $params['namespace'];
-		$attribute = $params['attribute'];
-		$relation = $params['relation'];
+		$property = $params['property'];
 		$category = $params['category'];
 		$concept = $params['concept'];
 		$external_url = $params['external_url'];
+		$baseprop = $params['baseprop'];
+		$basevalue = $params['basevalue'];
+		//$limit = $params['limit'];
 
-		if ( strlen( $substr ) == 0 ) {
+		if ( is_null( $baseprop ) && strlen( $substr ) == 0 ) {
 			$this->dieUsage( 'The substring must be specified', 'param_substr' );
 		}
 
-		if ( !is_null( $attribute ) ) {
-			$data = self::getAllValuesForProperty( false, $attribute, $substr );
-		} elseif ( !is_null( $relation ) ) {
-			$data = self::getAllValuesForProperty( true, $relation, $substr );
+		if ( !is_null( $baseprop ) ) {
+			if ( !is_null( $property ) ) {
+				$data = self::getAllValuesForProperty( $property, null, $baseprop, $basevalue );
+			}
+		} elseif ( !is_null( $property ) ) {
+			$data = self::getAllValuesForProperty( $property, $substr );
 		} elseif ( !is_null( $category ) ) {
 			$data = SFUtils::getAllPagesForCategory( $category, 3, $substr );
 		} elseif ( !is_null( $concept ) ) {
@@ -78,25 +82,27 @@ class SFAutocompleteAPI extends ApiBase {
 				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2
 			),
 			'substr' => null, // Once 1.17 becomes acceptable as dependency, use ApiBase::PARAM_REQUIRED
-			'attribute' => null,
-			'relation' => null,
+			'property' => null,
 			'category' => null,
 			'concept' => null,
 			'namespace' => null,
 			'external_url' => null,
+			'baseprop' => null,
+			'basevalue' => null,
 		);
 	}
 
 	protected function getParamDescription() {
 		return array (
 			'substr' => 'Search substring',
-			'attribute' => 'Attribute (non-page property) for which to search values',
-			'relation' => 'Relation (page property) for which to search values',
+			'property' => 'Semantic property for which to search values',
 			'category' => 'Category for which to search values',
 			'concept' => 'Concept for which to search values',
 			'namespace' => 'Namespace for which to search values',
 			'external_url' => 'Alias for external URL from which to get values',
-			'limit' => 'Limit how many entries to return',
+			'baseprop' => 'A previous property in the form to check against',
+			'basevalue' => 'The value to check for the previous property',
+			//'limit' => 'Limit how many entries to return',
 		);
 	}
 
@@ -107,7 +113,7 @@ class SFAutocompleteAPI extends ApiBase {
 	protected function getExamples() {
 		return array (
 			'api.php?action=sfautocomplete&substr=te',
-			'api.php?action=sfautocomplete&substr=te&relation=Has_author',
+			'api.php?action=sfautocomplete&substr=te&property=Has_author',
 			'api.php?action=sfautocomplete&substr=te&category=Authors',
 		);
 	}
@@ -116,13 +122,18 @@ class SFAutocompleteAPI extends ApiBase {
 		return __CLASS__ . ': $Id$';
 	}
 
-	public static function getAllValuesForProperty( $is_relation, $property_name, $substring = null ) {
+	private static function getAllValuesForProperty( $property_name, $substring, $base_property_name = null, $base_value = null ) {
 		global $sfgMaxAutocompleteValues;
 
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
 		$sql_options = array();
 		$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
+
+		$property = SMWPropertyValue::makeUserProperty( $property_name );
+		$is_relation = ( $property->getPropertyTypeID() == '_wpg' );
+		$property_name = str_replace( ' ', '_', $property_name );
+		$conditions = array( 'p_ids.smw_title' => $property_name );
 
 		if ( $is_relation ) {
 			$value_field = 'o_ids.smw_title';
@@ -132,14 +143,30 @@ class SFAutocompleteAPI extends ApiBase {
 			$from_clause = $db->tableName( 'smw_atts2' ) . " a JOIN " . $db->tableName( 'smw_ids' ) . " p_ids ON a.p_id = p_ids.smw_id";
 		}
 
-		$property_name = str_replace( ' ', '_', $property_name );
-		$conditions = "p_ids.smw_title = '$property_name'";
+		if ( !is_null( $base_property_name ) ) {
+			$base_property = SMWPropertyValue::makeUserProperty( $base_property_name );
+			$base_is_relation = ( $base_property->getPropertyTypeID() == '_wpg' );
 
-		if ( $substring != null ) {
+			$base_property_name = str_replace( ' ', '_', $base_property_name );
+			$conditions['base_p_ids.smw_title'] = $base_property_name;
+			$main_prop_alias = ( $is_relation ) ? 'r' : 'a';
+			if ( $base_is_relation ) {
+				$from_clause .= " JOIN " . $db->tableName( 'smw_rels2' ) . " r_base ON $main_prop_alias.s_id = r_base.s_id";
+				$from_clause .= " JOIN " . $db->tableName( 'smw_ids' ) . " base_p_ids ON r_base.p_id = base_p_ids.smw_id JOIN " . $db->tableName( 'smw_ids' ) . " base_o_ids ON r_base.o_id = base_o_ids.smw_id";
+				$base_value = str_replace( ' ', '_', $base_value );
+				$conditions['base_o_ids.smw_title'] = $base_value;
+			} else {
+				$from_clause .= " JOIN " . $db->tableName( 'smw_atts2' ) . " a_base ON $main_prop_alias.s_id = a_base.s_id";
+				$from_clause .= " JOIN " . $db->tableName( 'smw_ids' ) . " base_p_ids ON a_base.p_id = base_p_ids.smw_id";
+				$conditions['a_base.value_xsd'] = $base_value;
+			}
+		}
+
+		if ( !is_null( $substring ) ) {
 			$substring = str_replace( "'", "\'", strtolower( $substring ) );
-			// utf8 conversion is needed in case MediaWiki is using
-			// binary data storage
-			$conditions .= " AND (REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '" . $substring . "%' OR REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '% " . $substring . "%')";
+			// UTF-8 conversion is needed in case MediaWiki is using
+			// binary data storage.
+			$conditions[] = "REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '" . $substring . "%' OR REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '% " . $substring . "%'";
 		}
 
 		$sql_options['ORDER BY'] = $value_field;
@@ -147,12 +174,7 @@ class SFAutocompleteAPI extends ApiBase {
 			$conditions, __METHOD__, $sql_options );
 
 		while ( $row = $db->fetchRow( $res ) ) {
-			if ( $substring != null ) {
-				$values[] = str_replace( '_', ' ', $row[0] );
-			} else {
-				$cur_value = str_replace( "'", "\'", $row[0] );
-				$values[] = str_replace( '_', ' ', $cur_value );
-			}
+			$values[] = str_replace( '_', ' ', $row[0] );
 		}
 		$db->freeResult( $res );
 
