@@ -17,7 +17,7 @@
 	/* extending jQuery functions for custom highlighting */
 	jQuery.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
-		var delim  = this.element.context.delimiter;
+		var delim = this.element.context.delimiter;
 		if ( delim == null ) {
 			term = this.term;
 		} else {
@@ -921,11 +921,17 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 		'overlayOpacity' : '0.8'
 	});
 
-	this.find('input, select')
+	// @TODO - this should ideally be called only for inputs that have
+	// a dependent field - which might involve changing the storage of
+	// "dependent fields" information from a global variable to a
+	// per-input HTML attribute.
+	this.find('input, select[class!="sfComboBox"]').each( function() {
+		jQuery(this)
 		.setAutocompleteForDependentField( partOfMultiple )
 		.blur( function() {
 			jQuery(this).setAutocompleteForDependentField( partOfMultiple );
 		});
+	});
 	// The 'blur' event doesn't get triggered for radio buttons for
 	// Chrome and Safari (the WebKit-based browsers) so use the 'change'
 	// event in addition.
