@@ -170,6 +170,7 @@ $wgAjaxExportList[] = 'SFAutoeditAPI::handleAutoEdit';
 
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionMessagesFiles['SemanticFormsAlias'] = $sfgIP . '/languages/SF_Aliases.php';
+$wgExtensionMessagesFiles['SemanticFormsMagic'] = $sfgIP . '/languages/SF_Magic.php';
 // Allow for popup windows for file upload
 $wgEditPageFrameOptions = 'SAMEORIGIN';
 
