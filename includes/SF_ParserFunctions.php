@@ -141,21 +141,7 @@ class SFParserFunctions {
 		return true;
 	}
 
-	// FIXME: Can be removed when new style magic words are used (introduced in r52503)
-	static function languageGetMagic( &$magicWords, $langCode = "en" ) {
-		switch ( $langCode ) {
-		default:
-			$magicWords['forminput'] = array ( 0, 'forminput' );
-			$magicWords['formlink']	= array ( 0, 'formlink' );
-			$magicWords['arraymap']	= array ( 0, 'arraymap' );
-			$magicWords['arraymaptemplate'] = array ( 0, 'arraymaptemplate' );
-			$magicWords['autoedit'] = array( 0, 'autoedit' );
-		}
-		return true;
-	}
-
 	static function renderFormLink ( &$parser ) {
-
 		global $wgVersion;
 
 		$params = func_get_args();
@@ -168,19 +154,15 @@ class SFParserFunctions {
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
 		foreach ( $params as $i => $param ) {
-
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value
 			if ( count( $elements ) > 1 ) {
-
 				$param_name = trim( $elements[0] );
 
 				// parse (and sanitize) parameter values
 				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
-
 			} else {
-
 				$param_name = null;
 
 				// parse (and sanitize) parameter values

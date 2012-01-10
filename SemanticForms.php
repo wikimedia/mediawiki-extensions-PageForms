@@ -78,8 +78,6 @@ define( 'SF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
 
 $wgExtensionFunctions[] = 'sffSetupExtension';
 
-// FIXME: Can be removed when new style magic words are used (introduced in r52503)
-$wgHooks['LanguageGetMagic'][] = 'SFParserFunctions::languageGetMagic';
 $wgHooks['LinkEnd'][] = 'SFFormLinker::setBrokenLink';
 $wgHooks['UnknownAction'][] = 'SFFormEditTab::displayForm';
 // 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
