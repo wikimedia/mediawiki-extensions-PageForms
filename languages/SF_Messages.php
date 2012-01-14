@@ -5227,6 +5227,8 @@ $messages['ms'] = array(
 	'sf_blank_namespace' => 'Utama',
 	'right-viewedittab' => 'Melihat tab "Sunting" untuk laman yang boleh disunting dengan borang',
 	'right-editrestrictedfields' => 'Menyunting ruangan borang yang terhad',
+	'right-createclass' => 'Membuat kelas semantik baru',
+	'action-createclass' => 'buat kelas semantik baru',
 );
 
 /** Erzya (Эрзянь)
