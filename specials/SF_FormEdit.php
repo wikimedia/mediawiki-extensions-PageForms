@@ -59,7 +59,7 @@ class SFFormEdit extends SpecialPage {
 
 			$this->mError = wfMsg( $msg, $msgdata );
 
-			$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), $this->mError ) );
+			$wgOut->addHTML( Html::element( 'p', array( 'class' => 'error' ), $this->mError ) );
 
 		} else {
 			$this->mError = null;
@@ -145,10 +145,10 @@ class SFFormEdit extends SpecialPage {
 					. "</div>\n";
 
 			} else {
-				$text = Xml::tags( 'p', array( 'class' => 'error' ), wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+				$text = Html::rawElement( 'p', array( 'class' => 'error' ), wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
 		} elseif ( $target_name === '' && $page_name_formula === '' ) {
-			$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
+			$text = Html::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
 		} else {
 
 			$save_page = $wgRequest->getCheck( 'wpSave' );

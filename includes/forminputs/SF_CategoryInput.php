@@ -106,7 +106,7 @@ class SFCategoryInput extends SFFormInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
 	}

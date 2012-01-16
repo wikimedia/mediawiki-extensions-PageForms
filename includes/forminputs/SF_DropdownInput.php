@@ -82,7 +82,7 @@ class SFDropdownInput extends SFEnumInput {
 			} else {
 				$label = $possible_value;
 			}
-			$innerDropdown .= Xml::element( 'option', $optionAttrs, $label );
+			$innerDropdown .= Html::element( 'option', $optionAttrs, $label );
 		}
 		$selectAttrs = array(
 			'id' => $input_id,
@@ -93,12 +93,12 @@ class SFDropdownInput extends SFEnumInput {
 		if ( $is_disabled ) {
 			$selectAttrs['disabled'] = 'disabled';
 		}
-		$text = Xml::tags( 'select', $selectAttrs, $innerDropdown );
+		$text = Html::rawElement( 'select', $selectAttrs, $innerDropdown );
 		$spanClass = 'inputSpan';
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
 

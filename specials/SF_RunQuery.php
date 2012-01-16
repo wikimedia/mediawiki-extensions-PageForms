@@ -38,9 +38,9 @@ class SFRunQuery extends IncludableSpecialPage {
 
 		if ( !$form_title || !$form_title->exists() ) {
 			if ( $form_name === '' ) {
-				$text = Xml::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
+				$text = Html::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
 			} else {
-				$text = Xml::tags( 'p', array( 'class' => 'error' ),
+				$text = Html::rawElement( 'p', array( 'class' => 'error' ),
 					wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
 			}
 			$wgOut->addHTML( $text );
@@ -111,7 +111,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			// the query form is at the top or bottom) is displayed
 			// if the form has already been submitted.
 			if ( $form_submitted ) {
-				$additionalQueryHeader = "\n" . Xml::element( 'h2', null, wfMsg( 'sf_runquery_additionalquery' ) ) . "\n";
+				$additionalQueryHeader = "\n" . Html::element( 'h2', null, wfMsg( 'sf_runquery_additionalquery' ) ) . "\n";
 				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
 			$action = htmlspecialchars( $this->getTitle( $form_name )->getLocalURL() );
@@ -156,7 +156,7 @@ END;
 			}
 		}
 
-		// Finally, set the page title - for MW <= 1.16, this has to be
+		// Finally, set the page title - for MW 1.16, this has to be
 		// called after addParserOutputNoText() for it to take effect.
 		if ( !$embedded ) {
 			if ( $form_page_title != null ) {

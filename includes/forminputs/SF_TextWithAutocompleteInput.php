@@ -145,10 +145,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		}
 
 		$inputAttrs = array(
-			'type' => 'text',
 			'id' => $input_id,
-			'name' => $input_name,
-			'value' => $cur_value,
 			'size' => $size,
 			'class' => $className,
 			'tabindex' => $sfgTabIndex,
@@ -161,7 +158,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
 		if ( $is_disabled ) {
-			$inputAttrs['disabled'] = 'disabled';
+			$inputAttrs['disabled'] = true;
 		}
 		if ( array_key_exists( 'maxlength', $other_args ) ) {
 			$inputAttrs['maxlength'] = $other_args['maxlength'];
@@ -169,7 +166,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		if ( array_key_exists( 'placeholder', $other_args ) ) {
 			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
-		$text = "\n\t" . Xml::element( 'input', $inputAttrs ) . "\n";
+		$text = "\n\t" . Html::input( $input_name, $cur_value, 'text', $inputAttrs ) . "\n";
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
@@ -184,7 +181,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = "\n" . Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
 	}

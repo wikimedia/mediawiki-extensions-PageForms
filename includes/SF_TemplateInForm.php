@@ -174,12 +174,12 @@ END;
 		foreach ( $this->mFields as $field ) {
 			$text .= $field->creationHTML( $template_num );
 		}
-		$removeTemplateButton = Xml::element( 'input', array(
-			'type' => 'submit',
-			'name' => 'del_' . $template_num,
-			'value' => wfMsg( 'sf_createform_removetemplate' )
-		) );
-		$text .= "\t" . Xml::tags( 'p', null, $removeTemplateButton ) . "\n";
+		$removeTemplateButton = Html::input(
+			'del_' . $template_num,
+			wfMsg( 'sf_createform_removetemplate' ),
+			'submit'
+		);
+		$text .= "\t" . Html::rawElement( 'p', null, $removeTemplateButton ) . "\n";
 		$text .= "	</div>\n";
 		return $text;
 	}

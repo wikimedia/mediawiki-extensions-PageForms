@@ -86,7 +86,7 @@ class SFFormUtils {
 		if ( $label == null )
 			$label = wfMsg( 'summary' );
 		$disabled_text = ( $is_disabled ) ? " disabled" : "";
-		$attr = Xml::expandAttributes( $attr );
+		$attr = Html::expandAttributes( $attr );
 		$text = <<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
 	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
@@ -109,10 +109,10 @@ END;
 			'tabindex' => $sfgTabIndex,
 		);
 		if ( $is_disabled ) {
-			$attrs['disabled'] = 'disabled';
+			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpMinoredit', $checked, $attrs ) . "\n";
-		$text .= "\t" . Xml::element( 'label', array(
+		$text .= "\t" . Html::element( 'label', array(
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
 		), $label ) . "\n";
@@ -145,11 +145,11 @@ END;
 			'tabindex' => $sfgTabIndex,
 		);
 		if ( $is_disabled ) {
-			$attrs['disabled'] = 'disabled';
+			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpWatchthis', $checked, $attrs ) . "\n";
 		$tooltip = htmlspecialchars( wfMsg( 'tooltip-watch' ) );
-		$text .= "\t" . Xml::element( 'label', array(
+		$text .= "\t" . Html::element( 'label', array(
 			'for' => 'wpWatchthis',
 			'title' => $tooltip
 		), $label ) . "\n";
@@ -160,29 +160,27 @@ END;
 	/**
 	 * Helper function to display a simple button
 	 */
-	static function buttonHTML( $values ) {
-		return "\t\t" . Xml::element( 'input', $values, '' ) . "\n";
+	static function buttonHTML( $name, $value, $type, $attrs ) {
+		return "\t\t" . Html::input( $name, $value, $type, $attrs ) . "\n";
 	}
 
 	static function saveButtonHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = wfMsg( 'savearticle' );
+		}
 		$temp = $attr + array(
 			'id'        => 'wpSave',
-			'name'      => 'wpSave',
-			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
-			'value'     => $label,
 			'accesskey' => wfMsg( 'accesskey-save' ),
 			'title'     => wfMsg( 'tooltip-save' ),
 		);
 		if ( $is_disabled ) {
-			$temp['disabled'] = '';
+			$temp['disabled'] = true;
 		}
-		return self::buttonHTML( $temp );
+		return self::buttonHTML( 'wpSave', $label, 'submit', $temp );
 	}
 
 	static function saveAndContinueButtonHTML( $is_disabled, $label = null, $attr = array() ) {
@@ -196,11 +194,8 @@ END;
 
 		$temp = $attr + array(
 			'id'        => 'wpSaveAndContinue',
-			'name'      => 'wpSaveAndContinue',
-			'type'      => 'button',
 			'tabindex'  => $sfgTabIndex,
-			'value'     => $label,
-			'disabled'  => 'disabled',
+			'disabled'  => true,
 			'accesskey' => wfMsg( 'sf_formedit_accesskey_saveandcontinueediting' ),
 			'title'     => wfMsg( 'sf_formedit_tooltip_saveandcontinueediting' ),
 		);
@@ -211,49 +206,45 @@ END;
 			$temp['class'] = 'sf-save_and_continue';
 		}
 
-		return self::buttonHTML( $temp );
+		return self::buttonHTML( 'wpSaveAndContinue', $label, 'button', $temp );
 	}
 
 	static function showPreviewButtonHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = wfMsg( 'showpreview' );
+		}
 		$temp = $attr + array(
 			'id'        => 'wpPreview',
-			'name'      => 'wpPreview',
-			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
-			'value'     => $label,
 			'accesskey' => wfMsg( 'accesskey-preview' ),
 			'title'     => wfMsg( 'tooltip-preview' ),
 		);
 		if ( $is_disabled ) {
-			$temp['disabled'] = '';
+			$temp['disabled'] = true;
 		}
-		return self::buttonHTML( $temp );
+		return self::buttonHTML( 'wpPreview', $label, 'submit', $temp );
 	}
 
 	static function showChangesButtonHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = wfMsg( 'showdiff' );
+		}
 		$temp = $attr + array(
 			'id'        => 'wpDiff',
-			'name'      => 'wpDiff',
-			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
-			'value'     => $label,
 			'accesskey' => wfMsg( 'accesskey-diff' ),
 			'title'     => wfMsg( 'tooltip-diff' ),
 		);
 		if ( $is_disabled ) {
-			$temp['disabled'] = '';
+			$temp['disabled'] = true;
 		}
-		return self::buttonHTML( $temp );
+		return self::buttonHTML( 'wpDiff', $label, 'submit', $temp );
 	}
 
 	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
@@ -284,12 +275,10 @@ END;
 		if ( $label == null ) {
 			$label = wfMsg( 'runquery' );
 		}
-		return self::buttonHTML( $attr + array(
+		return self::buttonHTML( 'wpRunQuery', $label, 'submit',
+			$attr + array(
 			'id'        => 'wpRunQuery',
-			'name'      => 'wpRunQuery',
-			'type'      => 'submit',
 			'tabindex'  => $sfgTabIndex,
-			'value'     => $label,
 			'title'     => $label,
 		) );
 	}

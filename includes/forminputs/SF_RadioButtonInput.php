@@ -70,17 +70,14 @@ class SFRadioButtonInput extends SFEnumInput {
 			$input_id = "input_$sfgFieldNum";
 
 			$radiobutton_attrs = array(
-				'type' => 'radio',
 				'id' => $input_id,
 				'tabindex' => $sfgTabIndex,
-				'name' => $input_name,
-				'value' => $possible_value,
 			);
 			if ( $cur_value == $possible_value ) {
-				$radiobutton_attrs['checked'] = 'checked';
+				$radiobutton_attrs['checked'] = true;
 			}
 			if ( $is_disabled ) {
-				$radiobutton_attrs['disabled'] = 'disabled';
+				$radiobutton_attrs['disabled'] = true;
 			}
 			if ( $possible_value === '' ) { // blank/"None" value
 				$label = wfMsg( 'sf_formedit_none' );
@@ -95,9 +92,9 @@ class SFRadioButtonInput extends SFEnumInput {
 				$label = $possible_value;
 			}
 
-			$text .= "\t" . Xml::openElement( 'span', $itemAttrs ) .
-				Xml::element( 'input', $radiobutton_attrs ) . " $label\n" .
-				Xml::closeElement( 'span' );
+			$text .= "\t" . Html::openElement( 'span', $itemAttrs ) .
+				Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label\n" .
+				Html::closeElement( 'span' );
 		}
 
 		$spanClass = 'radioButtonSpan';
@@ -125,7 +122,7 @@ class SFRadioButtonInput extends SFEnumInput {
 			'id' => $spanID,
 			'class' => $spanClass
 		);
-		$text = Xml::tags( 'span', $spanAttrs, $text );
+		$text = Html::rawElement( 'span', $spanAttrs, $text );
 
 		return $text;
 	}

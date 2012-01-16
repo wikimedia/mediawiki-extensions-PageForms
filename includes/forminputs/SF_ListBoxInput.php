@@ -53,7 +53,7 @@ class SFListBoxInput extends SFMultiEnumInput {
 			if ( in_array( $possible_value, $cur_values ) ) {
 				$optionAttrs['selected'] = 'selected';
 			}
-			$optionsText .= Xml::element( 'option', $optionAttrs, $optionLabel );
+			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
 		}
 		$selectAttrs = array(
 			'id' => $input_id,
@@ -68,10 +68,10 @@ class SFListBoxInput extends SFMultiEnumInput {
 		if ( $is_disabled ) {
 			$selectAttrs['disabled'] = 'disabled';
 		}
-		$text = Xml::tags( 'select', $selectAttrs, $optionsText );
+		$text = Html::rawElement( 'select', $selectAttrs, $optionsText );
 		$text .= SFFormUtils::hiddenFieldHTML( $input_name . '[is_list]', 1 );
 		if ( $is_mandatory ) {
-			$text = Xml::tags( 'span', array( 'class' => 'inputSpan mandatoryFieldSpan' ), $text );
+			$text = Html::rawElement( 'span', array( 'class' => 'inputSpan mandatoryFieldSpan' ), $text );
 		}
 
 		if ( array_key_exists( 'show on select', $other_args ) ) {

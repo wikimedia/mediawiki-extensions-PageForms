@@ -32,7 +32,7 @@ class SFDateInput extends SFFormInput {
 			if ( $name == $cur_month || ( $i + 1 ) == $cur_month ) {
 				$optionAttrs['selected'] = 'selected';
 			}
-			$optionsText .= Xml::element( 'option', $optionAttrs, $name );
+			$optionsText .= Html::element( 'option', $optionAttrs, $name );
 		}
 		$selectAttrs = array(
 			'class' => 'monthInput',
@@ -42,7 +42,7 @@ class SFDateInput extends SFFormInput {
 		if ( $is_disabled ) {
 			$selectAttrs['disabled'] = 'disabled';
 		}
-		$text = Xml::tags( 'select', $selectAttrs, $optionsText );
+		$text = Html::rawElement( 'select', $selectAttrs, $optionsText );
 		return $text;
 	}
 
@@ -106,7 +106,7 @@ class SFDateInput extends SFFormInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
 

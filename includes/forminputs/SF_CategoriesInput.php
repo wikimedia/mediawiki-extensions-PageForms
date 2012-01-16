@@ -111,7 +111,7 @@ class SFCategoriesInput extends SFCategoryInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = "\n" . Xml::tags( 'span', array( 'class' => $spanClass ), $text ) . "\n";
+		$text = "\n" . Html::rawElement( 'span', array( 'class' => $spanClass ), $text ) . "\n";
 
 		return $text;
 	}

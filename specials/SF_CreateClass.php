@@ -204,18 +204,18 @@ END;
 	</div>
 
 END;
-		$add_another_button = Xml::element( 'input',
+		$add_another_button = Html::element( 'input',
 			array(
 				'type' => 'button',
 				'value' => wfMsg( 'sf_formedit_addanother' ),
 				'onclick' => "createClassAddRow()"
 			)
 		);
-		$text .= Xml::tags( 'p', null, $add_another_button ) . "\n";
+		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";
 		// Set 'title' as hidden field, in case there's no URL niceness
 		$cc = $this->getTitle();
 		$text .= SFFormUtils::hiddenFieldHTML( 'title', SFUtils::titleURLString( $cc ) );
-		$text .= Xml::element( 'input',
+		$text .= Html::element( 'input',
 			array(
 				'type' => 'submit',
 				'name' => 'save',

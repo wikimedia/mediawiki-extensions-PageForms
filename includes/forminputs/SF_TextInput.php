@@ -127,7 +127,7 @@ class SFTextInput extends SFFormInput {
 			'data-input-id' => $input_id
 		);
 
-		$text = "\t" . Xml::element( 'a', $linkAttrs, $upload_label ) . "\n";
+		$text = "\t" . Html::element( 'a', $linkAttrs, $upload_label ) . "\n";
 
 		if ( $showPreview ) {
 			$text .= Html::rawElement(
@@ -182,12 +182,9 @@ class SFTextInput extends SFFormInput {
 		}
 
 		$inputAttrs = array(
-			'type' => 'text',
 			'id' => $input_id,
 			'tabindex' => $sfgTabIndex,
 			'class' => $className,
-			'name' => $input_name,
-			'value' => $cur_value,
 			'size' => $size
 		);
 		if ( $is_disabled ) {
@@ -199,7 +196,7 @@ class SFTextInput extends SFFormInput {
 		if ( array_key_exists( 'placeholder', $other_args ) ) {
 			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
-		$text = Xml::element( 'input', $inputAttrs );
+		$text = Html::input( $input_name, $cur_value, 'text', $inputAttrs );
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true ) {
@@ -226,7 +223,7 @@ class SFTextInput extends SFFormInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 		return $text;
 	}
 

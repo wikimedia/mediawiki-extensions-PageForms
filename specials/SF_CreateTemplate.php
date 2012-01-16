@@ -66,21 +66,21 @@ class SFCreateTemplate extends SpecialPage {
 		foreach ( $all_properties as $prop_name ) {
 			$optionAttrs = array( 'value' => $prop_name );
 			if ( $selected_property == $prop_name ) { $optionAttrs['selected'] = 'selected'; }
-			$selectBody .= Xml::element( 'option', $optionAttrs, $prop_name ) . "\n";
+			$selectBody .= Html::element( 'option', $optionAttrs, $prop_name ) . "\n";
 		}
-		return Xml::tags( 'select', array( 'name' => "semantic_property_$id" ), $selectBody ) . "\n";
+		return Html::rawElement( 'select', array( 'name' => "semantic_property_$id" ), $selectBody ) . "\n";
 	}
 
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_fieldname' ) . ' ' .
-			Xml::element( 'input',
-				array( 'size' => '15', 'name' => 'name_' . $id ), null
+			Html::input( 'name_' . $id, null, 'text',
+				array( 'size' => '15' )
 			) . "\n";
 		$text .= "\t" . wfMsg( 'sf_createtemplate_displaylabel' ) . ' ' .
-			Xml::element( 'input',
-				array( 'size' => '15', 'name' => 'label_' . $id ), null
+			Html::input( 'label_' . $id, null, 'text',
+				array( 'size' => '15' )
 			) . "\n";
 
 		$dropdown_html = self::printPropertiesDropdown( $all_properties, $id );
@@ -189,8 +189,8 @@ END;
 		$text .= "\t<p id=\"template_name_p\">" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_categorylabel' ) . ' <input size="25" name="category" /></p>' . "\n";
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Xml::element( 'legend', null, wfMsg( 'sf_createtemplate_templatefields' ) ) . "\n";
-		$text .= "\t" . Xml::element( 'p', null, wfMsg( 'sf_createtemplate_fieldsdesc' ) ) . "\n";
+		$text .= "\t" . Html::element( 'legend', null, wfMsg( 'sf_createtemplate_templatefields' ) ) . "\n";
+		$text .= "\t" . Html::element( 'p', null, wfMsg( 'sf_createtemplate_fieldsdesc' ) ) . "\n";
 
 		$all_properties = self::getAllPropertyNames();
 		$text .= '<div id="fieldsList">' . "\n";
@@ -198,34 +198,29 @@ END;
 		$text .= self::printFieldEntryBox( "starter", $all_properties, false );
 		$text .= "</div>\n";
 
-		$add_field_button = Xml::element( 'input',
-			array(
-				'type' => 'button',
-				'value' => wfMsg( 'sf_createtemplate_addfield' ),
-				'onclick' => "createTemplateAddField()"
-			)
+		$add_field_button = Html::input(
+			null,
+			wfMsg( 'sf_createtemplate_addfield' ),
+			'button',
+			array( 'onclick' => "createTemplateAddField()" )
 		);
-		$text .= Xml::tags( 'p', null, $add_field_button ) . "\n";
+		$text .= Html::rawElement( 'p', null, $add_field_button ) . "\n";
 		$text .= "\t</fieldset>\n";
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Xml::element( 'legend', null, wfMsg( 'sf_createtemplate_aggregation' ) ) . "\n";
-		$text .= "\t" . Xml::element( 'p', null, wfMsg( 'sf_createtemplate_aggregationdesc' ) ) . "\n";
+		$text .= "\t" . Html::element( 'legend', null, wfMsg( 'sf_createtemplate_aggregation' ) ) . "\n";
+		$text .= "\t" . Html::element( 'p', null, wfMsg( 'sf_createtemplate_aggregationdesc' ) ) . "\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_semanticproperty' ) . ' ' .
 			self::printPropertiesDropdown( $all_properties, "aggregation" ) . "</p>\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_aggregationlabel' ) . ' ' .
-		Xml::element( 'input',
-			array( 'size' => '25', 'name' => 'aggregation_label' ), null ) .
+			Html::input( 'aggregation_label', null, 'text',
+				array( 'size' => '25' ) ) .
 			"</p>\n";
 		$text .= "\t</fieldset>\n";
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
-		$text .= "\t" . Xml::element( 'input', array(
-			'type' => 'radio',
-			'name' => 'template_format',
-			'checked' => 'checked',
-			'value' => 'standard'
+		$text .= "\t" . Html::input( 'template_format', 'standard', 'radio', array(
+			'checked' => true,
 		), null ) . ' ' . wfMsg( 'sf_createtemplate_standardformat' ) . "\n";
-		$text .= "\t" . Xml::element( 'input',
-			array( 'type' => 'radio', 'name' => 'template_format', 'value' => 'infobox'), null ) .
+		$text .= "\t" . Html::input( 'template_format', 'infobox', 'radio', null ) .
 			' ' . wfMsg( 'sf_createtemplate_infoboxformat' ) . "</p>\n";
 		$save_button_text = wfMsg( 'savearticle' );
 		$preview_button_text = wfMsg( 'preview' );
@@ -240,7 +235,7 @@ END;
 		$sk = $wgUser->getSkin();
 		$create_property_link = SFUtils::linkForSpecialPage( $sk, 'CreateProperty' );
 		$text .= "\t<br /><hr /><br />\n";
-		$text .= "\t" . Xml::tags( 'p', null, $create_property_link . '.' ) . "\n";
+		$text .= "\t" . Html::rawElement( 'p', null, $create_property_link . '.' ) . "\n";
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );

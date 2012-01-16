@@ -63,9 +63,9 @@ class SFComboBoxInput extends SFFormInput {
 		}
 		$autocompletionSource = str_replace( "'", "\'", $autocompletionSource );
 
-		$optionsText = Xml::element( 'option', array( 'value' => $cur_value ), null, false ) . "\n";
+		$optionsText = Html::element( 'option', array( 'value' => $cur_value ), null, false ) . "\n";
 		foreach ( $values as $value ) {
-			$optionsText .= Xml::element( 'option', array( 'value' => $value ), $value ) . "\n";
+			$optionsText .= Html::element( 'option', array( 'value' => $value ), $value ) . "\n";
 		}
 
 		$selectAttrs = array(
@@ -82,13 +82,13 @@ class SFComboBoxInput extends SFFormInput {
 		if ( array_key_exists( 'existing values only', $other_args ) ) {
 			$selectAttrs['existingvaluesonly'] = 'true';
 		}
-		$selectText = Xml::tags( 'select', $selectAttrs, $optionsText );
+		$selectText = Html::rawElement( 'select', $selectAttrs, $optionsText );
 
 		$divClass = 'ui-widget';
 		if ( $is_mandatory ) {
 			$divClass .= ' mandatory';
 		}
-		$text = Xml::tags( 'div', array( 'class' => $divClass ), $selectText );
+		$text = Html::rawElement( 'div', array( 'class' => $divClass ), $selectText );
 		return $text;
 	}
 

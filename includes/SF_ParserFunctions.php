@@ -246,14 +246,14 @@ class SFParserFunctions {
 		}
 		if ( $inLinkType == 'button' ) {
 			$str =
-				Xml::tags( 'form', array( 'action' => $link_url, 'method' => 'get', 'class' => $classStr ),
-					Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
+				Html::rawElement( 'form', array( 'action' => $link_url, 'method' => 'get', 'class' => $classStr ),
+					Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
 					$hidden_inputs
 				);
 		} elseif ( $inLinkType == 'post button' ) {
 			$str =
-				Xml::tags( 'form', array( 'action' => $link_url, 'method' => 'post', 'class' => $classStr ),
-					Xml::tags( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
+				Html::rawElement( 'form', array( 'action' => $link_url, 'method' => 'post', 'class' => $classStr ),
+					Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
 					$hidden_inputs
 				);
 		} else {
@@ -265,7 +265,7 @@ class SFParserFunctions {
 					$classStr .= " new";
 				}
 			}
-			$str = Xml::tags( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip ), $inLinkStr );
+			$str = Html::rawElement( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip ), $inLinkStr );
 		}
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
@@ -334,12 +334,7 @@ class SFParserFunctions {
 			<p>
 
 END;
-		$formInputAttrs = array(
-			'type' => 'text',
-			'name' => 'page_name',
-			'size' => $inSize,
-			'value' => $inValue,
-		);
+		$formInputAttrs = array( 'size' => $inSize );
 
 		// Now apply the necessary settings and Javascript, depending
 		// on whether or not there's autocompletion (and whether the
@@ -373,7 +368,7 @@ END;
 			}
 		}
 
-		$str .= "\t" . Xml::element( 'input', $formInputAttrs ) . "\n";
+		$str .= "\t" . Html::input( 'page_name', $inValue, 'text', $formInputAttrs ) . "\n";
 
 		// if the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
@@ -399,14 +394,7 @@ END;
 			$key = ( isset( $subcomponents[0] ) ) ? $subcomponents[0] : '';
 			$val = ( isset( $subcomponents[1] ) ) ? $subcomponents[1] : '';
 			if ( ! empty( $key ) ) {
-				$str .= '			' .
-					Xml::element( 'input',
-						array(
-							'type' => 'hidden',
-							'name' => $key,
-							'value' => $val,
-						)
-					) . "\n";
+				$str .= '\t\t\t' .  Html::hidden( $key, $val ) . "\n";
 			}
 		}
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
@@ -416,8 +404,8 @@ END;
 
 END;
 		if ( ! empty( $inAutocompletionSource ) ) {
-			$str .= '			' .
-				Xml::element( 'div',
+			$str .= "\t\t\t" .
+				Html::element( 'div',
 					array(
 						'class' => 'page_name_auto_complete',
 						'id' => "div_$input_num",
@@ -611,35 +599,34 @@ END;
 					// To do that they need to use htmlentities instead of
 					// braces and brackets
 					$formcontent .=
-						Xml::input( $key, false, Sanitizer::decodeCharReferences( $value ) , array( 'type' => 'hidden' ) );
+						Html::hidden( $key, Sanitizer::decodeCharReferences( $value ) );
 			}
 		}
 
 		if ( $linkString == null ) return null;
 
 		if ( $linkType == 'button' ) {
-			$linkElement = Xml::tags( "button", array( 'class' => $classString ), $linkString );
+			$linkElement = Html::rawElement( 'button', array( 'class' => $classString ), $linkString );
 		} elseif ( $linkType == 'link' ) {
-			$linkElement = Xml::tags( "a", array( 'class' => $classString, 'href' => "#" ), $linkString );
+			$linkElement = Html::rawElement( 'a', array( 'class' => $classString, 'href' => "#" ), $linkString );
 		} else {
-			$linkElement = Xml::tags( "span", array( 'class' => $classString ), $linkString );
+			$linkElement = Html::rawElement( 'span', array( 'class' => $classString ), $linkString );
 		}
 
 		if ( $summary == null ) {
 			$summary = wfMsg( 'sf_autoedit_summary', "[[$wgTitle]]" );
 		}
 
-		$formcontent .=
-			Xml::input( 'wpSummary', false, $summary, array( 'type' => 'hidden' ) );
+		$formcontent .= Html::hidden( 'wpSummary', $summary );
 
-		$form = Xml::tags( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
+		$form = Html::rawElement( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 
 		// ensure loading of jQuery and style sheets
 		self::loadScriptsForAutoEdit( $parser );
 
-		$output = Xml::tags( "div", array( 'class' => "autoedit" ),
+		$output = Html::rawElement( 'div', array( 'class' => 'autoedit' ),
 				$linkElement .
-				Xml::tags( "span", array( 'class' => "autoedit-result" ), null ) .
+				Html::rawElement( 'span', array( 'class' => "autoedit-result" ), null ) .
 				$form
 		);
 

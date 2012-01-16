@@ -63,11 +63,8 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			}
 
 			$checkbox_attrs = array(
-				'type' => 'checkbox',
 				'id' => $input_id,
 				'tabindex' => $sfgTabIndex,
-				'name' => $cur_input_name,
-				'value' => $possible_value,
 				'class' => $checkbox_class,
 			);
 			if ( in_array( $possible_value, $cur_values ) ) {
@@ -76,10 +73,10 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			if ( $is_disabled ) {
 				$checkbox_attrs['disabled'] = 'disabled';
 			}
-			$checkbox_input = Xml::element( 'input', $checkbox_attrs );
+			$checkbox_input = Html::element( $cur_input_name, $possible_value, 'checkbox', $checkbox_attrs );
 
 			// Make a span around each checkbox, for CSS purposes.
-			$text .= '	' . Xml::tags( 'span',
+			$text .= "\t" . Html::rawElement( 'span',
 				array( 'class' => $span_class ),
 				$checkbox_input . ' ' . $label
 			) . "\n";
@@ -106,7 +103,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 
 		$text .= SFFormUtils::hiddenFieldHTML( $input_name . '[is_list]', 1 );
 		$outerSpanAttrs = array( 'id' => $outerSpanID, 'class' => $outerSpanClass );
-		$text = "\t" . Xml::tags( 'span', $outerSpanAttrs, $text ) . "\n";
+		$text = "\t" . Html::rawElement( 'span', $outerSpanAttrs, $text ) . "\n";
 
 		return $text;
 	}

@@ -230,7 +230,7 @@ END;
 		if ( $watch_this ) {
 			$form_body .= SFFormUtils::hiddenFieldHTML( 'wpWatchthis', null );
 		}
-		$text .= Xml::tags(
+		$text .= Html::rawElement(
 			'form',
 			array(
 				'id' => 'editform',
@@ -346,7 +346,7 @@ END;
 				'href' => $css_file
 			);
 			if ( !is_null( $parser ) ) {
-				$parser->getOutput()->addHeadItem( Xml::element( 'link', $link ) );
+				$parser->getOutput()->addHeadItem( Html::element( 'link', $link ) );
 			} else {
 				$wgOut->addLink( $link );
 			}
@@ -423,9 +423,9 @@ END;
 		$form_names = SFUtils::getAllForms();
 		$select_body = "\n";
 		foreach ( $form_names as $form_name ) {
-			$select_body .= "\t" . Xml::element( 'option', null, $form_name ) . "\n";
+			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";
 		}
-		return "\t" . Xml::tags( 'label', array( 'for' => 'formSelector' ), $form_label . wfMsg( 'colon-separator' ) ) . "\n" . Xml::tags( 'select', array( 'id' => 'formSelector', 'name' => 'form' ), $select_body ) . "\n";
+		return "\t" . Html::rawElement( 'label', array( 'for' => 'formSelector' ), $form_label . wfMsg( 'colon-separator' ) ) . "\n" . Html::rawElement( 'select', array( 'id' => 'formSelector', 'name' => 'form' ), $select_body ) . "\n";
 	}
 
 	/**

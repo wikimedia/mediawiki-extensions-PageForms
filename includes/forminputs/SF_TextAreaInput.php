@@ -122,17 +122,12 @@ JAVASCRIPT;
 			$textarea_attrs['placeholder'] = $other_args['placeholder'];
 		}
 
-		// Bug in Xml::element()? It doesn't close the textarea tag
-		// properly if the text inside is null - set it to '' instead.
-		if ( is_null( $cur_value ) ) {
-			$cur_value = '';
-		}
-		$text = Xml::element( 'textarea', $textarea_attrs, $cur_value, false );
+		$text = Html::element( 'textarea', $textarea_attrs, $cur_value );
 		$spanClass = 'inputSpan';
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Xml::tags( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
 	}

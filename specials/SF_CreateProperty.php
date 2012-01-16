@@ -127,9 +127,9 @@ END;
 END;
 		$select_body = "";
 		foreach ( $datatype_labels as $label ) {
-			$select_body .= "	" . Xml::element( 'option', null, $label ) . "\n";
+			$select_body .= "	" . Html::element( 'option', null, $label ) . "\n";
 		}
-		$text .= Xml::tags( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value); toggleAllowedValues(this.value);' ), $select_body ) . "\n";
+		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value); toggleAllowedValues(this.value);' ), $select_body ) . "\n";
 
 		$default_form_input = wfMsg( 'sf_createproperty_linktoform' );
 		$values_input = wfMsg( 'sf_createproperty_allowedvalsinput' );
@@ -144,9 +144,9 @@ END;
 	</div>
 
 END;
-		$edit_buttons = "\t" . Xml::element( 'input', array( 'id' => 'wpSave', 'type' => 'submit', 'name' => 'wpSave', 'value' => $save_button_text ) );
-		$edit_buttons .= "\t" . Xml::element( 'input', array( 'id' => 'wpPreview', 'type' => 'submit', 'name' => 'wpPreview', 'value' => $preview_button_text ) );
-	$text .= "\t" . Xml::tags( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
+		$edit_buttons = "\t" . Html::input( 'wpSave', $save_button_text, 'submit', array( 'id' => 'wpSave' ) );
+		$edit_buttons .= "\t" . Html::input( 'wpPreview', $preview_button_text, 'submit', array( 'id' => 'wpPreview' ) );
+	$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );

@@ -169,7 +169,7 @@ class SFFormEditTab {
 				$msg = $msg[0];
 			}
 
-			$wgOut->addHTML( Xml::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
+			$wgOut->addHTML( Html::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
 
 		}
 

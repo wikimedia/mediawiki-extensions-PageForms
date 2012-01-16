@@ -221,7 +221,7 @@ jQuery(document).ready(function() {
 		$text .= SFFormUtils::hiddenFieldHTML( 'title', $this->getTitle()->getPrefixedText() );
 		$text .= "\t<p>" . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . ' <input size=25 name="form_name" value="' . $form_name . '" />';
 		if ( ! empty( $form_name_error_str ) )
-			$text .= "\t" . Xml::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
+			$text .= "\t" . Html::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
 		$text .= "</p>\n";
 
 		$text .= $form->creationHTML();
@@ -230,9 +230,9 @@ jQuery(document).ready(function() {
 
 		$select_body = "";
 		foreach ( $all_templates as $template ) {
-			$select_body .= "	" . Xml::element( 'option', array( 'value' => $template ), $template ) . "\n";
+			$select_body .= "	" . Html::element( 'option', array( 'value' => $template ), $template ) . "\n";
 		}
-		$text .= "\t" . Xml::tags( 'select', array( 'name' => 'new_template' ), $select_body ) . "\n";
+		$text .= "\t" . Html::rawElement( 'select', array( 'name' => 'new_template' ), $select_body ) . "\n";
 		// If a template has already been added, show a dropdown letting
 		// the user choose where in the list to add a new dropdown.
 		if ( count( $form_templates ) > 0 ) {
@@ -240,12 +240,12 @@ jQuery(document).ready(function() {
 			$text .= $before_template_msg;
 			$select_body = "";
 			foreach ( $form_templates as $i => $ft ) {
-				$select_body .= "\t" . Xml::element( 'option', array( 'value' => $i ), $ft->getTemplateName() ) . "\n";
+				$select_body .= "\t" . Html::element( 'option', array( 'value' => $i ), $ft->getTemplateName() ) . "\n";
 			}
 			$final_index = count( $form_templates );
 			$at_end_msg = wfMsg( 'sf_createform_atend' );
-			$select_body .= "\t" . Xml::element( 'option', array( 'value' => $final_index, 'selected' => 'selected' ), $at_end_msg );
-			$text .= Xml::tags( 'select', array( 'name' => 'before_template' ), $select_body ) . "\n";
+			$select_body .= "\t" . Html::element( 'option', array( 'value' => $final_index, 'selected' => 'selected' ), $at_end_msg );
+			$text .= Html::rawElement( 'select', array( 'name' => 'before_template' ), $select_body ) . "\n";
 		}
 
 		// Disable 'save' and 'preview' buttons if user has not yet
@@ -254,31 +254,35 @@ jQuery(document).ready(function() {
 		$add_button_text = wfMsg( 'sf_createform_add' );
 		$sk = $wgUser->getSkin();
 		$create_template_link = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
-		$text .= "\t" . Xml::element( 'input', array( 'type' => 'submit', 'name' => 'add_field', 'value' => $add_button_text ) );
+		$text .= "\t" . Html::input( 'add_field', $add_button_text, 'submit' );
 		$text .= <<<END
 </p>
 	<br />
 
 END;
-		$saveAttrs = array( 'type' => 'submit', 'id' => 'wpSave', 'name' => 'wpSave', 'value' => wfMsg( 'savearticle' ) );
-		if ( count( $form_templates ) == 0 ) { $saveAttrs['disabled'] = 'disabled'; }
-		$editButtonsText = "\t" . Xml::element( 'input', $saveAttrs ) . "\n";
-		$previewAttrs = array( 'type' => 'submit', 'id' => 'wpPreview', 'name' => 'wpPreview', 'value' => wfMsg( 'preview' ) );
-		if ( count( $form_templates ) == 0 ) { $previewAttrs['disabled'] = 'disabled'; }
-		$editButtonsText .= "\t" . Xml::element( 'input', $previewAttrs ) . "\n";
-		$text .= "\t" . Xml::tags( 'div', array( 'class' => 'editButtons' ),
-			Xml::tags( 'p', array(), $editButtonsText ) . "\n" ) . "\n";
+		$saveAttrs = array( 'id' => 'wpSave' );
+		if ( count( $form_templates ) == 0 ) {
+			$saveAttrs['disabled'] = true;
+		}
+		$editButtonsText = "\t" . Html::input( 'wpSave', wfMsg( 'savearticle' ), 'submit', $saveAttrs ) . "\n";
+		$previewAttrs = array( 'id' => 'wpPreview' );
+		if ( count( $form_templates ) == 0 ) {
+			$previewAttrs['disabled'] = true;
+		}
+		$editButtonsText .= "\t" . Html::input( 'wpPreview',  wfMsg( 'preview' ), 'submit', $previewAttrs ) . "\n";
+		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ),
+			Html::rawElement( 'p', array(), $editButtonsText ) . "\n" ) . "\n";
 		// Explanatory message if buttons are disabled because no
 		// templates have been added.
 		if ( count( $form_templates ) == 0 ) {
-			$text .= "\t" . Xml::element( 'p', null, "(" . wfMsg( 'sf_createtemplate_addtemplatebeforesave' ) . ")" );
+			$text .= "\t" . Html::element( 'p', null, "(" . wfMsg( 'sf_createtemplate_addtemplatebeforesave' ) . ")" );
 		}
 		$text .= <<<END
 	</form>
 	<hr /><br />
 
 END;
-		$text .= "\t" . Xml::tags( 'p', null, $create_template_link . '.' );
+		$text .= "\t" . Html::rawElement( 'p', null, $create_template_link . '.' );
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );
@@ -286,26 +290,26 @@ END;
 
 	/**
 	 * Prints an input for a form-field parameter.
-	 * Code borrowed heavily from Semantic MediaWiki's
+	 * Code borrowed from Semantic MediaWiki's
 	 * SMWAskPage::addOptionInput().
 	 */
 	public static function inputTypeParamInput( $type, $paramName, $cur_value, array $param, array $paramValues, $fieldFormText ) {
 		if ( $type == 'int' ) {
-			return Xml::element( 'input', array(
-				'type' => 'text',
-				'name' => $paramName . '_' . $fieldFormText,
-				'value' => $cur_value,
-				'size' => 6
-			) );
+			return Html::input(
+				$paramName . '_' . $fieldFormText,
+				$cur_value,
+				'text',
+				array( 'size' => 6 )
+			);
 		} elseif ( $type == 'string' ) {
-			return Xml::element( 'input', array(
-				'type' => 'text',
-				'name' => $paramName . '_' . $fieldFormText,
-				'value' => $cur_value,
-				'size' => 32
-			) );
+			return Html::input(
+				$paramName . '_' . $fieldFormText,
+				$cur_value,
+				'text',
+				array( 'size' => 32 )
+			);
 		} elseif ( $type == 'text' ) {
-			return Xml::element( 'textarea', array(
+			return Html::element( 'textarea', array(
 				'name' => $paramName . '_' . $fieldFormText,
 				'rows' => 4
 			), $cur_value );
@@ -331,12 +335,9 @@ END;
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
-			$checkboxAttrs = array(
-				'type' => 'checkbox',
-				'name' => $paramName . '_' . $fieldFormText
-			);
-			if ( $cur_value) { $checkboxAttrs['checked'] = 'checked'; }
-			return Xml::element( 'input', $checkboxAttrs );
+			$checkboxAttrs = array();
+			if ( $cur_value) { $checkboxAttrs['checked'] = true; }
+			return Html::input( $paramName . '_' . $fieldFormText, null, 'checkbox', $checkboxAttrs );
 		}
 	}
 
@@ -387,7 +388,7 @@ END;
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$paramName:\n";
 
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $fieldFormText );
-			$text .= "\n<br />" . Xml::tags( 'em', null, $desc ) . "\n</div>\n";
+			$text .= "\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";

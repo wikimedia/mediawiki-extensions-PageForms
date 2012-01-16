@@ -83,6 +83,7 @@ class SFFormField {
 		$f->mInputName = $inputName;
 		$f->mIsDisabled = $isDisabled;
 		$f->mIsList = $isList;
+		$f->mAllFields = $allFields;
 		return $f;
 	}
 
@@ -156,7 +157,7 @@ class SFFormField {
 		$hidden_text = wfMsg( 'sf_createform_hidden' );
 		$selected_str = ( $cur_input_type == 'hidden' ) ? "selected" : "";
 		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
-		$text = "\t" . Xml::tags( 'select',
+		$text = "\t" . Html::rawElement( 'select',
 			array(
 				'class' => 'inputTypeSelector',
 				'name' => 'input_type_' . $field_form_text,
@@ -197,17 +198,16 @@ class SFFormField {
 					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyTypeLabel );
 				}
 			}
-			$text .= Xml::tags( 'p', null, wfMsgExt( $propDisplayMsg, 'parseinline', $prop_link_text, $propertyTypeStr ) ) . "\n";
+			$text .= Html::rawElement( 'p', null, wfMsgExt( $propDisplayMsg, 'parseinline', $prop_link_text, $propertyTypeStr ) ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
 		$form_label_text = wfMsg( 'sf_createform_formlabel' );
-		$form_label_input = Xml::element( 'input',
-			array(
-				'type' => 'text',
-				'name' => 'label_' . $field_form_text,
-				'size' => 20,
-				'value' => $template_field->getLabel(),
-			), null );
+		$form_label_input = Html::input(
+			'label_' . $field_form_text,
+			$template_field->getLabel(),
+			'text',
+			array( 'size' => 20 )
+		);
 		$input_type_text = wfMsg( 'sf_createform_inputtype' );
 		$text .= <<<END
 	<div class="formField">
@@ -246,7 +246,7 @@ END;
 		}
 
 		$text .= "<fieldset class=\"sfCollapsibleFieldset\"><legend>Other parameters</legend>\n";
-		$text .= Xml::tags( 'div', array( 'class' => 'otherInputParams' ),
+		$text .= Html::rawElement( 'div', array( 'class' => 'otherInputParams' ),
 			SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
 		$text .= <<<END

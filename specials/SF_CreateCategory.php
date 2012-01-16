@@ -80,26 +80,23 @@ class SFCreateCategory extends SpecialPage {
 END;
 		$text .= SFFormUtils::hiddenFieldHTML( 'title', "$special_namespace:CreateCategory" );
 		$firstRow = wfMsg( 'sf_createcategory_name' ) . ' ' .
-			Xml::element( 'input',
-				array(
-					'size' => 25,
-					'name' => 'category_name',
-				), null ) . "\n";
+			Html::input( 'category_name', null, 'text',
+				array( 'size' => 25 ) ) . "\n";
 		if ( !is_null( $category_name_error_str ) ) {
-			$firstRow .= Xml::element( 'span',
+			$firstRow .= Html::element( 'span',
 				array( 'style' => 'color: red;' ),
 				$category_name_error_str ) . "\n";
 		}
 		$firstRow .= "\t" . wfMsg( 'sf_createcategory_defaultform' ) . "\n";
-		$formSelector = "\t" . Xml::element( 'option', null, null ). "\n";
+		$formSelector = "\t" . Html::element( 'option', null, null ). "\n";
 		foreach ( $all_forms as $form ) {
-			$formSelector .= "\t" . Xml::element( 'option', null, $form ) . "\n";
+			$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
 		}
 
-		$firstRow .= Xml::tags( 'select',
+		$firstRow .= Html::rawElement( 'select',
 			array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
 			$formSelector );
-		$text .= Xml::tags( 'p', null, $firstRow );
+		$text .= Html::rawElement( 'p', null, $firstRow );
 		$subcategory_label = wfMsg( 'sf_createcategory_makesubcategory' );
 		$text .= <<<END
 	<p>$subcategory_label
@@ -110,12 +107,12 @@ END;
 		$categories = SFUtils::getCategoriesForPage();
 		foreach ( $categories as $category ) {
 			$category = str_replace( '_', ' ', $category );
-			$text .= "\t" . Xml::element( 'option', null, $category ) . "\n";
+			$text .= "\t" . Html::element( 'option', null, $category ) . "\n";
 		}
 		$text .= "\t</select>\n";
-		$editButtonsText = "\t" . Xml::element( 'input', array( 'type' => 'submit', 'id' => 'wpSave', 'name' => 'wpSave', 'value' => wfMsg( 'savearticle' ) ) ) . "\n";
-		$editButtonsText .= "\t" . Xml::element( 'input', array( 'type' => 'submit', 'id' => 'wpPreview', 'name' => 'wpPreview', 'value' => wfMsg( 'preview' ) ) ) . "\n";
-		$text .= "\t" . Xml::tags( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";
+		$editButtonsText = "\t" . Html::input( 'wpSave', wfMsg( 'savearticle' ), 'submit', array( 'id' => 'wpSave' ) ) . "\n";
+		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMsg( 'preview' ), 'submit', array( 'id' => 'wpPreview' ) ) . "\n";
+		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";
 		$text .= <<<END
 	<br /><hr /<br />
 
@@ -123,7 +120,7 @@ END;
 
 		$sk = $wgUser->getSkin();
 		$create_form_link = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
-		$text .= "\t" . Xml::tags( 'p', null, $create_form_link . '.' ) . "\n";
+		$text .= "\t" . Html::rawElement( 'p', null, $create_form_link . '.' ) . "\n";
 		$text .= "\t</form>\n";
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );

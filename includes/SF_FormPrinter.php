@@ -235,8 +235,6 @@ class SFFormPrinter {
 		global $sfgTabIndex, $sfgScriptPath;
 
 		$attributes = array(
-			'type' => 'button',
-			'value' => wfMsg( 'sf_formedit_remove' ),
 			'tabindex' => $sfgTabIndex,
 			'class' => 'remover',
 		);
@@ -248,7 +246,7 @@ class SFFormPrinter {
 			$rearranger = '';
 		}
 
-		$removeButton = Xml::element( 'input', $attributes );
+		$removeButton = Html::input( null, wfMsg( 'sf_formedit_remove' ), 'button', $attributes );
 
 		$text = <<<END
 			<table>
@@ -278,7 +276,7 @@ END;
 			// with from any inputs added by the Javascript.
 			$section = str_replace( '[num]', "[{$instance_num}a]", $section );
 
-			$text = "\t\t" . Xml::tags( 'div',
+			$text = "\t\t" . Html::rawElement( 'div',
 				array(
 					// The "multipleTemplate" class is there for
 					// backwards-compatibility with any custom CSS on people's
@@ -293,7 +291,7 @@ END;
 			// template - print all the sections
 			// necessary for adding additional
 			// instances.
-			$text = "\t\t" . Xml::tags( 'div',
+			$text = "\t\t" . Html::rawElement( 'div',
 				array(
 					'class' => "multipleTemplateStarter",
 					'style' => "display: none",
@@ -302,13 +300,11 @@ END;
 			) . "\n";
 
 			$attributes = array(
-				'type' => 'button',
-				'value' => Sanitizer::decodeCharReferences( $add_button_text ),
 				'tabindex' => $sfgTabIndex,
 				'class' => 'multipleTemplateAdder',
 			);
-			if ( $form_is_disabled ) $attributes['disabled'] = 'disabled';
-			$button = Xml::element( 'input', $attributes );
+			if ( $form_is_disabled ) $attributes['disabled'] = true;
+			$button = Html::input( null, Sanitizer::decodeCharReferences( $add_button_text ), 'button', $attributes );
 			$text .= <<<END
 	</div><!-- multipleTemplateList -->
 		<p>$button</p>
