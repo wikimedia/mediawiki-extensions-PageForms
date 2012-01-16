@@ -4,8 +4,8 @@
  *
  * @file
  * @ingroup SF
- * Four parser functions are defined: 'forminput', 'formlink', 'arraymap'
- * and 'arraymaptemplate'.
+ * Five parser functions are defined: 'forminput', 'formlink', 'arraymap',
+ * 'arraymaptemplate' and 'autoedit'.
  *
  * 'forminput' is called as:
  *
@@ -104,11 +104,25 @@
  *
  * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
  *
+ *
+ * 'autoedit' is called as:
+ *
+ * {{#autoedit:form=|target=|link text=|link type=|query string=|reload}}
+ *
+ * This function creates a link or button that, when clicked on,
+ * automatically modifies the specified page according to the values in the
+ * 'query string' variable.
+ *
+ * The parameters of #autoedit are called in the same format as those
+ * of #formlink. The one addition, 'reload', will, if added, cause the page
+ * to reload after the user clicks the button or link.
+ *
  * @author Yaron Koren
  * @author Sergey Chernyshev
  * @author Daniel Friesen
  * @author Barry Welch
  * @author Christoph Burgmer
+ * @author Stephan Gambke
  */
 
 class SFParserFunctions {
@@ -557,17 +571,14 @@ END;
 	}
 
 
-	static function renderAutoEdit ( &$parser ) {
-
+	static function renderAutoEdit( &$parser ) {
 		global $wgTitle;
 
 		// set defaults
 		$formcontent = '';
-
 		$linkString = null;
 		$linkType = 'span';
 		$summary = null;
-
 		$classString = 'autoedit-trigger';
 
 		// parse parameters
@@ -636,9 +647,7 @@ END;
 		return $parser->insertStripItem( $output, $parser->mStripState );
 	}
 
-
-	static function loadScriptsForPopupForm ( &$parser ) {
-
+	static function loadScriptsForPopupForm( &$parser ) {
 		global $sfgScriptPath;
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
@@ -650,7 +659,6 @@ END;
 		} else {
 
 			// on MW pre1.17 insert the necessary headers into the page head
-
 			static $loaded = false;
 
 			// load JavaScript and CSS files only once
@@ -678,9 +686,10 @@ END;
 		return true;
 	}
 
-	// load scripts and style files for AutoEdit
+	/**
+	 * Load scripts and style files for AutoEdit
+	 */
 	private static function loadScriptsForAutoEdit ( &$parser ) {
-
 		global $sfgScriptPath;
 
 		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
