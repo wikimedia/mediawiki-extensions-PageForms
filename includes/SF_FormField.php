@@ -174,7 +174,7 @@ class SFFormField {
 		if ( $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
 		} elseif ( $template_field->getPropertyType() == "" ) {
-			$text .= '<p>' . wfMsg( 'sf_createform_fieldpropunknowntype', $prop_link_text ) . "</p>\n";
+			$text .= '<p>' . wfMsgExt( 'sf_createform_fieldpropunknowntype', 'parse', $prop_link_text ) . "</p>\n";
 		} else {
 			if ( $template_field->isList() ) {
 				$propDisplayMsg = 'sf_createform_fieldproplist';
@@ -197,7 +197,7 @@ class SFFormField {
 					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyTypeLabel );
 				}
 			}
-			$text .= Xml::tags( 'p', null, wfMsg( $propDisplayMsg, $prop_link_text, $propertyTypeStr ) ) . "\n";
+			$text .= Xml::tags( 'p', null, wfMsgExt( $propDisplayMsg, 'parseinline', $prop_link_text, $propertyTypeStr ) ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
 		$form_label_text = wfMsg( 'sf_createform_formlabel' );
