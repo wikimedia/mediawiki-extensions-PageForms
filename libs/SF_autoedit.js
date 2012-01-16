@@ -8,7 +8,7 @@ jQuery( function( $ ) {
 
 	$('.autoedit-trigger').click(function(){
 
-		if ( mw.config.get( 'wgUserName' ) == null ) {
+		if ( wgUserName == null ) {
 			if ( confirm( sfgAnonEditWarning ) ) {
 				handleAutoEdit( this );
 			}
