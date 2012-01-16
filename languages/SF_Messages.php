@@ -1558,13 +1558,18 @@ Für weitere Optionen nutze bitte die Seite $1.',
 	'formstart' => 'Mit Formular hinzufügen',
 	'sf_formstart_badform' => 'Fehler: Das Formular $1 wurde nicht gefunden.',
 	'sf_formstart_badtitle' => 'Fehler: „$1“ ist kein gültiger Seitenname.',
-	'sf_formstart_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
-	'sf_formstart_noform_docu' => 'Gib in dieses Textfeld den Namen der Seite ein und wähle das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, wirst du zu einem Formular weitergeleitet, mit dem du diese Seite bearbeiten kannst. Andernfalls wirst du zu einem Formular weitergeleitet, mit dem du diese Seite erstellen kannst.',
+	'sf_formstart_docu' => 'Gib in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem du sie bearbeiten kannst.
+Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
+	'sf_formstart_noform_docu' => 'Gib in dieses Textfeld den Namen der Seite ein und wähle das Formular aus, mit dem sie bearbeitet werden soll.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem du sie bearbeiten kannst.
+Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
 	'sf_formstart_createoredit' => 'Erstellen oder Bearbeiten',
 	'formedit' => 'Mit Formular bearbeiten',
 	'sf_formedit_createtitle' => '$1 erstellen: $2',
 	'sf_formedit_createtitlenotarget' => 'Erstelle $1',
-	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Du musst den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=<Formularname>&target=<Zielseite>“ oder „Special:FormEdit/<Formularname>/<Zielseite>“.',
+	'sf_formedit_badurl' => 'Dies ist die Spezialseite zum Bearbeiten einer Seite mit einem Formular. Du musst den Namen eines Formulars und den Namen der zu bearbeitenden Seite in der URL angeben.
+Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Formularname>&target=<Seitenname>“ oder „Spezial:Mit_Formular_bearbeiten/<Formularname>/<Seitenname>“.',
 	'sf_formedit_altforms' => 'Alternativ kann diese Seite mit einem der folgenden Formulare erstellt werden:',
 	'sf_formedit_altformsonly' => 'Bitte eines der folgenden Formulare auswählen, um diese Seite zu erstellen:',
 	'sf_formcreate' => 'Mit Formular erstellen',
@@ -1591,8 +1596,8 @@ Für weitere Optionen nutze bitte die Seite $1.',
 	'sf_autoedit_nosemanticform' => 'Das Formular $2 konnte nicht für Seite $1 abgerufen werden. Siehe [[{{#special:FormEdit}}/$2/$1]] für Informationen hierzu.',
 	'sf_autoedit_summary' => 'Automatisch von Seite $1 bearbeitet.',
 	'runquery' => 'Abfrage ausführen',
-	'sf_runquery_badurl' => 'Es wurde kein Formular in der URL angegeben.
-Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Name des Formulars>”',
+	'sf_runquery_badurl' => 'In der URL wurde nicht der Name des Formulars angegeben.
+Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>”',
 	'sf_runquery_title' => 'Ausgeführte Abfrage: $1',
 	'sf_runquery_additionalquery' => 'Ergänzende Abfrage',
 	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
@@ -1645,10 +1650,15 @@ $messages['de-formal'] = array(
 	'sf_createcategory_makesubcategory' => 'Machen Sie diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
 Für weitere Optionen nutzen Sie bitte die Seite $1.',
-	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit Formular „$1“ bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
-	'sf_formstart_noform_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular, mit dem die Seite bearbeitet werden soll. Wenn bereits eine Seite mit diesem Namen existiert, werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite bearbeiten können. Andernfalls werden Sie zu einem Formular weitergeleitet, mit dem Sie diese Seite erstellen können.',
+	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem Sie sie bearbeiten können.
+Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
+	'sf_formstart_noform_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular aus, mit dem sie bearbeitet werden soll.
+Sofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem Sie sie bearbeiten können.
+Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
 	'sf_formedit_createtitlenotarget' => 'Erstellen Sie $1',
-	'sf_formedit_badurl' => 'Dies ist die Seite zum Bearbeiten mit einem Formular. Sie müssen den Namen eines Formulars und die zu bearbeitende Zielseite in der URL angeben. Es sollte aussehen wie „Special:FormEdit?form=<Formularname>&target=<Zielseite>“ oder „Special:FormEdit/<Formularname>/<Zielseite>“.',
+	'sf_formedit_badurl' => 'Dies ist die Spezialseite zum Bearbeiten einer Seite mit einem Formular. Sie müssen den Namen eines Formulars und den Namen der zu bearbeitenden Seite in der URL angeben.
+Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Formularname>&target=<Seitenname>“ oder „Spezial:Mit_Formular_bearbeiten/<Formularname>/<Seitenname>“.',
 	'sf_formedit_altforms' => 'Alternativ können Sie diese Seite mit einem der folgenden Formulare erstellen:',
 	'sf_formedit_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
