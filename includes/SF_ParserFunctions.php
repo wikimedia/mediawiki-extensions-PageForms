@@ -190,7 +190,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'link type' ) {
 				$inLinkType = $value;
 			} elseif ( $param_name == 'query string' ) {
-				$inQueryStr = $value;
+				$inQueryStr = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'tooltip' ) {
 				$inTooltip = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
@@ -206,7 +206,7 @@ class SFParserFunctions {
 			} elseif ( $i == 2 ) {
 				$inLinkType = $value;
 			} elseif ( $i == 3 ) {
-				$inQueryStr = $value;
+				$inQueryStr = Sanitizer::decodeCharReferences( $value );
 			}
 		}
 
@@ -244,18 +244,12 @@ class SFParserFunctions {
 				$link_url .= $inQueryStr;
 			}
 		}
-		if ( $inLinkType == 'button' ) {
-			$str =
-				Html::rawElement( 'form', array( 'action' => $link_url, 'method' => 'get', 'class' => $classStr ),
-					Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
-					$hidden_inputs
-				);
-		} elseif ( $inLinkType == 'post button' ) {
-			$str =
-				Html::rawElement( 'form', array( 'action' => $link_url, 'method' => 'post', 'class' => $classStr ),
-					Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
-					$hidden_inputs
-				);
+		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
+			$formMethod = ( $inLinkType == 'button' ) ? 'get' : 'post';
+			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr ),
+				Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
+				$hidden_inputs
+			);
 		} else {
 			// If a target page has been specified but it doesn't
 			// exist, make it a red link.
