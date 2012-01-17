@@ -73,7 +73,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			if ( $is_disabled ) {
 				$checkbox_attrs['disabled'] = 'disabled';
 			}
-			$checkbox_input = Html::element( $cur_input_name, $possible_value, 'checkbox', $checkbox_attrs );
+			$checkbox_input = Html::input( $cur_input_name, $possible_value, 'checkbox', $checkbox_attrs );
 
 			// Make a span around each checkbox, for CSS purposes.
 			$text .= "\t" . Html::rawElement( 'span',
