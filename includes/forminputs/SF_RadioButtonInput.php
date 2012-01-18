@@ -85,16 +85,14 @@ class SFRadioButtonInput extends SFEnumInput {
 				array_key_exists( 'value_labels', $other_args ) &&
 				is_array( $other_args['value_labels'] ) &&
 				array_key_exists( $possible_value, $other_args['value_labels'] )
-			)
-			{
+			) {
 				$label = htmlspecialchars( $other_args['value_labels'][$possible_value] );
 			} else {
 				$label = $possible_value;
 			}
 
-			$text .= "\t" . Html::openElement( 'span', $itemAttrs ) .
-				Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label\n" .
-				Html::closeElement( 'span' );
+			$text .= "\t" . Html::rawElement( 'span', $itemAttrs,
+				Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label" ) . "\n";
 		}
 
 		$spanClass = 'radioButtonSpan';
