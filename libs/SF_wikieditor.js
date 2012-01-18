@@ -1,5 +1,5 @@
 // create ext if it does not exist yet
-if ( typeof( window.ext' ) === "undefined" ) {
+if ( typeof( window.ext ) === "undefined" ) {
 	window.ext = {};
 }
 
