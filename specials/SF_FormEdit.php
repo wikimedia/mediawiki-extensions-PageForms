@@ -90,7 +90,7 @@ class SFFormEdit extends SpecialPage {
 		global $wgOut, $wgRequest, $wgUser, $sfgFormPrinter;
 
 		// If we have no form name we might as well stop right away
-		if ( $form_name === '' ) {
+		if ( $form_name == '' ) {
 			return 'sf_formedit_badurl';
 		}
 
