@@ -388,7 +388,7 @@ END;
 			$key = ( isset( $subcomponents[0] ) ) ? $subcomponents[0] : '';
 			$val = ( isset( $subcomponents[1] ) ) ? $subcomponents[1] : '';
 			if ( ! empty( $key ) ) {
-				$str .= '\t\t\t' .  Html::hidden( $key, $val ) . "\n";
+				$str .= "\t\t\t" .  Html::hidden( $key, $val ) . "\n";
 			}
 		}
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
