@@ -11,6 +11,94 @@
  * @author Eugene Mednikov
  */
 
+/**
+ * combobox()
+ */
+(function(jQuery) {
+	jQuery.widget("ui.combobox", {
+		_create: function() {
+			var self = this;
+			var select = this.element.hide();
+			var name= select[0].name;
+			var id = select[0].id;
+			var curval = select[0].options[0].value;
+			curval = curval.replace('"', '&quot;' );
+			var input = jQuery("<input id=\"" + id + "\" type=\"text\" name=\"" + name + "\" value=\"" + curval + "\">")
+				.insertAfter(select)
+				.attr("tabIndex", select.attr("tabIndex"))
+				.attr("autocompletesettings", select.attr("autocompletesettings"))
+				.css("width", select.attr("comboboxwidth"))
+				.autocomplete({
+					source: function(request, response) {
+						if ( sfgAutocompleteOnAllChars ) {
+							var matcher = new RegExp(request.term, "i");
+						} else {
+							var matcher = new RegExp("\\b" + request.term, "i");
+						}
+						response(select.children("option").map(function() {
+							var text = jQuery(this).text();
+							if (this.value && (!request.term || matcher.test(text))) {
+								return {
+									id: this.value,
+									label: text,
+									value: text
+								};
+							}
+						}));
+					},
+					delay: 0,
+					change: function(event, ui) {
+						if (!ui.item) {
+							if (select.attr("existingvaluesonly") == 'true') {
+								// remove invalid value, as it didn't match anything
+								jQuery(this).val("");
+							}
+							return false;
+						}
+						select.val(ui.item.id);
+						self._trigger("selected", event, {
+							item: select.find("[value='" + ui.item.id.replace("'", "\\'") + "']")
+						});
+
+					},
+					minLength: 0
+				})
+			.addClass("ui-widget ui-widget-content ui-corner-left sfComboBoxActual");
+		input.attr("origname", select.attr("origname"));
+		jQuery('<button type="button">&nbsp;</button>')
+			.attr("tabIndex", -1)
+			.attr("title", "Show All Items")
+			.insertAfter(input)
+			.button({
+				icons: {
+					primary: "ui-icon-triangle-1-s"
+				},
+				text: false
+			}).removeClass("ui-corner-all")
+			.addClass("ui-corner-right ui-button-icon sfComboBoxActual")
+			// Add some inline CSS, to override CSS set by the
+			// jquery.ui.tabs module - this is necessary if form is
+			// used in conjunction with the Header Tabs extension.
+			// 'cssText' attribute is needed because the normal
+			// .css() calls don't allow for setting "!important",
+			// which is needed to counteract "!important" coming
+			// from the jquery.ui.tabs CSS.
+			.css('cssText', 'padding: 0 !important; margin: 0 !important; -moz-border-radius: 0; -webkit-border-radius: 0; width: 1.7em;')
+			.click(function() {
+				// close if already visible
+				if (input.autocomplete("widget").is(":visible")) {
+					input.autocomplete("close");
+					return;
+				}
+				// pass empty string as value to search for, displaying all results
+				input.autocomplete("search", "");
+				input.focus();
+			});
+		}
+	});
+
+})(jQuery);
+
 // Activate autocomplete functionality for the specified field
 (function(jQuery) {
 
@@ -959,90 +1047,3 @@ jQuery(document).ready(function() {
 	// If the form is submitted, validate everything!
 	jQuery('#sfForm').submit( function() {return validateAll();} );
 });
-
-/* extending jquery functions */
-
-(function(jQuery) {
-	jQuery.widget("ui.combobox", {
-		_create: function() {
-			var self = this;
-			var select = this.element.hide();
-			var name= select[0].name;
-			var id = select[0].id;
-			var curval = select[0].options[0].value;
-			curval = curval.replace('"', '&quot;' );
-			var input = jQuery("<input id=\"" + id + "\" type=\"text\" name=\"" + name + "\" value=\"" + curval + "\">")
-				.insertAfter(select)
-				.attr("tabIndex", select.attr("tabIndex"))
-				.attr("autocompletesettings", select.attr("autocompletesettings"))
-				.css("width", select.attr("comboboxwidth"))
-				.autocomplete({
-					source: function(request, response) {
-						if ( sfgAutocompleteOnAllChars ) {
-							var matcher = new RegExp(request.term, "i");
-						} else {
-							var matcher = new RegExp("\\b" + request.term, "i");
-						}
-						response(select.children("option").map(function() {
-							var text = jQuery(this).text();
-							if (this.value && (!request.term || matcher.test(text))) {
-								return {
-									id: this.value,
-									label: text,
-									value: text
-								};
-							}
-						}));
-					},
-					delay: 0,
-					change: function(event, ui) {
-						if (!ui.item) {
-							if (select.attr("existingvaluesonly") == 'true') {
-								// remove invalid value, as it didn't match anything
-								jQuery(this).val("");
-							}
-							return false;
-						}
-						select.val(ui.item.id);
-						self._trigger("selected", event, {
-							item: select.find("[value='" + ui.item.id.replace("'", "\\'") + "']")
-						});
-
-					},
-					minLength: 0
-				})
-			.addClass("ui-widget ui-widget-content ui-corner-left sfComboBoxActual");
-		input.attr("origname", select.attr("origname"));
-		jQuery('<button type="button">&nbsp;</button>')
-			.attr("tabIndex", -1)
-			.attr("title", "Show All Items")
-			.insertAfter(input)
-			.button({
-				icons: {
-					primary: "ui-icon-triangle-1-s"
-				},
-				text: false
-			}).removeClass("ui-corner-all")
-			.addClass("ui-corner-right ui-button-icon sfComboBoxActual")
-			// Add some inline CSS, to override CSS set by the
-			// jquery.ui.tabs module - this is necessary if form is
-			// used in conjunction with the Header Tabs extension.
-			// 'cssText' attribute is needed because the normal
-			// .css() calls don't allow for setting "!important",
-			// which is needed to counteract "!important" coming
-			// from the jquery.ui.tabs CSS.
-			.css('cssText', 'padding: 0 !important; margin: 0 !important; -moz-border-radius: 0; -webkit-border-radius: 0; width: 1.7em;')
-			.click(function() {
-				// close if already visible
-				if (input.autocomplete("widget").is(":visible")) {
-					input.autocomplete("close");
-					return;
-				}
-				// pass empty string as value to search for, displaying all results
-				input.autocomplete("search", "");
-				input.focus();
-			});
-		}
-	});
-
-})(jQuery);
