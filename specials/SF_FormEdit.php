@@ -126,6 +126,15 @@ class SFFormEdit extends SpecialPage {
 					$page_contents = null;
 					//$page_is_source = false;
 				} else {
+					// If page already exists and 'redlink'
+					// is in the query string, redirect to
+					// the actual page, just like
+					// MediaWiki does it.
+					if ( $wgRequest->getBool( 'redlink' ) ) {
+						$wgOut->redirect( $target_title->getFullURL() );
+						wfProfileOut( __METHOD__ );
+						return;
+					}
 					$target_article = new Article( $target_title, 0 );
 					$page_contents = $target_article->getContent();
 					//$page_is_source = true;
@@ -344,7 +353,7 @@ class SFFormEdit extends SpecialPage {
 				} else {
 					// Lets other code process additional form-definition syntax
 					wfRunHooks( 'sfWritePageData', array( $form_name, $target_title, &$data_text ) );
-					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) );  // extract its data
+					$text = SFUtils::printRedirectForm( $target_title, $data_text, $wgRequest->getVal( 'wpSummary' ), $save_page, $preview_page, $diff_page, $wgRequest->getCheck( 'wpMinoredit' ), $wgRequest->getCheck( 'wpWatchthis' ), $wgRequest->getVal( 'wpStarttime' ), $wgRequest->getVal( 'wpEdittime' ) ); // extract its data
 				}
 
 
