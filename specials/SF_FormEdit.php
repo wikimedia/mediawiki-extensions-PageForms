@@ -30,8 +30,8 @@ class SFFormEdit extends SpecialPage {
 		wfProfileIn( __METHOD__ );
 
 		$this->setHeaders();
-		$this->mForm = $wgRequest->getVal( 'form' );
-		$this->mTarget = $wgRequest->getVal( 'target' );
+		$this->mForm = $wgRequest->getText( 'form' );
+		$this->mTarget = $wgRequest->getText( 'target' );
 
 		// if query string did not contain these variables, try the URL
 		if ( ! $this->mForm && ! $this->mTarget ) {
@@ -89,16 +89,16 @@ class SFFormEdit extends SpecialPage {
 	static function printForm( &$form_name, &$target_name, $alt_forms = array(), $redirectOnError = false ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgFormPrinter;
 
-		// If we have no form name we might as well stop right away
-		if ( $form_name == '' ) {
-			return 'sf_formedit_badurl';
-		}
-
 		// initialize some variables
 		$target_title = null;
 		$page_name_formula = null;
 
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+
+		// If we the given form is not a valid title, bail out
+		if ( !$form_title ) {
+			return 'sf_formedit_badurl';
+		}
 
 		$form_article = new Article( $form_title, 0 );
 		$form_definition = $form_article->getContent();
