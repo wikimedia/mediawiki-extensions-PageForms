@@ -283,7 +283,10 @@ abstract class SFFormInput {
 		global $sfgFieldNum, $wgOut;
 
 		// create an input of the called class
-		$calledClass = get_called_class();
+		// TODO: get_called_class was introduced in PHP 5.3. The call to
+		// SF_Utils::get_called_class() can be removed once support for PHP 5.2
+		// is dropped.
+		$calledClass = function_exists('get_called_class')?(get_called_class()):(SF_Utils::get_called_class());
 		$input = new $calledClass ( $sfgFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
 
 		// create calls to JS initialization and validation
