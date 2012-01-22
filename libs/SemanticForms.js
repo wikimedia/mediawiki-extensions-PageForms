@@ -130,6 +130,11 @@
 	// attribute. This should probably be done as three separate attributes,
 	// instead.
 	var field_string = jQuery(this).attr("autocompletesettings");
+	
+	if ( typeof field_string === 'undefined' ) {
+		return;
+	}
+		
 	var field_values = field_string.split(',');
 	var delimiter = null;
 	var data_source = field_values[0];
