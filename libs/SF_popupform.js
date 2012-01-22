@@ -6,30 +6,30 @@
  */
 
 // initialise
-jQuery( function( $ ) {
+jQuery( function() {
 
 	// register eventhandlers on 'edit' links and buttons
 
 	// register formlink with link
-	$('a.popupformlink').click(function(evt){
+	jQuery('a.popupformlink').click(function(evt){
 		return ext.popupform.handlePopupFormLink( this.getAttribute('href'), this );
 	});
 
 	// register formlink with button
-	$( 'form.popupformlink' ).submit(function(evt){
+	jQuery( 'form.popupformlink' ).submit(function(evt){
 		return ext.popupform.handlePopupFormLink( this.getAttribute( 'action' ), this );
 	});
 
 
 	// register forminput
-	$( 'form.popupforminput' ).submit(function(evt){
+	jQuery( 'form.popupforminput' ).submit(function(evt){
 		return ext.popupform.handlePopupFormInput( this.getAttribute( 'action' ), this );
 	});
 
 });
 
 // create ext if it does not exist yet
-if ( typeof( window.ext' ) === "undefined" ) {
+if ( typeof( window.ext ) === "undefined" ) {
 	window.ext = {};
 }
 
