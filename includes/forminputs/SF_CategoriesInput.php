@@ -43,6 +43,11 @@ class SFCategoriesInput extends SFCategoryInput {
 			return null;
 		}
 		$hideroot = array_key_exists( 'hideroot', $other_args );
+		if ( array_key_exists( 'depth', $other_args ) ) {
+			$depth = $other_args['depth'];
+		} else {
+			$depth = '10';
+		}
 		if ( array_key_exists( 'height', $other_args ) ) {
 			$height = $other_args['height'];
 		} else {
@@ -60,7 +65,7 @@ class SFCategoriesInput extends SFCategoryInput {
 			$top_category, array(
 				'mode' => 'categories',
 				'namespaces' => array( NS_CATEGORY ),
-				'depth' => 10,
+				'depth' => $depth,
 				'hideroot' => $hideroot,
 			)
 		);

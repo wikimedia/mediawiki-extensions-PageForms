@@ -35,6 +35,11 @@ class SFCategoryInput extends SFFormInput {
 			return null;
 		}
 		$hideroot = array_key_exists( 'hideroot', $other_args );
+		if ( array_key_exists( 'depth', $other_args ) ) {
+			$depth = $other_args['depth'];
+		} else {
+			$depth = '10';
+		}
 		if ( array_key_exists( 'height', $other_args ) ) {
 			$height = $other_args['height'];
 		} else {
@@ -67,7 +72,7 @@ class SFCategoryInput extends SFFormInput {
 			array(
 				'mode' => 'categories',
 				'namespaces' => array( NS_CATEGORY ),
-				'depth' => 10,
+				'depth' => $depth,
 				'hideroot' => $hideroot,
 			)
 		);
@@ -122,6 +127,11 @@ class SFCategoryInput extends SFFormInput {
 			'name' => 'hideroot',
 			'type' => 'boolean',
 			'description' => wfMsg( 'sf_forminputs_hideroot' )
+		);
+		$params[] = array(
+			'name' => 'depth',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_depth' )
 		);
 		$params[] = array(
 			'name' => 'height',

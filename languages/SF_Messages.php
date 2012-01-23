@@ -73,6 +73,7 @@ $messages['en'] = array(
 	'sf_forminputs_includetimezone'      => 'Include an input for the time zone',
 	'sf_forminputs_topcategory'          => 'The parent category of this set of categories (required)',
 	'sf_forminputs_hideroot'             => 'Hide the parent category',
+	'sf_forminputs_depth'                => 'The number of levels of categories to show initially',
 	'sf_forminputs_height'               => 'The height of this input, in pixels',
 	'sf_forminputs_width'                => 'The width of this input, in pixels',
 	'createform'                         => 'Create a form',
