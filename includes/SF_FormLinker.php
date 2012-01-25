@@ -10,8 +10,6 @@
  * @ingroup SF
  */
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
-
 class SFFormLinker {
 	const DEFAULT_FORM = 1;
 	const ALTERNATE_FORM = 2;
