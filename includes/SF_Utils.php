@@ -819,4 +819,42 @@ END;
 		return $hasFactory ? SpecialPageFactory::getPage( $pageName ) : SpecialPage::getPage( $pageName );
 	}
 
+	/**
+	 * Appends a preview of the actual form, when a page in the "Form"
+	 * namespace is previewed.
+	 *
+	 * @author Solitarius
+	 * @since 2.4
+	 */
+	public function showFormPreview( $editpage, $request ) {
+		global $wgOut, $sfgFormPrinter;
+
+		wfDebug( __METHOD__ . ": enter.\n" );
+		wfProfileIn( __METHOD__ );
+
+		// Exit if we're not in preview mode.
+		if ( ! $editpage->preview ) {
+			return true;
+		}
+		// Exit if we aren't in the "Form" namespace.
+		if ( $editpage->getArticle()->getTitle()->getNamespace() != SF_NS_FORM ) {
+			return true;
+		}
+
+		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMsg( 'sf-preview-header' ) ) . "\n" .
+			'<div class="previewnote" style="font-weight: bold">' . $wgOut->parse( wfMsg( 'sf-preview-note' ) ) . "</div>\n<hr />\n";
+
+		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
+		list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
+			$sfgFormPrinter->formHTML( $form_definition, null, false, null, null, "Semantic Forms form preview dummy title", null );
+
+		SFUtils::addJavascriptAndCSS();
+		$editpage->previewTextAfterContent .=
+			'<div style="margin-top: 15px">' . $form_text . "</div>";
+
+		wfProfileOut( __METHOD__ );
+
+		return true;
+	}
+
 }

@@ -90,6 +90,7 @@ $wgHooks['ArticleSave'][] = 'SFFormUtils::purgeCache';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 $wgHooks['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
+$wgHooks['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
