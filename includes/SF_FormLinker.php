@@ -75,6 +75,8 @@ class SFFormLinker {
 					$propertyName = $property->getWikiValue();
 					$linkedPageName = $propertyValue->getWikiValue();
 				}
+				// Needed for SMW 1.7 (?)
+				$linkedPageName = str_replace( '_', ' ', $linkedPageName );
 				if ( !is_null( $linkedPageName ) ) {
 					if ( array_key_exists( $linkedPageName, self::$mLinkedPages ) ) {
 						self::$mLinkedPages[$linkedPageName][] = $propertyName;
@@ -214,6 +216,10 @@ class SFFormLinker {
 			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
 			$form_edit_url .= "alt_form[$i]=$alt_form";
 		}
+		// Add "redlink=1" to the query string, so that the user will
+		// go to the actual page if it now exists.
+		$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
+		$form_edit_url .= "redlink=1";
 		return $form_edit_url;
 	}
 
