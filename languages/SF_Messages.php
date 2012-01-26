@@ -201,6 +201,7 @@ if a page with that name already exists, you will be sent to a form to edit that
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Jon Harald Søby
+ * @author Kghbln
  * @author McDutchie
  * @author Nemo bis
  * @author Purodha
@@ -222,6 +223,7 @@ $messages['qqq'] = array(
 	'sf_createform_inputtypedefault' => '{{Identical|Default}}',
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
 	'sf_createform_add' => '{{Identical|Add}}',
+	'sf_createclass_docu' => '$1 will be filled with the following messages: {{msg-mw|Createproperty}}, {{msg-mw|Createtemplate}}, {{msg-mw|Createform}} and {{msg-mw|Createcategory}}',
 	'sf_createclass_create' => '{{Identical|Create}}',
 	'formstart' => 'Name of a special page.',
 	'sf_formedit_createtitle' => '* $1 is the main part of the title of a semantic form
@@ -1551,7 +1553,7 @@ $messages['de'] = array(
 	'sf_createcategory_makesubcategory' => 'Diese Kategorie zu einer Unterkategorie einer anderen Kategorie machen (optional):',
 	'createclass' => 'Eine Klasse erstellen',
 	'sf_createclass_docu' => 'Gib hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
-Für weitere Optionen nutze bitte die Seite $1.',
+Für weitere Optionen nutze bitte die folgenden Aktionen: $1.',
 	'sf_createclass_allowedvalues' => 'Erlaubte Werte:',
 	'sf_createclass_listofvalues' => 'Werteliste?',
 	'sf_createclass_leavefieldblank' => 'Sofern der Feldname dem Attributnamen entspricht, kann es leer gelassen werden.',
@@ -1613,6 +1615,8 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf_bad_date_error' => 'muss ein gültiges Datum sein',
 	'uploadwindow' => 'Formular zum Hochladen',
 	'sf_deletionlog' => 'Lösch-Logbuch',
+	'sf-preview-header' => 'Formularvorschau',
+	'sf-preview-note' => 'So wird das Formular aussehen, wenn es in Gebrauch ist:',
 	'sf-pageschemas-pagenameformula' => 'Seitennamenformel:',
 	'sf-pageschemas-createtitle' => 'Name des Formulars für neue Seiten:',
 	'sf-pageschemas-edittitle' => 'Name des Formulars für vorhandene Seiten:',
@@ -1653,7 +1657,7 @@ $messages['de-formal'] = array(
 	'sf_createform_choosefield' => 'Wählen Sie ein Feld aus, das Sie hinzufügen wollen.',
 	'sf_createcategory_makesubcategory' => 'Machen Sie diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
-Für weitere Optionen nutzen Sie bitte die Seite $1.',
+Für weitere Optionen nutzen Sie bitte die folgenden Aktionen: $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
 Sofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem Sie sie bearbeiten können.
 Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
@@ -2817,6 +2821,8 @@ o URL debe ser do tipo "Special:RunQuery/<nome do formulario>".',
 	'sf_bad_date_error' => 'debe ser unha data válida',
 	'uploadwindow' => 'Ventá de carga',
 	'sf_deletionlog' => 'Rexistro de borrados',
+	'sf-preview-header' => 'Vista previa do formulario',
+	'sf-preview-note' => 'Así será o formulario ao empregalo:',
 	'sf-pageschemas-pagenameformula' => 'Fórmula do nome da páxina:',
 	'sf-pageschemas-createtitle' => 'Título do formulario para as páxinas novas:',
 	'sf-pageschemas-edittitle' => 'Título do formulario para as páxinas existentes:',
