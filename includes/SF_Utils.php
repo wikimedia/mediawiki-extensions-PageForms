@@ -462,18 +462,16 @@ END;
 		for ( $level = $num_levels; $level > 0; $level-- ) {
 			$newcategories = array();
 			foreach ( $checkcategories as $category ) {
+				$conditions = array();
+				$conditions[] = 'cl_from = page_id';
+				$conditions['cl_to'] = $category;
 				if ( $substring != null ) {
-					$substring = str_replace( ' ', '_', strtolower( $substring ) );
-					$substring = str_replace( '_', '\_', $substring );
-					$substring = str_replace( "'", "\'", $substring );
-					$conditions = 'cl_to = ' . $db->addQuotes( $category ) . " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '" . $substring . "%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_" . $substring . "%' OR page_namespace = " . NS_CATEGORY . ")";
-				} else {
-					$conditions = 'cl_to = ' . $db->addQuotes( $category );
+					$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) . ' OR page_namespace = ' . NS_CATEGORY;
 				}
 				$res = $db->select( // make the query
 					array( 'categorylinks', 'page' ),
 					array( 'page_title', 'page_namespace' ),
-					array( 'cl_from = page_id', $conditions ),
+					$conditions,
 					__METHOD__,
 					'SORT BY cl_sortkey' );
 				if ( $res ) {
@@ -521,7 +519,7 @@ END;
 	}
 
 	public static function getAllPagesForConcept( $concept_name, $substring = null ) {
-		global $sfgMaxAutocompleteValues;
+		global $sfgMaxAutocompleteValues, $sfgAutocompleteOnAllChars;
 
 		$store = smwfGetStore();
 
@@ -557,10 +555,16 @@ END;
 				// original SMW query, but that doesn't seem
 				// possible yet.
 				$lowercasePageName = strtolower( $pageName );
-				if ( strpos( $lowercasePageName, $substring ) === 0 ||
-					strpos( $lowercasePageName, ' ' . $substring ) > 0 ) {
+				if ( $sfgAutocompleteOnAllChars ) {
+					if ( strpos( $lowercasePageName, $substring ) >= 0 ) {
 						$pages[] = $pageName;
 					}
+				} else {
+					if ( strpos( $lowercasePageName, $substring ) === 0 ||
+						strpos( $lowercasePageName, ' ' . $substring ) > 0 ) {
+						$pages[] = $pageName;
+					}
+				}
 			}
 		}
 		sort( $pages );
@@ -820,15 +824,39 @@ END;
 	}
 
 	/**
+	* Returns a SQL condition for autocompletion substring value in a column.
+	* @param string $value_column Value column name
+	* @param string $substring Substring to look for
+	* @return SQL condition for use in WHERE clause
+	*
+	* @author Ilmars Poikans
+	*/
+	public static function getSQLConditionForAutocompleteInColumn( $column, $substring ) {
+		global $sfgAutocompleteOnAllChars;
+
+		$column_value = "LOWER(CONVERT($column USING utf8))";
+		$substring = str_replace( ' ', '_', strtolower( $substring ) );
+		$substring = str_replace( "'", "\'", $substring );
+		$substring = str_replace( '_', '\_', $substring );
+		$substring = str_replace( '%', '\%', $substring );
+
+		if ( $sfgAutocompleteOnAllChars ) {
+			return "$column_value LIKE '%$substring%'";
+		} else {
+			return "$column_value LIKE '$substring%' OR $column_value LIKE '%\_$substring%'";
+		}
+	}
+
+	/**
 	 * Appends a preview of the actual form, when a page in the "Form"
 	 * namespace is previewed.
 	 *
 	 * @author Solitarius
 	 * @since 2.4
-	 * 
+	 *
 	 * @param EditPage $editpage
 	 * @param WebRequest $request
-	 * 
+	 *
 	 * @return true
 	 */
 	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {

@@ -163,10 +163,7 @@ class SFAutocompleteAPI extends ApiBase {
 		}
 
 		if ( !is_null( $substring ) ) {
-			$substring = str_replace( "'", "\'", strtolower( $substring ) );
-			// UTF-8 conversion is needed in case MediaWiki is using
-			// binary data storage.
-			$conditions[] = "REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '" . $substring . "%' OR REPLACE(LOWER(CONVERT($value_field USING utf8)),'_',' ') LIKE '% " . $substring . "%'";
+			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( $value_field, $substring );
 		}
 
 		$sql_options['ORDER BY'] = $value_field;
