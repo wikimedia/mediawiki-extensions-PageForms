@@ -825,15 +825,20 @@ END;
 	 *
 	 * @author Solitarius
 	 * @since 2.4
+	 * 
+	 * @param EditPage $editpage
+	 * @param WebRequest $request
+	 * 
+	 * @return true
 	 */
-	public static function showFormPreview( $editpage, $request ) {
+	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {
 		global $wgOut, $sfgFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
 		wfProfileIn( __METHOD__ );
 
 		// Exit if we're not in preview mode.
-		if ( ! $editpage->preview ) {
+		if ( !$editpage->preview ) {
 			return true;
 		}
 		// Exit if we aren't in the "Form" namespace.
