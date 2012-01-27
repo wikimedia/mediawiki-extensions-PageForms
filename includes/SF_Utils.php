@@ -826,7 +826,7 @@ END;
 	 * @author Solitarius
 	 * @since 2.4
 	 */
-	public function showFormPreview( $editpage, $request ) {
+	public static function showFormPreview( $editpage, $request ) {
 		global $wgOut, $sfgFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
