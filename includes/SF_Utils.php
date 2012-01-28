@@ -607,12 +607,10 @@ END;
 		}
 
 		$db = wfGetDB( DB_SLAVE );
-		$conditions = "page_namespace = $matchingNamespaceCode";
+		$conditions = array();
+		$conditions['page_namespace'] = $matchingNamespaceCode;
 		if ( $substring != null ) {
-			$substring = str_replace( ' ', '_', strtolower( $substring ) );
-			$substring = str_replace( '_', '\_', $substring );
-			$substring = str_replace( "'", "\'", $substring );
-			$conditions .= " AND (LOWER(CONVERT(`page_title` USING utf8)) LIKE '$substring%' OR LOWER(CONVERT(`page_title` USING utf8)) LIKE '%\_$substring%')";
+			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( 'page_title', $substring );
 		}
 		$res = $db->select( 'page',
 			'page_title',
