@@ -156,114 +156,13 @@ class SFParserFunctions {
 	}
 
 	static function renderFormLink ( &$parser ) {
-		global $wgVersion;
 
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-		// Set defaults.
-		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
-			$inQueryStr = $inTargetName = '';
-		$classStr = "";
-		// assign params
-		// - support unlabelled params, for backwards compatibility
-		// - parse and sanitize all parameter values
-		foreach ( $params as $i => $param ) {
-			$elements = explode( '=', $param, 2 );
-
-			// set param_name and value
-			if ( count( $elements ) > 1 ) {
-				$param_name = trim( $elements[0] );
-
-				// parse (and sanitize) parameter values
-				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
-			} else {
-				$param_name = null;
-
-				// parse (and sanitize) parameter values
-				$value = trim( $parser->recursiveTagParse( $param ) );
-			}
-
-			if ( $param_name == 'form' ) {
-				$inFormName = $value;
-			} elseif ( $param_name == 'link text' ) {
-				$inLinkStr = $value;
-			} elseif ( $param_name == 'link type' ) {
-				$inLinkType = $value;
-			} elseif ( $param_name == 'query string' ) {
-				$inQueryStr = Sanitizer::decodeCharReferences( $value );
-			} elseif ( $param_name == 'tooltip' ) {
-				$inTooltip = Sanitizer::decodeCharReferences( $value );
-			} elseif ( $param_name == 'target' ) {
-				$inTargetName = $value;
-			} elseif ( $param_name == null && $value == 'popup' ) {
-				self::loadScriptsForPopupForm( $parser );
-				$classStr = 'popupformlink';
-			}
-			elseif ( $i == 0 ) {
-				$inFormName = $value;
-			} elseif ( $i == 1 ) {
-				$inLinkStr = $value;
-			} elseif ( $i == 2 ) {
-				$inLinkType = $value;
-			} elseif ( $i == 3 ) {
-				$inQueryStr = Sanitizer::decodeCharReferences( $value );
-			}
-		}
-
-		$ad = SFUtils::getSpecialPage( 'FormEdit' );
-		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
-		if ( ! empty( $inTargetName ) ) {
-			$link_url .= "/$inTargetName";
-		}
-		$link_url = str_replace( ' ', '_', $link_url );
-		$hidden_inputs = "";
-		if ( $inQueryStr != '' ) {
-			// Special handling for the buttons - query string
-			// has to be turned into hidden inputs.
-			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
-				// Change HTML-encoded ampersands to
-				// URL-encoded ampersands, so that the string
-				// doesn't get split up on the '&'.
-				$inQueryStr = str_replace( '&amp;', '%26', $inQueryStr );
-				$query_components = explode( '&', $inQueryStr );
-				foreach ( $query_components as $query_component ) {
-					$query_component = urldecode( $query_component );
-					$var_and_val = explode( '=', $query_component );
-					if ( count( $var_and_val ) == 2 ) {
-						$hidden_inputs .= SFFormUtils::hiddenFieldHTML( $var_and_val[0], $var_and_val[1] );
-					}
-				}
-			} else {
-				$link_url .= ( strstr( $link_url, '?' ) ) ? '&' : '?';
-				// URL-encode the spaces, newlines, ampersands etc.
-				// in the query string.
-				// (Should this just be a general urlencode?)
-				$inQueryStr = str_replace( array( ' ', '+', '&amp;', "\n", '#' ),
-					array( '%20', '%2B', '%26', '%0A', '%23' ),
-					$inQueryStr );
-				$link_url .= $inQueryStr;
-			}
-		}
-		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
-			$formMethod = ( $inLinkType == 'button' ) ? 'get' : 'post';
-			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr ),
-				Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
-				$hidden_inputs
-			);
-		} else {
-			// If a target page has been specified but it doesn't
-			// exist, make it a red link.
-			if ( ! empty( $inTargetName ) ) {
-				$targetTitle = Title::newFromText( $inTargetName );
-				if ( is_null( $targetTitle ) || !$targetTitle->exists() ) {
-					$classStr .= " new";
-				}
-			}
-			$str = Html::rawElement( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip ), $inLinkStr );
-		}
+		
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( $str, $parser->mStripState );
+		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'FormEdit', $params ), $parser->mStripState );
 	}
 
 	static function renderFormInput ( &$parser ) {

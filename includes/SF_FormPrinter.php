@@ -377,7 +377,7 @@ END;
 			$this->mPageTitle = $wgTitle;
 		} elseif ( $is_query ) {
 			$this->mPageTitle = Title::newFromText( 'RunQuery dummy title' );
-		} elseif ( $page_name === '' ) {
+		} elseif ( $page_name === '' || $page_name === null ) {
 			$this->mPageTitle = Title::newFromText(
 				$wgRequest->getVal( 'namespace' ) . ":Semantic Forms permissions test" );
 		} else {

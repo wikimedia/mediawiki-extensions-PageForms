@@ -125,6 +125,13 @@ class SFAutoeditAPI extends ApiBase {
 	}
 
 	/**
+	 * Sets the options array
+	 */
+	function setOptions( $options ) {
+		$this->mOptions = $options;
+	}
+
+	/**
 	 * Evaluates the parameters, performs the requested API query, and sets up
 	 * the result.
 	 */
@@ -228,7 +235,7 @@ END;
 	 * @param bool $prefillFromExisting If this is set, existing values in the page will be used to prefill the form.
 	 * @return true or an error message
 	 */
-	private function storeSemanticData( $prefillFromExisting = true ) {
+	public function storeSemanticData( $prefillFromExisting = true ) {
 
 		global $wgOut, $wgRequest;
 
@@ -310,7 +317,7 @@ END;
 				);
 			}
 		} else {
-			$this->addToArray( $data, "wpSave", "Save" );
+			self::addToArray( $data, "wpSave", "Save" );
 		}
 		// and modify as specified
 		$data = $this->array_merge_recursive_distinct( $data, $this->mOptions );
@@ -337,9 +344,11 @@ END;
 			return $this->reportError( $formedit->mError );
 		} else {
 
-			header( "X-Location: " . $wgOut->getRedirect() );
-			header( "X-Form: " . $formedit->mForm );
-			header( "X-Target: " . $formedit->mTarget );
+			if ( !headers_sent() ) {
+				header( "X-Location: " . $wgOut->getRedirect() );
+				header( "X-Form: " . $formedit->mForm );
+				header( "X-Target: " . $formedit->mTarget );
+			}
 
 			if ( $this->isApiQuery() ) {
 				$this->getResult()->addValue( null, 'result',
@@ -389,7 +398,7 @@ END;
 				case 'checkbox':
 				case 'radio':
 					if ( $input->getAttribute( 'checked' ) )
-						$this->addToArray( $data, $name, $input->getAttribute( 'value' ) );
+						self::addToArray( $data, $name, $input->getAttribute( 'value' ) );
 					break;
 
 				// case 'button':
@@ -399,12 +408,12 @@ END;
 				// case 'reset':
 				// case 'submit':
 				case 'text':
-					$this->addToArray( $data, $name, $input->getAttribute( 'value' ) );
+					self::addToArray( $data, $name, $input->getAttribute( 'value' ) );
 					break;
 
 				case 'submit':
 					if ( $name == "wpSave" )
-						$this->addToArray( $data, $name, $input->getAttribute( 'value' ) );
+						self::addToArray( $data, $name, $input->getAttribute( 'value' ) );
 			}
 		}
 
@@ -422,12 +431,12 @@ END;
 			$options = $select->getElementsByTagName( 'option' );
 
 			if ( count( $options ) && ( !$select->hasAttribute( "multiple" ) || $options->item( 0 )->hasAttribute( 'selected' ) ) ) {
-				$this->addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
+				self::addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
 			}
 
 			for ( $o = 1; $o < $options->length; $o++ ) {
 				if ( $options->item( $o )->hasAttribute( 'selected' ) )
-					$this->addToArray( $data, $name, $options->item( $o )->getAttribute( 'value' ) );
+					self::addToArray( $data, $name, $options->item( $o )->getAttribute( 'value' ) );
 			}
 		}
 
@@ -442,7 +451,7 @@ END;
 			if ( !$name )
 				continue;
 
-			$this->addToArray( $data, $name, $textarea->textContent );
+			self::addToArray( $data, $name, $textarea->textContent );
 		}
 
 		return $form;
@@ -467,7 +476,7 @@ END;
 			if ( $key == "query" || $key == "query string" ) {
 				$this->parseDataFromQueryString( $data, $value );
 			} else {
-				$this->addToArray( $data, $key, $value );
+				self::addToArray( $data, $key, $value );
 			}
 		}
 
@@ -480,7 +489,7 @@ END;
 	// Format: 1stLevelName[2ndLevel][3rdLevel][...], i.e. normal array notation
 	// $value: the value to insert
 	// $toplevel: if this is a toplevel value.
-	private function addToArray( &$array, $key, $value, $toplevel = true ) {
+	public static function addToArray( &$array, $key, $value, $toplevel = true ) {
 		$matches = array();
 
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
@@ -497,7 +506,7 @@ END;
 			if ( !array_key_exists( $key, $array ) )
 				$array[$key] = array();
 
-			$this->addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
+			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
 		} else {
 
 			if ( $key ) {
@@ -548,7 +557,9 @@ END;
 	 */
 	private function reportError( $msg ) {
 		if ( $this->isApiQuery() ) {
-			header( 'HTTP/Status: 400 Bad Request' );
+			if ( !headers_sent() ) {
+				header( 'HTTP/Status: 400 Bad Request' );
+			}
 			$this->getResult()->addValue( null, 'result', array( 'code' => '400', '*' => $msg ) );
 		}
 		return $msg;
