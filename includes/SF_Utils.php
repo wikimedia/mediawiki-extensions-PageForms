@@ -1006,4 +1006,42 @@ END;
 		return $str;
 	}	
 	
+	static function loadScriptsForPopupForm( &$parser ) {
+		global $sfgScriptPath;
+
+		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
+
+			// on MW 1.17+ just request the ResourceLoader to include modules
+
+			$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
+
+		} else {
+
+			// on MW pre1.17 insert the necessary headers into the page head
+			static $loaded = false;
+
+			// load JavaScript and CSS files only once
+			if ( !$loaded ) {
+
+				// load extensions JavaScript
+				$parser->getOutput()->addHeadItem(
+					'<script type="text/javascript" src="' . $sfgScriptPath
+					. '/libs/SF_popupform.js"></script> ' . "\n",
+					'sf_popup_script'
+				);
+
+				// load extensions style sheet
+				$parser->getOutput()->addHeadItem(
+					'<link rel="stylesheet" href="' . $sfgScriptPath
+					. '/skins/SF_popupform.css"/> ' . "\n",
+					'sf_popup_style'
+				);
+
+				$loaded = true;
+			}
+
+		}
+
+		return true;
+	}
 }
