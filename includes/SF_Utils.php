@@ -971,7 +971,7 @@ END;
 			// has to be turned into hidden inputs.
 			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
 
-				$query_components = explode( '&', http_build_query( $inQueryArr ) );
+				$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
 
 				foreach ( $query_components as $query_component ) {
 					$query_component = urldecode( $query_component );
@@ -982,7 +982,7 @@ END;
 				}
 			} else {
 				$link_url .= ( strstr( $link_url, '?' ) ) ? '&' : '?';
-				$link_url .= http_build_query( $inQueryArr );
+				$link_url .= str_replace( '+', '%20', http_build_query( $inQueryArr, '', '&' ) );
 			}
 		}
 		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
