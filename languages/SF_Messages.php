@@ -5581,6 +5581,7 @@ $messages['nl'] = array(
 	'sf_forminputs_includetimezone' => 'Invoer voor de tijdzone opnemen',
 	'sf_forminputs_topcategory' => 'De bovenliggende categorie van deze verzameling categorieën (vereist)',
 	'sf_forminputs_hideroot' => 'De bovenliggende categorie verbergen',
+	'sf_forminputs_depth' => 'Het aantal categorieniveaus dat aanvankelijk weergegeven moet worden',
 	'sf_forminputs_height' => 'De hoogte van deze invoer, in pixels',
 	'sf_forminputs_width' => 'De breedte van deze invoer, in pixels',
 	'createform' => 'Formulier aanmaken',
