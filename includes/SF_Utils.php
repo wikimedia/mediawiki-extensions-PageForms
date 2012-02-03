@@ -927,9 +927,8 @@ END;
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
 				
-				$inQueryStr = Sanitizer::decodeCharReferences( $inQueryStr );
 				parse_str($inQueryStr, $arr);
-				$inQueryArr = array_merge_recursive( $inQueryArr, $arr );
+				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
 			} elseif ( $param_name == 'tooltip' ) {
 				$inTooltip = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
@@ -940,7 +939,7 @@ END;
 			} elseif ( $param_name !== null ) {
 				$value = urlencode($value);
 				parse_str("$param_name=$value", $arr);
-				$inQueryArr = array_merge_recursive( $inQueryArr, $arr );
+				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}elseif ( $i == 0 ) {
 				$inFormName = $value;
 			} elseif ( $i == 1 ) {
@@ -953,9 +952,8 @@ END;
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
 				
-				$inQueryStr = Sanitizer::decodeCharReferences( $inQueryStr );
 				parse_str($inQueryStr, $arr);
-				$inQueryArr = array_merge_recursive( $inQueryArr, $arr );
+				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
 			} 
 		}
 
@@ -974,10 +972,9 @@ END;
 				$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
 
 				foreach ( $query_components as $query_component ) {
-					$query_component = urldecode( $query_component );
 					$var_and_val = explode( '=', $query_component, 2 );
 					if ( count( $var_and_val ) == 2 ) {
-						$hidden_inputs .= SFFormUtils::hiddenFieldHTML( $var_and_val[0], $var_and_val[1] );
+						$hidden_inputs .= SFFormUtils::hiddenFieldHTML( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
 					}
 				}
 			} else {
@@ -1044,4 +1041,40 @@ END;
 
 		return true;
 	}
+
+		/**
+	 * array_merge_recursive merges arrays, but it converts values with duplicate
+	 * keys to arrays rather than overwriting the value in the first array with the duplicate
+	 * value in the second array, as array_merge does.
+	 *
+	 * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.
+	 * Matching keys' values in the second array overwrite those in the first array.
+	 *
+	 * Parameters are passed by reference, though only for performance reasons. They're not
+	 * altered by this function.
+	 *
+	 * See http://www.php.net/manual/en/function.array-merge-recursive.php#92195
+	 *
+	 * @param array $array1
+	 * @param array $array2
+	 * @return array
+	 * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
+	 * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
+	 */
+	public static function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
+
+		$merged = $array1;
+
+		foreach ( $array2 as $key => &$value ) {
+			if ( is_array( $value ) && isset( $merged[$key] ) && is_array( $merged[$key] ) ) {
+				$merged[$key] = self::array_merge_recursive_distinct( $merged[$key], $value );
+			} else {
+				$merged[$key] = $value;
+			}
+		}
+
+		return $merged;
+	}
+
+
 }

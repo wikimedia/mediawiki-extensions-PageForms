@@ -320,7 +320,7 @@ END;
 			self::addToArray( $data, "wpSave", "Save" );
 		}
 		// and modify as specified
-		$data = $this->array_merge_recursive_distinct( $data, $this->mOptions );
+		$data = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
 		////////////////////////////////////////////////////////////////////////
 		// Store the modified form
@@ -515,40 +515,6 @@ END;
 				array_push( $array, $value );
 			}
 		}
-	}
-
-	/**
-	 * array_merge_recursive merges arrays, but it converts values with duplicate
-	 * keys to arrays rather than overwriting the value in the first array with the duplicate
-	 * value in the second array, as array_merge does.
-	 *
-	 * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.
-	 * Matching keys' values in the second array overwrite those in the first array.
-	 *
-	 * Parameters are passed by reference, though only for performance reasons. They're not
-	 * altered by this function.
-	 *
-	 * See http://www.php.net/manual/en/function.array-merge-recursive.php#92195
-	 *
-	 * @param array $array1
-	 * @param array $array2
-	 * @return array
-	 * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
-	 * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
-	 */
-	private function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
-
-		$merged = $array1;
-
-		foreach ( $array2 as $key => &$value ) {
-			if ( is_array( $value ) && isset( $merged[$key] ) && is_array( $merged[$key] ) ) {
-				$merged[$key] = $this->array_merge_recursive_distinct( $merged[$key], $value );
-			} else {
-				$merged[$key] = $value;
-			}
-		}
-
-		return $merged;
 	}
 
 	/**

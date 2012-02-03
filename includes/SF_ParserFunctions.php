@@ -172,6 +172,7 @@ class SFParserFunctions {
 		array_shift( $params ); // don't need the parser
 		// set defaults
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
+		$inQueryArr = array();
 		$inAutocompletionSource = '';
 		$inRemoteAutocompletion = false;
 		$inSize = 25;
@@ -179,12 +180,20 @@ class SFParserFunctions {
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
-			$param_name = null;
-			$value = trim( $param );
+
+			// set param_name and value
 			if ( count( $elements ) > 1 ) {
 				$param_name = trim( $elements[0] );
+
+				// parse (and sanitize) parameter values
 				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
+			} else {
+				$param_name = null;
+
+				// parse (and sanitize) parameter values
+				$value = trim( $parser->recursiveTagParse( $param ) );
 			}
+
 			if ( $param_name == 'form' )
 				$inFormName = $value;
 			elseif ( $param_name == 'size' )
@@ -193,9 +202,15 @@ class SFParserFunctions {
 				$inValue = $value;
 			elseif ( $param_name == 'button text' )
 				$inButtonStr = $value;
-			elseif ( $param_name == 'query string' )
-				$inQueryStr = $value;
-			elseif ( $param_name == 'autocomplete on category' ) {
+			elseif ( $param_name == 'query string' ) {
+				// Change HTML-encoded ampersands directly to
+				// URL-encoded ampersands, so that the string
+				// doesn't get split up on the '&'.
+				$inQueryStr = str_replace( '&amp;', '%26', $value );
+				
+				parse_str($inQueryStr, $arr);
+				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+			} elseif ( $param_name == 'autocomplete on category' ) {
 				$inAutocompletionSource = $value;
 				$autocompletion_type = 'category';
 			} elseif ( $param_name == 'autocomplete on namespace' ) {
@@ -206,17 +221,29 @@ class SFParserFunctions {
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupforminput';
+			} elseif ( $param_name !== null ) {
+
+				$value = urlencode($value);
+				parse_str("$param_name=$value", $arr);
+				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+				
+			} elseif ( $i == 0 ) {
+				$inFormName = $value;
+			} elseif ( $i == 1 ) {
+				$inSize = $value;
+			} elseif ( $i == 2 ) {
+				$inValue = $value;
+			} elseif ( $i == 3 ) {
+				$inButtonStr = $value;
+			} elseif ( $i == 4 ) {
+				// Change HTML-encoded ampersands directly to
+				// URL-encoded ampersands, so that the string
+				// doesn't get split up on the '&'.
+				$inQueryStr = str_replace( '&amp;', '%26', $value );
+				
+				parse_str($inQueryStr, $arr);
+				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
-			elseif ( $i == 0 )
-				$inFormName = $param;
-			elseif ( $i == 1 )
-				$inSize = $param;
-			elseif ( $i == 2 )
-				$inValue = $param;
-			elseif ( $i == 3 )
-				$inButtonStr = $param;
-			elseif ( $i == 4 )
-				$inQueryStr = $param;
 		}
 
 		$fs = SFUtils::getSpecialPage( 'FormStart' );
@@ -274,22 +301,21 @@ END;
 		} else {
 			$str .= SFFormUtils::hiddenFieldHTML( "form", $inFormName );
 		}
-		// Recreate the passed-in query string as a set of hidden
-		// variables.
-		// Change HTML-encoded ampersands to URL-encoded ampersands, so
-		// that the string doesn't get split up on the '&'.
-		$inQueryStr = str_replace( '&amp;', '%26', $inQueryStr );
-		$query_components = explode( '&', $inQueryStr );
-		foreach ( $query_components as $component ) {
-			// change URL-encoded ampersands back
-			$component = str_replace( '%26', '&', $component );
-			$subcomponents = explode( '=', $component, 2 );
-			$key = ( isset( $subcomponents[0] ) ) ? $subcomponents[0] : '';
-			$val = ( isset( $subcomponents[1] ) ) ? $subcomponents[1] : '';
-			if ( ! empty( $key ) ) {
-				$str .= "\t\t\t" .  Html::hidden( $key, $val ) . "\n";
+
+		// Recreate the passed-in query string as a set of hidden variables.
+		if ( !empty( $inQueryArr ) ) {
+			// query string has to be turned into hidden inputs.
+
+			$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
+
+			foreach ( $query_components as $query_component ) {
+				$var_and_val = explode( '=', $query_component, 2 );
+				if ( count( $var_and_val ) == 2 ) {
+					$str .= SFFormUtils::hiddenFieldHTML( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
+				}
 			}
 		}
+
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
 		$str .= <<<END
 			<input type="submit" value="$button_str" /></p>
@@ -461,6 +487,7 @@ END;
 		$linkType = 'span';
 		$summary = null;
 		$classString = 'autoedit-trigger';
+		$inQueryArr = array();
 
 		// parse parameters
 		$params = func_get_args();
@@ -486,13 +513,35 @@ END;
 				case 'summary':
 					$summary = $parser->recursiveTagParse( $value );
 					break;
+				case 'query string' :
+
+					// Change HTML-encoded ampersands directly to
+					// URL-encoded ampersands, so that the string
+					// doesn't get split up on the '&'.
+					$inQueryStr = str_replace( '&amp;', '%26', $value );
+
+					parse_str( $inQueryStr, $arr );
+					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					break;
+
 				default :
-					// The decode-encode sequence allows users to pass wikitext
-					// to the target form without having it parsed right away.
-					// To do that they need to use htmlentities instead of
-					// braces and brackets
-					$formcontent .=
-						Html::hidden( $key, Sanitizer::decodeCharReferences( $value ) );
+
+					$value = urlencode( $parser->recursiveTagParse( $value ) );
+					parse_str( "$key=$value", $arr );
+					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+			}
+		}
+
+		// query string has to be turned into hidden inputs.
+		if ( !empty( $inQueryArr ) ) {
+
+			$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
+
+			foreach ( $query_components as $query_component ) {
+				$var_and_val = explode( '=', $query_component, 2 );
+				if ( count( $var_and_val ) == 2 ) {
+					$formcontent .= Html::hidden( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
+				}
 			}
 		}
 
