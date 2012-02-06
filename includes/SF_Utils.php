@@ -217,18 +217,18 @@ class SFUtils {
 	<p style="position: absolute; left: 45%; top: 45%;"><img src="$sfgScriptPath/skins/loading.gif" /></p>
 
 END;
-		$form_body = SFFormUtils::hiddenFieldHTML( 'wpTextbox1', $page_contents );
-		$form_body .= SFFormUtils::hiddenFieldHTML( 'wpSummary', $edit_summary );
-		$form_body .= SFFormUtils::hiddenFieldHTML( 'wpStarttime', $start_time );
-		$form_body .= SFFormUtils::hiddenFieldHTML( 'wpEdittime', $edit_time );
-		$form_body .= SFFormUtils::hiddenFieldHTML( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX );
-		$form_body .= SFFormUtils::hiddenFieldHTML( $action, null );
+		$form_body = Html::hidden( 'wpTextbox1', $page_contents );
+		$form_body .= Html::hidden( 'wpSummary', $edit_summary );
+		$form_body .= Html::hidden( 'wpStarttime', $start_time );
+		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
+		$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX );
+		$form_body .= Html::hidden( $action, null );
 
 		if ( $is_minor_edit ) {
-			$form_body .= SFFormUtils::hiddenFieldHTML( 'wpMinoredit' , null );
+			$form_body .= Html::hidden( 'wpMinoredit' , null );
 		}
 		if ( $watch_this ) {
-			$form_body .= SFFormUtils::hiddenFieldHTML( 'wpWatchthis', null );
+			$form_body .= Html::hidden( 'wpWatchthis', null );
 		}
 		$text .= Html::rawElement(
 			'form',
@@ -974,7 +974,7 @@ END;
 				foreach ( $query_components as $query_component ) {
 					$var_and_val = explode( '=', $query_component, 2 );
 					if ( count( $var_and_val ) == 2 ) {
-						$hidden_inputs .= SFFormUtils::hiddenFieldHTML( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
+						$hidden_inputs .= Html::hidden( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
 					}
 				}
 			} else {

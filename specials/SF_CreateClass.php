@@ -214,7 +214,7 @@ END;
 		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";
 		// Set 'title' as hidden field, in case there's no URL niceness
 		$cc = $this->getTitle();
-		$text .= SFFormUtils::hiddenFieldHTML( 'title', SFUtils::titleURLString( $cc ) );
+		$text .= Html::hidden( 'title', SFUtils::titleURLString( $cc ) );
 		$text .= Html::element( 'input',
 			array(
 				'type' => 'submit',

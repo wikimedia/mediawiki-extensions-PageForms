@@ -41,10 +41,6 @@ class SFFormUtils {
 		return true;
 	}
 
-	static function hiddenFieldHTML( $input_name, $cur_value ) {
-		return "\t" . Html::hidden( $input_name, $cur_value ) . "\n";
-	}
-
 	/**
 	 * Add a hidden input for each field in the template call that's
 	 * not handled by the form itself
@@ -54,7 +50,7 @@ class SFFormUtils {
 		foreach ( $templateContents as $key => $value ) {
 			if ( !is_null( $key ) && !is_numeric( $key ) ) {
 				$key = urlencode( $key );
-				$text .= self::hiddenFieldHTML( '_unhandled_' . $templateName . '_' . $key, $value );
+				$text .= Html::hidden( '_unhandled_' . $templateName . '_' . $key, $value );
 			}
 		}
 		return $text;

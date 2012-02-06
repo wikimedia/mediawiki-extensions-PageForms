@@ -951,7 +951,7 @@ END;
 						// the page, using <free_text> tags - once all the free text
 						// is known (at the end), it will get substituted in.
 						if ( $is_hidden ) {
-							$new_text = SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
+							$new_text = Html::hidden( 'free_text', '!free_text!' );
 						} else {
 							$sfgTabIndex++;
 							$sfgFieldNum++;
@@ -1228,9 +1228,9 @@ END;
 						// reason don't submit their value.
 						if ( $form_field->isDisabled() ) {
 							if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
-								$new_text .= SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
+								$new_text .= Html::hidden( 'free_text', '!free_text!' );
 							} else {
-								$new_text .= SFFormUtils::hiddenFieldHTML( $input_name, $cur_value );
+								$new_text .= Html::hidden( $input_name, $cur_value );
 							}
 						}
 
@@ -1463,7 +1463,7 @@ END;
 		// if it wasn't included in the form definition, add the
 		// 'free text' input as a hidden field at the bottom
 		if ( ! $free_text_was_included ) {
-			$form_text .= SFFormUtils::hiddenFieldHTML( 'free_text', '!free_text!' );
+			$form_text .= Html::hidden( 'free_text', '!free_text!' );
 		}
 		// Get free text, and add to page data, as well as retroactively
 		// inserting it into the form.
@@ -1474,7 +1474,7 @@ END;
 		if ( $form_is_partial ) {
 			if ( !$wgRequest->getCheck( 'partial' ) ) {
 				$free_text = $original_page_content;
-				$form_text .= SFFormUtils::hiddenFieldHTML( 'partial', 1 );
+				$form_text .= Html::hidden( 'partial', 1 );
 			} else {
 				$free_text = null;
 				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
@@ -1539,8 +1539,8 @@ END;
 		$page_article = new Article( $this->mPageTitle, 0 );
 
 		if ( !$is_query ) {
-			$form_text .= SFFormUtils::hiddenFieldHTML( 'wpStarttime', wfTimestampNow() );
-			$form_text .= SFFormUtils::hiddenFieldHTML( 'wpEdittime', $page_article->getTimestamp() );
+			$form_text .= Html::hidden( 'wpStarttime', wfTimestampNow() );
+			$form_text .= Html::hidden( 'wpEdittime', $page_article->getTimestamp() );
 		}
 
 		$form_text .= "\t</form>\n";
@@ -1599,7 +1599,7 @@ END;
 		$template_field = $form_field->getTemplateField();
 
 		if ( $form_field->isHidden() ) {
-			$text = SFFormUtils::hiddenFieldHTML( $form_field->getInputName(), $cur_value );
+			$text = Html::hidden( $form_field->getInputName(), $cur_value );
 		} elseif ( $form_field->getInputType() !== '' &&
 							array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 							$this->mInputTypeHooks[$form_field->getInputType()] != null ) {

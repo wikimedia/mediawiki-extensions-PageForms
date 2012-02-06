@@ -69,7 +69,7 @@ class SFListBoxInput extends SFMultiEnumInput {
 			$selectAttrs['disabled'] = 'disabled';
 		}
 		$text = Html::rawElement( 'select', $selectAttrs, $optionsText );
-		$text .= SFFormUtils::hiddenFieldHTML( $input_name . '[is_list]', 1 );
+		$text .= Html::hidden( $input_name . '[is_list]', 1 );
 		if ( $is_mandatory ) {
 			$text = Html::rawElement( 'span', array( 'class' => 'inputSpan mandatoryFieldSpan' ), $text );
 		}

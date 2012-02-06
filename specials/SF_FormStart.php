@@ -108,10 +108,10 @@ END;
 				$text .= SFUtils::formDropdownHTML();
 
 			$text .= "\t</p>\n";
-			$text .= SFFormUtils::hiddenFieldHTML( 'namespace', $target_namespace );
-			$text .= SFFormUtils::hiddenFieldHTML( 'super_page', $super_page );
-			$text .= SFFormUtils::hiddenFieldHTML( 'params', $params );
-			$text .= "\t" . Html::input( null, wfMsg( 'sf_formstart_createoredit' ), 'submit' ) . "\n";
+			$text .= Html::hidden( 'namespace', $target_namespace );
+			$text .= Html::hidden( 'super_page', $super_page );
+			$text .= Html::hidden( 'params', $params );
+			$text .= "\n\t" . Html::input( null, wfMsg( 'sf_formstart_createoredit' ), 'submit' ) . "\n";
 			$text .= "\t</form>\n";
 		}
 		$wgOut->addHTML( $text );

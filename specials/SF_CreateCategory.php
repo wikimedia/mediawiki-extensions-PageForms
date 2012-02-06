@@ -78,7 +78,7 @@ class SFCreateCategory extends SpecialPage {
 	<form action="" method="get">
 
 END;
-		$text .= SFFormUtils::hiddenFieldHTML( 'title', "$special_namespace:CreateCategory" );
+		$text .= "\t" . Html::hidden( 'title', "$special_namespace:CreateCategory" ) . "\n";
 		$firstRow = wfMsg( 'sf_createcategory_name' ) . ' ' .
 			Html::input( 'category_name', null, 'text',
 				array( 'size' => 25 ) ) . "\n";

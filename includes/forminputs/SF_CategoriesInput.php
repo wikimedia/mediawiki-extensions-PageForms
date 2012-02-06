@@ -111,7 +111,7 @@ class SFCategoriesInput extends SFCategoryInput {
 
 		$text = '<div style="overflow: auto; padding: 5px; border: 1px #aaaaaa solid; max-height: ' . $height . 'px; width: ' . $width . 'px;">' . $tree . '</div>';
 
-		$text .= SFFormUtils::hiddenFieldHTML( $input_name . '[is_list]', 1 );
+		$text .= Html::hidden( $input_name . '[is_list]', 1 );
 		$spanClass = 'checkboxesSpan';
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';

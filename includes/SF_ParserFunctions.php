@@ -294,12 +294,12 @@ END;
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
 		if ( ( $pos = strpos( $fs_url, "title=" ) ) > - 1 ) {
-			$str .= SFFormUtils::hiddenFieldHTML( "title", urldecode( substr( $fs_url, $pos + 6 ) ) );
+			$str .= Html::hidden( "title", urldecode( substr( $fs_url, $pos + 6 ) ) );
 		}
 		if ( $inFormName == '' ) {
 			$str .= SFUtils::formDropdownHTML();
 		} else {
-			$str .= SFFormUtils::hiddenFieldHTML( "form", $inFormName );
+			$str .= Html::hidden( "form", $inFormName );
 		}
 
 		// Recreate the passed-in query string as a set of hidden variables.
@@ -311,7 +311,7 @@ END;
 			foreach ( $query_components as $query_component ) {
 				$var_and_val = explode( '=', $query_component, 2 );
 				if ( count( $var_and_val ) == 2 ) {
-					$str .= SFFormUtils::hiddenFieldHTML( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
+					$str .= Html::hidden( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
 				}
 			}
 		}

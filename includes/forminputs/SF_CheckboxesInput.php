@@ -101,7 +101,7 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			}
 		}
 
-		$text .= SFFormUtils::hiddenFieldHTML( $input_name . '[is_list]', 1 );
+		$text .= Html::hidden( $input_name . '[is_list]', 1 );
 		$outerSpanAttrs = array( 'id' => $outerSpanID, 'class' => $outerSpanClass );
 		$text = "\t" . Html::rawElement( 'span', $outerSpanAttrs, $text ) . "\n";
 
