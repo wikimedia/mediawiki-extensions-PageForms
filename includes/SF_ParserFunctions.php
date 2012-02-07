@@ -219,7 +219,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == 'remote autocompletion' ) {
 				$inRemoteAutocompletion = true;
 			} elseif ( $param_name == null && $value == 'popup' ) {
-				self::loadScriptsForPopupForm( $parser );
+				SFUtils::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupforminput';
 			} elseif ( $param_name !== null ) {
 
