@@ -173,6 +173,7 @@ class SFParserFunctions {
 		// set defaults
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
 		$inQueryArr = array();
+		$positionalParameters = false;
 		$inAutocompletionSource = '';
 		$inRemoteAutocompletion = false;
 		$inSize = 25;
@@ -182,7 +183,7 @@ class SFParserFunctions {
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value
-			if ( count( $elements ) > 1 ) {
+			if ( count( $elements ) > 1 && !$positionalParameters ) {
 				$param_name = trim( $elements[0] );
 
 				// parse (and sanitize) parameter values
@@ -221,7 +222,7 @@ class SFParserFunctions {
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				SFUtils::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupforminput';
-			} elseif ( $param_name !== null ) {
+			} elseif ( $param_name !== null && !$positionalParameters ) {
 
 				$value = urlencode($value);
 				parse_str("$param_name=$value", $arr);
@@ -229,6 +230,7 @@ class SFParserFunctions {
 				
 			} elseif ( $i == 0 ) {
 				$inFormName = $value;
+				$positionalParameters = true;
 			} elseif ( $i == 1 ) {
 				$inSize = $value;
 			} elseif ( $i == 2 ) {

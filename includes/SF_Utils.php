@@ -896,14 +896,18 @@ END;
 			$inQueryStr = $inTargetName = '';
 		$classStr = "";
 		$inQueryArr = array();
+		
+		$positionalParameters = false;
+		
 		// assign params
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
 		foreach ( $params as $i => $param ) {
+			
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value
-			if ( count( $elements ) > 1 ) {
+			if ( count( $elements ) > 1 && !$positionalParameters ) {
 				$param_name = trim( $elements[0] );
 
 				// parse (and sanitize) parameter values
@@ -936,12 +940,13 @@ END;
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
-			} elseif ( $param_name !== null ) {
+			} elseif ( $param_name !== null && !$positionalParameters ) {
 				$value = urlencode($value);
 				parse_str("$param_name=$value", $arr);
 				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
-			}elseif ( $i == 0 ) {
+			} elseif ( $i == 0 ) {
 				$inFormName = $value;
+				$positionalParameters = true;
 			} elseif ( $i == 1 ) {
 				$inLinkStr = $value;
 			} elseif ( $i == 2 ) {
