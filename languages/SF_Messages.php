@@ -8179,6 +8179,7 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
  * @author Gzdavidwong
  * @author Liangent
  * @author Mark85296341
+ * @author Oapbtommy
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
@@ -8208,7 +8209,7 @@ $messages['zh-hant'] = array(
 	'sf_createtemplate_standardformat' => '標準',
 	'sf_createtemplate_infoboxformat' => '右側信息框',
 	'sf_createtemplate_addfield' => '添加字段',
-	'sf_createtemplate_deletefield' => '删除',
+	'sf_createtemplate_deletefield' => '刪除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您保存之前，您必須向表單添加至少一個模板。',
 	'forms' => '表單',
 	'sf_forms_docu' => '以下表單存在於wiki中。',
@@ -8259,7 +8260,7 @@ $messages['zh-hant'] = array(
 	'sf_createform_addtemplate' => '添加模板：',
 	'sf_createform_beforetemplate' => '在模板前：',
 	'sf_createform_atend' => '在最後',
-	'sf_createform_add' => '添加',
+	'sf_createform_add' => '新增',
 	'sf_createform_choosefield' => '選擇要添加的字段',
 	'createcategory' => '創造一個分類',
 	'sf_createcategory_name' => '分類名：',
