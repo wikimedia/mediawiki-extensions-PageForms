@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Namespace internationalizationfor the Semantic Forms extension.
+ * Namespace internationalization for the Semantic Forms extension.
  *
  * @since 0.1
  *
  * @file SF_Namespaces.php
  * @ingroup SemanticForms
  *
- * @licence GNU GPL v3+
+ * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 
