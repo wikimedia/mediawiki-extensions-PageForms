@@ -91,6 +91,7 @@ $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 $wgHooks['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
 $wgHooks['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
+$wgHooks['CanonicalNamespaces'][] = 'SFUtils::onCanonicalNamespaces';
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
@@ -172,6 +173,8 @@ $wgAjaxExportList[] = 'SFAutoeditAPI::handleAutoEdit';
 $wgExtensionMessagesFiles['SemanticForms'] = $sfgIP . '/languages/SF_Messages.php';
 $wgExtensionMessagesFiles['SemanticFormsAlias'] = $sfgIP . '/languages/SF_Aliases.php';
 $wgExtensionMessagesFiles['SemanticFormsMagic'] = $sfgIP . '/languages/SF_Magic.php';
+$wgExtensionMessagesFiles['SemanticFormsNS'] = $sfgIP . '/languages/SF_Namespaces.php';
+
 // Allow for popup windows for file upload
 $wgEditPageFrameOptions = 'SAMEORIGIN';
 

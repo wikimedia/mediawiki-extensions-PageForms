@@ -15,7 +15,6 @@ abstract class SF_Language {
 	// arrays for the names of special properties and namespaces -
 	// all messages are stored in SF_Messages.php
 	protected $m_SpecialProperties;
-	protected $m_Namespaces;
 
 	// By default, every language has English-language aliases for
 	// special properties and namespaces
@@ -24,25 +23,6 @@ abstract class SF_Language {
 		'Has alternate form'	=> SF_SP_HAS_ALTERNATE_FORM,
 		'Creates pages with form'	=> SF_SP_CREATES_PAGES_WITH_FORM,
 	);
-
-	protected $m_NamespaceAliases = array(
-		'Form'		=> SF_NS_FORM,
-		'Form_talk'	=> SF_NS_FORM_TALK
-	);
-
-	/**
-	 * Function that returns an array of namespace identifiers.
-	 */
-	function getNamespaces() {
-		return $this->m_Namespaces;
-	}
-
-	/**
-	 * Function that returns an array of namespace aliases, if any.
-	 */
-	function getNamespaceAliases() {
-		return $this->m_NamespaceAliases;
-	}
 
 	/**
 	 * Function that returns the labels for the special properties.
