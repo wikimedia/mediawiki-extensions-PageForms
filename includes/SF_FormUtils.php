@@ -244,9 +244,9 @@ END;
 	}
 
 	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $wgUser, $wgTitle;
+		global $wgTitle;
 
-		$sk = $wgUser->getSkin();
+		$linker = smwfGetLinker();
 		if ( $label == null )
 			$label = wfMsgExt( 'cancel', array( 'parseinline' ) );
 		if ( $wgTitle == null )
@@ -257,7 +257,7 @@ END;
 			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
 			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
 		} else {
-			$cancel = $sk->link( $wgTitle, $label, array(), array(), 'known' );
+			$cancel = $linker->link( $wgTitle, $label, array(), array(), 'known' );
 		}
 		$text = "		<span class='editHelp'>$cancel</span>\n";
 		return $text;
