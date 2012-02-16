@@ -417,8 +417,8 @@ END;
 
 	public static function formDropdownHTML() {
 		// create a dropdown of possible form names
-		global $wgContLang;
-		$namespace_labels = $wgContLang->getNamespaces();
+		global $sfgContLang;
+		$namespace_labels = $sfgContLang->getNamespaces();
 		$form_label = $namespace_labels[SF_NS_FORM];
 		$form_names = SFUtils::getAllForms();
 		$select_body = "\n";
@@ -1081,22 +1081,5 @@ END;
 		return $merged;
 	}
 
-
-	/**
-	 * For extensions adding their own namespaces or altering the defaults.
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
-	 *
-	 * @since 2.4.1
-	 *
-	 * @param array $list
-	 *
-	 * @return true
-	 */
-	public static function onCanonicalNamespaces( array &$list ) {
-		$list[SF_NS_FORM] = 'Form';
-		$list[SF_NS_FORM_TALK] = 'Form_talk';
-
-		return true;
-	}
 
 }

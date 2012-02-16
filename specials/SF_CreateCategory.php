@@ -30,14 +30,12 @@ class SFCreateCategory extends SpecialPage {
 			$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] . "::$default_form]]";
 			$text = wfMsgForContent( 'sf_category_hasdefaultform', $form_tag );
 		}
-
 		if ( $parent_category !== '' ) {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
 			$category_namespace = $namespace_labels[NS_CATEGORY];
 			$text .= "\n\n[[$category_namespace:$parent_category]]";
 		}
-
 		return $text;
 	}
 

@@ -30,9 +30,14 @@ function sffSetupExtension() {
  * greater or equal to 100.
  */
 function sffInitNamespaces() {
-	global $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
+	global $wgExtraNamespaces, $wgNamespaceAliases, $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
 
 	sffInitContentLanguage( $wgLanguageCode );
+
+	// Register namespace identifiers
+	if ( !is_array( $wgExtraNamespaces ) ) { $wgExtraNamespaces = array(); }
+	$wgExtraNamespaces = $wgExtraNamespaces + $sfgContLang->getNamespaces();
+	$wgNamespaceAliases = $wgNamespaceAliases + $sfgContLang->getNamespaceAliases();
 
 	// Support subpages only for talk pages by default
 	$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
