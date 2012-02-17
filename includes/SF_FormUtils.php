@@ -246,17 +246,19 @@ END;
 	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $wgTitle;
 
-		$linker = class_exists( 'DummyLinker' ) ? new DummyLinker() : new Linker();
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = wfMsgExt( 'cancel', array( 'parseinline' ) );
-		if ( $wgTitle == null )
+		}
+		if ( $wgTitle == null ) {
 			$cancel = '';
+		}
 		// if we're on the special 'FormEdit' page, just send the user
 		// back to the previous page they were on
 		elseif ( $wgTitle->getText() == 'FormEdit'
 			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
 			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
 		} else {
+			$linker = class_exists( 'DummyLinker' ) ? new DummyLinker() : new Linker();
 			$cancel = $linker->link( $wgTitle, $label, array(), array(), 'known' );
 		}
 		$text = "\t\t<span class='editHelp'>$cancel</span>\n";
