@@ -246,7 +246,7 @@ END;
 	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
 		global $wgTitle;
 
-		$linker = smwfGetLinker();
+		$linker = class_exists( 'DummyLinker' ) ? new DummyLinker() : new Linker();
 		if ( $label == null )
 			$label = wfMsgExt( 'cancel', array( 'parseinline' ) );
 		if ( $wgTitle == null )
@@ -259,7 +259,7 @@ END;
 		} else {
 			$cancel = $linker->link( $wgTitle, $label, array(), array(), 'known' );
 		}
-		$text = "		<span class='editHelp'>$cancel</span>\n";
+		$text = "\t\t<span class='editHelp'>$cancel</span>\n";
 		return $text;
 	}
 
