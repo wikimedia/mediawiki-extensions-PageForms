@@ -36,7 +36,7 @@ class SFTextAreaInput extends SFFormInput {
 		global $sfgTabIndex, $sfgFieldNum;
 
 		// Use a special ID for the free text field, for FCK's needs.
-		$input_id = $input_name == 'free_text' ? 'free_text' : "input_$sfgFieldNum";
+		$input_id = $input_name == 'sf_free_text' ? 'sf_free_text' : "input_$sfgFieldNum";
 
 		if ( array_key_exists( 'editor', $other_args ) &&
 			$other_args['editor'] == 'wikieditor' &&

@@ -443,7 +443,7 @@ var RTE_POPUP = ' . RTE_POPUP . ';
 		}
 
 		$javascript_text .= <<<END
-var oFCKeditor = new FCKeditor( "free_text" );
+var oFCKeditor = new FCKeditor( "sf_free_text" );
 
 //Set config
 oFCKeditor.BasePath = '$wgScriptPath/$wgFCKEditorDir';
@@ -478,7 +478,7 @@ function getFontSize(el) {
 	return y;
 }
 function getWindowHeight4editor() {
-	var fsize = getFontSize('free_text');
+	var fsize = getFontSize('sf_free_text');
 	// if value was not determined, return default val from $wgFCKEditorHeight
 	if (!fsize) return $FCKEditorHeight;
 	if (fsize.indexOf('px') == -1)  // we didn't get pixels
@@ -495,7 +495,7 @@ function onLoadFCKeditor()
 	if (!(showFCKEditor & RTE_VISIBLE))
 		showFCKEditor += RTE_VISIBLE;
 	firstLoad = false;
-	realTextarea = document.getElementById('free_text');
+	realTextarea = document.getElementById('sf_free_text');
 	if ( realTextarea )
 	{
 		// Create the editor instance and replace the textarea.
@@ -522,7 +522,7 @@ function onLoadFCKeditor()
 				// if we have FCK enabled, behave differently...
 				if ( showFCKEditor & RTE_VISIBLE )
 				{
-					SRCiframe = oDoc.getElementById ('free_text___Frame') ;
+					SRCiframe = oDoc.getElementById ('sf_free_text___Frame') ;
 					if ( SRCiframe )
 					{
 						if (window.frames[SRCiframe])
@@ -545,7 +545,7 @@ function onLoadFCKeditor()
 				}
 				else
 				{
-					txtarea = oDoc.editform.free_text ;
+					txtarea = oDoc.editform.sf_free_text ;
 				}
 			}
 			else
@@ -642,24 +642,24 @@ function checkSelected()
 }
 function initEditor()
 {
-	var toolbar = document.getElementById('free_text');
+	var toolbar = document.getElementById('sf_free_text');
 	//show popup or toogle link
 	if (showFCKEditor & (RTE_POPUP|RTE_TOGGLE_LINK)){
 		var fckTools = document.createElement('div');
 		fckTools.setAttribute('id', 'fckTools');
 
-		var SRCtextarea = document.getElementById( "free_text" ) ;
+		var SRCtextarea = document.getElementById( "sf_free_text" ) ;
 		if (showFCKEditor & RTE_VISIBLE) SRCtextarea.style.display = "none";
 	}
 
 	if (showFCKEditor & RTE_TOGGLE_LINK)
 	{
-		fckTools.innerHTML='[<a class="fckToogle" id="toggle_free_text" href="javascript:void(0)" onclick="ToggleFCKEditor(\'toggle\',\'free_text\')">'+ editorLink +'</a>] ';
+		fckTools.innerHTML='[<a class="fckToogle" id="toggle_sf_free_text" href="javascript:void(0)" onclick="ToggleFCKEditor(\'toggle\',\'sf_free_text\')">'+ editorLink +'</a>] ';
 	}
 	if (showFCKEditor & RTE_POPUP)
 	{
 		var style = (showFCKEditor & RTE_VISIBLE) ? 'style="display:none"' : "";
-		fckTools.innerHTML+='<span ' + style + ' id="popup_free_text">[<a class="fckPopup" href="javascript:void(0)" onclick="ToggleFCKEditor(\'popup\',\'free_text\')">{$newWinMsg}</a>]</span>';
+		fckTools.innerHTML+='<span ' + style + ' id="popup_sf_free_text">[<a class="fckPopup" href="javascript:void(0)" onclick="ToggleFCKEditor(\'popup\',\'sf_free_text\')">{$newWinMsg}</a>]</span>';
 	}
 
 	if (showFCKEditor & (RTE_POPUP|RTE_TOGGLE_LINK)){

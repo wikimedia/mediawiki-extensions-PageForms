@@ -137,6 +137,7 @@ class SFParserFunctions {
 
 		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
 		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
+		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
 		if ( defined( get_class( $parser ) . '::SFH_OBJECT_ARGS' ) ) {
 			$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMapObj' ), SFH_OBJECT_ARGS );
 			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplateObj' ), SFH_OBJECT_ARGS );
@@ -156,13 +157,21 @@ class SFParserFunctions {
 	}
 
 	static function renderFormLink ( &$parser ) {
-
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
 		
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
 		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'FormEdit', $params ), $parser->mStripState );
+	}
+
+	static function renderQueryFormLink ( &$parser ) {
+		$params = func_get_args();
+		array_shift( $params ); // We don't need the parser.
+		
+		// hack to remove newline from beginning of output, thanks to
+		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
+		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'RunQuery', $params ), $parser->mStripState );
 	}
 
 	static function renderFormInput ( &$parser ) {

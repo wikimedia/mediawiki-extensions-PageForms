@@ -359,8 +359,8 @@ END;
 			$original_page_content = $existing_page_content;
 		} else {
 			$original_page_content = null;
-			if ( $wgRequest->getCheck( 'free_text' ) ) {
-				$existing_page_content = $wgRequest->getVal( 'free_text' );
+			if ( $wgRequest->getCheck( 'sf_free_text' ) ) {
+				$existing_page_content = $wgRequest->getVal( 'sf_free_text' );
 				$form_is_partial = true;
 			}
 		}
@@ -951,7 +951,7 @@ END;
 						// the page, using <free_text> tags - once all the free text
 						// is known (at the end), it will get substituted in.
 						if ( $is_hidden ) {
-							$new_text = Html::hidden( 'free_text', '!free_text!' );
+							$new_text = Html::hidden( 'sf_free_text', '!free_text!' );
 						} else {
 							$sfgTabIndex++;
 							$sfgFieldNum++;
@@ -970,7 +970,7 @@ END;
 									}
 								}
 							}
-							$new_text = SFTextAreaInput::getHTML( $default_value, 'free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
+							$new_text = SFTextAreaInput::getHTML( $default_value, 'sf_free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
 							if ( in_array( 'edittools', $free_text_components ) ) {
 								// borrowed from EditPage::showEditTools()
 								$options[] = 'parse';
@@ -1228,7 +1228,7 @@ END;
 						// reason don't submit their value.
 						if ( $form_field->isDisabled() ) {
 							if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
-								$new_text .= Html::hidden( 'free_text', '!free_text!' );
+								$new_text .= Html::hidden( 'sf_free_text', '!free_text!' );
 							} else {
 								$new_text .= Html::hidden( $input_name, $cur_value );
 							}
@@ -1463,7 +1463,7 @@ END;
 		// if it wasn't included in the form definition, add the
 		// 'free text' input as a hidden field at the bottom
 		if ( ! $free_text_was_included ) {
-			$form_text .= Html::hidden( 'free_text', '!free_text!' );
+			$form_text .= Html::hidden( 'sf_free_text', '!free_text!' );
 		}
 		// Get free text, and add to page data, as well as retroactively
 		// inserting it into the form.
@@ -1487,8 +1487,8 @@ END;
 			// page hasn't already been inserted into the form
 			$free_text = trim( $existing_page_content );
 		// or get it from a form submission
-		} elseif ( $wgRequest->getCheck( 'free_text' ) ) {
-			$free_text = $wgRequest->getVal( 'free_text' );
+		} elseif ( $wgRequest->getCheck( 'sf_free_text' ) ) {
+			$free_text = $wgRequest->getVal( 'sf_free_text' );
 			if ( ! $free_text_was_included ) {
 				$data_text .= "!free_text!";
 			}
