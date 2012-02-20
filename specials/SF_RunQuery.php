@@ -123,10 +123,12 @@ END;
 			$fullFormText .= $form_text;
 		}
 
-		// Either display the query form at the top, and the results at
-		// the bottom, or the other way around, depending on the
-		// settings - the display is slightly different in each case.
-		if ( $sfgRunQueryFormAtTop ) {
+		// Either don't display a query form at all, or display the
+		// query form at the top, and the results at the bottom, or the
+		// other way around, depending on the settings.
+		if ( $wgRequest->getVal( 'additionalquery' ) == 'false' ) {
+			$text .= $resultsText;
+		} elseif ( $sfgRunQueryFormAtTop ) {
 			$text .= $fullFormText;
 			$text .= $dividerText;
 			$text .= $resultsText;
