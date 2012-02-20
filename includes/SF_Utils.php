@@ -894,7 +894,7 @@ END;
 		// Set defaults.
 		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
 			$inQueryStr = $inTargetName = '';
-		if ( $specialPageName = 'RunQuery' ) {
+		if ( $specialPageName == 'RunQuery' ) {
 			$inLinkStr = wfMsg( 'runquery' );
 		}
 		$classStr = "";
