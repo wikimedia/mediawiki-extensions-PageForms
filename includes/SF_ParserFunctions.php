@@ -4,14 +4,14 @@
  *
  * @file
  * @ingroup SF
- * Five parser functions are defined: 'forminput', 'formlink', 'arraymap',
- * 'arraymaptemplate' and 'autoedit'.
+ * The following parser functions are defined: 'forminput', 'formlink',
+ * 'queryformlink', 'arraymap', 'arraymaptemplate' and 'autoedit'.
  *
  * 'forminput' is called as:
  *
  * {{#forminput:form=|size=|default value=|button text=|query string=
  * |autocomplete on category=|autocomplete on namespace=
- * |remote autocompletion}}
+ * |remote autocompletion|...additional query string values...}}
  *
  * This function returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
@@ -21,7 +21,8 @@
  * is 25), and 'default value' is the starting value of the input.
  * 'button text' is the text that will appear on the "submit" button, and
  * 'query string' is the set of values that you want passed in through the
- * query string to the form. Finally, you can can specify that the user will
+ * query string to the form. (Query string values can also be passed in
+ * directly as parameters.) Finally, you can can specify that the user will
  * get autocompletion using the values from a category or namespace of your
  * choice, using 'autocomplete on category' or 'autocomplete on namespace'
  * (you can only use one). To autcomplete on all pages in the main (blank)
@@ -42,7 +43,7 @@
  * 'formlink' is called as:
  *
  * {{#formlink:form=|link text=|link type=|tooltip=|query string=|target=
- * |popup}}
+ * |popup|...additional query string values...}}
  *
  * This function returns HTML representing a link to a form; given that
  * no page name is entered by the the user, the form must be one that
@@ -67,6 +68,13 @@
  *
  * {{#formlink:form=User|link text=Add a user
  * |query string=namespace=User&preload=UserStub}}
+ *
+ * 
+ * 'queryformlink' links to Special:RunQuery, instead of Special:FormEdit.
+ * It is called in the exact same way as 'formlink', though the
+ * 'target' parameter should not be specified, and 'link text' is now optional,
+ * since it has a default value of 'Run query' (in whatever language the
+ * wiki is in).
  *
  *
  * 'arraymap' is called as:
@@ -123,6 +131,7 @@
  * @author Barry Welch
  * @author Christoph Burgmer
  * @author Stephan Gambke
+ * @author MWJames
  */
 
 class SFParserFunctions {
@@ -168,10 +177,11 @@ class SFParserFunctions {
 	static function renderQueryFormLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-		// If it's a popup, take out the "additional query" form
-		// in the resulting page, since at the moment those can't
-		// be handled anyway.
+		// If it's a popup, make this just a static display of
+		// results, with no 'additiona query' form, since at the
+		// moment additional queries can't be handled anyway.
 		if ( in_array( 'popup', $params ) ) {
+			$params[] = 'wpRunQuery=true';
 			$params[] = 'additionalquery=false';
 		}
 		
