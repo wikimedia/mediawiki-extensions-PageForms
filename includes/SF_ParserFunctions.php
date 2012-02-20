@@ -168,6 +168,12 @@ class SFParserFunctions {
 	static function renderQueryFormLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
+		// If it's a popup, take out the "additional query" form
+		// in the resulting page, since at the moment those can't
+		// be handled anyway.
+		if ( in_array( 'popup', $params ) ) {
+			$params[] = 'additionalquery=false';
+		}
 		
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
