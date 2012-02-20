@@ -32,6 +32,7 @@ class SFRunQuery extends IncludableSpecialPage {
 
 	function printPage( $form_name, $embedded = false ) {
 		global $wgOut, $wgRequest, $sfgFormPrinter, $wgParser, $sfgRunQueryFormAtTop;
+		global $wgUser, $wgTitle;
 
 		// Get contents of form-definition page.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
@@ -80,9 +81,11 @@ class SFRunQuery extends IncludableSpecialPage {
 			$sfgFormPrinter->formHTML( $form_definition, $form_submitted, $is_text_source, $form_article->getID(), $edit_content, null, null, true, $embedded );
 		$text = "";
 
+		// Get the text of the results.
+		$resultsText = '';
+
 		if ( $form_submitted ) {
-			global $wgUser, $wgTitle, $wgOut;
-			$wgParser->mOptions = ParserOptions::newFromUser( $wgUser );
+
 			// @TODO - fix RunQuery's parsing so that this check
 			// isn't needed.
 			if ( $wgParser->getOutput() == null ) {
@@ -93,11 +96,8 @@ class SFRunQuery extends IncludableSpecialPage {
 			foreach ( $headItems as $key => $item ) {
 				$wgOut->addHeadItem( $key, "\t\t" . $item . "\n" );
 			}
-		}
 
-		// Get the text of the results.
-		$resultsText = '';
-		if ( $form_submitted ) {
+			$wgParser->mOptions = ParserOptions::newFromUser( $wgUser );
 			$resultsText = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
 		}
 
