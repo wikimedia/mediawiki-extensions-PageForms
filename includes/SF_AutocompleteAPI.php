@@ -81,7 +81,7 @@ class SFAutocompleteAPI extends ApiBase {
 				ApiBase::PARAM_MAX => ApiBase::LIMIT_BIG1,
 				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2
 			),
-			'substr' => null, // Once 1.17 becomes acceptable as dependency, use ApiBase::PARAM_REQUIRED
+			'substr' => null,
 			'property' => null,
 			'category' => null,
 			'concept' => null,
