@@ -108,8 +108,7 @@ class SFFormEditTab {
 
 	/**
 	 * Like displayTab(), but called with a different hook - this one is
-	 * called for the 'Vector' skin in MW 1.16, as well as all skins
-	 * starting with MW 1.17 (?).
+	 * called for the 'Vector' skin, and others.
 	 */
 	static function displayTab2( $obj, &$links ) {
 		// the old '$content_actions' array is thankfully just a
