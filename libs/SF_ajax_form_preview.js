@@ -73,11 +73,11 @@ function ajaxFormPreviewRun(btn){
 	if ( typeof FCKeditorAPI != "undefined" )
 		if ( showFCKEditor & RTE_VISIBLE ) {
 
-			var SRCtextarea = document.getElementById( 'free_text' );
+			var SRCtextarea = document.getElementById( 'sf_free_text' );
 
 			if ( SRCtextarea ) {
 
-				var oEditorIns = FCKeditorAPI.GetInstance( 'free_text' );
+				var oEditorIns = FCKeditorAPI.GetInstance( 'sf_free_text' );
 				SRCtextarea.value = oEditorIns.GetData( oEditorIns.Config.FormatSource );
 
 			}
