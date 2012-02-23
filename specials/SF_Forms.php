@@ -37,7 +37,7 @@ class SFForms extends SpecialPage {
  */
 class FormsPage extends QueryPage {
 	public function __construct( $name = 'Forms' ) {
-		// For MW <= 1.17
+		// For MW 1.17
 		if ( $this instanceof SpecialPage ) {
 			parent::__construct( $name );
 		}

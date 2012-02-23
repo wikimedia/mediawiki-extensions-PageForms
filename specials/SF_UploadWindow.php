@@ -1040,20 +1040,6 @@ END;
 		);
 
 		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
-
-		// MW < 1.17
-		if ( ! class_exists( 'ResourceLoader' ) ) {
-			// For <charinsert> support; not provided by js2 yet
-			$wgOut->addScriptFile( 'edit.js' );
-
-			if ( $wgEnableJS2system ) {
-				// JS2 upload scripts
-				$wgOut->addScriptClass( 'uploadPage' );
-			} else {
-				// Legacy upload javascript
-				$wgOut->addScriptFile( 'upload.js' );
-			}
-		}
 	}
 
 	/**
@@ -1132,7 +1118,7 @@ if ( $uceParams[0]->getClass() ) { // found a class definition for param $user
 } else {
 
 	/**
-	 * Class variant for MW up to 1.17
+	 * Class variant for MW 1.17
 	 */
 	class SFUploadWindow extends SFUploadWindowProto {
 		/**

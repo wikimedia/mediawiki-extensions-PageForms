@@ -254,30 +254,7 @@ END;
 	}
 
 	/**
-	 * Uses the ResourceLoader (available with MediaWiki 1.17 and higher)
-	 * to load all the necessary JS and CSS files for Semantic Forms.
-	 */
-	public static function loadJavascriptAndCSS( $parser = null ) {
-		// Handling depends on whether or not this form is embedded
-		// in another page.
-		if ( !is_null( $parser ) ) {
-			$output = $parser->getOutput();
-		} else {
-			global $wgOut;
-			$output = $wgOut;
-		}
-		$output->addModules( 'ext.semanticforms.main' );
-		$output->addModules( 'ext.semanticforms.fancybox' );
-		$output->addModules( 'ext.semanticforms.imagepreview' );
-		$output->addModules( 'ext.semanticforms.autogrow' );
-		$output->addModules( 'ext.semanticforms.submit' );
-		$output->addModules( 'ext.smw.tooltips' );
-		$output->addModules( 'ext.smw.sorttable' );
-	}
-
-	/**
-	 * Javascript files to be added regardless of the MediaWiki version
-	 * (i.e., even if the ResourceLoader exists).
+	 * Javascript files to be added outside of the ResourceLoader.
 	 */
 	public static function addJavascriptFiles( $parser ) {
 		global $wgOut, $wgFCKEditorDir, $wgScriptPath, $wgJsMimeType;
@@ -312,88 +289,23 @@ END;
 	public static function addJavascriptAndCSS( $parser = null ) {
 		global $wgOut;
 
+		// Handling depends on whether or not this form is embedded
+		// in another page.
 		if ( !$parser ) {
 			$wgOut->addMeta( 'robots', 'noindex,nofollow' );
-		}
-
-		self::addJavascriptFiles( $parser );
-
-		// MW 1.17 +
-		if ( class_exists( 'ResourceLoader' ) ) {
-			self::loadJavascriptAndCSS( $parser );
-			return;
-		}
-		global $sfgScriptPath, $smwgScriptPath, $wgJsMimeType, $sfgUseFormEditPage;
-		global $smwgJQueryIncluded, $smwgJQUIAutoIncluded;
-		// jQuery and jQuery UI are used so often in forms, we might as
-		// well assume they'll always be used, and include them in
-		// every form
-		$smwgJQueryIncluded = true;
-		$smwgJQUIAutoIncluded = true;
-
-		$css_files = array(
-			"$smwgScriptPath/skins/SMW_custom.css",
-			"$sfgScriptPath/skins/jquery-ui/base/jquery.ui.all.css",
-			"$sfgScriptPath/skins/SemanticForms.css",
-			"$sfgScriptPath/skins/SF_submit.css",
-			"$sfgScriptPath/skins/jquery.fancybox.css"
-		);
-		foreach ( $css_files as $css_file ) {
-			$link = array(
-				'rel' => 'stylesheet',
-				'type' => 'text/css',
-				'media' => "screen",
-				'href' => $css_file
-			);
-			if ( !is_null( $parser ) ) {
-				$parser->getOutput()->addHeadItem( Html::element( 'link', $link ) );
-			} else {
-				$wgOut->addLink( $link );
-			}
-		}
-
-		$scripts = array();
-		if ( !$sfgUseFormEditPage )
-			$scripts[] = "$sfgScriptPath/libs/SF_ajax_form_preview.js";
-		$realFunction = array( 'SMWOutputs', 'requireHeadItem' );
-		if ( is_callable( $realFunction ) ) {
-			SMWOutputs::requireHeadItem( SMW_HEADER_TOOLTIP );
-			SMWOutputs::requireHeadItem( SMW_HEADER_SORTTABLE );
-			// TODO - should this be called directly here, or is
-			// there a "smarter" (in some way) place to put it?
-			SMWOutputs::commitToOutputPage( $wgOut );
+			$output = $wgOut;
 		} else {
-			$scripts[] = "$smwgScriptPath/skins/SMW_tooltip.js";
-			$scripts[] = "$smwgScriptPath/skins/SMW_sorttable.js";
+			$output = $parser->getOutput();
+			self::addJavascriptFiles( $parser );
 		}
-		$realFunction = array( 'OutputPage', 'includeJQuery' );
-		if ( is_callable( $realFunction ) ) {
-			$wgOut->includeJQuery();
-		} else {
-			$scripts[] = "$sfgScriptPath/libs/jquery-1.4.2.min.js";
-		}
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.core.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.widget.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.button.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.position.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.autocomplete.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.mouse.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery-ui/jquery.ui.sortable.min.js";
-		$scripts[] = "$sfgScriptPath/libs/jquery.fancybox.js";
-		$scripts[] = "$sfgScriptPath/libs/SF_imagePreview.js";
-		$scripts[] = "$sfgScriptPath/libs/SF_autogrow.js";
-		$scripts[] = "$sfgScriptPath/libs/SF_submit.js";
-		$scripts[] = "$sfgScriptPath/libs/SemanticForms.js";
 
-		global $wgOut;
-		foreach ( $scripts as $js ) {
-			if ( $parser ) {
-				$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
-				$parser->getOutput()->addHeadItem( $script );
-			} else {
-				$wgOut->addScriptFile( $js );
-			}
-		}
+		$output->addModules( 'ext.semanticforms.main' );
+		$output->addModules( 'ext.semanticforms.fancybox' );
+		$output->addModules( 'ext.semanticforms.imagepreview' );
+		$output->addModules( 'ext.semanticforms.autogrow' );
+		$output->addModules( 'ext.semanticforms.submit' );
+		$output->addModules( 'ext.smw.tooltips' );
+		$output->addModules( 'ext.smw.sorttable' );
 	}
 
 	/**
@@ -806,9 +718,7 @@ END;
 	}
 
 	/**
-	 * Compatibility helper function.
-	 * Since 1.17 SpecialPageFactory::getPage should be used.
-	 * SpecialPage::getPage is deprecated in 1.18.
+	 * Pre-1.17 compatibility helper function, now probably unnecessary.
 	 *
 	 * @since 2.3.3
 	 *
@@ -817,8 +727,7 @@ END;
 	 * @return SpecialPage|null
 	 */
 	public static function getSpecialPage( $pageName ) {
-		$hasFactory = class_exists( 'SpecialPageFactory' ) && method_exists( 'SpecialPageFactory', 'getPage' );
-		return $hasFactory ? SpecialPageFactory::getPage( $pageName ) : SpecialPage::getPage( $pageName );
+		return SpecialPageFactory::getPage( $pageName );
 	}
 
 	/**
@@ -1012,41 +921,7 @@ END;
 	}	
 	
 	static function loadScriptsForPopupForm( &$parser ) {
-		global $sfgScriptPath;
-
-		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-
-			// on MW 1.17+ just request the ResourceLoader to include modules
-
-			$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
-
-		} else {
-
-			// on MW pre1.17 insert the necessary headers into the page head
-			static $loaded = false;
-
-			// load JavaScript and CSS files only once
-			if ( !$loaded ) {
-
-				// load extensions JavaScript
-				$parser->getOutput()->addHeadItem(
-					'<script type="text/javascript" src="' . $sfgScriptPath
-					. '/libs/SF_popupform.js"></script> ' . "\n",
-					'sf_popup_script'
-				);
-
-				// load extensions style sheet
-				$parser->getOutput()->addHeadItem(
-					'<link rel="stylesheet" href="' . $sfgScriptPath
-					. '/skins/SF_popupform.css"/> ' . "\n",
-					'sf_popup_style'
-				);
-
-				$loaded = true;
-			}
-
-		}
-
+		$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
 		return true;
 	}
 

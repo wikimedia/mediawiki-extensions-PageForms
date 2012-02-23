@@ -38,7 +38,7 @@ class SFTemplates extends SpecialPage {
 class TemplatesPage extends QueryPage {
 
 	public function __construct( $name = 'Templates' ) {
-		// For MW <= 1.17
+		// For MW 1.17
 		if ( $this instanceof SpecialPage ) {
 			parent::__construct( $name );
 		}

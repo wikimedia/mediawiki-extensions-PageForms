@@ -1002,16 +1002,8 @@ END;
 		} elseif ( is_null( $parser ) ) {
 			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId );
 		} else {
-
-			if ( method_exists( 'ParserOptions', 'optionsHash' ) ) { // MW 1.17+
-				$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
-			} else { // MW 1.16
-				$optionsHash = $parser->getOptions()->mUser->getPageRenderingHash();
-			}
-
-			return wfMemcKey(
-					'ext.SemanticForms.formdefinition', $formId, $optionsHash
-			);
+			$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
+			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId, $optionsHash );
 		}
 	}
 
