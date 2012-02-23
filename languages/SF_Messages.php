@@ -3389,6 +3389,7 @@ $messages['hsb'] = array(
 	'sf_forminputs_listboxsize' => 'Wysokosć tutoho lisćinoweho pola w rjadkach',
 	'sf_forminputs_includetimezone' => 'Zapodawanske polo za časowe pasmo dodać',
 	'sf_forminputs_topcategory' => 'Nadrjadowana kategorija tuteje sadźby kategorijow (trěbna)',
+	'sf_forminputs_hideroot' => 'Nadrjadowanu kategoriju schować',
 	'sf_forminputs_height' => 'Wysokosć tutoho zapodawanskeho pola w pikselach',
 	'sf_forminputs_width' => 'Šěrokosć tutoho zapodawanskeho pola w pikselach',
 	'createform' => 'Formular wutworić',
@@ -3447,8 +3448,10 @@ Za dalše opcije wužij strony $1 město toho.',
 	'sf_formedit_addanother' => 'Dalše přidać',
 	'sf_formedit_none' => 'Žadyn',
 	'sf_formedit_saveandcontinueediting' => 'Składować a pokročować',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Składować a dale wobdźěłować',
 	'sf_autoedit_notargetspecified' => 'Žana cilowa strona podata.',
 	'sf_autoedit_noformfound' => 'Žadyn formular podaty.',
+	'sf_autoedit_toomanyformsfound' => 'Za tutu stronu wjace hač jedyn formular k dispoziciji steji.',
 	'runquery' => 'Naprašowanje startować',
 	'sf_runquery_badurl' => "Dyrbiš formularne mjeno w URL podać;
 URL měł wupadać kaž 'Special:RunQuery/<formularne mjeno>'.",
@@ -3480,6 +3483,9 @@ jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, 
 	'sf_blank_namespace' => 'Hłowny',
 	'right-viewedittab' => 'Rajtark "Wobźěłać" za strony, kotrež su přez formular wobźěłujomne, sej wobhladać',
 	'right-editrestrictedfields' => 'Wobmjezowane formularne pola wobdźěłać',
+	'right-createclass' => 'Nowe semantiske klasy wutworić',
+	'action-createclass' => 'nowe semantiske klasy wutworić',
+	'action-editrestrictedfields' => 'wobmjezowane formularne pola wobdźěłać',
 );
 
 /** Hungarian (Magyar)
