@@ -13,6 +13,7 @@ $magicWords['en'] = array(
 	'arraymap' => array( 0, 'arraymap' ),
 	'arraymaptemplate' => array( 0, 'arraymaptemplate' ),
 	'autoedit' => array( 0, 'autoedit' ),
+	'queryformlink' => array( 0, 'queryformlink' ),
 );
 
 /** Arabic (العربية) */
