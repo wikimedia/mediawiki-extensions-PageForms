@@ -30,7 +30,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		global $wgParser;
 
-		$handler = new self( null, 'sfautoedit' );
+		$handler = new self( new ApiMain( null, true ), 'sfautoedit' );
 		$handler->isApiQuery( false );
 		$options = $handler->setOptionsString( $optionsString );
 
