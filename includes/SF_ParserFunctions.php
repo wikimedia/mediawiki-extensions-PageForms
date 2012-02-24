@@ -273,7 +273,7 @@ class SFParserFunctions {
 			}
 		}
 
-		$fs = SFUtils::getSpecialPage( 'FormStart' );
+		$fs = SpecialPageFactory::getPage( 'FormStart' );
 
 		$fs_url = $fs->getTitle()->getLocalURL();
 		$str = <<<END

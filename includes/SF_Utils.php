@@ -543,7 +543,6 @@ END;
 	 * type, for use by both Javascript autocompletion and comboboxes.
 	 */
 	public static function getAutocompleteValues( $source_name, $source_type ) {
-
 		if ( $source_name == null ) {
 			return null;
 		}
@@ -718,19 +717,6 @@ END;
 	}
 
 	/**
-	 * Pre-1.17 compatibility helper function, now probably unnecessary.
-	 *
-	 * @since 2.3.3
-	 *
-	 * @param string $pageName
-	 *
-	 * @return SpecialPage|null
-	 */
-	public static function getSpecialPage( $pageName ) {
-		return SpecialPageFactory::getPage( $pageName );
-	}
-
-	/**
 	* Returns a SQL condition for autocompletion substring value in a column.
 	* @param string $value_column Value column name
 	* @param string $substring Substring to look for
@@ -874,7 +860,7 @@ END;
 			} 
 		}
 
-		$ad = SFUtils::getSpecialPage( $specialPageName );
+		$ad = SpecialPageFactory::getPage( $specialPageName );
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
 		if ( ! empty( $inTargetName ) ) {
 			$link_url .= "/$inTargetName";
