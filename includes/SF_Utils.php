@@ -327,10 +327,12 @@ END;
 		return $form_names;
 	}
 
+	/**
+	 * Creates a dropdown of possible form names.
+	 */
 	public static function formDropdownHTML() {
-		// create a dropdown of possible form names
-		global $sfgContLang;
-		$namespace_labels = $sfgContLang->getNamespaces();
+		global $wgContLang;
+		$namespace_labels = $wgContLang->getNamespaces();
 		$form_label = $namespace_labels[SF_NS_FORM];
 		$form_names = SFUtils::getAllForms();
 		$select_body = "\n";
@@ -945,5 +947,28 @@ END;
 		return $merged;
 	}
 
+	/**
+	 * Register the namespaces for Semantic Forms.
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces 
+	 *
+	 * @since 2.4.1
+	 *
+	 * @param array $list
+	 *
+	 * @return true
+	 */
+	public static function registerNamespaces( array &$list ) {
+		global $wgNamespacesWithSubpages;
+
+		$list[SF_NS_FORM] = 'Form';
+		$list[SF_NS_FORM_TALK] = 'Form_talk';
+
+		// Support subpages only for talk pages by default
+		$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
+			SF_NS_FORM_TALK => true
+		);
+
+		return true;
+	}
 
 }

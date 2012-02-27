@@ -21,31 +21,6 @@ function sffSetupExtension() {
 }
 
 /**********************************************/
-/***** namespace settings                 *****/
-/**********************************************/
-
-/**
- * Init the additional namespaces used by Semantic Forms. The
- * parameter denotes the least unused even namespace ID that is
- * greater or equal to 100.
- */
-function sffInitNamespaces() {
-	global $wgExtraNamespaces, $wgNamespaceAliases, $wgNamespacesWithSubpages, $wgLanguageCode, $sfgContLang;
-
-	sffInitContentLanguage( $wgLanguageCode );
-
-	// Register namespace identifiers
-	if ( !is_array( $wgExtraNamespaces ) ) { $wgExtraNamespaces = array(); }
-	$wgExtraNamespaces = $wgExtraNamespaces + $sfgContLang->getNamespaces();
-	$wgNamespaceAliases = $wgNamespaceAliases + $sfgContLang->getNamespaceAliases();
-
-	// Support subpages only for talk pages by default
-	$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
-		SF_NS_FORM_TALK => true
-	);
-}
-
-/**********************************************/
 /***** language settings                  *****/
 /**********************************************/
 
