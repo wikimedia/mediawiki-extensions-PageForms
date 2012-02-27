@@ -52,7 +52,7 @@ class SFForm {
 
 	function createMarkup() {
 		$title = Title::makeTitle( SF_NS_FORM, $this->mFormName );
-		$fs = SpecialPageFactory::getPage( 'FormStart' );
+		$fs = SFUtils::getSpecialPage( 'FormStart' );
 		$form_start_url = SFUtils::titleURLString( $fs->getTitle() ) . "/" . $title->getPartialURL();
 		$form_description = wfMsgForContent( 'sf_form_docu', $this->mFormName, $form_start_url );
 		$form_input = "{{#forminput:form=" . $this->mFormName;

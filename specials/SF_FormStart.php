@@ -121,7 +121,7 @@ END;
 	 * Helper function - returns a URL that includes Special:FormEdit.
 	 */
 	static function getFormEditURL( $formName, $targetName) {
-		$fe = SpecialPageFactory::getPage( 'FormEdit' );
+		$fe = SFUtils::getSpecialPage( 'FormEdit' );
 		// Special handling for forms whose name contains a slash.
 		if ( strpos( $formName, '/' ) !== false ) {
 			return $fe->getTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );

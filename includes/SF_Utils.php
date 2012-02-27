@@ -296,7 +296,7 @@ END;
 			$output = $wgOut;
 		} else {
 			$output = $parser->getOutput();
-			self::addJavascriptFiles( $parser );
+		self::addJavascriptFiles( $parser );
 		}
 
 		$output->addModules( 'ext.semanticforms.main' );
@@ -306,7 +306,7 @@ END;
 		$output->addModules( 'ext.semanticforms.submit' );
 		$output->addModules( 'ext.smw.tooltips' );
 		$output->addModules( 'ext.smw.sorttable' );
-	}
+			}
 
 	/**
 	 * Returns an array of all form names on this wiki.
@@ -719,6 +719,22 @@ END;
 	}
 
 	/**
+	 * Compatibility helper function.
+	 * Since 1.18 SpecialPageFactory::getPage should be used.
+	 * SpecialPage::getPage is deprecated in 1.18.
+	 *
+	 * @since 2.3.3
+	 *
+	 * @param string $pageName
+	 *
+	 * @return SpecialPage|null
+	 */
+	public static function getSpecialPage( $pageName ) {
+		$hasFactory = class_exists( 'SpecialPageFactory' ) && method_exists( 'SpecialPageFactory', 'getPage' );
+		return $hasFactory ? SpecialPageFactory::getPage( $pageName ) : SpecialPage::getPage( $pageName );
+	}
+
+	/**
 	* Returns a SQL condition for autocompletion substring value in a column.
 	* @param string $value_column Value column name
 	* @param string $substring Substring to look for
@@ -862,7 +878,7 @@ END;
 			} 
 		}
 
-		$ad = SpecialPageFactory::getPage( $specialPageName );
+		$ad = SFUtils::getSpecialPage( $specialPageName );
 		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
 		if ( ! empty( $inTargetName ) ) {
 			$link_url .= "/$inTargetName";
@@ -909,7 +925,7 @@ END;
 	}	
 	
 	static function loadScriptsForPopupForm( &$parser ) {
-		$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
+			$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
 		return true;
 	}
 

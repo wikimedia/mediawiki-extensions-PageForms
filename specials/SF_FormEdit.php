@@ -71,7 +71,7 @@ class SFFormEdit extends SpecialPage {
 
 	static function printAltFormsList( $alt_forms, $target_name ) {
 		$text = "";
-		$fe = SpecialPageFactory::getPage( 'FormEdit' );
+		$fe = SFUtils::getSpecialPage( 'FormEdit' );
 		$fe_url = $fe->getTitle()->getFullURL();
 		$i = 0;
 		foreach ( $alt_forms as $alt_form ) {
