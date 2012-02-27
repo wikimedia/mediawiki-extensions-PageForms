@@ -10,10 +10,10 @@ $magicWords = array();
 $magicWords['en'] = array(
 	'forminput' => array( 0, 'forminput' ),
 	'formlink' => array( 0, 'formlink' ),
+	'queryformlink' => array( 0, 'queryformlink' ),
 	'arraymap' => array( 0, 'arraymap' ),
 	'arraymaptemplate' => array( 0, 'arraymaptemplate' ),
 	'autoedit' => array( 0, 'autoedit' ),
-	'queryformlink' => array( 0, 'queryformlink' ),
 );
 
 /** Arabic (العربية) */
