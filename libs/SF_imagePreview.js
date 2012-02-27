@@ -1,5 +1,5 @@
 /**
- * JavasSript for the Semantic Forms MediaWiki extension.
+ * JavaScript for the Semantic Forms MediaWiki extension.
  *
  * @licence GNU GPL v3+
  * @author Jeroen De Dauw <jeroendedauw at gmail dot com>
