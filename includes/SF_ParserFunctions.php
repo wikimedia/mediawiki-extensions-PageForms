@@ -191,7 +191,6 @@ class SFParserFunctions {
 	}
 
 	static function renderFormInput ( &$parser ) {
-		global $wgVersion;
 
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
@@ -551,10 +550,17 @@ END;
 					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 					break;
 
+				case 'ok text':
+				case 'error text':
+					// do not parse ok text or error text yet. Will be parsed on api call
+					$arr = array( $key => $value );
+					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					break;
+				
 				default :
 
-					$value = urlencode( $parser->recursiveTagParse( $value ) );
-					parse_str( "$key=$value", $arr );
+					$value = $parser->recursiveTagParse( $value );
+					$arr = array( $key => $value );
 					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
 		}
