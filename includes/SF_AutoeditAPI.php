@@ -28,9 +28,9 @@ class SFAutoeditAPI extends ApiBase {
 	 */
 	static function handleAutoEdit( $optionsString = null, $prefillFromExisting = 'true' ) {
 
-		global $wgParser;
+		global $wgParser, $wgRequest;
 
-		$handler = new self( new ApiMain( null, true ), 'sfautoedit' );
+		$handler = new self( new ApiMain( $wgRequest, true ), 'sfautoedit' );
 		$handler->isApiQuery( false );
 		$options = $handler->setOptionsString( $optionsString );
 
