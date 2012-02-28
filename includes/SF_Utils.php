@@ -296,7 +296,7 @@ END;
 			$output = $wgOut;
 		} else {
 			$output = $parser->getOutput();
-		self::addJavascriptFiles( $parser );
+			self::addJavascriptFiles( $parser );
 		}
 
 		$output->addModules( 'ext.semanticforms.main' );
@@ -306,7 +306,7 @@ END;
 		$output->addModules( 'ext.semanticforms.submit' );
 		$output->addModules( 'ext.smw.tooltips' );
 		$output->addModules( 'ext.smw.sorttable' );
-			}
+	}
 
 	/**
 	 * Returns an array of all form names on this wiki.
@@ -925,11 +925,11 @@ END;
 	}	
 	
 	static function loadScriptsForPopupForm( &$parser ) {
-			$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
+		$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
 		return true;
 	}
 
-		/**
+	/**
 	 * array_merge_recursive merges arrays, but it converts values with duplicate
 	 * keys to arrays rather than overwriting the value in the first array with the duplicate
 	 * value in the second array, as array_merge does.
