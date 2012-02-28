@@ -2,7 +2,7 @@
 * Javascript handler for the save-and-continue button
  */
 
-jQuery( function( $ ) {
+( function( $ ) {
 
 	var sacButtons;
 	var form;
@@ -165,4 +165,4 @@ jQuery( function( $ ) {
 		return params;
 	}
 
-})
+})(jQuery);
