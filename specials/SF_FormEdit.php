@@ -373,10 +373,7 @@ class SFFormEdit extends SpecialPage {
 					$text .= self::printAltFormsList( $alt_forms, $target_name );
 					$text .= "</div>\n";
 				}
-				$text .= <<<END
-				<form name="createbox" id="sfForm" action="" method="post" class="createbox">
-
-END;
+				$text .= '<form name="createbox" id="sfForm" method="post" class="createbox">';
 				$pre_form_html = '';
 				wfRunHooks( 'sfHTMLBeforeForm', array( &$target_title, &$pre_form_html ) );
 				$text .= $pre_form_html;

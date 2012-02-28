@@ -99,6 +99,7 @@ JAVASCRIPT;
 			$textarea_attrs['cols'] = 90;
 			$textarea_attrs['style'] = 'width: auto';
 		} else {
+			$textarea_attrs['cols'] = 90;
 			$textarea_attrs['style'] = 'width: 100%';
 		}
 
