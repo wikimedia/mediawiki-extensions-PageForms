@@ -16,10 +16,4 @@ class SF_LanguageNo extends SF_Language {
 		SF_SP_HAS_ALTERNATE_FORM  => 'Har alternativt skjema'
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Skjema',
-		SF_NS_FORM_TALK      => 'Skjemadiskusjon'
-	);
-
 }
-

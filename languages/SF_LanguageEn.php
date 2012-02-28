@@ -19,10 +19,4 @@ class SF_LanguageEn extends SF_Language {
 		SF_SP_HAS_FIELD_LABEL_FORMAT  => 'Has field label format',
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Form',
-		SF_NS_FORM_TALK      => 'Form_talk'
-	);
-
 }
-

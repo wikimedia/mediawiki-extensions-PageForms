@@ -17,9 +17,5 @@ class SF_LanguageNl extends SF_Language {
 		SF_SP_PAGE_HAS_DEFAULT_FORM   => 'Pagina heeft standaard formulier',
 		SF_SP_HAS_FIELD_LABEL_FORMAT  => 'Heeft veldlabelopmaak',
 	);
-	
-	var $m_Namespaces = array(
-		SF_NS_FORM      => 'Formulier',
-		SF_NS_FORM_TALK => 'Overleg_formulier'
-	);
+
 }

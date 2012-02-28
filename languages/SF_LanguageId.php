@@ -14,9 +14,4 @@ class SF_LanguageId extends SF_Language {
 		SF_SP_HAS_FIELD_LABEL_FORMAT  => 'Memiliki format label bidang',
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Formulir',
-		SF_NS_FORM_TALK      => 'Pembicaraan_Formulir'
-	);
-
 }

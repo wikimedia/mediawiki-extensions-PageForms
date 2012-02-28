@@ -18,10 +18,4 @@ class SF_LanguageFi extends SF_Language {
 		SF_SP_PAGE_HAS_DEFAULT_FORM   => 'Sivun oletuslomake',
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Lomake',
-		SF_NS_FORM_TALK      => 'Keskustelu_lomakkeesta'
-	);
-
 }
-

@@ -16,11 +16,6 @@ class SF_LanguageZh_tw extends SF_Language {
 		SF_SP_HAS_ALTERNATE_FORM  => '代用表單'  // (Has alternate form)
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => '表單',		//	(Form)
-		SF_NS_FORM_TALK      => '表單討論'	//	(Form_talk)  SF 0.7.6前原譯為'表單_talk'
-	);
-
 }
 
 $m_SpecialPropertyAliases ['設有表單'] = SF_SP_HAS_DEFAULT_FORM;	// (Has default form) //Adding the item "Has alternate form", this item will not be suitable for translating into “設有表單”. It has changed to use “預設表單”. 

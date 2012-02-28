@@ -16,10 +16,4 @@ class SF_LanguageEs extends SF_Language {
 		SF_SP_HAS_ALTERNATE_FORM  => 'Usa el formulario alternativo'// Has alternate form
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Formulario',// Form
-		SF_NS_FORM_TALK      => 'Discusión_formulario'// Form_talk
-	);
-
 }
-

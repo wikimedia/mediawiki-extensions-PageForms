@@ -16,11 +16,5 @@ class SF_LanguageDe extends SF_Language {
 		SF_SP_PAGE_HAS_DEFAULT_FORM => 'Seite Hat Standardformular',
 		SF_SP_HAS_ALTERNATE_FORM => 'Hat Alternativformular'
 	);
-	
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Formular',
-		SF_NS_FORM_TALK      => 'Formular Diskussion'
-	);
 
 }
-

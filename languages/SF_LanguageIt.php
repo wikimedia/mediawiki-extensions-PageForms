@@ -19,9 +19,4 @@ class SF_LanguageIt extends SF_Language {
 		SF_SP_HAS_FIELD_LABEL_FORMAT  => 'Usa il formato del campo etichetta',
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Modulo',
-		SF_NS_FORM_TALK      => 'Discussione_modulo'
-	);
-
 }

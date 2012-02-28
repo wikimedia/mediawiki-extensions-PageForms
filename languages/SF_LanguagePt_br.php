@@ -16,10 +16,4 @@ class SF_LanguagePt_br extends SF_Language {
 		SF_SP_HAS_ALTERNATE_FORM  => 'Has alternate form'
 	);
 
-	var $m_Namespaces = array(
-		SF_NS_FORM           => 'Form',
-		SF_NS_FORM_TALK      => 'Form_talk'
-	);
-
 }
-
