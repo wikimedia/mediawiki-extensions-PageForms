@@ -1,12 +1,46 @@
 <?php
-/**
- * Utility class for 'edit with form' tab and page
- *
- * @author Yaron Koren
- * @file
- * @ingroup SF
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
-class SFFormEditTab {
+
+// TODO: Action class did not exist until MW 1.18
+if ( ! class_exists( 'Action') ) {
+	class Action{}
+}
+
+/**
+ * Description of FormeditAction
+ *
+ * @author Stephan Gambke
+ */
+class FormeditAction extends Action 
+{
+	/**
+	 * Return the name of the action this object responds to
+	 * @return String lowercase
+	 */
+	public function getName(){
+		return 'formedit';
+	}
+	
+	/**
+	 * The main action entry point.  Do all output for display and send it to the context
+	 * output.  Do not use globals $wgOut, $wgRequest, etc, in implementations; use
+	 * $this->getOutput(), etc.
+	 * @throws ErrorPageError
+	 */
+	public function show(){
+		return self::displayForm($this, $this->page);
+	}
+
+	/**
+	 * Execute the action in a silent fashion: do not display anything or release any errors.
+	 * @return Bool whether execution was successful
+	 */
+	public function execute(){
+		return true;
+	}
 
 	/**
 	 * Adds an "action" (i.e., a tab) to edit the current article with
@@ -113,10 +147,7 @@ class SFFormEditTab {
 	static function displayTab2( $obj, &$links ) {
 		// the old '$content_actions' array is thankfully just a
 		// sub-array of this one
-		$views_links = $links['views'];
-		self::displayTab( $obj, $views_links );
-		$links['views'] = $views_links;
-		return true;
+		return self::displayTab( $obj, $links['views'] );
 	}
 
 	/**
@@ -124,11 +155,16 @@ class SFFormEditTab {
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
-		global $wgOut, $sfgUseFormEditPage;
+		global $sfgUseFormEditPage;
+
+		// TODO: This function will be called as a hook handler and $action will
+		//  be a string before MW 1.18. From 1.18 onwards this function will#
+		//  only be called for formedit actions, i.e. the if statement can be
+		//  removed then.
 
 		// return "true" if the call failed (meaning, pass on handling
 		// of the hook to others), and "false" otherwise
-		if ( $action != 'formedit' ) {
+		if ( is_string( $action ) && $action !== 'formedit' ) {
 			return true;
 		}
 
@@ -142,7 +178,7 @@ class SFFormEditTab {
 		}
 		if ( count( $form_names ) > 1 ) {
 			$warning_text = "\t" . '<div class="warningMessage">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
-			$wgOut->addHTML( $warning_text );
+			$action->getOutput()->addHTML( $warning_text );
 		}
 		$form_name = $form_names[0];
 
@@ -168,11 +204,11 @@ class SFFormEditTab {
 				$msg = $msg[0];
 			}
 
-			$wgOut->addHTML( Html::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
+			$action->getOutput()->addHTML( Html::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
 
 		}
 
 		return false;
 	}
-
+	
 }
