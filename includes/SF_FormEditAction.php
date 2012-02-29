@@ -1,7 +1,10 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Handles the formedit action.
+ * 
+ * @author Stephan Gambke
+ * @file
+ * @ingroup SF
  */
 
 // TODO: Action class did not exist until MW 1.18
@@ -9,12 +12,7 @@ if ( ! class_exists( 'Action') ) {
 	class Action{}
 }
 
-/**
- * Description of FormeditAction
- *
- * @author Stephan Gambke
- */
-class FormeditAction extends Action 
+class SFFormEditAction extends Action 
 {
 	/**
 	 * Return the name of the action this object responds to

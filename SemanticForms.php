@@ -80,8 +80,8 @@ $wgExtensionFunctions[] = 'sffSetupExtension';
 
 $wgHooks['LinkEnd'][] = 'SFFormLinker::setBrokenLink';
 // 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
-$wgHooks['SkinTemplateTabs'][] = 'FormeditAction::displayTab';
-$wgHooks['SkinTemplateNavigation'][] = 'FormeditAction::displayTab2';
+$wgHooks['SkinTemplateTabs'][] = 'SFFormEditAction::displayTab';
+$wgHooks['SkinTemplateNavigation'][] = 'SFFormEditAction::displayTab2';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 $wgHooks['AdminLinks'][] = 'SFUtils::addToAdminLinks';
 $wgHooks['ArticlePurge'][] = 'SFFormUtils::purgeCache';
@@ -94,10 +94,10 @@ $wgHooks['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
 
 if ( version_compare( $wgVersion, '1.18', '<' ) ) {
 	// TODO: Using UnknownAction is deprecated from MW 1.18 onwards.
-	$wgHooks['UnknownAction'][] = 'FormeditAction::displayForm';
+	$wgHooks['UnknownAction'][] = 'SFFormEditAction::displayForm';
 } else {
 	// Introduced in MW 1.18.
-	$wgActions['formedit'] = true;
+	$wgActions['formedit'] = 'SFFormEditAction';
 }
 
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
@@ -150,7 +150,7 @@ $wgAutoloadClasses['SFPageSchemas'] = $sfgIP . '/includes/SF_PageSchemas.php';
 $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions.php';
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 $wgAutoloadClasses['SFAutoeditAPI'] = $sfgIP . '/includes/SF_AutoeditAPI.php';
-$wgAutoloadClasses['FormeditAction'] = $sfgIP . '/includes/SF_FormEditAction.php';
+$wgAutoloadClasses['SFFormEditAction'] = $sfgIP . '/includes/SF_FormEditAction.php';
 
 // FormInputs
 $wgAutoloadClasses['SFFormInput'] = $sfgIP . '/includes/forminputs/SF_FormInput.php';
