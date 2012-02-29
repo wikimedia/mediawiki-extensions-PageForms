@@ -87,27 +87,27 @@ abstract class SFFormInput {
 	 */
 	public static function getParameters() {
 		$params = array();
-		$params[] = array(
+		$params['mandatory'] = array(
 			'name' => 'mandatory',
 			'type' => 'boolean',
 			'description' => wfMsg( 'sf_forminputs_mandatory' )
 		);
-		$params[] = array(
+		$params['restricted'] = array(
 			'name' => 'restricted',
 			'type' => 'boolean',
 			'description' => wfMsg( 'sf_forminputs_restricted' )
 		);
-		$params[] = array(
+		$params['class'] = array(
 			'name' => 'class',
 			'type' => 'string',
 			'description' => wfMsg( 'sf_forminputs_class' )
 		);
-		$params[] = array(
+		$params['property'] = array(
 			'name' => 'property',
 			'type' => 'string',
 			'description' => wfMsg( 'sf_forminputs_property' )
 		);
-		$params[] = array(
+		$params['default'] = array(
 			'name' => 'default',
 			'type' => 'string',
 			'description' => wfMsg( 'sf_forminputs_default' )
@@ -164,6 +164,19 @@ abstract class SFFormInput {
 	 */
 	public function getJsValidationFunctionData() {
 		return $this->mJsValidationFunctionData;
+	}
+	
+	
+	/**
+	 * Returns the names of the resource modules this input type uses.
+	 * 
+	 * Returns the names of the modules as an array or - if there is only one 
+	 * module - as a string.
+	 * 
+	 * @return null|string|array
+	 */
+	public function getResourceModuleNames() {
+		return null;
 	}
 
 	/**
@@ -294,26 +307,37 @@ abstract class SFFormInput {
 		
 		$input = new $calledClass ( $sfgFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
 
+		$modules = $input->getResourceModuleNames();
+		
+		// register modules for the input
+		if ( $modules !== null ) {
+			$wgOut->addModuleStyles( $modules );
+			$wgOut->addModuleScripts( $modules );
+		}
+
 		// create calls to JS initialization and validation
 		// TODO: This data should be transferred as a JSON blob and then be evaluated from a dedicated JS file
-		$jstext = '';
+		if ( $input->getJsInitFunctionData() || $input->getJsValidationFunctionData() ) {
 
-		foreach ( $input->getJsInitFunctionData() as $jsInitFunctionData ) {
+			$jstext = '';
 
-			$jstext .= <<<JAVASCRIPT
-jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit({$jsInitFunctionData['name']}, {$jsInitFunctionData['param']} ); });
-JAVASCRIPT;
+			foreach ( $input->getJsInitFunctionData() as $jsInitFunctionData ) {
+				$jstext .= "jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit({$jsInitFunctionData['name']}, {$jsInitFunctionData['param']} );";
+			}
+
+			foreach ( $input->getJsValidationFunctionData() as $jsValidationFunctionData ) {
+				$jstext .= "jQuery('#input_$sfgFieldNum').SemanticForms_registerInputValidation( {$jsValidationFunctionData['name']}, {$jsValidationFunctionData['param']});";
+			}
+
+			if ( $modules !== null ) {
+				$jstext = 'mw.loader.using(' . json_encode( $modules ) . ', function(){' . $jstext . '});';
+			}
+
+			$jstext = 'jQuery(function(){' . $jstext . '});';
+
+			// write JS code directly to the page's code
+			$wgOut->addScript( Html::inlineScript( $jstext ) );
 		}
-
-		foreach ( $input->getJsValidationFunctionData() as $jsValidationFunctionData ) {
-
-			$jstext .= <<<JAVASCRIPT
-jQuery(function(){ jQuery('#input_$sfgFieldNum').SemanticForms_registerInputValidation( {$jsValidationFunctionData['name']}, {$jsValidationFunctionData['param']}); });
-JAVASCRIPT;
-		}
-
-		// write JS code directly to the page's code
-		$wgOut->addScript( Html::inlineScript(  $jstext ) );
 
 		return $input->getHtmlText();
 	}

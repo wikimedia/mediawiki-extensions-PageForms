@@ -360,7 +360,8 @@ END;
 
 		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( array( $inputTypeClass, 'getParameters' ) ) : array();
 
-		foreach ( $params as $i => $param ) {
+		$i = 0;
+		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
 			$desc = $wgParser->parse( $param['description'], new Title(), new ParserOptions() )->getText();
@@ -387,6 +388,7 @@ END;
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";
 			}
+			++$i;
 		}
 		return $text;
 	}
