@@ -210,5 +210,11 @@ class FormeditAction extends Action
 
 		return false;
 	}
-	
+
+	/**
+	 * A dummy method - this is needed for MediaWiki 1.18, where
+	 * Action::getRestriction() is abstract and needs to be implemented.
+	 */
+	public function getRestriction() {
+	}
 }
