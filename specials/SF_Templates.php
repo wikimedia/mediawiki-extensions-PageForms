@@ -102,7 +102,12 @@ class TemplatesPage extends QueryPage {
 			// category tag, there's a good chance that the last
 			// one will be the relevant one - the others are
 			// probably part of inline queries.
-			return trim( end( $matches[2] ) );
+			$categoryName = trim( end( $matches[2] ) );
+			// If there's a pipe, remove it and anything after it.
+			$locationOfPipe = strpos( $categoryName, '|' );
+			if ( $locationOfPipe !== false ) {
+				$categoryName = substr( $categoryName, 0, $locationOfPipe );
+			}
 		}
 		return "";
 	}
