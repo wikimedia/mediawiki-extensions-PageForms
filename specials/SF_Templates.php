@@ -108,6 +108,7 @@ class TemplatesPage extends QueryPage {
 			if ( $locationOfPipe !== false ) {
 				$categoryName = substr( $categoryName, 0, $locationOfPipe );
 			}
+			return $categoryName;
 		}
 		return "";
 	}
