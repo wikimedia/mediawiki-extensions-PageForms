@@ -3,13 +3,13 @@ if ( typeof( window.ext ) === "undefined" ) {
 	window.ext = {};
 }
 
-window.ext.wikieditor = new function(){
+window.ext.wikieditor = {
 
 	// initialize the wikieditor on the specified element
-	this.init = function init ( input_id, params ) {
+	init : function init ( input_id, params ) {
 
+		jQuery( function() {
 		if ( window.mediaWiki ) {
-			mediaWiki.loader.using(	'ext.semanticforms.wikieditor', function(){
 
 				var input = jQuery( '#' + input_id );
 
@@ -41,20 +41,8 @@ window.ext.wikieditor = new function(){
 					}
 				});
 
-				// load toc
-				// TODO: Can this be enabled? Should it?
-//				mediaWiki.loader.using( ['jquery.wikiEditor.toc' ] , function(){
-//					if ( jQuery.wikiEditor.isSupported( jQuery.wikiEditor.modules.toc ) ) {
-//
-//						input.wikiEditor( 'addModule', 'toc' );
-//
-//					}
-//				});
-
-
-
-			} );
 		}
-	}
 
+		});
+	}
 };

@@ -208,6 +208,8 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'jquery.ui.button',
 				'jquery.ui.sortable',
 				'jquery.ui.widget',
+				'ext.semanticforms.fancybox',
+				'ext.semanticforms.autogrow',
 			),
 		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
@@ -240,6 +242,10 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_wikieditor.js',
 			'styles' => 'skins/SF_wikieditor.css',
+			'dependencies' => array(
+				'ext.semanticforms.main',
+				'jquery.wikiEditor',
+		),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_imagePreview.js',

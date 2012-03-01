@@ -14,6 +14,45 @@
  */
 class SFTextAreaInput extends SFFormInput {
 
+	protected $mUseWikieditor = false;
+	
+	/**
+	 * Constructor for the SFTextAreaInput class.
+	 *
+	 * @param String $input_number
+	 *		The number of the input in the form. For a simple HTML input element
+	 *      this should end up in the id attribute in the format 'input_<number>'.
+	 * @param String $cur_value
+	 *		The current value of the input field. For a simple HTML input
+	 *		element this should end up in the value attribute.
+	 * @param String $input_name
+	 *		The name of the input. For a simple HTML input element this should
+	 *		end up in the name attribute.
+	 * @param Array $other_args
+	 *		An associative array of other parameters that were present in the
+	 *		input definition.
+	 */
+	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
+		
+		global $wgOut;
+		
+		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+		
+		if (
+			array_key_exists( 'editor', $this->mOtherArgs ) &&
+			$this->mOtherArgs['editor'] == 'wikieditor' &&
+			
+			method_exists( $wgOut, 'getResourceLoader' ) &&
+			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
+			
+			class_exists( 'WikiEditorHooks' )
+		) {
+			$this->mUseWikieditor = true;
+			$this->addJsInitFunctionData( 'window.ext.wikieditor.init' );
+		}
+	}
+
+	
 	public static function getName() {
 		return 'textarea';
 	}
@@ -30,68 +69,100 @@ class SFTextAreaInput extends SFFormInput {
 		return array( '_wpg', '_str' );
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getParameters() {
+		$params = parent::getParameters();
 
-		global $wgOut;
+		$params['preload'] = array(
+			'name' => 'preload',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_preload' )
+		);
+		$params['rows'] = array(
+			'name' => 'rows',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_rows' )
+		);
+		$params['cols'] = array(
+			'name' => 'cols',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_cols' )
+		);
+		$params['maxlength'] = array(
+			'name' => 'maxlength',
+			'type' => 'int',
+			'description' => wfMsg( 'sf_forminputs_maxlength' )
+		);
+		$params['placeholder'] = array(
+			'name' => 'placeholder',
+			'type' => 'string',
+			'description' => wfMsg( 'sf_forminputs_placeholder' )
+		);
+		$params['autogrow'] = array(
+			'name' => 'autogrow',
+			'type' => 'boolean',
+			'description' => wfMsg( 'sf_forminputs_autogrow' )
+		);
+		return $params;
+	}
+
+	/**
+	 * Returns the names of the resource modules this input type uses.
+	 * 
+	 * Returns the names of the modules as an array or - if there is only one 
+	 * module - as a string.
+	 * 
+	 * @return null|string|array
+	 */
+	public function getResourceModuleNames() {
+		return $this->mUseWikieditor?'ext.semanticforms.wikieditor':null;
+	}
+
+	protected function getTextAreaAttributes() {
+
 		global $sfgTabIndex, $sfgFieldNum;
 
 		// Use a special ID for the free text field, for FCK's needs.
-		$input_id = $input_name == 'sf_free_text' ? 'sf_free_text' : "input_$sfgFieldNum";
+		$input_id = $this->mInputName == 'sf_free_text' ? 'sf_free_text' : "input_$sfgFieldNum";
 
-		if ( array_key_exists( 'editor', $other_args ) &&
-			$other_args['editor'] == 'wikieditor' &&
-
-			method_exists( $wgOut, 'getResourceLoader' ) &&
-			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
-
-			class_exists( 'WikiEditorHooks' ) ) {
+		if ( $this->mUseWikieditor ) {
 
 			// load modules for all enabled features
 			WikiEditorHooks::editPageShowEditFormInitial( $this );
-
-			$wgOut->addModules( 'ext.semanticforms.wikieditor' );
-
-			$jstext = <<<JAVASCRIPT
-			jQuery( jQuery('#$input_id').SemanticForms_registerInputInit( ext.wikieditor.init, null ) );
-JAVASCRIPT;
-
-			// write JS code directly to the page's code
-			$wgOut->addScript( Html::inlineScript( $jstext ) );
-
-			$className = "wikieditor ";
+			$className = 'wikieditor ';
 		} else {
-			$className = "";
+			$className = '';
 		}
 
-		$className .= ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
-		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= " " . $other_args['class'];
+		$className .= ( $this->mIsMandatory ) ? 'mandatoryField' : 'createboxInput';
+
+		if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
+			$className .= ' ' . $this->mOtherArgs['class'];
 		}
 
-		if ( array_key_exists( 'rows', $other_args ) ) {
-			$rows = $other_args['rows'];
+		if ( array_key_exists( 'autogrow', $this->mOtherArgs ) ) {
+			$className .= ' autoGrow';
+		}
+
+		if ( array_key_exists( 'rows', $this->mOtherArgs ) ) {
+			$rows = $this->mOtherArgs['rows'];
 		} else {
 			$rows = 5;
 		}
 
-		if ( array_key_exists( 'autogrow', $other_args ) ) {
-			$className .= ' autoGrow';
-		}
-
 		$textarea_attrs = array(
 			'tabindex' => $sfgTabIndex,
+			'name' => $this->mInputName,
 			'id' => $input_id,
-			'name' => $input_name,
-			'rows' => $rows,
 			'class' => $className,
+			'rows' => $rows,
 		);
 
-		if ( array_key_exists( 'cols', $other_args ) ) {
-			$textarea_attrs['cols'] = $other_args['cols'];
+		if ( array_key_exists( 'cols', $this->mOtherArgs ) ) {
+			$textarea_attrs['cols'] = $this->mOtherArgs['cols'];
 			// Needed to prevent CSS from overriding the manually-
 			// set width.
 			$textarea_attrs['style'] = 'width: auto';
-		} elseif ( array_key_exists( 'autogrow', $other_args ) ) {
+		} elseif ( array_key_exists( 'autogrow', $this->mOtherArgs ) ) {
 			// If 'autogrow' has been set, automatically set
 			// the number of columns - otherwise, the Javascript
 			// won't be able to know how many characters there
@@ -103,11 +174,12 @@ JAVASCRIPT;
 			$textarea_attrs['style'] = 'width: 100%';
 		}
 
-		if ( $is_disabled ) {
+		if ( $this->mIsDisabled ) {
 			$textarea_attrs['disabled'] = 'disabled';
 		}
-		if ( array_key_exists( 'maxlength', $other_args ) ) {
-			$maxlength = $other_args['maxlength'];
+
+		if ( array_key_exists( 'maxlength', $this->mOtherArgs ) ) {
+			$maxlength = $this->mOtherArgs['maxlength'];
 			// For every actual character pressed (i.e., excluding
 			// things like the Shift key), reduce the string to its
 			// allowed length if it's exceeded that.
@@ -119,53 +191,12 @@ JAVASCRIPT;
 			$textarea_attrs['onKeyDown'] = $maxLengthJSCheck;
 			$textarea_attrs['onKeyUp'] = $maxLengthJSCheck;
 		}
-		if ( array_key_exists( 'placeholder', $other_args ) ) {
-			$textarea_attrs['placeholder'] = $other_args['placeholder'];
+
+		if ( array_key_exists( 'placeholder', $this->mOtherArgs ) ) {
+			$textarea_attrs['placeholder'] = $this->mOtherArgs['placeholder'];
 		}
 
-		$text = Html::element( 'textarea', $textarea_attrs, $cur_value );
-		$spanClass = 'inputSpan';
-		if ( $is_mandatory ) {
-			$spanClass .= ' mandatoryFieldSpan';
-		}
-		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
-
-		return $text;
-	}
-
-	public static function getParameters() {
-		$params = parent::getParameters();
-		$params[] = array(
-			'name' => 'preload',
-			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_preload' )
-		);
-		$params[] = array(
-			'name' => 'rows',
-			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_rows' )
-		);
-		$params[] = array(
-			'name' => 'cols',
-			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_cols' )
-		);
-		$params[] = array(
-			'name' => 'maxlength',
-			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_maxlength' )
-		);
-		$params[] = array(
-			'name' => 'placeholder',
-			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_placeholder' )
-		);
-		$params[] = array(
-			'name' => 'autogrow',
-			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_autogrow' )
-		);
-		return $params;
+		return $textarea_attrs;
 	}
 
 	/**
@@ -173,9 +204,16 @@ JAVASCRIPT;
 	 */
 	public function getHtmlText() {
 
-		return self::getHTML(
-				$this->mCurrentValue, $this->mInputName, $this->mIsMandatory, $this->mIsDisabled, $this->mOtherArgs
-		);
+		$textarea_attrs = $this->getTextAreaAttributes();
+
+		$text = Html::element( 'textarea', $textarea_attrs, $this->mCurrentValue );
+		$spanClass = 'inputSpan';
+		if ( $this->mIsMandatory ) {
+			$spanClass .= ' mandatoryFieldSpan';
 	}
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
+
+		return $text;
+}
 
 }

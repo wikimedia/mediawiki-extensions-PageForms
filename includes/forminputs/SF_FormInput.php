@@ -320,17 +320,20 @@ abstract class SFFormInput {
 		if ( $input->getJsInitFunctionData() || $input->getJsValidationFunctionData() ) {
 
 			$jstext = '';
+			$input_id = $input_name == 'sf_free_text' ? 'sf_free_text' : "input_$sfgFieldNum";
 
 			foreach ( $input->getJsInitFunctionData() as $jsInitFunctionData ) {
-				$jstext .= "jQuery('#input_$sfgFieldNum').SemanticForms_registerInputInit({$jsInitFunctionData['name']}, {$jsInitFunctionData['param']} );";
+				$jstext .= "jQuery('#$input_id').SemanticForms_registerInputInit({$jsInitFunctionData['name']}, {$jsInitFunctionData['param']} );";
 			}
 
 			foreach ( $input->getJsValidationFunctionData() as $jsValidationFunctionData ) {
-				$jstext .= "jQuery('#input_$sfgFieldNum').SemanticForms_registerInputValidation( {$jsValidationFunctionData['name']}, {$jsValidationFunctionData['param']});";
+				$jstext .= "jQuery('#$input_id').SemanticForms_registerInputValidation( {$jsValidationFunctionData['name']}, {$jsValidationFunctionData['param']});";
 			}
 
 			if ( $modules !== null ) {
-				$jstext = 'mw.loader.using(' . json_encode( $modules ) . ', function(){' . $jstext . '});';
+				$jstext = 'mw.loader.using(' . json_encode( $modules )
+					. ',function(){' . $jstext
+					. '},function(e,module){alert(module+": "+e);});';
 			}
 
 			$jstext = 'jQuery(function(){' . $jstext . '});';
