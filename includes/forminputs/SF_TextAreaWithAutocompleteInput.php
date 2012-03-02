@@ -16,6 +16,10 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		return 'textarea with autocomplete';
 	}
 
+	public static function getDefaultPropTypes() {
+		return array();
+	}
+
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params = array_merge( $params, SFTextWithAutocompleteInput::getAutocompletionParameters() );
