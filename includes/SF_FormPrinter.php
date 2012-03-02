@@ -852,7 +852,7 @@ END;
 								$possible_values = SFUtils::getAllPagesForNamespace( $sub_components[1] );
 							} elseif ( $sub_components[0] == 'values dependent on' ) {
 								global $sfgDependentFields;
-								$sfgDependentFields[$sub_components[1]] = $fullFieldName;
+								$sfgDependentFields[] = array( $sub_components[1], $fullFieldName );
 							} elseif ( $sub_components[0] == 'property' ) {
 								$semantic_property = $sub_components[1];
 							} elseif ( $sub_components[0] == 'default filename' ) {

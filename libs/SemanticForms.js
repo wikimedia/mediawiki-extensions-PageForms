@@ -945,15 +945,18 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 	nameAttr = partOfMultiple ? 'origName' : 'name';
 	name = jQuery(this).attr(nameAttr);
-	dependentField = sfgDependentFields[name];
-	if ( dependentField != null ) {
-		if ( partOfMultiple ) {
-			jQuery(this).closest(".multipleTemplateInstance")
-				.find('[origName="' + dependentField + '"]')
-				.setDependentAutocompletion(dependentField, name, curValue);
-		} else {
-			jQuery('[name="' + dependentField + '"]')
-				.setDependentAutocompletion(dependentField, name, curValue);
+	for ( var i in sfgDependentFields ) {
+		dependentFieldPair = sfgDependentFields[i];
+		if ( dependentFieldPair[0] == name ) {
+			dependentField = dependentFieldPair[1];
+			if ( partOfMultiple ) {
+				jQuery(this).closest(".multipleTemplateInstance")
+					.find('[origName="' + dependentField + '"]')
+					.setDependentAutocompletion(dependentField, name, curValue);
+			} else {
+				jQuery('[name="' + dependentField + '"]')
+					.setDependentAutocompletion(dependentField, name, curValue);
+			}
 		}
 	}
 
