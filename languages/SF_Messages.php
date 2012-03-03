@@ -2424,7 +2424,7 @@ $messages['fr'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Pour lister, sur chaque page utilisant ce modèle, toutes celles qui ont une propriété pointant vers celle-ci, indiquez la propriété adéquate ci-dessous :',
 	'sf_createtemplate_aggregationlabel' => 'Titre pour la liste :',
 	'sf_createtemplate_outputformat' => 'Format de sortie :',
-	'sf_createtemplate_standardformat' => 'Normal',
+	'sf_createtemplate_standardformat' => 'Standard',
 	'sf_createtemplate_infoboxformat' => 'Infobox de droite',
 	'sf_createtemplate_addfield' => 'Ajouter un champ',
 	'sf_createtemplate_deletefield' => 'Supprimer',
@@ -5961,6 +5961,7 @@ $messages['pdc'] = array(
 );
 
 /** Polish (Polski)
+ * @author BeginaFelicysym
  * @author Jwitos
  * @author Maikking
  * @author McMonster
@@ -6000,6 +6001,15 @@ $messages['pl'] = array(
 	'sf_forms_docu' => 'Poniższe formularze są już zdefiniowane w przestrzeni wiki.',
 	'sf_forminputs_mandatory' => 'Obowiązkowe',
 	'sf_forminputs_restricted' => 'Te informacje wprowadzać mogą wyłącznie administratorzy',
+	'sf_forminputs_class' => 'Atrybut HTML "class" dla tego pola wprowadzania danych',
+	'sf_forminputs_default' => 'Wartość domyślna dla tego pola wprowadzania danych',
+	'sf_forminputs_preload' => 'Strona wiki, której zawartość stanie się wartością domyślną tego pola',
+	'sf_forminputs_property' => 'Cecha semantyczna, której odpowiada to pole',
+	'sf_forminputs_size' => 'Rozmiar tego pola tekstowego, w znakach',
+	'sf_forminputs_maxlength' => 'Maksymalna dozwolona długość tekstu w tym polu',
+	'sf_forminputs_placeholder' => 'Tekst pomocy, który pojawia się wewnątrz pola, zanim użytkownik na nim kliknie',
+	'sf_forminputs_uploadable' => 'Umieść łącze "Wyślij plik" obok tego pola',
+	'sf_forminputs_defaultfilename' => 'Domyślna nazwa pliku dla wysyłanych plików',
 	'createform' => 'Utwórz formularz',
 	'sf_createform_nameinput' => 'Nazwa formularza',
 	'sf_createform_nameinputdesc' => '(zwyczajowo nazwa formularza jest taka sama ja nazwa jego podstawowego szablonu)',
