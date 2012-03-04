@@ -1039,6 +1039,7 @@ $messages['br'] = array(
 	'sf_createform_nameinputdesc' => '(ar boaz eo envel ar furmskrid diouzh anv e batrom pennañ) :',
 	'sf_createform_template' => 'Patrom :',
 	'sf_createform_templatelabelinput' => 'Tikedenn patrom (diret) :',
+	'sf_createform_allowmultiple' => 'Aotren a ra eiladoù eus ar patrom-mañ (pe hini ebet) er bajenn grouet',
 	'sf_createform_field' => 'Maezienn :',
 	'sf_createform_fieldprop' => 'Ar vaezienn-mañ a dermen ar perzh $1, eus ar seurt $2.',
 	'sf_createform_inputtype' => 'Doare moned :',
