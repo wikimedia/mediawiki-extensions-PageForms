@@ -389,8 +389,8 @@ END;
 		if ( ! $form_submitted && ( $this->mPageTitle && !$this->mPageTitle->exists() ) ) {
 			$this->showDeletionLog( $wgOut );
 		}
-		// Unfortunately, we can't just call userCan() here because, as of MW 1.16,
-		// it has a bug in which it ignores a setting of
+		// Unfortunately, we can't just call userCan() here because,
+		// since MW 1.16, it has a bug in which it ignores a setting of
 		// "$wgEmailConfirmToEdit = true;". Instead, we'll just get the
 		// permission errors from the start, and use those to determine whether
 		// the page is editable.

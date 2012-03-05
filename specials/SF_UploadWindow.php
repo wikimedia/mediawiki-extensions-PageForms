@@ -94,7 +94,7 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		if ( $this->mSourceType == 'file' && $token == null ) {
 			// Skip token check for file uploads as that can't be faked via JS...
 			// Some client-side tools don't expect to need to send wpEditToken
-			// with their submissions, as that's new in 1.16.
+			// with their submissions, as that was new in 1.16.
 			$this->mTokenOk = true;
 		} else {
 			$this->mTokenOk = $wgUser->matchEditToken( $token );

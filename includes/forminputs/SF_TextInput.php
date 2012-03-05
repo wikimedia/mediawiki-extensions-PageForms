@@ -104,12 +104,8 @@ class SFTextInput extends SFFormInput {
 		}
 		$upload_window_url = $upload_window_page->getTitle()->getFullURL( $query_string );
 		$upload_label = wfMsg( 'upload' );
-		// window needs to be bigger for MediaWiki version 1.16+
-		if ( class_exists( 'HTMLForm' ) ) {
-			$style = "width:650 height:500";
-		} else {
-			$style = '';
-		}
+		// We need to set the size by default.
+		$style = "width:650 height:500";
 
 		$cssClasses = array( 'sfFancyBox', 'sfUploadable' );
 

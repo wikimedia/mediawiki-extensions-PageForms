@@ -158,8 +158,9 @@ END;
 			}
 		}
 
-		// Finally, set the page title - for MW 1.16, this has to be
-		// called after addParserOutputNoText() for it to take effect.
+		// Finally, set the page title - previously, this had to be
+		// called after addParserOutputNoText() for it to take effect;
+		// now the order doesn't matter.
 		if ( !$embedded ) {
 			if ( $form_page_title != null ) {
 				$wgOut->setPageTitle( $form_page_title );
