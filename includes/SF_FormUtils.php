@@ -92,12 +92,15 @@ END;
 	}
 
 	static function minorEditInputHTML( $is_disabled, $label = null, $attrs = array() ) {
-		global $sfgTabIndex, $wgUser;
+		global $sfgTabIndex, $wgUser, $wgParser;
 
 		$sfgTabIndex++;
 		$checked = $wgUser->getOption( 'minordefault' );
-		if ( $label == null )
-			$label = wfMsgExt( 'minoredit', array( 'parseinline' ) );
+
+		if ( $label == null ) {
+			$label = $wgParser->recursiveTagParse( wfMsg( 'minoredit' ) );
+		}
+
 		$tooltip = wfMsg( 'tooltip-minoredit' );
 		$attrs += array(
 			'id' => 'wpMinoredit',
@@ -117,7 +120,7 @@ END;
 	}
 
 	static function watchInputHTML( $is_disabled, $label = null, $attrs = array() ) {
-		global $sfgTabIndex, $wgUser, $wgTitle;
+		global $sfgTabIndex, $wgUser, $wgTitle, $wgParser;
 
 		$sfgTabIndex++;
 		$checked = "";
@@ -134,7 +137,7 @@ END;
 			$checked = true;
 		}
 		if ( $label == null )
-			$label = wfMsgExt( 'watchthis', array( 'parseinline' ) );
+			$label = $wgParser->recursiveTagParse( wfMsg( 'watchthis' ) );
 		$attrs += array(
 			'id' => 'wpWatchthis',
 			'accesskey' => wfMsg( 'accesskey-watch' ),
@@ -244,10 +247,10 @@ END;
 	}
 
 	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $wgTitle;
+		global $wgTitle, $wgParser;
 
 		if ( $label == null ) {
-			$label = wfMsgExt( 'cancel', array( 'parseinline' ) );
+			$label = $wgParser->recursiveTagParse( wfMsg( 'cancel' ) );
 		}
 		if ( $wgTitle == null ) {
 			$cancel = '';

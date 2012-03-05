@@ -974,8 +974,8 @@ END;
 							if ( in_array( 'edittools', $free_text_components ) ) {
 								// borrowed from EditPage::showEditTools()
 								$options[] = 'parse';
-								$edittools_text = wfMsgExt( 'edittools', array( 'parse' ), array( 'content' ) );
-
+								$edittools_text = $wgParser->recursiveTagParse( wfMsg( 'edittools', array( 'content' ) ) );
+								
 								$new_text .= <<<END
 		<div class="mw-editTools">
 		$edittools_text
@@ -1447,6 +1447,7 @@ END;
 				$form_text .= $section;
 			}
 			$curPlaceholder = null;
+//		var_dump($wgParser->getOutput()->getModules());
 		} // end for
 
 		// Cleanup - everything has been browsed.
