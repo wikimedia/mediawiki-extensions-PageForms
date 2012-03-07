@@ -539,11 +539,11 @@ END;
 						}
 						// If $curPlaceholder is set, it means we want to insert a
 						// multiple template form's HTML into the main form's HTML.
- 						// So, the HTML will be stored in $multipleTemplateString.
- 						if ( $allow_multiple ) {
- 							$multipleTemplateString .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
- 							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList">' . "\n";
- 						}
+						// So, the HTML will be stored in $multipleTemplateString.
+						if ( $allow_multiple ) {
+							$multipleTemplateString .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
+							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList">' . "\n";
+						}
 					}
 					if ( $curPlaceholder == null ) {
 						$form_text .= $multipleTemplateString;
@@ -955,7 +955,7 @@ END;
 						} else {
 							$sfgTabIndex++;
 							$sfgFieldNum++;
-							if ( $cur_value === '' || is_null( $cur_value )  ) {
+							if ( $cur_value === '' || is_null( $cur_value ) ) {
 								$default_value = '!free_text!';
 							} else {
 								$default_value = $cur_value;
@@ -1537,11 +1537,11 @@ END;
 				$form_text .= SFFormUtils::formBottom( $form_is_disabled );
 		}
 
-		$page_article = new Article( $this->mPageTitle, 0 );
 
 		if ( !$is_query ) {
 			$form_text .= Html::hidden( 'wpStarttime', wfTimestampNow() );
-			$form_text .= Html::hidden( 'wpEdittime', $page_article->getTimestamp() );
+			$article = new Article( $this->mPageTitle, 0 );
+			$form_text .= Html::hidden( 'wpEdittime', $article->getTimestamp() );
 		}
 
 		$form_text .= "\t</form>\n";
@@ -1565,8 +1565,9 @@ END;
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.
 		// If doing a replace, the data text is actually the modified original page
-		if ( $wgRequest->getCheck( 'partial' ) )
+		if ( $wgRequest->getCheck( 'partial' ) ) {
 			$data_text = $existing_page_content;
+		}
 
 		if ( !$is_embedded ) {
 			$form_page_title = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
@@ -1592,7 +1593,7 @@ END;
 	}
 
 	/**
-	 * Create the HTML and Javascript to display this field within a form
+	 * Create the HTML and Javascript to display this field within a form.
 	 */
 	function formFieldHTML( $form_field, $cur_value ) {
 		// Also get the actual field, with all the semantic information
