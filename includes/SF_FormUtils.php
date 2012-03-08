@@ -986,7 +986,7 @@ END;
 	 */
 	public static function getFormCache() {
 		global $sfgFormCacheType, $wgParserCacheType;
-		$ret = & wfGetCache( ( $sfgFormCacheType !== null ) ? $sfgFormCacheType : $wgParserCacheType  );
+		$ret = wfGetCache( ( $sfgFormCacheType !== null ) ? $sfgFormCacheType : $wgParserCacheType  );
 		return $ret;
 	}
 
