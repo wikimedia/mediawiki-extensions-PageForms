@@ -3312,6 +3312,7 @@ $messages['he'] = array(
 
 /** Hindi (हिन्दी)
  * @author Kaustubh
+ * @author Siddhartha Ghai
  */
 $messages['hi'] = array(
 	'createproperty' => 'एक गुणधर्म बनायें',
@@ -3338,7 +3339,7 @@ $messages['hi'] = array(
 	'createform' => 'फ़ार्म बनायें',
 	'sf_createform_template' => 'साँचा:',
 	'sf_createform_templatelabelinput' => 'साँचा लेबल (वैकल्पिक):',
-	'sf_createform_field' => 'फिल्ड़:',
+	'sf_createform_field' => 'फ़ील्ड:',
 	'sf_createform_inputtype' => 'इनपुट प्रकार:',
 	'sf_createform_inputtypedefault' => '(डिफॉल्ट)',
 	'sf_createform_formlabel' => 'फ़ार्म लेबल:',
@@ -7223,6 +7224,7 @@ $messages['stq'] = array(
  * @author M.M.S.
  * @author Najami
  * @author Per
+ * @author Rotsee
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
@@ -7257,7 +7259,19 @@ $messages['sv'] = array(
 	'forms' => 'Formulär',
 	'sf_forms_docu' => 'Följande formulär finns på wikin.',
 	'sf_forminputs_mandatory' => 'Obligatorisk',
-	'sf_forminputs_restricted' => 'Endast administratörer kan ändra denna ingång',
+	'sf_forminputs_restricted' => 'Endast administratörer kan redigera detta fält',
+	'sf_forminputs_class' => 'HTML-klass ("class") för det här fältet',
+	'sf_forminputs_default' => 'Standardvärde för det här fältet',
+	'sf_forminputs_preload' => 'Wikisida vars innehåll används som standardvärde för det här fältet',
+	'sf_forminputs_property' => 'Semantisk egenskap som det här fältet motsvarar',
+	'sf_forminputs_size' => 'Storlek på textfältet, i antal tecken',
+	'sf_forminputs_maxlength' => 'Maximalt antal tecken i det här fältet',
+	'sf_forminputs_uploadable' => 'Visa en ”ladda upp”-länk intill det här fältet',
+	'sf_forminputs_topcategory' => 'Överordnad kategori (obligatiskt)',
+	'sf_forminputs_hideroot' => 'Göm den överordnade kategorin',
+	'sf_forminputs_depth' => 'Antal kategorinivåer att visa från början',
+	'sf_forminputs_height' => 'Höjden på det här fältet, i pixlar',
+	'sf_forminputs_width' => 'Bredden på det här fältet, i pixlar',
 	'createform' => 'Skapa ett formulär',
 	'sf_createform_nameinput' => 'Formulärnamn',
 	'sf_createform_nameinputdesc' => '(standarden är att döpa formuläret efter mallen som det använder):',
