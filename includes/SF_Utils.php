@@ -106,7 +106,7 @@ class SFUtils {
 		$db = wfGetDB( DB_SLAVE );
 		$conditions = null;
 		if ( !is_null( $title ) ) {
-			$titlekey = $title->getArticleId();
+			$titlekey = $title->getArticleID();
 			if ( $titlekey == 0 ) {
 				// Something's wrong - exit
 				return $categories;
