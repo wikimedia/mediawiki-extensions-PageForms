@@ -82,7 +82,6 @@ class SFFormEdit extends SpecialPage {
 	}
 
 	static function makeRandomNumber() {
-		srand( time() );
 		return rand() % 1000000;
 	}
 
