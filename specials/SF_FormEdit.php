@@ -81,8 +81,14 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
-	static function makeRandomNumber() {
-		return rand() % 1000000;
+	static function makeRandomNumber( $numDigits, $hasPadding ) {
+		$maxValue = pow( 10, $numDigits ) - 1;
+		if ( $maxValue > getrandmax() ) {
+			$maxValue = getrandmax();
+		}
+		$value = rand( 0, $maxValue );
+		$format = '%' . ($hasPadding ? '0' : '') . $numDigits . 'd';
+		return trim( sprintf( $format, $value ) ); // trim needed, when $hasPadding == false
 	}
 
 	static function printForm( &$form_name, &$target_name, $alt_forms = array(), $redirectOnError = false ) {
@@ -226,13 +232,17 @@ class SFFormEdit extends SpecialPage {
 
 					$title_number = "";
 					$isRandom = false;
+					$randomNumHasPadding = false;
+					$randomNumDigits = 6;
 
 					if ( strpos( $target_name, '{num' ) !== false ) {
 
-						// random number
-						if ( preg_match( '/{num;random}/', $target_name, $matches ) ) {
+						// Random number
+						if ( preg_match( '/{num;random(;(0)?([1-9][0-9]*))?}/', $target_name, $matches ) ) {
 							$isRandom = true;
-							$title_number = self::makeRandomNumber();
+							$randomNumHasPadding = array_key_exists( 2, $matches );
+							$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[3] : $randomNumDigits );
+							$title_number = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 						} else {
 							// get unique number start value
 							// from target name; if it's not
@@ -257,7 +267,7 @@ class SFFormEdit extends SpecialPage {
 						while ( $target_title->exists() ) {
 
 							if ( $isRandom ) {
-								$title_number = self::makeRandomNumber();
+								$title_number = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 							}
 							// if title number is blank,
 							// change it to 2; otherwise,
