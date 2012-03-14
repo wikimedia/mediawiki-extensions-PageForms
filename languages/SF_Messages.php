@@ -1659,8 +1659,6 @@ $messages['de-formal'] = array(
 	'sf_createtemplate_fieldsdesc' => 'Wenn ein Feld einer Vorlage keinen Feldnamen benötigen soll, geben Sie einfach anstatt eines tatsächlichen Namens die Indexnummer des Feldes als Name ein (z.B. 1, 2, 3 usw.).',
 	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
 	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
-	'sf_createform_choosefield' => 'Wählen Sie ein Feld aus, das Sie hinzufügen wollen.',
-	'sf_createcategory_makesubcategory' => 'Machen Sie diese Kategorie zu einer Unterkategorie einer anderen Kategorie (optional):',
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
 Für weitere Optionen nutzen Sie bitte die folgenden Aktionen: $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
@@ -1672,8 +1670,6 @@ Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
 	'sf_formedit_createtitlenotarget' => 'Erstellen Sie $1',
 	'sf_formedit_badurl' => 'Dies ist die Spezialseite zum Bearbeiten einer Seite mit einem Formular. Sie müssen den Namen eines Formulars und den Namen der zu bearbeitenden Seite in der URL angeben.
 Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Formularname>&target=<Seitenname>“ oder „Spezial:Mit_Formular_bearbeiten/<Formularname>/<Seitenname>“.',
-	'sf_formedit_altforms' => 'Alternativ können Sie diese Seite mit einem der folgenden Formulare erstellen:',
-	'sf_formedit_altformsonly' => 'Bitte wählen Sie eines der folgenden Formulare aus, um diese Seite zu erstellen:',
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
 	'sf_template_docufooter' => 'Klicken Sie auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
