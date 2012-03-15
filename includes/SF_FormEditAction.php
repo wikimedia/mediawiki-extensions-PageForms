@@ -174,9 +174,18 @@ class SFFormEditAction extends Action
 		if ( count( $form_names ) == 0 ) {
 			return true;
 		}
+
+		// For backward-compatibility
+		if ( is_string( $action ) ) {
+			global $wgOut;
+			$output = $wgOut;
+		} else {
+			$output = $action->getOutput();
+		}
+
 		if ( count( $form_names ) > 1 ) {
-			$warning_text = "\t" . '<div class="warningMessage">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
-			$action->getOutput()->addHTML( $warning_text );
+			$warning_text = "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
+			$output->addWikiText( $warning_text );
 		}
 		$form_name = $form_names[0];
 
@@ -202,7 +211,7 @@ class SFFormEditAction extends Action
 				$msg = $msg[0];
 			}
 
-			$action->getOutput()->addHTML( Html::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
+			$output->addHTML( Html::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
 
 		}
 
