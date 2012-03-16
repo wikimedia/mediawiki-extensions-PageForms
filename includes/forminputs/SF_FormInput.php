@@ -301,8 +301,12 @@ abstract class SFFormInput {
 		if ( function_exists('get_called_class') ) {
 			$calledClass = get_called_class();
 		} else {
-			$bt = debug_backtrace();
-			$calledClass = $bt[1]['args'][0][0];
+			if ( $input_name === 'sf_free_text' ) { // free text
+				$calledClass = 'SFTextAreaInput';
+			} else {
+				$bt = debug_backtrace(false);		
+				$calledClass = $bt[1]['args'][0][0];
+			}
 		}
 		
 		$input = new $calledClass ( $sfgFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
