@@ -397,8 +397,9 @@ END;
 			switch ( $type ) {
 				case 'checkbox':
 				case 'radio':
-					if ( $input->getAttribute( 'checked' ) )
+					if ( $input->hasAttribute( 'checked' ) ) {
 						self::addToArray( $data, $name, $input->getAttribute( 'value' ) );
+					}
 					break;
 
 				// case 'button':
