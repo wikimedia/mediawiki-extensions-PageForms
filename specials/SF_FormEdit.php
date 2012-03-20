@@ -100,13 +100,21 @@ class SFFormEdit extends SpecialPage {
 
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
-		// If we the given form is not a valid title, bail out
+		// If the given form is not a valid title, bail out.
 		if ( !$form_title ) {
 			return 'sf_formedit_badurl';
 		}
-
 		$form_article = new Article( $form_title, 0 );
 		$form_definition = $form_article->getContent();
+
+		// If the form page is a redirect, use the other form
+		// instead.
+		if ( $form_title->isRedirect() ) {
+			$form_title = Title::newFromRedirect( $form_definition );
+			$form_article = new Article( $form_title, 0 );
+			$form_definition = $form_article->getContent();
+		}
+
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_definition );
 
 		if ( is_null( $target_name ) ) {
