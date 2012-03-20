@@ -397,6 +397,12 @@ END;
 		if ( !$is_query ) {
 			// $userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
 			$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
+			// The handling of $wgReadOnly and $wgReadOnlyFile
+			// has to be done separately.
+			if ( wfReadOnly() ) {
+				global $wgReadOnly;
+				$permissionErrors = array( array( 'readonlytext', array ( wfReadOnlyReason() ) ) );
+			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
 			wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
 		}
