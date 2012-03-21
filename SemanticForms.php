@@ -40,7 +40,7 @@ if ( !defined( 'SMW_VERSION' ) ) {
 	die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
 }
 
-define( 'SF_VERSION', '2.4.1' );
+define( 'SF_VERSION', '2.4.2' );
 
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
@@ -92,14 +92,15 @@ $wgHooks['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
 $wgHooks['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
 $wgHooks['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
 
+// Using UnknownAction is deprecated from MW 1.18 onwards.
 if ( version_compare( $wgVersion, '1.18', '<' ) ) {
-	// TODO: Using UnknownAction is deprecated from MW 1.18 onwards.
 	$wgHooks['UnknownAction'][] = 'SFFormEditAction::displayForm';
 } else {
 	// Introduced in MW 1.18.
 	$wgActions['formedit'] = 'SFFormEditAction';
 }
 
+// API modules
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';
 $wgAPIModules['sfautoedit'] = 'SFAutoeditAPI';
 
@@ -152,7 +153,7 @@ $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI
 $wgAutoloadClasses['SFAutoeditAPI'] = $sfgIP . '/includes/SF_AutoeditAPI.php';
 $wgAutoloadClasses['SFFormEditAction'] = $sfgIP . '/includes/SF_FormEditAction.php';
 
-// FormInputs
+// Form inputs
 $wgAutoloadClasses['SFFormInput'] = $sfgIP . '/includes/forminputs/SF_FormInput.php';
 $wgAutoloadClasses['SFTextInput'] = $sfgIP . '/includes/forminputs/SF_TextInput.php';
 $wgAutoloadClasses['SFTextWithAutocompleteInput'] = $sfgIP . '/includes/forminputs/SF_TextWithAutocompleteInput.php';
@@ -313,8 +314,7 @@ $sfgListSeparator = ",";
 # Extend the edit form from the internal EditPage class rather than using a
 # special page and hacking things up.
 #
-# @note This is experimental and requires updates to EditPage which I have only
-#       added into MediaWiki 1.14a
+# @note This is still experimental.
 # ##
 $sfgUseFormEditPage = false;// method_exists('EditPage', 'showFooter');
 
