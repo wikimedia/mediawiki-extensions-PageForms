@@ -110,7 +110,7 @@ class SFFormEdit extends SpecialPage {
 		// If the form page is a redirect, use the other form
 		// instead.
 		if ( $form_title->isRedirect() ) {
-			$form_title = Title::newFromRedirect( $form_definition );
+			$form_title = Title::newFromRedirectRecurse( $form_definition );
 			$form_article = new Article( $form_title, 0 );
 			$form_definition = $form_article->getContent();
 		}
