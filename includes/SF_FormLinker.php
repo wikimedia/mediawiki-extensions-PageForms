@@ -67,6 +67,7 @@ class SFFormLinker {
 		foreach ( $data->getProperties() as $property ) {
 			$propertyValues = $data->getPropertyValues( $property );
 			foreach ( $propertyValues as $propertyValue ) {
+				$propertyName = null;
 				$linkedPageName = null;
 				if ( $propertyValue instanceof SMWDIWikiPage ) {
 					$propertyName = $property->getKey();
