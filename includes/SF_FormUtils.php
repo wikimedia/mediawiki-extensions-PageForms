@@ -46,6 +46,8 @@ class SFFormUtils {
 	 * not handled by the form itself
 	 */
 	static function unhandledFieldsHTML( $templateName, $templateContents ) {
+		// HTML element names shouldn't contain spaces
+		$templateName = str_replace( ' ', '_', $templateName );
 		$text = "";
 		foreach ( $templateContents as $key => $value ) {
 			if ( !is_null( $key ) && !is_numeric( $key ) ) {
@@ -63,6 +65,7 @@ class SFFormUtils {
 	static function addUnhandledFields( $templateName ) {
 		global $wgRequest;
 
+		$templateName = str_replace( ' ', '_', $templateName );
 		$prefix = '_unhandled_' . $templateName . '_';
 		$prefixSize = strlen( $prefix );
 		$additional_template_text = "";
