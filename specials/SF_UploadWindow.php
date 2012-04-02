@@ -385,7 +385,7 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		// UTF8-decoding is needed for IE
 		$basename = utf8_decode( $basename );
 		
-		$output .= <<<END
+		$output = <<<END
 		<script type="text/javascript">
 		var input = parent.window.jQuery( parent.document.getElementById("{$this->mInputID}") );
 END;
