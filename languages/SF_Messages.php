@@ -2964,7 +2964,7 @@ $messages['gsw'] = array(
 	'semanticforms-desc' => 'Formular fir s Yyfiege un Bearbeite vu semantische Date',
 	'specialpages-group-sf_group' => 'Semantischi Formular',
 	'createproperty' => 'E Attribut aalege',
-	'sf_createproperty_linktoform' => 'Die Eigeschaft vergleicht zue Syte, wu des Format bruuche:',
+	'sf_createproperty_linktoform' => 'Die Eigeschaft verwyyst uff Syte, wu des Format bruuche:',
 	'sf_createproperty_allowedvalsinput' => 'Wänn Du fir des Fäld nume bstimmti Wärt witt megli mache, gib die bitte as kommatrännti Lischt yy (wänn s in eme Wärt e Komma het, ersetz des mit „\\,“):',
 	'sf_createproperty_propname' => 'Eigeschaftsname:',
 	'sf_createproperty_proptype' => 'Typ:',
@@ -2981,7 +2981,7 @@ $messages['gsw'] = array(
 	'sf_createtemplate_semanticproperty' => 'Semantisch Attribut:',
 	'sf_createtemplate_fieldislist' => 'In däm Fäld cha s e Lischt vu Wärt haa, wu dur Komma trännt wäre.',
 	'sf_createtemplate_aggregation' => 'Zämmefassig',
-	'sf_createtemplate_aggregationdesc' => 'Zum uf allene Syte, wu die Vorlag bruuche, alli Syte ufzlischte, wu ne bstimmt Attribut hän un uf die Syte vergleicht sin, gib s gwinscht Attribut do aa:',
+	'sf_createtemplate_aggregationdesc' => 'Zum uf allene Syte, wu die Vorlag bruuche, alli Syte ufzlischte, wu ne bstimmt Attribut hän un uf die Syte verwyyse, gib s gwinscht Attribut do aa:',
 	'sf_createtemplate_aggregationlabel' => 'Titel fir Lischt:',
 	'sf_createtemplate_outputformat' => 'Uusgabformat:',
 	'sf_createtemplate_standardformat' => 'Standard',
@@ -3070,7 +3070,7 @@ d URL sott eso ussäh 'Special:RunQuery/<Formularname>'.",
 	'uploadwindow' => 'Fänschter zum Uffelade',
 	'sf_deletionlog' => 'Leschlogbuech',
 	'sf_property_isproperty' => 'Des isch e Eigeschaft vum Typ $1.',
-	'sf_property_linkstoform' => 'Vergleicht zue Syte, wu s Format $1 bruuche.',
+	'sf_property_linkstoform' => 'Verwyyst uff Syte, wu s Format $1 bruuche.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Dr erlaubt Wärt fir die Eigeschaft isch|Di erlaubte Wärt fir die Eigeschaft sin}}:',
 	'sf_template_docu' => 'Des isch d Vorlag fir „$1“. Si sott in däm Format ufgruefe wäre:',
 	'sf_template_docufooter' => 'Die Syte bearbeite go dr Vorlagetäxt säh.',
@@ -3426,6 +3426,7 @@ $messages['hsb'] = array(
 	'sf_forminputs_property' => 'Semantiski atribut, kotryž tutomu polu wotpowěduje',
 	'sf_forminputs_size' => 'Wulkosć tutoho tekstoweho pola w znamješkach',
 	'sf_forminputs_maxlength' => 'Maksimalna dowolena dołhosć teksta w tutym zapodawanskim polu',
+	'sf_forminputs_placeholder' => 'Tekst pomocy, kotryž so jewi, doniž wužiwar na njón njekliknje',
 	'sf_forminputs_uploadable' => 'Wotkaz za nahrawanje dataje pódla zapodawanskeho pola stajić',
 	'sf_forminputs_defaultfilename' => 'Standardne datajowe mjeno za nahrate dataje',
 	'sf_forminputs_rows' => 'Ličba rjadkow za tute zapodawanske polo',
@@ -3446,6 +3447,7 @@ $messages['hsb'] = array(
 	'sf_forminputs_includetimezone' => 'Zapodawanske polo za časowe pasmo dodać',
 	'sf_forminputs_topcategory' => 'Nadrjadowana kategorija tuteje sadźby kategorijow (trěbna)',
 	'sf_forminputs_hideroot' => 'Nadrjadowanu kategoriju schować',
+	'sf_forminputs_depth' => 'Ličba kategorijowych runinow, kotrež maja so na spočatku pokazać',
 	'sf_forminputs_height' => 'Wysokosć tutoho zapodawanskeho pola w pikselach',
 	'sf_forminputs_width' => 'Šěrokosć tutoho zapodawanskeho pola w pikselach',
 	'createform' => 'Formular wutworić',
@@ -3503,11 +3505,17 @@ Za dalše opcije wužij strony $1 město toho.',
 	'sf_formedit_remove' => 'Wotstronić',
 	'sf_formedit_addanother' => 'Dalše přidać',
 	'sf_formedit_none' => 'Žadyn',
+	'sf_formedit_emptytitle' => 'Zmylk: Zasunjene daty wjedu k prózdnemu titulej strony.',
+	'sf_formedit_hookerror' => 'Zmylk: Rozšěrjenje MediaWiki je měnjenju ciloweje strony zadźěwało.',
 	'sf_formedit_saveandcontinueediting' => 'Składować a pokročować',
+	'sf_formedit_saveandcontinue_summary' => 'Je so z pomocu tłóčatka "$1" we formularje składował',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Składować a dale wobdźěłować',
+	'sf_autoedit_anoneditwarning' => 'Kedźbu: Njejsy přizjewjeny. Twoja IP-adresa budźe so do wersijowych stawiznow strony přijimać.',
+	'sf_autoedit_success' => '[[$1]] je so wuspěšnje z pomocu formulara $2 změnił.',
 	'sf_autoedit_notargetspecified' => 'Žana cilowa strona podata.',
 	'sf_autoedit_noformfound' => 'Žadyn formular podaty.',
 	'sf_autoedit_toomanyformsfound' => 'Za tutu stronu wjace hač jedyn formular k dispoziciji steji.',
+	'sf_autoedit_readonly' => 'Datowa banka je tuchwilu přećiwo změnam zawrjena. Přičina: $1',
 	'runquery' => 'Naprašowanje startować',
 	'sf_runquery_badurl' => "Dyrbiš formularne mjeno w URL podać;
 URL měł wupadać kaž 'Special:RunQuery/<formularne mjeno>'.",
@@ -3522,9 +3530,11 @@ URL měł wupadać kaž 'Special:RunQuery/<formularne mjeno>'.",
 	'sf_bad_date_error' => 'dyrbi płaćiwy datum być',
 	'uploadwindow' => 'Wokno nahraćow',
 	'sf_deletionlog' => 'protokol wušmórnjenjow',
+	'sf-preview-header' => 'Formularny přehlad',
 	'sf-pageschemas-pagenameformula' => 'Formla mjena strony:',
 	'sf-pageschemas-createtitle' => 'Titul formulara za nowe strony:',
 	'sf-pageschemas-edittitle' => 'Titul formulara za eksistowace strony:',
+	'sf-pageschemas-inputtype' => 'Zapodawanski typ (prózdny wostajić, zo by standard wužiwało):',
 	'sf_property_isproperty' => 'To je kajkosć typa $1.',
 	'sf_property_linkstoform' => 'Wotkazuje k stronam, kotrež formular $1 wužiwaja.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Dowolena hódnota za tutu kajkosć je|Dowolenej hódnoće za tutu kajkosć stej|Dowolene hódnoty za tutu kajkosć su|Dowolene hódnoty za tutu kajkosć su}}:',
@@ -4041,6 +4051,7 @@ $messages['is'] = array(
 
 /** Italian (Italiano)
  * @author Alessandro Rosà
+ * @author Beta16
  * @author Civvì
  * @author Darth Kule
  * @author Melos
@@ -4077,7 +4088,8 @@ $messages['it'] = array(
 	'forms' => 'Moduli',
 	'sf_forms_docu' => 'I seguenti moduli già esistono nel wiki.',
 	'sf_forminputs_mandatory' => 'Obbligatorio',
-	'sf_forminputs_restricted' => 'Riservato (solo utenti di tipo sysop possono modificarlo)',
+	'sf_forminputs_restricted' => 'Solo gli amministratori possono modificare questo input',
+	'sf_forminputs_default' => 'Il valore predefinito per questo input',
 	'createform' => 'Crea un nuovo modulo',
 	'sf_createform_nameinput' => 'Nome modulo',
 	'sf_createform_nameinputdesc' => '(la convenzione vuole che il nome del modulo venga assegnato dopo la popolazione del template principale ):',
@@ -4104,11 +4116,12 @@ $messages['it'] = array(
 	'sf_createcategory_makesubcategory' => 'Falla diventare una sottocategoria di una categoria già presente (opzionale):',
 	'createclass' => 'Crea una classe',
 	'sf_createclass_docu' => 'Aggiungi qui tutte le informazioni per creare le proprietà, i template, i moduli e le categoria per una singola classe. Per ulteriori opzioni invece vai alla pagina $1.',
-	'sf_createclass_allowedvalues' => 'Valori permessi',
-	'sf_createclass_listofvalues' => 'Lista di valori',
+	'sf_createclass_allowedvalues' => 'Valori consentiti:',
+	'sf_createclass_listofvalues' => 'Lista di valori?',
 	'sf_createclass_leavefieldblank' => 'Se il nome del campo è lo stesso del nome della proprietà, non puoi lasciarli vuoti.',
 	'sf_createclass_missingvalues' => 'Campi richiesti non completamente riempiti.',
 	'sf_createclass_success' => 'Proprietà, template, moduli e categorie verranno create.',
+	'sf_createclass_create' => 'Crea',
 	'formstart' => 'Aggiungi pagina usando un modulo',
 	'sf_formstart_badform' => 'Errore: nessun modulo è stato trovato alla pagina $1',
 	'sf_formstart_badtitle' => 'Errore: "$1" non è un titolo valido per la pagina',
@@ -4121,6 +4134,7 @@ Altrimenti, verrai indirizzato ad un nuovo modulo che ti permetterà di aggiunge
 	'sf_formstart_createoredit' => 'Crea o modifica',
 	'formedit' => 'Modifica tramite un modulo',
 	'sf_formedit_createtitle' => 'Crea $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Crea $1',
 	'sf_formedit_badurl' => "Questa è la pagina per modificare i dati inseriti tramite un modulo. Nell'URL devi specificare sia il nome del modulo e sia la pagina da modificare;
 dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&target=<target page>', oppure 'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'Invece puoi aggiungere una pagina con uno dei seguenti moduli già creati:',
@@ -4134,6 +4148,7 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_formedit_remove' => 'Rimuovi',
 	'sf_formedit_addanother' => "Aggiungi un'\\altro",
 	'sf_formedit_none' => 'Nessuno',
+	'sf_formedit_saveandcontinueediting' => 'Salva e continua',
 	'runquery' => 'Esegui query',
 	'sf_runquery_badurl' => "Devi specificare il nome del form nell'\\ URL;
 l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name>'.",
@@ -4597,10 +4612,11 @@ $messages['ku-latn'] = array(
 /** Cornish (Kernowek)
  * @author Kernoweger
  * @author Kw-Moon
+ * @author Nrowe
  */
 $messages['kw'] = array(
-	'createtemplate' => 'Gwruthyl scantlyn',
-	'sf_createform_template' => 'Scantlyn:',
+	'createtemplate' => 'Gwruthyl skantlyn',
+	'sf_createform_template' => 'Skantlyn:',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
