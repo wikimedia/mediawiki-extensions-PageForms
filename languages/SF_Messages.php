@@ -4184,6 +4184,7 @@ Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto
  * @author Fryed-peach
  * @author Hosiryuhosi
  * @author Schu
+ * @author Shirayuki
  * @author Whym
  * @author 青子守歌
  */
@@ -4316,7 +4317,8 @@ $messages['ja'] = array(
 	'right-viewedittab' => 'フォームによって編集可能なページの「編集」タブが表示される',
 	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集する',
 	'right-createclass' => '新しい意味クラスの作成',
-	'action-createclass' => '新しい意味クラスの作成',
+	'action-createclass' => '新しい意味クラスを作成',
+	'action-editrestrictedfields' => 'フォームの制限されたフィールドを編集',
 );
 
 /** Javanese (Basa Jawa)
