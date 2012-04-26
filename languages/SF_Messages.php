@@ -5042,7 +5042,7 @@ $messages['mk'] = array(
 	'sf_forminputs_existingvaluesonly' => 'Допуштај само вредности што се веќе на списокот',
 	'sf_forminputs_showonselect' => 'Елементи на страницата за приказ само ако се одбрани извесни вредности (пример: "value1=>div1;value2=>div2")',
 	'sf_forminputs_listboxsize' => 'Висината на списочното поле, во редови',
-	'sf_forminputs_includetimezone' => 'Вклучи внос за оваа часовна зона',
+	'sf_forminputs_includetimezone' => 'Вклучи внос за овој часовен појас',
 	'sf_forminputs_topcategory' => 'Матичната категорија на овој збир категории (задолжително)',
 	'sf_forminputs_hideroot' => 'Скриј ја матичната категорија',
 	'sf_forminputs_depth' => 'Колку нивоа на категории да се прикажуваат првично',
