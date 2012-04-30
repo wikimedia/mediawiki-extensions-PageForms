@@ -953,6 +953,14 @@ $messages['bg'] = array(
 	'sf_category_desc' => 'Това е категорията $1.',
 );
 
+/** Banjar (Bahasa Banjar)
+ * @author J Subhi
+ */
+$messages['bjn'] = array(
+	'sf_formedit_createtitle' => 'Ma-ulah $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Ma-ulah $1',
+);
+
 /** Bengali (বাংলা)
  * @author Bellayet
  * @author Wikitanvir
@@ -4222,7 +4230,7 @@ $messages['ja'] = array(
 	'sf_forminputs_mandatory' => '必須',
 	'sf_forminputs_restricted' => '管理者だけがこの入力を編集することができます',
 	'sf_forminputs_class' => 'この入力のための HTML の"クラス"属性',
-	'sf_forminputs_default' => 'この入力のデフォルト値',
+	'sf_forminputs_default' => 'この入力の既定値',
 	'sf_forminputs_size' => 'このテキストフ​​ィールドの文字数でのサイズ',
 	'sf_forminputs_maxlength' => 'このフィールド内のテキストに許される最大長',
 	'sf_forminputs_defaultfilename' => 'アップロードされたファイルの既定のファイル名',
@@ -4231,6 +4239,7 @@ $messages['ja'] = array(
 	'sf_forminputs_valuesfromproperty' => 'そのウィキ内の値のプロパティは、この値の入力のセットになります',
 	'sf_forminputs_valuesfromcategory' => 'そのページの値のこの入力のセットがあるはずのカテゴリー',
 	'sf_forminputs_valuesfromnamespace' => 'そのページの名前空間は、この値の入力のセットになります',
+	'sf_forminputs_remoteautocompletion' => 'リモート自動補完を使用',
 	'sf_forminputs_listboxsize' => 'このリストボックスの高さ（行）',
 	'sf_forminputs_includetimezone' => 'タイムゾーンの入力を含んでいます',
 	'sf_forminputs_topcategory' => 'カテゴリのこのセット (必須) の親カテゴリ',
@@ -4258,8 +4267,8 @@ $messages['ja'] = array(
 	'sf_createform_add' => '追加',
 	'sf_createform_choosefield' => '追加するフィールドを選択',
 	'createcategory' => 'カテゴリを作成',
-	'sf_createcategory_name' => 'カテゴリ名:',
-	'sf_createcategory_defaultform' => 'デフォルトのフォーム:',
+	'sf_createcategory_name' => 'カテゴリ名：',
+	'sf_createcategory_defaultform' => '既定のフォーム：',
 	'sf_createcategory_makesubcategory' => 'これを別のカテゴリのサブカテゴリにする（任意選択）：',
 	'createclass' => 'クラスを作成',
 	'sf_createclass_docu' => '単一のクラスに対応するプロパティ群、テンプレート、フォーム、カテゴリを作成するためのデータすべてをここに入力してください。その他の選択肢が必要であれば、ページ $1 を使用してください。',
@@ -4273,9 +4282,13 @@ $messages['ja'] = array(
 	'formstart' => 'フォームによるページの追加',
 	'sf_formstart_badform' => 'エラー: $1 にはフォームページが見つかりませんでした',
 	'sf_formstart_badtitle' => 'エラー:「$1」はページ名として無効です。',
-	'sf_formstart_docu' => 'フォーム「$1」で編集するページの名前をここに入力してください。そのページが既に存在する場合、そのページを編集するためのフォームへ転送されます。その他の場合は、そのページを追加するためのフォームへ転送されます。',
-	'sf_formstart_noform_docu' => 'ページの名前をここに入力し、編集に使うフォームを選んでください。そのページが既に存在する場合、そのページを編集するためのフォームへ転送されます。その他の場合は、そのページを追加するためのフォームへ転送されます。',
-	'sf_formstart_createoredit' => '作成、または編集',
+	'sf_formstart_docu' => 'フォーム「$1」で編集するページの名前をここに入力してください。
+そのページが既に存在する場合は、そのページを編集するフォームへ転送されます。
+その他の場合は、そのページを追加するフォームに転送されます。',
+	'sf_formstart_noform_docu' => 'ページの名前をここに入力して、編集に使うフォームを選んでください。
+そのページが既に存在する場合は、そのページを編集するフォームに転送されます。
+その他の場合は、そのページを追加するフォームに転送されます。',
+	'sf_formstart_createoredit' => '作成または編集',
 	'formedit' => 'フォームを使って編集',
 	'sf_formedit_createtitle' => '$1を作成：$2',
 	'sf_formedit_createtitlenotarget' => '$1 を作成',
@@ -4287,12 +4300,13 @@ $messages['ja'] = array(
 	'sf_viewform' => 'フォームを表示',
 	'sf_editsource' => 'ソースを編集',
 	'sf_formedit_edittitle' => '$1 を編集: $2',
-	'sf_formedit_morethanoneform' => '警告: このページに対するデフォルトのフォームが複数定義されています。',
+	'sf_formedit_morethanoneform' => "'''警告：'''このページに対する既定のフォームが複数定義されています。",
 	'sf_formedit_formwarning' => '警告: このページは<a href="$1">既に存在します</a>が、このフォームを利用していません。',
 	'sf_formedit_remove' => '削除',
 	'sf_formedit_addanother' => '別のものを追加',
 	'sf_formedit_none' => 'なし',
 	'sf_formedit_saveandcontinueediting' => '保存して続行',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'データを保存して編集を続行',
 	'sf_autoedit_noformfound' => 'フォームが指定されていません。',
 	'runquery' => 'クエリー実行',
 	'sf_runquery_badurl' => 'URL中にフォーム名を指定しなければなりません。URLは「Special:RunQuery/<フォーム名>」というような形式になります。',
@@ -4301,13 +4315,14 @@ $messages['ja'] = array(
 	'sf_formerrors_header' => 'フォームへの入力内容に誤りがありました。以下をご覧ください',
 	'sf_blank_error' => '空であってはならない',
 	'sf_bad_url_error' => "URLの形式が 'http' から始まる正しいものでなくてはならない",
-	'sf_bad_email_error' => 'メールアドレスの形式として正しくなくてはならない',
-	'sf_bad_number_error' => '数として有効でなくてはならない',
-	'sf_bad_integer_error' => '整数として有効でなくてはならない',
+	'sf_bad_email_error' => 'メールアドレスの正しい形式でなくてはならない',
+	'sf_bad_number_error' => '有効な数値でなくてはならない',
+	'sf_bad_integer_error' => '有効な整数でなくてはならない',
 	'sf_bad_date_error' => '正しい日付でなくてはならない',
 	'uploadwindow' => 'アップロード ウィンドウ',
 	'sf_deletionlog' => '削除記録',
 	'sf-preview-header' => 'フォーム プレビュー',
+	'sf-pageschemas-inputtype' => '入力型（既定の場合は空白）：',
 	'sf_property_isproperty' => 'これは型 $1 のプロパティです。',
 	'sf_property_linkstoform' => 'フォーム $1 を利用するページにリンクする。',
 	'sf_property_allowedvals' => 'このプロパティが取ることのできる{{PLURAL:$1|値}}:',
@@ -4318,11 +4333,12 @@ $messages['ja'] = array(
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使っています。',
 	'sf_category_desc' => 'これは $1 カテゴリです。',
 	'sf_blank_namespace' => '標準',
-	'right-viewedittab' => 'フォームによって編集可能なページの「編集」タブが表示される',
-	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集する',
-	'right-createclass' => '新しい意味クラスの作成',
+	'right-viewedittab' => 'フォームで編集できるページに「編集」タブが表示される',
+	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集',
+	'right-createclass' => '新しい意味クラスを作成',
 	'action-createclass' => '新しい意味クラスを作成',
 	'action-editrestrictedfields' => 'フォームの制限されたフィールドを編集',
+	'action-viewedittab' => 'フォームで編集できるページに「編集」タブを表示',
 );
 
 /** Javanese (Basa Jawa)
