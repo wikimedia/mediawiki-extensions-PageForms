@@ -92,7 +92,13 @@ class SFRadioButtonInput extends SFEnumInput {
 			}
 
 			$text .= "\t" . Html::rawElement( 'label', $itemAttrs,
-				Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label" ) . "\n";
+				// Using Xml::radio() here because Html::input()
+				// unfortunately doesn't include the "value="
+				// attribute if the value is blank - which
+				// somehow leads to the string "on" being passed
+				// to the page.
+				//Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label" ) . "\n";
+				Xml::radio( $input_name, $possible_value, $radiobutton_attrs ) . " $label" ) . "\n";
 		}
 
 		$spanClass = 'radioButtonSpan';
