@@ -73,8 +73,10 @@ class SFRadioButtonInput extends SFEnumInput {
 				'id' => $input_id,
 				'tabindex' => $sfgTabIndex,
 			);
+			$isChecked = false;
 			if ( $cur_value == $possible_value ) {
-				$radiobutton_attrs['checked'] = true;
+				$isChecked = true;
+				//$radiobutton_attrs['checked'] = true;
 			}
 			if ( $is_disabled ) {
 				$radiobutton_attrs['disabled'] = true;
@@ -98,7 +100,7 @@ class SFRadioButtonInput extends SFEnumInput {
 				// somehow leads to the string "on" being passed
 				// to the page.
 				//Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label" ) . "\n";
-				Xml::radio( $input_name, $possible_value, $radiobutton_attrs ) . " $label" ) . "\n";
+				Xml::radio( $input_name, $possible_value, $isChecked, $radiobutton_attrs ) . " $label" ) . "\n";
 		}
 
 		$spanClass = 'radioButtonSpan';
