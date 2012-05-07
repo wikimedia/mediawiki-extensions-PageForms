@@ -41,7 +41,7 @@ $namespaceNames['ca'] = array(
  */
 $namespaceNames['de'] = array(
 	SF_NS_FORM           => 'Formular',
-	SF_NS_FORM_TALK      => 'Formular Diskussion'
+	SF_NS_FORM_TALK      => 'Formular_Diskussion'
 );
 
 $namespaceNames['en'] = array(
