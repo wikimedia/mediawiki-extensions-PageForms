@@ -76,9 +76,11 @@ class SFTextInput extends SFFormInput {
 
 		if ( array_key_exists( 'query', $result ) && array_key_exists( 'pages', $result['query'] ) ) {
 			foreach ( $result['query']['pages'] as $page ) {
-				foreach ( $page['imageinfo'] as $imageInfo ) {
-					$url = $imageInfo['thumburl'];
-					break;
+				if ( array_key_exists( 'imageinfo', $page ) ) {
+					foreach ( $page['imageinfo'] as $imageInfo ) {
+						$url = $imageInfo['thumburl'];
+						break;
+					}
 				}
 			}
 		}
@@ -159,9 +161,9 @@ class SFTextInput extends SFFormInput {
 		// holds a single value, not a list of values.)
 		$size = 35;
 		$inputType = '';
-		if ( array_key_exists( 'field_type', $other_args )  &&
+		if ( array_key_exists( 'field_type', $other_args ) &&
 			( !array_key_exists( 'is_list', $other_args ) ||
-	       		!$other_args['is_list']	) ) {
+			!$other_args['is_list']	) ) {
 			if ( $other_args['field_type'] == 'number' ) {
 				$size = 10;
 				$inputType = 'number';
