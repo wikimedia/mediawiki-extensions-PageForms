@@ -1692,7 +1692,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch
  */
 $messages['diq'] = array(
 	'sf_formedit_remove' => 'Hewad',
-	'sf_formedit_none' => 'Çıniyo',
+	'sf_formedit_none' => 'Çıno',
 	'sf_template_docu' => 'No şablonê "$1"yo.
 Beno ke zey formatê cêrêni name bo:',
 	'sf_template_docufooter' => 'Qandê Nusne na sabloner vinayışi na peler bıvurnê',
