@@ -6054,6 +6054,14 @@ $messages['pdc'] = array(
 	'sf_blank_namespace' => 'Blatt',
 );
 
+/** Pälzisch (Pälzisch)
+ * @author Manuae
+ */
+$messages['pfl'] = array(
+	'sf_createtemplate_deletefield' => 'Lesche',
+	'sf_createform_hidden' => 'Vaschdegld',
+);
+
 /** Polish (Polski)
  * @author BeginaFelicysym
  * @author Jwitos
@@ -7513,7 +7521,7 @@ $messages['tg-cyrl'] = array(
 	'sf_blank_namespace' => 'Аслӣ',
 );
 
-/** Tajik (Latin script) (tojikī)
+/** Tajik (Latin script) (Tojikī)
  * @author Liangent
  */
 $messages['tg-latn'] = array(
@@ -7705,6 +7713,7 @@ kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa 
 /** Turkish (Türkçe)
  * @author Joseph
  * @author Karduelis
+ * @author Suelnur
  * @author Vito Genovese
  */
 $messages['tr'] = array(
@@ -7744,8 +7753,9 @@ $messages['tr'] = array(
 	'sf_createcategory_defaultform' => 'Var sayılan form:',
 	'sf_createclass_allowedvalues' => 'İzin verilen değerler',
 	'sf_createclass_listofvalues' => 'Değerlerin listesi',
+	'sf_createclass_create' => 'Oluştur',
 	'formstart' => 'Form ile sayfa ekle',
-	'sf_formstart_createoredit' => 'Ekle veya düzelt',
+	'sf_formstart_createoredit' => 'Oluştur veya düzelt',
 	'sf_viewform' => 'Formu gör',
 	'sf_editsource' => 'Kaynak düzelt',
 	'sf_formedit_remove' => 'Kaldır',
@@ -7808,7 +7818,7 @@ $messages['uk'] = array(
 	'sf_category_desc' => 'Це категорія $1.',
 );
 
-/** Veps (Vepsän kel')
+/** Veps (Vepsän kel’)
  * @author Игорь Бродский
  */
 $messages['vep'] = array(
