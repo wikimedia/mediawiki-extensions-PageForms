@@ -1636,7 +1636,7 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf-pageschemas-inputtype' => 'Eingabetyp (leer lassen, um die Standardeinstellung zu nutzen):',
 	'sf_property_isproperty' => 'Dies ist ein Attribut des Datentyps $1.',
 	'sf_property_linkstoform' => 'Es verlinkt auf Seiten, die das Formular „$1“ nutzen.',
-	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für dieses Attribut lautet|Die möglichen Werte für dieses Attribut lauten}}:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für dieses Attribut ist|Die möglichen Werte für dieses Attribut sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage „$1“.
 Sie sollte im folgenden Format aufgerufen werden:',
 	'sf_template_docufooter' => 'Klicke auf „Bearbeiten“, um den Vorlagentext anzusehen.',
@@ -6887,6 +6887,7 @@ $messages['ru'] = array(
 	'sf_formedit_remove' => 'Удалить',
 	'sf_formedit_addanother' => 'Добавить ещё',
 	'sf_formedit_none' => 'Ничего',
+	'sf_formedit_saveandcontinueediting' => 'Сохранить и продолжить',
 	'runquery' => 'Запустить запрос',
 	'sf_runquery_badurl' => 'Вы должны определить имя формы в URL;
 URL должен выглядеть так: «Special:RunQuery/<form name>».',
