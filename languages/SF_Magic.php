@@ -35,9 +35,11 @@ $magicWords['arz'] = array(
 /** German (Deutsch) */
 $magicWords['de'] = array(
 	'forminput' => array( 0, 'formulareingabe' ),
-	'formlink' => array( 0, 'formularverweis' ),
+	'formlink' => array( 0, 'formularlink', 'formularverweis' ),
+	'queryformlink' => array( 0, 'abfrageformularlink', 'abfrageformularverweis' ),
 	'arraymap' => array( 0, 'werteanordnung' ),
 	'arraymaptemplate' => array( 0, 'werteanordnungsvorlage' ),
+	'autoedit' => array( 0, 'autobearbeitung' ),
 );
 
 /** Japanese (日本語) */
@@ -50,10 +52,12 @@ $magicWords['ja'] = array(
 
 /** Macedonian (Македонски) */
 $magicWords['mk'] = array(
-	'forminput' => array( 0, 'вносзаформа' ),
-	'formlink' => array( 0, 'врсказаформа' ),
+	'forminput' => array( 0, 'вносзаобразец' ),
+	'formlink' => array( 0, 'врсказаобразец' ),
+	'queryformlink' => array( 0, 'барањезаврсказаобразец' ),
 	'arraymap' => array( 0, 'картананиза' ),
 	'arraymaptemplate' => array( 0, 'шаблоннакартазаниза' ),
+	'autoedit' => array( 0, 'автоуреди' ),
 );
 
 /** Marathi (मराठी) */
@@ -74,6 +78,7 @@ $magicWords['nl'] = array(
 	'forminput' => array( 0, 'formulierinvoer' ),
 	'formlink' => array( 0, 'formulierverwijzing' ),
 	'arraymaptemplate' => array( 0, 'arraymapsjabloon' ),
+	'autoedit' => array( 0, 'autobewerken' ),
 );
 
 /** Serbian (Cyrillic script) (‪Српски (ћирилица)‬) */
