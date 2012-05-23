@@ -52,6 +52,17 @@ $specialPageAliases['arz'] = array(
 	'UploadWindow' => array( 'ويندو_الأپلود' ),
 );
 
+/** Banjar (Bahasa Banjar) */
+$specialPageAliases['bjn'] = array(
+	'CreateCategory' => array( 'Ulah_tumbung' ),
+	'CreateForm' => array( 'Ulah_purmulir' ),
+	'CreateTemplate' => array( 'Ulah_citakan' ),
+	'FormEdit' => array( 'Babak_data' ),
+	'FormStart' => array( 'Tambah_tungkaran' ),
+	'Templates' => array( 'Citakan' ),
+	'UploadWindow' => array( 'Lalungkang_paunggahan' ),
+);
+
 /** Breton (Brezhoneg) */
 $specialPageAliases['br'] = array(
 	'CreateCategory' => array( 'KrouiñRummad' ),
@@ -81,12 +92,23 @@ $specialPageAliases['de'] = array(
 	'CreateForm' => array( 'Formular_erstellen' ),
 	'CreateProperty' => array( 'Attribut_erstellen' ),
 	'CreateTemplate' => array( 'Vorlage_erstellen' ),
-	'FormEdit' => array( 'Mit_Formular_bearbeiten' ),
-	'FormStart' => array( 'Mit_Formular_hinzufügen' ),
+	'FormEdit' => array( 'Mit_Formular_bearbeiten', 'Daten_hinzufügen', 'Daten_bearbeiten' ),
+	'FormStart' => array( 'Mit_Formular_hinzufügen', 'Seite_hinzufügen' ),
 	'Forms' => array( 'Formulare' ),
 	'RunQuery' => array( 'Abfrage_ausführen' ),
 	'Templates' => array( 'Vorlagen' ),
 	'UploadWindow' => array( 'Hochladefenster' ),
+);
+
+/** Zazaki (Zazaki) */
+$specialPageAliases['diq'] = array(
+	'CreateCategory' => array( 'KategoriVıraze' ),
+	'CreateClass' => array( 'SınıfeVıraze' ),
+	'CreateForm' => array( 'FormVıraze' ),
+	'CreateProperty' => array( 'XısusiyetiVıraze' ),
+	'CreateTemplate' => array( 'ŞablonVıraze' ),
+	'Forms' => array( 'Formi' ),
+	'Templates' => array( 'Şabloni' ),
 );
 
 /** Esperanto (Esperanto) */
@@ -175,14 +197,17 @@ $specialPageAliases['gl'] = array(
 
 /** Swiss German (Alemannisch) */
 $specialPageAliases['gsw'] = array(
-	'CreateCategory' => array( 'Kategori aalege' ),
-	'CreateForm' => array( 'Form aalege' ),
-	'CreateProperty' => array( 'Eigeschaft aalege' ),
-	'CreateTemplate' => array( 'Template aalege' ),
-	'FormEdit' => array( 'Date bearbeite' ),
-	'FormStart' => array( 'Syte zuegee' ),
+	'CreateCategory' => array( 'Kategori_aalege' ),
+	'CreateClass' => array( 'Klass_erstelle' ),
+	'CreateForm' => array( 'Form_aalege' ),
+	'CreateProperty' => array( 'Eigeschaft_aalege' ),
+	'CreateTemplate' => array( 'Template_aalege' ),
+	'FormEdit' => array( 'Date_bearbeite' ),
+	'FormStart' => array( 'Syte_zuegee' ),
 	'Forms' => array( 'Form' ),
-	'UploadWindow' => array( 'Fänschter zum Uffelade' ),
+	'RunQuery' => array( 'Abfroog_ussfüere' ),
+	'Templates' => array( 'Vorlage' ),
+	'UploadWindow' => array( 'Fänschter_zum_Uffelade' ),
 );
 
 /** Upper Sorbian (Hornjoserbsce) */
@@ -283,6 +308,7 @@ $specialPageAliases['ka'] = array(
 	'CreateClass' => array( 'კლასის_შექმნა' ),
 	'CreateTemplate' => array( 'თარგის_შექმნა' ),
 	'Templates' => array( 'თარგები' ),
+	'UploadWindow' => array( 'ატვირთვის_ფანჯარა' ),
 );
 
 /** Khmer (ភាសាខ្មែរ) */
@@ -321,9 +347,9 @@ $specialPageAliases['ksh'] = array(
 
 /** Cornish (Kernowek) */
 $specialPageAliases['kw'] = array(
-	'CreateCategory' => array( 'GwruthylClass' ),
-	'CreateTemplate' => array( 'GwruthylScantlyn' ),
-	'Templates' => array( 'Scantlyns' ),
+	'CreateCategory' => array( 'GwruthylKlass' ),
+	'CreateTemplate' => array( 'GwruthylSkantlyn' ),
+	'Templates' => array( 'Skantlyns' ),
 );
 
 /** Ladino (Ladino) */
@@ -604,6 +630,13 @@ $specialPageAliases['tt-cyrl'] = array(
 	'Templates' => array( 'Үрнәкләр' ),
 );
 
+/** Ukrainian (Українська) */
+$specialPageAliases['uk'] = array(
+	'CreateCategory' => array( 'СтворитиКатегорію' ),
+	'Forms' => array( 'Форми' ),
+	'Templates' => array( 'Шаблони' ),
+);
+
 /** Vèneto (Vèneto) */
 $specialPageAliases['vec'] = array(
 	'CreateTemplate' => array( 'CreaModèl' ),
@@ -611,4 +644,14 @@ $specialPageAliases['vec'] = array(
 	'FormStart' => array( 'ZontaPagina' ),
 	'Templates' => array( 'Modèi' ),
 	'UploadWindow' => array( 'AjornaFenestra' ),
+);
+
+/** Simplified Chinese (‪中文(简体)‬) */
+$specialPageAliases['zh-hans'] = array(
+	'CreateCategory' => array( '创建分类' ),
+	'CreateForm' => array( '创建表格' ),
+	'CreateTemplate' => array( '创建模板' ),
+	'Forms' => array( '表格' ),
+	'RunQuery' => array( '执行查询' ),
+	'Templates' => array( '模板' ),
 );
