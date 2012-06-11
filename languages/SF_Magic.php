@@ -50,7 +50,17 @@ $magicWords['ja'] = array(
 	'arraymaptemplate' => array( 0, '配列マップテンプレート' ),
 );
 
-/** Macedonian (Македонски) */
+/** Korean (한국어) */
+$magicWords['ko'] = array(
+	'forminput' => array( 0, '양식입력' ),
+	'formlink' => array( 0, '양식링크' ),
+	'queryformlink' => array( 0, '쿼리양식링크' ),
+	'arraymap' => array( 0, '배열지도' ),
+	'arraymaptemplate' => array( 0, '배열지도틀' ),
+	'autoedit' => array( 0, '자동편집' ),
+);
+
+/** Macedonian (македонски) */
 $magicWords['mk'] = array(
 	'forminput' => array( 0, 'вносзаобразец' ),
 	'formlink' => array( 0, 'врсказаобразец' ),
@@ -77,17 +87,18 @@ $magicWords['nds-nl'] = array(
 $magicWords['nl'] = array(
 	'forminput' => array( 0, 'formulierinvoer' ),
 	'formlink' => array( 0, 'formulierverwijzing' ),
+	'arraymap' => array( 0, 'arraymapping' ),
 	'arraymaptemplate' => array( 0, 'arraymapsjabloon' ),
 	'autoedit' => array( 0, 'autobewerken' ),
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬) */
 $magicWords['sr-ec'] = array(
 	'forminput' => array( 0, 'формирајулаз', 'формирај_улаз' ),
 	'formlink' => array( 0, 'формирај_везу' ),
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬) */
+/** Serbian (Latin script) (‪srpski (latinica)‬) */
 $magicWords['sr-el'] = array(
 	'forminput' => array( 0, 'obrazuj_ulaz' ),
 	'formlink' => array( 0, 'obrazuj_vezu' ),
