@@ -692,7 +692,7 @@ $messages['avk'] = array(
 	'sf_blank_namespace' => 'Nelkaxo',
 );
 
-/** Azerbaijani (Azərbaycanca)
+/** Azerbaijani (azərbaycanca)
  * @author Cekli829
  */
 $messages['az'] = array(
@@ -711,7 +711,7 @@ $messages['bar'] = array(
 	'formedit' => 'Mid Formular beorweiten',
 );
 
-/** Belarusian (Беларуская)
+/** Belarusian (беларуская)
  * @author Тест
  */
 $messages['be'] = array(
@@ -888,7 +888,7 @@ URL-адрас павінен мець выгляд 'Special:RunQuery/<назв�
 	'right-createclass' => 'стварэньне новых сэмантычных клясаў',
 );
 
-/** Bulgarian (Български)
+/** Bulgarian (български)
  * @author DCLXVI
  */
 $messages['bg'] = array(
@@ -1005,7 +1005,7 @@ $messages['bn'] = array(
 	'sf_blank_namespace' => 'প্রধান',
 );
 
-/** Breton (Brezhoneg)
+/** Breton (brezhoneg)
  * @author Fohanno
  * @author Fulup
  * @author Y-M D
@@ -1129,7 +1129,7 @@ Ma'z eus ur bajenn en anv-se dija, e viot kaset d'ur furmskrid a dalvez d'hec'h 
 	'right-editrestrictedfields' => 'Aozañ maeziennoù strishaet ar furmskridoù',
 );
 
-/** Bosnian (Bosanski)
+/** Bosnian (bosanski)
  * @author CERminator
  */
 $messages['bs'] = array(
@@ -1218,7 +1218,7 @@ Trebao bi se nazvati u slijedećem formatu:",
 	'right-editrestrictedfields' => 'Uređivanje ograničenih polja obrazca',
 );
 
-/** Catalan (Català)
+/** Catalan (català)
  * @author Dvdgmz
  * @author Paucabot
  * @author SMP
@@ -1412,12 +1412,12 @@ $messages['ce'] = array(
 	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
 
-/** Sorani (کوردی) */
+/** Sorani Kurdish (کوردی) */
 $messages['ckb'] = array(
 	'sf_createtemplate_deletefield' => 'سڕینەوە',
 );
 
-/** Czech (Česky)
+/** Czech (česky)
  * @author Matěj Grabovský
  * @author Mormegil
  */
@@ -1450,7 +1450,7 @@ $messages['cu'] = array(
 	'sf_createtemplate_deletefield' => 'поничьжє́ниѥ',
 );
 
-/** Danish (Dansk)
+/** Danish (dansk)
  * @author Jon Harald Søby
  */
 $messages['da'] = array(
@@ -1821,7 +1821,7 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 	'right-editrestrictedfields' => 'Wobgranicowane formularne póla wobźěłaś',
 );
 
-/** Ewe (Eʋegbe) */
+/** Ewe (eʋegbe) */
 $messages['ee'] = array(
 	'sf_createtemplate_deletefield' => 'Tutui',
 );
@@ -2002,7 +2002,7 @@ $messages['eo'] = array(
 	'sf_blank_namespace' => 'Ĉefa',
 );
 
-/** Spanish (Español)
+/** Spanish (español)
  * @author Armando-Martin
  * @author Cmitnick
  * @author Crazymadlover
@@ -2183,7 +2183,7 @@ Para crear una página con este formulario, ingrese el nombre de la página a co
 	'action-viewedittab' => 'ver la pestaña "Editar" en las páginas editables por formularios',
 );
 
-/** Basque (Euskara)
+/** Basque (euskara)
  * @author An13sa
  * @author Kobazulo
  */
@@ -2313,7 +2313,7 @@ $messages['fa'] = array(
 	'sf_blank_namespace' => 'اصلی',
 );
 
-/** Finnish (Suomi)
+/** Finnish (suomi)
  * @author Centerlink
  * @author Cimon Avaro
  * @author Crt
@@ -2440,14 +2440,14 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
 	'right-editrestrictedfields' => 'Muokata rajoitettuja lomakekenttiä',
 );
 
-/** Faroese (Føroyskt)
+/** Faroese (føroyskt)
  * @author Diupwijk
  */
 $messages['fo'] = array(
 	'templates' => 'Fyrimyndir',
 );
 
-/** French (Français)
+/** French (français)
  * @author Crochet.david
  * @author Dereckson
  * @author Gomoko
@@ -2635,7 +2635,7 @@ si une page avec ce nom existe déjà, vous serez dirigé vers un formulaire pou
 	'action-viewedittab' => 'voir l’onglet « modifier » pour les pages modifiables via un formulaire',
 );
 
-/** Franco-Provençal (Arpetan)
+/** Franco-Provençal (arpetan)
  * @author Cedric31
  * @author ChrisPtDe
  */
@@ -3398,7 +3398,7 @@ $messages['hil'] = array(
 	'sf_createtemplate_deletefield' => 'Panason',
 );
 
-/** Croatian (Hrvatski)
+/** Croatian (hrvatski)
  * @author Dalibor Bosits
  */
 $messages['hr'] = array(
@@ -3581,7 +3581,7 @@ jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, 
 	'action-viewedittab' => 'Rajtark "Wobźěłać" za strony pokazać, kotrež su přez formular wobźěłujomne',
 );
 
-/** Hungarian (Magyar)
+/** Hungarian (magyar)
  * @author Dani
  * @author Dj
  * @author Dorgan
@@ -3710,7 +3710,7 @@ Ha már létezik ilyen nevű lap, egy űrlaphoz leszel irányítva, ahol szerkes
 	'right-editrestrictedfields' => 'korlátozott űrlap-mezők szerkesztése',
 );
 
-/** Interlingua (Interlingua)
+/** Interlingua (interlingua)
  * @author McDutchie
  */
 $messages['ia'] = array(
@@ -4067,7 +4067,7 @@ $messages['io'] = array(
 	'sf_createform_template' => 'Shablono:',
 );
 
-/** Icelandic (Íslenska)
+/** Icelandic (íslenska)
  * @author S.Örvarr.S
  */
 $messages['is'] = array(
@@ -4076,7 +4076,7 @@ $messages['is'] = array(
 	'sf_createcategory_name' => 'Nafn:',
 );
 
-/** Italian (Italiano)
+/** Italian (italiano)
  * @author Alessandro Rosà
  * @author Beta16
  * @author Civvì
@@ -4650,7 +4650,7 @@ $messages['ku-latn'] = array(
 	'sf_createcategory_name' => 'Navê kategorîyê:',
 );
 
-/** Cornish (Kernowek)
+/** Cornish (kernowek)
  * @author Kernoweger
  * @author Kw-Moon
  * @author Nrowe
@@ -4781,7 +4781,7 @@ $messages['li'] = array(
 	'sf_formedit_edittitle' => '$1 bewèrke: $2',
 );
 
-/** Lithuanian (Lietuvių)
+/** Lithuanian (lietuvių)
  * @author Domas
  */
 $messages['lt'] = array(
@@ -4876,7 +4876,7 @@ Jeigu puslapis tokiu vardu jau egzistuoja, šia forma galėsite jį redaguoti.',
 	'sf_blank_namespace' => 'Pagrindinis',
 );
 
-/** Latvian (Latviešu)
+/** Latvian (latviešu)
  * @author Ilmarmors
  */
 $messages['lv'] = array(
@@ -5016,7 +5016,7 @@ $messages['mhr'] = array(
 	'sf_createform_inputtypedefault' => '(ойлыде)',
 );
 
-/** Macedonian (Македонски)
+/** Macedonian (македонски)
  * @author Bjankuloski06
  * @author Brest
  */
@@ -5255,7 +5255,7 @@ $messages['ml'] = array(
 	'sf_blank_namespace' => 'മുഖ്യം',
 );
 
-/** Mongolian (Монгол)
+/** Mongolian (монгол)
  * @author Chinneeb
  */
 $messages['mn'] = array(
@@ -5812,7 +5812,7 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
 	'action-viewedittab' => 'het tabblad "Bewerken" te zien voor pagina\'s die via een formulier te bewerken zijn',
 );
 
-/** Norwegian Nynorsk (‪Norsk (nynorsk)‬)
+/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
  * @author Gunnernett
  * @author Harald Khan
  * @author Jon Harald Søby
@@ -5930,7 +5930,7 @@ $messages['nso'] = array(
 	'sf_formedit_edittitle' => 'Fetola $1: $2',
 );
 
-/** Occitan (Occitan)
+/** Occitan (occitan)
  * @author Cedric31
  * @author McDutchie
  */
@@ -6081,7 +6081,7 @@ $messages['pfl'] = array(
 	'sf_createform_hidden' => 'Vaschdegld',
 );
 
-/** Polish (Polski)
+/** Polish (polski)
  * @author BeginaFelicysym
  * @author Jwitos
  * @author Maikking
@@ -6413,7 +6413,7 @@ $messages['ps'] = array(
 	'sf_blank_namespace' => 'آرنی',
 );
 
-/** Portuguese (Português)
+/** Portuguese (português)
  * @author 555
  * @author Hamilton Abreu
  * @author Lijealso
@@ -6581,7 +6581,7 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
 	'right-editrestrictedfields' => 'Editar os campos restritos dos formulários',
 );
 
-/** Brazilian Portuguese (Português do Brasil)
+/** Brazilian Portuguese (português do Brasil)
  * @author 555
  * @author Crazymadlover
  * @author Eduardo.mps
@@ -6713,7 +6713,7 @@ $messages['rif'] = array(
 	'sf_createtemplate_deletefield' => 'Sfaḍ',
 );
 
-/** Romanian (Română)
+/** Romanian (română)
  * @author Firilacroco
  * @author KlaudiuMihaila
  * @author Mihai
@@ -6784,14 +6784,14 @@ $messages['ro'] = array(
 	'sf_blank_namespace' => 'Principal',
 );
 
-/** Tarandíne (Tarandíne)
+/** tarandíne (tarandíne)
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
 	'sf_createform_field' => 'Cambe:',
 );
 
-/** Russian (Русский)
+/** Russian (русский)
  * @author Ferrer
  * @author Haffman
  * @author Innv
@@ -6938,7 +6938,7 @@ $messages['sa'] = array(
 	'sf_blank_namespace' => 'प्रमुखम्',
 );
 
-/** Slovak (Slovenčina)
+/** Slovak (slovenčina)
  * @author Helix84
  */
 $messages['sk'] = array(
@@ -7053,7 +7053,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
 	'right-editrestrictedfields' => 'Upraviť polia formulára s obmedzeným prístupom',
 );
 
-/** Slovenian (Slovenščina)
+/** Slovenian (slovenščina)
  * @author Dbc334
  */
 $messages['sl'] = array(
@@ -7062,7 +7062,7 @@ $messages['sl'] = array(
 	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca',
 );
 
-/** Serbian (Cyrillic script) (‪Српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
  * @author Rancher
  * @author Sasa Stefanovic
  * @author Жељко Тодоровић
@@ -7131,7 +7131,7 @@ $messages['sr-ec'] = array(
 	'sf_form_freetextlabel' => 'Слободан текст',
 );
 
-/** Serbian (Latin script) (‪Srpski (latinica)‬)
+/** Serbian (Latin script) (‪srpski (latinica)‬)
  * @author Michaello
  * @author Rancher
  * @author Жељко Тодоровић
@@ -7280,7 +7280,7 @@ $messages['stq'] = array(
 	'sf_category_desc' => 'Dit is ju Kategorie $1.',
 );
 
-/** Swedish (Svenska)
+/** Swedish (svenska)
  * @author Jon Harald Søby
  * @author Lejonel
  * @author M.M.S.
@@ -7491,7 +7491,7 @@ $messages['te'] = array(
 	'sf_blank_namespace' => 'ప్రధాన',
 );
 
-/** Tetum (Tetun)
+/** Tetum (tetun)
  * @author MF-Warburg
  */
 $messages['tet'] = array(
@@ -7501,7 +7501,7 @@ $messages['tet'] = array(
 	'sf_createcategory_name' => 'Naran kategoria nian:',
 );
 
-/** Tajik (Cyrillic script) (Тоҷикӣ)
+/** Tajik (Cyrillic script) (тоҷикӣ)
  * @author Ibrahim
  */
 $messages['tg-cyrl'] = array(
@@ -7541,7 +7541,7 @@ $messages['tg-cyrl'] = array(
 	'sf_blank_namespace' => 'Аслӣ',
 );
 
-/** Tajik (Latin script) (Tojikī)
+/** Tajik (Latin script) (tojikī)
  * @author Liangent
  */
 $messages['tg-latn'] = array(
@@ -7791,14 +7791,14 @@ $messages['tr'] = array(
 	'right-editrestrictedfields' => 'Kısıtlanmış form alanlarını değiştirir',
 );
 
-/** Tatar (Cyrillic script) (Татарча)
+/** Tatar (Cyrillic script) (татарча)
  * @author Ерней
  */
 $messages['tt-cyrl'] = array(
 	'sf_createform_inputtypedefault' => '(килешү буенча)',
 );
 
-/** Ukrainian (Українська)
+/** Ukrainian (українська)
  * @author AS
  * @author Ahonc
  * @author Microcell
@@ -8167,7 +8167,7 @@ $messages['zh-cn'] = array(
 	'sf_blank_namespace' => '主',
 );
 
-/** Simplified Chinese (‪中文(简体)‬)
+/** Simplified Chinese (‪中文（简体）‬)
  * @author Gzdavidwong
  * @author Hydra
  * @author Liangent
@@ -8352,7 +8352,7 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
 	'action-viewedittab' => '查看可采用表单编辑的页面的"编辑"选项卡',
 );
 
-/** Traditional Chinese (‪中文(繁體)‬)
+/** Traditional Chinese (‪中文（繁體）‬)
  * @author Gzdavidwong
  * @author Liangent
  * @author Mark85296341
