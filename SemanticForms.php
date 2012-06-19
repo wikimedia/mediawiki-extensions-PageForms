@@ -7,13 +7,13 @@
  */
 
 /**
- * Forms for adding and editing semantic data
+ * Forms for adding and editing semantic data.
  *
  * @defgroup SF Semantic Forms
  */
 
 /**
- * The module Form Inputs contains form input classes
+ * The module Form Inputs contains form input classes.
  * @defgroup SFFormInput Form Inputs
  * @ingroup SF
  */
@@ -69,7 +69,7 @@ $sfgIP = dirname( __FILE__ );
 # #
 
 
-// constants for special properties
+// Constants for special properties
 define( 'SF_SP_HAS_DEFAULT_FORM', 1 );
 define( 'SF_SP_HAS_ALTERNATE_FORM', 2 );
 define( 'SF_SP_CREATES_PAGES_WITH_FORM', 3 );
@@ -264,7 +264,7 @@ sffInitContentLanguage( $wgLanguageCode );
 
 # ##
 # The number of allowed values per autocomplete - too many might
-# slow down the database, and Javascript's completion
+# slow down the database, and Javascript's completion.
 # ##
 $sfgMaxAutocompleteValues = 1000;
 
