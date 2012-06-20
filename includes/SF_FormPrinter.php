@@ -1279,6 +1279,8 @@ END;
 						if ( count( $sub_components ) == 1 ) {
 							if ( $sub_components[0] == 'edittools' ) {
 								$free_text_components[] = 'edittools';
+							} elseif ( $sub_components[0] == 'checked' ) {
+								$is_checked = true;
 							}
 						} elseif ( count( $sub_components ) == 2 ) {
 							switch( $sub_components[0] ) {
@@ -1303,7 +1305,7 @@ END;
 					} elseif ( $input_name == 'minor edit' ) {
 						$new_text = SFFormUtils::minorEditInputHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'watch' ) {
-						$new_text = SFFormUtils::watchInputHTML( $form_is_disabled, $input_label, $attr );
+						$new_text = SFFormUtils::watchInputHTML( $form_is_disabled, $is_checked, $input_label, $attr );
 					} elseif ( $input_name == 'save' ) {
 						$new_text = SFFormUtils::saveButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'save and continue' ) {

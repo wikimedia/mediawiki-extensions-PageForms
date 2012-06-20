@@ -122,22 +122,21 @@ END;
 		return $text;
 	}
 
-	static function watchInputHTML( $is_disabled, $label = null, $attrs = array() ) {
+	static function watchInputHTML( $is_disabled, $is_checked, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgTitle, $wgParser;
 
 		$sfgTabIndex++;
-		$checked = "";
 		// figure out if the checkbox should be checked -
 		// this code borrowed from /includes/EditPage.php
 		if ( $wgUser->getOption( 'watchdefault' ) ) {
 			# Watch all edits
-			$checked = true;
+			$is_checked = true;
 		} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
 			# Watch creations
-			$checked = true;
+			$is_checked = true;
 		} elseif ( $wgTitle->userIsWatching() ) {
 			# Already watched
-			$checked = true;
+			$is_checked = true;
 		}
 		if ( $label == null )
 			$label = $wgParser->recursiveTagParse( wfMsg( 'watchthis' ) );
@@ -149,7 +148,7 @@ END;
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		$text = "\t" . Xml::check( 'wpWatchthis', $checked, $attrs ) . "\n";
+		$text = "\t" . Xml::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
 		$tooltip = htmlspecialchars( wfMsg( 'tooltip-watch' ) );
 		$text .= "\t" . Html::element( 'label', array(
 			'for' => 'wpWatchthis',
