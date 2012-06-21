@@ -120,7 +120,11 @@ class SFTextInput extends SFFormInput {
 		$linkAttrs = array(
 			'href' => $upload_window_url,
 			'class' => implode( ' ', $cssClasses ),
-			'title' => $upload_label,
+			// The 'title' parameter sets the label below the
+			// window; we're leaving it blank, because otherwise
+			// it can by mistaken by users for a button, leading
+			// to confusion.
+			//'title' => $upload_label,
 			'rev' => $style,
 			'data-input-id' => $input_id
 		);
