@@ -178,8 +178,18 @@ class SFFormLinker {
 				list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
 					$sfgFormPrinter->formHTML( $form_definition, false, false, null, null, 'Some very long page name that will hopefully never get created ABCDEF123', null );
 				$params = array();
-				global $wgUser;
-				$params['user_id'] = $wgUser->getId();
+
+				// Get user "responsible" for all auto-generated
+				// pages from red links.
+				$userID = 1;
+				global $sfgAutoCreateUser;
+				if ( !is_null( $sfgAutoCreateUser ) ) {
+					$user = User::newFromName( $sfgAutoCreateUser );
+					if ( !is_null( $user ) ) {
+						$userID = $user->getId();
+					}
+				}
+				$params['user_id'] = $userID;
 				$params['page_text'] = $data_text;
 				$job = new SFCreatePageJob( $title, $params );
 				Job::batchInsert( array( $job ) );
