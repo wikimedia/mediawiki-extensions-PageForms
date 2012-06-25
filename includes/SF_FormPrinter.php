@@ -1273,6 +1273,7 @@ END;
 					// set a flag so that the standard 'form bottom' won't get displayed
 					$this->standardInputsIncluded = true;
 					// cycle through the other components
+					$is_checked = false;
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 						$component = $tag_components[$i];
 						$sub_components = array_map( 'trim', explode( '=', $component ) );
