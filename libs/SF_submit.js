@@ -3,12 +3,10 @@
  */
 
 ( function( $ ) {
-
 	var sacButtons;
 	var form;
 
 	if ( mw.config.get( 'wgAction' ) === "formedit" || mw.config.get( 'wgCanonicalSpecialPageName' ) === "FormEdit" ) {
-
 		form = $('#sfForm');
 
 		sacButtons = $('.sf-save_and_continue', form);
@@ -26,7 +24,6 @@
 
 		$('.rearrangerImage', form)
 		.live( "mousedown", setChanged );
-
 	}
 
 	function setChanged( event ) {
@@ -38,16 +35,16 @@
 	}
 
 	function handleSaveAndContinue( event ) {
-
 		event.stopImmediatePropagation();
 
 		// remove old error messages
 		var el = document.getElementById("form_error_header");
 
-		if (el) el.parentNode.removeChild(el);
+		if (el) {
+			el.parentNode.removeChild(el);
+		}
 
 		if (validateAll()) {
-
 			// disable save and continue button
 			sacButtons.attr("disabled", "disabled");
 
@@ -61,7 +58,6 @@
 			sajax_do_call( 'SFAutoeditAPI::handleAutoEdit', new Array(collectData( form ), false), function( ajaxHeader ){
 
 				if ( ajaxHeader.status == 200 ) {
-
 					// Store the target name
 					var target = form.find('input[name="target"]');
 
@@ -86,9 +82,7 @@
 					.addClass("sf-save_and_continue-ok")
 					.removeClass("sf-save_and_continue-wait")
 					.removeClass("sf-save_and_continue-error");
-
 				} else {
-
 					sacButtons
 					.addClass("sf-save_and_continue-error")
 					.removeClass("sf-save_and_continue-wait");
@@ -97,9 +91,7 @@
 					jQuery(".errorMessage").remove();
 					jQuery("#contentSub").append('<div id="form_error_header" class="warningMessage" style="font-size: medium">' + ajaxHeader.responseText + '</div>');
 					scroll(0, 0);
-
 				}
-
 			} );
 		}
 
@@ -107,33 +99,28 @@
 	}
 
 	function collectData( form ) {
-
 		var summaryfield = jQuery("#wpSummary", form);
+		var saveAndContinueSummary = mw.msg( 'sf_formedit_saveandcontinue_summary', mw.msg( 'sf_formedit_saveandcontinueediting' ) );
 		if ( summaryfield.length > 0 ) {
-
 			var oldsummary = summaryfield.attr("value");
 
 			if ( oldsummary != "" ) {
-				summaryfield.attr("value", oldsummary + " (" + sfgSaveAndContinueSummary + ")");
+				summaryfield.attr("value", oldsummary + " (" + saveAndContinueSummary + ")");
 			} else {
-				summaryfield.attr("value", sfgSaveAndContinueSummary);
+				summaryfield.attr("value", saveAndContinueSummary);
 			}
 
 			var params = form.serialize();
 
 			summaryfield.attr("value", oldsummary );
-
 		} else {
-
 			var params = form.serialize();
-			params += "&wpSummary=" + sfgSaveAndContinueSummary;
-
+			params += "&wpSummary=" + saveAndContinueSummary;
 		}
 
 		if  ( mw.config.get( 'wgAction' ) == "formedit") {
 			params += "&target=" + encodeURIComponent( mw.config.get( 'wgPageName' ) );
 		} else if ( mw.config.get( 'wgCanonicalSpecialPageName' ) == "FormEdit") {
-
 			var url = String(window.location);
 
 			var stop = url.indexOf("?");
@@ -157,12 +144,10 @@
 			} else {
 				params += "&form=" + encodeURIComponent( url.substr(start) );
 			}
-
 		}
 
 		params += "&wpMinoredit=1";
 
 		return params;
 	}
-
 })(jQuery);

@@ -150,6 +150,7 @@ it should look like \'Special:FormEdit?form=<form name>&target=<target page>\', 
 	'sf_autoedit_readonly'               => "The database is currently locked to modifications. Reason: $1",
 	'sf_autoedit_nosemanticform'         => "Could not get form $2 for page $1. See [[{{#special:FormEdit}}/$2/$1]] for details.",
 	'sf_autoedit_summary'                => "Edited automatically from page $1.",
+	'sf-autoedit-wait'                   => 'Wait...',
 	'runquery'                           => 'Run query',
 	'sf_runquery_badurl'                 => 'You must specify a form name in the URL;
 the URL should look like \'Special:RunQuery/<form name>\'.',
@@ -161,7 +162,6 @@ the URL should look like \'Special:RunQuery/<form name>\'.',
 	'sf_bad_url_error'                   => 'must have the correct URL format, starting with "http"',
 	'sf_bad_email_error'                 => 'must have a valid email address format',
 	'sf_bad_number_error'                => 'must be a valid number',
-	'sf_bad_integer_error'               => 'must be a valid integer',
 	'sf_bad_date_error'                  => 'must be a valid date',
 	'uploadwindow'                       => 'Upload window', // Description for Special:UploadWindow
 	'sf_deletionlog'                     => 'Deletion log',
@@ -240,6 +240,7 @@ Parameters:
 * $1 is replaced with {{msg-mw|sf_formedit_saveandcontinueediting}}.',
 	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
 	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
+	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
 

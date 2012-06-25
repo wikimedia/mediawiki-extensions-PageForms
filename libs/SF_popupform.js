@@ -34,7 +34,6 @@ if ( typeof( window.ext ) === "undefined" ) {
 }
 
 window.ext.popupform = new function() {
-
 	var wrapper;
 	var background;
 	var container;
@@ -51,7 +50,6 @@ window.ext.popupform = new function() {
 	var padding = 20;
 
 	function handlePopupFormInput( ptarget, elem ) {
-
 		showForm();
 
 		iframe.one( 'load', function(){
@@ -65,19 +63,15 @@ window.ext.popupform = new function() {
 	}
 
 	function handlePopupFormLink( ptarget, elem ) {
-
 		showForm();
 
 		// attach event handler to iframe
 		iframe.bind( 'load', handleLoadFrame );
 
 		if ( elem.tagName == 'FORM' ) {
-
 			elem.target = 'popupform-iframe' + instance;
 			return true;
-
 		} else {
-
 			var delim = ptarget.indexOf( '?' );
 			var form = document.createElement("form");
 
@@ -95,7 +89,6 @@ window.ext.popupform = new function() {
 					input.name = decodeURIComponent( param[0] );
 					input.value = decodeURIComponent( param[1] );
 					form.appendChild( input );
-
 				}
 			} else {
 				form.action = ptarget;
@@ -110,7 +103,6 @@ window.ext.popupform = new function() {
 	}
 
 	function showForm() {
-
 		instance++;
 
 		brokenChrome =
@@ -176,11 +168,9 @@ window.ext.popupform = new function() {
 
 		// attach event handler to close button
 		closeBtn.click( handleCloseFrame );
-
 	}
 
 	function handleLoadFrame( event ){
-
 		var iframe = jQuery( event.target );
 		var iframecontents = iframe.contents();
 
@@ -298,16 +288,13 @@ window.ext.popupform = new function() {
 		var innerJ = innerwdw.jQuery;
 
 		if (form.length > 0) {
-
 			var submitok = false;
 			var innersubmitprocessed = false;
 
 			// catch form submit event
 			form
 			.bind( "submit", function( event ){
-
 				var interval = setInterval(function(){
-
 					if ( innersubmitprocessed ) {
 						clearInterval( interval );
 						innersubmitprocessed = false;
@@ -317,7 +304,6 @@ window.ext.popupform = new function() {
 				}, 10)
 				event.stopPropagation();
 				return false;
-
 			});
 
 			// catch inner form submit event
@@ -393,11 +379,9 @@ window.ext.popupform = new function() {
 		});
 
 		return false;
-
 	}
 
 	function handleSubmitData( event ){
-
 		fadeOut( container, function() {
 			fadeIn( waitIndicator );
 		});
@@ -414,10 +398,7 @@ window.ext.popupform = new function() {
 
 		return false;
 
-
 		function handleInnerSubmit ( returnedData, textStatus, XMLHttpRequest ) {
-
-
 			// find form in fake edit page
 			var innerform = jQuery("<div>" + returnedData + "</div>").find("form");
 
@@ -470,14 +451,11 @@ window.ext.popupform = new function() {
 			});
 
 			return false;
-
 		}
 	}
 
 	function adjustFrameSize( animate ) {
-
 		// set some inputs
-
 		var oldFrameW = container.width();
 		var oldFrameH = container.height();
 		var oldContW = content.width();
@@ -606,7 +584,6 @@ window.ext.popupform = new function() {
 			}
 
 			if ( animate ) {
-
 				content
 				.width ( 'auto' )
 				.height ( 'auto' );
@@ -641,7 +618,6 @@ window.ext.popupform = new function() {
 				});
 
 			} else {
-
 				container
 				.width( frameW )
 				.height ( frameH );
@@ -709,7 +685,6 @@ window.ext.popupform = new function() {
 			fadeIn ( waitIndicator );
 			window.location.href = link;
 		});
-
 	}
 
 	function handleCloseFrame( event ){
@@ -746,29 +721,22 @@ window.ext.popupform = new function() {
 
 			elem.show();
 			if ( callback ) callback();
-
 		} else {
-
 			// what an ugly hack
 			if ( elem === waitIndicator ) elem.fadeIn( 200, callback );
 			else elem.fadeIn( callback );
-
 		}
 	}
 
 	function fadeOut(elem, callback ) {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
-
 			elem.hide();
 			if ( callback ) callback();
-
 		} else {
-
 			// what an ugly hack
 			if ( elem === waitIndicator ) elem.fadeOut( 200, callback );
 			else elem.fadeOut( callback );
-
 		}
 	}
 
@@ -782,16 +750,12 @@ window.ext.popupform = new function() {
 			if ( callback ) callback();
 
 		} else {
-
 			elem.fadeTo(time, target, callback);
-
 		}
-
 	}
 
 	// export public funcitons
 	this.handlePopupFormInput = handlePopupFormInput;
 	this.handlePopupFormLink = handlePopupFormLink;
 	this.adjustFrameSize = adjustFrameSize;
-
 }

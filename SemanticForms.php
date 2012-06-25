@@ -211,7 +211,14 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'jquery.ui.widget',
 				'ext.semanticforms.fancybox',
 				'ext.semanticforms.autogrow',
+				'mediawiki.util',
 			),
+			'messages' => array(
+				'sf_formerrors_header',
+				'sf_blank_error',
+				'sf_bad_url_error',
+				'sf_bad_email_error',
+				'sf_bad_number_error',
 		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/jquery.fancybox.js',
@@ -229,11 +236,19 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'scripts' => 'libs/SF_autoedit.js',
 			'styles' => 'skins/SF_autoedit.css',
 			'dependencies' => array( 'jquery' ),
+			'messages' => array(
+				'sf-autoedit-wait',
+				'sf_autoedit_anoneditwarning',
+			),
 		),
 		'ext.semanticforms.submit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_submit.js',
 			'styles' => 'skins/SF_submit.css',
 			'dependencies' => array( 'jquery' ),
+			'messages' => array(
+				'sf_formedit_saveandcontinue_summary',
+				'sf_formedit_saveandcontinueediting',
+			),
 		),
 		'ext.semanticforms.collapsible' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_collapsible.js',
@@ -246,7 +261,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'dependencies' => array(
 				'ext.semanticforms.main',
 				'jquery.wikiEditor',
-		),
+			),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_imagePreview.js',

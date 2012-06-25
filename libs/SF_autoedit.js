@@ -5,11 +5,9 @@
  */
 
 jQuery( function( $ ) {
-
 	$('.autoedit-trigger').click(function(){
-
 		if ( mw.config.get( 'wgUserName' ) == null ) {
-			if ( confirm( sfgAnonEditWarning ) ) {
+			if ( confirm( mw.msg( 'sf_autoedit_anoneditwarning' ) ) ) {
 				handleAutoEdit( this );
 			}
 		} else {
@@ -32,7 +30,7 @@ jQuery( function( $ ) {
 		jtrigger.attr('class', 'autoedit-trigger autoedit-trigger-wait');
 		jresult.attr('class', 'autoedit-result autoedit-result-wait');
 
-		jresult[0].innerHTML="Wait..."; // TODO: replace by localized message
+		jresult.text( mw.msg( 'sf-autoedit-wait' ) );
 
 		sajax_request_type = 'POST';
 
@@ -40,9 +38,7 @@ jQuery( function( $ ) {
 			jresult.empty().append( ajaxHeader.responseText );
 
 			if ( ajaxHeader.status == 200 ) {
-
 				if ( reload ) window.location.reload();
-
 				jresult.removeClass('autoedit-result-wait').addClass('autoedit-result-ok');
 				jtrigger.removeClass('autoedit-trigger-wait').addClass('autoedit-trigger-ok');
 			} else {
@@ -51,5 +47,4 @@ jQuery( function( $ ) {
 			}
 		} );
 	}
-
 })

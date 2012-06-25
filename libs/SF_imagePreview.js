@@ -6,7 +6,6 @@
  */
 
 (function( $ ) {
-
 	var _this = this;
 
 	this.getPreviewImage = function( args, callback ) {
@@ -62,11 +61,6 @@
 			};
 
 			$input.change( showPreview );
-
-//			if ( $previewDiv.html() === '' ) {
-//				showPreview();
-//			}
 		} );
 	} );
-
 })( jQuery );

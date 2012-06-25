@@ -9,7 +9,6 @@ var wkPreview;
 var interval;
 
 function ajaxFormPreviewInit(){
-
 	if ((mw.config.get( 'wgNamespaceNumber' ) % 2 == 0) && /\.(js|css)$/.test(mw.config.get( 'wgTitle' ))) return;
 
 	if(!document.getElementById('wikiPreview')) return;
@@ -39,7 +38,6 @@ function ajaxFormPreviewClick(){
 	}
 
 function ajaxFormPreviewRun(btn){
-
 	wkPreview = document.getElementById('wikiPreview');
 	var form = document.createbox;
 	var aj = sajax_init_object();
@@ -70,19 +68,16 @@ function ajaxFormPreviewRun(btn){
 
 	//FCKeditor visible? update free text first
 	// if (!oFCKeditor.ready) return false;    //sajax_do_call in action - what do we do?
-	if ( typeof FCKeditorAPI != "undefined" )
+	if ( typeof FCKeditorAPI != "undefined" ) {
 		if ( showFCKEditor & RTE_VISIBLE ) {
-
 			var SRCtextarea = document.getElementById( 'sf_free_text' );
 
 			if ( SRCtextarea ) {
-
 				var oEditorIns = FCKeditorAPI.GetInstance( 'sf_free_text' );
 				SRCtextarea.value = oEditorIns.GetData( oEditorIns.Config.FormatSource );
-
 			}
-
 		}
+	}
 
 	elts = form.elements;
 
@@ -105,7 +100,6 @@ function ajaxFormPreviewRun(btn){
 	aj.setRequestHeader('Content-Type', 'multipart/form-data; boundary='+boundary);
 	aj.send(data + '--' + boundary);
 	aj.onreadystatechange = function(){
-
 		if (aj.readyState != 4) return;
 
 		// Got Wikitext. Now fetch HTML...
@@ -171,7 +165,6 @@ function ajaxFormPreviewRun(btn){
 			doc.close();
 
 			interval=setInterval(function(){
-
 				if ( ! doc.getElementById("SF_PREVIEW_EOD") ) return;
 
 				var visible = null;
@@ -183,7 +176,6 @@ function ajaxFormPreviewRun(btn){
 				var currentfr=document.getElementById('ifrPreview');
 
 				if (currentfr && !window.opera){
-
 					if (currentfr.contentDocument) { //ns6 syntax
 						doc = currentfr.contentDocument;
 					} else if (currentfr.Document && currentfr.Document.body.scrollHeight) { //ie5+ syntax
@@ -195,7 +187,6 @@ function ajaxFormPreviewRun(btn){
 					if (vish == 0) vish = visible.scrollHeight; //IE
 
 					while (visible.tagName.toLowerCase() != "body") {
-
 						visible.style.width="100%";
 						visible.style.height= " " + vish + "px";
 						visible.style.margin="0px";

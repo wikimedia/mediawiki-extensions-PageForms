@@ -14,29 +14,17 @@ class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 		global $sfgFieldProperties, $sfgDependentFields;
-		global $sfgScriptPath;
+		global $sfgShowOnSelect, $sfgScriptPath;
 //		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
-		global $sfgShowOnSelect;
 
-		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
-		$vars['sfgScriptPath'] = $sfgScriptPath;
 		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
-		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
+		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
 		$vars['sfgFieldProperties'] = $sfgFieldProperties;
 		$vars['sfgDependentFields'] = $sfgDependentFields;
+		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
+		$vars['sfgScriptPath'] = $sfgScriptPath;
 //		$vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
 //		$vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
-		$vars['sfgFormErrorsHeader'] = wfMsg( 'sf_formerrors_header' );
-		$vars['sfgBlankErrorStr'] = wfMsg( 'sf_blank_error' );
-		$vars['sfgBadURLErrorStr'] = wfMsg( 'sf_bad_url_error' );
-		$vars['sfgBadEmailErrorStr'] = wfMsg( 'sf_bad_email_error' );
-		$vars['sfgBadNumberErrorStr'] = wfMsg( 'sf_bad_number_error' );
-		// This error message isn't currently used, but it might be
-		// in the future, if SMW begins to support integers again.
-		// $vars['sfgBadIntegerErrorStr'] = wfMsg( 'sf_bad_integer_error' );
-		$vars['sfgBadDateErrorStr'] = wfMsg( 'sf_bad_date_error' );
-		$vars['sfgAnonEditWarning'] = wfMsg( 'sf_autoedit_anoneditwarning' );
-		$vars['sfgSaveAndContinueSummary'] = wfMsg( 'sf_formedit_saveandcontinue_summary', wfMsg( 'sf_formedit_saveandcontinueediting' ) );
 
 		return true;
 	}

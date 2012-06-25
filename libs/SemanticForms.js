@@ -30,6 +30,7 @@
 				.css("width", select.attr("comboboxwidth"))
 				.autocomplete({
 					source: function(request, response) {
+						var sfgAutocompleteOnAllChars = mw.config.get( 'sfgAutocompleteOnAllChars' );
 						if ( sfgAutocompleteOnAllChars ) {
 							var matcher = new RegExp(request.term, "i");
 						} else {
@@ -164,6 +165,7 @@
 	/* extending jquery functions */
 	jQuery.extend( jQuery.ui.autocomplete, {
 	    filter: function(array, term) {
+		var sfgAutocompleteOnAllChars = mw.config.get( 'sfgAutocompleteOnAllChars' );
 		if ( sfgAutocompleteOnAllChars ) {
 			var matcher = new RegExp(jQuery.ui.autocomplete.escapeRegex(term), "i" );
 		} else {
@@ -177,6 +179,7 @@
 
     values = jQuery(this).data('autocompletevalues');
     if ( !values ) {
+	var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
 	values = sfgAutocompleteValues[field_string];
     }
     if (values != null) {
@@ -230,7 +233,8 @@
         }
     } else {
 	// Remote autocompletion
-	var myServer = wgScriptPath + "/api.php";
+	// Retain compat with 1.17. 1.18 and up can use mw.util.wikiScript( 'api' );
+	var myServer = mw.config.get( 'wgScriptPath' ) + '/api' + mw.config.get( 'wgScriptExtension' );
 	var data_type = jQuery(this).attr("autocompletedatatype");
 	myServer += "?action=sfautocomplete&format=json&" + data_type + "=" + data_source;
 
@@ -482,6 +486,7 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPa
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
 jQuery.fn.showIfSelected = function(initPage) {
 	var inputVal = this.val();
+	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
 	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
@@ -517,7 +522,7 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initP
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
 jQuery.fn.showIfChecked = function(initPage) {
-
+	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
 	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
@@ -538,7 +543,7 @@ jQuery.fn.showIfChecked = function(initPage) {
 
 // Used for handling 'show on select' for the 'checkbox' input.
 jQuery.fn.showIfCheckedCheckbox = function(initPage) {
-
+	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
 	var div_id = sfgShowOnSelect[this.attr("id")];
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
@@ -561,7 +566,7 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
 
 // Display an error message on the end of an input.
 jQuery.fn.addErrorMessage = function(msg) {
-	this.append(' <span class="errorMessage">' + msg + '</span>');
+	$('<span>').addClass( 'errorMessage' ).text( mw.msg( msg ) );
 }
 
 jQuery.fn.validateMandatoryField = function() {
@@ -574,7 +579,7 @@ jQuery.fn.validateMandatoryField = function() {
 		var isEmpty = (fieldVal.replace(/\s+/, '') == '');
 	}
 	if (isEmpty) {
-		this.addErrorMessage(sfgBlankErrorStr);
+		this.addErrorMessage( 'sf_blank_error' );
 		return false;
 	} else {
 		return true;
@@ -583,7 +588,7 @@ jQuery.fn.validateMandatoryField = function() {
 
 jQuery.fn.validateMandatoryComboBox = function() {
 	if (this.find("input").val() == '') {
-		this.addErrorMessage(sfgBlankErrorStr);
+		this.addErrorMessage( 'sf_blank_error' );
 		return false;
 	} else {
 		return true;
@@ -594,7 +599,7 @@ jQuery.fn.validateMandatoryDateField = function() {
 	if (this.find(".dayInput").val() == '' ||
 	    this.find(".monthInput").val() == '' ||
 	    this.find(".yearInput").val() == '') {
-		this.addErrorMessage(sfgBlankErrorStr);
+		this.addErrorMessage( 'sf_blank_error' );
 		return false;
 	} else {
 		return true;
@@ -605,7 +610,7 @@ jQuery.fn.validateMandatoryDateField = function() {
 // is the first radiobutton, which has an empty value.
 jQuery.fn.validateMandatoryRadioButton = function() {
 	if (this.find("[value='']").is(':checked')) {
-		this.addErrorMessage(sfgBlankErrorStr);
+		this.addErrorMessage( 'sf_blank_error' );
 		return false;
 	} else {
 		return true;
@@ -617,7 +622,7 @@ jQuery.fn.validateMandatoryCheckboxes = function() {
 	// be at least one.
 	var numChecked = this.find("input:checked").size();
 	if (numChecked == 0) {
-		this.addErrorMessage(sfgBlankErrorStr);
+		this.addErrorMessage( 'sf_blank_error' );
 		return false;
 	} else {
 		return true;
@@ -635,7 +640,7 @@ jQuery.fn.validateURLField = function() {
 	if (fieldVal == "" || url_regexp.test(fieldVal)) {
 		return true;
 	} else {
-		this.addErrorMessage(sfgBadURLErrorStr);
+		this.addErrorMessage( 'sf_bad_url_error' );
 		return false;
 	}
 }
@@ -647,7 +652,7 @@ jQuery.fn.validateEmailField = function() {
 	if (fieldVal == '' || email_regexp.test(fieldVal)) {
 		return true;
 	} else {
-		this.addErrorMessage(sfgBadEmailErrorStr);
+		this.addErrorMessage( 'sf_bad_email_error' );
 		return false;
 	}
 }
@@ -660,7 +665,7 @@ jQuery.fn.validateNumberField = function() {
 	fieldVal.match(/^\s*[\-+]?((\d+[\.,]?\d*)|(\d*[\.,]?\d+))([eE]?[\-\+]?\d+)?\s*$/)) {
 		return true;
 	} else {
-		this.addErrorMessage(sfgBadNumberErrorStr);
+		this.addErrorMessage( 'sf_bad_number_error' );
 		return false;
 	}
 }
@@ -676,7 +681,7 @@ jQuery.fn.validateDateField = function() {
 		// 'BC' and possibly other non-number strings
 		return true;
 	} else {
-		this.addErrorMessage(sfgBadDateErrorStr);
+		this.addErrorMessage( 'sf_bad_date_error' );
 		return false;
 	}
 }
@@ -742,7 +747,7 @@ window.validateAll = function () {
 	if (num_errors > 0) {
 		// add error header, if it's not there already
 		if (jQuery("#form_error_header").size() == 0) {
-			jQuery("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + sfgScriptPath + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + sfgFormErrorsHeader + '</div><br clear="both" />');
+			jQuery("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'sfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'sf_formerrors_header' ).escaped() + '</div><br clear="both" />');
 		}
 		scroll(0, 0);
 	} else {
@@ -903,7 +908,7 @@ jQuery.fn.addInstance = function() {
 jQuery.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue ) {
 	propName = sfgFieldProperties[dependentField];
 	baseProp = sfgFieldProperties[baseField];
-	var myServer = wgScriptPath + "/api.php";
+	var myServer = mw.config.get( 'wgScriptPath' ) + "/api.php";
 	myServer += "?action=sfautocomplete&format=json&property=" + propName + "&baseprop=" + baseProp + "&basevalue=" + baseValue;
 	var dependentValues = [];
 	var thisInput = jQuery(this);
@@ -945,6 +950,7 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 	nameAttr = partOfMultiple ? 'origName' : 'name';
 	name = jQuery(this).attr(nameAttr);
+	var sfgDependentFields = mw.config.get( 'sfgDependentFields' );
 	for ( var i in sfgDependentFields ) {
 		dependentFieldPair = sfgDependentFields[i];
 		if ( dependentFieldPair[0] == name ) {
