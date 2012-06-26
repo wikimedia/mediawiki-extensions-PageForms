@@ -1615,17 +1615,17 @@ Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Form
 	'sf_autoedit_readonly' => 'Die Datenbank ist derzeit für Bearbeitungen gesperrt. Grund: $1',
 	'sf_autoedit_nosemanticform' => 'Das Formular $2 konnte nicht für Seite $1 abgerufen werden. Siehe [[{{#special:FormEdit}}/$2/$1]] für Informationen hierzu.',
 	'sf_autoedit_summary' => 'Automatisch von Seite $1 bearbeitet.',
+	'sf-autoedit-wait' => 'Verarbeite …',
 	'runquery' => 'Abfrage ausführen',
 	'sf_runquery_badurl' => 'In der URL wurde nicht der Name des Formulars angegeben.
 Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>”',
 	'sf_runquery_title' => 'Ausgeführte Abfrage: $1',
 	'sf_runquery_additionalquery' => 'Ergänzende Abfrage',
-	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
+	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.',
 	'sf_blank_error' => 'Darf nicht leer sein',
 	'sf_bad_url_error' => 'muss ein gültiges URL-Format haben, beginnend mit „http://“',
 	'sf_bad_email_error' => 'muss ein gültiges E-Mail-Adressformat haben',
 	'sf_bad_number_error' => 'muss eine gültige Zahl sein',
-	'sf_bad_integer_error' => 'muss eine gültige Ganzzahl sein',
 	'sf_bad_date_error' => 'muss ein gültiges Datum sein',
 	'uploadwindow' => 'Formular zum Hochladen',
 	'sf_deletionlog' => 'Lösch-Logbuch',
@@ -1679,7 +1679,7 @@ Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
 	'sf_formedit_createtitlenotarget' => 'Erstellen Sie $1',
 	'sf_formedit_badurl' => 'Dies ist die Spezialseite zum Bearbeiten einer Seite mit einem Formular. Sie müssen den Namen eines Formulars und den Namen der zu bearbeitenden Seite in der URL angeben.
 Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Formularname>&target=<Seitenname>“ oder „Spezial:Mit_Formular_bearbeiten/<Formularname>/<Seitenname>“.',
-	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten neben dem Formularfeld.',
+	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.',
 	'sf_template_docufooter' => 'Klicken Sie auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
 Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten in das Eingabefeld ein. 
