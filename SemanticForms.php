@@ -219,6 +219,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'sf_bad_url_error',
 				'sf_bad_email_error',
 				'sf_bad_number_error',
+			),
 		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/jquery.fancybox.js',
@@ -351,7 +352,7 @@ $sfgCacheFormDefinitions = false;
  *
  * If this setting remains at null the setting for the $wgParserCacheType will
  * be used.
- * 
+ *
  * For available types see $wgMainCacheType.
  */
 $sfgFormCacheType = null;
