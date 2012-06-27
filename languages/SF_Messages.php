@@ -3407,7 +3407,7 @@ $messages['hr'] = array(
 	'sf_formedit_remove' => 'Ukloni',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
@@ -3542,6 +3542,7 @@ Za dalše opcije wužij strony $1 město toho.',
 	'sf_autoedit_readonly' => 'Datowa banka je tuchwilu přećiwo změnam zawrjena. Přičina: $1',
 	'sf_autoedit_nosemanticform' => 'Formular $2 njeda so za stronu $1 wotwołać. Hlej [[{{#special:FormEdit}}/$2/$1]] za podrobnosće.',
 	'sf_autoedit_summary' => 'Awtomatisce wot strony $1 wobdźěłany.',
+	'sf-autoedit-wait' => 'Prošu čakać...',
 	'runquery' => 'Naprašowanje startować',
 	'sf_runquery_badurl' => "Dyrbiš formularne mjeno w URL podać;
 URL měł wupadać kaž 'Special:RunQuery/<formularne mjeno>'.",
@@ -3552,7 +3553,6 @@ URL měł wupadać kaž 'Special:RunQuery/<formularne mjeno>'.",
 	'sf_bad_url_error' => "dyrbi korektny format URL měć, kotryž so z 'http://' započina",
 	'sf_bad_email_error' => 'dyrbi płaćiwy format za e-mejlowe adresy měć',
 	'sf_bad_number_error' => 'dyrbi płaćiwa ličba być',
-	'sf_bad_integer_error' => 'dyrbi płaćiwa cyła ličba być',
 	'sf_bad_date_error' => 'dyrbi płaćiwy datum być',
 	'uploadwindow' => 'Wokno nahraćow',
 	'sf_deletionlog' => 'protokol wušmórnjenjow',
@@ -5157,6 +5157,7 @@ $messages['mk'] = array(
 	'sf_autoedit_readonly' => 'Базата на податоци моментално е заклучена поради измени. Причина: $1',
 	'sf_autoedit_nosemanticform' => 'Не можев да го добијам образецот $2 за страницата $1. Поподробно на [[{{#special:FormEdit}}/$2/$1]].',
 	'sf_autoedit_summary' => 'Автоматски уредено од страницата $1.',
+	'sf-autoedit-wait' => 'Почекајте...',
 	'runquery' => 'Пушти барање',
 	'sf_runquery_badurl' => 'Мора да назначите име на образецот во URL-адресата;
 URL-адресата треба да изгледа вака: „Special:RunQuery/<form name>“.',
@@ -5167,7 +5168,6 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 	'sf_bad_url_error' => 'мора да има правилен URL формат, кој почнува со „http“',
 	'sf_bad_email_error' => 'мора да има важечки формат на е-поштенска адреса',
 	'sf_bad_number_error' => 'мора да биде важечки број',
-	'sf_bad_integer_error' => 'мора да биде важечки цел број',
 	'sf_bad_date_error' => 'мора да биде важечки датум',
 	'uploadwindow' => 'Прозорец за подигање',
 	'sf_deletionlog' => 'Дневник на бришења',
