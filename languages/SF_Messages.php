@@ -2145,6 +2145,7 @@ $messages['es'] = array(
 	'sf_autoedit_readonly' => 'La base de datos está actualmente bloqueada para modificaciones. Motivo: $1',
 	'sf_autoedit_nosemanticform' => 'No se pudo obtener el formulario $2 para la página $1. Véase  [[{{#special:FormEdit}}/$2/$1]] para más detalles.',
 	'sf_autoedit_summary' => 'Editado automáticamente a partir de la página $1.',
+	'sf-autoedit-wait' => 'Espera...',
 	'runquery' => 'Ejecutar consulta',
 	'sf_runquery_badurl' => "Debes especificar un nombre de formulario en el URL;
 el URL debería lucir como 'Special:RunQuery/<form name>'.",
@@ -2155,7 +2156,6 @@ el URL debería lucir como 'Special:RunQuery/<form name>'.",
 	'sf_bad_url_error' => "debe tener el formato correcto de URL, comenzando con 'http'",
 	'sf_bad_email_error' => 'debe tener un formato de dirección de email válido',
 	'sf_bad_number_error' => 'debe ser un número válido',
-	'sf_bad_integer_error' => 'debe ser un entero válido',
 	'sf_bad_date_error' => 'debe ser una fecha válida',
 	'uploadwindow' => 'Ventana para subir archivos',
 	'sf_deletionlog' => 'Registro de borrado',
@@ -2739,7 +2739,7 @@ $messages['fy'] = array(
 	'sf_formedit_none' => 'Gjin',
 );
 
-/** Galician (Galego)
+/** Galician (galego)
  * @author Alma
  * @author McDutchie
  * @author Toliño
@@ -2877,6 +2877,7 @@ debería ser algo así como "Special:FormEdit?form=<nome do formulario>&target=<
 	'sf_autoedit_readonly' => 'A base de datos está pechada ás modificacións. Motivo: $1',
 	'sf_autoedit_nosemanticform' => 'Non se puido obter o formulario "$2" para a páxina "$1". Olle [[{{#special:FormEdit}}/$2/$1]] para coñecer máis detalles.',
 	'sf_autoedit_summary' => 'Editado automaticamente a partir da páxina "$1".',
+	'sf-autoedit-wait' => 'Agarde...',
 	'runquery' => 'Executar a pescuda',
 	'sf_runquery_badurl' => 'Debe especificar un nome de formulario no enderezo URL;
 o URL debe ser do tipo "Special:RunQuery/<nome do formulario>".',
@@ -2887,7 +2888,6 @@ o URL debe ser do tipo "Special:RunQuery/<nome do formulario>".',
 	'sf_bad_url_error' => "debe ter un correcto formato URL, comezando con 'http'",
 	'sf_bad_email_error' => 'debe ter un enderezo de correo electrónico cun formato válido',
 	'sf_bad_number_error' => 'debe ser un número válido',
-	'sf_bad_integer_error' => 'ha de ser un enteiro válido',
 	'sf_bad_date_error' => 'debe ser unha data válida',
 	'uploadwindow' => 'Ventá de carga',
 	'sf_deletionlog' => 'Rexistro de borrados',
@@ -5773,6 +5773,7 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_autoedit_readonly' => 'De database is momenteel afgesloten voor wijzigingen. Reden: $1',
 	'sf_autoedit_nosemanticform' => 'Kon het formulier $2 voor pagina $1 niet krijgen. Zie [[{{#special:FormEdit}}/$2/$1]] voor details.',
 	'sf_autoedit_summary' => 'Automatisch bewerkt vanop pagina $1.',
+	'sf-autoedit-wait' => 'Een ogenblik geduld alstublieft...',
 	'runquery' => 'Zoekopdracht uitvoeren',
 	'sf_runquery_badurl' => 'U moet een formuliernaam aangeven in de URL.
 De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
@@ -5783,7 +5784,6 @@ De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_bad_url_error' => "moet de juiste URL hebben, beginnend met 'http'",
 	'sf_bad_email_error' => 'moet een geldig e-mailadres-formaat hebben',
 	'sf_bad_number_error' => 'moet een geldig nummer zijn',
-	'sf_bad_integer_error' => 'moet een geldig geheel getal zijn',
 	'sf_bad_date_error' => 'moet een geldige datum zijn',
 	'uploadwindow' => 'Uploadscherm',
 	'sf_deletionlog' => 'Verwijderlogboek',
