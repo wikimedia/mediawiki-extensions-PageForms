@@ -52,6 +52,13 @@ $specialPageAliases['arz'] = array(
 	'UploadWindow' => array( 'ويندو_الأپلود' ),
 );
 
+/** Assamese (অসমীয়া) */
+$specialPageAliases['as'] = array(
+	'CreateCategory' => array( 'শ্ৰেণী_সৃষ্টি_কৰক' ),
+	'Templates' => array( 'সাঁচসমূহ' ),
+	'UploadWindow' => array( 'আপল’ড_ৱিন্দ' ),
+);
+
 /** Banjar (Bahasa Banjar) */
 $specialPageAliases['bjn'] = array(
 	'CreateCategory' => array( 'Ulah_tumbung' ),
@@ -193,7 +200,7 @@ $specialPageAliases['gag'] = array(
 	'Templates' => array( 'Şablonnar' ),
 );
 
-/** Galician (Galego) */
+/** Galician (galego) */
 $specialPageAliases['gl'] = array(
 	'Forms' => array( 'Formularios' ),
 	'Templates' => array( 'Modelos' ),
@@ -214,7 +221,7 @@ $specialPageAliases['gsw'] = array(
 	'UploadWindow' => array( 'Fänschter_zum_Uffelade' ),
 );
 
-/** Upper Sorbian (Hornjoserbsce) */
+/** Upper Sorbian (hornjoserbsce) */
 $specialPageAliases['hsb'] = array(
 	'Forms' => array( 'Formulary' ),
 	'Templates' => array( 'Předłohi' ),

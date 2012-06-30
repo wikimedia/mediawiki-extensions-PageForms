@@ -20,8 +20,10 @@ $magicWords['en'] = array(
 $magicWords['ar'] = array(
 	'forminput' => array( 0, 'مدخل_النموذج' ),
 	'formlink' => array( 0, 'وصلة_النموذج' ),
+	'queryformlink' => array( 0, 'وصلة_نموذج_استعلام' ),
 	'arraymap' => array( 0, 'خريطة_المصفوفة' ),
 	'arraymaptemplate' => array( 0, 'قالب_خريطة_المصفوفة' ),
+	'autoedit' => array( 0, 'تعديل_تلقائي' ),
 );
 
 /** Egyptian Spoken Arabic (مصرى) */
