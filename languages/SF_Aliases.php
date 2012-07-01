@@ -546,6 +546,7 @@ $specialPageAliases['pt'] = array(
 $specialPageAliases['pt-br'] = array(
 	'Forms' => array( 'Formulários' ),
 	'Templates' => array( 'Predefinições' ),
+	'UploadWindow' => array( 'Tela_de_envio' ),
 );
 
 /** Romanian (română) */
