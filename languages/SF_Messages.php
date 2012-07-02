@@ -2585,6 +2585,7 @@ l’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<
 	'sf_autoedit_readonly' => 'La base de données est actuellement verrouillé pour modifications. Motif: $1',
 	'sf_autoedit_nosemanticform' => "Impossible d'obtenir le formulaire $2 pour la page $1. Voyez [[{{#special:FormEdit}}/$2/$1]] pour plus de détails.",
 	'sf_autoedit_summary' => 'Modifié automatiquement depuis la page $1.',
+	'sf-autoedit-wait' => 'Patientez...',
 	'runquery' => 'Exécuter la requête',
 	'sf_runquery_badurl' => 'Vous devez spécifier un nom de formulaire dans l’URL ;
 quelque chose comme « Special:RunQuery/<nom du formulaire> ».',
