@@ -213,7 +213,7 @@ jQuery(document).ready(function() {
 		$text = "\t" . '<form action="" method="post">' . "\n";
 		// Set 'title' field, in case there's no URL niceness
 		$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() );
-		$text .= "\n\t<p>" . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . ' <input size=25 name="form_name" value="' . $form_name . '" />';
+		$text .= "\n\t<p>" . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
 		if ( ! empty( $form_name_error_str ) )
 			$text .= "\t" . Html::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
 		$text .= "</p>\n";
