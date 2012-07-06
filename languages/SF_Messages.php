@@ -4158,7 +4158,7 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_formedit_morethanoneform' => "'''Attenzione:''' Più di un modulo predefinito è stato definito per questa pagina.",
 	'sf_formedit_formwarning' => 'Attenzione: Questa pagina <a href="$1">esiste già</a>, ma non usa questo form.',
 	'sf_formedit_remove' => 'Rimuovi',
-	'sf_formedit_addanother' => "Aggiungi un altro",
+	'sf_formedit_addanother' => 'Aggiungi un altro',
 	'sf_formedit_none' => 'Nessuno',
 	'sf_formedit_saveandcontinueediting' => 'Salva e continua',
 	'runquery' => 'Esegui query',
@@ -6062,6 +6062,7 @@ $messages['pfl'] = array(
  * @author McMonster
  * @author Sp5uhe
  * @author ToSter
+ * @author Woytecr
  */
 $messages['pl'] = array(
 	'semanticforms-desc' => 'Formularze do dodawania i edycji danych semantycznych',
@@ -6105,6 +6106,8 @@ $messages['pl'] = array(
 	'sf_forminputs_placeholder' => 'Tekst pomocy, który pojawia się wewnątrz pola, zanim użytkownik na nim kliknie',
 	'sf_forminputs_uploadable' => 'Umieść łącze "Wyślij plik" obok tego pola',
 	'sf_forminputs_defaultfilename' => 'Domyślna nazwa pliku dla wysyłanych plików',
+	'sf_forminputs_rows' => 'Liczba wierszy dla tego wprowadzania',
+	'sf_forminputs_cols' => 'Liczba kolumn dla tego wprowadzania',
 	'createform' => 'Utwórz formularz',
 	'sf_createform_nameinput' => 'Nazwa formularza',
 	'sf_createform_nameinputdesc' => '(zwyczajowo nazwa formularza jest taka sama ja nazwa jego podstawowego szablonu)',
@@ -6160,6 +6163,7 @@ W przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stro
 	'sf_formedit_remove' => 'Usuń',
 	'sf_formedit_addanother' => 'Dodaj kolejny',
 	'sf_formedit_none' => 'Brak',
+	'sf-autoedit-wait' => 'Czekaj...',
 	'runquery' => 'Uruchom zapytanie',
 	'sf_runquery_badurl' => 'Musisz podać nazwę formularza w adresie URL,
 który powinien wyglądać podobnie do „Specjalna:RunQuery/<nazwa formularza>”.',
