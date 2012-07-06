@@ -1155,10 +1155,10 @@ END;
 						if ( $default_value == 'now' &&
 								// if the date is hidden, cur_value will already be set
 								// to the default value
-								( $cur_value === '' || $cur_value == 'now' ) ) {
+								( $cur_value == '' || $cur_value == 'now' ) ) {
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
-									( $input_type === '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
+									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
 								// Get current time, for the time zone specified in the wiki.
 								global $wgLocaltimezone;
 								if ( isset( $wgLocaltimezone ) ) {
