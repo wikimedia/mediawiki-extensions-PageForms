@@ -4158,7 +4158,7 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_formedit_morethanoneform' => "'''Attenzione:''' Più di un modulo predefinito è stato definito per questa pagina.",
 	'sf_formedit_formwarning' => 'Attenzione: Questa pagina <a href="$1">esiste già</a>, ma non usa questo form.',
 	'sf_formedit_remove' => 'Rimuovi',
-	'sf_formedit_addanother' => "Aggiungi un'\\altro",
+	'sf_formedit_addanother' => "Aggiungi un altro",
 	'sf_formedit_none' => 'Nessuno',
 	'sf_formedit_saveandcontinueediting' => 'Salva e continua',
 	'runquery' => 'Esegui query',
