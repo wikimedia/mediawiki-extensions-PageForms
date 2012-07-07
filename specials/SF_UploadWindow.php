@@ -34,6 +34,9 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 	public $mLocalFile;
 	public $mUploadClicked;
 
+	protected $mTextTop;
+	protected $mTextAfterSummary;
+
 	/** User input variables from the "description" section **/
 	public $mDesiredDestName;	// The requested target file name
 	public $mComment;
@@ -101,6 +104,8 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		}
 		$this->mInputID	   = $request->getText( 'sfInputID' );
 		$this->mDelimiter	 = $request->getText( 'sfDelimiter' );
+		$this->uploadFormTextTop = '';
+		$this->uploadFormTextAfterSummary = '';
 	}
 
 	/**
@@ -165,6 +170,12 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 				&& ( $this->mUpload && $this->mUploadClicked ) ) {
 			$this->processUpload();
 		} else {
+			# Backwards compatibility hook
+			if( !wfRunHooks( 'UploadForm:initial', array( &$this ) ) ) {
+				wfDebug( "Hook 'UploadForm:initial' broke output of the upload form" );
+				return;
+			}
+
 			$this->showUploadForm( $this->getUploadForm() );
 		}
 
@@ -204,6 +215,8 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 			'forreupload' => $this->mForReUpload,
 			'sessionkey' => $sessionKey,
 			'hideignorewarning' => $hideIgnoreWarning,
+			'texttop' => $this->uploadFormTextTop,
+			'textaftersummary' => $this->uploadFormTextAfterSummary,
 			'destfile' => $this->mDesiredDestName,
 			'sfInputID' => $this->mInputID,
 			'sfDelimiter' => $this->mDelimiter,
@@ -344,6 +357,16 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		$status = $this->mUpload->fetchFile();
 		if ( !$status->isOK() )
 			return $this->showUploadForm( $this->getUploadForm( $wgOut->parse( $status->getWikiText() ) ) );
+
+		if( !wfRunHooks( 'UploadForm:BeforeProcessing', array( &$this ) ) ) {
+			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
+			// This code path is deprecated. If you want to break upload processing
+			// do so by hooking into the appropriate hooks in UploadBase::verifyUpload
+			// and UploadBase::verifyFile.
+			// If you use this hook to break uploading, the user will be returned
+			// an empty form with no error message whatsoever.
+			return;
+		}
 
 		// Upload verification
 		$details = $this->mUpload->verifyUpload();
@@ -712,6 +735,9 @@ class SFUploadForm extends HTMLForm {
 		$this->mHideIgnoreWarning = !empty( $options['hideignorewarning'] );
 		$this->mDestFile = isset( $options['destfile'] ) ? $options['destfile'] : '';
 
+		$this->mTextTop = isset( $options['texttop'] ) ? $options['texttop'] : '';
+		$this->mTextAfterSummary = isset( $options['textaftersummary'] ) ? $options['textaftersummary'] : '';
+
 		$sourceDescriptor = $this->getSourceSection();
 		$descriptor = $sourceDescriptor
 			+ $this->getDescriptionSection()
@@ -765,6 +791,16 @@ class SFUploadForm extends HTMLForm {
 		$selectedSourceType = strtolower( $wgRequest->getText( 'wpSourceType', 'File' ) );
 
 		$descriptor = array();
+
+		if ( $this->mTextTop ) {
+			$descriptor['UploadFormTextTop'] = array(
+				'type' => 'info',
+				'section' => 'source',
+				'default' => $this->mTextTop,
+				'raw' => true,
+			);
+		}
+
 		$descriptor['UploadFile'] = array(
 				'class' => 'SFUploadSourceField',
 				'section' => 'source',
@@ -891,6 +927,16 @@ class SFUploadForm extends HTMLForm {
 				'label-message' => 'license',
 			),
 		);
+
+		if ( $this->mTextAfterSummary ) {
+			$descriptor['UploadFormTextAfterSummary'] = array(
+				'type' => 'info',
+				'section' => 'description',
+				'default' => $this->mTextAfterSummary,
+				'raw' => true,
+			);
+		}
+
 		if ( $this->mForReUpload )
 			$descriptor['DestFile']['readonly'] = true;
 
