@@ -566,7 +566,7 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
 
 // Display an error message on the end of an input.
 jQuery.fn.addErrorMessage = function(msg) {
-	$('<span>').addClass( 'errorMessage' ).text( mw.msg( msg ) );
+	this.append(' ').append( $('<span>').addClass( 'errorMessage' ).text( mw.msg( msg ) ) );
 }
 
 jQuery.fn.validateMandatoryField = function() {
