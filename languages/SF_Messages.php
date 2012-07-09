@@ -3572,6 +3572,7 @@ jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, 
  * @author Dj
  * @author Dorgan
  * @author Glanthor Reviol
+ * @author TK-999
  * @author Tgr
  */
 $messages['hu'] = array(
@@ -3606,7 +3607,12 @@ $messages['hu'] = array(
 	'forms' => 'Űrlapok',
 	'sf_forms_docu' => 'A következő űrlapok találhatóak meg a wikiben.',
 	'sf_forminputs_mandatory' => 'Kötelező',
-	'sf_forminputs_restricted' => 'Korlátozott (csak adminisztrátorok módosíthatják)',
+	'sf_forminputs_restricted' => 'Csak adminisztrátorok módosíthatják ezt a bemenetet',
+	'sf_forminputs_class' => 'Ezen bemenet HTML "osztály" tulajdonsága',
+	'sf_forminputs_default' => 'Az alapértelmezett érték ehhez a bemenethez',
+	'sf_forminputs_preload' => 'Egy lap a wikin, amelynek tartalma ezen bemenet alapértéke lesz',
+	'sf_forminputs_property' => 'Egy szemantikai tulajdonság, amelynek ez a mező megfelel',
+	'sf_forminputs_size' => 'Ezen szövegbeviteli mező mérete karakterekben',
 	'createform' => 'Űrlap létrehozása',
 	'sf_createform_nameinput' => 'Űrlap neve',
 	'sf_createform_nameinputdesc' => '(az űrlapot szokás szerint a fő sablon után nevezzük el):',

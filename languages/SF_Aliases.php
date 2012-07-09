@@ -615,15 +615,15 @@ $specialPageAliases['th'] = array(
 
 /** Tagalog (Tagalog) */
 $specialPageAliases['tl'] = array(
-	'CreateCategory' => array( 'Likhain ang kaurian' ),
-	'CreateForm' => array( 'Likhain ang pormularyo' ),
-	'CreateProperty' => array( 'Likhain ang pag-aari' ),
-	'CreateTemplate' => array( 'Likhain ang suleras' ),
-	'FormEdit' => array( 'Baguhin ang dato' ),
-	'FormStart' => array( 'Idagdag ang pahina' ),
-	'Forms' => array( 'Mga pormularyo' ),
-	'Templates' => array( 'Mga suleras' ),
-	'UploadWindow' => array( 'Bintana ng pagkarga' ),
+	'CreateCategory' => array( 'Likhain_ang_kaurian' ),
+	'CreateForm' => array( 'Likhain_ang_pormularyo' ),
+	'CreateProperty' => array( 'Likhain_ang_pag-aari' ),
+	'CreateTemplate' => array( 'Likhain_ang_suleras' ),
+	'FormEdit' => array( 'Baguhin_ang_dato' ),
+	'FormStart' => array( 'Idagdag_ang_pahina' ),
+	'Forms' => array( 'Mga_pormularyo' ),
+	'Templates' => array( 'Mga_suleras' ),
+	'UploadWindow' => array( 'Bintana_ng_pagkarga' ),
 );
 
 /** Turkish (Türkçe) */
