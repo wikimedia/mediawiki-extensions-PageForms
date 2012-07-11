@@ -435,7 +435,7 @@ $specialPageAliases['mt'] = array(
 	'Templates' => array( 'Mudelli' ),
 );
 
-/** Erzya (Эрзянь) */
+/** Erzya (эрзянь) */
 $specialPageAliases['myv'] = array(
 	'Forms' => array( 'Парцунт' ),
 	'Templates' => array( 'ЛопаПарцунт' ),

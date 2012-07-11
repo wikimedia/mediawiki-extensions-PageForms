@@ -1397,7 +1397,7 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
 	'action-viewedittab' => 'mostra la pestanya «Modifica» a les pàgines editables amb formulari',
 );
 
-/** Chechen (Нохчийн)
+/** Chechen (нохчийн)
  * @author Sasan700
  */
 $messages['ce'] = array(
@@ -4483,6 +4483,100 @@ $messages['kn'] = array(
 	'sf_createform_add' => 'ಸೇರಿಸು',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'semanticforms-desc' => '시멘틱 데이터 추가와 편집을 위한 양식',
+	'specialpages-group-sf_group' => '시멘틱 양식',
+	'createproperty' => '자원 만들기',
+	'sf_createproperty_linktoform' => '이 속성은 양식을 사용하는 문서로 연결합니다:',
+	'sf_createproperty_allowedvalsinput' => '이 속성이 특정 값을 가질 수 있도록 허용하려면 쉼표로 구분하여 허용하는 값 목록을 입력하세요 (값이 쉼표로 포함되어 있으면 "\\,"로 바꾸세요):',
+	'sf_createproperty_propname' => '속성 이름:',
+	'sf_createproperty_proptype' => '종류:',
+	'templates' => '틀',
+	'sf_templates_docu' => '다음 틀은 위키에 존재합니다.',
+	'sf_templates_definescat' => '분류 정의: $1',
+	'createtemplate' => '틀 만들기',
+	'sf_createtemplate_namelabel' => '틀 이름:',
+	'sf_createtemplate_categorylabel' => '틀에 의해 정의한 분류 (선택 사항):',
+	'sf_createtemplate_templatefields' => '틀 입력란',
+	'sf_createtemplate_fieldname' => '입력란 이름:',
+	'sf_createtemplate_displaylabel' => '보여줄 레이블:',
+	'sf_createtemplate_semanticproperty' => '시멘틱 속성:',
+	'sf_createtemplate_fieldislist' => '이 입력란은 쉼표로 구분하여 값 목록을 저장할 수 있습니다',
+	'sf_createtemplate_aggregation' => '집합',
+	'sf_createtemplate_aggregationlabel' => '목록 제목:',
+	'sf_createtemplate_outputformat' => '출력 형식:',
+	'sf_createtemplate_standardformat' => '표준',
+	'sf_createtemplate_infoboxformat' => '오른쪽 사이드 정보 상자',
+	'sf_createtemplate_addfield' => '입력란 추가',
+	'sf_createtemplate_deletefield' => '삭제',
+	'forms' => '양식 목록',
+	'sf_forms_docu' => '다음 양식은 위키에 존재합니다.',
+	'createform' => '양식 만들기',
+	'sf_createform_nameinput' => '양식 이름',
+	'sf_createform_template' => '틀:',
+	'sf_createform_templatelabelinput' => '틀 레이블 (선택 사항):',
+	'sf_createform_field' => '입력란',
+	'sf_createform_inputtype' => '입력 종류:',
+	'sf_createform_inputtypedefault' => '(기본값)',
+	'sf_createform_formlabel' => '양식 레이불:',
+	'sf_createform_hidden' => '숨겨짐',
+	'sf_createform_removetemplate' => '틀 제거',
+	'sf_createform_addtemplate' => '틀 추가:',
+	'sf_createform_beforetemplate' => '틀 이전:',
+	'sf_createform_atend' => '끝으로',
+	'sf_createform_add' => '추가',
+	'sf_createform_choosefield' => '추가할 입력란 선택',
+	'createcategory' => '분류 만들기',
+	'sf_createcategory_name' => '분류 이름:',
+	'sf_createcategory_defaultform' => '기본 양식:',
+	'createclass' => '클래스 만들기',
+	'sf_createclass_allowedvalues' => '허용한 값:',
+	'sf_createclass_listofvalues' => '값 목록입니까?',
+	'sf_createclass_nameinput' => '양식 이름:',
+	'sf_createclass_create' => '만들기',
+	'formstart' => '양식 시작',
+	'sf_formstart_createoredit' => '만들거나 편집',
+	'formedit' => '양식으로 편집',
+	'sf_formedit_createtitle' => '$1: $2 만들기',
+	'sf_formedit_createtitlenotarget' => '$1 만들기',
+	'sf_formcreate' => '양식으로 만들기',
+	'sf_viewform' => '양식 보기',
+	'sf_editsource' => '내용 편집',
+	'sf_formedit_edittitle' => '$1: $2 편집',
+	'sf_formedit_remove' => '제거',
+	'sf_formedit_addanother' => '저작자 추가',
+	'sf_formedit_none' => '없음',
+	'sf_formedit_saveandcontinueediting' => '저장하고 계속',
+	'sf_formedit_saveandcontinue_summary' => '양식에서 "$1" 버튼을 사용하여 저장함',
+	'sf_formedit_tooltip_saveandcontinueediting' => '데이터를 저장하고 편집을 계속하기',
+	'sf_autoedit_anoneditwarning' => "'''주의''': 로그인하고 있지 않습니다. 당신의 IP 주소가 문서 역사에 남게 됩니다.",
+	'sf_autoedit_notargetspecified' => '지정한 대상 문서가 없습니다.',
+	'sf_autoedit_noformfound' => '지정한 양식이 없습니다.',
+	'sf-autoedit-wait' => '기다리세요...',
+	'runquery' => '쿼리 실행',
+	'sf_runquery_title' => '쿼리 실행: $1',
+	'sf_runquery_additionalquery' => '추가 쿼리',
+	'sf_blank_error' => '비워둘 수 없습니다',
+	'sf_bad_url_error' => '"http"로 시작하는 올바른 URL 형식이어야 합니다',
+	'sf_bad_email_error' => '올바른 이메일 주소 형식이어야 합니다',
+	'sf_bad_number_error' => '올바른 숫자여야 합니다',
+	'sf_bad_date_error' => '올바른 날짜여야 합니다',
+	'uploadwindow' => '올리기 창',
+	'sf_deletionlog' => '삭제 기록',
+	'sf-preview-header' => '양식 미리 보기',
+	'sf_form_freetextlabel' => '자유 텍스트',
+	'sf_category_hasdefaultform' => '이 분류는 $1 양식을 사용합니다.',
+	'sf_category_desc' => '이는 $1 분류입니다.',
+	'sf_blank_namespace' => '대문',
+	'right-editrestrictedfields' => '제한된 양식 입력란 편집',
+	'right-createclass' => '새 시멘틱 클래스 만들기',
+	'action-createclass' => '새 시멘틱 클래스 만들기',
+	'action-editrestrictedfields' => '제한된 양식 입력란 편집',
+);
+
 /** Krio (Krio)
  * @author Jose77
  */
@@ -4992,7 +5086,7 @@ $messages['lv'] = array(
 	'action-editrestrictedfields' => 'rediģēt ierobežotos formas laukus',
 );
 
-/** Eastern Mari (Олык Марий)
+/** Eastern Mari (олык марий)
  * @author Сай
  */
 $messages['mhr'] = array(
@@ -5379,7 +5473,7 @@ $messages['ms'] = array(
 	'action-createclass' => 'buat kelas semantik baru',
 );
 
-/** Erzya (Эрзянь)
+/** Erzya (эрзянь)
  * @author Botuzhaleny-sodamo
  */
 $messages['myv'] = array(
@@ -5426,10 +5520,9 @@ $messages['nah'] = array(
 	'sf_formedit_none' => 'Ahtlein',
 );
 
-/** Norwegian (bokmål)‬ (‪Norsk (bokmål)‬)
+/** Norwegian Bokmål (‪norsk (bokmål)‬)
  * @author Event
  * @author Harald Khan
- * @author Jon Harald Søby
  * @author Laaknor
  * @author Nghtwlkr
  */
@@ -5493,6 +5586,7 @@ $messages['nb'] = array(
 	'sf_forminputs_includetimezone' => 'Ta med angivelse av tidssone',
 	'sf_forminputs_topcategory' => 'Foreldrekategorien for dette kategorisettet (påkrevet)',
 	'sf_forminputs_hideroot' => 'Skjul foreldrekategorien',
+	'sf_forminputs_depth' => 'Antall kategorinivåer som vises initialt',
 	'sf_forminputs_height' => 'Høyden for denne typen inndata, i piksler',
 	'sf_forminputs_width' => 'Bredden for denne typen inndata, i piksler',
 	'createform' => 'Opprett et skjema',
@@ -5574,10 +5668,11 @@ nettadressen burde være på formen 'Special:RunQuery/<form name>'.",
 	'sf_bad_url_error' => "må ha korrekt URL-format, inkludert 'http'",
 	'sf_bad_email_error' => 'må ha gyldig format på e-postadressen',
 	'sf_bad_number_error' => 'må være et gyldig tall',
-	'sf_bad_integer_error' => 'må være et gyldig heltall',
 	'sf_bad_date_error' => 'må være en gyldig dato',
 	'uploadwindow' => 'Opplastingsvindu',
 	'sf_deletionlog' => 'Slettingslogg',
+	'sf-preview-header' => 'Forhåndsvisning av skjemaet',
+	'sf-preview-note' => 'Slik vil skjemaet se ut i bruk:',
 	'sf-pageschemas-pagenameformula' => 'Sidenavnsformel:',
 	'sf-pageschemas-createtitle' => 'Skjematittel for nye sider:',
 	'sf-pageschemas-edittitle' => 'Skjematittel for eksisterende sider:',
@@ -7808,7 +7903,7 @@ $messages['uk'] = array(
 	'sf_category_desc' => 'Це категорія $1.',
 );
 
-/** Veps (Vepsän kel’)
+/** Veps (vepsän kel’)
  * @author Игорь Бродский
  */
 $messages['vep'] = array(
