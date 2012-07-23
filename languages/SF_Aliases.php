@@ -341,10 +341,10 @@ $specialPageAliases['ko'] = array(
 	'CreateProperty' => array( '속성추가' ),
 	'CreateTemplate' => array( '틀추가' ),
 	'FormEdit' => array( '데이터편집' ),
-	'FormStart' => array( '페이지추가' ),
+	'FormStart' => array( '양식시작', '문서추가' ),
 	'Forms' => array( '양식목록' ),
 	'RunQuery' => array( '쿼리실행' ),
-	'Templates' => array( '틀' ),
+	'Templates' => array( '틀목록' ),
 	'UploadWindow' => array( '올리기창' ),
 );
 
