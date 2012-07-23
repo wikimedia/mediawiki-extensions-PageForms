@@ -49,10 +49,6 @@ class SFFormStart extends SpecialPage {
 			}
 		}
 
-		// Remove forbidden characters from the form name.
-		$forbidden_chars = array( '"', "'", '<', '>', '{', '}', '(', ')', '[', ']', '=' );
-		$form_name = str_replace( $forbidden_chars, "", $form_name );
-
 		// Get title of form.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 
