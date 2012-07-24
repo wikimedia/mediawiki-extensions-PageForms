@@ -22,7 +22,7 @@ class SFCreateProperty extends SpecialPage {
 
 	function execute( $query ) {
 		$this->setHeaders();
-		self::printCreatePropertyForm();
+		$this->printCreatePropertyForm( $query );
 	}
 
 	static function createPropertyText( $property_type, $default_form, $allowed_values_str ) {
@@ -53,12 +53,19 @@ class SFCreateProperty extends SpecialPage {
 		return $text;
 	}
 
-	static function printCreatePropertyForm() {
+	function printCreatePropertyForm( $query ) {
 		global $wgOut, $wgRequest, $sfgScriptPath;
 		global $smwgContLang;
 
-		# cycle through the query values, setting the appropriate local variables
-		$property_name = $wgRequest->getVal( 'property_name' );
+		// Cycle through the query values, setting the appropriate
+		// local variables.
+		$presetPropertyName = str_replace( '_', ' ', $query );
+		if ( $presetPropertyName !== '' ) {
+			$wgOut->setPageTitle( wfMsg( 'sf-createproperty-with-name', $presetPropertyName) );
+			$property_name = $presetPropertyName;
+		} else {
+			$property_name = $wgRequest->getVal( 'property_name' );
+		}
 		$property_type = $wgRequest->getVal( 'property_type' );
 		$default_form = $wgRequest->getVal( 'default_form' );
 		$allowed_values = $wgRequest->getVal( 'values' );
@@ -74,7 +81,7 @@ class SFCreateProperty extends SpecialPage {
 			if ( $property_name === '' ) {
 				$property_name_error_str = wfMsg( 'sf_blank_error' );
 			} else {
-				# redirect to wiki interface
+				// Redirect to wiki interface.
 				$wgOut->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$full_text = self::createPropertyText( $property_type, $default_form, $allowed_values );
@@ -120,14 +127,19 @@ END;
 		$type_label = wfMsg( 'sf_createproperty_proptype' );
 		$text = <<<END
 	<form action="" method="post">
-	<input type="hidden" name="title" value="$special_namespace:CreateProperty">
-	<p>$name_label <input size="25" name="property_name" value="">
-	<span style="color: red;">$property_name_error_str</span>
-	$type_label
+
 END;
+		$text .= "\n<p>";
+		if ( $presetPropertyName === '' ) {
+			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
+			$text .= "$name_label\n";
+			$text .= Html::input ( 'property_name', '', array( 'size' => 25 ) );
+			$text .= Html::element( 'span', array( 'style' => "color: red;" ), $property_name_error_str );
+		}
+		$text .= "\n$type_label\n";
 		$select_body = "";
 		foreach ( $datatype_labels as $label ) {
-			$select_body .= "	" . Html::element( 'option', null, $label ) . "\n";
+			$select_body .= "\t" . Html::element( 'option', null, $label ) . "\n";
 		}
 		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value); toggleAllowedValues(this.value);' ), $select_body ) . "\n";
 

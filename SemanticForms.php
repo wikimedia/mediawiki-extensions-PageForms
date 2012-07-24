@@ -82,6 +82,8 @@ $wgHooks['LinkEnd'][] = 'SFFormLinker::setBrokenLink';
 // 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
 $wgHooks['SkinTemplateTabs'][] = 'SFFormEditAction::displayTab';
 $wgHooks['SkinTemplateNavigation'][] = 'SFFormEditAction::displayTab2';
+$wgHooks['SkinTemplateTabs'][] = 'SFHelperFormAction::displayTab';
+$wgHooks['SkinTemplateNavigation'][] = 'SFHelperFormAction::displayTab2';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
 $wgHooks['AdminLinks'][] = 'SFUtils::addToAdminLinks';
 $wgHooks['ArticlePurge'][] = 'SFFormUtils::purgeCache';
@@ -95,9 +97,11 @@ $wgHooks['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
 // Using UnknownAction is deprecated from MW 1.18 onwards.
 if ( version_compare( $wgVersion, '1.18', '<' ) ) {
 	$wgHooks['UnknownAction'][] = 'SFFormEditAction::displayForm';
+	$wgHooks['UnknownAction'][] = 'SFHelperFormAction::displayForm';
 } else {
 	// Introduced in MW 1.18.
 	$wgActions['formedit'] = 'SFFormEditAction';
+	$wgActions['formcreate'] = 'SFHelperFormAction';
 }
 
 // API modules
@@ -152,6 +156,7 @@ $wgAutoloadClasses['SFParserFunctions'] = $sfgIP . '/includes/SF_ParserFunctions
 $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI.php';
 $wgAutoloadClasses['SFAutoeditAPI'] = $sfgIP . '/includes/SF_AutoeditAPI.php';
 $wgAutoloadClasses['SFFormEditAction'] = $sfgIP . '/includes/SF_FormEditAction.php';
+$wgAutoloadClasses['SFHelperFormAction'] = $sfgIP . '/includes/SF_HelperFormAction.php';
 
 // Form inputs
 $wgAutoloadClasses['SFFormInput'] = $sfgIP . '/includes/forminputs/SF_FormInput.php';
@@ -363,6 +368,11 @@ $sfgFormCacheType = null;
 # user is currently on, instead of from all pages in the wiki.
 # ##
 $sfgRedLinksCheckOnlyLocalProps = false;
+
+# ##
+# Show the "create with form" tab for uncreated templates and categories.
+# ##
+$sfgShowTabsForAllHelperForms = true;
 
 # ##
 # Displays the form above, instead of below, the results, in the

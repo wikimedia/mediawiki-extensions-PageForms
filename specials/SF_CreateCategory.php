@@ -46,7 +46,13 @@ class SFCreateCategory extends SpecialPage {
 
 		// Cycle through the query values, setting the appropriate
 		// local variables.
-		$category_name = $wgRequest->getVal( 'category_name' );
+		if ( !is_null( $query ) ) {
+			$presetCategoryName = str_replace( '_', ' ', $query );
+			$wgOut->setPageTitle( wfMsg( 'sf-createcategory-with-name', $presetCategoryName ) );
+			$category_name = $presetCategoryName;
+		} else {
+			$category_name = $wgRequest->getVal( 'category_name' );
+		}
 		$default_form = $wgRequest->getVal( 'default_form' );
 		$parent_category = $wgRequest->getVal( 'parent_category' );
 
@@ -75,17 +81,20 @@ class SFCreateCategory extends SpecialPage {
 		$mw_namespace_labels = $wgContLang->getNamespaces();
 		$special_namespace = $mw_namespace_labels[NS_SPECIAL];
 		$text = <<<END
-	<form action="" method="get">
+	<form action="" method="post">
 
 END;
-		$text .= "\t" . Html::hidden( 'title', "$special_namespace:CreateCategory" ) . "\n";
-		$firstRow = wfMsg( 'sf_createcategory_name' ) . ' ' .
-			Html::input( 'category_name', null, 'text',
-				array( 'size' => 25 ) ) . "\n";
-		if ( !is_null( $category_name_error_str ) ) {
-			$firstRow .= Html::element( 'span',
-				array( 'style' => 'color: red;' ),
-				$category_name_error_str ) . "\n";
+		$firstRow = '';
+		if ( is_null( $presetCategoryName ) ) {
+			$text .= "\t" . Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
+			$firstRow .= wfMsg( 'sf_createcategory_name' ) . ' ' .
+				Html::input( 'category_name', null, 'text',
+					array( 'size' => 25 ) ) . "\n";
+			if ( !is_null( $category_name_error_str ) ) {
+				$firstRow .= Html::element( 'span',
+					array( 'style' => 'color: red;' ),
+					$category_name_error_str ) . "\n";
+			}
 		}
 		$firstRow .= "\t" . wfMsg( 'sf_createcategory_defaultform' ) . "\n";
 		$formSelector = "\t" . Html::element( 'option', null, null ). "\n";
@@ -100,27 +109,18 @@ END;
 		$subcategory_label = wfMsg( 'sf_createcategory_makesubcategory' );
 		$text .= <<<END
 	<p>$subcategory_label
-	<select id="category_dropdown" name="parent_category">
-	<option></option>
 
 END;
+		$selectBody = "\t" . Html::element( 'option', null, null ). "\n";
 		$categories = SFUtils::getCategoriesForPage();
 		foreach ( $categories as $category ) {
 			$category = str_replace( '_', ' ', $category );
-			$text .= "\t" . Html::element( 'option', null, $category ) . "\n";
+			$selectBody .= "\t" . Html::element( 'option', null, $category ) . "\n";
 		}
-		$text .= "\t</select>\n";
+		$text .= Html::rawElement( 'select', array( 'id' => 'category_dropdown', 'name' => 'parent_category' ), $selectBody );
 		$editButtonsText = "\t" . Html::input( 'wpSave', wfMsg( 'savearticle' ), 'submit', array( 'id' => 'wpSave' ) ) . "\n";
 		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMsg( 'preview' ), 'submit', array( 'id' => 'wpPreview' ) ) . "\n";
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";
-		$text .= <<<END
-	<br /><hr /<br />
-
-END;
-
-		$sk = $wgUser->getSkin();
-		$create_form_link = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
-		$text .= "\t" . Html::rawElement( 'p', null, $create_form_link . '.' ) . "\n";
 		$text .= "\t</form>\n";
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );

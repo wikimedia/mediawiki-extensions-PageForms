@@ -42,13 +42,21 @@ class SFCreateForm extends SpecialPage {
 			}
 			echo self::showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
 		} else {
-			$this->doSpecialCreateForm();
+			$this->doSpecialCreateForm( $query );
 		}
 	}
 
-	function doSpecialCreateForm() {
+	function doSpecialCreateForm( $query ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 		$db = wfGetDB( DB_SLAVE );
+
+		if ( !is_null( $query ) ) {
+			$presetFormName = str_replace( '_', ' ', $query );
+			$wgOut->setPageTitle( wfMsg( 'sf-createform-with-name', $presetFormName ) );
+			$form_name = $presetFormName;
+		} else {
+			$form_name = $wgRequest->getVal( 'form_name' );
+		}
 
 		// Create Javascript to populate fields to let the user input
 		// parameters for the field, based on the input type selected
@@ -100,8 +108,7 @@ jQuery(document).ready(function() {
 		$i = 1;
 		$deleted_template_loc = null;
 
-		# handle inputs
-		$form_name = $wgRequest->getVal( 'form_name' );
+		// Handle inputs.
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			# ignore variables that are not of the right form
 			if ( strpos( $var, "_" ) != false ) {
@@ -196,6 +203,7 @@ jQuery(document).ready(function() {
 		$save_page = $wgRequest->getCheck( 'wpSave' );
 		$preview_page = $wgRequest->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
+die('a');
 			// Validate form name
 			if ( $form->getFormName() == "" ) {
 				$form_name_error_str = wfMsg( 'sf_blank_error' );
@@ -211,12 +219,15 @@ jQuery(document).ready(function() {
 		}
 
 		$text = "\t" . '<form action="" method="post">' . "\n";
-		// Set 'title' field, in case there's no URL niceness
-		$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() );
-		$text .= "\n\t<p>" . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
-		if ( ! empty( $form_name_error_str ) )
-			$text .= "\t" . Html::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
-		$text .= "</p>\n";
+		if ( is_null( $presetFormName ) ) {
+			// Set 'title' field, in case there's no URL niceness
+			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() );
+			$text .= "\n\t<p>" . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
+			if ( ! empty( $form_name_error_str ) ) {
+				$text .= "\t" . Html::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
+			}
+			$text .= "</p>\n";
+		}
 
 		$text .= $form->creationHTML();
 
@@ -273,10 +284,8 @@ END;
 		}
 		$text .= <<<END
 	</form>
-	<hr /><br />
 
 END;
-		$text .= "\t" . Html::rawElement( 'p', null, $create_template_link . '.' );
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );

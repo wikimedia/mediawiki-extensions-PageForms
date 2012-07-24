@@ -37,6 +37,20 @@ function createClassAddRow() {
 	jQuery('#mainTable').append(newRow);
 }
 
+function disableFormAndCategoryInputs() {
+	if (jQuery('#template_multiple').attr('checked')) {
+		jQuery('#form_name').attr('disabled', 'disabled');
+		jQuery('label[for="form_name"]').css('color', 'gray').css('font-style', 'italic');
+		jQuery('#category_name').attr('disabled', 'disabled');
+		jQuery('label[for="category_name"]').css('color', 'gray').css('font-style', 'italic');
+	} else {
+		jQuery('#form_name').removeAttr('disabled');
+		jQuery('label[for="form_name"]').css('color', '').css('font-style', '');
+		jQuery('#category_name').removeAttr('disabled');
+		jQuery('label[for="category_name"]').css('color', '').css('font-style', '');
+	}
+}
+
 </script>
 
 END;
@@ -55,29 +69,32 @@ END;
 
 		$this->setHeaders();
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
-		$numStartingRows = 10;
+		$numStartingRows = 5;
 		self::addJavascript( $numStartingRows );
 
 		$property_name_error_str = '';
 		$save_page = $wgRequest->getCheck( 'save' );
 		if ( $save_page ) {
 			$template_name = trim( $wgRequest->getVal( "template_name" ) );
-			$form_name = trim( $wgRequest->getVal( "form_name" ) );
-			$category_name = trim( $wgRequest->getVal( "category_name" ) );
-			if ( $template_name === '' | $form_name === '' || $category_name === '' ) {
+			$template_multiple = $wgRequest->getBool( "template_multiple" );
+			if ( !$template_multiple ) {
+				$form_name = trim( $wgRequest->getVal( "form_name" ) );
+				$category_name = trim( $wgRequest->getVal( "category_name" ) );
+			}
+			if ( $template_name === '' || ( !$template_multiple && ( $form_name === '' || $category_name === '' ) ) ) {
 				$wgOut->addWikiMsg( 'sf_createclass_missingvalues' );
 				return;
 			}
 			$fields = array();
 			$jobs = array();
-			// cycle through all the rows passed in
-			for ( $i = 1; $wgRequest->getCheck( "property_name_$i" ); $i++ ) {
+			// Cycle through all the rows passed in.
+			for ( $i = 1; $wgRequest->getCheck( "field_name_$i" ); $i++ ) {
 				// go through the query values, setting the appropriate local variables
 				$property_name = trim( $wgRequest->getVal( "property_name_$i" ) );
-				if ( empty( $property_name ) ) continue;
+				//if ( empty( $property_name ) ) continue;
 				$field_name = trim( $wgRequest->getVal( "field_name_$i" ) );
-				if ( $field_name === '' )
-					$field_name = $property_name;
+				//if ( $field_name === '' )
+				//	$field_name = $property_name;
 				$property_type = $wgRequest->getVal( "property_type_$i" );
 				$allowed_values = $wgRequest->getVal( "allowed_values_$i" );
 				$is_list = $wgRequest->getCheck( "is_list_$i" );
@@ -86,16 +103,18 @@ END;
 				$field = SFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
 				$fields[] = $field;
 
-				// create the property, and make a job for it
-				$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
-				$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
-				$params = array();
-				$params['user_id'] = $wgUser->getId();
-				$params['page_text'] = $full_text;
-				$jobs[] = new SFCreatePageJob( $property_title, $params );
+				// Create the property, and make a job for it.
+				if ( !empty( $property_name ) ) {
+					$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
+					$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
+					$params = array();
+					$params['user_id'] = $wgUser->getId();
+					$params['page_text'] = $full_text;
+					$jobs[] = new SFCreatePageJob( $property_title, $params );
+				}
 			}
 
-			// create the template, and save it
+			// Create the template, and save it.
 			$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, null );
 			$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 			$template_article = new Article( $template_title, 0 );
@@ -137,31 +156,50 @@ END;
 		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
 		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateCategory' );
 		$create_class_docu = wfMsg( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) );
-		$leave_field_blank = wfMsg( 'sf_createclass_leavefieldblank' );
 		$form_name_label = wfMsg( 'sf_createclass_nameinput' );
 		$template_name_label = wfMsg( 'sf_createtemplate_namelabel' );
 		$category_name_label = wfMsg( 'sf_createcategory_name' );
-		$property_name_label = wfMsg( 'sf_createproperty_propname' );
 		$field_name_label = wfMsg( 'sf_createtemplate_fieldname' );
+		$list_of_values_label = wfMsg( 'sf_createclass_listofvalues' );
+		$property_name_label = wfMsg( 'sf_createproperty_propname' );
 		$type_label = wfMsg( 'sf_createproperty_proptype' );
 		$allowed_values_label = wfMsg( 'sf_createclass_allowedvalues' );
-		$list_of_values_label = wfMsg( 'sf_createclass_listofvalues' );
 
 		$text = <<<END
 <form action="" method="post">
 	<p>$create_class_docu</p>
-	<p>$leave_field_blank</p>
 	<p>$template_name_label <input type="text" size="30" name="template_name"></p>
-	<p>$form_name_label <input type="text" size="30" name="form_name"></p>
-	<p>$category_name_label <input type="text" size="30" name="category_name"></p>
+	<blockquote>
+
+END;
+		$text .= SFCreateTemplate::printTemplateStyleInput();
+		$text .= Html::rawElement( 'p', null,
+			Html::element( 'input', array(
+				'type' => 'checkbox',
+				'name' => 'template_multiple',
+				'id' => 'template_multiple',
+				'onclick' => "disableFormAndCategoryInputs()",
+			) ) . " This template will be included multiple times on the page." ) . "\n";
+		$text .= <<<END
+	</blockquote>
+
+END;
+		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
+		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
+		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
+		$text .= <<<END
 	<div>
-		<table id="mainTable">
+		<table id="mainTable" style="border-collapse: collapse;">
 		<tr>
-			<th colspan="2">$property_name_label</th>
-			<th>$field_name_label</th>
-			<th>$type_label</th>
-			<th>$allowed_values_label</th>
-			<th>$list_of_values_label</th>
+			<th colspan="3" />
+			<th colspan="3" style="background: #ddeebb; padding: 4px;">Property</th>
+		</tr>
+		<tr>
+			<th colspan="2">$field_name_label</th>
+			<th style="padding: 4px;">$list_of_values_label</th>
+			<th style="background: #eeffcc; padding: 4px;">$property_name_label</th>
+			<th style="background: #eeffcc; padding: 4px;">$type_label</th>
+			<th style="background: #eeffcc; padding: 4px;">$allowed_values_label</th>
 		</tr>
 
 END;
@@ -177,11 +215,12 @@ END;
 				$n = $i;
 			}
 			$text .= <<<END
-		<tr $rowString>
+		<tr $rowString style="margin: 4px;">
 			<td>$n.</td>
-			<td><input type="text" size="25" name="property_name_$n" /></td>
 			<td><input type="text" size="25" name="field_name_$n" /></td>
-			<td>
+			<td style="text-align: center;"><input type="checkbox" name="is_list_$n" /></td>
+			<td style="background: #eeffcc; padding: 4px;"><input type="text" size="25" name="property_name_$n" /></td>
+			<td style="background: #eeffcc; padding: 4px;">
 			<select name="property_type_$n">
 
 END;
@@ -193,8 +232,7 @@ END;
 			$text .= <<<END
 			</select>
 			</td>
-			<td><input type="text" size="25" name="allowed_values_$n" /></td>
-			<td><input type="checkbox" name="is_list_$n" /></td>
+			<td style="background: #eeffcc; padding: 4px;"><input type="text" size="25" name="allowed_values_$n" /></td>
 
 END;
 		}

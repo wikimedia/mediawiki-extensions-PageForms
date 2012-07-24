@@ -22,7 +22,7 @@ class SFCreateTemplate extends SpecialPage {
 
 	public function execute( $query ) {
 		$this->setHeaders();
-		$this->printCreateTemplateForm();
+		$this->printCreateTemplateForm( $query );
 	}
 
 	public static function getAllPropertyNames() {
@@ -144,8 +144,30 @@ END;
 		$wgOut->addScript( $jsText );
 	}
 
-	function printCreateTemplateForm() {
+	static function printTemplateStyleInput() {
+		$text = "\t<p>" . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
+		$text .= "\t" . Html::input( 'template_format', 'standard', 'radio', array(
+			'checked' => true,
+		), null ) . ' ' . wfMsg( 'sf_createtemplate_standardformat' ) . "\n";
+		$text .= "\t" . Html::input( 'template_format', 'infobox', 'radio', null ) .
+			' ' . wfMsg( 'sf_createtemplate_infoboxformat' ) . "\n";
+		$text .= "\t" . Html::input( 'template_format', 'plain', 'radio', null ) .
+			' ' . wfMsg( 'sf_createtemplate_plainformat' ) . "\n";
+		$text .= "\t" . Html::input( 'template_format', 'sections', 'radio', null ) .
+			' ' . wfMsg( 'sf_createtemplate_sectionsformat' ) . "</p>\n";
+		return $text;
+	}
+
+	function printCreateTemplateForm( $query ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
+
+		if ( !is_null( $query ) ) {
+			$presetTemplateName = str_replace( '_', ' ', $query );
+			$wgOut->setPageTitle( wfMsg( 'sf-createtemplate-with-name', $presetTemplateName ) );
+			$template_name = $presetTemplateName;
+		} else {
+			$template_name = $wgRequest->getVal( 'template_name' );
+		}
 
 		self::addJavascript();
 
@@ -171,7 +193,6 @@ END;
 			// Assemble the template text, and submit it as a wiki
 			// page.
 			$wgOut->setArticleBodyOnly( true );
-			$template_name = $wgRequest->getVal( 'template_name' );
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 			$category = $wgRequest->getVal( 'category' );
 			$aggregating_property = $wgRequest->getVal( 'semantic_property_aggregation' );
@@ -184,9 +205,11 @@ END;
 		}
 
 		$text .= '	<form id="createTemplateForm" action="" method="post">' . "\n";
-		// Set 'title' field, in case there's no URL niceness
-		$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
-		$text .= "\t<p id=\"template_name_p\">" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
+		if ( is_null( $presetTemplateName ) ) {
+			// Set 'title' field, in case there's no URL niceness
+			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
+			$text .= "\t<p id=\"template_name_p\">" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
+		}
 		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_categorylabel' ) . ' <input size="25" name="category" /></p>' . "\n";
 		$text .= "\t<fieldset>\n";
 		$text .= "\t" . Html::element( 'legend', null, wfMsg( 'sf_createtemplate_templatefields' ) ) . "\n";
@@ -216,12 +239,7 @@ END;
 				array( 'size' => '25' ) ) .
 			"</p>\n";
 		$text .= "\t</fieldset>\n";
-		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
-		$text .= "\t" . Html::input( 'template_format', 'standard', 'radio', array(
-			'checked' => true,
-		), null ) . ' ' . wfMsg( 'sf_createtemplate_standardformat' ) . "\n";
-		$text .= "\t" . Html::input( 'template_format', 'infobox', 'radio', null ) .
-			' ' . wfMsg( 'sf_createtemplate_infoboxformat' ) . "</p>\n";
+		$text .= self::printTemplateStyleInput();
 		$save_button_text = wfMsg( 'savearticle' );
 		$preview_button_text = wfMsg( 'preview' );
 		$text .= <<<END
@@ -232,10 +250,6 @@ END;
 	</form>
 
 END;
-		$sk = $wgUser->getSkin();
-		$create_property_link = SFUtils::linkForSpecialPage( $sk, 'CreateProperty' );
-		$text .= "\t<br /><hr /><br />\n";
-		$text .= "\t" . Html::rawElement( 'p', null, $create_property_link . '.' ) . "\n";
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );
