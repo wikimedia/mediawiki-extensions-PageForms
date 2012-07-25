@@ -405,8 +405,11 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		}
 
 		$basename = str_replace( '_', ' ', $basename );
-		// UTF8-decoding is needed for IE
-		$basename = utf8_decode( $basename );
+		// UTF8-decoding is needed for IE.
+		// Actually, this doesn't seem to fix the encoding in IE
+		// any more... and it messes up the encoding for all other
+		// browsers. @TODO - fix handling in IE!
+		//$basename = utf8_decode( $basename );
 		
 		$output = <<<END
 		<script type="text/javascript">
