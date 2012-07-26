@@ -156,9 +156,7 @@ END;
 		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
 		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateCategory' );
 		$create_class_docu = wfMsg( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) );
-		$form_name_label = wfMsg( 'sf_createclass_nameinput' );
 		$template_name_label = wfMsg( 'sf_createtemplate_namelabel' );
-		$category_name_label = wfMsg( 'sf_createcategory_name' );
 		$field_name_label = wfMsg( 'sf_createtemplate_fieldname' );
 		$list_of_values_label = wfMsg( 'sf_createclass_listofvalues' );
 		$property_name_label = wfMsg( 'sf_createproperty_propname' );
@@ -179,13 +177,10 @@ END;
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
-			) ) . " This template will be included multiple times on the page." ) . "\n";
-		$text .= <<<END
-	</blockquote>
-
-END;
-		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
-		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
+			) ) . ' '  wfMsg( 'sf_createtemplate_multipleinstance' ) . "\n";
+		$text .= "\t</blockquote>\n";
+		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), wfMsg( 'sf_createclass_nameinput' ) ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
+		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), wfMsg( 'sf_createcategory_name' ) ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
 		$text .= <<<END
 	<div>
@@ -224,9 +219,9 @@ END;
 			<select name="property_type_$n">
 
 END;
-			$optionsStr ="";
+			$optionsStr = "";
 			foreach ( $datatype_labels as $label ) {
-				$text .= "				<option>$label</option>\n";
+				$text .= "\t\t\t\t" . Html::element( 'option', null, $label ) . "\n";
 				$optionsStr .= $label . ",";
 			}
 			$text .= <<<END

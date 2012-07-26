@@ -28,6 +28,7 @@ $messages['en'] = array(
 	'createtemplate'                     => 'Create a template',
 	'sf-createtemplate-with-name'        => 'Create template: $1',
 	'sf_createtemplate_namelabel'        => 'Template name:',
+	'sf_createtemplate_multipleinstance' => 'This template can be included multiple times on the page.',
 	'sf_createtemplate_categorylabel'    => 'Category defined by template (optional):',
 	'sf_createtemplate_templatefields'   => 'Template fields',
 	'sf_createtemplate_fieldsdesc'       => 'To have the fields in this template no longer require field names, simply enter the index of each field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.',
