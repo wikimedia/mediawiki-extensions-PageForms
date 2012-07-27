@@ -53,11 +53,7 @@ class TemplatesPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		global $wgUser;
-		
-		$create_template_link = SFUtils::linkForSpecialPage( 'CreateTemplate' );
-		$header = "<p>" . $create_template_link . ".</p>\n";
-		$header .= '<p>' . wfMsg( 'sf_templates_docu' ) . "</p><br />\n";
+		$header = '<p>' . wfMsg( 'sf_templates_docu' ) . "</p><br />\n";
 		return $header;
 	}
 

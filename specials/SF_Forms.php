@@ -52,8 +52,7 @@ class FormsPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		$header = "<p>" . SFUtils::linkForSpecialPage( 'CreateForm' ) . ".</p>\n";
-		$header .= '<p>' . wfMsg( 'sf_forms_docu' ) . "</p><br />\n";
+		$header = '<p>' . wfMsg( 'sf_forms_docu' ) . "</p><br />\n";
 		return $header;
 	}
 
