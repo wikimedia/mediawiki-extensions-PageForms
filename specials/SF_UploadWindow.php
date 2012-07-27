@@ -1013,28 +1013,14 @@ class SFUploadForm extends HTMLForm {
 		$sk->initPage( $wgOut ); // need to call this to set skin name correctly
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
-		if ( method_exists( $wgOut, 'addModules' ) ) {
-			$wgOut->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
-			// Method was added in MW 1.18
-			if ( method_exists( $wgOut, 'getBottomScripts' ) ) {
-				$head_scripts = $wgOut->getHeadScripts( $sk );
-				$body_scripts = $wgOut->getBottomScripts( $sk );
-			} else {
-				$head_scripts = '';
-				$body_scripts = $wgOut->getHeadScripts( $sk );
-			}
+		$wgOut->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
+		// Method was added in MW 1.18
+		if ( method_exists( $wgOut, 'getBottomScripts' ) ) {
+			$head_scripts = $wgOut->getHeadScripts( $sk );
+			$body_scripts = $wgOut->getBottomScripts( $sk );
 		} else {
-			global $wgJsMimeType, $wgStylePath, $wgStyleVersion;
-			$vars_js = Skin::makeGlobalVariablesScript( array( 'skinname' => $sk->getSkinName() ) );
-			$head_scripts = <<<END
-$vars_js
-<script type="{$wgJsMimeType}" src="{$wgStylePath}/common/wikibits.js?$wgStyleVersion"></script>
-{$wgOut->getScript()}
-<script type="{$wgJsMimeType}" src="{$wgStylePath}/common/ajax.js?$wgStyleVersion"></script>
-<script type="{$wgJsMimeType}" src="{$wgStylePath}/common/ajaxwatch.js?$wgStyleVersion"></script>
-
-END;
-			$body_scripts = '';
+			$head_scripts = '';
+			$body_scripts = $wgOut->getHeadScripts( $sk );
 		}
 
 		$text = <<<END
