@@ -602,16 +602,12 @@ END;
 	 * consisting of one or more <li> elements if there is a warning.
 	 */
 	public static function getExistsWarning( $exists ) {
-		global $wgUser;
-
 		if ( !$exists )
 			return '';
 
 		$file = $exists['file'];
 		$filename = $file->getTitle()->getPrefixedText();
 		$warning = array();
-
-		$sk = $wgUser->getSkin();
 
 		if ( $exists['warning'] == 'exists' ) {
 			// Exact match
@@ -636,7 +632,7 @@ END;
 		} elseif ( $exists['warning'] == 'was-deleted' ) {
 			# If the file existed before and was deleted, warn the user of this
 			$ltitle = SpecialPage::getTitleFor( 'Log' );
-			$llink = $sk->linkKnown(
+			$llink = SFUtils::getLinker()->linkKnown(
 				$ltitle,
 				wfMsgHtml( 'deletionlog' ),
 				array(),
@@ -1005,20 +1001,20 @@ class SFUploadForm extends HTMLForm {
 		// disable $wgOut - we'll print out the page manually,
 		// taking the body created by the form, plus the necessary
 		// Javascript files, and turning them into an HTML page
-		global $wgOut, $wgUser, $wgTitle, $wgLanguageCode,
+		global $wgOut, $wgTitle, $wgLanguageCode,
 		$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
 
 		$wgOut->disable();
-		$sk = $wgUser->getSkin();
-		$sk->initPage( $wgOut ); // need to call this to set skin name correctly
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
 		$wgOut->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
 		// Method was added in MW 1.18
 		if ( method_exists( $wgOut, 'getBottomScripts' ) ) {
-			$head_scripts = $wgOut->getHeadScripts( $sk );
-			$body_scripts = $wgOut->getBottomScripts( $sk );
+			$head_scripts = $wgOut->getHeadScripts();
+			$body_scripts = $wgOut->getBottomScripts();
 		} else {
+			global $wgUser;
+			$sk = $wgUser->getSkin();
 			$head_scripts = '';
 			$body_scripts = $wgOut->getHeadScripts( $sk );
 		}

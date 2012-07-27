@@ -61,8 +61,7 @@ class SFCreateForm extends SpecialPage {
 		// Create Javascript to populate fields to let the user input
 		// parameters for the field, based on the input type selected
 		// in the dropdown.
-		$skin = $wgUser->getSkin();
-		$url = $skin->makeSpecialUrl( 'CreateForm', "showinputtypeoptions=' + this.val() + '&formfield=' + this.attr('formfieldid') + '" );
+		$url = Skin::makeSpecialUrl( 'CreateForm', "showinputtypeoptions=' + this.val() + '&formfield=' + this.attr('formfieldid') + '" );
 		foreach ( $wgRequest->getValues() as $param => $value ) {
 			$url .= '&params[' . Xml::escapeJsString( $param ) . ']=' . Xml::escapeJsString( $value );
 		}
@@ -257,8 +256,7 @@ die('a');
 		// added any templates.
 		$disabled_text = ( count( $form_templates ) == 0 ) ? "disabled" : "";
 		$add_button_text = wfMsg( 'sf_createform_add' );
-		$sk = $wgUser->getSkin();
-		$create_template_link = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
+		$create_template_link = SFUtils::linkForSpecialPage( 'CreateTemplate' );
 		$text .= "\t" . Html::input( 'add_field', $add_button_text, 'submit' );
 		$text .= <<<END
 </p>

@@ -149,14 +149,15 @@ END;
 
 		// make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page
-		$sk = $wgUser->getSkin();
 		$creation_links = array();
-		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateProperty' );
-		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateTemplate' );
-		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
-		$creation_links[] = SFUtils::linkForSpecialPage( $sk, 'CreateCategory' );
+		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateProperty' );
+		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateTemplate' );
+		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateForm' );
+		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateCategory' );
 		$create_class_docu = wfMsg( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) );
+		$form_name_label = wfMsg( 'sf_createclass_nameinput' );
 		$template_name_label = wfMsg( 'sf_createtemplate_namelabel' );
+		$category_name_label = wfMsg( 'sf_createcategory_name' );
 		$field_name_label = wfMsg( 'sf_createtemplate_fieldname' );
 		$list_of_values_label = wfMsg( 'sf_createclass_listofvalues' );
 		$property_name_label = wfMsg( 'sf_createproperty_propname' );
@@ -177,10 +178,13 @@ END;
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
-			) ) . ' '  wfMsg( 'sf_createtemplate_multipleinstance' ) . "\n";
-		$text .= "\t</blockquote>\n";
-		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), wfMsg( 'sf_createclass_nameinput' ) ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
-		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), wfMsg( 'sf_createcategory_name' ) ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
+			) ) . " This template will be included multiple times on the page." ) . "\n";
+		$text .= <<<END
+	</blockquote>
+
+END;
+		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
+		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
 		$text .= <<<END
 	<div>
@@ -219,9 +223,9 @@ END;
 			<select name="property_type_$n">
 
 END;
-			$optionsStr = "";
+			$optionsStr ="";
 			foreach ( $datatype_labels as $label ) {
-				$text .= "\t\t\t\t" . Html::element( 'option', null, $label ) . "\n";
+				$text .= "				<option>$label</option>\n";
 				$optionsStr .= $label . ",";
 			}
 			$text .= <<<END

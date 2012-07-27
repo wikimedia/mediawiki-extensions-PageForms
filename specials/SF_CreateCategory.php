@@ -40,7 +40,7 @@ class SFCreateCategory extends SpecialPage {
 	}
 
 	function execute( $query ) {
-		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
+		global $wgOut, $wgRequest, $sfgScriptPath;
 
 		$this->setHeaders();
 

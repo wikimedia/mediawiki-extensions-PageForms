@@ -12,9 +12,9 @@ class SFUtils {
 	/**
 	 * Creates a link to a special page, using that page's top-level description as the link text.
 	 */
-	public static function linkForSpecialPage( $skin, $specialPageName ) {
+	public static function linkForSpecialPage( $specialPageName ) {
 		$specialPage = SpecialPage::getPage( $specialPageName );
-		return $skin->link( $specialPage->getTitle(), $specialPage->getDescription() );
+		return self::getLinker()->link( $specialPage->getTitle(), $specialPage->getDescription() );
 	}
 
 	/**
@@ -985,6 +985,24 @@ END;
 		);
 
 		return true;
+	}
+
+	/**
+	 * Get the linker - works differently for different versions of
+	 * MediaWiki (1.17, 1.18+). This function is copied directly from
+	 * smwfGetLinker() - that one unfortunately can't be used because it
+	 * only appeared in SMW 1.6.
+	 *
+	 * @since 2.5
+	 */
+	function getLinker() {
+		static $linker = false;
+
+		if ( $linker === false ) {
+			$linker = class_exists( 'DummyLinker' ) ? new DummyLinker() : new Linker();
+		}
+
+		return $linker;
 	}
 
 }

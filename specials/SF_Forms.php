@@ -52,11 +52,7 @@ class FormsPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		global $wgUser;
-		
-		$sk = $wgUser->getSkin();
-		$create_form_link = SFUtils::linkForSpecialPage( $sk, 'CreateForm' );
-		$header = "<p>" . $create_form_link . ".</p>\n";
+		$header = "<p>" . SFUtils::linkForSpecialPage( 'CreateForm' ) . ".</p>\n";
 		$header .= '<p>' . wfMsg( 'sf_forms_docu' ) . "</p><br />\n";
 		return $header;
 	}
@@ -93,6 +89,6 @@ class FormsPage extends QueryPage {
 
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( SF_NS_FORM, $result->value );
-		return $skin->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
+		return SFUtils::getLinker()->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
 	}
 }

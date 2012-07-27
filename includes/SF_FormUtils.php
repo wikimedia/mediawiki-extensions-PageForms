@@ -251,8 +251,7 @@ END;
 			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
 			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
 		} else {
-			$linker = class_exists( 'DummyLinker' ) ? new DummyLinker() : new Linker();
-			$cancel = $linker->link( $wgTitle, $label, array(), array(), 'known' );
+			$cancel = SFUtils::getLinker()->link( $wgTitle, $label, array(), array(), 'known' );
 		}
 		$text = "\t\t<span class='editHelp'>$cancel</span>\n";
 		return $text;
