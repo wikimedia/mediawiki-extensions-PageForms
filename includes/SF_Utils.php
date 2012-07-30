@@ -995,7 +995,7 @@ END;
 	 *
 	 * @since 2.5
 	 */
-	function getLinker() {
+	public static function getLinker() {
 		static $linker = false;
 
 		if ( $linker === false ) {
