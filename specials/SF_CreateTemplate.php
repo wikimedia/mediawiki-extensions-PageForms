@@ -166,6 +166,7 @@ END;
 			$wgOut->setPageTitle( wfMsg( 'sf-createtemplate-with-name', $presetTemplateName ) );
 			$template_name = $presetTemplateName;
 		} else {
+			$presetTemplateName = null;
 			$template_name = $wgRequest->getVal( 'template_name' );
 		}
 

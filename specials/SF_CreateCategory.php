@@ -51,6 +51,7 @@ class SFCreateCategory extends SpecialPage {
 			$wgOut->setPageTitle( wfMsg( 'sf-createcategory-with-name', $presetCategoryName ) );
 			$category_name = $presetCategoryName;
 		} else {
+			$presetCategoryName = null;
 			$category_name = $wgRequest->getVal( 'category_name' );
 		}
 		$default_form = $wgRequest->getVal( 'default_form' );

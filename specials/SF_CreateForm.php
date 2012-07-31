@@ -55,6 +55,7 @@ class SFCreateForm extends SpecialPage {
 			$wgOut->setPageTitle( wfMsg( 'sf-createform-with-name', $presetFormName ) );
 			$form_name = $presetFormName;
 		} else {
+			$presetFormName = null;
 			$form_name = $wgRequest->getVal( 'form_name' );
 		}
 
