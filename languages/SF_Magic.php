@@ -52,6 +52,11 @@ $magicWords['ja'] = array(
 	'arraymaptemplate' => array( 0, '配列マップテンプレート' ),
 );
 
+/** Georgian (ქართული) */
+$magicWords['ka'] = array(
+	'autoedit' => array( 0, 'ავტო_რედაქტირება' ),
+);
+
 /** Korean (한국어) */
 $magicWords['ko'] = array(
 	'forminput' => array( 0, '양식입력' ),
