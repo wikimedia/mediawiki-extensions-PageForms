@@ -202,7 +202,6 @@ jQuery(document).ready(function() {
 		$save_page = $wgRequest->getCheck( 'wpSave' );
 		$preview_page = $wgRequest->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
-die('a');
 			// Validate form name
 			if ( $form->getFormName() == "" ) {
 				$form_name_error_str = wfMsg( 'sf_blank_error' );
