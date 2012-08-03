@@ -110,7 +110,7 @@ END;
 		return $text;
 	}
 
-	static function watchInputHTML( $is_disabled, $is_checked, $label = null, $attrs = array() ) {
+	static function watchInputHTML( $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgTitle, $wgParser;
 
 		$sfgTabIndex++;
