@@ -5785,6 +5785,7 @@ $messages['nl'] = array(
 	'semanticforms-desc' => 'Formulieren voor het toevoegen en bewerken van semantische gegevens',
 	'specialpages-group-sf_group' => 'Semantische formulieren',
 	'createproperty' => 'Eigenschap aanmaken',
+	'sf-createproperty-with-name' => 'Eigenschap aanmaken: $1',
 	'sf_createproperty_linktoform' => "Deze eigenschap verwijst naar pagina's die het volgende formulier gebruiken:",
 	'sf_createproperty_allowedvalsinput' => 'Als u wilt dat deze eigenschap een beperkt aantal waarden mag hebben, geef dan een lijst met toegelaten waarden in, door komma\'s gescheiden. Als een waarde een komma bevat, vervang deze dan door "\\,":',
 	'sf_createproperty_propname' => 'Naam eigenschap:',
@@ -5793,6 +5794,7 @@ $messages['nl'] = array(
 	'sf_templates_docu' => 'De onderstaande sjablonen bestaan in de wiki.',
 	'sf_templates_definescat' => 'bepaalt categorie: $1',
 	'createtemplate' => 'Een sjabloon maken',
+	'sf-createtemplate-with-name' => 'Sjabloon aanmaken: $1',
 	'sf_createtemplate_namelabel' => 'Sjabloonnaam:',
 	'sf_createtemplate_categorylabel' => 'Categorie bepaald door sjabloon (optioneel):',
 	'sf_createtemplate_templatefields' => 'Sjabloonvelden',
@@ -5807,6 +5809,8 @@ $messages['nl'] = array(
 	'sf_createtemplate_outputformat' => 'Uitvoeropmaak:',
 	'sf_createtemplate_standardformat' => 'Tabel',
 	'sf_createtemplate_infoboxformat' => 'Infobox zijkant',
+	'sf_createtemplate_plainformat' => 'Platte tekst',
+	'sf_createtemplate_sectionsformat' => 'Kopjes',
 	'sf_createtemplate_addfield' => 'Veld toevoegen',
 	'sf_createtemplate_deletefield' => 'Verwijderen',
 	'sf_createtemplate_addtemplatebeforesave' => 'U moet ten minste één sjabloon toevoegen aan dit formulier voordat u het kunt opslaan.',
@@ -5845,6 +5849,7 @@ $messages['nl'] = array(
 	'sf_forminputs_height' => 'De hoogte van deze invoer, in pixels',
 	'sf_forminputs_width' => 'De breedte van deze invoer, in pixels',
 	'createform' => 'Formulier aanmaken',
+	'sf-createform-with-name' => 'Formulier aanmaken: $1',
 	'sf_createform_nameinput' => 'Formuliernaam',
 	'sf_createform_nameinputdesc' => '(het formulier krijgt meestal de naam van het hoofdsjabloon):',
 	'sf_createform_template' => 'Sjabloon:',
@@ -5865,6 +5870,7 @@ $messages['nl'] = array(
 	'sf_createform_add' => 'Toevoegen',
 	'sf_createform_choosefield' => 'Kies een veld om toe te voegen',
 	'createcategory' => 'Een categorie aanmaken',
+	'sf-createcategory-with-name' => 'Categorie aanmaken: $1',
 	'sf_createcategory_name' => 'Categorienaam:',
 	'sf_createcategory_defaultform' => 'Standaard formulier:',
 	'sf_createcategory_makesubcategory' => 'Deze categorie een ondercategorie van een andere categorie maken (optioneel):',
@@ -6724,6 +6730,7 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
  * @author Leonardo Costa
  * @author Luckas Blade
  * @author Rafael Vargas
+ * @author Teles
  */
 $messages['pt-br'] = array(
 	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
@@ -6796,6 +6803,7 @@ $messages['pt-br'] = array(
 	'sf_formstart_createoredit' => 'Criar ou editar',
 	'formedit' => 'Editar com formulário',
 	'sf_formedit_createtitle' => 'Criar $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Criar $1',
 	'sf_formedit_badurl' => "Esta é a página para editar com um formulário. É necessário especificar na URL um nome de formulário e uma página alvo; 
 ficará algo como 'Special:FormEdit?form=<form name>&target=<target page>', ou 'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'Você também pode adicionar está página com um dos seguintes formulários:',
@@ -6805,10 +6813,13 @@ ficará algo como 'Special:FormEdit?form=<form name>&target=<target page>', ou '
 	'sf_editsource' => 'Editar fonte',
 	'sf_formedit_edittitle' => 'Editar $1: $2',
 	'sf_formedit_morethanoneform' => 'Aviso: Mais de um formulário padrão está definido para esta página.',
-	'sf_formedit_formwarning' => 'Perigo: Esta página <a href="$1">already exists</a>, mas não use esse formulário.',
+	'sf_formedit_formwarning' => 'Perigo: Esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
 	'sf_formedit_remove' => 'Remover',
 	'sf_formedit_addanother' => 'Adicionar outro',
 	'sf_formedit_none' => 'Nenhum',
+	'sf_formedit_emptytitle' => 'Erro: Os dados inseridos resultam num título de página em branco.',
+	'sf_formedit_saveandcontinueediting' => 'Salvar e continuar',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Salvar os dados e continuar editando',
 	'runquery' => 'Executar consulta',
 	'sf_runquery_badurl' => "Você deve especificar um nome de formulário na URL;
 a URL deve se parecer com 'Special:RunQuery/<form name>'.",
