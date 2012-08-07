@@ -5796,6 +5796,7 @@ $messages['nl'] = array(
 	'createtemplate' => 'Een sjabloon maken',
 	'sf-createtemplate-with-name' => 'Sjabloon aanmaken: $1',
 	'sf_createtemplate_namelabel' => 'Sjabloonnaam:',
+	'sf_createtemplate_multipleinstance' => 'Dit sjabloon kan meerdere keren worden ingevoegd op de pagina.',
 	'sf_createtemplate_categorylabel' => 'Categorie bepaald door sjabloon (optioneel):',
 	'sf_createtemplate_templatefields' => 'Sjabloonvelden',
 	'sf_createtemplate_fieldsdesc' => 'Om de velden van een sjabloon geen verplichte veldnamen te laten hebben, kunt u de index van dat veld (bijvoorbeeld 1, 2, 3, enzovoort) als naam opgeven in plaats van de eigenlijke naam.',
