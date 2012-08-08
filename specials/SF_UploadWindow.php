@@ -1012,7 +1012,7 @@ class SFUploadForm extends HTMLForm {
 			// MW 1.19+
 			$head_scripts = $wgOut->getHeadScripts();
 			$body_scripts = $wgOut->getBottomScripts();
-		if ( method_exists( $wgOut, 'getBottomScripts' ) ) {
+		} elseif ( method_exists( $wgOut, 'getBottomScripts' ) ) {
 			// MW 1.18
 			global $wgUser;
 			$sk = $wgUser->getSkin();
