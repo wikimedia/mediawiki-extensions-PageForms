@@ -1008,10 +1008,16 @@ class SFUploadForm extends HTMLForm {
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
 		$wgOut->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
-		// Method was added in MW 1.18
-		if ( method_exists( $wgOut, 'getBottomScripts' ) ) {
+		if ( class_exists( 'DummyLinker' ) ) {
+			// MW 1.19+
 			$head_scripts = $wgOut->getHeadScripts();
 			$body_scripts = $wgOut->getBottomScripts();
+		if ( method_exists( $wgOut, 'getBottomScripts' ) ) {
+			// MW 1.18
+			global $wgUser;
+			$sk = $wgUser->getSkin();
+			$head_scripts = $wgOut->getHeadScripts( $sk );
+			$body_scripts = $wgOut->getBottomScripts( $sk );
 		} else {
 			global $wgUser;
 			$sk = $wgUser->getSkin();
