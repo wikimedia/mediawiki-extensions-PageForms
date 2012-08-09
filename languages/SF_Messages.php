@@ -2459,6 +2459,7 @@ $messages['fo'] = array(
 /** French (français)
  * @author Crochet.david
  * @author Dereckson
+ * @author Erkethan
  * @author Gomoko
  * @author Grondin
  * @author Hashar
@@ -2476,6 +2477,7 @@ $messages['fr'] = array(
 	'semanticforms-desc' => 'Formulaires pour ajouter ou modifier des données sémantiques',
 	'specialpages-group-sf_group' => 'Formulaires sémantiques',
 	'createproperty' => 'Définir une propriété',
+	'sf-createproperty-with-name' => 'Créer la propriété :$1',
 	'sf_createproperty_linktoform' => 'Cette propriété liera vers les pages utilisant le formulaire :',
 	'sf_createproperty_allowedvalsinput' => 'Si vous voulez restreindre ce champ à certaines valeurs, entrez la liste des valeurs permises séparées par des virgules (si une valeur contient une virgule, utilisez « \\, ») :',
 	'sf_createproperty_propname' => 'Nom de la propriété :',
@@ -2484,7 +2486,9 @@ $messages['fr'] = array(
 	'sf_templates_docu' => 'Les modèles suivants existent dans le wiki.',
 	'sf_templates_definescat' => 'définit la catégorie : $1',
 	'createtemplate' => 'Créer un modèle',
+	'sf-createtemplate-with-name' => 'Créer le modèle :$1',
 	'sf_createtemplate_namelabel' => 'Nom de modèle :',
+	'sf_createtemplate_multipleinstance' => 'Ce modèle peut être inclus plusieurs fois dans la page.',
 	'sf_createtemplate_categorylabel' => 'Catégorie définie par ce modèle (facultatif) :',
 	'sf_createtemplate_templatefields' => 'Champs de modèle',
 	'sf_createtemplate_fieldsdesc' => 'Pour un modèle qui n’utilise aucun nom pour les champs, remplacez simplement les noms de champs par leurs indices (exemples : 1, 2, 3, etc.).',
@@ -2496,8 +2500,10 @@ $messages['fr'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Pour lister, sur chaque page utilisant ce modèle, toutes celles qui ont une propriété pointant vers celle-ci, indiquez la propriété adéquate ci-dessous :',
 	'sf_createtemplate_aggregationlabel' => 'Titre pour la liste :',
 	'sf_createtemplate_outputformat' => 'Format de sortie :',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Infobox de droite',
+	'sf_createtemplate_standardformat' => 'Tableau',
+	'sf_createtemplate_infoboxformat' => 'Infobox latérale',
+	'sf_createtemplate_plainformat' => 'Texte brut',
+	'sf_createtemplate_sectionsformat' => 'Sections',
 	'sf_createtemplate_addfield' => 'Ajouter un champ',
 	'sf_createtemplate_deletefield' => 'Supprimer',
 	'sf_createtemplate_addtemplatebeforesave' => 'Vous devez ajouter au moins un modèle à ce formulaire avant de pouvoir le sauvegarder.',
@@ -2536,6 +2542,7 @@ $messages['fr'] = array(
 	'sf_forminputs_height' => 'La hauteur de cette entrée, en pixels',
 	'sf_forminputs_width' => 'La largeur de cette entrée, en pixels',
 	'createform' => 'Créer un formulaire',
+	'sf-createform-with-name' => 'Créer le formulaire :$1',
 	'sf_createform_nameinput' => 'Nom de formulaire',
 	'sf_createform_nameinputdesc' => '(le nom du formulaire est généralement le même que son modèle principal) :',
 	'sf_createform_template' => 'Modèle :',
@@ -2556,6 +2563,7 @@ $messages['fr'] = array(
 	'sf_createform_add' => 'Ajouter',
 	'sf_createform_choosefield' => 'Choisissez un champ à ajouter',
 	'createcategory' => 'Créer une catégorie',
+	'sf-createcategory-with-name' => 'Créer la catégorie : $1',
 	'sf_createcategory_name' => 'Nom de la catégorie :',
 	'sf_createcategory_defaultform' => 'Formulaire par défaut :',
 	'sf_createcategory_makesubcategory' => 'Crée une sous-catégorie d’une autre catégorie (facultatif) :',
@@ -3106,11 +3114,12 @@ Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, w
 
 /** Gujarati (ગુજરાતી)
  * @author Dsvyas
+ * @author KartikMistry
  */
 $messages['gu'] = array(
 	'sf_forminputs_mandatory' => 'ફરજિયાત',
 	'sf_forminputs_restricted' => 'સંરક્ષિત (ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે)',
-	'sf_createform_hidden' => 'છદ્મ',
+	'sf_createform_hidden' => 'છુપાયેલ',
 	'sf_createform_removetemplate' => 'ઢાંચો દૂર કરો',
 	'sf_createform_addtemplate' => 'ઢાંચો ઉમેરો:',
 	'sf_createform_beforetemplate' => 'ઢાંચા પહેલા:',
@@ -6567,6 +6576,7 @@ $messages['ps'] = array(
  * @author Hamilton Abreu
  * @author Lijealso
  * @author Malafaya
+ * @author SandroHc
  * @author Waldir
  */
 $messages['pt'] = array(
@@ -6593,8 +6603,8 @@ $messages['pt'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Para listar, em qualquer página usando esta predefinição, todos os artigos que têm uma certa propriedade a apontar para aquela página, especifique a propriedade adequada abaixo:',
 	'sf_createtemplate_aggregationlabel' => 'Título para a lista:',
 	'sf_createtemplate_outputformat' => 'Formato de saída:',
-	'sf_createtemplate_standardformat' => 'Padrão',
-	'sf_createtemplate_infoboxformat' => 'Caixa informativa do lado direito',
+	'sf_createtemplate_standardformat' => 'Tabela',
+	'sf_createtemplate_infoboxformat' => 'Caixa informativa lateral',
 	'sf_createtemplate_addfield' => 'Adicionar campo',
 	'sf_createtemplate_deletefield' => 'Apagar',
 	'sf_createtemplate_addtemplatebeforesave' => 'Tem de adicionar pelo menos uma predefinição a este formulário antes de o poder gravar.',
@@ -6698,6 +6708,7 @@ Caso contrário, será enviado para o formulário de adição da página.',
 	'sf_autoedit_toomanyformsfound' => 'Há mais do que um formulário disponível para a página.',
 	'sf_autoedit_readonly' => 'Não são permitidas alterações da base de dados. Motivo: $1',
 	'sf_autoedit_nosemanticform' => 'Não foi possível obter o formulário $2 para a página $1. Para mais detalhes, consulte [[{{#special:FormEdit}}/$2/$1]].',
+	'sf-autoedit-wait' => 'Aguarde...',
 	'runquery' => 'Executar consulta',
 	'sf_runquery_badurl' => "Tem de especificar um nome de formulário na URL;
 a URL deve ser parecida com 'Special:RunQuery/<form name>'.",
