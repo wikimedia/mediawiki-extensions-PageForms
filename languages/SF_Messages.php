@@ -2228,6 +2228,7 @@ $messages['eu'] = array(
 /** Persian (فارسی)
  * @author Ebraminio
  * @author Huji
+ * @author Mjbmr
  * @author Momeni
  * @author Tofighi
  */
@@ -2303,6 +2304,7 @@ $messages['fa'] = array(
 	'sf_formedit_remove' => 'حذف',
 	'sf_formedit_addanother' => 'افزدون دیگری',
 	'sf_formedit_none' => 'هیچکدام',
+	'sf-autoedit-wait' => 'صبر کنید...',
 	'runquery' => 'اجرای پرس و جو',
 	'sf_runquery_additionalquery' => 'پرس و جوی اضافی',
 	'sf_formerrors_header' => 'خطاهایی در ورودی فرمتان وجود دارد؛ قسمت پایین را ببینید',
@@ -4264,7 +4266,7 @@ $messages['ja'] = array(
 	'sf_createtemplate_aggregationdesc' => 'このテンプレートを使っているページで、そのページを指すプロパティを持つすべての記事を列挙するためには、該当のプロパティを以下に指定してください:',
 	'sf_createtemplate_aggregationlabel' => '一覧の名前:',
 	'sf_createtemplate_outputformat' => '出力形式:',
-	'sf_createtemplate_standardformat' => '標準',
+	'sf_createtemplate_standardformat' => '表',
 	'sf_createtemplate_infoboxformat' => '右手側の情報ボックス',
 	'sf_createtemplate_addfield' => 'フィールドを追加',
 	'sf_createtemplate_deletefield' => '削除',
@@ -5532,7 +5534,7 @@ $messages['ms'] = array(
 	'forms' => 'Borang',
 	'sf_createform_template' => 'Templat:',
 	'sf_createform_inputtype' => 'Jenis input:',
-	'sf_createform_inputtypedefault' => '(asali)',
+	'sf_createform_inputtypedefault' => '(azali)',
 	'sf_createform_formlabel' => 'Label borang:',
 	'sf_createform_add' => 'Tambahkan',
 	'sf_createcategory_defaultform' => 'Borang sediaan:',
