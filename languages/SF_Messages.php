@@ -395,7 +395,7 @@ $messages['ar'] = array(
 	'sf_createtemplate_standardformat' => 'قياسي',
 	'sf_createtemplate_infoboxformat' => 'صندوق معلومات على اليمين',
 	'sf_createtemplate_addfield' => 'أضف حقلًا',
-	'sf_createtemplate_deletefield' => 'احذف',
+	'sf_createtemplate_deletefield' => 'حذف',
 	'sf_createtemplate_addtemplatebeforesave' => 'يجب أن تضيف على الأقل قالبا واحدا إلى هذا النموذج قبل حفظه.',
 	'forms' => 'نماذج',
 	'sf_forms_docu' => 'النماذج التالية موجودة في الويكي.',
@@ -4443,6 +4443,62 @@ $messages['jv'] = array(
 	'sf_blank_namespace' => 'Utama',
 );
 
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'specialpages-group-sf_group' => 'სემანტიკური ფორმები',
+	'sf_createproperty_proptype' => 'ტიპი:',
+	'templates' => 'თარგები',
+	'createtemplate' => 'თარგის შექმნა',
+	'sf-createtemplate-with-name' => 'თარგის შექმნა: $1',
+	'sf_createtemplate_namelabel' => 'თარგის სახელი:',
+	'sf_createtemplate_fieldname' => 'ველის სახელი:',
+	'sf_createtemplate_displaylabel' => 'სახელი ეკრანზე:',
+	'sf_createtemplate_aggregationlabel' => 'სიის სათაური:',
+	'sf_createtemplate_sectionsformat' => 'სექციები',
+	'sf_createtemplate_addfield' => 'ველის დამატება',
+	'sf_createtemplate_deletefield' => 'წაშლა',
+	'forms' => 'ფორმები',
+	'createform' => 'ფორმის შექმნა',
+	'sf-createform-with-name' => 'ფორმის შექმნა: $1',
+	'sf_createform_nameinput' => 'ფორმის სახელი',
+	'sf_createform_template' => 'თარგი:',
+	'sf_createform_templatelabelinput' => 'თარგის აღნიშვნა (არასავალდებულო):',
+	'sf_createform_field' => 'ველი:',
+	'sf_createform_inputtypedefault' => '(სტანდარტული)',
+	'sf_createform_hidden' => 'დამალული',
+	'sf_createform_removetemplate' => 'თარგის წაშლა',
+	'sf_createform_addtemplate' => 'თარგის დამატება:',
+	'sf_createform_beforetemplate' => 'თარგამდე:',
+	'sf_createform_atend' => 'ბოლოს',
+	'sf_createform_add' => 'დამატება',
+	'sf_createform_choosefield' => 'დასამატებლად აირჩიეთ ველი',
+	'createcategory' => 'კატეგორიის შექმნა',
+	'sf-createcategory-with-name' => 'კატეგორიის შექმნა: $1',
+	'sf_createcategory_name' => 'კატეგორიის სახელი:',
+	'sf_createcategory_defaultform' => 'სტანდარტული ფორმა:',
+	'createclass' => 'კლასის შექმნა',
+	'sf_createclass_nameinput' => 'ფორმის სახელი:',
+	'sf_createclass_create' => 'შექმნა',
+	'sf_formstart_createoredit' => 'შექმნა ან რედაქტირება',
+	'formedit' => 'ფორმით რედაქტირება',
+	'sf_formedit_createtitle' => '$1 შექმნა: $2',
+	'sf_formedit_createtitlenotarget' => '$1 შექმნა',
+	'sf_formcreate' => 'ფორმით შექმნა',
+	'sf_viewform' => 'ფორმის ხილვა',
+	'sf_editsource' => 'წყაროს რედაქტირება',
+	'sf_formedit_edittitle' => '$1 რედაქტირება: $2',
+	'sf_formedit_remove' => 'წაშლა',
+	'sf_formedit_none' => 'არაფერი',
+	'sf_formedit_saveandcontinueediting' => 'შენახვა და გაგრძელება',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'მონაცემების შენახვა და რედაქტირების გარძელება',
+	'sf-autoedit-wait' => 'მოიცადეთ...',
+	'uploadwindow' => 'ატვირთვის ფანჯარა',
+	'sf_form_freetextlabel' => 'თავისუფალი ტექსტი',
+	'sf_blank_namespace' => 'მთავარი',
+);
+
 /** Khmer (ភាសាខ្មែរ)
  * @author Chhorran
  * @author Lovekhmer
@@ -5562,6 +5618,42 @@ $messages['ms'] = array(
 	'action-createclass' => 'buat kelas semantik baru',
 );
 
+/** Maltese (Malti)
+ * @author Chrisportelli
+ */
+$messages['mt'] = array(
+	'sf_createform_template' => 'Mudell:',
+	'sf_createform_add' => 'Żid',
+	'sf_createform_choosefield' => 'Agħżel qasam xi żżid',
+	'createcategory' => 'Oħloq kategorija',
+	'sf-createcategory-with-name' => 'Oħloq kategorija: $1',
+	'sf_createcategory_name' => 'Isem tal-kategorija:',
+	'sf_createcategory_makesubcategory' => "Agħmel din sottokategorija ta' kategorija oħra (opzjonali):",
+	'createclass' => 'Oħloq klassi',
+	'sf_createclass_allowedvalues' => 'Valuri permessi:',
+	'sf_createclass_listofvalues' => "Lista ta' valuri?",
+	'sf_createclass_nameinput' => 'Isem tal-formola:',
+	'sf_createclass_missingvalues' => 'Mhux kull qasam neċessarji ġew mimlijin.',
+	'sf_createclass_create' => 'Oħloq',
+	'formstart' => 'Bidu tal-formola',
+	'sf_formstart_badform' => 'Żball: L-ebda formola ma nstabet fuq il-paġna "$1".',
+	'sf_formstart_badtitle' => 'Żball: "$1" huwa titlu invalidu għall-paġna.',
+	'sf_formstart_createoredit' => 'Oħloq jew immodifika',
+	'formedit' => 'Immodifika bil-formola',
+	'sf_formedit_createtitle' => 'Oħloq $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Oħloq $1',
+	'sf_formedit_altforms' => "Minflok tista' żżid din il-paġna ma' waħda minn dawn il-formoli:",
+	'sf_formedit_altformsonly' => 'Jekk jogħġbok agħżel waħda mill-formoli segwenti biex iżżid din il-paġna:',
+	'sf_viewform' => 'Ara l-formola',
+	'sf_editsource' => 'Immodifika s-sors',
+	'sf_formedit_edittitle' => 'Modifika $1: $2',
+	'sf_formedit_formwarning' => 'Attenzjoni: Din il-paġna <a href="$1">diġà teżisti</a>, imma ma tużax din il-formola.',
+	'sf_formedit_remove' => 'Neħħi',
+	'sf_formedit_addanother' => 'Żid oħra',
+	'sf_formedit_none' => 'L-ebda',
+	'sf_formedit_saveandcontinueediting' => 'Salva u kompli',
+);
+
 /** Erzya (эрзянь)
  * @author Botuzhaleny-sodamo
  */
@@ -6557,6 +6649,8 @@ $messages['ps'] = array(
 	'createtemplate' => 'يوه کينډۍ جوړول',
 	'sf_createtemplate_namelabel' => 'د کينډۍ نوم:',
 	'sf_createtemplate_aggregationlabel' => 'د لړليک لپاره سرليک:',
+	'sf_createtemplate_standardformat' => 'لښتيال',
+	'sf_createtemplate_sectionsformat' => 'برخې',
 	'sf_createtemplate_deletefield' => 'ړنګول',
 	'sf_createform_template' => 'کينډۍ:',
 	'sf_createform_inputtypedefault' => '(تلواليز)',
@@ -6566,6 +6660,7 @@ $messages['ps'] = array(
 	'sf_createform_add' => 'ورګډول',
 	'createcategory' => 'يوه وېشنيزه جوړول',
 	'sf_createcategory_name' => 'د وېشنيزې نوم:',
+	'sf_createclass_create' => 'جوړول',
 	'formstart' => 'د فورمې سره يوځای يو مخ ګډول',
 	'sf_formstart_createoredit' => 'جوړول يا سمول',
 	'sf_formedit_createtitle' => '$1 جوړول: $2',
