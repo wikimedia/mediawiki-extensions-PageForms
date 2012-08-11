@@ -1421,6 +1421,7 @@ $messages['ckb'] = array(
 /** Czech (česky)
  * @author Matěj Grabovský
  * @author Mormegil
+ * @author Reaperman
  */
 $messages['cs'] = array(
 	'createproperty' => 'Vytvořit vlastnost',
@@ -1430,9 +1431,14 @@ $messages['cs'] = array(
 	'sf_createtemplate_fieldname' => 'Název pole:',
 	'sf_createtemplate_displaylabel' => 'Zobrazované označení:',
 	'sf_createtemplate_semanticproperty' => 'Sémantická vlastnost:',
+	'sf_createtemplate_outputformat' => 'Výstupní formát:',
+	'sf_createtemplate_standardformat' => 'Tabulka',
+	'sf_createtemplate_plainformat' => 'Prostý text',
 	'sf_createtemplate_deletefield' => 'Smazat',
 	'forms' => 'Formuláře',
+	'sf_createform_template' => 'Šablona:',
 	'sf_createform_field' => 'Pole:',
+	'sf_createform_inputtypedefault' => '(výchozí)',
 	'sf_createform_hidden' => 'Skrytý',
 	'sf_createform_add' => 'Přidat',
 	'sf_formedit_remove' => 'Odstranit',
@@ -4135,8 +4141,9 @@ $messages['it'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Per vedere, fra le pagine che usano questo template, tutte le pagine che hanno una proprietà che punta a questa pagina, specifica la appropriata proprietà qui sotto:',
 	'sf_createtemplate_aggregationlabel' => 'Titolo per la lista:',
 	'sf_createtemplate_outputformat' => 'Formato di output:',
-	'sf_createtemplate_standardformat' => 'Predefinito',
-	'sf_createtemplate_infoboxformat' => 'Infobox nella parte destra',
+	'sf_createtemplate_standardformat' => 'Tabella',
+	'sf_createtemplate_infoboxformat' => 'Infobox laterale',
+	'sf_createtemplate_sectionsformat' => 'Sezioni',
 	'sf_createtemplate_addfield' => 'Aggiungi campo',
 	'sf_createtemplate_deletefield' => 'Cancella',
 	'sf_createtemplate_addtemplatebeforesave' => 'Devi aggiungere almeno un template a questo modulo prima di poterlo salvare.',
@@ -4204,6 +4211,7 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_formedit_addanother' => 'Aggiungi un altro',
 	'sf_formedit_none' => 'Nessuno',
 	'sf_formedit_saveandcontinueediting' => 'Salva e continua',
+	'sf-autoedit-wait' => 'Attendere prego...',
 	'runquery' => 'Esegui query',
 	'sf_runquery_badurl' => "Devi specificare il nome del form nell'\\ URL;
 l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name>'.",
@@ -6898,6 +6906,7 @@ $messages['ro'] = array(
 	'sf_createtemplate_aggregationlabel' => 'Titlu pentru listă:',
 	'sf_createtemplate_outputformat' => 'Format ieșire:',
 	'sf_createtemplate_standardformat' => 'Tabel',
+	'sf_createtemplate_sectionsformat' => 'Secțiuni',
 	'sf_createtemplate_addfield' => 'Adăugați un câmp',
 	'sf_createtemplate_deletefield' => 'Şterge',
 	'forms' => 'Formular',
