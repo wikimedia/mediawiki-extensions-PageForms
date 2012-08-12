@@ -5622,7 +5622,20 @@ $messages['ms'] = array(
  * @author Chrisportelli
  */
 $messages['mt'] = array(
+	'sf-createform-with-name' => 'Oħloq formola: $1',
+	'sf_createform_nameinput' => 'Isem tal-formola',
+	'sf_createform_nameinputdesc' => '(il-konvenzjoni hi l-formola tingħata l-istess isem bħall-mudell prinċipali):',
 	'sf_createform_template' => 'Mudell:',
+	'sf_createform_field' => 'Qasam:',
+	'sf_createform_fieldprop' => 'Dan il-qasam jiddefinixxi l-proprjetà $1, tat-tip $2.',
+	'sf_createform_fieldproplist' => "Dan il-qasam jiddefinixxi lista ta' elementi li għandhom il-proprjetà $1, tat-tip $2.",
+	'sf_createform_fieldpropunknowntype' => 'Dan il-qasam jiddefinixxi l-proprjetà $1, tat-tip mhux speċifikat.',
+	'sf_createform_inputtype' => "Tip ta' ''input'':",
+	'sf_createform_formlabel' => 'Tikketta tal-formola:',
+	'sf_createform_hidden' => 'Moħbi',
+	'sf_createform_removetemplate' => 'Neħħi l-mudell',
+	'sf_createform_addtemplate' => 'Żid mudell:',
+	'sf_createform_beforetemplate' => 'Mudell preċedenti:',
 	'sf_createform_add' => 'Żid',
 	'sf_createform_choosefield' => 'Agħżel qasam xi żżid',
 	'createcategory' => 'Oħloq kategorija',
@@ -5652,6 +5665,7 @@ $messages['mt'] = array(
 	'sf_formedit_addanother' => 'Żid oħra',
 	'sf_formedit_none' => 'L-ebda',
 	'sf_formedit_saveandcontinueediting' => 'Salva u kompli',
+	'sf_form_freetextlabel' => 'Test ħieles',
 );
 
 /** Erzya (эрзянь)
@@ -7202,6 +7216,37 @@ $messages['sa'] = array(
 	'sf_blank_namespace' => 'प्रमुखम्',
 );
 
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'sf_createproperty_proptype' => 'වර්ගය:',
+	'sf_createtemplate_deletefield' => 'මකන්න',
+	'forms' => 'ෆෝරම',
+	'createform' => 'ෆෝරමයක් තනන්න',
+	'sf-createform-with-name' => 'ෆෝරමය තනන්න: $1',
+	'sf_createform_nameinput' => 'ෆෝරමයේ නම',
+	'sf_createform_template' => 'සැකිල්ල',
+	'sf_createform_field' => 'ක්ෂේත්‍රය:',
+	'sf_createform_inputtype' => 'ආදාන වර්ගය:',
+	'sf_createform_inputtypedefault' => '(සාමාන්‍ය)',
+	'sf_createform_formlabel' => 'ෆෝරමයේ ලේබලය:',
+	'sf_createform_hidden' => 'සඟවනලද',
+	'sf_createform_removetemplate' => 'සැකිල්ල ඉවත් කරන්න',
+	'sf_createform_addtemplate' => 'සැකිල්ල එක් කරන්න:',
+	'sf_createform_beforetemplate' => 'සැකිල්ලට පෙර:',
+	'sf_createform_add' => 'එක් කරන්න',
+	'sf_createcategory_name' => 'ප්‍රවර්ග නාමය:',
+	'sf_createcategory_defaultform' => 'සාමාන්‍ය ෆෝරමය:',
+	'sf_createclass_create' => 'තනන්න',
+	'sf_formedit_createtitlenotarget' => '$1 තනන්න',
+	'sf_formedit_remove' => 'ඉවත් කරන්න',
+	'sf_formedit_none' => 'කිසිවක් නොමැත',
+	'sf-autoedit-wait' => 'රැදෙන්න...',
+	'sf_form_freetextlabel' => 'නිදහස් පාඨය',
+	'sf_blank_namespace' => 'ප්‍රධාන',
+);
+
 /** Slovak (slovenčina)
  * @author Helix84
  */
@@ -7692,12 +7737,40 @@ $messages['szl'] = array(
 );
 
 /** Tamil (தமிழ்)
+ * @author Shanmugamp7
  * @author TRYPPN
  */
 $messages['ta'] = array(
 	'sf_createproperty_proptype' => 'வகை:',
 	'templates' => 'வார்ப்புருக்கள்',
 	'sf_createtemplate_deletefield' => 'நீக்கவும்',
+	'sf_createform_template' => 'வார்ப்புரு:',
+	'sf_createform_hidden' => 'மறைக்கப்பட்டது',
+	'sf_createform_removetemplate' => 'வார்ப்புருவை நீக்கு',
+	'sf_createform_addtemplate' => 'வார்ப்புருவைச் சேர்',
+	'sf_createform_beforetemplate' => 'வார்ப்புருவிற்கு முன்:',
+	'sf_createform_atend' => 'இறுதியில்',
+	'sf_createform_add' => 'சேர்',
+	'sf_createform_choosefield' => 'சேர்க்க ஒரு புலத்தை தேர்வு செய்யவும்',
+	'createcategory' => 'ஒரு பகுப்பை உருவாக்கவும்',
+	'sf-createcategory-with-name' => 'பகுப்பை உருவாக்கு: $1',
+	'sf_createcategory_name' => 'பகுப்புப் பெயர்:',
+	'sf_createcategory_defaultform' => 'இயல்புநிலை படிவம்:',
+	'sf_createcategory_makesubcategory' => 'இதை மற்றொரு பகுப்பின் துணைப் பகுப்பாக்கு (விருப்பத்தேர்வு):',
+	'sf_createclass_create' => 'உருவாக்கு',
+	'sf_formstart_createoredit' => 'உருவாக்கு அல்லது தொகு',
+	'formedit' => 'படிவத்துடன் தொகு',
+	'sf_formedit_createtitle' => 'உருவாக்கு $1: $2',
+	'sf_formedit_createtitlenotarget' => 'உருவாக்கு $1',
+	'sf_editsource' => 'மூலத்தை தொகு',
+	'sf_formedit_edittitle' => 'தொகு $1: $2',
+	'sf_formedit_remove' => 'நீக்குக',
+	'sf_formedit_addanother' => 'மற்றொன்றை சேர்க்கவும்',
+	'sf_formedit_none' => 'எதுவுமில்லை',
+	'sf_bad_email_error' => 'கண்டிப்பாக செல்லத்தக்க மின்னஞ்சல் முகவரி வடிவமைப்பைக் கொண்டிருக்க வேண்டும்',
+	'sf_bad_number_error' => 'கண்டிப்பாக செல்லத்தக்க எண்ணாக இருக்க வேண்டும்',
+	'sf_bad_date_error' => 'கண்டிப்பாக செல்லத்தக்க தேதியாக இருக்க வேண்டும்',
+	'sf-preview-header' => 'படிவ முன்தோற்றம்',
 	'sf_blank_namespace' => 'முதன்மையானது',
 );
 
