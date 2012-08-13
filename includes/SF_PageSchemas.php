@@ -378,6 +378,9 @@ END;
 		foreach ( $psFields as $psField ) {
 			$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
 			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
+			if ( !is_null( $prop_array ) && empty( $propertyName ) ) {
+				$propertyName = $psField->getName();
+			}
 			if ( $psField->getLabel() === '' ) {
 				$fieldLabel = $psField->getName();
 			} else {
