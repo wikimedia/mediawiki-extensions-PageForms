@@ -2201,6 +2201,30 @@ Para crear una página con este formulario, ingrese el nombre de la página a co
 	'action-viewedittab' => 'ver la pestaña "Editar" en las páginas editables por formularios',
 );
 
+/** Estonian (eesti)
+ * @author Avjoska
+ */
+$messages['et'] = array(
+	'sf_createtemplate_fieldname' => 'Välja nimi:',
+	'sf_createtemplate_standardformat' => 'Tabel',
+	'sf_createtemplate_deletefield' => 'Kustuta',
+	'sf_createform_template' => 'Mall:',
+	'sf_createform_field' => 'Väli:',
+	'sf_createform_hidden' => 'Peidetud',
+	'sf_createform_removetemplate' => 'Eemalda mall',
+	'sf_createform_addtemplate' => 'Lisa mall:',
+	'sf_createform_beforetemplate' => 'Enne malli:',
+	'sf_createform_atend' => 'Lõpus',
+	'sf_createform_add' => 'Lisa',
+	'sf_createform_choosefield' => 'Lisamiseks vali väli',
+	'createcategory' => 'Loo kategooria',
+	'sf_createcategory_name' => 'Kategooria nimi:',
+	'sf_createclass_listofvalues' => 'Väärtuste loend?',
+	'sf-autoedit-wait' => 'Oota...',
+	'runquery' => 'Käivita päring',
+	'sf_deletionlog' => 'Kustutamislogi',
+);
+
 /** Basque (euskara)
  * @author An13sa
  * @author Kobazulo
@@ -7727,6 +7751,13 @@ om en sida med det namnet redan finns kommer du skickas över till ett formulär
 	'sf_blank_namespace' => 'Huvud',
 );
 
+/** Swahili (Kiswahili)
+ * @author Stephenwanjau
+ */
+$messages['sw'] = array(
+	'sf_createproperty_proptype' => 'Aina:',
+);
+
 /** Silesian (ślůnski)
  * @author Herr Kriss
  */
@@ -7743,8 +7774,17 @@ $messages['szl'] = array(
 $messages['ta'] = array(
 	'sf_createproperty_proptype' => 'வகை:',
 	'templates' => 'வார்ப்புருக்கள்',
+	'sf_createtemplate_standardformat' => 'அட்டவணை',
+	'sf_createtemplate_infoboxformat' => 'ஓர தகவற்பெட்டி',
+	'sf_createtemplate_plainformat' => 'எளிய உரை',
+	'sf_createtemplate_sectionsformat' => 'பிரிவுகள்',
+	'sf_createtemplate_addfield' => 'Add field',
 	'sf_createtemplate_deletefield' => 'நீக்கவும்',
+	'sf_createform_nameinput' => 'படிவப் பெயர்',
 	'sf_createform_template' => 'வார்ப்புரு:',
+	'sf_createform_field' => 'புலம்',
+	'sf_createform_inputtype' => 'உள்ளீட்டு வகை:',
+	'sf_createform_inputtypedefault' => '(இயல்பிருப்பு)',
 	'sf_createform_hidden' => 'மறைக்கப்பட்டது',
 	'sf_createform_removetemplate' => 'வார்ப்புருவை நீக்கு',
 	'sf_createform_addtemplate' => 'வார்ப்புருவைச் சேர்',
@@ -7762,6 +7802,8 @@ $messages['ta'] = array(
 	'formedit' => 'படிவத்துடன் தொகு',
 	'sf_formedit_createtitle' => 'உருவாக்கு $1: $2',
 	'sf_formedit_createtitlenotarget' => 'உருவாக்கு $1',
+	'sf_formcreate' => 'படிவத்துடன் உருவாக்கு',
+	'sf_viewform' => 'படிவத்தை காண்க',
 	'sf_editsource' => 'மூலத்தை தொகு',
 	'sf_formedit_edittitle' => 'தொகு $1: $2',
 	'sf_formedit_remove' => 'நீக்குக',
