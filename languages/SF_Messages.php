@@ -4139,6 +4139,7 @@ $messages['is'] = array(
  * @author Beta16
  * @author Civvì
  * @author Darth Kule
+ * @author F. Cosoleto
  * @author Melos
  */
 $messages['it'] = array(
@@ -4176,6 +4177,8 @@ $messages['it'] = array(
 	'sf_forminputs_mandatory' => 'Obbligatorio',
 	'sf_forminputs_restricted' => 'Solo gli amministratori possono modificare questo input',
 	'sf_forminputs_default' => 'Il valore predefinito per questo input',
+	'sf_forminputs_maxlength' => 'La lunghezza di testo massima permessa in questo campo',
+	'sf_forminputs_defaultfilename' => 'Il nome di file predefinito per i file caricati',
 	'createform' => 'Crea un nuovo modulo',
 	'sf_createform_nameinput' => 'Nome modulo',
 	'sf_createform_nameinputdesc' => '(la convenzione vuole che il nome del modulo sia lo stesso del template principale):',
