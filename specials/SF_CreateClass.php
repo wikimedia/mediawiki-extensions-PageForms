@@ -171,7 +171,7 @@ END;
 	<blockquote>
 
 END;
-		$text .= SFCreateTemplate::printTemplateStyleInput();
+		$text .= SFCreateTemplate::printTemplateStyleInput( 'template_format' );
 		$text .= Html::rawElement( 'p', null,
 			Html::element( 'input', array(
 				'type' => 'checkbox',

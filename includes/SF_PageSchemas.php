@@ -457,8 +457,14 @@ END;
 			} else {
 				$categoryName = $pageSchemaObj->getCategoryName();
 			}
+			if ( method_exists( $psTemplate, 'getFormat' ) ) {
+				$templateFormat = $psTemplate->getFormat();
+			} else {
+				$templateFormat = null;
+			}
 			$templateText = SFTemplateField::createTemplateText( $templateName,
-				$template_fields, $internalObjProperty, $categoryName, null, null, null );
+				$template_fields, $internalObjProperty, $categoryName,
+				null, null, $templateFormat );
 			if ( in_array( $fullTemplateName, $selectedPages ) ) {
 				$params = array();
 				$params['user_id'] = $wgUser->getId();

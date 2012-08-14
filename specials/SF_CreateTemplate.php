@@ -144,17 +144,23 @@ END;
 		$wgOut->addScript( $jsText );
 	}
 
-	static function printTemplateStyleInput() {
+	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
+		$attrs = array();
+		if ( $formatStr == $curSelection ) {
+			$attrs['checked'] = true;
+		}
+		return "\t" . Html::input( $htmlFieldName, $formatStr, 'radio', $attrs, null ) .
+			' ' . wfMsg( $formatMsg ) . "\n";
+	}
+
+	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
+		if ( empty( $curSelection ) ) $curSelection = 'standard';
 		$text = "\t<p>" . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
-		$text .= "\t" . Html::input( 'template_format', 'standard', 'radio', array(
-			'checked' => true,
-		), null ) . ' ' . wfMsg( 'sf_createtemplate_standardformat' ) . "\n";
-		$text .= "\t" . Html::input( 'template_format', 'infobox', 'radio', null ) .
-			' ' . wfMsg( 'sf_createtemplate_infoboxformat' ) . "\n";
-		$text .= "\t" . Html::input( 'template_format', 'plain', 'radio', null ) .
-			' ' . wfMsg( 'sf_createtemplate_plainformat' ) . "\n";
-		$text .= "\t" . Html::input( 'template_format', 'sections', 'radio', null ) .
-			' ' . wfMsg( 'sf_createtemplate_sectionsformat' ) . "</p>\n";
+		$text .= self::printTemplateStyleButton( 'standard', 'sf_createtemplate_standardformat', $htmlFieldName, $curSelection );
+		$text .= self::printTemplateStyleButton( 'infobox', 'sf_createtemplate_infoboxformat', $htmlFieldName, $curSelection );
+		$text .= self::printTemplateStyleButton( 'plain', 'sf_createtemplate_plainformat', $htmlFieldName, $curSelection );
+		$text .= self::printTemplateStyleButton( 'sections', 'sf_createtemplate_sectionsformat', $htmlFieldName, $curSelection );
+		$text .= "</p>\n";
 		return $text;
 	}
 
@@ -240,7 +246,7 @@ END;
 				array( 'size' => '25' ) ) .
 			"</p>\n";
 		$text .= "\t</fieldset>\n";
-		$text .= self::printTemplateStyleInput();
+		$text .= self::printTemplateStyleInput( 'template_format' );
 		$save_button_text = wfMsg( 'savearticle' );
 		$preview_button_text = wfMsg( 'preview' );
 		$text .= <<<END

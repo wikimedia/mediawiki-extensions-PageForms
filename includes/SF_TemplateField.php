@@ -193,6 +193,7 @@ END;
 		$setText = '';
 
  		// Topmost part of table depends on format.
+		if ( empty( $template_format ) ) $template_format = 'standard';
 		if ( $template_format == 'standard' ) {
 			$tableText = '{| class="wikitable"' . "\n";
 		} elseif ( $template_format == 'infobox' ) {
