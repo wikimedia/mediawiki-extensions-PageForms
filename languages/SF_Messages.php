@@ -2792,6 +2792,17 @@ $messages['fy'] = array(
 	'sf_formedit_none' => 'Gjin',
 );
 
+/** Irish (Gaeilge)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ga'] = array(
+	'sf_createproperty_proptype' => 'Saghas:',
+	'sf_createtemplate_deletefield' => 'Scrios',
+	'sf_createform_template' => 'Teimpléad:',
+	'sf_createclass_create' => 'Cruthaigh',
+	'sf_formedit_none' => 'Tada',
+);
+
 /** Galician (galego)
  * @author Alma
  * @author McDutchie
@@ -4273,7 +4284,9 @@ Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto
 	'sf_blank_namespace' => 'Principale',
 	'right-viewedittab' => 'Visualizza la scheda "Modifica" per le pagine modificabili tramite modulo',
 	'right-editrestrictedfields' => 'Modifica campi riservati di moduli',
+	'right-createclass' => 'Crea nuovi classi semantiche',
 	'action-createclass' => 'creare nuove classi semantiche',
+	'action-viewedittab' => 'visualizzare la scheda "Modifica" per le pagine modificabili tramite modulo',
 );
 
 /** Japanese (日本語)
@@ -4288,17 +4301,17 @@ Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto
 $messages['ja'] = array(
 	'semanticforms-desc' => '意味的データを追加/編集するフォーム',
 	'specialpages-group-sf_group' => '意味的フォーム',
-	'createproperty' => 'プロパティを作成',
-	'sf-createproperty-with-name' => 'プロパティを作成: $1',
+	'createproperty' => 'プロパティの作成',
+	'sf-createproperty-with-name' => '作成するプロパティ: $1',
 	'sf_createproperty_linktoform' => 'このプロパティは、次のフォームを利用するページにリンクします:',
 	'sf_createproperty_allowedvalsinput' => 'このプロパティに一部の値のみを設定できるようにするには、許可する値をカンマで区切って列挙します (値がカンマを含む場合は「\\,」に置換):',
 	'sf_createproperty_propname' => 'プロパティ名:',
 	'sf_createproperty_proptype' => '型:',
 	'templates' => 'テンプレート一覧',
 	'sf_templates_docu' => '次のテンプレートがウィキに存在します。',
-	'sf_templates_definescat' => 'カテゴリを定義: $1',
-	'createtemplate' => 'テンプレートを作成',
-	'sf-createtemplate-with-name' => 'テンプレートを作成: $1',
+	'sf_templates_definescat' => '定義するカテゴリ: $1',
+	'createtemplate' => 'テンプレートの作成',
+	'sf-createtemplate-with-name' => '作成するテンプレート: $1',
 	'sf_createtemplate_namelabel' => 'テンプレート名:',
 	'sf_createtemplate_categorylabel' => 'テンプレートが定義するカテゴリ (省略可能):',
 	'sf_createtemplate_templatefields' => 'テンプレートのフィールド',
@@ -4340,10 +4353,10 @@ $messages['ja'] = array(
 	'sf_forminputs_hideroot' => '親カテゴリを非表示',
 	'sf_forminputs_height' => 'この入力の高さ（ピクセル）',
 	'sf_forminputs_width' => 'この入力の幅（ピクセル）',
-	'createform' => 'フォームを作成',
-	'sf-createform-with-name' => 'フォームを作成: $1',
+	'createform' => 'フォームの作成',
+	'sf-createform-with-name' => '作成するフォーム: $1',
 	'sf_createform_nameinput' => 'フォーム名',
-	'sf_createform_nameinputdesc' => '（フォームは通常、メインテンプレートと同じ名前を与えられます）:',
+	'sf_createform_nameinputdesc' => '(通常、フォームはメインテンプレートと同じ名前になります):',
 	'sf_createform_template' => 'テンプレート:',
 	'sf_createform_templatelabelinput' => 'テンプレートのラベル (省略可能):',
 	'sf_createform_allowmultiple' => '作成されたページでこのテンプレートを複数 (もしくはゼロ) 回使用できるようにする',
@@ -4352,30 +4365,30 @@ $messages['ja'] = array(
 	'sf_createform_fieldproplist' => 'このフィールドは型 $2 のプロパティ $1 を持つ要素一覧を定義します。',
 	'sf_createform_fieldpropunknowntype' => 'このフィールドは型が未指定のプロパティ $1 を定義します。',
 	'sf_createform_inputtype' => '入力型:',
-	'sf_createform_inputtypedefault' => '（既定）',
+	'sf_createform_inputtypedefault' => '(既定)',
 	'sf_createform_formlabel' => 'フォームのラベル:',
 	'sf_createform_hidden' => '非表示',
-	'sf_createform_removetemplate' => 'テンプレートを削除',
-	'sf_createform_addtemplate' => 'テンプレートを追加：',
+	'sf_createform_removetemplate' => 'テンプレートを除去',
+	'sf_createform_addtemplate' => '追加するテンプレート:',
 	'sf_createform_beforetemplate' => 'テンプレートの前:',
 	'sf_createform_atend' => '末尾に',
 	'sf_createform_add' => '追加',
 	'sf_createform_choosefield' => '追加するフィールドを選択',
-	'createcategory' => 'カテゴリを作成',
-	'sf-createcategory-with-name' => 'カテゴリを作成: $1',
-	'sf_createcategory_name' => 'カテゴリ名：',
-	'sf_createcategory_defaultform' => '既定のフォーム：',
+	'createcategory' => 'カテゴリの作成',
+	'sf-createcategory-with-name' => '作成するカテゴリ: $1',
+	'sf_createcategory_name' => 'カテゴリ名:',
+	'sf_createcategory_defaultform' => '既定のフォーム:',
 	'sf_createcategory_makesubcategory' => 'これを他のカテゴリの下位カテゴリにする（任意選択）：',
-	'createclass' => 'クラスを作成',
+	'createclass' => 'クラスの作成',
 	'sf_createclass_docu' => '単一のクラスに対応するプロパティ群、テンプレート、フォーム、カテゴリを作成するためのデータすべてをここに入力してください。その他の選択肢が必要であれば、ページ $1 を使用してください。',
-	'sf_createclass_allowedvalues' => '許可される値 :',
-	'sf_createclass_listofvalues' => '値のリスト？',
+	'sf_createclass_allowedvalues' => '許可される値:',
+	'sf_createclass_listofvalues' => '値のリスト?',
 	'sf_createclass_nameinput' => 'フォーム名:',
 	'sf_createclass_missingvalues' => '必須のフィールドに未入力のものがあります。',
 	'sf_createclass_success' => 'プロパティ群、テンプレート、フォーム、およびカテゴリが作成されます。',
 	'sf_createclass_create' => '作成',
 	'formstart' => 'フォームによるページの追加',
-	'sf_formstart_badform' => 'エラー: $1 にはフォームページが見つかりませんでした',
+	'sf_formstart_badform' => 'エラー:ページ「$1」にはフォームが見つかりませんでした。',
 	'sf_formstart_badtitle' => 'エラー:「$1」はページ名として無効です。',
 	'sf_formstart_docu' => 'フォーム「$1」で編集するページの名前をここに入力してください。
 そのページが既に存在する場合は、そのページを編集するフォームへ転送されます。
@@ -4385,7 +4398,7 @@ $messages['ja'] = array(
 その他の場合は、そのページを追加するフォームに転送されます。',
 	'sf_formstart_createoredit' => '作成または編集',
 	'formedit' => 'フォームを使用して編集',
-	'sf_formedit_createtitle' => '$1を作成：$2',
+	'sf_formedit_createtitle' => '$1を作成: $2',
 	'sf_formedit_createtitlenotarget' => '$1 を作成',
 	'sf_formedit_badurl' => 'これはフォームを使って編集するためのページです。フォーム名と対象ページの両方をURLに指定しなければなりません。
 "Special:FormEdit?form=<フォーム名>&target=<対象ページ>" あるいは "Special:FormEdit/<フォーム名>/<対象ページ>" というような形式になります。',
@@ -4405,9 +4418,9 @@ $messages['ja'] = array(
 	'sf_formedit_tooltip_saveandcontinueediting' => 'データを保存して編集を続行',
 	'sf_autoedit_noformfound' => 'フォームが指定されていません。',
 	'sf-autoedit-wait' => 'お待ちください...',
-	'runquery' => 'クエリー実行',
+	'runquery' => 'クエリーの実行',
 	'sf_runquery_badurl' => 'URL中にフォーム名を指定しなければなりません。URLは「Special:RunQuery/<フォーム名>」というような形式になります。',
-	'sf_runquery_title' => 'クエリーの実行: $1',
+	'sf_runquery_title' => '実行するクエリー: $1',
 	'sf_runquery_additionalquery' => '追加クエリー',
 	'sf_formerrors_header' => 'フォームへの入力内容に誤りがありました。以下をご覧ください',
 	'sf_blank_error' => '空であってはならない',
@@ -8529,6 +8542,7 @@ Voste adresse IP serè rashiowe dins l' istwere di cisse pådje ci.",
 
 /** Yiddish (ייִדיש)
  * @author פוילישער
+ * @author පසිඳු කාවින්ද
  */
 $messages['yi'] = array(
 	'sf_createproperty_propname' => 'אטריבוט נאמען:',
@@ -8544,8 +8558,11 @@ $messages['yi'] = array(
 	'sf_createform_add' => 'צולייגן',
 	'createcategory' => 'שאפֿן א קאטעגאריע',
 	'sf_createcategory_name' => 'קאטעגאריע נאָמען:',
+	'sf_createclass_create' => 'שאַפֿן',
+	'sf_formedit_remove' => 'אַראָפּנעמען',
 	'sf_formedit_none' => 'קיין',
 	'sf_bad_date_error' => 'דארף זײַן א גילטיקע דאַטע',
+	'sf_blank_namespace' => 'הויפט',
 );
 
 /** Chinese (China) (‪中文(中国大陆)‬)
