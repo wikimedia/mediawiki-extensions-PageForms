@@ -2357,6 +2357,7 @@ $messages['fa'] = array(
 );
 
 /** Finnish (suomi)
+ * @author Beluga
  * @author Centerlink
  * @author Cimon Avaro
  * @author Crt
@@ -2421,6 +2422,7 @@ $messages['fi'] = array(
 	'sf_createform_add' => 'Lisää',
 	'sf_createform_choosefield' => 'Valitse lisättävä kenttä',
 	'createcategory' => 'Luo luokka',
+	'sf-createcategory-with-name' => 'Luo luokka: $1',
 	'sf_createcategory_name' => 'Luokan nimi',
 	'sf_createcategory_defaultform' => 'Oletuslomake',
 	'sf_createcategory_makesubcategory' => 'Tee tästä toisen luokan alaluokka (ei-pakollinen):',
@@ -2440,6 +2442,7 @@ $messages['fi'] = array(
 	'sf_formstart_createoredit' => 'Luo tai muokkaa',
 	'formedit' => 'Muokkaa lomakkeella',
 	'sf_formedit_createtitle' => 'Luo $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Luo $1',
 	'sf_formedit_badurl' => 'Tämä sivu on datan lisäämistä varten. Sinun täytyy määritellä sekä lomakkeen nimi että kohdesivu URL-osoitteessa. Osoitteen pitäisi olla muotoa ”Special:FormEdit?form=<lomakkeen nimi>&target=<kohdesivu>” tai ”Special:FormEdit/<lomakkeen nimi>/<kohdesivu>”.',
 	'sf_formedit_altforms' => 'Voit sen sijaan lisätä tämän sivun ja jonkun seuraavista lomakkeista:',
 	'sf_formedit_altformsonly' => 'Valitse jokin seuraavista lomakkeista, jonka haluat lisätä tällä sivulle:',
@@ -2452,6 +2455,7 @@ $messages['fi'] = array(
 	'sf_formedit_remove' => 'Poista',
 	'sf_formedit_addanother' => 'Lisää toinen',
 	'sf_formedit_none' => 'ei mikään',
+	'sf-autoedit-wait' => 'Odota...',
 	'runquery' => 'Suorita kysely',
 	'sf_runquery_badurl' => 'Sinun tulee antaa lomakkeen nimi URL-osoitteessa;
 osoitteen tulisi näyttää esimerkiksi tältä: ”Special:RunQuery/<form name>”.',
@@ -2465,6 +2469,7 @@ osoitteen tulisi näyttää esimerkiksi tältä: ”Special:RunQuery/<form name>
 	'sf_bad_date_error' => 'pitää olla kelvollinen päiväys',
 	'uploadwindow' => 'Tallennusikkuna',
 	'sf_deletionlog' => 'Poistoloki',
+	'sf-preview-header' => 'Lomakkeen esikatselu',
 	'sf_property_isproperty' => 'Tämä on ominaisuus, jonka tyyppi on $1.',
 	'sf_property_linkstoform' => 'Linkittää sivuille, jotka käyttävät lomaketta $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Sallittu arvo tälle ominaisuudelle on|Sallitut arvot tälle ominaisuudelle ovat}}:',
@@ -8298,6 +8303,39 @@ $messages['uk'] = array(
 	'sf_runquery_title' => 'Виконати запит:$1',
 	'sf_blank_error' => 'не може бути порожнім',
 	'sf_category_desc' => 'Це категорія $1.',
+);
+
+/** Urdu (اردو)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ur'] = array(
+	'sf_createproperty_proptype' => 'قسم:',
+	'templates' => 'سانچے',
+	'createtemplate' => 'ایک سانچے تخلیق کریں',
+	'sf_createtemplate_namelabel' => 'سانچے کے نام:',
+	'sf_createtemplate_fieldname' => 'میدان کا نام:',
+	'sf_createtemplate_displaylabel' => 'ڈسپلے لیبل:',
+	'sf_createtemplate_standardformat' => 'ٹیبل',
+	'sf_createtemplate_sectionsformat' => 'حصوں',
+	'sf_createtemplate_deletefield' => 'حذف کریں',
+	'forms' => 'فارم',
+	'createform' => 'ایک شکل تخلیق کریں',
+	'sf_createform_nameinput' => 'فارم کے نام',
+	'sf_createform_template' => 'سانچہ:',
+	'sf_createform_field' => 'میدان:',
+	'sf_createform_inputtype' => 'ان پٹ کی قسم:',
+	'sf_createform_inputtypedefault' => '(طے شدہ)',
+	'sf_createform_hidden' => 'پوشیدہ',
+	'sf_createform_removetemplate' => 'سانچے کو حذف کریں',
+	'sf_createform_addtemplate' => 'سانچے شامل کریں:',
+	'sf_createform_beforetemplate' => 'سانچہ: سے پہلے',
+	'sf_createform_add' => 'شامل کریں',
+	'createcategory' => 'ایک قسم کی تخلیق',
+	'sf_createcategory_name' => 'شعبے کا نام:',
+	'sf_createcategory_defaultform' => 'پہلے سے طے شدہ فارم:',
+	'createclass' => 'ایک کلاس کی تخلیق',
+	'sf_createclass_nameinput' => 'فارم کے نام:',
+	'sf_createclass_create' => 'تخلیق کریں',
 );
 
 /** Veps (vepsän kel’)
