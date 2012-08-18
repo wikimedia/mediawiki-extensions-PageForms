@@ -340,10 +340,11 @@ class SFFormEdit extends SpecialPage {
 
 					$editor = new EditPage( $article );
 					$editor->importFormData( $request );
+					$isBot = in_array('bot', $wgUser->mGroups);
 
 					// Try to save the page!
 					$resultDetails = array();
-					$saveResult = $editor->internalAttemptSave( $resultDetails );
+					$saveResult = $editor->internalAttemptSave( $resultDetails, $isBot );
 					// Return value was made an object in MW 1.19
 					if ( is_object( $saveResult ) ) {
 						$saveResultCode = $saveResult->value;
