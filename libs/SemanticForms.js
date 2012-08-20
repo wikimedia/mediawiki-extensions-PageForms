@@ -406,7 +406,7 @@ jQuery.fn.SemanticForms_unregisterInputValidation = function() {
 	}
 
 	return this;
-}
+};
 
 // Unregister all initialization methods for the element referenced by /this/
 jQuery.fn.SemanticForms_unregisterInputInit = function() {
@@ -416,7 +416,7 @@ jQuery.fn.SemanticForms_unregisterInputInit = function() {
 	}
 
 	return this;
-}
+};
 
 /*
  * Functions for handling 'show on select'
@@ -503,7 +503,7 @@ jQuery.fn.showIfSelected = function(initPage) {
 	}
 
 	return this;
-}
+};
 
 // Show this div if any of the relevant selections are checked -
 // otherwise, hide it.
@@ -517,7 +517,7 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initP
 	hideDiv(div_id, instanceWrapperDiv);
 
 	return this;
-}
+};
 
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
@@ -539,7 +539,7 @@ jQuery.fn.showIfChecked = function(initPage) {
 	}
 
 	return this;
-}
+};
 
 // Used for handling 'show on select' for the 'checkbox' input.
 jQuery.fn.showIfCheckedCheckbox = function(initPage) {
@@ -558,7 +558,7 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
 	}
 
 	return this;
-}
+};
 
 /*
  * Validation functions
@@ -567,7 +567,7 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
 // Display an error message on the end of an input.
 jQuery.fn.addErrorMessage = function(msg) {
 	this.append(' ').append( $('<span>').addClass( 'errorMessage' ).text( mw.msg( msg ) ) );
-}
+};
 
 jQuery.fn.validateMandatoryField = function() {
 	var fieldVal = this.find(".mandatoryField").val();
@@ -584,7 +584,7 @@ jQuery.fn.validateMandatoryField = function() {
 	} else {
 		return true;
 	}
-}
+};
 
 jQuery.fn.validateMandatoryComboBox = function() {
 	if (this.find("input").val() == '') {
@@ -593,7 +593,7 @@ jQuery.fn.validateMandatoryComboBox = function() {
 	} else {
 		return true;
 	}
-}
+};
 
 jQuery.fn.validateMandatoryDateField = function() {
 	if (this.find(".dayInput").val() == '' ||
@@ -604,7 +604,7 @@ jQuery.fn.validateMandatoryDateField = function() {
 	} else {
 		return true;
 	}
-}
+};
 
 // Special handling for radiobuttons, because what's being checked
 // is the first radiobutton, which has an empty value.
@@ -615,7 +615,7 @@ jQuery.fn.validateMandatoryRadioButton = function() {
 	} else {
 		return true;
 	}
-}
+};
 
 jQuery.fn.validateMandatoryCheckboxes = function() {
 	// Get the number of checked checkboxes within this span - must
@@ -627,7 +627,7 @@ jQuery.fn.validateMandatoryCheckboxes = function() {
 	} else {
 		return true;
 	}
-}
+};
 
 /*
  * Type-based validation
@@ -643,7 +643,7 @@ jQuery.fn.validateURLField = function() {
 		this.addErrorMessage( 'sf_bad_url_error' );
 		return false;
 	}
-}
+};
 
 jQuery.fn.validateEmailField = function() {
 	var fieldVal = this.find("input").val();
@@ -655,7 +655,7 @@ jQuery.fn.validateEmailField = function() {
 		this.addErrorMessage( 'sf_bad_email_error' );
 		return false;
 	}
-}
+};
 
 jQuery.fn.validateNumberField = function() {
 	var fieldVal = this.find("input").val();
@@ -668,7 +668,7 @@ jQuery.fn.validateNumberField = function() {
 		this.addErrorMessage( 'sf_bad_number_error' );
 		return false;
 	}
-}
+};
 
 jQuery.fn.validateDateField = function() {
 	// validate only if day and year fields are both filled in
@@ -684,7 +684,7 @@ jQuery.fn.validateDateField = function() {
 		this.addErrorMessage( 'sf_bad_date_error' );
 		return false;
 	}
-}
+};
 
 window.validateAll = function () {
 	var num_errors = 0;
@@ -758,7 +758,7 @@ window.validateAll = function () {
 		jQuery('.hiddenBySF').find("input, select, textarea").attr('disabled', 'disabled');
 	}
 	return (num_errors == 0);
-}
+};
 
 /**
  * Functions for multiple-instance templates.
@@ -899,7 +899,7 @@ jQuery.fn.addInstance = function() {
 		}
 	);
 
-}
+};
 
 // The first argument is needed, even though it's an attribute of the element
 // on which this function is called, because it's the 'name' attribute for
@@ -938,7 +938,7 @@ jQuery.fn.setDependentAutocompletion = function( dependentField, baseField, base
 			thisInput.attachAutocomplete();
 		}
 	});
-}
+};
 
 /**
  * Called on a 'base' field (e.g., for a country) - sets the autocompletion
@@ -967,7 +967,7 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 	}
 
 	return this;
-}
+};
 
 /**
  * Initialize all the JS-using elements contained within this block - can be
@@ -1042,7 +1042,7 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 		.change( function() {
 			jQuery(this).setAutocompleteForDependentField( partOfMultiple );
 		});
-}
+};
 
 var num_elements = 0;
 

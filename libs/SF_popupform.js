@@ -56,7 +56,7 @@ window.ext.popupform = new function() {
 			// attach event handler to iframe
 			iframe.bind( 'load', handleLoadFrame );
 			return false;
-		})
+		});
 
 		elem.target = 'popupform-iframe' + instance;
 		return true;
@@ -139,7 +139,7 @@ window.ext.popupform = new function() {
 		else background.css("opacity", 0.0);
 
 		waitIndicator.hide();
-		container.hide()
+		container.hide();
 
 		// insert background and wait indicator into wrapper and all into document
 		waitIndicatorWrapper
@@ -301,7 +301,7 @@ window.ext.popupform = new function() {
 						if ( submitok ) handleSubmitData( event );
 					}
 
-				}, 10)
+				}, 10);
 				event.stopPropagation();
 				return false;
 			});
@@ -483,7 +483,7 @@ window.ext.popupform = new function() {
 			scrollTgt = body;
 		}
 
-		var scrollTop = scrollTgt.scrollTop()
+		var scrollTop = scrollTgt.scrollTop();
 		var scrollLeft = scrollTgt.scrollLeft();
 
 		content
@@ -688,8 +688,7 @@ window.ext.popupform = new function() {
 	}
 
 	function handleCloseFrame( event ){
-
-		jQuery(window).unbind( "resize", adjustFrameSize )
+		jQuery(window).unbind( "resize", adjustFrameSize );
 
 		fadeOut( container, function(){
 			background.fadeOut( function(){
@@ -758,4 +757,4 @@ window.ext.popupform = new function() {
 	this.handlePopupFormInput = handlePopupFormInput;
 	this.handlePopupFormLink = handlePopupFormLink;
 	this.adjustFrameSize = adjustFrameSize;
-}
+};

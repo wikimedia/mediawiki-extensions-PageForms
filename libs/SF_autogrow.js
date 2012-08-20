@@ -16,7 +16,7 @@ var autoGrowColsDefault = [];
 var autoGrowRowsDefault = [];
 
 function autoGrowSetDefaultValues(textArea) {
-	var id = textArea.id
+	var id = textArea.id;
 	autoGrowColsDefault[id] = textArea.cols;
 	autoGrowRowsDefault[id] = textArea.rows;
 }

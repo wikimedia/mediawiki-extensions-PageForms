@@ -47,4 +47,4 @@ jQuery( function( $ ) {
 			}
 		} );
 	}
-})
+});

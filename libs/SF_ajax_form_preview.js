@@ -234,12 +234,12 @@ function ajaxFormPreviewRun(btn){
 			wkPreview.style.color = '';
 			wkPreview.style.display='block';
 
-		} // aj2.onreadystatechange = function(){
+		}; // aj2.onreadystatechange = function(){
 
-	} // aj.onreadystatechange = function(){
+	}; // aj.onreadystatechange = function(){
 
 	function addData(name, value){
-		if (!value) value = form[name] ? form[name].value : ''
+		if (!value) value = form[name] ? form[name].value : '';
 		data += '--' + boundary + '\nContent-Disposition: form-data; name="'+name+'"\n\n' + value + '\n';
 	}
 }

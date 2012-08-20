@@ -34,7 +34,7 @@ jQuery.fn.sfMakeCollapsible = function(options){
 				function(){
 					sfHideFieldsetContent(fieldset, setting);
 				}
-			)
+			);
 
 			sfHideFieldsetContent(fieldset, {animation:false});
 		} else {
@@ -48,7 +48,7 @@ jQuery.fn.sfMakeCollapsible = function(options){
 			)
 		}
 	});
-}
+};
 
 jQuery(document).ready(function() {
 	jQuery('.sfCollapsibleFieldset').sfMakeCollapsible();
