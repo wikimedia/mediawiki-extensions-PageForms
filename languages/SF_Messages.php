@@ -7141,6 +7141,8 @@ $messages['ro'] = array(
 	'sf_property_allowedvals' => '{{PLURAL:$1|Valoarea admisă pentru această proprietate este|Valorile admise pentru această proprietate sunt}}:',
 	'sf_form_freetextlabel' => 'Text liber',
 	'sf_blank_namespace' => 'Principal',
+	'right-viewedittab' => 'Vizualizează fila „Modificare” pentru paginile ce pot fi modificate printr-un formular',
+	'action-viewedittab' => 'vizualizați fila „Modificare” pentru paginile ce pot fi modificate printr-un formular',
 );
 
 /** tarandíne (tarandíne)

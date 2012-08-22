@@ -509,6 +509,11 @@ $specialPageAliases['or'] = array(
 	'UploadWindow' => array( 'ଉଇଣ୍ଡୋ_ଅପଲୋଡ଼_କରନ୍ତୁ' ),
 );
 
+/** Punjabi (ਪੰਜਾਬੀ) */
+$specialPageAliases['pa'] = array(
+	'Templates' => array( 'ਫਰਮੇ' ),
+);
+
 /** Polish (polski) */
 $specialPageAliases['pl'] = array(
 	'CreateCategory' => array( 'UtwórzKategorię' ),
