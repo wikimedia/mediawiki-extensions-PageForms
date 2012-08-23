@@ -145,16 +145,16 @@ END;
 	}
 
 	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
-		$attrs = array();
-		if ( $formatStr == $curSelection ) {
+		$attrs = array( 'id' => $formatStr );
+		if ( $formatStr === $curSelection ) {
 			$attrs['checked'] = true;
 		}
-		return "\t" . Html::input( $htmlFieldName, $formatStr, 'radio', $attrs, null ) .
-			' ' . wfMsg( $formatMsg ) . "\n";
+		return "\t" . Html::input( $htmlFieldName, $formatStr, 'radio', $attrs ) .
+			' ' . Html::element( 'label', array( 'for' => $formatStr ), wfMessage( $formatMsg )->escaped() ) . "\n";
 	}
 
 	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
-		if ( empty( $curSelection ) ) $curSelection = 'standard';
+		if ( !$curSelection ) $curSelection = 'standard';
 		$text = "\t<p>" . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
 		$text .= self::printTemplateStyleButton( 'standard', 'sf_createtemplate_standardformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'infobox', 'sf_createtemplate_infoboxformat', $htmlFieldName, $curSelection );

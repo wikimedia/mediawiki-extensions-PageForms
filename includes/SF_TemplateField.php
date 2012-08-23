@@ -30,7 +30,7 @@ class SFTemplateField {
 		$f->mDelimiter = $delimiter;
 		$f->mDisplay = $display;
 		// Delimiter should default to ','.
-		if ( !empty( $isList ) && empty( $delimiter ) ) {
+		if ( $isList && !$delimiter ) ) {
 			$f->mDelimiter = ',';
 		}
 		return $f;
@@ -186,7 +186,7 @@ $template_footer
 END;
 		// Only add a call to #set_internal if the Semantic Internal
 		// Objects extension is also installed.
-		if ( !empty( $internal_obj_property ) && class_exists( 'SIOInternalObject' ) ) {
+		if ( $internal_obj_property && class_exists( 'SIOInternalObject' ) ) {
 			$setInternalText = '{{#set_internal:' . $internal_obj_property;
 		} else {
 			$setInternalText = null;
@@ -194,7 +194,7 @@ END;
 		$setText = '';
 
  		// Topmost part of table depends on format.
-		if ( empty( $template_format ) ) $template_format = 'standard';
+		if ( !$template_format ) $template_format = 'standard';
 		if ( $template_format == 'standard' ) {
 			$tableText = '{| class="wikitable"' . "\n";
 		} elseif ( $template_format == 'infobox' ) {
@@ -250,7 +250,7 @@ END;
 					$tableText .= "| ";
 				}
 			}
-			if ( empty( $field->mSemanticProperty ) ) {
+			if ( !$field->mSemanticProperty ) {
 				$tableText .= "{{{" . $field->mFieldName . "|}}}\n";
 			} elseif ( !is_null( $setInternalText ) ) {
 				$tableText .= "{{{" . $field->mFieldName . "|}}}\n";
