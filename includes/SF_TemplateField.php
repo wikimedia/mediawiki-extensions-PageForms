@@ -174,6 +174,7 @@ END;
 		$text .= '{{' . $template_name;
 		if ( count( $template_fields ) > 0 ) { $text .= "\n"; }
 		foreach ( $template_fields as $field ) {
+			if ( $field->mFieldName == '' ) continue;
 			$text .= "|" . $field->mFieldName . "=\n";
 		}
 		$template_footer = wfMsgForContent( 'sf_template_docufooter' );
@@ -211,6 +212,10 @@ END;
 		}
 
 		foreach ( $template_fields as $i => $field ) {
+			if ( $field->mFieldName == '' ) continue;
+			if ( $field->mLabel == '' ) {
+				$field->mLabel = $field->mFieldName;
+			}
 			// Header/field label column
 			if ( is_null( $field->mDisplay ) ) {
 				if ( $template_format == 'standard' || $template_format == 'infobox' ) {
