@@ -4467,10 +4467,10 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf_category_desc' => 'これはカテゴリ $1 です。',
 	'sf_blank_namespace' => '標準',
 	'right-viewedittab' => 'フォームで編集できるページに「編集」タブが表示される',
-	'right-editrestrictedfields' => '制限があるフォームのフィールドを編集',
+	'right-editrestrictedfields' => '制限されたフォームフィールドを編集',
 	'right-createclass' => '新しい意味クラスを作成',
 	'action-createclass' => '新しい意味クラスを作成',
-	'action-editrestrictedfields' => 'フォームの制限されたフィールドを編集',
+	'action-editrestrictedfields' => '制限されたフォームフィールドの編集',
 	'action-viewedittab' => 'フォームで編集できるページに「編集」タブを表示',
 );
 
