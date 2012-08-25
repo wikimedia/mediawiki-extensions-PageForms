@@ -30,7 +30,7 @@ class SFTemplateField {
 		$f->mDelimiter = $delimiter;
 		$f->mDisplay = $display;
 		// Delimiter should default to ','.
-		if ( $isList && !$delimiter ) ) {
+		if ( $isList && !$delimiter ) {
 			$f->mDelimiter = ',';
 		}
 		return $f;
