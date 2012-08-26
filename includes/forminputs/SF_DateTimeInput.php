@@ -126,7 +126,7 @@ class SFDateTimeInput extends SFDateInput {
 		$params[] = array(
 			'name' => 'include timezone',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_includetimezone' )
+			'description' => wfMessage( 'sf_forminputs_includetimezone' )->text()
 		);
 		return $params;
 	}

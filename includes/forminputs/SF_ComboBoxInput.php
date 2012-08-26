@@ -97,13 +97,13 @@ class SFComboBoxInput extends SFFormInput {
 		$params[] = array(
 			'name' => 'size',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_size' )
+			'description' => wfMessage( 'sf_forminputs_size' )->text()
 		);
 		$params = array_merge( $params, SFEnumInput::getValuesParameters() );
 		$params[] = array(
 			'name' => 'existing values only',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_existingvaluesonly' )
+			'description' => wfMessage( 'sf_forminputs_existingvaluesonly' )->text()
 		);
 		return $params;
 	}

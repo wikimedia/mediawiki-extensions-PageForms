@@ -29,12 +29,12 @@ class SFCreateProperty extends SpecialPage {
 		global $smwgContLang;
 		$prop_labels = $smwgContLang->getPropertyLabels();
 		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
-		$text = wfMsgForContent( 'sf_property_isproperty', $type_tag );
+		$text = wfMessage( 'sf_property_isproperty', $type_tag )->inContentLanguage()->text();
 		if ( $default_form !== '' ) {
 			global $sfgContLang;
 			$sf_prop_labels = $sfgContLang->getPropertyLabels();
 			$default_form_tag = "[[{$sf_prop_labels[SF_SP_HAS_DEFAULT_FORM]}::$default_form]]";
-			$text .= ' ' . wfMsgForContent( 'sf_property_linkstoform', $default_form_tag );
+			$text .= ' ' . wfMessage( 'sf_property_linkstoform', $default_form_tag )->inContentLanguage()->text();
 		}
 		if ( $allowed_values_str !== '' ) {
 			// replace the comma substitution character that has no chance of
@@ -42,7 +42,8 @@ class SFCreateProperty extends SpecialPage {
 			global $sfgListSeparator;
 			$allowed_values_str = str_replace( "\\$sfgListSeparator", "\a", $allowed_values_str );
 			$allowed_values_array = explode( $sfgListSeparator, $allowed_values_str );
-			$text .= "\n\n" . wfMsgExt( 'sf_property_allowedvals', array( 'parsemag', 'content' ), count( $allowed_values_array ) );
+			$text .= "\n\n" . wfMessage( 'sf_property_allowedvals' )
+				->numParams( count( $allowed_values_array ) )->inContentLanguage()->text();
 			foreach ( $allowed_values_array as $i => $value ) {
 				// replace beep back with comma, trim
 				$value = str_replace( "\a", $sfgListSeparator, trim( $value ) );
@@ -61,7 +62,7 @@ class SFCreateProperty extends SpecialPage {
 		// local variables.
 		$presetPropertyName = str_replace( '_', ' ', $query );
 		if ( $presetPropertyName !== '' ) {
-			$wgOut->setPageTitle( wfMsg( 'sf-createproperty-with-name', $presetPropertyName) );
+			$wgOut->setPageTitle( wfMessage( 'sf-createproperty-with-name', $presetPropertyName)->text() );
 			$property_name = $presetPropertyName;
 		} else {
 			$property_name = $wgRequest->getVal( 'property_name' );
@@ -70,8 +71,8 @@ class SFCreateProperty extends SpecialPage {
 		$default_form = $wgRequest->getVal( 'default_form' );
 		$allowed_values = $wgRequest->getVal( 'values' );
 
-		$save_button_text = wfMsg( 'savearticle' );
-		$preview_button_text = wfMsg( 'preview' );
+		$save_button_text = wfMessage( 'savearticle' )->text();
+		$preview_button_text = wfMessage( 'preview' )->text();
 
 		$property_name_error_str = '';
 		$save_page = $wgRequest->getCheck( 'wpSave' );
@@ -79,7 +80,7 @@ class SFCreateProperty extends SpecialPage {
 		if ( $save_page || $preview_page ) {
 			# validate property name
 			if ( $property_name === '' ) {
-				$property_name_error_str = wfMsg( 'sf_blank_error' );
+				$property_name_error_str = wfMessage( 'sf_blank_error' )->text();
 			} else {
 				// Redirect to wiki interface.
 				$wgOut->setArticleBodyOnly( true );
@@ -122,9 +123,8 @@ END;
 		// set 'title' as hidden field, in case there's no URL niceness
 		global $wgContLang;
 		$mw_namespace_labels = $wgContLang->getNamespaces();
-		$special_namespace = $mw_namespace_labels[NS_SPECIAL];
-		$name_label = wfMsg( 'sf_createproperty_propname' );
-		$type_label = wfMsg( 'sf_createproperty_proptype' );
+		$name_label = wfMessage( 'sf_createproperty_propname' )->escaped();
+		$type_label = wfMessage( 'sf_createproperty_proptype' )->escaped();
 		$text = <<<END
 	<form action="" method="post">
 
@@ -143,8 +143,8 @@ END;
 		}
 		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value); toggleAllowedValues(this.value);' ), $select_body ) . "\n";
 
-		$default_form_input = wfMsg( 'sf_createproperty_linktoform' );
-		$values_input = wfMsg( 'sf_createproperty_allowedvalsinput' );
+		$default_form_input = wfMessage( 'sf_createproperty_linktoform' )->escaped();
+		$values_input = wfMessage( 'sf_createproperty_allowedvalsinput' )->escaped();
 		$text .= <<<END
 	<div id="default_form_div" style="padding: 5px 0 5px 0; margin: 7px 0 7px 0;">
 	<p>$default_form_input
@@ -158,7 +158,7 @@ END;
 END;
 		$edit_buttons = "\t" . Html::input( 'wpSave', $save_button_text, 'submit', array( 'id' => 'wpSave' ) );
 		$edit_buttons .= "\t" . Html::input( 'wpPreview', $preview_button_text, 'submit', array( 'id' => 'wpPreview' ) );
-	$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
+		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );

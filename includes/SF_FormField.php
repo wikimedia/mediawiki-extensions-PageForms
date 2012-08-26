@@ -148,14 +148,15 @@ class SFFormField {
 		foreach ( $possible_input_types as $i => $input_type ) {
 			if ( $i == 0 ) {
 				$dropdownHTML .= "	<option value=\".$input_type\">$input_type " .
-				wfMsg( 'sf_createform_inputtypedefault' ) . "</option>\n";
+					wfMessage( 'sf_createform_inputtypedefault' )->escaped() . "</option>\n";
 			} else {
 				$selected_str = ( $cur_input_type == $input_type ) ? "selected" : "";
 				$dropdownHTML .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
 			}
 		}
-		$hidden_text = wfMsg( 'sf_createform_hidden' );
+		$hidden_text = wfMessage( 'sf_createform_hidden' )->escaped();
 		$selected_str = ( $cur_input_type == 'hidden' ) ? "selected" : "";
+		// @todo FIXME: Contains hard coded parentheses.
 		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
 		$text = "\t" . Html::rawElement( 'select',
 			array(
@@ -169,13 +170,13 @@ class SFFormField {
 	function creationHTML( $template_num ) {
 		$field_form_text = $template_num . "_" . $this->mNum;
 		$template_field = $this->template_field;
-		$text = '<h3>' . wfMsg( 'sf_createform_field' ) . " '" . $template_field->getFieldName() . "'</h3>\n";
+		$text = '<h3>' . wfMessage( 'sf_createform_field' )->escaped() . " '" . $template_field->getFieldName() . "'</h3>\n";
 		$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
 		// TODO - remove this probably-unnecessary check?
 		if ( $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
 		} elseif ( $template_field->getPropertyType() == "" ) {
-			$text .= '<p>' . wfMsgExt( 'sf_createform_fieldpropunknowntype', 'parse', $prop_link_text ) . "</p>\n";
+			$text .= '<p>' . wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "</p>\n";
 		} else {
 			if ( $template_field->isList() ) {
 				$propDisplayMsg = 'sf_createform_fieldproplist';
@@ -198,17 +199,17 @@ class SFFormField {
 					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyTypeLabel );
 				}
 			}
-			$text .= Html::rawElement( 'p', null, wfMsgExt( $propDisplayMsg, 'parseinline', $prop_link_text, $propertyTypeStr ) ) . "\n";
+			$text .= Html::rawElement( 'p', null, wfMessage( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
-		$form_label_text = wfMsg( 'sf_createform_formlabel' );
+		$form_label_text = wfMessage( 'sf_createform_formlabel' )->text();
 		$form_label_input = Html::input(
 			'label_' . $field_form_text,
 			$template_field->getLabel(),
 			'text',
 			array( 'size' => 20 )
 		);
-		$input_type_text = wfMsg( 'sf_createform_inputtype' );
+		$input_type_text = wfMessage( 'sf_createform_inputtype' )->escaped();
 		$text .= <<<END
 	<div class="formField">
 	<p>$form_label_text $form_label_input

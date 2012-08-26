@@ -38,7 +38,7 @@ class SFAutoeditAPI extends ApiBase {
 		if ( array_key_exists( 'ok text', $options ) ) {
 			$oktext = $options['ok text'];
 		} else {
-			$oktext = wfMsg( 'sf_autoedit_success' );
+			$oktext = wfMessage( 'sf_autoedit_success' )->text();
 		}
 
 		// get errortext (or use default)
@@ -241,7 +241,7 @@ END;
 
 		// If the wiki is read-only we might as well stop right away
 		if ( wfReadOnly ( ) ) {
-			return $this->reportError( wfMsg( 'sf_autoedit_readonly', wfReadOnlyReason() ) );
+			return $this->reportError( wfMessage( 'sf_autoedit_readonly', wfReadOnlyReason() )->text() );
 		}
 
 		// ensure 'form' key exists
@@ -256,7 +256,7 @@ END;
 
 		// If we have no target article and no form we might as well stop right away
 		if ( !$this->mOptions['target'] && !$this->mOptions['form'] ) {
-			return $this->reportError( wfMsg( 'sf_autoedit_notargetspecified' ) );
+			return $this->reportError( wfMessage( 'sf_autoedit_notargetspecified' )->text() );
 		}
 
 		// check if form was specified
@@ -269,12 +269,12 @@ END;
 
 			// if no form can be found, return
 			if ( count( $form_names ) == 0 ) {
-				return $this->reportError( wfMsg( 'sf_autoedit_noformfound' ) );
+				return $this->reportError( wfMessage( 'sf_autoedit_noformfound' )->text() );
 			}
 
 			// if more than one form found, return
 			if ( count( $form_names ) > 1 ) {
-				return $this->reportError( wfMsg( 'sf_autoedit_toomanyformsfound' ) );
+				return $this->reportError( wfMessage( 'sf_autoedit_toomanyformsfound' )->text() );
 			}
 
 			// There should now be exactly one form.
@@ -310,11 +310,13 @@ END;
 				// something went wrong
 				$wgRequest = $oldRequest;
 
-				return $this->reportError( wfMsg( 'sf_autoedit_nosemanticform',
-						array(
-							$this->mOptions['target'],
-							$this->mOptions['form'] ) )
-				);
+				return $this->reportError( wfMessage(
+					'sf_autoedit_nosemanticform',
+					array(
+						$this->mOptions['target'],
+						$this->mOptions['form']
+					)
+				)->text() );
 			}
 		} else {
 			self::addToArray( $data, "wpSave", "Save" );

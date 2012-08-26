@@ -73,7 +73,7 @@ class SFFormStart extends SpecialPage {
 				// message.
 				$page_title = Title::newFromText( $page_name );
 				if ( !$page_title ) {
-					$wgOut->addHTML( htmlspecialchars( wfMsg( 'sf_formstart_badtitle', $page_name ) ) );
+					$wgOut->addHTML( wfMessage( 'sf_formstart_badtitle', $page_name )->escaped() );
 					return;
 				} else {
 					$this->doRedirect( $form_name, $page_name, $params );
@@ -83,13 +83,13 @@ class SFFormStart extends SpecialPage {
 		}
 
 		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name !== '' ) ) {
-			$text = Html::rawElement( 'p', array( 'class' => 'error' ), wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+			$text = Html::rawElement( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) )->parse() ) . "\n";
 		} else {
 			if ( $form_name === '' ) {
-				$description = htmlspecialchars( wfMsg( 'sf_formstart_noform_docu', $form_name ) );
+				$description = wfMessage( 'sf_formstart_noform_docu', $form_name )->escaped();
 			}
 			else {
-				$description = htmlspecialchars( wfMsg( 'sf_formstart_docu', $form_name ) );
+				$description = wfMessage( 'sf_formstart_docu', $form_name )->escaped();
 			}
 
 			$text = <<<END
@@ -107,7 +107,7 @@ END;
 			$text .= Html::hidden( 'namespace', $target_namespace );
 			$text .= Html::hidden( 'super_page', $super_page );
 			$text .= Html::hidden( 'params', $params );
-			$text .= "\n\t" . Html::input( null, wfMsg( 'sf_formstart_createoredit' ), 'submit' ) . "\n";
+			$text .= "\n\t" . Html::input( null, wfMessage( 'sf_formstart_createoredit' )->text(), 'submit' ) . "\n";
 			$text .= "\t</form>\n";
 		}
 		$wgOut->addHTML( $text );

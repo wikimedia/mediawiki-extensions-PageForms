@@ -164,7 +164,7 @@ class SFTemplateField {
 	 * within this class.
 	 */
 	public static function createTemplateText( $template_name, $template_fields, $internal_obj_property, $category, $aggregating_property, $aggregating_label, $template_format ) {
-		$template_header = wfMsgForContent( 'sf_template_docu', $template_name );
+		$template_header = wfMessage( 'sf_template_docu', $template_name )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
 $template_header
@@ -177,7 +177,7 @@ END;
 			if ( $field->mFieldName == '' ) continue;
 			$text .= "|" . $field->mFieldName . "=\n";
 		}
-		$template_footer = wfMsgForContent( 'sf_template_docufooter' );
+		$template_footer = wfMessage( 'sf_template_docufooter' )->inContentLanguage()->text();
 		$text .= <<<END
 }}
 </pre>

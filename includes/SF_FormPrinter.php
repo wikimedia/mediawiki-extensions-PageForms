@@ -183,7 +183,7 @@ class SFFormPrinter {
 			if ( $count > 10 ) {
 				$out->addHTML( $wgUser->getSkin()->link(
 					SpecialPage::getTitleFor( 'Log' ),
-					wfMsgHtml( 'deletelog-fulllog' ),
+					wfMessage( 'deletelog-fulllog' )->escaped(),
 					array(),
 					array(
 						'type' => 'delete',
@@ -246,7 +246,7 @@ class SFFormPrinter {
 			$rearranger = '';
 		}
 
-		$removeButton = Html::input( null, wfMsg( 'sf_formedit_remove' ), 'button', $attributes );
+		$removeButton = Html::input( null, wfMessage( 'sf_formedit_remove' )->text(), 'button', $attributes );
 
 		$text = <<<END
 			<table>
@@ -400,7 +400,6 @@ END;
 			// The handling of $wgReadOnly and $wgReadOnlyFile
 			// has to be done separately.
 			if ( wfReadOnly() ) {
-				global $wgReadOnly;
 				$permissionErrors = array( array( 'readonlytext', array ( wfReadOnlyReason() ) ) );
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
@@ -413,12 +412,16 @@ END;
 			// user is anonymous, and it's not a query -
 			// wiki-text for bolding has to be replaced with HTML.
 			if ( $wgUser->isAnon() && ! $is_query ) {
-				$anon_edit_warning = preg_replace( "/'''(.*)'''/", "<strong>$1</strong>", wfMsg( 'anoneditwarning' ) );
+				$anon_edit_warning = preg_replace(
+					"/'''(.*)'''/",
+					"<strong>$1</strong>",
+					wfMessage( 'anoneditwarning' )->text()
+				);
 				$form_text .= "<p>$anon_edit_warning</p>\n";
 			}
 		} else {
 			$form_is_disabled = true;
-			$wgOut->setPageTitle( wfMsg( 'badaccess' ) );
+			$wgOut->setPageTitle( wfMessage( 'badaccess' )->text() );
 			$wgOut->addWikiText( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
 			$wgOut->addHTML( "\n<hr />\n" );
 		}
@@ -505,7 +508,7 @@ END;
 					$template_name = trim( $tag_components[1] );
 					$tif = SFTemplateInForm::create( $template_name );
 					$query_template_name = str_replace( ' ', '_', $template_name );
-					$add_button_text = wfMsg( 'sf_formedit_addanother' );
+					$add_button_text = wfMessage( 'sf_formedit_addanother' )->text();
 					// Also replace periods with underlines, since that's what
 					// POST does to strings anyway.
 					$query_template_name = str_replace( '.', '_', $query_template_name );
@@ -654,7 +657,14 @@ END;
 								// the "free text" field - which is bad, but it's harder for the code to detect
 								// the problem - though hopefully, easier for users.)
 								if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
-									$form_text .= "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_mismatchedbrackets', $this->mPageTitle->getFullURL( array( 'action' => 'edit' ) ) ) . "</div>\n<br clear=\"both\" />\n";
+									$form_text .= "\t" . '<div class="warningbox">' .
+										wfMessage(
+											'sf_formedit_mismatchedbrackets',
+											$this->mPageTitle->getFullURL(
+												array( 'action' => 'edit' )
+											)
+										)->text() .
+										"</div>\n<br clear=\"both\" />\n";
 								}
 								$existing_template_text = substr( $existing_page_content, $start_char, $i - $start_char );
 								// now remove this template from the text being edited
@@ -980,7 +990,7 @@ END;
 							if ( in_array( 'edittools', $free_text_components ) ) {
 								// borrowed from EditPage::showEditTools()
 								$options[] = 'parse';
-								$edittools_text = $wgParser->recursiveTagParse( wfMsg( 'edittools', array( 'content' ) ) );
+								$edittools_text = $wgParser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
 								
 								$new_text .= <<<END
 		<div class="mw-editTools">
@@ -1535,7 +1545,9 @@ END;
 		// Add a warning in, if we're editing an existing page and that
 		// page appears to not have been created with this form.
 		if ( !$is_query && $this->mPageTitle->exists() && ( $existing_page_content !== '' ) && ! $source_page_matches_this_form ) {
-			$form_text = "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() ) . "</div>\n<br clear=\"both\" />\n" . $form_text;
+			$form_text = "\t" . '<div class="warningbox">' .
+				wfMessage( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() )->text() .
+				"</div>\n<br clear=\"both\" />\n" . $form_text;
 		}
 
 		// add form bottom, if no custom "standard inputs" have been defined

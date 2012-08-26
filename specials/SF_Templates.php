@@ -53,7 +53,7 @@ class TemplatesPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		$header = '<p>' . wfMsg( 'sf_templates_docu' ) . "</p><br />\n";
+		$header = '<p>' . wfMessage( 'sf_templates_docu' )->text() . "</p><br />\n";
 		return $header;
 	}
 
@@ -113,7 +113,10 @@ class TemplatesPage extends QueryPage {
 		$text = SFUtils::getLinker()->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
-			$text .= ' ' . wfMsgExt( 'sf_templates_definescat', 'parseinline', SFUtils::linkText( NS_CATEGORY, $category ) );
+			$text .= ' ' . wfMessage(
+				'sf_templates_definescat',
+				SFUtils::linkText( NS_CATEGORY, $category )
+			)->parse();
 		}
 		return $text;
 	}

@@ -52,7 +52,7 @@ class FormsPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		$header = '<p>' . wfMsg( 'sf_forms_docu' ) . "</p><br />\n";
+		$header = '<p>' . wfMessage( 'sf_forms_docu' )->text() . "</p><br />\n";
 		return $header;
 	}
 

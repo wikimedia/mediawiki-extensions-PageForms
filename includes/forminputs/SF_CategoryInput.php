@@ -63,7 +63,7 @@ class SFCategoryInput extends SFFormInput {
 				$text .= ' checked="checked"';
 			}
 			$disabled_text = ( $is_disabled ) ? 'disabled' : '';
-			$text .= " $disabled_text/> <em>" . wfMsg( 'sf_formedit_none' ) . "</em>\n";
+			$text .= " $disabled_text/> <em>" . wfMessage( 'sf_formedit_none' )->escaped() . "</em>\n";
 		}
 
 		global $wgCategoryTreeMaxDepth;
@@ -100,7 +100,7 @@ class SFCategoryInput extends SFFormInput {
 		// Get rid of all the 'no subcategories' messages.
 		$tree = str_replace(
 			'<div class="CategoryTreeChildren" style="display:block"><i class="CategoryTreeNotice">' .
-				wfMsg( 'categorytree-no-subcategories' ) . '</i></div>',
+				wfMessage( 'categorytree-no-subcategories' )->escaped() . '</i></div>',
 			'',
 			$tree
 		);
@@ -121,27 +121,27 @@ class SFCategoryInput extends SFFormInput {
 		$params[] = array(
 			'name' => 'top category',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_topcategory' )
+			'description' => wfMessage( 'sf_forminputs_topcategory' )->text()
 		);
 		$params[] = array(
 			'name' => 'hideroot',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_hideroot' )
+			'description' => wfMessage( 'sf_forminputs_hideroot' )->text()
 		);
 		$params[] = array(
 			'name' => 'depth',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_depth' )
+			'description' => wfMessage( 'sf_forminputs_depth' )->text()
 		);
 		$params[] = array(
 			'name' => 'height',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_height' )
+			'description' => wfMessage( 'sf_forminputs_height' )->text()
 		);
 		$params[] = array(
 			'name' => 'width',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_width' )
+			'description' => wfMessage( 'sf_forminputs_width' )->text()
 		);
 		return $params;
 	}

@@ -191,22 +191,22 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		$params[] = array(
 			'name' => 'values from url',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_valuesfromurl' )
+			'description' => wfMessage( 'sf_forminputs_valuesfromurl' )->text()
 		);
 		$params[] = array(
 			'name' => 'remote autocompletion',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_remoteautocompletion' )
+			'description' => wfMessage( 'sf_forminputs_remoteautocompletion' )->text()
 		);
 		$params[] = array(
 			'name' => 'list',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_list' )
+			'description' => wfMessage( 'sf_forminputs_list' )->text()
 		);
 		$params[] = array(
 			'name' => 'delimiter',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_delimiter' )
+			'description' => wfMessage( 'sf_forminputs_delimiter' )->text()
 		);
 		return $params;
 	}

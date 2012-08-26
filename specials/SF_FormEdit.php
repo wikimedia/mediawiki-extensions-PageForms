@@ -57,7 +57,7 @@ class SFFormEdit extends SpecialPage {
 				$msg = $msg[ 0 ];
 			}
 
-			$this->mError = wfMsg( $msg, $msgdata );
+			$this->mError = wfMessage( $msg, $msgdata )->text();
 
 			$wgOut->addHTML( Html::element( 'p', array( 'class' => 'error' ), $this->mError ) );
 
@@ -124,7 +124,6 @@ class SFFormEdit extends SpecialPage {
 		if ( $target_name === '' ) {
 
 			// parse the form to see if it has a 'page name' value set
-			$matches;
 			if ( preg_match( '/{{{info.*page name\s*=\s*(.*)}}}/m', $form_definition, $matches ) ) {
 				$page_name_elements = SFUtils::getFormTagComponents( $matches[1] );
 				$page_name_formula = $page_name_elements[0];
@@ -162,15 +161,15 @@ class SFFormEdit extends SpecialPage {
 			if ( count( $alt_forms ) > 0 ) {
 
 				$text = '<div class="infoMessage">'
-					. wfMsg( 'sf_formedit_altformsonly' ) . ' '
+					. wfMessage( 'sf_formedit_altformsonly' )->escaped() . ' '
 					. self::printAltFormsList( $alt_forms, $form_name )
 					. "</div>\n";
 
 			} else {
-				$text = Html::rawElement( 'p', array( 'class' => 'error' ), wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+				$text = Html::rawElement( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) )->parse() ) . "\n";
 			}
 		} elseif ( $target_name === '' && $page_name_formula === '' ) {
-			$text = Html::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_formedit_badurl' ) ) . "\n";
+			$text = Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formedit_badurl' )->text() ) . "\n";
 		} else {
 
 			$save_page = $wgRequest->getCheck( 'wpSave' );
@@ -202,13 +201,13 @@ class SFFormEdit extends SpecialPage {
 			// called, because otherwise it doesn't take hold
 			// for some reason if the form is disabled.
 			if ( empty( $target_title ) ) {
-				$s = wfMsg( 'sf_formedit_createtitlenotarget', $form_title->getText() );
+				$pageTitle = wfMessage( 'sf_formedit_createtitlenotarget', $form_title->getText() )->text();
 			} elseif ( $target_title->exists() ) {
-				$s = wfMsg( 'sf_formedit_edittitle', $form_title->getText(), $target_title->getPrefixedText() );
+				$pageTitle = wfMessage( 'sf_formedit_edittitle', $form_title->getText(), $target_title->getPrefixedText() )->text();
 			} else {
-				$s = wfMsg( 'sf_formedit_createtitle', $form_title->getText(), $target_title->getPrefixedText() );
+				$pageTitle = wfMessage( 'sf_formedit_createtitle', $form_title->getText(), $target_title->getPrefixedText() )->text();
 			}
-			$wgOut->setPageTitle( $s );
+			$wgOut->setPageTitle( $pageTitle );
 
 			if ( $form_submitted ) {
 				if ( !is_null( $page_name_formula ) && $page_name_formula !== '' ) {
@@ -244,7 +243,6 @@ class SFFormEdit extends SpecialPage {
 					$randomNumDigits = 6;
 
 					if ( strpos( $target_name, '{num' ) !== false ) {
-
 						// Random number
 						if ( preg_match( '/{num;random(;(0)?([1-9][0-9]*))?}/', $target_name, $matches ) ) {
 							$isRandom = true;
@@ -387,7 +385,7 @@ class SFFormEdit extends SpecialPage {
 				}
 				$text = "";
 				if ( count( $alt_forms ) > 0 ) {
-					$text .= '<div class="infoMessage">' . wfMsg( 'sf_formedit_altforms' ) . ' ';
+					$text .= '<div class="infoMessage">' . wfMessage( 'sf_formedit_altforms' )->escaped() . ' ';
 					$text .= self::printAltFormsList( $alt_forms, $target_name );
 					$text .= "</div>\n";
 				}

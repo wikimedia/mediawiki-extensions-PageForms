@@ -22,7 +22,7 @@ class SFListBoxInput extends SFMultiEnumInput {
 		$params[] = array(
 			'name' => 'size',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_listboxsize' )
+			'description' => wfMessage( 'sf_forminputs_listboxsize' )->text()
 		);
 		return $params;
 	}

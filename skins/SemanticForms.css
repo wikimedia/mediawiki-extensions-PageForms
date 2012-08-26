@@ -15,14 +15,14 @@ textarea.mandatoryField {
         border: 1px black solid;
         background: #dddddd;
         padding: 10px 20px 10px 20px;
-        margin: 0px 20px 20px 20px;
+        margin: 0 20px 20px 20px;
 }
 
 /* Used in 'create form' page */
 .templateForm {
         border: 1px black solid;
         background: #dddddd;
-        padding: 0px 20px 10px 20px;
+        padding: 0 20px 10px 20px;
         margin-bottom: 20px;
 }
 
@@ -107,7 +107,7 @@ span.errorMessage {
 	background-color: #dddddd;
 	border: 1px solid #cccccc;
 	padding: 5px;
-	margin: 10px 0px 10px 0px;
+	margin: 10px 0 10px 0;
 }
 
 .multipleTemplateInstance table {

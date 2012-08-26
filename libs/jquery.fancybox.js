@@ -817,8 +817,6 @@
 				}
 
 				_start();
-
-				return;
 			});
 
 		return this;
@@ -901,8 +899,6 @@
 			selectedIndex = pos >= currentArray.length ? 0 : currentArray.length - 1;
 			_start();
 		}
-
-		return;
 	};
 
 	$.fancybox.cancel = function() {

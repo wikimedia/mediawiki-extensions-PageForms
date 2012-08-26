@@ -54,7 +54,7 @@ class SFForm {
 		$title = Title::makeTitle( SF_NS_FORM, $this->mFormName );
 		$fs = SFUtils::getSpecialPage( 'FormStart' );
 		$form_start_url = SFUtils::titleURLString( $fs->getTitle() ) . "/" . $title->getPartialURL();
-		$form_description = wfMsgForContent( 'sf_form_docu', $this->mFormName, $form_start_url );
+		$form_description = wfMessage( 'sf_form_docu', $this->mFormName, $form_start_url )->inContentLanguage()->text();
 		$form_input = "{{#forminput:form=" . $this->mFormName;
 		if ( !is_null( $this->mAssociatedCategory ) ) {
 			$form_input .= "|autocomplete on category=" . $this->mAssociatedCategory;
@@ -89,7 +89,7 @@ END;
 		foreach ( $this->mTemplates as $template ) {
 			$text .= $template->createMarkup() . "\n";
 		}
-		$free_text_label = wfMsgForContent( 'sf_form_freetextlabel' );
+		$free_text_label = wfMessage( 'sf_form_freetextlabel' )->inContentLanguage()->text();
 		$text .= <<<END
 '''$free_text_label:'''
 
