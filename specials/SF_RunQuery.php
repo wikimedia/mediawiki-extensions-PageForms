@@ -39,10 +39,10 @@ class SFRunQuery extends IncludableSpecialPage {
 
 		if ( !$form_title || !$form_title->exists() ) {
 			if ( $form_name === '' ) {
-				$text = Html::element( 'p', array( 'class' => 'error' ), wfMsg( 'sf_runquery_badurl' ) ) . "\n";
+				$text = Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'sf_runquery_badurl' )->text() ) . "\n";
 			} else {
 				$text = Html::rawElement( 'p', array( 'class' => 'error' ),
-					wfMsgExt( 'sf_formstart_badform', 'parseinline', SFUtils::linkText( SF_NS_FORM, $form_name ) ) ) . "\n";
+					wfMessage( 'sf_formstart_badform', SFUtils::linkText( SF_NS_FORM, $form_name ) )->parse() ) . "\n";
 			}
 			$wgOut->addHTML( $text );
 			return;
@@ -51,7 +51,6 @@ class SFRunQuery extends IncludableSpecialPage {
 		// Initialize variables.
 		$form_article = new Article( $form_title, 0 );
 		$form_definition = $form_article->getContent();
-		$submit_url = $form_title->getLocalURL( 'action=submit' );
 		if ( $embedded ) {
 			$run_query = false;
 			$content = null;
@@ -111,7 +110,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			// the query form is at the top or bottom) is displayed
 			// if the form has already been submitted.
 			if ( $form_submitted ) {
-				$additionalQueryHeader = "\n" . Html::element( 'h2', null, wfMsg( 'sf_runquery_additionalquery' ) ) . "\n";
+				$additionalQueryHeader = "\n" . Html::element( 'h2', null, wfMessage( 'sf_runquery_additionalquery' )->text() ) . "\n";
 				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
 			$action = htmlspecialchars( $this->getTitle( $form_name )->getLocalURL() );
@@ -165,7 +164,7 @@ END;
 			if ( $form_page_title != null ) {
 				$wgOut->setPageTitle( $form_page_title );
 			} else {
-				$s = wfMsg( 'sf_runquery_title', $form_title->getText() );
+				$s = wfMessage( 'sf_runquery_title', $form_title->getText() )->text();
 				$wgOut->setPageTitle( $s );
 			}
 		}

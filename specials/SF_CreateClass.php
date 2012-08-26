@@ -13,7 +13,6 @@
  * @ingroup SFSpecialPages
  */
 class SFCreateClass extends SpecialPage {
-
 	/**
 	 * Constructor
 	 */
@@ -72,7 +71,6 @@ END;
 		$numStartingRows = 5;
 		self::addJavascript( $numStartingRows );
 
-		$property_name_error_str = '';
 		$save_page = $wgRequest->getCheck( 'save' );
 		if ( $save_page ) {
 			$template_name = trim( $wgRequest->getVal( "template_name" ) );
@@ -154,15 +152,15 @@ END;
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateTemplate' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateForm' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateCategory' );
-		$create_class_docu = wfMsg( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) );
-		$form_name_label = wfMsg( 'sf_createclass_nameinput' );
-		$template_name_label = wfMsg( 'sf_createtemplate_namelabel' );
-		$category_name_label = wfMsg( 'sf_createcategory_name' );
-		$field_name_label = wfMsg( 'sf_createtemplate_fieldname' );
-		$list_of_values_label = wfMsg( 'sf_createclass_listofvalues' );
-		$property_name_label = wfMsg( 'sf_createproperty_propname' );
-		$type_label = wfMsg( 'sf_createproperty_proptype' );
-		$allowed_values_label = wfMsg( 'sf_createclass_allowedvalues' );
+		$create_class_docu = wfMessage( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) )->text();
+		$form_name_label = wfMessage( 'sf_createclass_nameinput' )->text();
+		$template_name_label = wfMessage( 'sf_createtemplate_namelabel' )->text();
+		$category_name_label = wfMessage( 'sf_createcategory_name' )->text();
+		$field_name_label = wfMessage( 'sf_createtemplate_fieldname' )->text();
+		$list_of_values_label = wfMessage( 'sf_createclass_listofvalues' )->text();
+		$property_name_label = wfMessage( 'sf_createproperty_propname' )->text();
+		$type_label = wfMessage( 'sf_createproperty_proptype' )->text();
+		$allowed_values_label = wfMessage( 'sf_createclass_allowedvalues' )->text();
 
 		$text = <<<END
 <form action="" method="post">
@@ -244,7 +242,7 @@ END;
 		$add_another_button = Html::element( 'input',
 			array(
 				'type' => 'button',
-				'value' => wfMsg( 'sf_formedit_addanother' ),
+				'value' => wfMessage( 'sf_formedit_addanother' )->text(),
 				'onclick' => "createClassAddRow()"
 			)
 		);
@@ -256,7 +254,7 @@ END;
 			array(
 				'type' => 'submit',
 				'name' => 'save',
-				'value' => wfMsg( 'sf_createclass_create' )
+				'value' => wfMessage( 'sf_createclass_create' )->text()
 			)
 		);
 		$text .= "</form>\n";

@@ -28,7 +28,7 @@ abstract class SFMultiEnumInput extends SFEnumInput {
 		$params[] = array(
 			'name' => 'delimiter',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_delimiter' )
+			'description' => wfMessage( 'sf_forminputs_delimiter' )->text()
 		);
 		return $params;
 	}

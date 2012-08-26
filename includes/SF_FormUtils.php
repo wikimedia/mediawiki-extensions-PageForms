@@ -71,7 +71,7 @@ class SFFormUtils {
 
 		$sfgTabIndex++;
 		if ( $label == null )
-			$label = wfMsg( 'summary' );
+			$label = wfMessage( 'summary' )->text();
 		$disabled_text = ( $is_disabled ) ? " disabled" : "";
 		$attr = Html::expandAttributes( $attr );
 		$text = <<<END
@@ -89,13 +89,13 @@ END;
 		$checked = $wgUser->getOption( 'minordefault' );
 
 		if ( $label == null ) {
-			$label = $wgParser->recursiveTagParse( wfMsg( 'minoredit' ) );
+			$label = $wgParser->recursiveTagParse( wfMessage( 'minoredit' )->text() );
 		}
 
-		$tooltip = wfMsg( 'tooltip-minoredit' );
+		$tooltip = wfMessage( 'tooltip-minoredit' )->text();
 		$attrs += array(
 			'id' => 'wpMinoredit',
-			'accesskey' => wfMsg( 'accesskey-minoredit' ),
+			'accesskey' => wfMessage( 'accesskey-minoredit' )->text(),
 			'tabindex' => $sfgTabIndex,
 		);
 		if ( $is_disabled ) {
@@ -127,17 +127,17 @@ END;
 			$is_checked = true;
 		}
 		if ( $label == null )
-			$label = $wgParser->recursiveTagParse( wfMsg( 'watchthis' ) );
+			$label = $wgParser->recursiveTagParse( wfMessage( 'watchthis' )->text() );
 		$attrs += array(
 			'id' => 'wpWatchthis',
-			'accesskey' => wfMsg( 'accesskey-watch' ),
+			'accesskey' => wfMessage( 'accesskey-watch' )->text(),
 			'tabindex' => $sfgTabIndex,
 		);
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
-		$tooltip = htmlspecialchars( wfMsg( 'tooltip-watch' ) );
+		$tooltip = wfMessage( 'tooltip-watch' )->escaped();
 		$text .= "\t" . Html::element( 'label', array(
 			'for' => 'wpWatchthis',
 			'title' => $tooltip
@@ -158,13 +158,13 @@ END;
 
 		$sfgTabIndex++;
 		if ( $label == null ) {
-			$label = wfMsg( 'savearticle' );
+			$label = wfMessage( 'savearticle' )->text();
 		}
 		$temp = $attr + array(
 			'id'        => 'wpSave',
 			'tabindex'  => $sfgTabIndex,
-			'accesskey' => wfMsg( 'accesskey-save' ),
-			'title'     => wfMsg( 'tooltip-save' ),
+			'accesskey' => wfMessage( 'accesskey-save' )->text(),
+			'title'     => wfMessage( 'tooltip-save' )->text(),
 		);
 		if ( $is_disabled ) {
 			$temp['disabled'] = true;
@@ -178,15 +178,15 @@ END;
 		$sfgTabIndex++;
 
 		if ( $label == null ) {
-			$label = wfMsg( 'sf_formedit_saveandcontinueediting' );
+			$label = wfMessage( 'sf_formedit_saveandcontinueediting' )->text();
 		}
 
 		$temp = $attr + array(
 			'id'        => 'wpSaveAndContinue',
 			'tabindex'  => $sfgTabIndex,
 			'disabled'  => true,
-			'accesskey' => wfMsg( 'sf_formedit_accesskey_saveandcontinueediting' ),
-			'title'     => wfMsg( 'sf_formedit_tooltip_saveandcontinueediting' ),
+			'accesskey' => wfMessage( 'sf_formedit_accesskey_saveandcontinueediting' )->text(),
+			'title'     => wfMessage( 'sf_formedit_tooltip_saveandcontinueediting' )->text(),
 		);
 
 		if ( $is_disabled ) {
@@ -203,13 +203,13 @@ END;
 
 		$sfgTabIndex++;
 		if ( $label == null ) {
-			$label = wfMsg( 'showpreview' );
+			$label = wfMessage( 'showpreview' )->text();
 		}
 		$temp = $attr + array(
 			'id'        => 'wpPreview',
 			'tabindex'  => $sfgTabIndex,
-			'accesskey' => wfMsg( 'accesskey-preview' ),
-			'title'     => wfMsg( 'tooltip-preview' ),
+			'accesskey' => wfMessage( 'accesskey-preview' )->text(),
+			'title'     => wfMessage( 'tooltip-preview' )->text(),
 		);
 		if ( $is_disabled ) {
 			$temp['disabled'] = true;
@@ -222,13 +222,13 @@ END;
 
 		$sfgTabIndex++;
 		if ( $label == null ) {
-			$label = wfMsg( 'showdiff' );
+			$label = wfMessage( 'showdiff' )->text();
 		}
 		$temp = $attr + array(
 			'id'        => 'wpDiff',
 			'tabindex'  => $sfgTabIndex,
-			'accesskey' => wfMsg( 'accesskey-diff' ),
-			'title'     => wfMsg( 'tooltip-diff' ),
+			'accesskey' => wfMessage( 'accesskey-diff' )->text(),
+			'title'     => wfMessage( 'tooltip-diff' )->text(),
 		);
 		if ( $is_disabled ) {
 			$temp['disabled'] = true;
@@ -240,7 +240,7 @@ END;
 		global $wgTitle, $wgParser;
 
 		if ( $label == null ) {
-			$label = $wgParser->recursiveTagParse( wfMsg( 'cancel' ) );
+			$label = $wgParser->recursiveTagParse( wfMessage( 'cancel' )->text() );
 		}
 		if ( $wgTitle == null ) {
 			$cancel = '';
@@ -263,7 +263,7 @@ END;
 
 		$sfgTabIndex++;
 		if ( $label == null ) {
-			$label = wfMsg( 'runquery' );
+			$label = wfMessage( 'runquery' )->text();
 		}
 		return self::buttonHTML( 'wpRunQuery', $label, 'submit',
 			$attr + array(
@@ -338,19 +338,19 @@ END;
 
 	static function getMonthNames() {
 		return array(
-			wfMsgForContent( 'january' ),
-			wfMsgForContent( 'february' ),
-			wfMsgForContent( 'march' ),
-			wfMsgForContent( 'april' ),
+			wfMessage( 'january' )->inContentLanguage()->text(),
+			wfMessage( 'february' )->inContentLanguage()->text(),
+			wfMessage( 'march' )->inContentLanguage()->text(),
+			wfMessage( 'april' )->inContentLanguage()->text(),
 			// Needed to avoid using 3-letter abbreviation
-			wfMsgForContent( 'may_long' ),
-			wfMsgForContent( 'june' ),
-			wfMsgForContent( 'july' ),
-			wfMsgForContent( 'august' ),
-			wfMsgForContent( 'september' ),
-			wfMsgForContent( 'october' ),
-			wfMsgForContent( 'november' ),
-			wfMsgForContent( 'december' )
+			wfMessage( 'may_long' )->inContentLanguage()->text(),
+			wfMessage( 'june' )->inContentLanguage()->text(),
+			wfMessage( 'july' )->inContentLanguage()->text(),
+			wfMessage( 'august' )->inContentLanguage()->text(),
+			wfMessage( 'september' )->inContentLanguage()->text(),
+			wfMessage( 'october' )->inContentLanguage()->text(),
+			wfMessage( 'november' )->inContentLanguage()->text(),
+			wfMessage( 'december' )->inContentLanguage()->text()
 		);
 	}
 
@@ -402,14 +402,14 @@ END;
 		$numRows = isset( $fieldArgs['rows'] ) && $fieldArgs['rows'] > 0 ? $fieldArgs['rows'] : 5;
 		$FCKEditorHeight = ( $wgFCKEditorHeight < 300 ) ? 300 : $wgFCKEditorHeight;
 
-		$newWinMsg = wfMsg( 'rich_editor_new_window' );
+		$newWinMsg = wfMessage( 'rich_editor_new_window' )->text();
 		$javascript_text = '
 var showFCKEditor = ' . $showFCKEditor . ';
 var popup = false;		//pointer to popup document
 var firstLoad = true;
-var editorMsgOn = "' . wfMsg( 'textrichditor' ) . '";
-var editorMsgOff = "' . wfMsg( 'tog-riched_disable' ) . '";
-var editorLink = "' . ( ( $showFCKEditor & RTE_VISIBLE ) ? wfMsg( 'tog-riched_disable' ): wfMsg( 'textrichditor' ) ) . '";
+var editorMsgOn = "' . wfMessage( 'textrichditor' )->text() . '";
+var editorMsgOff = "' . wfMessage( 'tog-riched_disable' )->text() . '";
+var editorLink = "' . ( ( $showFCKEditor & RTE_VISIBLE ) ? wfMessage( 'tog-riched_disable' )->text() : wfMessage( 'textrichditor' )->text() ) . '";
 var saveSetting = ' . ( $wgUser->getOption( 'riched_toggle_remember_state' ) ?  1 : 0 ) . ';
 var RTE_VISIBLE = ' . RTE_VISIBLE . ';
 var RTE_TOGGLE_LINK = ' . RTE_TOGGLE_LINK . ';

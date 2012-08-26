@@ -339,7 +339,7 @@ END;
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";
 		}
-		return "\t" . Html::rawElement( 'label', array( 'for' => 'formSelector' ), $form_label . wfMsg( 'colon-separator' ) ) . "\n" . Html::rawElement( 'select', array( 'id' => 'formSelector', 'name' => 'form' ), $select_body ) . "\n";
+		return "\t" . Html::rawElement( 'label', array( 'for' => 'formSelector' ), $form_label . wfMessage( 'colon-separator' )->escaped() ) . "\n" . Html::rawElement( 'select', array( 'id' => 'formSelector', 'name' => 'form' ), $select_body ) . "\n";
 	}
 
 	/**
@@ -623,7 +623,7 @@ END;
 	 */
 	public static function getWordForYesOrNo( $isYes ) {
 		$wordsMsg = ( $isYes ) ? 'smw_true_words' : 'smw_false_words';
-		$possibleWords = explode( ',', wfMsgForContent( $wordsMsg ) );
+		$possibleWords = explode( ',', wfMessage( $wordsMsg )->inContentLanguage()->text() );
 		// Get the value in the series that tends to be "yes" or "no" -
 		// generally, that's the third word.
 		$preferredIndex = 2;
@@ -696,7 +696,7 @@ END;
 	}
 
 	public static function addToAdminLinks( &$admin_links_tree ) {
-		$data_structure_label = wfMsg( 'smw_adminlinks_datastructure' );
+		$data_structure_label = wfMessage( 'smw_adminlinks_datastructure' )->text();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
 		if ( is_null( $data_structure_section ) ) {
 			return true;
@@ -711,8 +711,8 @@ END;
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateForm' ), 'SMWAdmin' );
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateCategory' ), 'SMWAdmin' );
 		$smw_docu_row = $data_structure_section->getRow( 'smw_docu' );
-		$sf_name = wfMsg( 'specialpages-group-sf_group' );
-		$sf_docu_label = wfMsg( 'adminlinks_documentation', $sf_name );
+		$sf_name = wfMessage( 'specialpages-group-sf_group' )->text();
+		$sf_docu_label = wfMessage( 'adminlinks_documentation', $sf_name )->text();
 		$smw_docu_row->addItem( ALItem::newFromExternalLink( "http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label ) );
 
 		return true;
@@ -785,8 +785,8 @@ END;
 			return true;
 		}
 
-		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMsg( 'sf-preview-header' ) ) . "\n" .
-			'<div class="previewnote" style="font-weight: bold">' . $wgOut->parse( wfMsg( 'sf-preview-note' ) ) . "</div>\n<hr />\n";
+		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMessage( 'sf-preview-header' )->text() ) . "\n" .
+			'<div class="previewnote" style="font-weight: bold">' . $wgOut->parse( wfMessage( 'sf-preview-note' )->text() ) . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
 		list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
@@ -802,13 +802,11 @@ END;
 	}
 
 	static function createFormLink ( &$parser, $specialPageName, $params ) {
-		global $wgVersion;
-
 		// Set defaults.
 		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
 			$inQueryStr = $inTargetName = '';
 		if ( $specialPageName == 'RunQuery' ) {
-			$inLinkStr = wfMsg( 'runquery' );
+			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
 		$classStr = "";
 		$inQueryArr = array();

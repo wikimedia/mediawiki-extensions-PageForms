@@ -342,7 +342,7 @@ END;
 			}
 		}
 
-		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMsg( 'sf_formstart_createoredit' );
+		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'sf_formstart_createoredit' )->escaped();
 		$str .= <<<END
 			<input type="submit" value="$button_str" /></p>
 			</form>
@@ -589,7 +589,7 @@ END;
 		}
 
 		if ( $summary == null ) {
-			$summary = wfMsg( 'sf_autoedit_summary', "[[$wgTitle]]" );
+			$summary = wfMessage( 'sf_autoedit_summary', "[[$wgTitle]]" )->text();
 		}
 
 		$formcontent .= Html::hidden( 'wpSummary', $summary );

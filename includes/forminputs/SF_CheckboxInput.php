@@ -44,7 +44,7 @@ class SFCheckboxInput extends SFFormInput {
 			// a 'false' word.
 			$vlc = strtolower( trim( $cur_value ) );
 
-			if ( in_array( $vlc, explode( ',', wfMsgForContent( 'smw_true_words' ) ), true ) ) {
+			if ( in_array( $vlc, explode( ',', wfMessage( 'smw_true_words' )->inContentLanguage()->text() ), true ) ) {
 				$checked_str = ' checked="checked"';
 			} else {
 				$checked_str = '';

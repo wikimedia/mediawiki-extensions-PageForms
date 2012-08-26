@@ -159,9 +159,9 @@ class SFTemplateInForm {
 
 	function creationHTML( $template_num ) {
 		$checked_str = ( $this->mAllowMultiple ) ? "checked" : "";
-		$template_str = wfMsg( 'sf_createform_template' );
-		$template_label_input = wfMsg( 'sf_createform_templatelabelinput' );
-		$allow_multiple_text = wfMsg( 'sf_createform_allowmultiple' );
+		$template_str = wfMessage( 'sf_createform_template' )->escaped();
+		$template_label_input = wfMessage( 'sf_createform_templatelabelinput' )->escaped();
+		$allow_multiple_text = wfMessage( 'sf_createform_allowmultiple' )->escaped();
 		$text = <<<END
 	<input type="hidden" name="template_$template_num" value="$this->mTemplateName">
 	<div class="templateForm">
@@ -176,7 +176,7 @@ END;
 		}
 		$removeTemplateButton = Html::input(
 			'del_' . $template_num,
-			wfMsg( 'sf_createform_removetemplate' ),
+			wfMessage( 'sf_createform_removetemplate' )->text(),
 			'submit'
 		);
 		$text .= "\t" . Html::rawElement( 'p', null, $removeTemplateButton ) . "\n";

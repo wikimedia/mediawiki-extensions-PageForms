@@ -226,22 +226,19 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		# Check the token, but only if necessary
 		if ( !$this->mTokenOk && !$this->mCancelUpload
 				&& ( $this->mUpload && $this->mUploadClicked ) )
-			$form->addPreText( wfMsgExt( 'session_fail_preview', 'parseinline' ) );
+			$form->addPreText( wfMessage( 'session_fail_preview' )->parse() );
 
-		# Add text to form
-		// $form->addPreText( '<div id="uploadtext">' . wfMsgExt( 'uploadtext', 'parse' ) . '</div>');
 		# Add upload error message
 		$form->addPreText( $message );
 		
 		# Add footer to form
-		$uploadFooter = wfMsgNoTrans( 'uploadfooter' );
-		if ( $uploadFooter != '-' && !wfEmptyMsg( 'uploadfooter', $uploadFooter ) ) {
+		if ( !wfMessage( 'uploadfooter' )->isDisabled() ) {
+			$uploadFooter = wfMessage( 'uploadfooter' )->plain();
 			$form->addPostText( '<div id="mw-upload-footer-message">'
 				. $wgOut->parse( $uploadFooter ) . "</div>\n" );
 		}
-		
-		return $form;
 
+		return $form;
 	}
 
 	/**
@@ -253,14 +250,12 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 		$title = Title::makeTitleSafe( NS_FILE, $this->mDesiredDestName );
 		// Show a subtitle link to deleted revisions (to sysops et al only)
 		if ( $title instanceof Title && ( $count = $title->isDeleted() ) > 0 && $wgUser->isAllowed( 'deletedhistory' ) ) {
-			$link = wfMsgExt(
-				$wgUser->isAllowed( 'delete' ) ? 'thisisdeleted' : 'viewdeleted',
-				array( 'parse', 'replaceafter' ),
-				$wgUser->getSkin()->linkKnown(
+			$link = wfMessage( $wgUser->isAllowed( 'delete' ) ? 'thisisdeleted' : 'viewdeleted' )
+				->rawParams( $wgUser->getSkin()->linkKnown(
 					SpecialPage::getTitleFor( 'Undelete', $title->getPrefixedText() ),
-					wfMsgExt( 'restorelink', array( 'parsemag', 'escape' ), $count )
+					wfMessage( 'restorelink' )->numParams( $count )->escaped()
 				)
-			);
+			)->parse();
 			$wgOut->addHTML( "<div id=\"contentSub2\">{$link}</div>" );
 		}
 
@@ -283,11 +278,11 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 	 */
 	protected function recoverableUploadError( $message ) {
 		$sessionKey = $this->mUpload->stashSession();
-		$message = '<h2>' . wfMsgHtml( 'uploadwarning' ) . "</h2>\n" .
+		$message = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n" .
 			'<div class="error">' . $message . "</div>\n";
 		
 		$form = $this->getUploadForm( $message, $sessionKey );
-		$form->setSubmitText( wfMsg( 'upload-tryagain' ) );
+		$form->setSubmitText( wfMessage( 'upload-tryagain' )->text() );
 		$this->showUploadForm( $form );
 	}
 	/**
@@ -298,34 +293,35 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 	protected function uploadWarning( $warnings ) {
 		$sessionKey = $this->mUpload->stashSession();
 
-		$warningHtml = '<h2>' . wfMsgHtml( 'uploadwarning' ) . "</h2>\n"
+		$warningHtml = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n"
 			. '<ul class="warning">';
 		foreach ( $warnings as $warning => $args ) {
-				$msg = '';
 				if ( $warning == 'exists' ) {
 					$msg = self::getExistsWarning( $args );
 				} elseif ( $warning == 'duplicate' ) {
 					$msg = self::getDupeWarning( $args );
 				} elseif ( $warning == 'duplicate-archive' ) {
-					$msg = "\t<li>" . wfMsgExt( 'file-deleted-duplicate', 'parseinline',
-							array( Title::makeTitle( NS_FILE, $args )->getPrefixedText() ) )
-						. "</li>\n";
+					$msg = "\t<li>" . wfMessage(
+						'file-deleted-duplicate',
+						array( Title::makeTitle( NS_FILE, $args )->getPrefixedText() )
+					)->parse() . "</li>\n";
 				} else {
 					if ( is_bool( $args ) )
 						$args = array();
-					elseif ( !is_array( $args ) )
+					elseif ( !is_array( $args ) ) {
 						$args = array( $args );
-					$msg = "\t<li>" . wfMsgExt( $warning, 'parseinline', $args ) . "</li>\n";
+					}
+					$msg = "\t<li>" . wfMessage( $warning, $args )->parse() . "</li>\n";
 				}
 				$warningHtml .= $msg;
 		}
 		$warningHtml .= "</ul>\n";
-		$warningHtml .= wfMsgExt( 'uploadwarning-text', 'parse' );
+		$warningHtml .= wfMessage( 'uploadwarning-text' )->parseAsBlock();
 
 		$form = $this->getUploadForm( $warningHtml, $sessionKey, /* $hideIgnoreWarning */ true );
-		$form->setSubmitText( wfMsg( 'upload-tryagain' ) );
-		$form->addButton( 'wpUploadIgnoreWarning', wfMsg( 'ignorewarning' ) );
-		$form->addButton( 'wpCancelUpload', wfMsg( 'reuploaddesc' ) );
+		$form->setSubmitText( wfMessage( 'upload-tryagain' )->text() );
+		$form->addButton( 'wpUploadIgnoreWarning', wfMessage( 'ignorewarning' )->text() );
+		$form->addButton( 'wpCancelUpload', wfMessage( 'reuploaddesc' )->text() );
 
 		$this->showUploadForm( $form );
 	}
@@ -336,7 +332,7 @@ class SFUploadWindowProto extends UnlistedSpecialPage {
 	 * @param string $message
 	 */
 	protected function uploadError( $message ) {
-		$message = '<h2>' . wfMsgHtml( 'uploadwarning' ) . "</h2>\n" .
+		$message = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n" .
 			'<div class="error">' . $message . "</div>\n";
 		$this->showUploadForm( $this->getUploadForm( $message ) );
 	}
@@ -466,17 +462,17 @@ END;
 		if ( $wgUseCopyrightUpload ) {
 			$licensetxt = '';
 			if ( $license !== '' ) {
-				$licensetxt = '== ' . wfMsgForContent( 'license-header' ) . " ==\n" . '{{' . $license . '}}' . "\n";
+				$licensetxt = '== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
 			}
-			$pageText = '== ' . wfMsgForContent ( 'filedesc' ) . " ==\n" . $comment . "\n" .
-			  '== ' . wfMsgForContent ( 'filestatus' ) . " ==\n" . $copyStatus . "\n" .
+			$pageText = '== ' . wfMessage ( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n" .
+			  '== ' . wfMessage( 'filestatus' )->inContentLanguage()->text() . " ==\n" . $copyStatus . "\n" .
 			  "$licensetxt" .
-			  '== ' . wfMsgForContent ( 'filesource' ) . " ==\n" . $source ;
+			  '== ' . wfMessage( 'filesource' )->inContentLanguage()->text() . " ==\n" . $source ;
 		} else {
 			if ( $license !== '' ) {
-				$filedesc = $comment === '' ? '' : '== ' . wfMsgForContent ( 'filedesc' ) . " ==\n" . $comment . "\n";
+				$filedesc = $comment === '' ? '' : '== ' . wfMessage( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n";
 				 $pageText = $filedesc .
-					 '== ' . wfMsgForContent ( 'license-header' ) . " ==\n" . '{{' . $license . '}}' . "\n";
+					 '== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
 			} else {
 				$pageText = $comment;
 			}
@@ -526,47 +522,43 @@ END;
 
 			/** Statuses that only require name changing **/
 			case UploadBase::MIN_LENGTH_PARTNAME:
-				$this->recoverableUploadError( wfMsgHtml( 'minlength1' ) );
+				$this->recoverableUploadError( wfMessage( 'minlength1' )->escaped() );
 				break;
 			case UploadBase::ILLEGAL_FILENAME:
-				$this->recoverableUploadError( wfMsgExt( 'illegalfilename',
-					'parseinline', $details['filtered'] ) );
+				$this->recoverableUploadError( wfMessage( 'illegalfilename',
+					$details['filtered'] )->parse() );
 				break;
 			case UploadBase::OVERWRITE_EXISTING_FILE:
-				$this->recoverableUploadError( wfMsgExt( $details['overwrite'],
-					'parseinline' ) );
+				$this->recoverableUploadError( wfMessage( $details['overwrite'] )->parse() );
 				break;
 			case UploadBase::FILETYPE_MISSING:
-				$this->recoverableUploadError( wfMsgExt( 'filetype-missing',
-					'parseinline' ) );
+				$this->recoverableUploadError( wfMessage( 'filetype-missing' )->parse() );
 				break;
 
 			/** Statuses that require reuploading **/
 			case UploadBase::EMPTY_FILE:
-				$this->showUploadForm( $this->getUploadForm( wfMsgHtml( 'emptyfile' ) ) );
+				$this->showUploadForm( $this->getUploadForm( wfMessage( 'emptyfile' )->escaped() ) );
 				break;
 			case UploadBase::FILETYPE_BADTYPE:
 				$finalExt = $details['finalExt'];
 				$this->uploadError(
-					wfMsgExt( 'filetype-banned-type',
-						array( 'parseinline' ),
-						htmlspecialchars( $finalExt ),
+					wfMessage( 'filetype-banned-type',
+						htmlspecialchars( $finalExt ), // @todo Double escaping?
 						implode(
-							wfMsgExt( 'comma-separator', array( 'escapenoentities' ) ),
+							wfMessage( 'comma-separator' )->text(),
 							$wgFileExtensions
-						),
-						$wgLang->formatNum( count( $wgFileExtensions ) )
-					)
+						)
+					)->numParams( count( $wgFileExtensions ) )->parse()
 				);
 				break;
 			case UploadBase::VERIFICATION_ERROR:
 				unset( $details['status'] );
 				$code = array_shift( $details['details'] );
-				$this->uploadError( wfMsgExt( $code, 'parseinline', $details['details'] ) );
+				$this->uploadError( wfMessage( $code, $details['details'] )->parse() );
 				break;
 			case UploadBase::HOOK_ABORTED:
 				$error = $details['error'];
-				$this->uploadError( wfMsgExt( $error, 'parseinline' ) );
+				$this->uploadError( wfMessage( $error )->parse() );
 				break;
 			default:
 				throw new MWException( __METHOD__ . ": Unknown value `{$details['status']}`" );
@@ -611,37 +603,37 @@ END;
 
 		if ( $exists['warning'] == 'exists' ) {
 			// Exact match
-			$warning[] = '<li>' . wfMsgExt( 'fileexists', 'parseinline', $filename ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'fileexists', $filename )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'page-exists' ) {
 			// Page exists but file does not
-			$warning[] = '<li>' . wfMsgExt( 'filepageexists', 'parseinline', $filename ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'filepageexists', $filename )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'exists-normalized' ) {
-			$warning[] = '<li>' . wfMsgExt( 'fileexists-extension', 'parseinline', $filename,
-				$exists['normalizedFile']->getTitle()->getPrefixedText() ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'fileexists-extension', $filename,
+				$exists['normalizedFile']->getTitle()->getPrefixedText() )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'thumb' ) {
 			// Swapped argument order compared with other messages for backwards compatibility
-			$warning[] = '<li>' . wfMsgExt( 'fileexists-thumbnail-yes', 'parseinline',
-				$exists['thumbFile']->getTitle()->getPrefixedText(), $filename ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'fileexists-thumbnail-yes',
+				$exists['thumbFile']->getTitle()->getPrefixedText(), $filename )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'thumb-name' ) {
 			// Image w/o '180px-' does not exists, but we do not like these filenames
 			$name = $file->getName();
 			$badPart = substr( $name, 0, strpos( $name, '-' ) + 1 );
-			$warning[] = '<li>' . wfMsgExt( 'file-thumbnail-no', 'parseinline', $badPart ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'file-thumbnail-no', $badPart )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'bad-prefix' ) {
-			$warning[] = '<li>' . wfMsgExt( 'filename-bad-prefix', 'parseinline', $exists['prefix'] ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'filename-bad-prefix', $exists['prefix'] )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'was-deleted' ) {
 			# If the file existed before and was deleted, warn the user of this
 			$ltitle = SpecialPage::getTitleFor( 'Log' );
 			$llink = SFUtils::getLinker()->linkKnown(
 				$ltitle,
-				wfMsgHtml( 'deletionlog' ),
+				wfMessage( 'deletionlog' )->escaped(),
 				array(),
 				array(
 					'type' => 'delete',
 					'page' => $filename
 				)
 			);
-			$warning[] = '<li>' . wfMsgWikiHtml( 'filewasdeleted', $llink ) . '</li>';
+			$warning[] = '<li>' . wfMessage( 'filewasdeleted' )->rawParams( $llink )->parse() . '</li>';
 		}
 
 		return implode( "\n", $warning );
@@ -704,7 +696,7 @@ END;
 			}
 			$msg .= "</gallery>";
 			return "<li>" .
-				wfMsgExt( "file-exists-duplicate", array( "parse" ), count( $dupes ) ) .
+				wfMessage( "file-exists-duplicate" )->numParams( count( $dupes ) )->parseAsBlock() .
 				$wgOut->parse( $msg ) .
 				"</li>\n";
 		} else {
@@ -746,7 +738,7 @@ class SFUploadForm extends HTMLForm {
 		parent::__construct( $descriptor, 'upload' );
 
 		# Set some form properties
-		$this->setSubmitText( wfMsg( 'uploadbtn' ) );
+		$this->setSubmitText( wfMessage( 'uploadbtn' )->text() );
 		$this->setSubmitName( 'wpUpload' );
 		$this->setSubmitTooltip( 'upload' );
 		$this->setId( 'mw-upload-form' );
@@ -808,12 +800,11 @@ class SFUploadForm extends HTMLForm {
 				'label-message' => 'sourcefilename',
 				'upload-type' => 'File',
 				'radio' => &$radio,
-				'help' => wfMsgExt( 'upload-maxfilesize',
-						array( 'parseinline', 'escapenoentities' ),
+				'help' => wfMessage( 'upload-maxfilesize',
 						$wgLang->formatSize(
 							wfShorthandToInteger( ini_get( 'upload_max_filesize' ) )
 						)
-					) . ' ' . wfMsgHtml( 'upload_source_file' ),
+					)->parse() . ' ' . wfMessage( 'upload_source_file' )->escaped(),
 				'checked' => $selectedSourceType == 'file',
 		);
 		if ( $canUploadByUrl ) {
@@ -825,10 +816,9 @@ class SFUploadForm extends HTMLForm {
 				'label-message' => 'sourceurl',
 				'upload-type' => 'Url',
 				'radio' => &$radio,
-				'help' => wfMsgExt( 'upload-maxfilesize',
-						array( 'parseinline', 'escapenoentities' ),
+				'help' => wfMessage( 'upload-maxfilesize',
 						$wgLang->formatSize( $wgMaxUploadSize )
-					) . ' ' . wfMsgHtml( 'upload_source_url' ),
+					)->parse() . ' ' . wfMessage( 'upload_source_url' )->escaped(),
 				'checked' => $selectedSourceType == 'url',
 			);
 		}
@@ -855,22 +845,21 @@ class SFUploadForm extends HTMLForm {
 		global $wgLang, $wgCheckFileExtensions, $wgStrictFileExtensions,
 		$wgFileExtensions, $wgFileBlacklist;
 
-		$allowedExtensions = '';
 		if ( $wgCheckFileExtensions ) {
 			if ( $wgStrictFileExtensions ) {
 				# Everything not permitted is banned
 				$extensionsList =
 					'<div id="mw-upload-permitted">' .
-					wfMsgWikiHtml( 'upload-permitted', $wgLang->commaList( $wgFileExtensions ) ) .
+						wfMessage( 'upload-permitted', $wgLang->commaList( $wgFileExtensions ) )->parse() .
 					"</div>\n";
 			} else {
 				# We have to list both preferred and prohibited
 				$extensionsList =
 					'<div id="mw-upload-preferred">' .
-					wfMsgWikiHtml( 'upload-preferred', $wgLang->commaList( $wgFileExtensions ) ) .
+						wfMessage( 'upload-preferred', $wgLang->commaList( $wgFileExtensions ) )->parse() .
 					"</div>\n" .
 					'<div id="mw-upload-prohibited">' .
-					wfMsgWikiHtml( 'upload-prohibited', $wgLang->commaList( $wgFileBlacklist ) ) .
+						wfMessage( 'upload-prohibited', $wgLang->commaList( $wgFileBlacklist ) )->parse() .
 					"</div>\n";
 			}
 		} else {
@@ -1064,7 +1053,6 @@ END;
 	protected function addUploadJS( $autofill = true ) {
 		global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
 		global $wgStrictFileExtensions;
-		global $wgEnableJS2system;
 		global $wgOut;
 
 		$scriptVars = array(
@@ -1173,5 +1161,4 @@ if ( $uceParams[0]->getClass() ) { // found a class definition for param $user
 			return UploadBase::isEnabled() && parent::userCanExecute( $user );
 		}
 	}
-
 }

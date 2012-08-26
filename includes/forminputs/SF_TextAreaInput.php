@@ -75,32 +75,32 @@ class SFTextAreaInput extends SFFormInput {
 		$params['preload'] = array(
 			'name' => 'preload',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_preload' )
+			'description' => wfMessage( 'sf_forminputs_preload' )->text()
 		);
 		$params['rows'] = array(
 			'name' => 'rows',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_rows' )
+			'description' => wfMessage( 'sf_forminputs_rows' )->text()
 		);
 		$params['cols'] = array(
 			'name' => 'cols',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_cols' )
+			'description' => wfMessage( 'sf_forminputs_cols' )->text()
 		);
 		$params['maxlength'] = array(
 			'name' => 'maxlength',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_maxlength' )
+			'description' => wfMessage( 'sf_forminputs_maxlength' )->text()
 		);
 		$params['placeholder'] = array(
 			'name' => 'placeholder',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_placeholder' )
+			'description' => wfMessage( 'sf_forminputs_placeholder' )->text()
 		);
 		$params['autogrow'] = array(
 			'name' => 'autogrow',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_autogrow' )
+			'description' => wfMessage( 'sf_forminputs_autogrow' )->text()
 		);
 		return $params;
 	}

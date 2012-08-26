@@ -90,27 +90,27 @@ abstract class SFFormInput {
 		$params['mandatory'] = array(
 			'name' => 'mandatory',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_mandatory' )
+			'description' => wfMessage( 'sf_forminputs_mandatory' )->text()
 		);
 		$params['restricted'] = array(
 			'name' => 'restricted',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_restricted' )
+			'description' => wfMessage( 'sf_forminputs_restricted' )->text()
 		);
 		$params['class'] = array(
 			'name' => 'class',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_class' )
+			'description' => wfMessage( 'sf_forminputs_class' )->text()
 		);
 		$params['property'] = array(
 			'name' => 'property',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_property' )
+			'description' => wfMessage( 'sf_forminputs_property' )->text()
 		);
 		$params['default'] = array(
 			'name' => 'default',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_default' )
+			'description' => wfMessage( 'sf_forminputs_default' )->text()
 		);
 		return $params;
 	}

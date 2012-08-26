@@ -42,27 +42,27 @@ class SFYearInput extends SFTextInput {
 		$params[] = array(
 			'name' => 'mandatory',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_mandatory' )
+			'description' => wfMessage( 'sf_forminputs_mandatory' )->text()
 		);
 		$params[] = array(
 			'name' => 'restricted',
 			'type' => 'boolean',
-			'description' => wfMsg( 'sf_forminputs_restricted' )
+			'description' => wfMessage( 'sf_forminputs_restricted' )->text()
 		);
 		$params[] = array(
 			'name' => 'class',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_class' )
+			'description' => wfMessage( 'sf_forminputs_class' )->text()
 		);
 		$params[] = array(
 			'name' => 'default',
 			'type' => 'string',
-			'description' => wfMsg( 'sf_forminputs_default' )
+			'description' => wfMessage( 'sf_forminputs_default' )->text()
 		);
 		$params[] = array(
 			'name' => 'size',
 			'type' => 'int',
-			'description' => wfMsg( 'sf_forminputs_size' )
+			'description' => wfMessage( 'sf_forminputs_size' )->text()
 		);
 		return $params;
 	}

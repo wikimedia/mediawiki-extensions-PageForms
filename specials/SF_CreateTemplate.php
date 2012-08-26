@@ -12,11 +12,10 @@
  * @ingroup SFSpecialPages
  */
 class SFCreateTemplate extends SpecialPage {
-
 	/**
 	 * Constructor
 	 */
-	public function SFCreateTemplate() {
+	public function __construct() {
 		parent::__construct( 'CreateTemplate' );
 	}
 
@@ -74,19 +73,19 @@ class SFCreateTemplate extends SpecialPage {
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
-		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_fieldname' ) . ' ' .
+		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_fieldname' )->text() . ' ' .
 			Html::input( 'name_' . $id, null, 'text',
 				array( 'size' => '15' )
 			) . "\n";
-		$text .= "\t" . wfMsg( 'sf_createtemplate_displaylabel' ) . ' ' .
+		$text .= "\t" . wfMessage( 'sf_createtemplate_displaylabel' )->text() . ' ' .
 			Html::input( 'label_' . $id, null, 'text',
 				array( 'size' => '15' )
 			) . "\n";
 
 		$dropdown_html = self::printPropertiesDropdown( $all_properties, $id );
-		$text .= "\t" . wfMsg( 'sf_createtemplate_semanticproperty' ) . ' ' . $dropdown_html . "</p>\n";
-		$text .= "\t<p>" . '<input type="checkbox" name="is_list_' . $id . '" /> ' . wfMsg( 'sf_createtemplate_fieldislist' ) . "\n";
-		$text .= '	&#160;&#160;<input type="button" value="' . wfMsg( 'sf_createtemplate_deletefield' ) . '" class="deleteField" />' . "\n";
+		$text .= "\t" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</p>\n";
+		$text .= "\t<p>" . '<input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "\n";
+		$text .= '	&#160;&#160;<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
 		
 		$text .= <<<END
 </p>
@@ -102,7 +101,7 @@ END;
 		SFUtils::addJavascriptAndCSS();
 
 		// TODO - this should be in a JS file
-		$template_name_error_str = wfMsg( 'sf_blank_error' );
+		$template_name_error_str = wfMessage( 'sf_blank_error' )->escaped();
 		$jsText =<<<END
 <script type="text/javascript">
 var fieldNum = 1;
@@ -155,7 +154,7 @@ END;
 
 	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
 		if ( !$curSelection ) $curSelection = 'standard';
-		$text = "\t<p>" . wfMsg( 'sf_createtemplate_outputformat' ) . "\n";
+		$text = "\t<p>" . wfMessage( 'sf_createtemplate_outputformat' )->text() . "\n";
 		$text .= self::printTemplateStyleButton( 'standard', 'sf_createtemplate_standardformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'infobox', 'sf_createtemplate_infoboxformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'plain', 'sf_createtemplate_plainformat', $htmlFieldName, $curSelection );
@@ -165,11 +164,11 @@ END;
 	}
 
 	function printCreateTemplateForm( $query ) {
-		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
+		global $wgOut, $wgRequest, $sfgScriptPath;
 
 		if ( !is_null( $query ) ) {
 			$presetTemplateName = str_replace( '_', ' ', $query );
-			$wgOut->setPageTitle( wfMsg( 'sf-createtemplate-with-name', $presetTemplateName ) );
+			$wgOut->setPageTitle( wfMessage( 'sf-createtemplate-with-name', $presetTemplateName )->text() );
 			$template_name = $presetTemplateName;
 		} else {
 			$presetTemplateName = null;
@@ -215,12 +214,12 @@ END;
 		if ( is_null( $presetTemplateName ) ) {
 			// Set 'title' field, in case there's no URL niceness
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
-			$text .= "\t<p id=\"template_name_p\">" . wfMsg( 'sf_createtemplate_namelabel' ) . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
+			$text .= "\t<p id=\"template_name_p\">" . wfMessage( 'sf_createtemplate_namelabel' )->escaped() . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		}
-		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_categorylabel' ) . ' <input size="25" name="category" /></p>' . "\n";
+		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Html::element( 'legend', null, wfMsg( 'sf_createtemplate_templatefields' ) ) . "\n";
-		$text .= "\t" . Html::element( 'p', null, wfMsg( 'sf_createtemplate_fieldsdesc' ) ) . "\n";
+		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_templatefields' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_fieldsdesc' )->text() ) . "\n";
 
 		$all_properties = self::getAllPropertyNames();
 		$text .= '<div id="fieldsList">' . "\n";
@@ -230,25 +229,25 @@ END;
 
 		$add_field_button = Html::input(
 			null,
-			wfMsg( 'sf_createtemplate_addfield' ),
+			wfMessage( 'sf_createtemplate_addfield' )->text(),
 			'button',
 			array( 'onclick' => "createTemplateAddField()" )
 		);
 		$text .= Html::rawElement( 'p', null, $add_field_button ) . "\n";
 		$text .= "\t</fieldset>\n";
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Html::element( 'legend', null, wfMsg( 'sf_createtemplate_aggregation' ) ) . "\n";
-		$text .= "\t" . Html::element( 'p', null, wfMsg( 'sf_createtemplate_aggregationdesc' ) ) . "\n";
-		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_semanticproperty' ) . ' ' .
+		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_aggregation' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_aggregationdesc' )->text() ) . "\n";
+		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_semanticproperty' )->escaped() . ' ' .
 			self::printPropertiesDropdown( $all_properties, "aggregation" ) . "</p>\n";
-		$text .= "\t<p>" . wfMsg( 'sf_createtemplate_aggregationlabel' ) . ' ' .
+		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_aggregationlabel' )->escaped() . ' ' .
 			Html::input( 'aggregation_label', null, 'text',
 				array( 'size' => '25' ) ) .
 			"</p>\n";
 		$text .= "\t</fieldset>\n";
 		$text .= self::printTemplateStyleInput( 'template_format' );
-		$save_button_text = wfMsg( 'savearticle' );
-		$preview_button_text = wfMsg( 'preview' );
+		$save_button_text = wfMessage( 'savearticle' )->escaped();
+		$preview_button_text = wfMessage( 'preview' )->escaped();
 		$text .= <<<END
 	<div class="editButtons">
 	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text" />
@@ -261,5 +260,4 @@ END;
 		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );
 	}
-
 }

@@ -47,12 +47,12 @@ class SFCreateForm extends SpecialPage {
 	}
 
 	function doSpecialCreateForm( $query ) {
-		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
+		global $wgOut, $wgRequest, $sfgScriptPath;
 		$db = wfGetDB( DB_SLAVE );
 
 		if ( !is_null( $query ) ) {
 			$presetFormName = str_replace( '_', ' ', $query );
-			$wgOut->setPageTitle( wfMsg( 'sf-createform-with-name', $presetFormName ) );
+			$wgOut->setPageTitle( wfMessage( 'sf-createform-with-name', $presetFormName )->text() );
 			$form_name = $presetFormName;
 		} else {
 			$presetFormName = null;
@@ -105,7 +105,6 @@ jQuery(document).ready(function() {
 		}
 
 		$form_templates = array();
-		$i = 1;
 		$deleted_template_loc = null;
 
 		// Handle inputs.
@@ -205,7 +204,7 @@ jQuery(document).ready(function() {
 		if ( $save_page || $preview_page ) {
 			// Validate form name
 			if ( $form->getFormName() == "" ) {
-				$form_name_error_str = wfMsg( 'sf_blank_error' );
+				$form_name_error_str = wfMessage( 'sf_blank_error' )->text();
 			} else {
 				// Redirect to wiki interface
 				$wgOut->setArticleBodyOnly( true );
@@ -221,7 +220,7 @@ jQuery(document).ready(function() {
 		if ( is_null( $presetFormName ) ) {
 			// Set 'title' field, in case there's no URL niceness
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() );
-			$text .= "\n\t<p>" . wfMsg( 'sf_createform_nameinput' ) . ' ' . wfMsg( 'sf_createform_nameinputdesc' ) . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
+			$text .= "\n\t<p>" . wfMessage( 'sf_createform_nameinput' )->escaped() . ' ' . wfMessage( 'sf_createform_nameinputdesc' )->escaped() . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
 			if ( ! empty( $form_name_error_str ) ) {
 				$text .= "\t" . Html::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
 			}
@@ -230,7 +229,7 @@ jQuery(document).ready(function() {
 
 		$text .= $form->creationHTML();
 
-		$text .= "\t<p>" . wfMsg( 'sf_createform_addtemplate' ) . "\n";
+		$text .= "\t<p>" . wfMessage( 'sf_createform_addtemplate' )->escaped() . "\n";
 
 		$select_body = "";
 		foreach ( $all_templates as $template ) {
@@ -240,23 +239,20 @@ jQuery(document).ready(function() {
 		// If a template has already been added, show a dropdown letting
 		// the user choose where in the list to add a new dropdown.
 		if ( count( $form_templates ) > 0 ) {
-			$before_template_msg = wfMsg( 'sf_createform_beforetemplate' );
-			$text .= $before_template_msg;
+			$text = wfMessage( 'sf_createform_beforetemplate' )->escaped();
 			$select_body = "";
 			foreach ( $form_templates as $i => $ft ) {
 				$select_body .= "\t" . Html::element( 'option', array( 'value' => $i ), $ft->getTemplateName() ) . "\n";
 			}
 			$final_index = count( $form_templates );
-			$at_end_msg = wfMsg( 'sf_createform_atend' );
+			$at_end_msg = wfMessage( 'sf_createform_atend' )->escaped();
 			$select_body .= "\t" . Html::element( 'option', array( 'value' => $final_index, 'selected' => 'selected' ), $at_end_msg );
 			$text .= Html::rawElement( 'select', array( 'name' => 'before_template' ), $select_body ) . "\n";
 		}
 
 		// Disable 'save' and 'preview' buttons if user has not yet
 		// added any templates.
-		$disabled_text = ( count( $form_templates ) == 0 ) ? "disabled" : "";
-		$add_button_text = wfMsg( 'sf_createform_add' );
-		$create_template_link = SFUtils::linkForSpecialPage( 'CreateTemplate' );
+		$add_button_text = wfMessage( 'sf_createform_add' )->text();
 		$text .= "\t" . Html::input( 'add_field', $add_button_text, 'submit' );
 		$text .= <<<END
 </p>
@@ -267,18 +263,18 @@ END;
 		if ( count( $form_templates ) == 0 ) {
 			$saveAttrs['disabled'] = true;
 		}
-		$editButtonsText = "\t" . Html::input( 'wpSave', wfMsg( 'savearticle' ), 'submit', $saveAttrs ) . "\n";
+		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', $saveAttrs ) . "\n";
 		$previewAttrs = array( 'id' => 'wpPreview' );
 		if ( count( $form_templates ) == 0 ) {
 			$previewAttrs['disabled'] = true;
 		}
-		$editButtonsText .= "\t" . Html::input( 'wpPreview',  wfMsg( 'preview' ), 'submit', $previewAttrs ) . "\n";
+		$editButtonsText .= "\t" . Html::input( 'wpPreview',  wfMessage( 'preview' )->text(), 'submit', $previewAttrs ) . "\n";
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ),
 			Html::rawElement( 'p', array(), $editButtonsText ) . "\n" ) . "\n";
 		// Explanatory message if buttons are disabled because no
 		// templates have been added.
 		if ( count( $form_templates ) == 0 ) {
-			$text .= "\t" . Html::element( 'p', null, "(" . wfMsg( 'sf_createtemplate_addtemplatebeforesave' ) . ")" );
+			$text .= "\t" . Html::element( 'p', null, "(" . wfMessage( 'sf_createtemplate_addtemplatebeforesave' )->text() . ")" );
 		}
 		$text .= <<<END
 	</form>

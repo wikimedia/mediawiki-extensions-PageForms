@@ -71,16 +71,15 @@ class SFHelperFormAction extends Action
 
 		global $wgRequest, $wgUser;
 
-		$user_can_edit = $wgUser->isAllowed( 'edit' ) && $title->userCan( 'edit' );
-		if ( $user_can_edit ) {
-			$form_create_tab_text = wfMsg( 'sf_formcreate' );
+		if ( $wgUser->isAllowed( 'edit' ) && $title->userCan( 'edit' ) ) {
+			$form_create_tab_text = 'sf_formcreate';
 		} else {
-			$form_create_tab_text = wfMsg( 'sf_viewform' );
+			$form_create_tab_text = 'sf_viewform';
 		}
 		$class_name = ( $wgRequest->getVal( 'action' ) == 'formcreate' ) ? 'selected' : '';
 		$form_create_tab = array(
 			'class' => $class_name,
-			'text' => $form_create_tab_text,
+			'text' => wfMessage( $form_create_tab_text )->text(),
 			'href' => $title->getLocalURL( 'action=formcreate' )
 		);
 
@@ -138,8 +137,6 @@ class SFHelperFormAction extends Action
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
-		global $sfgUseFormEditPage;
-
 		// TODO: This function will be called as a hook handler and $action will
 		//  be a string before MW 1.18. From 1.18 onwards this function will#
 		//  only be called for formcreate actions, i.e. the if statement can be
@@ -149,14 +146,6 @@ class SFHelperFormAction extends Action
 		// of the hook to others), and "false" otherwise
 		if ( is_string( $action ) && $action !== 'formcreate' ) {
 			return true;
-		}
-
-		// For backward-compatibility
-		if ( is_string( $action ) ) {
-			global $wgOut;
-			$output = $wgOut;
-		} else {
-			$output = $action->getOutput();
 		}
 
 		$title = $article->getTitle();

@@ -82,7 +82,7 @@ class SFRadioButtonInput extends SFEnumInput {
 				$radiobutton_attrs['disabled'] = true;
 			}
 			if ( $possible_value === '' ) { // blank/"None" value
-				$label = wfMsg( 'sf_formedit_none' );
+				$label = wfMessage( 'sf_formedit_none' )->text();
 			} elseif (
 				array_key_exists( 'value_labels', $other_args ) &&
 				is_array( $other_args['value_labels'] ) &&

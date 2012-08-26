@@ -73,25 +73,28 @@ class SFFormEditAction extends Action
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
 		if ( $sfgRenameEditTabs ) {
-			$form_edit_tab_text = $user_can_edit ? wfMsg( 'edit' ) : wfMsg( 'sf_viewform' );
+			$form_edit_tab_text = $user_can_edit ? 'edit' : 'sf_viewform';
 			if ( array_key_exists( 'edit', $content_actions ) ) {
-				$content_actions['edit']['text'] = $user_can_edit ? wfMsg( 'sf_editsource' ) : wfMsg( 'viewsource' );
+				$msg = $user_can_edit ?  'sf_editsource' : 'viewsource';
+				$content_actions['edit']['text'] = wfMessage( $msg )->text();
 			}
 		} else {
 			if ( $user_can_edit ) {
-				$form_edit_tab_text = $title->exists() ? wfMsg( 'formedit' ) : wfMsg( 'sf_formcreate' );
+				$form_edit_tab_text = $title->exists() ? 'formedit' : 'sf_formcreate';
 			} else {
-				$form_edit_tab_text = wfMsg( 'sf_viewform' );
+				$form_edit_tab_text = 'sf_viewform';
 			}
 			// Check for renaming of main edit tab only if
 			// $sfgRenameEditTabs is off.
 			if ( $sfgRenameMainEditTab ) {
 				if ( array_key_exists( 'edit', $content_actions ) ) {
-					$content_actions['edit']['text'] = $user_can_edit ? wfMsg( 'sf_editsource' ) : wfMsg( 'viewsource' );
+					$msg = $user_can_edit ? 'sf_editsource' : 'viewsource';
+					$content_actions['edit']['text'] = wfMessage( $msg )->text();
 				}
 			}
 		}
 
+		$form_edit_tab_text = wfMessage( $form_edit_tab_text )->text();
 		$class_name = ( $wgRequest->getVal( 'action' ) == 'formedit' ) ? 'selected' : '';
 		$form_edit_tab = array(
 			'class' => $class_name,
@@ -184,7 +187,7 @@ class SFFormEditAction extends Action
 		}
 
 		if ( count( $form_names ) > 1 ) {
-			$warning_text = "\t" . '<div class="warningbox">' . wfMsg( 'sf_formedit_morethanoneform' ) . "</div>\n";
+			$warning_text = "\t" . '<div class="warningbox">' . wfMessage( 'sf_formedit_morethanoneform' )->text() . "</div>\n";
 			$output->addWikiText( $warning_text );
 		}
 		$form_name = $form_names[0];
@@ -211,8 +214,11 @@ class SFFormEditAction extends Action
 				$msg = $msg[0];
 			}
 
-			$output->addHTML( Html::element( 'p', array( 'class' => 'error' ), wfMsg( $msg, $msgdata ) ) );
-
+			$output->addHTML( Html::element(
+				'p',
+				array( 'class' => 'error' ),
+				wfMessage( $msg, $msgdata )->text()
+			) );
 		}
 
 		return false;

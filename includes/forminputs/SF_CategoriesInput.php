@@ -104,7 +104,7 @@ class SFCategoriesInput extends SFCategoryInput {
 		// Get rid of all the 'no subcategories' messages.
 		$tree = str_replace(
 			'<div class="CategoryTreeChildren" style="display:block"><i class="CategoryTreeNotice">' .
-				wfMsg( 'categorytree-no-subcategories' ) . '</i></div>',
+				wfMessage( 'categorytree-no-subcategories' )->escaped() . '</i></div>',
 			'',
 			$tree
 		);

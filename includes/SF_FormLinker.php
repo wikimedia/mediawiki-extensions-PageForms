@@ -256,7 +256,7 @@ class SFFormLinker {
 		if ( '' === $namespace_name ) {
 			// If it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language.
-			$namespace_name = wfMsgForContent( 'sf_blank_namespace' );
+			$namespace_name = wfMessage( 'sf_blank_namespace' )->inContentLanguage()->text();
 		}
 		if ( $form_edit_link = self::getFormEditLinkForPage( $title, $namespace_name, NS_PROJECT ) ) {
 			return $form_edit_link;
@@ -353,7 +353,7 @@ class SFFormLinker {
 		if ( NS_MAIN === $namespace ) {
 			// If it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language.
-			$namespace_label = wfMsgForContent( 'sf_blank_namespace' );
+			$namespace_label = wfMessage( 'sf_blank_namespace' )->inContentLanguage()->text();
 		} else {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
@@ -362,5 +362,4 @@ class SFFormLinker {
 		$default_forms = self::getFormsThatPagePointsTo( $namespace_label, NS_PROJECT, self::DEFAULT_FORM );
 		return $default_forms;
 	}
-
 }
