@@ -514,7 +514,7 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initP
 			return this;
 		}
 	}
-	hideDiv(div_id, instanceWrapperDiv);
+	hideDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
 
 	return this;
 };
