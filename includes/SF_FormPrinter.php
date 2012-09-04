@@ -397,8 +397,12 @@ END;
 		}
 
 		global $wgOut;
-		// show previous set of deletions for this page, if it's been deleted before
-		if ( ! $form_submitted && ( $this->mPageTitle && !$this->mPageTitle->exists() ) ) {
+		// Show previous set of deletions for this page, if it's been
+		// deleted before.
+		if ( ! $form_submitted &&
+			( $this->mPageTitle && !$this->mPageTitle->exists() &&
+			is_null( $page_name_formula ) )
+		) {
 			$this->showDeletionLog( $wgOut );
 		}
 		// Unfortunately, we can't just call userCan() here because,
@@ -1556,7 +1560,9 @@ END;
 
 		// Add a warning in, if we're editing an existing page and that
 		// page appears to not have been created with this form.
-		if ( !$is_query && $this->mPageTitle->exists() && ( $existing_page_content !== '' ) && ! $source_page_matches_this_form ) {
+		if ( !$is_query && is_null( $page_name_formula ) &&
+			$this->mPageTitle->exists() && $existing_page_content !== ''
+			&& !$source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningbox">' .
 				wfMessage( 'sf_formedit_formwarning', $this->mPageTitle->getFullURL() )->text() .
 				"</div>\n<br clear=\"both\" />\n" . $form_text;
