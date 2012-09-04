@@ -166,7 +166,7 @@ class SFFormPrinter {
 
 		// MW 1.18+ ?
 		if ( method_exists( 'LogEventsList', 'showLogExtract' ) ) {
-			LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle,
+			LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
                                 '', array( 'lim' => 10,
                                            'conds' => array( "log_action != 'revision'" ),
                                            'showIfEmpty' => false,
