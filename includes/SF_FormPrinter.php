@@ -156,17 +156,29 @@ class SFFormPrinter {
 	}
 
 	/**
-	 * Show the set of previous deletions for the page being added.
-	 * This function is copied almost exactly from
-	 * EditPage::showDeletionLog() - unfortunately, neither that function
-	 * nor Article::showDeletionLog() can be called from here, since
-	 * they're both protected.
+	 * Show the set of previous deletions for the page being edited.
 	 */
 	function showDeletionLog( $out ) {
 		// if MW doesn't have LogEventsList defined, exit immediately
-		if ( ! class_exists( 'LogEventsList' ) )
+		if ( ! class_exists( 'LogEventsList' ) ) {
 			return false;
+		}
 
+		// MW 1.18+ ?
+		if ( method_exists( 'LogEventsList', 'showLogExtract' ) ) {
+			LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle,
+                                '', array( 'lim' => 10,
+                                           'conds' => array( "log_action != 'revision'" ),
+                                           'showIfEmpty' => false,
+                                           'msgKey' => array( 'moveddeleted-notice' ) )
+                        );
+			return true;
+		}
+
+		// Old code, that can be removed once compatibility for
+		// MW 1.17 goes away (or maybe it can be removed already).
+	 	// This code was copied almost exactly from the method
+	 	// EditPage::showDeletionLog(), which no longer exists.
 		global $wgUser;
 		$loglist = new LogEventsList( $wgUser->getSkin(), $out );
 		$pager = new LogPager( $loglist, 'delete', false, $this->mPageTitle->getPrefixedText() );
