@@ -239,7 +239,7 @@ jQuery(document).ready(function() {
 		// If a template has already been added, show a dropdown letting
 		// the user choose where in the list to add a new dropdown.
 		if ( count( $form_templates ) > 0 ) {
-			$text = wfMessage( 'sf_createform_beforetemplate' )->escaped();
+			$text .= wfMessage( 'sf_createform_beforetemplate' )->escaped();
 			$select_body = "";
 			foreach ( $form_templates as $i => $ft ) {
 				$select_body .= "\t" . Html::element( 'option', array( 'value' => $i ), $ft->getTemplateName() ) . "\n";
