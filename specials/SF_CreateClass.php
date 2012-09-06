@@ -75,7 +75,12 @@ END;
 		if ( $save_page ) {
 			$template_name = trim( $wgRequest->getVal( "template_name" ) );
 			$template_multiple = $wgRequest->getBool( "template_multiple" );
-			if ( !$template_multiple ) {
+			// If this is a multiple-instance template, there
+			// shouldn't be a corresponding form or category.
+			if ( $template_multiple ) {
+				$form_name = null;
+				$category_name = null;
+			} else {
 				$form_name = trim( $wgRequest->getVal( "form_name" ) );
 				$category_name = trim( $wgRequest->getVal( "category_name" ) );
 			}
