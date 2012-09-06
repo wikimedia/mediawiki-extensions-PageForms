@@ -1581,7 +1581,7 @@ $messages['de'] = array(
 	'sf_createcategory_makesubcategory' => 'Diese Kategorie zu einer Unterkategorie einer anderen Kategorie machen (optional):',
 	'createclass' => 'Eine Klasse erstellen',
 	'sf_createclass_docu' => 'Gib hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
-Für weitere Optionen nutze bitte die folgenden Aktionen: $1.',
+Bitte nutze eine der folgenden Seiten für weitere Optionen: $1.',
 	'sf_createclass_allowedvalues' => 'Erlaubte Werte:',
 	'sf_createclass_listofvalues' => 'Werteliste?',
 	'sf_createclass_nameinput' => 'Formularname:',
@@ -1681,7 +1681,7 @@ $messages['de-formal'] = array(
 	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
 	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
-Für weitere Optionen nutzen Sie bitte die folgenden Aktionen: $1.',
+Bitte nutzen Sie eine der folgenden Seiten für weitere Optionen: $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
 Sofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem Sie sie bearbeiten können.
 Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
