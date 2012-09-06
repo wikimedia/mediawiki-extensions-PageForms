@@ -176,7 +176,7 @@ END;
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
-			) ) . " This template will be included multiple times on the page." ) . "\n";
+			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->text() ) . "\n";
 		$text .= <<<END
 	</blockquote>
 
@@ -184,12 +184,13 @@ END;
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
+		$property_label = wfMessage( 'smw_pp_type' )->text();
 		$text .= <<<END
 	<div>
 		<table id="mainTable" style="border-collapse: collapse;">
 		<tr>
 			<th colspan="3" />
-			<th colspan="3" style="background: #ddeebb; padding: 4px;">Property</th>
+			<th colspan="3" style="background: #ddeebb; padding: 4px;">$property_label</th>
 		</tr>
 		<tr>
 			<th colspan="2">$field_name_label</th>
