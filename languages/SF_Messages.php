@@ -6788,6 +6788,7 @@ $messages['ps'] = array(
 	'formstart' => 'د فورمې سره يوځای يو مخ ګډول',
 	'sf_formstart_createoredit' => 'جوړول يا سمول',
 	'sf_formedit_createtitle' => '$1 جوړول: $2',
+	'sf_formedit_createtitlenotarget' => 'جوړول $1',
 	'sf_formedit_remove' => 'غورځول',
 	'sf_formedit_addanother' => 'يو بل ورګډول',
 	'sf_formedit_none' => 'هېڅ',
