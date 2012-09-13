@@ -298,6 +298,12 @@ $sfgMaxAutocompleteValues = 1000;
 $sfgAutocompleteOnAllChars = false;
 
 # ##
+# Used for caching of autocompletion values.
+# ##
+$sfgCacheAutocompleteValues = false;
+$sfgAutocompleteCacheTimeout = null;
+
+# ##
 # Global variables for handling the two edit tabs (for traditional editing
 # and for editing with a form):
 # $sfgRenameEditTabs renames the edit-with-form tab to just "Edit", and
