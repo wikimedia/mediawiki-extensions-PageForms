@@ -1704,6 +1704,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'templates' => 'Şabloni',
 	'sf_createclass_create' => 'Vıraze',
 	'formedit' => 'Na former bıvurne',
 	'sf_formedit_remove' => 'Hewad',
