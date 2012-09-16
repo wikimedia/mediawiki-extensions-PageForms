@@ -1419,6 +1419,7 @@ $messages['ckb'] = array(
 );
 
 /** Czech (česky)
+ * @author Juan de Vojníkov
  * @author Matěj Grabovský
  * @author Mormegil
  * @author Reaperman
@@ -1428,14 +1429,20 @@ $messages['cs'] = array(
 	'sf_createproperty_propname' => 'Název:',
 	'sf_createproperty_proptype' => 'Typ:',
 	'templates' => 'Šablony',
+	'createtemplate' => 'Vytvořit šablonu',
+	'sf_createtemplate_namelabel' => 'Název šablony:',
+	'sf_createtemplate_templatefields' => 'Pole šablony',
 	'sf_createtemplate_fieldname' => 'Název pole:',
 	'sf_createtemplate_displaylabel' => 'Zobrazované označení:',
 	'sf_createtemplate_semanticproperty' => 'Sémantická vlastnost:',
+	'sf_createtemplate_fieldislist' => 'Toto pole může obsahovat seznam hodnot oddělených čárkami',
 	'sf_createtemplate_outputformat' => 'Výstupní formát:',
 	'sf_createtemplate_standardformat' => 'Tabulka',
 	'sf_createtemplate_plainformat' => 'Prostý text',
+	'sf_createtemplate_addfield' => 'Přidat pole',
 	'sf_createtemplate_deletefield' => 'Smazat',
 	'forms' => 'Formuláře',
+	'sf_createform_nameinput' => 'Název formuláře',
 	'sf_createform_template' => 'Šablona:',
 	'sf_createform_field' => 'Pole:',
 	'sf_createform_inputtypedefault' => '(výchozí)',
