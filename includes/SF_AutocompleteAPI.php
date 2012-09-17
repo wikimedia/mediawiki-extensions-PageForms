@@ -137,17 +137,17 @@ class SFAutocompleteAPI extends ApiBase {
 
 		// Use cache if allowed
 		if ( $sfgCacheAutocompleteValues ) {
-			$cache = SFFormUtils::getFormCache() ;
+			$cache = SFFormUtils::getFormCache();
 			// Remove trailing whitespace to avoid unnecessary database selects
 			$cacheKeyString = $property_name . '::' . rtrim( $substring );
 			if ( !is_null( $base_property_name ) ) {
 				$cacheKeyString .= ',' . $base_property_name . ',' . $base_value;
 			}
-			$cacheKey = wfMemcKey( 'sf-autocomplete' , md5( $cacheKeyString ) ) ; 		
+			$cacheKey = wfMemcKey( 'sf-autocomplete' , md5( $cacheKeyString ) ); 		
 			$values = $cache->get( $cacheKey );
 
-			if ( count( $values ) > 0 ){
-				// Return with results immediately 
+			if ( !empty( $values ) ){
+				// Return with results immediately
 				return $values;
 			}
 		}
