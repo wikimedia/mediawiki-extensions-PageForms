@@ -247,14 +247,14 @@ END;
 		}
 		// if we're on the special 'FormEdit' page, just send the user
 		// back to the previous page they were on
-		elseif ( $wgTitle->getText() == 'FormEdit'
-			 && $wgTitle->getNamespace() == NS_SPECIAL ) {
-			$cancel = '<a href="javascript:history.go(-1);">' . $label . '</a>';
+		elseif ( $wgTitle->isSpecial( 'FormEdit' ) ) {
+			// For IE, we need to go back twice, past the redirect.
+			$stepsBack = stristr( $_SERVER['HTTP_USER_AGENT'], "msie" ) ? 2 : 1;
+			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
 		} else {
 			$cancel = SFUtils::getLinker()->link( $wgTitle, $label, array(), array(), 'known' );
 		}
-		$text = "\t\t<span class='editHelp'>$cancel</span>\n";
-		return $text;
+		return "\t\t" . Html::rawElement( 'span', array( 'class' => 'editHelp' ), $cancel ) . "\n";
 	}
 
 	static function runQueryButtonHTML( $is_disabled = false, $label = null, $attr = array() ) {
