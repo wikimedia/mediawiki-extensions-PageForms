@@ -441,7 +441,7 @@ $specialPageAliases['myv'] = array(
 	'Templates' => array( 'ЛопаПарцунт' ),
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬) */
+/** Norwegian Bokmål (norsk (bokmål)‎) */
 $specialPageAliases['nb'] = array(
 	'CreateCategory' => array( 'Opprett_kategori' ),
 	'CreateClass' => array( 'Opprett_klasse' ),
@@ -578,7 +578,7 @@ $specialPageAliases['sq'] = array(
 	'Templates' => array( 'Stampat' ),
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (српски (ћирилица)‎) */
 $specialPageAliases['sr-ec'] = array(
 	'CreateCategory' => array( 'НаправиКатегорију' ),
 	'CreateClass' => array( 'Направи_класу' ),
@@ -672,7 +672,7 @@ $specialPageAliases['vec'] = array(
 	'UploadWindow' => array( 'AjornaFenestra' ),
 );
 
-/** Simplified Chinese (‪中文（简体）‬) */
+/** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'CreateCategory' => array( '创建分类' ),
 	'CreateForm' => array( '创建表格' ),

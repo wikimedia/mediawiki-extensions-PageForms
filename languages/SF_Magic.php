@@ -100,13 +100,13 @@ $magicWords['nl'] = array(
 	'autoedit' => array( 0, 'autobewerken' ),
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬) */
+/** Serbian (Cyrillic script) (српски (ћирилица)‎) */
 $magicWords['sr-ec'] = array(
 	'forminput' => array( 0, 'формирајулаз', 'формирај_улаз' ),
 	'formlink' => array( 0, 'формирај_везу' ),
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬) */
+/** Serbian (Latin script) (srpski (latinica)‎) */
 $magicWords['sr-el'] = array(
 	'forminput' => array( 0, 'obrazuj_ulaz' ),
 	'formlink' => array( 0, 'obrazuj_vezu' ),
