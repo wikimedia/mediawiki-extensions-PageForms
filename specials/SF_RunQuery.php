@@ -143,6 +143,7 @@ END;
 
 		// Armor against doBlockLevels()
 		$text = preg_replace( '/^ +/m', '', $text );
+
 		// Now write everything to the screen.
 		$wgOut->addHTML( $text );
 		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser : null );

@@ -56,11 +56,86 @@ END;
 		$wgOut->addScript( $jsText );
 	}
 
+	static function createAllPages() {
+		global $wgOut, $wgRequest, $wgUser;
+
+		$template_name = trim( $wgRequest->getVal( "template_name" ) );
+		$template_multiple = $wgRequest->getBool( "template_multiple" );
+		// If this is a multiple-instance template, there
+		// shouldn't be a corresponding form or category.
+		if ( $template_multiple ) {
+			$form_name = null;
+			$category_name = null;
+		} else {
+			$form_name = trim( $wgRequest->getVal( "form_name" ) );
+			$category_name = trim( $wgRequest->getVal( "category_name" ) );
+		}
+		if ( $template_name === '' || ( !$template_multiple && ( $form_name === '' || $category_name === '' ) ) ) {
+			$wgOut->addWikiMsg( 'sf_createclass_missingvalues' );
+			return;
+		}
+		$fields = array();
+		$jobs = array();
+		// Cycle through all the rows passed in.
+		for ( $i = 1; $wgRequest->getCheck( "field_name_$i" ); $i++ ) {
+			// go through the query values, setting the appropriate local variables
+			$property_name = trim( $wgRequest->getVal( "property_name_$i" ) );
+			$field_name = trim( $wgRequest->getVal( "field_name_$i" ) );
+			$property_type = $wgRequest->getVal( "property_type_$i" );
+			$allowed_values = $wgRequest->getVal( "allowed_values_$i" );
+			$is_list = $wgRequest->getCheck( "is_list_$i" );
+			// Create an SFTemplateField object based on these
+			// values, and add it to the $fields array.
+			$field = SFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
+			$fields[] = $field;
+
+			// Create the property, and make a job for it.
+			if ( !empty( $property_name ) ) {
+				$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
+				$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
+				$params = array();
+				$params['user_id'] = $wgUser->getId();
+				$params['page_text'] = $full_text;
+				$jobs[] = new SFCreatePageJob( $property_title, $params );
+			}
+		}
+
+		// Create the template, and save it (might as well save
+		// one page, instead of just creating jobs for all of them).
+		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, null );
+		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
+		$template_article = new Article( $template_title, 0 );
+		$edit_summary = '';
+		$template_article->doEdit( $full_text, $edit_summary );
+
+		// Create the form, and make a job for it.
+		$form_template = SFTemplateInForm::create( $template_name, '', false );
+		$form_templates = array( $form_template );
+		$form = SFForm::create( $form_name, $form_templates );
+		$full_text = $form->createMarkup();
+		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+		$params = array();
+		$params['user_id'] = $wgUser->getId();
+		$params['page_text'] = $full_text;
+		$jobs[] = new SFCreatePageJob( $form_title, $params );
+
+		// Create the category, and make a job for it.
+		$full_text = SFCreateCategory::createCategoryText( $form_name, $category_name, '' );
+		$category_title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
+		$params = array();
+		$params['user_id'] = $wgUser->getId();
+		$params['page_text'] = $full_text;
+		$jobs[] = new SFCreatePageJob( $category_title, $params );
+		Job::batchInsert( $jobs );
+
+		$wgOut->addWikiMsg( 'sf_createclass_success' );
+	}
+
 	function execute( $query ) {
 		global $wgOut, $wgRequest, $wgUser, $sfgScriptPath;
 		global $wgLang, $smwgContLang;
 
-		# Check permissions
+		// Check permissions.
 		if ( !$wgUser->isAllowed( 'createclass' ) ) {
 			$this->displayRestrictionError();
 			return;
@@ -71,95 +146,22 @@ END;
 		$numStartingRows = 5;
 		self::addJavascript( $numStartingRows );
 
-		$save_page = $wgRequest->getCheck( 'save' );
-		if ( $save_page ) {
-			$template_name = trim( $wgRequest->getVal( "template_name" ) );
-			$template_multiple = $wgRequest->getBool( "template_multiple" );
-			// If this is a multiple-instance template, there
-			// shouldn't be a corresponding form or category.
-			if ( $template_multiple ) {
-				$form_name = null;
-				$category_name = null;
-			} else {
-				$form_name = trim( $wgRequest->getVal( "form_name" ) );
-				$category_name = trim( $wgRequest->getVal( "category_name" ) );
-			}
-			if ( $template_name === '' || ( !$template_multiple && ( $form_name === '' || $category_name === '' ) ) ) {
-				$wgOut->addWikiMsg( 'sf_createclass_missingvalues' );
-				return;
-			}
-			$fields = array();
-			$jobs = array();
-			// Cycle through all the rows passed in.
-			for ( $i = 1; $wgRequest->getCheck( "field_name_$i" ); $i++ ) {
-				// go through the query values, setting the appropriate local variables
-				$property_name = trim( $wgRequest->getVal( "property_name_$i" ) );
-				//if ( empty( $property_name ) ) continue;
-				$field_name = trim( $wgRequest->getVal( "field_name_$i" ) );
-				//if ( $field_name === '' )
-				//	$field_name = $property_name;
-				$property_type = $wgRequest->getVal( "property_type_$i" );
-				$allowed_values = $wgRequest->getVal( "allowed_values_$i" );
-				$is_list = $wgRequest->getCheck( "is_list_$i" );
-				// create an SFTemplateField based on these
-				// values, and add it to the $fields array
-				$field = SFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
-				$fields[] = $field;
-
-				// Create the property, and make a job for it.
-				if ( !empty( $property_name ) ) {
-					$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
-					$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
-					$params = array();
-					$params['user_id'] = $wgUser->getId();
-					$params['page_text'] = $full_text;
-					$jobs[] = new SFCreatePageJob( $property_title, $params );
-				}
-			}
-
-			// Create the template, and save it.
-			$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, null );
-			$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
-			$template_article = new Article( $template_title, 0 );
-			$edit_summary = '';
-			$template_article->doEdit( $full_text, $edit_summary );
-
-			// create the form, and make a job for it
-			$form_template = SFTemplateInForm::create( $template_name, '', false );
-			$form_templates = array( $form_template );
-			$form = SFForm::create( $form_name, $form_templates );
-			$full_text = $form->createMarkup();
-			$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
-			$params = array();
-			$params['user_id'] = $wgUser->getId();
-			$params['page_text'] = $full_text;
-			$jobs[] = new SFCreatePageJob( $form_title, $params );
-
-			// create the category, and make a job for it
-			$full_text = SFCreateCategory::createCategoryText( $form_name, $category_name, '' );
-			$category_title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
-			$params = array();
-			$params['user_id'] = $wgUser->getId();
-			$params['page_text'] = $full_text;
-			$jobs[] = new SFCreatePageJob( $category_title, $params );
-			Job::batchInsert( $jobs );
-
-			$wgOut->addWikiMsg( 'sf_createclass_success' );
+		$createAll = $wgRequest->getCheck( 'createAll' );
+		if ( $createAll ) {
+			self::createAllPages();
 			return;
 		}
 
-		$datatype_labels = $smwgContLang->getDatatypeLabels();
+		$datatypeLabels = $smwgContLang->getDatatypeLabels();
 
-		// make links to all the other 'Create...' pages, in order to
-		// link to them at the top of the page
+		// Make links to all the other 'Create...' pages, in order to
+		// link to them at the top of the page.
 		$creation_links = array();
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateProperty' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateTemplate' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateForm' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateCategory' );
-		$create_class_docu = wfMessage( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) )->text();
 		$form_name_label = wfMessage( 'sf_createclass_nameinput' )->text();
-		$template_name_label = wfMessage( 'sf_createtemplate_namelabel' )->text();
 		$category_name_label = wfMessage( 'sf_createcategory_name' )->text();
 		$field_name_label = wfMessage( 'sf_createtemplate_fieldname' )->text();
 		$list_of_values_label = wfMessage( 'sf_createclass_listofvalues' )->text();
@@ -167,25 +169,21 @@ END;
 		$type_label = wfMessage( 'sf_createproperty_proptype' )->text();
 		$allowed_values_label = wfMessage( 'sf_createclass_allowedvalues' )->text();
 
-		$text = <<<END
-<form action="" method="post">
-	<p>$create_class_docu</p>
-	<p>$template_name_label <input type="text" size="30" name="template_name"></p>
-	<blockquote>
-
-END;
-		$text .= SFCreateTemplate::printTemplateStyleInput( 'template_format' );
-		$text .= Html::rawElement( 'p', null,
+		$text = '<form action="" method="post">' . "\n";
+		$text .= "\t" . Html::rawElement( 'p', null, wfMessage( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) )->text() ) . "\n";
+		$templateNameLabel = wfMessage( 'sf_createtemplate_namelabel' )->text();
+		$templateNameInput = Html::input( 'template_name', null, 'text', array( 'size' => 30 ) );
+		$text .= "\t" . Html::rawElement( 'p', null, $templateNameLabel . ' ' . $templateNameInput ) . "\n";
+		$templateInfo = SFCreateTemplate::printTemplateStyleInput( 'template_format' );
+		$templateInfo .= Html::rawElement( 'p', null,
 			Html::element( 'input', array(
 				'type' => 'checkbox',
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
 			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->text() ) . "\n";
-		$text .= <<<END
-	</blockquote>
+		$text .= Html::rawElement( 'blockquote', null, $templateInfo );
 
-END;
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
@@ -224,16 +222,14 @@ END;
 			<td style="text-align: center;"><input type="checkbox" name="is_list_$n" /></td>
 			<td style="background: #eeffcc; padding: 4px;"><input type="text" size="25" name="property_name_$n" /></td>
 			<td style="background: #eeffcc; padding: 4px;">
-			<select name="property_type_$n">
 
 END;
-			$optionsStr ="";
-			foreach ( $datatype_labels as $label ) {
-				$text .= "				<option>$label</option>\n";
-				$optionsStr .= $label . ",";
+			$typeDropdownBody = '';
+			foreach ( $datatypeLabels as $label ) {
+				$typeDropdownBody .= "\t\t\t\t<option>$label</option>\n";
 			}
+			$text .= "\t\t\t\t" . Html::rawElement( 'select', array( 'name' => "property_type_$n" ), $typeDropdownBody ) . "\n";
 			$text .= <<<END
-			</select>
 			</td>
 			<td style="background: #eeffcc; padding: 4px;"><input type="text" size="25" name="allowed_values_$n" /></td>
 
@@ -259,7 +255,7 @@ END;
 		$text .= Html::element( 'input',
 			array(
 				'type' => 'submit',
-				'name' => 'save',
+				'name' => 'createAll',
 				'value' => wfMessage( 'sf_createclass_create' )->text()
 			)
 		);

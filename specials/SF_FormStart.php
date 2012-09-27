@@ -147,10 +147,11 @@ END;
 			// out-guess the user and always send to the
 			// standard form-edit page, with the 'correct' form?
 			$default_forms = SFFormLinker::getDefaultFormsForPage( $page_title );
-			if ( count( $default_forms ) > 0 )
+			if ( count( $default_forms ) > 0 ) {
 				$default_form_name = $default_forms[0];
-			else
+			} else {
 				$default_form_name = null;
+			}
 			if ( $form_name == $default_form_name ) {
 				$redirect_url = $page_title->getLocalURL( 'action=formedit' );
 			} else {

@@ -80,10 +80,7 @@ class SFCreateCategory extends SpecialPage {
 		// Set 'title' as hidden field, in case there's no URL niceness
 		global $wgContLang;
 		$mw_namespace_labels = $wgContLang->getNamespaces();
-		$text = <<<END
-	<form action="" method="post">
-
-END;
+		$text = "\t" . '<form action="" method="post">' . "\n";
 		$firstRow = '';
 		if ( is_null( $presetCategoryName ) ) {
 			$text .= "\t" . Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
@@ -105,19 +102,17 @@ END;
 		$firstRow .= Html::rawElement( 'select',
 			array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
 			$formSelector );
-		$text .= Html::rawElement( 'p', null, $firstRow );
-		$subcategory_label = wfMessage( 'sf_createcategory_makesubcategory' )->text();
-		$text .= <<<END
-	<p>$subcategory_label
-
-END;
+		$text .= Html::rawElement( 'p', null, $firstRow )  . "\n";
+		$secondRow = wfMessage( 'sf_createcategory_makesubcategory' )->text() . ' ';
 		$selectBody = "\t" . Html::element( 'option', null, null ). "\n";
 		$categories = SFUtils::getCategoriesForPage();
 		foreach ( $categories as $category ) {
 			$category = str_replace( '_', ' ', $category );
 			$selectBody .= "\t" . Html::element( 'option', null, $category ) . "\n";
 		}
-		$text .= Html::rawElement( 'select', array( 'id' => 'category_dropdown', 'name' => 'parent_category' ), $selectBody );
+		$secondRow .= Html::rawElement( 'select', array( 'id' => 'category_dropdown', 'name' => 'parent_category' ), $selectBody );
+		$text .= Html::rawElement( 'p', null, $secondRow ) . "\n";
+
 		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', array( 'id' => 'wpSave' ) ) . "\n";
 		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', array( 'id' => 'wpPreview' ) ) . "\n";
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";

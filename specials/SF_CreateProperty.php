@@ -120,7 +120,6 @@ function toggleAllowedValues(property_type) {
 
 END;
 
-		// set 'title' as hidden field, in case there's no URL niceness
 		global $wgContLang;
 		$mw_namespace_labels = $wgContLang->getNamespaces();
 		$name_label = wfMessage( 'sf_createproperty_propname' )->escaped();
@@ -130,6 +129,7 @@ END;
 
 END;
 		$text .= "\n<p>";
+		// set 'title' as hidden field, in case there's no URL niceness
 		if ( $presetPropertyName === '' ) {
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
 			$text .= "$name_label\n";
