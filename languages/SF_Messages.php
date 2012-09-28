@@ -8364,6 +8364,7 @@ $messages['uk'] = array(
 	'formstart' => 'Додати сторінку з формою',
 	'formedit' => 'Редагувати з формою',
 	'sf_formedit_createtitle' => 'Створити $1: $2',
+	'sf_formedit_formwarning' => 'Попередження: Ця сторінка <a href="$1">вже існує</a>, але не використовує цю форму.',
 	'sf_formedit_remove' => 'Вилучити',
 	'runquery' => 'Запустити запит',
 	'sf_runquery_title' => 'Виконати запит:$1',
