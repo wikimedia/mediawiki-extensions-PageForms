@@ -167,18 +167,18 @@ class SFFormPrinter {
 		// MW 1.18+ ?
 		if ( method_exists( 'LogEventsList', 'showLogExtract' ) ) {
 			LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
-                                '', array( 'lim' => 10,
-                                           'conds' => array( "log_action != 'revision'" ),
-                                           'showIfEmpty' => false,
-                                           'msgKey' => array( 'moveddeleted-notice' ) )
-                        );
+								'', array( 'lim' => 10,
+										   'conds' => array( "log_action != 'revision'" ),
+										   'showIfEmpty' => false,
+										   'msgKey' => array( 'moveddeleted-notice' ) )
+						);
 			return true;
 		}
 
 		// Old code, that can be removed once compatibility for
 		// MW 1.17 goes away (or maybe it can be removed already).
-	 	// This code was copied almost exactly from the method
-	 	// EditPage::showDeletionLog(), which no longer exists.
+		// This code was copied almost exactly from the method
+		// EditPage::showDeletionLog(), which no longer exists.
 		global $wgUser;
 		$loglist = new LogEventsList( $wgUser->getSkin(), $out );
 		$pager = new LogPager( $loglist, 'delete', false, $this->mPageTitle->getPrefixedText() );
@@ -875,6 +875,35 @@ END;
 							} elseif ( $sub_components[0] == 'values from property' ) {
 								$propertyName = $sub_components[1];
 								$possible_values = SFUtils::getAllValuesForProperty( $propertyName );
+							} elseif ( $sub_components[0] == 'values from query' ) {
+								$query_text =   $sub_components[1];
+								$params = array('format'=>'list',
+												'limit' =>50,
+												'sort' => array(""),
+												'order' => array(),
+												'offset'=>0,
+												'headers' =>'show',
+												'mainlabel'=>'-',
+												'link' => 'all',
+												'searchlabel'=>false,
+												'intro' => '',
+												'outro'=>'',
+												'default'=> '',
+												'template' => '',
+												'named args' => false,
+												'userparam' => '',
+												'introtemplate' =>'',
+												'outrotemplate'=>'');
+								$queryObj = SMWQueryProcessor::createQuery(
+									$query_text,
+									$params, SMWQueryProcessor::INLINE_QUERY, 'list');
+								$res = smwfGetStore()->getQueryResult( $queryObj );
+								$pages = $res->getResults();
+								foreach($pages as $page) {
+									$page_name_for_values = $page->getDbKey();
+									$possible_values[]=$page_name_for_values;
+								}
+							}
 							} elseif ( $sub_components[0] == 'values from category' ) {
 								$category_name = ucfirst( $sub_components[1] );
 								$possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
@@ -1007,7 +1036,7 @@ END;
 								// borrowed from EditPage::showEditTools()
 								$options[] = 'parse';
 								$edittools_text = $wgParser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
-								
+
 								$new_text .= <<<END
 		<div class="mw-editTools">
 		$edittools_text
