@@ -1420,6 +1420,7 @@ $messages['ckb'] = array(
 
 /** Czech (česky)
  * @author Juan de Vojníkov
+ * @author Juandev
  * @author Matěj Grabovský
  * @author Mormegil
  * @author Reaperman
