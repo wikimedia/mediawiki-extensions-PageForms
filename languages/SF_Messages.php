@@ -727,7 +727,7 @@ $messages['be'] = array(
 	'sf_createform_template' => 'Шаблон:',
 );
 
-/** Belarusian (Taraškievica orthography) (‪беларуская (тарашкевіца)‬)
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author EugeneZelenko
  * @author Jim-by
  * @author Red Winged Duck
@@ -1677,7 +1677,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 	'action-viewedittab' => 'den Reiter „Bearbeiten“ auf Seiten zu sehen, die per Formular bearbeitet werden können',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Dst
  * @author Imre
  * @author Kghbln
@@ -3206,7 +3206,7 @@ $messages['gv'] = array(
 	'sf_createcategory_name' => 'Ennym ronney:',
 );
 
-/** Hausa (هَوُسَ) */
+/** Hausa (Hausa) */
 $messages['ha'] = array(
 	'sf_createtemplate_deletefield' => 'Soke',
 );
@@ -4977,7 +4977,7 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''<Fomullaa_Name >''</co
 	'right-editrestrictedfields' => 'Beschrängk zohjänglijje Felder en Fommulaare ändere',
 );
 
-/** Kurdish (Latin script) (‪Kurdî (latînî)‬)
+/** Kurdish (Latin script) (Kurdî (latînî)‎)
  * @author George Animal
  */
 $messages['ku-latn'] = array(
@@ -5834,7 +5834,7 @@ $messages['nah'] = array(
 	'sf_formedit_none' => 'Ahtlein',
 );
 
-/** Norwegian Bokmål (‪norsk (bokmål)‬)
+/** Norwegian Bokmål (norsk (bokmål)‎)
  * @author Event
  * @author Harald Khan
  * @author Laaknor
@@ -6208,7 +6208,7 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
 	'action-viewedittab' => 'het tabblad "Bewerken" te zien voor pagina\'s die via een formulier te bewerken zijn',
 );
 
-/** Norwegian Nynorsk (‪norsk (nynorsk)‬)
+/** Norwegian Nynorsk (norsk (nynorsk)‎)
  * @author Gunnernett
  * @author Harald Khan
  * @author Jon Harald Søby
@@ -7496,7 +7496,7 @@ $messages['sl'] = array(
 	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca',
 );
 
-/** Serbian (Cyrillic script) (‪српски (ћирилица)‬)
+/** Serbian (Cyrillic script) (српски (ћирилица)‎)
  * @author Rancher
  * @author Sasa Stefanovic
  * @author Жељко Тодоровић
@@ -7564,7 +7564,7 @@ $messages['sr-ec'] = array(
 	'sf_form_freetextlabel' => 'Слободан текст',
 );
 
-/** Serbian (Latin script) (‪srpski (latinica)‬)
+/** Serbian (Latin script) (srpski (latinica)‎)
  * @author Michaello
  * @author Rancher
  * @author Жељко Тодоровић
@@ -8761,7 +8761,7 @@ $messages['zh-cn'] = array(
 	'sf_blank_namespace' => '主',
 );
 
-/** Simplified Chinese (‪中文（简体）‬)
+/** Simplified Chinese (中文（简体）‎)
  * @author Gzdavidwong
  * @author Hydra
  * @author Liangent
