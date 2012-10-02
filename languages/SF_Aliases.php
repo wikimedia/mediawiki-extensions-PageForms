@@ -612,10 +612,15 @@ $specialPageAliases['sw'] = array(
 /** Thai (ไทย) */
 $specialPageAliases['th'] = array(
 	'CreateCategory' => array( 'สร้างหมวดหมู่' ),
-	'CreateForm' => array( 'สร้างฟอร์ม' ),
+	'CreateClass' => array( 'สร้างคลาส' ),
+	'CreateForm' => array( 'สร้างแบบฟอร์ม' ),
+	'CreateProperty' => array( 'สร้างคุณสมบัติ' ),
 	'CreateTemplate' => array( 'สร้างแม่แบบ' ),
+	'FormEdit' => array( 'แก้ไขแบบฟอร์ม' ),
+	'FormStart' => array( 'เริ่มแบบฟอร์ม' ),
 	'Forms' => array( 'แบบฟอร์ม' ),
 	'Templates' => array( 'แม่แบบ' ),
+	'UploadWindow' => array( 'หน้าต่างอัปโหลด' ),
 );
 
 /** Tagalog (Tagalog) */
