@@ -1003,4 +1003,23 @@ END;
 		return $linker;
 	}
 
+	/**
+	 * returns an array of pages that are result of the semantic query
+	 * @param $rawQueryString string - the query string like [[Category:Trees]][[age::>1000]]
+	 * @return array of SMWDIWikiPage objects representing the result
+	 */
+	public static function getAllPagesForQuery($rawQuery) {
+		$rawQueryArray = array($rawQuery);
+		SMWQueryProcessor::processFunctionParams( $rawQueryArray, $queryString, $processedParams, $printouts );
+		SMWQueryProcessor::addThisPrintout( $printouts, $processedParams );
+		$processedParams = SMWQueryProcessor::getProcessedParams( $processedParams, $printouts );
+		$queryObj = SMWQueryProcessor::createQuery($queryString,
+			$processedParams,
+			SMWQueryProcessor::SPECIAL_PAGE,'',$printouts);
+		$res = smwfGetStore()->getQueryResult( $queryObj );
+		$pages = $res->getResults();
+
+		return $pages;
+	}
+
 }
