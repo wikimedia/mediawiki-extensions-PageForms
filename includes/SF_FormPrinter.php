@@ -876,29 +876,7 @@ END;
 								$propertyName = $sub_components[1];
 								$possible_values = SFUtils::getAllValuesForProperty( $propertyName );
 							} elseif ( $sub_components[0] == 'values from query' ) {
-								$query_text =   $sub_components[1];
-								$params = array('format'=>'list',
-												'limit' =>50,
-												'sort' => array(""),
-												'order' => array(),
-												'offset'=>0,
-												'headers' =>'show',
-												'mainlabel'=>'-',
-												'link' => 'all',
-												'searchlabel'=>false,
-												'intro' => '',
-												'outro'=>'',
-												'default'=> '',
-												'template' => '',
-												'named args' => false,
-												'userparam' => '',
-												'introtemplate' =>'',
-												'outrotemplate'=>'');
-								$queryObj = SMWQueryProcessor::createQuery(
-									$query_text,
-									$params, SMWQueryProcessor::INLINE_QUERY, 'list');
-								$res = smwfGetStore()->getQueryResult( $queryObj );
-								$pages = $res->getResults();
+								$pages = SFUtils::getAllPagesForQuery($sub_components[1]);
 								foreach($pages as $page) {
 									$page_name_for_values = $page->getDbKey();
 									$possible_values[]=$page_name_for_values;
