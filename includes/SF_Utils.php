@@ -810,14 +810,14 @@ END;
 		}
 		$classStr = "";
 		$inQueryArr = array();
-		
+
 		$positionalParameters = false;
-		
+
 		// assign params
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
 		foreach ( $params as $i => $param ) {
-			
+
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value
@@ -844,8 +844,8 @@ END;
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
-				
-				parse_str($inQueryStr, $arr);
+
+				parse_str( $inQueryStr, $arr );
 				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
 			} elseif ( $param_name == 'tooltip' ) {
 				$inTooltip = Sanitizer::decodeCharReferences( $value );
@@ -855,8 +855,8 @@ END;
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
 			} elseif ( $param_name !== null && !$positionalParameters ) {
-				$value = urlencode($value);
-				parse_str("$param_name=$value", $arr);
+				$value = urlencode( $value );
+				parse_str( "$param_name=$value", $arr );
 				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
 			} elseif ( $i == 0 ) {
 				$inFormName = $value;
@@ -870,10 +870,10 @@ END;
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
-				
-				parse_str($inQueryStr, $arr);
+
+				parse_str( $inQueryStr, $arr );
 				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
-			} 
+			}
 		}
 
 		$ad = SFUtils::getSpecialPage( $specialPageName );
@@ -883,7 +883,7 @@ END;
 		}
 		$link_url = str_replace( ' ', '_', $link_url );
 		$hidden_inputs = "";
-		if ( ! empty($inQueryArr) ) {
+		if ( ! empty( $inQueryArr ) ) {
 			// Special handling for the buttons - query string
 			// has to be turned into hidden inputs.
 			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
@@ -920,8 +920,8 @@ END;
 		}
 
 		return $str;
-	}	
-	
+	}
+
 	static function loadScriptsForPopupForm( &$parser ) {
 		$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
 		return true;
@@ -963,7 +963,7 @@ END;
 
 	/**
 	 * Register the namespaces for Semantic Forms.
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces 
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
 	 *
 	 * @since 2.4.1
 	 *
@@ -1008,14 +1008,14 @@ END;
 	 * @param $rawQueryString string - the query string like [[Category:Trees]][[age::>1000]]
 	 * @return array of SMWDIWikiPage objects representing the result
 	 */
-	public static function getAllPagesForQuery($rawQuery) {
-		$rawQueryArray = array($rawQuery);
+	public static function getAllPagesForQuery( $rawQuery ) {
+		$rawQueryArray = array( $rawQuery );
 		SMWQueryProcessor::processFunctionParams( $rawQueryArray, $queryString, $processedParams, $printouts );
 		SMWQueryProcessor::addThisPrintout( $printouts, $processedParams );
 		$processedParams = SMWQueryProcessor::getProcessedParams( $processedParams, $printouts );
-		$queryObj = SMWQueryProcessor::createQuery($queryString,
+		$queryObj = SMWQueryProcessor::createQuery( $queryString,
 			$processedParams,
-			SMWQueryProcessor::SPECIAL_PAGE,'',$printouts);
+			SMWQueryProcessor::SPECIAL_PAGE, '', $printouts );
 		$res = smwfGetStore()->getQueryResult( $queryObj );
 		$pages = $res->getResults();
 

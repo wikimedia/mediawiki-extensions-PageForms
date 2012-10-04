@@ -876,10 +876,10 @@ END;
 								$propertyName = $sub_components[1];
 								$possible_values = SFUtils::getAllValuesForProperty( $propertyName );
 							} elseif ( $sub_components[0] == 'values from query' ) {
-								$pages = SFUtils::getAllPagesForQuery($sub_components[1]);
-								foreach($pages as $page) {
+								$pages = SFUtils::getAllPagesForQuery( $sub_components[1] );
+								foreach ( $pages as $page ) {
 									$page_name_for_values = $page->getDbKey();
-									$possible_values[]=$page_name_for_values;
+									$possible_values[] = $page_name_for_values;
 								}
 							} elseif ( $sub_components[0] == 'values from category' ) {
 								$category_name = ucfirst( $sub_components[1] );
