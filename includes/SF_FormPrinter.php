@@ -881,7 +881,6 @@ END;
 									$page_name_for_values = $page->getDbKey();
 									$possible_values[]=$page_name_for_values;
 								}
-							}
 							} elseif ( $sub_components[0] == 'values from category' ) {
 								$category_name = ucfirst( $sub_components[1] );
 								$possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
