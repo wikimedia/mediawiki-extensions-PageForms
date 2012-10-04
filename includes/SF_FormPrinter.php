@@ -997,16 +997,6 @@ END;
 								$default_value = '!free_text!';
 							} else {
 								$default_value = $cur_value;
-								// If the FCKeditor extension is installed and
-								// active, the default value needs to be parsed
-								// for use in the editor.
-								global $wgFCKEditorDir;
-								if ( $wgFCKEditorDir && strpos( $existing_page_content, '__NORICHEDITOR__' ) === false ) {
-									$showFCKEditor = SFFormUtils::getShowFCKEditor();
-									if ( !$form_submitted && ( $showFCKEditor & RTE_VISIBLE ) ) {
-										$default_value = SFFormUtils::prepareTextForFCK( $cur_value );
-									}
-								}
 							}
 							$new_text = SFTextAreaInput::getHTML( $default_value, 'sf_free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
 							if ( in_array( 'edittools', $free_text_components ) ) {
@@ -1549,16 +1539,7 @@ END;
 		}
 
 		wfRunHooks( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
-		// if the FCKeditor extension is installed, use that for the free text input
-		global $wgFCKEditorDir;
-		if ( $wgFCKEditorDir && strpos( $existing_page_content, '__NORICHEDITOR__' ) === false ) {
-			$showFCKEditor = SFFormUtils::getShowFCKEditor();
-			if ( !$form_submitted && ( $showFCKEditor & RTE_VISIBLE ) ) {
-				$free_text = SFFormUtils::prepareTextForFCK( $free_text );
-			}
-		} else {
-			$showFCKEditor = 0;
-		}
+
 		// now that we have it, substitute free text into the form and page
 		$escaped_free_text = Sanitizer::safeEncodeAttribute( $free_text );
 		$form_text = str_replace( '!free_text!', $escaped_free_text, $form_text );
@@ -1592,20 +1573,8 @@ END;
 		$form_text .= "\t</form>\n";
 
 		// Add general Javascript code.
-		wfRunHooks( 'sfAddJavascriptToForm', array( &$javascript_text ) );
-
-		// @TODO The FCKeditor Javascript should be handled within
-		// the FCKeditor extension itself, using the hook.
 		$javascript_text = "";
-		if ( $free_text_was_included && $showFCKEditor > 0 ) {
-			$javascript_text .= SFFormUtils::mainFCKJavascript( $showFCKEditor, $field_args );
-			if ( $showFCKEditor & ( RTE_TOGGLE_LINK | RTE_POPUP ) ) {
-				$javascript_text .= SFFormUTils::FCKToggleJavascript();
-			}
-			if ( $showFCKEditor & RTE_POPUP ) {
-				$javascript_text .= SFFormUTils::FCKPopupJavascript();
-			}
-		}
+		wfRunHooks( 'sfAddJavascriptToForm', array( &$javascript_text ) );
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.

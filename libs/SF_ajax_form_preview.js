@@ -66,19 +66,6 @@ function ajaxFormPreviewRun(btn){
 	var boundary = '--------123xyz';
 	var data = '';
 
-	//FCKeditor visible? update free text first
-	// if (!oFCKeditor.ready) return false;    //sajax_do_call in action - what do we do?
-	if ( typeof FCKeditorAPI != "undefined" ) {
-		if ( showFCKEditor & RTE_VISIBLE ) {
-			var SRCtextarea = document.getElementById( 'sf_free_text' );
-
-			if ( SRCtextarea ) {
-				var oEditorIns = FCKeditorAPI.GetInstance( 'sf_free_text' );
-				SRCtextarea.value = oEditorIns.GetData( oEditorIns.Config.FormatSource );
-			}
-		}
-	}
-
 	elts = form.elements;
 
 	for (i=0; i < elts.length; ++i) {

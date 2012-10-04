@@ -254,21 +254,15 @@ END;
 	}
 
 	/**
-	 * Javascript files to be added outside of the ResourceLoader.
+	 * Javascript files to be added outside of the ResourceLoader -
+	 * by default, there are none.
 	 */
 	public static function addJavascriptFiles( $parser ) {
-		global $wgOut, $wgFCKEditorDir, $wgScriptPath, $wgJsMimeType;
+		global $wgOut, $wgJsMimeType;
 
 		$scripts = array();
 
 		wfRunHooks( 'sfAddJavascriptFiles', array( &$scripts ) );
-
-		// The FCKeditor extension has no defined ResourceLoader
-		// modules yet, so we have to call the scripts directly.
-		// @TODO Move this code into the FCKeditor extension.
-		if ( $wgFCKEditorDir && class_exists( 'FCKEditor' ) ) {
-			$scripts[] = "$wgScriptPath/$wgFCKEditorDir/fckeditor.js";
-		}
 
 		foreach ( $scripts as $js ) {
 			if ( $parser ) {
@@ -296,7 +290,6 @@ END;
 			$output = $wgOut;
 		} else {
 			$output = $parser->getOutput();
-			self::addJavascriptFiles( $parser );
 		}
 
 		$output->addModules( 'ext.semanticforms.main' );
@@ -306,6 +299,8 @@ END;
 		$output->addModules( 'ext.semanticforms.submit' );
 		$output->addModules( 'ext.smw.tooltips' );
 		$output->addModules( 'ext.smw.sorttable' );
+
+		self::addJavascriptFiles( $parser );
 	}
 
 	/**
