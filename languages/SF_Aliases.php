@@ -39,6 +39,14 @@ $specialPageAliases['ar'] = array(
 	'UploadWindow' => array( 'نافذة_الرفع' ),
 );
 
+/** Aramaic (ܐܪܡܝܐ) */
+$specialPageAliases['arc'] = array(
+	'CreateCategory' => array( 'ܒܪܝ_ܣܕܪܐ' ),
+	'CreateProperty' => array( 'ܒܪܝ_ܕܝܠܝܘܬ̈ܐ' ),
+	'CreateTemplate' => array( 'ܒܪܝ_ܩܠܒܐ' ),
+	'Templates' => array( 'ܩܠܒ̈ܐ' ),
+);
+
 /** Egyptian Spoken Arabic (مصرى) */
 $specialPageAliases['arz'] = array(
 	'CreateCategory' => array( 'اعمل_تصنيف' ),
