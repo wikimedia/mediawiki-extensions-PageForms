@@ -440,10 +440,10 @@ END;
 			for ( $o = 1; $o < $options->length; $o++ ) {
 				if ( $options->item( $o )->hasAttribute( 'selected' ) )
                                         if ( $options->item( $o )->getAttribute( 'value' ) ) {
-                                                self::addToArray( $data, $name, $options->item( $o )->getAttribute( 'value' ) );
-                                        } else {
-                                                self::addToArray( $data, $name, $options->item( $o )->nodeValue );
-                                        }
+						self::addToArray( $data, $name, $options->item( $o )->getAttribute( 'value' ) );
+					} else {
+						self::addToArray( $data, $name, $options->item( $o )->nodeValue );
+					}
 			}
 		}
 
