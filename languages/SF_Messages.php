@@ -4502,7 +4502,7 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf_form_docu' => 'これは「$1」フォームです。
 このフォームを使用してページを作成するには、下にページ名を入力してください。
 その名前のページが既に存在する場合は、そのページを編集するフォームに転送されます。',
-	'sf_form_freetextlabel' => '自由に記載',
+	'sf_form_freetextlabel' => '自由形式テキスト',
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使用しています。',
 	'sf_category_desc' => 'これはカテゴリ $1 です。',
 	'sf_blank_namespace' => '標準',
