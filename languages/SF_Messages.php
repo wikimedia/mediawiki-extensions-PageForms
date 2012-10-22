@@ -247,6 +247,7 @@ $messages['qqq'] = array(
 
 Parameters:
 * $1 is replaced with {{msg-mw|sf_formedit_saveandcontinueediting}}.',
+	'sf_formedit_accesskey_saveandcontinueediting' => '{{notranslate}}',
 	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
 	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
 	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
@@ -264,30 +265,23 @@ Parameters:
 	'action-viewedittab' => '{{doc-action|viewedittab}}',
 );
 
-/** Niuean (ko e vagahau Niuē)
- * @author Jose77
- */
-$messages['niu'] = array(
-	'sf_createtemplate_deletefield' => 'Tamate',
-);
-
 /** Afrikaans (Afrikaans)
  * @author Arnobarnard
  * @author Naudefj
  * @author SPQRobin
  */
 $messages['af'] = array(
-	'sf_createproperty_propname' => 'Naam:',
+	'sf_createproperty_propname' => 'Naam:', # Fuzzy
 	'sf_createproperty_proptype' => 'Tipe:',
 	'templates' => 'Sjablone',
-	'sf_createtemplate_standardformat' => 'Standaard',
+	'sf_createtemplate_standardformat' => 'Standaard', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Skrap',
 	'sf_createform_template' => 'Sjabloon:',
 	'sf_createform_field' => 'Veld:',
 	'sf_createform_inputtypedefault' => '(standaard)',
 	'sf_createform_hidden' => 'Verborge',
 	'sf_createform_add' => 'Voeg by',
-	'sf_createcategory_name' => 'Naam:',
+	'sf_createcategory_name' => 'Naam:', # Fuzzy
 	'sf_formedit_remove' => 'Skrap',
 	'sf_formedit_none' => 'Geen',
 	'sf_blank_error' => 'mag nie leeg wees nie',
@@ -323,8 +317,8 @@ $messages['aln'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Për të listës, në çdo faqe duke përdorur këtë template, të gjitha faqet që kanë një pronë të caktuar duke treguar atë faqe, specifikoni e pronës përkatëse më poshtë:',
 	'sf_createtemplate_aggregationlabel' => 'Titulli për listën:',
 	'sf_createtemplate_outputformat' => 'Formati Output:',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Djathtas-anën Infobox',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Djathtas-anën Infobox', # Fuzzy
 	'sf_createtemplate_addfield' => 'fushë Shto',
 	'sf_createtemplate_deletefield' => 'Fshij',
 	'sf_createtemplate_addtemplatebeforesave' => 'Ju duhet të shtoni te pakten nje template për këtë formë para se të mund ta ruani atë.',
@@ -332,7 +326,7 @@ $messages['aln'] = array(
 	'sf_forms_docu' => 'Format e mëposhtme ekzistojnë në wiki.',
 	'createform' => 'Krijo një formë',
 	'sf_createform_nameinput' => 'Emri Form',
-	'sf_createform_nameinputdesc' => '(Konventë është që emri të formuar pas shabllonin kryesor ajo krijohet):',
+	'sf_createform_nameinputdesc' => '(Konventë është që emri të formuar pas shabllonin kryesor ajo krijohet):', # Fuzzy
 	'sf_createform_template' => 'Stampa:',
 	'sf_createform_templatelabelinput' => 'Etiketa Template (opsional):',
 	'sf_createform_allowmultiple' => 'Lejo për të shumta (ose zero) raste të këtij template në faqen e krijuar',
@@ -346,9 +340,9 @@ $messages['aln'] = array(
  * @author Codex Sinaiticus
  */
 $messages['am'] = array(
-	'sf_createproperty_propname' => 'ስም:',
-	'sf_createtemplate_standardformat' => 'መደበኛ',
-	'sf_createcategory_name' => 'ስም:',
+	'sf_createproperty_propname' => 'ስም:', # Fuzzy
+	'sf_createtemplate_standardformat' => 'መደበኛ', # Fuzzy
+	'sf_createcategory_name' => 'ስም:', # Fuzzy
 );
 
 /** Aragonese (aragonés)
@@ -392,8 +386,8 @@ $messages['ar'] = array(
 	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل الصفحات التي تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
 	'sf_createtemplate_aggregationlabel' => 'العنوان للقائمة:',
 	'sf_createtemplate_outputformat' => 'صيغة الخرج:',
-	'sf_createtemplate_standardformat' => 'قياسي',
-	'sf_createtemplate_infoboxformat' => 'صندوق معلومات على اليمين',
+	'sf_createtemplate_standardformat' => 'قياسي', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'صندوق معلومات على اليمين', # Fuzzy
 	'sf_createtemplate_addfield' => 'أضف حقلًا',
 	'sf_createtemplate_deletefield' => 'حذف',
 	'sf_createtemplate_addtemplatebeforesave' => 'يجب أن تضيف على الأقل قالبا واحدا إلى هذا النموذج قبل حفظه.',
@@ -549,15 +543,15 @@ $messages['arz'] = array(
 	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل الصفحات التى تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
 	'sf_createtemplate_aggregationlabel' => 'العنوان للقائمة:',
 	'sf_createtemplate_outputformat' => 'صيغة الخرج:',
-	'sf_createtemplate_standardformat' => 'قياسي',
-	'sf_createtemplate_infoboxformat' => 'صندوق معلومات على اليمين',
+	'sf_createtemplate_standardformat' => 'قياسي', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'صندوق معلومات على اليمين', # Fuzzy
 	'sf_createtemplate_addfield' => 'إضافة حقل',
 	'sf_createtemplate_deletefield' => 'حذف',
 	'sf_createtemplate_addtemplatebeforesave' => 'يجب أن تضيف على الأقل قالبا واحدا إلى هذه الاستمارة قبل حفظها.',
 	'forms' => 'استمارات',
 	'sf_forms_docu' => 'الاستمارات التالية موجودة فى الويكى.',
 	'sf_forminputs_mandatory' => 'إلزامي',
-	'sf_forminputs_restricted' => 'محدد (فقط المستخدمون مديرو النظام يمكنهم تعديله)',
+	'sf_forminputs_restricted' => 'محدد (فقط المستخدمون مديرو النظام يمكنهم تعديله)', # Fuzzy
 	'createform' => 'إنشاء استمارة',
 	'sf_createform_nameinput' => 'اسم الاستمارة',
 	'sf_createform_template' => 'القالب:',
@@ -589,9 +583,9 @@ $messages['arz'] = array(
 	'sf_formstart_noform_docu' => 'أدخل اسم الصفحة هنا، واختر الاستمارة لتعديلها معها.
 إذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى الاستمارة لتعديل هذه الصفحة.
 أما غير ذلك، فسيتم إرسالك إلى الاستمارة لإضافة الصفحة.',
-	'sf_formstart_createoredit' => 'أضف أو عدل',
+	'sf_formstart_createoredit' => 'أضف أو عدل', # Fuzzy
 	'formedit' => 'عدل مع الاستمارة',
-	'sf_formedit_createtitle' => 'أضف $1: $2',
+	'sf_formedit_createtitle' => 'أضف $1: $2', # Fuzzy
 	'sf_formedit_badurl' => "هذه هى الصفحة لإضافة البيانات. يجب عليك تحديد اسم صفحة وصفحة هدف فى المسار؛ ينبغى أن تبدو ك 'Special:FormEdit?form=<form name>&target=<target page>' أو  'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'يمكنك كبديل إضافة هذه الصفحة مع واحد من الاستمارات التالية:',
 	'sf_formedit_altformsonly' => 'من فضلك اختر إحدى الاستمارات التالية لإضافة هذه الصفحة إليها:',
@@ -616,7 +610,7 @@ $messages['arz'] = array(
 	'sf_template_docufooter' => 'عدل الصفحة لرؤية نص القالب.',
 	'sf_form_docu' => "هذه استمارة '$1'.
 لإضافة صفحة مع هذه الاستمارة، أدخل اسم الصفحة بالأسفل؛
-إذا كانت هناك صفحة موجودة بهذا الاسم، سيتم إرسالك إلى استمارة لتعديل هذه الصفحة.",
+إذا كانت هناك صفحة موجودة بهذا الاسم، سيتم إرسالك إلى استمارة لتعديل هذه الصفحة.", # Fuzzy
 	'sf_form_freetextlabel' => 'نص حر',
 	'sf_category_hasdefaultform' => 'هذا التصنيف يستخدم الاستمارة $1.',
 	'sf_category_desc' => 'هذا $1 تصنيف.',
@@ -629,7 +623,7 @@ $messages['arz'] = array(
  */
 $messages['avk'] = array(
 	'createproperty' => 'Redura va pilkaca',
-	'sf_createproperty_propname' => 'Yolt :',
+	'sf_createproperty_propname' => 'Yolt :', # Fuzzy
 	'sf_createproperty_proptype' => 'Ord :',
 	'templates' => 'Tezeem',
 	'sf_templates_docu' => 'Bata teza yo koe wiki tid.',
@@ -641,16 +635,16 @@ $messages['avk'] = array(
 	'sf_createtemplate_fieldname' => 'Raptayolt :',
 	'sf_createtemplate_displaylabel' => 'Kralfintara :',
 	'sf_createtemplate_semanticproperty' => 'Sugdalafa pilkaca :',
-	'sf_createtemplate_aggregationdesc' => 'Moe betu bu favesu va bata teza, ta vexalara va kot teliz digis va man pilkot skedas va batu bu, va pilkotanh vleveon bazel :',
+	'sf_createtemplate_aggregationdesc' => 'Moe betu bu favesu va bata teza, ta vexalara va kot teliz digis va man pilkot skedas va batu bu, va pilkotanh vleveon bazel :', # Fuzzy
 	'sf_createtemplate_aggregationlabel' => 'Vexalavergumvelt :',
 	'sf_createtemplate_outputformat' => 'Divaf breviz',
-	'sf_createtemplate_standardformat' => 'Preksaf',
+	'sf_createtemplate_standardformat' => 'Preksaf', # Fuzzy
 	'sf_createtemplate_addfield' => 'Loplekura va rapta',
 	'sf_createtemplate_deletefield' => 'Sulara',
 	'sf_createtemplate_addtemplatebeforesave' => 'Va tanoya teza ko bata erurateza leon goloplekul abdi da rogiwal.',
 	'forms' => 'Eruratezeem',
 	'sf_forms_docu' => 'Bata erurateza yo koe wiki tid.',
-	'sf_forminputs_restricted' => 'Irutan (anton ristusik vaon robetar)',
+	'sf_forminputs_restricted' => 'Irutan (anton ristusik vaon robetar)', # Fuzzy
 	'createform' => 'Redura va erurateza',
 	'sf_createform_template' => 'Teza :',
 	'sf_createform_templatelabelinput' => 'Tezakral (rotir) :',
@@ -669,14 +663,14 @@ $messages['avk'] = array(
 	'sf_createform_add' => 'Loplekura',
 	'sf_createform_choosefield' => 'Va goloplekuna rapta kiblal !',
 	'createcategory' => 'Redura va loma',
-	'sf_createcategory_name' => 'Yolt :',
+	'sf_createcategory_name' => 'Yolt :', # Fuzzy
 	'sf_createcategory_defaultform' => 'Omavafa erurateza :',
 	'sf_createcategory_makesubcategory' => 'Artazukara va bata loma ton volveyloma (rotison) :',
 	'formstart' => 'Loplekura va bu',
 	'sf_formstart_badform' => 'Rokla : meku eruratezabu trasinu koe $1',
-	'sf_formstart_createoredit' => 'Loplekura ok betara',
+	'sf_formstart_createoredit' => 'Loplekura ok betara', # Fuzzy
 	'formedit' => 'Betara kan erurateza',
-	'sf_formedit_createtitle' => 'Loplekura va $1 : $2',
+	'sf_formedit_createtitle' => 'Loplekura va $1 : $2', # Fuzzy
 	'sf_formedit_altformsonly' => 'Va tanoya vlevefa erurateza goloplekuna ko batu bu vay rebal :',
 	'sf_editsource' => 'Klitabetara',
 	'sf_formedit_edittitle' => 'Betara va $1 : $2',
@@ -689,10 +683,10 @@ $messages['avk'] = array(
 	'sf_bad_number_error' => 'gotir va enafa ota',
 	'sf_bad_date_error' => 'gotir enafa evla',
 	'sf_property_isproperty' => 'Tir pilkaca ke $1 ord.',
-	'sf_property_allowedvals' => 'Rictana voda se ke bat pilkovoy tid :',
+	'sf_property_allowedvals' => 'Rictana voda se ke bat pilkovoy tid :', # Fuzzy
 	'sf_template_docu' => "Tir '$1' teza. Kan vlevef breviz zo gonerur :",
 	'sf_template_docufooter' => 'Burupera ta wira va tezacek',
-	'sf_form_docu' => "Tir '$1' erurateza. Ta koon buloplekura, va buyolt vleveon bazel ; ede milyoltafu bu ixam tir, ta bubetara erurateza zo fintatar.",
+	'sf_form_docu' => "Tir '$1' erurateza. Ta koon buloplekura, va buyolt vleveon bazel ; ede milyoltafu bu ixam tir, ta bubetara erurateza zo fintatar.", # Fuzzy
 	'sf_form_freetextlabel' => 'Nuyaf krent',
 	'sf_category_hasdefaultform' => 'Bata loma va $1 erurateza faver.',
 	'sf_category_desc' => 'Tir $1 loma.',
@@ -757,8 +751,8 @@ $messages['be-tarask'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Каб выводзіць на любую старонку, якая выкарыстоўвае гэты шаблён, усе старонкі, у якіх гэтая ўласьцівасьць спасылаецца на гэтую старонку, пазначце адпаведную ўласьцівасьць ніжэй:',
 	'sf_createtemplate_aggregationlabel' => 'Назва сьпісу:',
 	'sf_createtemplate_outputformat' => 'Фармат вываду:',
-	'sf_createtemplate_standardformat' => 'Стандартны',
-	'sf_createtemplate_infoboxformat' => 'Інфармацыйная панэль справа',
+	'sf_createtemplate_standardformat' => 'Стандартны', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Інфармацыйная панэль справа', # Fuzzy
 	'sf_createtemplate_addfield' => 'Дадаць поле',
 	'sf_createtemplate_deletefield' => 'Выдаліць',
 	'sf_createtemplate_addtemplatebeforesave' => 'Вам трэба дадаць хаця бы адзін шаблён да гэтай формы для таго, каб яе можна было захаваць.',
@@ -898,7 +892,7 @@ URL-адрас павінен мець выгляд 'Special:RunQuery/<назв�
  */
 $messages['bg'] = array(
 	'specialpages-group-sf_group' => 'Семантични формуляри',
-	'sf_createproperty_propname' => 'Име:',
+	'sf_createproperty_propname' => 'Име:', # Fuzzy
 	'sf_createproperty_proptype' => 'Вид:',
 	'templates' => 'Шаблони',
 	'sf_templates_docu' => 'Следните шаблони съществуват в уикито.',
@@ -911,8 +905,8 @@ $messages['bg'] = array(
 	'sf_createtemplate_fieldislist' => 'Това поле може да съдържа само списък със стойности, разделени със запетаи',
 	'sf_createtemplate_aggregationlabel' => 'Заглавие за списъка:',
 	'sf_createtemplate_outputformat' => 'Изходен формат:',
-	'sf_createtemplate_standardformat' => 'Стандартен',
-	'sf_createtemplate_infoboxformat' => 'Инфокутия в дясно',
+	'sf_createtemplate_standardformat' => 'Стандартен', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Инфокутия в дясно', # Fuzzy
 	'sf_createtemplate_addfield' => 'Добавяне на поле',
 	'sf_createtemplate_deletefield' => 'Изтриване',
 	'sf_createtemplate_addtemplatebeforesave' => 'Преди да бъде възможно съхраняването на формуляра е необходимо в него да бъде добавен поне един шаблон.',
@@ -929,12 +923,12 @@ $messages['bg'] = array(
 	'sf_createform_add' => 'Добавяне',
 	'sf_createform_choosefield' => 'Избор на поле за добавяне',
 	'createcategory' => 'Създаване на категория',
-	'sf_createcategory_name' => 'Име:',
+	'sf_createcategory_name' => 'Име:', # Fuzzy
 	'sf_createcategory_defaultform' => 'Формуляр по подразбиране:',
 	'formstart' => 'Добавяне на страница с формуляр',
-	'sf_formstart_createoredit' => 'Добавяне или редактиране',
+	'sf_formstart_createoredit' => 'Добавяне или редактиране', # Fuzzy
 	'formedit' => 'Редактиране с формуляр',
-	'sf_formedit_createtitle' => 'Добавяне на $1: $2',
+	'sf_formedit_createtitle' => 'Добавяне на $1: $2', # Fuzzy
 	'sf_formedit_altformsonly' => 'Изберете един от следните формуляри за добавяне на страницата:',
 	'sf_viewform' => 'Преглед на формуляра',
 	'sf_editsource' => 'Редактиране на източника',
@@ -952,7 +946,7 @@ $messages['bg'] = array(
 	'sf_template_docufooter' => 'Редактирането на страницата ще покаже текста на шаблона.',
 	'sf_form_docu' => 'Това е формулярът \'$1".
 За добавяне на страница с този формуляр, необходимо е да се въведе името на страницата по-долу;
-ако страница с това име вече съществува, ще бъде отворен формуляр за редактиране на страницата.',
+ако страница с това име вече съществува, ще бъде отворен формуляр за редактиране на страницата.', # Fuzzy
 	'sf_form_freetextlabel' => 'Свободен текст',
 	'sf_category_hasdefaultform' => 'Тази категория използва формуляра $1.',
 	'sf_category_desc' => 'Това е категорията $1.',
@@ -978,8 +972,8 @@ $messages['bn'] = array(
 	'sf_createtemplate_fieldname' => 'ফিল্ডের নাম:',
 	'sf_createtemplate_aggregationlabel' => 'তালিকার শিরোনাম:',
 	'sf_createtemplate_outputformat' => 'আউটপুটের বিন্যাস:',
-	'sf_createtemplate_standardformat' => 'আদর্শ',
-	'sf_createtemplate_infoboxformat' => 'ডান-হাতি তথ্যছক',
+	'sf_createtemplate_standardformat' => 'আদর্শ', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'ডান-হাতি তথ্যছক', # Fuzzy
 	'sf_createtemplate_addfield' => 'ফিল্ড যোগ',
 	'sf_createtemplate_deletefield' => 'অপসারণ',
 	'forms' => 'ফরম',
@@ -1036,8 +1030,8 @@ $messages['br'] = array(
 	'sf_createtemplate_aggregation' => 'Skolveuriadur',
 	'sf_createtemplate_aggregationlabel' => 'Titl evit al listenn :',
 	'sf_createtemplate_outputformat' => 'Furmad ezvont :',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Infobox dehou',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infobox dehou', # Fuzzy
 	'sf_createtemplate_addfield' => 'Ouzhpennañ ur vaezienn',
 	'sf_createtemplate_deletefield' => 'Diverkañ',
 	'sf_createtemplate_addtemplatebeforesave' => "Ret eo deoc'h ouzhpennañ ur patrom da nebeutañ d'ar furmskrid-mañ a-raok gallout e enrollañ.",
@@ -1155,8 +1149,8 @@ $messages['bs'] = array(
 	'sf_createtemplate_fieldislist' => 'Ovo polje može sadržavati spisak vrijednosti, razdvojene zarezima',
 	'sf_createtemplate_aggregationlabel' => 'Naslov za spisak:',
 	'sf_createtemplate_outputformat' => 'Izlazni format:',
-	'sf_createtemplate_standardformat' => 'Standardni',
-	'sf_createtemplate_infoboxformat' => 'Infokutija na desnoj strani',
+	'sf_createtemplate_standardformat' => 'Standardni', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infokutija na desnoj strani', # Fuzzy
 	'sf_createtemplate_addfield' => 'Dodaj polje',
 	'sf_createtemplate_deletefield' => 'Obriši',
 	'sf_createtemplate_addtemplatebeforesave' => 'Morate dodati najmanje jedan šablon u ovaj obrazac prije nego što ga sačuvate.',
@@ -1251,8 +1245,8 @@ $messages['ca'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Per crear una llista, a qualsevol pàgina que utilitzi aquesta plantilla, de tots els articles que tenen alguna propietat que apunta a aquesta pàgina, especifiqueu la propietat adequada a continuació:',
 	'sf_createtemplate_aggregationlabel' => 'Títol del llistat:',
 	'sf_createtemplate_outputformat' => 'Format de sortida:',
-	'sf_createtemplate_standardformat' => 'Estàndard',
-	'sf_createtemplate_infoboxformat' => 'Infocaixa a la dreta',
+	'sf_createtemplate_standardformat' => 'Estàndard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infocaixa a la dreta', # Fuzzy
 	'sf_createtemplate_addfield' => 'Afegeix un camp',
 	'sf_createtemplate_deletefield' => 'Elimina',
 	'sf_createtemplate_addtemplatebeforesave' => "Per poder guardar-lo has d'afegir com a mínim una plantilla a aquest formulari.",
@@ -1413,7 +1407,8 @@ $messages['ce'] = array(
 	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
 
-/** Sorani Kurdish (کوردی) */
+/** Sorani Kurdish (کوردی)
+ */
 $messages['ckb'] = array(
 	'sf_createtemplate_deletefield' => 'سڕینەوە',
 );
@@ -1427,7 +1422,7 @@ $messages['ckb'] = array(
  */
 $messages['cs'] = array(
 	'createproperty' => 'Vytvořit vlastnost',
-	'sf_createproperty_propname' => 'Název:',
+	'sf_createproperty_propname' => 'Název:', # Fuzzy
 	'sf_createproperty_proptype' => 'Typ:',
 	'templates' => 'Šablony',
 	'createtemplate' => 'Vytvořit šablonu',
@@ -1469,12 +1464,12 @@ $messages['cu'] = array(
  * @author Jon Harald Søby
  */
 $messages['da'] = array(
-	'sf_createproperty_propname' => 'Navn:',
-	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createproperty_propname' => 'Navn:', # Fuzzy
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Slet',
 	'sf_createform_template' => 'Skabelon:',
 	'sf_createform_inputtypedefault' => '(standard)',
-	'sf_createcategory_name' => 'Navn:',
+	'sf_createcategory_name' => 'Navn:', # Fuzzy
 	'sf_formedit_none' => 'Ingen',
 );
 
@@ -1843,7 +1838,8 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 	'right-editrestrictedfields' => 'Wobgranicowane formularne póla wobźěłaś',
 );
 
-/** Ewe (eʋegbe) */
+/** Ewe (eʋegbe)
+ */
 $messages['ee'] = array(
 	'sf_createtemplate_deletefield' => 'Tutui',
 );
@@ -1873,7 +1869,7 @@ $messages['el'] = array(
 	'sf_createtemplate_aggregation' => 'Συνάθροιση',
 	'sf_createtemplate_aggregationlabel' => 'Τίτλος για τη λίστα:',
 	'sf_createtemplate_outputformat' => 'Φορμά εξόδου:',
-	'sf_createtemplate_standardformat' => 'Συνήθης',
+	'sf_createtemplate_standardformat' => 'Συνήθης', # Fuzzy
 	'sf_createtemplate_addfield' => 'Προσθήκη περιοχής',
 	'sf_createtemplate_deletefield' => 'Διαγραφή',
 	'forms' => 'Μορφές',
@@ -1898,8 +1894,8 @@ $messages['el'] = array(
 	'sf_createcategory_name' => 'Όνομα κατηγορίας:',
 	'sf_createcategory_defaultform' => 'Προεπιλεγμένη φόρμα:',
 	'createclass' => 'Δημιουργία μίας κλάσης',
-	'sf_createclass_allowedvalues' => 'Επιτρεπόμενες αξίες',
-	'sf_createclass_listofvalues' => 'Κατάλογος τιμών',
+	'sf_createclass_allowedvalues' => 'Επιτρεπόμενες αξίες', # Fuzzy
+	'sf_createclass_listofvalues' => 'Κατάλογος τιμών', # Fuzzy
 	'sf_createclass_missingvalues' => 'Δεν συμπληρώθηκαν όλα τα απαραίτητα πεδία.',
 	'formstart' => 'Προσθέστε σελίδα με μορφή',
 	'sf_formstart_createoredit' => 'Δημιουργία ή επεξεργασία',
@@ -1954,15 +1950,15 @@ $messages['eo'] = array(
 	'sf_createtemplate_aggregation' => 'Agregaĵo',
 	'sf_createtemplate_aggregationlabel' => 'Titolo por listo:',
 	'sf_createtemplate_outputformat' => 'Eliga formato:',
-	'sf_createtemplate_standardformat' => 'Norma',
-	'sf_createtemplate_infoboxformat' => 'Dekstra informokesto',
+	'sf_createtemplate_standardformat' => 'Norma', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Dekstra informokesto', # Fuzzy
 	'sf_createtemplate_addfield' => 'Aldonu kampon',
 	'sf_createtemplate_deletefield' => 'Forigi',
 	'sf_createtemplate_addtemplatebeforesave' => 'Vi devas aldoni almenaŭ unu ŝablonon al ĉi kamparo antaŭ vi povas konservi ĝin.',
 	'forms' => 'Kamparoj',
 	'sf_forms_docu' => 'La jenaj kampoj ekzistas en la vikio.',
 	'sf_forminputs_mandatory' => 'Deviga',
-	'sf_forminputs_restricted' => 'Limigita (nur administrantaj uzantoj povas ŝanĝi ĝin)',
+	'sf_forminputs_restricted' => 'Limigita (nur administrantaj uzantoj povas ŝanĝi ĝin)', # Fuzzy
 	'createform' => 'Kreu kamparon',
 	'sf_createform_nameinput' => 'Nomo de la formularo',
 	'sf_createform_template' => 'Ŝablono:',
@@ -1987,8 +1983,8 @@ $messages['eo'] = array(
 	'sf_createcategory_defaultform' => 'Defaŭlta kamparo:',
 	'sf_createcategory_makesubcategory' => 'Faru ĉi tiun kiel kategorion de alia kategorio (nedevige):',
 	'createclass' => 'Krei klason',
-	'sf_createclass_allowedvalues' => 'Permesitaj valoroj',
-	'sf_createclass_listofvalues' => 'Listo de valoroj',
+	'sf_createclass_allowedvalues' => 'Permesitaj valoroj', # Fuzzy
+	'sf_createclass_listofvalues' => 'Listo de valoroj', # Fuzzy
 	'formstart' => 'Aldoni paĝon kun kamparo',
 	'sf_formstart_badform' => 'Eraro: neniu kampara paĝo estis trovita ĉe $1',
 	'sf_formstart_createoredit' => 'Krei aŭ redakti',
@@ -2030,6 +2026,7 @@ $messages['eo'] = array(
  * @author Fitoschido
  * @author Jatrobat
  * @author Jewbask
+ * @author Maor X
  * @author Pertile
  * @author Peter17
  * @author Sanbec
@@ -2275,8 +2272,8 @@ $messages['fa'] = array(
 	'semanticforms-desc' => 'فرم‌هایی برای افزودن و ویرایش اطلاعات معنایی',
 	'specialpages-group-sf_group' => 'فرم‌های معنایی',
 	'createproperty' => 'ویژگی بسازید',
-	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\\،" جایگزین نمایید):',
-	'sf_createproperty_propname' => 'نام:',
+	'sf_createproperty_allowedvalsinput' => 'اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد،سیاهه مقادیر را وارد کنید و آنها را با کاما جدا سازید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با "\\،" جایگزین نمایید):', # Fuzzy
+	'sf_createproperty_propname' => 'نام:', # Fuzzy
 	'sf_createproperty_proptype' => 'نوع:',
 	'templates' => 'الگوها',
 	'sf_templates_docu' => 'الگوهای زیر در این ویکی وجود دارند.',
@@ -2291,11 +2288,11 @@ $messages['fa'] = array(
 	'sf_createtemplate_semanticproperty' => 'ویژگی معنایی:',
 	'sf_createtemplate_fieldislist' => 'این ورودی می‌تواند یک سیاهه از مقادیر را که با کاما از هم جدا شده‌اند، در خود ذخیره کند',
 	'sf_createtemplate_aggregation' => 'تراکم',
-	'sf_createtemplate_aggregationdesc' => 'برای داشتن سیاهه همه صفحاتی که این الگو را به‌کار می‌برند، و همه آن مقالاتی که با ویژگی معینی با آن صفحه در ارتباط هستند، وِیژگی مناسب را مشخص کنید:',
+	'sf_createtemplate_aggregationdesc' => 'برای داشتن سیاهه همه صفحاتی که این الگو را به‌کار می‌برند، و همه آن مقالاتی که با ویژگی معینی با آن صفحه در ارتباط هستند، وِیژگی مناسب را مشخص کنید:', # Fuzzy
 	'sf_createtemplate_aggregationlabel' => 'عنوان سیاهه',
 	'sf_createtemplate_outputformat' => 'قالب خروجی:',
-	'sf_createtemplate_standardformat' => 'استاندارد',
-	'sf_createtemplate_infoboxformat' => 'جعبه اطلاعات سمت راست',
+	'sf_createtemplate_standardformat' => 'استاندارد', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'جعبه اطلاعات سمت راست', # Fuzzy
 	'sf_createtemplate_addfield' => 'افزودن ورودی',
 	'sf_createtemplate_deletefield' => 'حذف',
 	'sf_createtemplate_addtemplatebeforesave' => 'قبل از اینکه بتوانید فرم را ذخیره کنید، شما می‌بایست حداقل یک الگو به این فرم اضافه نمایید.',
@@ -2304,7 +2301,7 @@ $messages['fa'] = array(
 	'sf_forminputs_mandatory' => 'الزامی',
 	'sf_forminputs_restricted' => 'فقط مدیران می‌توانند این ورودی را ویرایش کنند',
 	'createform' => 'فرم بسازید',
-	'sf_createform_nameinput' => 'نام فرم (بهتر است که بعد از پر شدن به‌وسیله یک الگو، فرم نام‌گذاری شود):',
+	'sf_createform_nameinput' => 'نام فرم (بهتر است که بعد از پر شدن به‌وسیله یک الگو، فرم نام‌گذاری شود):', # Fuzzy
 	'sf_createform_template' => 'الگو:',
 	'sf_createform_templatelabelinput' => 'برچسب الگو (دلخواه):',
 	'sf_createform_allowmultiple' => 'می‌توان چند (یا صفر) نمونه از این الگو را در ساختن صفحه‌ها استفاده کرد',
@@ -2323,7 +2320,7 @@ $messages['fa'] = array(
 	'sf_createform_add' => 'افزودن',
 	'sf_createform_choosefield' => 'یک ورودی برای افزودن انتخاب کنید',
 	'createcategory' => 'رده بسازید',
-	'sf_createcategory_name' => 'نام:',
+	'sf_createcategory_name' => 'نام:', # Fuzzy
 	'sf_createcategory_defaultform' => 'فرم پیش‌فرض:',
 	'sf_createcategory_makesubcategory' => 'قرار دادن این رده به عنوان زیررده یک رده دیگر(دلخواه):',
 	'formstart' => 'افزودن صفحه',
@@ -2355,10 +2352,10 @@ $messages['fa'] = array(
 	'uploadwindow' => 'پنجره بارگذاری',
 	'sf_deletionlog' => 'سیاههٔ حذف',
 	'sf_property_isproperty' => 'این یک ویژگی از نوع $1 است.',
-	'sf_property_allowedvals' => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:',
+	'sf_property_allowedvals' => 'مقادیر مجاز برای این ویژگی یا صفت این‌ها هستند:', # Fuzzy
 	'sf_template_docu' => "این الگوی '$1' است. باید با این قالب فراخوانی شود:",
 	'sf_template_docufooter' => 'برای مشاهده متن الگو صفحه را ویرایش کنید.',
-	'sf_form_docu' => "این فرم '$1' است. برای افزودن یک صفحه به‌وسیله این فرم،نام صفحه را وارد کنید، اگر صفحه‌ای با این نام وجود داشته باشد، به فرم ویرایش صفحه هدایت می‌شوید.",
+	'sf_form_docu' => "این فرم '$1' است. برای افزودن یک صفحه به‌وسیله این فرم،نام صفحه را وارد کنید، اگر صفحه‌ای با این نام وجود داشته باشد، به فرم ویرایش صفحه هدایت می‌شوید.", # Fuzzy
 	'sf_form_freetextlabel' => 'متن دلخواه',
 	'sf_category_hasdefaultform' => 'این رده از فرم $1 استفاده می‌کند.',
 	'sf_category_desc' => 'این رده $1 است.',
@@ -2401,8 +2398,8 @@ $messages['fi'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Jos haluat listan (millä tahansa mallinetta käyttävällä sivulla) sivuista, joilla on tietty ominaisuus, joka osoittaa sivuun, määrittele sopiva ominaisuus alle:',
 	'sf_createtemplate_aggregationlabel' => 'Listan otsikko',
 	'sf_createtemplate_outputformat' => 'Tulostemuoto',
-	'sf_createtemplate_standardformat' => 'Oletusmuoto',
-	'sf_createtemplate_infoboxformat' => 'Oikealla tietolaatikossa',
+	'sf_createtemplate_standardformat' => 'Oletusmuoto', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Oikealla tietolaatikossa', # Fuzzy
 	'sf_createtemplate_addfield' => 'Lisää kenttä',
 	'sf_createtemplate_deletefield' => 'Poista',
 	'sf_createtemplate_addtemplatebeforesave' => 'Sinun pitää lisätä ainakin yksi malline tähän lomakkeeseen, ennen kuin voit tallentaa sen.',
@@ -2412,7 +2409,7 @@ $messages['fi'] = array(
 	'sf_forminputs_restricted' => 'Vain ylläpitäjät voivat muokata tätä syötettä',
 	'createform' => 'Luo lomake',
 	'sf_createform_nameinput' => 'Lomakkeen nimi',
-	'sf_createform_nameinputdesc' => '(hyvä tapa on nimetä lomake sen pääasiallisen mallineen mukaan):',
+	'sf_createform_nameinputdesc' => '(hyvä tapa on nimetä lomake sen pääasiallisen mallineen mukaan):', # Fuzzy
 	'sf_createform_template' => 'Malline',
 	'sf_createform_templatelabelinput' => 'Mallineen näyttönimi (ei-pakollinen)',
 	'sf_createform_allowmultiple' => 'Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan',
@@ -2799,7 +2796,7 @@ $messages['frp'] = array(
  * @author Snakesteuben
  */
 $messages['fy'] = array(
-	'sf_createtemplate_standardformat' => 'Standert',
+	'sf_createtemplate_standardformat' => 'Standert', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Wiskje',
 	'sf_createform_inputtypedefault' => '(standert)',
 	'sf_createform_add' => 'Tafoegje',
@@ -3077,8 +3074,8 @@ $messages['gsw'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Zum uf allene Syte, wu die Vorlag bruuche, alli Syte ufzlischte, wu ne bstimmt Attribut hän un uf die Syte verwyyse, gib s gwinscht Attribut do aa:',
 	'sf_createtemplate_aggregationlabel' => 'Titel fir Lischt:',
 	'sf_createtemplate_outputformat' => 'Uusgabformat:',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Infobox uf dr rächte Syte',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infobox uf dr rächte Syte', # Fuzzy
 	'sf_createtemplate_addfield' => 'Fieg Fäld yy',
 	'sf_createtemplate_deletefield' => 'Lesche',
 	'sf_createtemplate_addtemplatebeforesave' => 'Du muesch zmindescht ei Vorlag zue däm Formular zuefiege, voreb Du s cha spychere.',
@@ -3099,7 +3096,7 @@ $messages['gsw'] = array(
 	'sf_forminputs_cols' => 'D Spaltezaal für des Yygabefäld',
 	'createform' => 'Leg e Formular aa',
 	'sf_createform_nameinput' => 'Formularname',
-	'sf_createform_nameinputdesc' => '(no dr Konvention wird e Formular no dr Hauptvorlag gnännt, wu s fillt):',
+	'sf_createform_nameinputdesc' => '(no dr Konvention wird e Formular no dr Hauptvorlag gnännt, wu s fillt):', # Fuzzy
 	'sf_createform_template' => 'Vorlag:',
 	'sf_createform_templatelabelinput' => 'Vorlagename (optional):',
 	'sf_createform_allowmultiple' => 'Erlaub mehreri (oder null) Instanze vu däre Vorlag in dr aagleite Syte',
@@ -3123,8 +3120,8 @@ $messages['gsw'] = array(
 	'sf_createcategory_makesubcategory' => 'Mach die Kategorii zuen ere Subkategorii vun ere andere Kategorii (optional):',
 	'createclass' => 'E Klasse aalege',
 	'sf_createclass_docu' => 'Gib do alli Date yy go d Eigeschafte, e Vorlag, e Formular un e Kategorii fir e einzelni Klasse aalege. Fir meh Megligkeite verwänd stattdem d Syte $1.',
-	'sf_createclass_allowedvalues' => 'Erlaubti Wärt',
-	'sf_createclass_listofvalues' => 'Lischt vu Wärt',
+	'sf_createclass_allowedvalues' => 'Erlaubti Wärt', # Fuzzy
+	'sf_createclass_listofvalues' => 'Lischt vu Wärt', # Fuzzy
 	'sf_createclass_missingvalues' => 'S sin nonig alli erforderlige Fälder uusgfillt.',
 	'sf_createclass_success' => 'Eigeschafte, Vorlag, Formular und Kategorii wäre aagleit.',
 	'formstart' => 'Syte mit Formular zuefiege',
@@ -3182,7 +3179,7 @@ Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, w
  */
 $messages['gu'] = array(
 	'sf_forminputs_mandatory' => 'ફરજિયાત',
-	'sf_forminputs_restricted' => 'સંરક્ષિત (ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે)',
+	'sf_forminputs_restricted' => 'સંરક્ષિત (ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે)', # Fuzzy
 	'sf_createform_hidden' => 'છુપાયેલ',
 	'sf_createform_removetemplate' => 'ઢાંચો દૂર કરો',
 	'sf_createform_addtemplate' => 'ઢાંચો ઉમેરો:',
@@ -3190,7 +3187,7 @@ $messages['gu'] = array(
 	'sf_createform_atend' => 'અંતમાં',
 	'sf_createform_add' => 'ઉમેરો',
 	'createcategory' => 'શ્રેણીની રચના કરો',
-	'sf_createcategory_name' => 'નામ',
+	'sf_createcategory_name' => 'નામ', # Fuzzy
 	'sf_createcategory_makesubcategory' => 'આને અન્ય શ્રેણીની ઉપશ્રેણી બનાવો (વૈકલ્પિક):',
 	'formstart' => 'ફોર્મ વાળું પાનું ઉમેરો',
 	'sf_blank_namespace' => 'મુખ્ય',
@@ -3206,7 +3203,8 @@ $messages['gv'] = array(
 	'sf_createcategory_name' => 'Ennym ronney:',
 );
 
-/** Hausa (Hausa) */
+/** Hausa (Hausa)
+ */
 $messages['ha'] = array(
 	'sf_createtemplate_deletefield' => 'Soke',
 );
@@ -3223,10 +3221,10 @@ $messages['hak'] = array(
  * @author Singularity
  */
 $messages['haw'] = array(
-	'sf_createproperty_propname' => 'Inoa:',
+	'sf_createproperty_propname' => 'Inoa:', # Fuzzy
 	'sf_createform_inputtypedefault' => '(paʻamau)',
 	'sf_createform_add' => 'Ho‘ohui',
-	'sf_createcategory_name' => 'Inoa:',
+	'sf_createcategory_name' => 'Inoa:', # Fuzzy
 	'sf_formedit_remove' => 'Kāpae',
 );
 
@@ -3261,8 +3259,8 @@ $messages['he'] = array(
 	'sf_createtemplate_aggregationdesc' => 'כדי להציג בכל דף המשתמש בתבנית זו את כל הדפים המכילים מאפיין מסוים המצביע לדף זה, ציינו את המאפיין המתאים להלן:',
 	'sf_createtemplate_aggregationlabel' => 'כותרת לרשימה:',
 	'sf_createtemplate_outputformat' => 'מבנה הפלט:',
-	'sf_createtemplate_standardformat' => 'תקני',
-	'sf_createtemplate_infoboxformat' => 'תיבת מידע מצד שמאל',
+	'sf_createtemplate_standardformat' => 'תקני', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'תיבת מידע מצד שמאל', # Fuzzy
 	'sf_createtemplate_addfield' => 'הוספת שדה',
 	'sf_createtemplate_deletefield' => 'מחיקה',
 	'sf_createtemplate_addtemplatebeforesave' => 'עליכם להוסיף לפחות תבנית אחת לטופס זה לפני שתוכלו לשמור אותו.',
@@ -3418,7 +3416,7 @@ $messages['he'] = array(
  */
 $messages['hi'] = array(
 	'createproperty' => 'एक गुणधर्म बनायें',
-	'sf_createproperty_propname' => 'नाम:',
+	'sf_createproperty_propname' => 'नाम:', # Fuzzy
 	'sf_createproperty_proptype' => 'प्रकार:',
 	'templates' => 'साँचे',
 	'sf_templates_definescat' => 'श्रेणीकी व्याख्या: $1',
@@ -3431,13 +3429,13 @@ $messages['hi'] = array(
 	'sf_createtemplate_aggregation' => 'एग्रिगेशन',
 	'sf_createtemplate_aggregationlabel' => 'सूची शीर्षक:',
 	'sf_createtemplate_outputformat' => 'आउटपुट रूपरेखा:',
-	'sf_createtemplate_standardformat' => 'स्टँडर्ड',
-	'sf_createtemplate_infoboxformat' => 'दाईं ओर ज्ञानसन्दूक',
+	'sf_createtemplate_standardformat' => 'स्टँडर्ड', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'दाईं ओर ज्ञानसन्दूक', # Fuzzy
 	'sf_createtemplate_addfield' => 'फ़िल्ड बढायें',
 	'sf_createtemplate_deletefield' => 'हटायें',
 	'forms' => 'फ़ार्म',
 	'sf_forminputs_mandatory' => 'अत्यावश्यक',
-	'sf_forminputs_restricted' => 'प्रतिबंधित (सिर्फ प्रबंधक बदल सकतें हैं)',
+	'sf_forminputs_restricted' => 'प्रतिबंधित (सिर्फ प्रबंधक बदल सकतें हैं)', # Fuzzy
 	'createform' => 'फ़ार्म बनायें',
 	'sf_createform_template' => 'साँचा:',
 	'sf_createform_templatelabelinput' => 'साँचा लेबल (वैकल्पिक):',
@@ -3453,12 +3451,12 @@ $messages['hi'] = array(
 	'sf_createform_add' => 'बढायें',
 	'sf_createform_choosefield' => 'बढाने के लिये फ़िल्ड चुनें',
 	'createcategory' => 'श्रेणी बनायें',
-	'sf_createcategory_name' => 'नाम:',
+	'sf_createcategory_name' => 'नाम:', # Fuzzy
 	'sf_createcategory_defaultform' => 'डिफ़ाल्ट फ़ार्म:',
 	'formstart' => 'पन्ना बढायें',
-	'sf_formstart_createoredit' => 'बढायें या बदलें',
+	'sf_formstart_createoredit' => 'बढायें या बदलें', # Fuzzy
 	'formedit' => 'फ़ार्म के साथ बदलें',
-	'sf_formedit_createtitle' => 'बढायें $1: $2',
+	'sf_formedit_createtitle' => 'बढायें $1: $2', # Fuzzy
 	'sf_editsource' => 'स्रोत बदलें',
 	'sf_formedit_edittitle' => 'बदलें $1: $2',
 	'sf_formedit_remove' => 'हटायें',
@@ -3702,8 +3700,8 @@ $messages['hu'] = array(
 	'sf_createtemplate_aggregationdesc' => 'A listázáshoz bármelyik lapon, ami ezt a sablont használja, az összes olyen lapnak, melynek van egy bizonyos tulajdonsága, ami arra a lapra mutat, add meg az alább látható tulajdonságot:',
 	'sf_createtemplate_aggregationlabel' => 'Lista címe:',
 	'sf_createtemplate_outputformat' => 'Kimeneti formátum:',
-	'sf_createtemplate_standardformat' => 'Alapértelmezett',
-	'sf_createtemplate_infoboxformat' => 'Jobboldai infobox',
+	'sf_createtemplate_standardformat' => 'Alapértelmezett', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Jobboldai infobox', # Fuzzy
 	'sf_createtemplate_addfield' => 'Mező hozzáadása',
 	'sf_createtemplate_deletefield' => 'Törlés',
 	'sf_createtemplate_addtemplatebeforesave' => 'Legalább egy sablont hozzá kell rendelned az űrlaphoz a mentés előtt.',
@@ -3830,8 +3828,8 @@ $messages['ia'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Pro listar, in omne pagina que usa iste patrono, tote le paginas que ha un certe proprietate punctante verso ille pagina, specifica le proprietate in question ci infra:',
 	'sf_createtemplate_aggregationlabel' => 'Titulo pro lista:',
 	'sf_createtemplate_outputformat' => 'Formato de output:',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Quadro de information a dextra',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Quadro de information a dextra', # Fuzzy
 	'sf_createtemplate_addfield' => 'Adder campo',
 	'sf_createtemplate_deletefield' => 'Deler',
 	'sf_createtemplate_addtemplatebeforesave' => 'Tu debe adder al minus un patrono a iste formulario ante que tu pote salveguardar lo.',
@@ -4012,8 +4010,8 @@ $messages['id'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Untuk memberikan daftar, pada setiap halaman yang menggunakan templat ini, semua halaman yang memiliki properti tertentu yang merujuk ke halaman tersebut, tentukan properti yang sesuai di bawah ini:',
 	'sf_createtemplate_aggregationlabel' => 'Judul daftar:',
 	'sf_createtemplate_outputformat' => 'Format keluaran:',
-	'sf_createtemplate_standardformat' => 'Standar',
-	'sf_createtemplate_infoboxformat' => 'Kotak info di sisi kanan',
+	'sf_createtemplate_standardformat' => 'Standar', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Kotak info di sisi kanan', # Fuzzy
 	'sf_createtemplate_addfield' => 'Tambahkan kolom',
 	'sf_createtemplate_deletefield' => 'Hapus',
 	'sf_createtemplate_addtemplatebeforesave' => 'Anda harus memberikan paling tidak satu templat untuk formulir ini sebelum dapat menyimpannya.',
@@ -4074,8 +4072,8 @@ $messages['id'] = array(
 	'sf_createcategory_makesubcategory' => 'Jadikan sebagai subkategori dari kategori lain (opsional):',
 	'createclass' => 'Buat kelas',
 	'sf_createclass_docu' => 'Masukkan semua data di sini untuk membuat properti, tempat, formulir, dan kategori untuk suatu kelas tunggal. Untuk lebih banyak pilihan, gunakan halaman $1.',
-	'sf_createclass_allowedvalues' => 'Nilai yang diizinkan',
-	'sf_createclass_listofvalues' => 'Daftar nilai',
+	'sf_createclass_allowedvalues' => 'Nilai yang diizinkan', # Fuzzy
+	'sf_createclass_listofvalues' => 'Daftar nilai', # Fuzzy
 	'sf_createclass_missingvalues' => 'Tidak semua kolom yang diperlukan telah diisi.',
 	'sf_createclass_success' => 'Properti, templat, formulir, dan kategori akan dibuat.',
 	'formstart' => 'Buat halaman dengan formulir',
@@ -4161,9 +4159,9 @@ $messages['io'] = array(
  * @author S.Örvarr.S
  */
 $messages['is'] = array(
-	'sf_createproperty_propname' => 'Nafn:',
-	'sf_createtemplate_standardformat' => 'Staðlað',
-	'sf_createcategory_name' => 'Nafn:',
+	'sf_createproperty_propname' => 'Nafn:', # Fuzzy
+	'sf_createtemplate_standardformat' => 'Staðlað', # Fuzzy
+	'sf_createcategory_name' => 'Nafn:', # Fuzzy
 );
 
 /** Italian (italiano)
@@ -4395,9 +4393,9 @@ $messages['ja'] = array(
 	'sf_forminputs_defaultfilename' => 'アップロードされたファイルの既定のファイル名',
 	'sf_forminputs_rows' => 'この入力の行数',
 	'sf_forminputs_cols' => 'この入力の列数',
-	'sf_forminputs_valuesfromproperty' => 'そのウィキ内の値のプロパティは、この値の入力のセットになります',
-	'sf_forminputs_valuesfromcategory' => 'ページの値のこの入力のセットがあるはずのカテゴリ',
-	'sf_forminputs_valuesfromnamespace' => 'そのページの名前空間は、この値の入力のセットになります',
+	'sf_forminputs_valuesfromproperty' => 'そのウィキ内の値のプロパティは、この値の入力のセットになります', # Fuzzy
+	'sf_forminputs_valuesfromcategory' => 'ページの値のこの入力のセットがあるはずのカテゴリ', # Fuzzy
+	'sf_forminputs_valuesfromnamespace' => 'そのページの名前空間は、この値の入力のセットになります', # Fuzzy
 	'sf_forminputs_list' => 'この入力が複数の値の列挙を保持できるように印を付ける',
 	'sf_forminputs_delimiter' => 'この入力が複数のフィールド値の列挙を保持する場合の、値の間の区切り文字',
 	'sf_forminputs_remoteautocompletion' => 'リモート自動補完を使用',
@@ -4529,10 +4527,10 @@ $messages['jv'] = array(
 	'sf_createtemplate_fieldname' => 'Jeneng lapangan:',
 	'sf_createtemplate_semanticproperty' => 'Sifat sémantik:',
 	'sf_createtemplate_aggregationlabel' => 'Irah-irahan kanggo daftar:',
-	'sf_createtemplate_standardformat' => 'Baku',
+	'sf_createtemplate_standardformat' => 'Baku', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Busak',
 	'forms' => 'Formulir-formulir',
-	'sf_forminputs_restricted' => 'Diwatesi (namung para panganggo opsis sing bisa modifikasi)',
+	'sf_forminputs_restricted' => 'Diwatesi (namung para panganggo opsis sing bisa modifikasi)', # Fuzzy
 	'createform' => 'Nggawé formulir',
 	'sf_createform_template' => 'Cithakan:',
 	'sf_createform_templatelabelinput' => 'Label cithakan (opsional):',
@@ -4638,14 +4636,14 @@ $messages['km'] = array(
 	'sf_createtemplate_displaylabel' => 'បង្ហាញ​ស្លាក:',
 	'sf_createtemplate_aggregationlabel' => 'ចំណងជើង​សម្រាប់​បញ្ជី:',
 	'sf_createtemplate_outputformat' => 'ទ្រ់ង់ទ្រាយ​ទិន្នផល:',
-	'sf_createtemplate_standardformat' => 'ស្តង់ដារ',
-	'sf_createtemplate_infoboxformat' => 'ប្រអប់​ព័ត៌មាន​ខាងស្ដាំដៃ',
+	'sf_createtemplate_standardformat' => 'ស្តង់ដារ', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'ប្រអប់​ព័ត៌មាន​ខាងស្ដាំដៃ', # Fuzzy
 	'sf_createtemplate_addfield' => 'បន្ថែម​វាល',
 	'sf_createtemplate_deletefield' => 'លុបចេញ',
 	'sf_createtemplate_addtemplatebeforesave' => 'អ្នក​ត្រូវតែ​បន្ថែម​ទំព័រគំរូ​យ៉ាងតិចមួយ​ទៅក្នុង​ទម្រង់​នេះ មុនពេល​អ្នក​អាច​រក្សា​វា​ទុក​។',
 	'forms' => 'បែបបទ',
 	'sf_forms_docu' => 'ទម្រង់​ដូចតទៅនេះ មាន​នៅ​ក្នុង​វិគី​រួច​ហើយ​។',
-	'sf_forminputs_restricted' => 'ត្រូវ​បាន​កម្រិត (មានតែ​អ្នកភិបាលបាល​ប៉ុណ្ណោះ​ទើប​មាន​សិទ្ធិ​កែប្រែ​បាន)',
+	'sf_forminputs_restricted' => 'ត្រូវ​បាន​កម្រិត (មានតែ​អ្នកភិបាលបាល​ប៉ុណ្ណោះ​ទើប​មាន​សិទ្ធិ​កែប្រែ​បាន)', # Fuzzy
 	'createform' => 'បង្កើត មួយបែបបទ',
 	'sf_createform_template' => 'ទំព័រគំរូ៖',
 	'sf_createform_templatelabelinput' => 'ប្លាកគំរូខ្នាត (ជំរើស):',
@@ -4688,7 +4686,7 @@ $messages['km'] = array(
 	'sf_template_docu' => "នេះ​គឺជា​ទំព័រគំរូ '$1' ។
 វា​នឹង​ត្រូវ​គេ​ហៅ​មកប្រើប្រាស់ នៅក្នុង​ទ្រង់ទ្រាយ​ដូចតទៅ៖",
 	'sf_template_docufooter' => 'កែប្រែទំព័រ ដើម្បីឃើញអត្ថបទគំរូ ។',
-	'sf_form_docu' => "នេះ​គឺ​ជាបែប​បទ​​ '$1'​។ ដើម្បី​បន្ថែម​ទំព័រ​មួយ​ជាមួយ​បែប​បទ​​នេះ​ សូមវាយ​បញ្ចូល​ឈ្មោះ​ទំព័រ​ខាង​ក្រោម​។​ ប្រសិន​បើ​មានទំព័រ​ដែល​មានឈ្មោះ​នោះ​រួច​ហើយ​ អ្នក​នឹង​ត្រូវ​បាន​ផ្ញើ​ទៅ​កាន់​បែប​បទ​​មួយ​ដើម្បី​កែប្រែ​ទំព័រ​នោះ​។​",
+	'sf_form_docu' => "នេះ​គឺ​ជាបែប​បទ​​ '$1'​។ ដើម្បី​បន្ថែម​ទំព័រ​មួយ​ជាមួយ​បែប​បទ​​នេះ​ សូមវាយ​បញ្ចូល​ឈ្មោះ​ទំព័រ​ខាង​ក្រោម​។​ ប្រសិន​បើ​មានទំព័រ​ដែល​មានឈ្មោះ​នោះ​រួច​ហើយ​ អ្នក​នឹង​ត្រូវ​បាន​ផ្ញើ​ទៅ​កាន់​បែប​បទ​​មួយ​ដើម្បី​កែប្រែ​ទំព័រ​នោះ​។​", # Fuzzy
 	'sf_form_freetextlabel' => 'អត្ថបទ​សេរី​',
 	'sf_category_hasdefaultform' => 'ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។',
 	'sf_category_desc' => 'នេះ​គឺជា​ចំណាត់ថ្នាក់ក្រុម $1 ។',
@@ -4878,15 +4876,15 @@ $messages['ksh'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Öm op jede Sigg, di di Schabloon he bruch, all de Sigge opzeleste, di_j_en beshtemmpte Eijeschaff han, di op hee di Sigg zeije deiht, donn jenou di Eijeschaff hee dronger aanjevve:',
 	'sf_createtemplate_aggregationlabel' => 'De Överschreff för de Leß:',
 	'sf_createtemplate_outputformat' => 'Dat Fommaat för et Ußjävve:',
-	'sf_createtemplate_standardformat' => 'Shtanndat',
-	'sf_createtemplate_infoboxformat' => 'Ene Kaste op de rääschte Sigg',
+	'sf_createtemplate_standardformat' => 'Shtanndat', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Ene Kaste op de rääschte Sigg', # Fuzzy
 	'sf_createtemplate_addfield' => 'E Feld dobei donn',
 	'sf_createtemplate_deletefield' => 'Fottschmiiße',
 	'sf_createtemplate_addtemplatebeforesave' => 'Do moß ald winnishßdens ein Schabloon en dat Fommulaa enjedraare hann, ih dat De jet afspeishere kanns.',
 	'forms' => 'Fommulaare',
 	'sf_forms_docu' => 'Hee di Fommulaare ham_mer em Wiki.',
 	'sf_forminputs_mandatory' => 'Nüüdesch',
-	'sf_forminputs_restricted' => 'Bloß de Wiki-Köbesse künne hee jet draan ändere.',
+	'sf_forminputs_restricted' => 'Bloß de Wiki-Köbesse künne hee jet draan ändere.', # Fuzzy
 	'sf_forminputs_listboxsize' => 'De Aanzahl Reihje för de Hühde vun dä Leß',
 	'sf_forminputs_includetimezone' => 'Donn e Feld dobei för de Zickzohn enzejävve',
 	'sf_forminputs_topcategory' => 'De övverjeodente Saachjropp för heh dä Knubbel vun Saachjroppe (nüüdesch)',
@@ -4894,7 +4892,7 @@ $messages['ksh'] = array(
 	'sf_forminputs_width' => 'De Breedt vun heh däm Fäld en Pixelle',
 	'createform' => 'Donn e Fommulaa aanlääje',
 	'sf_createform_nameinput' => 'Dä Name för dat Fommulaa',
-	'sf_createform_nameinputdesc' => '(För jewöhnlesch deiht mer dat Fommulaa noh dä Houp-Schabloon deufe, woh et Date erin brängk):',
+	'sf_createform_nameinputdesc' => '(För jewöhnlesch deiht mer dat Fommulaa noh dä Houp-Schabloon deufe, woh et Date erin brängk):', # Fuzzy
 	'sf_createform_template' => 'Schabloon:',
 	'sf_createform_templatelabelinput' => 'Dä Name vun dä Schablon, wann ein jebruch weed:',
 	'sf_createform_allowmultiple' => 'Donn zwesche noll un jede Aanzahl Oproofe vun dä Schabloon hee, en dä neu aanjelaate Sigg zohlohße',
@@ -4903,7 +4901,7 @@ $messages['ksh'] = array(
 	'sf_createform_fieldproplist' => 'Dat Feld beschrief en Leß met Ellemänte met dä Eijeschaff „$1“, vun dä Zoot „$2“.',
 	'sf_createform_fieldpropunknowntype' => 'Dat Feld beschrief de Eijeschaff „$1“, wat fö_n Zoot Eijeschaff dat dat es, es nit jesaat.',
 	'sf_createform_inputtype' => 'De Zoot vun dä Date för enzejävve:',
-	'sf_createform_inputtypedefault' => '(dä Shtandatt)',
+	'sf_createform_inputtypedefault' => '(dä Schtandatt)',
 	'sf_createform_formlabel' => 'Däm Fommulaa singe Name:',
 	'sf_createform_hidden' => 'Verschtoche',
 	'sf_createform_removetemplate' => 'Maach de Schabloon fott',
@@ -4918,8 +4916,8 @@ $messages['ksh'] = array(
 	'sf_createcategory_makesubcategory' => 'Donn di Saachjropp als Ongerjropp endraare en dä Saachjropp (udder lohß leddisch):',
 	'createclass' => 'Zoot ov Klass aanlääje.',
 	'sf_createclass_docu' => 'Donn hee all de Date enjevve, öm de Eijeschaffte, de SChabloon, dat Fommulaa, un de Saachjropp för en einzel Zoot ov Klass aanzelääje. Wann de mieh Müjjeleschkeite wells, donn de Sigg $1 doför nämme.',
-	'sf_createclass_allowedvalues' => 'Zohjelohße Wääte',
-	'sf_createclass_listofvalues' => 'Leß met Wääte',
+	'sf_createclass_allowedvalues' => 'Zohjelohße Wääte', # Fuzzy
+	'sf_createclass_listofvalues' => 'Leß met Wääte', # Fuzzy
 	'sf_createclass_missingvalues' => 'Nit alle vun de nüüdejje Felder sin ußjeföllt.',
 	'sf_createclass_success' => 'De Eijeschaffte, en Schabloon, dat Fommulaa, un de Saachjrupp wäde aanjelaat.',
 	'formstart' => 'Donn en Sigg dobei övver e Fommullaa',
@@ -4927,9 +4925,9 @@ $messages['ksh'] = array(
 	'sf_formstart_badtitle' => 'Fähler: „$1“ es ene onjöltige Sigggetittel.',
 	'sf_formstart_docu' => 'Jiff hee dä Name vun dä Sigg en, di mem Fommulaa „$1“ beärbeidt wäde sull. Wann de Sigg ald doh es, küß De op dat Fommullaa, för di Sigg ze ändere. Söns küß De op dat Fommullaa för di Sigg aanzelääje.',
 	'sf_formstart_noform_docu' => 'Jiff hee dä Name vun däm Sigg en, un donn dat Fommulaa ußsööke woh drövver di Sigg beärbeidt wäde sull. Wann di Sigg ald doh es, küß De op dat Fommullaa, för di Sigg ze ändere. Söns küß De op dat Fommullaa för di Sigg aanzelääje.',
-	'sf_formstart_createoredit' => 'Dobei donn udder Ändere',
+	'sf_formstart_createoredit' => 'Dobei donn udder Ändere', # Fuzzy
 	'formedit' => 'Date övver e Fommullaa änndere',
-	'sf_formedit_createtitle' => 'Donn $1 dobei: $2',
+	'sf_formedit_createtitle' => 'Donn $1 dobei: $2', # Fuzzy
 	'sf_formedit_createtitlenotarget' => 'Donn $1 aanlääje',
 	'sf_formedit_badurl' => "Date es de Sigg för Date dobei ze donn. Do moß ene Name för e Fommulaa un för en Sigg an dä ierem <i lang=\"en\">URL</i> aanjevve. Dat sullt eu ähnlesch ußsinn, wieh: <code>{{#special:addData}}?form=''<Fomullaa_Name>''&target=''<Sigge_Name>''</code>, udder wi: <code>{{#special:addData}}/''<Fomullaa_Name >''/''<Sigge_Name>''</code>.",
 	'sf_formedit_altforms' => 'Shtatt dämm kanns De di Sigg övver ein vun hee dä Fommulaare aanlääje:',
@@ -4968,7 +4966,7 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''<Fomullaa_Name >''</co
 	'sf_template_docu' => 'Dat es de Schabloon för „$1“, un dat Fommaat för se opzeroofe es:',
 	'sf_template_docufooter' => 'Donn di Sigg zom Ändere oproofe, öm dä Schablone iere Enhalldt als Tex ze sinn ze krijje.',
 	'sf_form_docu' => 'Dat hee de dat Fommullaa „$1“.
-Öm hee met en Sigg aanzelääje, donn unge dä Name för di Sigg endraare. Sullt di Sigg ald doh sin, küß De op dat Fommullaa för di Sigg ze ändere.',
+Öm hee met en Sigg aanzelääje, donn unge dä Name för di Sigg endraare. Sullt di Sigg ald doh sin, küß De op dat Fommullaa för di Sigg ze ändere.', # Fuzzy
 	'sf_form_freetextlabel' => 'Freije Tex',
 	'sf_category_hasdefaultform' => 'Hee di Saachjropp bruch dat Fommulaa „$1“.',
 	'sf_category_desc' => 'Dat es de Saachjropp „$1“.',
@@ -5124,8 +5122,8 @@ $messages['li'] = array(
  */
 $messages['lt'] = array(
 	'createproperty' => 'Sukurti savybę',
-	'sf_createproperty_allowedvalsinput' => 'Jeigu norite, kad šis laukas galėtų įgyti tik konkrečias reikšmes, surašykite visas leistinas reikšmes, atskirtas kableliais (jeigu reikšmė turi kablelį, pakeiskite jį į „\\,“):',
-	'sf_createproperty_propname' => 'Vardas:',
+	'sf_createproperty_allowedvalsinput' => 'Jeigu norite, kad šis laukas galėtų įgyti tik konkrečias reikšmes, surašykite visas leistinas reikšmes, atskirtas kableliais (jeigu reikšmė turi kablelį, pakeiskite jį į „\\,“):', # Fuzzy
+	'sf_createproperty_propname' => 'Vardas:', # Fuzzy
 	'sf_createproperty_proptype' => 'Tipas:',
 	'templates' => 'Šablonai',
 	'sf_templates_docu' => 'Šiame sąraše pateikiami visi šablonai.',
@@ -5140,20 +5138,20 @@ $messages['lt'] = array(
 	'sf_createtemplate_semanticproperty' => 'Semantinė savybė:',
 	'sf_createtemplate_fieldislist' => 'Šis laukas gali turėti kelias kableliais atskirtas reikšmes.',
 	'sf_createtemplate_aggregation' => 'Savybių surinkimas',
-	'sf_createtemplate_aggregationdesc' => 'Užpildykite šiuos laukus, jeigu norite, kad kiekviename šį šabloną naudojančiame puslapyje būtų pateiktas straipsnių, kurie konkrečia savybe rodo į tą puslapį, sąrašas:',
+	'sf_createtemplate_aggregationdesc' => 'Užpildykite šiuos laukus, jeigu norite, kad kiekviename šį šabloną naudojančiame puslapyje būtų pateiktas straipsnių, kurie konkrečia savybe rodo į tą puslapį, sąrašas:', # Fuzzy
 	'sf_createtemplate_aggregationlabel' => 'Sąrašo pavadinimas:',
 	'sf_createtemplate_outputformat' => 'Išvedimo formatas:',
-	'sf_createtemplate_standardformat' => 'Standartinis',
-	'sf_createtemplate_infoboxformat' => 'Informacinis langas dešinėje',
+	'sf_createtemplate_standardformat' => 'Standartinis', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Informacinis langas dešinėje', # Fuzzy
 	'sf_createtemplate_addfield' => 'Pridėti lauką',
 	'sf_createtemplate_deletefield' => 'Pašalinti',
 	'sf_createtemplate_addtemplatebeforesave' => 'Prieš išsaugant šią formą, būtina pridėti bent vieną lauką.',
 	'forms' => 'Formos',
 	'sf_forms_docu' => 'Šiame sąraše pateikiamos visos formos.',
 	'sf_forminputs_mandatory' => 'Privalomas',
-	'sf_forminputs_restricted' => 'Apribotas (jį redaguoti gali tik sysop naudotojai)',
+	'sf_forminputs_restricted' => 'Apribotas (jį redaguoti gali tik sysop naudotojai)', # Fuzzy
 	'createform' => 'Sukurti formą',
-	'sf_createform_nameinput' => 'Formos vardas (dažniausiai priimtina pavadinti pagrindinio formoje naudojamo šablono vardu):',
+	'sf_createform_nameinput' => 'Formos vardas (dažniausiai priimtina pavadinti pagrindinio formoje naudojamo šablono vardu):', # Fuzzy
 	'sf_createform_template' => 'Šablonas:',
 	'sf_createform_templatelabelinput' => 'Šablono kortelės užrašas (nebūtinas):',
 	'sf_createform_allowmultiple' => 'Leisti kelis (arba nė vieno) šio šablono vienetus sukurtame puslapyje',
@@ -5172,16 +5170,16 @@ $messages['lt'] = array(
 	'sf_createform_add' => 'Pridėti',
 	'sf_createform_choosefield' => 'Pasirinkite pridedama lauką',
 	'createcategory' => 'Sukurti kategoriją',
-	'sf_createcategory_name' => 'Vardas:',
+	'sf_createcategory_name' => 'Vardas:', # Fuzzy
 	'sf_createcategory_defaultform' => 'Pagrindinė forma:',
 	'sf_createcategory_makesubcategory' => 'Padaryti kaip subkategoriją kitai kategorijai (nebūtina):',
 	'formstart' => 'Sukurti puslapį naudojant formą',
 	'sf_formstart_badform' => 'Klaida: nerastas naudojantis formą $1 puslapis',
 	'sf_formstart_docu' => 'Įveskite puslapio vardą, kurį redaguosite su forma „$1“. Jeigu puslapis tokiu vardu egzistuoja, būsite nukreiptas į šio puslapio redagavimo formą. Kitu atveju, būsite nukreiptas į naujo puslapio kūrimo formą.',
 	'sf_formstart_noform_docu' => 'Įveskite puslapio vardą ir pasirinkite formą kuria jį redaguosite. Jeigu puslapis tokiu vardu egzistuoja, būsite nukreiptas į šio puslapio redagavimo formą. Kitu atveju, būsite nukreiptas į naujo puslapio kūrimo formą.',
-	'sf_formstart_createoredit' => 'Pridėti ar keisti',
+	'sf_formstart_createoredit' => 'Pridėti ar keisti', # Fuzzy
 	'formedit' => 'Redaguoti su forma',
-	'sf_formedit_createtitle' => 'Pridėti $1: $2',
+	'sf_formedit_createtitle' => 'Pridėti $1: $2', # Fuzzy
 	'sf_formedit_badurl' => "Šis puslapis skirtas naujų duomenų įvedimui. Jūs turite adrese nurodyti formos vardą ir norimą redaguoti puslapį. Adresas turėtų atrodyti kaip „Specialus:FormEdit?form=<formos vardas>&target=<puslapis>“ arba „Specialus:FormEdit/<formos vardas>/<puslapis>'“.",
 	'sf_formedit_altforms' => 'Sukurti puslapį galite naudodami vieną iš šių formų:',
 	'sf_formedit_altformsonly' => 'Pasirinkite vieną iš šių formų puslapio sukūrimui:',
@@ -5200,13 +5198,13 @@ $messages['lt'] = array(
 	'sf_bad_date_error' => 'turi būti taisyklinga data',
 	'uploadwindow' => 'Failo įkėlimo langas',
 	'sf_property_isproperty' => 'Tai yra „$1“ tipo savybė.',
-	'sf_property_allowedvals' => 'Šios savybės leidžiamos reikšmės yra:',
+	'sf_property_allowedvals' => 'Šios savybės leidžiamos reikšmės yra:', # Fuzzy
 	'sf_template_docu' => 'Tai yra „$1“ šablonas.
 Jis turėtų būti kviečiamas šiuo formatu formatu:',
 	'sf_template_docufooter' => 'Norėdami matyti šablono tekstą, turite redaguoti puslapį.',
 	'sf_form_docu' => 'Tai yra „$1“ forma.
 Norėdami sukurti puslapį naudojantis šia forma, įveskite to pulslapio vardą žemiau.
-Jeigu puslapis tokiu vardu jau egzistuoja, šia forma galėsite jį redaguoti.',
+Jeigu puslapis tokiu vardu jau egzistuoja, šia forma galėsite jį redaguoti.', # Fuzzy
 	'sf_form_freetextlabel' => 'Laisvas tekstas',
 	'sf_category_hasdefaultform' => 'Ši kategorija naudoja „$1“ formą.',
 	'sf_category_desc' => 'Tai yra „$1“ kategorija.',
@@ -5240,8 +5238,8 @@ $messages['lv'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Lai lapā, kas izmanto šo veidni, izveidotu sarakstu ar visām lapām, kuru noteikta īpašība norāda uz to lapu, norādiet atbilstošo īpašību zemāk:',
 	'sf_createtemplate_aggregationlabel' => 'Saraksta virsraksts:',
 	'sf_createtemplate_outputformat' => 'Izvades formāts:',
-	'sf_createtemplate_standardformat' => 'standarta',
-	'sf_createtemplate_infoboxformat' => 'infokaste labajā pusē',
+	'sf_createtemplate_standardformat' => 'standarta', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'infokaste labajā pusē', # Fuzzy
 	'sf_createtemplate_addfield' => 'Pievienot lauku',
 	'sf_createtemplate_deletefield' => 'Izdzēst',
 	'sf_createtemplate_addtemplatebeforesave' => 'Jāpievieno vismaz viena veidne, lai varētu saglabāt formu.',
@@ -5544,7 +5542,7 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
  * @author Shijualex
  */
 $messages['ml'] = array(
-	'sf_createproperty_propname' => 'പേര്‌:',
+	'sf_createproperty_propname' => 'പേര്‌:', # Fuzzy
 	'sf_createproperty_proptype' => 'തരം:',
 	'templates' => 'ഫലകങ്ങൾ',
 	'sf_templates_docu' => 'താഴെ പ്രദർശിപ്പിച്ചിരിക്കുന്ന ഫലകങ്ങൾ ഈ വിക്കിയിൽ നിലവിലുണ്ട്.',
@@ -5554,10 +5552,10 @@ $messages['ml'] = array(
 	'sf_createtemplate_categorylabel' => 'ഫലകം ഉപയോഗിച്ചു്‌ നിർ‌വചിച്ച വർഗ്ഗം (നിർബന്ധമില്ല):',
 	'sf_createtemplate_aggregationlabel' => 'പട്ടികയ്ക്കുള്ള തലക്കെട്ട്:',
 	'sf_createtemplate_outputformat' => 'ഔട്ട്പുട്ട് ഫോർമാറ്റ്:',
-	'sf_createtemplate_standardformat' => 'മാനകം',
+	'sf_createtemplate_standardformat' => 'മാനകം', # Fuzzy
 	'sf_createtemplate_deletefield' => 'മായ്ക്കുക',
 	'sf_forminputs_mandatory' => 'നിർബന്ധം',
-	'sf_forminputs_restricted' => 'നിയന്ത്രിതം (സിസോപ്പുകൾക്ക് മാത്രമേ ഇതു തിരുത്താൻ സാധിക്കൂ)',
+	'sf_forminputs_restricted' => 'നിയന്ത്രിതം (സിസോപ്പുകൾക്ക് മാത്രമേ ഇതു തിരുത്താൻ സാധിക്കൂ)', # Fuzzy
 	'createform' => 'ഫോം സൃഷ്ടിക്കുക',
 	'sf_createform_template' => 'ഫലകം:',
 	'sf_createform_field' => 'ഫീൽഡ്:',
@@ -5570,7 +5568,7 @@ $messages['ml'] = array(
 	'sf_createform_atend' => 'അവസാനത്തിൽ',
 	'sf_createform_add' => 'ചേർക്കുക',
 	'createcategory' => 'വർഗ്ഗം സൃഷ്ടിക്കുക',
-	'sf_createcategory_name' => 'പേര്‌:',
+	'sf_createcategory_name' => 'പേര്‌:', # Fuzzy
 	'sf_createcategory_defaultform' => 'സ്വതവെയുള്ള ഫോം:',
 	'sf_createcategory_makesubcategory' => 'ഇതു മറ്റൊരു വർഗ്ഗത്തിന്റെ ഉപവർഗ്ഗമാക്കുക (നിർബന്ധമില്ല):',
 	'sf_formstart_badform' => 'പിഴവ്: $1ല്‍ ഫോം താള്‍ ഒന്നും കണ്ടില്ല',
@@ -5610,8 +5608,8 @@ $messages['mn'] = array(
  */
 $messages['mr'] = array(
 	'createproperty' => 'एक गुणधर्म तयार करा',
-	'sf_createproperty_allowedvalsinput' => 'जर तुम्ही या रकान्यात फक्त काहीच किंमती भरू इच्छित असाल, तर त्यांची यादी बनवा, स्वल्पविरामाने किंमतींमध्ये फरक दाखवा (जर एखाद्या किंमतीतच स्वल्पविराम येत असेल, तर त्या जागी "\\," लिहा):',
-	'sf_createproperty_propname' => 'नाव:',
+	'sf_createproperty_allowedvalsinput' => 'जर तुम्ही या रकान्यात फक्त काहीच किंमती भरू इच्छित असाल, तर त्यांची यादी बनवा, स्वल्पविरामाने किंमतींमध्ये फरक दाखवा (जर एखाद्या किंमतीतच स्वल्पविराम येत असेल, तर त्या जागी "\\," लिहा):', # Fuzzy
+	'sf_createproperty_propname' => 'नाव:', # Fuzzy
 	'sf_createproperty_proptype' => 'प्रकार:',
 	'templates' => 'साचे',
 	'sf_templates_docu' => 'या विकिवर खालील साचे उपलब्ध आहेत.',
@@ -5626,20 +5624,20 @@ $messages['mr'] = array(
 	'sf_createtemplate_semanticproperty' => 'सिमॅंटिक गुणधर्म:',
 	'sf_createtemplate_fieldislist' => 'हा रकाना स्वल्पविरामाने वाटलेली किंमतींची यादी दर्शवितो',
 	'sf_createtemplate_aggregation' => 'एकत्रीकरण',
-	'sf_createtemplate_aggregationdesc' => 'एखाद्या पानावर असणार्‍या गुणधर्माला निर्देश करणारी पाने, ज्यांमध्ये हा साचा वापरण्यात आलेला आहे, अशा पानांची यादी करण्यासाठी तो गुणधर्म खाली लिहा:',
+	'sf_createtemplate_aggregationdesc' => 'एखाद्या पानावर असणार्‍या गुणधर्माला निर्देश करणारी पाने, ज्यांमध्ये हा साचा वापरण्यात आलेला आहे, अशा पानांची यादी करण्यासाठी तो गुणधर्म खाली लिहा:', # Fuzzy
 	'sf_createtemplate_aggregationlabel' => 'यादी साठी शीर्षक:',
 	'sf_createtemplate_outputformat' => 'आउटपुटची रूपरेषा:',
-	'sf_createtemplate_standardformat' => 'स्टॅंडर्ड',
-	'sf_createtemplate_infoboxformat' => 'उजवीकडील माहितीचौकट',
+	'sf_createtemplate_standardformat' => 'स्टॅंडर्ड', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'उजवीकडील माहितीचौकट', # Fuzzy
 	'sf_createtemplate_addfield' => 'रकाना वाढवा',
 	'sf_createtemplate_deletefield' => 'वगळा',
 	'sf_createtemplate_addtemplatebeforesave' => 'हा अर्ज जतन करण्यापूर्वी तुम्ही कमीत कमी एक साचा देणे आवश्यक आहे.',
 	'forms' => 'अर्ज',
 	'sf_forms_docu' => 'विकिवर खालील अर्ज उपलब्ध आहेत.',
 	'sf_forminputs_mandatory' => 'अत्यावश्यक',
-	'sf_forminputs_restricted' => 'प्रतिबंधित (फक्त प्रबंधकच बदलू शकतात)',
+	'sf_forminputs_restricted' => 'प्रतिबंधित (फक्त प्रबंधकच बदलू शकतात)', # Fuzzy
 	'createform' => 'नवीन अर्ज बनवा',
-	'sf_createform_nameinput' => 'अर्जाचे नाव (सर्वसाधारणपणे अर्ज ज्या मुख्य साच्यासाठी आहे त्या साच्याच्या नावानंतर अर्जाचे नाव असे लिहावे):',
+	'sf_createform_nameinput' => 'अर्जाचे नाव (सर्वसाधारणपणे अर्ज ज्या मुख्य साच्यासाठी आहे त्या साच्याच्या नावानंतर अर्जाचे नाव असे लिहावे):', # Fuzzy
 	'sf_createform_template' => 'साचा:',
 	'sf_createform_templatelabelinput' => 'साच्याचे लेबल (वैकल्पिक):',
 	'sf_createform_allowmultiple' => 'तयार केलेल्या पानावर हा साचा अनेकवेळा (किंवा शून्यवेळा) वापरण्याची परवानगी द्या',
@@ -5658,7 +5656,7 @@ $messages['mr'] = array(
 	'sf_createform_add' => 'वाढवा',
 	'sf_createform_choosefield' => 'वाढविण्यासाठी एक रकाना निवडा',
 	'createcategory' => 'वर्ग बनवा',
-	'sf_createcategory_name' => 'नाव:',
+	'sf_createcategory_name' => 'नाव:', # Fuzzy
 	'sf_createcategory_defaultform' => 'अविचल अर्ज:',
 	'sf_createcategory_makesubcategory' => 'याला एका दुसर्‍या वर्गाचा उपवर्ग बनवा (वैकल्पिक):',
 	'formstart' => 'पान वाढवा',
@@ -5669,9 +5667,9 @@ $messages['mr'] = array(
 	'sf_formstart_noform_docu' => 'बदलण्यात येणार्‍या पानाचे नाव लिहा तसेच बदलण्यासाठी वापरण्यात येणारा अर्ज निवडा.
 जर हे पान अगोदरच अस्तित्वात असेल, तर तुम्हांला ते पान बदलण्यासाठी लागणारा अर्ज देण्यात येईल.
 नाहीतर, तुम्हांला ते पान वाढविण्याचा अर्ज देण्यात येईल.',
-	'sf_formstart_createoredit' => 'वाढवा किंवा बदला',
+	'sf_formstart_createoredit' => 'वाढवा किंवा बदला', # Fuzzy
 	'formedit' => 'अर्जासहित बदला',
-	'sf_formedit_createtitle' => 'वाढवा $1: $2',
+	'sf_formedit_createtitle' => 'वाढवा $1: $2', # Fuzzy
 	'sf_formedit_badurl' => "हे पान मजकूर वाढविण्यासाठी आहे. तुम्ही एक अर्जाचे नाव व लक्ष्य पान दोन्ही URL मध्ये देणे आवश्यक आहे. URL अशी दिसेल 'Special:FormEdit?form=<अर्जाचे नाव>&target=<लक्ष्य पान>', किंवा  'Special:FormEdit/<अर्जाचे नाव>/<लक्ष्य पान>'.",
 	'sf_formedit_altforms' => 'हे पान तुम्ही या ऐवजी खालीलपैकी एक अर्ज वापरून वाढवू शकता:',
 	'sf_formedit_altformsonly' => 'हे पान वाढविण्यासाठी कृपया खालील पैकी एक अर्ज निवडा:',
@@ -5689,13 +5687,13 @@ $messages['mr'] = array(
 	'sf_bad_number_error' => 'योग्य संख्या असणे आवश्यक आहे',
 	'sf_bad_date_error' => 'योग्य दिनांक असणे आवश्यक आहे',
 	'sf_property_isproperty' => 'हा $1 प्रकारचा गुणधर्म आहे.',
-	'sf_property_allowedvals' => 'या गुणधर्माच्या योग्य किंमती पुढीलप्रमाणे आहेत:',
+	'sf_property_allowedvals' => 'या गुणधर्माच्या योग्य किंमती पुढीलप्रमाणे आहेत:', # Fuzzy
 	'sf_template_docu' => "हा '$1' साचा आहे.
 हा खालीलप्रमाणे वापरला पाहिजे:",
 	'sf_template_docufooter' => 'पानात साचा मजकूर पाहण्यासाठी योग्य असे बदल करा.',
 	'sf_form_docu' => "हा '$1' अर्ज आहे.
 हा अर्ज वापरून एखादे पान वाढविण्यासाठी, खाली पानाचे शीर्षक लिहा;
-जर त्या नावाचे पान अगोदरच अस्तित्वात असेल, तर तुम्हांला ते पान बदलण्यासाठीचा अर्ज पाठविला जाईल.",
+जर त्या नावाचे पान अगोदरच अस्तित्वात असेल, तर तुम्हांला ते पान बदलण्यासाठीचा अर्ज पाठविला जाईल.", # Fuzzy
 	'sf_form_freetextlabel' => 'मुक्त मजकुर',
 	'sf_category_hasdefaultform' => 'हे वर्गीकरण फॉर्म $1 वापरते.',
 	'sf_category_desc' => 'हे $1 वर्गीकरण आहे.',
@@ -5864,8 +5862,8 @@ $messages['nb'] = array(
 	'sf_createtemplate_aggregationdesc' => 'For å liste opp alle artiklene som har en viss egenskap som peker til den siden på alle sider som bruker malen, angi denne egenskapen nedenfor:',
 	'sf_createtemplate_aggregationlabel' => 'Tittel for liste:',
 	'sf_createtemplate_outputformat' => 'Resultatformat:',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Infoboks på høyre side',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infoboks på høyre side', # Fuzzy
 	'sf_createtemplate_addfield' => 'Legg til felt',
 	'sf_createtemplate_deletefield' => 'Slett',
 	'sf_createtemplate_addtemplatebeforesave' => 'Du må legge til minst én mal til dette skjemaet før du kan lagre det.',
@@ -6014,8 +6012,8 @@ om en side med det navnet finnes allerede vil du bli sendt til et skjema for red
  * @author Slomox
  */
 $messages['nds'] = array(
-	'sf_createproperty_propname' => 'Naam:',
-	'sf_createcategory_name' => 'Naam:',
+	'sf_createproperty_propname' => 'Naam:', # Fuzzy
+	'sf_createcategory_name' => 'Naam:', # Fuzzy
 );
 
 /** Nedersaksisch (Nedersaksisch)
@@ -6023,6 +6021,13 @@ $messages['nds'] = array(
  */
 $messages['nds-nl'] = array(
 	'sf_createform_add' => 'Derbie doon',
+);
+
+/** Niuean (ko e vagahau Niuē)
+ * @author Jose77
+ */
+$messages['niu'] = array(
+	'sf_createtemplate_deletefield' => 'Tamate',
 );
 
 /** Dutch (Nederlands)
@@ -6236,18 +6241,18 @@ $messages['nn'] = array(
 	'sf_createtemplate_semanticproperty' => 'Semantisk eigenskap:',
 	'sf_createtemplate_fieldislist' => 'Dette feltet kan innehalda ei lista over verdiar skilde med komma',
 	'sf_createtemplate_aggregation' => 'Aggregering',
-	'sf_createtemplate_aggregationdesc' => 'For på kvar ei sida som nyttar denne malen, å lista opp alle artiklane med ein viss eigenskap som lenkjar til sida, oppgje eigenskapen nedanfor:',
+	'sf_createtemplate_aggregationdesc' => 'For på kvar ei sida som nyttar denne malen, å lista opp alle artiklane med ein viss eigenskap som lenkjar til sida, oppgje eigenskapen nedanfor:', # Fuzzy
 	'sf_createtemplate_aggregationlabel' => 'Listetittel:',
 	'sf_createtemplate_outputformat' => 'Resultatformat:',
-	'sf_createtemplate_standardformat' => 'Standard',
-	'sf_createtemplate_infoboxformat' => 'Infoboks på høgre sida:',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infoboks på høgre sida:', # Fuzzy
 	'sf_createtemplate_addfield' => 'Legg til felt',
 	'sf_createtemplate_deletefield' => 'Slett',
 	'sf_createtemplate_addtemplatebeforesave' => 'Du må leggja til minst ein mal til skjemaet før du kan lagra det.',
 	'forms' => 'Skjema',
 	'sf_forms_docu' => 'Følgjande skjema finst på wikien.',
 	'sf_forminputs_mandatory' => 'Obligatorisk',
-	'sf_forminputs_restricted' => 'Avgrensa (berre administratorar kan endra det)',
+	'sf_forminputs_restricted' => 'Avgrensa (berre administratorar kan endra det)', # Fuzzy
 	'createform' => 'Opprett eit skjema',
 	'sf_createform_nameinput' => 'Skjemanamn',
 	'sf_createform_template' => 'Mal:',
@@ -6300,12 +6305,12 @@ Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
 	'uploadwindow' => 'Opplastingsvindauga',
 	'sf_property_isproperty' => 'Dette er ein eigenskap av typen $1.',
 	'sf_property_linkstoform' => 'Det lenker til sida som nyttar skjemaet $1.',
-	'sf_property_allowedvals' => 'Dei tillatne verdiane for denne eigenskapen er:',
+	'sf_property_allowedvals' => 'Dei tillatne verdiane for denne eigenskapen er:', # Fuzzy
 	'sf_template_docu' => 'Dette er malen «$1».
 Han burde bli kalla opp med følgjande format:',
 	'sf_template_docufooter' => 'Endra sida for å sjå malteksten.',
 	'sf_form_docu' => 'Dette er skjemaet «$1». 
-Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om ei sida med dette namnet finst frå før, vil du bli sendt til eit skjema for endring av ho.',
+Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om ei sida med dette namnet finst frå før, vil du bli sendt til eit skjema for endring av ho.', # Fuzzy
 	'sf_form_freetextlabel' => 'Fritekst',
 	'sf_category_hasdefaultform' => 'Denne kategorien nyttar skjemaet «$1».',
 	'sf_category_desc' => 'Dett er kategorien $1.',
@@ -6316,7 +6321,7 @@ Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om e
  * @author Mohau
  */
 $messages['nso'] = array(
-	'sf_createproperty_propname' => 'Leina:',
+	'sf_createproperty_propname' => 'Leina:', # Fuzzy
 	'sf_createproperty_proptype' => 'Mohuta:',
 	'sf_createtemplate_deletefield' => 'Phumula',
 	'sf_createform_add' => 'Lokela',
@@ -6353,18 +6358,18 @@ $messages['oc'] = array(
 	'sf_createtemplate_aggregationdesc' => "Per listar, sus cada pagina qu'utilizan aqueste modèl, totas las qu'an una proprietat que punta cap a aquesta pagina, indicatz la proprietat adeqüata çaijós :",
 	'sf_createtemplate_aggregationlabel' => 'Títol per la lista :',
 	'sf_createtemplate_outputformat' => 'Format de sortida :',
-	'sf_createtemplate_standardformat' => 'Estandard',
-	'sf_createtemplate_infoboxformat' => 'Infobox de drecha',
+	'sf_createtemplate_standardformat' => 'Estandard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infobox de drecha', # Fuzzy
 	'sf_createtemplate_addfield' => 'Apondre un camp',
 	'sf_createtemplate_deletefield' => 'Escafa',
 	'sf_createtemplate_addtemplatebeforesave' => 'Vos cal apondre almens un modèl a aqueste formulari abans de lo poder salvar.',
 	'forms' => 'Formularis',
 	'sf_forms_docu' => 'Los formularis seguents existisson dins lo wiki.',
 	'sf_forminputs_mandatory' => 'Obligatòri',
-	'sf_forminputs_restricted' => 'Restrench',
+	'sf_forminputs_restricted' => 'Restrench', # Fuzzy
 	'createform' => 'Crear un formulari',
 	'sf_createform_nameinput' => 'Nom de formulari',
-	'sf_createform_nameinputdesc' => '(la convencion es de nomenar lo formulari aprèp lo modèl principal qu’emplena) :',
+	'sf_createform_nameinputdesc' => '(la convencion es de nomenar lo formulari aprèp lo modèl principal qu’emplena) :', # Fuzzy
 	'sf_createform_template' => 'Modèl :',
 	'sf_createform_templatelabelinput' => 'Etiqueta de modèl (facultatiu) :',
 	'sf_createform_allowmultiple' => "Permetre mantuna (o zèro) instàncias d'aqueste modèl dins la pagina creada",
@@ -6388,8 +6393,8 @@ $messages['oc'] = array(
 	'sf_createcategory_makesubcategory' => "Crèa una soscategoria d'una autra categoria (facultatiu) :",
 	'createclass' => 'Crear una classa',
 	'sf_createclass_docu' => 'Especificatz aicí las donadas que servisson per crear las proprietats, modèl, formulari e categoria d’una classa. Per mai d’opcions, utilizatz puslèu las paginas $1.',
-	'sf_createclass_allowedvalues' => 'Valors autorizadas',
-	'sf_createclass_listofvalues' => 'Lista de valors',
+	'sf_createclass_allowedvalues' => 'Valors autorizadas', # Fuzzy
+	'sf_createclass_listofvalues' => 'Lista de valors', # Fuzzy
 	'sf_createclass_missingvalues' => 'Los camps obligatòris son pas estats emplenats totes.',
 	'sf_createclass_success' => 'Las proprietats, modèl, formulari e categoria seràn creats.',
 	'formstart' => 'Apondre una pagina amb un formulari',
@@ -6397,9 +6402,9 @@ $messages['oc'] = array(
 	'sf_formstart_badtitle' => 'Error : « $1 » es un títol de pagina invalid.',
 	'sf_formstart_docu' => "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
 	'sf_formstart_noform_docu' => "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb lo qual serà editada. S'aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
-	'sf_formstart_createoredit' => 'Modificar o apondre de donadas',
+	'sf_formstart_createoredit' => 'Modificar o apondre de donadas', # Fuzzy
 	'formedit' => 'Modificar amb un formulari',
-	'sf_formedit_createtitle' => 'Apondre $1 : $2',
+	'sf_formedit_createtitle' => 'Apondre $1 : $2', # Fuzzy
 	'sf_formedit_badurl' => "Aquò es la pagina per apondre las donadas. Cal indicar un nom de formulari e una pagina cibla dins l'URL; l'URL se deu semblar a « Special:FormEdit?form=<nom de formulari>&target=<nom de pagina cibla> » o « Special:FormEdit/<nom de formulari>/<nom de pagina cibla> ».",
 	'sf_formedit_altforms' => 'Podètz, a la plaça, apondre aquesta pagina amb un dels formularis seguents :',
 	'sf_formedit_altformsonly' => 'Se vos plai, seleccionatz un dels formularis seguents per apondre aquesta pagina :',
@@ -6423,14 +6428,14 @@ l'URL deuriá èsser coma « Special:RunQuery/<nom del formulari> ».",
 	'sf_bad_email_error' => "deu aver un format corrècte d'adreça de corrièr electronic.",
 	'sf_bad_number_error' => 'deu èsser un nombre valid',
 	'sf_bad_date_error' => 'deu èsser una data valida',
-	'uploadwindow' => 'Importar la fenèstra',
+	'uploadwindow' => 'Importar la fenèstra', # Fuzzy
 	'sf_deletionlog' => 'Istoric de las supressions',
 	'sf_property_isproperty' => 'Aquò es una proprietat del tipe $1.',
 	'sf_property_linkstoform' => "Liga cap a las paginas qu'utilizan lo formulari $1.",
 	'sf_property_allowedvals' => '{{PLURAL:$1|La valor autorizada per aquesta proprietat es|Las valors autorizadas per aquesta proprietat son}} :',
 	'sf_template_docu' => 'Aquò es lo modèl « $1 ». Deuriá èsser apelat segon lo format seguent :',
 	'sf_template_docufooter' => 'Modificar la pagina per veire lo tèxte del modèl.',
-	'sf_form_docu' => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit cap a un formulari destinat a l'editar.",
+	'sf_form_docu' => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit cap a un formulari destinat a l'editar.", # Fuzzy
 	'sf_form_freetextlabel' => 'Tèxte liure',
 	'sf_category_hasdefaultform' => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc' => 'Aquò es la categoria « $1 ».',
@@ -6507,8 +6512,8 @@ $messages['pl'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Aby korzystając z tego szablonu wypisać na dowolnej stronie wszystkie strony, których pewna własność wskazuje na daną stronę, wybierz odpowiednią własność:',
 	'sf_createtemplate_aggregationlabel' => 'Tytuł listy',
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
-	'sf_createtemplate_standardformat' => 'Standardowy',
-	'sf_createtemplate_infoboxformat' => 'Infoboks po prawej',
+	'sf_createtemplate_standardformat' => 'Standardowy', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infoboks po prawej', # Fuzzy
 	'sf_createtemplate_addfield' => 'Dodaj pole',
 	'sf_createtemplate_deletefield' => 'Usuń',
 	'sf_createtemplate_addtemplatebeforesave' => 'Musisz dodać przynajmniej jeden szablon do tego formularza, zanim go zapiszesz.',
@@ -6641,8 +6646,8 @@ $messages['pms'] = array(
 	'sf_createtemplate_aggregationdesc' => "Për listé, su minca pàgina ch'a deuvra sto stamp-sì, tute le pàgine ch'a l'han na serta proprietà ch'a ponta a cola pàgina, ch'a spessìfica sì-sota la proprietà ch'a-i va:",
 	'sf_createtemplate_aggregationlabel' => 'Tìtol për lista:',
 	'sf_createtemplate_outputformat' => 'Formà ëd surtìa:',
-	'sf_createtemplate_standardformat' => 'Stàndard',
-	'sf_createtemplate_infoboxformat' => "Banda dj'anformassion a drita",
+	'sf_createtemplate_standardformat' => 'Stàndard', # Fuzzy
+	'sf_createtemplate_infoboxformat' => "Banda dj'anformassion a drita", # Fuzzy
 	'sf_createtemplate_addfield' => 'Gionté un camp',
 	'sf_createtemplate_deletefield' => 'Scancelé',
 	'sf_createtemplate_addtemplatebeforesave' => 'A deuv gionté almanch në stamp a cost formolari-sì prima ëd podèj salvelo.',
@@ -6703,8 +6708,8 @@ $messages['pms'] = array(
 	'sf_createcategory_makesubcategory' => "Fé vnì sta categorìa-sì na sot-categorìa ëd n'àutra categorìa (opsional):",
 	'createclass' => 'Crea na class',
 	'sf_createclass_docu' => "Ch'a anseriss sì tùit ij dat për creé le proprietà, stamp, formolari e categorìa për na sìngola class. Për pi d'opsion, ch'a deuvra pitòst le pàgine $1.",
-	'sf_createclass_allowedvalues' => 'Valor përmëttù',
-	'sf_createclass_listofvalues' => 'Lista ëd valor',
+	'sf_createclass_allowedvalues' => 'Valor përmëttù', # Fuzzy
+	'sf_createclass_listofvalues' => 'Lista ëd valor', # Fuzzy
 	'sf_createclass_missingvalues' => 'Pa tùit ij camp ciamà a son stàit ampinì.',
 	'sf_createclass_success' => 'Proprietà, stamp, formolari e categorìa a saran creà.',
 	'formstart' => 'Gionté na pàgina con un formolari',
@@ -6811,12 +6816,12 @@ $messages['ps'] = array(
 );
 
 /** Portuguese (português)
- * @author 555
  * @author Hamilton Abreu
  * @author Lijealso
  * @author Malafaya
  * @author SandroHc
  * @author Waldir
+ * @author 555
  */
 $messages['pt'] = array(
 	'semanticforms-desc' => 'Formulários para adicionar e editar dados semânticos',
@@ -6979,7 +6984,6 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
 );
 
 /** Brazilian Portuguese (português do Brasil)
- * @author 555
  * @author Crazymadlover
  * @author Eduardo.mps
  * @author Enqd
@@ -6988,6 +6992,7 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
  * @author Luckas Blade
  * @author Rafael Vargas
  * @author Teles
+ * @author 555
  */
 $messages['pt-br'] = array(
 	'semanticforms-desc' => 'Formulários para adição e edição de dados semânticos',
@@ -7298,19 +7303,19 @@ $messages['ru'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Чтобы вывести на любую страницу, использующую этот шаблон, все страницы, у которых заданное свойство указывает на эту страницу, укажите соответствующее свойство ниже:',
 	'sf_createtemplate_aggregationlabel' => 'Заголовок списка:',
 	'sf_createtemplate_outputformat' => 'Формат вывода:',
-	'sf_createtemplate_standardformat' => 'обычный',
-	'sf_createtemplate_infoboxformat' => 'информационная панель справа',
+	'sf_createtemplate_standardformat' => 'обычный', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'информационная панель справа', # Fuzzy
 	'sf_createtemplate_addfield' => 'Добавить поле',
 	'sf_createtemplate_deletefield' => 'Удалить',
 	'sf_createtemplate_addtemplatebeforesave' => 'Вы должны добавить на эту форму по крайней мере один шаблон, чтобы её было можно сохранить.',
 	'forms' => 'Формы',
 	'sf_forms_docu' => 'В вики существуют следующие формы.',
 	'sf_forminputs_mandatory' => 'обязательная',
-	'sf_forminputs_restricted' => 'ограниченная (править могут только администраторы)',
+	'sf_forminputs_restricted' => 'ограниченная (править могут только администраторы)', # Fuzzy
 	'sf_forminputs_size' => 'Размер этого текстового поля в символах',
 	'createform' => 'Создать форму',
 	'sf_createform_nameinput' => 'Название формы',
-	'sf_createform_nameinputdesc' => '(конвенция названия формы после заполнения основного шаблона):',
+	'sf_createform_nameinputdesc' => '(конвенция названия формы после заполнения основного шаблона):', # Fuzzy
 	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_templatelabelinput' => 'Обозначение шаблона (необязательно):',
 	'sf_createform_allowmultiple' => 'Разрешить несколько (или ноль) экземпляров этого шаблона на создаваемой странице',
@@ -7334,8 +7339,8 @@ $messages['ru'] = array(
 	'sf_createcategory_makesubcategory' => 'Сделать это подкатегорией другой категории (необязательно):',
 	'createclass' => 'Создать класс',
 	'sf_createclass_docu' => 'Введите здесь все данные для создание свойств, шаблона, формы и категории для одного класса. Для более подробных настроек, используйте страницу $1.',
-	'sf_createclass_allowedvalues' => 'Допустимые значения',
-	'sf_createclass_listofvalues' => 'Список значений',
+	'sf_createclass_allowedvalues' => 'Допустимые значения', # Fuzzy
+	'sf_createclass_listofvalues' => 'Список значений', # Fuzzy
 	'sf_createclass_missingvalues' => 'Не все требуемые поля были заполнены.',
 	'sf_createclass_success' => 'Будут созданы настройки, шаблоны, формы и категории.',
 	'formstart' => 'Добавить страницу с формой',
@@ -7468,18 +7473,18 @@ $messages['sk'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Na vypísanie všetkých stránok, ktorých určená vlastnosť odkazuje na danú stránku (na akejkoľvek stránke používajúcej túto šablónu), zadajte príslušnú vlastnosť:',
 	'sf_createtemplate_aggregationlabel' => 'Názov zoznamu:',
 	'sf_createtemplate_outputformat' => 'Výstupný formát:',
-	'sf_createtemplate_standardformat' => 'Štandardný',
-	'sf_createtemplate_infoboxformat' => 'Infobox na pravej strane',
+	'sf_createtemplate_standardformat' => 'Štandardný', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'Infobox na pravej strane', # Fuzzy
 	'sf_createtemplate_addfield' => 'Pridať pole',
 	'sf_createtemplate_deletefield' => 'Zmazať',
 	'sf_createtemplate_addtemplatebeforesave' => 'Predtým, než budete môcť uložiť tento formulár mu musíte pridať aspoň jednu šablónu.',
 	'forms' => 'Formuláre',
 	'sf_forms_docu' => 'Na wiki existujú nasledové formuláre.',
 	'sf_forminputs_mandatory' => 'Povinné',
-	'sf_forminputs_restricted' => 'Obmedzené (môžu meniť iba správcovia)',
+	'sf_forminputs_restricted' => 'Obmedzené (môžu meniť iba správcovia)', # Fuzzy
 	'createform' => 'Vytvoriť formulár',
 	'sf_createform_nameinput' => 'Názov formulára',
-	'sf_createform_nameinputdesc' => '(je zvykom pomenovať formulár podľa hlavnej šablóny, ktorú plní):',
+	'sf_createform_nameinputdesc' => '(je zvykom pomenovať formulár podľa hlavnej šablóny, ktorú plní):', # Fuzzy
 	'sf_createform_template' => 'Šablóna:',
 	'sf_createform_templatelabelinput' => 'Označenie šablóny (nepovinné):',
 	'sf_createform_allowmultiple' => 'Povoliť vo vytvorenej stránke viacero (alebo nula) inštancií tejto šablóny',
@@ -7503,8 +7508,8 @@ $messages['sk'] = array(
 	'sf_createcategory_makesubcategory' => 'Táto kategória je podkategóriou inej kategórie (nepovinné):',
 	'createclass' => 'Vytvoriť triedu',
 	'sf_createclass_docu' => 'Sem zadajte všetky údaje na vytvorenie vlastností, šablóny, formulára a kategórie jednej triedy. Ak chcete zadať ďalšie voľby, použite stránku $1.',
-	'sf_createclass_allowedvalues' => 'Povolené hodnoty',
-	'sf_createclass_listofvalues' => 'Zoznam hodnôt',
+	'sf_createclass_allowedvalues' => 'Povolené hodnoty', # Fuzzy
+	'sf_createclass_listofvalues' => 'Zoznam hodnôt', # Fuzzy
 	'sf_createclass_missingvalues' => 'Neboli vyplnené všetky požadované polia.',
 	'sf_createclass_success' => 'Vytvoria sa vlastnosti, šablóna, formulár a kategória.',
 	'formstart' => 'Pridať stránku s formulárom',
@@ -7512,9 +7517,9 @@ $messages['sk'] = array(
 	'sf_formstart_badtitle' => 'Chyba: „$1“ nie je platný názov stránky.',
 	'sf_formstart_docu' => 'Sem zadajte názov stránky, ktorá sa má upravovať formulárom „$1“. Ak táto stránka už existuje, budete presmerovaný na formulár pre úpravu tejto stránky. Inak budete presmerovaný na formulár pre pridanie tejto stránky.',
 	'sf_formstart_noform_docu' => 'Sem zadajte názov stránky a vyberte, ktorým formulárom sa má upravovať. Ak táto stránka už existuje, budete presmerovaný na formulár pre úpravu tejto stránky. Inak budete presmerovaný na formulár pre pridanie tejto stránky.',
-	'sf_formstart_createoredit' => 'Pridať alebo upraviť',
+	'sf_formstart_createoredit' => 'Pridať alebo upraviť', # Fuzzy
 	'formedit' => 'Upraviť pomocou formulára',
-	'sf_formedit_createtitle' => 'Pridať $1: $2',
+	'sf_formedit_createtitle' => 'Pridať $1: $2', # Fuzzy
 	'sf_formedit_badurl' => 'Toto je stránka na pridávanie údajov. Musíte v URL uviesť názov formulára aj cieľovú stránku. Mala by byť v tvare „Special:FormEdit?form=<názov formulára>&target=<cieľová stránka>“ alebo „Special:FormEdit/<názov formulára>/<cieľová stránka>“.',
 	'sf_formedit_altforms' => 'Namiesto toho môžete pridať túto stránku jedným z nasledovných formulárov:',
 	'sf_formedit_altformsonly' => 'Prosím, vyberte jeden z nasledovných formulárov, ktorým sa pridá táto stránka.',
@@ -7545,7 +7550,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Povolená hodnota|Povolené hodnoty}} tejto vlastnosti {{PLURAL:$1|je|sú}}:',
 	'sf_template_docu' => 'Toto je šablóna „$1“. Mala by byť volaná v nasledovnom tvare:',
 	'sf_template_docufooter' => 'Text šablóny uvidíte, keď začnete upravovať stránku.',
-	'sf_form_docu' => 'Toto je formulár „$1“. Novú stránku pomocou tohto formulára pridáte zadaním názvu stránky dolu; ak stránka s takým názvom už existuje, budete presmerovaný na formulár pre úpravu tejto stránky.',
+	'sf_form_docu' => 'Toto je formulár „$1“. Novú stránku pomocou tohto formulára pridáte zadaním názvu stránky dolu; ak stránka s takým názvom už existuje, budete presmerovaný na formulár pre úpravu tejto stránky.', # Fuzzy
 	'sf_form_freetextlabel' => 'Voľný text',
 	'sf_category_hasdefaultform' => 'Táto kategória používa formulár $1.',
 	'sf_category_desc' => 'Toto je kategória $1.',
@@ -7590,7 +7595,7 @@ $messages['sr-ec'] = array(
 	'sf_createtemplate_aggregation' => 'Агрегација',
 	'sf_createtemplate_aggregationlabel' => 'Наслов листе:',
 	'sf_createtemplate_outputformat' => 'Излазни формат:',
-	'sf_createtemplate_standardformat' => 'Стандард',
+	'sf_createtemplate_standardformat' => 'Стандард', # Fuzzy
 	'sf_createtemplate_addfield' => 'Додај поље',
 	'sf_createtemplate_deletefield' => 'Обриши',
 	'forms' => 'Форме',
@@ -7657,7 +7662,7 @@ $messages['sr-el'] = array(
 	'sf_createtemplate_aggregation' => 'Agregacija',
 	'sf_createtemplate_aggregationlabel' => 'Naslov liste:',
 	'sf_createtemplate_outputformat' => 'Izlazni format:',
-	'sf_createtemplate_standardformat' => 'Standard',
+	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
 	'sf_createtemplate_addfield' => 'Dodaj polje',
 	'sf_createtemplate_deletefield' => 'Obriši',
 	'forms' => 'Forme',
@@ -7724,7 +7729,7 @@ $messages['stq'] = array(
 	'forms' => 'Formulare',
 	'sf_forms_docu' => 'Do foulgjende Formulare existierje in {{SITENAME}}:',
 	'sf_forminputs_mandatory' => 'Plichtfäild',
-	'sf_forminputs_restricted' => 'Speerd (bloot Sysops konnen annerje)',
+	'sf_forminputs_restricted' => 'Speerd (bloot Sysops konnen annerje)', # Fuzzy
 	'createform' => 'Moak n Formular',
 	'sf_createform_nameinput' => 'Formularnoome',
 	'sf_createform_template' => 'Foarloage:',
@@ -7752,9 +7757,9 @@ $messages['stq'] = array(
 	'sf_formstart_badform' => 'Failer: der wuude neen Siede fuunen bie $1',
 	'sf_formstart_docu' => "Reek in dit Textfäild dän Noome fon ju Siede ien, ju der mäd Formular '$1' beoarbaided wäide skäl. Wan der al ne Siede mäd dissen Noome bestoant, wädst du tou n Formular fäärelat, wiermäd du disse Siede beoarbaidje koast. Uurs wädst du tou n Formular fäärelat, wiermäd du disse Siede moakje koast.",
 	'sf_formstart_noform_docu' => 'Reek in dit Textfäild dän Noome fon ju Siede ien un wääl dät Formular, wiermäd ju Siede beoarbaided wäide skäl. Wan der al ne Siede mäd dissen Noome bestoant, wädst du tou n Formular fäärelät, wiermäd du disse Siede beoarbaidje koast. Uurs wädst du tou n Formular fäärelat, wiermäd du disse Siede moakje koast.',
-	'sf_formstart_createoredit' => 'Bietouföigje of beoarbaidje',
+	'sf_formstart_createoredit' => 'Bietouföigje of beoarbaidje', # Fuzzy
 	'formedit' => 'Beoarbaidje mäd Formular',
-	'sf_formedit_createtitle' => 'Föich $1: $2 bietou',
+	'sf_formedit_createtitle' => 'Föich $1: $2 bietou', # Fuzzy
 	'sf_formedit_badurl' => "Dit is ju Siede toun Bietouföigjen fon Doaten. Du moast dän Noome fon n Formular UN ju tou beoarbaidjende Sielsiede in ju URL anreeke. Dät skuul uutsjo as 'Special:FormEdit?form=<Formularnoome>&target=<Sielsiede>' of 'Special:FormEdit/<Formularnoome>/<Sielsiede>'.",
 	'sf_formedit_altforms' => 'Du koast insteede deerfon disse Siede mäd een fon do foulgjende Formulare moakje:',
 	'sf_formedit_altformsonly' => 'Wääl een fon do foulgjende Formulare uut, uum disse Siede tou moakjen:',
@@ -7772,7 +7777,7 @@ $messages['stq'] = array(
 	'sf_property_allowedvals' => '{{PLURAL:$1|Die muugelke Wäid foar disse Oainskup is|Do muugelke Wäide foar disse Oainskup sunt}}:',
 	'sf_template_docu' => "Dit is ju Foarloage foar '$1'. Ju skuul in dät foulgjende Formoat apruupen wäide:",
 	'sf_template_docufooter' => 'Beoarbaidje disse Siede, uum dän Foarloagentext tou sjoon.',
-	'sf_form_docu' => "Reek in dit Textfäild dän Noome fon ju Siede ien, ju der mäd Formular '$1' moaked wäide skäl. Wan der al ne Siede mäd dissen Noome bestoant, wädst du tou n Formular fäärelat, wiermäd du disse Siede beoarbaidje koast.",
+	'sf_form_docu' => "Reek in dit Textfäild dän Noome fon ju Siede ien, ju der mäd Formular '$1' moaked wäide skäl. Wan der al ne Siede mäd dissen Noome bestoant, wädst du tou n Formular fäärelat, wiermäd du disse Siede beoarbaidje koast.", # Fuzzy
 	'sf_form_freetextlabel' => 'Fräitext',
 	'sf_category_hasdefaultform' => 'Disse Kategorie benutset dät Formular $1.',
 	'sf_category_desc' => 'Dit is ju Kategorie $1.',
@@ -7984,9 +7989,9 @@ $messages['sw'] = array(
  * @author Herr Kriss
  */
 $messages['szl'] = array(
-	'sf_createproperty_propname' => 'Mjano:',
+	'sf_createproperty_propname' => 'Mjano:', # Fuzzy
 	'sf_createform_add' => 'Dodej',
-	'sf_createcategory_name' => 'Mjano:',
+	'sf_createcategory_name' => 'Mjano:', # Fuzzy
 );
 
 /** Tamil (தமிழ்)
@@ -8051,8 +8056,8 @@ $messages['te'] = array(
 	'sf_createtemplate_fieldislist' => 'ఈ ఖాళీలో కామాలతో వేరుపరచి బహుళ విలువలని ఇవ్వవచ్చు',
 	'sf_createtemplate_aggregation' => 'సంకలనం',
 	'sf_createtemplate_aggregationlabel' => 'జాబితాకి శీర్షిక:',
-	'sf_createtemplate_standardformat' => 'ప్రామాణిక',
-	'sf_createtemplate_infoboxformat' => 'కుడివైపు సమాచారపెట్టె',
+	'sf_createtemplate_standardformat' => 'ప్రామాణిక', # Fuzzy
+	'sf_createtemplate_infoboxformat' => 'కుడివైపు సమాచారపెట్టె', # Fuzzy
 	'sf_createtemplate_deletefield' => 'తొలగించు',
 	'sf_forminputs_mandatory' => 'తప్పనిసరి',
 	'sf_createform_nameinput' => 'ఫారం పేరు',
@@ -8069,9 +8074,9 @@ $messages['te'] = array(
 	'sf_createcategory_name' => 'వర్గపు పేరు:',
 	'sf_createcategory_makesubcategory' => 'దీన్ని మరో వర్గానికి ఉపవర్గం చెయ్యి (ఐచ్ఛికం):',
 	'sf_createclass_allowedvalues' => 'అనుమతించే విలువలు:',
-	'sf_createclass_listofvalues' => 'విలువల యొక్క జాబితా',
+	'sf_createclass_listofvalues' => 'విలువల యొక్క జాబితా', # Fuzzy
 	'formstart' => 'ఫారంతో పేజీని చేర్చండి',
-	'sf_formstart_createoredit' => 'చేర్చు లేదా మార్చు',
+	'sf_formstart_createoredit' => 'చేర్చు లేదా మార్చు', # Fuzzy
 	'sf_formedit_formwarning' => 'హెచ్చరిక: ఈ పేజీ <a href="$1">ఇప్పటికే ఉంది</a>, కానీ దానిలో ఈ ఫారం లేదు.',
 	'sf_formedit_remove' => 'తొలగించు',
 	'sf_formedit_addanother' => 'మరోటి చేర్చండి',
@@ -8091,7 +8096,7 @@ $messages['te'] = array(
  * @author MF-Warburg
  */
 $messages['tet'] = array(
-	'sf_createproperty_propname' => 'Naran:',
+	'sf_createproperty_propname' => 'Naran:', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Halakon',
 	'sf_createform_add' => 'Tau tan',
 	'sf_createcategory_name' => 'Naran kategoria nian:',
@@ -8102,8 +8107,8 @@ $messages['tet'] = array(
  */
 $messages['tg-cyrl'] = array(
 	'createproperty' => 'Вижагӣ бисозед',
-	'sf_createproperty_allowedvalsinput' => 'Агар мехоҳед ин вуруди танҳои миқдорҳои мушаххаси миҷоз дошта бошад, феҳристи миқдорҳои миҷозро ворид кунед ва онҳоро бо вергул ҷудо созед (агар миқдор вергул дошта бошад, онро бо "\\," иваз кунед):',
-	'sf_createproperty_propname' => 'Ном:',
+	'sf_createproperty_allowedvalsinput' => 'Агар мехоҳед ин вуруди танҳои миқдорҳои мушаххаси миҷоз дошта бошад, феҳристи миқдорҳои миҷозро ворид кунед ва онҳоро бо вергул ҷудо созед (агар миқдор вергул дошта бошад, онро бо "\\," иваз кунед):', # Fuzzy
+	'sf_createproperty_propname' => 'Ном:', # Fuzzy
 	'sf_createproperty_proptype' => 'Навъ:',
 	'templates' => 'Шаблонҳо',
 	'sf_templates_docu' => 'Шаблонҳои зер дар ин вики вуҷуд доранд.',
@@ -8113,7 +8118,7 @@ $messages['tg-cyrl'] = array(
 	'sf_createtemplate_categorylabel' => 'Таъйиди гурӯҳ бо воситаи шаблон (ихтиёрӣ):',
 	'sf_createtemplate_templatefields' => 'Вурудиҳои шаблон',
 	'sf_createtemplate_aggregationlabel' => 'Унвон барои феҳрист:',
-	'sf_createtemplate_standardformat' => 'Стандарт',
+	'sf_createtemplate_standardformat' => 'Стандарт', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Ҳафз',
 	'sf_createtemplate_addtemplatebeforesave' => 'Шумо бояд ҳадди ақал як шаблон ба ин форм қабл аз захира кардани он илова кунед.',
 	'sf_forms_docu' => 'Формҳои зерин дар вики вуҷуд доранд.',
@@ -8121,7 +8126,7 @@ $messages['tg-cyrl'] = array(
 	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_inputtypedefault' => '(пешфарз)',
 	'sf_createform_add' => 'Илова кардан',
-	'sf_createcategory_name' => 'Ном:',
+	'sf_createcategory_name' => 'Ном:', # Fuzzy
 	'sf_formedit_remove' => 'Ҳазф',
 	'sf_formedit_addanother' => 'Иловаи дигаре',
 	'sf_formedit_none' => 'Ҳеҷ кадом',
@@ -8130,7 +8135,7 @@ $messages['tg-cyrl'] = array(
 	'sf_property_isproperty' => 'Ин як вижагӣ аз навъи $1 аст.',
 	'sf_template_docu' => "Ин шаблони '$1' аст. Бояд бо қолаби зерин фарохонӣ шавад:",
 	'sf_template_docufooter' => 'Барои мушоҳидаи матни шаблон саҳифаро вироиш кунед.',
-	'sf_form_docu' => "Ин форми '$1' аст. Барои илова кардани як саҳифае бо ин форм, дар зер номи саҳифаро ворид кунед; агар саҳифае бо ин ном вуҷуд дошта бошад, ба форми вироиши саҳифа ҳидоят мешавед.",
+	'sf_form_docu' => "Ин форми '$1' аст. Барои илова кардани як саҳифае бо ин форм, дар зер номи саҳифаро ворид кунед; агар саҳифае бо ин ном вуҷуд дошта бошад, ба форми вироиши саҳифа ҳидоят мешавед.", # Fuzzy
 	'sf_form_freetextlabel' => 'Матни дилхоҳ',
 	'sf_category_hasdefaultform' => 'Ин гурӯҳ аз форми $1 истифода мекунад.',
 	'sf_category_desc' => 'Ин гурӯҳи $1 аст.',
@@ -8151,7 +8156,7 @@ $messages['tg-latn'] = array(
 	'sf_createtemplate_categorylabel' => "Ta'jidi gurūh bo vositai şablon (ixtijorī):",
 	'sf_createtemplate_templatefields' => 'Vurudihoi şablon',
 	'sf_createtemplate_aggregationlabel' => 'Unvon baroi fehrist:',
-	'sf_createtemplate_standardformat' => 'Standart',
+	'sf_createtemplate_standardformat' => 'Standart', # Fuzzy
 	'sf_createtemplate_deletefield' => 'Hafz',
 	'sf_createtemplate_addtemplatebeforesave' => 'Şumo bojad haddi aqal jak şablon ba in form qabl az zaxira kardani on ilova kuned.',
 	'sf_forms_docu' => 'Formhoi zerin dar viki vuçud dorand.',
@@ -8167,7 +8172,7 @@ $messages['tg-latn'] = array(
 	'sf_property_isproperty' => "In jak viƶagī az nav'i $1 ast.",
 	'sf_template_docu' => "In şabloni '$1' ast. Bojad bo qolabi zerin faroxonī şavad:",
 	'sf_template_docufooter' => 'Baroi muşohidai matni şablon sahifaro viroiş kuned.',
-	'sf_form_docu' => "In formi '$1' ast. Baroi ilova kardani jak sahifae bo in form, dar zer nomi sahifaro vorid kuned; agar sahifae bo in nom vuçud doşta boşad, ba formi viroişi sahifa hidojat meşaved.",
+	'sf_form_docu' => "In formi '$1' ast. Baroi ilova kardani jak sahifae bo in form, dar zer nomi sahifaro vorid kuned; agar sahifae bo in nom vuçud doşta boşad, ba formi viroişi sahifa hidojat meşaved.", # Fuzzy
 	'sf_form_freetextlabel' => 'Matni dilxoh',
 	'sf_category_hasdefaultform' => 'In gurūh az formi $1 istifoda mekunad.',
 	'sf_category_desc' => 'In gurūhi $1 ast.',
@@ -8398,7 +8403,7 @@ $messages['tr'] = array(
 	'sf_createtemplate_semanticproperty' => 'Anlamsal özellik:',
 	'sf_createtemplate_aggregationlabel' => 'Liste için başlık:',
 	'sf_createtemplate_outputformat' => 'Çıktı biçimi:',
-	'sf_createtemplate_standardformat' => 'Standart',
+	'sf_createtemplate_standardformat' => 'Standart', # Fuzzy
 	'sf_createtemplate_addfield' => 'Alan ekle',
 	'sf_createtemplate_deletefield' => 'Sil',
 	'forms' => 'Formlar',
@@ -8419,8 +8424,8 @@ $messages['tr'] = array(
 	'createcategory' => 'Bir kategori oluştur',
 	'sf_createcategory_name' => 'Kategori ismi:',
 	'sf_createcategory_defaultform' => 'Var sayılan form:',
-	'sf_createclass_allowedvalues' => 'İzin verilen değerler',
-	'sf_createclass_listofvalues' => 'Değerlerin listesi',
+	'sf_createclass_allowedvalues' => 'İzin verilen değerler', # Fuzzy
+	'sf_createclass_listofvalues' => 'Değerlerin listesi', # Fuzzy
 	'sf_createclass_create' => 'Oluştur',
 	'formstart' => 'Form ile sayfa ekle',
 	'sf_formstart_createoredit' => 'Oluştur veya düzelt',
@@ -8539,7 +8544,7 @@ $messages['vep'] = array(
 	'sf_createtemplate_categorylabel' => 'Kategorii, kudamban märhapaneb šablon (opcionaližikš):',
 	'sf_createtemplate_templatefields' => 'Šablonan pöudod:',
 	'sf_createtemplate_outputformat' => 'Lähtmižformat:',
-	'sf_createtemplate_standardformat' => 'Standartine',
+	'sf_createtemplate_standardformat' => 'Standartine', # Fuzzy
 	'sf_createtemplate_addfield' => 'Läžata pöud',
 	'sf_createtemplate_deletefield' => 'Čuta poiš',
 	'forms' => 'Formad',
@@ -8552,7 +8557,7 @@ $messages['vep'] = array(
 	'createcategory' => 'Säta kategorii',
 	'sf_createcategory_name' => 'Kategorijan nimi:',
 	'sf_createcategory_defaultform' => 'Form augotižjärgendusen mödhe:',
-	'sf_formstart_createoredit' => 'Ližada vai redaktirui',
+	'sf_formstart_createoredit' => 'Ližada vai redaktirui', # Fuzzy
 	'sf_editsource' => 'Redaktiruida purde',
 	'sf_formedit_remove' => 'Čuta poiš',
 	'sf_formedit_addanother' => 'Ližata völ',
@@ -8681,7 +8686,7 @@ $messages['vi'] = array(
  * @author Smeira
  */
 $messages['vo'] = array(
-	'sf_createproperty_propname' => 'Nem:',
+	'sf_createproperty_propname' => 'Nem:', # Fuzzy
 	'sf_createproperty_proptype' => 'Sot:',
 	'templates' => 'Samafomots',
 	'createtemplate' => 'Jafön samafomoti',
@@ -8738,7 +8743,7 @@ Voto ologol fometi ad läükön padi.',
 Söton pavokön ma fomät fovik:',
 	'sf_template_docufooter' => 'Redakön padi at logön samafomotavödemi.',
 	'sf_form_docu' => 'Pad at binon fomet: „$1“.
-Ad läükön padi me fomet at, penolös padanemi dono; if pad labü nem at ya dabinon, ologol fometi ad redakön padi dabinöl at.',
+Ad läükön padi me fomet at, penolös padanemi dono; if pad labü nem at ya dabinon, ologol fometi ad redakön padi dabinöl at.', # Fuzzy
 	'sf_form_freetextlabel' => 'Vödem libik',
 	'sf_category_hasdefaultform' => 'Klad at gebon fometi: $1.',
 	'sf_category_desc' => 'Atos binon klad: $1.',
@@ -8912,8 +8917,8 @@ $messages['zh-hans'] = array(
 	'sf_createtemplate_aggregationdesc' => '为了在使用这个模板的页面上列出所有包含指向此页面的属性的页面，在下面指定适当的属性：',
 	'sf_createtemplate_aggregationlabel' => '用于列表的标题：',
 	'sf_createtemplate_outputformat' => '输出格式：',
-	'sf_createtemplate_standardformat' => '标准',
-	'sf_createtemplate_infoboxformat' => '右侧信息框',
+	'sf_createtemplate_standardformat' => '标准', # Fuzzy
+	'sf_createtemplate_infoboxformat' => '右侧信息框', # Fuzzy
 	'sf_createtemplate_addfield' => '添加字段',
 	'sf_createtemplate_deletefield' => '删除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您保存之前，您必须向表单添加至少一个模板。',
@@ -9094,8 +9099,8 @@ $messages['zh-hant'] = array(
 	'sf_createtemplate_aggregationdesc' => '為了在使用這個模板的頁面上列出所有包含指向此頁面的屬性的頁面，在下面指定適當的屬性：',
 	'sf_createtemplate_aggregationlabel' => '用於列表的標題：',
 	'sf_createtemplate_outputformat' => '輸出格式：',
-	'sf_createtemplate_standardformat' => '標準',
-	'sf_createtemplate_infoboxformat' => '右側信息框',
+	'sf_createtemplate_standardformat' => '標準', # Fuzzy
+	'sf_createtemplate_infoboxformat' => '右側信息框', # Fuzzy
 	'sf_createtemplate_addfield' => '添加字段',
 	'sf_createtemplate_deletefield' => '刪除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您保存之前，您必須向表單添加至少一個模板。',
@@ -9358,4 +9363,3 @@ the URL should look like 'Special:RunQuery/<form name>'.",
 	'right-viewedittab' => '查看頁面的「編輯」頁籤(該頁面皆可使用表單予以編輯)',
 	'right-editrestrictedfields' => '編輯受限制的表單欄位(restricted form fields)',
 );
-
