@@ -19,8 +19,8 @@ class SFAutoeditAPI extends ApiBase {
 	private $mIsApiQuery = true;
 
 	/**
-	 * Handles autoedit Ajax call from #autoedit parser function and from save
-	 * and continue button.
+	 * Handles autoedit Ajax call, called from both the #autoedit parser
+	* function and the "save and continue" button.
 	 *
 	 * @param String $optionsString the options/data string
 	 * @param String $prefillFromExisting String set to 'true' to retain existing form values (unset by save and continue)
@@ -217,6 +217,7 @@ END;
 	 * Returns a string that identifies the version of the class.
 	 * Includes the class name, the svn revision, timestamp, and
 	 * last author.
+	 * 
 	 * @return string
 	 */
 	function getVersion() {
@@ -224,7 +225,7 @@ END;
 	}
 
 	/**
-	 *	This method will try to store the data in mOptions.
+	 * This method will try to store the data in mOptions.
 	 *
 	 * It will return true on success or an error message on failure.
 	 * The used form and target page will be available in mOptions after
@@ -236,11 +237,10 @@ END;
 	 * @return true or an error message
 	 */
 	public function storeSemanticData( $prefillFromExisting = true ) {
-
 		global $wgOut, $wgRequest;
 
-		// If the wiki is read-only we might as well stop right away
-		if ( wfReadOnly ( ) ) {
+		// If the wiki is read-only, we might as well stop right away.
+		if ( wfReadOnly() ) {
 			return $this->reportError( wfMessage( 'sf_autoedit_readonly', wfReadOnlyReason() )->text() );
 		}
 
@@ -254,7 +254,8 @@ END;
 			$this->mOptions['target'] = null;
 		}
 
-		// If we have no target article and no form we might as well stop right away
+		// If we have no target article and no form, we might as well
+		// stop right away.
 		if ( !$this->mOptions['target'] && !$this->mOptions['form'] ) {
 			return $this->reportError( wfMessage( 'sf_autoedit_notargetspecified' )->text() );
 		}
@@ -267,12 +268,12 @@ END;
 			$title = Title::newFromText( $this->mOptions['target'] );
 			$form_names = SFFormLinker::getDefaultFormsForPage( $title );
 
-			// if no form can be found, return
+			// If no form can be found, return.
 			if ( count( $form_names ) == 0 ) {
 				return $this->reportError( wfMessage( 'sf_autoedit_noformfound' )->text() );
 			}
 
-			// if more than one form found, return
+			// If more than one form was found, return.
 			if ( count( $form_names ) > 1 ) {
 				return $this->reportError( wfMessage( 'sf_autoedit_toomanyformsfound' )->text() );
 			}
@@ -342,10 +343,8 @@ END;
 		$wgRequest = $oldRequest;
 
 		if ( $formedit->mError ) {
-
 			return $this->reportError( $formedit->mError );
 		} else {
-
 			if ( !headers_sent() ) {
 				header( "X-Location: " . $wgOut->getRedirect() );
 				header( "X-Form: " . $formedit->mForm );
@@ -370,9 +369,9 @@ END;
 	private function parseDataFromHTMLFrag( &$data, $html, $formID ) {
 		$doc = new DOMDocument();
 		@$doc->loadHTML(
-				'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
-				. $html
-				. '</body></html>'
+			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
+			. $html
+			. '</body></html>'
 		);
 
 		$form = $doc->getElementById( $formID );
@@ -381,7 +380,7 @@ END;
 			return null;
 		}
 
-		// Process input tags
+		// Process input tags.
 		$inputs = $form->getElementsByTagName( 'input' );
 
 		for ( $i = 0; $i < $inputs->length; $i++ ) {
@@ -428,8 +427,9 @@ END;
 			$select = $selects->item( $i );
 			$name = trim( $select->getAttribute( 'name' ) );
 
-			if ( !$name )
+			if ( !$name ) {
 				continue;
+			}
 
 			$options = $select->getElementsByTagName( 'option' );
 
@@ -438,12 +438,13 @@ END;
 			}
 
 			for ( $o = 1; $o < $options->length; $o++ ) {
-				if ( $options->item( $o )->hasAttribute( 'selected' ) )
-                                        if ( $options->item( $o )->getAttribute( 'value' ) ) {
+				if ( $options->item( $o )->hasAttribute( 'selected' ) ) {
+					if ( $options->item( $o )->getAttribute( 'value' ) ) {
 						self::addToArray( $data, $name, $options->item( $o )->getAttribute( 'value' ) );
 					} else {
 						self::addToArray( $data, $name, $options->item( $o )->nodeValue );
 					}
+				}
 			}
 		}
 
@@ -451,7 +452,6 @@ END;
 		$textareas = $form->getElementsByTagName( 'textarea' );
 
 		for ( $i = 0; $i < $textareas->length; $i++ ) {
-
 			$textarea = $textareas->item( $i );
 			$name = trim( $textarea->getAttribute( 'name' ) );
 
@@ -515,7 +515,6 @@ END;
 
 			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
 		} else {
-
 			if ( $key ) {
 				$array[$key] = $value;
 			} else {
