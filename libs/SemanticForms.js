@@ -131,11 +131,11 @@
 	// attribute. This should probably be done as three separate attributes,
 	// instead.
 	var field_string = jQuery(this).attr("autocompletesettings");
-	
+
 	if ( typeof field_string === 'undefined' ) {
 		return;
 	}
-		
+
 	var field_values = field_string.split(',');
 	var delimiter = null;
 	var data_source = field_values[0];
@@ -843,11 +843,10 @@ jQuery.fn.addInstance = function() {
 	new_div.find('a').attr('href', function() {
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
-	/*
+
 	new_div.find('span').attr('id', function() {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
-	*/
 
 	// Add the new instance
 	this.closest(".multipleTemplateWrapper")
