@@ -69,7 +69,7 @@
  * {{#formlink:form=User|link text=Add a user
  * |query string=namespace=User&preload=UserStub}}
  *
- * 
+ *
  * 'queryformlink' links to Special:RunQuery, instead of Special:FormEdit.
  * It is called in the exact same way as 'formlink', though the
  * 'target' parameter should not be specified, and 'link text' is now optional,
@@ -168,7 +168,7 @@ class SFParserFunctions {
 	static function renderFormLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-		
+
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
 		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'FormEdit', $params ), $parser->mStripState );
@@ -177,14 +177,7 @@ class SFParserFunctions {
 	static function renderQueryFormLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-		// If it's a popup, make this just a static display of
-		// results, with no 'additiona query' form, since at the
-		// moment additional queries can't be handled anyway.
-		if ( in_array( 'popup', $params ) ) {
-			$params[] = 'wpRunQuery=true';
-			$params[] = 'additionalquery=false';
-		}
-		
+
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
 		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'RunQuery', $params ), $parser->mStripState );
@@ -232,7 +225,7 @@ class SFParserFunctions {
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
-				
+
 				parse_str($inQueryStr, $arr);
 				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			} elseif ( $param_name == 'autocomplete on category' ) {
@@ -251,7 +244,7 @@ class SFParserFunctions {
 				$value = urlencode($value);
 				parse_str("$param_name=$value", $arr);
 				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
-				
+
 			} elseif ( $i == 0 ) {
 				$inFormName = $value;
 				$positionalParameters = true;
@@ -266,7 +259,7 @@ class SFParserFunctions {
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
-				
+
 				parse_str($inQueryStr, $arr);
 				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
@@ -556,7 +549,7 @@ END;
 					$arr = array( $key => $value );
 					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 					break;
-				
+
 				default :
 
 					$value = $parser->recursiveTagParse( $value );
