@@ -901,7 +901,10 @@ END;
 		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
 			$formMethod = ( $inLinkType == 'button' ) ? 'get' : 'post';
 			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr ),
-				Html::rawElement( 'button', array( 'type' => 'submit', 'value' => $inLinkStr ), $inLinkStr ) .
+
+				// Html::rawElement() before MW 1.21 or so drops the type attribute
+				// do not use Html::rawElement() for buttons!
+				'<button ' . Html::expandAttributes( array( 'type' => 'submit', 'value' => $inLinkStr ) ) . '>' . $inLinkStr . '</button>' .
 				$hidden_inputs
 			);
 		} else {

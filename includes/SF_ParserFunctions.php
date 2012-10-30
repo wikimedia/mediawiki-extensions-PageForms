@@ -185,6 +185,8 @@ class SFParserFunctions {
 
 	static function renderFormInput ( &$parser ) {
 
+		global $wgHtml5;
+
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 		// set defaults
@@ -195,6 +197,7 @@ class SFParserFunctions {
 		$inRemoteAutocompletion = false;
 		$inSize = 25;
 		$classStr = "";
+		$inPlaceholder = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -236,6 +239,8 @@ class SFParserFunctions {
 				$autocompletion_type = 'namespace';
 			} elseif ( $param_name == 'remote autocompletion' ) {
 				$inRemoteAutocompletion = true;
+			} elseif ( $param_name == 'placeholder' ) {
+				$inPlaceholder = $value;
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				SFUtils::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupforminput';
@@ -274,6 +279,10 @@ class SFParserFunctions {
 
 END;
 		$formInputAttrs = array( 'size' => $inSize );
+
+		if ( $wgHtml5 ) {
+			$formInputAttrs['placeholder'] = $inPlaceholder;
+		}
 
 		// Now apply the necessary settings and Javascript, depending
 		// on whether or not there's autocompletion (and whether the
@@ -574,7 +583,9 @@ END;
 		if ( $linkString == null ) return null;
 
 		if ( $linkType == 'button' ) {
-			$linkElement = Html::rawElement( 'button', array( 'class' => $classString ), $linkString );
+			// Html::rawElement() before MW 1.21 or so drops the type attribute
+			// do not use Html::rawElement() for buttons!
+			$linkElement = '<button ' . Html::expandAttributes( array( 'type' => 'submit', 'class' => $classString ) ) . '>' . $linkString . '</button>';
 		} elseif ( $linkType == 'link' ) {
 			$linkElement = Html::rawElement( 'a', array( 'class' => $classString, 'href' => "#" ), $linkString );
 		} else {
