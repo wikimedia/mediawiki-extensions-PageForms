@@ -256,6 +256,7 @@ Parameters:
 
 '''This is about a window for uploading files. The window is not the thing being uploaded.'''",
 	'sf_deletionlog' => '{{Identical|Deletion log}}',
+	'sf_template_docu' => 'This is an introductory message at the top of an autocreated template. The section following it displays the structure/format of the template itself.',
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
@@ -1655,7 +1656,7 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf_property_linkstoform' => 'Es verlinkt auf Seiten, die das Formular „$1“ nutzen.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für dieses Attribut ist|Die möglichen Werte für dieses Attribut sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage „$1“.
-Sie sollte im folgenden Format aufgerufen werden:',
+Sie sollte im folgenden Format genutzt werden:',
 	'sf_template_docufooter' => 'Klicke auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
 Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten in das Eingabefeld ein. 
