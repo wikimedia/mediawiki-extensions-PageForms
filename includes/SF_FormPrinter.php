@@ -1423,7 +1423,10 @@ END;
 					// keeping a track array (e.g., /@replace_(.*)@/)
 					$reptmp = self::makePlaceholderInWikiText( $curPlaceholder );
 					if ( $curPlaceholder != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false ) {
-						$data_text = preg_replace( '/' . $reptmp . '/', $template_text . $reptmp, $data_text );
+						// Escape $template_text, because values like $1 cause problems
+						// for preg_replace().
+						$escaped_template_text = str_replace( '$', '\$', $template_text );
+						$data_text = preg_replace( '/' . $reptmp . '/', $escaped_template_text . $reptmp, $data_text );
 					} else {
 						$data_text .= $template_text . "\n";
 					}
