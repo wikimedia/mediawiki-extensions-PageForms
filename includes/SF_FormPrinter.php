@@ -716,6 +716,7 @@ END;
 							}
 							if ( $template_instance_query_values = current( $all_values_for_template ) ) {
 								$all_instances_printed = false;
+								$instance_num++;
 								unset( $all_values_for_template[$cur_key] );
 							}
 						}
