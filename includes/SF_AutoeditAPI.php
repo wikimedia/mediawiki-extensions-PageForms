@@ -389,8 +389,9 @@ END;
 			$type = $input->getAttribute( 'type' );
 			$name = trim( $input->getAttribute( 'name' ) );
 
-			if ( !$name )
+			if ( !$name || $input->hasAttribute( 'disabled' ) ) {
 				continue;
+			}
 
 			if ( $type === '' )
 				$type = 'text';
@@ -427,7 +428,7 @@ END;
 			$select = $selects->item( $i );
 			$name = trim( $select->getAttribute( 'name' ) );
 
-			if ( !$name ) {
+			if ( !$name || $select->hasAttribute( 'disabled' ) ) {
 				continue;
 			}
 
@@ -510,13 +511,18 @@ END;
 				$key = $matches[1];
 			}
 
-			if ( !array_key_exists( $key, $array ) )
+			// if subsequent element does not exist yet or is a string (we prefer arrays over strings)
+			if ( !array_key_exists( $key, $array ) || is_string( $array[$key] ) ) {
 				$array[$key] = array();
+			}
 
 			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
 		} else {
 			if ( $key ) {
-				$array[$key] = $value;
+				// only add the string value if there is no child array present
+				if ( !array_key_exists( $key, $array ) || !is_array( $array[$key] ) ){
+					$array[$key] = $value;
+				}
 			} else {
 				array_push( $array, $value );
 			}
