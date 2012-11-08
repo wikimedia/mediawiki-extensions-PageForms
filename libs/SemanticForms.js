@@ -401,8 +401,16 @@ jQuery.fn.SemanticForms_registerInputInit = function( initFunction, param, noexe
 // Unregister all validation methods for the element referenced by /this/
 jQuery.fn.SemanticForms_unregisterInputValidation = function() {
 
-	if ( this.attr("id") && jQuery("#sfForm").data("SemanticForms") ) {
-		delete jQuery("#sfForm").data("SemanticForms").validationFunctions[this.attr("id")];
+	var sfdata = jQuery("#sfForm").data("SemanticForms");
+
+	if ( this.attr("id") && sfdata ) {
+		// delete every validation method for this input
+		for ( var i = 0; i < sfdata.validationFunctions.length; i++ ) {
+			if ( typeof sfdata.validationFunctions[i] !== 'undefined' &&
+				sfdata.validationFunctions[i].input == this.attr("id") ) {
+				delete sfdata.validationFunctions[i];
+			}
+		}
 	}
 
 	return this;
@@ -425,7 +433,14 @@ jQuery.fn.SemanticForms_unregisterInputInit = function() {
 // Display a div that would otherwise be hidden by "show on select".
 function showDiv(div_id, instanceWrapperDiv, speed) {
 	var elem = jQuery('[id="' + div_id + '"]', instanceWrapperDiv);
-	elem.find(".hiddenBySF").removeClass('hiddenBySF');
+
+	elem
+	.find(".hiddenBySF")
+	.removeClass('hiddenBySF')
+
+	.find(".disabledBySF")
+	.removeAttr('disabled')
+	.removeClass('disabledBySF');
 
 	elem.each( function() {
 		if ( jQuery(this).css('display') == 'none' ) {
@@ -733,7 +748,8 @@ window.validateAll = function () {
 		for ( var i = 0; i < sfdata.validationFunctions.length; i++ ) {
 
 			// if input is not part of multipleTemplateStarter
-			if ( jQuery("#" + sfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length == 0 ) {
+			if ( typeof sfdata.validationFunctions[i] !== 'undefined' &&
+				jQuery("#" + sfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length == 0 ) {
 
 				if (! sfdata.validationFunctions[i].valfunction(
 						sfdata.validationFunctions[i].input,
@@ -755,7 +771,9 @@ window.validateAll = function () {
 		// because they're part of the "starter" div for
 		// multiple-instance templates, so that they aren't
 		// submitted by the form.
-		jQuery('.hiddenBySF').find("input, select, textarea").attr('disabled', 'disabled');
+		jQuery('.hiddenBySF').find("input, select, textarea").not(':disabled')
+		.attr('disabled', 'disabled')
+		.addClass('disabledBySF');
 	}
 	return (num_errors == 0);
 };
@@ -780,6 +798,13 @@ jQuery.fn.addInstance = function() {
 		.slideDown('fast', function() {
 			jQuery(this).fadeTo('fast', 1);
 		});
+
+	new_div.find('.hiddenBySF')
+	.removeClass('hiddenBySF')
+
+	.find('.disabledBySF')
+	.removeAttr('disabled')
+	.removeClass('disabledBySF');
 
 	// Make internal ID unique for the relevant form elements, and replace
 	// the [num] index in the element names with an actual unique index
@@ -808,18 +833,20 @@ jQuery.fn.addInstance = function() {
 				// register initialization and validation methods for new inputs
 
 				var sfdata = jQuery("#sfForm").data('SemanticForms');
-				if ( sfdata && sfdata.initFunctions[old_id] ) { // found data object?
+				if ( sfdata ) { // found data object?
+					if ( sfdata.initFunctions[old_id] ) {
 
-					// For every initialization method for
-					// input with id old_id, register the
-					// method for the new input.
-					for ( var i = 0; i < sfdata.initFunctions[old_id].length; i++ ) {
+						// For every initialization method for
+						// input with id old_id, register the
+						// method for the new input.
+						for ( var i = 0; i < sfdata.initFunctions[old_id].length; i++ ) {
 
-						jQuery(this).SemanticForms_registerInputInit(
-							sfdata.initFunctions[old_id][i].initFunction,
-							sfdata.initFunctions[old_id][i].parameters,
-							true //do not yet execute
-						);
+							jQuery(this).SemanticForms_registerInputInit(
+								sfdata.initFunctions[old_id][i].initFunction,
+								sfdata.initFunctions[old_id][i].parameters,
+								true //do not yet execute
+								);
+						}
 					}
 
 					// For every validation method for the
@@ -827,12 +854,13 @@ jQuery.fn.addInstance = function() {
 					// for the new input.
 					for ( var i = 0; i < sfdata.validationFunctions.length; i++ ) {
 
-						if ( sfdata.validationFunctions[i].input == old_id ) {
+						if ( typeof sfdata.validationFunctions[i] !== 'undefined' &&
+							sfdata.validationFunctions[i].input == old_id ) {
 
 							jQuery(this).SemanticForms_registerInputValidation(
 								sfdata.validationFunctions[i].valfunction,
 								sfdata.validationFunctions[i].parameters
-							);
+								);
 						}
 					}
 				}
@@ -852,22 +880,6 @@ jQuery.fn.addInstance = function() {
 	this.closest(".multipleTemplateWrapper")
 		.find(".multipleTemplateList")
 		.append(new_div);
-
-	// Enable the new remover
-	new_div.find('.remover').click( function() {
-
-		// Unregister initialization and validation for deleted inputs -
-		// probably unnecessary, since the used IDs will never be
-		// assigned a second time, but it's the clean solution (if
-		// only to free memory)
-		jQuery(this).parent().find("input, select, textarea").each(
-			function() {
-				jQuery(this).SemanticForms_unregisterInputInit();
-				jQuery(this).SemanticForms_unregisterInputValidation();
-			}
-		);
-
-	});
 
 	// Somewhat of a hack - remove the divs that the combobox() call
 	// adds on, so that we can just call combobox() again without
@@ -998,7 +1010,17 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 	});
 
+	// Enable the new remover
 	this.find(".remover").click( function() {
+
+		// Unregister initialization and validation for deleted inputs
+		jQuery(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each(
+			function() {
+				jQuery(this).SemanticForms_unregisterInputInit();
+				jQuery(this).SemanticForms_unregisterInputValidation();
+			}
+		);
+
 		// Remove the encompassing div for this instance.
 		jQuery(this).closest(".multipleTemplateInstance")
 		.fadeTo('fast', 0, function() {
