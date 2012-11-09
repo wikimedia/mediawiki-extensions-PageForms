@@ -896,14 +896,21 @@ jQuery.fn.addInstance = function() {
 			if (this.id) {
 
 				var sfdata = jQuery("#sfForm").data('SemanticForms');
-				if ( sfdata && sfdata.initFunctions[this.id] ) { // if anything registered at all
-					// Call every initialization method
-					// for this input
-					for ( var i = 0; i < sfdata.initFunctions[this.id].length; i++ ) {
-						sfdata.initFunctions[this.id][i].initFunction(
-							this.id,
-							sfdata.initFunctions[this.id][i].parameters
-						)
+				if ( sfdata ) {
+
+					// have to store data array: the id attribute
+					// of 'this' might be changed in the init function
+					var thatData = sfdata.initFunctions[this.id] ;
+
+					if ( thatData ) { // if anything registered at all
+						// Call every initialization method
+						// for this input
+						for ( var i = 0; i < thatData.length; i++ ) {
+							thatData[i].initFunction(
+								this.id,
+								thatData[i].parameters
+								)
+						}
 					}
 				}
 			}
