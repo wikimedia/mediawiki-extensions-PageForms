@@ -100,6 +100,11 @@ $specialPageAliases['bs'] = array(
 	'UploadWindow' => array( 'ProzorPostavljanja' ),
 );
 
+/** буряад (буряад) */
+$specialPageAliases['bxr'] = array(
+	'CreateCategory' => array( 'Байгуулха_категори' ),
+);
+
 /** German (Deutsch) */
 $specialPageAliases['de'] = array(
 	'CreateCategory' => array( 'Kategorie_erstellen' ),
@@ -519,7 +524,7 @@ $specialPageAliases['or'] = array(
 
 /** Punjabi (ਪੰਜਾਬੀ) */
 $specialPageAliases['pa'] = array(
-	'Templates' => array( 'ਫਰਮੇ' ),
+	'Templates' => array( 'ਸਾਂਚੇ' ),
 );
 
 /** Polish (polski) */
