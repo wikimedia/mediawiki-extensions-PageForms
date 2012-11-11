@@ -3235,6 +3235,7 @@ $messages['haw'] = array(
  * @author Rotemliss
  * @author Yaron Koren
  * @author YaronSh
+ * @author חיים
  */
 $messages['he'] = array(
 	'semanticforms-desc' => 'טפסים להוספת ולעריכת נתונים סמנטיים',
@@ -3260,8 +3261,8 @@ $messages['he'] = array(
 	'sf_createtemplate_aggregationdesc' => 'כדי להציג בכל דף המשתמש בתבנית זו את כל הדפים המכילים מאפיין מסוים המצביע לדף זה, ציינו את המאפיין המתאים להלן:',
 	'sf_createtemplate_aggregationlabel' => 'כותרת לרשימה:',
 	'sf_createtemplate_outputformat' => 'מבנה הפלט:',
-	'sf_createtemplate_standardformat' => 'תקני', # Fuzzy
-	'sf_createtemplate_infoboxformat' => 'תיבת מידע מצד שמאל', # Fuzzy
+	'sf_createtemplate_standardformat' => 'טבלה',
+	'sf_createtemplate_infoboxformat' => 'כיוון תיבת מידע',
 	'sf_createtemplate_addfield' => 'הוספת שדה',
 	'sf_createtemplate_deletefield' => 'מחיקה',
 	'sf_createtemplate_addtemplatebeforesave' => 'עליכם להוסיף לפחות תבנית אחת לטופס זה לפני שתוכלו לשמור אותו.',
@@ -5029,7 +5030,7 @@ $messages['lb'] = array(
 	'sf_forms_docu' => 'Dës Formulaire gëtt et op dëser Wiki.',
 	'sf_forminputs_mandatory' => 'Obligatoresch',
 	'sf_forminputs_restricted' => 'Nëmmen Administrateure kënnen dëst Feld änneren',
-	'sf_forminputs_maxlength' => 'Déi maximal erlaabte Längt vum Text an dësem Feld',
+	'sf_forminputs_maxlength' => 'Déi maximal erlaabt Längt vum Text an dësem Feld',
 	'sf_forminputs_existingvaluesonly' => 'Nëmme Wäerter zouloossen déi schonn an der Lëscht sinn',
 	'createform' => 'E Formulaire uleeën',
 	'sf_createform_nameinput' => 'Numm vum Formulaire',
@@ -5049,7 +5050,7 @@ $messages['lb'] = array(
 	'sf_createcategory_name' => 'Numm vun der Kategorie:',
 	'sf_createcategory_defaultform' => 'Standard-Formulaire:',
 	'sf_createcategory_makesubcategory' => 'Aus dëser Kategorie eng Ënnerkategorie vun enger anerer Kategorie maachen (optional):',
-	'sf_createclass_allowedvalues' => 'Erlaabte Wäerter:',
+	'sf_createclass_allowedvalues' => 'Erlaabt Wäerter:',
 	'sf_createclass_listofvalues' => 'Lëscht vun de Wäerter?',
 	'sf_createclass_nameinput' => 'Numm vum Formulaire:',
 	'sf_createclass_missingvalues' => 'Et goufen net all erfuederlech Felder ausgefëllt.',
@@ -5092,7 +5093,7 @@ $messages['lb'] = array(
 	'sf-pageschemas-createtitle' => 'Numm vum Formulaire fir nei Säiten:',
 	'sf-pageschemas-edittitle' => 'Numm vum Formulaire fir Säiten déi et scho gëtt:',
 	'sf_property_linkstoform' => 'Et ass mat Säite verlinkt déi de Formulaire $1 benotzen.',
-	'sf_property_allowedvals' => '{{PLURAL:$1|Den erlaabte Wäert fir dës Eegeschaft ass|Déi erlaabte Wäerter fir dës Eegeschaft sinn}}:',
+	'sf_property_allowedvals' => '{{PLURAL:$1|Den erlaabte Wäert fir dës Eegeschaft ass|Déi erlaabt Wäerter fir dës Eegeschaft sinn}}:',
 	'sf_template_docu' => "Dëst ass d''$1'-Schabloun.
 Si soll an dësem Format opgeruff ginn:",
 	'sf_template_docufooter' => "Ännert d'Säit fir den Text vun der Schabloun ze gesinn",
@@ -6038,6 +6039,7 @@ $messages['niu'] = array(
 
 /** Dutch (Nederlands)
  * @author McDutchie
+ * @author Rcdeboer
  * @author SPQRobin
  * @author Siebrand
  */
@@ -6053,10 +6055,10 @@ $messages['nl'] = array(
 	'templates' => 'Sjablonen',
 	'sf_templates_docu' => 'De onderstaande sjablonen bestaan in de wiki.',
 	'sf_templates_definescat' => 'bepaalt categorie: $1',
-	'createtemplate' => 'Een sjabloon maken',
+	'createtemplate' => 'Een sjabloon aanmaken',
 	'sf-createtemplate-with-name' => 'Sjabloon aanmaken: $1',
 	'sf_createtemplate_namelabel' => 'Sjabloonnaam:',
-	'sf_createtemplate_multipleinstance' => 'Dit sjabloon kan meerdere keren worden ingevoegd op de pagina.',
+	'sf_createtemplate_multipleinstance' => 'Deze sjabloon kan meerdere keren worden ingevoegd op de pagina.',
 	'sf_createtemplate_categorylabel' => 'Categorie bepaald door sjabloon (optioneel):',
 	'sf_createtemplate_templatefields' => 'Sjabloonvelden',
 	'sf_createtemplate_fieldsdesc' => 'Om de velden van een sjabloon geen verplichte veldnamen te laten hebben, kunt u de index van dat veld (bijvoorbeeld 1, 2, 3, enzovoort) als naam opgeven in plaats van de eigenlijke naam.',
@@ -6065,7 +6067,7 @@ $messages['nl'] = array(
 	'sf_createtemplate_semanticproperty' => 'Semantische eigenschap:',
 	'sf_createtemplate_fieldislist' => "Dit veld kan een lijst van waardes houden, gescheiden door komma's",
 	'sf_createtemplate_aggregation' => 'Aggregatie',
-	'sf_createtemplate_aggregationdesc' => "Om op iedere pagina die van dit sjabloon gebruik maakt een lijst weer te geven van alle pagina's met een naar die pagina verwijzende eigenschap, geeft u de betreffende eigenschap hieronder aan:",
+	'sf_createtemplate_aggregationdesc' => "Om op iedere pagina die van deze sjabloon gebruik maakt een lijst weer te geven van alle pagina's met een naar die pagina verwijzende eigenschap, geeft u de betreffende eigenschap hieronder aan:",
 	'sf_createtemplate_aggregationlabel' => 'Titel voor lijst:',
 	'sf_createtemplate_outputformat' => 'Uitvoeropmaak:',
 	'sf_createtemplate_standardformat' => 'Tabel',
@@ -6112,10 +6114,10 @@ $messages['nl'] = array(
 	'createform' => 'Formulier aanmaken',
 	'sf-createform-with-name' => 'Formulier aanmaken: $1',
 	'sf_createform_nameinput' => 'Formuliernaam',
-	'sf_createform_nameinputdesc' => '(het formulier krijgt meestal de naam van het hoofdsjabloon):',
+	'sf_createform_nameinputdesc' => '(het formulier krijgt meestal de naam van de hoofdsjabloon):',
 	'sf_createform_template' => 'Sjabloon:',
 	'sf_createform_templatelabelinput' => 'Sjabloonlabel (optioneel):',
-	'sf_createform_allowmultiple' => 'Meerdere (of geen) instanties van dit sjabloon toestaan op de gemaakte pagina',
+	'sf_createform_allowmultiple' => 'Meerdere (of geen) instanties van deze sjabloon toestaan op de gemaakte pagina',
 	'sf_createform_field' => 'Veld:',
 	'sf_createform_fieldprop' => 'Dit veld bepaalt de eigenschap $1, van type $2.',
 	'sf_createform_fieldproplist' => 'Dit veld bepaalt een lijst elementen die de eigenschap $1 hebben, van type $2.',
@@ -6136,13 +6138,13 @@ $messages['nl'] = array(
 	'sf_createcategory_defaultform' => 'Standaard formulier:',
 	'sf_createcategory_makesubcategory' => 'Deze categorie een ondercategorie van een andere categorie maken (optioneel):',
 	'createclass' => 'Klasse aanmaken',
-	'sf_createclass_docu' => "Voer hier alle gegevens in om de eigenschappen, het sjabloon, het formulier en de categorie voor een klasse aan te maken.
+	'sf_createclass_docu' => "Voer hier alle gegevens in om de eigenschappen, de sjabloon, het formulier en de categorie voor een klasse aan te maken.
 Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_createclass_allowedvalues' => 'Toegestane waarden:',
 	'sf_createclass_listofvalues' => 'Lijst met waarden:',
 	'sf_createclass_nameinput' => 'Formuliernaam:',
 	'sf_createclass_missingvalues' => 'Niet alle verplichte velden zijn ingevuld.',
-	'sf_createclass_success' => 'De eigenschappen, het sjabloon, het formulier en de categorie worden aangemaakt.',
+	'sf_createclass_success' => 'De eigenschappen, de sjabloon, het formulier en de categorie worden aangemaakt.',
 	'sf_createclass_create' => 'Aanmaken',
 	'formstart' => 'Pagina toevoegen met formulier',
 	'sf_formstart_badform' => 'Fout: er is geen formulierpagina aangetroffen op $1',
@@ -6160,7 +6162,7 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_viewform' => 'Formulier bekijken',
 	'sf_editsource' => 'Bron bewerken',
 	'sf_formedit_edittitle' => '$1 bewerken: $2',
-	'sf_formedit_morethanoneform' => 'Waarschuwing: er is meer één standaard formulier is ingesteld voor deze pagina.',
+	'sf_formedit_morethanoneform' => "'''Waarschuwing:''' er is meer dan één standaard formulier ingesteld voor deze pagina.",
 	'sf_formedit_formwarning' => 'Deze pagina <a href="$1">bestaat al</a>, maar die gebruikt dit formulier niet.',
 	'sf_formedit_mismatchedbrackets' => 'Waarschuwing: Deze pagina bevat accolades of blokhaken die niet worden gesloten, dus de pagina wordt niet juist afgehandeld door het formulier. <a href="$1">Corrigeer de fout</a> voordat u doorgaat.',
 	'sf_formedit_remove' => 'Verwijderen',
@@ -6202,7 +6204,7 @@ De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_property_isproperty' => 'Dit is een eigenschap van type $1.',
 	'sf_property_linkstoform' => "Deze verwijst naar pagina's die gebruikmaken van het formulier $1.",
 	'sf_property_allowedvals' => 'De toegelaten {{PLURAL:$1|waarde voor deze eigenschap is|waarden voor deze eigenschap zijn}}:',
-	'sf_template_docu' => "Dit is het sjabloon '$1'. Gebruik het op de volgende wijze:",
+	'sf_template_docu' => 'Dit is de "$1" sjabloon. Gebruik het op de volgende wijze:',
 	'sf_template_docufooter' => 'Bewerk de pagina om de sjabloontekst te bekijken.',
 	'sf_form_docu' => 'Dit is het formulier "$1".
 Om een pagina aan te maken via dit formulier typt u de paginanaam hieronder in;
