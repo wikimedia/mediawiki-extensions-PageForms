@@ -248,8 +248,12 @@ END;
 		// if we're on the special 'FormEdit' page, just send the user
 		// back to the previous page they were on
 		elseif ( $wgTitle->isSpecial( 'FormEdit' ) ) {
+			$stepsBack = 1;
 			// For IE, we need to go back twice, past the redirect.
-			$stepsBack = stristr( $_SERVER['HTTP_USER_AGENT'], "msie" ) ? 2 : 1;
+			if ( array_key_exists( 'HTTP_USER_AGENT', $_SERVER ) &&
+				stristr( $_SERVER['HTTP_USER_AGENT'], "msie" ) ) {
+				$stepsBack = 2;
+			}
 			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
 		} else {
 			$cancel = SFUtils::getLinker()->link( $wgTitle, $label, array(), array(), 'known' );
