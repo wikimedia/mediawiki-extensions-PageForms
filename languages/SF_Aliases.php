@@ -524,7 +524,7 @@ $specialPageAliases['or'] = array(
 
 /** Punjabi (ਪੰਜਾਬੀ) */
 $specialPageAliases['pa'] = array(
-	'Templates' => array( 'ਸਾਂਚੇ' ),
+	'Templates' => array( 'ਫਰਮੇ' ),
 );
 
 /** Polish (polski) */
