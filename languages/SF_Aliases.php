@@ -524,7 +524,7 @@ $specialPageAliases['or'] = array(
 
 /** Punjabi (ਪੰਜਾਬੀ) */
 $specialPageAliases['pa'] = array(
-	'Templates' => array( 'ਫਰਮੇ' ),
+	'Templates' => array( 'ਸਾਂਚੇ' ),
 );
 
 /** Polish (polski) */
@@ -570,6 +570,21 @@ $specialPageAliases['pt-br'] = array(
 /** Romanian (română) */
 $specialPageAliases['ro'] = array(
 	'Templates' => array( 'Formate' ),
+);
+
+/** Sicilian (sicilianu) */
+$specialPageAliases['scn'] = array(
+	'CreateCategory' => array( 'CreaCategoria' ),
+	'CreateClass' => array( 'CreaClasse' ),
+	'CreateForm' => array( 'CreaModulo' ),
+	'CreateProperty' => array( 'CreaProprietà' ),
+	'CreateTemplate' => array( 'CreaTemplate' ),
+	'FormEdit' => array( 'ModificaDati' ),
+	'FormStart' => array( 'AggiungiPagina' ),
+	'Forms' => array( 'Moduli' ),
+	'RunQuery' => array( 'EseguiRicerca' ),
+	'Templates' => array( 'Template' ),
+	'UploadWindow' => array( 'AggiornaFinestra' ),
 );
 
 /** Slovak (slovenčina) */
