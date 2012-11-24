@@ -40,7 +40,7 @@ if ( !defined( 'SMW_VERSION' ) ) {
 	die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
 }
 
-define( 'SF_VERSION', '2.5.1' );
+define( 'SF_VERSION', '2.5.2 alpha' );
 
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
@@ -202,7 +202,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.main' => $sfgResourceTemplate + array(
 			'scripts' => array(
 				'libs/SemanticForms.js',
-				'libs/SF_ajax_form_preview.js',
+				'libs/SF_preview.js'
 			),
 			'styles' => array(
 				'skins/SemanticForms.css',

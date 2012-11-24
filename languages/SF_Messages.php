@@ -150,7 +150,14 @@ it should look like \'Special:FormEdit?form=<form name>&target=<target page>\', 
 	'sf_formedit_accesskey_saveandcontinueediting' => 'a',
 	'sf_autoedit_anoneditwarning'        => 'Warning: You are not logged in. Your IP address will be recorded in this page\'s edit history.',
 	'sf_autoedit_success'                => 'Successfully modified [[$1]] using form $2.',
+	'sf_autoedit_fail'                   => 'Modifying [[$1]] failed.',
 	'sf_autoedit_notargetspecified'      => "No target page specified.",
+	'sf_autoedit_invalidtargetspecified' => 'The specified target page $1 is invalid.',
+	'sf_autoedit_invalidform'            => '$1 is not a valid form.',
+	'sf_autoedit_redirectlimitexeeded'   => 'The maximum redirect limit for form $1 was exeeded.',
+	'sf_autoedit_invalidredirecttarget'  => '$1 is an invalid redirect target for form $2.',
+	'sf_autoedit_invalidpreloadspecified'=> 'The specified preload page $1 is invalid.',
+	'sf_autoedit_redlinkexists'          => '$1 already exists.',
 	'sf_autoedit_noformfound'            => "No form specified.",
 	'sf_autoedit_toomanyformsfound'      => "More than one form available for page.",
 	'sf_autoedit_readonly'               => "The database is currently locked to modifications. Reason: $1",
@@ -220,7 +227,7 @@ $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
-	'sf_templates_definescat' => 'The message is shown on [[Special:Templates]], the list of templates in the wiki, after the name of each template, to describe it. 
+	'sf_templates_definescat' => 'The message is shown on [[Special:Templates]], the list of templates in the wiki, after the name of each template, to describe it.
 <code>$1</code> is the name of the category that this template adds pages to.',
 	'sf_createtemplate_standardformat' => '',
 	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
@@ -248,9 +255,22 @@ $messages['qqq'] = array(
 Parameters:
 * $1 is replaced with {{msg-mw|sf_formedit_saveandcontinueediting}}.',
 	'sf_formedit_accesskey_saveandcontinueediting' => '{{notranslate}}',
-	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
-	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
-	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
+	'sf_autoedit_anoneditwarning'        => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
+	'sf_autoedit_success'                => 'Message sent upon successful operation.',
+	'sf_autoedit_fail'                   => 'Message sent upon failed operation.',
+	'sf_autoedit_notargetspecified'      => 'An error message sent when no target page name was specified.',
+	'sf_autoedit_invalidtargetspecified' => 'An error message sent when the specified target page name is invalid as a wiki page name.',
+	'sf_autoedit_invalidform'            => 'An error message sent when an invalid form was specified.',
+	'sf_autoedit_invalidpreloadspecified'=> 'An error message sent when an invalid preload page was specified.',
+	'sf_autoedit_redlinkexists'          => 'An error message sent when the page was started on a redlink but on submit already exists.',
+	'sf_autoedit_redirectlimitexeeded'   => 'An error message sent when the redirect limit was exeeded for the form page.',
+	'sf_autoedit_invalidredirecttarget'  => 'An error message sent when the form page redirects to an invalid target.',
+	'sf_autoedit_noformfound'            => 'An error message sent when no suitable form could be found to edit the given target page.',
+	'sf_autoedit_toomanyformsfound'      => 'An error message sent when too many forms were found for the given target page.',
+	'sf_autoedit_readonly'               => 'An error message sent when the wiki is in read-only mode',
+	'sf_autoedit_nosemanticform'         => 'An error message sent when no suitable form could be found to edit the given target page.',
+	'sf_autoedit_summary'                => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
+	'sf-autoedit-wait'                   => 'Message displayed while an automatic edit is being made.',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
 
@@ -824,8 +844,8 @@ $messages['be-tarask'] = array(
 	'formstart' => 'Дадаць старонку з формай',
 	'sf_formstart_badform' => 'Памылка: ня знойдзена старонка формы на $1',
 	'sf_formstart_badtitle' => 'Памылка: «$1» — няслушная назва для старонкі.',
-	'sf_formstart_docu' => "Увядзіце тут назву старонкі, якую трэба рэдагаваць з дапамогай формы '$1'. 
-Калі гэта старонка ўжо існуе, Вы будзеце накіраваны на форму рэдагаваньня старонкі. 
+	'sf_formstart_docu' => "Увядзіце тут назву старонкі, якую трэба рэдагаваць з дапамогай формы '$1'.
+Калі гэта старонка ўжо існуе, Вы будзеце накіраваны на форму рэдагаваньня старонкі.
 У адваротным выпадку, Вы будзеце накіраваны на форму даданьня старонкі.",
 	'sf_formstart_noform_docu' => 'Увядзіце тут назву старонкі і выберыце форму, з дапамогай якой Вы будзеце рэдагаваць старонку.
 Калі гэта старонка ўжо існуе, Вы будзеце накіраваны на форму рэдагаваньня старонкі.
@@ -1330,7 +1350,7 @@ Si no, s'obrirà el formulari per afegir una pàgina nova.",
 	'formedit' => 'Modifica amb formulari',
 	'sf_formedit_createtitle' => 'Crea $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Crea $1',
-	'sf_formedit_badurl' => "Aquesta és la pàgina per editar amb un formulari. Cal que especifiqueu a l'URL tant un nom de formulari com una pàgina de destí; 
+	'sf_formedit_badurl' => "Aquesta és la pàgina per editar amb un formulari. Cal que especifiqueu a l'URL tant un nom de formulari com una pàgina de destí;
 ha de ser quelcom similar a 'Especial:FormEdit?form=<nom_formulari>&target=<pàgina_destí>', o bé 'Especial:FormEdit/<nom_formulari>/<pàgina_destí>'.",
 	'sf_formedit_altforms' => 'Alternativament pots afegir aquesta pàgina amb un dels formularis següents:',
 	'sf_formedit_altformsonly' => 'Seleccioneu un formulari entre els següents per afegir aquesta pàgina:',
@@ -1659,7 +1679,7 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 Sie sollte im folgenden Format genutzt werden:',
 	'sf_template_docufooter' => 'Klicke auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
-Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten in das Eingabefeld ein. 
+Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten in das Eingabefeld ein.
 Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
 	'sf_form_freetextlabel' => 'Freitext',
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
@@ -1698,7 +1718,7 @@ Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Form
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.',
 	'sf_template_docufooter' => 'Klicken Sie auf „Bearbeiten“, um den Vorlagentext anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
-Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten in das Eingabefeld ein. 
+Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten in das Eingabefeld ein.
 Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
 );
 
@@ -3656,7 +3676,7 @@ URL měł wupadać kaž 'Special:RunQuery/<formularne mjeno>'.",
 	'sf_template_docu' => "To je předłoha '$1'. Měła so w slědowacym formaće wołać:",
 	'sf_template_docufooter' => 'Wobdźěłaj tutu stronu, zo by tekst předłohi widźał.',
 	'sf_form_docu' => 'To je formular "$1".
-Zo by stronu z tutym formularom wutworił, zapodaj deleka mjeno strony; 
+Zo by stronu z tutym formularom wutworił, zapodaj deleka mjeno strony;
 jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, z kotrymž móžeš tutu stronu wobdźěłać.',
 	'sf_form_freetextlabel' => 'Swobodny tekst',
 	'sf_category_hasdefaultform' => 'Tuta kategorija wužiwa formular $1.',
@@ -6286,7 +6306,7 @@ $messages['nn'] = array(
 	'sf_createcategory_makesubcategory' => 'Gjer dette til ein underkategori av ein annan kategori (valfritt):',
 	'formstart' => 'Legg til ei sida gjennom eit skjema',
 	'sf_formstart_badform' => 'Feil: fann ikkje noka skjemasida på $1',
-	'sf_formstart_docu' => 'Skriv inn namnet på sida som skal bli endra med skjemaet «$1» her. 
+	'sf_formstart_docu' => 'Skriv inn namnet på sida som skal bli endra med skjemaet «$1» her.
 Om sida finst frå før, vil du bli teken med til skjemaet for endring av ho.
 Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
 	'sf_formstart_noform_docu' => 'Skriv inn namnet på sida her, og vel kva skjema du vil nytta til å endra ho. Om sida finst frå før, vil du bli teken med til skjemaet for endring av ho. Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
@@ -6317,7 +6337,7 @@ Viss ikkje vil du bli teken med til skjemaet for å oppretta sida.',
 	'sf_template_docu' => 'Dette er malen «$1».
 Han burde bli kalla opp med følgjande format:',
 	'sf_template_docufooter' => 'Endra sida for å sjå malteksten.',
-	'sf_form_docu' => 'Dette er skjemaet «$1». 
+	'sf_form_docu' => 'Dette er skjemaet «$1».
 Skriv inn eit sidenamn nedanfor for å oppretta ei sida med dette skjemaet. Om ei sida med dette namnet finst frå før, vil du bli sendt til eit skjema for endring av ho.', # Fuzzy
 	'sf_form_freetextlabel' => 'Fritekst',
 	'sf_category_hasdefaultform' => 'Denne kategorien nyttar skjemaet «$1».',
@@ -6734,7 +6754,7 @@ Dësnò, a sarà mandà al formolari për gionté la pàgina.",
 	'sf_formedit_createtitle' => 'Crea $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Crea $1',
 	'sf_formedit_badurl' => "Costa-sì a l'é la pàgina për modifiché con un formolari. A dev spessifiché sia un nòm ëd formolari sia na pàgina obietiv ant l'adrëssa dl'aragnà;
-a dovrìa smijé a 'Special:FormEdit?form=<form name>&target=<nòm dla pàgina>', or  
+a dovrìa smijé a 'Special:FormEdit?form=<form name>&target=<nòm dla pàgina>', or
 'Special:FormEdit/<form name>/<nòm dla pàgina>'.",
 	'sf_formedit_altforms' => 'A peul anvece gionté sta pàgina-sì con un dij formolari sì-sota:',
 	'sf_formedit_altformsonly' => "Për piasì, ch'a selession-a un dij formolari sì-sota për gionté costa pàgina:",
@@ -7107,17 +7127,17 @@ $messages['pt-br'] = array(
 	'formstart' => 'Adicionar página',
 	'sf_formstart_badform' => 'Erro: nenhum formulário foi encontrado na página "$1".',
 	'sf_formstart_badtitle' => 'Erro: "$1" é um título inválido para uma página.',
-	'sf_formstart_docu' => "Entre com o nome da página a ser editada com o formulário '$1'. 
+	'sf_formstart_docu' => "Entre com o nome da página a ser editada com o formulário '$1'.
 Se esta página já existir, você será direcionado para o formulário de edição da página.
 Do contrário, você será direcionado para a criação da página com o formulário.",
-	'sf_formstart_noform_docu' => 'Entre com o nome da página e selecione o formulário com que a página será editada. 
-Se esta página já existir, você será direcionado para a edição da página com o formulário. 
+	'sf_formstart_noform_docu' => 'Entre com o nome da página e selecione o formulário com que a página será editada.
+Se esta página já existir, você será direcionado para a edição da página com o formulário.
 Do contrário, você será direcionado para adicionar a página com o formulário.',
 	'sf_formstart_createoredit' => 'Criar ou editar',
 	'formedit' => 'Editar com formulário',
 	'sf_formedit_createtitle' => 'Criar $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Criar $1',
-	'sf_formedit_badurl' => "Esta é a página para edição com um formulário. É necessário especificar na URL tanto um nome de formulário quanto uma página alvo; 
+	'sf_formedit_badurl' => "Esta é a página para edição com um formulário. É necessário especificar na URL tanto um nome de formulário quanto uma página alvo;
 isto é, o URL deve ficar parecido com 'Special:FormEdit?form=<form name>&target=<target page>' ou 'Special:FormEdit/<form name>/<target page>'.",
 	'sf_formedit_altforms' => 'Você também pode adicionar está página com um dos seguintes formulários:',
 	'sf_formedit_altformsonly' => 'Por favor, selecione um dos seguintes formulários para adicionar esta página:',
@@ -7916,7 +7936,7 @@ Om du inte kommer skickas över till formuläret för att skapa sidan.',
 	'formedit' => 'Redigera med formulär',
 	'sf_formedit_createtitle' => 'Skapa $1: $2',
 	'sf_formedit_createtitlenotarget' => 'Skapa $1',
-	'sf_formedit_badurl' => 'Det här är sidan för att lägga till data. Du måste ange både ett formulärnamn och en målsida i URL-en; 
+	'sf_formedit_badurl' => 'Det här är sidan för att lägga till data. Du måste ange både ett formulärnamn och en målsida i URL-en;
 det borde se ut som; "Special:FormEdit?form=<´formulärnamn>&target=<målsida>", eller som: "Special:FormEdit/<form name>/<target page>".',
 	'sf_formedit_altforms' => 'Du kan istället skapa sidan genom att använda ett av följande formulär:',
 	'sf_formedit_altformsonly' => 'Var god välj från en av de följande formulären för att lägga till den här sidan:',
