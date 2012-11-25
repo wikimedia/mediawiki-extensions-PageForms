@@ -102,7 +102,7 @@ $specialPageAliases['bs'] = array(
 
 /** буряад (буряад) */
 $specialPageAliases['bxr'] = array(
-	'CreateCategory' => array( 'Байгуулха_категори' ),
+	'CreateCategory' => array( 'Категори_үүсхэхэ' ),
 );
 
 /** German (Deutsch) */
@@ -524,6 +524,8 @@ $specialPageAliases['or'] = array(
 
 /** Punjabi (ਪੰਜਾਬੀ) */
 $specialPageAliases['pa'] = array(
+	'CreateCategory' => array( 'ਸ਼੍ਰੇਣੀ_ਬਣਾਓ' ),
+	'CreateTemplate' => array( 'ਸਾਂਚਾ_ਬਣਾਓ' ),
 	'Templates' => array( 'ਸਾਂਚੇ' ),
 );
 
