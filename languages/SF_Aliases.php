@@ -469,7 +469,7 @@ $specialPageAliases['nb'] = array(
 	'UploadWindow' => array( 'Opplastingsvindu' ),
 );
 
-/** Nedersaksisch (Nedersaksisch) */
+/** Nedersaksies (Nedersaksies) */
 $specialPageAliases['nds-nl'] = array(
 	'CreateCategory' => array( 'Kategorie_anmaken' ),
 	'CreateClass' => array( 'Klasse_anmaken' ),

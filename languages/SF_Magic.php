@@ -83,7 +83,7 @@ $magicWords['mr'] = array(
 	'arraymaptemplate' => array( 0, 'नकाशेसाचारचना', 'arraymaptemplate' ),
 );
 
-/** Nedersaksisch (Nedersaksisch) */
+/** Nedersaksies (Nedersaksies) */
 $magicWords['nds-nl'] = array(
 	'forminput' => array( 0, 'formulierinvoer' ),
 	'formlink' => array( 0, 'formulierverwiezing', 'formulierverwijzing' ),
