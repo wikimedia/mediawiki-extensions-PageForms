@@ -516,6 +516,7 @@ END;
 		$summary = null;
 		$classString = 'autoedit-trigger';
 		$inQueryArr = array();
+		$editTime = null;
 
 		// parse parameters
 		$params = func_get_args();
@@ -559,6 +560,15 @@ END;
 					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 					break;
 
+				case 'target':
+				case 'title':
+					$value = $parser->recursiveTagParse( $value );
+					$arr = array( $key => $value );
+					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+
+					$targetArticle = new Article( Title::newFromText( $value ) );
+					$editTime = $targetArticle->getTimestamp();
+
 				default :
 
 					$value = $parser->recursiveTagParse( $value );
@@ -597,6 +607,10 @@ END;
 		}
 
 		$formcontent .= Html::hidden( 'wpSummary', $summary );
+
+		if ( $editTime !== null ) {
+			$formcontent .= Html::hidden( 'wpEdittime', $editTime );
+		}
 
 		$form = Html::rawElement( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 

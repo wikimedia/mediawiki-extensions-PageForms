@@ -1,7 +1,7 @@
 <?php
 /**
  * Handles the formedit action.
- * 
+ *
  * @author Stephan Gambke
  * @file
  * @ingroup SF
@@ -12,7 +12,7 @@ if ( ! class_exists( 'Action') ) {
 	class Action{}
 }
 
-class SFFormEditAction extends Action 
+class SFFormEditAction extends Action
 {
 	/**
 	 * Return the name of the action this object responds to
@@ -21,7 +21,7 @@ class SFFormEditAction extends Action
 	public function getName(){
 		return 'formedit';
 	}
-	
+
 	/**
 	 * The main action entry point.  Do all output for display and send it to the context
 	 * output.  Do not use globals $wgOut, $wgRequest, etc, in implementations; use
@@ -156,10 +156,9 @@ class SFFormEditAction extends Action
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
-		global $sfgUseFormEditPage;
 
 		// TODO: This function will be called as a hook handler and $action will
-		//  be a string before MW 1.18. From 1.18 onwards this function will#
+		//  be a string before MW 1.18. From 1.18 onwards this function will
 		//  only be called for formedit actions, i.e. the if statement can be
 		//  removed then.
 
@@ -190,36 +189,11 @@ class SFFormEditAction extends Action
 			$warning_text = "\t" . '<div class="warningbox">' . wfMessage( 'sf_formedit_morethanoneform' )->text() . "</div>\n";
 			$output->addWikiText( $warning_text );
 		}
+		
 		$form_name = $form_names[0];
-
-		if ( $sfgUseFormEditPage ) {
-			# Experimental new feature extending from the internal
-			# EditPage class
-			$editor = new SFFormEditPage( $article, $form_name );
-			$editor->edit();
-			return false;
-		}
-
 		$page_name = SFUtils::titleString( $title );
 
-		$msg = SFFormEdit::printForm( $form_name, $page_name );
-
-		if ( $msg ) {
-			// Some error occurred - display it.
-			$msgdata = null;
-			if ( is_array( $msg ) ) {
-				if ( count( $msg ) > 1 ) {
-					$msgdata = $msg[1];
-				}
-				$msg = $msg[0];
-			}
-
-			$output->addHTML( Html::element(
-				'p',
-				array( 'class' => 'error' ),
-				wfMessage( $msg, $msgdata )->text()
-			) );
-		}
+		SFFormEdit::printForm( $form_name, $page_name );
 
 		return false;
 	}

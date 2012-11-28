@@ -202,7 +202,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.main' => $sfgResourceTemplate + array(
 			'scripts' => array(
 				'libs/SemanticForms.js',
-				'libs/SF_ajax_form_preview.js',
+				'libs/SF_preview.js'
 			),
 			'styles' => array(
 				'skins/SemanticForms.css',
