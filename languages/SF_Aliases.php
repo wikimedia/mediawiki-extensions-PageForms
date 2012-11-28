@@ -525,8 +525,8 @@ $specialPageAliases['or'] = array(
 /** Punjabi (ਪੰਜਾਬੀ) */
 $specialPageAliases['pa'] = array(
 	'CreateCategory' => array( 'ਸ਼੍ਰੇਣੀ_ਬਣਾਓ' ),
-	'CreateTemplate' => array( 'ਫਰਮਾ_ਬਣਾਓ' ),
-	'Templates' => array( 'ਫਰਮੇ' ),
+	'CreateTemplate' => array( 'ਸਾਂਚਾ_ਬਣਾਓ' ),
+	'Templates' => array( 'ਸਾਂਚੇ' ),
 );
 
 /** Polish (polski) */
