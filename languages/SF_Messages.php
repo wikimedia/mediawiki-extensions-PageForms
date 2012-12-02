@@ -2219,7 +2219,14 @@ $messages['es'] = array(
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Guardar datos y continuar editando',
 	'sf_autoedit_anoneditwarning' => 'Aviso: No ha iniciado sesión en el sistema. Su dirección IP quedará registrada en el historial de revisiones de esta página.',
 	'sf_autoedit_success' => 'Se modificó correctamente [[$1]] empleando el formulario $2.',
+	'sf_autoedit_fail' => 'Error al modificar [[$1]].',
 	'sf_autoedit_notargetspecified' => 'No se especificó ninguna página de destino.',
+	'sf_autoedit_invalidtargetspecified' => 'La página de destino especificada, $1, no es válida.',
+	'sf_autoedit_invalidform' => '$1 no es un formulario válido.',
+	'sf_autoedit_redirectlimitexeeded' => 'Sue ha superado el límite máximo de redirecciones para el formulario $1.',
+	'sf_autoedit_invalidredirecttarget' => '$1 no es un objetivo válido de redirección el formulario $2.',
+	'sf_autoedit_invalidpreloadspecified' => 'La página de precarga especificada, $1, no es válida.',
+	'sf_autoedit_redlinkexists' => '$1 ya existe.',
 	'sf_autoedit_noformfound' => 'No se especificó ningún formulario.',
 	'sf_autoedit_toomanyformsfound' => 'Hay más de un formulario disponible para la página.',
 	'sf_autoedit_readonly' => 'La base de datos está actualmente bloqueada para modificaciones. Motivo: $1',
@@ -2435,7 +2442,7 @@ $messages['fi'] = array(
 	'semanticforms-desc' => 'Semanttisen tiedon syöttö- ja muokkauslomakkeet',
 	'specialpages-group-sf_group' => 'Semanttiset lomakkeet',
 	'createproperty' => 'Luo ominaisuus',
-	'sf-createproperty-with-name' => 'Luo ominaisuus:$1',
+	'sf-createproperty-with-name' => 'Luo ominaisuus: $1',
 	'sf_createproperty_linktoform' => 'Tämä ominaisuus linkittää sivuille, jotka käyttävät lomaketta:',
 	'sf_createproperty_allowedvalsinput' => 'Jos ominaisuudella saa olla vain tiettyjä arvoja, lisää pilkuin erotettu lista sallituista arvoista (jos arvo sisältää pilkun, korvaa pilkku kenoviivalla ja pilkulla: ”\\,”):',
 	'sf_createproperty_propname' => 'Ominaisuuden nimi',
@@ -6335,6 +6342,8 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_autoedit_anoneditwarning' => 'Waarschuwing: U bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.',
 	'sf_autoedit_success' => '[[$1]] is gewijzigd via het formulier $2.',
 	'sf_autoedit_notargetspecified' => 'Geen doelpagina opgegeven.',
+	'sf_autoedit_invalidpreloadspecified' => 'De opgegevens vooraf te laden pagina $1 is ongeldig.',
+	'sf_autoedit_redlinkexists' => '$1 bestaat al.',
 	'sf_autoedit_noformfound' => 'Geen formulier opgegeven.',
 	'sf_autoedit_toomanyformsfound' => 'Meer dan één formulier beschikbaar voor de pagina.',
 	'sf_autoedit_readonly' => 'De database is momenteel afgesloten voor wijzigingen. Reden: $1',
@@ -6613,11 +6622,12 @@ l'URL deuriá èsser coma « Special:RunQuery/<nom del formulari> ».",
 
 /** Ossetic (Ирон)
  * @author Amikeco
+ * @author Bouron
  */
 $messages['os'] = array(
 	'sf_createproperty_proptype' => 'Тип:',
 	'templates' => 'Шаблонтæ',
-	'sf_createtemplate_deletefield' => 'Аппар',
+	'sf_createtemplate_deletefield' => 'Схафын',
 	'sf_createform_template' => 'Шаблон:',
 	'sf_formedit_none' => 'Нæй',
 );
