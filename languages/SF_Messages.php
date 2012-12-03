@@ -6304,7 +6304,7 @@ $messages['nl'] = array(
 	'sf_createcategory_defaultform' => 'Standaard formulier:',
 	'sf_createcategory_makesubcategory' => 'Deze categorie een ondercategorie van een andere categorie maken (optioneel):',
 	'createclass' => 'Klasse aanmaken',
-	'sf_createclass_docu' => "Voer hier alle gegevens in om de eigenschappen, de sjabloon, het formulier en de categorie voor een klasse aan te maken.
+	'sf_createclass_docu' => "Voer hier alle gegevens in om de eigenschappen, de sjabloon, het formulier en de categorie voor één enkele klasse aan te maken.
 Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_createclass_allowedvalues' => 'Toegestane waarden:',
 	'sf_createclass_listofvalues' => 'Lijst met waarden:',
@@ -6341,7 +6341,12 @@ Gebruik de pagina's $1 voor meer mogelijkheden.",
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Gegevens opslaan en doorgaan met bewerken',
 	'sf_autoedit_anoneditwarning' => 'Waarschuwing: U bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.',
 	'sf_autoedit_success' => '[[$1]] is gewijzigd via het formulier $2.',
+	'sf_autoedit_fail' => 'Het wijzigen van [[$1]] is mislukt.',
 	'sf_autoedit_notargetspecified' => 'Geen doelpagina opgegeven.',
+	'sf_autoedit_invalidtargetspecified' => 'De opgegeven doelpagina $1 is ongeldig.',
+	'sf_autoedit_invalidform' => '$1 is geen geldig formulier.',
+	'sf_autoedit_redirectlimitexeeded' => 'De drempelwaarde voor doorverwijzigen voor het formulier $1 is bereikt.',
+	'sf_autoedit_invalidredirecttarget' => '$1 is een ongeldig doel voor doorverwijzing voor het formulier $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'De opgegevens vooraf te laden pagina $1 is ongeldig.',
 	'sf_autoedit_redlinkexists' => '$1 bestaat al.',
 	'sf_autoedit_noformfound' => 'Geen formulier opgegeven.',
@@ -6372,7 +6377,8 @@ De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_property_isproperty' => 'Dit is een eigenschap van type $1.',
 	'sf_property_linkstoform' => "Deze verwijst naar pagina's die gebruikmaken van het formulier $1.",
 	'sf_property_allowedvals' => 'De toegelaten {{PLURAL:$1|waarde voor deze eigenschap is|waarden voor deze eigenschap zijn}}:',
-	'sf_template_docu' => 'Dit is de "$1" sjabloon. Gebruik het op de volgende wijze:',
+	'sf_template_docu' => 'Dit is de sjabloon "$1".
+Gebruik het op de volgende wijze:',
 	'sf_template_docufooter' => 'Bewerk de pagina om de sjabloontekst te bekijken.',
 	'sf_form_docu' => 'Dit is het formulier "$1".
 Om een pagina aan te maken via dit formulier typt u de paginanaam hieronder in;
