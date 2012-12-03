@@ -128,7 +128,12 @@ class SFAutoeditAPI extends ApiBase {
 	function prepareAction() {
 
 		// get options from the request, but keep the explicitly set options
-		$data = $this->getRequest()->getValues();
+		global $wgVersion;
+		if ( version_compare( $wgVersion, '1.20', '>=' ) ) {
+			$data = $this->getRequest()->getValues();
+		} else { // TODO: remove else branch when raising supported version to MW 1.20, getValues() was buggy before
+			$data = $_POST + $_GET;
+		}
 		$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
 		// MW uses the parameter 'title' instead of 'target' when submitting
@@ -350,16 +355,22 @@ class SFAutoeditAPI extends ApiBase {
 
 		global $wgUser, $wgOut, $wgLang;
 
+		if ( method_exists( $editor, 'getTitle' ) ) {
+			$title = $editor->getTitle();
+		} else { // TODO: remove else branch when raising supported version to MW 1.19
+			$title = $editor->mTitle;
+		}
+
 		// If they used redlink=1 and the page exists, redirect to the main article and send notice
-		if ( $this->getRequest()->getBool( 'redlink' ) && $editor->getTitle()->exists() ) {
+		if ( $this->getRequest()->getBool( 'redlink' ) && $title->exists() ) {
 			$this->logMessage( wfMessage( 'sf_autoedit_redlinkexists' )->parse(), self::WARNING );
 		}
 
-		$permErrors = $editor->getTitle()->getUserPermissionsErrors( 'edit', $wgUser );
+		$permErrors = $title->getUserPermissionsErrors( 'edit', $wgUser );
 
 		// if this title needs to be created, user needs create rights
-		if ( !$editor->getTitle()->exists() ) {
-			$permErrors = array_merge( $permErrors, wfArrayDiff2( $editor->getTitle()->getUserPermissionsErrors( 'create', $wgUser ), $permErrors ) );
+		if ( !$title->exists() ) {
+			$permErrors = array_merge( $permErrors, wfArrayDiff2( $title->getUserPermissionsErrors( 'create', $wgUser ), $permErrors ) );
 		}
 
 		if ( $permErrors ) {
@@ -399,18 +410,21 @@ class SFAutoeditAPI extends ApiBase {
 				$this->logMessage( 'Article update aborted by a hook function', self::DEBUG );
 				return false; // success
 
-			case EditPage::AS_PARSE_ERROR: // can't parse content
-
-				throw new MWException( $status->getHTML() );
-				return true; // fail
+			// TODO: This error code only exists from 1.21 onwards. It is
+			// suitably handled by the default branch, but really should get its
+			// own branch. Uncomment once compatibility to pre1.21 is dropped.
+//			case EditPage::AS_PARSE_ERROR: // can't parse content
+//
+//				throw new MWException( $status->getHTML() );
+//				return true; // fail
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE: // Article successfully created
 
 				$query = $resultDetails[ 'redirect' ] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails[ 'sectionanchor' ] ) ? $resultDetails[ 'sectionanchor' ] : '';
 
-				$wgOut->redirect( $editor->getTitle()->getFullURL( $query ) . $anchor );
-				$this->getResult()->addValue( NULL, 'redirect', $editor->getTitle()->getFullURL( $query ) . $anchor );
+				$wgOut->redirect( $title->getFullURL( $query ) . $anchor );
+				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $query ) . $anchor );
 				return false; // success
 
 			case EditPage::AS_SUCCESS_UPDATE: // Article successfully updated
@@ -429,8 +443,8 @@ class SFAutoeditAPI extends ApiBase {
 					}
 				}
 
-				$wgOut->redirect( $editor->getTitle()->getFullURL( $extraQuery ) . $sectionanchor );
-				$this->getResult()->addValue( NULL, 'redirect', $editor->getTitle()->getFullURL( $extraQuery ) . $sectionanchor );
+				$wgOut->redirect( $title->getFullURL( $extraQuery ) . $sectionanchor );
+				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $extraQuery ) . $sectionanchor );
 
 				return false; // success
 
@@ -471,7 +485,7 @@ class SFAutoeditAPI extends ApiBase {
 				throw new ThrottledError();
 
 			case EditPage::AS_NO_CREATE_PERMISSION: // user tried to create editor page, but is not allowed to do that ( Title->usercan('create') == false )
-				$permission = $editor->getTitle()->isTalkPage() ? 'createtalk' : 'createpage';
+				$permission = $title->isTalkPage() ? 'createtalk' : 'createpage';
 				throw new PermissionsError( $permission );
 
 			default:
@@ -744,8 +758,9 @@ class SFAutoeditAPI extends ApiBase {
 				// save wgOut for later restoration
 				$oldOut = $wgOut;
 
-				// spoof wgOut; else some JS modules might be called twice
-				$wgOut = new OutputPage();
+				// spoof wgOut; if we took the general $wgOut some JS modules
+				// might attach themselves twice and thus be called twice
+				$wgOut = new OutputPage( RequestContext::getMain() );
 
 				// call SFFormPrinter::formHTML to get at the form html of the existing page
 				list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
@@ -1068,6 +1083,20 @@ END;
 		global $sfgIP;
 		$gitSha1 = SpecialVersion::getGitHeadSha1( $sfgIP );
 		return __CLASS__ . '-' . SF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
+	}
+
+
+	/**
+	 * Available in parent class since MW 1.19
+	 * @deprecated
+	 */
+	function getRequest() {
+		if ( is_callable( 'parent::getRequest' ) ) {
+			return parent::getRequest();
+		} else {
+			global $wgRequest;
+			return $wgRequest;
+		}
 	}
 
 }
