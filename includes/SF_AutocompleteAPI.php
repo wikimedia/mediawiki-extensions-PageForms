@@ -60,10 +60,16 @@ class SFAutocompleteAPI extends ApiBase {
 		}
 		 */
 
-		// Format data as the API requires it.
-		$formattedData = array();
-		foreach ( $data as $value ) {
-			$formattedData[] = array( 'title' => $value );
+		// Format data as the API requires it - this is not needed
+		// for "values from url", where the data is already formatted
+		// correctly.
+		if ( is_null( $external_url ) ) {
+			$formattedData = array();
+			foreach ( $data as $value ) {
+				$formattedData[] = array( 'title' => $value );
+			}
+		} else {
+			$formattedData = $data;
 		}
 
 		// Set top-level elements.
