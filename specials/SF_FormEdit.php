@@ -75,7 +75,11 @@ class SFFormEdit extends SpecialPage {
 
 		global $wgOut, $wgRequest;
 
-		$module = new SFAutoeditAPI( new ApiMain(), 'sfautoedit' );
+		if ( method_exists( 'ApiMain', 'getContext' ) ) {
+			$module = new SFAutoeditAPI( new ApiMain(), 'sfautoedit' );
+		} else { // TODO: remove else branch when raising supported version to MW 1.19
+			$module = new SFAutoeditAPI( new ApiMain( $wgRequest ), 'sfautoedit' );
+		}
 		$module->setOption( 'form', $form_name );
 		$module->setOption( 'target', $target_name );
 
