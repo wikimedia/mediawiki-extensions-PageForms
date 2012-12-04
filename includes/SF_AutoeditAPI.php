@@ -611,7 +611,7 @@ class SFAutoeditAPI extends ApiBase {
 				$isRandom = true;
 				$randomNumHasPadding = array_key_exists( 2, $matches );
 				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[ 3 ] : $randomNumDigits );
-				$title_number = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+				$title_number = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 			} else if ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
 				// get unique number start value
 				// from target name; if it's not
@@ -639,7 +639,7 @@ class SFAutoeditAPI extends ApiBase {
 			while ( $target_title->exists() ) {
 
 				if ( $isRandom ) {
-					$title_number = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+					$title_number = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 				}
 				// if title number is blank, change it to 2; otherwise,
 				// increment it, and if necessary pad it with leading 0s as well

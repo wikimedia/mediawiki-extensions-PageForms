@@ -61,16 +61,6 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
-	static function makeRandomNumber( $numDigits, $hasPadding ) {
-		$maxValue = pow( 10, $numDigits ) - 1;
-		if ( $maxValue > getrandmax() ) {
-			$maxValue = getrandmax();
-		}
-		$value = rand( 0, $maxValue );
-		$format = '%' . ($hasPadding ? '0' : '') . $numDigits . 'd';
-		return trim( sprintf( $format, $value ) ); // trim needed, when $hasPadding == false
-	}
-
 	static function printForm( &$form_name, &$target_name, $alt_forms = array( ) ) {
 
 		global $wgOut, $wgRequest;
@@ -84,7 +74,7 @@ class SFFormEdit extends SpecialPage {
 		$module->setOption( 'target', $target_name );
 
 		// if the page was submitted, formdata should be complete => do not preload
-//		$module->setOption( 'preload', !$wgRequest->getCheck( 'wpSave' ) && !$wgRequest->getCheck( 'wpPreview' ) );
+		$module->setOption( 'preload', !$wgRequest->getCheck( 'wpSave' ) && !$wgRequest->getCheck( 'wpPreview' ) );
 
 		$module->execute();
 
