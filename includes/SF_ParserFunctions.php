@@ -566,8 +566,12 @@ END;
 					$arr = array( $key => $value );
 					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 
-					$targetArticle = new Article( Title::newFromText( $value ) );
-					$editTime = $targetArticle->getTimestamp();
+					$targetTitle = Title::newFromText( $value );
+
+					if ( $targetTitle !== null ) {
+						$targetArticle = new Article( $targetTitle );
+						$editTime = $targetArticle->getTimestamp();
+					}
 
 				default :
 
