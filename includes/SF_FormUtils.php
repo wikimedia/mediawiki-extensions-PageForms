@@ -256,7 +256,7 @@ END;
 			}
 			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
 		} else {
-			$cancel = SFUtils::getLinker()->link( $wgTitle, $label, array(), array(), 'known' );
+			$cancel = smwfGetLinker()->link( $wgTitle, $label, array(), array(), 'known' );
 		}
 		return "\t\t" . Html::rawElement( 'span', array( 'class' => 'editHelp' ), $cancel ) . "\n";
 	}

@@ -190,14 +190,8 @@ class SFFormField {
 			if ( $smwgContLang != null ) {
 				$datatypeLabels = $smwgContLang->getDatatypeLabels();
 				$datatypeLabels['enumeration'] = 'enumeration';
-				$propertyTypeLabel = $datatypeLabels[$template_field->getPropertyType()];
-				if ( class_exists( 'SMWDIProperty' ) ) {
-					// "Type:" namespace was removed in SMW 1.6.
-					// TODO: link to Special:Types instead?
-					$propertyTypeStr = $propertyTypeLabel;
-				} else {
-					$propertyTypeStr = SFUtils::linkText( SMW_NS_TYPE, $propertyTypeLabel );
-				}
+				// TODO: link to Special:Types?
+				$propertyTypeStr = $datatypeLabels[$template_field->getPropertyType()];
 			}
 			$text .= Html::rawElement( 'p', null, wfMessage( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
 		}

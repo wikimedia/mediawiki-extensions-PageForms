@@ -34,25 +34,15 @@ class SFCreateTemplate extends SpecialPage {
 		$options->limit = 500;
 		$used_properties = smwfGetStore()->getPropertiesSpecial( $options );
 		foreach ( $used_properties as $property ) {
-			if ( $property[0] instanceof SMWDIProperty ) {
-				// SMW 1.6+
-				$propName = $property[0]->getKey();
-				if ( $propName{0} != '_' ) {
-					$all_properties[] = str_replace( '_', ' ', $propName );
-				}
-			} else {
-				$all_properties[] = $property[0]->getWikiValue();
+			$propName = $property[0]->getKey();
+			if ( $propName{0} != '_' ) {
+				$all_properties[] = str_replace( '_', ' ', $propName );
 			}
 		}
 
 		$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial( $options );
 		foreach ( $unused_properties as $property ) {
-			if ( $property instanceof SMWDIProperty ) {
-				// SMW 1.6+
-				$all_properties[] = str_replace( '_' , ' ', $property->getKey() );
-			} else {
-				$all_properties[] = $property->getWikiValue();
-			}
+			$all_properties[] = str_replace( '_' , ' ', $property->getKey() );
 		}
 
 		// Sort properties list alphabetically.

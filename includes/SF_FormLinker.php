@@ -27,22 +27,11 @@ class SFFormLinker {
 	 */
 	static function getIncomingProperties( $title ) {
 		$store = smwfGetStore();
-		// SMW 1.6+
-		if ( class_exists( 'SMWDataItem' ) ) {
-			$value = SMWDIWikiPage::newFromTitle( $title );
-		} else {
-			$title_text = SFUtils::titleString( $title );
-			$value = SMWDataValueFactory::newTypeIDValue( '_wpg', $title_text );
-		}
+		$value = SMWDIWikiPage::newFromTitle( $title );
 		$properties = $store->getInProperties( $value );
 		$propertyNames = array();
 		foreach ( $properties as $property ) {
-			// SMW 1.6+
-			if ( $property instanceof SMWDIProperty ) {
-				$property_name = $property->getKey();
-			} else {
-				$property_name = $property->getWikiValue();
-			}
+			$property_name = $property->getKey();
 			if ( !empty( $property_name ) ) {
 				$propertyNames[] = $property_name;
 			}

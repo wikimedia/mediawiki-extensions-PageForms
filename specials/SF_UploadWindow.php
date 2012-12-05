@@ -624,7 +624,7 @@ END;
 		} elseif ( $exists['warning'] == 'was-deleted' ) {
 			# If the file existed before and was deleted, warn the user of this
 			$ltitle = SpecialPage::getTitleFor( 'Log' );
-			$llink = SFUtils::getLinker()->linkKnown(
+			$llink = smwfGetLinker()->linkKnown(
 				$ltitle,
 				wfMessage( 'deletionlog' )->escaped(),
 				array(),

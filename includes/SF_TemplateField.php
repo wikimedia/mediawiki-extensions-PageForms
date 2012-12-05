@@ -72,14 +72,8 @@ class SFTemplateField {
 		// this returns an array of objects
 		$allowed_values = SFUtils::getSMWPropertyValues( $store, $proptitle, "Allows value" );
 		$label_formats = SFUtils::getSMWPropertyValues( $store, $proptitle, "Has field label format" );
-		if ( class_exists( 'SMWDIProperty' ) ) {
-			// SMW 1.6+
-			$propValue = SMWDIProperty::newFromUserLabel( $this->mSemanticProperty );
-			$this->mPropertyType = $propValue->findPropertyTypeID();
-		} else {
-			$propValue = SMWPropertyValue::makeUserProperty( $this->mSemanticProperty );
-			$this->mPropertyType = $propValue->getPropertyTypeID();
-		}
+		$propValue = SMWDIProperty::newFromUserLabel( $this->mSemanticProperty );
+		$this->mPropertyType = $propValue->findPropertyTypeID();
 
 		foreach ( $allowed_values as $allowed_value ) {
 			// HTML-unencode each value

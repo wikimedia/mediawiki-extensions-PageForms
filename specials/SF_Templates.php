@@ -110,7 +110,7 @@ class TemplatesPage extends QueryPage {
 
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( NS_TEMPLATE, $result->value );
-		$text = SFUtils::getLinker()->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
+		$text = smwfGetLinker()->makeLinkObj( $title, htmlspecialchars( $title->getText() ) );
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
 			$text .= ' ' . wfMessage(

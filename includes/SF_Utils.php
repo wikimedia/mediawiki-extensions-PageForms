@@ -14,7 +14,7 @@ class SFUtils {
 	 */
 	public static function linkForSpecialPage( $specialPageName ) {
 		$specialPage = SpecialPage::getPage( $specialPageName );
-		return self::getLinker()->link( $specialPage->getTitle(), $specialPage->getDescription() );
+		return smwfGetLinker()->link( $specialPage->getTitle(), $specialPage->getDescription() );
 	}
 
 	/**
@@ -53,47 +53,28 @@ class SFUtils {
 	}
 
 	/**
-	 * Helper function to handle getPropertyValues() in both SMW 1.6
-	 * and earlier versions.
+	 * Helper function to handle getPropertyValues().
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
-		// SMWDIProperty was added in SMW 1.6
-		if ( class_exists( 'SMWDIProperty' ) ) {
-			if ( is_null( $subject ) ) {
-				$page = null;
-			} else {
-				$page = SMWDIWikiPage::newFromTitle( $subject );
-			}
-			$property = SMWDIProperty::newFromUserLabel( $propID );
-			$res = $store->getPropertyValues( $page, $property, $requestOptions );
-			$values = array();
-			foreach ( $res as $value ) {
-				if ( $value instanceof SMWDIUri ) {
-					$values[] = $value->getURI();
-				} else {
-					// getSortKey() seems to return the
-					// correct value for all the other
-					// data types.
-					$values[] = str_replace( '_', ' ', $value->getSortKey() );
-				}
-			}
-			return $values;
+		if ( is_null( $subject ) ) {
+			$page = null;
 		} else {
-			$property = SMWPropertyValue::makeProperty( $propID );
-			$res = $store->getPropertyValues( $subject, $property, $requestOptions );
-			$values = array();
-			foreach ( $res as $value ) {
-				if ( method_exists( $value, 'getTitle' ) ) {
-					$valueTitle = $value->getTitle();
-					if ( !is_null( $valueTitle ) ) {
-						$values[] = $valueTitle->getText();
-					}
-				} else {
-					$values[] = str_replace( '_' , ' ', $value->getWikiValue() );
-				}
-			}
-			return array_unique( $values );
+			$page = SMWDIWikiPage::newFromTitle( $subject );
 		}
+		$property = SMWDIProperty::newFromUserLabel( $propID );
+		$res = $store->getPropertyValues( $page, $property, $requestOptions );
+		$values = array();
+		foreach ( $res as $value ) {
+			if ( $value instanceof SMWDIUri ) {
+				$values[] = $value->getURI();
+			} else {
+				// getSortKey() seems to return the
+				// correct value for all the other
+				// data types.
+				$values[] = str_replace( '_', ' ', $value->getSortKey() );
+			}
+		}
+		return $values;
 	}
 	/**
 	 * Helper function - gets names of categories for a page;
@@ -427,27 +408,24 @@ END;
 		return $pages;
 	}
 
-	public static function getAllPagesForConcept( $concept_name, $substring = null ) {
+	public static function getAllPagesForConcept( $conceptName, $substring = null ) {
 		global $sfgMaxAutocompleteValues, $sfgAutocompleteOnAllChars;
 
 		$store = smwfGetStore();
 
-		$concept = Title::makeTitleSafe( SMW_NS_CONCEPT, $concept_name );
+		$conceptTitle = Title::makeTitleSafe( SMW_NS_CONCEPT, $conceptName );
 
 		if ( !is_null( $substring ) ) {
 			$substring = strtolower( $substring );
 		}
 
 		// Escape if there's a problem.
-		if ( $concept == null ) {
+		if ( $conceptTitle == null ) {
 			return array();
 		}
 
-		if ( class_exists( 'SMWDIWikiPage' ) ) {
-			// SMW 1.6
-			$concept = SMWDIWikiPage::newFromTitle( $concept );
-		}
-		$desc = new SMWConceptDescription( $concept );
+		$conceptDI = SMWDIWikiPage::newFromTitle( $conceptTitle );
+		$desc = new SMWConceptDescription( $conceptDI );
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
 		$query = new SMWQuery( $desc );
@@ -983,24 +961,6 @@ END;
 		);
 
 		return true;
-	}
-
-	/**
-	 * Get the linker - works differently for different versions of
-	 * MediaWiki (1.17, 1.18+). This function is copied directly from
-	 * smwfGetLinker() - that one unfortunately can't be used because it
-	 * only appeared in SMW 1.6.
-	 *
-	 * @since 2.5
-	 */
-	public static function getLinker() {
-		static $linker = false;
-
-		if ( $linker === false ) {
-			$linker = class_exists( 'DummyLinker' ) ? new DummyLinker() : new Linker();
-		}
-
-		return $linker;
 	}
 
 	/**
