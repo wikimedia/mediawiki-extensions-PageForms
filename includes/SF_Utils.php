@@ -551,14 +551,25 @@ END;
 
 	public static function getValuesFromExternalURL( $external_url_alias, $substring ) {
 		global $sfgAutocompletionURLs;
-		if ( empty( $sfgAutocompletionURLs ) ) return array();
+		if ( empty( $sfgAutocompletionURLs ) ) {
+			return "No external URLs are specified for autocompletion on this wiki";
+		}
+		if ( ! array_key_exists( $external_url_alias, $sfgAutocompletionURLs ) ) {
+			return "Invalid external URL value";
+		}
 		$url = $sfgAutocompletionURLs[$external_url_alias];
-		if ( empty( $url ) ) return array();
+		if ( empty( $url ) ) {
+			return "Blank external URL value";
+		}
 		$url = str_replace( '<substr>', $substring, $url );
 		$page_contents = Http::get( $url );
-		if ( empty( $page_contents ) ) return array();
+		if ( empty( $page_contents ) ) {
+			return "External page contains no contents";
+		}
 		$data = json_decode( $page_contents );
-		if ( empty( $data ) ) return array();
+		if ( empty( $data ) ) {
+			return "Could not parse JSON in external page";
+		}
 		$return_values = array();
 		foreach ( $data->sfautocomplete as $val ) {
 			$return_values[] = (array)$val;

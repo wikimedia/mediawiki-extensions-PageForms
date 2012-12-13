@@ -52,6 +52,11 @@ class SFAutocompleteAPI extends ApiBase {
 			$data = array();
 		}
 
+		// If we got back an error message, exit with that message.
+		if ( !is_array( $data ) ) {
+			$this->dieUsage( $data );
+		}
+
 		// to prevent JS parsing problems, display should be the same
 		// even if there are no results
 		/*
