@@ -419,9 +419,9 @@ END;
 			$substring = strtolower( $substring );
 		}
 
-		// Escape if there's a problem.
-		if ( $conceptTitle == null ) {
-			return array();
+		// Escape if there's no such concept.
+		if ( $conceptTitle == null || !$conceptTitle->exists() ) {
+			return "Could not find concept: $conceptName";
 		}
 
 		$conceptDI = SMWDIWikiPage::newFromTitle( $conceptTitle );
@@ -490,7 +490,7 @@ END;
 		}
 
 		if ( is_null( $matchingNamespaceCode ) ) {
-			return array();
+			return "Could not find namespace: $namespace_name";
 		}
 
 		$db = wfGetDB( DB_SLAVE );
