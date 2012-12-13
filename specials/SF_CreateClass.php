@@ -102,7 +102,8 @@ END;
 
 		// Create the template, and save it (might as well save
 		// one page, instead of just creating jobs for all of them).
-		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, null );
+		$template_format = $wgRequest->getVal( "template_format" );
+		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, $template_format );
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 		$template_article = new Article( $template_title, 0 );
 		$edit_summary = '';
