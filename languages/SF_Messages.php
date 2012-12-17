@@ -2071,7 +2071,7 @@ $messages['el'] = array(
 	'sf_property_allowedvals' => '{{PLURAL:$1|Η επιτρεπτή τιμή|Οι επιτρεπτές τιμές}} για αυτήν την ιδιότητα είναι:',
 	'sf_template_docu' => 'Αυτό είναι το πρότυπο «$1».
 Θα πρέπει να καλείται με την ακόλουθη μορφή:',
-	'sf_template_docufooter' => 'Επεξεργαστείτε τη σελίδα για να δείτε το κείμενο του προτύπου',
+	'sf_template_docufooter' => 'Επεξεργαστείτε τη σελίδα για να δείτε τον κώδικα του προτύπου',
 	'sf_form_docu' => 'Αυτή είναι η φόρμα "$1".
 Για να δημιουργήσετε μια σελίδα με αυτήν τη φόρμα, εισαγάγετε το όνομα της σελίδας παρακάτω.
 Αν υπάρχει ήδη μια σελίδα με αυτό το όνομα, θα μεταβείτε σε μια φόρμα για να επεξεργαστείτε αυτήν τη σελίδα.',
@@ -2079,7 +2079,7 @@ $messages['el'] = array(
 	'sf_category_hasdefaultform' => 'Αυτή η κατηγορία χρησιμοποιεί την φόρμα $1.',
 	'sf_category_desc' => 'Αυτή είναι η κατηγορία $1.',
 	'sf_blank_namespace' => 'Κύριος',
-	'right-viewedittab' => 'Προβολή καρτέλας "Επεξεργασία" για σελίδες επεξεργάσιμες με φόρμα',
+	'right-viewedittab' => 'Προβολή καρτέλας «Επεξεργασία» για σελίδες επεξεργάσιμες με φόρμα',
 	'right-editrestrictedfields' => 'Επεξεργασία περιορισμένων πεδίων φορμών',
 	'right-createclass' => 'Δημιουργία νέων σημασιολογικών κλάσεων',
 	'action-createclass' => 'δημιουργία νέων σημασιολογικών κλάσεων',
@@ -2676,7 +2676,7 @@ $messages['fi'] = array(
 	'sf_autoedit_fail' => '[[$1]]: muokkaus epäonnistui.',
 	'sf_autoedit_notargetspecified' => 'Kohdesivua ei ole määritetty.',
 	'sf_autoedit_invalidtargetspecified' => 'Valitu kohdesivu $1 on väärä.',
-	'sf_autoedit_invalidform' => '$1 ei ole sallittu lomake.',
+	'sf_autoedit_invalidform' => '$1 ei ole kelvollinen lomake.',
 	'sf_autoedit_redirectlimitexeeded' => 'Lomakkeen $1 ohjausten enimmäismäärä ylitettiin.',
 	'sf_autoedit_invalidredirecttarget' => '$1 ei ole sallittu ohjauksen kohde lomakkeelle $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'Määritetty esilaattava sivu $1 ei ole sallittu.',
@@ -6110,6 +6110,7 @@ $messages['nah'] = array(
 );
 
 /** Norwegian Bokmål (norsk (bokmål)‎)
+ * @author EvenT
  * @author Event
  * @author Harald Khan
  * @author Laaknor
@@ -6119,6 +6120,7 @@ $messages['nb'] = array(
 	'semanticforms-desc' => 'Skjema for å legge til og endre semantiske data',
 	'specialpages-group-sf_group' => 'Semantiske skjemaer',
 	'createproperty' => 'Opprett en egenskap',
+	'sf-createproperty-with-name' => 'Opprett egenskap: $1',
 	'sf_createproperty_linktoform' => 'Denne egenskapen vil lenke til sider som bruker skjemaet:',
 	'sf_createproperty_allowedvalsinput' => 'Om du ønsker at dette feltet kun skal kunne ha visse verdier, skriv inn listen over tillatte verdier, adskilt med komma (om en verdi inneholder komma, erstatt det med «\\,»):',
 	'sf_createproperty_propname' => 'Navn på egenskap:',
@@ -6127,7 +6129,9 @@ $messages['nb'] = array(
 	'sf_templates_docu' => 'Følgende maler finnes på wikien.',
 	'sf_templates_definescat' => 'definerer kategori: $1',
 	'createtemplate' => 'Opprett en mal',
+	'sf-createtemplate-with-name' => 'Opprett mal: $1',
 	'sf_createtemplate_namelabel' => 'Malnavn:',
+	'sf_createtemplate_multipleinstance' => 'Denne malen kan tas inn flere ganger på siden.',
 	'sf_createtemplate_categorylabel' => 'Kategori definert av mal (valgfri):',
 	'sf_createtemplate_templatefields' => 'Malfelter',
 	'sf_createtemplate_fieldsdesc' => 'For at feltene i denne malen ikke lenger skal kreve feltnavn, skriv inn indeksnummeret til hvert felt (altså 1, 2, 3, osv.) som navn, i stedet for et faktisk navn.',
@@ -6139,8 +6143,10 @@ $messages['nb'] = array(
 	'sf_createtemplate_aggregationdesc' => 'For å liste opp alle artiklene som har en viss egenskap som peker til den siden på alle sider som bruker malen, angi denne egenskapen nedenfor:',
 	'sf_createtemplate_aggregationlabel' => 'Tittel for liste:',
 	'sf_createtemplate_outputformat' => 'Resultatformat:',
-	'sf_createtemplate_standardformat' => 'Standard', # Fuzzy
-	'sf_createtemplate_infoboxformat' => 'Infoboks på høyre side', # Fuzzy
+	'sf_createtemplate_standardformat' => 'Tabell',
+	'sf_createtemplate_infoboxformat' => 'Infoboks på siden',
+	'sf_createtemplate_plainformat' => 'Vanlig tekst',
+	'sf_createtemplate_sectionsformat' => 'Avsnitt',
 	'sf_createtemplate_addfield' => 'Legg til felt',
 	'sf_createtemplate_deletefield' => 'Slett',
 	'sf_createtemplate_addtemplatebeforesave' => 'Du må legge til minst én mal til dette skjemaet før du kan lagre det.',
@@ -6179,6 +6185,7 @@ $messages['nb'] = array(
 	'sf_forminputs_height' => 'Høyden for denne typen inndata, i piksler',
 	'sf_forminputs_width' => 'Bredden for denne typen inndata, i piksler',
 	'createform' => 'Opprett et skjema',
+	'sf-createform-with-name' => 'Opprett skjema: $1',
 	'sf_createform_nameinput' => 'Skjemanavn',
 	'sf_createform_nameinputdesc' => '(skjemaet får normalt samme navn som sin hovedmal):',
 	'sf_createform_template' => 'Mal:',
@@ -6199,6 +6206,7 @@ $messages['nb'] = array(
 	'sf_createform_add' => 'Legg til',
 	'sf_createform_choosefield' => 'Velg et felt å legge til',
 	'createcategory' => 'Opprett en kategori',
+	'sf-createcategory-with-name' => 'Opprett kategori: $1',
 	'sf_createcategory_name' => 'Kategorinavn:',
 	'sf_createcategory_defaultform' => 'Standardskjema:',
 	'sf_createcategory_makesubcategory' => 'Gjør dette til en underkategori av en annen kategori (valgfritt):',
@@ -6240,12 +6248,20 @@ det burde se slik ut «Special:FormEdit?form=<skjemanavn>&target=<målside>», e
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Lagre data og fortsett redigering',
 	'sf_autoedit_anoneditwarning' => 'Advarsel: Du er ikke innlogget. Din IP-adresse vil logges i denne sidens redigeringshistorikk.',
 	'sf_autoedit_success' => 'Vellykket endring av [[$1]] med bruk av skjema $2.',
+	'sf_autoedit_fail' => 'Endring av [[$1]] mislyktes.',
 	'sf_autoedit_notargetspecified' => 'Ingen målside angitt.',
+	'sf_autoedit_invalidtargetspecified' => 'Angitt målside $1 er ugyldig.',
+	'sf_autoedit_invalidform' => '$1 er ikke et gyldig skjema.',
+	'sf_autoedit_redirectlimitexeeded' => 'Øvre grense for omdirigeringer av skjema $1 ble overskredet.',
+	'sf_autoedit_invalidredirecttarget' => '$1 er et ugyldig omdirigeringsmål for skjema $2.',
+	'sf_autoedit_invalidpreloadspecified' => 'Angitt side $1 for preutfylling er ugyldig.',
+	'sf_autoedit_redlinkexists' => '$1 finnes allerede.',
 	'sf_autoedit_noformfound' => 'Intet skjema angitt.',
 	'sf_autoedit_toomanyformsfound' => 'Flere enn et skjema tilgjengelig for siden.',
 	'sf_autoedit_readonly' => 'Databasen er nå låst mot endringer. Årsak: $1',
 	'sf_autoedit_nosemanticform' => 'Finner ikke skjema $2 for side $1. Sjekk [[{{#special:FormEdit}}/$2/$1]] for detaljer.',
 	'sf_autoedit_summary' => 'Automatisk redigert fra side $1.',
+	'sf-autoedit-wait' => 'Vent...',
 	'runquery' => 'Utfør spørring',
 	'sf_runquery_badurl' => "Du må angi et skjemanavn i nettadressen;
 nettadressen burde være på formen 'Special:RunQuery/<form name>'.",
@@ -8754,6 +8770,7 @@ $messages['tt-cyrl'] = array(
  * @author Microcell
  * @author Olvin
  * @author Prima klasy4na
+ * @author Steve.rusyn
  * @author Тест
  */
 $messages['uk'] = array(
@@ -8769,6 +8786,7 @@ $messages['uk'] = array(
 	'sf_createtemplate_aggregationlabel' => 'Заголовок списку:',
 	'sf_createtemplate_addfield' => 'Додати поле',
 	'sf_createtemplate_deletefield' => 'Вилучити',
+	'forms' => 'Форми',
 	'createform' => 'Створити форму',
 	'sf_createform_nameinput' => 'Назва форми',
 	'sf_createform_template' => 'Шаблон:',
