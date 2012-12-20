@@ -709,6 +709,12 @@ $specialPageAliases['vec'] = array(
 	'UploadWindow' => array( 'AjornaFenestra' ),
 );
 
+/** Vietnamese (Tiếng Việt) */
+$specialPageAliases['vi'] = array(
+	'Forms' => array( 'Biểu_mẫu' ),
+	'UploadWindow' => array( 'Cửa_sổ_tải_lên' ),
+);
+
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'CreateCategory' => array( '创建分类' ),
