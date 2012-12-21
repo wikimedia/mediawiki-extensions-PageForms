@@ -729,6 +729,13 @@ $messages['az'] = array(
 	'sf_formedit_none' => 'Heç biri',
 );
 
+/** South Azerbaijani (تورکجه)
+ * @author Mousa
+ */
+$messages['azb'] = array(
+	'formedit' => 'فورم ایله دَییشدیرمک',
+);
+
 /** Bavarian (Boarisch)
  * @author Mucalexx
  */
