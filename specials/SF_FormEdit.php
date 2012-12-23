@@ -106,15 +106,16 @@ class SFFormEdit extends SpecialPage {
 		$pre_form_html = '';
 		wfRunHooks( 'sfHTMLBeforeForm', array( &$target_title, &$pre_form_html ) );
 		$text .= $pre_form_html;
-		$text .= $result[ 'formHTML' ];
+		if ( isset( $result[ 'formHTML' ] ) ) {
+			$text .= $result[ 'formHTML' ];
+		}
 
 		SFUtils::addJavascriptAndCSS();
 
-		$javascript_text = $result[ 'formJS' ];
-
-		if ( !empty( $javascript_text ) ) {
-			$wgOut->addScript( '		<script type="text/javascript">' . "\n$javascript_text\n" . '</script>' . "\n" );
+		if ( isset( $result[ 'formJS' ] ) ) {
+			$wgOut->addScript( '		<script type="text/javascript">' . "\n$result[formJS]\n" . '</script>' . "\n" );
 		}
+
 		$wgOut->addHTML( $text );
 
 		return null;
