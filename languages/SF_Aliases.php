@@ -135,6 +135,22 @@ $specialPageAliases['diq'] = array(
 	'UploadWindow' => array( 'TeqaBarkerdış' ),
 );
 
+
+/** Greek (Ελληνικά) */
+$specialPageAliases['el'] = array(
+	'CreateCategory' => array( 'ΔημιουργίαΚατηγορίας' ),
+	'CreateClass' => array( 'ΔημιουργίαΚλάσης' ),
+	'CreateForm' => array( 'ΔημιουργίαΦόρμας' ),
+	'CreateProperty' => array( 'ΔημιουργίαΙδιότητας' ),
+	'CreateTemplate' => array( 'ΔημιουργίαΠροτύπου' ),
+	'FormEdit' => array( 'ΕπεξεργασίαΦόρμας', 'ΠροσθήκηΔεδομένων', 'ΕπεξεργασίαΔεδομένων' ),
+	'FormStart' => array( 'ΑρχήΦόρμας', 'ΠροσθήκηΣελίδας' ),
+	'Forms' => array( 'Φόρμες' ),
+	'RunQuery' => array( 'ΕκτέλεσηΕρωτήματος' ),
+	'Templates' => array( 'Πρότυπα' ),
+	'UploadWindow' => array( 'ΠαράθυροΑνεβάσματος' ),
+);
+
 /** Esperanto (Esperanto) */
 $specialPageAliases['eo'] = array(
 	'CreateCategory' => array( 'Krei_kategorion' ),

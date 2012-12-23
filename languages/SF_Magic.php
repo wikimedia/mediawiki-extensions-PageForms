@@ -44,6 +44,17 @@ $magicWords['de'] = array(
 	'autoedit' => array( 0, 'autobearbeitung' ),
 );
 
+
+/** Greek (Ελληνικά) */
+$magicWords['el'] = array(
+	'forminput' => array( 0, 'είσοδοςφόρμας' ),
+	'formlink' => array( 0, 'σύνδεσμοςφόρμας' ),
+	'queryformlink' => array( 0, 'σύνδεσμοςφόρμαςερωτήματος' ),
+	'arraymap' => array( 0, 'χάρτηςπίνακα' ),
+	'arraymaptemplate' => array( 0, 'πρότυποχάρτηπίνακα' ),
+	'autoedit' => array( 0, 'αυτόματηεπεξεργασία' ),
+);
+
 /** Japanese (日本語) */
 $magicWords['ja'] = array(
 	'forminput' => array( 0, '入力フォーム' ),
