@@ -1717,12 +1717,12 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
 	'sf_blank_namespace' => 'Startseite',
-	'right-viewedittab' => 'Den Reiter „Bearbeiten“ auf Seiten sehen, die per Formular bearbeitet werden können',
+	'right-viewedittab' => 'Den Reiter „{{int:edit}}“ auf Seiten sehen, die per Formular bearbeitet werden können',
 	'right-editrestrictedfields' => 'Für die Bearbeitung beschränkte Formularfelder bearbeiten',
 	'right-createclass' => 'Erstellen neuer semantischer Klassen',
 	'action-createclass' => 'neue semantische Klassen zu erstellen',
 	'action-editrestrictedfields' => 'für die Bearbeitung beschränkte Formularfelder zu bearbeiten',
-	'action-viewedittab' => 'den Reiter „Bearbeiten“ auf Seiten zu sehen, die per Formular bearbeitet werden können',
+	'action-viewedittab' => 'den Reiter „{{int:edit}}“ auf Seiten zu sehen, die per Formular bearbeitet werden können',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -2087,12 +2087,12 @@ $messages['el'] = array(
 	'sf_category_hasdefaultform' => 'Αυτή η κατηγορία χρησιμοποιεί την φόρμα $1.',
 	'sf_category_desc' => 'Αυτή είναι η κατηγορία $1.',
 	'sf_blank_namespace' => 'Κύριος',
-	'right-viewedittab' => 'Προβολή καρτέλας «Επεξεργασία» για σελίδες επεξεργάσιμες με φόρμα',
+	'right-viewedittab' => 'Προβολή καρτέλας «Επεξεργασία» για σελίδες επεξεργάσιμες με φόρμα', # Fuzzy
 	'right-editrestrictedfields' => 'Επεξεργασία περιορισμένων πεδίων φορμών',
 	'right-createclass' => 'Δημιουργία νέων σημασιολογικών κλάσεων',
 	'action-createclass' => 'δημιουργία νέων σημασιολογικών κλάσεων',
 	'action-editrestrictedfields' => 'επεξεργασία μη επιτρεπτών πεδίων φόρμας',
-	'action-viewedittab' => 'προβολή καρτέλας "Επεξεργασία" για σελίδες επεξεργάσιμες με φόρμα',
+	'action-viewedittab' => 'προβολή καρτέλας "Επεξεργασία" για σελίδες επεξεργάσιμες με φόρμα', # Fuzzy
 );
 
 /** Esperanto (Esperanto)
@@ -2736,12 +2736,12 @@ Jos sivu on jo olemassa, sinut ohjataan lomakkeelle, jolla voi muokata kyseistä
 	'sf_category_hasdefaultform' => 'Tämä luokka käyttää lomaketta $1.',
 	'sf_category_desc' => 'Tämä on luokka $1.',
 	'sf_blank_namespace' => 'Päänimiavaruus',
-	'right-viewedittab' => 'Nähdä ”Muokkaa”-välilehteä lomakkeella muokattavilla sivuilla',
+	'right-viewedittab' => 'Nähdä ”Muokkaa”-välilehteä lomakkeella muokattavilla sivuilla', # Fuzzy
 	'right-editrestrictedfields' => 'Muokata rajoitettuja lomakekenttiä',
 	'right-createclass' => 'Luoda uusia semanttisia luokkia',
 	'action-createclass' => 'luoda uusia semanttisia luokkia',
 	'action-editrestrictedfields' => 'muokata rajoitettuja lomakekenttiä',
-	'action-viewedittab' => 'nähdä ”Muokkaa”-välilehteä lomakkeella muokattavilla sivuilla',
+	'action-viewedittab' => 'nähdä ”Muokkaa”-välilehteä lomakkeella muokattavilla sivuilla', # Fuzzy
 );
 
 /** Faroese (føroyskt)
@@ -4572,6 +4572,7 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_autoedit_anoneditwarning' => 'Attenzione: non si sta accedendo al sito come utente, il proprio indirizzo IP sarà registrato nella cronologia di questa pagina.',
 	'sf_autoedit_success' => '[[$1]] modificato correttamente utilizzando il modulo $2.',
 	'sf_autoedit_notargetspecified' => 'Nessuna pagina di destinazione specificata.',
+	'sf_autoedit_redlinkexists' => '$1 già esistente.',
 	'sf_autoedit_noformfound' => 'Nessun modulo specificato.',
 	'sf_autoedit_toomanyformsfound' => 'Più di un modulo disponibile per pagina.',
 	'sf_autoedit_readonly' => 'Il database è attualmente bloccato per le modifiche. Motivo: $1',
@@ -4608,12 +4609,12 @@ Per creare una pagina con questo modulo, inserire il nome della pagina qui sotto
 	'sf_category_hasdefaultform' => 'Questa categoria usa il modulo $1.',
 	'sf_category_desc' => 'Questa è la categoria $1.',
 	'sf_blank_namespace' => 'Principale',
-	'right-viewedittab' => 'Visualizza la scheda "Modifica" per le pagine modificabili tramite modulo',
+	'right-viewedittab' => 'Visualizza la scheda "Modifica" per le pagine modificabili tramite modulo', # Fuzzy
 	'right-editrestrictedfields' => 'Modifica campi riservati di moduli',
 	'right-createclass' => 'Crea nuovi classi semantiche',
 	'action-createclass' => 'creare nuove classi semantiche',
 	'action-editrestrictedfields' => 'modificare i campi riservati dei moduli',
-	'action-viewedittab' => 'visualizzare la scheda "Modifica" per le pagine modificabili tramite modulo',
+	'action-viewedittab' => 'visualizzare la scheda "Modifica" per le pagine modificabili tramite modulo', # Fuzzy
 );
 
 /** Japanese (日本語)
@@ -4792,12 +4793,12 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使用しています。',
 	'sf_category_desc' => 'これはカテゴリ $1 です。',
 	'sf_blank_namespace' => '標準',
-	'right-viewedittab' => 'フォームで編集できるページに「編集」タブが表示される',
+	'right-viewedittab' => 'フォームで編集できるページに「編集」タブが表示される', # Fuzzy
 	'right-editrestrictedfields' => '制限されたフォームフィールドを編集',
 	'right-createclass' => '新しい意味クラスを作成',
 	'action-createclass' => '新しい意味クラスを作成',
 	'action-editrestrictedfields' => '制限されたフォームフィールドの編集',
-	'action-viewedittab' => 'フォームで編集できるページに「編集」タブを表示',
+	'action-viewedittab' => 'フォームで編集できるページに「編集」タブを表示', # Fuzzy
 );
 
 /** Javanese (Basa Jawa)
@@ -6311,12 +6312,12 @@ om en side med det navnet finnes allerede vil du bli sendt til et skjema for red
 	'sf_category_hasdefaultform' => 'Denne kategorien bruker skjemaet $1.',
 	'sf_category_desc' => 'Dette er kategorien $1',
 	'sf_blank_namespace' => 'Hoved',
-	'right-viewedittab' => 'Vis «Rediger»-fanen for sider som kan redigeres via skjema',
+	'right-viewedittab' => 'Vis «Rediger»-fanen for sider som kan redigeres via skjema', # Fuzzy
 	'right-editrestrictedfields' => 'Rediger begrensede skjemafelt',
 	'right-createclass' => 'Opprett nye semantiske klasser',
 	'action-createclass' => 'opprett nye semantiske klasser',
 	'action-editrestrictedfields' => 'rediger begrensede skjemafelter',
-	'action-viewedittab' => 'vis «Rediger»-fanen for sider som kan redigeres via skjema',
+	'action-viewedittab' => 'vis «Rediger»-fanen for sider som kan redigeres via skjema', # Fuzzy
 );
 
 /** Low German (Plattdüütsch)
@@ -6494,8 +6495,8 @@ Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
 	'sf_autoedit_noformfound' => 'Geen formulier opgegeven.',
 	'sf_autoedit_toomanyformsfound' => 'Er is meer dan één formulier beschikbaar voor de pagina.',
 	'sf_autoedit_readonly' => 'De database is momenteel afgesloten voor wijzigingen. Reden: $1',
-	'sf_autoedit_nosemanticform' => 'Kon het formulier $2 voor pagina $1 niet krijgen. Zie [[{{#special:FormEdit}}/$2/$1]] voor details.',
-	'sf_autoedit_summary' => 'Automatisch bewerkt vanop pagina $1.',
+	'sf_autoedit_nosemanticform' => 'Het formulier $2 voor pagina $1 kon niet geladen worden. Zie [[{{#special:FormEdit}}/$2/$1]] voor details.',
+	'sf_autoedit_summary' => 'Automatisch bewerkt vanaf pagina $1.',
 	'sf-autoedit-wait' => 'Een ogenblik geduld alstublieft...',
 	'runquery' => 'Zoekopdracht uitvoeren',
 	'sf_runquery_badurl' => 'U moet een formuliernaam aangeven in de URL.
@@ -6529,12 +6530,12 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
 	'sf_category_hasdefaultform' => 'Deze categorie gebruikt het formulier $1.',
 	'sf_category_desc' => 'Dit is de categorie $1.',
 	'sf_blank_namespace' => 'Hoofdnaamruimte',
-	'right-viewedittab' => 'Tabblad "Bewerken" zien op pagina\'s die via een formulier bewerkt kunnen worden',
+	'right-viewedittab' => 'Tabblad "Bewerken" zien op pagina\'s die via een formulier bewerkt kunnen worden', # Fuzzy
 	'right-editrestrictedfields' => 'Beperkte formuliervelden bewerken',
 	'right-createclass' => 'Nieuwe semantische klassen aanmaken',
 	'action-createclass' => 'nieuwe semantische klassen aan te maken',
 	'action-editrestrictedfields' => 'beperkte formuliervelden te bewerken',
-	'action-viewedittab' => 'het tabblad "Bewerken" te zien voor pagina\'s die via een formulier te bewerken zijn',
+	'action-viewedittab' => 'het tabblad "Bewerken" te zien voor pagina\'s die via een formulier te bewerken zijn', # Fuzzy
 );
 
 /** Norwegian Nynorsk (norsk (nynorsk)‎)
@@ -7751,12 +7752,19 @@ $messages['sa'] = array(
 );
 
 /** Sinhala (සිංහල)
+ * @author Singhalawap
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
 	'sf_createproperty_proptype' => 'වර්ගය:',
+	'templates' => 'සැකිලි',
+	'createtemplate' => 'සැකිල්ලක් තනන්න',
+	'sf-createtemplate-with-name' => 'සැකිල්ල තනන්න: $1',
+	'sf_createtemplate_namelabel' => 'සැකිලි නාමය:',
+	'sf_createtemplate_aggregation' => 'සමූහනය',
 	'sf_createtemplate_standardformat' => 'වගුව',
-	'sf_createtemplate_sectionsformat' => 'අංශයන්',
+	'sf_createtemplate_plainformat' => 'සාමාන්‍ය පෙළ',
+	'sf_createtemplate_sectionsformat' => 'කොටස්',
 	'sf_createtemplate_deletefield' => 'මකන්න',
 	'forms' => 'ෆෝරම',
 	'createform' => 'ෆෝරමයක් තනන්න',
@@ -8283,6 +8291,7 @@ det borde se ut som; "Special:FormEdit?form=<´formulärnamn>&target=<målsida>"
 	'sf_autoedit_anoneditwarning' => 'Varning: Du är inte inloggad. Din IP-adress kommer att sparas i historiken för den här sidan.',
 	'sf_autoedit_success' => 'Har ändrat [[$1]] med hjälp av formulär $2.',
 	'sf_autoedit_notargetspecified' => 'Ingen målsida angiven.',
+	'sf_autoedit_redlinkexists' => '$1 finns redan.',
 	'sf_autoedit_noformfound' => 'Inget formulär angivet.',
 	'sf_autoedit_toomanyformsfound' => 'Inte mer än ett formulär är tillgängligt för sidan.',
 	'sf_autoedit_readonly' => 'Databasen är för tillfället låst så att ändringar inte går att genomföra. Orsaken är: $1',
@@ -8323,12 +8332,12 @@ Om en sida med det namnet redan finns, så kommer formuläret istället använda
 	'sf_category_hasdefaultform' => 'Den här kategorin använder formuläret $1.',
 	'sf_category_desc' => 'Detta är $1 kategorin.',
 	'sf_blank_namespace' => 'Huvud',
-	'right-viewedittab' => 'Visa "Redigera"-fliken för sidor som går att redigera med formulär',
+	'right-viewedittab' => 'Visa "Redigera"-fliken för sidor som går att redigera med formulär', # Fuzzy
 	'right-editrestrictedfields' => 'Redigera formulär som är begränsade',
 	'right-createclass' => 'Skapa en ny semantisk klass',
 	'action-createclass' => 'skapa nya semantiska klasser',
 	'action-editrestrictedfields' => 'redigera begränsade formulär-fält',
-	'action-viewedittab' => 'visa fliken "Redigera" för sidor som går att redigera med formulär',
+	'action-viewedittab' => 'visa fliken "Redigera" för sidor som går att redigera med formulär', # Fuzzy
 );
 
 /** Swahili (Kiswahili)
@@ -8935,7 +8944,7 @@ $messages['uk'] = array(
 	'sf_category_hasdefaultform' => 'Ця категорія використовує фому $1.',
 	'sf_category_desc' => 'Це категорія $1.',
 	'sf_blank_namespace' => 'Головне',
-	'right-viewedittab' => 'Вкладка «Редагувати» для сторінок, які можна редагувати через форму',
+	'right-viewedittab' => 'Вкладка «Редагувати» для сторінок, які можна редагувати через форму', # Fuzzy
 	'right-editrestrictedfields' => 'Редагування захищених полів форми',
 	'right-createclass' => 'Створювати нові семантичні класи',
 	'action-createclass' => 'створення нових семантичних класів',
@@ -9363,9 +9372,10 @@ $messages['zh-hans'] = array(
 	'sf_createtemplate_aggregationdesc' => '为了在使用这个模板的页面上列出所有包含指向此页面的属性的页面，在下面指定适当的属性：',
 	'sf_createtemplate_aggregationlabel' => '用于列表的标题：',
 	'sf_createtemplate_outputformat' => '输出格式：',
-	'sf_createtemplate_standardformat' => '标准', # Fuzzy
+	'sf_createtemplate_standardformat' => '表格',
 	'sf_createtemplate_infoboxformat' => '右侧信息框', # Fuzzy
 	'sf_createtemplate_plainformat' => '纯文本',
+	'sf_createtemplate_sectionsformat' => '节',
 	'sf_createtemplate_addfield' => '添加字段',
 	'sf_createtemplate_deletefield' => '删除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您保存之前，您必须向表单添加至少一个模板。',
@@ -9470,11 +9480,13 @@ $messages['zh-hans'] = array(
 	'sf_autoedit_anoneditwarning' => '警告：您没有登录。您的IP地址将记录在此页的编辑历史中。',
 	'sf_autoedit_success' => '已成功使用表单$2修改[[$1]]。',
 	'sf_autoedit_notargetspecified' => '未指定目标页面。',
+	'sf_autoedit_redlinkexists' => '$1已存在。',
 	'sf_autoedit_noformfound' => '未指定表单。',
 	'sf_autoedit_toomanyformsfound' => '有不止一个可用于页面的表单。',
 	'sf_autoedit_readonly' => '数据库当前正为修改操作而被锁定。原因：$1',
 	'sf_autoedit_nosemanticform' => '无法获得页面$1的表单$2。详情请参见[[{{#special:FormEdit}}/$2/$1]]。',
 	'sf_autoedit_summary' => '已从页面$1当中进行了自动编辑。',
+	'sf-autoedit-wait' => '等待中...',
 	'runquery' => '运行查询',
 	'sf_runquery_badurl' => '您必须在URL中指定表单名称；
 URL应该看起来像‘Special:RunQuery/<表单名>’。',
@@ -9507,12 +9519,12 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
 	'sf_category_hasdefaultform' => '这个分类使用表单$1。',
 	'sf_category_desc' => '这是$1分类。',
 	'sf_blank_namespace' => '首页',
-	'right-viewedittab' => '在可以通过表单编辑的页面上查看“编辑”标签。',
+	'right-viewedittab' => '在可以通过表单编辑的页面上查看“编辑”标签。', # Fuzzy
 	'right-editrestrictedfields' => '编辑受限制的表单字段',
 	'right-createclass' => '创建新的语义类',
 	'action-createclass' => '创建新的语义类',
 	'action-editrestrictedfields' => '编辑受限制的表单域',
-	'action-viewedittab' => '查看可采用表单编辑的页面的"编辑"选项卡',
+	'action-viewedittab' => '查看可采用表单编辑的页面的"编辑"选项卡', # Fuzzy
 );
 
 /** Traditional Chinese (中文（繁體）‎)
@@ -9520,6 +9532,7 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
  * @author Liangent
  * @author Mark85296341
  * @author Oapbtommy
+ * @author Shirayuki
  * @author Wrightbus
  */
 $messages['zh-hant'] = array(
@@ -9546,8 +9559,10 @@ $messages['zh-hant'] = array(
 	'sf_createtemplate_aggregationdesc' => '為了在使用這個模板的頁面上列出所有包含指向此頁面的屬性的頁面，在下面指定適當的屬性：',
 	'sf_createtemplate_aggregationlabel' => '用於列表的標題：',
 	'sf_createtemplate_outputformat' => '輸出格式：',
-	'sf_createtemplate_standardformat' => '標準', # Fuzzy
+	'sf_createtemplate_standardformat' => '表格',
 	'sf_createtemplate_infoboxformat' => '右側信息框', # Fuzzy
+	'sf_createtemplate_plainformat' => '純文字',
+	'sf_createtemplate_sectionsformat' => '節',
 	'sf_createtemplate_addfield' => '添加字段',
 	'sf_createtemplate_deletefield' => '刪除',
 	'sf_createtemplate_addtemplatebeforesave' => '在您保存之前，您必須向表單添加至少一個模板。',
@@ -9652,11 +9667,13 @@ $messages['zh-hant'] = array(
 	'sf_autoedit_anoneditwarning' => '警告：您沒有登錄。您的IP地址將記錄在此頁的編輯歷史中。',
 	'sf_autoedit_success' => '已成功使用表單$2修改[[$1]]。',
 	'sf_autoedit_notargetspecified' => '未指定目標頁面。',
+	'sf_autoedit_redlinkexists' => '$1已存在。',
 	'sf_autoedit_noformfound' => '未指定表單。',
 	'sf_autoedit_toomanyformsfound' => '有不止一個可用於頁面的表單。',
 	'sf_autoedit_readonly' => '數據庫當前正為修改操作而被鎖定。原因：$1',
 	'sf_autoedit_nosemanticform' => '無法獲得頁面$1的表單$2。詳情請參見[[{{#special:FormEdit}}/$2/$1]]。',
 	'sf_autoedit_summary' => '已從頁面$1當中進行了自動編輯。',
+	'sf-autoedit-wait' => '等待...',
 	'runquery' => '運行查詢',
 	'sf_runquery_badurl' => '您必須在URL中指定表單名稱；
 URL應該看起來像‘Special:RunQuery/<表單名>’。',
@@ -9689,12 +9706,12 @@ URL應該看起來像‘Special:RunQuery/<表單名>’。',
 	'sf_category_hasdefaultform' => '這個分類使用表單$1。',
 	'sf_category_desc' => '這是$1分類。',
 	'sf_blank_namespace' => '首頁',
-	'right-viewedittab' => '在可以通過表單編輯的頁面上查看“編輯”標籤。',
+	'right-viewedittab' => '在可以通過表單編輯的頁面上查看“編輯”標籤。', # Fuzzy
 	'right-editrestrictedfields' => '編輯受限制的表單字段',
 	'right-createclass' => '創建新的語義類',
 	'action-createclass' => '創建新的語義類',
 	'action-editrestrictedfields' => '編輯受限制的表單域',
-	'action-viewedittab' => '查看可採用表單編輯的頁面的"編輯"選項卡',
+	'action-viewedittab' => '查看可採用表單編輯的頁面的"編輯"選項卡', # Fuzzy
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)

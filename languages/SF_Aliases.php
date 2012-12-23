@@ -135,7 +135,6 @@ $specialPageAliases['diq'] = array(
 	'UploadWindow' => array( 'TeqaBarkerdış' ),
 );
 
-
 /** Greek (Ελληνικά) */
 $specialPageAliases['el'] = array(
 	'CreateCategory' => array( 'ΔημιουργίαΚατηγορίας' ),

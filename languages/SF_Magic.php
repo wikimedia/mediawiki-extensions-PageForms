@@ -44,7 +44,6 @@ $magicWords['de'] = array(
 	'autoedit' => array( 0, 'autobearbeitung' ),
 );
 
-
 /** Greek (Ελληνικά) */
 $magicWords['el'] = array(
 	'forminput' => array( 0, 'είσοδοςφόρμας' ),
