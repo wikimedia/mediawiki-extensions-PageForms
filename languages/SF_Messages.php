@@ -201,13 +201,13 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'sf_blank_namespace'                 => 'Main',
 
 	// user rights
-	'right-viewedittab'          => 'View "Edit" tab for pages editable by form',
+	'right-viewedittab'          => 'View "{{int:edit}}" tab for pages editable by form',
 	'right-editrestrictedfields' => 'Edit restricted form fields',
 	'right-createclass'          => 'Create new semantic classes',
 
 	'action-createclass' => 'create new semantic classes',
 	'action-editrestrictedfields' => 'edit restricted form fields',
-	'action-viewedittab' => 'view the "Edit" tab for pages editable by form',
+	'action-viewedittab' => 'view the "{{int:edit}}" tab for pages editable by form',
 );
 
 /** Message documentation (Message documentation)
