@@ -2945,12 +2945,12 @@ si une page avec ce nom existe déjà, vous serez dirigé vers un formulaire pou
 	'sf_category_hasdefaultform' => 'Cette catégorie utilise le formulaire « $1 ».',
 	'sf_category_desc' => 'Ceci est la catégorie « $1 ».',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Voir l’onglet « modifier » pour les pages modifiables via un formulaire',
+	'right-viewedittab' => 'Voir l’onglet "{{int:edit}}" pour les pages modifiables via un formulaire',
 	'right-editrestrictedfields' => 'Modifier les champs restreints des formulaires',
 	'right-createclass' => 'Créer de nouvelles classes sémantiques',
 	'action-createclass' => 'créer de nouvelles classes sémantiques',
 	'action-editrestrictedfields' => 'Modifier les champs de formulaire protégés',
-	'action-viewedittab' => 'voir l’onglet « modifier » pour les pages modifiables via un formulaire',
+	'action-viewedittab' => 'voir l’onglet "{{int:edit}}" pour les pages modifiables via un formulaire',
 );
 
 /** Franco-Provençal (arpetan)
@@ -4793,12 +4793,12 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf_category_hasdefaultform' => 'このカテゴリはフォーム $1 を使用しています。',
 	'sf_category_desc' => 'これはカテゴリ $1 です。',
 	'sf_blank_namespace' => '標準',
-	'right-viewedittab' => 'フォームで編集できるページに「編集」タブが表示される', # Fuzzy
+	'right-viewedittab' => 'フォームで編集できるページに「{{int:edit}}」タブが表示される',
 	'right-editrestrictedfields' => '制限されたフォームフィールドを編集',
 	'right-createclass' => '新しい意味クラスを作成',
 	'action-createclass' => '新しい意味クラスを作成',
 	'action-editrestrictedfields' => '制限されたフォームフィールドの編集',
-	'action-viewedittab' => 'フォームで編集できるページに「編集」タブを表示', # Fuzzy
+	'action-viewedittab' => 'フォームで編集できるページに「{{int:edit}}」タブを表示',
 );
 
 /** Javanese (Basa Jawa)
@@ -5825,12 +5825,12 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 	'sf_category_hasdefaultform' => 'Оваа категорија го користи образецот $1.',
 	'sf_category_desc' => 'Ова е категоријата $1.',
 	'sf_blank_namespace' => 'Главен',
-	'right-viewedittab' => 'Приказ на јазиче „Уреди“ за страниците уредливи со образец',
+	'right-viewedittab' => 'Приказ на јазиче „{{int:edit}}“ за страниците уредливи со образец',
 	'right-editrestrictedfields' => 'Уредување на заштитени полиња на обрасци',
 	'right-createclass' => 'Создавање на нови семантички класи',
 	'action-createclass' => 'создавање на нови семантички класи',
 	'action-editrestrictedfields' => 'уредување на заштитени полиња на обрасци',
-	'action-viewedittab' => 'приказ на јазичето „Уреди“ кај страниците уредливи со образец',
+	'action-viewedittab' => 'приказ на јазичето „{{int:edit}}“ кај страниците уредливи со образец',
 );
 
 /** Malayalam (മലയാളം)
@@ -6530,12 +6530,12 @@ als een pagina met die naam al bestaat, krijgt u het bewerkingsscherm te zien en
 	'sf_category_hasdefaultform' => 'Deze categorie gebruikt het formulier $1.',
 	'sf_category_desc' => 'Dit is de categorie $1.',
 	'sf_blank_namespace' => 'Hoofdnaamruimte',
-	'right-viewedittab' => 'Tabblad "Bewerken" zien op pagina\'s die via een formulier bewerkt kunnen worden', # Fuzzy
+	'right-viewedittab' => 'Tabblad "{{int:edit}}" zien op pagina\'s die via een formulier bewerkt kunnen worden',
 	'right-editrestrictedfields' => 'Beperkte formuliervelden bewerken',
 	'right-createclass' => 'Nieuwe semantische klassen aanmaken',
 	'action-createclass' => 'nieuwe semantische klassen aan te maken',
 	'action-editrestrictedfields' => 'beperkte formuliervelden te bewerken',
-	'action-viewedittab' => 'het tabblad "Bewerken" te zien voor pagina\'s die via een formulier te bewerken zijn', # Fuzzy
+	'action-viewedittab' => 'het tabblad "{{int:edit}}" te zien voor pagina\'s die via een formulier te bewerken zijn',
 );
 
 /** Norwegian Nynorsk (norsk (nynorsk)‎)
@@ -7535,10 +7535,14 @@ $messages['ro'] = array(
 	'sf_createproperty_propname' => 'Numele proprietății:',
 	'sf_createproperty_proptype' => 'Tip:',
 	'templates' => 'Formate',
+	'sf_templates_docu' => 'Următoarele formate există în wiki.',
 	'sf_templates_definescat' => 'definește o categorie: $1',
 	'createtemplate' => 'Creează un format',
 	'sf-createtemplate-with-name' => 'Creează formatul: $1',
 	'sf_createtemplate_namelabel' => 'Numele formatului:',
+	'sf_createtemplate_multipleinstance' => 'Acest format poate fi inclus de mai multe ori pe pagină.',
+	'sf_createtemplate_categorylabel' => 'Categorie definită de către format (opțional):',
+	'sf_createtemplate_templatefields' => 'Câmpurile formatului',
 	'sf_createtemplate_fieldname' => 'Numele câmpului:',
 	'sf_createtemplate_semanticproperty' => 'Proprietate semnatică:',
 	'sf_createtemplate_aggregation' => 'Agregare',
@@ -7571,10 +7575,14 @@ $messages['ro'] = array(
 	'createcategory' => 'Creează o categorie',
 	'sf_createcategory_name' => 'Numele categoriei:',
 	'sf_createcategory_defaultform' => 'Formular inițial:',
+	'createclass' => 'Creează o clasă',
 	'sf_createclass_allowedvalues' => 'Valori permise:',
 	'sf_createclass_listofvalues' => 'Listă de valori?',
+	'sf_createclass_nameinput' => 'Numele formularului:',
 	'sf_createclass_missingvalues' => 'Nu toate câmpurile necesare au fost completate.',
+	'sf_createclass_create' => 'Creare',
 	'formstart' => 'Adaugă o pagină cu un formular',
+	'sf_formstart_badform' => 'Eroare: niciun formular nu a fost găsit pe pagina „$1”.',
 	'sf_formstart_createoredit' => 'Creați sau modificați',
 	'formedit' => 'Modificare cu formular',
 	'sf_formedit_createtitle' => 'Creare $1: $2',
@@ -7585,6 +7593,8 @@ $messages['ro'] = array(
 	'sf_formedit_remove' => 'Elimină',
 	'sf_formedit_addanother' => 'Adăugați altul',
 	'sf_formedit_none' => 'Nimic',
+	'sf_formedit_saveandcontinueediting' => 'Salvează și continuă',
+	'sf-autoedit-wait' => 'Așteptați...',
 	'runquery' => 'Executare interogare',
 	'sf_blank_error' => 'nu poate fi gol',
 	'sf_bad_number_error' => 'trebuie să fie un număr corect',
@@ -7594,9 +7604,10 @@ $messages['ro'] = array(
 	'sf_property_isproperty' => 'Aceasta este o proprietate de tipul $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Valoarea admisă pentru această proprietate este|Valorile admise pentru această proprietate sunt}}:',
 	'sf_form_freetextlabel' => 'Text liber',
+	'sf_category_desc' => 'Aceasta este categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Vizualizează fila „Modificare” pentru paginile ce pot fi modificate printr-un formular',
-	'action-viewedittab' => 'vizualizați fila „Modificare” pentru paginile ce pot fi modificate printr-un formular',
+	'right-viewedittab' => 'Vizualizează fila „Modificare” pentru paginile ce pot fi modificate printr-un formular', # Fuzzy
+	'action-viewedittab' => 'vizualizați fila „Modificare” pentru paginile ce pot fi modificate printr-un formular', # Fuzzy
 );
 
 /** tarandíne (tarandíne)
@@ -7612,6 +7623,7 @@ $messages['roa-tara'] = array(
  * @author Innv
  * @author Kaganer
  * @author Lockal
+ * @author Pastakhov
  * @author QuestPC
  * @author Александр Сигачёв
  */
@@ -7619,6 +7631,7 @@ $messages['ru'] = array(
 	'semanticforms-desc' => 'Формы для добавления и правки семантических данных',
 	'specialpages-group-sf_group' => 'Семантические формы',
 	'createproperty' => 'Создать свойство',
+	'sf-createproperty-with-name' => 'Создать свойство: $1',
 	'sf_createproperty_linktoform' => 'Это свойство содержит ссылку на страницы, которые используют форму:',
 	'sf_createproperty_allowedvalsinput' => 'Если вы хотите, чтобы данное свойство могло содержать только определённые значения, введите через запятую список допустимых значений (если значение содержит запятую, то замените её на «\\,»):',
 	'sf_createproperty_propname' => 'Имя свойства:',
@@ -7627,7 +7640,9 @@ $messages['ru'] = array(
 	'sf_templates_docu' => 'Следующие шаблоны существуют в вики.',
 	'sf_templates_definescat' => 'определяет категорию: $1',
 	'createtemplate' => 'Создать шаблон',
+	'sf-createtemplate-with-name' => 'Создать шаблон: $1',
 	'sf_createtemplate_namelabel' => 'Имя шаблона:',
+	'sf_createtemplate_multipleinstance' => 'Этот шаблон может быть включен несколько раз на странице.',
 	'sf_createtemplate_categorylabel' => 'Категория, определяемая шаблоном (необязательно):',
 	'sf_createtemplate_templatefields' => 'Поля шаблона',
 	'sf_createtemplate_fieldsdesc' => 'Для указания полей шаблона не требуется указывать их имена, просто введите индекс каждого поля (например, 1, 2, 3 и т. д.) вместо фактического имени.',
@@ -7641,6 +7656,8 @@ $messages['ru'] = array(
 	'sf_createtemplate_outputformat' => 'Формат вывода:',
 	'sf_createtemplate_standardformat' => 'обычный', # Fuzzy
 	'sf_createtemplate_infoboxformat' => 'информационная панель справа', # Fuzzy
+	'sf_createtemplate_plainformat' => 'Обычный текст',
+	'sf_createtemplate_sectionsformat' => 'Разделы',
 	'sf_createtemplate_addfield' => 'Добавить поле',
 	'sf_createtemplate_deletefield' => 'Удалить',
 	'sf_createtemplate_addtemplatebeforesave' => 'Вы должны добавить на эту форму по крайней мере один шаблон, чтобы её было можно сохранить.',
@@ -7648,10 +7665,40 @@ $messages['ru'] = array(
 	'sf_forms_docu' => 'В вики существуют следующие формы.',
 	'sf_forminputs_mandatory' => 'обязательная',
 	'sf_forminputs_restricted' => 'ограниченная (править могут только администраторы)', # Fuzzy
+	'sf_forminputs_class' => 'HTML-атрибут "class" для данного поля',
+	'sf_forminputs_default' => 'Значение по умолчанию для этого поля',
+	'sf_forminputs_preload' => 'Вики-страница, содержимое которой будет использовано как значение по умолчанию для этого поля',
+	'sf_forminputs_property' => 'Семантическое свойство, которое соответствует этому полю',
 	'sf_forminputs_size' => 'Размер этого текстового поля в символах',
+	'sf_forminputs_maxlength' => 'Максимально допустимая длина текста в этом поле',
+	'sf_forminputs_placeholder' => 'Справочный текст, который появляется в поле ввода до тех пор, пока пользователь не перейдет на него',
+	'sf_forminputs_uploadable' => 'Отображает ссылку «Загрузить файл» рядом с этим полем',
+	'sf_forminputs_defaultfilename' => 'Имя файла по умолчанию для загруженных файлов',
+	'sf_forminputs_rows' => 'Число строк для этого поля',
+	'sf_forminputs_cols' => 'Число столбцов для этого поля',
+	'sf_forminputs_autogrow' => 'Отметьте здесь, чтобы позволить полю увеличиваться в размере, когда текст начинает выходить за пределы его границ',
+	'sf_forminputs_valuesfromproperty' => 'Свойство, набор значений которого используется для подстановки в это поле ввода',
+	'sf_forminputs_valuesfromcategory' => 'Категория, названия страниц которой используются для подстановки в это поле ввода',
+	'sf_forminputs_valuesfromnamespace' => 'Пространство имен, названия страниц которой используются для подстановки в это поле ввода',
+	'sf_forminputs_valuesfromconcept' => 'Страница семантической MediaWiki "концепции", набор значений которой используется для подстановки в это поле ввода',
+	'sf_forminputs_valuesfromurl' => 'URL-адрес хранилища структурированных данных, которые используются для подстановки в это поле ввода',
+	'sf_forminputs_values' => 'Набор значений для подстановки в это поле ввода, разделенных запятыми',
+	'sf_forminputs_list' => 'Отметить это поле ввода, как содержащее список значений',
+	'sf_forminputs_delimiter' => 'Разделитель между значениями, если это поле ввода содержит список',
+	'sf_forminputs_remoteautocompletion' => 'Использовать внешние данные для автозаполнения',
+	'sf_forminputs_existingvaluesonly' => 'Разрешить только значения из списка',
+	'sf_forminputs_showonselect' => 'Элементы страницы которые отображаются только в том случае, если выбраны определенные значения (пример: "value1=>div1;value2=>div2)',
+	'sf_forminputs_listboxsize' => 'Высота этого listbox, в строках',
+	'sf_forminputs_includetimezone' => 'Отображать поле для ввода часового пояса',
+	'sf_forminputs_topcategory' => 'Родительская категория этого набора категорий (обязательно)',
+	'sf_forminputs_hideroot' => 'Скрыть родительскую категорию',
+	'sf_forminputs_depth' => 'Количество уровней категорий для первоначального показа',
+	'sf_forminputs_height' => 'Высота этого поля, в пикселях',
+	'sf_forminputs_width' => 'Ширина этого поля, в пикселях',
 	'createform' => 'Создать форму',
+	'sf-createform-with-name' => 'Создать форму: $1',
 	'sf_createform_nameinput' => 'Название формы',
-	'sf_createform_nameinputdesc' => '(конвенция названия формы после заполнения основного шаблона):', # Fuzzy
+	'sf_createform_nameinputdesc' => '(форме, как правило, присваивается такое же имя, как у основного шаблона):',
 	'sf_createform_template' => 'Шаблон:',
 	'sf_createform_templatelabelinput' => 'Обозначение шаблона (необязательно):',
 	'sf_createform_allowmultiple' => 'Разрешить несколько (или ноль) экземпляров этого шаблона на создаваемой странице',
@@ -7670,13 +7717,15 @@ $messages['ru'] = array(
 	'sf_createform_add' => 'Добавить',
 	'sf_createform_choosefield' => 'Выберите поле для добавления',
 	'createcategory' => 'Создать категорию',
+	'sf-createcategory-with-name' => 'Создать категорию: $1',
 	'sf_createcategory_name' => 'Название категории:',
 	'sf_createcategory_defaultform' => 'Форма по умолчанию:',
 	'sf_createcategory_makesubcategory' => 'Сделать это подкатегорией другой категории (необязательно):',
 	'createclass' => 'Создать класс',
 	'sf_createclass_docu' => 'Введите здесь все данные для создание свойств, шаблона, формы и категории для одного класса. Для более подробных настроек, используйте страницу $1.',
-	'sf_createclass_allowedvalues' => 'Допустимые значения', # Fuzzy
-	'sf_createclass_listofvalues' => 'Список значений', # Fuzzy
+	'sf_createclass_allowedvalues' => 'Допустимые значения:',
+	'sf_createclass_listofvalues' => 'Список значений?',
+	'sf_createclass_nameinput' => 'Название формы:',
 	'sf_createclass_missingvalues' => 'Не все требуемые поля были заполнены.',
 	'sf_createclass_success' => 'Будут созданы настройки, шаблоны, формы и категории.',
 	'formstart' => 'Добавить страницу с формой',
@@ -7727,7 +7776,7 @@ URL должен выглядеть так: «Special:RunQuery/<form name>».',
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',
 	'sf_blank_namespace' => 'Основное',
-	'right-viewedittab' => 'вкладка «править» для страниц, редактируемых формой',
+	'right-viewedittab' => 'вкладка «править» для страниц, редактируемых формой', # Fuzzy
 	'right-editrestrictedfields' => 'правка защищённых полей формы',
 );
 
