@@ -5518,6 +5518,7 @@ Jeigu puslapis tokiu vardu jau egzistuoja, šia forma galėsite jį redaguoti.',
 
 /** Latvian (latviešu)
  * @author Ilmarmors
+ * @author Papuass
  */
 $messages['lv'] = array(
 	'semanticforms-desc' => 'Formas semantisko datu pievienošanai un rediģēšanai',
@@ -5586,7 +5587,7 @@ $messages['lv'] = array(
 	'sf_createform_nameinputdesc' => '(parasti formas nosaukums ir tāds pats kā galvenajai veidnei)',
 	'sf_createform_template' => 'Veidne:',
 	'sf_createform_templatelabelinput' => 'Veidnes iezīme (neobligāta)',
-	'sf_createform_allowmultiple' => 'Atļaut vairākas (vai nevienu) šīs veidnes instances izveidojamajā lapā',
+	'sf_createform_allowmultiple' => 'Atļaut vairākas (vai nevienu) šīs veidnes instances izveidojamajā lapā', # Fuzzy
 	'sf_createform_field' => 'Lauks:',
 	'sf_createform_fieldprop' => 'Šis lauks definē īpašību $1 ar tipu $2',
 	'sf_createform_fieldproplist' => 'Šis lauks definē sarakstu ar elementiem, kuriem ir īpašība $1 ar tipu $2',
@@ -5613,7 +5614,7 @@ $messages['lv'] = array(
 	'sf_createclass_create' => 'Izveidot',
 	'sf_formstart_badtitle' => 'Kļūda: "$1" nav derīgs lapas nosaukums.',
 	'sf_formstart_createoredit' => 'Izveidot vai rediģēt',
-	'formedit' => 'Rediģēt ar formu',
+	'formedit' => 'Labot ar formu',
 	'sf_formedit_createtitlenotarget' => 'Izveidot $1',
 	'sf_formedit_altformsonly' => 'Lūdzu, izvēlieties vienu no sekojošām formām, lai pievienotu šo lapu:',
 	'sf_formcreate' => 'Izveidot ar formu',
@@ -7683,7 +7684,7 @@ $messages['roa-tara'] = array(
  */
 $messages['ru'] = array(
 	'semanticforms-desc' => 'Формы для добавления и правки семантических данных',
-	'specialpages-group-sf_group' => 'Семантические формы',
+	'specialpages-group-sf_group' => 'Semantic Forms',
 	'createproperty' => 'Создать свойство',
 	'sf-createproperty-with-name' => 'Создать свойство: $1',
 	'sf_createproperty_linktoform' => 'Это свойство содержит ссылку на страницы, которые используют форму:',
@@ -7734,7 +7735,7 @@ $messages['ru'] = array(
 	'sf_forminputs_valuesfromproperty' => 'Свойство, набор значений которого используется для подстановки в это поле ввода',
 	'sf_forminputs_valuesfromcategory' => 'Категория, названия страниц которой используются для подстановки в это поле ввода',
 	'sf_forminputs_valuesfromnamespace' => 'Пространство имен, названия страниц которой используются для подстановки в это поле ввода',
-	'sf_forminputs_valuesfromconcept' => 'Страница семантической MediaWiki "концепции", набор значений которой используется для подстановки в это поле ввода',
+	'sf_forminputs_valuesfromconcept' => 'Страница Semantic MediaWiki "concept", набор значений которой используется для подстановки в это поле ввода',
 	'sf_forminputs_valuesfromurl' => 'URL-адрес хранилища структурированных данных, которые используются для подстановки в это поле ввода',
 	'sf_forminputs_values' => 'Набор значений для подстановки в это поле ввода, разделенных запятыми',
 	'sf_forminputs_list' => 'Отметить это поле ввода, как содержащее список значений',
