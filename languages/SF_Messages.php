@@ -1467,6 +1467,7 @@ $messages['ckb'] = array(
  * @author Matěj Grabovský
  * @author Mormegil
  * @author Reaperman
+ * @author Vks
  */
 $messages['cs'] = array(
 	'createproperty' => 'Vytvořit vlastnost',
@@ -1492,11 +1493,15 @@ $messages['cs'] = array(
 	'sf_createform_inputtypedefault' => '(výchozí)',
 	'sf_createform_hidden' => 'Skrytý',
 	'sf_createform_add' => 'Přidat',
+	'sf_createclass_create' => 'Založit',
+	'sf_formstart_createoredit' => 'Vytvořit nebo upravit',
 	'sf_formedit_remove' => 'Odstranit',
 	'sf_formedit_none' => 'Nic',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'Uložit a pokračovat v úpravách',
+	'sf-autoedit-wait' => 'Čekejte...',
 	'sf_deletionlog' => 'Kniha smazaných stránek',
 	'sf_blank_namespace' => 'Hlavní',
-	'right-viewedittab' => 'Zobrazování záložky „Editovat“ na stránkách editovatelných pomocí formuláře',
+	'right-viewedittab' => 'Zobrazování záložky „Editovat“ na stránkách editovatelných pomocí formuláře', # Fuzzy
 	'right-editrestrictedfields' => 'Editování polí formulářů s omezeným přístupem',
 	'right-createclass' => 'Zakládání nových sémantických tříd',
 );
@@ -7669,7 +7674,32 @@ $messages['ro'] = array(
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'sf_createproperty_proptype' => 'Tipe:',
+	'sf_createtemplate_standardformat' => 'Tabbelle',
+	'sf_createtemplate_deletefield' => 'Scangìlle',
+	'createform' => "Ccreje 'nu module",
+	'sf-createform-with-name' => "Ccreje 'u module: $1",
+	'sf_createform_nameinput' => "Nome d'u module",
+	'sf_createform_template' => 'Template:',
 	'sf_createform_field' => 'Cambe:',
+	'sf_createform_add' => 'Aggiunge',
+	'sf_createclass_listofvalues' => 'Elenghe de valore?',
+	'sf_createclass_nameinput' => "Nome d'u module:",
+	'sf_createclass_create' => 'Ccreje',
+	'formstart' => "Inizie d'u module",
+	'sf_formstart_createoredit' => 'Ccreje o cange',
+	'formedit' => "Cange cu 'u module",
+	'sf_formedit_createtitle' => 'Ccreje $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Ccreje $1',
+	'sf_formcreate' => "Ccreje cu 'u module",
+	'sf_viewform' => "Vide 'u module",
+	'sf_editsource' => "Cange 'a sorgende",
+	'sf_formedit_edittitle' => 'Cange $1: $2',
+	'sf_formedit_remove' => 'Live',
+	'sf_formedit_addanother' => "Aggiunge 'n'otre",
+	'sf_formedit_none' => 'Ninde',
+	'sf-autoedit-wait' => 'Aspitte...',
+	'sf_blank_namespace' => 'Prengepàle',
 );
 
 /** Russian (русский)
@@ -7883,6 +7913,7 @@ $messages['sa'] = array(
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
+	'specialpages-group-sf_group' => 'අර්ථ විචාර ආකෘතිපත්‍ර',
 	'createproperty' => 'අයිතියක් තනන්න',
 	'sf-createproperty-with-name' => 'අයිතිය තනන්න: $1',
 	'sf_createproperty_propname' => 'ගුණ නාමය:',
@@ -7891,7 +7922,10 @@ $messages['si'] = array(
 	'createtemplate' => 'සැකිල්ලක් තනන්න',
 	'sf-createtemplate-with-name' => 'සැකිල්ල තනන්න: $1',
 	'sf_createtemplate_namelabel' => 'සැකිලි නාමය:',
+	'sf_createtemplate_templatefields' => 'සැකිලි ක්ෂේත්‍ර',
+	'sf_createtemplate_fieldname' => 'ක්ෂේත්‍ර නාමය:',
 	'sf_createtemplate_displaylabel' => 'ලේබලය පෙන්වන්න:',
+	'sf_createtemplate_semanticproperty' => 'අර්ථ විචාර ගුණය:',
 	'sf_createtemplate_aggregation' => 'සමූහනය',
 	'sf_createtemplate_aggregationlabel' => 'ලැයිස්තුව සඳහා මාතෘකාව:',
 	'sf_createtemplate_outputformat' => 'ප්‍රතිදාන ආකෘතිය:',
@@ -7921,6 +7955,7 @@ $messages['si'] = array(
 	'sf-createcategory-with-name' => 'ප්‍රවර්ගය තනන්න: $1',
 	'sf_createcategory_name' => 'ප්‍රවර්ග නාමය:',
 	'sf_createcategory_defaultform' => 'සාමාන්‍ය ෆෝරමය:',
+	'createclass' => 'වර්ගයක් තනන්න',
 	'sf_createclass_allowedvalues' => 'ඉඩදෙන අගයන්:',
 	'sf_createclass_listofvalues' => 'අගයන්වල ලැයිස්තුවක්?',
 	'sf_createclass_nameinput' => 'ෆෝරමයේ නම:',
@@ -7938,6 +7973,8 @@ $messages['si'] = array(
 	'sf_formedit_addanother' => 'අනෙකක් එක් කරන්න',
 	'sf_formedit_none' => 'කිසිවක් නොමැත',
 	'sf_formedit_saveandcontinueediting' => 'සුරකිමින් ඉදිරියට යන්න',
+	'sf_formedit_tooltip_saveandcontinueediting' => 'දත්ත සුරක්ෂිත කර සංස්කරණය කරගෙන යන්න',
+	'sf_autoedit_fail' => '[[$1]] වෙනස් කිරීම අසාර්ථකයි.',
 	'sf_autoedit_notargetspecified' => 'ඉලක්කගත පිටුවක් විශේෂණය කර නොමැත.',
 	'sf_autoedit_invalidform' => '$1 යනු වලංගු ෆෝරමයක් නොවේ.',
 	'sf_autoedit_redlinkexists' => '$1 දැනටමත් පවති.',
