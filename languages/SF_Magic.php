@@ -103,8 +103,8 @@ $magicWords['nds-nl'] = array(
 /** Dutch (Nederlands) */
 $magicWords['nl'] = array(
 	'forminput' => array( 0, 'formulierinvoer' ),
-	'formlink' => array( 0, 'formulierverwijzing' ),
-	'queryformlink' => array( 0, 'zoekformulierverwijzing' ),
+	'formlink' => array( 0, 'formulierkoppeing', 'formulierverwijzing' ),
+	'queryformlink' => array( 0, 'zoekformulierkoppeling', 'zoekformulierverwijzing' ),
 	'arraymap' => array( 0, 'arraymapping' ),
 	'arraymaptemplate' => array( 0, 'arraymapsjabloon' ),
 	'autoedit' => array( 0, 'autobewerken' ),
