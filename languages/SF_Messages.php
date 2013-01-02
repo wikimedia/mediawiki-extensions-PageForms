@@ -4800,7 +4800,7 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf-preview-note' => 'フォームが使用される際、このように表示されます:',
 	'sf-pageschemas-createtitle' => '新しいページに使用するフォーム名:',
 	'sf-pageschemas-edittitle' => '既存のページに使用するフォーム名:',
-	'sf-pageschemas-inputtype' => '入力型（既定の場合は空白）：',
+	'sf-pageschemas-inputtype' => '入力型 (既定値を使用する場合は空白):',
 	'sf_property_isproperty' => 'これは型 $1 のプロパティです。',
 	'sf_property_linkstoform' => 'フォーム $1 を利用するページにリンクする。',
 	'sf_property_allowedvals' => 'このプロパティが取れる{{PLURAL:$1|値}}:',
