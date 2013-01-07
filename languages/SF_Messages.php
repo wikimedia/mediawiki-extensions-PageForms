@@ -5661,6 +5661,13 @@ $messages['mhr'] = array(
 	'sf_createform_inputtypedefault' => '(ойлыде)',
 );
 
+/** Minangkabau (Baso Minangkabau)
+ * @author Naval Scene
+ */
+$messages['min'] = array(
+	'sf_viewform' => 'Caliak formulir',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  * @author Brest
