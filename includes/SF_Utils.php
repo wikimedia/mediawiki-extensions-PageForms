@@ -561,7 +561,7 @@ END;
 		if ( empty( $url ) ) {
 			return "Blank external URL value";
 		}
-		$url = str_replace( '<substr>', $substring, $url );
+		$url = str_replace( '<substr>', urlencode( $substring ), $url );
 		$page_contents = Http::get( $url );
 		if ( empty( $page_contents ) ) {
 			return "External page contains no contents";
