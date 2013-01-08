@@ -969,7 +969,7 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 	nameAttr = partOfMultiple ? 'origName' : 'name';
 	name = jQuery(this).attr(nameAttr);
 	var sfgDependentFields = mw.config.get( 'sfgDependentFields' );
-	for ( var i in sfgDependentFields ) {
+	for ( var i = 0; i < sfgDependentFields.length; i++ ) {
 		dependentFieldPair = sfgDependentFields[i];
 		if ( dependentFieldPair[0] == name ) {
 			dependentField = dependentFieldPair[1];
