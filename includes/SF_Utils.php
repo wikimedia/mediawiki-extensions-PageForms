@@ -13,7 +13,7 @@ class SFUtils {
 	 * Creates a link to a special page, using that page's top-level description as the link text.
 	 */
 	public static function linkForSpecialPage( $specialPageName ) {
-		$specialPage = SpecialPage::getPage( $specialPageName );
+		$specialPage = SpecialPageFactory::getPage( $specialPageName );
 		return smwfGetLinker()->link( $specialPage->getTitle(), $specialPage->getDescription() );
 	}
 
