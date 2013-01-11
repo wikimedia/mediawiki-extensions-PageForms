@@ -260,7 +260,12 @@ $messages['qqq'] = array(
 Parameters:
 * $1 is replaced with {{msg-mw|sf_formedit_saveandcontinueediting}}.',
 	'sf_formedit_accesskey_saveandcontinueediting' => '{{notranslate}}',
-	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.',
+	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.
+
+See also:
+* {{msg-mw|Anoneditwarning}}
+* {{msg-mw|Wikibase-anonymouseditwarning-property}}
+* {{msg-mw|Wikibase-anonymouseditwarning-item}}',
 	'sf_autoedit_success' => 'Message sent upon successful operation.',
 	'sf_autoedit_fail' => 'Message sent upon failed operation.',
 	'sf_autoedit_notargetspecified' => 'An error message sent when no target page name was specified.',
@@ -5116,7 +5121,7 @@ $messages['ko'] = array(
 	'sf_formedit_saveandcontinueediting' => '저장하고 계속',
 	'sf_formedit_saveandcontinue_summary' => '양식에서 "$1" 버튼을 사용하여 저장함',
 	'sf_formedit_tooltip_saveandcontinueediting' => '데이터를 저장하고 편집을 계속하기',
-	'sf_autoedit_anoneditwarning' => "'''주의''': 로그인하고 있지 않습니다. 당신의 IP 주소가 문서 역사에 남게 됩니다.",
+	'sf_autoedit_anoneditwarning' => "'''주의''': 로그인하고 있지 않습니다. IP 주소가 문서 역사에 남게 됩니다.",
 	'sf_autoedit_success' => '$2 양식을 사용하여 [[$1]] 문서를 성공적으로 수정했습니다.',
 	'sf_autoedit_notargetspecified' => '지정한 대상 문서가 없습니다.',
 	'sf_autoedit_noformfound' => '지정한 양식이 없습니다.',
@@ -5136,7 +5141,7 @@ $messages['ko'] = array(
 	'sf-preview-header' => '양식 미리 보기',
 	'sf_form_freetextlabel' => '자유 텍스트',
 	'sf_category_hasdefaultform' => '이 분류는 $1 양식을 사용합니다.',
-	'sf_category_desc' => '이는 $1 분류입니다.',
+	'sf_category_desc' => '$1 분류입니다.',
 	'sf_blank_namespace' => '대문',
 	'right-editrestrictedfields' => '제한된 양식 입력란 편집',
 	'right-createclass' => '새 시멘틱 클래스 만들기',
@@ -7464,7 +7469,7 @@ $messages['pt-br'] = array(
 	'sf_createform_nameinputdesc' => '(normalmente é dado ao formulário o mesmo nome que a sua predefinição principal):',
 	'sf_createform_template' => 'Predefinição:',
 	'sf_createform_templatelabelinput' => 'Título da predefinição (opcional):',
-	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) dessa predefinição na página criada',
+	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) dessa predefinição na página criada', # Fuzzy
 	'sf_createform_field' => 'Campo:',
 	'sf_createform_fieldprop' => 'Este campo define a propriedade $1, do tipo $2.',
 	'sf_createform_fieldproplist' => 'Este campo define uma lista de elementos que tem a propriedade $1, do tipo $2.',
@@ -7540,10 +7545,10 @@ isto é, o URL deve ficar parecido com 'Special:FormEdit?form=<form name>&target
 	'sf_autoedit_nosemanticform' => 'Não foi possível obter o formulário $2 para a página $1. Para mais detalhes, consulte a página [[{{#special:FormEdit}}/$2/$1]].',
 	'sf_autoedit_summary' => 'Editado automaticamente a partir da página $1.',
 	'sf-autoedit-wait' => 'Aguarde...',
-	'runquery' => 'Executar consulta',
+	'runquery' => 'Pesquisar',
 	'sf_runquery_badurl' => "Você deve especificar um nome de formulário na URL;
 a URL deve se parecer com 'Special:RunQuery/<form name>'.",
-	'sf_runquery_title' => 'Executar consulta: $1',
+	'sf_runquery_title' => 'Pesquisar: $1',
 	'sf_runquery_additionalquery' => 'Consulta adicional',
 	'sf_formerrors_header' => 'Houve erros com suas entradas do formulário; veja abaixo.',
 	'sf_blank_error' => 'não pode ficar em branco',
@@ -7572,12 +7577,12 @@ se já existir uma página com o mesmo nome, você será encaminhado a edição 
 	'sf_category_hasdefaultform' => 'Esta categoria utiliza o formulário $1.',
 	'sf_category_desc' => 'Esta é a categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Ver a aba "Editar" para páginas editáveis por formulário',
+	'right-viewedittab' => 'Ver a aba "Editar" para páginas editáveis por formulário', # Fuzzy
 	'right-editrestrictedfields' => 'Editar campos restritos de formulários',
 	'right-createclass' => 'Criar novas classes semânticas',
 	'action-createclass' => 'criar novas classes semânticas',
 	'action-editrestrictedfields' => 'editar campos restritos dos formulários',
-	'action-viewedittab' => 'visualizar a aba "Editar" para páginas editáveis pelo formulário',
+	'action-viewedittab' => 'visualizar a aba "Editar" para páginas editáveis pelo formulário', # Fuzzy
 );
 
 /** Tarifit (Tarifit)
