@@ -42,7 +42,7 @@ $specialPageAliases['ar'] = array(
 /** Aramaic (ܐܪܡܝܐ) */
 $specialPageAliases['arc'] = array(
 	'CreateCategory' => array( 'ܒܪܝ_ܣܕܪܐ' ),
-	'CreateProperty' => array( 'ܒܪܝ_ܕܝܠܝܘܬ̈ܐ' ),
+	'CreateProperty' => array( 'ܒܪܝ_ܕܝܠܝܘ̈ܬܐ' ),
 	'CreateTemplate' => array( 'ܒܪܝ_ܩܠܒܐ' ),
 	'Templates' => array( 'ܩܠܒ̈ܐ' ),
 );
