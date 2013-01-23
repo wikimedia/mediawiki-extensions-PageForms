@@ -444,7 +444,10 @@ END;
 
 		$oldParser = $wgParser;
 
-		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
+		/**
+		 * @var Parser $wgParser
+		 */
+		$wgParser = clone $oldParser; // deep clone of parser
 		$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
 		$wgParser->Title( $this->mPageTitle );
 		$wgParser->clearState();
