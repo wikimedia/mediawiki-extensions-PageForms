@@ -1730,12 +1730,12 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 	'sf_category_hasdefaultform' => 'Diese Kategorie nutzt das Formular $1.',
 	'sf_category_desc' => 'Dies ist die Kategorie $1.',
 	'sf_blank_namespace' => 'Startseite',
-	'right-viewedittab' => 'Den Reiter „{{int:edit}}“ auf Seiten sehen, die per Formular bearbeitet werden können',
+	'right-viewedittab' => 'Den Reiter „{{int:edit}}“ auf Seiten sehen, die bearbeitet werden können',
 	'right-editrestrictedfields' => 'Für die Bearbeitung beschränkte Formularfelder bearbeiten',
 	'right-createclass' => 'Erstellen neuer semantischer Klassen',
 	'action-createclass' => 'neue semantische Klassen zu erstellen',
 	'action-editrestrictedfields' => 'für die Bearbeitung beschränkte Formularfelder zu bearbeiten',
-	'action-viewedittab' => 'den Reiter „{{int:edit}}“ auf Seiten zu sehen, die per Formular bearbeitet werden können',
+	'action-viewedittab' => 'den Reiter „{{int:edit}}“ auf Seiten zu sehen, die bearbeitet werden können',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -3153,7 +3153,7 @@ $messages['gl'] = array(
 	'sf_forminputs_size' => 'O tamaño deste campo de texto, en caracteres',
 	'sf_forminputs_maxlength' => 'A lonxitude de texto máxima permitida neste campo',
 	'sf_forminputs_placeholder' => 'Texto de axuda que aparece na entrada ata que o usuario fai clic sobre el',
-	'sf_forminputs_uploadable' => 'Colocar unha ligazón "Cargar un ficheiro" ao carón desta entrada',
+	'sf_forminputs_uploadable' => 'Colocar unha ligazón "{{int:upload}}" ao carón desta entrada',
 	'sf_forminputs_defaultfilename' => 'O nome de ficheiro por defecto para os ficheiros cargados',
 	'sf_forminputs_rows' => 'O número de liñas para esta entrada',
 	'sf_forminputs_cols' => 'O número de columnas para esta entrada',
@@ -4698,7 +4698,7 @@ $messages['ja'] = array(
 	'sf_forminputs_preload' => 'その内容がこの入力の既定値になる、ウィキページ',
 	'sf_forminputs_size' => 'このテキストフィールドの文字数でのサイズ',
 	'sf_forminputs_maxlength' => 'このフィールド内の文字列の最大長',
-	'sf_forminputs_uploadable' => 'この入力の隣に「ファイルをアップロード」のリンクを配置',
+	'sf_forminputs_uploadable' => 'この入力の隣に「{{int:upload}}」のリンクを配置',
 	'sf_forminputs_defaultfilename' => 'アップロードされたファイルの既定のファイル名',
 	'sf_forminputs_rows' => 'この入力の行数',
 	'sf_forminputs_cols' => 'この入力の列数',
