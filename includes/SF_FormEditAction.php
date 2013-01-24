@@ -66,10 +66,10 @@ class SFFormEditAction extends Action
 			return true;
 		}
 
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 		global $sfgRenameEditTabs, $sfgRenameMainEditTab;
 
-		$user_can_edit = $wgUser->isAllowed( 'edit' ) && $title->userCan( 'edit' );
+		$user_can_edit = $title->userCan( 'edit' );
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
 		if ( $sfgRenameEditTabs ) {
