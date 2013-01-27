@@ -361,7 +361,7 @@ $messages['aln'] = array(
 	'sf_createform_nameinputdesc' => '(Konventë është që emri të formuar pas shabllonin kryesor ajo krijohet):', # Fuzzy
 	'sf_createform_template' => 'Stampa:',
 	'sf_createform_templatelabelinput' => 'Etiketa Template (opsional):',
-	'sf_createform_allowmultiple' => 'Lejo për të shumta (ose zero) raste të këtij template në faqen e krijuar',
+	'sf_createform_allowmultiple' => 'Lejo për të shumta (ose zero) raste të këtij template në faqen e krijuar', # Fuzzy
 	'sf_createform_field' => 'Fusha:',
 	'sf_createform_fieldprop' => 'Kjo fushë definon pronën $1, e llojit $2.',
 	'sf_createform_fieldproplist' => 'Kjo fushë përcakton një listë të elementëve që kanë pronë $1, e llojit $2.',
@@ -432,7 +432,7 @@ $messages['ar'] = array(
 	'sf_createform_nameinputdesc' => '(النموذج تتم تسميته عادة مثل قالبه الرئيسي):',
 	'sf_createform_template' => 'القالب:',
 	'sf_createform_templatelabelinput' => 'علامة القالب (اختياري):',
-	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب في الصفحة المنشأة',
+	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب في الصفحة المنشأة', # Fuzzy
 	'sf_createform_field' => 'الحقل:',
 	'sf_createform_fieldprop' => 'هذا الحقل يعرف الخاصية $1، من نوع $2.',
 	'sf_createform_fieldproplist' => 'هذا الحقل يعرف قائمة من العناصر التي تمتلك الخاصية $1، من نوع $2.',
@@ -509,7 +509,7 @@ $messages['ar'] = array(
 	'sf_category_hasdefaultform' => 'هذا التصنيف يستخدم النموذج $1.',
 	'sf_category_desc' => 'هذا $1 تصنيف.',
 	'sf_blank_namespace' => 'رئيسي',
-	'right-viewedittab' => 'أظهر لسان "عدّل" للصفحات التي يمكن تعديلها باستخدام نموذج.',
+	'right-viewedittab' => 'أظهر لسان "عدّل" للصفحات التي يمكن تعديلها باستخدام نموذج.', # Fuzzy
 	'right-editrestrictedfields' => 'حرّر حقول النموذج المقيّدة',
 );
 
@@ -589,7 +589,7 @@ $messages['arz'] = array(
 	'sf_createform_nameinput' => 'اسم الاستمارة',
 	'sf_createform_template' => 'القالب:',
 	'sf_createform_templatelabelinput' => 'علامة القالب (اختياري):',
-	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب فى الصفحة المنشأة',
+	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب فى الصفحة المنشأة', # Fuzzy
 	'sf_createform_field' => 'الحقل:',
 	'sf_createform_fieldprop' => 'هذا الحقل يعرف الخاصية $1، من نوع $2.',
 	'sf_createform_fieldproplist' => 'هذا الحقل يعرف قائمة من العناصر التى تمتلك الخاصية $1، من نوع $2.',
@@ -806,7 +806,7 @@ $messages['be-tarask'] = array(
 	'sf_forminputs_property' => 'Сэмантычная ўласьцівасьць, з якой зьвязанае гэтае поле',
 	'sf_forminputs_size' => 'Памер гэтага тэкставага поля ў сымбалях',
 	'sf_forminputs_maxlength' => 'Максымальна дазволеная даўжыня тэксту ў гэтым полі',
-	'sf_forminputs_uploadable' => 'Разьмясьціць спасылку «Загрузіць файл» пасьля гэтага ўводу',
+	'sf_forminputs_uploadable' => 'Разьмясьціць спасылку «Загрузіць файл» пасьля гэтага ўводу', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Назва па змоўчваньні для загружаемых файлаў',
 	'sf_forminputs_rows' => 'Колькасьць радкоў для гэтага ўводу',
 	'sf_forminputs_cols' => 'Колькасьць слупкоў для гэтага ўводу',
@@ -833,7 +833,7 @@ $messages['be-tarask'] = array(
 	'sf_createform_nameinputdesc' => '(форма звычайна атрымлівае тую ж назву, што і яе асноўны шаблён):',
 	'sf_createform_template' => 'Шаблён:',
 	'sf_createform_templatelabelinput' => 'Пазнака шаблёну (неабавязкова):',
-	'sf_createform_allowmultiple' => 'Дазволіць некалькі (ці нуль) экзэмпляраў гэтага шаблёну ў ствараемай старонцы',
+	'sf_createform_allowmultiple' => 'Дазволіць некалькі (ці нуль) экзэмпляраў гэтага шаблёну ў ствараемай старонцы', # Fuzzy
 	'sf_createform_field' => 'Поле:',
 	'sf_createform_fieldprop' => 'Гэта поле вызначае ўласьцівасьць $1 тыпу $2.',
 	'sf_createform_fieldproplist' => 'Гэта поле вызначае сьпіс элемэнтаў, якія маюць уласьцівасьць $1 тыпу $2.',
@@ -922,7 +922,7 @@ URL-адрас павінен мець выгляд 'Special:RunQuery/<назв�
 	'sf_category_hasdefaultform' => 'Гэта катэгорыя выкарыстоўвае форму $1.',
 	'sf_category_desc' => 'Гэта катэгорыя $1.',
 	'sf_blank_namespace' => 'Галоўная',
-	'right-viewedittab' => 'прагляд закладак «Рэдагаваць» для старонак, якія можна рэдагаваць праз форму',
+	'right-viewedittab' => 'прагляд закладак «Рэдагаваць» для старонак, якія можна рэдагаваць праз форму', # Fuzzy
 	'right-editrestrictedfields' => 'рэдагаваньне абмежаваных палёў форм',
 	'right-createclass' => 'стварэньне новых сэмантычных клясаў',
 );
@@ -1086,7 +1086,7 @@ $messages['br'] = array(
 	'sf_createform_nameinputdesc' => '(ar boaz eo envel ar furmskrid diouzh anv e batrom pennañ) :',
 	'sf_createform_template' => 'Patrom :',
 	'sf_createform_templatelabelinput' => 'Tikedenn patrom (diret) :',
-	'sf_createform_allowmultiple' => 'Aotren a ra eiladoù eus ar patrom-mañ (pe hini ebet) er bajenn grouet',
+	'sf_createform_allowmultiple' => 'Aotren a ra eiladoù eus ar patrom-mañ (pe hini ebet) er bajenn grouet', # Fuzzy
 	'sf_createform_field' => 'Maezienn :',
 	'sf_createform_fieldprop' => 'Ar vaezienn-mañ a dermen ar perzh $1, eus ar seurt $2.',
 	'sf_createform_inputtype' => 'Doare moned :',
@@ -1162,7 +1162,7 @@ Ma'z eus ur bajenn en anv-se dija, e viot kaset d'ur furmskrid a dalvez d'hec'h 
 	'sf_category_hasdefaultform' => 'Ar rummad-mañ a implij ar furmskrid $1.',
 	'sf_category_desc' => 'Ar rummad $1 eo hemañ.',
 	'sf_blank_namespace' => 'Pennañ',
-	'right-viewedittab' => 'Gwelet an ivinell "kemmañ" evit ar pajennoù kemmus dre ur furmskrid',
+	'right-viewedittab' => 'Gwelet an ivinell "kemmañ" evit ar pajennoù kemmus dre ur furmskrid', # Fuzzy
 	'right-editrestrictedfields' => 'Aozañ maeziennoù strishaet ar furmskridoù',
 );
 
@@ -1748,7 +1748,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 $messages['de-formal'] = array(
 	'sf_createproperty_allowedvalsinput' => 'Sofern Sie für dieses Attribut nur bestimmte Werte zulassen möchten, geben Sie diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, müssen Sie es durch „\\,“ ersetzen):',
 	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
-	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
+	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite', # Fuzzy
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
 Bitte nutzen Sie eine der folgenden Seiten für weitere Optionen: $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
@@ -1825,7 +1825,7 @@ $messages['dsb'] = array(
 	'sf_createform_nameinputdesc' => '(formular dostanjo zwětšego samske mě ako jogo głowna pśedłoga):',
 	'sf_createform_template' => 'Pśedłoga:',
 	'sf_createform_templatelabelinput' => 'Pomjenjenje pśedłogi (opcionalny):',
-	'sf_createform_allowmultiple' => 'Někotare (abo žedne) instance toś teje pśedłogi w napóranem boku dowóliś',
+	'sf_createform_allowmultiple' => 'Někotare (abo žedne) instance toś teje pśedłogi w napóranem boku dowóliś', # Fuzzy
 	'sf_createform_field' => 'Pólo:',
 	'sf_createform_fieldprop' => 'Toś to pólo definěrujo kakosć $1 typa $2.',
 	'sf_createform_fieldproplist' => 'Toś to pólo definěrujo lisćinu elementow, kótarež maju kakosć $1 typa $2.',
@@ -1901,7 +1901,7 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 	'sf_category_hasdefaultform' => 'Toś ta kategorija wužywa formular $1.',
 	'sf_category_desc' => 'To jo kategorija $1.',
 	'sf_blank_namespace' => 'Głowny',
-	'right-viewedittab' => 'Rejtark "Wobźěłaś" za boki, kótarež su wobźěłujobne pśez formular, se woglědaś',
+	'right-viewedittab' => 'Rejtark "Wobźěłaś" za boki, kótarež su wobźěłujobne pśez formular, se woglědaś', # Fuzzy
 	'right-editrestrictedfields' => 'Wobgranicowane formularne póla wobźěłaś',
 );
 
@@ -2146,7 +2146,7 @@ $messages['eo'] = array(
 	'sf_createform_nameinput' => 'Nomo de la formularo',
 	'sf_createform_template' => 'Ŝablono:',
 	'sf_createform_templatelabelinput' => 'Etikedo de ŝablono (nedevige):',
-	'sf_createform_allowmultiple' => 'Akomodi multajn (aŭ nul) ekzemplerojn de ĉi ŝablono en la kreita paĝo',
+	'sf_createform_allowmultiple' => 'Akomodi multajn (aŭ nul) ekzemplerojn de ĉi ŝablono en la kreita paĝo', # Fuzzy
 	'sf_createform_field' => 'Kampo:',
 	'sf_createform_fieldprop' => 'Ĉi tiu kampo difinas la atributon $1, de speco $2.',
 	'sf_createform_fieldproplist' => 'Ĉi tiu kampo difinas liston de elementoj kiu havas la atributon $1, de tipo $2.',
@@ -2634,7 +2634,7 @@ $messages['fi'] = array(
 	'sf_forminputs_size' => 'Tämän tekstikentän koko merkkeinä',
 	'sf_forminputs_maxlength' => 'Tekstin suurin sallittu pituus tässä kentässä',
 	'sf_forminputs_placeholder' => 'Ohjeteksti, joka näkyy kentässä, kunnes käyttäjä napsauttaa sitä',
-	'sf_forminputs_uploadable' => 'Lisää "Lataa tiedosto" -linkin tämän kentän viereen',
+	'sf_forminputs_uploadable' => 'Lisää "Lataa tiedosto" -linkin tämän kentän viereen', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Ladattujen tiedostojen oletusnimi',
 	'sf_forminputs_rows' => 'Syötteen rivimäärä',
 	'sf_forminputs_cols' => 'Syötteen sarakemäärä',
@@ -2663,7 +2663,7 @@ $messages['fi'] = array(
 	'sf_createform_nameinputdesc' => '(lomakkeen nimi on tavallisesti sama kuin sen päämallineen nimi):',
 	'sf_createform_template' => 'Malline',
 	'sf_createform_templatelabelinput' => 'Mallineen otsikko (valinnainen)',
-	'sf_createform_allowmultiple' => 'Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan',
+	'sf_createform_allowmultiple' => 'Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan', # Fuzzy
 	'sf_createform_field' => 'Kenttä',
 	'sf_createform_fieldprop' => 'Tämä kenttä määrittelee ominaisuuden $1, joka on tyyppiä $2.',
 	'sf_createform_fieldproplist' => 'Tämä kenttä määrittelee listan elementeistä, joilla on ominaisuus $1, joka on tyyppiä $2.',
@@ -2842,7 +2842,7 @@ $messages['fr'] = array(
 	'sf_forminputs_size' => 'La taille de ce champ de texte, en caractères',
 	'sf_forminputs_maxlength' => 'La longueur de texte maximale autorisée pour ce champ',
 	'sf_forminputs_placeholder' => "Texte d'aide qui apparaît dans l'entrée jusqu'à ce que l'utilisateur clique dessus",
-	'sf_forminputs_uploadable' => 'Placez un lien « Télécharger le fichier » à côté de cette entrée',
+	'sf_forminputs_uploadable' => 'Placez un lien « Télécharger le fichier » à côté de cette entrée', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Le nom de fichier par défaut pour les fichiers téléchargés',
 	'sf_forminputs_rows' => 'Le nombre de lignes pour cette entrée.',
 	'sf_forminputs_cols' => 'Le nombre de colonnes pour cette entrée.',
@@ -3385,7 +3385,7 @@ $messages['gsw'] = array(
 	'sf_forminputs_size' => 'D Grössi vo däm Teggstfäld in Zeiche',
 	'sf_forminputs_maxlength' => 'Di maximali Längi vo däm Teggst in däm Yygabefäld, wo zuelässig isch',
 	'sf_forminputs_placeholder' => 'De Hilfeteggst, wo aazeigt wird, bis dass de Benutzer druff klickt',
-	'sf_forminputs_uploadable' => 'En Link zum Uffelade vunere Datei näbe däm Yygabefäld platziere',
+	'sf_forminputs_uploadable' => 'En Link zum Uffelade vunere Datei näbe däm Yygabefäld platziere', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'De Standarddateiname für Dateie, wommer uffeglade het',
 	'sf_forminputs_rows' => 'D Zyylezaal für des Yygabefäld',
 	'sf_forminputs_cols' => 'D Spaltezaal für des Yygabefäld',
@@ -3394,7 +3394,7 @@ $messages['gsw'] = array(
 	'sf_createform_nameinputdesc' => '(no dr Konvention wird e Formular no dr Hauptvorlag gnännt, wu s fillt):', # Fuzzy
 	'sf_createform_template' => 'Vorlag:',
 	'sf_createform_templatelabelinput' => 'Vorlagename (optional):',
-	'sf_createform_allowmultiple' => 'Erlaub mehreri (oder null) Instanze vu däre Vorlag in dr aagleite Syte',
+	'sf_createform_allowmultiple' => 'Erlaub mehreri (oder null) Instanze vu däre Vorlag in dr aagleite Syte', # Fuzzy
 	'sf_createform_field' => 'Fäld:',
 	'sf_createform_fieldprop' => 'Des Fäld definiert s Attribut $1 vum Typ $2.',
 	'sf_createform_fieldproplist' => 'Des Fäld definiert e Lischt vu Elemänt, wu s Attribut $1 vum Typ $2 hän.',
@@ -3464,7 +3464,7 @@ Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, w
 	'sf_category_hasdefaultform' => 'Die Kategorii bruucht s Formular $1.',
 	'sf_category_desc' => 'Des isch d Kategorii $1.',
 	'sf_blank_namespace' => 'Hauptsyte',
-	'right-viewedittab' => 'D "Bearbeite"-Regischtercharte fir bearbeitbari Syte no Format aaluege',
+	'right-viewedittab' => 'D "Bearbeite"-Regischtercharte fir bearbeitbari Syte no Format aaluege', # Fuzzy
 	'right-editrestrictedfields' => 'Yygschränkti Formatfälde bearbeite',
 );
 
@@ -3571,7 +3571,7 @@ $messages['he'] = array(
 	'sf_forminputs_size' => 'גודל שדה הטקסט הזה, בתווים',
 	'sf_forminputs_maxlength' => 'האורך המרבי של הטקסט בשדה הזה',
 	'sf_forminputs_placeholder' => 'טקסט עזרה שמופיע בשדה קלט עד שהמשתמש לוחץ עליו',
-	'sf_forminputs_uploadable' => 'לשים קישור "העלאת קובץ" ליד הקלט הזה',
+	'sf_forminputs_uploadable' => 'לשים קישור "העלאת קובץ" ליד הקלט הזה', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'שם קובץ לפי בררת מחדל לקבצים מוּעלים',
 	'sf_forminputs_rows' => 'מספר השורות עבור הקלט הזה',
 	'sf_forminputs_cols' => 'מספר העמודות עבור הקלט הזה',
@@ -3599,7 +3599,7 @@ $messages['he'] = array(
 	'sf_createform_nameinputdesc' => '(מקובל לתת לטופס שם בהתאם לשם התבנית העיקרית שהוא מגדיר):',
 	'sf_createform_template' => 'תבנית:',
 	'sf_createform_templatelabelinput' => 'תוית לתבנית (אופציונלי):',
-	'sf_createform_allowmultiple' => ' הרשה כפילויות (או אפס) מהתבנית הזאת בדף המיוצר',
+	'sf_createform_allowmultiple' => ' הרשה כפילויות (או אפס) מהתבנית הזאת בדף המיוצר', # Fuzzy
 	'sf_createform_field' => 'שדה:',
 	'sf_createform_fieldprop' => 'שדה זה מגדיר את המאפיין $1, מסוג $2.',
 	'sf_createform_fieldproplist' => 'שדה זה מגדיר את רשימת הרכיבים שיש להם את המאפיין $1, מסוג $2.',
@@ -3698,12 +3698,12 @@ $messages['he'] = array(
 	'sf_category_hasdefaultform' => 'קטגוריה זו משתמשת בטופס $1.',
 	'sf_category_desc' => 'זוהי הקטגוריה $1.',
 	'sf_blank_namespace' => 'ראשי',
-	'right-viewedittab' => 'צפייה בלשונית "עריכה" של דפים הניתנים לעריכה על ידי טופס',
+	'right-viewedittab' => 'צפייה בלשונית "עריכה" של דפים הניתנים לעריכה על ידי טופס', # Fuzzy
 	'right-editrestrictedfields' => 'עריכת שדות טופס מוגבלים',
 	'right-createclass' => 'יצירת מחלקות סמנטיות חדשות',
 	'action-createclass' => 'ליצור מחלקות סמנטיות חדשות',
 	'action-editrestrictedfields' => 'לערוך שדות טופס מוגבלים',
-	'action-viewedittab' => 'להציג את הלשונית "עריכה" לטפסים שאפשר לערוך',
+	'action-viewedittab' => 'להציג את הלשונית "עריכה" לטפסים שאפשר לערוך', # Fuzzy
 );
 
 /** Hindi (हिन्दी)
@@ -3831,7 +3831,7 @@ $messages['hsb'] = array(
 	'sf_forminputs_size' => 'Wulkosć tutoho tekstoweho pola w znamješkach',
 	'sf_forminputs_maxlength' => 'Maksimalna dowolena dołhosć teksta w tutym zapodawanskim polu',
 	'sf_forminputs_placeholder' => 'Tekst pomocy, kotryž so jewi, doniž wužiwar na njón njekliknje',
-	'sf_forminputs_uploadable' => 'Wotkaz za nahrawanje dataje pódla zapodawanskeho pola stajić',
+	'sf_forminputs_uploadable' => 'Wotkaz za nahrawanje dataje pódla zapodawanskeho pola stajić', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Standardne datajowe mjeno za nahrate dataje',
 	'sf_forminputs_rows' => 'Ličba rjadkow za tute zapodawanske polo',
 	'sf_forminputs_cols' => 'Ličba špaltow za tute zapodawanske polo',
@@ -3860,7 +3860,7 @@ $messages['hsb'] = array(
 	'sf_createform_nameinputdesc' => '(formular dóstawa zwjetša samsne mjeno kaž jeho hłowna předłoha):',
 	'sf_createform_template' => 'Předłoha:',
 	'sf_createform_templatelabelinput' => 'Mjeno předłohi (opcionalny):',
-	'sf_createform_allowmultiple' => 'Wjacore (abo žane) instancy tuteje předłohi we wutworjenej stronje dowolić',
+	'sf_createform_allowmultiple' => 'Wjacore (abo žane) instancy tuteje předłohi we wutworjenej stronje dowolić', # Fuzzy
 	'sf_createform_field' => 'Polo:',
 	'sf_createform_fieldprop' => 'Tute polo definuje kajkosć $1 typa $2.',
 	'sf_createform_fieldproplist' => 'Tute polo definuje lisćinu elementow, kotrež maja kajkosć $1 typa $2.',
@@ -3956,12 +3956,12 @@ jeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, 
 	'sf_category_hasdefaultform' => 'Tuta kategorija wužiwa formular $1.',
 	'sf_category_desc' => 'To je kategorija $1.',
 	'sf_blank_namespace' => 'Hłowny',
-	'right-viewedittab' => 'Rajtark "Wobźěłać" za strony, kotrež su přez formular wobźěłujomne, sej wobhladać',
+	'right-viewedittab' => 'Rajtark "Wobźěłać" za strony, kotrež su přez formular wobźěłujomne, sej wobhladać', # Fuzzy
 	'right-editrestrictedfields' => 'Wobmjezowane formularne pola wobdźěłać',
 	'right-createclass' => 'Nowe semantiske klasy wutworić',
 	'action-createclass' => 'nowe semantiske klasy wutworić',
 	'action-editrestrictedfields' => 'wobmjezowane formularne pola wobdźěłać',
-	'action-viewedittab' => 'Rajtark "Wobźěłać" za strony pokazać, kotrež su přez formular wobźěłujomne',
+	'action-viewedittab' => 'Rajtark "Wobźěłać" za strony pokazać, kotrež su přez formular wobźěłujomne', # Fuzzy
 );
 
 /** Hungarian (magyar)
@@ -4147,7 +4147,7 @@ $messages['ia'] = array(
 	'sf_forminputs_size' => 'Le dimension de iste campo de texto, in characteres',
 	'sf_forminputs_maxlength' => 'Le longitude maximal permittite del texto in iste campo',
 	'sf_forminputs_placeholder' => 'Texto de adjuta que appare in le campo de entrata usque le usator clicca sur illo',
-	'sf_forminputs_uploadable' => 'Placiar un ligamine "Incargar file" al latere de iste entrata',
+	'sf_forminputs_uploadable' => 'Placiar un ligamine "Incargar file" al latere de iste entrata', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Le nomine de file predefinite pro files incargate',
 	'sf_forminputs_rows' => 'Le numero de lineas pro iste entrata',
 	'sf_forminputs_cols' => 'Le numero de columnas pro iste entrata',
@@ -4175,7 +4175,7 @@ $messages['ia'] = array(
 	'sf_createform_nameinputdesc' => '(es costumari dar al formulario le nomine de su patrono principal):',
 	'sf_createform_template' => 'Patrono:',
 	'sf_createform_templatelabelinput' => 'Etiquetta del patrono (optional):',
-	'sf_createform_allowmultiple' => 'Permitter multiple (o zero) instantias de iste patrono in le pagina create',
+	'sf_createform_allowmultiple' => 'Permitter multiple (o zero) instantias de iste patrono in le pagina create', # Fuzzy
 	'sf_createform_field' => 'Campo:',
 	'sf_createform_fieldprop' => 'Iste campo defini le proprietate $1, del typo $2.',
 	'sf_createform_fieldproplist' => 'Iste campo defini un lista de elementos que ha le proprietate $1, del typo $2.',
@@ -4274,12 +4274,12 @@ si un pagina con iste nomine ja existe, tu essera inviate a un formulario pro mo
 	'sf_category_hasdefaultform' => 'Iste categoria usa le formulario $1.',
 	'sf_category_desc' => 'Isto es le categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Vider le scheda "Modificar" pro paginas modificabile per formulario',
+	'right-viewedittab' => 'Vider le scheda "Modificar" pro paginas modificabile per formulario', # Fuzzy
 	'right-editrestrictedfields' => 'Modificar le campos restringite de formularios',
 	'right-createclass' => 'Crear nove classes semantic',
 	'action-createclass' => 'crear nove classes semantic',
 	'action-editrestrictedfields' => 'modificar le campos restringite de formularios',
-	'action-viewedittab' => 'vider le scheda "Modificar" pro paginas modificabile per formulario',
+	'action-viewedittab' => 'vider le scheda "Modificar" pro paginas modificabile per formulario', # Fuzzy
 );
 
 /** Indonesian (Bahasa Indonesia)
@@ -4328,7 +4328,7 @@ $messages['id'] = array(
 	'sf_forminputs_property' => 'Properti semantik yang berkaitan dengan bidang ini',
 	'sf_forminputs_size' => 'Ukuran bidang teks ini (dalam karakter)',
 	'sf_forminputs_maxlength' => 'Panjang teks maksimum yang diperbolehkan untuk bidang ini',
-	'sf_forminputs_uploadable' => 'Tempatkan pranala "Unggah berkas" di samping masukan ini',
+	'sf_forminputs_uploadable' => 'Tempatkan pranala "Unggah berkas" di samping masukan ini', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Nama berkas bawaan untuk pengunggahan berkas',
 	'sf_forminputs_rows' => 'Jumlah baris untuk masukan ini',
 	'sf_forminputs_cols' => 'Jumlah kolom untuk masukan ini',
@@ -4354,7 +4354,7 @@ $messages['id'] = array(
 	'sf_createform_nameinputdesc' => '(formulir ini biasanya diberi nama yang sama dengan templat utamanya):',
 	'sf_createform_template' => 'Templat:',
 	'sf_createform_templatelabelinput' => 'Label templat (opsional):',
-	'sf_createform_allowmultiple' => 'Izinkan beberapa (atau nol) templat ini di halaman yang dibuat',
+	'sf_createform_allowmultiple' => 'Izinkan beberapa (atau nol) templat ini di halaman yang dibuat', # Fuzzy
 	'sf_createform_field' => 'Kolom:',
 	'sf_createform_fieldprop' => 'Kolom ini menentukan properti $1 yang bertipe $2.',
 	'sf_createform_fieldproplist' => 'Kolom ini menentukan beberapa elemen yang memiliki properti $1 bertipe $2.',
@@ -4437,7 +4437,7 @@ jika halaman dengan nama tersebut sudah ada, Anda akan diarahkan ke formulir unt
 	'sf_category_hasdefaultform' => 'Kategori ini menggunakan formulir $1.',
 	'sf_category_desc' => 'Ini adalah kategori $1.',
 	'sf_blank_namespace' => 'Utama',
-	'right-viewedittab' => 'Lihat tab "Sunting" untuk menyunting halaman dengan formulir',
+	'right-viewedittab' => 'Lihat tab "Sunting" untuk menyunting halaman dengan formulir', # Fuzzy
 	'right-editrestrictedfields' => 'Sunting kolom formulir terbatas',
 );
 
@@ -5274,7 +5274,7 @@ $messages['ksh'] = array(
 	'sf_createform_nameinputdesc' => '(För jewöhnlesch deiht mer dat Fommulaa noh dä Houp-Schabloon deufe, woh et Date erin brängk):', # Fuzzy
 	'sf_createform_template' => 'Schabloon:',
 	'sf_createform_templatelabelinput' => 'Dä Name vun dä Schablon, wann ein jebruch weed:',
-	'sf_createform_allowmultiple' => 'Donn zwesche noll un jede Aanzahl Oproofe vun dä Schabloon hee, en dä neu aanjelaate Sigg zohlohße',
+	'sf_createform_allowmultiple' => 'Donn zwesche noll un jede Aanzahl Oproofe vun dä Schabloon hee, en dä neu aanjelaate Sigg zohlohße', # Fuzzy
 	'sf_createform_field' => 'Feld:',
 	'sf_createform_fieldprop' => 'Dat Feld beschrief de Eijeschaff „$1“. Se es vun dä Zoot „$2“.',
 	'sf_createform_fieldproplist' => 'Dat Feld beschrief en Leß met Ellemänte met dä Eijeschaff „$1“, vun dä Zoot „$2“.',
@@ -5350,7 +5350,7 @@ Dat süüht dann esu us, wi <code>{{#special:RunQuery}}/''<Fomullaa_Name >''</co
 	'sf_category_hasdefaultform' => 'Hee di Saachjropp bruch dat Fommulaa „$1“.',
 	'sf_category_desc' => 'Dat es de Saachjropp „$1“.',
 	'sf_blank_namespace' => '{{int:blanknamespace}}',
-	'right-viewedittab' => '„{{int:edit}}“-Lengk för Sigge, die mer övver Fommulaare ändere kann',
+	'right-viewedittab' => '„{{int:edit}}“-Lengk för Sigge, die mer övver Fommulaare ändere kann', # Fuzzy
 	'right-editrestrictedfields' => 'Beschrängk zohjänglijje Felder en Fommulaare ändere',
 );
 
@@ -5473,7 +5473,7 @@ Si soll an dësem Format opgeruff ginn:",
 	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formelär $1.',
 	'sf_category_desc' => "Dëst ass d'$1 Kategorie.",
 	'sf_blank_namespace' => 'Haapt',
-	'right-viewedittab' => '"Änneren"-Tab fir Säiten, déi duerch e Formlaire geännert kënne ginn, weisen',
+	'right-viewedittab' => '"Änneren"-Tab fir Säiten, déi duerch e Formlaire geännert kënne ginn, weisen', # Fuzzy
 );
 
 /** Limburgish (Limburgs)
@@ -5533,7 +5533,7 @@ $messages['lt'] = array(
 	'sf_createform_nameinput' => 'Formos vardas (dažniausiai priimtina pavadinti pagrindinio formoje naudojamo šablono vardu):', # Fuzzy
 	'sf_createform_template' => 'Šablonas:',
 	'sf_createform_templatelabelinput' => 'Šablono kortelės užrašas (nebūtinas):',
-	'sf_createform_allowmultiple' => 'Leisti kelis (arba nė vieno) šio šablono vienetus sukurtame puslapyje',
+	'sf_createform_allowmultiple' => 'Leisti kelis (arba nė vieno) šio šablono vienetus sukurtame puslapyje', # Fuzzy
 	'sf_createform_field' => 'Laukas:',
 	'sf_createform_fieldprop' => 'Šis laukas apibrėžia „$2“ tipo savybę „$1“.',
 	'sf_createform_fieldproplist' => 'Šis laukas apibrėžia elementų turinčių „$2“ tipo savybę „$1“.',
@@ -5634,7 +5634,7 @@ $messages['lv'] = array(
 	'sf_forminputs_size' => 'Šī teksta lauka lielums rakstzīmēs',
 	'sf_forminputs_maxlength' => 'Maksimālais atļautais teksta garums šajā laukā',
 	'sf_forminputs_placeholder' => 'Palīdzības teksts, kas pārādās ievadlaukā līdz brīdim, kas lietotājs noklikšķina uz tā.',
-	'sf_forminputs_uploadable' => 'Novietot saiti "Augšupielādēt failu" blakus šim ievadlaukam',
+	'sf_forminputs_uploadable' => 'Novietot saiti "Augšupielādēt failu" blakus šim ievadlaukam', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Noklusētais nosaukums augšupielādētiem failiem',
 	'sf_forminputs_rows' => 'Rindu skaits šajā ievadlaukā',
 	'sf_forminputs_cols' => 'Kolonnu skaits šajā ievadlaukā',
@@ -6034,7 +6034,7 @@ $messages['mr'] = array(
 	'sf_createform_nameinput' => 'अर्जाचे नाव (सर्वसाधारणपणे अर्ज ज्या मुख्य साच्यासाठी आहे त्या साच्याच्या नावानंतर अर्जाचे नाव असे लिहावे):', # Fuzzy
 	'sf_createform_template' => 'साचा:',
 	'sf_createform_templatelabelinput' => 'साच्याचे लेबल (वैकल्पिक):',
-	'sf_createform_allowmultiple' => 'तयार केलेल्या पानावर हा साचा अनेकवेळा (किंवा शून्यवेळा) वापरण्याची परवानगी द्या',
+	'sf_createform_allowmultiple' => 'तयार केलेल्या पानावर हा साचा अनेकवेळा (किंवा शून्यवेळा) वापरण्याची परवानगी द्या', # Fuzzy
 	'sf_createform_field' => 'रकाना:',
 	'sf_createform_fieldprop' => 'हा रकाना $2 या प्रकारचा $1 हा गुणधर्म सांगतो.',
 	'sf_createform_fieldproplist' => 'हा रकाना $2 या प्रकारचे $1 गुणधर्म असणार्‍या एलेमेंट्स ची यादी देतो.',
@@ -6123,7 +6123,7 @@ $messages['ms'] = array(
 	'sf_editsource' => 'Sunting sumber',
 	'sf_formedit_saveandcontinueediting' => 'Simpan dan sambung',
 	'sf_blank_namespace' => 'Utama',
-	'right-viewedittab' => 'Melihat tab "Sunting" untuk laman yang boleh disunting dengan borang',
+	'right-viewedittab' => 'Melihat tab "Sunting" untuk laman yang boleh disunting dengan borang', # Fuzzy
 	'right-editrestrictedfields' => 'Menyunting ruangan borang yang terhad',
 	'right-createclass' => 'Membuat kelas semantik baru',
 	'action-createclass' => 'buat kelas semantik baru',
@@ -6278,7 +6278,7 @@ $messages['nb'] = array(
 	'sf_forminputs_size' => 'Antall tegn for dette tekstfeltet',
 	'sf_forminputs_maxlength' => 'Maksimalt antall tegn for dette feltet',
 	'sf_forminputs_placeholder' => 'Hjelpetekst som vises i inndatafeltet helt til brukeren klikker i det',
-	'sf_forminputs_uploadable' => 'Sett en "Last opp fil"-lenke ved siden av denne typen inndata',
+	'sf_forminputs_uploadable' => 'Sett en "Last opp fil"-lenke ved siden av denne typen inndata', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Standard filnavn for opplastede filer',
 	'sf_forminputs_rows' => 'Antall rader for denne typen inndata',
 	'sf_forminputs_cols' => 'Antall kolonner for denne typen inndata',
@@ -6307,7 +6307,7 @@ $messages['nb'] = array(
 	'sf_createform_nameinputdesc' => '(skjemaet får normalt samme navn som sin hovedmal):',
 	'sf_createform_template' => 'Mal:',
 	'sf_createform_templatelabelinput' => 'Malnavn (valgfritt):',
-	'sf_createform_allowmultiple' => 'Tillat flere (eller ingen) instanser av denne malen på siden som opprettes',
+	'sf_createform_allowmultiple' => 'Tillat flere (eller ingen) instanser av denne malen på siden som opprettes', # Fuzzy
 	'sf_createform_field' => 'Felt:',
 	'sf_createform_fieldprop' => 'Dette feltet definerer egenskapen $1, av type $2.',
 	'sf_createform_fieldproplist' => 'Dette feltet definerer en liste over elementer som har egenskapen $1, av type $2.',
@@ -6426,7 +6426,7 @@ $messages['nds'] = array(
 	'sf_createcategory_name' => 'Naam:', # Fuzzy
 );
 
-/** Nedersaksisch (Nedersaksisch)
+/** Nedersaksies (Nedersaksies)
  * @author Servien
  */
 $messages['nds-nl'] = array(
@@ -6491,7 +6491,7 @@ $messages['nl'] = array(
 	'sf_forminputs_size' => 'De grootte van dit tekstveld, in tekens',
 	'sf_forminputs_maxlength' => 'De maximale lengte van de tekst in dit veld',
 	'sf_forminputs_placeholder' => 'Hulptekst die wordt weergegeven in het invoerveld totdat een gebruiker er op klikt',
-	'sf_forminputs_uploadable' => 'Een koppeling "Bestand uploaden" toevoegen naast deze invoer',
+	'sf_forminputs_uploadable' => 'Een koppeling "Bestand uploaden" toevoegen naast deze invoer', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'De standaard bestandsnaam voor toegevoegde bestanden',
 	'sf_forminputs_rows' => 'Het aantal rijen voor deze invoer',
 	'sf_forminputs_cols' => 'Het aantal kolommen voor deze invoer',
@@ -6580,7 +6580,7 @@ Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
 	'sf_formedit_saveandcontinueediting' => 'Opslaan en doorgaan',
 	'sf_formedit_saveandcontinue_summary' => 'Opgeslagen met de knop "$1" in het formulier',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Gegevens opslaan en doorgaan met bewerken',
-	'sf_autoedit_anoneditwarning' => 'Waarschuwing: U bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.',
+	'sf_autoedit_anoneditwarning' => 'Waarschuwing: u bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.',
 	'sf_autoedit_success' => '[[$1]] is gewijzigd via het formulier $2.',
 	'sf_autoedit_fail' => 'Het wijzigen van [[$1]] is mislukt.',
 	'sf_autoedit_notargetspecified' => 'Geen doelpagina opgegeven.',
@@ -6680,7 +6680,7 @@ $messages['nn'] = array(
 	'sf_createform_nameinput' => 'Skjemanamn',
 	'sf_createform_template' => 'Mal:',
 	'sf_createform_templatelabelinput' => 'Malmerke (valfritt):',
-	'sf_createform_allowmultiple' => 'Tillat fleire (eller ingen) instansar av denne malen på den oppretta sida',
+	'sf_createform_allowmultiple' => 'Tillat fleire (eller ingen) instansar av denne malen på den oppretta sida', # Fuzzy
 	'sf_createform_field' => 'Felt:',
 	'sf_createform_fieldprop' => 'Dette feltet definerer eigenskapen $1, av type $2.',
 	'sf_createform_fieldproplist' => 'Dette feltet definerer ei lista over element som har eigenskapen $1, av type $2.',
@@ -6795,7 +6795,7 @@ $messages['oc'] = array(
 	'sf_createform_nameinputdesc' => '(la convencion es de nomenar lo formulari aprèp lo modèl principal qu’emplena) :', # Fuzzy
 	'sf_createform_template' => 'Modèl :',
 	'sf_createform_templatelabelinput' => 'Etiqueta de modèl (facultatiu) :',
-	'sf_createform_allowmultiple' => "Permetre mantuna (o zèro) instàncias d'aqueste modèl dins la pagina creada",
+	'sf_createform_allowmultiple' => "Permetre mantuna (o zèro) instàncias d'aqueste modèl dins la pagina creada", # Fuzzy
 	'sf_createform_field' => 'Camp :',
 	'sf_createform_fieldprop' => 'Aqueste camp definís la proprietat $1, del tipe $2.',
 	'sf_createform_fieldproplist' => "Aqueste camp definís una lista dels elements qu'an la proprietat $1, del tipe $2.",
@@ -6863,7 +6863,7 @@ l'URL deuriá èsser coma « Special:RunQuery/<nom del formulari> ».",
 	'sf_category_hasdefaultform' => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc' => 'Aquò es la categoria « $1 ».',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => "Veire l'onglet « modificar » per las paginas modificablas via un formulari",
+	'right-viewedittab' => "Veire l'onglet « modificar » per las paginas modificablas via un formulari", # Fuzzy
 	'right-editrestrictedfields' => 'Modificar los camps restrenches dels formularis',
 );
 
@@ -6953,7 +6953,7 @@ $messages['pl'] = array(
 	'sf_forminputs_size' => 'Rozmiar tego pola tekstowego, w znakach',
 	'sf_forminputs_maxlength' => 'Maksymalna dozwolona długość tekstu w tym polu',
 	'sf_forminputs_placeholder' => 'Tekst pomocy, który pojawia się wewnątrz pola, zanim użytkownik na nim kliknie',
-	'sf_forminputs_uploadable' => 'Umieść łącze "Wyślij plik" obok tego pola',
+	'sf_forminputs_uploadable' => 'Umieść łącze "Wyślij plik" obok tego pola', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Domyślna nazwa pliku dla wysyłanych plików',
 	'sf_forminputs_rows' => 'Liczba wierszy dla tego wprowadzania',
 	'sf_forminputs_cols' => 'Liczba kolumn dla tego wprowadzania',
@@ -6962,7 +6962,7 @@ $messages['pl'] = array(
 	'sf_createform_nameinputdesc' => '(zwyczajowo nazwa formularza jest taka sama ja nazwa jego podstawowego szablonu)',
 	'sf_createform_template' => 'Szablon',
 	'sf_createform_templatelabelinput' => 'Etykieta szablonu (nieobowiązkowa)',
-	'sf_createform_allowmultiple' => 'Zezwól na wielokrotne użycie lub nieużycie tego szablonu na tworzonej stronie',
+	'sf_createform_allowmultiple' => 'Zezwól na wielokrotne użycie lub nieużycie tego szablonu na tworzonej stronie', # Fuzzy
 	'sf_createform_field' => 'Pole:',
 	'sf_createform_fieldprop' => 'To pole definiuje własność $1 typu $2.',
 	'sf_createform_fieldproplist' => 'To pole definiuje listę elementów, które mają własność $1 typu $2.',
@@ -7040,7 +7040,7 @@ Jeśli strona o tej nazwie już istnieje, otwarty zostanie formularz edycji tej 
 	'sf_category_hasdefaultform' => 'Ta kategoria używa formularza $1.',
 	'sf_category_desc' => 'To jest kategoria $1.',
 	'sf_blank_namespace' => 'Główna',
-	'right-viewedittab' => 'Widoczność zakładki „Edytuj” dla stron, które można edytować korzystając z formularza',
+	'right-viewedittab' => 'Widoczność zakładki „Edytuj” dla stron, które można edytować korzystając z formularza', # Fuzzy
 	'right-editrestrictedfields' => 'Edycja zabezpieczonych pól formularzy',
 );
 
@@ -7327,7 +7327,7 @@ $messages['pt'] = array(
 	'sf_forminputs_property' => 'Uma propriedade semântica, a que este campo corresponde',
 	'sf_forminputs_size' => 'O tamanho deste campo de texto, em caracteres',
 	'sf_forminputs_maxlength' => 'O comprimento máximo permitido para o texto deste campo',
-	'sf_forminputs_uploadable' => 'Colocar um link "Upload de ficheiro" ao lado desta entrada',
+	'sf_forminputs_uploadable' => 'Colocar um link "Upload de ficheiro" ao lado desta entrada', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'O nome de ficheiro por omissão, dos ficheiros enviados',
 	'sf_forminputs_rows' => 'O número de linhas desta entrada',
 	'sf_forminputs_cols' => 'O número de colunas desta entrada',
@@ -7354,7 +7354,7 @@ $messages['pt'] = array(
 	'sf_createform_nameinputdesc' => '(normalmente dá-se ao formulário o mesmo nome da sua predefinição principal):',
 	'sf_createform_template' => 'Predefinição:',
 	'sf_createform_templatelabelinput' => 'Etiqueta da predefinição (opcional):',
-	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) desta predefinição na página criada',
+	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) desta predefinição na página criada', # Fuzzy
 	'sf_createform_field' => 'Campo:',
 	'sf_createform_fieldprop' => 'Este campo define a propriedade $1, do tipo $2.',
 	'sf_createform_fieldproplist' => 'Este campo define uma lista de elementos que têm a propriedade $1, do tipo $2.',
@@ -7444,7 +7444,7 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
 	'sf_category_hasdefaultform' => 'Esta categoria usa o formulário $1.',
 	'sf_category_desc' => 'Esta é a categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Ver o separador "Editar" para páginas editáveis por formulário',
+	'right-viewedittab' => 'Ver o separador "Editar" para páginas editáveis por formulário', # Fuzzy
 	'right-editrestrictedfields' => 'Editar os campos restritos dos formulários',
 );
 
@@ -7504,7 +7504,7 @@ $messages['pt-br'] = array(
 	'sf_forminputs_size' => 'O tamanho desse campo de texto, em caracteres',
 	'sf_forminputs_maxlength' => 'O comprimento máximo permitido para o texto desse campo',
 	'sf_forminputs_placeholder' => 'Texto de ajuda que aparece no campo até que o usuário clique nele',
-	'sf_forminputs_uploadable' => 'Coloca um link "Upload de arquivo" ao lado desse campo',
+	'sf_forminputs_uploadable' => 'Coloca um link "Upload de arquivo" ao lado desse campo', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'O nome padrão do arquivo para os arquivos enviados',
 	'sf_forminputs_rows' => 'O número de linhas desse campo',
 	'sf_forminputs_cols' => 'O número de colunas desse campo',
@@ -7834,7 +7834,7 @@ $messages['ru'] = array(
 	'sf_forminputs_size' => 'Размер этого текстового поля в символах',
 	'sf_forminputs_maxlength' => 'Максимально допустимая длина текста в этом поле',
 	'sf_forminputs_placeholder' => 'Справочный текст, который появляется в поле ввода до тех пор, пока пользователь не перейдет на него',
-	'sf_forminputs_uploadable' => 'Отображает ссылку «Загрузить файл» рядом с этим полем',
+	'sf_forminputs_uploadable' => 'Отображает ссылку «Загрузить файл» рядом с этим полем', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Имя файла по умолчанию для загруженных файлов',
 	'sf_forminputs_rows' => 'Размер поля в строках',
 	'sf_forminputs_cols' => 'Размер поля в столбцах',
@@ -8146,7 +8146,7 @@ $messages['sk'] = array(
 	'sf_createform_nameinputdesc' => '(je zvykom pomenovať formulár podľa hlavnej šablóny, ktorú plní):', # Fuzzy
 	'sf_createform_template' => 'Šablóna:',
 	'sf_createform_templatelabelinput' => 'Označenie šablóny (nepovinné):',
-	'sf_createform_allowmultiple' => 'Povoliť vo vytvorenej stránke viacero (alebo nula) inštancií tejto šablóny',
+	'sf_createform_allowmultiple' => 'Povoliť vo vytvorenej stránke viacero (alebo nula) inštancií tejto šablóny', # Fuzzy
 	'sf_createform_field' => 'Pole:',
 	'sf_createform_fieldprop' => 'Toto pole definuje vlastnosť $1 typu $2.',
 	'sf_createform_fieldproplist' => 'Toto pole definuje zoznam prvkov, ktoré majú vlastnosť $1 typu $2.',
@@ -8214,7 +8214,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
 	'sf_category_hasdefaultform' => 'Táto kategória používa formulár $1.',
 	'sf_category_desc' => 'Toto je kategória $1.',
 	'sf_blank_namespace' => 'Hlavná',
-	'right-viewedittab' => 'Zobraziť zíložku „Upraviť“ na stránkach, ktoré možno upraviť pomocou formulára',
+	'right-viewedittab' => 'Zobraziť zíložku „Upraviť“ na stránkach, ktoré možno upraviť pomocou formulára', # Fuzzy
 	'right-editrestrictedfields' => 'Upraviť polia formulára s obmedzeným prístupom',
 );
 
@@ -8224,7 +8224,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
 $messages['sl'] = array(
 	'sf_createform_add' => 'Dodaj',
 	'formedit' => 'Uredi z obrazcem',
-	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca',
+	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca', # Fuzzy
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
@@ -8393,7 +8393,7 @@ $messages['stq'] = array(
 	'sf_createform_nameinput' => 'Formularnoome',
 	'sf_createform_template' => 'Foarloage:',
 	'sf_createform_templatelabelinput' => 'Foarloagebeteekenge (optionoal)',
-	'sf_createform_allowmultiple' => 'Ferlööwje moorere (of nul) Instanzen fon disse Foarloage in ju moakede Siede',
+	'sf_createform_allowmultiple' => 'Ferlööwje moorere (of nul) Instanzen fon disse Foarloage in ju moakede Siede', # Fuzzy
 	'sf_createform_field' => 'Fäild:',
 	'sf_createform_fieldprop' => 'Dit Fäild definiert ju Oainskup $1 fon dän Typ $2.',
 	'sf_createform_fieldproplist' => 'Dit Fäild definiert ne Lieste fon Elemente, do ju Oainskup $1 fon dän Typ $2 hääbe.',
@@ -8497,7 +8497,7 @@ $messages['sv'] = array(
 	'sf_forminputs_size' => 'Storlek på textfältet, i antal tecken',
 	'sf_forminputs_maxlength' => 'Maximalt antal tecken i det här fältet',
 	'sf_forminputs_placeholder' => 'Instruktion som visas i indatafältet till dess att användaren klickar på det',
-	'sf_forminputs_uploadable' => 'Visa en ”ladda upp”-länk intill det här fältet',
+	'sf_forminputs_uploadable' => 'Visa en ”ladda upp”-länk intill det här fältet', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Förvalt filnamn för uppladdade filer',
 	'sf_forminputs_rows' => 'Antal rader för det här fältet',
 	'sf_forminputs_cols' => 'Antal kolumner för det här fältet',
@@ -8919,7 +8919,7 @@ $messages['tl'] = array(
 	'sf_forminputs_size' => 'Ang sukat ng hanay ng tekstong ito, na mga nakapanitik',
 	'sf_forminputs_maxlength' => 'Ang pinakamataas na pinahihintulutang haba ng teksto sa patlang na ito',
 	'sf_forminputs_placeholder' => 'Ang tekstong pantulong na lumilitaw sa loob ng lahok magpahanggang sa lagitikin ito ng tagagamit',
-	'sf_forminputs_uploadable' => 'Maglagay ng isang kawing na "Ikarga ang talaksan" na kasunod ng pagpapasok na ito',
+	'sf_forminputs_uploadable' => 'Maglagay ng isang kawing na "Ikarga ang talaksan" na kasunod ng pagpapasok na ito', # Fuzzy
 	'sf_forminputs_defaultfilename' => 'Ang likas na nakatakdang pangalan ng talaksan para sa pagkakargang papaitaas ng mga talaksan',
 	'sf_forminputs_rows' => 'Ang bilang ng mga hilerang ito para sa pagpapasok na ito',
 	'sf_forminputs_cols' => 'Ang bilang ng mga haligi para sa pagpapasok na ito',
@@ -8948,7 +8948,7 @@ $messages['tl'] = array(
 	'sf_createform_nameinputdesc' => '(ang pormularyo ay nakagawiang binibigyan ng kaparehong pangalan na katulad ng pangunahing suleras):',
 	'sf_createform_template' => 'Suleras:',
 	'sf_createform_templatelabelinput' => 'Tatak ng suleras (maaaring wala nito):',
-	'sf_createform_allowmultiple' => 'Nagpapahintulot para sa maramihang (o walang) mga halimbawa/huwaran ng ganitong suleras sa loob ng nalikhang pahina',
+	'sf_createform_allowmultiple' => 'Nagpapahintulot para sa maramihang (o walang) mga halimbawa/huwaran ng ganitong suleras sa loob ng nalikhang pahina', # Fuzzy
 	'sf_createform_field' => 'Kahanayan:',
 	'sf_createform_fieldprop' => 'Binibigyang kahulugan ng kahanayang ito ang pag-aaring $1, ng uring $2.',
 	'sf_createform_fieldproplist' => 'Binibigyang kahulugan ng kahanayang ito ang isang talaan ng mga langkap na mayroong pag-aaring $1, ng uring $2.',
@@ -9049,12 +9049,12 @@ kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa 
 	'sf_category_hasdefaultform' => 'Ang kaurian/kategoryang ito ay gumagamit ng pormularyong $1.',
 	'sf_category_desc' => 'Ito ang kauriang $1.',
 	'sf_blank_namespace' => 'Pangunahin',
-	'right-viewedittab' => 'Tingnan ang panglaylay na "Baguhin" para sa mga pahinang mababago na ginagamitan ng pormularyo',
+	'right-viewedittab' => 'Tingnan ang panglaylay na "Baguhin" para sa mga pahinang mababago na ginagamitan ng pormularyo', # Fuzzy
 	'right-editrestrictedfields' => 'Baguhin ang mga lugar ng ipinagbabawal na pormularyo',
 	'right-createclass' => 'Lumikha ng bagong mga klaseng semantiko',
 	'action-createclass' => 'lumikha ng bagong mga klaseng semantiko',
 	'action-editrestrictedfields' => 'baguhin ang mga kahanayan ng ipinagbabawal na pormularyo',
-	'action-viewedittab' => 'tingnan ang panglaylay na "Baguhin" para sa mga pahinang mababago sa pamamagitan ng pormularyo',
+	'action-viewedittab' => 'tingnan ang panglaylay na "Baguhin" para sa mga pahinang mababago sa pamamagitan ng pormularyo', # Fuzzy
 );
 
 /** Turkish (Türkçe)
@@ -9373,7 +9373,7 @@ $messages['vi'] = array(
 	'sf_createform_nameinputdesc' => '(quy ước là đặt tên biểu mẫu theo bản mẫu chính mà nó điền):',
 	'sf_createform_template' => 'Bản mẫu:',
 	'sf_createform_templatelabelinput' => 'Nhãn bản mẫu (tùy chọn):',
-	'sf_createform_allowmultiple' => 'Cho phép nhiều (hoặc không) thực thể của bản mẫu này trong trang được tạo',
+	'sf_createform_allowmultiple' => 'Cho phép nhiều (hoặc không) thực thể của bản mẫu này trong trang được tạo', # Fuzzy
 	'sf_createform_field' => 'Trường:',
 	'sf_createform_fieldprop' => 'Trường này định nghĩa tính chất $1, thuộc kiểu $2.',
 	'sf_createform_fieldproplist' => 'Trường này định nghĩa danh sách các phần tử có tính chất $1, thuộc kiểu $2.',
@@ -9443,7 +9443,7 @@ $messages['vi'] = array(
 	'sf_category_hasdefaultform' => 'Thể loại này sử dụng mẫu $1.',
 	'sf_category_desc' => 'Đây là thể loại $1.',
 	'sf_blank_namespace' => 'Chính',
-	'right-viewedittab' => 'Xem thẻ “Sửa đổi” tại các trang có thể sửa đổi dùng biểu mẫu',
+	'right-viewedittab' => 'Xem thẻ “Sửa đổi” tại các trang có thể sửa đổi dùng biểu mẫu', # Fuzzy
 	'right-editrestrictedfields' => 'Sửa đổi các trường biểu mẫu hạn chế',
 );
 
@@ -9659,11 +9659,13 @@ $messages['zh-cn'] = array(
  * @author PhiLiP
  * @author Shirayuki
  * @author Xiaomingyan
+ * @author Yfdyh000
  */
 $messages['zh-hans'] = array(
 	'semanticforms-desc' => '用于添加和编辑语义数据的表单',
 	'specialpages-group-sf_group' => '语义表单',
 	'createproperty' => '创建一个属性',
+	'sf-createproperty-with-name' => '创建属性：$1',
 	'sf_createproperty_linktoform' => '这个属性将链接到使用表单的页面：',
 	'sf_createproperty_allowedvalsinput' => '如果您希望此属性只允许含有特定的值，输入允许的值的列表，以逗号分隔（如果一个值包含逗号，使用“\\,”替换）：',
 	'sf_createproperty_propname' => '属性名称：',
@@ -9672,7 +9674,9 @@ $messages['zh-hans'] = array(
 	'sf_templates_docu' => '下列模板存在于wiki中。',
 	'sf_templates_definescat' => '定义分类： $1',
 	'createtemplate' => '创建模板',
+	'sf-createtemplate-with-name' => '创建模板：$1',
 	'sf_createtemplate_namelabel' => '模板名称：',
+	'sf_createtemplate_multipleinstance' => '此模板可以被多次包含在页面上。',
 	'sf_createtemplate_categorylabel' => '由模板定义的分类（可选）：',
 	'sf_createtemplate_templatefields' => '模板字段',
 	'sf_createtemplate_fieldsdesc' => '为了让这个模板中的字段不需要字段名称，只需输入每个字段的索引（如1、2、3等）而不是实际名称作为名称。',
@@ -9685,7 +9689,7 @@ $messages['zh-hans'] = array(
 	'sf_createtemplate_aggregationlabel' => '用于列表的标题：',
 	'sf_createtemplate_outputformat' => '输出格式：',
 	'sf_createtemplate_standardformat' => '表格',
-	'sf_createtemplate_infoboxformat' => '右侧信息框', # Fuzzy
+	'sf_createtemplate_infoboxformat' => '右侧信息框',
 	'sf_createtemplate_plainformat' => '纯文本',
 	'sf_createtemplate_sectionsformat' => '节',
 	'sf_createtemplate_addfield' => '添加字段',
@@ -9702,7 +9706,7 @@ $messages['zh-hans'] = array(
 	'sf_forminputs_size' => '以字符数表示的文本字段大小',
 	'sf_forminputs_maxlength' => '在这个字段中允许的最大文本长度',
 	'sf_forminputs_placeholder' => '用户单击输入框之前一直显示在其中的帮助文本',
-	'sf_forminputs_uploadable' => '在这个输入项旁边放置一个“上传文件”链接',
+	'sf_forminputs_uploadable' => '在这个输入项旁边放置一个“{{int:upload}}”链接',
 	'sf_forminputs_defaultfilename' => '上传的文件的默认文件名',
 	'sf_forminputs_rows' => '这个输入项的行数',
 	'sf_forminputs_cols' => '这个输入项的列数',
@@ -9889,7 +9893,7 @@ $messages['zh-hant'] = array(
 	'sf_forminputs_size' => '以字符數表示的文本字段大小',
 	'sf_forminputs_maxlength' => '在這個字段中允許的最大文本長度',
 	'sf_forminputs_placeholder' => '用戶單擊輸入框之前一直顯示在其中的幫助文本',
-	'sf_forminputs_uploadable' => '在這個輸入項旁邊放置一個“上傳文件”鏈接',
+	'sf_forminputs_uploadable' => '在這個輸入項旁邊放置一個“上傳文件”鏈接', # Fuzzy
 	'sf_forminputs_defaultfilename' => '上傳的文件的默認文件名',
 	'sf_forminputs_rows' => '這個輸入項的行數',
 	'sf_forminputs_cols' => '這個輸入項的列數',
