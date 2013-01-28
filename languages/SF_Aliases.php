@@ -486,7 +486,7 @@ $specialPageAliases['nb'] = array(
 	'UploadWindow' => array( 'Opplastingsvindu' ),
 );
 
-/** Nedersaksies (Nedersaksies) */
+/** Low Saxon (Netherlands) (Nedersaksies) */
 $specialPageAliases['nds-nl'] = array(
 	'CreateCategory' => array( 'Kategorie_anmaken' ),
 	'CreateClass' => array( 'Klasse_anmaken' ),
