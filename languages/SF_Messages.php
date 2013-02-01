@@ -7751,8 +7751,16 @@ $messages['ro'] = array(
  */
 $messages['roa-tara'] = array(
 	'sf_createproperty_proptype' => 'Tipe:',
+	'sf_createtemplate_fieldname' => "Nome d'u cambe:",
+	'sf_createtemplate_displaylabel' => 'Etichette de visualizzazzione:',
+	'sf_createtemplate_semanticproperty' => 'Probbietà semandeche:',
+	'sf_createtemplate_aggregation' => 'Aggregazione:',
+	'sf_createtemplate_aggregationlabel' => "Titole pe l'elenghe:",
 	'sf_createtemplate_standardformat' => 'Tabbelle',
+	'sf_createtemplate_plainformat' => 'Teste semblice',
+	'sf_createtemplate_addfield' => "Aggiunge 'u cambe",
 	'sf_createtemplate_deletefield' => 'Scangìlle',
+	'forms' => 'Module',
 	'createform' => "Ccreje 'nu module",
 	'sf-createform-with-name' => "Ccreje 'u module: $1",
 	'sf_createform_nameinput' => "Nome d'u module",
@@ -9771,7 +9779,7 @@ $messages['zh-hans'] = array(
 如果页面已经存在，您将被送到编辑页面的表单。
 否则，您将被送到添加页面的表单。',
 	'sf_formstart_createoredit' => '创建或编辑',
-	'formedit' => '用表单编辑',
+	'formedit' => '用表格编辑',
 	'sf_formedit_createtitle' => '创建$1：$2',
 	'sf_formedit_createtitlenotarget' => '创建$1',
 	'sf_formedit_badurl' => '这是用表单编辑的页面。您必须同时在URL中指定表单名和目标页面；
