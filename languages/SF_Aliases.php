@@ -301,12 +301,14 @@ $specialPageAliases['ia'] = array(
 /** Indonesian (Bahasa Indonesia) */
 $specialPageAliases['id'] = array(
 	'CreateCategory' => array( 'Buat_kategori', 'BuatKategori' ),
+	'CreateClass' => array( 'Buat_kelas', 'BuatKelas' ),
 	'CreateForm' => array( 'Buat_formulir', 'BuatFormulir' ),
 	'CreateProperty' => array( 'Buat_properti', 'BuatProperti' ),
 	'CreateTemplate' => array( 'Buat_templat', 'BuatTemplat' ),
 	'FormEdit' => array( 'Sunting_data', 'SuntingData' ),
 	'FormStart' => array( 'Tambah_halaman', 'TambahHalaman' ),
 	'Forms' => array( 'Formulir_semantik', 'FormulirSemantik' ),
+	'RunQuery' => array( 'Jalankan_kueri', 'JalankanKueri' ),
 	'Templates' => array( 'Templat' ),
 	'UploadWindow' => array( 'Jendela_pengunggahan', 'JendelaPengunggahan' ),
 );
@@ -471,7 +473,7 @@ $specialPageAliases['myv'] = array(
 	'Templates' => array( 'ЛопаПарцунт' ),
 );
 
-/** Norwegian Bokmål (norsk (bokmål)‎) */
+/** Norwegian Bokmål (norsk bokmål) */
 $specialPageAliases['nb'] = array(
 	'CreateCategory' => array( 'Opprett_kategori' ),
 	'CreateClass' => array( 'Opprett_klasse' ),
