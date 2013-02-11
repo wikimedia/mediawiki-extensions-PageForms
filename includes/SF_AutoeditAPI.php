@@ -198,6 +198,10 @@ class SFAutoeditAPI extends ApiBase {
 			$this->mOptions[ 'target' ] = '';
 		}
 
+		// Normalize form and target names
+		$this->mOptions[ 'form' ] = Title::newFromText( $this->mOptions[ 'form' ] )->getPrefixedText();
+		$this->mOptions[ 'target' ] = Title::newFromText( $this->mOptions[ 'target' ] )->getPrefixedText();
+
 		wfRunHooks( 'sfSetTargetName', array( &$this->mOptions[ 'target' ], $hookQuery ) );
 
 		// set html return status. If all goes well, this will not be changed
