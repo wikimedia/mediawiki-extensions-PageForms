@@ -863,11 +863,16 @@ END;
 		}
 
 		$ad = SFUtils::getSpecialPage( $specialPageName );
-		$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
-		if ( ! empty( $inTargetName ) ) {
-			$link_url .= "/$inTargetName";
+		if ( strpos( $inFormName, '/' ) == true ) {
+			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
+			$link_url = $ad->getTitle()->getLocalURL( $query );
+		} else {
+			$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
+			if ( ! empty( $inTargetName ) ) {
+				$link_url .= "/$inTargetName";
+			}
+			$link_url = str_replace( ' ', '_', $link_url );
 		}
-		$link_url = str_replace( ' ', '_', $link_url );
 		$hidden_inputs = "";
 		if ( ! empty( $inQueryArr ) ) {
 			// Special handling for the buttons - query string
