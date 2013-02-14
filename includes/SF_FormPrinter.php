@@ -1473,8 +1473,9 @@ END;
 						$multipleTemplateString .= "</fieldset>\n";
 						unset ( $template_label );
 					}
+					$escapedMultipleTemplateString = str_replace( '$', '\$', $multipleTemplateString );
 					$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $curPlaceholder ) . '/',
-						$multipleTemplateString, $form_text );
+						$escapedMultipleTemplateString, $form_text );
 				}
 				if ( ! $all_instances_printed ) {
 					// This will cause the section to be
