@@ -794,8 +794,9 @@ END;
 		if ( $specialPageName == 'RunQuery' ) {
 			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
-		$classStr = "";
+		$classStr = '';
 		$inQueryArr = array();
+		$targetWindow = '_self';
 
 		$positionalParameters = false;
 
@@ -840,6 +841,8 @@ END;
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
+			} elseif ( $param_name == null && $value == 'new window' ) {
+				$targetWindow = '_blank';
 			} elseif ( $param_name !== null && !$positionalParameters ) {
 				$value = urlencode( $value );
 				parse_str( "$param_name=$value", $arr );
@@ -894,7 +897,7 @@ END;
 		}
 		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
 			$formMethod = ( $inLinkType == 'button' ) ? 'get' : 'post';
-			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr ),
+			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr, 'target' => $targetWindow ),
 
 				// Html::rawElement() before MW 1.21 or so drops the type attribute
 				// do not use Html::rawElement() for buttons!
@@ -910,7 +913,7 @@ END;
 					$classStr .= " new";
 				}
 			}
-			$str = Html::rawElement( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip ), $inLinkStr );
+			$str = Html::rawElement( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip, 'target' => $targetWindow ), $inLinkStr );
 		}
 
 		return $str;
