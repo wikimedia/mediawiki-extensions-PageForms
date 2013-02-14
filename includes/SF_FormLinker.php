@@ -162,8 +162,7 @@ class SFFormLinker {
 				global $sfgFormPrinter;
 				$form_name = $auto_create_forms[0];
 				$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
-				$form_article = new Article( $form_title );
-				$form_definition = $form_article->getContent();
+				$form_definition = SFUtils::getPageText( $form_title );
 				list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
 					$sfgFormPrinter->formHTML( $form_definition, false, false, null, null, 'Some very long page name that will hopefully never get created ABCDEF123', null );
 				$params = array();

@@ -53,6 +53,21 @@ class SFUtils {
 	}
 
 	/**
+	 * Gets the text contents of a page with the passed-in Title object.
+	 */
+	public static function getPageText( $title ) {
+		if ( method_exists( 'WikiPage', 'getContent' ) ) {
+			// MW 1.21+
+			$wikiPage = new WikiPage( $title );
+			return $wikiPage->getContent()->getNativeData();
+		} else {
+			// MW <= 1.20
+			$article = new Article( $title );
+			return $article->getContent();
+		}
+	}
+
+	/**
 	 * Helper function to handle getPropertyValues().
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {

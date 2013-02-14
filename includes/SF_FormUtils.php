@@ -371,8 +371,8 @@ END;
 
 		if ( $form_id !== null ) {
 
-			$form_article = Article::newFromID( $form_id );
-			$form_def = $form_article->getContent();
+			$form_title = Title::newFromID( $form_id );
+			$form_def = SFUtils::getPageText( $form_title );
 
 		} elseif ( $form_def == null ) {
 

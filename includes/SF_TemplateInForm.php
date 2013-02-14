@@ -41,10 +41,8 @@ class SFTemplateInForm {
 		// they're part of an "#if" statement), so they're only
 		// recorded the first time they're found.
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
-		$template_article = null;
-		if ( isset( $template_title ) ) $template_article = new Article( $template_title, 0 );
-		if ( isset( $template_article ) ) {
-			$templateText = $template_article->getContent();
+		if ( isset( $template_title ) ) {
+			$templateText = SFUtils::getPageText( $template_title );
 			// Ignore 'noinclude' sections and 'includeonly' tags.
 			$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
 			$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );

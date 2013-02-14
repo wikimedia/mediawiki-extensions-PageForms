@@ -105,9 +105,17 @@ END;
 		$template_format = $wgRequest->getVal( "template_format" );
 		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, $template_format );
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
-		$template_article = new Article( $template_title, 0 );
 		$edit_summary = '';
-		$template_article->doEdit( $full_text, $edit_summary );
+                if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
+			// MW 1.21+
+                        $template_page = new WikiPage( $template_title );
+                        $content = new WikitextContent( $full_text );
+                        $template_page->doEditContent( $content, $edit_summary );
+                } else {
+			// MW <= 1.20
+                        $template_article = new Article( $template_title );
+                        $template_article->doEdit( $full_text, $edit_summary );
+                }
 
 		// Create the form, and make a job for it.
 		$form_template = SFTemplateInForm::create( $template_name, '', false );
