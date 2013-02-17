@@ -9159,6 +9159,14 @@ $messages['tt-cyrl'] = array(
 	'sf_createform_inputtypedefault' => '(килешү буенча)',
 );
 
+/** Central Atlas Tamazight (ⵜⴰⵎⴰⵣⵉⵖⵜ)
+ * @author Tifinaghes
+ */
+$messages['tzm'] = array(
+	'sf_createproperty_proptype' => 'ⴰⵏⴰⵡ:',
+	'sf_createform_atend' => 'ⴳ ⵓⵏⴳⴳⴰⵔⵓ',
+);
+
 /** Ukrainian (українська)
  * @author AS
  * @author Ahonc
