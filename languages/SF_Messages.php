@@ -2338,7 +2338,7 @@ $messages['es'] = array(
 	'sf_formedit_morethanoneform' => 'Advertencia: Más de un formulario por defecto está definido para esta página.',
 	'sf_formedit_formwarning' => 'Advertencia: Esta página <a href="$1">ya existe</a>, pero no usa este formulario.',
 	'sf_formedit_mismatchedbrackets' => 'Aviso:  Esta página contiene paréntesis, corchetes o llaves sin cerrar, de modo que el formulario no manejará la página correctamente. <a href="$1">Corrija el error en el texto fuente</a> antes de continuar.',
-	'sf_formedit_remove' => 'Sacar',
+	'sf_formedit_remove' => 'Sacar', # Fuzzy
 	'sf_formedit_addanother' => 'Agregar otro',
 	'sf_formedit_none' => 'Ninguno',
 	'sf_formedit_emptytitle' => 'Error: Los datos insertados dieron como resultado un título de página en blanco.',
@@ -4938,7 +4938,7 @@ $messages['ka'] = array(
 	'sf_viewform' => 'ფორმის ხილვა',
 	'sf_editsource' => 'წყაროს რედაქტირება',
 	'sf_formedit_edittitle' => '$1 რედაქტირება: $2',
-	'sf_formedit_remove' => 'წაშლა',
+	'sf_formedit_remove' => 'წაშლა', # Fuzzy
 	'sf_formedit_none' => 'არაფერი',
 	'sf_formedit_saveandcontinueediting' => 'შენახვა და გაგრძელება',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'მონაცემების შენახვა და რედაქტირების გარძელება',
