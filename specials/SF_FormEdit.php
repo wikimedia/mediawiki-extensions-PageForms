@@ -74,7 +74,11 @@ class SFFormEdit extends SpecialPage {
 		$module->setOption( 'target', $target_name );
 
 		// if the page was submitted, formdata should be complete => do not preload
-		$module->setOption( 'preload', !$wgRequest->getCheck( 'wpSave' ) && !$wgRequest->getCheck( 'wpPreview' ) );
+		$module->setOption( 'preload', 
+				!$wgRequest->getCheck( 'wpSave' ) &&
+				!$wgRequest->getCheck( 'wpPreview' ) &&
+				!$wgRequest->getCheck( 'wpDiff' )
+				);
 
 		$module->execute();
 

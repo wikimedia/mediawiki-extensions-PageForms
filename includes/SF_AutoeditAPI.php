@@ -14,9 +14,10 @@
  */
 class SFAutoeditAPI extends ApiBase {
 
-	const ACTION_SAVE = 0;
-	const ACTION_PREVIEW = 1;
-	const ACTION_FORMEDIT = 2;
+	const ACTION_FORMEDIT = 0;
+	const ACTION_SAVE = 1;
+	const ACTION_PREVIEW = 2;
+	const ACTION_DIFF = 3;
 
 	/**
 	 * Error level used when a non-recoverable error occured.
@@ -162,6 +163,11 @@ class SFAutoeditAPI extends ApiBase {
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_PREVIEW;
 			unset( $this->mOptions[ 'wpPreview' ] );
+		} else if ( array_key_exists( 'wpDiff', $this->mOptions ) ) {
+
+			// set action to 'preview' if requested
+			$this->mAction = self::ACTION_DIFF;
+			unset( $this->mOptions[ 'wpDiff' ] );
 		} else if ( array_key_exists( 'action', $this->mOptions ) ) {
 
 			switch ( $this->mOptions[ 'action' ] ) {
@@ -318,6 +324,30 @@ class SFAutoeditAPI extends ApiBase {
 		return $editor;
 	}
 
+	/**
+	 * Sets the output HTML of wgOut as the module's result
+	 */
+	protected function setResultFromOutput() {
+
+		global $wgOut;
+
+		// turn on output buffering
+		ob_start();
+
+		// generate preview document and write it to output buffer
+		$wgOut->output();
+
+		// retrieve the preview document from output buffer
+		$targetHtml = ob_get_contents();
+
+		// clean output buffer, so MW can use it again
+		ob_clean();
+
+		// store the document as result
+		$this->getResult()->addValue( null, 'result', $targetHtml );
+
+	}
+
 	protected function doPreview( $editor ) {
 
 		global $wgOut;
@@ -335,20 +365,13 @@ class SFAutoeditAPI extends ApiBase {
 
 		$wgOut->addHTML( Html::rawElement( 'div', array( 'id' => 'wikiPreview' ), $previewOutput ) );
 
-		// turn on output buffering
-		ob_start();
+		$this->setResultFromOutput();
 
-		// generate preview document and write it to output buffer
-		$wgOut->output();
+	}
 
-		// retrieve the preview document from output buffer
-		$targetHtml = ob_get_contents();
-
-		// clean output buffer, so MW can use it again
-		ob_clean();
-
-		// store the document as result
-		$this->getResult()->addValue( null, 'result', $targetHtml );
+	protected function doDiff( $editor ) {
+		$editor->showDiff();
+		$this->setResultFromOutput();
 	}
 
 	protected function doStore( EditPage $editor ) {
@@ -700,7 +723,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		// signals that the form was submitted
 		// always true, else we would not be here
-		$isFormSubmitted = $this->mAction === self::ACTION_SAVE || $this->mAction === self::ACTION_PREVIEW;
+		$isFormSubmitted = $this->mAction === self::ACTION_SAVE || $this->mAction === self::ACTION_PREVIEW || $this->mAction === self::ACTION_DIFF;
 
 		// the article id of the form to be used
 		$formArticleId = $formTitle->getArticleID();
@@ -786,7 +809,7 @@ class SFAutoeditAPI extends ApiBase {
 		}
 
 		// we already preloaded stuff for saving/previewing, do not do it again
-		if ( $this->mAction === self::ACTION_SAVE || $this->mAction === self::ACTION_PREVIEW ) {
+		if ( $isFormSubmitted ) {
 			$preloadContent = '';
 			$isPageSource = false;
 		}
@@ -809,7 +832,7 @@ class SFAutoeditAPI extends ApiBase {
 		$this->mOptions[ 'formHTML' ] = $formHTML;
 		$this->mOptions[ 'formJS' ] = $formJS;
 		
-		if ( $this->mAction === self::ACTION_SAVE || $this->mAction === self::ACTION_PREVIEW ) {
+		if ( $isFormSubmitted ) {
 
 			// if the target page was not specified, see if something was generated
 			// from the target name formula
@@ -831,6 +854,8 @@ class SFAutoeditAPI extends ApiBase {
 			// perform the requested action
 			if ( $this->mAction === self::ACTION_PREVIEW ) {
 				$this->doPreview( $editor );
+			} else if ( $this->mAction === self::ACTION_DIFF ) {
+				$this->doDiff( $editor );
 			} else {
 				$this->doStore( $editor );
 			}

@@ -59,7 +59,13 @@ class SFUtils {
 		if ( method_exists( 'WikiPage', 'getContent' ) ) {
 			// MW 1.21+
 			$wikiPage = new WikiPage( $title );
-			return $wikiPage->getContent()->getNativeData();
+			$content = $wikiPage->getContent();
+
+			if ( $content !== null ) {
+				return $content->getNativeData();
+			} else {
+				return null;
+			}
 		} else {
 			// MW <= 1.20
 			$article = new Article( $title );
