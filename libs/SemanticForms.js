@@ -782,7 +782,7 @@ window.validateAll = function () {
  * Functions for multiple-instance templates.
  */
 
-jQuery.fn.addInstance = function() {
+jQuery.fn.addInstance = function( addAboveCurInstance ) {
 	// Global variable.
 	num_elements++;
 
@@ -877,9 +877,13 @@ jQuery.fn.addInstance = function() {
 	});
 
 	// Add the new instance
-	this.closest(".multipleTemplateWrapper")
-		.find(".multipleTemplateList")
-		.append(new_div);
+	if ( addAboveCurInstance ) {
+		new_div.insertBefore(this.closest(".multipleTemplateInstance"));
+	} else {
+		this.closest(".multipleTemplateWrapper")
+			.find(".multipleTemplateList")
+			.append(new_div);
+	}
 
 	// Somewhat of a hack - remove the divs that the combobox() call
 	// adds on, so that we can just call combobox() again without
@@ -1017,8 +1021,8 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 	});
 
-	// Enable the new remover
-	this.find(".remover").click( function() {
+	// Enable the new remove button
+	this.find(".removeButton").click( function() {
 
 		// Unregister initialization and validation for deleted inputs
 		jQuery(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each(
@@ -1035,7 +1039,16 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 				jQuery(this).remove();
 			});
 		});
+		return false;
 	});
+
+	// ...and the new adder
+	if ( partOfMultiple ) {
+		this.find('.addAboveButton').click( function() {
+			jQuery(this).addInstance( true );
+			return false; // needed to disable <a> behavior
+		});
+	}
 
 	this.find('.autocompleteInput').attachAutocomplete();
 	this.find('.sfComboBox').combobox();
@@ -1079,7 +1092,9 @@ jQuery(document).ready(function() {
 	jQuery('body').initializeJSElements();
 
 	jQuery('.multipleTemplateInstance').initializeJSElements(true);
-	jQuery('.multipleTemplateAdder').click( function() {jQuery(this).addInstance();} );
+	jQuery('.multipleTemplateAdder').click( function() {
+		jQuery(this).addInstance( false );
+	});
 	jQuery('.multipleTemplateList').sortable({
 		axis: 'y',
 		handle: '.rearrangerImage'

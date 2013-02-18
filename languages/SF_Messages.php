@@ -139,7 +139,8 @@ it should look like "Special:FormEdit?form=<form name>&target=<target page>", or
 	'sf_formedit_morethanoneform'        => "'''Warning:''' More than one default form is defined for this page.",
 	'sf_formedit_formwarning'            => 'Warning: This page <a href="$1">already exists</a>, but it does not use this form.',
 	'sf_formedit_mismatchedbrackets'     => 'Warning: This page contains curly or square brackets that are not closed, so the page will not be handled correctly by the form. Please <a href="$1">fix the error in the source text</a> before proceeding.',
-	'sf_formedit_remove'                 => 'Remove',
+	'sf_formedit_remove'                 => 'Remove this instance',
+	'sf_formedit_addanotherabove'        => 'Add another instance above this one',
 	'sf_formedit_addanother'             => 'Add another',
 	'sf_formedit_none'                   => 'None',
 	'sf_formedit_emptytitle'             => 'Error: The inserted data results in an empty page title.',
@@ -254,7 +255,8 @@ $messages['qqq'] = array(
 	'sf_formedit_createtitlenotarget' => '{{Identical|Create}}',
 	'sf_formedit_edittitle' => '* $1 is the main part of the title of a semantic form
 * $2 is the prefixed title, with spaces for the target page',
-	'sf_formedit_remove' => '{{Identical|Remove}}',
+	'sf_formedit_remove' => 'The text for a button that removes one row/"instance" in a form',
+	'sf_formedit_addanotherabove' => 'The text for a button in a form that adds a row/"instance" above the current one',
 	'sf_formedit_none' => '{{Identical|None}}',
 	'sf_formedit_saveandcontinue_summary' => 'Summary logged in the page history for revisions that were created using the "Save and continue" button.
 

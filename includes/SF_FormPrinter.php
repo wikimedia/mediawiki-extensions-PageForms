@@ -244,30 +244,23 @@ class SFFormPrinter {
 	 * multiple-instance template in the form.
 	 */
 	function multipleTemplateInstanceTableHTML( $form_is_disabled, $mainText ) {
-		global $sfgTabIndex, $sfgScriptPath;
-
-		$attributes = array(
-			'tabindex' => $sfgTabIndex,
-			'class' => 'remover',
-		);
-
-		$rearranger = 'class="rearrangerImage"';
+		global $sfgScriptPath;
 
 		if ( $form_is_disabled ) {
-			$attributes['disabled'] = 'disabled';
-			$rearranger = '';
+			$addAboveButton = $removeButton = $rearranger = '';
+		} else {
+			$addAboveButton = Html::element( 'a', array( 'class' => "addAboveButton", 'title' => wfMessage( 'sf_formedit_addanotherabove' )->text() ) );
+			$removeButton = Html::element( 'a', array( 'class' => "removeButton", 'title' => wfMessage( 'sf_formedit_remove' )->text() ) );
+			$rearranger = Html::element( 'img', array( 'src' => "$sfgScriptPath/skins/rearranger.png", 'class' => "rearrangerImage" ) );
 		}
-
-		$removeButton = Html::input( null, wfMessage( 'sf_formedit_remove' )->text(), 'button', $attributes );
 
 		$text = <<<END
 			<table>
 			<tr>
 			<td>$mainText</td>
-			<td class="removeButton">$removeButton</td>
-			<td class="instanceRearranger">
-			<img src="$sfgScriptPath/skins/rearranger.png" $rearranger />
-			</td>
+			<td>$addAboveButton</td>
+			<td>$removeButton</td>
+			<td class="instanceRearranger">$rearranger</td>
 			</tr>
 			</table>
 END;
@@ -444,10 +437,7 @@ END;
 
 		$oldParser = $wgParser;
 
-		/**
-		 * @var Parser $wgParser
-		 */
-		$wgParser = clone $oldParser; // deep clone of parser
+		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
 		$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
 		$wgParser->Title( $this->mPageTitle );
 		$wgParser->clearState();
@@ -735,7 +725,6 @@ END;
 							}
 							if ( $template_instance_query_values = current( $all_values_for_template ) ) {
 								$all_instances_printed = false;
-								$instance_num++;
 								unset( $all_values_for_template[$cur_key] );
 							}
 						}

@@ -191,7 +191,7 @@
 		} )
 		.live( 'change', setChanged );
 
-		$( '.multipleTemplateAdder,.remover,.rearrangerImage', form )
+		$( '.multipleTemplateAdder,.removeButton,.rearrangerImage', form )
 		.live( 'click', setChanged );
 
 		$( '.rearrangerImage', form )
