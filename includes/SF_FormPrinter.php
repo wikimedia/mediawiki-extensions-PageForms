@@ -1471,6 +1471,7 @@ END;
 					// This will cause the section to be
 					// re-parsed on the next go.
 					$section_num--;
+					$instance_num++;
 				}
 			} else { // if ( $allow_multiple ) {
 				$form_text .= $section;
