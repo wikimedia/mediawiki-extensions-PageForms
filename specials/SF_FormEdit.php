@@ -73,12 +73,19 @@ class SFFormEdit extends SpecialPage {
 		$module->setOption( 'form', $form_name );
 		$module->setOption( 'target', $target_name );
 
-		// if the page was submitted, formdata should be complete => do not preload
-		$module->setOption( 'preload', 
-				!$wgRequest->getCheck( 'wpSave' ) &&
-				!$wgRequest->getCheck( 'wpPreview' ) &&
-				!$wgRequest->getCheck( 'wpDiff' )
-				);
+		if ( $wgRequest->getCheck( 'wpSave' ) || $wgRequest->getCheck( 'wpPreview' ) || $wgRequest->getCheck( 'wpDiff' ) ) {
+			// if the page was submitted, formdata should be complete => do not preload
+			$module->setOption( 'preload', false );
+		} else if ( !empty($target_name) && Title::newFromText( $target_name )->exists ( ) ) {
+			// if target page exists do not overwrite it with preload data, just preload the page's data
+			$module->setOption( 'preload', true );
+		} else if ( $wgRequest->getCheck( 'preload' ) ) {
+			// if page does not exist and preload parameter is set, pass that on
+			$module->setOption( 'preload', $wgRequest->getText( 'preload' ) );
+		} else {
+			// nothing set, so do not preload
+			$module->setOption( 'preload', false );			
+		}
 
 		$module->execute();
 

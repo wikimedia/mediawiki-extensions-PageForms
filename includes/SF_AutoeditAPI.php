@@ -205,8 +205,16 @@ class SFAutoeditAPI extends ApiBase {
 		}
 
 		// Normalize form and target names
-		$this->mOptions[ 'form' ] = Title::newFromText( $this->mOptions[ 'form' ] )->getPrefixedText();
-		$this->mOptions[ 'target' ] = Title::newFromText( $this->mOptions[ 'target' ] )->getPrefixedText();
+
+		$form = Title::newFromText( $this->mOptions[ 'form' ] );
+		if ( $form !== null ) {
+			$this->mOptions[ 'form' ] = $form->getPrefixedText();
+		}
+
+		$target = Title::newFromText( $this->mOptions[ 'target' ] );
+		if ( $target !== null ) {
+			$this->mOptions[ 'target' ] = $target->getPrefixedText();
+		}
 
 		wfRunHooks( 'sfSetTargetName', array( &$this->mOptions[ 'target' ], $hookQuery ) );
 
