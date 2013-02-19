@@ -522,7 +522,8 @@ END;
 					// POST does to strings anyway.
 					$query_template_name = str_replace( '.', '_', $query_template_name );
 					// ...and escape apostrophes.
-					$query_template_name = str_replace( "'", "\'", $query_template_name );
+					// (Or don't.)
+					//$query_template_name = str_replace( "'", "\'", $query_template_name );
 					// Cycle through the other components.
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 						$component = $tag_components[$i];
