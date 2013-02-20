@@ -769,6 +769,9 @@ class SFAutoeditAPI extends ApiBase {
 		// save $wgRequest for later restoration
 		$oldRequest = $wgRequest;
 
+		// flag to keep track of formHTML runs
+		$formHtmlHasRun = false;
+
 		// preload data if not explicitly excluded and if the preload page exists
 		if ( !isset( $this->mOptions[ 'preload' ] ) || $this->mOptions[ 'preload' ] !== false ) {
 
@@ -793,18 +796,13 @@ class SFAutoeditAPI extends ApiBase {
 				// save wgOut for later restoration
 				$oldOut = $wgOut;
 
-				// spoof wgOut; if we took the general $wgOut some JS modules
-				// might attach themselves twice and thus be called twice
-				$wgOut = new OutputPage( RequestContext::getMain() );
-
 				// call SFFormPrinter::formHTML to get at the form html of the existing page
 				list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 						$sfgFormPrinter->formHTML(
 						$formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
 
-				// restore wgOut
-				$wgOut = $oldOut;
+				$formHtmlHasRun = true;
 
 				// parse the data to be preloaded from the form html of the
 				// existing page
@@ -829,10 +827,23 @@ class SFAutoeditAPI extends ApiBase {
 		// spoof wgRequest for SFFormPrinter::formHTML
 		$wgRequest = new FauxRequest( $this->mOptions, true );
 
-		// get wikitext for submitted data and form
-		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+		// if necessary spoof wgOut; if we took the general $wgOut again some JS
+		// modules might attach themselves twice and thus be called twice
+		if ( $formHtmlHasRun ) {
+			$wgOut = new OutputPage( RequestContext::getMain() );
 
+			// get wikitext for submitted data and form
+			list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+					$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+
+			// restore wgOut
+			$wgOut = $oldOut;
+		} else {
+
+			// get wikitext for submitted data and form
+			list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+					$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+		}
 		// restore original request
 		$wgRequest = $oldRequest;
 

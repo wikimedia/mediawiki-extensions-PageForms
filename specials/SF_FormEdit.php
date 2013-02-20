@@ -61,7 +61,7 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
-	static function printForm( &$form_name, &$target_name, $alt_forms = array( ) ) {
+	static function printForm( &$form_name, &$targetName, $alt_forms = array( ) ) {
 
 		global $wgOut, $wgRequest;
 
@@ -71,12 +71,12 @@ class SFFormEdit extends SpecialPage {
 			$module = new SFAutoeditAPI( new ApiMain( $wgRequest ), 'sfautoedit' );
 		}
 		$module->setOption( 'form', $form_name );
-		$module->setOption( 'target', $target_name );
+		$module->setOption( 'target', $targetName );
 
 		if ( $wgRequest->getCheck( 'wpSave' ) || $wgRequest->getCheck( 'wpPreview' ) || $wgRequest->getCheck( 'wpDiff' ) ) {
 			// if the page was submitted, formdata should be complete => do not preload
 			$module->setOption( 'preload', false );
-		} else if ( !empty($target_name) && Title::newFromText( $target_name )->exists ( ) ) {
+		} else if ( !empty($targetName) && Title::newFromText( $targetName )->exists ( ) ) {
 			// if target page exists do not overwrite it with preload data, just preload the page's data
 			$module->setOption( 'preload', true );
 		} else if ( $wgRequest->getCheck( 'preload' ) ) {
@@ -96,26 +96,31 @@ class SFFormEdit extends SpecialPage {
 
 		// override the default title for this page if a title was specified in the form
 		$result = $module->getOptions();
-		$target_title = Title::newFromText( $result[ 'target' ] );
+		$targetTitle = Title::newFromText( $result[ 'target' ] );
+
+		// set page title depending on whether the target page exists
 
 		if ( $result[ 'form' ] !== '' ) {
-			if ( $target_name === null || $target_name === '' ) {
-				$wgOut->setPageTitle( $result[ 'form' ] );
+			if ( empty( $targetName ) ) {
+				$pageTitle = wfMessage( 'sf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
+			} elseif ( $targetTitle->exists() ) {
+				$pageTitle = wfMessage( 'sf_formedit_edittitle', $result[ 'form' ], $targetName )->text();
 			} else {
-				$wgOut->setPageTitle( $result[ 'form' ] . ': ' . $target_name );
+				$pageTitle = wfMessage( 'sf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
+			$wgOut->setPageTitle( $pageTitle );
 		}
 
 		$text = '';
 		if ( count( $alt_forms ) > 0 ) {
 			$text .= '<div class="infoMessage">' . wfMessage( 'sf_formedit_altforms' )->escaped() . ' ';
-			$text .= self::printAltFormsList( $alt_forms, $target_name );
+			$text .= self::printAltFormsList( $alt_forms, $targetName );
 			$text .= "</div>\n";
 		}
 
 		$text .= '<form name="createbox" id="sfForm" method="post" class="createbox">';
 		$pre_form_html = '';
-		wfRunHooks( 'sfHTMLBeforeForm', array( &$target_title, &$pre_form_html ) );
+		wfRunHooks( 'sfHTMLBeforeForm', array( &$targetTitle, &$pre_form_html ) );
 		$text .= $pre_form_html;
 		if ( isset( $result[ 'formHTML' ] ) ) {
 			$text .= $result[ 'formHTML' ];
