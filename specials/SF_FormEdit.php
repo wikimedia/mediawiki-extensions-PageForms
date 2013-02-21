@@ -98,9 +98,19 @@ class SFFormEdit extends SpecialPage {
 		$result = $module->getOptions();
 		$targetTitle = Title::newFromText( $result[ 'target' ] );
 
-		// set page title depending on whether the target page exists
 
-		if ( $result[ 'form' ] !== '' ) {
+		// set page title depending on whether an explicit title was specified in the form definition
+		if ( array_key_exists( 'formtitle', $result ) ) {
+
+			// set page title depending on whether the target page exists
+			if ( empty( $targetName ) ) {
+				$pageTitle = $result[ 'formtitle' ];
+			} else {
+				$pageTitle = $result[ 'formtitle' ] . ': ' . $targetName;
+			}
+
+		} else if ( $result[ 'form' ] !== '' ) {
+			// set page title depending on whether the target page exists
 			if ( empty( $targetName ) ) {
 				$pageTitle = wfMessage( 'sf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
 			} elseif ( $targetTitle->exists() ) {
@@ -108,9 +118,9 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$pageTitle = wfMessage( 'sf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
-			$wgOut->setPageTitle( $pageTitle );
 		}
 
+		$wgOut->setPageTitle( $pageTitle );
 		$text = '';
 		if ( count( $alt_forms ) > 0 ) {
 			$text .= '<div class="infoMessage">' . wfMessage( 'sf_formedit_altforms' )->escaped() . ' ';

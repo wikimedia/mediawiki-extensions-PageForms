@@ -793,9 +793,6 @@ class SFAutoeditAPI extends ApiBase {
 				// spoof $wgRequest for SFFormPrinter::formHTML
 				$wgRequest = new FauxRequest( $this->mOptions, true );
 
-				// save wgOut for later restoration
-				$oldOut = $wgOut;
-
 				// call SFFormPrinter::formHTML to get at the form html of the existing page
 				list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 						$sfgFormPrinter->formHTML(
@@ -830,26 +827,27 @@ class SFAutoeditAPI extends ApiBase {
 		// if necessary spoof wgOut; if we took the general $wgOut again some JS
 		// modules might attach themselves twice and thus be called twice
 		if ( $formHtmlHasRun ) {
+			// save wgOut for later restoration
+			$oldOut = $wgOut;
+
 			$wgOut = new OutputPage( RequestContext::getMain() );
+		}
 
-			// get wikitext for submitted data and form
-			list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-					$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+		// get wikitext for submitted data and form
+		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 
+		if ( $formHtmlHasRun ) {
 			// restore wgOut
 			$wgOut = $oldOut;
-		} else {
-
-			// get wikitext for submitted data and form
-			list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-					$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 		}
+
 		// restore original request
 		$wgRequest = $oldRequest;
 
 		if ( $generatedFormName !== '' ) {
 			$formTitle = Title::newFromText( $generatedFormName );
-			$this->mOptions[ 'form' ] = $formTitle->getText();
+			$this->mOptions[ 'formtitle' ] = $formTitle->getText();
 		}
 
 		$this->mOptions[ 'formHTML' ] = $formHTML;
