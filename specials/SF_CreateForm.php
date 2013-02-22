@@ -94,6 +94,7 @@ jQuery(document).ready(function() {
 			'page',
 			'page_title',
 			array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
+			__METHOD__,
 			array( 'ORDER BY' => 'page_title' )
 		);
 
