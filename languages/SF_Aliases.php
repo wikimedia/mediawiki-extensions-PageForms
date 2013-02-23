@@ -735,9 +735,14 @@ $specialPageAliases['vi'] = array(
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = array(
 	'CreateCategory' => array( '创建分类' ),
+	'CreateClass' => array( '创建类' ),
 	'CreateForm' => array( '创建表格' ),
+	'CreateProperty' => array( '创建属性' ),
 	'CreateTemplate' => array( '创建模板' ),
+	'FormEdit' => array( '编辑表格', '添加数据', '编辑数据' ),
+	'FormStart' => array( '表格起始', '添加页面' ),
 	'Forms' => array( '表格' ),
 	'RunQuery' => array( '执行查询' ),
 	'Templates' => array( '模板' ),
+	'UploadWindow' => array( '上传窗口' ),
 );
