@@ -135,6 +135,7 @@ class SFAutocompleteAPI extends ApiBase {
 
 	private static function getAllValuesForProperty( $property_name, $substring, $base_property_name = null, $base_value = null ) {
 		global $sfgMaxAutocompleteValues, $sfgCacheAutocompleteValues, $sfgAutocompleteCacheTimeout;
+		global $smwgDefaultStore;
 
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
@@ -164,11 +165,26 @@ class SFAutocompleteAPI extends ApiBase {
 		}
 
 		if ( $is_relation ) {
-			$value_field = 'o_ids.smw_title';
-			$from_clause = $db->tableName( 'smw_rels2' ) . " r JOIN " . $db->tableName( 'smw_ids' ) . " p_ids ON r.p_id = p_ids.smw_id JOIN " . $db->tableName( 'smw_ids' ) . " o_ids ON r.o_id = o_ids.smw_id";
+			$valueField = 'o_ids.smw_title';
+			if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
+				$idsTable =  $db->tableName( 'smw_object_ids' );
+				$propsTable = $db->tableName( 'smw_di_wikipage' );
+			} else {
+				$idsTable =  $db->tableName( 'smw_ids' );
+				$propsTable = $db->tableName( 'smw_rels2' );
+			}
+			$from_clause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
 		} else {
-			$value_field = 'a.value_xsd';
-			$from_clause = $db->tableName( 'smw_atts2' ) . " a JOIN " . $db->tableName( 'smw_ids' ) . " p_ids ON a.p_id = p_ids.smw_id";
+			if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
+				$valueField = 'p.o_hash';
+				$idsTable =  $db->tableName( 'smw_object_ids' );
+				$propsTable = $db->tableName( 'smw_di_blob' );
+			} else {
+				$valueField = 'p.value_xsd';
+				$idsTable =  $db->tableName( 'smw_ids' );
+				$propsTable = $db->tableName( 'smw_atts2' );
+			}
+			$from_clause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 		}
 
 		if ( !is_null( $base_property_name ) ) {
@@ -177,25 +193,40 @@ class SFAutocompleteAPI extends ApiBase {
 
 			$base_property_name = str_replace( ' ', '_', $base_property_name );
 			$conditions['base_p_ids.smw_title'] = $base_property_name;
-			$main_prop_alias = ( $is_relation ) ? 'r' : 'a';
 			if ( $base_is_relation ) {
-				$from_clause .= " JOIN " . $db->tableName( 'smw_rels2' ) . " r_base ON $main_prop_alias.s_id = r_base.s_id";
-				$from_clause .= " JOIN " . $db->tableName( 'smw_ids' ) . " base_p_ids ON r_base.p_id = base_p_ids.smw_id JOIN " . $db->tableName( 'smw_ids' ) . " base_o_ids ON r_base.o_id = base_o_ids.smw_id";
+				if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
+					$idsTable =  $db->tableName( 'smw_object_ids' );
+					$propsTable = $db->tableName( 'smw_di_wikipage' );
+				} else {
+					$idsTable =  $db->tableName( 'smw_ids' );
+					$propsTable = $db->tableName( 'smw_rels2' );
+				}
+				$from_clause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
+				$from_clause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id JOIN $idsTable base_o_ids ON p_base.o_id = base_o_ids.smw_id";
 				$base_value = str_replace( ' ', '_', $base_value );
 				$conditions['base_o_ids.smw_title'] = $base_value;
 			} else {
-				$from_clause .= " JOIN " . $db->tableName( 'smw_atts2' ) . " a_base ON $main_prop_alias.s_id = a_base.s_id";
-				$from_clause .= " JOIN " . $db->tableName( 'smw_ids' ) . " base_p_ids ON a_base.p_id = base_p_ids.smw_id";
-				$conditions['a_base.value_xsd'] = $base_value;
+				if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
+					$baseValueField = 'p_base.o_hash';
+					$idsTable =  $db->tableName( 'smw_object_ids' );
+					$propsTable = $db->tableName( 'smw_di_blob' );
+				} else {
+					$baseValueField = 'p_base.value_xsd';
+					$idsTable =  $db->tableName( 'smw_ids' );
+					$propsTable = $db->tableName( 'smw_atts2' );
+				}
+				$from_clause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
+				$from_clause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id";
+				$conditions[$baseValueField] = $base_value;
 			}
 		}
 
 		if ( !is_null( $substring ) ) {
-			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( $value_field, $substring );
+			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring );
 		}
 
-		$sql_options['ORDER BY'] = $value_field;
-		$res = $db->select( $from_clause, "DISTINCT $value_field",
+		$sql_options['ORDER BY'] = $valueField;
+		$res = $db->select( $from_clause, "DISTINCT $valueField",
 			$conditions, __METHOD__, $sql_options );
 
 		while ( $row = $db->fetchRow( $res ) ) {
