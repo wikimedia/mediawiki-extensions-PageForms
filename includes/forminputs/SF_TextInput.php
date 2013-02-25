@@ -17,12 +17,18 @@ class SFTextInput extends SFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array(
-			'_str' => array( 'field_type' => 'string' ),
+		$defaultPropTypes = array(
 			'_num' => array( 'field_type' => 'number' ),
 			'_uri' => array( 'field_type' => 'URL' ),
 			'_ema' => array( 'field_type' => 'email' )
 		);
+		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
+			// SMW < 1.9
+			$defaultPropTypes['_str'] = array( 'field_type' => 'string' );
+		} else {
+			$defaultPropTypes['_txt'] = array( 'field_type' => 'text' );
+		}
+		return $defaultPropTypes;
 	}
 
 	public static function getOtherPropTypesHandled() {
@@ -30,12 +36,18 @@ class SFTextInput extends SFFormInput {
 	}
 
 	public static function getDefaultPropTypeLists() {
-		return array(
-			'_str' => array( 'field_type' => 'string', 'is_list' => 'true', 'size' => '100' ),
+		$defaultPropTypeLists = array(
 			'_num' => array( 'field_type' => 'number', 'is_list' => 'true', 'size' => '100' ),
 			'_uri' => array( 'field_type' => 'URL', 'is_list' => 'true' ),
 			'_ema' => array( 'field_type' => 'email', 'is_list' => 'true' )
 		);
+		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
+			// SMW < 1.9
+			$defaultPropTypeLists['_str'] = array( 'field_type' => 'string', 'is_list' => 'true', 'size' => '100' );
+		} else {
+			$defaultPropTypeLists['_txt'] = array( 'field_type' => 'text', 'is_list' => 'true', 'size' => '100' );
+		}
+		return $defaultPropTypeLists;
 	}
 
 	public static function getOtherPropTypeListsHandled() {
