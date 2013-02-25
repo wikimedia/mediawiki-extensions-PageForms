@@ -238,14 +238,18 @@ END;
 			// Value column
 			if ( $template_format == 'standard' || $template_format == 'infobox' ) {
 				if ( $field->mDisplay == 'hidden' ) {
-				} elseif ( $field->mDisplay == 'hidden' ) {
+				} elseif ( $field->mDisplay == 'nonempty' ) {
 					$tableText .= "{{!}} ";
 				} else {
 					$tableText .= "| ";
 				}
 			}
 			if ( !$field->mSemanticProperty ) {
-				$tableText .= "{{{" . $field->mFieldName . "|}}}\n";
+				$tableText .= "{{{" . $field->mFieldName . "|}}}";
+				if ( $field->mDisplay == 'nonempty' ) {
+					$tableText .= " }}";
+				}
+				$tableText .= "\n";
 			} elseif ( !is_null( $setInternalText ) ) {
 				$tableText .= "{{{" . $field->mFieldName . "|}}}\n";
 				if ( $field->mIsList ) {
