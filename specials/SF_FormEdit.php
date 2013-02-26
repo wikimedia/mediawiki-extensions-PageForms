@@ -38,6 +38,7 @@ class SFFormEdit extends SpecialPage {
 			$queryparts = explode( '/', $query, 2 );
 			$this->mForm = isset( $queryparts[ 0 ] ) ? $queryparts[ 0 ] : '';
 			$this->mTarget = isset( $queryparts[ 1 ] ) ? $queryparts[ 1 ] : '';
+			$this->mTarget = str_replace( '_', ' ', $this->mTarget );
 		}
 
 		$alt_forms = $this->getRequest()->getArray( 'alt_form' );
@@ -62,7 +63,6 @@ class SFFormEdit extends SpecialPage {
 	}
 
 	static function printForm( &$form_name, &$targetName, $alt_forms = array( ) ) {
-
 		global $wgOut, $wgRequest;
 
 		if ( method_exists( 'ApiMain', 'getContext' ) ) {
@@ -108,8 +108,7 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$pageTitle = $result[ 'formtitle' ] . ': ' . $targetName;
 			}
-
-		} else if ( $result[ 'form' ] !== '' ) {
+		} elseif ( $result[ 'form' ] !== '' ) {
 			// set page title depending on whether the target page exists
 			if ( empty( $targetName ) ) {
 				$pageTitle = wfMessage( 'sf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
