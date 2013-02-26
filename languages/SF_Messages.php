@@ -228,10 +228,13 @@ if a page with that name already exists, you will be sent to a form to edit that
  */
 $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc|name=Semantic Forms|url=http://www.mediawiki.org/wiki/Extension:Semantic Forms}}',
+	'sf_createproperty_propname' => '{{Identical|Property name}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
 	'sf_templates_definescat' => 'The message is shown on [[Special:Templates]], the list of templates in the wiki, after the name of each template, to describe it.
-<code>$1</code> is the name of the category that this template adds pages to.',
+
+Parameters:
+* $1 - the name of the category that this template adds pages to',
 	'sf_createtemplate_fieldname' => 'The name of the field used in the relevant template.',
 	'sf_createtemplate_displaylabel' => 'The term for the text that shows up next to a field when it is displayed',
 	'sf_createtemplate_standardformat' => '',
