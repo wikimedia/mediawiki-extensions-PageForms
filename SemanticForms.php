@@ -40,7 +40,7 @@ if ( !defined( 'SMW_VERSION' ) ) {
 	die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
 }
 
-define( 'SF_VERSION', '2.5.2 alpha' );
+define( 'SF_VERSION', '2.5.2' );
 
 $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
 	'path' => __FILE__,
@@ -48,7 +48,7 @@ $wgExtensionCredits[defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'special
 	'version' => SF_VERSION,
 	'author' => array( 'Yaron Koren', 'Stephan Gambke', '...' ),
 	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Forms',
-	'descriptionmsg'  => 'semanticforms-desc',
+	'descriptionmsg' => 'semanticforms-desc',
 );
 
 # ##
@@ -281,8 +281,8 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 // Global functions
 
 /**
- *  This is a delayed init that makes sure that MediaWiki is set up
- *  properly before we add our stuff.
+ * This is a delayed init that makes sure that MediaWiki is set up
+ * properly before we add our stuff.
  */
 function sffSetupExtension() {
 	// This global variable is needed so that other extensions can hook
@@ -353,7 +353,7 @@ $sfgAutocompleteCacheTimeout = null;
 # ##
 $sfgRenameEditTabs = false;
 $sfgRenameMainEditTab = false;
-$wgGroupPermissions['*']['viewedittab']   = true;
+$wgGroupPermissions['*']['viewedittab'] = true;
 $wgAvailableRights[] = 'viewedittab';
 
 # ##
