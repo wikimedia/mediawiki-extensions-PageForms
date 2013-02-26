@@ -70,6 +70,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		$formName = null;
 		$xml = '';
 		foreach ( $wgRequest->getValues() as $var => $val ) {
+			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
 			if ( $var == 'sf_form_name' ) {
 				$formName = $val;
 			} elseif ( $var == 'sf_page_name_formula' ) {
@@ -100,6 +101,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		$xmlPerTemplate = array();
 		$templateNum = -1;
 		foreach ( $wgRequest->getValues() as $var => $val ) {
+			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
 			if ( substr( $var, 0, 18 ) == 'sf_template_label_' ) {
 				$templateNum = substr( $var, 18 );
 				$xml = '<semanticforms_TemplateDetails>';
@@ -126,6 +128,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		$xmlPerField = array();
 		$fieldNum = -1;
 		foreach ( $wgRequest->getValues() as $var => $val ) {
+			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
 			if ( substr( $var, 0, 14 ) == 'sf_input_type_' ) {
 				$fieldNum = substr( $var, 14 );
 				$xml = '<semanticforms_FormInput>';
