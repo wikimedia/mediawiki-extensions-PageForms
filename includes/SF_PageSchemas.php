@@ -287,6 +287,9 @@ END;
 				}
 			}
 		}
+		foreach ( $paramValues as $i => $paramAndVal ) {
+			$paramValues[$i] = str_replace( ',', '\,', $paramAndVal );
+		}
 		$param_value_str = implode( ', ', $paramValues );
 		$inputParamsAttrs = array( 'size' => 80 );
 		$inputParamsInput = Html::input( 'sf_key_values_num', $param_value_str, 'text', $inputParamsAttrs );
