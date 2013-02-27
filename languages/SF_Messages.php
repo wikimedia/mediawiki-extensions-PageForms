@@ -3932,6 +3932,9 @@ Za dalše opcije wužij strony $1 město toho.',
 	'sf_autoedit_notargetspecified' => 'Žana cilowa strona podata.',
 	'sf_autoedit_invalidtargetspecified' => 'Podata cilowa strona $1 je njepłaćiwa.',
 	'sf_autoedit_invalidform' => '$1 płaćiwy formular njeje.',
+	'sf_autoedit_redirectlimitexeeded' => 'Maksimalny dalesposrědkowanski limit za formular $1 je so překročił.',
+	'sf_autoedit_invalidredirecttarget' => '$1 je njepłaćiwy dalesposrědkowanski cil za formular $2.',
+	'sf_autoedit_invalidpreloadspecified' => 'Podata strona $1, kotraž ma so najprjedy začitać, je njepłaćiwa.',
 	'sf_autoedit_redlinkexists' => '$1 hižo eksistuje.',
 	'sf_autoedit_noformfound' => 'Žadyn formular podaty.',
 	'sf_autoedit_toomanyformsfound' => 'Za tutu stronu wjace hač jedyn formular k dispoziciji steji.',
@@ -8298,7 +8301,7 @@ URL by malo byť v tvare „Special:RunQuery/<názov formulára>“',
 $messages['sl'] = array(
 	'sf_createform_add' => 'Dodaj',
 	'formedit' => 'Uredi z obrazcem',
-	'right-viewedittab' => 'Ogled zavihka »Uredi« za strani, ki se urejajo prek obrazca', # Fuzzy
+	'right-viewedittab' => 'Ogled zavihka »{{int:edit}}« za strani, ki jih lahko urejate z obrazcem',
 );
 
 /** Serbian (Cyrillic script) (српски (ћирилица)‎)
