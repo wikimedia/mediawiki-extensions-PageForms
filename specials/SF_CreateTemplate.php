@@ -34,6 +34,11 @@ class SFCreateTemplate extends SpecialPage {
 		$options->limit = 500;
 		$used_properties = smwfGetStore()->getPropertiesSpecial( $options );
 		foreach ( $used_properties as $property ) {
+			// Skip over properties that are errors. (This
+			// shouldn't happen, but it sometimes does.)
+			if ( !method_exists( $property[0], 'getKey' ) ) {
+				continue;
+			}
 			$propName = $property[0]->getKey();
 			if ( $propName{0} != '_' ) {
 				$all_properties[] = str_replace( '_', ' ', $propName );
@@ -42,22 +47,30 @@ class SFCreateTemplate extends SpecialPage {
 
 		$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial( $options );
 		foreach ( $unused_properties as $property ) {
+			// Skip over properties that are errors. (This
+			// shouldn't happen, but it sometimes does.)
+			if ( !method_exists( $property, 'getKey' ) ) {
+				continue;
+			}
 			$all_properties[] = str_replace( '_' , ' ', $property->getKey() );
 		}
 
-		// Sort properties list alphabetically.
+		// Sort properties list alphabetically, and get unique values
+		// (for SQLStore3, getPropertiesSpecial() seems to get unused
+		// properties as well.
 		sort( $all_properties );
+		$all_properties = array_unique( $all_properties );
 		return $all_properties;
 	}
 
-	public static function printPropertiesDropdown( $all_properties, $id, $selected_property = null ) {
+	public static function printPropertiesComboBox( $all_properties, $id, $selected_property = null ) {
 		$selectBody = "<option value=\"\"></option>\n";
 		foreach ( $all_properties as $prop_name ) {
 			$optionAttrs = array( 'value' => $prop_name );
 			if ( $selected_property == $prop_name ) { $optionAttrs['selected'] = 'selected'; }
 			$selectBody .= Html::element( 'option', $optionAttrs, $prop_name ) . "\n";
 		}
-		return Html::rawElement( 'select', array( 'name' => "semantic_property_$id" ), $selectBody ) . "\n";
+		return Html::rawElement( 'select', array( 'name' => "semantic_property_$id", 'class' => 'sfComboBox' ), $selectBody ) . "\n";
 	}
 
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
@@ -72,7 +85,7 @@ class SFCreateTemplate extends SpecialPage {
 				array( 'size' => '15' )
 			) . "\n";
 
-		$dropdown_html = self::printPropertiesDropdown( $all_properties, $id );
+		$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
 		$text .= "\t" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</p>\n";
 		$text .= "\t<p>" . '<input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "\n";
 		$text .= '	&#160;&#160;<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
@@ -229,7 +242,7 @@ END;
 		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_aggregation' )->text() ) . "\n";
 		$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_aggregationdesc' )->text() ) . "\n";
 		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_semanticproperty' )->escaped() . ' ' .
-			self::printPropertiesDropdown( $all_properties, "aggregation" ) . "</p>\n";
+			self::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
 		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_aggregationlabel' )->escaped() . ' ' .
 			Html::input( 'aggregation_label', null, 'text',
 				array( 'size' => '25' ) ) .
