@@ -8698,7 +8698,7 @@ URL-en måste se ut som 'Special:RunQuery/<form name>'.",
 	'sf_property_linkstoform' => 'Det länkar till sidor som använder formuläret $1',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Det tillåtna värdet för den här egenskapen är|De tillåtna värdena för den här egenskapen är}}:',
 	'sf_template_docu' => 'Det här är mallen "$1".
-Det borde namnges i följande format:',
+Den används så här:',
 	'sf_template_docufooter' => 'Redigera sidan för att se mall texten.',
 	'sf_form_docu' => 'Det här är formuläret "$1".
 
