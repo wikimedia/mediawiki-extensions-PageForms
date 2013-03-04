@@ -118,23 +118,28 @@ END;
                 }
 
 		// Create the form, and make a job for it.
-		$form_template = SFTemplateInForm::create( $template_name, '', false );
-		$form_templates = array( $form_template );
-		$form = SFForm::create( $form_name, $form_templates );
-		$full_text = $form->createMarkup();
-		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
-		$params = array();
-		$params['user_id'] = $wgUser->getId();
-		$params['page_text'] = $full_text;
-		$jobs[] = new SFCreatePageJob( $form_title, $params );
+		if ( $form_name != '' ) {
+			$form_template = SFTemplateInForm::create( $template_name, '', false );
+			$form_templates = array( $form_template );
+			$form = SFForm::create( $form_name, $form_templates );
+			$full_text = $form->createMarkup();
+			$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
+			$params = array();
+			$params['user_id'] = $wgUser->getId();
+			$params['page_text'] = $full_text;
+			$jobs[] = new SFCreatePageJob( $form_title, $params );
+		}
 
 		// Create the category, and make a job for it.
-		$full_text = SFCreateCategory::createCategoryText( $form_name, $category_name, '' );
-		$category_title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
-		$params = array();
-		$params['user_id'] = $wgUser->getId();
-		$params['page_text'] = $full_text;
-		$jobs[] = new SFCreatePageJob( $category_title, $params );
+		if ( $category_name != '' ) {
+			$full_text = SFCreateCategory::createCategoryText( $form_name, $category_name, '' );
+			$category_title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
+			$params = array();
+			$params['user_id'] = $wgUser->getId();
+			$params['page_text'] = $full_text;
+			$jobs[] = new SFCreatePageJob( $category_title, $params );
+		}
+
 		Job::batchInsert( $jobs );
 
 		$wgOut->addWikiMsg( 'sf_createclass_success' );
