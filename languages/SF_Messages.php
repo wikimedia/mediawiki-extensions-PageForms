@@ -4621,7 +4621,8 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_formedit_saveandcontinueediting' => 'Salva e continua',
 	'sf_formedit_saveandcontinue_summary' => 'Salvato utilizzando il pulsante "$1" nel modulo',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Salva i dati e continua a modificare',
-	'sf_autoedit_anoneditwarning' => 'Attenzione: non si sta accedendo al sito come utente, il proprio indirizzo IP sarà registrato nella cronologia di questa pagina.',
+	'sf_autoedit_anoneditwarning' => 'Attenzione: Accesso non effettuato.
+Nella cronologia della pagina verrà registrato il tuo indirizzo IP.',
 	'sf_autoedit_success' => '[[$1]] modificato correttamente utilizzando il modulo $2.',
 	'sf_autoedit_notargetspecified' => 'Nessuna pagina di destinazione specificata.',
 	'sf_autoedit_invalidtargetspecified' => 'La pagina di destinazione specificata $1 non è valida.',
