@@ -443,8 +443,10 @@ END;
 
 		$form_templates = array();
 		$jobs = array();
+		$templateHackUsed = false;
+
+		// Generate every specified template
 		foreach ( $psTemplates as $psTemplate ) {
-			// Generate every specified template
 			$templateName = $psTemplate->getName();
 			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
 			$fullTemplateName = PageSchemas::titleString( $templateTitle );
@@ -477,6 +479,9 @@ END;
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $templateText;
 				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
+				if ( strpos( $templateText, '{{!}}' ) > 0 ) {
+					$templateHackUsed = true;
+				}
 			}
 
 			$templateValues = self::getTemplateValues( $psTemplate );
@@ -497,6 +502,18 @@ END;
 			);
 			$form_templates[] = $form_template;
 		}
+
+		// Create the "!" hack template, if it's necessary
+		if ( $templateHackUsed ) {
+			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, '!' );
+			if ( ! $templateTitle->exists() ) {
+				$params = array();
+				$params['user_id'] = $wgUser->getId();
+				$params['page_text'] = '|';
+				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
+			}
+		}
+
 		Job::batchInsert( $jobs );
 
 		// Create form, if it's specified.
