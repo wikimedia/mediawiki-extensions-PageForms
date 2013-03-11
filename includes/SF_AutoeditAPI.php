@@ -943,11 +943,14 @@ class SFAutoeditAPI extends ApiBase {
 
 			$options = $select->getElementsByTagName( 'option' );
 
-			if ( count( $options ) && (!$select->hasAttribute( "multiple" ) || $options->item( 0 )->hasAttribute( 'selected' ) ) ) {
+			// if the current $select is a radio button select (i.e. not multiple)
+			// set the first option to selected as default. This may be overwritten
+			// in the loop below
+			if ( $options->length > 0 && (!$select->hasAttribute( 'multiple' )  ) ) {
 				self::addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
 			}
 
-			for ( $o = 1; $o < $options->length; $o++ ) {
+			for ( $o = 0; $o < $options->length; $o++ ) {
 				if ( $options->item( $o )->hasAttribute( 'selected' ) ) {
 					if ( $options->item( $o )->getAttribute( 'value' ) ) {
 						self::addToArray( $data, $name, $options->item( $o )->getAttribute( 'value' ) );
