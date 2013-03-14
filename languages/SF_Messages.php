@@ -399,10 +399,11 @@ $messages['an'] = array(
 /** Arabic (العربية)
  * @author Meno25
  * @author OsamaK
+ * @author أحمد
  */
 $messages['ar'] = array(
-	'semanticforms-desc' => 'نماذج لإضافة وتعديل بيانات سيمانتك',
-	'specialpages-group-sf_group' => 'منتديات سيمانتيك',
+	'semanticforms-desc' => 'استمارات لإنشاء و تعديل البيانات الدلالية',
+	'specialpages-group-sf_group' => 'استمارات دلالية',
 	'createproperty' => 'أنشئ خاصية',
 	'sf_createproperty_linktoform' => 'هذه الخاصية ستصل إلى الصفحات التي تستخدم النموذج:',
 	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد أن تحتوي هذه الخاصية فقط على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب "\\,"):',
@@ -438,7 +439,7 @@ $messages['ar'] = array(
 	'sf_createform_nameinputdesc' => '(النموذج تتم تسميته عادة مثل قالبه الرئيسي):',
 	'sf_createform_template' => 'القالب:',
 	'sf_createform_templatelabelinput' => 'علامة القالب (اختياري):',
-	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب في الصفحة المنشأة',
+	'sf_createform_allowmultiple' => 'السماح بوجود عدة (أو صفر) نسخة من هذا القالب في الصفحة المنشأة', # Fuzzy
 	'sf_createform_field' => 'الحقل:',
 	'sf_createform_fieldprop' => 'هذا الحقل يعرف الخاصية $1، من نوع $2.',
 	'sf_createform_fieldproplist' => 'هذا الحقل يعرف قائمة من العناصر التي تمتلك الخاصية $1، من نوع $2.',
@@ -486,7 +487,7 @@ $messages['ar'] = array(
 	'sf_formedit_edittitle' => 'عدل $1: $2',
 	'sf_formedit_morethanoneform' => "'''تحذير:''' أكثر من نموذج مبدئي معرّف لهذه الصفحة.",
 	'sf_formedit_formwarning' => 'تحذير: هذه الصفحة <a href="$1">موجودة بالفعل</a>، لكنها لا تستخدم هذا النموذج.',
-	'sf_formedit_remove' => 'إزالة',
+	'sf_formedit_remove' => 'إزالة', # Fuzzy
 	'sf_formedit_addanother' => 'إضافة آخر',
 	'sf_formedit_none' => 'لا شيء',
 	'runquery' => 'شغّل استعلامًا',
