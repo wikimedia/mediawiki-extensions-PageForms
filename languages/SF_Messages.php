@@ -1885,7 +1885,7 @@ Howac buźoš se k formularoju za pśidawanje boka dalej pósrědnjaś.',
 	'sf_formedit_edittitle' => '$1 wobźěłaś: $2',
 	'sf_formedit_morethanoneform' => 'Warnowanje: Za toś ten bok jo se definěrował wěcej ako jaden standardny formular.',
 	'sf_formedit_formwarning' => 'Warnowanje: Toś ten bok <a href="$1">južo eksistěrujo</a>, ale njewužywa toś ten formular.',
-	'sf_formedit_remove' => 'Wótpóraś',
+	'sf_formedit_remove' => 'Toś tu instancu wótpóraś',
 	'sf_formedit_addanother' => 'Drugi pśidaś',
 	'sf_formedit_none' => 'Žeden',
 	'runquery' => 'Wótpšašanje startowaś',
@@ -1914,7 +1914,7 @@ jolic bok z tym mjenim južo eksistěrujo, buźoš se k formularoju dalej pósr�
 	'sf_category_hasdefaultform' => 'Toś ta kategorija wužywa formular $1.',
 	'sf_category_desc' => 'To jo kategorija $1.',
 	'sf_blank_namespace' => 'Głowny',
-	'right-viewedittab' => 'Rejtark "Wobźěłaś" za boki, kótarež su wobźěłujobne pśez formular, se woglědaś', # Fuzzy
+	'right-viewedittab' => 'Rejtark "{{int:edit}}" za boki, kótarež su wobźěłujobne pśez formular, se woglědaś',
 	'right-editrestrictedfields' => 'Wobgranicowane formularne póla wobźěłaś',
 );
 
@@ -5461,6 +5461,7 @@ $messages['lb'] = array(
 	'sf_createtemplate_aggregation' => 'Resumé',
 	'sf_createtemplate_aggregationlabel' => "Titel fir d'Lëscht:",
 	'sf_createtemplate_standardformat' => 'Tabell',
+	'sf_createtemplate_sectionsformat' => 'Abschnitter',
 	'sf_createtemplate_addfield' => 'Feld derbäisetzen',
 	'sf_createtemplate_deletefield' => 'Läschen',
 	'sf_createtemplate_addtemplatebeforesave' => 'Dir musst mindestens eng Schabloun an dëser Formulaire drasetzen ier Dir e späichere kënnt.',
@@ -5507,12 +5508,13 @@ $messages['lb'] = array(
 	'sf_editsource' => 'Quelltext änneren',
 	'sf_formedit_edittitle' => 'Ännert $1: $2',
 	'sf_formedit_formwarning' => 'Opgepasst: Dës Säit <a href="$1">gëtt et schonn</a>, awer si benotzt dëse Formulaire net.',
-	'sf_formedit_remove' => 'Ewech huelen',
+	'sf_formedit_remove' => 'Dës Instanz ewechhuelen',
 	'sf_formedit_addanother' => 'Nach een derbäisetzen',
 	'sf_formedit_none' => 'Keen',
 	'sf_formedit_saveandcontinueediting' => 'Späicheren a virufueren',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Date späicheren a mam Ännere virufueren',
 	'sf_autoedit_anoneditwarning' => 'Opgepasst: Dir sidd net ageloggt. Dowéinst gëtt amplaz vun engem Benotzernumm Är IP Adress am Historique vun dëser Säit gespäichert.',
+	'sf_autoedit_redlinkexists' => '$1 gëtt et schonn.',
 	'sf_autoedit_noformfound' => 'Kee Formulaire uginn.',
 	'sf_autoedit_toomanyformsfound' => 'Fir dës Säit gëtt et méi wéi ee Formulaire.',
 	'sf_autoedit_readonly' => "D'Datebank ass elo fir Ännerunge gespaart. Grond: $1",
@@ -5539,7 +5541,7 @@ Si soll an dësem Format opgeruff ginn:",
 	'sf_category_hasdefaultform' => 'Dës Kategorie benotzt de Formelär $1.',
 	'sf_category_desc' => "Dëst ass d'$1 Kategorie.",
 	'sf_blank_namespace' => 'Haapt',
-	'right-viewedittab' => '"Änneren"-Tab fir Säiten, déi duerch e Formlaire geännert kënne ginn, weisen', # Fuzzy
+	'right-viewedittab' => '"{{int:edit}}"-Tab fir Säiten, déi duerch e Formlaire geännert kënne ginn, weisen',
 );
 
 /** Limburgish (Limburgs)
