@@ -228,6 +228,8 @@ if a page with that name already exists, you will be sent to a form to edit that
  */
 $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc|name=Semantic Forms|url=http://www.mediawiki.org/wiki/Extension:Semantic Forms}}',
+	'sf-createproperty-with-name' => 'Used as page title. Parameters:
+* $1 - property name',
 	'sf_createproperty_propname' => '{{Identical|Property name}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
 	'templates' => '{{Identical|Template}}',
@@ -235,6 +237,8 @@ $messages['qqq'] = array(
 
 Parameters:
 * $1 - the name of the category that this template adds pages to',
+	'sf-createtemplate-with-name' => 'Used as page title. Parameters:
+* $1 - template name',
 	'sf_createtemplate_fieldname' => 'The name of the field used in the relevant template.',
 	'sf_createtemplate_displaylabel' => 'The term for the text that shows up next to a field when it is displayed',
 	'sf_createtemplate_standardformat' => '',
@@ -243,22 +247,53 @@ Parameters:
 	'sf_forminputs_uploadable' => 'This is a message describing a checkbox. The message included within this message is: {{msg-mw|upload}}',
 	'sf_forminputs_listboxsize' => 'See [[wikipedia:list box|listbox]] for an listbox example',
 	'createform' => 'Title below, create link. If you enter, include ".". and use special page name.',
+	'sf-createform-with-name' => 'Used as page title. Parameters:
+* $1 - form name',
 	'sf_createform_template' => '{{Identical|Template}}',
 	'sf_createform_allowmultiple' => 'This is the label for a checkbox on [[Special:CreateForm]]. If you tick it you will be able to use the template more than once within the form (one or more instances).',
 	'sf_createform_field' => '{{Identical|Field}}',
+	'sf_createform_fieldprop' => 'Parameters:
+* $1 - property name (with link)
+* $2 - property type
+{{Related|Sf createform fieldprop}}',
+	'sf_createform_fieldproplist' => 'Parameters:
+* $1 - property name (with link)
+* $2 - property type
+{{Related|Sf createform fieldprop}}',
+	'sf_createform_fieldpropunknowntype' => 'Parameters:
+* $1 - property name (with link)
+{{Related|Sf createform fieldprop}}',
 	'sf_createform_inputtypedefault' => '{{Identical|Default}}',
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
 	'sf_createform_add' => '{{Identical|Add}}',
+	'sf-createcategory-with-name' => 'Used as page title. Parameters:
+* $1 - category name',
 	'sf_createcategory_name' => '{{Identical|Category name}}',
 	'sf_createclass_docu' => '$1 will be filled with the following messages: {{msg-mw|Createproperty}}, {{msg-mw|Createtemplate}}, {{msg-mw|Createform}} and {{msg-mw|Createcategory}}',
 	'sf_createclass_create' => '{{Identical|Create}}',
 	'formstart' => 'Name of a special page.',
+	'sf_formstart_badform' => 'Used as error message. Parameters:
+* $1 - form name (with link)',
+	'sf_formstart_badtitle' => 'Used as error message. Parameters:
+* $1 - invalid page name which may contain forbidden characters',
+	'sf_formstart_docu' => 'Used as description for the HTML form. Parameters:
+* $1 - semantic form name
+See also:
+* {{msg-mw|Sf formstart noform docu}}',
+	'sf_formstart_noform_docu' => 'Used as description for the HTML form.
+
+See also:
+* {{msg-mw|Sf formstart docu}}',
 	'sf_formedit_createtitle' => '* $1 is the main part of the title of a semantic form
 * $2 is the prefixed title, with spaces for the target page
 {{Identical|Create}}',
 	'sf_formedit_createtitlenotarget' => '{{Identical|Create}}',
 	'sf_formedit_edittitle' => '* $1 is the main part of the title of a semantic form
 * $2 is the prefixed title, with spaces for the target page',
+	'sf_formedit_formwarning' => 'Used as warning. Parameters:
+* $1 - full URL of the page',
+	'sf_formedit_mismatchedbrackets' => 'Used as warning. Parameters:
+* $1 - full URL of the page (with "action=edit")',
 	'sf_formedit_remove' => 'The text for a button that removes one row/"instance" in a form',
 	'sf_formedit_addanotherabove' => 'The text for a button in a form that adds a row/"instance" above the current one',
 	'sf_formedit_none' => '{{Identical|None}}',
@@ -288,13 +323,36 @@ See also:
 	'sf_autoedit_nosemanticform' => 'An error message sent when no suitable form could be found to edit the given target page.',
 	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
 	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
+	'sf_runquery_title' => 'Used as page title. Parameters:
+* $1 - form title',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
 
 '''This is about a window for uploading files. The window is not the thing being uploaded.'''",
 	'sf_deletionlog' => '{{Identical|Deletion log}}',
+	'sf_property_isproperty' => 'Parameters:
+* $1 - property type (with link)',
+	'sf_property_linkstoform' => 'Parameters:
+* $1 - default form tag (with link)
+This message follows {{msg-mw|Sf property isproperty}}.',
+	'sf_property_allowedvals' => 'This message is followed by list of the allowed values. Parameters:
+* $1 - number of allowed values
+This message follows any one of the following:
+* {{msg-mw|Sf property isproperty}}
+* {{msg-mw|Sf property isproperty}} {{msg-mw|Sf property linkstoform}}',
 	'sf_template_docu' => 'This is an introductory message at the top of an autocreated template. The section following it displays the structure/format of the template itself.',
+	'sf_form_docu' => 'Used as description of the form. Parameters:
+* $1 - form name
+* $2 - (Unused) form-start URL',
 	'sf_form_freetextlabel' => '{{Identical|Free text}}',
+	'sf_category_hasdefaultform' => "Used as text of the category page. Parameters:
+* $1 - form name (with link)
+If the category doesn't have default form, the following message is used instead:
+* {{msg-mw|Sf category desc}}",
+	'sf_category_desc' => 'Used as text of the category page. Parameters:
+* $1 - category name
+If the category has default form, the following message is used instead:
+* {{msg-mw|Sf category hasdefaultform}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
@@ -4692,7 +4750,7 @@ $messages['ja'] = array(
 	'semanticforms-desc' => '意味的データを追加/編集するフォーム',
 	'specialpages-group-sf_group' => '意味的フォーム',
 	'createproperty' => 'プロパティの作成',
-	'sf-createproperty-with-name' => '作成するプロパティ: $1',
+	'sf-createproperty-with-name' => 'プロパティの作成: $1',
 	'sf_createproperty_linktoform' => 'このプロパティは、以下のフォームを使用するページにリンクします:',
 	'sf_createproperty_allowedvalsinput' => 'このプロパティに一部の値のみを設定できるようにするには、許可する値をカンマで区切って列挙します (値がカンマを含む場合は「\\,」に置換):',
 	'sf_createproperty_propname' => 'プロパティ名:',
@@ -4701,7 +4759,7 @@ $messages['ja'] = array(
 	'sf_templates_docu' => '以下のテンプレートがウィキに存在します。',
 	'sf_templates_definescat' => '定義するカテゴリ: $1',
 	'createtemplate' => 'テンプレートの作成',
-	'sf-createtemplate-with-name' => '作成するテンプレート: $1',
+	'sf-createtemplate-with-name' => 'テンプレートの作成: $1',
 	'sf_createtemplate_namelabel' => 'テンプレート名:',
 	'sf_createtemplate_multipleinstance' => 'このテンプレートは、ページで複数回呼び出される場合があります。',
 	'sf_createtemplate_categorylabel' => 'テンプレートが定義するカテゴリ (省略可能):',
@@ -4750,7 +4808,7 @@ $messages['ja'] = array(
 	'sf_forminputs_height' => 'この入力の高さ (ピクセル)',
 	'sf_forminputs_width' => 'この入力の幅 (ピクセル)',
 	'createform' => 'フォームの作成',
-	'sf-createform-with-name' => '作成するフォーム: $1',
+	'sf-createform-with-name' => 'フォームの作成: $1',
 	'sf_createform_nameinput' => 'フォーム名',
 	'sf_createform_nameinputdesc' => '(通常、フォームはメインテンプレートと同じ名前になります):',
 	'sf_createform_template' => 'テンプレート:',
@@ -4771,7 +4829,7 @@ $messages['ja'] = array(
 	'sf_createform_add' => '追加',
 	'sf_createform_choosefield' => '追加するフィールドを選択',
 	'createcategory' => 'カテゴリの作成',
-	'sf-createcategory-with-name' => '作成するカテゴリ: $1',
+	'sf-createcategory-with-name' => 'カテゴリの作成: $1',
 	'sf_createcategory_name' => 'カテゴリ名:',
 	'sf_createcategory_defaultform' => '既定のフォーム:',
 	'sf_createcategory_makesubcategory' => '以下のカテゴリの下位カテゴリにする (任意選択):',
@@ -4828,7 +4886,7 @@ $messages['ja'] = array(
 	'runquery' => 'クエリの実行',
 	'sf_runquery_badurl' => 'URL 内にフォーム名を指定しなければなりません。
 URL は「Special:RunQuery/<フォーム名>」のような形式になります。',
-	'sf_runquery_title' => '実行するクエリ: $1',
+	'sf_runquery_title' => 'クエリの実行: $1',
 	'sf_runquery_additionalquery' => '追加のクエリ',
 	'sf_formerrors_header' => 'フォームへの入力内容に誤りがありました。以下をご覧ください',
 	'sf_blank_error' => '空欄にはできません',
@@ -4844,7 +4902,7 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf-pageschemas-edittitle' => '既存のページに使用するフォーム名:',
 	'sf-pageschemas-inputtype' => '入力型 (既定値を使用する場合は空白):',
 	'sf_property_isproperty' => 'これは型 $1 のプロパティです。',
-	'sf_property_linkstoform' => 'フォーム $1 を利用するページにリンクする。',
+	'sf_property_linkstoform' => 'フォーム $1 を使用するページにリンクしています。',
 	'sf_property_allowedvals' => 'このプロパティが取れる{{PLURAL:$1|値}}:',
 	'sf_template_docu' => 'これはテンプレート「$1」です。
 以下の書式で呼び出されます:',
