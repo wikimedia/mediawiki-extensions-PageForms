@@ -155,7 +155,10 @@ $specialPageAliases['eo'] = array(
 	'CreateCategory' => array( 'Krei_kategorion' ),
 	'CreateClass' => array( 'Krei_klason' ),
 	'CreateForm' => array( 'Krei_formularon' ),
+	'CreateProperty' => array( 'Krei_econ' ),
+	'CreateTemplate' => array( 'Krei_ŝablonon' ),
 	'Forms' => array( 'Formularoj' ),
+	'Templates' => array( 'Ŝablonoj' ),
 );
 
 /** Spanish (español) */
