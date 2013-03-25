@@ -228,6 +228,7 @@ if a page with that name already exists, you will be sent to a form to edit that
  */
 $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc|name=Semantic Forms|url=http://www.mediawiki.org/wiki/Extension:Semantic Forms}}',
+	'specialpages-group-sf_group' => '{{doc-special-group|that=are related to Semantic Forms|like=[[Special:CreateForm]], [[Special:CreateTemplate]], [[Special:CreateProperty]], [[Special:CreateCategory]], [[Special:CreateClass]], [[Special:FormStart]], [[Special:FormEdit]], [[Special:RunQuery]]}}',
 	'sf-createproperty-with-name' => 'Used as page title. Parameters:
 * $1 - property name',
 	'sf_createproperty_propname' => '{{Identical|Property name}}',
@@ -1376,7 +1377,7 @@ $messages['ca'] = array(
 	'sf_forminputs_size' => 'La mida del camp de text, en caràcters',
 	'sf_forminputs_maxlength' => "La longitud màxima permesa per al text d'aquest camp",
 	'sf_forminputs_placeholder' => "Text d'ajuda que apareix a l'entrada fins que l'usuari hi fa clic",
-	'sf_forminputs_uploadable' => "Col·loca un enllaç de «Puja un fitxer» al costat de l'entrada", # Fuzzy
+	'sf_forminputs_uploadable' => "Col·loca un enllaç de «{{int:upload}}» al costat del camp d'entrada",
 	'sf_forminputs_defaultfilename' => 'El nom de fitxer per defecte dels fitxers carregats',
 	'sf_forminputs_rows' => "El nombre de files de l'entrada",
 	'sf_forminputs_cols' => "El nombre de columnes de l'entrada",
@@ -1457,7 +1458,8 @@ ha de ser quelcom similar a 'Especial:FormEdit?form=<nom_formulari>&target=<pàg
 	'sf_formedit_morethanoneform' => "'''Avís:''' s'ha definit més d'un formulari per defecte en aquesta pàgina.",
 	'sf_formedit_formwarning' => 'Atenció: Aquesta pàgina <a href="$1">ja existeix</a>, però no fa servir aquest formulari.',
 	'sf_formedit_mismatchedbrackets' => 'Avís: la pàgina conté claus o claudàtors que no s\'han tancat, per tant el formulari no podrà gestionar correctament la pàgina. <a href="$1">Arregleu-ne l\'error en el text del codi</a> abans de procedir.',
-	'sf_formedit_remove' => 'Elimina',
+	'sf_formedit_remove' => 'Suprimeix aquesta instància',
+	'sf_formedit_addanotherabove' => "Afegeix una altra instància sobre d'aquesta",
 	'sf_formedit_addanother' => 'Afegeix-ne un altre',
 	'sf_formedit_none' => 'Cap',
 	'sf_formedit_emptytitle' => 'Error: les dades inserides donen lloc a un títol de pàgina en blanc.',
@@ -2705,7 +2707,7 @@ $messages['fi'] = array(
 	'sf_forminputs_size' => 'Tämän tekstikentän koko merkkeinä',
 	'sf_forminputs_maxlength' => 'Tekstin suurin sallittu pituus tässä kentässä',
 	'sf_forminputs_placeholder' => 'Ohjeteksti, joka näkyy kentässä, kunnes käyttäjä napsauttaa sitä',
-	'sf_forminputs_uploadable' => 'Lisää "Lataa tiedosto" -linkin tämän kentän viereen', # Fuzzy
+	'sf_forminputs_uploadable' => 'Lisää ”{{int:upload}}” -linkin tämän kentän viereen',
 	'sf_forminputs_defaultfilename' => 'Ladattujen tiedostojen oletusnimi',
 	'sf_forminputs_rows' => 'Syötteen rivimäärä',
 	'sf_forminputs_cols' => 'Syötteen sarakemäärä',
@@ -2734,7 +2736,7 @@ $messages['fi'] = array(
 	'sf_createform_nameinputdesc' => '(lomakkeen nimi on tavallisesti sama kuin sen päämallineen nimi):',
 	'sf_createform_template' => 'Malline',
 	'sf_createform_templatelabelinput' => 'Mallineen otsikko (valinnainen)',
-	'sf_createform_allowmultiple' => 'Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan',
+	'sf_createform_allowmultiple' => 'Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan', # Fuzzy
 	'sf_createform_field' => 'Kenttä',
 	'sf_createform_fieldprop' => 'Tämä kenttä määrittelee ominaisuuden $1, joka on tyyppiä $2.',
 	'sf_createform_fieldproplist' => 'Tämä kenttä määrittelee listan elementeistä, joilla on ominaisuus $1, joka on tyyppiä $2.',
@@ -2781,7 +2783,7 @@ $messages['fi'] = array(
 	'sf_formedit_morethanoneform' => "'''Varoitus:''' Tällä sivulla on useita oletuslomakkeita.",
 	'sf_formedit_formwarning' => 'Varoitus: sivu <a href="$1">on jo olemassa</a>, mutta se ei käytä tätä lomaketta.',
 	'sf_formedit_mismatchedbrackets' => 'Varoitus: Sivulla ei ole lopettavia aalto- tai hakasulkeita, minkä takia lomake ei voi käsitellä sivua oikein. <a href="$1">Korjaa virhe alkutekstissä</a> ennen kuin jatkat.',
-	'sf_formedit_remove' => 'Poista',
+	'sf_formedit_remove' => 'Poista', # Fuzzy
 	'sf_formedit_addanother' => 'Lisää toinen',
 	'sf_formedit_none' => 'ei mikään',
 	'sf_formedit_emptytitle' => 'Virhe: Syötetyt tiedot aiheuttavat tyhjän sivun otsikon.',
