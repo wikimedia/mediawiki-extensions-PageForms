@@ -580,9 +580,24 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
  */
 
 // Display an error message on the end of an input.
-jQuery.fn.addErrorMessage = function(msg) {
-	this.append(' ').append( $('<span>').addClass( 'errorMessage' ).text( mw.msg( msg ) ) );
+jQuery.fn.addErrorMessage = function(msg, val) {
+	this.append(' ').append( $('<span>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ) );
 };
+
+jQuery.fn.validateNumInstances = function() {
+	var minimumInstances = this.attr("minimumInstances");
+	var maximumInstances = this.attr("maximumInstances");
+	var numInstances = this.find("div.multipleTemplateInstance").length;
+	if ( numInstances < minimumInstances ) {
+		this.parent().addErrorMessage( 'sf_too_few_instances_error', minimumInstances );
+		return false;
+	} else if ( numInstances > maximumInstances ) {
+		this.parent().addErrorMessage( 'sf_too_many_instances_error', maximumInstances );
+		return false;
+	} else {
+		return true;
+	}
+}
 
 jQuery.fn.validateMandatoryField = function() {
 	var fieldVal = this.find(".mandatoryField").val();
@@ -710,6 +725,10 @@ window.validateAll = function () {
 	// Make sure all inputs are ignored in the "starter" instance
 	// of any multiple-instance template.
 	jQuery(".multipleTemplateStarter").find("span, div").addClass("hiddenBySF");
+
+	jQuery(".multipleTemplateList").each( function() {
+		if (! jQuery(this).validateNumInstances() ) num_errors += 1;
+	});
 
 	jQuery("span.inputSpan.mandatoryFieldSpan").not(".hiddenBySF").each( function() {
 		if (! jQuery(this).validateMandatoryField() ) num_errors += 1;

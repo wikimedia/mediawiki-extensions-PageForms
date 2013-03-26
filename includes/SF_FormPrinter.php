@@ -518,6 +518,8 @@ END;
 					$tif = SFTemplateInForm::create( $template_name );
 					$query_template_name = str_replace( ' ', '_', $template_name );
 					$add_button_text = wfMessage( 'sf_formedit_addanother' )->text();
+					$minimumInstances = null;
+					$maximumInstances = null;
 					// Also replace periods with underlines, since that's what
 					// POST does to strings anyway.
 					$query_template_name = str_replace( '.', '_', $query_template_name );
@@ -533,6 +535,10 @@ END;
 						if ( count( $sub_components ) == 2 ) {
 							if ( $sub_components[0] == 'label' ) {
 								$template_label = $sub_components[1];
+							} elseif ( $sub_components[0] == 'minimum instances' ) {
+								$minimumInstances = $sub_components[1];
+							} elseif ( $sub_components[0] == 'maximum instances' ) {
+								$maximumInstances = $sub_components[1];
 							} elseif ( $sub_components[0] == 'add button text' ) {
 								$add_button_text = $sub_components[1];
 							} elseif ( $sub_components[0] == 'embed in field' ) {
@@ -561,7 +567,14 @@ END;
 						// So, the HTML will be stored in $multipleTemplateString.
 						if ( $allow_multiple ) {
 							$multipleTemplateString .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
-							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList">' . "\n";
+							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList"';
+							if ( !is_null( $minimumInstances ) ) {
+								$multipleTemplateString .= " minimumInstances=\"$minimumInstances\"";
+							}
+							if ( !is_null( $maximumInstances ) ) {
+								$multipleTemplateString .= " maximumInstances=\"$maximumInstances\"";
+							}
+							$multipleTemplateString .= ">\n";
 						}
 					}
 					if ( $curPlaceholder == null ) {

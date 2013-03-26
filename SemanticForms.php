@@ -220,6 +220,8 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 			'messages' => array(
 				'sf_formerrors_header',
+				'sf_too_few_instances_error',
+				'sf_too_many_instances_error',
 				'sf_blank_error',
 				'sf_bad_url_error',
 				'sf_bad_email_error',
