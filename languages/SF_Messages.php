@@ -8062,7 +8062,7 @@ $messages['ru'] = array(
 	'sf_formedit_edittitle' => 'Редактирование $1: $2',
 	'sf_formedit_morethanoneform' => 'Внимание. Для этой страницы была определена больше чем одна форма по умолчанию.',
 	'sf_formedit_formwarning' => 'Предупреждение. Эта страница <a href="$1">уже существует</a>, но не использует эту форму.',
-	'sf_formedit_remove' => 'Удалить',
+	'sf_formedit_remove' => 'Удалить', # Fuzzy
 	'sf_formedit_addanother' => 'Добавить ещё',
 	'sf_formedit_none' => 'Ничего',
 	'sf_formedit_saveandcontinueediting' => 'Сохранить и продолжить',
@@ -8109,12 +8109,12 @@ URL должен выглядеть так: «Special:RunQuery/<form name>».',
 	'sf_category_hasdefaultform' => 'Эта категория использует форму $1.',
 	'sf_category_desc' => 'Это категория $1.',
 	'sf_blank_namespace' => 'Основное',
-	'right-viewedittab' => 'Вкладка "{{int:edit}}" для страниц, редактируемых формой',
+	'right-viewedittab' => 'доступ к вкладке «{{int:edit}}» для страниц, редактируемых при помощи формы',
 	'right-editrestrictedfields' => 'правка защищённых полей формы',
-	'right-createclass' => 'Создавать новые семантические классы',
+	'right-createclass' => 'создание новых семантических классов',
 	'action-createclass' => 'создать новый семантический класс',
 	'action-editrestrictedfields' => 'правка защищённых полей формы',
-	'action-viewedittab' => 'Вкладка "{{int:edit}}" для страниц, редактируемых формой',
+	'action-viewedittab' => 'доступ к вкладке «{{int:edit}}» для страниц, редактируемых при помощи формы',
 );
 
 /** Rusyn (русиньскый)
