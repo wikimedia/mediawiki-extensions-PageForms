@@ -328,6 +328,8 @@ See also:
 	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
 	'sf_runquery_title' => 'Used as page title. Parameters:
 * $1 - form title',
+	'sf_too_few_instances_error' => 'An error message when the user has not added enough instances of a template',
+	'sf_too_many_instances_error' => 'An error message when the user has added too many instances of a template',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
 
