@@ -231,15 +231,18 @@ if a page with that name already exists, you will be sent to a form to edit that
 $messages['qqq'] = array(
 	'semanticforms-desc' => '{{desc|name=Semantic Forms|url=http://www.mediawiki.org/wiki/Extension:Semantic Forms}}',
 	'specialpages-group-sf_group' => '{{doc-special-group|that=are related to Semantic Forms|like=[[Special:CreateForm]], [[Special:CreateTemplate]], [[Special:CreateProperty]], [[Special:CreateCategory]], [[Special:CreateClass]], [[Special:FormStart]], [[Special:FormEdit]], [[Special:RunQuery]]}}',
+	'createproperty' => '{{doc-special|CreateProperty}}',
 	'sf-createproperty-with-name' => 'Used as page title. Parameters:
 * $1 - property name',
 	'sf_createproperty_propname' => '{{Identical|Property name}}',
 	'sf_createproperty_proptype' => '{{Identical|Type}}',
-	'templates' => '{{Identical|Template}}',
+	'templates' => '{{doc-special|Templates}}
+{{Identical|Template}}',
 	'sf_templates_definescat' => 'The message is shown on [[Special:Templates]], the list of templates in the wiki, after the name of each template, to describe it.
 
 Parameters:
 * $1 - the name of the category that this template adds pages to',
+	'createtemplate' => '{{doc-special|CreateTemplate}}',
 	'sf-createtemplate-with-name' => 'Used as page title. Parameters:
 * $1 - template name',
 	'sf_createtemplate_fieldname' => 'The name of the field used in the relevant template.',
@@ -247,9 +250,11 @@ Parameters:
 	'sf_createtemplate_standardformat' => '',
 	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
+	'forms' => '{{doc-special|Forms}}',
 	'sf_forminputs_uploadable' => 'This is a message describing a checkbox. The message included within this message is: {{msg-mw|upload}}',
 	'sf_forminputs_listboxsize' => 'See [[wikipedia:list box|listbox]] for an listbox example',
-	'createform' => 'Title below, create link. If you enter, include ".". and use special page name.',
+	'createform' => '{{doc-special|CreateForm}}
+Title below, create link. If you enter, include ".".',
 	'sf-createform-with-name' => 'Used as page title. Parameters:
 * $1 - form name',
 	'sf_createform_template' => '{{Identical|Template}}',
@@ -269,12 +274,14 @@ Parameters:
 	'sf_createform_inputtypedefault' => '{{Identical|Default}}',
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
 	'sf_createform_add' => '{{Identical|Add}}',
+	'createcategory' => '{{doc-special|CreateCategory}}',
 	'sf-createcategory-with-name' => 'Used as page title. Parameters:
 * $1 - category name',
 	'sf_createcategory_name' => '{{Identical|Category name}}',
+	'createclass' => '{{doc-special|CreateClass}}',
 	'sf_createclass_docu' => '$1 will be filled with the following messages: {{msg-mw|Createproperty}}, {{msg-mw|Createtemplate}}, {{msg-mw|Createform}} and {{msg-mw|Createcategory}}',
 	'sf_createclass_create' => '{{Identical|Create}}',
-	'formstart' => 'Name of a special page.',
+	'formstart' => '{{doc-special|FormStart}}',
 	'sf_formstart_badform' => 'Used as error message. Parameters:
 * $1 - form name (with link)',
 	'sf_formstart_badtitle' => 'Used as error message. Parameters:
@@ -287,6 +294,7 @@ See also:
 
 See also:
 * {{msg-mw|Sf formstart docu}}',
+	'formedit' => '{{doc-special|FormEdit}}',
 	'sf_formedit_createtitle' => '* $1 is the main part of the title of a semantic form
 * $2 is the prefixed title, with spaces for the target page
 {{Identical|Create}}',
@@ -326,6 +334,7 @@ See also:
 	'sf_autoedit_nosemanticform' => 'An error message sent when no suitable form could be found to edit the given target page.',
 	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
 	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
+	'runquery' => '{{doc-special|RunQuery}}',
 	'sf_runquery_title' => 'Used as page title. Parameters:
 * $1 - form title',
 	'sf_too_few_instances_error' => 'An error message when the user has not added enough instances of a template',
@@ -1781,6 +1790,8 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf_runquery_title' => 'Ausgeführte Abfrage: $1',
 	'sf_runquery_additionalquery' => 'Ergänzende Abfrage',
 	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.',
+	'sf_too_few_instances_error' => 'Es müssen mindestens $1 Instanzen dieser Vorlage vorhanden sein.',
+	'sf_too_many_instances_error' => 'Es dürfen nicht mehr als $1 Instanzen dieser Vorlage vorhanden sein.',
 	'sf_blank_error' => 'Darf nicht leer sein',
 	'sf_bad_url_error' => 'muss ein gültiges URL-Format haben, beginnend mit „http://“',
 	'sf_bad_email_error' => 'muss ein gültiges E-Mail-Adressformat haben',
@@ -3027,6 +3038,8 @@ quelque chose comme « Special:RunQuery/<nom du formulaire> ».',
 	'sf_runquery_title' => 'Exécuter la requête : $1',
 	'sf_runquery_additionalquery' => 'Requête additionnelle',
 	'sf_formerrors_header' => 'Il y a certaines erreurs dans le formulaire. Cf. ci-dessous.',
+	'sf_too_few_instances_error' => 'Il doit y avoir au moins $1 instances de ce modèle.',
+	'sf_too_many_instances_error' => 'Il ne doit pas y avoir plus de $1 instances de ce modèle.',
 	'sf_blank_error' => 'ne peut pas être blanc',
 	'sf_bad_url_error' => 'doit avoir un format URL correct, commençant par « http »',
 	'sf_bad_email_error' => 'doit avoir un format correct d’adresse courriel.',
@@ -6030,6 +6043,8 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 	'sf_runquery_title' => 'Постави прашање: $1',
 	'sf_runquery_additionalquery' => 'Дополнително прашање',
 	'sf_formerrors_header' => 'Најдени се грешки во вносот на образецот; погледајте подолу',
+	'sf_too_few_instances_error' => 'Мора да постојат барем $1 примероци на шаблонов.',
+	'sf_too_many_instances_error' => 'Не може да има повеќе од $1 примероци на шаблонов.',
 	'sf_blank_error' => 'не може да стои празно',
 	'sf_bad_url_error' => 'мора да има правилен URL формат, кој почнува со „http“',
 	'sf_bad_email_error' => 'мора да има важечки формат на е-поштенска адреса',
@@ -6736,6 +6751,8 @@ De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_runquery_title' => 'Zoekopdracht: $1',
 	'sf_runquery_additionalquery' => 'Additionele zoekopdracht',
 	'sf_formerrors_header' => 'Er zaten fouten in uw formulierinvoer. Details staan hieronder.',
+	'sf_too_few_instances_error' => 'Er {{PLURAL:$1|moet tenminste één instantie|moeten tenminste $1 instanties}} van deze sjabloon zijn.',
+	'sf_too_many_instances_error' => 'Er {{PLURAL:$1|mag niet meer dan  één instantie|mogen niet meer dan $1 instanties}} van deze sjabloon zijn.',
 	'sf_blank_error' => 'mag niet leeg blijven',
 	'sf_bad_url_error' => 'moet de juiste URL hebben, beginnend met "http"',
 	'sf_bad_email_error' => 'moet een geldig e-mailadres zijn',
