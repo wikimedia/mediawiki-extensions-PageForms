@@ -6567,11 +6567,21 @@ om en side med det navnet finnes allerede vil du bli sendt til et skjema for red
 );
 
 /** Low German (Plattdüütsch)
+ * @author Joachim Mos
  * @author Slomox
  */
 $messages['nds'] = array(
 	'sf_createproperty_propname' => 'Naam:', # Fuzzy
+	'sf_createproperty_proptype' => 'Typ:',
+	'templates' => 'Vörlagen',
+	'createtemplate' => 'Stell een Vörlaag op',
+	'sf_createtemplate_namelabel' => 'Vörlaagnaam:',
+	'sf_createtemplate_deletefield' => 'Wegdoon',
+	'sf_createform_template' => 'Vörlaag:',
+	'createcategory' => 'Stell een Kategorie op',
 	'sf_createcategory_name' => 'Naam:', # Fuzzy
+	'createclass' => 'Stell en Class op',
+	'sf_createclass_create' => 'Opstellen',
 );
 
 /** Nedersaksies (Nedersaksies)
