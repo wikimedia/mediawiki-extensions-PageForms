@@ -22,6 +22,20 @@ class SFPageSchemas extends PSExtensionHandler {
 	 */
 	public static function createPageSchemasObject( $tagName, $xml ) {
 		$sfarray = array();
+
+		if( $tagName == "standardInputs" ) {
+			foreach ( $xml->children() as $tag => $child ) {
+					foreach ( $child->children() as $tag => $formelem ) {
+						if($tag == $tagName) {
+							foreach( $formelem->attributes() as $attr => $name) {
+								$sfarray[$attr] = (string)$formelem->attributes()->$attr;
+							}
+						}
+					}
+					return $sfarray;
+			}
+		}
+
 		if ( $tagName == "semanticforms_Form" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 				if ( $tag == $tagName ) {
@@ -51,8 +65,12 @@ class SFPageSchemas extends PSExtensionHandler {
 						if ( $prop->getName() == 'InputType' ) {
 							$sfarray[$prop->getName()] = (string)$prop;
 						} else {
+							if ( (string)$prop->attributes()->name == '' ) {
+								$sfarray[$prop->getName()] = (string)$prop;
+							} else {
 							$sfarray[(string)$prop->attributes()->name] = (string)$prop;
 						}
+					}
 					}
 					return $sfarray;
 				}
@@ -69,12 +87,14 @@ class SFPageSchemas extends PSExtensionHandler {
 
 		$formName = null;
 		$xml = '';
+		$isStandardInputsOpen = false;
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
 			if ( $var == 'sf_form_name' ) {
 				$formName = $val;
 			} elseif ( $var == 'sf_page_name_formula' ) {
 				if ( !empty( $val ) ) {
+					$val = Xml::escapeTagsOnly( $val );
 					$xml .= '<PageNameFormula>' . $val . '</PageNameFormula>';
 				}
 			} elseif ( $var == 'sf_create_title' ) {
@@ -85,7 +105,49 @@ class SFPageSchemas extends PSExtensionHandler {
 				if ( !empty( $val ) ) {
 					$xml .= '<EditTitle>' . $val . '</EditTitle>';
 				}
+			} elseif ( $var == 'sf_fi_free_text_label' ) {
+				$isStandardInputsOpen = true;
+				$xml .= '<standardInputs ';
+				if ( !empty( $val ) ) {
+					$xml .= 'freeTextLabel="' . Xml::escapeTagsOnly( $val ) . '" ';
+				}
+			} /* Options */ elseif ( $var == 'sf_fi_free_text' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputFreeText="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_summary' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputSummary="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_minor_edit' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputMinorEdit="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_watch' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputWatch="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_save' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputSave="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_preview' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputPreview="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_changes' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputChanges="' . $val . '" ';
+				}
+			} elseif ( $var == 'sf_fi_cancel' ) {
+				if ( !empty( $val ) ) {
+					$xml .= 'inputCancel="' . $val . '"';
+				}
 			}
+		}
+		if($isStandardInputsOpen) {
+			$isStandardInputsOpen = false;
+			$xml .= ' />';
 		}
 		$xml = '<semanticforms_Form name="' . $formName . '" >' . $xml;
 		$xml .= '</semanticforms_Form>';
@@ -135,6 +197,24 @@ class SFPageSchemas extends PSExtensionHandler {
 				if ( !empty( $val ) ) {
 					$xml .= '<InputType>' . $val . '</InputType>';
 				}
+			} elseif ( substr( $var, 0, 14 ) == 'sf_input_desc_' ) {
+
+				if ( $val !== '' ) {
+					$xml .= '<Description>' . $val . '</Description>';
+				}
+
+			} elseif ( substr( $var, 0, 18 ) == 'sf_input_desctool_' ) {
+
+				if ( $val !== '' ) {
+					$xml .= '<DescriptionTooltipMode>' . $val . '</DescriptionTooltipMode>';
+				}
+
+			} elseif ( substr( $var, 0, 14 ) == 'sf_input_befo_' ) {
+
+				if ( $val !== '' ) {
+					$xml .= '<TextBeforeField>' . $val . '</TextBeforeField>';
+				}
+
 			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
 				if ( $val !== '' ) {
 					// replace the comma substitution character that has no chance of
@@ -186,6 +266,11 @@ class SFPageSchemas extends PSExtensionHandler {
 		$createTitle = PageSchemas::getValueFromObject( $form_array, 'CreateTitle' );
 		$editTitle = PageSchemas::getValueFromObject( $form_array, 'EditTitle' );
 
+		//Inputs
+		$standardInputs = $pageSchemaObj->getObject( 'standardInputs' );
+
+		$freeTextLabel = html_entity_decode( PageSchemas::getValueFromObject( $form_array, 'freeTextLabel' ) );
+
 		$text = "\t<p>" . wfMessage( 'ps-namelabel' )->escaped() . ' ' . Html::input( 'sf_form_name', $formName, 'text', array( 'size' => 15 ) ) . "</p>\n";
 		// The checkbox isn't actually a field in the page schema -
 		// we set it based on whether or not a page formula has been
@@ -200,6 +285,54 @@ class SFPageSchemas extends PSExtensionHandler {
 		$text .= "\t<p id=\"sf-page-name-formula\">" . wfMessage( 'sf-pageschemas-pagenameformula' )->escaped() . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 30 ) ) . "</p>\n";
 		$text .= "\t<p>" . wfMessage( 'sf-pageschemas-createtitle' )->escaped() . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		$text .= "\t<p id=\"sf-edit-title\">" . wfMessage( 'sf-pageschemas-edittitle' )->escaped() . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
+
+		//Inputs
+		$text .= "<p>Define form buttons and inputs (will be enabled all if not selected any): &nbsp;</p><p>";
+
+		$text .= "Free text label: " . Html::input( 'sf_fi_free_text_label', ( ( empty( $freeTextLabel ) ) ? wfMsgForContent( 'sf_form_freetextlabel' ) : $freeTextLabel ), 'text' ) . "</p><p>";
+
+		// Free text
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_free_text', '1', 'checkbox', array( 'id' => 'sf_fi_free_text', 'checked' => (isset($standardInputs['inputFreeText'])) ? $standardInputs['inputFreeText'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_free_text' ), 'Free text input' );
+		$text .= "&nbsp;</span>";
+		// Summary
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_summary', '1', 'checkbox', array( 'id' => 'sf_fi_summary', 'checked' => (isset($standardInputs['inputSummary'])) ? $standardInputs['inputSummary'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_summary' ), 'Summary input' );
+		$text .= "&nbsp;</span>";
+		// Minor edit
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_minor_edit', '1', 'checkbox', array( 'id' => 'sf_fi_minor_edit', 'checked' => (isset($standardInputs['inputMinorEdit'])) ? $standardInputs['inputMinorEdit'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_minor_edit' ), 'Minor edit input' );
+		$text .= "&nbsp;</span>";
+		// Watch
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_watch', '1', 'checkbox', array( 'id' => 'sf_fi_watch', 'checked' => (isset($standardInputs['inputWatch'])) ? $standardInputs['inputWatch'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_watch' ), 'Watch input' );
+		$text .= "&nbsp;</span>";
+		// Save
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_save', '1', 'checkbox', array( 'id' => 'sf_fi_save', 'checked' => (isset($standardInputs['inputSave'])) ? $standardInputs['inputSave'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_save' ), 'Save input' );
+		$text .= "&nbsp;</span>";
+		// Preview
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_preview', '1', 'checkbox', array( 'id' => 'sf_fi_preview', 'checked' => (isset($standardInputs['inputPreview'])) ? $standardInputs['inputPreview'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_preview' ), 'Preview input' );
+		$text .= "&nbsp;</span>";
+		// Changes
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_changes', '1', 'checkbox', array( 'id' => 'sf_fi_changes', 'checked' => (isset($standardInputs['inputChanges'])) ? $standardInputs['inputChanges'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_changes' ), 'Changes input' );
+		$text .= "&nbsp;</span>";
+		// Cancel
+		$text .= '<span>';
+		$text .= Html::input( 'sf_fi_cancel', '1', 'checkbox', array( 'id' => 'sf_fi_cancel', 'checked' => (isset($standardInputs['inputCancel'])) ? $standardInputs['inputCancel'] : null ) );
+		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_cancel' ), 'Cancel input' );
+		$text .= "&nbsp;</span>";
+
+		$text .= "</p>";
 
 		// Separately, add Javascript for getting the checkbox to
 		// hide certain fields.
@@ -255,11 +388,17 @@ END;
 		$fieldValues = array();
 		$hasExistingValues = false;
 		$inputType = null;
+		$inputDesc = null;
+		$inputDescTooltipMode = null;
+		$inputBeforeText = null;
 		if ( !is_null( $psField ) ) {
 			$fieldValues = $psField->getObject( 'semanticforms_FormInput' );
 			if ( !is_null( $fieldValues ) ) {
 				$hasExistingValues = true;
 				$inputType = PageSchemas::getValueFromObject( $fieldValues, 'InputType' );
+				$inputDesc = PageSchemas::getValueFromObject( $fieldValues, 'Description' );
+				$inputDescTooltipMode = PageSchemas::getValueFromObject( $fieldValues, 'DescriptionTooltipMode' );
+				$inputBeforeText = PageSchemas::getValueFromObject( $fieldValues, 'TextBeforeField' );
 			} else {
 				$fieldValues = array();
 			}
@@ -278,11 +417,18 @@ END;
 		$inputTypeDropdown = Html::rawElement( 'select', array( 'name' => 'sf_input_type_num' ), $inputTypeDropdownHTML );
 		$text = '<p>' . wfMessage( 'sf-pageschemas-inputtype' )->escaped() . ' ' . $inputTypeDropdown . '</p>';
 
+		$inputBeforeTextPrint = Html::input( 'sf_input_befo_num', $inputBeforeText, 'text', array( 'size' => 80 ) );
+		$text .= "\t<p>Enter the text that will be printed before the field:</p>\t<p>$inputBeforeTextPrint</p>\n";
+
+		$inputDescription = Html::input( 'sf_input_desc_num', $inputDesc, 'text', array( 'size' => 80 ) );
+		$inputDescriptionTooltipMode = Html::input( 'sf_input_desctool_num', $inputDescTooltipMode, 'checkbox', array( 'checked' => ($inputDescTooltipMode) ? 'checked' : null ) );
+		$text .= "\t<p>Enter field <b>description</b>:</p>\t<p>$inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
+
 		// @todo FIXME: i18n issue: Hard coded text.
 		$text .= "\t" . '<p>Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,"). For example: size=20, mandatory</p>' . "\n";
 		$paramValues = array();
 		foreach ( $fieldValues as $param => $value ) {
-			if ( !empty( $param ) && $param != 'InputType' ) {
+			if ( !empty( $param ) && $param != 'InputType' && $param != 'Description' && $param != 'DescriptionTooltipMode' && $param != 'TextBeforeField' ) {
 				if ( !empty( $value ) ) {
 					$paramValues[] = $param . '=' . $value;
 				} else {
@@ -322,7 +468,13 @@ END;
 				$formName = (string)$child->attributes()->name;
 				$sfarray['name'] = $formName;
 				foreach ( $child->children() as $tag => $formelem ) {
-					$sfarray[$tag] = (string)$formelem;
+					if($tag == "standardInputs") {
+						foreach ( $formelem->attributes() as $attr => $value ) {
+							$sfarray[$attr] = (string)$formelem->attributes()->$attr;
+						}
+					}else{
+						$sfarray[$tag] = (string)$formelem;
+					}
 				}
 				return $sfarray;
 			}
@@ -384,6 +536,8 @@ END;
 		$templateFields = array();
 		foreach ( $psFields as $psField ) {
 			$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
+			$field_options = array();
+			wfRunHooks( 'SfFieldsFromTemplateSchema', array( $psField, &$field_options ));
 			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
 			if ( !is_null( $prop_array ) && empty( $propertyName ) ) {
 				$propertyName = $psField->getName();
@@ -399,7 +553,8 @@ END;
 				$propertyName,
 				$psField->isList(),
 				$psField->getDelimiter(),
-				$psField->getDisplay()
+				$psField->getDisplay(),
+				$field_options
 			);
 			$templateFields[] = $templateField;
 		}
@@ -414,6 +569,28 @@ END;
 		$formTemplates, $formDataFromSchema, $categoryName ) {
 		global $wgUser;
 
+		$input = array();
+		if ( array_key_exists( 'inputFreeText', $formDataFromSchema ) )
+			$input['free text'] = '{{{standard input|free text|rows=10}}}';
+		if ( array_key_exists( 'inputSummary', $formDataFromSchema ) )
+			$input['summary'] = '{{{standard input|summary}}}';
+		if ( array_key_exists( 'inputMinorEdit', $formDataFromSchema ) )
+			$input['minor edit'] = '{{{standard input|minor edit}}}';
+		if ( array_key_exists( 'inputWatch', $formDataFromSchema ) )
+			$input['watch'] = '{{{standard input|watch}}}';
+		if ( array_key_exists( 'inputSave', $formDataFromSchema ) )
+			$input['save'] = '{{{standard input|save}}}';
+		if ( array_key_exists( 'inputPreview', $formDataFromSchema ) )
+			$input['preview'] = '{{{standard input|preview}}}';
+		if ( array_key_exists( 'inputChanges', $formDataFromSchema ) )
+			$input['changes'] = '{{{standard input|changes}}}';
+		if ( array_key_exists( 'inputCancel', $formDataFromSchema ) )
+			$input['cancel'] = '{{{standard input|cancel}}}';
+
+		$freeTextLabel = null;
+		if ( array_key_exists( 'freeTextLabel', $formDataFromSchema ) )
+			$freeTextLabel = $formDataFromSchema['freeTextLabel'];
+
 		$form = SFForm::create( $formName, $formTemplates );
 		$form->setAssociatedCategory( $categoryName );
 		if ( array_key_exists( 'PageNameFormula', $formDataFromSchema ) ) {
@@ -425,7 +602,7 @@ END;
 		if ( array_key_exists( 'EditTitle', $formDataFromSchema ) ) {
 			$form->setEditTitle( $formDataFromSchema['EditTitle'] );
 		}
-		$formContents = $form->createMarkup();
+		$formContents = $form->createMarkup( $input, $freeTextLabel );
 		$params = array();
 		$params['user_id'] = $wgUser->getId();
 		$params['page_text'] = $formContents;
@@ -456,6 +633,8 @@ END;
 			} else {
 				$internalObjProperty = null;
 			}
+			$template_options = array();
+			wfRunHooks('SfTemplateOptions', array( $psTemplate, &$template_options ) );
 			// TODO - actually, the category-setting should be
 			// smarter than this: if there's more than one
 			// template in the schema, it should probably be only
@@ -473,7 +652,7 @@ END;
 			}
 			$templateText = SFTemplateField::createTemplateText( $templateName,
 				$template_fields, $internalObjProperty, $categoryName,
-				null, null, $templateFormat );
+				null, null, $templateFormat, $template_options );
 			if ( in_array( $fullTemplateName, $selectedPages ) ) {
 				$params = array();
 				$params['user_id'] = $wgUser->getId();

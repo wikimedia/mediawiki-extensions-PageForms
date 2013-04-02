@@ -20,8 +20,9 @@ class SFTemplateField {
 	private $mDelimiter;
 	private $mDisplay;
 	private $mInputType;
+	private $mOptions;
 
-	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null ) {
+	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null, $field_options = null ) {
 		$f = new SFTemplateField();
 		$f->mFieldName = trim( str_replace( '\\', '', $name ) );
 		$f->mLabel = trim( str_replace( '\\', '', $label ) );
@@ -29,6 +30,7 @@ class SFTemplateField {
 		$f->mIsList = $isList;
 		$f->mDelimiter = $delimiter;
 		$f->mDisplay = $display;
+		$f->mOptions = $field_options;
 		// Delimiter should default to ','.
 		if ( $isList && !$delimiter ) {
 			$f->mDelimiter = ',';
@@ -157,7 +159,8 @@ class SFTemplateField {
 	 * @TODO: There's really no good reason why this method is contained
 	 * within this class.
 	 */
-	public static function createTemplateText( $template_name, $template_fields, $internal_obj_property, $category, $aggregating_property, $aggregating_label, $template_format ) {
+	public static function createTemplateText( $template_name, $template_fields, $internal_obj_property, $category,
+											   $aggregating_property, $aggregating_label, $template_format, $template_options = null ) {
 		$template_header = wfMessage( 'sf_template_docu', $template_name )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
@@ -178,6 +181,12 @@ END;
 $template_footer
 </noinclude><includeonly>
 END;
+
+		//Before text
+		if ( isset($template_options['beforeText']) ) {
+			$text .= $template_options['beforeText']."\n";
+		}
+
 		// Only add a call to #set_internal if the Semantic Internal
 		// Objects extension is also installed.
 		if ( $internal_obj_property && class_exists( 'SIOInternalObject' ) ) {
@@ -207,6 +216,22 @@ END;
 
 		foreach ( $template_fields as $i => $field ) {
 			if ( $field->mFieldName == '' ) continue;
+			$separator = '|';
+
+			$fieldBefore = '';
+			$fieldAfter = '';
+
+			$fieldOptions = $field->getOptions();
+
+			if ( isset($fieldOptions['textBefore']) && ( $field !== null ) ) {
+				$fieldBefore = $fieldOptions['textBefore'];
+				//wfRunHooks('SfTemplateFieldBefore', array( $field, &$fieldBefore ) );
+			}
+			if ( isset($fieldOptions['textAfter']) && ( $field !== null ) ) {
+				$fieldAfter = $fieldOptions['textAfter'];
+				//wfRunHooks('SfTemplateFieldAfter', array( $field, &$fieldAfter ) );
+			}
+
 			if ( $field->mLabel == '' ) {
 				$field->mLabel = $field->mFieldName;
 			}
@@ -226,9 +251,10 @@ END;
 				$tableText .= '{{#if:{{{' . $field->mFieldName . '|}}}|';
 				if ( $template_format == 'standard' || $template_format == 'infobox' ) {
 					if ( $i > 0 ) {
-						$tableText .= "{{!}}-\n";
+						$tableText .= "\n{{!}}-\n";
 					}
 					$tableText .= '! ' . $field->mLabel . "\n";
+					$separator = '{{!}}';
 				} elseif ( $template_format == 'plain' ) {
 					$tableText .= "'''" .  $field->mLabel . "''' ";
 				} elseif ( $template_format == 'sections' ) {
@@ -245,13 +271,13 @@ END;
 				}
 			}
 			if ( !$field->mSemanticProperty ) {
-				$tableText .= "{{{" . $field->mFieldName . "|}}}";
+				$tableText .= "$separator $fieldBefore {{{" . $field->mFieldName . "|}}} $fieldAfter\n";
 				if ( $field->mDisplay == 'nonempty' ) {
 					$tableText .= " }}";
 				}
 				$tableText .= "\n";
 			} elseif ( !is_null( $setInternalText ) ) {
-				$tableText .= "{{{" . $field->mFieldName . "|}}}\n";
+				$tableText .= "$separator $fieldBefore {{{" . $field->mFieldName . "|}}} $fieldAfter\n";
 				if ( $field->mIsList ) {
 					$setInternalText .= '|' . $field->mSemanticProperty . '#list={{{' . $field->mFieldName . '|}}}';
 				} else {
@@ -264,7 +290,7 @@ END;
 					$setText .= $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}|';
 				}
 			} elseif ( $field->mDisplay == 'nonempty' ) {
-				$tableText .= '[[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}}\n";
+				$tableText .= '{{!}} ' . $fieldBefore . ' [[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}} $fieldAfter\n";
 			} elseif ( $field->mIsList ) {
 				// If this field is meant to contain a list,
 				// add on an 'arraymap' function, that will
@@ -284,7 +310,7 @@ END;
 				}
 				$tableText .= "{{#arraymap:{{{" . $field->mFieldName . "|}}}|" . $field->mDelimiter . "|$var|[[" . $field->mSemanticProperty . "::$var]]}}\n";
 			} else {
-				$tableText .= "[[" . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]]\n";
+				$tableText .= "" . $fieldBefore . " [[" . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]] $fieldAfter\n";
 			}
 		}
 
@@ -328,14 +354,24 @@ END;
 		}
 
 		$text .= $tableText;
-		if ( $category !== '' ) {
+		if ( ( $category !== '' ) && ( $category !== null ) ) {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
 			$category_namespace = $namespace_labels[NS_CATEGORY];
 			$text .= "\n[[$category_namespace:$category]]\n";
 		}
+
+		//After text
+		if ( isset($template_options['afterText']) ) {
+			$text .= $template_options['afterText'];
+		}
+
 		$text .= "</includeonly>\n";
 
 		return $text;
+	}
+
+	public function getOptions() {
+		return $this->mOptions;
 	}
 }
