@@ -570,6 +570,7 @@ END;
 
 					if ( $targetTitle !== null ) {
 						$targetArticle = new Article( $targetTitle );
+						$targetArticle->clear();
 						$editTime = $targetArticle->getTimestamp();
 					}
 
