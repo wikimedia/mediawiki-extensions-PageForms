@@ -544,7 +544,7 @@ class SFAutoeditAPI extends ApiBase {
 		// set response text depending on the status and the requested action
 		if ( $this->mStatus === 200 ) {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
-				$responseText = $this->mOptions[ 'ok text' ];
+				$responseText = MessageCache::singleton()->parse( $this->mOptions[ 'ok text' ], Title::newFromText( $this->mOptions[ 'target' ] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				$responseText = wfMessage( 'sf_autoedit_success', $this->mOptions[ 'target' ], $this->mOptions[ 'form' ] )->parse();
 			} else {
@@ -553,25 +553,23 @@ class SFAutoeditAPI extends ApiBase {
 		} else {
 			// get errortext (or use default)
 			if ( array_key_exists( 'error text', $this->mOptions ) ) {
-				$responseText = $this->mOptions[ 'error text' ];
+				$responseText = MessageCache::singleton()->parse( $this->mOptions[ 'error text' ], Title::newFromText( $this->mOptions[ 'target' ] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				$responseText = wfMessage( 'sf_autoedit_fail', $this->mOptions[ 'target' ] )->parse();
 			} else {
 				$responseText = null;
 			}
 		}
-		
-		$result = $this->getResult();
-		
-		if ( $responseText !== null ) {
-			$this->getResult()->addValue( null, 'responseText', $responseText );
-		}
-		
-		$this->getResult()->addValue( null, 'status', $this->mStatus, true );
-		
-		$this->getResult()->addValue( array('form'), 'title', $this->mOptions[ 'form' ] );
 
-		$this->getResult()->addValue( null, 'target', $this->mOptions[ 'target' ], true );
+		$result = $this->getResult();
+
+		if ( $responseText !== null ) {
+			$result->addValue( null, 'responseText', $responseText );
+		}
+
+		$result->addValue( null, 'status', $this->mStatus, true );
+		$result->addValue( array('form'), 'title', $this->mOptions[ 'form' ] );
+		$result->addValue( null, 'target', $this->mOptions[ 'target' ], true );
 	}
 
 	/**
@@ -598,9 +596,9 @@ class SFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Generates a target name from the given target name formula
-	 * 
+	 *
 	 * This parses the formula and replaces &lt;unique number&gt; tags
-	 * 
+	 *
 	 * @global type $wgParser
 	 * @param type $targetNameFormula
 	 * @return type
@@ -668,7 +666,7 @@ class SFAutoeditAPI extends ApiBase {
 			// set target title
 			$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $targetName ) );
 
-			
+
 			// if title exists already cycle through numbers for this tag until
 			// we find one that gives a nonexistent page title
 			while ( $target_title->exists() ) {
@@ -807,7 +805,7 @@ class SFAutoeditAPI extends ApiBase {
 
 				// and merge/overwrite it with the new data
 				$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
-				
+
 			} else {
 				if ( isset( $this->mOptions[ 'preload' ] ) ) {
 					$this->logMessage( wfMessage( 'sf_autoedit_invalidpreloadspecified', $this->mOptions[ 'preload' ] )->parse(), self::WARNING );
@@ -852,7 +850,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		$this->mOptions[ 'formHTML' ] = $formHTML;
 		$this->mOptions[ 'formJS' ] = $formJS;
-		
+
 		if ( $isFormSubmitted ) {
 
 			// if the target page was not specified, see if something was generated
@@ -1073,7 +1071,8 @@ class SFAutoeditAPI extends ApiBase {
 		return array(
 			'form' => null,
 			'target' => null,
-			'query' => null
+			'query' => null,
+			'preload' => null
 		);
 	}
 
@@ -1087,7 +1086,8 @@ class SFAutoeditAPI extends ApiBase {
 		return array(
 			'form' => 'The form to use.',
 			'target' => 'The target page.',
-			'query' => 'The query string.'
+			'query' => 'The query string.',
+			'preload' => 'The name of a page to preload'
 		);
 	}
 
