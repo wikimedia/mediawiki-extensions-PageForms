@@ -738,9 +738,6 @@ class SFAutoeditAPI extends ApiBase {
 		// the article id of the form to be used
 		$formArticleId = $formTitle->getArticleID();
 
-		// source of the data is a page
-		$isPageSource = true;
-
 		// the name of the target page; might be empty when using the one-step-process
 		$targetName = $this->mOptions[ 'target' ];
 
@@ -786,7 +783,7 @@ class SFAutoeditAPI extends ApiBase {
 
 				wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
 
-				$isPageSource = true;
+				$pageExists = true;
 
 				// spoof $wgRequest for SFFormPrinter::formHTML
 				$wgRequest = new FauxRequest( $this->mOptions, true );
@@ -794,7 +791,7 @@ class SFAutoeditAPI extends ApiBase {
 				// call SFFormPrinter::formHTML to get at the form html of the existing page
 				list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 						$sfgFormPrinter->formHTML(
-						$formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula
+						$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
 
 				$formHtmlHasRun = true;
@@ -816,7 +813,10 @@ class SFAutoeditAPI extends ApiBase {
 		// we already preloaded stuff for saving/previewing, do not do it again
 		if ( $isFormSubmitted ) {
 			$preloadContent = '';
-			$isPageSource = false;
+			$pageExists = false;
+		} else {
+			// source of the data is a page
+			$pageExists = ( is_a( $targetTitle, 'Title') && $targetTitle->exists() );
 		}
 
 		// spoof wgRequest for SFFormPrinter::formHTML
@@ -833,7 +833,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		// get wikitext for submitted data and form
 		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $isPageSource, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 
 		if ( $formHtmlHasRun ) {
 			// restore wgOut
