@@ -77,9 +77,10 @@ class SFTemplateInForm {
 				}
 			}
 
-			// Then, get calls to #set and #set_internal
-			// (thankfully, they have basically the same syntax).
-			if ( preg_match_all( '/#(set|set_internal):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
+			// Then, get calls to #set, #set_internal and
+			// #subobject. (Thankfully, they all have similar
+			// syntax).
+			if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
 				foreach ( $matches[2] as $match ) {
 					if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
 						foreach ( $matches2[1] as $i => $propertyName ) {
@@ -94,7 +95,8 @@ class SFTemplateInForm {
 				}
 			}
 
-			// Then, get calls to #declare.
+			// Then, get calls to #declare. (This is really rather
+			// optional, since no one seems to use #declare.)
 			if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
 				foreach ( $matches[1] as $match ) {
 					$setValues = explode( '|', $match );
