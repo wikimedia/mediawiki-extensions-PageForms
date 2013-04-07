@@ -4578,6 +4578,7 @@ $messages['is'] = array(
  * @author Civvì
  * @author Darth Kule
  * @author F. Cosoleto
+ * @author Gloria sah
  * @author Melos
  */
 $messages['it'] = array(
@@ -4729,6 +4730,8 @@ l'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name
 	'sf_runquery_title' => 'Esegui query: $1',
 	'sf_runquery_additionalquery' => 'Query aggiuntive',
 	'sf_formerrors_header' => 'Ci sono stati degli errori nel form di input; vedi qui sotto',
+	'sf_too_few_instances_error' => 'Ci devono essere almeno $1 istanze di questo modello.',
+	'sf_too_many_instances_error' => 'Ci devono essere non più di $1 istanze di questo modello.',
 	'sf_blank_error' => 'Non può esser vuoto',
 	'sf_bad_url_error' => "Deve avere un formato dell'\\URL corretto, completo anche di 'http'",
 	'sf_bad_email_error' => 'Deve avere un formato per di indirizzo email valido',
