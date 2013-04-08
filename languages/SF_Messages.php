@@ -6768,9 +6768,9 @@ Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
 	'sf_autoedit_readonly' => 'De database is momenteel afgesloten voor wijzigingen. Reden: $1',
 	'sf_autoedit_nosemanticform' => 'Het formulier $2 voor pagina $1 kon niet geladen worden. Zie [[{{#special:FormEdit}}/$2/$1]] voor details.',
 	'sf_autoedit_summary' => 'Automatisch bewerkt vanaf pagina $1.',
-	'sf-autoedit-wait' => 'Een ogenblik geduld alstublieft...',
+	'sf-autoedit-wait' => 'Een ogenblik geduld...',
 	'runquery' => 'Zoekopdracht uitvoeren',
-	'sf_runquery_badurl' => 'U moet een formuliernaam aangeven in de URL.
+	'sf_runquery_badurl' => 'U moet een formuliernaam opgeven in de URL.
 De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_runquery_title' => 'Zoekopdracht: $1',
 	'sf_runquery_additionalquery' => 'Additionele zoekopdracht',
@@ -7080,6 +7080,7 @@ $messages['pfl'] = array(
 
 /** Polish (polski)
  * @author BeginaFelicysym
+ * @author Chrumps
  * @author Jwitos
  * @author Maikking
  * @author McMonster
@@ -7112,7 +7113,7 @@ $messages['pl'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Aby korzystając z tego szablonu wypisać na dowolnej stronie wszystkie strony, których pewna własność wskazuje na daną stronę, wybierz odpowiednią własność:',
 	'sf_createtemplate_aggregationlabel' => 'Tytuł listy',
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
-	'sf_createtemplate_standardformat' => 'Standardowy', # Fuzzy
+	'sf_createtemplate_standardformat' => 'Tabela',
 	'sf_createtemplate_infoboxformat' => 'Infoboks po prawej', # Fuzzy
 	'sf_createtemplate_addfield' => 'Dodaj pole',
 	'sf_createtemplate_deletefield' => 'Usuń',
@@ -7137,7 +7138,7 @@ $messages['pl'] = array(
 	'sf_createform_nameinputdesc' => '(zwyczajowo nazwa formularza jest taka sama ja nazwa jego podstawowego szablonu)',
 	'sf_createform_template' => 'Szablon',
 	'sf_createform_templatelabelinput' => 'Etykieta szablonu (nieobowiązkowa)',
-	'sf_createform_allowmultiple' => 'Zezwól na wielokrotne użycie lub nieużycie tego szablonu na tworzonej stronie',
+	'sf_createform_allowmultiple' => 'Zezwól na wielokrotne użycie lub nieużycie tego szablonu na tworzonej stronie', # Fuzzy
 	'sf_createform_field' => 'Pole:',
 	'sf_createform_fieldprop' => 'To pole definiuje własność $1 typu $2.',
 	'sf_createform_fieldproplist' => 'To pole definiuje listę elementów, które mają własność $1 typu $2.',
@@ -7183,7 +7184,7 @@ W przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stro
 	'sf_formedit_edittitle' => 'Edytuj $1: $2',
 	'sf_formedit_morethanoneform' => "'''Uwaga''' – dla tej strony zdefiniowano więcej niż jeden domyślny formularz.",
 	'sf_formedit_formwarning' => 'Uwaga – ta strona <a href="$1">już istnieje</a>, ale nie używa tego formularza.',
-	'sf_formedit_remove' => 'Usuń',
+	'sf_formedit_remove' => 'Usuń', # Fuzzy
 	'sf_formedit_addanother' => 'Dodaj kolejny',
 	'sf_formedit_none' => 'Brak',
 	'sf_autoedit_fail' => 'Modyfikacja [[$1]] nie powiodła się.',
