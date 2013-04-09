@@ -60,7 +60,7 @@ $specialPageAliases['arz'] = array(
 	'UploadWindow' => array( 'ويندو_الأپلود' ),
 );
 
-/** Assamese (অসমীয়া) */
+/** Assamese (অসমীয়া) */
 $specialPageAliases['as'] = array(
 	'CreateCategory' => array( 'শ্ৰেণী_সৃষ্টি_কৰক' ),
 	'Templates' => array( 'সাঁচসমূহ' ),
@@ -532,7 +532,7 @@ $specialPageAliases['oc'] = array(
 	'Templates' => array( 'Modèls' ),
 );
 
-/** Oriya (ଓଡ଼ିଆ) */
+/** Oriya (ଓଡ଼ିଆ) */
 $specialPageAliases['or'] = array(
 	'CreateCategory' => array( 'ଶ୍ରେଣୀ_ତିଆରି_କରନ୍ତୁ' ),
 	'CreateForm' => array( 'ଫରମ_ତିଆରି_କରନ୍ତୁ' ),
@@ -594,6 +594,13 @@ $specialPageAliases['pt-br'] = array(
 /** Romanian (română) */
 $specialPageAliases['ro'] = array(
 	'Templates' => array( 'Formate' ),
+);
+
+/** Russian (русский) */
+$specialPageAliases['ru'] = array(
+	'CreateCategory' => array( 'Создать_категорию' ),
+	'CreateTemplate' => array( 'Создать_шаблон' ),
+	'Templates' => array( 'Шаблоны' ),
 );
 
 /** Sicilian (sicilianu) */
