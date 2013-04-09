@@ -387,26 +387,33 @@ END;
 					'SORT BY cl_sortkey' );
 				if ( $res ) {
 					while ( $res && $row = $db->fetchRow( $res ) ) {
-						if ( array_key_exists( 'page_title', $row ) ) {
-							$page_namespace = $row['page_namespace'];
-							if ( $page_namespace == NS_CATEGORY ) {
-								$new_category = $row[ 'page_title' ];
-								if ( !in_array( $new_category, $categories ) ) {
-									$newcategories[] = $new_category;
-								}
-							} else {
-								$cur_title = Title::makeTitleSafe( $row['page_namespace'], $row['page_title'] );
-								$cur_value = self::titleString( $cur_title );
-								if ( ! in_array( $cur_value, $pages ) ) {
-									$pages[] = $cur_value;
-								}
-								// return if we've reached the maximum number of allowed values
-								if ( count( $pages ) > $sfgMaxAutocompleteValues ) {
-									// Remove duplicates, and put in alphabetical order.
-									$pages = array_unique( $pages );
-									sort( $pages );
-									return $pages;
-								}
+						if ( !array_key_exists( 'page_title', $row ) ) {
+							continue;
+						}
+						$page_namespace = $row['page_namespace'];
+						$page_name = $row[ 'page_title' ];
+						if ( $page_namespace == NS_CATEGORY ) {
+							if ( !in_array( $page_name, $categories ) ) {
+								$newcategories[] = $page_name;
+							}
+						} else {
+							$cur_title = Title::makeTitleSafe( $page_namespace, $page_name );
+							if ( is_null( $cur_title ) ) {
+								// This can happen if it's
+								// a "phantom" page, in a
+								// namespace that no longer exists.
+								continue;
+							}
+							$cur_value = self::titleString( $cur_title );
+							if ( ! in_array( $cur_value, $pages ) ) {
+								$pages[] = $cur_value;
+							}
+							// return if we've reached the maximum number of allowed values
+							if ( count( $pages ) > $sfgMaxAutocompleteValues ) {
+								// Remove duplicates, and put in alphabetical order.
+								$pages = array_unique( $pages );
+								sort( $pages );
+								return $pages;
 							}
 						}
 					}
