@@ -601,14 +601,16 @@ END;
 							$search_template_str );
 						$found_instance = preg_match( '/{{' . $preg_match_template_str . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
 						if ( $allow_multiple ) {
-							// find instances of this template in the page -
+							// Find instances of this template in the page -
 							// if there's at least one, re-parse this section of the
 							// definition form for the subsequent template instances in
 							// this page; if there's none, don't include fields at all.
 							// there has to be a more efficient way to handle multiple
 							// instances of templates, one that doesn't involve re-parsing
 							// the same tags, but I don't know what it is.
-							if ( $found_instance ) {
+							// (Also add additional, blank instances if there's a minimum
+							// number required in this form, and we haven't reached it yet.)
+							if ( $found_instance || $instance_num < $minimumInstances ) {
 								$instance_num++;
 							} else {
 								$all_instances_printed = true;
