@@ -228,6 +228,8 @@ class SFParserFunctions {
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
 				$inQueryStr = str_replace( '&amp;', '%26', $value );
+				// "Decode" any other HTML tags.
+				$inQueryStr = html_entity_decode( $inQueryStr, ENT_QUOTES );
 
 				parse_str($inQueryStr, $arr);
 				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
