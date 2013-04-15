@@ -1864,11 +1864,12 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch
  * @author Mirzali
  */
 $messages['diq'] = array(
+	'sf_createproperty_propname' => 'Nameyo xısusi:',
 	'templates' => 'Şabloni',
 	'sf_createtemplate_deletefield' => 'Bestere',
 	'sf_createclass_create' => 'Vıraze',
 	'formedit' => 'Na former bıvurne',
-	'sf_formedit_remove' => 'Hewad',
+	'sf_formedit_remove' => 'Hewad', # Fuzzy
 	'sf_formedit_none' => 'Çıno',
 	'sf_template_docu' => 'No şablonê "$1"yo.
 Beno ke zey formatê cêrêni name bo:',
@@ -7680,7 +7681,7 @@ $messages['pt-br'] = array(
 	'sf_forminputs_size' => 'O tamanho desse campo de texto, em caracteres',
 	'sf_forminputs_maxlength' => 'O comprimento máximo permitido para o texto desse campo',
 	'sf_forminputs_placeholder' => 'Texto de ajuda que aparece no campo até que o usuário clique nele',
-	'sf_forminputs_uploadable' => 'Coloca um link "Upload de arquivo" ao lado desse campo', # Fuzzy
+	'sf_forminputs_uploadable' => 'Coloca um link "{{int:upload}}" ao lado desse campo',
 	'sf_forminputs_defaultfilename' => 'O nome padrão do arquivo para os arquivos enviados',
 	'sf_forminputs_rows' => 'O número de linhas desse campo',
 	'sf_forminputs_cols' => 'O número de colunas desse campo',
@@ -7709,7 +7710,7 @@ $messages['pt-br'] = array(
 	'sf_createform_nameinputdesc' => '(normalmente é dado ao formulário o mesmo nome que a sua predefinição principal):',
 	'sf_createform_template' => 'Predefinição:',
 	'sf_createform_templatelabelinput' => 'Título da predefinição (opcional):',
-	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) dessa predefinição na página criada',
+	'sf_createform_allowmultiple' => 'Permitir múltiplas (ou zero) instâncias dessa predefinição na página criada',
 	'sf_createform_field' => 'Campo:',
 	'sf_createform_fieldprop' => 'Este campo define a propriedade $1, do tipo $2.',
 	'sf_createform_fieldproplist' => 'Este campo define uma lista de elementos que tem a propriedade $1, do tipo $2.',
@@ -7761,7 +7762,8 @@ isto é, o URL deve ficar parecido com 'Special:FormEdit?form=<form name>&target
 	'sf_formedit_morethanoneform' => "'''Aviso''': mais de um formulário padrão está definido para esta página.",
 	'sf_formedit_formwarning' => 'Aviso: esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
 	'sf_formedit_mismatchedbrackets' => 'Aviso: a página contém parêntesis, colchetes ou chaves sem fechamento, desse modo, a página não renderizará corretamente o formulário. Por favor, <a href="$1">corrija o erro no texto fonte</a> antes de continuar.',
-	'sf_formedit_remove' => 'Remover',
+	'sf_formedit_remove' => 'Remover essa instância',
+	'sf_formedit_addanotherabove' => 'Adicionar uma instância acima desta',
 	'sf_formedit_addanother' => 'Adicionar outro',
 	'sf_formedit_none' => 'Nenhum',
 	'sf_formedit_emptytitle' => 'Erro: os dados inseridos resultam num título de página em branco.',
@@ -7791,6 +7793,8 @@ a URL deve se parecer com 'Special:RunQuery/<form name>'.",
 	'sf_runquery_title' => 'Pesquisar: $1',
 	'sf_runquery_additionalquery' => 'Consulta adicional',
 	'sf_formerrors_header' => 'Houve erros com suas entradas do formulário; veja abaixo.',
+	'sf_too_few_instances_error' => 'É preciso haver pelo menos {{PLURAL:$1|uma instância|$1 instâncias}} desta predefinição.',
+	'sf_too_many_instances_error' => 'Não pode haver mais de {{PLURAL:$1|uma instância|$1 instâncias}} desta predefinição.',
 	'sf_blank_error' => 'não pode ficar em branco',
 	'sf_bad_url_error' => "precisa ter o formato correto da URL, começando com 'http'",
 	'sf_bad_email_error' => 'precisa ter um formato válido de endereço de e-mail',
@@ -7817,12 +7821,12 @@ se já existir uma página com o mesmo nome, você será encaminhado a edição 
 	'sf_category_hasdefaultform' => 'Esta categoria utiliza o formulário $1.',
 	'sf_category_desc' => 'Esta é a categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Ver a aba "Editar" para páginas editáveis por formulário', # Fuzzy
+	'right-viewedittab' => 'Veja a aba "{{int:edit}}" para páginas editáveis pelo formulário',
 	'right-editrestrictedfields' => 'Editar campos restritos de formulários',
 	'right-createclass' => 'Criar novas classes semânticas',
 	'action-createclass' => 'criar novas classes semânticas',
 	'action-editrestrictedfields' => 'editar campos restritos dos formulários',
-	'action-viewedittab' => 'visualizar a aba "Editar" para páginas editáveis pelo formulário', # Fuzzy
+	'action-viewedittab' => 'veja a aba "{{int:edit}}" para páginas editáveis pelo formulário',
 );
 
 /** Tarifit (Tarifit)
