@@ -3567,12 +3567,13 @@ Wänn s scho ne Syte mit däm Name het, wirsch zuen eme Formular wytergleitet, w
 );
 
 /** Gujarati (ગુજરાતી)
+ * @author Ashok modhvadia
  * @author Dsvyas
  * @author KartikMistry
  */
 $messages['gu'] = array(
 	'sf_forminputs_mandatory' => 'ફરજિયાત',
-	'sf_forminputs_restricted' => 'સંરક્ષિત (ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે)', # Fuzzy
+	'sf_forminputs_restricted' => 'ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે',
 	'sf_createform_hidden' => 'છુપાયેલ',
 	'sf_createform_removetemplate' => 'ઢાંચો દૂર કરો',
 	'sf_createform_addtemplate' => 'ઢાંચો ઉમેરો:',
@@ -3580,7 +3581,7 @@ $messages['gu'] = array(
 	'sf_createform_atend' => 'અંતમાં',
 	'sf_createform_add' => 'ઉમેરો',
 	'createcategory' => 'શ્રેણીની રચના કરો',
-	'sf_createcategory_name' => 'નામ', # Fuzzy
+	'sf_createcategory_name' => 'શ્રેણી નામ:',
 	'sf_createcategory_makesubcategory' => 'આને અન્ય શ્રેણીની ઉપશ્રેણી બનાવો (વૈકલ્પિક):',
 	'formstart' => 'ફોર્મ વાળું પાનું ઉમેરો',
 	'sf_blank_namespace' => 'મુખ્ય',
