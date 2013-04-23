@@ -1541,11 +1541,12 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
 
 /** Chechen (нохчийн)
  * @author Sasan700
+ * @author Умар
  */
 $messages['ce'] = array(
 	'templates' => 'Куцкепаш',
-	'sf_createform_template' => 'Куцкеп:',
-	'sf_createform_addtemplate' => 'Тlетоха куцкеп:',
+	'sf_createform_template' => 'Кеп:',
+	'sf_createform_addtemplate' => 'Тlетоха кеп:',
 	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
 
