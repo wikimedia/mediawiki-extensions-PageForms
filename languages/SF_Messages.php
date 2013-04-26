@@ -5893,9 +5893,11 @@ $messages['mhr'] = array(
 );
 
 /** Minangkabau (Baso Minangkabau)
+ * @author Iwan Novirion
  * @author Naval Scene
  */
 $messages['min'] = array(
+	'sf_createproperty_propname' => 'Namo properti:',
 	'sf_viewform' => 'Caliak formulir',
 );
 
@@ -7855,14 +7857,16 @@ $messages['ro'] = array(
 	'templates' => 'Formate',
 	'sf_templates_docu' => 'Următoarele formate există în wiki.',
 	'sf_templates_definescat' => 'definește o categorie: $1',
-	'createtemplate' => 'Creează un format',
+	'createtemplate' => 'Creare format',
 	'sf-createtemplate-with-name' => 'Creează formatul: $1',
 	'sf_createtemplate_namelabel' => 'Numele formatului:',
 	'sf_createtemplate_multipleinstance' => 'Acest format poate fi inclus de mai multe ori pe pagină.',
 	'sf_createtemplate_categorylabel' => 'Categorie definită de către format (opțional):',
 	'sf_createtemplate_templatefields' => 'Câmpurile formatului',
 	'sf_createtemplate_fieldname' => 'Numele câmpului:',
-	'sf_createtemplate_semanticproperty' => 'Proprietate semnatică:',
+	'sf_createtemplate_displaylabel' => 'Etichetă de afișat:',
+	'sf_createtemplate_semanticproperty' => 'Proprietate semantică:',
+	'sf_createtemplate_fieldislist' => 'Acest câmp poate conține o listă de valori, separate prin virgulă',
 	'sf_createtemplate_aggregation' => 'Agregare',
 	'sf_createtemplate_aggregationlabel' => 'Titlu pentru listă:',
 	'sf_createtemplate_outputformat' => 'Format ieșire:',
@@ -7875,7 +7879,7 @@ $messages['ro'] = array(
 	'forms' => 'Formular',
 	'sf_forminputs_mandatory' => 'Obligatoriu',
 	'sf_forminputs_restricted' => 'Doar administratorii pot modifica această intrare',
-	'createform' => 'Creează un formular',
+	'createform' => 'Creare formular',
 	'sf_createform_nameinput' => 'Numele formularului',
 	'sf_createform_template' => 'Format:',
 	'sf_createform_field' => 'Câmp:',
@@ -7908,7 +7912,7 @@ $messages['ro'] = array(
 	'sf_viewform' => 'Vedeți formular',
 	'sf_editsource' => 'Modificare sursă',
 	'sf_formedit_edittitle' => 'Modificare $1: $2',
-	'sf_formedit_remove' => 'Elimină',
+	'sf_formedit_remove' => 'Elimină această instanță',
 	'sf_formedit_addanother' => 'Adăugați altul',
 	'sf_formedit_none' => 'Nimic',
 	'sf_formedit_saveandcontinueediting' => 'Salvează și continuă',
@@ -7924,8 +7928,8 @@ $messages['ro'] = array(
 	'sf_form_freetextlabel' => 'Text liber',
 	'sf_category_desc' => 'Aceasta este categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Vizualizează fila „Modificare” pentru paginile ce pot fi modificate printr-un formular', # Fuzzy
-	'action-viewedittab' => 'vizualizați fila „Modificare” pentru paginile ce pot fi modificate printr-un formular', # Fuzzy
+	'right-viewedittab' => 'Vizualizează fila „{{int:edit}}” pentru paginile ce pot fi modificate printr-un formular',
+	'action-viewedittab' => 'vizualizați fila „{{int:edit}}” pentru paginile ce pot fi modificate printr-un formular',
 );
 
 /** tarandíne (tarandíne)

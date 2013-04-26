@@ -756,3 +756,8 @@ $specialPageAliases['zh-hans'] = array(
 	'Templates' => array( '模板' ),
 	'UploadWindow' => array( '上传窗口' ),
 );
+
+/** Traditional Chinese (中文（繁體）‎) */
+$specialPageAliases['zh-hant'] = array(
+	'UploadWindow' => array( '上載視窗' ),
+);
