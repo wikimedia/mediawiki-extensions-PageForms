@@ -5886,10 +5886,11 @@ $messages['lv'] = array(
 
 /** Eastern Mari (олык марий)
  * @author Сай
+ * @author Санюн Вадик
  */
 $messages['mhr'] = array(
 	'sf_createtemplate_deletefield' => 'Шӧраш',
-	'sf_createform_inputtypedefault' => '(ойлыде)',
+	'sf_createform_inputtypedefault' => '(тӱҥалтыш)',
 );
 
 /** Minangkabau (Baso Minangkabau)
