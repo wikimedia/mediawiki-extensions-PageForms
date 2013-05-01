@@ -770,18 +770,23 @@ class SFAutoeditAPI extends ApiBase {
 		// preload data if not explicitly excluded and if the preload page exists
 		if ( !isset( $this->mOptions[ 'preload' ] ) || $this->mOptions[ 'preload' ] !== false ) {
 
-			if ( !isset( $this->mOptions[ 'preload' ] ) || $this->mOptions[ 'preload' ] === true ) {
-				$preloadTitle = Title::newFromText( $targetName );
-			} else {
+			if ( isset( $this->mOptions[ 'preload' ] ) && is_string( $this->mOptions[ 'preload' ] ) ) {
 				$preloadTitle = Title::newFromText( $this->mOptions[ 'preload' ] );
+			} else {
+				$preloadTitle = Title::newFromText( $targetName );
 			}
 
 			if ( $preloadTitle !== null && $preloadTitle->exists() ) {
 
 				// the content of the page that was specified to be used for preloading
 				$preloadContent = WikiPage::factory( $preloadTitle )->getRawText();
+			} else {
+				$preloadContent = null;
+			}
 
-				wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+			wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+
+			if ( $preloadContent !== null ) {
 
 				$pageExists = true;
 
