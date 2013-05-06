@@ -2493,6 +2493,7 @@ Para crear una página con este formulario, ingrese el nombre de la página a co
 
 /** Estonian (eesti)
  * @author Avjoska
+ * @author Pikne
  */
 $messages['et'] = array(
 	'sf_createproperty_proptype' => 'Tüüp:',
@@ -2506,7 +2507,10 @@ $messages['et'] = array(
 	'sf_createtemplate_plainformat' => 'Lihttekst',
 	'sf_createtemplate_addfield' => 'Lisa väli',
 	'sf_createtemplate_deletefield' => 'Kustuta',
+	'forms' => 'Vormid',
+	'sf_forms_docu' => 'Vikis on olemas järgmised vormid.',
 	'createform' => 'Loo vorm',
+	'sf_createform_nameinput' => 'Vormi nimi',
 	'sf_createform_template' => 'Mall:',
 	'sf_createform_field' => 'Väli:',
 	'sf_createform_hidden' => 'Peidetud',
@@ -2519,18 +2523,27 @@ $messages['et'] = array(
 	'createcategory' => 'Loo kategooria',
 	'sf-createcategory-with-name' => 'Loo kategooria: $1',
 	'sf_createcategory_name' => 'Kategooria nimi:',
+	'sf_createcategory_defaultform' => 'Vaikevorm:',
+	'sf_createclass_allowedvalues' => 'Lubatud väärtused:',
 	'sf_createclass_listofvalues' => 'Väärtuste loend?',
+	'sf_createclass_nameinput' => 'Vormi nimi:',
+	'sf_formstart_badform' => 'Tõrge: Leheküljelt "$1" ei leitud ühtegi vormi.',
+	'sf_formstart_badtitle' => 'Tõrge: "$1" on vigane lehekülje pealkiri.',
 	'sf_formstart_createoredit' => 'Loo või redigeeri',
-	'sf_formedit_remove' => 'Eemalda',
+	'sf_formedit_remove' => 'Eemalda', # Fuzzy
 	'sf_formedit_addanother' => 'Lisa teine',
 	'sf_formedit_saveandcontinueediting' => 'Salvesta ja jätka',
+	'sf_autoedit_invalidform' => '$1 pole sobiv vorm.',
+	'sf_autoedit_redlinkexists' => '$1 on juba olemas.',
 	'sf-autoedit-wait' => 'Oota...',
-	'runquery' => 'Käivita päring',
+	'runquery' => 'Päringu käivitamine',
+	'sf_runquery_additionalquery' => 'Lisapäring',
 	'sf_blank_error' => 'ei tohi olla tühi',
 	'sf_bad_email_error' => 'peab olema sobiv e-aadressi vorming',
 	'sf_bad_number_error' => 'peab olema sobiv number',
 	'sf_bad_date_error' => 'peab olema kehtiv kuupäev',
 	'sf_deletionlog' => 'Kustutamislogi',
+	'sf-preview-header' => 'Vormi eelvaade',
 	'sf_form_freetextlabel' => 'Vaba tekst',
 	'sf_category_desc' => 'See on $1 kategooria.',
 	'sf_blank_namespace' => 'Põhinimeruum',
@@ -10003,7 +10016,7 @@ $messages['zh-hans'] = array(
 如果页面已经存在，您将被送到编辑页面的表单。
 否则，您将被送到添加页面的表单。',
 	'sf_formstart_createoredit' => '创建或编辑',
-	'formedit' => '用表单编辑',
+	'formedit' => '用表格编辑',
 	'sf_formedit_createtitle' => '创建$1：$2',
 	'sf_formedit_createtitlenotarget' => '创建$1',
 	'sf_formedit_badurl' => '这是用表单编辑的页面。您必须同时在URL中指定表单名和目标页面；
@@ -10076,12 +10089,12 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
 	'sf_category_hasdefaultform' => '这个分类使用表单$1。',
 	'sf_category_desc' => '这是$1分类。',
 	'sf_blank_namespace' => '首页',
-	'right-viewedittab' => '在可通过表单编辑的页面上查看“{{int:edit}}”标签。',
+	'right-viewedittab' => '查看可用表格编辑页面的“{{int:edit}}”标签',
 	'right-editrestrictedfields' => '编辑受限制的表单字段',
 	'right-createclass' => '创建新的语义类',
 	'action-createclass' => '创建新的语义类',
 	'action-editrestrictedfields' => '编辑受限制的表单域',
-	'action-viewedittab' => '查看可使用表单编辑的页面的“{{int:edit}}”标签',
+	'action-viewedittab' => '查看可用表格编辑页面的“{{int:edit}}”标签',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
