@@ -117,6 +117,11 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$pageTitle = wfMessage( 'sf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
+		} elseif ( $result[ 'form' ] == '' ) {
+			// display error message if the form is not specified in the URL
+			$pageTitle = wfMessage( 'formedit' )->text();
+			$text = Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formedit_badurl' )->text() ) . "\n";
+			$wgOut->addHTML( $text );
 		}
 
 		$wgOut->setPageTitle( $pageTitle );
