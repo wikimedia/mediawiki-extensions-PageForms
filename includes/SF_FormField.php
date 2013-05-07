@@ -258,11 +258,31 @@ END;
 	// such templates in form definitions gets more sophisticated
 	function createMarkup( $part_of_multiple, $is_last_field_in_template ) {
 		$text = "";
+		$descPlaceholder = "";
+		$textBeforeField = "";
+
+		if ( array_key_exists( "Description", $this->mFieldArgs ) ) {
+			if ( $this->mFieldArgs['Description'] != '' ) {
+				if ( isset($this->mFieldArgs['DescriptionTooltipMode']) )
+				{
+					$descPlaceholder = ' {{#info:'.$this->mFieldArgs['Description'].'}}';
+				}else{
+					$descPlaceholder = '<br><p class="sfFieldDescription" style="font-size:0.7em; color:gray;">' . $this->mFieldArgs['Description'] . '</p>';
+				}
+			}
+		}
+
+		if ( array_key_exists( "TextBeforeField", $this->mFieldArgs ) ) {
+			if ( $this->mFieldArgs['TextBeforeField'] != '' ) {
+				$textBeforeField = $this->mFieldArgs['TextBeforeField'];
+			}
+		}
+
 		if ( $this->template_field->getLabel() !== '' ) {
 			if ( $part_of_multiple ) {
-				$text .= "'''" . $this->template_field->getLabel() . ":''' ";
+				$text .= "'''" . $textBeforeField . $this->template_field->getLabel() . ":''' $descPlaceholder";
 			} else {
-				$text .= "! " . $this->template_field->getLabel() . ":\n";
+				$text .= "! " . $textBeforeField . $this->template_field->getLabel() . ":$descPlaceholder\n";
 			}
 		}
 		if ( ! $part_of_multiple ) { $text .= "| "; }
@@ -343,6 +363,7 @@ END;
 
 		global $wgParser;
 		foreach ( $other_args as $argname => $argvalue ) {
+
 			if ( is_string( $argvalue ) ) {
 				$other_args[$argname] =
 					$wgParser->recursiveTagParse( $argvalue );
