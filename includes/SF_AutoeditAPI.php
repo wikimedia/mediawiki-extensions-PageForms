@@ -309,22 +309,21 @@ class SFAutoeditAPI extends ApiBase {
 		// Find existing target article if it exists, or create a new one.
 		$article = new Article( Title::newFromText( $this->mOptions[ 'target' ] ) );
 
-		$summary = (array_key_exists( 'wpSummary', $this->mOptions )) ? $this->mOptions[ 'wpSummary' ] : '';
-		$startTime = (array_key_exists( 'wpStartTime', $this->mOptions )) ? $this->mOptions[ 'wpStarttime' ] : wfTimestampNow();
-		$editTime = (array_key_exists( 'wpEdittime', $this->mOptions )) ? $this->mOptions[ 'wpEdittime' ] : '';
-
 		// set up a normal edit page
 		// we'll feed it our data to simulate a normal edit
 		$editor = new EditPage( $article );
 
-		// set up simulated form data
-		$data = array(
-			'wpTextbox1' => $targetContent,
-			'wpSummary' => $summary,
-			'wpStarttime' => $startTime,
-			'wpEdittime' => $editTime,
-			'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
-			'action' => 'submit',
+		// set up form data:
+		// merge data coming from the web request on top of some defaults
+		$data = array_merge(
+				array(
+					'wpTextbox1' => $targetContent,
+					'wpSummary' => '',
+					'wpStarttime' => wfTimestampNow(),
+					'wpEdittime' => '',
+					'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
+					'action' => 'submit',
+				), $this->getRequest()->getValues()
 		);
 
 		// set up a faux request with the simulated data
