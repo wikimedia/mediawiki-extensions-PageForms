@@ -1545,8 +1545,11 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
  */
 $messages['ce'] = array(
 	'templates' => 'Куцкепаш',
+	'sf_createtemplate_deletefield' => 'ДӀаяккха',
 	'sf_createform_template' => 'Кеп:',
+	'sf_createform_removetemplate' => 'ДӀаяккха кеп',
 	'sf_createform_addtemplate' => 'Тlетоха кеп:',
+	'sf_formedit_remove' => 'ДӀаяккха',
 	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
 
