@@ -668,8 +668,12 @@ class SFAutoeditAPI extends ApiBase {
 
 
 			// if title exists already cycle through numbers for this tag until
-			// we find one that gives a nonexistent page title
-			while ( $target_title->exists() ) {
+			// we find one that gives a nonexistent page title;
+			//
+			// can not use $target_title->exists(); it does not use
+			// Title::GAID_FOR_UPDATE, which is needed to get correct data from
+			// cache; use $target_title->getArticleID() instead
+			while ( $target_title->getArticleID( Title::GAID_FOR_UPDATE ) !== 0 ) {
 
 				if ( $isRandom ) {
 					$title_number = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
