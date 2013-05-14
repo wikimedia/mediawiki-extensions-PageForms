@@ -83,8 +83,7 @@ class SFFormEdit extends SpecialPage {
 			// if page does not exist and preload parameter is set, pass that on
 			$module->setOption( 'preload', $wgRequest->getText( 'preload' ) );
 		} else {
-			// nothing set, so do not preload
-			$module->setOption( 'preload', false );			
+			// nothing set, so do not set preload
 		}
 
 		$module->execute();
