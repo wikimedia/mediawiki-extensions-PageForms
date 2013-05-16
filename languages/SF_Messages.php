@@ -4722,7 +4722,7 @@ dovrebbe risultare una cosa di questo tipo 'Special:FormEdit?form=<form name>&ta
 	'sf_formedit_morethanoneform' => "'''Attenzione:''' Più di un modulo predefinito è stato definito per questa pagina.",
 	'sf_formedit_formwarning' => 'Attenzione: Questa pagina <a href="$1">esiste già</a>, ma non usa questo form.',
 	'sf_formedit_mismatchedbrackets' => 'Attenzione: questa pagina contiene parentesi quadre o graffe non chiuse, quindi la pagina non sarà gestita correttamente dal modulo. <a href="$1">Correggere l\'errore nel testo di origine</a> prima di procedere.',
-	'sf_formedit_remove' => 'Rimuovi', # Fuzzy
+	'sf_formedit_remove' => 'Rimuovi questa istanza',
 	'sf_formedit_addanother' => 'Aggiungi un altro',
 	'sf_formedit_none' => 'Nessuno',
 	'sf_formedit_hookerror' => "Errore: un'estensione MediaWiki ha impedito la modifica della pagina di destinazione.",
