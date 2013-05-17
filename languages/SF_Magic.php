@@ -89,8 +89,8 @@ $magicWords['mk'] = array(
 
 /** Marathi (मराठी) */
 $magicWords['mr'] = array(
-	'arraymap' => array( 0, 'नकाशेरचना', 'arraymap' ),
-	'arraymaptemplate' => array( 0, 'नकाशेसाचारचना', 'arraymaptemplate' ),
+	'arraymap' => array( 0, 'नकाशेरचना' ),
+	'arraymaptemplate' => array( 0, 'नकाशेसाचारचना' ),
 );
 
 /** Low Saxon (Netherlands) (Nedersaksies) */
