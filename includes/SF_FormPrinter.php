@@ -435,12 +435,14 @@ END;
 			$wgOut->addHTML( "\n<hr />\n" );
 		}
 
-		$oldParser = $wgParser;
+//		$oldParser = $wgParser;
 
-		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
-		$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
+//		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
+		if ( !$wgParser->Options() ) {
+			$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
+		}
 		$wgParser->Title( $this->mPageTitle );
-		$wgParser->clearState();
+//		$wgParser->clearState();
 
 		$form_def = SFFormUtils::getFormDefinition( $wgParser, $form_def, $form_id );
 
@@ -1613,7 +1615,7 @@ END;
 		$parserOutput = $wgParser->getOutput();
 		$wgOut->addParserOutputNoText( $parserOutput );
 
-		$wgParser = $oldParser;
+//		$wgParser = $oldParser;
 
 		wfProfileOut( __METHOD__ );
 
