@@ -1817,7 +1817,7 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für dieses Attribut ist|Die möglichen Werte für dieses Attribut sind}}:',
 	'sf_template_docu' => 'Dies ist die Vorlage „$1“.
 Sie sollte im folgenden Format genutzt werden:',
-	'sf_template_docufooter' => 'Klicke auf „Bearbeiten“, um den Vorlagentext anzusehen.',
+	'sf_template_docufooter' => 'Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
 Um eine Seite mit diesem Formular zu erstellen, gib den Seitennamen unten in das Eingabefeld ein.
 Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
@@ -1843,7 +1843,7 @@ Sofern bereits eine Seite mit diesem Namen vorhanden ist, wirst du automatisch z
 $messages['de-formal'] = array(
 	'sf_createproperty_allowedvalsinput' => 'Sofern Sie für dieses Attribut nur bestimmte Werte zulassen möchten, geben Sie diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, müssen Sie es durch „\\,“ ersetzen):',
 	'sf_createtemplate_addtemplatebeforesave' => 'Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.',
-	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite',
+	'sf_createform_allowmultiple' => 'Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite', # Fuzzy
 	'sf_createclass_docu' => 'Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.
 Bitte nutzen Sie eine der folgenden Seiten für weitere Optionen: $1.',
 	'sf_formstart_docu' => 'Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.
@@ -1856,7 +1856,7 @@ Andernfalls wird das Formular zum Erstellen der Seite aufgerufen.',
 	'sf_formedit_badurl' => 'Dies ist die Spezialseite zum Bearbeiten einer Seite mit einem Formular. Sie müssen den Namen eines Formulars und den Namen der zu bearbeitenden Seite in der URL angeben.
 Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Formularname>&target=<Seitenname>“ oder „Spezial:Mit_Formular_bearbeiten/<Formularname>/<Seitenname>“.',
 	'sf_formerrors_header' => 'Ihre Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.',
-	'sf_template_docufooter' => 'Klicken Sie auf „Bearbeiten“, um den Vorlagentext anzusehen.',
+	'sf_template_docufooter' => 'Klicken Sie auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.',
 	'sf_form_docu' => 'Dies ist das Formular „$1“.
 Um eine Seite mit diesem Formular zu erstellen, geben Sie den Seitennamen unten in das Eingabefeld ein.
 Sofern bereits eine Seite mit diesem Namen vorhanden ist, werden Sie automatisch zum Formular für das Bearbeiten der Seite weitergeleitet.',
