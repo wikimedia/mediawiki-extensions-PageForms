@@ -1544,7 +1544,7 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
  * @author Умар
  */
 $messages['ce'] = array(
-	'templates' => 'Куцкепаш',
+	'templates' => 'Кепаш',
 	'sf_createtemplate_deletefield' => 'ДӀаяккха',
 	'sf_createform_template' => 'Кеп:',
 	'sf_createform_removetemplate' => 'ДӀаяккха кеп',
