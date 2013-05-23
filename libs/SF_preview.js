@@ -189,13 +189,12 @@
 		// copy all explicitly specified attributes (except 'type' attribute)
 		// from the old to the new button
 		var oldBtnElement = this[0];
-		var newBtnElement = btn[0];
 		var i;
 
 		for ( i = 0; i < oldBtnElement.attributes.length; i = i + 1 ) {
 			var attribute = oldBtnElement.attributes[i];
 			if ( attribute.name !== 'type' ) {
-				newBtnElement[attribute.name] = attribute.value;
+				btn.attr( attribute.name,  attribute.value );
 			}
 		}
 
