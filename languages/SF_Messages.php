@@ -5559,6 +5559,7 @@ $messages['lb'] = array(
 	'sf_templates_definescat' => "definéiert d'Kategorie: $1",
 	'createtemplate' => 'Eng nei Schabloun maachen',
 	'sf_createtemplate_namelabel' => 'Numm vun der Schabloun:',
+	'sf_createtemplate_multipleinstance' => 'Dës Schabloun ka méi dacks an eng Säit dragesat ginn.',
 	'sf_createtemplate_categorylabel' => 'Kategorie déi duerch eng Schabloun definéiert ass (fakultativ):',
 	'sf_createtemplate_templatefields' => 'Schablounefelder',
 	'sf_createtemplate_fieldname' => 'Numm vum Feld:',
