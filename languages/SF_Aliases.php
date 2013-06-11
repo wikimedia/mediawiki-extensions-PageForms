@@ -396,11 +396,11 @@ $specialPageAliases['ksh'] = array(
 
 /** Cornish (kernowek) */
 $specialPageAliases['kw'] = array(
-	'CreateCategory' => array( 'FormyaClass' ),
-	'CreateClass' => array( 'GwruthylClass' ),
-	'CreateForm' => array( 'FormyaFurvlen' ),
-	'CreateTemplate' => array( 'FormyaScantlyn' ),
-	'Templates' => array( 'Scantlyns' ),
+	'CreateCategory' => array( 'GwruthylKlass' ),
+	'CreateClass' => array( 'GwruthylKlassyans' ),
+	'CreateForm' => array( 'GwruthylFurvlen' ),
+	'CreateTemplate' => array( 'GwruthylSkantlyn' ),
+	'Templates' => array( 'Skantlyns' ),
 );
 
 /** Ladino (Ladino) */
