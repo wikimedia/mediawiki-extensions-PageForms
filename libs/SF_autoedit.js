@@ -61,7 +61,19 @@
 					jresult.removeClass( 'autoedit-result-wait' ).addClass( 'autoedit-result-error' );
 					jtrigger.removeClass( 'autoedit-trigger-wait' ).addClass( 'autoedit-trigger-error' );
 				}
-			} // function to be called if the request succeeds
+			}, // function to be called if the request succeeds
+			error:  function ( jqXHR, textStatus, errorThrown ) {
+				var result = jQuery.parseJSON(jqXHR.responseText);
+				var text = result.responseText;
+
+				for ( var i = 0; i < result.errors.length; i++ ) {
+					text += ' ' + result.errors[i].message;
+				}
+
+				jresult.empty().append( text );
+				jresult.removeClass( 'autoedit-result-wait' ).addClass( 'autoedit-result-error' );
+				jtrigger.removeClass( 'autoedit-trigger-wait' ).addClass( 'autoedit-trigger-error' );
+			} // function to be called if the request fails
 		} );
 	};
 
