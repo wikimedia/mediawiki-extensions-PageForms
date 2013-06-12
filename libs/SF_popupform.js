@@ -81,7 +81,7 @@ window.ext.popupform = new function() {
 				readystate = iframe.contents()[0].readyState;
 
 				// if dom is built but document not yet displayed
-				if ( readystate === 'interactive' ) {
+				if ( readystate === 'interactive' || readystate === 'complete' ) {
 					needsRender = false; // flag that rendering is already done
 					handleLoadFrame();
 				}
