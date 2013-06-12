@@ -326,6 +326,10 @@ class SFAutoeditAPI extends ApiBase {
 				), $this->getRequest()->getValues()
 		);
 
+		if ( array_key_exists( 'format', $data ) ) {
+			unset( $data['format'] );
+		}
+
 		// set up a faux request with the simulated data
 		$request = new FauxRequest( $data, true );
 
