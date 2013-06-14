@@ -213,10 +213,7 @@ if a page with that name already exists, you will be sent to a form to edit that
 	'action-viewedittab' => 'view the "{{int:edit}}" tab for pages editable by form',
 );
 
-/** Message documentation (This is the name of the message documentation language code (qqq). Follow the rules of your languages and use small first letter if it doesn't capitalize language names always.
-
-It might be easier to translate it as "translation guidelines" or "translation help".
-{{Identical|Message documentation}})
+/** Message documentation (Message documentation)
  * @author EugeneZelenko
  * @author Fryed-peach
  * @author Jon Harald Søby
@@ -276,6 +273,7 @@ Title below, create link. If you enter, include ".".',
 {{Related|Sf createform fieldprop}}',
 	'sf_createform_inputtypedefault' => '{{Identical|Default}}',
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
+	'sf_createform_removetemplate' => '{{Identical|Remove template}}',
 	'sf_createform_add' => '{{Identical|Add}}',
 	'createcategory' => '{{doc-special|CreateCategory}}',
 	'sf-createcategory-with-name' => 'Used as page title. Parameters:
@@ -9528,6 +9526,13 @@ $messages['ur'] = array(
 	'createclass' => 'ایک کلاس کی تخلیق',
 	'sf_createclass_nameinput' => 'فارم کے نام:',
 	'sf_createclass_create' => 'تخلیق کریں',
+);
+
+/** Uzbek (oʻzbekcha)
+ * @author CoderSI
+ */
+$messages['uz'] = array(
+	'sf_createform_add' => 'Qoʻshish',
 );
 
 /** Veps (vepsän kel’)
