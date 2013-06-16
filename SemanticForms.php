@@ -147,7 +147,6 @@ $wgAutoloadClasses['SFTemplateInForm'] = $sfgIP . '/includes/SF_TemplateInForm.p
 $wgAutoloadClasses['SFFormField'] = $sfgIP . '/includes/SF_FormField.php';
 $wgAutoloadClasses['SFFormPrinter'] = $sfgIP . '/includes/SF_FormPrinter.php';
 $wgAutoloadClasses['SFFormUtils'] = $sfgIP . '/includes/SF_FormUtils.php';
-$wgAutoloadClasses['SFFormEditTab'] = $sfgIP . '/includes/SF_FormEditTab.php';
 $wgAutoloadClasses['SFFormEditPage'] = $sfgIP . '/includes/SF_FormEditPage.php';
 $wgAutoloadClasses['SFUtils'] = $sfgIP . '/includes/SF_Utils.php';
 $wgAutoloadClasses['SFFormLinker'] = $sfgIP . '/includes/SF_FormLinker.php';
