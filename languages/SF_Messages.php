@@ -4221,9 +4221,10 @@ Ha már létezik ilyen nevű lap, egy űrlaphoz leszel irányítva, ahol szerkes
 
 /** Armenian (Հայերեն)
  * @author Vadgt
+ * @author Xelgen
  */
 $messages['hy'] = array(
-	'formedit' => 'Խմբագրել ձեւը',
+	'formedit' => 'Ձևի միջոցով խմբագրել',
 );
 
 /** Interlingua (interlingua)
