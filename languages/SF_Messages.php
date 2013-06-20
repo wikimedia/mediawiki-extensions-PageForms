@@ -274,6 +274,7 @@ Title below, create link. If you enter, include ".".',
 	'sf_createform_inputtypedefault' => '{{Identical|Default}}',
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
 	'sf_createform_removetemplate' => '{{Identical|Remove template}}',
+	'sf_createform_addtemplate' => '{{Identical|Add template}}',
 	'sf_createform_add' => '{{Identical|Add}}',
 	'createcategory' => '{{doc-special|CreateCategory}}',
 	'sf-createcategory-with-name' => 'Used as page title. Parameters:
