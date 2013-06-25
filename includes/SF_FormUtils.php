@@ -102,7 +102,7 @@ END;
 			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpMinoredit', $checked, $attrs ) . "\n";
-		$text .= "\t" . Html::element( 'label', array(
+		$text .= "\t" . Html::rawElement( 'label', array(
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
 		), $label ) . "\n";
@@ -138,7 +138,7 @@ END;
 		}
 		$text = "\t" . Xml::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
 		$tooltip = wfMessage( 'tooltip-watch' )->escaped();
-		$text .= "\t" . Html::element( 'label', array(
+		$text .= "\t" . Html::rawElement( 'label', array(
 			'for' => 'wpWatchthis',
 			'title' => $tooltip
 		), $label ) . "\n";
