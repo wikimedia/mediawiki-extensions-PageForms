@@ -7553,7 +7553,7 @@ $messages['pt'] = array(
 	'sf_createform_nameinputdesc' => '(normalmente dá-se ao formulário o mesmo nome da sua predefinição principal):',
 	'sf_createform_template' => 'Predefinição:',
 	'sf_createform_templatelabelinput' => 'Etiqueta da predefinição (opcional):',
-	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) desta predefinição na página criada',
+	'sf_createform_allowmultiple' => 'Permitir várias instâncias (ou zero) desta predefinição na página criada', # Fuzzy
 	'sf_createform_field' => 'Campo:',
 	'sf_createform_fieldprop' => 'Este campo define a propriedade $1, do tipo $2.',
 	'sf_createform_fieldproplist' => 'Este campo define uma lista de elementos que têm a propriedade $1, do tipo $2.',
@@ -7602,7 +7602,7 @@ Caso contrário, será enviado para o formulário de adição da página.',
 	'sf_formedit_edittitle' => 'Editar $1: $2',
 	'sf_formedit_morethanoneform' => 'Atenção: Mais de um formulário padrão está definido para esta página.',
 	'sf_formedit_formwarning' => 'Aviso: Esta página <a href="$1">já existe</a>, mas não utiliza este formulário.',
-	'sf_formedit_remove' => 'Remover',
+	'sf_formedit_remove' => 'Remover', # Fuzzy
 	'sf_formedit_addanother' => 'Adicionar outro',
 	'sf_formedit_none' => 'Nenhum',
 	'sf_formedit_emptytitle' => 'Erro: Os dados inseridos resultam num título de página em branco.',
@@ -7643,7 +7643,7 @@ se já existir uma página com o mesmo nome, será reencaminhado para um formul�
 	'sf_category_hasdefaultform' => 'Esta categoria usa o formulário $1.',
 	'sf_category_desc' => 'Esta é a categoria $1.',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => 'Ver o separador "Editar" para páginas editáveis por formulário', # Fuzzy
+	'right-viewedittab' => 'Ver o separador "{{int:edit}}" para páginas editáveis por formulário',
 	'right-editrestrictedfields' => 'Editar os campos restritos dos formulários',
 );
 
