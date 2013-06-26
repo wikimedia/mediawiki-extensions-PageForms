@@ -137,7 +137,7 @@ END;
 			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
-		$tooltip = wfMessage( 'tooltip-watch' )->escaped();
+		$tooltip = wfMessage( 'tooltip-watch' )->text();
 		$text .= "\t" . Html::rawElement( 'label', array(
 			'for' => 'wpWatchthis',
 			'title' => $tooltip
