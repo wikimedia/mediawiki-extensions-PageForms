@@ -137,6 +137,13 @@ class SFAutoeditAPI extends ApiBase {
 		}
 		$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
+		global $wgParser, $wgUser;
+		if ( $wgParser === null ) {
+			$wgParser = new Parser();
+		}
+
+		$wgParser->startExternalParse( null, ParserOptions::newFromUser( $wgUser ), Parser::OT_WIKI );
+
 		// MW uses the parameter 'title' instead of 'target' when submitting
 		// data for formedit action => use that
 		if ( !array_key_exists( 'target', $this->mOptions ) && array_key_exists( 'title', $this->mOptions ) ) {
@@ -323,7 +330,8 @@ class SFAutoeditAPI extends ApiBase {
 					'wpEdittime' => '',
 					'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
 					'action' => 'submit',
-				), $this->getRequest()->getValues()
+				),
+				$this->mOptions
 		);
 
 		if ( array_key_exists( 'format', $data ) ) {
