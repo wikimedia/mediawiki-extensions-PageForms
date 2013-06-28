@@ -301,6 +301,7 @@ See also:
 * $2 is the prefixed title, with spaces for the target page
 {{Identical|Create}}',
 	'sf_formedit_createtitlenotarget' => '{{Identical|Create}}',
+	'sf_editsource' => '{{Identical|Edit source}}',
 	'sf_formedit_edittitle' => '* $1 is the main part of the title of a semantic form
 * $2 is the prefixed title, with spaces for the target page',
 	'sf_formedit_formwarning' => 'Used as warning. Parameters:
