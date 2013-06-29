@@ -370,6 +370,7 @@ If the category doesn't have default form, the following message is used instead
 * $1 - category name
 If the category has default form, the following message is used instead:
 * {{msg-mw|Sf category hasdefaultform}}',
+	'sf_blank_namespace' => '{{Identical|Main}}',
 	'right-viewedittab' => '{{doc-right|viewedittab}}',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
