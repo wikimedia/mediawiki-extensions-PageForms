@@ -122,13 +122,13 @@ $specialPageAliases['de'] = array(
 
 /** Zazaki (Zazaki) */
 $specialPageAliases['diq'] = array(
-	'CreateCategory' => array( 'KategoriVıraze' ),
+	'CreateCategory' => array( 'KategoriyaVıraze' ),
 	'CreateClass' => array( 'SınıfeVıraze' ),
 	'CreateForm' => array( 'FormVıraze' ),
 	'CreateProperty' => array( 'XısusiyetiVıraze' ),
 	'CreateTemplate' => array( 'ŞablonVıraze' ),
-	'FormEdit' => array( 'FormiBıvurne', 'MelumatDeke', 'MelumatiBıvurne' ),
-	'FormStart' => array( 'FormPêkerdış', 'PelaDeke' ),
+	'FormEdit' => array( 'FormiBıvurne', 'MelumatDeke', 'MelumatiBıvırne' ),
+	'FormStart' => array( 'FormSerterin', 'PelaDeke' ),
 	'Forms' => array( 'Formi' ),
 	'RunQuery' => array( 'PersinBerdış' ),
 	'Templates' => array( 'Şabloni' ),
