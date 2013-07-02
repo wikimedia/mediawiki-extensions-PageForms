@@ -247,7 +247,7 @@ Parameters:
 * $1 - template name',
 	'sf_createtemplate_fieldname' => 'The name of the field used in the relevant template.',
 	'sf_createtemplate_displaylabel' => 'The term for the text that shows up next to a field when it is displayed',
-	'sf_createtemplate_standardformat' => '',
+	'sf_createtemplate_standardformat' => '{{Identical|Table}}',
 	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
 	'sf_createtemplate_sectionsformat' => '{{Identical|Section}}',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
