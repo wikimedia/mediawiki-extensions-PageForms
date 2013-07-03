@@ -830,16 +830,17 @@ class SFAutoeditAPI extends ApiBase {
 			}
 		}
 
-		// we already preloaded stuff for saving/previewing, do not do it again
-		if ( $isFormSubmitted ) {
+		// We already preloaded stuff for saving/previewing -
+		// do not do this again.
+		if ( $isFormSubmitted && !$wgRequest->getCheck( 'partial' ) ) {
 			$preloadContent = '';
 			$pageExists = false;
 		} else {
-			// source of the data is a page
+			// Source of the data is a page.
 			$pageExists = ( is_a( $targetTitle, 'Title') && $targetTitle->exists() );
 		}
 
-		// spoof wgRequest for SFFormPrinter::formHTML
+		// Spoof $wgRequest for SFFormPrinter::formHTML().
 		$wgRequest = new FauxRequest( $this->mOptions, true );
 
 		// if necessary spoof wgOut; if we took the general $wgOut again some JS

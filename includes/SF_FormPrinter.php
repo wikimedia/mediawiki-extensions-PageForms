@@ -365,7 +365,9 @@ END;
 		} else {
 			$original_page_content = null;
 			if ( $wgRequest->getCheck( 'sf_free_text' ) ) {
-				$existing_page_content = $wgRequest->getVal( 'sf_free_text' );
+				if ( !isset( $existing_page_content ) || $existing_page_content == '' ) {
+					$existing_page_content = $wgRequest->getVal( 'sf_free_text' );
+				}
 				$form_is_partial = true;
 			}
 		}
@@ -971,7 +973,9 @@ END;
 					// from the template call
 					if ( $source_is_page && ( ! empty( $existing_template_text ) ) ) {
 						if ( isset( $template_contents[$field_name] ) ) {
-							$cur_value = $template_contents[$field_name];
+							if ( !isset( $cur_value ) ) {
+								$cur_value = $template_contents[$field_name];
+							}
 
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
@@ -989,6 +993,8 @@ END;
 							// the fields that weren't
 							// handled by the form.
 							unset( $template_contents[$field_name] );
+						} elseif ( isset( $cur_value ) && !empty( $cur_value ) ) {
+							// Do nothing.
 						} else {
 							$cur_value = '';
 						}
@@ -1522,7 +1528,6 @@ END;
 		if ( $form_is_partial ) {
 			if ( !$wgRequest->getCheck( 'partial' ) ) {
 				$free_text = $original_page_content;
-				$form_text .= Html::hidden( 'partial', 1 );
 			} else {
 				$free_text = null;
 				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
@@ -1530,6 +1535,7 @@ END;
 					$existing_page_content );
 				$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content );
 			}
+			$form_text .= Html::hidden( 'partial', 1 );
 		} elseif ( $source_is_page ) {
 			// if the page is the source, free_text will just be whatever in the
 			// page hasn't already been inserted into the form
