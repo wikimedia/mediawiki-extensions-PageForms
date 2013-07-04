@@ -1361,6 +1361,96 @@ END;
 					}
 					$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 				// =====================================================
+				// for section processing
+				// =====================================================
+				} elseif ( $tag_title == 'section' ) {
+					$section_name = trim( $tag_components[1] );
+					// cycle through the other components
+					$is_mandatory = false;
+					$is_hidden = false;
+					$is_restricted = false;
+					$header_level = 2;
+
+					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
+
+						$component = trim( $tag_components[$i] );
+
+						if ( $component == 'mandatory' ) {
+							$is_mandatory = true;
+						} elseif ( $component == 'hidden' ) {
+							$is_hidden = true;
+						} elseif ( $component == 'restricted' ) {
+							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
+						}
+
+						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
+
+						if ( count( $sub_components ) == 2 ) {
+							if ( trim( $sub_components[0] ) == 'level' ) {
+								$header_level = $sub_components[1];
+							}
+						}
+					}
+
+					//display the sections in wikitext on the created page
+					$header_string = "";
+					$header_string .= str_repeat( "=", $header_level );
+
+					$header_text = $header_string . $section_name . $header_string . "\n";
+					$data_text .= $header_text;
+
+					//split the existing page contents into the textareas in the form
+					$default_value = "";
+					$section_start_loc = 0;
+					if ( $source_is_page && $existing_page_content !== null ) {
+
+						$section_start_loc = strpos( $existing_page_content, $header_text );
+						$existing_page_content = str_replace( $header_text, '', $existing_page_content );
+						$section_end_loc = strpos( $existing_page_content, '=', $section_start_loc );
+						$template_pos = strpos( $existing_page_content, '{{', $section_start_loc );
+
+						if ( $template_pos != false ) {
+							$section_end_loc = min( array( $section_end_loc, $template_pos ) );
+						}
+
+						if ( $section_end_loc === false ) {
+							$default_value = $existing_page_content;
+							$existing_page_content = '';
+						} else {
+							$default_value = substr( $existing_page_content, $section_start_loc, $section_end_loc - $section_start_loc );
+							$existing_page_content = substr( $existing_page_content, $section_end_loc );
+						}
+					}
+
+					//if input is from the form
+					$section_text = "";
+					if ( ( ! $source_is_page ) && $wgRequest ) {
+						$section_text = $wgRequest->getArray( '_section' );
+						$default_value = $section_text[trim( $section_name )];
+
+						if ( $default_value == "" || $default_value == null ) {
+							$data_text .= $default_value . "\n\n";
+						} else {
+							$data_text .= chop( $default_value ) . "\n\n";
+						}
+					}
+
+					//set input name for query string
+					$input_name = '_section' . '[' . trim( $section_name ) . ']';
+					$other_args = array ();
+					$other_args['rows'] = 10;
+					if ( $is_mandatory ) {
+						$other_args['mandatory'] = true;
+					}
+
+					if ( $is_hidden ) {
+						$form_section_text = Html::hidden( $input_name, $default_value );
+					} else {
+						$form_section_text = SFTextAreaInput::getHTML( $default_value, $input_name, false, ( $form_is_disabled || $is_restricted ), $other_args );
+					}
+
+					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
+				// =====================================================
 				// page info processing
 				// =====================================================
 				} elseif ( $tag_title == 'info' ) {

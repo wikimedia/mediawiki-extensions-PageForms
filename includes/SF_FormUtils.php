@@ -548,4 +548,25 @@ END;
 		}
 	}
 
+	/*
+	 * Get section header HTML
+	 */
+	static function headerHTML( $header_name , $header_level = 2 ) {
+
+		global $sfgTabIndex;
+
+		$sfgTabIndex++;
+		$text = "";
+
+		if ( !is_numeric( $header_level ) ) {
+			// The default header level is set to 2
+			$header_level = 2;
+		}
+
+		$header_level = min( $header_level, 6 );
+		$elementName = 'h'. $header_level;
+		$text = Html::rawElement( $elementName, array(), $header_name );
+		return $text;
+	}
+
 }
