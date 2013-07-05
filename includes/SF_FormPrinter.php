@@ -973,9 +973,7 @@ END;
 					// from the template call
 					if ( $source_is_page && ( ! empty( $existing_template_text ) ) ) {
 						if ( isset( $template_contents[$field_name] ) ) {
-							if ( !isset( $cur_value ) ) {
-								$cur_value = $template_contents[$field_name];
-							}
+							$cur_value = $template_contents[$field_name];
 
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
