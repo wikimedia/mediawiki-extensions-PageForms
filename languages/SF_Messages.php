@@ -734,6 +734,55 @@ $messages['arz'] = array(
 	'sf_blank_namespace' => 'رئيسي',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'semanticforms-desc' => "Formularios p'amestar y editar datos semánticos",
+	'specialpages-group-sf_group' => 'Formularios semánticos',
+	'createproperty' => 'Crear una propiedá',
+	'sf-createproperty-with-name' => 'Crear la propiedá: $1',
+	'sf_createproperty_linktoform' => "Esta propiedá enllazará a páxines qu'usen el formulariu:",
+	'sf_createproperty_allowedvalsinput' => 'Si quier qu\'esta propiedá sólo pueda tener determinaos valores, escriba la llista de valores permitíos, separaos por comes (si un valor contién una coma sustituyala por "\\,"):',
+	'sf_createproperty_propname' => 'Nome de la propiedá:',
+	'sf_createproperty_proptype' => 'Tipu:',
+	'templates' => 'Plantíes',
+	'sf_templates_docu' => 'Les siguientes plantíes esisten na wiki.',
+	'sf_templates_definescat' => 'define la categoría: $1',
+	'createtemplate' => 'Crear una plantía',
+	'sf-createtemplate-with-name' => 'Crear plantía:$1',
+	'sf_createtemplate_namelabel' => 'Nome de la plantía:',
+	'sf_createtemplate_multipleinstance' => 'Esta plantía pue incluise múltiples veces na páxina.',
+	'sf_createtemplate_categorylabel' => 'Categoría definida pola plantía (opcional):',
+	'sf_createtemplate_templatefields' => 'Campos de la plantía',
+	'sf_createtemplate_fieldsdesc' => "Para facer que los campos d'esta plantía yá nun necesiten nomes de campu, simplemente escriba l'índiz de cada campu (p. ex. 1, 2, 3, etc.) como nome, en llugar del nome real.",
+	'sf_createtemplate_fieldname' => 'Nome del campu:',
+	'sf_createtemplate_displaylabel' => 'Amosar la etiqueta:',
+	'sf_createtemplate_semanticproperty' => 'Propiedá semántica:',
+	'sf_createtemplate_fieldislist' => 'Esti campu pue contener una llista de valores separaos por comes',
+	'sf_createtemplate_aggregation' => 'Agregación',
+	'sf_createtemplate_aggregationdesc' => "Pa llistar, en cualquier páxina qu'use esta plantía, toles páxines que tengan una propiedá determinada qu'apunte a esa páxina, especifique la propiedá apropiada más abaxo:",
+	'sf_createtemplate_aggregationlabel' => 'Títulu pa la llista:',
+	'sf_createtemplate_outputformat' => 'Formatu de salida:',
+	'sf_createtemplate_standardformat' => 'Tabla',
+	'sf_createtemplate_infoboxformat' => "Cuadru d'información llateral",
+	'sf_createtemplate_plainformat' => 'Testu simple',
+	'sf_createtemplate_sectionsformat' => 'Seiciones',
+	'sf_createtemplate_addfield' => 'Agregar campu',
+	'sf_createtemplate_deletefield' => 'Desaniciar',
+	'sf_createtemplate_addtemplatebeforesave' => "Tien d'amestar polo menos una plantía a esti formulariu antes de guardalu.",
+	'forms' => 'Formularios',
+	'sf_forms_docu' => 'Los siguientes formularios yá existen na wiki.',
+	'sf_forminputs_mandatory' => "Tien d'escribir un valor pa esta entrada",
+	'sf_forminputs_restricted' => 'Sólo los alministradores puen editar esta entrada',
+	'sf_forminputs_class' => 'L\'atributu "class" de HTML pa esta entrada',
+	'sf_forminputs_default' => 'El valor predetermináu pa esta entrada',
+	'sf_forminputs_preload' => "Una páxina wiki cuyos conteníos sedrán el valor predetermináu d'esta entrada",
+	'sf_forminputs_property' => 'Una propiedá semántica a la que correspuende esti campu',
+	'sf_forminputs_size' => "El tamañu d'esti campu de testu, en caráuteres",
+	'sf_forminputs_maxlength' => "La llonxitú máxima permitida del testu d'esti campu",
+);
+
 /** Kotava (Kotava)
  * @author Nkosi ya Cabinda
  * @author Wikimistusik
