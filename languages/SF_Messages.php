@@ -1601,6 +1601,7 @@ $messages['ce'] = array(
 	'sf_createform_inputtypedefault' => '(Iад йитарца)',
 	'sf_createform_removetemplate' => 'ДӀаяккха кеп',
 	'sf_createform_addtemplate' => 'Тlетоха кеп:',
+	'sf_formstart_createoredit' => 'Кхолла я нисйé',
 	'sf_formedit_remove' => 'ДӀаяккха',
 	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
