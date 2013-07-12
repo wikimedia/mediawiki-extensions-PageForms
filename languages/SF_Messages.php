@@ -9588,9 +9588,11 @@ $messages['ur'] = array(
 
 /** Uzbek (oʻzbekcha)
  * @author CoderSI
+ * @author Sociologist
  */
 $messages['uz'] = array(
 	'sf_createform_add' => 'Qoʻshish',
+	'sf_editsource' => 'Manbasini tahrirlash',
 );
 
 /** Veps (vepsän kel’)
