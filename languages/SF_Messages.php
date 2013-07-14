@@ -341,8 +341,14 @@ See also:
 	'runquery' => '{{doc-special|RunQuery}}',
 	'sf_runquery_title' => 'Used as page title. Parameters:
 * $1 - form title',
-	'sf_too_few_instances_error' => 'An error message when the user has not added enough instances of a template',
-	'sf_too_many_instances_error' => 'An error message when the user has added too many instances of a template',
+	'sf_too_few_instances_error' => 'An error message when the user has not added enough instances of a template.
+
+Parameters:
+* $1 - number of instances',
+	'sf_too_many_instances_error' => 'An error message when the user has added too many instances of a template.
+
+Parameters:
+* $1 - number of instances',
 	'sf_blank_error' => '{{Identical|Cannot be blank}}',
 	'uploadwindow' => "Special page name for [[Special:UploadWindow]].
 
@@ -1850,8 +1856,8 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf_runquery_title' => 'Ausgeführte Abfrage: $1',
 	'sf_runquery_additionalquery' => 'Ergänzende Abfrage',
 	'sf_formerrors_header' => 'Deine Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.',
-	'sf_too_few_instances_error' => 'Es müssen mindestens $1 Instanzen dieser Vorlage vorhanden sein.',
-	'sf_too_many_instances_error' => 'Es dürfen nicht mehr als $1 Instanzen dieser Vorlage vorhanden sein.',
+	'sf_too_few_instances_error' => 'Es {{PLURAL:$1|muss mindestens eine Instanz|müssen mindestens $1 Instanzen}} dieser Vorlage vorhanden sein.',
+	'sf_too_many_instances_error' => 'Es {{PLURAL:$1|darf nicht mehr als eine Instanz|dürfen nicht mehr als $1 Instanzen}} dieser Vorlage vorhanden sein.',
 	'sf_blank_error' => 'Darf nicht leer sein',
 	'sf_bad_url_error' => 'muss ein gültiges URL-Format haben, beginnend mit „http://“',
 	'sf_bad_email_error' => 'muss ein gültiges E-Mail-Adressformat haben',
@@ -5364,7 +5370,7 @@ $messages['ko'] = array(
 	'sf_formedit_altformsonly' => '이 문서에 추가할 다음 양식 중 하나를 선택하세요:',
 	'sf_formcreate' => '양식으로 만들기',
 	'sf_viewform' => '양식 보기',
-	'sf_editsource' => '내용 편집',
+	'sf_editsource' => '원본 편집',
 	'sf_formedit_edittitle' => '$1: $2 편집',
 	'sf_formedit_morethanoneform' => "'''경고:''' 하나 이상의 기본 양식은 이 문서에 지정되어 있습니다.",
 	'sf_formedit_formwarning' => '경고: 이 문서는 <a href="$1">이미 존재하지만</a> 이 양식을 사용하지 않습니다.',
@@ -9591,8 +9597,31 @@ $messages['ur'] = array(
  * @author Sociologist
  */
 $messages['uz'] = array(
+	'createproperty' => 'Xossa yaratish',
+	'sf-createproperty-with-name' => 'Xossa yaratish: $1',
+	'sf_createproperty_propname' => 'Xossa nomi:',
+	'sf_createproperty_proptype' => 'Turi:',
+	'templates' => 'Andozalar',
+	'sf_templates_docu' => 'Quyidagi andozalar vikida bor.',
+	'sf-createtemplate-with-name' => 'Andoza yaratish: $1',
+	'sf_createtemplate_namelabel' => 'Andoza nomi:',
+	'sf_createtemplate_displaylabel' => 'Koʻrsatiladigan yozuv:',
+	'sf_createtemplate_semanticproperty' => 'Semantik xossa',
+	'sf_createtemplate_standardformat' => 'Jadval',
+	'forms' => 'Shakllar',
+	'createform' => 'Shakl yaratish',
 	'sf_createform_add' => 'Qoʻshish',
+	'sf_createclass_nameinput' => 'Shakl nomi',
+	'sf_createclass_create' => 'Yaratish',
+	'formstart' => 'Shaklni boshlash',
+	'sf_formstart_createoredit' => 'Yaratish yoki tahrirlash',
+	'formedit' => 'Shakl bilan tahrirlash',
+	'sf_formedit_createtitle' => 'Yaratish $1: $2',
+	'sf_formedit_createtitlenotarget' => '"$1"ni yaratish',
+	'sf_formcreate' => 'Shakl bilan yaratish',
+	'sf_viewform' => 'Shaklni koʻrish',
 	'sf_editsource' => 'Manbasini tahrirlash',
+	'sf_formedit_edittitle' => 'Tahrirlash $1: $2',
 );
 
 /** Veps (vepsän kel’)
