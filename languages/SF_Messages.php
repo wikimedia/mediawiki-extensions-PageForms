@@ -1602,13 +1602,16 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
  */
 $messages['ce'] = array(
 	'templates' => 'Кепаш',
+	'sf_createtemplate_addfield' => 'ТӀетоха тӀеха',
 	'sf_createtemplate_deletefield' => 'ДӀаяккха',
 	'sf_createform_template' => 'Кеп:',
 	'sf_createform_inputtypedefault' => '(Iад йитарца)',
 	'sf_createform_removetemplate' => 'ДӀаяккха кеп',
 	'sf_createform_addtemplate' => 'Тlетоха кеп:',
+	'sf_createform_add' => 'ТӀетоха',
 	'sf_formstart_createoredit' => 'Кхолла я нисйé',
 	'sf_formedit_remove' => 'ДӀаяккха',
+	'sf_formedit_addanother' => 'Кхин тIетоха',
 	'sf_formedit_none' => 'Хlумма цаоьшу',
 );
 
