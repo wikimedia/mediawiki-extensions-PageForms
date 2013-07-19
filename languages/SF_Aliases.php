@@ -548,7 +548,7 @@ $specialPageAliases['or'] = array(
 $specialPageAliases['pa'] = array(
 	'CreateCategory' => array( 'ਸ਼੍ਰੇਣੀ_ਬਣਾਓ' ),
 	'CreateTemplate' => array( 'ਸਾਂਚਾ_ਬਣਾਓ' ),
-	'Templates' => array( 'ਸਾਂਚੇ' ),
+	'Templates' => array( 'ਫਰਮੇ' ),
 );
 
 /** Polish (polski) */

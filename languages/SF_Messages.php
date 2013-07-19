@@ -7202,6 +7202,8 @@ $messages['pl'] = array(
 	'sf_createtemplate_outputformat' => 'Format wyjścia:',
 	'sf_createtemplate_standardformat' => 'Tabela',
 	'sf_createtemplate_infoboxformat' => 'Infoboks po prawej', # Fuzzy
+	'sf_createtemplate_plainformat' => 'Zwykły tekst',
+	'sf_createtemplate_sectionsformat' => 'Sekcje',
 	'sf_createtemplate_addfield' => 'Dodaj pole',
 	'sf_createtemplate_deletefield' => 'Usuń',
 	'sf_createtemplate_addtemplatebeforesave' => 'Musisz dodać przynajmniej jeden szablon do tego formularza, zanim go zapiszesz.',
@@ -7216,7 +7218,7 @@ $messages['pl'] = array(
 	'sf_forminputs_size' => 'Rozmiar tego pola tekstowego, w znakach',
 	'sf_forminputs_maxlength' => 'Maksymalna dozwolona długość tekstu w tym polu',
 	'sf_forminputs_placeholder' => 'Tekst pomocy, który pojawia się wewnątrz pola, zanim użytkownik na nim kliknie',
-	'sf_forminputs_uploadable' => 'Umieść łącze "Wyślij plik" obok tego pola', # Fuzzy
+	'sf_forminputs_uploadable' => 'Umieść łącze "{{int:upload}}" obok tego pola',
 	'sf_forminputs_defaultfilename' => 'Domyślna nazwa pliku dla wysyłanych plików',
 	'sf_forminputs_rows' => 'Liczba wierszy dla tego wprowadzania',
 	'sf_forminputs_cols' => 'Liczba kolumn dla tego wprowadzania',
@@ -7303,7 +7305,7 @@ Jeśli strona o tej nazwie już istnieje, otwarty zostanie formularz edycji tej 
 	'sf_category_hasdefaultform' => 'Ta kategoria używa formularza $1.',
 	'sf_category_desc' => 'To jest kategoria $1.',
 	'sf_blank_namespace' => 'Główna',
-	'right-viewedittab' => 'Widoczność zakładki „Edytuj” dla stron, które można edytować korzystając z formularza', # Fuzzy
+	'right-viewedittab' => 'Widoczność zakładki „{{int:edit}}” dla stron, które można edytować korzystając z formularza',
 	'right-editrestrictedfields' => 'Edycja zabezpieczonych pól formularzy',
 );
 
@@ -7546,6 +7548,7 @@ $messages['ps'] = array(
 /** Portuguese (português)
  * @author Hamilton Abreu
  * @author Lijealso
+ * @author Luckas
  * @author Malafaya
  * @author SandroHc
  * @author Waldir
@@ -7605,7 +7608,7 @@ $messages['pt'] = array(
 	'sf_forminputs_delimiter' => 'O delimitador entre os valores do campo, se esta entrada contém uma lista de valores',
 	'sf_forminputs_remoteautocompletion' => 'Usar o preenchimento automático remoto',
 	'sf_forminputs_existingvaluesonly' => 'Só permitir valores que já existam na lista',
-	'sf_forminputs_showonselect' => 'Elementos da página que só serão apresentados se certos valores forem seleccionados (exemplo: "valor1=>div1;valor2=>div2")',
+	'sf_forminputs_showonselect' => 'Elementos da página que só serão apresentados se certos valores forem selecionados (exemplo: "valor1=>div1;valor2=>div2")',
 	'sf_forminputs_listboxsize' => 'A altura desta caixa de listagem, em linhas',
 	'sf_forminputs_includetimezone' => 'Incluir uma entrada para o fuso horário',
 	'sf_forminputs_topcategory' => 'A category-mãe deste conjunto de categorias (obrigatória)',
