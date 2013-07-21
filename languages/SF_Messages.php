@@ -7141,6 +7141,13 @@ $messages['os'] = array(
 	'sf_formedit_none' => 'Нæй',
 );
 
+/** Punjabi (ਪੰਜਾਬੀ)
+ * @author Babanwalia
+ */
+$messages['pa'] = array(
+	'sf_editsource' => 'ਸਰੋਤ ਸੋਧੋ',
+);
+
 /** Deitsch (Deitsch)
  * @author Xqt
  */
