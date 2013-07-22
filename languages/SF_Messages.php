@@ -1601,6 +1601,7 @@ si la pàgina amb aquest nom ja existeix, s'obrirà un formulari per editar-la."
  * @author Умар
  */
 $messages['ce'] = array(
+	'sf_createproperty_proptype' => 'Тайп:',
 	'templates' => 'Кепаш',
 	'sf_createtemplate_addfield' => 'ТӀетоха тӀеха',
 	'sf_createtemplate_deletefield' => 'ДӀаяккха',
