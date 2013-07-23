@@ -569,4 +569,25 @@ END;
 		return $text;
 	}
 
+	/**
+	 * Get the changed index if a new template or section was
+	 * inserted before the end, or one was deleted in the form
+	 */
+	static function getChangedIndex( $i, $new_item_loc, $deleted_item_loc ) {
+		$old_i = $i;
+		if ( $new_item_loc != null ) {
+			if ( $i > $new_item_loc ) {
+				$old_i = $i - 1;
+			} elseif ( $i == $new_item_loc ) {
+				// it's the new template; it shouldn't
+				// get any query-string data
+				$old_i = - 1;
+			}
+		} elseif ( $deleted_item_loc != null ) {
+			if ( $i >= $deleted_item_loc ) {
+				$old_i = $i + 1;
+			}
+		}
+		return $old_i;
+	}
 }

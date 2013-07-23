@@ -267,7 +267,11 @@ class SFPageSchemas extends PSExtensionHandler {
 		$editTitle = PageSchemas::getValueFromObject( $form_array, 'EditTitle' );
 
 		//Inputs
-		$standardInputs = $pageSchemaObj->getObject( 'standardInputs' );
+		if ( !is_null( $pageSchemaObj ) ) {
+			$standardInputs = $pageSchemaObj->getObject( 'standardInputs' );
+		} else {
+			$standardInputs = array();
+		}
 
 		$freeTextLabel = html_entity_decode( PageSchemas::getValueFromObject( $form_array, 'freeTextLabel' ) );
 
@@ -591,7 +595,13 @@ END;
 		if ( array_key_exists( 'freeTextLabel', $formDataFromSchema ) )
 			$freeTextLabel = $formDataFromSchema['freeTextLabel'];
 
-		$form = SFForm::create( $formName, $formTemplates );
+		$formItems = array();
+		foreach ( $formTemplates as $template ) {
+			$formItems[] = array( 'type' => 'template',
+							'name' => $template->getTemplateName(),
+							'item' => $template );
+		}
+		$form = SFForm::create( $formName, $formItems );
 		$form->setAssociatedCategory( $categoryName );
 		if ( array_key_exists( 'PageNameFormula', $formDataFromSchema ) ) {
 			$form->setPageNameFormula( $formDataFromSchema['PageNameFormula'] );
@@ -621,6 +631,7 @@ END;
 		$form_templates = array();
 		$jobs = array();
 		$templateHackUsed = false;
+		$isCategoryNameSet = false;
 
 		// Generate every specified template
 		foreach ( $psTemplates as $psTemplate ) {
@@ -643,7 +654,13 @@ END;
 			if ( $psTemplate->isMultiple() ) {
 				$categoryName = null;
 			} else {
-				$categoryName = $pageSchemaObj->getCategoryName();
+				if ( $isCategoryNameSet == false ) {
+					$categoryName = $pageSchemaObj->getCategoryName();
+					$isCategoryNameSet = true;
+				} else {
+					$categoryName = null;
+				}
+
 			}
 			if ( method_exists( $psTemplate, 'getFormat' ) ) {
 				$templateFormat = $psTemplate->getFormat();
@@ -697,6 +714,7 @@ END;
 
 		// Create form, if it's specified.
 		$formName = self::getFormName( $pageSchemaObj );
+		$categoryName = $pageSchemaObj->getCategoryName();
 		if ( !empty( $formName ) ) {
 			$formInfo = self::getMainFormInfo( $pageSchemaObj );
 			$formTitle = Title::makeTitleSafe( SF_NS_FORM, $formName );

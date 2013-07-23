@@ -26,6 +26,14 @@ textarea.mandatoryField {
         margin-bottom: 20px;
 }
 
+/* Used in 'create form' page */
+.sectionForm {
+        border: 1px black solid;
+        background: #d0dae6;
+        padding: 0 20px 10px 20px;
+        margin-bottom: 20px;
+}
+
 /* Used in form pages */
 table.formtable {
 	/* width: 100%; */

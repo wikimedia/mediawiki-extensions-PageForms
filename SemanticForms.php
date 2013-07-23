@@ -156,6 +156,7 @@ $wgAutoloadClasses['SFAutocompleteAPI'] = $sfgIP . '/includes/SF_AutocompleteAPI
 $wgAutoloadClasses['SFAutoeditAPI'] = $sfgIP . '/includes/SF_AutoeditAPI.php';
 $wgAutoloadClasses['SFFormEditAction'] = $sfgIP . '/includes/SF_FormEditAction.php';
 $wgAutoloadClasses['SFHelperFormAction'] = $sfgIP . '/includes/SF_HelperFormAction.php';
+$wgAutoloadClasses['SFPageSection'] = $sfgIP . '/includes/SF_PageSection.php';
 
 // Form inputs
 $wgAutoloadClasses['SFFormInput'] = $sfgIP . '/includes/forminputs/SF_FormInput.php';
