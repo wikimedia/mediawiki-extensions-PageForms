@@ -105,6 +105,13 @@ $specialPageAliases['bxr'] = array(
 	'CreateCategory' => array( 'Категори_үүсхэхэ' ),
 );
 
+/** Chechen (нохчийн) */
+$specialPageAliases['ce'] = array(
+	'CreateCategory' => array( 'Кхолла_категори' ),
+	'CreateTemplate' => array( 'Кхолла_кеп' ),
+	'Templates' => array( 'Кепаш' ),
+);
+
 /** German (Deutsch) */
 $specialPageAliases['de'] = array(
 	'CreateCategory' => array( 'Kategorie_erstellen' ),
