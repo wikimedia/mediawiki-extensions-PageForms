@@ -1615,6 +1615,7 @@ $messages['ce'] = array(
 	'sf_formedit_remove' => 'ДӀаяккха',
 	'sf_formedit_addanother' => 'Кхин тIетоха',
 	'sf_formedit_none' => 'Хlумма цаоьшу',
+	'sf-preview-header' => 'Хьалха муха ю хьажар',
 );
 
 /** Sorani Kurdish (کوردی)
@@ -7702,7 +7703,7 @@ a URL deve ser parecida com 'Special:RunQuery/<form name>'.",
 	'sf_runquery_additionalquery' => 'Consulta adicional',
 	'sf_formerrors_header' => 'Houve erros nas entradas do seu formulário; veja abaixo',
 	'sf_blank_error' => 'não pode estar em branco',
-	'sf_bad_url_error' => "Tem de ter o formato de URL correcto, começando com 'http'",
+	'sf_bad_url_error' => "Tem de ter o formato de URL correto, começando com 'http'",
 	'sf_bad_email_error' => 'deverá introduzir um endereço de correio electrónico com formato válido',
 	'sf_bad_number_error' => 'deverá introduzir um número válido',
 	'sf_bad_date_error' => 'deverá introduzir uma data válida',
@@ -10154,7 +10155,7 @@ $messages['zh-hans'] = array(
 	'sf_formedit_saveandcontinueediting' => '保存并继续',
 	'sf_formedit_saveandcontinue_summary' => '已采用表单中的"$1"按钮进行了保存',
 	'sf_formedit_tooltip_saveandcontinueediting' => '保存数据并且继续编辑',
-	'sf_autoedit_anoneditwarning' => '警告：您没有登录。您的IP地址将记录在此页的编辑历史中。',
+	'sf_autoedit_anoneditwarning' => '警告：你没有登录。你的IP地址将被记录在该页面的编辑历史中。',
 	'sf_autoedit_success' => '已成功使用表单$2修改[[$1]]。',
 	'sf_autoedit_fail' => '修改[[$1]]失败。',
 	'sf_autoedit_notargetspecified' => '没有指定目标页面。',
@@ -10176,8 +10177,8 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
 	'sf_runquery_title' => '运行查询：$1',
 	'sf_runquery_additionalquery' => '附加查询',
 	'sf_formerrors_header' => '在您的表单输入中存在错误；如下所示',
-	'sf_too_few_instances_error' => '此模板必须有至少$1个实例。',
-	'sf_too_many_instances_error' => '此模板不能超过$1个实例。',
+	'sf_too_few_instances_error' => '此模板必须有至少$1个实例。', # Fuzzy
+	'sf_too_many_instances_error' => '此模板不能超过$1个实例。', # Fuzzy
 	'sf_blank_error' => '不可留空',
 	'sf_bad_url_error' => '必须使用正确的URL格式，以“http”开头',
 	'sf_bad_email_error' => '必须使用有效的电子邮件地址格式',
