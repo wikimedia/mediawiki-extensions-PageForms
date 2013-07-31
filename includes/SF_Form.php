@@ -8,17 +8,17 @@
  */
 class SFForm {
 	private $mFormName;
-	private $mTemplates;
 	private $mPageNameFormula;
 	private $mCreateTitle;
 	private $mEditTitle;
 	private $mAssociatedCategory;
+	private $mItems;
 
-	static function create( $formName, $templates ) {
+	static function create( $formName, $items ) {
 		$form = new SFForm();
 		$form->mFormName = ucfirst( str_replace( '_', ' ', $formName ) );
-		$form->mTemplates = $templates;
 		$form->mAssociatedCategory = null;
+		$form->mItems = $items;
 		return $form;
 	}
 
@@ -44,9 +44,19 @@ class SFForm {
 
 	function creationHTML() {
 		$text = "";
-		foreach ( $this->mTemplates as $i => $ft ) {
-			$text .= $ft->creationHTML( $i );
+		$template_count = 0; $section_count = 0;
+		foreach ( $this->mItems as $item ) {
+			if ( $item['type'] == 'template' ) {
+				$template = $item['item'];
+				$text .= $template->creationHTML( $template_count );
+				$template_count++;
+			} elseif ( $item['type'] == 'section' ) {
+				$section = $item['item'];
+				$text .= $section->creationHTML( $section_count );
+				$section_count++;
+			}
 		}
+
 		return $text;
 	}
 
@@ -86,9 +96,16 @@ END;
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>
 
 END;
-		foreach ( $this->mTemplates as $template ) {
-			$text .= $template->createMarkup() . "\n";
+		foreach ( $this->mItems as $item ) {
+			if ( $item['type'] == 'template' ) {
+				$template = $item['item'];
+				$text .= $template->createMarkup() . "\n";
+			} elseif ( $item['type'] == 'section' ) {
+				$section = $item['item'];
+				$text .= $section->createMarkup() . "\n";
+			}
 		}
+
 		$free_text_label = wfMessage( 'sf_form_freetextlabel' )->inContentLanguage()->text();
 		$text .= <<<END
 '''$free_text_label:'''
