@@ -241,10 +241,15 @@ $messages['qqq'] = array(
 	'createproperty' => '{{doc-special|CreateProperty}}',
 	'sf-createproperty-with-name' => 'Used as page title. Parameters:
 * $1 - property name',
-	'sf_createproperty_propname' => '{{Identical|Property name}}',
-	'sf_createproperty_proptype' => '{{Identical|Type}}',
+	'sf_createproperty_linktoform' => 'Used as label for the "Default form" input box.',
+	'sf_createproperty_allowedvalsinput' => 'Used as label for the "Values" input box.',
+	'sf_createproperty_propname' => 'Used as a table column header and as a label for the select box.
+{{Identical|Property name}}',
+	'sf_createproperty_proptype' => 'Used as a table column header and as a label for the select box.
+{{Identical|Type}}',
 	'templates' => '{{doc-special|Templates}}
 {{Identical|Template}}',
+	'sf_templates_docu' => 'Used as page header.',
 	'sf_templates_definescat' => 'The message is shown on [[Special:Templates]], the list of templates in the wiki, after the name of each template, to describe it.
 
 Parameters:
@@ -252,21 +257,50 @@ Parameters:
 	'createtemplate' => '{{doc-special|CreateTemplate}}',
 	'sf-createtemplate-with-name' => 'Used as page title. Parameters:
 * $1 - template name',
+	'sf_createtemplate_namelabel' => 'Used as label for the "Template name" input box.',
+	'sf_createtemplate_multipleinstance' => 'Used as label for the checkbox.',
+	'sf_createtemplate_categorylabel' => 'Used as label for the "Category name" input box.',
+	'sf_createtemplate_templatefields' => 'Used as fieldset label.
+
+Followed by the following description:
+* {{msg-mw|Sf createtemplate fieldsdesc}}',
+	'sf_createtemplate_fieldsdesc' => 'Used as description in the form.
+
+Preceded by the fieldset label {{msg-mw|Sf createtemplate templatefields}}.',
 	'sf_createtemplate_fieldname' => 'The name of the field used in the relevant template.',
 	'sf_createtemplate_displaylabel' => 'The term for the text that shows up next to a field when it is displayed',
+	'sf_createtemplate_semanticproperty' => 'Used as label for the "Property name" select box.',
+	'sf_createtemplate_fieldislist' => 'Used as label for the checkbox.',
+	'sf_createtemplate_aggregation' => 'Used as fieldset label.
+
+Followed by the following description:
+* {{msg-mw|Sf createtemplate aggregationdesc}}',
+	'sf_createtemplate_aggregationdesc' => 'Used as description in the form.
+
+Preceded by the fieldset label {{msg-mw|Sf createtemplate aggregation}}.',
 	'sf_createtemplate_standardformat' => '{{Identical|Table}}',
 	'sf_createtemplate_infoboxformat' => 'For RTL languages this should be translated as "left-hand side".',
 	'sf_createtemplate_plainformat' => '{{Identical|Plain text}}',
 	'sf_createtemplate_sectionsformat' => '{{Identical|Section}}',
 	'sf_createtemplate_deletefield' => '{{Identical|Delete}}',
 	'forms' => '{{doc-special|Forms}}',
+	'sf_forminputs_mandatory' => 'See also:
+* {{msg-mw|Sf forminputs restricted}}
+* {{msg-mw|Sf createform hiddensection}}',
+	'sf_forminputs_restricted' => 'See also:
+* {{msg-mw|Sf forminputs mandatory}}
+* {{msg-mw|Sf createform hiddensection}}',
 	'sf_forminputs_uploadable' => 'This is a message describing a checkbox. The message included within this message is: {{msg-mw|upload}}',
 	'sf_forminputs_listboxsize' => 'See [[wikipedia:list box|listbox]] for an listbox example',
 	'createform' => '{{doc-special|CreateForm}}
 Title below, create link. If you enter, include ".".',
 	'sf-createform-with-name' => 'Used as page title. Parameters:
 * $1 - form name',
-	'sf_createform_template' => '{{Identical|Template}}',
+	'sf_createform_template' => 'Followed by the template name and used as an option in the select box.
+
+See also:
+* {{msg-mw|Sf createform pagesection}}
+{{Identical|Template}}',
 	'sf_createform_allowmultiple' => 'This is the label for a checkbox on [[Special:CreateForm]]. If you tick it you will be able to use the template more than once within the form (one or more instances).',
 	'sf_createform_field' => '{{Identical|Field}}',
 	'sf_createform_fieldprop' => 'Parameters:
@@ -283,8 +317,30 @@ Title below, create link. If you enter, include ".".',
 	'sf_createform_inputtypedefault' => '{{Identical|Default}}',
 	'sf_createform_hidden' => '{{Identical|Hidden}}',
 	'sf_createform_removetemplate' => '{{Identical|Remove template}}',
-	'sf_createform_addtemplate' => '{{Identical|Add template}}',
+	'sf_createform_addtemplate' => 'Used as label for the "Template" select box.
+
+Preceded by <code><nowiki><h2></nowiki></code> heading: {{msg-mw|Sf createform addelements}}.
+{{Identical|Add template}}',
 	'sf_createform_add' => '{{Identical|Add}}',
+	'sf_createform_pagesection' => 'Followed by the template name and used as an option in the select box.
+
+See also:
+* {{msg-mw|Sf createform template}}',
+	'sf_createform_addsection' => 'Used as label.
+
+Followed by ":" and the input box which has the placeholder {{msg-mw|Sf createform sectionname}}.',
+	'sf_createform_removesection' => 'Used as label for the Submit button.',
+	'sf_createform_before' => 'Used as label for the "Template" select box.
+{{Identical|Before}}',
+	'sf_createform_addelements' => 'Used as <code><nowiki><h2></nowiki></code> heading.
+
+Followed by the label {{msg-mw|Sf createform addtemplate}}.',
+	'sf_createform_hiddensection' => 'See also:
+* {{msg-mw|Sf forminputs mandatory}}
+* {{msg-mw|Sf forminputs restricted}}',
+	'sf_createform_sectionname' => 'Used as placeholder for the "Section name" input box.
+
+The input box is preceded by the label {{msg-mw|Sf createform addsection}} and ":".',
 	'createcategory' => '{{doc-special|CreateCategory}}',
 	'sf-createcategory-with-name' => 'Used as page title. Parameters:
 * $1 - category name',
@@ -2987,6 +3043,7 @@ $messages['fo'] = array(
  * @author McDutchie
  * @author Peter17
  * @author PieRRoMaN
+ * @author Rastus Vernon
  * @author Sherbrooke
  * @author Urhixidur
  * @author Verdy p
@@ -3080,7 +3137,14 @@ $messages['fr'] = array(
 	'sf_createform_atend' => 'À la fin',
 	'sf_createform_add' => 'Ajouter',
 	'sf_createform_choosefield' => 'Choisissez un champ à ajouter',
+	'sf_createform_pagesection' => 'Section de la page :',
+	'sf_createform_addsection' => 'Ajouter une section',
+	'sf_createform_removesection' => 'Enlever une section',
 	'sf_createform_before' => 'Avant le modèle :',
+	'sf_createform_addelements' => 'Ajouter des éléments',
+	'sf_createform_hiddensection' => 'Cette entrée est cachée dans le formulaire',
+	'sf_createform_sectionlevel' => 'Niveau de section :',
+	'sf_createform_sectionname' => 'Nom de la section',
 	'sf_createform_additembeforesave' => 'Vous devez ajouter au moins un modèle à ce formulaire avant de pouvoir le sauvegarder.',
 	'createcategory' => 'Créer une catégorie',
 	'sf-createcategory-with-name' => 'Créer la catégorie : $1',
@@ -3394,8 +3458,15 @@ $messages['gl'] = array(
 	'sf_createform_atend' => 'Ao final',
 	'sf_createform_add' => 'Engadir',
 	'sf_createform_choosefield' => 'Elixa un campo para engadir',
-	'sf_createform_before' => 'Antes do modelo:',
-	'sf_createform_additembeforesave' => 'Ten que engadir un modelo polo menos a este formulario antes de podelo gardar.',
+	'sf_createform_pagesection' => 'Sección da páxina:',
+	'sf_createform_addsection' => 'Engadir unha sección',
+	'sf_createform_removesection' => 'Eliminar a sección',
+	'sf_createform_before' => 'Antes:',
+	'sf_createform_addelements' => 'Engadir os elementos',
+	'sf_createform_hiddensection' => 'Esta entrada está agochada no formulario',
+	'sf_createform_sectionlevel' => 'Nivel de sección:',
+	'sf_createform_sectionname' => 'Nome da sección',
+	'sf_createform_additembeforesave' => 'Ten que engadir, polo menos, un modelo ou unha sección de páxina a este formulario antes de podelo gardar.',
 	'createcategory' => 'Crear unha categoría',
 	'sf-createcategory-with-name' => 'Crear a categoría: $1',
 	'sf_createcategory_name' => 'Nome da categoría:',
@@ -4960,8 +5031,15 @@ $messages['ja'] = array(
 	'sf_createform_atend' => '末尾に',
 	'sf_createform_add' => '追加',
 	'sf_createform_choosefield' => '追加するフィールドを選択',
+	'sf_createform_pagesection' => 'ページの節:',
+	'sf_createform_addsection' => '追加する節',
+	'sf_createform_removesection' => '節を除去',
 	'sf_createform_before' => '以下のテンプレートの前:',
-	'sf_createform_additembeforesave' => '保存する前に、このフォームにテンプレートを少なくとも1つ追加する必要があります。',
+	'sf_createform_addelements' => '要素の追加',
+	'sf_createform_hiddensection' => 'この入力はフォームでは非表示です',
+	'sf_createform_sectionlevel' => '節のレベル:',
+	'sf_createform_sectionname' => '節の名前',
+	'sf_createform_additembeforesave' => '保存する前に、このフォームにテンプレートまたはページの節を少なくとも1つ追加する必要があります。',
 	'createcategory' => 'カテゴリの作成',
 	'sf-createcategory-with-name' => 'カテゴリの作成: $1',
 	'sf_createcategory_name' => 'カテゴリ名:',
@@ -6104,7 +6182,14 @@ $messages['mk'] = array(
 	'sf_createform_atend' => 'На крај',
 	'sf_createform_add' => 'Додај',
 	'sf_createform_choosefield' => 'Одберете поле за додавање',
+	'sf_createform_pagesection' => 'Дел од страницата:',
+	'sf_createform_addsection' => 'Додај поднаслов',
+	'sf_createform_removesection' => 'Отстрани поднаслов',
 	'sf_createform_before' => 'Пред шаблонот:',
+	'sf_createform_addelements' => 'Додај елементи',
+	'sf_createform_hiddensection' => 'Овој внос е скриен во образецот',
+	'sf_createform_sectionlevel' => 'Ниво на поднасловот:',
+	'sf_createform_sectionname' => 'Назив на поднасловот',
 	'sf_createform_additembeforesave' => 'Пред да можете да го зачувате, во образецов мора да додадете барем еден шаблон.',
 	'createcategory' => 'Создај категорија',
 	'sf-createcategory-with-name' => 'Создај катетгорија: $1',
