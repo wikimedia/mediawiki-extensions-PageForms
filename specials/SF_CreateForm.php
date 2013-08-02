@@ -249,24 +249,28 @@ jQuery(document).ready(function() {
 				$section = $fi['item'];
 				$old_i = SFFormUtils::getChangedIndex( $sections, $new_section_loc, $deleted_section_loc );
 				foreach ( $wgRequest->getValues() as $key => $value ) {
-					if ( ( $pos = strpos( $key, '_' . $old_i ) ) != false ) {
-							$paramName = substr( $key, 0, $pos );
-						} else {
-							continue;
-						}
+					if ( ( $pos = strpos( $key, '_section_' . $old_i ) ) != false ) {
+						$paramName = substr( $key, 0, $pos );
+						$paramName = str_replace( '_', ' ', $paramName );
+					} else {
+						continue;
+					}
 
-						if ( $paramName == 'sectionlevel' ) {
-							$section->setSectionLevel( $value );
-						}
-						if ( $value == 'on' ) {
+						if ( !empty( $value ) ) {
+							if ( $value == 'on' ) {
 								$value = true;
-						}
-						if ( $paramName == 'hidden' ) {
-							$section->setIsHidden( $value );
-						} elseif ( $paramName == 'restricted' ) {
-							$section->setIsRestricted( $value );
-						} elseif ( $paramName == 'mandatory' ) {
-							$section->setIsMandatory( $value );
+							}
+							if ( $paramName == 'level' ) {
+								$section->setSectionLevel( $value );
+							} elseif ( $paramName == 'hidden' ) {
+								$section->setIsHidden( $value );
+							} elseif ( $paramName == 'restricted' ) {
+								$section->setIsRestricted( $value );
+							} elseif ( $paramName == 'mandatory' ) {
+								$section->setIsMandatory( $value );
+							} else {
+								$section->setSectionArgs( $paramName, $value );
+							}
 						}
 				}
 				$sections++;
@@ -515,10 +519,10 @@ END;
 
 		$text = '';
 		$descriptiontext = '';
-		$section_text = $section_count;
+		$section_text = 'section_' . $section_count;
 
 		$params = SFPageSection::getParameters();
-
+		$i = 0;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
@@ -531,10 +535,21 @@ END;
 			} else {
 				$cur_value = '';
 			}
+
+			// 3 values per row, with alternating colors for rows
+			if ( $i % 3 == 0 ) {
+				$bgcolor = ( $i % 6 ) == 0 ? '#ecf0f6' : 'white';
+				$text .= "<div style=\"background: $bgcolor;\">";
+			}
+
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$paramName:\n";
 
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $section_text );
 			$text .= "\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
+			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
+				$text .= "<div style=\"clear: both\";></div></div>\n";
+			}
+			++$i;
 		}
 		return $text;
 	 }
