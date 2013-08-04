@@ -840,7 +840,6 @@ $messages['ast'] = array(
 	'sf_createtemplate_sectionsformat' => 'Seiciones',
 	'sf_createtemplate_addfield' => 'Agregar campu',
 	'sf_createtemplate_deletefield' => 'Desaniciar',
-	'sf_createform_additembeforesave' => "Tien d'amestar polo menos una plantía a esti formulariu antes de guardalu.",
 	'forms' => 'Formularios',
 	'sf_forms_docu' => 'Los siguientes formularios yá existen na wiki.',
 	'sf_forminputs_mandatory' => "Tien d'escribir un valor pa esta entrada",
@@ -851,6 +850,12 @@ $messages['ast'] = array(
 	'sf_forminputs_property' => 'Una propiedá semántica a la que correspuende esti campu',
 	'sf_forminputs_size' => "El tamañu d'esti campu de testu, en caráuteres",
 	'sf_forminputs_maxlength' => "La llonxitú máxima permitida del testu d'esti campu",
+	'sf_forminputs_placeholder' => "Testu d'ayuda qu'apaez na entrada fasta que l'usuariu fai clic nél",
+	'sf_forminputs_uploadable' => 'Colocar un enllaz "{{int:upload}}" al pie d\'esta entrada',
+	'sf_forminputs_defaultfilename' => 'El nome de ficheru predetermináu pa los ficheros xubíos',
+	'sf_forminputs_rows' => "El númberu de fileres d'esta entrada",
+	'sf_forminputs_cols' => "El númberu de columnes d'esta entrada",
+	'sf_createform_additembeforesave' => "Tien d'amestar polo menos una plantía a esti formulariu antes de guardalu.",
 );
 
 /** Kotava (Kotava)
@@ -1297,7 +1302,7 @@ $messages['br'] = array(
 	'sf_createform_inputtypedefault' => '(dre ziouer)',
 	'sf_createform_formlabel' => 'Label er furmskrid :',
 	'sf_createform_hidden' => 'Kuzhet',
-	'sf_createform_removetemplate' => 'Lemel ar skouer',
+	'sf_createform_removetemplate' => 'Lemel ar patrom',
 	'sf_createform_addtemplate' => 'Ouzhpennañ ur patrom :',
 	'sf_createform_atend' => 'En dibenn',
 	'sf_createform_add' => 'Ouzhpennañ',
