@@ -96,8 +96,8 @@ $magicWords['mr'] = array(
 /** Low Saxon (Netherlands) (Nedersaksies) */
 $magicWords['nds-nl'] = array(
 	'forminput' => array( 0, 'formulierinvoer' ),
-	'formlink' => array( 0, 'formulierverwiezing', 'formulierverwijzing' ),
-	'arraymaptemplate' => array( 0, 'arraymapmal', 'arraymapsjabloon' ),
+	'formlink' => array( 0, 'formulierverwiezing' ),
+	'arraymaptemplate' => array( 0, 'arraymapmal' ),
 );
 
 /** Dutch (Nederlands) */

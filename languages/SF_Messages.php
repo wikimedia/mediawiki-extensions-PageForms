@@ -3044,6 +3044,7 @@ $messages['fo'] = array(
  * @author Erkethan
  * @author Gomoko
  * @author Grondin
+ * @author Guillom
  * @author Hashar
  * @author IAlex
  * @author McDutchie
@@ -3180,7 +3181,7 @@ l’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<
 	'sf_formedit_altformsonly' => 'Vous êtes prié{{GENDER:||e|(e)}} de sélectionner l’un des formulaires suivants pour ajouter cette page :',
 	'sf_formcreate' => 'Créer avec un formulaire',
 	'sf_viewform' => 'Voir le formulaire',
-	'sf_editsource' => 'Modifier la source',
+	'sf_editsource' => 'Modifier le wikicode',
 	'sf_formedit_edittitle' => 'Modifier $1 : $2',
 	'sf_formedit_morethanoneform' => 'Avertissement : Plus d’un formulaire par défaut est spécifié pour cette page.',
 	'sf_formedit_formwarning' => 'Attention : cette page <a href="$1">existe déjà</a>, mais elle n’utilise pas ce formulaire.',
