@@ -1368,6 +1368,7 @@ END;
 					$is_hidden = false;
 					$is_restricted = false;
 					$header_level = 2;
+					$other_args = array ();
 
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 
@@ -1379,6 +1380,8 @@ END;
 							$is_hidden = true;
 						} elseif ( $component == 'restricted' ) {
 							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
+						} elseif ( $component == 'autogrow' ) {
+							$other_args['autogrow'] = true;
 						}
 
 						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
@@ -1386,6 +1389,14 @@ END;
 						if ( count( $sub_components ) == 2 ) {
 							if ( trim( $sub_components[0] ) == 'level' ) {
 								$header_level = $sub_components[1];
+							} elseif ( trim( $sub_components[0] ) == 'rows' ) {
+								$other_args['rows'] = $sub_components[1];
+							} elseif ( trim( $sub_components[0] ) == 'cols' ) {
+								$other_args['cols'] = $sub_components[1];
+							} elseif ( trim( $sub_components[0] ) == 'class' ) {
+								$other_args['class'] = $sub_components[1];
+							} elseif ( trim( $sub_components[0] ) == 'editor' ) {
+								$other_args['editor'] = $sub_components[1];
 							}
 						}
 					}
@@ -1435,8 +1446,6 @@ END;
 
 					//set input name for query string
 					$input_name = '_section' . '[' . trim( $section_name ) . ']';
-					$other_args = array ();
-					$other_args['rows'] = 10;
 					if ( $is_mandatory ) {
 						$other_args['mandatory'] = true;
 					}

@@ -109,6 +109,7 @@ $messages['en'] = array(
 	'sf_createform_sectionlevel'         => 'Section level:',
 	'sf_createform_sectionname'          => 'Section name',
 	'sf_createform_additembeforesave'    => 'You must add at least one template or page section to this form before you can save it.',
+	'sf_createform_otherparameters'      => 'Other parameters',
 	'createcategory'                     => 'Create a category',
 	'sf-createcategory-with-name'        => 'Create category: $1',
 	'sf_createcategory_name'             => 'Category name:',

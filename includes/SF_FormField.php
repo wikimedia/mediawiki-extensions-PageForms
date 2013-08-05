@@ -246,7 +246,8 @@ END;
 			}
 		}
 
-		$text .= "<fieldset class=\"sfCollapsibleFieldset\"><legend>Other parameters</legend>\n";
+		$other_param_text = wfMessage( 'sf_createform_otherparameters' )->escaped();
+		$text .= "<fieldset class=\"sfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
 		$text .= Html::rawElement( 'div', array( 'class' => 'otherInputParams' ),
 			SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
