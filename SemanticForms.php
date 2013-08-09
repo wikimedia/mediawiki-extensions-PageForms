@@ -233,6 +233,14 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'scripts' => 'libs/jquery.fancybox.js',
 			'styles' => 'skins/jquery.fancybox.css',
 		),
+		'ext.semanticforms.dynatree' => $sfgResourceTemplate + array(
+			'dependencies' => array( 'jquery.ui.core' ),
+			'scripts' => array(
+				'libs/jquery.dynatree.js',
+				'libs/ext.dynatree.js',
+			),
+			'styles' => 'skins/ui.dynatree.css',
+		),
 		'ext.semanticforms.autogrow' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autogrow.js',
 		),
