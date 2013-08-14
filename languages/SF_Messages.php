@@ -380,7 +380,7 @@ See also:
 	'sf_formedit_saveandcontinue_summary' => 'Summary logged in the page history for revisions that were created using the "Save and continue" button.
 
 Parameters:
-* $1 is replaced with {{msg-mw|sf_formedit_saveandcontinueediting}}.',
+* $1 - replaced with {{msg-mw|Sf formedit saveandcontinueediting}}',
 	'sf_formedit_accesskey_saveandcontinueediting' => '{{notranslate}}',
 	'sf_autoedit_anoneditwarning' => 'This is a copy of the general MediaWiki "anoneditwarning" message, but without any markup.
 
@@ -5779,10 +5779,12 @@ $messages['lb'] = array(
 	'sf_createform_atend' => 'Um Enn',
 	'sf_createform_add' => 'Derbäisetzen',
 	'sf_createform_choosefield' => 'Sicht e Feld eraus fir derbäizesetzen',
+	'sf_createform_pagesection' => 'Abschnitt vun der Säit:',
 	'sf_createform_addsection' => 'Abschnitt derbäisetzen',
 	'sf_createform_removesection' => 'Abschnitt ewechhuelen',
 	'sf_createform_before' => "Virun d'Schabloun:",
 	'sf_createform_addelements' => 'Elementer derbäisetzen',
+	'sf_createform_sectionlevel' => 'Niveau vum Abschnitt:',
 	'sf_createform_sectionname' => 'Numm vum Abschnitt',
 	'sf_createform_additembeforesave' => 'Dir musst mindestens eng Schabloun an dëser Formulaire drasetzen ier Dir e späichere kënnt.',
 	'sf_createform_otherparameters' => 'Aner Parameter',
@@ -6049,7 +6051,7 @@ $messages['lv'] = array(
 	'sf_createform_atend' => 'Beigās',
 	'sf_createform_add' => 'Pievienot',
 	'sf_createform_choosefield' => 'Izvēlieties lauku, ko pievienot',
-	'sf_createform_before' => 'Pirms veidnes:',
+	'sf_createform_before' => 'Pirms:',
 	'sf_createform_additembeforesave' => 'Jāpievieno vismaz viena veidne, lai varētu saglabāt formu.',
 	'createcategory' => 'Izveidot kategoriju',
 	'sf_createcategory_name' => 'Kategorijas nosaukums:',
