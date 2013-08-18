@@ -195,6 +195,7 @@ the URL should look like "Special:RunQuery/<form name>".',
 	'sf-pageschemas-createtitle'         => 'Title of form for new pages:',
 	'sf-pageschemas-edittitle'           => 'Title of form for existing pages:',
 	'sf-pageschemas-inputtype'           => 'Input type (leave blank to set to default):',
+	'sf-pageschemas-otherparams'         => 'Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,"). For example: $1',
 
 	// content messages
 	'sf_property_isproperty'             => 'This is a property of type $1.',
@@ -449,6 +450,7 @@ If the category has default form, the following message is used instead:
 	'action-createclass' => '{{doc-action|createclass}}',
 	'action-editrestrictedfields' => '{{doc-action|editrestrictedfields}}',
 	'action-viewedittab' => '{{doc-action|viewedittab}}',
+	'sf-pageschemas-otherparams' => 'Used as label for "Form inputs" and "Other parameters" input boxes',
 );
 
 /** Afrikaans (Afrikaans)
