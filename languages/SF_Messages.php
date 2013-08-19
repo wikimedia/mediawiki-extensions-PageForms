@@ -1699,6 +1699,7 @@ $messages['ckb'] = array(
  * @author Juan de Vojníkov
  * @author Juandev
  * @author Matěj Grabovský
+ * @author Michaelbrabec
  * @author Mormegil
  * @author Reaperman
  * @author Vks
@@ -1727,9 +1728,15 @@ $messages['cs'] = array(
 	'sf_createform_inputtypedefault' => '(výchozí)',
 	'sf_createform_hidden' => 'Skrytý',
 	'sf_createform_add' => 'Přidat',
+	'sf_createform_addsection' => 'Přidat sekci',
+	'sf_createform_removesection' => 'Odstranit sekci',
+	'sf_createform_before' => 'Před:',
+	'sf_createform_addelements' => 'Přidat prvky',
+	'sf_createform_sectionname' => 'Název sekce',
+	'sf_createform_otherparameters' => 'Další parametry',
 	'sf_createclass_create' => 'Založit',
 	'sf_formstart_createoredit' => 'Vytvořit nebo upravit',
-	'sf_formedit_remove' => 'Odstranit',
+	'sf_formedit_remove' => 'Odstranit', # Fuzzy
 	'sf_formedit_none' => 'Nic',
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Uložit a pokračovat v úpravách',
 	'sf-autoedit-wait' => 'Čekejte...',
@@ -3774,10 +3781,12 @@ $messages['gu'] = array(
 
 /** Manx (Gaelg)
  * @author MacTire02
+ * @author Shimmin Beg
  */
 $messages['gv'] = array(
 	'sf_createproperty_propname' => 'Ennym tro:',
 	'sf_createtemplate_deletefield' => 'Scryss',
+	'sf_createform_sectionname' => 'Ennym y rheynn',
 	'createcategory' => 'Croo ronney',
 	'sf_createcategory_name' => 'Ennym ronney:',
 );
