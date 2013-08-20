@@ -58,7 +58,7 @@ class SFPageSchemas extends PSExtensionHandler {
 				}
 			}
 		}
-		if ( $tagName == "semanticforms_FormInput" ) {
+		if ( $tagName == "semanticforms_FormInput" || $tagName == "semanticforms_PageSection" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 				if ( $tag == $tagName ) {
 					foreach ( $child->children() as $prop ) {
@@ -69,8 +69,8 @@ class SFPageSchemas extends PSExtensionHandler {
 								$sfarray[$prop->getName()] = (string)$prop;
 							} else {
 							$sfarray[(string)$prop->attributes()->name] = (string)$prop;
+							}
 						}
-					}
 					}
 					return $sfarray;
 				}
@@ -216,30 +216,60 @@ class SFPageSchemas extends PSExtensionHandler {
 				}
 
 			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
-				if ( $val !== '' ) {
-					// replace the comma substitution character that has no chance of
-					// being included in the values list - namely, the ASCII beep
-					$listSeparator = ',';
-					$key_values_str = str_replace( "\\$listSeparator", "\a", $val );
-					$key_values_array = explode( $listSeparator, $key_values_str );
-					foreach ( $key_values_array as $value ) {
-						// replace beep back with comma, trim
-						$value = str_replace( "\a", $listSeparator, trim( $value ) );
-						$param_value = explode( "=", $value, 2 );
-						if ( count( $param_value ) == 2 && $param_value[1] != null ) {
-							// Handles <Parameter name="size">20</Parameter>
-							$xml .= '<Parameter name="' . $param_value[0] . '">' . $param_value[1] . '</Parameter>';
-						} else {
-							// Handles <Parameter name="mandatory" />
-							$xml .= '<Parameter name="' . $param_value[0] . '"/>';
-						}
-					}
-				}
+				$xml .= self::createFormInputXMLFromForm( $val );
 				$xml .= '</semanticforms_FormInput>';
 				$xmlPerField[$fieldNum] = $xml;
 			}
 		}
 		return $xmlPerField;
+	}
+
+	/**
+	 * Creates Page Schemas XML for page sections
+	 */
+	public static function createPageSectionXMLFromForm() {
+		global $wgRequest;
+		$xmlPerPageSection = array();
+		$pageSectionNum = -1;
+
+		foreach ( $wgRequest->getValues() as $var => $val ) {
+			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
+			if ( substr( $var, 0, 26 ) == 'sf_pagesection_key_values_' ) {
+				$pageSectionNum = substr( $var, 26 );
+				$xml = "";
+				if ( $val != '' ) {
+					$xml = '<semanticforms_PageSection>';
+					$xml .= self::createFormInputXMLFromForm( $val );
+					$xml .= '</semanticforms_PageSection>';
+				}
+				$xmlPerPageSection[$pageSectionNum] = $xml;
+			}
+		}
+		return $xmlPerPageSection;
+	}
+
+	static function createFormInputXMLFromForm( $valueFromForm ) {
+		$xml = '';
+		if ( $valueFromForm !== '' ) {
+			// replace the comma substitution character that has no chance of
+			// being included in the values list - namely, the ASCII beep
+			$listSeparator = ',';
+			$key_values_str = str_replace( "\\$listSeparator", "\a", $valueFromForm );
+			$key_values_array = explode( $listSeparator, $key_values_str );
+			foreach ( $key_values_array as $value ) {
+			// replace beep back with comma, trim
+				$value = str_replace( "\a", $listSeparator, trim( $value ) );
+				$param_value = explode( "=", $value, 2 );
+				if ( count( $param_value ) == 2 && $param_value[1] != null ) {
+					// Handles <Parameter name="size">20</Parameter>
+					$xml .= '<Parameter name="' . $param_value[0] . '">' . $param_value[1] . '</Parameter>';
+				} else {
+					// Handles <Parameter name="mandatory" />
+					$xml .= '<Parameter name="' . $param_value[0] . '"/>';
+				}
+			}
+		}
+		return $xml;
 	}
 
 	public static function getDisplayColor() {
@@ -429,7 +459,7 @@ END;
 		$text .= "\t<p>Enter field <b>description</b>:</p>\t<p>$inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
 
 		// @todo FIXME: i18n issue: Hard coded text.
-		$text .= "\t" . '<p>Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with "\,"). For example: size=20, mandatory</p>' . "\n";
+		$text .= "\t" . '<p>' . wfMessage( 'sf-pageschemas-otherparams', 'size=20, mandatory' )->escaped() . '</p>' . "\n";
 		$paramValues = array();
 		foreach ( $fieldValues as $param => $value ) {
 			if ( !empty( $param ) && $param != 'InputType' && $param != 'Description' && $param != 'DescriptionTooltipMode' && $param != 'TextBeforeField' ) {
@@ -448,6 +478,33 @@ END;
 		$inputParamsInput = Html::input( 'sf_key_values_num', $param_value_str, 'text', $inputParamsAttrs );
 		$text .= "\t<p>$inputParamsInput</p>\n";
 		return array( $text, $hasExistingValues );
+	}
+
+	public static function getPageSectionEditingHTML( $psPageSection ) {
+		$otherParams = array();
+
+		if ( !is_null( $psPageSection ) ) {
+			$otherParams = $psPageSection->getObject( 'semanticforms_PageSection' );
+		}
+		$paramValues = array();
+		foreach ( $otherParams as $param => $value ) {
+			if ( !empty( $param ) ) {
+				if ( !empty( $value ) ) {
+					$paramValues[] = $param . '=' . $value;
+				} else {
+					$paramValues[] = $param;
+				}
+			}
+		}
+		foreach ( $paramValues as $i => $paramAndVal ) {
+			$paramValues[$i] = str_replace( ',', '\,', $paramAndVal );
+		}
+		$param_value_str = implode( ', ', $paramValues );
+		$text = "\t" . '<p>' . wfMessage( 'sf-pageschemas-otherparams', 'rows=10, mandatory' )->escaped() . '</p>' . "\n";
+		$inputParamsInput = Html::input( 'sf_pagesection_key_values_num', $param_value_str, 'text', array( 'size' => 80 ) );
+		$text .= "\t<p>$inputParamsInput</p>\n";
+
+		return $text;
 	}
 
 	public static function getFormName( $pageSchemaObj ) {
@@ -785,6 +842,10 @@ END;
 		return 'Form input';
 	}
 
+	public static function getPageSectionDisplayString() {
+		return wfMsg( 'ps-otherparams' );
+	}
+
 	/**
 	 * Displays data on a single form input in the Page Schemas XML.
 	 */
@@ -799,6 +860,21 @@ END;
 					} else {
 						$propName = (string)$prop->attributes()->name;
 					}
+					$values[$propName] = (string)$prop;
+				}
+				return array( $inputName, $values );
+			}
+		}
+		return null;
+	}
+
+	public static function getPageSectionDisplayValues( $pageSectionXML ) {
+		foreach ( $pageSectionXML->children() as $tag => $child ) {
+			if ( $tag == "semanticforms_PageSection" ) {
+				$inputName = $child->attributes()->name;
+				$values = array();
+				foreach ( $child->children() as $prop ) {
+					$propName = (string)$prop->attributes()->name;
 					$values[$propName] = (string)$prop;
 				}
 				return array( $inputName, $values );
