@@ -330,8 +330,10 @@ See also:
 * {{msg-mw|Sf createform template}}',
 	'sf_createform_addsection' => 'Used as label.
 
-Followed by ":" and the input box which has the placeholder {{msg-mw|Sf createform sectionname}}.',
-	'sf_createform_removesection' => 'Used as label for the Submit button.',
+Followed by ":" and the input box which has the placeholder {{msg-mw|Sf createform sectionname}}.
+{{Identical|Add section}}',
+	'sf_createform_removesection' => 'Used as label for the Submit button.
+{{Identical|Remove section}}',
 	'sf_createform_before' => 'Used as label for the "Template" select box.
 {{Identical|Before}}',
 	'sf_createform_addelements' => 'Used as <code><nowiki><h2></nowiki></code> heading.
@@ -340,9 +342,12 @@ Followed by the label {{msg-mw|Sf createform addtemplate}}.',
 	'sf_createform_hiddensection' => 'See also:
 * {{msg-mw|Sf forminputs mandatory}}
 * {{msg-mw|Sf forminputs restricted}}',
+	'sf_createform_sectionlevel' => '{{Identical|Section level}}',
 	'sf_createform_sectionname' => 'Used as placeholder for the "Section name" input box.
 
-The input box is preceded by the label {{msg-mw|Sf createform addsection}} and ":".',
+The input box is preceded by the label {{msg-mw|Sf createform addsection}} and ":".
+{{Identical|Section name}}',
+	'sf_createform_otherparameters' => '{{Identical|Other parameter}}',
 	'createcategory' => '{{doc-special|CreateCategory}}',
 	'sf-createcategory-with-name' => 'Used as page title. Parameters:
 * $1 - category name',
@@ -1965,6 +1970,7 @@ Die URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>�
 	'sf-pageschemas-createtitle' => 'Name des Formulars für neue Seiten:',
 	'sf-pageschemas-edittitle' => 'Name des Formulars für vorhandene Seiten:',
 	'sf-pageschemas-inputtype' => 'Eingabetyp (leer lassen, um die Standardeinstellung zu nutzen):',
+	'sf-pageschemas-otherparams' => 'Gib Parameternamen und ihre Werte als „key=value“-Paare ein, getrennt durch Kommas (Falls ein Wert ein Komma enthält, ersetze es durch „\\,“). Zum Beispiel: $1',
 	'sf_property_isproperty' => 'Dies ist ein Attribut des Datentyps $1.',
 	'sf_property_linkstoform' => 'Es verlinkt auf Seiten, die das Formular „$1“ nutzen.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Der mögliche Wert für dieses Attribut ist|Die möglichen Werte für dieses Attribut sind}}:',
@@ -3249,6 +3255,7 @@ quelque chose comme « Special:RunQuery/<nom du formulaire> ».',
 	'sf-pageschemas-createtitle' => 'Titre du formulaire pour les nouvelles pages:',
 	'sf-pageschemas-edittitle' => 'Titre du formulaire pour les pages existantes:',
 	'sf-pageschemas-inputtype' => "Type d'entrée (laissez-le à blanc pour la valeur par défaut):",
+	'sf-pageschemas-otherparams' => 'Entrez les noms des paramètres et leurs valeurs comme clé = paires de valeur, séparées par des virgules (si une valeur contient une virgule, la remplacer par « \\, »). Par exemple :$1',
 	'sf_property_isproperty' => 'Cette propriété est de type $1.',
 	'sf_property_linkstoform' => 'Elle pointe sur les pages utilisant le formulaire $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|La valeur autorisée pour cette propriété est|Les valeurs autorisées pour cette propriété sont}} :',
@@ -5141,6 +5148,7 @@ URL は「Special:RunQuery/<フォーム名>」のような形式になります
 	'sf-pageschemas-createtitle' => '新しいページに使用するフォーム名:',
 	'sf-pageschemas-edittitle' => '既存のページに使用するフォーム名:',
 	'sf-pageschemas-inputtype' => '入力型 (既定値を使用する場合は空白):',
+	'sf-pageschemas-otherparams' => 'パラメーター名とその値を key=value のような対にして、カンマ区切りで入力してください (値がカンマを含む場合は、それを「\\,」に置換してください)。例: $1',
 	'sf_property_isproperty' => 'これは型 $1 のプロパティです。',
 	'sf_property_linkstoform' => 'フォーム $1 を使用するページにリンクしています。',
 	'sf_property_allowedvals' => 'このプロパティが取れる{{PLURAL:$1|値}}:',
@@ -6012,8 +6020,8 @@ $messages['lv'] = array(
 	'sf_createtemplate_aggregationdesc' => 'Lai lapā, kas izmanto šo veidni, izveidotu sarakstu ar visām lapām, kuru noteikta īpašība norāda uz to lapu, norādiet atbilstošo īpašību zemāk:',
 	'sf_createtemplate_aggregationlabel' => 'Saraksta virsraksts:',
 	'sf_createtemplate_outputformat' => 'Izvades formāts:',
-	'sf_createtemplate_standardformat' => 'standarta', # Fuzzy
-	'sf_createtemplate_infoboxformat' => 'infokaste labajā pusē', # Fuzzy
+	'sf_createtemplate_standardformat' => 'Tabula',
+	'sf_createtemplate_infoboxformat' => 'Infokaste',
 	'sf_createtemplate_addfield' => 'Pievienot lauku',
 	'sf_createtemplate_deletefield' => 'Izdzēst',
 	'forms' => 'Formas',
@@ -6318,6 +6326,7 @@ URL-адресата треба да изгледа вака: „Special:RunQuer
 	'sf-pageschemas-createtitle' => 'Наслов на образецот за нови страници:',
 	'sf-pageschemas-edittitle' => 'Наслов на образецот за постоечки страници:',
 	'sf-pageschemas-inputtype' => 'Тип на внос (оставете празно за да биде по основно):',
+	'sf-pageschemas-otherparams' => 'Внесте ги имињата на параметрите и нивните вредности во парови „клуч=вредност“, одделени со запирки (ако самата вредност содржи запирка, заменете ја со „\\,“). На пример: $1',
 	'sf_property_isproperty' => 'Ова е својство од типот $1.',
 	'sf_property_linkstoform' => 'Дава врски кон страниците кои го користат образецот $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|Дозволената вредност за ова својство е|Дозволените вредности за ова својство се}}:',
