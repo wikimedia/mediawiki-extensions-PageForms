@@ -487,15 +487,18 @@ END;
 			$otherParams = $psPageSection->getObject( 'semanticforms_PageSection' );
 		}
 		$paramValues = array();
-		foreach ( $otherParams as $param => $value ) {
-			if ( !empty( $param ) ) {
-				if ( !empty( $value ) ) {
-					$paramValues[] = $param . '=' . $value;
-				} else {
-					$paramValues[] = $param;
+		if ( !is_null( $otherParams ) ) {
+			foreach ( $otherParams as $param => $value ) {
+				if ( !empty( $param ) ) {
+					if ( !empty( $value ) ) {
+						$paramValues[] = $param . '=' . $value;
+					} else {
+						$paramValues[] = $param;
+					}
 				}
 			}
 		}
+
 		foreach ( $paramValues as $i => $paramAndVal ) {
 			$paramValues[$i] = str_replace( ',', '\,', $paramAndVal );
 		}
@@ -569,6 +572,25 @@ END;
 		return $form_fields;
 	}
 
+	public static function getPageSection( $psPageSection ) {
+		$pageSection = SFPageSection::create( $psPageSection->getSectionName() );
+		$pageSectionArray = $psPageSection->getObject( 'semanticforms_PageSection' );
+		if ( !is_null( $pageSectionArray ) ) {
+			foreach ( $pageSectionArray as $var => $val ) {
+				if ( $var == 'mandatory' ) {
+					$pageSection->setIsMandatory( true );
+				} elseif ( $var == 'hidden' ) {
+					$pageSection->setIsHidden( true );
+				} elseif ( $var == 'restricted' ) {
+					$pageSection->setIsRestricted( true );
+				} else {
+					$pageSection->setSectionArgs( $var, $val );
+				}
+			}
+		}
+		return $pageSection;
+	}
+
 	/**
 	 * Return the list of pages that Semantic Forms could generate from
 	 * the current Page Schemas schema.
@@ -627,7 +649,7 @@ END;
 	 * of Page Schemas.
 	 */
 	public static function generateForm( $formName, $formTitle,
-		$formTemplates, $formDataFromSchema, $categoryName ) {
+		$formItems, $formDataFromSchema, $categoryName ) {
 		global $wgUser;
 
 		$input = array();
@@ -652,12 +674,6 @@ END;
 		if ( array_key_exists( 'freeTextLabel', $formDataFromSchema ) )
 			$freeTextLabel = $formDataFromSchema['freeTextLabel'];
 
-		$formItems = array();
-		foreach ( $formTemplates as $template ) {
-			$formItems[] = array( 'type' => 'template',
-							'name' => $template->getTemplateName(),
-							'item' => $template );
-		}
 		$form = SFForm::create( $formName, $formItems );
 		$form->setAssociatedCategory( $categoryName );
 		if ( array_key_exists( 'PageNameFormula', $formDataFromSchema ) ) {
@@ -683,77 +699,85 @@ END;
 	public static function generatePages( $pageSchemaObj, $selectedPages ) {
 		global $wgUser;
 
-		$psTemplates = $pageSchemaObj->getTemplates();
-
-		$form_templates = array();
+		$psFormItems = $pageSchemaObj->getFormItemsList();
+		$form_items = array();
 		$jobs = array();
 		$templateHackUsed = false;
 		$isCategoryNameSet = false;
 
 		// Generate every specified template
-		foreach ( $psTemplates as $psTemplate ) {
-			$templateName = $psTemplate->getName();
-			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
-			$fullTemplateName = PageSchemas::titleString( $templateTitle );
-			$template_fields = self::getFieldsFromTemplateSchema( $psTemplate );
-			if ( class_exists( 'SIOPageSchemas' ) ) {
-				$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $psTemplate );
-			} else {
-				$internalObjProperty = null;
-			}
-			$template_options = array();
-			wfRunHooks('SfTemplateOptions', array( $psTemplate, &$template_options ) );
-			// TODO - actually, the category-setting should be
-			// smarter than this: if there's more than one
-			// template in the schema, it should probably be only
-			// the first non-multiple template that includes the
-			// category tag.
-			if ( $psTemplate->isMultiple() ) {
-				$categoryName = null;
-			} else {
-				if ( $isCategoryNameSet == false ) {
-					$categoryName = $pageSchemaObj->getCategoryName();
-					$isCategoryNameSet = true;
+		foreach ( $psFormItems as $psFormItem ) {
+			if ( $psFormItem['type'] == 'Template' ) {
+				$psTemplate = $psFormItem['item'];
+				$templateName = $psTemplate->getName();
+				$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
+				$fullTemplateName = PageSchemas::titleString( $templateTitle );
+				$template_fields = self::getFieldsFromTemplateSchema( $psTemplate );
+				if ( class_exists( 'SIOPageSchemas' ) ) {
+					$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $psTemplate );
 				} else {
+					$internalObjProperty = null;
+				}
+				$template_options = array();
+				wfRunHooks('SfTemplateOptions', array( $psTemplate, &$template_options ) );
+				// TODO - actually, the category-setting should be
+				// smarter than this: if there's more than one
+				// template in the schema, it should probably be only
+				// the first non-multiple template that includes the
+				// category tag.
+				if ( $psTemplate->isMultiple() ) {
 					$categoryName = null;
+				} else {
+					if ( $isCategoryNameSet == false ) {
+						$categoryName = $pageSchemaObj->getCategoryName();
+						$isCategoryNameSet = true;
+					} else {
+						$categoryName = null;
+					}
+
+				}
+				if ( method_exists( $psTemplate, 'getFormat' ) ) {
+					$templateFormat = $psTemplate->getFormat();
+				} else {
+					$templateFormat = null;
+				}
+				$templateText = SFTemplateField::createTemplateText( $templateName,
+					$template_fields, $internalObjProperty, $categoryName,
+					null, null, $templateFormat, $template_options );
+				if ( in_array( $fullTemplateName, $selectedPages ) ) {
+					$params = array();
+					$params['user_id'] = $wgUser->getId();
+					$params['page_text'] = $templateText;
+					$jobs[] = new PSCreatePageJob( $templateTitle, $params );
+					if ( strpos( $templateText, '{{!}}' ) > 0 ) {
+						$templateHackUsed = true;
+					}
 				}
 
-			}
-			if ( method_exists( $psTemplate, 'getFormat' ) ) {
-				$templateFormat = $psTemplate->getFormat();
-			} else {
-				$templateFormat = null;
-			}
-			$templateText = SFTemplateField::createTemplateText( $templateName,
-				$template_fields, $internalObjProperty, $categoryName,
-				null, null, $templateFormat, $template_options );
-			if ( in_array( $fullTemplateName, $selectedPages ) ) {
-				$params = array();
-				$params['user_id'] = $wgUser->getId();
-				$params['page_text'] = $templateText;
-				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
-				if ( strpos( $templateText, '{{!}}' ) > 0 ) {
-					$templateHackUsed = true;
+				$templateValues = self::getTemplateValues( $psTemplate );
+				if ( array_key_exists( 'Label', $templateValues ) ) {
+					$templateLabel = $templateValues['Label'];
+				} else {
+					$templateLabel = null;
 				}
+				$form_fields = self::getFormFieldInfo( $psTemplate, $template_fields );
+				// Create template info for form, for use in generating
+				// the form (if it will be generated).
+				$form_template = SFTemplateInForm::create(
+					$templateName,
+					$templateLabel,
+					$psTemplate->isMultiple(),
+					null,
+					$form_fields
+				);
+				$form_items[] = array( 'type' => 'template', 'name' => $form_template->getTemplateName(), 'item' => $form_template );
+			} elseif ( $psFormItem['type'] == 'Section' ) {
+				$psPageSection = $psFormItem['item'];
+				$form_section = self::getPageSection( $psPageSection );
+				$form_section->setSectionLevel( $psPageSection->getSectionLevel() );
+				$form_items[] = array( 'type' => 'section', 'name'=> $form_section->getSectionName(), 'item' => $form_section );
 			}
 
-			$templateValues = self::getTemplateValues( $psTemplate );
-			if ( array_key_exists( 'Label', $templateValues ) ) {
-				$templateLabel = $templateValues['Label'];
-			} else {
-				$templateLabel = null;
-			}
-			$form_fields = self::getFormFieldInfo( $psTemplate, $template_fields );
-			// Create template info for form, for use in generating
-			// the form (if it will be generated).
-			$form_template = SFTemplateInForm::create(
-				$templateName,
-				$templateLabel,
-				$psTemplate->isMultiple(),
-				null,
-				$form_fields
-			);
-			$form_templates[] = $form_template;
 		}
 
 		// Create the "!" hack template, if it's necessary
@@ -778,7 +802,7 @@ END;
 			$fullFormName = PageSchemas::titleString( $formTitle );
 			if ( in_array( $fullFormName, $selectedPages ) ) {
 				self::generateForm( $formName, $formTitle,
-					$form_templates, $formInfo, $categoryName );
+					$form_items, $formInfo, $categoryName );
 			}
 		}
 	}
