@@ -555,6 +555,7 @@ $messages['an'] = array(
  * @author Meno25
  * @author OsamaK
  * @author أحمد
+ * @author زكريا
  */
 $messages['ar'] = array(
 	'semanticforms-desc' => 'استمارات لإنشاء و تعديل البيانات الدلالية',
@@ -602,8 +603,8 @@ $messages['ar'] = array(
 	'sf_createform_inputtypedefault' => '(افتراضي)',
 	'sf_createform_formlabel' => 'لصيقة النموذج:',
 	'sf_createform_hidden' => 'مخفي',
-	'sf_createform_removetemplate' => 'إزالة القالب',
-	'sf_createform_addtemplate' => 'إضافة القالب:',
+	'sf_createform_removetemplate' => 'أزل القالب',
+	'sf_createform_addtemplate' => 'أضف قالب:',
 	'sf_createform_atend' => 'في النهاية',
 	'sf_createform_add' => 'أضف',
 	'sf_createform_choosefield' => 'اختر حقلا للإضافة',
@@ -3578,6 +3579,7 @@ o URL debe ser do tipo "Special:RunQuery/<nome do formulario>".',
 	'sf-pageschemas-createtitle' => 'Título do formulario para as páxinas novas:',
 	'sf-pageschemas-edittitle' => 'Título do formulario para as páxinas existentes:',
 	'sf-pageschemas-inputtype' => 'Tipo de entrada (déixeo en branco para definir o predeterminado):',
+	'sf-pageschemas-otherparams' => 'Insira os nomes dos parámetros e mais os seus valores como pares clave=valor, separados por comas (se un valor contén unha coma, substitúaa por "\\,"). Por exemplo: $1',
 	'sf_property_isproperty' => 'Esta é unha propiedade de clase $1.',
 	'sf_property_linkstoform' => 'Liga con páxinas que usan o formulario $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|O valor permitido|Os valores permitidos}} para esta propiedade {{PLURAL:$1|é|son}}:',
