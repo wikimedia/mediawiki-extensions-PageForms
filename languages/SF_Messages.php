@@ -369,13 +369,26 @@ See also:
 See also:
 * {{msg-mw|Sf formstart docu}}',
 	'formedit' => '{{doc-special|FormEdit}}',
-	'sf_formedit_createtitle' => '* $1 is the main part of the title of a semantic form
-* $2 is the prefixed title, with spaces for the target page
+	'sf_formedit_createtitle' => 'Used as page title. Parameters:
+* $1 - the main part of the title of a semantic form
+* $2 - the prefixed title, with spaces for the target page
+See also:
+* {{msg-mw|Sf formedit createtitlenotarget}}
+* {{msg-mw|Sf formedit edittitle}}
 {{Identical|Create}}',
-	'sf_formedit_createtitlenotarget' => '{{Identical|Create}}',
+	'sf_formedit_createtitlenotarget' => 'Used as page title. Parameters:
+* $1 - the main part of the title of a semantic form
+See also:
+* {{msg-mw|Sf formedit edittitle}}
+* {{msg-mw|Sf formedit createtitle}}
+{{Identical|Create}}',
 	'sf_editsource' => '{{Identical|Edit source}}',
-	'sf_formedit_edittitle' => '* $1 is the main part of the title of a semantic form
-* $2 is the prefixed title, with spaces for the target page',
+	'sf_formedit_edittitle' => 'Used as page title. Parameters:
+* $1 - the main part of the title of a semantic form
+* $2 - the prefixed title, with spaces for the target page
+See also:
+* {{msg-mw|Sf formedit createtitlenotarget}}
+* {{msg-mw|Sf formedit createtitle}}',
 	'sf_formedit_formwarning' => 'Used as warning. Parameters:
 * $1 - full URL of the page',
 	'sf_formedit_mismatchedbrackets' => 'Used as warning. Parameters:
@@ -394,8 +407,15 @@ See also:
 * {{msg-mw|Anoneditwarning}}
 * {{msg-mw|Wikibase-anonymouseditwarning-property}}
 * {{msg-mw|Wikibase-anonymouseditwarning-item}}',
-	'sf_autoedit_success' => 'Message sent upon successful operation.',
-	'sf_autoedit_fail' => 'Message sent upon failed operation.',
+	'sf_autoedit_success' => 'Message sent upon successful operation. Parameters:
+* $1 - target
+* $2 - form
+See also:
+* {{msg-mw|Sf autoedit fail}}',
+	'sf_autoedit_fail' => 'Message sent upon failed operation. Parameters:
+* $1 - target
+See also:
+* {{msg-mw|Sf autoedit success}}',
 	'sf_autoedit_notargetspecified' => 'An error message sent when no target page name was specified.',
 	'sf_autoedit_invalidtargetspecified' => 'An error message sent when the specified target page name is invalid as a wiki page name.',
 	'sf_autoedit_invalidform' => 'An error message sent when an invalid form was specified.',
@@ -5101,8 +5121,8 @@ $messages['ja'] = array(
 存在しない場合は、そのページを追加するフォームに転送されます。',
 	'sf_formstart_createoredit' => '作成または編集',
 	'formedit' => 'フォームを使用して編集',
-	'sf_formedit_createtitle' => '$1を作成: $2',
-	'sf_formedit_createtitlenotarget' => '$1 を作成',
+	'sf_formedit_createtitle' => '$1 の作成: $2',
+	'sf_formedit_createtitlenotarget' => '$1 の作成',
 	'sf_formedit_badurl' => 'このページは、フォームでの編集に使用するものです。フォーム名と対象ページの両方を、URL に指定する必要があります。
 「Special:FormEdit?form=<フォーム名>&target=<対象ページ>」または「Special:FormEdit/<フォーム名>/<対象ページ>」のような形式になります。',
 	'sf_formedit_altforms' => '以下のいずれかのフォームを使用して、このページを代わりに追加できます:',
@@ -5110,7 +5130,7 @@ $messages['ja'] = array(
 	'sf_formcreate' => 'フォームを使用して作成',
 	'sf_viewform' => 'フォームを表示',
 	'sf_editsource' => 'ソースを編集',
-	'sf_formedit_edittitle' => '$1 を編集: $2',
+	'sf_formedit_edittitle' => '$1 の編集: $2',
 	'sf_formedit_morethanoneform' => "'''警告:''' このページに対する既定のフォームが複数定義されています。",
 	'sf_formedit_formwarning' => '警告: このページは<a href="$1">既に存在します</a>が、このフォームを使用していません。',
 	'sf_formedit_remove' => 'このインスタンスを除去',

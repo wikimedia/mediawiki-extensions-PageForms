@@ -745,6 +745,12 @@ $specialPageAliases['vec'] = array(
 
 /** Vietnamese (Tiếng Việt) */
 $specialPageAliases['vi'] = array(
+	'CreateCategory' => array( 'Tạo_thể_loại' ),
+	'CreateClass' => array( 'Tạo_lớp' ),
+	'CreateForm' => array( 'Tạo_biểu_mẫu' ),
+	'CreateProperty' => array( 'Tạo_thuộc_tính' ),
+	'CreateTemplate' => array( 'Tạo_bản_mẫu' ),
+	'FormEdit' => array( 'Sửa_biểu_mẫu', 'Thêm_dữ_liệu', 'Sửa_dữ_liệu' ),
 	'Forms' => array( 'Biểu_mẫu' ),
 	'UploadWindow' => array( 'Cửa_sổ_tải_lên' ),
 );
