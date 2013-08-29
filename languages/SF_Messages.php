@@ -417,17 +417,48 @@ See also:
 See also:
 * {{msg-mw|Sf autoedit success}}',
 	'sf_autoedit_notargetspecified' => 'An error message sent when no target page name was specified.',
-	'sf_autoedit_invalidtargetspecified' => 'An error message sent when the specified target page name is invalid as a wiki page name.',
-	'sf_autoedit_invalidform' => 'An error message sent when an invalid form was specified.',
-	'sf_autoedit_redirectlimitexeeded' => 'An error message sent when the redirect limit was exeeded for the form page.',
-	'sf_autoedit_invalidredirecttarget' => 'An error message sent when the form page redirects to an invalid target.',
-	'sf_autoedit_invalidpreloadspecified' => 'An error message sent when an invalid preload page was specified.',
-	'sf_autoedit_redlinkexists' => 'An error message sent when the page was started on a redlink but on submit already exists.',
+	'sf_autoedit_invalidtargetspecified' => 'An error message sent when the specified target page name is invalid as a wiki page name.
+
+Parameters:
+* $1 - target page title',
+	'sf_autoedit_invalidform' => 'An error message sent when an invalid form was specified.
+
+Parameters:
+* $1 - form name',
+	'sf_autoedit_redirectlimitexeeded' => 'An error message sent when the redirect limit was exeeded for the form page.
+
+Parameters:
+* $1 - form name',
+	'sf_autoedit_invalidredirecttarget' => 'An error message sent when the form page redirects to an invalid target.
+
+Parameters:
+* $1 - target page title
+* $2 - form name',
+	'sf_autoedit_invalidpreloadspecified' => 'An error message sent when an invalid preload page was specified.
+
+Parameters:
+* $1 - preload page title',
+	'sf_autoedit_redlinkexists' => 'An error message sent when the page was started on a redlink but on submit already exists.
+
+Parameters:
+* $1 - empty string', # Fuzzy
 	'sf_autoedit_noformfound' => 'An error message sent when no suitable form could be found to edit the given target page.',
 	'sf_autoedit_toomanyformsfound' => 'An error message sent when too many forms were found for the given target page.',
-	'sf_autoedit_readonly' => 'An error message sent when the wiki is in read-only mode',
-	'sf_autoedit_nosemanticform' => 'An error message sent when no suitable form could be found to edit the given target page.',
-	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.',
+	'sf_autoedit_readonly' => 'An error message sent when the wiki is in read-only mode.
+
+Parameters:
+* $1 - reason for locking the database',
+	'sf_autoedit_nosemanticform' => 'Unused at this time.
+
+An error message sent when no suitable form could be found to edit the given target page.
+
+Parameters:
+* $1 - page title
+* $2 - form name',
+	'sf_autoedit_summary' => 'Summary logged in the page history for revisions that were created using the autoedit parser function.
+
+Parameters:
+* $1 - page title, with link',
 	'sf-autoedit-wait' => 'Message displayed while an automatic edit is being made.',
 	'runquery' => '{{doc-special|RunQuery}}',
 	'sf_runquery_title' => 'Used as page title. Parameters:
@@ -445,7 +476,12 @@ Parameters:
 
 '''This is about a window for uploading files. The window is not the thing being uploaded.'''",
 	'sf_deletionlog' => '{{Identical|Deletion log}}',
-	'sf-pageschemas-otherparams' => 'Used as label for "Form inputs" and "Other parameters" input boxes',
+	'sf-pageschemas-otherparams' => 'Used as label for "Form inputs" and "Other parameters" input boxes.
+
+Parameters:
+* $1 - any one of the following (hard-coded):
+** "size=20, mandatory"
+** "rows=10, mandatory"',
 	'sf_property_isproperty' => 'Parameters:
 * $1 - property type (with link)',
 	'sf_property_linkstoform' => 'Parameters:
@@ -456,7 +492,12 @@ This message follows {{msg-mw|Sf property isproperty}}.',
 This message follows any one of the following:
 * {{msg-mw|Sf property isproperty}}
 * {{msg-mw|Sf property isproperty}} {{msg-mw|Sf property linkstoform}}',
-	'sf_template_docu' => 'This is an introductory message at the top of an autocreated template. The section following it displays the structure/format of the template itself.',
+	'sf_template_docu' => 'This is an introductory message at the top of an autocreated template.
+
+The section following it displays the structure/format of the template itself.
+
+Parameters:
+* $1 - template name',
 	'sf_form_docu' => 'Used as description of the form. Parameters:
 * $1 - form name
 * $2 - (Unused) form-start URL',
