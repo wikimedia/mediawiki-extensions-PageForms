@@ -4148,10 +4148,14 @@ $messages['hil'] = array(
 
 /** Croatian (hrvatski)
  * @author Dalibor Bosits
+ * @author SpeedyGonsales
  */
 $messages['hr'] = array(
 	'sf_createtemplate_deletefield' => 'Izbriši',
-	'sf_formedit_remove' => 'Ukloni',
+	'sf_formedit_remove' => 'Ukloni', # Fuzzy
+	'sf_form_docu' => 'Ovo je obrazac "$1".
+Za kreiranje stranica uporabom ovog obrasca, unesite ime stranice u polje ispod;
+ako takva stranica već postoji, otvorit će Vam se obrazac za uređivanje te stranice.',
 );
 
 /** Upper Sorbian (hornjoserbsce)
