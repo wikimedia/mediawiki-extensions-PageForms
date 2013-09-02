@@ -6932,11 +6932,12 @@ $messages['nds'] = array(
 	'sf_createclass_create' => 'Opstellen',
 );
 
-/** Nedersaksies (Nedersaksies)
+/** Low Saxon (Netherlands) (Nedersaksies)
  * @author Servien
  */
 $messages['nds-nl'] = array(
 	'sf_createform_add' => 'Derbie doon',
+	'sf_editsource' => 'Bronkode bewarken',
 );
 
 /** Niuean (ko e vagahau Niuē)
@@ -7360,7 +7361,7 @@ l'URL deuriá èsser coma « Special:RunQuery/<nom del formulari> ».",
 	'sf_bad_email_error' => "deu aver un format corrècte d'adreça de corrièr electronic.",
 	'sf_bad_number_error' => 'deu èsser un nombre valid',
 	'sf_bad_date_error' => 'deu èsser una data valida',
-	'uploadwindow' => 'Importar la fenèstra', # Fuzzy
+	'uploadwindow' => 'Fenèstra de mandadís',
 	'sf_deletionlog' => 'Istoric de las supressions',
 	'sf_property_isproperty' => 'Aquò es una proprietat del tipe $1.',
 	'sf_property_linkstoform' => "Liga cap a las paginas qu'utilizan lo formulari $1.",
@@ -9059,7 +9060,7 @@ $messages['sv'] = array(
 	'sf_forminputs_size' => 'Storlek på textfältet, i antal tecken',
 	'sf_forminputs_maxlength' => 'Maximalt antal tecken i det här fältet',
 	'sf_forminputs_placeholder' => 'Instruktion som visas i indatafältet till dess att användaren klickar på det',
-	'sf_forminputs_uploadable' => 'Visa en ”ladda upp”-länk intill det här fältet', # Fuzzy
+	'sf_forminputs_uploadable' => 'Placera länken "{{int:upload}}" intill det här fältet',
 	'sf_forminputs_defaultfilename' => 'Förvalt filnamn för uppladdade filer',
 	'sf_forminputs_rows' => 'Antal rader för det här fältet',
 	'sf_forminputs_cols' => 'Antal kolumner för det här fältet',
@@ -9088,7 +9089,7 @@ $messages['sv'] = array(
 	'sf_createform_nameinputdesc' => '(forumuläret brukar ofta ges samma namn som mallen den använder):',
 	'sf_createform_template' => 'Mall:',
 	'sf_createform_templatelabelinput' => 'Malletikett (valfritt):',
-	'sf_createform_allowmultiple' => 'Tillåt flera (eller inga) instanser av denna mall på sidan som skapades', # Fuzzy
+	'sf_createform_allowmultiple' => 'Tillåt flera (eller inga) instanser av denna mall på sidan som skapades',
 	'sf_createform_field' => 'Fält:',
 	'sf_createform_fieldprop' => 'Det här fältet definierar egenskapen $1, av typen $2.',
 	'sf_createform_fieldproplist' => 'Det här fältet definierar en lista över element som har egenskapen $1, av typen $2.',
@@ -9141,7 +9142,7 @@ det borde se ut som; "Special:FormEdit?form=<´formulärnamn>&target=<målsida>"
 	'sf_formedit_morethanoneform' => "'''Varning:''' Mer än ett förvalt forumlär har angetts för denna sida.",
 	'sf_formedit_formwarning' => 'Varning: Den här sidan <a href="$1">finns redan</a>, men använder inte det här formuläret.',
 	'sf_formedit_mismatchedbrackets' => 'Varning: Den här sidan innehåller krull- eller hakparenteser som inte är balanserade. Sidan kommer därför inte att hanteras korrekt av formuläret. Var vänlig <a href="$1">rätta till felet i wikitexten/källtexten</a> innan du fortsätter.',
-	'sf_formedit_remove' => 'Radera', # Fuzzy
+	'sf_formedit_remove' => 'Radera denna instans',
 	'sf_formedit_addanotherabove' => 'Lägg till ett nytt fält ovanför detta',
 	'sf_formedit_addanother' => 'Lägg till en annan',
 	'sf_formedit_none' => 'Ingen',
@@ -9195,12 +9196,12 @@ Om en sida med det namnet redan finns, så kommer formuläret istället använda
 	'sf_category_hasdefaultform' => 'Den här kategorin använder formuläret $1.',
 	'sf_category_desc' => 'Detta är $1 kategorin.',
 	'sf_blank_namespace' => 'Huvud',
-	'right-viewedittab' => 'Visa "Redigera"-fliken för sidor som går att redigera med formulär', # Fuzzy
+	'right-viewedittab' => 'Visa fliken "{{int:edit}}" för sidor som går att redigera med formulär',
 	'right-editrestrictedfields' => 'Redigera formulär som är begränsade',
 	'right-createclass' => 'Skapa en ny semantisk klass',
 	'action-createclass' => 'skapa nya semantiska klasser',
 	'action-editrestrictedfields' => 'redigera begränsade formulär-fält',
-	'action-viewedittab' => 'visa fliken "Redigera" för sidor som går att redigera med formulär', # Fuzzy
+	'action-viewedittab' => 'visa fliken "{{int:edit}}" för sidor som går att redigera med formulär',
 );
 
 /** Swahili (Kiswahili)
