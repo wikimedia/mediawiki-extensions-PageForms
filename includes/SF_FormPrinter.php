@@ -444,7 +444,9 @@ END;
 			$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
 		}
 		$wgParser->Title( $this->mPageTitle );
-//		$wgParser->clearState();
+		// This is needed in order to make sure $parser->mLinkHolders
+		// is set.
+		$wgParser->clearState();
 
 		$form_def = SFFormUtils::getFormDefinition( $wgParser, $form_def, $form_id );
 
