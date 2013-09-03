@@ -120,8 +120,11 @@ END;
 		// Create the form, and make a job for it.
 		if ( $form_name != '' ) {
 			$form_template = SFTemplateInForm::create( $template_name, '', false );
-			$form_templates = array( $form_template );
-			$form = SFForm::create( $form_name, $form_templates );
+			$form_items = array();
+			$form_items[] = array( 'type' => 'template',
+							'name' => $form_template->getTemplateName(),
+							'item' => $form_template );
+			$form = SFForm::create( $form_name, $form_items );
 			$full_text = $form->createMarkup();
 			$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 			$params = array();
