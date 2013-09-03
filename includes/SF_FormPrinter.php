@@ -1408,21 +1408,26 @@ END;
 					$header_text = $header_string . $section_name . $header_string . "\n";
 					$data_text .= $header_text;
 
-					//split the existing page contents into the textareas in the form
+					// split the existing page contents into the textareas in the form
 					$default_value = "";
 					$section_start_loc = 0;
 					if ( $source_is_page && $existing_page_content !== null ) {
 
 						$section_start_loc = strpos( $existing_page_content, $header_text );
 						$existing_page_content = str_replace( $header_text, '', $existing_page_content );
-						$section_end_loc = strpos( $existing_page_content, '=', $section_start_loc );
+						$section_end_loc = -1;
+						// get the position of the next section header
+						if ( preg_match( '/(^={1,6}.*?={1,6}\s*?$)/m', $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
+							$section_end_loc = $matches[0][1];
+						}
+
 						$template_pos = strpos( $existing_page_content, '{{', $section_start_loc );
 
 						if ( $template_pos != false ) {
 							$section_end_loc = min( array( $section_end_loc, $template_pos ) );
 						}
 
-						if ( $section_end_loc === false ) {
+						if ( $section_end_loc === -1 ) {
 							$default_value = $existing_page_content;
 							$existing_page_content = '';
 						} else {
