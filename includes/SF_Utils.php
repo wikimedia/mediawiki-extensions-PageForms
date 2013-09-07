@@ -1046,4 +1046,16 @@ END;
 		return trim( sprintf( $format, $value ) ); // trim needed, when $hasPadding == false
 	}
 
+	/**
+	 * Hook to add PHPUnit test cases.
+	 * From https://www.mediawiki.org/wiki/Manual:PHP_unit_testing/Writing_unit_tests_for_extensions
+	 *
+	 * @return boolean
+	 */
+	 public static function onUnitTestsList( &$files ) {
+		$testDir = dirname( __DIR__ ) . '/tests/phpunit/includes';
+		$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
+		return true;
+	 }
+
 }
