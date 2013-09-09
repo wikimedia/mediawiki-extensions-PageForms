@@ -5707,6 +5707,7 @@ URL은 "Special:RunQuery/<양식 이름>"같이 보여야 합니다.',
 	'sf-pageschemas-createtitle' => '새 문서에 대한 양식 제목:',
 	'sf-pageschemas-edittitle' => '기존 문서에 대한 양식 제목:',
 	'sf-pageschemas-inputtype' => '입력 형식 (기본값으로 설정하려면 비워두세요):',
+	'sf-pageschemas-otherparams' => '변수 이름과 값을 key=value와 같은 쌍을 쉼표로 구분하여 입력하세요. (값에 쉼표를 포함하면, "\\,"로 바꾸세요) 예를 들어: $1',
 	'sf_property_isproperty' => '$1 유형의 속성입니다.',
 	'sf_property_linkstoform' => '$1 양식을 사용하는 문서로 링크합니다.',
 	'sf_property_allowedvals' => '{{PLURAL:$1|이 양식에 대해 허용하는 값}}:',
@@ -7017,6 +7018,7 @@ $messages['niu'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author HanV
  * @author McDutchie
  * @author Rcdeboer
  * @author SPQRobin
@@ -7187,7 +7189,7 @@ De URL moet er als volgt uitzien: "Special:RunQuery/<formuliernaam>".',
 	'sf_bad_number_error' => 'moet een geldig nummer zijn',
 	'sf_bad_date_error' => 'moet een geldige datum zijn',
 	'uploadwindow' => 'Uploadscherm',
-	'sf_deletionlog' => 'Verwijderlogboek',
+	'sf_deletionlog' => 'Verwijderingslogboek',
 	'sf-preview-header' => 'Voorvertoning van formulier',
 	'sf-preview-note' => 'Zo ziet het formulier eruit wanneer het in gebruik is:',
 	'sf-pageschemas-pagenameformula' => 'Paginanaamformule:',
@@ -7437,12 +7439,16 @@ $messages['oc'] = array(
 	'sf_formedit_remove' => 'Levar aquesta instància',
 	'sf_formedit_addanother' => 'Apondre un autre',
 	'sf_formedit_none' => 'Cap',
+	'sf_autoedit_summary' => 'Modificat automaticament dempuèi la pagina $1.',
+	'sf-autoedit-wait' => 'Pacientatz...',
 	'runquery' => 'Executar la requèsta',
 	'sf_runquery_badurl' => "Vos cal un nom de formulari dins l'URL ;
 l'URL deuriá èsser coma « Special:RunQuery/<nom del formulari> ».",
 	'sf_runquery_title' => 'Executar la requèsta : $1',
 	'sf_runquery_additionalquery' => 'Requèsta adicionala',
 	'sf_formerrors_header' => 'I a cèrtas errors dins lo formulari. Cf. çaijós.',
+	'sf_too_few_instances_error' => "I deu aver al mens $1 instàncias d'aqueste modèl.",
+	'sf_too_many_instances_error' => "I deu pas aver mai de $1 instàncias d'aqueste modèl.",
 	'sf_blank_error' => 'pòt pas èsser blanc',
 	'sf_bad_url_error' => 'deu aver un format URL corrècte, començant per « http »',
 	'sf_bad_email_error' => "deu aver un format corrècte d'adreça de corrièr electronic.",
@@ -7450,20 +7456,30 @@ l'URL deuriá èsser coma « Special:RunQuery/<nom del formulari> ».",
 	'sf_bad_date_error' => 'deu èsser una data valida',
 	'uploadwindow' => 'Fenèstra de mandadís',
 	'sf_deletionlog' => 'Istoric de las supressions',
+	'sf-preview-header' => 'Apercebut del formulari',
+	'sf-preview-note' => 'Aquí vesètz a qué se semblarà lo formulari un còp utilizat :',
+	'sf-pageschemas-pagenameformula' => 'Formula del nom de pagina :',
+	'sf-pageschemas-createtitle' => 'Títol del formulari per las paginas novèlas :',
+	'sf-pageschemas-edittitle' => 'Títol del formulari per las paginas existentas :',
+	'sf-pageschemas-inputtype' => "Tipe d'entrada (daissatz-lo en blanc per la valor per defaut) :",
 	'sf_property_isproperty' => 'Aquò es una proprietat del tipe $1.',
 	'sf_property_linkstoform' => "Liga cap a las paginas qu'utilizan lo formulari $1.",
 	'sf_property_allowedvals' => '{{PLURAL:$1|La valor autorizada per aquesta proprietat es|Las valors autorizadas per aquesta proprietat son}} :',
 	'sf_template_docu' => 'Aquò es lo modèl « $1 ». Deuriá èsser apelat segon lo format seguent :',
 	'sf_template_docufooter' => 'Modificar la pagina per veire lo tèxte del modèl.',
-	'sf_form_docu' => "Aquò es lo formulari « $1 ». Per apondre una pagina amb aqueste formulari, picatz son nom çaijós ; se existís ja, seretz dirigit cap a un formulari destinat a l'editar.", # Fuzzy
+	'sf_form_docu' => "Aquò es lo formulari « $1 ».
+Per crear una pagina amb aqueste formulari, picatz lo nom de la pagina çaijós ;
+se una pagina amn aqueste nom existís ja, seretz dirigit cap a un formulari destinat a l'editar.",
 	'sf_form_freetextlabel' => 'Tèxte liure',
 	'sf_category_hasdefaultform' => 'Aquesta categoria utiliza lo formulari « $1 ».',
 	'sf_category_desc' => 'Aquò es la categoria « $1 ».',
 	'sf_blank_namespace' => 'Principal',
-	'right-viewedittab' => "Veire l'onglet « modificar » per las paginas modificablas via un formulari", # Fuzzy
+	'right-viewedittab' => 'Veire l\'onglet "{{int:edit}}" per las paginas modificablas via un formulari',
 	'right-editrestrictedfields' => 'Modificar los camps restrenches dels formularis',
 	'right-createclass' => 'Crear de classas semanticas novèlas',
 	'action-createclass' => 'crear de classas semanticas novèlas',
+	'action-editrestrictedfields' => 'Modificar los camps de formulari protegits',
+	'action-viewedittab' => 'veire l’onglet "{{int:edit}}" per las paginas modificablas via un formulari',
 );
 
 /** Ossetic (Ирон)
@@ -9538,6 +9554,7 @@ $messages['tk'] = array(
 
 /** Tagalog (Tagalog)
  * @author AnakngAraw
+ * @author Sky Harbor
  */
 $messages['tl'] = array(
 	'semanticforms-desc' => 'Mga pormularyo para sa paggawa ng mga dagdag at pagbabago sa dato hinggil sa kahulugan ng salita (semantiko)',
@@ -9660,7 +9677,7 @@ dapat itong magmukhang katulad ng 'Special:FormEdit?form=<form name>&target=<tar
 	'sf_formedit_altformsonly' => 'Pumili lamang po mula sa isa sa sumusunod na mga pormularyo upang maidagdag ang pahinang ito:',
 	'sf_formcreate' => 'Likhaing may pormularyo',
 	'sf_viewform' => 'Tingnan ang pormularyo',
-	'sf_editsource' => 'Baguhin ang pinagmulan',
+	'sf_editsource' => 'Baguhin ang batayan',
 	'sf_formedit_edittitle' => 'Baguhin ang $1: $2',
 	'sf_formedit_morethanoneform' => "'''Babala:''' Mahigit sa isang pormularyong likas na itinakda ang binigyang kahulugan para sa pahinang ito.",
 	'sf_formedit_formwarning' => 'Babala: <a href="$1">Umiiral na</a> ang pahinang ito, ngunit hindi ito gumagamit ng ganitong pormularyo.',
