@@ -516,12 +516,14 @@ If the category doesn't have default form, the following message is used instead
 If the category has default form, the following message is used instead:
 * {{msg-mw|Sf category hasdefaultform}}',
 	'sf_blank_namespace' => '{{Identical|Main}}',
-	'right-viewedittab' => '{{doc-right|viewedittab}}',
+	'right-viewedittab' => '{{doc-right|viewedittab}}
+Refers to {{msg-mw|Edit}}.',
 	'right-editrestrictedfields' => '{{doc-right|editrestrictedfields}}',
 	'right-createclass' => '{{doc-right|createclass}}',
 	'action-createclass' => '{{doc-action|createclass}}',
 	'action-editrestrictedfields' => '{{doc-action|editrestrictedfields}}',
-	'action-viewedittab' => '{{doc-action|viewedittab}}',
+	'action-viewedittab' => '{{doc-action|viewedittab}}
+Refers to {{msg-mw|Edit}}.',
 );
 
 /** Afrikaans (Afrikaans)
@@ -2858,6 +2860,7 @@ $messages['et'] = array(
 /** Basque (euskara)
  * @author An13sa
  * @author Kobazulo
+ * @author Xabier Armendaritz
  */
 $messages['eu'] = array(
 	'createproperty' => 'Propietatea sortu',
@@ -2876,9 +2879,9 @@ $messages['eu'] = array(
 	'sf_createcategory_name' => 'Kategoriaren izena:',
 	'sf_formstart_createoredit' => 'Sortu edo aldatu',
 	'sf_formedit_createtitle' => '$1 aldatu: $2',
-	'sf_editsource' => 'Iturria aldatu',
+	'sf_editsource' => 'Aldatu iturburu kodea',
 	'sf_formedit_edittitle' => '$1 aldatu: $2',
-	'sf_formedit_remove' => 'Kendu',
+	'sf_formedit_remove' => 'Kendu', # Fuzzy
 	'sf_formedit_addanother' => 'Beste bat gehitu',
 	'sf_deletionlog' => 'Ezabaketa erregistroa',
 	'sf_form_freetextlabel' => 'Testu askea',
