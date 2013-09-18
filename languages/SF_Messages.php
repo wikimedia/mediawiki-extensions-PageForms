@@ -9743,6 +9743,7 @@ kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa 
 );
 
 /** Turkish (Türkçe)
+ * @author Incelemeelemani
  * @author Joseph
  * @author Karduelis
  * @author Suelnur
@@ -9751,7 +9752,7 @@ kung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa 
 $messages['tr'] = array(
 	'specialpages-group-sf_group' => 'Anlamsal Formlar',
 	'createproperty' => 'Bir özellik oluştur',
-	'sf_createproperty_propname' => 'Özellik ismi:',
+	'sf_createproperty_propname' => 'Özellik adı:',
 	'sf_createproperty_proptype' => 'Tip:',
 	'templates' => 'Şablonlar',
 	'createtemplate' => 'Şablon oluştur',
