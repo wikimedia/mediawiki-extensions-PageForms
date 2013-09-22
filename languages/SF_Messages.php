@@ -2740,7 +2740,7 @@ $messages['es'] = array(
 	'sf_formedit_altformsonly' => 'Porfavor seleccionar de uno de los siguientes formularios para agregar esta página:',
 	'sf_formcreate' => 'Crear con formulario',
 	'sf_viewform' => 'Ver formulario',
-	'sf_editsource' => 'Editar fuente',
+	'sf_editsource' => 'Editar código',
 	'sf_formedit_edittitle' => 'Editar $1: $2',
 	'sf_formedit_morethanoneform' => 'Advertencia: Más de un formulario por defecto está definido para esta página.',
 	'sf_formedit_formwarning' => 'Advertencia: Esta página <a href="$1">ya existe</a>, pero no usa este formulario.',
