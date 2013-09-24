@@ -65,6 +65,13 @@ class SFTemplateField {
 	}
 
 	function setTypeAndPossibleValues() {
+		// The presence of "-" at the beginning of a property name
+		// (which happens if SF tries to parse an inverse query)
+		// leads to an error in SMW - just exit if that's the case.
+		if ( strpos( $this->mSemanticProperty, '-' ) === 0 ) {
+			return;
+		}
+
 		$proptitle = Title::makeTitleSafe( SMW_NS_PROPERTY, $this->mSemanticProperty );
 		if ( $proptitle === null ) {
 			return;
