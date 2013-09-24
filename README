@@ -19,11 +19,18 @@ Much of the jQuery and related Javascript functionality was initially
 created by Sanyam Goyal as part of the 2010 Google Summer of Code
 program.
 
+Integration into the Page Schemas extension was initially created by
+Ankit Garg as part of the 2011 Google Summer of Code.
+
+Support for section handling, and PHPUnit tests, were added by Himeshi
+De Silva as part of the 2013 Google Summer of Code.
+
 Important code contributions were also made by Christoph Burgmer,
 Daniel Friesen, Daniel Hansch, Eugene Mednikov, Harold Solbrig, Jayson
 Harshbarger, Jeffrey Stuckman, Jeroen De Dauw, Louis Gerbarg, Matt
 Williamson, Niklas Laxstrom, Nils Opperman, Patrick Nagel, Remco de Boer,
-Sergey Chernyshev, Siebrand Mazeland, wheresmytab and others.
+Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland, Vedmaka,
+wheresmytab and others.
 
 Language translations were provided by many people; see each file in
 the /languages directory for the full listings.
