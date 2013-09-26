@@ -296,6 +296,7 @@ END;
 
 		$output->addModules( 'ext.semanticforms.main' );
 		$output->addModules( 'ext.semanticforms.fancybox' );
+		$output->addModules( 'ext.semanticforms.dynatree' );
 		$output->addModules( 'ext.semanticforms.imagepreview' );
 		$output->addModules( 'ext.semanticforms.autogrow' );
 		$output->addModules( 'ext.semanticforms.submit' );
