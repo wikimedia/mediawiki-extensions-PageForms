@@ -5911,6 +5911,7 @@ $messages['kw'] = array(
 /** Luxembourgish (Lëtzebuergesch)
  * @author Les Meloures
  * @author Robby
+ * @author Soued031
  */
 $messages['lb'] = array(
 	'specialpages-group-sf_group' => 'Semantesch Formulairen',
@@ -5925,7 +5926,7 @@ $messages['lb'] = array(
 	'sf_createtemplate_categorylabel' => 'Kategorie déi duerch eng Schabloun definéiert ass (fakultativ):',
 	'sf_createtemplate_templatefields' => 'Schablounefelder',
 	'sf_createtemplate_fieldname' => 'Numm vum Feld:',
-	'sf_createtemplate_displaylabel' => 'Etiquette weisen:',
+	'sf_createtemplate_displaylabel' => 'Etikett weisen:',
 	'sf_createtemplate_aggregation' => 'Resumé',
 	'sf_createtemplate_aggregationlabel' => "Titel fir d'Lëscht:",
 	'sf_createtemplate_standardformat' => 'Tabell',
@@ -5944,7 +5945,7 @@ $messages['lb'] = array(
 	'sf-createform-with-name' => 'Formulaire uleeën: $1',
 	'sf_createform_nameinput' => 'Numm vum Formulaire',
 	'sf_createform_template' => 'Schabloun:',
-	'sf_createform_templatelabelinput' => 'Etiquette vun der Schabloun (fakultativ)',
+	'sf_createform_templatelabelinput' => 'Etikett vun der Schabloun (fakultativ)',
 	'sf_createform_field' => 'Feld:',
 	'sf_createform_inputtypedefault' => '(Standardwert)',
 	'sf_createform_formlabel' => 'Etikett vum Formulaire:',
@@ -7907,7 +7908,7 @@ $messages['ps'] = array(
 	'sf_createtemplate_aggregationlabel' => 'د لړليک لپاره سرليک:',
 	'sf_createtemplate_standardformat' => 'لښتيال',
 	'sf_createtemplate_sectionsformat' => 'برخې',
-	'sf_createtemplate_deletefield' => 'ړنګول',
+	'sf_createtemplate_deletefield' => 'ړنگول',
 	'sf_createform_template' => 'کينډۍ:',
 	'sf_createform_inputtypedefault' => '(تلواليز)',
 	'sf_createform_hidden' => 'پټ',
@@ -7917,11 +7918,11 @@ $messages['ps'] = array(
 	'createcategory' => 'يوه وېشنيزه جوړول',
 	'sf_createcategory_name' => 'د وېشنيزې نوم:',
 	'sf_createclass_create' => 'جوړول',
-	'formstart' => 'د فورمې سره يوځای يو مخ ګډول',
+	'formstart' => 'د فورمې سره يوځای يو مخ گډول',
 	'sf_formstart_createoredit' => 'جوړول يا سمول',
 	'sf_formedit_createtitle' => '$1 جوړول: $2',
 	'sf_formedit_createtitlenotarget' => 'جوړول $1',
-	'sf_formedit_remove' => 'غورځول',
+	'sf_formedit_remove' => 'غورځول', # Fuzzy
 	'sf_formedit_addanother' => 'يو بل ورګډول',
 	'sf_formedit_none' => 'هېڅ',
 	'sf_bad_email_error' => 'بايد چې برېښليک پته يوه سمه بڼه ولري',
@@ -10673,6 +10674,7 @@ URL应该看起来像‘Special:RunQuery/<表单名>’。',
 );
 
 /** Traditional Chinese (中文（繁體）‎)
+ * @author Ch.Andrew
  * @author Gzdavidwong
  * @author Liangent
  * @author Mark85296341
@@ -10705,7 +10707,7 @@ $messages['zh-hant'] = array(
 	'sf_createtemplate_aggregationlabel' => '用於列表的標題：',
 	'sf_createtemplate_outputformat' => '輸出格式：',
 	'sf_createtemplate_standardformat' => '表格',
-	'sf_createtemplate_infoboxformat' => '右側信息框', # Fuzzy
+	'sf_createtemplate_infoboxformat' => '側邊資訊方塊',
 	'sf_createtemplate_plainformat' => '純文字',
 	'sf_createtemplate_sectionsformat' => '節',
 	'sf_createtemplate_addfield' => '添加字段',
@@ -10721,7 +10723,7 @@ $messages['zh-hant'] = array(
 	'sf_forminputs_size' => '以字符數表示的文本字段大小',
 	'sf_forminputs_maxlength' => '在這個字段中允許的最大文本長度',
 	'sf_forminputs_placeholder' => '用戶單擊輸入框之前一直顯示在其中的幫助文本',
-	'sf_forminputs_uploadable' => '在這個輸入項旁邊放置一個“上傳文件”鏈接', # Fuzzy
+	'sf_forminputs_uploadable' => '在這個輸入項旁邊放置「{{int:upload}}」連結',
 	'sf_forminputs_defaultfilename' => '上傳的文件的默認文件名',
 	'sf_forminputs_rows' => '這個輸入項的行數',
 	'sf_forminputs_cols' => '這個輸入項的列數',
@@ -10749,7 +10751,7 @@ $messages['zh-hant'] = array(
 	'sf_createform_nameinputdesc' => '（表單通常以它的主模板命名）：',
 	'sf_createform_template' => '模板：',
 	'sf_createform_templatelabelinput' => '模板標籤（可選）：',
-	'sf_createform_allowmultiple' => '在創建的頁面中允許多個（或零個）此模板的實例', # Fuzzy
+	'sf_createform_allowmultiple' => '在建立的頁面中允許多重（或是不用）此模板的實例',
 	'sf_createform_field' => '事件:',
 	'sf_createform_fieldprop' => '這個字段定義類型$2的屬性$1。',
 	'sf_createform_fieldproplist' => '這個字段定義含有類型$2的屬性$1的元素列表。',
@@ -10851,12 +10853,12 @@ URL應該看起來像‘Special:RunQuery/<表單名>’。',
 	'sf_category_hasdefaultform' => '這個分類使用表單$1。',
 	'sf_category_desc' => '這是$1分類。',
 	'sf_blank_namespace' => '首頁',
-	'right-viewedittab' => '在可以通過表單編輯的頁面上查看“編輯”標籤。', # Fuzzy
+	'right-viewedittab' => '在可經由表單來編輯的頁面上檢視「{{int:edit}}」標籤',
 	'right-editrestrictedfields' => '編輯受限制的表單字段',
 	'right-createclass' => '創建新的語義類',
 	'action-createclass' => '創建新的語義類',
 	'action-editrestrictedfields' => '編輯受限制的表單域',
-	'action-viewedittab' => '查看可採用表單編輯的頁面的"編輯"選項卡', # Fuzzy
+	'action-viewedittab' => '在可經由表單來編輯的頁面上檢視「{{int:edit}}」標籤',
 );
 
 /** Chinese (Taiwan) (‪中文(台灣)‬)
