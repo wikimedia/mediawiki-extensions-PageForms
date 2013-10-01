@@ -38,15 +38,16 @@ $(function () {
 				    dtnode.isSelected()).addClass("hidden");
     		}
 	    });
-    });
-    //Update real checkboxes according to selections
-	$.map(nodeSelection.dynatree("getTree").getSelectedNodes(),
-		function (dtnode) {
-			$("#chb-" + dtnode.data.key).attr("checked", true);
-			dtnode.activate();
-		});
-	var activeNode = nodeSelection.dynatree("getTree").getActiveNode();
-	if (activeNode !== null) {
-		activeNode.deactivate()
-	}
+	    //Update real checkboxes according to selections
+		$.map(node.dynatree("getTree").getSelectedNodes(),
+			function (dtnode) {
+				$("#chb-" + dtnode.data.key).attr("checked", true);
+				dtnode.activate();
+			});
+		var activeNode = node.dynatree("getTree").getActiveNode();
+		if (activeNode !== null) {
+			activeNode.deactivate()
+		}
+	});
 });
+
