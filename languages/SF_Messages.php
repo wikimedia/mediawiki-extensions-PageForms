@@ -3011,6 +3011,7 @@ $messages['fa'] = array(
  * @author Nike
  * @author Silvonen
  * @author Str4nd
+ * @author Stryn
  * @author ZeiP
  */
 $messages['fi'] = array(
@@ -3129,7 +3130,7 @@ $messages['fi'] = array(
 	'sf_formedit_altformsonly' => 'Valitse jokin seuraavista lomakkeista, jonka haluat lisätä tällä sivulle:',
 	'sf_formcreate' => 'Luo lomakkeella',
 	'sf_viewform' => 'Näytä lomake',
-	'sf_editsource' => 'Muokkaa lähdekoodia',
+	'sf_editsource' => 'Muokkaa wikitekstiä',
 	'sf_formedit_edittitle' => 'Muokkaa $1: $2',
 	'sf_formedit_morethanoneform' => "'''Varoitus:''' Tällä sivulla on useita oletuslomakkeita.",
 	'sf_formedit_formwarning' => 'Varoitus: sivu <a href="$1">on jo olemassa</a>, mutta se ei käytä tätä lomaketta.',
@@ -7898,7 +7899,7 @@ se na pàgina con col nòm a esist già, a sarà mandà a \'n formolari për mod
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
 $messages['ps'] = array(
-	'createproperty' => 'يوه ځانتيا ځانګړې کول',
+	'createproperty' => 'يوه ځانتيا ځانگړې کول',
 	'sf_createproperty_propname' => 'د ځانتيا نوم:',
 	'sf_createproperty_proptype' => 'ډول:',
 	'templates' => 'کينډۍ',
