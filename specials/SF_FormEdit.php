@@ -62,7 +62,7 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
-	static function printForm( &$form_name, &$targetName, $alt_forms = array( ) ) {
+	static function printForm( &$form_name, &$targetName, $alt_forms = array( ), $error ) {
 		global $wgOut, $wgRequest;
 
 		if ( method_exists( 'ApiMain', 'getContext' ) ) {
@@ -95,9 +95,23 @@ class SFFormEdit extends SpecialPage {
 
 		$module->execute();
 
+		$text = '';
+
 		// if action was successful and action was a Save, return
-		if ( $module->getStatus() === 200 && $module->getAction() === SFAutoeditAPI::ACTION_SAVE ) {
-			return;
+		if ( $module->getStatus() === 200 ) {
+			if ( $module->getAction() === SFAutoeditAPI::ACTION_SAVE ) {
+				return;
+			}
+		} else {
+
+			$resultData = $module->getResultData();
+
+			if ( array_key_exists( 'errors', $resultData ) ) {
+
+				foreach ($resultData['errors'] as $error) {
+					$text .= Html::rawElement( 'p', array( 'class' => 'error' ), $error['message'] ) . "\n";
+				}
+			}
 		}
 
 		// override the default title for this page if a title was specified in the form
@@ -123,15 +137,14 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$pageTitle = wfMessage( 'sf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
-		} elseif ( $result[ 'form' ] == '' ) {
+		} elseif ( $result[ 'form' ] == '' ) {  //FIXME: This looks weird; a simple else should be enough, right?
 			// display error message if the form is not specified in the URL
 			$pageTitle = wfMessage( 'formedit' )->text();
-			$text = Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formedit_badurl' )->text() ) . "\n";
+			$text .= Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formedit_badurl' )->text() ) . "\n";
 			$wgOut->addHTML( $text );
 		}
 
 		$wgOut->setPageTitle( $pageTitle );
-		$text = '';
 		if ( count( $alt_forms ) > 0 ) {
 			$text .= '<div class="infoMessage">' . wfMessage( 'sf_formedit_altforms' )->escaped() . ' ';
 			$text .= self::printAltFormsList( $alt_forms, $targetName );
