@@ -124,7 +124,6 @@ class SFAutoeditAPI extends ApiBase {
 
 	/**
 	 *
-	 * @param type $options
 	 */
 	function prepareAction() {
 
@@ -314,7 +313,14 @@ class SFAutoeditAPI extends ApiBase {
 		global $wgUser;
 
 		// Find existing target article if it exists, or create a new one.
-		$article = new Article( Title::newFromText( $this->mOptions[ 'target' ] ) );
+		$targetTitle = Title::newFromText( $this->mOptions[ 'target' ] );
+
+		// if the specified target title is invalid, give up
+		if ( !$targetTitle instanceof Title ) {
+			throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions[ 'target' ] )->parse() );
+		}
+
+		$article = new Article( $targetTitle );
 
 		// set up a normal edit page
 		// we'll feed it our data to simulate a normal edit
@@ -437,7 +443,6 @@ class SFAutoeditAPI extends ApiBase {
 
 		$status = $editor->internalAttemptSave( $resultDetails, $bot );
 
-		// FIXME: Throw MWError instead of returning true;
 		switch ( $status->value ) {
 			case EditPage::AS_HOOK_ERROR_EXPECTED: // A hook function returned an error
 			case EditPage::AS_CONTENT_TOO_BIG: // Content too big (> $wgMaxArticleSize)
@@ -449,7 +454,6 @@ class SFAutoeditAPI extends ApiBase {
 			case EditPage::AS_END: // WikiPage::doEdit() was unsuccessfull
 
 				throw new MWException( wfMessage( 'sf_autoedit_fail', $this->mOptions[ 'target' ] )->parse() );
-				return true; // fail
 
 			case EditPage::AS_HOOK_ERROR: // Article update aborted by a hook function
 
@@ -511,7 +515,6 @@ class SFAutoeditAPI extends ApiBase {
 				}
 
 				throw new MWException( wfMessage( 'spamprotectionmatch', wfEscapeWikiText( $match ) )->parse() ); // FIXME: Include better error message
-				return true; // fail
 
 			case EditPage::AS_BLOCKED_PAGE_FOR_USER: // User is blocked from editting editor page
 				throw new UserBlockedError( $wgUser->getBlock() );
@@ -540,7 +543,6 @@ class SFAutoeditAPI extends ApiBase {
 				// Render the status object into $editor->hookError
 				$editor->hookError = '<div class="error">' . $status->getWikitext() . '</div>';
 				throw new MWException( $status->getHTML() );
-				return true; // fail
 		}
 	}
 
@@ -610,8 +612,9 @@ class SFAutoeditAPI extends ApiBase {
 	 *
 	 * This parses the formula and replaces &lt;unique number&gt; tags
 	 *
-	 * @global type $wgParser
-	 * @param type $targetNameFormula
+	 * @param type  $targetNameFormula
+	 *
+	 * @throws MWException
 	 * @return type
 	 */
 	protected function generateTargetName( $targetNameFormula ) {
@@ -633,7 +636,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		// if any formula stuff is still in the name after the parsing, just remove it
 		// FIXME: This is wrong. If anything is still left, something should have been present in the form and wasn't. An error should be raised.
-		$targetName = StringUtils::delimiterReplace( '<', '>', '', $targetName );
+		//$targetName = StringUtils::delimiterReplace( '<', '>', '', $targetName );
 
 		// replace spaces back with underlines, in case a magic word or parser
 		// function name contains underlines - hopefully this won't cause
@@ -644,7 +647,7 @@ class SFAutoeditAPI extends ApiBase {
 		global $wgParser;
 		$targetName = $wgParser->transformMsg( $targetName, ParserOptions::newFromUser( null ) );
 
-		$title_number = '';
+		$titleNumber = '';
 		$isRandom = false;
 		$randomNumHasPadding = false;
 		$randomNumDigits = 6;
@@ -655,7 +658,7 @@ class SFAutoeditAPI extends ApiBase {
 				$isRandom = true;
 				$randomNumHasPadding = array_key_exists( 2, $matches );
 				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[ 3 ] : $randomNumDigits );
-				$title_number = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+				$titleNumber = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 			} else if ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
 				// get unique number start value
 				// from target name; if it's not
@@ -664,43 +667,47 @@ class SFAutoeditAPI extends ApiBase {
 				;
 				if ( count( $matches ) == 2 && is_numeric( $matches[ 1 ] ) && $matches[ 1 ] >= 0 ) {
 					// the "start" value"
-					$title_number = $matches[ 1 ];
+					$titleNumber = $matches[ 1 ];
 				}
 			} else if ( preg_match( '/^(_?{num.*}?)*$/', $targetName, $matches ) ) {
 				// the target name contains only underscores and number fields,
 				// i.e. would result in an empty title without the number set
-				$title_number = '1';
+				$titleNumber = '1';
 			} else {
-				$title_number = '';
+				$titleNumber = '';
 			}
 
 			// set target title
-			$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $targetName ) );
+			$targetTitle = Title::newFromText( preg_replace( '/{num.*}/', $titleNumber, $targetName ) );
 
+			// if the specified target title is invalid, give up
+			if ( !$targetTitle instanceof Title ) {
+				throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', trim( preg_replace( '/<unique number(.*)>/', $titleNumber, $targetNameFormula ) ) )->parse() );
+			}
 
 			// if title exists already cycle through numbers for this tag until
 			// we find one that gives a nonexistent page title;
 			//
-			// can not use $target_title->exists(); it does not use
+			// can not use $targetTitle->exists(); it does not use
 			// Title::GAID_FOR_UPDATE, which is needed to get correct data from
-			// cache; use $target_title->getArticleID() instead
-			while ( $target_title->getArticleID( Title::GAID_FOR_UPDATE ) !== 0 ) {
+			// cache; use $targetTitle->getArticleID() instead
+			while ( $targetTitle->getArticleID( Title::GAID_FOR_UPDATE ) !== 0 ) {
 
 				if ( $isRandom ) {
-					$title_number = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+					$titleNumber = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 				}
 				// if title number is blank, change it to 2; otherwise,
 				// increment it, and if necessary pad it with leading 0s as well
-				elseif ( $title_number == "" ) {
-					$title_number = 2;
+				elseif ( $titleNumber == "" ) {
+					$titleNumber = 2;
 				} else {
-					$title_number = str_pad( $title_number + 1, strlen( $title_number ), '0', STR_PAD_LEFT );
+					$titleNumber = str_pad( $titleNumber + 1, strlen( $titleNumber ), '0', STR_PAD_LEFT );
 				}
 
-				$target_title = Title::newFromText( preg_replace( '/{num.*}/', $title_number, $targetName ) );
+				$targetTitle = Title::newFromText( preg_replace( '/{num.*}/', $titleNumber, $targetName ) );
 			}
 
-			$targetName = $target_title->getPrefixedText();
+			$targetName = $targetTitle->getPrefixedText();
 		}
 
 		return $targetName;
@@ -1063,7 +1070,11 @@ class SFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Add error message to the ApiResult
+	 *
 	 * @param string $msg
+	 * @param int    $errorLevel
+	 *
+	 * @return string
 	 */
 	private function logMessage( $msg, $errorLevel = self::ERROR ) {
 
