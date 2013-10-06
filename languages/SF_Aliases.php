@@ -6,7 +6,6 @@
  * @ingroup Extensions
  * @ingroup SF
  */
-// @codingStandardsIgnoreFile
 
 $specialPageAliases = array();
 
