@@ -160,9 +160,9 @@ it should look like "Special:FormEdit?form=<form name>&target=<target page>", or
 	'sf_autoedit_anoneditwarning'        => 'Warning: You are not logged in. Your IP address will be recorded in this page\'s edit history.',
 	'sf_autoedit_success'                => 'Successfully modified [[$1]] using form $2.',
 	'sf_autoedit_fail'                   => 'Modifying [[$1]] failed.',
-	'sf_autoedit_notargetspecified'      => 'No target page specified.',
-	'sf_autoedit_invalidtargetspecified' => "The specified target page '''$1''' is invalid.",
-	'sf_autoedit_invalidform'            => "'''$1''' is not a valid form.",
+	'sf_autoedit_notargetspecified'      => "No target page specified.",
+	'sf_autoedit_invalidtargetspecified' => 'The specified target page $1 is invalid.',
+	'sf_autoedit_invalidform'            => '$1 is not a valid form.',
 	'sf_autoedit_redirectlimitexeeded'   => 'The maximum redirect limit for form $1 was exceeded.',
 	'sf_autoedit_invalidredirecttarget'  => '$1 is an invalid redirect target for form $2.',
 	'sf_autoedit_invalidpreloadspecified'=> 'The specified preload page $1 is invalid.',
@@ -997,6 +997,16 @@ $messages['ast'] = array(
 	'formstart' => 'Agregar páxina con formulariu',
 	'sf_formstart_badform' => 'Error: Nun s\'alcontró nengún formulariu na páxina "$1".',
 	'sf_formstart_badtitle' => 'Error: "$1" ye un títulu de páxina inválidu.',
+	'sf_formstart_docu' => 'Escriba equí\'l nome de la páxina a editar col formulariu "$1".
+Si esta páxina yá esiste, mandará-y al formulariu pa editar esa páxina.
+D\'otra manera, mandará-y al formulariu p\'amestar la páxina.',
+	'sf_formstart_noform_docu' => "Escriba equí'l nome d'una páxina, y seleicione un formulariu col qu'editala.
+Si esta páxina yá esiste, mandará-y al formulariu pa editar esa páxina.
+D'otra manera, mandará-y al formulariu p'amestar la páxina.",
+	'sf_formstart_createoredit' => 'Crear o editar',
+	'formedit' => 'Editar con formulariu',
+	'sf_formedit_createtitle' => 'Crear $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Crear $1',
 );
 
 /** Kotava (Kotava)
