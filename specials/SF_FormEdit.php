@@ -24,7 +24,7 @@ class SFFormEdit extends SpecialPage {
 		parent::__construct( 'FormEdit' );
 	}
 
-	function execute( $query, $redirectOnError = true ) {
+	function execute( $query ) {
 
 		wfProfileIn( __METHOD__ );
 
@@ -43,7 +43,7 @@ class SFFormEdit extends SpecialPage {
 
 		$alt_forms = $this->getRequest()->getArray( 'alt_form' );
 
-		self::printForm( $this->mForm, $this->mTarget, $alt_forms, $redirectOnError );
+		self::printForm( $this->mForm, $this->mTarget, $alt_forms );
 
 		wfProfileOut( __METHOD__ );
 	}
@@ -62,7 +62,7 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
-	static function printForm( &$form_name, &$targetName, $alt_forms = array( ), $error ) {
+	static function printForm( &$form_name, &$targetName, $alt_forms = array( ) ) {
 		global $wgOut, $wgRequest;
 
 		if ( method_exists( 'ApiMain', 'getContext' ) ) {
