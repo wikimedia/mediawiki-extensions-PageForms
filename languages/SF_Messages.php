@@ -997,6 +997,16 @@ $messages['ast'] = array(
 	'formstart' => 'Agregar páxina con formulariu',
 	'sf_formstart_badform' => 'Error: Nun s\'alcontró nengún formulariu na páxina "$1".',
 	'sf_formstart_badtitle' => 'Error: "$1" ye un títulu de páxina inválidu.',
+	'sf_formstart_docu' => 'Escriba equí\'l nome de la páxina a editar col formulariu "$1".
+Si esta páxina yá esiste, mandará-y al formulariu pa editar esa páxina.
+D\'otra manera, mandará-y al formulariu p\'amestar la páxina.',
+	'sf_formstart_noform_docu' => "Escriba equí'l nome d'una páxina, y seleicione un formulariu col qu'editala.
+Si esta páxina yá esiste, mandará-y al formulariu pa editar esa páxina.
+D'otra manera, mandará-y al formulariu p'amestar la páxina.",
+	'sf_formstart_createoredit' => 'Crear o editar',
+	'formedit' => 'Editar con formulariu',
+	'sf_formedit_createtitle' => 'Crear $1: $2',
+	'sf_formedit_createtitlenotarget' => 'Crear $1',
 );
 
 /** Kotava (Kotava)
@@ -2079,8 +2089,8 @@ Die URL sollte wie folgt aussehen: „Spezial:Mit_Formular_bearbeiten?form=<Form
 	'sf_autoedit_success' => '[[$1]] mittels Formular $2 erfolgreich geändert.',
 	'sf_autoedit_fail' => 'Die Änderung von [[$1]] ist fehlgeschlagen.',
 	'sf_autoedit_notargetspecified' => 'Es wurde keine Zielseite angegeben.',
-	'sf_autoedit_invalidtargetspecified' => 'Die angegebene Zielseite $1 ist ungültig.',
-	'sf_autoedit_invalidform' => '$1 ist kein gültiges Formular.',
+	'sf_autoedit_invalidtargetspecified' => "Die angegebene Zielseite '''$1''' ist ungültig.",
+	'sf_autoedit_invalidform' => "'''$1''' ist kein gültiges Formular.",
 	'sf_autoedit_redirectlimitexeeded' => 'Die maximale Anzahl zulässiger Weiterleitungen für Formular $1 wurde überschritten.',
 	'sf_autoedit_invalidredirecttarget' => '$1 ist ein ungültiges Weiterleitungsziel für Formular $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'Die angegebene, vorab zu ladende, Seite $1 ist ungültig.',
@@ -3147,8 +3157,8 @@ $messages['fi'] = array(
 	'sf_autoedit_success' => '[[$1]]: muokkaus lomakkeen $2 avulla onnistui.',
 	'sf_autoedit_fail' => '[[$1]]: muokkaus epäonnistui.',
 	'sf_autoedit_notargetspecified' => 'Kohdesivua ei ole määritetty.',
-	'sf_autoedit_invalidtargetspecified' => 'Valitu kohdesivu $1 on väärä.',
-	'sf_autoedit_invalidform' => '$1 ei ole kelvollinen lomake.',
+	'sf_autoedit_invalidtargetspecified' => 'Valitu kohdesivu $1 on väärä.', # Fuzzy
+	'sf_autoedit_invalidform' => '$1 ei ole kelvollinen lomake.', # Fuzzy
 	'sf_autoedit_redirectlimitexeeded' => 'Lomakkeen $1 ohjausten enimmäismäärä ylitettiin.',
 	'sf_autoedit_invalidredirecttarget' => '$1 ei ole sallittu ohjauksen kohde lomakkeelle $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'Määritetty esilaattava sivu $1 ei ole sallittu.',
@@ -3367,8 +3377,8 @@ l’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<
 	'sf_autoedit_success' => '[[$1]] modifié avec succès en utilisant le formulaire $2.',
 	'sf_autoedit_fail' => 'La modification de [[$1]] a échoué.',
 	'sf_autoedit_notargetspecified' => 'Aucune page cible spécifiée.',
-	'sf_autoedit_invalidtargetspecified' => "La page cible spécifiée $1 n'est pas valide.",
-	'sf_autoedit_invalidform' => "$1 n'est pas un formulaire valide.",
+	'sf_autoedit_invalidtargetspecified' => "La page cible spécifiée '''$1''' n’est pas valide.",
+	'sf_autoedit_invalidform' => "'''$1''' n’est pas un formulaire valide.",
 	'sf_autoedit_redirectlimitexeeded' => 'La limite de redirections maximale pour le formulaire $1 a été dépassée.',
 	'sf_autoedit_invalidredirecttarget' => '$1 est un lien de redirection non valide pour le formulaire $2.',
 	'sf_autoedit_invalidpreloadspecified' => "La page de préchargement spécifiée $1 n'est pas valide.",
@@ -5271,7 +5281,7 @@ $messages['ja'] = array(
 	'sf_autoedit_anoneditwarning' => "'''警告:''' ログインしていません。編集すると、IPアドレスがこのページの編集履歴に記録されます。",
 	'sf_autoedit_success' => 'フォーム $2 を使用して [[$1]] を変更しました。',
 	'sf_autoedit_fail' => '[[$1]] の変更に失敗しました。',
-	'sf_autoedit_invalidform' => '$1 は有効なフォームではありません。',
+	'sf_autoedit_invalidform' => "'''$1''' は有効なフォームではありません。",
 	'sf_autoedit_redirectlimitexeeded' => 'フォーム $1 がリダイレクト回数の上限に達しました。',
 	'sf_autoedit_invalidredirecttarget' => '$1 はフォーム $2 のリダイレクト先として無効です。',
 	'sf_autoedit_invalidpreloadspecified' => '指定したプリロードページ $1 は無効です。',
@@ -5538,6 +5548,7 @@ $messages['kn'] = array(
 );
 
 /** Korean (한국어)
+ * @author Hym411
  * @author 아라
  */
 $messages['ko'] = array(
@@ -5687,8 +5698,8 @@ $messages['ko'] = array(
 	'sf_autoedit_success' => '$2 양식을 사용하여 [[$1]] 문서를 성공적으로 수정했습니다.',
 	'sf_autoedit_fail' => '[[$1]](을)를 수정하는 데 실패했습니다.',
 	'sf_autoedit_notargetspecified' => '지정한 대상 문서가 없습니다.',
-	'sf_autoedit_invalidtargetspecified' => '지정한 $1 대상 문서가 잘못되었습니다.',
-	'sf_autoedit_invalidform' => '$1(은)는 올바른 양식이 아닙니다.',
+	'sf_autoedit_invalidtargetspecified' => "지정한 '''$1''' 대상 문서가 잘못되었습니다.",
+	'sf_autoedit_invalidform' => "'''$1'''(은)는 올바른 형식이 아닙니다.",
 	'sf_autoedit_redirectlimitexeeded' => '$1 양식에 대한 최대 넘겨주기 제한을 초과했습니다.',
 	'sf_autoedit_invalidredirecttarget' => '$1(은)는 $2 양식에 대한 잘못된 넘겨주기 대상입니다.',
 	'sf_autoedit_invalidpreloadspecified' => '지정한 $1 미리 불러온 문서가 잘못되었습니다.',
@@ -5997,7 +6008,7 @@ $messages['lb'] = array(
 	'sf_formedit_tooltip_saveandcontinueediting' => 'Date späicheren a mam Ännere virufueren',
 	'sf_autoedit_anoneditwarning' => 'Opgepasst: Dir sidd net ageloggt. Dowéinst gëtt amplaz vun engem Benotzernumm Är IP Adress am Historique vun dëser Säit gespäichert.',
 	'sf_autoedit_success' => '[[$1]] gouf mat Hëllef vum Formulaire $2 geännert',
-	'sf_autoedit_invalidform' => '$1 ass kee valabele Formulaire.',
+	'sf_autoedit_invalidform' => '$1 ass kee valabele Formulaire.', # Fuzzy
 	'sf_autoedit_redlinkexists' => '$1 gëtt et schonn.',
 	'sf_autoedit_noformfound' => 'Kee Formulaire uginn.',
 	'sf_autoedit_toomanyformsfound' => 'Fir dës Säit gëtt et méi wéi ee Formulaire.',
@@ -6445,8 +6456,8 @@ $messages['mk'] = array(
 	'sf_autoedit_success' => 'Измените на [[$1]] се успешно извршени користејќи го образецот $2.',
 	'sf_autoedit_fail' => 'Измената на [[$1]] не успеа.',
 	'sf_autoedit_notargetspecified' => 'Нема наведено целна страница',
-	'sf_autoedit_invalidtargetspecified' => 'Укажаната целна страница $1 е погрешна.',
-	'sf_autoedit_invalidform' => '$1 не претставува важечки образец.',
+	'sf_autoedit_invalidtargetspecified' => "Укажаната целна страница '''$1''' е погрешна.",
+	'sf_autoedit_invalidform' => "'''$1''' не претставува важечки образец.",
 	'sf_autoedit_redirectlimitexeeded' => 'Достигнат е максималниот дозволен број на пренасочувања за образецот $1.',
 	'sf_autoedit_invalidredirecttarget' => '$1 е неважечка цел на пренасочување за образецот $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'Укажаната претвчитана страница $1 е погрешна.',
@@ -7177,8 +7188,8 @@ Anders wordt u doorgestuurd naar het formulier om de pagina toe te voegen.',
 	'sf_autoedit_success' => '[[$1]] is gewijzigd via het formulier $2.',
 	'sf_autoedit_fail' => 'Het wijzigen van [[$1]] is mislukt.',
 	'sf_autoedit_notargetspecified' => 'Geen doelpagina opgegeven.',
-	'sf_autoedit_invalidtargetspecified' => 'De opgegeven doelpagina $1 is ongeldig.',
-	'sf_autoedit_invalidform' => '$1 is geen geldig formulier.',
+	'sf_autoedit_invalidtargetspecified' => "De opgegeven doelpagina '''$1''' is ongeldig.",
+	'sf_autoedit_invalidform' => "'''$1''' is geen geldig formulier.",
 	'sf_autoedit_redirectlimitexeeded' => 'De drempelwaarde voor doorverwijzigen voor het formulier $1 is bereikt.',
 	'sf_autoedit_invalidredirecttarget' => '$1 is een ongeldig doel voor doorverwijzing voor het formulier $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'De opgegevens vooraf te laden pagina $1 is ongeldig.',
@@ -8476,6 +8487,7 @@ $messages['roa-tara'] = array(
  * @author Innv
  * @author Kaganer
  * @author Lockal
+ * @author Okras
  * @author Pastakhov
  * @author QuestPC
  * @author Vlsergey
@@ -8612,8 +8624,8 @@ $messages['ru'] = array(
 	'sf_autoedit_success' => 'Успешно изменено [[$1]] с помощью формы $2 .',
 	'sf_autoedit_fail' => 'Изменение [[$1]] не удалось.',
 	'sf_autoedit_notargetspecified' => 'Целевая страница не указана.',
-	'sf_autoedit_invalidtargetspecified' => 'Указанная целевая страница $1 недействительна.',
-	'sf_autoedit_invalidform' => '$1 не является допустимой формой.',
+	'sf_autoedit_invalidtargetspecified' => "Указанная целевая страница '''$1''' недействительна.",
+	'sf_autoedit_invalidform' => "'''$1''' не является допустимой формой.",
 	'sf_autoedit_redirectlimitexeeded' => 'Превышен максимальный предел перенаправлений для формы  $1.',
 	'sf_autoedit_redlinkexists' => '$1 уже существует.',
 	'sf_autoedit_noformfound' => 'Форма не определена.',
@@ -9984,8 +9996,8 @@ $messages['uk'] = array(
 	'sf_autoedit_success' => 'Успішно змінено [[$1]] використовуючи форму $2.',
 	'sf_autoedit_fail' => 'Не вдалося змінити [[$1]].',
 	'sf_autoedit_notargetspecified' => 'Не вказано цільової сторінки.',
-	'sf_autoedit_invalidtargetspecified' => 'Вказано неправильну цільову сторінку $1.',
-	'sf_autoedit_invalidform' => '$1 не є правильною формою.',
+	'sf_autoedit_invalidtargetspecified' => "Вказано неправильну цільову сторінку '''$1'''.",
+	'sf_autoedit_invalidform' => "'''$1''' не є правильною формою.",
 	'sf_autoedit_redirectlimitexeeded' => 'Перевищено максимальне число перенаправлень для форми $1.',
 	'sf_autoedit_invalidredirecttarget' => '$1 недопустима ціль перенаправлення для форми $2.',
 	'sf_autoedit_invalidpreloadspecified' => 'Вказана попередньо завантажена сторінка $1 невірна.',
