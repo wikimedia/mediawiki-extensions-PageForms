@@ -27,10 +27,10 @@ De Silva as part of the 2013 Google Summer of Code.
 
 Important code contributions were also made by Christoph Burgmer,
 Daniel Friesen, Daniel Hansch, Eugene Mednikov, Harold Solbrig, Jayson
-Harshbarger, Jeffrey Stuckman, Jeroen De Dauw, Louis Gerbarg, Matt
-Williamson, Niklas Laxstrom, Nils Opperman, Patrick Nagel, Remco de Boer,
-Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland, Vedmaka,
-wheresmytab and others.
+Harshbarger, Jeffrey Stuckman, Jeroen De Dauw, Louis Gerbarg, Mathias
+Lidal, Matt Williamson, Niklas Laxstrom, Nils Opperman, Patrick Nagel,
+Remco de Boer, Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland,
+Vedmaka, wheresmytab and others.
 
 Language translations were provided by many people; see each file in
 the /languages directory for the full listings.
@@ -54,3 +54,7 @@ Bug reports should be submitted at the MediaWiki Bugzilla site:
 * Semantic Forms includes the FancyBox JavaScript library by
 Janis Skarnelis (http://fancybox.net). FancyBox is distributed
 under both the MIT and GPL licenses.
+
+* Semantic Forms also includes the Dynatree JavaScript library by
+Martin Wendt (https://code.google.com/p/dynatree/). Dynatree is also
+distributed under both the MIT and GPL licenses.
