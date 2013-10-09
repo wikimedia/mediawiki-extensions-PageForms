@@ -622,6 +622,7 @@ $messages['an'] = array(
 /** Arabic (العربية)
  * @author Meno25
  * @author OsamaK
+ * @author Uwe
  * @author أحمد
  * @author زكريا
  */
@@ -629,6 +630,7 @@ $messages['ar'] = array(
 	'semanticforms-desc' => 'استمارات لإنشاء و تعديل البيانات الدلالية',
 	'specialpages-group-sf_group' => 'استمارات دلالية',
 	'createproperty' => 'أنشئ خاصية',
+	'sf-createproperty-with-name' => 'أنشئ خاصيّة: $1',
 	'sf_createproperty_linktoform' => 'هذه الخاصية ستصل إلى الصفحات التي تستخدم النموذج:',
 	'sf_createproperty_allowedvalsinput' => 'لو كنت تريد أن تحتوي هذه الخاصية فقط على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب "\\,"):',
 	'sf_createproperty_propname' => 'اسم الخاصية:',
@@ -637,7 +639,9 @@ $messages['ar'] = array(
 	'sf_templates_docu' => 'القوالب التالية موجودة في الويكي.',
 	'sf_templates_definescat' => 'يعرف التصنيف: $1',
 	'createtemplate' => 'أنشئ قالبا',
+	'sf-createtemplate-with-name' => 'أنشئ قالب:$1',
 	'sf_createtemplate_namelabel' => 'اسم القالب:',
+	'sf_createtemplate_multipleinstance' => 'يمكن تضمين هذا القالب عدة مرات في الصفحة.',
 	'sf_createtemplate_categorylabel' => 'التصنيف معرف بواسطة قالب (اختياري):',
 	'sf_createtemplate_templatefields' => 'حقول القالب',
 	'sf_createtemplate_fieldsdesc' => 'لكي تجعل الحقول في هذا القالب لا تتطلب أسماء حقول، ببساطة أدخل فهرس كل حقل (مثل 1، 2، 3، إلى آخره.) كاسم، بدلا من اسم حقيقي.',
@@ -649,8 +653,9 @@ $messages['ar'] = array(
 	'sf_createtemplate_aggregationdesc' => 'لعرض، على أية صفحة تستخدم هذا القالب، كل الصفحات التي تمتلك خاصية معينة تشير إلى هذه الصفحة، حدد الخاصية المناسبة بالأسفل:',
 	'sf_createtemplate_aggregationlabel' => 'العنوان للقائمة:',
 	'sf_createtemplate_outputformat' => 'صيغة الخرج:',
-	'sf_createtemplate_standardformat' => 'قياسي', # Fuzzy
+	'sf_createtemplate_standardformat' => 'جدول',
 	'sf_createtemplate_infoboxformat' => 'صندوق معلومات على اليمين', # Fuzzy
+	'sf_createtemplate_plainformat' => 'نص عادي',
 	'sf_createtemplate_addfield' => 'أضف حقلًا',
 	'sf_createtemplate_deletefield' => 'حذف',
 	'forms' => 'نماذج',
@@ -676,6 +681,8 @@ $messages['ar'] = array(
 	'sf_createform_atend' => 'في النهاية',
 	'sf_createform_add' => 'أضف',
 	'sf_createform_choosefield' => 'اختر حقلا للإضافة',
+	'sf_createform_addsection' => 'أضف قسم',
+	'sf_createform_removesection' => 'أزل قسم',
 	'sf_createform_before' => 'قبل القالب:',
 	'sf_createform_additembeforesave' => 'يجب أن تضيف على الأقل قالبا واحدا إلى هذا النموذج قبل حفظه.',
 	'createcategory' => 'أنشئ تصنيفا',
@@ -714,12 +721,15 @@ $messages['ar'] = array(
 	'sf_formedit_remove' => 'إزالة', # Fuzzy
 	'sf_formedit_addanother' => 'إضافة آخر',
 	'sf_formedit_none' => 'لا شيء',
+	'sf-autoedit-wait' => 'إصبر ...',
 	'runquery' => 'شغّل استعلامًا',
 	'sf_runquery_badurl' => "يجب أن تحدد اسم نموذج في المسار;
 المسار ينبغي أن يبدو ك 'Special:RunQuery/<form name>'.",
 	'sf_runquery_title' => 'تشغيل الاستعلام: $1',
 	'sf_runquery_additionalquery' => 'استعلام إضافي',
 	'sf_formerrors_header' => 'هناك أخطاء في مدخلات نموذجك؛ انظر بالأسفل.',
+	'sf_too_few_instances_error' => 'يجب أن يكون هناك $1 من هذا القالب على الاقل.',
+	'sf_too_many_instances_error' => 'يجب أن يكون هناك $1 من هذا القالب على الأكثر.',
 	'sf_blank_error' => 'لا يمكن أن يكون فارغا',
 	'sf_bad_url_error' => "يجب أن يحتوي صيغة المسار الصحيحة، بادئا ب 'http'",
 	'sf_bad_email_error' => 'يجب أن يحتوي صيغة عنوان بريد إلكتروني صحيحة',
@@ -727,6 +737,7 @@ $messages['ar'] = array(
 	'sf_bad_date_error' => 'يجب أن يكون تاريخا سليما',
 	'uploadwindow' => 'نافذة الرفع',
 	'sf_deletionlog' => 'سجل الحذف',
+	'sf-preview-header' => 'معاينة الإستمارة',
 	'sf_property_isproperty' => 'هذه خاصية من نوع $1.',
 	'sf_property_linkstoform' => 'تصل بالصفحات التي تستخدم النموذج $1.',
 	'sf_property_allowedvals' => '{{PLURAL:$1||القيمة المسموح بها لهذه الخاصية هي|القيمتان المسموح بهما لهذه الخاصية هما|القيم المسموح بها لهذه الخاصية هي}}:',
@@ -740,7 +751,7 @@ $messages['ar'] = array(
 	'sf_category_hasdefaultform' => 'هذا التصنيف يستخدم النموذج $1.',
 	'sf_category_desc' => 'هذا $1 تصنيف.',
 	'sf_blank_namespace' => 'رئيسي',
-	'right-viewedittab' => 'أظهر لسان "عدّل" للصفحات التي يمكن تعديلها باستخدام نموذج.', # Fuzzy
+	'right-viewedittab' => 'أظهر لسان "{{int:edit}}" للصفحات التي يمكن تعديلها باستخدام نموذج.',
 	'right-editrestrictedfields' => 'حرّر حقول النموذج المقيّدة',
 );
 
@@ -783,6 +794,7 @@ $messages['arc'] = array(
 /** Egyptian Spoken Arabic (مصرى)
  * @author Ghaly
  * @author Meno25
+ * @author Uwe
  */
 $messages['arz'] = array(
 	'semanticforms-desc' => 'نماذج لإضافة وتعديل بيانات سيمانتك',
@@ -815,7 +827,7 @@ $messages['arz'] = array(
 	'sf_forms_docu' => 'الاستمارات التالية موجودة فى الويكى.',
 	'sf_forminputs_mandatory' => 'إلزامي',
 	'sf_forminputs_restricted' => 'محدد (فقط المستخدمون مديرو النظام يمكنهم تعديله)', # Fuzzy
-	'createform' => 'إنشاء استمارة',
+	'createform' => 'أنشئ استمارة',
 	'sf_createform_nameinput' => 'اسم الاستمارة',
 	'sf_createform_template' => 'القالب:',
 	'sf_createform_templatelabelinput' => 'علامة القالب (اختياري):',
@@ -8426,6 +8438,8 @@ $messages['ro'] = array(
 	'sf_category_desc' => 'Aceasta este categoria $1.',
 	'sf_blank_namespace' => 'Principal',
 	'right-viewedittab' => 'Vizualizează fila „{{int:edit}}” pentru paginile ce pot fi modificate printr-un formular',
+	'right-editrestrictedfields' => 'Modifică câmpuri restricționate ale formularelor',
+	'action-editrestrictedfields' => 'modificați câmpuri restricționate ale formuarelor',
 	'action-viewedittab' => 'vizualizați fila „{{int:edit}}” pentru paginile ce pot fi modificate printr-un formular',
 );
 
