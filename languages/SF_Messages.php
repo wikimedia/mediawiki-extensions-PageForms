@@ -10508,6 +10508,7 @@ $messages['zh-cn'] = array(
  * @author Hydra
  * @author Liangent
  * @author Linforest
+ * @author Liuxinyu970226
  * @author PhiLiP
  * @author Shirayuki
  * @author Xiaomingyan
@@ -10652,8 +10653,8 @@ $messages['zh-hans'] = array(
 	'sf_autoedit_success' => '已成功使用表单$2修改[[$1]]。',
 	'sf_autoedit_fail' => '修改[[$1]]失败。',
 	'sf_autoedit_notargetspecified' => '没有指定目标页面。',
-	'sf_autoedit_invalidtargetspecified' => '指定的目标页面$1无效。',
-	'sf_autoedit_invalidform' => '$1不是有效的表单。',
+	'sf_autoedit_invalidtargetspecified' => "指定的目标页面'''$1'''无效。",
+	'sf_autoedit_invalidform' => "'''$1'''不是有效的表单。",
 	'sf_autoedit_redirectlimitexeeded' => '表单$1超过了最大重定向限制。',
 	'sf_autoedit_invalidredirecttarget' => '表单$2的$1是一个无效的重定向目标。',
 	'sf_autoedit_invalidpreloadspecified' => '指定的预载入页面$1无效。',
