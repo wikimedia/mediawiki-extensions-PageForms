@@ -93,7 +93,7 @@ $wgHooks['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 $wgHooks['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
 $wgHooks['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
 $wgHooks['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
-$wgHooks['UnitTestsList'][] = 'SFUtils:onUnitTestsList';
+$wgHooks['UnitTestsList'][] = 'SFUtils::onUnitTestsList';
 
 // Using UnknownAction is deprecated from MW 1.18 onwards.
 if ( version_compare( $wgVersion, '1.18', '<' ) ) {
