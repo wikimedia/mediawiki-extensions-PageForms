@@ -196,7 +196,7 @@ END;
 
 		// Only add a call to #set_internal if the Semantic Internal
 		// Objects extension is also installed.
-		if ( $internal_obj_property && class_exists( 'SIOInternalObject' ) ) {
+		if ( $internal_obj_property && defined( 'SIO_VERSION' ) ) {
 			$setInternalText = '{{#set_internal:' . $internal_obj_property;
 		} else {
 			$setInternalText = null;

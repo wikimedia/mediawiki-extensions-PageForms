@@ -42,11 +42,13 @@ function disableFormAndCategoryInputs() {
 		jQuery('label[for="form_name"]').css('color', 'gray').css('font-style', 'italic');
 		jQuery('#category_name').attr('disabled', 'disabled');
 		jQuery('label[for="category_name"]').css('color', 'gray').css('font-style', 'italic');
+		jQuery('#connecting_property_div').show('fast');
 	} else {
 		jQuery('#form_name').removeAttr('disabled');
 		jQuery('label[for="form_name"]').css('color', '').css('font-style', '');
 		jQuery('#category_name').removeAttr('disabled');
 		jQuery('label[for="category_name"]').css('color', '').css('font-style', '');
+		jQuery('#connecting_property_div').hide('fast');
 	}
 }
 
@@ -100,10 +102,25 @@ END;
 			}
 		}
 
+		// Also create the "connecting property", if there is one.
+		if ( $wgRequest->getCheck('connecting_property') ) {
+			global $smwgContLang;
+			$datatypeLabels = $smwgContLang->getDatatypeLabels();
+			$property_type = $datatypeLabels['_wpg'];
+			$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
+			$property_name = trim( $wgRequest->getVal('connecting_property') );
+			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
+			$params = array();
+			$params['user_id'] = $wgUser->getId();
+			$params['page_text'] = $full_text;
+			$jobs[] = new SFCreatePageJob( $property_title, $params );
+		}
+
 		// Create the template, and save it (might as well save
 		// one page, instead of just creating jobs for all of them).
 		$template_format = $wgRequest->getVal( "template_format" );
-		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category_name, null, null, $template_format );
+		$connecting_property = $wgRequest->getVal( "connecting_property" );
+		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, $connecting_property, $category_name, null, null, $template_format );
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 		$edit_summary = '';
                 if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
@@ -199,6 +216,18 @@ END;
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
 			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->text() ) . "\n";
+		if ( defined( 'SIO_VERSION' ) ) {
+			$templateInfo .= Html::rawElement( 'div',
+				array (
+					'id' => 'connecting_property_div',
+					'style' => 'display: none;',
+				),
+				wfMessage( 'semanticinternalobjects-mainpropertyname' )->text() . "\n" .
+				Html::element( 'input', array(
+					'type' => 'text',
+					'name' => 'connecting_property',
+				) ) ) . "\n";
+		}
 		$text .= Html::rawElement( 'blockquote', null, $templateInfo );
 
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
