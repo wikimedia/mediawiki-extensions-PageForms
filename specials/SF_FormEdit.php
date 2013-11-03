@@ -137,6 +137,14 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$pageTitle = wfMessage( 'sf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
+		} elseif ( count( $alt_forms ) > 0 ) {
+			// We use the 'creating' message here, instead of
+			// 'sf_formedit_createtitlenotarget', to differentiate
+			// between a page with no (default) form, and one with
+			// no target; in English they'll show up as
+			// "Creating ..." and "Create ...", respectively.
+			// Does this make any difference? Who knows.
+			$pageTitle = wfMessage( 'creating', $targetName )->text();
 		} elseif ( $result[ 'form' ] == '' ) {  //FIXME: This looks weird; a simple else should be enough, right?
 			// display error message if the form is not specified in the URL
 			$pageTitle = wfMessage( 'formedit' )->text();
@@ -146,8 +154,13 @@ class SFFormEdit extends SpecialPage {
 
 		$wgOut->setPageTitle( $pageTitle );
 		if ( count( $alt_forms ) > 0 ) {
-			$text .= '<div class="infoMessage">' . wfMessage( 'sf_formedit_altforms' )->escaped() . ' ';
-			$text .= self::printAltFormsList( $alt_forms, $targetName );
+			$text .= '<div class="infoMessage">';
+			if ( $result[ 'form' ] != '' ) {
+				$text .= wfMessage( 'sf_formedit_altforms' )->escaped();
+			} else {
+				$text .= wfMessage( 'sf_formedit_altformsonly' )->escaped();
+			}
+			$text .= ' ' . self::printAltFormsList( $alt_forms, $targetName );
 			$text .= "</div>\n";
 		}
 

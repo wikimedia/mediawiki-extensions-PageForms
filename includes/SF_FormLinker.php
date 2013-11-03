@@ -209,7 +209,9 @@ class SFFormLinker {
 		if ( count( $default_forms ) > 0 ) {
 			$form_edit_url = $fe_url . "/" . $default_forms[0] . "/" . SFUtils::titleURLString( $target_page_title );
 		} else {
-			$form_edit_url = $fe_url . "/" . SFUtils::titleURLString( $target_page_title );
+			$form_edit_url = $fe_url;
+			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
+			$form_edit_url .= "target=$target_page_title";
 		}
 		foreach ( $alt_forms as $i => $alt_form ) {
 			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
