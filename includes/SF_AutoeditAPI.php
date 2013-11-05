@@ -725,7 +725,7 @@ class SFAutoeditAPI extends ApiBase {
 	 *
 	 * @global $wgRequest
 	 * @global $wgOut
-	 * @global $sfgFormPrinter
+	 * @global SFFormPrinter $sfgFormPrinter
 	 * @throws MWException
 	 */
 	public function doAction() {
@@ -786,9 +786,6 @@ class SFAutoeditAPI extends ApiBase {
 		// save $wgRequest for later restoration
 		$oldRequest = $wgRequest;
 
-		// flag to keep track of formHTML runs
-		$formHtmlHasRun = false;
-
 		// preload data if not explicitly excluded and if the preload page exists
 		if ( !isset( $this->mOptions[ 'preload' ] ) || $this->mOptions[ 'preload' ] !== false ) {
 
@@ -802,39 +799,41 @@ class SFAutoeditAPI extends ApiBase {
 
 				// the content of the page that was specified to be used for preloading
 				$preloadContent = WikiPage::factory( $preloadTitle )->getRawText();
-			} else {
-				$preloadContent = null;
-			}
-
-			wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
-
-			if ( $preloadContent !== null ) {
 
 				$pageExists = true;
-
-				// spoof $wgRequest for SFFormPrinter::formHTML
-				$wgRequest = new FauxRequest( $this->mOptions, true );
-
-				// call SFFormPrinter::formHTML to get at the form html of the existing page
-				list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
-						$sfgFormPrinter->formHTML(
-						$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
-				);
-
-				$formHtmlHasRun = true;
-
-				// parse the data to be preloaded from the form html of the
-				// existing page
-				$data = $this->parseDataFromHTMLFrag( $formHTML );
-
-				// and merge/overwrite it with the new data
-				$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
 			} else {
 				if ( isset( $this->mOptions[ 'preload' ] ) ) {
 					$this->logMessage( wfMessage( 'sf_autoedit_invalidpreloadspecified', $this->mOptions[ 'preload' ] )->parse(), self::WARNING );
 				}
 			}
+		}
+
+		// allow extensions to set/change the preload text
+		wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+
+		// flag to keep track of formHTML runs
+		$formHtmlHasRun = false;
+
+		if ( $preloadContent !== '' ) {
+
+			// spoof $wgRequest for SFFormPrinter::formHTML
+			$wgRequest = new FauxRequest( $this->mOptions, true );
+
+			// call SFFormPrinter::formHTML to get at the form html of the existing page
+			list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
+				$sfgFormPrinter->formHTML(
+					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
+				);
+
+			$formHtmlHasRun = true;
+
+			// parse the data to be preloaded from the form html of the
+			// existing page
+			$data = $this->parseDataFromHTMLFrag( $formHTML );
+
+			// and merge/overwrite it with the new data
+			$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 		}
 
 		// We already preloaded stuff for saving/previewing -
