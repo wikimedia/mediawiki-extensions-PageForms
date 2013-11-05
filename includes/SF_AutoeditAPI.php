@@ -115,7 +115,7 @@ class SFAutoeditAPI extends ApiBase {
 		try {
 			$this->doAction();
 		} catch ( MWException $e ) {
-			$this->logMessage( $e->getMessage() );
+			$this->logMessage( $e->getMessage(), $e->getCode() );
 		}
 
 		$this->finalizeResults();
@@ -236,34 +236,55 @@ class SFAutoeditAPI extends ApiBase {
 	 */
 	protected function getFormTitle() {
 
-		// if no form was specified, try finding the default form for the target page.
+		// if no form was explicitly specified, try for explicitly set alternate forms
 		if ( $this->mOptions[ 'form' ] === '' ) {
 
 			$this->logMessage( 'No form specified. Will try to find the default form for the target page.', self::DEBUG );
 
-			// if no form and no target page was specified, give up
-			if ( $this->mOptions[ 'target' ] === '' ) {
-				throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
+			$formNames = array();
+
+			// try explicitly set alternative forms
+			if ( array_key_exists( 'alt_form', $this->mOptions ) ) {
+
+				$formNames = (array)$this->mOptions[ 'alt_form' ]; // cast to array to make sure we get an array, even if only a string was sent
+
 			}
 
-			$targetTitle = Title::newFromText( $this->mOptions[ 'target' ] );
-
-			// if the specified target title is invalid, give up
-			if ( !$targetTitle instanceof Title ) {
-				throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions[ 'target' ] )->parse() );
-			}
-
-			$formNames = SFFormLinker::getDefaultFormsForPage( $targetTitle );
-
-			// if no form can be found, give up
+			// if no alternate forms were explicitly set, try finding a default form for the target page
 			if ( count( $formNames ) === 0 ) {
-				throw new MWException( wfMessage( 'sf_autoedit_noformfound' )->parse() );
+
+				// if no form and and no alt forms and no target page was specified, give up
+				if ( $this->mOptions[ 'target' ] === '' ) {
+					throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
+				}
+
+				$targetTitle = Title::newFromText( $this->mOptions[ 'target' ] );
+
+				// if the specified target title is invalid, give up
+				if ( !$targetTitle instanceof Title ) {
+					throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions[ 'target' ] )->parse() );
+				}
+
+				$formNames = SFFormLinker::getDefaultFormsForPage( $targetTitle );
+
+				// if no default form can be found, try alternate forms
+				if ( count( $formNames ) === 0 ) {
+
+					$formNames = SFFormLinker::getFormsThatPagePointsTo( $targetTitle->getText(), $targetTitle->getNamespace(), SFFormLinker::ALTERNATE_FORM );
+
+					// if still no form can be found, give up
+					if ( count( $formNames ) === 0 ) {
+						throw new MWException( wfMessage( 'sf_autoedit_noformfound' )->parse() );
+					}
+
+				}
+
 			}
 
-			// if more than one form was found, issue a warning and use the first form
-			// FIXME: If we have more than one form, should we stop?
+			// if more than one form was found, issue a notice and give up
+			// this happens if no default form but several alternate forms are defined
 			if ( count( $formNames ) > 1 ) {
-				$this->logMessage( wfMessage( 'sf_autoedit_toomanyformsfound' )->parse(), self::WARNING );
+				throw new MWException( wfMessage( 'sf_autoedit_toomanyformsfound' )->parse(), self::DEBUG );
 			}
 
 			$this->mOptions[ 'form' ] = $formNames[ 0 ];
