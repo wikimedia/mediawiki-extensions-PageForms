@@ -316,14 +316,15 @@ class SFPageSchemas extends PSExtensionHandler {
 		$text .= '<p>' . Html::input( 'sf_two_step_process', null, 'checkbox', $twoStepProcessAttrs );
 		$text .= ' Users must enter the page name before getting to the form (default)';
 		$text .= "</p>\n";
+		$text .= '<div class="editSchemaMinorFields">';
 		$text .= "\t<p id=\"sf-page-name-formula\">" . wfMessage( 'sf-pageschemas-pagenameformula' )->escaped() . ' ' . Html::input( 'sf_page_name_formula', $pageNameFormula, 'text', array( 'size' => 30 ) ) . "</p>\n";
 		$text .= "\t<p>" . wfMessage( 'sf-pageschemas-createtitle' )->escaped() . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		$text .= "\t<p id=\"sf-edit-title\">" . wfMessage( 'sf-pageschemas-edittitle' )->escaped() . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 
-		//Inputs
-		$text .= "<p>Define form buttons and inputs (will be enabled all if not selected any): &nbsp;</p><p>";
-
 		$text .= "Free text label: " . Html::input( 'sf_fi_free_text_label', ( ( empty( $freeTextLabel ) ) ? wfMsgForContent( 'sf_form_freetextlabel' ) : $freeTextLabel ), 'text' ) . "</p><p>";
+
+		//Inputs
+		$text .= "<p>Define form buttons and inputs (all will be enabled if none are selected): &nbsp;</p><p>";
 
 		// Free text
 		$text .= '<span>';
@@ -367,6 +368,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		$text .= "&nbsp;</span>";
 
 		$text .= "</p>";
+		$text .= "</div>\n";
 
 		// Separately, add Javascript for getting the checkbox to
 		// hide certain fields.
@@ -451,14 +453,6 @@ END;
 		$inputTypeDropdown = Html::rawElement( 'select', array( 'name' => 'sf_input_type_num' ), $inputTypeDropdownHTML );
 		$text = '<p>' . wfMessage( 'sf-pageschemas-inputtype' )->escaped() . ' ' . $inputTypeDropdown . '</p>';
 
-		$inputBeforeTextPrint = Html::input( 'sf_input_befo_num', $inputBeforeText, 'text', array( 'size' => 80 ) );
-		$text .= "\t<p>Enter the text that will be printed before the field:</p>\t<p>$inputBeforeTextPrint</p>\n";
-
-		$inputDescription = Html::input( 'sf_input_desc_num', $inputDesc, 'text', array( 'size' => 80 ) );
-		$inputDescriptionTooltipMode = Html::input( 'sf_input_desctool_num', $inputDescTooltipMode, 'checkbox', array( 'checked' => ($inputDescTooltipMode) ? 'checked' : null ) );
-		$text .= "\t<p>Enter field <b>description</b>:</p>\t<p>$inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
-
-		// @todo FIXME: i18n issue: Hard coded text.
 		$text .= "\t" . '<p>' . wfMessage( 'sf-pageschemas-otherparams', 'size=20, mandatory' )->escaped() . '</p>' . "\n";
 		$paramValues = array();
 		foreach ( $fieldValues as $param => $value ) {
@@ -477,6 +471,16 @@ END;
 		$inputParamsAttrs = array( 'size' => 80 );
 		$inputParamsInput = Html::input( 'sf_key_values_num', $param_value_str, 'text', $inputParamsAttrs );
 		$text .= "\t<p>$inputParamsInput</p>\n";
+
+		$text .= '<div class="editSchemaMinorFields">' . "\n";
+		$inputBeforeTextPrint = Html::input( 'sf_input_befo_num', $inputBeforeText, 'text', array( 'size' => 80 ) );
+		$text .= "\t<p>Text that will be printed before the field: $inputBeforeTextPrint</p>\n";
+
+		$inputDescription = Html::input( 'sf_input_desc_num', $inputDesc, 'text', array( 'size' => 80 ) );
+		$inputDescriptionTooltipMode = Html::input( 'sf_input_desctool_num', $inputDescTooltipMode, 'checkbox', array( 'checked' => ($inputDescTooltipMode) ? 'checked' : null ) );
+		$text .= "\t<p>Field description: $inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
+		$text .= "</div>\n";
+
 		return array( $text, $hasExistingValues );
 	}
 
