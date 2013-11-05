@@ -123,16 +123,16 @@ END;
 		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, $connecting_property, $category_name, null, null, $template_format );
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 		$edit_summary = '';
-                if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
+		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
 			// MW 1.21+
-                        $template_page = new WikiPage( $template_title );
-                        $content = new WikitextContent( $full_text );
-                        $template_page->doEditContent( $content, $edit_summary );
-                } else {
+			$template_page = new WikiPage( $template_title );
+			$content = new WikitextContent( $full_text );
+			$template_page->doEditContent( $content, $edit_summary );
+		} else {
 			// MW <= 1.20
-                        $template_article = new Article( $template_title );
-                        $template_article->doEdit( $full_text, $edit_summary );
-                }
+			$template_article = new Article( $template_title );
+			$template_article->doEdit( $full_text, $edit_summary );
+		}
 
 		// Create the form, and make a job for it.
 		if ( $form_name != '' ) {
@@ -216,13 +216,17 @@ END;
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
 			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->text() ) . "\n";
-		if ( defined( 'SIO_VERSION' ) ) {
+		// Either #set_internal or #subobject will be added to the
+		// template, depending on whether Semantic Internal Objects is
+		// installed.
+		global $smwgDefaultStore;
+		if ( defined( 'SIO_VERSION' ) || $smwgDefaultStore == "SMWSQLStore3" ) {
 			$templateInfo .= Html::rawElement( 'div',
 				array (
 					'id' => 'connecting_property_div',
 					'style' => 'display: none;',
 				),
-				wfMessage( 'semanticinternalobjects-mainpropertyname' )->text() . "\n" .
+				wfMessage( 'sf_createtemplate_connectingproperty' )->text() . "\n" .
 				Html::element( 'input', array(
 					'type' => 'text',
 					'name' => 'connecting_property',

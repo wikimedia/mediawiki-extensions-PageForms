@@ -194,12 +194,22 @@ END;
 			$text .= $template_options['beforeText']."\n";
 		}
 
-		// Only add a call to #set_internal if the Semantic Internal
-		// Objects extension is also installed.
-		if ( $internal_obj_property && defined( 'SIO_VERSION' ) ) {
-			$setInternalText = '{{#set_internal:' . $internal_obj_property;
-		} else {
-			$setInternalText = null;
+		// $internalObjText can be either a call to #set_internal
+		// or to #subobject (or null); which one we go with
+		// depends on whether Semantic Internal Objects is installed,
+		// and on the SMW version.
+		// Thankfully, the syntaxes of #set_internal and #subobject
+		// are quite similar, so we don't need too much extra logic.
+		$internalObjText = null;
+		if ( $internal_obj_property ) {
+			global  $smwgDefaultStore;
+			if ( defined( 'SIO_VERSION' ) ) {
+				$useSubobject = false;
+				$internalObjText = '{{#set_internal:' . $internal_obj_property;
+			} elseif ( $smwgDefaultStore == "SMWSQLStore3" ) {
+				$useSubobject = true;
+				$internalObjText = '{{#subobject:-|' . $internal_obj_property . '={{PAGENAME}}';
+			}
 		}
 		$setText = '';
 
@@ -283,12 +293,16 @@ END;
 					$tableText .= " }}";
 				}
 				$tableText .= "\n";
-			} elseif ( !is_null( $setInternalText ) ) {
+			} elseif ( !is_null( $internalObjText ) ) {
 				$tableText .= "$separator $fieldBefore {{{" . $field->mFieldName . "|}}} $fieldAfter\n";
 				if ( $field->mIsList ) {
-					$setInternalText .= '|' . $field->mSemanticProperty . '#list={{{' . $field->mFieldName . '|}}}';
+					if ( $useSubobject ) {
+						$internalObjText .= '|' . $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}|+sep=,';
+					} else {
+						$internalObjText .= '|' . $field->mSemanticProperty . '#list={{{' . $field->mFieldName . '|}}}';
+					}
 				} else {
-					$setInternalText .= '|' . $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}';
+					$internalObjText .= '|' . $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}';
 				}
 			} elseif ( $field->mDisplay == 'hidden' ) {
 				if ( $field->mIsList ) {
@@ -345,13 +359,13 @@ END;
 		// Leave out newlines if there's an internal property
 		// set here (which would mean that there are meant to be
 		// multiple instances of this template.)
-		if ( is_null( $setInternalText ) ) {
+		if ( is_null( $internalObjText ) ) {
 			if ( $template_format == 'standard' || $template_format == 'infobox' ) {
 				$tableText .= "\n";
 			}
 		} else {
-			$setInternalText .= "}}";
-			$text .= $setInternalText;
+			$internalObjText .= "}}";
+			$text .= $internalObjText;
 		}
 
 		// Add a call to #set, if necessary
