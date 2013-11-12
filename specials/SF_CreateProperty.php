@@ -45,6 +45,7 @@ class SFCreateProperty extends SpecialPage {
 			$text .= "\n\n" . wfMessage( 'sf_property_allowedvals' )
 				->numParams( count( $allowed_values_array ) )->inContentLanguage()->text();
 			foreach ( $allowed_values_array as $i => $value ) {
+				if ( $value == '' ) continue;
 				// replace beep back with comma, trim
 				$value = str_replace( "\a", $sfgListSeparator, trim( $value ) );
 				$prop_labels = $smwgContLang->getPropertyLabels();
