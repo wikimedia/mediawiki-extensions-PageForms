@@ -717,8 +717,17 @@ END;
 				$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
 				$fullTemplateName = PageSchemas::titleString( $templateTitle );
 				$template_fields = self::getFieldsFromTemplateSchema( $psTemplate );
+				// Get property for use in either #set_internal
+				// or #subobject, defined by either SIO's or
+				// SMW's Page Schemas portion. We don't need
+				// to record which one it came from, because
+				// SF's code to generate the template runs its
+				// own, similar check.
+				// @TODO - $internalObjProperty should probably					// have a more generic name.
 				if ( class_exists( 'SIOPageSchemas' ) ) {
 					$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $psTemplate );
+				} elseif ( method_exists( 'SMWPageSchemas', 'getConnectingPropertyName' ) ) {
+					$internalObjProperty = SMWPageSchemas::getConnectingPropertyName( $psTemplate );
 				} else {
 					$internalObjProperty = null;
 				}
