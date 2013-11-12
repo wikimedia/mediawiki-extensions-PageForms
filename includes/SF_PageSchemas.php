@@ -723,7 +723,8 @@ END;
 				// to record which one it came from, because
 				// SF's code to generate the template runs its
 				// own, similar check.
-				// @TODO - $internalObjProperty should probably					// have a more generic name.
+				// @TODO - $internalObjProperty should probably
+				// have a more generic name.
 				if ( class_exists( 'SIOPageSchemas' ) ) {
 					$internalObjProperty = SIOPageSchemas::getInternalObjectPropertyName( $psTemplate );
 				} elseif ( method_exists( 'SMWPageSchemas', 'getConnectingPropertyName' ) ) {
