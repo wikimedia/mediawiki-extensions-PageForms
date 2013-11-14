@@ -279,6 +279,7 @@ END;
 				}
 			} // If it's 'hidden', do nothing
 			// Value column
+/*
 			if ( $template_format == 'standard' || $template_format == 'infobox' ) {
 				if ( $field->mDisplay == 'hidden' ) {
 				} elseif ( $field->mDisplay == 'nonempty' ) {
@@ -287,6 +288,7 @@ END;
 					$tableText .= "| ";
 				}
 			}
+*/
 			if ( !$field->mSemanticProperty ) {
 				$tableText .= "$separator $fieldBefore {{{" . $field->mFieldName . "|}}} $fieldAfter\n";
 				if ( $field->mDisplay == 'nonempty' ) {
