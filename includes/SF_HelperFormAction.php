@@ -8,11 +8,6 @@
  * @ingroup SF
  */
 
-// TODO: Action class did not exist until MW 1.18
-if ( ! class_exists( 'Action') ) {
-	class Action{}
-}
-
 class SFHelperFormAction extends Action 
 {
 	/**
