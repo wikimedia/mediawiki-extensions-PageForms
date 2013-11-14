@@ -109,7 +109,10 @@ class SFFormEdit extends SpecialPage {
 			if ( array_key_exists( 'errors', $resultData ) ) {
 
 				foreach ($resultData['errors'] as $error) {
-					$text .= Html::rawElement( 'p', array( 'class' => 'error' ), $error['message'] ) . "\n";
+					// FIXME: This should probably not be hard-coded to WARNING but put into a setting
+					if ( $error[ 'level' ] <= SFAutoeditAPI::WARNING ) {
+						$text .= Html::rawElement( 'p', array( 'class' => 'error' ), $error[ 'message' ] ) . "\n";
+					}
 				}
 			}
 		}
