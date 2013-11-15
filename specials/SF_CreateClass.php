@@ -103,13 +103,13 @@ END;
 		}
 
 		// Also create the "connecting property", if there is one.
-		if ( $wgRequest->getCheck('connecting_property') ) {
+		$connectingProperty = trim( $wgRequest->getVal('connecting_property') );
+		if ( $connectingProperty != '' ) {
 			global $smwgContLang;
 			$datatypeLabels = $smwgContLang->getDatatypeLabels();
 			$property_type = $datatypeLabels['_wpg'];
 			$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
-			$property_name = trim( $wgRequest->getVal('connecting_property') );
-			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
+			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $connectingProperty );
 			$params = array();
 			$params['user_id'] = $wgUser->getId();
 			$params['page_text'] = $full_text;
