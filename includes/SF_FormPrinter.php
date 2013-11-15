@@ -611,13 +611,14 @@ END;
 							// if there's at least one, re-parse this section of the
 							// definition form for the subsequent template instances in
 							// this page; if there's none, don't include fields at all.
-							// there has to be a more efficient way to handle multiple
+							// There has to be a more efficient way to handle multiple
 							// instances of templates, one that doesn't involve re-parsing
 							// the same tags, but I don't know what it is.
 							// (Also add additional, blank instances if there's a minimum
 							// number required in this form, and we haven't reached it yet.)
 							if ( $found_instance || $instance_num < $minimumInstances ) {
-								$instance_num++;
+								// Print another instance until we reach the minimum
+								// instances, which is also the starting number.
 							} else {
 								$all_instances_printed = true;
 							}
@@ -732,8 +733,17 @@ END;
 					// template, then delete them from the array, so we can get the
 					// next group next time - the next() command for arrays doesn't
 					// seem to work here.
+					// @TODO - This is currently called regardless of whether the
+					// input is from the form; the $wgRequest check doesn't do
+					// anything. Is that a problem?
 					if ( ( ! $source_is_page ) && $allow_multiple && $wgRequest ) {
-						$all_instances_printed = true;
+						if ( $instance_num < $minimumInstances ) {
+							// Print another instance until we reach the minimum
+							// instances, which is also the starting number.
+							continue;
+						} else {
+							$all_instances_printed = true;
+						}
 						if ( $old_template_name != $template_name ) {
 							$all_values_for_template = $wgRequest->getArray( $query_template_name );
 						}
