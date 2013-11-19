@@ -234,7 +234,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'styles' => 'skins/jquery.fancybox.css',
 		),
 		'ext.semanticforms.dynatree' => $sfgResourceTemplate + array(
-			'dependencies' => array( 'jquery.ui.core' ),
+			'dependencies' => array( 'jquery.ui.widget' ),
 			'scripts' => array(
 				'libs/jquery.dynatree.js',
 				'libs/ext.dynatree.js',
