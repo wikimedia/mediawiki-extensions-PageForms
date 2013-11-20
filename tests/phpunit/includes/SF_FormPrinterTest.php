@@ -13,10 +13,11 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
 
-		global $sfgFormPrinter, $wgTitle, $wgParser;
+		global $sfgFormPrinter, $wgTitle, $wgParser, $wgOut;
 
 		$wgParser = $this->getParser();
 		$wgTitle = $this->getTitle();
+		$wgOut->getContext()->setTitle( $wgTitle );
 
 		list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
 			$sfgFormPrinter->formHTML( $setup['form_definition'], null, false, null, null, 'TestStringForFormPageTitle', null );
