@@ -77,7 +77,7 @@ class SFTemplateField {
 			return;
 		}
 
-		$store = smwfGetStore();
+		$store = SFUtils::getSMWStore();
 		// this returns an array of objects
 		$allowed_values = SFUtils::getSMWPropertyValues( $store, $proptitle, "Allows value" );
 		$label_formats = SFUtils::getSMWPropertyValues( $store, $proptitle, "Has field label format" );
