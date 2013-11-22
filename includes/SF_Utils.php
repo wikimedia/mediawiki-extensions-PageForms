@@ -74,6 +74,19 @@ class SFUtils {
 	}
 
 	/**
+	 * Helper function to get the SMW data store for different versions
+	 * of SMW.
+	 */
+	public static function getSMWStore() {
+		if ( class_exists( '\SMW\StoreFactory' ) ) {
+			// SMW 1.9+
+			return \SMW\StoreFactory::getStore();
+		} else {
+			return smwfGetStore();
+		}
+	}
+
+	/**
 	 * Helper function to handle getPropertyValues().
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
@@ -349,7 +362,7 @@ END;
 	public static function getAllValuesForProperty( $property_name ) {
 		global $sfgMaxAutocompleteValues;
 
-		$store = smwfGetStore();
+		$store = SFUtils::getSMWStore();
 		$requestoptions = new SMWRequestOptions();
 		$requestoptions->limit = $sfgMaxAutocompleteValues;
 		$values = self::getSMWPropertyValues( $store, null, $property_name, $requestoptions );
@@ -440,7 +453,7 @@ END;
 	public static function getAllPagesForConcept( $conceptName, $substring = null ) {
 		global $sfgMaxAutocompleteValues, $sfgAutocompleteOnAllChars;
 
-		$store = smwfGetStore();
+		$store = SFUtils::getSMWStore();
 
 		$conceptTitle = Title::makeTitleSafe( SMW_NS_CONCEPT, $conceptName );
 
@@ -1024,7 +1037,7 @@ END;
 		$queryObj = SMWQueryProcessor::createQuery( $queryString,
 			$processedParams,
 			SMWQueryProcessor::SPECIAL_PAGE, '', $printouts );
-		$res = smwfGetStore()->getQueryResult( $queryObj );
+		$res = SFUtils::getSMWStore()->getQueryResult( $queryObj );
 		$pages = $res->getResults();
 
 		return $pages;

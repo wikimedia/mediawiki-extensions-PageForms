@@ -32,7 +32,11 @@ class SFCreateTemplate extends SpecialPage {
 		// getProperties() functions stop requiring a limit
 		$options = new SMWRequestOptions();
 		$options->limit = 500;
-		$used_properties = smwfGetStore()->getPropertiesSpecial( $options );
+		$used_properties = SFUtils::getSMWStore()->getPropertiesSpecial( $options );
+		if ( $used_properties instanceof SMW\SQLStore\PropertiesCollector ) {
+			// SMW 1.9+
+			$used_properties = $used_properties->runCollector();
+		}
 		foreach ( $used_properties as $property ) {
 			// Skip over properties that are errors. (This
 			// shouldn't happen, but it sometimes does.)
@@ -45,7 +49,11 @@ class SFCreateTemplate extends SpecialPage {
 			}
 		}
 
-		$unused_properties = smwfGetStore()->getUnusedPropertiesSpecial( $options );
+		$unused_properties = SFUtils::getSMWStore()->getUnusedPropertiesSpecial( $options );
+		if ( $unused_properties instanceof SMW\SQLStore\UnusedPropertiesCollector ) {
+			// SMW 1.9+
+			$unused_properties = $unused_properties->runCollector();
+		}
 		foreach ( $unused_properties as $property ) {
 			// Skip over properties that are errors. (This
 			// shouldn't happen, but it sometimes does.)

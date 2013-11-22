@@ -26,7 +26,7 @@ class SFFormLinker {
 	 * in the wiki.
 	 */
 	static function getIncomingProperties( $title ) {
-		$store = smwfGetStore();
+		$store = SFUtils::getSMWStore();
 		$value = SMWDIWikiPage::newFromTitle( $title );
 		$properties = $store->getInProperties( $value );
 		$propertyNames = array();
@@ -46,7 +46,8 @@ class SFFormLinker {
 		if ( self::$mLinkedPagesRetrieved ) {
 			return;
 		}
-		$store = smwfGetStore();
+
+		$store = SFUtils::getSMWStore();
 		if ( class_exists( 'SMWDataItem' ) ) {
 			$value = SMWDIWikiPage::newFromTitle( $title );
 		} else {
@@ -124,7 +125,7 @@ class SFFormLinker {
 
 		global $sfgContLang;
 
-		$store = smwfGetStore();
+		$store = SFUtils::getSMWStore();
 		$subject = Title::makeTitleSafe( $page_namespace, $page_name );
 		$form_names = SFUtils::getSMWPropertyValues( $store, $subject, $prop_smw_id );
 
