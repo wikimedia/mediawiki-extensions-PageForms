@@ -133,17 +133,17 @@ class SFAutocompleteAPI extends ApiBase {
 		return __CLASS__ . ': $Id$';
 	}
 
-	private static function getAllValuesForProperty( $property_name, $substring, $base_property_name = null, $base_value = null ) {
+	private static function getAllValuesForProperty( $property_name, $substring, $basePropertyName = null, $baseValue = null ) {
 		global $sfgMaxAutocompleteValues, $sfgCacheAutocompleteValues, $sfgAutocompleteCacheTimeout;
 		global $smwgDefaultStore;
 
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
-		$sql_options = array();
-		$sql_options['LIMIT'] = $sfgMaxAutocompleteValues;
+		$sqlOptions = array();
+		$sqlOptions['LIMIT'] = $sfgMaxAutocompleteValues;
 
 		$property = SMWPropertyValue::makeUserProperty( $property_name );
-		$is_relation = ( $property->getPropertyTypeID() == '_wpg' );
+		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
 		$property_name = str_replace( ' ', '_', $property_name );
 		$conditions = array( 'p_ids.smw_title' => $property_name );
 
@@ -152,8 +152,8 @@ class SFAutocompleteAPI extends ApiBase {
 			$cache = SFFormUtils::getFormCache();
 			// Remove trailing whitespace to avoid unnecessary database selects
 			$cacheKeyString = $property_name . '::' . rtrim( $substring );
-			if ( !is_null( $base_property_name ) ) {
-				$cacheKeyString .= ',' . $base_property_name . ',' . $base_value;
+			if ( !is_null( $basePropertyName ) ) {
+				$cacheKeyString .= ',' . $basePropertyName . ',' . $baseValue;
 			}
 			$cacheKey = wfMemcKey( 'sf-autocomplete' , md5( $cacheKeyString ) ); 		
 			$values = $cache->get( $cacheKey );
@@ -164,7 +164,7 @@ class SFAutocompleteAPI extends ApiBase {
 			}
 		}
 
-		if ( $is_relation ) {
+		if ( $propertyHasTypePage ) {
 			$valueField = 'o_ids.smw_title';
 			if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
 				$idsTable =  $db->tableName( 'smw_object_ids' );
@@ -173,7 +173,7 @@ class SFAutocompleteAPI extends ApiBase {
 				$idsTable =  $db->tableName( 'smw_ids' );
 				$propsTable = $db->tableName( 'smw_rels2' );
 			}
-			$from_clause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
+			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
 		} else {
 			if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
 				$valueField = 'p.o_hash';
@@ -184,16 +184,16 @@ class SFAutocompleteAPI extends ApiBase {
 				$idsTable =  $db->tableName( 'smw_ids' );
 				$propsTable = $db->tableName( 'smw_atts2' );
 			}
-			$from_clause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
+			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 		}
 
-		if ( !is_null( $base_property_name ) ) {
-			$base_property = SMWPropertyValue::makeUserProperty( $base_property_name );
-			$base_is_relation = ( $base_property->getPropertyTypeID() == '_wpg' );
+		if ( !is_null( $basePropertyName ) ) {
+			$baseProperty = SMWPropertyValue::makeUserProperty( $basePropertyName );
+			$basePropertyHasTypePage = ( $baseProperty->getPropertyTypeID() == '_wpg' );
 
-			$base_property_name = str_replace( ' ', '_', $base_property_name );
-			$conditions['base_p_ids.smw_title'] = $base_property_name;
-			if ( $base_is_relation ) {
+			$basePropertyName = str_replace( ' ', '_', $basePropertyName );
+			$conditions['base_p_ids.smw_title'] = $basePropertyName;
+			if ( $basePropertyHasTypePage ) {
 				if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
 					$idsTable =  $db->tableName( 'smw_object_ids' );
 					$propsTable = $db->tableName( 'smw_di_wikipage' );
@@ -201,10 +201,10 @@ class SFAutocompleteAPI extends ApiBase {
 					$idsTable =  $db->tableName( 'smw_ids' );
 					$propsTable = $db->tableName( 'smw_rels2' );
 				}
-				$from_clause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
-				$from_clause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id JOIN $idsTable base_o_ids ON p_base.o_id = base_o_ids.smw_id";
-				$base_value = str_replace( ' ', '_', $base_value );
-				$conditions['base_o_ids.smw_title'] = $base_value;
+				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
+				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id JOIN $idsTable base_o_ids ON p_base.o_id = base_o_ids.smw_id";
+				$baseValue = str_replace( ' ', '_', $baseValue );
+				$conditions['base_o_ids.smw_title'] = $baseValue;
 			} else {
 				if ( $smwgDefaultStore === 'SMWSQLStore3' ) {
 					$baseValueField = 'p_base.o_hash';
@@ -215,19 +215,21 @@ class SFAutocompleteAPI extends ApiBase {
 					$idsTable =  $db->tableName( 'smw_ids' );
 					$propsTable = $db->tableName( 'smw_atts2' );
 				}
-				$from_clause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
-				$from_clause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id";
-				$conditions[$baseValueField] = $base_value;
+				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
+				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id";
+				$conditions[$baseValueField] = $baseValue;
 			}
 		}
 
 		if ( !is_null( $substring ) ) {
-			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring );
+			// "Page" type property valeus are stored differently
+			// in the DB, i.e. underlines instead of spaces.
+			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring, $propertyHasTypePage );
 		}
 
-		$sql_options['ORDER BY'] = $valueField;
-		$res = $db->select( $from_clause, "DISTINCT $valueField",
-			$conditions, __METHOD__, $sql_options );
+		$sqlOptions['ORDER BY'] = $valueField;
+		$res = $db->select( $fromClause, "DISTINCT $valueField",
+			$conditions, __METHOD__, $sqlOptions );
 
 		while ( $row = $db->fetchRow( $res ) ) {
 			$values[] = str_replace( '_', ' ', $row[0] );
@@ -236,7 +238,7 @@ class SFAutocompleteAPI extends ApiBase {
 
 		if ( $sfgCacheAutocompleteValues ) {
 			// Save to cache.
-			$cache->set( $cacheKey, $values , $sfgAutocompleteCacheTimeout );
+			$cache->set( $cacheKey, $values, $sfgAutocompleteCacheTimeout );
 		}
 
 		return $values;

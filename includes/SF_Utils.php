@@ -767,12 +767,15 @@ END;
 	* @return SQL condition for use in WHERE clause
 	*
 	* @author Ilmars Poikans
+	* @author Yaron Koren
 	*/
-	public static function getSQLConditionForAutocompleteInColumn( $column, $substring ) {
+	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
 		global $sfgAutocompleteOnAllChars;
 
 		$column_value = "LOWER(CONVERT($column USING utf8))";
-		$substring = str_replace( ' ', '_', strtolower( $substring ) );
+		if ( $replaceSpaces ) {
+			$substring = str_replace( ' ', '_', strtolower( $substring ) );
+		}
 		$substring = str_replace( "'", "\'", $substring );
 		$substring = str_replace( '_', '\_', $substring );
 		$substring = str_replace( '%', '\%', $substring );
@@ -780,7 +783,8 @@ END;
 		if ( $sfgAutocompleteOnAllChars ) {
 			return "$column_value LIKE '%$substring%'";
 		} else {
-			return "$column_value LIKE '$substring%' OR $column_value LIKE '%\_$substring%'";
+			$spaceRepresentation = $replaceSpaces ? '\_' : ' ';
+			return "$column_value LIKE '$substring%' OR $column_value LIKE '%" . $spaceRepresentation . $substring . "%'";
 		}
 	}
 
