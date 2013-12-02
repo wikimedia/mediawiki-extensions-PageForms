@@ -265,6 +265,9 @@ END;
 					$tableText .= "\n==" .  $field->mLabel . "==\n";
 				}
 			} elseif ( $field->mDisplay == 'nonempty' ) {
+				if ( $template_format == 'plain' || $template_format == 'sections' ) {
+					$tableText .= "\n";
+				}
 				$tableText .= '{{#if:{{{' . $field->mFieldName . '|}}}|';
 				if ( $template_format == 'standard' || $template_format == 'infobox' ) {
 					if ( $i > 0 ) {
@@ -273,22 +276,22 @@ END;
 					$tableText .= '! ' . $field->mLabel . "\n";
 					$separator = '{{!}}';
 				} elseif ( $template_format == 'plain' ) {
-					$tableText .= "'''" .  $field->mLabel . "''' ";
+					$tableText .= "'''" .  $field->mLabel . ":''' ";
+					$separator = '';
 				} elseif ( $template_format == 'sections' ) {
 					$tableText .= '==' .  $field->mLabel . "==\n";
+					$separator = '';
 				}
 			} // If it's 'hidden', do nothing
 			// Value column
-/*
 			if ( $template_format == 'standard' || $template_format == 'infobox' ) {
 				if ( $field->mDisplay == 'hidden' ) {
 				} elseif ( $field->mDisplay == 'nonempty' ) {
-					$tableText .= "{{!}} ";
+					//$tableText .= "{{!}} ";
 				} else {
 					$tableText .= "| ";
 				}
 			}
-*/
 			if ( !$field->mSemanticProperty ) {
 				$tableText .= "$separator $fieldBefore {{{" . $field->mFieldName . "|}}} $fieldAfter\n";
 				if ( $field->mDisplay == 'nonempty' ) {
@@ -296,7 +299,14 @@ END;
 				}
 				$tableText .= "\n";
 			} elseif ( !is_null( $internalObjText ) ) {
-				$tableText .= "$separator $fieldBefore {{{" . $field->mFieldName . "|}}} $fieldAfter\n";
+				if ( $separator != '' || $fieldBefore != '' ) {
+					$tableText .= "$separator $fieldBefore ";
+				}
+				$tableText .= "{{{" . $field->mFieldName . "|}}} $fieldAfter";
+				if ( $field->mDisplay == 'nonempty' ) {
+					$tableText .= " }}";
+				}
+				$tableText .= "\n";
 				if ( $field->mIsList ) {
 					if ( $useSubobject ) {
 						$internalObjText .= '|' . $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}|+sep=,';
@@ -313,7 +323,13 @@ END;
 					$setText .= $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}|';
 				}
 			} elseif ( $field->mDisplay == 'nonempty' ) {
-				$tableText .= '{{!}} ' . $fieldBefore . ' [[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}} $fieldAfter\n";
+                                if ( $template_format == 'standard' || $template_format == 'infobox' ) {
+                                        $tableText .= '{{!}} ';
+                                }
+                                if ( $fieldBefore != '' ) {
+                                        $tableText .= $fieldBefore . ' ';
+                                }
+                                $tableText .= '[[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}} $fieldAfter\n";
 			} elseif ( $field->mIsList ) {
 				// If this field is meant to contain a list,
 				// add on an 'arraymap' function, that will
@@ -333,7 +349,10 @@ END;
 				}
 				$tableText .= "{{#arraymap:{{{" . $field->mFieldName . "|}}}|" . $field->mDelimiter . "|$var|[[" . $field->mSemanticProperty . "::$var]]}}\n";
 			} else {
-				$tableText .= "" . $fieldBefore . " [[" . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]] $fieldAfter\n";
+                                if ( $fieldBefore != '' ) {
+                                        $tableText .= $fieldBefore . ' ';
+                                }
+                                $tableText .= '[[' . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]] $fieldAfter\n";
 			}
 		}
 
