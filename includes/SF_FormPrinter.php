@@ -47,6 +47,9 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFComboBoxInput' );
 		$this->registerInputType( 'SFCategoryInput' );
 		$this->registerInputType( 'SFCategoriesInput' );
+
+		// All-purpose setup hook.
+		wfRunHooks( 'sfFormPrinterSetup', array( $this ) );
 	}
 
 	public function setSemanticTypeHook( $type, $is_list, $function_name, $default_args ) {
