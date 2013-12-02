@@ -167,7 +167,7 @@ class SFTemplateField {
 	 * within this class.
 	 */
 	public static function createTemplateText( $template_name, $template_fields, $internal_obj_property, $category,
-											   $aggregating_property, $aggregating_label, $template_format, $template_options = null ) {
+											$aggregating_property, $aggregating_label, $template_format, $template_options = null ) {
 		$template_header = wfMessage( 'sf_template_docu', $template_name )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
@@ -202,7 +202,7 @@ END;
 		// are quite similar, so we don't need too much extra logic.
 		$internalObjText = null;
 		if ( $internal_obj_property ) {
-			global  $smwgDefaultStore;
+			global $smwgDefaultStore;
 			if ( defined( 'SIO_VERSION' ) ) {
 				$useSubobject = false;
 				$internalObjText = '{{#set_internal:' . $internal_obj_property;
@@ -213,7 +213,7 @@ END;
 		}
 		$setText = '';
 
- 		// Topmost part of table depends on format.
+		// Topmost part of table depends on format.
 		if ( !$template_format ) $template_format = 'standard';
 		if ( $template_format == 'standard' ) {
 			$tableText = '{| class="wikitable"' . "\n";
@@ -260,9 +260,9 @@ END;
 					}
 					$tableText .= '! ' . $field->mLabel . "\n";
 				} elseif ( $template_format == 'plain' ) {
-					$tableText .= "\n'''" .  $field->mLabel . ":''' ";
+					$tableText .= "\n'''" . $field->mLabel . ":''' ";
 				} elseif ( $template_format == 'sections' ) {
-					$tableText .= "\n==" .  $field->mLabel . "==\n";
+					$tableText .= "\n==" . $field->mLabel . "==\n";
 				}
 			} elseif ( $field->mDisplay == 'nonempty' ) {
 				if ( $template_format == 'plain' || $template_format == 'sections' ) {
@@ -276,10 +276,10 @@ END;
 					$tableText .= '! ' . $field->mLabel . "\n";
 					$separator = '{{!}}';
 				} elseif ( $template_format == 'plain' ) {
-					$tableText .= "'''" .  $field->mLabel . ":''' ";
+					$tableText .= "'''" . $field->mLabel . ":''' ";
 					$separator = '';
 				} elseif ( $template_format == 'sections' ) {
-					$tableText .= '==' .  $field->mLabel . "==\n";
+					$tableText .= '==' . $field->mLabel . "==\n";
 					$separator = '';
 				}
 			} // If it's 'hidden', do nothing
@@ -323,13 +323,13 @@ END;
 					$setText .= $field->mSemanticProperty . '={{{' . $field->mFieldName . '|}}}|';
 				}
 			} elseif ( $field->mDisplay == 'nonempty' ) {
-                                if ( $template_format == 'standard' || $template_format == 'infobox' ) {
-                                        $tableText .= '{{!}} ';
-                                }
-                                if ( $fieldBefore != '' ) {
-                                        $tableText .= $fieldBefore . ' ';
-                                }
-                                $tableText .= '[[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}} $fieldAfter\n";
+				if ( $template_format == 'standard' || $template_format == 'infobox' ) {
+					$tableText .= '{{!}} ';
+				}
+				if ( $fieldBefore != '' ) {
+					$tableText .= $fieldBefore . ' ';
+				}
+				$tableText .= '[[' . $field->mSemanticProperty . '::{{{' . $field->mFieldName . "|}}}]]}} $fieldAfter\n";
 			} elseif ( $field->mIsList ) {
 				// If this field is meant to contain a list,
 				// add on an 'arraymap' function, that will
@@ -349,10 +349,10 @@ END;
 				}
 				$tableText .= "{{#arraymap:{{{" . $field->mFieldName . "|}}}|" . $field->mDelimiter . "|$var|[[" . $field->mSemanticProperty . "::$var]]}}\n";
 			} else {
-                                if ( $fieldBefore != '' ) {
-                                        $tableText .= $fieldBefore . ' ';
-                                }
-                                $tableText .= '[[' . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]] $fieldAfter\n";
+				if ( $fieldBefore != '' ) {
+					$tableText .= $fieldBefore . ' ';
+				}
+				$tableText .= '[[' . $field->mSemanticProperty . "::{{{" . $field->mFieldName . "|}}}]] $fieldAfter\n";
 			}
 		}
 
