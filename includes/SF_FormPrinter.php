@@ -1096,24 +1096,44 @@ END;
 									if ( isset( $cur_value['second'] ) ) $second = $cur_value['second'];
 									if ( isset( $cur_value['ampm24h'] ) ) $ampm24h = $cur_value['ampm24h'];
 									if ( isset( $cur_value['timezone'] ) ) $timezone = $cur_value['timezone'];
-									if ( $month !== '' && $day !== '' && $year !== '' ) {
+									//if ( $month !== '' && $day !== '' && $year !== '' ) {
+									// We can accept either year, or year + month, or year + month + day.
+									//if ( $month !== '' && $day !== '' && $year !== '' ) {
+									if ( $year !== '' ) {
 										// special handling for American dates - otherwise, just
 										// the standard year/month/day (where month is a number)
 										global $wgAmericanDates;
-										if ( $wgAmericanDates == true ) {
-											$cur_value_in_template = "$month $day, $year";
+
+										if ( $month == '' ) {
+											$cur_value_in_template = $year;
+										} elseif ( $day == '' ) {
+											$cur_value_in_template = $year;
+											if ( $wgAmericanDates == true ) {
+												$cur_value_in_template = "$month $year";
+											} else {
+												$cur_value_in_template = "$year/$month";
+											}
 										} else {
-											$cur_value_in_template = "$year/$month/$day";
+											if ( $wgAmericanDates == true ) {
+												$cur_value_in_template = "$month $day, $year";
+											} else {
+												$cur_value_in_template = "$year/$month/$day";
+											}
+											// If there's a day, include whatever time information
+											// we have.
+											if ( ! is_null( $hour ) ) {
+												$cur_value_in_template .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+											}
+											if ( ! is_null( $second ) ) {
+												$cur_value_in_template .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+											}
+											if ( ! is_null( $ampm24h ) ) {
+												$cur_value_in_template .= " $ampm24h";
+											}
+											if ( ! is_null( $timezone ) ) {
+												$cur_value_in_template .= " $timezone";
+											}
 										}
-										// include whatever time information we have
-										if ( ! is_null( $hour ) )
-											$cur_value_in_template .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-										if ( ! is_null( $second ) )
-											$cur_value_in_template .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-										if ( ! is_null( $ampm24h ) )
-											$cur_value_in_template .= " $ampm24h";
-										if ( ! is_null( $timezone ) )
-											$cur_value_in_template .= " $timezone";
 									} else {
 										$cur_value_in_template = "";
 									}
