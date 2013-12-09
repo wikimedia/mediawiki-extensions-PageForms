@@ -1451,15 +1451,21 @@ END;
 						$section_start_loc = strpos( $existing_page_content, $header_text );
 						$existing_page_content = str_replace( $header_text, '', $existing_page_content );
 						$section_end_loc = -1;
-						// get the position of the next section header
-						if ( preg_match( '/(^={1,6}.*?={1,6}\s*?$)/m', $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
-							$section_end_loc = $matches[0][1];
-						}
 
-						$template_pos = strpos( $existing_page_content, '{{', $section_start_loc );
-
-						if ( $template_pos != false ) {
-							$section_end_loc = min( array( $section_end_loc, $template_pos ) );
+						// get the position of the next template or section defined in the form
+						$next_section_start_loc = strpos( $section, '{{{', $brackets_end_loc );
+						if ( $next_section_start_loc == false ) {
+							$section_end_loc = strpos( $existing_page_content, '{{', $section_start_loc );
+						} else {
+							$next_section_end_loc = strpos( $section, '}}}', $next_section_start_loc );
+							$bracketed_string_next_section = substr( $section, $next_section_start_loc + 3, $next_section_end_loc - ( $next_section_start_loc + 3 ) );
+							$tag_components_next_section = SFUtils::getFormTagComponents( $bracketed_string_next_section );
+							$tag_title_next_section = trim( $tag_components_next_section[0] );
+							if ( $tag_title_next_section == 'section' ) {
+								if ( preg_match( '/(^={1,6}' . $tag_components_next_section[1] . '?={1,6}\s*?$)/m', $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
+									$section_end_loc = $matches[0][1];
+								}
+							}
 						}
 
 						if ( $section_end_loc === -1 ) {
