@@ -85,7 +85,6 @@ $wgHooks['SkinTemplateNavigation'][] = 'SFFormEditAction::displayTab2';
 $wgHooks['SkinTemplateTabs'][] = 'SFHelperFormAction::displayTab';
 $wgHooks['SkinTemplateNavigation'][] = 'SFHelperFormAction::displayTab2';
 $wgHooks['smwInitProperties'][] = 'SFUtils::initProperties';
-$wgHooks['AdminLinks'][] = 'SFUtils::addToAdminLinks';
 $wgHooks['ArticlePurge'][] = 'SFFormUtils::purgeCache';
 $wgHooks['ArticleSave'][] = 'SFFormUtils::purgeCache';
 $wgHooks['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
@@ -94,6 +93,15 @@ $wgHooks['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
 $wgHooks['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
 $wgHooks['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
 $wgHooks['UnitTestsList'][] = 'SFUtils::onUnitTestsList';
+
+// Admin Links hook needs to be called in a delayed way so that it
+// will always be called after SMW's Admin Links addition; as of
+// SMW 1.9, SMW delays calling all its hook functions.
+$wgExtensionFunctions[] = 'sffAddAdminLinksHook';
+function sffAddAdminLinksHook() {
+	global $wgHooks;
+	$wgHooks['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+}
 
 // Using UnknownAction is deprecated from MW 1.18 onwards.
 if ( version_compare( $wgVersion, '1.18', '<' ) ) {
