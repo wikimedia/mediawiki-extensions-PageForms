@@ -14,7 +14,7 @@ class SFUtils {
 	 */
 	public static function linkForSpecialPage( $specialPageName ) {
 		$specialPage = SpecialPageFactory::getPage( $specialPageName );
-		return smwfGetLinker()->link( $specialPage->getTitle(), $specialPage->getDescription() );
+		return Linker::link( $specialPage->getTitle(), $specialPage->getDescription() );
 	}
 
 	/**
@@ -745,22 +745,6 @@ END;
 	}
 
 	/**
-	 * Compatibility helper function.
-	 * Since 1.18 SpecialPageFactory::getPage should be used.
-	 * SpecialPage::getPage is deprecated in 1.18.
-	 *
-	 * @since 2.3.3
-	 *
-	 * @param string $pageName
-	 *
-	 * @return SpecialPage|null
-	 */
-	public static function getSpecialPage( $pageName ) {
-		$hasFactory = class_exists( 'SpecialPageFactory' ) && method_exists( 'SpecialPageFactory', 'getPage' );
-		return $hasFactory ? SpecialPageFactory::getPage( $pageName ) : SpecialPage::getPage( $pageName );
-	}
-
-	/**
 	* Returns a SQL condition for autocompletion substring value in a column.
 	* @param string $value_column Value column name
 	* @param string $substring Substring to look for
@@ -911,7 +895,7 @@ END;
 			}
 		}
 
-		$ad = SFUtils::getSpecialPage( $specialPageName );
+		$ad = SpecialPageFactory::getPage( $specialPageName );
 		if ( strpos( $inFormName, '/' ) == true ) {
 			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
 			$link_url = $ad->getTitle()->getLocalURL( $query );

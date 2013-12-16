@@ -151,18 +151,6 @@ class SFFormEditAction extends Action
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
-
-		// TODO: This function will be called as a hook handler and $action will
-		//  be a string before MW 1.18. From 1.18 onwards this function will
-		//  only be called for formedit actions, i.e. the if statement can be
-		//  removed then.
-
-		// return "true" if the call failed (meaning, pass on handling
-		// of the hook to others), and "false" otherwise
-		if ( is_string( $action ) && $action !== 'formedit' ) {
-			return true;
-		}
-
 		// @todo: This looks like bad code. If we can't find a form, we
 		// should be showing an informative error page rather than
 		// making it look like an edit form page does not exist.
@@ -172,13 +160,7 @@ class SFFormEditAction extends Action
 			return true;
 		}
 
-		// For backward-compatibility
-		if ( is_string( $action ) ) {
-			global $wgOut;
-			$output = $wgOut;
-		} else {
-			$output = $action->getOutput();
-		}
+		$output = $action->getOutput();
 
 		if ( count( $form_names ) > 1 ) {
 			$warning_text = "\t" . '<div class="warningbox">' . wfMessage( 'sf_formedit_morethanoneform' )->text() . "</div>\n";

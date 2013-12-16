@@ -256,7 +256,7 @@ END;
 			}
 			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
 		} else {
-			$cancel = smwfGetLinker()->link( $wgTitle, $label, array(), array(), 'known' );
+			$cancel = Linker::link( $wgTitle, $label, array(), array(), 'known' );
 		}
 		return "\t\t" . Html::rawElement( 'span', array( 'class' => 'editHelp' ), $cancel ) . "\n";
 	}
@@ -465,8 +465,6 @@ END;
 				// rarely changed forms automatically (after one day per
 				// default). Instead the cache is purged on storing/purging a
 				// form definition.
-				// A side effect of this is, that there is no need to
-				// distinguish between MW <1.17 and >=1.17.
 
 				// store form definition with current user options
 				$cache->set( $cachekey, $output->getText() );

@@ -103,15 +103,9 @@ function sffAddAdminLinksHook() {
 	$wgHooks['AdminLinks'][] = 'SFUtils::addToAdminLinks';
 }
 
-// Using UnknownAction is deprecated from MW 1.18 onwards.
-if ( version_compare( $wgVersion, '1.18', '<' ) ) {
-	$wgHooks['UnknownAction'][] = 'SFFormEditAction::displayForm';
-	$wgHooks['UnknownAction'][] = 'SFHelperFormAction::displayForm';
-} else {
-	// Introduced in MW 1.18.
-	$wgActions['formedit'] = 'SFFormEditAction';
-	$wgActions['formcreate'] = 'SFHelperFormAction';
-}
+// New "actions"
+$wgActions['formedit'] = 'SFFormEditAction';
+$wgActions['formcreate'] = 'SFHelperFormAction';
 
 // API modules
 $wgAPIModules['sfautocomplete'] = 'SFAutocompleteAPI';

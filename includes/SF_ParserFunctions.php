@@ -141,7 +141,6 @@ class SFParserFunctions {
 	static $num_autocompletion_inputs = 0;
 
 	static function registerFunctions( &$parser ) {
-
 		global $wgOut;
 
 		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
@@ -156,11 +155,6 @@ class SFParserFunctions {
 		}
 
 		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
-
-		// load jQuery on MW 1.16
-		if ( is_callable( array( $wgOut, 'includeJQuery' ) ) ) {
-			$wgOut->includeJQuery();
-		}
 
 		return true;
 	}
@@ -272,7 +266,7 @@ class SFParserFunctions {
 			}
 		}
 
-		$fs = SFUtils::getSpecialPage( 'FormStart' );
+		$fs = SpecialPageFactory::getPage( 'FormStart' );
 
 		$fs_url = $fs->getTitle()->getLocalURL();
 		$str = <<<END

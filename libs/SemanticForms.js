@@ -232,9 +232,8 @@
 		});
         }
     } else {
-	// Remote autocompletion
-	// Retain compat with 1.17. 1.18 and up can use mw.util.wikiScript( 'api' );
-	var myServer = mw.config.get( 'wgScriptPath' ) + '/api' + mw.config.get( 'wgScriptExtension' );
+	// Remote autocompletion.
+	var myServer = mw.util.wikiScript( 'api' );
 	var data_type = jQuery(this).attr("autocompletedatatype");
 	myServer += "?action=sfautocomplete&format=json&" + data_type + "=" + data_source;
 

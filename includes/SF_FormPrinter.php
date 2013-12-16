@@ -162,53 +162,13 @@ class SFFormPrinter {
 	 * Show the set of previous deletions for the page being edited.
 	 */
 	function showDeletionLog( $out ) {
-		// if MW doesn't have LogEventsList defined, exit immediately
-		if ( ! class_exists( 'LogEventsList' ) ) {
-			return false;
-		}
-
-		// MW 1.18+ ?
-		if ( method_exists( 'LogEventsList', 'showLogExtract' ) ) {
-			LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
-								'', array( 'lim' => 10,
-										   'conds' => array( "log_action != 'revision'" ),
-										   'showIfEmpty' => false,
-										   'msgKey' => array( 'moveddeleted-notice' ) )
-						);
-			return true;
-		}
-
-		// Old code, that can be removed once compatibility for
-		// MW 1.17 goes away (or maybe it can be removed already).
-		// This code was copied almost exactly from the method
-		// EditPage::showDeletionLog(), which no longer exists.
-		global $wgUser;
-		$loglist = new LogEventsList( $wgUser->getSkin(), $out );
-		$pager = new LogPager( $loglist, 'delete', false, $this->mPageTitle->getPrefixedText() );
-		$count = $pager->getNumRows();
-		if ( $count > 0 ) {
-			$pager->mLimit = 10;
-			$out->addHTML( '<div class="mw-warning-with-logexcerpt">' );
-			$out->addWikiMsg( 'moveddeleted-notice' );
-			$out->addHTML(
-				$loglist->beginLogEventsList() .
-				$pager->getBody() .
-				$loglist->endLogEventsList()
-			);
-			if ( $count > 10 ) {
-				$out->addHTML( $wgUser->getSkin()->link(
-					SpecialPage::getTitleFor( 'Log' ),
-					wfMessage( 'deletelog-fulllog' )->escaped(),
-					array(),
-					array(
-						'type' => 'delete',
-						'page' => $this->mPageTitle->getPrefixedText() ) ) );
-			}
-			$out->addHTML( '</div>' );
-			return true;
-		}
-
-		return false;
+		LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
+			'', array( 'lim' => 10,
+				   'conds' => array( "log_action != 'revision'" ),
+				   'showIfEmpty' => false,
+				   'msgKey' => array( 'moveddeleted-notice' ) )
+		);
+		return true;
 	}
 
 	/**
