@@ -283,6 +283,81 @@ END;
 	}
 
 	/**
+	 * If the value passed in for a certain field, when a form is
+	 * submitted, is an array, then it might be from a checkbox
+	 * or date input - in that case, convert it into a string.
+	 */
+	function getStringFromPassedInArray( $value ) {
+		// if it has 1 or 2 elements, assume it's a checkbox; if it has
+		// 3 elements, assume it's a date
+		// - this handling will have to get more complex if other
+		// possibilities get added
+		if ( count( $value ) == 1 ) {
+			return SFUtils::getWordForYesOrNo( false );
+		} elseif ( count( $value ) == 2 ) {
+			return SFUtils::getWordForYesOrNo( true );
+		// if it's 3 or greater, assume it's a date or datetime
+		} elseif ( count( $value ) >= 3 ) {
+			$month = $value['month'];
+			$day = $value['day'];
+			if ( $day !== '' ) {
+				global $wgAmericanDates;
+				if ( $wgAmericanDates == false ) {
+					// pad out day to always be two digits
+					$day = str_pad( $day, 2, "0", STR_PAD_LEFT );
+				}
+			}
+			$year = $value['year'];
+			$hour = $minute = $second = $ampm24h = $timezone = null;
+			if ( isset( $value['hour'] ) ) $hour = $value['hour'];
+			if ( isset( $value['minute'] ) ) $minute = $value['minute'];
+			if ( isset( $value['second'] ) ) $second = $value['second'];
+			if ( isset( $value['ampm24h'] ) ) $ampm24h = $value['ampm24h'];
+			if ( isset( $value['timezone'] ) ) $timezone = $value['timezone'];
+			//if ( $month !== '' && $day !== '' && $year !== '' ) {
+			// We can accept either year, or year + month, or year + month + day.
+			//if ( $month !== '' && $day !== '' && $year !== '' ) {
+			if ( $year !== '' ) {
+				// special handling for American dates - otherwise, just
+				// the standard year/month/day (where month is a number)
+				global $wgAmericanDates;
+
+				if ( $month == '' ) {
+					return $year;
+				} elseif ( $day == '' ) {
+					if ( $wgAmericanDates == true ) {
+						return "$month $year";
+					} else {
+						return "$year/$month";
+					}
+				} else {
+					if ( $wgAmericanDates == true ) {
+						$new_value = "$month $day, $year";
+					} else {
+						$new_value = "$year/$month/$day";
+					}
+					// If there's a day, include whatever
+					// time information we have.
+					if ( ! is_null( $hour ) ) {
+						$new_value .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+					}
+					if ( ! is_null( $second ) ) {
+						$new_value .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+					}
+					if ( ! is_null( $ampm24h ) ) {
+						$new_value .= " $ampm24h";
+					}
+					if ( ! is_null( $timezone ) ) {
+						$new_value .= " $timezone";
+					}
+					return $new_value;
+				}
+			}
+		}
+		return '';
+	}
+
+	/**
 	 * This function is the real heart of the entire Semantic Forms
 	 * extension. It handles two main actions: (1) displaying a form on the
 	 * screen, given a form definition and possibly page contents (if an
@@ -931,6 +1006,8 @@ END;
 						}
 						if ( $form_submitted || ( $field_query_val != '' && ! is_array( $field_query_val ) ) ) {
 							$cur_value = $field_query_val;
+						} elseif ( $form_submitted || ( $field_query_val != '' && is_array( $field_query_val ) ) ) {
+							$cur_value = $this->getStringFromPassedInArray( $field_query_val );
 						}
 					}
 
@@ -1029,75 +1106,9 @@ END;
 									}
 								}
 							} else {
-								// otherwise:
-								// if it has 1 or 2 elements, assume it's a checkbox; if it has
-								// 3 elements, assume it's a date
-								// - this handling will have to get more complex if other
-								// possibilities get added
-								if ( count( $cur_value ) == 1 ) {
-									$cur_value_in_template = SFUtils::getWordForYesOrNo( false );
-								} elseif ( count( $cur_value ) == 2 ) {
-									$cur_value_in_template = SFUtils::getWordForYesOrNo( true );
-								// if it's 3 or greater, assume it's a date or datetime
-								} elseif ( count( $cur_value ) >= 3 ) {
-									$month = $cur_value['month'];
-									$day = $cur_value['day'];
-									if ( $day !== '' ) {
-										global $wgAmericanDates;
-										if ( $wgAmericanDates == false ) {
-											// pad out day to always be two digits
-											$day = str_pad( $day, 2, "0", STR_PAD_LEFT );
-										}
-									}
-									$year = $cur_value['year'];
-									$hour = $minute = $second = $ampm24h = $timezone = null;
-									if ( isset( $cur_value['hour'] ) ) $hour = $cur_value['hour'];
-									if ( isset( $cur_value['minute'] ) ) $minute = $cur_value['minute'];
-									if ( isset( $cur_value['second'] ) ) $second = $cur_value['second'];
-									if ( isset( $cur_value['ampm24h'] ) ) $ampm24h = $cur_value['ampm24h'];
-									if ( isset( $cur_value['timezone'] ) ) $timezone = $cur_value['timezone'];
-									//if ( $month !== '' && $day !== '' && $year !== '' ) {
-									// We can accept either year, or year + month, or year + month + day.
-									//if ( $month !== '' && $day !== '' && $year !== '' ) {
-									if ( $year !== '' ) {
-										// special handling for American dates - otherwise, just
-										// the standard year/month/day (where month is a number)
-										global $wgAmericanDates;
-
-										if ( $month == '' ) {
-											$cur_value_in_template = $year;
-										} elseif ( $day == '' ) {
-											$cur_value_in_template = $year;
-											if ( $wgAmericanDates == true ) {
-												$cur_value_in_template = "$month $year";
-											} else {
-												$cur_value_in_template = "$year/$month";
-											}
-										} else {
-											if ( $wgAmericanDates == true ) {
-												$cur_value_in_template = "$month $day, $year";
-											} else {
-												$cur_value_in_template = "$year/$month/$day";
-											}
-											// If there's a day, include whatever time information
-											// we have.
-											if ( ! is_null( $hour ) ) {
-												$cur_value_in_template .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-											}
-											if ( ! is_null( $second ) ) {
-												$cur_value_in_template .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-											}
-											if ( ! is_null( $ampm24h ) ) {
-												$cur_value_in_template .= " $ampm24h";
-											}
-											if ( ! is_null( $timezone ) ) {
-												$cur_value_in_template .= " $timezone";
-											}
-										}
-									} else {
-										$cur_value_in_template = "";
-									}
-								}
+								// If it's not a list, it's probably from a checkbox or date input -
+								// convert the values into a string.
+								$cur_value_in_template = $this->getStringFromPassedInArray( $cur_value );
 							}
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
