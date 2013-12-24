@@ -640,8 +640,8 @@ END;
 						// searching on either.
 						$search_template_str = str_replace( '_', ' ', $template_name );
 						$preg_match_template_str = str_replace(
-							array( '/', '(', ')' ),
-							array( '\/', '\(', '\)' ),
+							array( '/', '(', ')', '^' ),
+							array( '\/', '\(', '\)', '\^' ),
 							$search_template_str );
 						$found_instance = preg_match( '/{{' . $preg_match_template_str . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
 						if ( $allow_multiple ) {
