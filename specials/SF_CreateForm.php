@@ -86,11 +86,11 @@ jQuery(document).ready(function() {
 		jQuery(this).displayInputParams();
 	});
 	jQuery('#addsection').click( function(event) {
-        if(jQuery('#sectionname').val() == '') {
+	if(jQuery('#sectionname').val() == '') {
 			event.preventDefault();
 			jQuery('#section_error').remove();
 			jQuery('<div/>').append('$section_name_error_str').appendTo('#sectionerror');
-        }
+	}
     });
 });
 </script>");
@@ -285,11 +285,18 @@ jQuery(document).ready(function() {
 		$save_page = $wgRequest->getCheck( 'wpSave' );
 		$preview_page = $wgRequest->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
-			// Validate form name
+			$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateForm' );
+			if ( !$validToken ) {
+				$text = "This appears to be a cross-site request forgery; canceling save.";
+				$wgOut->addHTML( $text );
+				return;
+			}
+
+			// Validate form name.
 			if ( $form->getFormName() == "" ) {
 				$form_name_error_str = wfMessage( 'sf_blank_error' )->text();
 			} else {
-				// Redirect to wiki interface
+				// Redirect to wiki interface.
 				$wgOut->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( SF_NS_FORM, $form->getFormName() );
 				$full_text = $form->createMarkup();
@@ -366,6 +373,10 @@ jQuery(document).ready(function() {
 	<br />
 
 END;
+
+		if ( method_exists( 'User', 'getEditToken' ) ) {
+			$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateForm' ) ) . "\n";
+		}
 
 		$saveAttrs = array( 'id' => 'wpSave' );
 		if ( count( $form_items ) == 0 ) {

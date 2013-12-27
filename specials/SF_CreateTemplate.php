@@ -192,6 +192,13 @@ END;
 		$save_page = $wgRequest->getCheck( 'wpSave' );
 		$preview_page = $wgRequest->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
+			$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateTemplate' );
+			if ( !$validToken ) {
+				$text = "This appears to be a cross-site request forgery; canceling save.";
+				$wgOut->addHTML( $text );
+				return;
+			}
+
 			$fields = array();
 			// Cycle through the query values, setting the
 			// appropriate local variables.
@@ -257,6 +264,11 @@ END;
 			"</p>\n";
 		$text .= "\t</fieldset>\n";
 		$text .= self::printTemplateStyleInput( 'template_format' );
+
+		if ( method_exists( 'User', 'getEditToken' ) ) {
+			$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateTemplate' ) ) . "\n";
+		}
+
 		$save_button_text = wfMessage( 'savearticle' )->escaped();
 		$preview_button_text = wfMessage( 'preview' )->escaped();
 		$text .= <<<END

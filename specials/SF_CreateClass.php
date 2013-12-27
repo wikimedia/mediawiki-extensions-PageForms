@@ -182,6 +182,17 @@ END;
 
 		$createAll = $wgRequest->getCheck( 'createAll' );
 		if ( $createAll ) {
+			// Guard against cross-site request forgeries (CSRF),
+			// for MW >= 1.19.
+			if ( method_exists( 'User', 'getEditToken' ) ) {
+				$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateClass' );
+				if ( !$validToken ) {
+					$text = "This appears to be a cross-site request forgery; canceling save.";
+					$wgOut->addHTML( $text );
+					return;
+				}
+			}
+
 			self::createAllPages();
 			return;
 		}
@@ -302,6 +313,11 @@ END;
 		// Set 'title' as hidden field, in case there's no URL niceness
 		$cc = $this->getTitle();
 		$text .= Html::hidden( 'title', SFUtils::titleURLString( $cc ) );
+
+		if ( method_exists( 'User', 'getEditToken' ) ) {
+			$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateClass' ) ) . "\n";
+		}
+
 		$text .= Html::element( 'input',
 			array(
 				'type' => 'submit',
