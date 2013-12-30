@@ -767,7 +767,8 @@ window.validateAll = function () {
 
 			// if input is not part of multipleTemplateStarter
 			if ( typeof sfdata.validationFunctions[i] !== 'undefined' &&
-				jQuery("#" + sfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length == 0 ) {
+				jQuery("#" + sfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length == 0 &&
+				jQuery("#" + sfdata.validationFunctions[i].input).closest(".hiddenBySF").length == 0 ) {
 
 				if (! sfdata.validationFunctions[i].valfunction(
 						sfdata.validationFunctions[i].input,
