@@ -778,7 +778,6 @@ END;
 						if ( $instance_num < $minimumInstances ) {
 							// Print another instance until we reach the minimum
 							// instances, which is also the starting number.
-							continue;
 						} else {
 							$all_instances_printed = true;
 						}
