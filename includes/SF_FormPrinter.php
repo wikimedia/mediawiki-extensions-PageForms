@@ -45,6 +45,7 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFCheckboxesInput' );
 		$this->registerInputType( 'SFListBoxInput' );
 		$this->registerInputType( 'SFComboBoxInput' );
+		$this->registerInputType( 'SFTreeInput' );
 		$this->registerInputType( 'SFCategoryInput' );
 		$this->registerInputType( 'SFCategoriesInput' );
 

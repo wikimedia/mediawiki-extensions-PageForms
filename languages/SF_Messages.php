@@ -76,7 +76,8 @@ $messages['en'] = array(
 	'sf_forminputs_showonselect'         => 'Page elements to display only if certain values are selected (example: "value1=>div1;value2=>div2")',
 	'sf_forminputs_listboxsize'          => 'The height of this listbox, in rows',
 	'sf_forminputs_includetimezone'      => 'Include an input for the time zone',
-	'sf_forminputs_topcategory'          => 'The parent category of this set of categories (required)',
+	'sf_forminputs_topcategory'          => 'The parent category of a set of categories',
+	'sf_forminputs_structure'            => 'A manual list of values, done as an unordered list of values in wikitext',
 	'sf_forminputs_hideroot'             => 'Hide the parent category',
 	'sf_forminputs_depth'                => 'The number of levels of categories to show initially',
 	'sf_forminputs_height'               => 'The height of this input, in pixels',
@@ -300,6 +301,12 @@ Preceded by the fieldset label {{msg-mw|Sf createtemplate aggregation}}.',
 * {{msg-mw|Sf createform hiddensection}}',
 	'sf_forminputs_uploadable' => 'This is a message describing a checkbox. The message included within this message is: {{msg-mw|upload}}',
 	'sf_forminputs_listboxsize' => 'See [[wikipedia:list box|listbox]] for an listbox example',
+	'sf_forminputs_structure' => 'This describes one parameter to the "tree" form input, that takes in wikitext and sets the structure. The wikitext that should be entered for this parameter should look something like:
+* A
+** B
+** C
+*** D
+* E',
 	'createform' => '{{doc-special|CreateForm}}
 Title below, create link. If you enter, include ".".',
 	'sf-createform-with-name' => 'Used as page title. Parameters:

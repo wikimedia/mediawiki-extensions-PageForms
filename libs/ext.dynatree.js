@@ -1,7 +1,7 @@
 $(function () {
 	// Attach the dynatree widget to an existing <div id="tree"> element
 	// and pass the tree options as an argument to the dynatree() function:
-	var nodeSelection = $("div[id*=categoryinput]");
+	var nodeSelection = $("div[id*=treeinput]");
     nodeSelection.each (function (index) {
         var node = nodeSelection.eq(index);
         var selectMode = 2;
