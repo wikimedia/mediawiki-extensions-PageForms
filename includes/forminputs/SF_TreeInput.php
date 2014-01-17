@@ -145,7 +145,8 @@ class SFTreeInput extends SFFormInput {
 		global $sfgTabIndex, $sfgFieldNum;
 
 		$input_id = "input_$sfgFieldNum";
-		$key_id = "$key_prefix$index";
+		// HTML IDs can't contain spaces.
+		$key_id = str_replace( ' ', '-', "$key_prefix$index" );
 		$dataItems = array();
 		$li_data = "";
 		$input_data = "";
@@ -235,7 +236,7 @@ class SFTreeInput extends SFFormInput {
 	}
 
 	/**
-	 * Creates a Title object from a user provided (and thus unsafe) string
+	 * Creates a Title object from a user-provided (and thus unsafe) string
 	 * @param $title string
 	 * @return null|Title
 	 */
@@ -274,6 +275,10 @@ class SFTree {
 		$this->children = array();
 	}
 
+	function addChild( $child ) {
+		$this->children[] = $child;
+	}
+
 	/**
 	 * Turn a manually-created "structure", defined as a bulleted list
 	 * in wikitext, into a tree. This is based on the concept originated
@@ -282,7 +287,7 @@ class SFTree {
 	 * parsed, instead of being run through the MediaWiki parser.
 	 */
 	public static function newFromWikiText( $wikitext ) {
-		// The top "leaf", called "Top" will be ignored, because
+		// The top node, called "Top", will be ignored, because
 		// we'll set "hideroot" to true.
 		$fullTree = new SFTree( 'Top' );
 		$lines = explode( "\n", $wikitext );
@@ -294,7 +299,7 @@ class SFTree {
 			if ( $numBullets == 0 ) continue;
 			$lineText = trim( substr( $line, $numBullets ) );
 			$curParentNode = $fullTree->getLastNodeForLevel( $numBullets );
-			$curParentNode->children[] = new SFTree( $lineText );
+			$curParentNode->addChild( new SFTree( $lineText ) );
 		}
 		return $fullTree;
 	}
@@ -319,7 +324,7 @@ class SFTree {
 	}
 
 	/**
-	 * Recuresive function to populate a tree based on category information.
+	 * Recursive function to populate a tree based on category information.
 	 */
 	private function populateChildren( $depth ) {
 		if ( $depth == 0 ) return;
@@ -327,7 +332,7 @@ class SFTree {
 		foreach( $subcats as $subcat ) {
 			$childTree = new SFTree( $subcat );
 			$childTree->populateChildren( $depth - 1 );
-			$this->children[] = $childTree;
+			$this->addChild( $childTree );
 		}
 	}
 
