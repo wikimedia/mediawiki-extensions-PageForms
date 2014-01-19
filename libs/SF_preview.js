@@ -127,7 +127,7 @@
 		if ( mw.config.get( 'wgAction' ) === 'formedit' ) {
 
 			// set the title, server has to find a suitable form
-			data.target = mw.config.get( 'wgTitle' );
+			data.target = mw.config.get( 'wgPageName' );
 
 			// do we have a URL like .../Special:FormEdit/formname/pagename ?
 		} else if ( mw.config.get( 'wgCanonicalNamespace' ) === 'Special' && mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
