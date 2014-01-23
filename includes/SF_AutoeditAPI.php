@@ -788,9 +788,9 @@ class SFAutoeditAPI extends ApiBase {
 		// (Why is this not done in SFFormPrinter::formHTML?)
 		if ( $targetName === '' ) {
 
-			// Parse the form to see if it has a 'page name' value set
-			if ( preg_match( '/{{{info.*page name\s*=\s*(.*)}}}/m', $formContent, $matches ) ) {
-				$pageNameElements = SFUtils::getFormTagComponents( $matches[1] );
+			// Parse the form to see if it has a 'page name' value set.
+			if ( preg_match( '/{{{\s*info.*page name\s*=\s*(.*)}}}/msU', $formContent, $matches ) ) {
+				$pageNameElements = SFUtils::getFormTagComponents( trim( $matches[1] ) );
 				$targetNameFormula = $pageNameElements[0];
 			} else {
 				throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
