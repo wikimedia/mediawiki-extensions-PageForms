@@ -84,7 +84,7 @@ class SFAutoeditAPI extends ApiBase {
 	 * Sets an option in the options array
 	 */
 	function setOption( $option, $value ) {
-		$this->mOptions[ $option ] = $value;
+		$this->mOptions[$option] = $value;
 	}
 
 	/**
@@ -147,15 +147,15 @@ class SFAutoeditAPI extends ApiBase {
 		// data for formedit action => use that
 		if ( !array_key_exists( 'target', $this->mOptions ) && array_key_exists( 'title', $this->mOptions ) ) {
 
-			$this->mOptions[ 'target' ] = $this->mOptions[ 'title' ];
-			unset( $this->mOptions[ 'title' ] );
+			$this->mOptions['target'] = $this->mOptions['title'];
+			unset( $this->mOptions['title'] );
 		}
 
 		// if the 'query' parameter was used, unpack the param string
 		if ( array_key_exists( 'query', $this->mOptions ) ) {
 
-			$this->addOptionsFromString( $this->mOptions[ 'query' ] );
-			unset( $this->mOptions[ 'query' ] );
+			$this->addOptionsFromString( $this->mOptions['query'] );
+			unset( $this->mOptions['query'] );
 		}
 
 		// if an action is explicitly set in the form data, use that
@@ -163,20 +163,20 @@ class SFAutoeditAPI extends ApiBase {
 
 			// set action to 'save' if requested
 			$this->mAction = self::ACTION_SAVE;
-			unset( $this->mOptions[ 'wpSave' ] );
+			unset( $this->mOptions['wpSave'] );
 		} else if ( array_key_exists( 'wpPreview', $this->mOptions ) ) {
 
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_PREVIEW;
-			unset( $this->mOptions[ 'wpPreview' ] );
+			unset( $this->mOptions['wpPreview'] );
 		} else if ( array_key_exists( 'wpDiff', $this->mOptions ) ) {
 
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_DIFF;
-			unset( $this->mOptions[ 'wpDiff' ] );
+			unset( $this->mOptions['wpDiff'] );
 		} else if ( array_key_exists( 'action', $this->mOptions ) ) {
 
-			switch ( $this->mOptions[ 'action' ] ) {
+			switch ( $this->mOptions['action'] ) {
 
 				case 'sfautoedit' :
 					$this->mAction = self::ACTION_SAVE;
@@ -196,33 +196,33 @@ class SFAutoeditAPI extends ApiBase {
 
 		// ensure 'form' key exists
 		if ( array_key_exists( 'form', $this->mOptions ) ) {
-			$hookQuery = $this->mOptions[ 'form' ];
+			$hookQuery = $this->mOptions['form'];
 		} else {
-			$this->mOptions[ 'form' ] = '';
+			$this->mOptions['form'] = '';
 		}
 
 		// ensure 'target' key exists
 		if ( array_key_exists( 'target', $this->mOptions ) ) {
 			if ( $hookQuery !== null ) {
-				$hookQuery .= '/' . $this->mOptions[ 'target' ];
+				$hookQuery .= '/' . $this->mOptions['target'];
 			}
 		} else {
-			$this->mOptions[ 'target' ] = '';
+			$this->mOptions['target'] = '';
 		}
 
 		// Normalize form and target names
 
-		$form = Title::newFromText( $this->mOptions[ 'form' ] );
+		$form = Title::newFromText( $this->mOptions['form'] );
 		if ( $form !== null ) {
-			$this->mOptions[ 'form' ] = $form->getPrefixedText();
+			$this->mOptions['form'] = $form->getPrefixedText();
 		}
 
-		$target = Title::newFromText( $this->mOptions[ 'target' ] );
+		$target = Title::newFromText( $this->mOptions['target'] );
 		if ( $target !== null ) {
-			$this->mOptions[ 'target' ] = $target->getPrefixedText();
+			$this->mOptions['target'] = $target->getPrefixedText();
 		}
 
-		wfRunHooks( 'sfSetTargetName', array( &$this->mOptions[ 'target' ], $hookQuery ) );
+		wfRunHooks( 'sfSetTargetName', array( &$this->mOptions['target'], $hookQuery ) );
 
 		// set html return status. If all goes well, this will not be changed
 		$this->mStatus = 200;
@@ -237,7 +237,7 @@ class SFAutoeditAPI extends ApiBase {
 	protected function getFormTitle() {
 
 		// if no form was explicitly specified, try for explicitly set alternate forms
-		if ( $this->mOptions[ 'form' ] === '' ) {
+		if ( $this->mOptions['form'] === '' ) {
 
 			$this->logMessage( 'No form specified. Will try to find the default form for the target page.', self::DEBUG );
 
@@ -246,7 +246,7 @@ class SFAutoeditAPI extends ApiBase {
 			// try explicitly set alternative forms
 			if ( array_key_exists( 'alt_form', $this->mOptions ) ) {
 
-				$formNames = (array)$this->mOptions[ 'alt_form' ]; // cast to array to make sure we get an array, even if only a string was sent
+				$formNames = (array)$this->mOptions['alt_form']; // cast to array to make sure we get an array, even if only a string was sent
 
 			}
 
@@ -254,15 +254,15 @@ class SFAutoeditAPI extends ApiBase {
 			if ( count( $formNames ) === 0 ) {
 
 				// if no form and and no alt forms and no target page was specified, give up
-				if ( $this->mOptions[ 'target' ] === '' ) {
+				if ( $this->mOptions['target'] === '' ) {
 					throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
 				}
 
-				$targetTitle = Title::newFromText( $this->mOptions[ 'target' ] );
+				$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
 				// if the specified target title is invalid, give up
 				if ( !$targetTitle instanceof Title ) {
-					throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions[ 'target' ] )->parse() );
+					throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions['target'] )->parse() );
 				}
 
 				$formNames = SFFormLinker::getDefaultFormsForPage( $targetTitle );
@@ -287,22 +287,22 @@ class SFAutoeditAPI extends ApiBase {
 				throw new MWException( wfMessage( 'sf_autoedit_toomanyformsfound' )->parse(), self::DEBUG );
 			}
 
-			$this->mOptions[ 'form' ] = $formNames[ 0 ];
+			$this->mOptions['form'] = $formNames[0];
 
-			$this->logMessage( 'Using ' . $this->mOptions[ 'form' ] . ' as default form.', self::DEBUG );
+			$this->logMessage( 'Using ' . $this->mOptions['form'] . ' as default form.', self::DEBUG );
 		}
 
-		$formTitle = Title::makeTitleSafe( SF_NS_FORM, $this->mOptions[ 'form' ] );
+		$formTitle = Title::makeTitleSafe( SF_NS_FORM, $this->mOptions['form'] );
 
 		// if the given form is not a valid title, give up
 		if ( !($formTitle instanceOf Title) ) {
-			throw new MWException( wfMessage( 'sf_autoedit_invalidform', $this->mOptions[ 'form' ] )->parse() );
+			throw new MWException( wfMessage( 'sf_autoedit_invalidform', $this->mOptions['form'] )->parse() );
 		}
 
 		// if the form page is a redirect, follow the redirect
 		if ( $formTitle->isRedirect() ) {
 
-			$this->logMessage( 'Form ' . $this->mOptions[ 'form' ] . ' is a redirect. Finding target.', self::DEBUG );
+			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
 			// FIXME: Title::newFromRedirectRecurse is deprecated as of MW 1.21
 			$formTitle = Title::newFromRedirectRecurse( WikiPage::factory( $formTitle )->getRawText() );
@@ -313,9 +313,9 @@ class SFAutoeditAPI extends ApiBase {
 				$newTitle = WikiPage::factory( $formTitle )->getRedirectTarget();
 
 				if ( $newTitle instanceOf Title && $newTitle->isValidRedirectTarget() ) {
-					throw new MWException( wfMessage( 'sf_autoedit_redirectlimitexeeded', $this->mOptions[ 'form' ] )->parse() );
+					throw new MWException( wfMessage( 'sf_autoedit_redirectlimitexeeded', $this->mOptions['form'] )->parse() );
 				} else {
-					throw new MWException( wfMessage( 'sf_autoedit_invalidredirecttarget', $newTitle->getFullText(), $this->mOptions[ 'form' ] )->parse() );
+					throw new MWException( wfMessage( 'sf_autoedit_invalidredirecttarget', $newTitle->getFullText(), $this->mOptions['form'] )->parse() );
 				}
 			}
 		}
@@ -323,7 +323,7 @@ class SFAutoeditAPI extends ApiBase {
 		// if specified or found form does not exist (e.g. is a red link), give up
 		// FIXME: Throw specialized error message, so a list of alternative forms can be shown
 		if ( !$formTitle->exists() ) {
-			throw new MWException( wfMessage( 'sf_autoedit_invalidform', $this->mOptions[ 'form' ] )->parse() );
+			throw new MWException( wfMessage( 'sf_autoedit_invalidform', $this->mOptions['form'] )->parse() );
 		}
 
 		return $formTitle;
@@ -334,11 +334,11 @@ class SFAutoeditAPI extends ApiBase {
 		global $wgUser;
 
 		// Find existing target article if it exists, or create a new one.
-		$targetTitle = Title::newFromText( $this->mOptions[ 'target' ] );
+		$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
 		// if the specified target title is invalid, give up
 		if ( !$targetTitle instanceof Title ) {
-			throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions[ 'target' ] )->parse() );
+			throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', $this->mOptions['target'] )->parse() );
 		}
 
 		$article = new Article( $targetTitle );
@@ -474,7 +474,7 @@ class SFAutoeditAPI extends ApiBase {
 			case EditPage::AS_MAX_ARTICLE_SIZE_EXCEEDED: // article is too big (> $wgMaxArticleSize), after merging in the new section
 			case EditPage::AS_END: // WikiPage::doEdit() was unsuccessfull
 
-				throw new MWException( wfMessage( 'sf_autoedit_fail', $this->mOptions[ 'target' ] )->parse() );
+				throw new MWException( wfMessage( 'sf_autoedit_fail', $this->mOptions['target'] )->parse() );
 
 			case EditPage::AS_HOOK_ERROR: // Article update aborted by a hook function
 
@@ -491,8 +491,8 @@ class SFAutoeditAPI extends ApiBase {
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE: // Article successfully created
 
-				$query = $resultDetails[ 'redirect' ] ? 'redirect=no' : '';
-				$anchor = isset( $resultDetails[ 'sectionanchor' ] ) ? $resultDetails[ 'sectionanchor' ] : '';
+				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
+				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
 				$wgOut->redirect( $title->getFullURL( $query ) . $anchor );
 				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $query ) . $anchor );
@@ -501,12 +501,12 @@ class SFAutoeditAPI extends ApiBase {
 			case EditPage::AS_SUCCESS_UPDATE: // Article successfully updated
 
 				$extraQuery = '';
-				$sectionanchor = $resultDetails[ 'sectionanchor' ];
+				$sectionanchor = $resultDetails['sectionanchor'];
 
 				// Give extensions a chance to modify URL query on update
 				wfRunHooks( 'ArticleUpdateBeforeRedirect', array( $editor->getArticle(), &$sectionanchor, &$extraQuery ) );
 
-				if ( $resultDetails[ 'redirect' ] ) {
+				if ( $resultDetails['redirect'] ) {
 					if ( $extraQuery == '' ) {
 						$extraQuery = 'redirect=no';
 					} else {
@@ -530,7 +530,7 @@ class SFAutoeditAPI extends ApiBase {
 
 			case EditPage::AS_SPAM_ERROR: // summary contained spam according to one of the regexes in $wgSummarySpamRegex
 
-				$match = $resultDetails[ 'spam' ];
+				$match = $resultDetails['spam'];
 				if ( is_array( $match ) ) {
 					$match = $wgLang->listToText( $match );
 				}
@@ -578,18 +578,18 @@ class SFAutoeditAPI extends ApiBase {
 		// set response text depending on the status and the requested action
 		if ( $this->mStatus === 200 ) {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
-				$responseText = MessageCache::singleton()->parse( $this->mOptions[ 'ok text' ], Title::newFromText( $this->mOptions[ 'target' ] ) )->getText();
+				$responseText = MessageCache::singleton()->parse( $this->mOptions['ok text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
-				$responseText = wfMessage( 'sf_autoedit_success', $this->mOptions[ 'target' ], $this->mOptions[ 'form' ] )->parse();
+				$responseText = wfMessage( 'sf_autoedit_success', $this->mOptions['target'], $this->mOptions['form'] )->parse();
 			} else {
 				$responseText = null;
 			}
 		} else {
 			// get errortext (or use default)
 			if ( array_key_exists( 'error text', $this->mOptions ) ) {
-				$responseText = MessageCache::singleton()->parse( $this->mOptions[ 'error text' ], Title::newFromText( $this->mOptions[ 'target' ] ) )->getText();
+				$responseText = MessageCache::singleton()->parse( $this->mOptions['error text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
-				$responseText = wfMessage( 'sf_autoedit_fail', $this->mOptions[ 'target' ] )->parse();
+				$responseText = wfMessage( 'sf_autoedit_fail', $this->mOptions['target'] )->parse();
 			} else {
 				$responseText = null;
 			}
@@ -602,8 +602,8 @@ class SFAutoeditAPI extends ApiBase {
 		}
 
 		$result->addValue( null, 'status', $this->mStatus, true );
-		$result->addValue( array('form'), 'title', $this->mOptions[ 'form' ] );
-		$result->addValue( null, 'target', $this->mOptions[ 'target' ], true );
+		$result->addValue( array('form'), 'title', $this->mOptions['form'] );
+		$result->addValue( null, 'target', $this->mOptions['target'], true );
 	}
 
 	/**
@@ -618,8 +618,8 @@ class SFAutoeditAPI extends ApiBase {
 		if ( !headers_sent() ) {
 
 			header( 'X-Status: ' . $this->mStatus, true, $this->mStatus );
-			header( 'X-Form: ' . $this->mOptions[ 'form' ] );
-			header( 'X-Target: ' . $this->mOptions[ 'target' ] );
+			header( 'X-Form: ' . $this->mOptions['form'] );
+			header( 'X-Target: ' . $this->mOptions['target'] );
 
 			$redirect = $wgOut->getRedirect();
 			if ( $redirect ) {
@@ -633,7 +633,7 @@ class SFAutoeditAPI extends ApiBase {
 	 *
 	 * This parses the formula and replaces &lt;unique number&gt; tags
 	 *
-	 * @param type  $targetNameFormula
+	 * @param type $targetNameFormula
 	 *
 	 * @throws MWException
 	 * @return type
@@ -678,7 +678,7 @@ class SFAutoeditAPI extends ApiBase {
 			if ( preg_match( '/{num;random(;(0)?([1-9][0-9]*))?}/', $targetName, $matches ) ) {
 				$isRandom = true;
 				$randomNumHasPadding = array_key_exists( 2, $matches );
-				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[ 3 ] : $randomNumDigits );
+				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[3] : $randomNumDigits );
 				$titleNumber = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 			} else if ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
 				// get unique number start value
@@ -686,9 +686,9 @@ class SFAutoeditAPI extends ApiBase {
 				// there, or it's not a positive
 				// number, start it out as blank
 				;
-				if ( count( $matches ) == 2 && is_numeric( $matches[ 1 ] ) && $matches[ 1 ] >= 0 ) {
+				if ( count( $matches ) == 2 && is_numeric( $matches[1] ) && $matches[1] >= 0 ) {
 					// the "start" value"
-					$titleNumber = $matches[ 1 ];
+					$titleNumber = $matches[1];
 				}
 			} else if ( preg_match( '/^(_?{num.*}?)*$/', $targetName, $matches ) ) {
 				// the target name contains only underscores and number fields,
@@ -782,16 +782,16 @@ class SFAutoeditAPI extends ApiBase {
 		$formArticleId = $formTitle->getArticleID();
 
 		// the name of the target page; might be empty when using the one-step-process
-		$targetName = $this->mOptions[ 'target' ];
+		$targetName = $this->mOptions['target'];
 
 		// if the target page was not specified, try finding the page name formula
 		// (Why is this not done in SFFormPrinter::formHTML?)
 		if ( $targetName === '' ) {
 
-			// parse the form to see if it has a 'page name' value set
+			// Parse the form to see if it has a 'page name' value set
 			if ( preg_match( '/{{{info.*page name\s*=\s*(.*)}}}/m', $formContent, $matches ) ) {
-				$pageNameElements = SFUtils::getFormTagComponents( $matches[ 1 ] );
-				$targetNameFormula = $pageNameElements[ 0 ];
+				$pageNameElements = SFUtils::getFormTagComponents( $matches[1] );
+				$targetNameFormula = $pageNameElements[0];
 			} else {
 				throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
 			}
@@ -808,10 +808,10 @@ class SFAutoeditAPI extends ApiBase {
 		$oldRequest = $wgRequest;
 
 		// preload data if not explicitly excluded and if the preload page exists
-		if ( !isset( $this->mOptions[ 'preload' ] ) || $this->mOptions[ 'preload' ] !== false ) {
+		if ( !isset( $this->mOptions['preload'] ) || $this->mOptions['preload'] !== false ) {
 
-			if ( isset( $this->mOptions[ 'preload' ] ) && is_string( $this->mOptions[ 'preload' ] ) ) {
-				$preloadTitle = Title::newFromText( $this->mOptions[ 'preload' ] );
+			if ( isset( $this->mOptions['preload'] ) && is_string( $this->mOptions['preload'] ) ) {
+				$preloadTitle = Title::newFromText( $this->mOptions['preload'] );
 			} else {
 				$preloadTitle = Title::newFromText( $targetName );
 			}
@@ -824,8 +824,8 @@ class SFAutoeditAPI extends ApiBase {
 				$pageExists = true;
 
 			} else {
-				if ( isset( $this->mOptions[ 'preload' ] ) ) {
-					$this->logMessage( wfMessage( 'sf_autoedit_invalidpreloadspecified', $this->mOptions[ 'preload' ] )->parse(), self::WARNING );
+				if ( isset( $this->mOptions['preload'] ) ) {
+					$this->logMessage( wfMessage( 'sf_autoedit_invalidpreloadspecified', $this->mOptions['preload'] )->parse(), self::WARNING );
 				}
 			}
 		}
@@ -893,28 +893,28 @@ class SFAutoeditAPI extends ApiBase {
 
 		if ( $generatedFormName !== '' ) {
 			$formTitle = Title::newFromText( $generatedFormName );
-			$this->mOptions[ 'formtitle' ] = $formTitle->getText();
+			$this->mOptions['formtitle'] = $formTitle->getText();
 		}
 
-		$this->mOptions[ 'formHTML' ] = $formHTML;
-		$this->mOptions[ 'formJS' ] = $formJS;
+		$this->mOptions['formHTML'] = $formHTML;
+		$this->mOptions['formJS'] = $formJS;
 
 		if ( $isFormSubmitted ) {
 
 			// if the target page was not specified, see if something was generated
 			// from the target name formula
-			if ( $this->mOptions[ 'target' ] === '' ) {
+			if ( $this->mOptions['target'] === '' ) {
 
 				// if no name was generated, we can not save => give up
 				if ( $generatedTargetNameFormula === '' ) {
 					throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
 				}
 
-				$this->mOptions[ 'target' ] = $this->generateTargetName( $generatedTargetNameFormula );
+				$this->mOptions['target'] = $this->generateTargetName( $generatedTargetNameFormula );
 			}
 
 			// Lets other code process additional form-definition syntax
-			wfRunHooks( 'sfWritePageData', array( $this->mOptions[ 'form' ], Title::newFromText( $this->mOptions[ 'target' ] ), &$targetContent ) );
+			wfRunHooks( 'sfWritePageData', array( $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ) );
 
 			$editor = $this->setupEditPage( $targetContent );
 
@@ -994,7 +994,7 @@ class SFAutoeditAPI extends ApiBase {
 			// if the current $select is a radio button select (i.e. not multiple)
 			// set the first option to selected as default. This may be overwritten
 			// in the loop below
-			if ( $options->length > 0 && (!$select->hasAttribute( 'multiple' )  ) ) {
+			if ( $options->length > 0 && (!$select->hasAttribute( 'multiple' ) ) ) {
 				self::addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
 			}
 
@@ -1038,8 +1038,8 @@ class SFAutoeditAPI extends ApiBase {
 		foreach ( $params as $param ) {
 			$elements = explode( '=', $param, 2 );
 
-			$key = trim( urldecode( $elements[ 0 ] ) );
-			$value = count( $elements ) > 1 ? urldecode( $elements[ 1 ] ) : null;
+			$key = trim( urldecode( $elements[0] ) );
+			$value = count( $elements ) > 1 ? urldecode( $elements[1] ) : null;
 
 			if ( $key == "query" || $key == "query string" ) {
 				$this->parseDataFromQueryString( $data, $value );
@@ -1065,22 +1065,22 @@ class SFAutoeditAPI extends ApiBase {
 			// for some reason toplevel keys get their spaces encoded by MW.
 			// We have to imitate that.
 			if ( $toplevel ) {
-				$key = str_replace( ' ', '_', $matches[ 1 ] );
+				$key = str_replace( ' ', '_', $matches[1] );
 			} else {
-				$key = $matches[ 1 ];
+				$key = $matches[1];
 			}
 
 			// if subsequent element does not exist yet or is a string (we prefer arrays over strings)
-			if ( !array_key_exists( $key, $array ) || is_string( $array[ $key ] ) ) {
-				$array[ $key ] = array( );
+			if ( !array_key_exists( $key, $array ) || is_string( $array[$key] ) ) {
+				$array[$key] = array( );
 			}
 
-			self::addToArray( $array[ $key ], $matches[ 2 ] . $matches[ 3 ], $value, false );
+			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
 		} else {
 			if ( $key ) {
 				// only add the string value if there is no child array present
-				if ( !array_key_exists( $key, $array ) || !is_array( $array[ $key ] ) ) {
-					$array[ $key ] = $value;
+				if ( !array_key_exists( $key, $array ) || !is_array( $array[$key] ) ) {
+					$array[$key] = $value;
 				}
 			} else {
 				array_push( $array, $value );
@@ -1092,7 +1092,7 @@ class SFAutoeditAPI extends ApiBase {
 	 * Add error message to the ApiResult
 	 *
 	 * @param string $msg
-	 * @param int    $errorLevel
+	 * @param int $errorLevel
 	 *
 	 * @return string
 	 */
