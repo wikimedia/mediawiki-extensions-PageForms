@@ -208,7 +208,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 */
 	protected function getUploadForm( $message = '', $sessionKey = '', $hideIgnoreWarning = false ) {
 		global $wgOut;
-		
+
 		# Initialize form
 		$form = new SFUploadForm( array(
 			'watch' => $this->watchCheck(),
@@ -230,7 +230,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 
 		# Add upload error message
 		$form->addPreText( $message );
-		
+
 		# Add footer to form
 		if ( !wfMessage( 'uploadfooter' )->isDisabled() ) {
 			$uploadFooter = wfMessage( 'uploadfooter' )->plain();
@@ -251,7 +251,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		// Show a subtitle link to deleted revisions (to sysops et al only)
 		if ( $title instanceof Title && ( $count = $title->isDeleted() ) > 0 && $wgUser->isAllowed( 'deletedhistory' ) ) {
 			$link = wfMessage( $wgUser->isAllowed( 'delete' ) ? 'thisisdeleted' : 'viewdeleted' )
-				->rawParams( $wgUser->getSkin()->linkKnown(
+				->rawParams( Linker::linkKnown(
 					SpecialPage::getTitleFor( 'Undelete', $title->getPrefixedText() ),
 					wfMessage( 'restorelink' )->numParams( $count )->escaped()
 				)
@@ -280,7 +280,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		$sessionKey = $this->mUpload->stashSession();
 		$message = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n" .
 			'<div class="error">' . $message . "</div>\n";
-		
+
 		$form = $this->getUploadForm( $message, $sessionKey );
 		$form->setSubmitText( wfMessage( 'upload-tryagain' )->text() );
 		$this->showUploadForm( $form );
@@ -406,12 +406,12 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		// any more... and it messes up the encoding for all other
 		// browsers. @TODO - fix handling in IE!
 		//$basename = utf8_decode( $basename );
-		
+
 		$output = <<<END
 		<script type="text/javascript">
 		var input = parent.window.jQuery( parent.document.getElementById("{$this->mInputID}") );
 END;
-		
+
 		if ( $this->mDelimiter == null ) {
 			$output .= <<<END
 		input.val( '$basename' );
@@ -425,7 +425,7 @@ END;
 		// both a delimiter and a file name; and add on a delimiter
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
-		
+
 		if (cur_value === '') {
 			input.val( '$basename' + '{$this->mDelimiter} ' );
 			input.change();
@@ -715,7 +715,7 @@ class SFUploadForm extends HTMLForm {
 	protected $mSessionKey;
 	protected $mHideIgnoreWarning;
 	protected $mDestWarningAck;
-	
+
 	protected $mSourceIds;
 
 	public function __construct( $options = array() ) {
@@ -756,9 +756,9 @@ class SFUploadForm extends HTMLForm {
 	}
 
 	/**
-	 * Get the descriptor of the fieldset that contains the file source 
+	 * Get the descriptor of the fieldset that contains the file source
 	 * selection. The section is 'source'
-	 * 
+	 *
 	 * @return array Descriptor array
 	 */
 	protected function getSourceSection() {
@@ -836,7 +836,7 @@ class SFUploadForm extends HTMLForm {
 
 	/**
 	 * Get the messages indicating which extensions are preferred and prohibitted.
-	 * 
+	 *
 	 * @return string HTML string containing the message
 	 */
 	protected function getExtensionsMessage() {
@@ -872,7 +872,7 @@ class SFUploadForm extends HTMLForm {
 	/**
 	 * Get the descriptor of the fieldset that contains the file description
 	 * input. The section is 'description'
-	 * 
+	 *
 	 * @return array Descriptor array
 	 */
 	protected function getDescriptionSection() {
@@ -948,9 +948,9 @@ class SFUploadForm extends HTMLForm {
 	}
 
 	/**
-	 * Get the descriptor of the fieldset that contains the upload options, 
+	 * Get the descriptor of the fieldset that contains the upload options,
 	 * such as "watch this file". The section is 'options'
-	 * 
+	 *
 	 * @return array Descriptor array
 	 */
 	protected function getOptionsSection() {
@@ -997,17 +997,8 @@ class SFUploadForm extends HTMLForm {
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
 		$wgOut->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
-		if ( method_exists( 'Skin', 'setupUserCss' ) ) {
-			// MW 1.18
-			global $wgUser;
-			$sk = $wgUser->getSkin();
-			$head_scripts = $wgOut->getHeadScripts( $sk );
-			$body_scripts = $wgOut->getBottomScripts( $sk );
-		} else {
-			// MW 1.19+
-			$head_scripts = $wgOut->getHeadScripts();
-			$body_scripts = $wgOut->getBottomScripts();
-		}
+		$head_scripts = $wgOut->getHeadScripts();
+		$body_scripts = $wgOut->getBottomScripts();
 
 		$text = <<<END
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -1038,7 +1029,7 @@ END;
 
 	/**
 	 * Add upload JS to $wgOut
-	 * 
+	 *
 	 * @param bool $autofill Whether or not to autofill the destination
 	 * 	filename text box
 	 */
@@ -1064,7 +1055,7 @@ END;
 
 	/**
 	 * Empty function; submission is handled elsewhere.
-	 * 
+	 *
 	 * @return bool false
 	 */
 	function trySubmit() {
@@ -1077,7 +1068,7 @@ END;
  * A form field that contains a radio box in the label.
  */
 class SFUploadSourceField extends HTMLTextField {
-	
+
 	function getLabelHtml( $cellAttributes = array() ) {
 		$id = "wpSourceType{$this->mParams['upload-type']}";
 		$label = Html::rawElement( 'label', array( 'for' => $id ), $this->mLabel  );
@@ -1089,7 +1080,7 @@ class SFUploadSourceField extends HTMLTextField {
 				'id' => $id,
 				'value' => $this->mParams['upload-type'],
 			);
-			
+
 			if ( !empty( $this->mParams['checked'] ) )
 				$attribs['checked'] = 'checked';
 			$label .= Html::element( 'input', $attribs );
@@ -1097,13 +1088,13 @@ class SFUploadSourceField extends HTMLTextField {
 
 		return Html::rawElement( 'td', array( 'class' => 'mw-label' ), $label );
 	}
-	
+
 	function getSize() {
 		return isset( $this->mParams['size'] )
 			? $this->mParams['size']
 			: 60;
 	}
-	
+
 	/**
 	 * This page can be shown if uploading is enabled.
 	 * Handle permission checking elsewhere in order to be able to show
