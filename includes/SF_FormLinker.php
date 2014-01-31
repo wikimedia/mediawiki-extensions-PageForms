@@ -212,7 +212,7 @@ class SFFormLinker {
 		} else {
 			$form_edit_url = $fe_url;
 			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
-			$form_edit_url .= "target=$target_page_title";
+			$form_edit_url .= 'target=' . urlencode( SFUtils::titleString( $target_page_title ) );
 		}
 		foreach ( $alt_forms as $i => $alt_form ) {
 			$form_edit_url .= ( strpos( $form_edit_url, "?" ) ) ? "&" : "?";
