@@ -1,0 +1,39 @@
+{
+	"name": "mediawiki/semantic-forms",
+	"type": "mediawiki-extension",
+	"description": "An extension, based around Semantic MediaWiki, that allows users to create forms for adding and editing pages that use templates to store semantic data.",
+	"keywords": [
+		"Semantic Forms",
+		"forms",
+		"SF",
+		"Semantic MediaWiki",
+		"Wiki",
+		"MediaWiki"
+	],
+	"homepage": "https://www.mediawiki.org/wiki/Extension:Semantic_Forms",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Yaron Koren",
+			"homepage": "http://yaronkoren.com/"
+		}
+	],
+	"support": {
+		"email": "semediawiki-user@lists.sourceforge.net",
+		"issues": "https://bugzilla.wikimedia.org/",
+		"irc": "irc://irc.freenode.net/semantic-mediawiki",
+		"forum": "https://semantic-mediawiki.org/wiki/semantic-mediawiki.org_talk:Community_portal",
+		"wiki": "https://semantic-mediawiki.org/wiki/",
+		"source": "https://github.com/SemanticMediaWiki/SemanticMediaWiki"
+	},
+	"require": {
+		"php": ">=5.3.0",
+		"composer/installers": "1.*,>=1.0.1",
+		"mediawiki/semantic-media-wiki": ">=1.9"
+	},
+	"autoload": {
+		"files" : [
+			"SemanticForms.php"
+		]
+	}
+}
