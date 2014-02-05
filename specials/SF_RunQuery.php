@@ -32,7 +32,7 @@ class SFRunQuery extends IncludableSpecialPage {
 
 	function printPage( $form_name, $embedded = false ) {
 		global $wgOut, $wgRequest, $sfgFormPrinter, $wgParser, $sfgRunQueryFormAtTop;
-		global $wgUser, $wgTitle;
+		global $wgUser;
 
 		// Get contents of form-definition page.
 		$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
@@ -96,7 +96,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			}
 
 			$wgParser->mOptions = ParserOptions::newFromUser( $wgUser );
-			$resultsText = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
+			$resultsText = $wgParser->parse( $data_text, $this->getTitle(), $wgParser->mOptions )->getText();
 		}
 
 		// Get the full text of the form.
