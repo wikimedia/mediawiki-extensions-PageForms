@@ -449,3 +449,6 @@ $sfgShowOnSelect = array();
 $sfgAutocompleteValues = array();
 $sfgFieldProperties = array();
 $sfgDependentFields = array();
+
+// Necessary setting for SMW 1.9+
+$smwgEnabledSpecialPage[] = 'RunQuery';
