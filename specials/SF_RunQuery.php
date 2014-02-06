@@ -97,6 +97,15 @@ class SFRunQuery extends IncludableSpecialPage {
 
 			$wgParser->mOptions = ParserOptions::newFromUser( $wgUser );
 			$resultsText = $wgParser->parse( $data_text, $wgTitle, $wgParser->mOptions )->getText();
+
+			// Possibly a hack - for SMW 1.9+, if the "query
+			// results" for this page contain a result format that
+			// includes Javascript, the JS libraries required
+			// don't necessarily get included on the page. This
+			// call adds in whatever hasn't yet been added.
+			if ( method_exists( 'SMWOutputs', 'commitToParserOutput' ) ) {
+				SMWOutputs::commitToParserOutput( $wgParser->getOutput() );
+			}
 		}
 
 		// Get the full text of the form.
