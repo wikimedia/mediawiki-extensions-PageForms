@@ -213,7 +213,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'localBasePath' => __DIR__,
 		'remoteExtPath' => 'SemanticForms'
 	);
-	$wgResourceModules += array(
+	$GLOBALS['wgResourceModules'] += array(
 		'ext.semanticforms.main' => $sfgResourceTemplate + array(
 			'scripts' => array(
 				'libs/SemanticForms.js',
