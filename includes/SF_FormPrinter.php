@@ -288,7 +288,16 @@ END;
 	 * submitted, is an array, then it might be from a checkbox
 	 * or date input - in that case, convert it into a string.
 	 */
-	function getStringFromPassedInArray( $value ) {
+	function getStringFromPassedInArray( $value, $delimiter ) {
+		// If it's just a regular list, concatenate it.
+		// This is needed due to some strange behavior
+		// in SF, where, if a preload page is passed in
+		// in the query string, the form ends up being
+		// parsed twice.
+		if ( array_key_exists( 'is_list', $value ) ) {
+			return implode( "$delimiter ", $value );
+		}
+
 		// if it has 1 or 2 elements, assume it's a checkbox; if it has
 		// 3 elements, assume it's a date
 		// - this handling will have to get more complex if other
@@ -985,6 +994,12 @@ END;
 					if ( count( $show_on_select ) > 0 ) {
 						$field_args['show on select'] = $show_on_select;
 					}
+					if ( array_key_exists( 'delimiter', $field_args ) ) {
+						$delimiter = $field_args['delimiter'];
+					} else {
+						$delimiter = ",";
+					}
+
 					// Get the value from the request, if
 					// it's there, and if it's not an array.
 					$cur_value = null;
@@ -1007,7 +1022,7 @@ END;
 						if ( $form_submitted || ( $field_query_val != '' && ! is_array( $field_query_val ) ) ) {
 							$cur_value = $field_query_val;
 						} elseif ( $form_submitted || ( $field_query_val != '' && is_array( $field_query_val ) ) ) {
-							$cur_value = $this->getStringFromPassedInArray( $field_query_val );
+							$cur_value = $this->getStringFromPassedInArray( $field_query_val, $delimiter );
 						}
 					}
 
@@ -1092,11 +1107,6 @@ END;
 							if ( array_key_exists( 'is_list', $cur_value ) &&
 									$cur_value['is_list'] == true ) {
 								$cur_value_in_template = "";
-								if ( array_key_exists( 'delimiter', $field_args ) ) {
-									$delimiter = $field_args['delimiter'];
-								} else {
-									$delimiter = ",";
-								}
 								foreach ( $cur_value as $key => $val ) {
 									if ( $key !== "is_list" ) {
 										if ( $cur_value_in_template != "" ) {
@@ -1108,7 +1118,7 @@ END;
 							} else {
 								// If it's not a list, it's probably from a checkbox or date input -
 								// convert the values into a string.
-								$cur_value_in_template = $this->getStringFromPassedInArray( $cur_value );
+								$cur_value_in_template = $this->getStringFromPassedInArray( $cur_value, $delimiter );
 							}
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
@@ -1128,11 +1138,6 @@ END;
 						// If the 'values' parameter was set, separate it based on the
 						// 'delimiter' parameter, if any.
 						if ( ! empty( $values ) ) {
-							if ( array_key_exists( 'delimiter', $field_args ) ) {
-								$delimiter = $field_args['delimiter'];
-							} else {
-								$delimiter = ",";
-							}
 							// Remove whitespaces, and un-escape characters
 							$possible_values = array_map( 'trim', explode( $delimiter, $values ) );
 							$possible_values = array_map( 'htmlspecialchars_decode', $possible_values );
