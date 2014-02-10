@@ -157,6 +157,7 @@ $GLOBALS['wgSpecialPages']['UploadWindow'] = 'SFUploadWindow';
 $GLOBALS['wgAutoloadClasses']['SFUploadWindow'] = __DIR__ . '/specials/SF_UploadWindow.php';
 $GLOBALS['wgAutoloadClasses']['SFTemplateField'] = __DIR__ . '/includes/SF_TemplateField.php';
 $GLOBALS['wgAutoloadClasses']['SFForm'] = __DIR__ . '/includes/SF_Form.php';
+$GLOBALS['wgAutoloadClasses']['SFTemplate'] = __DIR__ . '/includes/SF_Template.php';
 $GLOBALS['wgAutoloadClasses']['SFTemplateInForm'] = __DIR__ . '/includes/SF_TemplateInForm.php';
 $GLOBALS['wgAutoloadClasses']['SFFormField'] = __DIR__ . '/includes/SF_FormField.php';
 $GLOBALS['wgAutoloadClasses']['SFFormPrinter'] = __DIR__ . '/includes/SF_FormPrinter.php';

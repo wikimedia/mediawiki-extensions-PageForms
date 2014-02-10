@@ -119,8 +119,15 @@ END;
 		// Create the template, and save it (might as well save
 		// one page, instead of just creating jobs for all of them).
 		$template_format = $wgRequest->getVal( "template_format" );
-		$connecting_property = $wgRequest->getVal( "connecting_property" );
-		$full_text = SFTemplateField::createTemplateText( $template_name, $fields, $connecting_property, $category_name, null, null, $template_format );
+		$sfTemplate = new SFTemplate( $template_name, $fields );
+		if ( $template_multiple ) {
+			$sfTemplate->setConnectingProperty( $connectingProperty );
+		} else {
+			$sfTemplate->setCategoryName( $category_name );
+		}
+		$sfTemplate->setFormat( $template_format );
+		$full_text = $sfTemplate->createText();
+
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 		$edit_summary = '';
 		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {

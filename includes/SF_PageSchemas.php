@@ -26,7 +26,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		if( $tagName == "standardInputs" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 					foreach ( $child->children() as $tag => $formelem ) {
-						if($tag == $tagName) {
+						if ( $tag == $tagName ) {
 							foreach( $formelem->attributes() as $attr => $name) {
 								$sfarray[$attr] = (string)$formelem->attributes()->$attr;
 							}
@@ -145,7 +145,7 @@ class SFPageSchemas extends PSExtensionHandler {
 				}
 			}
 		}
-		if($isStandardInputsOpen) {
+		if ( $isStandardInputsOpen ) {
 			$isStandardInputsOpen = false;
 			$xml .= ' />';
 		}
@@ -328,42 +328,42 @@ class SFPageSchemas extends PSExtensionHandler {
 
 		// Free text
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_free_text', '1', 'checkbox', array( 'id' => 'sf_fi_free_text', 'checked' => (isset($standardInputs['inputFreeText'])) ? $standardInputs['inputFreeText'] : null ) );
+		$text .= Html::input( 'sf_fi_free_text', '1', 'checkbox', array( 'id' => 'sf_fi_free_text', 'checked' => ( isset( $standardInputs['inputFreeText'])) ? $standardInputs['inputFreeText'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_free_text' ), 'Free text input' );
 		$text .= "&nbsp;</span>";
 		// Summary
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_summary', '1', 'checkbox', array( 'id' => 'sf_fi_summary', 'checked' => (isset($standardInputs['inputSummary'])) ? $standardInputs['inputSummary'] : null ) );
+		$text .= Html::input( 'sf_fi_summary', '1', 'checkbox', array( 'id' => 'sf_fi_summary', 'checked' => ( isset( $standardInputs['inputSummary'] ) ) ? $standardInputs['inputSummary'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_summary' ), 'Summary input' );
 		$text .= "&nbsp;</span>";
 		// Minor edit
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_minor_edit', '1', 'checkbox', array( 'id' => 'sf_fi_minor_edit', 'checked' => (isset($standardInputs['inputMinorEdit'])) ? $standardInputs['inputMinorEdit'] : null ) );
+		$text .= Html::input( 'sf_fi_minor_edit', '1', 'checkbox', array( 'id' => 'sf_fi_minor_edit', 'checked' => ( isset( $standardInputs['inputMinorEdit'] ) ) ? $standardInputs['inputMinorEdit'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_minor_edit' ), 'Minor edit input' );
 		$text .= "&nbsp;</span>";
 		// Watch
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_watch', '1', 'checkbox', array( 'id' => 'sf_fi_watch', 'checked' => (isset($standardInputs['inputWatch'])) ? $standardInputs['inputWatch'] : null ) );
+		$text .= Html::input( 'sf_fi_watch', '1', 'checkbox', array( 'id' => 'sf_fi_watch', 'checked' => ( isset( $standardInputs['inputWatch'] ) ) ? $standardInputs['inputWatch'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_watch' ), 'Watch input' );
 		$text .= "&nbsp;</span>";
 		// Save
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_save', '1', 'checkbox', array( 'id' => 'sf_fi_save', 'checked' => (isset($standardInputs['inputSave'])) ? $standardInputs['inputSave'] : null ) );
+		$text .= Html::input( 'sf_fi_save', '1', 'checkbox', array( 'id' => 'sf_fi_save', 'checked' => ( isset( $standardInputs['inputSave'] ) ) ? $standardInputs['inputSave'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_save' ), 'Save input' );
 		$text .= "&nbsp;</span>";
 		// Preview
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_preview', '1', 'checkbox', array( 'id' => 'sf_fi_preview', 'checked' => (isset($standardInputs['inputPreview'])) ? $standardInputs['inputPreview'] : null ) );
+		$text .= Html::input( 'sf_fi_preview', '1', 'checkbox', array( 'id' => 'sf_fi_preview', 'checked' => ( isset( $standardInputs['inputPreview'] ) ) ? $standardInputs['inputPreview'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_preview' ), 'Preview input' );
 		$text .= "&nbsp;</span>";
 		// Changes
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_changes', '1', 'checkbox', array( 'id' => 'sf_fi_changes', 'checked' => (isset($standardInputs['inputChanges'])) ? $standardInputs['inputChanges'] : null ) );
+		$text .= Html::input( 'sf_fi_changes', '1', 'checkbox', array( 'id' => 'sf_fi_changes', 'checked' => ( isset( $standardInputs['inputChanges'] ) ) ? $standardInputs['inputChanges'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_changes' ), 'Changes input' );
 		$text .= "&nbsp;</span>";
 		// Cancel
 		$text .= '<span>';
-		$text .= Html::input( 'sf_fi_cancel', '1', 'checkbox', array( 'id' => 'sf_fi_cancel', 'checked' => (isset($standardInputs['inputCancel'])) ? $standardInputs['inputCancel'] : null ) );
+		$text .= Html::input( 'sf_fi_cancel', '1', 'checkbox', array( 'id' => 'sf_fi_cancel', 'checked' => ( isset( $standardInputs['inputCancel'] ) ) ? $standardInputs['inputCancel'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'sf_fi_cancel' ), 'Cancel input' );
 		$text .= "&nbsp;</span>";
 
@@ -477,7 +477,7 @@ END;
 		$text .= "\t<p>Text that will be printed before the field: $inputBeforeTextPrint</p>\n";
 
 		$inputDescription = Html::input( 'sf_input_desc_num', $inputDesc, 'text', array( 'size' => 80 ) );
-		$inputDescriptionTooltipMode = Html::input( 'sf_input_desctool_num', $inputDescTooltipMode, 'checkbox', array( 'checked' => ($inputDescTooltipMode) ? 'checked' : null ) );
+		$inputDescriptionTooltipMode = Html::input( 'sf_input_desctool_num', $inputDescTooltipMode, 'checkbox', array( 'checked' => ( $inputDescTooltipMode ) ? 'checked' : null ) );
 		$text .= "\t<p>Field description: $inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
 		$text .= "</div>\n";
 
@@ -536,11 +536,11 @@ END;
 				$formName = (string)$child->attributes()->name;
 				$sfarray['name'] = $formName;
 				foreach ( $child->children() as $tag => $formelem ) {
-					if($tag == "standardInputs") {
+					if ( $tag == "standardInputs" ) {
 						foreach ( $formelem->attributes() as $attr => $value ) {
 							$sfarray[$attr] = (string)$formelem->attributes()->$attr;
 						}
-					}else{
+					} else {
 						$sfarray[$tag] = (string)$formelem;
 					}
 				}
@@ -623,8 +623,6 @@ END;
 		$templateFields = array();
 		foreach ( $psFields as $psField ) {
 			$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
-			$field_options = array();
-			wfRunHooks( 'SfFieldsFromTemplateSchema', array( $psField, &$field_options ));
 			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
 			if ( !is_null( $prop_array ) && empty( $propertyName ) ) {
 				$propertyName = $psField->getName();
@@ -640,9 +638,9 @@ END;
 				$propertyName,
 				$psField->isList(),
 				$psField->getDelimiter(),
-				$psField->getDisplay(),
-				$field_options
+				$psField->getDisplay()
 			);
+			$templateField->setNamespace( $psField->getNamespace() );
 			$templateFields[] = $templateField;
 		}
 		return $templateFields;
@@ -732,8 +730,6 @@ END;
 				} else {
 					$internalObjProperty = null;
 				}
-				$template_options = array();
-				wfRunHooks('SfTemplateOptions', array( $psTemplate, &$template_options ) );
 				// TODO - actually, the category-setting should be
 				// smarter than this: if there's more than one
 				// template in the schema, it should probably be only
@@ -755,9 +751,13 @@ END;
 				} else {
 					$templateFormat = null;
 				}
-				$templateText = SFTemplateField::createTemplateText( $templateName,
-					$template_fields, $internalObjProperty, $categoryName,
-					null, null, $templateFormat, $template_options );
+
+				$sfTemplate = new SFTemplate( $templateName, $template_fields );
+				$sfTemplate->setConnectingProperty( $internalObjProperty );
+				$sfTemplate->setCategoryName( $categoryName );
+				$sfTemplate->setFormat( $templateFormat );
+				$templateText = $sfTemplate->createText();
+
 				if ( in_array( $fullTemplateName, $selectedPages ) ) {
 					$params = array();
 					$params['user_id'] = $wgUser->getId();
