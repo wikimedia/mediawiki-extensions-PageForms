@@ -295,6 +295,7 @@ END;
 		// in the query string, the form ends up being
 		// parsed twice.
 		if ( array_key_exists( 'is_list', $value ) ) {
+			unset($value['is_list']);
 			return implode( "$delimiter ", $value );
 		}
 
@@ -841,6 +842,7 @@ END;
 					$is_restricted = false;
 					$is_uploadable = false;
 					$is_list = false;
+					$delimiter = null;
 					$input_type = null;
 					$field_args = array();
 					$show_on_select = array();
@@ -975,6 +977,9 @@ END;
 									$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
 								);
 							}
+							if ( !is_null( $possible_values ) && array_key_exists( 'mapping template', $field_args ) ) {
+								$possible_values = SFUtils::getLabels( $possible_values, $field_args['mapping template'] );
+							}
 						}
 					} // end for
 					// Backwards compatibility
@@ -1019,10 +1024,36 @@ END;
 						} elseif ( array_key_exists( $field_name, $template_instance_query_values ) ) {
 							$field_query_val = $template_instance_query_values[$field_name];
 						}
-						if ( $form_submitted || ( $field_query_val != '' && ! is_array( $field_query_val ) ) ) {
-							$cur_value = $field_query_val;
-						} elseif ( $form_submitted || ( $field_query_val != '' && is_array( $field_query_val ) ) ) {
-							$cur_value = $this->getStringFromPassedInArray( $field_query_val, $delimiter );
+						if ( $form_submitted && $field_query_val != '' ) {
+							$mapping_template = null;
+							if ( array_key_exists( 'mapping_template', $template_instance_query_values ) &&
+								array_key_exists( $field_name, $template_instance_query_values['mapping_template'] ) ) {
+								$mapping_template = $template_instance_query_values['mapping_template'][$field_name];
+							}
+							if ( is_array( $field_query_val ) ) {
+								$cur_values = array();
+								foreach ( $field_query_val as $key => $value ) {
+									if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
+										$cur_values = array();
+										foreach ( $field_query_val as $key => $val ) {
+											if ( $key === 'is_list' ) {
+												$cur_values[$key] = $val;
+											} else {
+												$cur_values[] = SFUtils::labelToValue( $val, $possible_values, $mapping_template );
+											}
+										}
+									} else {
+										$cur_values[$key] = $value;
+									}
+								}
+								$cur_value = $this->getStringFromPassedInArray( $cur_values, $delimiter );
+							} else {
+								if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
+									$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values, $mapping_template );
+								} else {
+									$cur_value = $field_query_val;
+								}
+							}
 						}
 					}
 
@@ -1188,6 +1219,9 @@ END;
 						if ( $form_submitted ) {
 							wfRunHooks( 'sfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
+							if ( !empty( $cur_value ) && array_key_exists( 'mapping template', $field_args ) ) {
+								$cur_value = SFUtils::valuesToLabels( $cur_value, $field_args['mapping template'], $delimiter, $possible_values );
+							}
 							wfRunHooks( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
 						// if this is not part of a 'multiple' template, increment the
@@ -1286,6 +1320,10 @@ END;
 							} else {
 								$new_text .= Html::hidden( $input_name, $cur_value );
 							}
+						}
+
+						if ( array_key_exists( 'mapping template', $field_args ) ) {
+							$new_text .= Html::hidden( $template_name . '[mapping_template][' . $field_name . ']', $field_args['mapping template'] );
 						}
 
 						if ( $new_text ) {
