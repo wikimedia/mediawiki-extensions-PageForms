@@ -261,7 +261,7 @@ END;
 				}
 				$tableText .= "{{#arraymap:{{{" . $field->getFieldName() . '|}}}|' . $field->getDelimiter() . "|$var|[[";
 				if ( is_null( $field->getNamespace() ) ) {
-					$tableText .= "$fieldProperty::$var]]}} }}\n";
+					$tableText .= "$fieldProperty::$var]]}}\n";
 				} else {
 					$tableText .= $field->getNamespace() . ":$var]] {{#set:" . $fieldProperty . "=$var}} }}\n";
 				}
