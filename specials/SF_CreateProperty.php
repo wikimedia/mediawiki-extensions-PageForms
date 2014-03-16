@@ -94,7 +94,8 @@ class SFCreateProperty extends SpecialPage {
 				$wgOut->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$full_text = self::createPropertyText( $property_type, $default_form, $allowed_values );
-				$text = SFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
+				$edit_summary = wfMessage( 'sf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
+				$text = SFUtils::printRedirectForm( $title, $full_text, $edit_summary, $save_page, $preview_page, false, false, false, null, null );
 				$wgOut->addHTML( $text );
 				return;
 			}

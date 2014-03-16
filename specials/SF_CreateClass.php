@@ -98,6 +98,7 @@ END;
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = $full_text;
+				$params['edit_summary'] = wfMessage( 'sf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
 				$jobs[] = new SFCreatePageJob( $property_title, $params );
 			}
 		}
@@ -113,6 +114,7 @@ END;
 			$params = array();
 			$params['user_id'] = $wgUser->getId();
 			$params['page_text'] = $full_text;
+			$params['edit_summary'] = wfMessage( 'sf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
 			$jobs[] = new SFCreatePageJob( $property_title, $params );
 		}
 

@@ -22,6 +22,7 @@ $messages['en'] = array(
 	'sf_createproperty_allowedvalsinput' => 'If you want this property to only be allowed to have certain values, enter the list of allowed values, separated by commas (if a value contains a comma, replace it with "\,"):',
 	'sf_createproperty_propname'         => 'Property name:',
 	'sf_createproperty_proptype'         => 'Type:',
+	'sf_createproperty_editsummary'      => 'Created a property of type [[Has type::$1]]',
 	'templates'                          => 'Templates',
 	'sf_templates_docu'                  => 'The following templates exist in the wiki.',
 	'sf_templates_definescat'            => 'defines category: $1',
