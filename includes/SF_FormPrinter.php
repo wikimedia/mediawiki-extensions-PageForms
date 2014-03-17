@@ -1055,6 +1055,13 @@ END;
 								}
 							}
 						}
+						if ( !$form_submitted && $field_query_val != '' ) {
+							if ( is_array( $field_query_val ) ) {
+								$cur_value = $this->getStringFromPassedInArray( $field_query_val, $delimiter );
+							} else {
+								$cur_value = $field_query_val;
+							}
+						}
 					}
 
 					if ( empty( $cur_value ) && !$form_submitted ) {
