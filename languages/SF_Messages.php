@@ -252,6 +252,8 @@ $messages['qqq'] = array(
 {{Identical|Property name}}',
 	'sf_createproperty_proptype' => 'Used as a table column header and as a label for the select box.
 {{Identical|Type}}',
+	'sf_createproperty_editsummary'=>'Used for the edit summary when a new semantic property is created. Parameters:
+* $1 - type of the newly created semantic property',
 	'templates' => '{{doc-special|Templates}}
 {{Identical|Template}}',
 	'sf_templates_docu' => 'Used as page header.',
