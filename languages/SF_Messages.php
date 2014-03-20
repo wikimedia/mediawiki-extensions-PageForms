@@ -83,6 +83,8 @@ $messages['en'] = array(
 	'sf_forminputs_depth'                => 'The number of levels of categories to show initially',
 	'sf_forminputs_height'               => 'The height of this input, in pixels',
 	'sf_forminputs_width'                => 'The width of this input, in pixels',
+	'sf_forminputs_checkboxes_select_all'   => 'Select all',
+	'sf_forminputs_checkboxes_select_none' => 'Select none',
 	'createform'                         => 'Create a form',
 	'sf-createform-with-name'            => 'Create form: $1',
 	'sf_createform_nameinput'            => 'Form name',
@@ -310,6 +312,8 @@ Preceded by the fieldset label {{msg-mw|Sf createtemplate aggregation}}.',
 ** C
 *** D
 * E',
+	'sf_forminputs_checkboxes_select_all'   => 'This is used for a field of checkboxes. It is a label for a link that triggers the selection of all checkboxes.',
+	'sf_forminputs_checkboxes_select_none' => 'This is used for a field of checkboxes. It is a label for a link that triggers the deselection of all checkboxes.',
 	'createform' => '{{doc-special|CreateForm}}
 Title below, create link. If you enter, include ".".',
 	'sf-createform-with-name' => 'Used as page title. Parameters:

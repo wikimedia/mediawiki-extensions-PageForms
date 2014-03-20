@@ -296,8 +296,16 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/SF_imagePreview.js',
-		),
+				'scripts' => 'libs/SF_imagePreview.js',
+			),
+		'ext.semanticforms.checkboxes' => $sfgResourceTemplate + array(
+				'scripts' => 'libs/SF_checkboxes.js',
+				'styles' => 'skins/SF_checkboxes.css',
+				'messages' => array(
+					'sf_forminputs_checkboxes_select_all',
+					'sf_forminputs_checkboxes_select_none',
+				),
+			),
 	);
 }
 
@@ -446,6 +454,11 @@ $GLOBALS['sfgShowOnSelect'] = array();
 $GLOBALS['sfgAutocompleteValues'] = array();
 $GLOBALS['sfgFieldProperties'] = array();
 $GLOBALS['sfgDependentFields'] = array();
+
+/**
+ * Minimum number of values in a checkboxes field to show the 'Select all'/'Select none' switches
+ */
+$GLOBALS['sfgCheckboxesSelectAllMinimum'] = 10;
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';

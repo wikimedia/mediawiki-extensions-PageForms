@@ -313,6 +313,7 @@ END;
 		$output->addModules( 'ext.semanticforms.imagepreview' );
 		$output->addModules( 'ext.semanticforms.autogrow' );
 		$output->addModules( 'ext.semanticforms.submit' );
+		$output->addModules( 'ext.semanticforms.checkboxes' );
 		$output->addModules( 'ext.smw.tooltips' );
 		$output->addModules( 'ext.smw.sorttable' );
 
