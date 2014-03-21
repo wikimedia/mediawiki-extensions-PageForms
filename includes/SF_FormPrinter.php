@@ -1395,11 +1395,14 @@ END;
 						}
 					}
 					if ( $input_name == 'summary' ) {
-						$new_text = SFFormUtils::summaryInputHTML( $form_is_disabled, $input_label, $attr );
+						$value = $wgRequest->getVal( 'wpSummary' );
+						$new_text = SFFormUtils::summaryInputHTML( $form_is_disabled, $input_label, $attr, $value );
 					} elseif ( $input_name == 'minor edit' ) {
-						$new_text = SFFormUtils::minorEditInputHTML( $form_is_disabled, $input_label, $attr );
+						$is_checked = $wgRequest->getCheck( 'wpMinoredit' );
+						$new_text = SFFormUtils::minorEditInputHTML( $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
 					} elseif ( $input_name == 'watch' ) {
-						$new_text = SFFormUtils::watchInputHTML( $form_is_disabled, $is_checked, $input_label, $attr );
+						$is_checked = $wgRequest->getCheck( 'wpWatchthis' );
+						$new_text = SFFormUtils::watchInputHTML( $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
 					} elseif ( $input_name == 'save' ) {
 						$new_text = SFFormUtils::saveButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'save and continue' ) {

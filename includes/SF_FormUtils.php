@@ -66,7 +66,7 @@ class SFFormUtils {
 		return $additional_template_text;
 	}
 
-	static function summaryInputHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function summaryInputHTML( $is_disabled, $label = null, $attr = array(), $value = '' ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
@@ -76,17 +76,19 @@ class SFFormUtils {
 		$attr = Html::expandAttributes( $attr );
 		$text = <<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
-	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
+	<input tabindex="$sfgTabIndex" type='text' value="$value" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
 
 END;
 		return $text;
 	}
 
-	static function minorEditInputHTML( $is_disabled, $label = null, $attrs = array() ) {
+	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgParser;
 
 		$sfgTabIndex++;
-		$checked = $wgUser->getOption( 'minordefault' );
+		if ( !$form_submitted ) {
+			$is_checked = $wgUser->getOption( 'minordefault' );
+		}
 
 		if ( $label == null ) {
 			$label = $wgParser->recursiveTagParse( wfMessage( 'minoredit' )->text() );
@@ -101,7 +103,7 @@ END;
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		$text = "\t" . Xml::check( 'wpMinoredit', $checked, $attrs ) . "\n";
+		$text = "\t" . Xml::check( 'wpMinoredit', $is_checked, $attrs ) . "\n";
 		$text .= "\t" . Html::rawElement( 'label', array(
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
@@ -110,21 +112,23 @@ END;
 		return $text;
 	}
 
-	static function watchInputHTML( $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
+	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgTitle, $wgParser;
 
 		$sfgTabIndex++;
 		// figure out if the checkbox should be checked -
 		// this code borrowed from /includes/EditPage.php
-		if ( $wgUser->getOption( 'watchdefault' ) ) {
-			# Watch all edits
-			$is_checked = true;
-		} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
-			# Watch creations
-			$is_checked = true;
-		} elseif ( $wgTitle->userIsWatching() ) {
-			# Already watched
-			$is_checked = true;
+		if ( !$form_submitted ) {
+			if ( $wgUser->getOption( 'watchdefault' ) ) {
+				# Watch all edits
+				$is_checked = true;
+			} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
+				# Watch creations
+				$is_checked = true;
+			} elseif ( $wgTitle->userIsWatching() ) {
+				# Already watched
+				$is_checked = true;
+			}
 		}
 		if ( $label == null )
 			$label = $wgParser->recursiveTagParse( wfMessage( 'watchthis' )->text() );
