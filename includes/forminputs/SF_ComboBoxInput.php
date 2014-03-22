@@ -84,11 +84,11 @@ class SFComboBoxInput extends SFFormInput {
 		}
 		$selectText = Html::rawElement( 'select', $selectAttrs, $optionsText );
 
-		$divClass = 'ui-widget';
+		$spanClass = 'ui-widget';
 		if ( $is_mandatory ) {
-			$divClass .= ' mandatory';
+			$spanClass .= ' mandatory';
 		}
-		$text = Html::rawElement( 'div', array( 'class' => $divClass ), $selectText );
+		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $selectText );
 		return $text;
 	}
 
