@@ -20,7 +20,7 @@ class SFTemplateInForm {
 	function handlePropertySettingInTemplate( $fieldName, $propertyName, $isList, &$templateFields, $templateText ) {
 		global $wgContLang;
 		$templateField = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ), $propertyName, $isList );
-		$cur_pos = stripos( $templateText, $fieldName );
+		$cur_pos = stripos( $templateText, $fieldName.'|' );
 		$templateFields[$cur_pos] = $templateField;
 	}
 
