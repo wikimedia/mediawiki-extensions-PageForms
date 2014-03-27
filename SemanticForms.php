@@ -200,6 +200,7 @@ require_once( __DIR__ . '/languages/SF_Language.php' );
 
 $GLOBALS['wgAjaxExportList'][] = 'SFAutoeditAPI::handleAutoEdit';
 
+$GLOBALS['wgMessagesDirs']['SemanticForms'] = __DIR__ . '/i18n';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticForms'] = __DIR__ . '/languages/SF_Messages.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticFormsAlias'] = __DIR__ . '/languages/SF_Aliases.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticFormsMagic'] = __DIR__ . '/languages/SF_Magic.php';
