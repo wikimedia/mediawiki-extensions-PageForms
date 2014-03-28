@@ -93,6 +93,9 @@ class SFDropdownInput extends SFEnumInput {
 		if ( $is_disabled ) {
 			$selectAttrs['disabled'] = 'disabled';
 		}
+		if ( array_key_exists( 'origName', $other_args ) ) {
+			$selectAttrs['origname'] = $other_args['origName'];
+		}
 		$text = Html::rawElement( 'select', $selectAttrs, $innerDropdown );
 		$spanClass = 'inputSpan';
 		if ( $is_mandatory ) {

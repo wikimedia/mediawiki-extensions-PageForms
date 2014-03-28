@@ -44,7 +44,10 @@ class SFCreatePageJob extends Job {
 		global $wgUser;
 		$actual_user = $wgUser;
 		$wgUser = User::newFromId( $this->params['user_id'] );
-		$edit_summary = ''; // $this->params['edit_summary'];
+		$edit_summary = '';
+		if( array_key_exists( 'edit_summary', $this->params ) ) {
+			$edit_summary = $this->params['edit_summary'];
+		}
 		$article->doEdit( $page_text, $edit_summary );
 		$wgUser = $actual_user;
 		wfProfileOut( __METHOD__ );

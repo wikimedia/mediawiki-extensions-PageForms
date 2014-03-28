@@ -65,7 +65,7 @@ class SFCreateTemplate extends SpecialPage {
 
 		// Sort properties list alphabetically, and get unique values
 		// (for SQLStore3, getPropertiesSpecial() seems to get unused
-		// properties as well.
+		// properties as well).
 		sort( $all_properties );
 		$all_properties = array_unique( $all_properties );
 		return $all_properties;
@@ -222,7 +222,12 @@ END;
 			$aggregating_property = $wgRequest->getVal( 'semantic_property_aggregation' );
 			$aggregation_label = $wgRequest->getVal( 'aggregation_label' );
 			$template_format = $wgRequest->getVal( 'template_format' );
-			$full_text = SFTemplateField::createTemplateText( $template_name, $fields, null, $category, $aggregating_property, $aggregation_label, $template_format );
+			$sfTemplate = new SFTemplate( $template_name, $fields );
+			$sfTemplate->setCategoryName( $category );
+			$sfTemplate->setAggregatingInfo( $aggregating_property, $aggregation_label );
+			$sfTemplate->setFormat( $template_format );
+			$full_text = $sfTemplate->createText();
+
 			$text = SFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
 			$wgOut->addHTML( $text );
 			return;

@@ -503,8 +503,6 @@ END;
 
 
 	static function renderAutoEdit( &$parser ) {
-		global $wgTitle;
-
 		// set defaults
 		$formcontent = '';
 		$linkString = null;
@@ -604,7 +602,7 @@ END;
 		}
 
 		if ( $summary == null ) {
-			$summary = wfMessage( 'sf_autoedit_summary', "[[$wgTitle]]" )->text();
+			$summary = wfMessage( 'sf_autoedit_summary', "[[{$parser->getTitle()}]]" )->text();
 		}
 
 		$formcontent .= Html::hidden( 'wpSummary', $summary );

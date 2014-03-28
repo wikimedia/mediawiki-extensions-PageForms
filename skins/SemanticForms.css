@@ -181,5 +181,5 @@ button.ui-button-icon-only {
 } /* button elements seem to need a little more width */
 /* Override CSS from Header Tabs extension, if tabs are used in the form */
 input.sfComboBoxActual {
-	border: 1px #a6a6a6 solid;
+	border: 1px solid #a6a6a6;
 }

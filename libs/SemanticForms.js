@@ -1087,7 +1087,7 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 	// a dependent field - which might involve changing the storage of
 	// "dependent fields" information from a global variable to a
 	// per-input HTML attribute.
-	this.find('input, select[class!="sfComboBox"]').each( function() {
+	this.find('input, select').each( function() {
 		jQuery(this)
 		.setAutocompleteForDependentField( partOfMultiple )
 		.blur( function() {

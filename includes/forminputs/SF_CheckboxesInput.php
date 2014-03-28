@@ -90,6 +90,11 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			$outerSpanClass .= ' mandatoryFieldSpan';
 		}
 
+		if ( array_key_exists( 'show select all', $other_args ) ||
+			( count( $possible_values ) >= $GLOBALS[ 'sfgCheckboxesSelectAllMinimum' ] && !array_key_exists( 'hide select all', $other_args ) ) ) {
+			$outerSpanClass .= ' select-all';
+		}
+
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$outerSpanClass .= ' sfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {

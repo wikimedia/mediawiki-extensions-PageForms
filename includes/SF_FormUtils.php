@@ -66,7 +66,7 @@ class SFFormUtils {
 		return $additional_template_text;
 	}
 
-	static function summaryInputHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function summaryInputHTML( $is_disabled, $label = null, $attr = array(), $value = '' ) {
 		global $sfgTabIndex;
 
 		$sfgTabIndex++;
@@ -76,17 +76,19 @@ class SFFormUtils {
 		$attr = Html::expandAttributes( $attr );
 		$text = <<<END
 	<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>
-	<input tabindex="$sfgTabIndex" type='text' value="" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
+	<input tabindex="$sfgTabIndex" type='text' value="$value" name='wpSummary' id='wpSummary' maxlength='200' size='60'$disabled_text$attr/>
 
 END;
 		return $text;
 	}
 
-	static function minorEditInputHTML( $is_disabled, $label = null, $attrs = array() ) {
+	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgParser;
 
 		$sfgTabIndex++;
-		$checked = $wgUser->getOption( 'minordefault' );
+		if ( !$form_submitted ) {
+			$is_checked = $wgUser->getOption( 'minordefault' );
+		}
 
 		if ( $label == null ) {
 			$label = $wgParser->recursiveTagParse( wfMessage( 'minoredit' )->text() );
@@ -101,7 +103,7 @@ END;
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		$text = "\t" . Xml::check( 'wpMinoredit', $checked, $attrs ) . "\n";
+		$text = "\t" . Xml::check( 'wpMinoredit', $is_checked, $attrs ) . "\n";
 		$text .= "\t" . Html::rawElement( 'label', array(
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
@@ -110,21 +112,23 @@ END;
 		return $text;
 	}
 
-	static function watchInputHTML( $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
+	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
 		global $sfgTabIndex, $wgUser, $wgTitle, $wgParser;
 
 		$sfgTabIndex++;
 		// figure out if the checkbox should be checked -
 		// this code borrowed from /includes/EditPage.php
-		if ( $wgUser->getOption( 'watchdefault' ) ) {
-			# Watch all edits
-			$is_checked = true;
-		} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
-			# Watch creations
-			$is_checked = true;
-		} elseif ( $wgTitle->userIsWatching() ) {
-			# Already watched
-			$is_checked = true;
+		if ( !$form_submitted ) {
+			if ( $wgUser->getOption( 'watchdefault' ) ) {
+				# Watch all edits
+				$is_checked = true;
+			} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
+				# Watch creations
+				$is_checked = true;
+			} elseif ( $wgTitle->userIsWatching() ) {
+				# Already watched
+				$is_checked = true;
+			}
 		}
 		if ( $label == null )
 			$label = $wgParser->recursiveTagParse( wfMessage( 'watchthis' )->text() );
@@ -385,17 +389,44 @@ END;
 		$form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
 		$form_def = strtr( $form_def, array( '<includeonly>' => '', '</includeonly>' => '' ) );
 
-		// add '<nowiki>' tags around every triple-bracketed form
-		// definition element, so that the wiki parser won't touch
-		// it - the parser will remove the '<nowiki>' tags, leaving
-		// us with what we need
-		$form_def = "__NOEDITSECTION__" . strtr( $form_def, array( '{{{' => '<nowiki>{{{', '}}}' => '}}}</nowiki>' ) );
+		// We need to replace all SF tags in the form definition by strip items. But we can not just use
+		// the Parser strip state because the Parser would during parsing replace all strip items and then
+		// mangle them into HTML code. So we have to use our own. Which means we also can not just use
+		// Parser::insertStripItem() (see below).
+		$prefix     = "\x7fUNIQ" . Parser::getRandomString();
+		$stripState = new StripState( $prefix );
+
+		// This regexp will find any SF triple braced tags (including correct handling of contained braces), i.e.
+		// {{{field|foo|default={{Bar}}}}} is not a problem. When used with preg_match and friends, $matches[0] will
+		// contain the whole SF tag, $matches[1] will contain the tag without the enclosing triple braces.
+		$regexp = '#\{\{\{((?>[^\{\}]+)|(\{((?>[^\{\}]+)|(?-2))*\}))*\}\}\}#';
+
+		// replace all SF tags by strip markers
+		$form_def = preg_replace_callback(
+
+				$regexp,
+
+				// This is essentially a copy of Parser::insertStripItem().
+				// The 'use' keyword will bump the minimum PHP version to 5.3
+				function ( array $matches ) use ( $stripState, $prefix ) {
+
+					static $markerIndex = 0;
+					$rnd = "$prefix-item-$markerIndex-" . Parser::MARKER_SUFFIX;
+					$markerIndex++;
+					$stripState->addGeneral( $rnd, $matches[ 0 ] );
+
+					return $rnd;
+
+				},
+
+				$form_def
+		);
 
 		$title = is_object( $parser->getTitle() ) ? $parser->getTitle():new Title();
 
 		// parse wiki-text
 		$output = $parser->parse( $form_def, $title, $parser->getOptions() );
-		$form_def = $output->getText();
+		$form_def = $stripState->unstripGeneral( $output->getText() );
 
 		self::cacheFormDefinition( $form_id, $parser, $output );
 

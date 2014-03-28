@@ -41,7 +41,7 @@ if ( defined( 'SF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SF_VERSION', '2.6.2-alpha' );
+define( 'SF_VERSION', '2.7' );
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
@@ -157,6 +157,7 @@ $GLOBALS['wgSpecialPages']['UploadWindow'] = 'SFUploadWindow';
 $GLOBALS['wgAutoloadClasses']['SFUploadWindow'] = __DIR__ . '/specials/SF_UploadWindow.php';
 $GLOBALS['wgAutoloadClasses']['SFTemplateField'] = __DIR__ . '/includes/SF_TemplateField.php';
 $GLOBALS['wgAutoloadClasses']['SFForm'] = __DIR__ . '/includes/SF_Form.php';
+$GLOBALS['wgAutoloadClasses']['SFTemplate'] = __DIR__ . '/includes/SF_Template.php';
 $GLOBALS['wgAutoloadClasses']['SFTemplateInForm'] = __DIR__ . '/includes/SF_TemplateInForm.php';
 $GLOBALS['wgAutoloadClasses']['SFFormField'] = __DIR__ . '/includes/SF_FormField.php';
 $GLOBALS['wgAutoloadClasses']['SFFormPrinter'] = __DIR__ . '/includes/SF_FormPrinter.php';
@@ -199,6 +200,7 @@ require_once( __DIR__ . '/languages/SF_Language.php' );
 
 $GLOBALS['wgAjaxExportList'][] = 'SFAutoeditAPI::handleAutoEdit';
 
+$GLOBALS['wgMessagesDirs']['SemanticForms'] = __DIR__ . '/i18n';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticForms'] = __DIR__ . '/languages/SF_Messages.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticFormsAlias'] = __DIR__ . '/languages/SF_Aliases.php';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticFormsMagic'] = __DIR__ . '/languages/SF_Magic.php';
@@ -295,8 +297,16 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/SF_imagePreview.js',
-		),
+				'scripts' => 'libs/SF_imagePreview.js',
+			),
+		'ext.semanticforms.checkboxes' => $sfgResourceTemplate + array(
+				'scripts' => 'libs/SF_checkboxes.js',
+				'styles' => 'skins/SF_checkboxes.css',
+				'messages' => array(
+					'sf_forminputs_checkboxes_select_all',
+					'sf_forminputs_checkboxes_select_none',
+				),
+			),
 	);
 }
 
@@ -445,6 +455,11 @@ $GLOBALS['sfgShowOnSelect'] = array();
 $GLOBALS['sfgAutocompleteValues'] = array();
 $GLOBALS['sfgFieldProperties'] = array();
 $GLOBALS['sfgDependentFields'] = array();
+
+/**
+ * Minimum number of values in a checkboxes field to show the 'Select all'/'Select none' switches
+ */
+$GLOBALS['sfgCheckboxesSelectAllMinimum'] = 10;
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';

@@ -313,6 +313,7 @@ END;
 		$output->addModules( 'ext.semanticforms.imagepreview' );
 		$output->addModules( 'ext.semanticforms.autogrow' );
 		$output->addModules( 'ext.semanticforms.submit' );
+		$output->addModules( 'ext.semanticforms.checkboxes' );
 		$output->addModules( 'ext.smw.tooltips' );
 		$output->addModules( 'ext.smw.sorttable' );
 
@@ -588,6 +589,88 @@ END;
 		} else {
 			// remove extra spaces
 			return array_map( 'trim', explode( $delimiter, $value ) );
+		}
+	}
+
+	/**
+	 * Helper function to get an array of labels from an array of values given a mapping template
+	 */
+	public static function getLabels( $values, $templateName ) {
+		global $wgParser;
+		$labels = array();
+		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
+		$templateExists = $title->exists();
+		foreach ( $values as $value ) {
+			if ( $templateExists ) {
+				$label = $wgParser->recursiveTagParse( '{{' .  $templateName .
+					'|' .  $value . '}}' );
+				if ( $label == '' ) {
+					$labels[$value] = $value;
+				} else {
+					$labels[$value] = $label;
+				}
+			} else {
+				$labels[$value] = $value;
+			}
+		}
+		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
+			return $labels;
+		}
+		$fixed_labels = array();
+		foreach ( $labels as $value => $label ) {
+			$fixed_labels[$value] = $labels[$value];
+		}
+		$counts = array_count_values( $fixed_labels );
+		foreach ( $counts as $current_label => $count ) {
+			if ( $count > 1 ) {
+				$matching_keys = array_keys( $labels, $current_label );
+				foreach ( $matching_keys as $key ) {
+					$fixed_labels[$key] .= ' (' . $key . ')';
+				}
+			}
+		}
+		if ( count( $fixed_labels ) == count( array_unique( $fixed_labels ) ) ) {
+			return $fixed_labels;
+		}
+		foreach ( $labels as $value => $label ) {
+			$labels[$value] .= ' (' . $value . ')';
+		}
+		return $labels;
+	}
+
+	/**
+	 * Helper function to use mapping template to turn label back into value
+	 */
+	public static function labelToValue( $label, $possible_values, $templateName ) {
+		$value = array_search( $label, $possible_values );
+		if ( $value === false ) {
+			return $label;
+		} else {
+			return $value;
+		}
+	}
+
+	/**
+	 * Helper function to map the current value with the mapping template, if the mapping template is set
+	 */
+	public static function valuesToLabels( $valueString, $templateName, $delimiter, $possible_values ) {
+		if ( !is_null($delimiter ) ) {
+			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
+		} else {
+			$values = array( $valueString );
+		}
+		$labels = array();
+		foreach ( $values as $value ) {
+			if ( array_key_exists( $value, $possible_values ) ) {
+				$labels[] = $possible_values[$value];
+			} else {
+				$labels[] = $value;
+			}
+		}
+		if ( count( $labels ) > 1 ) {
+			return $labels;
+		} else {
+			return $labels[0];
 		}
 	}
 
