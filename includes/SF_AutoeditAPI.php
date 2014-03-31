@@ -355,7 +355,7 @@ class SFAutoeditAPI extends ApiBase {
 					'wpSummary' => '',
 					'wpStarttime' => wfTimestampNow(),
 					'wpEdittime' => '',
-					'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
+					'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : '',
 					'action' => 'submit',
 				),
 				$this->mOptions
@@ -462,7 +462,12 @@ class SFAutoeditAPI extends ApiBase {
 		# Allow bots to exempt some edits from bot flagging
 		$bot = $wgUser->isAllowed( 'bot' ) && $editor->bot;
 
-		$status = $editor->internalAttemptSave( $resultDetails, $bot );
+		if ( $editor->mTokenOk ) {
+			$status = $editor->internalAttemptSave( $resultDetails, $bot );
+		}
+		else {
+				throw new MWException( wfMessage( 'session_fail_preview' )->parse() );
+		}
 
 		switch ( $status->value ) {
 			case EditPage::AS_HOOK_ERROR_EXPECTED: // A hook function returned an error

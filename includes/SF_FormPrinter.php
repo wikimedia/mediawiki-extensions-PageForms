@@ -1757,6 +1757,7 @@ END;
 			$form_text .= Html::hidden( 'wpStarttime', wfTimestampNow() );
 			$article = new Article( $this->mPageTitle, 0 );
 			$form_text .= Html::hidden( 'wpEdittime', $article->getTimestamp() );
+			$form_text .= Html::hidden( 'wpEditToken', $wgUser->editToken() );
 		}
 
 		$form_text .= "\t</form>\n";
