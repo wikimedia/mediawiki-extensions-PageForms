@@ -127,13 +127,17 @@ END;
 		if ( $wgRequest->getVal( 'additionalquery' ) == 'false' ) {
 			$text .= $resultsText;
 		} elseif ( $sfgRunQueryFormAtTop ) {
+			$text .= Html::openElement( 'div', array( 'class' => 'sf-runquery-formcontent' ) );
 			$text .= $fullFormText;
 			$text .= $dividerText;
+			$text .= Html::closeElement( 'div' );
 			$text .= $resultsText;
 		} else {
 			$text .= $resultsText;
+			$text .= Html::openElement( 'div', array( 'class' => 'sf-runquery-formcontent' ) );
 			$text .= $additionalQueryHeader;
 			$text .= $fullFormText;
+			$text .= Html::closeElement( 'div' );
 		}
 
 		if ( $embedded ) {
