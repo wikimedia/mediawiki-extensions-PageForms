@@ -61,8 +61,10 @@ $GLOBALS['wgExtensionCredits'][defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic'
 # seen from the web. Change it if required ($wgScriptPath is the
 # path to the base directory of your wiki). No final slash.
 # #
-$GLOBALS['sfgPartialPath'] = '/extensions/SemanticForms';
-$GLOBALS['sfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['sfgPartialPath'];
+$GLOBALS['wgExtensionFunctions'][] = function() {
+	$GLOBALS['sfgPartialPath'] = '/extensions/SemanticForms';
+	$GLOBALS['sfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['sfgPartialPath'];
+};
 # #
 
 # ##
