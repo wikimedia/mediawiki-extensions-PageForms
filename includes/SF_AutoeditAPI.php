@@ -20,12 +20,12 @@ class SFAutoeditAPI extends ApiBase {
 	const ACTION_DIFF = 3;
 
 	/**
-	 * Error level used when a non-recoverable error occured.
+	 * Error level used when a non-recoverable error occurred.
 	 */
 	const ERROR = 0;
 
 	/**
-	 * Error level used when a revcoverable error occured.
+	 * Error level used when a revcoverable error occurred.
 	 */
 	const WARNING = 1;
 
