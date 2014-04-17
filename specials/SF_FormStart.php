@@ -164,13 +164,13 @@ END;
 			// identify the latter because they show up as arrays.
 			foreach ( $_REQUEST as $key => $val ) {
 				if ( is_array( $val ) ) {
-					$template_name = urlencode( $key );
-					foreach ( $val as $field_name => $value ) {
-						$field_name = urlencode( $field_name );
-						$value = urlencode( $value );
-						$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
-						$redirect_url .= $template_name . '[' . $field_name . ']=' . $value;
-					}
+					$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
+					// Re-add the key (i.e. the template
+					// name), so we can make a nice query
+					// string snippet out of the whole
+					// thing.
+					$wrapperArray = array( $key => $val );
+					$redirect_url .= urldecode( http_build_query( $wrapperArray ) );
 				} elseif ( $key == 'preload' ) {
 					$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 					$redirect_url .= "$key=$val";
