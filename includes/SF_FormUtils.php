@@ -505,12 +505,14 @@ END;
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
 	 *
+	 * Hooks: ArticlePurge, ArticleSave
+	 *
 	 * @param Page $wikipage
-	 * @return Bool
+	 * @return bool
 	 */
 	public static function purgeCache( Page $wikipage ) {
 		if ( !$wikipage->getTitle()->inNamespace( SF_NS_FORM ) ) {
-			return;
+			return true;
 		}
 
 		$cache = self::getFormCache();
@@ -520,7 +522,7 @@ END;
 		$listOfFormKeys = $cache->get( $cacheKeyForList );
 
 		if ( !is_array( $cacheKeyForList ) ) {
-			return;
+			return true;
 		}
 
 		// delete stored datasets
