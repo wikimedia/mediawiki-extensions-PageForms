@@ -521,7 +521,7 @@ END;
 		// get references to stored datasets
 		$listOfFormKeys = $cache->get( $cacheKeyForList );
 
-		if ( !is_array( $cacheKeyForList ) ) {
+		if ( !is_array( $listOfFormKeys ) ) {
 			return true;
 		}
 
