@@ -1422,48 +1422,48 @@ END;
 				// =====================================================
 				} elseif ( $tag_title == 'section' ) {
 					$section_name = trim( $tag_components[1] );
-					// cycle through the other components
 					$is_mandatory = false;
 					$is_hidden = false;
 					$is_restricted = false;
 					$header_level = 2;
-					$other_args = array ();
+					$other_args = array();
 
+					// cycle through the other components
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 
 						$component = trim( $tag_components[$i] );
 
-						if ( $component == 'mandatory' ) {
+						if ( $component === 'mandatory' ) {
 							$is_mandatory = true;
-						} elseif ( $component == 'hidden' ) {
+						} elseif ( $component === 'hidden' ) {
 							$is_hidden = true;
-						} elseif ( $component == 'restricted' ) {
-							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
-						} elseif ( $component == 'autogrow' ) {
+						} elseif ( $component === 'restricted' ) {
+							$is_restricted = !( $wgUser && $wgUser->isAllowed( 'editrestrictedfields' ) );
+						} elseif ( $component === 'autogrow' ) {
 							$other_args['autogrow'] = true;
 						}
 
 						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
 
-						if ( count( $sub_components ) == 2 ) {
-							if ( trim( $sub_components[0] ) == 'level' ) {
+						if ( count( $sub_components ) === 2 ) {
+							switch ( $sub_components[0] ) {
+							case 'level':
 								$header_level = $sub_components[1];
-							} elseif ( trim( $sub_components[0] ) == 'rows' ) {
-								$other_args['rows'] = $sub_components[1];
-							} elseif ( trim( $sub_components[0] ) == 'cols' ) {
-								$other_args['cols'] = $sub_components[1];
-							} elseif ( trim( $sub_components[0] ) == 'class' ) {
-								$other_args['class'] = $sub_components[1];
-							} elseif ( trim( $sub_components[0] ) == 'editor' ) {
-								$other_args['editor'] = $sub_components[1];
+								break;
+							case 'rows':
+							case 'cols':
+							case 'class':
+							case 'editor':
+								$other_args[$sub_components[0]] = $sub_components[1];
+								break;
+							default:
+								// Ignore unknown
 							}
 						}
 					}
 
-					//display the sections in wikitext on the created page
-					$header_string = "";
-					$header_string .= str_repeat( "=", $header_level );
-
+					// Generate the wikitext for the section header
+					$header_string = str_repeat( "=", $header_level );
 					$header_text = $header_string . $section_name . $header_string . "\n";
 					$data_text .= $header_text;
 
@@ -1510,7 +1510,7 @@ END;
 						if ( $default_value == "" || $default_value == null ) {
 							$data_text .= $default_value . "\n\n";
 						} else {
-							$data_text .= chop( $default_value ) . "\n\n";
+							$data_text .= rtrim( $default_value ) . "\n\n";
 						}
 					}
 
@@ -1663,16 +1663,16 @@ END;
 					$section_num--;
 					$instance_num++;
 				}
-			} else { // if ( $allow_multiple ) {
+			} else {
 				$form_text .= $section;
 			}
 			$curPlaceholder = null;
-//		var_dump($wgParser->getOutput()->getModules());
 		} // end for
 
 		// Cleanup - everything has been browsed.
 		// Remove all the remaining placeholder
 		// tags in the HTML and wiki-text.
+
 		foreach ( $placeholderFields as $stringToReplace ) {
 			// remove the @<replacename>@ tags from the data that is submitted
 			$data_text = preg_replace( '/' . self::makePlaceholderInWikiText( $stringToReplace ) . '/', '', $data_text );
@@ -1856,5 +1856,4 @@ END;
 		}
 		return $text;
 	}
-
 }
