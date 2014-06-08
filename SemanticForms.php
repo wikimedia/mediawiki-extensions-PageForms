@@ -245,9 +245,13 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'sf_bad_number_error',
 			),
 		),
+		'ext.semanticforms.browser' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/jquery.browser.js',
+		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/jquery.fancybox.js',
 			'styles' => 'skins/jquery.fancybox.css',
+			'dependencies' => array( 'ext.semanticforms.browser' ),
 		),
 		'ext.semanticforms.dynatree' => $sfgResourceTemplate + array(
 			'dependencies' => array( 'jquery.ui.widget' ),
@@ -263,7 +267,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.popupformedit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_popupform.js',
 			'styles' => 'skins/SF_popupform.css',
-			'dependencies' => array( 'jquery' ),
+			'dependencies' => array( 'ext.semanticforms.browser' ),
 		),
 		'ext.semanticforms.autoedit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autoedit.js',
