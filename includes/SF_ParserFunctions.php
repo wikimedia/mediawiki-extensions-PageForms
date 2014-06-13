@@ -301,11 +301,12 @@ END;
 			$inputID = 'input_' . $input_num;
 			$formInputAttrs['id'] = $inputID;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
-			if ( $inRemoteAutocompletion ) {
+			global $sfgMaxLocalAutocompleteValues;
+			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
+			if ( count($autocompletion_values) > $sfgMaxLocalAutocompleteValues  || $inRemoteAutocompletion ) {
 				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 				$formInputAttrs['autocompletedatatype'] = $autocompletion_type;
 			} else {
-				$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
 				global $sfgAutocompleteValues;
 				$sfgAutocompleteValues[$inputID] = $autocompletion_values;
 				$formInputAttrs['autocompletesettings'] = $inputID;

@@ -139,5 +139,11 @@
     "right-createclass": "{{doc-right|createclass}}",
     "action-createclass": "{{doc-action|createclass}}",
     "action-editrestrictedfields": "{{doc-action|editrestrictedfields}}",
-    "action-viewedittab": "{{doc-action|viewedittab}}\nRefers to {{msg-mw|Edit}}."
+    "action-viewedittab": "{{doc-action|viewedittab}}\nRefers to {{msg-mw|Edit}}.",
+    "sf-select2-no-matches": "A message that is displayed when nothing is matched in Select2 autocompletion",
+    "sf-select2-searching": "A message that is displayed while search is in progress in Select2 autocompletion",
+    "sf-select2-input-too-short": "A message that is displayed when search string for Select2 autocompletion is smaller than the defined value",
+    "sf-select2-input-too-long": "A message that is displayed when search string for Select2 autocompletion is longer than the defined value",
+    "sf-select2-selection-too-big": "A message that is displayed when the number of selections for a multi-valued input is more than a certain number",
+    "sf-select2-load-more": "A message that is displayed while loaading more results for autocompletion via Select2"
 }

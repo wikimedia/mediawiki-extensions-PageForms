@@ -235,6 +235,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'ext.semanticforms.fancybox',
 				'ext.semanticforms.autogrow',
 				'mediawiki.util',
+				'ext.semanticforms.select2',
 			),
 			'messages' => array(
 				'sf_formerrors_header',
@@ -302,16 +303,43 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
-				'scripts' => 'libs/SF_imagePreview.js',
-			),
+			'scripts' => 'libs/SF_imagePreview.js',
+		),
 		'ext.semanticforms.checkboxes' => $sfgResourceTemplate + array(
-				'scripts' => 'libs/SF_checkboxes.js',
-				'styles' => 'skins/SF_checkboxes.css',
-				'messages' => array(
-					'sf_forminputs_checkboxes_select_all',
-					'sf_forminputs_checkboxes_select_none',
-				),
+			'scripts' => 'libs/SF_checkboxes.js',
+			'styles' => 'skins/SF_checkboxes.css',
+			'messages' => array(
+				'sf_forminputs_checkboxes_select_all',
+				'sf_forminputs_checkboxes_select_none',
 			),
+		),
+		'ext.semanticforms.select2' => $sfgResourceTemplate + array(
+			'scripts' => array(
+				'libs/select2.js',
+				'libs/ext.sf.select2.js',
+			),
+			'styles' => array(
+				'skins/select2/select2.css',
+				'skins/select2/select2-bootstrap.css',
+				'skins/ext.sf.select2.css',
+			),
+			'dependencies' => array(
+				'ext.semanticforms',
+			),
+			'messages' => array(
+				'sf-select2-no-matches',
+				'sf-select2-searching',
+				'sf-select2-input-too-short',
+				'sf-select2-input-too-long',
+				'sf-select2-selection-too-big',
+				'sf-select2-load-more',
+			),
+		),
+		'ext.semanticforms' => $sfgResourceTemplate + array(
+			'scripts' => array(
+				'libs/ext.sf.js',
+			),
+		),
 	);
 }
 
@@ -349,6 +377,12 @@ call_user_func( function ( $langcode ) {
 # slow down the database, and Javascript's completion.
 # ##
 $GLOBALS['sfgMaxAutocompleteValues'] = 1000;
+
+# ##
+# The number of allowed values for local autocomplete - after which
+# it will switch to remote autocompletion.
+# ##
+$GLOBALS['sfgMaxLocalAutocompleteValues'] = 100;
 
 # ##
 # Whether to autocomplete on all characters in a string, not just the

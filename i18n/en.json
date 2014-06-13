@@ -199,5 +199,11 @@
     "right-createclass": "Create new semantic classes",
     "action-createclass": "create new semantic classes",
     "action-editrestrictedfields": "edit restricted form fields",
-    "action-viewedittab": "view the \"{{int:edit}}\" tab for pages editable by form"
+    "action-viewedittab": "view the \"{{int:edit}}\" tab for pages editable by form",
+    "sf-select2-no-matches": "No matches",
+    "sf-select2-searching": "Searching...",
+    "sf-select2-input-too-short": "Please enter $1 or more characters",
+    "sf-select2-input-too-long": "Search input too long",
+    "sf-select2-selection-too-big": "You cannot select any more choices",
+    "sf-select2-load-more": "Loading more results..."
 }

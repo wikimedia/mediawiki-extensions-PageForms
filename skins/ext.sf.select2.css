@@ -1,0 +1,21 @@
+/*Overriding some select2 classes for customization*/
+.sf-select2-dropdown .select2-results .select2-result .select2-result-label .select2-match {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.sf-select2-dropdown .select2-results .select2-highlighted {
+	background-color: #0645ad;
+}
+
+.sf-select2-dropdown .select2-search input {
+	font-size: 14px;
+}
+
+.sf-select2-dropdown .select2-results {
+	font-size: 14px;
+}
+
+.sf-select2-container {
+	margin-bottom: 6px;
+}

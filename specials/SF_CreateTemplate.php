@@ -78,7 +78,7 @@ class SFCreateTemplate extends SpecialPage {
 			if ( $selected_property == $prop_name ) { $optionAttrs['selected'] = 'selected'; }
 			$selectBody .= Html::element( 'option', $optionAttrs, $prop_name ) . "\n";
 		}
-		return Html::rawElement( 'select', array( 'name' => "semantic_property_$id", 'class' => 'sfComboBox' ), $selectBody ) . "\n";
+		return Html::rawElement( 'select', array( 'id' => "semantic_property_$id", 'name' => "semantic_property_$id", 'class' => 'sfComboBox' ), $selectBody ) . "\n";
 	}
 
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
@@ -97,7 +97,7 @@ class SFCreateTemplate extends SpecialPage {
 		$text .= "\t" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</p>\n";
 		$text .= "\t<p>" . '<input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "\n";
 		$text .= '	&#160;&#160;<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
-		
+
 		$text .= <<<END
 </p>
 </div>
@@ -126,6 +126,8 @@ function createTemplateAddField() {
 		jQuery(this).closest(".fieldBox")
 			.fadeOut('fast', function() { jQuery(this).remove(); });
 	});
+	var combobox = new sf.select2.combobox();
+	combobox.apply($(newField.find('.sfComboBox')));
 	jQuery('#fieldsList').append(newField);
 }
 
