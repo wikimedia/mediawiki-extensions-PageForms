@@ -54,6 +54,7 @@ $GLOBALS['wgExtensionCredits'][defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic'
 	'author' => array( 'Yaron Koren', 'Stephan Gambke', '...' ),
 	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Forms',
 	'descriptionmsg' => 'semanticforms-desc',
+	'license-name' => 'GPL-2.0+'
 );
 
 # ##
