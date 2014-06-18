@@ -321,7 +321,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		$text .= "\t<p>" . wfMessage( 'sf-pageschemas-createtitle' )->escaped() . ' ' . Html::input( 'sf_create_title', $createTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 		$text .= "\t<p id=\"sf-edit-title\">" . wfMessage( 'sf-pageschemas-edittitle' )->escaped() . ' ' . Html::input( 'sf_edit_title', $editTitle, 'text', array( 'size' => 25 ) ) . "</p>\n";
 
-		$text .= "Free text label: " . Html::input( 'sf_fi_free_text_label', ( ( empty( $freeTextLabel ) ) ? wfMsgForContent( 'sf_form_freetextlabel' ) : $freeTextLabel ), 'text' ) . "</p><p>";
+		$text .= "Free text label: " . Html::input( 'sf_fi_free_text_label', ( ( empty( $freeTextLabel ) ) ? wfMessage( 'sf_form_freetextlabel' )->inContentLanguage()->text() : $freeTextLabel ), 'text' ) . "</p><p>";
 
 		//Inputs
 		$text .= "<p>Define form buttons and inputs (all will be enabled if none are selected): &nbsp;</p><p>";
@@ -881,7 +881,7 @@ END;
 	}
 
 	public static function getPageSectionDisplayString() {
-		return wfMsg( 'ps-otherparams' );
+		return wfMessage( 'ps-otherparams' )->text();
 	}
 
 	/**
