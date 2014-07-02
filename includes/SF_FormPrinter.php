@@ -595,7 +595,7 @@ END;
 							} elseif ( $sub_components[0] == 'maximum instances' ) {
 								$maximumInstances = $sub_components[1];
 							} elseif ( $sub_components[0] == 'add button text' ) {
-								$add_button_text = $sub_components[1];
+								$add_button_text = $wgParser->recursiveTagParse( $sub_components[1] );
 							} elseif ( $sub_components[0] == 'embed in field' ) {
 								// Placeholder on form template level. Assume that the template form def
 								// will have a multiple+placeholder parameters, and get the placeholder value.
@@ -603,7 +603,7 @@ END;
 								// TemplateName___fieldName form used internally.
 								preg_match( '/\s*(.*)\[(.*)\]\s*/', $sub_components[1], $matches );
 								$curPlaceholder = ( count( $matches ) > 2 ) ? self::placeholderFormat( $matches[1], $matches[2] ) : null;
-								unset ( $matches );
+								unset( $matches );
 							}
 						}
 					}
@@ -1379,7 +1379,7 @@ END;
 						} elseif ( count( $sub_components ) == 2 ) {
 							switch( $sub_components[0] ) {
 							case 'label':
-								$input_label = $sub_components[1];
+								$input_label = $wgParser->recursiveTagParse( $sub_components[1] );
 								break;
 							case 'class':
 							case 'style':
