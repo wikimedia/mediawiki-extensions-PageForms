@@ -1749,7 +1749,7 @@ END;
 			if ( $is_query )
 				$form_text .= SFFormUtils::queryFormBottom( $form_is_disabled );
 			else
-				$form_text .= SFFormUtils::formBottom( $form_is_disabled );
+				$form_text .= SFFormUtils::formBottom( $form_submitted, $form_is_disabled );
 		}
 
 

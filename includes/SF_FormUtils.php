@@ -282,7 +282,7 @@ END;
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()
-	static function formBottom( $is_disabled ) {
+	static function formBottom( $form_submitted, $is_disabled ) {
 		global $wgUser;
 
 		$summary_text = SFFormUtils::summaryInputHTML( $is_disabled );
@@ -293,11 +293,11 @@ $summary_text	<br />
 
 END;
 		if ( $wgUser->isAllowed( 'minoredit' ) ) {
-			$text .= SFFormUtils::minorEditInputHTML( $is_disabled );
+			$text .= SFFormUtils::minorEditInputHTML( $form_submitted, $is_disabled, false );
 		}
 
 		if ( $wgUser->isLoggedIn() ) {
-			$text .= SFFormUtils::watchInputHTML( $is_disabled );
+			$text .= SFFormUtils::watchInputHTML( $form_submitted, $is_disabled );
 		}
 
 		$text .= <<<END
