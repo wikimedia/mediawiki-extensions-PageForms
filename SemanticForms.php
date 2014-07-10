@@ -325,6 +325,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 			'dependencies' => array(
 				'ext.semanticforms',
+				'mediawiki.jqueryMsg',
 			),
 			'messages' => array(
 				'sf-select2-no-matches',
