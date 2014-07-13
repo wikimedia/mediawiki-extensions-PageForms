@@ -48,6 +48,7 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFTreeInput' );
 		$this->registerInputType( 'SFCategoryInput' );
 		$this->registerInputType( 'SFCategoriesInput' );
+		$this->registerInputType( 'SFTokensInput' );
 
 		// All-purpose setup hook.
 		wfRunHooks( 'sfFormPrinterSetup', array( $this ) );
