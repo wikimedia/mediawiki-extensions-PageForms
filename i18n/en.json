@@ -75,6 +75,7 @@
     "sf_forminputs_width": "The width of this input, in pixels",
     "sf_forminputs_checkboxes_select_all": "Select all",
     "sf_forminputs_checkboxes_select_none": "Select none",
+    "sf_forminputs_maxvalues": "Maximum number of values allowed for a field that holds multiple values",
     "createform": "Create a form",
     "sf-createform-with-name": "Create form: $1",
     "sf_createform_nameinput": "Form name",

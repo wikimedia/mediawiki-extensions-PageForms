@@ -900,20 +900,36 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 	nameAttr = partOfMultiple ? 'origName' : 'name';
 	name = jQuery(this).attr(nameAttr);
 	var sfgDependentFields = mw.config.get( 'sfgDependentFields' );
+	dependent_on_me = [];
 	for ( var i = 0; i < sfgDependentFields.length; i++ ) {
-		dependentFieldPair = sfgDependentFields[i];
+		var dependentFieldPair = sfgDependentFields[i];
 		if ( dependentFieldPair[0] == name ) {
-			dependentField = dependentFieldPair[1];
-			if ( partOfMultiple ) {
-				jQuery(this).closest(".multipleTemplateInstance")
-					.find('[origName="' + dependentField + '"]')
-					.setDependentAutocompletion(dependentField, name, curValue);
-			} else {
-				jQuery('[name="' + dependentField + '"]')
-					.setDependentAutocompletion(dependentField, name, curValue);
-			}
+			dependent_on_me.push(dependentFieldPair[1]);
 		}
 	}
+	dependent_on_me = jQuery.unique(dependent_on_me);
+
+	var self = this;
+	jQuery.each( dependent_on_me, function() {
+		dependentField = this;
+		if ( partOfMultiple ) {
+			var dependent_field_element = jQuery(self).closest(".multipleTemplateInstance")
+				.find('[origName="' + dependentField + '"]');
+		} else {
+			var dependent_field_element = jQuery('[name="' + dependentField + '"]');
+		}
+		var class_name = $(dependent_field_element).attr( 'class' );
+		if ( class_name.indexOf( 'sfComboBox' ) != -1 ) {
+			var cmbox = new sf.select2.combobox();
+			cmbox.refresh(dependent_field_element);
+		} else  if ( class_name.indexOf( 'sfTokens' ) != -1 ) {
+			var tokens = new sf.select2.tokens();
+			tokens.refresh(dependent_field_element);
+		} else {
+			dependent_field_element.setDependentAutocompletion(dependentField, name, curValue);
+		}
+	});
+
 
 	return this;
 };
@@ -982,6 +998,11 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 	var combobox = new sf.select2.combobox();
 	this.find('.sfComboBox').not('#semantic_property_starter, .multipleTemplateStarter .sfComboBox, .select2-container').each( function() {
 		combobox.apply($(this));
+	});
+
+	var tokens = new sf.select2.tokens();
+	this.find('.sfTokens').not('.multipleTemplateStarter .sfTokens, .select2-container').each( function() {
+		tokens.apply($(this));
 	});
 
 	this.find('.autoGrow').autoGrow();

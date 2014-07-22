@@ -194,6 +194,7 @@ $GLOBALS['wgAutoloadClasses']['SFYearInput'] = __DIR__ . '/includes/forminputs/S
 $GLOBALS['wgAutoloadClasses']['SFTreeInput'] = __DIR__ . '/includes/forminputs/SF_TreeInput.php';
 $GLOBALS['wgAutoloadClasses']['SFCategoryInput'] = __DIR__ . '/includes/forminputs/SF_CategoryInput.php';
 $GLOBALS['wgAutoloadClasses']['SFCategoriesInput'] = __DIR__ . '/includes/forminputs/SF_CategoriesInput.php';
+$GLOBALS['wgAutoloadClasses']['SFTokensInput'] = __DIR__ . '/includes/forminputs/SF_TokensInput.php';
 
 $GLOBALS['wgJobClasses']['createPage'] = 'SFCreatePageJob';
 $GLOBALS['wgAutoloadClasses']['SFCreatePageJob'] = __DIR__ . '/includes/SF_CreatePageJob.php';
@@ -316,7 +317,9 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.select2' => $sfgResourceTemplate + array(
 			'scripts' => array(
 				'libs/select2.js',
-				'libs/ext.sf.select2.js',
+				'libs/ext.sf.select2.base.js',
+				'libs/ext.sf.select2.combobox.js',
+				'libs/ext.sf.select2.tokens.js',
 			),
 			'styles' => array(
 				'skins/select2/select2.css',
@@ -331,9 +334,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'sf-select2-no-matches',
 				'sf-select2-searching',
 				'sf-select2-input-too-short',
-				'sf-select2-input-too-long',
 				'sf-select2-selection-too-big',
-				'sf-select2-load-more',
 			),
 		),
 		'ext.semanticforms' => $sfgResourceTemplate + array(
@@ -503,3 +504,4 @@ $GLOBALS['sfgCheckboxesSelectAllMinimum'] = 10;
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
+
