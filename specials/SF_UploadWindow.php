@@ -20,11 +20,8 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * @param WebRequest $request Data posted.
 	 */
 	public function __construct( $request = null ) {
-		global $wgRequest;
-
 		parent::__construct( 'UploadWindow', 'upload' );
-
-		$this->loadRequest( is_null( $request ) ? $wgRequest : $request );
+		$this->loadRequest( is_null( $request ) ? $this->getRequest() : $request );
 	}
 
 	/** Misc variables **/
@@ -63,8 +60,6 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * @param WebRequest $request The request to extract variables from
 	 */
 	protected function loadRequest( $request ) {
-		global $wgUser;
-
 		$this->mRequest = $request;
 		$this->mSourceType	= $request->getVal( 'wpSourceType', 'file' );
 		$this->mUpload	    = UploadBase::createFromRequest( $request );
@@ -100,7 +95,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 			// with their submissions, as that was new in 1.16.
 			$this->mTokenOk = true;
 		} else {
-			$this->mTokenOk = $wgUser->matchEditToken( $token );
+			$this->mTokenOk = $this->getUser()->matchEditToken( $token );
 		}
 		$this->mInputID	   = $request->getText( 'sfInputID' );
 		$this->mDelimiter	 = $request->getText( 'sfDelimiter' );
@@ -112,50 +107,39 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * Special page entry point
 	 */
 	public function execute( $par ) {
-		global $wgUser, $wgOut;
-		// Disable $wgOut - we'll print out the page manually, taking
-		// the body created by the form, plus the necessary Javascript
-		// files, and turning them into an HTML page.
-		$wgOut->disable();
+		// Only output the body of the page.
+		$this->getOutput()->setArticleBodyOnly( true );
 		// This line is needed to get around Squid caching.
-		$wgOut->sendCacheControl();
+		$this->getOutput()->sendCacheControl();
 
 		$this->setHeaders();
 		$this->outputHeader();
 
 		# Check uploading enabled
 		if ( !UploadBase::isEnabled() ) {
-			$wgOut->showErrorPage( 'uploaddisabled', 'uploaddisabledtext' );
-			print $wgOut->getHTML();
-			return;
+			throw new ErrorPageError( 'uploaddisabled', 'uploaddisabledtext' );
 		}
 
 		# Check permissions
 		global $wgGroupPermissions;
-		if ( !$wgUser->isAllowed( 'upload' ) ) {
-			if ( !$wgUser->isLoggedIn() && ( $wgGroupPermissions['user']['upload']
+		if ( !$this->getUser()->isAllowed( 'upload' ) ) {
+			if ( !$this->getUser()->isLoggedIn() && ( $wgGroupPermissions['user']['upload']
 				|| $wgGroupPermissions['autoconfirmed']['upload'] ) ) {
 				// Custom message if logged-in users without any special rights can upload
-				$wgOut->showErrorPage( 'uploadnologin', 'uploadnologintext' );
+				throw new ErrorPageError( 'uploadnologin', 'uploadnologintext' );
 			} else {
-				$wgOut->permissionRequired( 'upload' );
+				throw new PermissionsError( 'upload' );
 			}
-			print $wgOut->getHTML();
-			return;
 		}
 
 		# Check blocks
-		if ( $wgUser->isBlocked() ) {
-			$wgOut->blockedPage();
-			print $wgOut->getHTML();
-			return;
+		if ( $this->getUser()->isBlocked() ) {
+			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 
 		# Check whether we actually want to allow changing stuff
 		if ( wfReadOnly() ) {
-			$wgOut->readOnlyPage();
-			print $wgOut->getHTML();
-			return;
+			throw new ReadOnlyError();
 		}
 
 		# Unsave the temporary file in case this was a cancelled upload
@@ -207,8 +191,6 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * @return UploadForm
 	 */
 	protected function getUploadForm( $message = '', $sessionKey = '', $hideIgnoreWarning = false ) {
-		global $wgOut;
-		
 		# Initialize form
 		$form = new SFUploadForm( array(
 			'watch' => $this->watchCheck(),
@@ -235,7 +217,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		if ( !wfMessage( 'uploadfooter' )->isDisabled() ) {
 			$uploadFooter = wfMessage( 'uploadfooter' )->plain();
 			$form->addPostText( '<div id="mw-upload-footer-message">'
-				. $wgOut->parse( $uploadFooter ) . "</div>\n" );
+				. $this->getOutput()->parse( $uploadFooter ) . "</div>\n" );
 		}
 
 		return $form;
@@ -245,23 +227,22 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * Shows the "view X deleted revivions link""
 	 */
 	protected function showViewDeletedLinks() {
-		global $wgOut, $wgUser;
-
 		$title = Title::makeTitleSafe( NS_FILE, $this->mDesiredDestName );
 		// Show a subtitle link to deleted revisions (to sysops et al only)
-		if ( $title instanceof Title && ( $count = $title->isDeleted() ) > 0 && $wgUser->isAllowed( 'deletedhistory' ) ) {
-			$link = wfMessage( $wgUser->isAllowed( 'delete' ) ? 'thisisdeleted' : 'viewdeleted' )
-				->rawParams( $wgUser->getSkin()->linkKnown(
+		if ( $title instanceof Title && ( $count = $title->isDeleted() ) > 0
+			&& $this->getUser()->isAllowed( 'deletedhistory' ) ) {
+			$link = wfMessage( $this->getUser()->isAllowed( 'delete' ) ? 'thisisdeleted' : 'viewdeleted' )
+				->rawParams( $this->getSkin()->linkKnown(
 					SpecialPage::getTitleFor( 'Undelete', $title->getPrefixedText() ),
 					wfMessage( 'restorelink' )->numParams( $count )->escaped()
 				)
 			)->parse();
-			$wgOut->addHTML( "<div id=\"contentSub2\">{$link}</div>" );
+			$this->getOutput()->addHTML( "<div id=\"contentSub2\">{$link}</div>" );
 		}
 
 		// Show the relevant lines from deletion log (for still deleted files only)
 		if ( $title instanceof Title && $title->isDeletedQuick() && !$title->exists() ) {
-			$this->showDeletionLog( $wgOut, $title->getPrefixedText() );
+			$this->showDeletionLog( $this->getOutput(), $title->getPrefixedText() );
 		}
 	}
 
@@ -342,17 +323,15 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * Checks are made in SpecialUpload::execute()
 	 */
 	protected function processUpload() {
-		global $wgUser, $wgOut;
-
 		// Verify permissions
-		$permErrors = $this->mUpload->verifyPermissions( $wgUser );
+		$permErrors = $this->mUpload->verifyPermissions( $this->getUser() );
 		if ( $permErrors !== true )
-			return $wgOut->showPermissionsErrorPage( $permErrors );
+			return $this->getOutput()->showPermissionsErrorPage( $permErrors );
 
 		// Fetch the file if required
 		$status = $this->mUpload->fetchFile();
 		if ( !$status->isOK() )
-			return $this->showUploadForm( $this->getUploadForm( $wgOut->parse( $status->getWikiText() ) ) );
+			return $this->showUploadForm( $this->getUploadForm( $this->getOutput()->parse( $status->getWikiText() ) ) );
 
 		if( !wfRunHooks( 'UploadForm:BeforeProcessing', array( &$this ) ) ) {
 			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
@@ -385,11 +364,11 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		} else {
 			$pageText = false;
 		}
-		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchthis, $wgUser );
+		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchthis, $this->getUser() );
 		if ( !$status->isGood() )
-			return $this->uploadError( $wgOut->parse( $status->getWikiText() ) );
+			return $this->uploadError( $this->getOutput()->parse( $status->getWikiText() ) );
 
-		// $wgOut->redirect( $this->mLocalFile->getTitle()->getFullURL() );
+		// $this->getOutput()->redirect( $this->mLocalFile->getTitle()->getFullURL() );
 		// Semantic Forms change - output Javascript to either
 		// fill in or append to the field in original form, and
 		// close the window
@@ -447,7 +426,7 @@ END;
 	</script>
 
 END;
-		// $wgOut->addHTML( $output );
+		// $this->getOutput()->addHTML( $output );
 		print $output;
 		$img = null; // @todo: added to avoid passing a ref to null - should this be defined somewhere?
 
@@ -492,8 +471,7 @@ END;
 	 * state can get out of sync.
 	 */
 	protected function watchCheck() {
-		global $wgUser;
-		if ( $wgUser->getOption( 'watchdefault' ) ) {
+		if ( $this->getUser()->getOption( 'watchdefault' ) ) {
 			// Watch all edits!
 			return true;
 		}
@@ -505,7 +483,7 @@ END;
 			return $local->getTitle()->userIsWatching();
 		} else {
 			// New page should get watched if that's our option.
-			return $wgUser->getOption( 'watchcreations' );
+			return $this->getUser()->getOption( 'watchcreations' );
 		}
 	}
 
@@ -516,7 +494,7 @@ END;
 	 * @param array $details Result of UploadBase::verifyUpload
 	 */
 	protected function processVerificationError( $details ) {
-		global $wgFileExtensions, $wgLang;
+		global $wgFileExtensions;
 
 		switch( $details['status'] ) {
 
@@ -571,12 +549,11 @@ END;
 	 * @return success
 	 */
 	protected function unsaveUploadedFile() {
-		global $wgOut;
 		if ( !( $this->mUpload instanceof UploadFromStash ) )
 			return true;
 		$success = $this->mUpload->unsaveUploadedFile();
 		if ( ! $success ) {
-			$wgOut->showFileDeleteError( $this->mUpload->getTempPath() );
+			$this->getOutput()->showFileDeleteError( $this->mUpload->getTempPath() );
 			return false;
 		} else {
 			return true;
@@ -762,8 +739,6 @@ class SFUploadForm extends HTMLForm {
 	 * @return array Descriptor array
 	 */
 	protected function getSourceSection() {
-		global $wgLang, $wgUser, $wgRequest;
-
 		if ( $this->mSessionKey ) {
 			return array(
 				'wpSessionKey' => array(
@@ -777,9 +752,9 @@ class SFUploadForm extends HTMLForm {
 			);
 		}
 
-		$canUploadByUrl = UploadFromUrl::isEnabled() && $wgUser->isAllowed( 'upload_by_url' );
+		$canUploadByUrl = UploadFromUrl::isEnabled() && $this->getUser()->isAllowed( 'upload_by_url' );
 		$radio = $canUploadByUrl;
-		$selectedSourceType = strtolower( $wgRequest->getText( 'wpSourceType', 'File' ) );
+		$selectedSourceType = strtolower( $this->getRequest()->getText( 'wpSourceType', 'File' ) );
 
 		$descriptor = array();
 
@@ -801,7 +776,7 @@ class SFUploadForm extends HTMLForm {
 				'upload-type' => 'File',
 				'radio' => &$radio,
 				'help' => wfMessage( 'upload-maxfilesize',
-						$wgLang->formatSize(
+						$this->getLanguage()->formatSize(
 							wfShorthandToInteger( ini_get( 'upload_max_filesize' ) )
 						)
 					)->parse() . ' ' . wfMessage( 'upload_source_file' )->escaped(),
@@ -817,7 +792,7 @@ class SFUploadForm extends HTMLForm {
 				'upload-type' => 'Url',
 				'radio' => &$radio,
 				'help' => wfMessage( 'upload-maxfilesize',
-						$wgLang->formatSize( $wgMaxUploadSize )
+						$this->getLanguage()->formatSize( $wgMaxUploadSize )
 					)->parse() . ' ' . wfMessage( 'upload_source_url' )->escaped(),
 				'checked' => $selectedSourceType == 'url',
 			);
@@ -842,7 +817,7 @@ class SFUploadForm extends HTMLForm {
 	protected function getExtensionsMessage() {
 		# Print a list of allowed file extensions, if so configured.  We ignore
 		# MIME type here, it's incomprehensible to most people and too long.
-		global $wgLang, $wgCheckFileExtensions, $wgStrictFileExtensions,
+		global $wgCheckFileExtensions, $wgStrictFileExtensions,
 		$wgFileExtensions, $wgFileBlacklist;
 
 		if ( $wgCheckFileExtensions ) {
@@ -850,16 +825,16 @@ class SFUploadForm extends HTMLForm {
 				# Everything not permitted is banned
 				$extensionsList =
 					'<div id="mw-upload-permitted">' .
-						wfMessage( 'upload-permitted', $wgLang->commaList( $wgFileExtensions ) )->parse() .
+						wfMessage( 'upload-permitted', $this->getLanguage()->commaList( $wgFileExtensions ) )->parse() .
 					"</div>\n";
 			} else {
 				# We have to list both preferred and prohibited
 				$extensionsList =
 					'<div id="mw-upload-preferred">' .
-						wfMessage( 'upload-preferred', $wgLang->commaList( $wgFileExtensions ) )->parse() .
+						wfMessage( 'upload-preferred', $this->getLanguage()->commaList( $wgFileExtensions ) )->parse() .
 					"</div>\n" .
 					'<div id="mw-upload-prohibited">' .
-						wfMessage( 'upload-prohibited', $wgLang->commaList( $wgFileBlacklist ) )->parse() .
+						wfMessage( 'upload-prohibited', $this->getLanguage()->commaList( $wgFileBlacklist ) )->parse() .
 					"</div>\n";
 			}
 		} else {
@@ -876,11 +851,9 @@ class SFUploadForm extends HTMLForm {
 	 * @return array Descriptor array
 	 */
 	protected function getDescriptionSection() {
-		global $wgUser, $wgOut;
-
-		$cols = intval( $wgUser->getOption( 'cols' ) );
-		if ( $wgUser->getOption( 'editwidth' ) ) {
-			$wgOut->addInlineStyle( '#mw-htmlform-description { width: 100%; }' );
+		$cols = intval( $this->getUser()->getOption( 'cols' ) );
+		if ( $this->getUser()->getOption( 'editwidth' ) ) {
+			$this->getOutput()->addInlineStyle( '#mw-htmlform-description { width: 100%; }' );
 		}
 
 		$descriptor = array(
@@ -987,26 +960,25 @@ class SFUploadForm extends HTMLForm {
 	public function show() {
 		$this->addUploadJS();
 		parent::show();
-		// disable $wgOut - we'll print out the page manually,
+		// disable output - we'll print out the page manually,
 		// taking the body created by the form, plus the necessary
 		// Javascript files, and turning them into an HTML page
-		global $wgOut, $wgTitle, $wgLanguageCode,
+		global $wgTitle, $wgLanguageCode,
 		$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
 
-		$wgOut->disable();
+		$this->getOutput()->disable();
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
-		$wgOut->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
+		$this->getOutput()->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
 		if ( method_exists( 'Skin', 'setupUserCss' ) ) {
 			// MW 1.18
-			global $wgUser;
-			$sk = $wgUser->getSkin();
-			$head_scripts = $wgOut->getHeadScripts( $sk );
-			$body_scripts = $wgOut->getBottomScripts( $sk );
+			$sk = $this->getUser()->getSkin();
+			$head_scripts = $this->getOutput()->getHeadScripts( $sk );
+			$body_scripts = $this->getOutput()->getBottomScripts( $sk );
 		} else {
 			// MW 1.19+
-			$head_scripts = $wgOut->getHeadScripts();
-			$body_scripts = $wgOut->getBottomScripts();
+			$head_scripts = $this->getOutput()->getHeadScripts();
+			$body_scripts = $this->getOutput()->getBottomScripts();
 		}
 
 		$text = <<<END
@@ -1026,7 +998,7 @@ END;
 $head_scripts
 </head>
 <body>
-{$wgOut->getHTML()}
+{$this->getOutput()->getHTML()}
 $body_scripts
 </body>
 </html>
@@ -1037,7 +1009,7 @@ END;
 	}
 
 	/**
-	 * Add upload JS to $wgOut
+	 * Add upload JS to OutputPage
 	 * 
 	 * @param bool $autofill Whether or not to autofill the destination
 	 * 	filename text box
@@ -1045,7 +1017,6 @@ END;
 	protected function addUploadJS( $autofill = true ) {
 		global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
 		global $wgStrictFileExtensions;
-		global $wgOut;
 
 		$scriptVars = array(
 			'wgAjaxUploadDestCheck' => $wgUseAjax && $wgAjaxUploadDestCheck,
@@ -1059,7 +1030,7 @@ END;
 			'wgCapitalizeUploads' => MWNamespace::isCapitalized( NS_FILE ),
 		);
 
-		$wgOut->addScript( Skin::makeVariablesScript( $scriptVars ) );
+		$this->getOutput()->addScript( Skin::makeVariablesScript( $scriptVars ) );
 	}
 
 	/**
