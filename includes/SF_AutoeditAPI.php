@@ -426,11 +426,7 @@ class SFAutoeditAPI extends ApiBase {
 
 	protected function doStore( EditPage $editor ) {
 
-		if ( method_exists( $editor, 'getTitle' ) ) {
-			$title = $editor->getTitle();
-		} else { // TODO: remove else branch when raising supported version to MW 1.19
-			$title = $editor->mTitle;
-		}
+		$title = $editor->getTitle();
 
 		// If they used redlink=1 and the page exists, redirect to the main article and send notice
 		if ( $this->getRequest()->getBool( 'redlink' ) && $title->exists() ) {
@@ -1182,31 +1178,5 @@ END;
 		global $sfgIP;
 		$gitSha1 = SpecialVersion::getGitHeadSha1( $sfgIP );
 		return __CLASS__ . '-' . SF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
-	}
-
-	/**
-	 * Available in parent class since MW 1.19
-	 * @deprecated
-	 */
-	public function getRequest() {
-		if ( is_callable( 'parent::getRequest' ) ) {
-			return parent::getRequest();
-		} else {
-			global $wgRequest;
-			return $wgRequest;
-		}
-	}
-
-	/**
-	 * Available in ApiBase since MW 1.19
-	 * @deprecated
-	 */
-	public function getLanguage() {
-		if ( is_callable( 'parent::getLanguage' ) ) {
-			return parent::getLanguage();
-		} else {
-			global $wgLang;
-			return $wgLang;
-		}
 	}
 }

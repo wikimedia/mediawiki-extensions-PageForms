@@ -694,7 +694,7 @@ window.validateAll = function () {
 	if (num_errors > 0) {
 		// add error header, if it's not there already
 		if (jQuery("#form_error_header").size() == 0) {
-			jQuery("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'sfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'sf_formerrors_header' ).escaped() + '</div><br clear="both" />');
+			jQuery("#mw-content-text").prepend('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'sfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'sf_formerrors_header' ).escaped() + '</div><br clear="both" />');
 		}
 		scroll(0, 0);
 	} else {
@@ -706,7 +706,7 @@ window.validateAll = function () {
 		.attr('disabled', 'disabled')
 		.addClass('disabledBySF');
 		//remove error box if it exists because there are no errors in the form now
-		jQuery("#contentSub").find(".errorbox").remove();
+		jQuery("#mw-content-text").find(".errorbox").remove();
 	}
 	return (num_errors == 0);
 };

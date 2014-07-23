@@ -272,9 +272,7 @@ END;
 		$text .= "\t</fieldset>\n";
 		$text .= self::printTemplateStyleInput( 'template_format' );
 
-		if ( method_exists( 'User', 'getEditToken' ) ) {
-			$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateTemplate' ) ) . "\n";
-		}
+		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateTemplate' ) ) . "\n";
 
 		$save_button_text = wfMessage( 'savearticle' )->escaped();
 		$preview_button_text = wfMessage( 'preview' )->escaped();

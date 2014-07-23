@@ -970,16 +970,6 @@ class SFUploadForm extends HTMLForm {
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
 		$this->getOutput()->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
-		if ( method_exists( 'Skin', 'setupUserCss' ) ) {
-			// MW 1.18
-			$sk = $this->getUser()->getSkin();
-			$head_scripts = $this->getOutput()->getHeadScripts( $sk );
-			$body_scripts = $this->getOutput()->getBottomScripts( $sk );
-		} else {
-			// MW 1.19+
-			$head_scripts = $this->getOutput()->getHeadScripts();
-			$body_scripts = $this->getOutput()->getBottomScripts();
-		}
 
 		$text = <<<END
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -995,11 +985,11 @@ END;
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-$head_scripts
+{$this->getOutput()->getHeadScripts()}
 </head>
 <body>
 {$this->getOutput()->getHTML()}
-$body_scripts
+{$this->getOutput()->getBottomScripts()}
 </body>
 </html>
 

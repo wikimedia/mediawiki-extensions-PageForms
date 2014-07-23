@@ -237,12 +237,7 @@ END;
 		$form_body .= Html::hidden( 'wpStarttime', $start_time );
 		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
 
-		if ( method_exists( $wgUser, 'getEditToken' ) ) {
-			$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->getEditToken() : EDIT_TOKEN_SUFFIX );
-		} else {
-			// TODO: editToken() is deprecated since 1.19 and removed in 1.24. Remove the else-branch once SF drops MW 1.18 support.
-			$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX );
-		}
+		$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->getEditToken() : EDIT_TOKEN_SUFFIX );
 		$form_body .= Html::hidden( $action, null );
 
 		if ( $is_minor_edit ) {

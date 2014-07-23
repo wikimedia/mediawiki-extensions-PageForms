@@ -1759,12 +1759,7 @@ END;
 			$article = new Article( $this->mPageTitle, 0 );
 			$form_text .= Html::hidden( 'wpEdittime', $article->getTimestamp() );
 
-			if ( method_exists( $wgUser, 'getEditToken' ) ) {
-				$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
-			} else {
-				// TODO: editToken() is deprecated since 1.19. Remove the else-branch once SF drops MW 1.18 support.
-				$form_text .= Html::hidden( 'wpEditToken', $wgUser->editToken() );
-			}
+			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
 		}
 
 		$form_text .= "\t</form>\n";

@@ -61,15 +61,12 @@ class SFCreateCategory extends SpecialPage {
 		$save_page = $wgRequest->getCheck( 'wpSave' );
 		$preview_page = $wgRequest->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
-			// Guard against cross-site request forgeries (CSRF),
-			// for MW >= 1.19.
-			if ( method_exists( 'User', 'getEditToken' ) ) {
-				$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateCategory' );
-				if ( !$validToken ) {
-					$text = "This appears to be a cross-site request forgery; canceling save.";
-					$wgOut->addHTML( $text );
-					return;
-				}
+			// Guard against cross-site request forgeries (CSRF).
+			$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateCategory' );
+			if ( !$validToken ) {
+				$text = "This appears to be a cross-site request forgery; canceling save.";
+				$wgOut->addHTML( $text );
+				return;
 			}
 			// Validate category name
 			if ( $category_name === '' ) {
@@ -123,9 +120,7 @@ class SFCreateCategory extends SpecialPage {
 		$secondRow .= Html::rawElement( 'select', array( 'id' => 'category_dropdown', 'name' => 'parent_category' ), $selectBody );
 		$text .= Html::rawElement( 'p', null, $secondRow ) . "\n";
 
-		if ( method_exists( 'User', 'getEditToken' ) ) {
-			$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateCategory' ) ) . "\n";
-		}
+		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateCategory' ) ) . "\n";
 
 		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', array( 'id' => 'wpSave' ) ) . "\n";
 		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', array( 'id' => 'wpPreview' ) ) . "\n";
