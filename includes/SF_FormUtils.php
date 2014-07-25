@@ -15,6 +15,7 @@ class SFFormUtils {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 		global $sfgFieldProperties, $sfgDependentFields;
 		global $sfgShowOnSelect, $sfgScriptPath;
+		global $edgValues, $sfgEDSettings;
 //		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
 
 		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
@@ -23,6 +24,8 @@ class SFFormUtils {
 		$vars['sfgDependentFields'] = $sfgDependentFields;
 		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
 		$vars['sfgScriptPath'] = $sfgScriptPath;
+		$vars['edgValues'] = $edgValues;
+		$vars['sfgEDSettings'] = $sfgEDSettings;
 //		$vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
 //		$vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
 
