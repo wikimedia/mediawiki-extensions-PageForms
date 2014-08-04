@@ -67,7 +67,6 @@
 			opts.ajax = this.getAjaxOpts();
 			opts.minimumInputLength = 1;
 			opts.formatInputTooShort = "";
-			opts.formatResult = this.formatResult;
 			opts.formatSelection = this.formatSelection;
 			opts.escapeMarkup = function (m) { return m; };
 		} else if ( input_tagname == "INPUT" ) {
@@ -76,15 +75,16 @@
 		var sfgAutocompleteOnAllChars = mw.config.get( 'sfgAutocompleteOnAllChars' );
 		if ( !sfgAutocompleteOnAllChars ) {
 			opts.matcher = function( term, text ) {
-				var position = text.toUpperCase().indexOf(term.toUpperCase());
-				var position_with_space = text.toUpperCase().indexOf(" " + term.toUpperCase());
+				var no_diac_text = sf.select2.base.prototype.removeDiacritics( text );
+				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
+				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
 				if ( (position != -1 && position == 0 ) ||  position_with_space != -1 )
 					return true;
 				else
 					return false;
 			};
-			opts.formatResult = this.formatResult;
 		}
+		opts.formatResult = this.formatResult;
 		opts.formatSearching = mw.msg( "sf-select2-searching" );
 		opts.formatNoMatches = "";
 		opts.placeholder = $(input_id).attr( "placeholder" );
@@ -134,21 +134,62 @@
 	 *
 	 */
 	tokens_proto.getData = function( autocompletesettings ) {
+		var input_id = "#" + this.id;
 		var values = [];
 		var dep_on = this.dependentOn();
 		if ( dep_on == null ) {
-			var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
-			var data = sfgAutocompleteValues[autocompletesettings];
-			var i = 0;
-			//Convert data into the format accepted by Select2
-			if (data != undefined) {
-				data.forEach(function()
-				{
-				    values.push({
-				        id: i, text: data[i]
-				    });
-				    i++;
-				});
+			if ( autocompletesettings == 'external data' ) {
+				var name = $(input_id).attr(this.nameAttr($(input_id)));
+				var sfgEDSettings = mw.config.get( 'sfgEDSettings' );
+				var edgValues = mw.config.get( 'edgValues' );
+				var data = {};
+				if ( sfgEDSettings[name].title != undefined && sfgEDSettings[name].title != "" ) {
+					data.title = edgValues[sfgEDSettings[name].title];
+					i = 0;
+					if ( data.title != undefined ) {
+						data.title.forEach(function() {
+							values.push({
+						        id: i + 1, text: data.title[i]
+						    });
+						    i++;
+						});
+					}
+					if ( sfgEDSettings[name].image != undefined && sfgEDSettings[name].image != "" ) {
+						data.image = edgValues[sfgEDSettings[name].image];
+						i = 0;
+						if ( data.image != undefined ) {
+							data.image.forEach(function() {
+								values[i].image = data.image[i];
+								i++;
+							});
+						}
+					}
+					if ( sfgEDSettings[name].description != undefined && sfgEDSettings[name].description != "" ) {
+						data.description = edgValues[sfgEDSettings[name].description];
+						i = 0;
+						if ( data.description != undefined ) {
+							data.description.forEach(function() {
+								values[i].description = data.description[i];
+								i++;
+							});
+						}
+					}
+				}
+
+			} else {
+				var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
+				var data = sfgAutocompleteValues[autocompletesettings];
+				var i = 0;
+				//Convert data into the format accepted by Select2
+				if (data != undefined) {
+					data.forEach(function()
+					{
+					    values.push({
+					        id: i, text: data[i]
+					    });
+					    i++;
+					});
+				}
 			}
 		} else { //Dependent field autocompletion
 			var dep_field_opts = this.getDependentFieldOpts( dep_on );

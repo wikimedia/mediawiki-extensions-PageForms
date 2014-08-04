@@ -47,10 +47,31 @@ class SFTokensInput extends SFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $sfgTabIndex, $sfgFieldNum;
+		global $sfgTabIndex, $sfgFieldNum, $sfgEDSettings;
 
 		$other_args['is_list'] = true;
-		list( $autocompleteSettings, $remoteDataType, $delimiter ) = SFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
+
+		if ( array_key_exists( 'values from external data', $other_args ) ) {
+			$autocompleteSettings = 'external data';
+			$remoteDataType = null;
+			if ( array_key_exists( 'origName', $other_args ) ) {
+				$name = $other_args['origName'];
+			} else {
+				$name = $input_name;
+			}
+			$sfgEDSettings[$name] = array();
+			if ( $other_args['values from external data'] != null ) {
+				$sfgEDSettings[$name]['title'] = $other_args['values from external data'];
+			}
+			if ( array_key_exists( 'image', $other_args ) ) {
+				$sfgEDSettings[$name]['image'] = $other_args['image'];
+			}
+			if ( array_key_exists( 'description', $other_args ) ) {
+				$sfgEDSettings[$name]['description'] = $other_args['description'];
+			}
+		} else {
+			list( $autocompleteSettings, $remoteDataType, $delimiter ) = SFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
+		}
 
 		$className = 'sfTokens ';
 		$className .= ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';

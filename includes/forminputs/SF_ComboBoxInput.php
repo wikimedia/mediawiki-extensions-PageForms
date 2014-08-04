@@ -28,7 +28,7 @@ class SFComboBoxInput extends SFFormInput {
 			return SFTextInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 		}
 
-		global $sfgTabIndex, $sfgFieldNum;
+		global $sfgTabIndex, $sfgFieldNum, $sfgEDSettings;
 
 		$className = 'sfComboBox';
 		if ( $is_mandatory ) {
@@ -43,8 +43,44 @@ class SFComboBoxInput extends SFFormInput {
 		} else {
 			$size = '35';
 		}
-
-		list( $autocompleteSettings, $remoteDataType ) = self::setAutocompleteValues( $other_args );
+		if ( array_key_exists( 'values from external data', $other_args ) ) {
+			$autocompleteSettings = 'external data';
+			$remoteDataType = null;
+			if ( array_key_exists( 'origName', $other_args ) ) {
+				$name = $other_args['origName'];
+			} else {
+				$name = $input_name;
+			}
+			$sfgEDSettings[$name] = array();
+			if ( $other_args['values from external data'] != null ) {
+				$sfgEDSettings[$name]['title'] = $other_args['values from external data'];
+			}
+			if ( array_key_exists( 'image', $other_args ) ) {
+				$image_param =  $other_args['image'];
+				$sfgEDSettings[$name]['image'] = $image_param;
+				global $edgValues;
+				for ($i = 0; $i < count($edgValues[$image_param]); $i++) {
+					$image = $edgValues[$image_param][$i];
+					if ( strpos( $image, "http" ) !== 0 ) {
+						$file = wfFindFile( $image );
+						if ( $file ) {
+							$url = $file->getFullUrl();
+							$edgValues[$image_param][$i] = $url;
+						} else {
+							$edgValues[$image_param][$i] = "";
+						}
+					}
+				}
+			}
+			if ( array_key_exists( 'description', $other_args ) ) {
+				$sfgEDSettings[$name]['description'] = $other_args['description'];
+				if ( !array_key_exists( 'size', $other_args ) ) {
+					$size = '80';//Set larger default size if description is also there
+				}
+			}
+		} else {
+			list( $autocompleteSettings, $remoteDataType ) = self::setAutocompleteValues( $other_args );
+		}
 
 		$inputAttrs = array(
 			'type' => 'text',

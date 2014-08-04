@@ -71,23 +71,26 @@
 		formatResult: function(value, container, query) {
 			var term = query.term;
 			var text = value.text;
+			var image = value.image;
+			var description = value.description;
 			var markup = "";
-			var no_diac_text = sf.select2.base.prototype.removeDiacritics( text );
-			var start = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
-			if (start != 0 && !mw.config.get( 'sfgAutocompleteOnAllChars' )) {
-				var start = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
-				if ( start != -1 ) {
-					start = start + 1;
-				}
-			}
-			if ( start != -1 ) {
-				markup = text.substr(0, start) +
-				'<span class="select2-match">' +
-				text.substr(start,term.length) +
-				'</span>' +
-				text.substr(start + term.length, text.length);
+
+			var text_highlight = sf.select2.base.prototype.textHighlight;
+			if ( text != undefined && image != undefined && description != undefined ) {
+				markup += "<table class='sf-select2-result'> <tr>";
+				markup += "<td class='sf-result-thumbnail'><img src='" + image + "'/></td>";
+				markup += "<td class='sf-result-info'><div class='sf-result-title'>" + text_highlight(text, term) + "</div>";
+				markup += "<div class='sf-result-description'>" + description + "</div>";
+				markup += "</td></tr></table>";
+			} else if ( text != undefined && image != undefined ) {
+				markup += "<img class='sf-icon' src='"+ image +"'/>" + text_highlight(text, term);
+			} else if ( text != undefined && description != undefined ) {
+				markup += "<table class='sf-select2-result'> <tr>";
+				markup += "<td class='sf-result-info'><div class='sf-result-title'>" + text_highlight(text, term) + "</div>";
+				markup += "<div class='sf-result-description'>" + description + "</div>";
+				markup += "</td></tr></table>";
 			} else {
-				markup = text;
+				markup += text_highlight(text, term);
 			}
 
 			return markup;
@@ -227,7 +230,7 @@
 		 * Removes diacritics from the string and replaces
 		 * them with english characters.
 		 * This code is basically copied from:
-	 	 * http://jsfiddle.net/potherca/Gtmr2/
+		 * http://jsfiddle.net/potherca/Gtmr2/
 		 *
 		 * @param {string} text
 		 *
@@ -240,6 +243,29 @@
 			return text.replace(/[\u007F-\uFFFF]/g, function(key) {
 				return diacriticsMap[key] || key;
 			});
-		}
+		},
+		textHighlight: function( text, term ) {
+			var markup = "";
+			var remove_diacritics = sf.select2.base.prototype.removeDiacritics;
+			var no_diac_text = remove_diacritics(text);
+			var start = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
+			if (start != 0 && !mw.config.get( 'sfgAutocompleteOnAllChars' )) {
+				start = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
+				if ( start != -1 ) {
+					start = start + 1;
+				}
+			}
+			if ( start != -1 ) {
+				markup += text.substr(0, start) +
+				'<span class="select2-match">' +
+				text.substr(start,term.length) +
+				'</span>' +
+				text.substr(start + term.length, text.length);
+			} else {
+				markup += text;
+			}
+
+			return markup;
+		},
 	};
 } )( jQuery, mediaWiki, semanticforms );
