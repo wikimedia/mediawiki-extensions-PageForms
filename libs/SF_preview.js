@@ -4,7 +4,6 @@
  * @author Stephan Gambke
  */
 
-/*global jQuery, mediaWiki */
 /*global validateAll */
 
 ( function ( $, mw ) {

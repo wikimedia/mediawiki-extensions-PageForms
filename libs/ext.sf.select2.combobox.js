@@ -43,11 +43,11 @@
 	combobox_proto.setOptions = function() {
 		var input_id = this.id;
 		var opts = {};
-		var input_id = "#" + input_id;
+		input_id = "#" + input_id;
 		var input_tagname = $(input_id).prop( "tagName" );
 		var autocomplete_opts = this.getAutocompleteOpts();
 
-		if ( autocomplete_opts.autocompletedatatype != undefined ) {
+		if ( autocomplete_opts.autocompletedatatype !== undefined ) {
 			opts.ajax = this.getAjaxOpts();
 			opts.minimumInputLength = 1;
 			opts.formatInputTooShort = mw.msg( "sf-select2-input-too-short", opts.minimumInputLength );
@@ -62,10 +62,11 @@
 				var no_diac_text = sf.select2.base.prototype.removeDiacritics( text );
 				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
 				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
-				if ( (position != -1 && position == 0 ) ||  position_with_space != -1 )
+				if ( (position != -1 && position === 0 ) ||  position_with_space != -1 ) {
 					return true;
-				else
+				} else {
 					return false;
+				}
 			};
 		}
 		opts.formatResult = this.formatResult;
@@ -75,12 +76,12 @@
 		if ( $(input_id).attr( "existingvaluesonly" ) !== "true" && input_tagname == "INPUT" ) {
 			opts.createSearchChoice = function( term, data ) { if ( $(data).filter(function() { return this.text.localeCompare( term )===0; }).length===0 ) {return { id:term, text:term };} };
 		}
-		if ( $(input_id).val() != "" && input_tagname == "INPUT" ) {
+		if ( $(input_id).val() !== "" && input_tagname == "INPUT" ) {
 			opts.initSelection = function ( element, callback ) { var data = {id: element.val(), text: element.val()}; callback(data); };
 		}
 		opts.allowClear = true;
 		var size = $(input_id).attr("size");
-		if ( size == undefined ) {
+		if ( size === undefined ) {
 			size = 35; //default value
 		}
 		opts.containerCss = { 'min-width': size * 6 };
@@ -100,17 +101,17 @@
 		var input_id = "#" + this.id;
 		var values = [{id: 0, text: ""}];
 		var dep_on = this.dependentOn();
-		var i;
-		if ( dep_on == null ) {
+		var i, data;
+		if ( dep_on === null ) {
 			if ( autocompletesettings == 'external data' ) {
 				var name = $(input_id).attr(this.nameAttr($(input_id)));
 				var sfgEDSettings = mw.config.get( 'sfgEDSettings' );
 				var edgValues = mw.config.get( 'edgValues' );
-				var data = {};
-				if ( sfgEDSettings[name].title != undefined && sfgEDSettings[name].title != "" ) {
+				data = {};
+				if ( sfgEDSettings[name].title !== undefined && sfgEDSettings[name].title !== "" ) {
 					data.title = edgValues[sfgEDSettings[name].title];
 					i = 0;
-					if ( data.title != undefined ) {
+					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
 							values.push({
 						        id: i + 1, text: data.title[i]
@@ -118,20 +119,20 @@
 						    i++;
 						});
 					}
-					if ( sfgEDSettings[name].image != undefined && sfgEDSettings[name].image != "" ) {
+					if ( sfgEDSettings[name].image !== undefined && sfgEDSettings[name].image !== "" ) {
 						data.image = edgValues[sfgEDSettings[name].image];
 						i = 0;
-						if ( data.image != undefined ) {
+						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
 								values[i+1].image = data.image[i];
 								i++;
 							});
 						}
 					}
-					if ( sfgEDSettings[name].description != undefined && sfgEDSettings[name].description != "" ) {
+					if ( sfgEDSettings[name].description !== undefined && sfgEDSettings[name].description !== "" ) {
 						data.description = edgValues[sfgEDSettings[name].description];
 						i = 0;
-						if ( data.description != undefined ) {
+						if ( data.description !== undefined && data.description !== null ) {
 							data.description.forEach(function() {
 								values[i+1].description = data.description[i];
 								i++;
@@ -142,10 +143,10 @@
 
 			} else {
 				var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
-				var data = sfgAutocompleteValues[autocompletesettings];
+				data = sfgAutocompleteValues[autocompletesettings];
 				i = 0;
 				//Convert data into the format accepted by Select2
-				if (data != undefined) {
+				if (data !== undefined && data !== null ) {
 					data.forEach(function()
 					{
 					    values.push({
@@ -186,7 +187,6 @@
 	 *
 	 */
 	combobox_proto.getAjaxOpts = function() {
-		var input_id = "#" + this.id;
 		var autocomplete_opts = this.getAutocompleteOpts();
 		var my_server = mw.util.wikiScript( 'api' );
 		my_server += "?action=sfautocomplete&format=json&" + autocomplete_opts.autocompletedatatype + "=" + autocomplete_opts.autocompletesettings;
@@ -219,7 +219,7 @@
 	combobox_proto.onChange = function() {
 		var self = this;
 		var data = $(this).select2( "data" );
-		if (data != null) {
+		if (data !== null) {
 			$(this).val( data.text );
 		} else {
 			$(this).val( '' );
@@ -230,11 +230,12 @@
 		var cmbox = new sf.select2.combobox();
 		var dep_on_me = $.unique(cmbox.dependentOnMe( $(this) ));
 		dep_on_me.forEach( function( dependent_field_name ) {
+			var dependent_field;
 			if ( cmbox.partOfMultiple( $(self) ) ) {
-				var dependent_field = $(self).closest( ".multipleTemplateInstance" )
+				dependent_field = $(self).closest( ".multipleTemplateInstance" )
 					.find( '[origname ="' + dependent_field_name + '" ]' );
 			} else {
-				var dependent_field = $('[name ="' + dependent_field_name + '" ]');
+				dependent_field = $('[name ="' + dependent_field_name + '" ]');
 			}
 			cmbox.dependentFieldAutocompleteHandler( dependent_field, self );
 		});

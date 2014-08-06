@@ -430,15 +430,8 @@ DynaTreeNode.prototype = {
 			}
 			// IE6 doesn't correctly evaluate multiple class names,
 			// so we create combined class names that can be used in the CSS
-			cnList.push(cn.combinedExpanderPrefix
-					+ (this.bExpanded ? "e" : "c")
-					+ (data.isLazy && this.childList === null ? "d" : "")
-					+ (isLastSib ? "l" : "")
-					);
-			cnList.push(cn.combinedIconPrefix
-					+ (this.bExpanded ? "e" : "c")
-					+ (data.isFolder ? "f" : "")
-					);
+			cnList.push(cn.combinedExpanderPrefix	+ (this.bExpanded ? "e" : "c") + (data.isLazy && this.childList === null ? "d" : "") + (isLastSib ? "l" : ""));
+			cnList.push(cn.combinedIconPrefix	+ (this.bExpanded ? "e" : "c") + (data.isFolder ? "f" : ""));
 			this.span.className = cnList.join(" ");
 
 			// TODO: we should not set this in the <span> tag also, if we set it here:
@@ -1136,9 +1129,7 @@ DynaTreeNode.prototype = {
 			}
 		}
 		// Do not apply animations in init phase, or before lazy-loading
-		var allowEffects = !(this.data.isLazy && this.childList === null)
-			&& !this._isLoading
-			&& !forceSync;
+		var allowEffects = !(this.data.isLazy && this.childList === null) && !this._isLoading && !forceSync;
 		this.render(allowEffects);
 
 		// Auto-collapse mode: collapse all siblings
@@ -1519,8 +1510,7 @@ DynaTreeNode.prototype = {
 		// We listen to this, if a callback was passed to reloadChildren
 		if(callback){
 			var self = this;
-			var eventType = "nodeLoaded.dynatree." + this.tree.$tree.attr("id")
-				+ "." + this.data.key;
+			var eventType = "nodeLoaded.dynatree." + this.tree.$tree.attr("id") + "." + this.data.key;
 			this.tree.$tree.bind(eventType, function(e, node, isOk){
 				self.tree.$tree.unbind(eventType);
 				self.tree.logDebug("loaded %o, %o, %o", e, node, isOk);
@@ -2851,8 +2841,7 @@ TODO: better?
 					}else if(hitMode === "after" && otherNode && node === otherNode.getPrevSibling()){
 //						this.logDebug("    drop before source node prevented");
 						hitMode = null;
-					}else if(hitMode === "over" && otherNode
-							&& otherNode.parent === node && otherNode.isLastSibling() ){
+					}else if(hitMode === "over" && otherNode && otherNode.parent === node && otherNode.isLastSibling() ){
 //						this.logDebug("    drop last child over own parent prevented");
 						hitMode = null;
 					}
@@ -2861,8 +2850,7 @@ TODO: better?
 				ui.helper.data("hitMode", hitMode);
 			}
 			// Auto-expand node (only when 'over' the node, not 'before', or 'after')
-			if(hitMode === "over"
-				&& dnd.autoExpandMS && node.hasChildren() !== false && !node.bExpanded) {
+			if(hitMode === "over" && dnd.autoExpandMS && node.hasChildren() !== false && !node.bExpanded) {
 				node.scheduleAction("expand", dnd.autoExpandMS);
 			}
 			if(hitMode && dnd.onDragOver){

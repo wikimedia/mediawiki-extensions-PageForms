@@ -76,15 +76,15 @@
 			var markup = "";
 
 			var text_highlight = sf.select2.base.prototype.textHighlight;
-			if ( text != undefined && image != undefined && description != undefined ) {
+			if ( text !== undefined && image !== undefined && description !== undefined ) {
 				markup += "<table class='sf-select2-result'> <tr>";
 				markup += "<td class='sf-result-thumbnail'><img src='" + image + "'/></td>";
 				markup += "<td class='sf-result-info'><div class='sf-result-title'>" + text_highlight(text, term) + "</div>";
 				markup += "<div class='sf-result-description'>" + description + "</div>";
 				markup += "</td></tr></table>";
-			} else if ( text != undefined && image != undefined ) {
+			} else if ( text !== undefined && image !== undefined ) {
 				markup += "<img class='sf-icon' src='"+ image +"'/>" + text_highlight(text, term);
-			} else if ( text != undefined && description != undefined ) {
+			} else if ( text !== undefined && description !== undefined ) {
 				markup += "<table class='sf-select2-result'> <tr>";
 				markup += "<td class='sf-result-info'><div class='sf-result-title'>" + text_highlight(text, term) + "</div>";
 				markup += "<div class='sf-result-description'>" + description + "</div>";
@@ -118,7 +118,6 @@
 			var input_id = "#" + this.id;
 			var name_attr = this.nameAttr( $(input_id) );
 			var name = $(input_id).attr( name_attr );
-			var dependent_on_me = [];
 
 			var sfgDependentFields = mw.config.get( 'sfgDependentFields' );
 			for ( var i = 0; i < sfgDependentFields.length; i++ ) {
@@ -174,7 +173,7 @@
 		 *
 		 */
 		partOfMultiple: function( element ) {
-			return element.attr( "origname" ) != undefined ? true : false;
+			return element.attr( "origname" ) !== undefined ? true : false;
 		},
 		/*
 		 * Gives dependent field options which include
@@ -188,11 +187,12 @@
 		getDependentFieldOpts: function( dep_on ) {
 			var input_id = "#" + this.id;
 			var dep_field_opts = {};
+      		var base_element;
 			if ( this.partOfMultiple($(input_id)) ) {
-				var base_element = $(input_id).closest( ".multipleTemplateInstance" )
+				base_element = $(input_id).closest( ".multipleTemplateInstance" )
 								.find( '[origname ="' + dep_on + '" ]' );
 			} else {
-				var base_element = $('[name ="' + dep_on + '" ]');
+				base_element = $('[name ="' + dep_on + '" ]');
 			}
 			dep_field_opts.base_value = base_element.val();
 			dep_field_opts.base_prop = base_element.attr( "autocompletesettings" );
@@ -249,7 +249,7 @@
 			var remove_diacritics = sf.select2.base.prototype.removeDiacritics;
 			var no_diac_text = remove_diacritics(text);
 			var start = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
-			if (start != 0 && !mw.config.get( 'sfgAutocompleteOnAllChars' )) {
+			if (start !== 0 && !mw.config.get( 'sfgAutocompleteOnAllChars' )) {
 				start = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
 				if ( start != -1 ) {
 					start = start + 1;

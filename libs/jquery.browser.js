@@ -26,8 +26,8 @@
 
 // Don't clobber any existing jQuery.browser in case it's different
 	if (!jQuery.browser) {
-		matched = uaMatch(navigator.userAgent);
-		browser = {};
+		var matched = uaMatch(navigator.userAgent);
+		var browser = {};
 
 		if (matched.browser) {
 			browser[ matched.browser ] = true;

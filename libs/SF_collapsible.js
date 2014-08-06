@@ -26,7 +26,7 @@ jQuery.fn.sfMakeCollapsible = function(options){
 	this.each(function(){
 		var fieldset = jQuery(this);
 		var legend = fieldset.children('legend');
-		if ( setting.collapsed == true ) {
+		if ( setting.collapsed === true ) {
 			legend.toggle(
 				function(){
 					sfShowFieldsetContent(fieldset, setting);
@@ -45,7 +45,7 @@ jQuery.fn.sfMakeCollapsible = function(options){
 				function(){
 					sfShowFieldsetContent(fieldset, setting);
 				}
-			)
+			);
 		}
 	});
 };

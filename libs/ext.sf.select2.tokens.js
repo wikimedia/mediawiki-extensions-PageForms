@@ -59,11 +59,11 @@
 		var self = this;
 		var input_id = this.id;
 		var opts = {};
-		var input_id = "#" + input_id;
+		input_id = "#" + input_id;
 		var input_tagname = $(input_id).prop( "tagName" );
 		var autocomplete_opts = this.getAutocompleteOpts();
 
-		if ( autocomplete_opts.autocompletedatatype != undefined ) {
+		if ( autocomplete_opts.autocompletedatatype !== undefined ) {
 			opts.ajax = this.getAjaxOpts();
 			opts.minimumInputLength = 1;
 			opts.formatInputTooShort = "";
@@ -78,10 +78,11 @@
 				var no_diac_text = sf.select2.base.prototype.removeDiacritics( text );
 				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
 				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
-				if ( (position != -1 && position == 0 ) ||  position_with_space != -1 )
+				if ( (position != -1 && position === 0 ) ||  position_with_space != -1 ) {
 					return true;
-				else
+				} else {
 					return false;
+				}
 			};
 		}
 		opts.formatResult = this.formatResult;
@@ -91,13 +92,13 @@
 		if ( $(input_id).attr( "existingvaluesonly" ) !== "true" && input_tagname == "INPUT" ) {
 			opts.createSearchChoice = function( term, data ) { if ( $(data).filter(function() { return this.text.localeCompare( term )===0; }).length===0 ) {return { id:term, text:term };} };
 		}
-		if ( $(input_id).val() != "" && input_tagname == "INPUT" ) {
+		if ( $(input_id).val() !== "" && input_tagname == "INPUT" ) {
 			opts.initSelection = function ( element, callback ) {
 				var data = [];
 				var delim = self.getDelimiter($(input_id));
 				var i = 0;
 				$(element.val().trim().split(delim)).each(function () {
-					if ( this != "" ) {
+					if ( this !== "" ) {
 						data.push({id: i, text: this});
 						i += 1;
 					}
@@ -107,7 +108,7 @@
 			};
 		}
 		var size = $(input_id).attr("size");
-		if ( size == undefined ) {
+		if ( size === undefined ) {
 			size = 100; //default value
 		}
 		opts.containerCss = { 'min-width': size * 6 };
@@ -118,11 +119,15 @@
 		opts.tokenSeparators = this.getDelimiter($(input_id));
 		opts.openOnEnter = true;
 		var maxvalues = $(input_id).attr( "maxvalues" );
-		if ( maxvalues != undefined ) {
+		if ( maxvalues !== undefined ) {
 			opts.maximumSelectionSize = maxvalues;
 			opts.formatSelectionTooBig = mw.msg( "sf-select2-selection-too-big", maxvalues );
 		}
-		opts.adaptContainerCssClass = function( clazz ) { if (clazz == "mandatoryField") return ""; };
+		opts.adaptContainerCssClass = function( clazz ) {
+			if (clazz == "mandatoryField") {
+				return "";
+			}
+		};
 
 		return opts;
 	};
@@ -136,17 +141,18 @@
 	tokens_proto.getData = function( autocompletesettings ) {
 		var input_id = "#" + this.id;
 		var values = [];
+		var data;
 		var dep_on = this.dependentOn();
-		if ( dep_on == null ) {
+		if ( dep_on === null ) {
 			if ( autocompletesettings == 'external data' ) {
 				var name = $(input_id).attr(this.nameAttr($(input_id)));
 				var sfgEDSettings = mw.config.get( 'sfgEDSettings' );
 				var edgValues = mw.config.get( 'edgValues' );
-				var data = {};
-				if ( sfgEDSettings[name].title != undefined && sfgEDSettings[name].title != "" ) {
+				data = {};
+				if ( sfgEDSettings[name].title !== undefined && sfgEDSettings[name].title !== "" ) {
 					data.title = edgValues[sfgEDSettings[name].title];
 					i = 0;
-					if ( data.title != undefined ) {
+					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
 							values.push({
 						        id: i + 1, text: data.title[i]
@@ -154,20 +160,20 @@
 						    i++;
 						});
 					}
-					if ( sfgEDSettings[name].image != undefined && sfgEDSettings[name].image != "" ) {
+					if ( sfgEDSettings[name].image !== undefined && sfgEDSettings[name].image !== "" ) {
 						data.image = edgValues[sfgEDSettings[name].image];
 						i = 0;
-						if ( data.image != undefined ) {
+						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
 								values[i].image = data.image[i];
 								i++;
 							});
 						}
 					}
-					if ( sfgEDSettings[name].description != undefined && sfgEDSettings[name].description != "" ) {
+					if ( sfgEDSettings[name].description !== undefined && sfgEDSettings[name].description !== "" ) {
 						data.description = edgValues[sfgEDSettings[name].description];
 						i = 0;
-						if ( data.description != undefined ) {
+						if ( data.description !== undefined && data.description !== null ) {
 							data.description.forEach(function() {
 								values[i].description = data.description[i];
 								i++;
@@ -178,10 +184,10 @@
 
 			} else {
 				var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
-				var data = sfgAutocompleteValues[autocompletesettings];
+				data = sfgAutocompleteValues[autocompletesettings];
 				var i = 0;
 				//Convert data into the format accepted by Select2
-				if (data != undefined) {
+				if ( data !== undefined && data !== null ) {
 					data.forEach(function()
 					{
 					    values.push({
@@ -222,7 +228,6 @@
 	 *
 	 */
 	tokens_proto.getAjaxOpts = function() {
-		var input_id = "#" + this.id;
 		var autocomplete_opts = this.getAutocompleteOpts();
 		var data_source = autocomplete_opts.autocompletesettings.split(',')[0];
 		var my_server = mw.util.wikiScript( 'api' );
@@ -259,7 +264,7 @@
 		var tokens = new sf.select2.tokens();
 		var delim = tokens.getDelimiter( $(this) );
 
-		if (data != null) {
+		if (data !== null) {
 			var tokens_value = "";
 			data.forEach( function( token ) {
 				tokens_value += token.text.trim() + delim + " ";
@@ -278,7 +283,7 @@
 	tokens_proto.getDelimiter = function ( element ) {
 		var field_values = element.attr('autocompletesettings').split( ',' );
 		var delimiter = ",";
-		if (field_values[1] == 'list' && field_values[2] != null) {
+		if (field_values[1] == 'list' && field_values[2] !== undefined )  {
 				delimiter = field_values[2];
 		}
 
