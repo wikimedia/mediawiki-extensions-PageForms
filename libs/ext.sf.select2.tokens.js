@@ -126,6 +126,8 @@
 		opts.adaptContainerCssClass = function( clazz ) {
 			if (clazz == "mandatoryField") {
 				return "";
+			} else {
+				return clazz;
 			}
 		};
 
