@@ -343,7 +343,7 @@ END;
 
 		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'sf_formstart_createoredit' )->escaped();
 		$str .= <<<END
-			<input type="submit" value="$button_str" /></p>
+			<input type="submit" value="$button_str" id="input_button_$input_num" class="forminput_button"/></p>
 			</form>
 
 END;
