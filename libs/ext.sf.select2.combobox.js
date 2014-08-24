@@ -193,7 +193,7 @@
 
 		var ajaxOpts = {
 			url: my_server,
-			dataType: 'jsonp',
+			dataType: 'json',
 			data: function (term) {
 				return {
 					substr: term, // search term
@@ -201,11 +201,15 @@
 			},
 			results: function (data, page, query) { // parse the results into the format expected by Select2.
 				var id = 0;
-				data.sfautocomplete.forEach( function(item) {
-					item.id = id++;
-					item.text = item.title;
-				});
-				return {results: data.sfautocomplete};
+				if (data.sfautocomplete !== undefined) {
+					data.sfautocomplete.forEach( function(item) {
+						item.id = id++;
+						item.text = item.title;
+					});
+					return {results: data.sfautocomplete};
+				} else {
+					return {results: []};
+				}
 			}
 		};
 
