@@ -278,6 +278,7 @@ END;
 
 		if ( $wgHtml5 ) {
 			$formInputAttrs['placeholder'] = $inPlaceholder;
+			$formInputAttrs['autofocus'] = 'autofocus';
 		}
 
 		// Now apply the necessary settings and Javascript, depending
