@@ -157,7 +157,12 @@ END;
 			$wgOut->addScript( $script );
 			$po = $wgParser->getOutput();
 			if ( $po ) {
-				$wgOut->addParserOutputNoText( $po );
+				// addParserOutputMetadata was introduced in 1.24 when addParserOutputNoText was deprecated
+				if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+					$wgOut->addParserOutputMetadata( $po );
+				} else {
+					$wgOut->addParserOutputNoText( $po );
+				}
 			}
 		}
 

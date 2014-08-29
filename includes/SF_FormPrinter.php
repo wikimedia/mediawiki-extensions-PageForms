@@ -1790,7 +1790,13 @@ END;
 		}
 
 		$parserOutput = $wgParser->getOutput();
-		$wgOut->addParserOutputNoText( $parserOutput );
+
+		// addParserOutputMetadata was introduced in 1.24 when addParserOutputNoText was deprecated
+		if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+			$wgOut->addParserOutputMetadata( $parserOutput );
+		} else {
+			$wgOut->addParserOutputNoText( $parserOutput );
+		}
 
 //		$wgParser = $oldParser;
 
