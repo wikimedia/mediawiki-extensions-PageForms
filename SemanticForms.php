@@ -275,7 +275,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.autoedit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autoedit.js',
 			'styles' => 'skins/SF_autoedit.css',
-			'dependencies' => array( 'jquery' ),
 			'messages' => array(
 				'sf-autoedit-wait',
 				'sf_autoedit_anoneditwarning',
@@ -284,7 +283,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.submit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_submit.js',
 			'styles' => 'skins/SF_submit.css',
-			'dependencies' => array( 'jquery' ),
 			'messages' => array(
 				'sf_formedit_saveandcontinue_summary',
 				'sf_formedit_saveandcontinueediting',
@@ -293,7 +291,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.collapsible' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_collapsible.js',
 			'styles' => 'skins/SF_collapsible.css',
-			'dependencies' => array( 'jquery' ),
 		),
 		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_wikieditor.js',
