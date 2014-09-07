@@ -1340,7 +1340,7 @@ END;
 								$template_text .= "|$cur_value_in_template";
 							} else {
 								// If the value is null, don't include it at all.
-								if ( $cur_value_in_template !== '' ) {
+								if ( $cur_value_in_template != '' ) {
 									$template_text .= "\n|$field_name=$cur_value_in_template";
 								}
 							}
