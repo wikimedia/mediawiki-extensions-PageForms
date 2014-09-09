@@ -88,26 +88,7 @@ div.infoMessage {
 	width: auto;
 	background: #eeeeee;
 }
-/**
- * errorbox and warningbox CSS classes were added in MediaWiki 1.19 -
- * the CSS here exists for backwards compatibility, and to provide
- * some improvements for SF's specific usage.
- */
-.errorbox, .warningbox {
-	margin: 20px 0 0 0;
-	width: auto;
-	float: none;
-}
-.errorbox {
-	border: 2px solid red;
-	background-color: #fff2f2;
-	padding: 5px 10px 5px 10px;
-}
-.warningbox {
-	border: 2px solid #ff8c00;
-	background-color: #ffffc0;
-	padding: 12px;
-}
+
 span.errorMessage {
 	color: red;
 }

@@ -15,6 +15,7 @@ class SFFormUtils {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
 		global $sfgFieldProperties, $sfgDependentFields;
 		global $sfgShowOnSelect, $sfgScriptPath;
+		global $edgValues, $sfgEDSettings;
 //		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
 
 		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
@@ -23,6 +24,8 @@ class SFFormUtils {
 		$vars['sfgDependentFields'] = $sfgDependentFields;
 		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
 		$vars['sfgScriptPath'] = $sfgScriptPath;
+		$vars['edgValues'] = $edgValues;
+		$vars['sfgEDSettings'] = $sfgEDSettings;
 //		$vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
 //		$vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
 
@@ -282,7 +285,7 @@ END;
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()
-	static function formBottom( $is_disabled ) {
+	static function formBottom( $form_submitted, $is_disabled ) {
 		global $wgUser;
 
 		$summary_text = SFFormUtils::summaryInputHTML( $is_disabled );
@@ -293,11 +296,11 @@ $summary_text	<br />
 
 END;
 		if ( $wgUser->isAllowed( 'minoredit' ) ) {
-			$text .= SFFormUtils::minorEditInputHTML( $is_disabled );
+			$text .= SFFormUtils::minorEditInputHTML( $form_submitted, $is_disabled, false );
 		}
 
 		if ( $wgUser->isLoggedIn() ) {
-			$text .= SFFormUtils::watchInputHTML( $is_disabled );
+			$text .= SFFormUtils::watchInputHTML( $form_submitted, $is_disabled );
 		}
 
 		$text .= <<<END
@@ -323,7 +326,7 @@ END;
 			return '';
 		} else {
 			$preloadTitle = Title::newFromText( $preload );
-			if ( isset( $preloadTitle ) && $preloadTitle->userCanRead() ) {
+			if ( isset( $preloadTitle ) && $preloadTitle->userCan( 'read' ) ) {
 				$rev = Revision::newFromTitle( $preloadTitle );
 				if ( is_object( $rev ) ) {
 					$text = $rev->getText();
@@ -365,24 +368,22 @@ END;
 	/**
 	 * Parse the form definition and return it
 	 */
-	public static function getFormDefinition( &$parser, &$form_def = null, &$form_id = null ) {
+	public static function getFormDefinition( Parser $parser, $form_def = null, $form_id = null ) {
+		if ( $form_id !== null ) {
+			$cachedDef = self::getFormDefinitionFromCache( $form_id, $parser );
 
-		$cachedDef = self::getFormDefinitionFromCache( $form_id, $parser );
-
-		if ( $cachedDef ) {
-			return $cachedDef;
+			if ( $cachedDef !== null ) {
+				return $cachedDef;
+			}
 		}
 
 		if ( $form_id !== null ) {
-
 			$form_title = Title::newFromID( $form_id );
 			$form_def = SFUtils::getPageText( $form_title );
-
 		} elseif ( $form_def == null ) {
-
 			// No id, no text -> nothing to do
-			return '';
 
+			return '';
 		}
 
 		// Remove <noinclude> sections and <includeonly> tags from form definition
@@ -403,147 +404,139 @@ END;
 
 		// replace all SF tags by strip markers
 		$form_def = preg_replace_callback(
+			$regexp,
 
-				$regexp,
+			// This is essentially a copy of Parser::insertStripItem().
+			// The 'use' keyword will bump the minimum PHP version to 5.3
+			function ( array $matches ) use ( $stripState, $prefix ) {
 
-				// This is essentially a copy of Parser::insertStripItem().
-				// The 'use' keyword will bump the minimum PHP version to 5.3
-				function ( array $matches ) use ( $stripState, $prefix ) {
+				static $markerIndex = 0;
+				$rnd = "$prefix-item-$markerIndex-" . Parser::MARKER_SUFFIX;
+				$markerIndex++;
+				$stripState->addGeneral( $rnd, $matches[ 0 ] );
 
-					static $markerIndex = 0;
-					$rnd = "$prefix-item-$markerIndex-" . Parser::MARKER_SUFFIX;
-					$markerIndex++;
-					$stripState->addGeneral( $rnd, $matches[ 0 ] );
+				return $rnd;
 
-					return $rnd;
+			},
 
-				},
-
-				$form_def
+			$form_def
 		);
 
-		$title = is_object( $parser->getTitle() ) ? $parser->getTitle():new Title();
+		$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : new Title();
 
 		// parse wiki-text
 		$output = $parser->parse( $form_def, $title, $parser->getOptions() );
 		$form_def = $stripState->unstripGeneral( $output->getText() );
 
-		self::cacheFormDefinition( $form_id, $parser, $output );
+		if ( $output->getCacheTime() == -1 ) {
+			$form_article = Article::newFromID( $form_id );
+			self::purgeCache( $form_article );
+			wfDebug( "Caching disabled for form definition $form_id\n" );
+		} elseif ( $form_id !== null ) {
+			self::cacheFormDefinition( $form_id, $form_def, $parser );
+		}
 
 		return $form_def;
 	}
 
 	/**
-	 *	Get a form definition from cache
+	 * Get a form definition from cache
 	 */
-	protected static function getFormDefinitionFromCache ( &$form_id, &$parser ) {
-
+	protected static function getFormDefinitionFromCache( $form_id, Parser $parser ) {
 		global $sfgCacheFormDefinitions;
 
 		// use cache if allowed
-		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
-
-			$cache = self::getFormCache();
-
-			// create a cache key consisting of owner name, article id and user options
-			$cachekey = self::getCacheKey( $form_id, $parser );
-
-			$cached_def = $cache->get( $cachekey );
-
-			// Cache hit?
-			if ( $cached_def !== false && $cached_def !== null ) {
-
-				wfDebug( "Cache hit: Got form definition $cachekey from cache\n" );
-				return $cached_def;
-
-			} else {
-				wfDebug( "Cache miss: Form definition $cachekey not found in cache\n" );
-			}
+		if ( !$sfgCacheFormDefinitions ) {
+			return null;
 		}
+
+		$cache = self::getFormCache();
+
+		// create a cache key consisting of owner name, article id and user options
+		$cacheKeyForForm = self::getCacheKey( $form_id, $parser );
+
+		$cached_def = $cache->get( $cacheKeyForForm );
+
+		// Cache hit?
+		if ( is_string( $cached_def ) ) {
+			wfDebug( "Cache hit: Got form definition $cacheKeyForForm from cache\n" );
+
+			return $cached_def;
+		}
+
+		wfDebug( "Cache miss: Form definition $cacheKeyForForm not found in cache\n" );
 
 		return null;
 	}
 
 	/**
-	 *	Store a form definition in cache
+	 * Store a form definition in cache
 	 */
-	protected static function cacheFormDefinition ( &$form_id, &$parser, &$output ) {
-
+	protected static function cacheFormDefinition( $form_id, $form_def, Parser $parser ) {
 		global $sfgCacheFormDefinitions;
 
-		// store in  cache if allowed
-		if ( $sfgCacheFormDefinitions && $form_id !== null ) {
-
-			$cache = self::getFormCache();
-			$cachekey = self::getCacheKey( $form_id, $parser );
-
-			if ( $output->getCacheTime() == -1 ) {
-
-				$form_article = Article::newFromID( $form_id );
-				self::purgeCache( $form_article );
-				wfDebug( "Caching disabled for form definition $cachekey\n" );
-
-			} else {
-
-				$cachekeyForForm = self::getCacheKey( $form_id );
-
-				// update list of form definitions
-				$arrayOfStoredDatasets = $cache->get( $cachekeyForForm );
-				$arrayOfStoredDatasets[ $cachekey ] = $cachekey; // just need the key defined, don't care for the value
-
-				// We cache indefinitely ignoring $wgParserCacheExpireTime.
-				// The reasoning is that there really is not point in expiring
-				// rarely changed forms automatically (after one day per
-				// default). Instead the cache is purged on storing/purging a
-				// form definition.
-
-				// store form definition with current user options
-				$cache->set( $cachekey, $output->getText() );
-
-				// store updated list of form definitions
-				$cache->set( $cachekeyForForm, $arrayOfStoredDatasets );
-
-				wfDebug( "Cached form definition $cachekey\n" );
-			}
-
+		// Store in cache if requested
+		if ( !$sfgCacheFormDefinitions ) {
+			return;
 		}
 
-		return null;
+		$cache = self::getFormCache();
+		$cacheKeyForForm = self::getCacheKey( $form_id, $parser );
+		$cacheKeyForList = self::getCacheKey( $form_id );
+
+		// Update list of form definitions
+		$listOfFormKeys = $cache->get( $cacheKeyForList );
+		// The list of values is used by self::purge, keys are ignored.
+		// This way we automatically override duplicates.
+		$listOfFormKeys[$cacheKeyForForm] = $cacheKeyForForm;
+
+		// We cache indefinitely ignoring $wgParserCacheExpireTime.
+		// The reasoning is that there really is not point in expiring
+		// rarely changed forms automatically (after one day per
+		// default). Instead the cache is purged on storing/purging a
+		// form definition.
+
+		// Store form definition with current user options
+		$cache->set( $cacheKeyForForm, $form_def );
+
+		// Store updated list of form definitions
+		$cache->set( $cacheKeyForList, $listOfFormKeys );
+		wfDebug( "Cached form definition $cacheKeyForForm\n" );
 	}
 
 	/**
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
 	 *
+	 * Hooks: ArticlePurge, ArticleSave
+	 *
 	 * @param Page $wikipage
-	 * @return Bool
+	 * @return bool
 	 */
-	public static function purgeCache ( &$wikipage ) {
-
-		if ( ! is_null( $wikipage ) && ( $wikipage->getTitle()->getNamespace() == SF_NS_FORM ) ) {
-
-			$cache = self::getFormCache();
-
-			$cachekeyForForm = self::getCacheKey( $wikipage->getId() );
-
-			// get references to stored datasets
-			$arrayOfStoredDatasets = $cache->get( $cachekeyForForm );
-
-			if ( $arrayOfStoredDatasets !== false ) {
-
-				// delete stored datasets
-				foreach ( $arrayOfStoredDatasets as $key ) {
-					$cache->delete( $key );
-					wfDebug( "Deleted cached form definition $key.\n" );
-				}
-
-				// delete references to datasets
-				$cache->delete( $cachekeyForForm );
-				wfDebug( "Deleted cached form definition references $cachekeyForForm.\n" );
-			}
-
-
+	public static function purgeCache( Page $wikipage ) {
+		if ( !$wikipage->getTitle()->inNamespace( SF_NS_FORM ) ) {
+			return true;
 		}
+
+		$cache = self::getFormCache();
+		$cacheKeyForList = self::getCacheKey( $wikipage->getId() );
+
+		// get references to stored datasets
+		$listOfFormKeys = $cache->get( $cacheKeyForList );
+
+		if ( !is_array( $listOfFormKeys ) ) {
+			return true;
+		}
+
+		// delete stored datasets
+		foreach ( $listOfFormKeys as $key ) {
+			$cache->delete( $key );
+			wfDebug( "Deleted cached form definition $key.\n" );
+		}
+
+		// delete references to datasets
+		$cache->delete( $cacheKeyForList );
+		wfDebug( "Deleted cached form definition references $cacheKeyForList.\n" );
 
 		return true;
 	}
@@ -561,15 +554,12 @@ END;
 	/**
 	 * Get a cache key.
 	 *
-	 * @param $formId or null
-	 * @param Parser $parser or null
-	 * @return String
+	 * @param string $formId
+	 * @param Parser $parser Provide parser to get unique cache key
+	 * @return string
 	 */
-	public static function getCacheKey( $formId = null, &$parser = null ) {
-
-		if ( is_null( $formId ) ) {
-			return wfMemcKey( 'ext.SemanticForms.formdefinition' );
-		} elseif ( is_null( $parser ) ) {
+	public static function getCacheKey( $formId, $parser = null ) {
+		if ( is_null( $parser ) ) {
 			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId );
 		} else {
 			$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );

@@ -4,7 +4,6 @@
  * @author Stephan Gambke
  */
 
-/*global jQuery, mediaWiki */
 /*global validateAll */
 
 ( function ( $, mw ) {
@@ -43,8 +42,8 @@
 			height: 'auto',
 			minWidth: '0px',
 			minHeight: '0px',
-			'float': 'none',
-			// Cavendish skin uses floating -> unfloat content
+			'float': 'none', // Cavendish skin uses floating -> unfloat content
+			border: 'none',
 			background: 'transparent'
 		} )
 		.siblings()

@@ -1,10 +1,9 @@
 /**
 * Javascript handler for the save-and-continue button
-* 
+*
  * @author Stephan Gambke
 */
 
-/*global jQuery, mediaWiki */
 /*global validateAll */
 
 ( function ( $, mw ) {
@@ -181,21 +180,18 @@
 		sacButtons = $( '.sf-save_and_continue', form );
 		sacButtons.click( handleSaveAndContinue );
 
-		$( 'input,select,textarea', form )
-		.live( 'keyup', function ( event ) {
+		$( form )
+		.on( 'keyup', 'input,select,textarea', function ( event ) {
 			if ( event.which < 32 ){
 				return true;
 			}
 
 			return setChanged( event );
 		} )
-		.live( 'change', setChanged );
+		.on( 'change', 'input,select,textarea', setChanged )
+		.on( 'click', '.multipleTemplateAdder,.removeButton,.rearrangerImage', setChanged )
+		.on( 'mousedown', '.rearrangerImage',setChanged );
 
-		$( '.multipleTemplateAdder,.removeButton,.rearrangerImage', form )
-		.live( 'click', setChanged );
-
-		$( '.rearrangerImage', form )
-		.live( 'mousedown', setChanged );
 	}
 
 }( jQuery, mediaWiki ) );

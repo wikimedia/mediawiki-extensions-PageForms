@@ -32,9 +32,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 
 	public static function getDefaultPropTypeLists() {
-		return array(
-			'_wpg' => array( 'is_list' => true, 'size' => 100 )
-		);
+		return array();
 	}
 
 	public static function getOtherPropTypeListsHandled() {
@@ -88,7 +86,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 
 	public static function setAutocompleteValues( $field_args ) {
-		global $sfgAutocompleteValues;
+		global $sfgAutocompleteValues, $sfgMaxLocalAutocompleteValues;
 
 		// Get all autocomplete-related values, plus delimiter value
 		// (it's needed also for the 'uploadable' link, if there is one).
@@ -121,6 +119,10 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 				$autocompleteValues = explode( ',', $field_args['values'] );
 			} else {
 				$autocompleteValues = SFUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
+			}
+			if( count($autocompleteValues) > $sfgMaxLocalAutocompleteValues &&
+			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) ) {
+				$remoteDataType = $autocompleteFieldType;
 			}
 			$sfgAutocompleteValues[$autocompleteSettings] = $autocompleteValues;
 		}

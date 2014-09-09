@@ -374,9 +374,7 @@ jQuery(document).ready(function() {
 
 END;
 
-		if ( method_exists( 'User', 'getEditToken' ) ) {
-			$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateForm' ) ) . "\n";
-		}
+		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateForm' ) ) . "\n";
 
 		$saveAttrs = array( 'id' => 'wpSave' );
 		if ( count( $form_items ) == 0 ) {

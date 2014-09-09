@@ -55,6 +55,7 @@
     "sf_forminputs_structure": "This describes one parameter to the \"tree\" form input, that takes in wikitext and sets the structure. The wikitext that should be entered for this parameter should look something like:\n* A\n** B\n** C\n*** D\n* E",
     "sf_forminputs_checkboxes_select_all": "This is used for a field of checkboxes. It is a label for a link that triggers the selection of all checkboxes.",
     "sf_forminputs_checkboxes_select_none": "This is used for a field of checkboxes. It is a label for a link that triggers the deselection of all checkboxes.",
+    "sf_forminputs_maxvalues": "This is a message about description for parameter - max values",
     "createform": "{{doc-special|CreateForm}}\nTitle below, create link. If you enter, include \".\".",
     "sf-createform-with-name": "Used as page title. Parameters:\n* $1 - form name",
     "sf_createform_template": "Followed by the template name and used as an option in the select box.\n\nSee also:\n* {{msg-mw|Sf createform pagesection}}\n{{Identical|Template}}",
@@ -139,5 +140,9 @@
     "right-createclass": "{{doc-right|createclass}}",
     "action-createclass": "{{doc-action|createclass}}",
     "action-editrestrictedfields": "{{doc-action|editrestrictedfields}}",
-    "action-viewedittab": "{{doc-action|viewedittab}}\nRefers to {{msg-mw|Edit}}."
+    "action-viewedittab": "{{doc-action|viewedittab}}\nRefers to {{msg-mw|Edit}}.",
+    "sf-select2-no-matches": "A message that is displayed when nothing is matched in Select2 autocompletion.",
+    "sf-select2-searching": "A message that is displayed while search is in progress in Select2 autocompletion.",
+    "sf-select2-input-too-short": "A message that is displayed when search string for Select2 autocompletion is smaller than the defined value.",
+    "sf-select2-selection-too-big": "A message that is displayed when the number of selections for a multi-valued input is more than a certain number."
 }

@@ -373,7 +373,7 @@
 			if (wrap.is(":visible")) {
 				$( close.add( nav_left ).add( nav_right ) ).hide();
 
-				pos = wrap.position(),
+				pos = wrap.position();
 
 				start_pos = {
 					top	 : pos.top,
@@ -808,7 +808,7 @@
 
 				var rel = $(this).attr('rel') || '';
 
-				if (!rel || rel == '' || rel === 'nofollow') {
+				if (!rel || rel === '' || rel === 'nofollow') {
 					selectedArray.push(this);
 
 				} else {
@@ -1071,7 +1071,7 @@
 				if (busy) {
 					e.preventDefault();
 
-				} else if ($(e.target).get(0).clientHeight == 0 || $(e.target).get(0).scrollHeight === $(e.target).get(0).clientHeight) {
+				} else if ($(e.target).get(0).clientHeight === 0 || $(e.target).get(0).scrollHeight === $(e.target).get(0).clientHeight) {
 					e.preventDefault();
 					$.fancybox[ delta > 0 ? 'prev' : 'next']();
 				}

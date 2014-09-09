@@ -41,7 +41,7 @@ if ( defined( 'SF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SF_VERSION', '2.7' );
+define( 'SF_VERSION', '2.8-alpha' );
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
@@ -54,6 +54,7 @@ $GLOBALS['wgExtensionCredits'][defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic'
 	'author' => array( 'Yaron Koren', 'Stephan Gambke', '...' ),
 	'url' => 'https://www.mediawiki.org/wiki/Extension:Semantic_Forms',
 	'descriptionmsg' => 'semanticforms-desc',
+	'license-name' => 'GPL-2.0+'
 );
 
 # ##
@@ -195,6 +196,7 @@ $GLOBALS['wgAutoloadClasses']['SFYearInput'] = __DIR__ . '/includes/forminputs/S
 $GLOBALS['wgAutoloadClasses']['SFTreeInput'] = __DIR__ . '/includes/forminputs/SF_TreeInput.php';
 $GLOBALS['wgAutoloadClasses']['SFCategoryInput'] = __DIR__ . '/includes/forminputs/SF_CategoryInput.php';
 $GLOBALS['wgAutoloadClasses']['SFCategoriesInput'] = __DIR__ . '/includes/forminputs/SF_CategoriesInput.php';
+$GLOBALS['wgAutoloadClasses']['SFTokensInput'] = __DIR__ . '/includes/forminputs/SF_TokensInput.php';
 
 $GLOBALS['wgJobClasses']['createPage'] = 'SFCreatePageJob';
 $GLOBALS['wgAutoloadClasses']['SFCreatePageJob'] = __DIR__ . '/includes/SF_CreatePageJob.php';
@@ -236,6 +238,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'ext.semanticforms.fancybox',
 				'ext.semanticforms.autogrow',
 				'mediawiki.util',
+				'ext.semanticforms.select2',
 			),
 			'messages' => array(
 				'sf_formerrors_header',
@@ -247,9 +250,13 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'sf_bad_number_error',
 			),
 		),
+		'ext.semanticforms.browser' => $sfgResourceTemplate + array(
+			'scripts' => 'libs/jquery.browser.js',
+		),
 		'ext.semanticforms.fancybox' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/jquery.fancybox.js',
 			'styles' => 'skins/jquery.fancybox.css',
+			'dependencies' => array( 'ext.semanticforms.browser' ),
 		),
 		'ext.semanticforms.dynatree' => $sfgResourceTemplate + array(
 			'dependencies' => array( 'jquery.ui.widget' ),
@@ -265,12 +272,11 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.popupformedit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_popupform.js',
 			'styles' => 'skins/SF_popupform.css',
-			'dependencies' => array( 'jquery' ),
+			'dependencies' => array( 'ext.semanticforms.browser' ),
 		),
 		'ext.semanticforms.autoedit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_autoedit.js',
 			'styles' => 'skins/SF_autoedit.css',
-			'dependencies' => array( 'jquery' ),
 			'messages' => array(
 				'sf-autoedit-wait',
 				'sf_autoedit_anoneditwarning',
@@ -279,7 +285,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.submit' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_submit.js',
 			'styles' => 'skins/SF_submit.css',
-			'dependencies' => array( 'jquery' ),
 			'messages' => array(
 				'sf_formedit_saveandcontinue_summary',
 				'sf_formedit_saveandcontinueediting',
@@ -288,7 +293,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.collapsible' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_collapsible.js',
 			'styles' => 'skins/SF_collapsible.css',
-			'dependencies' => array( 'jquery' ),
 		),
 		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_wikieditor.js',
@@ -299,16 +303,44 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
-				'scripts' => 'libs/SF_imagePreview.js',
-			),
+			'scripts' => 'libs/SF_imagePreview.js',
+		),
 		'ext.semanticforms.checkboxes' => $sfgResourceTemplate + array(
-				'scripts' => 'libs/SF_checkboxes.js',
-				'styles' => 'skins/SF_checkboxes.css',
-				'messages' => array(
-					'sf_forminputs_checkboxes_select_all',
-					'sf_forminputs_checkboxes_select_none',
-				),
+			'scripts' => 'libs/SF_checkboxes.js',
+			'styles' => 'skins/SF_checkboxes.css',
+			'messages' => array(
+				'sf_forminputs_checkboxes_select_all',
+				'sf_forminputs_checkboxes_select_none',
 			),
+		),
+		'ext.semanticforms.select2' => $sfgResourceTemplate + array(
+			'scripts' => array(
+				'libs/select2.js',
+				'libs/ext.sf.select2.base.js',
+				'libs/ext.sf.select2.combobox.js',
+				'libs/ext.sf.select2.tokens.js',
+			),
+			'styles' => array(
+				'skins/select2/select2.css',
+				'skins/select2/select2-bootstrap.css',
+				'skins/ext.sf.select2.css',
+			),
+			'dependencies' => array(
+				'ext.semanticforms',
+				'mediawiki.jqueryMsg',
+			),
+			'messages' => array(
+				'sf-select2-no-matches',
+				'sf-select2-searching',
+				'sf-select2-input-too-short',
+				'sf-select2-selection-too-big',
+			),
+		),
+		'ext.semanticforms' => $sfgResourceTemplate + array(
+			'scripts' => array(
+				'libs/ext.sf.js',
+			),
+		),
 	);
 }
 
@@ -346,6 +378,12 @@ call_user_func( function ( $langcode ) {
 # slow down the database, and Javascript's completion.
 # ##
 $GLOBALS['sfgMaxAutocompleteValues'] = 1000;
+
+# ##
+# The number of allowed values for local autocomplete - after which
+# it will switch to remote autocompletion.
+# ##
+$GLOBALS['sfgMaxLocalAutocompleteValues'] = 100;
 
 # ##
 # Whether to autocomplete on all characters in a string, not just the
@@ -465,3 +503,4 @@ $GLOBALS['sfgCheckboxesSelectAllMinimum'] = 10;
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
+

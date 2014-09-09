@@ -75,6 +75,7 @@
     "sf_forminputs_width": "The width of this input, in pixels",
     "sf_forminputs_checkboxes_select_all": "Select all",
     "sf_forminputs_checkboxes_select_none": "Select none",
+    "sf_forminputs_maxvalues": "Maximum number of values allowed for a field that holds multiple values",
     "createform": "Create a form",
     "sf-createform-with-name": "Create form: $1",
     "sf_createform_nameinput": "Form name",
@@ -199,5 +200,9 @@
     "right-createclass": "Create new semantic classes",
     "action-createclass": "create new semantic classes",
     "action-editrestrictedfields": "edit restricted form fields",
-    "action-viewedittab": "view the \"{{int:edit}}\" tab for pages editable by form"
+    "action-viewedittab": "view the \"{{int:edit}}\" tab for pages editable by form",
+    "sf-select2-no-matches": "No matches",
+    "sf-select2-searching": "Searching...",
+    "sf-select2-input-too-short": "Please enter $1 or more characters.",
+    "sf-select2-selection-too-big": "This field cannot hold more than {{PLURAL:$1|$1 value|$1 values}}."
 }

@@ -20,12 +20,12 @@ class SFAutoeditAPI extends ApiBase {
 	const ACTION_DIFF = 3;
 
 	/**
-	 * Error level used when a non-recoverable error occured.
+	 * Error level used when a non-recoverable error occurred.
 	 */
 	const ERROR = 0;
 
 	/**
-	 * Error level used when a revcoverable error occured.
+	 * Error level used when a recoverable error occurred.
 	 */
 	const WARNING = 1;
 
@@ -136,12 +136,16 @@ class SFAutoeditAPI extends ApiBase {
 		}
 		$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
-		global $wgParser, $wgUser;
+		global $wgParser;
 		if ( $wgParser === null ) {
 			$wgParser = new Parser();
 		}
 
-		$wgParser->startExternalParse( null, ParserOptions::newFromUser( $wgUser ), Parser::OT_WIKI );
+		$wgParser->startExternalParse(
+			null,
+			ParserOptions::newFromUser( $this->getUser() ),
+			Parser::OT_WIKI
+		);
 
 		// MW uses the parameter 'title' instead of 'target' when submitting
 		// data for formedit action => use that
@@ -331,8 +335,6 @@ class SFAutoeditAPI extends ApiBase {
 
 	protected function setupEditPage( $targetContent ) {
 
-		global $wgUser;
-
 		// Find existing target article if it exists, or create a new one.
 		$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
@@ -355,7 +357,7 @@ class SFAutoeditAPI extends ApiBase {
 					'wpSummary' => '',
 					'wpStarttime' => wfTimestampNow(),
 					'wpEdittime' => '',
-					'wpEditToken' => $wgUser->isLoggedIn() ? $wgUser->editToken() : EDIT_TOKEN_SUFFIX,
+					'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : '',
 					'action' => 'submit',
 				),
 				$this->mOptions
@@ -379,13 +381,11 @@ class SFAutoeditAPI extends ApiBase {
 	 */
 	protected function setResultFromOutput() {
 
-		global $wgOut;
-
 		// turn on output buffering
 		ob_start();
 
 		// generate preview document and write it to output buffer
-		$wgOut->output();
+		$this->getOutput()->output();
 
 		// retrieve the preview document from output buffer
 		$targetHtml = ob_get_contents();
@@ -406,14 +406,14 @@ class SFAutoeditAPI extends ApiBase {
 
 		wfRunHooks( 'EditPage::showEditForm:initial', array( &$editor, &$wgOut ) );
 
-		$wgOut->addStyle( 'common/IE80Fixes.css', 'screen', 'IE 8' );
-		$wgOut->setRobotPolicy( 'noindex,nofollow' );
+		$this->getOutput()->addStyle( 'common/IE80Fixes.css', 'screen', 'IE 8' );
+		$this->getOutput()->setRobotPolicy( 'noindex,nofollow' );
 
 		// This hook seems slightly odd here, but makes things more
 		// consistent for extensions.
 		wfRunHooks( 'OutputPageBeforeHTML', array( &$wgOut, &$previewOutput ) );
 
-		$wgOut->addHTML( Html::rawElement( 'div', array( 'id' => 'wikiPreview' ), $previewOutput ) );
+		$this->getOutput()->addHTML( Html::rawElement( 'div', array( 'id' => 'wikiPreview' ), $previewOutput ) );
 
 		$this->setResultFromOutput();
 
@@ -426,30 +426,24 @@ class SFAutoeditAPI extends ApiBase {
 
 	protected function doStore( EditPage $editor ) {
 
-		global $wgUser, $wgOut, $wgLang;
-
-		if ( method_exists( $editor, 'getTitle' ) ) {
-			$title = $editor->getTitle();
-		} else { // TODO: remove else branch when raising supported version to MW 1.19
-			$title = $editor->mTitle;
-		}
+		$title = $editor->getTitle();
 
 		// If they used redlink=1 and the page exists, redirect to the main article and send notice
 		if ( $this->getRequest()->getBool( 'redlink' ) && $title->exists() ) {
 			$this->logMessage( wfMessage( 'sf_autoedit_redlinkexists' )->parse(), self::WARNING );
 		}
 
-		$permErrors = $title->getUserPermissionsErrors( 'edit', $wgUser );
+		$permErrors = $title->getUserPermissionsErrors( 'edit', $this->getUser() );
 
 		// if this title needs to be created, user needs create rights
 		if ( !$title->exists() ) {
-			$permErrors = array_merge( $permErrors, wfArrayDiff2( $title->getUserPermissionsErrors( 'create', $wgUser ), $permErrors ) );
+			$permErrors = array_merge( $permErrors, wfArrayDiff2( $title->getUserPermissionsErrors( 'create', $this->getUser() ), $permErrors ) );
 		}
 
 		if ( $permErrors ) {
 
 			// Auto-block user's IP if the account was "hard" blocked
-			$wgUser->spreadAnyEditBlock();
+			$this->getUser()->spreadAnyEditBlock();
 
 			foreach ( $permErrors as $error ) {
 				$this->logMessage( wfMessage( $error )->parse() );
@@ -460,9 +454,14 @@ class SFAutoeditAPI extends ApiBase {
 
 		$resultDetails = false;
 		# Allow bots to exempt some edits from bot flagging
-		$bot = $wgUser->isAllowed( 'bot' ) && $editor->bot;
+		$bot = $this->getUser()->isAllowed( 'bot' ) && $editor->bot;
 
-		$status = $editor->internalAttemptSave( $resultDetails, $bot );
+		if ( $editor->mTokenOk ) {
+			$status = $editor->internalAttemptSave( $resultDetails, $bot );
+		}
+		else {
+				throw new MWException( wfMessage( 'session_fail_preview' )->parse() );
+		}
 
 		switch ( $status->value ) {
 			case EditPage::AS_HOOK_ERROR_EXPECTED: // A hook function returned an error
@@ -494,7 +493,7 @@ class SFAutoeditAPI extends ApiBase {
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
-				$wgOut->redirect( $title->getFullURL( $query ) . $anchor );
+				$this->getOutput()->redirect( $title->getFullURL( $query ) . $anchor );
 				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $query ) . $anchor );
 				return false; // success
 
@@ -514,7 +513,7 @@ class SFAutoeditAPI extends ApiBase {
 					}
 				}
 
-				$wgOut->redirect( $title->getFullURL( $extraQuery ) . $sectionanchor );
+				$this->getOutput()->redirect( $title->getFullURL( $extraQuery ) . $sectionanchor );
 				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $extraQuery ) . $sectionanchor );
 
 				return false; // success
@@ -523,7 +522,7 @@ class SFAutoeditAPI extends ApiBase {
 
 				$this->logMessage( 'User tried to create a blank page', self::DEBUG );
 
-				$wgOut->redirect( $editor->getContextTitle()->getFullURL() );
+				$this->getOutput()->redirect( $editor->getContextTitle()->getFullURL() );
 				$this->getResult()->addValue( NULL, 'redirect', $editor->getContextTitle()->getFullURL() );
 
 				return false; // success
@@ -532,13 +531,13 @@ class SFAutoeditAPI extends ApiBase {
 
 				$match = $resultDetails['spam'];
 				if ( is_array( $match ) ) {
-					$match = $wgLang->listToText( $match );
+					$match = $this->getLanguage()->listToText( $match );
 				}
 
 				throw new MWException( wfMessage( 'spamprotectionmatch', wfEscapeWikiText( $match ) )->parse() ); // FIXME: Include better error message
 
 			case EditPage::AS_BLOCKED_PAGE_FOR_USER: // User is blocked from editting editor page
-				throw new UserBlockedError( $wgUser->getBlock() );
+				throw new UserBlockedError( $this->getUser()->getBlock() );
 
 			case EditPage::AS_IMAGE_REDIRECT_ANON: // anonymous user is not allowed to upload (User::isAllowed('upload') == false)
 			case EditPage::AS_IMAGE_REDIRECT_LOGGED: // logged in user is not allowed to upload (User::isAllowed('upload') == false)
@@ -610,10 +609,6 @@ class SFAutoeditAPI extends ApiBase {
 	 * Set custom headers to attach to the answer
 	 */
 	protected function setHeaders() {
-		/**
-		 * @global OutputPage $wgOut
-		 */
-		global $wgOut;
 
 		if ( !headers_sent() ) {
 
@@ -621,7 +616,7 @@ class SFAutoeditAPI extends ApiBase {
 			header( 'X-Form: ' . $this->mOptions['form'] );
 			header( 'X-Target: ' . $this->mOptions['target'] );
 
-			$redirect = $wgOut->getRedirect();
+			$redirect = $this->getOutput()->getRedirect();
 			if ( $redirect ) {
 				header( 'X-Location: ' . $redirect );
 			}
@@ -838,7 +833,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		if ( $preloadContent !== '' ) {
 
-			// spoof $wgRequest for SFFormPrinter::formHTML
+			// Spoof $wgRequest for SFFormPrinter::formHTML().
 			$wgRequest = new FauxRequest( $this->mOptions, true );
 
 			// call SFFormPrinter::formHTML to get at the form html of the existing page
@@ -875,7 +870,6 @@ class SFAutoeditAPI extends ApiBase {
 		if ( $formHtmlHasRun ) {
 			// save wgOut for later restoration
 			$oldOut = $wgOut;
-
 			$wgOut = new OutputPage( RequestContext::getMain() );
 		}
 
@@ -1185,19 +1179,4 @@ END;
 		$gitSha1 = SpecialVersion::getGitHeadSha1( $sfgIP );
 		return __CLASS__ . '-' . SF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
-
-
-	/**
-	 * Available in parent class since MW 1.19
-	 * @deprecated
-	 */
-	function getRequest() {
-		if ( is_callable( 'parent::getRequest' ) ) {
-			return parent::getRequest();
-		} else {
-			global $wgRequest;
-			return $wgRequest;
-		}
-	}
-
 }

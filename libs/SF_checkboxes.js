@@ -4,8 +4,6 @@
  * @author Stephan Gambke
  */
 
-/*global jQuery, mediaWiki */
-
 ( function ( $, mw ) {
 
 	'use strict';
@@ -50,7 +48,7 @@
 		} );
 
 		return this;
-	}
+	};
 
 	$().ready( function ( $ ) {
 		$( '.checkboxesSpan.select-all' ).appendSelectionSwitches();
