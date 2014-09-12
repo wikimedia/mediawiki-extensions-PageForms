@@ -60,7 +60,7 @@ class SFForm {
 		return $text;
 	}
 
-	function createMarkup() {
+	function createMarkup( $standardInputs = array(), $freeTextLabel = null ) {
 		$title = Title::makeTitle( SF_NS_FORM, $this->mFormName );
 		$fs = SpecialPageFactory::getPage( 'FormStart' );
 		$form_start_url = SFUtils::titleURLString( $fs->getTitle() ) . "/" . $title->getPartialURL();
@@ -106,10 +106,42 @@ END;
 			}
 		}
 
-		$free_text_label = wfMessage( 'sf_form_freetextlabel' )->inContentLanguage()->text();
-		$text .= <<<END
-'''$free_text_label:'''
+		if ( is_null( $freeTextLabel ) ) {
+			$freeTextLabel = wfMessage( 'sf_form_freetextlabel' )->inContentLanguage()->text();
+		}
+		$text .= "'''$freeTextLabel:'''\n\n";
 
+		// Add in standard inputs if they were specified.
+		if ( count( $standardInputs ) > 0 ) {
+			if ( array_key_exists( 'free text', $standardInputs ) ) {
+				$text .= $standardInputs['free text'] . "\n\n\n";
+			}
+			if ( array_key_exists( 'summary', $standardInputs ) ) {
+				$text .= $standardInputs['summary'] . "\n\n";
+			}
+			if ( array_key_exists( 'minor edit', $standardInputs ) ) {
+				$text .= $standardInputs['minor edit'] . ' ';
+			}
+			if ( array_key_exists( 'watch', $standardInputs ) ) {
+				$text .= $standardInputs['watch'];
+			}
+			if ( array_key_exists( 'minor edit', $standardInputs ) ||  array_key_exists( 'watch', $standardInputs ) ) {
+				$text .= "\n\n";
+			}
+			if ( array_key_exists( 'save', $standardInputs ) ) {
+				$text .= $standardInputs['save'] . ' ';
+			}
+			if ( array_key_exists( 'preview', $standardInputs ) ) {
+				$text .= $standardInputs['preview'] . ' ';
+			}
+			if ( array_key_exists( 'changes', $standardInputs ) ) {
+				$text .= $standardInputs['changes'] . ' ';
+			}
+			if ( array_key_exists( 'cancel', $standardInputs ) ) {
+				$text .= $standardInputs['cancel'];
+			}
+		} else {
+			$text .= <<<END
 {{{standard input|free text|rows=10}}}
 
 
@@ -118,9 +150,9 @@ END;
 {{{standard input|minor edit}}} {{{standard input|watch}}}
 
 {{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}
-</includeonly>
-
 END;
+		}
+		$text .= "\n</includeonly>\n";
 
 		return $text;
 	}
