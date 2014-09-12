@@ -197,26 +197,22 @@ class SFPageSchemas extends PSExtensionHandler {
 				if ( !empty( $val ) ) {
 					$xml .= '<InputType>' . $val . '</InputType>';
 				}
-			} elseif ( substr( $var, 0, 14 ) == 'sf_input_desc_' ) {
-
-				if ( $val !== '' ) {
-					$xml .= '<Description>' . $val . '</Description>';
-				}
-
-			} elseif ( substr( $var, 0, 18 ) == 'sf_input_desctool_' ) {
-
-				if ( $val !== '' ) {
-					$xml .= '<DescriptionTooltipMode>' . $val . '</DescriptionTooltipMode>';
-				}
-
+			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
+				$xml .= self::createFormInputXMLFromForm( $val );
 			} elseif ( substr( $var, 0, 14 ) == 'sf_input_befo_' ) {
-
 				if ( $val !== '' ) {
 					$xml .= '<TextBeforeField>' . $val . '</TextBeforeField>';
 				}
-
-			} elseif ( substr( $var, 0, 14 ) == 'sf_key_values_' ) {
-				$xml .= self::createFormInputXMLFromForm( $val );
+			} elseif ( substr( $var, 0, 14 ) == 'sf_input_desc_' ) {
+				if ( $val !== '' ) {
+					$xml .= '<Description>' . $val . '</Description>';
+				}
+			} elseif ( substr( $var, 0, 18 ) == 'sf_input_desctool_' ) {
+				if ( $val !== '' ) {
+					$xml .= '<DescriptionTooltipMode>' . $val . '</DescriptionTooltipMode>';
+				}
+			} elseif ( substr( $var, 0, 16 ) == 'sf_input_finish_' ) {
+				// This is a hack.
 				$xml .= '</semanticforms_FormInput>';
 				$xmlPerField[$fieldNum] = $xml;
 			}
@@ -479,6 +475,10 @@ END;
 		$inputDescription = Html::input( 'sf_input_desc_num', $inputDesc, 'text', array( 'size' => 80 ) );
 		$inputDescriptionTooltipMode = Html::input( 'sf_input_desctool_num', $inputDescTooltipMode, 'checkbox', array( 'checked' => ( $inputDescTooltipMode ) ? 'checked' : null ) );
 		$text .= "\t<p>Field description: $inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
+
+		// @HACK to make input parsing easier.
+		$text .= Html::hidden( 'sf_input_finish_num', 1 );
+
 		$text .= "</div>\n";
 
 		return array( $text, $hasExistingValues );
@@ -566,6 +566,8 @@ END;
 						$formField->setIsHidden( true );
 					} elseif ( $var == 'restricted' ) {
 						$formField->setIsRestricted( true );
+					} elseif ( in_array( $var, array( 'Description', 'DescriptionTooltipMode', 'TextBeforeField' ) ) ) {
+						$formField->setDescriptionArg( $var, $val );
 					} else {
 						$formField->setFieldArg( $var, $val );
 					}
@@ -655,22 +657,30 @@ END;
 		global $wgUser;
 
 		$input = array();
-		if ( array_key_exists( 'inputFreeText', $formDataFromSchema ) )
+		if ( array_key_exists( 'inputFreeText', $formDataFromSchema ) ) {
 			$input['free text'] = '{{{standard input|free text|rows=10}}}';
-		if ( array_key_exists( 'inputSummary', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputSummary', $formDataFromSchema ) ) {
 			$input['summary'] = '{{{standard input|summary}}}';
-		if ( array_key_exists( 'inputMinorEdit', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputMinorEdit', $formDataFromSchema ) ) {
 			$input['minor edit'] = '{{{standard input|minor edit}}}';
-		if ( array_key_exists( 'inputWatch', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputWatch', $formDataFromSchema ) ) {
 			$input['watch'] = '{{{standard input|watch}}}';
-		if ( array_key_exists( 'inputSave', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputSave', $formDataFromSchema ) ) {
 			$input['save'] = '{{{standard input|save}}}';
-		if ( array_key_exists( 'inputPreview', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputPreview', $formDataFromSchema ) ) {
 			$input['preview'] = '{{{standard input|preview}}}';
-		if ( array_key_exists( 'inputChanges', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputChanges', $formDataFromSchema ) ) {
 			$input['changes'] = '{{{standard input|changes}}}';
-		if ( array_key_exists( 'inputCancel', $formDataFromSchema ) )
+		}
+		if ( array_key_exists( 'inputCancel', $formDataFromSchema ) ) {
 			$input['cancel'] = '{{{standard input|cancel}}}';
+		}
 
 		$freeTextLabel = null;
 		if ( array_key_exists( 'freeTextLabel', $formDataFromSchema ) )

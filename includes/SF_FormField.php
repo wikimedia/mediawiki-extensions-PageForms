@@ -25,6 +25,7 @@ class SFFormField {
 	// (though they could be)
 	private $mIsUploadable;
 	private $mFieldArgs;
+	private $mDescriptionArgs;
 	// somewhat of a hack - these two fields are for a field in a specific
 	// representation of a form, not the form definition; ideally these
 	// should be contained in a third 'field' class, called something like
@@ -44,6 +45,7 @@ class SFFormField {
 		$f->mIsUploadable = false;
 		$f->mPossibleValues = null;
 		$f->mFieldArgs = array();
+		$f->mDescriptionArgs = array();
 		return $f;
 	}
 
@@ -137,6 +139,10 @@ class SFFormField {
 
 	public function setFieldArg( $key, $value ) {
 		$this->mFieldArgs[$key] = $value;
+	}
+
+	public function setDescriptionArg( $key, $value ) {
+		$this->mDescriptionArgs[$key] = $value;
 	}
 
 	function inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $cur_input_type ) {
@@ -268,30 +274,32 @@ END;
 		$descPlaceholder = "";
 		$textBeforeField = "";
 
-		if ( array_key_exists( "Description", $this->mFieldArgs ) ) {
-			if ( $this->mFieldArgs['Description'] != '' ) {
-				if ( isset($this->mFieldArgs['DescriptionTooltipMode']) )
-				{
-					$descPlaceholder = ' {{#info:'.$this->mFieldArgs['Description'].'}}';
-				}else{
-					$descPlaceholder = '<br><p class="sfFieldDescription" style="font-size:0.7em; color:gray;">' . $this->mFieldArgs['Description'] . '</p>';
+		if ( array_key_exists( "Description", $this->mDescriptionArgs ) ) {
+			$fieldDesc = $this->mDescriptionArgs['Description'];
+			if ( $fieldDesc != '' ) {
+				if ( isset( $this->mDescriptionArgs['DescriptionTooltipMode'] ) ) {
+					$descPlaceholder = " {{#info:$fieldDesc}}";
+				} else {
+					$descPlaceholder = '<br><p class="sfFieldDescription" style="font-size:0.7em; color:gray;">' . $fieldDesc . '</p>';
 				}
 			}
 		}
 
-		if ( array_key_exists( "TextBeforeField", $this->mFieldArgs ) ) {
-			if ( $this->mFieldArgs['TextBeforeField'] != '' ) {
-				$textBeforeField = $this->mFieldArgs['TextBeforeField'];
-			}
+		if ( array_key_exists( "TextBeforeField", $this->mDescriptionArgs ) ) {
+			$textBeforeField = $this->mDescriptionArgs['TextBeforeField'];
 		}
 
-		if ( $this->template_field->getLabel() !== '' ) {
-			if ( $part_of_multiple ) {
-				$text .= "'''" . $textBeforeField . $this->template_field->getLabel() . ":''' $descPlaceholder";
-			} else {
-				$text .= "! " . $textBeforeField . $this->template_field->getLabel() . ":$descPlaceholder\n";
-			}
+		$fieldLabel = $this->template_field->getLabel();
+		if ( $textBeforeField != '' ) {
+			$fieldLabel = $textBeforeField . ' ' . $fieldLabel;
 		}
+
+		if ( $part_of_multiple ) {
+			$text .= "'''$fieldLabel:''' $descPlaceholder";
+		} else {
+			$text .= "! $fieldLabel: $descPlaceholder\n";
+		}
+
 		if ( ! $part_of_multiple ) { $text .= "| "; }
 		$text .= "{{{field|" . $this->template_field->getFieldName();
 		// TODO - why is there an input type field in both the form
