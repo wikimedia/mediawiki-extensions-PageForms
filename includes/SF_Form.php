@@ -109,11 +109,11 @@ END;
 		if ( is_null( $freeTextLabel ) ) {
 			$freeTextLabel = wfMessage( 'sf_form_freetextlabel' )->inContentLanguage()->text();
 		}
-		$text .= "'''$freeTextLabel:'''\n\n";
 
 		// Add in standard inputs if they were specified.
 		if ( count( $standardInputs ) > 0 ) {
 			if ( array_key_exists( 'free text', $standardInputs ) ) {
+				$text .= "'''$freeTextLabel:'''\n\n";
 				$text .= $standardInputs['free text'] . "\n\n\n";
 			}
 			if ( array_key_exists( 'summary', $standardInputs ) ) {
@@ -142,6 +142,8 @@ END;
 			}
 		} else {
 			$text .= <<<END
+'''$freeTextLabel:'''
+
 {{{standard input|free text|rows=10}}}
 
 
