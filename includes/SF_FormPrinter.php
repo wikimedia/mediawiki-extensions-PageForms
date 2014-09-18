@@ -978,11 +978,11 @@ END;
 									$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
 								);
 							}
-							if ( !is_null( $possible_values ) && array_key_exists( 'mapping template', $field_args ) ) {
-								$possible_values = SFUtils::getLabels( $possible_values, $field_args['mapping template'] );
-							}
 						}
 					} // end for
+					if ( !is_null( $possible_values ) && array_key_exists( 'mapping template', $field_args ) ) {
+						$possible_values = SFUtils::getLabels( $possible_values, $field_args['mapping template'] );
+					}
 					// Backwards compatibility
 					if ( $input_type == 'datetime with timezone' ) {
 						$input_type = 'datetime';
