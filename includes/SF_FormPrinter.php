@@ -1728,7 +1728,12 @@ END;
 			$data_text = str_replace( '!free_text!', '<onlyinclude>!free_text!</onlyinclude>', $data_text );
 		}
 
+		// The first hook here is deprecated. Use the second.
+		// Note: wfRunHooks can take a third argument which indicates a deprecated hook, but it
+		// expects a MediaWiki version, not an extension version.
 		wfRunHooks( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
+		wfRunHooks( 'sfBeforeFreeTextSubstitution',
+			array( &$free_text, $existing_page_content, &$data_text ) );
 
 		// now that we have it, substitute free text into the form and page
 		$escaped_free_text = Sanitizer::safeEncodeAttribute( $free_text );
