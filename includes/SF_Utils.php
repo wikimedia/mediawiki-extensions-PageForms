@@ -906,6 +906,7 @@ END;
 		// Set defaults.
 		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
 			$inQueryStr = $inTargetName = '';
+		$inEditExistingTarget = false;
 		if ( $specialPageName == 'RunQuery' ) {
 			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
@@ -958,6 +959,8 @@ END;
 				$classStr = 'popupformlink';
 			} elseif ( $param_name == null && $value == 'new window' ) {
 				$targetWindow = '_blank';
+			} elseif ( $param_name == null && $value == 'edit existing target' ) {
+				$inEditExistingTarget = true;
 			} elseif ( $param_name !== null && !$positionalParameters ) {
 				$value = urlencode( $value );
 				parse_str( "$param_name=$value", $arr );
@@ -980,12 +983,22 @@ END;
 			}
 		}
 
-		$ad = SpecialPageFactory::getPage( $specialPageName );
+		// If "red link only" was specified, and a target page was
+		// specified, and it exists, just link to the page.
+		if ( $inTargetName != '' ) {
+			$targetTitle = Title::newFromText( $inTargetName );
+			$targetPageExists = ( $targetTitle != '' & $targetTitle->exists() );
+		}
+		if ( !$inEditExistingTarget && $targetPageExists ) {
+			return Linker::link( $targetTitle );
+		} 
+
+		$formSpecialPage = SpecialPageFactory::getPage( $specialPageName );
 		if ( strpos( $inFormName, '/' ) == true ) {
 			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
-			$link_url = $ad->getTitle()->getLocalURL( $query );
+			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
 		} else {
-			$link_url = $ad->getTitle()->getLocalURL() . "/$inFormName";
+			$link_url = $formSpecialPage->getTitle()->getLocalURL() . "/$inFormName";
 			if ( ! empty( $inTargetName ) ) {
 				$link_url .= "/$inTargetName";
 			}
@@ -1023,9 +1036,13 @@ END;
 			// If a target page has been specified but it doesn't
 			// exist, make it a red link.
 			if ( ! empty( $inTargetName ) ) {
-				$targetTitle = Title::newFromText( $inTargetName );
-				if ( is_null( $targetTitle ) || !$targetTitle->exists() ) {
+				if ( !$targetPageExists ) {
 					$classStr .= " new";
+				}
+				// If no link string was specified, make it
+				// the name of the page.
+				if ( $inLinkStr == '' ) {
+					$inLinkStr = $inTargetName;
 				}
 			}
 			$str = Html::rawElement( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip, 'target' => $targetWindow ), $inLinkStr );

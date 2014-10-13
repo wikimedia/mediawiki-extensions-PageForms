@@ -164,8 +164,14 @@ class SFFormLinker {
 				$form_name = $auto_create_forms[0];
 				$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
 				$form_definition = SFUtils::getPageText( $form_title );
+				$preloadContent = null;
+
+				// Allow outside code to set/change the
+				// preloaded text.
+				wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $title, $form_title ) );
+
 				list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
-					$sfgFormPrinter->formHTML( $form_definition, false, false, null, null, 'Some very long page name that will hopefully never get created ABCDEF123', null );
+					$sfgFormPrinter->formHTML( $form_definition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
 				$params = array();
 
 				// Get user "responsible" for all auto-generated
