@@ -334,7 +334,9 @@ class SFFormLinker {
 				$default_forms = array_merge( $default_forms, self::getFormsThatPagePointsTo( $category, NS_CATEGORY, self::DEFAULT_FORM ) );
 			}
 			if ( count( $default_forms ) > 0 ) {
-				return $default_forms;
+				// It is possible for two categories to have the same default form, so purge any
+				// duplicates from the array to avoid a "more than one default form" warning.
+				return array_unique( $default_forms );
 			}
 		}
 
