@@ -4,8 +4,15 @@
  *
  * @file
  * @ingroup SF
- * The following parser functions are defined: 'forminput', 'formlink',
- * 'queryformlink', 'arraymap', 'arraymaptemplate' and 'autoedit'.
+ * The following parser functions are defined: 'default_form', 'forminput',
+ * 'formlink', 'queryformlink', 'arraymap', 'arraymaptemplate' and 'autoedit'.
+ *
+ * 'default_form' is called as:
+ * {{#default_form:formName}}
+ *
+ * This function sets the specified form to be the default form for pages in
+ * that category. It is a substitute for the (now somewhat-deprecated) "Has
+ * default form" special property.
  *
  * 'forminput' is called as:
  *
@@ -143,6 +150,7 @@ class SFParserFunctions {
 	static function registerFunctions( &$parser ) {
 		global $wgOut;
 
+		$parser->setFunctionHook( 'default_form', array( 'SFParserFunctions', 'renderDefaultForm' ) );
 		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
 		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
 		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
@@ -157,6 +165,34 @@ class SFParserFunctions {
 		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
 
 		return true;
+	}
+
+	static function renderDefaultform( &$parser ) {
+		$curTitle = $parser->getTitle();
+
+		$params = func_get_args();
+		array_shift( $params );
+
+		// Parameters
+		if ( count( $params ) == 0 ) {
+			// Escape!
+			return true;
+		}
+		$defaultForm = $params[0];
+
+		$parserOutput = $parser->getOutput();
+		$parserOutput->setProperty( 'SFDefaultForm', $defaultForm );
+
+		// Display information on the page, if this is a category.
+		if ( $curTitle->getNamespace() == NS_CATEGORY ) {
+			$defaultFormPage = Title::makeTitleSafe( SF_NS_FORM, $defaultForm );
+			$defaultFormPageText = $defaultFormPage->getPrefixedText();
+			$defaultFormPageLink = "[[$defaultFormPageText|$defaultForm]]";
+			$text = wfMessage( 'sf_category_hasdefaultform', $defaultFormPageLink )->text();
+			return $text;
+		}
+
+		// It's not a category - display nothing.
 	}
 
 	static function renderFormLink ( &$parser ) {
@@ -178,7 +214,6 @@ class SFParserFunctions {
 	}
 
 	static function renderFormInput ( &$parser ) {
-
 		global $wgHtml5;
 
 		$params = func_get_args();
@@ -304,7 +339,7 @@ END;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
 			global $sfgMaxLocalAutocompleteValues;
 			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
-			if ( count($autocompletion_values) > $sfgMaxLocalAutocompleteValues  || $inRemoteAutocompletion ) {
+			if ( count($autocompletion_values) > $sfgMaxLocalAutocompleteValues || $inRemoteAutocompletion ) {
 				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 				$formInputAttrs['autocompletedatatype'] = $autocompletion_type;
 			} else {

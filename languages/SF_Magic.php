@@ -8,6 +8,7 @@ $magicWords = array();
 
 /** English (English) */
 $magicWords['en'] = array(
+	'default_form' => array( 0, 'default_form' ),
 	'forminput' => array( 0, 'forminput' ),
 	'formlink' => array( 0, 'formlink' ),
 	'queryformlink' => array( 0, 'queryformlink' ),
