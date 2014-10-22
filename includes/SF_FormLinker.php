@@ -21,6 +21,24 @@ class SFFormLinker {
 	static $mLinkedPages = array();
 	static $mLinkedPagesRetrieved = false;
 
+	static function getDefaultForm( $title ) {
+		$pageID = $title->getArticleID();
+		$dbr = wfGetDB( DB_SLAVE );
+		$res = $dbr->select( 'page_props',
+			array(
+				'pp_value'
+			),
+			array(
+				'pp_page' => $pageID,
+				'pp_propname' => 'SFDefaultForm'
+			)
+		);
+
+		if ( $row = $dbr->fetchRow( $res ) ) {
+			return $row['pp_value'];
+		}
+	}
+
 	/**
 	 * Gets the set of all properties that point to this page, anywhere
 	 * in the wiki.
@@ -310,10 +328,16 @@ class SFFormLinker {
 	static function getDefaultFormsForPage( $title ) {
 		// See if the page itself has a default form (or forms), and
 		// return it/them if so.
+		$default_form = self::getDefaultForm( $title );
+		if ( $default_form != '' ) {
+			return array( $default_form );
+		}
+
 		$default_forms = self::getFormsThatPagePointsTo( $title->getText(), $title->getNamespace(), self::PAGE_DEFAULT_FORM );
 		if ( count( $default_forms ) > 0 ) {
 			return $default_forms;
 		}
+
 		// If this is not a category page, look for a default form
 		// for its parent category or categories.
 		$namespace = $title->getNamespace();
@@ -330,6 +354,11 @@ class SFFormLinker {
 							$default_forms[] = $formName;
 						}
 					}
+				}
+				$categoryPage = Title::makeTitleSafe( NS_CATEGORY, $category );
+				$defaultFormForCategory = self::getDefaultForm( $categoryPage );
+				if ( $defaultFormForCategory != '' ) {
+					$default_forms[] = $defaultFormForCategory;
 				}
 				$default_forms = array_merge( $default_forms, self::getFormsThatPagePointsTo( $category, NS_CATEGORY, self::DEFAULT_FORM ) );
 			}
@@ -356,6 +385,13 @@ class SFFormLinker {
 			$namespace_labels = $wgContLang->getNamespaces();
 			$namespace_label = $namespace_labels[$namespace];
 		}
+
+		$namespacePage = Title::makeTitleSafe( NS_PROJECT, $namespace_label );
+		$default_form = self::getDefaultForm( $namespacePage );
+		if ( $default_form != '' ) {
+			return array( $default_form );
+		}
+
 		$default_forms = self::getFormsThatPagePointsTo( $namespace_label, NS_PROJECT, self::DEFAULT_FORM );
 		return $default_forms;
 	}
