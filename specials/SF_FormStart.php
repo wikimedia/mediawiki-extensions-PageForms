@@ -184,16 +184,12 @@ END;
 		}
 
 		$wgOut->setArticleBodyOnly( true );
+
 		// Show "loading" animated image while people wait for the
 		// redirect.
 		global $sfgScriptPath;
-		$text = <<<END
-	<p style="position: absolute; left: 45%; top: 45%;">
-	<img src="$sfgScriptPath/skins/loading.gif" />
-	</p>
- 	<meta http-equiv="refresh" content="0; url=$redirect_url" />
-
-END;
+		$text = "\t" . Html::rawElement( 'p', array( 'style' => "position: absolute; left: 45%; top: 45%;" ), Html::element( 'img', array( 'src' => "$sfgScriptPath/skins/loading.gif" ) ) );
+		$text .= "\t" . Html::element( 'meta', array( 'http-equiv' => 'refresh', 'content' => "0; url=$redirect_url" ) );
 		$wgOut->addHTML( $text );
 		return;
 	}
