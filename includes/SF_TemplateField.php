@@ -64,6 +64,10 @@ class SFTemplateField {
 	}
 
 	function setTypeAndPossibleValues() {
+		if ( !defined( 'SMW_NS_PROPERTY' ) ) {
+			return;
+		}
+
 		// The presence of "-" at the beginning of a property name
 		// (which happens if SF tries to parse an inverse query)
 		// leads to an error in SMW - just exit if that's the case.
