@@ -48,8 +48,12 @@ class SFHelperFormAction extends Action
 		}
 		// Make sure that this page is in one of the relevant
 		// namespaces, and that it doesn't exist yet.
+		$namespacesWithHelperForms = array( NS_TEMPLATE, SF_NS_FORM, NS_CATEGORY );
+		if ( defined( 'SMW_NS_PROPERTY' ) ) {
+			$namespacesWithHelperForms[] = SMW_NS_PROPERTY;
+		}
 		if ( !isset( $title ) ||
-			( !in_array( $title->getNamespace(), array( SMW_NS_PROPERTY, NS_TEMPLATE, SF_NS_FORM, NS_CATEGORY ) ) ) ) {
+			( !in_array( $title->getNamespace(), $namespacesWithHelperForms ) ) ) {
 			return true;
 		}
 		if ( $title->exists() ) {

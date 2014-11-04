@@ -81,8 +81,10 @@ class SFUtils {
 		if ( class_exists( '\SMW\StoreFactory' ) ) {
 			// SMW 1.9+
 			return \SMW\StoreFactory::getStore();
-		} else {
+		} elseif ( function_exists( 'smwfGetStore' ) ) {
 			return smwfGetStore();
+		} else {
+			return null;
 		}
 	}
 
@@ -90,6 +92,10 @@ class SFUtils {
 	 * Helper function to handle getPropertyValues().
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
+		// If SMW is not installed, exit out.
+		if ( !class_exists( 'SMWDIWikiPage' ) ) {
+			return array();
+		}
 		if ( is_null( $subject ) ) {
 			$page = null;
 		} else {
@@ -366,6 +372,9 @@ END;
 		global $sfgMaxAutocompleteValues;
 
 		$store = SFUtils::getSMWStore();
+		if ( $store == null ) {
+			return array();
+		}
 		$requestoptions = new SMWRequestOptions();
 		$requestoptions->limit = $sfgMaxAutocompleteValues;
 		$values = self::getSMWPropertyValues( $store, null, $property_name, $requestoptions );
@@ -457,6 +466,9 @@ END;
 		global $sfgMaxAutocompleteValues, $sfgAutocompleteOnAllChars;
 
 		$store = SFUtils::getSMWStore();
+		if ( $store == null ) {
+			return array();
+		}
 
 		$conceptTitle = Title::makeTitleSafe( SMW_NS_CONCEPT, $conceptName );
 

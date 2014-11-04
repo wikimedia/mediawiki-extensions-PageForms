@@ -66,6 +66,10 @@ class SFFormLinker {
 		}
 
 		$store = SFUtils::getSMWStore();
+		if ( $store == null ) {
+			self::$mLinkedPagesRetrieved = true;
+			return;
+		}
 		if ( class_exists( 'SMWDataItem' ) ) {
 			$value = SMWDIWikiPage::newFromTitle( $title );
 		} else {
