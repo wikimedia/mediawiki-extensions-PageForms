@@ -999,7 +999,7 @@ END;
 		// specified, and it exists, just link to the page.
 		if ( $inTargetName != '' ) {
 			$targetTitle = Title::newFromText( $inTargetName );
-			$targetPageExists = ( $targetTitle != '' & $targetTitle->exists() );
+			$targetPageExists = ( $targetTitle != '' && $targetTitle->exists() );
 		}
 		if ( !$inEditExistingTarget && $targetPageExists ) {
 			return Linker::link( $targetTitle );
