@@ -456,11 +456,11 @@ class SFAutoeditAPI extends ApiBase {
 		# Allow bots to exempt some edits from bot flagging
 		$bot = $this->getUser()->isAllowed( 'bot' ) && $editor->bot;
 
-		if ( $editor->mTokenOk ) {
+		$request = $this->getRequest();
+		if ( $editor->tokenOk( $request ) ) {
 			$status = $editor->internalAttemptSave( $resultDetails, $bot );
-		}
-		else {
-				throw new MWException( wfMessage( 'session_fail_preview' )->parse() );
+		} else {
+			throw new MWException( wfMessage( 'session_fail_preview' )->parse() );
 		}
 
 		switch ( $status->value ) {
@@ -801,6 +801,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		// save $wgRequest for later restoration
 		$oldRequest = $wgRequest;
+		$pageExists = false;
 
 		// preload data if not explicitly excluded and if the preload page exists
 		if ( !isset( $this->mOptions['preload'] ) || $this->mOptions['preload'] !== false ) {
@@ -1179,4 +1180,5 @@ END;
 		$gitSha1 = SpecialVersion::getGitHeadSha1( $sfgIP );
 		return __CLASS__ . '-' . SF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
+
 }
