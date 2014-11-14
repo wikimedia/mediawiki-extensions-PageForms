@@ -186,6 +186,9 @@ class SFParserFunctions {
 		// Display information on the page, if this is a category.
 		if ( $curTitle->getNamespace() == NS_CATEGORY ) {
 			$defaultFormPage = Title::makeTitleSafe( SF_NS_FORM, $defaultForm );
+			if ( $defaultFormPage == null ) {
+				return '<div class="error">Error: No form found with name "' . $defaultForm . '".</div>';
+			}
 			$defaultFormPageText = $defaultFormPage->getPrefixedText();
 			$defaultFormPageLink = "[[$defaultFormPageText|$defaultForm]]";
 			$text = wfMessage( 'sf_category_hasdefaultform', $defaultFormPageLink )->text();
