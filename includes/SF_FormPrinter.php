@@ -1039,22 +1039,24 @@ END;
 							}
 							if ( is_array( $field_query_val ) ) {
 								$cur_values = array();
-								foreach ( $field_query_val as $key => $value ) {
-									if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
-										$cur_values = array();
-										foreach ( $field_query_val as $key => $val ) {
-											if ( $key === 'is_list' ) {
-												$cur_values[$key] = $val;
-											} else {
-												$cur_values[] = SFUtils::labelToValue( $val, $possible_values, $mapping_template );
-											}
+								if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
+									$cur_values = array();
+									foreach ( $field_query_val as $key => $val ) {
+										$val = trim( $val );
+										if ( $key === 'is_list' ) {
+											$cur_values[$key] = $val;
+										} else {
+											$cur_values[] = SFUtils::labelToValue( $val, $possible_values, $mapping_template );
 										}
-									} else {
-										$cur_values[$key] = $value;
+									}
+								} else {
+									foreach ( $field_query_val as $key => $val ) {
+										$cur_values[$key] = $val;
 									}
 								}
 								$cur_value = $this->getStringFromPassedInArray( $cur_values, $delimiter );
 							} else {
+								$field_query_val = trim( $field_query_val );
 								if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
 									$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values, $mapping_template );
 								} else {
