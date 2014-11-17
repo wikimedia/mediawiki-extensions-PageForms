@@ -289,7 +289,7 @@
 	tokens_proto.getDelimiter = function ( element ) {
 		var field_values = element.attr('autocompletesettings').split( ',' );
 		var delimiter = ",";
-		if (field_values[1] == 'list' && field_values[2] !== undefined )  {
+		if (field_values[1] == 'list' && field_values[2] !== undefined && field_values[2] != "")  {
 				delimiter = field_values[2];
 		}
 
