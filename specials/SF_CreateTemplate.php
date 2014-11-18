@@ -93,8 +93,11 @@ class SFCreateTemplate extends SpecialPage {
 				array( 'size' => '15' )
 			) . "\n";
 
-		$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
-		$text .= "\t" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</p>\n";
+		if ( defined( 'SMW_VERSION' ) ) {
+			$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
+			$text .= "\t" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</p>\n";
+		}
+
 		$text .= "\t<p>" . '<input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "\n";
 		$text .= '	&#160;&#160;<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
 
@@ -246,7 +249,11 @@ END;
 		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_templatefields' )->text() ) . "\n";
 		$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_fieldsdesc' )->text() ) . "\n";
 
-		$all_properties = self::getAllPropertyNames();
+		if ( defined( 'SMW_VERSION' ) ) {
+			$all_properties = self::getAllPropertyNames();
+		} else {
+			$all_properties = array();
+		}
 		$text .= '<div id="fieldsList">' . "\n";
 		$text .= self::printFieldEntryBox( "1", $all_properties );
 		$text .= self::printFieldEntryBox( "starter", $all_properties, false );
@@ -260,16 +267,20 @@ END;
 		);
 		$text .= Html::rawElement( 'p', null, $add_field_button ) . "\n";
 		$text .= "\t</fieldset>\n";
-		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_aggregation' )->text() ) . "\n";
-		$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_aggregationdesc' )->text() ) . "\n";
-		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_semanticproperty' )->escaped() . ' ' .
-			self::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
-		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_aggregationlabel' )->escaped() . ' ' .
-			Html::input( 'aggregation_label', null, 'text',
-				array( 'size' => '25' ) ) .
-			"</p>\n";
-		$text .= "\t</fieldset>\n";
+
+		if ( defined( 'SMW_VERSION' ) ) {
+			$text .= "\t<fieldset>\n";
+			$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_aggregation' )->text() ) . "\n";
+			$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_aggregationdesc' )->text() ) . "\n";
+			$text .= "\t<p>" . wfMessage( 'sf_createtemplate_semanticproperty' )->escaped() . ' ' .
+				self::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
+			$text .= "\t<p>" . wfMessage( 'sf_createtemplate_aggregationlabel' )->escaped() . ' ' .
+				Html::input( 'aggregation_label', null, 'text',
+					array( 'size' => '25' ) ) .
+				"</p>\n";
+			$text .= "\t</fieldset>\n";
+		}
+
 		$text .= self::printTemplateStyleInput( 'template_format' );
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateTemplate' ) ) . "\n";

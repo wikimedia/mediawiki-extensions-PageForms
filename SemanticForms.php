@@ -140,15 +140,17 @@ $GLOBALS['wgSpecialPageGroups']['Templates'] = 'pages';
 $GLOBALS['wgSpecialPages']['CreateTemplate'] = 'SFCreateTemplate';
 $GLOBALS['wgAutoloadClasses']['SFCreateTemplate'] = __DIR__ . '/specials/SF_CreateTemplate.php';
 $GLOBALS['wgSpecialPageGroups']['CreateTemplate'] = 'sf_group';
-$GLOBALS['wgSpecialPages']['CreateProperty'] = 'SFCreateProperty';
-$GLOBALS['wgAutoloadClasses']['SFCreateProperty'] = __DIR__ . '/specials/SF_CreateProperty.php';
-$GLOBALS['wgSpecialPageGroups']['CreateProperty'] = 'sf_group';
+if ( defined( 'SMW_VERSION' ) ) {
+	$GLOBALS['wgSpecialPages']['CreateProperty'] = 'SFCreateProperty';
+	$GLOBALS['wgAutoloadClasses']['SFCreateProperty'] = __DIR__ . '/specials/SF_CreateProperty.php';
+	$GLOBALS['wgSpecialPageGroups']['CreateProperty'] = 'sf_group';
+	$GLOBALS['wgSpecialPages']['CreateClass'] = 'SFCreateClass';
+	$GLOBALS['wgAutoloadClasses']['SFCreateClass'] = __DIR__ . '/specials/SF_CreateClass.php';
+	$GLOBALS['wgSpecialPageGroups']['CreateClass'] = 'sf_group';
+}
 $GLOBALS['wgSpecialPages']['CreateCategory'] = 'SFCreateCategory';
 $GLOBALS['wgAutoloadClasses']['SFCreateCategory'] = __DIR__ . '/specials/SF_CreateCategory.php';
 $GLOBALS['wgSpecialPageGroups']['CreateCategory'] = 'sf_group';
-$GLOBALS['wgSpecialPages']['CreateClass'] = 'SFCreateClass';
-$GLOBALS['wgAutoloadClasses']['SFCreateClass'] = __DIR__ . '/specials/SF_CreateClass.php';
-$GLOBALS['wgSpecialPageGroups']['CreateClass'] = 'sf_group';
 $GLOBALS['wgSpecialPages']['FormStart'] = 'SFFormStart';
 $GLOBALS['wgAutoloadClasses']['SFFormStart'] = __DIR__ . '/specials/SF_FormStart.php';
 $GLOBALS['wgSpecialPageGroups']['FormStart'] = 'sf_group';
