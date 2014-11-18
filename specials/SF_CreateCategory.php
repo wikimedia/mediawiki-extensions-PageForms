@@ -25,10 +25,7 @@ class SFCreateCategory extends SpecialPage {
 		if ( $default_form === '' ) {
 			$text = wfMessage( 'sf_category_desc', $category_name )->inContentLanguage()->text();
 		} else {
-			global $sfgContLang;
-			$specprops = $sfgContLang->getPropertyLabels();
-			$form_tag = "[[" . $specprops[SF_SP_HAS_DEFAULT_FORM] . "::$default_form]]";
-			$text = wfMessage( 'sf_category_hasdefaultform', $form_tag )->inContentLanguage()->text();
+			$text = "{{#default_form:$default_form}}";
 		}
 		if ( $parent_category !== '' ) {
 			global $wgContLang;
