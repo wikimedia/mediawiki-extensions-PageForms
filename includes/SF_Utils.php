@@ -1000,10 +1000,13 @@ END;
 		if ( $inTargetName != '' ) {
 			$targetTitle = Title::newFromText( $inTargetName );
 			$targetPageExists = ( $targetTitle != '' && $targetTitle->exists() );
+		} else {
+			$targetPageExists = false;
 		}
+
 		if ( !$inEditExistingTarget && $targetPageExists ) {
 			return Linker::link( $targetTitle );
-		} 
+		}
 
 		$formSpecialPage = SpecialPageFactory::getPage( $specialPageName );
 		if ( strpos( $inFormName, '/' ) == true ) {
