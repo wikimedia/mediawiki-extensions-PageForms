@@ -422,11 +422,9 @@ END;
 			$form_def
 		);
 
-		$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : new Title();
-
 		// parse wiki-text
-		$output = $parser->parse( $form_def, $title, $parser->getOptions() );
-		$form_def = $stripState->unstripGeneral( $output->getText() );
+		$form_def = $stripState->unstripGeneral( $parser->recursiveTagParse( $form_def ) );
+		$output = $parser->getOutput();
 
 		if ( $output->getCacheTime() == -1 ) {
 			$form_article = Article::newFromID( $form_id );
