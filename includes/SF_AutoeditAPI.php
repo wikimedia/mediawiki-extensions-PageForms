@@ -745,7 +745,7 @@ class SFAutoeditAPI extends ApiBase {
 	 * @throws MWException
 	 */
 	public function doAction() {
-		global $wgOut, $wgRequest, $sfgFormPrinter;
+		global $wgOut, $wgParser, $wgRequest, $sfgFormPrinter;
 
 		// if the wiki is read-only, do not save
 		if ( wfReadOnly() ) {
@@ -843,8 +843,6 @@ class SFAutoeditAPI extends ApiBase {
 					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
 
-			$formHtmlHasRun = true;
-
 			// parse the data to be preloaded from the form html of the
 			// existing page
 			$data = $this->parseDataFromHTMLFrag( $formHTML );
@@ -866,22 +864,9 @@ class SFAutoeditAPI extends ApiBase {
 		// Spoof $wgRequest for SFFormPrinter::formHTML().
 		$wgRequest = new FauxRequest( $this->mOptions, true );
 
-		// if necessary spoof wgOut; if we took the general $wgOut again some JS
-		// modules might attach themselves twice and thus be called twice
-		if ( $formHtmlHasRun ) {
-			// save wgOut for later restoration
-			$oldOut = $wgOut;
-			$wgOut = new OutputPage( RequestContext::getMain() );
-		}
-
 		// get wikitext for submitted data and form
 		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
-
-		if ( $formHtmlHasRun ) {
-			// restore wgOut
-			$wgOut = $oldOut;
-		}
 
 		// restore original request
 		$wgRequest = $oldRequest;
@@ -922,6 +907,14 @@ class SFAutoeditAPI extends ApiBase {
 				$this->doStore( $editor );
 			}
 		} else if ( $this->mAction === self::ACTION_FORMEDIT ) {
+
+			$parserOutput = $wgParser->getOutput();
+			if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+				$wgOut->addParserOutputMetadata( $parserOutput );
+			} else {
+				$wgOut->addParserOutputNoText( $parserOutput );
+			}
+
 			$this->doFormEdit( $formHTML, $formJS );
 		}
 	}

@@ -882,7 +882,7 @@ END;
 	 * @return true
 	 */
 	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {
-		global $wgOut, $sfgFormPrinter;
+		global $wgOut, $wgParser, $sfgFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
 		wfProfileIn( __METHOD__ );
@@ -904,6 +904,13 @@ END;
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
 		list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
 			$sfgFormPrinter->formHTML( $form_definition, null, false, null, null, "Semantic Forms form preview dummy title", null );
+
+		$parserOutput = $wgParser->getOutput();
+		if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+			$wgOut->addParserOutputMetadata( $parserOutput );
+		} else {
+			$wgOut->addParserOutputNoText( $parserOutput );
+		}
 
 		SFUtils::addJavascriptAndCSS();
 		$editpage->previewTextAfterContent .=
