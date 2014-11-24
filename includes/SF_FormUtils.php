@@ -423,8 +423,14 @@ END;
 		);
 
 		// parse wiki-text
-		$form_def = $stripState->unstripGeneral( $parser->recursiveTagParse( $form_def ) );
-		$output = $parser->getOutput();
+		if ( isset( $parser->mInParse ) && $parser->mInParse === true ) {
+			$form_def = $stripState->unstripGeneral( $parser->recursiveTagParse( $form_def ) );
+			$output = $parser->getOutput();
+		} else {
+			$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : new Title();
+			$output = $parser->parse( $form_def, $title, $parser->getOptions() );
+			$form_def = $stripState->unstripGeneral( $output->getText() );
+		}
 
 		if ( $output->getCacheTime() == -1 ) {
 			$form_article = Article::newFromID( $form_id );
