@@ -1339,7 +1339,11 @@ END;
 						}
 
 						if ( array_key_exists( 'mapping template', $field_args ) ) {
-							$new_text .= Html::hidden( $template_name . '[mapping_template][' . $field_name . ']', $field_args['mapping template'] );
+							if ( $allow_multiple ) {
+								$new_text .= Html::hidden( $template_name . '[num][mapping_template][' . $field_name . ']', $field_args['mapping template'] );
+							} else {
+								$new_text .= Html::hidden( $template_name . '[mapping_template][' . $field_name . ']', $field_args['mapping template'] );
+							}
 						}
 
 						if ( $new_text ) {

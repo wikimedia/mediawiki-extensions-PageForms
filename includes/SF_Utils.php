@@ -627,6 +627,7 @@ END;
 				$labels[$value] = $value;
 			}
 		}
+		asort($labels);
 		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
 			return $labels;
 		}
