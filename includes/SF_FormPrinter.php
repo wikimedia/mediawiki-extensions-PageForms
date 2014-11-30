@@ -1058,7 +1058,20 @@ END;
 							} else {
 								$field_query_val = trim( $field_query_val );
 								if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
-									$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values, $mapping_template );
+									// this should be replaced with an input type neutral way of
+									// figuring out if this scalar input type is a list
+									if ( $input_type == "tokens" ) {
+										$is_list=true;
+									}
+									if ( $is_list ) {
+										$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
+										foreach ( $cur_values as $key => $value ) {
+											$cur_values[$key] = SFUtils::labelToValue( $value, $possible_values, $mapping_template );
+										}
+										$cur_value = implode( $delimiter, $cur_values );
+									} else {
+										$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values, $mapping_template );
+									}
 								} else {
 									$cur_value = $field_query_val;
 								}
@@ -1334,7 +1347,11 @@ END;
 							if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
 								$new_text .= Html::hidden( 'sf_free_text', '!free_text!' );
 							} else {
-								$new_text .= Html::hidden( $input_name, $cur_value );
+								if ( is_array( $cur_value ) ) {
+									$new_text .= Html::hidden( $input_name, implode( $delimiter, $cur_value ) );
+								} else {
+									$new_text .= Html::hidden( $input_name, $cur_value );
+								}
 							}
 						}
 

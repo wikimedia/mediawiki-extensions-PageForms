@@ -53,7 +53,7 @@ class SFRadioButtonInput extends SFEnumInput {
 			} elseif ( count( $possible_values ) == 0 ) {
 				$cur_value = '';
 			} else {
-				$cur_value = $possible_values[0];
+				$cur_value = reset($possible_values);
 			}
 		}
 

@@ -144,16 +144,15 @@
 			} else {
 				var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
 				data = sfgAutocompleteValues[autocompletesettings];
-				i = 0;
 				//Convert data into the format accepted by Select2
 				if (data !== undefined && data !== null ) {
-					data.forEach(function()
-					{
-					    values.push({
-					        id: i + 1, text: data[i]
-					    });
-					    i++;
-					});
+					var index = 1;
+					for (var key in data) {
+						values.push({
+							id: index, text: data[key]
+						});
+						index++;
+					}
 				}
 			}
 		} else { //Dependent field autocompletion
