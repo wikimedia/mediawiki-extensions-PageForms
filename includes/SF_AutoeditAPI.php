@@ -357,7 +357,7 @@ class SFAutoeditAPI extends ApiBase {
 					'wpSummary' => '',
 					'wpStarttime' => wfTimestampNow(),
 					'wpEdittime' => '',
-					'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : '',
+					'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
 					'action' => 'submit',
 				),
 				$this->mOptions
@@ -372,6 +372,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		// and import it into the edit page
 		$editor->importFormData( $request );
+		$editor->sfFauxRequest = $request;
 
 		return $editor;
 	}
@@ -446,7 +447,7 @@ class SFAutoeditAPI extends ApiBase {
 			$this->getUser()->spreadAnyEditBlock();
 
 			foreach ( $permErrors as $error ) {
-				$this->logMessage( wfMessage( $error )->parse() );
+				$this->logMessage( call_user_func_array( 'wfMessage', $error )->parse() );
 			}
 
 			return;
@@ -456,7 +457,7 @@ class SFAutoeditAPI extends ApiBase {
 		# Allow bots to exempt some edits from bot flagging
 		$bot = $this->getUser()->isAllowed( 'bot' ) && $editor->bot;
 
-		$request = $this->getRequest();
+		$request = $editor->sfFauxRequest;
 		if ( $editor->tokenOk( $request ) ) {
 			$status = $editor->internalAttemptSave( $resultDetails, $bot );
 		} else {

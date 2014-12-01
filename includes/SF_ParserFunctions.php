@@ -542,7 +542,7 @@ END;
 	}
 
 
-	static function renderAutoEdit( &$parser ) {
+	static function renderAutoEdit( Parser &$parser ) {
 		// set defaults
 		$formcontent = '';
 		$linkString = null;
