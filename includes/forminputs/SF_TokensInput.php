@@ -87,6 +87,10 @@ class SFTokensInput extends SFFormInput {
 			list( $autocompleteSettings, $remoteDataType, $delimiter ) = SFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
 		}
 
+		if ( is_array( $cur_value ) ) {
+			$cur_value = implode( $delimiter, $cur_value );
+		}
+
 		$className = 'sfTokens ';
 		$className .= ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {

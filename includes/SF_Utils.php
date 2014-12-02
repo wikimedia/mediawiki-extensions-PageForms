@@ -676,10 +676,12 @@ END;
 		}
 		$labels = array();
 		foreach ( $values as $value ) {
-			if ( array_key_exists( $value, $possible_values ) ) {
-				$labels[] = $possible_values[$value];
-			} else {
-				$labels[] = $value;
+			if ( $value != '' ) {
+				if ( array_key_exists( $value, $possible_values ) ) {
+					$labels[] = $possible_values[$value];
+				} else {
+					$labels[] = $value;
+				}
 			}
 		}
 		if ( count( $labels ) > 1 ) {
