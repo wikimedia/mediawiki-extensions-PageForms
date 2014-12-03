@@ -153,6 +153,7 @@ class SFParserFunctions {
 		$parser->setFunctionHook( 'default_form', array( 'SFParserFunctions', 'renderDefaultForm' ) );
 		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
 		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
+		$parser->setFunctionHook( 'formredlink', array( 'SFParserFunctions', 'renderFormRedLink' ) );
 		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
 		if ( defined( get_class( $parser ) . '::SFH_OBJECT_ARGS' ) ) {
 			$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMapObj' ), SFH_OBJECT_ARGS );
@@ -204,7 +205,16 @@ class SFParserFunctions {
 
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'FormEdit', $params ), $parser->mStripState );
+		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'formlink' ), $parser->mStripState );
+	}
+
+	static function renderFormRedLink ( &$parser ) {
+		$params = func_get_args();
+		array_shift( $params ); // We don't need the parser.
+
+		// hack to remove newline from beginning of output, thanks to
+		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
+		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'formredlink' ), $parser->mStripState );
 	}
 
 	static function renderQueryFormLink ( &$parser ) {
@@ -213,7 +223,7 @@ class SFParserFunctions {
 
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( SFUtils::createFormLink( $parser, 'RunQuery', $params ), $parser->mStripState );
+		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'queryformlink' ), $parser->mStripState );
 	}
 
 	static function renderFormInput ( &$parser ) {
@@ -542,7 +552,7 @@ END;
 	}
 
 
-	static function renderAutoEdit( Parser &$parser ) {
+	static function renderAutoEdit( &$parser ) {
 		// set defaults
 		$formcontent = '';
 		$linkString = null;

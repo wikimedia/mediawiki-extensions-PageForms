@@ -924,12 +924,11 @@ END;
 		return true;
 	}
 
-	static function createFormLink ( &$parser, $specialPageName, $params ) {
+	static function createFormLink ( &$parser, $params, $parserFunctionName ) {
 		// Set defaults.
 		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
 			$inQueryStr = $inTargetName = '';
-		$inEditExistingTarget = false;
-		if ( $specialPageName == 'RunQuery' ) {
+		if ( $parserFunctionName == 'queryformlink' ) {
 			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
 		$classStr = '';
@@ -981,8 +980,6 @@ END;
 				$classStr = 'popupformlink';
 			} elseif ( $param_name == null && $value == 'new window' ) {
 				$targetWindow = '_blank';
-			} elseif ( $param_name == null && $value == 'edit existing target' ) {
-				$inEditExistingTarget = true;
 			} elseif ( $param_name !== null && !$positionalParameters ) {
 				$value = urlencode( $value );
 				parse_str( "$param_name=$value", $arr );
@@ -1005,6 +1002,13 @@ END;
 			}
 		}
 
+		// Not the most graceful way to do this, but it is the
+		// easiest - if this is the #formredlink function, just
+		// ignore whatever values were passed in for these params.
+		if ( $parserFunctionName == 'formredlink' ) {
+			$inLinkStr = $inLinkType = $inTooltip = null;
+		}
+
 		// If "red link only" was specified, and a target page was
 		// specified, and it exists, just link to the page.
 		if ( $inTargetName != '' ) {
@@ -1014,11 +1018,16 @@ END;
 			$targetPageExists = false;
 		}
 
-		if ( !$inEditExistingTarget && $targetPageExists ) {
+		if ( $parserFunctionName == 'formredlink' && $targetPageExists ) {
 			return Linker::link( $targetTitle );
 		}
 
-		$formSpecialPage = SpecialPageFactory::getPage( $specialPageName );
+		if ( $parserFunctionName == 'queryformlink' ) {
+			$formSpecialPage = SpecialPageFactory::getPage( 'RunQuery' );
+		} else {
+			$formSpecialPage = SpecialPageFactory::getPage( 'FormEdit' );
+		}
+
 		if ( strpos( $inFormName, '/' ) == true ) {
 			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
 			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );

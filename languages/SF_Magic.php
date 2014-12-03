@@ -11,6 +11,7 @@ $magicWords['en'] = array(
 	'default_form' => array( 0, 'default_form' ),
 	'forminput' => array( 0, 'forminput' ),
 	'formlink' => array( 0, 'formlink' ),
+	'formredlink' => array( 0, 'formredlink' ),
 	'queryformlink' => array( 0, 'queryformlink' ),
 	'arraymap' => array( 0, 'arraymap' ),
 	'arraymaptemplate' => array( 0, 'arraymaptemplate' ),
