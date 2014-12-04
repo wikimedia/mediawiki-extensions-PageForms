@@ -1028,7 +1028,10 @@ END;
 			$formSpecialPage = SpecialPageFactory::getPage( 'FormEdit' );
 		}
 
-		if ( strpos( $inFormName, '/' ) == true ) {
+		if ( $inFormName == '' ) {
+			$query = array( 'target' => $inTargetName );
+			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
+		} elseif ( strpos( $inFormName, '/' ) == true ) {
 			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
 			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
 		} else {
