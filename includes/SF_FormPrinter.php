@@ -1798,6 +1798,7 @@ END;
 
 		$form_text .= "\t</form>\n";
 		$wgParser->replaceLinkHolders( $form_text );
+		wfRunHooks( 'sfRenderingEnd', array( &$form_text ) );
 
 		// Add general Javascript code.
 		$javascript_text = "";
