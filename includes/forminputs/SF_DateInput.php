@@ -52,6 +52,77 @@ class SFDateInput extends SFFormInput {
 		return $text;
 	}
 
+	static function parseDate( $date ) {
+		// Special handling for 'default=now'.
+		if ( $date == 'now' ) {
+			global $wgLocaltimezone;
+			if ( isset( $wgLocaltimezone ) ) {
+				$serverTimezone = date_default_timezone_get();
+				date_default_timezone_set( $wgLocaltimezone );
+			}
+			$year = date( 'Y' );
+			$month = date( 'm' );
+			$day = date( 'j' );
+			if ( isset( $wgLocaltimezone ) ) {
+				date_default_timezone_set( $serverTimezone );
+			}
+			return array( $year, $month, $day );
+		}
+
+		if ( class_exists( 'SMWTimeValue' ) ) {
+			return self::parseDateSMW( $date );
+		} else {
+			return self::parseDateNonSMW( $date );
+		}
+	}
+
+	static function parseDateSMW( $date ) {
+		$actual_date = new SMWTimeValue( '_dat' );
+		$actual_date->setUserValue( $date );
+		$year = $actual_date->getYear();
+		// TODO - the code to convert from negative to BC notation
+		// should be in SMW itself.
+		if ( $year < 0 ) {
+			$year = ( $year * - 1 + 1 ) . ' BC';
+		}
+		// Use precision of the date to determine whether we should
+		// also set the month and day.
+		if ( method_exists( $actual_date->getDataItem(), 'getPrecision' ) ) {
+			$precision = $actual_date->getDataItem()->getPrecision();
+			if ( $precision > SMWDITime::PREC_Y ) {
+				$month = $actual_date->getMonth();
+			}
+			if ( $precision > SMWDITime::PREC_YM ) {
+				$day = $actual_date->getDay();
+			}
+		} else {
+			// There's some sort of error - make everything blank.
+			$year = null;
+		}
+		return array( $year, $month, $day );
+	}
+
+	static function parseDateNonSMW( $date ) {
+		if ( ctype_digit( $date ) ) {
+			return array( $date, null, null );
+		}
+
+		$seconds = strtotime( $date );
+		$year = date( 'Y', $seconds );
+		$month = date( 'm', $seconds );
+		// Determine if there's a month but no day. There's no ideal
+		// way to do this, so: we'll just look for the total
+		// number of spaces, slashes and dashes, and if there's
+		// exactly one altogether, we'll guess that it's a month only.
+		$numSpecialChars = substr_count( $date, ' ' ) + substr_count( $date, '/' ) + substr_count( $date, '-' );
+		if ( $numSpecialChars == 1 ) {
+			return array( $year, $month, null );
+		}
+
+		$day = date( 'j', $seconds );
+		return array( $year, $month, $day );
+	}
+
 	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $wgAmericanDates;
 
@@ -66,42 +137,7 @@ class SFDateInput extends SFFormInput {
 				$month = $date['month'];
 				$day = $date['day'];
 			} else {
-				// handle 'default=now'
-				if ( $date == 'now' ) {
-					global $wgLocaltimezone;
-					if ( isset( $wgLocaltimezone ) ) {
-						$serverTimezone = date_default_timezone_get();
-						date_default_timezone_set( $wgLocaltimezone );
-					}
-					$date = date( 'Y/m/d' );
-					if ( isset( $wgLocaltimezone ) ) {
-						date_default_timezone_set( $serverTimezone );
-					}
-				}
-				$actual_date = new SMWTimeValue( '_dat' );
-				$actual_date->setUserValue( $date );
-				$year = $actual_date->getYear();
-				// TODO - the code to convert from negative to
-				// BC notation should be in SMW itself.
-				if ( $year < 0 ) {
-					$year = ( $year * - 1 + 1 ) . ' BC';
-				}
-				// Use precision of the date to determine
-				// whether we should also set the month and
-				// day.
-				if ( method_exists( $actual_date->getDataItem(), 'getPrecision' ) ) {
-					$precision = $actual_date->getDataItem()->getPrecision();
-					if ( $precision > SMWDITime::PREC_Y ) {
-						$month = $actual_date->getMonth();
-					}
-					if ( $precision > SMWDITime::PREC_YM ) {
-						$day = $actual_date->getDay();
-					}
-				} else {
-					// There's some sort of error - make
-					// everything blank.
-					$year = null;
-				}
+				list( $year, $month, $day ) = self::parseDate( $date );
 			}
 		} else {
 			// Just keep everything at null.

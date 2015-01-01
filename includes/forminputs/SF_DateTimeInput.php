@@ -52,9 +52,10 @@ class SFDateTimeInput extends SFDateInput {
 					$timezone = $datetime['timezone'];
 				}
 			} else {
-				// TODO - this should change to use SMW's own
-				// date-handling class, just like
-				// dateEntryHTML() does.
+				// Parse the date.
+				// We get only the time data here - the main
+				// date data is handled by the call to
+				// parent::getMainHTML().
 
 				// Handle 'default=now'.
 				if ( $datetime == 'now' ) {
