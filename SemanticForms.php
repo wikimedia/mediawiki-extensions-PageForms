@@ -502,7 +502,10 @@ $GLOBALS['wgPageProps']['formdefinition'] = 'Definition of the semantic form use
 # ##
 $GLOBALS['sfgShowOnSelect'] = array();
 $GLOBALS['sfgAutocompleteValues'] = array();
+// SMW
 $GLOBALS['sfgFieldProperties'] = array();
+// Cargo
+$GLOBALS['sfgCargoFields'] = array();
 $GLOBALS['sfgDependentFields'] = array();
 
 /**

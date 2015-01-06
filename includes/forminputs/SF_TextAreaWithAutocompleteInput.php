@@ -20,6 +20,10 @@ class SFTextAreaWithAutocompleteInput extends SFTextAreaInput {
 		return array();
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array();
+	}
+
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params = array_merge( $params, SFTextWithAutocompleteInput::getAutocompletionParameters() );

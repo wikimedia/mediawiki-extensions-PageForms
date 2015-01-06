@@ -24,6 +24,10 @@ class SFDateTimeInput extends SFDateInput {
 		return array( '_dat' );
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array( 'Datetime' => array() );
+	}
+
 	public static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfg24HourTime;
 

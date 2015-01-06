@@ -40,6 +40,14 @@ class SFTreeInput extends SFFormInput {
 		}
 	}
 
+	public static function getOtherCargoTypesHandled() {
+		return array( 'String', 'Page' );
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array( 'String', 'Page' );
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// Handle the now-deprecated 'category' and 'categories'
 		// input types.

@@ -15,6 +15,10 @@
 class SFTextAreaInput extends SFFormInput {
 
 	protected $mUseWikieditor = false;
+
+        public static function getDefaultCargoTypes() {
+                return array( 'Text' => array() );
+        }
 	
 	/**
 	 * Constructor for the SFTextAreaInput class.

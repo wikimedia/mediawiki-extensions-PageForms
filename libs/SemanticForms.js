@@ -10,7 +10,7 @@
  * @author Harold Solbrig
  * @author Eugene Mednikov
  */
- /*global sfgShowOnSelect, sfgFieldProperties, validateAll, alert, sf*/
+ /*global sfgShowOnSelect, sfgFieldProperties, sfgCargoFields, validateAll, alert, sf*/
 
 // Activate autocomplete functionality for the specified field
 (function(jQuery) {
@@ -879,10 +879,24 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 // regular inputs, and the 'origName' attribute for inputs in multiple-instance
 // templates.
 jQuery.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue ) {
-	var propName = sfgFieldProperties[dependentField];
-	var baseProp = sfgFieldProperties[baseField];
+	// Get data from either Cargo or Semantic MediaWiki.
 	var myServer = mw.config.get( 'wgScriptPath' ) + "/api.php";
-	myServer += "?action=sfautocomplete&format=json&property=" + propName + "&baseprop=" + baseProp + "&basevalue=" + baseValue;
+	myServer += "?action=sfautocomplete&format=json";
+	if ( sfgCargoFields.hasOwnProperty( dependentField ) ) {
+		var cargoTableAndFieldStr = sfgCargoFields[dependentField];
+		var cargoTableAndField = cargoTableAndFieldStr.split('|');
+		var cargoTable = cargoTableAndField[0];
+		var cargoField = cargoTableAndField[1];
+		var baseCargoTableAndFieldStr = sfgCargoFields[baseField];
+		var baseCargoTableAndField = baseCargoTableAndFieldStr.split('|');
+		var baseCargoTable = baseCargoTableAndField[0];
+		var baseCargoField = baseCargoTableAndField[1];
+		myServer += "&cargo_table=" + cargoTable + "&cargo_field=" + cargoField + "&is_array=true" + "&base_cargo_table=" + baseCargoTable + "&base_cargo_field=" + baseCargoField + "&basevalue=" + baseValue;
+	} else {
+		var propName = sfgFieldProperties[dependentField];
+		var baseProp = sfgFieldProperties[baseField];
+		myServer += "&property=" + propName + "&baseprop=" + baseProp + "&basevalue=" + baseValue;
+	}
 	var dependentValues = [];
 	var thisInput = jQuery(this);
 	// We use jQuery.ajax() here instead of jQuery.getJSON() so that the
@@ -936,7 +950,7 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 	var self = this;
 	jQuery.each( dependent_on_me, function() {
 		var dependentField = this;
-    var dependent_field_element;
+		var dependent_field_element;
 		if ( partOfMultiple ) {
 			dependent_field_element = jQuery(self).closest(".multipleTemplateInstance")
 				.find('[origName="' + dependentField + '"]');
@@ -947,7 +961,7 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 		if ( class_name.indexOf( 'sfComboBox' ) != -1 ) {
 			var cmbox = new sf.select2.combobox();
 			cmbox.refresh(dependent_field_element);
-		} else  if ( class_name.indexOf( 'sfTokens' ) != -1 ) {
+		} else if ( class_name.indexOf( 'sfTokens' ) != -1 ) {
 			var tokens = new sf.select2.tokens();
 			tokens.refresh(dependent_field_element);
 		} else {

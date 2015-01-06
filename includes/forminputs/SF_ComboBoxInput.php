@@ -20,6 +20,14 @@ class SFComboBoxInput extends SFFormInput {
 		return array( '_wpg', '_str' );
 	}
 
+	 public static function getDefaultCargoTypes() {
+		  return array( 'Page' => array() );
+	 }
+
+	public static function getOtherCargoTypesHandled() {
+		return array( 'String' );
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		// For backward compatibility with pre-SF-2.1 forms
 		if ( array_key_exists( 'no autocomplete', $other_args ) &&

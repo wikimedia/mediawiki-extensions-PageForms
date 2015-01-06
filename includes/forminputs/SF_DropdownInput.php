@@ -26,6 +26,16 @@ class SFDropdownInput extends SFEnumInput {
 		return array( '_boo' );
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array(
+			'Enumeration' => array()
+		);
+	}
+
+	public static function getOtherCargoTypesHandled() {
+		return array( 'Boolean' );
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 

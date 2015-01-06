@@ -20,6 +20,10 @@ class SFCheckboxInput extends SFFormInput {
 		return array( '_boo' => array() );
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array( 'Boolean' => array() );
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 

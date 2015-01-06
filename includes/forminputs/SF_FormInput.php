@@ -283,6 +283,23 @@ abstract class SFFormInput {
 		return array();
 	}
 
+	// Now the same set of methods, but for Cargo instead of SMW.
+	public static function getDefaultCargoTypes() {
+		return array();
+	}
+
+	public static function getDefaultCargoTypeLists() {
+		return array();
+	}
+
+	public static function getOtherCargoTypesHandled() {
+		return array();
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array();
+	}
+
 	/**
 	 * Method to make new style input types compatible with old-style call from
 	 * the SF parser.

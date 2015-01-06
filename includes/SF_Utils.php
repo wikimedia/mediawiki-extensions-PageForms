@@ -383,6 +383,21 @@ END;
 	}
 
 	/**
+	 * Used with the Cargo extension
+	 */
+	public static function getAllValuesForCargoField( $tableName, $fieldName ) {
+		$limitStr = 200;
+		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr = null, $joinOnStr = null, $fieldName, $fieldName, $limitStr );
+		$queryResults = $sqlQuery->run();
+		$values = array();
+		$fieldAlias = str_replace( '_', ' ', $fieldName );
+		foreach ( $queryResults as $row ) {
+			$values[] = $row[$fieldAlias];
+		}
+		return $values;
+	}
+
+	/**
 	 * Get all the pages that belong to a category and all its
 	 * subcategories, down a certain number of levels - heavily based on
 	 * SMW's SMWInlineQuery::includeSubcategories()
@@ -581,7 +596,12 @@ END;
 
 		// The query depends on whether this is a property, category,
 		// concept or namespace.
-		if ( $source_type == 'property' ) {
+		if ( $source_type == 'cargo field' ) {
+			list( $table_name, $field_name ) = explode( '|', $source_name, 2 );
+			$names_array = self::getAllValuesForCargoField( $table_name, $field_name );
+			// Remove blank/null values from the array.
+			$names_array = array_values( array_filter( $names_array ) );
+		} elseif ( $source_type == 'property' ) {
 			$names_array = self::getAllValuesForProperty( $source_name );
 		} elseif ( $source_type == 'category' ) {
 			$names_array = self::getAllPagesForCategory( $source_name, 10 );

@@ -13,7 +13,7 @@
 class SFFormUtils {
 	static function setGlobalJSVariables( &$vars ) {
 		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
-		global $sfgFieldProperties, $sfgDependentFields;
+		global $sfgFieldProperties, $sfgCargoFields, $sfgDependentFields;
 		global $sfgShowOnSelect, $sfgScriptPath;
 		global $edgValues, $sfgEDSettings;
 //		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
@@ -21,6 +21,7 @@ class SFFormUtils {
 		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
 		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
 		$vars['sfgFieldProperties'] = $sfgFieldProperties;
+		$vars['sfgCargoFields'] = $sfgCargoFields;
 		$vars['sfgDependentFields'] = $sfgDependentFields;
 		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
 		$vars['sfgScriptPath'] = $sfgScriptPath;

@@ -19,6 +19,10 @@ abstract class SFEnumInput extends SFFormInput {
 		return array( 'enumeration', '_boo' );
 	}
 
+	public static function getOtherCargoTypesHandled() {
+		return array( 'Enumeration', 'Boolean' );
+	}
+
 	public static function getValuesParameters() {
 		$params = array();
 		$params[] = array(

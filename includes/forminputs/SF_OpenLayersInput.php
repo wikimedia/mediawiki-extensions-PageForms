@@ -20,6 +20,10 @@ class SFOpenLayersInput extends SFFormInput {
 		return array();
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array( 'Coordinates' );
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum;
 		global $wgOut;

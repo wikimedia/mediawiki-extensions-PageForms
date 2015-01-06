@@ -46,6 +46,24 @@ class SFTokensInput extends SFFormInput {
 		}
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array();
+	}
+
+	public static function getOtherCargoTypesHandled() {
+		return array( 'Page', 'String' );
+	}
+
+	public static function getDefaultCargoTypeLists() {
+		return array(
+			'Page' => array( 'is_list' => true, 'size' => 100 )
+		);
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array( 'String' );
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgEDSettings;
 

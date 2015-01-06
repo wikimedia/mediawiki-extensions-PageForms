@@ -333,24 +333,7 @@ END;
 		return $text;
 	}
 
-	/**
-	 * Since Semantic Forms uses a hook system for the functions that
-	 * create HTML inputs, most arguments are contained in the "$other_args"
-	 * array - create this array, using the attributes of this form
-	 * field and the template field it corresponds to, if any
-	 */
-	function getArgumentsForInputCall( $default_args = null ) {
-		// start with the arguments array already defined
-		$other_args = $this->mFieldArgs;
-		// a value defined for the form field should always supersede
-		// the coresponding value for the template field
-		if ( $this->mPossibleValues != null ) {
-			$other_args['possible_values'] = $this->mPossibleValues;
-		} else {
-			$other_args['possible_values'] = $this->template_field->getPossibleValues();
-			$other_args['value_labels'] = $this->template_field->getValueLabels();
-		}
-		$other_args['is_list'] = ( $this->mIsList || $this->template_field->isList() );
+	function getArgumentsForInputCallSMW( &$other_args ) {
 		if ( $this->template_field->getSemanticProperty() !== '' &&
 			! array_key_exists( 'semantic_property', $other_args ) ) {
 			$other_args['semantic_property'] = $this->template_field->getSemanticProperty();
@@ -369,6 +352,50 @@ END;
 				$other_args['autocomplete field type'] = 'property';
 			}
 		}
+	}
+
+	function getArgumentsForInputCallCargo( &$other_args ) {
+		$fullCargoField = $this->template_field->getFullCargoField();
+		if ( $fullCargoField !== null &&
+			! array_key_exists( 'full_cargo_field', $other_args ) ) {
+			$other_args['full_cargo_field'] = $fullCargoField;
+		}
+
+		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
+			if ( $this->template_field->getPropertyType() == '_wpg' || array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
+				$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
+				$other_args['autocomplete field type'] = 'cargo field';
+			}
+		}
+	}
+
+	/**
+	 * Since Semantic Forms uses a hook system for the functions that
+	 * create HTML inputs, most arguments are contained in the "$other_args"
+	 * array - create this array, using the attributes of this form
+	 * field and the template field it corresponds to, if any.
+	 */
+	function getArgumentsForInputCall( $default_args = null ) {
+		// start with the arguments array already defined
+		$other_args = $this->mFieldArgs;
+		// a value defined for the form field should always supersede
+		// the coresponding value for the template field
+		if ( $this->mPossibleValues != null ) {
+			$other_args['possible_values'] = $this->mPossibleValues;
+		} else {
+			$other_args['possible_values'] = $this->template_field->getPossibleValues();
+			$other_args['value_labels'] = $this->template_field->getValueLabels();
+		}
+		$other_args['is_list'] = ( $this->mIsList || $this->template_field->isList() );
+
+		// Now add some extension-specific arguments to the input call.
+		if ( defined( 'CARGO_VERSION' ) ) {
+			$this->getArgumentsForInputCallCargo( $other_args );
+		}
+		if ( defined( 'SMW_VERSION' ) ) {
+			$this->getArgumentsForInputCallSMW( $other_args );
+		}
+
 		// Now merge in the default values set by SFFormPrinter, if
 		// there were any - put the default values first, so that if
 		// there's a conflict they'll be overridden.

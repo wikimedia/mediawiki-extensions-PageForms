@@ -23,6 +23,14 @@ abstract class SFMultiEnumInput extends SFEnumInput {
 		return array( 'enumeration' );
 	}
 
+	public static function getOtherCargoTypesHandled() {
+		return array();
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array( 'Enumeration' );
+	}
+
 	public static function getParameters() {
 		$params = parent::getParameters();
 		$params[] = array(

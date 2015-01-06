@@ -13,8 +13,16 @@ class SFTemplateField {
 	private $mFieldName;
 	private $mValueLabels;
 	private $mLabel;
+
+	// SMW-specific
 	private $mSemanticProperty;
 	private $mPropertyType;
+
+	// Cargo-specific
+	private $mCargoTable;
+	private $mCargoField;
+	private $mFieldType;
+
 	private $mPossibleValues;
 	private $mIsList;
 	private $mDelimiter;
@@ -117,6 +125,42 @@ class SFTemplateField {
 		$this->setTypeAndPossibleValues();
 	}
 
+	/**
+	 * Equivalent to setSemanticProperty(), but called when using Cargo
+	 * instead of SMW.
+	 */
+	function setCargoFieldData( $tableName, $fieldName, $fieldDescription = null ) {
+		$this->mCargoTable = $tableName;
+		$this->mCargoField = $fieldName;
+
+		if ( is_null( $fieldDescription ) ) {
+			$tableSchemas = CargoUtils::getTableSchemas( array( $tableName ) );
+			if ( count( $tableSchemas ) == 0 ) {
+				return;
+			}
+			$tableSchema = $tableSchemas[$tableName];
+			$fieldDescriptions = $tableSchema->mFieldDescriptions;
+			if ( array_key_exists( $fieldName, $fieldDescriptions ) ) {
+				$fieldDescription = $fieldDescriptions[$fieldName];
+			} else {
+				return;
+			}
+		}
+
+		// We have some "pseudo-types", used for setting the correct
+		// form input.
+		if ( $fieldDescription->mAllowedValues != null ) {
+			$this->mFieldType = 'Enumeration';
+		} elseif ( $fieldDescription->mType == 'Text' && $fieldDescription->mSize <= 100 ) {
+			$this->mFieldType = 'String';
+		} else {
+			$this->mFieldType = $fieldDescription->mType;
+		}
+		$this->mIsList = $fieldDescription->mIsList;
+		$this->mDelimiter = $fieldDescription->mDelimiter;
+		$this->mPossibleValues = $fieldDescription->mAllowedValues;
+	}
+
 	function getFieldName() {
 		return $this->mFieldName;
 	}
@@ -135,6 +179,17 @@ class SFTemplateField {
 
 	function getPropertyType() {
 		return $this->mPropertyType;
+	}
+
+	function getFullCargoField() {
+		if ( $this->mCargoTable == '' || $this->mCargoField == '' ) {
+			return null;
+		}
+		return $this->mCargoTable . '|' . $this->mCargoField;
+	}
+
+	function getFieldType() {
+		return $this->mFieldType;
 	}
 
 	function getPossibleValues() {

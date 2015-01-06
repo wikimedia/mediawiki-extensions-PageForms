@@ -32,6 +32,22 @@ class SFYearInput extends SFTextInput {
 		return array();
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array();
+	}
+
+	public static function getOtherCargoTypesHandled() {
+		return array( 'Date' );
+	}
+
+	public static function getDefaultCargoTypeLists() {
+		return array();
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array();
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		$other_args['size'] = 4;
 		return parent::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );

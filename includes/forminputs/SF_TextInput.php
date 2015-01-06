@@ -54,6 +54,33 @@ class SFTextInput extends SFFormInput {
 		return array( '_wpg' );
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array(
+			'Integer' => array( 'field_type' => 'number' ),
+			'Float' => array( 'field_type' => 'number' ),
+			'URL' => array( 'field_type' => 'URL' ),
+			'Email' => array( 'field_type' => 'email' ),
+			'String' => array( 'field_type' => 'string' )
+		);
+	}
+
+	public static function getOtherCargoTypesHandled() {
+		return array( 'Page', 'Coordinates' );
+	}
+
+	public static function getDefaultCargoTypeLists() {
+		return array(
+			'Number' => array( 'field_type' => 'number', 'is_list' => 'true', 'size' => '100' ),
+			'URL' => array( 'field_type' => 'URL', 'is_list' => 'true' ),
+			'Email' => array( 'field_type' => 'email', 'is_list' => 'true' ),
+			'String' => array( 'field_type' => 'text', 'is_list' => 'true', 'size' => '100' )
+		);
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array( 'Page' );
+	}
+
 	/**
 	 * Gets the HTML for the preview image or null if there is none.
 	 *

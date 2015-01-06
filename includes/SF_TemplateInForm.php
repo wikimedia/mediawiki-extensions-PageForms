@@ -24,11 +24,18 @@ class SFTemplateInForm {
 		$templateFields[$cur_pos] = $templateField;
 	}
 
+	function getAllFields() {
+		if ( defined( 'CARGO_VERSION' ) ) {
+			return $this->getAllFieldsCargo();
+		}
+		return $this->getAllFieldsSMW();
+	}
+
 	/**
 	 * Get the fields of the template, along with the semantic property
 	 * attached to each one (if any), by parsing the text of the template.
 	 */
-	function getAllFields() {
+	function getAllFieldsSMW() {
 		global $wgContLang;
 		$templateFields = array();
 		$fieldNamesArray = array();
@@ -127,6 +134,58 @@ class SFTemplateInForm {
 			}
 		}
 		ksort( $templateFields );
+		return $templateFields;
+	}
+
+	function getAllFieldsCargo() {
+		$cargoFieldsOfTemplateParams = array();
+		$templateFields = array();
+		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
+		if ( !isset( $template_title ) ) {
+			return array();
+		}
+
+		// First, get the table name, and fields, declared for this
+		// template.
+		$templatePageID = $template_title->getArticleID();
+                $tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
+                // First, see if there even is DB storage for this template -
+                // if not, exit.
+                if ( is_null( $tableSchemaString ) ) {
+                        return array();
+                }
+                $tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
+                $tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
+
+		// Then, match template params to Cargo table fields, by
+		// parsing call(s) to #cargo_store.
+		$templateText = SFUtils::getPageText( $template_title );
+		// Ignore 'noinclude' sections and 'includeonly' tags.
+		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
+		$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+		if ( preg_match_all( '/#cargo_store:(.*?}})\s*}}/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $match ) {
+				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
+					foreach ( $matches2[1] as $i => $cargoFieldName ) {
+						$templateParameter = trim( $matches2[2][$i] );
+						$cargoFieldsOfTemplateParams[$templateParameter] = $cargoFieldName;
+					}
+				}
+			}
+		}
+
+		// Now, combine the two sets of information into an array of
+		// SFTemplateFields objects.
+		$fieldDescriptions = $tableSchema->mFieldDescriptions;
+		foreach ( $cargoFieldsOfTemplateParams as $templateParameter => $cargoField ) {
+			$templateField = SFTemplateField::create( $templateParameter, $templateParameter );
+			if ( array_key_exists( $cargoField, $fieldDescriptions ) ) {
+				$fieldDescription = $fieldDescriptions[$cargoField];
+				$templateField->setCargoFieldData( $tableName, $cargoField, $fieldDescription );
+			}
+			$templateFields[] = $templateField;
+		}
+
 		return $templateFields;
 	}
 

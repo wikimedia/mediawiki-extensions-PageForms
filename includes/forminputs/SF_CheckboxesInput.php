@@ -27,6 +27,16 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 		return array();
 	}
 
+	public static function getDefaultCargoTypeLists() {
+		return array(
+			'Enumeration' => array()
+		);
+	}
+
+	public static function getOtherCargoTypeListsHandled() {
+		return array();
+	}
+
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $sfgTabIndex, $sfgFieldNum, $sfgShowOnSelect;
 

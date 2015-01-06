@@ -16,6 +16,7 @@
 class SFFormPrinter {
 
 	public $mSemanticTypeHooks;
+	public $mCargoTypeHooks;
 	public $mInputTypeHooks;
 	public $standardInputsIncluded;
 	public $mPageTitle;
@@ -23,12 +24,17 @@ class SFFormPrinter {
 	public function __construct() {
 		// Initialize variables.
 		$this->mSemanticTypeHooks = array();
+		$this->mCargoTypeHooks = array();
 		$this->mInputTypeHooks = array();
 		$this->mInputTypeClasses = array();
 		$this->mDefaultInputForPropType = array();
 		$this->mDefaultInputForPropTypeList = array();
 		$this->mPossibleInputsForPropType = array();
 		$this->mPossibleInputsForPropTypeList = array();
+		$this->mDefaultInputForCargoType = array();
+		$this->mDefaultInputForCargoTypeList = array();
+		$this->mPossibleInputsForCargoType = array();
+		$this->mPossibleInputsForCargoTypeList = array();
 
 		$this->standardInputsIncluded = false;
 
@@ -64,6 +70,10 @@ class SFFormPrinter {
 		$this->mSemanticTypeHooks[$type][$is_list] = array( $function_name, $default_args );
 	}
 
+	public function setCargoTypeHook( $type, $is_list, $function_name, $default_args ) {
+		$this->mCargoTypeHooks[$type][$is_list] = array( $function_name, $default_args );
+	}
+
 	public function setInputTypeHook( $input_type, $function_name, $default_args ) {
 		$this->mInputTypeHooks[$input_type] = array( $function_name, $default_args );
 	}
@@ -88,6 +98,17 @@ class SFFormPrinter {
 		foreach ( $defaultPropertyLists as $propertyType => $additionalValues ) {
 			$this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
 			$this->mDefaultInputForPropTypeList[$propertyType] = $inputTypeName;
+		}
+
+		$defaultCargoTypes = call_user_func( array( $inputTypeClass, 'getDefaultCargoTypes' ) );
+		foreach ( $defaultCargoTypes as $fieldType => $additionalValues ) {
+			$this->setCargoTypeHook( $fieldType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->mDefaultInputForCargoType[$fieldType] = $inputTypeName;
+		}
+		$defaultCargoTypeLists = call_user_func( array( $inputTypeClass, 'getDefaultCargoTypeLists' ) );
+		foreach ( $defaultCargoTypeLists as $fieldType => $additionalValues ) {
+			$this->setCargoTypeHook( $fieldType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->mDefaultInputForCargoTypeList[$fieldType] = $inputTypeName;
 		}
 
 		$otherProperties = call_user_func( array( $inputTypeClass, 'getOtherPropTypesHandled' ) );
@@ -302,7 +323,7 @@ END;
 		// in the query string, the form ends up being
 		// parsed twice.
 		if ( array_key_exists( 'is_list', $value ) ) {
-			unset($value['is_list']);
+			unset( $value['is_list'] );
 			return implode( "$delimiter ", $value );
 		}
 
@@ -459,8 +480,8 @@ END;
 		// Unfortunately, we can't just call userCan() here because,
 		// since MW 1.16, it has a bug in which it ignores a setting of
 		// "$wgEmailConfirmToEdit = true;". Instead, we'll just get the
-		// permission errors from the start, and use those to determine whether
-		// the page is editable.
+		// permission errors from the start, and use those to determine
+		// whether the page is editable.
 		if ( !$is_query ) {
 			// $userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
 			$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
@@ -506,8 +527,8 @@ END;
 
 		$form_def = SFFormUtils::getFormDefinition( $wgParser, $form_def, $form_id );
 
-		// Turn form definition file into an array of sections, one for each
-		// template definition (plus the first section)
+		// Turn form definition file into an array of sections, one for
+		// each template definition (plus the first section).
 		$form_def_sections = array();
 		$start_position = 0;
 		$section_start = 0;
@@ -520,8 +541,8 @@ END;
 		// that themselves contain form elements - the escaping was needed
 		// to make sure that those elements don't get parsed too early.
 		$form_def = str_replace( array( '&#123;', '&#124;', '&#125;' ), array( '{', '|', '}' ), $form_def );
-		// And another hack - replace the 'free text' standard input with
-		// a field declaration to get it to be handled as a field.
+		// And another hack - replace the 'free text' standard input
+		// with a field declaration to get it to be handled as a field.
 		$form_def = str_replace( 'standard input|free text', 'field|<freetext>', $form_def );
 		while ( $brackets_loc = strpos( $form_def, "{{{", $start_position ) ) {
 			$brackets_end_loc = strpos( $form_def, "}}}", $brackets_loc );
@@ -857,6 +878,8 @@ END;
 					$values = null;
 					$possible_values = null;
 					$semantic_property = null;
+					$cargo_table = null;
+					$cargo_field = null;
 					$preload_page = null;
 					$holds_template = false;
 
@@ -974,6 +997,10 @@ END;
 								$sfgDependentFields[] = array( $sub_components[1], $fullFieldName );
 							} elseif ( $sub_components[0] == 'property' ) {
 								$semantic_property = $sub_components[1];
+							} elseif ( $sub_components[0] == 'cargo table' ) {
+								$cargo_table = $sub_components[1];
+							} elseif ( $sub_components[0] == 'cargo field' ) {
+								$cargo_field = $sub_components[1];
 							} elseif ( $sub_components[0] == 'default filename' ) {
 								$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
 								// Parse value, so default filename can include parser functions.
@@ -1061,7 +1088,7 @@ END;
 									// this should be replaced with an input type neutral way of
 									// figuring out if this scalar input type is a list
 									if ( $input_type == "tokens" ) {
-										$is_list=true;
+										$is_list = true;
 									}
 									if ( $is_list ) {
 										$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
@@ -1226,21 +1253,35 @@ END;
 							$input_name, $is_mandatory, $is_hidden, $is_uploadable,
 							$possible_values, $is_disabled, $is_list, $input_type,
 							$field_args, $all_fields, $strict_parsing );
-						// If a property was set in the form definition, overwrite whatever
-						// is set in the template field - this is somewhat of a hack, since
-						// parameters set in the form definition are meant to go into the
-						// SFFormField object, not the SFTemplateField object it contains;
-						// it seemed like too much work, though, to create an
-						// SFFormField::setSemanticProperty() function just for this call
-						if ( $semantic_property != null ) {
-							$form_field->template_field->setSemanticProperty( $semantic_property );
-						}
-						$semantic_property = $form_field->template_field->getSemanticProperty();
-						if ( !is_null( $semantic_property ) ) {
-							global $sfgFieldProperties;
-							$sfgFieldProperties[$fullFieldName] = $semantic_property;
-						}
 
+						// Do some data storage specific to the Semantic MediaWiki and
+						// Cargo extensions.
+						if ( defined( 'SMW_VERSION' ) ) {
+							// If a property was set in the form definition, overwrite whatever
+							// is set in the template field - this is somewhat of a hack, since
+							// parameters set in the form definition are meant to go into the
+							// SFFormField object, not the SFTemplateField object it contains;
+							// it seemed like too much work, though, to create an
+							// SFFormField::setSemanticProperty() function just for this call.
+							if ( $semantic_property != null ) {
+								$form_field->template_field->setSemanticProperty( $semantic_property );
+							}
+							$semantic_property = $form_field->template_field->getSemanticProperty();
+							if ( !is_null( $semantic_property ) ) {
+								global $sfgFieldProperties;
+								$sfgFieldProperties[$fullFieldName] = $semantic_property;
+							}
+						}
+						if ( defined( 'CARGO_VERSION' ) ) {
+							if ( $cargo_table != null && $cargo_field != null ) {
+								$form_field->template_field->setCargoFieldData( $cargo_table, $cargo_field );
+							}
+							$fullCargoField = $form_field->template_field->getFullCargoField();
+							if ( !is_null( $fullCargoField ) ) {
+								global $sfgCargoFields;
+								$sfgCargoFields[$fullFieldName] = $fullCargoField;
+							}
+						}
 
 						// call hooks - unfortunately this has to be split into two
 						// separate calls, because of the different variable names in
@@ -1806,7 +1847,8 @@ END;
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.
-		// If doing a replace, the data text is actually the modified original page
+		// If doing a replace, the data text is actually the modified
+		// original page.
 		if ( $wgRequest->getCheck( 'partial' ) ) {
 			$data_text = $existing_page_content;
 		}
@@ -1857,9 +1899,22 @@ END;
 			$funcArgs[] = $other_args;
 			$text = call_user_func_array( $hook_values[0], $funcArgs );
 		} else { // input type not defined in form
+			$cargo_field_type = $template_field->getFieldType();
 			$property_type = $template_field->getPropertyType();
 			$is_list = ( $form_field->isList() || $template_field->isList() );
-			if ( $property_type !== '' &&
+			if ( $cargo_field_type !== '' &&
+				array_key_exists( $cargo_field_type, $this->mCargoTypeHooks ) &&
+				isset( $this->mCargoTypeHooks[$cargo_field_type][$is_list] ) ) {
+				$funcArgs = array();
+				$funcArgs[] = $cur_value;
+				$funcArgs[] = $form_field->getInputName();
+				$funcArgs[] = $form_field->isMandatory();
+				$funcArgs[] = $form_field->isDisabled();
+				$hook_values = $this->mCargoTypeHooks[$cargo_field_type][$is_list];
+				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
+				$funcArgs[] = $other_args;
+				$text = call_user_func_array( $hook_values[0], $funcArgs );
+			} elseif ( $property_type !== '' &&
 				array_key_exists( $property_type, $this->mSemanticTypeHooks ) &&
 				isset( $this->mSemanticTypeHooks[$property_type][$is_list] ) ) {
 				$funcArgs = array();

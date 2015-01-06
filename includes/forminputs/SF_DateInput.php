@@ -20,6 +20,10 @@ class SFDateInput extends SFFormInput {
 		return array( '_dat' => array() );
 	}
 
+	public static function getDefaultCargoTypes() {
+		return array( 'Date' => array() );
+	}
+
 	public static function monthDropdownHTML( $cur_month, $input_name, $is_disabled ) {
 		global $sfgTabIndex, $wgAmericanDates;
 
