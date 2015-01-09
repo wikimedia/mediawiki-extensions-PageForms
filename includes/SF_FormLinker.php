@@ -45,6 +45,9 @@ class SFFormLinker {
 	 */
 	static function getIncomingProperties( $title ) {
 		$store = SFUtils::getSMWStore();
+		if ( is_null( $store ) ) {
+			return array();
+		}
 		$value = SMWDIWikiPage::newFromTitle( $title );
 		$properties = $store->getInProperties( $value );
 		$propertyNames = array();
