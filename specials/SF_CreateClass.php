@@ -214,15 +214,18 @@ END;
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateCategory' );
 		$form_name_label = wfMessage( 'sf_createclass_nameinput' )->text();
 		$category_name_label = wfMessage( 'sf_createcategory_name' )->text();
-		$field_name_label = wfMessage( 'sf_createtemplate_fieldname' )->text();
-		$list_of_values_label = wfMessage( 'sf_createclass_listofvalues' )->text();
-		$property_name_label = wfMessage( 'sf_createproperty_propname' )->text();
-		$type_label = wfMessage( 'sf_createproperty_proptype' )->text();
-		$allowed_values_label = wfMessage( 'sf_createclass_allowedvalues' )->text();
+		$field_name_label = wfMessage( 'sf_createtemplate_fieldname' )->escaped();
+		$list_of_values_label = wfMessage( 'sf_createclass_listofvalues' )->escaped();
+		$property_name_label = wfMessage( 'sf_createproperty_propname' )->escaped();
+		$type_label = wfMessage( 'sf_createproperty_proptype' )->escaped();
+		$allowed_values_label = wfMessage( 'sf_createclass_allowedvalues' )->escaped();
 
 		$text = '<form action="" method="post">' . "\n";
-		$text .= "\t" . Html::rawElement( 'p', null, wfMessage( 'sf_createclass_docu', $wgLang->listToText( $creation_links ) )->text() ) . "\n";
-		$templateNameLabel = wfMessage( 'sf_createtemplate_namelabel' )->text();
+		$text .= "\t" . Html::rawElement( 'p', null,
+				wfMessage( 'sf_createclass_docu' )
+					->rawParams( $wgLang->listToText( $creation_links ) )
+					->escaped() ) . "\n";
+		$templateNameLabel = wfMessage( 'sf_createtemplate_namelabel' )->escaped();
 		$templateNameInput = Html::input( 'template_name', null, 'text', array( 'size' => 30 ) );
 		$text .= "\t" . Html::rawElement( 'p', null, $templateNameLabel . ' ' . $templateNameInput ) . "\n";
 		$templateInfo = SFCreateTemplate::printTemplateStyleInput( 'template_format' );
@@ -232,7 +235,7 @@ END;
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
 				'onclick' => "disableFormAndCategoryInputs()",
-			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->text() ) . "\n";
+			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->escaped() ) . "\n";
 		// Either #set_internal or #subobject will be added to the
 		// template, depending on whether Semantic Internal Objects is
 		// installed.
@@ -243,7 +246,7 @@ END;
 					'id' => 'connecting_property_div',
 					'style' => 'display: none;',
 				),
-				wfMessage( 'sf_createtemplate_connectingproperty' )->text() . "\n" .
+				wfMessage( 'sf_createtemplate_connectingproperty' )->escaped() . "\n" .
 				Html::element( 'input', array(
 					'type' => 'text',
 					'name' => 'connecting_property',
@@ -254,7 +257,7 @@ END;
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
-		$property_label = wfMessage( 'smw_pp_type' )->text();
+		$property_label = wfMessage( 'smw_pp_type' )->escaped();
 		$text .= <<<END
 	<div>
 		<table id="mainTable" style="border-collapse: collapse;">

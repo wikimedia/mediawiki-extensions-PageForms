@@ -170,7 +170,7 @@ END;
 
 	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
 		if ( !$curSelection ) $curSelection = 'standard';
-		$text = "\t<p>" . wfMessage( 'sf_createtemplate_outputformat' )->text() . "\n";
+		$text = "\t<p>" . wfMessage( 'sf_createtemplate_outputformat' )->escaped() . "\n";
 		$text .= self::printTemplateStyleButton( 'standard', 'sf_createtemplate_standardformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'infobox', 'sf_createtemplate_infoboxformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'plain', 'sf_createtemplate_plainformat', $htmlFieldName, $curSelection );

@@ -14,7 +14,8 @@ class SFUtils {
 	 */
 	public static function linkForSpecialPage( $specialPageName ) {
 		$specialPage = SpecialPageFactory::getPage( $specialPageName );
-		return Linker::link( $specialPage->getTitle(), $specialPage->getDescription() );
+		return Linker::link( $specialPage->getTitle(),
+			htmlspecialchars( $specialPage->getDescription() ) );
 	}
 
 	/**
