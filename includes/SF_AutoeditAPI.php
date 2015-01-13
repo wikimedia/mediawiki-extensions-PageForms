@@ -1162,17 +1162,4 @@ END;
 		);
 	}
 
-	/**
-	 * Returns a string that identifies the version of the class.
-	 * Includes the class name, the svn revision, timestamp, and
-	 * last author.
-	 *
-	 * @return string
-	 */
-	function getVersion() {
-		global $sfgIP;
-		$gitSha1 = SpecialVersion::getGitHeadSha1( $sfgIP );
-		return __CLASS__ . '-' . SF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
-	}
-
 }
