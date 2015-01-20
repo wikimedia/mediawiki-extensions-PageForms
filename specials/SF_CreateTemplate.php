@@ -84,25 +84,28 @@ class SFCreateTemplate extends SpecialPage {
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
-		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_fieldname' )->text() . ' ' .
+		$text .= "\t<table style=\"width: 100%;\"><tr><td>\n";
+		$text .= "\t<p><label>" . wfMessage( 'sf_createtemplate_fieldname' )->text() . ' ' .
 			Html::input( 'name_' . $id, null, 'text',
 				array( 'size' => '15' )
-			) . "\n";
-		$text .= "\t" . wfMessage( 'sf_createtemplate_displaylabel' )->text() . ' ' .
+			) . "</label>&nbsp;&nbsp;&nbsp;\n";
+		$text .= "\t<label>" . wfMessage( 'sf_createtemplate_displaylabel' )->text() . ' ' .
 			Html::input( 'label_' . $id, null, 'text',
 				array( 'size' => '15' )
-			) . "\n";
+			) . "</label>&nbsp;&nbsp;&nbsp;\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
-			$text .= "\t" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</p>\n";
+			$text .= "\t<label>" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</label></p>\n";
 		}
 
-		$text .= "\t<p>" . '<input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "\n";
-		$text .= '	&#160;&#160;<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
+		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "</label>\n";
+		$text .= "\t</p>\n";
+		$text .= "\t</td><td>\n";
+		$text .= "\t" . '<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
 
 		$text .= <<<END
-</p>
+</td></tr></table>
 </div>
 
 END;
