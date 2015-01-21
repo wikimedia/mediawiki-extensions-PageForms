@@ -99,7 +99,11 @@ class SFCreateTemplate extends SpecialPage {
 			$text .= "\t<label>" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</label></p>\n";
 		}
 
-		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "</label>\n";
+		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "</label>&nbsp;&nbsp;&nbsp;\n";
+		$text .= "\t" . '<label class="delimiter" style="display: none;">' . wfMessage( 'sf_createtemplate_delimiter' )->text() . ' ' .
+			Html::input( 'delimiter_' . $id, ',', 'text',
+				array( 'size' => '2' )
+			) . "</label>\n";
 		$text .= "\t</p>\n";
 		$text .= "\t</td><td>\n";
 		$text .= "\t" . '<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
@@ -132,6 +136,9 @@ function createTemplateAddField() {
 		jQuery(this).closest(".fieldBox")
 			.fadeOut('fast', function() { jQuery(this).remove(); });
 	});
+	newField.find(".isList").click( function() {
+		jQuery(this).closest(".fieldBox").find(".delimiter").toggle();
+	});
 	var combobox = new sf.select2.combobox();
 	combobox.apply($(newField.find('.sfComboBox')));
 	jQuery('#fieldsList').append(newField);
@@ -153,6 +160,9 @@ jQuery(document).ready(function() {
 		// Remove the encompassing div for this instance.
 		jQuery(this).closest(".fieldBox")
 			.fadeOut('fast', function() { jQuery(this).remove(); });
+	});
+	jQuery(".isList").click( function() {
+		jQuery(this).closest(".fieldBox").find(".delimiter").toggle();
 	});
 	jQuery('#createTemplateForm').submit( function() { return validateCreateTemplateForm(); } );
 });
@@ -217,7 +227,13 @@ END;
 					continue;
 				list ( $field_field, $id ) = $var_elements;
 				if ( $field_field == 'name' && $id != 'starter' ) {
-					$field = SFTemplateField::create( $val, $wgRequest->getVal( 'label_' . $id ), $wgRequest->getVal( 'semantic_property_' . $id ), $wgRequest->getCheck( 'is_list_' . $id ) );
+					$field = SFTemplateField::create(
+						$val,
+						$wgRequest->getVal( 'label_' . $id ),
+						$wgRequest->getVal( 'semantic_property_' . $id ),
+						$wgRequest->getCheck( 'is_list_' . $id ),
+						$wgRequest->getVal( 'delimiter_' . $id )
+					);
 					$fields[] = $field;
 				}
 			}

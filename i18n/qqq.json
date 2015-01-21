@@ -40,6 +40,7 @@
     "sf_createtemplate_displaylabel": "The term for the text that shows up next to a field when it is displayed",
     "sf_createtemplate_semanticproperty": "Used as label for the \"Property name\" select box.",
     "sf_createtemplate_fieldislist": "Used as label for the checkbox.",
+    "sf_createtemplate_delimiter": "Used as label for the input to set a list delimiter.",
     "sf_createtemplate_aggregation": "Used as fieldset label.\n\nFollowed by the following description:\n* {{msg-mw|Sf createtemplate aggregationdesc}}",
     "sf_createtemplate_aggregationdesc": "Used as description in the form.\n\nPreceded by the fieldset label {{msg-mw|Sf createtemplate aggregation}}.",
     "sf_createtemplate_standardformat": "{{Identical|Table}}",
