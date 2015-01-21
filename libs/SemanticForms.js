@@ -490,9 +490,26 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
  * Validation functions
  */
 
-// Display an error message on the end of an input.
+// Set the error message for an input.
+jQuery.fn.setErrorMessage = function(msg, val) {
+	var container = this.find('.sfErrorMessages');
+	container.html($('<span>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+};
+
+// Append an error message to the end of an input.
 jQuery.fn.addErrorMessage = function(msg, val) {
-	this.append(' ').append( $('<span>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ) );
+	var container = this.find('.sfErrorMessages');
+	container.append($('<span>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+};
+
+jQuery.fn.isAtMaxInstances = function() {
+	var numInstances = this.find("div.multipleTemplateInstance").length;
+	var maximumInstances = this.attr("maximumInstances");
+	if ( numInstances >= maximumInstances ) {
+		this.parent().setErrorMessage( 'sf_too_many_instances_error', maximumInstances );
+		return true;
+	}
+	return false;
 };
 
 jQuery.fn.validateNumInstances = function() {
@@ -739,11 +756,20 @@ window.validateAll = function () {
  */
 
 jQuery.fn.addInstance = function( addAboveCurInstance ) {
+	var wrapper = this.closest(".multipleTemplateWrapper");
+	var multipleTemplateList = wrapper.find('.multipleTemplateList');
+
+	// If the nubmer of instances is already at the maximum allowed,
+	// exit here.
+	if ( multipleTemplateList.isAtMaxInstances() ) {
+		return false;
+	}
+
 	// Global variable.
 	num_elements++;
 
 	// Create the new instance
-	var new_div = this.closest(".multipleTemplateWrapper")
+	var new_div = wrapper
 		.find(".multipleTemplateStarter")
 		.clone()
 		.removeClass('multipleTemplateStarter')

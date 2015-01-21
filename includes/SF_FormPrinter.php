@@ -305,6 +305,7 @@ END;
 			$text .= <<<END
 	</div><!-- multipleTemplateList -->
 		<p>$button</p>
+		<div class="sfErrorMessages"></div>
 	</div><!-- multipleTemplateWrapper -->
 END;
 		}
