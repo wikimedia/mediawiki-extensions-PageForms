@@ -177,11 +177,11 @@ class SFFormField {
 		$field_form_text = $template_num . "_" . $this->mNum;
 		$template_field = $this->template_field;
 		$text = '<h3>' . wfMessage( 'sf_createform_field' )->escaped() . " '" . $template_field->getFieldName() . "'</h3>\n";
-		$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
 		// TODO - remove this probably-unnecessary check?
 		if ( $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
 		} elseif ( $template_field->getPropertyType() == "" ) {
+			$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
 			$text .= '<p>' . wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "</p>\n";
 		} else {
 			if ( $template_field->isList() ) {
@@ -189,6 +189,7 @@ class SFFormField {
 			} else {
 				$propDisplayMsg = 'sf_createform_fieldprop';
 			}
+			$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
 
 			// Get the display label for this property type.
 			global $smwgContLang;
