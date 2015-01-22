@@ -1027,7 +1027,7 @@ END;
 		// easiest - if this is the #formredlink function, just
 		// ignore whatever values were passed in for these params.
 		if ( $parserFunctionName == 'formredlink' ) {
-			$inLinkStr = $inLinkType = $inTooltip = null;
+			$inLinkType = $inTooltip = null;
 		}
 
 		// If "red link only" was specified, and a target page was
