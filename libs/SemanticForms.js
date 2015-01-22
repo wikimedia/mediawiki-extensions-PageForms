@@ -898,6 +898,9 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 		}
 	);
 
+	// Hook that fires each time a new template instance is added.
+	// The first parameter is a jQuery selection of the newly created instance div.
+	mw.hook('sf.addTemplateInstance').fire(new_div);
 };
 
 // The first argument is needed, even though it's an attribute of the element
