@@ -224,12 +224,15 @@ class SFFormField {
 
 END;
 		global $sfgFormPrinter;
-		if ( is_null( $template_field->getPropertyType() ) ) {
+		if ( !is_null( $template_field->getPropertyType() ) ) {
+			$default_input_type = $sfgFormPrinter->getDefaultInputTypeSMW( $template_field->isList(), $template_field->getPropertyType() );
+			$possible_input_types = $sfgFormPrinter->getPossibleInputTypesSMW( $template_field->isList(), $template_field->getPropertyType() );
+		} elseif ( !is_null( $template_field->getFieldType() ) ) {
+			$default_input_type = $sfgFormPrinter->getDefaultInputTypeCargo( $template_field->isList(), $template_field->getFieldType() );
+			$possible_input_types = $sfgFormPrinter->getPossibleInputTypesCargo( $template_field->isList(), $template_field->getFieldType() );
+		} else {
 			$default_input_type = null;
 			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
-		} else {
-			$default_input_type = $sfgFormPrinter->getDefaultInputType( $template_field->isList(), $template_field->getPropertyType() );
-			$possible_input_types = $sfgFormPrinter->getPossibleInputTypes( $template_field->isList(), $template_field->getPropertyType() );
 		}
 		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->getInputType() );
 

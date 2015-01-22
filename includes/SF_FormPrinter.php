@@ -128,6 +128,23 @@ class SFFormPrinter {
 			}
 		}
 
+		$otherCargoTypes = call_user_func( array( $inputTypeClass, 'getOtherCargoTypesHandled' ) );
+		foreach ( $otherCargoTypes as $cargoType ) {
+			if ( array_key_exists( $cargoType, $this->mPossibleInputsForCargoType ) ) {
+				$this->mPossibleInputsForCargoType[$cargoType][] = $inputTypeName;
+			} else {
+				$this->mPossibleInputsForCargoType[$cargoType] = array( $inputTypeName );
+			}
+		}
+		$otherCargoTypeLists = call_user_func( array( $inputTypeClass, 'getOtherCargoTypeListsHandled' ) );
+		foreach ( $otherCargoTypeLists as $cargoType ) {
+			if ( array_key_exists( $cargoType, $this->mPossibleInputsForCargoTypeList ) ) {
+				$this->mPossibleInputsForCargoTypeList[$cargoType][] = $inputTypeName;
+			} else {
+				$this->mPossibleInputsForCargoTypeList[$cargoType] = array( $inputTypeName );
+			}
+		}
+
 		// FIXME: No need to register these functions explicitly. Instead
 		// formFieldHTML should call $someInput -> getJsInitFunctionData() and
 		// store its return value. formHTML should at some (late) point use the
@@ -151,7 +168,7 @@ class SFFormPrinter {
 		}
 	}
 
-	public function getDefaultInputType( $isList, $propertyType ) {
+	public function getDefaultInputTypeSMW( $isList, $propertyType ) {
 		if ( $isList ) {
 			if ( array_key_exists( $propertyType, $this->mDefaultInputForPropTypeList ) ) {
 				return $this->mDefaultInputForPropTypeList[$propertyType];
@@ -167,7 +184,23 @@ class SFFormPrinter {
 		}
 	}
 
-	public function getPossibleInputTypes( $isList, $propertyType ) {
+	public function getDefaultInputTypeCargo( $isList, $fieldType ) {
+		if ( $isList ) {
+			if ( array_key_exists( $fieldType, $this->mDefaultInputForCargoTypeList ) ) {
+				return $this->mDefaultInputForCargoTypeList[$fieldType];
+			} else {
+				return null;
+			}
+		} else {
+			if ( array_key_exists( $fieldType, $this->mDefaultInputForCargoType ) ) {
+				return $this->mDefaultInputForCargoType[$fieldType];
+			} else {
+				return null;
+			}
+		}
+	}
+
+	public function getPossibleInputTypesSMW( $isList, $propertyType ) {
 		if ( $isList ) {
 			if ( array_key_exists( $propertyType, $this->mPossibleInputsForPropTypeList ) ) {
 				return $this->mPossibleInputsForPropTypeList[$propertyType];
@@ -177,6 +210,22 @@ class SFFormPrinter {
 		} else {
 			if ( array_key_exists( $propertyType, $this->mPossibleInputsForPropType ) ) {
 				return $this->mPossibleInputsForPropType[$propertyType];
+			} else {
+				return array();
+			}
+		}
+	}
+
+	public function getPossibleInputTypesCargo( $isList, $fieldType ) {
+		if ( $isList ) {
+			if ( array_key_exists( $fieldType, $this->mPossibleInputsForCargoTypeList ) ) {
+				return $this->mPossibleInputsForCargoTypeList[$fieldType];
+			} else {
+				return array();
+			}
+		} else {
+			if ( array_key_exists( $fieldType, $this->mPossibleInputsForCargoType ) ) {
+				return $this->mPossibleInputsForCargoType[$fieldType];
 			} else {
 				return array();
 			}
