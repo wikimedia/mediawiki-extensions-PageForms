@@ -493,13 +493,14 @@ jQuery.fn.showIfCheckedCheckbox = function(initPage) {
 // Set the error message for an input.
 jQuery.fn.setErrorMessage = function(msg, val) {
 	var container = this.find('.sfErrorMessages');
-	container.html($('<span>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+	container.html($('<div>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
 };
 
 // Append an error message to the end of an input.
 jQuery.fn.addErrorMessage = function(msg, val) {
-	var container = this.find('.sfErrorMessages');
-	container.append($('<span>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+	this.find('input').addClass('inputError');
+	this.find('select2-container').addClass('inputError');
+	this.append($('<div>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
 };
 
 jQuery.fn.isAtMaxInstances = function() {
@@ -647,6 +648,10 @@ jQuery.fn.validateDateField = function() {
 };
 
 window.validateAll = function () {
+
+	// Hook that fires on form submission, before the validation.
+	mw.hook('sf.formValidationBefore').fire();
+
 	var num_errors = 0;
 
 	// Remove all old error messages.
@@ -748,6 +753,10 @@ window.validateAll = function () {
 		//remove error box if it exists because there are no errors in the form now
 		jQuery("#contentSub").find(".errorbox").remove();
 	}
+
+	// Hook that fires on form submission, after the validation.
+	mw.hook('sf.formValidationAfter').fire();
+
 	return (num_errors === 0);
 };
 

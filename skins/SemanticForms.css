@@ -12,26 +12,26 @@ textarea.mandatoryField {
 
 /* Used in 'create template' page */
 .fieldBox {
-        border: 1px black solid;
-        background: #dddddd;
-        padding: 10px 20px 10px 20px;
-        margin: 0 20px 20px 20px;
+	border: 1px black solid;
+	background: #dddddd;
+	padding: 10px 20px 10px 20px;
+	margin: 0 20px 20px 20px;
 }
 
 /* Used in 'create form' page */
 .templateForm {
-        border: 1px black solid;
-        background: #dddddd;
-        padding: 0 20px 10px 20px;
-        margin-bottom: 20px;
+	border: 1px black solid;
+	background: #dddddd;
+	padding: 0 20px 10px 20px;
+	margin-bottom: 20px;
 }
 
 /* Used in 'create form' page */
 .sectionForm {
-        border: 1px black solid;
-        background: #d0dae6;
-        padding: 0 20px 10px 20px;
-        margin-bottom: 20px;
+	border: 1px black solid;
+	background: #d0dae6;
+	padding: 0 20px 10px 20px;
+	margin-bottom: 20px;
 }
 
 /* Used in form pages */
@@ -89,9 +89,14 @@ div.infoMessage {
 	background: #eeeeee;
 }
 
-span.errorMessage {
+div.errorMessage {
 	color: red;
+	margin: 1px 0 4px 0;
 }
+.inputError {
+	background: #FCEEEE;
+}
+
 .multipleTemplateInstance {
 	background-color: #dddddd;
 	border: 1px solid #cccccc;
