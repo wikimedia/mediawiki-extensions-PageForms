@@ -1127,7 +1127,7 @@ jQuery(document).ready(function() {
 	});
 	jQuery('.multipleTemplateList').sortable({
 		axis: 'y',
-		handle: '.rearrangerImage'
+		handle: '.instanceRearranger'
 	});
 
 

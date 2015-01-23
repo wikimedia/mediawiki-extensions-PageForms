@@ -288,20 +288,19 @@ class SFFormPrinter {
 		global $sfgScriptPath;
 
 		if ( $form_is_disabled ) {
-			$addAboveButton = $removeButton = $rearranger = '';
+			$addAboveButton = $removeButton;
 		} else {
 			$addAboveButton = Html::element( 'a', array( 'class' => "addAboveButton", 'title' => wfMessage( 'sf_formedit_addanotherabove' )->text() ) );
 			$removeButton = Html::element( 'a', array( 'class' => "removeButton", 'title' => wfMessage( 'sf_formedit_remove' )->text() ) );
-			$rearranger = Html::element( 'img', array( 'src' => "$sfgScriptPath/skins/rearranger.png", 'class' => "rearrangerImage" ) );
 		}
 
 		$text = <<<END
 			<table>
 			<tr>
-			<td>$mainText</td>
-			<td>$addAboveButton</td>
-			<td>$removeButton</td>
-			<td class="instanceRearranger">$rearranger</td>
+			<td class="instanceRearranger"></td>
+			<td class="instanceMain">$mainText</td>
+			<td class="instanceAddAbove">$addAboveButton</td>
+			<td class="instanceRemove">$removeButton</td>
 			</tr>
 			</table>
 END;
