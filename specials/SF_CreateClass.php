@@ -37,7 +37,7 @@ function createClassAddRow() {
 }
 
 function disableFormAndCategoryInputs() {
-	if (jQuery('#template_multiple').attr('checked')) {
+	if (jQuery('#template_multiple').prop('checked')) {
 		jQuery('#form_name').attr('disabled', 'disabled');
 		jQuery('label[for="form_name"]').css('color', 'gray').css('font-style', 'italic');
 		jQuery('#category_name').attr('disabled', 'disabled');
