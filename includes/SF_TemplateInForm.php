@@ -25,17 +25,30 @@ class SFTemplateInForm {
 	}
 
 	function getAllFields() {
-		if ( defined( 'CARGO_VERSION' ) ) {
-			return $this->getAllFieldsCargo();
+		$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
+		if ( !isset( $templateTitle ) ) {
+			return array();
 		}
-		return $this->getAllFieldsSMW();
+
+		// The Cargo-based function is more specific; it only gets
+		// data structure information from the template schema. If
+		// there's no Cargo schema for this template, we call
+		// getAllFieldsSMWAndOther(), which doesn't require the
+		// presence of SMW and can get non-SMW information as well.
+		if ( defined( 'CARGO_VERSION' ) ) {
+			$allFields = $this->getAllFieldsCargo( $templateTitle );
+			if ( $allFields !== null ) {
+				return $allFields;
+			}
+		}
+		return $this->getAllFieldsSMWAndOther( $templateTitle );
 	}
 
 	/**
 	 * Get the fields of the template, along with the semantic property
 	 * attached to each one (if any), by parsing the text of the template.
 	 */
-	function getAllFieldsSMW() {
+	function getAllFieldsSMWAndOther( $templateTitle ) {
 		global $wgContLang;
 		$templateFields = array();
 		$fieldNamesArray = array();
@@ -47,89 +60,85 @@ class SFTemplateInForm {
 		// Some fields can be found more than once (especially if
 		// they're part of an "#if" statement), so they're only
 		// recorded the first time they're found.
-		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
-		if ( isset( $template_title ) ) {
-			$templateText = SFUtils::getPageText( $template_title );
-			// Ignore 'noinclude' sections and 'includeonly' tags.
-			$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
-			$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+		$templateText = SFUtils::getPageText( $templateTitle );
+		// Ignore 'noinclude' sections and 'includeonly' tags.
+		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
+		$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
 
-			// First, look for "arraymap" parser function calls
-			// that map a property onto a list.
-			if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $i => $field_name ) {
-					if ( ! in_array( $field_name, $fieldNamesArray ) ) {
-						$propertyName = $matches[2][$i];
-						$this->handlePropertySettingInTemplate( $field_name, $propertyName, true, $templateFields, $templateText );
-						$fieldNamesArray[] = $field_name;
-					}
-				}
-			} elseif ( $ret === false ) {
-				// There was an error in the preg_match_all()
-				// call - let the user know about it.
-				if ( preg_last_error() == PREG_BACKTRACK_LIMIT_ERROR ) {
-					print 'Semantic Forms error: backtrace limit exceeded during parsing! Please increase the value of <a href="http://www.php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit">pcre.backtrack_limit</a> in php.ini or LocalSettings.php.';
+		// First, look for "arraymap" parser function calls
+		// that map a property onto a list.
+		if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $i => $field_name ) {
+				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
+					$propertyName = $matches[2][$i];
+					$this->handlePropertySettingInTemplate( $field_name, $propertyName, true, $templateFields, $templateText );
+					$fieldNamesArray[] = $field_name;
 				}
 			}
+		} elseif ( $ret === false ) {
+			// There was an error in the preg_match_all()
+			// call - let the user know about it.
+			if ( preg_last_error() == PREG_BACKTRACK_LIMIT_ERROR ) {
+				print 'Semantic Forms error: backtrace limit exceeded during parsing! Please increase the value of <a href="http://www.php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit">pcre.backtrack_limit</a> in php.ini or LocalSettings.php.';
+			}
+		}
 
-			// Second, look for normal property calls.
-			if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $i => $propertyName ) {
-					$field_name = trim( $matches[2][$i] );
-					if ( ! in_array( $field_name, $fieldNamesArray ) ) {
-						$propertyName = trim( $propertyName );
-						$this->handlePropertySettingInTemplate( $field_name, $propertyName, false, $templateFields, $templateText );
-						$fieldNamesArray[] = $field_name;
-					}
+		// Second, look for normal property calls.
+		if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $i => $propertyName ) {
+				$field_name = trim( $matches[2][$i] );
+				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
+					$propertyName = trim( $propertyName );
+					$this->handlePropertySettingInTemplate( $field_name, $propertyName, false, $templateFields, $templateText );
+					$fieldNamesArray[] = $field_name;
 				}
 			}
+		}
 
-			// Then, get calls to #set, #set_internal and
-			// #subobject. (Thankfully, they all have similar
-			// syntax).
-			if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
-				foreach ( $matches[2] as $match ) {
-					if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
-						foreach ( $matches2[1] as $i => $propertyName ) {
-							$fieldName = trim( $matches2[2][$i] );
-							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
-								$propertyName = trim( $propertyName );
-								$this->handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
-								$fieldNamesArray[] = $fieldName;
-							}
+		// Then, get calls to #set, #set_internal and #subobject.
+		// (Thankfully, they all have similar syntax).
+		if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
+			foreach ( $matches[2] as $match ) {
+				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
+					foreach ( $matches2[1] as $i => $propertyName ) {
+						$fieldName = trim( $matches2[2][$i] );
+						if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
+							$propertyName = trim( $propertyName );
+							$this->handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
+							$fieldNamesArray[] = $fieldName;
 						}
 					}
 				}
 			}
+		}
 
-			// Then, get calls to #declare. (This is really rather
-			// optional, since no one seems to use #declare.)
-			if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $match ) {
-					$setValues = explode( '|', $match );
-					foreach ( $setValues as $valuePair ) {
-						$keyAndVal = explode( '=', $valuePair );
-						if ( count( $keyAndVal ) == 2 ) {
-							$propertyName = trim( $keyAndVal[0] );
-							$fieldName = trim( $keyAndVal[1] );
-							if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
-								$this->handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
-								$fieldNamesArray[] = $fieldName;
-							}
+		// Then, get calls to #declare. (This is really rather
+		// optional, since no one seems to use #declare.)
+		if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $match ) {
+				$setValues = explode( '|', $match );
+				foreach ( $setValues as $valuePair ) {
+					$keyAndVal = explode( '=', $valuePair );
+					if ( count( $keyAndVal ) == 2 ) {
+						$propertyName = trim( $keyAndVal[0] );
+						$fieldName = trim( $keyAndVal[1] );
+						if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
+							$this->handlePropertySettingInTemplate( $fieldName, $propertyName, false, $templateFields, $templateText );
+							$fieldNamesArray[] = $fieldName;
 						}
 					}
 				}
 			}
+		}
 
-			// Finally, get any non-semantic fields defined.
-			if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
-				foreach ( $matches[1] as $fieldName ) {
-					$fieldName = trim( $fieldName );
-					if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
-						$cur_pos = stripos( $templateText, $fieldName );
-						$templateFields[$cur_pos] = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
-						$fieldNamesArray[] = $fieldName;
-					}
+		// Finally, get any non-semantic fields defined.
+		if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $fieldName ) {
+				$fieldName = trim( $fieldName );
+				if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
+					$cur_pos = stripos( $templateText, $fieldName );
+					$templateFields[$cur_pos] = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
+					$fieldNamesArray[] = $fieldName;
 				}
 			}
 		}
@@ -137,29 +146,25 @@ class SFTemplateInForm {
 		return $templateFields;
 	}
 
-	function getAllFieldsCargo() {
+	function getAllFieldsCargo( $templateTitle ) {
 		$cargoFieldsOfTemplateParams = array();
 		$templateFields = array();
-		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
-		if ( !isset( $template_title ) ) {
-			return array();
-		}
 
 		// First, get the table name, and fields, declared for this
 		// template.
-		$templatePageID = $template_title->getArticleID();
-                $tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
-                // First, see if there even is DB storage for this template -
-                // if not, exit.
-                if ( is_null( $tableSchemaString ) ) {
-                        return array();
-                }
-                $tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
-                $tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
+		$templatePageID = $templateTitle->getArticleID();
+		$tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
+		// See if there even is DB storage for this template - if not,
+		// exit.
+		if ( is_null( $tableSchemaString ) ) {
+			return null;
+		}
+		$tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
+		$tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
 
 		// Then, match template params to Cargo table fields, by
 		// parsing call(s) to #cargo_store.
-		$templateText = SFUtils::getPageText( $template_title );
+		$templateText = SFUtils::getPageText( $templateTitle );
 		// Ignore 'noinclude' sections and 'includeonly' tags.
 		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
 		$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
