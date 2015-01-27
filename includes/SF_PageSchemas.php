@@ -624,11 +624,16 @@ END;
 		$psFields = $psTemplate->getFields();
 		$templateFields = array();
 		foreach ( $psFields as $psField ) {
-			$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
-			$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
-			if ( !is_null( $prop_array ) && empty( $propertyName ) ) {
-				$propertyName = $psField->getName();
+			if ( defined( 'SMW_VERSION' ) ) {
+				$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
+				$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
+				if ( !is_null( $prop_array ) && empty( $propertyName ) ) {
+					$propertyName = $psField->getName();
+				}
+			} else {
+				$propertyName = null;
 			}
+
 			if ( $psField->getLabel() === '' ) {
 				$fieldLabel = $psField->getName();
 			} else {
