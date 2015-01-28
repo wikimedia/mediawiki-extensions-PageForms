@@ -81,6 +81,17 @@ class SFCreateTemplate extends SpecialPage {
 		return Html::rawElement( 'select', array( 'id' => "semantic_property_$id", 'name' => "semantic_property_$id", 'class' => 'sfComboBox' ), $selectBody ) . "\n";
 	}
 
+	static function printFieldTypeDropdown( $id ) {
+		global $wgCargoFieldTypes;
+
+		$selectBody = '';
+		foreach ( $wgCargoFieldTypes as $type ) {
+			$optionAttrs = array( 'value' => $type );
+			$selectBody .= Html::element( 'option', $optionAttrs, $type ) . "\n";
+		}
+		return Html::rawElement( 'select', array( 'id' => "field_type_$id", 'name' => "field_type_$id", ), $selectBody ) . "\n";
+	}
+
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
@@ -97,6 +108,9 @@ class SFCreateTemplate extends SpecialPage {
 		if ( defined( 'SMW_VERSION' ) ) {
 			$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
 			$text .= "\t<label>" . wfMessage( 'sf_createtemplate_semanticproperty' )->text() . ' ' . $dropdown_html . "</label></p>\n";
+		} elseif ( defined( 'CARGO_VERSION' ) ) {
+			$dropdown_html = self::printFieldTypeDropdown( $id );
+			$text .= "\t<label>" . wfMessage( 'sf_createproperty_proptype' )->text() . ' ' . $dropdown_html . "</label></p>\n";
 		}
 
 		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . wfMessage( 'sf_createtemplate_fieldislist' )->text() . "</label>&nbsp;&nbsp;&nbsp;\n";
@@ -105,6 +119,13 @@ class SFCreateTemplate extends SpecialPage {
 				array( 'size' => '2' )
 			) . "</label>\n";
 		$text .= "\t</p>\n";
+		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
+			$text .= "\t<p>\n";
+			$text .= "\t<label>" . wfMessage( 'sf_createproperty_allowedvalsinput' )->escaped();
+			$text .= Html::input( 'allowed_values_' . $id, null, 'text',
+				array( 'size' => '80' ) ) . "</label>\n";
+			$text .= "\t</p>\n";
+		}
 		$text .= "\t</td><td>\n";
 		$text .= "\t" . '<input type="button" value="' . wfMessage( 'sf_createtemplate_deletefield' )->text() . '" class="deleteField" />' . "\n";
 
@@ -234,6 +255,9 @@ END;
 						$wgRequest->getCheck( 'is_list_' . $id ),
 						$wgRequest->getVal( 'delimiter_' . $id )
 					);
+					// Fake attributes.
+					$field->mCargoFieldType = $wgRequest->getVal( 'field_type_' . $id );
+					$field->mAllowedValuesStr = $wgRequest->getVal( 'allowed_values_' . $id );
 					$fields[] = $field;
 				}
 			}
@@ -243,11 +267,13 @@ END;
 			$wgOut->setArticleBodyOnly( true );
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 			$category = $wgRequest->getVal( 'category' );
+			$cargo_table = $wgRequest->getVal( 'cargo_table' );
 			$aggregating_property = $wgRequest->getVal( 'semantic_property_aggregation' );
 			$aggregation_label = $wgRequest->getVal( 'aggregation_label' );
 			$template_format = $wgRequest->getVal( 'template_format' );
 			$sfTemplate = new SFTemplate( $template_name, $fields );
 			$sfTemplate->setCategoryName( $category );
+			$sfTemplate->mCargoTable = $cargo_table;
 			$sfTemplate->setAggregatingInfo( $aggregating_property, $aggregation_label );
 			$sfTemplate->setFormat( $template_format );
 			$full_text = $sfTemplate->createText();
@@ -264,6 +290,10 @@ END;
 			$text .= "\t<p id=\"template_name_p\">" . wfMessage( 'sf_createtemplate_namelabel' )->escaped() . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		}
 		$text .= "\t<p>" . wfMessage( 'sf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
+		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
+			$text .= "\t<p>" . wfMessage( 'sf_createtemplate_cargotablelabel' )->escaped() . ' <input size="25" name="cargo_table" /></p>' . "\n";
+		}
+
 		$text .= "\t<fieldset>\n";
 		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'sf_createtemplate_templatefields' )->text() ) . "\n";
 		$text .= "\t" . Html::element( 'p', null, wfMessage( 'sf_createtemplate_fieldsdesc' )->text() ) . "\n";

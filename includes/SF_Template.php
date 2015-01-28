@@ -17,6 +17,7 @@ class SFTemplate {
 	private $mTemplateFields;
 	private $mConnectingProperty;
 	private $mCategoryName;
+	public $mCargoTable;
 	private $mAggregatingProperty;
 	private $mAggregationLabel;
 	private $mTemplateFormat;
@@ -59,6 +60,40 @@ class SFTemplate {
 		$this->mTemplateFormat = $templateFormat;
 	}
 
+	public function createCargoDeclareCall() {
+		$text = '{{#cargo_declare:';
+		$text .= '_table=' . $this->mCargoTable;
+		foreach ( $this->mTemplateFields as $i => $field ) {
+			$text .= '|';
+			$text .= str_replace( ' ', '_', $field->getFieldName() ) . '=';
+			if ( $field->isList() ) {
+				$delimiter = $field->getDelimiter();
+				if ( $delimiter == '' ) {
+					$delimmiter = ',';
+				}
+				$text .= "List ($delimiter) of ";
+			}
+			$text .= $field->mCargoFieldType;
+			if ( $field->mAllowedValuesStr != '' ) {
+				$text .= " (allowed values=" . $field->mAllowedValuesStr . ')';
+			}
+		}
+		$text .= '}}';
+		return $text;
+	}
+
+	public function createCargoStoreCall() {
+		$text = '{{#cargo_store:';
+		$text .= '_table=' . $this->mCargoTable;
+		foreach ( $this->mTemplateFields as $i => $field ) {
+			$text .= '|' .
+				str_replace( ' ', '_', $field->getFieldName() ) .
+				'={{{' . $field->getFieldName() . '|}}}';
+		}
+		$text .= ' }}';
+		return $text;
+	}
+
 	/**
 	 * Creates the text of a template, when called from
 	 * Special:CreateTemplate, Special:CreateClass or the Page Schemas
@@ -79,12 +114,22 @@ END;
 			if ( $field->getFieldName() == '' ) continue;
 			$text .= "|" . $field->getFieldName() . "=\n";
 		}
+		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) && $this->mCargoTable != '' ) {
+			$cargoInUse = true;
+			$cargoDeclareCall = $this->createCargoDeclareCall() . "\n";
+			$cargoStoreCall = $this->createCargoStoreCall();
+		} else {
+			$cargoInUse = false;
+			$cargoDeclareCall = '';
+			$cargoStoreCall = '';
+		}
+
 		$templateFooter = wfMessage( 'sf_template_docufooter' )->inContentLanguage()->text();
 		$text .= <<<END
 }}
 </pre>
 $templateFooter
-</noinclude><includeonly>
+$cargoDeclareCall</noinclude><includeonly>$cargoStoreCall
 END;
 
 		// Before text
@@ -189,7 +234,13 @@ END;
 					$tableText .= "| ";
 				}
 			}
-			if ( !$fieldProperty ) {
+
+			// If we're using Cargo, fields can simply be displayed
+			// normally - no need for any special tags - *unless*
+			// the field holds a list of Page value, in which case
+			// we need to apply #arraymap.
+			$isCargoListOfPages = $cargoInUse && $field->isList() && $field->mCargoFieldType == 'Page';
+			if ( !$fieldProperty && !$isCargoListOfPages ) {
 				if ( $separator != '' ) {
 					$tableText .= "$separator ";
 				}
@@ -260,11 +311,14 @@ END;
 					}
 				}
 				$tableText .= "{{#arraymap:{{{" . $field->getFieldName() . '|}}}|' . $field->getDelimiter() . "|$var|[[";
-				if ( is_null( $field->getNamespace() ) ) {
-					$tableText .= "$fieldProperty::$var]]}}\n";
+				if ( $cargoInUse ) {
+					$tableText .= "$var]]";
+				} elseif ( is_null( $field->getNamespace() ) ) {
+					$tableText .= "$fieldProperty::$var]]";
 				} else {
-					$tableText .= $field->getNamespace() . ":$var]] {{#set:" . $fieldProperty . "=$var}} }}\n";
+					$tableText .= $field->getNamespace() . ":$var]] {{#set:" . $fieldProperty . "=$var}} ";
 				}
+				$tableText .= "}}\n";
 			} else {
 				if ( $fieldStart != '' ) {
 					$tableText .= $fieldStart . ' ';

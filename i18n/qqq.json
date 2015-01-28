@@ -34,6 +34,7 @@
     "sf_createtemplate_multipleinstance": "Used as label for the checkbox.",
     "sf_createtemplate_connectingproperty": "Used as label for the input box.",
     "sf_createtemplate_categorylabel": "Used as label for the \"Category name\" input box.",
+    "sf_createtemplate_cargotablelabel": "Used as label for the \"Cargo table\" input box. (Cargo is a separate MediaWiki extension.)",
     "sf_createtemplate_templatefields": "Used as fieldset label.\n\nFollowed by the following description:\n* {{msg-mw|Sf createtemplate fieldsdesc}}",
     "sf_createtemplate_fieldsdesc": "Used as description in the form.\n\nPreceded by the fieldset label {{msg-mw|Sf createtemplate templatefields}}.",
     "sf_createtemplate_fieldname": "The name of the field used in the relevant template.\n{{Identical|Field name}}",

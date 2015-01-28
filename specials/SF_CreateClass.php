@@ -79,20 +79,28 @@ END;
 		$fields = array();
 		$jobs = array();
 		// Cycle through all the rows passed in.
-		for ( $i = 1; $wgRequest->getCheck( "field_name_$i" ); $i++ ) {
-			// go through the query values, setting the appropriate local variables
-			$property_name = trim( $wgRequest->getVal( "property_name_$i" ) );
+		for ( $i = 1; $wgRequest->getVal( "field_name_$i" ) != ''; $i++ ) {
+			// Go through the query values, setting the appropriate
+			// local variables.
 			$field_name = trim( $wgRequest->getVal( "field_name_$i" ) );
+			$property_name = trim( $wgRequest->getVal( "property_name_$i" ) );
 			$property_type = $wgRequest->getVal( "property_type_$i" );
 			$allowed_values = $wgRequest->getVal( "allowed_values_$i" );
 			$is_list = $wgRequest->getCheck( "is_list_$i" );
 			// Create an SFTemplateField object based on these
 			// values, and add it to the $fields array.
 			$field = SFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
+
+			if ( defined( 'CARGO_VERSION' ) ) {
+				// Fake attributes,.
+				$field->mCargoFieldType = $property_type;
+				$field->mAllowedValuesStr = $allowed_values;
+			}
+
 			$fields[] = $field;
 
 			// Create the property, and make a job for it.
-			if ( !empty( $property_name ) ) {
+			if ( defined( 'SMW_VERSION' ) && !empty( $property_name ) ) {
 				$full_text = SFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
 				$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$params = array();
@@ -105,7 +113,7 @@ END;
 
 		// Also create the "connecting property", if there is one.
 		$connectingProperty = trim( $wgRequest->getVal('connecting_property') );
-		if ( $connectingProperty != '' ) {
+		if ( defined( 'SMW_VERSION' ) && $connectingProperty != '' ) {
 			global $smwgContLang;
 			$datatypeLabels = $smwgContLang->getDatatypeLabels();
 			$property_type = $datatypeLabels['_wpg'];
@@ -122,7 +130,10 @@ END;
 		// one page, instead of just creating jobs for all of them).
 		$template_format = $wgRequest->getVal( "template_format" );
 		$sfTemplate = new SFTemplate( $template_name, $fields );
-		if ( $template_multiple ) {
+		if ( defined( 'CARGO_VERSION' ) ) {
+			$sfTemplate->mCargoTable = trim( $wgRequest->getVal( "cargo_table" ) );
+		}
+		if ( defined( 'SMW_VERSION' ) && $template_multiple ) {
 			$sfTemplate->setConnectingProperty( $connectingProperty );
 		} else {
 			$sfTemplate->setCategoryName( $category_name );
@@ -203,22 +214,26 @@ END;
 			return;
 		}
 
-		$datatypeLabels = $smwgContLang->getDatatypeLabels();
+		$specialBGColor = '#eeffcc';
+		if ( defined( 'SMW_VERSION' ) ) {
+			$possibleTypes = $smwgContLang->getDatatypeLabels();
+		} elseif ( defined( 'CARGO_VERSION' ) ) {
+			global $wgCargoFieldTypes;
+			$possibleTypes = $wgCargoFieldTypes;
+			$specialBGColor = '';
+		} else {
+			$possibleTypes = array();
+		}
 
 		// Make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page.
 		$creation_links = array();
-		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateProperty' );
+		if ( defined( 'SMW_VERSION' ) ) {
+			$creation_links[] = SFUtils::linkForSpecialPage( 'CreateProperty' );
+		}
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateTemplate' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateForm' );
 		$creation_links[] = SFUtils::linkForSpecialPage( 'CreateCategory' );
-		$form_name_label = wfMessage( 'sf_createclass_nameinput' )->text();
-		$category_name_label = wfMessage( 'sf_createcategory_name' )->text();
-		$field_name_label = wfMessage( 'sf_createtemplate_fieldname' )->escaped();
-		$list_of_values_label = wfMessage( 'sf_createclass_listofvalues' )->escaped();
-		$property_name_label = wfMessage( 'sf_createproperty_propname' )->escaped();
-		$type_label = wfMessage( 'sf_createproperty_proptype' )->escaped();
-		$allowed_values_label = wfMessage( 'sf_createclass_allowedvalues' )->escaped();
 
 		$text = '<form action="" method="post">' . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null,
@@ -254,23 +269,52 @@ END;
 		}
 		$text .= Html::rawElement( 'blockquote', null, $templateInfo );
 
+		$form_name_label = wfMessage( 'sf_createclass_nameinput' )->text();
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
+		$category_name_label = wfMessage( 'sf_createcategory_name' )->text();
 		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
+		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) ) {
+			$cargo_table_label = wfMessage( 'sf_createtemplate_cargotablelabel' )->escaped();
+			$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'cargo_table' ), $cargo_table_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ), null ) ) . "\n";
+		}
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
-		$property_label = wfMessage( 'smw_pp_type' )->escaped();
 		$text .= <<<END
 	<div>
 		<table id="mainTable" style="border-collapse: collapse;">
+
+END;
+		if ( defined( 'SMW_VERSION' ) ) {
+			$property_label = wfMessage( 'smw_pp_type' )->escaped();
+			$text .= <<<END
 		<tr>
 			<th colspan="3" />
 			<th colspan="3" style="background: #ddeebb; padding: 4px;">$property_label</th>
 		</tr>
+
+END;
+		}
+
+		$field_name_label = wfMessage( 'sf_createtemplate_fieldname' )->escaped();
+		$list_of_values_label = wfMessage( 'sf_createclass_listofvalues' )->escaped();
+		$text .= <<<END
 		<tr>
 			<th colspan="2">$field_name_label</th>
 			<th style="padding: 4px;">$list_of_values_label</th>
-			<th style="background: #eeffcc; padding: 4px;">$property_name_label</th>
-			<th style="background: #eeffcc; padding: 4px;">$type_label</th>
-			<th style="background: #eeffcc; padding: 4px;">$allowed_values_label</th>
+
+END;
+		if ( defined( 'SMW_VERSION' ) ) {
+			$property_name_label = wfMessage( 'sf_createproperty_propname' )->escaped();
+			$text .= <<<END
+			<th style="background: $specialBGColor; padding: 4px;">$property_name_label</th>
+
+END;
+		}
+
+		$type_label = wfMessage( 'sf_createproperty_proptype' )->escaped();
+		$allowed_values_label = wfMessage( 'sf_createclass_allowedvalues' )->escaped();
+		$text .= <<<END
+			<th style="background: $specialBGColor; padding: 4px;">$type_label</th>
+			<th style="background: $specialBGColor; padding: 4px;">$allowed_values_label</th>
 		</tr>
 
 END;
@@ -290,18 +334,26 @@ END;
 			<td>$n.</td>
 			<td><input type="text" size="25" name="field_name_$n" /></td>
 			<td style="text-align: center;"><input type="checkbox" name="is_list_$n" /></td>
-			<td style="background: #eeffcc; padding: 4px;"><input type="text" size="25" name="property_name_$n" /></td>
-			<td style="background: #eeffcc; padding: 4px;">
+
+END;
+		if ( defined( 'SMW_VERSION' ) ) {
+			$text .= <<<END
+			<td style="background: $specialBGColor; padding: 4px;"><input type="text" size="25" name="property_name_$n" /></td>
+
+END;
+		}
+		$text .= <<<END
+			<td style="background: $specialBGColor; padding: 4px;">
 
 END;
 			$typeDropdownBody = '';
-			foreach ( $datatypeLabels as $label ) {
-				$typeDropdownBody .= "\t\t\t\t<option>$label</option>\n";
+			foreach ( $possibleTypes as $typeName ) {
+				$typeDropdownBody .= "\t\t\t\t<option>$typeName</option>\n";
 			}
 			$text .= "\t\t\t\t" . Html::rawElement( 'select', array( 'name' => "property_type_$n" ), $typeDropdownBody ) . "\n";
 			$text .= <<<END
 			</td>
-			<td style="background: #eeffcc; padding: 4px;"><input type="text" size="25" name="allowed_values_$n" /></td>
+			<td style="background: $specialBGColor; padding: 4px;"><input type="text" size="25" name="allowed_values_$n" /></td>
 
 END;
 		}

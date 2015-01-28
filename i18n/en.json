@@ -22,6 +22,7 @@
     "sf_createtemplate_multipleinstance": "This template can be included multiple times on the page.",
     "sf_createtemplate_connectingproperty": "Name of property to connect this template's fields to the rest of the page:",
     "sf_createtemplate_categorylabel": "Category defined by template (optional):",
+    "sf_createtemplate_cargotablelabel": "Cargo table defined by template (optional):",
     "sf_createtemplate_templatefields": "Template fields",
     "sf_createtemplate_fieldsdesc": "To have the fields in this template no longer require field names, simply enter the index of each field (e.g. 1, 2, 3, etc.) as the name, instead of an actual name.",
     "sf_createtemplate_fieldname": "Field name:",
