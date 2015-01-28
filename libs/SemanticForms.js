@@ -1118,7 +1118,13 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 var num_elements = 0;
 
 // Once the document has finished loading, set up everything!
-jQuery(document).ready(function() {
+jQuery(document).ready( function() {
+
+	// Exit if a Semantic Forms form is not present.
+	if ( jQuery('#sfForm').length == 0 ) {
+		return;
+	}
+
 	jQuery('body').initializeJSElements();
 
 	jQuery('.multipleTemplateInstance').initializeJSElements(true);
@@ -1130,7 +1136,8 @@ jQuery(document).ready(function() {
 		handle: '.instanceRearranger'
 	});
 
-
 	// If the form is submitted, validate everything!
-	jQuery('#sfForm').submit( function() {return validateAll();} );
+	jQuery('#sfForm').submit( function() {
+		return validateAll();
+	} );
 });
