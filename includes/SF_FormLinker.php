@@ -335,9 +335,12 @@ class SFFormLinker {
 	static function getDefaultFormsForPage( $title ) {
 		// See if the page itself has a default form (or forms), and
 		// return it/them if so.
-		$default_form = self::getDefaultForm( $title );
-		if ( $default_form != '' ) {
-			return array( $default_form );
+		// (Disregard category pages for this check.)
+		if ( $title->getNamespace() != NS_CATEGORY ) {
+			$default_form = self::getDefaultForm( $title );
+			if ( $default_form != '' ) {
+				return array( $default_form );
+			}
 		}
 
 		$default_forms = self::getFormsThatPagePointsTo( $title->getText(), $title->getNamespace(), self::PAGE_DEFAULT_FORM );
