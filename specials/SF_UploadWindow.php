@@ -375,6 +375,10 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		# Chop off any directories in the given filename
 		if ( $this->mDesiredDestName ) {
 			$basename = $this->mDesiredDestName;
+		} elseif ( is_a( $this->mUpload, 'UploadFromFile' ) ) {
+			// MediaWiki 1.24+?
+			$imageTitle = $this->mUpload->getTitle();
+			$basename = $imageTitle->getText();
 		} else {
 			$basename = $this->mSrcName;
 		}
