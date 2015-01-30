@@ -970,10 +970,16 @@ class SFUploadForm extends HTMLForm {
 		global $wgTitle, $wgLanguageCode,
 		$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
 
-		$this->getOutput()->disable();
+		$out = $this->getOutput();
+
+		$out->disable();
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
 
-		$this->getOutput()->addModules( array( 'mediawiki.action.edit', 'mediawiki.legacy.upload', 'mediawiki.legacy.wikibits', 'mediawiki.legacy.ajax' ) );
+		$out->addModules( array(
+			'mediawiki.action.edit', // For <charinsert> support
+			'mediawiki.special.upload', // Extras for thumbnail and license preview.
+			'mediawiki.legacy.upload', // For backward compatibility (this was removed 2014-09-10)
+		) );
 
 		$text = <<<END
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -989,11 +995,11 @@ END;
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-{$this->getOutput()->getHeadScripts()}
+{$out->getHeadScripts()}
 </head>
 <body>
-{$this->getOutput()->getHTML()}
-{$this->getOutput()->getBottomScripts()}
+{$out->getHTML()}
+{$out->getBottomScripts()}
 </body>
 </html>
 
