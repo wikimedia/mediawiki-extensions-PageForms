@@ -59,6 +59,12 @@ function setupMapFormInput( inputDiv, mapService ) {
 		doLookup();
 	});
 
+
+	if ( inputDiv.find('.sfCoordsInput').val() != '' ) {
+		setMarkerFromInput();
+		map.setZoom(14);
+	}
+
 	function doLookup() {
 		var addressText = inputDiv.find('.sfAddressInput').val();
 		if ( mapService == "Google Maps" ) {
@@ -97,9 +103,11 @@ function setupMapFormInput( inputDiv, mapService ) {
 		if ( mapService == "Google Maps" ) {
 			var gmPoint = new google.maps.LatLng( lat, lon );
 			googleMapsSetMarker( gmPoint );
+			map.setCenter( gmPoint );
 		} else { // if ( mapService == "OpenLayers" ) {
 			var olPoint = toOpenLayersLonLat( map, lat, lon );
 			openLayersSetMarker( olPoint );
+			map.setCenter( olPoint, 14 );
 		}
 	}
 

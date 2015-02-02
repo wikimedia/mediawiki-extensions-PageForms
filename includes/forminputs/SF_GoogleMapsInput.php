@@ -34,7 +34,9 @@ class SFGoogleMapsInput extends SFFormInput {
                 $wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
                 $wgOut->addModules( 'ext.semanticforms.maps' );
 
-		$coordsInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'sfCoordsInput', 'name' => $input_name, 'size' => 40 ) );
+		$parsedCurValue = SFOpenLayersInput::parseCoordinatesString( $cur_value );
+
+		$coordsInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'sfCoordsInput', 'name' => $input_name, 'value' => $parsedCurValue, 'size' => 40 ) );
 		$mapUpdateButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'sfUpdateMap', 'value' => wfMessage( 'sf-maps-setmarker' )->parse() ), null );
 		$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'sfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'sf-maps-enteraddress' )->parse() ), null );
 		$addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'sfLookUpAddress', 'value' => wfMessage( 'sf-maps-lookupcoordinates' )->parse() ), null );
