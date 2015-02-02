@@ -207,6 +207,7 @@
 		var autocomplete_opts = this.getAutocompleteOpts();
 		var data_source = autocomplete_opts.autocompletesettings.split(',')[0];
 		var my_server = mw.util.wikiScript( 'api' );
+		var autocomplete_type = autocomplete_opts.autocompletedatatype;
 		if ( autocomplete_type == 'cargo field' ) {
 			var table_and_field = data_source.split('|');
 			my_server += "?action=sfautocomplete&format=json&cargo_table=" + table_and_field[0] + "&cargo_field=" + table_and_field[1];
