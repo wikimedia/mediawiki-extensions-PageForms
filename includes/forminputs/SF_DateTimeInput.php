@@ -100,15 +100,15 @@ class SFDateTimeInput extends SFDateInput {
 
 		$text = parent::getMainHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args );
 		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
-		$text .= '	&#160;<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[hour]" type="text" value="' . $hour . '" size="2"/ ' . $disabled_text . '>';
+		$text .= '	&#160;<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[hour]" type="text" class="hoursInput" value="' . $hour . '" size="2"/ ' . $disabled_text . '>';
 		$sfgTabIndex++;
-		$text .= '	:<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[minute]" type="text" value="' . $minute . '" size="2"/ ' . $disabled_text . '>';
+		$text .= '	:<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[minute]" type="text" class="minutesInput" value="' . $minute . '" size="2"/ ' . $disabled_text . '>';
 		$sfgTabIndex++;
-		$text .= ':<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[second]" type="text" value="' . $second . '" size="2"/ ' . $disabled_text . '>' . "\n";
+		$text .= ':<input tabindex="' . $sfgTabIndex . '" name="' . $input_name . '[second]" type="text" class="secondsInput" value="' . $second . '" size="2"/ ' . $disabled_text . '>' . "\n";
 
 		if ( !$sfg24HourTime ) {
 			$sfgTabIndex++;
-			$text .= '	 <select tabindex="' . $sfgTabIndex . '" name="' . $input_name . "[ampm24h]\" $disabled_text>\n";
+			$text .= '	 <select tabindex="' . $sfgTabIndex . '" name="' . $input_name . "[ampm24h]\" class=\"ampmInput\" $disabled_text>\n";
 			$ampm24h_options = array( '', 'AM', 'PM' );
 			foreach ( $ampm24h_options as $value ) {
 				$text .= "				<option value=\"$value\"";
