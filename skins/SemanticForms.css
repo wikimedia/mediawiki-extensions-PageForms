@@ -97,22 +97,19 @@ span.mandatoryFieldsSpan {
     background: #EEE;
 }
 
-#sfForm .yearInput,
-#sfForm .monthInput,
-#sfForm .dayInput,
-#sfForm .hoursInput,
-#sfForm .minutesInput,
-#sfForm .secondsInput,
-#sfForm .ampmInput {
-	padding: 4px;
-}
-
 #sfForm .select2-container {
     border: none;
     padding: 0;
 }
 #sfForm textarea,
-form input.formInput {
+form input.formInput,
+#sfForm input.yearInput,
+#sfForm input.monthInput,
+#sfForm input.dayInput,
+#sfForm input.hoursInput,
+#sfForm input.minutesInput,
+#sfForm input.secondsInput,
+#sfForm input.ampmInput {
     border-radius: 3px;
     border: 1px solid #BBB;
     padding: 4px 8px;
