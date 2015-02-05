@@ -108,10 +108,11 @@ class SFUtils {
 		foreach ( $res as $value ) {
 			if ( $value instanceof SMWDIUri ) {
 				$values[] = $value->getURI();
+			} elseif ( $value instanceof SMWDIWikiPage ) {
+				$values[] = str_replace( '_', ' ', $value->getDBKey() );
 			} else {
-				// getSortKey() seems to return the
-				// correct value for all the other
-				// data types.
+				// getSortKey() seems to return the correct
+				// value for all the other data types.
 				$values[] = str_replace( '_', ' ', $value->getSortKey() );
 			}
 		}
@@ -628,7 +629,8 @@ END;
 	}
 
 	/**
-	 * Helper function to get an array of labels from an array of values given a mapping template
+	 * Helper function to get an array of labels from an array of values
+	 * given a mapping template.
 	 */
 	public static function getLabels( $values, $templateName ) {
 		global $wgParser;
@@ -637,8 +639,8 @@ END;
 		$templateExists = $title->exists();
 		foreach ( $values as $value ) {
 			if ( $templateExists ) {
-				$label = $wgParser->recursiveTagParse( '{{' .  $templateName .
-					'|' .  $value . '}}' );
+				$label = $wgParser->recursiveTagParse( '{{' . $templateName .
+					'|' . $value . '}}' );
 				if ( $label == '' ) {
 					$labels[$value] = $value;
 				} else {
