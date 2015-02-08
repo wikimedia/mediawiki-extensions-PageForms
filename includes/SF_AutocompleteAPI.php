@@ -141,6 +141,10 @@ class SFAutocompleteAPI extends ApiBase {
 		);
 	}
 
+	public function getVersion() {
+		return __CLASS__ . ': $Id$';
+	}
+
 	private static function getAllValuesForProperty( $property_name, $substring, $basePropertyName = null, $baseValue = null ) {
 		global $sfgMaxAutocompleteValues, $sfgCacheAutocompleteValues, $sfgAutocompleteCacheTimeout;
 		global $smwgDefaultStore;
