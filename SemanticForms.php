@@ -169,7 +169,6 @@ $GLOBALS['wgAutoloadClasses']['SFTemplateInForm'] = __DIR__ . '/includes/SF_Temp
 $GLOBALS['wgAutoloadClasses']['SFFormField'] = __DIR__ . '/includes/SF_FormField.php';
 $GLOBALS['wgAutoloadClasses']['SFFormPrinter'] = __DIR__ . '/includes/SF_FormPrinter.php';
 $GLOBALS['wgAutoloadClasses']['SFFormUtils'] = __DIR__ . '/includes/SF_FormUtils.php';
-$GLOBALS['wgAutoloadClasses']['SFFormEditPage'] = __DIR__ . '/includes/SF_FormEditPage.php';
 $GLOBALS['wgAutoloadClasses']['SFUtils'] = __DIR__ . '/includes/SF_Utils.php';
 $GLOBALS['wgAutoloadClasses']['SFFormLinker'] = __DIR__ . '/includes/SF_FormLinker.php';
 $GLOBALS['wgAutoloadClasses']['SFPageSchemas'] = __DIR__ . '/includes/SF_PageSchemas.php';
@@ -441,14 +440,6 @@ $GLOBALS['wgAvailableRights'][] = 'createclass';
 # List separator character
 # ##
 $GLOBALS['sfgListSeparator'] = ",";
-
-# ##
-# Extend the edit form from the internal EditPage class rather than using a
-# special page and hacking things up.
-#
-# @note This is still experimental.
-# ##
-$GLOBALS['sfgUseFormEditPage'] = false;// method_exists('EditPage', 'showFooter');
 
 # ##
 # Use 24-hour time format in forms, e.g. 15:30 instead of 3:30 PM
