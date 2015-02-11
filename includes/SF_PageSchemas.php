@@ -406,7 +406,7 @@ END;
 		}
 
 		$text = "\t<p>" . "The following fields are useful if there can be multiple instances of this template." . "</p>\n";
-		$text .= "\t<p>" . 'Label:' . ' ' . Html::input( 'sf_template_label_num', $templateLabel, 'text', array( 'size' => 15 ) ) . "</p>\n";
+		$text .= "\t<p>" . wfMessage( 'exif-label' )->escaped() . ': ' . Html::input( 'sf_template_label_num', $templateLabel, 'text', array( 'size' => 15 ) ) . "</p>\n";
 		$text .= "\t<p>" . 'Text of button to add another instance (default is "Add another"):' . ' ' . Html::input( 'sf_template_addanother_num', $addAnotherText, 'text', array( 'size' => 25 ) ) . "</p>\n";
 
 		return array( $text, $hasExistingValues );
@@ -882,7 +882,7 @@ END;
 		$displayValues = array();
 		foreach ( $templateValues as $key => $value ) {
 			if ( $key == 'Label' ) {
-				$propName = 'Label';
+				$propName = wfMessage( 'exif-label' )->escaped();
 			} elseif ( $key == 'AddAnotherText' ) {
 				$propName = "'Add another' button";
 			}
