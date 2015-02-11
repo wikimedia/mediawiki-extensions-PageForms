@@ -319,6 +319,10 @@ END;
 		foreach ( $this->mFieldArgs as $arg => $value ) {
 			if ( $value === true ) {
 				$text .= "|$arg";
+			} elseif ( $arg === 'uploadable' ) {
+				// Are there similar value-less arguments
+				// that need to be handled here?
+				$text .= "|$arg";
 			} else {
 				$text .= "|$arg=$value";
 			}
