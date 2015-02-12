@@ -288,7 +288,7 @@ class SFFormPrinter {
 		global $sfgScriptPath;
 
 		if ( $form_is_disabled ) {
-			$addAboveButton = $removeButton;
+			$addAboveButton = $removeButton = '';
 		} else {
 			$addAboveButton = Html::element( 'a', array( 'class' => "addAboveButton", 'title' => wfMessage( 'sf_formedit_addanotherabove' )->text() ) );
 			$removeButton = Html::element( 'a', array( 'class' => "removeButton", 'title' => wfMessage( 'sf_formedit_remove' )->text() ) );
