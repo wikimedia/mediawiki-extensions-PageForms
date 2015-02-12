@@ -64,6 +64,10 @@ class SFTemplate {
 		$text = '{{#cargo_declare:';
 		$text .= '_table=' . $this->mCargoTable;
 		foreach ( $this->mTemplateFields as $i => $field ) {
+			if ( $field->getFieldType() == '' ) {
+				continue;
+			}
+
 			$text .= '|';
 			$text .= str_replace( ' ', '_', $field->getFieldName() ) . '=';
 			if ( $field->isList() ) {
@@ -73,9 +77,10 @@ class SFTemplate {
 				}
 				$text .= "List ($delimiter) of ";
 			}
-			$text .= $field->mCargoFieldType;
-			if ( $field->mAllowedValuesStr != '' ) {
-				$text .= " (allowed values=" . $field->mAllowedValuesStr . ')';
+			$text .= $field->getFieldType();
+			if ( count( $field->getPossibleValues() ) > 0 ) {
+				$allowedValuesString = implode( ',', $field->getPossibleValues() );
+				$text .= " (allowed values=$allowedValuesString)";
 			}
 		}
 		$text .= '}}';
@@ -239,7 +244,7 @@ END;
 			// normally - no need for any special tags - *unless*
 			// the field holds a list of Page value, in which case
 			// we need to apply #arraymap.
-			$isCargoListOfPages = $cargoInUse && $field->isList() && $field->mCargoFieldType == 'Page';
+			$isCargoListOfPages = $cargoInUse && $field->isList() && $field->getFieldType() == 'Page';
 			if ( !$fieldProperty && !$isCargoListOfPages ) {
 				if ( $separator != '' ) {
 					$tableText .= "$separator ";
@@ -247,7 +252,15 @@ END;
 				if ( $fieldStart != '' ) {
 					$tableText .= "$fieldStart ";
 				}
-				$tableText .= "$fieldString $fieldEnd\n";
+				if ( $cargoInUse && ( $field->getFieldType() == 'Page' || $field->getFieldType() == 'File' ) ) {
+					$tableText .= "[[$fieldString]]";
+				} else {
+					$tableText .= $fieldString;
+				}
+				if ( $fieldEnd != '' ) {
+					$tableText .= " $fieldEnd";
+				}
+				$tableText .= "\n";
 				if ( $fieldDisplay == 'nonempty' ) {
 					$tableText .= " }}";
 				}

@@ -648,6 +648,16 @@ END;
 				$psField->getDisplay()
 			);
 			$templateField->setNamespace( $psField->getNamespace() );
+			if ( defined( 'CARGO_VERSION' ) ) {
+				$cargoFieldArray = $psField->getObject( 'cargo_Field' );
+				$fieldType = PageSchemas::getValueFromObject( $cargoFieldArray, 'Type' );
+				$allowedValues = PageSchemas::getValueFromObject( $cargoFieldArray, 'AllowedValues' );
+				if ( $fieldType != '' ) {
+					$templateField->setFieldType( $fieldType );
+					$templateField->setPossibleValues( $allowedValues );
+				}
+			}
+
 			$templateFields[] = $templateField;
 		}
 		return $templateFields;
@@ -771,6 +781,13 @@ END;
 				$sfTemplate->setConnectingProperty( $internalObjProperty );
 				$sfTemplate->setCategoryName( $categoryName );
 				$sfTemplate->setFormat( $templateFormat );
+
+				// Set Cargo table, if one was set in the schema.
+				$cargoArray = $psTemplate->getObject( 'cargo_TemplateDetails' );
+				if ( !is_null( $cargoArray ) ) {
+					$sfTemplate->mCargoTable = PageSchemas::getValueFromObject( $cargoArray, 'Table' );
+				}
+
 				$templateText = $sfTemplate->createText();
 
 				if ( in_array( $fullTemplateName, $selectedPages ) ) {

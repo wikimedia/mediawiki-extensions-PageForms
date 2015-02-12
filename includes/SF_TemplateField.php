@@ -231,4 +231,13 @@ class SFTemplateField {
 	function setNamespace( $namespace ) {
 		$this->mNamespace = $namespace;
 	}
+
+	function setFieldType( $fieldType ) {
+		$this->mFieldType = $fieldType;
+	}
+
+	function setPossibleValues( $possibleValues ) {
+		$this->mPossibleValues = $possibleValues;
+	}
+
 }
