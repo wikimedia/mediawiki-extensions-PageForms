@@ -282,7 +282,19 @@ END;
 			$fieldDesc = $this->mDescriptionArgs['Description'];
 			if ( $fieldDesc != '' ) {
 				if ( isset( $this->mDescriptionArgs['DescriptionTooltipMode'] ) ) {
-					$descPlaceholder = " {{#info:$fieldDesc}}";
+					// The wikitext we use for tooltips
+					// depends on which other extensions
+					// are installed.
+					if ( defined( 'SMW_VERSION' ) ) {
+						// Semantic MediaWiki
+						$descPlaceholder = " {{#info:$fieldDesc}}";
+					} elseif ( class_exists( 'SimpleTooltipParserFunction' ) ) {
+						// SimpleTooltip
+						$descPlaceholder = " {{#tip-info:$fieldDesc}}";
+					} else {
+						// Don't make it a tooltip.
+						$descPlaceholder = '<br><p class="sfFieldDescription" style="font-size:0.7em; color:gray;">' . $fieldDesc . '</p>';
+					}
 				} else {
 					$descPlaceholder = '<br><p class="sfFieldDescription" style="font-size:0.7em; color:gray;">' . $fieldDesc . '</p>';
 				}
