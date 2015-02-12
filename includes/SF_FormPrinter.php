@@ -460,8 +460,6 @@ END;
 		global $sfgTabIndex; // used to represent the current tab index in the form
 		global $sfgFieldNum; // used for setting various HTML IDs
 
-		wfProfileIn( __METHOD__ );
-
 		// initialize some variables
 		$sfgTabIndex = 1;
 		$sfgFieldNum = 1;
@@ -1916,8 +1914,6 @@ END;
 		}
 
 //		$wgParser = $oldParser;
-
-		wfProfileOut( __METHOD__ );
 
 		return array( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name );
 	}

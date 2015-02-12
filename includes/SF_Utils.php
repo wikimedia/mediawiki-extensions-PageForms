@@ -911,16 +911,13 @@ END;
 		global $wgOut, $wgParser, $sfgFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
-		wfProfileIn( __METHOD__ );
 
 		// Exit if we're not in preview mode.
 		if ( !$editpage->preview ) {
-			wfProfileOut( __METHOD__ );
 			return true;
 		}
 		// Exit if we aren't in the "Form" namespace.
 		if ( $editpage->getArticle()->getTitle()->getNamespace() != SF_NS_FORM ) {
-			wfProfileOut( __METHOD__ );
 			return true;
 		}
 
@@ -941,8 +938,6 @@ END;
 		SFUtils::addJavascriptAndCSS();
 		$editpage->previewTextAfterContent .=
 			'<div style="margin-top: 15px">' . $form_text . "</div>";
-
-		wfProfileOut( __METHOD__ );
 
 		return true;
 	}

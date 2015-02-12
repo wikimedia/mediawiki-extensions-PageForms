@@ -25,9 +25,6 @@ class SFFormEdit extends SpecialPage {
 	}
 
 	function execute( $query ) {
-
-		wfProfileIn( __METHOD__ );
-
 		$this->setHeaders();
 
 		$this->mForm = $this->getRequest()->getText( 'form' );
@@ -44,8 +41,6 @@ class SFFormEdit extends SpecialPage {
 		$alt_forms = $this->getRequest()->getArray( 'alt_form' );
 
 		self::printForm( $this->mForm, $this->mTarget, $alt_forms );
-
-		wfProfileOut( __METHOD__ );
 	}
 
 	static function printAltFormsList( $alt_forms, $target_name ) {
