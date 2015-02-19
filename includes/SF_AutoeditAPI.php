@@ -836,7 +836,11 @@ class SFAutoeditAPI extends ApiBase {
 		if ( $preloadContent !== '' ) {
 
 			// Spoof $wgRequest for SFFormPrinter::formHTML().
-			$wgRequest = new FauxRequest( $this->mOptions, true, $_SESSION );
+			if ( isset( $_SESSION ) ) {
+				$wgRequest = new FauxRequest( $this->mOptions, true, $_SESSION );
+			} else {
+				$wgRequest = new FauxRequest( $this->mOptions, true );
+			}
 			// call SFFormPrinter::formHTML to get at the form html of the existing page
 			list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 				$sfgFormPrinter->formHTML(
@@ -862,7 +866,11 @@ class SFAutoeditAPI extends ApiBase {
 		}
 
 		// Spoof $wgRequest for SFFormPrinter::formHTML().
-		$wgRequest = new FauxRequest( $this->mOptions, true, $_SESSION );
+		if ( isset( $_SESSION ) ) {
+			$wgRequest = new FauxRequest( $this->mOptions, true, $_SESSION );
+		} else {
+			$wgRequest = new FauxRequest( $this->mOptions, true );
+		}
 
 		// get wikitext for submitted data and form
 		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
