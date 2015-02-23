@@ -70,7 +70,7 @@ class SFFormEditAction extends Action
 		if ( $sfgRenameEditTabs ) {
 			$form_edit_tab_text = $user_can_edit ? 'edit' : 'sf_viewform';
 			if ( array_key_exists( 'edit', $content_actions ) ) {
-				$msg = $user_can_edit ?  'sf_editsource' : 'viewsource';
+				$msg = $user_can_edit ? 'sf_editsource' : 'viewsource';
 				$content_actions['edit']['text'] = wfMessage( $msg )->text();
 			}
 		} else {
@@ -138,7 +138,7 @@ class SFFormEditAction extends Action
 
 	/**
 	 * Like displayTab(), but called with a different hook - this one is
-	 * called for the 'Vector' skin, and others.
+	 * called for the 'Vector' skin, and some others.
 	 */
 	static function displayTab2( $obj, &$links ) {
 		// the old '$content_actions' array is thankfully just a
@@ -170,7 +170,8 @@ class SFFormEditAction extends Action
 		$form_name = $form_names[0];
 		$page_name = SFUtils::titleString( $title );
 
-		SFFormEdit::printForm( $form_name, $page_name );
+		$sfFormEdit = new SFFormEdit();
+		$sfFormEdit->printForm( $form_name, $page_name );
 
 		return false;
 	}

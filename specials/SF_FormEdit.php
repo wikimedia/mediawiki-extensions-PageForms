@@ -40,10 +40,10 @@ class SFFormEdit extends SpecialPage {
 
 		$alt_forms = $this->getRequest()->getArray( 'alt_form' );
 
-		self::printForm( $this->mForm, $this->mTarget, $alt_forms );
+		$this->printForm( $this->mForm, $this->mTarget, $alt_forms );
 	}
 
-	static function printAltFormsList( $alt_forms, $target_name ) {
+	function printAltFormsList( $alt_forms, $target_name ) {
 		$text = "";
 		$fe = SpecialPageFactory::getPage( 'FormEdit' );
 		$fe_url = $fe->getTitle()->getFullURL();
@@ -57,18 +57,19 @@ class SFFormEdit extends SpecialPage {
 		return $text;
 	}
 
-	static function printForm( &$form_name, &$targetName, $alt_forms = array( ) ) {
-		global $wgOut, $wgRequest;
+	function printForm( $form_name, $targetName, $alt_forms = array( ) ) {
+		$out = $this->getOutput();
+		$req = $this->getRequest();
 
 		$module = new SFAutoeditAPI( new ApiMain(), 'sfautoedit' );
 		$module->setOption( 'form', $form_name );
 		$module->setOption( 'target', $targetName );
 
-		if ( $wgRequest->getCheck( 'wpSave' ) || $wgRequest->getCheck( 'wpPreview' ) || $wgRequest->getCheck( 'wpDiff' ) ) {
+		if ( $req->getCheck( 'wpSave' ) || $req->getCheck( 'wpPreview' ) || $req->getCheck( 'wpDiff' ) ) {
 			// If the page was submitted, form data should be
 			// complete => do not preload (unless it's a partial
 			// form).
-			if ( $wgRequest->getCheck( 'partial' ) ) {
+			if ( $req->getCheck( 'partial' ) ) {
 				$module->setOption( 'preload', true );
 			} else {
 				$module->setOption( 'preload', false );
@@ -77,9 +78,9 @@ class SFFormEdit extends SpecialPage {
 			// If target page exists, do not overwrite it with
 			// preload data; just preload the page's data.
 			$module->setOption( 'preload', true );
-		} else if ( $wgRequest->getCheck( 'preload' ) ) {
+		} else if ( $req->getCheck( 'preload' ) ) {
 			// if page does not exist and preload parameter is set, pass that on
-			$module->setOption( 'preload', $wgRequest->getText( 'preload' ) );
+			$module->setOption( 'preload', $req->getText( 'preload' ) );
 		} else {
 			// nothing set, so do not set preload
 		}
@@ -108,12 +109,14 @@ class SFFormEdit extends SpecialPage {
 			}
 		}
 
-		// override the default title for this page if a title was specified in the form
+		// Override the default title for this page if a title was
+		// specified in the form.
 		$result = $module->getOptions();
 		$targetTitle = Title::newFromText( $result[ 'target' ] );
 
 
-		// set page title depending on whether an explicit title was specified in the form definition
+		// Set page title depending on whether an explicit title was
+		// specified in the form definition.
 		if ( array_key_exists( 'formtitle', $result ) ) {
 
 			// set page title depending on whether the target page exists
@@ -123,7 +126,8 @@ class SFFormEdit extends SpecialPage {
 				$pageTitle = $result[ 'formtitle' ] . ': ' . $targetName;
 			}
 		} elseif ( $result[ 'form' ] !== '' ) {
-			// set page title depending on whether the target page exists
+			// Set page title depending on whether the target page
+			// exists.
 			if ( empty( $targetName ) ) {
 				$pageTitle = wfMessage( 'sf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
 			} elseif ( $targetTitle->exists() ) {
@@ -143,10 +147,10 @@ class SFFormEdit extends SpecialPage {
 			// display error message if the form is not specified in the URL
 			$pageTitle = wfMessage( 'formedit' )->text();
 			$text .= Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'sf_formedit_badurl' )->text() ) . "\n";
-			$wgOut->addHTML( $text );
+			$out->addHTML( $text );
 		}
 
-		$wgOut->setPageTitle( $pageTitle );
+		$out->setPageTitle( $pageTitle );
 		if ( count( $alt_forms ) > 0 ) {
 			$text .= '<div class="infoMessage">';
 			if ( $result[ 'form' ] != '' ) {
@@ -154,7 +158,7 @@ class SFFormEdit extends SpecialPage {
 			} else {
 				$text .= wfMessage( 'sf_formedit_altformsonly' )->escaped();
 			}
-			$text .= ' ' . self::printAltFormsList( $alt_forms, $targetName );
+			$text .= ' ' . $this->printAltFormsList( $alt_forms, $targetName );
 			$text .= "</div>\n";
 		}
 
@@ -169,10 +173,10 @@ class SFFormEdit extends SpecialPage {
 		SFUtils::addJavascriptAndCSS();
 
 		if ( isset( $result[ 'formJS' ] ) ) {
-			$wgOut->addScript( '		<script type="text/javascript">' . "\n$result[formJS]\n" . '</script>' . "\n" );
+			$out->addScript( '		<script type="text/javascript">' . "\n$result[formJS]\n" . '</script>' . "\n" );
 		}
 
-		$wgOut->addHTML( $text );
+		$out->addHTML( $text );
 
 		return null;
 	}
