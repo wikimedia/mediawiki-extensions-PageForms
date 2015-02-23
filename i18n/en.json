@@ -209,5 +209,6 @@
     "sf-select2-selection-too-big": "This field cannot hold more than {{PLURAL:$1|$1 value|$1 values}}.",
     "sf-maps-setmarker": "Set marker",
     "sf-maps-enteraddress": "Enter address here",
-    "sf-maps-lookupcoordinates": "Look up coordinates"
+    "sf-maps-lookupcoordinates": "Look up coordinates",
+    "sf-adminlinks-datastructure": "Data structure"
 }

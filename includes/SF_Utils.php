@@ -848,21 +848,43 @@ END;
 		$data_structure_label = wfMessage( 'smw_adminlinks_datastructure' )->text();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
 		if ( is_null( $data_structure_section ) ) {
-			return true;
+			$data_structure_section = new ALSection( wfMessage( 'sf-adminlinks-datastructure' )->text() );
+
+			// If we are here, it most likely means that SMW is
+			// not installed. Still, we'll refer to everything as
+			// SMW, to make the rest of the code more
+			// straightforward.
+			$smw_row = new ALRow( 'smw' );
+			$smw_row->addItem( ALItem::newFromSpecialPage( 'Categories' ) );
+			$data_structure_section->addRow( $smw_row );
+			$smw_admin_row = new ALRow( 'smw_admin' );
+			$data_structure_section->addRow( $smw_admin_row );
+
+			// If SMW is not installed, don't bother with a "links
+			// to the documentation" row - it would only have one
+			// link.
+			//$smw_docu_row = new ALRow( 'smw_docu' );
+			//$data_structure_section->addRow( $smw_docu_row );
+			$admin_links_tree->addSection( $data_structure_section, wfMessage( 'adminlinks_browsesearch' )->text() );
+		} else {
+			$smw_row = $data_structure_section->getRow( 'smw' );
+			$smw_admin_row = $data_structure_section->getRow( 'smw_admin' );
+			$smw_docu_row = $data_structure_section->getRow( 'smw_docu' );
 		}
-		$smw_row = $data_structure_section->getRow( 'smw' );
 		$smw_row->addItem( ALItem::newFromSpecialPage( 'Templates' ), 'Properties' );
 		$smw_row->addItem( ALItem::newFromSpecialPage( 'Forms' ), 'SemanticStatistics' );
-		$smw_admin_row = $data_structure_section->getRow( 'smw_admin' );
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateClass' ), 'SMWAdmin' );
-		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateProperty' ), 'SMWAdmin' );
+		if ( class_exists( 'SFCreateProperty' ) ) {
+			$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateProperty' ), 'SMWAdmin' );
+		}
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateTemplate' ), 'SMWAdmin' );
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateForm' ), 'SMWAdmin' );
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateCategory' ), 'SMWAdmin' );
-		$smw_docu_row = $data_structure_section->getRow( 'smw_docu' );
-		$sf_name = wfMessage( 'specialpages-group-sf_group' )->text();
-		$sf_docu_label = wfMessage( 'adminlinks_documentation', $sf_name )->text();
-		$smw_docu_row->addItem( ALItem::newFromExternalLink( "http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label ) );
+		if ( isset( $smw_docu_row ) ) {
+			$sf_name = wfMessage( 'specialpages-group-sf_group' )->text();
+			$sf_docu_label = wfMessage( 'adminlinks_documentation', $sf_name )->text();
+			$smw_docu_row->addItem( ALItem::newFromExternalLink( "http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $sf_docu_label ) );
+		}
 
 		return true;
 	}

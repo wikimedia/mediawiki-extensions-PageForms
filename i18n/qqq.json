@@ -149,5 +149,6 @@
     "sf-select2-selection-too-big": "A message that is displayed when the number of selections for a multi-valued input is more than a certain number.",
     "sf-maps-setmarker": "A button to move a map marker to a certain set of coordinates.",
     "sf-maps-enteraddress": "Tells the user where to type a street address.",
-    "sf-maps-lookupcoordinates": "A button that gets coordinates from a street address."
+    "sf-maps-lookupcoordinates": "A button that gets coordinates from a street address.",
+    "sf-adminlinks-datastructure": "A header for links relating to the data structure of the wiki."
 }
