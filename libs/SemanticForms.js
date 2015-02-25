@@ -748,7 +748,7 @@ window.validateAll = function () {
 		// multiple-instance templates, so that they aren't
 		// submitted by the form.
 		jQuery('.hiddenBySF').find("input, select, textarea").not(':disabled')
-		.attr('disabled', 'disabled')
+		.prop('disabled', true)
 		.addClass('disabledBySF');
 		//remove error box if it exists because there are no errors in the form now
 		jQuery("#contentSub").find(".errorbox").remove();
