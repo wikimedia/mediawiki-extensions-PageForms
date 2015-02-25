@@ -41,7 +41,7 @@ if ( defined( 'SF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SF_VERSION', '3.2-alpha' );
+define( 'SF_VERSION', '3.2' );
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	//die( "ERROR: <a href=\"http://semantic-mediawiki.org\">Semantic MediaWiki</a> must be installed for Semantic Forms to run!" );
