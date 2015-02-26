@@ -55,7 +55,6 @@ class SFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Returns the options array
-	 * @return array
 	 */
 	function getOptions() {
 		return $this->mOptions;
@@ -827,13 +826,20 @@ class SFAutoeditAPI extends ApiBase {
 			}
 		}
 
-		// allow extensions to set/change the preload text
-		wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+		// Allow extensions to set/change the preload text, for new
+		// pages.
+		if ( !$pageExists ) {
+			wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+		}
 
-		// flag to keep track of formHTML runs
+		// Flag to keep track of formHTML() runs.
 		$formHtmlHasRun = false;
 
 		if ( $preloadContent !== '' ) {
+
+			// @HACK - we need to set this for the preload to take
+			// effect in the form.
+			$pageExists = true;
 
 			// Spoof $wgRequest for SFFormPrinter::formHTML().
 			if ( isset( $_SESSION ) ) {
@@ -841,17 +847,18 @@ class SFAutoeditAPI extends ApiBase {
 			} else {
 				$wgRequest = new FauxRequest( $this->mOptions, true );
 			}
-			// call SFFormPrinter::formHTML to get at the form html of the existing page
+			// Call SFFormPrinter::formHTML() to get at the form
+			// HTML of the existing page.
 			list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 				$sfgFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
 
-			// parse the data to be preloaded from the form html of the
-			// existing page
+			// Parse the data to be preloaded from the form HTML of
+			// the existing page.
 			$data = $this->parseDataFromHTMLFrag( $formHTML );
 
-			// and merge/overwrite it with the new data
+			// ...and merge/overwrite it with the new data.
 			$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 		}
 
@@ -876,7 +883,7 @@ class SFAutoeditAPI extends ApiBase {
 		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 
-		// restore original request
+		// Restore original request.
 		$wgRequest = $oldRequest;
 
 		if ( $generatedFormName !== '' ) {
@@ -889,11 +896,11 @@ class SFAutoeditAPI extends ApiBase {
 
 		if ( $isFormSubmitted ) {
 
-			// if the target page was not specified, see if something was generated
-			// from the target name formula
+			// If the target page was not specified, see if
+			// something was generated from the target name formula.
 			if ( $this->mOptions['target'] === '' ) {
 
-				// if no name was generated, we can not save => give up
+				// If no name was generated, we cannot save => give up
 				if ( $generatedTargetNameFormula === '' ) {
 					throw new MWException( wfMessage( 'sf_autoedit_notargetspecified' )->parse() );
 				}
@@ -906,7 +913,7 @@ class SFAutoeditAPI extends ApiBase {
 
 			$editor = $this->setupEditPage( $targetContent );
 
-			// perform the requested action
+			// Perform the requested action.
 			if ( $this->mAction === self::ACTION_PREVIEW ) {
 				$this->doPreview( $editor );
 			} else if ( $this->mAction === self::ACTION_DIFF ) {
@@ -987,9 +994,9 @@ class SFAutoeditAPI extends ApiBase {
 
 			$options = $select->getElementsByTagName( 'option' );
 
-			// if the current $select is a radio button select (i.e. not multiple)
-			// set the first option to selected as default. This may be overwritten
-			// in the loop below
+			// If the current $select is a radio button select
+			// (i.e. not multiple) set the first option to selected
+			// as default. This may be overwritten in the loop below.
 			if ( $options->length > 0 && (!$select->hasAttribute( 'multiple' ) ) ) {
 				self::addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
 			}
@@ -1047,12 +1054,15 @@ class SFAutoeditAPI extends ApiBase {
 		return $data;
 	}
 
-	// This function recursively inserts the value into a tree.
-	// $array is root
-	// $key identifies path to position in tree.
-	// Format: 1stLevelName[2ndLevel][3rdLevel][...], i.e. normal array notation
-	// $value: the value to insert
-	// $toplevel: if this is a toplevel value.
+	/**
+	 * This function recursively inserts the value into a tree.
+	 *
+	 * @param $array is root
+	 * @param $key identifies path to position in tree.
+	 *    Format: 1stLevelName[2ndLevel][3rdLevel][...], i.e. normal array notation
+	 * @param $value: the value to insert
+	 * @param $toplevel: if this is a toplevel value.
+	 */
 	public static function addToArray( &$array, $key, $value, $toplevel = true ) {
 		$matches = array( );
 
@@ -1116,6 +1126,7 @@ class SFAutoeditAPI extends ApiBase {
 	 * value) or (parameter name) => (array with PARAM_* constants as keys)
 	 * Don't call this function directly: use getFinalParams() to allow
 	 * hooks to modify parameters as needed.
+	 *
 	 * @return array or false
 	 */
 	function getAllowedParams() {
@@ -1131,6 +1142,7 @@ class SFAutoeditAPI extends ApiBase {
 	 * Returns an array of parameter descriptions.
 	 * Don't call this functon directly: use getFinalParamDescription() to
 	 * allow hooks to modify descriptions as needed.
+	 *
 	 * @return array or false
 	 */
 	function getParamDescription() {
@@ -1144,6 +1156,7 @@ class SFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Returns the description string for this module
+	 *
 	 * @return mixed string or array of strings
 	 */
 	function getDescription() {
@@ -1160,6 +1173,7 @@ END;
 
 	/**
 	 * Returns usage examples for this module.
+	 *
 	 * @return mixed string or array of strings
 	 */
 	protected function getExamples() {
