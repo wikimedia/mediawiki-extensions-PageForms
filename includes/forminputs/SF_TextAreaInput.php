@@ -150,9 +150,13 @@ class SFTextAreaInput extends SFFormInput {
 		$input_id = $this->mInputName == 'sf_free_text' ? 'sf_free_text' : "input_$sfgFieldNum";
 
 		if ( $this->mUseWikieditor ) {
-
-			// load modules for all enabled features
-			WikiEditorHooks::editPageShowEditFormInitial( $this );
+			// Load modules for all enabled WikiEditor features.
+			// The header for this function was changed in July
+			// 2014 - this call should hopefully work for both
+			// earlier and later versions.
+			$dummyEditPage = (object) array( 'contentModel' => CONTENT_MODEL_WIKITEXT );
+			global $wgOut;
+			WikiEditorHooks::editPageShowEditFormInitial( $dummyEditPage, $wgOut );
 			$className = 'wikieditor ';
 		} else {
 			$className = '';
