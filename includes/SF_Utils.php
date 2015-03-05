@@ -392,9 +392,8 @@ END;
 		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr = null, $joinOnStr = null, $fieldName, $fieldName, $limitStr );
 		$queryResults = $sqlQuery->run();
 		$values = array();
-		$fieldAlias = str_replace( '_', ' ', $fieldName );
 		foreach ( $queryResults as $row ) {
-			$values[] = $row[$fieldAlias];
+			$values[] = $row[$fieldName];
 		}
 		return $values;
 	}
