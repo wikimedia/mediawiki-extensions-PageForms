@@ -1060,6 +1060,16 @@ END;
 							}
 						}
 					} // end for
+
+					// If we're using Cargo, there's no
+					// equivalent for "values from property"
+					// - instead, we just always get the
+					// values if a field and table have
+					// been specified.
+					if ( is_null( $possible_values ) && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
+						$possible_values = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+					}
+
 					if ( !is_null( $possible_values ) && array_key_exists( 'mapping template', $field_args ) ) {
 						$possible_values = SFUtils::getLabels( $possible_values, $field_args['mapping template'] );
 					}
