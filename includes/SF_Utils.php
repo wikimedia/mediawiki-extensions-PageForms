@@ -392,8 +392,16 @@ END;
 		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr = null, $joinOnStr = null, $fieldName, $fieldName, $limitStr );
 		$queryResults = $sqlQuery->run();
 		$values = array();
+		// Field names starting with a '_' are special fields -
+		// all other fields will have had their underscores
+		// replaced with spaces in $queryResults.
+		if ( $fieldName[0] == '_' ) {
+			$fieldAlias = $fieldName;
+		} else {
+			$fieldAlias = str_replace( '_', ' ', $fieldName );
+		}
 		foreach ( $queryResults as $row ) {
-			$values[] = $row[$fieldName];
+			$values[] = $row[$fieldAlias];
 		}
 		return $values;
 	}
