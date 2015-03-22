@@ -212,8 +212,14 @@ class SFFormLinker {
 				$params['user_id'] = $userID;
 				$params['page_text'] = $data_text;
 				$job = new SFCreatePageJob( $title, $params );
-				Job::batchInsert( array( $job ) );
 
+				$jobs = array( $job );
+				if ( class_exists( 'JobQueueGroup' ) ) {
+					JobQueueGroup::singleton()->push( $jobs );
+				} else {
+					// MW <= 1.20
+					Job::batchInsert( $jobs );
+				}
 				return true;
 			}
 		}

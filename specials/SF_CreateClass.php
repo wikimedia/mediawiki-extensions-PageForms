@@ -180,7 +180,12 @@ END;
 			$jobs[] = new SFCreatePageJob( $category_title, $params );
 		}
 
-		Job::batchInsert( $jobs );
+		if ( class_exists( 'JobQueueGroup' ) ) {
+			JobQueueGroup::singleton()->push( $jobs );
+		} else {
+			// MW <= 1.20
+			Job::batchInsert( $jobs );
+		}
 
 		$wgOut->addWikiMsg( 'sf_createclass_success' );
 	}

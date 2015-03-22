@@ -717,7 +717,14 @@ END;
 		$params['user_id'] = $wgUser->getId();
 		$params['page_text'] = $formContents;
 		$job = new PSCreatePageJob( $formTitle, $params );
-		Job::batchInsert( array( $job ) );
+
+		$jobs = array( $job );
+		if ( class_exists( 'JobQueueGroup' ) ) {
+			JobQueueGroup::singleton()->push( $jobs );
+		} else {
+			// MW <= 1.20
+			Job::batchInsert( $jobs );
+		}
 	}
 
 	/**
@@ -837,7 +844,12 @@ END;
 			}
 		}
 
-		Job::batchInsert( $jobs );
+		if ( class_exists( 'JobQueueGroup' ) ) {
+			JobQueueGroup::singleton()->push( $jobs );
+		} else {
+			// MW <= 1.20
+			Job::batchInsert( $jobs );
+		}
 
 		// Create form, if it's specified.
 		$formName = self::getFormName( $pageSchemaObj );
