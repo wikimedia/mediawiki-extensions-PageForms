@@ -152,11 +152,13 @@ class SFTextAreaInput extends SFFormInput {
 		if ( $this->mUseWikieditor ) {
 			// Load modules for all enabled WikiEditor features.
 			// The header for this function was changed in July
-			// 2014 - this call should hopefully work for both
-			// earlier and later versions.
-			$dummyEditPage = (object) array( 'contentModel' => CONTENT_MODEL_WIKITEXT );
-			global $wgOut;
-			WikiEditorHooks::editPageShowEditFormInitial( $dummyEditPage, $wgOut );
+			// 2014, and the function itself was changed
+			// significantly in March 2015 - this call should
+			// hopefully work for all versions.
+			global $wgTitle, $wgOut;
+			$article = new Article( $wgTitle );
+			$editPage = new EditPage( $article );
+			WikiEditorHooks::editPageShowEditFormInitial( $editPage, $wgOut );
 			$className = 'wikieditor ';
 		} else {
 			$className = '';
