@@ -197,6 +197,9 @@ class SFTextInput extends SFFormInput {
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
+		if ( array_key_exists( 'unique', $other_args ) ) {
+			$className .= ' uniqueField';
+		}
 		$input_id = "input_$sfgFieldNum";
 		// Set size based on pre-set size, or field type - if field
 		// type is set, possibly add validation too.
@@ -263,6 +266,9 @@ class SFTextInput extends SFFormInput {
 		}
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
+		}
+		if ( array_key_exists( 'unique', $other_args ) ) {
+			$spanClass .= ' uniqueFieldSpan';
 		}
 		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 		return $text;

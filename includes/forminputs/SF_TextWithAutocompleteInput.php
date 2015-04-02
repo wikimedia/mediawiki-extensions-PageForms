@@ -168,6 +168,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
 
 		$className = ( $is_mandatory ) ? 'autocompleteInput mandatoryField' : 'autocompleteInput createboxInput';
+		if ( array_key_exists( 'unique', $other_args ) ) {
+			$className .= ' uniqueField';
+		}
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
@@ -217,6 +220,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		$spanClass = 'inputSpan';
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
+		}
+		if ( array_key_exists( 'unique', $other_args ) ) {
+			$spanClass .= ' uniqueFieldSpan';
 		}
 		$text = "\n" . Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 

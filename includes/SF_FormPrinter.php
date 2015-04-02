@@ -942,6 +942,8 @@ END;
 							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
 						} elseif ( $component == 'list' ) {
 							$is_list = true;
+						} elseif ( $component == 'unique' ) {
+							$field_args['unique'] = true;
 						} elseif ( $component == 'edittools' ) { // free text only
 							$free_text_components[] = 'edittools';
 						}
@@ -1042,6 +1044,15 @@ END;
 							} elseif ( $sub_components[0] == 'values dependent on' ) {
 								global $sfgDependentFields;
 								$sfgDependentFields[] = array( $sub_components[1], $fullFieldName );
+							} elseif ( $sub_components[0] == 'unique for category' ) {
+								$field_args['unique'] = true;
+								$field_args['unique_for_category'] = $sub_components[1];
+							} elseif ( $sub_components[0] == 'unique for namespace' ) {
+								$field_args['unique'] = true;
+								$field_args['unique_for_namespace'] = $sub_components[1];
+							} elseif ( $sub_components[0] == 'unique for concept' ) {
+								$field_args['unique'] = true;
+								$field_args['unique_for_concept'] = $sub_components[1];
 							} elseif ( $sub_components[0] == 'property' ) {
 								$semantic_property = $sub_components[1];
 							} elseif ( $sub_components[0] == 'cargo table' ) {
@@ -1458,6 +1469,25 @@ END;
 								$new_text .= Html::hidden( $template_name . '[num][mapping_template][' . $field_name . ']', $field_args['mapping template'] );
 							} else {
 								$new_text .= Html::hidden( $template_name . '[mapping_template][' . $field_name . ']', $field_args['mapping template'] );
+							}
+						}
+
+						if ( array_key_exists( 'unique', $field_args ) ) {
+							if ( $semantic_property != null ) {
+								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_property', $semantic_property );
+							}
+							if ( $cargo_table != null && $cargo_field != null ) {
+								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_cargo_table', $cargo_table );
+								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_cargo_field', $cargo_field );
+							}
+							if ( array_key_exists( 'unique_for_category', $field_args ) ) {
+								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_category', $field_args['unique_for_category'] );
+							}
+							if ( array_key_exists( 'unique_for_namespace', $field_args ) ) {
+								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_namespace', $field_args['unique_for_namespace'] );
+							}
+							if ( array_key_exists( 'unique_for_concept', $field_args ) ) {
+								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_concept', $field_args['unique_for_concept'] );
 							}
 						}
 

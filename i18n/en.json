@@ -174,6 +174,7 @@
     "sf_too_few_instances_error": "There must be at least $1 instances of this template.",
     "sf_too_many_instances_error": "There must be no more than $1 instances of this template.",
     "sf_blank_error": "cannot be blank",
+    "sf_not_unique_error": "must be unique",
     "sf_bad_url_error": "must have the correct URL format, starting with \"http\"",
     "sf_bad_email_error": "must have a valid email address format",
     "sf_bad_number_error": "must be a valid number",

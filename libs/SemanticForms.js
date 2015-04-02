@@ -546,6 +546,143 @@ jQuery.fn.validateMandatoryField = function() {
 	}
 };
 
+jQuery.fn.validateUniqueField = function() {
+
+	const UNDEFINED = "undefined";
+	var field = this.find(".uniqueField");
+	var fieldVal = field.val();
+
+	if (typeof fieldVal === UNDEFINED || fieldVal.replace(/\s+/, '') === '') {
+		return true;
+	}
+
+	var fieldOrigVal = field.prop("defaultValue");
+	if (fieldVal === fieldOrigVal) {
+		return true;
+	}
+
+	var categoryFieldName = field.prop("id") + "_unique_for_category";
+	var categoryField = jQuery("[name=" + categoryFieldName + "]");
+	var category = categoryField.val();
+
+	var namespaceFieldName = field.prop("id") + "_unique_for_namespace";
+	var namespaceField = jQuery("[name=" + namespaceFieldName + "]");
+	var namespace = namespaceField.val();
+
+	var url = mw.config.get( 'wgScriptPath' ) + "/api.php?format=json&action=";
+
+	// SMW
+	var propertyFieldName = field.prop("id") + "_unique_property";
+	var propertyField = jQuery("[name=" + propertyFieldName + "]");
+	var property = propertyField.val();
+	if (typeof property !== UNDEFINED && property.replace(/\s+/, '') !== '') {
+
+		var query = "[[" + property + "::" + fieldVal + "]]";
+
+		if (typeof category !== UNDEFINED &&
+			category.replace(/\s+/, '') !== '') {
+			query += "[[Category:" + category + "]]";
+		}
+
+		if (typeof namespace !== UNDEFINED) {
+			if (namespace.replace(/\s+/, '') !== '') {
+				query += "[[:" + namespace + ":+]]";
+			} else {
+				query += "[[:+]]";
+			}
+		}
+
+		var conceptFieldName = field.prop("id") + "_unique_for_concept";
+		var conceptField = jQuery("[name=" + conceptFieldName + "]");
+		var concept = conceptField.val();
+		if (typeof concept !== UNDEFINED &&
+			concept.replace(/\s+/, '') !== '') {
+			query += "[[Concept:" + concept + "]]";
+		}
+
+		query = query.replace(/\s/, '_');
+		query += "|limit=1";
+		query = encodeURIComponent(query);
+
+		url += "ask&query=" + query;
+		var isNotUnique = true;
+		jQuery.ajax({
+			url: url,
+			dataType: 'json',
+			async: false,
+			success: function(data) {
+				if (data.query.meta.count === 0) {
+					isNotUnique = false;
+				}
+			}
+		});
+		if (isNotUnique) {
+			this.addErrorMessage( 'sf_not_unique_error' );
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// Cargo
+	var cargoTableFieldName = field.prop("id") + "_unique_cargo_table";
+	var cargoTableField = jQuery("[name=" + cargoTableFieldName + "]");
+	var cargoTable = cargoTableField.val();
+	var cargoFieldFieldName = field.prop("id") + "_unique_cargo_field";
+	var cargoFieldField = jQuery("[name=" + cargoFieldFieldName + "]");
+	var cargoField = cargoFieldField.val();
+	if (typeof cargoTable !== UNDEFINED && cargoTable.replace(/\s+/, '') !== ''
+		&& typeof cargoField !== UNDEFINED
+		&& cargoField.replace(/\s+/, '') !== '') {
+
+		var query = "&where=" + cargoField + "+HOLDS+'" + fieldVal + "'";
+
+		if (typeof category !== UNDEFINED &&
+			category.replace(/\s+/, '') !== '') {
+			category = category.replace(/\s/, '_');
+			query += "+AND+cl_to=" + category + "+AND+cl_from=_pageID";
+			cargoTable += ",categorylinks";
+		}
+
+		if (typeof namespace !== UNDEFINED) {
+			query += "+AND+_pageNamespace=";
+			if (namespace.replace(/\s+/, '') !== '') {
+				var ns = mw.config.get('wgNamespaceIds')[namespace.toLowerCase()];
+				if (typeof ns !== UNDEFINED) {
+					query +=  ns;
+				}
+			} else {
+				query +=  "0";
+			}
+		}
+
+		query += "&limit=1";
+
+		url += "cargoquery&tables=" + cargoTable + "&fields=" + cargoField +
+			query;
+		var isNotUnique = true;
+		jQuery.ajax({
+			url: url,
+			dataType: 'json',
+			async: false,
+			success: function(data) {
+				if (data.cargoquery.length === 0) {
+					isNotUnique = false;
+				}
+			}
+		});
+		if (isNotUnique) {
+			this.addErrorMessage( 'sf_not_unique_error' );
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	return true;
+
+};
+
 jQuery.fn.validateMandatoryComboBox = function() {
 	var combobox = this.find( "input.sfComboBox" );
 	if (combobox.val() === '') {
@@ -689,6 +826,11 @@ window.validateAll = function () {
 	});
 	jQuery("span.checkboxesSpan.mandatoryFieldSpan").not(".hiddenBySF").each( function() {
 		if (! jQuery(this).validateMandatoryCheckboxes() ) {
+			num_errors += 1;
+		}
+	});
+	jQuery("span.inputSpan.uniqueFieldSpan").not(".hiddenBySF").each( function() {
+		if (! jQuery(this).validateUniqueField() ) {
 			num_errors += 1;
 		}
 	});
