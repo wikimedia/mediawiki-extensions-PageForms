@@ -94,7 +94,10 @@ END;
 			if ( defined( 'CARGO_VERSION' ) ) {
 				// Fake attributes,.
 				$field->mCargoFieldType = $property_type;
-				$field->mAllowedValuesStr = $allowed_values;
+				// Hopefully it's safe to use a Cargo
+				// utility method here.
+				$possibleValues = CargoUtils::smartSplit( ',', $allowed_values );
+				$field->setPossibleValues( $possibleValues );
 			}
 
 			$fields[] = $field;
