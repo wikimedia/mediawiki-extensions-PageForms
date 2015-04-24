@@ -109,7 +109,11 @@ class SFUtils {
 			if ( $value instanceof SMWDIUri ) {
 				$values[] = $value->getURI();
 			} elseif ( $value instanceof SMWDIWikiPage ) {
-				$values[] = str_replace( '_', ' ', $value->getDBKey() );
+				$realValue = str_replace( '_', ' ', $value->getDBKey() );
+				if ( $value->getNamespace() != 0 ) {
+					$realValue = MWNamespace::getCanonicalName($value->getNamespace()) . ":$realValue";
+				}
+				$values[] = $realValue;
 			} else {
 				// getSortKey() seems to return the correct
 				// value for all the other data types.
