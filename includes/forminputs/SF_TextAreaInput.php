@@ -165,6 +165,9 @@ class SFTextAreaInput extends SFFormInput {
 		}
 
 		$className .= ( $this->mIsMandatory ) ? 'mandatoryField' : 'createboxInput';
+		if ( array_key_exists( 'unique', $this->mOtherArgs ) ) {
+			$className .= ' uniqueField';
+		}
 
 		if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
 			$className .= ' ' . $this->mOtherArgs['class'];
@@ -241,7 +244,10 @@ class SFTextAreaInput extends SFFormInput {
 		$spanClass = 'inputSpan';
 		if ( $this->mIsMandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
-	}
+		}
+		if ( array_key_exists( 'unique', $this->mOtherArgs ) ) {
+			$spanClass .= ' uniqueFieldSpan';
+		}
 		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
