@@ -548,7 +548,7 @@ jQuery.fn.validateMandatoryField = function() {
 
 jQuery.fn.validateUniqueField = function() {
 
-	const UNDEFINED = "undefined";
+	var UNDEFINED = "undefined";
 	var field = this.find(".uniqueField");
 	var fieldVal = field.val();
 
@@ -635,7 +635,7 @@ jQuery.fn.validateUniqueField = function() {
 		&& typeof cargoField !== UNDEFINED
 		&& cargoField.replace(/\s+/, '') !== '') {
 
-		var query = "&where=" + cargoField + "+HOLDS+'" + fieldVal + "'";
+		var query = "&where=" + cargoField + "+=+'" + fieldVal + "'";
 
 		if (typeof category !== UNDEFINED &&
 			category.replace(/\s+/, '') !== '') {

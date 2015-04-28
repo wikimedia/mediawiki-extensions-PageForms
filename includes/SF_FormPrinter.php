@@ -1476,7 +1476,10 @@ END;
 							if ( $semantic_property != null ) {
 								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_property', $semantic_property );
 							}
-							if ( $cargo_table != null && $cargo_field != null ) {
+							if ( $fullCargoField != null ) {
+								// It's inefficient to get these values via
+								// text parsing, but oh well.
+								list( $cargo_table, $cargo_field ) = explode( '|', $fullCargoField, 2 );
 								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_cargo_table', $cargo_table );
 								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_cargo_field', $cargo_field );
 							}
