@@ -160,6 +160,12 @@ class SFFormLinker {
 			$backup_form_names = SFUtils::getSMWPropertyValues( $store, $subject, $backup_prop_smw_id );
 			$form_names = array_merge( $form_names, $backup_form_names );
 		}
+
+		// These form names will all start with "Form:" - remove the
+		// namespace prefix.
+		foreach ( $form_names as $i => $form_name ) {
+			$form_names[$i] = preg_replace( '/^Form:/', '', $form_name );
+		}
 		// Add this data to the "cache".
 		self::$mLinkedForms[$page_key][$form_connection_type] = $form_names;
 		return $form_names;
