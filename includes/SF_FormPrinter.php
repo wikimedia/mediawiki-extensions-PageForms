@@ -927,6 +927,7 @@ END;
 					$semantic_property = null;
 					$cargo_table = null;
 					$cargo_field = null;
+					$fullCargoField = null;
 					$preload_page = null;
 					$holds_template = false;
 
