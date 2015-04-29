@@ -600,7 +600,6 @@ jQuery.fn.validateUniqueField = function() {
 			query += "[[Concept:" + concept + "]]";
 		}
 
-		query = query.replace(/\s/, '_');
 		query += "|limit=1";
 		query = encodeURIComponent(query);
 
