@@ -996,13 +996,7 @@ END;
 									}
 								}
 							} elseif ( $sub_components[0] == 'autocomplete on property' ) {
-								$property_name = $sub_components[1];
-								$propValue = SMWPropertyValue::makeUserProperty( $property_name );
-								if ( $propValue->getPropertyTypeID() == '_wpg' ) {
-									$field_args['autocomplete field type'] = 'relation';
-								} else {
-									$field_args['autocomplete field type'] = 'attribute';
-								}
+								$field_args['autocomplete field type'] = 'property';
 								$field_args['autocompletion source'] = $sub_components[1];
 							} elseif ( $sub_components[0] == 'autocomplete on category' ) {
 								$field_args['autocomplete field type'] = 'category';
