@@ -544,15 +544,15 @@ END;
 		if ( $is_query || $userCanEditPage ) {
 			$form_is_disabled = false;
 			// Show "Your IP address will be recorded" warning if
-			// user is anonymous, and it's not a query -
-			// wiki-text for bolding has to be replaced with HTML.
+			// user is anonymous, and it's not a query.
 			if ( $wgUser->isAnon() && ! $is_query ) {
-				$anon_edit_warning = preg_replace(
-					"/'''(.*)'''/",
-					"<strong>$1</strong>",
-					wfMessage( 'anoneditwarning' )->text()
-				);
-				$form_text .= "<p>$anon_edit_warning</p>\n";
+				// Based on code in MediaWiki's EditPage.php.
+				$anonEditWarning = wfMessage( 'anoneditwarning',
+					// Log-in link
+					'{{fullurl:Special:UserLogin|returnto={{FULLPAGENAMEE}}}}',
+					// Sign-up link
+					'{{fullurl:Special:UserLogin/signup|returnto={{FULLPAGENAMEE}}}}' )->parse();
+				$form_text .= Html::rawElement( 'div', array( 'id' => 'mw-anon-edit-warning', 'class' => 'warningbox' ), $anonEditWarning );
 			}
 		} else {
 			$form_is_disabled = true;

@@ -121,16 +121,11 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		}
 
 		# Check permissions
-		global $wgGroupPermissions;
-		if ( !$this->getUser()->isAllowed( 'upload' ) ) {
-			if ( !$this->getUser()->isLoggedIn() && ( $wgGroupPermissions['user']['upload']
-				|| $wgGroupPermissions['autoconfirmed']['upload'] ) ) {
-				// Custom message if logged-in users without any special rights can upload
-				throw new ErrorPageError( 'uploadnologin', 'uploadnologintext' );
-			} else {
-				throw new PermissionsError( 'upload' );
-			}
-		}
+                $user = $this->getUser();
+                $permissionRequired = UploadBase::isAllowed( $user );
+                if ( $permissionRequired !== true ) {
+                        throw new PermissionsError( $permissionRequired );
+                }
 
 		# Check blocks
 		if ( $this->getUser()->isBlocked() ) {
