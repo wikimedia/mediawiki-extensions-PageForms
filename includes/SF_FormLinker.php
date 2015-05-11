@@ -333,7 +333,15 @@ class SFFormLinker {
 		$link = self::formEditLink( $target, $incoming_properties );
 		if ( !is_null( $link ) ) {
 			$attribs['href'] = $link;
+			return true;
 		}
+
+		global $sfgLinkAllRedLinksToForms;
+		if ( $sfgLinkAllRedLinksToForms ) {
+			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			return true;
+		}
+
 		return true;
 	}
 

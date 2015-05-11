@@ -146,21 +146,52 @@ class SFFormEditAction extends Action
 		return self::displayTab( $obj, $links['views'] );
 	}
 
+	static function displayFormChooser( $output, $title ) {
+		$output->addModules( 'ext.semanticforms.main' );
+
+		$targetName = $title->getPrefixedText();
+		$output->setPageTitle( wfMessage( "creating", $targetName )->text() );
+
+		$output->addHTML( Html::element( 'p', null, wfMessage( 'sf-formedit-selectform' )->text() ) );
+		$formNames = SFUtils::getAllForms();
+		$fe = SpecialPageFactory::getPage( 'FormEdit' );
+		$text = '';
+		foreach( $formNames as $i => $formName ) {
+			if ( $i > 0 ) {
+				$text .= " &middot; ";
+			}
+
+			// Special handling for forms whose name contains a slash.
+			if ( strpos( $formName, '/' ) !== false ) {
+				$url = $fe->getTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
+			} else {
+				$url = $fe->getTitle( "$formName/$targetName" )->getLocalURL();
+			}
+			$text .= Html::element( 'a', array( 'href' => $url ), $formName );
+		}
+		$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage' ), $text ) );
+
+		// We need to call linkKnown(), not link(), so that SF's
+		// edit=>formedit hook won't be called on this link.
+		$noFormLink = Linker::linkKnown( $title, wfMessage( 'sf-formedit-donotuseform' )->text(), array(), array( 'action' => 'edit', 'redlink' => true ) );
+		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
+	}
+
 	/**
 	 * The function called if we're in index.php (as opposed to one of the
 	 * special pages)
 	 */
 	static function displayForm( $action, $article ) {
-		// @todo: This looks like bad code. If we can't find a form, we
-		// should be showing an informative error page rather than
-		// making it look like an edit form page does not exist.
+		$output = $action->getOutput();
 		$title = $article->getTitle();
 		$form_names = SFFormLinker::getDefaultFormsForPage( $title );
 		if ( count( $form_names ) == 0 ) {
+			// If no form is set, display an interface to let the
+			// user choose out of all the forms defined on this wiki
+			// (or none at all).
+			self::displayFormChooser( $output, $title );
 			return true;
 		}
-
-		$output = $action->getOutput();
 
 		if ( count( $form_names ) > 1 ) {
 			$warning_text = "\t" . '<div class="warningbox">' . wfMessage( 'sf_formedit_morethanoneform' )->text() . "</div>\n";

@@ -93,6 +93,8 @@
     "sf_formstart_docu": "Used as description for the HTML form. Parameters:\n* $1 - semantic form name\nSee also:\n* {{msg-mw|Sf formstart noform docu}}",
     "sf_formstart_noform_docu": "Used as description for the HTML form.\n\nSee also:\n* {{msg-mw|Sf formstart docu}}",
     "formedit": "{{doc-special|FormEdit}}",
+    "sf-formedit-selectform": "A header displayed above a group of choices for the user",
+    "sf-formedit-donotuseform": "An option displayed to users as a link.",
     "sf_formedit_createtitle": "Used as page title. Parameters:\n* $1 - the main part of the title of a semantic form\n* $2 - the prefixed title, with spaces for the target page\nSee also:\n* {{msg-mw|Sf formedit createtitlenotarget}}\n* {{msg-mw|Sf formedit edittitle}}\n{{Identical|Create}}",
     "sf_formedit_createtitlenotarget": "Used as page title. Parameters:\n* $1 - the main part of the title of a semantic form\nSee also:\n* {{msg-mw|Sf formedit edittitle}}\n* {{msg-mw|Sf formedit createtitle}}\n{{Identical|Create}}",
     "sf_editsource": "{{Identical|Edit source}}",

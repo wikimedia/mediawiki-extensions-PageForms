@@ -464,6 +464,12 @@ $GLOBALS['sfgCacheFormDefinitions'] = false;
 $GLOBALS['sfgFormCacheType'] = null;
 
 # ##
+# Point all red links to "action=formedit", instead of "action=edit", so
+# that users can choose which form to use to create each new page.
+# ##
+$GLOBALS['sfgLinkAllRedLinksToForms'] = true;
+
+# ##
 # When modifying red links to potentially point to a form to edit that page,
 # check only the properties pointing to that missing page from the page the
 # user is currently on, instead of from all pages in the wiki.
