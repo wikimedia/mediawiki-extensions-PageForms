@@ -393,7 +393,7 @@ END;
 	 */
 	public static function getAllValuesForCargoField( $tableName, $fieldName ) {
 		$limitStr = 200;
-		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr = null, $joinOnStr = null, $fieldName, $fieldName, $limitStr );
+		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr = null, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );
 		$queryResults = $sqlQuery->run();
 		$values = array();
 		// Field names starting with a '_' are special fields -
