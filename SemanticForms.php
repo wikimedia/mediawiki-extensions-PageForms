@@ -467,7 +467,7 @@ $GLOBALS['sfgFormCacheType'] = null;
 # Point all red links to "action=formedit", instead of "action=edit", so
 # that users can choose which form to use to create each new page.
 # ##
-$GLOBALS['sfgLinkAllRedLinksToForms'] = true;
+$GLOBALS['sfgLinkAllRedLinksToForms'] = false;
 
 # ##
 # When modifying red links to potentially point to a form to edit that page,
