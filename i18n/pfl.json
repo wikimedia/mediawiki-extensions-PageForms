@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": [
-            "Manuae"
-        ]
-    },
-    "sf_createtemplate_deletefield": "Lesche",
-    "sf_createform_hidden": "Vaschdegld"
+	"@metadata": {
+		"authors": [
+			"Manuae"
+		]
+	},
+	"sf_createtemplate_deletefield": "Lesche",
+	"sf_createform_hidden": "Vaschdegld"
 }
