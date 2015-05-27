@@ -1011,7 +1011,7 @@ END;
 	 */
 	protected function addUploadJS( $autofill = true ) {
 		global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
-		global $wgStrictFileExtensions;
+		global $wgStrictFileExtensions, $wgMaxUploadSize;
 
 		$scriptVars = array(
 			'wgAjaxUploadDestCheck' => $wgUseAjax && $wgAjaxUploadDestCheck,
@@ -1023,6 +1023,7 @@ END;
 			'wgUploadSourceIds' => $this->mSourceIds,
 			'wgStrictFileExtensions' => $wgStrictFileExtensions,
 			'wgCapitalizeUploads' => MWNamespace::isCapitalized( NS_FILE ),
+			'wgMaxUploadSize' => $wgMaxUploadSize,
 		);
 
 		$this->getOutput()->addScript( Skin::makeVariablesScript( $scriptVars ) );
