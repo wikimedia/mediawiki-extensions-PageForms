@@ -111,6 +111,7 @@ $GLOBALS['wgHooks']['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerC
 $GLOBALS['wgHooks']['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
 $GLOBALS['wgHooks']['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
 $GLOBALS['wgHooks']['UnitTestsList'][] = 'SFUtils::onUnitTestsList';
+$GLOBALS['wgHooks']['ResourceLoaderRegisterModules'][] = 'SFUtils::registerModules';
 
 // Admin Links hook needs to be called in a delayed way so that it
 // will always be called after SMW's Admin Links addition; as of
@@ -302,14 +303,6 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 		'ext.semanticforms.collapsible' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_collapsible.js',
 			'styles' => 'skins/SF_collapsible.css',
-		),
-		'ext.semanticforms.wikieditor' => $sfgResourceTemplate + array(
-			'scripts' => 'libs/SF_wikieditor.js',
-			'styles' => 'skins/SF_wikieditor.css',
-			'dependencies' => array(
-				'ext.semanticforms.main',
-				'jquery.wikiEditor',
-			),
 		),
 		'ext.semanticforms.imagepreview' => $sfgResourceTemplate + array(
 			'scripts' => 'libs/SF_imagePreview.js',
