@@ -395,13 +395,14 @@ END;
 		// the Parser strip state because the Parser would during parsing replace all strip items and then
 		// mangle them into HTML code. So we have to use our own. Which means we also can not just use
 		// Parser::insertStripItem() (see below).
-		$prefix     = "\x7fUNIQ" . Parser::getRandomString();
-		$stripState = new StripState( $prefix );
+		$rnd = wfRandomString( 32 );
 
 		// This regexp will find any SF triple braced tags (including correct handling of contained braces), i.e.
 		// {{{field|foo|default={{Bar}}}}} is not a problem. When used with preg_match and friends, $matches[0] will
 		// contain the whole SF tag, $matches[1] will contain the tag without the enclosing triple braces.
 		$regexp = '#\{\{\{((?>[^\{\}]+)|(\{((?>[^\{\}]+)|(?-2))*\}))*\}\}\}#';
+
+		$items = array();
 
 		// replace all SF tags by strip markers
 		$form_def = preg_replace_callback(
@@ -409,29 +410,34 @@ END;
 
 			// This is essentially a copy of Parser::insertStripItem().
 			// The 'use' keyword will bump the minimum PHP version to 5.3
-			function ( array $matches ) use ( $stripState, $prefix ) {
-
-				static $markerIndex = 0;
-				$rnd = "$prefix-item-$markerIndex-" . Parser::MARKER_SUFFIX;
-				$markerIndex++;
-				$stripState->addGeneral( $rnd, $matches[ 0 ] );
-
-				return $rnd;
+			function ( array $matches ) use ( &$items, $rnd ) {
+				$markerIndex = count( $items );
+				$items[] = $matches[0];
+				return "$rnd-item-$markerIndex-$rnd";
 
 			},
 
 			$form_def
 		);
 
+
 		// parse wiki-text
 		if ( isset( $parser->mInParse ) && $parser->mInParse === true ) {
-			$form_def = $stripState->unstripGeneral( $parser->recursiveTagParse( $form_def ) );
+			$form_def = $parser->recursiveTagParse( $form_def );
 			$output = $parser->getOutput();
 		} else {
 			$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : new Title();
 			$output = $parser->parse( $form_def, $title, $parser->getOptions() );
-			$form_def = $stripState->unstripGeneral( $output->getText() );
+			$form_def = $output->getText();
 		}
+		$form_def = preg_replace_callback(
+			"/{$rnd}-item-(\d+)-{$rnd}/",
+			function ( array $matches ) use ( $items ) {
+				$markerIndex = (int) $matches[1];
+				return $items[$markerIndex];
+			},
+			$form_def
+		);
 
 		if ( $output->getCacheTime() == -1 ) {
 			$form_article = Article::newFromID( $form_id );
