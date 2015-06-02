@@ -11,7 +11,7 @@
 /**
  * @ingroup SFSpecialPages
  */
-class SFFormEdit extends SpecialPage {
+class SFFormEdit extends UnlistedSpecialPage {
 
 	public $mTarget;
 	public $mForm;
