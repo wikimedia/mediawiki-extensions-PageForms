@@ -303,7 +303,7 @@ class SFAutocompleteAPI extends ApiBase {
 			}
 		}
 
-		$sqlQuery = CargoSQLQuery::newFromValues( $tablesStr, $fieldsStr, $whereStr, $joinOnStr, $cargoField, $cargoField, $sfgMaxAutocompleteValues );
+		$sqlQuery = CargoSQLQuery::newFromValues( $tablesStr, $fieldsStr, $whereStr, $joinOnStr, $cargoField, $havingStr = null, $cargoField, $sfgMaxAutocompleteValues );
 		$cargoFieldAlias = str_replace( '_', ' ', $cargoField );
 		$queryResults = $sqlQuery->run();
 
