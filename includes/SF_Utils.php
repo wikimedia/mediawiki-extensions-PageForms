@@ -986,8 +986,6 @@ END;
 		$inQueryArr = array();
 		$targetWindow = '_self';
 
-		$positionalParameters = false;
-
 		// assign params
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
@@ -996,7 +994,7 @@ END;
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value
-			if ( count( $elements ) > 1 && !$positionalParameters ) {
+			if ( count( $elements ) > 1 ) {
 				$param_name = trim( $elements[0] );
 
 				// parse (and sanitize) parameter values
@@ -1031,24 +1029,9 @@ END;
 				$classStr = 'popupformlink';
 			} elseif ( $param_name == null && $value == 'new window' ) {
 				$targetWindow = '_blank';
-			} elseif ( $param_name !== null && !$positionalParameters ) {
+			} elseif ( $param_name !== null ) {
 				$value = urlencode( $value );
 				parse_str( "$param_name=$value", $arr );
-				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
-			} elseif ( $i == 0 ) {
-				$inFormName = $value;
-				$positionalParameters = true;
-			} elseif ( $i == 1 ) {
-				$inLinkStr = $value;
-			} elseif ( $i == 2 ) {
-				$inLinkType = $value;
-			} elseif ( $i == 3 ) {
-				// Change HTML-encoded ampersands directly to
-				// URL-encoded ampersands, so that the string
-				// doesn't get split up on the '&'.
-				$inQueryStr = str_replace( '&amp;', '%26', $value );
-
-				parse_str( $inQueryStr, $arr );
 				$inQueryArr = self::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
 		}
