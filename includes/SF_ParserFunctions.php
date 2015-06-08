@@ -246,7 +246,7 @@ class SFParserFunctions {
 		$inAutocompletionSource = '';
 		$inRemoteAutocompletion = false;
 		$inSize = 25;
-		$classStr = "";
+		$classStr = "sfFormInput";
 		$inPlaceholder = "";
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
@@ -295,7 +295,7 @@ class SFParserFunctions {
 				$inPlaceholder = $value;
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				SFUtils::loadScriptsForPopupForm( $parser );
-				$classStr = 'popupforminput';
+				$classStr .= ' popupforminput';
 			} elseif ( $param_name !== null && !$positionalParameters ) {
 
 				$value = urlencode($value);
