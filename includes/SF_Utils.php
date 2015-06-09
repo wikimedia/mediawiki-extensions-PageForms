@@ -977,8 +977,8 @@ END;
 
 	static function createFormLink ( &$parser, $params, $parserFunctionName ) {
 		// Set defaults.
-		$inFormName = $inLinkStr = $inLinkType = $inTooltip =
-			$inQueryStr = $inTargetName = '';
+		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
+			$inTooltip = $inQueryStr = $inTargetName = '';
 		if ( $parserFunctionName == 'queryformlink' ) {
 			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
@@ -1010,6 +1010,8 @@ END;
 				$inFormName = $value;
 			} elseif ( $param_name == 'link text' ) {
 				$inLinkStr = $value;
+			} elseif ( $param_name == 'existing page link text' ) {
+				$inExistingPageLinkStr = $value;
 			} elseif ( $param_name == 'link type' ) {
 				$inLinkType = $value;
 			} elseif ( $param_name == 'query string' ) {
@@ -1053,7 +1055,11 @@ END;
 		}
 
 		if ( $parserFunctionName == 'formredlink' && $targetPageExists ) {
-			return Linker::link( $targetTitle );
+			if ( $inExistingPageLinkStr == '' ) {
+				return Linker::link( $targetTitle );
+			} else {
+				return Linker::link( $targetTitle, $inExistingPageLinkStr );
+			}
 		}
 
 		if ( $parserFunctionName == 'queryformlink' ) {
