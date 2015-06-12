@@ -761,6 +761,42 @@ END;
 	}
 
 	/**
+	 * Splits the contents of a tag in a form definition based on pipes,
+	 * but does not split on pipes that are contained within additional
+	 * curly brackets, in case the tag contains any calls to parser
+	 * functions or templates.
+	 */
+	static function smartSplitFormTag( $string ) {
+		if ( $string == '' ) {
+			return array();
+		}
+
+		$delimiter = '|';
+		$returnValues = array();
+		$numOpenCurlyBrackets = 0;
+		$curReturnValue = '';
+
+		for ( $i = 0; $i < strlen( $string ); $i++ ) {
+			$curChar = $string{$i};
+			if ( $curChar == '{' ) {
+				$numOpenCurlyBrackets++;
+			} elseif ( $curChar == '}' ) {
+				$numOpenCurlyBrackets--;
+			}
+
+			if ( $curChar == $delimiter && $numOpenCurlyBrackets == 0 ) {
+				$returnValues[] = trim( $curReturnValue );
+				$curReturnValue = '';
+			} else {
+				$curReturnValue .= $curChar;
+			}
+		}
+		$returnValues[] = trim( $curReturnValue );
+
+		return $returnValues;
+	}
+
+	/**
 	 * This function is basically equivalent to calling
 	 * explode( '|', $str ), except that it doesn't split on pipes
 	 * that are within parser function calls - i.e., pipes within
@@ -774,7 +810,7 @@ END;
 		while ( preg_match( $pattern, $str, $matches ) ) {
 			$str = preg_replace( $pattern, "$1" . "\1" . "$2", $str );
 		}
-		return array_map( array( 'SFUtils', 'convertBackToPipes' ), explode( '|', $str ) );
+		return array_map( array( 'SFUtils', 'convertBackToPipes' ), self::smartSplitFormTag( $str ) );
 	}
 
 	/**

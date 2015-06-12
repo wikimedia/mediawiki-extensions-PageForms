@@ -1019,7 +1019,7 @@ END;
 							} elseif ( $sub_components[0] == 'values' ) {
 								// Handle this one only after 'delimiter' has
 								// also been set.
-								$values = $sub_components[1];
+								$values = $wgParser->recursiveTagParse( $sub_components[1] );
 							} elseif ( $sub_components[0] == 'values from property' ) {
 								$propertyName = $sub_components[1];
 								$possible_values = SFUtils::getAllValuesForProperty( $propertyName );
