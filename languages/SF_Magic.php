@@ -20,6 +20,7 @@ $magicWords['en'] = array(
 
 /** Arabic (العربية) */
 $magicWords['ar'] = array(
+	'default_form' => array( 0, 'نموذج_افتراضي' ),
 	'forminput' => array( 0, 'مدخل_النموذج' ),
 	'formlink' => array( 0, 'وصلة_النموذج' ),
 	'queryformlink' => array( 0, 'وصلة_نموذج_استعلام' ),
@@ -28,12 +29,14 @@ $magicWords['ar'] = array(
 	'autoedit' => array( 0, 'تعديل_تلقائي' ),
 );
 
-/** Egyptian Spoken Arabic (مصرى) */
+/** Egyptian Arabic (مصرى) */
 $magicWords['arz'] = array(
-	'forminput' => array( 0, 'مدخل_النموذج', 'forminput' ),
-	'formlink' => array( 0, 'وصلة_النموذج', 'formlink' ),
-	'arraymap' => array( 0, 'خريطة_المصفوفة', 'arraymap' ),
-	'arraymaptemplate' => array( 0, 'قالب_خريطة_المصفوفة', 'arraymaptemplate' ),
+	'forminput' => array( 0, 'مدخل_النموذج' ),
+	'formlink' => array( 0, 'وصلة_النموذج' ),
+	'queryformlink' => array( 0, 'وصله_نموذج_استعلام' ),
+	'arraymap' => array( 0, 'خريطة_المصفوفة' ),
+	'arraymaptemplate' => array( 0, 'قالب_خريطة_المصفوفة' ),
+	'autoedit' => array( 0, 'تعديل_تلقائى' ),
 );
 
 /** German (Deutsch) */
@@ -81,8 +84,10 @@ $magicWords['ko'] = array(
 
 /** Macedonian (македонски) */
 $magicWords['mk'] = array(
+	'default_form' => array( 0, 'стандарден_образец' ),
 	'forminput' => array( 0, 'вносзаобразец' ),
 	'formlink' => array( 0, 'врсказаобразец' ),
+	'formredlink' => array( 0, 'црвенаврсказаобразец' ),
 	'queryformlink' => array( 0, 'барањезаврсказаобразец' ),
 	'arraymap' => array( 0, 'картананиза' ),
 	'arraymaptemplate' => array( 0, 'шаблоннакартазаниза' ),
@@ -124,4 +129,23 @@ $magicWords['sr-el'] = array(
 	'formlink' => array( 0, 'obrazuj_vezu' ),
 	'arraymap' => array( 0, 'niz_mape' ),
 	'arraymaptemplate' => array( 0, 'šablon_niza_mape' ),
+);
+
+/** Simplified Chinese (中文（简体）‎) */
+$magicWords['zh-hans'] = array(
+	'default_form' => array( 0, '默认表单' ),
+	'forminput' => array( 0, '表单输入' ),
+	'formlink' => array( 0, '表单连接' ),
+	'formredlink' => array( 0, '表单红链' ),
+	'queryformlink' => array( 0, '查询连接表单' ),
+	'arraymap' => array( 0, '数组地图' ),
+	'arraymaptemplate' => array( 0, '数组地图模板' ),
+	'autoedit' => array( 0, '自动编辑' ),
+);
+
+/** Traditional Chinese (中文（繁體）‎) */
+$magicWords['zh-hant'] = array(
+	'arraymap' => array( 0, '陣列地圖' ),
+	'arraymaptemplate' => array( 0, '陣列地圖模板' ),
+	'autoedit' => array( 0, '自動編輯' ),
 );
