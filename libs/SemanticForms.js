@@ -343,7 +343,11 @@ jQuery.fn.SemanticForms_unregisterInputInit = function() {
 
 // Display a div that would otherwise be hidden by "show on select".
 function showDiv(div_id, instanceWrapperDiv, speed) {
-	var elem = jQuery('[id="' + div_id + '"]', instanceWrapperDiv);
+	if ( instanceWrapperDiv != null ) {
+		var elem = jQuery('[data-origID="' + div_id + '"]', instanceWrapperDiv);
+	} else {
+		var elem = jQuery('#' + div_id);
+	}
 
 	elem
 	.find(".hiddenBySF")
@@ -375,7 +379,11 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 		alert( "Warning: this form has \"show on select\" pointing to an invalid element ID (\"" + div_id + "\") - IDs in HTML cannot contain spaces." );
 	}
 
-	var elem = jQuery('[id="' + div_id + '"]', instanceWrapperDiv);
+	if ( instanceWrapperDiv != null ) {
+		var elem = instanceWrapperDiv.find('[data-origID=' + div_id + ']');
+	} else {
+		var elem = jQuery('#' + div_id);
+	}
 	elem.find("span, div").addClass('hiddenBySF');
 
 	elem.each( function() {
@@ -413,11 +421,13 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPa
 jQuery.fn.showIfSelected = function(initPage) {
 	var inputVal = this.val();
 	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
-	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	if ( instanceWrapperDiv.length === 0 ) {
 		instanceWrapperDiv = null;
+		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+	} else {
+		var showOnSelectVals = sfgShowOnSelect[this.attr("data-origID")];
 	}
 
 	if ( showOnSelectVals !== undefined ) {
@@ -449,11 +459,13 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initP
 // inputs.
 jQuery.fn.showIfChecked = function(initPage) {
 	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
-	var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	if ( instanceWrapperDiv.length === 0 ) {
 		instanceWrapperDiv = null;
+		var showOnSelectVals = sfgShowOnSelect[this.attr("id")];
+	} else {
+		var showOnSelectVals = sfgShowOnSelect[this.attr("data-origID")];
 	}
 
 	if ( showOnSelectVals !== undefined ) {
@@ -468,14 +480,22 @@ jQuery.fn.showIfChecked = function(initPage) {
 };
 
 // Used for handling 'show on select' for the 'checkbox' input.
-jQuery.fn.showIfCheckedCheckbox = function(initPage) {
+jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple, initPage) {
 	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
-	var div_id = sfgShowOnSelect[this.attr("id")];
-
-	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
-	if ( instanceWrapperDiv.length === 0 ) {
-		instanceWrapperDiv = null;
+	
+	if (partOfMultiple) {
+		var div_id = sfgShowOnSelect[this.attr("data-origID")];
+		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
+	} else {
+		var div_id = sfgShowOnSelect[this.attr("id")];
+		var instanceWrapperDiv = null;
 	}
+	//var div_id = sfgShowOnSelect[this.attr("id")];
+
+	//var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
+	//if ( instanceWrapperDiv.length === 0 ) {
+	//	instanceWrapperDiv = null;
+	//}
 
 	if (jQuery(this).is(":checked")) {
 		showDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
@@ -931,6 +951,15 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 			jQuery(this).fadeTo('fast', 1);
 		});
 
+	
+	// Add on a new attribute, "data-origID", representing the ID of all
+	// HTML elements that had an ID; and delete the actual ID attribute
+	// of any divs and spans (presumably, these exist only for the
+	// sake of "show on select"). We do the deletions because no two
+	// elements on the page are allowed to have the same ID.
+	new_div.find('[id!=""]').attr('data-origID', function() { return this.id; });
+	new_div.find('div[id!=""], span[id!=""]').removeAttr('id');
+
 	new_div.find('.hiddenBySF')
 	.removeClass('hiddenBySF')
 
@@ -1176,9 +1205,9 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 
 	this.find(".sfShowIfCheckedCheckbox").each( function() {
 		jQuery(this)
-		.showIfCheckedCheckbox(true)
+		.showIfCheckedCheckbox(partOfMultiple, true)
 		.click( function() {
-			jQuery(this).showIfCheckedCheckbox(false);
+			jQuery(this).showIfCheckedCheckbox(partOfMultiple, false);
 		});
 	});
 

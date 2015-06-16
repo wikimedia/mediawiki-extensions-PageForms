@@ -320,6 +320,9 @@ END;
 			// in the form, to differentiate the inputs the form starts out
 			// with from any inputs added by the Javascript.
 			$section = str_replace( '[num]', "[{$instance_num}a]", $section );
+			// @TODO - this replacement should be
+			// case- and spacing-insensitive
+			$section = str_replace( ' id=', ' data-origID=', $section );
 
 			$text = "\t\t" . Html::rawElement( 'div',
 				array(
