@@ -490,12 +490,6 @@ jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple, initPage) {
 		var div_id = sfgShowOnSelect[this.attr("id")];
 		var instanceWrapperDiv = null;
 	}
-	//var div_id = sfgShowOnSelect[this.attr("id")];
-
-	//var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
-	//if ( instanceWrapperDiv.length === 0 ) {
-	//	instanceWrapperDiv = null;
-	//}
 
 	if (jQuery(this).is(":checked")) {
 		showDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
@@ -951,7 +945,6 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 			jQuery(this).fadeTo('fast', 1);
 		});
 
-	
 	// Add on a new attribute, "data-origID", representing the ID of all
 	// HTML elements that had an ID; and delete the actual ID attribute
 	// of any divs and spans (presumably, these exist only for the
