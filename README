@@ -30,12 +30,13 @@ The "tokens" and updated "combobox" input types were created by
 Jatin Mehta as part of the 2014 Google Summer of Code.
 
 Important code contributions were also made by Christoph Burgmer,
-Daniel Friesen, Daniel Hansch, Eugene Mednikov, Harold Solbrig, Jayson
-Harshbarger, Jeffrey Stuckman, Joel Natividad, Jeroen De Dauw,
-Louis Gerbarg, Mathias Lidal, Matt Williamson, Niklas Laxstrom, Nils
+Cindy Cicalese, Daniel Friesen, Daniel Hansch, Eugene Mednikov,
+Harold Solbrig, lmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
+Joel Natividad, Jeroen De Dauw, Joel Natividad, Louis Gerbarg, LY Meng,
+ Mathias Lidal, Matt Williamson, MWJames, Niklas Laxstrom, Nils
 Opperman, Patrick Nagel, Remco de Boer, Sebastian Richter, Sergey
-Chernyshev, Siebrand Mazeland, Simon Heimler, Vedmaka, wheresmytab
-and others.
+Chernyshev, Siebrand Mazeland, Simon Heimler, Solitarius, Vedmaka,
+wheresmytab and others.
 
 Language translations were provided by many people; see the files in
 the /i18n and /languages directories for the full listings.
