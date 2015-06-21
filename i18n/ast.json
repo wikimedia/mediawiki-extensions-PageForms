@@ -128,6 +128,8 @@
 	"sf_formstart_noform_docu": "Escriba equí'l nome d'una páxina, y seleicione un formulariu col qu'editala.\nSi esta páxina yá esiste, mandará-y al formulariu pa editar esa páxina.\nD'otra manera, mandará-y al formulariu p'amestar la páxina.",
 	"sf_formstart_createoredit": "Crear o editar",
 	"formedit": "Editar con formulariu",
+	"sf-formedit-selectform": "Escueyi un formulariu pa crear esta páxina:",
+	"sf-formedit-donotuseform": "Crear la páxina sin un formulariu.",
 	"sf_formedit_createtitle": "Crear $1: $2",
 	"sf_formedit_createtitlenotarget": "Crear $1",
 	"sf_formedit_badurl": "Esta ye la páxina pa editar con un formulariu. Tien d'especificar el nome d'un formulariu y una páxina de destín na URL;\ntendría ser algo como \"Special:FormEdit?form=<nome del formulariu>&target=<páxina de destín>\" o  \"Special:FormEdit/<nome del formulariu>/<páxina de destín>\".",
