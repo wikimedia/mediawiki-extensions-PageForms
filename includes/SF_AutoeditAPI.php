@@ -458,7 +458,11 @@ class SFAutoeditAPI extends ApiBase {
 
 		$request = $editor->sfFauxRequest;
 		if ( $editor->tokenOk( $request ) ) {
+			$ctx = RequestContext::getMain();
+			$tempTitle = $ctx->getTitle();
+			$ctx->setTitle( $title );
 			$status = $editor->internalAttemptSave( $resultDetails, $bot );
+			$ctx->setTitle( $tempTitle );
 		} else {
 			throw new MWException( wfMessage( 'session_fail_preview' )->parse() );
 		}
