@@ -52,7 +52,11 @@ class SFFormEdit extends UnlistedSpecialPage {
 			if ( $i++ > 0 ) {
 				$text .= ', ';
 			}
-			$text .= "<a href=\"$fe_url/$alt_form/$target_name\">" . str_replace( '_', ' ', $alt_form ) . '</a>';
+			$altFormURL = $fe_url . '/' . rawurlencode( $alt_form ) . '/' . rawurlencode( $target_name );
+			$text .= Html::element( 'a',
+				array( 'href' => $altFormURL ),
+				str_replace( '_', ' ', $alt_form )
+			);
 		}
 		return $text;
 	}

@@ -60,12 +60,10 @@ class SFPageSection {
 		$section_level = $this->mSectionLevel;
 
 		$section_str = wfMessage( 'sf_createform_pagesection' )->text() . " '" . $section_name . "'";
-		$text = <<<END
-	<input type="hidden" name="section_$section_count" value="$section_name">
-	<div class="sectionForm">
-	<h2>$section_str</h2>
+		$text = Html::hidden( "section_$section_count", $section_name );
+		$text .= '<div class="sectionForm">';
+		$text .= Html::element( 'h2', array(), $section_str );
 
-END;
 		foreach ( $wgRequest->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_section_'.$section_count ) ) != false ) {
 				$paramName = substr( $key, 0, $pos );
