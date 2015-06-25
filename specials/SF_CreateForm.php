@@ -562,4 +562,8 @@ END;
 		}
 		return $text;
 	 }
+
+	protected function getGroupName() {
+		return 'sf_group';
+	}
 }

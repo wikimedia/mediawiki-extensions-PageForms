@@ -25,6 +25,10 @@ class SFTemplates extends SpecialPage {
 		$rep = new TemplatesPage();
 		$rep->execute( $query );
 	}
+
+	protected function getGroupName() {
+		return 'pages';
+	}
 }
 
 /**

@@ -395,4 +395,8 @@ END;
 		$text .= "</form>\n";
 		$wgOut->addHTML( $text );
 	}
+
+	protected function getGroupName() {
+		return 'sf_group';
+	}
 }

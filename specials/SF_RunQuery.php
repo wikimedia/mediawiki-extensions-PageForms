@@ -178,4 +178,8 @@ END;
 			}
 		}
 	}
+
+	protected function getGroupName() {
+		return 'sf_group';
+	}
 }
