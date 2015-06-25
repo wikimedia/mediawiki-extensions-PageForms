@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"CERminator"
+			"CERminator",
+			"KWiki"
 		]
 	},
 	"semanticforms-desc": "Obrasci za dodavanje i uređivanje semantičkih podataka",
@@ -11,7 +12,7 @@
 	"sf_createproperty_propname": "Naziv svojstva:",
 	"sf_createproperty_proptype": "Vrsta:",
 	"templates": "Šabloni",
-	"sf_templates_docu": "Slijedeći šabloni postoje u wikiju.",
+	"sf_templates_docu": "Sljedeći šabloni postoje u wikiju.",
 	"sf_templates_definescat": "definira kategoriju: $1",
 	"createtemplate": "Napravi šablon",
 	"sf_createtemplate_namelabel": "Ime šablona:",
@@ -28,7 +29,7 @@
 	"sf_createtemplate_addfield": "Dodaj polje",
 	"sf_createtemplate_deletefield": "Obriši",
 	"forms": "Obrasci",
-	"sf_forms_docu": "Slijedeći obrasci postoje u wikiju.",
+	"sf_forms_docu": "Sljedeći obrasci postoje u wikiju.",
 	"sf_forminputs_mandatory": "Obavezno",
 	"sf_forminputs_restricted": "Samo administratori mogu mijenjati ovaj unos",
 	"createform": "Napravi obrazac",
@@ -68,7 +69,7 @@
 	"sf_editsource": "Uredi izvor",
 	"sf_formedit_edittitle": "Uređivanje $1: $2",
 	"sf_formedit_remove": "Ukloni",
-	"sf_formedit_addanother": "Dodaj slijedeći",
+	"sf_formedit_addanother": "Dodaj sljedeći",
 	"sf_formedit_none": "ništa",
 	"runquery": "Pokreni upit",
 	"sf_runquery_title": "Pokreni upit: $1",
