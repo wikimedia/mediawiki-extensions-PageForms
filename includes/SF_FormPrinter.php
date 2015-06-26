@@ -321,8 +321,10 @@ END;
 			// with from any inputs added by the Javascript.
 			$section = str_replace( '[num]', "[{$instance_num}a]", $section );
 			// @TODO - this replacement should be
-			// case- and spacing-insensitive
-			$section = str_replace( ' id=', ' data-origID=', $section );
+			// case- and spacing-insensitive.
+			// Also, keeping the "id=" attribute should not be
+			// necessary; but currently it is, for "show on select".
+			$section = preg_replace( '/ id="(.*)" /', ' id="$1" data-origID="$1" ', $section );
 
 			$text = "\t\t" . Html::rawElement( 'div',
 				array(
