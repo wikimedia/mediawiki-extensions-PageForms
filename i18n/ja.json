@@ -8,7 +8,8 @@
 			"Shirayuki",
 			"Whym",
 			"青子守歌",
-			"Rxy"
+			"Rxy",
+			"Sujiniku"
 		]
 	},
 	"semanticforms-desc": "意味的データを追加/編集するフォーム",
@@ -32,7 +33,7 @@
 	"sf_createtemplate_fieldname": "フィールド名:",
 	"sf_createtemplate_displaylabel": "表示ラベル:",
 	"sf_createtemplate_semanticproperty": "意味的プロパティ:",
-	"sf_createtemplate_fieldislist": "このフィールドが複数の値をカンマで区切った列挙を保持できるようにする",
+	"sf_createtemplate_fieldislist": "フィールドは複数の値の列挙を保持する",
 	"sf_createtemplate_aggregation": "集約",
 	"sf_createtemplate_aggregationdesc": "このテンプレートを使用しているページで、そのページを指すプロパティを持つすべての記事を列挙するには、該当プロパティを以下に指定してください:",
 	"sf_createtemplate_aggregationlabel": "一覧の名前:",
@@ -113,7 +114,7 @@
 	"sf_createclass_listofvalues": "値の列挙?",
 	"sf_createclass_nameinput": "フォーム名:",
 	"sf_createclass_missingvalues": "必須のフィールドに未入力のものがあります。",
-	"sf_createclass_success": "プロパティ群、テンプレート、フォーム、カテゴリが作成されます。",
+	"sf_createclass_success": "指定したページが作成されます。",
 	"sf_createclass_create": "作成",
 	"formstart": "フォームによるページの追加",
 	"sf_formstart_badform": "エラー: ページ「$1」にはフォームが見つかりませんでした。",
