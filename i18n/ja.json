@@ -17,7 +17,7 @@
 	"createproperty": "プロパティの作成",
 	"sf-createproperty-with-name": "プロパティの作成: $1",
 	"sf_createproperty_linktoform": "このプロパティは、以下のフォームを使用するページにリンクします:",
-	"sf_createproperty_allowedvalsinput": "このプロパティに一部の値のみを設定できるようにするには、許可する値をカンマで区切って列挙します (値がカンマを含む場合は「\\,」に置換):",
+	"sf_createproperty_allowedvalsinput": "ある値を許可するには、許可する値をカンマで区切って列挙します (値がカンマを含む場合は「\\,」に置換):",
 	"sf_createproperty_propname": "プロパティ名:",
 	"sf_createproperty_proptype": "型:",
 	"templates": "テンプレート一覧",
