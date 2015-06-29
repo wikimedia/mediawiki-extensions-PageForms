@@ -76,7 +76,8 @@ class SFFormUtils {
 		if ( $label == null ) {
 			$label = wfMessage( 'summary' )->text();
 		}
-		$text = "<span id='wpSummaryLabel'><label for='wpSummary'>$label</label></span>\n";
+		$text = Html::rawElement( 'span', array( 'id' => 'wpSummaryLabel' ),
+			Html::element( 'label', array( 'for' => 'wpSummary' ), $label ) );
 
 		$sfgTabIndex++;
 		$attr['tabindex'] = $sfgTabIndex;
@@ -89,7 +90,7 @@ class SFFormUtils {
 		if ( $is_disabled ) {
 			$attr['disabled'] = true;
 		}
-		$text .= Html::element( 'input', $attr );
+		$text .= ' ' . Html::element( 'input', $attr );
 
 		return $text;
 	}
