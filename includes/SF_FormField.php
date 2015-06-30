@@ -176,13 +176,13 @@ class SFFormField {
 	function creationHTML( $template_num ) {
 		$field_form_text = $template_num . "_" . $this->mNum;
 		$template_field = $this->template_field;
-		$text = '<h3>' . wfMessage( 'sf_createform_field' )->escaped() . " '" . $template_field->getFieldName() . "'</h3>\n";
+		$text = Html::element( 'h3', null, wfMessage( 'sf_createform_field' )->text() . " '" . $template_field->getFieldName() ) . "\n";
 		// TODO - remove this probably-unnecessary check?
 		if ( $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
 		} elseif ( $template_field->getPropertyType() == "" ) {
 			$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
-			$text .= '<p>' . wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "</p>\n";
+			$text .= Html::element( 'p', null, wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() ) . "\n";
 		} else {
 			if ( $template_field->isList() ) {
 				$propDisplayMsg = 'sf_createform_fieldproplist';
