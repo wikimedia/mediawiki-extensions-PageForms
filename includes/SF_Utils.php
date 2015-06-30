@@ -148,7 +148,7 @@ class SFUtils {
 		);
 		if ( $db->numRows( $res ) > 0 ) {
 			while ( $row = $db->fetchRow( $res ) ) {
-				$categories[] = $row[0];
+				$categories[] = $row['cl_to'];
 			}
 		}
 		$db->freeResult( $res );
