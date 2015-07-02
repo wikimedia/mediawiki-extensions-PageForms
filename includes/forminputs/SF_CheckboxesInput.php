@@ -100,7 +100,19 @@ class SFCheckboxesInput extends SFMultiEnumInput {
 			$outerSpanClass .= ' mandatoryFieldSpan';
 		}
 
-		if ( array_key_exists( 'show select all', $other_args ) ||
+		// @HACK! The current "select all/none" JS code doesn't work
+		// when this input is part of a multiple-instance template, so
+		// if that happens, just don't display those links.
+		// Unfortunately, there's no easy way to know if we're in a
+		// multiple-instance template, so look at the input name - if
+		// it contains "[num][", we can assume that we are.
+		// @TODO - get the JS working in multiple-instance templates -
+		// this will probably require rewriting the checkboxes JS
+		// to some extent, so the relevant part can be called each
+		// time an instance is added.
+		if ( strpos( $input_name, '[num][' ) !== false ) {
+			// Multiple-instance template; do nothing.
+		} elseif ( array_key_exists( 'show select all', $other_args ) ||
 			( count( $possible_values ) >= $GLOBALS[ 'sfgCheckboxesSelectAllMinimum' ] && !array_key_exists( 'hide select all', $other_args ) ) ) {
 			$outerSpanClass .= ' select-all';
 		}
