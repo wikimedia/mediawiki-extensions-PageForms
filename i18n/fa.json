@@ -162,7 +162,7 @@
 	"sf_autoedit_invalidredirecttarget": "$1 یک هدف تغییر جهت برای فرم $2 است.",
 	"sf_autoedit_invalidpreloadspecified": "صفحه از پیش بازگذاری شده مشخص شده $1، نامعتبر است.",
 	"sf_autoedit_redlinkexists": "$1 در حال حاضر وجود دارد.",
-	"sf_autoedit_noformfound": "هیچ فرمی تعیین نشده‌است.",
+	"sf_autoedit_noformfound": "هیچ فرمی تعیین نشده است.",
 	"sf_autoedit_toomanyformsfound": "بیش از یک فرم در صفحه در دسترس است.",
 	"sf_autoedit_readonly": "پایگاه اطلاعاتی در حال حاضر برای اصلاحات قفل شده‌است. دلیل: $1",
 	"sf_autoedit_nosemanticform": "نتوانست از $2 برای صفحه $1 تبدیل شود. برای جزئیات [[{{#special:FormEdit}}/$2/$1]] را مشاهده کنید.",
