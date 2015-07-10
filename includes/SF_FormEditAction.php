@@ -173,7 +173,7 @@ class SFFormEditAction extends Action
 
 		// We need to call linkKnown(), not link(), so that SF's
 		// edit=>formedit hook won't be called on this link.
-		$noFormLink = Linker::linkKnown( $title, wfMessage( 'sf-formedit-donotuseform' )->text(), array(), array( 'action' => 'edit', 'redlink' => true ) );
+		$noFormLink = Linker::linkKnown( $title, wfMessage( 'sf-formedit-donotuseform' )->escaped(), array(), array( 'action' => 'edit', 'redlink' => true ) );
 		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
 	}
 

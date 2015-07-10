@@ -73,7 +73,7 @@ class SFPageSection {
 		}
 
 		$header_options =  '';
-		$text .= Html::rawElement( 'span', null, wfMessage( 'sf_createform_sectionlevel' )->text() ) . "\n";
+		$text .= Html::element( 'span', null, wfMessage( 'sf_createform_sectionlevel' )->text() ) . "\n";
 		for ( $i = 1; $i < 7; $i++ ) {
 			if ( $section_level == $i ) {
 				$header_options .= " " . Html::element( 'option', array( 'value' => $i, 'selected' ), $i ) . "\n";

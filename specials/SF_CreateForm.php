@@ -356,7 +356,7 @@ jQuery(document).ready(function() {
 		$text .= "\t" . Html::input( 'add_field', $add_button_text, 'submit' ) . "\n";
 
 		// The form HTML for page sections
-		$text .= "</br></br>" . Html::rawElement( 'span', null, wfMessage( 'sf_createform_addsection' )->text() . ":" ) . "\n";
+		$text .= "</br></br>" . Html::element( 'span', null, wfMessage( 'sf_createform_addsection' )->text() . ":" ) . "\n";
 		$text .= Html::input( 'sectionname', '', 'text', array( 'size' => '30', 'placeholder' => wfMessage( 'sf_createform_sectionname' )->text(), 'id' => 'sectionname' ) ) . "\n";
 
 		// Selection for before which item this section should be placed

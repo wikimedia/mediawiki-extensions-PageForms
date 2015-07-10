@@ -209,7 +209,7 @@ class SFFormField {
 			$text .= Html::rawElement( 'p', null, wfMessage( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
-		$form_label_text = wfMessage( 'sf_createform_formlabel' )->text();
+		$form_label_text = wfMessage( 'sf_createform_formlabel' )->escaped();
 		$form_label_input = Html::input(
 			'label_' . $field_form_text,
 			$template_field->getLabel(),

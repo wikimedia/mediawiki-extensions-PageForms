@@ -88,7 +88,7 @@ class SFCreateCategory extends SpecialPage {
 		$firstRow = '';
 		if ( is_null( $presetCategoryName ) ) {
 			$text .= "\t" . Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
-			$firstRow .= wfMessage( 'sf_createcategory_name' )->text() . ' ' .
+			$firstRow .= wfMessage( 'sf_createcategory_name' )->escaped() . ' ' .
 				Html::input( 'category_name', null, 'text',
 					array( 'size' => 25 ) ) . "\n";
 			if ( !is_null( $category_name_error_str ) ) {
@@ -97,7 +97,7 @@ class SFCreateCategory extends SpecialPage {
 					$category_name_error_str ) . "\n";
 			}
 		}
-		$firstRow .= "\t" . wfMessage( 'sf_createcategory_defaultform' )->text() . "\n";
+		$firstRow .= "\t" . wfMessage( 'sf_createcategory_defaultform' )->escaped() . "\n";
 		$formSelector = "\t" . Html::element( 'option', null, null ). "\n";
 		foreach ( $all_forms as $form ) {
 			$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
@@ -107,7 +107,7 @@ class SFCreateCategory extends SpecialPage {
 			array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
 			$formSelector );
 		$text .= Html::rawElement( 'p', null, $firstRow )  . "\n";
-		$secondRow = wfMessage( 'sf_createcategory_makesubcategory' )->text() . ' ';
+		$secondRow = wfMessage( 'sf_createcategory_makesubcategory' )->escaped() . ' ';
 		$selectBody = "\t" . Html::element( 'option', null, null ). "\n";
 		$categories = SFUtils::getCategoriesForPage();
 		foreach ( $categories as $category ) {
