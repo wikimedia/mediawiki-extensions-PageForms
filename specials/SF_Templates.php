@@ -49,7 +49,7 @@ class TemplatesPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		$header = '<p>' . wfMessage( 'sf_templates_docu' )->text() . "</p><br />\n";
+		$header = Html::element( 'p', null, wfMessage( 'sf_templates_docu' )->text() );
 		return $header;
 	}
 

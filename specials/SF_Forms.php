@@ -48,7 +48,7 @@ class FormsPage extends QueryPage {
 	function isSyndicated() { return false; }
 
 	function getPageHeader() {
-		$header = '<p>' . wfMessage( 'sf_forms_docu' )->text() . "</p><br />\n";
+		$header = Html::element( 'p', null, wfMessage( 'sf_forms_docu' )->text() );
 		return $header;
 	}
 
