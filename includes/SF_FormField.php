@@ -230,7 +230,9 @@ END;
 		} elseif ( !is_null( $template_field->getFieldType() ) ) {
 			$default_input_type = $sfgFormPrinter->getDefaultInputTypeCargo( $template_field->isList(), $template_field->getFieldType() );
 			$possible_input_types = $sfgFormPrinter->getPossibleInputTypesCargo( $template_field->isList(), $template_field->getFieldType() );
-		} else {
+		}
+
+		if ( $default_input_type == null && count( $possible_input_types ) == 0 ) {
 			$default_input_type = null;
 			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
 		}

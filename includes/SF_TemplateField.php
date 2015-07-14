@@ -151,7 +151,7 @@ class SFTemplateField {
 		// form input.
 		if ( $fieldDescription->mAllowedValues != null ) {
 			$this->mFieldType = 'Enumeration';
-		} elseif ( $fieldDescription->mType == 'Text' && $fieldDescription->mSize <= 100 ) {
+		} elseif ( $fieldDescription->mType == 'Text' && $fieldDescription->mSize != '' && $fieldDescription->mSize <= 100 ) {
 			$this->mFieldType = 'String';
 		} else {
 			$this->mFieldType = $fieldDescription->mType;
