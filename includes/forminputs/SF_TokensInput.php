@@ -82,7 +82,7 @@ class SFTokensInput extends SFFormInput {
 				$sfgEDSettings[$name]['title'] = $other_args['values from external data'];
 			}
 			if ( array_key_exists( 'image', $other_args ) ) {
-				$image_param =  $other_args['image'];
+				$image_param = $other_args['image'];
 				$sfgEDSettings[$name]['image'] = $image_param;
 				global $edgValues;
 				for ($i = 0; $i < count($edgValues[$image_param]); $i++) {
