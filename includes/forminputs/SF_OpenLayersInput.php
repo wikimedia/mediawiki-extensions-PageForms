@@ -21,7 +21,7 @@ class SFOpenLayersInput extends SFFormInput {
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array( 'Coordinates' );
+		return array( 'Coordinates' => array() );
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {

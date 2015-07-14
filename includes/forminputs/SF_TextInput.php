@@ -60,6 +60,7 @@ class SFTextInput extends SFFormInput {
 			'Float' => array( 'field_type' => 'number' ),
 			'URL' => array( 'field_type' => 'URL' ),
 			'Email' => array( 'field_type' => 'email' ),
+			'File' => array( 'field_type' => 'string', 'uploadable' => true ),
 			'String' => array( 'field_type' => 'string' )
 		);
 	}

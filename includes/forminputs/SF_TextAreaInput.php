@@ -19,6 +19,12 @@ class SFTextAreaInput extends SFFormInput {
         public static function getDefaultCargoTypes() {
                 return array( 'Text' => array() );
         }
+
+        public static function getDefaultCargoTypeLists() {
+                return array(
+                        'Text' => array( 'field_type' => 'text', 'is_list' => 'true' )
+                );
+        }
 	
 	/**
 	 * Constructor for the SFTextAreaInput class.
