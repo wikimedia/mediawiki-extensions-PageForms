@@ -5,7 +5,8 @@
 			"Event",
 			"Harald Khan",
 			"Laaknor",
-			"Nghtwlkr"
+			"Nghtwlkr",
+			"Emilbk"
 		]
 	},
 	"semanticforms-desc": "Skjemaer for å legge til og endre semantiske data",
@@ -132,6 +133,8 @@
 	"sf_formstart_noform_docu": "Skriv inn navnet på siden her, og velg hvilket skjema du vil bruke til å redigere den. Om siden finnes allerede, vil du bli tatt med til skjemaet for redigering av den siden. Hvis ikke vil du bli tatt med til skjemaet for å opprette siden.",
 	"sf_formstart_createoredit": "Opprett eller rediger",
 	"formedit": "Rediger med skjema",
+	"sf-formedit-selectform": "Velg et skjema for å opprette denne siden:",
+	"sf-formedit-donotuseform": "Opprett side uten skjema.",
 	"sf_formedit_createtitle": "Opprett $1: $2",
 	"sf_formedit_createtitlenotarget": "Opprett $1",
 	"sf_formedit_badurl": "Dette er siden for å redigere med et skjema. Du må angi både et skjemanavn og en målside i URL-en;\ndet burde se slik ut «Special:FormEdit?form=<skjemanavn>&target=<målside>», eller slik «Special:FormEdit/<skjemanavn>/<målside>».",
@@ -177,6 +180,7 @@
 	"sf_too_few_instances_error": "Det må være minst $1 forekomster av denne malen.",
 	"sf_too_many_instances_error": "Det kan ikke være flere enn $1 forekomster av denne malen.",
 	"sf_blank_error": "kan ikke være blank",
+	"sf_not_unique_error": "må være unik",
 	"sf_bad_url_error": "må ha korrekt URL-format, inkludert 'http'",
 	"sf_bad_email_error": "må ha gyldig format på e-postadressen",
 	"sf_bad_number_error": "må være et gyldig tall",
