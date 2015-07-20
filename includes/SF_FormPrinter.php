@@ -324,7 +324,7 @@ END;
 			// case- and spacing-insensitive.
 			// Also, keeping the "id=" attribute should not be
 			// necessary; but currently it is, for "show on select".
-			$section = preg_replace( '/ id="(.*?)" /', ' id="$1" data-origID="$1" ', $section );
+			$section = preg_replace( '/ id="(.*?)"/', ' id="$1" data-origID="$1" ', $section );
 
 			$text = "\t\t" . Html::rawElement( 'div',
 				array(
