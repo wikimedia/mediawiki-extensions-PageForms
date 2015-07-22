@@ -25,7 +25,7 @@
 	"sf-createproperty-with-name": "Crear la propiedad: $1",
 	"sf_createproperty_linktoform": "Esta propiedad vinculará a páginas que usen el formulario:",
 	"sf_createproperty_allowedvalsinput": "Para permitir solo ciertos valores, escríbelos separados por comas (si un valor contiene una coma, reemplázalo con \"\\,\"):",
-	"sf_createproperty_propname": "Nombre de propiedad:",
+	"sf_createproperty_propname": "Nombre de la propiedad:",
 	"sf_createproperty_proptype": "Tipo:",
 	"templates": "Plantillas",
 	"sf_templates_docu": "Las siguientes plantillas existen en el wiki.",
