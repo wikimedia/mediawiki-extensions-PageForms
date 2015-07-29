@@ -149,7 +149,7 @@
 	"sf_formedit_saveandcontinueediting": "저장하고 계속",
 	"sf_formedit_saveandcontinue_summary": "양식에서 \"$1\" 버튼을 사용하여 저장함",
 	"sf_formedit_tooltip_saveandcontinueediting": "데이터를 저장하고 편집을 계속하기",
-	"sf_autoedit_anoneditwarning": "'''주의''': 로그인하고 있지 않습니다. IP 주소가 문서 역사에 남게 됩니다.",
+	"sf_autoedit_anoneditwarning": "주의: 로그인하고 있지 않습니다. IP 주소가 문서의 편집 역사에 남게 됩니다.",
 	"sf_autoedit_success": "$2 양식을 사용하여 [[$1]] 문서를 성공적으로 수정했습니다.",
 	"sf_autoedit_fail": "[[$1]](을)를 수정하는 데 실패했습니다.",
 	"sf_autoedit_notargetspecified": "지정한 대상 문서가 없습니다.",

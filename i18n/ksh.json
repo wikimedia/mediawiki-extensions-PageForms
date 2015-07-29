@@ -106,7 +106,7 @@
 	"sf_runquery_title": "De Frooch „<code>$1</code>“ loufe lohße",
 	"sf_runquery_additionalquery": "Zohsäzlejje Frooch",
 	"sf_formerrors_header": "Mer han Fähler jefonge en däm, wat De enjejovve häß. Süsch doh:",
-	"sf_too_many_instances_error": "Mer künne nit mieh wi $1 Oproofe vun dä Schablohn han.",
+	"sf_too_many_instances_error": "Mer künne nit mih wi $1 Oprohfe vun dä Schablohn han.",
 	"sf_blank_error": "kam_mer nit leddisch lohße",
 	"sf_not_unique_error": "darf blohß eijmohl vörkumme",
 	"sf_bad_url_error": "moß et reschteje Fomaat för en <i lang=\"en\">URL</i> han un moß met <code>http</code> aanfange",
