@@ -41,7 +41,7 @@ if ( defined( 'SF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SF_VERSION', '3.3.1' );
+define( 'SF_VERSION', '3.3.2' );
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	// SMW defines these namespaces itself.
