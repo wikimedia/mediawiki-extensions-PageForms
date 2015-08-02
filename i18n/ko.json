@@ -169,7 +169,7 @@
 	"sf_runquery_badurl": "URL에 양식 이름을 지정해야 합니다.\nURL은 \"Special:RunQuery/<양식 이름>\"같이 보여야 합니다.",
 	"sf_runquery_title": "쿼리 실행: $1",
 	"sf_runquery_additionalquery": "추가 쿼리",
-	"sf_formerrors_header": "양식 입력에 오류가 났습니다. 아래를 참고하세요.",
+	"sf_formerrors_header": "양식 입력에 오류가 났습니다. 아래를 보세요.",
 	"sf_too_few_instances_error": "이 틀의 적어도 {{PLURAL:$1|인스턴스 한 개|인스턴스 $1개}}가 있어야 합니다.",
 	"sf_too_many_instances_error": "이 틀의 {{PLURAL:$1|인스턴스 한 개|인스턴스 $1개}}보다 많지 않아야 합니다.",
 	"sf_blank_error": "비워둘 수 없습니다",
