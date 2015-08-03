@@ -208,7 +208,7 @@
 	"sf_property_allowedvals": "{{PLURAL:$1|El valor permitido para esta propiedad es|Los valores permitidos para esta propiedad son}}:",
 	"sf_template_docu": "Esta es la plantilla \"$1\". Debe llamarse en el siguiente formato:",
 	"sf_template_docufooter": "Editar la página para ver el texto de la plantilla.",
-	"sf_form_docu": "Este es el formulario ''$1''.\nPara crear una página con este formulario, ingrese el nombre de la página a continuación; si la página con ese nombre ya existe, será dirigido al formulario para editar esa página.",
+	"sf_form_docu": "Este es el formulario \"$1\".\nPara crear una página con este formulario, escribe el nombre de la página a continuación;\nsi ya existe una página con ese nombre, serás dirigido a un formulario para editar esa página.",
 	"sf_form_freetextlabel": "Texto libre",
 	"sf_category_hasdefaultform": "Esta categoría usa el formulario $1.",
 	"sf_category_desc": "Esta es la categoría $1.",
