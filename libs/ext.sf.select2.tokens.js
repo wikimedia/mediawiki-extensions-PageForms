@@ -133,6 +133,23 @@
 
 		return opts;
 	};
+
+	/*
+	 * Helper function used in getting data via the External Data
+	 * extension - if it gets XPath data, the data will appear in
+	 * a compound form, so we need to extract the actual text value.
+	 */
+	tokens_proto.getExternalValue = function( externalValue ) {
+		if ( typeof( externalValue ) == 'object' ) {
+			for ( var key in externalValue ) {
+				for ( var key2 in externalValue[key] ) {
+					return externalValue[key][key2];
+				}
+			}
+		}
+		return externalValue;
+	};
+
 	/*
 	 * Returns data to be used by select2 for tokens autocompletion
 	 *
@@ -144,6 +161,7 @@
 		var input_id = "#" + this.id;
 		var values = [];
 		var data;
+		var get_external_val = this.getExternalValue;
 		var dep_on = this.dependentOn();
 		if ( dep_on === null ) {
 			if ( autocompletesettings == 'external data' ) {
@@ -156,8 +174,9 @@
 					var i = 0;
 					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
+							var curTitle = get_external_val( data.title[i] );
 							values.push({
-						        id: i + 1, text: data.title[i]
+						        id: i + 1, text: curTitle
 						    });
 						    i++;
 						});
@@ -167,7 +186,7 @@
 						i = 0;
 						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
-								values[i].image = data.image[i];
+								values[i].image = get_external_val( data.image[i] );
 								i++;
 							});
 						}
@@ -177,7 +196,7 @@
 						i = 0;
 						if ( data.description !== undefined && data.description !== null ) {
 							data.description.forEach(function() {
-								values[i].description = data.description[i];
+								values[i].description = get_external_val( data.description[i] );
 								i++;
 							});
 						}
