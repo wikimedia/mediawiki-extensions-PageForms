@@ -90,23 +90,6 @@
 
 		return opts;
 	};
-
-	/*
-	 * Helper function used in getting data via the External Data
-	 * extension - if it gets XPath data, the data will appear in
-	 * a compound form, so we need to extract the actual text value.
-	 */
-	combobox_proto.getExternalValue = function( externalValue ) {
-		if ( typeof( externalValue ) == 'object' ) {
-			for ( var key in externalValue ) {
-				for ( var key2 in externalValue[key] ) {
-					return externalValue[key][key2];
-				}
-			}
-		}
-		return externalValue;
-	};
-
 	/*
 	 * Returns data to be used by select2 for combobox autocompletion
 	 *
@@ -117,9 +100,8 @@
 	combobox_proto.getData = function( autocompletesettings ) {
 		var input_id = "#" + this.id;
 		var values = [{id: 0, text: ""}];
-		var i, data;
-		var get_external_val = this.getExternalValue;
 		var dep_on = this.dependentOn();
+		var i, data;
 		if ( dep_on === null ) {
 			if ( autocompletesettings == 'external data' ) {
 				var name = $(input_id).attr(this.nameAttr($(input_id)));
@@ -131,9 +113,8 @@
 					i = 0;
 					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
-							var curTitle = get_external_val( data.title[i] );
 							values.push({
-							id: i + 1, text: curTitle
+							id: i + 1, text: data.title[i]
 						    });
 						    i++;
 						});
@@ -143,7 +124,7 @@
 						i = 0;
 						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
-								values[i+1].image = get_external_val( data.image[i] );
+								values[i+1].image = data.image[i];
 								i++;
 							});
 						}
@@ -153,7 +134,7 @@
 						i = 0;
 						if ( data.description !== undefined && data.description !== null ) {
 							data.description.forEach(function() {
-								values[i+1].description = get_external_val( data.description[i] );
+								values[i+1].description = data.description[i];
 								i++;
 							});
 						}
