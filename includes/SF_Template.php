@@ -355,13 +355,13 @@ END;
 					$tableText .= "|-\n";
 				}
 				$tableText .= <<<END
-! $this->mAggregatingLabel
+! $this->mAggregationLabel
 | 
 END;
 			} elseif ( $this->mTemplateFormat == 'plain' ) {
-				$tableText .= "\n'''" . $this->mAggregatingLabel . ":''' ";
+				$tableText .= "\n'''" . $this->mAggregationLabel . ":''' ";
 			} elseif ( $this->mTemplateFormat == 'sections' ) {
-				$tableText .= "\n==" . $this->mAggregatingLabel . "==\n";
+				$tableText .= "\n==" . $this->mAggregationLabel . "==\n";
 			}
 			$tableText .= "{{#ask:[[" . $this->mAggregatingProperty . "::{{SUBJECTPAGENAME}}]]|format=list}}\n";
 		}
