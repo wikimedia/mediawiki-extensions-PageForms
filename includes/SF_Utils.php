@@ -814,22 +814,13 @@ END;
 	}
 
 	/**
-	 * Gets the word in the wiki's language, as defined in Semantic
-	 * MediaWiki, for either the value 'yes' or 'no'.
+	 * Gets the word in the wiki's language for either the value 'yes' or
+	 * 'no'.
 	 */
 	public static function getWordForYesOrNo( $isYes ) {
-		$wordsMsg = ( $isYes ) ? 'smw_true_words' : 'smw_false_words';
-		$possibleWords = explode( ',', wfMessage( $wordsMsg )->inContentLanguage()->text() );
-		// Get the value in the series that tends to be "yes" or "no" -
-		// generally, that's the third word.
-		$preferredIndex = 2;
-		if ( count( $possibleWords ) > $preferredIndex ) {
-			return ucwords( $possibleWords[$preferredIndex] );
-		} elseif ( count( $possibleWords ) > 0 ) {
-			return ucwords( $possibleWords[0] );
-		}
-		// If no values are found, just return a number.
-		 return ( $isYes ) ? '1' : '0';
+		// @TODO - should Semantic Forms define these messages itself?
+		$message = $isYes ? 'htmlform-yes' : 'htmlform-no';
+		return wfMessage( $message )->inContentLanguage()->text();
 	}
 
 	/**
