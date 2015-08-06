@@ -477,11 +477,6 @@ $GLOBALS['sfgShowTabsForAllHelperForms'] = true;
 $GLOBALS['sfgRunQueryFormAtTop'] = false;
 
 # ##
-# Page properties, used for the API
-# ##
-$GLOBALS['wgPageProps']['formdefinition'] = 'Definition of the semantic form used on the page';
-
-# ##
 # Global variables for Javascript
 # ##
 $GLOBALS['sfgShowOnSelect'] = array();
