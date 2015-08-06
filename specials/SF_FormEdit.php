@@ -168,7 +168,7 @@ class SFFormEdit extends UnlistedSpecialPage {
 
 		$text .= '<form name="createbox" id="sfForm" method="post" class="createbox">';
 		$pre_form_html = '';
-		wfRunHooks( 'sfHTMLBeforeForm', array( &$targetTitle, &$pre_form_html ) );
+		Hooks::run( 'sfHTMLBeforeForm', array( &$targetTitle, &$pre_form_html ) );
 		$text .= $pre_form_html;
 		if ( isset( $result[ 'formHTML' ] ) ) {
 			$text .= $result[ 'formHTML' ];

@@ -105,7 +105,7 @@ class SFTemplate {
 	 * extension.
 	 */
 	public function createText() {
-		wfRunHooks( 'SFCreateTemplateText', array( &$this ) );
+		Hooks::run( 'SFCreateTemplateText', array( &$this ) );
 		$templateHeader = wfMessage( 'sf_template_docu', $this->mTemplateName )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
@@ -187,9 +187,9 @@ END;
 			$separator = '';
 
 			$fieldStart = $this->mFieldStart;
-			wfRunHooks('SFTemplateFieldStart', array( $field, &$fieldStart ) );
+			Hooks::run('SFTemplateFieldStart', array( $field, &$fieldStart ) );
 			$fieldEnd = $this->mFieldEnd;
-			wfRunHooks('SFTemplateFieldEnd', array( $field, &$fieldEnd ) );
+			Hooks::run('SFTemplateFieldEnd', array( $field, &$fieldEnd ) );
 
 			$fieldLabel = $field->getLabel();
 			if ( $fieldLabel == '' ) {

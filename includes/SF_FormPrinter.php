@@ -63,7 +63,7 @@ class SFFormPrinter {
 		}
 
 		// All-purpose setup hook.
-		wfRunHooks( 'sfFormPrinterSetup', array( $this ) );
+		Hooks::run( 'sfFormPrinterSetup', array( $this ) );
 	}
 
 	public function setSemanticTypeHook( $type, $is_list, $function_name, $default_args ) {
@@ -543,7 +543,7 @@ END;
 				$permissionErrors = array( array( 'readonlytext', array ( wfReadOnlyReason() ) ) );
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
-			wfRunHooks( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
+			Hooks::run( 'sfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
 		}
 		$form_text = "";
 		if ( $is_query || $userCanEditPage ) {
@@ -1355,12 +1355,12 @@ END;
 						// separate calls, because of the different variable names in
 						// each case
 						if ( $form_submitted ) {
-							wfRunHooks( 'sfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
+							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
 							if ( !empty( $cur_value ) && array_key_exists( 'mapping template', $field_args ) ) {
 								$cur_value = SFUtils::valuesToLabels( $cur_value, $field_args['mapping template'], $delimiter, $possible_values );
 							}
-							wfRunHooks( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
+							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
@@ -1889,10 +1889,10 @@ END;
 		}
 
 		// The first hook here is deprecated. Use the second.
-		// Note: wfRunHooks can take a third argument which indicates a deprecated hook, but it
+		// Note: Hooks::run can take a third argument which indicates a deprecated hook, but it
 		// expects a MediaWiki version, not an extension version.
-		wfRunHooks( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
-		wfRunHooks( 'sfBeforeFreeTextSubstitution',
+		Hooks::run( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
+		Hooks::run( 'sfBeforeFreeTextSubstitution',
 			array( &$free_text, $existing_page_content, &$data_text ) );
 
 		// now that we have it, substitute free text into the form and page
@@ -1929,11 +1929,11 @@ END;
 
 		$form_text .= "\t</form>\n";
 		$wgParser->replaceLinkHolders( $form_text );
-		wfRunHooks( 'sfRenderingEnd', array( &$form_text ) );
+		Hooks::run( 'sfRenderingEnd', array( &$form_text ) );
 
 		// Add general Javascript code.
 		$javascript_text = "";
-		wfRunHooks( 'sfAddJavascriptToForm', array( &$javascript_text ) );
+		Hooks::run( 'sfAddJavascriptToForm', array( &$javascript_text ) );
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.

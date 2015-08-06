@@ -199,7 +199,7 @@ class SFFormLinker {
 
 				// Allow outside code to set/change the
 				// preloaded text.
-				wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $title, $form_title ) );
+				Hooks::run( 'sfEditFormPreloadText', array( &$preloadContent, $title, $form_title ) );
 
 				list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
 					$sfgFormPrinter->formHTML( $form_definition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );

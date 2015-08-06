@@ -225,7 +225,7 @@ class SFAutoeditAPI extends ApiBase {
 			$this->mOptions['target'] = $target->getPrefixedText();
 		}
 
-		wfRunHooks( 'sfSetTargetName', array( &$this->mOptions['target'], $hookQuery ) );
+		Hooks::run( 'sfSetTargetName', array( &$this->mOptions['target'], $hookQuery ) );
 
 		// set html return status. If all goes well, this will not be changed
 		$this->mStatus = 200;
@@ -404,14 +404,14 @@ class SFAutoeditAPI extends ApiBase {
 
 		$previewOutput = $editor->getPreviewText();
 
-		wfRunHooks( 'EditPage::showEditForm:initial', array( &$editor, &$wgOut ) );
+		Hooks::run( 'EditPage::showEditForm:initial', array( &$editor, &$wgOut ) );
 
 		$this->getOutput()->addStyle( 'common/IE80Fixes.css', 'screen', 'IE 8' );
 		$this->getOutput()->setRobotPolicy( 'noindex,nofollow' );
 
 		// This hook seems slightly odd here, but makes things more
 		// consistent for extensions.
-		wfRunHooks( 'OutputPageBeforeHTML', array( &$wgOut, &$previewOutput ) );
+		Hooks::run( 'OutputPageBeforeHTML', array( &$wgOut, &$previewOutput ) );
 
 		$this->getOutput()->addHTML( Html::rawElement( 'div', array( 'id' => 'wikiPreview' ), $previewOutput ) );
 
@@ -507,7 +507,7 @@ class SFAutoeditAPI extends ApiBase {
 				$sectionanchor = $resultDetails['sectionanchor'];
 
 				// Give extensions a chance to modify URL query on update
-				wfRunHooks( 'ArticleUpdateBeforeRedirect', array( $editor->getArticle(), &$sectionanchor, &$extraQuery ) );
+				Hooks::run( 'ArticleUpdateBeforeRedirect', array( $editor->getArticle(), &$sectionanchor, &$extraQuery ) );
 
 				if ( $resultDetails['redirect'] ) {
 					if ( $extraQuery == '' ) {
@@ -833,7 +833,7 @@ class SFAutoeditAPI extends ApiBase {
 		// Allow extensions to set/change the preload text, for new
 		// pages.
 		if ( !$pageExists ) {
-			wfRunHooks( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+			Hooks::run( 'sfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
 		}
 
 		// Flag to keep track of formHTML() runs.
@@ -913,7 +913,7 @@ class SFAutoeditAPI extends ApiBase {
 			}
 
 			// Lets other code process additional form-definition syntax
-			wfRunHooks( 'sfWritePageData', array( $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ) );
+			Hooks::run( 'sfWritePageData', array( $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ) );
 
 			$editor = $this->setupEditPage( $targetContent );
 

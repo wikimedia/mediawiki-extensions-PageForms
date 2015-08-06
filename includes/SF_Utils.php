@@ -277,7 +277,7 @@ END;
 	</script>
 
 END;
-		wfRunHooks( 'sfPrintRedirectForm', array( $is_save, $is_preview, $is_diff, &$text ) );
+		Hooks::run( 'sfPrintRedirectForm', array( $is_save, $is_preview, $is_diff, &$text ) );
 		return $text;
 	}
 
@@ -290,7 +290,7 @@ END;
 
 		$scripts = array();
 
-		wfRunHooks( 'sfAddJavascriptFiles', array( &$scripts ) );
+		Hooks::run( 'sfAddJavascriptFiles', array( &$scripts ) );
 
 		foreach ( $scripts as $js ) {
 			if ( $parser ) {
