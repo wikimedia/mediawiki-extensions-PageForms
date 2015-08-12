@@ -24,6 +24,10 @@ class SFTemplateInForm {
 		$templateFields[$cur_pos] = $templateField;
 	}
 
+	/**
+	 * @TODO - fix so that this function only gets called once per
+	 * template; right now it seems to get called once per field. (!)
+	 */
 	function getAllFields() {
 		$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
 		if ( !isset( $templateTitle ) ) {
@@ -168,13 +172,54 @@ class SFTemplateInForm {
 		// Ignore 'noinclude' sections and 'includeonly' tags.
 		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
 		$templateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
-		if ( preg_match_all( '/#cargo_store:(.*?}})\s*}}/mis', $templateText, $matches ) ) {
-			foreach ( $matches[1] as $match ) {
-				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
-					foreach ( $matches2[1] as $i => $cargoFieldName ) {
-						$templateParameter = trim( $matches2[2][$i] );
-						$cargoFieldsOfTemplateParams[$templateParameter] = $cargoFieldName;
-					}
+
+		// Let's find every #cargo_store tag.
+		// Unfortunately, it doesn't seem possible to use a regexp
+		// search for this, because it's hard to know which set of
+		// double brackets represents the end of such a call. Instead,
+		// we'll do some manual parsing.
+		$cargoStoreLocations = array();
+		$curPos = 0;
+		while ( true ) {
+			$newPos = strpos( $templateText, "#cargo_store:", $curPos );
+			if ( $newPos === false ) {
+				break;
+			}
+			$curPos = $newPos + 13;
+			$cargoStoreLocations[] = $curPos;
+		}
+
+		$cargoStoreCalls = array();
+		foreach ( $cargoStoreLocations as $locNum => $startPos ) {
+			$numUnclosedBrackets = 2;
+			if ( $locNum < count( $cargoStoreLocations ) - 1 ) {
+				$lastPos = $cargoStoreLocations[$locNum + 1];
+			} else {
+				$lastPos = strlen( $templateText ) - 1;
+			}
+			$curCargoStoreCall = '';
+			$curPos = $startPos;
+			while ( $curPos <= $lastPos ) {
+				$curChar = $templateText[$curPos];
+				$curCargoStoreCall .= $curChar;
+				if ( $curChar == '}' ) {
+					$numUnclosedBrackets--;
+				} elseif ( $curChar == '{' ) {
+					$numUnclosedBrackets++;
+				}
+				if ( $numUnclosedBrackets == 0 ) {
+					break;
+				}
+				$curPos++;
+			}
+			$cargoStoreCalls[] = $curCargoStoreCall;
+		}
+
+		foreach ( $cargoStoreCalls as $cargoStoreCall ) {
+			if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $cargoStoreCall, $matches ) ) {
+				foreach ( $matches[1] as $i => $cargoFieldName ) {
+					$templateParameter = trim( $matches[2][$i] );
+					$cargoFieldsOfTemplateParams[$templateParameter] = $cargoFieldName;
 				}
 			}
 		}
