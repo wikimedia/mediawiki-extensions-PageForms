@@ -9,6 +9,54 @@
 
 class SFUtils {
 
+
+	public static function registerExtension() {
+		global $wgScriptPath, $sfgScriptPath, $sfgIP;
+		global $sfgFormPrinter, $wgEditPageFrameOptions, $wgGroupPermissions, $smwgEnabledSpecialPage;
+
+		if ( !defined( 'SMW_VERSION' ) ) {
+			// SMW defines these namespaces itself.
+			define( 'SF_NS_FORM', 106 );
+			define( 'SF_NS_FORM_TALK', 107 );
+		}
+
+		$sfgPartialPath = '/extensions/SemanticForms';
+		$sfgScriptPath = $wgScriptPath . $sfgPartialPath;
+		$sfgIP = dirname( __FILE__ );
+
+		// Constants for special properties
+		define( 'SF_SP_HAS_DEFAULT_FORM', 1 );
+		define( 'SF_SP_HAS_ALTERNATE_FORM', 2 );
+		define( 'SF_SP_CREATES_PAGES_WITH_FORM', 3 );
+		define( 'SF_SP_PAGE_HAS_DEFAULT_FORM', 4 );
+		define( 'SF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
+
+		/**
+		 * This is a delayed init that makes sure that MediaWiki is set
+		 * up properly before we add our stuff.
+		 */
+		if ( defined( 'SMW_VERSION' ) ) {
+			$wgExtensionFunctions[] = function() {
+				// This global variable is needed so that other
+				// extensions can hook into it to add their own
+				// input types.
+				$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+			};
+		} else {
+			$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+		}
+
+		// Allow for popup windows for file upload
+		$wgEditPageFrameOptions = 'SAMEORIGIN';
+
+		$wgGroupPermissions['*']['viewedittab'] = true;
+		$wgGroupPermissions['sysop']['editrestrictedfields'] = true;
+		$wgGroupPermissions['user']['createclass'] = true;
+
+		// Necessary setting for SMW 1.9+
+		$smwgEnabledSpecialPage[] = 'RunQuery';
+	}
+
 	/**
 	 * Creates a link to a special page, using that page's top-level description as the link text.
 	 */

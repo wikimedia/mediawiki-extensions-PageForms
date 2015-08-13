@@ -1,0 +1,325 @@
+{
+	"name": "Semantic Forms",
+	"version": "3.3.2",
+	"author": [
+		"Yaron Koren",
+		"Stephan Gambke",
+		"..."
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:Semantic_Forms",
+	"descriptionmsg": "semanticforms-desc",
+	"type": "specialpage",
+	"callback": "SFUtils::registerExtension",
+	"AvailableRights": [
+		"viewedittab",
+		"editrestrictedfields",
+		"createclass"
+	],
+	"SpecialPages": {
+		"Forms": "SFForms",
+		"CreateForm": "SFCreateForm",
+		"Templates": "SFTemplates",
+		"CreateTemplate": "SFCreateTemplate",
+		"CreateProperty": "SFCreateProperty",
+		"CreateClass": "SFCreateClass",
+		"CreateCategory": "SFCreateCategory",
+		"FormStart": "SFFormStart",
+		"FormEdit": "SFFormEdit",
+		"RunQuery": "SFRunQuery",
+		"UploadWindow": "SFUploadWindow"
+	},
+	"JobClasses": {
+		"createPage": "SFCreatePageJob"
+	},
+	"APIModules": {
+		"sfautocomplete": "SFAutocompleteAPI",
+		"sfautoedit": "SFAutoeditAPI"
+	},
+	"MessagesDirs": {
+		"SemanticForms": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"SemanticFormsMagic": "languages/SF_Magic.php"
+	},
+	"AutoloadClasses": {
+		"SFForms": "specials/SF_Forms.php",
+		"SFCreateForm": "specials/SF_CreateForm.php",
+		"SFTemplates": "specials/SF_Templates.php",
+		"SFCreateTemplate": "specials/SF_CreateTemplate.php",
+		"SFCreateClass": "specials/SF_CreateClass.php",
+		"SFCreateCategory": "specials/SF_CreateCategory.php",
+		"SFFormStart": "specials/SF_FormStart.php",
+		"SFFormEdit": "specials/SF_FormEdit.php",
+		"SFRunQuery": "specials/SF_RunQuery.php",
+		"SFUploadForm": "specials/SF_UploadWindow.php",
+		"SFUploadSourceField": "specials/SF_UploadWindow.php",
+		"SFUploadWindow": "specials/SF_UploadWindow.php",
+		"SFTemplateField": "includes/SF_TemplateField.php",
+		"TemplatesPage": "specials/SF_Templates.php",
+		"FormsPage": "specials/SF_Forms.php",
+		"SFForm": "includes/SF_Form.php",
+		"SFTemplate": "includes/SF_Template.php",
+		"SFTemplateInForm": "includes/SF_TemplateInForm.php",
+		"SFFormField": "includes/SF_FormField.php",
+		"SFFormPrinter": "includes/SF_FormPrinter.php",
+		"SFFormUtils": "includes/SF_FormUtils.php",
+		"SFUtils": "includes/SF_Utils.php",
+		"SFFormLinker": "includes/SF_FormLinker.php",
+		"SFPageSchemas": "includes/SF_PageSchemas.php",
+		"SFParserFunctions": "includes/SF_ParserFunctions.php",
+		"SFAutocompleteAPI": "includes/SF_AutocompleteAPI.php",
+		"SFAutoeditAPI": "includes/SF_AutoeditAPI.php",
+		"SFFormEditAction": "includes/SF_FormEditAction.php",
+		"SFHelperFormAction": "includes/SF_HelperFormAction.php",
+		"SFPageSection": "includes/SF_PageSection.php",
+		"SFFormInput": "includes/forminputs/SF_FormInput.php",
+		"SFTextInput": "includes/forminputs/SF_TextInput.php",
+		"SFTextWithAutocompleteInput": "includes/forminputs/SF_TextWithAutocompleteInput.php",
+		"SFTextAreaInput": "includes/forminputs/SF_TextAreaInput.php",
+		"SFTextAreaWithAutocompleteInput": "includes/forminputs/SF_TextAreaWithAutocompleteInput.php",
+		"SFEnumInput": "includes/forminputs/SF_EnumInput.php",
+		"SFMultiEnumInput": "includes/forminputs/SF_MultiEnumInput.php",
+		"SFCheckboxInput": "includes/forminputs/SF_CheckboxInput.php",
+		"SFCheckboxesInput": "includes/forminputs/SF_CheckboxesInput.php",
+		"SFRadioButtonInput": "includes/forminputs/SF_RadioButtonInput.php",
+		"SFDropdownInput": "includes/forminputs/SF_DropdownInput.php",
+		"SFListBoxInput": "includes/forminputs/SF_ListBoxInput.php",
+		"SFComboBoxInput": "includes/forminputs/SF_ComboBoxInput.php",
+		"SFDateInput": "includes/forminputs/SF_DateInput.php",
+		"SFDateTimeInput": "includes/forminputs/SF_DateTimeInput.php",
+		"SFYearInput": "includes/forminputs/SF_YearInput.php",
+		"SFTreeInput": "includes/forminputs/SF_TreeInput.php",
+		"SFTree": "includes/forminputs/SF_TreeInput.php",
+		"SFCategoryInput": "includes/forminputs/SF_CategoryInput.php",
+		"SFCategoriesInput": "includes/forminputs/SF_CategoriesInput.php",
+		"SFTokensInput": "includes/forminputs/SF_TokensInput.php",
+		"SFGoogleMapsInput": "includes/forminputs/SF_GoogleMapsInput.php",
+		"SFOpenLayersInput": "includes/forminputs/SF_OpenLayersInput.php",
+		"SFCreatePageJob": "includes/SF_CreatePageJob.php"
+	},
+	"ResourceModules": {
+		"ext.semanticforms.main": {
+			"scripts": [
+				"libs/SemanticForms.js",
+				"libs/SF_preview.js"
+			],
+			"styles": [
+				"skins/SemanticForms.css",
+				"skins/SF_jquery_ui_overrides.css"
+			],
+			"dependencies": [
+				"jquery.ui.core",
+				"jquery.ui.autocomplete",
+				"jquery.ui.button",
+				"jquery.ui.sortable",
+				"jquery.ui.widget",
+				"ext.semanticforms.fancybox",
+				"ext.semanticforms.autogrow",
+				"mediawiki.util",
+				"ext.semanticforms.select2"
+			],
+			"messages": [
+				"sf_formerrors_header",
+				"sf_too_few_instances_error",
+				"sf_too_many_instances_error",
+				"sf_blank_error",
+				"sf_not_unique_error",
+				"sf_bad_url_error",
+				"sf_bad_email_error",
+				"sf_bad_number_error"
+			]
+		},
+		"ext.semanticforms.browser": {
+			"scripts": [
+				"libs/jquery.browser.js"
+			]
+		},
+		"ext.semanticforms.fancybox": {
+			"scripts": "libs/jquery.fancybox.js",
+			"styles": "skins/jquery.fancybox.css",
+			"dependencies": [
+				"ext.semanticforms.browser"
+			]
+		},
+		"ext.semanticforms.dynatree": {
+			"dependencies": [
+				"jquery.ui.widget"
+			],
+			"scripts": [
+				"libs/jquery.dynatree.js",
+				"libs/ext.dynatree.js"
+			],
+			"styles": "skins/ui.dynatree.css"
+		},
+		"ext.semanticforms.autogrow": {
+			"scripts": [
+				"libs/SF_autogrow.js"
+			]
+		},
+		"ext.semanticforms.popupformedit": {
+			"scripts": "libs/SF_popupform.js",
+			"styles": "skins/SF_popupform.css",
+			"dependencies": [
+				"ext.semanticforms.browser"
+			]
+		},
+		"ext.semanticforms.autoedit": {
+			"scripts": "libs/SF_autoedit.js",
+			"styles": "skins/SF_autoedit.css",
+			"messages": [
+				"sf-autoedit-wait",
+				"sf_autoedit_anoneditwarning"
+			]
+		},
+		"ext.semanticforms.submit": {
+			"scripts": [
+				"libs/SF_submit.js"
+			],
+			"styles": [
+				"skins/SF_submit.css"
+			],
+			"messages": [
+				"sf_formedit_saveandcontinue_summary",
+				"sf_formedit_saveandcontinueediting"
+			]
+		},
+		"ext.semanticforms.collapsible": {
+			"scripts": [
+				"libs/SF_collapsible.js"
+			],
+			"styles": [
+				"skins/SF_collapsible.css"
+			]
+		},
+		"ext.semanticforms.imagepreview": {
+			"scripts": [
+				"libs/SF_imagePreview.js"
+			]
+		},
+		"ext.semanticforms.checkboxes": {
+			"scripts": [
+				"libs/SF_checkboxes.js"
+			],
+			"styles": [
+				"skins/SF_checkboxes.css"
+			],
+			"messages": [
+				"sf_forminputs_checkboxes_select_all",
+				"sf_forminputs_checkboxes_select_none"
+			]
+		},
+		"ext.semanticforms.select2": {
+			"scripts": [
+				"libs/select2.js",
+				"libs/ext.sf.select2.base.js",
+				"libs/ext.sf.select2.combobox.js",
+				"libs/ext.sf.select2.tokens.js"
+			],
+			"styles": [
+				"skins/select2/select2.css",
+				"skins/select2/select2-bootstrap.css",
+				"skins/ext.sf.select2.css"
+			],
+			"dependencies": [
+				"ext.semanticforms",
+				"mediawiki.jqueryMsg"
+			],
+			"messages": [
+				"sf-select2-no-matches",
+				"sf-select2-searching",
+				"sf-select2-input-too-short",
+				"sf-select2-selection-too-big"
+			]
+		},
+		"ext.semanticforms.maps": {
+			"scripts": [
+				"libs/SF_maps.js"
+			]
+		},
+		"ext.semanticforms": {
+			"scripts": [
+				"libs/ext.sf.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "SemanticForms"
+	},
+	"Hooks": {
+		"LinkEnd": [
+			"SFFormLinker::setBrokenLink"
+		],
+		"SkinTemplateTabs": [
+			"SFFormEditAction::displayTab",
+			"SFHelperFormAction::displayTab"
+		],
+		"SkinTemplateNavigation": [
+			"SFFormEditAction::displayTab2",
+			"SFHelperFormAction::displayTab2"
+		],
+		"smwInitProperties": [
+			"SFUtils::initProperties"
+		],
+		"ArticlePurge": [
+			"SFFormUtils::purgeCache"
+		],
+		"ArticleSave": [
+			"SFFormUtils::purgeCache"
+		],
+		"ParserFirstCallInit": [
+			"SFParserFunctions::registerFunctions"
+		],
+		"MakeGlobalVariablesScript": [
+			"SFFormUtils::setGlobalJSVariables"
+		],
+		"PageSchemasRegisterHandlers": [
+			"SFPageSchemas::registerClass"
+		],
+		"EditPage::importFormData": [
+			"SFUtils::showFormPreview"
+		],
+		"CanonicalNamespaces": [
+			"SFUtils::registerNamespaces"
+		],
+		"UnitTestsList": [
+			"SFUtils::onUnitTestsList"
+		],
+		"ResourceLoaderRegisterModules": [
+			"SFUtils::registerModules"
+		],
+		"AdminLinks": [
+			"SFUtils::addToAdminLinks"
+		]
+	},
+	"Actions": {
+		"formedit": "SFFormEditAction",
+		"formcreate": "SFHelperFormAction"
+	},
+	"config": {
+		"sfgMaxAutocompleteValues": 1000,
+		"sfgMaxLocalAutocompleteValues": 100,
+		"sfgAutocompleteOnAllChars": false,
+		"sfgCacheAutocompleteValues": false,
+		"sfgAutocompleteCacheTimeout": null,
+		"sfgRenameEditTabs": false,
+		"sfgRenameMainEditTab": false,
+		"sfgListSeparator": ",",
+		"sfg24HourTime": false,
+		"sfgCacheFormDefinitions": false,
+		"sfgFormCacheType": null,
+		"sfgLinkAllRedLinksToForms": false,
+		"sfgRedLinksCheckOnlyLocalProps": false,
+		"sfgShowTabsForAllHelperForms": true,
+		"sfgRunQueryFormAtTop": false,
+		"sfgShowOnSelect": [],
+		"sfgAutocompleteValues": [],
+		"sfgFieldProperties": [],
+		"sfgCargoFields": [],
+		"sfgDependentFields": [],
+		"sfgCheckboxesSelectAllMinimum": 10
+	},
+	"manifest_version": 1
+}
