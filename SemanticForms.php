@@ -49,7 +49,7 @@ if ( !defined( 'SMW_VERSION' ) ) {
 	define( 'SF_NS_FORM_TALK', 107 );
 }
 
-$GLOBALS['wgExtensionCredits'][defined( 'SEMANTIC_EXTENSION_TYPE' ) ? 'semantic' : 'specialpage'][] = array(
+$GLOBALS['wgExtensionCredits']['specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'Semantic Forms',
 	'version' => SF_VERSION,
