@@ -86,15 +86,17 @@ define( 'SF_SP_CREATES_PAGES_WITH_FORM', 3 );
 define( 'SF_SP_PAGE_HAS_DEFAULT_FORM', 4 );
 define( 'SF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
 
-/**
- * This is a delayed init that makes sure that MediaWiki is set up
- * properly before we add our stuff.
- */
-$GLOBALS['wgExtensionFunctions'][] = function() {
-	// This global variable is needed so that other extensions can hook
-	// into it to add their own input types.
+// Sometimes this call needs to be delayed, and sometimes it shouldn't be
+// delayed. Is it just the precense of SMW that dictates which one's the case??
+if ( defined( 'SMW_VERSION' ) ) {
+	$GLOBALS['wgExtensionFunctions'][] = function() {
+		// This global variable is needed so that other extensions can
+		// hook into it to add their own input types.
+		$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+	};
+} else {
 	$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
-};
+}
 
 $GLOBALS['wgHooks']['LinkEnd'][] = 'SFFormLinker::setBrokenLink';
 // 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
@@ -113,12 +115,16 @@ $GLOBALS['wgHooks']['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
 $GLOBALS['wgHooks']['UnitTestsList'][] = 'SFUtils::onUnitTestsList';
 $GLOBALS['wgHooks']['ResourceLoaderRegisterModules'][] = 'SFUtils::registerModules';
 
-// Admin Links hook needs to be called in a delayed way so that it
-// will always be called after SMW's Admin Links addition; as of
-// SMW 1.9, SMW delays calling all its hook functions.
-$GLOBALS['wgExtensionFunctions'][] = function() {
+if ( defined( 'SMW_VERSION' ) ) {
+	// Admin Links hook needs to be called in a delayed way so that it
+	// will always be called after SMW's Admin Links addition; as of
+	// SMW 1.9, SMW delays calling all its hook functions.
+	$GLOBALS['wgExtensionFunctions'][] = function() {
+		$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+	};
+} else {
 	$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
-};
+}
 
 // New "actions"
 $GLOBALS['wgActions']['formedit'] = 'SFFormEditAction';
