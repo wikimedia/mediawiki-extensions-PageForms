@@ -1262,6 +1262,7 @@ END;
 						'ext.semanticforms.main',
 						'jquery.wikiEditor',
 					),
+					'position' => 'top'
 				),
 			) );
 		}
