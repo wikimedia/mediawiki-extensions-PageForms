@@ -1081,8 +1081,15 @@ END;
 						$possible_values = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
 					}
 
-					if ( !is_null( $possible_values ) && array_key_exists( 'mapping template', $field_args ) ) {
-						$possible_values = SFUtils::getLabels( $possible_values, $field_args['mapping template'] );
+					if ( !is_null( $possible_values ) ) {
+						if ( array_key_exists( 'mapping template', $field_args ) ) {
+							$possible_values = SFUtils::getLabelsFromTemplate( $possible_values, $field_args['mapping template'] );
+						} elseif ( array_key_exists( 'mapping property', $field_args ) ) {
+							$possible_values = SFUtils::getLabelsFromProperty( $possible_values, $field_args['mapping property'] );
+						} elseif ( array_key_exists( 'mapping cargo table', $field_args ) &&
+							array_key_exists( 'mapping cargo field', $field_args ) ) {
+							$possible_values = SFUtils::getLabelsFromCargoField( $possible_values, $field_args['mapping cargo table'], $field_args['mapping cargo field'] );
+						}
 					}
 					// Backwards compatibility
 					if ( $input_type == 'datetime with timezone' ) {
@@ -1127,21 +1134,21 @@ END;
 							$field_query_val = $template_instance_query_values[$field_name];
 						}
 						if ( $form_submitted && $field_query_val != '' ) {
-							$mapping_template = null;
-							if ( array_key_exists( 'mapping_template', $template_instance_query_values ) &&
-								array_key_exists( $field_name, $template_instance_query_values['mapping_template'] ) ) {
-								$mapping_template = $template_instance_query_values['mapping_template'][$field_name];
+							$map_field = false;
+							if ( array_key_exists( 'map_field', $template_instance_query_values ) &&
+								array_key_exists( $field_name, $template_instance_query_values['map_field'] ) ) {
+								$map_field = true;
 							}
 							if ( is_array( $field_query_val ) ) {
 								$cur_values = array();
-								if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
+								if ( $map_field && !is_null( $possible_values ) ) {
 									$cur_values = array();
 									foreach ( $field_query_val as $key => $val ) {
 										$val = trim( $val );
 										if ( $key === 'is_list' ) {
 											$cur_values[$key] = $val;
 										} else {
-											$cur_values[] = SFUtils::labelToValue( $val, $possible_values, $mapping_template );
+											$cur_values[] = SFUtils::labelToValue( $val, $possible_values );
 										}
 									}
 								} else {
@@ -1152,7 +1159,7 @@ END;
 								$cur_value = $this->getStringFromPassedInArray( $cur_values, $delimiter );
 							} else {
 								$field_query_val = trim( $field_query_val );
-								if ( !is_null( $mapping_template ) && !is_null( $possible_values ) ) {
+								if ( $map_field && !is_null( $possible_values ) ) {
 									// this should be replaced with an input type neutral way of
 									// figuring out if this scalar input type is a list
 									if ( $input_type == "tokens" ) {
@@ -1161,11 +1168,11 @@ END;
 									if ( $is_list ) {
 										$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
 										foreach ( $cur_values as $key => $value ) {
-											$cur_values[$key] = SFUtils::labelToValue( $value, $possible_values, $mapping_template );
+											$cur_values[$key] = SFUtils::labelToValue( $value, $possible_values );
 										}
 										$cur_value = implode( $delimiter, $cur_values );
 									} else {
-										$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values, $mapping_template );
+										$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values );
 									}
 								} else {
 									$cur_value = $field_query_val;
@@ -1357,8 +1364,12 @@ END;
 						if ( $form_submitted ) {
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
-							if ( !empty( $cur_value ) && array_key_exists( 'mapping template', $field_args ) ) {
-								$cur_value = SFUtils::valuesToLabels( $cur_value, $field_args['mapping template'], $delimiter, $possible_values );
+							if ( !empty( $cur_value ) &&
+								( array_key_exists( 'mapping template', $field_args ) ||
+								array_key_exists( 'mapping property', $field_args ) ||
+								( array_key_exists( 'mapping cargo table', $field_args ) &&
+								array_key_exists( 'mapping cargo field', $field_args ) ) ) ) {
+								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $possible_values );
 							}
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
@@ -1464,11 +1475,14 @@ END;
 							}
 						}
 
-						if ( array_key_exists( 'mapping template', $field_args ) ) {
+						if ( array_key_exists( 'mapping template', $field_args ) ||
+							array_key_exists( 'mapping property', $field_args ) ||
+							( array_key_exists( 'mapping cargo table', $field_args ) &&
+							array_key_exists( 'mapping cargo field', $field_args ) ) ) {
 							if ( $allow_multiple ) {
-								$new_text .= Html::hidden( $template_name . '[num][mapping_template][' . $field_name . ']', $field_args['mapping template'] );
+								$new_text .= Html::hidden( $template_name . '[num][map_field][' . $field_name . ']', 'true' );
 							} else {
-								$new_text .= Html::hidden( $template_name . '[mapping_template][' . $field_name . ']', $field_args['mapping template'] );
+								$new_text .= Html::hidden( $template_name . '[map_field][' . $field_name . ']', 'true' );
 							}
 						}
 

@@ -170,6 +170,7 @@ class SFUtils {
 		}
 		return $values;
 	}
+
 	/**
 	 * Helper function - gets names of categories for a page;
 	 * based on Title::getParentCategories(), but simpler
@@ -440,8 +441,15 @@ END;
 	 * Used with the Cargo extension
 	 */
 	public static function getAllValuesForCargoField( $tableName, $fieldName ) {
+		return self::getValuesForCargoField( $tableName, $fieldName );
+	}
+
+	/**
+	 * Used with the Cargo extension
+	 */
+	public static function getValuesForCargoField( $tableName, $fieldName, $whereStr = null ) {
 		$limitStr = 200;
-		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr = null, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );
+		$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );
 		$queryResults = $sqlQuery->run();
 		$values = array();
 		// Field names starting with a '_' are special fields -
@@ -691,7 +699,7 @@ END;
 	 * Helper function to get an array of labels from an array of values
 	 * given a mapping template.
 	 */
-	public static function getLabels( $values, $templateName ) {
+	public static function getLabelsFromTemplate( $values, $templateName ) {
 		global $wgParser;
 		$labels = array();
 		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
@@ -709,6 +717,52 @@ END;
 				$labels[$value] = $value;
 			}
 		}
+		return SFUtils::disambiguateLabels( $labels );
+	}
+
+	/**
+	 * Helper function to get an array of labels from an array of values
+	 * given a mapping property.
+	 */
+	public static function getLabelsFromProperty( $values, $propertyName ) {
+		$labels = array();
+		foreach ( $values as $value ) {
+			$labels[$value] = $value;
+			$store = SFUtils::getSMWStore();
+			if ( $store != null ) {
+				$subject = Title::newFromText( $value );
+				if ( $subject != null ) {
+					$vals = self::getSMWPropertyValues( $store, $subject, $propertyName );
+					if ( count( $vals ) > 0 ) {
+						$labels[$value] = $vals[0];
+					}
+				}
+			}
+		}
+		return SFUtils::disambiguateLabels( $labels );
+	}
+
+	/**
+	 * Helper function to get an array of labels from an array of values
+	 * given a mapping Cargo table/field.
+	 */
+	public static function getLabelsFromCargoField( $values, $tableName, $fieldName ) {
+		$labels = array();
+		foreach ( $values as $value ) {
+			$labels[$value] = $value;
+			$vals = self::getValuesForCargoField( $tableName, $fieldName, '_pageName="' . $value . '"' );
+			if ( count( $vals ) > 0 ) {
+				$labels[$value] = $vals[0];
+			}
+		}
+		return SFUtils::disambiguateLabels( $labels );
+	}
+
+
+	/**
+	 * Private function to disambiguate labels.
+	 */
+	private static function disambiguateLabels( $labels ) {
 		asort($labels);
 		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
 			return $labels;
@@ -738,7 +792,7 @@ END;
 	/**
 	 * Helper function to use mapping template to turn label back into value
 	 */
-	public static function labelToValue( $label, $possible_values, $templateName ) {
+	public static function labelToValue( $label, $possible_values ) {
 		$value = array_search( $label, $possible_values );
 		if ( $value === false ) {
 			return $label;
@@ -750,7 +804,7 @@ END;
 	/**
 	 * Helper function to map the current value with the mapping template, if the mapping template is set
 	 */
-	public static function valuesToLabels( $valueString, $templateName, $delimiter, $possible_values ) {
+	public static function valuesToLabels( $valueString, $delimiter, $possible_values ) {
 		if ( !is_null($delimiter ) ) {
 			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
 		} else {
