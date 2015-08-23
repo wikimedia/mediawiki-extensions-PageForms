@@ -24,7 +24,8 @@
 			"Ltrlg",
 			"SnowedEarth",
 			"Weft",
-			"Pathe"
+			"Pathe",
+			"Wladek92"
 		]
 	},
 	"semanticforms-desc": "Formulaires pour ajouter ou modifier des données sémantiques",
@@ -45,6 +46,7 @@
 	"sf_createtemplate_multipleinstance": "Ce modèle peut être inclus plusieurs fois dans la page.",
 	"sf_createtemplate_connectingproperty": "Nom de propriété pour connecter les champs de ce modèle pour le reste de la page :",
 	"sf_createtemplate_categorylabel": "Catégorie définie par ce modèle (facultatif) :",
+	"sf_createtemplate_cargotablelabel": "Table cargo définie par le modèle (facultatif) :",
 	"sf_createtemplate_templatefields": "Champs de modèle",
 	"sf_createtemplate_fieldsdesc": "Pour un modèle qui n’utilise aucun nom pour les champs, remplacez simplement les noms de champs par leurs indices (exemples : 1, 2, 3, etc.).",
 	"sf_createtemplate_fieldname": "Nom du champ :",
@@ -150,6 +152,8 @@
 	"sf_formstart_noform_docu": "Entrez ici le nom de la page, puis sélectionnez le formulaire qui servira à la modifier. Si cette page existe déjà, vous serez dirigé vers le formulaire afin de le modifier. Dans le cas contraire, vous serez redirigé vers celui permettant de l’ajouter.",
 	"sf_formstart_createoredit": "Créer ou modifier",
 	"formedit": "Modifier avec formulaire",
+	"sf-formedit-selectform": "Sélectionnez un formulaire pour créer cette page:",
+	"sf-formedit-donotuseform": "Créer une page sans formulaire.",
 	"sf_formedit_createtitle": "Créer $1 : $2",
 	"sf_formedit_createtitlenotarget": "Créer $1",
 	"sf_formedit_badurl": "Ceci est la page pour modifier les données en utilisant un formulaire. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;\nl’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<nom de page cible> » ou « Special:FormEdit/<nom de formulaire>/<nom de page cible> ».",
@@ -195,6 +199,7 @@
 	"sf_too_few_instances_error": "Il doit y avoir au moins $1 instances de ce modèle.",
 	"sf_too_many_instances_error": "Il ne doit pas y avoir plus de $1 instances de ce modèle.",
 	"sf_blank_error": "ne peut pas être blanc",
+	"sf_not_unique_error": "doit être unique",
 	"sf_bad_url_error": "doit avoir un format URL correct, commençant par « http »",
 	"sf_bad_email_error": "doit avoir un format correct d’adresse courriel.",
 	"sf_bad_number_error": "doit être un nombre valide",
@@ -227,5 +232,9 @@
 	"sf-select2-no-matches": "Aucune correspondance",
 	"sf-select2-searching": "Recherche en cours…",
 	"sf-select2-input-too-short": "Veuillez saisir $1 {{PLURAL:$1|caractère|caractères}} ou plus",
-	"sf-select2-selection-too-big": "Ce champ ne peut pas contenir plus de {{PLURAL:$1|$1 valeur|$1 valeurs}}."
+	"sf-select2-selection-too-big": "Ce champ ne peut pas contenir plus de {{PLURAL:$1|$1 valeur|$1 valeurs}}.",
+	"sf-maps-setmarker": "Positionner un marqueur",
+	"sf-maps-enteraddress": "Entrer l’adresse ici",
+	"sf-maps-lookupcoordinates": "Chercher les coordonnées",
+	"sf-adminlinks-datastructure": "Structure des données"
 }
