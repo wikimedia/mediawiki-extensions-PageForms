@@ -187,7 +187,7 @@ class SFTreeInput extends SFFormInput {
 				$nodeAttribs['checked'] = true;
 			}
 			$text .= Html::input( $inputName, $node->title, $inputType, $nodeAttribs );
-			$text .= $node->title . "</li>\n";
+			$text .= $node->title . "\n";
 		}
 		if ( array_key_exists( 'children', $node ) ) {
 			$text .= "<ul>\n";
