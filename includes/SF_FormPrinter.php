@@ -1072,6 +1072,21 @@ END;
 						}
 					} // end for
 
+
+					if ( array_key_exists( 'delimiter', $field_args ) ) {
+						$delimiter = $field_args['delimiter'];
+					} else {
+						$delimiter = ",";
+					}
+
+					// If the 'values' parameter was set, separate it based on the
+					// 'delimiter' parameter, if any.
+					if ( ! empty( $values ) ) {
+						// Remove whitespaces, and un-escape characters
+						$possible_values = array_map( 'trim', explode( $delimiter, $values ) );
+						$possible_values = array_map( 'htmlspecialchars_decode', $possible_values );
+					}
+
 					// If we're using Cargo, there's no
 					// equivalent for "values from property"
 					// - instead, we just always get the
@@ -1107,11 +1122,6 @@ END;
 					}
 					if ( count( $show_on_select ) > 0 ) {
 						$field_args['show on select'] = $show_on_select;
-					}
-					if ( array_key_exists( 'delimiter', $field_args ) ) {
-						$delimiter = $field_args['delimiter'];
-					} else {
-						$delimiter = ",";
 					}
 
 					// Get the value from the request, if
@@ -1294,15 +1304,6 @@ END;
 							$field_args['origName'] = $template_name . '[' . $field_name . ']';
 						} else {
 							$input_name = $template_name . '[' . $field_name . ']';
-						}
-
-
-						// If the 'values' parameter was set, separate it based on the
-						// 'delimiter' parameter, if any.
-						if ( ! empty( $values ) ) {
-							// Remove whitespaces, and un-escape characters
-							$possible_values = array_map( 'trim', explode( $delimiter, $values ) );
-							$possible_values = array_map( 'htmlspecialchars_decode', $possible_values );
 						}
 
 						// if we're creating the page name from a formula based on
