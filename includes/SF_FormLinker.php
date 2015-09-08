@@ -172,65 +172,74 @@ class SFFormLinker {
 	}
 
 	/**
-	 * Automatically creates a page that's red-linked from the page being
-	 * viewed, if there's a property pointing from anywhere to that page
-	 * that's defined with the 'Creates pages with form' special property
+	 * Automatically creates a page that's red-linked from the page
+	 * being viewed, if there's a property pointing from anywhere to
+	 * that page that's defined with the 'Creates pages with form'
+	 * special property.
+	 *
+	 * @deprecated since SF 3.4.
 	 */
-	static function createLinkedPage( $title, $incoming_properties ) {
-		// if we're in a 'special' page, just exit - this is to prevent
-		// constant additions being made from the 'Special:RecentChanges'
-		// page, which shows pages that were previously deleted as red
-		// links, even if they've since been recreated. The same might
-		// hold true for other special pages.
+	static function createLinkedPage( $title, $incomingProperties ) {
+		// If we're in a 'special' page, just exit - this is to
+		// prevent constant additions being made from the
+		// 'Special:RecentChanges' page, which shows pages that
+		// were previously deleted as red links, even if they've
+		// since been recreated. The same might hold true for
+		// other special pages.
 		global $wgTitle;
-		if ( empty( $wgTitle ) )
+		if ( empty( $wgTitle ) ) {
 			return false;
-		if ( $wgTitle->getNamespace() == NS_SPECIAL )
+		}
+		if ( $wgTitle->getNamespace() == NS_SPECIAL ) {
 			return false;
+		}
 
-		foreach ( $incoming_properties as $property_name ) {
-			$auto_create_forms = self::getFormsThatPagePointsTo( $property_name, SMW_NS_PROPERTY, self::AUTO_CREATE_FORM );
-			if ( count( $auto_create_forms ) > 0 ) {
-				global $sfgFormPrinter;
-				$form_name = $auto_create_forms[0];
-				$form_title = Title::makeTitleSafe( SF_NS_FORM, $form_name );
-				$form_definition = SFUtils::getPageText( $form_title );
-				$preloadContent = null;
-
-				// Allow outside code to set/change the
-				// preloaded text.
-				Hooks::run( 'sfEditFormPreloadText', array( &$preloadContent, $title, $form_title ) );
-
-				list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
-					$sfgFormPrinter->formHTML( $form_definition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
-				$params = array();
-
-				// Get user "responsible" for all auto-generated
-				// pages from red links.
-				$userID = 1;
-				global $sfgAutoCreateUser;
-				if ( !is_null( $sfgAutoCreateUser ) ) {
-					$user = User::newFromName( $sfgAutoCreateUser );
-					if ( !is_null( $user ) ) {
-						$userID = $user->getId();
-					}
-				}
-				$params['user_id'] = $userID;
-				$params['page_text'] = $data_text;
-				$job = new SFCreatePageJob( $title, $params );
-
-				$jobs = array( $job );
-				if ( class_exists( 'JobQueueGroup' ) ) {
-					JobQueueGroup::singleton()->push( $jobs );
-				} else {
-					// MW <= 1.20
-					Job::batchInsert( $jobs );
-				}
+		foreach ( $incomingProperties as $propertyName ) {
+			$autoCreateForms = self::getFormsThatPagePointsTo( $property_name, SMW_NS_PROPERTY, self::AUTO_CREATE_FORM );
+			if ( count( $autoCreateForms ) > 0 ) {
+				self::createPageWithForm( $title, $autoCreateForms[0] );
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	public static function createPageWithForm( $title, $formName ) {
+		global $sfgFormPrinter;
+
+		$formTitle = Title::makeTitleSafe( SF_NS_FORM, $formName );
+		$formDefinition = SFUtils::getPageText( $formTitle );
+		$preloadContent = null;
+
+		// Allow outside code to set/change the preloaded text.
+		Hooks::run( 'sfEditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
+
+		list ( $formText, $javascriptText, $dataText, $formPageTitle, $generatedPageName ) =
+			$sfgFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
+		$params = array();
+
+		// Get user "responsible" for all auto-generated
+		// pages from red links.
+		$userID = 1;
+		global $sfgAutoCreateUser;
+		if ( !is_null( $sfgAutoCreateUser ) ) {
+			$user = User::newFromName( $sfgAutoCreateUser );
+			if ( !is_null( $user ) ) {
+				$userID = $user->getId();
+			}
+		}
+		$params['user_id'] = $userID;
+		$params['page_text'] = $dataText;
+		$job = new SFCreatePageJob( $title, $params );
+
+		$jobs = array( $job );
+		if ( class_exists( 'JobQueueGroup' ) ) {
+			JobQueueGroup::singleton()->push( $jobs );
+		} else {
+			// MW <= 1.20
+			Job::batchInsert( $jobs );
+		}
 	}
 
 	/**

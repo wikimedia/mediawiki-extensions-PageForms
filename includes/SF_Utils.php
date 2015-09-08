@@ -1104,13 +1104,14 @@ END;
 		return true;
 	}
 
-	static function createFormLink ( &$parser, $params, $parserFunctionName ) {
+	static function createFormLink( &$parser, $params, $parserFunctionName ) {
 		// Set defaults.
 		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
 			$inTooltip = $inQueryStr = $inTargetName = '';
 		if ( $parserFunctionName == 'queryformlink' ) {
 			$inLinkStr = wfMessage( 'runquery' )->text();
 		}
+		$inCreatePage = false;
 		$classStr = '';
 		$inQueryArr = array();
 		$targetWindow = '_self';
@@ -1160,6 +1161,8 @@ END;
 				$classStr = 'popupformlink';
 			} elseif ( $param_name == null && $value == 'new window' ) {
 				$targetWindow = '_blank';
+			} elseif ( $param_name == null && $value == 'create page' ) {
+				$inCreatePage = true;
 			} elseif ( $param_name !== null ) {
 				$value = urlencode( $value );
 				parse_str( "$param_name=$value", $arr );
@@ -1189,6 +1192,14 @@ END;
 			} else {
 				return Linker::link( $targetTitle, $inExistingPageLinkStr );
 			}
+		}
+
+		// The page doesn't exist, so if 'create page' was
+		// specified, create the page now.
+		if ( $parserFunctionName == 'formredlink' &&
+			$inCreatePage && $inTargetName != '' ) {
+			$targetTitle = Title::newFromText( $inTargetName );
+			SFFormLinker::createPageWithForm( $targetTitle, $inFormName );
 		}
 
 		if ( $parserFunctionName == 'queryformlink' ) {
