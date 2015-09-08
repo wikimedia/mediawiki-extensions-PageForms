@@ -86,12 +86,12 @@ jQuery(document).ready(function() {
 		jQuery(this).displayInputParams();
 	});
 	jQuery('#addsection').click( function(event) {
-	if(jQuery('#sectionname').val() == '') {
+		if(jQuery('#sectionname').val() == '') {
 			event.preventDefault();
 			jQuery('#section_error').remove();
 			jQuery('<div/>').append('$section_name_error_str').appendTo('#sectionerror');
-	}
-    });
+		}
+	});
 });
 </script>");
 
@@ -184,16 +184,16 @@ jQuery(document).ready(function() {
 			if ( $section_loc === null ) {
 				$new_section_loc = 0;
 				$section_loc = 0;
-				} else {
-					// Count the number of sections before the
-					// location of the section to be added
-					for ( $i = 0; $i < $section_loc; $i++ ) {
-						if ( $form_items[$i]['type'] == 'section' ) {
-							$section_count++;
-						}
+			} else {
+				// Count the number of sections before the
+				// location of the section to be added
+				for ( $i = 0; $i < $section_loc; $i++ ) {
+					if ( $form_items[$i]['type'] == 'section' ) {
+						$section_count++;
 					}
-					$new_section_loc = $section_count;
 				}
+				$new_section_loc = $section_count;
+			}
 			// The same used hack for templates
 			array_splice( $form_items, $section_loc, 0, "stub" );
 			$form_items[$section_loc] = array( 'type' => 'section', 'name' => $form_section->getSectionName(), 'item' => $form_section );
@@ -256,22 +256,22 @@ jQuery(document).ready(function() {
 						continue;
 					}
 
-						if ( !empty( $value ) ) {
-							if ( $value == 'on' ) {
-								$value = true;
-							}
-							if ( $paramName == 'level' ) {
-								$section->setSectionLevel( $value );
-							} elseif ( $paramName == 'hidden' ) {
-								$section->setIsHidden( $value );
-							} elseif ( $paramName == 'restricted' ) {
-								$section->setIsRestricted( $value );
-							} elseif ( $paramName == 'mandatory' ) {
-								$section->setIsMandatory( $value );
-							} else {
-								$section->setSectionArgs( $paramName, $value );
-							}
+					if ( !empty( $value ) ) {
+						if ( $value == 'on' ) {
+							$value = true;
 						}
+						if ( $paramName == 'level' ) {
+							$section->setSectionLevel( $value );
+						} elseif ( $paramName == 'hidden' ) {
+							$section->setIsHidden( $value );
+						} elseif ( $paramName == 'restricted' ) {
+							$section->setIsRestricted( $value );
+						} elseif ( $paramName == 'mandatory' ) {
+							$section->setIsMandatory( $value );
+						} else {
+							$section->setSectionArgs( $paramName, $value );
+						}
+					}
 				}
 				$sections++;
 			}

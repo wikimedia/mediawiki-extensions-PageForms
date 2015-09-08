@@ -4,17 +4,19 @@
  *
  * @file
  * @ingroup SF
- * The following parser functions are defined: 'default_form', 'forminput',
- * 'formlink', 'queryformlink', 'arraymap', 'arraymaptemplate' and 'autoedit'.
  *
- * 'default_form' is called as:
+ * The following parser functions are defined: #default_form, #forminput,
+ * #formlink, #formredlink, #queryformlink, #arraymap, #arraymaptemplate
+ * and #autoedit.
+ *
+ * '#default_form' is called as:
  * {{#default_form:formName}}
  *
- * This function sets the specified form to be the default form for pages in
- * that category. It is a substitute for the (now somewhat-deprecated) "Has
+ * This function sets the specified form to be the default form for pages
+ * in that category. It is a substitute for the now-deprecated "Has
  * default form" special property.
  *
- * 'forminput' is called as:
+ * '#forminput' is called as:
  *
  * {{#forminput:form=|size=|default value=|button text=|query string=
  * |autocomplete on category=|autocomplete on namespace=
@@ -47,7 +49,7 @@
  * |query string=namespace=User&preload=UserStub}}
  *
  *
- * 'formlink' is called as:
+ * '#formlink' is called as:
  *
  * {{#formlink:form=|link text=|link type=|tooltip=|query string=|target=
  * |popup|...additional query string values...}}
@@ -77,7 +79,7 @@
  * |query string=namespace=User&preload=UserStub}}
  *
  *
- * 'formredlink' is called in a very similar way to 'formlink' - the only
+ * '#formredlink' is called in a very similar way to 'formlink' - the only
  * difference is that it lacks the 'link text', 'link type' and 'tooltip'
  * parameters. Its behavior is quite similar to that of 'formlink' as well;
  * the only difference is that, when the 'target' is an existing page, it
@@ -85,14 +87,14 @@
  * page. 
  *
  *
- * 'queryformlink' links to Special:RunQuery, instead of Special:FormEdit.
+ * '#queryformlink' links to Special:RunQuery, instead of Special:FormEdit.
  * It is called in the exact same way as 'formlink', though the
  * 'target' parameter should not be specified, and 'link text' is now optional,
  * since it has a default value of 'Run query' (in whatever language the
  * wiki is in).
  *
  *
- * 'arraymap' is called as:
+ * '#arraymap' is called as:
  *
  * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
  *
@@ -110,7 +112,7 @@
  * {{#arraymap:blue;red;yellow|;|x|[[Has color::x]]|;}}
  *
  *
- * 'arraymaptemplate' is called as:
+ * '#arraymaptemplate' is called as:
  *
  * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
  *
@@ -128,7 +130,7 @@
  * {{#arraymaptemplate:blue;red;yellow|Beautify|;|;}}
  *
  *
- * 'autoedit' is called as:
+ * '#autoedit' is called as:
  *
  * {{#autoedit:form=|target=|link text=|link type=|query string=|reload}}
  *

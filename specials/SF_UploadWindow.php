@@ -121,11 +121,11 @@ class SFUploadWindow extends UnlistedSpecialPage {
 		}
 
 		# Check permissions
-                $user = $this->getUser();
-                $permissionRequired = UploadBase::isAllowed( $user );
-                if ( $permissionRequired !== true ) {
-                        throw new PermissionsError( $permissionRequired );
-                }
+		$user = $this->getUser();
+		$permissionRequired = UploadBase::isAllowed( $user );
+		if ( $permissionRequired !== true ) {
+			throw new PermissionsError( $permissionRequired );
+		}
 
 		# Check blocks
 		if ( $this->getUser()->isBlocked() ) {
@@ -814,7 +814,7 @@ class SFUploadForm extends HTMLForm {
 	 * @return string HTML string containing the message
 	 */
 	protected function getExtensionsMessage() {
-		# Print a list of allowed file extensions, if so configured.  We ignore
+		# Print a list of allowed file extensions, if so configured. We ignore
 		# MIME type here, it's incomprehensible to most people and too long.
 		global $wgCheckFileExtensions, $wgStrictFileExtensions,
 		$wgFileExtensions, $wgFileBlacklist;
@@ -1047,7 +1047,7 @@ class SFUploadSourceField extends HTMLTextField {
 	
 	function getLabelHtml( $cellAttributes = array() ) {
 		$id = "wpSourceType{$this->mParams['upload-type']}";
-		$label = Html::rawElement( 'label', array( 'for' => $id ), $this->mLabel  );
+		$label = Html::rawElement( 'label', array( 'for' => $id ), $this->mLabel );
 
 		if ( !empty( $this->mParams['radio'] ) ) {
 			$attribs = array(

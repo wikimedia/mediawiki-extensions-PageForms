@@ -2,6 +2,7 @@
 
 /**
  * Represents a user-defined form.
+ *
  * @author Yaron Koren
  * @file
  * @ingroup SF
@@ -69,7 +70,7 @@ class SFForm {
 		if ( !is_null( $this->mAssociatedCategory ) ) {
 			$form_input .= "|autocomplete on category=" . $this->mAssociatedCategory;
 		}
-	       	$form_input .= "}}\n";
+		$form_input .= "}}\n";
 		$text = <<<END
 <noinclude>
 $form_description
@@ -125,7 +126,7 @@ END;
 			if ( array_key_exists( 'watch', $standardInputs ) ) {
 				$text .= $standardInputs['watch'];
 			}
-			if ( array_key_exists( 'minor edit', $standardInputs ) ||  array_key_exists( 'watch', $standardInputs ) ) {
+			if ( array_key_exists( 'minor edit', $standardInputs ) || array_key_exists( 'watch', $standardInputs ) ) {
 				$text .= "\n\n";
 			}
 			if ( array_key_exists( 'save', $standardInputs ) ) {
