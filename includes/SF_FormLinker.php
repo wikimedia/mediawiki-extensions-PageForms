@@ -195,7 +195,7 @@ class SFFormLinker {
 		}
 
 		foreach ( $incomingProperties as $propertyName ) {
-			$autoCreateForms = self::getFormsThatPagePointsTo( $property_name, SMW_NS_PROPERTY, self::AUTO_CREATE_FORM );
+			$autoCreateForms = self::getFormsThatPagePointsTo( $propertyName, SMW_NS_PROPERTY, self::AUTO_CREATE_FORM );
 			if ( count( $autoCreateForms ) > 0 ) {
 				self::createPageWithForm( $title, $autoCreateForms[0] );
 				return true;
