@@ -469,6 +469,24 @@ class SFAutoeditAPI extends ApiBase {
 
 		switch ( $status->value ) {
 			case EditPage::AS_HOOK_ERROR_EXPECTED: // A hook function returned an error
+
+				// show normal Edit page
+
+				// remove Preview and Diff standard buttons from editor page
+				Hooks::register('EditPageBeforeEditButtons', function( &$editor, &$buttons, &$tabindex ){
+					foreach (array_keys($buttons) as $key) {
+						if ($key !== 'save') {
+							unset($buttons[$key]);
+						}
+					}
+				});
+
+				// Context title needed for correct Cancel link
+				$editor->setContextTitle( $title );
+
+				$editor->showEditForm();
+				return false; // success
+
 			case EditPage::AS_CONTENT_TOO_BIG: // Content too big (> $wgMaxArticleSize)
 			case EditPage::AS_ARTICLE_WAS_DELETED: // article was deleted while editting and param wpRecreate == false or form was not posted
 			case EditPage::AS_CONFLICT_DETECTED: // (non-resolvable) edit conflict
