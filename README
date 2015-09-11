@@ -4,6 +4,7 @@ Semantic Forms is an extension to MediaWiki that allows for the
 creation and usage of forms to add and edit semantic data. It can
 work in conjuction with two other extensions that both handle the
 storage of data: Semantic MediaWiki and Cargo.
+
 For much more information on Semantic Forms, see the extension
 homepage at
 http://www.mediawiki.org/wiki/Extension:Semantic_Forms
@@ -31,9 +32,9 @@ Jatin Mehta as part of the 2014 Google Summer of Code.
 
 Important code contributions were also made by Christoph Burgmer,
 Cindy Cicalese, Daniel Friesen, Daniel Hansch, Eugene Mednikov,
-Harold Solbrig, lmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
+Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
 Joel Natividad, Jeroen De Dauw, Joel Natividad, Louis Gerbarg, LY Meng,
- Mathias Lidal, Matt Williamson, MWJames, Niklas Laxstrom, Nils
+Mathias Lidal, Matt Williamson, MWJames, Niklas Laxstrom, Nils
 Opperman, Patrick Nagel, Remco de Boer, Sebastian Richter, Sergey
 Chernyshev, Siebrand Mazeland, Simon Heimler, Solitarius, Vedmaka,
 wheresmytab and others.
@@ -43,17 +44,18 @@ the /i18n and /languages directories for the full listings.
 
 == Contact ==
 
-Most comments, questions and suggestions should be sent to the Semantic
-MediaWiki mailing list:
+Comments, questions and suggestions can be sent to either the MediaWiki
+or the Semantic MediaWiki mailing lists:
 
+ https://lists.wikimedia.org/mailman/listinfo/mediawiki-l
  https://lists.sourceforge.net/lists/listinfo/semediawiki-user
 
 If possible, please add "[SF]" at the beginning of the subject line, to
 clarify the subject matter.
 
-Bug reports should be submitted at the MediaWiki Bugzilla site:
+Bug reports should be submitted at the Wikimedia Phabricator site:
 
- https://bugzilla.wikimedia.org/
+ https://phabricator.wikimedia.org/maniphest/task/create/
 
 == Credits to other projects ==
 
