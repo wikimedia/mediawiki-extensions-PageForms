@@ -512,7 +512,10 @@ END;
 			global $wgTitle;
 			$this->mPageTitle = $wgTitle;
 		} elseif ( $is_query ) {
-			$this->mPageTitle = Title::newFromText( 'RunQuery dummy title' );
+			// We're in Special:RunQuery - just use that as the
+			// title.
+			global $wgTitle;
+			$this->mPageTitle = $wgTitle;
 		} elseif ( $page_name === '' || $page_name === null ) {
 			$this->mPageTitle = Title::newFromText(
 				$wgRequest->getVal( 'namespace' ) . ":Semantic Forms permissions test" );
