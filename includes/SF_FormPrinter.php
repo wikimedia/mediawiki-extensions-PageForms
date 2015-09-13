@@ -1096,7 +1096,7 @@ END;
 					// values if a field and table have
 					// been specified.
 					if ( is_null( $possible_values ) && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
-						$possible_values = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+						$possible_values = SFUtils::getValuesForCargoField( $cargo_table, $cargo_field, $cargo_field . " IS NOT NULL" );
 					}
 
 					if ( !is_null( $possible_values ) ) {
