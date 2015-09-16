@@ -22,6 +22,15 @@ class SFFormLinker {
 	static $mLinkedPagesRetrieved = false;
 
 	static function getDefaultForm( $title ) {
+		// The title passed in can be null in at least one
+		// situation: if the "namespace page" is being checked, and
+		// the project namespace alias contains any non-ASCII
+		// characters. There may be other cases too.
+		// If that happens, just exit.
+		if ( is_null( $title ) ) {
+			return null;
+		}
+
 		$pageID = $title->getArticleID();
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select( 'page_props',
