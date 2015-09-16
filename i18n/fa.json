@@ -81,6 +81,7 @@
 	"sf_forminputs_depth": "تعداد سطوح دسته‌ها برای ابتدا نشان دادن",
 	"sf_forminputs_height": "ارتفاع این ورودی، به پیکسل",
 	"sf_forminputs_width": "عرض این ورودی، به پیکسل",
+	"sf_forminputs_checkboxes_select_all": "انتخاب همه",
 	"createform": "فرم بسازید",
 	"sf-createform-with-name": "ایجاد شده‌ از: $1",
 	"sf_createform_nameinput": "نام فرم",
@@ -204,5 +205,9 @@
 	"right-createclass": "ایجاد کلاس‌های معنایی تازه",
 	"action-createclass": "ایجاد کلاس‌های معنایی تازه",
 	"action-editrestrictedfields": "ویرایش محدود شده از زمینه‌ها",
-	"action-viewedittab": "مشاهده تب \"{{int:edit}}\" برای صفحات قابل ویرایش توسط فرم"
+	"action-viewedittab": "مشاهده تب \"{{int:edit}}\" برای صفحات قابل ویرایش توسط فرم",
+	"sf-select2-searching": "در حال جستجو...",
+	"sf-maps-enteraddress": "آدرس را اینجا وارد کنید",
+	"sf-maps-lookupcoordinates": "نگاه کردن مختصات",
+	"sf-adminlinks-datastructure": "ساختار داده‌ها"
 }
