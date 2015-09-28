@@ -158,6 +158,8 @@
 	"sf_runquery_title": "クエリの実行: $1",
 	"sf_runquery_additionalquery": "追加のクエリ",
 	"sf_formerrors_header": "フォームへの入力内容に誤りがありました。以下をご覧ください",
+	"sf_too_few_instances_error": "少なくとも $1 {{PLURAL:$1|インスタンス}} が、このテンプレート上に必要です。",
+	"sf_too_many_instances_error": "$1 {{PLURAL:$1|インスタンス}} 以上が、このテンプレート上にあってはいけません。",
 	"sf_blank_error": "空欄にはできません",
 	"sf_bad_url_error": "URL を「http」から始まる正しい形式にする必要があります",
 	"sf_bad_email_error": "メールアドレスを正しい形式にする必要があります",
