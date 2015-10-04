@@ -197,7 +197,7 @@
 	"sf_runquery_title": "Exécuter la requête : $1",
 	"sf_runquery_additionalquery": "Requête additionnelle",
 	"sf_formerrors_header": "Il y a certaines erreurs dans le formulaire. Cf. ci-dessous.",
-	"sf_too_few_instances_error": "Il doit y avoir au moins $1 instances de ce modèle.",
+	"sf_too_few_instances_error": "Il doit y avoir au moins {{PLURAL:$1|une instance|$1 instances}} de ce modèle.",
 	"sf_too_many_instances_error": "Il ne doit pas y avoir plus {{PLURAL:$1|d’une instance|de $1 instances}} de ce modèle.",
 	"sf_blank_error": "ne peut pas être blanc",
 	"sf_not_unique_error": "doit être unique",
