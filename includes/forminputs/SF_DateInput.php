@@ -81,11 +81,12 @@ class SFDateInput extends SFFormInput {
 	}
 
 	static function parseDateSMW( $date ) {
+		$day = null;
+		$month = null;
 		$actual_date = new SMWTimeValue( '_dat' );
 		$actual_date->setUserValue( $date );
 		$year = $actual_date->getYear();
-		// TODO - the code to convert from negative to BC notation
-		// should be in SMW itself.
+		// TODO - "BC" should be an i18n message.
 		if ( $year < 0 ) {
 			$year = ( $year * - 1 + 1 ) . ' BC';
 		}
