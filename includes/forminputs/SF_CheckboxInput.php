@@ -46,22 +46,19 @@ class SFCheckboxInput extends SFFormInput {
 		} else {
 			// Default to false - no need to check if it matches
 			// a 'false' word.
-			// We use mb_strtolower() here, and not the more
-			// common strtolower(), because only mb_strtolower()
-			// works for non-Latin alphabets as well.
-			$lowercaseCurValue = mb_strtolower( trim( $cur_value ) );
+			$lowercaseCurValue = strtolower( trim( $cur_value ) );
 
 			$possibleYesMessages = array(
-				mb_strtolower( wfMessage( 'htmlform-yes' )->inContentLanguage()->text() ),
+				strtolower( wfMessage( 'htmlform-yes' )->inContentLanguage()->text() ),
 				// Add in '1', and some hardcoded English.
 				'1', 'yes', 'true'
 			);
 
 			// Add values from Semantic MediaWiki, if it's installed.
 			if ( wfMessage( 'smw_true_words' )->exists() ) {
-				$smwTrueWords = explode( ',', wfMessage( 'smw_true_words' )->inContentLanguage()->text(), true );
+				$smwTrueWords = explode( ',', wfMessage( 'smw_true_words' )->inContentLanguage()->text() );
 				foreach ( $smwTrueWords as $smwTrueWord ) {
-					$possibleYesMessages = mb_strtolower( trim( $smwTrueWord ) );
+					$possibleYesMessages[] = strtolower( trim( $smwTrueWord ) );
 				}
 			}
 			$isChecked = in_array( $lowercaseCurValue, $possibleYesMessages );
