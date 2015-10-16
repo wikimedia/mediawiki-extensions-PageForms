@@ -16,7 +16,7 @@
 	"createproperty": "Crea una proprietà",
 	"sf-createproperty-with-name": "Crea proprietà: $1",
 	"sf_createproperty_linktoform": "Questa proprietà ti collegherà alla pagina che usa il seguente modulo:",
-	"sf_createproperty_allowedvalsinput": "Se vuoi che questa proprietà possa ammettere solo determinati valori, inserisci una lista di valori ammessi, separati da virgole (se un valore presenta una virgola, sostituiscilo con mettendoci un backslash davanti in questo modo \"\\,\"):",
+	"sf_createproperty_allowedvalsinput": "Per consentire solo determinati valori, inserisci la lista dei valori, separati da virgole (se un valore presenta una virgola, sostituiscilo con \"\\,\"):",
 	"sf_createproperty_propname": "Nome proprietà:",
 	"sf_createproperty_proptype": "Tipo:",
 	"sf_createproperty_editsummary": "Creata una proprietà di tipo [[Has type::$1]]",
