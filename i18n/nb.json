@@ -6,7 +6,8 @@
 			"Harald Khan",
 			"Laaknor",
 			"Nghtwlkr",
-			"Emilbk"
+			"Emilbk",
+			"Cocu"
 		]
 	},
 	"semanticforms-desc": "Skjemaer for å legge til og endre semantiske data",
@@ -186,7 +187,7 @@
 	"sf_bad_number_error": "må være et gyldig tall",
 	"sf_bad_date_error": "må være en gyldig dato",
 	"uploadwindow": "Opplastingsvindu",
-	"sf_deletionlog": "Slettingslogg",
+	"sf_deletionlog": "Slettelogg",
 	"sf-preview-header": "Forhåndsvisning av skjemaet",
 	"sf-preview-note": "Slik vil skjemaet se ut i bruk:",
 	"sf-pageschemas-pagenameformula": "Sidenavnsformel:",
