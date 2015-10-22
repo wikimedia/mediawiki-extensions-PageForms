@@ -250,6 +250,7 @@ class SFParserFunctions {
 		$inSize = 25;
 		$classStr = "sfFormInput";
 		$inPlaceholder = "";
+		$inAutofocus = true; // Only evaluated if $wgHtml5 is true.
 		// assign params - support unlabelled params, for backwards compatibility
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -298,6 +299,8 @@ class SFParserFunctions {
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				SFUtils::loadScriptsForPopupForm( $parser );
 				$classStr .= ' popupforminput';
+			} elseif ( $param_name == null && $value == 'no autofocus' ) {
+				$inAutofocus = false;
 			} elseif ( $param_name !== null && !$positionalParameters ) {
 
 				$value = urlencode($value);
@@ -336,7 +339,9 @@ END;
 
 		if ( $wgHtml5 ) {
 			$formInputAttrs['placeholder'] = $inPlaceholder;
-			$formInputAttrs['autofocus'] = 'autofocus';
+			if ( $inAutofocus ) {
+				$formInputAttrs['autofocus'] = 'autofocus';
+			}
 		}
 
 		// Now apply the necessary settings and Javascript, depending
