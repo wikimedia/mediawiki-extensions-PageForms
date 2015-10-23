@@ -172,7 +172,7 @@
 	"sf_autoedit_invalidtargetspecified": "Указанная целевая страница '''$1''' недействительна.",
 	"sf_autoedit_invalidform": "'''$1''' — некорректная форма.",
 	"sf_autoedit_redirectlimitexeeded": "Превышен максимальный предел перенаправлений для формы  $1.",
-	"sf_autoedit_invalidredirecttarget": "$1 является недопустимой целью перенаправления для формы $2.",
+	"sf_autoedit_invalidredirecttarget": "$1 — некорректное целевое название для перенаправления с формы $2.",
 	"sf_autoedit_invalidpreloadspecified": "Указана недопустимая страница предпросмотра $1.",
 	"sf_autoedit_redlinkexists": "$1 уже существует.",
 	"sf_autoedit_noformfound": "Форма не определена.",
