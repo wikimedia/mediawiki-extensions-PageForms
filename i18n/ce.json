@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Sasan700",
-			"Умар"
+			"Умар",
+			"Исмаил Садуев"
 		]
 	},
 	"semanticforms-desc": "Cемантикийн хаамаш тӀетуху а, нисбо а кепаш",
@@ -12,7 +13,7 @@
 	"sf_createproperty_proptype": "Тайп:",
 	"sf_createproperty_editsummary": "Кхоьллина [[Has type::$1]] тайпа меттиг",
 	"templates": "Кепаш",
-	"sf_templates_docu": "Вики чохь ю хӀара кепаш йолуш ю.",
+	"sf_templates_docu": "Вики чохь хӀара кепаш йолуш ю.",
 	"sf_templates_definescat": "билгалйе категори: $1",
 	"createtemplate": "Кхолла кеп",
 	"sf-createtemplate-with-name": "Кхолла кеп: $1",
