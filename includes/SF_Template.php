@@ -64,7 +64,7 @@ class SFTemplate {
 		$text = '{{#cargo_declare:';
 		$text .= '_table=' . $this->mCargoTable;
 		foreach ( $this->mTemplateFields as $i => $field ) {
-			if ( $field->mCargoFieldType == '' ) {
+			if ( $field->getFieldType() == '' ) {
 				continue;
 			}
 
@@ -77,7 +77,7 @@ class SFTemplate {
 				}
 				$text .= "List ($delimiter) of ";
 			}
-			$text .= $field->mCargoFieldType;
+			$text .= $field->getFieldType();
 			if ( count( $field->getPossibleValues() ) > 0 ) {
 				$allowedValuesString = implode( ',', $field->getPossibleValues() );
 				$text .= " (allowed values=$allowedValuesString)";

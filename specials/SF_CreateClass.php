@@ -92,8 +92,7 @@ END;
 			$field = SFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
 
 			if ( defined( 'CARGO_VERSION' ) ) {
-				// Fake attributes,.
-				$field->mCargoFieldType = $property_type;
+				$field->setFieldType( $property_type );
 				// Hopefully it's safe to use a Cargo
 				// utility method here.
 				$possibleValues = CargoUtils::smartSplit( ',', $allowed_values );

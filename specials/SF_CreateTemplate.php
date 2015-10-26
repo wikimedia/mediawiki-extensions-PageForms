@@ -255,8 +255,8 @@ END;
 						$wgRequest->getCheck( 'is_list_' . $id ),
 						$wgRequest->getVal( 'delimiter_' . $id )
 					);
-					// Fake attributes.
-					$field->mCargoFieldType = $wgRequest->getVal( 'field_type_' . $id );
+					$field->setFieldType( $wgRequest->getVal( 'field_type_' . $id ) );
+					// Fake attribute.
 					$field->mAllowedValuesStr = $wgRequest->getVal( 'allowed_values_' . $id );
 					$fields[] = $field;
 				}
