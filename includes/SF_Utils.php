@@ -706,8 +706,8 @@ END;
 		$templateExists = $title->exists();
 		foreach ( $values as $value ) {
 			if ( $templateExists ) {
-				$label = $wgParser->recursiveTagParse( '{{' . $templateName .
-					'|' . $value . '}}' );
+				$label = trim( $wgParser->recursiveTagParse( '{{' . $templateName .
+					'|' . $value . '}}' ) );
 				if ( $label == '' ) {
 					$labels[$value] = $value;
 				} else {
@@ -734,7 +734,7 @@ END;
 				if ( $subject != null ) {
 					$vals = self::getSMWPropertyValues( $store, $subject, $propertyName );
 					if ( count( $vals ) > 0 ) {
-						$labels[$value] = $vals[0];
+						$labels[$value] = trim( $vals[0] );
 					}
 				}
 			}
@@ -752,7 +752,7 @@ END;
 			$labels[$value] = $value;
 			$vals = self::getValuesForCargoField( $tableName, $fieldName, '_pageName="' . $value . '"' );
 			if ( count( $vals ) > 0 ) {
-				$labels[$value] = $vals[0];
+				$labels[$value] = trim( $vals[0] );
 			}
 		}
 		return SFUtils::disambiguateLabels( $labels );
