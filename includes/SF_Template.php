@@ -180,9 +180,11 @@ END;
 		foreach ( $this->mTemplateFields as $i => $field ) {
 			if ( $field->getFieldName() == '' ) continue;
 
-			$fieldString = '{{{' . $field->getFieldName() . '|}}}';
-			if ( !is_null( $field->getNamespace() ) ) {
-				$fieldString = $field->getNamespace() . ':' . $fieldString;
+			$fieldParam = '{{{' . $field->getFieldName() . '|}}}';
+			if ( is_null( $field->getNamespace() ) ) {
+				$fieldString = $fieldParam;
+			} else {
+				$fieldString = $field->getNamespace() . ':' . $fieldParam;
 			}
 			$separator = '';
 
@@ -215,7 +217,7 @@ END;
 				if ( $this->mTemplateFormat == 'plain' || $this->mTemplateFormat == 'sections' ) {
 					$tableText .= "\n";
 				}
-				$tableText .= '{{#if:' . $fieldString . '|';
+				$tableText .= '{{#if:' . $fieldParam . '|';
 				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 					if ( $i > 0 ) {
 						$tableText .= "\n{{!}}-\n";
