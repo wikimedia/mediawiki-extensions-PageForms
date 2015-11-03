@@ -124,7 +124,6 @@ class SFCreateCategory extends SpecialPage {
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";
 		$text .= "\t</form>\n";
 
-		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );
 	}
 

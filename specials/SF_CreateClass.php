@@ -203,13 +203,13 @@ END;
 		}
 
 		$this->setHeaders();
-		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
+
 		$numStartingRows = 5;
 		self::addJavascript( $numStartingRows );
 
 		$createAll = $wgRequest->getCheck( 'createAll' );
 		if ( $createAll ) {
-		// Guard against cross-site request forgeries (CSRF).
+			// Guard against cross-site request forgeries (CSRF).
 			$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateClass' );
 			if ( !$validToken ) {
 				$text = "This appears to be a cross-site request forgery; canceling save.";

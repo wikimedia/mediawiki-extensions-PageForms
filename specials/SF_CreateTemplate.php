@@ -345,7 +345,6 @@ END;
 
 END;
 
-		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );
 	}
 

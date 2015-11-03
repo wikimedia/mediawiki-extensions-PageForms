@@ -181,7 +181,6 @@ END;
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
-		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addScript( '<script type="text/javascript">' . $javascript_text . '</script>' );
 		$wgOut->addHTML( $text );
 	}

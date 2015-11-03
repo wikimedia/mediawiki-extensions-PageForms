@@ -398,7 +398,6 @@ END;
 
 END;
 
-		$wgOut->addExtensionStyle( $sfgScriptPath . "/skins/SemanticForms.css" );
 		$wgOut->addHTML( $text );
 
 		//Don't submit the form if enter is pressed on a text input box or a select
