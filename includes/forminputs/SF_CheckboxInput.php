@@ -72,8 +72,14 @@ class SFCheckboxInput extends SFFormInput {
 		if ( $is_disabled ) {
 			$checkboxAttrs['disabled'] = true;
 		}
-		$text .= "\t" . Html::check( "{$input_name}[value]",
-			$isChecked, $checkboxAttrs );
+		if ( method_exists( 'Html', 'check' ) ) {
+			// MW 1.24+
+			$text .= "\t" . Html::check( "{$input_name}[value]",
+				$isChecked, $checkboxAttrs );
+		} else {
+			$text .= "\t" . Xml::check( "{$input_name}[value]",
+				$isChecked, $checkboxAttrs );
+		}
 		return $text;
 	}
 
