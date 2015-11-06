@@ -1031,7 +1031,7 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
 
-	// Add the new instance
+	// Add the new instance.
 	if ( addAboveCurInstance ) {
 		new_div.insertBefore(this.closest(".multipleTemplateInstance"));
 	} else {
@@ -1042,7 +1042,7 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 
 	new_div.initializeJSElements(true);
 
-	// Initialize new inputs
+	// Initialize new inputs.
 	new_div.find("input, select, textarea").each(
 		function() {
 
@@ -1276,6 +1276,11 @@ jQuery.fn.initializeJSElements = function( partOfMultiple ) {
 		.change( function() {
 			jQuery(this).setAutocompleteForDependentField( partOfMultiple );
 		});
+
+	this.find(".sfTreeInput").not(".multipleTemplateStarter .sfTreeInput").each( function() {
+		jQuery(this).applyDynatree();
+	});
+
 };
 
 var num_elements = 0;
@@ -1292,7 +1297,7 @@ jQuery(document).ready( function() {
 		return;
 	}
 
-	jQuery('body').initializeJSElements();
+	jQuery('body').initializeJSElements(false);
 
 	jQuery('.multipleTemplateInstance').initializeJSElements(true);
 	jQuery('.multipleTemplateAdder').click( function() {

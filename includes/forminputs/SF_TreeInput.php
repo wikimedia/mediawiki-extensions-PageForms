@@ -88,7 +88,7 @@ class SFTreeInput extends SFFormInput {
 		}
 
 		$dummy_str = "REPLACE THIS TEXT";
-		$text = '<div id="' . $input_name . 'treeinput" style="height: ' . $height . 'px; width: ' . $width . 'px;">';
+		$text = '<div class="sfTreeInput" id="' . $input_name . 'treeinput" style="height: ' . $height . 'px; width: ' . $width . 'px;">';
 
 		if ( array_key_exists( 'depth', $other_args ) ) {
 			$depth = $other_args['depth'];
