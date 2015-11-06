@@ -5,7 +5,8 @@
 			"Sasa Stefanovic",
 			"Жељко Тодоровић",
 			"Михајло Анђелковић",
-			"Milicevic01"
+			"Milicevic01",
+			"Сербијана"
 		]
 	},
 	"specialpages-group-sf_group": "Семантички обрасци",
@@ -28,7 +29,7 @@
 	"sf_createtemplate_aggregation": "Агрегација",
 	"sf_createtemplate_aggregationlabel": "Наслов листе:",
 	"sf_createtemplate_outputformat": "Излазни формат:",
-	"sf_createtemplate_standardformat": "Стандард",
+	"sf_createtemplate_standardformat": "Табела",
 	"sf_createtemplate_addfield": "Додај поље",
 	"sf_createtemplate_deletefield": "Обриши",
 	"forms": "Форме",
