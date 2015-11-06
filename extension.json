@@ -149,7 +149,7 @@
 			],
 			"scripts": [
 				"libs/jquery.dynatree.js",
-				"libs/ext.dynatree.js"
+				"libs/SF_dynatree.js"
 			],
 			"styles": "skins/ui.dynatree.css"
 		},

@@ -280,7 +280,7 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 			'dependencies' => array( 'jquery.ui.widget' ),
 			'scripts' => array(
 				'libs/jquery.dynatree.js',
-				'libs/ext.dynatree.js',
+				'libs/SF_dynatree.js',
 			),
 			'styles' => 'skins/ui.dynatree.css',
 		),
