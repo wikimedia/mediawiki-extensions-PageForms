@@ -230,6 +230,10 @@ END;
 		} elseif ( !is_null( $template_field->getFieldType() ) ) {
 			$default_input_type = $sfgFormPrinter->getDefaultInputTypeCargo( $template_field->isList(), $template_field->getFieldType() );
 			$possible_input_types = $sfgFormPrinter->getPossibleInputTypesCargo( $template_field->isList(), $template_field->getFieldType() );
+		} else {
+			// Most likely, template uses neither SMW nor Cargo.
+			$default_input_type = null;
+			$possible_input_types = array();
 		}
 
 		if ( $default_input_type == null && count( $possible_input_types ) == 0 ) {
