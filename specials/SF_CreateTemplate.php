@@ -140,8 +140,6 @@ END;
 	static function addJavascript() {
 		global $wgOut;
 
-		SFUtils::addJavascriptAndCSS();
-
 		// TODO - this should be in a JS file
 		$template_name_error_str = wfMessage( 'sf_blank_error' )->escaped();
 		$jsText =<<<END
@@ -225,6 +223,7 @@ END;
 			$template_name = $wgRequest->getVal( 'template_name' );
 		}
 
+		$wgOut->addModules( 'ext.semanticforms.main' );
 		self::addJavascript();
 
 		$text = '';

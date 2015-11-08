@@ -23,8 +23,6 @@ class SFCreateClass extends SpecialPage {
 	static function addJavascript( $numStartingRows ) {
 		global $wgOut;
 
-		SFUtils::addJavascriptAndCSS();
-
 		$jsText =<<<END
 <script>
 var rowNum = $numStartingRows;

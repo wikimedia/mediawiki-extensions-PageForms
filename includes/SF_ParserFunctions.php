@@ -359,7 +359,8 @@ END;
 			// on the page, we only need to do this the first time
 			if ( $input_num == 1 ) {
 				$parser->disableCache();
-				SFUtils::addJavascriptAndCSS( $parser );
+				$output = $parser->getOutput();
+				$output->addModules( 'ext.semanticforms.main' );
 			}
 
 			$inputID = 'input_' . $input_num;
