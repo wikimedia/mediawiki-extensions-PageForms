@@ -1150,23 +1150,24 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 	var self = this;
 	jQuery.each( dependent_on_me, function() {
-		var dependentField = this;
-		var dependent_field_element;
+		var element, cmbox, tokens,
+			dependentField = this;
+
 		if ( partOfMultiple ) {
-			dependent_field_element = jQuery(self).closest(".multipleTemplateInstance")
+			element = $( self ).closest( '.multipleTemplateInstance' )
 				.find('[origName="' + dependentField + '"]');
 		} else {
-			dependent_field_element = jQuery('[name="' + dependentField + '"]');
+			element = $('[name="' + dependentField + '"]');
 		}
-		var class_name = $(dependent_field_element).attr( 'class' );
-		if ( class_name.indexOf( 'sfComboBox' ) != -1 ) {
-			var cmbox = new sf.select2.combobox();
-			cmbox.refresh(dependent_field_element);
-		} else if ( class_name.indexOf( 'sfTokens' ) != -1 ) {
-			var tokens = new sf.select2.tokens();
-			tokens.refresh(dependent_field_element);
+
+		if ( element.hasClass( 'sfComboBox' ) ) {
+			cmbox = new sf.select2.combobox();
+			cmbox.refresh(element);
+		} else if ( element.hasClass( 'sfTokens' ) ) {
+			tokens = new sf.select2.tokens();
+			tokens.refresh(element);
 		} else {
-			dependent_field_element.setDependentAutocompletion(dependentField, name, curValue);
+			element.setDependentAutocompletion(dependentField, name, curValue);
 		}
 	});
 
