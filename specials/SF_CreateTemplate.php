@@ -137,9 +137,7 @@ END;
 		return $text;
 	}
 
-	static function addJavascript() {
-		global $wgOut;
-
+	function addJavascript() {
 		// TODO - this should be in a JS file
 		$template_name_error_str = wfMessage( 'sf_blank_error' )->escaped();
 		$jsText =<<<END
@@ -188,7 +186,7 @@ jQuery(document).ready(function() {
 </script>
 
 END;
-		$wgOut->addScript( $jsText );
+		$this->getOutput()->addScript( $jsText );
 	}
 
 	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
@@ -212,35 +210,36 @@ END;
 	}
 
 	function printCreateTemplateForm( $query ) {
-		global $wgOut, $wgRequest, $sfgScriptPath;
+		$out = $this->getOutput();
+		$req = $this->getRequest();
 
 		if ( !is_null( $query ) ) {
 			$presetTemplateName = str_replace( '_', ' ', $query );
-			$wgOut->setPageTitle( wfMessage( 'sf-createtemplate-with-name', $presetTemplateName )->text() );
+			$out->setPageTitle( wfMessage( 'sf-createtemplate-with-name', $presetTemplateName )->text() );
 			$template_name = $presetTemplateName;
 		} else {
 			$presetTemplateName = null;
-			$template_name = $wgRequest->getVal( 'template_name' );
+			$template_name = $req->getVal( 'template_name' );
 		}
 
-		$wgOut->addModules( 'ext.semanticforms.main' );
-		self::addJavascript();
+		$out->addModules( 'ext.semanticforms.main' );
+		$this->addJavascript();
 
 		$text = '';
-		$save_page = $wgRequest->getCheck( 'wpSave' );
-		$preview_page = $wgRequest->getCheck( 'wpPreview' );
+		$save_page = $req->getCheck( 'wpSave' );
+		$preview_page = $req->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
-			$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateTemplate' );
+			$validToken = $this->getUser()->matchEditToken( $req->getVal( 'csrf' ), 'CreateTemplate' );
 			if ( !$validToken ) {
 				$text = "This appears to be a cross-site request forgery; canceling save.";
-				$wgOut->addHTML( $text );
+				$out->addHTML( $text );
 				return;
 			}
 
 			$fields = array();
 			// Cycle through the query values, setting the
 			// appropriate local variables.
-			foreach ( $wgRequest->getValues() as $var => $val ) {
+			foreach ( $req->getValues() as $var => $val ) {
 				$var_elements = explode( "_", $var );
 				// we only care about query variables of the form "a_b"
 				if ( count( $var_elements ) != 2 )
@@ -249,27 +248,27 @@ END;
 				if ( $field_field == 'name' && $id != 'starter' ) {
 					$field = SFTemplateField::create(
 						$val,
-						$wgRequest->getVal( 'label_' . $id ),
-						$wgRequest->getVal( 'semantic_property_' . $id ),
-						$wgRequest->getCheck( 'is_list_' . $id ),
-						$wgRequest->getVal( 'delimiter_' . $id )
+						$req->getVal( 'label_' . $id ),
+						$req->getVal( 'semantic_property_' . $id ),
+						$req->getCheck( 'is_list_' . $id ),
+						$req->getVal( 'delimiter_' . $id )
 					);
-					$field->setFieldType( $wgRequest->getVal( 'field_type_' . $id ) );
+					$field->setFieldType( $req->getVal( 'field_type_' . $id ) );
 					// Fake attribute.
-					$field->mAllowedValuesStr = $wgRequest->getVal( 'allowed_values_' . $id );
+					$field->mAllowedValuesStr = $req->getVal( 'allowed_values_' . $id );
 					$fields[] = $field;
 				}
 			}
 
 			// Assemble the template text, and submit it as a wiki
 			// page.
-			$wgOut->setArticleBodyOnly( true );
+			$out->setArticleBodyOnly( true );
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
-			$category = $wgRequest->getVal( 'category' );
-			$cargo_table = $wgRequest->getVal( 'cargo_table' );
-			$aggregating_property = $wgRequest->getVal( 'semantic_property_aggregation' );
-			$aggregation_label = $wgRequest->getVal( 'aggregation_label' );
-			$template_format = $wgRequest->getVal( 'template_format' );
+			$category = $req->getVal( 'category' );
+			$cargo_table = $req->getVal( 'cargo_table' );
+			$aggregating_property = $req->getVal( 'semantic_property_aggregation' );
+			$aggregation_label = $req->getVal( 'aggregation_label' );
+			$template_format = $req->getVal( 'template_format' );
 			$sfTemplate = new SFTemplate( $template_name, $fields );
 			$sfTemplate->setCategoryName( $category );
 			$sfTemplate->mCargoTable = $cargo_table;
@@ -278,7 +277,7 @@ END;
 			$full_text = $sfTemplate->createText();
 
 			$text = SFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
-			$wgOut->addHTML( $text );
+			$out->addHTML( $text );
 			return;
 		}
 
@@ -344,7 +343,7 @@ END;
 
 END;
 
-		$wgOut->addHTML( $text );
+		$out->addHTML( $text );
 	}
 
 	protected function getGroupName() {

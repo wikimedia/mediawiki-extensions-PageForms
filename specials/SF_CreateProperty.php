@@ -56,33 +56,35 @@ class SFCreateProperty extends SpecialPage {
 	}
 
 	function printCreatePropertyForm( $query ) {
-		global $wgOut, $wgRequest, $sfgScriptPath;
 		global $smwgContLang;
+
+		$out = $this->getOutput();
+		$req = $this->getRequest();
 
 		// Cycle through the query values, setting the appropriate
 		// local variables.
 		$presetPropertyName = str_replace( '_', ' ', $query );
 		if ( $presetPropertyName !== '' ) {
-			$wgOut->setPageTitle( wfMessage( 'sf-createproperty-with-name', $presetPropertyName)->text() );
+			$out->setPageTitle( wfMessage( 'sf-createproperty-with-name', $presetPropertyName)->text() );
 			$property_name = $presetPropertyName;
 		} else {
-			$property_name = $wgRequest->getVal( 'property_name' );
+			$property_name = $req->getVal( 'property_name' );
 		}
-		$property_type = $wgRequest->getVal( 'property_type' );
-		$default_form = $wgRequest->getVal( 'default_form' );
-		$allowed_values = $wgRequest->getVal( 'values' );
+		$property_type = $req->getVal( 'property_type' );
+		$default_form = $req->getVal( 'default_form' );
+		$allowed_values = $req->getVal( 'values' );
 
 		$save_button_text = wfMessage( 'savearticle' )->text();
 		$preview_button_text = wfMessage( 'preview' )->text();
 
 		$property_name_error_str = '';
-		$save_page = $wgRequest->getCheck( 'wpSave' );
-		$preview_page = $wgRequest->getCheck( 'wpPreview' );
+		$save_page = $req->getCheck( 'wpSave' );
+		$preview_page = $req->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
-			$validToken = $this->getUser()->matchEditToken( $wgRequest->getVal( 'csrf' ), 'CreateProperty' );
+			$validToken = $this->getUser()->matchEditToken( $req->getVal( 'csrf' ), 'CreateProperty' );
 			if ( !$validToken ) {
 				$text = "This appears to be a cross-site request forgery; canceling save.";
-				$wgOut->addHTML( $text );
+				$out->addHTML( $text );
 				return;
 			}
 
@@ -91,12 +93,12 @@ class SFCreateProperty extends SpecialPage {
 				$property_name_error_str = wfMessage( 'sf_blank_error' )->text();
 			} else {
 				// Redirect to wiki interface.
-				$wgOut->setArticleBodyOnly( true );
+				$out->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$full_text = self::createPropertyText( $property_type, $default_form, $allowed_values );
 				$edit_summary = wfMessage( 'sf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
 				$text = SFUtils::printRedirectForm( $title, $full_text, $edit_summary, $save_page, $preview_page, false, false, false, null, null );
-				$wgOut->addHTML( $text );
+				$out->addHTML( $text );
 				return;
 			}
 		}
@@ -181,8 +183,8 @@ END;
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
-		$wgOut->addScript( '<script type="text/javascript">' . $javascript_text . '</script>' );
-		$wgOut->addHTML( $text );
+		$out->addScript( '<script type="text/javascript">' . $javascript_text . '</script>' );
+		$out->addHTML( $text );
 	}
 
 	protected function getGroupName() {
