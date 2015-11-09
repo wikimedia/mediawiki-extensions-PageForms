@@ -331,33 +331,12 @@ END;
 	}
 
 	/**
-	 * Javascript files to be added outside of the ResourceLoader -
-	 * by default, there are none.
-	 */
-	public static function addJavascriptFiles( $parser ) {
-		global $wgOut, $wgJsMimeType;
-
-		$scripts = array();
-
-		Hooks::run( 'sfAddJavascriptFiles', array( &$scripts ) );
-
-		foreach ( $scripts as $js ) {
-			if ( $parser ) {
-				$script = "<script type=\"$wgJsMimeType\" src=\"$js\"></script>\n";
-				$parser->getOutput()->addHeadItem( $script );
-			} else {
-				$wgOut->addScriptFile( $js );
-			}
-		}
-	}
-
-	/**
-	 * Includes the necessary Javascript and CSS files for the form
+	 * Includes the necessary ResourceLoader modules for the form
 	 * to display and work correctly.
 	 *
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
-	public static function addJavascriptAndCSS( $parser = null ) {
+	public static function addFormRLModules( $parser = null ) {
 		global $wgOut;
 
 		// Handling depends on whether or not this form is embedded
@@ -369,18 +348,26 @@ END;
 			$output = $parser->getOutput();
 		}
 
-		$output->addModules( 'ext.semanticforms.main' );
-		$output->addModules( 'ext.semanticforms.fancybox' );
-		$output->addModules( 'ext.semanticforms.dynatree' );
-		$output->addModules( 'ext.semanticforms.imagepreview' );
-		$output->addModules( 'ext.semanticforms.autogrow' );
-		$output->addModules( 'ext.semanticforms.submit' );
-		$output->addModules( 'ext.semanticforms.checkboxes' );
-		$output->addModules( 'ext.semanticforms.select2' );
-		$output->addModules( 'ext.smw.tooltips' );
-		$output->addModules( 'ext.smw.sorttable' );
+		$mainModules = array(
+			'ext.semanticforms.main',
+			'ext.semanticforms.fancybox',
+			'ext.semanticforms.dynatree',
+			'ext.semanticforms.imagepreview',
+			'ext.semanticforms.autogrow',
+			'ext.semanticforms.submit',
+			'ext.semanticforms.checkboxes',
+			'ext.semanticforms.select2',
+			'ext.smw.tooltips',
+			'ext.smw.sorttable'
+		);
 
-		self::addJavascriptFiles( $parser );
+		$output->addModules( $mainModules );
+
+		$otherModules = array();
+		Hooks::run( 'sfAddResourceLoaderModules', array( &$otherModules ) );
+		foreach ( $otherModules as $rlModule ) {
+			$output->addModules( $rlModule );
+		}
 	}
 
 	/**
@@ -1097,7 +1084,7 @@ END;
 			$wgOut->addParserOutputNoText( $parserOutput );
 		}
 
-		SFUtils::addJavascriptAndCSS();
+		SFUtils::addFormRLModules();
 		$editpage->previewTextAfterContent .=
 			'<div style="margin-top: 15px">' . $form_text . "</div>";
 
