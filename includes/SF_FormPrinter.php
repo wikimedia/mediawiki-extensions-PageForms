@@ -1792,10 +1792,7 @@ END;
 					// keeping a track array (e.g., /@replace_(.*)@/)
 					$reptmp = self::makePlaceholderInWikiText( $curPlaceholder );
 					if ( $curPlaceholder != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false ) {
-						// Escape $template_text, because values like $1 cause problems
-						// for preg_replace().
-						$escaped_template_text = str_replace( '$', '\$', $template_text );
-						$data_text = preg_replace( '/' . $reptmp . '/', $escaped_template_text . $reptmp, $data_text );
+						$data_text = str_replace( $reptmp, $template_text . $reptmp, $data_text );
 					} else {
 						$data_text .= $template_text . "\n";
 					}
@@ -1838,9 +1835,9 @@ END;
 						$multipleTemplateString .= "</fieldset>\n";
 						unset ( $template_label );
 					}
-					$escapedMultipleTemplateString = str_replace( '$', '\$', $multipleTemplateString );
-					$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $curPlaceholder ) . '/',
-						$escapedMultipleTemplateString, $form_text );
+
+
+					$form_text = str_replace( self::makePlaceholderInFormHTML( $curPlaceholder ), $multipleTemplateString, $form_text );
 				}
 				if ( ! $all_instances_printed ) {
 					// This will cause the section to be
@@ -1859,11 +1856,12 @@ END;
 		// tags in the HTML and wiki-text.
 
 		foreach ( $placeholderFields as $stringToReplace ) {
+
 			// remove the @<replacename>@ tags from the data that is submitted
-			$data_text = preg_replace( '/' . self::makePlaceholderInWikiText( $stringToReplace ) . '/', '', $data_text );
+			$data_text = str_replace( self::makePlaceholderInWikiText( $stringToReplace ), '', $data_text );
 
 			// remove the @<insertHTML>@ tags from the generated HTML form
-			$form_text = preg_replace( '/' . self::makePlaceholderInFormHTML( $stringToReplace ) . '/', '', $form_text );
+			$form_text = str_replace( self::makePlaceholderInFormHTML( $stringToReplace ), '', $form_text );
 		}
 
 		// if it wasn't included in the form definition, add the
@@ -1885,7 +1883,7 @@ END;
 				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
 					array( '{{', '}}' ),
 					$existing_page_content );
-				$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}/', '', $existing_page_content );
+				$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
 			}
 			$form_text .= Html::hidden( 'partial', 1 );
 		} elseif ( $source_is_page ) {
