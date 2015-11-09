@@ -1650,6 +1650,12 @@ END;
 					$default_value = "";
 					$section_start_loc = 0;
 					if ( $source_is_page && $existing_page_content !== null ) {
+						// For the last section of the page, there is no trailing newline in
+						// $existing_page_content, but the code below expects it. This code
+						// ensures that there is always trailing newline. T72202
+						if ( substr( $existing_page_content, -1 ) !== "\n" ) {
+							$existing_page_content .= "\n";
+						}
 
 						$section_start_loc = strpos( $existing_page_content, $header_text );
 						$existing_page_content = str_replace( $header_text, '', $existing_page_content );
