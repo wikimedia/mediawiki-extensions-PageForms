@@ -149,7 +149,7 @@ END;
 
 		// Now write everything to the screen.
 		$wgOut->addHTML( $text );
-		SFUtils::addJavascriptAndCSS( $embedded ? $wgParser : null );
+		SFUtils::addFormRLModules( $embedded ? $wgParser : null );
 		$script = "\t\t" . '<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
 		if ( $embedded ) {
 			$wgParser->getOutput()->addHeadItem( $script );
