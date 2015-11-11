@@ -723,19 +723,28 @@ class SFAutoeditAPI extends ApiBase {
 				throw new MWException( wfMessage( 'sf_autoedit_invalidtargetspecified', trim( preg_replace( '/<unique number(.*)>/', $titleNumber, $targetNameFormula ) ) )->parse() );
 			}
 
-			// if title exists already cycle through numbers for this tag until
-			// we find one that gives a nonexistent page title;
-			//
-			// can not use $targetTitle->exists(); it does not use
-			// Title::GAID_FOR_UPDATE, which is needed to get correct data from
-			// cache; use $targetTitle->getArticleID() instead
+			// If title exists already, cycle through numbers for
+			// this tag until we find one that gives a nonexistent
+			// page title.
+			// We cannot use $targetTitle->exists(); it does not use
+			// Title::GAID_FOR_UPDATE, which is needed to get
+			// correct data from cache; use
+			// $targetTitle->getArticleID() instead.
+			$numAttemptsAtTitle = 0;
 			while ( $targetTitle->getArticleID( Title::GAID_FOR_UPDATE ) !== 0 ) {
+				$numAttemptsAtTitle++;
 
 				if ( $isRandom ) {
+					// If the set of pages is "crowded"
+					// already, go one digit higher.
+					if ( $numAttemptsAtTitle > 20 ) {
+						$randomNumDigits++;
+					}
 					$titleNumber = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 				}
-				// if title number is blank, change it to 2; otherwise,
-				// increment it, and if necessary pad it with leading 0s as well
+				// If title number is blank, change it to 2;
+				// otherwise, increment it, and if necessary
+				// pad it with leading 0s as well.
 				elseif ( $titleNumber == "" ) {
 					$titleNumber = 2;
 				} else {
