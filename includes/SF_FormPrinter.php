@@ -1096,7 +1096,19 @@ END;
 					// values if a field and table have
 					// been specified.
 					if ( is_null( $possible_values ) && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
-						$possible_values = SFUtils::getValuesForCargoField( $cargo_table, $cargo_field, $cargo_field . " IS NOT NULL" );
+						// We only want the non-null
+						// values. Ideally this could
+						// be done by calling
+						// getValuesForCargoField() with
+						// an "IS NOT NULL" clause, but
+						// unfortunately that fails
+						// for array/list fields.
+						// Instead of getting involved
+						// with all that, we'll just
+						// remove the null/blank values
+						// afterward.
+						$possible_values = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+						$possible_values = array_filter( $possible_values, 'strlen' );
 					}
 
 					if ( !is_null( $possible_values ) ) {
