@@ -130,6 +130,7 @@
 	"sf_too_few_instances_error": "An error message when the user has not added enough instances of a template.\n\nParameters:\n* $1 - number of instances",
 	"sf_too_many_instances_error": "An error message when the user has added too many instances of a template.\n\nParameters:\n* $1 - number of instances",
 	"sf_blank_error": "{{Identical|Cannot be blank}}",
+	"sf_pipe_error": "An error message - if an input contains a pipe character (\"|\"), the pipe must be part of a call to a template, like \"{{a|b}}\", or a parser function, like \"{{#c:d}}\".",
 	"uploadwindow": "Special page name for [[Special:UploadWindow]].\n\n'''This is about a window for uploading files. The window is not the thing being uploaded.'''",
 	"sf_deletionlog": "{{Identical|Deletion log}}",
 	"sf-pageschemas-otherparams": "Used as label for \"Form inputs\" and \"Other parameters\" input boxes.\n\nParameters:\n* $1 - any one of the following (hard-coded):\n** \"size=20, mandatory\"\n** \"rows=10, mandatory\"",

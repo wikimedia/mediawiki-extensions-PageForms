@@ -266,6 +266,8 @@ if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
 				'sf_bad_url_error',
 				'sf_bad_email_error',
 				'sf_bad_number_error',
+				'sf_bad_date_error',
+				'sf_pipe_error',
 			),
 		),
 		'ext.semanticforms.browser' => $sfgResourceTemplate + array(

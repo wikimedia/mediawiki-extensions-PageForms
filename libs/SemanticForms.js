@@ -797,6 +797,52 @@ jQuery.fn.validateDateField = function() {
 	}
 };
 
+// Standalone pipes are not allowed, because they mess up the template
+// parsing; unless they're part of a call to a template or a parser function.
+jQuery.fn.checkForPipes = function() {
+	var fieldVal = this.find("input, textarea").val();
+	// We need to check for a few different things because this is
+	// called for a variety of different input types.
+	if ( fieldVal == undefined || fieldVal == '' ) {
+		fieldVal = this.text();
+	}
+	if ( fieldVal == undefined || fieldVal == '' ) {
+		return true;
+	}
+	if ( fieldVal.indexOf( '|' ) < 0 ) {
+		return true;
+	}
+
+	// There's at least one pipe - here's where the real work begins.
+	// We do a mini-parsing of the string to try to make sure that every
+	// pipe is with double curly brackets, whether that's a template call,
+	// a parser function call, etc.
+	curIndex = 0;
+	while ( true ) {
+		nextPipe = fieldVal.indexOf( '|', curIndex );
+		if ( nextPipe < 0 ) {
+			return true;
+		}
+		nextCurlyBracketsStart = fieldVal.indexOf( '{{', curIndex );
+		if ( nextCurlyBracketsStart < 0 || nextPipe < nextCurlyBracketsStart ) {
+			// There's a pipe where it shouldn't be.
+			this.addErrorMessage( 'sf_pipe_error' );
+			return false;
+		}
+		nextCurlyBracketsEnd = fieldVal.indexOf( '}}', curIndex );
+		if ( nextCurlyBracketsEnd < 0 ) {
+			// Something is malformed - might as well throw an
+			// error.
+			this.addErrorMessage( 'sf_pipe_error' );
+			return false;
+		}
+		curIndex = nextCurlyBracketsEnd + 2;
+	}
+
+	// We'll never get here, but let's have this line anyway.
+	return true;
+}
+
 window.validateAll = function () {
 
 	// Hook that fires on form submission, before the validation.
@@ -844,6 +890,11 @@ window.validateAll = function () {
 	});
 	jQuery("span.inputSpan.uniqueFieldSpan").not(".hiddenBySF").each( function() {
 		if (! jQuery(this).validateUniqueField() ) {
+			num_errors += 1;
+		}
+	});
+	jQuery("span.inputSpan, textarea, div.sfComboBox").not(".hiddenBySF").each( function() {
+		if (! jQuery(this).checkForPipes() ) {
 			num_errors += 1;
 		}
 	});
