@@ -173,6 +173,7 @@
 	"sf_bad_email_error": "Deve avere un formato per di indirizzo email valido",
 	"sf_bad_number_error": "Dev'\\esser un numero valido",
 	"sf_bad_date_error": "Dev'\\esser una data valida",
+	"sf_pipe_error": "\"|\" non è consentito, eccetto in chiamate a template o funzioni parser.",
 	"uploadwindow": "Finestra di upload",
 	"sf_deletionlog": "Log cancellazioni",
 	"sf-preview-header": "Anteprima modulo",

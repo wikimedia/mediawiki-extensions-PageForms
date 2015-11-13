@@ -5,7 +5,8 @@
 			"Farras",
 			"Irwangatot",
 			"IvanLanin",
-			"Rex"
+			"Rex",
+			"Kenrick95"
 		]
 	},
 	"semanticforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
@@ -134,6 +135,7 @@
 	"sf_bad_email_error": "harus memiliki format alamat surel yang benar",
 	"sf_bad_number_error": "harus berupa angka",
 	"sf_bad_date_error": "harus berupa tanggal",
+	"sf_pipe_error": "\"|\" tidak diizinkan, kecuali dalam pemanggilan templat dan fungsi parser.",
 	"uploadwindow": "Jendela pengunggahan",
 	"sf_deletionlog": "Log penghapusan",
 	"sf_property_isproperty": "Ini adalah properti bertipe $1",
