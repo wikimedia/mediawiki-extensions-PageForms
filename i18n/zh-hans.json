@@ -191,6 +191,7 @@
 	"sf_bad_email_error": "必须使用有效的电子邮件地址格式",
 	"sf_bad_number_error": "必须为有效数字",
 	"sf_bad_date_error": "必须为有效日期",
+	"sf_pipe_error": "除了在模板调用和解析器函数中外，不允许使用“|”。",
 	"uploadwindow": "上传窗口",
 	"sf_deletionlog": "删除日志",
 	"sf-preview-header": "表单预览",
