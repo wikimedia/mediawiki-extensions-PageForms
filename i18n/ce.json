@@ -72,6 +72,7 @@
 	"sf_createclass_listofvalues": "МаьӀнийн могӀам?",
 	"sf_createclass_nameinput": "Форман цӀе:",
 	"sf_createclass_create": "Кхолла",
+	"formstart": "Кепаца агӀо тӀетохар",
 	"sf_formstart_createoredit": "Кхолла я нисъе",
 	"formedit": "Тае форман гӀоьнца",
 	"sf_formedit_createtitle": "Кхоллар $1: $2",

@@ -205,6 +205,7 @@
 	"sf_bad_email_error": "doit avoir un format correct d’adresse courriel.",
 	"sf_bad_number_error": "doit être un nombre valide",
 	"sf_bad_date_error": "doit être une date valide",
+	"sf_pipe_error": "« | » n’est pas autorisé, sauf dans les appels de modèle et les fonctions d’analyseur.",
 	"uploadwindow": "Fenêtre de téléversement",
 	"sf_deletionlog": "Historique des suppressions",
 	"sf-preview-header": "Aperçu du formulaire",
