@@ -181,7 +181,7 @@
 	"sf_bad_email_error": "must have a valid email address format",
 	"sf_bad_number_error": "must be a valid number",
 	"sf_bad_date_error": "must be a valid date",
-	"sf_pipe_error": "\"|\" is not allowed, except in template calls and parser functions.",
+	"sf_pipe_error": "\"|\" is not allowed, except within {{...}} or [[...]]",
 	"uploadwindow": "Upload window",
 	"sf_deletionlog": "Deletion log",
 	"sf-preview-header": "Form preview",

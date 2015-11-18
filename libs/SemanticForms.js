@@ -815,28 +815,34 @@ jQuery.fn.checkForPipes = function() {
 
 	// There's at least one pipe - here's where the real work begins.
 	// We do a mini-parsing of the string to try to make sure that every
-	// pipe is with double curly brackets, whether that's a template call,
-	// a parser function call, etc.
+	// pipe is within either double square brackets (links) or double
+	// curly brackets (parser functions, template calls).
+	// For simplicity's sake, turn all curly brackets into square brackets,
+	// so we only have to check for one thing.
+	// This will incorrectly allow bad text like "[[a|b}}", but hopefully
+	// that's not a major problem.
+	fieldVal = fieldVal.replace( /{{/g, '[[' );
+	fieldVal = fieldVal.replace( /}}/g, ']]' );
 	curIndex = 0;
 	while ( true ) {
 		nextPipe = fieldVal.indexOf( '|', curIndex );
 		if ( nextPipe < 0 ) {
 			return true;
 		}
-		nextCurlyBracketsStart = fieldVal.indexOf( '{{', curIndex );
-		if ( nextCurlyBracketsStart < 0 || nextPipe < nextCurlyBracketsStart ) {
+		nextDoubleBracketsStart = fieldVal.indexOf( '[[', curIndex );
+		if ( nextDoubleBracketsStart < 0 || nextPipe < nextDoubleBracketsStart ) {
 			// There's a pipe where it shouldn't be.
 			this.addErrorMessage( 'sf_pipe_error' );
 			return false;
 		}
-		nextCurlyBracketsEnd = fieldVal.indexOf( '}}', curIndex );
-		if ( nextCurlyBracketsEnd < 0 ) {
+		nextDoubleBracketsEnd = fieldVal.indexOf( ']]', curIndex );
+		if ( nextDoubleBracketsEnd < 0 ) {
 			// Something is malformed - might as well throw an
 			// error.
 			this.addErrorMessage( 'sf_pipe_error' );
 			return false;
 		}
-		curIndex = nextCurlyBracketsEnd + 2;
+		curIndex = nextDoubleBracketsEnd + 2;
 	}
 
 	// We'll never get here, but let's have this line anyway.
