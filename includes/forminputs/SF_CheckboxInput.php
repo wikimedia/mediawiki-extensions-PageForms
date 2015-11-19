@@ -31,12 +31,18 @@ class SFCheckboxInput extends SFFormInput {
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
-		$input_id = "input_$sfgFieldNum";
-		$disabled_text = ( $is_disabled ) ? 'disabled' : '';
+		$inputID = "input_$sfgFieldNum";
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$className .= ' sfShowIfCheckedCheckbox';
-			$div_id = key( $other_args['show on select'] );
-			$sfgShowOnSelect[$input_id] = $div_id;
+			foreach ( $other_args['show on select'] as $div_id => $options ) {
+				// We don't actually use "$options" for
+				// anything, because it's just a checkbox.
+				if ( array_key_exists( $inputID, $sfgShowOnSelect ) ) {
+					$sfgShowOnSelect[$inputID][] = $div_id;
+				} else {
+					$sfgShowOnSelect[$inputID] = array( $div_id );
+				}
+			}
 		}
 
 		// Can show up here either as an array or a string, depending on
@@ -65,7 +71,7 @@ class SFCheckboxInput extends SFFormInput {
 		}
 		$text = "\t" . Html::hidden( $input_name . '[is_checkbox]', 'true' ) . "\n";
 		$checkboxAttrs = array(
-			'id' => $input_id,
+			'id' => $inputID,
 			'class' => $className,
 			'tabindex' => $sfgTabIndex
 		);

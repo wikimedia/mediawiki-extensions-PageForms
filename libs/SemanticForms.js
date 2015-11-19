@@ -484,17 +484,20 @@ jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple, initPage) {
 	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
 	
 	if (partOfMultiple) {
-		var div_id = sfgShowOnSelect[this.attr("data-origID")];
+		var divIDs = sfgShowOnSelect[this.attr("data-origID")];
 		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
 	} else {
-		var div_id = sfgShowOnSelect[this.attr("id")];
+		var divIDs = sfgShowOnSelect[this.attr("id")];
 		var instanceWrapperDiv = null;
 	}
 
-	if (jQuery(this).is(":checked")) {
-		showDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
-	} else {
-		hideDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
+	for ( var i = 0; i < divIDs.length; i++ ) {
+		var divID = divIDs[i];
+		if (jQuery(this).is(":checked")) {
+			showDiv(divID, instanceWrapperDiv, initPage ? 0 : 'fast' );
+		} else {
+			hideDiv(divID, instanceWrapperDiv, initPage ? 0 : 'fast' );
+		}
 	}
 
 	return this;
