@@ -152,6 +152,7 @@
 	"sf_bad_email_error": "musi mieć poprawny format adresu e‐mail",
 	"sf_bad_number_error": "musi być poprawną liczbą",
 	"sf_bad_date_error": "musi być poprawną datą",
+	"sf_pipe_error": "„|” nie jest dozwolone, z wyjątkiem ciągu {{...}} lub [[...]]",
 	"uploadwindow": "Okno przesyłania plików",
 	"sf_deletionlog": "Rejestr usunięć",
 	"sf-preview-header": "Podgląd formularza",

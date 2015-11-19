@@ -180,7 +180,7 @@
 	"sf_bad_email_error": "ha tener un formatu válidu de direición de corréu electrónicu",
 	"sf_bad_number_error": "tien de ser un númberu válidu",
 	"sf_bad_date_error": "tien de ser una data válida",
-	"sf_pipe_error": "Nun se permite \"|\", sacante nes llamaes de plantíes y funciones analítiques.",
+	"sf_pipe_error": "Nun se permite \"|\", sacante nes llamaes dientro de {{...}} o [[...]]",
 	"uploadwindow": "Ventana de carga",
 	"sf_deletionlog": "Rexistru de desanicios",
 	"sf-preview-header": "Vista previa del formulariu",
