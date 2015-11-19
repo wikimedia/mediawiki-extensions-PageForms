@@ -976,7 +976,12 @@ END;
 							if ( $sub_components[0] == 'input type' ) {
 								$input_type = $sub_components[1];
 							} elseif ( $sub_components[0] == 'default' ) {
-								$default_value = $wgParser->recursiveTagParse( $sub_components[1] );
+								// We call recursivePreprocess() here,
+								// and not the more standard
+								// recursiveTagParse(), so that
+								// wikitext in the value, and bare URLs,
+								// will not get turned into HTML.
+								$default_value = $wgParser->recursivePreprocess( $sub_components[1] );
 							} elseif ( $sub_components[0] == 'preload' ) {
 								// free text field has special handling
 								if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
