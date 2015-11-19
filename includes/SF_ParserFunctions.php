@@ -165,13 +165,8 @@ class SFParserFunctions {
 		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
 		$parser->setFunctionHook( 'formredlink', array( 'SFParserFunctions', 'renderFormRedLink' ) );
 		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
-		if ( defined( get_class( $parser ) . '::SFH_OBJECT_ARGS' ) ) {
-			$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMapObj' ), SFH_OBJECT_ARGS );
-			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplateObj' ), SFH_OBJECT_ARGS );
-		} else {
-			$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMap' ) );
-			$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ) );
-		}
+		$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMap' ), $parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ), $parser::SFH_OBJECT_ARGS );
 
 		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
 
@@ -434,36 +429,7 @@ END;
 	/**
 	 * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
 	 */
-	static function renderArrayMap( &$parser, $value = '', $delimiter = ',', $var = 'x', $formula = 'x', $new_delimiter = ', ' ) {
-		// let '\n' represent newlines - chances that anyone will
-		// actually need the '\n' literal are small
-		$delimiter = str_replace( '\n', "\n", $delimiter );
-		$actual_delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
-		$new_delimiter = str_replace( '\n', "\n", $new_delimiter );
-
-		if ( $actual_delimiter == '' ) {
-			$values_array = preg_split( '/(.)/u', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
-		} else {
-			$values_array = explode( $actual_delimiter, $value );
-		}
-
-		$results = array();
-		foreach ( $values_array as $cur_value ) {
-			$cur_value = trim( $cur_value );
-			// ignore a value if it's null
-			if ( $cur_value != '' ) {
-				// remove whitespaces
-				$results[] = str_replace( $var, $cur_value, $formula );
-			}
-		}
-		return implode( $new_delimiter, $results );
-	}
-
-	/**
-	 * SFH_OBJ_ARGS
-	 * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
-	 */
-	static function renderArrayMapObj( &$parser, $frame, $args ) {
+	static function renderArrayMap( &$parser, $frame, $args ) {
 		# Set variables
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
@@ -501,38 +467,7 @@ END;
 	/**
 	 * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
 	 */
-	static function renderArrayMapTemplate( &$parser, $value = '', $template = '', $delimiter = ',', $new_delimiter = ', ' ) {
-		# let '\n' represent newlines
-		$delimiter = str_replace( '\n', "\n", $delimiter );
-		$actual_delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
-		$new_delimiter = str_replace( '\n', "\n", $new_delimiter );
-
-		if ( $actual_delimiter == '' ) {
-			$values_array = preg_split( '/(.)/u', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
-		} else {
-			$values_array = explode( $actual_delimiter, $value );
-		}
-
-		$results = array();
-		$template = trim( $template );
-
-		foreach ( $values_array as $cur_value ) {
-			$cur_value = trim( $cur_value );
-			// ignore a value if it's null
-			if ( $cur_value != '' ) {
-				// remove whitespaces
-				$results[] = '{{' . $template . '|' . $cur_value . '}}';
-			}
-		}
-
-		return array( implode( $new_delimiter, $results ), 'noparse' => false, 'isHTML' => false );
-	}
-
-	/**
-	 * SFH_OBJ_ARGS
-	 * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
-	 */
-	static function renderArrayMapTemplateObj( &$parser, $frame, $args ) {
+	static function renderArrayMapTemplate( &$parser, $frame, $args ) {
 		# Set variables
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$template = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
