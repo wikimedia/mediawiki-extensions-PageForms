@@ -85,6 +85,13 @@ class SFPageSchemas extends PSExtensionHandler {
 	public static function createSchemaXMLFromForm() {
 		global $wgRequest;
 
+		// Quick check: if the "form name" field hasn't been sent,
+		// it means the main "Form" checkbox wasn't selected; don't
+		// create any XML if so.
+		if ( !$wgRequest->getCheck( 'sf_form_name') ) {
+			return '';
+		}
+
 		$formName = null;
 		$xml = '';
 		$isStandardInputsOpen = false;
