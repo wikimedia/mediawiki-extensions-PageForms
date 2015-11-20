@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"AnakngAraw",
-			"Sky Harbor"
+			"Sky Harbor",
+			"Leeheonjin"
 		]
 	},
 	"semanticforms-desc": "Mga pormularyo para sa paggawa ng mga dagdag at pagbabago sa dato hinggil sa kahulugan ng salita (semantiko)",
@@ -153,6 +154,7 @@
 	"sf_bad_email_error": "dapat na mayroong isang tanggap na anyo/pormat ng adres ng e-liham",
 	"sf_bad_number_error": "dapat na isang tanggap na bilang",
 	"sf_bad_date_error": "dapat na isang tanggap na petsa",
+	"sf_pipe_error": "Hindi pinapayagan ang \"|\", maliban kung nasa loob ng {{...}} o [[...]]",
 	"uploadwindow": "Dungawan ng pagkarga",
 	"sf_deletionlog": "Talaan ng pagbubura",
 	"sf-preview-header": "Paunang patingin sa pormularyo",
