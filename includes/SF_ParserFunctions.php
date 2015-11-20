@@ -231,7 +231,7 @@ class SFParserFunctions {
 		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'queryformlink' ), $parser->mStripState );
 	}
 
-	static function renderFormInput ( &$parser ) {
+	static function renderFormInput( &$parser ) {
 		global $wgHtml5;
 
 		$params = func_get_args();
@@ -322,14 +322,6 @@ class SFParserFunctions {
 			}
 		}
 
-		$fs = SpecialPageFactory::getPage( 'FormStart' );
-
-		$fs_url = $fs->getTitle()->getLocalURL();
-		$str = <<<END
-			<form name="createbox" action="$fs_url" method="get" class="$classStr">
-			<p>
-
-END;
 		$formInputAttrs = array( 'size' => $inSize );
 
 		if ( $wgHtml5 ) {
@@ -373,18 +365,20 @@ END;
 			}
 		}
 
-		$str .= "\t" . Html::input( 'page_name', $inValue, 'text', $formInputAttrs ) . "\n";
+		$formContents = Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
 
-		// if the form start URL looks like "index.php?title=Special:FormStart"
+		// If the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
-		if ( ( $pos = strpos( $fs_url, "title=" ) ) > - 1 ) {
-			$str .= Html::hidden( "title", urldecode( substr( $fs_url, $pos + 6 ) ) );
+		$fs = SpecialPageFactory::getPage( 'FormStart' );
+		$fsURL = $fs->getTitle()->getLocalURL();
+		if ( ( $pos = strpos( $fsURL, "title=" ) ) > - 1 ) {
+			$formContents .= Html::hidden( "title", urldecode( substr( $fsURL, $pos + 6 ) ) );
 		}
 		if ( $inFormName == '' ) {
-			$str .= SFUtils::formDropdownHTML();
+			$formContents .= SFUtils::formDropdownHTML();
 		} else {
-			$str .= Html::hidden( "form", $inFormName );
+			$formContents .= Html::hidden( "form", $inFormName );
 		}
 
 		// Recreate the passed-in query string as a set of hidden variables.
@@ -396,17 +390,27 @@ END;
 			foreach ( $query_components as $query_component ) {
 				$var_and_val = explode( '=', $query_component, 2 );
 				if ( count( $var_and_val ) == 2 ) {
-					$str .= Html::hidden( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
+					$formContents .= Html::hidden( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
 				}
 			}
 		}
 
-		$button_str = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'sf_formstart_createoredit' )->escaped();
-		$str .= <<<END
-			<input type="submit" value="$button_str" id="input_button_$input_num" class="forminput_button"/></p>
-			</form>
+		$buttonStr = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'sf_formstart_createoredit' )->escaped();
+		$formContents .= Html::input( null, $buttonStr, 'submit',
+			array(
+				'id' => "input_button_$input_num",
+				'class' => 'forminput_button'
+			)
+		);
 
-END;
+		$str = "\t" . Html::rawElement( 'form', array(
+				'name' => 'createbox',
+				'action' => $fsURL,
+				'method' => 'get',
+				'class' => $classStr
+			), '<p>' . $formContents . '</p>'
+		) . "\n";
+
 		if ( ! empty( $inAutocompletionSource ) ) {
 			$str .= "\t\t\t" .
 				Html::element( 'div',
