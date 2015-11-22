@@ -194,6 +194,7 @@
 	"sf_bad_email_error": "debe tener una dirección de correo electrónico con un formato válido",
 	"sf_bad_number_error": "debe ser un número válido",
 	"sf_bad_date_error": "debe ser una fecha válida",
+	"sf_pipe_error": "\"|\" no está permitido, excepto entre {{...}} o [[...]]",
 	"uploadwindow": "Ventana para subir archivos",
 	"sf_deletionlog": "Registro de borrado",
 	"sf-preview-header": "Vista previa del formulario",
