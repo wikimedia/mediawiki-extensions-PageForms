@@ -236,42 +236,40 @@ class SFParserFunctions {
 
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
-		// set defaults
+
+		// Set defaults.
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
 		$inQueryArr = array();
-		$positionalParameters = false;
 		$inAutocompletionSource = '';
 		$inRemoteAutocompletion = false;
 		$inSize = 25;
 		$classStr = "sfFormInput";
 		$inPlaceholder = "";
 		$inAutofocus = true; // Only evaluated if $wgHtml5 is true.
-		// assign params - support unlabelled params, for backwards compatibility
+
+		// Assign params.
 		foreach ( $params as $i => $param ) {
 			$elements = explode( '=', $param, 2 );
 
-			// set param_name and value
-			if ( count( $elements ) > 1 && !$positionalParameters ) {
-				$param_name = trim( $elements[0] );
-
-				// parse (and sanitize) parameter values
+			// Set param name and value.
+			if ( count( $elements ) > 1 ) {
+				$paramName = trim( $elements[0] );
+				// Parse (and sanitize) parameter values.
 				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
 			} else {
-				$param_name = null;
-
-				// parse (and sanitize) parameter values
-				$value = trim( $parser->recursiveTagParse( $param ) );
+				$paramName = trim( $param );
+				$value = null;
 			}
 
-			if ( $param_name == 'form' )
+			if ( $paramName == 'form' ) {
 				$inFormName = $value;
-			elseif ( $param_name == 'size' )
+			} elseif ( $paramName == 'size' ) {
 				$inSize = $value;
-			elseif ( $param_name == 'default value' )
+			} elseif ( $paramName == 'default value' ) {
 				$inValue = $value;
-			elseif ( $param_name == 'button text' )
+			} elseif ( $paramName == 'button text' ) {
 				$inButtonStr = $value;
-			elseif ( $param_name == 'query string' ) {
+			} elseif ( $paramName == 'query string' ) {
 				// Change HTML-encoded ampersands directly to
 				// URL-encoded ampersands, so that the string
 				// doesn't get split up on the '&'.
@@ -281,43 +279,24 @@ class SFParserFunctions {
 
 				parse_str($inQueryStr, $arr);
 				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
-			} elseif ( $param_name == 'autocomplete on category' ) {
+			} elseif ( $paramName == 'autocomplete on category' ) {
 				$inAutocompletionSource = $value;
-				$autocompletion_type = 'category';
-			} elseif ( $param_name == 'autocomplete on namespace' ) {
+				$autocompletionType = 'category';
+			} elseif ( $paramName == 'autocomplete on namespace' ) {
 				$inAutocompletionSource = $value;
-				$autocompletion_type = 'namespace';
-			} elseif ( $param_name == 'remote autocompletion' ) {
+				$autocompletionType = 'namespace';
+			} elseif ( $paramName == 'remote autocompletion' ) {
 				$inRemoteAutocompletion = true;
-			} elseif ( $param_name == 'placeholder' ) {
+			} elseif ( $paramName == 'placeholder' ) {
 				$inPlaceholder = $value;
-			} elseif ( $param_name == null && $value == 'popup' ) {
+			} elseif ( $paramName == 'popup' ) {
 				SFUtils::loadScriptsForPopupForm( $parser );
 				$classStr .= ' popupforminput';
-			} elseif ( $param_name == null && $value == 'no autofocus' ) {
+			} elseif ( $paramName == 'no autofocus' ) {
 				$inAutofocus = false;
-			} elseif ( $param_name !== null && !$positionalParameters ) {
-
+			} else {
 				$value = urlencode($value);
-				parse_str("$param_name=$value", $arr);
-				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
-
-			} elseif ( $i == 0 ) {
-				$inFormName = $value;
-				$positionalParameters = true;
-			} elseif ( $i == 1 ) {
-				$inSize = $value;
-			} elseif ( $i == 2 ) {
-				$inValue = $value;
-			} elseif ( $i == 3 ) {
-				$inButtonStr = $value;
-			} elseif ( $i == 4 ) {
-				// Change HTML-encoded ampersands directly to
-				// URL-encoded ampersands, so that the string
-				// doesn't get split up on the '&'.
-				$inQueryStr = str_replace( '&amp;', '%26', $value );
-
-				parse_str($inQueryStr, $arr);
+				parse_str( "$paramName=$value", $arr );
 				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
 		}
@@ -340,10 +319,10 @@ class SFParserFunctions {
 		} else {
 			self::$num_autocompletion_inputs++;
 			$input_num = self::$num_autocompletion_inputs;
-			// place the necessary Javascript on the page, and
+			// Place the necessary Javascript on the page, and
 			// disable the cache (so the Javascript will show up) -
 			// if there's more than one autocompleted #forminput
-			// on the page, we only need to do this the first time
+			// on the page, we only need to do this the first time.
 			if ( $input_num == 1 ) {
 				$parser->disableCache();
 				$output = $parser->getOutput();
@@ -354,10 +333,10 @@ class SFParserFunctions {
 			$formInputAttrs['id'] = $inputID;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
 			global $sfgMaxLocalAutocompleteValues;
-			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletion_type );
-			if ( count($autocompletion_values) > $sfgMaxLocalAutocompleteValues || $inRemoteAutocompletion ) {
+			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletionType );
+			if ( count( $autocompletion_values ) > $sfgMaxLocalAutocompleteValues || $inRemoteAutocompletion ) {
 				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
-				$formInputAttrs['autocompletedatatype'] = $autocompletion_type;
+				$formInputAttrs['autocompletedatatype'] = $autocompletionType;
 			} else {
 				global $sfgAutocompleteValues;
 				$sfgAutocompleteValues[$inputID] = $autocompletion_values;
@@ -381,10 +360,10 @@ class SFParserFunctions {
 			$formContents .= Html::hidden( "form", $inFormName );
 		}
 
-		// Recreate the passed-in query string as a set of hidden variables.
+		// Recreate the passed-in query string as a set of hidden
+		// variables.
 		if ( !empty( $inQueryArr ) ) {
-			// query string has to be turned into hidden inputs.
-
+			// Query string has to be turned into hidden inputs.
 			$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
 
 			foreach ( $query_components as $query_component ) {
@@ -396,7 +375,7 @@ class SFParserFunctions {
 		}
 
 		$buttonStr = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'sf_formstart_createoredit' )->escaped();
-		$formContents .= Html::input( null, $buttonStr, 'submit',
+		$formContents .= "&nbsp;" . Html::input( null, $buttonStr, 'submit',
 			array(
 				'id' => "input_button_$input_num",
 				'class' => 'forminput_button'
@@ -418,14 +397,14 @@ class SFParserFunctions {
 						'class' => 'page_name_auto_complete',
 						'id' => "div_$input_num",
 					),
-					// it has to be <div></div>, not
+					// It has to be <div></div>, not
 					// <div />, to work properly - stick
-					// in a space as the content
+					// in a space as the content.
 					' '
 				) . "\n";
 		}
 
-		// hack to remove newline from beginning of output, thanks to
+		// Hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
 		return $parser->insertStripItem( $str, $parser->mStripState );
 	}
@@ -434,7 +413,7 @@ class SFParserFunctions {
 	 * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
 	 */
 	static function renderArrayMap( &$parser, $frame, $args ) {
-		# Set variables
+		// Set variables.
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
 		$var = isset( $args[2] ) ? trim( $frame->expand( $args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) ) : 'x';
@@ -453,7 +432,7 @@ class SFParserFunctions {
 		}
 
 		$results_array = array();
-		// add results to the results array only if the old value was
+		// Add results to the results array only if the old value was
 		// non-null, and the new, mapped value is non-null as well.
 		foreach ( $values_array as $old_value ) {
 			$old_value = trim( $old_value );
@@ -472,7 +451,7 @@ class SFParserFunctions {
 	 * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
 	 */
 	static function renderArrayMapTemplate( &$parser, $frame, $args ) {
-		# Set variables
+		// Set variables.
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$template = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
 		$delimiter = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : ',';
@@ -495,8 +474,8 @@ class SFParserFunctions {
 			if ( $old_value == '' ) continue;
 			$bracketed_value = $frame->virtualBracketedImplode( '{{', '|', '}}',
 				$template, '1=' . $old_value );
-			// special handling if preprocessor class is set to
-			// 'Preprocessor_Hash'
+			// Special handling if preprocessor class is set to
+			// 'Preprocessor_Hash'.
 			if ( $bracketed_value instanceof PPNode_Hash_Array ) {
 				$bracketed_value = $bracketed_value->value;
 			}
@@ -508,7 +487,7 @@ class SFParserFunctions {
 
 
 	static function renderAutoEdit( &$parser ) {
-		// set defaults
+		// Set defaults.
 		$formcontent = '';
 		$linkString = null;
 		$linkType = 'span';
@@ -517,7 +496,7 @@ class SFParserFunctions {
 		$inQueryArr = array();
 		$editTime = null;
 
-		// parse parameters
+		// Parse parameters.
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
