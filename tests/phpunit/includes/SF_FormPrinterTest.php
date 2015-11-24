@@ -48,7 +48,7 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 			'form_definition' => "==section1==
 								 {{{section|section1|level=2}}}" ),
 		array(
-			'expected_form_text' => "<span class=\"inputSpan\"><textarea tabindex=\"1\" name=\"_section[section1]\" id=\"input_1\" class=\"createboxInput\" rows=\"5\" cols=\"90\" style=\"width: 100%\"></textarea></span>",
+			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section1]\" id=\"input_1\" class=\"createboxInput\" rows=\"5\" cols=\"90\" style=\"width: 100%\"></textarea></span>",
 			'expected_data_text' => "==section1==" )
 		);
 
@@ -58,7 +58,7 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 			'form_definition' => "=====section 2=====
 								 {{{section|section 2|level=5|rows=10|cols=5}}}" ),
 		array(
-			'expected_form_text' => "<span class=\"inputSpan\"><textarea tabindex=\"1\" name=\"_section[section 2]\" id=\"input_1\" class=\"createboxInput\" rows=\"10\" cols=\"5\" style=\"width: auto\"></textarea></span>",
+			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section 2]\" id=\"input_1\" class=\"createboxInput\" rows=\"10\" cols=\"5\" style=\"width: auto\"></textarea></span>",
 			'expected_data_text' => "=====section 2=====" )
 		);
 
@@ -68,7 +68,7 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 			'form_definition' => "==section 3==
 								 {{{section|section 3|level=2|mandatory|rows=20|cols=50|autogrow}}}" ),
 		array(
-			'expected_form_text' => "<span class=\"inputSpan mandatoryFieldSpan\"><textarea tabindex=\"1\" name=\"_section[section 3]\" id=\"input_1\" class=\"mandatoryField autoGrow\" rows=\"20\" cols=\"50\" style=\"width: auto\"></textarea></span>",
+			'expected_form_text' => "<span class=\"inputSpan pageSection mandatoryFieldSpan\"><textarea tabindex=\"1\" name=\"_section[section 3]\" id=\"input_1\" class=\"mandatoryField autoGrow\" rows=\"20\" cols=\"50\" style=\"width: auto\"></textarea></span>",
 			'expected_data_text' => "==section 3==" )
 		);
 
@@ -78,7 +78,7 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 			'form_definition' => "===Section 5===
 								 {{{section|Section 5|level=3|restricted|class=FormTest}}}" ),
 		array(
-			'expected_form_text' => "<span class=\"inputSpan\"><textarea tabindex=\"1\" name=\"_section[Section 5]\" id=\"input_1\" class=\"createboxInput FormTest\" rows=\"5\" cols=\"90\" style=\"width: 100%\" disabled=\"\"></textarea></span>",
+			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[Section 5]\" id=\"input_1\" class=\"createboxInput FormTest\" rows=\"5\" cols=\"90\" style=\"width: 100%\" disabled=\"\"></textarea></span>",
 			'expected_data_text' => "===Section 5===" )
 		);
 

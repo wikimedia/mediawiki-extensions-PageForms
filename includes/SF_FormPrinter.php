@@ -1622,7 +1622,7 @@ END;
 					$is_hidden = false;
 					$is_restricted = false;
 					$header_level = 2;
-					$other_args = array();
+					$other_args = array( 'isSection' => true );
 
 					// cycle through the other components
 					for ( $i = 2; $i < count( $tag_components ); $i++ ) {

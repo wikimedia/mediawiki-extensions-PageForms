@@ -902,7 +902,7 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 	});
-	jQuery("span.inputSpan, textarea, div.sfComboBox").not(".hiddenBySF").each( function() {
+	jQuery("span.inputSpan, div.sfComboBox").not(".hiddenBySF, .freeText, .pageSection").each( function() {
 		if (! jQuery(this).checkForPipes() ) {
 			num_errors += 1;
 		}

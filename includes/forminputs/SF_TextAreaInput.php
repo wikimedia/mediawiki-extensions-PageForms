@@ -248,6 +248,12 @@ class SFTextAreaInput extends SFFormInput {
 
 		$text = Html::element( 'textarea', $textarea_attrs, $this->mCurrentValue );
 		$spanClass = 'inputSpan';
+		if ( $this->mInputName == 'sf_free_text' ) {
+			$spanClass .= ' freeText';
+		}
+		if ( array_key_exists( 'isSection', $this->mOtherArgs ) ) {
+			$spanClass .= ' pageSection';
+		}
 		if ( $this->mIsMandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
