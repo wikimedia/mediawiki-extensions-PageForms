@@ -46,14 +46,16 @@ if ( false ) { // function_exists( 'wfLoadExtension' ) ) {
 	return;
 }
 
-if ( !defined( 'MEDIAWIKI' ) ) die();
+if ( !defined( 'MEDIAWIKI' ) ) {
+	die();
+}
 
 if ( defined( 'SF_VERSION' ) ) {
 	// Do not load Semantic Forms more than once.
 	return 1;
 }
 
-define( 'SF_VERSION', '3.4' );
+define( 'SF_VERSION', '3.4.1' );
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	// SMW defines these namespaces itself.
