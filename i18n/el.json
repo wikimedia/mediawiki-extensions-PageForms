@@ -30,7 +30,7 @@
 	"sf_createtemplate_categorylabel": "Κατηγορία οριζόμενη από πρότυπο (προαιρετικό):",
 	"sf_createtemplate_cargotablelabel": "Πίνακας Cargo οριζόμενος από πρότυπο (προαιρετικό):",
 	"sf_createtemplate_templatefields": "Πεδία προτύπου",
-	"sf_createtemplate_fieldsdesc": "Για να μην χρειάζονται ονόματα τα πεδία αυτού του προτύπου, απλά εισάγετε τον αύξοντα αριθμό κάθε πεδίου (π.χ. 1, 2, 3, κ.λ.π.) σαν όνομα, αντί για το κανονικό όνομα",
+	"sf_createtemplate_fieldsdesc": "Για να μην χρειάζονται ονόματα τα πεδία αυτού του προτύπου, απλά εισαγάγετε τον αύξοντα αριθμό κάθε πεδίου (π.χ. 1, 2, 3, κλπ.) σαν όνομα, αντί για κανονικό όνομα.",
 	"sf_createtemplate_fieldname": "Όνομα πεδίου:",
 	"sf_createtemplate_displaylabel": "Εμφανιζόμενη ετικέτα:",
 	"sf_createtemplate_semanticproperty": "Σημασιολογική ιδιότητα:",
