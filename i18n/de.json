@@ -192,7 +192,7 @@
 	"sf_bad_email_error": "muss ein gültiges E-Mail-Adressformat haben",
 	"sf_bad_number_error": "muss eine gültige Zahl sein",
 	"sf_bad_date_error": "muss ein gültiges Datum sein",
-	"sf_pipe_error": "„|“ ist nicht erlaubt, außer innerhalb {{…}} oder [[…]]<!-- [[...]] -->",
+	"sf_pipe_error": "„|“ ist nicht erlaubt, mit Ausnahme innerhalb von {{…}} oder [[…]]<!--[[...]]-->",
 	"uploadwindow": "Formular zum Hochladen",
 	"sf_deletionlog": "Lösch-Logbuch",
 	"sf-preview-header": "Formularvorschau",

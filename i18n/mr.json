@@ -81,7 +81,7 @@
 	"sf_viewform": "अर्ज पहा",
 	"sf_editsource": "स्रोत संपादित करा",
 	"sf_formedit_edittitle": "संपादित करा $1: $2",
-	"sf_formedit_formwarning": "इशारा: हे पान <a href=\"$1\">अस्तित्वात आहे</a>, पण ते पान ह्या अर्जाचा वापर करीत नाही.",
+	"sf_formedit_formwarning": "इशारा: हे पान <a href=\"$1\">पूर्वीच अस्तित्वात आहे</a>, पण ते पान या अर्जाचा वापर करीत नाही.",
 	"sf_formedit_remove": "काढा",
 	"sf_formedit_addanother": "दुसरे वाढवा",
 	"sf_formedit_none": "काहीही नाही",
