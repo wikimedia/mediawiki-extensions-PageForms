@@ -195,7 +195,8 @@
 				base_element = $('[name ="' + dep_on + '" ]');
 			}
 			dep_field_opts.base_value = base_element.val();
-			dep_field_opts.base_prop = base_element.attr( "autocompletesettings" );
+			dep_field_opts.base_prop = mw.config.get( 'sfgFieldProperties' )[dep_on] ||
+				base_element.attr( "autocompletesettings" );
 			dep_field_opts.prop = $(input_id).attr( "autocompletesettings" ).split( "," )[0];
 
 			return dep_field_opts;
