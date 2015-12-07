@@ -487,6 +487,8 @@ class SFParserFunctions {
 
 
 	static function renderAutoEdit( &$parser ) {
+		$parser->getOutput()->addModules( 'ext.semanticforms.autoedit' );
+
 		// Set defaults.
 		$formcontent = '';
 		$linkString = null;
@@ -501,7 +503,6 @@ class SFParserFunctions {
 		array_shift( $params ); // don't need the parser
 
 		foreach ( $params as $param ) {
-
 			$elements = explode( '=', $param, 2 );
 
 			$key = trim( $elements[ 0 ] );
@@ -573,7 +574,9 @@ class SFParserFunctions {
 			}
 		}
 
-		if ( $linkString == null ) return null;
+		if ( $linkString == null ) {
+			return null;
+		}
 
 		if ( $linkType == 'button' ) {
 			// Html::rawElement() before MW 1.21 or so drops the type attribute
@@ -597,53 +600,14 @@ class SFParserFunctions {
 
 		$form = Html::rawElement( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
 
-		// ensure loading of jQuery and style sheets
-		self::loadScriptsForAutoEdit( $parser );
-
 		$output = Html::rawElement( 'div', array( 'class' => 'autoedit' ),
 				$linkElement .
 				Html::rawElement( 'span', array( 'class' => "autoedit-result" ), null ) .
 				$form
 		);
 
-		// return output HTML
+		// Return output HTML.
 		return $parser->insertStripItem( $output, $parser->mStripState );
-	}
-
-	/**
-	 * Load scripts and style files for AutoEdit
-	 */
-	private static function loadScriptsForAutoEdit ( &$parser ) {
-		global $sfgScriptPath;
-
-		if ( defined( 'MW_SUPPORTS_RESOURCE_MODULES' ) ) {
-			$parser->getOutput()->addModules( 'ext.semanticforms.autoedit' );
-		} else {
-
-			static $loaded = false;
-
-			// load JavaScript and CSS files only once
-			if ( !$loaded ) {
-
-				// load extensions JavaScript
-				$parser->getOutput()->addHeadItem(
-					'<script type="text/javascript" src="' . $sfgScriptPath
-					. '/libs/SF_autoedit.js"></script> ' . "\n",
-					'sf_autoedit_script'
-				);
-
-				// load extensions style sheet
-				$parser->getOutput()->addHeadItem(
-					'<link rel="stylesheet" href="' . $sfgScriptPath
-					. '/skins/SF_autoedit.css"/> ' . "\n",
-					'sf_autoedit_style'
-				);
-
-				$loaded = true;
-			}
-		}
-
-		return true;
 	}
 
 }
