@@ -255,7 +255,10 @@ class SFParserFunctions {
 			if ( count( $elements ) > 1 ) {
 				$paramName = trim( $elements[0] );
 				// Parse (and sanitize) parameter values.
-				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
+				// We call recursivePreprocess() and not
+				// recursiveTagParse() so that URL values will
+				// not be turned into links.
+				$value = trim( $parser->recursivePreprocess( $elements[1] ) );
 			} else {
 				$paramName = trim( $param );
 				$value = null;
