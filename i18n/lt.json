@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Domas",
-			"Pofka"
+			"Pofka",
+			"Hugo.arg"
 		]
 	},
 	"createproperty": "Sukurti savybę",
@@ -68,7 +69,7 @@
 	"sf_formedit_altforms": "Sukurti puslapį galite naudodami vieną iš šių formų:",
 	"sf_formedit_altformsonly": "Pasirinkite vieną iš šių formų puslapio sukūrimui:",
 	"sf_viewform": "Rodyti formą",
-	"sf_editsource": "Redaguoti kodą",
+	"sf_editsource": "Keisti pirminį tekstą",
 	"sf_formedit_edittitle": "Redaguoti $1: $2",
 	"sf_formedit_formwarning": "Dėmesio: Šis puslapis <a href=\"$1\">jau yra</a>, bet jis nenaudoja šios formos.",
 	"sf_formedit_remove": "Pašalinti",
