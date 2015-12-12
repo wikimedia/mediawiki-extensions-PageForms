@@ -1313,8 +1313,7 @@ END;
 					'dependencies' => array(
 						'ext.semanticforms.main',
 						'jquery.wikiEditor',
-					),
-					'position' => 'top'
+					)
 				),
 			) );
 		}
