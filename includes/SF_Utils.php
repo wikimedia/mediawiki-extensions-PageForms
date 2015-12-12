@@ -1437,10 +1437,9 @@ END;
 	 *
 	 * @return boolean
 	 */
-	 public static function onUnitTestsList( &$files ) {
+	public static function onUnitTestsList( &$files ) {
 		$testDir = dirname( __DIR__ ) . '/tests/phpunit/includes';
 		$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
 		return true;
-	 }
-
+	}
 }

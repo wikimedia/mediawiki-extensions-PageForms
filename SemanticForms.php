@@ -365,6 +365,37 @@ $GLOBALS['wgResourceModules'] += array(
 			'libs/ext.sf.js',
 		),
 	),
+	'ext.semanticforms.SF_CreateProperty' => $sfgResourceTemplate + array(
+		'scripts' => array(
+			'libs/SF_CreateProperty.js',
+		),
+	),
+	'ext.semanticforms.SF_PageSchemas' => $sfgResourceTemplate + array(
+		'scripts' => array(
+			'libs/SF_PageSchemas.js',
+		),
+	),
+	'ext.semanticforms.SF_CreateTemplate' => $sfgResourceTemplate + array(
+		'scripts' => array(
+			'libs/SF_CreateTemplate.js',
+		),
+		'messages' => array(
+			'sf_blank_error',
+		),
+	),
+	'ext.semanticforms.SF_CreateClass' => $sfgResourceTemplate + array(
+		'scripts' => array(
+			'libs/SF_CreateClass.js',
+		),
+	),
+	'ext.semanticforms.SF_CreateForm' => $sfgResourceTemplate + array(
+		'scripts' => array(
+			'libs/SF_CreateForm.js',
+		),
+		'messages' => array(
+			'sf_blank_error',
+		),
+	),
 );
 
 // PHP fails to find relative includes at some level of inclusion:

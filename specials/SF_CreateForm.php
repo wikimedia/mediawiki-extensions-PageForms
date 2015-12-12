@@ -69,34 +69,12 @@ class SFCreateForm extends SpecialPage {
 			$url .= '&params[' . Xml::escapeJsString( $param ) . ']=' . Xml::escapeJsString( $value );
 		}
 
-		$out->addModules( 'ext.semanticforms.collapsible' );
 		$section_name_error_str = '<span class="error" id="section_error">' . wfMessage( 'sf_blank_error' )->escaped() . '</span>';
 
-		$out->addScript("<script>
-jQuery.fn.displayInputParams = function() {
-	inputParamsDiv = this.closest('.formField').find('.otherInputParams');
-	jQuery.ajax({
-		url: '$url',
-		context: document.body,
-		success: function(data){
-			inputParamsDiv.html(data);
-		}
-	});
-};
-jQuery(document).ready(function() {
-	jQuery('.inputTypeSelector').change( function() {
-		jQuery(this).displayInputParams();
-	});
-	jQuery('#addsection').click( function(event) {
-		if(jQuery('#sectionname').val() == '') {
-			event.preventDefault();
-			jQuery('#section_error').remove();
-			jQuery('<div/>').append('$section_name_error_str').appendTo('#sectionerror');
-		}
-	});
-});
-</script>");
+		$out->addJsConfigVars( 'wgCreateFormUrl', $url );
 
+		// Don't submit the form if enter is pressed on a text input box or a select
+		$out->addModules( array( 'ext.semanticforms.collapsible', 'ext.semanticforms.SF_CreateForm' ) );
 
 		// Get the names of all templates on this site.
 		$all_templates = array();
@@ -358,7 +336,7 @@ jQuery(document).ready(function() {
 		$text .= "\t" . Html::input( 'add_field', $add_button_text, 'submit' ) . "\n";
 
 		// The form HTML for page sections
-		$text .= "</br></br>" . Html::element( 'span', null, wfMessage( 'sf_createform_addsection' )->text() . ":" ) . "\n";
+		$text .= "<br/></br/>" . Html::element( 'span', null, wfMessage( 'sf_createform_addsection' )->text() . ":" ) . "\n";
 		$text .= Html::input( 'sectionname', '', 'text', array( 'size' => '30', 'placeholder' => wfMessage( 'sf_createform_sectionname' )->text(), 'id' => 'sectionname' ) ) . "\n";
 
 		// Selection for before which item this section should be placed
@@ -401,11 +379,6 @@ END;
 END;
 
 		$out->addHTML( $text );
-
-		//Don't submit the form if enter is pressed on a text input box or a select
-		$out->addScript('<script>
-		jQuery("input,select").keypress(function(event) { return event.keyCode != 13; });
-		</script>');
 	}
 
 	/**

@@ -177,7 +177,7 @@ class SFFormEdit extends UnlistedSpecialPage {
 		SFUtils::addFormRLModules();
 
 		if ( isset( $result[ 'formJS' ] ) ) {
-			$out->addScript( '		<script type="text/javascript">' . "\n$result[formJS]\n" . '</script>' . "\n" );
+			$out->addScript( ResourceLoader::makeInlineScript( $result['formJS'] ) );
 		}
 
 		$out->addHTML( $text );

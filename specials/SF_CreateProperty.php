@@ -113,32 +113,6 @@ class SFCreateProperty extends SpecialPage {
 		$numberTypeLabel = $datatypeLabels['_num'];
 		$emailTypeLabel = $datatypeLabels['_ema'];
 
-		$javascript_text = <<<END
-function toggleDefaultForm(property_type) {
-	var default_form_div = document.getElementById("default_form_div");
-	if (property_type == '$pageTypeLabel') {
-		default_form_div.style.display = "";
-	} else {
-		default_form_div.style.display = "none";
-	}
-}
-
-function toggleAllowedValues(property_type) {
-	var allowed_values_div = document.getElementById("allowed_values");
-	// Page, String (or Text, for SMW 1.9+), Number, Email - is that a
-	// reasonable set of types for which enumerations should be allowed?
-	if (property_type == '$pageTypeLabel' ||
-		property_type == '$stringTypeLabel' ||
-		property_type == '$numberTypeLabel' ||
-		property_type == '$emailTypeLabel') {
-		allowed_values_div.style.display = "";
-	} else {
-		allowed_values_div.style.display = "none";
-	}
-}
-
-END;
-
 		global $wgContLang;
 		$mw_namespace_labels = $wgContLang->getNamespaces();
 		$name_label = wfMessage( 'sf_createproperty_propname' )->escaped();
@@ -183,7 +157,13 @@ END;
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
-		$out->addScript( '<script type="text/javascript">' . $javascript_text . '</script>' );
+		$out->addJsConfigVars( 'wgNumStartingRows', $numStartingRows );
+		$out->addJsConfigVars( 'wgPageTypeLabel', $pageTypeLabel );
+		$out->addJsConfigVars( 'wgStringTypeLabel', $stringTypeLabel );
+		$out->addJsConfigVars( 'wgNumberTypeLabel', $numberTypeLabel );
+		$out->addJsConfigVars( 'wgEmailTypeLabel', $emailTypeLabel );
+
+		$out->addModules( array( 'ext.semanticforms.SF_CreateProperty' ) );
 		$out->addHTML( $text );
 	}
 

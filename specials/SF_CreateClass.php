@@ -20,42 +20,6 @@ class SFCreateClass extends SpecialPage {
 		parent::__construct( 'CreateClass', 'createclass' );
 	}
 
-	function addJavascript( $numStartingRows ) {
-		$out = $this->getOutput();
-
-		$jsText =<<<END
-<script>
-var rowNum = $numStartingRows;
-function createClassAddRow() {
-	rowNum++;
-	newRow = jQuery('#starterRow').clone().css('display', '');
-	newHTML = newRow.html().replace(/starter/g, rowNum);
-	newRow.html(newHTML);
-	jQuery('#mainTable').append(newRow);
-}
-
-function disableFormAndCategoryInputs() {
-	if (jQuery('#template_multiple').prop('checked')) {
-		jQuery('#form_name').attr('disabled', 'disabled');
-		jQuery('label[for="form_name"]').css('color', 'gray').css('font-style', 'italic');
-		jQuery('#category_name').attr('disabled', 'disabled');
-		jQuery('label[for="category_name"]').css('color', 'gray').css('font-style', 'italic');
-		jQuery('#connecting_property_div').show('fast');
-	} else {
-		jQuery('#form_name').removeAttr('disabled');
-		jQuery('label[for="form_name"]').css('color', '').css('font-style', '');
-		jQuery('#category_name').removeAttr('disabled');
-		jQuery('label[for="category_name"]').css('color', '').css('font-style', '');
-		jQuery('#connecting_property_div').hide('fast');
-	}
-}
-
-</script>
-
-END;
-		$out->addScript( $jsText );
-	}
-
 	function createAllPages() {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
@@ -207,7 +171,8 @@ END;
 		$this->setHeaders();
 
 		$numStartingRows = 5;
-		$this->addJavascript( $numStartingRows );
+		$out->addJsConfigVars( '$numStartingRows', $numStartingRows );
+		$out->addModules( array( 'ext.semanticforms.SF_CreateClass' ) );
 
 		$createAll = $req->getCheck( 'createAll' );
 		if ( $createAll ) {
@@ -258,7 +223,7 @@ END;
 				'type' => 'checkbox',
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
-				'onclick' => "disableFormAndCategoryInputs()",
+				'class' => "disableFormAndCategoryInputs",
 			) ) . ' ' . wfMessage( 'sf_createtemplate_multipleinstance' )->escaped() ) . "\n";
 		// Either #set_internal or #subobject will be added to the
 		// template, depending on whether Semantic Internal Objects is
@@ -376,7 +341,7 @@ END;
 			array(
 				'type' => 'button',
 				'value' => wfMessage( 'sf_formedit_addanother' )->text(),
-				'onclick' => "createClassAddRow()"
+				'class' => "createClassAddRow"
 			)
 		);
 		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";

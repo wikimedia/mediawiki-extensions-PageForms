@@ -296,4 +296,4 @@
 
 	sf.select2.combobox.prototype = combobox_proto;
 
-} )( jQuery, mediaWiki, semanticforms );
+}( jQuery, mediaWiki, semanticforms ) );

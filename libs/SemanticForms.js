@@ -79,7 +79,7 @@
 	/* extending jquery functions */
 	jQuery.extend( jQuery.ui.autocomplete, {
 	    filter: function(array, term) {
-		var sfgAutocompleteOnAllChars = mw.config.get( 'sfgAutocompleteOnAllChars' );
+		var sfgAutocompleteOnAllChars = mediaWiki.config.get( 'sfgAutocompleteOnAllChars' );
 		var matcher;
     if ( sfgAutocompleteOnAllChars ) {
 			matcher = new RegExp(jQuery.ui.autocomplete.escapeRegex(term), "i" );
@@ -94,7 +94,7 @@
 
    var values = jQuery(this).data('autocompletevalues');
     if ( !values ) {
-	var sfgAutocompleteValues = mw.config.get( 'sfgAutocompleteValues' );
+	var sfgAutocompleteValues = mediaWiki.config.get( 'sfgAutocompleteValues' );
 	values = sfgAutocompleteValues[field_string];
     }
     var split = function (val) {
@@ -147,7 +147,7 @@
         }
     } else {
 	// Remote autocompletion.
-	var myServer = mw.util.wikiScript( 'api' );
+	var myServer = mediaWiki.util.wikiScript( 'api' );
 	var data_type = jQuery(this).attr("autocompletedatatype");
 	myServer += "?action=sfautocomplete&format=json&" + data_type + "=" + data_source;
 
@@ -420,7 +420,7 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPa
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
 jQuery.fn.showIfSelected = function(initPage) {
 	var inputVal = this.val();
-	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
+	var sfgShowOnSelect = mediaWiki.config.get( 'sfgShowOnSelect' );
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	if ( instanceWrapperDiv.length === 0 ) {
@@ -458,7 +458,7 @@ jQuery.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initP
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
 jQuery.fn.showIfChecked = function(initPage) {
-	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
+	var sfgShowOnSelect = mediaWiki.config.get( 'sfgShowOnSelect' );
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	if ( instanceWrapperDiv.length === 0 ) {
@@ -481,7 +481,7 @@ jQuery.fn.showIfChecked = function(initPage) {
 
 // Used for handling 'show on select' for the 'checkbox' input.
 jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple, initPage) {
-	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
+	var sfgShowOnSelect = mediaWiki.config.get( 'sfgShowOnSelect' );
 	
 	if (partOfMultiple) {
 		var divIDs = sfgShowOnSelect[this.attr("data-origID")];
@@ -510,14 +510,14 @@ jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple, initPage) {
 // Set the error message for an input.
 jQuery.fn.setErrorMessage = function(msg, val) {
 	var container = this.find('.sfErrorMessages');
-	container.html($('<div>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+	container.html($('<div>').addClass( 'errorMessage' ).text( mediaWiki.msg( msg, val ) ));
 };
 
 // Append an error message to the end of an input.
 jQuery.fn.addErrorMessage = function(msg, val) {
 	this.find('input').addClass('inputError');
 	this.find('select2-container').addClass('inputError');
-	this.append($('<div>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+	this.append($('<div>').addClass( 'errorMessage' ).text( mediaWiki.msg( msg, val ) ));
 };
 
 jQuery.fn.isAtMaxInstances = function() {
@@ -586,7 +586,7 @@ jQuery.fn.validateUniqueField = function() {
 	var namespaceField = jQuery("[name=" + namespaceFieldName + "]");
 	var namespace = namespaceField.val();
 
-	var url = mw.config.get( 'wgScriptPath' ) + "/api.php?format=json&action=";
+	var url = mediaWiki.config.get( 'wgScriptPath' ) + "/api.php?format=json&action=";
 
 	// SMW
 	var propertyFieldName = field.prop("id") + "_unique_property";
@@ -663,7 +663,7 @@ jQuery.fn.validateUniqueField = function() {
 		if (typeof namespace !== UNDEFINED) {
 			query += "+AND+_pageNamespace=";
 			if (namespace.replace(/\s+/, '') !== '') {
-				var ns = mw.config.get('wgNamespaceIds')[namespace.toLowerCase()];
+				var ns = mediaWiki.config.get('wgNamespaceIds')[namespace.toLowerCase()];
 				if (typeof ns !== UNDEFINED) {
 					query +=  ns;
 				}
@@ -855,7 +855,7 @@ jQuery.fn.checkForPipes = function() {
 window.validateAll = function () {
 
 	// Hook that fires on form submission, before the validation.
-	mw.hook('sf.formValidationBefore').fire();
+	mediaWiki.hook('sf.formValidationBefore').fire();
 
 	var num_errors = 0;
 
@@ -954,7 +954,7 @@ window.validateAll = function () {
 	if (num_errors > 0) {
 		// add error header, if it's not there already
 		if (jQuery("#form_error_header").size() === 0) {
-			jQuery("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'sfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'sf_formerrors_header' ).escaped() + '</div><br clear="both" />');
+			jQuery("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mediaWiki.config.get( 'sfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mediaWiki.message( 'sf_formerrors_header' ).escaped() + '</div><br clear="both" />');
 		}
 		scroll(0, 0);
 	} else {
@@ -970,7 +970,7 @@ window.validateAll = function () {
 	}
 
 	// Hook that fires on form submission, after the validation.
-	mw.hook('sf.formValidationAfter').fire();
+	mediaWiki.hook('sf.formValidationAfter').fire();
 
 	return (num_errors === 0);
 };
@@ -1132,7 +1132,7 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 
 	// Hook that fires each time a new template instance is added.
 	// The first parameter is a jQuery selection of the newly created instance div.
-	mw.hook('sf.addTemplateInstance').fire(new_div);
+	mediaWiki.hook('sf.addTemplateInstance').fire(new_div);
 };
 
 // The first argument is needed, even though it's an attribute of the element
@@ -1141,7 +1141,7 @@ jQuery.fn.addInstance = function( addAboveCurInstance ) {
 // templates.
 jQuery.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue ) {
 	// Get data from either Cargo or Semantic MediaWiki.
-	var myServer = mw.config.get( 'wgScriptPath' ) + "/api.php";
+	var myServer = mediaWiki.config.get( 'wgScriptPath' ) + "/api.php";
 	myServer += "?action=sfautocomplete&format=json";
 	if ( sfgCargoFields.hasOwnProperty( dependentField ) ) {
 		var cargoTableAndFieldStr = sfgCargoFields[dependentField];
@@ -1198,7 +1198,7 @@ jQuery.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 	var nameAttr = partOfMultiple ? 'origName' : 'name';
 	var name = jQuery(this).attr(nameAttr);
-	var sfgDependentFields = mw.config.get( 'sfgDependentFields' );
+	var sfgDependentFields = mediaWiki.config.get( 'sfgDependentFields' );
 	var dependent_on_me = [];
 	for ( var i = 0; i < sfgDependentFields.length; i++ ) {
 		var dependentFieldPair = sfgDependentFields[i];

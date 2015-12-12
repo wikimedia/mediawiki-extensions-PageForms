@@ -262,6 +262,37 @@
 			"scripts": [
 				"libs/ext.sf.js"
 			]
+		},
+		"ext.semanticforms.SF_CreateProperty": {
+			"scripts": [
+				"libs/SF_CreateProperty.js"
+			]
+		},
+		"ext.semanticforms.SF_PageSchemas": {
+			"scripts": [
+				"libs/SF_PageSchemas.js"
+			]
+		},
+		"ext.semanticforms.SF_CreateTemplate": {
+			"scripts": [
+				"libs/SF_CreateTemplate.js"
+			],
+			"messages": [
+				"sf_blank_error"
+			]
+		},
+		"ext.semanticforms.SF_CreateClass": {
+			"scripts": [
+				"libs/SF_CreateClass.js"
+			]
+		},
+		"ext.semanticforms.SF_CreateForm": {
+			"scripts": [
+				"libs/SF_CreateForm.js"
+			],
+			"messages": [
+				"sf_blank_error"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

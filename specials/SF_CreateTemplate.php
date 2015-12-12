@@ -138,55 +138,8 @@ END;
 	}
 
 	function addJavascript() {
-		// TODO - this should be in a JS file
-		$template_name_error_str = wfMessage( 'sf_blank_error' )->escaped();
-		$jsText =<<<END
-<script type="text/javascript">
-var fieldNum = 1;
-function createTemplateAddField() {
-	fieldNum++;
-	newField = jQuery('#starterField').clone().css('display', '').removeAttr('id');
-	newHTML = newField.html().replace(/starter/g, fieldNum);
-	newField.html(newHTML);
-	newField.find(".deleteField").click( function() {
-		// Remove the encompassing div for this instance.
-		jQuery(this).closest(".fieldBox")
-			.fadeOut('fast', function() { jQuery(this).remove(); });
-	});
-	newField.find(".isList").click( function() {
-		jQuery(this).closest(".fieldBox").find(".delimiter").toggle();
-	});
-	var combobox = new sf.select2.combobox();
-	combobox.apply($(newField.find('.sfComboBox')));
-	jQuery('#fieldsList').append(newField);
-}
-
-function validateCreateTemplateForm() {
-	templateName = jQuery('#template_name').val();
-	if (templateName === '') {
-		scroll(0, 0);
-		jQuery('#template_name_p').append(' <span class="error">$template_name_error_str</span>');
-		return false;
-	} else {
-		return true;
-	}
-}
-
-jQuery(document).ready(function() {
-	jQuery(".deleteField").click( function() {
-		// Remove the encompassing div for this instance.
-		jQuery(this).closest(".fieldBox")
-			.fadeOut('fast', function() { jQuery(this).remove(); });
-	});
-	jQuery(".isList").click( function() {
-		jQuery(this).closest(".fieldBox").find(".delimiter").toggle();
-	});
-	jQuery('#createTemplateForm').submit( function() { return validateCreateTemplateForm(); } );
-});
-</script>
-
-END;
-		$this->getOutput()->addScript( $jsText );
+		$out = $this->getOutput();
+		$out->addModules( array( 'ext.semanticforms.SF_CreateTemplate' ) );
 	}
 
 	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
@@ -310,7 +263,7 @@ END;
 			null,
 			wfMessage( 'sf_createtemplate_addfield' )->text(),
 			'button',
-			array( 'onclick' => "createTemplateAddField()" )
+			array( 'class' => "createTemplateAddField" )
 		);
 		$text .= Html::rawElement( 'p', null, $add_field_button ) . "\n";
 		$text .= "\t</fieldset>\n";

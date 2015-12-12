@@ -1004,29 +1004,32 @@ END;
 	}
 
 	/**
-	 * Add upload JS to OutputPage
-	 * 
-	 * @param bool $autofill Whether or not to autofill the destination
-	 * 	filename text box
+	 * Add upload JS to the OutputPage
 	 */
-	protected function addUploadJS( $autofill = true ) {
-		global $wgUseAjax, $wgAjaxUploadDestCheck, $wgAjaxLicensePreview;
-		global $wgStrictFileExtensions, $wgMaxUploadSize;
+	protected function addUploadJS() {
+		$config = $this->getConfig();
+
+		$useAjaxDestCheck = $config->get( 'UseAjax' ) && $config->get( 'AjaxUploadDestCheck' );
+		$useAjaxLicensePreview = $config->get( 'UseAjax' ) &&
+			$config->get( 'AjaxLicensePreview' ) && $config->get( 'EnableAPI' );
+		$this->mMaxUploadSize['*'] = UploadBase::getMaxUploadSize();
 
 		$scriptVars = array(
-			'wgAjaxUploadDestCheck' => $wgUseAjax && $wgAjaxUploadDestCheck,
-			'wgAjaxLicensePreview' => $wgUseAjax && $wgAjaxLicensePreview,
-			'wgUploadAutoFill' => (bool)$autofill &&
+			'wgAjaxUploadDestCheck' => $useAjaxDestCheck,
+			'wgAjaxLicensePreview' => $useAjaxLicensePreview,
+			'wgUploadAutoFill' => !$this->mForReUpload &&
 				// If we received mDestFile from the request, don't autofill
 				// the wpDestFile textbox
 				$this->mDestFile === '',
 			'wgUploadSourceIds' => $this->mSourceIds,
-			'wgStrictFileExtensions' => $wgStrictFileExtensions,
+			'wgCheckFileExtensions' => $config->get( 'CheckFileExtensions' ),
+			'wgStrictFileExtensions' => $config->get( 'StrictFileExtensions' ),
 			'wgCapitalizeUploads' => MWNamespace::isCapitalized( NS_FILE ),
-			'wgMaxUploadSize' => $wgMaxUploadSize,
+			'wgMaxUploadSize' => $this->mMaxUploadSize,
 		);
 
-		$this->getOutput()->addScript( Skin::makeVariablesScript( $scriptVars ) );
+		$out = $this->getOutput();
+		$out->addJsConfigVars( $scriptVars );
 	}
 
 	/**

@@ -269,4 +269,4 @@
 			return markup;
 		},
 	};
-} )( jQuery, mediaWiki, semanticforms );
+}( jQuery, mediaWiki, semanticforms ) );
