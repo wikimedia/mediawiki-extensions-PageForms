@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Note: When updating this file please also update extension.json with the same changes.
+ */
+
 /**
  * Default settings for Semantic Forms.
  *
@@ -33,21 +38,23 @@
  * @ingroup SF
  */
 
-// Disabled for now until global variable naming issue is resolved.
-if ( false ) { // function_exists( 'wfLoadExtension' ) ) {
+if ( file_exists( __DIR__ . '/../../vendor/autoload.php' ) ) {
+	include_once __DIR__ . '/../../vendor/autoload.php';
+}
+
+if ( function_exists( 'wfLoadExtension' ) ) {
 	wfLoadExtension( 'SemanticForms' );
 	// Keep i18n globals so mergeMessageFileList.php doesn't break
 	$wgMessagesDirs['SemanticForms'] = __DIR__ . '/i18n';
+	$wgExtensionMessagesFiles['SemanticFormsAlias'] = __DIR__ . '/languages/SF_Aliases.php';
 	$wgExtensionMessagesFiles['SemanticFormsMagic'] = __DIR__ . '/languages/SF_Magic.php';
+	$wgExtensionMessagesFiles['SemanticFormsNS'] = __DIR__ . '/languages/SF_Namespaces.php';
 	/* wfWarn(
-		'Deprecated PHP entry point used for Semanti Forms extension. Please use wfLoadExtension instead, ' .
+		'Deprecated PHP entry point used for SemantiForms extension. ' .
+		'Please use wfLoadExtension instead, ' .
 		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
 	); */
 	return;
-}
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die();
 }
 
 if ( defined( 'SF_VERSION' ) ) {
@@ -221,7 +228,7 @@ $GLOBALS['wgAutoloadClasses']['SFOpenLayersInput'] = __DIR__ . '/includes/formin
 
 $GLOBALS['wgJobClasses']['createPage'] = 'SFCreatePageJob';
 $GLOBALS['wgAutoloadClasses']['SFCreatePageJob'] = __DIR__ . '/includes/SF_CreatePageJob.php';
-require_once( __DIR__ . '/languages/SF_Language.php' );
+$GLOBALS['wgAutoloadClasses']['SF_Language'] = __DIR__ . '/languages/SF_Language.php';
 
 $GLOBALS['wgMessagesDirs']['SemanticForms'] = __DIR__ . '/i18n';
 $GLOBALS['wgExtensionMessagesFiles']['SemanticForms'] = __DIR__ . '/languages/SF_Messages.php';
@@ -514,4 +521,3 @@ $GLOBALS['sfgCheckboxesSelectAllMinimum'] = 10;
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
-

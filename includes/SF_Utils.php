@@ -9,10 +9,10 @@
 
 class SFUtils {
 
-
 	public static function registerExtension() {
-		global $wgScriptPath, $sfgScriptPath, $sfgIP;
-		global $sfgFormPrinter, $wgEditPageFrameOptions, $wgGroupPermissions, $smwgEnabledSpecialPage;
+		global $wgResourceBasePath, $sfgScriptPath, $sfgPartialPath, $sfgIP, $wgEditPageFrameOptions,
+		$smwgEnabledSpecialPage, $wgExtensionFunctions, $wgSpecialPages,
+		$wgAutoloadClasses, $sfgContLang, $sfgFormPrinter, $wgLanguageCode;
 
 		if ( !defined( 'SMW_VERSION' ) ) {
 			// SMW defines these namespaces itself.
@@ -21,7 +21,8 @@ class SFUtils {
 		}
 
 		$sfgPartialPath = '/extensions/SemanticForms';
-		$sfgScriptPath = $wgScriptPath . $sfgPartialPath;
+		$sfgScriptPath = $wgResourceBasePath . $sfgPartialPath;
+
 		$sfgIP = dirname( __FILE__ );
 
 		// Constants for special properties
@@ -35,23 +36,59 @@ class SFUtils {
 		 * This is a delayed init that makes sure that MediaWiki is set
 		 * up properly before we add our stuff.
 		 */
+
+		// This global variable is needed so that other
+		// extensions can hook into it to add their own
+		// input types.
 		if ( defined( 'SMW_VERSION' ) ) {
-			$wgExtensionFunctions[] = function() {
-				// This global variable is needed so that other
-				// extensions can hook into it to add their own
-				// input types.
+			$GLOBALS['wgExtensionFunctions'][] = function() {
 				$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 			};
-		} else {
+		}  else {
 			$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 		}
 
+		if ( defined( 'SMW_VERSION' ) ) {
+			// Admin Links hook needs to be called in a delayed way so that it
+			// will always be called after SMW's Admin Links addition; as of
+			// SMW 1.9, SMW delays calling all its hook functions.
+			$GLOBALS['wgExtensionFunctions'][] = function() {
+				$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+			};
+		} else {
+			$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+		}
+
+		if ( defined( 'SMW_VERSION' ) ) {
+			$wgSpecialPages['CreateProperty'] = 'SFCreateProperty';
+			$wgAutoloadClasses['SFCreateProperty'] = __DIR__ . '/../specials/SF_CreateProperty.php';
+		}
+
+		/**
+		 * Initialize a global language object for content language. This
+		 * must happen early on, even before user language is known, to
+		 * determine labels for additional namespaces. In contrast, messages
+		 * can be initialised much later, when they are actually needed.
+		 */
+		if ( !empty( $sfgContLang ) ) {
+			return;
+		}
+
+		$cont_lang_class = 'SF_Language' . str_replace( '-', '_', ucfirst( $wgLanguageCode ) );
+		if ( file_exists( __DIR__ . '/../languages/' . $cont_lang_class . '.php' ) ) {
+			include_once( __DIR__ . '/../languages/' . $cont_lang_class . '.php' );
+		}
+
+		// fallback if language not supported
+		if ( !class_exists( $cont_lang_class ) ) {
+			include_once( __DIR__ . '/../languages/SF_LanguageEn.php' );
+			$cont_lang_class = 'SF_LanguageEn';
+		}
+
+		$sfgContLang = new $cont_lang_class();
+
 		// Allow for popup windows for file upload
 		$wgEditPageFrameOptions = 'SAMEORIGIN';
-
-		$wgGroupPermissions['*']['viewedittab'] = true;
-		$wgGroupPermissions['sysop']['editrestrictedfields'] = true;
-		$wgGroupPermissions['user']['createclass'] = true;
 
 		// Necessary setting for SMW 1.9+
 		$smwgEnabledSpecialPage[] = 'RunQuery';

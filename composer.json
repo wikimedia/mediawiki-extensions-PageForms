@@ -27,10 +27,5 @@
 		"branch-alias": {
 			"dev-master": "2.8.x-dev"
 		}
-	},
-	"autoload": {
-		"files" : [
-			"SemanticForms.php"
-		]
 	}
 }

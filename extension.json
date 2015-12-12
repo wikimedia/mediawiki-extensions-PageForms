@@ -1,6 +1,7 @@
 {
+	"@Note": "When updating this file please also update SemanticForms.php with the same changes.",
 	"name": "Semantic Forms",
-	"version": "3.4",
+	"version": "3.4.1",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",
@@ -10,17 +11,31 @@
 	"descriptionmsg": "semanticforms-desc",
 	"type": "specialpage",
 	"callback": "SFUtils::registerExtension",
+	"GroupPermissions": {
+		"*": {
+			"viewedittab": true
+		},
+		"sysop": {
+			"editrestrictedfields": true
+		},
+		"user": {
+			"createclass": true
+		}
+	},
 	"AvailableRights": [
 		"viewedittab",
 		"editrestrictedfields",
 		"createclass"
 	],
+	"Actions": {
+		"formedit": "SFFormEditAction",
+		"formcreate": "SFHelperFormAction"
+	},
 	"SpecialPages": {
 		"Forms": "SFForms",
 		"CreateForm": "SFCreateForm",
 		"Templates": "SFTemplates",
 		"CreateTemplate": "SFCreateTemplate",
-		"CreateProperty": "SFCreateProperty",
 		"CreateClass": "SFCreateClass",
 		"CreateCategory": "SFCreateCategory",
 		"FormStart": "SFFormStart",
@@ -41,7 +56,9 @@
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"SemanticFormsMagic": "languages/SF_Magic.php"
+		"SemanticFormsAlias": "languages/SF_Aliases.php",
+		"SemanticFormsMagic": "languages/SF_Magic.php",
+		"SemanticFormsNS": "languages/SF_Namespaces.php"
 	},
 	"AutoloadClasses": {
 		"SFForms": "specials/SF_Forms.php",
@@ -97,7 +114,8 @@
 		"SFTokensInput": "includes/forminputs/SF_TokensInput.php",
 		"SFGoogleMapsInput": "includes/forminputs/SF_GoogleMapsInput.php",
 		"SFOpenLayersInput": "includes/forminputs/SF_OpenLayersInput.php",
-		"SFCreatePageJob": "includes/SF_CreatePageJob.php"
+		"SFCreatePageJob": "includes/SF_CreatePageJob.php",
+		"SF_Language": "languages/SF_Language.php"
 	},
 	"ResourceModules": {
 		"ext.semanticforms.main": {
@@ -128,7 +146,9 @@
 				"sf_not_unique_error",
 				"sf_bad_url_error",
 				"sf_bad_email_error",
-				"sf_bad_number_error"
+				"sf_bad_number_error",
+				"sf_bad_date_error",
+				"sf_pipe_error"
 			]
 		},
 		"ext.semanticforms.browser": {
@@ -289,16 +309,10 @@
 		],
 		"ResourceLoaderRegisterModules": [
 			"SFUtils::registerModules"
-		],
-		"AdminLinks": [
-			"SFUtils::addToAdminLinks"
 		]
 	},
-	"Actions": {
-		"formedit": "SFFormEditAction",
-		"formcreate": "SFHelperFormAction"
-	},
 	"config": {
+		"_prefix": "",
 		"sfgMaxAutocompleteValues": 1000,
 		"sfgMaxLocalAutocompleteValues": 100,
 		"sfgAutocompleteOnAllChars": false,
