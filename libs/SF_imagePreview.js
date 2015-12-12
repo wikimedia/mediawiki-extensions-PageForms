@@ -5,7 +5,7 @@
  * @author Jeroen De Dauw <jeroendedauw at gmail dot com>
  */
 
-(function( $ ) {
+( function ( $, mw ) {
 	var _this = this;
 
 	this.getPreviewImage = function( args, callback ) {
@@ -63,4 +63,4 @@
 			$input.change( showPreview );
 		} );
 	} );
-})( jQuery );
+}( jQuery, mediaWiki ) );

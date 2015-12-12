@@ -1345,17 +1345,25 @@ END;
 		if ( class_exists( 'WikiEditorHooks' ) ) {
 			$resourceLoader->register( array(
 				'ext.semanticforms.wikieditor' => array(
-					'localBasePath' => __DIR__ . '/..',
+					'localBasePath' => __DIR__,
 					'remoteExtPath' => 'SemanticForms',
-					'scripts' => 'libs/SF_wikieditor.js',
-					'styles' => 'skins/SF_wikieditor.css',
+					'scripts' => '/../libs/SF_wikieditor.js',
+					'styles' => '/../skins/SF_wikieditor.css',
 					'dependencies' => array(
 						'ext.semanticforms.main',
-						'jquery.wikiEditor',
+						'jquery.wikiEditor'
 					)
 				),
 			) );
 		}
+
+		$resourceLoader->register( array(
+			'ext.semanticforms.maps' => array(
+				'localBasePath' => __DIR__,
+				'remoteExtPath' => 'SemanticForms',
+				'scripts' => '/../libs/SF_maps.js',
+			),
+		) );
 
 		return true;
 	}

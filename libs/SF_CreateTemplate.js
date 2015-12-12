@@ -1,8 +1,8 @@
 var fieldNum = 1;
 function createTemplateAddField() {
 	fieldNum++;
-	newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
-	newHTML = newField.html().replace(/starter/g, fieldNum);
+	var newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
+	var newHTML = newField.html().replace(/starter/g, fieldNum);
 	newField.html( newHTML );
 	newField.find( ".deleteField" ).click( function () {
 		// Remove the encompassing div for this instance.
@@ -20,7 +20,7 @@ function createTemplateAddField() {
 }
 
 function validateCreateTemplateForm() {
-	templateName = jQuery( '#template_name' ).val();
+	var templateName = jQuery( '#template_name' ).val();
 	if ( templateName === '' ) {
 		scroll( 0, 0 );
 		jQuery( '#template_name_p' ).append( '<span class="error">' + mediaWiki.msg( 'sf_blank_error' ) + '</span>' );

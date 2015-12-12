@@ -30,5 +30,13 @@
 		"branch-alias": {
 			"dev-master": "2.8.x-dev"
 		}
+	},
+	"require-dev": {
+		"jakub-onderka/php-parallel-lint": "0.9.2"
+	},
+	"scripts": {
+		"test": [
+			"parallel-lint . --exclude vendor"
+		]
 	}
 }

@@ -7,7 +7,7 @@ jQuery.fn.toggleFormDataDisplay = function() {
 		jQuery('#sf-edit-title').css('display', 'none');
 	}
 	return this;
-}
+};
 
 jQuery( document ).ready( function () {
 	jQuery('#sf-two-step-process')

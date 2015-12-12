@@ -9,7 +9,7 @@
 *
 */
 
-var sf = ( function ( $, undefined ) {
+window.sf = ( function ( $, undefined ) {
 	'use strict';
 	/**
 	 *
@@ -23,7 +23,7 @@ var sf = ( function ( $, undefined ) {
 	return {
 
 	};
-} )( jQuery );
+}( jQuery ) );
 
 // Assigning namespace.
 window.sf = window.semanticforms = sf;
