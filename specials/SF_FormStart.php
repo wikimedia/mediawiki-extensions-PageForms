@@ -134,7 +134,6 @@ END;
 			// It exists - see if page is a redirect; if
 			// it is, edit the target page instead.
 			$article = new Article( $page_title, 0 );
-			$article->loadContent();
 			$redirect_title = Title::newFromRedirect( $article->fetchContent() );
 			if ( $redirect_title != null ) {
 				$page_title = $redirect_title;
