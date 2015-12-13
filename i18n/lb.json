@@ -110,6 +110,7 @@
 	"sf_bad_email_error": "muss e valabelen E-Mailadresse-Format hunn",
 	"sf_bad_number_error": "muss eng valabel Zuel sinn",
 	"sf_bad_date_error": "muss e gëltegen Datum sinn",
+	"sf_pipe_error": "\"|\" ass net erlaabt, ausser an {{...}} oder [[...]]",
 	"uploadwindow": "Fënster fir eropzelueden",
 	"sf_deletionlog": "Logbuch vum Läschen",
 	"sf-preview-note": "Sou gesäit de Formulaire aus wann e benotzt gëtt:",
