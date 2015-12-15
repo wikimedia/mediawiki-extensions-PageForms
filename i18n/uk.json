@@ -122,7 +122,7 @@
 	"createcategory": "Створити категорію",
 	"sf-createcategory-with-name": "Створити категорію: $1",
 	"sf_createcategory_name": "Назва категорії:",
-	"sf_createcategory_defaultform": "Форма за умовчанням:",
+	"sf_createcategory_defaultform": "Форма за замовчуванням:",
 	"sf_createcategory_makesubcategory": "Зробити це підкатегорією іншої категорії (необов'язково):",
 	"createclass": "Створити клас",
 	"sf_createclass_docu": "Введіть тут усі дані для створення властивостей, шаблону, форми і категорії для одного класу. Для більшого числа опцій, використовуйте сторінку $1.",
