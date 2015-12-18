@@ -366,6 +366,57 @@ END;
 	}
 
 	/**
+	 * Get a string representing the current time, for the time zone
+	 * specified in the wiki.
+	 */
+	function getStringForCurrentTime( $includeTime, $includeTimezone ) {
+		global $wgLocaltimezone, $wgAmericanDates, $sfg24HourTime;
+
+		if ( isset( $wgLocaltimezone ) ) {
+			$serverTimezone = date_default_timezone_get();
+			date_default_timezone_set( $wgLocaltimezone );
+		}
+		$cur_time = time();
+		$year = date( "Y", $cur_time );
+		$month = date( "n", $cur_time );
+		$day = date( "j", $cur_time );
+		if ( $wgAmericanDates == true ) {
+			$month_names = SFFormUtils::getMonthNames();
+			$month_name = $month_names[$month - 1];
+			$curTimeString = "$month_name $day, $year";
+		} else {
+			$curTimeString = "$year/$month/$day";
+		}
+		if ( isset( $wgLocaltimezone ) ) {
+			date_default_timezone_set( $serverTimezone );
+		}
+		if ( !$includeTime ) {
+			return $curTimeString;
+		}
+
+		if ( $sfg24HourTime ) {
+			$hour = str_pad( intval( substr( date( "G", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+		} else {
+			$hour = str_pad( intval( substr( date( "g", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+		}
+		$minute = str_pad( intval( substr( date( "i", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+		$second = str_pad( intval( substr( date( "s", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
+		if ( $sfg24HourTime ) {
+			$curTimeString .= " $hour:$minute:$second";
+		} else {
+			$ampm = date( "A", $cur_time );
+			$curTimeString .= " $hour:$minute:$second $ampm";
+		}
+
+		if ( $includeTimezone ) {
+			$timezone = date( "T", $cur_time );
+			$curTimeString .= " $timezone";
+		}
+
+		return $curTimeString;
+	}
+
+	/**
 	 * If the value passed in for a certain field, when a form is
 	 * submitted, is an array, then it might be from a checkbox
 	 * or date input - in that case, convert it into a string.
@@ -1411,46 +1462,7 @@ END;
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
 									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
-								// Get current time, for the time zone specified in the wiki.
-								global $wgLocaltimezone;
-								if ( isset( $wgLocaltimezone ) ) {
-									$serverTimezone = date_default_timezone_get();
-									date_default_timezone_set( $wgLocaltimezone );
-								}
-								$cur_time = time();
-								$year = date( "Y", $cur_time );
-								$month = date( "n", $cur_time );
-								$day = date( "j", $cur_time );
-								global $wgAmericanDates, $sfg24HourTime;
-								if ( $wgAmericanDates == true ) {
-									$month_names = SFFormUtils::getMonthNames();
-									$month_name = $month_names[$month - 1];
-									$cur_value_in_template = "$month_name $day, $year";
-								} else {
-									$cur_value_in_template = "$year/$month/$day";
-								}
-								if ( isset( $wgLocaltimezone ) ) {
-									date_default_timezone_set( $serverTimezone );
-								}
-								if ( $input_type ==	'datetime' ) {
-									if ( $sfg24HourTime ) {
-										$hour = str_pad( intval( substr( date( "G", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-									} else {
-										$hour = str_pad( intval( substr( date( "g", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-									}
-									$minute = str_pad( intval( substr( date( "i", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-									$second = str_pad( intval( substr( date( "s", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-									if ( $sfg24HourTime ) {
-										$cur_value_in_template .= " $hour:$minute:$second";
-									} else {
-										$ampm = date( "A", $cur_time );
-										$cur_value_in_template .= " $hour:$minute:$second $ampm";
-									}
-								}
-								if ( array_key_exists( 'include timezone', $field_args ) ) {
-									$timezone = date( "T", $cur_time );
-									$cur_value_in_template .= " $timezone";
-								}
+								$cur_value_in_template = self::getStringForCurrentTime( $input_type == 'datetime', array_key_exists( 'include timezone', $field_args ) );
 							}
 						}
 						// If the field is a text field, and its default value was set
