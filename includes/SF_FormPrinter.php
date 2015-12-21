@@ -285,8 +285,6 @@ class SFFormPrinter {
 	 * multiple-instance template in the form.
 	 */
 	function multipleTemplateInstanceTableHTML( $form_is_disabled, $mainText ) {
-		global $sfgScriptPath;
-
 		if ( $form_is_disabled ) {
 			$addAboveButton = $removeButton = '';
 		} else {
@@ -353,7 +351,9 @@ END;
 				'tabindex' => $sfgTabIndex,
 				'class' => 'multipleTemplateAdder',
 			);
-			if ( $form_is_disabled ) $attributes['disabled'] = true;
+			if ( $form_is_disabled ) {
+				$attributes['disabled'] = true;
+			}
 			$button = Html::input( null, Sanitizer::decodeCharReferences( $add_button_text ), 'button', $attributes );
 			$text .= <<<END
 	</div><!-- multipleTemplateList -->
@@ -469,11 +469,16 @@ END;
 				if ( $month == '' ) {
 					return $year;
 				} elseif ( $day == '' ) {
-					if ( $wgAmericanDates == true ) {
-						return "$month $year";
-					} else {
-						return "$year/$month";
+					if ( ! $wgAmericanDates ) {
+						// The month is a number - we
+						// need it to be a string, so
+						// that the date will be parsed
+						// correctly if strtotime() is
+						// used.
+						$monthNames = SFFormUtils::getMonthNames();
+						$month = $monthNames[$month - 1];
 					}
+					return "$month $year";
 				} else {
 					if ( $wgAmericanDates == true ) {
 						$new_value = "$month $day, $year";
