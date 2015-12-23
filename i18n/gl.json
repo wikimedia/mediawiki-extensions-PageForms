@@ -10,6 +10,7 @@
 	},
 	"semanticforms-desc": "Formularios para engadir e editar datos semánticos",
 	"specialpages-group-sf_group": "Formularios semánticos",
+	"apihelp-sfautoedit-param-query": "A cadea de pescuda",
 	"createproperty": "Crear unha propiedade",
 	"sf-createproperty-with-name": "Crear a propiedade: $1",
 	"sf_createproperty_linktoform": "Esta propiedade ligará ás páxinas que usan o formulario:",

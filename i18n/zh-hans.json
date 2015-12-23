@@ -17,6 +17,8 @@
 	},
 	"semanticforms-desc": "用于添加和编辑语义数据的表单",
 	"specialpages-group-sf_group": "语义表单",
+	"apihelp-sfautoedit-param-form": "要使用的语义表单",
+	"apihelp-sfautoedit-param-query": "查询字符串",
 	"createproperty": "创建属性",
 	"sf-createproperty-with-name": "创建属性：$1",
 	"sf_createproperty_linktoform": "这个属性将链接到使用表单的页面：",
