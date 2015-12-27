@@ -8,6 +8,8 @@
 	},
 	"specialpages-group-sf_group": "Semantesch Formulairen",
 	"apihelp-sfautocomplete-param-limit": "Eng Limite fir d'Zuel vun de Resultater déi zeréckgi gëtt",
+	"apihelp-sfautoedit-param-target": "Den Numm vun der Säit déi ugeluecht oder geännert gi soll",
+	"apihelp-sfautoedit-param-preload": "Den Numm vun enger Säit, déi am viraus an der Formulaire geluede gi soll",
 	"sf_createproperty_propname": "Numm vun der Eegeschaft:",
 	"sf_createproperty_proptype": "Typ:",
 	"templates": "Schablounen",
