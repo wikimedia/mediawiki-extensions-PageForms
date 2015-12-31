@@ -165,7 +165,7 @@ function validateCreateTemplateForm() {
 	templateName = jQuery('#template_name').val();
 	if (templateName === '') {
 		scroll(0, 0);
-		jQuery('#template_name_p').append(' <font color="red">$template_name_error_str</font>');
+		jQuery('#template_name_p').append(' <span class="error">$template_name_error_str</span>');
 		return false;
 	} else {
 		return true;
