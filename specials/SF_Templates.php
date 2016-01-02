@@ -21,7 +21,7 @@ class SFTemplates extends SpecialPage {
 
 	function execute( $query ) {
 		$this->setHeaders();
-		list( $limit, $offset ) = wfCheckLimits();
+		list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
 		$rep = new TemplatesPage();
 		$rep->execute( $query );
 	}

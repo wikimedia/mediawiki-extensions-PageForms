@@ -21,7 +21,7 @@ class SFForms extends SpecialPage {
 
 	function execute( $query ) {
 		$this->setHeaders();
-		list( $limit, $offset ) = wfCheckLimits();
+		list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
 		$rep = new FormsPage();
 		return $rep->execute( $query );
 	}
