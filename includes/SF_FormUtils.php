@@ -138,7 +138,7 @@ class SFFormUtils {
 			} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
 				# Watch creations
 				$is_checked = true;
-			} elseif ( $wgTitle->userIsWatching() ) {
+			} elseif ( $wgUser->isWatched( $wgTitle ) ) {
 				# Already watched
 				$is_checked = true;
 			}
