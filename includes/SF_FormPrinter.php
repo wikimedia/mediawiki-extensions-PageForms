@@ -421,7 +421,7 @@ END;
 	 * submitted, is an array, then it might be from a checkbox
 	 * or date input - in that case, convert it into a string.
 	 */
-	function getStringFromPassedInArray( $value, $delimiter ) {
+	static function getStringFromPassedInArray( $value, $delimiter ) {
 		// If it's just a regular list, concatenate it.
 		// This is needed due to some strange behavior
 		// in SF, where, if a preload page is passed in
@@ -973,315 +973,15 @@ END;
 				// field processing
 				// =====================================================
 				} elseif ( $tag_title == 'field' ) {
+					// We get the field name both here
+					// and in the SFFormField constructor,
+					// because SFFormField isn't equipped
+					// to deal with the <freetext> hack,
+					// among others.
 					$field_name = trim( $tag_components[1] );
+					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $strict_parsing );
 					$fullFieldName = $template_name . '[' . $field_name . ']';
-					// cycle through the other components
-					$is_mandatory = false;
-					$is_hidden = false;
-					$is_restricted = false;
-					$is_uploadable = false;
-					$is_list = false;
-					$delimiter = null;
-					$input_type = null;
-					$field_args = array();
-					$show_on_select = array();
-					$default_value = null;
-					$values = null;
-					$possible_values = null;
-					$semantic_property = null;
-					$cargo_table = null;
-					$cargo_field = null;
-					$fullCargoField = null;
-					$preload_page = null;
-					$holds_template = false;
-
-					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
-
-						$component = trim( $tag_components[$i] );
-
-						if ( $component == 'mandatory' ) {
-							$is_mandatory = true;
-						} elseif ( $component == 'hidden' ) {
-							$is_hidden = true;
-						} elseif ( $component == 'restricted' ) {
-							$is_restricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
-						} elseif ( $component == 'list' ) {
-							$is_list = true;
-						} elseif ( $component == 'unique' ) {
-							$field_args['unique'] = true;
-						} elseif ( $component == 'edittools' ) { // free text only
-							$free_text_components[] = 'edittools';
-						}
-
-						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-
-						if ( count( $sub_components ) == 1 ) {
-							// add handling for single-value params, for custom input types
-							$field_args[$sub_components[0]] = true;
-
-							if ( $component == 'holds template' ) {
-								$is_hidden = true;
-								$holds_template = true;
-								$placeholderFields[] = self::placeholderFormat( $template_name, $field_name );
-							}
-						} elseif ( count( $sub_components ) == 2 ) {
-							// First, set each value as its own entry in $field_args.
-							$field_args[$sub_components[0]] = $sub_components[1];
-
-							// Then, do all special handling.
-							if ( $sub_components[0] == 'input type' ) {
-								$input_type = $sub_components[1];
-							} elseif ( $sub_components[0] == 'default' ) {
-								// We call recursivePreprocess() here,
-								// and not the more standard
-								// recursiveTagParse(), so that
-								// wikitext in the value, and bare URLs,
-								// will not get turned into HTML.
-								$default_value = $wgParser->recursivePreprocess( $sub_components[1] );
-							} elseif ( $sub_components[0] == 'preload' ) {
-								// free text field has special handling
-								if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
-									$free_text_preload_page = $sub_components[1];
-								} else {
-									$preload_page = $sub_components[1];
-								}
-							} elseif ( $sub_components[0] == 'show on select' ) {
-								// html_entity_decode() is needed to turn '&gt;' to '>'
-								$vals = explode( ';', html_entity_decode( $sub_components[1] ) );
-								foreach ( $vals as $val ) {
-									$val = trim( $val );
-									if ( empty( $val ) )
-										continue;
-									$option_div_pair = explode( '=>', $val, 2 );
-									if ( count( $option_div_pair ) > 1 ) {
-										$option = $option_div_pair[0];
-										$div_id = $option_div_pair[1];
-										if ( array_key_exists( $div_id, $show_on_select ) )
-											$show_on_select[$div_id][] = $option;
-										else
-											$show_on_select[$div_id] = array( $option );
-									} else {
-										$show_on_select[$val] = array();
-									}
-								}
-							} elseif ( $sub_components[0] == 'autocomplete on property' ) {
-								$field_args['autocomplete field type'] = 'property';
-								$field_args['autocompletion source'] = $sub_components[1];
-							} elseif ( $sub_components[0] == 'autocomplete on category' ) {
-								$field_args['autocomplete field type'] = 'category';
-								$field_args['autocompletion source'] = $sub_components[1];
-							} elseif ( $sub_components[0] == 'autocomplete on concept' ) {
-								$field_args['autocomplete field type'] = 'concept';
-								$field_args['autocompletion source'] = $sub_components[1];
-							} elseif ( $sub_components[0] == 'autocomplete on namespace' ) {
-								$field_args['autocomplete field type'] = 'namespace';
-								$autocompletion_source = $sub_components[1];
-								// special handling for "main" (blank) namespace
-								if ( $autocompletion_source == "" )
-									$autocompletion_source = "main";
-								$field_args['autocompletion source'] = $autocompletion_source;
-							} elseif ( $sub_components[0] == 'autocomplete from url' ) {
-								$field_args['autocomplete field type'] = 'external_url';
-								$field_args['autocompletion source'] = $sub_components[1];
-								// 'external' autocompletion is always done remotely, i.e. via API
-								$field_args['remote autocompletion'] = true;
-							} elseif ( $sub_components[0] == 'values' ) {
-								// Handle this one only after 'delimiter' has
-								// also been set.
-								$values = $wgParser->recursiveTagParse( $sub_components[1] );
-							} elseif ( $sub_components[0] == 'values from property' ) {
-								$propertyName = $sub_components[1];
-								$possible_values = SFUtils::getAllValuesForProperty( $propertyName );
-							} elseif ( $sub_components[0] == 'values from query' ) {
-								$pages = SFUtils::getAllPagesForQuery( $sub_components[1] );
-								foreach ( $pages as $page ) {
-									$page_name_for_values = $page->getDbKey();
-									$possible_values[] = $page_name_for_values;
-								}
-							} elseif ( $sub_components[0] == 'values from category' ) {
-								$category_name = ucfirst( $sub_components[1] );
-								$possible_values = SFUtils::getAllPagesForCategory( $category_name, 10 );
-							} elseif ( $sub_components[0] == 'values from concept' ) {
-								$possible_values = SFUtils::getAllPagesForConcept( $sub_components[1] );
-							} elseif ( $sub_components[0] == 'values from namespace' ) {
-								$possible_values = SFUtils::getAllPagesForNamespace( $sub_components[1] );
-							} elseif ( $sub_components[0] == 'values dependent on' ) {
-								global $sfgDependentFields;
-								$sfgDependentFields[] = array( $sub_components[1], $fullFieldName );
-							} elseif ( $sub_components[0] == 'unique for category' ) {
-								$field_args['unique'] = true;
-								$field_args['unique_for_category'] = $sub_components[1];
-							} elseif ( $sub_components[0] == 'unique for namespace' ) {
-								$field_args['unique'] = true;
-								$field_args['unique_for_namespace'] = $sub_components[1];
-							} elseif ( $sub_components[0] == 'unique for concept' ) {
-								$field_args['unique'] = true;
-								$field_args['unique_for_concept'] = $sub_components[1];
-							} elseif ( $sub_components[0] == 'property' ) {
-								$semantic_property = $sub_components[1];
-							} elseif ( $sub_components[0] == 'cargo table' ) {
-								$cargo_table = $sub_components[1];
-							} elseif ( $sub_components[0] == 'cargo field' ) {
-								$cargo_field = $sub_components[1];
-							} elseif ( $sub_components[0] == 'default filename' ) {
-								$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
-								// Parse value, so default filename can include parser functions.
-								$default_filename = $wgParser->recursiveTagParse( $default_filename );
-								$field_args['default filename'] = $default_filename;
-							} elseif ( $sub_components[0] == 'restricted' ) {
-								$is_restricted = !array_intersect(
-									$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
-								);
-							}
-						}
-					} // end for
-
-
-					if ( array_key_exists( 'delimiter', $field_args ) ) {
-						$delimiter = $field_args['delimiter'];
-					} else {
-						$delimiter = ",";
-					}
-
-					// If the 'values' parameter was set, separate it based on the
-					// 'delimiter' parameter, if any.
-					if ( ! empty( $values ) ) {
-						// Remove whitespaces, and un-escape characters
-						$possible_values = array_map( 'trim', explode( $delimiter, $values ) );
-						$possible_values = array_map( 'htmlspecialchars_decode', $possible_values );
-					}
-
-					// If we're using Cargo, there's no
-					// equivalent for "values from property"
-					// - instead, we just always get the
-					// values if a field and table have
-					// been specified.
-					if ( is_null( $possible_values ) && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
-						// We only want the non-null
-						// values. Ideally this could
-						// be done by calling
-						// getValuesForCargoField() with
-						// an "IS NOT NULL" clause, but
-						// unfortunately that fails
-						// for array/list fields.
-						// Instead of getting involved
-						// with all that, we'll just
-						// remove the null/blank values
-						// afterward.
-						$possible_values = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
-						$possible_values = array_filter( $possible_values, 'strlen' );
-					}
-
-					if ( !is_null( $possible_values ) ) {
-						if ( array_key_exists( 'mapping template', $field_args ) ) {
-							$possible_values = SFUtils::getLabelsFromTemplate( $possible_values, $field_args['mapping template'] );
-						} elseif ( array_key_exists( 'mapping property', $field_args ) ) {
-							$possible_values = SFUtils::getLabelsFromProperty( $possible_values, $field_args['mapping property'] );
-						} elseif ( array_key_exists( 'mapping cargo table', $field_args ) &&
-							array_key_exists( 'mapping cargo field', $field_args ) ) {
-							$possible_values = SFUtils::getLabelsFromCargoField( $possible_values, $field_args['mapping cargo table'], $field_args['mapping cargo field'] );
-						}
-					}
-					// Backwards compatibility
-					if ( $input_type == 'datetime with timezone' ) {
-						$input_type = 'datetime';
-						$field_args['include timezone'] = true;
-					} elseif ( $input_type == 'text' || $input_type == 'textarea' ) {
-						// Also for backwards compatibility,
-						// in that once b/c goes away,
-						// this will no longer be
-						// necessary.
-						$field_args['no autocomplete'] = true;
-					}
-					if ( $allow_multiple ) {
-						$field_args['part_of_multiple'] = $allow_multiple;
-					}
-					if ( count( $show_on_select ) > 0 ) {
-						$field_args['show on select'] = $show_on_select;
-					}
-
-					// Get the value from the request, if
-					// it's there, and if it's not an array.
-					$cur_value = null;
-					$escaped_field_name = str_replace( "'", "\'", $field_name );
-					if ( isset( $template_instance_query_values ) &&
-						$template_instance_query_values != null &&
-						is_array( $template_instance_query_values ) ) {
-						// If the field name contains an
-						// apostrophe, the array sometimes
-						// has the apostrophe escaped, and
-						// sometimes not. For now, just check
-						// for both versions.
-						// @TODO - figure this out.
-						$field_query_val = null;
-						if ( array_key_exists( $escaped_field_name, $template_instance_query_values ) ) {
-							$field_query_val = $template_instance_query_values[$escaped_field_name];
-						} elseif ( array_key_exists( $field_name, $template_instance_query_values ) ) {
-							$field_query_val = $template_instance_query_values[$field_name];
-						}
-						if ( $form_submitted && $field_query_val != '' ) {
-							$map_field = false;
-							if ( array_key_exists( 'map_field', $template_instance_query_values ) &&
-								array_key_exists( $field_name, $template_instance_query_values['map_field'] ) ) {
-								$map_field = true;
-							}
-							if ( is_array( $field_query_val ) ) {
-								$cur_values = array();
-								if ( $map_field && !is_null( $possible_values ) ) {
-									$cur_values = array();
-									foreach ( $field_query_val as $key => $val ) {
-										$val = trim( $val );
-										if ( $key === 'is_list' ) {
-											$cur_values[$key] = $val;
-										} else {
-											$cur_values[] = SFUtils::labelToValue( $val, $possible_values );
-										}
-									}
-								} else {
-									foreach ( $field_query_val as $key => $val ) {
-										$cur_values[$key] = $val;
-									}
-								}
-								$cur_value = $this->getStringFromPassedInArray( $cur_values, $delimiter );
-							} else {
-								$field_query_val = trim( $field_query_val );
-								if ( $map_field && !is_null( $possible_values ) ) {
-									// this should be replaced with an input type neutral way of
-									// figuring out if this scalar input type is a list
-									if ( $input_type == "tokens" ) {
-										$is_list = true;
-									}
-									if ( $is_list ) {
-										$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
-										foreach ( $cur_values as $key => $value ) {
-											$cur_values[$key] = SFUtils::labelToValue( $value, $possible_values );
-										}
-										$cur_value = implode( $delimiter, $cur_values );
-									} else {
-										$cur_value = SFUtils::labelToValue( $field_query_val, $possible_values );
-									}
-								} else {
-									$cur_value = $field_query_val;
-								}
-							}
-						}
-						if ( !$form_submitted && $field_query_val != '' ) {
-							if ( is_array( $field_query_val ) ) {
-								$cur_value = $this->getStringFromPassedInArray( $field_query_val, $delimiter );
-							} else {
-								$cur_value = $field_query_val;
-							}
-						}
-					}
-
-					if ( empty( $cur_value ) && !$form_submitted ) {
-						if ( !is_null( $default_value ) ) {
-							// Set to the default value specified in the form, if it's there.
-							$cur_value = $default_value;
-						} elseif ( $preload_page ) {
-							$cur_value = SFFormUtils::getPreloadedText( $preload_page );
-						}
-					}
+					$cur_value = $form_field->getCurrentValue( $template_instance_query_values, $form_submitted );
 
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
@@ -1289,16 +989,16 @@ END;
 					if ( $source_is_page && ( ! empty( $existing_template_text ) ) ) {
 						if ( isset( $template_contents[$field_name] ) ) {
 							$cur_value = $template_contents[$field_name];
-
+ 
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
 							// multiple template form.
 							// By putting that at the very end of the parsed string, we'll
 							// have it processed as a regular multiple template form.
-							if ( $holds_template ) {
+							if ( $form_field->holdsTemplate() ) {
 								$existing_page_content = $existing_page_content . $cur_value;
 							}
-
+ 
 							// Now remove this value
 							// from $template_contents,
 							// so that at the end we
@@ -1318,7 +1018,7 @@ END;
 						// Add placeholders for the free text in both the form and
 						// the page, using <free_text> tags - once all the free text
 						// is known (at the end), it will get substituted in.
-						if ( $is_hidden ) {
+						if ( $form_field->isHidden() ) {
 							$new_text = Html::hidden( 'sf_free_text', '!free_text!' );
 						} else {
 							$sfgTabIndex++;
@@ -1328,7 +1028,7 @@ END;
 							} else {
 								$default_value = $cur_value;
 							}
-							$new_text = SFTextAreaInput::getHTML( $default_value, 'sf_free_text', false, ( $form_is_disabled || $is_restricted ), $field_args );
+							$new_text = SFTextAreaInput::getHTML( $default_value, 'sf_free_text', false, ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
 							if ( in_array( 'edittools', $free_text_components ) ) {
 								// borrowed from EditPage::showEditTools()
 								$options[] = 'parse';
@@ -1366,7 +1066,7 @@ END;
 							} else {
 								// If it's not a list, it's probably from a checkbox or date input -
 								// convert the values into a string.
-								$cur_value_in_template = $this->getStringFromPassedInArray( $cur_value, $delimiter );
+								$cur_value_in_template = self::getStringFromPassedInArray( $cur_value, $delimiter );
 							}
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
@@ -1377,82 +1077,44 @@ END;
 							// 'num' will get replaced by an actual index, either in PHP
 							// or in Javascript, later on
 							$input_name = $template_name . '[num][' . $field_name . ']';
-							$field_args['origName'] = $template_name . '[' . $field_name . ']';
+							$form_field->setFieldArg( 'origName', $template_name . '[' . $field_name . ']' );
 						} else {
 							$input_name = $template_name . '[' . $field_name . ']';
 						}
+						$form_field->setInputName( $input_name );
 
-						// if we're creating the page name from a formula based on
+						// If we're creating the page name from a formula based on
 						// form values, see if the current input is part of that formula,
-						// and if so, substitute in the actual value
+						// and if so, substitute in the actual value.
 						if ( $form_submitted && $generated_page_name !== '' ) {
-							// this line appears to be unnecessary
+							// This line appears to be unnecessary.
 							// $generated_page_name = str_replace('.', '_', $generated_page_name);
 							$generated_page_name = str_replace( ' ', '_', $generated_page_name );
 							$escaped_input_name = str_replace( ' ', '_', $input_name );
 							$generated_page_name = str_ireplace( "<$escaped_input_name>", $cur_value_in_template, $generated_page_name );
-							// once the substitution is done, replace underlines back
-							// with spaces
+							// Once the substitution is done, replace underlines back
+							// with spaces.
 							$generated_page_name = str_replace( '_', ' ', $generated_page_name );
 						}
-						// disable this field if either the whole form is disabled, or
-						// it's a restricted field and user doesn't have sysop privileges
-						$is_disabled = ( $form_is_disabled || $is_restricted );
-						// Create an SFFormField instance based on all the parameters
-						// in the form definition, and any information from the template
-						// definition (contained in the $all_fields parameter).
-						$form_field = SFFormField::createFromDefinition( $field_name,
-							$input_name, $is_mandatory, $is_hidden, $is_uploadable,
-							$possible_values, $is_disabled, $is_list, $input_type,
-							$field_args, $all_fields, $strict_parsing );
 
-						// Do some data storage specific to the Semantic MediaWiki and
-						// Cargo extensions.
-						if ( defined( 'SMW_VERSION' ) ) {
-							// If a property was set in the form definition, overwrite whatever
-							// is set in the template field - this is somewhat of a hack, since
-							// parameters set in the form definition are meant to go into the
-							// SFFormField object, not the SFTemplateField object it contains;
-							// it seemed like too much work, though, to create an
-							// SFFormField::setSemanticProperty() function just for this call.
-							if ( $semantic_property != null ) {
-								$form_field->template_field->setSemanticProperty( $semantic_property );
-							}
-							$semantic_property = $form_field->template_field->getSemanticProperty();
-							if ( !is_null( $semantic_property ) ) {
-								global $sfgFieldProperties;
-								$sfgFieldProperties[$fullFieldName] = $semantic_property;
-							}
-						}
-						if ( defined( 'CARGO_VERSION' ) ) {
-							if ( $cargo_table != null && $cargo_field != null ) {
-								$form_field->template_field->setCargoFieldData( $cargo_table, $cargo_field );
-							}
-							$fullCargoField = $form_field->template_field->getFullCargoField();
-							if ( !is_null( $fullCargoField ) ) {
-								global $sfgCargoFields;
-								$sfgCargoFields[$fullFieldName] = $fullCargoField;
-							}
-						}
-
-						// call hooks - unfortunately this has to be split into two
+						// Call hooks - unfortunately this has to be split into two
 						// separate calls, because of the different variable names in
-						// each case
+						// each case.
 						if ( $form_submitted ) {
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
 							if ( !empty( $cur_value ) &&
-								( array_key_exists( 'mapping template', $field_args ) ||
-								array_key_exists( 'mapping property', $field_args ) ||
-								( array_key_exists( 'mapping cargo table', $field_args ) &&
-								array_key_exists( 'mapping cargo field', $field_args ) ) ) ) {
+								( $form_field->hasFieldArg( 'mapping template' ) ||
+								$form_field->hasFieldArg( 'mapping property' ) ||
+								( $form_field->hasFieldArg( 'mapping cargo table' ) &&
+								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ) {
 								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $possible_values );
 							}
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
-						if ( ! array_key_exists( 'part_of_multiple', $field_args ) ) {
+						if ( ! $form_field->hasFieldArg( 'part_of_multiple' ) ) {
 							$sfgTabIndex++;
 						}
 						// increment the global field number regardless
@@ -1460,20 +1122,20 @@ END;
 						// If the field is a date field, and its default value was set
 						// to 'now', and it has no current value, set $cur_value to be
 						// the current date.
-						if ( $default_value == 'now' &&
+						if ( $form_field->getDefaultValue() == 'now' &&
 								// if the date is hidden, cur_value will already be set
 								// to the default value
 								( $cur_value == '' || $cur_value == 'now' ) ) {
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
 									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
-								$cur_value_in_template = self::getStringForCurrentTime( $input_type == 'datetime', array_key_exists( 'include timezone', $field_args ) );
+								$cur_value_in_template = self::getStringForCurrentTime( $input_type == 'datetime', array_key_exists( 'include timezone', $form_field->getFieldArgs() ) );
 							}
 						}
 						// If the field is a text field, and its default value was set
 						// to 'current user', and it has no current value, set $cur_value
 						// to be the current user.
-						if ( $default_value == 'current user' &&
+						if ( $form_field->getDefaultValue() == 'current user' &&
 							// if the date is hidden, cur_value will already be set
 							// to the default value
 							( $cur_value === '' || $cur_value == 'current user' ) ) {
@@ -1485,66 +1147,12 @@ END;
 						// Generate a hidden field with a placeholder value that will be replaced
 						// by the multiple-instances template output at form submission.
 						//// <input type="hidden" value="@replace_Town___mayors@" name="Town[town_mayors]" />
-						if ( $holds_template ) {
+						if ( $form_field->holdsTemplate() ) {
 							$cur_value = self::makePlaceholderInWikiText( self::placeholderFormat( $template_name, $field_name ) );
 						}
 
 						$new_text = $this->formFieldHTML( $form_field, $cur_value );
-
-						// Add a field just after the hidden field, within the HTML, to locate
-						// where the multiple-templates HTML, stored in $multipleTemplateString,
-						// should be inserted.
-						if ( $holds_template ) {
-							$new_text .= self::makePlaceholderInFormHTML( self::placeholderFormat( $template_name, $field_name ) );
-						}
-
-						// If this field is disabled, add a hidden field holding
-						// the value of this field, because disabled inputs for some
-						// reason don't submit their value.
-						if ( $form_field->isDisabled() ) {
-							if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
-								$new_text .= Html::hidden( 'sf_free_text', '!free_text!' );
-							} else {
-								if ( is_array( $cur_value ) ) {
-									$new_text .= Html::hidden( $input_name, implode( $delimiter, $cur_value ) );
-								} else {
-									$new_text .= Html::hidden( $input_name, $cur_value );
-								}
-							}
-						}
-
-						if ( array_key_exists( 'mapping template', $field_args ) ||
-							array_key_exists( 'mapping property', $field_args ) ||
-							( array_key_exists( 'mapping cargo table', $field_args ) &&
-							array_key_exists( 'mapping cargo field', $field_args ) ) ) {
-							if ( $allow_multiple ) {
-								$new_text .= Html::hidden( $template_name . '[num][map_field][' . $field_name . ']', 'true' );
-							} else {
-								$new_text .= Html::hidden( $template_name . '[map_field][' . $field_name . ']', 'true' );
-							}
-						}
-
-						if ( array_key_exists( 'unique', $field_args ) ) {
-							if ( $semantic_property != null ) {
-								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_property', $semantic_property );
-							}
-							if ( $fullCargoField != null ) {
-								// It's inefficient to get these values via
-								// text parsing, but oh well.
-								list( $cargo_table, $cargo_field ) = explode( '|', $fullCargoField, 2 );
-								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_cargo_table', $cargo_table );
-								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_cargo_field', $cargo_field );
-							}
-							if ( array_key_exists( 'unique_for_category', $field_args ) ) {
-								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_category', $field_args['unique_for_category'] );
-							}
-							if ( array_key_exists( 'unique_for_namespace', $field_args ) ) {
-								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_namespace', $field_args['unique_for_namespace'] );
-							}
-							if ( array_key_exists( 'unique_for_concept', $field_args ) ) {
-								$new_text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_concept', $field_args['unique_for_concept'] );
-							}
-						}
+						$new_text .= $form_field->additionalHTMLForInput( $cur_value );
 
 						if ( $new_text ) {
 							// Include the field name only for non-numeric field names.
@@ -1870,7 +1478,6 @@ END;
 						unset ( $template_label );
 					}
 
-
 					$form_text = str_replace( self::makePlaceholderInFormHTML( $curPlaceholder ), $multipleTemplateString, $form_text );
 				}
 				if ( ! $all_instances_printed ) {
@@ -1888,18 +1495,19 @@ END;
 		// Cleanup - everything has been browsed.
 		// Remove all the remaining placeholder
 		// tags in the HTML and wiki-text.
-
 		foreach ( $placeholderFields as $stringToReplace ) {
 
-			// remove the @<replacename>@ tags from the data that is submitted
+			// Remove the @<replacename>@ tags from the data that
+			// is submitted.
 			$data_text = str_replace( self::makePlaceholderInWikiText( $stringToReplace ), '', $data_text );
 
-			// remove the @<insertHTML>@ tags from the generated HTML form
+			// Remove the @<insertHTML>@ tags from the generated
+			// HTML form.
 			$form_text = str_replace( self::makePlaceholderInFormHTML( $stringToReplace ), '', $form_text );
 		}
 
-		// if it wasn't included in the form definition, add the
-		// 'free text' input as a hidden field at the bottom
+		// If it wasn't included in the form definition, add the
+		// 'free text' input as a hidden field at the bottom.
 		if ( ! $free_text_was_included ) {
 			$form_text .= Html::hidden( 'sf_free_text', '!free_text!' );
 		}
@@ -1921,8 +1529,9 @@ END;
 			}
 			$form_text .= Html::hidden( 'partial', 1 );
 		} elseif ( $source_is_page ) {
-			// if the page is the source, free_text will just be whatever in the
-			// page hasn't already been inserted into the form
+			// If the page is the source, free_text will just be
+			// whatever in the page hasn't already been inserted
+			// into the form.
 			$free_text = trim( $existing_page_content );
 		// or get it from a form submission
 		} elseif ( $wgRequest->getCheck( 'sf_free_text' ) ) {
@@ -1945,8 +1554,9 @@ END;
 		}
 
 		// The first hook here is deprecated. Use the second.
-		// Note: Hooks::run can take a third argument which indicates a deprecated hook, but it
-		// expects a MediaWiki version, not an extension version.
+		// Note: Hooks::run can take a third argument which indicates
+		// a deprecated hook, but it expects a MediaWiki version, not
+		// an extension version.
 		Hooks::run( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
 		Hooks::run( 'sfBeforeFreeTextSubstitution',
 			array( &$free_text, $existing_page_content, &$data_text ) );
@@ -1966,12 +1576,13 @@ END;
 				"</div>\n<br clear=\"both\" />\n" . $form_text;
 		}
 
-		// add form bottom, if no custom "standard inputs" have been defined
+		// Add form bottom, if no custom "standard inputs" have been defined.
 		if ( !$this->standardInputsIncluded ) {
-			if ( $is_query )
+			if ( $is_query ) {
 				$form_text .= SFFormUtils::queryFormBottom( $form_is_disabled );
-			else
+			} else {
 				$form_text .= SFFormUtils::formBottom( $form_submitted, $form_is_disabled );
+			}
 		}
 
 
@@ -2035,9 +1646,10 @@ END;
 			$funcArgs[] = $form_field->getInputName();
 			$funcArgs[] = $form_field->isMandatory();
 			$funcArgs[] = $form_field->isDisabled();
-			// last argument to function should be a hash, merging the default
-			// values for this input type with all other properties set in
-			// the form definition, plus some semantic-related arguments
+			// Last argument to function should be a hash, merging
+			// the default values for this input type with all
+			// other properties set in the form definition, plus
+			// some semantic-related arguments.
 			$hook_values = $this->mInputTypeHooks[$form_field->getInputType()];
 			$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
 			$funcArgs[] = $other_args;
