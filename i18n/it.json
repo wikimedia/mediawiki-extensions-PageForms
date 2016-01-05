@@ -8,11 +8,14 @@
 			"F. Cosoleto",
 			"Gloria sah",
 			"Melos",
-			"Nemo bis"
+			"Nemo bis",
+			"VaiTon86"
 		]
 	},
 	"semanticforms-desc": "Modulo per aggiungere e modificare dati semantici",
 	"specialpages-group-sf_group": "Moduli semantici",
+	"apihelp-sfautoedit-description": "Creare o modificare una pagina con un modulo definito dall'estensione Semantica Moduli.",
+	"apihelp-sfautoedit-param-query": "La frase di richiesta",
 	"createproperty": "Crea una proprietà",
 	"sf-createproperty-with-name": "Crea proprietà: $1",
 	"sf_createproperty_linktoform": "Questa proprietà ti collegherà alla pagina che usa il seguente modulo:",
