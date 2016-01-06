@@ -138,6 +138,7 @@ class SFFormField {
 
 	static function newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $strict_parsing ) {
 		global $wgParser;
+
 		$field_name = trim( $tag_components[1] );
 		// See if this field matches one of the fields defined for this
 		// template - if it is, use all available information about
@@ -168,7 +169,8 @@ class SFFormField {
 		$f->mFieldArgs = array();
 		$f->mAllFields = $all_fields;
 
-		$cargo_table = null;
+		$semantic_property = null;
+		$cargo_table = $cargo_field = null;
 		$allow_multiple = false;
 		$show_on_select = array();
 		$fullFieldName = $template_name . '[' . $field_name . ']';
@@ -387,10 +389,11 @@ class SFFormField {
 			// it seemed like too much work, though, to create an
 			// SFFormField::setSemanticProperty() function just for
 			// this call.
-			if ( $semantic_property != null ) {
+			if ( !is_null( $semantic_property ) ) {
 				$f->template_field->setSemanticProperty( $semantic_property );
+			} else {
+				$semantic_property = $f->template_field->getSemanticProperty();
 			}
-			$semantic_property = $f->template_field->getSemanticProperty();
 			if ( !is_null( $semantic_property ) ) {
 				global $sfgFieldProperties;
 				$sfgFieldProperties[$fullFieldName] = $semantic_property;
@@ -496,7 +499,7 @@ class SFFormField {
 		return $cur_value; // null
 	}
 
-	public function additionalHTMLForInput( $cur_value ) {
+	public function additionalHTMLForInput( $cur_value, $field_name, $template_name ) {
 		$text = '';
 
 		// Add a field just after the hidden field, within the HTML, to
@@ -514,9 +517,10 @@ class SFFormField {
 				$text .= Html::hidden( 'sf_free_text', '!free_text!' );
 			} else {
 				if ( is_array( $cur_value ) ) {
-					$text .= Html::hidden( $input_name, implode( $delimiter, $cur_value ) );
+					$delimiter = $this->mFieldArgs['delimiter'];
+					$text .= Html::hidden( $this->mInputName, implode( $delimiter, $cur_value ) );
 				} else {
-					$text .= Html::hidden( $input_name, $cur_value );
+					$text .= Html::hidden( $this->mInputName, $cur_value );
 				}
 			}
 		}
@@ -533,9 +537,11 @@ class SFFormField {
 		}
 
 		if ( $this->hasFieldArg( 'unique' ) ) {
+			$semantic_property = $this->template_field->getSemanticProperty();
 			if ( $semantic_property != null ) {
 				$text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_property', $semantic_property );
 			}
+			$fullCargoField = $this->template_field->getFullCargoField();
 			if ( $fullCargoField != null ) {
 				// It's inefficient to get these values via
 				// text parsing, but oh well.

@@ -1152,7 +1152,7 @@ END;
 						}
 
 						$new_text = $this->formFieldHTML( $form_field, $cur_value );
-						$new_text .= $form_field->additionalHTMLForInput( $cur_value );
+						$new_text .= $form_field->additionalHTMLForInput( $cur_value, $field_name, $template_name );
 
 						if ( $new_text ) {
 							// Include the field name only for non-numeric field names.
