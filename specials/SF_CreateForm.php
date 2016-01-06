@@ -70,7 +70,7 @@ class SFCreateForm extends SpecialPage {
 		}
 
 		$out->addModules( 'ext.semanticforms.collapsible' );
-		$section_name_error_str = '<font color="red" id="section_error">' . wfMessage( 'sf_blank_error' )->escaped() . '</font>';
+		$section_name_error_str = '<span class="error" id="section_error">' . wfMessage( 'sf_blank_error' )->escaped() . '</span>';
 
 		$out->addScript("<script>
 jQuery.fn.displayInputParams = function() {
@@ -314,7 +314,7 @@ jQuery(document).ready(function() {
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() );
 			$text .= "\n\t<p>" . wfMessage( 'sf_createform_nameinput' )->escaped() . ' ' . wfMessage( 'sf_createform_nameinputdesc' )->escaped() . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
 			if ( ! empty( $form_name_error_str ) ) {
-				$text .= "\t" . Html::element( 'font', array( 'color' => 'red' ), $form_name_error_str );
+				$text .= "\t" . Html::element( 'span', array( 'class' => 'error' ), $form_name_error_str );
 			}
 			$text .= "</p>\n";
 		}
