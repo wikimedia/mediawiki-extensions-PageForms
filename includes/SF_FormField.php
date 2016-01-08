@@ -136,7 +136,7 @@ class SFFormField {
 		$this->mDescriptionArgs[$key] = $value;
 	}
 
-	static function newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $strict_parsing ) {
+	static function newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $allow_multiple, $strict_parsing ) {
 		global $wgParser;
 
 		$field_name = trim( $tag_components[1] );
@@ -367,7 +367,7 @@ class SFFormField {
 			$f->mFieldArgs['no autocomplete'] = true;
 		}
 		if ( $allow_multiple ) {
-			$f->mFieldArgs['part_of_multiple'] = $allow_multiple;
+			$f->mFieldArgs['part_of_multiple'] = true;
 		}
 		if ( count( $show_on_select ) > 0 ) {
 			$f->mFieldArgs['show on select'] = $show_on_select;
@@ -529,7 +529,7 @@ class SFFormField {
 			$this->hasFieldArg( 'mapping property' ) ||
 			( $this->hasFieldArg( 'mapping cargo table' ) &&
 			$this->hasFieldArg( 'mapping cargo field' ) ) ) {
-			if ( $allow_multiple ) {
+			if ( $this->hasFieldArg( 'part_of_multiple' ) ) {
 				$text .= Html::hidden( $template_name . '[num][map_field][' . $field_name . ']', 'true' );
 			} else {
 				$text .= Html::hidden( $template_name . '[map_field][' . $field_name . ']', 'true' );

@@ -979,7 +979,7 @@ END;
 					// to deal with the <freetext> hack,
 					// among others.
 					$field_name = trim( $tag_components[1] );
-					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $strict_parsing );
+					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $allow_multiple, $strict_parsing );
 					$fullFieldName = $template_name . '[' . $field_name . ']';
 					$cur_value = $form_field->getCurrentValue( $template_instance_query_values, $form_submitted );
 
@@ -1126,6 +1126,7 @@ END;
 								// if the date is hidden, cur_value will already be set
 								// to the default value
 								( $cur_value == '' || $cur_value == 'now' ) ) {
+							$input_type = $form_field->getInputType();
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
 									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
