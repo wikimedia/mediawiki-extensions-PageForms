@@ -413,7 +413,7 @@ class SFFormField {
 		return $f;
 	}
 
-	function getCurrentValue( $template_instance_query_values, $form_submitted ) {
+	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page ) {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
 		$cur_value = null;
@@ -487,7 +487,7 @@ class SFFormField {
 			}
 		}
 
-		if ( empty( $cur_value ) && !$form_submitted ) {
+		if ( !$source_is_page && empty( $cur_value ) && !$form_submitted ) {
 			if ( !is_null( $this->mDefaultValue ) ) {
 				// Set to the default value specified in the form, if it's there.
 				return $this->mDefaultValue;

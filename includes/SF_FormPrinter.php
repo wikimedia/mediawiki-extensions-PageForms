@@ -981,7 +981,7 @@ END;
 					$field_name = trim( $tag_components[1] );
 					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $allow_multiple, $strict_parsing );
 					$fullFieldName = $template_name . '[' . $field_name . ']';
-					$cur_value = $form_field->getCurrentValue( $template_instance_query_values, $form_submitted );
+					$cur_value = $form_field->getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page );
 
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
