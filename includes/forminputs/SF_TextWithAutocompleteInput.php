@@ -62,12 +62,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 
 
 	public static function getAutocompletionTypeAndSource( &$field_args ) {
-		if ( array_key_exists( 'cargo field', $field_args ) ) {
-			$fieldName = $field_args['cargo field'];
-			$tableName = $field_args['cargo table'];
-			$autocompletionSource = "$tableName|$fieldName";
-			$autocompleteFieldType = 'cargo field';
-		} elseif ( array_key_exists( 'values from property', $field_args ) ) {
+		if ( array_key_exists( 'values from property', $field_args ) ) {
 			$autocompletionSource = $field_args['values from property'];
 			$autocompleteFieldType = 'property';
 		} elseif ( array_key_exists( 'values from category', $field_args ) ) {
@@ -93,6 +88,11 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			$autocompletionSource = $field_args['autocompletion source'];
 		} elseif ( array_key_exists( 'full_cargo_field', $field_args ) ) {
 			$autocompletionSource = $field_args['full_cargo_field'];
+			$autocompleteFieldType = 'cargo field';
+		} elseif ( array_key_exists( 'cargo field', $field_args ) ) {
+			$fieldName = $field_args['cargo field'];
+			$tableName = $field_args['cargo table'];
+			$autocompletionSource = "$tableName|$fieldName";
 			$autocompleteFieldType = 'cargo field';
 		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
 			$autocompletionSource = $field_args['semantic_property'];
