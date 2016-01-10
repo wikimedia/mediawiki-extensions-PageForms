@@ -137,7 +137,7 @@ class SFFormField {
 	}
 
 	static function newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $allow_multiple, $strict_parsing ) {
-		global $wgParser;
+		global $wgParser, $wgUser;
 
 		$field_name = trim( $tag_components[1] );
 		// See if this field matches one of the fields defined for this
