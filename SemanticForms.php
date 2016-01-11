@@ -42,7 +42,12 @@ if ( file_exists( __DIR__ . '/../../vendor/autoload.php' ) ) {
 	include_once __DIR__ . '/../../vendor/autoload.php';
 }
 
-if ( function_exists( 'wfLoadExtension' ) ) {
+// In some versions of MW 1.25, there's a bug in which global variables
+// set in LocalSettings.php do not override the settings in
+// extension.json. For simplicity's sake, don't load extensions unless we're
+// at version 1.26 or higher.
+//if ( function_exists( 'wfLoadExtension' ) ) {
+if ( version_compare( $GLOBALS['wgVersion'], '1.26', '>=' ) ) {
 	wfLoadExtension( 'SemanticForms' );
 	// Keep i18n globals so mergeMessageFileList.php doesn't break
 	$wgMessagesDirs['SemanticForms'] = __DIR__ . '/i18n';
