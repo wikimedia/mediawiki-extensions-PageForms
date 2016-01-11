@@ -12,7 +12,7 @@
  */
 
 /**
- * Forms for adding and editing semantic data.
+ * Forms for creating and editing wiki pages.
  *
  * @defgroup SF Semantic Forms
  */
@@ -37,10 +37,6 @@
  * @defgroup SFLanguage Language
  * @ingroup SF
  */
-
-if ( file_exists( __DIR__ . '/../../vendor/autoload.php' ) ) {
-	include_once __DIR__ . '/../../vendor/autoload.php';
-}
 
 // In some versions of MW 1.25, there's a bug in which global variables
 // set in LocalSettings.php do not override the settings in

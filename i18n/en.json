@@ -4,7 +4,7 @@
 			"Yaron Koren"
 		]
 	},
-	"semanticforms-desc": "Forms for adding and editing semantic data",
+	"semanticforms-desc": "Forms for creating and editing wiki pages",
 	"specialpages-group-sf_group": "Semantic Forms",
 	"apihelp-sfautocomplete-description": "Autocompletion used by the Semantic Forms extension.",
 	"apihelp-sfautocomplete-param-limit": "A limit on the number of results returned",
