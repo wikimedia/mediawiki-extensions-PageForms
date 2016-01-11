@@ -55,7 +55,7 @@
 	var data_source = field_values[0];
 	if (field_values[1] == 'list') {
 		delimiter = ",";
-		if (field_values[2] !== null && field_values[2] !== undefined) {
+		if (field_values[2] !== null && field_values[2] !== '' && field_values[2] !== undefined) {
 			delimiter = field_values[2];
 		}
 	}
@@ -65,7 +65,7 @@
 	// This doesn't cover the case of a delimiter that's a newline
 	// plus something else, like ".\n" or "\n\n", but as far as we
 	// know no one has yet needed that.
-	if ( delimiter !== null && delimiter !== undefined ) {
+	if ( delimiter !== null && delimiter !== '' && delimiter !== undefined ) {
 		if ( delimiter == "\\n" ) {
 			delimiter = "\n";
 		} else {

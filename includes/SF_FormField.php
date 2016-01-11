@@ -805,7 +805,7 @@ END;
 		}
 
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
-			if ( $this->template_field->getPropertyType() == '_wpg' || array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
+			if ( $this->template_field->getFieldType() == 'Page' || array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
 				$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
 				$other_args['autocomplete field type'] = 'cargo field';
 			}
