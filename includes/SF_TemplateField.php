@@ -134,7 +134,11 @@ class SFTemplateField {
 		$this->mCargoField = $fieldName;
 
 		if ( is_null( $fieldDescription ) ) {
-			$tableSchemas = CargoUtils::getTableSchemas( array( $tableName ) );
+			try {
+				$tableSchemas = CargoUtils::getTableSchemas( array( $tableName ) );
+			} catch ( MWException $e ) {
+				return;
+			}
 			if ( count( $tableSchemas ) == 0 ) {
 				return;
 			}
