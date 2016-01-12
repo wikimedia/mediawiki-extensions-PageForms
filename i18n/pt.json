@@ -12,7 +12,7 @@
 			"Vitorvicentevalente"
 		]
 	},
-	"semanticforms-desc": "Formulários para adicionar e editar dados semânticos",
+	"semanticforms-desc": "Formulários para criar e editar páginas wiki",
 	"specialpages-group-sf_group": "Formulários Semânticos",
 	"createproperty": "Criar uma propriedade",
 	"sf_createproperty_linktoform": "Esta propriedade irá ligar às páginas que usem o formulário:",

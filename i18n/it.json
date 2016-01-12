@@ -12,7 +12,7 @@
 			"VaiTon86"
 		]
 	},
-	"semanticforms-desc": "Modulo per aggiungere e modificare dati semantici",
+	"semanticforms-desc": "Moduli per creare e modificare pagine wiki",
 	"specialpages-group-sf_group": "Moduli semantici",
 	"apihelp-sfautoedit-description": "Crea o modifica una pagina utilizzando un modulo definito dall'estensione Semantic Forms.",
 	"apihelp-sfautoedit-param-query": "La stringa di interrogazione",

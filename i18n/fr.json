@@ -30,7 +30,7 @@
 			"PifyZ"
 		]
 	},
-	"semanticforms-desc": "Formulaires pour ajouter ou modifier des données sémantiques",
+	"semanticforms-desc": "Formulaires pour créer et modifier des pages wiki",
 	"specialpages-group-sf_group": "Formulaires sémantiques",
 	"apihelp-sfautocomplete-description": "Autocomplétion utilisée par l’extension Semantic Forms.",
 	"apihelp-sfautocomplete-param-limit": "Limite sur le nombre de résultats renvoyés",

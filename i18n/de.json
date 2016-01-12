@@ -16,7 +16,7 @@
 			"Umherirrender"
 		]
 	},
-	"semanticforms-desc": "Ermöglicht Formulare zum Hinzufügen und Bearbeiten semantischer Daten",
+	"semanticforms-desc": "Ermöglicht Formulare zum Erstellen und Bearbeiten von Wikiseiten",
 	"specialpages-group-sf_group": "Semantische Formulare",
 	"apihelp-sfautocomplete-description": "Von der Softwareerweiterung „Semantic Forms“ genutzte Autovervollständigung.",
 	"apihelp-sfautocomplete-param-limit": "Das Limit zur Anzahl der ermittelten Ergebnisse.",
