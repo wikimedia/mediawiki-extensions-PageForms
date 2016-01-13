@@ -784,7 +784,7 @@ class SFUploadForm extends HTMLForm {
 		if ( $canUploadByUrl ) {
 			global $wgMaxUploadSize;
 			$descriptor['UploadFileURL'] = array(
-				'class' => 'SFUploadSourceField',
+				'class' => 'UploadSourceField',
 				'section' => 'source',
 				'id' => 'wpUploadFileURL',
 				'label-message' => 'sourceurl',
