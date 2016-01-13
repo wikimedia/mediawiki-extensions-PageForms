@@ -308,7 +308,9 @@ class SFAutoeditAPI extends ApiBase {
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
 			// FIXME: Title::newFromRedirectRecurse is deprecated as of MW 1.21
-			$formTitle = Title::newFromRedirectRecurse( WikiPage::factory( $formTitle )->getRawText() );
+			$formTitle = Title::newFromRedirectRecurse(
+				WikiPage::factory( $formTitle )->getContent( Revision::RAW )
+			);
 
 			// if we exeeded $wgMaxRedirects or encountered an invalid redirect target, give up
 			if ( $formTitle->isRedirect() ) {
@@ -797,7 +799,7 @@ class SFAutoeditAPI extends ApiBase {
 						'<noinclude>', // start delimiter
 						'</noinclude>', // end delimiter
 						'', // replace by
-						WikiPage::factory( $formTitle )->getRawText() // subject
+						WikiPage::factory( $formTitle )->getContent( Revision::RAW ) // subject
 		);
 
 		// signals that the form was submitted
@@ -846,7 +848,7 @@ class SFAutoeditAPI extends ApiBase {
 			if ( $preloadTitle !== null && $preloadTitle->exists() ) {
 
 				// the content of the page that was specified to be used for preloading
-				$preloadContent = WikiPage::factory( $preloadTitle )->getRawText();
+				$preloadContent = WikiPage::factory( $preloadTitle )->getContent( Revision::RAW );
 
 				$pageExists = true;
 
