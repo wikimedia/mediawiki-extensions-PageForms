@@ -307,10 +307,13 @@ class SFAutoeditAPI extends ApiBase {
 
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
-			// FIXME: Title::newFromRedirectRecurse is deprecated as of MW 1.21
-			$formTitle = Title::newFromRedirectRecurse(
-				WikiPage::factory( $formTitle )->getContent( Revision::RAW )
-			);
+			$formWikiPage = WikiPage::factory( $formTitle );
+			if ( method_exists( $formWikiPage, 'getContent' ) ) {
+				// MW 1.21+
+				$formTitle = $formWikiPage->getContent( Revision::RAW )->getUltimateRedirectTarget();
+			} else {
+				$formTitle = Title::newFromRedirectRecurse( $formWikiPage->getRawText() );
+			}
 
 			// if we exeeded $wgMaxRedirects or encountered an invalid redirect target, give up
 			if ( $formTitle->isRedirect() ) {
@@ -763,6 +766,19 @@ class SFAutoeditAPI extends ApiBase {
 	}
 
 	/**
+	 * Helper function, for backwards compatibility.
+	 */
+	function getTextForPage( $title ) {
+		$wikiPage = WikiPage::factory( $title );
+		if ( method_exists( $wikiPage, 'getContent' ) ) {
+			// MW 1.21+
+			return $wikiPage->getContent( Revision::RAW )->getNativeData();
+		} else {
+			return $wikiPage->getRawText();
+		}
+	}
+
+	/**
 	 * Depending on the requested action this method will try to store/preview
 	 * the data in mOptions or retrieve the edit form.
 	 *
@@ -799,7 +815,7 @@ class SFAutoeditAPI extends ApiBase {
 						'<noinclude>', // start delimiter
 						'</noinclude>', // end delimiter
 						'', // replace by
-						WikiPage::factory( $formTitle )->getContent( Revision::RAW ) // subject
+						$this->getTextForPage( $formTitle ) // subject
 		);
 
 		// signals that the form was submitted
@@ -848,7 +864,7 @@ class SFAutoeditAPI extends ApiBase {
 			if ( $preloadTitle !== null && $preloadTitle->exists() ) {
 
 				// the content of the page that was specified to be used for preloading
-				$preloadContent = WikiPage::factory( $preloadTitle )->getContent( Revision::RAW );
+				$preloadContent = $this->getTextForPage( $preloadTitle );
 
 				$pageExists = true;
 
