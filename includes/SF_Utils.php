@@ -14,6 +14,13 @@ class SFUtils {
 		$smwgEnabledSpecialPage, $wgExtensionFunctions, $wgSpecialPages,
 		$wgAutoloadClasses, $sfgContLang, $sfgFormPrinter, $wgLanguageCode;
 
+		if ( defined( 'SF_VERSION' ) ) {
+			// Do not load Semantic Forms more than once.
+			return 1;
+		}
+
+		define( 'SF_VERSION', '3.4.1' );
+
 		if ( !defined( 'SMW_VERSION' ) ) {
 			// SMW defines these namespaces itself.
 			define( 'SF_NS_FORM', 106 );
