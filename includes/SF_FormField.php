@@ -159,7 +159,7 @@ class SFFormField {
 				$dummy_ff->mIsList = false;
 				return $dummy_ff;
 			}
-			$the_field = new SFTemplateField();
+			$the_field = SFTemplateField::create( $field_name, null );
 		}
 
 		// Create an SFFormField object, containing this field as well
