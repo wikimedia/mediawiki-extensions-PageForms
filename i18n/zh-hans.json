@@ -16,7 +16,7 @@
 			"Apflu"
 		]
 	},
-	"semanticforms-desc": "用于添加和编辑语义数据的表单",
+	"semanticforms-desc": "用于创建和编辑wiki页面",
 	"specialpages-group-sf_group": "语义表单",
 	"apihelp-sfautocomplete-description": "由语言表单扩展所使用的自动完成。",
 	"apihelp-sfautocomplete-param-limit": "返回结果数量的限制",

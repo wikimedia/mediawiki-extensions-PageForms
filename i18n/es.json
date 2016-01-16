@@ -19,7 +19,7 @@
 			"Sethladan"
 		]
 	},
-	"semanticforms-desc": "Formularios para añadir y editar datos semánticos",
+	"semanticforms-desc": "Formularios para crear y editar páginas wiki",
 	"specialpages-group-sf_group": "Formularios semánticos",
 	"createproperty": "Crear una propiedad",
 	"sf-createproperty-with-name": "Crear la propiedad: $1",
