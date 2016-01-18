@@ -242,9 +242,9 @@ class SFFormPrinter {
 	function showDeletionLog( $out ) {
 		LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
 			'', array( 'lim' => 10,
-				   'conds' => array( "log_action != 'revision'" ),
-				   'showIfEmpty' => false,
-				   'msgKey' => array( 'moveddeleted-notice' ) )
+				'conds' => array( "log_action != 'revision'" ),
+				'showIfEmpty' => false,
+				'msgKey' => array( 'moveddeleted-notice' ) )
 		);
 		return true;
 	}
@@ -280,6 +280,27 @@ class SFFormPrinter {
 		return '@insertHTML_' . $str . '@';
 	}
 
+	function multipleTemplateStartHTML( $tif ) {
+		$text = '';
+		if ( $tif->getLabel() != null ) {
+			$text .= "<fieldset>\n";
+			$text .= Html::element( 'legend', null, $tif->getLabel() ) . "\n";
+		}
+		// If placeholder is set, it means we want to insert a
+		// multiple template form's HTML into the main form's HTML.
+		// So, the HTML will be stored in $text.
+		$text .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
+		$text .= "\t" . '<div class="multipleTemplateList"';
+		if ( !is_null( $tif->getMinInstancesAllowed() ) ) {
+			$text .= " minimumInstances=\"{$tif->getMinInstancesAllowed()}\"";
+		}
+		if ( !is_null( $tif->getMaxInstancesAllowed() ) ) {
+			$text .= " maximumInstances=\"{$tif->getMaxInstancesAllowed()}\"";
+		}
+		$text .= ">\n";
+		return $text;
+	}
+
 	/**
 	 * Creates the HTML for the inner table for every instance of a
 	 * multiple-instance template in the form.
@@ -307,61 +328,62 @@ END;
 	}
 
 	/**
-	 * Creates the HTML for a single instance of a multiple-instance template;
-	 * plus the end tags for the full multiple-instance HTML.
+	 * Creates the HTML for a single instance of a multiple-instance
+	 * template.
 	 */
-	function multipleTemplateInstanceHTML( $form_is_disabled, $all_instances_printed, &$section, $instance_num, $add_button_text ) {
+	function multipleTemplateInstanceHTML( $template_in_form, $form_is_disabled, &$section ) {
+		// Add the character "a" onto the instance number of this input
+		// in the form, to differentiate the inputs the form starts out
+		// with from any inputs added by the Javascript.
+		$section = str_replace( '[num]', "[{$template_in_form->getInstanceNum()}a]", $section );
+		// @TODO - this replacement should be
+		// case- and spacing-insensitive.
+		// Also, keeping the "id=" attribute should not be
+		// necessary; but currently it is, for "show on select".
+		$section = preg_replace( '/ id="(.*?)"/', ' id="$1" data-origID="$1" ', $section );
+
+		$text = "\t\t" . Html::rawElement( 'div',
+				array(
+				// The "multipleTemplate" class is there for
+				// backwards-compatibility with any custom CSS on people's
+				// wikis before SF 2.0.9.
+				'class' => "multipleTemplateInstance multipleTemplate"
+			),
+			$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
+		) . "\n";
+
+		return $text;
+	}
+
+	/**
+	 * Creates the end of the HTML for a multiple-instance template -
+	 * including the sections necessary for adding additional instances.
+	 */
+	function multipleTemplateEndHTML( $template_in_form, $form_is_disabled, $section ) {
 		global $sfgTabIndex;
 
-		if ( ! $all_instances_printed ) {
-			// Add the character "a" onto the instance number of this input
-			// in the form, to differentiate the inputs the form starts out
-			// with from any inputs added by the Javascript.
-			$section = str_replace( '[num]', "[{$instance_num}a]", $section );
-			// @TODO - this replacement should be
-			// case- and spacing-insensitive.
-			// Also, keeping the "id=" attribute should not be
-			// necessary; but currently it is, for "show on select".
-			$section = preg_replace( '/ id="(.*?)"/', ' id="$1" data-origID="$1" ', $section );
+		$text = "\t\t" . Html::rawElement( 'div',
+			array(
+				'class' => "multipleTemplateStarter",
+				'style' => "display: none",
+			),
+			$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
+		) . "\n";
 
-			$text = "\t\t" . Html::rawElement( 'div',
-				array(
-					// The "multipleTemplate" class is there for
-					// backwards-compatibility with any custom CSS on people's
-					// wikis before SF 2.0.9.
-					'class' => "multipleTemplateInstance multipleTemplate"
-				),
-				$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
-			) . "\n";
-
-		} else { // if ( $all_instances_printed ) {
-			// This is the last instance of this
-			// template - print all the sections
-			// necessary for adding additional
-			// instances.
-			$text = "\t\t" . Html::rawElement( 'div',
-				array(
-					'class' => "multipleTemplateStarter",
-					'style' => "display: none",
-				),
-				$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
-			) . "\n";
-
-			$attributes = array(
-				'tabindex' => $sfgTabIndex,
-				'class' => 'multipleTemplateAdder',
-			);
-			if ( $form_is_disabled ) {
-				$attributes['disabled'] = true;
-			}
-			$button = Html::input( null, Sanitizer::decodeCharReferences( $add_button_text ), 'button', $attributes );
-			$text .= <<<END
+		$attributes = array(
+			'tabindex' => $sfgTabIndex,
+			'class' => 'multipleTemplateAdder',
+		);
+		if ( $form_is_disabled ) {
+			$attributes['disabled'] = true;
+		}
+		$button = Html::input( null, Sanitizer::decodeCharReferences( $template_in_form->getAddButtonText() ), 'button', $attributes );
+		$text .= <<<END
 	</div><!-- multipleTemplateList -->
 		<p>$button</p>
 		<div class="sfErrorMessages"></div>
 	</div><!-- multipleTemplateWrapper -->
 END;
-		}
 		return $text;
 	}
 
@@ -644,9 +666,6 @@ END;
 		$start_position = 0;
 		$section_start = 0;
 		$free_text_was_included = false;
-		$free_text_preload_page = null;
-		$free_text_components = array();
-		$all_values_for_template = array();
 		// Unencode any HTML-encoded representations of curly brackets and
 		// pipes - this is a hack to allow for forms to include templates
 		// that themselves contain form elements - the escaping was needed
@@ -674,17 +693,8 @@ END;
 		// existing article as well, finding template and field
 		// declarations and replacing them with form elements, either
 		// blank or pre-populated, as appropriate.
-		$all_fields = array();
 		$data_text = "";
-		$template_name = "";
-		$allow_multiple = false;
-		$instance_num = 0;
-		$all_instances_printed = false;
-		$strict_parsing = false;
-
-		// Placeholder name in the form
-		$curPlaceholder = null;
-		// Used to store the HTML code of the multiple template, to reinsert it into the right spot
+		$tif = null;
 		// This array will keep track of all the replaced @<name>@ strings
 		$placeholderFields = array();
 
@@ -695,9 +705,6 @@ END;
 			// array doesn't get modified; is it necessary?
 			$section = " " . $form_def_sections[$section_num];
 
-
-			$multipleTemplateString = "";
-
 			while ( $brackets_loc = strpos( $section, '{{{', $start_position ) ) {
 				$brackets_end_loc = strpos( $section, "}}}", $brackets_loc );
 				$bracketed_string = substr( $section, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
@@ -707,288 +714,102 @@ END;
 				// for template processing
 				// =====================================================
 				if ( $tag_title == 'for template' ) {
-					$old_template_name = $template_name;
-					$template_name = trim( $tag_components[1] );
-					$tif = SFTemplateInForm::create( $template_name );
-					$query_template_name = str_replace( ' ', '_', $template_name );
-					$add_button_text = wfMessage( 'sf_formedit_addanother' )->text();
-					$minimumInstances = null;
-					$maximumInstances = null;
-					// Also replace periods with underlines, since that's what
-					// POST does to strings anyway.
-					$query_template_name = str_replace( '.', '_', $query_template_name );
-					// ...and escape apostrophes.
-					// (Or don't.)
-					//$query_template_name = str_replace( "'", "\'", $query_template_name );
-					// Cycle through the other components.
-					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
-						$component = $tag_components[$i];
-						if ( $component == 'multiple' ) $allow_multiple = true;
-						if ( $component == 'strict' ) $strict_parsing = true;
-						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-						if ( count( $sub_components ) == 2 ) {
-							if ( $sub_components[0] == 'label' ) {
-								$template_label = $sub_components[1];
-							} elseif ( $sub_components[0] == 'minimum instances' ) {
-								$minimumInstances = $sub_components[1];
-							} elseif ( $sub_components[0] == 'maximum instances' ) {
-								$maximumInstances = $sub_components[1];
-							} elseif ( $sub_components[0] == 'add button text' ) {
-								$add_button_text = $wgParser->recursiveTagParse( $sub_components[1] );
-							} elseif ( $sub_components[0] == 'embed in field' ) {
-								// Placeholder on form template level. Assume that the template form def
-								// will have a multiple+placeholder parameters, and get the placeholder value.
-								// We expect something like TemplateName[fieldName], and convert it to the
-								// TemplateName___fieldName form used internally.
-								preg_match( '/\s*(.*)\[(.*)\]\s*/', $sub_components[1], $matches );
-								$curPlaceholder = ( count( $matches ) > 2 ) ? self::placeholderFormat( $matches[1], $matches[2] ) : null;
-								unset( $matches );
-							}
-						}
+					if ( $tif ) {
+						$previous_template_name = $tif->getTemplateName();
+					} else {
+						$previous_template_name = '';
 					}
-					// If this is the first instance, add
-					// the label into the form, if there is
-					// one, and add the appropriate wrapper
-					// div, if this is a multiple-instance
-					// template.
-					if ( $old_template_name != $template_name ) {
-						if ( isset( $template_label ) ) {
-							$multipleTemplateString .= "<fieldset>\n";
-							$multipleTemplateString .= Html::element( 'legend', null, $template_label ) . "\n";
-						}
-						// If $curPlaceholder is set, it means we want to insert a
-						// multiple template form's HTML into the main form's HTML.
-						// So, the HTML will be stored in $multipleTemplateString.
-						if ( $allow_multiple ) {
-							$multipleTemplateString .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
-							$multipleTemplateString .= "\t" . '<div class="multipleTemplateList"';
-							if ( !is_null( $minimumInstances ) ) {
-								$multipleTemplateString .= " minimumInstances=\"$minimumInstances\"";
-							}
-							if ( !is_null( $maximumInstances ) ) {
-								$multipleTemplateString .= " maximumInstances=\"$maximumInstances\"";
-							}
-							$multipleTemplateString .= ">\n";
-						}
+					$template_name = $tag_components[1];
+					$is_new_template = ( $template_name != $previous_template_name );
+					if ( $is_new_template ) {
+						$tif = SFTemplateInForm::newFromFormTag( $tag_components );
 					}
-					if ( $curPlaceholder == null ) {
-						$form_text .= $multipleTemplateString;
-					}
-					$template_text .= "{{" . $template_name;
-					$all_fields = $tif->getAllFields();
-					// remove template tag
+					$template_text .= "{{" . $tif->getTemplateName();
+					// Remove template tag.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
-					$template_instance_query_values = $wgRequest->getArray( $query_template_name );
 					// If we are editing a page, and this
 					// template can be found more than
 					// once in that page, and multiple
 					// values are allowed, repeat this
 					// section.
-					$existing_template_text = null;
 					if ( $source_is_page || $form_is_partial ) {
-						// Replace underlines with spaces in template name, to allow for
-						// searching on either.
-						$search_template_str = str_replace( '_', ' ', $template_name );
-						$preg_match_template_str = str_replace(
-							array( '/', '(', ')', '^' ),
-							array( '\/', '\(', '\)', '\^' ),
-							$search_template_str );
-						$found_instance = preg_match( '/{{' . $preg_match_template_str . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
-						if ( $allow_multiple ) {
-							// Find instances of this template in the page -
-							// if there's at least one, re-parse this section of the
-							// definition form for the subsequent template instances in
-							// this page; if there's none, don't include fields at all.
-							// There has to be a more efficient way to handle multiple
-							// instances of templates, one that doesn't involve re-parsing
-							// the same tags, but I don't know what it is.
-							// (Also add additional, blank instances if there's a minimum
-							// number required in this form, and we haven't reached it yet.)
-							if ( $found_instance || $instance_num < $minimumInstances ) {
-								// Print another instance until we reach the minimum
-								// instances, which is also the starting number.
+						$tif->setPageRelatedInfo( $existing_page_content );
+						// Get the first instance of
+						// this template on the page
+						// being edited, even if there
+						// are more.
+						if ( $tif->pageCallsThisTemplate() ) {
+							$tif->setFieldValuesFromPage( $existing_page_content );
+							$existing_template_text = $tif->getFullTextInPage();
+							// Now remove this template from the text being edited.
+							// If this is a partial form, establish a new insertion point.
+							if ( $existing_page_content && $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
+								// if something already exists, set the new insertion point
+								// to its position; otherwise just let it lie
+								if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
+									$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
+									$existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
+								}
 							} else {
-								$all_instances_printed = true;
+								$existing_page_content = $this->strReplaceFirst( $existing_template_text, '', $existing_page_content );
 							}
-						}
-						// get the first instance of this template on the page being edited,
-						// even if there are more
-						if ( $found_instance ) {
-							$matches = array();
-							$search_pattern = '/{{' . $preg_match_template_str . '\s*[\|}]/i';
-							$content_str = str_replace( '_', ' ', $existing_page_content );
-							preg_match( $search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE );
-							// is this check necessary?
-							if ( array_key_exists( 0, $matches ) && array_key_exists( 1, $matches[0] ) ) {
-								$start_char = $matches[0][1];
-								$fields_start_char = $start_char + 2 + strlen( $search_template_str );
-								// Skip ahead to the first real character.
-								while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n' ) ) ) {
-									$fields_start_char++;
-								}
-								// If the next character is a pipe, skip that too.
-								if ( $existing_page_content[$fields_start_char] == '|' ) {
-									$fields_start_char++;
-								}
-								$template_contents = array( '0' => '' );
-								// Cycle through template call, splitting it up by pipes ('|'),
-								// except when that pipe is part of a piped link.
-								$field = "";
-								$uncompleted_square_brackets = 0;
-								$uncompleted_curly_brackets = 2;
-								$template_ended = false;
-								for ( $i = $fields_start_char; ! $template_ended && ( $i < strlen( $existing_page_content ) ); $i++ ) {
-									$c = $existing_page_content[$i];
-									if ( $c == '[' ) {
-										$uncompleted_square_brackets++;
-									} elseif ( $c == ']' && $uncompleted_square_brackets > 0 ) {
-										$uncompleted_square_brackets--;
-									} elseif ( $c == '{' ) {
-										$uncompleted_curly_brackets++;
-									} elseif ( $c == '}' && $uncompleted_curly_brackets > 0 ) {
-										$uncompleted_curly_brackets--;
-									}
-									// handle an end to a field and/or template declaration
-									$template_ended = ( $uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0 );
-									$field_ended = ( $c == '|' && $uncompleted_square_brackets == 0 && $uncompleted_curly_brackets <= 2 );
-									if ( $template_ended || $field_ended ) {
-										// if this was the last character in the template, remove
-										// the closing curly brackets
-										if ( $template_ended ) {
-											$field = substr( $field, 0, - 1 );
-										}
-										// either there's an equals sign near the beginning or not -
-										// handling is similar in either way; if there's no equals
-										// sign, the index of this field becomes the key
-										$sub_fields = explode( '=', $field, 2 );
-										if ( count( $sub_fields ) > 1 ) {
-											$template_contents[trim( $sub_fields[0] )] = trim( $sub_fields[1] );
-										} else {
-											$template_contents[] = trim( $sub_fields[0] );
-										}
-										$field = '';
-									} else {
-										$field .= $c;
-									}
-								}
-								// If there are uncompleted opening brackets, the whole form will get messed up -
-								// display a warning.
-								// (If there are too many *closing* brackets, some template stuff will end up in
-								// the "free text" field - which is bad, but it's harder for the code to detect
-								// the problem - though hopefully, easier for users.)
-								if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
-									$form_text .= "\t" . '<div class="warningbox">' .
-										wfMessage(
-											'sf_formedit_mismatchedbrackets',
-											$this->mPageTitle->getFullURL(
-												array( 'action' => 'edit' )
-											)
-										)->text() .
-										"</div>\n<br clear=\"both\" />\n";
-								}
-								$existing_template_text = substr( $existing_page_content, $start_char, $i - $start_char );
-								// now remove this template from the text being edited
-								// if this is a partial form, establish a new insertion point
-								if ( $existing_page_content && $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
-									// if something already exists, set the new insertion point
-									// to its position; otherwise just let it lie
-									if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
-										$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
-										$existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
-									}
-								} else {
-									$existing_page_content = $this->strReplaceFirst( $existing_template_text, '', $existing_page_content );
-								}
-								// If this is not a multiple-instance template, and we've found
-								// a match in the source page, there's a good chance that this
-								// page was created with this form - note that, so we don't
-								// send the user a warning
-								// (multiple-instance templates have a greater chance of
-								// getting repeated from one form to the next)
-								// - on second thought, allow even the presence of multiple-
-								// instance templates to validate that this is the correct
-								// form: the problem is that some forms contain *only* mutliple-
-								// instance templates.
-								// if (! $allow_multiple) {
-								$source_page_matches_this_form = true;
-								// }
-							}
+							// If we've found a match in the source
+							// page, there's a good chance that this
+							// page was created with this form - note
+							// that, so we don't send the user a warning.
+							$source_page_matches_this_form = true;
 						}
 					}
-					// If the input is from the form (meaning the user has hit one
-					// of the bottom row of buttons), and we're dealing with a
-					// multiple template, get the values for this instance of this
-					// template, then delete them from the array, so we can get the
-					// next group next time - the next() command for arrays doesn't
-					// seem to work here.
-					// @TODO - This is currently called regardless of whether the
-					// input is from the form; the $wgRequest check doesn't do
-					// anything. Is that a problem?
-					if ( ( ! $source_is_page ) && $allow_multiple && $wgRequest ) {
-						if ( $instance_num < $minimumInstances ) {
-							// Print another instance until we reach the minimum
-							// instances, which is also the starting number.
-						} else {
-							$all_instances_printed = true;
-						}
-						if ( $old_template_name != $template_name ) {
-							$all_values_for_template = $wgRequest->getArray( $query_template_name );
-						}
-						if ( $all_values_for_template ) {
-							$cur_key = key( $all_values_for_template );
-							// skip the input coming in from the "starter" div
-							// TODO: this code is probably no longer necessary
-							if ( $cur_key == 'num' ) {
-								unset( $all_values_for_template[$cur_key] );
-								$cur_key = key( $all_values_for_template );
-							}
-							if ( $template_instance_query_values = current( $all_values_for_template ) ) {
-								$all_instances_printed = false;
-								unset( $all_values_for_template[$cur_key] );
-							}
-						}
+					if ( !$source_is_page ) {
+						$tif->setFieldValuesFromSubmit();
 					}
+
 				// =====================================================
 				// end template processing
 				// =====================================================
 				} elseif ( $tag_title == 'end template' ) {
 					if ( $source_is_page ) {
-						// Add any unhandled template fields in the page as hidden variables.
-						if ( isset( $template_contents ) ) {
-							$form_text .= SFFormUtils::unhandledFieldsHTML( $template_name, $template_contents );
-							$template_contents = null;
-						}
+						// Add any unhandled template fields
+						// in the page as hidden variables.
+						$form_text .= SFFormUtils::unhandledFieldsHTML( $tif );
 					}
-					// Remove this tag, reset some variables, and close off form HTML tag.
+					// Remove this tag from the $section variable.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
-					$template_name = null;
-					if ( isset( $template_label ) && $curPlaceholder == null ) {
-						$form_text .= "</fieldset>\n";
-						unset ( $template_label );
-					}
-					$allow_multiple = false;
-					$all_instances_printed = false;
-					$instance_num = 0;
+					$tif = null;
 				// =====================================================
 				// field processing
 				// =====================================================
 				} elseif ( $tag_title == 'field' ) {
+
+					// If the template is null, that (hopefully)
+					// means we're handling the free text field.
+					// Make the template a dummy variable.
+					if ( $tif == null ) {
+						$tif = new SFTemplateInForm();
+					}
 					// We get the field name both here
 					// and in the SFFormField constructor,
 					// because SFFormField isn't equipped
 					// to deal with the <freetext> hack,
 					// among others.
 					$field_name = trim( $tag_components[1] );
-					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $allow_multiple, $strict_parsing );
-					$fullFieldName = $template_name . '[' . $field_name . ']';
-					$cur_value = $form_field->getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page );
+					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $tif, $form_is_disabled );
+					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page );
+					if ( $form_field->holdsTemplate() ) {
+						$placeholderFields[] = self::placeholderFormat( $tif->getTemplateName(), $field_name );
+					}
 
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
 					// from the template call
-					if ( $source_is_page && ( ! empty( $existing_template_text ) ) ) {
-						if ( isset( $template_contents[$field_name] ) ) {
-							$cur_value = $template_contents[$field_name];
+					if ( $source_is_page && ( $tif->getFullTextInPage() != '' ) ) {
+						if ( $tif->hasValueFromPageForField( $field_name ) ) {
+							// Get value, and remove it,
+							// so that at the end we
+							// can have a list of all
+							// the fields that weren't
+							// handled by the form.
+							$cur_value = $tif->getAndRemoveValueFromPageForField( $field_name );
  
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
@@ -996,16 +817,8 @@ END;
 							// By putting that at the very end of the parsed string, we'll
 							// have it processed as a regular multiple template form.
 							if ( $form_field->holdsTemplate() ) {
-								$existing_page_content = $existing_page_content . $cur_value;
+								$existing_page_content .= $cur_value;
 							}
- 
-							// Now remove this value
-							// from $template_contents,
-							// so that at the end we
-							// can have a list of all
-							// the fields that weren't
-							// handled by the form.
-							unset( $template_contents[$field_name] );
 						} elseif ( isset( $cur_value ) && !empty( $cur_value ) ) {
 							// Do nothing.
 						} else {
@@ -1029,9 +842,8 @@ END;
 								$default_value = $cur_value;
 							}
 							$new_text = SFTextAreaInput::getHTML( $default_value, 'sf_free_text', false, ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
-							if ( in_array( 'edittools', $free_text_components ) ) {
+							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
-								$options[] = 'parse';
 								$edittools_text = $wgParser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
 
 								$new_text .= <<<END
@@ -1047,10 +859,12 @@ END;
 						$data_text .= "!free_text!\n";
 					}
 
-					if ( $template_name === '' || $field_name == '<freetext>' ) {
+					if ( $tif->getTemplateName() === '' || $field_name == '<freetext>' ) {
 						$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					} else {
 						if ( is_array( $cur_value ) ) {
+							// @TODO - is this code ever called?
+							$delimiter = $form_field->getFieldArg( 'is_list' );
 							// first, check if it's a list
 							if ( array_key_exists( 'is_list', $cur_value ) &&
 									$cur_value['is_list'] == true ) {
@@ -1071,17 +885,6 @@ END;
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
 						}
-						if ( $template_name == null || $template_name === '' ) {
-							$input_name = $field_name;
-						} elseif ( $allow_multiple ) {
-							// 'num' will get replaced by an actual index, either in PHP
-							// or in Javascript, later on
-							$input_name = $template_name . '[num][' . $field_name . ']';
-							$form_field->setFieldArg( 'origName', $template_name . '[' . $field_name . ']' );
-						} else {
-							$input_name = $template_name . '[' . $field_name . ']';
-						}
-						$form_field->setInputName( $input_name );
 
 						// If we're creating the page name from a formula based on
 						// form values, see if the current input is part of that formula,
@@ -1090,7 +893,7 @@ END;
 							// This line appears to be unnecessary.
 							// $generated_page_name = str_replace('.', '_', $generated_page_name);
 							$generated_page_name = str_replace( ' ', '_', $generated_page_name );
-							$escaped_input_name = str_replace( ' ', '_', $input_name );
+							$escaped_input_name = str_replace( ' ', '_', $form_field->getInputName() );
 							$generated_page_name = str_ireplace( "<$escaped_input_name>", $cur_value_in_template, $generated_page_name );
 							// Once the substitution is done, replace underlines back
 							// with spaces.
@@ -1108,7 +911,7 @@ END;
 								$form_field->hasFieldArg( 'mapping property' ) ||
 								( $form_field->hasFieldArg( 'mapping cargo table' ) &&
 								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ) {
-								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $possible_values );
+								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $form_field->getPossibleValues() );
 							}
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
@@ -1130,7 +933,7 @@ END;
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
 									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
-								$cur_value_in_template = self::getStringForCurrentTime( $input_type == 'datetime', array_key_exists( 'include timezone', $form_field->getFieldArgs() ) );
+								$cur_value_in_template = self::getStringForCurrentTime( $input_type == 'datetime', $form_field->hasFieldArg( 'include timezone' ) );
 							}
 						}
 						// If the field is a text field, and its default value was set
@@ -1149,11 +952,23 @@ END;
 						// by the multiple-instances template output at form submission.
 						//// <input type="hidden" value="@replace_Town___mayors@" name="Town[town_mayors]" />
 						if ( $form_field->holdsTemplate() ) {
-							$cur_value = self::makePlaceholderInWikiText( self::placeholderFormat( $template_name, $field_name ) );
+							$cur_value = self::makePlaceholderInWikiText( self::placeholderFormat( $tif->getTemplateName(), $field_name ) );
+						}
+
+						// If all instances have been
+						// printed, that means we're
+						// now printing a "starter"
+						// div - set the current value
+						// to null.
+						// (Ideally it wouldn't get
+						// set at all, but that seems a
+						// little harder.)
+						if ( $tif->allInstancesPrinted() ) {
+							$cur_value = null;
 						}
 
 						$new_text = $this->formFieldHTML( $form_field, $cur_value );
-						$new_text .= $form_field->additionalHTMLForInput( $cur_value, $field_name, $template_name );
+						$new_text .= $form_field->additionalHTMLForInput( $cur_value, $field_name, $tif->getTemplateName() );
 
 						if ( $new_text ) {
 							// Include the field name only for non-numeric field names.
@@ -1193,9 +1008,7 @@ END;
 						$component = $tag_components[$i];
 						$sub_components = array_map( 'trim', explode( '=', $component ) );
 						if ( count( $sub_components ) == 1 ) {
-							if ( $sub_components[0] == 'edittools' ) {
-								$free_text_components[] = 'edittools';
-							} elseif ( $sub_components[0] == 'checked' ) {
+							if ( $sub_components[0] == 'checked' ) {
 								$is_checked = true;
 							}
 						} elseif ( count( $sub_components ) == 2 ) {
@@ -1207,12 +1020,6 @@ END;
 							case 'style':
 								$attr[$sub_components[0]] = $sub_components[1];
 								break;
-							}
-							// free text input needs more handling than the rest
-							if ( $input_name == 'free text' || $input_name == '<freetext>' ) {
-								if ( $sub_components[0] == 'preload' ) {
-									$free_text_preload_page = $sub_components[1];
-								}
 							}
 						}
 					}
@@ -1407,7 +1214,7 @@ END;
 				} // end if
 			} // end while
 
-			if ( ! $all_instances_printed ) {
+			if ( !$tif || !$tif->allInstancesPrinted() ) {
 				if ( $template_text !== '' ) {
 					// For mostly aesthetic purposes, if the template call ends with
 					// a bunch of pipes (i.e., it's an indexed template with unused
@@ -1420,8 +1227,8 @@ END;
 					}
 					// If we're editing an existing page, and there were fields in
 					// the template call not handled by this form, preserve those.
-					if ( !$allow_multiple ) {
-						$template_text .= SFFormUtils::addUnhandledFields( $template_name );
+					if ( !$tif->allowsMultiple() ) {
+						$template_text .= SFFormUtils::addUnhandledFields( $tif->getTemplateName() );
 					}
 					$template_text .= "}}";
 
@@ -1433,8 +1240,8 @@ END;
 					// The trailing @replace_xxx@ is then deleted at the end.
 					// Note: this cleanup step could also be done with a regexp, instead of
 					// keeping a track array (e.g., /@replace_(.*)@/)
-					$reptmp = self::makePlaceholderInWikiText( $curPlaceholder );
-					if ( $curPlaceholder != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false ) {
+					$reptmp = self::makePlaceholderInWikiText( $tif->getPlaceholder() );
+					if ( $tif->getPlaceholder() != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false ) {
 						$data_text = str_replace( $reptmp, $template_text . $reptmp, $data_text );
 					} else {
 						$data_text .= $template_text . "\n";
@@ -1459,38 +1266,53 @@ END;
 				}
 			}
 
-			if ( $allow_multiple ) {
-				if ( $curPlaceholder == null ) {
-					// The normal process.
-					$form_text .= $this->multipleTemplateInstanceHTML( $form_is_disabled, $all_instances_printed, $section, $instance_num, $add_button_text );
-				} else { // if ( $curPlaceholder != null ){
-					// The template text won't be appended at the end of the template like for usual multiple template forms.
-					// The HTML text will then be stored in the $multipleTemplateString variable,
-					// and then added in the right @insertHTML_".$placeHolderField."@"; position
-					// Optimization: actually, instead of separating the processes, the usual multiple
-					// template forms could also be handled this way if a fitting placeholder tag was added.
-					$multipleTemplateString .= $this->multipleTemplateInstanceHTML( $form_is_disabled, $all_instances_printed, $section, $instance_num, $add_button_text );
-					// We replace the $multipleTemplateString HTML into the
-					// current placeholder tag, but also add another
-					// placeholder tag, to keep track of it.
-					$multipleTemplateString .= self::makePlaceholderInFormHTML( $curPlaceholder );
-					if ( isset( $template_label ) ) {
-						$multipleTemplateString .= "</fieldset>\n";
-						unset ( $template_label );
-					}
-
-					$form_text = str_replace( self::makePlaceholderInFormHTML( $curPlaceholder ), $multipleTemplateString, $form_text );
+			if ( $tif && $tif->allowsMultiple() ) {
+				if ( $tif->getInstanceNum() == 0 ) {
+					$multipleTemplateHTML = $this->multipleTemplateStartHTML( $tif );
+				} else {
+					$multipleTemplateHTML = '';
 				}
-				if ( ! $all_instances_printed ) {
+				if ( ! $tif->allInstancesPrinted() ) {
+					$multipleTemplateHTML .= $this->multipleTemplateInstanceHTML( $tif, $form_is_disabled, $section );
+				} else {
+					$multipleTemplateHTML .= $this->multipleTemplateEndHTML( $tif, $form_is_disabled, $section );
+				}
+				if ( $tif->getPlaceholder() != null ) {
+					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $tif->getPlaceholder() );
+				}
+				if ( $tif->allInstancesPrinted() && $tif->getLabel() != null ) {
+					$multipleTemplateHTML .= "</fieldset>\n";
+				}
+				if ( $tif->getPlaceholder() == null ) {
+					// The normal process.
+					$form_text .= $multipleTemplateHTML;
+				} else {
+					// The template text won't be appended
+					// at the end of the template like for
+					// usual multiple template forms.
+					// The HTML text will instead be stored in
+					// the $multipleTemplateHTML variable,
+					// and then added in the right
+					// @insertHTML_".$placeHolderField."@"; position
+					// Optimization: actually, instead of
+					// separating the processes, the usual
+					// multiple template forms could also be
+					// handled this way if a fitting
+					// placeholder tag was added.
+					// We replace the HTML into the current
+					// placeholder tag, but also add another
+					// placeholder tag, to keep track of it.
+					$form_text = str_replace( self::makePlaceholderInFormHTML( $tif->getPlaceholder() ), $multipleTemplateHTML, $form_text );
+				}
+				if ( ! $tif->allInstancesPrinted() ) {
 					// This will cause the section to be
 					// re-parsed on the next go.
 					$section_num--;
-					$instance_num++;
+					$tif->incrementInstanceNum();
 				}
 			} else {
 				$form_text .= $section;
 			}
-			$curPlaceholder = null;
 		} // end for
 
 		// Cleanup - everything has been browsed.
@@ -1540,9 +1362,6 @@ END;
 			if ( ! $free_text_was_included ) {
 				$data_text .= "!free_text!";
 			}
-		// or get it from the form definition
-		} elseif ( $free_text_preload_page != null ) {
-			$free_text = SFFormUtils::getPreloadedText( $free_text_preload_page );
 		} else {
 			$free_text = null;
 		}
@@ -1585,7 +1404,6 @@ END;
 				$form_text .= SFFormUtils::formBottom( $form_submitted, $form_is_disabled );
 			}
 		}
-
 
 		if ( !$is_query ) {
 			$form_text .= Html::hidden( 'wpStarttime', wfTimestampNow() );
@@ -1640,8 +1458,8 @@ END;
 		if ( $form_field->isHidden() ) {
 			$text = Html::hidden( $form_field->getInputName(), $cur_value );
 		} elseif ( $form_field->getInputType() !== '' &&
-							array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
-							$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
+				array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
+				$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
 			$funcArgs = array();
 			$funcArgs[] = $cur_value;
 			$funcArgs[] = $form_field->getInputName();

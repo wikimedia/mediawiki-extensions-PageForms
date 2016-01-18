@@ -120,12 +120,16 @@ class SFFormField {
 		return $this->mIsList;
 	}
 
-	public function getInputName() {
-		return $this->mInputName;
+	public function getPossibleValues() {
+		if ( $this->mPossibleValues != null ) {
+			return $this->mPossibleValues;
+		} else {
+			return $this->template_field->getPossibleValues();
+		}
 	}
 
-	public function setInputName( $inputName ) {
-		$this->mInputName = $inputName;
+	public function getInputName() {
+		return $this->mInputName;
 	}
 
 	public function isDisabled() {
@@ -136,7 +140,7 @@ class SFFormField {
 		$this->mDescriptionArgs[$key] = $value;
 	}
 
-	static function newFromFormFieldTag( $tag_components, $template_name, $all_fields, $form_is_disabled, $allow_multiple, $strict_parsing ) {
+	static function newFromFormFieldTag( $tag_components, $template_in_form, $form_is_disabled ) {
 		global $wgParser, $wgUser;
 
 		$field_name = trim( $tag_components[1] );
@@ -146,6 +150,7 @@ class SFFormField {
 		// not, depending on whether the template has a 'strict'
 		// setting in the form definition.
 		$the_field = null;
+		$all_fields = $template_in_form->getAllFields();
 		foreach ( $all_fields as $cur_field ) {
 			if ( $field_name == $cur_field->getFieldName() ) {
 				$the_field = $cur_field;
@@ -153,7 +158,7 @@ class SFFormField {
 			}
 		}
 		if ( $the_field == null ) {
-			if ( $strict_parsing ) {
+			if ( $template_in_form->strictParsing() ) {
 				$dummy_ff = new SFFormField();
 				$dummy_ff->template_field = new SFTemplateField();
 				$dummy_ff->mIsList = false;
@@ -167,13 +172,11 @@ class SFFormField {
 		$f = new SFFormField();
 		$f->template_field = $the_field;
 		$f->mFieldArgs = array();
-		$f->mAllFields = $all_fields;
 
 		$semantic_property = null;
 		$cargo_table = $cargo_field = null;
-		$allow_multiple = false;
 		$show_on_select = array();
-		$fullFieldName = $template_name . '[' . $field_name . ']';
+		$fullFieldName = $template_in_form->getTemplateName() . '[' . $field_name . ']';
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 			$component = trim( $tag_components[$i] );
@@ -189,7 +192,7 @@ class SFFormField {
 			} elseif ( $component == 'unique' ) {
 				$f->mFieldArgs['unique'] = true;
 			} elseif ( $component == 'edittools' ) { // free text only
-				$free_text_components[] = 'edittools';
+				$f->mFieldArgs['edittools'] = true;
 			}
 
 			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
@@ -201,7 +204,6 @@ class SFFormField {
 				if ( $component == 'holds template' ) {
 					$f->mIsHidden = true;
 					$f->mHoldsTemplate = true;
-					$placeholderFields[] = SFFormPrinter::placeholderFormat( $template_name, $field_name );
 				}
 			} elseif ( count( $sub_components ) == 2 ) {
 				// First, set each value as its own entry in $this->mFieldArgs.
@@ -218,12 +220,7 @@ class SFFormField {
 					// will not get turned into HTML.
 					$f->mDefaultValue = $wgParser->recursivePreprocess( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'preload' ) {
-					// free text field has special handling
-					if ( $field_name == 'free text' || $field_name == '<freetext>' ) {
-						$free_text_preload_page = $sub_components[1];
-					} else {
-						$this->mPreloadPage = $sub_components[1];
-					}
+					$f->mPreloadPage = $sub_components[1];
 				} elseif ( $sub_components[0] == 'show on select' ) {
 					// html_entity_decode() is needed to turn '&gt;' to '>'
 					$vals = explode( ';', html_entity_decode( $sub_components[1] ) );
@@ -330,8 +327,8 @@ class SFFormField {
 		// 'delimiter' parameter, if any.
 		if ( ! empty( $values ) ) {
 			// Remove whitespaces, and un-escape characters
-			$f->mPossibleValues = array_map( 'trim', explode( $delimiter, $values ) );
-			$f->mPossibleValues = array_map( 'htmlspecialchars_decode', $f->mPossibleValues );
+			$valuesArray = array_map( 'trim', explode( $delimiter, $values ) );
+			$f->mPossibleValues = array_map( 'htmlspecialchars_decode', $valuesArray );
 		}
 
 		// If we're using Cargo, there's no equivalent for "values from
@@ -344,8 +341,8 @@ class SFFormField {
 			// for array/list fields.
 			// Instead of getting involved with all that, we'll just
 			// remove the null/blank values afterward.
-			$f->mPossibleValues = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
-			$f->mPossibleValues = array_filter( $f->mPossibleValues, 'strlen' );
+			$cargoValues = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
 		}
 
 		if ( !is_null( $f->mPossibleValues ) ) {
@@ -366,7 +363,7 @@ class SFFormField {
 			// Backwards compatibility.
 			$f->mFieldArgs['no autocomplete'] = true;
 		}
-		if ( $allow_multiple ) {
+		if ( $template_in_form->allowsMultiple() ) {
 			$f->mFieldArgs['part_of_multiple'] = true;
 		}
 		if ( count( $show_on_select ) > 0 ) {
@@ -409,6 +406,17 @@ class SFFormField {
 				$sfgCargoFields[$fullFieldName] = $fullCargoField;
 			}
 		}
+
+                if ( $template_in_form->getTemplateName() == null || $template_in_form->getTemplateName() === '' ) {
+                        $f->mInputName = $field_name;
+                } elseif ( $template_in_form->allowsMultiple() ) {
+                        // 'num' will get replaced by an actual index, either in PHP
+                        // or in Javascript, later on
+                        $f->mInputName = $template_in_form->getTemplateName() . '[num][' . $field_name . ']';
+                        $f->setFieldArg( 'origName', $template_in_form->getTemplateName() . '[' . $field_name . ']' );
+                } else {
+                        $f->mInputName = $template_in_form->getTemplateName() . '[' . $field_name . ']';
+                }
 
 		return $f;
 	}
@@ -593,7 +601,7 @@ class SFFormField {
 	function creationHTML( $template_num ) {
 		$field_form_text = $template_num . "_" . $this->mNum;
 		$template_field = $this->template_field;
-		$text = Html::element( 'h3', null, wfMessage( 'sf_createform_field' )->text() . " '" . $template_field->getFieldName() ) . "\n";
+		$text = Html::element( 'h3', null, wfMessage( 'sf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
 		// TODO - remove this probably-unnecessary check?
 		if ( $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.

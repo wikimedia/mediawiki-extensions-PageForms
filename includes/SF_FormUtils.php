@@ -37,11 +37,11 @@ class SFFormUtils {
 	 * Add a hidden input for each field in the template call that's
 	 * not handled by the form itself
 	 */
-	static function unhandledFieldsHTML( $templateName, $templateContents ) {
+	static function unhandledFieldsHTML( $template_in_form ) {
 		// HTML element names shouldn't contain spaces
-		$templateName = str_replace( ' ', '_', $templateName );
+		$templateName = str_replace( ' ', '_', $template_in_form->getTemplateName() );
 		$text = "";
-		foreach ( $templateContents as $key => $value ) {
+		foreach ( $template_in_form->getValuesFromPage() as $key => $value ) {
 			if ( !is_null( $key ) && !is_numeric( $key ) ) {
 				$key = urlencode( $key );
 				$text .= Html::hidden( '_unhandled_' . $templateName . '_' . $key, $value );
