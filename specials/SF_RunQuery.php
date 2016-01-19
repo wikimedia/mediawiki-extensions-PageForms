@@ -150,10 +150,21 @@ END;
 		// Now write everything to the screen.
 		$wgOut->addHTML( $text );
 		SFUtils::addFormRLModules( $embedded ? $wgParser : null );
+		$script = "\t\t" . '<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
 		if ( $embedded ) {
-			$wgParser->getOutput()->addHeadItem( ResourceLoader::makeInlineScript( $javascript_text ) );
+			if ( method_exists( 'ResourceLoader', 'makeInlineScript' ) ) {
+				// MW 1.25+
+				$wgParser->getOutput()->addHeadItem( ResourceLoader::makeInlineScript( $javascript_text ) );
+			} else {
+				$wgParser->getOutput()->addHeadItem( $script );
+			}
 		} else {
-			$wgOut->addScript( ResourceLoader::makeInlineScript( $javascript_text ) );
+			if ( method_exists( 'ResourceLoader', 'makeInlineScript' ) ) {
+				// MW 1.25+
+				$wgOut->addScript( ResourceLoader::makeInlineScript( $javascript_text ) );
+			} else {
+				$wgOut->addScript( $script );
+			}
 			$po = $wgParser->getOutput();
 			if ( $po ) {
 				// addParserOutputMetadata was introduced in 1.24 when addParserOutputNoText was deprecated
