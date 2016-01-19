@@ -232,8 +232,6 @@ class SFParserFunctions {
 	}
 
 	static function renderFormInput( &$parser ) {
-		global $wgHtml5;
-
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
@@ -244,8 +242,8 @@ class SFParserFunctions {
 		$inRemoteAutocompletion = false;
 		$inSize = 25;
 		$classStr = "sfFormInput";
-		$inPlaceholder = "";
-		$inAutofocus = true; // Only evaluated if $wgHtml5 is true.
+		$inPlaceholder = null;
+		$inAutofocus = true;
 
 		// Assign params.
 		foreach ( $params as $i => $param ) {
@@ -306,11 +304,11 @@ class SFParserFunctions {
 
 		$formInputAttrs = array( 'size' => $inSize );
 
-		if ( $wgHtml5 ) {
+		if ( $inPlaceholder != null ) {
 			$formInputAttrs['placeholder'] = $inPlaceholder;
-			if ( $inAutofocus ) {
-				$formInputAttrs['autofocus'] = 'autofocus';
-			}
+		}
+		if ( $inAutofocus ) {
+			$formInputAttrs['autofocus'] = 'autofocus';
 		}
 
 		// Now apply the necessary settings and Javascript, depending
