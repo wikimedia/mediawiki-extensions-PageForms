@@ -346,6 +346,8 @@ class SFTemplateInForm {
 	}
 
 	public static function newFromFormTag( $tag_components ) {
+		global $wgParser;
+
 		$template_name = trim( $tag_components[1] );
 		$tif = SFTemplateInForm::create( $template_name );
 		$tif->mAddButtonText = wfMessage( 'sf_formedit_addanother' )->text();
