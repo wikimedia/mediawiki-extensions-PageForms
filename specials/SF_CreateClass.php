@@ -20,6 +20,10 @@ class SFCreateClass extends SpecialPage {
 		parent::__construct( 'CreateClass', 'createclass' );
 	}
 
+	public function doesWrites() {
+		return true;
+	}
+
 	function createAllPages() {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
