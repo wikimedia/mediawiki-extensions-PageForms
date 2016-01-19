@@ -353,7 +353,7 @@ abstract class SFFormInput {
 			}
 
 			if ( $modules !== null ) {
-				$jstext = 'mw.loader.using(' . json_encode( $modules )
+				$jstext = 'mediaWiki.loader.using(' . json_encode( $modules )
 					. ',function(){' . $jstext
 					. '},function(e,module){alert(module+": "+e);});';
 			}
