@@ -603,11 +603,11 @@ class SFFormField {
 		$template_field = $this->template_field;
 		$text = Html::element( 'h3', null, wfMessage( 'sf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
 		// TODO - remove this probably-unnecessary check?
-		if ( $template_field->getSemanticProperty() == "" ) {
+		if ( !defined( 'SMW_VERSION' ) || $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
 		} elseif ( $template_field->getPropertyType() == "" ) {
 			$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
-			$text .= Html::element( 'p', null, wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() ) . "\n";
+			$text .= wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "\n";
 		} else {
 			if ( $template_field->isList() ) {
 				$propDisplayMsg = 'sf_createform_fieldproplist';
