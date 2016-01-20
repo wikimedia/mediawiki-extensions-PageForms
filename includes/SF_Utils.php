@@ -19,7 +19,7 @@ class SFUtils {
 			return 1;
 		}
 
-		define( 'SF_VERSION', '3.4.1' );
+		define( 'SF_VERSION', '3.4.2-alpha' );
 
 		if ( !defined( 'SMW_VERSION' ) ) {
 			// SMW defines these namespaces itself.
@@ -49,7 +49,7 @@ class SFUtils {
 		// input types.
 		if ( defined( 'SMW_VERSION' ) ) {
 			$GLOBALS['wgExtensionFunctions'][] = function() {
-				$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+				$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 			};
 		}  else {
 			$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
