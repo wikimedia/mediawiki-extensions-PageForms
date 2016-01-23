@@ -12,7 +12,7 @@
 			"Sujiniku"
 		]
 	},
-	"semanticforms-desc": "意味的データを追加/編集するフォーム",
+	"semanticforms-desc": "wikiページを作成および編集するフォーム",
 	"specialpages-group-sf_group": "意味的フォーム",
 	"createproperty": "プロパティの作成",
 	"sf-createproperty-with-name": "プロパティの作成: $1",
