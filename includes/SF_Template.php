@@ -169,7 +169,7 @@ END;
 			// comparable CSS class.
 			$tableText = <<<END
 {| style="width: 30em; font-size: 90%; border: 1px solid #aaaaaa; background-color: #f9f9f9; color: black; margin-bottom: 0.5em; margin-left: 1em; padding: 0.2em; float: right; clear: right; text-align:left;"
-! style="text-align: center; background-color:#ccccff;" colspan="2" |<big>{{PAGENAME}}</big>
+! style="text-align: center; background-color:#ccccff;" colspan="2" |<span style="font-size: larger;">{{PAGENAME}}</span>
 |-
 
 END;

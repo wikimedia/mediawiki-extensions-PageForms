@@ -422,9 +422,9 @@ END;
 		} elseif ( $type == 'enum-list' ) {
 			$cur_values = explode( ',', $cur_value );
 			foreach ( $param['values'] as $val ) {
-				$text .= '<span style="white-space: nowrap; padding-right: 5px;"><input type="checkbox" name="p[' .
+				$text .= '<span style="white-space: nowrap; padding-right: 5px; font-family: monospace;"><input type="checkbox" name="p[' .
 					htmlspecialchars( $paramName ) . '][' . htmlspecialchars( $val ). ']" value="true"' .
-					( in_array( $val, $cur_values ) ? ' checked' : '' ) . '/> <tt>' . htmlspecialchars( $val ) . "</tt></span>\n";
+					( in_array( $val, $cur_values ) ? ' checked' : '' ) . '/> ' . htmlspecialchars( $val ) . "</span>\n";
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
