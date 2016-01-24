@@ -764,6 +764,8 @@ END;
 						$tif->setFieldValuesFromSubmit();
 					}
 
+					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
+
 				// =====================================================
 				// end template processing
 				// =====================================================

@@ -492,8 +492,8 @@ class SFTemplateInForm {
 	}
 
 	/**
-	 * Set some fields based on the current contents of the page being
-	 * edited - or at least fields that only need to be set if there's
+	 * Set some vars based on the current contents of the page being
+	 * edited - or at least vars that only need to be set if there's
 	 * an existing page.
 	 */
 	function setPageRelatedInfo( $existing_page_content ) {
@@ -505,24 +505,32 @@ class SFTemplateInForm {
 			array( '\/', '\(', '\)', '\^' ),
 			$this->mSearchTemplateStr );
 		$this->mPageCallsThisTemplate = preg_match( '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
-		if ( $this->mAllowMultiple ) {
-			// Find instances of this template in the page -
-			// if there's at least one, re-parse this section of the
-			// definition form for the subsequent template instances in
-			// this page; if there's none, don't include fields at all.
-			// There has to be a more efficient way to handle multiple
-			// instances of templates, one that doesn't involve re-parsing
-			// the same tags, but I don't know what it is.
-			// (Also add additional, blank instances if there's a minimum
-			// number required in this form, and we haven't reached it yet.)
-			if ( $this->mPageCallsThisTemplate || $this->mInstanceNum < $this->mMinAllowed ) {
-				// Print another instance until we reach the minimum
-				// instances, which is also the starting number.
-			} else {
-				$this->mAllInstancesPrinted = true;
-			}
-		}
 	}
+
+ 	function checkIfAllInstancesPrinted( $form_submitted, $source_is_page ) {
+ 		// Find instances of this template in the page -
+ 		// if there's at least one, re-parse this section of the
+ 		// definition form for the subsequent template instances in
+ 		// this page; if there's none, don't include fields at all.
+ 		// @TODO - There has to be a more efficient way to handle
+ 		// multiple instances of templates, one that doesn't involve
+ 		// re-parsing the same tags, but I don't know what it is.
+ 		// (Also add additional, blank instances if there's a minimum
+ 		// number required in this form, and we haven't reached it yet.)
+ 		if ( !$this->mAllowMultiple ) {
+ 			return;
+ 		}
+ 		if ( $this->mInstanceNum < $this->mMinAllowed ) {
+ 			return;
+ 		}
+ 		if ( $form_submitted && $this->mInstanceNum < $this->mNumInstancesFromSubmit ) {
+ 			return;
+ 		}
+ 		if ( !$form_submitted && $source_is_page && $this->mPageCallsThisTemplate ) {
+ 			return;
+ 		}
+ 		$this->mAllInstancesPrinted = true;
+ 	}
 
 	function creationHTML( $template_num ) {
 		$checked_attribs = ( $this->mAllowMultiple ) ? array( 'checked' => 'checked' ) : array();
