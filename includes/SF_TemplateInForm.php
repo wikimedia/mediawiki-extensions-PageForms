@@ -24,6 +24,7 @@ class SFTemplateInForm {
 	private $mFullTextInPage;
 	private $mValuesFromPage = array();
 	private $mValuesFromSubmit;
+	private $mNumInstancesFromSubmit = 0;
 	private $mPageCallsThisTemplate = false;
 	private $mInstanceNum = 0;
 	private $mAllInstancesPrinted = false;
@@ -395,22 +396,27 @@ class SFTemplateInForm {
 		//$query_template_name = str_replace( "'", "\'", $query_template_name );
 
 		$allValuesFromSubmit = $wgRequest->getArray( $query_template_name );
+		if ( is_null( $allValuesFromSubmit ) ) {
+			return;
+		}
 		// If this is a multiple-instance template, get the values for
 		// this instance of the template.
 		if ( $this->mAllowMultiple ) {
-			if ( $this->mInstanceNum < $this->mMinAllowed ) {
-				// Print another instance until we reach the minimum
-				// instances, which is also the starting number.
-			} elseif ( $this->mInstanceNum < count( $allValuesFromSubmit ) ) {
-				// We're not done yet.
-			} else {
-				$this->mAllInstancesPrinted = true;
-				return array();
+			// For some reason, sometimes duplicate information is
+			// submitted - getting rid of 'num' and everything
+			// after it seems to works.
+			$valuesFromSubmitKeys = array();
+			foreach ( array_keys( $allValuesFromSubmit ) as $key ) {
+				if ( $key == 'num' ) {
+					break;
+				}
+				$valuesFromSubmitKeys[] = $key;
 			}
-
-			$valuesFromSubmitKeys = array_keys( $allValuesFromSubmit );
-			$instanceKey = $valuesFromSubmitKeys[$this->mInstanceNum];
-			$this->mValuesFromSubmit = $allValuesFromSubmit[$instanceKey];
+			$this->mNumInstancesFromSubmit = count( $valuesFromSubmitKeys );
+			if ( $this->mNumInstancesFromSubmit > $this->mInstanceNum ) {
+				$instanceKey = $valuesFromSubmitKeys[$this->mInstanceNum];
+				$this->mValuesFromSubmit = $allValuesFromSubmit[$instanceKey];
+ 			}
 		} else {
 			$this->mValuesFromSubmit = $allValuesFromSubmit;
 		}

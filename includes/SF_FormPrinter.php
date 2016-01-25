@@ -747,7 +747,7 @@ END;
 								// If something already exists, set the new insertion point
 								// to its position; otherwise just let it lie.
 								if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
-									$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
+									$existing_page_content = str_replace( "\n" . '{{{insertionpoint}}}', '', $existing_page_content );
 									$existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
 								}
 							} else {
@@ -760,7 +760,7 @@ END;
 							$source_page_matches_this_form = true;
 						}
 					}
-					if ( !$source_is_page ) {
+					if ( $form_submitted ) {
 						$tif->setFieldValuesFromSubmit();
 					}
 
@@ -804,7 +804,7 @@ END;
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
 					// from the template call
-					if ( $source_is_page && ( $tif->getFullTextInPage() != '' ) ) {
+					if ( $source_is_page && ( $tif->getFullTextInPage() != '' && !$form_submitted ) ) {
 						if ( $tif->hasValueFromPageForField( $field_name ) ) {
 							// Get value, and remove it,
 							// so that at the end we
@@ -1263,7 +1263,7 @@ END;
 					} elseif ( $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
 						$existing_page_content = preg_replace( '/\}\}/m', '}�',
 							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
-								"\n{{{insertionpoint}}}\n" . $existing_page_content;
+								"{{{insertionpoint}}}" . $existing_page_content;
 					}
 				}
 			}
