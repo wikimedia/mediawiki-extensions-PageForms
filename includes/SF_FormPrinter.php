@@ -744,8 +744,8 @@ END;
 							// Now remove this template from the text being edited.
 							// If this is a partial form, establish a new insertion point.
 							if ( $existing_page_content && $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
-								// if something already exists, set the new insertion point
-								// to its position; otherwise just let it lie
+								// If something already exists, set the new insertion point
+								// to its position; otherwise just let it lie.
 								if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
 									$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
 									$existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
@@ -1258,8 +1258,8 @@ END;
 								preg_replace( '/\{\{/m', '�{', $template_text ) ) .
 							"\n{{{insertionpoint}}}",
 							$existing_page_content );
-					// otherwise, if it's a partial form, we have to add the new
-					// text somewhere
+					// Otherwise, if it's a partial form, we have to add the new
+					// text somewhere.
 					} elseif ( $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
 						$existing_page_content = preg_replace( '/\}\}/m', '}�',
 							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
@@ -1503,9 +1503,9 @@ END;
 				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
 				$funcArgs[] = $other_args;
 				$text = call_user_func_array( $hook_values[0], $funcArgs );
-			} else { // anything else
+			} else { // Anything else.
 				$other_args = $form_field->getArgumentsForInputCall();
-				// special call to ensure that a list input is the right default size
+				// Set default size for list inputs.
 				if ( $form_field->isList() ) {
 					if ( ! array_key_exists( 'size', $other_args ) ) {
 						$other_args['size'] = 100;

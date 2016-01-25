@@ -597,7 +597,7 @@ class SFAutoeditAPI extends ApiBase {
 		// return form html and js in the result
 		$this->getResult()->addValue( array('form'), 'HTML', $formHTML );
 		$this->getResult()->addValue( array('form'), 'JS', $formJS );
-}
+	}
 
 	protected function finalizeResults() {
 
@@ -930,7 +930,7 @@ class SFAutoeditAPI extends ApiBase {
 
 		// get wikitext for submitted data and form
 		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+			$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 
 		// Restore original request.
 		$wgRequest = $oldRequest;

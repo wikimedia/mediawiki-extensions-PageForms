@@ -479,16 +479,16 @@ class SFTemplateInForm {
 				}
 			}
 
-                       // If there are uncompleted opening brackets, the whole form will get messed up -
-                       // throw an exception.
-                       // (If there are too many *closing* brackets, some template stuff will end up in
-                       // the "free text" field - which is bad, but it's harder for the code to detect
-                       // the problem - though hopefully, easier for users.)
-                       if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
+			// If there are uncompleted opening brackets, the whole form will get messed up -
+			// throw an exception.
+			// (If there are too many *closing* brackets, some template stuff will end up in
+			// the "free text" field - which is bad, but it's harder for the code to detect
+			// the problem - though hopefully, easier for users.)
+			if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
 				throw new MWException( "SemanticFormsMismatchedBrackets" );
 			}
 			$this->mFullTextInPage = substr( $existing_page_content, $start_char, $i - $start_char );
-}
+		}
 	}
 
 	/**
