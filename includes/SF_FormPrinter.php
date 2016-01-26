@@ -732,7 +732,7 @@ END;
 					// once in that page, and multiple
 					// values are allowed, repeat this
 					// section.
-					if ( $source_is_page || $form_is_partial ) {
+					if ( $source_is_page ) {
 						$tif->setPageRelatedInfo( $existing_page_content );
 						// Get the first instance of
 						// this template on the page
