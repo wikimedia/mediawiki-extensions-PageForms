@@ -1082,8 +1082,15 @@ END;
 							$existing_page_content .= "\n";
 						}
 
-						$section_start_loc = strpos( $existing_page_content, $header_text );
-						$existing_page_content = str_replace( $header_text, '', $existing_page_content );
+						$equalsSigns = str_pad( '', $page_section_in_form->getSectionLevel(), '=' );
+						$searchStr = '/^' . $equalsSigns . '[ ]*?' . $section_name . '[ ]*?' . $equalsSigns . '$/m';
+						if ( preg_match( $searchStr, $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
+							$section_start_loc = $matches[0][1];
+							$header_text = $matches[0][0];
+							$existing_page_content = str_replace( $header_text, '', $existing_page_content );
+						} else {
+							$section_start_loc = 0;
+						}
 						$section_end_loc = -1;
 
 						// get the position of the next template or section defined in the form
@@ -1096,39 +1103,40 @@ END;
 							$tag_components_next_section = SFUtils::getFormTagComponents( $bracketed_string_next_section );
 							$tag_title_next_section = trim( $tag_components_next_section[0] );
 							if ( $tag_title_next_section == 'section' ) {
-								if ( preg_match( '/(^={1,6}' . $tag_components_next_section[1] . '?={1,6}\s*?$)/m', $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
+								if ( preg_match( '/(^={1,6}[ ]*?' . $tag_components_next_section[1] . '[ ]*?={1,6}\s*?$)/m', $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
 									$section_end_loc = $matches[0][1];
 								}
 							}
 						}
 
 						if ( $section_end_loc === -1 ) {
-							$default_value = $existing_page_content;
+							$section_text = $existing_page_content;
 							$existing_page_content = '';
 						} else {
-							$default_value = substr( $existing_page_content, $section_start_loc, $section_end_loc - $section_start_loc );
+							$section_text = substr( $existing_page_content, $section_start_loc, $section_end_loc - $section_start_loc );
 							$existing_page_content = substr( $existing_page_content, $section_end_loc );
 						}
 					}
 
-					//if input is from the form
-					$section_text = "";
+					// If input is from the form.
 					if ( ( ! $source_is_page ) && $wgRequest ) {
 						$text_per_section = $wgRequest->getArray( '_section' );
 						$section_text = $text_per_section[trim( $section_name )];
 						$wiki_page->addSection( $section_name, $header_level, $section_text );
 					}
 
-					//set input name for query string
+					$section_text = trim( $section_text );
+
+					// Set input name for query string.
 					$input_name = '_section' . '[' . trim( $section_name ) . ']';
 					if ( $is_mandatory ) {
 						$other_args['mandatory'] = true;
 					}
 
 					if ( $is_hidden ) {
-						$form_section_text = Html::hidden( $input_name, $default_value );
+						$form_section_text = Html::hidden( $input_name, $section_text );
 					} else {
-						$form_section_text = SFTextAreaInput::getHTML( $default_value, $input_name, false, ( $form_is_disabled || $is_restricted ), $other_args );
+						$form_section_text = SFTextAreaInput::getHTML( $section_text, $input_name, false, ( $form_is_disabled || $is_restricted ), $other_args );
 					}
 
 					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
