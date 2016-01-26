@@ -1031,47 +1031,9 @@ END;
 				// =====================================================
 				} elseif ( $tag_title == 'section' ) {
 					$section_name = trim( $tag_components[1] );
-					$is_mandatory = false;
-					$is_hidden = false;
-					$is_restricted = false;
-					$header_level = 2;
-					$other_args = array( 'isSection' => true );
+					$page_section_in_form = SFPageSection::newFromFormTag( $tag_components );
 
-					// cycle through the other components
-					for ( $i = 2; $i < count( $tag_components ); $i++ ) {
-
-						$component = trim( $tag_components[$i] );
-
-						if ( $component === 'mandatory' ) {
-							$is_mandatory = true;
-						} elseif ( $component === 'hidden' ) {
-							$is_hidden = true;
-						} elseif ( $component === 'restricted' ) {
-							$is_restricted = !( $wgUser && $wgUser->isAllowed( 'editrestrictedfields' ) );
-						} elseif ( $component === 'autogrow' ) {
-							$other_args['autogrow'] = true;
-						}
-
-						$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-
-						if ( count( $sub_components ) === 2 ) {
-							switch ( $sub_components[0] ) {
-							case 'level':
-								$header_level = $sub_components[1];
-								break;
-							case 'rows':
-							case 'cols':
-							case 'class':
-							case 'editor':
-								$other_args[$sub_components[0]] = $sub_components[1];
-								break;
-							default:
-								// Ignore unknown
-							}
-						}
-					}
-
-					// split the existing page contents into the textareas in the form
+					// Split the existing page contents into the textareas in the form.
 					$default_value = "";
 					$section_start_loc = 0;
 					if ( $source_is_page && $existing_page_content !== null ) {
@@ -1122,21 +1084,23 @@ END;
 					if ( ( ! $source_is_page ) && $wgRequest ) {
 						$text_per_section = $wgRequest->getArray( '_section' );
 						$section_text = $text_per_section[trim( $section_name )];
-						$wiki_page->addSection( $section_name, $header_level, $section_text );
+						$wiki_page->addSection( $section_name, $page_section_in_form->getSectionLevel(), $section_text );
 					}
 
 					$section_text = trim( $section_text );
 
 					// Set input name for query string.
 					$input_name = '_section' . '[' . trim( $section_name ) . ']';
-					if ( $is_mandatory ) {
+					$other_args = $page_section_in_form->getSectionArgs();
+					$other_args['isSection'] = true;
+					if ( $page_section_in_form->isMandatory() ) {
 						$other_args['mandatory'] = true;
 					}
 
-					if ( $is_hidden ) {
+					if ( $page_section_in_form->isHidden() ) {
 						$form_section_text = Html::hidden( $input_name, $section_text );
 					} else {
-						$form_section_text = SFTextAreaInput::getHTML( $section_text, $input_name, false, ( $form_is_disabled || $is_restricted ), $other_args );
+						$form_section_text = SFTextAreaInput::getHTML( $section_text, $input_name, false, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
 					}
 
 					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
