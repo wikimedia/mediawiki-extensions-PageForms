@@ -114,6 +114,11 @@
 		"SFTokensInput": "includes/forminputs/SF_TokensInput.php",
 		"SFGoogleMapsInput": "includes/forminputs/SF_GoogleMapsInput.php",
 		"SFOpenLayersInput": "includes/forminputs/SF_OpenLayersInput.php",
+		"SFWikiPage": "includes/wikipage/SF_WikiPage.php",
+		"SFWikiPageTemplate": "includes/wikipage/SF_WikiPageTemplate.php",
+		"SFWikiPageTemplateParam": "includes/wikipage/SF_WikiPageTemplateParam.php",
+		"SFWikiPageSection": "includes/wikipage/SF_WikiPageSection.php",
+		"SFWikiPageFreeText": "includes/wikipage/SF_WikiPageFreeText.php",
 		"SFCreatePageJob": "includes/SF_CreatePageJob.php",
 		"SF_Language": "languages/SF_Language.php"
 	},

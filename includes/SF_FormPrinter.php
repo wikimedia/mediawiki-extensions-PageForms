@@ -272,10 +272,6 @@ class SFFormPrinter {
 		return $templateName . '___' . $fieldName;
 	}
 
-	static function makePlaceholderInWikiText( $str ) {
-		return '@replace_' . $str . '@';
-	}
-
 	static function makePlaceholderInFormHTML( $str ) {
 		return '@insertHTML_' . $str . '@';
 	}
@@ -544,6 +540,7 @@ END;
 		global $sfgFieldNum; // used for setting various HTML IDs
 
 		// initialize some variables
+		$wiki_page = new SFWikiPage();
 		$sfgTabIndex = 1;
 		$sfgFieldNum = 1;
 		$source_page_matches_this_form = false;
@@ -556,8 +553,6 @@ END;
 		// the parsing, so we have to assume that it will become a possibility
 		$form_is_partial = false;
 		$new_text = "";
-		// flag for placing "<onlyinclude>" tags in form output
-		$onlyinclude_free_text = false;
 
 		// If we have existing content and we're not in an active replacement
 		// situation, preserve the original content. We do this because we want
@@ -693,14 +688,12 @@ END;
 		// existing article as well, finding template and field
 		// declarations and replacing them with form elements, either
 		// blank or pre-populated, as appropriate.
-		$data_text = "";
 		$tif = null;
 		// This array will keep track of all the replaced @<name>@ strings
 		$placeholderFields = array();
 
 		for ( $section_num = 0; $section_num < count( $form_def_sections ); $section_num++ ) {
 			$start_position = 0;
-			$template_text = "";
 			// the append is there to ensure that the original
 			// array doesn't get modified; is it necessary?
 			$section = " " . $form_def_sections[$section_num];
@@ -719,12 +712,11 @@ END;
 					} else {
 						$previous_template_name = '';
 					}
-					$template_name = $tag_components[1];
+					$template_name = str_replace( '_', ' ', $tag_components[1] );
 					$is_new_template = ( $template_name != $previous_template_name );
 					if ( $is_new_template ) {
 						$tif = SFTemplateInForm::newFromFormTag( $tag_components );
 					}
-					$template_text .= "{{" . $tif->getTemplateName();
 					// Remove template tag.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					// If we are editing a page, and this
@@ -765,6 +757,8 @@ END;
 					}
 
 					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
+
+					$wiki_page->addTemplate( $tif );
 
 				// =====================================================
 				// end template processing
@@ -857,8 +851,7 @@ END;
 							}
 						}
 						$free_text_was_included = true;
-						// add a similar placeholder to the data text
-						$data_text .= "!free_text!\n";
+						$wiki_page->addFreeTextSection();
 					}
 
 					if ( $tif->getTemplateName() === '' || $field_name == '<freetext>' ) {
@@ -950,13 +943,6 @@ END;
 							$cur_value = $cur_value_in_template;
 						}
 
-						// Generate a hidden field with a placeholder value that will be replaced
-						// by the multiple-instances template output at form submission.
-						//// <input type="hidden" value="@replace_Town___mayors@" name="Town[town_mayors]" />
-						if ( $form_field->holdsTemplate() ) {
-							$cur_value = self::makePlaceholderInWikiText( self::placeholderFormat( $tif->getTemplateName(), $field_name ) );
-						}
-
 						// If all instances have been
 						// printed, that means we're
 						// now printing a "starter"
@@ -973,15 +959,7 @@ END;
 						$new_text .= $form_field->additionalHTMLForInput( $cur_value, $field_name, $tif->getTemplateName() );
 
 						if ( $new_text ) {
-							// Include the field name only for non-numeric field names.
-							if ( is_numeric( $field_name ) ) {
-								$template_text .= "|$cur_value_in_template";
-							} else {
-								// If the value is null, don't include it at all.
-								if ( $cur_value_in_template != '' ) {
-									$template_text .= "\n|$field_name=$cur_value_in_template";
-								}
-							}
+							$wiki_page->addTemplateParam( $template_name, $tif->getInstanceNum(), $field_name, $cur_value_in_template );
 							$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 						} else {
 							$start_position = $brackets_end_loc;
@@ -1093,11 +1071,6 @@ END;
 						}
 					}
 
-					// Generate the wikitext for the section header
-					$header_string = str_repeat( "=", $header_level );
-					$header_text = $header_string . $section_name . $header_string . "\n";
-					$data_text .= $header_text;
-
 					// split the existing page contents into the textareas in the form
 					$default_value = "";
 					$section_start_loc = 0;
@@ -1141,14 +1114,9 @@ END;
 					//if input is from the form
 					$section_text = "";
 					if ( ( ! $source_is_page ) && $wgRequest ) {
-						$section_text = $wgRequest->getArray( '_section' );
-						$default_value = $section_text[trim( $section_name )];
-
-						if ( $default_value == "" || $default_value == null ) {
-							$data_text .= $default_value . "\n\n";
-						} else {
-							$data_text .= rtrim( $default_value ) . "\n\n";
-						}
+						$text_per_section = $wgRequest->getArray( '_section' );
+						$section_text = $text_per_section[trim( $section_name )];
+						$wiki_page->addSection( $section_name, $header_level, $section_text );
 					}
 
 					//set input name for query string
@@ -1196,7 +1164,7 @@ END;
 							// replacement pages may have minimal matches...
 							$source_page_matches_this_form = true;
 						} elseif ( $tag == 'includeonly free text' || $tag == 'onlyinclude free text' ) {
-							$onlyinclude_free_text = true;
+							$wiki_page->makeFreeTextOnlyInclude();
 						} elseif ( $tag == 'query form at top' ) {
 							// TODO - this should be made a field of
 							// some non-static class that actually
@@ -1216,55 +1184,22 @@ END;
 				} // end if
 			} // end while
 
-			if ( !$tif || !$tif->allInstancesPrinted() ) {
-				if ( $template_text !== '' ) {
-					// For mostly aesthetic purposes, if the template call ends with
-					// a bunch of pipes (i.e., it's an indexed template with unused
-					// parameters at the end), remove the pipes.
-					$template_text = preg_replace( '/\|*$/', '', $template_text );
-					// add another newline before the final bracket, if this template
-					// call is already more than one line
-					if ( strpos( $template_text, "\n" ) ) {
-						$template_text .= "\n";
-					}
-					// If we're editing an existing page, and there were fields in
-					// the template call not handled by this form, preserve those.
-					if ( !$tif->allowsMultiple() ) {
-						$template_text .= SFFormUtils::addUnhandledFields( $tif->getTemplateName() );
-					}
-					$template_text .= "}}";
-
-					// The base $template_text will contain strings like "@replace_xxx@"
-					// in the hidden fields when the form is submitted.
-					// On the following loops, the text for the multiple-instance templates
-					// is progressively reinserted in the main data, always keeping a
-					// trailing @replace_xxx@ for a given field
-					// The trailing @replace_xxx@ is then deleted at the end.
-					// Note: this cleanup step could also be done with a regexp, instead of
-					// keeping a track array (e.g., /@replace_(.*)@/)
-					$reptmp = self::makePlaceholderInWikiText( $tif->getPlaceholder() );
-					if ( $tif->getPlaceholder() != null && $data_text && strpos( $data_text, $reptmp, 0 ) !== false ) {
-						$data_text = str_replace( $reptmp, $template_text . $reptmp, $data_text );
-					} else {
-						$data_text .= $template_text . "\n";
-					}
-
-					// If there is a placeholder in the
-					// text, we know that we are
-					// doing a replace.
-					if ( $existing_page_content && strpos( $existing_page_content, '{{{insertionpoint}}}', 0 ) !== false ) {
-						$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}(\r?\n?)/',
-							preg_replace( '/\}\}/m', '}�',
-								preg_replace( '/\{\{/m', '�{', $template_text ) ) .
-							"\n{{{insertionpoint}}}",
-							$existing_page_content );
-					// Otherwise, if it's a partial form, we have to add the new
-					// text somewhere.
-					} elseif ( $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
-						$existing_page_content = preg_replace( '/\}\}/m', '}�',
+			if ( $tif && ( !$tif->allowsMultiple() || $tif->allInstancesPrinted() ) ) {
+				$template_text = $wiki_page->createTemplateCallsForTemplateName( $tif->getTemplateName() );
+				// If there is a placeholder in the text, we
+				// know that we are doing a replace.
+				if ( $existing_page_content && strpos( $existing_page_content, '{{{insertionpoint}}}', 0 ) !== false ) {
+					$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}(\r?\n?)/',
+						preg_replace( '/\}\}/m', '}�',
 							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
-								"{{{insertionpoint}}}" . $existing_page_content;
-					}
+						"\n{{{insertionpoint}}}",
+						$existing_page_content );
+				// Otherwise, if it's a partial form, we have to add the new
+				// text somewhere.
+				} elseif ( $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
+					$existing_page_content = preg_replace( '/\}\}/m', '}�',
+						preg_replace( '/\{\{/m', '�{', $template_text ) ) .
+							"{{{insertionpoint}}}" . $existing_page_content;
 				}
 			}
 
@@ -1279,13 +1214,14 @@ END;
 				} else {
 					$multipleTemplateHTML .= $this->multipleTemplateEndHTML( $tif, $form_is_disabled, $section );
 				}
-				if ( $tif->getPlaceholder() != null ) {
-					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $tif->getPlaceholder() );
+				$placeholder = $tif->getPlaceholder();
+				if ( $placeholder != null ) {
+					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $placeholder );
 				}
 				if ( $tif->allInstancesPrinted() && $tif->getLabel() != null ) {
 					$multipleTemplateHTML .= "</fieldset>\n";
 				}
-				if ( $tif->getPlaceholder() == null ) {
+				if ( $placeholder == null ) {
 					// The normal process.
 					$form_text .= $multipleTemplateHTML;
 				} else {
@@ -1304,7 +1240,7 @@ END;
 					// We replace the HTML into the current
 					// placeholder tag, but also add another
 					// placeholder tag, to keep track of it.
-					$form_text = str_replace( self::makePlaceholderInFormHTML( $tif->getPlaceholder() ), $multipleTemplateHTML, $form_text );
+					$form_text = str_replace( self::makePlaceholderInFormHTML( $placeholder ), $multipleTemplateHTML, $form_text );
 				}
 				if ( ! $tif->allInstancesPrinted() ) {
 					// This will cause the section to be
@@ -1321,11 +1257,6 @@ END;
 		// Remove all the remaining placeholder
 		// tags in the HTML and wiki-text.
 		foreach ( $placeholderFields as $stringToReplace ) {
-
-			// Remove the @<replacename>@ tags from the data that
-			// is submitted.
-			$data_text = str_replace( self::makePlaceholderInWikiText( $stringToReplace ), '', $data_text );
-
 			// Remove the @<insertHTML>@ tags from the generated
 			// HTML form.
 			$form_text = str_replace( self::makePlaceholderInFormHTML( $stringToReplace ), '', $form_text );
@@ -1362,18 +1293,19 @@ END;
 		} elseif ( $wgRequest->getCheck( 'sf_free_text' ) ) {
 			$free_text = $wgRequest->getVal( 'sf_free_text' );
 			if ( ! $free_text_was_included ) {
-				$data_text .= "!free_text!";
+				$wiki_page->addFreeTextSection();
 			}
 		} else {
 			$free_text = null;
 		}
-		if ( $onlyinclude_free_text ) {
-			// modify free text and data text to insert <onlyinclude> tags
+
+		if ( $wiki_page->freeTextOnlyInclude() ) {
 			$free_text = str_replace( "<onlyinclude>", '', $free_text );
 			$free_text = str_replace( "</onlyinclude>", '', $free_text );
 			$free_text = trim( $free_text );
-			$data_text = str_replace( '!free_text!', '<onlyinclude>!free_text!</onlyinclude>', $data_text );
 		}
+
+		$page_text = '';
 
 		// The first hook here is deprecated. Use the second.
 		// Note: Hooks::run can take a third argument which indicates
@@ -1381,12 +1313,16 @@ END;
 		// an extension version.
 		Hooks::run( 'sfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
 		Hooks::run( 'sfBeforeFreeTextSubstitution',
-			array( &$free_text, $existing_page_content, &$data_text ) );
+			array( &$free_text, $existing_page_content, &$page_text ) );
 
-		// now that we have it, substitute free text into the form and page
+		// Now that we have it, add free text to the page, and
+		// substitute it into the form.
+		if ( $form_submitted ) {
+			$wiki_page->setFreeText( $free_text );
+			$page_text = $wiki_page->createPageText();
+		}
 		$escaped_free_text = Sanitizer::safeEncodeAttribute( $free_text );
 		$form_text = str_replace( '!free_text!', $escaped_free_text, $form_text );
-		$data_text = str_replace( '!free_text!', $free_text, $data_text );
 
 		// Add a warning in, if we're editing an existing page and that
 		// page appears to not have been created with this form.
@@ -1425,10 +1361,10 @@ END;
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.
-		// If doing a replace, the data text is actually the modified
+		// If doing a replace, the page text is actually the modified
 		// original page.
 		if ( $wgRequest->getCheck( 'partial' ) ) {
-			$data_text = $existing_page_content;
+			$page_text = $existing_page_content;
 		}
 
 		if ( !$is_embedded ) {
@@ -1446,7 +1382,7 @@ END;
 
 //		$wgParser = $oldParser;
 
-		return array( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name );
+		return array( $form_text, $javascript_text, $page_text, $form_page_title, $generated_page_name );
 	}
 
 	/**

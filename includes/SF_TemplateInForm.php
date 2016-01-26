@@ -14,6 +14,8 @@ class SFTemplateInForm {
 	private $mMinAllowed;
 	private $mMaxAllowed;
 	private $mFields;
+	private $mEmbedInTemplate;
+	private $mEmbedInField;
 
 	private $mSearchTemplateStr;
 	private $mPregMatchTemplateStr;
@@ -284,6 +286,14 @@ class SFTemplateInForm {
 		return $this->mFields;
 	}
 
+	function getEmbedInTemplate() {
+		return $this->mEmbedInTemplate;
+	}
+
+	function getEmbedInField() {
+		return $this->mEmbedInField;
+	}
+
 	function getLabel() {
 		return $this->mLabel;
 	}
@@ -349,7 +359,7 @@ class SFTemplateInForm {
 	public static function newFromFormTag( $tag_components ) {
 		global $wgParser;
 
-		$template_name = trim( $tag_components[1] );
+		$template_name = str_replace( '_', ' ', trim( $tag_components[1] ) );
 		$tif = SFTemplateInForm::create( $template_name );
 		$tif->mAddButtonText = wfMessage( 'sf_formedit_addanother' )->text();
 		// Cycle through the other components.
@@ -376,7 +386,11 @@ class SFTemplateInForm {
 					// We expect something like TemplateName[fieldName], and convert it to the
 					// TemplateName___fieldName form used internally.
 					preg_match( '/\s*(.*)\[(.*)\]\s*/', $sub_components[1], $matches );
-					$tif->mPlaceholder = ( count( $matches ) > 2 ) ? SFFormPrinter::placeholderFormat( $matches[1], $matches[2] ) : null;
+					if ( count( $matches ) > 2 ) {
+						$tif->mEmbedInTemplate = $matches[1];
+						$tif->mEmbedInField = $matches[2];
+						$tif->mPlaceholder = SFFormPrinter::placeholderFormat( $tif->mEmbedInTemplate, $tif->mEmbedInField );
+					}
 				}
 			}
 		}
@@ -416,7 +430,7 @@ class SFTemplateInForm {
 			if ( $this->mNumInstancesFromSubmit > $this->mInstanceNum ) {
 				$instanceKey = $valuesFromSubmitKeys[$this->mInstanceNum];
 				$this->mValuesFromSubmit = $allValuesFromSubmit[$instanceKey];
- 			}
+			}
 		} else {
 			$this->mValuesFromSubmit = $allValuesFromSubmit;
 		}
@@ -513,30 +527,30 @@ class SFTemplateInForm {
 		$this->mPageCallsThisTemplate = preg_match( '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
 	}
 
- 	function checkIfAllInstancesPrinted( $form_submitted, $source_is_page ) {
- 		// Find instances of this template in the page -
- 		// if there's at least one, re-parse this section of the
- 		// definition form for the subsequent template instances in
- 		// this page; if there's none, don't include fields at all.
- 		// @TODO - There has to be a more efficient way to handle
- 		// multiple instances of templates, one that doesn't involve
- 		// re-parsing the same tags, but I don't know what it is.
- 		// (Also add additional, blank instances if there's a minimum
- 		// number required in this form, and we haven't reached it yet.)
- 		if ( !$this->mAllowMultiple ) {
- 			return;
- 		}
- 		if ( $this->mInstanceNum < $this->mMinAllowed ) {
- 			return;
- 		}
- 		if ( $form_submitted && $this->mInstanceNum < $this->mNumInstancesFromSubmit ) {
- 			return;
- 		}
- 		if ( !$form_submitted && $source_is_page && $this->mPageCallsThisTemplate ) {
- 			return;
- 		}
- 		$this->mAllInstancesPrinted = true;
- 	}
+	function checkIfAllInstancesPrinted( $form_submitted, $source_is_page ) {
+		// Find instances of this template in the page -
+		// if there's at least one, re-parse this section of the
+		// definition form for the subsequent template instances in
+		// this page; if there's none, don't include fields at all.
+		// @TODO - There has to be a more efficient way to handle
+		// multiple instances of templates, one that doesn't involve
+		// re-parsing the same tags, but I don't know what it is.
+		// (Also add additional, blank instances if there's a minimum
+		// number required in this form, and we haven't reached it yet.)
+		if ( !$this->mAllowMultiple ) {
+			return;
+		}
+		if ( $this->mInstanceNum < $this->mMinAllowed ) {
+			return;
+		}
+		if ( $form_submitted && $this->mInstanceNum < $this->mNumInstancesFromSubmit ) {
+			return;
+		}
+		if ( !$form_submitted && $source_is_page && $this->mPageCallsThisTemplate ) {
+			return;
+		}
+		$this->mAllInstancesPrinted = true;
+	}
 
 	function creationHTML( $template_num ) {
 		$checked_attribs = ( $this->mAllowMultiple ) ? array( 'checked' => 'checked' ) : array();

@@ -1,6 +1,9 @@
 <?php
 /**
  * Represents a page section in a user-defined form.
+ * This class should really be called "SFPageSectionInForm", to differentiate
+ * it from the SFWikiPageSection class.
+ *
  * @author Himeshi
  * @file
  * @ingroup SF

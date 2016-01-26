@@ -226,6 +226,11 @@ $GLOBALS['wgAutoloadClasses']['SFCategoriesInput'] = __DIR__ . '/includes/formin
 $GLOBALS['wgAutoloadClasses']['SFTokensInput'] = __DIR__ . '/includes/forminputs/SF_TokensInput.php';
 $GLOBALS['wgAutoloadClasses']['SFGoogleMapsInput'] = __DIR__ . '/includes/forminputs/SF_GoogleMapsInput.php';
 $GLOBALS['wgAutoloadClasses']['SFOpenLayersInput'] = __DIR__ . '/includes/forminputs/SF_OpenLayersInput.php';
+$GLOBALS['wgAutoloadClasses']['SFWikiPage'] = __DIR__ . '/includes/wikipage/SF_WikiPage.php';
+$GLOBALS['wgAutoloadClasses']['SFWikiPageTemplate'] = __DIR__ . '/includes/wikipage/SF_WikiPageTemplate.php';
+$GLOBALS['wgAutoloadClasses']['SFWikiPageTemplateParam'] = __DIR__ . '/includes/wikipage/SF_WikiPageTemplateParam.php';
+$GLOBALS['wgAutoloadClasses']['SFWikiPageSection'] = __DIR__ . '/includes/wikipage/SF_WikiPageSection.php';
+$GLOBALS['wgAutoloadClasses']['SFWikiPageFreeText'] = __DIR__ . '/includes/wikipage/SF_WikiPageFreeText.php';
 
 $GLOBALS['wgJobClasses']['createPage'] = 'SFCreatePageJob';
 $GLOBALS['wgAutoloadClasses']['SFCreatePageJob'] = __DIR__ . '/includes/SF_CreatePageJob.php';
