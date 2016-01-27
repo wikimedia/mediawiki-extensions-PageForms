@@ -758,7 +758,9 @@ END;
 
 					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
 
-					$wiki_page->addTemplate( $tif );
+					if ( !$tif->allInstancesPrinted() ) {
+						$wiki_page->addTemplate( $tif );
+					}
 
 				// =====================================================
 				// end template processing

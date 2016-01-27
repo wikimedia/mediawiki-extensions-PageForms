@@ -15,10 +15,6 @@ class SFWikiPage {
 	private $mFreeTextOnlyInclude = false;
 
 	function addTemplate( $templateInForm ) {
-		if ( $templateInForm->allInstancesPrinted() ) {
-			return;
-		}
-
 		$templateName = $templateInForm->getTemplateName();
 		$this->mComponents[] = new SFWikiPageTemplate( $templateName, !$templateInForm->allowsMultiple() );
 		if ( $templateInForm->getInstanceNum() == 0 ) {
@@ -63,6 +59,7 @@ class SFWikiPage {
 		foreach ( $this->mComponents as $i => $component ) {
 			if ( get_class( $component ) == 'SFWikiPageFreeText' ) {
 				$this->mComponents[$i]->setText( $text );
+				return;
 			}
 		}
 		// Throw an exception here if no free text section found?
@@ -169,7 +166,10 @@ class SFWikiPage {
 					$sectionName = "=$sectionName=";
 				}
 				$pageText .= "$sectionName\n";
-				$pageText .= $component->getText() . "\n";
+				if ( $component->getText() != '' ) {
+					$pageText .= $component->getText() . "\n";
+				}
+				$pageText .= "\n";
 			} elseif ( get_class( $component ) == 'SFWikiPageFreeText' ) {
 				$freeText = $component->getText();
 				if ( $this->mFreeTextOnlyInclude ) {
