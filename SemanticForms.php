@@ -38,32 +38,34 @@
  * @ingroup SF
  */
 
-// In some versions of MW 1.25, there's a bug in which global variables
-// set in LocalSettings.php do not override the settings in
-// extension.json. For simplicity's sake, don't load extensions unless we're
-// at version 1.26 or higher.
-//if ( function_exists( 'wfLoadExtension' ) ) {
-if ( version_compare( $GLOBALS['wgVersion'], '1.26', '>=' ) ) {
-	wfLoadExtension( 'SemanticForms' );
-	// Keep i18n globals so mergeMessageFileList.php doesn't break
-	$wgMessagesDirs['SemanticForms'] = __DIR__ . '/i18n';
-	$wgExtensionMessagesFiles['SemanticFormsAlias'] = __DIR__ . '/languages/SF_Aliases.php';
-	$wgExtensionMessagesFiles['SemanticFormsMagic'] = __DIR__ . '/languages/SF_Magic.php';
-	$wgExtensionMessagesFiles['SemanticFormsNS'] = __DIR__ . '/languages/SF_Namespaces.php';
-	/* wfWarn(
-		'Deprecated PHP entry point used for SemantiForms extension. ' .
-		'Please use wfLoadExtension instead, ' .
-		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
-	); */
-	return;
-}
-
 if ( defined( 'SF_VERSION' ) ) {
 	// Do not load Semantic Forms more than once.
 	return 1;
 }
 
-define( 'SF_VERSION', '3.4.2' );
+define( 'SF_VERSION', '3.4.3-alpha' );
+
+// In some versions of MW 1.25, there's a bug in which global variables
+// set in LocalSettings.php do not override the settings in
+// extension.json. For simplicity's sake, don't load extensions unless we're
+// at version 1.26 or higher.
+//if ( function_exists( 'wfLoadExtension' ) ) {
+if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) ) {
+	if ( function_exists( 'wfLoadExtension' ) ) {
+		wfLoadExtension( 'SemanticForms' );
+		// Keep i18n globals so mergeMessageFileList.php doesn't break
+		$GLOBALS['wgMessagesDirs']['SemanticForms'] = __DIR__ . '/i18n';
+		$GLOBALS['wgExtensionMessagesFiles']['SemanticFormsAlias'] = __DIR__ . '/languages/SF_Aliases.php';
+		$GLOBALS['wgExtensionMessagesFiles']['SemanticFormsMagic'] = __DIR__ . '/languages/SF_Magic.php';
+		$GLOBALS['wgExtensionMessagesFiles']['SemanticFormsNS'] = __DIR__ . '/languages/SF_Namespaces.php';
+		/* wfWarn(
+			'Deprecated PHP entry point used for SemantiForms extension. ' .
+			'Please use wfLoadExtension instead, ' .
+			'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+		); */
+		return;
+	}
+}
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	// SMW defines these namespaces itself.
