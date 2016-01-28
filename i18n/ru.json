@@ -19,7 +19,7 @@
 			"INS Pirat"
 		]
 	},
-	"semanticforms-desc": "Формы для добавления и правки семантических данных",
+	"semanticforms-desc": "Формы для создания и правки вики-страниц",
 	"specialpages-group-sf_group": "Semantic Forms",
 	"createproperty": "Создать свойство",
 	"sf-createproperty-with-name": "Создать свойство: $1",
