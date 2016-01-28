@@ -1047,7 +1047,14 @@ END;
 						}
 
 						$equalsSigns = str_pad( '', $page_section_in_form->getSectionLevel(), '=' );
-						$searchStr = '/^' . $equalsSigns . '[ ]*?' . $section_name . '[ ]*?' . $equalsSigns . '$/m';
+						$searchStr =
+							'/^' .
+							preg_quote( $equalsSigns, '/' ) .
+							'[ ]*?' .
+							preg_quote( $section_name, '/' ) .
+							'[ ]*?' .
+							preg_quote( $equalsSigns, '/' ) .
+							'$/m';
 						if ( preg_match( $searchStr, $existing_page_content, $matches, PREG_OFFSET_CAPTURE ) ) {
 							$section_start_loc = $matches[0][1];
 							$header_text = $matches[0][0];
