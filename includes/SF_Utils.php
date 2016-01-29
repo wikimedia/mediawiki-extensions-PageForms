@@ -19,7 +19,7 @@ class SFUtils {
 			return 1;
 		}
 
-		define( 'SF_VERSION', '3.4.2' );
+		define( 'SF_VERSION', '3.4.3-alpha' );
 
 		if ( !defined( 'SMW_VERSION' ) ) {
 			// SMW defines these namespaces itself.
@@ -27,8 +27,7 @@ class SFUtils {
 			define( 'SF_NS_FORM_TALK', 107 );
 		}
 
-		$sfgPartialPath = '/extensions/SemanticForms';
-		$sfgScriptPath = $wgResourceBasePath . $sfgPartialPath;
+		$sfgScriptPath = __DIR__ . '/../';
 
 		$sfgIP = dirname( __FILE__ );
 

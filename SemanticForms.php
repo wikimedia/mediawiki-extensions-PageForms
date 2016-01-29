@@ -38,13 +38,6 @@
  * @ingroup SF
  */
 
-if ( defined( 'SF_VERSION' ) ) {
-	// Do not load Semantic Forms more than once.
-	return 1;
-}
-
-define( 'SF_VERSION', '3.4.3-alpha' );
-
 // In some versions of MW 1.25, there's a bug in which global variables
 // set in LocalSettings.php do not override the settings in
 // extension.json. For simplicity's sake, don't load extensions unless we're
@@ -66,6 +59,13 @@ if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) ) {
 		return;
 	}
 }
+
+if ( defined( 'SF_VERSION' ) ) {
+	// Do not load Semantic Forms more than once.
+	return 1;
+}
+
+define( 'SF_VERSION', '3.4.3-alpha' );
 
 if ( !defined( 'SMW_VERSION' ) ) {
 	// SMW defines these namespaces itself.
