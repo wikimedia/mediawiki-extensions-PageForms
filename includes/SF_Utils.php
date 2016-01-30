@@ -10,10 +10,6 @@
 class SFUtils {
 
 	public static function registerExtension() {
-		global $wgResourceBasePath, $sfgScriptPath, $sfgPartialPath, $sfgIP, $wgEditPageFrameOptions,
-		$smwgEnabledSpecialPage, $wgExtensionFunctions, $wgSpecialPages,
-		$wgAutoloadClasses, $sfgContLang, $sfgFormPrinter, $wgLanguageCode;
-
 		if ( defined( 'SF_VERSION' ) ) {
 			// Do not load Semantic Forms more than once.
 			return 1;
@@ -27,9 +23,7 @@ class SFUtils {
 			define( 'SF_NS_FORM_TALK', 107 );
 		}
 
-		$sfgScriptPath = __DIR__ . '/../';
-
-		$sfgIP = dirname( __FILE__ );
+		$GLOBALS['sfgIP'] = dirname( __FILE__ );
 
 		// Constants for special properties
 		define( 'SF_SP_HAS_DEFAULT_FORM', 1 );
@@ -46,28 +40,10 @@ class SFUtils {
 		// This global variable is needed so that other
 		// extensions can hook into it to add their own
 		// input types.
-		if ( defined( 'SMW_VERSION' ) ) {
-			$GLOBALS['wgExtensionFunctions'][] = function() {
-				$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
-			};
-		}  else {
-			$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
-		}
 
 		if ( defined( 'SMW_VERSION' ) ) {
-			// Admin Links hook needs to be called in a delayed way so that it
-			// will always be called after SMW's Admin Links addition; as of
-			// SMW 1.9, SMW delays calling all its hook functions.
-			$GLOBALS['wgExtensionFunctions'][] = function() {
-				$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
-			};
-		} else {
-			$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
-		}
-
-		if ( defined( 'SMW_VERSION' ) ) {
-			$wgSpecialPages['CreateProperty'] = 'SFCreateProperty';
-			$wgAutoloadClasses['SFCreateProperty'] = __DIR__ . '/../specials/SF_CreateProperty.php';
+			$GLOBALS['wgSpecialPages']['CreateProperty'] = 'SFCreateProperty';
+			$GLOBALS['wgAutoloadClasses']['SFCreateProperty'] = __DIR__ . '/specials/SF_CreateProperty.php';
 		}
 
 		/**
@@ -76,11 +52,11 @@ class SFUtils {
 		 * determine labels for additional namespaces. In contrast, messages
 		 * can be initialised much later, when they are actually needed.
 		 */
-		if ( !empty( $sfgContLang ) ) {
+		if ( !empty( $GLOBALS['sfgContLang'] ) ) {
 			return;
 		}
 
-		$cont_lang_class = 'SF_Language' . str_replace( '-', '_', ucfirst( $wgLanguageCode ) );
+		$cont_lang_class = 'SF_Language' . str_replace( '-', '_', ucfirst( $GLOBALS['wgLanguageCode'] ) );
 		if ( file_exists( __DIR__ . '/../languages/' . $cont_lang_class . '.php' ) ) {
 			include_once( __DIR__ . '/../languages/' . $cont_lang_class . '.php' );
 		}
@@ -91,13 +67,27 @@ class SFUtils {
 			$cont_lang_class = 'SF_LanguageEn';
 		}
 
-		$sfgContLang = new $cont_lang_class();
+		$GLOBALS['sfgContLang'] = new $cont_lang_class();
 
 		// Allow for popup windows for file upload
-		$wgEditPageFrameOptions = 'SAMEORIGIN';
+		$GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
 
 		// Necessary setting for SMW 1.9+
-		$smwgEnabledSpecialPage[] = 'RunQuery';
+		$GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
+	}
+
+	public static function initialize() {
+		$GLOBALS['sfgScriptPath'] = __DIR__ . '/../';
+
+		// Admin Links hook needs to be called in a delayed way so that it
+		// will always be called after SMW's Admin Links addition; as of
+		// SMW 1.9, SMW delays calling all its hook functions.
+		$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+
+		// This global variable is needed so that other
+		// extensions can hook into it to add their own
+		// input types.
+		$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 	}
 
 	/**

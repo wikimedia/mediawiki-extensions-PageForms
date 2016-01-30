@@ -11,6 +11,12 @@
 	"descriptionmsg": "semanticforms-desc",
 	"type": "specialpage",
 	"callback": "SFUtils::registerExtension",
+	"ExtensionFunctions": [
+		"SFUtils::initialize"
+	],
+	"requires": {
+		"MediaWiki": ">= 1.26.0"
+	},
 	"GroupPermissions": {
 		"*": {
 			"viewedittab": true
