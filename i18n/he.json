@@ -12,6 +12,7 @@
 	},
 	"semanticforms-desc": "טפסים להוספה ולעריכה של נתונים סמנטיים",
 	"specialpages-group-sf_group": "טפסים סמנטיים",
+	"apihelp-sfautocomplete-description": "השלמה אוטומטית נמצא בשימוש הרחבת Semantic Forms.",
 	"createproperty": "יצירת מאפיין",
 	"sf-createproperty-with-name": "יצירת מאפיין: $1",
 	"sf_createproperty_linktoform": "מאפיין זה יקשר לדפים המשתמשים בטופס:",
