@@ -169,6 +169,8 @@
 	"action-createclass": "{{doc-action|createclass}}",
 	"action-editrestrictedfields": "{{doc-action|editrestrictedfields}}",
 	"action-viewedittab": "{{doc-action|viewedittab}}\nRefers to {{msg-mw|Edit}}.",
+	"tooltip-ca-formedit": "Tooltip shown when the cursor hovers over the \"Edit with form\" tab",
+	"accesskey-ca-formedit": "{{doc-accesskey}}",
 	"sf-select2-no-matches": "A message that is displayed when nothing is matched in Select2 autocompletion.",
 	"sf-select2-searching": "A message that is displayed while search is in progress in Select2 autocompletion.",
 	"sf-select2-input-too-short": "A message that is displayed when search string for Select2 autocompletion is smaller than the defined value.\n\nParameters:\n* $1 - number of characters",

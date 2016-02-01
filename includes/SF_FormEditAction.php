@@ -118,7 +118,7 @@ class SFFormEditAction extends Action
 		if ( $edit_tab_location == null ) {
 			$edit_tab_location = - 1;
 		}
-		array_splice( $tab_keys, $edit_tab_location, 0, 'form_edit' );
+		array_splice( $tab_keys, $edit_tab_location, 0, 'formedit' );
 		array_splice( $tab_values, $edit_tab_location, 0, array( $form_edit_tab ) );
 		$content_actions = array();
 		for ( $i = 0; $i < count( $tab_keys ); $i++ ) {
