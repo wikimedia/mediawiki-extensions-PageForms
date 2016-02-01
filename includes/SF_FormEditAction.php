@@ -68,16 +68,16 @@ class SFFormEditAction extends Action
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
 		if ( $sfgRenameEditTabs ) {
-			$form_edit_tab_text = $user_can_edit ? 'edit' : 'sf_viewform';
+			$form_edit_tab_msg = $user_can_edit ? 'edit' : 'sf_viewform';
 			if ( array_key_exists( 'edit', $content_actions ) ) {
 				$msg = $user_can_edit ? 'sf_editsource' : 'viewsource';
 				$content_actions['edit']['text'] = wfMessage( $msg )->text();
 			}
 		} else {
 			if ( $user_can_edit ) {
-				$form_edit_tab_text = $title->exists() ? 'formedit' : 'sf_formcreate';
+				$form_edit_tab_msg = $title->exists() ? 'formedit' : 'sf_formcreate';
 			} else {
-				$form_edit_tab_text = 'sf_viewform';
+				$form_edit_tab_msg = 'sf_viewform';
 			}
 			// Check for renaming of main edit tab only if
 			// $sfgRenameEditTabs is off.
@@ -89,11 +89,10 @@ class SFFormEditAction extends Action
 			}
 		}
 
-		$form_edit_tab_text = wfMessage( $form_edit_tab_text )->text();
 		$class_name = ( $wgRequest->getVal( 'action' ) == 'formedit' ) ? 'selected' : '';
 		$form_edit_tab = array(
 			'class' => $class_name,
-			'text' => $form_edit_tab_text,
+			'text' => wfMessage( $form_edit_tab_msg )->text(),
 			'href' => $title->getLocalURL( 'action=formedit' )
 		);
 
