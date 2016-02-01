@@ -25,4 +25,8 @@ class SFWikiPageTemplateParam {
 	function getValue() {
 		return $this->mValue;
 	}
+
+	function setValue( $value ) {
+		$this->mValue = $value;
+	}
 }

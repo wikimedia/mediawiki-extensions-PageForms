@@ -22,6 +22,25 @@ class SFWikiPageTemplate {
 		$this->mParams[] = new SFWikiPageTemplateParam( $paramName, $value );
 	}
 
+	function addUnhandledParam( $paramName, $value ) {
+		// See if there's already a value for this parameter, and
+		// if it's blank, replace it.
+		// This only happens if values are coming in from both the
+		// page and the form submission, i.e. for partial forms and
+		// #autoedit.
+		foreach ( $this->mParams as $i => $param ) {
+			if ( $param->getName() == $paramName ) {
+				if ( $param->getValue() == '' ) {
+					$this->mParams[$i]->setValue( $value );
+				}
+				return;
+			}
+		}
+
+		// All other cases, probably.
+		$this->addParam( $paramName, $value );
+	}
+
 	function addUnhandledParams() {
 		global $wgRequest;
 
@@ -35,7 +54,7 @@ class SFWikiPageTemplate {
 		foreach ( $wgRequest->getValues() as $key => $value ) {
 			if ( strpos( $key, $prefix ) === 0 ) {
 				$paramName = urldecode( substr( $key, $prefixSize ) );
-				$this->addParam( $paramName, $value );
+				$this->addUnhandledParam( $paramName, $value );
 			}
 		}
 
