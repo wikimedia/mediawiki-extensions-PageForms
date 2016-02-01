@@ -238,6 +238,7 @@
 	"action-createclass": "neue semantische Klassen zu erstellen",
 	"action-editrestrictedfields": "für die Bearbeitung beschränkte Formularfelder zu bearbeiten",
 	"action-viewedittab": "den Reiter „{{int:edit}}“ auf Seiten zu sehen, die bearbeitet werden können",
+	"tooltip-ca-formedit": "Diese Seite mit einem Formular bearbeiten",
 	"sf-select2-no-matches": "Keine Treffer",
 	"sf-select2-searching": "Suche …",
 	"sf-select2-input-too-short": "Bitte $1 oder mehr Zeichen eingeben.",
