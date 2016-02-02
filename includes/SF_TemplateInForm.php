@@ -420,9 +420,13 @@ class SFTemplateInForm {
 			// submitted - getting rid of 'num' and everything
 			// after it seems to works.
 			$valuesFromSubmitKeys = array();
-			foreach ( array_keys( $allValuesFromSubmit ) as $key ) {
+			foreach ( array_keys( $allValuesFromSubmit ) as $i => $key ) {
 				if ( $key == 'num' ) {
-					break;
+					if ( $i == 0 ) {
+						continue;
+					} else {
+						break;
+					}
 				}
 				$valuesFromSubmitKeys[] = $key;
 			}
