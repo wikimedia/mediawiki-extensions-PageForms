@@ -752,9 +752,13 @@ END;
 							$source_page_matches_this_form = true;
 						}
 					}
-					if ( $form_submitted ) {
-						$tif->setFieldValuesFromSubmit();
-					}
+
+					// We get values from the request,
+					// regardless of whether the the source
+					// is the page or a form submit, because
+					// even if the source is a page, values
+					// can still come from a query string.
+					$tif->setFieldValuesFromSubmit();
 
 					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
 
