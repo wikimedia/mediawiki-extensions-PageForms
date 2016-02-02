@@ -949,11 +949,12 @@ END;
 						// printed, that means we're
 						// now printing a "starter"
 						// div - set the current value
-						// to null.
+						// to null, unless it's the
+						// default value.
 						// (Ideally it wouldn't get
 						// set at all, but that seems a
 						// little harder.)
-						if ( $tif->allInstancesPrinted() ) {
+						if ( $tif->allInstancesPrinted() && $form_field->getDefaultValue() == null ) {
 							$cur_value = null;
 						}
 
