@@ -252,6 +252,7 @@
 	"action-createclass": "créer de nouvelles classes sémantiques",
 	"action-editrestrictedfields": "Modifier les champs de formulaire protégés",
 	"action-viewedittab": "voir l’onglet \"{{int:edit}}\" pour les pages modifiables via un formulaire",
+	"tooltip-ca-formedit": "Modifier cette page avec un formulaire",
 	"sf-select2-no-matches": "Aucune correspondance",
 	"sf-select2-searching": "Recherche en cours…",
 	"sf-select2-input-too-short": "Veuillez saisir $1 {{PLURAL:$1|caractère|caractères}} ou plus",

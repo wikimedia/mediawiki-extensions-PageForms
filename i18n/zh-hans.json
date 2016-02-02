@@ -234,6 +234,7 @@
 	"action-createclass": "创建新的语义类",
 	"action-editrestrictedfields": "编辑受限制的表单字段",
 	"action-viewedittab": "查看可用表格编辑页面的“{{int:edit}}”标签",
+	"tooltip-ca-formedit": "使用表单编辑此页面",
 	"sf-select2-no-matches": "不匹配",
 	"sf-select2-searching": "正在搜索…",
 	"sf-select2-input-too-short": "请输入$1或更多字符。",

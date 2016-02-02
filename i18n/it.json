@@ -199,5 +199,6 @@
 	"right-createclass": "Crea nuovi classi semantiche",
 	"action-createclass": "creare nuove classi semantiche",
 	"action-editrestrictedfields": "modificare i campi riservati dei moduli",
-	"action-viewedittab": "visualizzare la scheda \"{{int:edit}}\" per le pagine modificabili tramite modulo"
+	"action-viewedittab": "visualizzare la scheda \"{{int:edit}}\" per le pagine modificabili tramite modulo",
+	"tooltip-ca-formedit": "Modifica questa pagina con un modello"
 }
