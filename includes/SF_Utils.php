@@ -51,7 +51,7 @@ class SFUtils {
 				$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 			};
 		}  else {
-			$sfgFormPrinter = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
+			$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 		}
 
 		if ( defined( 'SMW_VERSION' ) ) {
