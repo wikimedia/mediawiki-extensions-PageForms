@@ -176,6 +176,7 @@
 	"sf_blank_namespace": "Principal",
 	"right-viewedittab": "Ver o separador \"{{int:edit}}\" para páginas editáveis por formulário",
 	"right-editrestrictedfields": "Editar os campos restritos dos formulários",
+	"tooltip-ca-formedit": "Editar esta página com um formulário",
 	"sf-select2-no-matches": "Sem correspondências",
 	"sf-select2-searching": "A pesquisar...",
 	"sf-select2-input-too-short": "Insira $1 ou mais caracteres",
