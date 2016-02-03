@@ -1260,15 +1260,11 @@ END;
 		// (a) we're processing a replacement (param 'partial' == 1)
 		// (b) we're sending out something to be replaced (param 'partial' is missing)
 		if ( $form_is_partial ) {
-			if ( !$wgRequest->getCheck( 'partial' ) ) {
-				$free_text = $original_page_content;
-			} else {
-				$free_text = null;
-				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
-					array( '{{', '}}' ),
-					$existing_page_content );
-				$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
-			}
+			$free_text = null;
+			$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
+				array( '{{', '}}' ),
+				$existing_page_content );
+			$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
 			$form_text .= Html::hidden( 'partial', 1 );
 		} elseif ( $source_is_page ) {
 			// If the page is the source, free_text will just be
