@@ -482,7 +482,7 @@ jQuery.fn.showIfChecked = function(initPage) {
 // Used for handling 'show on select' for the 'checkbox' input.
 jQuery.fn.showIfCheckedCheckbox = function(partOfMultiple, initPage) {
 	var sfgShowOnSelect = mediaWiki.config.get( 'sfgShowOnSelect' );
-	
+
 	if (partOfMultiple) {
 		var divIDs = sfgShowOnSelect[this.attr("data-origID")];
 		var instanceWrapperDiv = this.closest(".multipleTemplateInstance");
@@ -1356,6 +1356,22 @@ jQuery(document).ready( function() {
 	// Exit now if a Semantic Forms form is not present.
 	if ( jQuery('#sfForm').length == 0 ) {
 		return;
+	}
+
+	// register init functions
+	initFunctionData = mw.config.get( 'ext.sf.initFunctionData' );
+	for ( var inputID in initFunctionData ) {
+		for ( var i in initFunctionData[inputID] ) {
+			jQuery( '#' + inputID ).SemanticForms_registerInputInit( window[initFunctionData[ inputID ][ i ][ 'name' ]], initFunctionData[ inputID ][ i ][ 'param' ] );
+		}
+	}
+
+	// register validation functions
+	validationFunctionData = mw.config.get( 'ext.sf.validationFunctionData' );
+	for ( var inputID in validationFunctionData ) {
+		for ( var i in validationFunctionData[inputID] ) {
+			jQuery( '#' + inputID ).SemanticForms_registerInputValidation( window[validationFunctionData[ inputID ][ i ][ 'name' ]], validationFunctionData[ inputID ][ i ][ 'param' ] );
+		}
 	}
 
 	jQuery('body').initializeJSElements(false);
