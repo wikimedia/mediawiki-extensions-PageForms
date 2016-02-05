@@ -19,7 +19,8 @@
 	],
 	"require": {
 		"php": ">=5.3.0",
-		"composer/installers": "1.*,>=1.0.1"
+		"composer/installers": "1.*,>=1.0.1",
+		"mediawiki/open-layers": "dev-master"
 	},
 	"autoload": {
 		"files" : [
@@ -29,6 +30,9 @@
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.8.x-dev"
+		},
+		"installer-paths": {
+			"../{$name}": ["mediawiki/open-layers"]
 		}
 	},
 	"require-dev": {

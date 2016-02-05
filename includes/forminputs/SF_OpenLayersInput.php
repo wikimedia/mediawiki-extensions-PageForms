@@ -54,14 +54,16 @@ class SFOpenLayersInput extends SFFormInput {
 		global $sfgTabIndex, $sfgFieldNum;
 		global $wgOut;
 
-		$scripts = array(
-			"http://www.openlayers.org/api/OpenLayers.js"
-		);
-		$scriptsHTML = '';
-		foreach ( $scripts as $script ) {
-			$scriptsHTML .= Html::linkedScript( $script );
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
+			$scripts = array(
+				"http://www.openlayers.org/api/OpenLayers.js"
+			);
+			$scriptsHTML = '';
+			foreach ( $scripts as $script ) {
+				$scriptsHTML .= Html::linkedScript( $script );
+			}
+			$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
 		}
-		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
 		$wgOut->addModules( 'ext.semanticforms.maps' );
 
 		$parsedCurValue = self::parseCoordinatesString( $cur_value );

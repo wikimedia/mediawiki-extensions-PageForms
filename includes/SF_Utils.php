@@ -1368,13 +1368,26 @@ END;
 			) );
 		}
 
-		$resourceLoader->register( array(
-			'ext.semanticforms.maps' => array(
-				'localBasePath' => __DIR__,
-				'remoteExtPath' => 'SemanticForms',
-				'scripts' => '/../libs/SF_maps.js',
-			),
-		) );
+		if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) && ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
+			$resourceLoader->register( array(
+				'ext.semanticforms.maps' => array(
+					'localBasePath' => __DIR__,
+					'remoteExtPath' => 'SemanticForms',
+					'scripts' => '/../libs/SF_maps.offline.js',
+					'dependencies' => array(
+						'ext.openlayers.main',
+					)
+				),
+			) );
+		} else {
+			$resourceLoader->register( array(
+				'ext.semanticforms.maps' => array(
+					'localBasePath' => __DIR__,
+					'remoteExtPath' => 'SemanticForms',
+					'scripts' => '/../libs/SF_maps.js',
+				),
+			) );
+		}
 
 		return true;
 	}

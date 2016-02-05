@@ -38,6 +38,14 @@
  * @ingroup SF
  */
 
+if ( array_key_exists( 'wgWikimediaJenkinsCI', $GLOBALS ) ) {
+	if ( file_exists( __DIR__ . '/../../vendor/autoload.php' ) ) {
+		require_once __DIR__ . '/../../vendor/autoload.php';
+	}
+} elseif ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
 // In some versions of MW 1.25, there's a bug in which global variables
 // set in LocalSettings.php do not override the settings in
 // extension.json. For simplicity's sake, don't load extensions unless we're

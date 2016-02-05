@@ -12,7 +12,6 @@ module.exports = function ( grunt ) {
 			all: [
 				'**/*.js',
 				'!node_modules/**',
-				'!libs/OpenLayers/**',
 				'!libs/jquery.browser.js',
 				'!libs/jquery.dynatree.js',
 				'!libs/jquery.fancybox.js',
