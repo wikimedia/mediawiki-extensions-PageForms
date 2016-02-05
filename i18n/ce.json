@@ -95,5 +95,8 @@
 	"sf-select2-no-matches": "Терниш цакарий",
 	"sf-select2-searching": "Лахар…",
 	"sf-select2-input-too-short": "Дехар до, язъе $1 я дукха символаш",
-	"sf-select2-selection-too-big": "ХӀокху меттигехь $1 дукъа маьӀнаш хилийла дац."
+	"sf-select2-selection-too-big": "ХӀокху меттигехь $1 дукъа маьӀнаш хилийла дац.",
+	"semanticformsinputs-close": "ДӀачӀагӀа",
+	"semanticformsinputs-prev": "Хьалха йоьдург",
+	"semanticformsinputs-next": "ТӀаьхьа йогӀург"
 }

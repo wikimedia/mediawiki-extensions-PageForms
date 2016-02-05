@@ -181,5 +181,9 @@
 	"sf-select2-searching": "A pesquisar...",
 	"sf-select2-input-too-short": "Insira $1 ou mais caracteres",
 	"sf-select2-selection-too-big": "Este campo não pode conter mais do que {{PLURAL:$1|$1 valor|$1 valores}}.",
-	"sf-adminlinks-datastructure": "Estrutura de dados"
+	"sf-adminlinks-datastructure": "Estrutura de dados",
+	"semanticformsinputs-close": "Fechar",
+	"semanticformsinputs-prev": "Anterior",
+	"semanticformsinputs-next": "Seguinte",
+	"semanticformsinputs-today": "Hoje"
 }

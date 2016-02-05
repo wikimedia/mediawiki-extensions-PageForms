@@ -223,5 +223,20 @@
 	"sf-maps-setmarker": "Markering",
 	"sf-maps-enteraddress": "Voer hier het adres in",
 	"sf-maps-lookupcoordinates": "Coördinaten opzoeken",
-	"sf-adminlinks-datastructure": "Gegevensstructuur"
+	"sf-adminlinks-datastructure": "Gegevensstructuur",
+	"semanticformsinputs-close": "Sluiten",
+	"semanticformsinputs-prev": "Vorige",
+	"semanticformsinputs-next": "Volgende",
+	"semanticformsinputs-today": "Vandaag",
+	"semanticformsinputs-datepicker-dateformat": "De datumopmaak. Zie de [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters online documentatie] voor meer informatie.",
+	"semanticformsinputs-datepicker-weekstart": "De eerste dag van de week (0: zondag, 1: maandag, ...).",
+	"semanticformsinputs-datepicker-firstdate": "De eerste datum die gekozen kan worden (in de opmaak jjjj/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "De laatste datum die gekozen kan worden (in de opmaak jjjj/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Een lijst van dagen die niet kunnen worden geselecteerd (bijvoorbeeld weekend: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Een lijst van dagen die gemarkeerd worden (bijvoorbeeld weekend: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Een door komma's gescheiden lijst van uitgeschakelde datums of datumreeksen (datums in de opmaak jjjj/mm/dd, reeksen in de opmaak jjjj/mm/dd-jjjj/mm/dd).",
+	"semanticformsinputs-datepicker-highlightdates": "Een door komma's gescheiden lijst van datums of datumreeksen die gemarkeerd worden (datums in de opmaak jjjj/mm/dd formaat, reeksen in de opmaak jjjj/mm/dd-jjjj/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Weeknummers links van de week weergeven?",
+	"semanticformsinputs-datepicker-enableinputfield": "Kan de gebruiker het invoerveld rechtstreeks bewerken, of alleen via de datumkiezer?",
+	"semanticformsinputs-datepicker-showresetbutton": "Knop voor leegmaken weergeven? Dit is de enige manier voor de gebruiker om het invoerveld te wissen als directe invoer voor het veld is uitgeschakeld."
 }

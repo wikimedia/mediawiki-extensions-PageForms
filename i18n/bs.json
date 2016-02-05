@@ -86,5 +86,10 @@
 	"sf_category_hasdefaultform": "Ova kategorija koristi obrazac $1.",
 	"sf_category_desc": "Ovo je $1 kategorija.",
 	"sf_blank_namespace": "Glavno",
-	"right-editrestrictedfields": "Uređivanje ograničenih polja obrazca"
+	"right-editrestrictedfields": "Uređivanje ograničenih polja obrazca",
+	"semanticformsinputs-close": "Zatvori",
+	"semanticformsinputs-prev": "Prethodno",
+	"semanticformsinputs-next": "Slijedeće",
+	"semanticformsinputs-today": "Danas"
+
 }

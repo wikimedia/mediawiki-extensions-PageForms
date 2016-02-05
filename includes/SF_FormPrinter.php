@@ -43,6 +43,7 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFTextAreaInput' );
 		$this->registerInputType( 'SFTextAreaWithAutocompleteInput' );
 		$this->registerInputType( 'SFDateInput' );
+		$this->registerInputType( 'SFDatePicker' );
 		$this->registerInputType( 'SFDateTimeInput' );
 		$this->registerInputType( 'SFYearInput' );
 		$this->registerInputType( 'SFCheckboxInput' );
@@ -812,7 +813,7 @@ END;
 							// the fields that weren't
 							// handled by the form.
 							$cur_value = $tif->getAndRemoveValueFromPageForField( $field_name );
- 
+
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
 							// multiple template form.

@@ -198,5 +198,20 @@
 	"right-createclass": "Nowe semantiske klasy wutworić",
 	"action-createclass": "nowe semantiske klasy wutworić",
 	"action-editrestrictedfields": "wobmjezowane formularne pola wobdźěłać",
-	"action-viewedittab": "Rajtark \"{{int:edit}}\" za strony pokazać, kotrež su přez formular wobźěłujomne"
+	"action-viewedittab": "Rajtark \"{{int:edit}}\" za strony pokazać, kotrež su přez formular wobźěłujomne",
+	"semanticformsinputs-close": "Začinić",
+	"semanticformsinputs-prev": "Předchadny",
+	"semanticformsinputs-next": "Přichodny",
+	"semanticformsinputs-today": "Dźensa",
+	"semanticformsinputs-datepicker-dateformat": "Rjećazk znamjškow za datumowy format. Hlej [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters online-dokumentaciju]",
+	"semanticformsinputs-datepicker-weekstart": "Prěni dźeń tydźenja (0 - njedźela, 1 - póndźela, ...)",
+	"semanticformsinputs-datepicker-firstdate": "Prěni datum, kotryž da so wubrać (we formaće JJJJ/MM/TT).",
+	"semanticformsinputs-datepicker-lastdate": "Posledni datum, kotryž da so wubrać (we formaće JJJJ/MM/TT).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Lisćina dnjow, kotrež njedadźa so wurać (na př. kónc tydźenja: 6.0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Lisćina dnjow, kotrež maja so jako wuzběhnjene zwobraznić (na př. kónc tydźenja: 6.0).",
+	"semanticformsinputs-datepicker-disabledates": "Lisćina přez komu dźělenych znjemóžnjenych datumow/datumowych wobłukow (datumy we formaće JJJJ/MM/TT, datumowe wobłuki we formaće JJJJ/MM/TT-JJJJ/MM/TT).",
+	"semanticformsinputs-datepicker-highlightdates": "Lisćina přez komu dźělenych znjemóžnjenych datumow/datumowych wobłukow, kotrež maja so wuzběhnjene jewić (datumy we formaće JJJJ/MM/TT, datumowe wobłuki we formaće JJJJ/MM/TT-JJJJ/MM/TT).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Maja tydźenjowe čisła nalěwo pódla tydźenja pokazać?",
+	"semanticformsinputs-datepicker-enableinputfield": "Ma wužiwar móc zapodawanske polo direktnje wupjelnić abo jenož přez datumowy wuběr?",
+	"semanticformsinputs-datepicker-showresetbutton": "Ma so tłóčatko za wróćostajenje pokazać? To je jenička móžnosć za wužiwarja, zo by zapodawanske polo wuprózdnił, jeli je za direktne zapodaće zawrjene."
 }

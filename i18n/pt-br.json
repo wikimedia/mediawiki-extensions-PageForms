@@ -223,5 +223,20 @@
 	"sf-maps-setmarker": "Colocar o marcador",
 	"sf-maps-enteraddress": "Digite o endereço aqui",
 	"sf-maps-lookupcoordinates": "Pesquisar coordenadas",
-	"sf-adminlinks-datastructure": "Estrutura de dados"
+	"sf-adminlinks-datastructure": "Estrutura de dados",
+	"semanticformsinputs-close": "Fechar",
+	"semanticformsinputs-prev": "Anterior",
+	"semanticformsinputs-next": "Seguinte",
+	"semanticformsinputs-today": "Hoje",
+	"semanticformsinputs-datepicker-dateformat": "A string do formato de data. Veja a [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentação online] para mais informações.",
+	"semanticformsinputs-datepicker-weekstart": "O primeiro dia da semana (0 - Domingo, 1 - Segunda, ...).",
+	"semanticformsinputs-datepicker-firstdate": "A primeira data que pode ser escolhida (formato aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "A última data que pode ser escolhida (formato aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Uma lista de dias que não pode ser selecionada (por ex. fim de semana: 6,0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Uma lista de dias que devem aparecer destacados (por ex. fim de semana: 6,0).",
+	"semanticformsinputs-datepicker-disabledates": "Uma lista de datas/períodos desabilitadas(os) separados por vírgula (formato aaaa/mm/dd para datas, aaaa/mm/dd-aaaa/mm/dd para períodos).",
+	"semanticformsinputs-datepicker-highlightdates": "Uma lista de datas/períodos, separados por vírgula, que devem aparecer destacados (formato aaaa/mm/dd para datas, aaaa/mm/dd-aaaa/mm/dd para períodos).",
+	"semanticformsinputs-datepicker-showweeknumbers": "O número da semana deve ser exibido ao lado esquerdo da semana?",
+	"semanticformsinputs-datepicker-enableinputfield": "O usuário pode preencher o campo diretamente ou somente pelo selecionador de datas?",
+	"semanticformsinputs-datepicker-showresetbutton": "A opção de reset deve ser exibida? Esse é o único modo do usuário apagar o campo se ele estiver desabilitado para entrada manual."
 }

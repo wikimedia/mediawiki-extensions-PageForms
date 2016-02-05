@@ -74,5 +74,9 @@
 	"sf_form_freetextlabel": "អត្ថបទ​សេរី​",
 	"sf_category_hasdefaultform": "ចំណាត់ក្រុមនេះ ប្រើប្រាស់បែបបទ $1 ។",
 	"sf_category_desc": "នេះ​គឺជា​ចំណាត់ថ្នាក់ក្រុម $1 ។",
-	"sf_blank_namespace": "ចម្បង​"
+	"sf_blank_namespace": "ចម្បង​",
+	"semanticformsinputs-close": "បិទ",
+	"semanticformsinputs-prev": "មុន",
+	"semanticformsinputs-next": "បន្ទាប់",
+	"semanticformsinputs-today": "ថ្ងៃនេះ"
 }

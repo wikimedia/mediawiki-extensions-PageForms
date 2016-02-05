@@ -218,5 +218,20 @@
 	"sf-maps-setmarker": "Sett markør",
 	"sf-maps-enteraddress": "Legg inn adresse her",
 	"sf-maps-lookupcoordinates": "Sjekk koordinater",
-	"sf-adminlinks-datastructure": "Datastruktur"
+	"sf-adminlinks-datastructure": "Datastruktur",
+	"semanticformsinputs-close": "Lukk",
+	"semanticformsinputs-prev": "Forrige",
+	"semanticformsinputs-next": "Neste",
+	"semanticformsinputs-today": "I dag",
+	"semanticformsinputs-datepicker-dateformat": "Datoformatstreng. Se [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters online documentation] for nærmere informasjon.",
+	"semanticformsinputs-datepicker-weekstart": "Første ukedag (0 - søndag, 1 - mandag, ...).",
+	"semanticformsinputs-datepicker-firstdate": "Første valgbare dato (med \"yyyy/mm/dd\"-format).",
+	"semanticformsinputs-datepicker-lastdate": "Siste valgbare dato (med \"yyyy/mm/dd\"-format).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Liste av dager som ikke kan velges (f. eks. helg: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Liste av dager som skal fremheves (f. eks. helg: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Komma-separert liste av skjulte datoer/datobaserte tidsrom (datoer gitt i \"yyyy/mm/dd\"-format, tidsrom i \"yyyy/mm/dd-yyyy/mm/dd\"-format).",
+	"semanticformsinputs-datepicker-highlightdates": "En komma-separert liste av datoer eller tidsrom mellom datoer som skal vises uthevet (datoer i formatet yyyy/mm/dd, tidsrom i formatet yyyy/mm/dd-yyyy/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Skal ukenumre vises til venstre for ukene?",
+	"semanticformsinputs-datepicker-enableinputfield": "Skal brukeren kunne fylle ut datofeltet direkte eller bare via datovelgeren?",
+	"semanticformsinputs-datepicker-showresetbutton": "Skal en tilbakestillingsknapp vises? Dette vil da være eneste muligheten for en bruker å kunne slette inndatafeltet hvis det er blokkert for direkte innskriving."
 }

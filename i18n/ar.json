@@ -126,5 +126,6 @@
 	"sf_category_desc": "هذا $1 تصنيف.",
 	"sf_blank_namespace": "رئيسي",
 	"right-viewedittab": "أظهر لسان \"{{int:edit}}\" للصفحات التي يمكن تعديلها باستخدام نموذج.",
-	"right-editrestrictedfields": "حرّر حقول النموذج المقيّدة"
+	"right-editrestrictedfields": "حرّر حقول النموذج المقيّدة",
+	"semanticformsinputs-next": "التالي"
 }

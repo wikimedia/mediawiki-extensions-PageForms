@@ -214,5 +214,21 @@
 	"sf-maps-setmarker": "Задај бележник",
 	"sf-maps-enteraddress": "Тука внесете адреса",
 	"sf-maps-lookupcoordinates": "Дај координати",
-	"sf-adminlinks-datastructure": "Структура на податоците"
+	"sf-adminlinks-datastructure": "Структура на податоците",
+	"semanticformsinputs-close": "Затвори",
+	"semanticformsinputs-prev": "Претходно",
+	"semanticformsinputs-next": "Следно",
+	"semanticformsinputs-today": "Денес",
+	"semanticformsinputs-dateformatlong": "d MM yy г.",
+	"semanticformsinputs-datepicker-dateformat": "Низа за датумски формат. За повеќе информации, погледајте ја [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters документацијата].",
+	"semanticformsinputs-datepicker-weekstart": "Прв ден во седмицата (0 - недела, 1 - понеделник, ...).",
+	"semanticformsinputs-datepicker-firstdate": "Првиот датум што ќе може да се избере (во форматот гггг/мм/дд).",
+	"semanticformsinputs-datepicker-lastdate": "Последниот датум што може да се обере (во форматот гггг/мм/дд).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Список на денови што не можат да се одберат (на пр. викенд, 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Список на денови што ќе се истакнуваат (на пр. викенд, 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Список на оневозможени датуми/датумски опсези, одделени со запирка (датуми во форматот гггг/мм/дд, опсези во форматот гггг/мм/дд-гггг/мм/дд).",
+	"semanticformsinputs-datepicker-highlightdates": "Список на датуми/датумски опсези одделени со запирка кои ќе се прикажуваат истакнати, т.е. обележани (датуми во форматот гггг/мм/дд, опсези во форматот гггг/мм/дд-гггг/мм/дд).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Дали лево од седмиците да стојат броеви (на седмици)?",
+	"semanticformsinputs-datepicker-enableinputfield": "Дали корисникот да може да го пополни полето за внос непосредно или преку одбирачот на датуми?",
+	"semanticformsinputs-datepicker-showresetbutton": "Дали да се прикажува копчето „одново“? Ова е единствениот начин корисникот да го избрише внесеното во полето ако за тоа поле е оневозможен непосредниот внос."
 }

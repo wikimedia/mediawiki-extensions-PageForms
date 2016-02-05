@@ -127,5 +127,9 @@
 	"sf_blank_namespace": "{{int:blanknamespace}}",
 	"right-viewedittab": "„{{int:edit}}“-Lengk för Sigge, die mer övver Fommulaare ändere kann",
 	"right-editrestrictedfields": "Beschrängk zohjänglijje Felder en Fommulaare ändere",
-	"sf-adminlinks-datastructure": "Dahteschtruktuhr"
+	"sf-adminlinks-datastructure": "Dahteschtruktuhr",
+	"semanticformsinputs-close": "Zohmaache",
+	"semanticformsinputs-prev": "Vörijje",
+	"semanticformsinputs-next": "Nächste",
+	"semanticformsinputs-today": "Hück"
 }

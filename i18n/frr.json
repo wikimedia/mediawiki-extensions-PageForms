@@ -4,5 +4,9 @@
 			"Murma174"
 		]
 	},
-	"templates": "Föörlaagen"
+	"templates": "Föörlaagen",
+	"semanticformsinputs-close": "Cllôre",
+	"semanticformsinputs-prev": "Devant",
+	"semanticformsinputs-next": "Aprés",
+	"semanticformsinputs-today": "Houé"
 }

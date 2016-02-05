@@ -53,5 +53,9 @@
 	"sf_blank_namespace": "Hlavní",
 	"right-viewedittab": "Zobrazování záložky „Editovat“ na stránkách editovatelných pomocí formuláře",
 	"right-editrestrictedfields": "Editování polí formulářů s omezeným přístupem",
-	"right-createclass": "Zakládání nových sémantických tříd"
+	"right-createclass": "Zakládání nových sémantických tříd",
+	"semanticformsinputs-close": "Zavřít",
+	"semanticformsinputs-prev": "Předchozí",
+	"semanticformsinputs-next": "Další",
+	"semanticformsinputs-today": "Dnes"
 }

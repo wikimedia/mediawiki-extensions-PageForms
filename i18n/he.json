@@ -220,5 +220,17 @@
 	"sf-maps-setmarker": "הצבת סמן",
 	"sf-maps-enteraddress": "נא להזין כתובת כאן",
 	"sf-maps-lookupcoordinates": "חיפוש נקודות ציון",
-	"sf-adminlinks-datastructure": "מבנה הנתונים"
+	"sf-adminlinks-datastructure": "מבנה הנתונים",
+	"semanticformsinputs-close": "סגירה",
+	"semanticformsinputs-prev": "הקודם",
+	"semanticformsinputs-next": "הבא",
+	"semanticformsinputs-today": "היום",
+	"semanticformsinputs-datepicker-weekstart": "מספר היום בשבוע (0 - ראשון, 1 - שני, ...).",
+	"semanticformsinputs-datepicker-firstdate": "התאריך הראשון שניתן לבחירה (בפורמט yyyy/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "התאריך האחרון שניתן לבחירה (בפורמט yyyy/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "רשימת ימים שלא ניתנים לבחירה (למשל סופי שבע 5, 6).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "רשימת ימים שיופיעו בצורה מובלטת (לדוגמה סופי שבוע 5, 6).",
+	"semanticformsinputs-datepicker-disabledates": "רשימה מופרדת בפסיקים של תאריך/תאריכים לא אפשריים (תאריכים בפורמט yyyy/mm/dd, או טווח תאריכים בפורמט yyyy/mm/dd-yyyy/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "האם להציג את מספר השבוע בצד?",
+	"semanticformsinputs-datepicker-enableinputfield": "האם ניתן למלא את השדה ישירות או רק באמצעות בוחר תאריכים?"
 }

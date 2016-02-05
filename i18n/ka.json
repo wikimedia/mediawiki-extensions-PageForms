@@ -80,5 +80,14 @@
 	"sf-pageschemas-createtitle": "ფორმის სათაური ახალი გვერდებისათვის:",
 	"sf-pageschemas-edittitle": "ფორმის სათაური არსებული გვერდებისათვის:",
 	"sf_form_freetextlabel": "თავისუფალი ტექსტი",
-	"sf_blank_namespace": "მთავარი"
+	"sf_blank_namespace": "მთავარი",
+	"semanticformsinputs-close": "დახურვა",
+	"semanticformsinputs-prev": "წინა",
+	"semanticformsinputs-next": "შემდეგი",
+	"semanticformsinputs-today": "დღეს",
+	"semanticformsinputs-datepicker-weekstart": "კვირის პირველი დღე (0 - კვირა, 1 - ორშაბათი, ...).",
+	"semanticformsinputs-datepicker-firstdate": "პირველი თარიღი, რომელიც შეიძლება აირჩეს (წწწწ/თთ/დდ ფორმატით).",
+	"semanticformsinputs-datepicker-lastdate": "ბოლო თარიღი, რომელიც შეიძლება აირჩეს (წწწწ/თთ/დდ ფორმატით).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "დღეების სია რომელთა არჩევა ვერ მოხერხდება (მაგ. დასვენების დღეები: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "დღეების სია რომლებიც უნდა ჩანდნენ (მაგ. დასვენების დღეები: 6, 0)."
 }

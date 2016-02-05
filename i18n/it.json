@@ -200,5 +200,20 @@
 	"action-createclass": "creare nuove classi semantiche",
 	"action-editrestrictedfields": "modificare i campi riservati dei moduli",
 	"action-viewedittab": "visualizzare la scheda \"{{int:edit}}\" per le pagine modificabili tramite modulo",
-	"tooltip-ca-formedit": "Modifica questa pagina con un modello"
+	"tooltip-ca-formedit": "Modifica questa pagina con un modello",
+	"semanticformsinputs-close": "Chiudi",
+	"semanticformsinputs-prev": "Precedente",
+	"semanticformsinputs-next": "Successivo",
+	"semanticformsinputs-today": "Oggi",
+	"semanticformsinputs-datepicker-dateformat": "La stringa di formato data. Vedi la [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentazione online] per ulteriori informazioni.",
+	"semanticformsinputs-datepicker-weekstart": "Il primo giorno della settimana (0 - domenica, 1 - lunedì, ...).",
+	"semanticformsinputs-datepicker-firstdate": "La prima data che può essere scelta (in formato aaaa/mm/gg).",
+	"semanticformsinputs-datepicker-lastdate": "L'ultima data che può essere scelta (in formato aaaa/mm/gg).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Un elenco di giorni che non può essere selezionato (ad esempio il fine settimana: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Un elenco dei giorni da far apparire evidenziati (per esempio il fine settimana: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Un elenco di date/intervalli di date separate da una virgola (le date nel formato aaaa/mm/gg, gli intervalli nel formato aaaa/mm/gg-aaaa/mm/gg).",
+	"semanticformsinputs-datepicker-highlightdates": "Un elenco di date/intervalli di date che saranno mostrate evidenziate (le date nel formato aaaa/mm/gg, gli intervalli nel formato aaaa/mm/gg-aaaa/mm/gg).",
+	"semanticformsinputs-datepicker-showweeknumbers": "I numeri delle settimane dovrebbero essere mostrati a sinistra della settimana?",
+	"semanticformsinputs-datepicker-enableinputfield": "L'utente dovrebbe essere in grado di immettere manualmente la data o dovrebbe farlo solo attraverso la selezione?",
+	"semanticformsinputs-datepicker-showresetbutton": "Dovrebbe essere mostrato un pulsante di reset? Questo sarebbe il solo modo che avrebbe l'utente di cancellare il campo se l'immissione manuale è disabilitata."
 }

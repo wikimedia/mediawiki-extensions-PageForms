@@ -223,5 +223,20 @@
 	"sf-maps-setmarker": "Placera markören",
 	"sf-maps-enteraddress": "Ange adress här",
 	"sf-maps-lookupcoordinates": "Kolla upp koordinater",
-	"sf-adminlinks-datastructure": "Datastruktur"
+	"sf-adminlinks-datastructure": "Datastruktur",
+	"semanticformsinputs-close": "Stäng",
+	"semanticformsinputs-prev": "Föregående",
+	"semanticformsinputs-next": "Nästa",
+	"semanticformsinputs-today": "Idag",
+	"semanticformsinputs-datepicker-dateformat": "Format för datum. Se [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters online documentation] för ytterligare information.",
+	"semanticformsinputs-datepicker-weekstart": "Första dagen i veckan (0 - söndag, 1 - måndag, ...).",
+	"semanticformsinputs-datepicker-firstdate": "Första datum som kan väljas (i formatet åååå/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "Sista datum som kan väljas (i formatet åååå/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "En lista med dagar som inte kan väljas (t.ex. helgen: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "En lista med dagar som ska framhävas (t.ex. helgen: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "En kommaseparerad lista med obrukbara datum/datumintervall (datum i formatet åååå/mm/dd, datumintervall i formatet åååå/mm/dd-åååå/mm/dd).",
+	"semanticformsinputs-datepicker-highlightdates": "En kommaseparerad lista med datum/datumintervall som ska framhävas (datum i formatet åååå/mm/dd, datumintervall i formatet åååå/mm/dd-åååå/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Ska veckonummer visas till vänster om veckan?",
+	"semanticformsinputs-datepicker-enableinputfield": "Ska användaren kunna fylla i indata-fältet direkt eller enbart via datumväljaren?",
+	"semanticformsinputs-datepicker-showresetbutton": "Ska det finnas en återställningsknapp? En sådan knapp är enda sättet att radera innehållet i indata-fältet om det inte är tillåtet att skriva i det."
 }

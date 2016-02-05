@@ -226,5 +226,21 @@
 	"sf-maps-setmarker": "Установить маркер",
 	"sf-maps-enteraddress": "Введите здесь адрес",
 	"sf-maps-lookupcoordinates": "Найти координаты",
-	"sf-adminlinks-datastructure": "Структура данных"
+	"sf-adminlinks-datastructure": "Структура данных",
+	"semanticformsinputs-close": "Закрыть",
+	"semanticformsinputs-prev": "Предыдущая",
+	"semanticformsinputs-next": "Следующая",
+	"semanticformsinputs-today": "Сегодня",
+	"semanticformsinputs-firstdayofweek": "1",
+	"semanticformsinputs-datepicker-dateformat": "Строка формата даты. Смотрите [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters онлайн документацию] для получения дополнительной информации.",
+	"semanticformsinputs-datepicker-weekstart": "Первый день недели (0 - воскресенье, 1 - понедельник,...).",
+	"semanticformsinputs-datepicker-firstdate": "Первая дата, которая может быть выбрана (в формате yyyy/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "Последняя дата, которая может быть выбрана (в формате yyyy/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Список дней, которые не могут быть выбраны (например, выходные: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Список дней, которые должны подсвечиваться (например, выходные: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Разделенный запятыми список отключенных дат/диапазонов дат (даты в формате гггг/мм/дд, диапазоны в формате гггг/мм/дд-гггг/мм/дд).",
+	"semanticformsinputs-datepicker-highlightdates": "Разделенный запятыми список дат/диапазонов дат, которые должны быть выделены (даты в формате гггг/мм/дд, диапазоны в формате гггг/мм/дд-гггг/мм/дд).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Номера недель показывать с левой стороны?",
+	"semanticformsinputs-datepicker-enableinputfield": "Пользователь может заполнить поле ввода напрямую или только через поле выбора даты?",
+	"semanticformsinputs-datepicker-showresetbutton": "Должна ли отображаться кнопка сброса? Для пользователя это единственная возможность очистить поле ввода, если отключен непосредственный ввод данных."
 }

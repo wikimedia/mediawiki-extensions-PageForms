@@ -184,5 +184,20 @@
 	"right-createclass": "Creé ëd neuve classe semàntiche",
 	"action-createclass": "creé ëd neuve classe semàntiche",
 	"action-editrestrictedfields": "modìfiché ij camp ëd formolari arservà",
-	"action-viewedittab": "visualisé la scheda \"{{int:edit}}\" për le pàgine modificàbij da formolari"
+	"action-viewedittab": "visualisé la scheda \"{{int:edit}}\" për le pàgine modificàbij da formolari",
+	"semanticformsinputs-close": "Sara",
+	"semanticformsinputs-prev": "Prima",
+	"semanticformsinputs-next": "Apress",
+	"semanticformsinputs-today": "Ancheuj",
+	"semanticformsinputs-datepicker-dateformat": "La stringa ëd formà ëd data. Ch'a vëdda la [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentassion an linia] për savèjne ëd pi.",
+	"semanticformsinputs-datepicker-weekstart": "Ël prim di dla sman-a (0 - Dumìnica, 1 - Lùn-es, ...).",
+	"semanticformsinputs-datepicker-firstdate": "La prima data ch'a peul esse sërnùa (ant ël formà aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "L'ùltima data ch'a peul esse sërnùa (ant ël formà aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Na lista ëd di ch'a peulo pa esse selessionà (për esempi fin dë sman-a: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "na lista ëd di ch'a apariran evidensià (për esempi fin dë sman-a: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Na lista separà da vìrgole d'antërvaj ëd date disabilità (date ant ël formà aaaa/mm/dd, antërvaj ant ël formà aaaa/mm/dd-aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-highlightdates": "Na lista separà da vìrgole d'antërvaj ëd date o ëd dàite ch'a apariran evidensià (date ant ël formà aaaa/mm/dd, antërvaj ant ël formà aaaa/mm/dd-aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Ij nùmer dë sman-a a devo esse mostrà a snistra dla sman-a?",
+	"semanticformsinputs-datepicker-enableinputfield": "L'utent a dev podèj compilé ël camp d'anseriment diretament o mach con ël selessionator ëd dàite?",
+	"semanticformsinputs-datepicker-showresetbutton": "A venta smon-e un boton d'anulament? A l'é la sola manera për l'utent d'anulé ël camp d'anseriment se a l'é disabilità për l'anseriment diret."
 }

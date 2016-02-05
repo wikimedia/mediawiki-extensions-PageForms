@@ -51,5 +51,9 @@
 	"sf_formedit_none": "Ninde",
 	"sf_formedit_saveandcontinueediting": "Reggìstre e condinue",
 	"sf-autoedit-wait": "Aspitte...",
-	"sf_blank_namespace": "Prengepàle"
+	"sf_blank_namespace": "Prengepàle",
+	"semanticformsinputs-close": "Chiude",
+	"semanticformsinputs-prev": "Precedende",
+	"semanticformsinputs-next": "Prossime",
+	"semanticformsinputs-today": "Osce"
 }

@@ -223,5 +223,20 @@
 	"sf-maps-setmarker": "Встановити маркер",
 	"sf-maps-enteraddress": "Введіть тут адресу",
 	"sf-maps-lookupcoordinates": "Знайти координати",
-	"sf-adminlinks-datastructure": "Структура даних"
+	"sf-adminlinks-datastructure": "Структура даних",
+	"semanticformsinputs-close": "Закрити",
+	"semanticformsinputs-prev": "Попередня",
+	"semanticformsinputs-next": "Наступна",
+	"semanticformsinputs-today": "Сьогодні",
+	"semanticformsinputs-datepicker-dateformat": "Рядок формату дати. Див. [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Онлайн параметри] для отримання додаткової інформації.",
+	"semanticformsinputs-datepicker-weekstart": "Перший день тижня (0 - неділя, 1 - понеділок, ...).",
+	"semanticformsinputs-datepicker-firstdate": "Перша дата, яка може бути обрана (у форматі рррр/мм/дд).",
+	"semanticformsinputs-datepicker-lastdate": "Остання дата, яка може бути обрана (у форматі рррр/мм/дд).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Список днів, які не можуть бути обрані (наприклад, вихідні дні: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Список днів, що буде виділено (наприклад, вихідні дні: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Розділений комами список вимкнених дат/діапазонів дат (дати у форматі рррр/мм/дд, діапазони у форматі рррр/мм/дд-рррр/мм/дд)",
+	"semanticformsinputs-datepicker-highlightdates": "Розділений комами список дат/діапазонів дат, який буде виділений (дати у форматі рррр/мм/дд, діапазони у форматі рррр/мм/дд-рррр/мм/дд)",
+	"semanticformsinputs-datepicker-showweeknumbers": "Показувати номери тижнів ліворуч від тижнів?",
+	"semanticformsinputs-datepicker-enableinputfield": "Користувач зможе заповнити поле введення безпосередньо або тільки за допомогою елемента вибору дати?",
+	"semanticformsinputs-datepicker-showresetbutton": "Слід показувати кнопку Очистити? Це єдиний спосіб для користувачів, щоб стерти поле введення, якщо вимкнено пряме введення даних."
 }

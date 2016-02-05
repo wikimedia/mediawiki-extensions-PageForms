@@ -227,5 +227,20 @@
 	"sf-maps-setmarker": "Establecer el marcador",
 	"sf-maps-enteraddress": "Escribe aquí la dirección",
 	"sf-maps-lookupcoordinates": "Buscar coordenadas",
-	"sf-adminlinks-datastructure": "Estructura de datos"
+	"sf-adminlinks-datastructure": "Estructura de datos",
+	"semanticformsinputs-close": "Cerrar",
+	"semanticformsinputs-prev": "Anterior",
+	"semanticformsinputs-next": "Siguiente",
+	"semanticformsinputs-today": "Hoy",
+	"semanticformsinputs-datepicker-dateformat": "La cadena de formato de fecha. Véase la [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentación en línea] para obtener más información.",
+	"semanticformsinputs-datepicker-weekstart": "El primer día de la semana (0 = domingo, 1 = lunes...).",
+	"semanticformsinputs-datepicker-firstdate": "La primera fecha que se puede elegir (en formato aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "La última data que se puede elegir (en formato aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Una lista de días que no se pueden seleccionar (por ejemplo, fin de semana: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Una lista de días que deberían aparecer destacados (por ejemplo, fin de semana: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Una lista de elementos separados por comas de fechas/rangos de fechas deshabilitados (las fechas en formato aaaa/mm/dd, los rangos de fechas en formato aaaa/mm/dd-aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-highlightdates": "Una lista de elementos separados por comas de fechas/rangos de fechas que deberían aparecer destacados (las fechas en formato aaaa/mm/dd, los rangos de fechas en formato aaaa/mm/dd-aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "¿Deben aparecer los números a la izquierda de la semana?",
+	"semanticformsinputs-datepicker-enableinputfield": "¿Debe ser capaz el usuario de completar el campo de entrada directamente o únicamente a través del selector de fechas?",
+	"semanticformsinputs-datepicker-showresetbutton": "¿Debe mostrarse un botón de restablecimiento (reset)? Este es el único modo que tiene el usuario de limpiar el campo de entrada si está deshabilitado para entrada directa."
 }
