@@ -24,15 +24,15 @@ class SFGoogleMapsInput extends SFFormInput {
 		global $sfgTabIndex, $sfgFieldNum;
 		global $wgOut;
 
-                $scripts = array(
-                        "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"
-                );
-                $scriptsHTML = '';
-                foreach ( $scripts as $script ) {
-                        $scriptsHTML .= Html::linkedScript( $script );
-                }
-                $wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
-                $wgOut->addModules( 'ext.semanticforms.maps' );
+		$scripts = array(
+			"https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"
+		);
+		$scriptsHTML = '';
+		foreach ( $scripts as $script ) {
+			$scriptsHTML .= Html::linkedScript( $script );
+		}
+		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
+		$wgOut->addModules( 'ext.semanticforms.maps' );
 
 		$parsedCurValue = SFOpenLayersInput::parseCoordinatesString( $cur_value );
 
