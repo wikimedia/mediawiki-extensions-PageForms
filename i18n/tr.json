@@ -106,5 +106,5 @@
 	"sf_category_desc": "Bu $1 kategorisidir.",
 	"sf_blank_namespace": "Ana",
 	"right-editrestrictedfields": "Kısıtlanmış form alanlarını değiştirir",
-	"semanticformsinputs-today": "Bugün"
+	"sf-datepicker-today": "Bugün"
 }

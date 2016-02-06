@@ -122,8 +122,9 @@
 	"sf_blank_namespace": "Hauptsyte",
 	"right-viewedittab": "D \"Bearbeite\"-Regischtercharte fir bearbeitbari Syte no Format aaluege",
 	"right-editrestrictedfields": "Yygschränkti Formatfälde bearbeite",
-	"semanticformsinputs-close": "Zuemache",
-	"semanticformsinputs-prev": "Vorigi",
-	"semanticformsinputs-next": "Negschti",
-	"semanticformsinputs-today": "Hit"
+	"sf-datepicker-close": "Zuemache",
+	"sf-datepicker-prev": "Vorigi",
+	"sf-datepicker-next": "Negschti",
+	"sf-datepicker-today": "Hit",
+	"sf-regexp-wrongformat": "Falsch Format."
 }

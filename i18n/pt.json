@@ -182,8 +182,9 @@
 	"sf-select2-input-too-short": "Insira $1 ou mais caracteres",
 	"sf-select2-selection-too-big": "Este campo não pode conter mais do que {{PLURAL:$1|$1 valor|$1 valores}}.",
 	"sf-adminlinks-datastructure": "Estrutura de dados",
-	"semanticformsinputs-close": "Fechar",
-	"semanticformsinputs-prev": "Anterior",
-	"semanticformsinputs-next": "Seguinte",
-	"semanticformsinputs-today": "Hoje"
+	"sf-datepicker-close": "Fechar",
+	"sf-datepicker-prev": "Anterior",
+	"sf-datepicker-next": "Seguinte",
+	"sf-datepicker-today": "Hoje",
+	"sf-regexp-wrongformat": "Formato incorreto."
 }

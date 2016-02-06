@@ -15,8 +15,8 @@
 	"sf_formedit_createtitlenotarget": "$1 oanmeitsje",
 	"sf_editsource": "Bewurkje boarne",
 	"sf_formedit_none": "Gjin",
-	"semanticformsinputs-close": "Slute",
-	"semanticformsinputs-prev": "Foarige",
-	"semanticformsinputs-next": "Folgjende",
-	"semanticformsinputs-today": "Hjoed"
+	"sf-datepicker-close": "Slute",
+	"sf-datepicker-prev": "Foarige",
+	"sf-datepicker-next": "Folgjende",
+	"sf-datepicker-today": "Hjoed"
 }

@@ -87,9 +87,9 @@
 	"sf_category_desc": "Ovo je $1 kategorija.",
 	"sf_blank_namespace": "Glavno",
 	"right-editrestrictedfields": "Uređivanje ograničenih polja obrazca",
-	"semanticformsinputs-close": "Zatvori",
-	"semanticformsinputs-prev": "Prethodno",
-	"semanticformsinputs-next": "Slijedeće",
-	"semanticformsinputs-today": "Danas"
-
+	"sf-datepicker-close": "Zatvori",
+	"sf-datepicker-prev": "Prethodno",
+	"sf-datepicker-next": "Slijedeće",
+	"sf-datepicker-today": "Danas",
+	"sf-regexp-wrongformat": "Pogrešan format."
 }

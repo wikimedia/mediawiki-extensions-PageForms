@@ -64,8 +64,8 @@
 	"sf-preview-header": "படிவ முன்தோற்றம்",
 	"sf_blank_namespace": "முதன்மையானது",
 	"sf-maps-enteraddress": "இங்கு முகவரியை உள்ளிடவும்",
-	"semanticformsinputs-close": "மூடுக",
-	"semanticformsinputs-prev": "முந்தைய",
-	"semanticformsinputs-next": "அடுத்தது",
-	"semanticformsinputs-today": "இன்று"
+	"sf-datepicker-close": "மூடுக",
+	"sf-datepicker-prev": "முந்தைய",
+	"sf-datepicker-next": "அடுத்தது",
+	"sf-datepicker-today": "இன்று"
 }

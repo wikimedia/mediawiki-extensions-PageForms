@@ -6,6 +6,6 @@
 	},
 	"sf_createtemplate_deletefield": "Lesche",
 	"sf_createform_hidden": "Vaschdegld",
-	"semanticformsinputs-prev": "Voriche",
-	"semanticformsinputs-next": "Negschte"
+	"sf-datepicker-prev": "Voriche",
+	"sf-datepicker-next": "Negschte"
 }

@@ -54,8 +54,9 @@
 	"right-viewedittab": "Zobrazování záložky „Editovat“ na stránkách editovatelných pomocí formuláře",
 	"right-editrestrictedfields": "Editování polí formulářů s omezeným přístupem",
 	"right-createclass": "Zakládání nových sémantických tříd",
-	"semanticformsinputs-close": "Zavřít",
-	"semanticformsinputs-prev": "Předchozí",
-	"semanticformsinputs-next": "Další",
-	"semanticformsinputs-today": "Dnes"
+	"sf-datepicker-close": "Zavřít",
+	"sf-datepicker-prev": "Předchozí",
+	"sf-datepicker-next": "Další",
+	"sf-datepicker-today": "Dnes",
+	"sf-regexp-wrongformat": "Chybný formát."
 }

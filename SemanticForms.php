@@ -219,7 +219,7 @@ $GLOBALS['wgAutoloadClasses']['SFDropdownInput'] = __DIR__ . '/includes/forminpu
 $GLOBALS['wgAutoloadClasses']['SFListBoxInput'] = __DIR__ . '/includes/forminputs/SF_ListBoxInput.php';
 $GLOBALS['wgAutoloadClasses']['SFComboBoxInput'] = __DIR__ . '/includes/forminputs/SF_ComboBoxInput.php';
 $GLOBALS['wgAutoloadClasses']['SFDateInput'] = __DIR__ . '/includes/forminputs/SF_DateInput.php';
-$GLOBALS['wgAutoloadClasses']['SFDatePicker'] = __DIR__ . '/includes/forminputs/SF_DatePicker.php';
+$GLOBALS['wgAutoloadClasses']['SFDatePickerInput'] = __DIR__ . '/includes/forminputs/SF_DatePickerInput.php';
 $GLOBALS['wgAutoloadClasses']['SFDateTimeInput'] = __DIR__ . '/includes/forminputs/SF_DateTimeInput.php';
 $GLOBALS['wgAutoloadClasses']['SFYearInput'] = __DIR__ . '/includes/forminputs/SF_YearInput.php';
 $GLOBALS['wgAutoloadClasses']['SFTreeInput'] = __DIR__ . '/includes/forminputs/SF_TreeInput.php';
@@ -229,6 +229,8 @@ $GLOBALS['wgAutoloadClasses']['SFCategoriesInput'] = __DIR__ . '/includes/formin
 $GLOBALS['wgAutoloadClasses']['SFTokensInput'] = __DIR__ . '/includes/forminputs/SF_TokensInput.php';
 $GLOBALS['wgAutoloadClasses']['SFGoogleMapsInput'] = __DIR__ . '/includes/forminputs/SF_GoogleMapsInput.php';
 $GLOBALS['wgAutoloadClasses']['SFOpenLayersInput'] = __DIR__ . '/includes/forminputs/SF_OpenLayersInput.php';
+$GLOBALS['wgAutoloadClasses']['SFRegExpInput'] = $dir . '/includes/SF_RegExpInput.php';
+
 $GLOBALS['wgAutoloadClasses']['SFWikiPage'] = __DIR__ . '/includes/wikipage/SF_WikiPage.php';
 $GLOBALS['wgAutoloadClasses']['SFWikiPageTemplate'] = __DIR__ . '/includes/wikipage/SF_WikiPageTemplate.php';
 $GLOBALS['wgAutoloadClasses']['SFWikiPageTemplateParam'] = __DIR__ . '/includes/wikipage/SF_WikiPageTemplateParam.php';
@@ -346,6 +348,12 @@ $GLOBALS['wgResourceModules'] += array(
 		'scripts'      => 'libs/SF_datepicker.js',
 		'dependencies' => array(
 			'jquery.ui.datepicker',
+			'ext.semanticforms.main'
+		),
+	),
+	'ext.semanticforms.regexp' => $sfgResourceTemplate + array(
+		'scripts' => 'libs/SF_regexp.js',
+		'dependencies' => array(
 			'ext.semanticforms.main'
 		),
 	),
@@ -551,7 +559,7 @@ $GLOBALS['sfgShowTabsForAllHelperForms'] = true;
 $GLOBALS['sfgRunQueryFormAtTop'] = false;
 
 // Include default settings for form inputs
-require_once 'includes/SF_DefaultInputSettings.php';
+require_once 'includes/SF_DatePickerSettings.php';
 
 # ##
 # Global variables for Javascript

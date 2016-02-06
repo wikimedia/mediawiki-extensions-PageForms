@@ -193,12 +193,13 @@
 	"sf-select2-input-too-short": "$1 文字以上入力してください。",
 	"sf-maps-setmarker": "マーカーを設定",
 	"sf-maps-lookupcoordinates": "座標を検索",
-	"semanticformsinputs-close": "閉じる",
-	"semanticformsinputs-prev": "前へ",
-	"semanticformsinputs-next": "次へ",
-	"semanticformsinputs-today": "今日",
-	"semanticformsinputs-dateformatlong": "yy年mm月dd日",
-	"semanticformsinputs-dateformatshort": "yy/mm/dd",
-	"semanticformsinputs-datepicker-dateformat": "日付の書式の文字列です。詳細情報は[https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters オンライン説明文書]を参照してください。",
-	"semanticformsinputs-datepicker-weekstart": "週の初日の曜日 (0: 日曜日、1: 月曜日、...)"
+	"sf-datepicker-close": "閉じる",
+	"sf-datepicker-prev": "前へ",
+	"sf-datepicker-next": "次へ",
+	"sf-datepicker-today": "今日",
+	"sf-datepicker-dateformatlong": "yy年mm月dd日",
+	"sf-datepicker-dateformatshort": "yy/mm/dd",
+	"sf-datepicker-dateformat": "日付の書式の文字列です。詳細情報は[https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters オンライン説明文書]を参照してください。",
+	"sf-datepicker-weekstart": "週の初日の曜日 (0: 日曜日、1: 月曜日、...)",
+	"sf-regexp-wrongformat": "間違った形式です。"
 }

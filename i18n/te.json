@@ -47,8 +47,8 @@
 	"sf_category_hasdefaultform": "ఈ వర్గం $1 అనే ఫారాన్ని వాడుతుంది.",
 	"sf_category_desc": "ఇది $1 అనే వర్గం.",
 	"sf_blank_namespace": "ప్రధాన",
-	"semanticformsinputs-close": "మూసివేయి",
-	"semanticformsinputs-prev": "గత",
-	"semanticformsinputs-next": "తదుపరి",
-	"semanticformsinputs-today": "ఈరోజు"
+	"sf-datepicker-close": "మూసివేయి",
+	"sf-datepicker-prev": "గత",
+	"sf-datepicker-next": "తదుపరి",
+	"sf-datepicker-today": "ఈరోజు"
 }
