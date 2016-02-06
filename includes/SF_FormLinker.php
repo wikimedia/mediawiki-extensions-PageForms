@@ -323,7 +323,7 @@ class SFFormLinker {
 	 */
 	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
 		// If it's not a broken (red) link, exit.
-		if ( !in_array( 'broken', $options ) ) {
+		if ( !in_array( 'broken', $options, true ) ) {
 			return true;
 		}
 		// If the link is to a special page, exit.
