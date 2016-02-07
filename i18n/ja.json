@@ -9,10 +9,11 @@
 			"Whym",
 			"青子守歌",
 			"Rxy",
-			"Sujiniku"
+			"Sujiniku",
+			"Otokoume"
 		]
 	},
-	"semanticforms-desc": "wikiページを作成および編集するフォーム",
+	"semanticforms-desc": "ウィキのページを作成および編集するフォーム",
 	"specialpages-group-sf_group": "意味的フォーム",
 	"createproperty": "プロパティの作成",
 	"sf-createproperty-with-name": "プロパティの作成: $1",

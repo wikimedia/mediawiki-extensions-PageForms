@@ -216,6 +216,7 @@
 	"action-createclass": "skapa nya semantiska klasser",
 	"action-editrestrictedfields": "redigera begränsade formulär-fält",
 	"action-viewedittab": "visa fliken \"{{int:edit}}\" för sidor som går att redigera med formulär",
+	"tooltip-ca-formedit": "Redigera denna sida med ett formulär",
 	"sf-select2-no-matches": "Inga träffar",
 	"sf-select2-searching": "Söker...",
 	"sf-select2-input-too-short": "Ange $1 eller fler tecken",
