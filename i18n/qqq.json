@@ -179,7 +179,6 @@
 	"sf-maps-enteraddress": "Tells the user where to type a street address.",
 	"sf-maps-lookupcoordinates": "A button that gets coordinates from a street address.",
 	"sf-adminlinks-datastructure": "A header for links relating to the data structure of the wiki.",
-
 	"sf-datepicker-close": "Used as label for the \"Close\" button in the Date picker.\n{{Identical|Close}}",
 	"sf-datepicker-prev": "Used as label for the \"Previous month\" button in the Date picker.\n\nSee also:\n* {{msg-mw|Sf-datepicker-next}}\n{{Identical|Previous}}",
 	"sf-datepicker-next": "Used as label for the \"Next month\" button in the Date picker.\n\nSee also:\n* {{msg-mw|Sf-datepicker-prev}}\n{{Identical|Next}}",
