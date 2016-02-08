@@ -77,7 +77,9 @@ class SFUtils {
 	}
 
 	public static function initialize() {
-		$GLOBALS['sfgScriptPath'] = __DIR__ . '/../';
+		$GLOBALS['sfgPartialPath'] = '/extensions/SemanticForms';
+		$GLOBALS['sfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS[
+'sfgPartialPath'];
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of

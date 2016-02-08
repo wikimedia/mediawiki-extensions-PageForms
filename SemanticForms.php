@@ -229,7 +229,7 @@ $GLOBALS['wgAutoloadClasses']['SFCategoriesInput'] = __DIR__ . '/includes/formin
 $GLOBALS['wgAutoloadClasses']['SFTokensInput'] = __DIR__ . '/includes/forminputs/SF_TokensInput.php';
 $GLOBALS['wgAutoloadClasses']['SFGoogleMapsInput'] = __DIR__ . '/includes/forminputs/SF_GoogleMapsInput.php';
 $GLOBALS['wgAutoloadClasses']['SFOpenLayersInput'] = __DIR__ . '/includes/forminputs/SF_OpenLayersInput.php';
-$GLOBALS['wgAutoloadClasses']['SFRegExpInput'] = $dir . '/includes/SF_RegExpInput.php';
+$GLOBALS['wgAutoloadClasses']['SFRegExpInput'] = __DIR__ . '/includes/forminputs/SF_RegExpInput.php';
 
 $GLOBALS['wgAutoloadClasses']['SFWikiPage'] = __DIR__ . '/includes/wikipage/SF_WikiPage.php';
 $GLOBALS['wgAutoloadClasses']['SFWikiPageTemplate'] = __DIR__ . '/includes/wikipage/SF_WikiPageTemplate.php';
