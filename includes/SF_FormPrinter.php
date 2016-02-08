@@ -554,6 +554,7 @@ END;
 		// in the latter case, it may remain false until close to the end of
 		// the parsing, so we have to assume that it will become a possibility
 		$form_is_partial = false;
+		$partial_form_submitted = $wgRequest->getCheck( 'partial' );
 		$new_text = "";
 
 		// If we have existing content and we're not in an active replacement
@@ -564,7 +565,7 @@ END;
 		// minimize the html traffic and would allow us to do a concurrent
 		// update check. For now, we pass it through a hidden text field.
 
-		if ( ! $wgRequest->getCheck( 'partial' ) ) {
+		if ( ! $partial_form_submitted ) {
 			$original_page_content = $existing_page_content;
 		} else {
 			$original_page_content = null;
@@ -726,7 +727,7 @@ END;
 					// once in that page, and multiple
 					// values are allowed, repeat this
 					// section.
-					if ( $source_is_page ) {
+					if ( $source_is_page || $partial_form_submitted ) {
 						$tif->setPageRelatedInfo( $existing_page_content );
 						// Get the first instance of
 						// this template on the page
@@ -737,7 +738,7 @@ END;
 							$existing_template_text = $tif->getFullTextInPage();
 							// Now remove this template from the text being edited.
 							// If this is a partial form, establish a new insertion point.
-							if ( $existing_page_content && $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
+							if ( $existing_page_content && $partial_form_submitted ) {
 								// If something already exists, set the new insertion point
 								// to its position; otherwise just let it lie.
 								if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
@@ -814,7 +815,7 @@ END;
 							// the fields that weren't
 							// handled by the form.
 							$cur_value = $tif->getAndRemoveValueFromPageForField( $field_name );
-
+ 
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
 							// multiple template form.
@@ -1180,11 +1181,11 @@ END;
 					$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}(\r?\n?)/',
 						preg_replace( '/\}\}/m', '}�',
 							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
-						"\n{{{insertionpoint}}}",
+						"{{{insertionpoint}}}",
 						$existing_page_content );
 				// Otherwise, if it's a partial form, we have to add the new
 				// text somewhere.
-				} elseif ( $form_is_partial && $wgRequest->getCheck( 'partial' ) ) {
+				} elseif ( $partial_form_submitted ) {
 					$existing_page_content = preg_replace( '/\}\}/m', '}�',
 						preg_replace( '/\{\{/m', '�{', $template_text ) ) .
 							"{{{insertionpoint}}}" . $existing_page_content;
@@ -1262,7 +1263,7 @@ END;
 		// (a) we're processing a replacement (param 'partial' == 1)
 		// (b) we're sending out something to be replaced (param 'partial' is missing)
 		if ( $form_is_partial ) {
-			if ( !$wgRequest->getCheck( 'partial' ) ) {
+			if ( !$partial_form_submitted ) {
 				$free_text = $original_page_content;
 			} else {
 				$free_text = null;
@@ -1351,7 +1352,7 @@ END;
 		// mappings of which values should apply to which fields.
 		// If doing a replace, the page text is actually the modified
 		// original page.
-		if ( $wgRequest->getCheck( 'partial' ) ) {
+		if ( $partial_form_submitted ) {
 			$page_text = $existing_page_content;
 		}
 
