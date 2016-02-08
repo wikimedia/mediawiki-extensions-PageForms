@@ -350,6 +350,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'jquery.ui.datepicker',
 			'ext.semanticforms.main'
 		),
+		'position' => 'bottom', // MW 1.26
 	),
 	'ext.semanticforms.regexp' => $sfgResourceTemplate + array(
 		'scripts' => 'libs/SF_regexp.js',
