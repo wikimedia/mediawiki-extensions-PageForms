@@ -219,6 +219,7 @@ $GLOBALS['wgAutoloadClasses']['SFDropdownInput'] = __DIR__ . '/includes/forminpu
 $GLOBALS['wgAutoloadClasses']['SFListBoxInput'] = __DIR__ . '/includes/forminputs/SF_ListBoxInput.php';
 $GLOBALS['wgAutoloadClasses']['SFComboBoxInput'] = __DIR__ . '/includes/forminputs/SF_ComboBoxInput.php';
 $GLOBALS['wgAutoloadClasses']['SFDateInput'] = __DIR__ . '/includes/forminputs/SF_DateInput.php';
+$GLOBALS['wgAutoloadClasses']['SFDatePicker'] = __DIR__ . '/includes/forminputs/SF_DatePicker.php';
 $GLOBALS['wgAutoloadClasses']['SFDateTimeInput'] = __DIR__ . '/includes/forminputs/SF_DateTimeInput.php';
 $GLOBALS['wgAutoloadClasses']['SFYearInput'] = __DIR__ . '/includes/forminputs/SF_YearInput.php';
 $GLOBALS['wgAutoloadClasses']['SFTreeInput'] = __DIR__ . '/includes/forminputs/SF_TreeInput.php';
@@ -339,6 +340,13 @@ $GLOBALS['wgResourceModules'] += array(
 		'messages' => array(
 			'sf_forminputs_checkboxes_select_all',
 			'sf_forminputs_checkboxes_select_none',
+		),
+	),
+	'ext.semanticforms.datepicker' => $sfgResourceTemplate + array(
+		'scripts'      => 'libs/SF_datepicker.js',
+		'dependencies' => array(
+			'jquery.ui.datepicker',
+			'ext.semanticforms.main'
 		),
 	),
 	'ext.semanticforms.select2' => $sfgResourceTemplate + array(
@@ -541,6 +549,9 @@ $GLOBALS['sfgShowTabsForAllHelperForms'] = true;
 # (This is actually an undocumented variable, used by the code.)
 # ##
 $GLOBALS['sfgRunQueryFormAtTop'] = false;
+
+// Include default settings for form inputs
+require_once 'includes/SF_DefaultInputSettings.php';
 
 # ##
 # Global variables for Javascript

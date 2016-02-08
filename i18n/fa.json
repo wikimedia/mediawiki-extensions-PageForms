@@ -209,5 +209,20 @@
 	"sf-select2-searching": "در حال جستجو...",
 	"sf-maps-enteraddress": "آدرس را اینجا وارد کنید",
 	"sf-maps-lookupcoordinates": "نگاه کردن مختصات",
-	"sf-adminlinks-datastructure": "ساختار داده‌ها"
+	"sf-adminlinks-datastructure": "ساختار داده‌ها",
+	"semanticformsinputs-close": "بستن",
+	"semanticformsinputs-prev": "قبلی",
+	"semanticformsinputs-next": "بعدی",
+	"semanticformsinputs-today": "امروز",
+	"semanticformsinputs-datepicker-dateformat": "دسته فرمت تاریخ. برای اطلاعات بیشتر [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters online documentation] را مشاهده کنید.",
+	"semanticformsinputs-datepicker-weekstart": "اولین روز هفته (۰ - یکشنبه، ۱ - دوشنبه،...).",
+	"semanticformsinputs-datepicker-firstdate": "اول تاریخی که می‌تواند انتخاب شود (در فرمت ‌دی‌دی/ام‌ام/وای‌وای‌وای‌وای).",
+	"semanticformsinputs-datepicker-lastdate": "آخرین تاریخی که می‌تواند انتخاب شود (در فرمت دی‌دی/ام‌ام/وای‌وای‌وای‌وای).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "فهرست روزهایی که نمی تواند انتخاب شود (مثال آخر هفته: ۶، ۰).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "فهرست روزهایی که برجسته ظاهر می‌شود (مثال آخر هفته: ۶، ۰).",
+	"semanticformsinputs-datepicker-disabledates": "فهرست محدوده های غیرفعال شده تاریخ‌ها/تاریخ جداشده با کاما (تاریخ‌ها در فرمت وای‌وای‌وای‌وای/‌ام‌ام/دی‌دی، محدوده‌اه در فرمت وای‌وای‌وای‌وای/ام‌ام/دی‌دی-وای‌وای‌وای‌وای/ام ام/دی‌دی).",
+	"semanticformsinputs-datepicker-highlightdates": "فهرست محدوده‌های تاریخ‌ها/تاریخ جداشده با کاما که برجسته ظاهر می‌شود (تاریخ‌ها در فرمت وای‌وای‌وای‌وای/‌ام‌ام/دی‌دی، محدوده‌اه در فرمت وای‌وای‌وای‌وای/ام‌ام/دی‌دی-وای‌وای‌وای‌وای/ام ام/دی‌دی).",
+	"semanticformsinputs-datepicker-showweeknumbers": "آیا تعداد هفته باید سمت چپ هفته نشان داده شود؟",
+	"semanticformsinputs-datepicker-enableinputfield": "آیا کاربر قادر به پرکردن زمینه ورودی به طور مستقیم است یا تنها از طریق انتخاب کننده تاریخ قادر است؟",
+	"semanticformsinputs-datepicker-showresetbutton": "آیا باید دکمه تنظیم مجدد نشان داده شود؟ اگر برای ورودی مستقیم غیرفعال است،این تنها راه برای کاربر برای پاک کردن زمینه ورودی است ."
 }

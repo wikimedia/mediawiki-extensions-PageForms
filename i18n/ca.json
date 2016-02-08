@@ -226,5 +226,10 @@
 	"sf-maps-setmarker": "Defineix el marcador",
 	"sf-maps-enteraddress": "Introduïu l'adreça aquí",
 	"sf-maps-lookupcoordinates": "Consulta les coordenades",
-	"sf-adminlinks-datastructure": "Estructura de dades"
+	"sf-adminlinks-datastructure": "Estructura de dades",
+	"semanticformsinputs-close": "Tanca",
+	"semanticformsinputs-prev": "Anterior",
+	"semanticformsinputs-next": "Següent",
+	"semanticformsinputs-today": "Avui",
+	"semanticformsinputs-datepicker-weekstart": "El primer dia de la setmana (0 - diumenge, 1 - dilluns, ...)."
 }

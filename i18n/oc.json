@@ -142,5 +142,20 @@
 	"right-createclass": "Crear de classas semanticas novèlas",
 	"action-createclass": "crear de classas semanticas novèlas",
 	"action-editrestrictedfields": "Modificar los camps de formulari protegits",
-	"action-viewedittab": "veire l’onglet \"{{int:edit}}\" per las paginas modificablas via un formulari"
+	"action-viewedittab": "veire l’onglet \"{{int:edit}}\" per las paginas modificablas via un formulari",
+	"semanticformsinputs-close": "Tampar",
+	"semanticformsinputs-prev": "Precedent",
+	"semanticformsinputs-next": "Seguent",
+	"semanticformsinputs-today": "Uèi",
+	"semanticformsinputs-datepicker-dateformat": "La cadena de format de data. Vejatz la [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentacion en linha] per mai d'informacion.",
+	"semanticformsinputs-datepicker-weekstart": "Lo primièr jorn de la setmana (0 - dimenge, 1 - diluns, ...).",
+	"semanticformsinputs-datepicker-firstdate": "La primièra data que pòt èsser causida (al format aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-lastdate": "La darrièra data que pòt èsser causida (al format aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Una lista de jorns que pòdon pas èsser seleccionats (per ex. week-end: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Una lista de jorns que devon aparéisser en susbrilhança (per ex. week-end: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Una lista separada per de virgulas de plajas de data o datas desactivadas (datas al format aaaa/mm/jj, plajas al format aaaa/mm/jj-aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-highlightdates": "Una lista separada per de virgulas de plajas de data o datas desactivadas (datas al format aaaa/mm/jj, plajas al format aaaa/mm/jj-aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Los numèros de setmana devon èsser afichats a esquèrra de la setmana ?",
+	"semanticformsinputs-datepicker-enableinputfield": "L'utilizaire deu poder emplenar lo camp d'entrada dirèctament o solament per l'intermediari del selector de datas ?",
+	"semanticformsinputs-datepicker-showresetbutton": "Cal afichar un boton de reïnicializacion ? Es lo sol biais per l'utilizaire d'escafar lo camp d'entrada s'es desactivat per la picada dirècta."
 }

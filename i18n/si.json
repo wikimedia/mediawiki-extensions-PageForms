@@ -120,5 +120,12 @@
 	"right-editrestrictedfields": "සීමිත ආකෘතිපත්‍ර ක්ෂේත්‍ර සංස්කරණය කරන්න",
 	"right-createclass": "නව අර්ථ විචාර සමූහ තනන්න",
 	"action-createclass": "නව අර්ථ විචාර සමූහ තනන්න",
-	"action-editrestrictedfields": "සීමිත ආකෘතිපත්‍ර ක්ෂේත්‍ර සංස්කරණය කරන්න"
+	"action-editrestrictedfields": "සීමිත ආකෘතිපත්‍ර ක්ෂේත්‍ර සංස්කරණය කරන්න",
+	"semanticformsinputs-close": "වසන්න",
+	"semanticformsinputs-prev": "පෙර",
+	"semanticformsinputs-next": "මීළඟ",
+	"semanticformsinputs-today": "අද",
+	"semanticformsinputs-datepicker-weekstart": "සතියේ පළමු දිනය (0 - ඉරිදා, 1 - සඳුදා, ...).",
+	"semanticformsinputs-datepicker-firstdate": "(in yyyy/mm/dd ආකෘතියෙන්) පළමු දිනය තෝරාගත හැකියි.",
+	"semanticformsinputs-datepicker-lastdate": "(yyyy/mm/dd ආකෘතියෙන්) අවසන් දිනය තෝරාගත හැකියි."
 }

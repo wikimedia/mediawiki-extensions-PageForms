@@ -168,5 +168,20 @@
 	"right-createclass": "Crear nove classes semantic",
 	"action-createclass": "crear nove classes semantic",
 	"action-editrestrictedfields": "modificar le campos restringite de formularios",
-	"action-viewedittab": "vider le scheda \"{{int:edit}}\" pro paginas modificabile per formulario"
+	"action-viewedittab": "vider le scheda \"{{int:edit}}\" pro paginas modificabile per formulario",
+	"semanticformsinputs-close": "Clauder",
+	"semanticformsinputs-prev": "Precedente",
+	"semanticformsinputs-next": "Sequente",
+	"semanticformsinputs-today": "Hodie",
+	"semanticformsinputs-datepicker-dateformat": "Le specification del formato del data. Vide le [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentation in linea] pro plus information.",
+	"semanticformsinputs-datepicker-weekstart": "Le prime die del septimana (0 - dominica, 1 - lunedi, ...).",
+	"semanticformsinputs-datepicker-firstdate": "Le prime data que pote esser seligite (in formato aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-lastdate": "Le ultime data que pote esser seligite (in formato aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Un lista de dies que non pote esser seligite (p.ex. fin de septimana: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Un lista de dies que debe apparer in forma accentuate (p.ex. fin de septimana: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Un lista separate per commas de datas disactivate, o intervallos de datas disactivate (datas in formato aaaa/mm/dd, intervallos in formato aaaa/mm/dd-aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-highlightdates": "Un lista separate per commas de datas o intervallos de datas que debe apparer in forma accentuate (datas in formato aaaa/mm/dd, intervallos in formato aaaa/mm/dd-aaaa/mm/dd).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Monstrar le numeros de septimana a sinistra del septimana?",
+	"semanticformsinputs-datepicker-enableinputfield": "Debe le usator poter plenar le campo de entrata directemente o solmente via le selector de data?",
+	"semanticformsinputs-datepicker-showresetbutton": "Monstrar un button de reinitialisation? Isto es le sol maniera in que le usator pote rader le campo de entrata si illo es disactivate pro entrata directe."
 }

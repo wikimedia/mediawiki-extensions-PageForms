@@ -125,5 +125,9 @@
 	"right-viewedittab": "a „{{int:edit}}” fül megjelenítése űrlappal szerkeszthető lapokon",
 	"right-editrestrictedfields": "korlátozott űrlap-mezők szerkesztése",
 	"sf-select2-no-matches": "Nincs találat",
-	"sf-select2-searching": "Keresés..."
+	"sf-select2-searching": "Keresés...",
+	"semanticformsinputs-close": "Bezárás",
+	"semanticformsinputs-prev": "Előző",
+	"semanticformsinputs-next": "Következő",
+	"semanticformsinputs-today": "Ma"
 }

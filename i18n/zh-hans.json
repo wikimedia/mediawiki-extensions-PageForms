@@ -242,5 +242,20 @@
 	"sf-maps-setmarker": "设置书签",
 	"sf-maps-enteraddress": "在此输入地址",
 	"sf-maps-lookupcoordinates": "查找坐标",
-	"sf-adminlinks-datastructure": "数据结构"
+	"sf-adminlinks-datastructure": "数据结构",
+	"semanticformsinputs-close": "关闭",
+	"semanticformsinputs-prev": "向前",
+	"semanticformsinputs-next": "下一个",
+	"semanticformsinputs-today": "今天",
+	"semanticformsinputs-datepicker-dateformat": "日期格式字符串。详情请参见[https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters 在线文档]。",
+	"semanticformsinputs-datepicker-weekstart": "一周的第一天（0-星期日，1-星期一 ……）。",
+	"semanticformsinputs-datepicker-firstdate": "可选择的第一个日期（采用yyyy/mm/dd格式）。",
+	"semanticformsinputs-datepicker-lastdate": "可选择的最后日期（采用yyyy/mm/dd格式）。",
+	"semanticformsinputs-datepicker-disabledaysofweek": "不可选择的日子列表（比如，周末：6、 0）。",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "应当高亮显示的日子列表（比如，周末：6、 0）。",
+	"semanticformsinputs-datepicker-disabledates": "已禁用的逗号分隔型日期列表/日期范围（日期采用yyyy/mm/dd格式，日期范围采用yyyy/mm/dd-yyyy/mm/dd格式）。",
+	"semanticformsinputs-datepicker-highlightdates": "应当高亮显示的逗号分隔型日期列表/日期范围（日期采用yyyy/mm/dd格式，日期范围采用yyyy/mm/dd-yyyy/mm/dd格式）。",
+	"semanticformsinputs-datepicker-showweeknumbers": "周数应当显示在相应周的左侧吗？",
+	"semanticformsinputs-datepicker-enableinputfield": "用户究竟应当能够直接填写输入文本框，还是只能借助于日期选取器？",
+	"semanticformsinputs-datepicker-showresetbutton": "是否应当显示一个重置按钮？如果禁止直接输入，这将是用户删除输入文本框的唯一方法。"
 }

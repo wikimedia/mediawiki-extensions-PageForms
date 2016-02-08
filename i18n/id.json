@@ -149,5 +149,9 @@
 	"sf_category_desc": "Ini adalah kategori $1.",
 	"sf_blank_namespace": "Utama",
 	"right-viewedittab": "Lihat tab \"Sunting\" untuk menyunting halaman dengan formulir",
-	"right-editrestrictedfields": "Sunting kolom formulir terbatas"
+	"right-editrestrictedfields": "Sunting kolom formulir terbatas",
+	"semanticformsinputs-close": "Penutup",
+	"semanticformsinputs-prev": "Sebelumnya",
+	"semanticformsinputs-next": "Selanjutnya",
+	"semanticformsinputs-today": "Hari ini"
 }

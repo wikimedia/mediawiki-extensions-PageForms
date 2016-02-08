@@ -33,5 +33,9 @@
 	"right-viewedittab": "Melihat tab \"{{int:edit}}\" untuk laman yang boleh disunting dengan borang",
 	"right-editrestrictedfields": "Menyunting ruangan borang yang terhad",
 	"right-createclass": "Membuat kelas semantik baru",
-	"action-createclass": "buat kelas semantik baru"
+	"action-createclass": "buat kelas semantik baru",
+	"semanticformsinputs-prev": "Sebelumnya",
+	"semanticformsinputs-next": "Berikutnya",
+	"semanticformsinputs-datepicker-dateformat": "Rentetan format tarikh. Lihat [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters pendokumenan dalam talian] untuk keterangan lanjut.",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Senarai hari-hari yang tidak boleh dipilih (cth. hujung minggu: 6, 0)."
 }

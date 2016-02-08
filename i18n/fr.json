@@ -260,5 +260,21 @@
 	"sf-maps-setmarker": "Positionner un marqueur",
 	"sf-maps-enteraddress": "Entrer l’adresse ici",
 	"sf-maps-lookupcoordinates": "Chercher les coordonnées",
-	"sf-adminlinks-datastructure": "Structure des données"
+	"sf-adminlinks-datastructure": "Structure des données",
+	"semanticformsinputs-close": "Fermer",
+	"semanticformsinputs-prev": "Précédent",
+	"semanticformsinputs-next": "Suivant",
+	"semanticformsinputs-today": "Aujourd'hui",
+	"semanticformsinputs-dateformatshort": "dd / mm / yy",
+	"semanticformsinputs-datepicker-dateformat": "La chaîne de format de date. Voyez la [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentation en ligne] pour plus d'information.",
+	"semanticformsinputs-datepicker-weekstart": "Le premier jour de la semaine (0 - dimanche, 1 - lundi, ...).",
+	"semanticformsinputs-datepicker-firstdate": "La première date qui peut être choisie (au format aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-lastdate": "La dernière date qui peut être choisie (au format aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Une liste de jours qui ne peuvent pas être sélectionnés (par ex. week-end: 6, 0).",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "Une liste de jours qui doivent apparaître en surbrillance (par ex. week-end: 6, 0).",
+	"semanticformsinputs-datepicker-disabledates": "Une liste séparée par des virgules de plages de date ou dates désactivées (dates au format aaaa/mm/jj, plages au format aaaa/mm/jj-aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-highlightdates": "Une liste séparée par des virgules de plages de dates ou dates qui doivent apparaître en surbrillance (dates au format aaaa/mm/jj, plages au format aaaa/mm/jj-aaaa/mm/jj).",
+	"semanticformsinputs-datepicker-showweeknumbers": "Les numéros de semaine doivent-ils être affichés à gauche de la semaine ?",
+	"semanticformsinputs-datepicker-enableinputfield": "L'utilisateur doit-il pouvoir remplir le champ d'entrée directement ou seulement par l'intermédiaire du sélecteur de dates?",
+	"semanticformsinputs-datepicker-showresetbutton": "Faut-il afficher un bouton de réinitialisation? C'est la seule manière pour l'utilisateur d'effacer le champ d'entrée s'il est désactivé pour la saisie directe."
 }

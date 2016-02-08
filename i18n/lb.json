@@ -132,5 +132,13 @@
 	"sf-select2-input-too-short": "Gitt w.e.g. $1 oder méi Zeechen an",
 	"sf-select2-selection-too-big": "An dësem Feld kënnen net méi wéi {{PLURAL:$1|ee Wäert|$1 Wäerter}} sinn.",
 	"sf-maps-lookupcoordinates": "Koordinaten nokucken",
-	"sf-adminlinks-datastructure": "Datestruktur"
+	"sf-adminlinks-datastructure": "Datestruktur",
+	"semanticformsinputs-close": "Zoumaachen",
+	"semanticformsinputs-prev": "Vireg",
+	"semanticformsinputs-next": "Nächst",
+	"semanticformsinputs-today": "Haut",
+	"semanticformsinputs-datepicker-weekstart": "Den éischten Dag vun der Woch (0 - Sonndeg, 1 - Méindeg, ...).",
+	"semanticformsinputs-datepicker-firstdate": "Den éischten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
+	"semanticformsinputs-datepicker-lastdate": "De leschten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
+	"semanticformsinputs-datepicker-disabledaysofweek": "Eng Lëscht vun Deeg déi net erausgesicht kënne ginn (z. Bsp. Weekend:6, 0)."
 }

@@ -64,5 +64,9 @@
 	"sf_form_docu": "Това е формулярът '$1\".\nЗа добавяне на страница с този формуляр, необходимо е да се въведе името на страницата по-долу;\nако страница с това име вече съществува, ще бъде отворен формуляр за редактиране на страницата.",
 	"sf_form_freetextlabel": "Свободен текст",
 	"sf_category_hasdefaultform": "Тази категория използва формуляра $1.",
-	"sf_category_desc": "Това е категорията $1."
+	"sf_category_desc": "Това е категорията $1.",
+	"semanticformsinputs-close": "Затваряне",
+	"semanticformsinputs-prev": "Предишна",
+	"semanticformsinputs-next": "Следваща",
+	"semanticformsinputs-today": "Днес"
 }

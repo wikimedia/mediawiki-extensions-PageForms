@@ -111,6 +111,7 @@
 		"SFListBoxInput": "includes/forminputs/SF_ListBoxInput.php",
 		"SFComboBoxInput": "includes/forminputs/SF_ComboBoxInput.php",
 		"SFDateInput": "includes/forminputs/SF_DateInput.php",
+		"SFDatePicker": "includes/forminputs/SF_DatePicker.php",
 		"SFDateTimeInput": "includes/forminputs/SF_DateTimeInput.php",
 		"SFYearInput": "includes/forminputs/SF_YearInput.php",
 		"SFTreeInput": "includes/forminputs/SF_TreeInput.php",
@@ -239,6 +240,15 @@
 			"messages": [
 				"sf_forminputs_checkboxes_select_all",
 				"sf_forminputs_checkboxes_select_none"
+			]
+		},
+		"ext.semanticforms.datepicker": {
+			"scripts": [
+				"libs/SF_datepicker.js"
+			],
+			"dependencies": [
+				"jquery.ui.datepicker",
+				"ext.semanticforms.main"
 			]
 		},
 		"ext.semanticforms.select2": {
@@ -375,7 +385,22 @@
 		"sfgFieldProperties": [],
 		"sfgCargoFields": [],
 		"sfgDependentFields": [],
-		"sfgCheckboxesSelectAllMinimum": 10
+		"sfgCheckboxesSelectAllMinimum": 10,
+
+		"sfgDatePickerSettings": {
+			"@note": "See SF_DefaultInputSettings.php for allowed values",
+			"FirstDate": null,
+			"LastDate": null,
+			"DateFormat": "SHORT",
+			"WeekStart": null,
+			"ShowWeekNumbers": false,
+			"DisableInputField": false,
+			"ShowResetButton": false,
+			"DisabledDaysOfWeek": null,
+			"HighlightedDaysOfWeek": null,
+			"DisabledDates": null,
+			"HighlightedDates": null
+		}
 	},
 	"manifest_version": 1
 }

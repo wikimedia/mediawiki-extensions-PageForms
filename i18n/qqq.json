@@ -178,5 +178,24 @@
 	"sf-maps-setmarker": "A button to move a map marker to a certain set of coordinates.",
 	"sf-maps-enteraddress": "Tells the user where to type a street address.",
 	"sf-maps-lookupcoordinates": "A button that gets coordinates from a street address.",
-	"sf-adminlinks-datastructure": "A header for links relating to the data structure of the wiki."
+	"sf-adminlinks-datastructure": "A header for links relating to the data structure of the wiki.",
+
+	"semanticformsinputs-close": "Used as label for the \"Close\" button in the Date picker.\n{{Identical|Close}}",
+	"semanticformsinputs-prev": "Used as label for the \"Previous month\" button in the Date picker.\n\nSee also:\n* {{msg-mw|Semanticformsinputs-next}}\n{{Identical|Previous}}",
+	"semanticformsinputs-next": "Used as label for the \"Next month\" button in the Date picker.\n\nSee also:\n* {{msg-mw|Semanticformsinputs-prev}}\n{{Identical|Next}}",
+	"semanticformsinputs-today": "Used as label for the \"Today\" button in the Date picker.\n{{Identical|Today}}",
+	"semanticformsinputs-dateformatlong": "{{Optional}}\n{{DataFormatSpecifiers/en}}",
+	"semanticformsinputs-dateformatshort": "{{Optional}}\n{{DataFormatSpecifiers/en}}",
+	"semanticformsinputs-firstdayofweek": "{{optional}}\n0 - sunday, 1 - monday...",
+	"semanticformsinputs-datepicker-dateformat": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-weekstart": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-firstdate": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-lastdate": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-disabledaysofweek": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-highlightdaysofweek": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-disabledates": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-highlightdates": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-showweeknumbers": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-enableinputfield": "This is a help text for the [[Special:CreateForm]] page.",
+	"semanticformsinputs-datepicker-showresetbutton": "This is a help text for the [[Special:CreateForm]] page."
 }

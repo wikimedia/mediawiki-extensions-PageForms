@@ -131,5 +131,9 @@
 	"right-viewedittab": "Gwelet an ivinell \"kemmañ\" evit ar pajennoù kemmus dre ur furmskrid",
 	"right-editrestrictedfields": "Aozañ maeziennoù strishaet ar furmskridoù",
 	"sf-select2-searching": "O klask...",
-	"sf-select2-input-too-short": "Merkit $1 arouezenn pe vuioc'h."
+	"sf-select2-input-too-short": "Merkit $1 arouezenn pe vuioc'h.",
+	"semanticformsinputs-close": "Serriñ",
+	"semanticformsinputs-prev": "Kent",
+	"semanticformsinputs-next": "War-lerc'h",
+	"semanticformsinputs-today": "Hiziv"
 }

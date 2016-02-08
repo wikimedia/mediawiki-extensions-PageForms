@@ -46,5 +46,9 @@
 	"sf_runquery_additionalquery": "অতিরিক্ত কোয়েরি",
 	"sf_deletionlog": "অপসারণ লগ",
 	"sf_form_freetextlabel": "মুক্ত লেখা",
-	"sf_blank_namespace": "প্রধান"
+	"sf_blank_namespace": "প্রধান",
+	"semanticformsinputs-close": "বন্ধ",
+	"semanticformsinputs-prev": "পূর্ববর্তী",
+	"semanticformsinputs-next": "পরবর্তী",
+	"semanticformsinputs-today": "আজ"
 }

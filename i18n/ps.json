@@ -41,5 +41,9 @@
 	"sf_form_freetextlabel": "خپلواکه متن",
 	"sf_category_desc": "همدا د $1 وېشنيزه ده.",
 	"sf_blank_namespace": "آرنی",
-	"sf-adminlinks-datastructure": "اومتوک جوړښت"
+	"sf-adminlinks-datastructure": "اومتوک جوړښت",
+	"semanticformsinputs-close": "تړل",
+	"semanticformsinputs-prev": "پخوانی",
+	"semanticformsinputs-next": "راتلونکی",
+	"semanticformsinputs-today": "نن"
 }
