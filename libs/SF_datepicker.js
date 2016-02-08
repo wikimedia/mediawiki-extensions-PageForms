@@ -5,6 +5,8 @@
  *
  */
 
+/*jshint -W069 */
+
 window.SF_DP_init = function ( input_id, params ) {
 
 	var inputShow = jQuery( '#' + input_id );
@@ -233,8 +235,8 @@ function SF_DP_checkDate( input, date ) {
 }
 
 jQuery( function () {
-	mw.loader.using( 'jquery.ui.datepicker', function () {
-		jQuery.datepicker.regional[ 'wiki' ] = mw.config.get( 'ext.sf.datepicker.regional' );
+	mediaWiki.loader.using( 'jquery.ui.datepicker', function () {
+		jQuery.datepicker.regional[ 'wiki' ] = mediaWiki.config.get( 'ext.sf.datepicker.regional' );
 		jQuery.datepicker.setDefaults( jQuery.datepicker.regional[ 'wiki' ] );
 	} );
 } );
