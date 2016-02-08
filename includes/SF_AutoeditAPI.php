@@ -928,9 +928,14 @@ class SFAutoeditAPI extends ApiBase {
 			$wgRequest = new FauxRequest( $this->mOptions, true );
 		}
 
-		// get wikitext for submitted data and form
-		list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-			$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+		// Get wikitext for submitted data and form - call formHTML(),
+		// if we haven't called it already.
+		if ( $preloadContent == '' ) {
+			list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+		} else {
+			$generatedFormName = $form_page_title;
+		}
 
 		// Restore original request.
 		$wgRequest = $oldRequest;
