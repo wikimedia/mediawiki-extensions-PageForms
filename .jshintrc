@@ -1,14 +1,4 @@
 {
-	"predef": [
-		"mediaWiki",
-		"jQuery",
-		"semanticforms",
-		"mw",
-		"$",
-		"sf",
-		"ext"
-	],
-
 	"bitwise": true,
 	"camelcase": false,
 	"curly": true,
@@ -32,10 +22,20 @@
 	"multistr": true,
 
 	"browser": true,
+	"jquery": true,
 
 	"nomen": false,
 	"onevar": false,
 
 	"scripturl": false,
-	"supernew": false
+	"supernew": false,
+
+	"globals": {
+		"mediaWiki": false,
+		"semanticforms": false,
+		"sf": false,
+		"ext": false,
+		"google": true,
+		"OpenLayers": true
+	}
 }

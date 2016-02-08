@@ -14,8 +14,8 @@
 	"ExtensionFunctions": [
 		"SFUtils::initialize"
 	],
-	"requires": {
-		"MediaWiki": ">= 1.26.0"
+	"require": {
+		"MediaWiki": ">= 1.27.0"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -279,11 +279,6 @@
 				"sf-select2-searching",
 				"sf-select2-input-too-short",
 				"sf-select2-selection-too-big"
-			]
-		},
-		"ext.semanticforms.maps": {
-			"scripts": [
-				"libs/SF_maps.js"
 			]
 		},
 		"ext.semanticforms": {

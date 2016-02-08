@@ -1,8 +1,8 @@
 var rowNum = mediaWiki.config.get( '$numStartingRows');
 function createClassAddRow() {
 	rowNum++;
-	newRow = jQuery('#starterRow').clone().css('display', '');
-	newHTML = newRow.html().replace(/starter/g, rowNum);
+	var newRow = jQuery('#starterRow').clone().css('display', '');
+	var newHTML = newRow.html().replace(/starter/g, rowNum);
 	newRow.html(newHTML);
 	jQuery('#mainTable').append(newRow);
 }

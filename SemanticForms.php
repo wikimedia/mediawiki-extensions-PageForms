@@ -41,9 +41,9 @@
 // In some versions of MW 1.25, there's a bug in which global variables
 // set in LocalSettings.php do not override the settings in
 // extension.json. For simplicity's sake, don't load extensions unless we're
-// at version 1.26 or higher.
+// at version 1.27 or higher.
 //if ( function_exists( 'wfLoadExtension' ) ) {
-if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) ) {
+if ( version_compare( $GLOBALS['wgVersion'], '1.27c', '>' ) ) {
 	if ( function_exists( 'wfLoadExtension' ) ) {
 		wfLoadExtension( 'SemanticForms' );
 		// Keep i18n globals so mergeMessageFileList.php doesn't break
@@ -379,9 +379,6 @@ $GLOBALS['wgResourceModules'] += array(
 			'sf-select2-input-too-short',
 			'sf-select2-selection-too-big',
 		),
-	),
-	'ext.semanticforms.maps' => $sfgResourceTemplate + array(
-		'scripts' => 'libs/SF_maps.js',
 	),
 	'ext.semanticforms' => $sfgResourceTemplate + array(
 		'scripts' => array(

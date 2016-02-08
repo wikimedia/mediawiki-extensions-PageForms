@@ -1,5 +1,5 @@
 jQuery.fn.displayInputParams = function () {
-	inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
+	var inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
 	jQuery.ajax( {
 		url: mediaWiki.config.get( 'wgCreateFormUrl' ),
 		context: document.body,
@@ -14,7 +14,7 @@ jQuery(document).ready( function () {
 		jQuery( this ).displayInputParams();
 	} );
 	jQuery( '#addsection' ).click( function( event ) {
-		if( jQuery( '#sectionname' ).val() == '' ) {
+		if( jQuery( '#sectionname' ).val() === '' ) {
 			event.preventDefault();
 			jQuery( '#section_error' ).remove();
 			jQuery( '<div/>' ).append( '<span class="error" id="section_error">' + mediaWiki.msg( 'sf_blank_error' ) + '</span>' ).appendTo( '#sectionerror' );
@@ -23,5 +23,5 @@ jQuery(document).ready( function () {
 } );
 
 jQuery( "input,select" ).keypress( function ( event ) {
-	return event.keyCode != 13;
+	return event.keyCode !== 13;
 } );

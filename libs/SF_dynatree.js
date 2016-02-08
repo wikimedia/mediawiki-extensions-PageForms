@@ -40,10 +40,10 @@
 			selectMode: selectMode,
 			onClick: function (dtNode, event) {
 				var targetType = dtNode.getEventTargetType(event);
-				if ( targetType == "expander" ) {
+				if ( targetType === "expander" ) {
 					dtNode.toggleExpand();
-				} else if ( targetType == "checkbox" ||
-					   targetType == "title" ) {
+				} else if ( targetType === "checkbox" ||
+					   targetType === "title" ) {
 					dtNode.toggleSelect();
 				}
 
@@ -77,4 +77,4 @@
 
 	};
 
-} )( jQuery, mediaWiki, sf );
+}( jQuery, mediaWiki, sf ) );
