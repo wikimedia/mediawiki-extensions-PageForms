@@ -37,6 +37,6 @@
 	"sf_autoedit_redlinkexists": "$1 עקזיסטירט שוין.",
 	"sf_bad_date_error": "דארף זײַן א גילטיקע דאַטע",
 	"sf_blank_namespace": "הויפט",
-	"semanticformsinputs-close": "שליסן",
-	"semanticformsinputs-today": "הײַנט"
+	"sf-datepicker-close": "שליסן",
+	"sf-datepicker-today": "הײַנט"
 }

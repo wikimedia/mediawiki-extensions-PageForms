@@ -1,19 +1,19 @@
 <?php
 
 /**
- * File holding the SFDatePicker class
+ * File holding the SFDatePickerInput class
  *
  * @author Stephan Gambke
  * @file
- * @ingroup SemanticForms
+ * @ingroup SF
  */
 
 /**
- * The SFDatePicker class.
+ * The SFDatePickerInput class.
  *
- * @ingroup SemanticForms
+ * @ingroup SF
  */
-class SFDatePicker extends SFFormInput {
+class SFDatePickerInput extends SFFormInput {
 
 	/**
 	 * Constructor.
@@ -82,10 +82,10 @@ class SFDatePicker extends SFFormInput {
 			$hasRun = true;
 
 			$regional = array(
-					'closeText' => wfMessage( 'semanticformsinputs-close' )->text(),
-					'prevText'=> wfMessage( 'semanticformsinputs-prev' )->text(),
-					'nextText'=> wfMessage( 'semanticformsinputs-next' )->text(),
-					'currentText'=> wfMessage( 'semanticformsinputs-today' )->text(),
+					'closeText' => wfMessage( 'sf-datepicker-close' )->text(),
+					'prevText'=> wfMessage( 'sf-datepicker-prev' )->text(),
+					'nextText'=> wfMessage( 'sf-datepicker-next' )->text(),
+					'currentText'=> wfMessage( 'sf-datepicker-today' )->text(),
 					'monthNames' => array(
 							wfMessage( 'january' )->text(),
 							wfMessage( 'february' )->text(),
@@ -142,8 +142,8 @@ class SFDatePicker extends SFFormInput {
 							$wgLang->firstChar( wfMessage( 'sat' )->text() ),
 						),
 					'weekHeader' => '',
-					'dateFormat' => wfMessage( 'semanticformsinputs-dateformatshort' )->text(),
-					'firstDay' => wfMessage( 'semanticformsinputs-firstdayofweek' )->text(),
+					'dateFormat' => wfMessage( 'sf-datepicker-dateformatshort' )->text(),
+					'firstDay' => wfMessage( 'sf-datepicker-firstdayofweek' )->text(),
 					'isRTL'=> $wgLang->isRTL(),
 					'showMonthAfterYear' => false,
 					'yearSuffix' => '',
@@ -211,9 +211,9 @@ class SFDatePicker extends SFFormInput {
 			if ( array_key_exists( 'date format', $this->mOtherArgs ) ) {
 
 				if ( $this->mOtherArgs['date format'] == 'SHORT' ) {
-					$jsattribs['dateFormat'] = wfMessage( 'semanticformsinputs-dateformatshort' )->text();
+					$jsattribs['dateFormat'] = wfMessage( 'sf-datepicker-dateformatshort' )->text();
 				} elseif ( $this->mOtherArgs['date format'] == 'LONG' ) {
-					$jsattribs['dateFormat'] = wfMessage( 'semanticformsinputs-dateformatlong' )->text();
+					$jsattribs['dateFormat'] = wfMessage( 'sf-datepicker-dateformatlong' )->text();
 				} else {
 					$jsattribs['dateFormat'] = $this->mOtherArgs['date format'];
 				}
@@ -221,9 +221,9 @@ class SFDatePicker extends SFFormInput {
 			} elseif ( $sfgDatePickerSettings["DateFormat"] ) {
 
 				if ( $sfgDatePickerSettings["DateFormat"] == 'SHORT' ) {
-					$jsattribs['dateFormat'] = wfmessage( 'semanticformsinputs-dateformatshort' )->text();
+					$jsattribs['dateFormat'] = wfmessage( 'sf-datepicker-dateformatshort' )->text();
 				} elseif ( $sfgDatePickerSettings["DateFormat"] == 'LONG' ) {
-					$jsattribs['dateFormat'] = wfMessage( 'semanticformsinputs-dateformatlong' )->text();
+					$jsattribs['dateFormat'] = wfMessage( 'sf-datepicker-dateformatlong' )->text();
 				} else {
 					$jsattribs['dateFormat'] = $sfgDatePickerSettings["DateFormat"];
 				}
@@ -399,7 +399,7 @@ class SFDatePicker extends SFFormInput {
 			} elseif ( $sfgDatePickerSettings["WeekStart"] != null ) {
 				$jsattribs['firstDay'] = $sfgDatePickerSettings["WeekStart"];
 			} else {
-				$jsattribs['firstDay'] = wfMessage( 'semanticformsinputs-firstdayofweek' )->text();
+				$jsattribs['firstDay'] = wfMessage( 'sf-datepicker-firstdayofweek' )->text();
 			}
 
 			// set show week number
@@ -617,57 +617,57 @@ class SFDatePicker extends SFFormInput {
 		$params['date format'] = array(
 			'name' => 'date format',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-dateformat' )->text()
+			'description' => wfMessage( 'sf-datepicker-dateformat' )->text()
 		);
 		$params['week start'] = array(
 			'name' => 'week start',
 			'type' => 'int',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-weekstart' )->text()
+			'description' => wfMessage( 'sf-datepicker-weekstart' )->text()
 		);
 		$params['first date'] = array(
 			'name' => 'first date',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-firstdate' )->text()
+			'description' => wfMessage( 'sf-datepicker-firstdate' )->text()
 		);
 		$params['last date'] = array(
 			'name' => 'last date',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-lastdate' )->text()
+			'description' => wfMessage( 'sf-datepicker-lastdate' )->text()
 		);
 		$params['disable days of week'] = array(
 			'name' => 'disable days of week',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-disabledaysofweek' )->text()
+			'description' => wfMessage( 'sf-datepicker-disabledaysofweek' )->text()
 		);
 		$params['highlight days of week'] = array(
 			'name' => 'highlight days of week',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-highlightdaysofweek' )->text()
+			'description' => wfMessage( 'sf-datepicker-highlightdaysofweek' )->text()
 		);
 		$params['disable dates'] = array(
 			'name' => 'disable dates',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-disabledates' )->text()
+			'description' => wfMessage( 'sf-datepicker-disabledates' )->text()
 		);
 		$params['highlight days of week'] = array(
 			'name' => 'highlight days of week',
 			'type' => 'string',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-highlightdates' )->text()
+			'description' => wfMessage( 'sf-datepicker-highlightdates' )->text()
 		);
 		$params[$sfgDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers'] = array(
 			'name' => $sfgDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers',
 			'type' => 'boolean',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-showweeknumbers' )->text()
+			'description' => wfMessage( 'sf-datepicker-showweeknumbers' )->text()
 		);
 		$params[$sfgDatePickerSettings["DisableInputField"]?'enable input field':'disable input field'] = array(
 			'name' => $sfgDatePickerSettings["DisableInputField"]?'enable input field':'disable input field',
 			'type' => 'boolean',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-enableinputfield' )->text()
+			'description' => wfMessage( 'sf-datepicker-enableinputfield' )->text()
 		);
 		$params[$sfgDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button'] = array(
 			'name' => $sfgDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button',
 			'type' => 'boolean',
-			'description' => wfMessage( 'semanticformsinputs-datepicker-showresetbutton' )->text()
+			'description' => wfMessage( 'sf-datepicker-showresetbutton' )->text()
 		);
 		return $params;
 	}

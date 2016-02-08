@@ -96,7 +96,7 @@
 	"sf-select2-searching": "Лахар…",
 	"sf-select2-input-too-short": "Дехар до, язъе $1 я дукха символаш",
 	"sf-select2-selection-too-big": "ХӀокху меттигехь $1 дукъа маьӀнаш хилийла дац.",
-	"semanticformsinputs-close": "ДӀачӀагӀа",
-	"semanticformsinputs-prev": "Хьалха йоьдург",
-	"semanticformsinputs-next": "ТӀаьхьа йогӀург"
+	"sf-datepicker-close": "ДӀачӀагӀа",
+	"sf-datepicker-prev": "Хьалха йоьдург",
+	"sf-datepicker-next": "ТӀаьхьа йогӀург"
 }

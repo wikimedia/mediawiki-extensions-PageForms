@@ -65,8 +65,9 @@
 	"sf_form_freetextlabel": "Свободен текст",
 	"sf_category_hasdefaultform": "Тази категория използва формуляра $1.",
 	"sf_category_desc": "Това е категорията $1.",
-	"semanticformsinputs-close": "Затваряне",
-	"semanticformsinputs-prev": "Предишна",
-	"semanticformsinputs-next": "Следваща",
-	"semanticformsinputs-today": "Днес"
+	"sf-datepicker-close": "Затваряне",
+	"sf-datepicker-prev": "Предишна",
+	"sf-datepicker-next": "Следваща",
+	"sf-datepicker-today": "Днес",
+	"sf-regexp-wrongformat": "Грешен формат."
 }

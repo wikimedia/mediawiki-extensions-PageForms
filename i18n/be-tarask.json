@@ -157,8 +157,9 @@
 	"right-viewedittab": "Прагляд закладкі «{{int:edit}}» для старонак, якія можна рэдагаваць праз форму",
 	"right-editrestrictedfields": "рэдагаваньне абмежаваных палёў форм",
 	"right-createclass": "стварэньне новых сэмантычных клясаў",
-	"semanticformsinputs-close": "Закрыць",
-	"semanticformsinputs-prev": "Папярэдняе",
-	"semanticformsinputs-next": "Наступнае",
-	"semanticformsinputs-today": "Сёньня"
+	"sf-datepicker-close": "Закрыць",
+	"sf-datepicker-prev": "Папярэдняе",
+	"sf-datepicker-next": "Наступнае",
+	"sf-datepicker-today": "Сёньня",
+	"sf-regexp-wrongformat": "Няслушны фармат."
 }

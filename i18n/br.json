@@ -132,8 +132,9 @@
 	"right-editrestrictedfields": "Aozañ maeziennoù strishaet ar furmskridoù",
 	"sf-select2-searching": "O klask...",
 	"sf-select2-input-too-short": "Merkit $1 arouezenn pe vuioc'h.",
-	"semanticformsinputs-close": "Serriñ",
-	"semanticformsinputs-prev": "Kent",
-	"semanticformsinputs-next": "War-lerc'h",
-	"semanticformsinputs-today": "Hiziv"
+	"sf-datepicker-close": "Serriñ",
+	"sf-datepicker-prev": "Kent",
+	"sf-datepicker-next": "War-lerc'h",
+	"sf-datepicker-today": "Hiziv",
+	"sf-regexp-wrongformat": "Furmad fall."
 }

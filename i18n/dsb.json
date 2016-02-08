@@ -174,8 +174,9 @@
 	"right-editrestrictedfields": "Wobgranicowane formularne póla wobźěłaś",
 	"right-createclass": "Nowe semantiske klase napóraś",
 	"action-createclass": "nowe semantiske klase napóraś",
-	"semanticformsinputs-close": "Zacyniś",
-	"semanticformsinputs-prev": "Pjerwjejšny",
-	"semanticformsinputs-next": "Pśiducy",
-	"semanticformsinputs-today": "Źinsa"
+	"sf-datepicker-close": "Zacyniś",
+	"sf-datepicker-prev": "Pjerwjejšny",
+	"sf-datepicker-next": "Pśiducy",
+	"sf-datepicker-today": "Źinsa",
+	"sf-regexp-wrongformat": "Wopacny format"
 }

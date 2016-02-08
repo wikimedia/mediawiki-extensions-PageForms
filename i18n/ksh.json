@@ -128,8 +128,9 @@
 	"right-viewedittab": "„{{int:edit}}“-Lengk för Sigge, die mer övver Fommulaare ändere kann",
 	"right-editrestrictedfields": "Beschrängk zohjänglijje Felder en Fommulaare ändere",
 	"sf-adminlinks-datastructure": "Dahteschtruktuhr",
-	"semanticformsinputs-close": "Zohmaache",
-	"semanticformsinputs-prev": "Vörijje",
-	"semanticformsinputs-next": "Nächste",
-	"semanticformsinputs-today": "Hück"
+	"sf-datepicker-close": "Zohmaache",
+	"sf-datepicker-prev": "Vörijje",
+	"sf-datepicker-next": "Nächste",
+	"sf-datepicker-today": "Hück",
+	"sf-regexp-wrongformat": "Dat Fommaat es verkiehrt"
 }

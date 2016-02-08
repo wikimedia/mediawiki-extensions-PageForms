@@ -127,5 +127,5 @@
 	"sf_blank_namespace": "رئيسي",
 	"right-viewedittab": "أظهر لسان \"{{int:edit}}\" للصفحات التي يمكن تعديلها باستخدام نموذج.",
 	"right-editrestrictedfields": "حرّر حقول النموذج المقيّدة",
-	"semanticformsinputs-next": "التالي"
+	"sf-datepicker-next": "التالي"
 }

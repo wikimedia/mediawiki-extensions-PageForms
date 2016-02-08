@@ -116,8 +116,9 @@
 	"sf_blank_namespace": "Chính",
 	"right-viewedittab": "Xem thẻ “{{int:edit}}” tại các trang có thể sửa đổi dùng biểu mẫu",
 	"right-editrestrictedfields": "Sửa đổi các trường biểu mẫu hạn chế",
-	"semanticformsinputs-close": "Đóng",
-	"semanticformsinputs-prev": "Trước",
-	"semanticformsinputs-next": "Sau",
-	"semanticformsinputs-today": "Hôm nay"
+	"sf-datepicker-close": "Đóng",
+	"sf-datepicker-prev": "Trước",
+	"sf-datepicker-next": "Sau",
+	"sf-datepicker-today": "Hôm nay",
+	"sf-regexp-wrongformat": "Định dạng sai"
 }

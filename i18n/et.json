@@ -71,8 +71,8 @@
 	"sf_form_freetextlabel": "Vaba tekst",
 	"sf_category_desc": "See on $1 kategooria.",
 	"sf_blank_namespace": "Põhinimeruum",
-	"semanticformsinputs-close": "Sule",
-	"semanticformsinputs-prev": "Eelmine",
-	"semanticformsinputs-next": "Järgmine",
-	"semanticformsinputs-today": "Täna"
+	"sf-datepicker-close": "Sule",
+	"sf-datepicker-prev": "Eelmine",
+	"sf-datepicker-next": "Järgmine",
+	"sf-datepicker-today": "Täna"
 }

@@ -150,8 +150,9 @@
 	"sf_blank_namespace": "Utama",
 	"right-viewedittab": "Lihat tab \"Sunting\" untuk menyunting halaman dengan formulir",
 	"right-editrestrictedfields": "Sunting kolom formulir terbatas",
-	"semanticformsinputs-close": "Penutup",
-	"semanticformsinputs-prev": "Sebelumnya",
-	"semanticformsinputs-next": "Selanjutnya",
-	"semanticformsinputs-today": "Hari ini"
+	"sf-datepicker-close": "Penutup",
+	"sf-datepicker-prev": "Sebelumnya",
+	"sf-datepicker-next": "Selanjutnya",
+	"sf-datepicker-today": "Hari ini",
+	"sf-regexp-wrongformat": "Format salah."
 }

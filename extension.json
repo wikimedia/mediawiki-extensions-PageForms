@@ -111,7 +111,7 @@
 		"SFListBoxInput": "includes/forminputs/SF_ListBoxInput.php",
 		"SFComboBoxInput": "includes/forminputs/SF_ComboBoxInput.php",
 		"SFDateInput": "includes/forminputs/SF_DateInput.php",
-		"SFDatePicker": "includes/forminputs/SF_DatePicker.php",
+		"SFDatePickerInput": "includes/forminputs/SF_DatePickerInput.php",
 		"SFDateTimeInput": "includes/forminputs/SF_DateTimeInput.php",
 		"SFYearInput": "includes/forminputs/SF_YearInput.php",
 		"SFTreeInput": "includes/forminputs/SF_TreeInput.php",
@@ -121,6 +121,7 @@
 		"SFTokensInput": "includes/forminputs/SF_TokensInput.php",
 		"SFGoogleMapsInput": "includes/forminputs/SF_GoogleMapsInput.php",
 		"SFOpenLayersInput": "includes/forminputs/SF_OpenLayersInput.php",
+		"SFRegExpInput": "includes/forminputs/SF_RegExpInput.php",
 		"SFWikiPage": "includes/wikipage/SF_WikiPage.php",
 		"SFWikiPageTemplate": "includes/wikipage/SF_WikiPageTemplate.php",
 		"SFWikiPageTemplateParam": "includes/wikipage/SF_WikiPageTemplateParam.php",
@@ -248,6 +249,12 @@
 			],
 			"dependencies": [
 				"jquery.ui.datepicker",
+				"ext.semanticforms.main"
+			]
+		},
+		"ext.semanticforms.regexp": {
+			"scripts": "libs/SF_regexp.js",
+			"dependencies": [
 				"ext.semanticforms.main"
 			]
 		},

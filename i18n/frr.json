@@ -5,8 +5,8 @@
 		]
 	},
 	"templates": "Föörlaagen",
-	"semanticformsinputs-close": "Cllôre",
-	"semanticformsinputs-prev": "Devant",
-	"semanticformsinputs-next": "Aprés",
-	"semanticformsinputs-today": "Houé"
+	"sf-datepicker-close": "Cllôre",
+	"sf-datepicker-prev": "Devant",
+	"sf-datepicker-next": "Aprés",
+	"sf-datepicker-today": "Houé"
 }

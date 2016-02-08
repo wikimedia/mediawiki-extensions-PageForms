@@ -43,7 +43,7 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFTextAreaInput' );
 		$this->registerInputType( 'SFTextAreaWithAutocompleteInput' );
 		$this->registerInputType( 'SFDateInput' );
-		$this->registerInputType( 'SFDatePicker' );
+		$this->registerInputType( 'SFDatePickerInput' );
 		$this->registerInputType( 'SFDateTimeInput' );
 		$this->registerInputType( 'SFYearInput' );
 		$this->registerInputType( 'SFCheckboxInput' );
@@ -56,6 +56,7 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFCategoryInput' );
 		$this->registerInputType( 'SFCategoriesInput' );
 		$this->registerInputType( 'SFTokensInput' );
+		$this->registerInputType( 'SFRegExpInput' );
 		// Only add these if the Semantic Maps extension is not
 		// included.
 		if ( !defined( 'SM_VERSION' ) ) {

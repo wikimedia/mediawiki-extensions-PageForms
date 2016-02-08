@@ -126,8 +126,9 @@
 	"right-editrestrictedfields": "korlátozott űrlap-mezők szerkesztése",
 	"sf-select2-no-matches": "Nincs találat",
 	"sf-select2-searching": "Keresés...",
-	"semanticformsinputs-close": "Bezárás",
-	"semanticformsinputs-prev": "Előző",
-	"semanticformsinputs-next": "Következő",
-	"semanticformsinputs-today": "Ma"
+	"sf-datepicker-close": "Bezárás",
+	"sf-datepicker-prev": "Előző",
+	"sf-datepicker-next": "Következő",
+	"sf-datepicker-today": "Ma",
+	"sf-regexp-wrongformat": "Hibás formátum."
 }

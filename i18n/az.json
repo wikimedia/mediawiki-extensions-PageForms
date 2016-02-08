@@ -10,6 +10,6 @@
 	"sf_createform_hidden": "Gizlədilib",
 	"sf_createform_add": "Əlavə et",
 	"sf_formedit_none": "Heç biri",
-	"semanticformsinputs-next": "Növbəti",
-	"semanticformsinputs-today": "Bu gün"
+	"sf-datepicker-next": "Növbəti",
+	"sf-datepicker-today": "Bu gün"
 }
