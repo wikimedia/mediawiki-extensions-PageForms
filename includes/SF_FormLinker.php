@@ -224,8 +224,8 @@ class SFFormLinker {
 		// Allow outside code to set/change the preloaded text.
 		Hooks::run( 'sfEditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
 
-		list ( $formText, $javascriptText, $dataText, $formPageTitle, $generatedPageName ) =
-			$sfgFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
+		list ( $formText, $javascriptText, $pageText, $formPageTitle, $generatedPageName ) =
+			$sfgFormPrinter->formHTML( $formDefinition, true, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
 		$params = array();
 
 		// Get user "responsible" for all auto-generated
@@ -239,7 +239,7 @@ class SFFormLinker {
 			}
 		}
 		$params['user_id'] = $userID;
-		$params['page_text'] = $dataText;
+		$params['page_text'] = $pageText;
 		$job = new SFCreatePageJob( $title, $params );
 
 		$jobs = array( $job );
