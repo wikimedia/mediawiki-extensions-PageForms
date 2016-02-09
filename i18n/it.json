@@ -217,7 +217,9 @@
 	"sf-datepicker-enableinputfield": "L'utente dovrebbe essere in grado di immettere manualmente la data o dovrebbe farlo solo attraverso la selezione?",
 	"sf-datepicker-showresetbutton": "Dovrebbe essere mostrato un pulsante di reset? Questo sarebbe il solo modo che avrebbe l'utente di cancellare il campo se l'immissione manuale è disabilitata.",
 	"sf-regexp-wrongformat": "Formato errato.",
+	"sf-regexp-regexp": "L'espressione regolare che l'inserimento deve rispettare per essere valido. Questa deve essere compresa tra barre inclinate! Predefinito è \"/.*/\", cioè qualsiasi valore.",
 	"sf-regexp-baseprefix": "Prefisso per i parametri di tipo base.",
 	"sf-regexp-orchar": "Il carattere OR da usare nelle espressioni regolari, al posto di |. Il valore predefinito è \"!\"",
+	"sf-regexp-inverse": "Se impostato, l'inserimento NON deve rispettare l'espressione regolare per essere valido. Cioè, l'espressione regolare è invertita.",
 	"sf-regexp-message": "Il messaggio di errore da visualizzare se la corrispondenza non riesce. Il valore predefinito è \"Formato non valido!\" (o equivalente nella lingua selezionata)"
 }
