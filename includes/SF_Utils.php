@@ -23,7 +23,7 @@ class SFUtils {
 			define( 'SF_NS_FORM_TALK', 107 );
 		}
 
-		$GLOBALS['sfgIP'] = dirname( __FILE__ );
+		$GLOBALS['sfgIP'] = dirname( __DIR__ );
 
 		// Constants for special properties
 		define( 'SF_SP_HAS_DEFAULT_FORM', 1 );
@@ -43,7 +43,7 @@ class SFUtils {
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$GLOBALS['wgSpecialPages']['CreateProperty'] = 'SFCreateProperty';
-			$GLOBALS['wgAutoloadClasses']['SFCreateProperty'] = __DIR__ . '/specials/SF_CreateProperty.php';
+			$GLOBALS['wgAutoloadClasses']['SFCreateProperty'] = __DIR__ . '/../specials/SF_CreateProperty.php';
 		}
 
 		/**
@@ -78,8 +78,7 @@ class SFUtils {
 
 	public static function initialize() {
 		$GLOBALS['sfgPartialPath'] = '/extensions/SemanticForms';
-		$GLOBALS['sfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS[
-'sfgPartialPath'];
+		$GLOBALS['sfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['sfgPartialPath'];
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
