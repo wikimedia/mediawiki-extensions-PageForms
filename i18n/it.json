@@ -218,6 +218,7 @@
 	"sf-datepicker-showresetbutton": "Dovrebbe essere mostrato un pulsante di reset? Questo sarebbe il solo modo che avrebbe l'utente di cancellare il campo se l'immissione manuale è disabilitata.",
 	"sf-regexp-wrongformat": "Formato errato.",
 	"sf-regexp-regexp": "L'espressione regolare che l'inserimento deve rispettare per essere valido. Questa deve essere compresa tra barre inclinate! Predefinito è \"/.*/\", cioè qualsiasi valore.",
+	"sf-regexp-basetype": "Il tipo base da utilizzare. Può essere qualsiasi tipo di ingresso che genera un elemento di modulo html di tipo input o selezione (ad esempio: testo, casella di riepilogo, calendario) o altra espressione regolare. Il valore predefinito è \"testo\".",
 	"sf-regexp-baseprefix": "Prefisso per i parametri di tipo base.",
 	"sf-regexp-orchar": "Il carattere OR da usare nelle espressioni regolari, al posto di |. Il valore predefinito è \"!\"",
 	"sf-regexp-inverse": "Se impostato, l'inserimento NON deve rispettare l'espressione regolare per essere valido. Cioè, l'espressione regolare è invertita.",

@@ -201,7 +201,7 @@
 	"sf-datepicker-enableinputfield": "L'utent a dev podèj compilé ël camp d'anseriment diretament o mach con ël selessionator ëd dàite?",
 	"sf-datepicker-showresetbutton": "A venta smon-e un boton d'anulament? A l'é la sola manera për l'utent d'anulé ël camp d'anseriment se a l'é disabilità për l'anseriment diret.",
 	"sf-regexp-wrongformat": "Formà pa bon.",
-	"sf-regexp-regexp": "L'espression regolare che l'anseriment a dev rëspeté për esse bon. Sòn a dev comprende le sbare obliche! Predefinì a \"/.*/\", visadì qualsëssìa valor.",
+	"sf-regexp-regexp": "L'espression regolar che l'anseriment a dev rëspeté për esse bon. Sòn a dev comprende le sbare obliche! Predefinì a \"/.*/\", visadì qualsëssìa valor.",
 	"sf-regexp-basetype": "La sòrt ëd base da dovré. A peul esse qualsëssìa sòrt d'anseriment ch'a génera n'element ëd formolari html ëd sòrt anseriment o selession (visadì test, lista dësrolanta, seletor ëd dàite) o n'àutra espression regolar. Predefinì a «test».",
 	"sf-regexp-baseprefix": "Prefiss për ël paràmetr dla sòrt ëd base.",
 	"sf-regexp-orchar": "Ël caràter O da dovré ant n'espression regolar nopà che |. Predefinì a «!»",
