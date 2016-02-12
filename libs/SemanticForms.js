@@ -1368,6 +1368,15 @@ $(document).ready( function() {
 		inputID,
 		validationFunctionData;
 
+	function getFunctionFromName( functionName ) {
+		var func = window;
+		var namespaces = functionName.split( "." );
+		for ( var i = 0; i < namespaces.length; i++ ) {
+			func = func[ namespaces[ i ] ];
+		}
+		return func;
+	}
+
 	// Initialize inputs created by #forminput.
 	if ( $('.sfFormInput').length > 0 ) {
 		$('.autocompleteInput').attachAutocomplete();
@@ -1383,7 +1392,7 @@ $(document).ready( function() {
 	for ( inputID in initFunctionData ) {
 		for ( i in initFunctionData[inputID] ) {
 			/*jshint -W069 */
-			$( '#' + inputID ).SemanticForms_registerInputInit( window[initFunctionData[ inputID ][ i ][ 'name' ]], initFunctionData[ inputID ][ i ][ 'param' ] );
+			$( '#' + inputID ).SemanticForms_registerInputInit( getFunctionFromName( initFunctionData[ inputID ][ i ][ 'name' ] ), initFunctionData[ inputID ][ i ][ 'param' ] );
 			/*jshint +W069 */
 		}
 	}
@@ -1393,7 +1402,7 @@ $(document).ready( function() {
 	for ( inputID in validationFunctionData ) {
 		for ( i in validationFunctionData[inputID] ) {
 			/*jshint -W069 */
-			$( '#' + inputID ).SemanticForms_registerInputValidation( window[validationFunctionData[ inputID ][ i ][ 'name' ]], validationFunctionData[ inputID ][ i ][ 'param' ] );
+			$( '#' + inputID ).SemanticForms_registerInputValidation( getFunctionFromName( validationFunctionData[ inputID ][ i ][ 'name' ] ), validationFunctionData[ inputID ][ i ][ 'param' ] );
 			/*jshint +W069 */
 		}
 	}
