@@ -60,6 +60,10 @@ if ( version_compare( $GLOBALS['wgVersion'], '1.27c', '>' ) ) {
 	}
 }
 
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
 if ( defined( 'SF_VERSION' ) ) {
 	// Do not load Semantic Forms more than once.
 	return 1;
