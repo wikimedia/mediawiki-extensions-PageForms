@@ -225,7 +225,7 @@ class SFFormLinker {
 		Hooks::run( 'sfEditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
 
 		list ( $formText, $javascriptText, $pageText, $formPageTitle, $generatedPageName ) =
-			$sfgFormPrinter->formHTML( $formDefinition, true, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
+			$sfgFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
 		$params = array();
 
 		// Get user "responsible" for all auto-generated

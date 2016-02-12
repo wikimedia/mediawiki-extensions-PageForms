@@ -1304,12 +1304,14 @@ END;
 		Hooks::run( 'sfBeforeFreeTextSubstitution',
 			array( &$free_text, $existing_page_content, &$page_text ) );
 
-		// Now that we have it, add free text to the page, and
-		// substitute it into the form.
-		if ( $form_submitted ) {
-			$wiki_page->setFreeText( $free_text );
-			$page_text = $wiki_page->createPageText();
-		}
+		// Now that we have the free text, we can create the full page
+		// text.
+		// The page text needs to be created whether or not the form
+		// was submitted, in case this is called from #formredlink.
+		$wiki_page->setFreeText( $free_text );
+		$page_text = $wiki_page->createPageText();
+
+		// Also substitute the free text into the form.
 		$escaped_free_text = Sanitizer::safeEncodeAttribute( $free_text );
 		$form_text = str_replace( '!free_text!', $escaped_free_text, $form_text );
 
