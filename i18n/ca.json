@@ -219,6 +219,7 @@
 	"action-createclass": "crea classes semàntiques noves",
 	"action-editrestrictedfields": "modifica els camps de formulari restringits",
 	"action-viewedittab": "Mostra la pestanya «{{int:edit}}» a les pàgines que es poden editar amb un formulari",
+	"tooltip-ca-formedit": "Edita aquesta pàgina amb un formulari",
 	"sf-select2-no-matches": "Cap coincidència",
 	"sf-select2-searching": "S'està cercant…",
 	"sf-select2-input-too-short": "Introduïu $1 o més caràcters.",
