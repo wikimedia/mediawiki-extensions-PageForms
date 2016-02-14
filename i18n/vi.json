@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Minh Nguyen",
-			"Vinhtantran"
+			"Vinhtantran",
+			"Nguyên Lê"
 		]
 	},
 	"semanticforms-desc": "Mẫu để thêm và sửa đổi dữ liệu ngữ nghĩa",
@@ -120,5 +121,5 @@
 	"sf-datepicker-prev": "Trước",
 	"sf-datepicker-next": "Sau",
 	"sf-datepicker-today": "Hôm nay",
-	"sf-regexp-wrongformat": "Định dạng sai"
+	"sf-regexp-wrongformat": "Định dạng sai."
 }
