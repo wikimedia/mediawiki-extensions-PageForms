@@ -134,7 +134,6 @@ $GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'SFHelperFormAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'SFHelperFormAction::displayTab2';
 $GLOBALS['wgHooks']['smwInitProperties'][] = 'SFUtils::initProperties';
 $GLOBALS['wgHooks']['ArticlePurge'][] = 'SFFormUtils::purgeCache';
-$GLOBALS['wgHooks']['ArticleSave'][] = 'SFFormUtils::purgeCache';
 $GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
 $GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 $GLOBALS['wgHooks']['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';

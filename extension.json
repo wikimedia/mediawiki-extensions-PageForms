@@ -341,9 +341,6 @@
 		"ArticlePurge": [
 			"SFFormUtils::purgeCache"
 		],
-		"ArticleSave": [
-			"SFFormUtils::purgeCache"
-		],
 		"ParserFirstCallInit": [
 			"SFParserFunctions::registerFunctions"
 		],
