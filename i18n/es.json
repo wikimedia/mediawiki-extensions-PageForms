@@ -220,6 +220,7 @@
 	"action-createclass": "crear nuevas clases semánticas",
 	"action-editrestrictedfields": "editar los campos restringidos de los formularios",
 	"action-viewedittab": "ver la pestaña \"{{int:edit}}\" en las páginas editables por formularios",
+	"tooltip-ca-formedit": "Editar esta página con un formulario",
 	"sf-select2-no-matches": "No hay coincidencias",
 	"sf-select2-searching": "Buscando…",
 	"sf-select2-input-too-short": "Escribe $1 o más caracteres",
