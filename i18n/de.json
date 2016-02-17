@@ -267,7 +267,7 @@
 	"sf-datepicker-showresetbutton": "Soll eine Schaltfläche zum Zurücksetzen angezeigt werden? Dies ist für die Benutzer die einzige Möglichkeit die Eingabe im Eingabefeld zu entfernen, sofern das direkte Bearbeiten deaktiviert wurde.",
 	"sf-regexp-wrongformat": "Falsches Format.",
 	"sf-regexp-regexp": "Der reguläre Ausdruck mit dem die Eingabe übereinstimmen muss, um gültig zu sein. Der Wert muss einschließlich der Schrägstriche angegeben werden. Der Standardwert ist „/.*/“ und bedeutet „alle Werte“.",
-	"sf-regexp-basetype": "Der Basiseingabetyp der verwendet werden soll. Dies kann jeder Eingabetyp sein, der ein HTML-Formularelement für die Typen Eingabe oder Auswahl generieren kann (z. B. „text“, „listbox“, „datepicker“), oder ein anderer regulärer Ausdruck. Der Standardwert ist „text“.",
+	"sf-regexp-basetype": "Der wirklich verwendete Eingabetyp. Standard: „text“.",
 	"sf-regexp-baseprefix": "Das Präfix für die Parameter des Basiseingabetyps.",
 	"sf-regexp-orchar": "Das OR-Zeichen, das bei regulären Ausdrücken, anstatt von „|“ verwendet werden soll. Der Standardwert ist „!“.",
 	"sf-regexp-inverse": "Sofern festgelegt, darf die Eingabe nicht dem regulären Ausdruck entsprechen, um gültig zu sein. Dies bedeutet, dass der reguläre Ausdruck invertiert wird.",

@@ -184,7 +184,7 @@
 	"sf_runquery_title": "Zoekopdracht: $1",
 	"sf_runquery_additionalquery": "Additionele zoekopdracht",
 	"sf_formerrors_header": "Er zaten fouten in uw formulierinvoer. Details staan hieronder.",
-	"sf_too_few_instances_error": "Er moeten tenminste $1 instanties van dit sjabloon zijn.",
+	"sf_too_few_instances_error": "Er {{PLURAL:$1|moet ten minste één instantie|moeten ten minste $1 instanties}} van dit sjabloon zijn.",
 	"sf_too_many_instances_error": "Er mogen niet meer dan $1 instanties van dit sjabloon zijn.",
 	"sf_blank_error": "mag niet leeg blijven",
 	"sf_not_unique_error": "moet uniek zijn",
@@ -246,5 +246,5 @@
 	"sf-regexp-baseprefix": "Voorvoegsel voor de parameters van het basistype.",
 	"sf-regexp-orchar": "Het OR-teken (\"of\") dat in de reguliere expressie wordt gebruikt in plaats van |. Standaard ingesteld op \"!\"",
 	"sf-regexp-inverse": "Als dit is ingesteld moet de invoer NIET overeen komen met de reguliere expressie om geldig te zijn. Dat wil zeggen, de reguliere expressie is omgekeerd.",
-	"sf-regexp-message": "Het foutbericht dat moet worden weergegeven als het vergelijken mislukt. De standaardinstelling is \"Verkeerde opmaak!\" (of het equivalent in de geldende landinstelling)."
+	"sf-regexp-message": "Het foutbericht dat moet worden weergegeven als het vergelijken mislukt. De standaardinstelling is \"Verkeerde opmaak!\" (of het equivalent in de ingestelde taal)."
 }

@@ -199,7 +199,7 @@
 	"sf-datepicker-showresetbutton": "This is a help text for the [[Special:CreateForm]] page.",
 	"sf-regexp-wrongformat": "Used as error message.",
 	"sf-regexp-regexp": "This is a help text for the [[Special:CreateForm]] page.",
-	"sf-regexp-basetype": "This is a help text for the [[Special:CreateForm]] page.",
+	"sf-regexp-basetype": "This is a help text for the [[Special:CreateForm]] page.\n\n{{doc-important|Do not translate input, select, text, listbox, and datepicker}}",
 	"sf-regexp-baseprefix": "This is a help text for the [[Special:CreateForm]] page.",
 	"sf-regexp-orchar": "This is a help text for the [[Special:CreateForm]] page. OR is an operator to handle [[wikipedia:Logical_disjunction|disjunctions]].",
 	"sf-regexp-inverse": "This is a help text for the [[Special:CreateForm]] page.",
