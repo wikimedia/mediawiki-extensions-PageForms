@@ -257,7 +257,7 @@
 	"sf-datepicker-showresetbutton": "Should a reset button be shown? This is the only way for the user to erase the input field if it is disabled for direct input.",
 	"sf-regexp-wrongformat": "Wrong format.",
 	"sf-regexp-regexp": "The regular expression the input has to match to be valid. This must be given including the slashes! Defaults to \"/.*/\", i.e. any value.",
-	"sf-regexp-basetype": "The base type to be used. May be any input type that generates an html form element of type input or select (e.g. text, listbox, datepicker) or another regular expression. Defaults to \"text\".",
+	"sf-regexp-basetype": "The real input type to be used. Defaults to \"text\".",
 	"sf-regexp-baseprefix": "Prefix for the parameters of the base type.",
 	"sf-regexp-orchar": "The OR-character to be used in the regular expression instead of |. Defaults to \"!\"",
 	"sf-regexp-inverse": "If set, the input must NOT match the regular expression to be valid. I.e. the regular expression is inverted.",
