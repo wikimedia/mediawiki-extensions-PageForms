@@ -495,7 +495,14 @@ class SFFormField {
 			}
 		}
 
-		if ( !$source_is_page && empty( $cur_value ) && !$form_submitted ) {
+		if ( !empty( $cur_value ) ) {
+			return $cur_value;
+		}
+
+		// Default values in new instances of multiple-instance
+		// templates should always be set, even for existing pages.
+		$part_of_multiple = array_key_exists( 'part_of_multiple', $this->mFieldArgs );
+		if ( ( !$source_is_page || $part_of_multiple ) && !$form_submitted ) {
 			if ( !is_null( $this->mDefaultValue ) ) {
 				// Set to the default value specified in the form, if it's there.
 				return $this->mDefaultValue;
@@ -504,7 +511,8 @@ class SFFormField {
 			}
 		}
 
-		return $cur_value; // null
+		// We're still here...
+		return null;
 	}
 
 	public function additionalHTMLForInput( $cur_value, $field_name, $template_name ) {

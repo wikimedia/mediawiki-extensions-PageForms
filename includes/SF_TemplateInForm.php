@@ -416,19 +416,11 @@ class SFTemplateInForm {
 		// If this is a multiple-instance template, get the values for
 		// this instance of the template.
 		if ( $this->mAllowMultiple ) {
-			// For some reason, sometimes duplicate information is
-			// submitted - getting rid of 'num' and everything
-			// after it seems to works.
 			$valuesFromSubmitKeys = array();
-			foreach ( array_keys( $allValuesFromSubmit ) as $i => $key ) {
-				if ( $key == 'num' ) {
-					if ( $i == 0 ) {
-						continue;
-					} else {
-						break;
-					}
+			foreach ( array_keys( $allValuesFromSubmit ) as $key ) {
+				if ( $key != 'num' ) {
+					$valuesFromSubmitKeys[] = $key;
 				}
-				$valuesFromSubmitKeys[] = $key;
 			}
 			$this->mNumInstancesFromSubmit = count( $valuesFromSubmitKeys );
 			if ( $this->mNumInstancesFromSubmit > $this->mInstanceNum ) {
