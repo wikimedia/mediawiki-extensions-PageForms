@@ -134,7 +134,7 @@ END;
 		foreach ( $datatypeLabels as $label ) {
 			$select_body .= "\t" . Html::element( 'option', null, $label ) . "\n";
 		}
-		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type', 'onChange' => 'toggleDefaultForm(this.value); toggleAllowedValues(this.value);' ), $select_body ) . "\n";
+		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type'  ), $select_body ) . "\n";
 
 		$default_form_input = wfMessage( 'sf_createproperty_linktoform' )->escaped();
 		$values_input = wfMessage( 'sf_createproperty_allowedvalsinput' )->escaped();
@@ -157,7 +157,6 @@ END;
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
-		$out->addJsConfigVars( 'wgNumStartingRows', $numStartingRows );
 		$out->addJsConfigVars( 'wgPageTypeLabel', $pageTypeLabel );
 		$out->addJsConfigVars( 'wgStringTypeLabel', $stringTypeLabel );
 		$out->addJsConfigVars( 'wgNumberTypeLabel', $numberTypeLabel );
