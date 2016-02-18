@@ -421,7 +421,7 @@ class SFFormField {
 		return $f;
 	}
 
-	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page ) {
+	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed ) {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
 		$cur_value = null;
@@ -502,7 +502,8 @@ class SFFormField {
 		// Default values in new instances of multiple-instance
 		// templates should always be set, even for existing pages.
 		$part_of_multiple = array_key_exists( 'part_of_multiple', $this->mFieldArgs );
-		if ( ( !$source_is_page || $part_of_multiple ) && !$form_submitted ) {
+		$printing_starter_instance = $part_of_multiple && $all_instances_printed;
+		if ( ( !$source_is_page || $printing_starter_instance ) && !$form_submitted ) {
 			if ( !is_null( $this->mDefaultValue ) ) {
 				// Set to the default value specified in the form, if it's there.
 				return $this->mDefaultValue;

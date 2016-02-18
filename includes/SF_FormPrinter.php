@@ -799,7 +799,7 @@ END;
 					// among others.
 					$field_name = trim( $tag_components[1] );
 					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $tif, $form_is_disabled );
-					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page );
+					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted() );
 					if ( $form_field->holdsTemplate() ) {
 						$placeholderFields[] = self::placeholderFormat( $tif->getTemplateName(), $field_name );
 					}
