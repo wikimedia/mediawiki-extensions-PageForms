@@ -279,7 +279,7 @@
 	"sf-datepicker-showresetbutton": "Faut-il afficher un bouton de réinitialisation? C'est la seule manière pour l'utilisateur d'effacer le champ d'entrée s'il est désactivé pour la saisie directe.",
 	"sf-regexp-wrongformat": "Format erroné.",
 	"sf-regexp-regexp": "L'expression régulière que l'entrée doit respecter pour être valide. Cela doit comprendre les barres obliques ! Par défaut, \"/.*/\", c'est-à-dire n'importe quelle valeur.",
-	"sf-regexp-basetype": "Le type de base à utiliser. Peut être n'importe quel type d'entrée qui génère un élément de formulaire html de type input ou select (par ex., texte, liste déroulante, sélecteur de date) ou une autre expression régulière. Par défaut, \"texte\".",
+	"sf-regexp-basetype": "Le vrai type d’entrée à utiliser. Par défaut, « text ».",
 	"sf-regexp-baseprefix": "Préfixe pour les paramètres du type de base.",
 	"sf-regexp-orchar": "Le caractère OU à utiliser dans l'expression régulière au lieu de |. Par défaut, \"!\"",
 	"sf-regexp-inverse": "S'il est activé, l'entrée ne doit PAS correspondre à l'expression régulière pour être valide. C'est-à-dire que l'expression régulière est inversée.",
