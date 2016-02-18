@@ -242,7 +242,7 @@
 	"sf-datepicker-showresetbutton": "Knop voor leegmaken weergeven? Dit is de enige manier voor de gebruiker om het invoerveld te wissen als directe invoer voor het veld is uitgeschakeld.",
 	"sf-regexp-wrongformat": "Onjuiste opmaak.",
 	"sf-regexp-regexp": "De reguliere expressie waarmee de invoer overeen moet komen om geldig te zijn. Dit moet worden opgegeven met inbegrip van de schraptekens (slashes)! Standaard ingesteld op \"/.*/\", ofwel iedere mogelijke waarde.",
-	"sf-regexp-basetype": "Het basistype dat moet worden gebruikt. Dit kan elk invoertype zijn dat een HTML-formulierelement van het type \"input\" of \"select\" (bijvoorbeeld \"text\", \"listbox\" of \"datepicker\") of een andere reguliere expressie genereert. Standaard ingesteld op \"text\".",
+	"sf-regexp-basetype": "Het echte invoertype dat gebruikt moet worden. De standaardwaarde is \"text\".",
 	"sf-regexp-baseprefix": "Voorvoegsel voor de parameters van het basistype.",
 	"sf-regexp-orchar": "Het OR-teken (\"of\") dat in de reguliere expressie wordt gebruikt in plaats van |. Standaard ingesteld op \"!\"",
 	"sf-regexp-inverse": "Als dit is ingesteld moet de invoer NIET overeen komen met de reguliere expressie om geldig te zijn. Dat wil zeggen, de reguliere expressie is omgekeerd.",
