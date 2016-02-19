@@ -886,6 +886,13 @@ END;
 								// convert the values into a string.
 								$cur_value_in_template = self::getStringFromPassedInArray( $cur_value, $delimiter );
 							}
+						} elseif ( $form_field->holdsTemplate() ) {
+							// If this field holds an embedded template,
+							// and the value is not an array, it means
+							// there are no instances of the template -
+							// set the value to null to avoid getting
+							// whatever is currently on the page.
+							$cur_value_in_template = null;
 						} else { // value is not an array
 							$cur_value_in_template = $cur_value;
 						}
