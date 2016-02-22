@@ -160,7 +160,7 @@
 	"sf-datepicker-showresetbutton": "Cal afichar un boton de reïnicializacion ? Es lo sol biais per l'utilizaire d'escafar lo camp d'entrada s'es desactivat per la picada dirècta.",
 	"sf-regexp-wrongformat": "Format erronèu.",
 	"sf-regexp-regexp": "L'expression regulara que l'entrada deu respectar per èsser valida. Aquò deu comprene las barras oblicas ! Per defaut, \"/.*/\", es a dire quina valor que siá.",
-	"sf-regexp-basetype": "Lo tipe de basa d'utilizar. Pòt èsser quina tipe d'entrada que siá que genèra un element de formulari html de tipe input o select (per ex., tèxte, lista desenrotlanta, selector de data) o una autra expression regulara. Per defaut, \"tèxte\".",
+	"sf-regexp-basetype": "Lo vertadièr tipe d’entrada d'utilizar. Per defaut, « text ».",
 	"sf-regexp-baseprefix": "Prefix pels paramètres del tipe de basa.",
 	"sf-regexp-orchar": "Lo caractèr O d'utilizar dins l'expression regulara al luòc de |. Per defaut, \"!\"",
 	"sf-regexp-inverse": "S'es activat, l'entrada deu PAS correspondre a l'expression regulara per èsser valida. Es a dire que l'expression regulara es inversada.",
