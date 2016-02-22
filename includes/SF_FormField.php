@@ -554,6 +554,8 @@ class SFFormField {
 		}
 
 		if ( $this->hasFieldArg( 'unique' ) ) {
+			global $sfgFieldNum;
+
 			$semantic_property = $this->template_field->getSemanticProperty();
 			if ( $semantic_property != null ) {
 				$text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_property', $semantic_property );

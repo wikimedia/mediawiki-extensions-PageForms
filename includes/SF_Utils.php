@@ -757,6 +757,11 @@ END;
 	 * given a mapping property.
 	 */
 	public static function getLabelsFromProperty( $values, $propertyName ) {
+		// Error-handling.
+		if ( !is_array( $values ) ) {
+			return array();
+		}
+
 		$labels = array();
 		foreach ( $values as $value ) {
 			$labels[$value] = $value;

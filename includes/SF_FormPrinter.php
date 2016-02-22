@@ -922,6 +922,10 @@ END;
 								$form_field->hasFieldArg( 'mapping property' ) ||
 								( $form_field->hasFieldArg( 'mapping cargo table' ) &&
 								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ) {
+								// Avoid a PHP notice.
+								if ( !is_array( $cur_value ) ) {
+									$delimiter = ',';
+								}
 								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $form_field->getPossibleValues() );
 							}
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
