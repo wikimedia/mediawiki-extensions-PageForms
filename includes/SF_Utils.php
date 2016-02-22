@@ -469,7 +469,12 @@ END;
 	 * Used with the Cargo extension
 	 */
 	public static function getValuesForCargoField( $tableName, $fieldName, $whereStr = null ) {
-		$limitStr = 200;
+		global $sfgMaxLocalAutocompleteValues;
+
+		// The limit should be greater than the maximum number of local
+		// autocomplete values, so that form inputs also know whether
+		// to switch to remote autocompletion.
+		$limitStr = max( 100, $sfgMaxLocalAutocompleteValues + 1);
 
 		try {
 			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );

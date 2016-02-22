@@ -148,8 +148,9 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			if( count($autocompleteValues) > $sfgMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) && !array_key_exists( 'mapping template', $field_args ) ) {
 				$remoteDataType = $autocompleteFieldType;
+			} else {
+				$sfgAutocompleteValues[$autocompleteSettings] = $autocompleteValues;
 			}
-			$sfgAutocompleteValues[$autocompleteSettings] = $autocompleteValues;
 		}
 		return array( $autocompleteSettings, $remoteDataType, $delimiter );
 	}

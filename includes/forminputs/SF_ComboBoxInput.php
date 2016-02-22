@@ -147,8 +147,9 @@ class SFComboBoxInput extends SFFormInput {
 			if( count($autocompleteValues) > $sfgMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) && !array_key_exists( 'mapping template', $field_args ) ) {
 				$remoteDataType = $autocompleteFieldType;
+			} else {
+				$sfgAutocompleteValues[$autocompletionSource] = $autocompleteValues;
 			}
-			$sfgAutocompleteValues[$autocompletionSource] = $autocompleteValues;
 		}
 		$autocompletionSource = str_replace( "'", "\'", $autocompletionSource );
 		return array( $autocompletionSource, $remoteDataType );
