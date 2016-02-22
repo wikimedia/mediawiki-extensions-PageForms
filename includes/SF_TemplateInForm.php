@@ -536,10 +536,10 @@ class SFTemplateInForm {
 		if ( !$this->mAllowMultiple ) {
 			return;
 		}
-		if ( $this->mInstanceNum < $this->mMinAllowed ) {
+		if ( $form_submitted && $this->mInstanceNum < $this->mNumInstancesFromSubmit ) {
 			return;
 		}
-		if ( $form_submitted && $this->mInstanceNum < $this->mNumInstancesFromSubmit ) {
+		if ( !$form_submitted && $this->mInstanceNum < $this->mMinAllowed ) {
 			return;
 		}
 		if ( !$form_submitted && $source_is_page && $this->mPageCallsThisTemplate ) {
