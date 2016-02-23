@@ -6,7 +6,8 @@
 			"Keysuck",
 			"Priviet",
 			"Revi",
-			"Joolee0104"
+			"Joolee0104",
+			"Mooozi"
 		]
 	},
 	"semanticforms-desc": "시맨틱 데이터 추가와 편집을 위한 양식",
@@ -224,7 +225,7 @@
 	"sf-datepicker-showresetbutton": "재설정 버튼이 보여야 합니까? 직접 입력이 비활성화되어 있으면 사용자가 입력 필드를 지웁니다.",
 	"sf-regexp-wrongformat": "잘못된 형식입니다.",
 	"sf-regexp-regexp": "입력한 정규식은 유효하도록 일치시켜야 합니다. 슬래시 문자를 포함해야 합니다. 모든 값인 \"/.*/\"이 기본값입니다.",
-	"sf-regexp-basetype": "기본형이 사용되야 합니다. 입력하거나 선택할 형태(예 - 텍스트, 목록 상자, 날짜 선택기)의 html 형태 요소를 생성하는 입력 형태여야 합니다. \"텍스트\"가 기본 값입니다.",
+	"sf-regexp-basetype": "실제 사용할 입력 형태를 지정합니다. \"텍스트\"가 기본 값입니다.",
 	"sf-regexp-baseprefix": "기본 유형의 매개변수에 대한 접두어",
 	"sf-regexp-orchar": "OR-문자가 정규식에 | 문자 대신 사용되어야 합니다. 기본값은 \"!\"입니다",
 	"sf-regexp-inverse": "설정되면 입력 값은 유효하도록 정규식이 일치하지 않아야 합니다. 정규식은 반전됩니다.",

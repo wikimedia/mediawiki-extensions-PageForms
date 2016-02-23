@@ -12,7 +12,8 @@
 			"WTM",
 			"Woytecr",
 			"Alan ffm",
-			"Devwebtel"
+			"Devwebtel",
+			"Vuh"
 		]
 	},
 	"semanticforms-desc": "Formularze do tworzenia i edycji stron wiki",
@@ -135,7 +136,10 @@
 	"sf_formedit_addanother": "Dodaj kolejny",
 	"sf_formedit_none": "Brak",
 	"sf_formedit_saveandcontinueediting": "Zapisz i kontynuuj",
+	"sf_formedit_saveandcontinue_summary": "Zapisano używając przycisku „$1” w formularzu",
 	"sf_formedit_tooltip_saveandcontinueediting": "Zapisz dane i kontynuuj edycję",
+	"sf_autoedit_anoneditwarning": "Uwaga: Nie jesteś zalogowany. Twój adres IP zostanie zapisany w historii edycji strony.",
+	"sf_autoedit_success": "Pomyślnie zmodyfikowano [[$1]] używając formularza $2.",
 	"sf_autoedit_fail": "Modyfikacja [[$1]] nie powiodła się.",
 	"sf_autoedit_notargetspecified": "Nie określono strony docelowej.",
 	"sf_autoedit_redlinkexists": "$1 już istnieje.",
