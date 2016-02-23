@@ -1,7 +1,9 @@
 jQuery.fn.displayInputParams = function () {
 	var inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
 	jQuery.ajax( {
-		url: mediaWiki.config.get( 'wgCreateFormUrl' ),
+		url: window.location.href +
+			'&showinputtypeoptions=' + this.val() +
+			'&formfield=' + this.attr('formfieldid'),
 		context: document.body,
 		success: function ( data ){
 			inputParamsDiv.html( data );
@@ -23,5 +25,6 @@ jQuery(document).ready( function () {
 } );
 
 jQuery( "input,select" ).keypress( function ( event ) {
+	// Don't submit the form if enter is pressed on a text input box or a select.
 	return event.keyCode !== 13;
 } );

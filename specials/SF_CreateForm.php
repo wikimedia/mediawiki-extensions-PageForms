@@ -31,6 +31,11 @@ class SFCreateForm extends SpecialPage {
 			// handle Ajax action
 			$inputType = $req->getVal( 'showinputtypeoptions' );
 			$fieldFormText = $req->getVal( 'formfield' );
+
+			// @TODO - is any of this "params" stuff necesary?
+			// For now, it's removed - if the setting of params is
+			// going to be re-added, that has to be done in the JS.
+			/*
 			$paramValues = array();
 			foreach ( $req->getArray('params') as $key => $value ) {
 				if ( ( $pos = strpos( $key, '_' . $fieldFormText ) ) != false ) {
@@ -41,6 +46,7 @@ class SFCreateForm extends SpecialPage {
 					$paramValues[$paramName] = $value;
 				}
 			}
+			*/
 			echo self::showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
 		} else {
 			$this->doSpecialCreateForm( $query );
@@ -61,19 +67,8 @@ class SFCreateForm extends SpecialPage {
 			$form_name = $req->getVal( 'form_name' );
 		}
 
-		// Create Javascript to populate fields to let the user input
-		// parameters for the field, based on the input type selected
-		// in the dropdown.
-		$url = Skin::makeSpecialUrl( 'CreateForm', "showinputtypeoptions=' + this.val() + '&formfield=' + this.attr('formfieldid') + '" );
-		foreach ( $req->getValues() as $param => $value ) {
-			$url .= '&params[' . Xml::escapeJsString( $param ) . ']=' . Xml::escapeJsString( $value );
-		}
-
 		$section_name_error_str = '<span class="error" id="section_error">' . wfMessage( 'sf_blank_error' )->escaped() . '</span>';
 
-		$out->addJsConfigVars( 'wgCreateFormUrl', $url );
-
-		// Don't submit the form if enter is pressed on a text input box or a select
 		$out->addModules( array( 'ext.semanticforms.collapsible', 'ext.semanticforms.SF_CreateForm' ) );
 
 		// Get the names of all templates on this site.
