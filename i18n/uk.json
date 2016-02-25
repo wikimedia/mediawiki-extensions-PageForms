@@ -232,7 +232,7 @@
 	"sf_category_desc": "Це категорія $1.",
 	"sf_blank_namespace": "Головне",
 	"right-viewedittab": "наявність вкладки «{{int:edit}}» для сторінок, які можна редагувати через форму",
-	"right-editrestrictedfields": "Редагування захищених полів форми",
+	"right-editrestrictedfields": "редагування захищених полів форми",
 	"right-createclass": "створення нових семантичних класів",
 	"action-createclass": "створення нових семантичних класів",
 	"action-editrestrictedfields": "редагування захищених полів форми",
