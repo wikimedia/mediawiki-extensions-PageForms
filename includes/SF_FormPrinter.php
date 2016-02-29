@@ -280,10 +280,6 @@ class SFFormPrinter {
 
 	function multipleTemplateStartHTML( $tif ) {
 		$text = '';
-		if ( $tif->getLabel() != null ) {
-			$text .= "<fieldset>\n";
-			$text .= Html::element( 'legend', null, $tif->getLabel() ) . "\n";
-		}
 		// If placeholder is set, it means we want to insert a
 		// multiple template form's HTML into the main form's HTML.
 		// So, the HTML will be stored in $text.
@@ -1203,6 +1199,10 @@ END;
 				}
 			}
 
+			if ( $tif && $tif->getLabel() != null && ( !$tif->allowsMultiple() || $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) ) {
+				$form_text .= "<fieldset>\n";
+				$form_text .= Html::element( 'legend', null, $tif->getLabel() ) . "\n";
+			}
 			if ( $tif && $tif->allowsMultiple() ) {
 				if ( $tif->getInstanceNum() == 0 ) {
 					$multipleTemplateHTML = $this->multipleTemplateStartHTML( $tif );
@@ -1217,9 +1217,6 @@ END;
 				$placeholder = $tif->getPlaceholder();
 				if ( $placeholder != null ) {
 					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $placeholder );
-				}
-				if ( $tif->allInstancesPrinted() && $tif->getLabel() != null ) {
-					$multipleTemplateHTML .= "</fieldset>\n";
 				}
 				if ( $placeholder == null ) {
 					// The normal process.
@@ -1250,6 +1247,9 @@ END;
 				}
 			} else {
 				$form_text .= $section;
+			}
+			if ( $tif && $tif->getLabel() != null && ( !$tif->allowsMultiple() || $tif->allowsMultiple() && $tif->allInstancesPrinted() ) ) {
+				$form_text .= "</fieldset>\n";
 			}
 		} // end for
 
