@@ -257,7 +257,7 @@
 	"sf-datepicker-showresetbutton": "Debe mostrarse un botón de restablecemento? Este é o único xeito que o usuario ten de limpar o campo de entrada se está desactivado para a entrada directa.",
 	"sf-regexp-wrongformat": "Formato incorrecto.",
 	"sf-regexp-regexp": "A expresión regular que debe coincidir coa entrada para que sexa válida. Cómpre especificala coas barras inclunadas! Por defecto \"/.*/\", para calquera valor.",
-	"sf-regexp-basetype": "O tipo de base a usar. Pode ser calquera tipo de entrada que xere un elemento de formulario HTML do tipo \"input\" ou \"select\" (por exemplo, texto, caixa de listas, selector de data) ou outra expresión regular. Por defecto é \"texto\".",
+	"sf-regexp-basetype": "O tipo real de entrada a usar. Por defecto é \"text\".",
 	"sf-regexp-baseprefix": "Prefixo para os parámetros do tipo de base.",
 	"sf-regexp-orchar": "O carácter OU a usar na expresión regular no canto de \"|\". Por defecto é \"!\".",
 	"sf-regexp-inverse": "En caso de estar definida, a entrada NON debe coincidir coa expresión regular para ser válida. Por exemplo, se a expresión regular está invertida.",
