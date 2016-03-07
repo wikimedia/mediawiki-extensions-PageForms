@@ -920,7 +920,7 @@ END;
 								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ) {
 								// Avoid a PHP notice.
 								if ( !is_array( $cur_value ) ) {
-									$delimiter = ',';
+									$delimiter = '';
 								}
 								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $form_field->getPossibleValues() );
 							}
