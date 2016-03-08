@@ -198,7 +198,7 @@
 	"sf_formedit_saveandcontinue_summary": "Enregistré en utilisant le bouton \"$1\" du formulaire",
 	"sf_formedit_tooltip_saveandcontinueediting": "Sauvegarder les données et continuer la modification",
 	"sf_autoedit_anoneditwarning": "Attention : vous n’êtes pas identifié{{GENDER:||e}}. Votre adresse IP sera enregistrée dans l’historique des modifications de cette page.",
-	"sf_autoedit_success": "[[$1]] modifié avec succès en utilisant le formulaire $2.",
+	"sf_autoedit_success": "[[$1]] modifié en utilisant le formulaire $2.",
 	"sf_autoedit_fail": "La modification de [[$1]] a échoué.",
 	"sf_autoedit_notargetspecified": "Aucune page cible spécifiée.",
 	"sf_autoedit_invalidtargetspecified": "La page cible spécifiée '''$1''' n’est pas valide.",

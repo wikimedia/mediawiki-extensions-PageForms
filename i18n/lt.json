@@ -3,7 +3,8 @@
 		"authors": [
 			"Domas",
 			"Pofka",
-			"Hugo.arg"
+			"Hugo.arg",
+			"Zygimantus"
 		]
 	},
 	"createproperty": "Sukurti savybę",
@@ -58,6 +59,7 @@
 	"sf_createcategory_name": "Vardas:",
 	"sf_createcategory_defaultform": "Pagrindinė forma:",
 	"sf_createcategory_makesubcategory": "Padaryti kaip subkategoriją kitai kategorijai (nebūtina):",
+	"createclass": "Sukurti klasę",
 	"formstart": "Sukurti puslapį naudojant formą",
 	"sf_formstart_badform": "Klaida: nerastas naudojantis formą $1 puslapis",
 	"sf_formstart_docu": "Įveskite puslapio vardą, kurį redaguosite su forma „$1“. Jeigu puslapis tokiu vardu egzistuoja, būsite nukreiptas į šio puslapio redagavimo formą. Kitu atveju, būsite nukreiptas į naujo puslapio kūrimo formą.",

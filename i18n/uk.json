@@ -183,7 +183,7 @@
 	"sf_formedit_saveandcontinue_summary": "Збережено використовуючи кнопку «$1» у формі",
 	"sf_formedit_tooltip_saveandcontinueediting": "Зберегти дані і продовжити редагування",
 	"sf_autoedit_anoneditwarning": "Увага: Ви не увійшли до системи. Вашу IP-адресу буде записано у історії редагування цієї сторінки.",
-	"sf_autoedit_success": "Успішно змінено [[$1]] використовуючи форму $2.",
+	"sf_autoedit_success": "Змінено [[$1]] використовуючи форму $2.",
 	"sf_autoedit_fail": "Не вдалося змінити [[$1]].",
 	"sf_autoedit_notargetspecified": "Не вказано цільової сторінки.",
 	"sf_autoedit_invalidtargetspecified": "Вказано неправильну цільову сторінку '''$1'''.",

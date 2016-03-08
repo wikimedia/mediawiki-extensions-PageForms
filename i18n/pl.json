@@ -139,7 +139,7 @@
 	"sf_formedit_saveandcontinue_summary": "Zapisano używając przycisku „$1” w formularzu",
 	"sf_formedit_tooltip_saveandcontinueediting": "Zapisz dane i kontynuuj edycję",
 	"sf_autoedit_anoneditwarning": "Uwaga: Nie jesteś zalogowany. Twój adres IP zostanie zapisany w historii edycji strony.",
-	"sf_autoedit_success": "Pomyślnie zmodyfikowano [[$1]] używając formularza $2.",
+	"sf_autoedit_success": "Zmodyfikowano [[$1]] używając formularza $2.",
 	"sf_autoedit_fail": "Modyfikacja [[$1]] nie powiodła się.",
 	"sf_autoedit_notargetspecified": "Nie określono strony docelowej.",
 	"sf_autoedit_redlinkexists": "$1 już istnieje.",
