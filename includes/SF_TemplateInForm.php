@@ -360,7 +360,9 @@ class SFTemplateInForm {
 		global $wgParser;
 
 		$template_name = str_replace( '_', ' ', trim( $tag_components[1] ) );
-		$tif = SFTemplateInForm::create( $template_name );
+		$tif = new SFTemplateInForm();
+		$tif->mTemplateName = str_replace( '_', ' ', $template_name );
+
 		$tif->mAddButtonText = wfMessage( 'sf_formedit_addanother' )->text();
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
