@@ -173,7 +173,7 @@
 	"sf_formedit_tooltip_saveandcontinueediting": "Save data and continue editing",
 	"sf_formedit_accesskey_saveandcontinueediting": "a",
 	"sf_autoedit_anoneditwarning": "Warning: You are not logged in. Your IP address will be recorded in this page's edit history.",
-	"sf_autoedit_success": "Successfully modified [[$1]] using form $2.",
+	"sf_autoedit_success": "Modified [[$1]] using form $2.",
 	"sf_autoedit_fail": "Modifying [[$1]] failed.",
 	"sf_autoedit_notargetspecified": "No target page specified.",
 	"sf_autoedit_invalidtargetspecified": "The specified target page '''$1''' is invalid.",
