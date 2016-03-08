@@ -9,6 +9,7 @@ class SFTemplateInForm {
 	private $mTemplateName;
 	private $mLabel;
 	private $mAddButtonText;
+	private $mDisplay;
 	private $mAllowMultiple;
 	private $mStrictParsing;
 	private $mMinAllowed;
@@ -16,6 +17,7 @@ class SFTemplateInForm {
 	private $mFields;
 	private $mEmbedInTemplate;
 	private $mEmbedInField;
+	private $mHeight = '200px';
 
 	private $mSearchTemplateStr;
 	private $mPregMatchTemplateStr;
@@ -30,6 +32,7 @@ class SFTemplateInForm {
 	private $mPageCallsThisTemplate = false;
 	private $mInstanceNum = 0;
 	private $mAllInstancesPrinted = false;
+	private $mGridValues = array();
 	private $mPlaceholder;
 
 	/**
@@ -282,6 +285,10 @@ class SFTemplateInForm {
 		return $this->mTemplateName;
 	}
 
+	function getHeight() {
+		return $this->mHeight;
+	}
+
 	function getFields() {
 		return $this->mFields;
 	}
@@ -300,6 +307,10 @@ class SFTemplateInForm {
 
 	function getAddButtonText() {
 		return $this->mAddButtonText;
+	}
+
+	function getDisplay() {
+		return $this->mDisplay;
 	}
 
 	function getPlaceholder() {
@@ -348,12 +359,23 @@ class SFTemplateInForm {
 		return $this->mInstanceNum;
 	}
 
+	function getGridValues() {
+		return $this->mGridValues;
+	}
+
 	function incrementInstanceNum() {
 		$this->mInstanceNum++;
 	}
 
 	function allInstancesPrinted() {
 		return $this->mAllInstancesPrinted;
+	}
+
+	function addGridValue( $field_name, $cur_value ) {
+		if ( ! array_key_exists( $this->mInstanceNum, $this->mGridValues ) ) {
+			$this->mGridValues[$this->mInstanceNum] = array();
+		}
+		$this->mGridValues[$this->mInstanceNum][$field_name] = $cur_value;
 	}
 
 	public static function newFromFormTag( $tag_components ) {
@@ -393,11 +415,19 @@ class SFTemplateInForm {
 						$tif->mEmbedInField = $matches[2];
 						$tif->mPlaceholder = SFFormPrinter::placeholderFormat( $tif->mEmbedInTemplate, $tif->mEmbedInField );
 					}
+				} elseif ( $sub_components[0] == 'display' ) {
+					$tif->mDisplay = $sub_components[1];
+				} elseif ( $sub_components[0] == 'height' ) {
+					$tif->mHeight = $sub_components[1];
 				}
 			}
 		}
 
 		return $tif;
+	}
+
+	function addField( $form_field ) {
+		$this->mFields[] = $form_field;
 	}
 
 	function setFieldValuesFromSubmit() {

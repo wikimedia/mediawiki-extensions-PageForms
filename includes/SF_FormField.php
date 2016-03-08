@@ -21,14 +21,15 @@ class SFFormField {
 	private $mIsRestricted;
 	private $mPossibleValues;
 	private $mIsList;
-	// the following fields are not set by the form-creation page
-	// (though they could be)
+	// The following fields are not set by the form-creation page
+	// (though they could be).
 	private $mDefaultValue;
 	private $mPreloadPage;
 	private $mHoldsTemplate;
 	private $mIsUploadable;
 	private $mFieldArgs;
 	private $mDescriptionArgs;
+	private $mLabel;
 	// somewhat of a hack - these two fields are for a field in a specific
 	// representation of a form, not the form definition; ideally these
 	// should be contained in a third 'field' class, called something like
@@ -132,6 +133,10 @@ class SFFormField {
 		return $this->mInputName;
 	}
 
+	public function getLabel() {
+		return $this->mLabel;
+	}
+
 	public function isDisabled() {
 		return $this->mIsDisabled;
 	}
@@ -221,6 +226,8 @@ class SFFormField {
 					$f->mDefaultValue = $wgParser->recursivePreprocess( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'preload' ) {
 					$f->mPreloadPage = $sub_components[1];
+				} elseif ( $sub_components[0] == 'label' ) {
+					$f->mLabel = $sub_components[1];
 				} elseif ( $sub_components[0] == 'show on select' ) {
 					// html_entity_decode() is needed to turn '&gt;' to '>'
 					$vals = explode( ';', html_entity_decode( $sub_components[1] ) );

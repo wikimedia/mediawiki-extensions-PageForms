@@ -384,6 +384,23 @@ $GLOBALS['wgResourceModules'] += array(
 			'sf-select2-selection-too-big',
 		),
 	),
+	'ext.semanticforms.jsgrid' => $sfgResourceTemplate + array(
+		'scripts' => array(
+			'libs/jsgrid.js',
+			'libs/SF_jsGrid.js',
+		),
+		'styles' => array(
+			'skins/jsgrid.css',
+			'skins/jsgrid-theme.css',
+		),
+		'dependencies' => array(
+			'jquery.ui.sortable',
+		),
+		'messages' => array(
+			'htmlform-yes',
+			'htmlform-no',
+		),
+	),
 	'ext.semanticforms' => $sfgResourceTemplate + array(
 		'scripts' => array(
 			'libs/ext.sf.js',
@@ -567,6 +584,8 @@ require_once 'includes/SF_DatePickerSettings.php';
 # ##
 $GLOBALS['sfgShowOnSelect'] = array();
 $GLOBALS['sfgAutocompleteValues'] = array();
+$GLOBALS['sfgGridValues'] = array();
+$GLOBALS['sfgGridParams'] = array();
 // SMW
 $GLOBALS['sfgFieldProperties'] = array();
 // Cargo

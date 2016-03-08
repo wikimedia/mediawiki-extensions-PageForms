@@ -282,6 +282,24 @@
 				"sf-select2-selection-too-big"
 			]
 		},
+		"ext.semanticforms.jsgrid": {
+			"scripts": [
+				"libs/jsgrid.js",
+				"libs/SF_jsGrid.js"
+			],
+			"styles": [
+				"skins/jsgrid/jsgrid.css",
+				"skins/jsgrid/theme.css"
+			],
+			"dependencies": [
+				"jquery.ui.sortable"
+			],
+			"messages": [
+				"htmlform-yes",
+				"htmlform-no"
+			]
+
+		},
 		"ext.semanticforms": {
 			"scripts": [
 				"libs/ext.sf.js"
@@ -382,6 +400,8 @@
 		"sfgRunQueryFormAtTop": false,
 		"sfgShowOnSelect": [],
 		"sfgAutocompleteValues": [],
+		"sfgGridValues": [],
+		"sfgGridParams": [],
 		"sfgFieldProperties": [],
 		"sfgCargoFields": [],
 		"sfgDependentFields": [],

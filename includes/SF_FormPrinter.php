@@ -381,6 +381,61 @@ END;
 		return $text;
 	}
 
+	function jsGridHTML( $tif ) {
+		global $wgOut, $sfgGridValues, $sfgGridParams;
+		global $sfgScriptPath;
+
+		$wgOut->addModules( 'ext.semanticforms.jsgrid' );
+
+		$gridParams = array();
+		foreach ( $tif->getFields() as $formField ) {
+			$templateField = $formField->template_field;
+
+			$inputType = $formField->getInputType();
+			$gridParamValues = array( 'name' => $templateField->getFieldName() );
+			if ( $formField->getLabel() !== null ) {
+				$gridParamValues['title'] = $formField->getLabel();
+			}
+			if ( $inputType == 'textarea' ) {
+				$gridParamValues['type'] = 'textarea';
+			} elseif ( $inputType == 'checkbox' ) {
+				$gridParamValues['type'] = 'checkbox';
+			} elseif ( ( $possibleValues = $templateField->getPossibleValues() ) != null ) {
+				array_unshift( $possibleValues, '' );
+				$completePossibleValues = array();
+				foreach ( $possibleValues as $value ) {
+					$completePossibleValues[] = array( 'Name' => $value, 'Id' => $value );
+				}
+				$gridParamValues['type'] = 'select';
+				$gridParamValues['items'] = $completePossibleValues;
+				$gridParamValues['valueField'] = 'Id';
+				$gridParamValues['textField'] = 'Name';
+			} else {
+				$gridParamValues['type'] = 'text';
+			}
+			$gridParams[] = $gridParamValues;
+		}
+
+		$templateName = $tif->getTemplateName();
+		$templateDivID = str_replace( ' ', '', $templateName ) . "Grid";
+		$templateDivAttrs = array(
+			'class' => 'sfJSGrid',
+			'id' => $templateDivID,
+			'data-template-name' => $templateName
+		);
+		if ( $tif->getHeight() != null ) {
+			$templateDivAttrs['height'] = $tif->getHeight();
+		}
+
+		$loadingImage = Html::element( 'img', array( 'src' => "$sfgScriptPath/skins/loading.gif" ) );
+		$text = Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
+
+		$sfgGridParams[$templateName] = $gridParams;
+		$sfgGridValues[$templateName] = $tif->getGridValues();
+
+		return $text;
+	}
+
 	/**
 	 * Get a string representing the current time, for the time zone
 	 * specified in the wiki.
@@ -795,6 +850,12 @@ END;
 					// among others.
 					$field_name = trim( $tag_components[1] );
 					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $tif, $form_is_disabled );
+					// For spreadsheet/grid displays, add
+					// in the form fields, so we know the
+					// data structure.
+					if ( $tif->getDisplay() == 'spreadsheet' && $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) {
+						$tif->addField( $form_field );
+					}
 					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted() );
 					if ( $form_field->holdsTemplate() ) {
 						$placeholderFields[] = self::placeholderFormat( $tif->getTemplateName(), $field_name );
@@ -920,7 +981,7 @@ END;
 								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ) {
 								// Avoid a PHP notice.
 								if ( !is_array( $cur_value ) ) {
-									$delimiter = '';
+									$delimiter = ',';
 								}
 								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $form_field->getPossibleValues() );
 							}
@@ -982,6 +1043,19 @@ END;
 							$start_position = $brackets_end_loc;
 						}
 					}
+
+					if ( $tif->allowsMultiple() && !$tif->allInstancesPrinted() ) {
+						$wordForYes = SFUtils::getWordForYesOrNo( true );
+						if ( $form_field->getInputType() == 'checkbox' ) {
+							if ( strtolower( $cur_value ) == strtolower( $wordForYes ) || strtolower( $cur_value ) == 'yes' || $cur_value == '1' ) {
+								$cur_value = true;
+							} else {
+								$cur_value = false;
+							}
+						}
+						$tif->addGridValue( $field_name, $cur_value );
+					}
+
 				// =====================================================
 				// standard input processing
 				// =====================================================
@@ -1204,15 +1278,23 @@ END;
 				$form_text .= Html::element( 'legend', null, $tif->getLabel() ) . "\n";
 			}
 			if ( $tif && $tif->allowsMultiple() ) {
-				if ( $tif->getInstanceNum() == 0 ) {
-					$multipleTemplateHTML = $this->multipleTemplateStartHTML( $tif );
+				if ( $tif->getDisplay() == 'spreadsheet' ) {
+					if ( $tif->allInstancesPrinted() ) {
+						$multipleTemplateHTML = $this->jsGridHTML( $tif );
+					} else {
+						$multipleTemplateHTML = '';
+					}
 				} else {
-					$multipleTemplateHTML = '';
-				}
-				if ( ! $tif->allInstancesPrinted() ) {
-					$multipleTemplateHTML .= $this->multipleTemplateInstanceHTML( $tif, $form_is_disabled, $section );
-				} else {
-					$multipleTemplateHTML .= $this->multipleTemplateEndHTML( $tif, $form_is_disabled, $section );
+					if ( $tif->getInstanceNum() == 0 ) {
+						$multipleTemplateHTML = $this->multipleTemplateStartHTML( $tif );
+					} else {
+						$multipleTemplateHTML = '';
+					}
+					if ( ! $tif->allInstancesPrinted() ) {
+						$multipleTemplateHTML .= $this->multipleTemplateInstanceHTML( $tif, $form_is_disabled, $section );
+					} else {
+						$multipleTemplateHTML .= $this->multipleTemplateEndHTML( $tif, $form_is_disabled, $section );
+					}
 				}
 				$placeholder = $tif->getPlaceholder();
 				if ( $placeholder != null ) {
