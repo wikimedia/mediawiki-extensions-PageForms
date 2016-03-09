@@ -2,7 +2,7 @@
 	"@Note": "When updating this file please also update SemanticForms.php with the same changes.",
 	"load_composer_autoloader": true,
 	"name": "Semantic Forms",
-	"version": "3.5",
+	"version": "3.6-alpha",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",

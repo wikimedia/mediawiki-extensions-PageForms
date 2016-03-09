@@ -15,7 +15,7 @@ class SFUtils {
 			return 1;
 		}
 
-		define( 'SF_VERSION', '3.5' );
+		define( 'SF_VERSION', '3.6-alpha' );
 
 		if ( !defined( 'SMW_VERSION' ) ) {
 			// SMW defines these namespaces itself.
