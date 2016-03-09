@@ -184,7 +184,7 @@
 	"sf_formedit_saveandcontinue_summary": "已采用表单中的\"$1\"按钮进行了保存",
 	"sf_formedit_tooltip_saveandcontinueediting": "保存数据并且继续编辑",
 	"sf_autoedit_anoneditwarning": "警告：你没有登录。你的IP地址将被记录在该页面的编辑历史中。",
-	"sf_autoedit_success": "已采用表单$2成功修改了[[$1]]。",
+	"sf_autoedit_success": "已采用表单$2修改了[[$1]]。",
 	"sf_autoedit_fail": "修改[[$1]]失败。",
 	"sf_autoedit_notargetspecified": "没有指定目标页面。",
 	"sf_autoedit_invalidtargetspecified": "指定的目标页面'''$1'''无效。",

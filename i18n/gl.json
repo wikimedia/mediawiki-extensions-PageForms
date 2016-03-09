@@ -176,7 +176,7 @@
 	"sf_formedit_saveandcontinue_summary": "Gardado mediante o botón \"$1\" do formulario",
 	"sf_formedit_tooltip_saveandcontinueediting": "Gardar os datos e continuar a edición",
 	"sf_autoedit_anoneditwarning": "Aviso: Non accedeu ao sistema. O seu enderezo IP quedará rexistrado no historial de revisións desta páxina.",
-	"sf_autoedit_success": "Modificouse correctamente \"[[$1]]\" empregando $2.",
+	"sf_autoedit_success": "Modificouse [[$1]] empregando o formulario $2.",
 	"sf_autoedit_fail": "Erro ao modificar \"[[$1]]\".",
 	"sf_autoedit_notargetspecified": "Non se especificou ningunha páxina de destino.",
 	"sf_autoedit_invalidtargetspecified": "A páxina de destino especificada, \"'''$1'''\", non é válida.",
