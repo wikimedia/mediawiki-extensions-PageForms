@@ -225,12 +225,4 @@ class SFPageSection {
 
 		return $params;
 	}
-
-	function getParamValues() {
-		$paramValues = array();
-		$paramValues['restricted'] = $this->mIsRestricted;
-		$paramValues['hidden'] =  $this->mIsHidden;
-		$paramValues['mandatory'] = $this->mIsMandatory;
-		return $paramValues;
-	}
 }
