@@ -268,9 +268,8 @@ class SFTemplateInForm {
 		$tif->mFields = array();
 		if ( is_null( $formFields ) ) {
 			$fields = $tif->getAllFields();
-			$field_num = 0;
 			foreach ( $fields as $field ) {
-				$tif->mFields[] = SFFormField::create( $field_num++, $field );
+				$tif->mFields[] = SFFormField::create( $field );
 			}
 		} else {
 			$tif->mFields = $formFields;
@@ -578,36 +577,6 @@ class SFTemplateInForm {
 			return;
 		}
 		$this->mAllInstancesPrinted = true;
-	}
-
-	function creationHTML( $template_num ) {
-		$checked_attribs = ( $this->mAllowMultiple ) ? array( 'checked' => 'checked' ) : array();
-		$template_str = wfMessage( 'sf_createform_template' )->escaped();
-		$template_label_input = wfMessage( 'sf_createform_templatelabelinput' )->escaped();
-		$allow_multiple_text = wfMessage( 'sf_createform_allowmultiple' )->escaped();
-
-		$text = Html::hidden( "template_$template_num", $this->mTemplateName );
-		$text .= '<div class="templateForm">';
-		$text .= Html::element( 'h2', array(), "$template_str '$this->mTemplateName'" );
-		$text .= Html::rawElement( 'p', array(),
-			$template_label_input . Html::input( "label_$template_num", $this->mLabel, 'text', array( 'size' => 25 ) )
-		);
-		$text .= Html::rawElement( 'p', array(),
-			Html::input( "allow_multiple_$template_num", '', 'checkbox', $checked_attribs ) . $allow_multiple_text
-		);
-		$text .= '<hr />';
-
-		foreach ( $this->mFields as $field ) {
-			$text .= $field->creationHTML( $template_num );
-		}
-		$removeTemplateButton = Html::input(
-			'del_' . $template_num,
-			wfMessage( 'sf_createform_removetemplate' )->text(),
-			'submit'
-		);
-		$text .= "\t" . Html::rawElement( 'p', null, $removeTemplateButton ) . "\n";
-		$text .= "	</div>\n";
-		return $text;
 	}
 
 	function createMarkup() {

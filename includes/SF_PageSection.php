@@ -110,47 +110,6 @@ class SFPageSection {
 		return $this->mSectionArgs;
 	}
 
-	function creationHTML( $section_count ) {
-		global $wgRequest;
-		$paramValues = array();
-		$section_name = $this->mSectionName;
-		$section_level = $this->mSectionLevel;
-
-		$section_str = wfMessage( 'sf_createform_pagesection' )->text() . " '" . $section_name . "'";
-		$text = Html::hidden( "section_$section_count", $section_name );
-		$text .= '<div class="sectionForm">';
-		$text .= Html::element( 'h2', array(), $section_str );
-
-		foreach ( $wgRequest->getValues() as $key => $value ) {
-			if ( ( $pos = strpos( $key, '_section_'.$section_count ) ) != false ) {
-				$paramName = substr( $key, 0, $pos );
-				$paramName = str_replace( '_', ' ', $paramName );
-				$paramValues[$paramName] = $value;
-			}
-		}
-
-		$header_options =  '';
-		$text .= Html::element( 'span', null, wfMessage( 'sf_createform_sectionlevel' )->text() ) . "\n";
-		for ( $i = 1; $i < 7; $i++ ) {
-			if ( $section_level == $i ) {
-				$header_options .= " " . Html::element( 'option', array( 'value' => $i, 'selected' ), $i ) . "\n";
-			} else {
-				$header_options .= " " . Html::element( 'option', array( 'value' => $i ), $i ) . "\n";
-			}
-		}
-		$text .= Html::rawElement( 'select', array( 'name' => "level_section_" . $section_count ), $header_options ) . "\n";
-		$other_param_text = wfMessage( 'sf_createform_otherparameters' )->escaped();
-		$text .= "<fieldset class=\"sfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
-		$text .= Html::rawElement( 'div', array(),
-		SFCreateForm::showSectionParameters( $section_count, $paramValues ) ) . "\n";
-		$text .= "</fieldset>\n";
-		$removeSectionButton = Html::input( 'delsection_' . $section_count, wfMessage( 'sf_createform_removesection' )->text(), 'submit' ) . "\n";
-		$text .= "</br>" . Html::rawElement( 'p', null, $removeSectionButton ) . "\n";
-		$text .= "	</div>\n";
-
-		return $text;
-	}
-
 	function createMarkup() {
 		$section_name = $this->mSectionName;
 		$section_level = $this->mSectionLevel;

@@ -27,6 +27,10 @@ class SFForm {
 		return $this->mFormName;
 	}
 
+	function getItems() {
+		return $this->mItems;
+	}
+
 	function setPageNameFormula( $pageNameFormula ) {
 		$this->mPageNameFormula = $pageNameFormula;
 	}
@@ -41,24 +45,6 @@ class SFForm {
 
 	function setAssociatedCategory( $associatedCategory ) {
 		$this->mAssociatedCategory = $associatedCategory;
-	}
-
-	function creationHTML() {
-		$text = "";
-		$template_count = 0; $section_count = 0;
-		foreach ( $this->mItems as $item ) {
-			if ( $item['type'] == 'template' ) {
-				$template = $item['item'];
-				$text .= $template->creationHTML( $template_count );
-				$template_count++;
-			} elseif ( $item['type'] == 'section' ) {
-				$section = $item['item'];
-				$text .= $section->creationHTML( $section_count );
-				$section_count++;
-			}
-		}
-
-		return $text;
 	}
 
 	function createMarkup( $standardInputs = array(), $freeTextLabel = null ) {

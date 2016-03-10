@@ -545,7 +545,7 @@ class SFPageSchemas extends PSExtensionHandler {
 		foreach ( $fieldsInfo as $i => $psField ) {
 			$fieldFormArray = $psField->getObject( 'semanticforms_FormInput' );
 			if ( !is_null( $fieldFormArray ) ) {
-				$formField = SFFormField::create( $i, $template_fields[$i] );
+				$formField = SFFormField::create( $template_fields[$i] );
 				foreach ( $fieldFormArray as $var => $val ) {
 					if ( $var == 'InputType' ) {
 						$formField->setInputType( $val );

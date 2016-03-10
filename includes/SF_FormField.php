@@ -13,7 +13,6 @@
  * @ingroup SF
  */
 class SFFormField {
-	private $mNum;
 	public $template_field;
 	private $mInputType;
 	private $mIsMandatory;
@@ -38,9 +37,8 @@ class SFFormField {
 	private $mInputName;
 	private $mIsDisabled;
 
-	static function create( $num, $template_field ) {
+	static function create( $template_field ) {
 		$f = new SFFormField();
-		$f->mNum = $num;
 		$f->template_field = $template_field;
 		$f->mInputType = null;
 		$f->mIsMandatory = false;
@@ -585,137 +583,6 @@ class SFFormField {
 				$text .= Html::hidden( 'input_' . $sfgFieldNum . '_unique_for_concept', $this->getFieldArg( 'unique_for_concept' ) );
 			}
 		}
-		return $text;
-	}
-
-	function inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $cur_input_type ) {
-		if ( !is_null( $default_input_type ) ) {
-			array_unshift( $possible_input_types, $default_input_type );
-		}
-		// create the dropdown HTML for a list of possible input types
-		$dropdownHTML = "";
-		foreach ( $possible_input_types as $i => $input_type ) {
-			if ( $i == 0 ) {
-				$dropdownHTML .= "	<option value=\".$input_type\">$input_type " .
-					wfMessage( 'sf_createform_inputtypedefault' )->escaped() . "</option>\n";
-			} else {
-				$selected_str = ( $cur_input_type == $input_type ) ? "selected" : "";
-				$dropdownHTML .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
-			}
-		}
-		$hidden_text = wfMessage( 'sf_createform_hidden' )->escaped();
-		$selected_str = ( $cur_input_type == 'hidden' ) ? "selected" : "";
-		// @todo FIXME: Contains hard coded parentheses.
-		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
-		$text = "\t" . Html::rawElement( 'select',
-			array(
-				'class' => 'inputTypeSelector',
-				'name' => 'input_type_' . $field_form_text,
-				'formfieldid' => $field_form_text
-			), $dropdownHTML ) . "\n";
-		return $text;
-	}
-
-	function creationHTML( $template_num ) {
-		$field_form_text = $template_num . "_" . $this->mNum;
-		$template_field = $this->template_field;
-		$text = Html::element( 'h3', null, wfMessage( 'sf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
-		// TODO - remove this probably-unnecessary check?
-		if ( !defined( 'SMW_VERSION' ) || $template_field->getSemanticProperty() == "" ) {
-			// Print nothing if there's no semantic property.
-		} elseif ( $template_field->getPropertyType() == "" ) {
-			$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
-			$text .= wfMessage( 'sf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "\n";
-		} else {
-			if ( $template_field->isList() ) {
-				$propDisplayMsg = 'sf_createform_fieldproplist';
-			} else {
-				$propDisplayMsg = 'sf_createform_fieldprop';
-			}
-			$prop_link_text = SFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
-
-			// Get the display label for this property type.
-			global $smwgContLang;
-			$propertyTypeStr = '';
-			if ( $smwgContLang != null ) {
-				$datatypeLabels = $smwgContLang->getDatatypeLabels();
-				$datatypeLabels['enumeration'] = 'enumeration';
-
-				$propTypeID = $template_field->getPropertyType();
-
-				// Special handling for SMW 1.9
-				if ( $propTypeID == '_str' && !array_key_exists( '_str', $datatypeLabels ) ) {
-					$propTypeID = '_txt';
-				}
-				$propertyTypeStr = $datatypeLabels[$propTypeID];
-			}
-			$text .= Html::rawElement( 'p', null, wfMessage( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
-		}
-		// If it's not a semantic field - don't add any text.
-		$form_label_text = wfMessage( 'sf_createform_formlabel' )->escaped();
-		$form_label_input = Html::input(
-			'label_' . $field_form_text,
-			$template_field->getLabel(),
-			'text',
-			array( 'size' => 20 )
-		);
-		$input_type_text = wfMessage( 'sf_createform_inputtype' )->escaped();
-		$text .= <<<END
-	<div class="formField">
-	<p>$form_label_text $form_label_input
-	&#160; $input_type_text
-
-END;
-		global $sfgFormPrinter;
-		if ( !is_null( $template_field->getPropertyType() ) ) {
-			$default_input_type = $sfgFormPrinter->getDefaultInputTypeSMW( $template_field->isList(), $template_field->getPropertyType() );
-			$possible_input_types = $sfgFormPrinter->getPossibleInputTypesSMW( $template_field->isList(), $template_field->getPropertyType() );
-		} elseif ( !is_null( $template_field->getFieldType() ) ) {
-			$default_input_type = $sfgFormPrinter->getDefaultInputTypeCargo( $template_field->isList(), $template_field->getFieldType() );
-			$possible_input_types = $sfgFormPrinter->getPossibleInputTypesCargo( $template_field->isList(), $template_field->getFieldType() );
-		} else {
-			// Most likely, template uses neither SMW nor Cargo.
-			$default_input_type = null;
-			$possible_input_types = array();
-		}
-
-		if ( $default_input_type == null && count( $possible_input_types ) == 0 ) {
-			$default_input_type = null;
-			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
-		}
-		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->getInputType() );
-
-		if ( !is_null( $template_field->getInputType() ) ) {
-			$cur_input_type = $template_field->getInputType();
-		} elseif ( !is_null( $default_input_type ) ) {
-			$cur_input_type = $default_input_type;
-		} else {
-			$cur_input_type = $possible_input_types[0];
-		}
-
-		global $wgRequest;
-		$paramValues = array();
-		foreach ( $wgRequest->getValues() as $key => $value ) {
-			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
-				$paramName = substr( $key, 0, $pos );
-				// Spaces got replaced by underlines in the
-				// query.
-				$paramName = str_replace( '_', ' ', $paramName );
-				$paramValues[$paramName] = $value;
-			}
-		}
-
-		$other_param_text = wfMessage( 'sf_createform_otherparameters' )->escaped();
-		$text .= "<fieldset class=\"sfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
-		$text .= Html::rawElement( 'div', array( 'class' => 'otherInputParams' ),
-			SFCreateForm::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
-		$text .= "</fieldset>\n";
-		$text .= <<<END
-	</p>
-	</div>
-	<hr>
-
-END;
 		return $text;
 	}
 
