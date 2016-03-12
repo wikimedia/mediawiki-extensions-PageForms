@@ -233,5 +233,9 @@
 	"sf-datepicker-next": "Següent",
 	"sf-datepicker-today": "Avui",
 	"sf-datepicker-weekstart": "El primer dia de la setmana (0 - diumenge, 1 - dilluns, ...).",
-	"sf-regexp-wrongformat": "Format incorrecte."
+	"sf-datepicker-showweeknumbers": "Cal mostrar els números de la setmana a l'esquerra de la setmana?",
+	"sf-datepicker-enableinputfield": "Cal que l'usuari pugui omplir el camp d'entrada directament o només mitjançant el selector de dates?",
+	"sf-regexp-wrongformat": "Format incorrecte.",
+	"sf-regexp-basetype": "El tipus d'entrada real que s'utilitzarà. Per defecte «text».",
+	"sf-regexp-baseprefix": "Prefix per als paràmetres del tipus base."
 }
