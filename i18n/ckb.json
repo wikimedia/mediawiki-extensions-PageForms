@@ -25,6 +25,7 @@
 	"sf_createform_nameinput": "ناوی فۆرم",
 	"sf_createform_nameinputdesc": "(بە گشتی ھەر ناوی داڕێژە سەرەکییەکەی دادەنرێت بۆ ناوی فۆرم)",
 	"sf_createform_template": "داڕێژە:",
+	"sf_createform_formlabel": "سەرناوی فۆرم:",
 	"sf_createform_hidden": "شارراوە",
 	"sf_createform_removetemplate": "داڕێژە لاببە",
 	"sf_createform_addtemplate": "داڕێژە زیاد بکە:",
