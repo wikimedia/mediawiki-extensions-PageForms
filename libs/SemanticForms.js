@@ -829,7 +829,6 @@ $.fn.checkForPipes = function() {
 	}
 
 	var nextPipe,
-		curIndex,
 		nextDoubleBracketsStart,
 		nextDoubleBracketsEnd;
 
@@ -843,26 +842,39 @@ $.fn.checkForPipes = function() {
 	// that's not a major problem.
 	fieldVal = fieldVal.replace( /{{/g, '[[' );
 	fieldVal = fieldVal.replace( /}}/g, ']]' );
-	curIndex = 0;
+	var curIndex = 0;
+	var numUnclosedBrackets = 0;
 	while ( true ) {
-		nextPipe = fieldVal.indexOf( '|', curIndex );
-		if ( nextPipe < 0 ) {
-			return true;
-		}
 		nextDoubleBracketsStart = fieldVal.indexOf( '[[', curIndex );
-		if ( nextDoubleBracketsStart < 0 || nextPipe < nextDoubleBracketsStart ) {
-			// There's a pipe where it shouldn't be.
-			this.addErrorMessage( 'sf_pipe_error' );
-			return false;
+
+		if ( numUnclosedBrackets === 0 ) {
+			nextPipe = fieldVal.indexOf( '|', curIndex );
+			if ( nextPipe < 0 ) {
+				return true;
+			}
+			if ( nextDoubleBracketsStart < 0 || nextPipe < nextDoubleBracketsStart ) {
+				// There's a pipe where it shouldn't be.
+				this.addErrorMessage( 'sf_pipe_error' );
+				return false;
+			}
+		} else {
+			if ( nextDoubleBracketsEnd < 0 ) {
+				// Something is malformed - might as well throw
+				// an error.
+				this.addErrorMessage( 'sf_pipe_error' );
+				return false;
+			}
 		}
+
 		nextDoubleBracketsEnd = fieldVal.indexOf( ']]', curIndex );
-		if ( nextDoubleBracketsEnd < 0 ) {
-			// Something is malformed - might as well throw an
-			// error.
-			this.addErrorMessage( 'sf_pipe_error' );
-			return false;
+
+		if ( nextDoubleBracketsStart >= 0 && nextDoubleBracketsStart < nextDoubleBracketsEnd ) {
+			numUnclosedBrackets++;
+			curIndex = nextDoubleBracketsStart + 2;
+		} else {
+			numUnclosedBrackets--;
+			curIndex = nextDoubleBracketsEnd + 2;
 		}
-		curIndex = nextDoubleBracketsEnd + 2;
 	}
 
 	// We'll never get here, but let's have this line anyway.
