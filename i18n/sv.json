@@ -162,7 +162,7 @@
 	"sf_formedit_saveandcontinue_summary": "Sparad med hjälp av \"$1\"-knappen i formuläret",
 	"sf_formedit_tooltip_saveandcontinueediting": "Spara data och fortsätt redigera",
 	"sf_autoedit_anoneditwarning": "Varning: Du är inte inloggad. Din IP-adress kommer att sparas i historiken för den här sidan.",
-	"sf_autoedit_success": "Har ändrat [[$1]] med hjälp av formulär $2.",
+	"sf_autoedit_success": "Ändrade [[$1]] med hjälp av formuläret $2.",
 	"sf_autoedit_fail": "Ändring av [[$1]] misslyckades.",
 	"sf_autoedit_notargetspecified": "Ingen målsida angiven.",
 	"sf_autoedit_invalidtargetspecified": "Den angivna målsidan '''$1''' är ogiltig.",
