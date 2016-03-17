@@ -398,8 +398,8 @@ $GLOBALS['wgResourceModules'] += array(
 			'libs/SF_jsGrid.js',
 		),
 		'styles' => array(
-			'skins/jsgrid.css',
-			'skins/jsgrid-theme.css',
+			'skins/jsgrid/jsgrid.css',
+			'skins/jsgrid/theme.css',
 		),
 		'dependencies' => array(
 			'jquery.ui.sortable',
