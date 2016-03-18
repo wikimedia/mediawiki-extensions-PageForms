@@ -826,4 +826,6 @@ window.ext.popupform = ( function () {
 	this.handlePopupFormInput = handlePopupFormInput;
 	this.handlePopupFormLink = handlePopupFormLink;
 	this.adjustFrameSize = adjustFrameSize;
+
+	return this;
 }() );
