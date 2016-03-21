@@ -166,7 +166,7 @@
 	"sf_formedit_saveandcontinue_summary": "Сохранено через форму кнопкой «$1»",
 	"sf_formedit_tooltip_saveandcontinueediting": "Сохранить и продолжить редактирование",
 	"sf_autoedit_anoneditwarning": "'''Внимание!''' Вы не авторизовались на сайте. В истории изменений этой страницы будет записан ваш IP-адрес.",
-	"sf_autoedit_success": "Успешно изменено [[$1]] с помощью формы $2 .",
+	"sf_autoedit_success": "[[$1]] изменено с помощью формы $2.",
 	"sf_autoedit_fail": "Изменение [[$1]] не удалось.",
 	"sf_autoedit_notargetspecified": "Целевая страница не указана.",
 	"sf_autoedit_invalidtargetspecified": "Указанная целевая страница '''$1''' недействительна.",

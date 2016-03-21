@@ -5,8 +5,10 @@
 			"Brest"
 		]
 	},
-	"semanticforms-desc": "Обрасци за додавање и уредување на семантички податоци",
+	"semanticforms-desc": "Обрасци за создавање и уредување на викистраници",
 	"specialpages-group-sf_group": "Семантички обрасци",
+	"apihelp-sfautocomplete-param-limit": "Граница на бројот исходи",
+	"apihelp-sfautocomplete-param-substr": "На која низа да се самодополнува",
 	"createproperty": "Создај својство",
 	"sf-createproperty-with-name": "Создај својство: $1",
 	"sf_createproperty_linktoform": "Ова својство ќе дава врски до страници што го користат образецот:",
