@@ -27,7 +27,6 @@ class SFTemplateField {
 	private $mIsList;
 	private $mDelimiter;
 	private $mDisplay;
-	private $mInputType;
 	private $mNamespace;
 
 	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null ) {
@@ -191,10 +190,6 @@ class SFTemplateField {
 		return $this->mDisplay;
 	}
 
-	function getInputType() {
-		return $this->mInputType;
-	}
-
 	function getNamespace() {
 		return $this->mNamespace;
 	}
@@ -205,10 +200,6 @@ class SFTemplateField {
 
 	function setLabel( $label ) {
 		$this->mLabel = $label;
-	}
-
-	function setInputType( $inputType ) {
-		$this->mInputType = $inputType;
 	}
 
 	function setNamespace( $namespace ) {

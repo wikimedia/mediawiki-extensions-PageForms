@@ -200,13 +200,13 @@ class SFCreateForm extends SpecialPage {
 						} elseif ( $paramName == 'input type' ) {
 							$input_type = $req->getVal( "input_type_" . $old_i . "_" . $j );
 							if ( $input_type == 'hidden' ) {
-								$field->template_field->setInputType( $input_type );
+								$field->setInputType( $input_type );
 								$field->setIsHidden( true );
 							} elseif ( substr( $input_type, 0, 1 ) == '.' ) {
 								// It's the default input type -
 								// don't do anything.
 							} else {
-								$field->template_field->setInputType( $input_type );
+								$field->setInputType( $input_type );
 							}
 						} else {
 							if ( ! empty( $value ) ) {
@@ -533,10 +533,10 @@ END;
 			$default_input_type = null;
 			$possible_input_types = $sfgFormPrinter->getAllInputTypes();
 		}
-		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $template_field->getInputType() );
+		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $field->getInputType() );
 
-		if ( !is_null( $template_field->getInputType() ) ) {
-			$cur_input_type = $template_field->getInputType();
+		if ( !is_null( $field->getInputType() ) ) {
+			$cur_input_type = $field->getInputType();
 		} elseif ( !is_null( $default_input_type ) ) {
 			$cur_input_type = $default_input_type;
 		} else {
