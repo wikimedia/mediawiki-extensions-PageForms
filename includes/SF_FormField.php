@@ -7,9 +7,9 @@
 
 /**
  * This class is distinct from SFTemplateField in that it represents a template
- * field defined in a form definition - it contains a SFTemplateField object
+ * field defined in a form definition - it contains an SFTemplateField object
  * within it (the $template_field variable), along with the other properties
- * for that field that are set within the form
+ * for that field that are set within the form.
  * @ingroup SF
  */
 class SFFormField {
@@ -32,7 +32,7 @@ class SFFormField {
 	// somewhat of a hack - these two fields are for a field in a specific
 	// representation of a form, not the form definition; ideally these
 	// should be contained in a third 'field' class, called something like
-	// SFFormInstanceField, that holds these fields plus an instance of
+	// SFFormInstanceField, which holds these fields plus an instance of
 	// SFFormField. Too much work?
 	private $mInputName;
 	private $mIsDisabled;
@@ -148,8 +148,8 @@ class SFFormField {
 
 		$field_name = trim( $tag_components[1] );
 		// See if this field matches one of the fields defined for this
-		// template - if it is, use all available information about
-		// that field; if it's not, either include it in the form or
+		// template - if it does, use all available information about
+		// that field; if it doesn't, either include it in the form or
 		// not, depending on whether the template has a 'strict'
 		// setting in the form definition.
 		$the_field = null;
