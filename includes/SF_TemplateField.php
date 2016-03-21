@@ -45,32 +45,6 @@ class SFTemplateField {
 		return $f;
 	}
 
-	/**
-	 * Create an SFTemplateField object based on the corresponding field
-	 * in the template definition (which we first have to find)
-	 */
-	static function createFromList( $field_name, $all_fields, $strict_parsing ) {
-		// See if this field matches one of the fields defined for
-		// the template it's part of - if it is, use all available
-		// information about that field; if it's not, either create
-		// an object for it or not, depending on whether the
-		// template has a 'strict' setting in the form definition.
-		$the_field = null;
-		foreach ( $all_fields as $cur_field ) {
-			if ( $field_name == $cur_field->mFieldName ) {
-				$the_field = $cur_field;
-				break;
-			}
-		}
-		if ( $the_field == null ) {
-			if ( $strict_parsing ) {
-				return null;
-			}
-			$the_field = new SFTemplateField();
-		}
-		return $the_field;
-	}
-
 	function setTypeAndPossibleValues() {
 		if ( !defined( 'SMW_NS_PROPERTY' ) ) {
 			return;
