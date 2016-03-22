@@ -39,7 +39,8 @@ class SFTemplateInForm {
 		$tif->mTemplateName = str_replace( '_', ' ', $name );
 		$tif->mFields = array();
 		if ( is_null( $formFields ) ) {
-			$fields = $tif->getAllFields();
+			$template = SFTemplate::newFromName( $tif->mTemplateName );
+			$fields = $template->getTemplateFields();
 			foreach ( $fields as $field ) {
 				$tif->mFields[] = SFFormField::create( $field );
 			}

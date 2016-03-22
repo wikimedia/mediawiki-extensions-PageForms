@@ -60,7 +60,7 @@ class SFTemplate {
 		// presence of SMW and can get non-SMW information as well.
 		if ( defined( 'CARGO_VERSION' ) ) {
 			$this->loadTemplateFieldsCargo( $templateTitle );
-			if ( $this->mTemplateFields !== null ) {
+			if ( count( $this->mTemplateFields ) > 0 ) {
 				return;
 			}
 		}
@@ -86,7 +86,7 @@ class SFTemplate {
 
 		// First, look for "arraymap" parser function calls
 		// that map a property onto a list.
-		if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $templateText, $matches ) ) {
+		if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $i => $field_name ) {
 				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
 					$propertyName = $matches[2][$i];
@@ -103,7 +103,7 @@ class SFTemplate {
 		}
 
 		// Second, look for normal property calls.
-		if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
+		if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $i => $propertyName ) {
 				$field_name = trim( $matches[2][$i] );
 				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
@@ -116,7 +116,7 @@ class SFTemplate {
 
 		// Then, get calls to #set, #set_internal and #subobject.
 		// (Thankfully, they all have similar syntax).
-		if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
+		if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[2] as $match ) {
 				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
 					foreach ( $matches2[1] as $i => $propertyName ) {
@@ -133,7 +133,7 @@ class SFTemplate {
 
 		// Then, get calls to #declare. (This is really rather
 		// optional, since no one seems to use #declare.)
-		if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
+		if ( preg_match_all( '/#declare:(.*?)}}/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $match ) {
 				$setValues = explode( '|', $match );
 				foreach ( $setValues as $valuePair ) {
@@ -151,11 +151,11 @@ class SFTemplate {
 		}
 
 		// Finally, get any non-semantic fields defined.
-		if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
+		if ( preg_match_all( '/{{{([^|}]*)/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $fieldName ) {
 				$fieldName = trim( $fieldName );
 				if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
-					$cur_pos = stripos( $templateText, $fieldName );
+					$cur_pos = stripos( $this->mTemplateText, $fieldName );
 					$this->mTemplateFields[$cur_pos] = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
 					$fieldNamesArray[] = $fieldName;
 				}
@@ -255,6 +255,10 @@ class SFTemplate {
 			}
 			$this->mTemplateFields[] = $templateField;
 		}
+	}
+
+	public function getTemplateFields() {
+		return $this->mTemplateFields;
 	}
 
 	public function getFieldNamed( $fieldName ) {
