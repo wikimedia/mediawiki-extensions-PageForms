@@ -17,14 +17,14 @@ class SFTemplateInForm {
 	private $mFields;
 	private $mEmbedInTemplate;
 	private $mEmbedInField;
+	private $mPlaceholder;
 	private $mHeight = '200px';
-
-	private $mSearchTemplateStr;
-	private $mPregMatchTemplateStr;
 
 	// These fields are for a specific usage of a form (or more
 	// specifically, a template in a form) to edit a particular page.
 	// Perhaps they should go in another class.
+	private $mSearchTemplateStr;
+	private $mPregMatchTemplateStr;
 	private $mFullTextInPage;
 	private $mValuesFromPage = array();
 	private $mValuesFromSubmit;
@@ -33,7 +33,6 @@ class SFTemplateInForm {
 	private $mInstanceNum = 0;
 	private $mAllInstancesPrinted = false;
 	private $mGridValues = array();
-	private $mPlaceholder;
 
 	/**
 	 * For a field name and its attached property name located in the
@@ -280,6 +279,54 @@ class SFTemplateInForm {
 		return $tif;
 	}
 
+	public static function newFromFormTag( $tag_components ) {
+		global $wgParser;
+
+		$template_name = str_replace( '_', ' ', trim( $tag_components[1] ) );
+		$tif = new SFTemplateInForm();
+		$tif->mTemplateName = str_replace( '_', ' ', $template_name );
+
+		$tif->mAddButtonText = wfMessage( 'sf_formedit_addanother' )->text();
+		// Cycle through the other components.
+		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
+			$component = $tag_components[$i];
+			if ( $component == 'multiple' ) {
+				$tif->mAllowMultiple = true;
+			} elseif ( $component == 'strict' ) {
+				$tif->mStrictParsing = true;
+			}
+			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
+			if ( count( $sub_components ) == 2 ) {
+				if ( $sub_components[0] == 'label' ) {
+					$tif->mLabel = $sub_components[1];
+				} elseif ( $sub_components[0] == 'minimum instances' ) {
+					$tif->mMinAllowed = $sub_components[1];
+				} elseif ( $sub_components[0] == 'maximum instances' ) {
+					$tif->mMaxAllowed = $sub_components[1];
+				} elseif ( $sub_components[0] == 'add button text' ) {
+					$tif->mAddButtonText = $wgParser->recursiveTagParse( $sub_components[1] );
+				} elseif ( $sub_components[0] == 'embed in field' ) {
+					// Placeholder on form template level. Assume that the template form def
+					// will have a multiple+placeholder parameters, and get the placeholder value.
+					// We expect something like TemplateName[fieldName], and convert it to the
+					// TemplateName___fieldName form used internally.
+					preg_match( '/\s*(.*)\[(.*)\]\s*/', $sub_components[1], $matches );
+					if ( count( $matches ) > 2 ) {
+						$tif->mEmbedInTemplate = $matches[1];
+						$tif->mEmbedInField = $matches[2];
+						$tif->mPlaceholder = SFFormPrinter::placeholderFormat( $tif->mEmbedInTemplate, $tif->mEmbedInField );
+					}
+				} elseif ( $sub_components[0] == 'display' ) {
+					$tif->mDisplay = $sub_components[1];
+				} elseif ( $sub_components[0] == 'height' ) {
+					$tif->mHeight = $sub_components[1];
+				}
+			}
+		}
+
+		return $tif;
+	}
+
 	function getTemplateName() {
 		return $this->mTemplateName;
 	}
@@ -332,6 +379,32 @@ class SFTemplateInForm {
 		return $this->mMaxAllowed;
 	}
 
+	function createMarkup() {
+		$text = "{{{for template|" . $this->mTemplateName;
+		if ( $this->mAllowMultiple ) {
+			$text .= "|multiple";
+		}
+		if ( $this->mLabel != '' ) {
+			$text .= "|label=" . $this->mLabel;
+		}
+		$text .= "}}}\n";
+		// For now, HTML for templates differs for multiple-instance
+		// templates; this may change if handling of form definitions
+		// gets more sophisticated.
+		if ( ! $this->mAllowMultiple ) { $text .= "{| class=\"formtable\"\n"; }
+		foreach ( $this->mFields as $i => $field ) {
+			$is_last_field = ( $i == count( $this->mFields ) - 1 );
+			$text .= $field->createMarkup( $this->mAllowMultiple, $is_last_field );
+		}
+		if ( ! $this->mAllowMultiple ) { $text .= "|}\n"; }
+		$text .= "{{{end template}}}\n";
+		return $text;
+	}
+
+	// The remaining functions here are intended for an instance of a
+	// template in a specific form, and perhaps should be moved into
+	// another class.
+
 	function getFullTextInPage() {
 		return $this->mFullTextInPage;
 	}
@@ -375,54 +448,6 @@ class SFTemplateInForm {
 			$this->mGridValues[$this->mInstanceNum] = array();
 		}
 		$this->mGridValues[$this->mInstanceNum][$field_name] = $cur_value;
-	}
-
-	public static function newFromFormTag( $tag_components ) {
-		global $wgParser;
-
-		$template_name = str_replace( '_', ' ', trim( $tag_components[1] ) );
-		$tif = new SFTemplateInForm();
-		$tif->mTemplateName = str_replace( '_', ' ', $template_name );
-
-		$tif->mAddButtonText = wfMessage( 'sf_formedit_addanother' )->text();
-		// Cycle through the other components.
-		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
-			$component = $tag_components[$i];
-			if ( $component == 'multiple' ) {
-				$tif->mAllowMultiple = true;
-			} elseif ( $component == 'strict' ) {
-				$tif->mStrictParsing = true;
-			}
-			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
-			if ( count( $sub_components ) == 2 ) {
-				if ( $sub_components[0] == 'label' ) {
-					$tif->mLabel = $sub_components[1];
-				} elseif ( $sub_components[0] == 'minimum instances' ) {
-					$tif->mMinAllowed = $sub_components[1];
-				} elseif ( $sub_components[0] == 'maximum instances' ) {
-					$tif->mMaxAllowed = $sub_components[1];
-				} elseif ( $sub_components[0] == 'add button text' ) {
-					$tif->mAddButtonText = $wgParser->recursiveTagParse( $sub_components[1] );
-				} elseif ( $sub_components[0] == 'embed in field' ) {
-					// Placeholder on form template level. Assume that the template form def
-					// will have a multiple+placeholder parameters, and get the placeholder value.
-					// We expect something like TemplateName[fieldName], and convert it to the
-					// TemplateName___fieldName form used internally.
-					preg_match( '/\s*(.*)\[(.*)\]\s*/', $sub_components[1], $matches );
-					if ( count( $matches ) > 2 ) {
-						$tif->mEmbedInTemplate = $matches[1];
-						$tif->mEmbedInField = $matches[2];
-						$tif->mPlaceholder = SFFormPrinter::placeholderFormat( $tif->mEmbedInTemplate, $tif->mEmbedInField );
-					}
-				} elseif ( $sub_components[0] == 'display' ) {
-					$tif->mDisplay = $sub_components[1];
-				} elseif ( $sub_components[0] == 'height' ) {
-					$tif->mHeight = $sub_components[1];
-				}
-			}
-		}
-
-		return $tif;
 	}
 
 	function addField( $form_field ) {
@@ -579,25 +604,4 @@ class SFTemplateInForm {
 		$this->mAllInstancesPrinted = true;
 	}
 
-	function createMarkup() {
-		$text = "{{{for template|" . $this->mTemplateName;
-		if ( $this->mAllowMultiple ) {
-			$text .= "|multiple";
-		}
-		if ( $this->mLabel != '' ) {
-			$text .= "|label=" . $this->mLabel;
-		}
-		$text .= "}}}\n";
-		// For now, HTML for templates differs for multiple-instance
-		// templates; this may change if handling of form definitions
-		// gets more sophisticated.
-		if ( ! $this->mAllowMultiple ) { $text .= "{| class=\"formtable\"\n"; }
-		foreach ( $this->mFields as $i => $field ) {
-			$is_last_field = ( $i == count( $this->mFields ) - 1 );
-			$text .= $field->createMarkup( $this->mAllowMultiple, $is_last_field );
-		}
-		if ( ! $this->mAllowMultiple ) { $text .= "|}\n"; }
-		$text .= "{{{end template}}}\n";
-		return $text;
-	}
 }
