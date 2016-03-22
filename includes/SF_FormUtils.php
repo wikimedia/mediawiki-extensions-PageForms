@@ -393,6 +393,7 @@ END;
 		// {{{field|foo|default={{Bar}}}}} is not a problem. When used with preg_match and friends, $matches[0] will
 		// contain the whole SF tag, $matches[1] will contain the tag without the enclosing triple braces.
 		$regexp = '#\{\{\{((?>[^\{\}]+)|(\{((?>[^\{\}]+)|(?-2))*\}))*\}\}\}#';
+		// Needed to restore highlighting in vi - <?
 
 		$items = array();
 
