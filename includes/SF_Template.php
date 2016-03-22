@@ -14,6 +14,7 @@
 
 class SFTemplate {
 	private $mTemplateName;
+	private $mTemplateText;
 	private $mTemplateFields;
 	private $mConnectingProperty;
 	private $mCategoryName;
@@ -29,6 +30,240 @@ class SFTemplate {
 	public function __construct( $templateName, $templateFields ) {
 		$this->mTemplateName = $templateName;
 		$this->mTemplateFields = $templateFields;
+	}
+
+	public static function newFromName( $templateName ) {
+		$template = new SFTemplate( $templateName, array() );
+		$template->loadTemplateFields();
+		return $template;
+	}
+
+	/**
+	 * @TODO - fix so that this function only gets called once per
+	 * template; right now it seems to get called once per field. (!)
+	 */
+	function loadTemplateFields() {
+		$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
+		if ( !isset( $templateTitle ) ) {
+			return;
+		}
+
+		$templateText = SFUtils::getPageText( $templateTitle );
+		// Ignore 'noinclude' sections and 'includeonly' tags.
+		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
+		$this->mTemplateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+
+		// The Cargo-based function is more specific; it only gets
+		// data structure information from the template schema. If
+		// there's no Cargo schema for this template, we call
+		// loadTemplateFieldsSMWAndOther(), which doesn't require the
+		// presence of SMW and can get non-SMW information as well.
+		if ( defined( 'CARGO_VERSION' ) ) {
+			$this->loadTemplateFieldsCargo( $templateTitle );
+			if ( $this->mTemplateFields !== null ) {
+				return;
+			}
+		}
+		return $this->loadTemplateFieldsSMWAndOther();
+	}
+
+	/**
+	 * Get the fields of the template, along with the semantic property
+	 * attached to each one (if any), by parsing the text of the template.
+	 */
+	function loadTemplateFieldsSMWAndOther() {
+		global $wgContLang;
+		$templateFields = array();
+		$fieldNamesArray = array();
+
+		// The way this works is that fields are found and then stored
+		// in an array based on their location in the template text, so
+		// that they can be returned in the order in which they appear
+		// in the template, not the order in which they were found.
+		// Some fields can be found more than once (especially if
+		// they're part of an "#if" statement), so they're only
+		// recorded the first time they're found.
+
+		// First, look for "arraymap" parser function calls
+		// that map a property onto a list.
+		if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $i => $field_name ) {
+				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
+					$propertyName = $matches[2][$i];
+					$this->loadPropertySettingInTemplate( $field_name, $propertyName, true );
+					$fieldNamesArray[] = $field_name;
+				}
+			}
+		} elseif ( $ret === false ) {
+			// There was an error in the preg_match_all()
+			// call - let the user know about it.
+			if ( preg_last_error() == PREG_BACKTRACK_LIMIT_ERROR ) {
+				print 'Semantic Forms error: backtrace limit exceeded during parsing! Please increase the value of <a href="http://www.php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit">pcre.backtrack_limit</a> in php.ini or LocalSettings.php.';
+			}
+		}
+
+		// Second, look for normal property calls.
+		if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $i => $propertyName ) {
+				$field_name = trim( $matches[2][$i] );
+				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
+					$propertyName = trim( $propertyName );
+					$this->loadPropertySettingInTemplate( $field_name, $propertyName, false );
+					$fieldNamesArray[] = $field_name;
+				}
+			}
+		}
+
+		// Then, get calls to #set, #set_internal and #subobject.
+		// (Thankfully, they all have similar syntax).
+		if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $templateText, $matches ) ) {
+			foreach ( $matches[2] as $match ) {
+				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
+					foreach ( $matches2[1] as $i => $propertyName ) {
+						$fieldName = trim( $matches2[2][$i] );
+						if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
+							$propertyName = trim( $propertyName );
+							$this->loadPropertySettingInTemplate( $fieldName, $propertyName, false );
+							$fieldNamesArray[] = $fieldName;
+						}
+					}
+				}
+			}
+		}
+
+		// Then, get calls to #declare. (This is really rather
+		// optional, since no one seems to use #declare.)
+		if ( preg_match_all( '/#declare:(.*?)}}/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $match ) {
+				$setValues = explode( '|', $match );
+				foreach ( $setValues as $valuePair ) {
+					$keyAndVal = explode( '=', $valuePair );
+					if ( count( $keyAndVal ) == 2 ) {
+						$propertyName = trim( $keyAndVal[0] );
+						$fieldName = trim( $keyAndVal[1] );
+						if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
+							$this->loadPropertySettingInTemplate( $fieldName, $propertyName, false );
+							$fieldNamesArray[] = $fieldName;
+						}
+					}
+				}
+			}
+		}
+
+		// Finally, get any non-semantic fields defined.
+		if ( preg_match_all( '/{{{([^|}]*)/mis', $templateText, $matches ) ) {
+			foreach ( $matches[1] as $fieldName ) {
+				$fieldName = trim( $fieldName );
+				if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
+					$cur_pos = stripos( $templateText, $fieldName );
+					$this->mTemplateFields[$cur_pos] = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
+					$fieldNamesArray[] = $fieldName;
+				}
+			}
+		}
+		ksort( $this->mTemplateFields );
+	}
+
+	/**
+	 * For a field name and its attached property name located in the
+	 * template text, create an SFTemplateField object out of it, and
+	 * add it to $this->mTemplateFields.
+	 */
+	function loadPropertySettingInTemplate( $fieldName, $propertyName, $isList ) {
+		global $wgContLang;
+		$templateField = SFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ), $propertyName, $isList );
+		$cur_pos = stripos( $this->mTemplateText, $fieldName . '|' );
+		$this->mTemplateFields[$cur_pos] = $templateField;
+	}
+
+	function loadTemplateFieldsCargo( $templateTitle ) {
+		$cargoFieldsOfTemplateParams = array();
+
+		// First, get the table name, and fields, declared for this
+		// template.
+		$templatePageID = $templateTitle->getArticleID();
+		$tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
+		// See if there even is DB storage for this template - if not,
+		// exit.
+		if ( is_null( $tableSchemaString ) ) {
+			return null;
+		}
+		$tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
+		$tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
+
+		// Then, match template params to Cargo table fields, by
+		// parsing call(s) to #cargo_store.
+		// Let's find every #cargo_store tag.
+		// Unfortunately, it doesn't seem possible to use a regexp
+		// search for this, because it's hard to know which set of
+		// double brackets represents the end of such a call. Instead,
+		// we'll do some manual parsing.
+		$cargoStoreLocations = array();
+		$curPos = 0;
+		while ( true ) {
+			$newPos = strpos( $this->mTemplateText, "#cargo_store:", $curPos );
+			if ( $newPos === false ) {
+				break;
+			}
+			$curPos = $newPos + 13;
+			$cargoStoreLocations[] = $curPos;
+		}
+
+		$cargoStoreCalls = array();
+		foreach ( $cargoStoreLocations as $locNum => $startPos ) {
+			$numUnclosedBrackets = 2;
+			if ( $locNum < count( $cargoStoreLocations ) - 1 ) {
+				$lastPos = $cargoStoreLocations[$locNum + 1];
+			} else {
+				$lastPos = strlen( $this->mTemplateText ) - 1;
+			}
+			$curCargoStoreCall = '';
+			$curPos = $startPos;
+			while ( $curPos <= $lastPos ) {
+				$curChar = $this->mTemplateText[$curPos];
+				$curCargoStoreCall .= $curChar;
+				if ( $curChar == '}' ) {
+					$numUnclosedBrackets--;
+				} elseif ( $curChar == '{' ) {
+					$numUnclosedBrackets++;
+				}
+				if ( $numUnclosedBrackets == 0 ) {
+					break;
+				}
+				$curPos++;
+			}
+			$cargoStoreCalls[] = $curCargoStoreCall;
+		}
+
+		foreach ( $cargoStoreCalls as $cargoStoreCall ) {
+			if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $cargoStoreCall, $matches ) ) {
+				foreach ( $matches[1] as $i => $cargoFieldName ) {
+					$templateParameter = trim( $matches[2][$i] );
+					$cargoFieldsOfTemplateParams[$templateParameter] = $cargoFieldName;
+				}
+			}
+		}
+
+		// Now, combine the two sets of information into an array of
+		// SFTemplateFields objects.
+		$fieldDescriptions = $tableSchema->mFieldDescriptions;
+		foreach ( $cargoFieldsOfTemplateParams as $templateParameter => $cargoField ) {
+			$templateField = SFTemplateField::create( $templateParameter, $templateParameter );
+			if ( array_key_exists( $cargoField, $fieldDescriptions ) ) {
+				$fieldDescription = $fieldDescriptions[$cargoField];
+				$templateField->setCargoFieldData( $tableName, $cargoField, $fieldDescription );
+			}
+			$this->mTemplateFields[] = $templateField;
+		}
+	}
+
+	public function getFieldNamed( $fieldName ) {
+		foreach ( $this->mTemplateFields as $curField ) {
+			if ( $curField->getFieldName() == $fieldName ) {
+				return $curField;
+			}
+		}
+		return null;
 	}
 
 	public function setConnectingProperty( $connectingProperty ) {

@@ -742,6 +742,7 @@ END;
 		// existing article as well, finding template and field
 		// declarations and replacing them with form elements, either
 		// blank or pre-populated, as appropriate.
+		$template = null;
 		$tif = null;
 		// This array will keep track of all the replaced @<name>@ strings
 		$placeholderFields = array();
@@ -769,6 +770,7 @@ END;
 					$template_name = str_replace( '_', ' ', $tag_components[1] );
 					$is_new_template = ( $template_name != $previous_template_name );
 					if ( $is_new_template ) {
+						$template = SFTemplate::newFromName( $template_name );
 						$tif = SFTemplateInForm::newFromFormTag( $tag_components );
 					}
 					// Remove template tag.
@@ -831,6 +833,7 @@ END;
 					}
 					// Remove this tag from the $section variable.
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
+					$template = null;
 					$tif = null;
 				// =====================================================
 				// field processing
@@ -841,6 +844,7 @@ END;
 					// means we're handling the free text field.
 					// Make the template a dummy variable.
 					if ( $tif == null ) {
+						$template = new SFTemplate( null, array() );
 						$tif = new SFTemplateInForm();
 					}
 					// We get the field name both here
@@ -849,7 +853,7 @@ END;
 					// to deal with the <freetext> hack,
 					// among others.
 					$field_name = trim( $tag_components[1] );
-					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $tif, $form_is_disabled );
+					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled );
 					// For spreadsheet/grid displays, add
 					// in the form fields, so we know the
 					// data structure.

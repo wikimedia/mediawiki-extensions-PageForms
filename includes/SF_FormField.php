@@ -143,27 +143,25 @@ class SFFormField {
 		$this->mDescriptionArgs[$key] = $value;
 	}
 
-	static function newFromFormFieldTag( $tag_components, $template_in_form, $form_is_disabled ) {
+	static function newFromFormFieldTag( $tag_components, $template, $template_in_form, $form_is_disabled ) {
 		global $wgParser, $wgUser;
 
 		$f = new SFFormField();
 		$f->mFieldArgs = array();
 
 		$field_name = trim( $tag_components[1] );
+		$template_name = $template_in_form->getTemplateName();
 
 		// See if this field matches one of the fields defined for this
 		// template - if it does, use all available information about
 		// that field; if it doesn't, either include it in the form or
 		// not, depending on whether the template has a 'strict'
 		// setting in the form definition.
-		$template_fields = $template_in_form->getAllFields();
-		foreach ( $template_fields as $cur_field ) {
-			if ( $field_name == $cur_field->getFieldName() ) {
-				$f->template_field = $cur_field;
-				break;
-			}
-		}
-		if ( $f->template_field == null ) {
+		$template_field = $template->getFieldNamed( $field_name );
+
+		if ( $template_field != null ) {
+			$f->template_field = $template_field;
+		} else {
 			if ( $template_in_form->strictParsing() ) {
 				$f->template_field = new SFTemplateField();
 				$f->mIsList = false;
@@ -175,7 +173,7 @@ class SFFormField {
 		$semantic_property = null;
 		$cargo_table = $cargo_field = null;
 		$show_on_select = array();
-		$fullFieldName = $template_in_form->getTemplateName() . '[' . $field_name . ']';
+		$fullFieldName = $template_name . '[' . $field_name . ']';
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 			$component = trim( $tag_components[$i] );
@@ -408,15 +406,15 @@ class SFFormField {
 			}
 		}
 
-		if ( $template_in_form->getTemplateName() == null || $template_in_form->getTemplateName() === '' ) {
+		if ( $template_name == null || $template_name === '' ) {
 			$f->mInputName = $field_name;
 		} elseif ( $template_in_form->allowsMultiple() ) {
 			// 'num' will get replaced by an actual index, either in PHP
 			// or in Javascript, later on
-			$f->mInputName = $template_in_form->getTemplateName() . '[num][' . $field_name . ']';
-			$f->setFieldArg( 'origName', $template_in_form->getTemplateName() . '[' . $field_name . ']' );
+			$f->mInputName = $template_name . '[num][' . $field_name . ']';
+			$f->setFieldArg( 'origName', $fullFieldName );
 		} else {
-			$f->mInputName = $template_in_form->getTemplateName() . '[' . $field_name . ']';
+			$f->mInputName = $fullFieldName;
 		}
 
 		return $f;
