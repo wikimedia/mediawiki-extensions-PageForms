@@ -272,20 +272,20 @@ class SFFormField {
 					$values = $wgParser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from property' ) {
 					$propertyName = $sub_components[1];
-					$f->mPossibleValues = SFUtils::getAllValuesForProperty( $propertyName );
+					$f->mPossibleValues = SFValuesUtils::getAllValuesForProperty( $propertyName );
 				} elseif ( $sub_components[0] == 'values from query' ) {
-					$pages = SFUtils::getAllPagesForQuery( $sub_components[1] );
+					$pages = SFValuesUtils::getAllPagesForQuery( $sub_components[1] );
 					foreach ( $pages as $page ) {
 						$page_name_for_values = $page->getDbKey();
 						$f->mPossibleValues[] = $page_name_for_values;
 					}
 				} elseif ( $sub_components[0] == 'values from category' ) {
 					$category_name = ucfirst( $sub_components[1] );
-					$f->mPossibleValues = SFUtils::getAllPagesForCategory( $category_name, 10 );
+					$f->mPossibleValues = SFValuesUtils::getAllPagesForCategory( $category_name, 10 );
 				} elseif ( $sub_components[0] == 'values from concept' ) {
-					$f->mPossibleValues = SFUtils::getAllPagesForConcept( $sub_components[1] );
+					$f->mPossibleValues = SFValuesUtils::getAllPagesForConcept( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from namespace' ) {
-					$f->mPossibleValues = SFUtils::getAllPagesForNamespace( $sub_components[1] );
+					$f->mPossibleValues = SFValuesUtils::getAllPagesForNamespace( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values dependent on' ) {
 					global $sfgDependentFields;
 					$sfgDependentFields[] = array( $sub_components[1], $fullFieldName );
@@ -342,18 +342,18 @@ class SFFormField {
 			// for array/list fields.
 			// Instead of getting involved with all that, we'll just
 			// remove the null/blank values afterward.
-			$cargoValues = SFUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+			$cargoValues = SFValuesUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
 			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
 		}
 
 		if ( !is_null( $f->mPossibleValues ) ) {
 			if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
-				$f->mPossibleValues = SFUtils::getLabelsFromTemplate( $f->mPossibleValues, $f->mFieldArgs['mapping template'] );
+				$f->mPossibleValues = SFValuesUtils::getLabelsFromTemplate( $f->mPossibleValues, $f->mFieldArgs['mapping template'] );
 			} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
-				$f->mPossibleValues = SFUtils::getLabelsFromProperty( $f->mPossibleValues, $f->mFieldArgs['mapping property'] );
+				$f->mPossibleValues = SFValuesUtils::getLabelsFromProperty( $f->mPossibleValues, $f->mFieldArgs['mapping property'] );
 			} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
 				array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
-				$f->mPossibleValues = SFUtils::getLabelsFromCargoField( $f->mPossibleValues, $f->mFieldArgs['mapping cargo table'], $f->mFieldArgs['mapping cargo field'] );
+				$f->mPossibleValues = SFValuesUtils::getLabelsFromCargoField( $f->mPossibleValues, $f->mFieldArgs['mapping cargo table'], $f->mFieldArgs['mapping cargo field'] );
 			}
 		}
 		// Backwards compatibility.
@@ -459,7 +459,7 @@ class SFFormField {
 							if ( $key === 'is_list' ) {
 								$cur_values[$key] = $val;
 							} else {
-								$cur_values[] = SFUtils::labelToValue( $val, $this->mPossibleValues );
+								$cur_values[] = SFValuesUtils::labelToValue( $val, $this->mPossibleValues );
 							}
 						}
 					} else {
@@ -479,11 +479,11 @@ class SFFormField {
 						if ( $is_list ) {
 							$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
 							foreach ( $cur_values as $key => $value ) {
-								$cur_values[$key] = SFUtils::labelToValue( $value, $this->mPossibleValues );
+								$cur_values[$key] = SFValuesUtils::labelToValue( $value, $this->mPossibleValues );
 							}
 							return implode( $delimiter, $cur_values );
 						}
-						return SFUtils::labelToValue( $field_query_val, $this->mPossibleValues );
+						return SFValuesUtils::labelToValue( $field_query_val, $this->mPossibleValues );
 					}
 					return $field_query_val;
 				}

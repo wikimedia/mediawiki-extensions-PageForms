@@ -75,7 +75,7 @@ class SFTreeInput extends SFFormInput {
 			$delimiter = ',';
 		}
 
-		$cur_values = SFUtils::getValuesArray( $cur_value, $delimiter );
+		$cur_values = SFValuesUtils::getValuesArray( $cur_value, $delimiter );
 		if ( array_key_exists( 'height', $other_args ) ) {
 			$height = $other_args['height'];
 		} else {

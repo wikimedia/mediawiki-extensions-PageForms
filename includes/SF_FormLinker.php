@@ -161,12 +161,12 @@ class SFFormLinker {
 
 		$store = SFUtils::getSMWStore();
 		$subject = Title::makeTitleSafe( $page_namespace, $page_name );
-		$form_names = SFUtils::getSMWPropertyValues( $store, $subject, $prop_smw_id );
+		$form_names = SFValuesUtils::getSMWPropertyValues( $store, $subject, $prop_smw_id );
 
 		// If we're using a non-English language, check for the English
 		// string as well.
 		if ( ! class_exists( 'SF_LanguageEn' ) || ! $sfgContLang instanceof SF_LanguageEn ) {
-			$backup_form_names = SFUtils::getSMWPropertyValues( $store, $subject, $backup_prop_smw_id );
+			$backup_form_names = SFValuesUtils::getSMWPropertyValues( $store, $subject, $backup_prop_smw_id );
 			$form_names = array_merge( $form_names, $backup_form_names );
 		}
 
@@ -391,7 +391,7 @@ class SFFormLinker {
 		$namespace = $title->getNamespace();
 		if ( NS_CATEGORY !== $namespace ) {
 			$default_forms = array();
-			$categories = SFUtils::getCategoriesForPage( $title );
+			$categories = SFValuesUtils::getCategoriesForPage( $title );
 			foreach ( $categories as $category ) {
 				if ( class_exists( 'PSSchema' ) ) {
 					// Check the Page Schema, if one exists.

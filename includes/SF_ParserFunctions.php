@@ -157,22 +157,6 @@ class SFParserFunctions {
 	// only gets added to the page once
 	static $num_autocompletion_inputs = 0;
 
-	static function registerFunctions( &$parser ) {
-		global $wgOut;
-
-		$parser->setFunctionHook( 'default_form', array( 'SFParserFunctions', 'renderDefaultForm' ) );
-		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
-		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
-		$parser->setFunctionHook( 'formredlink', array( 'SFParserFunctions', 'renderFormRedLink' ) );
-		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
-		$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMap' ), $parser::SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ), $parser::SFH_OBJECT_ARGS );
-
-		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
-
-		return true;
-	}
-
 	static function renderDefaultform( &$parser ) {
 		$curTitle = $parser->getTitle();
 
@@ -334,7 +318,7 @@ class SFParserFunctions {
 			$formInputAttrs['id'] = $inputID;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
 			global $sfgMaxLocalAutocompleteValues;
-			$autocompletion_values = SFUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletionType );
+			$autocompletion_values = SFValuesUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletionType );
 			if ( count( $autocompletion_values ) > $sfgMaxLocalAutocompleteValues || $inRemoteAutocompletion ) {
 				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 				$formInputAttrs['autocompletedatatype'] = $autocompletionType;

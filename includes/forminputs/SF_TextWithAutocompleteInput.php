@@ -143,7 +143,7 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			} elseif ( $autocompleteFieldType == 'values' ) {
 				$autocompleteValues = explode( ',', $field_args['values'] );
 			} else {
-				$autocompleteValues = SFUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
+				$autocompleteValues = SFValuesUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
 			}
 			if( count($autocompleteValues) > $sfgMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) && !array_key_exists( 'mapping template', $field_args ) ) {

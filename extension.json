@@ -11,9 +11,9 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:Semantic_Forms",
 	"descriptionmsg": "semanticforms-desc",
 	"type": "specialpage",
-	"callback": "SFUtils::registerExtension",
+	"callback": "SFHooks::registerExtension",
 	"ExtensionFunctions": [
-		"SFUtils::initialize"
+		"SFHooks::initialize"
 	],
 	"require": {
 		"MediaWiki": ">= 1.27.0"
@@ -90,6 +90,8 @@
 		"SFFormPrinter": "includes/SF_FormPrinter.php",
 		"SFFormUtils": "includes/SF_FormUtils.php",
 		"SFUtils": "includes/SF_Utils.php",
+		"SFValuesUtils": "includes/SF_ValuesUtils.php",
+		"SFHooks": "includes/SF_Hooks.php",
 		"SFFormLinker": "includes/SF_FormLinker.php",
 		"SFPageSchemas": "includes/SF_PageSchemas.php",
 		"SFParserFunctions": "includes/SF_ParserFunctions.php",
@@ -354,13 +356,13 @@
 			"SFHelperFormAction::displayTab2"
 		],
 		"smwInitProperties": [
-			"SFUtils::initProperties"
+			"SFHooks::initProperties"
 		],
 		"ArticlePurge": [
 			"SFFormUtils::purgeCache"
 		],
 		"ParserFirstCallInit": [
-			"SFParserFunctions::registerFunctions"
+			"SFHooks::registerFunctions"
 		],
 		"MakeGlobalVariablesScript": [
 			"SFFormUtils::setGlobalJSVariables"
@@ -369,16 +371,16 @@
 			"SFPageSchemas::registerClass"
 		],
 		"EditPage::importFormData": [
-			"SFUtils::showFormPreview"
+			"SFHooks::showFormPreview"
 		],
 		"CanonicalNamespaces": [
-			"SFUtils::registerNamespaces"
+			"SFHooks::registerNamespaces"
 		],
 		"UnitTestsList": [
-			"SFUtils::onUnitTestsList"
+			"SFHooks::onUnitTestsList"
 		],
 		"ResourceLoaderRegisterModules": [
-			"SFUtils::registerModules"
+			"SFHooks::registerModules"
 		]
 	},
 	"config": {

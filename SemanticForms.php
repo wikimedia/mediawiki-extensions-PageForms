@@ -140,25 +140,25 @@ $GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'SFFormEditAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'SFFormEditAction::displayTab2';
 $GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'SFHelperFormAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'SFHelperFormAction::displayTab2';
-$GLOBALS['wgHooks']['smwInitProperties'][] = 'SFUtils::initProperties';
+$GLOBALS['wgHooks']['smwInitProperties'][] = 'SFHooks::initProperties';
 $GLOBALS['wgHooks']['ArticlePurge'][] = 'SFFormUtils::purgeCache';
-$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SFParserFunctions::registerFunctions';
+$GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'SFHooks::registerFunctions';
 $GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'SFFormUtils::setGlobalJSVariables';
 $GLOBALS['wgHooks']['PageSchemasRegisterHandlers'][] = 'SFPageSchemas::registerClass';
-$GLOBALS['wgHooks']['EditPage::importFormData'][] = 'SFUtils::showFormPreview';
-$GLOBALS['wgHooks']['CanonicalNamespaces'][] = 'SFUtils::registerNamespaces';
-$GLOBALS['wgHooks']['UnitTestsList'][] = 'SFUtils::onUnitTestsList';
-$GLOBALS['wgHooks']['ResourceLoaderRegisterModules'][] = 'SFUtils::registerModules';
+$GLOBALS['wgHooks']['EditPage::importFormData'][] = 'SFHooks::showFormPreview';
+$GLOBALS['wgHooks']['CanonicalNamespaces'][] = 'SFHooks::registerNamespaces';
+$GLOBALS['wgHooks']['UnitTestsList'][] = 'SFHooks::onUnitTestsList';
+$GLOBALS['wgHooks']['ResourceLoaderRegisterModules'][] = 'SFHooks::registerModules';
 
 if ( defined( 'SMW_VERSION' ) ) {
 	// Admin Links hook needs to be called in a delayed way so that it
 	// will always be called after SMW's Admin Links addition; as of
 	// SMW 1.9, SMW delays calling all its hook functions.
 	$GLOBALS['wgExtensionFunctions'][] = function() {
-		$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+		$GLOBALS['wgHooks']['AdminLinks'][] = 'SFHooks::addToAdminLinks';
 	};
 } else {
-	$GLOBALS['wgHooks']['AdminLinks'][] = 'SFUtils::addToAdminLinks';
+	$GLOBALS['wgHooks']['AdminLinks'][] = 'SFHooks::addToAdminLinks';
 }
 
 // New "actions"
@@ -206,6 +206,8 @@ $GLOBALS['wgAutoloadClasses']['SFFormField'] = __DIR__ . '/includes/SF_FormField
 $GLOBALS['wgAutoloadClasses']['SFFormPrinter'] = __DIR__ . '/includes/SF_FormPrinter.php';
 $GLOBALS['wgAutoloadClasses']['SFFormUtils'] = __DIR__ . '/includes/SF_FormUtils.php';
 $GLOBALS['wgAutoloadClasses']['SFUtils'] = __DIR__ . '/includes/SF_Utils.php';
+$GLOBALS['wgAutoloadClasses']['SFValuesUtils'] = __DIR__ . '/includes/SF_ValuesUtils.php';
+$GLOBALS['wgAutoloadClasses']['SFHooks'] = __DIR__ . '/includes/SF_Hooks.php';
 $GLOBALS['wgAutoloadClasses']['SFFormLinker'] = __DIR__ . '/includes/SF_FormLinker.php';
 $GLOBALS['wgAutoloadClasses']['SFPageSchemas'] = __DIR__ . '/includes/SF_PageSchemas.php';
 $GLOBALS['wgAutoloadClasses']['SFParserFunctions'] = __DIR__ . '/includes/SF_ParserFunctions.php';
