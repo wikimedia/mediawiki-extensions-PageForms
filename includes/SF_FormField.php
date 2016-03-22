@@ -146,35 +146,31 @@ class SFFormField {
 	static function newFromFormFieldTag( $tag_components, $template_in_form, $form_is_disabled ) {
 		global $wgParser, $wgUser;
 
+		$f = new SFFormField();
+		$f->mFieldArgs = array();
+
 		$field_name = trim( $tag_components[1] );
+
 		// See if this field matches one of the fields defined for this
 		// template - if it does, use all available information about
 		// that field; if it doesn't, either include it in the form or
 		// not, depending on whether the template has a 'strict'
 		// setting in the form definition.
-		$the_field = null;
-		$all_fields = $template_in_form->getAllFields();
-		foreach ( $all_fields as $cur_field ) {
+		$template_fields = $template_in_form->getAllFields();
+		foreach ( $template_fields as $cur_field ) {
 			if ( $field_name == $cur_field->getFieldName() ) {
-				$the_field = $cur_field;
+				$f->template_field = $cur_field;
 				break;
 			}
 		}
-		if ( $the_field == null ) {
+		if ( $f->template_field == null ) {
 			if ( $template_in_form->strictParsing() ) {
-				$dummy_ff = new SFFormField();
-				$dummy_ff->template_field = new SFTemplateField();
-				$dummy_ff->mIsList = false;
-				return $dummy_ff;
+				$f->template_field = new SFTemplateField();
+				$f->mIsList = false;
+				return $f;
 			}
-			$the_field = SFTemplateField::create( $field_name, null );
+			$f->template_field = SFTemplateField::create( $field_name, null );
 		}
-
-		// Create an SFFormField object, containing this field as well
-		// as settings from the form definition file.
-		$f = new SFFormField();
-		$f->template_field = $the_field;
-		$f->mFieldArgs = array();
 
 		$semantic_property = null;
 		$cargo_table = $cargo_field = null;
@@ -412,16 +408,16 @@ class SFFormField {
 			}
 		}
 
-                if ( $template_in_form->getTemplateName() == null || $template_in_form->getTemplateName() === '' ) {
-                        $f->mInputName = $field_name;
-                } elseif ( $template_in_form->allowsMultiple() ) {
-                        // 'num' will get replaced by an actual index, either in PHP
-                        // or in Javascript, later on
-                        $f->mInputName = $template_in_form->getTemplateName() . '[num][' . $field_name . ']';
-                        $f->setFieldArg( 'origName', $template_in_form->getTemplateName() . '[' . $field_name . ']' );
-                } else {
-                        $f->mInputName = $template_in_form->getTemplateName() . '[' . $field_name . ']';
-                }
+		if ( $template_in_form->getTemplateName() == null || $template_in_form->getTemplateName() === '' ) {
+			$f->mInputName = $field_name;
+		} elseif ( $template_in_form->allowsMultiple() ) {
+			// 'num' will get replaced by an actual index, either in PHP
+			// or in Javascript, later on
+			$f->mInputName = $template_in_form->getTemplateName() . '[num][' . $field_name . ']';
+			$f->setFieldArg( 'origName', $template_in_form->getTemplateName() . '[' . $field_name . ']' );
+		} else {
+			$f->mInputName = $template_in_form->getTemplateName() . '[' . $field_name . ']';
+		}
 
 		return $f;
 	}
