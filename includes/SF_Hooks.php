@@ -92,6 +92,117 @@ class SFHooks {
 		$GLOBALS['sfgFormPrinter'] = new StubObject( 'sfgFormPrinter', 'SFFormPrinter' );
 	}
 
+	/**
+	 * ResourceLoaderRegisterModules hook handler
+	 *
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderRegisterModules
+	 *
+	 * @param ResourceLoader &$resourceLoader The ResourceLoader object
+	 * @return bool Always true
+	 */
+	public static function registerModules( ResourceLoader &$resourceLoader ) {
+		if ( class_exists( 'WikiEditorHooks' ) ) {
+			$resourceLoader->register( array(
+				'ext.semanticforms.wikieditor' => array(
+					'localBasePath' => __DIR__,
+					'remoteExtPath' => 'SemanticForms',
+					'scripts' => '/../libs/SF_wikieditor.js',
+					'styles' => '/../skins/SF_wikieditor.css',
+					'dependencies' => array(
+						'ext.semanticforms.main',
+						'jquery.wikiEditor'
+					)
+				),
+			) );
+		}
+
+		if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) && ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
+			$resourceLoader->register( array(
+				'ext.semanticforms.maps' => array(
+					'localBasePath' => __DIR__,
+					'remoteExtPath' => 'SemanticForms',
+					'scripts' => '/../libs/SF_maps.offline.js',
+					'dependencies' => array(
+						'ext.openlayers.main',
+					)
+				),
+			) );
+		} else {
+			$resourceLoader->register( array(
+				'ext.semanticforms.maps' => array(
+					'localBasePath' => __DIR__,
+					'remoteExtPath' => 'SemanticForms',
+					'scripts' => '/../libs/SF_maps.js',
+				),
+			) );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Register the namespaces for Semantic Forms.
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
+	 *
+	 * @since 2.4.1
+	 *
+	 * @param array $list
+	 *
+	 * @return true
+	 */
+	public static function registerNamespaces( array &$list ) {
+		global $wgNamespacesWithSubpages;
+
+		$list[SF_NS_FORM] = 'Form';
+		$list[SF_NS_FORM_TALK] = 'Form_talk';
+
+		// Support subpages only for talk pages by default
+		$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
+			SF_NS_FORM_TALK => true
+		);
+
+		return true;
+	}
+
+	static function registerFunctions( &$parser ) {
+		$parser->setFunctionHook( 'default_form', array( 'SFParserFunctions', 'renderDefaultForm' ) );
+		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
+		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
+		$parser->setFunctionHook( 'formredlink', array( 'SFParserFunctions', 'renderFormRedLink' ) );
+		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
+		$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMap' ), $parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ), $parser::SFH_OBJECT_ARGS );
+
+		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
+
+		return true;
+	}
+
+        static function setGlobalJSVariables( &$vars ) {
+                global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
+                global $sfgFieldProperties, $sfgCargoFields, $sfgDependentFields;
+                global $sfgGridValues, $sfgGridParams;
+                global $sfgShowOnSelect, $sfgScriptPath;
+                global $edgValues, $sfgEDSettings;
+//              global $sfgInitJSFunctions, $sfgValidationJSFunctions;
+
+                $vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
+                $vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
+                $vars['sfgFieldProperties'] = $sfgFieldProperties;
+                $vars['sfgCargoFields'] = $sfgCargoFields;
+                $vars['sfgDependentFields'] = $sfgDependentFields;
+                $vars['sfgGridValues'] = $sfgGridValues;
+                $vars['sfgGridParams'] = $sfgGridParams;
+                $vars['sfgShowOnSelect'] = $sfgShowOnSelect;
+                $vars['sfgScriptPath'] = $sfgScriptPath;
+                $vars['edgValues'] = $edgValues;
+                $vars['sfgEDSettings'] = $sfgEDSettings;
+//              $vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
+//              $vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
+
+                return true;
+        }
+
 	public static function registerProperty( $id, $typeid, $label ) {
 		if ( class_exists( 'SMWDIProperty' ) ) {
 			SMWDIProperty::registerProperty( $id, $typeid, $label, true );
@@ -222,92 +333,6 @@ class SFHooks {
 		SFUtils::addFormRLModules();
 		$editpage->previewTextAfterContent .=
 			'<div style="margin-top: 15px">' . $form_text . "</div>";
-
-		return true;
-	}
-
-	/**
-	 * ResourceLoaderRegisterModules hook handler
-	 *
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderRegisterModules
-	 *
-	 * @param ResourceLoader &$resourceLoader The ResourceLoader object
-	 * @return bool Always true
-	 */
-	public static function registerModules( ResourceLoader &$resourceLoader ) {
-		if ( class_exists( 'WikiEditorHooks' ) ) {
-			$resourceLoader->register( array(
-				'ext.semanticforms.wikieditor' => array(
-					'localBasePath' => __DIR__,
-					'remoteExtPath' => 'SemanticForms',
-					'scripts' => '/../libs/SF_wikieditor.js',
-					'styles' => '/../skins/SF_wikieditor.css',
-					'dependencies' => array(
-						'ext.semanticforms.main',
-						'jquery.wikiEditor'
-					)
-				),
-			) );
-		}
-
-		if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) && ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
-			$resourceLoader->register( array(
-				'ext.semanticforms.maps' => array(
-					'localBasePath' => __DIR__,
-					'remoteExtPath' => 'SemanticForms',
-					'scripts' => '/../libs/SF_maps.offline.js',
-					'dependencies' => array(
-						'ext.openlayers.main',
-					)
-				),
-			) );
-		} else {
-			$resourceLoader->register( array(
-				'ext.semanticforms.maps' => array(
-					'localBasePath' => __DIR__,
-					'remoteExtPath' => 'SemanticForms',
-					'scripts' => '/../libs/SF_maps.js',
-				),
-			) );
-		}
-
-		return true;
-	}
-
-	/**
-	 * Register the namespaces for Semantic Forms.
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
-	 *
-	 * @since 2.4.1
-	 *
-	 * @param array $list
-	 *
-	 * @return true
-	 */
-	public static function registerNamespaces( array &$list ) {
-		global $wgNamespacesWithSubpages;
-
-		$list[SF_NS_FORM] = 'Form';
-		$list[SF_NS_FORM_TALK] = 'Form_talk';
-
-		// Support subpages only for talk pages by default
-		$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
-			SF_NS_FORM_TALK => true
-		);
-
-		return true;
-	}
-
-	static function registerFunctions( &$parser ) {
-		$parser->setFunctionHook( 'default_form', array( 'SFParserFunctions', 'renderDefaultForm' ) );
-		$parser->setFunctionHook( 'forminput', array( 'SFParserFunctions', 'renderFormInput' ) );
-		$parser->setFunctionHook( 'formlink', array( 'SFParserFunctions', 'renderFormLink' ) );
-		$parser->setFunctionHook( 'formredlink', array( 'SFParserFunctions', 'renderFormRedLink' ) );
-		$parser->setFunctionHook( 'queryformlink', array( 'SFParserFunctions', 'renderQueryFormLink' ) );
-		$parser->setFunctionHook( 'arraymap', array( 'SFParserFunctions', 'renderArrayMap' ), $parser::SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'arraymaptemplate', array( 'SFParserFunctions', 'renderArrayMapTemplate' ), $parser::SFH_OBJECT_ARGS );
-
-		$parser->setFunctionHook( 'autoedit', array( 'SFParserFunctions', 'renderAutoEdit' ) );
 
 		return true;
 	}

@@ -194,7 +194,7 @@ class SFParserFunctions {
 
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'formlink' ), $parser->mStripState );
+		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'formlink' ), $parser->mStripState );
 	}
 
 	static function renderFormRedLink ( &$parser ) {
@@ -203,7 +203,7 @@ class SFParserFunctions {
 
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'formredlink' ), $parser->mStripState );
+		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'formredlink' ), $parser->mStripState );
 	}
 
 	static function renderQueryFormLink ( &$parser ) {
@@ -212,7 +212,7 @@ class SFParserFunctions {
 
 		// hack to remove newline from beginning of output, thanks to
 		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( SFUtils::createFormLink( $parser, $params, 'queryformlink' ), $parser->mStripState );
+		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'queryformlink' ), $parser->mStripState );
 	}
 
 	static function renderFormInput( &$parser ) {
@@ -275,7 +275,7 @@ class SFParserFunctions {
 			} elseif ( $paramName == 'placeholder' ) {
 				$inPlaceholder = $value;
 			} elseif ( $paramName == 'popup' ) {
-				SFUtils::loadScriptsForPopupForm( $parser );
+				self::loadScriptsForPopupForm( $parser );
 				$classStr .= ' popupforminput';
 			} elseif ( $paramName == 'no autofocus' ) {
 				$inAutofocus = false;
@@ -593,6 +593,175 @@ class SFParserFunctions {
 
 		// Return output HTML.
 		return $parser->insertStripItem( $output, $parser->mStripState );
+	}
+
+	static function createFormLink( &$parser, $params, $parserFunctionName ) {
+		// Set defaults.
+		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
+			$inTooltip = $inQueryStr = $inTargetName = '';
+		if ( $parserFunctionName == 'queryformlink' ) {
+			$inLinkStr = wfMessage( 'runquery' )->text();
+		}
+		$inCreatePage = false;
+		$classStr = '';
+		$inQueryArr = array();
+		$targetWindow = '_self';
+
+		// assign params
+		// - support unlabelled params, for backwards compatibility
+		// - parse and sanitize all parameter values
+		foreach ( $params as $i => $param ) {
+
+			$elements = explode( '=', $param, 2 );
+
+			// set param_name and value
+			if ( count( $elements ) > 1 ) {
+				$param_name = trim( $elements[0] );
+
+				// parse (and sanitize) parameter values
+				$value = trim( $parser->recursiveTagParse( $elements[1] ) );
+			} else {
+				$param_name = null;
+
+				// parse (and sanitize) parameter values
+				$value = trim( $parser->recursiveTagParse( $param ) );
+			}
+
+			if ( $param_name == 'form' ) {
+				$inFormName = $value;
+			} elseif ( $param_name == 'link text' ) {
+				$inLinkStr = $value;
+			} elseif ( $param_name == 'existing page link text' ) {
+				$inExistingPageLinkStr = $value;
+			} elseif ( $param_name == 'link type' ) {
+				$inLinkType = $value;
+			} elseif ( $param_name == 'query string' ) {
+				// Change HTML-encoded ampersands directly to
+				// URL-encoded ampersands, so that the string
+				// doesn't get split up on the '&'.
+				$inQueryStr = str_replace( '&amp;', '%26', $value );
+
+				parse_str( $inQueryStr, $arr );
+				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+			} elseif ( $param_name == 'tooltip' ) {
+				$inTooltip = Sanitizer::decodeCharReferences( $value );
+			} elseif ( $param_name == 'target' ) {
+				$inTargetName = $value;
+			} elseif ( $param_name == null && $value == 'popup' ) {
+				self::loadScriptsForPopupForm( $parser );
+				$classStr = 'popupformlink';
+			} elseif ( $param_name == null && $value == 'new window' ) {
+				$targetWindow = '_blank';
+			} elseif ( $param_name == null && $value == 'create page' ) {
+				$inCreatePage = true;
+			} elseif ( $param_name !== null ) {
+				$value = urlencode( $value );
+				parse_str( "$param_name=$value", $arr );
+				$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+			}
+		}
+
+		// Not the most graceful way to do this, but it is the
+		// easiest - if this is the #formredlink function, just
+		// ignore whatever values were passed in for these params.
+		if ( $parserFunctionName == 'formredlink' ) {
+			$inLinkType = $inTooltip = null;
+		}
+
+		// If "red link only" was specified, and a target page was
+		// specified, and it exists, just link to the page.
+		if ( $inTargetName != '' ) {
+			$targetTitle = Title::newFromText( $inTargetName );
+			$targetPageExists = ( $targetTitle != '' && $targetTitle->exists() );
+		} else {
+			$targetPageExists = false;
+		}
+
+		if ( $parserFunctionName == 'formredlink' && $targetPageExists ) {
+			if ( $inExistingPageLinkStr == '' ) {
+				return Linker::link( $targetTitle );
+			} else {
+				return Linker::link( $targetTitle, $inExistingPageLinkStr );
+			}
+		}
+
+		// The page doesn't exist, so if 'create page' was
+		// specified, create the page now.
+		if ( $parserFunctionName == 'formredlink' &&
+			$inCreatePage && $inTargetName != '' ) {
+			$targetTitle = Title::newFromText( $inTargetName );
+			SFFormLinker::createPageWithForm( $targetTitle, $inFormName );
+		}
+
+		if ( $parserFunctionName == 'queryformlink' ) {
+			$formSpecialPage = SpecialPageFactory::getPage( 'RunQuery' );
+		} else {
+			$formSpecialPage = SpecialPageFactory::getPage( 'FormEdit' );
+		}
+
+		if ( $inFormName == '' ) {
+			$query = array( 'target' => $inTargetName );
+			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
+		} elseif ( strpos( $inFormName, '/' ) == true ) {
+			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
+			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
+		} else {
+			$link_url = $formSpecialPage->getTitle()->getLocalURL() . "/$inFormName";
+			if ( ! empty( $inTargetName ) ) {
+				$link_url .= "/$inTargetName";
+			}
+			$link_url = str_replace( ' ', '_', $link_url );
+		}
+		$hidden_inputs = "";
+		if ( ! empty( $inQueryArr ) ) {
+			// Special handling for the buttons - query string
+			// has to be turned into hidden inputs.
+			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
+
+				$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
+
+				foreach ( $query_components as $query_component ) {
+					$var_and_val = explode( '=', $query_component, 2 );
+					if ( count( $var_and_val ) == 2 ) {
+						$hidden_inputs .= Html::hidden( urldecode( $var_and_val[0] ), urldecode( $var_and_val[1] ) );
+					}
+				}
+			} else {
+				$link_url .= ( strstr( $link_url, '?' ) ) ? '&' : '?';
+				$link_url .= str_replace( '+', '%20', http_build_query( $inQueryArr, '', '&' ) );
+			}
+		}
+		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
+			$formMethod = ( $inLinkType == 'button' ) ? 'get' : 'post';
+			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr, 'target' => $targetWindow ),
+
+				// Html::rawElement() before MW 1.21 or so drops the type attribute
+				// do not use Html::rawElement() for buttons!
+				'<button ' . Html::expandAttributes( array( 'type' => 'submit', 'value' => $inLinkStr ) ) . '>' . $inLinkStr . '</button>' .
+				$hidden_inputs
+			);
+		} else {
+			// If a target page has been specified but it doesn't
+			// exist, make it a red link.
+			if ( ! empty( $inTargetName ) ) {
+				if ( !$targetPageExists ) {
+					$classStr .= " new";
+				}
+				// If no link string was specified, make it
+				// the name of the page.
+				if ( $inLinkStr == '' ) {
+					$inLinkStr = $inTargetName;
+				}
+			}
+			$str = Html::rawElement( 'a', array( 'href' => $link_url, 'class' => $classStr, 'title' => $inTooltip, 'target' => $targetWindow ), $inLinkStr );
+		}
+
+		return $str;
+	}
+
+	static function loadScriptsForPopupForm( &$parser ) {
+		$parser->getOutput()->addModules( 'ext.semanticforms.popupformedit' );
+		return true;
 	}
 
 }

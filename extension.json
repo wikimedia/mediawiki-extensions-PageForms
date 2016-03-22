@@ -365,7 +365,7 @@
 			"SFHooks::registerFunctions"
 		],
 		"MakeGlobalVariablesScript": [
-			"SFFormUtils::setGlobalJSVariables"
+			"SFHooks::setGlobalJSVariables"
 		],
 		"PageSchemasRegisterHandlers": [
 			"SFPageSchemas::registerClass"

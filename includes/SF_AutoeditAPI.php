@@ -779,6 +779,23 @@ class SFAutoeditAPI extends ApiBase {
 	}
 
 	/**
+	 * Returns a formatted (pseudo) random number
+	 *
+	 * @param number $numDigits the min width of the random number
+	 * @param boolean $hasPadding should the number should be padded with zeros instead of spaces?
+	 * @return number
+	 */
+	static function makeRandomNumber( $numDigits = 1, $hasPadding = false ) {
+		$maxValue = pow( 10, $numDigits ) - 1;
+		if ( $maxValue > getrandmax() ) {
+			$maxValue = getrandmax();
+		}
+		$value = rand( 0, $maxValue );
+		$format = '%' . ($hasPadding ? '0' : '') . $numDigits . 'd';
+		return trim( sprintf( $format, $value ) ); // trim needed, when $hasPadding == false
+	}
+
+	/**
 	 * Depending on the requested action this method will try to store/preview
 	 * the data in mOptions or retrieve the edit form.
 	 *

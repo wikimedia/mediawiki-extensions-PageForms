@@ -1,6 +1,6 @@
 <?php
 /**
- * Javascript- and HTML-creation utilities for the display of a form
+ * Utilities for the display and retrieval of forms.
  *
  * @author Yaron Koren
  * @author Jeffrey Stuckman
@@ -11,30 +11,6 @@
  */
 
 class SFFormUtils {
-	static function setGlobalJSVariables( &$vars ) {
-		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
-		global $sfgFieldProperties, $sfgCargoFields, $sfgDependentFields;
-		global $sfgGridValues, $sfgGridParams;
-		global $sfgShowOnSelect, $sfgScriptPath;
-		global $edgValues, $sfgEDSettings;
-//		global $sfgInitJSFunctions, $sfgValidationJSFunctions;
-
-		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
-		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
-		$vars['sfgFieldProperties'] = $sfgFieldProperties;
-		$vars['sfgCargoFields'] = $sfgCargoFields;
-		$vars['sfgDependentFields'] = $sfgDependentFields;
-		$vars['sfgGridValues'] = $sfgGridValues;
-		$vars['sfgGridParams'] = $sfgGridParams;
-		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
-		$vars['sfgScriptPath'] = $sfgScriptPath;
-		$vars['edgValues'] = $edgValues;
-		$vars['sfgEDSettings'] = $sfgEDSettings;
-//		$vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
-//		$vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
-
-		return true;
-	}
 
 	/**
 	 * Add a hidden input for each field in the template call that's
