@@ -1443,10 +1443,6 @@ END;
 		$wgParser->replaceLinkHolders( $form_text );
 		Hooks::run( 'sfRenderingEnd', array( &$form_text ) );
 
-		// Add general Javascript code.
-		$javascript_text = "";
-		Hooks::run( 'sfAddJavascriptToForm', array( &$javascript_text ) );
-
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.
 		// If doing a replace, the page text is actually the modified
@@ -1461,16 +1457,9 @@ END;
 			$form_page_title = null;
 		}
 
-		// If the form has already been submitted, i.e. this is just
-		// the redirect page, get rid of all the Javascript, to avoid
-		// JS errors.
-		if ( $form_submitted ) {
-			$javascript_text = '';
-		}
-
 //		$wgParser = $oldParser;
 
-		return array( $form_text, $javascript_text, $page_text, $form_page_title, $generated_page_name );
+		return array( $form_text, $page_text, $form_page_title, $generated_page_name );
 	}
 
 	/**

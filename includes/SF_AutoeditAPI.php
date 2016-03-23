@@ -593,12 +593,6 @@ class SFAutoeditAPI extends ApiBase {
 		}
 	}
 
-	protected function doFormEdit( $formHTML, $formJS ) {
-		// return form html and js in the result
-		$this->getResult()->addValue( array('form'), 'HTML', $formHTML );
-		$this->getResult()->addValue( array('form'), 'JS', $formJS );
-	}
-
 	protected function finalizeResults() {
 
 		// set response text depending on the status and the requested action
@@ -915,7 +909,7 @@ class SFAutoeditAPI extends ApiBase {
 			}
 			// Call SFFormPrinter::formHTML() to get at the form
 			// HTML of the existing page.
-			list ( $formHTML, $formJS, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
+			list ( $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 				$sfgFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
@@ -948,7 +942,7 @@ class SFAutoeditAPI extends ApiBase {
 		// Get wikitext for submitted data and form - call formHTML(),
 		// if we haven't called it already.
 		if ( $preloadContent == '' ) {
-			list ( $formHTML, $formJS, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+			list ( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$sfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 		} else {
 			$generatedFormName = $form_page_title;
@@ -963,7 +957,6 @@ class SFAutoeditAPI extends ApiBase {
 		}
 
 		$this->mOptions['formHTML'] = $formHTML;
-		$this->mOptions['formJS'] = $formJS;
 
 		if ( $isFormSubmitted ) {
 
@@ -1001,7 +994,7 @@ class SFAutoeditAPI extends ApiBase {
 				$wgOut->addParserOutputNoText( $parserOutput );
 			}
 
-			$this->doFormEdit( $formHTML, $formJS );
+			$this->getResult()->addValue( array( 'form' ), 'HTML', $formHTML );
 		}
 	}
 

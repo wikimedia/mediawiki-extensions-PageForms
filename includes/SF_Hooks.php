@@ -320,7 +320,7 @@ class SFHooks {
 			'<div class="previewnote" style="font-weight: bold">' . $wgOut->parse( wfMessage( 'sf-preview-note' )->text() ) . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
-		list ( $form_text, $javascript_text, $data_text, $form_page_title, $generated_page_name ) =
+		list ( $form_text, $data_text, $form_page_title, $generated_page_name ) =
 			$sfgFormPrinter->formHTML( $form_definition, null, false, null, null, "Semantic Forms form preview dummy title", null );
 
 		$parserOutput = $wgParser->getOutput();

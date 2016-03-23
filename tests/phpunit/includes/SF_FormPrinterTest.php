@@ -19,7 +19,7 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 		$wgTitle = $this->getTitle();
 		$wgOut->getContext()->setTitle( $wgTitle );
 
-		list ( $form_text, $javascript_text, $page_text, $form_page_title, $generated_page_name ) =
+		list ( $form_text, $page_text, $form_page_title, $generated_page_name ) =
 			$sfgFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
 
 		$this->assertContains(

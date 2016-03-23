@@ -75,7 +75,7 @@ class SFRunQuery extends IncludableSpecialPage {
 			$edit_content = null;
 			$is_text_source = true;
 		}
-		list ( $form_text, $javascript_text, $data_text, $form_page_title ) =
+		list ( $form_text, $data_text, $form_page_title ) =
 			$sfgFormPrinter->formHTML( $form_definition, $form_submitted, $is_text_source, $form_title->getArticleID(), $edit_content, null, null, true, $embedded );
 		$text = "";
 
@@ -150,21 +150,7 @@ END;
 		// Now write everything to the screen.
 		$wgOut->addHTML( $text );
 		SFUtils::addFormRLModules( $embedded ? $wgParser : null );
-		$script = "\t\t" . '<script type="text/javascript">' . "\n" . $javascript_text . '</script>' . "\n";
-		if ( $embedded ) {
-			if ( method_exists( 'ResourceLoader', 'makeInlineScript' ) ) {
-				// MW 1.25+
-				$wgParser->getOutput()->addHeadItem( ResourceLoader::makeInlineScript( $javascript_text ) );
-			} else {
-				$wgParser->getOutput()->addHeadItem( $script );
-			}
-		} else {
-			if ( method_exists( 'ResourceLoader', 'makeInlineScript' ) ) {
-				// MW 1.25+
-				$wgOut->addScript( ResourceLoader::makeInlineScript( $javascript_text ) );
-			} else {
-				$wgOut->addScript( $script );
-			}
+		if ( !$embedded ) {
 			$po = $wgParser->getOutput();
 			if ( $po ) {
 				// addParserOutputMetadata was introduced in 1.24 when addParserOutputNoText was deprecated
