@@ -987,7 +987,7 @@ END;
 								if ( !is_array( $cur_value ) ) {
 									$delimiter = ',';
 								}
-								$cur_value = SFUtils::valuesToLabels( $cur_value, $delimiter, $form_field->getPossibleValues() );
+								$cur_value = $form_field->valueStringToLabels( $cur_value, $delimiter );
 							}
 							Hooks::run( 'sfCreateFormField', array( &$form_field, &$cur_value, false ) );
 						}

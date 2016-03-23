@@ -346,12 +346,12 @@ class SFFormField {
 
 		if ( !is_null( $f->mPossibleValues ) ) {
 			if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
-				$f->mPossibleValues = SFValuesUtils::getLabelsFromTemplate( $f->mPossibleValues, $f->mFieldArgs['mapping template'] );
+				$f->setValuesWithMappingTemplate();
 			} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
-				$f->mPossibleValues = SFValuesUtils::getLabelsFromProperty( $f->mPossibleValues, $f->mFieldArgs['mapping property'] );
+				$f->setValuesWithMappingProperty();
 			} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
 				array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
-				$f->mPossibleValues = SFValuesUtils::getLabelsFromCargoField( $f->mPossibleValues, $f->mFieldArgs['mapping cargo table'], $f->mFieldArgs['mapping cargo field'] );
+				$f->setValuesWithMappingCargoField();
 			}
 		}
 		// Backwards compatibility.
@@ -457,7 +457,7 @@ class SFFormField {
 							if ( $key === 'is_list' ) {
 								$cur_values[$key] = $val;
 							} else {
-								$cur_values[] = SFValuesUtils::labelToValue( $val, $this->mPossibleValues );
+								$cur_values[] = $this->labelToValue( $val );
 							}
 						}
 					} else {
@@ -476,12 +476,12 @@ class SFFormField {
 						}
 						if ( $is_list ) {
 							$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
-							foreach ( $cur_values as $key => $value ) {
-								$cur_values[$key] = SFValuesUtils::labelToValue( $value, $this->mPossibleValues );
+							foreach ( $cur_values as $key => $val ) {
+								$cur_values[$key] = $this->labelToValue( $val );
 							}
 							return implode( $delimiter, $cur_values );
 						}
-						return SFValuesUtils::labelToValue( $field_query_val, $this->mPossibleValues );
+						return $this->labelToValue( $field_query_val );
 					}
 					return $field_query_val;
 				}
@@ -513,6 +513,147 @@ class SFFormField {
 
 		// We're still here...
 		return null;
+	}
+
+	/**
+	 * Helper function to get an array of labels from an array of values
+	 * given a mapping template.
+	 */
+	function setValuesWithMappingTemplate() {
+		global $wgParser;
+
+		$labels = array();
+		$templateName = $this->mFieldArgs['mapping template'];
+		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
+		$templateExists = $title->exists();
+		foreach ( $this->mPossibleValues as $value ) {
+			if ( $templateExists ) {
+				$label = trim( $wgParser->recursiveTagParse( '{{' . $templateName .
+					'|' . $value . '}}' ) );
+				if ( $label == '' ) {
+					$labels[$value] = $value;
+				} else {
+					$labels[$value] = $label;
+				}
+			} else {
+				$labels[$value] = $value;
+			}
+		}
+		$this->mPossibleValues = $this->disambiguateLabels( $labels );
+	}
+
+	/**
+	 * Helper function to get an array of labels from an array of values
+	 * given a mapping property.
+	 */
+	function setValuesWithMappingProperty() {
+		// Error-handling.
+		if ( !is_array( $this->mPossibleValues ) ) {
+			return array();
+		}
+
+		$propertyName = $this->mFieldArgs['mapping property'];
+		$labels = array();
+		foreach ( $this->mPossibleValues as $value ) {
+			$labels[$value] = $value;
+			$store = SFUtils::getSMWStore();
+			if ( $store != null ) {
+				$subject = Title::newFromText( $value );
+				if ( $subject != null ) {
+					$vals = SFValuesUtils::getSMWPropertyValues( $store, $subject, $propertyName );
+					if ( count( $vals ) > 0 ) {
+						$labels[$value] = trim( $vals[0] );
+					}
+				}
+			}
+		}
+		$this->mPossibleValues = $this->disambiguateLabels( $labels );
+	}
+
+	/**
+	 * Helper function to get an array of labels from an array of values
+	 * given a mapping Cargo table/field.
+	 */
+	function setValuesWithMappingCargoField() {
+		$labels = array();
+		foreach ( $this->mPossibleValues as $value ) {
+			$labels[$value] = $value;
+			$vals = SFValuesUtils::getValuesForCargoField(
+				$this->mFieldArgs['mapping cargo table'],
+				$this->mFieldArgs['mapping cargo field'],
+				'_pageName="' . $value . '"'
+			);
+			if ( count( $vals ) > 0 ) {
+				$labels[$value] = trim( $vals[0] );
+			}
+		}
+		$this->mPossibleValues = $this->disambiguateLabels( $labels );
+	}
+
+
+	function disambiguateLabels( $labels ) {
+		asort($labels);
+		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
+			return $labels;
+		}
+		$fixed_labels = array();
+		foreach ( $labels as $value => $label ) {
+			$fixed_labels[$value] = $labels[$value];
+		}
+		$counts = array_count_values( $fixed_labels );
+		foreach ( $counts as $current_label => $count ) {
+			if ( $count > 1 ) {
+				$matching_keys = array_keys( $labels, $current_label );
+				foreach ( $matching_keys as $key ) {
+					$fixed_labels[$key] .= ' (' . $key . ')';
+				}
+			}
+		}
+		if ( count( $fixed_labels ) == count( array_unique( $fixed_labels ) ) ) {
+			return $fixed_labels;
+		}
+		foreach ( $labels as $value => $label ) {
+			$labels[$value] .= ' (' . $value . ')';
+		}
+		return $labels;
+	}
+
+	/**
+	 * Map a label back to a value.
+	 */
+	function labelToValue( $label ) {
+		$value = array_search( $label, $this->mPossibleValues );
+		if ( $value === false ) {
+			return $label;
+		} else {
+			return $value;
+		}
+	}
+
+	/**
+	 * Map a template field value into labels.
+	 */
+	public function valueStringToLabels( $valueString, $delimiter ) {
+		if ( !is_null( $delimiter ) ) {
+			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
+		} else {
+			$values = array( $valueString );
+		}
+		$labels = array();
+		foreach ( $values as $value ) {
+			if ( $value != '' ) {
+				if ( array_key_exists( $value, $this->mPossibleValues ) ) {
+					$labels[] = $this->mPossibleValues[$value];
+				} else {
+					$labels[] = $value;
+				}
+			}
+		}
+		if ( count( $labels ) > 1 ) {
+			return $labels;
+		} else {
+			return $labels[0];
+		}
 	}
 
 	public function additionalHTMLForInput( $cur_value, $field_name, $template_name ) {
