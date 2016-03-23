@@ -549,21 +549,24 @@ class SFFormField {
 	function setValuesWithMappingProperty() {
 		// Error-handling.
 		if ( !is_array( $this->mPossibleValues ) ) {
-			return array();
+			$this->mPossibleValues = array();
+			return;
+		}
+
+		$store = SFUtils::getSMWStore();
+		if ( $store == null ) {
+			return;
 		}
 
 		$propertyName = $this->mFieldArgs['mapping property'];
 		$labels = array();
 		foreach ( $this->mPossibleValues as $value ) {
 			$labels[$value] = $value;
-			$store = SFUtils::getSMWStore();
-			if ( $store != null ) {
-				$subject = Title::newFromText( $value );
-				if ( $subject != null ) {
-					$vals = SFValuesUtils::getSMWPropertyValues( $store, $subject, $propertyName );
-					if ( count( $vals ) > 0 ) {
-						$labels[$value] = trim( $vals[0] );
-					}
+			$subject = Title::newFromText( $value );
+			if ( $subject != null ) {
+				$vals = SFValuesUtils::getSMWPropertyValues( $store, $subject, $propertyName );
+				if ( count( $vals ) > 0 ) {
+					$labels[$value] = trim( $vals[0] );
 				}
 			}
 		}
@@ -592,7 +595,7 @@ class SFFormField {
 
 
 	function disambiguateLabels( $labels ) {
-		asort($labels);
+		asort( $labels );
 		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
 			return $labels;
 		}
