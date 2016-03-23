@@ -46,15 +46,15 @@ class SFAutocompleteAPI extends ApiBase {
 		} elseif ( !is_null( $property ) ) {
 			$data = self::getAllValuesForProperty( $property, $substr );
 		} elseif ( !is_null( $category ) ) {
-			$data = SFUtils::getAllPagesForCategory( $category, 3, $substr );
+			$data = SFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
 		} elseif ( !is_null( $concept ) ) {
-			$data = SFUtils::getAllPagesForConcept( $concept, $substr );
+			$data = SFValuesUtils::getAllPagesForConcept( $concept, $substr );
 		} elseif ( !is_null( $cargo_table ) && !is_null( $cargo_field ) ) {
 			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $field_is_array, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
 		} elseif ( !is_null( $namespace ) ) {
-			$data = SFUtils::getAllPagesForNamespace( $namespace, $substr );
+			$data = SFValuesUtils::getAllPagesForNamespace( $namespace, $substr );
 		} elseif ( !is_null( $external_url ) ) {
-			$data = SFUtils::getValuesFromExternalURL( $external_url, $substr );
+			$data = SFValuesUtils::getValuesFromExternalURL( $external_url, $substr );
 		} else {
 			$data = array();
 		}
@@ -236,7 +236,7 @@ class SFAutocompleteAPI extends ApiBase {
 		if ( !is_null( $substring ) ) {
 			// "Page" type property valeus are stored differently
 			// in the DB, i.e. underlines instead of spaces.
-			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring, $propertyHasTypePage );
+			$conditions[] = SFValuesUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring, $propertyHasTypePage );
 		}
 
 		$sqlOptions['ORDER BY'] = $valueField;

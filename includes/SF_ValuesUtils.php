@@ -308,7 +308,7 @@ class SFValuesUtils {
 		$conditions = array();
 		$conditions['page_namespace'] = $matchingNamespaceCode;
 		if ( $substring != null ) {
-			$conditions[] = SFUtils::getSQLConditionForAutocompleteInColumn( 'page_title', $substring );
+			$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring );
 		}
 		$res = $db->select( 'page',
 			'page_title',

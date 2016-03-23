@@ -63,8 +63,8 @@ class SFTemplateField {
 
 		$store = SFUtils::getSMWStore();
 		// this returns an array of objects
-		$allowed_values = SFUtils::getSMWPropertyValues( $store, $proptitle, "Allows value" );
-		$label_formats = SFUtils::getSMWPropertyValues( $store, $proptitle, "Has field label format" );
+		$allowed_values = SFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Allows value" );
+		$label_formats = SFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Has field label format" );
 		$propValue = SMWDIProperty::newFromUserLabel( $this->mSemanticProperty );
 		$this->mPropertyType = $propValue->findPropertyTypeID();
 
