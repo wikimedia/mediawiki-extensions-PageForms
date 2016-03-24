@@ -157,9 +157,7 @@ class SFHooks {
 		$list[SF_NS_FORM_TALK] = 'Form_talk';
 
 		// Support subpages only for talk pages by default
-		$wgNamespacesWithSubpages = $wgNamespacesWithSubpages + array(
-			SF_NS_FORM_TALK => true
-		);
+		$wgNamespacesWithSubpages[SF_NS_FORM_TALK] = true;
 
 		return true;
 	}
@@ -178,30 +176,30 @@ class SFHooks {
 		return true;
 	}
 
-        static function setGlobalJSVariables( &$vars ) {
-                global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
-                global $sfgFieldProperties, $sfgCargoFields, $sfgDependentFields;
-                global $sfgGridValues, $sfgGridParams;
-                global $sfgShowOnSelect, $sfgScriptPath;
-                global $edgValues, $sfgEDSettings;
-//              global $sfgInitJSFunctions, $sfgValidationJSFunctions;
+	static function setGlobalJSVariables( &$vars ) {
+		global $sfgAutocompleteValues, $sfgAutocompleteOnAllChars;
+		global $sfgFieldProperties, $sfgCargoFields, $sfgDependentFields;
+		global $sfgGridValues, $sfgGridParams;
+		global $sfgShowOnSelect, $sfgScriptPath;
+		global $edgValues, $sfgEDSettings;
+		//global $sfgInitJSFunctions, $sfgValidationJSFunctions;
 
-                $vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
-                $vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
-                $vars['sfgFieldProperties'] = $sfgFieldProperties;
-                $vars['sfgCargoFields'] = $sfgCargoFields;
-                $vars['sfgDependentFields'] = $sfgDependentFields;
-                $vars['sfgGridValues'] = $sfgGridValues;
-                $vars['sfgGridParams'] = $sfgGridParams;
-                $vars['sfgShowOnSelect'] = $sfgShowOnSelect;
-                $vars['sfgScriptPath'] = $sfgScriptPath;
-                $vars['edgValues'] = $edgValues;
-                $vars['sfgEDSettings'] = $sfgEDSettings;
-//              $vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
-//              $vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
+		$vars['sfgAutocompleteValues'] = $sfgAutocompleteValues;
+		$vars['sfgAutocompleteOnAllChars'] = $sfgAutocompleteOnAllChars;
+		$vars['sfgFieldProperties'] = $sfgFieldProperties;
+		$vars['sfgCargoFields'] = $sfgCargoFields;
+		$vars['sfgDependentFields'] = $sfgDependentFields;
+		$vars['sfgGridValues'] = $sfgGridValues;
+		$vars['sfgGridParams'] = $sfgGridParams;
+		$vars['sfgShowOnSelect'] = $sfgShowOnSelect;
+		$vars['sfgScriptPath'] = $sfgScriptPath;
+		$vars['edgValues'] = $edgValues;
+		$vars['sfgEDSettings'] = $sfgEDSettings;
+		//$vars['sfgInitJSFunctions'] = $sfgInitJSFunctions;
+		//$vars['sfgValidationJSFunctions'] = $sfgValidationJSFunctions;
 
-                return true;
-        }
+		return true;
+	}
 
 	public static function registerProperty( $id, $typeid, $label ) {
 		if ( class_exists( 'SMWDIProperty' ) ) {
@@ -211,11 +209,13 @@ class SFHooks {
 		}
 	}
 
+	/**
+	 * Register all the special properties, in both the wiki's
+	 * language and, as a backup, in English.
+	 */
 	public static function initProperties() {
 		global $sfgContLang;
 
-		// Register all the special properties, in both the wiki's
-		// language and, as a backup, in English.
 		// For every special property, if it hasn't been translated
 		// into the wiki's current language, use the English-language
 		// value for both the main special property and the backup.

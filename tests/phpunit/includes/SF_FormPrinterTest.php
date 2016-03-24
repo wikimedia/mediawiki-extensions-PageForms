@@ -88,7 +88,7 @@ class SFFormPrinterTest extends MediaWikiTestCase {
 			'form_definition' => "====section 4====
 								 {{{section|section 4|level=4|hidden}}}" ),
 		array(
-			'expected_form_text' => "<input type=\"hidden\" name=\"_section[section 4]\" />",
+			'expected_form_text' => "<input type=\"hidden\" name=\"_section[section 4]\"/>",
 			'expected_page_text' => "====section 4====" )
 		);
 
