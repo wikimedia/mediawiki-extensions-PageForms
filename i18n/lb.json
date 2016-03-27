@@ -94,7 +94,7 @@
 	"sf_formedit_saveandcontinueediting": "Späicheren a virufueren",
 	"sf_formedit_tooltip_saveandcontinueediting": "Date späicheren a mam Ännere virufueren",
 	"sf_autoedit_anoneditwarning": "Opgepasst: Dir sidd net ageloggt. Dowéinst gëtt amplaz vun engem Benotzernumm Är IP Adress am Historique vun dëser Säit gespäichert.",
-	"sf_autoedit_success": "[[$1]] gouf mat Hëllef vum Formulaire $2 geännert",
+	"sf_autoedit_success": "[[$1]] gouf mam Formulaire $2 geännert",
 	"sf_autoedit_fail": "D'Ännere vu(n) [[$1]] huet net funktionéiert.",
 	"sf_autoedit_notargetspecified": "Keng Zilsäit spezifizéiert.",
 	"sf_autoedit_invalidform": "'''$1''' ass kee valabele Formulaire.",
