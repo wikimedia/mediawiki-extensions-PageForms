@@ -133,10 +133,9 @@ END;
 		if ( $page_title->exists() ) {
 			// It exists - see if page is a redirect; if
 			// it is, edit the target page instead.
-			$article = new Article( $page_title, 0 );
-			$redirect_title = Title::newFromRedirect( $article->fetchContent() );
-			if ( $redirect_title != null ) {
-				$page_title = $redirect_title;
+			$content = WikiPage::factory( $page_title )->getContent();
+			if ( $content && $content->getRedirectTarget() ) {
+				$page_title = $content->getRedirectTarget();
 				$page_name = SFUtils::titleURLString( $redirect_title );
 			}
 			// HACK - if this is the default form for
