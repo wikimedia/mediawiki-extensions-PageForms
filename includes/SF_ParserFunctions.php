@@ -132,7 +132,8 @@
  *
  * '#autoedit' is called as:
  *
- * {{#autoedit:form=|target=|link text=|link type=|query string=|reload}}
+ * {{#autoedit:form=|target=|link text=|link type=|tooltip=|query string=
+ * |reload}}
  *
  * This function creates a link or button that, when clicked on,
  * automatically modifies the specified page according to the values in the
@@ -480,6 +481,7 @@ class SFParserFunctions {
 		$linkType = 'span';
 		$summary = null;
 		$classString = 'autoedit-trigger';
+		$inTooltip = null;
 		$inQueryArr = array();
 		$editTime = null;
 
@@ -522,6 +524,9 @@ class SFParserFunctions {
 					// do not parse ok text or error text yet. Will be parsed on api call
 					$arr = array( $key => $value );
 					$inQueryArr = SFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					break;
+				case 'tooltip':
+					$inTooltip = Sanitizer::decodeCharReferences( $value );
 					break;
 
 				case 'target':
@@ -568,7 +573,11 @@ class SFParserFunctions {
 			// do not use Html::rawElement() for buttons!
 			$linkElement = '<button ' . Html::expandAttributes( array( 'type' => 'submit', 'class' => $classString ) ) . '>' . $linkString . '</button>';
 		} elseif ( $linkType == 'link' ) {
-			$linkElement = Html::rawElement( 'a', array( 'class' => $classString, 'href' => "#" ), $linkString );
+			$attrs = array( 'class' => $classString, 'href' => "#" );
+			if ( $inTooltip != null ) {
+				$attrs['title'] = $inTooltip;
+			}
+			$linkElement = Html::rawElement( 'a', $attrs, $linkString );
 		} else {
 			$linkElement = Html::rawElement( 'span', array( 'class' => $classString ), $linkString );
 		}
