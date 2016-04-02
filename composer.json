@@ -29,7 +29,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.8.x-dev"
+			"dev-master": "3.6.x-dev"
 		},
 		"installer-paths": {
 			"../{$name}": ["mediawiki/open-layers"]
