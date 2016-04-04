@@ -983,9 +983,14 @@ END;
 								$form_field->hasFieldArg( 'mapping property' ) ||
 								( $form_field->hasFieldArg( 'mapping cargo table' ) &&
 								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ) {
-								// Avoid a PHP notice.
+								// If the input type is "tokens', the value is not
+								// an array, but the delimiter still needs to be set.
 								if ( !is_array( $cur_value ) ) {
-									$delimiter = ',';
+									if ( $form_field->hasFieldArg( 'delimiter' ) ) {
+										$delimiter = $form_field->getFieldArg( 'delimiter' );
+									} else {
+										$delimiter = ',';
+									}
 								}
 								$cur_value = $form_field->valueStringToLabels( $cur_value, $delimiter );
 							}
