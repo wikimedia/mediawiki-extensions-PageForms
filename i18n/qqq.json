@@ -14,7 +14,8 @@
 			"Siebrand",
 			"Umherirrender",
 			"아라",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Amire80"
 		]
 	},
 	"semanticforms-desc": "{{desc|name=Semantic Forms|url=https://www.mediawiki.org/wiki/Extension:Semantic Forms}}",
@@ -203,5 +204,5 @@
 	"sf-regexp-baseprefix": "This is a help text for the [[Special:CreateForm]] page.",
 	"sf-regexp-orchar": "This is a help text for the [[Special:CreateForm]] page. OR is an operator to handle [[wikipedia:Logical_disjunction|disjunctions]].",
 	"sf-regexp-inverse": "This is a help text for the [[Special:CreateForm]] page.",
-	"sf-regexp-message": "This is a help text for the [[Special:CreateForm]] page."
+	"sf-regexp-message": "This is a help text for the [[Special:CreateForm]] page. \"Wrong format!\" refers to {{msg-mw|Sf-regexp-wrongformat}}."
 }
