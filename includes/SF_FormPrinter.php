@@ -1132,6 +1132,7 @@ END;
 				} elseif ( $tag_title == 'section' ) {
 					$section_name = trim( $tag_components[1] );
 					$page_section_in_form = SFPageSection::newFromFormTag( $tag_components );
+					$section_text = null;
 
 					// Split the existing page contents into the textareas in the form.
 					$default_value = "";
