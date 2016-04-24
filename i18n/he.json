@@ -71,7 +71,7 @@
 	"sf_forminputs_mandatory": "חובה להזין ערך לתיבת הקלט הזאת",
 	"sf_forminputs_restricted": "רק מפעילי מערכת יכולים לערוך את הקלט הזה",
 	"sf_forminputs_class": "מאפיין class של HTML עבור הקלט הזה",
-	"sf_forminputs_default": "ערך בררת מחדל עבור הקלט הזה",
+	"sf_forminputs_default": "ערך התחלי עבור הקלט הזה",
 	"sf_forminputs_preload": "דף ויקי שתוכנו יהיה ערך בררת המחדל עבור הקלט הזה",
 	"sf_forminputs_property": "מאפיין סמנטי שהשדה הזה מתאים לו",
 	"sf_forminputs_size": "גודל שדה הטקסט הזה, בתווים",
