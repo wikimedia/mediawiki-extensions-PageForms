@@ -1283,22 +1283,23 @@ END;
 				}
 			}
 
-			if ( $tif && $tif->getLabel() != null && ( !$tif->allowsMultiple() || $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) ) {
-				$form_text .= "<fieldset>\n";
-				$form_text .= Html::element( 'legend', null, $tif->getLabel() ) . "\n";
+			$multipleTemplateHTML = '';
+			if ( $tif && $tif->getLabel() != null ) {
+				$fieldsetStartHTML = "<fieldset>\n" . Html::element( 'legend', null, $tif->getLabel() ) . "\n";
+				if ( !$tif->allowsMultiple() ) {
+					$form_text .= $fieldsetStartHTML;
+				} elseif ( $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) {
+					$multipleTemplateHTML .= $fieldsetStartHTML;
+				}
 			}
 			if ( $tif && $tif->allowsMultiple() ) {
 				if ( $tif->getDisplay() == 'spreadsheet' ) {
 					if ( $tif->allInstancesPrinted() ) {
-						$multipleTemplateHTML = $this->jsGridHTML( $tif );
-					} else {
-						$multipleTemplateHTML = '';
+						$multipleTemplateHTML .= $this->jsGridHTML( $tif );
 					}
 				} else {
 					if ( $tif->getInstanceNum() == 0 ) {
-						$multipleTemplateHTML = $this->multipleTemplateStartHTML( $tif );
-					} else {
-						$multipleTemplateHTML = '';
+						$multipleTemplateHTML .= $this->multipleTemplateStartHTML( $tif );
 					}
 					if ( ! $tif->allInstancesPrinted() ) {
 						$multipleTemplateHTML .= $this->multipleTemplateInstanceHTML( $tif, $form_is_disabled, $section );
@@ -1307,9 +1308,6 @@ END;
 					}
 				}
 				$placeholder = $tif->getPlaceholder();
-				if ( $placeholder != null ) {
-					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $placeholder );
-				}
 				if ( $placeholder == null ) {
 					// The normal process.
 					$form_text .= $multipleTemplateHTML;
@@ -1329,6 +1327,7 @@ END;
 					// We replace the HTML into the current
 					// placeholder tag, but also add another
 					// placeholder tag, to keep track of it.
+					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $placeholder );
 					$form_text = str_replace( self::makePlaceholderInFormHTML( $placeholder ), $multipleTemplateHTML, $form_text );
 				}
 				if ( ! $tif->allInstancesPrinted() ) {
