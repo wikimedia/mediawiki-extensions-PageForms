@@ -231,6 +231,8 @@ class SFTemplateInForm {
 	function setFieldValuesFromSubmit() {
 		global $wgRequest;
 
+		$this->mValuesFromSubmit = null;
+
 		$query_template_name = str_replace( ' ', '_', $this->mTemplateName );
 		// Also replace periods with underlines, since that's what
 		// POST does to strings anyway.
@@ -354,10 +356,12 @@ class SFTemplateInForm {
 	}
 
 	function checkIfAllInstancesPrinted( $form_submitted, $source_is_page ) {
-		// Find instances of this template in the page -
-		// if there's at least one, re-parse this section of the
-		// definition form for the subsequent template instances in
-		// this page; if there's none, don't include fields at all.
+		// Find additional instances of this template in the page
+		// (if it's an existing page) or the query string (if it's a
+		// new page).
+		// If there's at least one, re-parse this section of the
+		// definition form for the subsequent template instance;
+		// if there's none, don't include fields at all.
 		// @TODO - There has to be a more efficient way to handle
 		// multiple instances of templates, one that doesn't involve
 		// re-parsing the same tags, but I don't know what it is.
@@ -373,6 +377,9 @@ class SFTemplateInForm {
 			return;
 		}
 		if ( !$form_submitted && $source_is_page && $this->mPageCallsThisTemplate ) {
+			return;
+		}
+		if ( !$form_submitted && !$source_is_page && $this->mValuesFromSubmit != null ) {
 			return;
 		}
 		$this->mAllInstancesPrinted = true;
