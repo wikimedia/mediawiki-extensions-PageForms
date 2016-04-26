@@ -158,8 +158,8 @@ END;
 			}
 		} else {
 			$redirect_url = self::getFormEditURL( $form_name, $page_name );
-			// Of all the request values, send on to 'FormEdit'
-			// only 'preload' and specific form fields - we can
+			// Of all the request values, send on to 'FormEdit' only
+			// 'preload', 'returnto', and specific form fields - we can
 			// identify the latter because they show up as arrays.
 			foreach ( $_REQUEST as $key => $val ) {
 				if ( is_array( $val ) ) {
@@ -170,7 +170,7 @@ END;
 					// thing.
 					$wrapperArray = array( $key => $val );
 					$redirect_url .= urldecode( http_build_query( $wrapperArray ) );
-				} elseif ( $key == 'preload' ) {
+				} elseif ( $key == 'preload' || $key == 'returnto' ) {
 					$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
 					$redirect_url .= "$key=$val";
 				}
