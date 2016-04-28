@@ -520,8 +520,15 @@ class SFAutoeditAPI extends ApiBase {
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
-				$this->getOutput()->redirect( $title->getFullURL( $query ) . $anchor );
-				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $query ) . $anchor );
+				$redirect = $title->getFullURL( $query ) . $anchor;
+
+				$returnto = Title::newFromText( $this->getRequest()->getText( 'returnto' ) );
+				if ( $returnto !== null ) {
+					$redirect = $returnto->getFullURL();
+				}
+
+				$this->getOutput()->redirect( $redirect );
+				$this->getResult()->addValue( NULL, 'redirect', $redirect );
 				return false; // success
 
 			case EditPage::AS_SUCCESS_UPDATE: // Article successfully updated
@@ -540,8 +547,15 @@ class SFAutoeditAPI extends ApiBase {
 					}
 				}
 
-				$this->getOutput()->redirect( $title->getFullURL( $extraQuery ) . $sectionanchor );
-				$this->getResult()->addValue( NULL, 'redirect', $title->getFullURL( $extraQuery ) . $sectionanchor );
+				$redirect = $title->getFullURL( $extraQuery ) . $sectionanchor;
+
+				$returnto = Title::newFromText( $this->getRequest()->getText( 'returnto' ) );
+				if ( $returnto !== null ) {
+					$redirect = $returnto->getFullURL();
+				}
+
+				$this->getOutput()->redirect( $redirect );
+				$this->getResult()->addValue( NULL, 'redirect', $redirect );
 
 				return false; // success
 
