@@ -355,7 +355,9 @@ class SFFormLinker {
 		}
 
 		global $sfgLinkAllRedLinksToForms;
-		if ( $sfgLinkAllRedLinksToForms ) {
+		// Don't do this is it it's a category page - it probably
+		// won't have an associated form.
+		if ( $sfgLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
 			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}
