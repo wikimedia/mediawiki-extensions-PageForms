@@ -368,6 +368,35 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 
 		}
 	});
+
+	// Now re-show any form elements that are meant to be shown due
+	// to the current value of form inputs in this div that are now
+	// being uncovered.
+	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
+	elem.find(".sfShowIfSelected, .sfShowIfChecked").each( function() {
+		var uncoveredInput = $(this);
+		var uncoveredInputID = null;
+		if ( instanceWrapperDiv === null ) {
+			uncoveredInputID = uncoveredInput.attr("id");
+		} else {
+			uncoveredInputID = uncoveredInput.attr("data-origID");
+		}
+		var showOnSelectVals = sfgShowOnSelect[uncoveredInputID];
+
+		if ( showOnSelectVals !== undefined ) {
+			var inputVal = uncoveredInput.val();
+			for ( var i = 0; i < showOnSelectVals.length; i++ ) {
+				var options = showOnSelectVals[i][0];
+				var div_id2 = showOnSelectVals[i][1];
+				hideDiv(div_id2, instanceWrapperDiv, 'fast' );
+				if ( uncoveredInput.hasClass( 'sfShowIfSelected' ) ) {
+					showDivIfSelected( options, div_id2, inputVal, instanceWrapperDiv, false );
+				} else {
+					uncoveredInput.showDivIfChecked( options, div_id2, instanceWrapperDiv, false );
+				}
+			}
+		}
+	});
 }
 
 // Hide a div due to "show on select". The CSS class is there so that SF can
@@ -400,6 +429,26 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 			$(this).fadeTo(speed, 0, function() {
 				$(this).slideUp(speed);
 			});
+			}
+		}
+	});
+
+	// Also, recursively hide further elements that are only shown because
+	// inputs within this now-hidden div were checked/selected.
+	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
+	elem.find(".sfShowIfSelected, .sfShowIfChecked").each( function() {
+		var showOnSelectVals;
+		if ( instanceWrapperDiv === null ) {
+			showOnSelectVals = sfgShowOnSelect[$(this).attr("id")];
+		} else {
+			showOnSelectVals = sfgShowOnSelect[$(this).attr("data-origID")];
+		}
+
+		if ( showOnSelectVals !== undefined ) {
+			for ( var i = 0; i < showOnSelectVals.length; i++ ) {
+				//var options = showOnSelectVals[i][0];
+				var div_id2 = showOnSelectVals[i][1];
+				hideDiv(div_id2, instanceWrapperDiv, 'fast' );
 			}
 		}
 	});
@@ -556,7 +605,8 @@ $.fn.validateNumInstances = function() {
 
 $.fn.validateMandatoryField = function() {
 	var fieldVal = this.find(".mandatoryField").val();
-  var isEmpty;
+	var isEmpty;
+
 	if (fieldVal === null) {
 		isEmpty = true;
 	} else if ($.isArray(fieldVal)) {
@@ -1078,7 +1128,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 
 				var sfdata = $("#sfForm").data('SemanticForms');
 				if ( sfdata ) { // found data object?
-		  var i;
+					var i;
 					if ( sfdata.initFunctions[old_id] ) {
 
 						// For every initialization method for
