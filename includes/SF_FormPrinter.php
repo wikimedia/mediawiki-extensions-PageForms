@@ -400,7 +400,7 @@ END;
 				$gridParamValues['type'] = 'textarea';
 			} elseif ( $inputType == 'checkbox' ) {
 				$gridParamValues['type'] = 'checkbox';
-			} elseif ( ( $possibleValues = $templateField->getPossibleValues() ) != null ) {
+			} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
 				array_unshift( $possibleValues, '' );
 				$completePossibleValues = array();
 				foreach ( $possibleValues as $value ) {
