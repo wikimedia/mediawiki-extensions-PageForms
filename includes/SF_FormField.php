@@ -358,9 +358,6 @@ class SFFormField {
 		if ( $f->mInputType == 'datetime with timezone' ) {
 			$f->mInputType = 'datetime';
 			$f->mFieldArgs['include timezone'] = true;
-		} elseif ( $f->mInputType == 'text' || $f->mInputType == 'textarea' ) {
-			// Backwards compatibility.
-			$f->mFieldArgs['no autocomplete'] = true;
 		}
 		if ( $template_in_form->allowsMultiple() ) {
 			$f->mFieldArgs['part_of_multiple'] = true;

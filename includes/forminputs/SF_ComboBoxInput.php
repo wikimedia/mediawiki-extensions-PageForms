@@ -29,13 +29,6 @@ class SFComboBoxInput extends SFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		// For backward compatibility with pre-SF-2.1 forms
-		if ( array_key_exists( 'no autocomplete', $other_args ) &&
-				$other_args['no autocomplete'] == true ) {
-			unset( $other_args['autocompletion source'] );
-			return SFTextInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
-		}
-
 		global $sfgTabIndex, $sfgFieldNum, $sfgEDSettings;
 
 		$className = 'sfComboBox';

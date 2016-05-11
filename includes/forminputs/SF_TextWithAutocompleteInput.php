@@ -156,14 +156,6 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		// Backwards compatibility, for pre-SF-2.1 forms:
-		// if 'no autocomplete' was specified, switch to SFTextInput.
-		if ( array_key_exists( 'no autocomplete', $other_args ) &&
-				$other_args['no autocomplete'] == true ) {
-			unset( $other_args['autocompletion source'] );
-			return SFTextInput::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
-		}
-
 		global $sfgTabIndex, $sfgFieldNum;
 
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
