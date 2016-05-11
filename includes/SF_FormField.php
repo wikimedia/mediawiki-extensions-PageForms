@@ -241,29 +241,6 @@ class SFFormField {
 							$show_on_select[$val] = array();
 						}
 					}
-				} elseif ( $sub_components[0] == 'autocomplete on property' ) {
-					$f->mFieldArgs['autocomplete field type'] = 'property';
-					$f->mFieldArgs['autocompletion source'] = $sub_components[1];
-				} elseif ( $sub_components[0] == 'autocomplete on category' ) {
-					$f->mFieldArgs['autocomplete field type'] = 'category';
-					$f->mFieldArgs['autocompletion source'] = $sub_components[1];
-				} elseif ( $sub_components[0] == 'autocomplete on concept' ) {
-					$f->mFieldArgs['autocomplete field type'] = 'concept';
-					$f->mFieldArgs['autocompletion source'] = $sub_components[1];
-				} elseif ( $sub_components[0] == 'autocomplete on namespace' ) {
-					$f->mFieldArgs['autocomplete field type'] = 'namespace';
-					$autocompletion_source = $sub_components[1];
-					// Special handling for "main" (blank)
-					// namespace.
-					if ( $autocompletion_source == "" ) {
-						$autocompletion_source = "main";
-					}
-					$f->mFieldArgs['autocompletion source'] = $autocompletion_source;
-				} elseif ( $sub_components[0] == 'autocomplete from url' ) {
-					$f->mFieldArgs['autocomplete field type'] = 'external_url';
-					$f->mFieldArgs['autocompletion source'] = $sub_components[1];
-					// 'external' autocompletion is always done remotely, i.e. via API
-					$f->mFieldArgs['remote autocompletion'] = true;
 				} elseif ( $sub_components[0] == 'values' ) {
 					// Handle this one only after
 					// 'delimiter' has also been set.
