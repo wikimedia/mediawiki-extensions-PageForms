@@ -95,7 +95,6 @@
 	"sf_forminputs_values": "Набір значень у це поле введення, розділених комами",
 	"sf_forminputs_list": "Позначити це поле, що містить список значень",
 	"sf_forminputs_delimiter": "Роздільник між значеннями, якщо це поле містить список значень",
-	"sf_forminputs_remoteautocompletion": "Використовувати зовнішнє автозаповнення",
 	"sf_forminputs_existingvaluesonly": "Дозволити тільки значення із списку",
 	"sf_forminputs_showonselect": "Елементи сторінки, які відображаються тільки в тому випадку, якщо обрані певні значення (приклад: \"value1=>div1;value2=>div2)",
 	"sf_forminputs_listboxsize": "Висота у цьому списку, у рядках",

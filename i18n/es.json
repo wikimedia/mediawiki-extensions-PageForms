@@ -79,7 +79,6 @@
 	"sf_forminputs_values": "El conjunto de valores para esta entrada, separados por comas",
 	"sf_forminputs_list": "Marcar esta entrada indicando que tiene una lista de valores",
 	"sf_forminputs_delimiter": "El delimitador entre los valores del campo, si esta entrada tiene una lista de ellos",
-	"sf_forminputs_remoteautocompletion": "Usar el completado automático remoto",
 	"sf_forminputs_existingvaluesonly": "Permitir solamente los valores que ya están en la lista",
 	"sf_forminputs_showonselect": "Elementos de la página a mostrar si sólo se seleccionan algunos valores determinados (por ejemplo: \"valor1=>div1; valor2=>div2\")",
 	"sf_forminputs_listboxsize": "La altura de esta caja de listas, en número de líneas",

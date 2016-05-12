@@ -63,7 +63,6 @@
 	"sf_forminputs_values": "L'ansema dij valor për cost anseriment, separà da 'd vìrgole",
 	"sf_forminputs_list": "Marché s'anseriment com tnisand na lista ëd valor",
 	"sf_forminputs_delimiter": "Ël separator tra ij valor dël camp, se cost anseriment a na ten na lista",
-	"sf_forminputs_remoteautocompletion": "Dovré ël completament automàtich da leugn",
 	"sf_forminputs_existingvaluesonly": "Përmëtte mach ij valor già ant la lista",
 	"sf_forminputs_showonselect": "Element ëd pàgina da mostré mach se serti valor a son selessionà (esempi: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "L'autëssa ëd costa zòna ëd lista, an righe",

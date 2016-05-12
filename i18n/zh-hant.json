@@ -72,7 +72,6 @@
 	"sf_forminputs_values": "此輸入欄位中的數值以逗號分隔",
 	"sf_forminputs_list": "標記此輸入欄位可填寫多個數值",
 	"sf_forminputs_delimiter": "若輸入欄位填寫多個數值，所使用的分隔符號",
-	"sf_forminputs_remoteautocompletion": "使用伺服器端的自動完成",
 	"sf_forminputs_existingvaluesonly": "只允許使用已經在清單中的值",
 	"sf_forminputs_showonselect": "只有在特定數值被選擇時顯示頁面元素 (例如：\"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "清單欄位的高度 (列)",

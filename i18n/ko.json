@@ -68,7 +68,6 @@
 	"sf_forminputs_values": "이 입력에 대한 값의 설정은 쉼표로 구분합니다",
 	"sf_forminputs_list": "이 입력이 값의 목록을 유지할 수 있도록 표시합니다",
 	"sf_forminputs_delimiter": "이 입력이 값의 목록으로 유지하면 필드 값 사이의 구분자",
-	"sf_forminputs_remoteautocompletion": "원격 자동 완성 사용",
 	"sf_forminputs_existingvaluesonly": "이미 목록 값만 허용",
 	"sf_forminputs_showonselect": "특정 값을 선택했을 때에만 보여줄 문서 요소 (예: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "이 목록 상자의 행 단위 높이",

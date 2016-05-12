@@ -70,7 +70,6 @@
 	"sf_forminputs_values": "مجموعه مقادیر برای این ورودی، با کاما جدا شده",
 	"sf_forminputs_list": "علامت زدن ورودی برای نگه داشتن فهرست مقادیر",
 	"sf_forminputs_delimiter": "محدودکننده بین مقادیر زمینه، اگر این ورودی فهرستی از آنها را نگه دارد",
-	"sf_forminputs_remoteautocompletion": "استفاده از کنترل کامل شدن خودکار",
 	"sf_forminputs_existingvaluesonly": "فقط اجازه مقادیر در حال حاضر در فهرست",
 	"sf_forminputs_showonselect": "عوامل صفحه برای نمایش اینکه فقط برخی مقادیر انتخاب می‌شوند (مثال: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "ارتفاع این جعبه فهرست، در ردیف",

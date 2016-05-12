@@ -125,7 +125,8 @@ class SFComboBoxInput extends SFFormInput {
 			SFTextWithAutocompleteInput::getAutocompletionTypeAndSource( $field_args );
 
 		$remoteDataType = null;
-		if ( array_key_exists( 'remote autocompletion', $field_args ) && $field_args['remote autocompletion'] == true ) {
+		if ( $autocompleteFieldType == 'external_url' ) {
+			// Autocompletion from URL is always done remotely.
 			$remoteDataType = $autocompleteFieldType;
 		} elseif ( $autocompletionSource !== '' ) {
 			// @TODO - that count() check shouldn't be necessary
@@ -137,7 +138,7 @@ class SFComboBoxInput extends SFFormInput {
 			} else {
 				$autocompleteValues = SFValuesUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
 			}
-			if( count($autocompleteValues) > $sfgMaxLocalAutocompleteValues &&
+			if ( count( $autocompleteValues ) > $sfgMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) && !array_key_exists( 'mapping template', $field_args ) ) {
 				$remoteDataType = $autocompleteFieldType;
 			} else {

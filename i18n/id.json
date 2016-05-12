@@ -59,7 +59,6 @@
 	"sf_forminputs_values": "Set nilai masukan ini, dipisahkan oleh koma",
 	"sf_forminputs_list": "Tandai masukan ini menyimpan daftar nilai",
 	"sf_forminputs_delimiter": "Pembatas antara nilai bidang, jika masukan ini menyimpan daftar nilai berbagai bidang",
-	"sf_forminputs_remoteautocompletion": "Gunakan pelengkapan otomatis jarak jauh",
 	"sf_forminputs_existingvaluesonly": "Hanya izinkan nilai yang sudah ada dalam daftar",
 	"sf_forminputs_showonselect": "Elemen halaman yang ditampilkan hanya jika nilai tertentu dipilih (contoh: \"nilai1=>div1;nilai2=>div2\")",
 	"sf_forminputs_listboxsize": "Tinggi kotak daftar ini, dalam baris",

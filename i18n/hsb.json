@@ -62,7 +62,6 @@
 	"sf_forminputs_values": "Hódnoty za tute zapodawanske polo, rozdźělene přez komy",
 	"sf_forminputs_list": "Tute zapodawanske polo jako lisćinu hódnotow markiěrować",
 	"sf_forminputs_delimiter": "Dźěłatko mjez pólnymi hódnotami, jeli tute zapodawanske polo ma lisćinu hódnotow",
-	"sf_forminputs_remoteautocompletion": "Zdalene awtomatiske wudospołnjenje wužiwać",
 	"sf_forminputs_existingvaluesonly": "Jenož hódnoty dowolić, kotrež su hižo w lisćinje",
 	"sf_forminputs_showonselect": "Elementy strony, kotrež maja so jenož zwobraznić, jeli wěste hódnoty su wubrane (na přikład: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "Wysokosć tutoho lisćinoweho pola w rjadkach",

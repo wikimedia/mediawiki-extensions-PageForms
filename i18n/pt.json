@@ -67,7 +67,6 @@
 	"sf_forminputs_values": "O conjunto de valores desta entrada, separados por vírgulas",
 	"sf_forminputs_list": "Marcar que esta entrada detém uma lista de valores",
 	"sf_forminputs_delimiter": "O delimitador entre os valores do campo, se esta entrada contém uma lista de valores",
-	"sf_forminputs_remoteautocompletion": "Usar o preenchimento automático remoto",
 	"sf_forminputs_existingvaluesonly": "Só permitir valores que já existam na lista",
 	"sf_forminputs_showonselect": "Elementos da página que só serão apresentados se certos valores forem selecionados (exemplo: \"valor1=>div1;valor2=>div2\")",
 	"sf_forminputs_listboxsize": "A altura desta caixa de listagem, em linhas",

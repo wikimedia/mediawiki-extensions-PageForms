@@ -84,7 +84,6 @@
 	"sf_forminputs_values": "El conxuntu de valores d'esta entrada, separaos por comes",
 	"sf_forminputs_list": "Marcar esta entrada como que contien una llista de valores",
 	"sf_forminputs_delimiter": "El separador entre valores de campu, si esta entrada tien una llista d'ellos",
-	"sf_forminputs_remoteautocompletion": "Usar el completáu automáticu remotu",
 	"sf_forminputs_existingvaluesonly": "Permitir sólo los valores que yá tan na llista",
 	"sf_forminputs_showonselect": "Elementos de la páxina a amosar sólo si tan seleicionaos ciertos valores (por exemplu: \"valor1=>div1;valor2=>div2\")",
 	"sf_forminputs_listboxsize": "L'altor d'esta caxa de llista, en fileres",

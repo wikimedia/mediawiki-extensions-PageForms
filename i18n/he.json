@@ -90,7 +90,6 @@
 	"sf_forminputs_values": "קבוצת הערכים לקלט הזה, מופרדים בפסיקים",
 	"sf_forminputs_list": "לסמן את הקלט הזה כמחזיק רשימת ערכים",
 	"sf_forminputs_delimiter": "המפריד בין ערכי השדה, אם השדה הזה מחזיק רשימה של כאלה",
-	"sf_forminputs_remoteautocompletion": "להשתמש בהשלמה אוטומטית מרוחקת",
 	"sf_forminputs_existingvaluesonly": "לאפשר רק ערכים שכבר נמצאים ברשימה",
 	"sf_forminputs_showonselect": "מרכיבי דף שיוצגו רק אם ערכים מסוימים נבחרו (למשל: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "גובה תיבת הרשימה הזאת, בשורות",

@@ -96,7 +96,6 @@
 	"sf_forminputs_values": "Eine Anzahl durch Kommata getrennter Werte, welche die Eingabewerte dieses Eingabefelds sein sollen",
 	"sf_forminputs_list": "Dieses Eingabefeld als Eingabefeld mit einer Reihe von Eingabewerten markieren",
 	"sf_forminputs_delimiter": "Das Trennzeichen zwischen den Eingabewerten, sofern dieses Eingabefeld über eine Reihe von Eingabewerten verfügt",
-	"sf_forminputs_remoteautocompletion": "Autovervollständigung mit wikifremden (entfernten) Eingabewerten",
 	"sf_forminputs_existingvaluesonly": "Nur Werte zulassen, die sich bereits in der Liste befinden",
 	"sf_forminputs_showonselect": "Anzuzeigende Seitenelemente sofern bestimmte Eingabewerte ausgewählt wurden (Beispiel: „Wert1→Element1; Wert2→Element2“)",
 	"sf_forminputs_listboxsize": "Die Höhe dieses Listenfelds in Zeilen",

@@ -69,7 +69,6 @@
 	"sf_forminputs_valuesfromurl": "Un URL contenente dati strutturati che dovrebbero essere l'insieme di valori di questo input",
 	"sf_forminputs_values": "L'insieme di valori di questo input, separati da virgole",
 	"sf_forminputs_delimiter": "Il delimitatore tra i valori dei campi, se questo input contiene un elenco di essi",
-	"sf_forminputs_remoteautocompletion": "Usa il completamento automatico remoto",
 	"sf_forminputs_existingvaluesonly": "Consenti solo i valori già nella lista",
 	"sf_forminputs_showonselect": "Elementi di pagina da visualizzare solo se sono selezionati certi valori (esempio: \"valore1=>div1;valore2=>div2\")",
 	"sf_forminputs_listboxsize": "L'altezza di questo controllo listbox, in righe",

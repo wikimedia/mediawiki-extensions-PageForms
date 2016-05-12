@@ -74,7 +74,6 @@
 	"sf_forminputs_values": "Värdena som är möjliga att välja, separerade med komma",
 	"sf_forminputs_list": "Ange att detta indatafält kan ha flera värden (i en lista)",
 	"sf_forminputs_delimiter": "Tecken som avgränsar värdena i indatafältet (om indatafältet kan ha flera värden i en lista)",
-	"sf_forminputs_remoteautocompletion": "Använd extern automatisk ifyllnad av fält",
 	"sf_forminputs_existingvaluesonly": "Tillåt endast värden som redan finns i listan",
 	"sf_forminputs_showonselect": "Sidobjekt som ska visas enbart om vissa värden är valda (t.ex: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "Höjden på den här listrutan, i textrader",

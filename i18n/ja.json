@@ -63,7 +63,6 @@
 	"sf_forminputs_valuesfromnamespace": "そのページの名前空間は、この値の入力のセットになるべきです",
 	"sf_forminputs_list": "この入力が複数の値の列挙を保持できるように印を付ける",
 	"sf_forminputs_delimiter": "この入力が複数のフィールド値の列挙を保持する場合の、値の間の区切り文字",
-	"sf_forminputs_remoteautocompletion": "リモート自動補完を使用",
 	"sf_forminputs_existingvaluesonly": "一覧に既にある値のみを許可",
 	"sf_forminputs_listboxsize": "このリストボックスの高さ (行)",
 	"sf_forminputs_includetimezone": "タイムゾーンの入力を含める",

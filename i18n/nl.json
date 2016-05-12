@@ -76,7 +76,6 @@
 	"sf_forminputs_values": "De kommegescheiden lijst met waarden voor dit veld",
 	"sf_forminputs_list": "Deze invoer bevat een lijst met waarden",
 	"sf_forminputs_delimiter": "Het scheidingsteken tussen veldwaarden als dit veld een lijst kan bevatten",
-	"sf_forminputs_remoteautocompletion": "Automatisch invullen via externe server gebruiken",
 	"sf_forminputs_existingvaluesonly": "Alleen waarden die al in de lijst aanwezig zijn toestaan",
 	"sf_forminputs_showonselect": "Paginaelementen die alleen weergegeven moeten worden als bepaalde waarden zijn geselecteerd (voorbeeld: \"waarde1=>div1;waarde2=>div2\")",
 	"sf_forminputs_listboxsize": "De hoogte van dit lijstveld, in rijen",

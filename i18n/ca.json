@@ -77,7 +77,6 @@
 	"sf_forminputs_values": "El conjunt de valors de l'entrada, separats per comes",
 	"sf_forminputs_list": "Marca que l'entrada contindrà una llista de valors",
 	"sf_forminputs_delimiter": "El delimitador entre els valors del camp, si l'entrada en conté una llista",
-	"sf_forminputs_remoteautocompletion": "Utilitza l'autocompleció remota",
 	"sf_forminputs_existingvaluesonly": "Permet només valors que ja són a la llista",
 	"sf_forminputs_showonselect": "Elements de pàgina per mostrar només si se seleccionen certs valors (p. ex.: «valor1=>div1;valor=>div2»)",
 	"sf_forminputs_listboxsize": "L'alçada d'aquesta caixa de llista, en files",

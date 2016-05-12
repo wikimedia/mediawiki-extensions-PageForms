@@ -38,7 +38,6 @@
 	"sf_forminputs_default": "මෙම ආදානය සඳහා සාමාන්‍ය අගය",
 	"sf_forminputs_rows": "මෙම ආදානය සඳහා පේළි ගණන",
 	"sf_forminputs_cols": "මෙම ආදානය සඳහා තීර ගණන",
-	"sf_forminputs_remoteautocompletion": "දුරස්ථ ස්වයංසම්පූර්ණවීම භාවිතා කරන්න",
 	"sf_forminputs_existingvaluesonly": "දැනටමත් ලයිස්තුවේ තිබෙන අගයන්වලට පමණක් ඉඩ දේ",
 	"sf_forminputs_hideroot": "මාපිය ප්‍රවර්ගය සඟවන්න",
 	"sf_forminputs_height": "මෙම ආදානයේ උස, පික්සල් වලින්",

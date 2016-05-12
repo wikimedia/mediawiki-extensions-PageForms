@@ -96,7 +96,6 @@
 	"sf_forminputs_values": "该输入项的逗号分隔型取值列表",
 	"sf_forminputs_list": "标明该输入项包含的是取值列表",
 	"sf_forminputs_delimiter": "两个字段值间的分隔符，如果这个输入项包含值列表",
-	"sf_forminputs_remoteautocompletion": "使用远程自动完成",
 	"sf_forminputs_existingvaluesonly": "只允许已经在列表中的值",
 	"sf_forminputs_showonselect": "如果只有特定值被选择时显示的页面元素（例如：“值1=>div1;值2=>div2”）",
 	"sf_forminputs_listboxsize": "以行数表示的列表框的高度",

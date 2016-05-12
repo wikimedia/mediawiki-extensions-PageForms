@@ -70,7 +70,6 @@
 	"sf_forminputs_values": "Verdisettet for denne typen inndata, kommaseparert",
 	"sf_forminputs_list": "Marker at denne typen inndata inneholder en verdiliste",
 	"sf_forminputs_delimiter": "Skilletegnet mellom feltverdier, hvis denne typen inndata inneholder en liste av slike",
-	"sf_forminputs_remoteautocompletion": "Bruke ekstern autofullføring",
 	"sf_forminputs_existingvaluesonly": "Tillat bare verdier som allerede er i listen",
 	"sf_forminputs_showonselect": "Sideelementer som bare vises, hvis bestemte verdier er valgt (eksempel \"verdi1=>div1;verdi2=>div2\")",
 	"sf_forminputs_listboxsize": "Antall rader for denne listeboksen",

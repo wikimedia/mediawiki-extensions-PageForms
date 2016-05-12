@@ -67,7 +67,6 @@
 	"sf_forminputs_values": "Збирот вредности за овој внос, одделени со запирки",
 	"sf_forminputs_list": "Означи го овој внос како содржател на список на вредности",
 	"sf_forminputs_delimiter": "Раздвојник помеѓу вредностите на полето, ако овој внос содржи нивен список",
-	"sf_forminputs_remoteautocompletion": "Користи далечинско самодовршување",
 	"sf_forminputs_existingvaluesonly": "Допуштај само вредности што се веќе на списокот",
 	"sf_forminputs_showonselect": "Елементи на страницата за приказ само ако се одбрани извесни вредности (пример: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "Висината на списочното поле, во редови",

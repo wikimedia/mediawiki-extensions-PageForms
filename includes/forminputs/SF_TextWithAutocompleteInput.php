@@ -77,8 +77,6 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		} elseif ( array_key_exists( 'values from url', $field_args ) ) {
 			$autocompleteFieldType = 'external_url';
 			$autocompletionSource = $field_args['values from url'];
-			// Autocompletion from URL is always done remotely.
-			$field_args['remote autocompletion'] = true;
 		} elseif ( array_key_exists( 'values', $field_args ) ) {
 			global $sfgFieldNum;
 			$autocompleteFieldType = 'values';
@@ -132,8 +130,8 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 		}
 
 		$remoteDataType = null;
-		if ( array_key_exists( 'remote autocompletion', $field_args ) &&
-				$field_args['remote autocompletion'] == true ) {
+		if ( $autocompleteFieldType == 'external_url' ) {
+			// Autocompletion from URL is always done remotely.
 			$remoteDataType = $autocompleteFieldType;
 		} elseif ( $autocompletionSource !== '' ) {
 			// @TODO - that count() check shouldn't be necessary
@@ -228,11 +226,6 @@ class SFTextWithAutocompleteInput extends SFTextInput {
 			'name' => 'values from url',
 			'type' => 'string',
 			'description' => wfMessage( 'sf_forminputs_valuesfromurl' )->text()
-		);
-		$params[] = array(
-			'name' => 'remote autocompletion',
-			'type' => 'boolean',
-			'description' => wfMessage( 'sf_forminputs_remoteautocompletion' )->text()
 		);
 		$params[] = array(
 			'name' => 'list',

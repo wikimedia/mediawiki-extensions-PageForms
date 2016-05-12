@@ -63,7 +63,6 @@
 	"sf_forminputs_values": "Ang pangkat ng mga halaga para sa lahok na ito, pinaghihiwalay-hiwalay ng mga kuwit",
 	"sf_forminputs_list": "Markahan ang lahok na ito bilang naghahawak ng isang listahan ng mga halaga",
 	"sf_forminputs_delimiter": "Ang panghangga na nasa pagitan ng mga halaga ng kahanayan, kung ang lahok na ito ay humahawak ng isang listahan ng mga ito",
-	"sf_forminputs_remoteautocompletion": "Gamitin ang kusang pagkukumpleto",
 	"sf_forminputs_existingvaluesonly": "Pahintulutan lamang ang mga halagang nasa loob na ng lista",
 	"sf_forminputs_showonselect": "Mga elemento ng pahina na ipapakita lamang kung napili na ang partikular na mga halaga (halimbawa: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "Ang taas ng kahong listahan na ito, na nasa loob ng mga hilera",

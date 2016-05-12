@@ -110,7 +110,6 @@
 	"sf_forminputs_values": "L'ensemble des valeurs pour cette entrée, séparées par des virgules",
 	"sf_forminputs_list": "Marquer cette entrée comme tenant une liste de valeurs",
 	"sf_forminputs_delimiter": "Le séparateur entre les valeurs du champ, si cette entrée tient une liste de valeurs",
-	"sf_forminputs_remoteautocompletion": "Utiliser la complétion automatique à distance",
 	"sf_forminputs_existingvaluesonly": "N'autoriser que les valeurs déjà dans la liste",
 	"sf_forminputs_showonselect": "Éléments de page à afficher uniquement si certaines valeurs sont sélectionnées (par exemple: « valeur1=>div1;valeur2=>div2 »)",
 	"sf_forminputs_listboxsize": "La hauteur de cette zone de liste, en nombre de lignes",

@@ -56,7 +56,6 @@
 	"sf_forminputs_values": "Le insimul de valores pro iste entrata, separate per commas",
 	"sf_forminputs_list": "Marcar iste entrata como continente un lista de valores",
 	"sf_forminputs_delimiter": "Le delimitator inter valores de campo, si iste entrata contine un lista de illos",
-	"sf_forminputs_remoteautocompletion": "Usar autocompletion remote",
 	"sf_forminputs_existingvaluesonly": "Permitter solmente valores ja presente in le lista",
 	"sf_forminputs_showonselect": "Elementos de pagina a monstrar solmente si certe valores es seligite (exemplo: \"value1=>div1;value2=>div2\")",
 	"sf_forminputs_listboxsize": "Le altitude de iste quadro de lista, in lineas",
