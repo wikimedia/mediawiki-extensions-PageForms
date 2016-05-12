@@ -20,7 +20,7 @@
  *
  * {{#forminput:form=|size=|default value=|button text=|query string=
  * |autocomplete on category=|autocomplete on namespace=
- * |remote autocompletion|...additional query string values...}}
+ * |...additional query string values...}}
  *
  * This function returns HTML representing a form to let the user enter the
  * name of a page to be added or edited using a Semantic Forms form. All
@@ -36,10 +36,6 @@
  * choice, using 'autocomplete on category' or 'autocomplete on namespace'
  * (you can only use one). To autcomplete on all pages in the main (blank)
  * namespace, specify "autocomplete on namespace=main".
- *
- * If the "remote autocompletion" parameter is added, autocompletion
- * is done via an external URL, which can allow autocompletion on a much
- * larger set of values.
  *
  * Example: to create an input to add or edit a page with a form called
  * 'User' within a namespace also called 'User', and to have the form
@@ -224,7 +220,6 @@ class SFParserFunctions {
 		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
 		$inQueryArr = array();
 		$inAutocompletionSource = '';
-		$inRemoteAutocompletion = false;
 		$inSize = 25;
 		$classStr = "sfFormInput";
 		$inPlaceholder = null;
@@ -271,8 +266,6 @@ class SFParserFunctions {
 			} elseif ( $paramName == 'autocomplete on namespace' ) {
 				$inAutocompletionSource = $value;
 				$autocompletionType = 'namespace';
-			} elseif ( $paramName == 'remote autocompletion' ) {
-				$inRemoteAutocompletion = true;
 			} elseif ( $paramName == 'placeholder' ) {
 				$inPlaceholder = $value;
 			} elseif ( $paramName == 'popup' ) {
@@ -320,7 +313,7 @@ class SFParserFunctions {
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
 			global $sfgMaxLocalAutocompleteValues;
 			$autocompletion_values = SFValuesUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletionType );
-			if ( count( $autocompletion_values ) > $sfgMaxLocalAutocompleteValues || $inRemoteAutocompletion ) {
+			if ( count( $autocompletion_values ) > $sfgMaxLocalAutocompleteValues ) {
 				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 				$formInputAttrs['autocompletedatatype'] = $autocompletionType;
 			} else {
