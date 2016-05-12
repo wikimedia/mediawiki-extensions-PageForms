@@ -331,11 +331,6 @@ class SFFormField {
 				$f->setValuesWithMappingCargoField();
 			}
 		}
-		// Backwards compatibility.
-		if ( $f->mInputType == 'datetime with timezone' ) {
-			$f->mInputType = 'datetime';
-			$f->mFieldArgs['include timezone'] = true;
-		}
 		if ( $template_in_form->allowsMultiple() ) {
 			$f->mFieldArgs['part_of_multiple'] = true;
 		}
