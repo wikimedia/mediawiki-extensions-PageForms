@@ -78,7 +78,7 @@
 				var no_diac_text = sf.select2.base.prototype.removeDiacritics( text );
 				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
 				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
-				if ( (position !== -1 && position === 0 ) ||  position_with_space !== -1 ) {
+				if ( (position !== -1 && position === 0 ) || position_with_space !== -1 ) {
 					return true;
 				} else {
 					return false;
@@ -157,9 +157,9 @@
 					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
 							values.push({
-						        id: i + 1, text: data.title[i]
-						    });
-						    i++;
+								id: i + 1, text: data.title[i]
+							});
+							i++;
 						});
 					}
 					if ( sfgEDSettings[name].image !== undefined && sfgEDSettings[name].image !== "" ) {
@@ -211,7 +211,7 @@
 					//Convert data into the format accepted by Select2
 					data.sfautocomplete.forEach( function(item) {
 						values.push({
-						 	id: id++, text: item.title
+							id: id++, text: item.title
 						});
 					});
 					return values;
@@ -274,11 +274,18 @@
 		var data = $(this).select2( "data" );
 		var tokens = new sf.select2.tokens();
 		var delim = tokens.getDelimiter( $(this) );
+		var namespace = $(this).attr( "data-namespace" );
 
 		if (data !== null) {
 			var tokens_value = "";
 			data.forEach( function( token ) {
-				tokens_value += token.text.trim() + delim + " ";
+ 				var val = token.text.trim();
+ 				if ( namespace ) {
+ 					if (val.indexOf( namespace + ':' ) !== 0 ) {
+ 						val = namespace + ':' + val;
+ 					}
+ 				}
+ 				tokens_value += val + delim + " ";
 			});
 			$(this).val( tokens_value );
 		} else {
@@ -294,7 +301,7 @@
 	tokens_proto.getDelimiter = function ( element ) {
 		var field_values = element.attr('autocompletesettings').split( ',' );
 		var delimiter = ",";
-		if (field_values[1] === 'list' && field_values[2] !== undefined && field_values[2] !== "")  {
+		if (field_values[1] === 'list' && field_values[2] !== undefined && field_values[2] !== "") {
 				delimiter = field_values[2];
 		}
 
@@ -308,9 +315,9 @@
 	 */
 	tokens_proto.sortable = function( element ) {
 		element.select2("container").find("ul.select2-choices").sortable({
-		    containment: 'parent',
-		    start: function() { $(".sfTokens").select2("onSortStart"); },
-		    update: function() { $(".sfTokens").select2("onSortEnd"); }
+			containment: 'parent',
+			start: function() { $(".sfTokens").select2("onSortStart"); },
+			update: function() { $(".sfTokens").select2("onSortEnd"); }
 		});
 	};
 

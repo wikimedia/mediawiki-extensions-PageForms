@@ -106,6 +106,9 @@ class SFComboBoxInput extends SFFormInput {
 		if ( !is_null( $remoteDataType ) ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
+ 		if ( array_key_exists( 'namespace', $other_args ) ) {
+ 			$inputAttrs['data-namespace'] = $other_args['namespace'];
+ 		}
 
 		$inputText = Html::rawElement( 'input', $inputAttrs);
 

@@ -150,6 +150,10 @@ class SFTokensInput extends SFFormInput {
 		if ( array_key_exists( 'max values', $other_args ) ) {
 			$inputAttrs['maxvalues'] = $other_args['max values'];
 		}
+ 		if ( array_key_exists( 'namespace', $other_args ) ) {
+ 			$inputAttrs['data-namespace'] = $other_args['namespace'];
+ 		}
+
 		$text = "\n\t" . Html::input( $input_name, $cur_value, 'text', $inputAttrs ) . "\n";
 
 		$spanClass = 'inputSpan';

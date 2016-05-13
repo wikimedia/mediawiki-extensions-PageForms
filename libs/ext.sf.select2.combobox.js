@@ -62,7 +62,7 @@
 				var no_diac_text = sf.select2.base.prototype.removeDiacritics( text );
 				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
 				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
-				if ( (position !== -1 && position === 0 ) ||  position_with_space !== -1 ) {
+				if ( (position !== -1 && position === 0 ) || position_with_space !== -1 ) {
 					return true;
 				} else {
 					return false;
@@ -114,9 +114,9 @@
 					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
 							values.push({
-							id: i + 1, text: data.title[i]
-						    });
-						    i++;
+								id: i + 1, text: data.title[i]
+							});
+							i++;
 						});
 					}
 					if ( sfgEDSettings[name].image !== undefined && sfgEDSettings[name].image !== "" ) {
@@ -186,7 +186,7 @@
 					//Convert data into the format accepted by Select2
 					data.sfautocomplete.forEach( function(item) {
 						values.push({
-						 	id: id++, text: item.title
+							id: id++, text: item.title
 						});
 					});
 					return values;
@@ -247,8 +247,16 @@
 	combobox_proto.onChange = function() {
 		var self = this;
 		var data = $(this).select2( "data" );
+		var namespace = $(this).attr( "data-namespace" );
+
 		if (data !== null) {
-			$(this).val( data.text );
+ 			var val = data.text;
+ 			if ( namespace ) {
+ 				if ( val.indexOf( namespace + ':' ) !== 0 ) {
+ 					val = namespace + ':' + val;
+ 				}
+ 			}
+ 			$(this).val( val );
 		} else {
 			$(this).val( '' );
 		}
