@@ -513,6 +513,9 @@ END;
 				break;
 
 			/** Statuses that require reuploading **/
+			case UploadBase::FILE_TOO_LARGE:
+				$this->showUploadForm(  $this->getUploadForm( wfMessage( 'file-too-large' )->escaped() ) );
+				break;
 			case UploadBase::EMPTY_FILE:
 				$this->showUploadForm( $this->getUploadForm( wfMessage( 'emptyfile' )->escaped() ) );
 				break;
