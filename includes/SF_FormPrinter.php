@@ -381,7 +381,31 @@ END;
 		return $text;
 	}
 
-	function jsGridHTML( $tif ) {
+	function tableHTML( $tif, $instanceNum ) {
+		global $sfgFieldNum;
+
+		$gridValues = $tif->getGridValues()[$instanceNum];
+
+		$html = '';
+		foreach ( $tif->getFields() as $formField ) {
+			$fieldName = $formField->template_field->getFieldName();
+			$curValue = $gridValues[$fieldName];
+
+			$sfgFieldNum++;
+			$label = Html::element( 'label',
+				array( 'for' => "input_$sfgFieldNum" ),
+				$formField->getLabel() );
+			$labelCell = Html::rawElement( 'th', null, $label );
+			$inputCell = Html::rawElement( 'td', null, $this->formFieldHTML( $formField, $curValue ) );
+			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
+		}
+
+		$html = Html::rawElement( 'table', array( 'class' => 'formtable' ), $html );
+
+		return $html;
+	}
+
+	function spreadsheetHTML( $tif ) {
 		global $wgOut, $sfgGridValues, $sfgGridParams;
 		global $sfgScriptPath;
 
@@ -854,10 +878,11 @@ END;
 					// among others.
 					$field_name = trim( $tag_components[1] );
 					$form_field = SFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled );
-					// For spreadsheet/grid displays, add
-					// in the form fields, so we know the
-					// data structure.
-					if ( $tif->getDisplay() == 'spreadsheet' && $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) {
+					// For special displays, add in the
+					// form fields, so we know the data
+					// structure.
+					if ( $tif->getDisplay() == 'table' ||
+						( $tif->getDisplay() == 'spreadsheet' && $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) ) {
 						$tif->addField( $form_field );
 					}
 					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted() );
@@ -1062,6 +1087,9 @@ END;
 								$cur_value = false;
 							}
 						}
+					}
+
+					if ( $tif->getDisplay() != null ) {
 						$tif->addGridValue( $field_name, $cur_value );
 					}
 
@@ -1295,9 +1323,12 @@ END;
 			if ( $tif && $tif->allowsMultiple() ) {
 				if ( $tif->getDisplay() == 'spreadsheet' ) {
 					if ( $tif->allInstancesPrinted() ) {
-						$multipleTemplateHTML .= $this->jsGridHTML( $tif );
+						$multipleTemplateHTML .= $this->spreadsheetHTML( $tif );
 					}
 				} else {
+					if ( $tif->getDisplay() == 'table' ) {
+						$section = $this->tableHTML( $tif, $tif->getInstanceNum() );
+					}
 					if ( $tif->getInstanceNum() == 0 ) {
 						$multipleTemplateHTML .= $this->multipleTemplateStartHTML( $tif );
 					}
@@ -1336,6 +1367,8 @@ END;
 					$section_num--;
 					$tif->incrementInstanceNum();
 				}
+			} elseif ( $tif && $tif->getDisplay() == 'table' ) {
+				$form_text .= $this->tableHTML( $tif, 0 );
 			} else {
 				$form_text .= $section;
 			}

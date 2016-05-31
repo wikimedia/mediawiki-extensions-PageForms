@@ -1171,6 +1171,10 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
 
+	new_div.find('label').attr('for', function() {
+		return this.htmlFor.replace(/input_/g, 'input_' + num_elements + '_');
+	});
+
 	// Add the new instance.
 	if ( addAboveCurInstance ) {
 		new_div.insertBefore(this.closest(".multipleTemplateInstance"));
