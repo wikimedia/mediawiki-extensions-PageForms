@@ -709,8 +709,8 @@ class SFAutoeditAPI extends ApiBase {
 				$isRandom = true;
 				$randomNumHasPadding = array_key_exists( 2, $matches );
 				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[3] : $randomNumDigits );
-				$titleNumber = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
-			} else if ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
+				$titleNumber = SFAutoeditAPI::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+			} elseif ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
 				// get unique number start value
 				// from target name; if it's not
 				// there, or it's not a positive
@@ -753,7 +753,7 @@ class SFAutoeditAPI extends ApiBase {
 					if ( $numAttemptsAtTitle > 20 ) {
 						$randomNumDigits++;
 					}
-					$titleNumber = SFUtils::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+					$titleNumber = SFAutoeditAPI::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
 				}
 				// If title number is blank, change it to 2;
 				// otherwise, increment it, and if necessary
