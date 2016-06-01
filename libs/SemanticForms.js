@@ -388,7 +388,6 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 			for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 				var options = showOnSelectVals[i][0];
 				var div_id2 = showOnSelectVals[i][1];
-				hideDiv(div_id2, instanceWrapperDiv, 'fast' );
 				if ( uncoveredInput.hasClass( 'sfShowIfSelected' ) ) {
 					showDivIfSelected( options, div_id2, inputVal, instanceWrapperDiv, false );
 				} else {
