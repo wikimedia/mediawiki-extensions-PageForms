@@ -138,7 +138,7 @@
 	"sf_category_desc": "Aquò es la categoria « $1 ».",
 	"sf_blank_namespace": "Principal",
 	"right-viewedittab": "Veire l'onglet \"{{int:edit}}\" per las paginas modificablas via un formulari",
-	"right-editrestrictedfields": "Modificar los camps restrenches dels formularis",
+	"right-editrestrictedfields": "Modificar los camps restrents dels formularis",
 	"right-createclass": "Crear de classas semanticas novèlas",
 	"action-createclass": "crear de classas semanticas novèlas",
 	"action-editrestrictedfields": "Modificar los camps de formulari protegits",
