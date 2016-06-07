@@ -443,6 +443,8 @@ window.ext.popupform = ( function () {
 				doc.write(returnedData);
 				doc.close();
 
+				handleCloseFrame();
+
 				return false;
 			}
 
