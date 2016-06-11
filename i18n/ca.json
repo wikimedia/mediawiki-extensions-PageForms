@@ -232,6 +232,8 @@
 	"sf-datepicker-next": "Següent",
 	"sf-datepicker-today": "Avui",
 	"sf-datepicker-weekstart": "El primer dia de la setmana (0 - diumenge, 1 - dilluns, ...).",
+	"sf-datepicker-disabledaysofweek": "Una llista de dies que no poden seleccionar-se (p. ex., el cap de setmana: 6, 0).",
+	"sf-datepicker-highlightdaysofweek": "Una llista de dies que apareixerà ressaltat (p. ex., el cap de setmana: 6, 0).",
 	"sf-datepicker-showweeknumbers": "Cal mostrar els números de la setmana a l'esquerra de la setmana?",
 	"sf-datepicker-enableinputfield": "Cal que l'usuari pugui omplir el camp d'entrada directament o només mitjançant el selector de dates?",
 	"sf-regexp-wrongformat": "Format incorrecte.",
