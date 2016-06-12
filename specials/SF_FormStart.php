@@ -136,7 +136,7 @@ END;
 			$content = WikiPage::factory( $page_title )->getContent();
 			if ( $content && $content->getRedirectTarget() ) {
 				$page_title = $content->getRedirectTarget();
-				$page_name = SFUtils::titleURLString( $redirect_title );
+				$page_name = SFUtils::titleURLString( $page_title );
 			}
 			// HACK - if this is the default form for
 			// this page, send to the regular 'formedit'
