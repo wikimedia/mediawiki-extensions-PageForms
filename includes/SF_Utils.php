@@ -24,7 +24,7 @@ class SFUtils {
 	 * some reason, doesn't include the namespace
 	 */
 	public static function titleURLString( $title ) {
-		$namespace = wfUrlencode( $title->getNsText() );
+		$namespace = $title->getNsText();
 		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
