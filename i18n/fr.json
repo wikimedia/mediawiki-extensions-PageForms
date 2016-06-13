@@ -27,7 +27,8 @@
 			"Pathe",
 			"Wladek92",
 			"Orlodrim",
-			"PifyZ"
+			"PifyZ",
+			"Seb35"
 		]
 	},
 	"semanticforms-desc": "Formulaires pour créer et modifier des pages wiki",
@@ -239,7 +240,7 @@
 	"sf_property_linkstoform": "Elle pointe sur les pages utilisant le formulaire $1.",
 	"sf_property_allowedvals": "{{PLURAL:$1|La valeur autorisée pour cette propriété est|Les valeurs autorisées pour cette propriété sont}} :",
 	"sf_template_docu": "Ceci est le modèle « $1 ». Il devrait être appelé selon le format suivant :",
-	"sf_template_docufooter": "Modifier la page pour voir le texte du modèle.",
+	"sf_template_docufooter": "Modifiez la page pour voir le texte du modèle.",
 	"sf_form_docu": "Ceci est le formulaire « $1 ».\nPour créer une page avec ce formulaire, entrez le nom de la page ci-dessous ;\nsi une page avec ce nom existe déjà, vous serez dirigé vers un formulaire pour l’éditer.",
 	"sf_form_freetextlabel": "Texte libre",
 	"sf_category_hasdefaultform": "Cette catégorie utilise le formulaire « $1 ».",
