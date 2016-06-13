@@ -72,7 +72,7 @@ class TemplatesPage extends QueryPage {
 		global $wgContLang;
 
 		$templateText = SFUtils::getPageText( $templateTitle );
-		$cat_ns_name = $wgContLang->getNsText( NS_TEMPLATE );
+		$cat_ns_name = $wgContLang->getNsText( NS_CATEGORY );
 		if ( preg_match_all( "/\[\[(Category|$cat_ns_name):([^\]]*)\]\]/", $templateText, $matches ) ) {
 			// Get the last match - if there's more than one
 			// category tag, there's a good chance that the last
