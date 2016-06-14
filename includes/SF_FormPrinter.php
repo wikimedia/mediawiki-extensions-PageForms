@@ -616,10 +616,10 @@ END;
 		global $sfgTabIndex; // used to represent the current tab index in the form
 		global $sfgFieldNum; // used for setting various HTML IDs
 
-		// initialize some variables
+		// Initialize some variables.
 		$wiki_page = new SFWikiPage();
-		$sfgTabIndex = 1;
-		$sfgFieldNum = 1;
+		$sfgTabIndex = 0;
+		$sfgFieldNum = 0;
 		$source_page_matches_this_form = false;
 		$form_page_title = null;
 		$generated_page_name = $page_name_formula;
@@ -1158,6 +1158,9 @@ END;
 				// for section processing
 				// =====================================================
 				} elseif ( $tag_title == 'section' ) {
+					$sfgFieldNum++;
+					$sfgTabIndex++;
+
 					$section_name = trim( $tag_components[1] );
 					$page_section_in_form = SFPageSection::newFromFormTag( $tag_components );
 					$section_text = null;
