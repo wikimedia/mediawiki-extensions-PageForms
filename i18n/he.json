@@ -7,7 +7,8 @@
 			"Yaron Koren",
 			"YaronSh",
 			"חיים",
-			"ערן"
+			"ערן",
+			"Guycn2"
 		]
 	},
 	"semanticforms-desc": "טפסים ליצירה ולעריכה של דפי ויקי",
@@ -225,7 +226,7 @@
 	"sf_category_hasdefaultform": "קטגוריה זו משתמשת בטופס $1.",
 	"sf_category_desc": "זוהי הקטגוריה $1.",
 	"sf_blank_namespace": "ראשי",
-	"right-viewedittab": "צפייה בלשונית \"{{int:edit}}\" לדפים הניתנים לעריכה על ידי טופס",
+	"right-viewedittab": "שימוש בלשונית \"{{int:edit}}\" בדפים הניתנים לעריכה על־ידי טופס",
 	"right-editrestrictedfields": "עריכת שדות טופס מוגבלים",
 	"right-createclass": "יצירת מחלקות סמנטיות חדשות",
 	"action-createclass": "ליצור מחלקות סמנטיות חדשות",
