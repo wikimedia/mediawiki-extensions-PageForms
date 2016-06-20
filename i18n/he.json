@@ -231,7 +231,7 @@
 	"right-createclass": "יצירת מחלקות סמנטיות חדשות",
 	"action-createclass": "ליצור מחלקות סמנטיות חדשות",
 	"action-editrestrictedfields": "לערוך שדות טופס מוגבלים",
-	"action-viewedittab": "להציג את הלשונית \"{{int:edit}}\" בטפסים שאפשר לערוך",
+	"action-viewedittab": "להשתמש בלשונית \"{{int:edit}}\" בדפים הניתנים לעריכה על־ידי טופס",
 	"tooltip-ca-formedit": "עריכת הדף הזה באמצעות טופס",
 	"sf-select2-no-matches": "אין התאמות",
 	"sf-select2-searching": "חיפוש...",
