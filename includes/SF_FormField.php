@@ -441,9 +441,9 @@ class SFFormField {
 						// this should be replaced with an input type neutral way of
 						// figuring out if this scalar input type is a list
 						if ( $this->mInputType == "tokens" ) {
-							$is_list = true;
+							$this->mIsList = true;
 						}
-						if ( $is_list ) {
+						if ( $this->mIsList ) {
 							$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
 							foreach ( $cur_values as $key => $val ) {
 								$cur_values[$key] = $this->labelToValue( $val );
