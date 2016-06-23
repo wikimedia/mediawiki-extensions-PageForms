@@ -384,7 +384,8 @@ END;
 	function tableHTML( $tif, $instanceNum ) {
 		global $sfgFieldNum;
 
-		$gridValues = $tif->getGridValues()[$instanceNum];
+		$allGridValues = $tif->getGridValues();
+		$gridValues = $allGridValues[$instanceNum];
 
 		$html = '';
 		foreach ( $tif->getFields() as $formField ) {
