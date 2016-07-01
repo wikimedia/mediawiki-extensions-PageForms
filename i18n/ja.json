@@ -10,7 +10,8 @@
 			"青子守歌",
 			"Rxy",
 			"Sujiniku",
-			"Otokoume"
+			"Otokoume",
+			"아라"
 		]
 	},
 	"semanticforms-desc": "ウィキのページを作成および編集するフォーム",
@@ -197,7 +198,7 @@
 	"sf-datepicker-prev": "前へ",
 	"sf-datepicker-next": "次へ",
 	"sf-datepicker-today": "今日",
-	"sf-datepicker-dateformatlong": "yy年mm月dd日",
+	"sf-datepicker-dateformatlong": "yy年m月d日",
 	"sf-datepicker-dateformatshort": "yy/mm/dd",
 	"sf-datepicker-dateformat": "日付の書式の文字列です。詳細情報は[https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters オンライン説明文書]を参照してください。",
 	"sf-datepicker-weekstart": "週の初日の曜日 (0: 日曜日、1: 月曜日、...)",

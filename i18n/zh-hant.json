@@ -9,7 +9,8 @@
 			"Shirayuki",
 			"Wrightbus",
 			"Cwlin0416",
-			"LNDDYL"
+			"LNDDYL",
+			"아라"
 		]
 	},
 	"semanticforms-desc": "可用來增加與編輯語意資料的表單",
@@ -224,6 +225,7 @@
 	"sf-datepicker-prev": "上一個",
 	"sf-datepicker-next": "下一個",
 	"sf-datepicker-today": "今天",
+	"sf-datepicker-dateformatlong": "yy年m月d日",
 	"sf-datepicker-dateformat": "日期格式字符串。詳情請參見[https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters 在線文檔]。",
 	"sf-datepicker-weekstart": "一週的首日（0-週日，1-週一，等等）。",
 	"sf-datepicker-firstdate": "可選擇的第一個日期（採用 dd/yyyy/mm 格式）。",

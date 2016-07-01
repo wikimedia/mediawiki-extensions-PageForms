@@ -13,7 +13,8 @@
 			"Pill",
 			"Purodha",
 			"The Evil IP address",
-			"Umherirrender"
+			"Umherirrender",
+			"Emwiemaikel"
 		]
 	},
 	"semanticforms-desc": "Ermöglicht Formulare zum Erstellen und Bearbeiten von Wikiseiten",
@@ -200,7 +201,7 @@
 	"sf-autoedit-wait": "Verarbeite …",
 	"runquery": "Abfrage ausführen",
 	"sf_runquery_badurl": "In der URL wurde nicht der Name des Formulars angegeben.\nDie URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>”",
-	"sf_runquery_title": "Ausgeführte Abfrage: $1",
+	"sf_runquery_title": "Abfrage ausführen: $1",
 	"sf_runquery_additionalquery": "Ergänzende Abfrage",
 	"sf_formerrors_header": "Deine Eingabe ist fehlerhaft oder unvollständig. Siehe hierzu die Hinweise unten, neben dem jeweiligen Formularfeld.",
 	"sf_too_few_instances_error": "Es {{PLURAL:$1|muss mindestens eine Instanz|müssen mindestens $1 Instanzen}} dieser Vorlage vorhanden sein.",

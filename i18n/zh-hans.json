@@ -13,7 +13,8 @@
 			"Duolaimi",
 			"Hudafu",
 			"NigelSoft",
-			"Apflu"
+			"Apflu",
+			"아라"
 		]
 	},
 	"semanticforms-desc": "用于创建和编辑wiki页面的表单",
@@ -250,6 +251,7 @@
 	"sf-datepicker-prev": "上一个",
 	"sf-datepicker-next": "下一个",
 	"sf-datepicker-today": "今天",
+	"sf-datepicker-dateformatlong": "yy年m月d日",
 	"sf-datepicker-dateformat": "日期格式字符串。详情请参见[https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters 在线文档]。",
 	"sf-datepicker-weekstart": "一周的第一天（0-星期日，1-星期一 ……）。",
 	"sf-datepicker-firstdate": "可选择的第一个日期（采用yyyy/mm/dd格式）。",

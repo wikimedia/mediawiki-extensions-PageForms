@@ -11,7 +11,7 @@
 			"Ykhwong"
 		]
 	},
-	"semanticforms-desc": "시맨틱 데이터 추가와 편집을 위한 양식",
+	"semanticforms-desc": "위키 문서를 만들고 편집하기 위한 양식",
 	"specialpages-group-sf_group": "시맨틱 양식",
 	"apihelp-sfautoedit-param-form": "사용할 Semantic Forms의 양식",
 	"apihelp-sfautoedit-param-target": "만들거나 편집할 문서의 이름",
@@ -159,7 +159,7 @@
 	"sf_formedit_saveandcontinue_summary": "양식에서 \"$1\" 버튼을 사용하여 저장함",
 	"sf_formedit_tooltip_saveandcontinueediting": "데이터를 저장하고 편집을 계속하기",
 	"sf_autoedit_anoneditwarning": "주의: 로그인하고 있지 않습니다. IP 주소가 문서의 편집 역사에 남게 됩니다.",
-	"sf_autoedit_success": "$2 양식을 사용하여 [[$1]] 문서를 성공적으로 수정했습니다.",
+	"sf_autoedit_success": "$2 양식을 사용하여 [[$1]] 문서를 수정했습니다.",
 	"sf_autoedit_fail": "[[$1]](을)를 수정하는 데 실패했습니다.",
 	"sf_autoedit_notargetspecified": "지정한 대상 문서가 없습니다.",
 	"sf_autoedit_invalidtargetspecified": "지정한 '''$1''' 대상 문서가 잘못되었습니다.",
@@ -226,7 +226,7 @@
 	"sf-datepicker-prev": "이전",
 	"sf-datepicker-next": "다음",
 	"sf-datepicker-today": "오늘",
-	"sf-datepicker-dateformatlong": "yy년 m월 d일",
+	"sf-datepicker-dateformatlong": "yy년 MM d일",
 	"sf-datepicker-dateformatshort": "yy/mm/dd",
 	"sf-datepicker-dateformat": "날짜 형식 문자열. 더 많은 정보에 대한 [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters 온라인 문서]를 참조하세요.",
 	"sf-datepicker-weekstart": "주의 첫 요일(0 - 일요일, 1 - 월요일, ...).",
