@@ -22,11 +22,6 @@
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/open-layers": "dev-master"
 	},
-	"autoload": {
-		"files" : [
-			"SemanticForms.php"
-		]
-	},
 	"extra": {
 		"branch-alias": {
 			"dev-master": "3.6.x-dev"
