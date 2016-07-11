@@ -280,6 +280,8 @@ class SFFormField {
 				} elseif ( $sub_components[0] == 'cargo field' ) {
 					$cargo_field = $sub_components[1];
 				} elseif ( $sub_components[0] == 'default filename' ) {
+					global $wgTitle;
+					$page_name = $wgTitle->getText();
 					$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
 					// Parse value, so default filename can
 					// include parser functions.
