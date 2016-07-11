@@ -19,8 +19,7 @@
 	],
 	"require": {
 		"php": ">=5.3.0",
-		"composer/installers": "1.*,>=1.0.1",
-		"mediawiki/open-layers": "dev-master"
+		"composer/installers": "1.*,>=1.0.1"
 	},
 	"extra": {
 		"branch-alias": {
