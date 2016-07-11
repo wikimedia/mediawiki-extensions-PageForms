@@ -17,6 +17,13 @@ class SFFormUtils {
 	 * not handled by the form itself
 	 */
 	static function unhandledFieldsHTML( $template_in_form ) {
+		// This shouldn't happen, but sometimes this value is null.
+		// @TODO - fix the code that calls this function so the
+		// value is never null.
+		if ( is_null( $template_in_form ) ) {
+			return '';
+		}
+
 		// HTML element names shouldn't contain spaces
 		$templateName = str_replace( ' ', '_', $template_in_form->getTemplateName() );
 		$text = "";
