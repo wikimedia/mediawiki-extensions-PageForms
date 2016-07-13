@@ -91,7 +91,7 @@
 			var rowNum = 1;
 			$grid.find( "tr" ).each( function() {
 				var $row = $( this );
-				if ( $row.hasClass( 'jsgrid-edit-row' ) ) {
+				if ( $row.hasClass( 'jsgrid-edit-row' ) || $row.hasClass( 'jsgrid-nodata-row' ) ) {
 					// Continue.
 					return;
 				}

@@ -385,12 +385,20 @@ END;
 		global $sfgFieldNum;
 
 		$allGridValues = $tif->getGridValues();
-		$gridValues = $allGridValues[$instanceNum];
+		if ( array_key_exists( $instanceNum, $allGridValues ) ) {
+			$gridValues = $allGridValues[$instanceNum];
+		} else {
+			$gridValues = null;
+		}
 
 		$html = '';
 		foreach ( $tif->getFields() as $formField ) {
 			$fieldName = $formField->template_field->getFieldName();
-			$curValue = $gridValues[$fieldName];
+			if ( $gridValues == null ) {
+				$curValue = null;
+			} else {
+				$curValue = $gridValues[$fieldName];
+			}
 
 			$sfgFieldNum++;
 			$label = Html::element( 'label',
@@ -882,7 +890,7 @@ END;
 					// For special displays, add in the
 					// form fields, so we know the data
 					// structure.
-					if ( $tif->getDisplay() == 'table' ||
+					if ( ( $tif->getDisplay() == 'table' && ( !$tif->allowsMultiple() || $tif->getInstanceNum() == 0 ) ) ||
 						( $tif->getDisplay() == 'spreadsheet' && $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) ) {
 						$tif->addField( $form_field );
 					}
@@ -1090,7 +1098,7 @@ END;
 						}
 					}
 
-					if ( $tif->getDisplay() != null ) {
+					if ( $tif->getDisplay() != null && ( !$tif->allowsMultiple() || !$tif->allInstancesPrinted() ) ) {
 						$tif->addGridValue( $field_name, $cur_value );
 					}
 
