@@ -377,6 +377,7 @@ END;
 		<p>$button</p>
 		<div class="sfErrorMessages"></div>
 	</div><!-- multipleTemplateWrapper -->
+</fieldset>
 END;
 		return $text;
 	}
@@ -1336,6 +1337,9 @@ END;
 				if ( $tif->getDisplay() == 'spreadsheet' ) {
 					if ( $tif->allInstancesPrinted() ) {
 						$multipleTemplateHTML .= $this->spreadsheetHTML( $tif );
+						// For spreadsheets, this needs
+						// to be specially inserted.
+						$multipleTemplateHTML .= "</fieldset>\n";
 					}
 				} else {
 					if ( $tif->getDisplay() == 'table' ) {
@@ -1383,9 +1387,6 @@ END;
 				$form_text .= $this->tableHTML( $tif, 0 );
 			} else {
 				$form_text .= $section;
-			}
-			if ( $tif && $tif->getLabel() != null && ( !$tif->allowsMultiple() || $tif->allowsMultiple() && $tif->allInstancesPrinted() ) ) {
-				$form_text .= "</fieldset>\n";
 			}
 		} // end for
 
