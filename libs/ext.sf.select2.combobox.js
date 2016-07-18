@@ -251,7 +251,7 @@
 
 		if (data !== null) {
  			var val = data.text;
- 			if ( namespace ) {
+ 			if ( namespace && data.id === data.text ) {
  				if ( val.indexOf( namespace + ':' ) !== 0 ) {
  					val = namespace + ':' + val;
  				}

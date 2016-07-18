@@ -280,7 +280,7 @@
 			var tokens_value = "";
 			data.forEach( function( token ) {
  				var val = token.text.trim();
- 				if ( namespace ) {
+ 				if ( namespace && data.id === data.text ) {
  					if (val.indexOf( namespace + ':' ) !== 0 ) {
  						val = namespace + ':' + val;
  					}
