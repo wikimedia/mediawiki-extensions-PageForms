@@ -7,7 +7,7 @@
 	},
 	"semanticforms-desc": "Обрасци за создавање и уредување на викистраници",
 	"specialpages-group-sf_group": "Семантички обрасци",
-	"apihelp-sfautocomplete-param-limit": "Граница на бројот исходи",
+	"apihelp-sfautocomplete-param-limit": "Граница на бројот исходни ставки",
 	"apihelp-sfautocomplete-param-substr": "На која низа да се самодополнува",
 	"createproperty": "Создај својство",
 	"sf-createproperty-with-name": "Создај својство: $1",
