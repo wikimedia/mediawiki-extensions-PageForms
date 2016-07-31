@@ -23,7 +23,7 @@
 	"sf_createproperty_allowedvalsinput": "ある値を許可するには、許可する値をカンマで区切って列挙します (値がカンマを含む場合は「\\,」に置換):",
 	"sf_createproperty_propname": "プロパティ名:",
 	"sf_createproperty_proptype": "型:",
-	"sf_createproperty_editsummary": "型[[Has type::$1]]のプロパティを作成",
+	"sf_createproperty_editsummary": "型 [[Has type::$1]] のプロパティを作成",
 	"templates": "テンプレート一覧",
 	"sf_templates_docu": "以下のテンプレートがウィキに存在します。",
 	"sf_templates_definescat": "定義するカテゴリ: $1",
