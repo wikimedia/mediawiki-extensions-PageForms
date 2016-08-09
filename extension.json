@@ -17,7 +17,7 @@
 		"SFHooks::initialize"
 	],
 	"require": {
-		"MediaWiki": ">= 1.27.0"
+		"MediaWiki": ">= 1.28.0"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -301,7 +301,6 @@
 				"htmlform-yes",
 				"htmlform-no"
 			]
-
 		},
 		"ext.semanticforms": {
 			"scripts": [
@@ -385,45 +384,93 @@
 		]
 	},
 	"config": {
-		"_prefix": "",
-		"sfgMaxAutocompleteValues": 1000,
-		"sfgMaxLocalAutocompleteValues": 100,
-		"sfgAutocompleteOnAllChars": false,
-		"sfgCacheAutocompleteValues": false,
-		"sfgAutocompleteCacheTimeout": null,
-		"sfgRenameEditTabs": false,
-		"sfgRenameMainEditTab": false,
-		"sfgListSeparator": ",",
-		"sfg24HourTime": false,
-		"sfgCacheFormDefinitions": false,
-		"sfgFormCacheType": null,
-		"sfgLinkAllRedLinksToForms": false,
-		"sfgRedLinksCheckOnlyLocalProps": false,
-		"sfgShowTabsForAllHelperForms": true,
-		"sfgRunQueryFormAtTop": false,
-		"sfgShowOnSelect": [],
-		"sfgAutocompleteValues": [],
-		"sfgGridValues": [],
-		"sfgGridParams": [],
-		"sfgFieldProperties": [],
-		"sfgCargoFields": [],
-		"sfgDependentFields": [],
-		"sfgCheckboxesSelectAllMinimum": 10,
-
+		"sfgMaxAutocompleteValues": {
+			"value": 1000
+		},
+		"sfgMaxLocalAutocompleteValues": {
+			"value": 100
+		},
+		"sfgAutocompleteOnAllChars": {
+			"value": false
+		},
+		"sfgCacheAutocompleteValues": {
+			"value": false
+		},
+		"sfgAutocompleteCacheTimeout": {
+			"value": null
+		},
+		"sfgRenameEditTabs": {
+			"value": false
+		},
+		"sfgRenameMainEditTab": {
+			"value": false
+		},
+		"sfgListSeparator": {
+			"value": ","
+		},
+		"sfg24HourTime": {
+			"value": false
+		},
+		"sfgCacheFormDefinitions": {
+			"value": false
+		},
+		"sfgFormCacheType": {
+			"value": null
+		},
+		"sfgLinkAllRedLinksToForms": {
+			"value": false
+		},
+		"sfgRedLinksCheckOnlyLocalProps": {
+			"value": false
+		},
+		"sfgShowTabsForAllHelperForms": {
+			"value": true
+		},
+		"sfgRunQueryFormAtTop": {
+			"value": false
+		},
+		"sfgShowOnSelect": {
+			"value": []
+		},
+		"sfgAutocompleteValues": {
+			"value": []
+		},
+		"sfgGridValues": {
+			"value": []
+		},
+		"sfgGridParams": {
+			"value": []
+		},
+		"sfgFieldProperties": {
+			"value": []
+		},
+		"sfgCargoFields": {
+			"value": []
+		},
+		"sfgDependentFields": {
+			"value": []
+		},
+		"sfgCheckboxesSelectAllMinimum": {
+			"value": 10
+		},
 		"sfgDatePickerSettings": {
-			"@note": "See SF_DefaultInputSettings.php for allowed values",
-			"FirstDate": null,
-			"LastDate": null,
-			"DateFormat": "SHORT",
-			"WeekStart": null,
-			"ShowWeekNumbers": false,
-			"DisableInputField": false,
-			"ShowResetButton": false,
-			"DisabledDaysOfWeek": null,
-			"HighlightedDaysOfWeek": null,
-			"DisabledDates": null,
-			"HighlightedDates": null
+			"value": {
+				"@note": "See SF_DefaultInputSettings.php for allowed values",
+				"FirstDate": null,
+				"LastDate": null,
+				"DateFormat": "SHORT",
+				"WeekStart": null,
+				"ShowWeekNumbers": false,
+				"DisableInputField": false,
+				"ShowResetButton": false,
+				"DisabledDaysOfWeek": null,
+				"HighlightedDaysOfWeek": null,
+				"DisabledDates": null,
+				"HighlightedDates": null
+			},
+			"merge_strategy": "array_plus"
 		}
 	},
-	"manifest_version": 1
+	"config_prefix": "",
+	"manifest_version": 2
 }

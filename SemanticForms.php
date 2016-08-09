@@ -51,7 +51,7 @@ if ( array_key_exists( 'wgWikimediaJenkinsCI', $GLOBALS ) ) {
 // extension.json. For simplicity's sake, don't load extensions unless we're
 // at version 1.27 or higher.
 //if ( function_exists( 'wfLoadExtension' ) ) {
-if ( version_compare( $GLOBALS['wgVersion'], '1.27c', '>' ) ) {
+if ( version_compare( $GLOBALS['wgVersion'], '1.28c', '>' ) ) {
 	if ( function_exists( 'wfLoadExtension' ) ) {
 		wfLoadExtension( 'SemanticForms' );
 		// Keep i18n globals so mergeMessageFileList.php doesn't break
