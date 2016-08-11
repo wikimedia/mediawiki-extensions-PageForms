@@ -586,6 +586,8 @@ $GLOBALS['sfgShowTabsForAllHelperForms'] = true;
 # ##
 $GLOBALS['sfgRunQueryFormAtTop'] = false;
 
+$GLOBALS['sfgGoogleMapsKey'] = null;
+
 // Include default settings for form inputs
 require_once 'includes/SF_DatePickerSettings.php';
 

@@ -429,6 +429,9 @@
 		"sfgRunQueryFormAtTop": {
 			"value": false
 		},
+		"sfgGoogleMapsKey": {
+			"value": null
+		},
 		"sfgShowOnSelect": {
 			"value": []
 		},

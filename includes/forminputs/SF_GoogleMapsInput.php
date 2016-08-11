@@ -25,11 +25,11 @@ class SFGoogleMapsInput extends SFOpenLayersInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $sfgTabIndex, $sfgFieldNum;
+		global $sfgGoogleMapsKey, $sfgTabIndex, $sfgFieldNum;
 		global $wgOut;
 
 		$scripts = array(
-			"https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"
+			"https://maps.googleapis.com/maps/api/js?v=3.exp&key=$sfgGoogleMapsKey"
 		);
 		$scriptsHTML = '';
 		foreach ( $scripts as $script ) {
