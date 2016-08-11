@@ -150,7 +150,7 @@
 	"sf_formedit_saveandcontinueediting": "Salva e continua",
 	"sf_formedit_saveandcontinue_summary": "Salvato utilizzando il pulsante \"$1\" nel modulo",
 	"sf_formedit_tooltip_saveandcontinueediting": "Salva i dati e continua a modificare",
-	"sf_autoedit_anoneditwarning": "Attenzione: Accesso non effettuato.\nNella cronologia della pagina verrà registrato il tuo indirizzo IP.",
+	"sf_autoedit_anoneditwarning": "Attenzione: non hai effettuato l'accesso.\nNella cronologia della pagina verrà registrato il tuo indirizzo IP.",
 	"sf_autoedit_success": "Modificato [[$1]] utilizzando il modulo $2.",
 	"sf_autoedit_notargetspecified": "Nessuna pagina di destinazione specificata.",
 	"sf_autoedit_invalidtargetspecified": "La pagina di destinazione specificata '''$1''' non è valida.",
