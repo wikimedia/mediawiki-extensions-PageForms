@@ -79,8 +79,8 @@ if ( defined( 'SF_VERSION' ) ) {
 
 define( 'SF_VERSION', '3.6' );
 
-if ( !defined( 'SMW_VERSION' ) ) {
-	// SMW defines these namespaces itself.
+// SMW defines these namespaces itself.
+if ( !defined( 'SF_NS_FORM' ) ) {
 	define( 'SF_NS_FORM', 106 );
 	define( 'SF_NS_FORM_TALK', 107 );
 }
