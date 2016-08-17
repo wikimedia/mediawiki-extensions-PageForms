@@ -403,11 +403,19 @@ class SFValuesUtils {
 	* @author Yaron Koren
 	*/
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
-		global $sfgAutocompleteOnAllChars;
+		global $wgDBtype, $sfgAutocompleteOnAllChars;
 
-		$column_value = "LOWER(CONVERT($column USING utf8))";
+		// CONVERT() is also supported in PostgreSQL, but it doesn't
+		// seem to work the same way.
+		if ( $wgDBtype == 'mysql' ) {
+			$column_value = "LOWER(CONVERT($column USING utf8))";
+		} else {
+			$column_value = "LOWER($column)";
+		}
+
+		$substring = strtolower( $substring );
 		if ( $replaceSpaces ) {
-			$substring = str_replace( ' ', '_', strtolower( $substring ) );
+			$substring = str_replace( ' ', '_', $substring );
 		}
 		$substring = str_replace( "'", "\'", $substring );
 		$substring = str_replace( '_', '\_', $substring );
