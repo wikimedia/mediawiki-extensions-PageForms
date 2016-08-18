@@ -282,7 +282,16 @@ class SFFormField {
 				} elseif ( $sub_components[0] == 'default filename' ) {
 					global $wgTitle;
 					$page_name = $wgTitle->getText();
-					$default_filename = str_replace( '&lt;page name&gt;', $page_name, $sub_components[1] );
+					if ( $wgTitle->isSpecialPage() ) {
+						// If it's of the form
+						// Special:FormEdit/form/target,
+						// get just the target.
+						$pageNameComponents = explode( '/', $page_name, 3 );
+						if ( count( $pageNameComponents ) == 3 ) {
+							$page_name = $pageNameComponents[2];
+						}
+					}
+					$default_filename = str_replace( '<page name>', $page_name, $sub_components[1] );
 					// Parse value, so default filename can
 					// include parser functions.
 					$default_filename = $wgParser->recursiveTagParse( $default_filename );
