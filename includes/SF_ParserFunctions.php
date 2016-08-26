@@ -564,7 +564,11 @@ class SFParserFunctions {
 		if ( $linkType == 'button' ) {
 			// Html::rawElement() before MW 1.21 or so drops the type attribute
 			// do not use Html::rawElement() for buttons!
-			$linkElement = '<button ' . Html::expandAttributes( array( 'type' => 'submit', 'class' => $classString ) ) . '>' . $linkString . '</button>';
+			$attrs = array( 'type' => 'submit', 'class' => $classString );
+			if ( $inTooltip != null ) {
+				$attrs['title'] = $inTooltip;
+			}
+			$linkElement = '<button ' . Html::expandAttributes( $attrs ) . '>' . $linkString . '</button>';
 		} elseif ( $linkType == 'link' ) {
 			$attrs = array( 'class' => $classString, 'href' => "#" );
 			if ( $inTooltip != null ) {
@@ -739,7 +743,7 @@ class SFParserFunctions {
 
 				// Html::rawElement() before MW 1.21 or so drops the type attribute
 				// do not use Html::rawElement() for buttons!
-				'<button ' . Html::expandAttributes( array( 'type' => 'submit', 'value' => $inLinkStr ) ) . '>' . $inLinkStr . '</button>' .
+				'<button ' . Html::expandAttributes( array( 'type' => 'submit', 'value' => $inLinkStr, 'title' => $inTooltip ) ) . '>' . $inLinkStr . '</button>' .
 				$hidden_inputs
 			);
 		} else {
