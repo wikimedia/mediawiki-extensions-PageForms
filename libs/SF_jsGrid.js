@@ -8,6 +8,8 @@
 ( function ( $, mw ) {
 
 	$( '.sfJSGrid' ).each( function() {
+		var sfgGridParams = mw.config.get( 'sfgGridParams' ),
+			sfgGridValues = mw.config.get( 'sfgGridValues' );
 		var $gridDiv = $( this );
 		var templateName = $gridDiv.attr( 'data-template-name' );
 		var gridHeight = $gridDiv.attr( 'height' );
