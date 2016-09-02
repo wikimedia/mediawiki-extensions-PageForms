@@ -695,8 +695,8 @@ class SFAutoeditAPI extends ApiBase {
 		$targetName = str_replace( ' ', '_', $targetName );
 
 		// now run the parser on it
-		global $wgParser;
-		$targetName = $wgParser->transformMsg( $targetName, ParserOptions::newFromUser( null ) );
+		global $wgParser, $wgTitle;
+		$targetName = $wgParser->transformMsg( $targetName, new ParserOptions(), $wgTitle );
 
 		$titleNumber = '';
 		$isRandom = false;
