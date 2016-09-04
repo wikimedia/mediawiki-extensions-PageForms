@@ -278,10 +278,10 @@
 	"sf-datepicker-enableinputfield": "L'utilisateur doit-il pouvoir remplir le champ d'entrée directement ou seulement par l'intermédiaire du sélecteur de dates?",
 	"sf-datepicker-showresetbutton": "Faut-il afficher un bouton de réinitialisation? C'est la seule manière pour l'utilisateur d'effacer le champ d'entrée s'il est désactivé pour la saisie directe.",
 	"sf-regexp-wrongformat": "Format erroné.",
-	"sf-regexp-regexp": "L'expression régulière que l'entrée doit respecter pour être valide. Cela doit comprendre les barres obliques ! Par défaut, \"/.*/\", c'est-à-dire n'importe quelle valeur.",
+	"sf-regexp-regexp": "L’expression rationnelle que l’entrée doit satisfaire pour être valide. Cela doit comprendre les barres obliques ! Par défaut, \"/.*/\", c’est-à-dire n’importe quelle valeur.",
 	"sf-regexp-basetype": "Le vrai type d’entrée à utiliser. Par défaut, « text ».",
 	"sf-regexp-baseprefix": "Préfixe pour les paramètres du type de base.",
-	"sf-regexp-orchar": "Le caractère OU à utiliser dans l'expression régulière au lieu de |. Par défaut, \"!\"",
-	"sf-regexp-inverse": "S'il est activé, l'entrée ne doit PAS correspondre à l'expression régulière pour être valide. C'est-à-dire que l'expression régulière est inversée.",
+	"sf-regexp-orchar": "Le caractère OU à utiliser dans l’expression rationnelle au lieu de |. Par défaut, « ! »",
+	"sf-regexp-inverse": "S’il est activé, l’entrée ne doit PAS correspondre à l’expression rationnelle pour être valide. C’est-à-dire que l’expression rationnelle est inversée.",
 	"sf-regexp-message": "Le message d'erreur à afficher si la correspondance échoue. Par défaut, «Format incorrect!» (ou l'équivalent dans la langue locale)"
 }
