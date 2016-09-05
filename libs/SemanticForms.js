@@ -10,7 +10,7 @@
  * @author Harold Solbrig
  * @author Eugene Mednikov
  */
-/*global sfgShowOnSelect, sfgFieldProperties, sfgCargoFields, validateAll, alert, sf*/
+/*global sfgShowOnSelect, sfgFieldProperties, sfgCargoFields, sfgDependentFields, validateAll, alert, sf*/
 
 // Activate autocomplete functionality for the specified field
 ( function ( $, mw ) {
@@ -1059,6 +1059,7 @@ var num_elements = 0;
  * Functions for multiple-instance templates.
  */
 $.fn.addInstance = function( addAboveCurInstance ) {
+	var sfgShowOnSelect = mw.config.get( 'sfgShowOnSelect' );
 	var wrapper = this.closest(".multipleTemplateWrapper");
 	var multipleTemplateList = wrapper.find('.multipleTemplateList');
 
@@ -1224,7 +1225,9 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 // templates.
 $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue ) {
 	// Get data from either Cargo or Semantic MediaWiki.
-	var myServer = mw.config.get( 'wgScriptPath' ) + "/api.php";
+	var myServer = mw.config.get( 'wgScriptPath' ) + "/api.php",
+		sfgCargoFields = mw.config.get( 'sfgCargoFields' ),
+		sfgFieldProperties = mw.config.get( 'sfgFieldProperties' );
 	myServer += "?action=sfautocomplete&format=json";
 	if ( sfgCargoFields.hasOwnProperty( dependentField ) ) {
 		var cargoTableAndFieldStr = sfgCargoFields[dependentField];
