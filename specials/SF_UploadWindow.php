@@ -27,6 +27,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	/** Misc variables **/
 	public $mRequest;			// The WebRequest or FauxRequest this form is supposed to handle
 	public $mSourceType;
+	/** @var UploadBase */
 	public $mUpload;
 	public $mLocalFile;
 	public $mUploadClicked;
@@ -164,11 +165,9 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Show the main upload form and optionally add the session key to the
-	 * output. This hides the source selection.
+	 * Show the main upload form.
 	 *
-	 * @param string $message HTML message to be shown at top of form
-	 * @param string $sessionKey Session key of the stashed upload
+	 * @param UploadForm $form
 	 */
 	protected function showUploadForm( $form ) {
 		# Add links if file was previously deleted
@@ -253,7 +252,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * @param string $message HTML message to be passed to mainUploadForm
 	 */
 	protected function recoverableUploadError( $message ) {
-		$sessionKey = $this->mUpload->stashSession();
+		$sessionKey = $this->mUpload->stashFile()->getFileKey();
 		$message = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n" .
 			'<div class="error">' . $message . "</div>\n";
 		
@@ -267,7 +266,7 @@ class SFUploadWindow extends UnlistedSpecialPage {
 	 * @param array $warnings
 	 */
 	protected function uploadWarning( $warnings ) {
-		$sessionKey = $this->mUpload->stashSession();
+		$sessionKey = $this->mUpload->stashFile()->getFileKey();
 
 		$warningHtml = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n"
 			. '<ul class="warning">';
@@ -491,6 +490,7 @@ END;
 	 * Provides output to the user for a result of UploadBase::verifyUpload
 	 *
 	 * @param array $details Result of UploadBase::verifyUpload
+	 * @throws MWException
 	 */
 	protected function processVerificationError( $details ) {
 		global $wgFileExtensions;
@@ -743,11 +743,13 @@ class SFUploadForm extends HTMLForm {
 	protected function getSourceSection() {
 		if ( $this->mSessionKey ) {
 			return array(
-				'wpSessionKey' => array(
+				'SessionKey' => array(
+					'id' => 'wpSessionKey',
 					'type' => 'hidden',
 					'default' => $this->mSessionKey,
 				),
-				'wpSourceType' => array(
+				'SourceType' => array(
+					'id' => 'wpSourceType',
 					'type' => 'hidden',
 					'default' => 'Stash',
 				),
