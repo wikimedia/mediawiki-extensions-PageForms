@@ -16,9 +16,9 @@ class SFHooks {
 			return 1;
 		}
 
-		define( 'SF_VERSION', '3.6' );
+		define( 'SF_VERSION', '3.7' );
 
-		if ( !defined( 'SMW_VERSION' ) ) {
+		if ( !defined( 'SF_NS_FORM' ) ) {
 			// SMW defines these namespaces itself.
 			define( 'SF_NS_FORM', 106 );
 			define( 'SF_NS_FORM_TALK', 107 );

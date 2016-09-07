@@ -77,7 +77,7 @@ if ( defined( 'SF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'SF_VERSION', '3.6' );
+define( 'SF_VERSION', '3.7' );
 
 // SMW defines these namespaces itself.
 if ( !defined( 'SF_NS_FORM' ) ) {
