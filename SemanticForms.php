@@ -411,6 +411,11 @@ $GLOBALS['wgResourceModules'] += array(
 			'htmlform-no',
 		),
 	),
+	'ext.semanticforms.balloon' => $sfgResourceTemplate + array(
+		'styles' => array(
+			'skins/balloon.css',
+		),
+	),
 	'ext.semanticforms' => $sfgResourceTemplate + array(
 		'scripts' => array(
 			'libs/ext.sf.js',

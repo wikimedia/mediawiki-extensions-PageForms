@@ -302,6 +302,11 @@
 				"htmlform-no"
 			]
 		},
+		"ext.semanticforms.balloon": {
+			"styles": [
+				"skins/balloon.css"
+			]
+		},
 		"ext.semanticforms": {
 			"scripts": [
 				"libs/ext.sf.js"

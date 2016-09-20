@@ -73,5 +73,9 @@ the MIT license.
 * Select2 (https://select2.github.io) by Igor Vaynberg, distributed
 under both the Apache and GPL licenses.
 
+It also includes the Balloon.css CSS library
+(https://kazzkiq.github.io/balloon.css/) by Claudio Holanda,
+distributed under the MIT license.
+
 Semantic Forms also makes extensive use of the jQuery and jQuery UI
 JavaScript libraries, included within MediaWiki.
