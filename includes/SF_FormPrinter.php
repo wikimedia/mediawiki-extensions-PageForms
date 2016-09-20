@@ -402,9 +402,14 @@ END;
 			}
 
 			$sfgFieldNum++;
+			if ( $formField->getLabel() !== null ) {
+				$labelText = $formField->getLabel();
+			} else {
+				$labelText = $fieldName . ': ';
+			}
 			$label = Html::element( 'label',
 				array( 'for' => "input_$sfgFieldNum" ),
-				$formField->getLabel() );
+				$labelText );
 			$labelCell = Html::rawElement( 'th', null, $label );
 			$inputCell = Html::rawElement( 'td', null, $this->formFieldHTML( $formField, $curValue ) );
 			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
