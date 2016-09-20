@@ -410,6 +410,22 @@ END;
 			$label = Html::element( 'label',
 				array( 'for' => "input_$sfgFieldNum" ),
 				$labelText );
+
+			// If a 'tooltip' parameter was set, add a tooltip
+			// right after the label.
+			if ( $formField->hasFieldArg( 'tooltip' ) ) {
+				global $wgOut, $wgScriptPath;
+
+				$wgOut->addModules( 'ext.semanticforms.balloon' );
+				$tooltipText = $formField->getFieldArg( 'tooltip' );
+				$label .= ' ' . Html::element( 'button', array(
+					'data-balloon-length' => 'medium',
+					'data-balloon' => $tooltipText,
+					'disabled' => true,
+					'style' => "height: 13px; width: 13px; background: url($wgScriptPath/resources/src/mediawiki/images/question.png); border: none;"
+					), '' );
+			}
+
 			$labelCell = Html::rawElement( 'th', null, $label );
 			$inputCell = Html::rawElement( 'td', null, $this->formFieldHTML( $formField, $curValue ) );
 			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
