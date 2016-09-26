@@ -27,11 +27,6 @@ class SFCreatePageJob extends Job {
 			$this->error = "createPage: Invalid title";
 			return false;
 		}
-		$article = new Article( $this->title, 0 );
-		if ( !$article ) {
-			$this->error = 'createPage: Article not found "' . $this->title->getPrefixedDBkey() . '"';
-			return false;
-		}
 
 		$page_text = $this->params['page_text'];
 		// change global $wgUser variable to the one
@@ -41,13 +36,12 @@ class SFCreatePageJob extends Job {
 		$actual_user = $wgUser;
 		$wgUser = User::newFromId( $this->params['user_id'] );
 		$edit_summary = '';
-		if( array_key_exists( 'edit_summary', $this->params ) ) {
+		if ( array_key_exists( 'edit_summary', $this->params ) ) {
 			$edit_summary = $this->params['edit_summary'];
 		}
-		$article->doEdit( $page_text, $edit_summary );
+		$this->title->doEditContent( $page_text, $edit_summary );
 		$wgUser = $actual_user;
 
 		return true;
 	}
 }
-
