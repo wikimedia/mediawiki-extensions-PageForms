@@ -255,7 +255,11 @@ class SFFormField {
 						$f->mPossibleValues[] = $page_name_for_values;
 					}
 				} elseif ( $sub_components[0] == 'values from category' ) {
-					$category_name = ucfirst( $sub_components[1] );
+					global $wgCapitalLinks;
+					$category_name = $sub_components[1];
+					if ( $wgCapitalLinks ) {
+						$category_name = ucfirst( $category_name );
+					}
 					$f->mPossibleValues = SFValuesUtils::getAllPagesForCategory( $category_name, 10 );
 				} elseif ( $sub_components[0] == 'values from concept' ) {
 					$f->mPossibleValues = SFValuesUtils::getAllPagesForConcept( $sub_components[1] );
