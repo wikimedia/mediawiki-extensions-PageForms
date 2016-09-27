@@ -57,11 +57,20 @@ class SFCreatePageJob extends Job {
 			$edit_summary = $this->params['edit_summary'];
 		}
 
+		// It's strange that doEditContent() doesn't
+		// automatically attach the 'bot' flag when the user
+		// is a bot...
+		if ( $wgUser->isAllowed( 'bot' ) ) {
+			$flags = EDIT_FORCE_BOT;
+		} else {
+			$flags = 0;
+		}
+
 		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
 			$new_content = new WikitextContent( $text );
-			$wikiPage->doEditContent( $new_content, $edit_summary );
+			$wikiPage->doEditContent( $new_content, $edit_summary, $flags );
 		} else {
-			$article->doEditContent( $page_text, $edit_summary );
+			$article->doEditContent( $page_text, $edit_summary, $flags );
 		}
 
 		$wgUser = $actual_user;
