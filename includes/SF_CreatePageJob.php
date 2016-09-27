@@ -28,6 +28,23 @@ class SFCreatePageJob extends Job {
 			return false;
 		}
 
+		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
+			// MW 1.21+
+			$wikiPage = new WikiPage( $this->title );
+			if ( !$wikiPage ) {
+				$this->error = 'createPage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
+				wfProfileOut( __METHOD__ );
+				return false;
+			}
+		} else {
+			$article = new Article( $this->title, 0 );
+			if ( !$article ) {
+				$this->error = 'createPage: Article not found "' . $this->title->getPrefixedDBkey() . '"';
+				wfProfileOut( __METHOD__ );
+				return false;
+			}
+		}
+
 		$page_text = $this->params['page_text'];
 		// change global $wgUser variable to the one
 		// specified by the job only for the extent of this
@@ -39,9 +56,15 @@ class SFCreatePageJob extends Job {
 		if ( array_key_exists( 'edit_summary', $this->params ) ) {
 			$edit_summary = $this->params['edit_summary'];
 		}
-		$this->title->doEditContent( $page_text, $edit_summary );
-		$wgUser = $actual_user;
 
+		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
+			$new_content = new WikitextContent( $text );
+			$wikiPage->doEditContent( $new_content, $edit_summary );
+		} else {
+			$article->doEditContent( $page_text, $edit_summary );
+		}
+
+		$wgUser = $actual_user;
 		return true;
 	}
 }
