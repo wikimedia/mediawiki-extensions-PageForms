@@ -100,7 +100,15 @@ class SFFormEdit extends UnlistedSpecialPage {
 			}
 		} else {
 
-			$resultData = $module->getResultData();
+			if ( defined( 'ApiResult::META_CONTENT' ) ) {
+				$resultData = $module->getResult()->getResultData( null, array(
+					'BC' => array(),
+					'Types' => array(),
+					'Strip' => 'all',
+				) );
+			} else {
+				$resultData = $module->getResultData();
+			}
 
 			if ( array_key_exists( 'errors', $resultData ) ) {
 
