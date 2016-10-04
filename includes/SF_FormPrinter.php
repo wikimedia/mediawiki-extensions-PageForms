@@ -57,12 +57,12 @@ class SFFormPrinter {
 		$this->registerInputType( 'SFCategoriesInput' );
 		$this->registerInputType( 'SFTokensInput' );
 		$this->registerInputType( 'SFRegExpInput' );
-		// Only add these if the Semantic Maps extension is not
+		// Only add this if the Semantic Maps extension is not
 		// included.
 		if ( !defined( 'SM_VERSION' ) ) {
 			$this->registerInputType( 'SFGoogleMapsInput' );
-			$this->registerInputType( 'SFOpenLayersInput' );
 		}
+		$this->registerInputType( 'SFOpenLayersInput' );
 
 		// All-purpose setup hook.
 		Hooks::run( 'sfFormPrinterSetup', array( $this ) );
