@@ -110,7 +110,15 @@ class SFTextInput extends SFFormInput {
 		), true ), true );
 
 		$api->execute();
-		$result = $api->getResultData();
+		if ( defined( 'ApiResult::META_CONTENT' ) ) {
+			$result = $api->getResult()->getResultData( null, array(
+				'BC' => array(),
+				'Types' => array(),
+				'Strip' => 'all',
+			) );
+		} else {
+			$result = $api->getResultData();
+		}
 
 		$url = false;
 
