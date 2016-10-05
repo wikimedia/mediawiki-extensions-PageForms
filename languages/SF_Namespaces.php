@@ -100,19 +100,19 @@ $namespaceNames['it'] = array(
 );
 
 /**
+ * @author Jon Harald Søby
+ */
+$namespaceNames['nb'] = array(
+	SF_NS_FORM           => 'Skjema',
+	SF_NS_FORM_TALK      => 'Skjemadiskusjon'
+);
+
+/**
  * @author Siebrand Mazeland
  */
 $namespaceNames['nl'] = array(
 	SF_NS_FORM      => 'Formulier',
 	SF_NS_FORM_TALK => 'Overleg_formulier'
-);
-
-/**
- * @author Jon Harald Søby
- */
-$namespaceNames['no'] = array(
-	SF_NS_FORM           => 'Skjema',
-	SF_NS_FORM_TALK      => 'Skjemadiskusjon'
 );
 
 $namespaceNames['ru'] = array(

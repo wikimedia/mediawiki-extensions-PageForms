@@ -8,7 +8,7 @@
 /**
  * @ingroup SFLanguage
  */
-class SF_LanguageNo extends SF_Language {
+class SF_LanguageNb extends SF_Language {
 
 	/* private */ var $m_SpecialProperties = array(
 		// always start upper-case
