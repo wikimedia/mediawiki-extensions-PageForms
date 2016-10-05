@@ -126,13 +126,8 @@ class SFAutoeditAPI extends ApiBase {
 	 */
 	function prepareAction() {
 
-		// get options from the request, but keep the explicitly set options
-		global $wgVersion;
-		if ( version_compare( $wgVersion, '1.20', '>=' ) ) {
-			$data = $this->getRequest()->getValues();
-		} else { // TODO: remove else branch when raising supported version to MW 1.20, getValues() was buggy before
-			$data = $_POST + $_GET;
-		}
+		// Get options from the request, but keep the explicitly set options.
+		$data = $this->getRequest()->getValues();
 		$this->mOptions = SFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
 		global $wgParser;
@@ -167,17 +162,17 @@ class SFAutoeditAPI extends ApiBase {
 			// set action to 'save' if requested
 			$this->mAction = self::ACTION_SAVE;
 			unset( $this->mOptions['wpSave'] );
-		} else if ( array_key_exists( 'wpPreview', $this->mOptions ) ) {
+		} elseif ( array_key_exists( 'wpPreview', $this->mOptions ) ) {
 
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_PREVIEW;
 			unset( $this->mOptions['wpPreview'] );
-		} else if ( array_key_exists( 'wpDiff', $this->mOptions ) ) {
+		} elseif ( array_key_exists( 'wpDiff', $this->mOptions ) ) {
 
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_DIFF;
 			unset( $this->mOptions['wpDiff'] );
-		} else if ( array_key_exists( 'action', $this->mOptions ) ) {
+		} elseif ( array_key_exists( 'action', $this->mOptions ) ) {
 
 			switch ( $this->mOptions['action'] ) {
 
