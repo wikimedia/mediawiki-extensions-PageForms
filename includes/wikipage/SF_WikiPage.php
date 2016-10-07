@@ -94,6 +94,7 @@ class SFWikiPage {
 	}
 
 	function createTemplateCall( $template ) {
+		$lastNumericParam = 0;
 		$template->addUnhandledParams();
 
 		$templateCall = '{{' . $template->getName();
@@ -109,7 +110,13 @@ class SFWikiPage {
 
 			// Include the field name only for non-numeric field names.
 			if ( is_numeric( $paramName ) ) {
-				$templateCall .= '|';
+				// Add at least one pipe, but possibly more -
+				// one each for any numeric param in between
+				// that wasn't submitted.
+				while ( $lastNumericParam < $paramName ) {
+					$templateCall .= '|';
+					$lastNumericParam++;
+				}
 			} else {
 				$templateCall .= "\n|$paramName=";
 			}
