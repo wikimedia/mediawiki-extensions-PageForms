@@ -19,7 +19,7 @@ window.ext.wikieditor = {
 						input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
 
 						// hide sig if required
-						if ( wgWikiEditorEnabledModules && wgWikiEditorEnabledModules.hidesig === true ) {
+						if ( mw.config.get( 'wgWikiEditorEnabledModules' ) && mw.config.get( 'wgWikiEditorEnabledModules.hidesig' ) === true ) {
 							input.wikiEditor( 'removeFromToolbar', {
 								'section': 'main',
 								'group': 'insert',
