@@ -1,7 +1,6 @@
 [gerrit]
 host=gerrit.wikimedia.org
 port=29418
-project=mediawiki/extensions/SemanticForms
+project=mediawiki/extensions/PageForms.git
 defaultbranch=master
 defaultrebase=0
-defaultremote=origin
