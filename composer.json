@@ -1,15 +1,16 @@
 {
-	"name": "mediawiki/semantic-forms",
+	"name": "mediawiki/page-forms",
 	"type": "mediawiki-extension",
 	"description": "Forms for creating and editing wiki pages.",
 	"keywords": [
+		"Page Forms",
 		"Semantic Forms",
 		"forms",
 		"SF",
 		"Wiki",
 		"MediaWiki"
 	],
-	"homepage": "https://www.mediawiki.org/wiki/Extension:Semantic_Forms",
+	"homepage": "https://www.mediawiki.org/wiki/Extension:Page_Forms",
 	"license": "GPL-2.0+",
 	"authors": [
 		{
@@ -26,7 +27,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "3.6.x-dev"
+			"dev-master": "4.0.x-dev"
 		},
 		"installer-paths": {
 			"../{$name}": ["mediawiki/open-layers"]

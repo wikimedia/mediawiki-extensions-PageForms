@@ -329,7 +329,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 fontStyle: style.fontStyle,
                 fontWeight: style.fontWeight,
                 letterSpacing: style.letterSpacing,
-                textTransform: style.textTransform,
+                textTranpform: style.textTranpform,
                 whiteSpace: "nowrap"
             });
             sizer.attr("class","select2-sizer");

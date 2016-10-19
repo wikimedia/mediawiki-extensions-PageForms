@@ -3,6 +3,6 @@ libs/jquery.dynatree.js
 libs/jquery.fancybox.js
 libs/jsgrid.js
 libs/select2.js
-libs/SF_maps.js
+libs/PF_maps.js
 node_modules/
 vendor/

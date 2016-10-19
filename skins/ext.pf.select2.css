@@ -1,0 +1,63 @@
+/*Overriding some select2 classes for customization*/
+.pf-select2-dropdown .select2-results .select2-result .select2-result-label .select2-match {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.pf-select2-dropdown .select2-results .select2-highlighted {
+	background-color: #0645ad;
+}
+
+.pf-select2-dropdown .select2-search input {
+	font-size: 14px;
+}
+
+.pf-select2-dropdown .select2-results {
+	font-size: 14px;
+}
+
+.pf-select2-container {
+	margin-bottom: 6px;
+}
+
+.pf-icon {
+    width:15px;
+    height: 10px;
+    padding-right: 5px;
+}
+
+.pf-select2-result td{
+    vertical-align: top;
+    max-height: 300px;
+}
+
+.pf-result-thumbnail {
+    width: 120px;
+}
+
+.pf-result-thumbnail img{
+    height: 90px;
+    width: 120px;
+    vertical-align: middle;
+}
+
+.pf-result-info {
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+.pf-result-title {
+    font-size: 1.2em;
+    padding-bottom: 10px;
+}
+
+.pf-result-description {
+    font-size: .8em;
+    color: #888;
+    text-align: justify;
+    max-height: 300px;
+}
+.select2-highlighted .pf-result-description {
+    font-size: .8em;
+    color: #eee;
+}

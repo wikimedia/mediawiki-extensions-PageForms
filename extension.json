@@ -1,20 +1,20 @@
 {
-	"@Note": "When updating this file please also update SemanticForms.php with the same changes.",
+	"@Note": "When updating this file please also update PageForms.php with the same changes.",
 	"load_composer_autoloader": true,
-	"name": "Semantic Forms",
-	"version": "3.7",
+	"name": "Page Forms",
+	"version": "4.0",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",
 		"..."
 	],
-	"url": "https://www.mediawiki.org/wiki/Extension:Semantic_Forms",
-	"descriptionmsg": "semanticforms-desc",
+	"url": "https://www.mediawiki.org/wiki/Extension:Page_Forms",
+	"descriptionmsg": "PageForms-desc",
 	"license-name": "GPL-2.0+",
 	"type": "specialpage",
-	"callback": "SFHooks::registerExtension",
+	"callback": "PFHooks::registerExtension",
 	"ExtensionFunctions": [
-		"SFHooks::initialize"
+		"PFHooks::initialize"
 	],
 	"require": {
 		"MediaWiki": ">= 1.28.0"
@@ -36,113 +36,113 @@
 		"createclass"
 	],
 	"Actions": {
-		"formedit": "SFFormEditAction",
-		"formcreate": "SFHelperFormAction"
+		"formedit": "PFFormEditAction",
+		"formcreate": "PFHelperFormAction"
 	},
 	"SpecialPages": {
-		"Forms": "SFForms",
-		"CreateForm": "SFCreateForm",
-		"Templates": "SFTemplates",
-		"CreateTemplate": "SFCreateTemplate",
-		"CreateClass": "SFCreateClass",
-		"CreateCategory": "SFCreateCategory",
-		"FormStart": "SFFormStart",
-		"FormEdit": "SFFormEdit",
-		"RunQuery": "SFRunQuery",
-		"UploadWindow": "SFUploadWindow"
+		"Forms": "PFForms",
+		"CreateForm": "PFCreateForm",
+		"Templates": "PFTemplates",
+		"CreateTemplate": "PFCreateTemplate",
+		"CreateClass": "PFCreateClass",
+		"CreateCategory": "PFCreateCategory",
+		"FormStart": "PFFormStart",
+		"FormEdit": "PFFormEdit",
+		"RunQuery": "PFRunQuery",
+		"UploadWindow": "PFUploadWindow"
 	},
 	"JobClasses": {
-		"createPage": "SFCreatePageJob"
+		"createPage": "PFCreatePageJob"
 	},
 	"APIModules": {
-		"sfautocomplete": "SFAutocompleteAPI",
-		"sfautoedit": "SFAutoeditAPI"
+		"pfautocomplete": "PFAutocompleteAPI",
+		"pfautoedit": "PFAutoeditAPI"
 	},
 	"MessagesDirs": {
-		"SemanticForms": [
+		"PageForms": [
 			"i18n"
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"SemanticFormsAlias": "languages/SF_Aliases.php",
-		"SemanticFormsMagic": "languages/SF_Magic.php",
-		"SemanticFormsNS": "languages/SF_Namespaces.php"
+		"PageFormsAlias": "languages/PF_Aliases.php",
+		"PageFormsMagic": "languages/PF_Magic.php",
+		"PageFormsNS": "languages/PF_Namespaces.php"
 	},
 	"AutoloadClasses": {
-		"SFForms": "specials/SF_Forms.php",
-		"SFCreateForm": "specials/SF_CreateForm.php",
-		"SFTemplates": "specials/SF_Templates.php",
-		"SFCreateTemplate": "specials/SF_CreateTemplate.php",
-		"SFCreateClass": "specials/SF_CreateClass.php",
-		"SFCreateCategory": "specials/SF_CreateCategory.php",
-		"SFFormStart": "specials/SF_FormStart.php",
-		"SFFormEdit": "specials/SF_FormEdit.php",
-		"SFRunQuery": "specials/SF_RunQuery.php",
-		"SFUploadForm": "specials/SF_UploadWindow.php",
-		"SFUploadSourceField": "specials/SF_UploadWindow.php",
-		"SFUploadWindow": "specials/SF_UploadWindow.php",
-		"SFTemplateField": "includes/SF_TemplateField.php",
-		"TemplatesPage": "specials/SF_Templates.php",
-		"FormsPage": "specials/SF_Forms.php",
-		"SFForm": "includes/SF_Form.php",
-		"SFTemplate": "includes/SF_Template.php",
-		"SFTemplateInForm": "includes/SF_TemplateInForm.php",
-		"SFFormField": "includes/SF_FormField.php",
-		"SFFormPrinter": "includes/SF_FormPrinter.php",
-		"SFFormUtils": "includes/SF_FormUtils.php",
-		"SFUtils": "includes/SF_Utils.php",
-		"SFValuesUtils": "includes/SF_ValuesUtils.php",
-		"SFHooks": "includes/SF_Hooks.php",
-		"SFFormLinker": "includes/SF_FormLinker.php",
-		"SFPageSchemas": "includes/SF_PageSchemas.php",
-		"SFParserFunctions": "includes/SF_ParserFunctions.php",
-		"SFAutocompleteAPI": "includes/SF_AutocompleteAPI.php",
-		"SFAutoeditAPI": "includes/SF_AutoeditAPI.php",
-		"SFFormEditAction": "includes/SF_FormEditAction.php",
-		"SFHelperFormAction": "includes/SF_HelperFormAction.php",
-		"SFPageSection": "includes/SF_PageSection.php",
-		"SFFormInput": "includes/forminputs/SF_FormInput.php",
-		"SFTextInput": "includes/forminputs/SF_TextInput.php",
-		"SFTextWithAutocompleteInput": "includes/forminputs/SF_TextWithAutocompleteInput.php",
-		"SFTextAreaInput": "includes/forminputs/SF_TextAreaInput.php",
-		"SFTextAreaWithAutocompleteInput": "includes/forminputs/SF_TextAreaWithAutocompleteInput.php",
-		"SFEnumInput": "includes/forminputs/SF_EnumInput.php",
-		"SFMultiEnumInput": "includes/forminputs/SF_MultiEnumInput.php",
-		"SFCheckboxInput": "includes/forminputs/SF_CheckboxInput.php",
-		"SFCheckboxesInput": "includes/forminputs/SF_CheckboxesInput.php",
-		"SFRadioButtonInput": "includes/forminputs/SF_RadioButtonInput.php",
-		"SFDropdownInput": "includes/forminputs/SF_DropdownInput.php",
-		"SFListBoxInput": "includes/forminputs/SF_ListBoxInput.php",
-		"SFComboBoxInput": "includes/forminputs/SF_ComboBoxInput.php",
-		"SFDateInput": "includes/forminputs/SF_DateInput.php",
-		"SFDatePickerInput": "includes/forminputs/SF_DatePickerInput.php",
-		"SFDateTimeInput": "includes/forminputs/SF_DateTimeInput.php",
-		"SFYearInput": "includes/forminputs/SF_YearInput.php",
-		"SFTreeInput": "includes/forminputs/SF_TreeInput.php",
-		"SFTree": "includes/forminputs/SF_TreeInput.php",
-		"SFCategoryInput": "includes/forminputs/SF_CategoryInput.php",
-		"SFCategoriesInput": "includes/forminputs/SF_CategoriesInput.php",
-		"SFTokensInput": "includes/forminputs/SF_TokensInput.php",
-		"SFGoogleMapsInput": "includes/forminputs/SF_GoogleMapsInput.php",
-		"SFOpenLayersInput": "includes/forminputs/SF_OpenLayersInput.php",
-		"SFRegExpInput": "includes/forminputs/SF_RegExpInput.php",
-		"SFWikiPage": "includes/wikipage/SF_WikiPage.php",
-		"SFWikiPageTemplate": "includes/wikipage/SF_WikiPageTemplate.php",
-		"SFWikiPageTemplateParam": "includes/wikipage/SF_WikiPageTemplateParam.php",
-		"SFWikiPageSection": "includes/wikipage/SF_WikiPageSection.php",
-		"SFWikiPageFreeText": "includes/wikipage/SF_WikiPageFreeText.php",
-		"SFCreatePageJob": "includes/SF_CreatePageJob.php",
-		"SF_Language": "languages/SF_Language.php"
+		"PFForms": "specials/PF_Forms.php",
+		"PFCreateForm": "specials/PF_CreateForm.php",
+		"PFTemplates": "specials/PF_Templates.php",
+		"PFCreateTemplate": "specials/PF_CreateTemplate.php",
+		"PFCreateClass": "specials/PF_CreateClass.php",
+		"PFCreateCategory": "specials/PF_CreateCategory.php",
+		"PFFormStart": "specials/PF_FormStart.php",
+		"PFFormEdit": "specials/PF_FormEdit.php",
+		"PFRunQuery": "specials/PF_RunQuery.php",
+		"PFUploadForm": "specials/PF_UploadForm.php",
+		"PFUploadSourceField": "specials/PF_UploadSourceField.php",
+		"PFUploadWindow": "specials/PF_UploadWindow.php",
+		"PFTemplateField": "includes/PF_TemplateField.php",
+		"TemplatesPage": "specials/PF_Templates.php",
+		"FormsPage": "specials/PF_Forms.php",
+		"PFForm": "includes/PF_Form.php",
+		"PFTemplate": "includes/PF_Template.php",
+		"PFTemplateInForm": "includes/PF_TemplateInForm.php",
+		"PFFormField": "includes/PF_FormField.php",
+		"PFFormPrinter": "includes/PF_FormPrinter.php",
+		"PFFormUtils": "includes/PF_FormUtils.php",
+		"PFUtils": "includes/PF_Utils.php",
+		"PFValuesUtils": "includes/PF_ValuesUtils.php",
+		"PFHooks": "includes/PF_Hooks.php",
+		"PFFormLinker": "includes/PF_FormLinker.php",
+		"PFPageSchemas": "includes/PF_PageSchemas.php",
+		"PFParserFunctions": "includes/PF_ParserFunctions.php",
+		"PFAutocompleteAPI": "includes/PF_AutocompleteAPI.php",
+		"PFAutoeditAPI": "includes/PF_AutoeditAPI.php",
+		"PFFormEditAction": "includes/PF_FormEditAction.php",
+		"PFHelperFormAction": "includes/PF_HelperFormAction.php",
+		"PFPageSection": "includes/PF_PageSection.php",
+		"PFFormInput": "includes/forminputs/PF_FormInput.php",
+		"PFTextInput": "includes/forminputs/PF_TextInput.php",
+		"PFTextWithAutocompleteInput": "includes/forminputs/PF_TextWithAutocompleteInput.php",
+		"PFTextAreaInput": "includes/forminputs/PF_TextAreaInput.php",
+		"PFTextAreaWithAutocompleteInput": "includes/forminputs/PF_TextAreaWithAutocompleteInput.php",
+		"PFEnumInput": "includes/forminputs/PF_EnumInput.php",
+		"PFMultiEnumInput": "includes/forminputs/PF_MultiEnumInput.php",
+		"PFCheckboxInput": "includes/forminputs/PF_CheckboxInput.php",
+		"PFCheckboxesInput": "includes/forminputs/PF_CheckboxesInput.php",
+		"PFRadioButtonInput": "includes/forminputs/PF_RadioButtonInput.php",
+		"PFDropdownInput": "includes/forminputs/PF_DropdownInput.php",
+		"PFListBoxInput": "includes/forminputs/PF_ListBoxInput.php",
+		"PFComboBoxInput": "includes/forminputs/PF_ComboBoxInput.php",
+		"PFDateInput": "includes/forminputs/PF_DateInput.php",
+		"PFDatePickerInput": "includes/forminputs/PF_DatePickerInput.php",
+		"PFDateTimeInput": "includes/forminputs/PF_DateTimeInput.php",
+		"PFYearInput": "includes/forminputs/PF_YearInput.php",
+		"PFTreeInput": "includes/forminputs/PF_TreeInput.php",
+		"PFTree": "includes/forminputs/PF_Tree.php",
+		"PFCategoryInput": "includes/forminputs/PF_CategoryInput.php",
+		"PFCategoriesInput": "includes/forminputs/PF_CategoriesInput.php",
+		"PFTokensInput": "includes/forminputs/PF_TokensInput.php",
+		"PFGoogleMapsInput": "includes/forminputs/PF_GoogleMapsInput.php",
+		"PFOpenLayersInput": "includes/forminputs/PF_OpenLayersInput.php",
+		"PFRegExpInput": "includes/forminputs/PF_RegExpInput.php",
+		"PFWikiPage": "includes/wikipage/PF_WikiPage.php",
+		"PFWikiPageTemplate": "includes/wikipage/PF_WikiPageTemplate.php",
+		"PFWikiPageTemplateParam": "includes/wikipage/PF_WikiPageTemplateParam.php",
+		"PFWikiPageSection": "includes/wikipage/PF_WikiPageSection.php",
+		"PFWikiPageFreeText": "includes/wikipage/PF_WikiPageFreeText.php",
+		"PFCreatePageJob": "includes/PF_CreatePageJob.php",
+		"PF_Language": "languages/PF_Language.php"
 	},
 	"ResourceModules": {
-		"ext.semanticforms.main": {
+		"ext.pageforms.main": {
 			"scripts": [
-				"libs/SemanticForms.js",
-				"libs/SF_preview.js"
+				"libs/PageForms.js",
+				"libs/PF_preview.js"
 			],
 			"styles": [
-				"skins/SemanticForms.css",
-				"skins/SF_jquery_ui_overrides.css"
+				"skins/PageForms.css",
+				"skins/PF_jquery_ui_overrides.css"
 			],
 			"dependencies": [
 				"jquery.ui.core",
@@ -150,145 +150,145 @@
 				"jquery.ui.button",
 				"jquery.ui.sortable",
 				"jquery.ui.widget",
-				"ext.semanticforms.fancybox",
-				"ext.semanticforms.autogrow",
+				"ext.pageforms.fancybox",
+				"ext.pageforms.autogrow",
 				"mediawiki.util",
-				"ext.semanticforms.select2"
+				"ext.pageforms.select2"
 			],
 			"messages": [
-				"sf_formerrors_header",
-				"sf_too_few_instances_error",
-				"sf_too_many_instances_error",
-				"sf_blank_error",
-				"sf_not_unique_error",
-				"sf_bad_url_error",
-				"sf_bad_email_error",
-				"sf_bad_number_error",
-				"sf_bad_date_error",
-				"sf_pipe_error"
+				"pf_formerrors_header",
+				"pf_too_few_instances_error",
+				"pf_too_many_instances_error",
+				"pf_blank_error",
+				"pf_not_unique_error",
+				"pf_bad_url_error",
+				"pf_bad_email_error",
+				"pf_bad_number_error",
+				"pf_bad_date_error",
+				"pf_pipe_error"
 			]
 		},
-		"ext.semanticforms.browser": {
+		"ext.pageforms.browser": {
 			"scripts": [
 				"libs/jquery.browser.js"
 			]
 		},
-		"ext.semanticforms.fancybox": {
+		"ext.pageforms.fancybox": {
 			"scripts": "libs/jquery.fancybox.js",
 			"styles": "skins/jquery.fancybox.css",
 			"dependencies": [
-				"ext.semanticforms.browser"
+				"ext.pageforms.browser"
 			]
 		},
-		"ext.semanticforms.dynatree": {
+		"ext.pageforms.dynatree": {
 			"dependencies": [
 				"jquery.ui.widget"
 			],
 			"scripts": [
 				"libs/jquery.dynatree.js",
-				"libs/SF_dynatree.js"
+				"libs/PF_dynatree.js"
 			],
 			"styles": "skins/ui.dynatree.css"
 		},
-		"ext.semanticforms.autogrow": {
+		"ext.pageforms.autogrow": {
 			"scripts": [
-				"libs/SF_autogrow.js"
+				"libs/PF_autogrow.js"
 			]
 		},
-		"ext.semanticforms.popupformedit": {
-			"scripts": "libs/SF_popupform.js",
-			"styles": "skins/SF_popupform.css",
+		"ext.pageforms.popupformedit": {
+			"scripts": "libs/PF_popupform.js",
+			"styles": "skins/PF_popupform.css",
 			"dependencies": [
-				"ext.semanticforms.browser"
+				"ext.pageforms.browser"
 			]
 		},
-		"ext.semanticforms.autoedit": {
-			"scripts": "libs/SF_autoedit.js",
-			"styles": "skins/SF_autoedit.css",
+		"ext.pageforms.autoedit": {
+			"scripts": "libs/PF_autoedit.js",
+			"styles": "skins/PF_autoedit.css",
 			"messages": [
-				"sf-autoedit-wait",
-				"sf_autoedit_anoneditwarning"
+				"pf-autoedit-wait",
+				"pf_autoedit_anoneditwarning"
 			]
 		},
-		"ext.semanticforms.submit": {
+		"ext.pageforms.submit": {
 			"scripts": [
-				"libs/SF_submit.js"
+				"libs/PF_submit.js"
 			],
 			"styles": [
-				"skins/SF_submit.css"
+				"skins/PF_submit.css"
 			],
 			"messages": [
-				"sf_formedit_saveandcontinue_summary",
-				"sf_formedit_saveandcontinueediting"
+				"pf_formedit_saveandcontinue_summary",
+				"pf_formedit_saveandcontinueediting"
 			]
 		},
-		"ext.semanticforms.collapsible": {
+		"ext.pageforms.collapsible": {
 			"scripts": [
-				"libs/SF_collapsible.js"
+				"libs/PF_collapsible.js"
 			],
 			"styles": [
-				"skins/SF_collapsible.css"
+				"skins/PF_collapsible.css"
 			]
 		},
-		"ext.semanticforms.imagepreview": {
+		"ext.pageforms.imagepreview": {
 			"scripts": [
-				"libs/SF_imagePreview.js"
+				"libs/PF_imagePreview.js"
 			]
 		},
-		"ext.semanticforms.checkboxes": {
+		"ext.pageforms.checkboxes": {
 			"scripts": [
-				"libs/SF_checkboxes.js"
+				"libs/PF_checkboxes.js"
 			],
 			"styles": [
-				"skins/SF_checkboxes.css"
+				"skins/PF_checkboxes.css"
 			],
 			"messages": [
-				"sf_forminputs_checkboxes_select_all",
-				"sf_forminputs_checkboxes_select_none"
+				"pf_forminputs_checkboxes_select_all",
+				"pf_forminputs_checkboxes_select_none"
 			]
 		},
-		"ext.semanticforms.datepicker": {
+		"ext.pageforms.datepicker": {
 			"scripts": [
-				"libs/SF_datepicker.js"
+				"libs/PF_datepicker.js"
 			],
 			"dependencies": [
 				"jquery.ui.datepicker",
-				"ext.semanticforms.main"
+				"ext.pageforms.main"
 			]
 		},
-		"ext.semanticforms.regexp": {
-			"scripts": "libs/SF_regexp.js",
+		"ext.pageforms.regexp": {
+			"scripts": "libs/PF_regexp.js",
 			"dependencies": [
-				"ext.semanticforms.main"
+				"ext.pageforms.main"
 			]
 		},
-		"ext.semanticforms.select2": {
+		"ext.pageforms.select2": {
 			"scripts": [
 				"libs/select2.js",
-				"libs/ext.sf.select2.base.js",
-				"libs/ext.sf.select2.combobox.js",
-				"libs/ext.sf.select2.tokens.js"
+				"libs/ext.pf.select2.base.js",
+				"libs/ext.pf.select2.combobox.js",
+				"libs/ext.pf.select2.tokens.js"
 			],
 			"styles": [
 				"skins/select2/select2.css",
 				"skins/select2/select2-bootstrap.css",
-				"skins/ext.sf.select2.css"
+				"skins/ext.pf.select2.css"
 			],
 			"dependencies": [
-				"ext.semanticforms",
+				"ext.pageforms",
 				"mediawiki.jqueryMsg"
 			],
 			"messages": [
-				"sf-select2-no-matches",
-				"sf-select2-searching",
-				"sf-select2-input-too-short",
-				"sf-select2-selection-too-big"
+				"pf-select2-no-matches",
+				"pf-select2-searching",
+				"pf-select2-input-too-short",
+				"pf-select2-selection-too-big"
 			]
 		},
-		"ext.semanticforms.jsgrid": {
+		"ext.pageforms.jsgrid": {
 			"scripts": [
 				"libs/jsgrid.js",
-				"libs/SF_jsGrid.js"
+				"libs/PF_jsGrid.js"
 			],
 			"styles": [
 				"skins/jsgrid/jsgrid.css",
@@ -302,168 +302,168 @@
 				"htmlform-no"
 			]
 		},
-		"ext.semanticforms.balloon": {
+		"ext.pageforms.balloon": {
 			"styles": [
 				"skins/balloon.css"
 			]
 		},
-		"ext.semanticforms": {
+		"ext.pageforms": {
 			"scripts": [
-				"libs/ext.sf.js"
+				"libs/ext.pf.js"
 			]
 		},
-		"ext.semanticforms.SF_CreateProperty": {
+		"ext.pageforms.PF_CreateProperty": {
 			"scripts": [
-				"libs/SF_CreateProperty.js"
+				"libs/PF_CreateProperty.js"
 			]
 		},
-		"ext.semanticforms.SF_PageSchemas": {
+		"ext.pageforms.PF_PageSchemas": {
 			"scripts": [
-				"libs/SF_PageSchemas.js"
+				"libs/PF_PageSchemas.js"
 			]
 		},
-		"ext.semanticforms.SF_CreateTemplate": {
+		"ext.pageforms.PF_CreateTemplate": {
 			"scripts": [
-				"libs/SF_CreateTemplate.js"
+				"libs/PF_CreateTemplate.js"
 			],
 			"messages": [
-				"sf_blank_error"
+				"pf_blank_error"
 			]
 		},
-		"ext.semanticforms.SF_CreateClass": {
+		"ext.pageforms.PF_CreateClass": {
 			"scripts": [
-				"libs/SF_CreateClass.js"
+				"libs/PF_CreateClass.js"
 			]
 		},
-		"ext.semanticforms.SF_CreateForm": {
+		"ext.pageforms.PF_CreateForm": {
 			"scripts": [
-				"libs/SF_CreateForm.js"
+				"libs/PF_CreateForm.js"
 			],
 			"messages": [
-				"sf_blank_error"
+				"pf_blank_error"
 			]
 		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteExtPath": "SemanticForms"
+		"remoteExtPath": "PageForms"
 	},
 	"Hooks": {
 		"LinkEnd": [
-			"SFFormLinker::setBrokenLink"
+			"PFFormLinker::setBrokenLink"
 		],
 		"SkinTemplateTabs": [
-			"SFFormEditAction::displayTab",
-			"SFHelperFormAction::displayTab"
+			"PFFormEditAction::displayTab",
+			"PFHelperFormAction::displayTab"
 		],
 		"SkinTemplateNavigation": [
-			"SFFormEditAction::displayTab2",
-			"SFHelperFormAction::displayTab2"
+			"PFFormEditAction::displayTab2",
+			"PFHelperFormAction::displayTab2"
 		],
 		"smwInitProperties": [
-			"SFHooks::initProperties"
+			"PFHooks::initProperties"
 		],
 		"ArticlePurge": [
-			"SFFormUtils::purgeCache"
+			"PFFormUtils::purgeCache"
 		],
 		"ParserFirstCallInit": [
-			"SFHooks::registerFunctions"
+			"PFHooks::registerFunctions"
 		],
 		"MakeGlobalVariablesScript": [
-			"SFHooks::setGlobalJSVariables"
+			"PFHooks::setGlobalJSVariables"
 		],
 		"PageSchemasRegisterHandlers": [
-			"SFPageSchemas::registerClass"
+			"PFPageSchemas::registerClass"
 		],
 		"EditPage::importFormData": [
-			"SFHooks::showFormPreview"
+			"PFHooks::showFormPreview"
 		],
 		"CanonicalNamespaces": [
-			"SFHooks::registerNamespaces"
+			"PFHooks::registerNamespaces"
 		],
 		"UnitTestsList": [
-			"SFHooks::onUnitTestsList"
+			"PFHooks::onUnitTestsList"
 		],
 		"ResourceLoaderRegisterModules": [
-			"SFHooks::registerModules"
+			"PFHooks::registerModules"
 		]
 	},
 	"config": {
-		"sfgMaxAutocompleteValues": {
+		"pfgMaxAutocompleteValues": {
 			"value": 1000
 		},
-		"sfgMaxLocalAutocompleteValues": {
+		"pfgMaxLocalAutocompleteValues": {
 			"value": 100
 		},
-		"sfgAutocompleteOnAllChars": {
+		"pfgAutocompleteOnAllChars": {
 			"value": false
 		},
-		"sfgCacheAutocompleteValues": {
+		"pfgCacheAutocompleteValues": {
 			"value": false
 		},
-		"sfgAutocompleteCacheTimeout": {
+		"pfgAutocompleteCacheTimeout": {
 			"value": null
 		},
-		"sfgRenameEditTabs": {
+		"pfgRenameEditTabs": {
 			"value": false
 		},
-		"sfgRenameMainEditTab": {
+		"pfgRenameMainEditTab": {
 			"value": false
 		},
-		"sfgListSeparator": {
+		"pfgListSeparator": {
 			"value": ","
 		},
-		"sfg24HourTime": {
+		"pfg24HourTime": {
 			"value": false
 		},
-		"sfgCacheFormDefinitions": {
+		"pfgCacheFormDefinitions": {
 			"value": false
 		},
-		"sfgFormCacheType": {
+		"pfgFormCacheType": {
 			"value": null
 		},
-		"sfgLinkAllRedLinksToForms": {
+		"pfgLinkAllRedLinksToForms": {
 			"value": false
 		},
-		"sfgRedLinksCheckOnlyLocalProps": {
+		"pfgRedLinksCheckOnlyLocalProps": {
 			"value": false
 		},
-		"sfgShowTabsForAllHelperForms": {
+		"pfgShowTabsForAllHelperForms": {
 			"value": true
 		},
-		"sfgRunQueryFormAtTop": {
+		"pfgRunQueryFormAtTop": {
 			"value": false
 		},
-		"sfgGoogleMapsKey": {
+		"pfgGoogleMapsKey": {
 			"value": null
 		},
-		"sfgShowOnSelect": {
+		"pfgShowOnSelect": {
 			"value": []
 		},
-		"sfgAutocompleteValues": {
+		"pfgAutocompleteValues": {
 			"value": []
 		},
-		"sfgGridValues": {
+		"pfgGridValues": {
 			"value": []
 		},
-		"sfgGridParams": {
+		"pfgGridParams": {
 			"value": []
 		},
-		"sfgFieldProperties": {
+		"pfgFieldProperties": {
 			"value": []
 		},
-		"sfgCargoFields": {
+		"pfgCargoFields": {
 			"value": []
 		},
-		"sfgDependentFields": {
+		"pfgDependentFields": {
 			"value": []
 		},
-		"sfgCheckboxesSelectAllMinimum": {
+		"pfgCheckboxesSelectAllMinimum": {
 			"value": 10
 		},
-		"sfgDatePickerSettings": {
+		"pfgDatePickerSettings": {
 			"value": {
-				"@note": "See SF_DefaultInputSettings.php for allowed values",
+				"@note": "See PF_DefaultInputSettings.php for allowed values",
 				"FirstDate": null,
 				"LastDate": null,
 				"DateFormat": "SHORT",

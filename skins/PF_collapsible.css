@@ -1,0 +1,12 @@
+.pfCollapsibleFieldset legend {
+	cursor: pointer;
+	padding-left: 20px;
+}
+
+.pfCollapsedFieldset legend {
+	background: transparent url(collapse-plus.png) no-repeat center left;
+}
+
+.pfExpandedFieldset legend {
+	background: transparent url(collapse-minus.png) no-repeat center left;
+}

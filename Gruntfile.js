@@ -16,7 +16,7 @@ module.exports = function ( grunt ) {
 				'!libs/jquery.dynatree.js',
 				'!libs/jquery.fancybox.js',
 				'!libs/select2.js',
-				'!libs/SF_maps.js'
+				'!libs/PF_maps.js'
 			]
 		},
 		// banana: {
