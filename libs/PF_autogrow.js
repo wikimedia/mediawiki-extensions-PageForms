@@ -1,5 +1,5 @@
 /**
- * SF_autogrow.js
+ * PF_autogrow.js
  *
  * Allows for 'autogrow' textareas. Based heavily on the 'Autogrow Textarea
  * Plugin' by Jevin O. Sewaruth:

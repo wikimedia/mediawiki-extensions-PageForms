@@ -1,5 +1,5 @@
 /**
- * SF_collapsible.js
+ * PF_collapsible.js
  *
  * Allows for collapsible fieldsets.
  *

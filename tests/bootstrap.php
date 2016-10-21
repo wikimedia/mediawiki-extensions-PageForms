@@ -27,7 +27,7 @@ function runTestAutoLoader() {
 	}
 
 	if ( !$autoLoader instanceof \Composer\Autoload\ClassLoader ) {
-		// For now return true as long as SF is not compatible with Composer
+		// For now return true as long as PF is not compatible with Composer
 		// of course if it is installed via
 		// https://packagist.org/packages/mediawiki/semantic-forms
 		// we have no problems

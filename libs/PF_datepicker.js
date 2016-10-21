@@ -7,7 +7,7 @@
 
 /*jshint -W069 */
 
-window.SF_DP_init = function ( input_id, params ) {
+window.PF_DP_init = function ( input_id, params ) {
 
 	var inputShow = jQuery( '#' + input_id );
 	inputShow.attr( 'id', input_id + '_show' );
@@ -76,7 +76,7 @@ window.SF_DP_init = function ( input_id, params ) {
 			'firstDay': params.firstDay,
 			'showWeek': params.showWeek,
 			'dateFormat': params.dateFormat,
-			'beforeShowDay': function ( date ) {return SF_DP_checkDate( '#' + input_id + '_show', date );}
+			'beforeShowDay': function ( date ) {return PF_DP_checkDate( '#' + input_id + '_show', date );}
 		} );
 
 		// at least in FF tabindex needs to be set delayed
@@ -182,7 +182,7 @@ window.SF_DP_init = function ( input_id, params ) {
  * @param date the date object that is to be displayed
  * @return Array(Boolean enabled, Boolean highlighted, "") determining the style and behaviour
  */
-function SF_DP_checkDate( input, date ) {
+function PF_DP_checkDate( input, date ) {
 
 	var jInput = jQuery( input );
 

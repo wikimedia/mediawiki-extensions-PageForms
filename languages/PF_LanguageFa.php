@@ -2,18 +2,18 @@
 /**
  * @author Yaron Koren (Translation:Ghassem Tofighi Email:[MyFamily]@gmail.com, HomePage:http://ght.ir)
  * @file
- * @ingroup SF
+ * @ingroup PF
  */
 
 /**
- * @ingroup SFLanguage
+ * @ingroup PFLanguage
  */
-class SF_LanguageFa extends SF_Language {
+class PF_LanguageFa extends PF_Language {
 
 	/* private */ var $m_SpecialProperties = array(
 		// always start upper-case
-		SF_SP_HAS_DEFAULT_FORM    => 'فرم پیش‌فرض دارد',// Has default form
-		SF_SP_HAS_ALTERNATE_FORM  => 'فرم مشابه دارد'// Has alternate form
+		PF_SP_HAS_DEFAULT_FORM    => 'فرم پیش‌فرض دارد',// Has default form
+		PF_SP_HAS_ALTERNATE_FORM  => 'فرم مشابه دارد'// Has alternate form
 	);
 
 }

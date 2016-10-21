@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the SFFormPrinter class
+ * Tests for the PFFormPrinter class
  *
  * @author Himeshi De Silva
  */
@@ -13,14 +13,14 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
 
-		global $sfgFormPrinter, $wgTitle, $wgParser, $wgOut;
+		global $pfgFormPrinter, $wgTitle, $wgParser, $wgOut;
 
 		$wgParser = $this->getParser();
 		$wgTitle = $this->getTitle();
 		$wgOut->getContext()->setTitle( $wgTitle );
 
 		list ( $form_text, $page_text, $form_page_title, $generated_page_name ) =
-			$sfgFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
+			$pfgFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
 
 		$this->assertContains(
 			$expected['expected_form_text'],
@@ -111,7 +111,7 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 
 		$mockTitle->expects( $this->any() )
 			->method( 'getNamespace' )
-			->will( $this->returnValue( SF_NS_FORM ) );
+			->will( $this->returnValue( PF_NS_FORM ) );
 
 		return $mockTitle;
 	}
@@ -128,4 +128,3 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	}
 
 }
-

@@ -10,7 +10,7 @@
  *
  * @ingroup PFLanguage
  */
-abstract class SF_Language {
+abstract class PF_Language {
 
 	// Array for the names of special properties - all messages are
 	// stored in PF_Messages.php.

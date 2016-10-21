@@ -2,7 +2,7 @@
  * Copy of some code from jquery.migrate.js to provide the jquery.browser functionality
  * which was removed from recent jQuery versions
  *
- * TODO: Actually remove usage of jquery.browser from SF
+ * TODO: Actually remove usage of jquery.browser from PF
  *
  * @author Stephan Gambke
  */

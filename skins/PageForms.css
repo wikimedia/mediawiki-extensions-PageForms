@@ -82,9 +82,9 @@ span.mandatoryFieldsSpan {
 }
 
 /** INPUT FIELD STYLE */
-#sfForm .createboxInput,
-#sfForm .mandatoryField,
-#sfForm textarea {
+#pfForm .createboxInput,
+#pfForm .mandatoryField,
+#pfForm textarea {
 	max-width: 100%;
 	margin-left: 0;
 	border-radius: 3px;
@@ -93,52 +93,52 @@ span.mandatoryFieldsSpan {
 	display: inline-block;
 }
 
-#sfForm input[readonly] {
+#pfForm input[readonly] {
     background: #EEE;
 }
 
-#sfForm .select2-container {
+#pfForm .select2-container {
     border: none;
     padding: 0;
 }
-#sfForm textarea,
+#pfForm textarea,
 form input.formInput,
-#sfForm input.yearInput,
-#sfForm input.dayInput,
-#sfForm input.hoursInput,
-#sfForm input.minutesInput,
-#sfForm input.secondsInput {
+#pfForm input.yearInput,
+#pfForm input.dayInput,
+#pfForm input.hoursInput,
+#pfForm input.minutesInput,
+#pfForm input.secondsInput {
     border-radius: 3px;
     border: 1px solid #BBB;
     padding: 4px 8px;
 }
 
 /* The dropdowns need slightly different settings. */
-#sfForm select.monthInput,
-#sfForm select.ampmInput {
+#pfForm select.monthInput,
+#pfForm select.ampmInput {
     border-radius: 3px;
     border: 1px solid #BBB;
     padding: 3px 8px;
 }
 
-#sfForm input#wpSummary,
-#sfForminput#wpSummary:hover {
+#pfForm input#wpSummary,
+#pfForminput#wpSummary:hover {
     border-radius: 3px;
     border: 1px solid #BBB;
     padding: 4px 8px;
 }
-#sfForm select,
-#sfForm input[type="checkbox"] {
+#pfForm select,
+#pfForm input[type="checkbox"] {
     min-width: 0;
     max-width: 100%;
     width: auto !important;
 }
-#sfForm input#wpSummary,
-#sfForm input#wpSummary:hover {
+#pfForm input#wpSummary,
+#pfForm input#wpSummary:hover {
     max-width: 100%;
 }
 /* Select2 inputs */
-#sfForm .select2-container {
+#pfForm .select2-container {
     width: auto;
 }
 .select2-choices,
@@ -271,6 +271,6 @@ button.ui-button-icon-only {
 	margin-top: 0.2em;
 } /* button elements seem to need a little more width */
 /* Override CSS from Header Tabs extension, if tabs are used in the form */
-input.sfComboBoxActual {
+input.pfComboBoxActual {
 	border: 1px solid #a6a6a6;
 }

@@ -227,7 +227,7 @@ $.fn.attachAutocomplete = function() {
  */
 
 // Initialize data object to hold initialization and validation data
-function setupSF() {
+function setupPF() {
 
 	$("#pfForm").data("SemanticForms",{
 		initFunctions : [],
@@ -252,7 +252,7 @@ $.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 	}
 
 	if ( ! $("#pfForm").data("SemanticForms") ) {
-		setupSF();
+		setupPF();
 	}
 
 	$("#pfForm").data("SemanticForms").validationFunctions.push({
@@ -284,7 +284,7 @@ $.fn.SemanticForms_registerInputInit = function( initFunction, param, noexecute 
 
 	// setup data structure if necessary
 	if ( ! $("#pfForm").data("SemanticForms") ) {
-		setupSF();
+		setupPF();
 	}
 
 	// if no initialization function for this input was registered yet,
@@ -352,12 +352,12 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 	}
 
 	elem
-	.find(".hiddenBySF")
-	.removeClass('hiddenBySF')
+	.find(".hiddenByPF")
+	.removeClass('hiddenByPF')
 
-	.find(".disabledBySF")
+	.find(".disabledByPF")
 	.removeAttr('disabled')
-	.removeClass('disabledBySF');
+	.removeClass('disabledByPF');
 
 	elem.each( function() {
 		if ( $(this).css('display') === 'none' ) {
@@ -398,7 +398,7 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 	});
 }
 
-// Hide a div due to "show on select". The CSS class is there so that SF can
+// Hide a div due to "show on select". The CSS class is there so that PF can
 // ignore the div's contents when the form is submitted.
 function hideDiv(div_id, instanceWrapperDiv, speed) {
 	var elem;
@@ -415,7 +415,7 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 	} else {
 		elem = $('#' + div_id);
 	}
-	elem.find("span, div").addClass('hiddenBySF');
+	elem.find("span, div").addClass('hiddenByPF');
 
 	elem.each( function() {
 		if ( $(this).css('display') !== 'none' ) {
@@ -942,7 +942,7 @@ window.validateAll = function () {
 
 	// Make sure all inputs are ignored in the "starter" instance
 	// of any multiple-instance template.
-	$(".multipleTemplateStarter").find("span, div").addClass("hiddenBySF");
+	$(".multipleTemplateStarter").find("span, div").addClass("hiddenByPF");
 
 	$(".multipleTemplateList").each( function() {
 		if (! $(this).validateNumInstances() ) {
@@ -950,57 +950,57 @@ window.validateAll = function () {
 		}
 	});
 
-	$("span.inputSpan.mandatoryFieldSpan").not(".hiddenBySF").each( function() {
+	$("span.inputSpan.mandatoryFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryField() ) {
 			num_errors += 1;
 		}
 	});
-	$("div.ui-widget.mandatory").not(".hiddenBySF").each( function() {
+	$("div.ui-widget.mandatory").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryComboBox() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.dateInput.mandatoryFieldSpan").not(".hiddenBySF").each( function() {
+	$("span.dateInput.mandatoryFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryDateField() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.radioButtonSpan.mandatoryFieldSpan").not(".hiddenBySF").each( function() {
+	$("span.radioButtonSpan.mandatoryFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryRadioButton() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.checkboxesSpan.mandatoryFieldSpan").not(".hiddenBySF").each( function() {
+	$("span.checkboxesSpan.mandatoryFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryCheckboxes() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.inputSpan.uniqueFieldSpan").not(".hiddenBySF").each( function() {
+	$("span.inputSpan.uniqueFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateUniqueField() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.inputSpan, div.pfComboBox").not(".hiddenBySF, .freeText, .pageSection").each( function() {
+	$("span.inputSpan, div.pfComboBox").not(".hiddenByPF, .freeText, .pageSection").each( function() {
 		if (! $(this).checkForPipes() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.URLInput").not(".hiddenBySF").each( function() {
+	$("span.URLInput").not(".hiddenByPF").each( function() {
 		if (! $(this).validateURLField() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.emailInput").not(".hiddenBySF").each( function() {
+	$("span.emailInput").not(".hiddenByPF").each( function() {
 		if (! $(this).validateEmailField() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.numberInput").not(".hiddenBySF").each( function() {
+	$("span.numberInput").not(".hiddenByPF").each( function() {
 		if (! $(this).validateNumberField() ) {
 			num_errors += 1;
 		}
 	});
-	$("span.dateInput").not(".hiddenBySF").each( function() {
+	$("span.dateInput").not(".hiddenByPF").each( function() {
 		if (! $(this).validateDateField() ) {
 			num_errors += 1;
 		}
@@ -1017,7 +1017,7 @@ window.validateAll = function () {
 			// if input is not part of multipleTemplateStarter
 			if ( typeof pfdata.validationFunctions[i] !== 'undefined' &&
 				$("#" + pfdata.validationFunctions[i].input).closest(".multipleTemplateStarter").length === 0 &&
-				$("#" + pfdata.validationFunctions[i].input).closest(".hiddenBySF").length === 0 ) {
+				$("#" + pfdata.validationFunctions[i].input).closest(".hiddenByPF").length === 0 ) {
 
 				if (! pfdata.validationFunctions[i].valfunction(
 						pfdata.validationFunctions[i].input,
@@ -1040,9 +1040,9 @@ window.validateAll = function () {
 		// because they're part of the "starter" div for
 		// multiple-instance templates, so that they aren't
 		// submitted by the form.
-		$('.hiddenBySF').find("input, select, textarea").not(':disabled')
+		$('.hiddenByPF').find("input, select, textarea").not(':disabled')
 		.prop('disabled', true)
-		.addClass('disabledBySF');
+		.addClass('disabledByPF');
 		//remove error box if it exists because there are no errors in the form now
 		$("#contentSub").find(".errorbox").remove();
 	}
@@ -1093,12 +1093,12 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	new_div.find('[id!=""]').attr('data-origID', function() { return this.id; });
 	new_div.find('div[id!=""], span[id!=""]').removeAttr('id');
 
-	new_div.find('.hiddenBySF')
-	.removeClass('hiddenBySF')
+	new_div.find('.hiddenByPF')
+	.removeClass('hiddenByPF')
 
-	.find('.disabledBySF')
+	.find('.disabledByPF')
 	.removeAttr('disabled')
-	.removeClass('disabledBySF');
+	.removeClass('disabledByPF');
 
 	// Make internal ID unique for the relevant form elements, and replace
 	// the [num] index in the element names with an actual unique index

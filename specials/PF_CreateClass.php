@@ -76,7 +76,7 @@ class PFCreateClass extends SpecialPage {
 				$params = array();
 				$params['user_id'] = $user->getId();
 				$params['page_text'] = $full_text;
-				$params['edit_summary'] = wfMessage( 'sf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
+				$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
 				$jobs[] = new PFCreatePageJob( $property_title, $params );
 			}
 		}

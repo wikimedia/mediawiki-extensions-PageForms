@@ -2,20 +2,20 @@
 /**
  * @author Siebrand Mazeland
  * @file
- * @ingroup SF
+ * @ingroup PF
  */
 
 /**
- * @ingroup SFLanguage
+ * @ingroup PFLanguage
  */
-class SF_LanguageNl extends SF_Language {
+class PF_LanguageNl extends PF_Language {
 	/* private */ var $m_SpecialProperties = array(
 		// always start upper-case
-		SF_SP_HAS_DEFAULT_FORM   => 'Heeft standaard formulier',
-		SF_SP_HAS_ALTERNATE_FORM => 'Heeft alternatief formulier',
-		SF_SP_CREATES_PAGES_WITH_FORM => 'Maakt pagina\'s aan via formulier',
-		SF_SP_PAGE_HAS_DEFAULT_FORM   => 'Pagina heeft standaard formulier',
-		SF_SP_HAS_FIELD_LABEL_FORMAT  => 'Heeft veldlabelopmaak',
+		PF_SP_HAS_DEFAULT_FORM   => 'Heeft standaard formulier',
+		PF_SP_HAS_ALTERNATE_FORM => 'Heeft alternatief formulier',
+		PF_SP_CREATES_PAGES_WITH_FORM => 'Maakt pagina\'s aan via formulier',
+		PF_SP_PAGE_HAS_DEFAULT_FORM   => 'Pagina heeft standaard formulier',
+		PF_SP_HAS_FIELD_LABEL_FORMAT  => 'Heeft veldlabelopmaak',
 	);
 
 }

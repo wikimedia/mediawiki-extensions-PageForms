@@ -484,7 +484,7 @@ window.ext.popupform = ( function () {
 			return false;
 		}
 
-		// Send form data off. SF will send back a fake edit page
+		// Send form data off. PF will send back a fake edit page
 		//
 		// Normally we should check this.action first and only if it is empty
 		// revert to this.ownerDocument.URL. Tough luck, IE does not return an
