@@ -323,4 +323,4 @@
 
 	pf.select2.tokens.prototype = tokens_proto;
 
-}( jQuery, mediaWiki, semanticforms ) );
+}( jQuery, mediaWiki, pageforms ) );

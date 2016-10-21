@@ -146,7 +146,7 @@ class PFFormEditAction extends Action {
 	}
 
 	static function displayFormChooser( $output, $title ) {
-		$output->addModules( 'ext.semanticforms.main' );
+		$output->addModules( 'ext.pageforms.main' );
 
 		$targetName = $title->getPrefixedText();
 		$output->setPageTitle( wfMessage( "creating", $targetName )->text() );

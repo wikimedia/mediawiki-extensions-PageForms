@@ -65,14 +65,14 @@ class PFDatePickerInput extends PFFormInput {
 	 * @return null|string|array
 	 */
 	public function getResourceModuleNames() {
-		return array( 'jquery.ui.datepicker', 'ext.semanticforms.datepicker' );
+		return array( 'jquery.ui.datepicker', 'ext.pageforms.datepicker' );
 	}
 
 	/**
 	 * Static setup method for input type "datepicker".
 	 * Adds the Javascript config settings used by all datepickers.
 	 */
-	static private function setup() {
+	private static function setup() {
 
 		global $wgOut, $wgLang;
 
@@ -169,9 +169,9 @@ class PFDatePickerInput extends PFFormInput {
 
 		// set up attributes required for both enabled and disabled datepickers
 		$jsattribs = array(
-				'currValue' => $this->mCurrentValue,
-				'disabled' => $this->mIsDisabled,
-				'userClasses' => $userClasses
+			'currValue' => $this->mCurrentValue,
+			'disabled' => $this->mIsDisabled,
+			'userClasses' => $userClasses
 		);
 
 		if ( array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
@@ -235,23 +235,23 @@ class PFDatePickerInput extends PFFormInput {
 		// setup attributes required only for either disabled or enabled datepickers
 		if ( $this->mIsDisabled ) {
 
-			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/SemanticForms/images/DatePickerButtonDisabled.gif';
+			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButtonDisabled.gif';
 
 			if ( array_key_exists( 'show reset button', $this->mOtherArgs ) ||
 					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $pfgDatePickerSettings["ShowResetButton"] ) ) {
 
-				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/SemanticForms/images/DatePickerResetButtonDisabled.gif';
+				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerResetButtonDisabled.gif';
 
 			}
 
 		} else {
 
-			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/SemanticForms/images/DatePickerButton.gif';
+			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButton.gif';
 
 			if ( array_key_exists( 'show reset button', $this->mOtherArgs ) ||
 					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $pfgDatePickerSettings["ShowResetButton"] ) ) {
 
-				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/SemanticForms/images/DatePickerResetButton.gif';
+				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerResetButton.gif';
 
 			}
 
@@ -296,15 +296,15 @@ class PFDatePickerInput extends PFFormInput {
 			// add user-defined or default disabled values
 			if ( array_key_exists( 'disable dates', $this->mOtherArgs ) ) {
 
-				$disabledDates =
-						self::sortAndMergeRanges(
-						array_merge( $disabledDates, self::createRangesArray( explode( ',' , $this->mOtherArgs['disable dates'] ) ) ) );
+				$disabledDates = self::sortAndMergeRanges(
+					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $this->mOtherArgs['disable dates'] ) ) )
+				);
 
 			} elseif ( $pfgDatePickerSettings["DisabledDates"] ) {
 
-				$disabledDates =
-						self::sortAndMergeRanges(
-						array_merge( $disabledDates, self::createRangesArray( explode( ',' , $pfgDatePickerSettings["DisabledDates"] ) ) ) );
+				$disabledDates = self::sortAndMergeRanges(
+					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $pfgDatePickerSettings["DisabledDates"] ) ) )
+				);
 
 			}
 
@@ -485,7 +485,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param array $ranges array of arrays of DateTimes
 	 * @return array of arrays of DateTimes
 	*/
-	static private function sortAndMergeRanges ( $ranges ) {
+	private static function sortAndMergeRanges ( $ranges ) {
 
 		// sort ranges, earliest date first
 		sort( $ranges );
@@ -502,7 +502,9 @@ class PFDatePickerInput extends PFFormInput {
 		foreach ( $ranges as $range ) {
 
 			// ignore empty date ranges
-			if ( !$range ) continue;
+			if ( !$range ) {
+				continue;
+			}
 
 			if ( !$currmin ) { // found first valid range
 
@@ -554,7 +556,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param array $rangesAsStrings array of strings with dates and date ranges
 	 * @return array of arrays of DateTimes
 	*/
-   static private function createRangesArray ( $rangesAsStrings ) {
+   private static function createRangesArray ( $rangesAsStrings ) {
 
 	   // transform array of strings into array of array of dates
 	   // have to use create_function to be PHP pre5.3 compatible
@@ -582,7 +584,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param array $ranges of arrays of DateTimes
 	 * @return array of arrays of DateTimes
 	*/
-	static private function invertRangesArray( $ranges ) {
+	private static function invertRangesArray( $ranges ) {
 
 		// the result (initially empty)
 		$invRanges = null;
@@ -592,7 +594,8 @@ class PFDatePickerInput extends PFFormInput {
 
 		foreach ( $ranges as $range ) {
 
-			if ( $min ) { // if min date of current gap is known store gap
+			if ( $min ) {
+				// if min date of current gap is known store gap
 				$min->modify( "+1day " );
 				$range[0]->modify( "-1day " );
 				$invRanges[] = array( $min, $range[0] );
@@ -711,14 +714,14 @@ class PFDatePickerInput extends PFFormInput {
 	 * @return Array of strings
 	 */
 	public static function getOtherPropTypesHandled() {
-		return array('_str', '_dat');
+		return array( '_str', '_dat' );
 	}
 
 	/**
 	 * Creates the html text for an input.
 	 *
 	 * Common attributes for input types are set according to the parameters.
-	 * The parameters are the standard parameters set by Semantic Forms'
+	 * The parameters are the standard parameters set by Page Forms'
 	 * InputTypeHook plus some optional.
 	 *
 	 * @param string $currentValue
@@ -767,14 +770,17 @@ class PFDatePickerInput extends PFFormInput {
 			$attribs['disabled'] = true;
 		}
 
-		// if no special input id is specified set the Semantic Forms standard
+		// if no special input id is specified set the Page Forms standard
 		if ( $inputId !== null ) {
 			$attribs[ 'id' ] = $inputId;
 		}
 
 
-		if ( $tabIndex == null ) $attribs[ 'tabindex' ] = $pfgTabIndex;
-		else $attribs[ 'tabindex' ] = $tabIndex;
+		if ( $tabIndex == null ) {
+			$attribs[ 'tabindex' ] = $pfgTabIndex;
+		} else {
+			$attribs[ 'tabindex' ] = $tabIndex;
+		}
 
 		$html = Xml::element( 'input', $attribs );
 

@@ -304,4 +304,4 @@
 
 	pf.select2.combobox.prototype = combobox_proto;
 
-}( jQuery, mediaWiki, semanticforms ) );
+}( jQuery, mediaWiki, pageforms ) );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Parser functions for Semantic Forms.
+ * Parser functions for Page Forms.
  *
  * @file
  * @ingroup PF
@@ -305,7 +305,7 @@ class PFParserFunctions {
 			if ( $input_num == 1 ) {
 				$parser->disableCache();
 				$output = $parser->getOutput();
-				$output->addModules( 'ext.semanticforms.main' );
+				$output->addModules( 'ext.pageforms.main' );
 			}
 
 			$inputID = 'input_' . $input_num;
@@ -466,7 +466,7 @@ class PFParserFunctions {
 
 
 	static function renderAutoEdit( &$parser ) {
-		$parser->getOutput()->addModules( 'ext.semanticforms.autoedit' );
+		$parser->getOutput()->addModules( 'ext.pageforms.autoedit' );
 
 		// Set defaults.
 		$formcontent = '';

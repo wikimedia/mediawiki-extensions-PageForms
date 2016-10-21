@@ -1,4 +1,4 @@
-[[Semantic Forms 3.7]]
+[[Page Forms 4.0]]
 
 Contents:
 * Disclaimer
@@ -8,7 +8,7 @@ Contents:
 
 == Disclaimer ==
 
-There is no guarantee that any of Semantic Forms' functionality will
+There is no guarantee that any of Page Forms' functionality will
 work on your system. On the other hand, the code does not make any
 modifications to the database directly, so it should be a low-risk
 installation.
@@ -21,15 +21,15 @@ The extension requires MediaWiki 1.19 or greater.
 
 == Installation ==
 
-(1) Extract the archive to obtain the directory "SemanticForms" that contains
+(1) Extract the archive to obtain the directory "PageForms" that contains
     all relevant files. Copy this directory (or extract/download it) to
     "[wikipath]/extensions/".
 (2) Insert the following line into the file "[wikipath]/LocalSettings.php":
-      include_once('extensions/SemanticForms/SemanticForms.php');
+      include_once('extensions/PageForms/PageForms.php');
 
-'''Remark:'''  Semantic Forms creates an additional custom namespace, "Form"
+'''Remark:'''  Page Forms creates an additional custom namespace, "Form"
 (see http://www.mediawiki.org/wiki/Manual:Using_custom_namespaces). If you have
-your own custom namespaces and you want to change the numbers used by Semantic
+your own custom namespaces and you want to change the numbers used by Page
 Forms, it is possible, though how to do it depends on whether or not you have
 Semantic MediaWiki installed.
 

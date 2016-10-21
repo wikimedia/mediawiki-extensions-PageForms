@@ -16,8 +16,8 @@ window.pf = ( function ( $, undefined ) {
 	 * Declares methods and properties that are available through the sf
 	 * namespace.
 	 *
-	 * @class sf
-	 * @alternateClassName semanticforms
+	 * @class pf
+	 * @alternateClassName pageforms
 	 * @singleton
 	 */
 	return {

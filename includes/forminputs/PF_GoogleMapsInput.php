@@ -36,7 +36,7 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 			$scriptsHTML .= Html::linkedScript( $script );
 		}
 		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
-		$wgOut->addModules( 'ext.semanticforms.maps' );
+		$wgOut->addModules( 'ext.pageforms.maps' );
 
 		$parsedCurValue = PFOpenLayersInput::parseCoordinatesString( $cur_value );
 

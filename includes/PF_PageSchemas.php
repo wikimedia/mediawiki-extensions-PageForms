@@ -1,6 +1,6 @@
 <?php
 /**
- * Static functions for Semantic Forms, for use by the Page Schemas
+ * Static functions for Page Forms, for use by the Page Schemas
  * extension.
  *
  * @author Yaron Koren
@@ -36,7 +36,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			}
 		}
 
-		if ( $tagName == "semanticforms_Form" ) {
+		if ( $tagName == "pageforms_Form" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 				if ( $tag == $tagName ) {
 					$formName = (string)$child->attributes()->name;
@@ -48,7 +48,7 @@ class PFPageSchemas extends PSExtensionHandler {
 				}
 			}
 		}
-		if ( $tagName == "semanticforms_TemplateDetails" ) {
+		if ( $tagName == "pageforms_TemplateDetails" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 				if ( $tag == $tagName ) {
 					foreach ( $child->children() as $tag => $formelem ) {
@@ -58,7 +58,7 @@ class PFPageSchemas extends PSExtensionHandler {
 				}
 			}
 		}
-		if ( $tagName == "semanticforms_FormInput" || $tagName == "semanticforms_PageSection" ) {
+		if ( $tagName == "pageforms_FormInput" || $tagName == "pageforms_PageSection" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 				if ( $tag == $tagName ) {
 					foreach ( $child->children() as $prop ) {
@@ -156,8 +156,8 @@ class PFPageSchemas extends PSExtensionHandler {
 			$isStandardInputsOpen = false;
 			$xml .= ' />';
 		}
-		$xml = '<semanticforms_Form name="' . $formName . '" >' . $xml;
-		$xml .= '</semanticforms_Form>';
+		$xml = '<pageforms_Form name="' . $formName . '" >' . $xml;
+		$xml .= '</pageforms_Form>';
 		return $xml;
 	}
 
@@ -173,7 +173,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
 			if ( substr( $var, 0, 18 ) == 'pf_template_label_' ) {
 				$templateNum = substr( $var, 18 );
-				$xml = '<semanticforms_TemplateDetails>';
+				$xml = '<pageforms_TemplateDetails>';
 				if ( !empty( $val ) ) {
 					$xml .= "<Label>$val</Label>";
 				}
@@ -181,7 +181,7 @@ class PFPageSchemas extends PSExtensionHandler {
 				if ( !empty( $val ) ) {
 					$xml .= "<AddAnotherText>$val</AddAnotherText>";
 				}
-				$xml .= '</semanticforms_TemplateDetails>';
+				$xml .= '</pageforms_TemplateDetails>';
 				$xmlPerTemplate[$templateNum] = $xml;
 			}
 		}
@@ -200,7 +200,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			$val = str_replace( array( '<', '>' ), array( '&lt;', '&gt;' ), $val );
 			if ( substr( $var, 0, 14 ) == 'pf_input_type_' ) {
 				$fieldNum = substr( $var, 14 );
-				$xml = '<semanticforms_FormInput>';
+				$xml = '<pageforms_FormInput>';
 				if ( !empty( $val ) ) {
 					$xml .= '<InputType>' . $val . '</InputType>';
 				}
@@ -220,7 +220,7 @@ class PFPageSchemas extends PSExtensionHandler {
 				}
 			} elseif ( substr( $var, 0, 16 ) == 'pf_input_finish_' ) {
 				// This is a hack.
-				$xml .= '</semanticforms_FormInput>';
+				$xml .= '</pageforms_FormInput>';
 				$xmlPerField[$fieldNum] = $xml;
 			}
 		}
@@ -241,9 +241,9 @@ class PFPageSchemas extends PSExtensionHandler {
 				$pageSectionNum = substr( $var, 26 );
 				$xml = "";
 				if ( $val != '' ) {
-					$xml = '<semanticforms_PageSection>';
+					$xml = '<pageforms_PageSection>';
 					$xml .= self::createFormInputXMLFromForm( $val );
-					$xml .= '</semanticforms_PageSection>';
+					$xml .= '</pageforms_PageSection>';
 				}
 				$xmlPerPageSection[$pageSectionNum] = $xml;
 			}
@@ -287,7 +287,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$form_array = array();
 		$hasExistingValues = false;
 		if ( !is_null( $pageSchemaObj ) ) {
-			$form_array = $pageSchemaObj->getObject( 'semanticforms_Form' );
+			$form_array = $pageSchemaObj->getObject( 'pageforms_Form' );
 			if ( !is_null( $form_array ) ) {
 				$hasExistingValues = true;
 			}
@@ -386,7 +386,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$templateLabel = null;
 		$addAnotherText = null;
 		if ( !is_null( $psTemplate ) ) {
-			$form_array = $psTemplate->getObject( 'semanticforms_TemplateDetails' );
+			$form_array = $psTemplate->getObject( 'pageforms_TemplateDetails' );
 			if ( !is_null( $form_array ) ) {
 				$hasExistingValues = true;
 				$templateLabel = PageSchemas::getValueFromObject( $form_array, 'Label' );
@@ -413,7 +413,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$inputDescTooltipMode = null;
 		$inputBeforeText = null;
 		if ( !is_null( $psField ) ) {
-			$fieldValues = $psField->getObject( 'semanticforms_FormInput' );
+			$fieldValues = $psField->getObject( 'pageforms_FormInput' );
 			if ( !is_null( $fieldValues ) ) {
 				$hasExistingValues = true;
 				$inputType = PageSchemas::getValueFromObject( $fieldValues, 'InputType' );
@@ -477,7 +477,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$otherParams = array();
 
 		if ( !is_null( $psPageSection ) ) {
-			$otherParams = $psPageSection->getObject( 'semanticforms_PageSection' );
+			$otherParams = $psPageSection->getObject( 'pageforms_PageSection' );
 		}
 		$paramValues = array();
 		if ( !is_null( $otherParams ) ) {
@@ -512,7 +512,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	}
 
 	public static function getMainFormInfo( $pageSchemaObj ) {
-		// return $pageSchemaObj->getObject( 'semanticforms_Form' );
+		// return $pageSchemaObj->getObject( 'pageforms_Form' );
 		// We don't just call getObject() here, because sometimes, for
 		// some reason, this gets called before PF registers itself
 		// with Page Schemas, which means that getObject() would return
@@ -520,7 +520,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		// been called.
 		$xml = $pageSchemaObj->getXML();
 		foreach ( $xml->children() as $tag => $child ) {
-			if ( $tag == "semanticforms_Form" ) {
+			if ( $tag == "pageforms_Form" ) {
 				$pfarray = array();
 				$formName = (string)$child->attributes()->name;
 				$pfarray['name'] = $formName;
@@ -543,7 +543,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$form_fields = array();
 		$fieldsInfo = $psTemplate->getFields();
 		foreach ( $fieldsInfo as $i => $psField ) {
-			$fieldFormArray = $psField->getObject( 'semanticforms_FormInput' );
+			$fieldFormArray = $psField->getObject( 'pageforms_FormInput' );
 			if ( !is_null( $fieldFormArray ) ) {
 				$formField = PFFormField::create( $template_fields[$i] );
 				foreach ( $fieldFormArray as $var => $val ) {
@@ -569,7 +569,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	public static function getPageSection( $psPageSection ) {
 		$pageSection = PFPageSection::create( $psPageSection->getSectionName() );
-		$pageSectionArray = $psPageSection->getObject( 'semanticforms_PageSection' );
+		$pageSectionArray = $psPageSection->getObject( 'pageforms_PageSection' );
 		if ( !is_null( $pageSectionArray ) ) {
 			foreach ( $pageSectionArray as $var => $val ) {
 				if ( $var == 'mandatory' ) {
@@ -587,7 +587,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	}
 
 	/**
-	 * Return the list of pages that Semantic Forms could generate from
+	 * Return the list of pages that Page Forms could generate from
 	 * the current Page Schemas schema.
 	 */
 	public static function getPagesToGenerate( $pageSchemaObj ) {
@@ -856,7 +856,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	public static function getSchemaDisplayValues( $schemaXML ) {
 		foreach ( $schemaXML->children() as $tag => $child ) {
-			if ( $tag == "semanticforms_Form" ) {
+			if ( $tag == "pageforms_Form" ) {
 				$formName = $child->attributes()->name;
 				$values = array();
 				foreach ( $child->children() as $tagName => $prop ) {
@@ -875,7 +875,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			$psTemplate = $psTemplate->getXML();
 		}
 		foreach ( $psTemplate->children() as $tag => $child ) {
-			if ( $tag == "semanticforms_TemplateDetails" ) {
+			if ( $tag == "pageforms_TemplateDetails" ) {
 				foreach ( $child->children() as $prop ) {
 					$values[$prop->getName()] = (string)$prop;
 				}
@@ -922,7 +922,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	 */
 	public static function getFieldDisplayValues( $fieldXML ) {
 		foreach ( $fieldXML->children() as $tag => $child ) {
-			if ( $tag == "semanticforms_FormInput" ) {
+			if ( $tag == "pageforms_FormInput" ) {
 				$inputName = $child->attributes()->name;
 				$values = array();
 				foreach ( $child->children() as $prop ) {
@@ -941,7 +941,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	public static function getPageSectionDisplayValues( $pageSectionXML ) {
 		foreach ( $pageSectionXML->children() as $tag => $child ) {
-			if ( $tag == "semanticforms_PageSection" ) {
+			if ( $tag == "pageforms_PageSection" ) {
 				$inputName = $child->attributes()->name;
 				$values = array();
 				foreach ( $child->children() as $prop ) {

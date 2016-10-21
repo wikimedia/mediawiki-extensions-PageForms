@@ -7,7 +7,7 @@
  */
 
 if ( !defined( 'PF_VERSION' ) ) {
-	die( 'This file is part of the SemanticForms extension, it is not a valid entry point.' );
+	die( 'This file is part of the PageForms extension, it is not a valid entry point.' );
 }
 
 $GLOBALS[ 'pfgDatePickerSettings' ] = array(

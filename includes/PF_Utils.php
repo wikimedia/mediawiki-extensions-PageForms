@@ -1,6 +1,6 @@
 <?php
 /**
- * Helper functions for the Semantic Forms extension.
+ * Helper functions for the Page Forms extension.
  *
  * @author Yaron Koren
  * @file
@@ -191,14 +191,14 @@ END;
 		}
 
 		$mainModules = array(
-			'ext.semanticforms.main',
-			'ext.semanticforms.fancybox',
-			'ext.semanticforms.dynatree',
-			'ext.semanticforms.imagepreview',
-			'ext.semanticforms.autogrow',
-			'ext.semanticforms.submit',
-			'ext.semanticforms.checkboxes',
-			'ext.semanticforms.select2',
+			'ext.pageforms.main',
+			'ext.pageforms.fancybox',
+			'ext.pageforms.dynatree',
+			'ext.pageforms.imagepreview',
+			'ext.pageforms.autogrow',
+			'ext.pageforms.submit',
+			'ext.pageforms.checkboxes',
+			'ext.pageforms.select2',
 			'ext.smw.tooltips',
 			'ext.smw.sorttable'
 		);
@@ -311,7 +311,7 @@ END;
 	 * 'no'.
 	 */
 	public static function getWordForYesOrNo( $isYes ) {
-		// @TODO - should Semantic Forms define these messages itself?
+		// @TODO - should Page Forms define these messages itself?
 		$message = $isYes ? 'htmlform-yes' : 'htmlform-no';
 		return wfMessage( $message )->inContentLanguage()->text();
 	}

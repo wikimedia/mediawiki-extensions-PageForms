@@ -417,7 +417,7 @@ END;
 			if ( $formField->hasFieldArg( 'tooltip' ) ) {
 				global $wgOut, $wgScriptPath;
 
-				$wgOut->addModules( 'ext.semanticforms.balloon' );
+				$wgOut->addModules( 'ext.pageforms.balloon' );
 				$tooltipText = $formField->getFieldArg( 'tooltip' );
 				$label .= ' ' . Html::element( 'button', array(
 					'data-balloon-length' => 'medium',
@@ -634,7 +634,7 @@ END;
 	}
 
 	/**
-	 * This function is the real heart of the entire Semantic Forms
+	 * This function is the real heart of the entire Page Forms
 	 * extension. It handles two main actions: (1) displaying a form on the
 	 * screen, given a form definition and possibly page contents (if an
 	 * existing page is being edited); and (2) creating actual page
@@ -643,7 +643,17 @@ END;
 	 * It also does some related tasks, like figuring out the page name (if
 	 * only a page formula exists).
 	 */
-	function formHTML( $form_def, $form_submitted, $source_is_page, $form_id = null, $existing_page_content = null, $page_name = null, $page_name_formula = null, $is_query = false, $is_embedded = false ) {
+	function formHTML(
+		$form_def,
+		$form_submitted,
+		$source_is_page,
+		$form_id = null,
+		$existing_page_content = null,
+		$page_name = null,
+		$page_name_formula = null,
+		$is_query = false,
+		$is_embedded = false
+	) {
 		global $wgRequest, $wgUser, $wgParser;
 		global $pfgTabIndex; // used to represent the current tab index in the form
 		global $pfgFieldNum; // used for setting various HTML IDs
@@ -701,7 +711,7 @@ END;
 			$this->mPageTitle = $wgTitle;
 		} elseif ( $page_name === '' || $page_name === null ) {
 			$this->mPageTitle = Title::newFromText(
-				$wgRequest->getVal( 'namespace' ) . ":Semantic Forms permissions test" );
+				$wgRequest->getVal( 'namespace' ) . ":Page Forms permissions test" );
 		} else {
 			$this->mPageTitle = Title::newFromText( $page_name );
 		}

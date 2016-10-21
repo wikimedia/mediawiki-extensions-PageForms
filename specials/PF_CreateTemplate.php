@@ -175,7 +175,7 @@ END;
 			$template_name = $req->getVal( 'template_name' );
 		}
 
-		$out->addModules( 'ext.semanticforms.main' );
+		$out->addModules( 'ext.pageforms.main' );
 		$this->addJavascript();
 
 		$text = '';

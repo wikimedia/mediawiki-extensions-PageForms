@@ -64,7 +64,7 @@ class PFOpenLayersInput extends PFFormInput {
 			}
 			$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
 		}
-		$wgOut->addModules( 'ext.semanticforms.maps' );
+		$wgOut->addModules( 'ext.pageforms.maps' );
 
 		$parsedCurValue = self::parseCoordinatesString( $cur_value );
 

@@ -176,7 +176,7 @@ class PFCreateClass extends SpecialPage {
 
 		$numStartingRows = 5;
 		$out->addJsConfigVars( '$numStartingRows', $numStartingRows );
-		$out->addModules( array( 'ext.semanticforms.PF_CreateClass' ) );
+		$out->addModules( array( 'ext.pageforms.PF_CreateClass' ) );
 
 		$createAll = $req->getCheck( 'createAll' );
 		if ( $createAll ) {

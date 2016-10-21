@@ -1,7 +1,7 @@
 /**
- * SemanticForms.js
+ * PageForms.js
  *
- * Javascript utility functions for the Semantic Forms extension.
+ * Javascript utility functions for the Page Forms extension.
  *
  * @author Yaron Koren
  * @author Sanyam Goyal
@@ -229,7 +229,7 @@ $.fn.attachAutocomplete = function() {
 // Initialize data object to hold initialization and validation data
 function setupPF() {
 
-	$("#pfForm").data("SemanticForms",{
+	$("#pfForm").data("PageForms",{
 		initFunctions : [],
 		validationFunctions : []
 	});
@@ -239,23 +239,23 @@ function setupPF() {
 // Register a validation method
 //
 // More than one method may be registered for one input by subsequent calls to
-// SemanticForms_registerInputValidation.
+// PageForms_registerInputValidation.
 //
 // Validation functions and their data are stored in a numbered array
 //
 // @param valfunction The validation functions. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the validation function
-$.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
+$.fn.PageForms_registerInputValidation = function(valfunction, param) {
 
 	if ( ! this.attr("id") ) {
 		return this;
 	}
 
-	if ( ! $("#pfForm").data("SemanticForms") ) {
+	if ( ! $("#pfForm").data("PageForms") ) {
 		setupPF();
 	}
 
-	$("#pfForm").data("SemanticForms").validationFunctions.push({
+	$("#pfForm").data("PageForms").validationFunctions.push({
 		input : this.attr("id"),
 		valfunction : valfunction,
 		parameters : param
@@ -267,7 +267,7 @@ $.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 // Register an initialization method
 //
 // More than one method may be registered for one input by subsequent calls to
-// SemanticForms_registerInputInit. This method also executes the initFunction
+// PageForms_registerInputInit. This method also executes the initFunction
 // if the element referenced by /this/ is not part of a multipleTemplateStarter.
 //
 // Initialization functions and their data are stored in a associative array
@@ -275,7 +275,7 @@ $.fn.SemanticForms_registerInputValidation = function(valfunction, param) {
 // @param initFunction The initialization function. Must take a string (the input's id) and an object as parameters
 // @param param The parameter object given to the initialization function
 // @param noexecute If set, the initialization method will not be executed here
-$.fn.SemanticForms_registerInputInit = function( initFunction, param, noexecute ) {
+$.fn.PageForms_registerInputInit = function( initFunction, param, noexecute ) {
 
 	// return if element has no id
 	if ( ! this.attr("id") ) {
@@ -283,18 +283,18 @@ $.fn.SemanticForms_registerInputInit = function( initFunction, param, noexecute 
 	}
 
 	// setup data structure if necessary
-	if ( ! $("#pfForm").data("SemanticForms") ) {
+	if ( ! $("#pfForm").data("PageForms") ) {
 		setupPF();
 	}
 
 	// if no initialization function for this input was registered yet,
 	// create entry
-	if ( ! $("#pfForm").data("SemanticForms").initFunctions[this.attr("id")] ) {
-		$("#pfForm").data("SemanticForms").initFunctions[this.attr("id")] = [];
+	if ( ! $("#pfForm").data("PageForms").initFunctions[this.attr("id")] ) {
+		$("#pfForm").data("PageForms").initFunctions[this.attr("id")] = [];
 	}
 
 	// record initialization function
-	$("#pfForm").data("SemanticForms").initFunctions[this.attr("id")].push({
+	$("#pfForm").data("PageForms").initFunctions[this.attr("id")].push({
 		initFunction : initFunction,
 		parameters : param
 	});
@@ -311,9 +311,9 @@ $.fn.SemanticForms_registerInputInit = function( initFunction, param, noexecute 
 };
 
 // Unregister all validation methods for the element referenced by /this/
-$.fn.SemanticForms_unregisterInputValidation = function() {
+$.fn.PageForms_unregisterInputValidation = function() {
 
-	var pfdata = $("#pfForm").data("SemanticForms");
+	var pfdata = $("#pfForm").data("PageForms");
 
 	if ( this.attr("id") && pfdata ) {
 		// delete every validation method for this input
@@ -329,10 +329,10 @@ $.fn.SemanticForms_unregisterInputValidation = function() {
 };
 
 // Unregister all initialization methods for the element referenced by /this/
-$.fn.SemanticForms_unregisterInputInit = function() {
+$.fn.PageForms_unregisterInputInit = function() {
 
-	if ( this.attr("id") && $("#pfForm").data("SemanticForms") ) {
-		delete $("#pfForm").data("SemanticForms").initFunctions[this.attr("id")];
+	if ( this.attr("id") && $("#pfForm").data("PageForms") ) {
+		delete $("#pfForm").data("PageForms").initFunctions[this.attr("id")];
 	}
 
 	return this;
@@ -1007,7 +1007,7 @@ window.validateAll = function () {
 	});
 
 	// call registered validation functions
-	var pfdata = $("#pfForm").data('SemanticForms');
+	var pfdata = $("#pfForm").data('PageForms');
 
 	if ( pfdata && pfdata.validationFunctions.length > 0 ) { // found data object?
 
@@ -1119,14 +1119,14 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 				this.id = this.id.replace(/input_/g, 'input_' + num_elements + '_');
 
 				// TODO: Data in pfgShowOnSelect should probably be stored in
-				//  $("#pfForm").data('SemanticForms')
+				//  $("#pfForm").data('PageForms')
 				if ( pfgShowOnSelect[ old_id ] ) {
 					pfgShowOnSelect[ this.id ] = pfgShowOnSelect[ old_id ];
 				}
 
 				// register initialization and validation methods for new inputs
 
-				var pfdata = $("#pfForm").data('SemanticForms');
+				var pfdata = $("#pfForm").data('PageForms');
 				if ( pfdata ) { // found data object?
 					var i;
 					if ( pfdata.initFunctions[old_id] ) {
@@ -1136,7 +1136,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 						// method for the new input.
 						for ( i = 0; i < pfdata.initFunctions[old_id].length; i++ ) {
 
-							$(this).SemanticForms_registerInputInit(
+							$(this).PageForms_registerInputInit(
 								pfdata.initFunctions[old_id][i].initFunction,
 								pfdata.initFunctions[old_id][i].parameters,
 								true //do not yet execute
@@ -1152,7 +1152,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 						if ( typeof pfdata.validationFunctions[i] !== 'undefined' &&
 							pfdata.validationFunctions[i].input === old_id ) {
 
-							$(this).SemanticForms_registerInputValidation(
+							$(this).PageForms_registerInputValidation(
 								pfdata.validationFunctions[i].valfunction,
 								pfdata.validationFunctions[i].parameters
 								);
@@ -1192,7 +1192,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 
 			if (this.id) {
 
-				var pfdata = $("#pfForm").data('SemanticForms');
+				var pfdata = $("#pfForm").data('PageForms');
 				if ( pfdata ) {
 
 					// have to store data array: the id attribute
@@ -1357,8 +1357,8 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		// Unregister initialization and validation for deleted inputs
 		$(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each(
 			function() {
-				$(this).SemanticForms_unregisterInputInit();
-				$(this).SemanticForms_unregisterInputValidation();
+				$(this).PageForms_unregisterInputInit();
+				$(this).PageForms_unregisterInputValidation();
 			}
 		);
 
@@ -1450,7 +1450,7 @@ $(document).ready( function() {
 		$('.autocompleteInput').attachAutocomplete();
 	}
 
-	// Exit now if a Semantic Forms form is not present.
+	// Exit now if a Page Forms form is not present.
 	if ( $('#pfForm').length === 0 ) {
 		return;
 	}
@@ -1460,7 +1460,7 @@ $(document).ready( function() {
 	for ( inputID in initFunctionData ) {
 		for ( i in initFunctionData[inputID] ) {
 			/*jshint -W069 */
-			$( '#' + inputID ).SemanticForms_registerInputInit( getFunctionFromName( initFunctionData[ inputID ][ i ][ 'name' ] ), initFunctionData[ inputID ][ i ][ 'param' ] );
+			$( '#' + inputID ).PageForms_registerInputInit( getFunctionFromName( initFunctionData[ inputID ][ i ][ 'name' ] ), initFunctionData[ inputID ][ i ][ 'param' ] );
 			/*jshint +W069 */
 		}
 	}
@@ -1470,7 +1470,7 @@ $(document).ready( function() {
 	for ( inputID in validationFunctionData ) {
 		for ( i in validationFunctionData[inputID] ) {
 			/*jshint -W069 */
-			$( '#' + inputID ).SemanticForms_registerInputValidation( getFunctionFromName( validationFunctionData[ inputID ][ i ][ 'name' ] ), validationFunctionData[ inputID ][ i ][ 'param' ] );
+			$( '#' + inputID ).PageForms_registerInputValidation( getFunctionFromName( validationFunctionData[ inputID ][ i ][ 'name' ] ), validationFunctionData[ inputID ][ i ][ 'param' ] );
 			/*jshint +W069 */
 		}
 	}

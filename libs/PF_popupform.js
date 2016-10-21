@@ -1,5 +1,5 @@
 /**
- * Javascript code to be used with extension SemanticForms for popup forms.
+ * Javascript code to be used with extension PageForms for popup forms.
  *
  * @author Stephan Gambke
  *

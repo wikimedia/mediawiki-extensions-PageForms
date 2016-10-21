@@ -153,11 +153,11 @@ class PFRegExpInput extends PFFormInput {
 	public function getResourceModuleNames() {
 		$modules = $this->mBaseInput->getResourceModuleNames();
 		if ( is_array( $modules ) ) {
-			return array_merge( $modules, array( 'ext.semanticforms.regexp' ));
+			return array_merge( $modules, array( 'ext.pageforms.regexp' ));
 		} elseif ( is_string( $modules ) ) {
-			return array( $modules, 'ext.semanticforms.regexp' );
+			return array( $modules, 'ext.pageforms.regexp' );
 		} else {
-			return 'ext.semanticforms.regexp';
+			return 'ext.pageforms.regexp';
 		}
 
 	}

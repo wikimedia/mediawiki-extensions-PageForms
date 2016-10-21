@@ -547,10 +547,10 @@ END;
 	 */
 	public static function getCacheKey( $formId, $parser = null ) {
 		if ( is_null( $parser ) ) {
-			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId );
+			return wfMemcKey( 'ext.PageForms.formdefinition', $formId );
 		} else {
 			$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
-			return wfMemcKey( 'ext.SemanticForms.formdefinition', $formId, $optionsHash );
+			return wfMemcKey( 'ext.PageForms.formdefinition', $formId, $optionsHash );
 		}
 	}
 
