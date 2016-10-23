@@ -389,79 +389,79 @@
 		]
 	},
 	"config": {
-		"pfgMaxAutocompleteValues": {
+		"PageFormsMaxAutocompleteValues": {
 			"value": 1000
 		},
-		"pfgMaxLocalAutocompleteValues": {
+		"PageFormsMaxLocalAutocompleteValues": {
 			"value": 100
 		},
-		"pfgAutocompleteOnAllChars": {
+		"PageFormsAutocompleteOnAllChars": {
 			"value": false
 		},
-		"pfgCacheAutocompleteValues": {
+		"PageFormsCacheAutocompleteValues": {
 			"value": false
 		},
-		"pfgAutocompleteCacheTimeout": {
+		"PageFormsAutocompleteCacheTimeout": {
 			"value": null
 		},
-		"pfgRenameEditTabs": {
+		"PageFormsRenameEditTabs": {
 			"value": false
 		},
-		"pfgRenameMainEditTab": {
+		"PageFormsRenameMainEditTab": {
 			"value": false
 		},
-		"pfgListSeparator": {
+		"PageFormsListSeparator": {
 			"value": ","
 		},
-		"pfg24HourTime": {
+		"PageForms24HourTime": {
 			"value": false
 		},
-		"pfgCacheFormDefinitions": {
+		"PageFormsCacheFormDefinitions": {
 			"value": false
 		},
-		"pfgFormCacheType": {
+		"PageFormsFormCacheType": {
 			"value": null
 		},
-		"pfgLinkAllRedLinksToForms": {
+		"PageFormsLinkAllRedLinksToForms": {
 			"value": false
 		},
-		"pfgRedLinksCheckOnlyLocalProps": {
+		"PageFormsRedLinksCheckOnlyLocalProps": {
 			"value": false
 		},
-		"pfgShowTabsForAllHelperForms": {
+		"PageFormsShowTabsForAllHelperForms": {
 			"value": true
 		},
-		"pfgRunQueryFormAtTop": {
+		"PageFormsRunQueryFormAtTop": {
 			"value": false
 		},
-		"pfgGoogleMapsKey": {
+		"PageFormsGoogleMapsKey": {
 			"value": null
 		},
-		"pfgShowOnSelect": {
+		"PageFormsShowOnSelect": {
 			"value": []
 		},
-		"pfgAutocompleteValues": {
+		"PageFormsAutocompleteValues": {
 			"value": []
 		},
-		"pfgGridValues": {
+		"PageFormsGridValues": {
 			"value": []
 		},
-		"pfgGridParams": {
+		"PageFormsGridParams": {
 			"value": []
 		},
-		"pfgFieldProperties": {
+		"PageFormsFieldProperties": {
 			"value": []
 		},
-		"pfgCargoFields": {
+		"PageFormsCargoFields": {
 			"value": []
 		},
-		"pfgDependentFields": {
+		"PageFormsDependentFields": {
 			"value": []
 		},
-		"pfgCheckboxesSelectAllMinimum": {
+		"PageFormsCheckboxesSelectAllMinimum": {
 			"value": 10
 		},
-		"pfgDatePickerSettings": {
+		"PageFormsDatePickerSettings": {
 			"value": {
 				"@note": "See PF_DefaultInputSettings.php for allowed values",
 				"FirstDate": null,
@@ -479,6 +479,5 @@
 			"merge_strategy": "array_plus"
 		}
 	},
-	"config_prefix": "",
 	"manifest_version": 2
 }

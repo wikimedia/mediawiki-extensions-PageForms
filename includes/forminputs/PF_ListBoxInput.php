@@ -31,13 +31,13 @@ class PFListBoxInput extends PFMultiEnumInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		global $pfgTabIndex, $pfgFieldNum, $pfgShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		$className = ( $this->mIsMandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
 			$className .= ' ' . $this->mOtherArgs['class'];
 		}
-		$input_id = "input_$pfgFieldNum";
+		$input_id = "input_$wgPageFormsFieldNum";
 		// get list delimiter - default is comma
 		if ( array_key_exists( 'delimiter', $this->mOtherArgs ) ) {
 			$delimiter = $this->mOtherArgs['delimiter'];
@@ -70,7 +70,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 		}
 		$selectAttrs = array(
 			'id' => $input_id,
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'name' => $this->mInputName . '[]',
 			'class' => $className,
 			'multiple' => 'multiple'
@@ -89,10 +89,10 @@ class PFListBoxInput extends PFMultiEnumInput {
 
 		if ( array_key_exists( 'show on select', $this->mOtherArgs ) ) {
 			foreach ( $this->mOtherArgs['show on select'] as $div_id => $options ) {
-				if ( array_key_exists( $input_id, $pfgShowOnSelect ) ) {
-					$pfgShowOnSelect[$input_id][] = array( $options, $div_id );
+				if ( array_key_exists( $input_id, $wgPageFormsShowOnSelect ) ) {
+					$wgPageFormsShowOnSelect[$input_id][] = array( $options, $div_id );
 				} else {
-					$pfgShowOnSelect[$input_id] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$input_id] = array( array( $options, $div_id ) );
 				}
 			}
 		}

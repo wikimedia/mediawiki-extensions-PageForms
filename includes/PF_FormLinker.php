@@ -157,7 +157,7 @@ class PFFormLinker {
 			return array();
 		}
 
-		global $pfgContLang;
+		global $wgPageFormsContLang;
 
 		$store = PFUtils::getSMWStore();
 		$subject = Title::makeTitleSafe( $page_namespace, $page_name );
@@ -165,7 +165,7 @@ class PFFormLinker {
 
 		// If we're using a non-English language, check for the English
 		// string as well.
-		if ( ! class_exists( 'PF_LanguageEn' ) || ! $pfgContLang instanceof PF_LanguageEn ) {
+		if ( ! class_exists( 'PF_LanguageEn' ) || ! $wgPageFormsContLang instanceof PF_LanguageEn ) {
 			$backup_form_names = PFValuesUtils::getSMWPropertyValues( $store, $subject, $backup_prop_smw_id );
 			$form_names = array_merge( $form_names, $backup_form_names );
 		}
@@ -215,7 +215,7 @@ class PFFormLinker {
 	}
 
 	public static function createPageWithForm( $title, $formName ) {
-		global $PfgFormPrinter;
+		global $wgPageFormsFormPrinter;
 
 		$formTitle = Title::makeTitleSafe( PF_NS_FORM, $formName );
 		$formDefinition = PFUtils::getPageText( $formTitle );
@@ -225,15 +225,15 @@ class PFFormLinker {
 		Hooks::run( 'pfEditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
 
 		list ( $formText, $pageText, $formPageTitle, $generatedPageName ) =
-			$pfgFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
+			$wgPageFormsFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
 		$params = array();
 
 		// Get user "responsible" for all auto-generated
 		// pages from red links.
 		$userID = 1;
-		global $pfgAutoCreateUser;
-		if ( !is_null( $pfgAutoCreateUser ) ) {
-			$user = User::newFromName( $pfgAutoCreateUser );
+		global $wgPageFormsAutoCreateUser;
+		if ( !is_null( $wgPageFormsAutoCreateUser ) ) {
+			$user = User::newFromName( $wgPageFormsAutoCreateUser );
 			if ( !is_null( $user ) ) {
 				$userID = $user->getId();
 			}
@@ -331,8 +331,8 @@ class PFFormLinker {
 			return true;
 		}
 
-		global $pfgRedLinksCheckOnlyLocalProps;
-		if ( $pfgRedLinksCheckOnlyLocalProps ) {
+		global $wgPageFormsRedLinksCheckOnlyLocalProps;
+		if ( $wgPageFormsRedLinksCheckOnlyLocalProps ) {
 			$incoming_properties = array();
 			global $wgTitle;
 			// If this is called from the command line, $wgTitle
@@ -354,10 +354,10 @@ class PFFormLinker {
 			return true;
 		}
 
-		global $pfgLinkAllRedLinksToForms;
+		global $wgPageFormsLinkAllRedLinksToForms;
 		// Don't do this is it it's a category page - it probably
 		// won't have an associated form.
-		if ( $pfgLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
+		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
 			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}

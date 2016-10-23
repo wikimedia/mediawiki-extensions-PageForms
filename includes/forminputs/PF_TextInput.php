@@ -191,7 +191,7 @@ class PFTextInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		$className = 'createboxInput';
 		if ( $is_mandatory ) {
@@ -203,7 +203,7 @@ class PFTextInput extends PFFormInput {
 		if ( array_key_exists( 'unique', $other_args ) ) {
 			$className .= ' uniqueField';
 		}
-		$input_id = "input_$pfgFieldNum";
+		$input_id = "input_$wgPageFormsFieldNum";
 		// Set size based on pre-set size, or field type - if field
 		// type is set, possibly add validation too.
 		// (This special handling should only be done if the field
@@ -230,7 +230,7 @@ class PFTextInput extends PFFormInput {
 
 		$inputAttrs = array(
 			'id' => $input_id,
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'class' => $className,
 			'size' => $size
 		);

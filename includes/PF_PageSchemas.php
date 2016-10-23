@@ -425,8 +425,8 @@ class PFPageSchemas extends PSExtensionHandler {
 			}
 		}
 
-		global $pfgFormPrinter;
-		$possibleInputTypes = $pfgFormPrinter->getAllInputTypes();
+		global $wgPageFormsFormPrinter;
+		$possibleInputTypes = $wgPageFormsFormPrinter->getAllInputTypes();
 		$inputTypeDropdownHTML = Html::element( 'option', null, null );
 		foreach ( $possibleInputTypes as $possibleInputType ) {
 			$inputTypeOptionAttrs = array();

@@ -38,14 +38,14 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum, $pfgShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		$checkboxClass = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		$labelClass = 'checkboxLabel';
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$labelClass .= ' ' . $other_args['class'];
 		}
-		$input_id = "input_$pfgFieldNum";
+		$input_id = "input_$wgPageFormsFieldNum";
 		// get list delimiter - default is comma
 		if ( array_key_exists( 'delimiter', $other_args ) ) {
 			$delimiter = $other_args['delimiter'];
@@ -73,7 +73,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 
 			$checkbox_attrs = array(
 				'id' => $input_id,
-				'tabindex' => $pfgTabIndex,
+				'tabindex' => $wgPageFormsTabIndex,
 				'class' => $checkboxClass,
 			);
 			if ( in_array( $possible_value, $cur_values ) ) {
@@ -90,11 +90,11 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 				array( 'class' => $labelClass ),
 				$checkbox_input . '&nbsp;' . $label
 			) . "\n";
-			$pfgTabIndex++;
-			$pfgFieldNum++;
+			$wgPageFormsTabIndex++;
+			$wgPageFormsFieldNum++;
 		}
 
-		$outerSpanID = "span_$pfgFieldNum";
+		$outerSpanID = "span_$wgPageFormsFieldNum";
 		$outerSpanClass = 'checkboxesSpan';
 		if ( $is_mandatory ) {
 			$outerSpanClass .= ' mandatoryFieldSpan';
@@ -113,17 +113,17 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 		if ( strpos( $input_name, '[num][' ) !== false ) {
 			// Multiple-instance template; do nothing.
 		} elseif ( array_key_exists( 'show select all', $other_args ) ||
-			( count( $possible_values ) >= $GLOBALS[ 'pfgCheckboxesSelectAllMinimum' ] && !array_key_exists( 'hide select all', $other_args ) ) ) {
+			( count( $possible_values ) >= $GLOBALS[ 'wgPageFormsCheckboxesSelectAllMinimum' ] && !array_key_exists( 'hide select all', $other_args ) ) ) {
 			$outerSpanClass .= ' select-all';
 		}
 
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$outerSpanClass .= ' pfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
-				if ( array_key_exists( $outerSpanID, $pfgShowOnSelect ) ) {
-					$pfgShowOnSelect[$outerSpanID][] = array( $options, $div_id );
+				if ( array_key_exists( $outerSpanID, $wgPageFormsShowOnSelect ) ) {
+					$wgPageFormsShowOnSelect[$outerSpanID][] = array( $options, $div_id );
 				} else {
-					$pfgShowOnSelect[$outerSpanID] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$outerSpanID] = array( array( $options, $div_id ) );
 				}
 			}
 		}

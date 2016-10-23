@@ -37,7 +37,7 @@ class PFDropdownInput extends PFEnumInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum, $pfgShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		// Standardize $cur_value
 		if ( is_null( $cur_value ) ) {
@@ -48,14 +48,14 @@ class PFDropdownInput extends PFEnumInput {
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
-		$input_id = "input_$pfgFieldNum";
+		$input_id = "input_$wgPageFormsFieldNum";
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$className .= ' pfShowIfSelected';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
-				if ( array_key_exists( $input_id, $pfgShowOnSelect ) ) {
-					$pfgShowOnSelect[$input_id][] = array( $options, $div_id );
+				if ( array_key_exists( $input_id, $wgPageFormsShowOnSelect ) ) {
+					$wgPageFormsShowOnSelect[$input_id][] = array( $options, $div_id );
 				} else {
-					$pfgShowOnSelect[$input_id] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$input_id] = array( array( $options, $div_id ) );
 				}
 			}
 		}
@@ -98,7 +98,7 @@ class PFDropdownInput extends PFEnumInput {
 		}
 		$selectAttrs = array(
 			'id' => $input_id,
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'name' => $input_name,
 			'class' => $className
 		);

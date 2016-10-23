@@ -148,12 +148,12 @@ class PFTextAreaInput extends PFFormInput {
 
 	protected function getTextAreaAttributes() {
 
-		global $pfgTabIndex, $pfgFieldNum;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		// Use a special ID for the free text field -
 		// this was originally done for FCKeditor, but maybe it's
 		// useful for other stuff too.
-		$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : "input_$pfgFieldNum";
+		$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
 
 		if ( $this->mUseWikieditor ) {
 			// Load modules for all enabled WikiEditor features.
@@ -190,7 +190,7 @@ class PFTextAreaInput extends PFFormInput {
 		}
 
 		$textarea_attrs = array(
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'name' => $this->mInputName,
 			'id' => $input_id,
 			'class' => $className,

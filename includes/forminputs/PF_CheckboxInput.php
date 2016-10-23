@@ -25,22 +25,22 @@ class PFCheckboxInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum, $pfgShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		$className = ( $is_mandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
-		$inputID = "input_$pfgFieldNum";
+		$inputID = "input_$wgPageFormsFieldNum";
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$className .= ' pfShowIfCheckedCheckbox';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				// We don't actually use "$options" for
 				// anything, because it's just a checkbox.
-				if ( array_key_exists( $inputID, $pfgShowOnSelect ) ) {
-					$pfgShowOnSelect[$inputID][] = $div_id;
+				if ( array_key_exists( $inputID, $wgPageFormsShowOnSelect ) ) {
+					$wgPageFormsShowOnSelect[$inputID][] = $div_id;
 				} else {
-					$pfgShowOnSelect[$inputID] = array( $div_id );
+					$wgPageFormsShowOnSelect[$inputID] = array( $div_id );
 				}
 			}
 		}
@@ -73,7 +73,7 @@ class PFCheckboxInput extends PFFormInput {
 		$checkboxAttrs = array(
 			'id' => $inputID,
 			'class' => $className,
-			'tabindex' => $pfgTabIndex
+			'tabindex' => $wgPageFormsTabIndex
 		);
 		if ( $is_disabled ) {
 			$checkboxAttrs['disabled'] = true;

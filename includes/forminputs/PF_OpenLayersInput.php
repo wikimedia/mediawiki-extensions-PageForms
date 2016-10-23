@@ -51,7 +51,7 @@ class PFOpenLayersInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum;
+		global $wgPageFormsFieldNum;
 		global $wgOut;
 
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
@@ -80,7 +80,7 @@ class PFOpenLayersInput extends PFFormInput {
 		//$addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ), null );
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
-		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'id' => 'pfMapCanvas' . $pfgFieldNum, 'style' => "height: $height; width: $width;" ), null );
+		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'id' => 'pfMapCanvas' . $wgPageFormsFieldNum, 'style' => "height: $height; width: $width;" ), null );
 
 		$fullInputHTML = <<<END
 <div style="padding-bottom: 10px;">

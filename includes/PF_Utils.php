@@ -121,7 +121,7 @@ class PFUtils {
 		$start_time,
 		$edit_time
 	) {
-		global $wgUser, $pfgScriptPath;
+		global $wgUser, $wgPageFormsScriptPath;
 
 		if ( $is_save ) {
 			$action = "wpSave";
@@ -132,7 +132,7 @@ class PFUtils {
 		}
 
 		$text = <<<END
-	<p style="position: absolute; left: 45%; top: 45%;"><img src="$pfgScriptPath/skins/loading.gif" /></p>
+	<p style="position: absolute; left: 45%; top: 45%;"><img src="$wgPageFormsScriptPath/skins/loading.gif" /></p>
 
 END;
 		$form_body = Html::hidden( 'wpTextbox1', $page_contents );

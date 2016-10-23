@@ -64,8 +64,8 @@ class PFHelperFormAction extends Action {
 		// forms, but not necessarily for templates and categories,
 		// since some of them might be outside of the SMW/PF system.
 		if ( in_array( $title->getNamespace(), array( NS_TEMPLATE, NS_CATEGORY ) ) ) {
-			global $pfgShowTabsForAllHelperForms;
-			if ( !$pfgShowTabsForAllHelperForms ) {
+			global $wgPageFormsShowTabsForAllHelperForms;
+			if ( !$wgPageFormsShowTabsForAllHelperForms ) {
 				return true;
 			}
 		}

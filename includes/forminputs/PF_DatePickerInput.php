@@ -161,7 +161,7 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	protected function setupJsInitAttribs() {
 
-		global $pfgDatePickerSettings, $wgExtensionAssetsPath;
+		global $wgPageFormsDatePickerSettings, $wgExtensionAssetsPath;
 		global $wgAmericanDates, $wgLang;
 
 		// store user class(es) for use with buttons
@@ -194,14 +194,14 @@ class PFDatePickerInput extends PFFormInput {
 					$jsattribs['dateFormat'] = $this->mOtherArgs['date format'];
 				}
 
-			} elseif ( $pfgDatePickerSettings["DateFormat"] ) {
+			} elseif ( $wgPageFormsDatePickerSettings["DateFormat"] ) {
 
-				if ( $pfgDatePickerSettings["DateFormat"] == 'SHORT' ) {
+				if ( $wgPageFormsDatePickerSettings["DateFormat"] == 'SHORT' ) {
 					$jsattribs['dateFormat'] = 'mm/dd/yy';
-				} elseif ( $pfgDatePickerSettings["DateFormat"] == 'LONG' ) {
+				} elseif ( $wgPageFormsDatePickerSettings["DateFormat"] == 'LONG' ) {
 					$jsattribs['dateFormat'] = 'MM d, yy';
 				} else {
-					$jsattribs['dateFormat'] = $pfgDatePickerSettings["DateFormat"];
+					$jsattribs['dateFormat'] = $wgPageFormsDatePickerSettings["DateFormat"];
 				}
 
 			} else $jsattribs['dateFormat'] = 'yy/mm/dd';
@@ -218,14 +218,14 @@ class PFDatePickerInput extends PFFormInput {
 					$jsattribs['dateFormat'] = $this->mOtherArgs['date format'];
 				}
 
-			} elseif ( $pfgDatePickerSettings["DateFormat"] ) {
+			} elseif ( $wgPageFormsDatePickerSettings["DateFormat"] ) {
 
-				if ( $pfgDatePickerSettings["DateFormat"] == 'SHORT' ) {
+				if ( $wgPageFormsDatePickerSettings["DateFormat"] == 'SHORT' ) {
 					$jsattribs['dateFormat'] = wfmessage( 'pf-datepicker-dateformatshort' )->text();
-				} elseif ( $pfgDatePickerSettings["DateFormat"] == 'LONG' ) {
+				} elseif ( $wgPageFormsDatePickerSettings["DateFormat"] == 'LONG' ) {
 					$jsattribs['dateFormat'] = wfMessage( 'pf-datepicker-dateformatlong' )->text();
 				} else {
-					$jsattribs['dateFormat'] = $pfgDatePickerSettings["DateFormat"];
+					$jsattribs['dateFormat'] = $wgPageFormsDatePickerSettings["DateFormat"];
 				}
 
 			} else $jsattribs['dateFormat'] = 'yy/mm/dd';
@@ -238,7 +238,7 @@ class PFDatePickerInput extends PFFormInput {
 			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButtonDisabled.gif';
 
 			if ( array_key_exists( 'show reset button', $this->mOtherArgs ) ||
-					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $pfgDatePickerSettings["ShowResetButton"] ) ) {
+					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["ShowResetButton"] ) ) {
 
 				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerResetButtonDisabled.gif';
 
@@ -249,7 +249,7 @@ class PFDatePickerInput extends PFFormInput {
 			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButton.gif';
 
 			if ( array_key_exists( 'show reset button', $this->mOtherArgs ) ||
-					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $pfgDatePickerSettings["ShowResetButton"] ) ) {
+					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["ShowResetButton"] ) ) {
 
 				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerResetButton.gif';
 
@@ -260,8 +260,8 @@ class PFDatePickerInput extends PFFormInput {
 			// set first date
 			if ( array_key_exists( 'first date', $this->mOtherArgs ) ) {
 				$minDate = date_create( $this->mOtherArgs['first date'] );
-			} elseif ( $pfgDatePickerSettings["FirstDate"] ) {
-				$minDate = date_create( $pfgDatePickerSettings["FirstDate"] );
+			} elseif ( $wgPageFormsDatePickerSettings["FirstDate"] ) {
+				$minDate = date_create( $wgPageFormsDatePickerSettings["FirstDate"] );
 			} else {
 				$minDate = null;
 			}
@@ -269,8 +269,8 @@ class PFDatePickerInput extends PFFormInput {
 			// set last date
 			if ( array_key_exists( 'last date', $this->mOtherArgs ) ) {
 				$maxDate = date_create( $this->mOtherArgs['last date'] );
-			} elseif ( $pfgDatePickerSettings["LastDate"] ) {
-				$maxDate = date_create( $pfgDatePickerSettings["LastDate"] );
+			} elseif ( $wgPageFormsDatePickerSettings["LastDate"] ) {
+				$maxDate = date_create( $wgPageFormsDatePickerSettings["LastDate"] );
 			} else {
 				$maxDate = null;
 			}
@@ -300,10 +300,10 @@ class PFDatePickerInput extends PFFormInput {
 					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $this->mOtherArgs['disable dates'] ) ) )
 				);
 
-			} elseif ( $pfgDatePickerSettings["DisabledDates"] ) {
+			} elseif ( $wgPageFormsDatePickerSettings["DisabledDates"] ) {
 
 				$disabledDates = self::sortAndMergeRanges(
-					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $pfgDatePickerSettings["DisabledDates"] ) ) )
+					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $wgPageFormsDatePickerSettings["DisabledDates"] ) ) )
 				);
 
 			}
@@ -340,8 +340,8 @@ class PFDatePickerInput extends PFFormInput {
 			// find highlighted dates
 			if ( array_key_exists( "highlight dates", $this->mOtherArgs ) ) {
 				$highlightedDates = self::sortAndMergeRanges ( self::createRangesArray( explode( ',' , $this->mOtherArgs["highlight dates"] ) ) ) ;
-			} elseif ( $pfgDatePickerSettings["HighlightedDates"] ) {
-				$highlightedDates = self::sortAndMergeRanges ( self::createRangesArray( explode( ',' , $pfgDatePickerSettings["HighlightedDates"]  ) ) ) ;
+			} elseif ( $wgPageFormsDatePickerSettings["HighlightedDates"] ) {
+				$highlightedDates = self::sortAndMergeRanges ( self::createRangesArray( explode( ',' , $wgPageFormsDatePickerSettings["HighlightedDates"]  ) ) ) ;
 			} else {
 				$highlightedDates = null;
 			}
@@ -351,7 +351,7 @@ class PFDatePickerInput extends PFFormInput {
 			if ( array_key_exists( "disable days of week", $this->mOtherArgs ) ) {
 				$disabledDaysString = $this->mOtherArgs['disable days of week'];
 			} else {
-				$disabledDaysString = $pfgDatePickerSettings["DisabledDaysOfWeek"];
+				$disabledDaysString = $wgPageFormsDatePickerSettings["DisabledDaysOfWeek"];
 			}
 
 			if ( $disabledDaysString != null ) {
@@ -374,7 +374,7 @@ class PFDatePickerInput extends PFFormInput {
 			if ( array_key_exists( "highlight days of week", $this->mOtherArgs ) ) {
 				$highlightedDaysString = $this->mOtherArgs['highlight days of week'];
 			} else {
-				$highlightedDaysString = $pfgDatePickerSettings["HighlightedDaysOfWeek"];
+				$highlightedDaysString = $wgPageFormsDatePickerSettings["HighlightedDaysOfWeek"];
 			}
 
 			if ( $highlightedDaysString != null ) {
@@ -396,15 +396,15 @@ class PFDatePickerInput extends PFFormInput {
 			// set first day of the week
 			if ( array_key_exists( 'week start', $this->mOtherArgs ) ) {
 				$jsattribs['firstDay'] = $this->mOtherArgs['week start'];
-			} elseif ( $pfgDatePickerSettings["WeekStart"] != null ) {
-				$jsattribs['firstDay'] = $pfgDatePickerSettings["WeekStart"];
+			} elseif ( $wgPageFormsDatePickerSettings["WeekStart"] != null ) {
+				$jsattribs['firstDay'] = $wgPageFormsDatePickerSettings["WeekStart"];
 			} else {
 				$jsattribs['firstDay'] = wfMessage( 'pf-datepicker-firstdayofweek' )->text();
 			}
 
 			// set show week number
 			if ( array_key_exists( 'show week numbers', $this->mOtherArgs )
-					|| ( !array_key_exists( 'hide week numbers', $this->mOtherArgs ) && $pfgDatePickerSettings["ShowWeekNumbers"] ) ) {
+					|| ( !array_key_exists( 'hide week numbers', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["ShowWeekNumbers"] ) ) {
 
 				$jsattribs['showWeek'] = true;
 			} else {
@@ -614,7 +614,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * TODO: Add missing parameters
 	 */
 	public static function getParameters() {
-		global $pfgDatePickerSettings;
+		global $wgPageFormsDatePickerSettings;
 
 		$params = parent::getParameters();
 		$params['date format'] = array(
@@ -657,18 +657,18 @@ class PFDatePickerInput extends PFFormInput {
 			'type' => 'string',
 			'description' => wfMessage( 'pf-datepicker-highlightdates' )->text()
 		);
-		$params[$pfgDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers'] = array(
-			'name' => $pfgDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers',
+		$params[$wgPageFormsDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers'] = array(
+			'name' => $wgPageFormsDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf-datepicker-showweeknumbers' )->text()
 		);
-		$params[$pfgDatePickerSettings["DisableInputField"]?'enable input field':'disable input field'] = array(
-			'name' => $pfgDatePickerSettings["DisableInputField"]?'enable input field':'disable input field',
+		$params[$wgPageFormsDatePickerSettings["DisableInputField"]?'enable input field':'disable input field'] = array(
+			'name' => $wgPageFormsDatePickerSettings["DisableInputField"]?'enable input field':'disable input field',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf-datepicker-enableinputfield' )->text()
 		);
-		$params[$pfgDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button'] = array(
-			'name' => $pfgDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button',
+		$params[$wgPageFormsDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button'] = array(
+			'name' => $wgPageFormsDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf-datepicker-showresetbutton' )->text()
 		);
@@ -685,12 +685,12 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	public function getHtmlText() {
 
-		global $pfgDatePickerSettings; // PF variables
+		global $wgPageFormsDatePickerSettings; // PF variables
 
 		// should the input field be disabled?
 		$inputFieldDisabled =
 			array_key_exists( 'disable input field', $this->mOtherArgs )
-			|| ( !array_key_exists( 'enable input field', $this->mOtherArgs ) && $pfgDatePickerSettings["DisableInputField"] )
+			|| ( !array_key_exists( 'enable input field', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["DisableInputField"] )
 			|| $this->mIsDisabled	;
 
 		// assemble HTML code
@@ -735,7 +735,7 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	private function textHTML ( $currentValue, $inputName, $isDisabled, $otherArgs, $inputId = null, $tabIndex = null, $class = '' ) {
 
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
 		// array of attributes to pass to the input field
 		$attribs = array(
@@ -777,7 +777,7 @@ class PFDatePickerInput extends PFFormInput {
 
 
 		if ( $tabIndex == null ) {
-			$attribs[ 'tabindex' ] = $pfgTabIndex;
+			$attribs[ 'tabindex' ] = $wgPageFormsTabIndex;
 		} else {
 			$attribs[ 'tabindex' ] = $tabIndex;
 		}

@@ -3,20 +3,20 @@
  *
  * @author Yaron Koren
  */
-/* global pfgGridParams, pfgGridValues */
+/* global wgPageFormsGridParams, wgPageFormsGridValues */
 
 ( function ( $, mw ) {
 
 	$( '.pfJSGrid' ).each( function() {
-		var pfgGridParams = mw.config.get( 'pfgGridParams' ),
-			pfgGridValues = mw.config.get( 'pfgGridValues' );
+		var wgPageFormsGridParams = mw.config.get( 'wgPageFormsGridParams' ),
+			wgPageFormsGridValues = mw.config.get( 'wgPageFormsGridValues' );
 		var $gridDiv = $( this );
 		var templateName = $gridDiv.attr( 'data-template-name' );
 		var gridHeight = $gridDiv.attr( 'height' );
 		if ( gridHeight === undefined ) { gridHeight = '400px'; }
 		// The slice() is necessary to do a clone, so that
-		// pfgGridParams does not get modified.
-		var templateParams = pfgGridParams[templateName].slice(0);
+		// wgPageFormsGridParams does not get modified.
+		var templateParams = wgPageFormsGridParams[templateName].slice(0);
 		templateParams.push( { type: 'control' } );
 
 		$gridDiv.jsGrid({
@@ -27,7 +27,7 @@
 			inserting: true,
 			confirmDeleting: false,
 
-			data: pfgGridValues[templateName],
+			data: wgPageFormsGridValues[templateName],
 			fields: templateParams,
 
 			onEditRowCreated: function( args ) {
@@ -99,7 +99,7 @@
 				}
 				var cellNum = 1;
 				$row.find( "td" ).each( function() {
-					var paramName = pfgGridParams[templateName][cellNum - 1].name;
+					var paramName = wgPageFormsGridParams[templateName][cellNum - 1].name;
 					var value = $( this ).html();
 					// If this isn't a checkbox, the value
 					// will be neither true not false - it
@@ -113,7 +113,7 @@
 					var inputName = templateName + '[' + rowNum + '][' + paramName + ']';
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', value ).appendTo( '#pfForm' );
 					cellNum++;
-					if ( cellNum > pfgGridParams[templateName].length ) {
+					if ( cellNum > wgPageFormsGridParams[templateName].length ) {
 						// Break.
 						return false;
 					}

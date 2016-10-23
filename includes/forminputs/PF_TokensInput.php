@@ -65,7 +65,7 @@ class PFTokensInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum, $pfgEDSettings;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsEDSettings;
 
 		$other_args['is_list'] = true;
 
@@ -77,13 +77,13 @@ class PFTokensInput extends PFFormInput {
 			} else {
 				$name = $input_name;
 			}
-			$pfgEDSettings[$name] = array();
+			$wgPageFormsEDSettings[$name] = array();
 			if ( $other_args['values from external data'] != null ) {
-				$pfgEDSettings[$name]['title'] = $other_args['values from external data'];
+				$wgPageFormsEDSettings[$name]['title'] = $other_args['values from external data'];
 			}
 			if ( array_key_exists( 'image', $other_args ) ) {
 				$image_param = $other_args['image'];
-				$pfgEDSettings[$name]['image'] = $image_param;
+				$wgPageFormsEDSettings[$name]['image'] = $image_param;
 				global $edgValues;
 				for ($i = 0; $i < count($edgValues[$image_param]); $i++) {
 					$image = $edgValues[$image_param][$i];
@@ -99,7 +99,7 @@ class PFTokensInput extends PFFormInput {
 				}
 			}
 			if ( array_key_exists( 'description', $other_args ) ) {
-				$pfgEDSettings[$name]['description'] = $other_args['description'];
+				$wgPageFormsEDSettings[$name]['description'] = $other_args['description'];
 			}
 		} else {
 			list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
@@ -114,7 +114,7 @@ class PFTokensInput extends PFFormInput {
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
-		$input_id = 'input_' . $pfgFieldNum;
+		$input_id = 'input_' . $wgPageFormsFieldNum;
 
 		if ( array_key_exists( 'size', $other_args ) ) {
 			$size = $other_args['size'];
@@ -126,7 +126,7 @@ class PFTokensInput extends PFFormInput {
 			'id' => $input_id,
 			'size' => $size,
 			'class' => $className,
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 		);
 		if ( array_key_exists( 'origName', $other_args ) ) {

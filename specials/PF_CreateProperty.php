@@ -31,23 +31,23 @@ class PFCreateProperty extends SpecialPage {
 		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
 		$text = wfMessage( 'pf_property_isproperty', $type_tag )->inContentLanguage()->text();
 		if ( $default_form !== '' ) {
-			global $pfgContLang;
-			$pf_prop_labels = $pfgContLang->getPropertyLabels();
+			global $wgPageFormsContLang;
+			$pf_prop_labels = $wgPageFormsContLang->getPropertyLabels();
 			$default_form_tag = "[[{$pf_prop_labels[PF_SP_HAS_DEFAULT_FORM]}::$default_form]]";
 			$text .= ' ' . wfMessage( 'pf_property_linkstoform', $default_form_tag )->inContentLanguage()->text();
 		}
 		if ( $allowed_values_str !== '' ) {
 			// replace the comma substitution character that has no chance of
 			// being included in the values list - namely, the ASCII beep
-			global $pfgListSeparator;
-			$allowed_values_str = str_replace( "\\$pfgListSeparator", "\a", $allowed_values_str );
-			$allowed_values_array = explode( $pfgListSeparator, $allowed_values_str );
+			global $wgPageFormsListSeparator;
+			$allowed_values_str = str_replace( "\\$wgPageFormsListSeparator", "\a", $allowed_values_str );
+			$allowed_values_array = explode( $wgPageFormsListSeparator, $allowed_values_str );
 			$text .= "\n\n" . wfMessage( 'pf_property_allowedvals' )
 				->numParams( count( $allowed_values_array ) )->inContentLanguage()->text();
 			foreach ( $allowed_values_array as $i => $value ) {
 				if ( $value == '' ) continue;
 				// replace beep back with comma, trim
-				$value = str_replace( "\a", $pfgListSeparator, trim( $value ) );
+				$value = str_replace( "\a", $wgPageFormsListSeparator, trim( $value ) );
 				$prop_labels = $smwgContLang->getPropertyLabels();
 				$text .= "\n* [[" . $prop_labels['_PVAL'] . "::$value]]";
 			}

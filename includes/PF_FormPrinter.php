@@ -60,7 +60,7 @@ class PFFormPrinter {
 		// Only add this if the Semantic Maps extension is not
 		// included.
 		if ( !defined( 'SM_VERSION' ) ) {
-			$this->registerInputType( 'PFGoogleMapsInput' );
+			$this->registerInputType( 'wgPageFormsoogleMapsInput' );
 		}
 		$this->registerInputType( 'PFOpenLayersInput' );
 
@@ -154,12 +154,12 @@ class PFFormPrinter {
 		//
 		// $initJSFunction = call_user_func( array( $inputTypeClass, 'getJsInitFunctionData' ) );
 		// if ( !is_null( $initJSFunction ) ) {
-		//		$pfgInitJSFunctions[] = $initJSFunction;
+		//		$wgPageFormsInitJSFunctions[] = $initJSFunction;
 		// }
 		//
 		// $validationJSFunctions = call_user_func( array( $inputTypeClass, 'getJsValidationFunctionData' ) );
 		// if ( count( $validationJSFunctions ) > 0 ) {
-		//		$pfgValidationJSFunctions = array_merge( $pfgValidationJSFunctions, $initJSFunction );
+		//		$wgPageFormsValidationJSFunctions = array_merge( $wgPageFormsValidationJSFunctions, $initJSFunction );
 		// }
 	}
 
@@ -355,7 +355,7 @@ END;
 	 * including the sections necessary for adding additional instances.
 	 */
 	function multipleTemplateEndHTML( $template_in_form, $form_is_disabled, $section ) {
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
 		$text = "\t\t" . Html::rawElement( 'div',
 			array(
@@ -366,7 +366,7 @@ END;
 		) . "\n";
 
 		$attributes = array(
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'class' => 'multipleTemplateAdder',
 		);
 		if ( $form_is_disabled ) {
@@ -384,7 +384,7 @@ END;
 	}
 
 	function tableHTML( $tif, $instanceNum ) {
-		global $pfgFieldNum;
+		global $wgPageFormsFieldNum;
 
 		$allGridValues = $tif->getGridValues();
 		if ( array_key_exists( $instanceNum, $allGridValues ) ) {
@@ -402,14 +402,14 @@ END;
 				$curValue = $gridValues[$fieldName];
 			}
 
-			$pfgFieldNum++;
+			$wgPageFormsFieldNum++;
 			if ( $formField->getLabel() !== null ) {
 				$labelText = $formField->getLabel();
 			} else {
 				$labelText = $fieldName . ': ';
 			}
 			$label = Html::element( 'label',
-				array( 'for' => "input_$pfgFieldNum" ),
+				array( 'for' => "input_$wgPageFormsFieldNum" ),
 				$labelText );
 
 			// If a 'tooltip' parameter was set, add a tooltip
@@ -438,8 +438,8 @@ END;
 	}
 
 	function spreadsheetHTML( $tif ) {
-		global $wgOut, $pfgGridValues, $pfgGridParams;
-		global $pfgScriptPath;
+		global $wgOut, $wgPageFormsGridValues, $wgPageFormsGridParams;
+		global $wgPageFormsScriptPath;
 
 		$wgOut->addModules( 'ext.pageforms.jsgrid' );
 
@@ -483,11 +483,11 @@ END;
 			$templateDivAttrs['height'] = $tif->getHeight();
 		}
 
-		$loadingImage = Html::element( 'img', array( 'src' => "$pfgScriptPath/skins/loading.gif" ) );
+		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
 		$text = Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
 
-		$pfgGridParams[$templateName] = $gridParams;
-		$pfgGridValues[$templateName] = $tif->getGridValues();
+		$wgPageFormsGridParams[$templateName] = $gridParams;
+		$wgPageFormsGridValues[$templateName] = $tif->getGridValues();
 
 		return $text;
 	}
@@ -497,7 +497,7 @@ END;
 	 * specified in the wiki.
 	 */
 	function getStringForCurrentTime( $includeTime, $includeTimezone ) {
-		global $wgLocaltimezone, $wgAmericanDates, $pfg24HourTime;
+		global $wgLocaltimezone, $wgAmericanDates, $wgPageForms24HourTime;
 
 		if ( isset( $wgLocaltimezone ) ) {
 			$serverTimezone = date_default_timezone_get();
@@ -521,14 +521,14 @@ END;
 			return $curTimeString;
 		}
 
-		if ( $pfg24HourTime ) {
+		if ( $wgPageForms24HourTime ) {
 			$hour = str_pad( intval( substr( date( "G", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 		} else {
 			$hour = str_pad( intval( substr( date( "g", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 		}
 		$minute = str_pad( intval( substr( date( "i", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 		$second = str_pad( intval( substr( date( "s", $cur_time ), 0, 2 ) ), 2, '0', STR_PAD_LEFT );
-		if ( $pfg24HourTime ) {
+		if ( $wgPageForms24HourTime ) {
 			$curTimeString .= " $hour:$minute:$second";
 		} else {
 			$ampm = date( "A", $cur_time );
@@ -655,13 +655,13 @@ END;
 		$is_embedded = false
 	) {
 		global $wgRequest, $wgUser, $wgParser;
-		global $pfgTabIndex; // used to represent the current tab index in the form
-		global $pfgFieldNum; // used for setting various HTML IDs
+		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
+		global $wgPageFormsFieldNum; // used for setting various HTML IDs
 
 		// Initialize some variables.
 		$wiki_page = new PFWikiPage();
-		$pfgTabIndex = 0;
-		$pfgFieldNum = 0;
+		$wgPageFormsTabIndex = 0;
+		$wgPageFormsFieldNum = 0;
 		$source_page_matches_this_form = false;
 		$form_page_title = null;
 		$generated_page_name = $page_name_formula;
@@ -967,8 +967,8 @@ END;
 						if ( $form_field->isHidden() ) {
 							$new_text = Html::hidden( 'pf_free_text', '!free_text!' );
 						} else {
-							$pfgTabIndex++;
-							$pfgFieldNum++;
+							$wgPageFormsTabIndex++;
+							$wgPageFormsFieldNum++;
 							if ( $cur_value === '' || is_null( $cur_value ) ) {
 								$default_value = '!free_text!';
 							} else {
@@ -1066,10 +1066,10 @@ END;
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
 						if ( ! $form_field->hasFieldArg( 'part_of_multiple' ) ) {
-							$pfgTabIndex++;
+							$wgPageFormsTabIndex++;
 						}
 						// increment the global field number regardless
-						$pfgFieldNum++;
+						$wgPageFormsFieldNum++;
 						// If the field is a date field, and its default value was set
 						// to 'now', and it has no current value, set $cur_value to be
 						// the current date.
@@ -1200,8 +1200,8 @@ END;
 				// for section processing
 				// =====================================================
 				} elseif ( $tag_title == 'section' ) {
-					$pfgFieldNum++;
-					$pfgTabIndex++;
+					$wgPageFormsFieldNum++;
+					$wgPageFormsTabIndex++;
 
 					$section_name = trim( $tag_components[1] );
 					$page_section_in_form = PFPageSection::newFromFormTag( $tag_components );
@@ -1323,8 +1323,8 @@ END;
 							// some non-static class that actually
 							// prints the form, instead of requiring
 							// a global variable.
-							global $pfgRunQueryFormAtTop;
-							$pfgRunQueryFormAtTop = true;
+							global $wgPageFormsRunQueryFormAtTop;
+							$wgPageFormsRunQueryFormAtTop = true;
 						}
 					}
 					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
@@ -1343,15 +1343,15 @@ END;
 				// know that we are doing a replace.
 				if ( $existing_page_content && strpos( $existing_page_content, '{{{insertionpoint}}}', 0 ) !== false ) {
 					$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}(\r?\n?)/',
-						preg_replace( '/\}\}/m', '}�',
-							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
+						preg_replace( '/\}\}/m', '}?',
+							preg_replace( '/\{\{/m', '?{', $template_text ) ) .
 						"{{{insertionpoint}}}",
 						$existing_page_content );
 				// Otherwise, if it's a partial form, we have to add the new
 				// text somewhere.
 				} elseif ( $partial_form_submitted ) {
-					$existing_page_content = preg_replace( '/\}\}/m', '}�',
-						preg_replace( '/\{\{/m', '�{', $template_text ) ) .
+					$existing_page_content = preg_replace( '/\}\}/m', '}?',
+						preg_replace( '/\{\{/m', '?{', $template_text ) ) .
 							"{{{insertionpoint}}}" . $existing_page_content;
 				}
 			}
@@ -1447,7 +1447,7 @@ END;
 				$free_text = $original_page_content;
 			} else {
 				$free_text = null;
-				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
+				$existing_page_content = preg_replace( array( '/?\{/m', '/\}?/m' ),
 					array( '{{', '}}' ),
 					$existing_page_content );
 				$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );

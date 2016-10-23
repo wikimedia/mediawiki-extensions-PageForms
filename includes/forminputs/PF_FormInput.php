@@ -330,7 +330,7 @@ abstract class PFFormInput {
 	 */
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 
-		global $pfgFieldNum, $wgParser;
+		global $wgPageFormsFieldNum, $wgParser;
 
 		// create an input of the called class
 		// TODO: get_called_class was introduced in PHP 5.3. The use of the
@@ -346,7 +346,7 @@ abstract class PFFormInput {
 			}
 		}
 
-		$input = new $calledClass ( $pfgFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
+		$input = new $calledClass ( $wgPageFormsFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
 
 		$output = $wgParser->getOutput();
 		$modules = $input->getResourceModuleNames();
@@ -359,7 +359,7 @@ abstract class PFFormInput {
 
 		if ( $input->getJsInitFunctionData() || $input->getJsValidationFunctionData() ) {
 
-			$input_id = $input_name == 'pf_free_text' ? 'pf_free_text' : "input_$pfgFieldNum";
+			$input_id = $input_name == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
 			$configVars = $output->getJsConfigVars();
 
 			$initFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.initFunctionData', $configVars, $input->getJsInitFunctionData(), $input_id );

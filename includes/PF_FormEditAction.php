@@ -1,4 +1,4 @@
-<?php
+	<?php
 /**
  * Handles the formedit action.
  *
@@ -62,12 +62,12 @@ class PFFormEditAction extends Action {
 		}
 
 		global $wgRequest;
-		global $pfgRenameEditTabs, $pfgRenameMainEditTab;
+		global $wgPageFormsRenameEditTabs, $wgPageFormsRenameMainEditTab;
 
 		$user_can_edit = $title->userCan( 'edit' );
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
-		if ( $pfgRenameEditTabs ) {
+		if ( $wgPageFormsRenameEditTabs ) {
 			$form_edit_tab_msg = $user_can_edit ? 'edit' : 'pf_viewform';
 			if ( array_key_exists( 'edit', $content_actions ) ) {
 				$msg = $user_can_edit ? 'pf_editsource' : 'viewsource';
@@ -80,8 +80,8 @@ class PFFormEditAction extends Action {
 				$form_edit_tab_msg = 'pf_viewform';
 			}
 			// Check for renaming of main edit tab only if
-			// $pfgRenameEditTabs is off.
-			if ( $pfgRenameMainEditTab ) {
+			// $wgPageFormsRenameEditTabs is off.
+			if ( $wgPageFormsRenameMainEditTab ) {
 				if ( array_key_exists( 'edit', $content_actions ) ) {
 					$msg = $user_can_edit ? 'pf_editsource' : 'viewsource';
 					$content_actions['edit']['text'] = wfMessage( $msg )->text();

@@ -70,7 +70,7 @@
 			for ( i = 0; i < errors.length; i += 1 ) {
 				if ( errors[i].level < 2 ) { // show errors and warnings
 					$( '#contentSub' )
-					.append( '<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'pfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + errors[i].message + '</div><br clear="both" />' );
+					.append( '<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + errors[i].message + '</div><br clear="both" />' );
 				}
 			}
 

@@ -56,8 +56,8 @@
 		} else if ( input_tagname === "INPUT" ) {
 			opts.data = this.getData( autocomplete_opts.autocompletesettings );
 		}
-		var pfgAutocompleteOnAllChars = mw.config.get( 'pfgAutocompleteOnAllChars' );
-		if ( !pfgAutocompleteOnAllChars ) {
+		var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
+		if ( !wgPageFormsAutocompleteOnAllChars ) {
 			opts.matcher = function( term, text ) {
 				var no_diac_text = pf.select2.base.prototype.removeDiacritics( text );
 				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
@@ -105,11 +105,11 @@
 		if ( dep_on === null ) {
 			if ( autocompletesettings === 'external data' ) {
 				var name = $(input_id).attr(this.nameAttr($(input_id)));
-				var pfgEDSettings = mw.config.get( 'pfgEDSettings' );
+				var wgPageFormsEDSettings = mw.config.get( 'wgPageFormsEDSettings' );
 				var edgValues = mw.config.get( 'edgValues' );
 				data = {};
-				if ( pfgEDSettings[name].title !== undefined && pfgEDSettings[name].title !== "" ) {
-					data.title = edgValues[pfgEDSettings[name].title];
+				if ( wgPageFormsEDSettings[name].title !== undefined && wgPageFormsEDSettings[name].title !== "" ) {
+					data.title = edgValues[wgPageFormsEDSettings[name].title];
 					i = 0;
 					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
@@ -119,8 +119,8 @@
 							i++;
 						});
 					}
-					if ( pfgEDSettings[name].image !== undefined && pfgEDSettings[name].image !== "" ) {
-						data.image = edgValues[pfgEDSettings[name].image];
+					if ( wgPageFormsEDSettings[name].image !== undefined && wgPageFormsEDSettings[name].image !== "" ) {
+						data.image = edgValues[wgPageFormsEDSettings[name].image];
 						i = 0;
 						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
@@ -129,8 +129,8 @@
 							});
 						}
 					}
-					if ( pfgEDSettings[name].description !== undefined && pfgEDSettings[name].description !== "" ) {
-						data.description = edgValues[pfgEDSettings[name].description];
+					if ( wgPageFormsEDSettings[name].description !== undefined && wgPageFormsEDSettings[name].description !== "" ) {
+						data.description = edgValues[wgPageFormsEDSettings[name].description];
 						i = 0;
 						if ( data.description !== undefined && data.description !== null ) {
 							data.description.forEach(function() {
@@ -142,8 +142,8 @@
 				}
 
 			} else {
-				var pfgAutocompleteValues = mw.config.get( 'pfgAutocompleteValues' );
-				data = pfgAutocompleteValues[autocompletesettings];
+				var wgPageFormsAutocompleteValues = mw.config.get( 'wgPageFormsAutocompleteValues' );
+				data = wgPageFormsAutocompleteValues[autocompletesettings];
 				//Convert data into the format accepted by Select2
 				if (data !== undefined && data !== null ) {
 					var index = 1;

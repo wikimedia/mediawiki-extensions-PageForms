@@ -10,7 +10,7 @@
  * @author Harold Solbrig
  * @author Eugene Mednikov
  */
-/*global pfgShowOnSelect, pfgFieldProperties, pfgCargoFields, pfgDependentFields, validateAll, alert, pf*/
+/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, pf*/
 
 // Activate autocomplete functionality for the specified field
 ( function ( $, mw ) {
@@ -80,9 +80,9 @@ $.fn.attachAutocomplete = function() {
 		/* extending jQuery functions */
 		$.extend( $.ui.autocomplete, {
 			filter: function(array, term) {
-				var pfgAutocompleteOnAllChars = mw.config.get( 'pfgAutocompleteOnAllChars' );
+				var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 				var matcher;
-				if ( pfgAutocompleteOnAllChars ) {
+				if ( wgPageFormsAutocompleteOnAllChars ) {
 					matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i" );
 				} else {
 					matcher = new RegExp("\\b" + $.ui.autocomplete.escapeRegex(term), "i" );
@@ -95,8 +95,8 @@ $.fn.attachAutocomplete = function() {
 
 		var values = $(this).data('autocompletevalues');
 		if ( !values ) {
-			var pfgAutocompleteValues = mw.config.get( 'pfgAutocompleteValues' );
-			values = pfgAutocompleteValues[field_string];
+			var wgPageFormsAutocompleteValues = mw.config.get( 'wgPageFormsAutocompleteValues' );
+			values = wgPageFormsAutocompleteValues[field_string];
 		}
 		var split = function (val) {
 			return val.split(delimiter);
@@ -119,7 +119,7 @@ $.fn.attachAutocomplete = function() {
 						// the "values" variable gets overwritten.
 						values = thisInput.data( 'autocompletevalues' );
 						if ( !values ) {
-							values = pfgAutocompleteValues[field_string];
+							values = wgPageFormsAutocompleteValues[field_string];
 						}
 						response($.ui.autocomplete.filter(values, extractLast(request.term)));
 					},
@@ -372,7 +372,7 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 	// Now re-show any form elements that are meant to be shown due
 	// to the current value of form inputs in this div that are now
 	// being uncovered.
-	var pfgShowOnSelect = mw.config.get( 'pfgShowOnSelect' );
+	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
 	elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
 		var uncoveredInput = $(this);
 		var uncoveredInputID = null;
@@ -381,7 +381,7 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 		} else {
 			uncoveredInputID = uncoveredInput.attr("data-origID");
 		}
-		var showOnSelectVals = pfgShowOnSelect[uncoveredInputID];
+		var showOnSelectVals = wgPageFormsShowOnSelect[uncoveredInputID];
 
 		if ( showOnSelectVals !== undefined ) {
 			var inputVal = uncoveredInput.val();
@@ -434,13 +434,13 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 
 	// Also, recursively hide further elements that are only shown because
 	// inputs within this now-hidden div were checked/selected.
-	var pfgShowOnSelect = mw.config.get( 'pfgShowOnSelect' );
+	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
 	elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
 		var showOnSelectVals;
 		if ( instanceWrapperDiv === null ) {
-			showOnSelectVals = pfgShowOnSelect[$(this).attr("id")];
+			showOnSelectVals = wgPageFormsShowOnSelect[$(this).attr("id")];
 		} else {
-			showOnSelectVals = pfgShowOnSelect[$(this).attr("data-origID")];
+			showOnSelectVals = wgPageFormsShowOnSelect[$(this).attr("data-origID")];
 		}
 
 		if ( showOnSelectVals !== undefined ) {
@@ -471,15 +471,15 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPa
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
 $.fn.showIfSelected = function(initPage) {
 	var inputVal = this.val(),
-		pfgShowOnSelect = mw.config.get( 'pfgShowOnSelect' ),
+		wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
 		instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 
 	if ( instanceWrapperDiv.length === 0 ) {
 		instanceWrapperDiv = null;
-		showOnSelectVals = pfgShowOnSelect[this.attr("id")];
+		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
 	} else {
-		showOnSelectVals = pfgShowOnSelect[this.attr("data-origID")];
+		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];
 	}
 
 	if ( showOnSelectVals !== undefined ) {
@@ -510,16 +510,16 @@ $.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initPage )
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
 $.fn.showIfChecked = function(initPage) {
-	var pfgShowOnSelect = mw.config.get( 'pfgShowOnSelect' ),
+	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
 		i;
 
 	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	if ( instanceWrapperDiv.length === 0 ) {
 		instanceWrapperDiv = null;
-		showOnSelectVals = pfgShowOnSelect[this.attr("id")];
+		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
 	} else {
-		showOnSelectVals = pfgShowOnSelect[this.attr("data-origID")];
+		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];
 	}
 
 	if ( showOnSelectVals !== undefined ) {
@@ -535,16 +535,16 @@ $.fn.showIfChecked = function(initPage) {
 
 // Used for handling 'show on select' for the 'checkbox' input.
 $.fn.showIfCheckedCheckbox = function( partOfMultiple, initPage ) {
-	var pfgShowOnSelect = mw.config.get( 'pfgShowOnSelect' ),
+	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		divIDs,
 		instanceWrapperDiv,
 		i;
 
 	if (partOfMultiple) {
-		divIDs = pfgShowOnSelect[this.attr("data-origID")];
+		divIDs = wgPageFormsShowOnSelect[this.attr("data-origID")];
 		instanceWrapperDiv = this.closest(".multipleTemplateInstance");
 	} else {
-		divIDs = pfgShowOnSelect[this.attr("id")];
+		divIDs = wgPageFormsShowOnSelect[this.attr("id")];
 		instanceWrapperDiv = null;
 	}
 
@@ -1032,7 +1032,7 @@ window.validateAll = function () {
 	if (num_errors > 0) {
 		// add error header, if it's not there already
 		if ($("#form_error_header").size() === 0) {
-			$("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'pfgScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'pf_formerrors_header' ).escaped() + '</div><br clear="both" />');
+			$("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'pf_formerrors_header' ).escaped() + '</div><br clear="both" />');
 		}
 		scroll(0, 0);
 	} else {
@@ -1059,7 +1059,7 @@ var num_elements = 0;
  * Functions for multiple-instance templates.
  */
 $.fn.addInstance = function( addAboveCurInstance ) {
-	var pfgShowOnSelect = mw.config.get( 'pfgShowOnSelect' );
+	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
 	var wrapper = this.closest(".multipleTemplateWrapper");
 	var multipleTemplateList = wrapper.find('.multipleTemplateList');
 
@@ -1118,10 +1118,10 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 
 				this.id = this.id.replace(/input_/g, 'input_' + num_elements + '_');
 
-				// TODO: Data in pfgShowOnSelect should probably be stored in
+				// TODO: Data in wgPageFormsShowOnSelect should probably be stored in
 				//  $("#pfForm").data('PageForms')
-				if ( pfgShowOnSelect[ old_id ] ) {
-					pfgShowOnSelect[ this.id ] = pfgShowOnSelect[ old_id ];
+				if ( wgPageFormsShowOnSelect[ old_id ] ) {
+					wgPageFormsShowOnSelect[ this.id ] = wgPageFormsShowOnSelect[ old_id ];
 				}
 
 				// register initialization and validation methods for new inputs
@@ -1226,22 +1226,22 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue ) {
 	// Get data from either Cargo or Semantic MediaWiki.
 	var myServer = mw.config.get( 'wgScriptPath' ) + "/api.php",
-		pfgCargoFields = mw.config.get( 'pfgCargoFields' ),
-		pfgFieldProperties = mw.config.get( 'pfgFieldProperties' );
+		wgPageFormsCargoFields = mw.config.get( 'wgPageFormsCargoFields' ),
+		wgPageFormsFieldProperties = mw.config.get( 'wgPageFormsFieldProperties' );
 	myServer += "?action=pfautocomplete&format=json";
-	if ( pfgCargoFields.hasOwnProperty( dependentField ) ) {
-		var cargoTableAndFieldStr = pfgCargoFields[dependentField];
+	if ( wgPageFormsCargoFields.hasOwnProperty( dependentField ) ) {
+		var cargoTableAndFieldStr = wgPageFormsCargoFields[dependentField];
 		var cargoTableAndField = cargoTableAndFieldStr.split('|');
 		var cargoTable = cargoTableAndField[0];
 		var cargoField = cargoTableAndField[1];
-		var baseCargoTableAndFieldStr = pfgCargoFields[baseField];
+		var baseCargoTableAndFieldStr = wgPageFormsCargoFields[baseField];
 		var baseCargoTableAndField = baseCargoTableAndFieldStr.split('|');
 		var baseCargoTable = baseCargoTableAndField[0];
 		var baseCargoField = baseCargoTableAndField[1];
 		myServer += "&cargo_table=" + cargoTable + "&cargo_field=" + cargoField + "&is_array=true" + "&base_cargo_table=" + baseCargoTable + "&base_cargo_field=" + baseCargoField + "&basevalue=" + baseValue;
 	} else {
-		var propName = pfgFieldProperties[dependentField];
-		var baseProp = pfgFieldProperties[baseField];
+		var propName = wgPageFormsFieldProperties[dependentField];
+		var baseProp = wgPageFormsFieldProperties[baseField];
 		myServer += "&property=" + propName + "&baseprop=" + baseProp + "&basevalue=" + baseValue;
 	}
 	var dependentValues = [];
@@ -1284,10 +1284,10 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 	var nameAttr = partOfMultiple ? 'origName' : 'name';
 	var name = $(this).attr(nameAttr);
-	var pfgDependentFields = mw.config.get( 'pfgDependentFields' );
+	var wgPageFormsDependentFields = mw.config.get( 'wgPageFormsDependentFields' );
 	var dependent_on_me = [];
-	for ( var i = 0; i < pfgDependentFields.length; i++ ) {
-		var dependentFieldPair = pfgDependentFields[i];
+	for ( var i = 0; i < wgPageFormsDependentFields.length; i++ ) {
+		var dependentFieldPair = wgPageFormsDependentFields[i];
 		if ( dependentFieldPair[0] === name ) {
 			dependent_on_me.push(dependentFieldPair[1]);
 		}

@@ -31,7 +31,7 @@ class PFRunQuery extends IncludableSpecialPage {
 	}
 
 	function printPage( $form_name, $embedded = false ) {
-		global $wgOut, $wgRequest, $pfgFormPrinter, $wgParser, $pfgRunQueryFormAtTop;
+		global $wgOut, $wgRequest, $wgPageFormsFormPrinter, $wgParser, $wgPageFormsRunQueryFormAtTop;
 		global $wgUser;
 
 		// Get contents of form-definition page.
@@ -65,7 +65,7 @@ class PFRunQuery extends IncludableSpecialPage {
 		}
 
 		list ( $form_text, $data_text, $form_page_title ) =
-			$pfgFormPrinter->formHTML( $form_definition, $form_submitted, false, $form_title->getArticleID(), $content, null, null, true, $embedded );
+			$wgPageFormsFormPrinter->formHTML( $form_definition, $form_submitted, false, $form_title->getArticleID(), $content, null, null, true, $embedded );
 		$text = "";
 
 		// Get the text of the results.
@@ -115,7 +115,7 @@ END;
 		// other way around, depending on the settings.
 		if ( $wgRequest->getVal( 'additionalquery' ) == 'false' ) {
 			$text .= $resultsText;
-		} elseif ( $pfgRunQueryFormAtTop ) {
+		} elseif ( $wgPageFormsRunQueryFormAtTop ) {
 			$text .= Html::openElement( 'div', array( 'class' => 'pf-runquery-formcontent' ) );
 			$text .= $fullFormText;
 			$text .= $dividerText;

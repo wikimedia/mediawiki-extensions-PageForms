@@ -266,8 +266,8 @@ class PFFormField {
 				} elseif ( $sub_components[0] == 'values from namespace' ) {
 					$f->mPossibleValues = PFValuesUtils::getAllPagesForNamespace( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values dependent on' ) {
-					global $pfgDependentFields;
-					$pfgDependentFields[] = array( $sub_components[1], $fullFieldName );
+					global $wgPageFormsDependentFields;
+					$wgPageFormsDependentFields[] = array( $sub_components[1], $fullFieldName );
 				} elseif ( $sub_components[0] == 'unique for category' ) {
 					$f->mFieldArgs['unique'] = true;
 					$f->mFieldArgs['unique_for_category'] = $sub_components[1];
@@ -375,8 +375,8 @@ class PFFormField {
 				$semantic_property = $f->template_field->getSemanticProperty();
 			}
 			if ( !is_null( $semantic_property ) ) {
-				global $pfgFieldProperties;
-				$pfgFieldProperties[$fullFieldName] = $semantic_property;
+				global $wgPageFormsFieldProperties;
+				$wgPageFormsFieldProperties[$fullFieldName] = $semantic_property;
 			}
 		}
 		if ( defined( 'CARGO_VERSION' ) ) {
@@ -385,8 +385,8 @@ class PFFormField {
 			}
 			$fullCargoField = $f->template_field->getFullCargoField();
 			if ( !is_null( $fullCargoField ) ) {
-				global $pfgCargoFields;
-				$pfgCargoFields[$fullFieldName] = $fullCargoField;
+				global $wgPageFormsCargoFields;
+				$wgPageFormsCargoFields[$fullFieldName] = $fullCargoField;
 			}
 		}
 
@@ -681,28 +681,28 @@ class PFFormField {
 		}
 
 		if ( $this->hasFieldArg( 'unique' ) ) {
-			global $pfgFieldNum;
+			global $wgPageFormsFieldNum;
 
 			$semantic_property = $this->template_field->getSemanticProperty();
 			if ( $semantic_property != null ) {
-				$text .= Html::hidden( 'input_' . $pfgFieldNum . '_unique_property', $semantic_property );
+				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_property', $semantic_property );
 			}
 			$fullCargoField = $this->template_field->getFullCargoField();
 			if ( $fullCargoField != null ) {
 				// It's inefficient to get these values via
 				// text parsing, but oh well.
 				list( $cargo_table, $cargo_field ) = explode( '|', $fullCargoField, 2 );
-				$text .= Html::hidden( 'input_' . $pfgFieldNum . '_unique_cargo_table', $cargo_table );
-				$text .= Html::hidden( 'input_' . $pfgFieldNum . '_unique_cargo_field', $cargo_field );
+				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_cargo_table', $cargo_table );
+				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_cargo_field', $cargo_field );
 			}
 			if ( $this->hasFieldArg( 'unique_for_category' ) ) {
-				$text .= Html::hidden( 'input_' . $pfgFieldNum . '_unique_for_category', $this->getFieldArg( 'unique_for_category' ) );
+				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_for_category', $this->getFieldArg( 'unique_for_category' ) );
 			}
 			if ( $this->hasFieldArg( 'unique_for_namespace' ) ) {
-				$text .= Html::hidden( 'input_' . $pfgFieldNum . '_unique_for_namespace', $this->getFieldArg( 'unique_for_namespace' ) );
+				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_for_namespace', $this->getFieldArg( 'unique_for_namespace' ) );
 			}
 			if ( $this->hasFieldArg( 'unique_for_concept' ) ) {
-				$text .= Html::hidden( 'input_' . $pfgFieldNum . '_unique_for_concept', $this->getFieldArg( 'unique_for_concept' ) );
+				$text .= Html::hidden( 'input_' . $wgPageFormsFieldNum . '_unique_for_concept', $this->getFieldArg( 'unique_for_concept' ) );
 			}
 		}
 		return $text;

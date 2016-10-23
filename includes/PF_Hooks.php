@@ -24,7 +24,7 @@ class PFHooks {
 			define( 'PF_NS_FORM_TALK', 107 );
 		}
 
-		$GLOBALS['pfgIP'] = dirname( __DIR__ ) . '/../';
+		$GLOBALS['wgPageFormsIP'] = dirname( __DIR__ ) . '/../';
 
 		// Constants for special properties
 		define( 'PF_SP_HAS_DEFAULT_FORM', 1 );
@@ -53,7 +53,7 @@ class PFHooks {
 		 * determine labels for additional namespaces. In contrast, messages
 		 * can be initialised much later, when they are actually needed.
 		 */
-		if ( !empty( $GLOBALS['pfgContLang'] ) ) {
+		if ( !empty( $GLOBALS['wgPageFormsContLang'] ) ) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ class PFHooks {
 			$cont_lang_class = 'PF_LanguageEn';
 		}
 
-		$GLOBALS['pfgContLang'] = new $cont_lang_class();
+		$GLOBALS['wgPageFormsContLang'] = new $cont_lang_class();
 
 		// Allow for popup windows for file upload
 		$GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
@@ -78,8 +78,8 @@ class PFHooks {
 	}
 
 	public static function initialize() {
-		$GLOBALS['pfgPartialPath'] = '/extensions/PageForms';
-		$GLOBALS['pfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['pfgPartialPath'];
+		$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
+		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
@@ -89,7 +89,7 @@ class PFHooks {
 		// This global variable is needed so that other
 		// extensions can hook into it to add their own
 		// input types.
-		$GLOBALS['pfgFormPrinter'] = new StubObject( 'pfgFormPrinter', 'PFFormPrinter' );
+		$GLOBALS['wgPageFormsFormPrinter'] = new StubObject( 'wgPageFormsFormPrinter', 'PFFormPrinter' );
 	}
 
 	/**
@@ -177,26 +177,26 @@ class PFHooks {
 	}
 
 	static function setGlobalJSVariables( &$vars ) {
-		global $pfgAutocompleteValues, $pfgAutocompleteOnAllChars;
-		global $pfgFieldProperties, $pfgCargoFields, $pfgDependentFields;
-		global $pfgGridValues, $pfgGridParams;
-		global $pfgShowOnSelect, $pfgScriptPath;
-		global $edgValues, $pfgEDSettings;
-		//global $pfgInitJSFunctions, $pfgValidationJSFunctions;
+		global $wgPageFormsAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
+		global $wgPageFormsFieldProperties, $wgPageFormsCargoFields, $wgPageFormsDependentFields;
+		global $wgPageFormsGridValues, $wgPageFormsGridParams;
+		global $wgPageFormsShowOnSelect, $wgPageFormsScriptPath;
+		global $edgValues, $wgPageFormsEDSettings;
+		//global $wgPageFormsInitJSFunctions, $wgPageFormsValidationJSFunctions;
 
-		$vars['pfgAutocompleteValues'] = $pfgAutocompleteValues;
-		$vars['pfgAutocompleteOnAllChars'] = $pfgAutocompleteOnAllChars;
-		$vars['pfgFieldProperties'] = $pfgFieldProperties;
-		$vars['pfgCargoFields'] = $pfgCargoFields;
-		$vars['pfgDependentFields'] = $pfgDependentFields;
-		$vars['pfgGridValues'] = $pfgGridValues;
-		$vars['pfgGridParams'] = $pfgGridParams;
-		$vars['pfgShowOnSelect'] = $pfgShowOnSelect;
-		$vars['pfgScriptPath'] = $pfgScriptPath;
+		$vars['wgPageFormsAutocompleteValues'] = $wgPageFormsAutocompleteValues;
+		$vars['wgPageFormsAutocompleteOnAllChars'] = $wgPageFormsAutocompleteOnAllChars;
+		$vars['wgPageFormsFieldProperties'] = $wgPageFormsFieldProperties;
+		$vars['wgPageFormsCargoFields'] = $wgPageFormsCargoFields;
+		$vars['wgPageFormsDependentFields'] = $wgPageFormsDependentFields;
+		$vars['wgPageFormsGridValues'] = $wgPageFormsGridValues;
+		$vars['wgPageFormsGridParams'] = $wgPageFormsGridParams;
+		$vars['wgPageFormsShowOnSelect'] = $wgPageFormsShowOnSelect;
+		$vars['wgPageFormsScriptPath'] = $wgPageFormsScriptPath;
 		$vars['edgValues'] = $edgValues;
-		$vars['pfgEDSettings'] = $pfgEDSettings;
-		//$vars['pfgInitJSFunctions'] = $pfgInitJSFunctions;
-		//$vars['pfgValidationJSFunctions'] = $pfgValidationJSFunctions;
+		$vars['wgPageFormsEDSettings'] = $wgPageFormsEDSettings;
+		//$vars['wgPageFormsInitJSFunctions'] = $wgPageFormsInitJSFunctions;
+		//$vars['wgPageFormsValidationJSFunctions'] = $wgPageFormsValidationJSFunctions;
 
 		return true;
 	}
@@ -214,12 +214,12 @@ class PFHooks {
 	 * language and, as a backup, in English.
 	 */
 	public static function initProperties() {
-		global $pfgContLang;
+		global $wgPageFormsContLang;
 
 		// For every special property, if it hasn't been translated
 		// into the wiki's current language, use the English-language
 		// value for both the main special property and the backup.
-		$pf_props = $pfgContLang->getPropertyLabels();
+		$pf_props = $wgPageFormsContLang->getPropertyLabels();
 		if ( array_key_exists( PF_SP_HAS_DEFAULT_FORM, $pf_props ) ) {
 			self::registerProperty( '_PF_DF', '__spf', $pf_props[PF_SP_HAS_DEFAULT_FORM] );
 		} else {
@@ -303,7 +303,7 @@ class PFHooks {
 	}
 
 	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {
-		global $wgOut, $wgParser, $pfgFormPrinter;
+		global $wgOut, $wgParser, $wgPageFormsFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
 
@@ -321,7 +321,7 @@ class PFHooks {
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
 		list ( $form_text, $data_text, $form_page_title, $generated_page_name ) =
-			$pfgFormPrinter->formHTML( $form_definition, null, false, null, null, "Semantic Forms form preview dummy title", null );
+			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Semantic Forms form preview dummy title", null );
 
 		$parserOutput = $wgParser->getOutput();
 		if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){

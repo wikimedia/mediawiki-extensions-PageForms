@@ -25,11 +25,11 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgGoogleMapsKey, $pfgTabIndex, $pfgFieldNum;
+		global $wgPageFormsGoogleMapsKey;
 		global $wgOut;
 
 		$scripts = array(
-			"https://maps.googleapis.com/maps/api/js?v=3.exp&key=$pfgGoogleMapsKey"
+			"https://maps.googleapis.com/maps/api/js?v=3.exp&key=$wgPageFormsGoogleMapsKey"
 		);
 		$scriptsHTML = '';
 		foreach ( $scripts as $script ) {

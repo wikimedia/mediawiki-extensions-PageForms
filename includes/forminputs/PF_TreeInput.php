@@ -150,9 +150,9 @@ class PFTreeInput extends PFFormInput {
 	}
 
 	private static function nodeToHTML( $node, $key_prefix, $input_name, $current_selection, $hidenode, $depth, $inputType, $index = 1 ) {
-		global $pfgTabIndex, $pfgFieldNum;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
-		$input_id = "input_$pfgFieldNum";
+		$input_id = "input_$wgPageFormsFieldNum";
 		// HTML IDs can't contain spaces.
 		$key_id = str_replace( ' ', '-', "$key_prefix-$index" );
 		$dataItems = array();
@@ -179,7 +179,7 @@ class PFTreeInput extends PFFormInput {
 				$inputName = $input_name;
 			}
 			$nodeAttribs = array(
-				'tabindex' => $pfgTabIndex,
+				'tabindex' => $wgPageFormsTabIndex,
 				'id' => "chb-$key_id",
 				'class' => 'hidden'
 			);

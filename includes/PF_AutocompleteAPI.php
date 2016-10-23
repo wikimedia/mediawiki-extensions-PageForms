@@ -146,13 +146,13 @@ class PFAutocompleteAPI extends ApiBase {
 	}
 
 	private static function getAllValuesForProperty( $property_name, $substring, $basePropertyName = null, $baseValue = null ) {
-		global $pfgMaxAutocompleteValues, $pfgCacheAutocompleteValues, $pfgAutocompleteCacheTimeout;
+		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
 		global $smwgDefaultStore;
 
 		$values = array();
 		$db = wfGetDB( DB_SLAVE );
 		$sqlOptions = array();
-		$sqlOptions['LIMIT'] = $pfgMaxAutocompleteValues;
+		$sqlOptions['LIMIT'] = $wgPageFormsMaxAutocompleteValues;
 
 		$property = SMWPropertyValue::makeUserProperty( $property_name );
 		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
@@ -160,7 +160,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$conditions = array( 'p_ids.smw_title' => $property_name );
 
 		// Use cache if allowed
-		if ( $pfgCacheAutocompleteValues ) {
+		if ( $wgPageFormsCacheAutocompleteValues ) {
 			$cache = PFFormUtils::getFormCache();
 			// Remove trailing whitespace to avoid unnecessary database selects
 			$cacheKeyString = $property_name . '::' . rtrim( $substring );
@@ -248,17 +248,17 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 		$db->freeResult( $res );
 
-		if ( $pfgCacheAutocompleteValues ) {
+		if ( $wgPageFormsCacheAutocompleteValues ) {
 			// Save to cache.
-			$cache->set( $cacheKey, $values, $pfgAutocompleteCacheTimeout );
+			$cache->set( $cacheKey, $values, $wgPageFormsAutocompleteCacheTimeout );
 		}
 
 		return $values;
 	}
 
 	private static function getAllValuesForCargoField( $cargoTable, $cargoField, $fieldIsArray, $substring, $baseCargoTable = null, $baseCargoField = null, $baseValue = null ) {
-		global $pfgMaxAutocompleteValues, $pfgCacheAutocompleteValues, $pfgAutocompleteCacheTimeout;
-		global $pfgAutocompleteOnAllChars;
+		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
+		global $wgPageFormsAutocompleteOnAllChars;
 
 		$values = array();
 		$tablesStr = $cargoTable;
@@ -267,7 +267,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$whereStr = '';
 
 		// Use cache if allowed
-		if ( $pfgCacheAutocompleteValues ) {
+		if ( $wgPageFormsCacheAutocompleteValues ) {
 			$cache = PFFormUtils::getFormCache();
 			// Remove trailing whitespace to avoid unnecessary database selects
 			$cacheKeyString = $cargoTable . '|' . $cargoField . '|' . rtrim( $substring );
@@ -296,7 +296,7 @@ class PFAutocompleteAPI extends ApiBase {
 				$whereStr .= " AND ";
 			}
 			$operator = ( $fieldIsArray ) ? "HOLDS LIKE" : "LIKE";
-			if ( $pfgAutocompleteOnAllChars ) {
+			if ( $wgPageFormsAutocompleteOnAllChars ) {
 				$whereStr .= "($cargoField $operator \"%$substring%\")";
 			} else {
 				$whereStr .= "($cargoField $operator \"$substring%\" OR $cargoField $operator \"% $substring%\")";
@@ -311,7 +311,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$cargoField,
 			$havingStr = null,
 			$cargoField,
-			$pfgMaxAutocompleteValues
+			$wgPageFormsMaxAutocompleteValues
 		);
 		$cargoFieldAlias = str_replace( '_', ' ', $cargoField );
 		$queryResults = $sqlQuery->run();
@@ -323,9 +323,9 @@ class PFAutocompleteAPI extends ApiBase {
 			}
 		}
 
-		if ( $pfgCacheAutocompleteValues ) {
+		if ( $wgPageFormsCacheAutocompleteValues ) {
 			// Save to cache.
-			$cache->set( $cacheKey, $values, $pfgAutocompleteCacheTimeout );
+			$cache->set( $cacheKey, $values, $wgPageFormsAutocompleteCacheTimeout );
 		}
 
 		return $values;

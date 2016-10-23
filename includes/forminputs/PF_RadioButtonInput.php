@@ -17,7 +17,7 @@ class PFRadioButtonInput extends PFEnumInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum, $pfgShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		// Standardize $cur_value
 		if ( is_null( $cur_value ) ) { $cur_value = ''; }
@@ -65,13 +65,13 @@ class PFRadioButtonInput extends PFEnumInput {
 		$itemAttrs = array( 'class' => $itemClass );
 
 		foreach ( $possible_values as $possible_value ) {
-			$pfgTabIndex++;
-			$pfgFieldNum++;
-			$input_id = "input_$pfgFieldNum";
+			$wgPageFormsTabIndex++;
+			$wgPageFormsFieldNum++;
+			$input_id = "input_$wgPageFormsFieldNum";
 
 			$radiobutton_attrs = array(
 				'id' => $input_id,
-				'tabindex' => $pfgTabIndex,
+				'tabindex' => $wgPageFormsTabIndex,
 			);
 			if ( array_key_exists( 'origName', $other_args ) ) {
 				$radiobutton_attrs['origname'] = $other_args['origName'];
@@ -114,16 +114,16 @@ class PFRadioButtonInput extends PFEnumInput {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
 
-		$spanID = "span_$pfgFieldNum";
+		$spanID = "span_$wgPageFormsFieldNum";
 
 		// Do the 'show on select' handling.
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$spanClass .= ' pfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
-				if ( array_key_exists( $spanID, $pfgShowOnSelect ) ) {
-					$pfgShowOnSelect[$spanID][] = array( $options, $div_id );
+				if ( array_key_exists( $spanID, $wgPageFormsShowOnSelect ) ) {
+					$wgPageFormsShowOnSelect[$spanID][] = array( $options, $div_id );
 				} else {
-					$pfgShowOnSelect[$spanID] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$spanID] = array( array( $options, $div_id ) );
 				}
 			}
 		}

@@ -83,14 +83,14 @@ class PFValuesUtils {
 	 * function PFAutocompleteAPI::getAllValuesForProperty() exists.
 	 */
 	public static function getAllValuesForProperty( $property_name ) {
-		global $pfgMaxAutocompleteValues;
+		global $wgPageFormsMaxAutocompleteValues;
 
 		$store = PFUtils::getSMWStore();
 		if ( $store == null ) {
 			return array();
 		}
 		$requestoptions = new SMWRequestOptions();
-		$requestoptions->limit = $pfgMaxAutocompleteValues;
+		$requestoptions->limit = $wgPageFormsMaxAutocompleteValues;
 		$values = self::getSMWPropertyValues( $store, null, $property_name, $requestoptions );
 		sort( $values );
 		return $values;
@@ -107,12 +107,12 @@ class PFValuesUtils {
 	 * Used with the Cargo extension
 	 */
 	public static function getValuesForCargoField( $tableName, $fieldName, $whereStr = null ) {
-		global $pfgMaxLocalAutocompleteValues;
+		global $wgPageFormsMaxLocalAutocompleteValues;
 
 		// The limit should be greater than the maximum number of local
 		// autocomplete values, so that form inputs also know whether
 		// to switch to remote autocompletion.
-		$limitStr = max( 100, $pfgMaxLocalAutocompleteValues + 1);
+		$limitStr = max( 100, $wgPageFormsMaxLocalAutocompleteValues + 1);
 
 		try {
 			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );
@@ -143,7 +143,7 @@ class PFValuesUtils {
 	 */
 	public static function getAllPagesForCategory( $top_category, $num_levels, $substring = null ) {
 		if ( 0 == $num_levels ) return $top_category;
-		global $pfgMaxAutocompleteValues;
+		global $wgPageFormsMaxAutocompleteValues;
 
 		$db = wfGetDB( DB_SLAVE );
 		$top_category = str_replace( ' ', '_', $top_category );
@@ -189,7 +189,7 @@ class PFValuesUtils {
 								$pages[] = $cur_value;
 							}
 							// return if we've reached the maximum number of allowed values
-							if ( count( $pages ) > $pfgMaxAutocompleteValues ) {
+							if ( count( $pages ) > $wgPageFormsMaxAutocompleteValues ) {
 								// Remove duplicates, and put in alphabetical order.
 								$pages = array_unique( $pages );
 								sort( $pages );
@@ -217,7 +217,7 @@ class PFValuesUtils {
 	}
 
 	public static function getAllPagesForConcept( $conceptName, $substring = null ) {
-		global $pfgMaxAutocompleteValues, $pfgAutocompleteOnAllChars;
+		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
 
 		$store = PFUtils::getSMWStore();
 		if ( $store == null ) {
@@ -240,7 +240,7 @@ class PFValuesUtils {
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
 		$query = new SMWQuery( $desc );
-		$query->setLimit( $pfgMaxAutocompleteValues );
+		$query->setLimit( $wgPageFormsMaxAutocompleteValues );
 		$query_result = $store->getQueryResult( $query );
 		$pages = array();
 		while ( $res = $query_result->getNext() ) {
@@ -253,7 +253,7 @@ class PFValuesUtils {
 				// original SMW query, but that doesn't seem
 				// possible yet.
 				$lowercasePageName = strtolower( $pageName );
-				if ( $pfgAutocompleteOnAllChars ) {
+				if ( $wgPageFormsAutocompleteOnAllChars ) {
 					if ( strpos( $lowercasePageName, $substring ) >= 0 ) {
 						$pages[] = $pageName;
 					}
@@ -366,14 +366,14 @@ class PFValuesUtils {
 	}
 
 	public static function getValuesFromExternalURL( $external_url_alias, $substring ) {
-		global $pfgAutocompletionURLs;
-		if ( empty( $pfgAutocompletionURLs ) ) {
+		global $wgPageFormsAutocompletionURLs;
+		if ( empty( $wgPageFormsAutocompletionURLs ) ) {
 			return "No external URLs are specified for autocompletion on this wiki";
 		}
-		if ( ! array_key_exists( $external_url_alias, $pfgAutocompletionURLs ) ) {
+		if ( ! array_key_exists( $external_url_alias, $wgPageFormsAutocompletionURLs ) ) {
 			return "Invalid external URL value";
 		}
-		$url = $pfgAutocompletionURLs[$external_url_alias];
+		$url = $wgPageFormsAutocompletionURLs[$external_url_alias];
 		if ( empty( $url ) ) {
 			return "Blank external URL value";
 		}
@@ -403,7 +403,7 @@ class PFValuesUtils {
 	* @author Yaron Koren
 	*/
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
-		global $wgDBtype, $pfgAutocompleteOnAllChars;
+		global $wgDBtype, $wgPageFormsAutocompleteOnAllChars;
 
 		// CONVERT() is also supported in PostgreSQL, but it doesn't
 		// seem to work the same way.
@@ -421,7 +421,7 @@ class PFValuesUtils {
 		$substring = str_replace( '_', '\_', $substring );
 		$substring = str_replace( '%', '\%', $substring );
 
-		if ( $pfgAutocompleteOnAllChars ) {
+		if ( $wgPageFormsAutocompleteOnAllChars ) {
 			return "$column_value LIKE '%$substring%'";
 		} else {
 			$spaceRepresentation = $replaceSpaces ? '\_' : ' ';

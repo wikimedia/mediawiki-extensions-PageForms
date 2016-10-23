@@ -78,9 +78,9 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			$autocompleteFieldType = 'external_url';
 			$autocompletionSource = $field_args['values from url'];
 		} elseif ( array_key_exists( 'values', $field_args ) ) {
-			global $pfgFieldNum;
+			global $wgPageFormsFieldNum;
 			$autocompleteFieldType = 'values';
-			$autocompletionSource = "values-$pfgFieldNum";
+			$autocompletionSource = "values-$wgPageFormsFieldNum";
 		} elseif ( array_key_exists( 'autocomplete field type', $field_args ) ) {
 			$autocompleteFieldType = $field_args['autocomplete field type'];
 			$autocompletionSource = $field_args['autocompletion source'];
@@ -109,7 +109,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 	}
 
 	public static function setAutocompleteValues( $field_args ) {
-		global $pfgAutocompleteValues, $pfgMaxLocalAutocompleteValues;
+		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
 
 		// Get all autocomplete-related values, plus delimiter value
 		// (it's needed also for the 'uploadable' link, if there is one).
@@ -143,18 +143,18 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			} else {
 				$autocompleteValues = PFValuesUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
 			}
-			if( count($autocompleteValues) > $pfgMaxLocalAutocompleteValues &&
+			if( count($autocompleteValues) > $wgPageFormsMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) && !array_key_exists( 'mapping template', $field_args ) ) {
 				$remoteDataType = $autocompleteFieldType;
 			} else {
-				$pfgAutocompleteValues[$autocompleteSettings] = $autocompleteValues;
+				$wgPageFormsAutocompleteValues[$autocompleteSettings] = $autocompleteValues;
 			}
 		}
 		return array( $autocompleteSettings, $remoteDataType, $delimiter );
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );
 
@@ -165,7 +165,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
-		$input_id = 'input_' . $pfgFieldNum;
+		$input_id = 'input_' . $wgPageFormsFieldNum;
 
 		if ( array_key_exists( 'size', $other_args ) ) {
 			$size = $other_args['size'];
@@ -179,7 +179,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			'id' => $input_id,
 			'size' => $size,
 			'class' => $className,
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 		);
 		if ( array_key_exists( 'origName', $other_args ) ) {

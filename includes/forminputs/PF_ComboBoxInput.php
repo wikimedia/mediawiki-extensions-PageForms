@@ -29,7 +29,7 @@ class PFComboBoxInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $pfgTabIndex, $pfgFieldNum, $pfgEDSettings;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsEDSettings;
 
 		$className = 'pfComboBox';
 		if ( $is_mandatory ) {
@@ -52,13 +52,13 @@ class PFComboBoxInput extends PFFormInput {
 			} else {
 				$name = $input_name;
 			}
-			$pfgEDSettings[$name] = array();
+			$wgPageFormsEDSettings[$name] = array();
 			if ( $other_args['values from external data'] != null ) {
-				$pfgEDSettings[$name]['title'] = $other_args['values from external data'];
+				$wgPageFormsEDSettings[$name]['title'] = $other_args['values from external data'];
 			}
 			if ( array_key_exists( 'image', $other_args ) ) {
 				$image_param = $other_args['image'];
-				$pfgEDSettings[$name]['image'] = $image_param;
+				$wgPageFormsEDSettings[$name]['image'] = $image_param;
 				global $edgValues;
 				for ($i = 0; $i < count($edgValues[$image_param]); $i++) {
 					$image = $edgValues[$image_param][$i];
@@ -74,7 +74,7 @@ class PFComboBoxInput extends PFFormInput {
 				}
 			}
 			if ( array_key_exists( 'description', $other_args ) ) {
-				$pfgEDSettings[$name]['description'] = $other_args['description'];
+				$wgPageFormsEDSettings[$name]['description'] = $other_args['description'];
 				if ( !array_key_exists( 'size', $other_args ) ) {
 					$size = '80';//Set larger default size if description is also there
 				}
@@ -85,10 +85,10 @@ class PFComboBoxInput extends PFFormInput {
 
 		$inputAttrs = array(
 			'type' => 'text',
-			'id' => "input_$pfgFieldNum",
+			'id' => "input_$wgPageFormsFieldNum",
 			'name' => $input_name,
 			'class' => $className,
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 			'value' => $cur_value,
 			'size' => $size,
@@ -122,7 +122,7 @@ class PFComboBoxInput extends PFFormInput {
 	}
 
 	public static function setAutocompleteValues( $field_args ) {
-		global $pfgAutocompleteValues, $pfgMaxLocalAutocompleteValues;
+		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
 
 		list( $autocompleteFieldType, $autocompletionSource ) =
 			PFTextWithAutocompleteInput::getAutocompletionTypeAndSource( $field_args );
@@ -141,11 +141,11 @@ class PFComboBoxInput extends PFFormInput {
 			} else {
 				$autocompleteValues = PFValuesUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
 			}
-			if ( count( $autocompleteValues ) > $pfgMaxLocalAutocompleteValues &&
+			if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' && !array_key_exists( 'values dependent on', $field_args ) && !array_key_exists( 'mapping template', $field_args ) ) {
 				$remoteDataType = $autocompleteFieldType;
 			} else {
-				$pfgAutocompleteValues[$autocompletionSource] = $autocompleteValues;
+				$wgPageFormsAutocompleteValues[$autocompletionSource] = $autocompleteValues;
 			}
 		}
 		$autocompletionSource = str_replace( "'", "\'", $autocompletionSource );

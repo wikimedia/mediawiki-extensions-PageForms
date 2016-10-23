@@ -810,11 +810,11 @@ class PFAutoeditAPI extends ApiBase {
 	 *
 	 * @global $wgRequest
 	 * @global $wgOut
-	 * @global PFFormPrinter $pfgFormPrinter
+	 * @global PFFormPrinter $wgPageFormsFormPrinter
 	 * @throws MWException
 	 */
 	public function doAction() {
-		global $wgOut, $wgParser, $wgRequest, $pfgFormPrinter;
+		global $wgOut, $wgParser, $wgRequest, $wgPageFormsFormPrinter;
 
 		// if the wiki is read-only, do not save
 		if ( wfReadOnly() ) {
@@ -919,7 +919,7 @@ class PFAutoeditAPI extends ApiBase {
 			// Call PFFormPrinter::formHTML() to get at the form
 			// HTML of the existing page.
 			list ( $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
-				$pfgFormPrinter->formHTML(
+				$wgPageFormsFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
 
@@ -952,7 +952,7 @@ class PFAutoeditAPI extends ApiBase {
 		// if we haven't called it already.
 		if ( $preloadContent == '' ) {
 			list ( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-				$pfgFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+				$wgPageFormsFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 		} else {
 			$generatedFormName = $form_page_title;
 		}
@@ -1264,8 +1264,8 @@ END;
 	 * @return string
 	 */
 	function getVersion() {
-		global $pfgIP;
-		$gitSha1 = SpecialVersion::getGitHeadSha1( $pfgIP );
+		global $wgPageFormsIP;
+		$gitSha1 = SpecialVersion::getGitHeadSha1( $wgPageFormsIP );
 		return __CLASS__ . '-' . PF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
 

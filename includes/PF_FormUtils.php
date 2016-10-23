@@ -37,7 +37,7 @@ class PFFormUtils {
 	}
 
 	static function summaryInputHTML( $is_disabled, $label = null, $attr = array(), $value = '' ) {
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
 		if ( $label == null ) {
 			$label = wfMessage( 'summary' )->text();
@@ -45,8 +45,8 @@ class PFFormUtils {
 		$text = Html::rawElement( 'span', array( 'id' => 'wpSummaryLabel' ),
 			Html::element( 'label', array( 'for' => 'wpSummary' ), $label ) );
 
-		$pfgTabIndex++;
-		$attr['tabindex'] = $pfgTabIndex;
+		$wgPageFormsTabIndex++;
+		$attr['tabindex'] = $wgPageFormsTabIndex;
 		$attr['type'] = 'text';
 		$attr['value'] = $value;
 		$attr['name'] = 'wpSummary';
@@ -62,9 +62,9 @@ class PFFormUtils {
 	}
 
 	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = array() ) {
-		global $pfgTabIndex, $wgUser, $wgParser;
+		global $wgPageFormsTabIndex, $wgUser, $wgParser;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		if ( !$form_submitted ) {
 			$is_checked = $wgUser->getOption( 'minordefault' );
 		}
@@ -77,7 +77,7 @@ class PFFormUtils {
 		$attrs += array(
 			'id' => 'wpMinoredit',
 			'accesskey' => wfMessage( 'accesskey-minoredit' )->text(),
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 		);
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
@@ -92,9 +92,9 @@ class PFFormUtils {
 	}
 
 	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
-		global $pfgTabIndex, $wgUser, $wgTitle, $wgParser;
+		global $wgPageFormsTabIndex, $wgUser, $wgTitle, $wgParser;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		// figure out if the checkbox should be checked -
 		// this code borrowed from /includes/EditPage.php
 		if ( !$form_submitted ) {
@@ -114,7 +114,7 @@ class PFFormUtils {
 		$attrs += array(
 			'id' => 'wpWatchthis',
 			'accesskey' => wfMessage( 'accesskey-watch' )->text(),
-			'tabindex' => $pfgTabIndex,
+			'tabindex' => $wgPageFormsTabIndex,
 		);
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
@@ -137,15 +137,15 @@ class PFFormUtils {
 	}
 
 	static function saveButtonHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'savearticle' )->text();
 		}
 		$temp = $attr + array(
 			'id'        => 'wpSave',
-			'tabindex'  => $pfgTabIndex,
+			'tabindex'  => $wgPageFormsTabIndex,
 			'accesskey' => wfMessage( 'accesskey-save' )->text(),
 			'title'     => wfMessage( 'tooltip-save' )->text(),
 		);
@@ -156,9 +156,9 @@ class PFFormUtils {
 	}
 
 	static function saveAndContinueButtonHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 
 		if ( $label == null ) {
 			$label = wfMessage( 'pf_formedit_saveandcontinueediting' )->text();
@@ -166,7 +166,7 @@ class PFFormUtils {
 
 		$temp = $attr + array(
 			'id'        => 'wpSaveAndContinue',
-			'tabindex'  => $pfgTabIndex,
+			'tabindex'  => $wgPageFormsTabIndex,
 			'disabled'  => true,
 			'accesskey' => wfMessage( 'pf_formedit_accesskey_saveandcontinueediting' )->text(),
 			'title'     => wfMessage( 'pf_formedit_tooltip_saveandcontinueediting' )->text(),
@@ -182,15 +182,15 @@ class PFFormUtils {
 	}
 
 	static function showPreviewButtonHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'showpreview' )->text();
 		}
 		$temp = $attr + array(
 			'id'        => 'wpPreview',
-			'tabindex'  => $pfgTabIndex,
+			'tabindex'  => $wgPageFormsTabIndex,
 			'accesskey' => wfMessage( 'accesskey-preview' )->text(),
 			'title'     => wfMessage( 'tooltip-preview' )->text(),
 		);
@@ -201,15 +201,15 @@ class PFFormUtils {
 	}
 
 	static function showChangesButtonHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'showdiff' )->text();
 		}
 		$temp = $attr + array(
 			'id'        => 'wpDiff',
-			'tabindex'  => $pfgTabIndex,
+			'tabindex'  => $wgPageFormsTabIndex,
 			'accesskey' => wfMessage( 'accesskey-diff' )->text(),
 			'title'     => wfMessage( 'tooltip-diff' )->text(),
 		);
@@ -246,16 +246,16 @@ class PFFormUtils {
 
 	static function runQueryButtonHTML( $is_disabled = false, $label = null, $attr = array() ) {
 		// is_disabled is currently ignored
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'runquery' )->text();
 		}
 		return self::buttonHTML( 'wpRunQuery', $label, 'submit',
 			$attr + array(
 			'id'        => 'wpRunQuery',
-			'tabindex'  => $pfgTabIndex,
+			'tabindex'  => $wgPageFormsTabIndex,
 			'title'     => $label,
 		) );
 	}
@@ -430,10 +430,10 @@ END;
 	 * Get a form definition from cache
 	 */
 	protected static function getFormDefinitionFromCache( $form_id, Parser $parser ) {
-		global $pfgCacheFormDefinitions;
+		global $wgPageFormsCacheFormDefinitions;
 
 		// use cache if allowed
-		if ( !$pfgCacheFormDefinitions ) {
+		if ( !$wgPageFormsCacheFormDefinitions ) {
 			return null;
 		}
 
@@ -460,10 +460,10 @@ END;
 	 * Store a form definition in cache
 	 */
 	protected static function cacheFormDefinition( $form_id, $form_def, Parser $parser ) {
-		global $pfgCacheFormDefinitions;
+		global $wgPageFormsCacheFormDefinitions;
 
 		// Store in cache if requested
-		if ( !$pfgCacheFormDefinitions ) {
+		if ( !$wgPageFormsCacheFormDefinitions ) {
 			return;
 		}
 
@@ -532,8 +532,8 @@ END;
 	 *  Get the cache object used by the form cache
 	 */
 	public static function getFormCache() {
-		global $pfgFormCacheType, $wgParserCacheType;
-		$ret = wfGetCache( ( $pfgFormCacheType !== null ) ? $pfgFormCacheType : $wgParserCacheType  );
+		global $wgPageFormsFormCacheType, $wgParserCacheType;
+		$ret = wfGetCache( ( $wgPageFormsFormCacheType !== null ) ? $wgPageFormsFormCacheType : $wgParserCacheType  );
 		return $ret;
 	}
 
@@ -559,9 +559,9 @@ END;
 	 */
 	static function headerHTML( $header_name , $header_level = 2 ) {
 
-		global $pfgTabIndex;
+		global $wgPageFormsTabIndex;
 
-		$pfgTabIndex++;
+		$wgPageFormsTabIndex++;
 		$text = "";
 
 		if ( !is_numeric( $header_level ) ) {

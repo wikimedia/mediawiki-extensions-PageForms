@@ -1,4 +1,4 @@
-T<?php
+f<?php
 
 /**
  * Note: When updating this file please also update extension.json with the same changes.
@@ -100,8 +100,8 @@ $GLOBALS['wgExtensionCredits']['specialpage'][] = array(
 # path to the base directory of your wiki). No final slash.
 # #
 $GLOBALS['wgExtensionFunctions'][] = function() {
-	$GLOBALS['pfgPartialPath'] = '/extensions/PageForms';
-	$GLOBALS['pfgScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['pfgPartialPath'];
+	$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
+	$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
 };
 # #
 
@@ -110,7 +110,7 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 # seen on your local filesystem. Used against some PHP file path
 # issues.
 # #
-$GLOBALS['pfgIP'] = dirname( __FILE__ );
+$GLOBALS['wgPageFormsIP'] = dirname( __FILE__ );
 # #
 
 
@@ -127,10 +127,10 @@ if ( defined( 'SMW_VERSION' ) ) {
 	$GLOBALS['wgExtensionFunctions'][] = function() {
 		// This global variable is needed so that other extensions can
 		// hook into it to add their own input types.
-		$GLOBALS['pfgFormPrinter'] = new StubObject( 'pfgFormPrinter', 'PFFormPrinter' );
+		$GLOBALS['wgPageFormsFormPrinter'] = new StubObject( 'wgPageFormsFormPrinter', 'PFFormPrinter' );
 	};
 } else {
-	$GLOBALS['pfgFormPrinter'] = new StubObject( 'pfgFormPrinter', 'PFFormPrinter' );
+	$GLOBALS['wgPageFormsFormPrinter'] = new StubObject( 'wgPageFormsFormPrinter', 'PFFormPrinter' );
 }
 
 $GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLink';
@@ -239,7 +239,7 @@ $GLOBALS['wgAutoloadClasses']['PFTree'] = __DIR__ . '/includes/forminputs/PF_Tre
 $GLOBALS['wgAutoloadClasses']['PFCategoryInput'] = __DIR__ . '/includes/forminputs/PF_CategoryInput.php';
 $GLOBALS['wgAutoloadClasses']['PFCategoriesInput'] = __DIR__ . '/includes/forminputs/PF_CategoriesInput.php';
 $GLOBALS['wgAutoloadClasses']['PFTokensInput'] = __DIR__ . '/includes/forminputs/PF_TokensInput.php';
-$GLOBALS['wgAutoloadClasses']['PFGoogleMapsInput'] = __DIR__ . '/includes/forminputs/PF_GoogleMapsInput.php';
+$GLOBALS['wgAutoloadClasses']['wgPageFormsoogleMapsInput'] = __DIR__ . '/includes/forminputs/PF_GoogleMapsInput.php';
 $GLOBALS['wgAutoloadClasses']['PFOpenLayersInput'] = __DIR__ . '/includes/forminputs/PF_OpenLayersInput.php';
 $GLOBALS['wgAutoloadClasses']['PFRegExpInput'] = __DIR__ . '/includes/forminputs/PF_RegExpInput.php';
 
@@ -263,12 +263,12 @@ $GLOBALS['wgExtensionMessagePFiles']['PageFormsNS'] = __DIR__ . '/languages/PF_N
 $GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
 
 // Register client-side modules.
-$PFgResourceTemplate = array(
+$wgPageFormsResourceTemplate = array(
 	'localBasePath' => __DIR__,
 	'remoteExtPath' => 'PageForms'
 );
 $GLOBALS['wgResourceModules'] += array(
-	'ext.pageforms.main' => $PFgResourceTemplate + array(
+	'ext.pageforms.main' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PageForms.js',
 			'libs/PF_preview.js'
@@ -301,15 +301,15 @@ $GLOBALS['wgResourceModules'] += array(
 			'PF_pipe_error',
 		),
 	),
-	'ext.pageforms.browser' => $PFgResourceTemplate + array(
+	'ext.pageforms.browser' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/jquery.browser.js',
 	),
-	'ext.pageforms.fancybox' => $PFgResourceTemplate + array(
+	'ext.pageforms.fancybox' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/jquery.fancybox.js',
 		'styles' => 'skins/jquery.fancybox.css',
 		'dependencies' => array( 'ext.pageforms.browser' ),
 	),
-	'ext.pageforms.dynatree' => $PFgResourceTemplate + array(
+	'ext.pageforms.dynatree' => $wgPageFormsResourceTemplate + array(
 		'dependencies' => array( 'jquery.ui.widget' ),
 		'scripts' => array(
 			'libs/jquery.dynatree.js',
@@ -317,15 +317,15 @@ $GLOBALS['wgResourceModules'] += array(
 		),
 		'styles' => 'skins/ui.dynatree.css',
 	),
-	'ext.pageforms.autogrow' => $PFgResourceTemplate + array(
+	'ext.pageforms.autogrow' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_autogrow.js',
 	),
-	'ext.pageforms.popupformedit' => $PFgResourceTemplate + array(
+	'ext.pageforms.popupformedit' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_popupform.js',
 		'styles' => 'skins/PF_popupform.css',
 		'dependencies' => array( 'ext.pageforms.browser' ),
 	),
-	'ext.pageforms.autoedit' => $PFgResourceTemplate + array(
+	'ext.pageforms.autoedit' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_autoedit.js',
 		'styles' => 'skins/PF_autoedit.css',
 		'messages' => array(
@@ -333,7 +333,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf_autoedit_anoneditwarning',
 		),
 	),
-	'ext.pageforms.submit' => $PFgResourceTemplate + array(
+	'ext.pageforms.submit' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_submit.js',
 		'styles' => 'skins/PF_submit.css',
 		'messages' => array(
@@ -341,14 +341,14 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf_formedit_saveandcontinueediting',
 		),
 	),
-	'ext.pageforms.collapsible' => $PFgResourceTemplate + array(
+	'ext.pageforms.collapsible' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_collapsible.js',
 		'styles' => 'skins/PF_collapsible.css',
 	),
-	'ext.pageforms.imagepreview' => $PFgResourceTemplate + array(
+	'ext.pageforms.imagepreview' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_imagePreview.js',
 	),
-	'ext.pageforms.checkboxes' => $PFgResourceTemplate + array(
+	'ext.pageforms.checkboxes' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_checkboxes.js',
 		'styles' => 'skins/PF_checkboxes.css',
 		'messages' => array(
@@ -356,7 +356,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf_forminputs_checkboxes_select_none',
 		),
 	),
-	'ext.pageforms.datepicker' => $PFgResourceTemplate + array(
+	'ext.pageforms.datepicker' => $wgPageFormsResourceTemplate + array(
 		'scripts'      => 'libs/PF_datepicker.js',
 		'dependencies' => array(
 			'jquery.ui.datepicker',
@@ -364,13 +364,13 @@ $GLOBALS['wgResourceModules'] += array(
 		),
 		'position' => 'bottom', // MW 1.26
 	),
-	'ext.pageforms.regexp' => $PFgResourceTemplate + array(
+	'ext.pageforms.regexp' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_regexp.js',
 		'dependencies' => array(
 			'ext.pageforms.main'
 		),
 	),
-	'ext.pageforms.select2' => $PFgResourceTemplate + array(
+	'ext.pageforms.select2' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/select2.js',
 			'libs/ext.pf.select2.base.js',
@@ -393,7 +393,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf-select2-selection-too-big',
 		),
 	),
-	'ext.pageforms.jsgrid' => $PFgResourceTemplate + array(
+	'ext.pageforms.jsgrid' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/jsgrid.js',
 			'libs/PF_jsGrid.js',
@@ -410,27 +410,27 @@ $GLOBALS['wgResourceModules'] += array(
 			'htmlform-no',
 		),
 	),
-	'ext.pageforms.balloon' => $PFgResourceTemplate + array(
+	'ext.pageforms.balloon' => $wgPageFormsResourceTemplate + array(
 		'styles' => array(
 			'skins/balloon.css',
 		),
 	),
-	'ext.pageforms' => $PFgResourceTemplate + array(
+	'ext.pageforms' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/ext.pf.js',
 		),
 	),
-	'ext.PageForms.pf_CreateProperty' => $PFgResourceTemplate + array(
+	'ext.PageForms.pf_CreateProperty' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/pf_CreateProperty.js',
 		),
 	),
-	'ext.pageforms.pf_PageSchemas' => $PFgResourceTemplate + array(
+	'ext.pageforms.pf_PageSchemas' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/pf_PageSchemas.js',
 		),
 	),
-	'ext.pageforms.pf_CreateTemplate' => $PFgResourceTemplate + array(
+	'ext.pageforms.pf_CreateTemplate' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/pf_CreateTemplate.js',
 		),
@@ -438,12 +438,12 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf_blank_error',
 		),
 	),
-	'ext.pageforms.pf_CreateClass' => $PFgResourceTemplate + array(
+	'ext.pageforms.pf_CreateClass' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/pf_CreateClass.js',
 		),
 	),
-	'ext.pageforms.pf_CreateForm' => $PFgResourceTemplate + array(
+	'ext.pageforms.pf_CreateForm' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/pf_CreateForm.js',
 		),
@@ -454,7 +454,7 @@ $GLOBALS['wgResourceModules'] += array(
 );
 
 // PHP fails to find relative includes at some level of inclusion:
-// $pathfix = $IP . $GLOBALS['PFgScriptPath;
+// $pathfix = $IP . $GLOBALS['wgPageFormsScriptPath;
 
 // Global functions
 
@@ -466,7 +466,7 @@ $GLOBALS['wgResourceModules'] += array(
  * can be initialised much later, when they are actually needed.
  */
 call_user_func( function ( $langcode ) {
-	if ( !empty( $GLOBALS['PFgContLang'] ) ) {
+	if ( !empty( $GLOBALS['wgPageFormsContLang'] ) ) {
 		return;
 	}
 
@@ -481,20 +481,20 @@ call_user_func( function ( $langcode ) {
 		$cont_lang_class = 'PF_LanguageEn';
 	}
 
-	$GLOBALS['PFgContLang'] = new $cont_lang_class();
+	$GLOBALS['wgPageFormsContLang'] = new $cont_lang_class();
 }, $GLOBALS['wgLanguageCode'] );
 
 # ##
 # The number of allowed values per autocomplete - too many might
 # slow down the database, and Javascript's completion.
 # ##
-$GLOBALS['pfgMaxAutocompleteValues'] = 1000;
+$GLOBALS['wgPageFormsMaxAutocompleteValues'] = 1000;
 
 # ##
 # The number of allowed values for local autocomplete - after which
 # it will switch to remote autocompletion.
 # ##
-$GLOBALS['pfgMaxLocalAutocompleteValues'] = 100;
+$GLOBALS['wgPageFormsMaxLocalAutocompleteValues'] = 100;
 
 # ##
 # Whether to autocomplete on all characters in a string, not just the
@@ -502,28 +502,28 @@ $GLOBALS['pfgMaxLocalAutocompleteValues'] = 100;
 # since the use of the '\b' regexp character to match on the beginnings
 # of words fails for them.
 # ##
-$GLOBALS['pfgAutocompleteOnAllChars'] = false;
+$GLOBALS['wgPageFormsAutocompleteOnAllChars'] = false;
 
 # ##
 # Used for caching of autocompletion values.
 # ##
-$GLOBALS['pfgCacheAutocompleteValues'] = false;
-$GLOBALS['pfgAutocompleteCacheTimeout'] = null;
+$GLOBALS['wgPageFormsCacheAutocompleteValues'] = false;
+$GLOBALS['wgPageFormsAutocompleteCacheTimeout'] = null;
 
 # ##
 # Global variables for handling the two edit tabs (for traditional editing
 # and for editing with a form):
-# $GLOBALS['PFgRenameEditTabs'] renames the edit-with-form tab to just "Edit", and
+# $GLOBALS['wgPageFormsRenameEditTabs'] renames the edit-with-form tab to just "Edit", and
 #   the traditional-editing tab, if it is visible, to "Edit source", in
 #   whatever language is being used.
-# $GLOBALS['PFgRenameMainEditTab'] renames only the traditional editing tab, to
+# $GLOBALS['wgPageFormsRenameMainEditTab'] renames only the traditional editing tab, to
 #   "Edit source".
 # The wgGroupPermissions 'viewedittab' setting dictates which types of
 # visitors will see the "Edit" tab, for pages that are editable by form -
 # by default all will see it.
 # ##
-$GLOBALS['pfgRenameEditTabs'] = false;
-$GLOBALS['pfgRenameMainEditTab'] = false;
+$GLOBALS['wgPageFormsRenameEditTabs'] = false;
+$GLOBALS['wgPageFormsRenameMainEditTab'] = false;
 $GLOBALS['wgGroupPermissions']['*']['viewedittab'] = true;
 $GLOBALS['wgAvailableRights'][] = 'viewedittab';
 
@@ -542,18 +542,18 @@ $GLOBALS['wgAvailableRights'][] = 'createclass';
 # ##
 # List separator character
 # ##
-$GLOBALS['pfgListSeparator'] = ",";
+$GLOBALS['wgPageFormsListSeparator'] = ",";
 
 # ##
 # Use 24-hour time format in forms, e.g. 15:30 instead of 3:30 PM
 # ##
-$GLOBALS['pfg24HourTime'] = false;
+$GLOBALS['wgPageForms24HourTime'] = false;
 
 # ##
 # Cache parsed form definitions in the page_props table, to improve loading
 # speed
 # ##
-$GLOBALS['pfgCacheFormDefinitions'] = false;
+$GLOBALS['wgPageFormsCacheFormDefinitions'] = false;
 
 /**
  * The cache type for storing form definitions. This cache is similar in
@@ -565,34 +565,34 @@ $GLOBALS['pfgCacheFormDefinitions'] = false;
  *
  * For available types see $wgMainCacheType.
  */
-$GLOBALS['pfgFormCacheType'] = null;
+$GLOBALS['wgPageFormsFormCacheType'] = null;
 
 # ##
 # Point all red links to "action=formedit", instead of "action=edit", so
 # that users can choose which form to use to create each new page.
 # ##
-$GLOBALS['pfgLinkAllRedLinksToForms'] = false;
+$GLOBALS['wgPageFormsLinkAllRedLinksToForms'] = false;
 
 # ##
 # When modifying red links to potentially point to a form to edit that page,
 # check only the properties pointing to that missing page from the page the
 # user is currently on, instead of from all pages in the wiki.
 # ##
-$GLOBALS['pfgRedLinksCheckOnlyLocalProps'] = false;
+$GLOBALS['wgPageFormsRedLinksCheckOnlyLocalProps'] = false;
 
 # ##
 # Show the "create with form" tab for uncreated templates and categories.
 # ##
-$GLOBALS['pfgShowTabPForAllHelperForms'] = true;
+$GLOBALS['wgPageFormsShowTabPForAllHelperForms'] = true;
 
 # ##
 # Displays the form above, instead of below, the results, in the
 # Special:RunQuery page.
 # (This is actually an undocumented variable, used by the code.)
 # ##
-$GLOBALS['pfgRunQueryFormAtTop'] = false;
+$GLOBALS['wgPageFormsRunQueryFormAtTop'] = false;
 
-$GLOBALS['pfgGoogleMapsKey'] = null;
+$GLOBALS['wgPageFormsGoogleMapsKey'] = null;
 
 // Include default settings for form inputs
 require_once 'includes/PF_DatePickerSettings.php';
@@ -600,20 +600,20 @@ require_once 'includes/PF_DatePickerSettings.php';
 # ##
 # Global variables for Javascript
 # ##
-$GLOBALS['pfgShowOnSelect'] = array();
-$GLOBALS['pfgAutocompleteValues'] = array();
-$GLOBALS['pfgGridValues'] = array();
-$GLOBALS['pfgGridParams'] = array();
+$GLOBALS['wgPageFormsShowOnSelect'] = array();
+$GLOBALS['wgPageFormsAutocompleteValues'] = array();
+$GLOBALS['wgPageFormsGridValues'] = array();
+$GLOBALS['wgPageFormsGridParams'] = array();
 // SMW
-$GLOBALS['pfgFieldProperties'] = array();
+$GLOBALS['wgPageFormsFieldProperties'] = array();
 // Cargo
-$GLOBALS['pfgCargoFields'] = array();
-$GLOBALS['pfgDependentFields'] = array();
+$GLOBALS['wgPageFormsCargoFields'] = array();
+$GLOBALS['wgPageFormsDependentFields'] = array();
 
 /**
  * Minimum number of values in a checkboxes field to show the 'Select all'/'Select none' switches
  */
-$GLOBALS['pfgCheckboxesSelectAllMinimum'] = 10;
+$GLOBALS['wgPageFormsCheckboxesSelectAllMinimum'] = 10;
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';

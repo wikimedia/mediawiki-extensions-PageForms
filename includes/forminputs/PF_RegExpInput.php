@@ -35,7 +35,7 @@ class PFRegExpInput extends PFFormInput {
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
 
-		global $pfgFormPrinter;
+		global $wgPageFormsFormPrinter;
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 
@@ -94,7 +94,7 @@ class PFRegExpInput extends PFFormInput {
 			unset( $this->mOtherArgs['base type'] );
 
 			// if unknown set default base input type
-			if ( !array_key_exists( $baseType, $pfgFormPrinter->mInputTypeClasses ) ) {
+			if ( !array_key_exists( $baseType, $wgPageFormsFormPrinter->mInputTypeClasses ) ) {
 				$baseType = 'text';
 			}
 		} else {
@@ -124,7 +124,7 @@ class PFRegExpInput extends PFFormInput {
 		}
 
 		// create base input
-		$this->mBaseInput = new $pfgFormPrinter->mInputTypeClasses[ $baseType ] (
+		$this->mBaseInput = new $wgPageFormsFormPrinter->mInputTypeClasses[ $baseType ] (
 				$this->mInputNumber, $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $newOtherArgs
 		);
 

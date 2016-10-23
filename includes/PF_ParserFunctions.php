@@ -311,14 +311,14 @@ class PFParserFunctions {
 			$inputID = 'input_' . $input_num;
 			$formInputAttrs['id'] = $inputID;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
-			global $pfgMaxLocalAutocompleteValues;
+			global $wgPageFormsMaxLocalAutocompleteValues;
 			$autocompletion_values = PFValuesUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletionType );
-			if ( count( $autocompletion_values ) > $pfgMaxLocalAutocompleteValues ) {
+			if ( count( $autocompletion_values ) > $wgPageFormsMaxLocalAutocompleteValues ) {
 				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 				$formInputAttrs['autocompletedatatype'] = $autocompletionType;
 			} else {
-				global $pfgAutocompleteValues;
-				$pfgAutocompleteValues[$inputID] = $autocompletion_values;
+				global $wgPageFormsAutocompleteValues;
+				$wgPageFormsAutocompleteValues[$inputID] = $autocompletion_values;
 				$formInputAttrs['autocompletesettings'] = $inputID;
 			}
 		}
