@@ -4,10 +4,10 @@
 			"Gazeb"
 		]
 	},
-	"sf_createproperty_proptype": "Тіп:",
+	"pf_createproperty_proptype": "Тіп:",
 	"templates": "Шаблоны",
-	"sf_createtemplate_deletefield": "Вымазати",
-	"sf_createform_add": "Придати",
+	"pf_createtemplate_deletefield": "Вымазати",
+	"pf_createform_add": "Придати",
 	"createcategory": "Створити катеґорію",
-	"sf_createcategory_name": "Мено катеґорії:"
+	"pf_createcategory_name": "Мено катеґорії:"
 }

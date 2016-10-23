@@ -5,17 +5,17 @@
 		]
 	},
 	"createproperty": "Eigesjap aanmake",
-	"sf_createproperty_propname": "Naam eigesjap:",
-	"sf_createproperty_proptype": "Type:",
+	"pf_createproperty_propname": "Naam eigesjap:",
+	"pf_createproperty_proptype": "Type:",
 	"templates": "Sjablone",
 	"createtemplate": "'n Sjabloon aanmake",
 	"forms": "Formelere",
 	"createform": "Formeleer aanmake",
 	"createcategory": "'n Categorie aanmake",
 	"formstart": "Pazjena toevoge",
-	"sf_formstart_createoredit": "Maak aan of bewirk",
+	"pf_formstart_createoredit": "Maak aan of bewirk",
 	"formedit": "Bewèrke mit dit formeleer",
-	"sf_formedit_createtitle": "Maak $1 aan: $2",
-	"sf_editsource": "Brón bewèrke",
-	"sf_formedit_edittitle": "$1 bewèrke: $2"
+	"pf_formedit_createtitle": "Maak $1 aan: $2",
+	"pf_editsource": "Brón bewèrke",
+	"pf_formedit_edittitle": "$1 bewèrke: $2"
 }

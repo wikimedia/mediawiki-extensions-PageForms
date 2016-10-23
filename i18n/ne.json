@@ -4,7 +4,7 @@
 			"Nirjal stha"
 		]
 	},
-	"sf-formedit-selectform": "यो पृष्ठ तयार गर्न फारम छान्नुहोसः",
-	"sf-formedit-donotuseform": "फारम विना पृष्ठ तयार गर्नुहोस् ।",
-	"sf_not_unique_error": "अनुपम हुनु पर्नेछ"
+	"pf-formedit-selectform": "यो पृष्ठ तयार गर्न फारम छान्नुहोसः",
+	"pf-formedit-donotuseform": "फारम विना पृष्ठ तयार गर्नुहोस् ।",
+	"pf_not_unique_error": "अनुपम हुनु पर्नेछ"
 }

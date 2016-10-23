@@ -5,9 +5,9 @@
 			"Bouron"
 		]
 	},
-	"sf_createproperty_proptype": "Тип:",
+	"pf_createproperty_proptype": "Тип:",
 	"templates": "Шаблонтæ",
-	"sf_createtemplate_deletefield": "Схафын",
-	"sf_createform_template": "Шаблон:",
-	"sf_formedit_none": "Нæй"
+	"pf_createtemplate_deletefield": "Схафын",
+	"pf_createform_template": "Шаблон:",
+	"pf_formedit_none": "Нæй"
 }

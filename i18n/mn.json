@@ -5,7 +5,7 @@
 			"Munkhzaya.E"
 		]
 	},
-	"sf_createform_add": "Нэмэх",
-	"sf_deletionlog": "Устгалын лог",
-	"sf-regexp-wrongformat": "Буруу формат"
+	"pf_createform_add": "Нэмэх",
+	"pf_deletionlog": "Устгалын лог",
+	"pf-regexp-wrongformat": "Буруу формат"
 }

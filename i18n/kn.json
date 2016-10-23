@@ -5,6 +5,6 @@
 		]
 	},
 	"templates": "ಟೆಂಪ್ಲೇಟು",
-	"sf_createtemplate_deletefield": "ಅಳಿಸು",
-	"sf_createform_add": "ಸೇರಿಸು"
+	"pf_createtemplate_deletefield": "ಅಳಿಸು",
+	"pf_createform_add": "ಸೇರಿಸು"
 }

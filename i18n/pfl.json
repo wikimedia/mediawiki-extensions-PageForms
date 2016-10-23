@@ -4,8 +4,8 @@
 			"Manuae"
 		]
 	},
-	"sf_createtemplate_deletefield": "Lesche",
-	"sf_createform_hidden": "Vaschdegld",
-	"sf-datepicker-prev": "Voriche",
-	"sf-datepicker-next": "Negschte"
+	"pf_createtemplate_deletefield": "Lesche",
+	"pf_createform_hidden": "Vaschdegld",
+	"pf-datepicker-prev": "Voriche",
+	"pf-datepicker-next": "Negschte"
 }

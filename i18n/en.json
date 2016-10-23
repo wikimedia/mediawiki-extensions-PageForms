@@ -21,7 +21,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "The Cargo table for a previous field in the form to check against",
 	"apihelp-pfautocomplete-param-base_cargo_field": "The Cargo field for a previous field in the form to check against",
 	"apihelp-pfautocomplete-param-basevalue": "The value to check for the previous property or field",
-	"apihelp-pfautoedit-description": "Create or edit a page using a form defined by the Semantic Forms extension.",
+	"apihelp-pfautoedit-description": "Create or edit a page using a form defined by the Page Forms extension.",
 	"apihelp-pfautoedit-param-form": "The Page Forms form to use",
 	"apihelp-pfautoedit-param-target": "The name of the page to be created or edited",
 	"apihelp-pfautoedit-param-query": "The query string",
