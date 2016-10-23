@@ -4,7 +4,8 @@
 			"An13sa",
 			"Kobazulo",
 			"Xabier Armendaritz",
-			"Subi"
+			"Subi",
+			"Sator"
 		]
 	},
 	"createproperty": "Propietatea sortu",
@@ -14,8 +15,11 @@
 	"createtemplate": "Txantiloia sortu",
 	"pf_createtemplate_namelabel": "Txantiloiaren izena:",
 	"pf_createtemplate_displaylabel": "Etiketa erakutsi:",
+	"pf_createtemplate_standardformat": "Taula",
 	"pf_createtemplate_deletefield": "Ezabatu",
 	"pf_createform_template": "Txantiloia:",
+	"pf_createform_field": "Eremua:",
+	"pf_createform_hidden": "Ezkutatuta",
 	"pf_createform_removetemplate": "Txantiloia kendu",
 	"pf_createform_addtemplate": "Txantiloia gehitu:",
 	"pf_createform_add": "Gehitu",

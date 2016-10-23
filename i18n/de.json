@@ -18,7 +18,7 @@
 		]
 	},
 	"pageforms-desc": "Ermöglicht Formulare zum Erstellen und Bearbeiten von Wikiseiten",
-	"specialpages-group-pf_group": "Semantische Formulare",
+	"specialpages-group-pf_group": "Seitenformulare",
 	"apihelp-pfautocomplete-description": "Von der Softwareerweiterung „Semantic Forms“ genutzte Autovervollständigung.",
 	"apihelp-pfautocomplete-param-limit": "Das Limit zur Anzahl der ermittelten Ergebnisse.",
 	"apihelp-pfautocomplete-param-substr": "Die Zeichenkette, die für die Autovervollständigung genutzt werden soll.",
