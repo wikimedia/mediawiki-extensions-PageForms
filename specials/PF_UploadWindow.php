@@ -51,7 +51,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	public $mCancelUpload;		// The user clicked "Cancel and return to upload form" button
 	public $mTokenOk;
 
-	/** used by Semantic Forms **/
+	/** used by Page Forms **/
 	public $mInputID;
 	public $mDelimiter;
 
@@ -363,7 +363,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			return $this->uploadError( $this->getOutput()->parse( $status->getWikiText() ) );
 
 		// $this->getOutput()->redirect( $this->mLocalFile->getTitle()->getFullURL() );
-		// Semantic Forms change - output Javascript to either
+		// Page Forms change - output Javascript to either
 		// fill in or append to the field in original form, and
 		// close the window
 		# Chop off any directories in the given filename

@@ -98,7 +98,7 @@ class PFTemplate {
 			// There was an error in the preg_match_all()
 			// call - let the user know about it.
 			if ( preg_last_error() == PREG_BACKTRACK_LIMIT_ERROR ) {
-				print 'Semantic Forms error: backtrace limit exceeded during parsing! Please increase the value of <a href="http://www.php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit">pcre.backtrack_limit</a> in php.ini or LocalSettings.php.';
+				print 'Page Forms error: backtrace limit exceeded during parsing! Please increase the value of <a href="http://www.php.net/manual/en/pcre.configuration.php#ini.pcre.backtrack-limit">pcre.backtrack_limit</a> in php.ini or LocalSettings.php.';
 			}
 		}
 

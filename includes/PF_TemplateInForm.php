@@ -333,7 +333,7 @@ class PFTemplateInForm {
 			// the "free text" field - which is bad, but it's harder for the code to detect
 			// the problem - though hopefully, easier for users.)
 			if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
-				throw new MWException( "SemanticFormsMismatchedBrackets" );
+				throw new MWException( "PageFormsMismatchedBrackets" );
 			}
 			$this->mFullTextInPage = substr( $existing_page_content, $start_char, $i - $start_char );
 		}

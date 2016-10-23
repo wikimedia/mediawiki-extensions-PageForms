@@ -12,7 +12,7 @@ class PFHooks {
 
 	public static function registerExtension() {
 		if ( defined( 'PF_VERSION' ) ) {
-			// Do not load Semantic Forms more than once.
+			// Do not load Page Forms more than once.
 			return 1;
 		}
 
@@ -296,7 +296,7 @@ class PFHooks {
 		if ( isset( $smw_docu_row ) ) {
 			$pf_name = wfMessage( 'specialpages-group-pf_group' )->text();
 			$pf_docu_label = wfMessage( 'adminlinks_documentation', $pf_name )->text();
-			$smw_docu_row->addItem( ALItem::newFromExternalLink( "http://www.mediawiki.org/wiki/Extension:Semantic_Forms", $pf_docu_label ) );
+			$smw_docu_row->addItem( ALItem::newFromExternalLink( "https://www.mediawiki.org/wiki/Extension:Page_Forms", $pf_docu_label ) );
 		}
 
 		return true;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Namespace internationalization for the Semantic Forms extension.
+ * Namespace internationalization for the Page Forms extension.
  *
  * @since 2.4.1
  *

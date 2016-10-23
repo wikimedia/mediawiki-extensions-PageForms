@@ -29,7 +29,7 @@ function runTestAutoLoader() {
 	if ( !$autoLoader instanceof \Composer\Autoload\ClassLoader ) {
 		// For now return true as long as PF is not compatible with Composer
 		// of course if it is installed via
-		// https://packagist.org/packages/mediawiki/semantic-forms
+		// https://packagist.org/packages/mediawiki/page-forms
 		// we have no problems
 		return true;
 	}

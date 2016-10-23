@@ -57,7 +57,7 @@ class PFUploadForm extends HTMLForm {
 			if ( !empty( $field['id'] ) )
 				$this->mSourceIds[] = $field['id'];
 		}
-		// added for Semantic Forms
+		// added for Page Forms
 		$this->addHiddenField( 'pfInputID', $options['pfInputID'] );
 		$this->addHiddenField( 'pfDelimiter', $options['pfDelimiter'] );
 

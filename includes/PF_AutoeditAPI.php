@@ -1234,7 +1234,7 @@ class PFAutoeditAPI extends ApiBase {
 	 */
 	function getDescription() {
 		return <<<END
-This module is used to remotely create or edit pages using Semantic Forms.
+This module is used to remotely create or edit pages using Page Forms.
 
 Add "template-name[field-name]=field-value" to the query string parameter, to set the value for a specific field.
 To set values for more than one field use "&", or rather its URL encoded version "%26": "template-name[field-name-1]=field-value-1%26template-name[field-name-2]=field-value-2".
