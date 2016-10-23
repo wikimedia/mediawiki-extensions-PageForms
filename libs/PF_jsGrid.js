@@ -1,5 +1,5 @@
 /**
- * Code to integrate the pfGrid JavaScript library into Semantic Forms.
+ * Code to integrate the pfGrid JavaScript library into Page Forms.
  *
  * @author Yaron Koren
  */

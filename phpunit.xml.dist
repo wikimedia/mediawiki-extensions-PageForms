@@ -14,7 +14,7 @@
          strict="true"
          verbose="true">
     <testsuites>
-        <testsuite name="extension-semantic-forms">
+        <testsuite name="extension-page-forms">
             <directory>tests/phpunit/includes</directory>
         </testsuite>
     </testsuites>

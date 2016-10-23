@@ -1,5 +1,5 @@
 /**
- * Handles dynamic Page Preview for Semantic Forms.
+ * Handles dynamic Page Preview for Page Forms.
  *
  * @author Stephan Gambke
  */

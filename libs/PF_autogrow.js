@@ -5,7 +5,7 @@
  * Plugin' by Jevin O. Sewaruth:
  * http://www.technoreply.com/autogrow-textarea-plugin/
  *
- * Some modifications were made for the code to better work with Semantic
+ * Some modifications were made for the code to better work with Page
  * Forms.
  *
  * @author Jevin O. Sewaruth
