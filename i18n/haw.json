@@ -6,9 +6,9 @@
 			"Kolonahe"
 		]
 	},
-	"sf_createproperty_propname": "Inoa ʻano:",
-	"sf_createform_inputtypedefault": "(paʻamau)",
-	"sf_createform_add": "Ho‘ohui",
-	"sf_createcategory_name": "Inoa mahele:",
-	"sf_formedit_remove": "Hoʻowehe i kēia hana"
+	"pf_createproperty_propname": "Inoa ʻano:",
+	"pf_createform_inputtypedefault": "(paʻamau)",
+	"pf_createform_add": "Ho‘ohui",
+	"pf_createcategory_name": "Inoa mahele:",
+	"pf_formedit_remove": "Hoʻowehe i kēia hana"
 }

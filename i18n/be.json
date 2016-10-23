@@ -4,7 +4,7 @@
 			"Тест"
 		]
 	},
-	"sf_createproperty_proptype": "Тып:",
+	"pf_createproperty_proptype": "Тып:",
 	"templates": "Шаблоны",
-	"sf_createform_template": "Шаблон:"
+	"pf_createform_template": "Шаблон:"
 }

@@ -6,17 +6,17 @@
 			"Robin0van0der0vliet"
 		]
 	},
-	"sf_createtemplate_standardformat": "Tabel",
-	"sf_createtemplate_deletefield": "Fuortsmite",
-	"sf_createform_inputtypedefault": "(standert)",
-	"sf_createform_add": "Tafoegje",
-	"sf_createclass_create": "Oanmeitsje",
-	"sf_formedit_createtitle": "$1 oanmeitsje: $2",
-	"sf_formedit_createtitlenotarget": "$1 oanmeitsje",
-	"sf_editsource": "Bewurkje boarne",
-	"sf_formedit_none": "Gjin",
-	"sf-datepicker-close": "Slute",
-	"sf-datepicker-prev": "Foarige",
-	"sf-datepicker-next": "Folgjende",
-	"sf-datepicker-today": "Hjoed"
+	"pf_createtemplate_standardformat": "Tabel",
+	"pf_createtemplate_deletefield": "Fuortsmite",
+	"pf_createform_inputtypedefault": "(standert)",
+	"pf_createform_add": "Tafoegje",
+	"pf_createclass_create": "Oanmeitsje",
+	"pf_formedit_createtitle": "$1 oanmeitsje: $2",
+	"pf_formedit_createtitlenotarget": "$1 oanmeitsje",
+	"pf_editsource": "Bewurkje boarne",
+	"pf_formedit_none": "Gjin",
+	"pf-datepicker-close": "Slute",
+	"pf-datepicker-prev": "Foarige",
+	"pf-datepicker-next": "Folgjende",
+	"pf-datepicker-today": "Hjoed"
 }

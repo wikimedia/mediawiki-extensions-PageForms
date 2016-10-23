@@ -5,12 +5,12 @@
 			"Willtron"
 		]
 	},
-	"sf_createproperty_propname": "Nombre d'a propiedat:",
+	"pf_createproperty_propname": "Nombre d'a propiedat:",
 	"templates": "Plantillas",
-	"sf_createtemplate_deletefield": "Borrar",
-	"sf_createform_template": "Plantilla:",
-	"sf_createcategory_name": "Nombre d'a categoría:",
-	"sf_formedit_createtitle": "Creyar $1: $2",
-	"sf_editsource": "Editar codigo",
-	"sf_bad_date_error": "ha d'estar una calendata conforme"
+	"pf_createtemplate_deletefield": "Borrar",
+	"pf_createform_template": "Plantilla:",
+	"pf_createcategory_name": "Nombre d'a categoría:",
+	"pf_formedit_createtitle": "Creyar $1: $2",
+	"pf_editsource": "Editar codigo",
+	"pf_bad_date_error": "ha d'estar una calendata conforme"
 }
