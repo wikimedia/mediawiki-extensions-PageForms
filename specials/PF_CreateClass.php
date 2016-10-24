@@ -113,16 +113,9 @@ class PFCreateClass extends SpecialPage {
 
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 		$edit_summary = '';
-		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
-			// MW 1.21+
-			$template_page = new WikiPage( $template_title );
-			$content = new WikitextContent( $full_text );
-			$template_page->doEditContent( $content, $edit_summary );
-		} else {
-			// MW <= 1.20
-			$template_article = new Article( $template_title );
-			$template_article->doEdit( $full_text, $edit_summary );
-		}
+		$template_page = new WikiPage( $template_title );
+		$content = new WikitextContent( $full_text );
+		$template_page->doEditContent( $content, $edit_summary );
 
 		// Create the form, and make a job for it.
 		if ( $form_name != '' ) {
@@ -150,12 +143,7 @@ class PFCreateClass extends SpecialPage {
 			$jobs[] = new PFCreatePageJob( $category_title, $params );
 		}
 
-		if ( class_exists( 'JobQueueGroup' ) ) {
-			JobQueueGroup::singleton()->push( $jobs );
-		} else {
-			// MW <= 1.20
-			Job::batchInsert( $jobs );
-		}
+		JobQueueGroup::singleton()->push( $jobs );
 
 		$out->addWikiMsg( 'pf_createclass_success' );
 	}

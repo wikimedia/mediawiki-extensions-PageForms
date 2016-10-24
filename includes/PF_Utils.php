@@ -57,20 +57,12 @@ class PFUtils {
 	 * Gets the text contents of a page with the passed-in Title object.
 	 */
 	public static function getPageText( $title ) {
-		if ( method_exists( 'WikiPage', 'getContent' ) ) {
-			// MW 1.21+
-			$wikiPage = new WikiPage( $title );
-			$content = $wikiPage->getContent();
-
-			if ( $content !== null ) {
-				return $content->getNativeData();
-			} else {
-				return null;
-			}
+		$wikiPage = new WikiPage( $title );
+		$content = $wikiPage->getContent();
+		if ( $content !== null ) {
+			return $content->getNativeData();
 		} else {
-			// MW <= 1.20
-			$article = new Article( $title );
-			return $article->getContent();
+			return null;
 		}
 	}
 

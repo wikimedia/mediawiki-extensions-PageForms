@@ -243,12 +243,7 @@ class PFFormLinker {
 		$job = new PFCreatePageJob( $title, $params );
 
 		$jobs = array( $job );
-		if ( class_exists( 'JobQueueGroup' ) ) {
-			JobQueueGroup::singleton()->push( $jobs );
-		} else {
-			// MW <= 1.20
-			Job::batchInsert( $jobs );
-		}
+		JobQueueGroup::singleton()->push( $jobs );
 	}
 
 	/**

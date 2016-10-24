@@ -708,12 +708,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$job = new PSCreatePageJob( $formTitle, $params );
 
 		$jobs = array( $job );
-		if ( class_exists( 'JobQueueGroup' ) ) {
-			JobQueueGroup::singleton()->push( $jobs );
-		} else {
-			// MW <= 1.20
-			Job::batchInsert( $jobs );
-		}
+		JobQueueGroup::singleton()->push( $jobs );
 	}
 
 	/**
@@ -833,12 +828,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			}
 		}
 
-		if ( class_exists( 'JobQueueGroup' ) ) {
-			JobQueueGroup::singleton()->push( $jobs );
-		} else {
-			// MW <= 1.20
-			Job::batchInsert( $jobs );
-		}
+		JobQueueGroup::singleton()->push( $jobs );
 
 		// Create form, if it's specified.
 		$formName = self::getFormName( $pageSchemaObj );
