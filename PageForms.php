@@ -239,7 +239,7 @@ $GLOBALS['wgAutoloadClasses']['PFTree'] = __DIR__ . '/includes/forminputs/PF_Tre
 $GLOBALS['wgAutoloadClasses']['PFCategoryInput'] = __DIR__ . '/includes/forminputs/PF_CategoryInput.php';
 $GLOBALS['wgAutoloadClasses']['PFCategoriesInput'] = __DIR__ . '/includes/forminputs/PF_CategoriesInput.php';
 $GLOBALS['wgAutoloadClasses']['PFTokensInput'] = __DIR__ . '/includes/forminputs/PF_TokensInput.php';
-$GLOBALS['wgAutoloadClasses']['wgPageFormsoogleMapsInput'] = __DIR__ . '/includes/forminputs/PF_GoogleMapsInput.php';
+$GLOBALS['wgAutoloadClasses']['PFGoogleMapsInput'] = __DIR__ . '/includes/forminputs/PF_GoogleMapsInput.php';
 $GLOBALS['wgAutoloadClasses']['PFOpenLayersInput'] = __DIR__ . '/includes/forminputs/PF_OpenLayersInput.php';
 $GLOBALS['wgAutoloadClasses']['PFRegExpInput'] = __DIR__ . '/includes/forminputs/PF_RegExpInput.php';
 

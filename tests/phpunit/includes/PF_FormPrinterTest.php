@@ -13,14 +13,14 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
 
-		global $pfgFormPrinter, $wgTitle, $wgParser, $wgOut;
+		global $wgPageFormsFormPrinter, $wgTitle, $wgParser, $wgOut;
 
 		$wgParser = $this->getParser();
 		$wgTitle = $this->getTitle();
 		$wgOut->getContext()->setTitle( $wgTitle );
 
 		list ( $form_text, $page_text, $form_page_title, $generated_page_name ) =
-			$pfgFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
+			$wgPageFormsFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
 
 		$this->assertContains(
 			$expected['expected_form_text'],
@@ -92,7 +92,7 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 			'expected_page_text' => "====section 4====" )
 		);
 
-	return $provider;
+		return $provider;
 	}
 
 	/**
@@ -123,8 +123,9 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	private function getParser() {
 
 		return new StubObject(
-		'wgParser', $GLOBALS['wgParserConf']['class'],
-		array( $GLOBALS['wgParserConf'] ) );
+			'wgParser', $GLOBALS['wgParserConf']['class'],
+			array( $GLOBALS['wgParserConf'] )
+		);
 	}
 
 }

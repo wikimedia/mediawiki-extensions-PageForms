@@ -32,8 +32,8 @@
 
 	"globals": {
 		"mediaWiki": false,
-		"semanticforms": false,
-		"sf": false,
+		"pageforms": false,
+		"pf": false,
 		"ext": false,
 		"google": true,
 		"OpenLayers": true

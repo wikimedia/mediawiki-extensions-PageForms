@@ -60,7 +60,7 @@ class PFFormPrinter {
 		// Only add this if the Semantic Maps extension is not
 		// included.
 		if ( !defined( 'SM_VERSION' ) ) {
-			$this->registerInputType( 'wgPageFormsoogleMapsInput' );
+			$this->registerInputType( 'PFGoogleMapsInput' );
 		}
 		$this->registerInputType( 'PFOpenLayersInput' );
 
