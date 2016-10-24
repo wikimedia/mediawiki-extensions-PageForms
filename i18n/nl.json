@@ -13,7 +13,8 @@
 			"Saruman",
 			"Sjoerddebruin",
 			"Esketti",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Ecthelion3"
 		]
 	},
 	"pageforms-desc": "Formulieren voor het toevoegen en bewerken van semantische gegevens",
@@ -140,7 +141,7 @@
 	"pf_formstart_createoredit": "Aanmaken of bewerken",
 	"formedit": "Bewerken met formulier",
 	"pf-formedit-selectform": "Selecteer een formulier voor het maken van deze pagina:",
-	"pf-formedit-donotuseform": "Pagina maken zonder een vorm.",
+	"pf-formedit-donotuseform": "Pagina aanmaken zonder een formulier.",
 	"pf_formedit_createtitle": "$1 aanmaken: $2",
 	"pf_formedit_createtitlenotarget": "$1 aanmaken",
 	"pf_formedit_badurl": "Op deze pagina kunt u bewerkingen uitvoeren met behulp van een formulier. Geef zowel een formuliernaam als een doelpagina op in de URL. Het hoort eruit te zien als \"Special:FormEdit?form=<formuliernaam>&target=<doelpagina>\" of  \"Special:FormEdit/<formuliernaam>/<doelpagina>\".",

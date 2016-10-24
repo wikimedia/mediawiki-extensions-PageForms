@@ -11,6 +11,9 @@
 	"pf_createproperty_proptype": "ধরন:",
 	"templates": "টেমপ্লেটসমূহ",
 	"pf_templates_docu": "উইকিটিতে নিচের টেমপ্লেটগুলো রয়েছে।",
+	"createtemplate": "একটি টেমপ্লেট তৈরি করুন",
+	"pf-createtemplate-with-name": "টেমপ্লেট তৈরি করুন: $1",
+	"pf_createtemplate_namelabel": "টেমপ্লেটের নাম:",
 	"pf_createtemplate_fieldname": "ফিল্ডের নাম:",
 	"pf_createtemplate_aggregationlabel": "তালিকার শিরোনাম:",
 	"pf_createtemplate_outputformat": "আউটপুটের বিন্যাস:",
@@ -21,9 +24,10 @@
 	"pf_createtemplate_deletefield": "অপসারণ",
 	"forms": "ফরম",
 	"pf_forms_docu": "উইকিটিতে নিচের ফর্মগুলো রয়েছে।",
+	"pf_forminputs_checkboxes_select_all": "সবগুলো নির্বাচন",
 	"createform": "ফর্ম তৈরি করুন",
 	"pf_createform_nameinput": "ফর্মের নাম",
-	"pf_createform_template": "টেম্পলেট:",
+	"pf_createform_template": "টেমপ্লেট:",
 	"pf_createform_field": "ফিল্ড:",
 	"pf_createform_hidden": "লুকায়িত",
 	"pf_createform_removetemplate": "টেমপ্লেট অপসারণ",
@@ -53,5 +57,5 @@
 	"pf-datepicker-prev": "পূর্ববর্তী",
 	"pf-datepicker-next": "পরবর্তী",
 	"pf-datepicker-today": "আজ",
-	"pf-regexp-wrongformat": "ভুল বিন্যাস"
+	"pf-regexp-wrongformat": "ভুল বিন্যাস।"
 }

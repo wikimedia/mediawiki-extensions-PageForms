@@ -201,7 +201,7 @@
 	"pf_autoedit_readonly": "An error message sent when the wiki is in read-only mode.\n\nParameters:\n* $1 - reason for locking the database",
 	"pf_autoedit_nosemanticform": "Unused at this time.\n\nAn error message sent when no suitable form could be found to edit the given target page.\n\nParameters:\n* $1 - page title\n* $2 - form name",
 	"pf_autoedit_summary": "Summary logged in the page history for revisions that were created using the autoedit parser function.\n\nParameters:\n* $1 - page title, with link",
-	"pf-autoedit-wait": "Message displayed while an automatic edit is being made.",
+	"pf-autoedit-wait": "Message displayed while an automatic edit is being made.\n{{Identical|Wait}}",
 	"runquery": "{{doc-special|RunQuery}}",
 	"pf_runquery_badurl": "Warning message when no form name is given",
 	"pf_runquery_title": "Used as page title. Parameters:\n* $1 - form title",
