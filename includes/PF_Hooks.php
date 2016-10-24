@@ -321,7 +321,7 @@ class PFHooks {
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
 		list ( $form_text, $data_text, $form_page_title, $generated_page_name ) =
-			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Semantic Forms form preview dummy title", null );
+			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
 
 		$parserOutput = $wgParser->getOutput();
 		if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){

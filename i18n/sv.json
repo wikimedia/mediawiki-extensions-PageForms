@@ -14,7 +14,7 @@
 			"Blazyb"
 		]
 	},
-	"semanticforms-desc": "Formulär för att lägga till och redigera semantisk data",
+	"pageforms-desc": "Formulär för att lägga till och redigera semantisk data",
 	"specialpages-group-pf_group": "Semantiska formulär",
 	"createproperty": "Skapa en egenskap",
 	"pf-createproperty-with-name": "Skapa egenskap: $1",

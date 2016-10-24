@@ -8,8 +8,8 @@
 			"Elisardojm"
 		]
 	},
-	"semanticforms-desc": "Formularios para crear e editar páxinas wiki",
-	"specialpages-group-sf_group": "Formularios semánticos",
+	"pageforms-desc": "Formularios para crear e editar páxinas wiki",
+	"specialpages-group-pf_group": "Formularios semánticos",
 	"apihelp-pfautocomplete-description": "Autoenchido usado pola extensión Semantic Forms (Formularios Semánticos).",
 	"apihelp-pfautocomplete-param-limit": "Un límite no número de resultados devoltos",
 	"apihelp-pfautocomplete-param-substr": "A subcadea sobre a que realizar o autoenchido",
