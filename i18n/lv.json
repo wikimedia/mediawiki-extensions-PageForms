@@ -6,7 +6,7 @@
 		]
 	},
 	"pageforms-desc": "Formas semantisko datu pievienošanai un rediģēšanai",
-	"specialpages-group-sf_group": "Semantiskās formas",
+	"specialpages-group-pf_group": "Semantiskās formas",
 	"createproperty": "Izveidot īpašību",
 	"pf_createproperty_linktoform": "Šī īpašība norādīs uz lapām, kas izmanto formu:",
 	"pf_createproperty_allowedvalsinput": "Ja jūs gribiet, lai šī īpašība saturētu tikai noteiktas vērtības, ievadiet ar komatu atdalītu atļauto vērtību sarakstu (ja vērtība satur komatu, tad aizvietojiet to ar \"\\,\"):",

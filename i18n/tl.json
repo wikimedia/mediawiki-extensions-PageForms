@@ -7,7 +7,7 @@
 		]
 	},
 	"pageforms-desc": "Mga pormularyo para sa paggawa ng mga dagdag at pagbabago sa dato hinggil sa kahulugan ng salita (semantiko)",
-	"specialpages-group-sf_group": "Mga Pormularyo ng Semantiko (hinggil sa kahulugan ng salita)",
+	"specialpages-group-pf_group": "Mga Pormularyo ng Semantiko (hinggil sa kahulugan ng salita)",
 	"createproperty": "Lumikha ng pag-aari",
 	"pf-createproperty-with-name": "Likhain ang ari-arian: $1",
 	"pf_createproperty_linktoform": "Ang pag-aaring ito ay kakawing patungo sa mga pahinang gumagamit ng pormularyong:",

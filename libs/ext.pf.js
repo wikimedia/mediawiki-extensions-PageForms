@@ -13,7 +13,7 @@ window.pf = ( function ( $, undefined ) {
 	'use strict';
 	/**
 	 *
-	 * Declares methods and properties that are available through the sf
+	 * Declares methods and properties that are available through the pf
 	 * namespace.
 	 *
 	 * @class pf

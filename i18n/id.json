@@ -10,7 +10,7 @@
 		]
 	},
 	"pageforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
-	"specialpages-group-sf_group": "Semantic Forms",
+	"specialpages-group-pf_group": "Semantic Forms",
 	"createproperty": "Buat properti",
 	"pf_createproperty_linktoform": "Properti ini akan tertaut ke halaman yang menggunakan formulir:",
 	"pf_createproperty_allowedvalsinput": "Jika Anda ingin properti ini hanya diizinkan untuk memiliki suatu nilai tertentu, masukkan daftar nilai yang diizinkan, dipisahkan dengan koma (jika suatu nilai mengandung koma, ganti dengan \"\\,\"):",
