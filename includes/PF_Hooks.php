@@ -20,13 +20,6 @@ class PFHooks {
 
 		$GLOBALS['wgPageFormsIP'] = dirname( __DIR__ ) . '/../';
 
-		// Constants for special properties
-		define( 'PF_SP_HAS_DEFAULT_FORM', 1 );
-		define( 'PF_SP_HAS_ALTERNATE_FORM', 2 );
-		define( 'PF_SP_CREATES_PAGES_WITH_FORM', 3 );
-		define( 'PF_SP_PAGE_HAS_DEFAULT_FORM', 4 );
-		define( 'PF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
-
 		/**
 		 * This is a delayed init that makes sure that MediaWiki is set
 		 * up properly before we add our stuff.
@@ -40,29 +33,6 @@ class PFHooks {
 			$GLOBALS['wgSpecialPages']['CreateProperty'] = 'PFCreateProperty';
 			$GLOBALS['wgAutoloadClasses']['PFCreateProperty'] = __DIR__ . '/../specials/PF_CreateProperty.php';
 		}
-
-		/**
-		 * Initialize a global language object for content language. This
-		 * must happen early on, even before user language is known, to
-		 * determine labels for additional namespaces. In contrast, messages
-		 * can be initialised much later, when they are actually needed.
-		 */
-		if ( !empty( $GLOBALS['wgPageFormsContLang'] ) ) {
-			return;
-		}
-
-		$cont_lang_class = 'PF_Language' . str_replace( '-', '_', ucfirst( $GLOBALS['wgLanguageCode'] ) );
-		if ( file_exists( __DIR__ . '/../languages/' . $cont_lang_class . '.php' ) ) {
-			include_once( __DIR__ . '/../languages/' . $cont_lang_class . '.php' );
-		}
-
-		// fallback if language not supported
-		if ( !class_exists( $cont_lang_class ) ) {
-			include_once( __DIR__ . '/../languages/PF_LanguageEn.php' );
-			$cont_lang_class = 'PF_LanguageEn';
-		}
-
-		$GLOBALS['wgPageFormsContLang'] = new $cont_lang_class();
 
 		// Allow for popup windows for file upload
 		$GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
@@ -201,54 +171,6 @@ class PFHooks {
 		} else {
 			SMWPropertyValue::registerProperty( $id, $typeid, $label, true );
 		}
-	}
-
-	/**
-	 * Register all the special properties, in both the wiki's
-	 * language and, as a backup, in English.
-	 */
-	public static function initProperties() {
-		global $wgPageFormsContLang;
-
-		// For every special property, if it hasn't been translated
-		// into the wiki's current language, use the English-language
-		// value for both the main special property and the backup.
-		$pf_props = $wgPageFormsContLang->getPropertyLabels();
-		if ( array_key_exists( PF_SP_HAS_DEFAULT_FORM, $pf_props ) ) {
-			self::registerProperty( '_PF_DF', '__spf', $pf_props[PF_SP_HAS_DEFAULT_FORM] );
-		} else {
-			self::registerProperty( '_PF_DF', '__spf', 'Has default form' );
-		}
-		if ( array_key_exists( PF_SP_HAS_ALTERNATE_FORM, $pf_props ) ) {
-			self::registerProperty( '_PF_AF', '__spf', $pf_props[PF_SP_HAS_ALTERNATE_FORM] );
-		} else {
-			self::registerProperty( '_PF_AF', '__spf', 'Has alternate form' );
-		}
-		if ( array_key_exists( PF_SP_CREATES_PAGES_WITH_FORM, $pf_props ) ) {
-			self::registerProperty( '_PF_CP', '__spf', $pf_props[PF_SP_CREATES_PAGES_WITH_FORM] );
-		} else {
-			self::registerProperty( '_PF_CP', '__spf', 'Creates pages with form' );
-		}
-		if ( array_key_exists( PF_SP_PAGE_HAS_DEFAULT_FORM, $pf_props ) ) {
-			self::registerProperty( '_PF_PDF', '__spf', $pf_props[PF_SP_PAGE_HAS_DEFAULT_FORM] );
-		} else {
-			self::registerProperty( '_PF_PDF', '__spf', 'Page has default form' );
-		}
-		if ( array_key_exists( PF_SP_HAS_FIELD_LABEL_FORMAT, $pf_props ) ) {
-			self::registerProperty( '_PF_FLF', '_str', $pf_props[PF_SP_HAS_FIELD_LABEL_FORMAT] );
-		} else {
-			self::registerProperty( '_PF_FLF', '_str', 'Has field label format' );
-		}
-
-		// Use hardcoded English values as a backup, in case it's a
-		// non-English-language wiki.
-		self::registerProperty( '_PF_DF_BACKUP', '__spf', 'Has default form' );
-		self::registerProperty( '_PF_AF_BACKUP', '__spf', 'Has alternate form' );
-		self::registerProperty( '_PF_CP_BACKUP', '__spf', 'Creates pages with form' );
-		self::registerProperty( '_PF_PDF_BACKUP', '__spf', 'Page has default form' );
-		self::registerProperty( '_PF_FLF_BACKUP', '_str', 'Has field label format' );
-
-		return true;
 	}
 
 	public static function addToAdminLinks( &$admin_links_tree ) {

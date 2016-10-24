@@ -25,17 +25,12 @@ class PFCreateProperty extends SpecialPage {
 		$this->printCreatePropertyForm( $query );
 	}
 
-	static function createPropertyText( $property_type, $default_form, $allowed_values_str ) {
+	static function createPropertyText( $property_type, $allowed_values_str ) {
 		global $smwgContLang;
 		$prop_labels = $smwgContLang->getPropertyLabels();
 		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
 		$text = wfMessage( 'pf_property_isproperty', $type_tag )->inContentLanguage()->text();
-		if ( $default_form !== '' ) {
-			global $wgPageFormsContLang;
-			$pf_prop_labels = $wgPageFormsContLang->getPropertyLabels();
-			$default_form_tag = "[[{$pf_prop_labels[PF_SP_HAS_DEFAULT_FORM]}::$default_form]]";
-			$text .= ' ' . wfMessage( 'pf_property_linkstoform', $default_form_tag )->inContentLanguage()->text();
-		}
+
 		if ( $allowed_values_str !== '' ) {
 			// replace the comma substitution character that has no chance of
 			// being included in the values list - namely, the ASCII beep
@@ -71,7 +66,6 @@ class PFCreateProperty extends SpecialPage {
 			$property_name = $req->getVal( 'property_name' );
 		}
 		$property_type = $req->getVal( 'property_type' );
-		$default_form = $req->getVal( 'default_form' );
 		$allowed_values = $req->getVal( 'values' );
 
 		$save_button_text = wfMessage( 'savearticle' )->text();
@@ -95,7 +89,7 @@ class PFCreateProperty extends SpecialPage {
 				// Redirect to wiki interface.
 				$out->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
-				$full_text = self::createPropertyText( $property_type, $default_form, $allowed_values );
+				$full_text = self::createPropertyText( $property_type, $allowed_values );
 				$edit_summary = wfMessage( 'pf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
 				$text = PFUtils::printRedirectForm( $title, $full_text, $edit_summary, $save_page, $preview_page, false, false, false, null, null );
 				$out->addHTML( $text );
@@ -136,13 +130,8 @@ END;
 		}
 		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type'  ), $select_body ) . "\n";
 
-		$default_form_input = wfMessage( 'pf_createproperty_linktoform' )->escaped();
 		$values_input = wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
 		$text .= <<<END
-	<div id="default_form_div" style="padding: 5px 0 5px 0; margin: 7px 0 7px 0;">
-	<p>$default_form_input
-	<input size="20" name="default_form" value="" /></p>
-	</div>
 	<div id="allowed_values" style="margin-bottom: 15px;">
 	<p>$values_input</p>
 	<p><input size="80" name="values" value="" /></p>

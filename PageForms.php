@@ -31,13 +31,6 @@
  * @ingroup PF
  */
 
-/**
- * The module Language contains all language-related classes.
- *
- * @defgroup PFLanguage Language
- * @ingroup PF
- */
-
 if ( array_key_exists( 'wgWikimediaJenkinsCI', $GLOBALS ) ) {
 	if ( file_exists( __DIR__ . '/../../vendor/autoload.php' ) ) {
 		require_once __DIR__ . '/../../vendor/autoload.php';
@@ -107,14 +100,6 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 $GLOBALS['wgPageFormsIP'] = dirname( __FILE__ );
 # #
 
-
-// Constants for special properties
-define( 'PF_SP_HAS_DEFAULT_FORM', 1 );
-define( 'PF_SP_HAS_ALTERNATE_FORM', 2 );
-define( 'PF_SP_CREATES_PAGES_WITH_FORM', 3 );
-define( 'PF_SP_PAGE_HAS_DEFAULT_FORM', 4 );
-define( 'PF_SP_HAS_FIELD_LABEL_FORMAT', 5 );
-
 // Sometimes this call needs to be delayed, and sometimes it shouldn't be
 // delayed. Is it just the precense of SMW that dictates which one's the case??
 if ( defined( 'SMW_VERSION' ) ) {
@@ -133,7 +118,6 @@ $GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'PFFormEditAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFFormEditAction::displayTab2';
 $GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'PFHelperFormAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFHelperFormAction::displayTab2';
-$GLOBALS['wgHooks']['smwInitProperties'][] = 'PFHooks::initProperties';
 $GLOBALS['wgHooks']['ArticlePurge'][] = 'PFFormUtils::purgeCache';
 $GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'PFHooks::registerFunctions';
 $GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'PFHooks::setGlobalJSVariables';
@@ -245,7 +229,6 @@ $GLOBALS['wgAutoloadClasses']['PFWikiPageFreeText'] = __DIR__ . '/includes/wikip
 
 $GLOBALS['wgJobClasses']['createPage'] = 'PFCreatePageJob';
 $GLOBALS['wgAutoloadClasses']['PFCreatePageJob'] = __DIR__ . '/includes/PF_CreatePageJob.php';
-$GLOBALS['wgAutoloadClasses']['PF_Language'] = __DIR__ . '/languages/PF_Language.php';
 
 $GLOBALS['wgMessagesDirs']['PageForms'] = __DIR__ . '/i18n';
 $GLOBALS['wgExtensionMessagePFiles']['PageForms'] = __DIR__ . '/languages/PF_Messages.php';
@@ -448,35 +431,7 @@ $GLOBALS['wgResourceModules'] += array(
 );
 
 // PHP fails to find relative includes at some level of inclusion:
-// $pathfix = $IP . $GLOBALS['wgPageFormsScriptPath;
-
-// Global functions
-
-
-/**
- * Initialize a global language object for content language. This
- * must happen early on, even before user language is known, to
- * determine labels for additional namespaces. In contrast, messages
- * can be initialised much later, when they are actually needed.
- */
-call_user_func( function ( $langcode ) {
-	if ( !empty( $GLOBALS['wgPageFormsContLang'] ) ) {
-		return;
-	}
-
-	$cont_lang_class = 'PF_Language' . str_replace( '-', '_', ucfirst( $langcode ) );
-	if ( file_exists( __DIR__ . '/languages/' . $cont_lang_class . '.php' ) ) {
-		include_once( __DIR__ . '/languages/' . $cont_lang_class . '.php' );
-	}
-
-	// fallback if language not supported
-	if ( !class_exists( $cont_lang_class ) ) {
-		include_once( __DIR__ . '/languages/PF_LanguageEn.php' );
-		$cont_lang_class = 'PF_LanguageEn';
-	}
-
-	$GLOBALS['wgPageFormsContLang'] = new $cont_lang_class();
-}, $GLOBALS['wgLanguageCode'] );
+// $pathfix = $IP . $GLOBALS['wgPageFormsScriptPath'];
 
 # ##
 # The number of allowed values per autocomplete - too many might

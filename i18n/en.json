@@ -28,7 +28,6 @@
 	"apihelp-pfautoedit-param-preload": "The name of a page to preload in the form",
 	"createproperty": "Create a property",
 	"pf-createproperty-with-name": "Create property: $1",
-	"pf_createproperty_linktoform": "This property will link to pages that use the form:",
 	"pf_createproperty_allowedvalsinput": "To only allow certain values, enter the list of values, separated by commas (if a value contains a comma, replace it with \"\\,\"):",
 	"pf_createproperty_propname": "Property name:",
 	"pf_createproperty_proptype": "Type:",
