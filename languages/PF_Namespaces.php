@@ -12,8 +12,13 @@
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Yaron Koren
  */
- 
+
 $namespaceNames = array();
+
+if ( !defined( 'PF_NS_FORM' ) ) {
+	define( 'PF_NS_FORM', 106 );
+	define( 'PF_NS_FORM_TALK', 107 );
+}
 
 /**
  * @author Meno25

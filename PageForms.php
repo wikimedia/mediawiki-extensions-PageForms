@@ -78,12 +78,6 @@ if ( defined( 'PF_VERSION' ) ) {
 
 define( 'PF_VERSION', '4.0' );
 
-// SMW defines these namespaces itself.
-if ( !defined( 'PF_NS_FORM' ) ) {
-	define( 'PF_NS_FORM', 106 );
-	define( 'PF_NS_FORM_TALK', 107 );
-}
-
 $GLOBALS['wgExtensionCredits']['specialpage'][] = array(
 	'path' => __FILE__,
 	'name' => 'Page Forms',

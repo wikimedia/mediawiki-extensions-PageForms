@@ -9,9 +9,23 @@
 		"..."
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:Page_Forms",
-	"descriptionmsg": "PageForms-desc",
+	"descriptionmsg": "pageforms-desc",
 	"license-name": "GPL-2.0+",
 	"type": "specialpage",
+	"namespaces": [
+		{
+			"id": 106,
+			"constant": "PF_NS_FORM",
+			"name": "Form",
+			"conditional": true
+		},
+		{
+			"id": 107,
+			"constant": "PF_NS_FORM_TALK",
+			"name": "Form_talk",
+			"conditional": true
+		}
+	],
 	"callback": "PFHooks::registerExtension",
 	"ExtensionFunctions": [
 		"PFHooks::initialize"

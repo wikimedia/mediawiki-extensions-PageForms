@@ -18,12 +18,6 @@ class PFHooks {
 
 		define( 'PF_VERSION', '4.0' );
 
-		if ( !defined( 'PF_NS_FORM' ) ) {
-			// SMW defines these namespaces itself.
-			define( 'PF_NS_FORM', 106 );
-			define( 'PF_NS_FORM_TALK', 107 );
-		}
-
 		$GLOBALS['wgPageFormsIP'] = dirname( __DIR__ ) . '/../';
 
 		// Constants for special properties
