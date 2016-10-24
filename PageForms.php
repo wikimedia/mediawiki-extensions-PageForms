@@ -48,9 +48,9 @@ if ( version_compare( $GLOBALS['wgVersion'], '1.28c', '>' ) ) {
 		wfLoadExtension( 'PageForms' );
 		// Keep i18n globals so mergeMessageFileList.php doesn't break
 		$GLOBALS['wgMessagesDirs']['PageForms'] = __DIR__ . '/i18n';
-		$GLOBALS['wgExtensionMessagePFiles']['PageFormsAlias'] = __DIR__ . '/languages/PF_Aliases.php';
-		$GLOBALS['wgExtensionMessagePFiles']['PageFormsMagic'] = __DIR__ . '/languages/PF_Magic.php';
-		$GLOBALS['wgExtensionMessagePFiles']['PageFormsNS'] = __DIR__ . '/languages/PF_Namespaces.php';
+		$GLOBALS['wgExtensionMessagesFiles']['PageFormsAlias'] = __DIR__ . '/languages/PF_Aliases.php';
+		$GLOBALS['wgExtensionMessagesFiles']['PageFormsMagic'] = __DIR__ . '/languages/PF_Magic.php';
+		$GLOBALS['wgExtensionMessagesFiles']['PageFormsNS'] = __DIR__ . '/languages/PF_Namespaces.php';
 		/* wfWarn(
 			'Deprecated PHP entry point used for PageForms extension. ' .
 			'Please use wfLoadExtension instead, ' .
@@ -231,10 +231,10 @@ $GLOBALS['wgJobClasses']['createPage'] = 'PFCreatePageJob';
 $GLOBALS['wgAutoloadClasses']['PFCreatePageJob'] = __DIR__ . '/includes/PF_CreatePageJob.php';
 
 $GLOBALS['wgMessagesDirs']['PageForms'] = __DIR__ . '/i18n';
-$GLOBALS['wgExtensionMessagePFiles']['PageForms'] = __DIR__ . '/languages/PF_Messages.php';
-$GLOBALS['wgExtensionMessagePFiles']['PageFormsAlias'] = __DIR__ . '/languages/PF_Aliases.php';
-$GLOBALS['wgExtensionMessagePFiles']['PageFormsMagic'] = __DIR__ . '/languages/PF_Magic.php';
-$GLOBALS['wgExtensionMessagePFiles']['PageFormsNS'] = __DIR__ . '/languages/PF_Namespaces.php';
+$GLOBALS['wgExtensionMessagesFiles']['PageForms'] = __DIR__ . '/languages/PF_Messages.php';
+$GLOBALS['wgExtensionMessagesFiles']['PageFormsAlias'] = __DIR__ . '/languages/PF_Aliases.php';
+$GLOBALS['wgExtensionMessagesFiles']['PageFormsMagic'] = __DIR__ . '/languages/PF_Magic.php';
+$GLOBALS['wgExtensionMessagesFiles']['PageFormsNS'] = __DIR__ . '/languages/PF_Namespaces.php';
 
 // Allow for popup windows for file upload
 $GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
