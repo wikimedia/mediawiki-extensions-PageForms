@@ -1,4 +1,4 @@
-f<?php
+<?php
 
 /**
  * Note: When updating this file please also update extension.json with the same changes.
