@@ -31,6 +31,7 @@
 	"pf_createtemplate_outputformat": "Izvades formāts:",
 	"pf_createtemplate_standardformat": "Tabula",
 	"pf_createtemplate_infoboxformat": "Infokaste",
+	"pf_createtemplate_sectionsformat": "Sadaļas",
 	"pf_createtemplate_addfield": "Pievienot lauku",
 	"pf_createtemplate_deletefield": "Izdzēst",
 	"forms": "Formas",
@@ -65,6 +66,7 @@
 	"pf_forminputs_hideroot": "Paslēpt vecākkategoriju",
 	"pf_forminputs_height": "Šī ievades lauka augstums pikseļos",
 	"pf_forminputs_width": "Šī ievades lauka platums pikseļos",
+	"pf_forminputs_checkboxes_select_all": "Izvēlēties visu",
 	"createform": "Izveidot formu",
 	"pf_createform_nameinput": "Formas nosaukums",
 	"pf_createform_nameinputdesc": "(parasti formas nosaukums ir tāds pats kā galvenajai veidnei)",
@@ -103,6 +105,7 @@
 	"pf_formedit_altformsonly": "Lūdzu, izvēlieties vienu no sekojošām formām, lai pievienotu šo lapu:",
 	"pf_formcreate": "Izveidot ar formu",
 	"pf_viewform": "Skatīt formu",
+	"pf_formedit_addanother": "Pievienot vēl vienu",
 	"pf_formedit_saveandcontinueediting": "Saglabāt un turpināt",
 	"pf_formedit_tooltip_saveandcontinueediting": "Saglabāt datus un turpināt rediģēšanu",
 	"pf_autoedit_notargetspecified": "Nav norādīta mērķlapa.",
@@ -131,5 +134,6 @@
 	"right-createclass": "Izveidot jaunas semantiskās klases",
 	"action-createclass": "izveidot jaunas semantiskās klases",
 	"action-editrestrictedfields": "rediģēt ierobežotos formas laukus",
-	"pf-select2-input-too-short": "Lūdzu, ievadiet $1 vai vairāk rakstzīmes."
+	"pf-select2-input-too-short": "Lūdzu, ievadiet $1 vai vairāk rakstzīmes.",
+	"pf-datepicker-close": "Aizvērt"
 }

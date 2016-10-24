@@ -27,7 +27,7 @@
 	"pf_createtemplate_aggregation": "Agregacija",
 	"pf_createtemplate_aggregationlabel": "Naslov liste:",
 	"pf_createtemplate_outputformat": "Izlazni format:",
-	"pf_createtemplate_standardformat": "Standard",
+	"pf_createtemplate_standardformat": "!!FUZZY!!Standard",
 	"pf_createtemplate_addfield": "Dodaj polje",
 	"pf_createtemplate_deletefield": "Obriši",
 	"forms": "Forme",

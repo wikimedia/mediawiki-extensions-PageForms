@@ -34,7 +34,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "Die Cargo-Datenbanktabelle zu einem vorher im Formular enthaltenen Feld, auf das geprüft werden soll.",
 	"apihelp-pfautocomplete-param-base_cargo_field": "Die Cargo-Datenbanktabellenfeld zu einem vorher im Formular enthaltenen Feld, auf das geprüft werden soll.",
 	"apihelp-pfautocomplete-param-basevalue": "Der Wert, der zum vorherigen Attribut oder Feld überprüft werden soll.",
-	"apihelp-pfautoedit-description": "Erstellt oder bearbeitet eine Seite mit einem Formular, das durch die Erweiterung „Semantic Forms“ definiert wird.",
+	"apihelp-pfautoedit-description": "Erstellt oder bearbeitet eine Seite mit einem Formular, das durch die Erweiterung „Page Forms“ definiert wird.",
 	"apihelp-pfautoedit-param-form": "Das zu verwendende Formular",
 	"apihelp-pfautoedit-param-target": "Der Name der Seite, die erstellt oder bearbeitet werden soll.",
 	"apihelp-pfautoedit-param-query": "Die Zeichenfolge der Abfrage",

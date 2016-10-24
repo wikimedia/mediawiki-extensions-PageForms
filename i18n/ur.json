@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Saraiki"
 		]
 	},
 	"pf_createproperty_proptype": "قسم:",
@@ -30,5 +31,7 @@
 	"pf_createcategory_defaultform": "پہلے سے طے شدہ فارم:",
 	"createclass": "ایک کلاس کی تخلیق",
 	"pf_createclass_nameinput": "فارم کے نام:",
-	"pf_createclass_create": "تخلیق کریں"
+	"pf_createclass_create": "تخلیق کریں",
+	"pf-autoedit-wait": "رکو...",
+	"pf-datepicker-close": "بند کرو"
 }

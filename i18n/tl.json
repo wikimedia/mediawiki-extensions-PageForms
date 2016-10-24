@@ -164,7 +164,7 @@
 	"pf-pageschemas-inputtype": "Uri ng pagpapasok (iwanang walang laman upang maitakda sa likas na katakdaan):",
 	"pf_property_isproperty": "Isa itong pag-aari ng uring $1.",
 	"pf_property_linkstoform": "Kumakawing ito sa mga pahinang gumagamit ng pormularyong $1.",
-	"pf_property_allowedvals": "Ang pinahihintulutang {{PLURAL:$1|halaga para sa pag-aaring ito ay|mga halaga para sa pag-aaring ito ay}}:",
+	"pf_property_allowedvals": "!!FUZZY!!Ang pinahihintulutang {{PLURAL:$1|halaga para sa pag-aaring ito ay|mga halaga para sa pag-aaring ito ay}}:",
 	"pf_template_docu": "Ito ang suleras na '$1'.\nDapat na tawagin ito alinsunod sa sumusunod na anyo/pormat:",
 	"pf_template_docufooter": "Baguhin ang pahina upang makita ang teksto ng suleras.",
 	"pf_form_docu": "Ito ang pormularyong '$1'.\nUpang makalikha ng isang pahina na may ganitong pormularyo, ipasok ang pangalan ng pahina sa ibaba;\nkung umiiral na ang isang pahinang may ganyang pangalan, dadalhin ka patungo sa isang pormularyo upang mabago ang pahinyang iyan.",
