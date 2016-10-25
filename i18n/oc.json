@@ -9,7 +9,6 @@
 	"specialpages-group-pf_group": "Semantic Forms",
 	"createproperty": "Definir una proprietat",
 	"pf-createproperty-with-name": "Crear la proprietat :$1",
-	"pf_createproperty_linktoform": "Aquesta proprietat ligarà cap a las paginas qu'utilizan lo formulari :",
 	"pf_createproperty_allowedvalsinput": "Se decidètz qu'aqueste camp accèpta pas que d'unas valors, picatz la lista de las valors permesas, separadas per de virgulas. (Se una valor conten una virgula, remplaçat-la per « \\, ») :",
 	"pf_createproperty_propname": "Nom de la proprietat :",
 	"pf_createproperty_proptype": "Tipe :",

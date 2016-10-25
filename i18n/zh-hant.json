@@ -17,7 +17,6 @@
 	"specialpages-group-pf_group": "語意表單",
 	"createproperty": "建立屬性",
 	"pf-createproperty-with-name": "建立屬性：$1",
-	"pf_createproperty_linktoform": "這個屬性將連結到使用表單的頁面：",
 	"pf_createproperty_allowedvalsinput": "只允許使用特定的數值，請輸入數值清單，以逗號分隔 (若數值中含有逗號，請取代該逗號為 \"\\,\")：",
 	"pf_createproperty_propname": "屬性名稱：",
 	"pf_createproperty_proptype": "類型：",

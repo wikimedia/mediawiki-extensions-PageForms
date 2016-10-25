@@ -25,7 +25,6 @@
 	"apihelp-pfautoedit-param-preload": "El nom d'una pàgina per a precarregar en el formulari",
 	"createproperty": "Crea una propietat",
 	"pf-createproperty-with-name": "Crea la propietat: $1",
-	"pf_createproperty_linktoform": "Aquesta propietat enllaçarà a pàgines que usin el formulari:",
 	"pf_createproperty_allowedvalsinput": "Per permetre només certs valors, introduïu la llista dels valors, separats per comes (si un valor conté una coma, reemplaceu-lo per «\\,»):",
 	"pf_createproperty_propname": "Nom de la propietat:",
 	"pf_createproperty_proptype": "Tipus:",

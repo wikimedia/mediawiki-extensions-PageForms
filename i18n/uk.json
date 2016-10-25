@@ -39,7 +39,6 @@
 	"apihelp-pfautoedit-param-preload": "Назва сторінки, яку треба попередньо завантажити у форму",
 	"createproperty": "Створити властивість",
 	"pf-createproperty-with-name": "Створити властивість: $1",
-	"pf_createproperty_linktoform": "Ця властивість містить посилання на сторінки, які використовують форму:",
 	"pf_createproperty_allowedvalsinput": "Щоб дозволити тільки певні значення, введіть список дозволених значень, розділених комами (якщо значення містить кому, замініть її на «\\,»):",
 	"pf_createproperty_propname": "Назва властивості:",
 	"pf_createproperty_proptype": "Тип:",

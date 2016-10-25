@@ -43,7 +43,6 @@
 	"apihelp-pfautoedit-param-preload": "{{doc-apihelp-param|pfautoedit|preload}}",
 	"createproperty": "{{doc-special|CreateProperty}}",
 	"pf-createproperty-with-name": "Used as page title.  Parameters:\n* $1 - property name",
-	"pf_createproperty_linktoform": "Used on [[Special:CreateProperty]] as label for the input box where to enter the name of the default form.",
 	"pf_createproperty_allowedvalsinput": "Used as label for the \"Values\" input box.",
 	"pf_createproperty_propname": "Used as a table column header and as a label for the select box.\n{{Identical|Property name}}",
 	"pf_createproperty_proptype": "Used as a table column header and as a label for the select box.\n{{Identical|Type}}",

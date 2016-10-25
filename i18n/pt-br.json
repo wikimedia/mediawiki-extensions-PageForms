@@ -19,7 +19,6 @@
 	"specialpages-group-pf_group": "Formulários Semânticos",
 	"createproperty": "Criar uma propriedade",
 	"pf-createproperty-with-name": "Criar propriedade: $1",
-	"pf_createproperty_linktoform": "Essa propriedade irá ligar às páginas que utilizam o formulário:",
 	"pf_createproperty_allowedvalsinput": "Para permitir apenas determinados valores, introduza a lista de valores permitidos separados por vírgulas (se um valor contém uma vírgula, substitua-a por \"\\,\"):",
 	"pf_createproperty_propname": "Nome da propriedade:",
 	"pf_createproperty_proptype": "Tipo:",

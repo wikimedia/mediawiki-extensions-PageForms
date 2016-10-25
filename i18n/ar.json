@@ -12,7 +12,6 @@
 	"specialpages-group-pf_group": "استمارات دلالية",
 	"createproperty": "أنشئ خاصية",
 	"pf-createproperty-with-name": "أنشئ خاصيّة: $1",
-	"pf_createproperty_linktoform": "هذه الخاصية ستصل إلى الصفحات التي تستخدم النموذج:",
 	"pf_createproperty_allowedvalsinput": "لو كنت تريد أن تحتوي هذه الخاصية فقط على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب \"\\,\"):",
 	"pf_createproperty_propname": "اسم الخاصية:",
 	"pf_createproperty_proptype": "النوع:",

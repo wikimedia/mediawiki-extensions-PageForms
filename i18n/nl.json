@@ -21,7 +21,6 @@
 	"specialpages-group-pf_group": "Semantische formulieren",
 	"createproperty": "Eigenschap aanmaken",
 	"pf-createproperty-with-name": "Eigenschap aanmaken: $1",
-	"pf_createproperty_linktoform": "Deze eigenschap verwijst naar pagina's die het volgende formulier gebruiken:",
 	"pf_createproperty_allowedvalsinput": "Alleen bepaalde waarden, voert u de lijst van waarden, gescheiden door komma ' s (als er een waarde bevat een komma vervangen door \"\\,\"):",
 	"pf_createproperty_propname": "Naam eigenschap:",
 	"pf_createproperty_proptype": "Type:",

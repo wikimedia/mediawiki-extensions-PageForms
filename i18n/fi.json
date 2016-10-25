@@ -15,10 +15,9 @@
 		]
 	},
 	"pageforms-desc": "Semanttisen tiedon syöttö- ja muokkauslomakkeet",
-	"specialpages-group-pf_group": "Semanttiset lomakkeet",
+	"specialpages-group-pf_group": "Sivulomakkeet",
 	"createproperty": "Luo ominaisuus",
 	"pf-createproperty-with-name": "Luo ominaisuus: $1",
-	"pf_createproperty_linktoform": "Tämä ominaisuus linkittää sivuille, jotka käyttävät lomaketta:",
 	"pf_createproperty_allowedvalsinput": "Jos ominaisuudella saa olla vain tiettyjä arvoja, lisää pilkuin erotettu lista sallituista arvoista (jos arvo sisältää pilkun, korvaa pilkku kenoviivalla ja pilkulla: ”\\,”):",
 	"pf_createproperty_propname": "Ominaisuuden nimi",
 	"pf_createproperty_proptype": "Tyyppi",

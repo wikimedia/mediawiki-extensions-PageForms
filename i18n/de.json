@@ -41,7 +41,6 @@
 	"apihelp-pfautoedit-param-preload": "Der Name der Seite, die vorab in das Formular geladen werden soll.",
 	"createproperty": "Attribut erstellen",
 	"pf-createproperty-with-name": "Attribut erstellen: $1",
-	"pf_createproperty_linktoform": "Dieses Attribut wird auf Seiten weisen, die nachfolgendes Formular nutzen:",
 	"pf_createproperty_allowedvalsinput": "Um nur bestimmte Werte zuzulassen, gib diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, musst du es durch „\\,“ ersetzen):",
 	"pf_createproperty_propname": "Attributname:",
 	"pf_createproperty_proptype": "Datentyp:",

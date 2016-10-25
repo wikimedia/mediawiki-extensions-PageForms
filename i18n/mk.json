@@ -29,7 +29,6 @@
 	"apihelp-pfautoedit-param-preload": "Назив на страницата што треба да се претвчита во образецот",
 	"createproperty": "Создај својство",
 	"pf-createproperty-with-name": "Создај својство: $1",
-	"pf_createproperty_linktoform": "Ова својство ќе дава врски до страници што го користат образецот:",
 	"pf_createproperty_allowedvalsinput": "Ако сакате да допуштите само извесни вредности, внесете го списокот на дозволени вредности, одделени со запирки (ако некоја вредност содржи запирка, тогаш заменете ја запирката со „\\,“):",
 	"pf_createproperty_propname": "Име на својството:",
 	"pf_createproperty_proptype": "Тип:",

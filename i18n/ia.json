@@ -8,7 +8,6 @@
 	"pageforms-desc": "Formularios pro adder e modificar datos semantic",
 	"specialpages-group-pf_group": "Formularios semantic",
 	"createproperty": "Crear un proprietate",
-	"pf_createproperty_linktoform": "Iste proprietate ligara verso paginas que usa le formulario:",
 	"pf_createproperty_allowedvalsinput": "Si tu vole que iste proprietate sia permittite a haber solmente certe valores, entra le lista del valores permittite, separate per commas (si un valor contine un comma, reimplacia lo con \"\\,\"):",
 	"pf_createproperty_propname": "Nomine del proprietate:",
 	"pf_createproperty_proptype": "Typo:",

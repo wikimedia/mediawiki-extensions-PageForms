@@ -32,7 +32,6 @@
 	"apihelp-pfautoedit-param-preload": "O nome dunha páxina a precargar no formulario",
 	"createproperty": "Crear unha propiedade",
 	"pf-createproperty-with-name": "Crear a propiedade: $1",
-	"pf_createproperty_linktoform": "Esta propiedade ligará ás páxinas que usan o formulario:",
 	"pf_createproperty_allowedvalsinput": "Para permitir só certos valores, escriba a lista de valores, separados por comas (se un valor contén unha coma, reempráceo con \"\\,\"):",
 	"pf_createproperty_propname": "Nome da propiedade:",
 	"pf_createproperty_proptype": "Tipo:",

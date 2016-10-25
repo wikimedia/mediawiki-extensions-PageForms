@@ -28,7 +28,6 @@
 	"apihelp-pfautoedit-param-preload": "El nome d'una páxina pa precargar nel formulariu",
 	"createproperty": "Crear una propiedá",
 	"pf-createproperty-with-name": "Crear la propiedá: $1",
-	"pf_createproperty_linktoform": "Esta propiedá enllazará a páxines qu'usen el formulariu:",
 	"pf_createproperty_allowedvalsinput": "Pa permitir sólo determinaos valores, escribi la llista de valores permitíos, separaos por comes (si un valor contien una coma, trócala por \"\\,\"):",
 	"pf_createproperty_propname": "Nome de la propiedá:",
 	"pf_createproperty_proptype": "Tipu:",

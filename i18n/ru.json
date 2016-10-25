@@ -23,7 +23,6 @@
 	"specialpages-group-pf_group": "Semantic Forms",
 	"createproperty": "Создать свойство",
 	"pf-createproperty-with-name": "Создать свойство: $1",
-	"pf_createproperty_linktoform": "Это свойство содержит ссылку на страницы, которые используют форму:",
 	"pf_createproperty_allowedvalsinput": "Для того, чтобы оно содержало только определённые значения, введите через запятую список допустимых значений (если значение содержит запятую, то замените её на «\\,»):",
 	"pf_createproperty_propname": "Имя свойства:",
 	"pf_createproperty_proptype": "Тип:",

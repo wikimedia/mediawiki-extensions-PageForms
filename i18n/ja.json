@@ -19,7 +19,6 @@
 	"specialpages-group-pf_group": "意味的フォーム",
 	"createproperty": "プロパティの作成",
 	"pf-createproperty-with-name": "プロパティの作成: $1",
-	"pf_createproperty_linktoform": "このプロパティは、以下のフォームを使用するページにリンクします:",
 	"pf_createproperty_allowedvalsinput": "ある値を許可するには、許可する値をカンマで区切って列挙します (値がカンマを含む場合は「\\,」に置換):",
 	"pf_createproperty_propname": "プロパティ名:",
 	"pf_createproperty_proptype": "型:",

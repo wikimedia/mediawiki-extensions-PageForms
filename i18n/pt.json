@@ -19,7 +19,6 @@
 	"apihelp-pfautoedit-param-target": "O nome da página a ser criada ou editada",
 	"createproperty": "Criar uma propriedade",
 	"pf-createproperty-with-name": "Criar a propriedade: $1",
-	"pf_createproperty_linktoform": "Esta propriedade irá ligar às páginas que usem o formulário:",
 	"pf_createproperty_allowedvalsinput": "Para permitir apenas certos valores, introduza a lista dos mesmos, separados por vírgulas (se um valor contém uma vírgula, substitua-a por \"\\,\"):",
 	"pf_createproperty_propname": "Nome da propriedade:",
 	"pf_createproperty_proptype": "Tipo:",

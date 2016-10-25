@@ -7,7 +7,6 @@
 	"pageforms-desc": "Formularët për shtimin dhe redaktimit të dhënat semantik",
 	"specialpages-group-pf_group": "Semantik Format",
 	"createproperty": "Krijo një pronë",
-	"pf_createproperty_linktoform": "Kjo pronë do të lidhë për faqet që përdorin formën:",
 	"pf_createproperty_allowedvalsinput": "Nëse dëshironi që kjo pronë të vetëm të lejohet të ketë vlera të caktuara, të hyjë në listën e vlerave të lejuara, të ndara me presje (nëse vlera përmban një presje, të zëvendësojë atë me \",\"):",
 	"pf_createproperty_propname": "Emri i Pronës:",
 	"pf_createproperty_proptype": "Tipi:",

@@ -4,12 +4,12 @@
 			"Michaello",
 			"Rancher",
 			"Жељко Тодоровић",
-			"Milicevic01"
+			"Milicevic01",
+			"Сербијана"
 		]
 	},
 	"specialpages-group-pf_group": "Semantički obrasci",
 	"createproperty": "Napravi osobinu",
-	"pf_createproperty_linktoform": "Ova osobina će povezivati na strane, koje koriste formu:",
 	"pf_createproperty_allowedvalsinput": "Ako želite da ovoj osobini bude dozvoljeno da ima samo određene vrednosti, unesite spisak dozvoljenih vrednost, odvojenih zarezima (ako vrednost sadrži zarez, pišite ga kao „\\,“):",
 	"pf_createproperty_propname": "Ime osobine:",
 	"pf_createproperty_proptype": "Vrsta:",
@@ -27,7 +27,7 @@
 	"pf_createtemplate_aggregation": "Agregacija",
 	"pf_createtemplate_aggregationlabel": "Naslov liste:",
 	"pf_createtemplate_outputformat": "Izlazni format:",
-	"pf_createtemplate_standardformat": "!!FUZZY!!Standard",
+	"pf_createtemplate_standardformat": "Standard",
 	"pf_createtemplate_addfield": "Dodaj polje",
 	"pf_createtemplate_deletefield": "Obriši",
 	"forms": "Forme",
@@ -64,7 +64,7 @@
 	"pf_autoedit_anoneditwarning": "Upozorenje: niste prijavljeni. Vaša IP adresa će biti zabeležena u istoriji ove stranice.",
 	"pf_bad_number_error": "mora biti ispravan broj",
 	"pf_bad_date_error": "mora biti ispravan datum",
-	"uploadwindow": "Prozor za slanje",
+	"uploadwindow": "Prozor za otpremanje",
 	"pf_deletionlog": "Istorija brisanja",
 	"pf_form_freetextlabel": "Slobodan tekst",
 	"pf-select2-selection-too-big": "Ovo polje ne može da sadrži više od {{PLURAL:$1|$1 vrednosti}}.",

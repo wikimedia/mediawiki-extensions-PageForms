@@ -18,7 +18,6 @@
 	"specialpages-group-pf_group": "Semantiska formulär",
 	"createproperty": "Skapa en egenskap",
 	"pf-createproperty-with-name": "Skapa egenskap: $1",
-	"pf_createproperty_linktoform": "Denna egenskap kommer länka till sidor som använder formuläret:",
 	"pf_createproperty_allowedvalsinput": "För att bara tillåta vissa värden, ange en lista av värden, separerade med kommatecken (om ett värde innehåller ett kommatecken, ersätt det med \"\\,\"):",
 	"pf_createproperty_propname": "Egenskapsnamn:",
 	"pf_createproperty_proptype": "Typ:",

@@ -14,7 +14,6 @@
 	"specialpages-group-pf_group": "Semantik Formlar",
 	"createproperty": "Bir özellik oluştur",
 	"pf-createproperty-with-name": "Oluşturulacak özellik: $1",
-	"pf_createproperty_linktoform": "Bu form biçimini kullanacak sayfalara bağlantı:",
 	"pf_createproperty_allowedvalsinput": "Bu özellikte sadece bazı değerlere izin vermek istiyorsanız, virgüller ile ayırarak izin verilecek değerleri ekleyiniz (eğer bir değer virgül içeriyorsa, \"\\,\" ayracını kullanın):",
 	"pf_createproperty_propname": "Özellik adı:",
 	"pf_createproperty_proptype": "Tür:",

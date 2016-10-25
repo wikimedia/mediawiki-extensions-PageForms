@@ -19,7 +19,6 @@
 	"apihelp-pfautoedit-param-preload": "양식에서 미리 불러올 문서의 이름",
 	"createproperty": "속성 만들기",
 	"pf-createproperty-with-name": "속성 만들기: $1",
-	"pf_createproperty_linktoform": "이 속성은 양식을 사용하는 문서로 연결합니다:",
 	"pf_createproperty_allowedvalsinput": "이 속성이 특정 값을 가질 수 있도록 허용하려면 쉼표로 구분하여 허용하는 값 목록을 입력하세요 (값이 쉼표로 포함되어 있으면 \"\\,\"로 바꾸세요):",
 	"pf_createproperty_propname": "속성 이름:",
 	"pf_createproperty_proptype": "유형:",

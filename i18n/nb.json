@@ -15,7 +15,6 @@
 	"specialpages-group-pf_group": "Semantiske skjemaer",
 	"createproperty": "Opprett en egenskap",
 	"pf-createproperty-with-name": "Opprett egenskap: $1",
-	"pf_createproperty_linktoform": "Denne egenskapen vil lenke til sider som bruker skjemaet:",
 	"pf_createproperty_allowedvalsinput": "For å tillate kun visse verdier, skriv inn listen over disse verdiene, adskilt med komma (om en verdi inneholder komma, erstatt dette med «\\,»):",
 	"pf_createproperty_propname": "Navn på egenskap:",
 	"pf_createproperty_proptype": "Type:",

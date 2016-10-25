@@ -15,7 +15,6 @@
 	"pageforms-desc": "Űrlapok szemantikus adatok hozzáadásához és szerkesztéséhez",
 	"specialpages-group-pf_group": "Szemantikus űrlapok",
 	"createproperty": "Tulajdonság létrehozása",
-	"pf_createproperty_linktoform": "Ez a tulajdonság hivatkozni fog azokra a lapokra, amelyek használják az űrlapot:",
 	"pf_createproperty_allowedvalsinput": "Ha azt szeretnéd, hogy ez a tulajdonság csak bizonyos értékeket vehessen fel, add meg az engedélyezett értékek listáját, vesszővel elválasztva (ha az érték tartalmaz vesszőt, használd a „\\,” alakot):",
 	"pf_createproperty_propname": "Tulajdonságnév:",
 	"pf_createproperty_proptype": "Típus:",

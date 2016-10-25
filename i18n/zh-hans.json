@@ -41,7 +41,6 @@
 	"apihelp-pfautoedit-param-preload": "要在表单中预加载的页面名称",
 	"createproperty": "创建属性",
 	"pf-createproperty-with-name": "创建属性：$1",
-	"pf_createproperty_linktoform": "这个属性将链接到使用表单的页面：",
 	"pf_createproperty_allowedvalsinput": "如果只允许特定的值，输入值的列表，以逗号分隔（如果一个值包含逗号，使用“\\,”替换）：",
 	"pf_createproperty_propname": "属性名称：",
 	"pf_createproperty_proptype": "类型：",

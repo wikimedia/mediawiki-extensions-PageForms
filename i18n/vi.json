@@ -9,7 +9,6 @@
 	"pageforms-desc": "Mẫu để thêm và sửa đổi dữ liệu ngữ nghĩa",
 	"specialpages-group-pf_group": "Mẫu Ngữ Nghĩa",
 	"createproperty": "Tạo một thuộc tính",
-	"pf_createproperty_linktoform": "Thuộc tính này sẽ liên kết đến các trang sử dụng mẫu:",
 	"pf_createproperty_allowedvalsinput": "Nếu bạn muốn thuộc tính này chỉ cho phép một số giá trị nào đó, hãy nhập vào danh sách các giá trị cho phép, phân cách nhau bằng dấu phẩy (nếu một giá trị có chứa dấu phẩy, hãy thay nó bằng “\\,”):",
 	"pf_createproperty_propname": "Tên thuộc tính:",
 	"pf_createproperty_proptype": "Loại:",

@@ -17,7 +17,6 @@
 	"specialpages-group-pf_group": "فرم‌های معنایی",
 	"createproperty": "ویژگی بسازید",
 	"pf-createproperty-with-name": "ایجاد مالکیت: $1",
-	"pf_createproperty_linktoform": "این ویژگی برای صفحاتی که از فرم استفاده می‌کنند پیوند خواهد‌شد:",
 	"pf_createproperty_allowedvalsinput": "اگر می‌خواهید این ورودی تنها مقادیر مشخصی داشته باشد، فهرست مقادیر مجاز را به‌صورت جداشده با کاما وارد کنید (اگر در این مقادیر از کاما استفاده می‌کنید، آن‌را با \"\\,\" جایگزین نمایید):",
 	"pf_createproperty_propname": "نام خاصیت:",
 	"pf_createproperty_proptype": "نوع:",

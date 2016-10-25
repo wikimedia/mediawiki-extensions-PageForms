@@ -14,7 +14,6 @@
 	"specialpages-group-pf_group": "Σημασιολογικές Φόρμες",
 	"createproperty": "Δημιουργία ιδιότητας",
 	"pf-createproperty-with-name": "Δημιουργία ιδιότητας: $1",
-	"pf_createproperty_linktoform": "Αυτή η ιδιότητα θα δημιουργήσει συνδέσμους προς σελίδες που χρησιμοποιούν τη φόρμα:",
 	"pf_createproperty_allowedvalsinput": "Για να επιτρέπονται μόνο συγκεκριμένες τιμές, εισαγάγετε μια λίστα με τις επιτρεπτές τιμές, διαχωρισμένες με κόμμα (αν μια τιμή περιέχει κόμμα, αντικαταστήστε το με \"\\,\"):",
 	"pf_createproperty_propname": "Όνομα ιδιότητας:",
 	"pf_createproperty_proptype": "Τύπος:",

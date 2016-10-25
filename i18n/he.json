@@ -35,7 +35,6 @@
 	"apihelp-pfautoedit-param-preload": "שם הדף שממנו ייטען מראש הטופס",
 	"createproperty": "יצירת מאפיין",
 	"pf-createproperty-with-name": "יצירת מאפיין: $1",
-	"pf_createproperty_linktoform": "מאפיין זה יקשר לדפים המשתמשים בטופס:",
 	"pf_createproperty_allowedvalsinput": "כדי לאפשר רק ערכים מסוימים, יש להזין רשימת ערכים מופרדים בפסיקים (אם ערך מכיל פסיק, יש להחליפו אותו ב־\"\\,\"):",
 	"pf_createproperty_propname": "שם המאפיין:",
 	"pf_createproperty_proptype": "סוג:",
