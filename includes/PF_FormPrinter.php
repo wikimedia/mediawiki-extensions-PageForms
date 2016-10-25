@@ -53,8 +53,6 @@ class PFFormPrinter {
 		$this->registerInputType( 'PFListBoxInput' );
 		$this->registerInputType( 'PFComboBoxInput' );
 		$this->registerInputType( 'PFTreeInput' );
-		$this->registerInputType( 'PFCategoryInput' );
-		$this->registerInputType( 'PFCategoriesInput' );
 		$this->registerInputType( 'PFTokensInput' );
 		$this->registerInputType( 'PFRegExpInput' );
 		// Only add this if the Semantic Maps extension is not

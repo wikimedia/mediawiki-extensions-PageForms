@@ -134,8 +134,6 @@
 		"PFYearInput": "includes/forminputs/PF_YearInput.php",
 		"PFTreeInput": "includes/forminputs/PF_TreeInput.php",
 		"PFTree": "includes/forminputs/PF_Tree.php",
-		"PFCategoryInput": "includes/forminputs/PF_CategoryInput.php",
-		"PFCategoriesInput": "includes/forminputs/PF_CategoriesInput.php",
 		"PFTokensInput": "includes/forminputs/PF_TokensInput.php",
 		"PFGoogleMapsInput": "includes/forminputs/PF_GoogleMapsInput.php",
 		"PFOpenLayersInput": "includes/forminputs/PF_OpenLayersInput.php",
