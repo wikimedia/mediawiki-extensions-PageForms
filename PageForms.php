@@ -143,8 +143,8 @@ $GLOBALS['wgActions']['formedit'] = 'PFFormEditAction';
 $GLOBALS['wgActions']['formcreate'] = 'PFHelperFormAction';
 
 // API modules
-$GLOBALS['wgAPIModules']['PFautocomplete'] = 'PFAutocompleteAPI';
-$GLOBALS['wgAPIModules']['PFautoedit'] = 'PFAutoeditAPI';
+$GLOBALS['wgAPIModules']['pfautocomplete'] = 'PFAutocompleteAPI';
+$GLOBALS['wgAPIModules']['pfautoedit'] = 'PFAutoeditAPI';
 
 // register all special pages and other classes
 $GLOBALS['wgSpecialPages']['Forms'] = 'PFForms';
@@ -260,22 +260,22 @@ $GLOBALS['wgResourceModules'] += array(
 			'jquery.ui.button',
 			'jquery.ui.sortable',
 			'jquery.ui.widget',
-			'ext.PageForms.fancybox',
-			'ext.PageForms.autogrow',
+			'ext.pageforms.fancybox',
+			'ext.pageforms.autogrow',
 			'mediawiki.util',
-			'ext.PageForms.select2',
+			'ext.pageforms.select2',
 		),
 		'messages' => array(
-			'PF_formerrors_header',
-			'PF_too_few_instances_error',
-			'PF_too_many_instances_error',
-			'PF_blank_error',
-			'PF_not_unique_error',
-			'PF_bad_url_error',
-			'PF_bad_email_error',
-			'PF_bad_number_error',
-			'PF_bad_date_error',
-			'PF_pipe_error',
+			'pf_formerrors_header',
+			'pf_too_few_instances_error',
+			'pf_too_many_instances_error',
+			'pf_blank_error',
+			'pf_not_unique_error',
+			'pf_bad_url_error',
+			'pf_bad_email_error',
+			'pf_bad_number_error',
+			'pf_bad_date_error',
+			'pf_pipe_error',
 		),
 	),
 	'ext.pageforms.browser' => $wgPageFormsResourceTemplate + array(
@@ -397,7 +397,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'libs/ext.pf.js',
 		),
 	),
-	'ext.PageForms.pf_CreateProperty' => $wgPageFormsResourceTemplate + array(
+	'ext.pageforms.pf_CreateProperty' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/pf_CreateProperty.js',
 		),
