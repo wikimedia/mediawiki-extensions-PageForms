@@ -117,6 +117,11 @@ class PFHooks {
 	public static function registerNamespaces( array &$list ) {
 		global $wgNamespacesWithSubpages;
 
+		if ( !defined( 'PF_NS_FORM' ) ) {
+			define( 'PF_NS_FORM', 106 );
+			define( 'PF_NS_FORM_TALK', 107 );
+		}
+
 		$list[PF_NS_FORM] = 'Form';
 		$list[PF_NS_FORM_TALK] = 'Form_talk';
 
