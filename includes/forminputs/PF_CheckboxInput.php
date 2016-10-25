@@ -3,7 +3,7 @@
  * File holding the PFCheckboxInput class
  *
  * @file
- * @ingroup pF
+ * @ingroup PF
  */
 
 /**

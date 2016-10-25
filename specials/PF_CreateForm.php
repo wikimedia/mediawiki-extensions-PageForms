@@ -5,7 +5,7 @@
  *
  * @author Yaron Koren
  * @file
- * @ingroup pF
+ * @ingroup PF
  */
 
 /**

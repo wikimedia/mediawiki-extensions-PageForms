@@ -110,7 +110,7 @@ class PFCreateCategory extends SpecialPage {
 		$text .= Html::rawElement( 'p', null, $firstRow )  . "\n";
 		$secondRow = wfMessage( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
 		$selectBody = "\t" . Html::element( 'option', null, null ). "\n";
-		$categories = pFValuesUtils::getCategoriesForPage();
+		$categories = PFValuesUtils::getCategoriesForPage();
 		foreach ( $categories as $category ) {
 			$category = str_replace( '_', ' ', $category );
 			$selectBody .= "\t" . Html::element( 'option', null, $category ) . "\n";

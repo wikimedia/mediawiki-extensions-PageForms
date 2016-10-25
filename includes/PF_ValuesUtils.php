@@ -184,7 +184,7 @@ class PFValuesUtils {
 								// namespace that no longer exists.
 								continue;
 							}
-							$cur_value = pFUtils::titleString( $cur_title );
+							$cur_value = PFUtils::titleString( $cur_title );
 							if ( ! in_array( $cur_value, $pages ) ) {
 								$pages[] = $cur_value;
 							}
