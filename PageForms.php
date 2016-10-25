@@ -399,7 +399,7 @@ $GLOBALS['wgResourceModules'] += array(
 	),
 	'ext.pageforms.pf_CreateProperty' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
-			'libs/pf_CreateProperty.js',
+			'libs/PF_CreateProperty.js',
 		),
 	),
 	'ext.pageforms.pf_PageSchemas' => $wgPageFormsResourceTemplate + array(
