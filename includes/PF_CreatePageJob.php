@@ -28,21 +28,11 @@ class PFCreatePageJob extends Job {
 			return false;
 		}
 
-		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
-			// MW 1.21+
-			$wikiPage = new WikiPage( $this->title );
-			if ( !$wikiPage ) {
-				$this->error = 'createPage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
-				wfProfileOut( __METHOD__ );
-				return false;
-			}
-		} else {
-			$article = new Article( $this->title, 0 );
-			if ( !$article ) {
-				$this->error = 'createPage: Article not found "' . $this->title->getPrefixedDBkey() . '"';
-				wfProfileOut( __METHOD__ );
-				return false;
-			}
+		$wikiPage = new WikiPage( $this->title );
+		if ( !$wikiPage ) {
+			$this->error = 'createPage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
+			wfProfileOut( __METHOD__ );
+			return false;
 		}
 
 		$page_text = $this->params['page_text'];

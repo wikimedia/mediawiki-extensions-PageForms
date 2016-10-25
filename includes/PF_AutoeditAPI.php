@@ -303,12 +303,7 @@ class PFAutoeditAPI extends ApiBase {
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
 			$formWikiPage = WikiPage::factory( $formTitle );
-			if ( method_exists( $formWikiPage, 'getContent' ) ) {
-				// MW 1.21+
-				$formTitle = $formWikiPage->getContent( Revision::RAW )->getUltimateRedirectTarget();
-			} else {
-				$formTitle = Title::newFromRedirectRecurse( $formWikiPage->getRawText() );
-			}
+			$formTitle = $formWikiPage->getContent( Revision::RAW )->getUltimateRedirectTarget();
 
 			// if we exeeded $wgMaxRedirects or encountered an invalid redirect target, give up
 			if ( $formTitle->isRedirect() ) {
@@ -502,13 +497,10 @@ class PFAutoeditAPI extends ApiBase {
 				$this->logMessage( 'Article update aborted by a hook function', self::DEBUG );
 				return false; // success
 
-			// TODO: This error code only exists from 1.21 onwards. It is
-			// suitably handled by the default branch, but really should get its
-			// own branch. Uncomment once compatibility to pre1.21 is dropped.
-//			case EditPage::AS_PARSE_ERROR: // can't parse content
-//
-//				throw new MWException( $status->getHTML() );
-//				return true; // fail
+			case EditPage::AS_PARSE_ERROR: // Can't parse content
+
+				throw new MWException( $status->getHTML() );
+				return true; // fail
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE: // Article successfully created
 
@@ -769,16 +761,11 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	/**
-	 * Helper function, for backwards compatibility.
+	 * Helper function..
 	 */
 	function getTextForPage( $title ) {
 		$wikiPage = WikiPage::factory( $title );
-		if ( method_exists( $wikiPage, 'getContent' ) ) {
-			// MW 1.21+
-			return $wikiPage->getContent( Revision::RAW )->getNativeData();
-		} else {
-			return $wikiPage->getRawText();
-		}
+		return $wikiPage->getContent( Revision::RAW )->getNativeData();
 	}
 
 	/**
