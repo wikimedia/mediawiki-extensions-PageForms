@@ -22,7 +22,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "Табелата од „Карго“ за претходно поле во образецот кое треба да се провери",
 	"apihelp-pfautocomplete-param-base_cargo_field": "Полето од „Карго“ за претходно поле во образецот кое треба да се провери",
 	"apihelp-pfautocomplete-param-basevalue": "Вредноста што треба да се провери за претходно својство или поле",
-	"apihelp-pfautoedit-description": "Создавање или измена/уредување на страница користејќи образец определен од додатокот „Семантички обрасци“",
+	"apihelp-pfautoedit-description": "Создавање или измена/уредување на страница користејќи образец определен од додатокот „Обрасци за страници“",
 	"apihelp-pfautoedit-param-form": "Обрасците за страници што ќе се користат",
 	"apihelp-pfautoedit-param-target": "Назив на страницата што треба да се создаде или уреди",
 	"apihelp-pfautoedit-param-query": "Низа во барањето",
