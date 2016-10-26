@@ -360,7 +360,7 @@ END;
 		if ( count( $form_items ) == 0 ) {
 			$previewAttrs['disabled'] = true;
 		}
-		$editButtonsText .= "\t" . Html::input( 'wpPreview',  wfMessage( 'preview' )->text(), 'submit', $previewAttrs ) . "\n";
+		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', $previewAttrs ) . "\n";
 		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ),
 			Html::rawElement( 'p', array(), $editButtonsText ) . "\n" ) . "\n";
 		// Explanatory message if buttons are disabled because no
@@ -414,7 +414,7 @@ END;
 			}
 		}
 
-		$header_options =  '';
+		$header_options = '';
 		$text .= Html::element( 'span', null, wfMessage( 'pf_createform_sectionlevel' )->text() ) . "\n";
 		for ( $i = 1; $i < 7; $i++ ) {
 			if ( $section_level == $i ) {
@@ -717,7 +717,6 @@ END;
 		global $wgParser;
 
 		$text = '';
-		$descriptiontext = '';
 		$section_text = 'section_' . $section_count;
 
 		$params = PFPageSection::getParameters();
