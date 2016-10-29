@@ -34,7 +34,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "要检查是否违反表单中前一字段的Cargo表格",
 	"apihelp-pfautocomplete-param-base_cargo_field": "要检查是否违反表单中前一字段的Cargo字段",
 	"apihelp-pfautocomplete-param-basevalue": "要检查之前属性或字段的值",
-	"apihelp-pfautoedit-description": "使用语义表单扩展定义的表单创建或编辑页面。",
+	"apihelp-pfautoedit-description": "使用页面表单扩展定义的表单创建或编辑页面。",
 	"apihelp-pfautoedit-param-form": "要使用的页面表单",
 	"apihelp-pfautoedit-param-target": "要创建或编辑的页面名称",
 	"apihelp-pfautoedit-param-query": "查询字符串",
