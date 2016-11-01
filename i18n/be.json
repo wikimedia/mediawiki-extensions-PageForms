@@ -1,10 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Тест"
+			"Тест",
+			"Irus"
 		]
 	},
 	"pf_createproperty_proptype": "Тып:",
 	"templates": "Шаблоны",
-	"pf_createform_template": "Шаблон:"
+	"forms": "Формы",
+	"pf_createform_template": "Шаблон:",
+	"formedit": "Рэдагаваць з дапамогай формы",
+	"pf_viewform": "Глядзець форму",
+	"pf_formedit_formwarning": "Папярэджаньне. Гэтая старонка <a href=\"$1\">ужо існуе</a>, але не выкарыстоўвае гэтую форму."
 }
