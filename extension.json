@@ -371,9 +371,6 @@
 			"PFFormEditAction::displayTab2",
 			"PFHelperFormAction::displayTab2"
 		],
-		"smwInitProperties": [
-			"PFHooks::initProperties"
-		],
 		"ArticlePurge": [
 			"PFFormUtils::purgeCache"
 		],
