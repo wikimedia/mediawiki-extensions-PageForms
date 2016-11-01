@@ -176,7 +176,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 
 		$text .= '<form name="createbox" id="pfForm" method="post" class="createbox">';
 		$pre_form_html = '';
-		Hooks::run( 'pfHTMLBeforeForm', array( &$targetTitle, &$pre_form_html ) );
+		Hooks::run( 'PageForms::HTMLBeforeForm', array( &$targetTitle, &$pre_form_html ) );
 		$text .= $pre_form_html;
 		if ( isset( $result[ 'formHTML' ] ) ) {
 			$text .= $result[ 'formHTML' ];

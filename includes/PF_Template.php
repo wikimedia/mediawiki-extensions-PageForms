@@ -344,7 +344,7 @@ class PFTemplate {
 	 * extension.
 	 */
 	public function createText() {
-		Hooks::run( 'PFCreateTemplateText', array( &$this ) );
+		Hooks::run( 'PageForms::CreateTemplateText', array( &$this ) );
 		$templateHeader = wfMessage( 'pf_template_docu', $this->mTemplateName )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
@@ -428,9 +428,9 @@ END;
 			$separator = '';
 
 			$fieldStart = $this->mFieldStart;
-			Hooks::run('PFTemplateFieldStart', array( $field, &$fieldStart ) );
+			Hooks::run('PageForms::TemplateFieldStart', array( $field, &$fieldStart ) );
 			$fieldEnd = $this->mFieldEnd;
-			Hooks::run('PFTemplateFieldEnd', array( $field, &$fieldEnd ) );
+			Hooks::run('PageForms::TemplateFieldEnd', array( $field, &$fieldEnd ) );
 
 			$fieldLabel = $field->getLabel();
 			if ( $fieldLabel == '' ) {

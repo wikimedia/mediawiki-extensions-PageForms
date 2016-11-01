@@ -160,7 +160,7 @@ END;
 	</script>
 
 END;
-		Hooks::run( 'pfPrintRedirectForm', array( $is_save, $is_preview, $is_diff, &$text ) );
+		Hooks::run( 'PageForms::PrintRedirectForm', array( $is_save, $is_preview, $is_diff, &$text ) );
 		return $text;
 	}
 
@@ -198,7 +198,7 @@ END;
 		$output->addModules( $mainModules );
 
 		$otherModules = array();
-		Hooks::run( 'pfAddResourceLoaderModules', array( &$otherModules ) );
+		Hooks::run( 'PageForms::AddRLModules', array( &$otherModules ) );
 		foreach ( $otherModules as $rlModule ) {
 			$output->addModules( $rlModule );
 		}

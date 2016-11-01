@@ -220,7 +220,7 @@ class PFAutoeditAPI extends ApiBase {
 			$this->mOptions['target'] = $target->getPrefixedText();
 		}
 
-		Hooks::run( 'pfSetTargetName', array( &$this->mOptions['target'], $hookQuery ) );
+		Hooks::run( 'PageForms::SetTargetName', array( &$this->mOptions['target'], $hookQuery ) );
 
 		// set html return status. If all goes well, this will not be changed
 		$this->mStatus = 200;
@@ -885,7 +885,7 @@ class PFAutoeditAPI extends ApiBase {
 		// Allow extensions to set/change the preload text, for new
 		// pages.
 		if ( !$pageExists ) {
-			Hooks::run( 'pfEditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+			Hooks::run( 'PageForms::EditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
 		}
 
 		// Flag to keep track of formHTML() runs.
@@ -969,7 +969,7 @@ class PFAutoeditAPI extends ApiBase {
 			}
 
 			// Lets other code process additional form-definition syntax
-			Hooks::run( 'pfWritePageData', array( $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ) );
+			Hooks::run( 'PageForms::WritePageData', array( $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ) );
 
 			$editor = $this->setupEditPage( $targetContent );
 

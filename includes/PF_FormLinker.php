@@ -45,7 +45,7 @@ class PFFormLinker {
 		$preloadContent = null;
 
 		// Allow outside code to set/change the preloaded text.
-		Hooks::run( 'pfEditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
+		Hooks::run( 'PageForms::EditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
 
 		list ( $formText, $pageText, $formPageTitle, $generatedPageName ) =
 			$wgPageFormsFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );

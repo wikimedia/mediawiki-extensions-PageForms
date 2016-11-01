@@ -63,7 +63,7 @@ class PFFormPrinter {
 		$this->registerInputType( 'PFOpenLayersInput' );
 
 		// All-purpose setup hook.
-		Hooks::run( 'pfFormPrinterSetup', array( $this ) );
+		Hooks::run( 'PageForms::FormPrinterSetup', array( $this ) );
 	}
 
 	public function setSemanticTypeHook( $type, $is_list, $function_name, $default_args ) {
@@ -737,7 +737,7 @@ END;
 				$permissionErrors = array( array( 'readonlytext', array ( wfReadOnlyReason() ) ) );
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
-			Hooks::run( 'pfUserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
+			Hooks::run( 'PageForms::UserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
 		}
 		$form_text = "";
 		if ( $is_query || $userCanEditPage ) {
@@ -1041,7 +1041,7 @@ END;
 						// separate calls, because of the different variable names in
 						// each case.
 						if ( $form_submitted ) {
-							Hooks::run( 'pfCreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
+							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
 							if ( !empty( $cur_value ) &&
 								( $form_field->hasFieldArg( 'mapping template' ) ||
@@ -1059,7 +1059,7 @@ END;
 								}
 								$cur_value = $form_field->valueStringToLabels( $cur_value, $delimiter );
 							}
-							Hooks::run( 'pfCreateFormField', array( &$form_field, &$cur_value, false ) );
+							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
@@ -1474,12 +1474,7 @@ END;
 
 		$page_text = '';
 
-		// The first hook here is deprecated. Use the second.
-		// Note: Hooks::run can take a third argument which indicates
-		// a deprecated hook, but it expects a MediaWiki version, not
-		// an extension version.
-		Hooks::run( 'pfModifyFreeTextField', array( &$free_text, $existing_page_content ) );
-		Hooks::run( 'pfBeforeFreeTextSubstitution',
+		Hooks::run( 'PageForms::BeforeFreeTextSubst',
 			array( &$free_text, $existing_page_content, &$page_text ) );
 
 		// Now that we have the free text, we can create the full page
@@ -1522,7 +1517,7 @@ END;
 
 		$form_text .= "\t</form>\n";
 		$wgParser->replaceLinkHolders( $form_text );
-		Hooks::run( 'pfRenderingEnd', array( &$form_text ) );
+		Hooks::run( 'PageForms::RenderingEnd', array( &$form_text ) );
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.
