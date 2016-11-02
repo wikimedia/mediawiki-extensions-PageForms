@@ -31,7 +31,7 @@
 		"PFHooks::initialize"
 	],
 	"require": {
-		"MediaWiki": ">= 1.28.0"
+		"MediaWiki": ">= 1.27.0"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -397,93 +397,43 @@
 		]
 	},
 	"config": {
-		"PageFormsMaxAutocompleteValues": {
-			"value": 1000
-		},
-		"PageFormsMaxLocalAutocompleteValues": {
-			"value": 100
-		},
-		"PageFormsAutocompleteOnAllChars": {
-			"value": false
-		},
-		"PageFormsCacheAutocompleteValues": {
-			"value": false
-		},
-		"PageFormsAutocompleteCacheTimeout": {
-			"value": null
-		},
-		"PageFormsRenameEditTabs": {
-			"value": false
-		},
-		"PageFormsRenameMainEditTab": {
-			"value": false
-		},
-		"PageFormsListSeparator": {
-			"value": ","
-		},
-		"PageForms24HourTime": {
-			"value": false
-		},
-		"PageFormsCacheFormDefinitions": {
-			"value": false
-		},
-		"PageFormsFormCacheType": {
-			"value": null
-		},
-		"PageFormsLinkAllRedLinksToForms": {
-			"value": false
-		},
-		"PageFormsRedLinksCheckOnlyLocalProps": {
-			"value": false
-		},
-		"PageFormsShowTabsForAllHelperForms": {
-			"value": true
-		},
-		"PageFormsRunQueryFormAtTop": {
-			"value": false
-		},
-		"PageFormsGoogleMapsKey": {
-			"value": null
-		},
-		"PageFormsShowOnSelect": {
-			"value": []
-		},
-		"PageFormsAutocompleteValues": {
-			"value": []
-		},
-		"PageFormsGridValues": {
-			"value": []
-		},
-		"PageFormsGridParams": {
-			"value": []
-		},
-		"PageFormsFieldProperties": {
-			"value": []
-		},
-		"PageFormsCargoFields": {
-			"value": []
-		},
-		"PageFormsDependentFields": {
-			"value": []
-		},
-		"PageFormsCheckboxesSelectAllMinimum": {
-			"value": 10
-		},
+		"PageFormsMaxAutocompleteValues": 1000,
+		"PageFormsMaxLocalAutocompleteValues": 100,
+		"PageFormsAutocompleteOnAllChars": false,
+		"PageFormsCacheAutocompleteValues": false,
+		"PageFormsAutocompleteCacheTimeout": null,
+		"PageFormsRenameEditTabs": false,
+		"PageFormsRenameMainEditTab": false,
+		"PageFormsListSeparator":  ",",
+		"PageForms24HourTime": false,
+		"PageFormsCacheFormDefinitions": false,
+		"PageFormsFormCacheType": null,
+		"PageFormsLinkAllRedLinksToForms": false,
+		"PageFormsRedLinksCheckOnlyLocalProps": false,
+		"PageFormsShowTabsForAllHelperForms": true,
+		"PageFormsRunQueryFormAtTop": false,
+		"PageFormsGoogleMapsKey": null,
+		"PageFormsShowOnSelect": [],
+		"PageFormsAutocompleteValues": [],
+		"PageFormsGridValues": [],
+		"PageFormsGridParams": [],
+		"PageFormsFieldProperties": [],
+		"PageFormsCargoFields": [],
+		"PageFormsDependentFields": [],
+		"PageFormsCheckboxesSelectAllMinimum": 10,
 		"PageFormsDatePickerSettings": {
-			"value": {
-				"@note": "See PF_DefaultInputSettings.php for allowed values",
-				"FirstDate": null,
-				"LastDate": null,
-				"DateFormat": "SHORT",
-				"WeekStart": null,
-				"ShowWeekNumbers": false,
-				"DisableInputField": false,
-				"ShowResetButton": false,
-				"DisabledDaysOfWeek": null,
-				"HighlightedDaysOfWeek": null,
-				"DisabledDates": null,
-				"HighlightedDates": null
-			},
+			"@note": "See PF_DefaultInputSettings.php for allowed values",
+			"FirstDate": null,
+			"LastDate": null,
+			"DateFormat": "SHORT",
+			"WeekStart": null,
+			"ShowWeekNumbers": false,
+			"DisableInputField": false,
+			"ShowResetButton": false,
+			"DisabledDaysOfWeek": null,
+			"HighlightedDaysOfWeek": null,
+			"DisabledDates": null,
+			"HighlightedDates": null,
 			"merge_strategy": "array_plus"
 		}
 	},
