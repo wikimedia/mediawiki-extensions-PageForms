@@ -275,5 +275,12 @@
 	"pf-regexp-baseprefix": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-regexp-orchar": "This is a help text for the [[Special:CreateForm]] page. OR is an operator to handle [[wikipedia:Logical_disjunction|disjunctions]].",
 	"pf-regexp-inverse": "This is a help text for the [[Special:CreateForm]] page.",
-	"pf-regexp-message": "This is a help text for the [[Special:CreateForm]] page. \"Wrong format!\" refers to {{msg-mw|pf-regexp-wrongformat}}."
+	"pf-regexp-message": "This is a help text for the [[Special:CreateForm]] page. \"Wrong format!\" refers to {{msg-mw|pf-regexp-wrongformat}}.",
+	"pf-blankexturl": "Error message.",
+	"pf-externalpagebadjson": "Error message.",
+	"pf-externalpageempty": "Error message.",
+	"pf-invalidexturl": "Error message.",
+	"pf-missingconcept": "Error message.\n\nParameters:\n* $1 - Concept that is missing",
+	"pf-missingnamespace": "Error message.\n\nParameters:\n* $1 - Namespace that is missing",
+	"pf-nocompletionurls": "Error message."
 }

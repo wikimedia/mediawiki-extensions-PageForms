@@ -36,7 +36,11 @@ class PFAutocompleteAPI extends ApiBase {
 		//$limit = $params['limit'];
 
 		if ( is_null( $baseprop ) && is_null( $base_cargo_table ) && strlen( $substr ) == 0 ) {
-			$this->dieUsage( 'The substring must be specified', 'param_substr' );
+			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+				$this->dieWithError( array( 'apierror-missingparam', 'substr' ), 'param_substr' );
+			} else {
+				$this->dieUsage( 'The substring must be specified', 'param_substr' );
+			}
 		}
 
 		if ( !is_null( $baseprop ) ) {
@@ -61,7 +65,19 @@ class PFAutocompleteAPI extends ApiBase {
 
 		// If we got back an error message, exit with that message.
 		if ( !is_array( $data ) ) {
-			$this->dieUsage( $data );
+			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+				if ( !$data instanceof Message ) {
+					$data = ApiMessage::create( new RawMessage( '$1', [ $data ] ), 'unknownerror' );
+				}
+				$this->dieWithError( $data );
+			} else {
+				$code = 'unknownerror';
+				if ( $data instanceof Message ) {
+					$code = $data instanceof IApiMessage ? $data->getApiCode() : $data->getKey();
+					$data = $data->inLanguage( 'en' )->useDatabase( false )->text();
+				}
+				$this->dieUsage( $data, $code );
+			}
 		}
 
 		// to prevent JS parsing problems, display should be the same
