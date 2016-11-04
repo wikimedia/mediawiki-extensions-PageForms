@@ -1,6 +1,5 @@
 {
 	"@Note": "When updating this file please also update PageForms.php with the same changes.",
-	"load_composer_autoloader": true,
 	"name": "Page Forms",
 	"version": "4.0",
 	"author": [
