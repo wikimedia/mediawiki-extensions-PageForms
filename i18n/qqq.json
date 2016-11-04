@@ -16,7 +16,8 @@
 			"아라",
 			"Liuxinyu970226",
 			"Amire80",
-			"Seb35"
+			"Seb35",
+			"Hamilton Abreu"
 		]
 	},
 	"pageforms-desc": "{{desc|name=Page Forms|url=https://www.mediawiki.org/wiki/Extension:Page_Forms}}",
@@ -186,7 +187,7 @@
 	"pf_formedit_tooltip_saveandcontinueediting": "Button",
 	"pf_formedit_accesskey_saveandcontinueediting": "{{notranslate}}",
 	"pf_autoedit_anoneditwarning": "This is a copy of the general MediaWiki \"anoneditwarning\" message, but without any markup.\n\nSee also:\n* {{msg-mw|Anoneditwarning}}\n* {{msg-mw|Wikibase-anonymouseditwarning-property}}\n* {{msg-mw|Wikibase-anonymouseditwarning-item}}",
-	"pf_autoedit_success": "Message sent upon succespful operation. Parameters:\n* $1 - target\n* $2 - form\nSee also:\n* {{msg-mw|pf autoedit fail}}",
+	"pf_autoedit_success": "Message sent upon successful operation. Parameters:\n* $1 - target\n* $2 - form\nSee also:\n* {{msg-mw|pf autoedit fail}}",
 	"pf_autoedit_fail": "Message sent upon failed operation. Parameters:\n* $1 - target\nSee also:\n* {{msg-mw|pf autoedit success}}",
 	"pf_autoedit_notargetspecified": "An error message sent when no target page name was specified.",
 	"pf_autoedit_invalidtargetspecified": "An error message sent when the specified target page name is invalid as a wiki page name.\n\nParameters:\n* $1 - target page title",
