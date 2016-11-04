@@ -28,7 +28,10 @@ class PFFormLinker {
 			),
 			array(
 				'pp_page' => $pageID,
-				'pp_propname' => 'PFDefaultForm'
+				// Keep backward compatibility with
+				// the page property name for
+				// Semantic Forms.
+				'pp_propname' => array( 'PFDefaultForm', 'SFDefaultForm' )
 			)
 		);
 
