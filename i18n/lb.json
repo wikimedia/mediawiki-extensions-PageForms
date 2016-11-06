@@ -38,6 +38,7 @@
 	"pf_forminputs_maxlength": "Déi maximal erlaabt Längt vum Text an dësem Feld",
 	"pf_forminputs_defaultfilename": "De Standard Numm fir de eropgeluede Fichieren",
 	"pf_forminputs_existingvaluesonly": "Nëmme Wäerter zouloossen déi schonn an der Lëscht sinn",
+	"pf_forminputs_depth": "D'Zuel vun den Niveaue vu Kategorien déi am Ufank gewise ginn",
 	"pf_forminputs_height": "D'Héicht vun dësem Input, a Pixel",
 	"pf_forminputs_width": "D'Breet vun dësem Input, a Pixel",
 	"pf_forminputs_checkboxes_select_all": "Alles uwielen",

@@ -21,7 +21,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "La tabla de Cargo pa un campu anterior del formulariu escontra la que comprobar",
 	"apihelp-pfautocomplete-param-base_cargo_field": "El campu de Cargo pa un campu anterior del formulariu escontra'l que comprobar",
 	"apihelp-pfautocomplete-param-basevalue": "El valor a comprobar pa la propiedá o campu anterior",
-	"apihelp-pfautoedit-description": "Crear o editar una páxina usando un formulariu definíu pola estensión Semantic Forms.",
+	"apihelp-pfautoedit-description": "Crear o editar una páxina usando un formulariu definíu pola estensión Page Forms.",
 	"apihelp-pfautoedit-param-form": "El formulariu de Semantic Forms a usar",
 	"apihelp-pfautoedit-param-target": "El nome de la páxina a crear o editar",
 	"apihelp-pfautoedit-param-query": "La cadena de la consulta",
