@@ -1415,6 +1415,8 @@ END;
 				}
 			} elseif ( $tif && $tif->getDisplay() == 'table' ) {
 				$form_text .= $this->tableHTML( $tif, 0 );
+			} elseif ( $tif && !$tif->allowsMultiple() && $tif->getLabel() != null ) {
+				$form_text .= $section . "\n</fieldset>";
 			} else {
 				$form_text .= $section;
 			}
