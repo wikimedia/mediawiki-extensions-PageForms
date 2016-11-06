@@ -139,7 +139,7 @@ class PFHelperFormAction extends Action {
 	 */
 	static function displayForm( $action, $article ) {
 		$title = $article->getTitle();
-		if ( $title->getNamespace() == SMW_NS_PROPERTY ) {
+		if ( defined( 'SMW_NS_PROPERTY' ) && $title->getNamespace() == SMW_NS_PROPERTY ) {
 			$createPropertyPage = new PFCreateProperty();
 			$createPropertyPage->execute( $title->getText() );
 		} elseif ( $title->getNamespace() == NS_TEMPLATE ) {
