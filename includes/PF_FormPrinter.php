@@ -779,6 +779,7 @@ END;
 		$start_position = 0;
 		$section_start = 0;
 		$free_text_was_included = false;
+		$preloaded_free_text = null;
 		// Unencode any HTML-encoded representations of curly brackets and
 		// pipes - this is a hack to allow for forms to include templates
 		// that themselves contain form elements - the escaping was needed
@@ -959,6 +960,8 @@ END;
 
 					// Handle the free text field.
 					if ( $field_name == '<freetext>' ) {
+						// If there was no preloading, this will just be blank.
+						$preloaded_free_text = $cur_value;
 						// Add placeholders for the free text in both the form and
 						// the page, using <free_text> tags - once all the free text
 						// is known (at the end), it will get substituted in.
@@ -1464,6 +1467,8 @@ END;
 			if ( ! $free_text_was_included ) {
 				$wiki_page->addFreeTextSection();
 			}
+		} elseif ( $preloaded_free_text != null ) {
+			$free_text = $preloaded_free_text;
 		} else {
 			$free_text = null;
 		}
