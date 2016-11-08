@@ -2,8 +2,28 @@
 	"@metadata": {
 		"authors": [
 			"Vadgt",
-			"Xelgen"
+			"Xelgen",
+			"Kareyac"
 		]
 	},
-	"formedit": "Ձևի միջոցով խմբագրել"
+	"pf_createtemplate_namelabel": "Կաղապարի անունը",
+	"pf_createtemplate_standardformat": "Աղյուսակ",
+	"pf_createtemplate_addfield": "Ավելացնել դաշտ",
+	"pf_createtemplate_deletefield": "Ջնջել",
+	"pf_forminputs_checkboxes_select_all": "Նշել ամբողջը",
+	"pf-createform-with-name": "Ստեղծել ձևը $1",
+	"pf_createform_template": "Կաղապար",
+	"pf_createform_field": "Դաշտ",
+	"pf_createform_hidden": "Թաքցված",
+	"pf_createform_removetemplate": "Հեռացնել կաղապարը",
+	"pf_createform_add": "Ավելացնել",
+	"pf_createclass_create": "Ստեղծել",
+	"formedit": "Ձևի միջոցով խմբագրել",
+	"pf_formedit_createtitlenotarget": "Ստեղծել $1",
+	"pf-autoedit-wait": "Սպասեք...",
+	"pf_blank_namespace": "Հիմնական",
+	"pf-maps-enteraddress": "Մուտքագրեք այստեղ հասցե",
+	"pf-datepicker-close": "Փակել",
+	"pf-datepicker-prev": "Նախորդ",
+	"pf-datepicker-next": "Հաջորդ"
 }
