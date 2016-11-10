@@ -16,11 +16,13 @@
 			"MarSoft",
 			"Nemo bis",
 			"Дмитрий",
-			"INS Pirat"
+			"INS Pirat",
+			"Kareyac"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
 	"specialpages-group-pf_group": "Semantic Forms",
+	"apihelp-pfautoedit-param-query": "Строка запроса",
 	"createproperty": "Создать свойство",
 	"pf-createproperty-with-name": "Создать свойство: $1",
 	"pf_createproperty_allowedvalsinput": "Для того, чтобы оно содержало только определённые значения, введите через запятую список допустимых значений (если значение содержит запятую, то замените её на «\\,»):",
