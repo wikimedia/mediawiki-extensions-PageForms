@@ -137,11 +137,6 @@ END;
 		return $text;
 	}
 
-	function addJavascript() {
-		$out = $this->getOutput();
-		$out->addModules( array( 'ext.pageforms.PF_CreateTemplate' ) );
-	}
-
 	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
 		$attrs = array( 'id' => $formatStr );
 		if ( $formatStr === $curSelection ) {
@@ -175,8 +170,7 @@ END;
 			$template_name = $req->getVal( 'template_name' );
 		}
 
-		$out->addModules( 'ext.pageforms.main' );
-		$this->addJavascript();
+		$out->addModules( array( 'ext.pageforms.main', 'ext.pageforms.PF_CreateTemplate' ) );
 
 		$text = '';
 		$save_page = $req->getCheck( 'wpSave' );
