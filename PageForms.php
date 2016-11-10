@@ -395,17 +395,17 @@ $GLOBALS['wgResourceModules'] += array(
 			'libs/ext.pf.js',
 		),
 	),
-	'ext.pageforms.pf_CreateProperty' => $wgPageFormsResourceTemplate + array(
+	'ext.pageforms.PF_CreateProperty' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_CreateProperty.js',
 		),
 	),
-	'ext.pageforms.pf_PageSchemas' => $wgPageFormsResourceTemplate + array(
+	'ext.pageforms.PF_PageSchemas' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_PageSchemas.js',
 		),
 	),
-	'ext.pageforms.pf_CreateTemplate' => $wgPageFormsResourceTemplate + array(
+	'ext.pageforms.PF_CreateTemplate' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_CreateTemplate.js',
 		),
@@ -413,12 +413,12 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf_blank_error',
 		),
 	),
-	'ext.pageforms.pf_CreateClass' => $wgPageFormsResourceTemplate + array(
+	'ext.pageforms.PF_CreateClass' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_CreateClass.js',
 		),
 	),
-	'ext.pageforms.pf_CreateForm' => $wgPageFormsResourceTemplate + array(
+	'ext.pageforms.PF_CreateForm' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_CreateForm.js',
 		),
