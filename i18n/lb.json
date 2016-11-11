@@ -110,6 +110,7 @@
 	"pf_autoedit_noformfound": "Kee Formulaire uginn.",
 	"pf_autoedit_toomanyformsfound": "Fir dës Säit gëtt et méi wéi ee Formulaire.",
 	"pf_autoedit_readonly": "D'Datebank ass elo fir Ännerunge gespaart. Grond: $1",
+	"pf_autoedit_nosemanticform": "De Formulaire $2 konnt net fir d'Säit $1 ofgeruff ginn. Kuckt [[{{#special:FormEdit}}/$2/$1]] fir méi Detailer.",
 	"pf_autoedit_summary": "Automatesch vun der Säit $1 geännert.",
 	"pf-autoedit-wait": "Waart w.e.g. ...",
 	"runquery": "Ufro ausféieren",
