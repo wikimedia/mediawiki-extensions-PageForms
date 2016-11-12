@@ -5,7 +5,8 @@
 			"Jim-by",
 			"Red Winged Duck",
 			"Wizardist",
-			"Renessaince"
+			"Renessaince",
+			"Kareyac"
 		]
 	},
 	"pageforms-desc": "Формы для стварэньня і рэдагаваньня вікістаронак",
@@ -65,6 +66,7 @@
 	"pf_forminputs_hideroot": "Схаваць бацькоўскую катэгорыю",
 	"pf_forminputs_height": "Вышыня гэтага ўводу ў піксэлях",
 	"pf_forminputs_width": "Шырыня гэтага ўводу ў піксэлях",
+	"pf_forminputs_checkboxes_select_all": "Выбраць усё",
 	"createform": "Стварыць форму",
 	"pf_createform_nameinput": "Назва формы",
 	"pf_createform_nameinputdesc": "(форма звычайна атрымлівае тую ж назву, што і яе асноўны шаблён):",
@@ -126,6 +128,7 @@
 	"pf_autoedit_anoneditwarning": "Папярэджаньне: Вы не ўвайшлі ў сыстэму. Ваш IP-адрас будзе запісаны ў гісторыі гэтай старонкі.",
 	"pf_autoedit_success": "Пасьпяхова зьменены [[$1]] з дапамогай формы $2.",
 	"pf_autoedit_notargetspecified": "Не пазначаная мэтавая старонка.",
+	"pf_autoedit_redlinkexists": "$1 ужо існуе.",
 	"pf_autoedit_noformfound": "Форма не пазначаная.",
 	"pf_autoedit_toomanyformsfound": "Для старонкі даступна болей чым адна форма.",
 	"pf_autoedit_readonly": "У цяперашні момант база зьвестак заблякаваная для зьменаў. Прычына: $1",
