@@ -21,7 +21,7 @@
 		]
 	},
 	"pageforms-desc": "Formularios para crear y editar páginas wiki",
-	"specialpages-group-pf_group": "Formularios semánticos",
+	"specialpages-group-pf_group": "Formularios de páginas",
 	"createproperty": "Crear una propiedad",
 	"pf-createproperty-with-name": "Crear la propiedad: $1",
 	"pf_createproperty_allowedvalsinput": "Para permitir solo ciertos valores, escríbelos separados por comas (si un valor contiene una coma, reemplázalo con \"\\,\"):",

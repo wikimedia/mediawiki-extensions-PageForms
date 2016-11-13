@@ -32,7 +32,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_table": "Таблиця Cargo для попереднього поля у формі, методом порівняння з якою проводити перевірку",
 	"apihelp-pfautocomplete-param-base_cargo_field": "Поле Cargo для попереднього поля у формі, методом порівняння з яким проводити перевірку",
 	"apihelp-pfautocomplete-param-basevalue": "Значення, яке перевіряти для попередньої властивості чи поля",
-	"apihelp-pfautoedit-description": "Створити чи редагувати сторінку, використовуючи форму, визначену розширенням Semantic Forms.",
+	"apihelp-pfautoedit-description": "Створити чи редагувати сторінку, використовуючи форму, визначену розширенням Page Forms.",
 	"apihelp-pfautoedit-param-form": "Форма розширення Semantic Forms, яку використати",
 	"apihelp-pfautoedit-param-target": "Назва сторінки, яку треба створити чи редагувати",
 	"apihelp-pfautoedit-param-query": "Рядок запиту",
