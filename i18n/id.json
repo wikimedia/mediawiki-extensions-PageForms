@@ -6,11 +6,12 @@
 			"Irwangatot",
 			"IvanLanin",
 			"Rex",
-			"Kenrick95"
+			"Kenrick95",
+			"Presidenvolksraad"
 		]
 	},
 	"pageforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
-	"specialpages-group-pf_group": "Semantic Forms",
+	"specialpages-group-pf_group": "Halaman Formulir",
 	"createproperty": "Buat properti",
 	"pf_createproperty_allowedvalsinput": "Jika Anda ingin properti ini hanya diizinkan untuk memiliki suatu nilai tertentu, masukkan daftar nilai yang diizinkan, dipisahkan dengan koma (jika suatu nilai mengandung koma, ganti dengan \"\\,\"):",
 	"pf_createproperty_propname": "Nama properti:",
