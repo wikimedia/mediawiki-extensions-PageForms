@@ -264,7 +264,8 @@
 			"dependencies": [
 				"jquery.ui.datepicker",
 				"ext.pageforms.main"
-			]
+			],
+			"position": "bottom"
 		},
 		"ext.pageforms.regexp": {
 			"scripts": "libs/PF_regexp.js",
