@@ -21,7 +21,6 @@ class PFCreateCategory extends SpecialPage {
 	}
 
 	static function createCategoryText( $default_form, $category_name, $parent_category ) {
-
 		if ( $default_form === '' ) {
 			$text = wfMessage( 'pf_category_desc', $category_name )->inContentLanguage()->text();
 		} else {
@@ -82,9 +81,7 @@ class PFCreateCategory extends SpecialPage {
 
 		$all_forms = PFUtils::getAllForms();
 
-		// Set 'title' as hidden field, in case there's no URL niceness
-		global $wgContLang;
-		$mw_namespace_labels = $wgContLang->getNamespaces();
+		// Set 'title' as hidden field, in case there's no URL niceness.
 		$text = "\t" . '<form action="" method="post">' . "\n";
 		$firstRow = '';
 		if ( is_null( $presetCategoryName ) ) {

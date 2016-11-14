@@ -188,9 +188,10 @@ END;
 			// appropriate local variables.
 			foreach ( $req->getValues() as $var => $val ) {
 				$var_elements = explode( "_", $var );
-				// we only care about query variables of the form "a_b"
-				if ( count( $var_elements ) != 2 )
+				// We only care about query variables of the form "a_b".
+				if ( count( $var_elements ) != 2 ) {
 					continue;
+				}
 				list ( $field_field, $id ) = $var_elements;
 				if ( $field_field == 'name' && $id != 'starter' ) {
 					$field = PFTemplateField::create(
