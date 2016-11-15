@@ -71,7 +71,7 @@ class PFCreateClass extends SpecialPage {
 
 			// Create the property, and make a job for it.
 			if ( defined( 'SMW_VERSION' ) && !empty( $property_name ) ) {
-				$full_text = PFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
+				$full_text = PFCreateProperty::createPropertyText( $property_type, $allowed_values );
 				$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$params = array();
 				$params['user_id'] = $user->getId();
@@ -87,7 +87,7 @@ class PFCreateClass extends SpecialPage {
 			global $smwgContLang;
 			$datatypeLabels = $smwgContLang->getDatatypeLabels();
 			$property_type = $datatypeLabels['_wpg'];
-			$full_text = PFCreateProperty::createPropertyText( $property_type, '', $allowed_values );
+			$full_text = PFCreateProperty::createPropertyText( $property_type, $allowed_values );
 			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $connectingProperty );
 			$params = array();
 			$params['user_id'] = $user->getId();
