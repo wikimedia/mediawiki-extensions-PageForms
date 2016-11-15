@@ -309,7 +309,12 @@ class PFFormField {
 		} // end for
 
 		if ( !array_key_exists( 'delimiter', $f->mFieldArgs ) ) {
-			$f->mFieldArgs['delimiter'] = $f->getTemplateField()->getDelimiter();
+			$delimiterFromTemplate = $f->getTemplateField()->getDelimiter();
+			if ( $delimiterFromTemplate == '' ) {
+				$f->mFieldArgs['delimiter'] = ',';
+			} else {
+				$f->mFieldArgs['delimiter'] = $delimiterFromTemplate;
+			}
 		}
 		$delimiter = $f->mFieldArgs['delimiter'];
 
