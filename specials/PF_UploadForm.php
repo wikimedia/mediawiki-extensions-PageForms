@@ -323,9 +323,6 @@ END;
 		$text .= <<<END
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<head>
-{$out->getHeadScripts()}
-</head>
 <body>
 {$out->getHTML()}
 {$out->getBottomScripts()}
