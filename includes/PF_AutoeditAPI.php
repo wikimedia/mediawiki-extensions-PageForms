@@ -292,12 +292,12 @@ class PFAutoeditAPI extends ApiBase {
 
 		$formTitle = Title::makeTitleSafe( PF_NS_FORM, $this->mOptions['form'] );
 
-		// if the given form is not a valid title, give up
+		// If the given form is not a valid title, give up.
 		if ( !($formTitle instanceOf Title) ) {
 			throw new MWException( wfMessage( 'pf_autoedit_invalidform', $this->mOptions['form'] )->parse() );
 		}
 
-		// if the form page is a redirect, follow the redirect
+		// If the form page is a redirect, follow the redirect.
 		if ( $formTitle->isRedirect() ) {
 
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
@@ -332,7 +332,7 @@ class PFAutoeditAPI extends ApiBase {
 		// Find existing target article if it exists, or create a new one.
 		$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
-		// if the specified target title is invalid, give up
+		// If the specified target title is invalid, give up.
 		if ( !$targetTitle instanceof Title ) {
 			throw new MWException( wfMessage( 'pf_autoedit_invalidtargetspecified', $this->mOptions['target'] )->parse() );
 		}
@@ -375,7 +375,6 @@ class PFAutoeditAPI extends ApiBase {
 	 * Sets the output HTML of wgOut as the module's result
 	 */
 	protected function setResultFromOutput() {
-
 		// turn on output buffering
 		ob_start();
 
@@ -394,7 +393,6 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function doPreview( $editor ) {
-
 		global $wgOut;
 
 		$previewOutput = $editor->getPreviewText();
@@ -483,7 +481,7 @@ class PFAutoeditAPI extends ApiBase {
 				return false; // success
 
 			case EditPage::AS_CONTENT_TOO_BIG: // Content too big (> $wgMaxArticleSize)
-			case EditPage::AS_ARTICLE_WAS_DELETED: // article was deleted while editting and param wpRecreate == false or form was not posted
+			case EditPage::AS_ARTICLE_WAS_DELETED: // article was deleted while editing and param wpRecreate == false or form was not posted
 			case EditPage::AS_CONFLICT_DETECTED: // (non-resolvable) edit conflict
 			case EditPage::AS_SUMMARY_NEEDED: // no edit summary given and the user has forceeditsummary set and the user is not editting in his own userspace or talkspace and wpIgnoreBlankSummary == false
 			case EditPage::AS_TEXTBOX_EMPTY: // user tried to create a new section without content
@@ -564,7 +562,7 @@ class PFAutoeditAPI extends ApiBase {
 
 				throw new MWException( wfMessage( 'spamprotectionmatch', wfEscapeWikiText( $match ) )->parse() ); // FIXME: Include better error message
 
-			case EditPage::AS_BLOCKED_PAGE_FOR_USER: // User is blocked from editting editor page
+			case EditPage::AS_BLOCKED_PAGE_FOR_USER: // User is blocked from editing editor page
 				throw new UserBlockedError( $this->getUser()->getBlock() );
 
 			case EditPage::AS_IMAGE_REDIRECT_ANON: // anonymous user is not allowed to upload (User::isAllowed('upload') == false)
@@ -656,15 +654,14 @@ class PFAutoeditAPI extends ApiBase {
 	 * @return type
 	 */
 	protected function generateTargetName( $targetNameFormula ) {
-
 		$targetName = $targetNameFormula;
 
-		// prepend a super-page, if one was specified
+		// Prepend a super-page, if one was specified.
 		if ( $this->getRequest()->getCheck( 'super_page' ) ) {
 			$targetName = $this->getRequest()->getVal( 'super_page' ) . '/' . $targetName;
 		}
 
-		// prepend a namespace, if one was specified
+		// Prepend a namespace, if one was specified.
 		if ( $this->getRequest()->getCheck( 'namespace' ) ) {
 			$targetName = $this->getRequest()->getVal( 'namespace' ) . ':' . $targetName;
 		}
@@ -672,13 +669,16 @@ class PFAutoeditAPI extends ApiBase {
 		// replace "unique number" tag with one that won't get erased by the next line
 		$targetName = preg_replace( '/<unique number(.*)>/', '{num\1}', $targetName, 1 );
 
-		// if any formula stuff is still in the name after the parsing, just remove it
-		// FIXME: This is wrong. If anything is still left, something should have been present in the form and wasn't. An error should be raised.
+		// If any formula stuff is still in the name after the parsing,
+		// just remove it.
+		// FIXME: This is wrong. If anything is still left, something
+		// should have been present in the form and wasn't. An error
+		// should be raised.
 		//$targetName = StringUtils::delimiterReplace( '<', '>', '', $targetName );
 
-		// replace spaces back with underlines, in case a magic word or parser
-		// function name contains underlines - hopefully this won't cause
-		// problems of its own
+		// Replace spaces back with underlines, in case a magic word or
+		// parser function name contains underlines - hopefully this
+		// won't cause problems of its own.
 		$targetName = str_replace( ' ', '_', $targetName );
 
 		// now run the parser on it
@@ -707,7 +707,7 @@ class PFAutoeditAPI extends ApiBase {
 					// the "start" value"
 					$titleNumber = $matches[1];
 				}
-			} else if ( preg_match( '/^(_?{num.*}?)*$/', $targetName, $matches ) ) {
+			} elseif ( preg_match( '/^(_?{num.*}?)*$/', $targetName, $matches ) ) {
 				// the target name contains only underscores and number fields,
 				// i.e. would result in an empty title without the number set
 				$titleNumber = '1';
@@ -786,14 +786,14 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	/**
-	 * Depending on the requested action this method will try to store/preview
-	 * the data in mOptions or retrieve the edit form.
+	 * Depending on the requested action this method will try to
+	 * store/preview the data in mOptions or retrieve the edit form.
 	 *
-	 * The form and target page will be available in mOptions after execution of
-	 * the method.
+	 * The form and target page will be available in mOptions after
+	 * execution of the method.
 	 *
-	 * Errors and warnings are logged in the API result under the 'errors' key.
-	 * The general request status is maintained in mStatus.
+	 * Errors and warnings are logged in the API result under the 'errors'
+	 * key. The general request status is maintained in mStatus.
 	 *
 	 * @global $wgRequest
 	 * @global $wgOut
@@ -803,7 +803,7 @@ class PFAutoeditAPI extends ApiBase {
 	public function doAction() {
 		global $wgOut, $wgParser, $wgRequest, $wgPageFormsFormPrinter;
 
-		// if the wiki is read-only, do not save
+		// If the wiki is read-only, do not save.
 		if ( wfReadOnly() ) {
 
 			if ( $this->mAction === self::ACTION_SAVE ) {
@@ -819,10 +819,10 @@ class PFAutoeditAPI extends ApiBase {
 
 		// get the form content
 		$formContent = StringUtils::delimiterReplace(
-						'<noinclude>', // start delimiter
-						'</noinclude>', // end delimiter
-						'', // replace by
-						$this->getTextForPage( $formTitle ) // subject
+			'<noinclude>', // start delimiter
+			'</noinclude>', // end delimiter
+			'', // replace by
+			$this->getTextForPage( $formTitle ) // subject
 		);
 
 		// signals that the form was submitted
@@ -976,12 +976,12 @@ class PFAutoeditAPI extends ApiBase {
 			// Perform the requested action.
 			if ( $this->mAction === self::ACTION_PREVIEW ) {
 				$this->doPreview( $editor );
-			} else if ( $this->mAction === self::ACTION_DIFF ) {
+			} elseif ( $this->mAction === self::ACTION_DIFF ) {
 				$this->doDiff( $editor );
 			} else {
 				$this->doStore( $editor );
 			}
-		} else if ( $this->mAction === self::ACTION_FORMEDIT ) {
+		} elseif ( $this->mAction === self::ACTION_FORMEDIT ) {
 
 			$parserOutput = $wgParser->getOutput();
 			if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
@@ -1017,8 +1017,9 @@ class PFAutoeditAPI extends ApiBase {
 				continue;
 			}
 
-			if ( $type === '' )
+			if ( $type === '' ) {
 				$type = 'text';
+			}
 
 			switch ( $type ) {
 				case 'checkbox':
@@ -1163,7 +1164,6 @@ class PFAutoeditAPI extends ApiBase {
 	 * @return string
 	 */
 	private function logMessage( $msg, $errorLevel = self::ERROR ) {
-
 		if ( $errorLevel === self::ERROR ) {
 			$this->mStatus = 400;
 		}
