@@ -25,7 +25,7 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $wgPageFormsGoogleMapsKey;
+		global $wgPageFormsGoogleMapsKey, $wgPageFormsTabIndex;
 		global $wgOut;
 
 		$scripts = array(
@@ -38,11 +38,18 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
 		$wgOut->addModules( 'ext.pageforms.maps' );
 
-		$parsedCurValue = PFOpenLayersInput::parseCoordinatesString( $cur_value );
-
-		$coordsInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'pfCoordsInput', 'name' => $input_name, 'value' => $parsedCurValue, 'size' => 40 ) );
+		$coordsInputAttrs = array(
+			'type' => 'text',
+			'tabindex' => $wgPageFormsTabIndex,
+			'class' => 'pfCoordsInput',
+			'name' => $input_name,
+			'value' => PFOpenLayersInput::parseCoordinatesString( $cur_value ),
+			'size' => 40
+		);
+		$coordsInput = Html::element( 'input', $coordsInputAttrs );
+		$wgPageFormsTabIndex++;
 		$mapUpdateButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfUpdateMap', 'value' => wfMessage( 'pf-maps-setmarker' )->parse() ), null );
-		$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
+		$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'tabindex' => $wgPageFormsTabIndex, 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
 		$addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ), null );
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );

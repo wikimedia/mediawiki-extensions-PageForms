@@ -51,7 +51,7 @@ class PFOpenLayersInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-		global $wgPageFormsFieldNum;
+		global $wgPageFormsFieldNum, $wgPageFormsTabIndex;
 		global $wgOut;
 
 		if ( !ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
@@ -66,9 +66,15 @@ class PFOpenLayersInput extends PFFormInput {
 		}
 		$wgOut->addModules( 'ext.pageforms.maps' );
 
-		$parsedCurValue = self::parseCoordinatesString( $cur_value );
-
-		$coordsInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'pfCoordsInput', 'name' => $input_name, 'value' => $parsedCurValue, 'size' => 40 ) );
+		$coordsInputAttrs = array(
+			'type' => 'text',
+			'tabindex' => $wgPageFormsTabIndex,
+			'class' => 'pfCoordsInput',
+			'name' => $input_name,
+			'value' => self::parseCoordinatesString( $cur_value ),
+			'size' => 40
+		);
+		$coordsInput = Html::element( 'input', $coordsInputAttrs );
 		$mapUpdateButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfUpdateMap', 'value' => wfMessage( 'pf-maps-setmarker' )->parse() ), null );
 		// For OpenLayers, doing an address lookup, i.e. a geocode,
 		// will require a separate geocoding address, which may
@@ -76,7 +82,8 @@ class PFOpenLayersInput extends PFFormInput {
 		// For now, let's just not do this, since the Google Maps
 		// input is much more widely used anyway.
 		// @TODO - add this in.
-		//$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
+		//$wgPageFormsTabIndex++;
+		//$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'tabindex' => $wgPageFormsTabIndex, 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
 		//$addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ), null );
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
