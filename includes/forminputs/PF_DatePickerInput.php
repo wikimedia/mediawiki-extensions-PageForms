@@ -47,8 +47,8 @@ class PFDatePickerInput extends PFFormInput {
 	/**
 	 * Returns the name of the input type this class handles.
 	 *
-	 * This is the name to be used in the field definition for the "input type"
-	 * parameter.
+	 * This is the name to be used in the field definition for the
+	 * "input type" parameter.
 	 *
 	 * @return String The name of the input type this class handles.
 	 */
@@ -59,8 +59,8 @@ class PFDatePickerInput extends PFFormInput {
 	/**
 	 * Returns the names of the resource modules this input type uses.
 	 *
-	 * Returns the names of the modules as an array or - if there is only one
-	 * module - as a string.
+	 * Returns the names of the modules as an array or - if there is only
+	 * one module - as a string.
 	 *
 	 * @return null|string|array
 	 */
@@ -73,7 +73,6 @@ class PFDatePickerInput extends PFFormInput {
 	 * Adds the Javascript config settings used by all datepickers.
 	 */
 	private static function setup() {
-
 		global $wgOut, $wgLang;
 
 		static $hasRun = false;
@@ -82,72 +81,72 @@ class PFDatePickerInput extends PFFormInput {
 			$hasRun = true;
 
 			$regional = array(
-					'closeText' => wfMessage( 'pf-datepicker-close' )->text(),
-					'prevText'=> wfMessage( 'pf-datepicker-prev' )->text(),
-					'nextText'=> wfMessage( 'pf-datepicker-next' )->text(),
-					'currentText'=> wfMessage( 'pf-datepicker-today' )->text(),
-					'monthNames' => array(
-							wfMessage( 'january' )->text(),
-							wfMessage( 'february' )->text(),
-							wfMessage( 'march' )->text(),
-							wfMessage( 'april' )->text(),
-							wfMessage( 'may_long' )->text(),
-							wfMessage( 'june' )->text(),
-							wfMessage( 'july' )->text(),
-							wfMessage( 'august' )->text(),
-							wfMessage( 'september' )->text(),
-							wfMessage( 'october' )->text(),
-							wfMessage( 'november' )->text(),
-							wfMessage( 'december' )->text(),
-						),
-					'monthNamesShort' => array(
-							wfMessage( 'jan' )->text(),
-							wfMessage( 'feb' )->text(),
-							wfMessage( 'mar' )->text(),
-							wfMessage( 'apr' )->text(),
-							wfMessage( 'may' )->text(),
-							wfMessage( 'jun' )->text(),
-							wfMessage( 'jul' )->text(),
-							wfMessage( 'aug' )->text(),
-							wfMessage( 'sep' )->text(),
-							wfMessage( 'oct' )->text(),
-							wfMessage( 'nov' )->text(),
-							wfMessage( 'dec' )->text(),
-						),
-					'dayNames' => array(
-							wfMessage( 'sunday' )->text(),
-							wfMessage( 'monday' )->text(),
-							wfMessage( 'tuesday' )->text(),
-							wfMessage( 'wednesday' )->text(),
-							wfMessage( 'thursday' )->text(),
-							wfMessage( 'friday' )->text(),
-							wfMessage( 'saturday' )->text(),
-						),
-					'dayNamesShort' => array(
-							wfMessage( 'sun' )->text(),
-							wfMessage( 'mon' )->text(),
-							wfMessage( 'tue' )->text(),
-							wfMessage( 'wed' )->text(),
-							wfMessage( 'thu' )->text(),
-							wfMessage( 'fri' )->text(),
-							wfMessage( 'sat' )->text(),
-						),
-					'dayNamesMin' => array(
-							$wgLang->firstChar( wfMessage( 'sun' )->text() ),
-							$wgLang->firstChar( wfMessage( 'mon' )->text() ),
-							$wgLang->firstChar( wfMessage( 'tue' )->text() ),
-							$wgLang->firstChar( wfMessage( 'wed' )->text() ),
-							$wgLang->firstChar( wfMessage( 'thu' )->text() ),
-							$wgLang->firstChar( wfMessage( 'fri' )->text() ),
-							$wgLang->firstChar( wfMessage( 'sat' )->text() ),
-						),
-					'weekHeader' => '',
-					'dateFormat' => wfMessage( 'pf-datepicker-dateformatshort' )->text(),
-					'firstDay' => wfMessage( 'pf-datepicker-firstdayofweek' )->text(),
-					'isRTL'=> $wgLang->isRTL(),
-					'showMonthAfterYear' => false,
-					'yearSuffix' => '',
-				);
+				'closeText' => wfMessage( 'pf-datepicker-close' )->text(),
+				'prevText'=> wfMessage( 'pf-datepicker-prev' )->text(),
+				'nextText'=> wfMessage( 'pf-datepicker-next' )->text(),
+				'currentText'=> wfMessage( 'pf-datepicker-today' )->text(),
+				'monthNames' => array(
+					wfMessage( 'january' )->text(),
+					wfMessage( 'february' )->text(),
+					wfMessage( 'march' )->text(),
+					wfMessage( 'april' )->text(),
+					wfMessage( 'may_long' )->text(),
+					wfMessage( 'june' )->text(),
+					wfMessage( 'july' )->text(),
+					wfMessage( 'august' )->text(),
+					wfMessage( 'september' )->text(),
+					wfMessage( 'october' )->text(),
+					wfMessage( 'november' )->text(),
+					wfMessage( 'december' )->text(),
+				),
+				'monthNamesShort' => array(
+					wfMessage( 'jan' )->text(),
+					wfMessage( 'feb' )->text(),
+					wfMessage( 'mar' )->text(),
+					wfMessage( 'apr' )->text(),
+					wfMessage( 'may' )->text(),
+					wfMessage( 'jun' )->text(),
+					wfMessage( 'jul' )->text(),
+					wfMessage( 'aug' )->text(),
+					wfMessage( 'sep' )->text(),
+					wfMessage( 'oct' )->text(),
+					wfMessage( 'nov' )->text(),
+					wfMessage( 'dec' )->text(),
+				),
+				'dayNames' => array(
+					wfMessage( 'sunday' )->text(),
+					wfMessage( 'monday' )->text(),
+					wfMessage( 'tuesday' )->text(),
+					wfMessage( 'wednesday' )->text(),
+					wfMessage( 'thursday' )->text(),
+					wfMessage( 'friday' )->text(),
+					wfMessage( 'saturday' )->text(),
+				),
+				'dayNamesShort' => array(
+					wfMessage( 'sun' )->text(),
+					wfMessage( 'mon' )->text(),
+					wfMessage( 'tue' )->text(),
+					wfMessage( 'wed' )->text(),
+					wfMessage( 'thu' )->text(),
+					wfMessage( 'fri' )->text(),
+					wfMessage( 'sat' )->text(),
+				),
+				'dayNamesMin' => array(
+					$wgLang->firstChar( wfMessage( 'sun' )->text() ),
+					$wgLang->firstChar( wfMessage( 'mon' )->text() ),
+					$wgLang->firstChar( wfMessage( 'tue' )->text() ),
+					$wgLang->firstChar( wfMessage( 'wed' )->text() ),
+					$wgLang->firstChar( wfMessage( 'thu' )->text() ),
+					$wgLang->firstChar( wfMessage( 'fri' )->text() ),
+					$wgLang->firstChar( wfMessage( 'sat' )->text() ),
+				),
+				'weekHeader' => '',
+				'dateFormat' => wfMessage( 'pf-datepicker-dateformatshort' )->text(),
+				'firstDay' => wfMessage( 'pf-datepicker-firstdayofweek' )->text(),
+				'isRTL'=> $wgLang->isRTL(),
+				'showMonthAfterYear' => false,
+				'yearSuffix' => '',
+			);
 
 			$wgOut->addJsConfigVars( 'ext.pf.datepicker.regional', $regional );
 
@@ -160,7 +159,6 @@ class PFDatePickerInput extends PFFormInput {
 	 * @return String
 	 */
 	protected function setupJsInitAttribs() {
-
 		global $wgPageFormsDatePickerSettings, $wgExtensionAssetsPath;
 		global $wgAmericanDates, $wgLang;
 
@@ -234,11 +232,8 @@ class PFDatePickerInput extends PFFormInput {
 
 		// setup attributes required only for either disabled or enabled datepickers
 		if ( $this->mIsDisabled ) {
-
 			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButtonDisabled.gif';
-
 		} else {
-
 			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButton.gif';
 
 			// find min date, max date and disabled dates
@@ -277,30 +272,31 @@ class PFDatePickerInput extends PFFormInput {
 
 				$disabledDates = self::invertRangesArray( $enabledDates );
 
-			} else $disabledDates = array();
+			} else {
+				$disabledDates = array();
+			}
 
 			// add user-defined or default disabled values
 			if ( array_key_exists( 'disable dates', $this->mOtherArgs ) ) {
-
 				$disabledDates = self::sortAndMergeRanges(
 					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $this->mOtherArgs['disable dates'] ) ) )
 				);
-
 			} elseif ( $wgPageFormsDatePickerSettings["DisabledDates"] ) {
-
 				$disabledDates = self::sortAndMergeRanges(
 					array_merge( $disabledDates, self::createRangesArray( explode( ',' , $wgPageFormsDatePickerSettings["DisabledDates"] ) ) )
 				);
-
 			}
 
-			// if a minDate is set, discard all disabled dates below the min date
+			// If a minDate is set, discard all disabled dates
+			// below the min date.
 			if ( $minDate ) {
 
-				// discard all ranges of disabled dates that are entirely below the min date
+				// Discard all ranges of disabled dates that
+				// are entirely below the min date.
 				while ( $minDate && count( $disabledDates ) && $disabledDates[0][1] < $minDate ) array_shift( $disabledDates );
 
-				// if min date is in first disabled date range, discard that range and adjust min date
+				// If min date is in first disabled date range,
+				// discard that range and adjust min date.
 				if ( count( $disabledDates ) && $disabledDates[0][0] <= $minDate && $disabledDates[0][1] >= $minDate ) {
 					$minDate = $disabledDates[0][1];
 					array_shift( $disabledDates );
@@ -311,10 +307,12 @@ class PFDatePickerInput extends PFFormInput {
 			// if a maxDate is set, discard all disabled dates above the max date
 			if ( $maxDate ) {
 
-				// discard all ranges of disabled dates that are entirely above the max date
+				// Discard all ranges of disabled dates that
+				// are entirely above the max date.
 				while ( count( $disabledDates ) && $disabledDates[count( $disabledDates ) - 1][0] > $maxDate ) array_pop( $disabledDates );
 
-				// if max date is in last disabled date range, discard that range and adjust max date
+				// If max date is in last disabled date range,
+				// discard that range and adjust max date.
 				if ( count( $disabledDates ) && $disabledDates[count( $disabledDates ) - 1][0] <= $maxDate && $disabledDates[count( $disabledDates ) - 1][1] >= $maxDate ) {
 					$maxDate = $disabledDates[count( $disabledDates ) - 1][0];
 					array_pop( $disabledDates );
@@ -327,7 +325,7 @@ class PFDatePickerInput extends PFFormInput {
 			if ( array_key_exists( "highlight dates", $this->mOtherArgs ) ) {
 				$highlightedDates = self::sortAndMergeRanges ( self::createRangesArray( explode( ',' , $this->mOtherArgs["highlight dates"] ) ) ) ;
 			} elseif ( $wgPageFormsDatePickerSettings["HighlightedDates"] ) {
-				$highlightedDates = self::sortAndMergeRanges ( self::createRangesArray( explode( ',' , $wgPageFormsDatePickerSettings["HighlightedDates"]  ) ) ) ;
+				$highlightedDates = self::sortAndMergeRanges ( self::createRangesArray( explode( ',' , $wgPageFormsDatePickerSettings["HighlightedDates"] ) ) ) ;
 			} else {
 				$highlightedDates = null;
 			}
@@ -410,7 +408,8 @@ class PFDatePickerInput extends PFFormInput {
 			// register disabled dates with datepicker
 			if ( count( $disabledDates ) > 0 ) {
 
-				// convert the PHP array of date ranges into an array of numbers
+				// Convert the PHP array of date ranges into an
+				// array of numbers.
 				$jsattribs["disabledDates"] = array_map( create_function ( '$range', '
 
 							$y0 = $range[0]->format( "Y" );
@@ -428,7 +427,7 @@ class PFDatePickerInput extends PFFormInput {
 			// register highlighted dates with datepicker
 			if ( count( $highlightedDates ) > 0 ) {
 
-				// convert the PHP array of date ranges into an array of numbers
+				// Convert the PHP array of date ranges into an					// array of numbers.
 				$jsattribs["highlightedDates"] = array_map( create_function ( '$range', '
 
 							$y0 = $range[0]->format( "Y" );
@@ -459,14 +458,14 @@ class PFDatePickerInput extends PFFormInput {
 	}
 
 	/**
-	 * Sort and merge time ranges in an array
+	 * Sort and merge time ranges in an array.
 	 *
-	 * expects an array of arrays
-	 * the inner arrays must contain two dates representing the start and end
-	 * date of a time range
+	 * Expects an array of arrays -
+	 * the inner arrays must contain two dates representing the start and
+	 * end date of a time range.
 	 *
-	 * returns an array of arrays with the date ranges sorted and overlapping
-	 * ranges merged
+	 * Returns an array of arrays with the date ranges sorted and
+	 * overlapping ranges merged.
 	 *
 	 * @param array $ranges array of arrays of DateTimes
 	 * @return array of arrays of DateTimes
@@ -486,36 +485,30 @@ class PFDatePickerInput extends PFFormInput {
 		$mergedRanges = array();
 
 		foreach ( $ranges as $range ) {
-
 			// ignore empty date ranges
 			if ( !$range ) {
 				continue;
 			}
 
 			if ( !$currmin ) { // found first valid range
-
 				$currmin = $range[0];
 				$nextmin = $range[1];
 				$nextmin->modify( '+1 day' );
-
-			} elseif ( $range[0] <=  $nextmin ) { // overlap detected
-
+			} elseif ( $range[0] <= $nextmin ) { // overlap detected
 				$currmin = min( $currmin, $range[0] );
 
 				$range[1]->modify( '+1 day' );
 				$nextmin = max( $nextmin, $range[1] );
-
-			} else { // no overlap, store current range and continue with next
-
+			} else {
+				// No overlap - store current range and
+				// continue with next.
 				$nextmin->modify( '-1 day' );
 				$mergedRanges[] = array( $currmin, $nextmin );
 
 				$currmin = $range[0];
 				$nextmin = $range[1];
 				$nextmin->modify( '+1 day' );
-
 			}
-
 		}
 
 		// store last range
@@ -531,22 +524,23 @@ class PFDatePickerInput extends PFFormInput {
 	/**
 	 * Creates an array of arrays of dates from an array of strings
 	 *
-	 * expects an array of strings containing dates or date ranges in the format
-	 * "yyyy/mm/dd" or "yyyy/mm/dd-yyyy/mm/dd"
+	 * Expects an array of strings containing dates or date ranges in the
+	 * format "yyyy/mm/dd" or "yyyy/mm/dd-yyyy/mm/dd"
 	 *
-	 * returns an array of arrays, each of the latter consisting of two dates
-	 * representing the start and end date of the range
+	 * Returns an array of arrays, each of the latter consisting of two
+	 * dates representing the start and end date of the range
 	 *
-	 * The result array will contain null values for unparseable date strings
+	 * The result array will contain null values for unparseable date
+	 * strings.
 	 *
 	 * @param array $rangesAsStrings array of strings with dates and date ranges
 	 * @return array of arrays of DateTimes
 	*/
-   private static function createRangesArray ( $rangesAsStrings ) {
+	private static function createRangesArray ( $rangesAsStrings ) {
 
-	   // transform array of strings into array of array of dates
-	   // have to use create_function to be PHP pre5.3 compatible
-	   return array_map( create_function( '$range', '
+		// transform array of strings into array of array of dates
+		// have to use create_function to be PHP pre5.3 compatible
+		return array_map( create_function( '$range', '
 
 					if ( strpos ( $range, "-" ) === FALSE ) { // single date
 						$date = date_create( $range );
@@ -563,9 +557,9 @@ class PFDatePickerInput extends PFFormInput {
 	/**
 	 * Takes an array of date ranges and returns an array containing the gaps
 	 *
-	 * The very first and the very last date of the original string are lost in
-	 * the process, of course, as they do not delimit a gap. This means, after
-	 * repeated inversion the result will eventually be empty.
+	 * The very first and the very last date of the original string are
+	 * lost in the process, of course, as they do not delimit a gap. This
+	 * means, after repeated inversions the result will eventually be empty.
 	 *
 	 * @param array $ranges of arrays of DateTimes
 	 * @return array of arrays of DateTimes
@@ -587,7 +581,7 @@ class PFDatePickerInput extends PFFormInput {
 				$invRanges[] = array( $min, $range[0] );
 			}
 
-			$min = $range[1];  // store min date of next gap
+			$min = $range[1]; // store min date of next gap
 
 		}
 
@@ -648,27 +642,26 @@ class PFDatePickerInput extends PFFormInput {
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf-datepicker-showweeknumbers' )->text()
 		);
+
 		return $params;
 	}
 
 	/**
 	 * Returns the HTML code to be included in the output page for this input.
 	 *
-	 * Ideally this HTML code should provide a basic functionality even if the
-	 * browser is not JavaScript capable. I.e. even without JavaScript the user
-	 * should be able to input values.
+	 * Ideally this HTML code should provide a basic functionality even if
+	 * the browser is not JavaScript capable, i.e. even without JavaScript
+	 * the user should be able to input values.
 	 *
 	 */
 	public function getHtmlText() {
-		// assemble HTML code
-		$html = $this->textHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
+		// Assemble HTML code.
+		$html = self::textHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 
 		if ( ! array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
-
 			// wrap in span (e.g. used for mandatory inputs)
 			$class = array_key_exists( 'mandatory', $this->mOtherArgs ) ? 'inputSpan mandatoryFieldSpan' : 'inputSpan';
-			$html = Xml::tags('span', array('class'=>  $class ), $html );
-
+			$html = Xml::tags( 'span', array( 'class'=> $class ), $html );
 		}
 
 		return $html;
@@ -685,7 +678,7 @@ class PFDatePickerInput extends PFFormInput {
 	}
 
 	/**
-	 * Creates the html text for an input.
+	 * Creates the HTML text for an input.
 	 *
 	 * Common attributes for input types are set according to the parameters.
 	 * The parameters are the standard parameters set by Page Forms'
@@ -700,7 +693,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param string $class
 	 * @return string the html text of an input element
 	 */
-	private function textHTML ( $currentValue, $inputName, $isDisabled, $otherArgs, $inputId = null, $tabIndex = null, $class = '' ) {
+	static function textHTML( $currentValue, $inputName, $isDisabled, $otherArgs, $inputId = null, $tabIndex = null, $class = '' ) {
 
 		global $wgPageFormsTabIndex;
 
@@ -739,19 +732,17 @@ class PFDatePickerInput extends PFFormInput {
 
 		// if no special input id is specified set the Page Forms standard
 		if ( $inputId !== null ) {
-			$attribs[ 'id' ] = $inputId;
+			$attribs['id'] = $inputId;
 		}
 
-
 		if ( $tabIndex == null ) {
-			$attribs[ 'tabindex' ] = $wgPageFormsTabIndex;
+			$attribs['tabindex'] = $wgPageFormsTabIndex;
 		} else {
-			$attribs[ 'tabindex' ] = $tabIndex;
+			$attribs['tabindex'] = $tabIndex;
 		}
 
 		$html = Xml::element( 'input', $attribs );
 
 		return $html;
-
 	}
 }

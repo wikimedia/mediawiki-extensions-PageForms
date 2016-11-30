@@ -258,7 +258,7 @@ class PFParserFunctions {
 				// "Decode" any other HTML tags.
 				$inQueryStr = html_entity_decode( $inQueryStr, ENT_QUOTES );
 
-				parse_str($inQueryStr, $arr);
+				parse_str( $inQueryStr, $arr );
 				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			} elseif ( $paramName == 'autocomplete on category' ) {
 				$inAutocompletionSource = $value;
@@ -536,8 +536,7 @@ class PFParserFunctions {
 						$editTime = $targetArticle->getTimestamp();
 					}
 
-				default :
-
+				default:
 					$value = $parser->recursiveTagParse( $value );
 					$arr = array( $key => $value );
 					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
@@ -617,7 +616,6 @@ class PFParserFunctions {
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
 		foreach ( $params as $i => $param ) {
-
 			$elements = explode( '=', $param, 2 );
 
 			// set param_name and value

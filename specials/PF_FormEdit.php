@@ -78,11 +78,11 @@ class PFFormEdit extends UnlistedSpecialPage {
 			} else {
 				$module->setOption( 'preload', false );
 			}
-		} else if ( !empty( $targetName ) && Title::newFromText( $targetName )->exists ( ) ) {
+		} elseif ( !empty( $targetName ) && Title::newFromText( $targetName )->exists ( ) ) {
 			// If target page exists, do not overwrite it with
 			// preload data; just preload the page's data.
 			$module->setOption( 'preload', true );
-		} else if ( $req->getCheck( 'preload' ) ) {
+		} elseif ( $req->getCheck( 'preload' ) ) {
 			// if page does not exist and preload parameter is set, pass that on
 			$module->setOption( 'preload', $req->getText( 'preload' ) );
 		} else {
