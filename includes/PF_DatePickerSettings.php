@@ -70,18 +70,6 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = array(
 	'ShowWeekNumbers'       => false,
 
 	##
-	# This determines if the input field shall be disabled. The user can
-	# only set the date via the datepicker in this case.
-	#
-	'DisableInputField'     => false,
-
-	##
-	# This determines if a reset button shall be shown. This is the only
-	# way to erase the input field if it is disabled for direct input.
-	#
-	'ShowResetButton'       => false,
-
-	##
 	# This is a string of disabled days of the week, i.e. days the user can not
 	# pick. The days must be given as comma-separated list of numbers starting
 	# with 0 for Sunday.

@@ -662,16 +662,6 @@ class PFDatePickerInput extends PFFormInput {
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf-datepicker-showweeknumbers' )->text()
 		);
-		$params[$wgPageFormsDatePickerSettings["DisableInputField"]?'enable input field':'disable input field'] = array(
-			'name' => $wgPageFormsDatePickerSettings["DisableInputField"]?'enable input field':'disable input field',
-			'type' => 'boolean',
-			'description' => wfMessage( 'pf-datepicker-enableinputfield' )->text()
-		);
-		$params[$wgPageFormsDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button'] = array(
-			'name' => $wgPageFormsDatePickerSettings["ShowResetButton"]?'hide reset button':'show reset button',
-			'type' => 'boolean',
-			'description' => wfMessage( 'pf-datepicker-showresetbutton' )->text()
-		);
 		return $params;
 	}
 
@@ -684,17 +674,8 @@ class PFDatePickerInput extends PFFormInput {
 	 *
 	 */
 	public function getHtmlText() {
-
-		global $wgPageFormsDatePickerSettings; // PF variables
-
-		// should the input field be disabled?
-		$inputFieldDisabled =
-			array_key_exists( 'disable input field', $this->mOtherArgs )
-			|| ( !array_key_exists( 'enable input field', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["DisableInputField"] )
-			|| $this->mIsDisabled	;
-
 		// assemble HTML code
-		$html = $this->textHTML( $this->mCurrentValue, $this->mInputName, $inputFieldDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
+		$html = $this->textHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 
 		if ( ! array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
 
