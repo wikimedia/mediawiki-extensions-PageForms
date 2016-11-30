@@ -84,6 +84,8 @@
 	"pf_formstart_createoredit": "Uleeën oder änneren",
 	"formedit": "Formulaire änneren",
 	"pf-formedit-selectform": "Sicht e Formulaire eraus fir dës Säit unzeleeën:",
+	"pf-formedit-mainforms": "Haaptformulaire:",
+	"pf-formedit-otherforms": "Aner Formulairen:",
 	"pf_formedit_createtitle": "$1: $2 uleeën",
 	"pf_formedit_createtitlenotarget": "$1 uleeën",
 	"pf_formedit_altforms": "Dir kënnt dës Säit och mat engem vun dëse Formulairen derbäisetzen:",

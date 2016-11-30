@@ -40,6 +40,8 @@
 	"formstart": "Inizie d'u module",
 	"pf_formstart_createoredit": "Ccreje o cange",
 	"formedit": "Cange cu 'u module",
+	"pf-formedit-mainforms": "Module prengepàle:",
+	"pf-formedit-otherforms": "Otre module:",
 	"pf_formedit_createtitle": "Ccreje $1: $2",
 	"pf_formedit_createtitlenotarget": "Ccreje $1",
 	"pf_formcreate": "Ccreje cu 'u module",

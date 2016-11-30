@@ -238,8 +238,6 @@
 	"pf-datepicker-disabledates": "Komma-separert liste av skjulte datoer/datobaserte tidsrom (datoer gitt i \"yyyy/mm/dd\"-format, tidsrom i \"yyyy/mm/dd-yyyy/mm/dd\"-format).",
 	"pf-datepicker-highlightdates": "En komma-separert liste av datoer eller tidsrom mellom datoer som skal vises uthevet (datoer i formatet yyyy/mm/dd, tidsrom i formatet yyyy/mm/dd-yyyy/mm/dd).",
 	"pf-datepicker-showweeknumbers": "Skal ukenumre vises til venstre for ukene?",
-	"pf-datepicker-enableinputfield": "Skal brukeren kunne fylle ut datofeltet direkte eller bare via datovelgeren?",
-	"pf-datepicker-showresetbutton": "Skal en tilbakestillingsknapp vises? Dette vil da være eneste muligheten for en bruker å kunne slette inndatafeltet hvis det er blokkert for direkte innskriving.",
 	"pf-regexp-wrongformat": "Feil format.",
 	"pf-regexp-regexp": "Regulæruttrykket som et inndatafelt må oppfylle for å være gyldig. Dette må angis inklusive skråstrek-tegnene! Standard er \"/.*/\", dvs. vilkårlig verdi.",
 	"pf-regexp-basetype": "Basistypen som skal brukes. Denne kan være en hvilken som helst type som genererer et HTML-skjemaelement av type \"input\" eller \"select\" (f. eks. tekst, listeboks, datavelger) eller annet regulæruttrykk. Standard er \"tekst\".",
