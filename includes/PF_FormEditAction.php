@@ -1,7 +1,8 @@
-	<?php
+<?php
 /**
  * Handles the formedit action.
  *
+ * @author Yaron Koren
  * @author Stephan Gambke
  * @file
  * @ingroup PF
@@ -153,7 +154,101 @@ class PFFormEditAction extends Action {
 
 		$output->addHTML( Html::element( 'p', null, wfMessage( 'pf-formedit-selectform' )->text() ) );
 		$formNames = PFUtils::getAllForms();
+		$pagesPerForm = self::getNumPagesPerForm();
+		$totalPages = 0;
+		foreach ( $pagesPerForm as $formName => $numPages ) {
+			$totalPages += $numPages;
+		}
+		// We define "popular forms" as those that are used to
+		// edit more than 1% of the wiki's form-editable pages.
+		$popularForms = array();
+		foreach ( $pagesPerForm as $formName => $numPages ) {
+			if ( $numPages > $totalPages / 100 ) {
+				$popularForms[] = $formName;
+			}
+		}
+		$otherForms = array();
+		foreach( $formNames as $i => $formName ) {
+			if ( !in_array( $formName, $popularForms ) ) {
+				$otherForms[] = $formName;
+			}
+		}
+
 		$fe = SpecialPageFactory::getPage( 'FormEdit' );
+
+		if ( count( $popularForms ) > 0 ) {
+			if ( count( $otherForms ) > 0 ) {
+				$output->addHTML( Html::element(
+					'p',
+					array(),
+					wfMessage( 'pf-formedit-mainforms' )->text()
+				) );
+			}
+			$text = self::printLinksToFormArray( $popularForms, $targetName, $fe );
+			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage mainForms'  ), $text ) );
+		}
+
+		if ( count( $otherForms ) > 0 ) {
+			if ( count( $popularForms ) > 0 ) {
+				$output->addHTML( Html::element(
+					'p',
+					array(),
+					wfMessage( 'pf-formedit-otherforms' )->text()
+				) );
+			}
+			$text = self::printLinksToFormArray( $otherForms, $targetName, $fe );
+			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage otherForms' ), $text ) );
+		}
+
+		// We need to call linkKnown(), not link(), so that PF's
+		// edit=>formedit hook won't be called on this link.
+		$noFormLink = Linker::linkKnown( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), array( 'action' => 'edit', 'redlink' => true ) );
+		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
+	}
+
+	/**
+	 * Finds the number of pages on the wiki that use each form, by getting all the
+	 * categories that have a #default_form call pointing to a particular form, and
+	 * adding up the number of pages in each such category.
+	 * This approach doesn't count #default_form calls for namespaces or
+	 * individual pages, but that doesn't seem like a big deal, because, when
+	 * creating a page in a namespace that has a form, this interface probably won't
+	 * get called anyway; and #default_form calls for individual pages are
+	 * (hopefully) pretty rare.
+	 */
+	static function getNumPagesPerForm() {
+		$dbr = wfGetDB( DB_SLAVE );
+		$res = $dbr->select(
+			array( 'category', 'page', 'page_props' ),
+			array( /*'cat_title'',*/ 'pp_value', 'cat_pages' ),
+			array(
+				// Keep backward compatibility with
+				// the page property name for
+				// Semantic Forms.
+				'pp_propname' => array( 'PFDefaultForm', 'SFDefaultForm' )
+			),
+			null,
+			array( 'ORDER BY' => 'cat_pages DESC' ),
+			array(
+				'page' => array( 'JOIN', 'cat_title = page_title' ),
+				'page_props' => array( 'JOIN', 'page_id = pp_page' )
+			)
+		);
+
+		$pagesPerForm = array();
+		while ( $row = $dbr->fetchRow( $res ) ) {
+			$formName = $row['pp_value'];
+			$numPages = $row['cat_pages'];
+			if ( array_key_exists( $formName, $pagesPerForm ) ) {
+				$pagesPerForm[$formName] += $numPages;
+			} else {
+				$pagesPerForm[$formName] = $numPages;
+			}
+		}
+		return $pagesPerForm;
+	}
+
+	static function printLinksToFormArray( $formNames, $targetName, $fe ) {
 		$text = '';
 		foreach( $formNames as $i => $formName ) {
 			if ( $i > 0 ) {
@@ -168,12 +263,7 @@ class PFFormEditAction extends Action {
 			}
 			$text .= Html::element( 'a', array( 'href' => $url ), $formName );
 		}
-		$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage' ), $text ) );
-
-		// We need to call linkKnown(), not link(), so that PF's
-		// edit=>formedit hook won't be called on this link.
-		$noFormLink = Linker::linkKnown( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), array( 'action' => 'edit', 'redlink' => true ) );
-		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
+		return $text;
 	}
 
 	/**
@@ -196,7 +286,7 @@ class PFFormEditAction extends Action {
 			$warning_text = "\t" . '<div class="warningbox">' . wfMessage( 'pf_formedit_morethanoneform' )->text() . "</div>\n";
 			$output->addWikiText( $warning_text );
 		}
-		
+
 		$form_name = $form_names[0];
 		$page_name = PFUtils::titleString( $title );
 

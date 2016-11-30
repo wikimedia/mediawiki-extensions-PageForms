@@ -147,6 +147,8 @@
 	"pf_formstart_createoredit": "Create or edit",
 	"formedit": "Edit with form",
 	"pf-formedit-selectform": "Select a form to create this page:",
+	"pf-formedit-mainforms": "Main forms:",
+	"pf-formedit-otherforms": "Other forms:",
 	"pf-formedit-donotuseform": "Create page without a form.",
 	"pf_formedit_createtitle": "Create $1: $2",
 	"pf_formedit_createtitlenotarget": "Create $1",
