@@ -67,7 +67,7 @@ class PFCreateCategory extends SpecialPage {
 			}
 			// Validate category name
 			if ( $category_name === '' ) {
-				$category_name_error_str = wfMessage( 'pf_blank_error' )->text();
+				$category_name_error_str = wfMessage( 'pf_blank_error' )->escaped();
 			} else {
 				// Redirect to wiki interface
 				$out->setArticleBodyOnly( true );
