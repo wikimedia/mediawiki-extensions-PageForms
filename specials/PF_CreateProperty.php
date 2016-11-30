@@ -84,7 +84,7 @@ class PFCreateProperty extends SpecialPage {
 
 			// Validate property name.
 			if ( $property_name === '' ) {
-				$property_name_error_str = wfMessage( 'pf_blank_error' )->text();
+				$property_name_error_str = wfMessage( 'pf_blank_error' )->escaped();
 			} else {
 				// Redirect to wiki interface.
 				$out->setArticleBodyOnly( true );
