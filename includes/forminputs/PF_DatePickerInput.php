@@ -237,23 +237,9 @@ class PFDatePickerInput extends PFFormInput {
 
 			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButtonDisabled.gif';
 
-			if ( array_key_exists( 'show reset button', $this->mOtherArgs ) ||
-					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["ShowResetButton"] ) ) {
-
-				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerResetButtonDisabled.gif';
-
-			}
-
 		} else {
 
 			$jsattribs['buttonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerButton.gif';
-
-			if ( array_key_exists( 'show reset button', $this->mOtherArgs ) ||
-					( !array_key_exists( 'hide reset button', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["ShowResetButton"] ) ) {
-
-				$jsattribs['resetButtonImage'] = $wgExtensionAssetsPath . '/PageForms/images/DatePickerResetButton.gif';
-
-			}
 
 			// find min date, max date and disabled dates
 
