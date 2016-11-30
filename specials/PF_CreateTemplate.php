@@ -110,11 +110,11 @@ class PFCreateTemplate extends SpecialPage {
 			$text .= "\t<label>" . wfMessage( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
 			$dropdown_html = self::printFieldTypeDropdown( $id );
-			$text .= "\t<label>" . wfMessage( 'pf_createproperty_proptype' )->text() . ' ' . $dropdown_html . "</label></p>\n";
+			$text .= "\t<label>" . wfMessage( 'pf_createproperty_proptype' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		}
 
 		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . wfMessage( 'pf_createtemplate_fieldislist' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
-		$text .= "\t" . '<label class="delimiter" style="display: none;">' . wfMessage( 'pf_createtemplate_delimiter' )->text() . ' ' .
+		$text .= "\t" . '<label class="delimiter" style="display: none;">' . wfMessage( 'pf_createtemplate_delimiter' )->escaped() . ' ' .
 			Html::input( 'delimiter_' . $id, ',', 'text',
 				array( 'size' => '2' )
 			) . "</label>\n";
