@@ -7,7 +7,8 @@
 			"Suelnur",
 			"Vito Genovese",
 			"Sucsuzz",
-			"Rapsar"
+			"Rapsar",
+			"Alikaan"
 		]
 	},
 	"pageforms-desc": "Semantik veri ekleme ve düzenleme için formlar",
@@ -81,6 +82,8 @@
 	"pf_formstart_badtitle": "Hata: \"$1\" geçersiz bir sayfa başlığıdır.",
 	"pf_formstart_createoredit": "Oluştur ya da düzenle",
 	"formedit": "Formu düzenle",
+	"pf-formedit-mainforms": "Ana formlar:",
+	"pf-formedit-otherforms": "Diğer formlar:",
 	"pf_formedit_createtitle": "Oluştur $1: $2",
 	"pf_formedit_createtitlenotarget": "Oluştur $1",
 	"pf_formedit_badurl": "Bu bir form düzenleme sayfasıdır. Bir form adı ile birlikte URL hedef sayfası belirtilmesi gerekmektedir;\nşunun gibi olmalıdır \"Özel:VeriDüzenle?form=<form adı>&target=<hedef sayfa>\" ya da \"Özel:VeriDüzenle/<form adı>/<hedef sayfa>\".",
