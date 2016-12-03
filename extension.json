@@ -437,7 +437,7 @@
 			"HighlightedDaysOfWeek": null,
 			"DisabledDates": null,
 			"HighlightedDates": null,
-			"merge_strategy": "array_plus"
+			"_merge_strategy": "array_plus"
 		}
 	},
 	"manifest_version": 1
