@@ -62,10 +62,19 @@ function setupMapFormInput( inputDiv, mapService ) {
 		};
 		map = new google.maps.Map( mapCanvas, mapOptions );
 		var geocoder = new google.maps.Geocoder();
+		var update_timeout;
 
+		// Let a click set the marker, while keeping the default
+		// behavior (zoom and center) for double clicks.
+		// Code copied from http://stackoverflow.com/a/8417447
 		google.maps.event.addListener( map, 'click', function( event ) {
-			googleMapsSetMarker( event.latLng );
-		} );
+			update_timeout = setTimeout( function(){
+				googleMapsSetMarker( event.latLng );
+			}, 200 );
+		});
+		google.maps.event.addListener( map, 'dblclick', function( event ) {
+			clearTimeout( update_timeout );
+		});
 	} else { // if ( mapService == "OpenLayers" ) {
 		var mapCanvasID = inputDiv.find( '.pfMapCanvas' ).attr( 'id' );
 		map = new OpenLayers.Map( mapCanvasID );
