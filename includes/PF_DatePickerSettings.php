@@ -65,11 +65,6 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = array(
 	'WeekStart'             => null,
 
 	##
-	# This determines if the number of the week shall be shown.
-	#
-	'ShowWeekNumbers'       => false,
-
-	##
 	# This is a string of disabled days of the week, i.e. days the user can not
 	# pick. The days must be given as comma-separated list of numbers starting
 	# with 0 for Sunday.

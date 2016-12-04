@@ -59,7 +59,6 @@ window.PF_DP_init = function ( input_id, params ) {
 			// TODO: show date picker button panel when bug is fixed
 			'showButtonPanel': false,
 			'firstDay': params.firstDay,
-			'showWeek': params.showWeek,
 			'dateFormat': params.dateFormat,
 			'beforeShowDay': function ( date ) {return PF_DP_checkDate( '#' + input_id + '_show', date );}
 		} );

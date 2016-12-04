@@ -252,7 +252,6 @@
 	"pf-datepicker-highlightdaysofweek": "A list of days that shall appear highlighted (e.g. weekend: 6, 0).",
 	"pf-datepicker-disabledates": "A comma-separated list of disabled dates/date ranges (dates in yyyy/mm/dd format, ranges in yyyy/mm/dd-yyyy/mm/dd format).",
 	"pf-datepicker-highlightdates": "A comma-separated list of dates/date ranges that shall appear highlighted (dates in yyyy/mm/dd format, ranges in yyyy/mm/dd-yyyy/mm/dd format).",
-	"pf-datepicker-showweeknumbers": "Should week numbers be shown left of the week?",
 	"pf-regexp-wrongformat": "Wrong format.",
 	"pf-regexp-regexp": "The regular expression the input has to match to be valid. This must be given including the slashes! Defaults to \"/.*/\", i.e. any value.",
 	"pf-regexp-basetype": "The real input type to be used. Defaults to \"text\".",

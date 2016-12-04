@@ -268,7 +268,6 @@
 	"pf-datepicker-highlightdaysofweek": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-disabledates": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-highlightdates": "This is a help text for the [[Special:CreateForm]] page.",
-	"pf-datepicker-showweeknumbers": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-regexp-wrongformat": "Used as error message.",
 	"pf-regexp-regexp": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-regexp-basetype": "{{doc-important|Do not translate \"text\".}}\nThis is a help text for the [[Special:CreateForm]] page.",

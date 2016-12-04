@@ -386,15 +386,6 @@ class PFDatePickerInput extends PFFormInput {
 				$jsattribs['firstDay'] = wfMessage( 'pf-datepicker-firstdayofweek' )->text();
 			}
 
-			// set show week number
-			if ( array_key_exists( 'show week numbers', $this->mOtherArgs )
-					|| ( !array_key_exists( 'hide week numbers', $this->mOtherArgs ) && $wgPageFormsDatePickerSettings["ShowWeekNumbers"] ) ) {
-
-				$jsattribs['showWeek'] = true;
-			} else {
-				$jsattribs['showWeek'] = false;
-			}
-
 			// store min date as JS attrib
 			if ( $minDate ) {
 				$jsattribs['minDate'] = $minDate->format( 'Y/m/d' );
