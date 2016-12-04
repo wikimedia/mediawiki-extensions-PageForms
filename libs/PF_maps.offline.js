@@ -26,6 +26,9 @@ function setupMapFormInput( inputDiv, mapService ) {
 				map: map,
 				draggable: true
 			} );
+			google.maps.event.addListener( marker, 'dragend', function( event ) {
+				googleMapsSetMarker( event.latLng );
+			});
 		} else {
 			marker.setPosition(location);
 		}
