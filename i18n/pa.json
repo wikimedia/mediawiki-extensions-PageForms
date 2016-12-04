@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Babanwalia"
+			"Babanwalia",
+			"Sony dandiwal"
 		]
 	},
+	"pf-formedit-mainforms": "ਮੁੱਖ ਫਾਰਮ:",
+	"pf-formedit-otherforms": "ਹੋਰ ਫਾਰਮ:",
 	"pf_editsource": "ਸਰੋਤ ਸੋਧੋ"
 }
