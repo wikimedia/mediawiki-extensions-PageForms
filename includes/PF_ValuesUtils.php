@@ -252,6 +252,10 @@ class PFValuesUtils {
 				// be better to do this filtering in the
 				// original SMW query, but that doesn't seem
 				// possible yet.
+				// @TODO - this will miss a lot of results for
+				// concepts with > 1000 pages. Instead, this
+				// code should loop through all the pages,
+				// using "offset".
 				$lowercasePageName = strtolower( $pageName );
 				if ( $wgPageFormsAutocompleteOnAllChars ) {
 					if ( strpos( $lowercasePageName, $substring ) >= 0 ) {
