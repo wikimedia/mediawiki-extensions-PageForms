@@ -647,7 +647,7 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	public function getHtmlText() {
 		// Assemble HTML code.
-		$html = self::textHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
+		$html = self::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 
 		if ( ! array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
 			// wrap in span (e.g. used for mandatory inputs)
@@ -684,8 +684,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param string $class
 	 * @return string the html text of an input element
 	 */
-	static function textHTML( $currentValue, $inputName, $isDisabled, $otherArgs, $inputId = null, $tabIndex = null, $class = '' ) {
-
+	static function genericTextHTML( $currentValue, $inputName, $isDisabled, $otherArgs, $inputId = null, $tabIndex = null, $class = '' ) {
 		global $wgPageFormsTabIndex;
 
 		// array of attributes to pass to the input field
