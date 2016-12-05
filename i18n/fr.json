@@ -275,7 +275,6 @@
 	"pf-datepicker-highlightdaysofweek": "Une liste de jours qui doivent apparaître en surbrillance (par ex. week-end: 6, 0).",
 	"pf-datepicker-disabledates": "Une liste séparée par des virgules de plages de date ou dates désactivées (dates au format aaaa/mm/jj, plages au format aaaa/mm/jj-aaaa/mm/jj).",
 	"pf-datepicker-highlightdates": "Une liste séparée par des virgules de plages de dates ou dates qui doivent apparaître en surbrillance (dates au format aaaa/mm/jj, plages au format aaaa/mm/jj-aaaa/mm/jj).",
-	"pf-datepicker-showweeknumbers": "Les numéros de semaine doivent-ils être affichés à gauche de la semaine ?",
 	"pf-regexp-wrongformat": "Format erroné.",
 	"pf-regexp-regexp": "L’expression rationnelle que l’entrée doit satisfaire pour être valide. Cela doit comprendre les barres obliques ! Par défaut, \"/.*/\", c’est-à-dire n’importe quelle valeur.",
 	"pf-regexp-basetype": "Le vrai type d’entrée à utiliser. Par défaut, « text ».",

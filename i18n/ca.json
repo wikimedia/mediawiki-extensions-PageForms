@@ -245,7 +245,6 @@
 	"pf-datepicker-disabledaysofweek": "Una llista de dies que no poden seleccionar-se (p. ex., el cap de setmana: 6, 0).",
 	"pf-datepicker-highlightdaysofweek": "Una llista de dies que apareixerà ressaltat (p. ex., el cap de setmana: 6, 0).",
 	"pf-datepicker-highlightdates": "Una llista separada amb comes de dates / intervals de dates que apareixeran ressaltats (les dates en format yyyy/mm/dd, els intervals en format yyyy/mm/dd-yyyy/mm/dd).",
-	"pf-datepicker-showweeknumbers": "Cal mostrar els números de la setmana a l'esquerra de la setmana?",
 	"pf-regexp-wrongformat": "Format incorrecte.",
 	"pf-regexp-regexp": "L'expressió regular amb que l'entrada ha de coincidir ha de ser vàlida. S'hi han d'incloure també les barres. Per defecte: «/.*/», això és, qualsevol valor.",
 	"pf-regexp-basetype": "El tipus d'entrada real que s'utilitzarà. Per defecte «text».",

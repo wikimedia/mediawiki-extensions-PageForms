@@ -261,7 +261,6 @@
 	"pf-datepicker-highlightdaysofweek": "应当高亮显示的日子列表（比如，周末：6、 0）。",
 	"pf-datepicker-disabledates": "已禁用的逗号分隔型日期列表/日期范围（日期采用yyyy/mm/dd格式，日期范围采用yyyy/mm/dd-yyyy/mm/dd格式）。",
 	"pf-datepicker-highlightdates": "应当高亮显示的逗号分隔型日期列表/日期范围（日期采用yyyy/mm/dd格式，日期范围采用yyyy/mm/dd-yyyy/mm/dd格式）。",
-	"pf-datepicker-showweeknumbers": "周数应当显示在相应周的左侧吗？",
 	"pf-regexp-wrongformat": "格式错误。",
 	"pf-regexp-regexp": "输入所必须匹配的正则表达式必须有效。给出时必须包括那些斜杠！默认值为“/.*/”，即任何取值。",
 	"pf-regexp-basetype": "真正要使用的输入类型。默认为\"text\"。",

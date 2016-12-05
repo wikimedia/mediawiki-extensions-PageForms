@@ -263,7 +263,6 @@
 	"pf-datepicker-highlightdaysofweek": "Eine Liste der Tage, die hervorgehoben angezeigt werden sollen (z. B. das Wochenende: 6,0).",
 	"pf-datepicker-disabledates": "Eine kommagetrennte Liste deaktivierter Tage/Zeiträume (Tage im Format JJJJ/MM/TT, Zeiträume im Format JJJJ/MM/TT-JJJJ/MM/TT).",
 	"pf-datepicker-highlightdates": "Eine kommagetrennte Liste von Tagen/Zeiträumen, die hervorgehoben angezeigt werden sollen (Tage im Format JJJJ/MM/TT, Zeiträume im Format JJJJ/MM/TT-JJJJ/MM/TT).",
-	"pf-datepicker-showweeknumbers": "Sollen die Wochennummern links der Woche angezeigt werden?",
 	"pf-regexp-wrongformat": "Falsches Format.",
 	"pf-regexp-regexp": "Der reguläre Ausdruck mit dem die Eingabe übereinstimmen muss, um gültig zu sein. Der Wert muss einschließlich der Schrägstriche angegeben werden. Der Standardwert ist „/.*/“ und bedeutet „alle Werte“.",
 	"pf-regexp-basetype": "Der zu verwendende Eingabetyp. Standard: „text“.",

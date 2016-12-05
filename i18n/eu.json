@@ -34,5 +34,7 @@
 	"pf_formedit_addanother": "Beste bat gehitu",
 	"pf_deletionlog": "Ezabaketa erregistroa",
 	"pf_form_freetextlabel": "Testu askea",
-	"pf_blank_namespace": "Nagusia"
+	"pf_blank_namespace": "Nagusia",
+	"pf-datepicker-dateformatlong": "yy-mm-dd",
+	"pf-datepicker-dateformatshort": "yy-mm-dd"
 }

@@ -252,7 +252,6 @@
 	"pf-datepicker-highlightdaysofweek": "Unha lista de días que deberían aparecer destacados (por exemplo, fin de semana: 6, 0).",
 	"pf-datepicker-disabledates": "Unha lista de elementos separados por comas de rangos de data ou datas desactivados (datas en formato aaaa/mm/dd, rangos en formato aaaa/mm/dd-aaaa/mm/dd).",
 	"pf-datepicker-highlightdates": "Unha lista de elementos separados por comas de rangos de data ou datas que deberían aparecer destacados (datas en formato aaaa/mm/dd, rangos en formato aaaa/mm/dd-aaaa/mm/dd).",
-	"pf-datepicker-showweeknumbers": "Deben aparecer os números á esquerda da semana?",
 	"pf-regexp-wrongformat": "Formato incorrecto.",
 	"pf-regexp-regexp": "A expresión regular que debe coincidir coa entrada para que sexa válida. Cómpre especificala coas barras inclunadas! Por defecto \"/.*/\", para calquera valor.",
 	"pf-regexp-basetype": "O tipo real de entrada a usar. Por defecto é \"text\".",

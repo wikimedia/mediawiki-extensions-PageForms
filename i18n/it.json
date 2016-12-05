@@ -222,7 +222,6 @@
 	"pf-datepicker-highlightdaysofweek": "Un elenco dei giorni da far apparire evidenziati (per esempio il fine settimana: 6, 0).",
 	"pf-datepicker-disabledates": "Un elenco di date/intervalli di date separate da una virgola (le date nel formato aaaa/mm/gg, gli intervalli nel formato aaaa/mm/gg-aaaa/mm/gg).",
 	"pf-datepicker-highlightdates": "Un elenco di date/intervalli di date che saranno mostrate evidenziate (le date nel formato aaaa/mm/gg, gli intervalli nel formato aaaa/mm/gg-aaaa/mm/gg).",
-	"pf-datepicker-showweeknumbers": "I numeri delle settimane dovrebbero essere mostrati a sinistra della settimana?",
 	"pf-regexp-wrongformat": "Formato errato.",
 	"pf-regexp-regexp": "L'espressione regolare che l'inserimento deve rispettare per essere valido. Questa deve essere compresa tra barre inclinate! Predefinito è \"/.*/\", cioè qualsiasi valore.",
 	"pf-regexp-basetype": "Il tipo reale di ingresso da utilizzare. Il valore predefinito è \"testo\".",

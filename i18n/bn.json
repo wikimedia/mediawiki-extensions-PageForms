@@ -47,6 +47,8 @@
 	"pf_createclass_create": "তৈরি করো",
 	"pf_formstart_createoredit": "তৈরি অথবা সম্পাদনা করুন",
 	"formedit": "ফর্মসহ সম্পাদনা",
+	"pf-formedit-mainforms": "মূল ফরম:",
+	"pf-formedit-otherforms": "অন্যান্য ফরম:",
 	"pf_formedit_createtitle": "তৈরি করুন $1: $2",
 	"pf_formedit_createtitlenotarget": "তৈরি করুন $1",
 	"pf_viewform": "ফর্ম দেখাও",
