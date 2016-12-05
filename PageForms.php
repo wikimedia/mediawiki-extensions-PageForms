@@ -210,6 +210,8 @@ $GLOBALS['wgAutoloadClasses']['PFListBoxInput'] = __DIR__ . '/includes/forminput
 $GLOBALS['wgAutoloadClasses']['PFComboBoxInput'] = __DIR__ . '/includes/forminputs/PF_ComboBoxInput.php';
 $GLOBALS['wgAutoloadClasses']['PFDateInput'] = __DIR__ . '/includes/forminputs/PF_DateInput.php';
 $GLOBALS['wgAutoloadClasses']['PFDatePickerInput'] = __DIR__ . '/includes/forminputs/PF_DatePickerInput.php';
+$GLOBALS['wgAutoloadClasses']['PFTimePickerInput'] = __DIR__ . '/includes/forminputs/PF_TimePickerInput.php';
+$GLOBALS['wgAutoloadClasses']['PFDateTimePicker'] = __DIR__ . '/includes/forminputs/PF_DateTimePicker.php';
 $GLOBALS['wgAutoloadClasses']['PFDateTimeInput'] = __DIR__ . '/includes/forminputs/PF_DateTimeInput.php';
 $GLOBALS['wgAutoloadClasses']['PFYearInput'] = __DIR__ . '/includes/forminputs/PF_YearInput.php';
 $GLOBALS['wgAutoloadClasses']['PFTreeInput'] = __DIR__ . '/includes/forminputs/PF_TreeInput.php';
@@ -336,6 +338,23 @@ $GLOBALS['wgResourceModules'] += array(
 		'dependencies' => array(
 			'jquery.ui.datepicker',
 			'ext.pageforms.main'
+		),
+		'position' => 'bottom', // MW 1.26
+	),
+	'ext.pageforms.timepicker' => $wgPageFormsResourceTemplate + array(
+		'scripts' => array(
+			'libs/PF_timepicker.js',
+		),
+		'styles' => 'skins/PF_Timepicker.css',
+		'position' => 'bottom', // MW 1.26
+	),
+	'ext.pageforms.datetimepicker' => $wgPageFormsResourceTemplate + array(
+		'scripts' => array(
+			'libs/PF_datetimepicker.js',
+		),
+		'dependencies' => array(
+			'ext.pageforms.datepicker',
+			'ext.pageforms.timepicker'
 		),
 		'position' => 'bottom', // MW 1.26
 	),
