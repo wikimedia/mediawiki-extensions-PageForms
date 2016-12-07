@@ -1428,6 +1428,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		$(this).applyDynatree();
 	});
 
+	this.find(".pfRating").each( function() {
+		$(this).applyRatingInput();
+	});
+
 };
 
 // Once the document has finished loading, set up everything!

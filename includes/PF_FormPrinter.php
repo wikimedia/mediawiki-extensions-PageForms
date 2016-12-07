@@ -56,6 +56,7 @@ class PFFormPrinter {
 		$this->registerInputType( 'PFTreeInput' );
 		$this->registerInputType( 'PFTokensInput' );
 		$this->registerInputType( 'PFRegExpInput' );
+		$this->registerInputType( 'PFRatingInput' );
 		// Add this if the Semantic Maps extension is not
 		// included, or if it's SM (really Maps) v4.0 or higher.
 		if ( !defined( 'SM_VERSION' ) || version_compare( SM_VERSION, '4.0', '>=' ) ) {

@@ -184,15 +184,23 @@ END;
 
 		$mainModules = array(
 			'ext.pageforms.main',
+			'ext.pageforms.submit',
+			'ext.smw.tooltips',
+			'ext.smw.sorttable',
+			// @TODO - the inclusion of modules for specific
+			// form inputs is wasteful, and should be removed -
+			// it should only be done as needed for each input.
+			// Unfortunately the use of multiple-instance
+			// templates makes that tricky (every form input needs
+			// to re-apply the JS on a new instance) - it can be
+			// done via JS hooks, but it hasn't been done yet.
 			'ext.pageforms.fancybox',
 			'ext.pageforms.dynatree',
 			'ext.pageforms.imagepreview',
 			'ext.pageforms.autogrow',
-			'ext.pageforms.submit',
 			'ext.pageforms.checkboxes',
 			'ext.pageforms.select2',
-			'ext.smw.tooltips',
-			'ext.smw.sorttable'
+			'ext.pageforms.rating'
 		);
 
 		$output->addModules( $mainModules );

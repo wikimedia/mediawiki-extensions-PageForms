@@ -220,6 +220,7 @@ $GLOBALS['wgAutoloadClasses']['PFTokensInput'] = __DIR__ . '/includes/forminputs
 $GLOBALS['wgAutoloadClasses']['PFGoogleMapsInput'] = __DIR__ . '/includes/forminputs/PF_GoogleMapsInput.php';
 $GLOBALS['wgAutoloadClasses']['PFOpenLayersInput'] = __DIR__ . '/includes/forminputs/PF_OpenLayersInput.php';
 $GLOBALS['wgAutoloadClasses']['PFRegExpInput'] = __DIR__ . '/includes/forminputs/PF_RegExpInput.php';
+$GLOBALS['wgAutoloadClasses']['PFRatingInput'] = __DIR__ . '/includes/forminputs/PF_RatingInput.php';
 
 $GLOBALS['wgAutoloadClasses']['PFWikiPage'] = __DIR__ . '/includes/wikipage/PF_WikiPage.php';
 $GLOBALS['wgAutoloadClasses']['PFWikiPageTemplate'] = __DIR__ . '/includes/wikipage/PF_WikiPageTemplate.php';
@@ -363,6 +364,13 @@ $GLOBALS['wgResourceModules'] += array(
 		'dependencies' => array(
 			'ext.pageforms.main'
 		),
+	),
+	'ext.pageforms.rating' => $wgPageFormsResourceTemplate + array(
+		'scripts' => array(
+			'libs/jquery.rateyo.js',
+			'libs/PF_rating.js'
+		),
+		'styles' => 'skins/jquery.rateyo.css',
 	),
 	'ext.pageforms.select2' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(

@@ -139,6 +139,7 @@
 		"PFGoogleMapsInput": "includes/forminputs/PF_GoogleMapsInput.php",
 		"PFOpenLayersInput": "includes/forminputs/PF_OpenLayersInput.php",
 		"PFRegExpInput": "includes/forminputs/PF_RegExpInput.php",
+		"PFRatingInput": "includes/forminputs/PF_RatingInput.php",
 		"PFWikiPage": "includes/wikipage/PF_WikiPage.php",
 		"PFWikiPageTemplate": "includes/wikipage/PF_WikiPageTemplate.php",
 		"PFWikiPageTemplateParam": "includes/wikipage/PF_WikiPageTemplateParam.php",
@@ -287,6 +288,13 @@
 			"dependencies": [
 				"ext.pageforms.main"
 			]
+		},
+		"ext.pageforms.rating": {
+			"scripts": [
+				"libs/jquery.rateyo.js",
+				"libs/PF_rating.js"
+			],
+			"styles": "skins/jquery.rateyo.css"
 		},
 		"ext.pageforms.select2": {
 			"scripts": [
