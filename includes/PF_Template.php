@@ -84,14 +84,14 @@ class PFTemplate {
 		// they're part of an "#if" statement), so they're only
 		// recorded the first time they're found.
 
-		// Replace all calls to #set with with standard SMW tags. This
-		// is done so that calls of #set within #arraymap will get
+		// Replace all calls to #set within #arraymap with standard
+		// SMW tags. This is done so that they will later get
 		// parsed correctly.
 		// This is "cheating", since it modifies the template text
 		// (the rest of the function doesn't do that), but trying to
 		// get the #arraymap check regexp to find both kinds of SMW
 		// property tags seemed too hard to do.
-		$this->mTemplateText = preg_replace( '/{{\s*#set:\s*([^=]*)=([^}]*)}}/', '[[$1:$2]]', $this->mTemplateText );
+		$this->mTemplateText = preg_replace( '/#arraymap.*{{\s*#set:\s*([^=]*)=([^}]*)}}/', '[[$1:$2]]', $this->mTemplateText );
 
 		// Look for "arraymap" parser function calls that map a
 		// property onto a list.
@@ -125,8 +125,6 @@ class PFTemplate {
 
 		// Then, get calls to #set, #set_internal and #subobject.
 		// (Thankfully, they all have similar syntax).
-		// (The #set check isn't actually necessary, since they were
-		// all replaced earlier.)
 		if ( preg_match_all( '/#(set|set_internal|subobject):(.*?}}})\s*}}/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[2] as $match ) {
 				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
