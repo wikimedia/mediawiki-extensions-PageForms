@@ -261,5 +261,12 @@
 	"pf-regexp-baseprefix": "Prefix for the parameters of the base type.",
 	"pf-regexp-orchar": "The OR-character to be used in the regular expression instead of |. Defaults to \"!\"",
 	"pf-regexp-inverse": "If set, the input must NOT match the regular expression to be valid. I.e. the regular expression is inverted.",
-	"pf-regexp-message": "The error message to be displayed if the match fails. Defaults to \"Wrong format!\" (or equivalent in the current locale)"
+	"pf-regexp-message": "The error message to be displayed if the match fails. Defaults to \"Wrong format!\" (or equivalent in the current locale)",
+	"pf-missingconcept": "Could not find concept: $1",
+	"pf-missingnamespace": "Could not find namespace: $1",
+	"pf-nocompletionurls": "No external URLs are specified for autocompletion on this wiki.",
+	"pf-invalidexturl": "Invalid external URL value.",
+	"pf-blankexturl": "Blank external URL value.",
+	"pf-externalpageempty": "External page contains no contents.",
+	"pf-externalpagebadjson": "Could not parse JSON in external page."
 }

@@ -232,7 +232,7 @@ class PFValuesUtils {
 
 		// Escape if there's no such concept.
 		if ( $conceptTitle == null || !$conceptTitle->exists() ) {
-			return "Could not find concept: $conceptName";
+			return wfMessage( 'pf-missingconcept', wfEscapeWikiText( $conceptName ) );
 		}
 
 		$conceptDI = SMWDIWikiPage::newFromTitle( $conceptTitle );
@@ -305,7 +305,7 @@ class PFValuesUtils {
 		}
 
 		if ( is_null( $matchingNamespaceCode ) ) {
-			return "Could not find namespace: $namespace_name";
+			return wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) );
 		}
 
 		$db = wfGetDB( DB_SLAVE );
@@ -372,23 +372,23 @@ class PFValuesUtils {
 	public static function getValuesFromExternalURL( $external_url_alias, $substring ) {
 		global $wgPageFormsAutocompletionURLs;
 		if ( empty( $wgPageFormsAutocompletionURLs ) ) {
-			return "No external URLs are specified for autocompletion on this wiki";
+			return wfMessage( 'pf-nocompletionurls' );
 		}
 		if ( ! array_key_exists( $external_url_alias, $wgPageFormsAutocompletionURLs ) ) {
-			return "Invalid external URL value";
+			return wfMessage( 'pf-invalidexturl' );
 		}
 		$url = $wgPageFormsAutocompletionURLs[$external_url_alias];
 		if ( empty( $url ) ) {
-			return "Blank external URL value";
+			return wfMessage( 'pf-blankexturl' );
 		}
 		$url = str_replace( '<substr>', urlencode( $substring ), $url );
 		$page_contents = Http::get( $url );
 		if ( empty( $page_contents ) ) {
-			return "External page contains no contents";
+			return wfMessage( 'pf-externalpageempty' );
 		}
 		$data = json_decode( $page_contents );
 		if ( empty( $data ) ) {
-			return "Could not parse JSON in external page";
+			return wfMessage( 'pf-externalpagebadjson' );
 		}
 		$return_values = array();
 		foreach ( $data->pfautocomplete as $val ) {
