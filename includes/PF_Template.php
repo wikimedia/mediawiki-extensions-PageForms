@@ -195,10 +195,18 @@ class PFTemplate {
 		// See if there even is DB storage for this template - if not,
 		// exit.
 		if ( is_null( $tableSchemaString ) ) {
-			return null;
+			// There's no declared table - but see if there's an
+			// attached table.
+			list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
+			if ( $tableName == null ) {
+				return null;
+			}
+			$mainTemplatePageID = CargoUtils::getTemplateIDForDBTable( $tableName );
+			$tableSchemaString = CargoUtils::getPageProp( $mainTemplatePageID, 'CargoFields' );
+		} else {
+			$tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
 		}
 		$tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
-		$tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
 
 		// Then, match template params to Cargo table fields, by
 		// parsing call(s) to #cargo_store.
