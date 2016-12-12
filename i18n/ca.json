@@ -96,6 +96,9 @@
 	"pf_forminputs_checkboxes_select_all": "Selecciona-ho tot",
 	"pf_forminputs_checkboxes_select_none": "No seleccionis cap",
 	"pf_forminputs_maxvalues": "Nombre màxim de valors permesos d'un camp que conté diferents valors",
+	"pf_forminputs_starwidth": "L'amplada (i alçada) de cada estrella",
+	"pf_forminputs_numstars": "El nombre d'estrelles per mostrar",
+	"pf_forminputs_allowhalfstars": "Si es permet mitges estrelles, com ara una puntuació de 3,5",
 	"createform": "Crea un formulari",
 	"pf-createform-with-name": "Crea el formulari: $1",
 	"pf_createform_nameinput": "Nom del formulari",
@@ -249,5 +252,9 @@
 	"pf-regexp-regexp": "L'expressió regular amb que l'entrada ha de coincidir ha de ser vàlida. S'hi han d'incloure també les barres. Per defecte: «/.*/», això és, qualsevol valor.",
 	"pf-regexp-basetype": "El tipus d'entrada real que s'utilitzarà. Per defecte «text».",
 	"pf-regexp-baseprefix": "Prefix per als paràmetres del tipus base.",
-	"pf-regexp-message": "El missatge d'error que es mostrarà si la coincidència falla. Per defecte «Format incorrecte!» (o equivalent en la llengua del wiki)"
+	"pf-regexp-message": "El missatge d'error que es mostrarà si la coincidència falla. Per defecte «Format incorrecte!» (o equivalent en la llengua del wiki)",
+	"pf-missingconcept": "No s'ha pogut trobar el concepte: $1",
+	"pf-missingnamespace": "No s'ha pogut trobar l'espai de noms: $1",
+	"pf-externalpageempty": "La pàgina externa no té contingut.",
+	"pf-externalpagebadjson": "No s'ha pogut analitzar el JSON en una pàgina externa."
 }

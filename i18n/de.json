@@ -109,6 +109,9 @@
 	"pf_forminputs_checkboxes_select_all": "Alle auswählen",
 	"pf_forminputs_checkboxes_select_none": "Keine auswählen",
 	"pf_forminputs_maxvalues": "Maximale Anzahl zulässiger Werte für ein mehrere Werte enthaltendes Feld",
+	"pf_forminputs_starwidth": "Die Breite (und Höhe) eines jeden Sterns",
+	"pf_forminputs_numstars": "Die Anzahl der anzuzeigenden Sterne",
+	"pf_forminputs_allowhalfstars": "Ob halbe Sterne erlaubt werden sollen, wie eine Bewertung von 3,5.",
 	"createform": "Formular erstellen",
 	"pf-createform-with-name": "Formular erstellen: $1",
 	"pf_createform_nameinput": "Formularname",
@@ -269,5 +272,12 @@
 	"pf-regexp-baseprefix": "Das Präfix für die Parameter des Basiseingabetyps.",
 	"pf-regexp-orchar": "Das OR-Zeichen, das bei regulären Ausdrücken, anstatt von „|“ verwendet werden soll. Der Standardwert ist „!“.",
 	"pf-regexp-inverse": "Sofern festgelegt, darf die Eingabe nicht dem regulären Ausdruck entsprechen, um gültig zu sein. Dies bedeutet, dass der reguläre Ausdruck invertiert wird.",
-	"pf-regexp-message": "Die Fehlermeldung, die angezeigt werden soll, sofern der Vergleich scheitert. Der Standardwert ist „Das Format ist falsch.“, oder das Äquivalent der zutreffenden Übersetzung."
+	"pf-regexp-message": "Die Fehlermeldung, die angezeigt werden soll, sofern der Vergleich scheitert. Der Standardwert ist „Das Format ist falsch.“, oder das Äquivalent der zutreffenden Übersetzung.",
+	"pf-missingconcept": "Das Konzept konnte nicht gefunden werden: $1",
+	"pf-missingnamespace": "Der Namensraum konnte nicht gefunden werden: $1",
+	"pf-nocompletionurls": "Zur Autovervollständigung auf diesem Wiki wurden keine externen URLs angegeben.",
+	"pf-invalidexturl": "Ungültiger Externe-URL-Wert.",
+	"pf-blankexturl": "Leerer Externe-URL-Wert.",
+	"pf-externalpageempty": "Die externe Seite enthält keine Inhalte.",
+	"pf-externalpagebadjson": "JSON in der externen Seite konnte nicht geparst werden."
 }

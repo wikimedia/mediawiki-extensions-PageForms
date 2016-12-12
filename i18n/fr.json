@@ -28,7 +28,8 @@
 			"Wladek92",
 			"Orlodrim",
 			"PifyZ",
-			"Seb35"
+			"Seb35",
+			"Derugon"
 		]
 	},
 	"pageforms-desc": "Formulaires pour créer et modifier des pages wiki",
@@ -281,5 +282,7 @@
 	"pf-regexp-baseprefix": "Préfixe pour les paramètres du type de base.",
 	"pf-regexp-orchar": "Le caractère OU à utiliser dans l’expression rationnelle au lieu de |. Par défaut, « ! »",
 	"pf-regexp-inverse": "S’il est activé, l’entrée ne doit PAS correspondre à l’expression rationnelle pour être valide. C’est-à-dire que l’expression rationnelle est inversée.",
-	"pf-regexp-message": "Le message d'erreur à afficher si la correspondance échoue. Par défaut, «Format incorrect!» (ou l'équivalent dans la langue locale)"
+	"pf-regexp-message": "Le message d'erreur à afficher si la correspondance échoue. Par défaut, «Format incorrect!» (ou l'équivalent dans la langue locale)",
+	"pf-externalpageempty": "La page externe ne contient aucun contenu.",
+	"pf-externalpagebadjson": "Impossible d'analyser JSON avec une page externe."
 }

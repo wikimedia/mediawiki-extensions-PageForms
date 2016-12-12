@@ -5,7 +5,8 @@
 			"OsamaK",
 			"Uwe",
 			"أحمد",
-			"زكريا"
+			"زكريا",
+			"محمد أحمد عبد الفتاح"
 		]
 	},
 	"pageforms-desc": "استمارات لإنشاء و تعديل البيانات الدلالية",
@@ -126,5 +127,6 @@
 	"pf_blank_namespace": "رئيسي",
 	"right-viewedittab": "أظهر لسان \"{{int:edit}}\" للصفحات التي يمكن تعديلها باستخدام نموذج.",
 	"right-editrestrictedfields": "حرّر حقول النموذج المقيّدة",
-	"pf-datepicker-next": "التالي"
+	"pf-datepicker-next": "التالي",
+	"pf-externalpageempty": "لا تتضمن الصفحة الخارجية محتوى"
 }

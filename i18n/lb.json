@@ -43,6 +43,7 @@
 	"pf_forminputs_width": "D'Breet vun dësem Input, a Pixel",
 	"pf_forminputs_checkboxes_select_all": "Alles uwielen",
 	"pf_forminputs_checkboxes_select_none": "Keen eraussichen",
+	"pf_forminputs_numstars": "D'Zuel vun de Stären déi gewise solle ginn",
 	"createform": "E Formulaire uleeën",
 	"pf-createform-with-name": "Formulaire uleeën: $1",
 	"pf_createform_nameinput": "Numm vum Formulaire",
@@ -155,5 +156,7 @@
 	"pf-datepicker-firstdate": "Den éischten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
 	"pf-datepicker-lastdate": "De leschten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
 	"pf-datepicker-disabledaysofweek": "Eng Lëscht vun Deeg déi net erausgesicht kënne ginn (z. Bsp. Weekend:6, 0).",
-	"pf-regexp-wrongformat": "Falsche Format."
+	"pf-regexp-wrongformat": "Falsche Format.",
+	"pf-missingnamespace": "Den Nummraum konnt net fonnt ginn: $1",
+	"pf-externalpageempty": "Déi extern Säit huet keen Inhalt."
 }

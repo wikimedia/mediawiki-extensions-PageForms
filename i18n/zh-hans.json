@@ -109,6 +109,9 @@
 	"pf_forminputs_checkboxes_select_all": "全选",
 	"pf_forminputs_checkboxes_select_none": "全不选",
 	"pf_forminputs_maxvalues": "允许存储多个值的字段的值数最大值",
+	"pf_forminputs_starwidth": "每颗星的宽度（和高度）",
+	"pf_forminputs_numstars": "要显示的星数",
+	"pf_forminputs_allowhalfstars": "是否允许半颗星，例如评级3.5",
 	"createform": "创建表单",
 	"pf-createform-with-name": "创建表单：$1",
 	"pf_createform_nameinput": "表单名称",
@@ -267,5 +270,12 @@
 	"pf-regexp-baseprefix": "基本类型参数的前缀。",
 	"pf-regexp-orchar": "正则表达式当中所要使用的逻辑或字符，而不是“|”。默认值为\"!\"。",
 	"pf-regexp-inverse": "如果加以设置，输入要有效的话，不得与正则表达式相匹配。也就是说，正则表达式是倒转的。",
-	"pf-regexp-message": "匹配失败时所要显示的错误信息。默认值为\"格式错误！\"（或者是当前区域的等效取值）。"
+	"pf-regexp-message": "匹配失败时所要显示的错误信息。默认值为\"格式错误！\"（或者是当前区域的等效取值）。",
+	"pf-missingconcept": "找不到概念：$1",
+	"pf-missingnamespace": "找不到名字空间：$1",
+	"pf-nocompletionurls": "此wiki没有为自动完成指定外部URL。",
+	"pf-invalidexturl": "无效的外部URL值。",
+	"pf-blankexturl": "空白的外部URL值。",
+	"pf-externalpageempty": "外部页面不包含内容。",
+	"pf-externalpagebadjson": "不能在外部页面解析JSON。"
 }

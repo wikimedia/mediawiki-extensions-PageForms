@@ -235,14 +235,17 @@
 	"pf-datepicker-highlightdaysofweek": "강조되어 표시될 날의 목록(예시 - 주말: 6, 0).",
 	"pf-datepicker-disabledates": "비활성화된 날짜/날짜 범위의 쉼표로 구분된 목록. (날짜는 yyyy/mm/dd 형식으로, 범위는 yyyy/mm/dd-yyyy/mm/dd 형식으로)",
 	"pf-datepicker-highlightdates": "강조되어 나타나는 비활성화된 날짜/날짜 범위의 쉼표로 구분된 목록. (날짜는 yyyy/mm/dd 형식으로, 범위는 yyyy/mm/dd-yyyy/mm/dd 형식으로)",
-	"pf-datepicker-showweeknumbers": "주 번호가 주의 왼쪽에 보여야 합니까?",
-	"pf-datepicker-enableinputfield": "사용자가 입력 필드를 직접 채우거나 날짜 선택기만을 이용할 수 있어야 합니까?",
-	"pf-datepicker-showresetbutton": "재설정 버튼이 보여야 합니까? 직접 입력이 비활성화되어 있으면 사용자가 입력 필드를 지웁니다.",
 	"pf-regexp-wrongformat": "잘못된 형식입니다.",
 	"pf-regexp-regexp": "입력한 정규식은 유효하도록 일치시켜야 합니다. 슬래시 문자를 포함해야 합니다. 모든 값인 \"/.*/\"이 기본값입니다.",
 	"pf-regexp-basetype": "실제 사용할 입력 형태를 지정합니다. \"텍스트\"가 기본 값입니다.",
 	"pf-regexp-baseprefix": "기본 유형의 매개변수에 대한 접두어",
 	"pf-regexp-orchar": "OR-문자가 정규식에 | 문자 대신 사용되어야 합니다. 기본값은 \"!\"입니다",
 	"pf-regexp-inverse": "설정되면 입력 값은 유효하도록 정규식이 일치하지 않아야 합니다. 정규식은 반전됩니다.",
-	"pf-regexp-message": "일치에 실패하면 오류메시지가 표시됩니다. 기본값은 \"잘못된 형식!\"입니다. (또는 현재 위치와 동일)"
+	"pf-regexp-message": "일치에 실패하면 오류메시지가 표시됩니다. 기본값은 \"잘못된 형식!\"입니다. (또는 현재 위치와 동일)",
+	"pf-missingnamespace": "이름공간을 찾을 수 없습니다: $1",
+	"pf-nocompletionurls": "이 위키에 자동 완성을 위한 외부 URL이 지정되어 있지 않습니다.",
+	"pf-invalidexturl": "외부 URL 값이 잘못되었습니다.",
+	"pf-blankexturl": "외부 URL 값이 비어있습니다.",
+	"pf-externalpageempty": "외부 페이지에 내용이 없습니다.",
+	"pf-externalpagebadjson": "외부 페이지의 JSON을 구문 분석할 수 없습니다."
 }

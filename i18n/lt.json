@@ -52,6 +52,9 @@
 	"pf_forminputs_height": "Šios įvesties aukštis pikseliais",
 	"pf_forminputs_checkboxes_select_all": "Pasirinkti visus",
 	"pf_forminputs_checkboxes_select_none": "Nepasirinkti nei vieno",
+	"pf_forminputs_starwidth": "Kiekvienos žvaigždutės plotis (ir aukštis)",
+	"pf_forminputs_numstars": "Rodomų žvaigždučių skaičius",
+	"pf_forminputs_allowhalfstars": "Ar leisti puse žvaigždutės, pvz. 3.5 įvertinimas",
 	"createform": "Sukurti formą",
 	"pf-createform-with-name": "Kurti formą: $1",
 	"pf_createform_nameinput": "Formos vardas (dažniausiai priimtina pavadinti pagrindinio formoje naudojamo šablono vardu):",
@@ -158,5 +161,6 @@
 	"pf-datepicker-firstdate": "Pirmoji data, kuri gali būti pasirinkta (mmmm/mm/dd formatu).",
 	"pf-datepicker-lastdate": "Paskutinė data, kuri gali būti pasirinkta (mmmm/mm/dd formatu).",
 	"pf-datepicker-highlightdaysofweek": "Sąrašas dienų, kurios turėtų būti rodomos paryškintos (pvz. savaitgalis: 6, 0).",
-	"pf-datepicker-disabledates": "Kableliais atskirtas sąrašas neleistinų datų/datų intervalų (datos mmmm/mm/dd formatu, intervalai mmmm/mm/dd-mmmm/mm/dd formatu)."
+	"pf-datepicker-disabledates": "Kableliais atskirtas sąrašas neleistinų datų/datų intervalų (datos mmmm/mm/dd formatu, intervalai mmmm/mm/dd-mmmm/mm/dd formatu).",
+	"pf-invalidexturl": "Negalima išorinio URL reikšmė."
 }
