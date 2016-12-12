@@ -305,7 +305,8 @@ END;
 			if ( isset( $preloadTitle ) && $preloadTitle->userCan( 'read' ) ) {
 				$rev = Revision::newFromTitle( $preloadTitle );
 				if ( is_object( $rev ) ) {
-					$text = $rev->getText();
+					$content = $rev->getContent();
+					$text = ContentHandler::getContentText( $content );
 					// Remove <noinclude> sections and <includeonly> tags from text
 					$text = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $text );
 					$text = strtr( $text, array( '<includeonly>' => '', '</includeonly>' => '' ) );
