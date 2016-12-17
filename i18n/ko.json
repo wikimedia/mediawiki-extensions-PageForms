@@ -8,7 +8,8 @@
 			"Revi",
 			"Joolee0104",
 			"Mooozi",
-			"Ykhwong"
+			"Ykhwong",
+			"Jerrykim306"
 		]
 	},
 	"pageforms-desc": "위키 문서를 만들고 편집하기 위한 양식",
@@ -84,6 +85,7 @@
 	"pf_forminputs_width": "이 입력에 대한 픽셀 단위 너비",
 	"pf_forminputs_checkboxes_select_all": "모두 선택",
 	"pf_forminputs_checkboxes_select_none": "선택 없음",
+	"pf_forminputs_numstars": "별의 갯수를 보게 될 양",
 	"createform": "양식 만들기",
 	"pf-createform-with-name": "양식 만들기: $1",
 	"pf_createform_nameinput": "양식 이름",
