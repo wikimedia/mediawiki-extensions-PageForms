@@ -17,7 +17,8 @@
 			"Macofe",
 			"Ryo567",
 			"Sethladan",
-			"Matiia"
+			"Matiia",
+			"Dgstranz"
 		]
 	},
 	"pageforms-desc": "Formularios para crear y editar páginas wiki",
@@ -135,7 +136,7 @@
 	"pf_createclass_success": "Se crearán las páginas especificadas.",
 	"pf_createclass_create": "Crear",
 	"formstart": "Agregar página con formulario",
-	"pf_formstart_badform": "Error: no se encontró la página del formulario en $1",
+	"pf_formstart_badform": "Error: no se encontró ningún formulario en la página «$1».",
 	"pf_formstart_badtitle": "Error: \"$1\" es un título inválido para una página.",
 	"pf_formstart_docu": "Escribe el nombre de la página aquí, para editarla con el formulario \"$1\". Si esta página ya existe, te enviará al formulario para editar esa página.\nDe otra forma, te enviará al formulario para agregar la página.",
 	"pf_formstart_noform_docu": "Escribe el nombre de la página aquí, y selecciona el formulario con el cual se editará. Si esta página ya existe, te enviará al formulario para editar esa página.\nDe otra forma, te enviará al formulario para agregar la página.",
@@ -240,9 +241,6 @@
 	"pf-datepicker-highlightdaysofweek": "Una lista de días que deberían aparecer destacados (por ejemplo, fin de semana: 6, 0).",
 	"pf-datepicker-disabledates": "Una lista de elementos separados por comas de fechas/rangos de fechas deshabilitados (las fechas en formato aaaa/mm/dd, los rangos de fechas en formato aaaa/mm/dd-aaaa/mm/dd).",
 	"pf-datepicker-highlightdates": "Una lista de elementos separados por comas de fechas/rangos de fechas que deberían aparecer destacados (las fechas en formato aaaa/mm/dd, los rangos de fechas en formato aaaa/mm/dd-aaaa/mm/dd).",
-	"pf-datepicker-showweeknumbers": "¿Deben aparecer los números a la izquierda de la semana?",
-	"pf-datepicker-enableinputfield": "¿Debe ser capaz el usuario de completar el campo de entrada directamente o únicamente a través del selector de fechas?",
-	"pf-datepicker-showresetbutton": "¿Debe mostrarse un botón de restablecimiento (reset)? Este es el único modo que tiene el usuario de limpiar el campo de entrada si está deshabilitado para entrada directa.",
 	"pf-regexp-wrongformat": "Formato incorrecto.",
 	"pf-regexp-regexp": "La expresión regular que debe respetar la entrada para que sea válida. ¡Debe ser especificada entre barras inclinadas! Por defecto \"/.*/\", para cualquier valor.",
 	"pf-regexp-basetype": "El tipo real de entrada a usar. Por defecto es \"text\".",
