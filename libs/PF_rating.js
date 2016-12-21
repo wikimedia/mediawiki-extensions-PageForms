@@ -6,6 +6,7 @@
 		var curValue = $(this).attr('data-curvalue');
 		var numStars = $(this).attr('data-numstars');
 		var allowsHalf = $(this).attr('data-allows-half');
+		var disabled = $(this).attr('disabled');
 		var ratingsSettings = {
 			normalFill: '#ddd',
 			starWidth: starWidth,
@@ -18,10 +19,13 @@
 		} else {
 			ratingsSettings.halfStar = true;
 		}
+		if ( disabled === "disabled" ) {
+			ratingsSettings.readOnly = true;
+		}
 
 		$(this).rateYo(ratingsSettings)
 		.on("rateyo.set", function (e, data) {
- 
+
 			$(this).parent().children(":hidden").attr("value", data.rating);
 		});
 	};
