@@ -572,6 +572,11 @@ $GLOBALS['wgPageFormsGoogleMapsKey'] = null;
 require_once 'includes/PF_DatePickerSettings.php';
 
 # ##
+# Display displaytitle page property instead of page title for Page type fields
+# ##
+$GLOBALS['wgPageFormsUseDisplayTitle'] = false;
+
+# ##
 # Global variables for Javascript
 # ##
 $GLOBALS['wgPageFormsShowOnSelect'] = array();

@@ -43,6 +43,8 @@ class PFAutocompleteAPI extends ApiBase {
 			}
 		}
 
+		global $wgPageFormsUseDisplayTitle;
+		$map = false;
 		if ( !is_null( $baseprop ) ) {
 			if ( !is_null( $property ) ) {
 				$data = self::getAllValuesForProperty( $property, null, $baseprop, $basevalue );
@@ -51,12 +53,15 @@ class PFAutocompleteAPI extends ApiBase {
 			$data = self::getAllValuesForProperty( $property, $substr );
 		} elseif ( !is_null( $category ) ) {
 			$data = PFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
+			$map = $wgPageFormsUseDisplayTitle;
 		} elseif ( !is_null( $concept ) ) {
 			$data = PFValuesUtils::getAllPagesForConcept( $concept, $substr );
+			$map = $wgPageFormsUseDisplayTitle;
 		} elseif ( !is_null( $cargo_table ) && !is_null( $cargo_field ) ) {
 			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $field_is_array, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
 		} elseif ( !is_null( $namespace ) ) {
 			$data = PFValuesUtils::getAllPagesForNamespace( $namespace, $substr );
+			$map = $wgPageFormsUseDisplayTitle;
 		} elseif ( !is_null( $external_url ) ) {
 			$data = PFValuesUtils::getValuesFromExternalURL( $external_url, $substr );
 		} else {
@@ -93,8 +98,12 @@ class PFAutocompleteAPI extends ApiBase {
 		// correctly.
 		if ( is_null( $external_url ) ) {
 			$formattedData = array();
-			foreach ( $data as $value ) {
-				$formattedData[] = array( 'title' => $value );
+			foreach ( $data as $index => $value ) {
+				if ( $map ) {
+					$formattedData[] = array( 'title' => $index, 'displaytitle' => $value );
+				} else {
+					$formattedData[] = array( 'title' => $value );
+				}
 			}
 		} else {
 			$formattedData = $data;
