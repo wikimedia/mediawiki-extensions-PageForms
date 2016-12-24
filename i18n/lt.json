@@ -102,6 +102,8 @@
 	"pf_formstart_createoredit": "Pridėti ar keisti",
 	"formedit": "Redaguoti su forma",
 	"pf-formedit-selectform": "Pasirinkite formą sukurti šiam puslapiui:",
+	"pf-formedit-mainforms": "Pagrindinės formos:",
+	"pf-formedit-otherforms": "Kitos formos:",
 	"pf-formedit-donotuseform": "Kurti puslapį be formos.",
 	"pf_formedit_createtitle": "Pridėti $1: $2",
 	"pf_formedit_createtitlenotarget": "Kurti $1",
