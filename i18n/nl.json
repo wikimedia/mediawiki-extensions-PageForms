@@ -15,7 +15,8 @@
 			"Esketti",
 			"Robin van der Vliet",
 			"Ecthelion3",
-			"Hex"
+			"Hex",
+			"Mainframe98"
 		]
 	},
 	"pageforms-desc": "Formulieren voor het toevoegen en bewerken van semantische gegevens",
@@ -249,14 +250,13 @@
 	"pf-datepicker-highlightdaysofweek": "Een lijst van dagen die gemarkeerd worden (bijvoorbeeld weekend: 6, 0).",
 	"pf-datepicker-disabledates": "Een door komma's gescheiden lijst van uitgeschakelde datums of datumreeksen (datums in de opmaak jjjj/mm/dd, reeksen in de opmaak jjjj/mm/dd-jjjj/mm/dd).",
 	"pf-datepicker-highlightdates": "Een door komma's gescheiden lijst van datums of datumreeksen die gemarkeerd worden (datums in de opmaak jjjj/mm/dd formaat, reeksen in de opmaak jjjj/mm/dd-jjjj/mm/dd).",
-	"pf-datepicker-showweeknumbers": "Weeknummers links van de week weergeven?",
-	"pf-datepicker-enableinputfield": "Kan de gebruiker het invoerveld rechtstreeks bewerken, of alleen via de datumkiezer?",
-	"pf-datepicker-showresetbutton": "Knop voor leegmaken weergeven? Dit is de enige manier voor de gebruiker om het invoerveld te wissen als directe invoer voor het veld is uitgeschakeld.",
 	"pf-regexp-wrongformat": "Onjuiste opmaak.",
 	"pf-regexp-regexp": "De reguliere expressie waarmee de invoer overeen moet komen om geldig te zijn. Dit moet worden opgegeven met inbegrip van de schraptekens (slashes)! Standaard ingesteld op \"/.*/\", ofwel iedere mogelijke waarde.",
 	"pf-regexp-basetype": "Het echte invoertype dat gebruikt moet worden. De standaardwaarde is \"text\".",
 	"pf-regexp-baseprefix": "Voorvoegsel voor de parameters van het basistype.",
 	"pf-regexp-orchar": "Het OR-teken (\"of\") dat in de reguliere expressie wordt gebruikt in plaats van |. Standaard ingesteld op \"!\"",
 	"pf-regexp-inverse": "Als dit is ingesteld moet de invoer NIET overeen komen met de reguliere expressie om geldig te zijn. Dat wil zeggen, de reguliere expressie is omgekeerd.",
-	"pf-regexp-message": "Het foutbericht dat moet worden weergegeven als het vergelijken mislukt. De standaardinstelling is \"Verkeerde opmaak!\" (of het equivalent in de ingestelde taal)."
+	"pf-regexp-message": "Het foutbericht dat moet worden weergegeven als het vergelijken mislukt. De standaardinstelling is \"Verkeerde opmaak!\" (of het equivalent in de ingestelde taal).",
+	"pf-missingnamespace": "Kon naamruimte $1 niet vinden",
+	"pf-externalpageempty": "Externe pagina bevat geen inhoud."
 }
