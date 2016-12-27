@@ -71,6 +71,7 @@
 	"pf_forminputs_maxlength": "The maximum allowed length of the text in this field",
 	"pf_forminputs_placeholder": "Help text that appears in the input until the user clicks on it",
 	"pf_forminputs_uploadable": "Place an \"{{int:upload}}\" link next to this input",
+	"pf_forminputs_change_file": "Change file",
 	"pf_forminputs_defaultfilename": "The default filename for uploaded files",
 	"pf_forminputs_rows": "The number of rows for this input",
 	"pf_forminputs_cols": "The number of columns for this input",

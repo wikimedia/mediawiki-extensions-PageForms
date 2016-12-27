@@ -87,6 +87,7 @@
 	"pf_forminputs_maxlength": "Longer explanation of an option when creating a form",
 	"pf_forminputs_placeholder": "Longer explanation of an option when creating a form",
 	"pf_forminputs_uploadable": "Longer explanation of an option when creating a form\n\nThis is a message describing a checkbox. The message included within this message is: {{msg-mw|upload}}",
+	"pf_forminputs_change_file": "Button to change the currently uploaded file",
 	"pf_forminputs_defaultfilename": "Longer explanation of an option when creating a form",
 	"pf_forminputs_rows": "Longer explanation of an option when creating a form",
 	"pf_forminputs_cols": "Longer explanation of an option when creating a form",

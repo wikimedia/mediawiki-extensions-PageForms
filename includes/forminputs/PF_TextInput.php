@@ -144,6 +144,16 @@ class PFTextInput extends PFFormInput {
 	}
 
 	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', $other_args = array() ) {
+		global $wgPageFormsSimpleUpload, $wgPageFormsScriptPath;
+		if ( $wgPageFormsSimpleUpload ) {
+			$text = '
+<img class="loading" style="display:none;" src="' . $wgPageFormsScriptPath . '/skins/loading.gif"/>
+<input type="button" class="simpleupload_btn" data-id=' . $input_id . ' value="' . wfMessage( 'upload-dialog-button-upload' )->text() . '" />
+<input type="button" class="simpleupload_rmv_btn" data-id="' . $input_id . '" value="' . wfMessage( 'htmlform-cloner-delete' )->text() . '" style="display:none;" />
+<input type="file" class="simpleupload" data-id="' . $input_id . '" style="display:none;">';
+
+			return $text;
+		}
 		$upload_window_page = SpecialPageFactory::getPage( 'UploadWindow' );
 		$query_string = "pfInputID=$input_id";
 		if ( $delimiter != null ) {
