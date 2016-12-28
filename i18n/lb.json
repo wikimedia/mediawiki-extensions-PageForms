@@ -157,6 +157,7 @@
 	"pf-datepicker-lastdate": "De leschten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
 	"pf-datepicker-disabledaysofweek": "Eng Lëscht vun Deeg déi net erausgesicht kënne ginn (z. Bsp. Weekend:6, 0).",
 	"pf-regexp-wrongformat": "Falsche Format.",
+	"pf-missingconcept": "D'Konzept konnt net fonnt ginn: $1",
 	"pf-missingnamespace": "Den Nummraum konnt net fonnt ginn: $1",
 	"pf-externalpageempty": "Déi extern Säit huet keen Inhalt."
 }
