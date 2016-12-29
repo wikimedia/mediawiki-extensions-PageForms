@@ -828,6 +828,7 @@ END;
 				// =====================================================
 				// for template processing
 				// =====================================================
+				$template_name = "";
 				if ( $tag_title == 'for template' ) {
 					if ( $tif ) {
 						$previous_template_name = $tif->getTemplateName();
@@ -944,7 +945,7 @@ END;
 							// the fields that weren't
 							// handled by the form.
 							$cur_value = $tif->getAndRemoveValueFromPageForField( $field_name );
- 
+
 							// If the field is a placeholder, the contents of this template
 							// parameter should be treated as elements parsed by an another
 							// multiple template form.
