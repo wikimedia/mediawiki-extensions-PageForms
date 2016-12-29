@@ -89,7 +89,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 			$text .= "\t" . Html::rawElement( 'label',
 				array( 'class' => $labelClass ),
 				$checkbox_input . '&nbsp;' . $label
-			) . "\n";
+			) . " ";
 			$wgPageFormsTabIndex++;
 			$wgPageFormsFieldNum++;
 		}
