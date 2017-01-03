@@ -146,7 +146,7 @@ class PFAutocompleteAPI extends ApiBase {
 	}
 
 	protected function getDescription() {
-		return 'Autocompletion call used by the Page Forms extension (http://www.mediawiki.org/Extension:Page_F)';
+		return 'Autocompletion call used by the Page Forms extension (https://www.mediawiki.org/Extension:Page_Forms)';
 	}
 
 	protected function getExamples() {
@@ -333,7 +333,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$queryResults = $sqlQuery->run();
 
 		foreach ( $queryResults as $row ) {
-			// @TODO - this check should not be neceaary.
+			// @TODO - this check should not be necessary.
 			if ( ( $value = $row[$cargoFieldAlias] ) != '' ) {
 				$values[] = $value;
 			}
