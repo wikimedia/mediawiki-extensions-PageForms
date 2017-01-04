@@ -171,7 +171,7 @@ END;
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
 	 */
 	public static function addFormRLModules( $parser = null ) {
-		global $wgOut;
+		global $wgOut, $wgPageFormsSimpleUpload;
 
 		// Handling depends on whether or not this form is embedded
 		// in another page.
@@ -202,6 +202,10 @@ END;
 			'ext.pageforms.select2',
 			'ext.pageforms.rating'
 		);
+
+		if ( $wgPageFormsSimpleUpload ) {
+			$mainModules[] = 'ext.pageforms.simpleupload';
+		}
 
 		$output->addModules( $mainModules );
 
