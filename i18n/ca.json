@@ -21,6 +21,7 @@
 	"apihelp-pfautocomplete-param-field_is_array": "Si el camp de Cargo específic conté una llista de valors.",
 	"apihelp-pfautocomplete-param-namespace": "Un espai de noms a partir del qual s'autocompletaran les pàgines",
 	"apihelp-pfautocomplete-param-external_url": "Un àlies d'un URL extern d'on recollir els valors",
+	"apihelp-pfautocomplete-param-baseprop": "Una propietat de Semantic MediaWiki anterior amb què verificar en el formulari",
 	"apihelp-pfautoedit-description": "Crea o modifica una pàgina fent servir un formulari definit per l'extensió Page Forms.",
 	"apihelp-pfautoedit-param-form": "El formulari de Semantic Forms que s'utilitzarà",
 	"apihelp-pfautoedit-param-target": "El nom de la pàgina per crear o editar",
@@ -247,6 +248,7 @@
 	"pf-datepicker-lastdate": "La darrera data que es pot triar (en format yyyy/mm/dd).",
 	"pf-datepicker-disabledaysofweek": "Una llista de dies que no poden seleccionar-se (p. ex., el cap de setmana: 6, 0).",
 	"pf-datepicker-highlightdaysofweek": "Una llista de dies que apareixerà ressaltat (p. ex., el cap de setmana: 6, 0).",
+	"pf-datepicker-disabledates": "Una llista separada amb comes de dates o intervals de dates inhabilitades (dates en el format aaaa/mm/dd, intervals de dates en el format aaaa/mm/dd-aaaa/mm/dd).",
 	"pf-datepicker-highlightdates": "Una llista separada amb comes de dates / intervals de dates que apareixeran ressaltats (les dates en format yyyy/mm/dd, els intervals en format yyyy/mm/dd-yyyy/mm/dd).",
 	"pf-regexp-wrongformat": "Format incorrecte.",
 	"pf-regexp-regexp": "L'expressió regular amb que l'entrada ha de coincidir ha de ser vàlida. S'hi han d'incloure també les barres. Per defecte: «/.*/», això és, qualsevol valor.",
@@ -255,6 +257,9 @@
 	"pf-regexp-message": "El missatge d'error que es mostrarà si la coincidència falla. Per defecte «Format incorrecte!» (o equivalent en la llengua del wiki)",
 	"pf-missingconcept": "No s'ha pogut trobar el concepte: $1",
 	"pf-missingnamespace": "No s'ha pogut trobar l'espai de noms: $1",
+	"pf-nocompletionurls": "No s'ha especificat cap URL extern per autocompletar en aquest wiki.",
+	"pf-invalidexturl": "Valor d'URL extern no vàlid.",
+	"pf-blankexturl": "Valor d'URL extern en blanc.",
 	"pf-externalpageempty": "La pàgina externa no té contingut.",
 	"pf-externalpagebadjson": "No s'ha pogut analitzar el JSON en una pàgina externa."
 }

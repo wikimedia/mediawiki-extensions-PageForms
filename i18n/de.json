@@ -84,6 +84,7 @@
 	"pf_forminputs_maxlength": "Die maximal zulässige Länge des Textes in diesem Eingabefeld",
 	"pf_forminputs_placeholder": "Der Hilfetext, der angezeigt wird, bis der Benutzer ihn anklickt",
 	"pf_forminputs_uploadable": "Einen Link zum Hochladen einer Datei („{{int:upload}}“) neben diesem Eingabefeld platzieren",
+	"pf_forminputs_change_file": "Datei ändern",
 	"pf_forminputs_defaultfilename": "Der Standarddateiname für hochgeladene Dateien",
 	"pf_forminputs_rows": "Die Anzahl der Zeilen für dieses Eingabefeld",
 	"pf_forminputs_cols": "Die Anzahl der Spalten für dieses Eingabefeld",

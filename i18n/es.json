@@ -252,5 +252,9 @@
 	"pf-regexp-baseprefix": "Prefijo para los parámetros del tipo de base.",
 	"pf-regexp-orchar": "El carácter \"O\" a usar en la expresión regular en vez de \"|\". Por defecto es \"!\".",
 	"pf-regexp-inverse": "En caso de estar definida, la entrada NO debe coincidir con la expresión regular para ser válida. Es decir, la expresión regular está invertida.",
-	"pf-regexp-message": "El mensaje de error a mostrar si falla la coincidencia. Por defecto es \"¡Formato incorrecto!\" (o una forma equivalente en el idioma local)"
+	"pf-regexp-message": "El mensaje de error a mostrar si falla la coincidencia. Por defecto es \"¡Formato incorrecto!\" (o una forma equivalente en el idioma local)",
+	"pf-missingconcept": "No se pudo encontrar el concepto: $1",
+	"pf-missingnamespace": "No se pudo encontrar el espacio de nombres: $1",
+	"pf-externalpageempty": "La página externa no tiene ningún contenido.",
+	"pf-externalpagebadjson": "No se pudo analizar el JSON en una página externa."
 }
