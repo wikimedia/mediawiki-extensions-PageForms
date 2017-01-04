@@ -341,6 +341,7 @@ class PFFormField {
 		}
 
 		if ( !is_null( $f->mPossibleValues ) ) {
+			global $wgPageFormsUseDisplayTitle;
 			if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
 				$f->setValuesWithMappingTemplate();
 			} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
@@ -348,6 +349,8 @@ class PFFormField {
 			} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
 				array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
 				$f->setValuesWithMappingCargoField();
+			} elseif ( $wgPageFormsUseDisplayTitle ) {
+				$f->mPossibleValues = $f->disambiguateLabels( $f->mPossibleValues );
 			}
 		}
 		if ( $template_in_form->allowsMultiple() ) {
@@ -625,6 +628,10 @@ class PFFormField {
 	 * Map a template field value into labels.
 	 */
 	public function valueStringToLabels( $valueString, $delimiter ) {
+		if ( strlen( trim( $valueString ) ) === 0 ||
+			is_null( $this->mPossibleValues ) ) {
+			return $valueString;
+		}
 		if ( !is_null( $delimiter ) ) {
 			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
 		} else {
@@ -640,6 +647,8 @@ class PFFormField {
 				}
 			}
 		}
+wfDebug("VALUES: " . print_r($values, true));
+wfDebug("LABELS: " . print_r($labels, true));
 		if ( count( $labels ) > 1 ) {
 			return $labels;
 		} else {
@@ -673,10 +682,12 @@ class PFFormField {
 			}
 		}
 
+		global $wgPageFormsUseDisplayTitle;
 		if ( $this->hasFieldArg( 'mapping template' ) ||
 			$this->hasFieldArg( 'mapping property' ) ||
 			( $this->hasFieldArg( 'mapping cargo table' ) &&
-			$this->hasFieldArg( 'mapping cargo field' ) ) ) {
+			$this->hasFieldArg( 'mapping cargo field' ) ) ||
+			$wgPageFormsUseDisplayTitle ) {
 			if ( $this->hasFieldArg( 'part_of_multiple' ) ) {
 				$text .= Html::hidden( $template_name . '[num][map_field][' . $field_name . ']', 'true' );
 			} else {

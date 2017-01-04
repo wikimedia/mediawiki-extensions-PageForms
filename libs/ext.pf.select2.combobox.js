@@ -185,9 +185,15 @@
 					var id = 1;
 					//Convert data into the format accepted by Select2
 					data.pfautocomplete.forEach( function(item) {
-						values.push({
-							id: id++, text: item.title
-						});
+						if (item.displaytitle !== undefined) {
+							values.push({
+								id: id++, text: item.displaytitle
+							});
+						} else {
+							values.push({
+								id: id++, text: item.title
+							});
+						}
 					});
 					return values;
 				}
@@ -228,7 +234,11 @@
 				if (data.pfautocomplete !== undefined) {
 					data.pfautocomplete.forEach( function(item) {
 						item.id = id++;
-						item.text = item.title;
+						if (item.displaytitle !== undefined) {
+							item.text = item.displaytitle;
+						} else {
+							item.text = item.title;
+						}
 					});
 					return {results: data.pfautocomplete};
 				} else {
