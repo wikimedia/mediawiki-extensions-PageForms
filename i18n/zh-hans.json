@@ -84,6 +84,7 @@
 	"pf_forminputs_maxlength": "该字段所允许的最大文本长度",
 	"pf_forminputs_placeholder": "用户单击输入框之前一直显示在其中的帮助文本",
 	"pf_forminputs_uploadable": "在这个输入项旁边放置一个“{{int:upload}}”链接",
+	"pf_forminputs_change_file": "更改文件",
 	"pf_forminputs_defaultfilename": "已上传文件的默认文件名称",
 	"pf_forminputs_rows": "该输入项的行数",
 	"pf_forminputs_cols": "该输入项的列数",

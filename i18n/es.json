@@ -69,6 +69,7 @@
 	"pf_forminputs_maxlength": "La longitud de texto máxima permitida en este campo",
 	"pf_forminputs_placeholder": "Texto de ayuda que aparece en la entrada hasta que el usuario haga clic sobre él",
 	"pf_forminputs_uploadable": "Coloque un enlace \"{{int:upload}}\" junto a esta entrada",
+	"pf_forminputs_change_file": "Cambiar archivo",
 	"pf_forminputs_defaultfilename": "El nombre de archivo predeterminado de los archivos cargados",
 	"pf_forminputs_rows": "El número de filas para esta entrada",
 	"pf_forminputs_cols": "El número de columnas para esta entrada",

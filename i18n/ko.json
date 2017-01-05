@@ -61,6 +61,7 @@
 	"pf_forminputs_maxlength": "이 필드의 텍스트의 최대 허용 길이",
 	"pf_forminputs_placeholder": "사용자가 클릭할 때까지 입력에 나타나는 도움말 텍스트",
 	"pf_forminputs_uploadable": "이 입력 옆에 \"{{int:upload}}\" 링크 놓기",
+	"pf_forminputs_change_file": "파일 바꾸기",
 	"pf_forminputs_defaultfilename": "올린 파일에 대한 기본 파일 이름",
 	"pf_forminputs_rows": "이 입력에 대한 행 수",
 	"pf_forminputs_cols": "이 입력에 대한 열 수",
