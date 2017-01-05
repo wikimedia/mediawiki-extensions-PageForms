@@ -809,6 +809,7 @@ END;
 		// existing article as well, finding template and field
 		// declarations and replacing them with form elements, either
 		// blank or pre-populated, as appropriate.
+		$template_name = null;
 		$template = null;
 		$tif = null;
 		// This array will keep track of all the replaced @<name>@ strings
@@ -828,7 +829,6 @@ END;
 				// =====================================================
 				// for template processing
 				// =====================================================
-				$template_name = "";
 				if ( $tag_title == 'for template' ) {
 					if ( $tif ) {
 						$previous_template_name = $tif->getTemplateName();
