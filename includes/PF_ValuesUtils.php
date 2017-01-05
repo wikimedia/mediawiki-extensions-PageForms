@@ -164,25 +164,20 @@ class PFValuesUtils {
 					$tables['pp_defaultsort'] = 'page_props';
 					$columns['pp_displaytitle_value'] = 'pp_displaytitle.pp_value';
 					$columns['pp_defaultsort_value'] = 'pp_defaultsort.pp_value';
-					$join =
-					[
-						'pp_displaytitle' =>
-						[
-							'LEFT JOIN',
-							[
+					$join = array(
+						'pp_displaytitle' => array(
+							'LEFT JOIN', array(
 								'pp_displaytitle.pp_page = page_id',
 								'pp_displaytitle.pp_propname = "displaytitle"'
-							]
-						],
-						'pp_defaultsort' =>
-						[
-							'LEFT JOIN',
-							[
+							)
+						),
+						'pp_defaultsort' => array(
+							'LEFT JOIN', array(
 								'pp_defaultsort.pp_page = page_id',
 								'pp_defaultsort.pp_propname = "defaultsort"'
-							]
-						]
-					];
+							)
+						)
+					);
 					if ( $substring != null ) {
 						$conditions[] = '(pp_displaytitle.pp_value IS NULL AND (' .
 							self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) .
@@ -191,7 +186,7 @@ class PFValuesUtils {
 							' OR page_namespace = ' . NS_CATEGORY;
 					}
 				} else {
-					$join = [];
+					$join = array();
 					if ( $substring != null ) {
 						$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) . ' OR page_namespace = ' . NS_CATEGORY;
 					}
@@ -305,7 +300,7 @@ class PFValuesUtils {
 
 		if ( $wgPageFormsUseDisplayTitle && class_exists( 'PageProps' ) ) {
 			$properties = PageProps::getInstance()->getProperties( $titles,
-				[ 'displaytitle', 'defaultsort' ] );
+				array( 'displaytitle', 'defaultsort' ) );
 			foreach ( $titles as $title ) {
 				if ( array_key_exists( $title->getArticleID(), $properties ) ) {
 					$titleprops = $properties[$title->getArticleID()];
@@ -405,25 +400,20 @@ class PFValuesUtils {
 			$tables['pp_defaultsort'] = 'page_props';
 			$columns['pp_displaytitle_value'] = 'pp_displaytitle.pp_value';
 			$columns['pp_defaultsort_value'] = 'pp_defaultsort.pp_value';
-			$join =
-			[
-				'pp_displaytitle' =>
-				[
-					'LEFT JOIN',
-					[
+			$join = array(
+				'pp_displaytitle' => array(
+					'LEFT JOIN', array(
 						'pp_displaytitle.pp_page = page_id',
 						'pp_displaytitle.pp_propname = "displaytitle"'
-					]
-				],
-				'pp_defaultsort' =>
-				[
-					'LEFT JOIN',
-					[
+					)
+				),
+				'pp_defaultsort' => array(
+					'LEFT JOIN', array(
 						'pp_defaultsort.pp_page = page_id',
 						'pp_defaultsort.pp_propname = "defaultsort"'
-					]
-				]
-			];
+					)
+				)
+			);
 			if ( $substring != null ) {
 				$conditions[] = '(pp_displaytitle.pp_value IS NULL AND (' .
 					self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) .
@@ -432,7 +422,7 @@ class PFValuesUtils {
 					' OR page_namespace = ' . NS_CATEGORY;
 			}
 		} else {
-			$join = [];
+			$join = array();
 			if ( $substring != null ) {
 				$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring );
 			}
@@ -442,7 +432,7 @@ class PFValuesUtils {
 			$columns,
 			$conditions,
 			__METHOD__,
-			$options = [],
+			$options = array(),
 			$join );
 
 		$pages = array();
