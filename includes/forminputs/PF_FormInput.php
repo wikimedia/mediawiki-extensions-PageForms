@@ -330,7 +330,7 @@ abstract class PFFormInput {
 	 */
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 
-		global $wgPageFormsFieldNum, $wgParser;
+		global $wgPageFormsFieldNum, $wgOut;
 
 		// create an input of the called class
 		// TODO: get_called_class was introduced in PHP 5.3. The use of the
@@ -348,7 +348,11 @@ abstract class PFFormInput {
 
 		$input = new $calledClass ( $wgPageFormsFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
 
-		$output = $wgParser->getOutput();
+		// @TODO - the first works better for Special:RunQuery, and the
+		// second better for Special:FormEdit? Try to find some solution
+		// that always works correctly.
+		//$output = $wgParser->getOutput();
+		$output = $wgOut;
 		$modules = $input->getResourceModuleNames();
 
 		// register modules for the input
