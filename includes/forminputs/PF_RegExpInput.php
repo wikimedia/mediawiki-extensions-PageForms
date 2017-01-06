@@ -84,7 +84,7 @@ class PFRegExpInput extends PFFormInput {
 		);
 
 		// Finally set name and parameters for the validation function
-		$this->addJsValidationFunctionData( 'PFI_RE_validate', $jsFunctionData );
+		$this->addJsValidationFunctionData( 'PF_RE_validate', $jsFunctionData );
 
 
 		// set base input type name
