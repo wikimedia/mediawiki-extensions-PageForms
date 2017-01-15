@@ -121,8 +121,8 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 
 	function toOpenLayersLonLat( map, lat, lon ) {
-		return new OpenLayers.LonLat( lon, lat ).tranpform(
-			new OpenLayers.Projection("EPSG:4326"), // tranpform from WGS 1984
+		return new OpenLayers.LonLat( lon, lat ).transform(
+			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 			map.getProjectionObject() // to Spherical Mercator Projection
 		);
 	}
@@ -161,10 +161,10 @@ function setupMapFormInput( inputDiv, mapService ) {
 		marker = new OpenLayers.Marker( location );
 		markers.addMarker( marker );
 
-		// Tranpform the coordinates back, in order to display them.
+		// Transform the coordinates back, in order to display them.
 		var realLonLat = location.clone();
-		realLonLat.tranpform(
-			map.getProjectionObject(), // tranpform from Spherical Mercator Projection
+		realLonLat.transform(
+			map.getProjectionObject(), // transform from Spherical Mercator Projection
 			new OpenLayers.Projection("EPSG:4326") // to WGS 1984
 		);
 		var stringVal = pfRoundOffDecimal( realLonLat.lat ) + ', ' + pfRoundOffDecimal( realLonLat.lon );
