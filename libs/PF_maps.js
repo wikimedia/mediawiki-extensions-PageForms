@@ -74,7 +74,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 					googleMapsSetMarker( results[0].geometry.location );
 					map.setZoom(14);
 				} else {
-					alert("Geocode was not succespful for the following reason: " + status);
+					alert("Geocode was not successful for the following reason: " + status);
 				}
 			});
 		} else { // if ( mapService == "OpenLayers" ) {
