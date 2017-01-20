@@ -442,7 +442,6 @@
 		"PageFormsCacheFormDefinitions": false,
 		"PageFormsFormCacheType": null,
 		"PageFormsLinkAllRedLinksToForms": false,
-		"PageFormsRedLinksCheckOnlyLocalProps": false,
 		"PageFormsShowTabsForAllHelperForms": true,
 		"PageFormsRunQueryFormAtTop": false,
 		"PageFormsGoogleMapsKey": null,

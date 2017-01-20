@@ -557,13 +557,6 @@ $GLOBALS['wgPageFormsFormCacheType'] = null;
 $GLOBALS['wgPageFormsLinkAllRedLinksToForms'] = false;
 
 # ##
-# When modifying red links to potentially point to a form to edit that page,
-# check only the properties pointing to that missing page from the page the
-# user is currently on, instead of from all pages in the wiki.
-# ##
-$GLOBALS['wgPageFormsRedLinksCheckOnlyLocalProps'] = false;
-
-# ##
 # Show the "create with form" tab for uncreated templates and categories.
 # ##
 $GLOBALS['wgPageFormsShowTabPForAllHelperForms'] = true;
