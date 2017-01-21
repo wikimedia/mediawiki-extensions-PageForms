@@ -184,11 +184,6 @@ class PFUploadForm extends HTMLForm {
 	 * @return array Descriptor array
 	 */
 	protected function getDescriptionSection() {
-		$cols = intval( $this->getUser()->getOption( 'cols' ) );
-		if ( $this->getUser()->getOption( 'editwidth' ) ) {
-			$this->getOutput()->addInlineStyle( '#mw-htmlform-description { width: 100%; }' );
-		}
-
 		$descriptor = array(
 			'DestFile' => array(
 				'type' => 'text',
@@ -204,7 +199,7 @@ class PFUploadForm extends HTMLForm {
 				'label-message' => $this->mForReUpload
 					? 'filereuploadsummary'
 					: 'fileuploadsummary',
-				'cols' => $cols,
+				'cols' => 80,
 				'rows' => 4,
 			),
 /*
