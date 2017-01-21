@@ -45,6 +45,7 @@
 	"pf_forminputs_size": "Šio teksto laukelio dydis simboliais",
 	"pf_forminputs_maxlength": "Maksimalus leidžiamas teksto ilgis šiame laukelyje",
 	"pf_forminputs_placeholder": "Pagalbinis tekstas, kuris yra rodomos įvestyje iki tol, kol vartotojas ant jos paspaudžia",
+	"pf_forminputs_change_file": "Keisti failą",
 	"pf_forminputs_cols": "Šios įvesties stulpelių skaičius",
 	"pf_forminputs_list": "Pažymėti šią įvesti kaip turinčia reikšmių sąrašą",
 	"pf_forminputs_existingvaluesonly": "Leisti tik reikšmes, jau esančias sąraše",

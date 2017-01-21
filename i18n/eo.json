@@ -3,7 +3,8 @@
 		"authors": [
 			"Michawiki",
 			"Yekrats",
-			"KuboF"
+			"KuboF",
+			"Psychoslave"
 		]
 	},
 	"pageforms-desc": "Formularoj por aldonado kaj redaktado de semantikaj datumoj",
@@ -71,7 +72,7 @@
 	"pf_editsource": "Redaktu fonton",
 	"pf_formedit_edittitle": "Redaktu $1: $2",
 	"pf_formedit_formwarning": "Averto: Ĉi paĝo <a href=\"$1\">jam ekzistas</a>, sed ĝi ne uzas ĉi kamparon.",
-	"pf_formedit_remove": "Forigi",
+	"pf_formedit_remove": "Forigi tiun ekzempleron",
 	"pf_formedit_addanother": "Aldoni plu",
 	"pf_formedit_none": "Neniu",
 	"pf_runquery_additionalquery": "Aldona serĉomendo",
