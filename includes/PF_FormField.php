@@ -511,13 +511,16 @@ class PFFormField {
 	 * given a mapping template.
 	 */
 	function setValuesWithMappingTemplate() {
-		global $wgParser;
+		global $wgParser, $wgPageFormsUseDisplayTitle;
 
 		$labels = array();
 		$templateName = $this->mFieldArgs['mapping template'];
 		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
 		$templateExists = $title->exists();
-		foreach ( $this->mPossibleValues as $value ) {
+		foreach ( $this->mPossibleValues as $index => $value ) {
+			if ( $wgPageFormsUseDisplayTitle ) {
+				$value = $index;
+			}
 			if ( $templateExists ) {
 				$label = trim( $wgParser->recursiveTagParse( '{{' . $templateName .
 					'|' . $value . '}}' ) );
@@ -549,9 +552,13 @@ class PFFormField {
 			return;
 		}
 
+		global $wgPageFormsUseDisplayTitle;
 		$propertyName = $this->mFieldArgs['mapping property'];
 		$labels = array();
-		foreach ( $this->mPossibleValues as $value ) {
+		foreach ( $this->mPossibleValues as $index => $value ) {
+			if ( $wgPageFormsUseDisplayTitle ) {
+				$value = $index;
+			}
 			$labels[$value] = $value;
 			$subject = Title::newFromText( $value );
 			if ( $subject != null ) {
@@ -569,8 +576,12 @@ class PFFormField {
 	 * given a mapping Cargo table/field.
 	 */
 	function setValuesWithMappingCargoField() {
+		global $wgPageFormsUseDisplayTitle;
 		$labels = array();
-		foreach ( $this->mPossibleValues as $value ) {
+		foreach ( $this->mPossibleValues as $index => $value ) {
+			if ( $wgPageFormsUseDisplayTitle ) {
+				$value = $index;
+			}
 			$labels[$value] = $value;
 			$vals = PFValuesUtils::getValuesForCargoField(
 				$this->mFieldArgs['mapping cargo table'],
@@ -647,8 +658,6 @@ class PFFormField {
 				}
 			}
 		}
-wfDebug("VALUES: " . print_r($values, true));
-wfDebug("LABELS: " . print_r($labels, true));
 		if ( count( $labels ) > 1 ) {
 			return $labels;
 		} else {
