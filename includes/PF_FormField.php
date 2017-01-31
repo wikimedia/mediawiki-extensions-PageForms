@@ -129,6 +129,10 @@ class PFFormField {
 		}
 	}
 
+	public function getUseDisplayTitle() {
+		return $this->mUseDisplayTitle;
+	}
+
 	public function getInputName() {
 		return $this->mInputName;
 	}

@@ -1049,13 +1049,12 @@ END;
 						if ( $form_submitted ) {
 							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
-							global $wgPageFormsUseDisplayTitle;
 							if ( !empty( $cur_value ) &&
 								( $form_field->hasFieldArg( 'mapping template' ) ||
 								$form_field->hasFieldArg( 'mapping property' ) ||
 								( $form_field->hasFieldArg( 'mapping cargo table' ) &&
 								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ||
-								$wgPageFormsUseDisplayTitle ) {
+								$form_field->getUseDisplayTitle() ) {
 								// If the input type is "tokens', the value is not
 								// an array, but the delimiter still needs to be set.
 								if ( !is_array( $cur_value ) ) {
