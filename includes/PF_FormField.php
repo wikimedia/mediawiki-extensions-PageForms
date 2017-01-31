@@ -19,6 +19,7 @@ class PFFormField {
 	private $mIsHidden;
 	private $mIsRestricted;
 	private $mPossibleValues;
+	private $mUseDisplayTitle;
 	private $mIsList;
 	// The following fields are not set by the form-creation page
 	// (though they could be).
@@ -46,6 +47,7 @@ class PFFormField {
 		$f->mIsRestricted = false;
 		$f->mIsUploadable = false;
 		$f->mPossibleValues = null;
+		$f->mUseDisplayTitle = false;
 		$f->mFieldArgs = array();
 		$f->mDescriptionArgs = array();
 		return $f;
@@ -261,10 +263,16 @@ class PFFormField {
 						$category_name = ucfirst( $category_name );
 					}
 					$f->mPossibleValues = PFValuesUtils::getAllPagesForCategory( $category_name, 10 );
+					global $wgPageFormsUseDisplayTitle;
+					$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
 				} elseif ( $sub_components[0] == 'values from concept' ) {
 					$f->mPossibleValues = PFValuesUtils::getAllPagesForConcept( $sub_components[1] );
+					global $wgPageFormsUseDisplayTitle;
+					$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
 				} elseif ( $sub_components[0] == 'values from namespace' ) {
 					$f->mPossibleValues = PFValuesUtils::getAllPagesForNamespace( $sub_components[1] );
+					global $wgPageFormsUseDisplayTitle;
+					$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
 				} elseif ( $sub_components[0] == 'values dependent on' ) {
 					global $wgPageFormsDependentFields;
 					$wgPageFormsDependentFields[] = array( $sub_components[1], $fullFieldName );
@@ -341,7 +349,6 @@ class PFFormField {
 		}
 
 		if ( !is_null( $f->mPossibleValues ) ) {
-			global $wgPageFormsUseDisplayTitle;
 			if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
 				$f->setValuesWithMappingTemplate();
 			} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
@@ -349,7 +356,7 @@ class PFFormField {
 			} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
 				array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
 				$f->setValuesWithMappingCargoField();
-			} elseif ( $wgPageFormsUseDisplayTitle ) {
+			} elseif ( $f->mUseDisplayTitle ) {
 				$f->mPossibleValues = $f->disambiguateLabels( $f->mPossibleValues );
 			}
 		}
@@ -511,14 +518,14 @@ class PFFormField {
 	 * given a mapping template.
 	 */
 	function setValuesWithMappingTemplate() {
-		global $wgParser, $wgPageFormsUseDisplayTitle;
+		global $wgParser;
 
 		$labels = array();
 		$templateName = $this->mFieldArgs['mapping template'];
 		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
 		$templateExists = $title->exists();
 		foreach ( $this->mPossibleValues as $index => $value ) {
-			if ( $wgPageFormsUseDisplayTitle ) {
+			if ( $this->mUseDisplayTitle ) {
 				$value = $index;
 			}
 			if ( $templateExists ) {
@@ -552,11 +559,10 @@ class PFFormField {
 			return;
 		}
 
-		global $wgPageFormsUseDisplayTitle;
 		$propertyName = $this->mFieldArgs['mapping property'];
 		$labels = array();
 		foreach ( $this->mPossibleValues as $index => $value ) {
-			if ( $wgPageFormsUseDisplayTitle ) {
+			if ( $this->mUseDisplayTitle ) {
 				$value = $index;
 			}
 			$labels[$value] = $value;
@@ -576,10 +582,9 @@ class PFFormField {
 	 * given a mapping Cargo table/field.
 	 */
 	function setValuesWithMappingCargoField() {
-		global $wgPageFormsUseDisplayTitle;
 		$labels = array();
 		foreach ( $this->mPossibleValues as $index => $value ) {
-			if ( $wgPageFormsUseDisplayTitle ) {
+			if ( $this->mUseDisplayTitle ) {
 				$value = $index;
 			}
 			$labels[$value] = $value;
@@ -691,12 +696,11 @@ class PFFormField {
 			}
 		}
 
-		global $wgPageFormsUseDisplayTitle;
 		if ( $this->hasFieldArg( 'mapping template' ) ||
 			$this->hasFieldArg( 'mapping property' ) ||
 			( $this->hasFieldArg( 'mapping cargo table' ) &&
 			$this->hasFieldArg( 'mapping cargo field' ) ) ||
-			$wgPageFormsUseDisplayTitle ) {
+			$this->mUseDisplayTitle ) {
 			if ( $this->hasFieldArg( 'part_of_multiple' ) ) {
 				$text .= Html::hidden( $template_name . '[num][map_field][' . $field_name . ']', 'true' );
 			} else {
