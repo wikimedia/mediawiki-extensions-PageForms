@@ -221,8 +221,8 @@ class PFValuesUtils {
 							if ( ! in_array( $cur_value, $pages ) ) {
 								if ( array_key_exists( 'pp_displaytitle_value' , $row ) &&
 									!is_null( $row[ 'pp_displaytitle_value' ] ) &&
- 									trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
-									$pages[ $cur_value ] = $row[ 'pp_displaytitle_value'];
+									trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
+									$pages[ $cur_value ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
 								} else {
 									$pages[ $cur_value ] = $cur_value;
 								}
@@ -305,8 +305,8 @@ class PFValuesUtils {
 				if ( array_key_exists( $title->getArticleID(), $properties ) ) {
 					$titleprops = $properties[$title->getArticleID()];
 					if ( array_key_exists( 'displaytitle', $titleprops ) &&
- 						trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
-						$pages[$title->getPrefixedText()] = $titleprops['displaytitle'];
+						trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
+						$pages[$title->getPrefixedText()] = htmlspecialchars_decode( $titleprops['displaytitle'] );
 					} else {
 						$pages[$title->getPrefixedText()] = $title->getPrefixedText();
 					}
@@ -441,8 +441,8 @@ class PFValuesUtils {
 			$title = str_replace( '_', ' ', $row[0] );
 			if ( array_key_exists( 'pp_displaytitle_value' , $row ) &&
 				!is_null( $row[ 'pp_displaytitle_value' ] ) &&
- 				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
-				$pages[ $title ] = $row[ 'pp_displaytitle_value'];
+				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
+				$pages[ $title ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
 			} else {
 				$pages[ $title ] = $title;
 			}
