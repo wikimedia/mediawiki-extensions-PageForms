@@ -330,7 +330,7 @@
 		var delim = tokens.getDelimiter( publicInput );
 		var namespace = inputControl.attr( "data-namespace" );
 		tokensInput.find("li.select2-search-choice").each(function() {
-			var val = $(this).children("div").html().trim();
+			var val = $(this).children("div").text().trim();
  			if ( namespace && data.id === data.text ) {
  				if (val.indexOf( namespace + ':' ) !== 0 ) {
  					val = namespace + ':' + val;
