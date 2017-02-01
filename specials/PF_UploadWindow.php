@@ -151,7 +151,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			$this->processUpload();
 		} else {
 			# Backwards compatibility hook
-			if( !Hooks::run( 'UploadForm:initial', array( &$this ) ) ) {
+			// Avoid PHP 7.1 warning from passing $this by reference
+			$page = $this;
+			if( !Hooks::run( 'UploadForm:initial', array( &$page ) ) ) {
 				wfDebug( "Hook 'UploadForm:initial' broke output of the upload form" );
 				return;
 			}
@@ -327,7 +329,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		if ( !$status->isOK() )
 			return $this->showUploadForm( $this->getUploadForm( $this->getOutput()->parse( $status->getWikiText() ) ) );
 
-		if( !Hooks::run( 'UploadForm:BeforeProcessing', array( &$this ) ) ) {
+		// Avoid PHP 7.1 warning from passing $this by reference
+		$page = $this;
+		if( !Hooks::run( 'UploadForm:BeforeProcessing', array( &$page ) ) ) {
 			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
 			// This code path is deprecated. If you want to break upload processing
 			// do so by hooking into the appropriate hooks in UploadBase::verifyUpload
@@ -428,7 +432,9 @@ END;
 		print $output;
 		$img = null; // @todo: added to avoid passing a ref to null - should this be defined somewhere?
 
-		Hooks::run( 'SpecialUploadComplete', array( &$this ) );
+		// Avoid PHP 7.1 warning from passing $this by reference
+		$page = $this;
+		Hooks::run( 'SpecialUploadComplete', array( &$page ) );
 	}
 
 	/**

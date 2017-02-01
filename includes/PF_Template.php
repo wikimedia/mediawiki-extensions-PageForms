@@ -361,7 +361,9 @@ class PFTemplate {
 	 * extension.
 	 */
 	public function createText() {
-		Hooks::run( 'PageForms::CreateTemplateText', array( &$this ) );
+		// Avoid PHP 7.1 warning from passing $this by reference
+		$template = $this;
+		Hooks::run( 'PageForms::CreateTemplateText', array( &$template ) );
 		$templateHeader = wfMessage( 'pf_template_docu', $this->mTemplateName )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
