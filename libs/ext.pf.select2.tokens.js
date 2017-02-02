@@ -49,7 +49,9 @@
 		this.sortable(element);
 		element.on( "change", this.onChange );
 		element.val(cur_val);
-		element.parent().on( "dblclick", "li.select2-search-choice", pfTokensTurnIntoInput );
+		if ( element.attr( "existingvaluesonly" ) !== "true" ) {
+			element.parent().on( "dblclick", "li.select2-search-choice", pfTokensTurnIntoInput );
+		}
 	};
 	/*
 	 * Returns options to be set by select2
