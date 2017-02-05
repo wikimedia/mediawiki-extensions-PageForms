@@ -29,7 +29,7 @@
 	"ExtensionFunctions": [
 		"PFHooks::initialize"
 	],
-	"require": {
+	"requires": {
 		"MediaWiki": ">= 1.27.0"
 	},
 	"GroupPermissions": {
