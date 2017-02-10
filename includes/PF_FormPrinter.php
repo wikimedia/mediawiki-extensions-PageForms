@@ -1348,15 +1348,15 @@ END;
 				// know that we are doing a replace.
 				if ( $existing_page_content && strpos( $existing_page_content, '{{{insertionpoint}}}', 0 ) !== false ) {
 					$existing_page_content = preg_replace( '/\{\{\{insertionpoint\}\}\}(\r?\n?)/',
-						preg_replace( '/\}\}/m', '}?',
-							preg_replace( '/\{\{/m', '?{', $template_text ) ) .
+						preg_replace( '/\}\}/m', '}�',
+							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
 						"{{{insertionpoint}}}",
 						$existing_page_content );
 				// Otherwise, if it's a partial form, we have to add the new
 				// text somewhere.
 				} elseif ( $partial_form_submitted ) {
-					$existing_page_content = preg_replace( '/\}\}/m', '}?',
-						preg_replace( '/\{\{/m', '?{', $template_text ) ) .
+					$existing_page_content = preg_replace( '/\}\}/m', '}�',
+						preg_replace( '/\{\{/m', '�{', $template_text ) ) .
 							"{{{insertionpoint}}}" . $existing_page_content;
 				}
 			}
@@ -1454,7 +1454,7 @@ END;
 				$free_text = $original_page_content;
 			} else {
 				$free_text = null;
-				$existing_page_content = preg_replace( array( '/?\{/m', '/\}?/m' ),
+				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
 					array( '{{', '}}' ),
 					$existing_page_content );
 				$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
