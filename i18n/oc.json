@@ -84,7 +84,7 @@
 	"pf_createclass_success": "Las paginas indicadas seràn creadas.",
 	"pf_createclass_create": "Crear",
 	"formstart": "Apondre una pagina amb un formulari",
-	"pf_formstart_badform": "Error : cap de pagina de formulari es pas estada trobada sus $1.",
+	"pf_formstart_badform": "Error : cap de pagina de formulari es pas estada trobada sus «$1».",
 	"pf_formstart_badtitle": "Error : « $1 » es un títol de pagina invalid.",
 	"pf_formstart_docu": "Picatz aicí lo nom de la pagina destinada a èsser editada amb lo formulari « $1 ». Se aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",
 	"pf_formstart_noform_docu": "Picatz aicí lo nom de la pagina puèi seleccionatz lo formulari amb lo qual serà editada. S'aquesta pagina existís ja, seretz dirigit cap al formulari per l'editar. Dins lo cas contrari, seretz redirigit cap a lo que permet de l'apondre.",

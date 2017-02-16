@@ -18,6 +18,7 @@
 	},
 	"pageforms-desc": "Formularze do tworzenia i edycji stron wiki",
 	"specialpages-group-pf_group": "Semantyczne formularze",
+	"apihelp-pfautocomplete-param-limit": "Ograniczenie liczby zwracanych wyników",
 	"apihelp-pfautocomplete-param-external_url": "Alias zewnętrznego adresu URL, z którego uzyskuje się wartość",
 	"createproperty": "Utwórz właściwość",
 	"pf-createproperty-with-name": "Tworzenie właściwości: $1",
