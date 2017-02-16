@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * Parser functions for Page Forms.
  *
@@ -682,10 +685,15 @@ class PFParserFunctions {
 		}
 
 		if ( $parserFunctionName == 'formredlink' && $targetPageExists ) {
-			if ( $inExistingPageLinkStr == '' ) {
-				return Linker::link( $targetTitle );
+			if ( function_exists( 'MediaWiki\MediaWikiServices::getLinkRenderer' ) ) {
+				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 			} else {
-				return Linker::link( $targetTitle, $inExistingPageLinkStr );
+				$linkRenderer = null;
+			}
+			if ( $inExistingPageLinkStr == '' ) {
+				return PFUtils::makeLink( $linkRenderer, $targetTitle );
+			} else {
+				return PFUtils::makeLink( $linkRenderer, $targetTitle, $inExistingPageLinkStr );
 			}
 		}
 

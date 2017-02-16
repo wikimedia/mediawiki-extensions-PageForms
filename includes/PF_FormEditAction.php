@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * Handles the formedit action.
  *
@@ -202,7 +205,12 @@ class PFFormEditAction extends Action {
 
 		// We need to call linkKnown(), not link(), so that PF's
 		// edit=>formedit hook won't be called on this link.
-		$noFormLink = Linker::linkKnown( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), array( 'action' => 'edit', 'redlink' => true ) );
+		if ( function_exists( 'MediaWiki\MediaWikiServices::getLinkRenderer' ) ) {
+			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		} else {
+			$linkRenderer = null;
+		}
+		$noFormLink = PFUtils::makeLink( $linkRenderer, $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), array( 'action' => 'edit', 'redlink' => true ) );
 		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
 	}
 

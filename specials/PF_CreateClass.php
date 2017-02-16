@@ -194,12 +194,17 @@ class PFCreateClass extends SpecialPage {
 		// Make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page.
 		$creation_links = array();
-		if ( defined( 'SMW_VERSION' ) ) {
-			$creation_links[] = PFUtils::linkForSpecialPage( 'CreateProperty' );
+		if ( method_exists( $this, 'getLinkRenderer' ) ) {
+			$linkRenderer = $this->getLinkRenderer();
+		} else {
+			$linkRenderer = null;
 		}
-		$creation_links[] = PFUtils::linkForSpecialPage( 'CreateTemplate' );
-		$creation_links[] = PFUtils::linkForSpecialPage( 'CreateForm' );
-		$creation_links[] = PFUtils::linkForSpecialPage( 'CreateCategory' );
+		if ( defined( 'SMW_VERSION' ) ) {
+			$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateProperty' );
+		}
+		$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateTemplate' );
+		$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateForm' );
+		$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateCategory' );
 
 		$text = '<form action="" method="post">' . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null,

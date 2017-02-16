@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * Utilities for the display and retrieval of forms.
  *
@@ -228,8 +231,8 @@ class PFFormUtils {
 		if ( $wgTitle == null ) {
 			$cancel = '';
 		}
-		// if we're on the special 'FormEdit' page, just send the user
-		// back to the previous page they were on
+		// If we're on the special 'FormEdit' page, just send the user
+		// back to the previous page they were on.
 		elseif ( $wgTitle->isSpecial( 'FormEdit' ) ) {
 			$stepsBack = 1;
 			// For IE, we need to go back twice, past the redirect.
@@ -239,7 +242,12 @@ class PFFormUtils {
 			}
 			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
 		} else {
-			$cancel = Linker::link( $wgTitle, $label, array(), array(), 'known' );
+			if ( function_exists( 'MediaWiki\MediaWikiServices::getLinkRenderer' ) ) {
+				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+			} else {
+				$linkRenderer = null;
+			}
+			$cancel = PFUtils::makeLink( $linkRenderer, $wgTitle, $label );
 		}
 		return "\t\t" . Html::rawElement( 'span', array( 'class' => 'editHelp' ), $cancel ) . "\n";
 	}

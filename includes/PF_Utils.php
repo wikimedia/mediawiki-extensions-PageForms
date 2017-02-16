@@ -10,11 +10,25 @@
 class PFUtils {
 
 	/**
+	 * Helper function for backward compatibility.
+	 */
+	public static function makeLink( $linkRenderer, $title, $msg = null, $attrs = array(), $params = array() ) {
+		if ( !is_null( $linkRenderer ) ) {
+			// MW 1.28+
+			// Is there a makeLinkKnown() method? We'll just do it
+			// manually.
+			return $linkRenderer->makeLink( $title, $msg, $attrs, $params, array( 'known' ) );
+		} else {
+			return Linker::linkKnown( $title, $msg, $attrs, $params );
+		}
+	}
+
+	/**
 	 * Creates a link to a special page, using that page's top-level description as the link text.
 	 */
-	public static function linkForSpecialPage( $specialPageName ) {
+	public static function linkForSpecialPage( $linkRenderer, $specialPageName ) {
 		$specialPage = SpecialPageFactory::getPage( $specialPageName );
-		return Linker::link( $specialPage->getTitle(),
+		return self::makeLink( $linkRenderer, $specialPage->getTitle(),
 			htmlspecialchars( $specialPage->getDescription() ) );
 	}
 
