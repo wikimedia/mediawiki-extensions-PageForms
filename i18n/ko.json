@@ -35,7 +35,7 @@
 	"pf_createtemplate_templatefields": "틀 필드",
 	"pf_createtemplate_fieldsdesc": "필드 이름이 더 이상 필요하지 않는 이 틀에 필드를 갖기 위해서는 단순히 실제 이름 대신 이름으로 각 필드의 인덱스(예를 들어 1, 2, 3, 그 외)를 입력하세요.",
 	"pf_createtemplate_fieldname": "입력란 이름:",
-	"pf_createtemplate_displaylabel": "보여줄 레이블:",
+	"pf_createtemplate_displaylabel": "표시 레이블:",
 	"pf_createtemplate_semanticproperty": "시맨틱 속성:",
 	"pf_createtemplate_fieldislist": "이 입력란은 쉼표로 구분하여 값 목록을 저장할 수 있습니다",
 	"pf_createtemplate_delimiter": "구분자:",
