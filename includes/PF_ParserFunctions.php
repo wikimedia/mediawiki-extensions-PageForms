@@ -326,6 +326,10 @@ class PFParserFunctions {
 			}
 		}
 
+		// The value has already been HTML-encoded as a parameter,
+		// and it will get encoded again by Html::input() - prevent
+		// double-encoding.
+		$inValue = html_entity_decode( $inValue );
 		$formContents = Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
 
 		// If the form start URL looks like "index.php?title=Special:FormStart"
