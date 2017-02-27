@@ -97,11 +97,15 @@ $namespaceNames['id'] = array(
 );
 
 /**
- * @author Melos
+ * @author Michele.Fella
+ * We can't use "Modulo" here because it's used already for
+ * the Scribunto "Module" namespace.
+ * "Maschera" is an alternate term, short for "Maschera di
+ * inserimento".
  */
 $namespaceNames['it'] = array(
-	PF_NS_FORM           => 'Modulo',
-	PF_NS_FORM_TALK      => 'Discussione_modulo'
+	PF_NS_FORM           => 'Maschera',
+	PF_NS_FORM_TALK      => 'Discussione_maschera'
 );
 
 /**
