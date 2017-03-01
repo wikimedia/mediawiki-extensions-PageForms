@@ -228,15 +228,19 @@ class PFFormEditAction extends Action {
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select(
 			array( 'category', 'page', 'page_props' ),
-			array( /*'cat_title'',*/ 'pp_value', 'cat_pages' ),
+			array( 'pp_value', 'SUM(cat_pages) AS total_pages' ),
 			array(
 				// Keep backward compatibility with
 				// the page property name for
 				// Semantic Forms.
 				'pp_propname' => array( 'PFDefaultForm', 'SFDefaultForm' )
 			),
-			null,
-			array( 'ORDER BY' => 'cat_pages DESC' ),
+			__METHOD__,
+			array(
+				'GROUP BY' => 'pp_value',
+				'ORDER BY' => 'total_pages DESC',
+				'LIMIT' => 100
+			),
 			array(
 				'page' => array( 'JOIN', 'cat_title = page_title' ),
 				'page_props' => array( 'JOIN', 'page_id = pp_page' )
@@ -246,12 +250,7 @@ class PFFormEditAction extends Action {
 		$pagesPerForm = array();
 		while ( $row = $dbr->fetchRow( $res ) ) {
 			$formName = $row['pp_value'];
-			$numPages = $row['cat_pages'];
-			if ( array_key_exists( $formName, $pagesPerForm ) ) {
-				$pagesPerForm[$formName] += $numPages;
-			} else {
-				$pagesPerForm[$formName] = $numPages;
-			}
+			$pagesPerForm[$formName] = $row['total_pages'];
 		}
 		return $pagesPerForm;
 	}
