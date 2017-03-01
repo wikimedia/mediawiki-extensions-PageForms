@@ -335,7 +335,14 @@ END;
 		// case- and spacing-insensitive.
 		// Also, keeping the "id=" attribute should not be
 		// necessary; but currently it is, for "show on select".
-		$section = preg_replace( '/ id="(.*?)"/', ' id="$1" data-origID="$1" ', $section );
+		$section = preg_replace_callback(
+			'/ id="(.*?)"/',
+			function ( $matches ) {
+				$id = htmlspecialchars( $matches[0] );
+				return " id=\"$id\" data-origID=\"$id\" ";
+			},
+			$section
+		);
 
 		$text = "\t\t" . Html::rawElement( 'div',
 				array(
@@ -782,13 +789,8 @@ END;
 		$section_start = 0;
 		$free_text_was_included = false;
 		$preloaded_free_text = null;
-		// Unencode any HTML-encoded representations of curly brackets and
-		// pipes - this is a hack to allow for forms to include templates
-		// that themselves contain form elements - the escaping was needed
-		// to make sure that those elements don't get parsed too early.
-		$form_def = str_replace( array( '&#123;', '&#124;', '&#125;' ), array( '{', '|', '}' ), $form_def );
-		// And another hack - replace the 'free text' standard input
-		// with a field declaration to get it to be handled as a field.
+		// @HACK - replace the 'free text' standard input with a
+		// field declaration to get it to be handled as a field.
 		$form_def = str_replace( 'standard input|free text', 'field|<freetext>', $form_def );
 		while ( $brackets_loc = strpos( $form_def, "{{{", $start_position ) ) {
 			$brackets_end_loc = strpos( $form_def, "}}}", $brackets_loc );
@@ -1336,9 +1338,10 @@ END;
 				// =====================================================
 				// default outer level processing
 				// =====================================================
-				} else { // Tag is not one of the three allowed values -
-					// ignore the tag.
-					$start_position = $brackets_end_loc;
+				} else { // Tag is not one of the allowed values -
+					// ignore it, other than to HTML-escape it.
+					$form_section_text = htmlspecialchars( substr( $section, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc ) );
+					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 				} // end if
 			} // end while
 
@@ -1505,7 +1508,7 @@ END;
 			$this->mPageTitle->exists() && $existing_page_content !== ''
 			&& !$source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningbox">' .
-				wfMessage( 'pf_formedit_formwarning', $this->mPageTitle->getFullURL() )->text() .
+				wfMessage( 'pf_formedit_formwarning', htmlspecialchars( $this->mPageTitle->getFullURL() ) )->parse() .
 				"</div>\n<br clear=\"both\" />\n" . $form_text;
 		}
 

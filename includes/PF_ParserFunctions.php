@@ -612,7 +612,7 @@ class PFParserFunctions {
 		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
 			$inTooltip = $inQueryStr = $inTargetName = '';
 		if ( $parserFunctionName == 'queryformlink' ) {
-			$inLinkStr = wfMessage( 'runquery' )->text();
+			$inLinkStr = wfMessage( 'runquery' )->parse();
 		}
 		$inCreatePage = false;
 		$classStr = '';
