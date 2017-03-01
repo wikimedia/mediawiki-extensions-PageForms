@@ -21,7 +21,6 @@ jQuery( function() {
 		return ext.popupform.handlePopupFormLink( this.getAttribute( 'action' ), this );
 	});
 
-
 	// register forminput
 	jQuery( 'form.popupforminput' ).submit(function(evt){
 		return ext.popupform.handlePopupFormInput( this.getAttribute( 'action' ), this );
@@ -422,8 +421,8 @@ window.ext.popupform = ( function () {
 		});
 
 		var form = jQuery( event.target );
-		var formdata = form.serialize() + "&wpSave=" + escape(form.find("#wpSave").attr("value"));
-		
+		var formdata = form.serialize() + "&wpSave=" + encodeURIComponent(form.find("#wpSave").attr("value"));
+
 		function handleInnerSubmit() {
 			// find form in fake edit page
 			var innerform = jQuery("<div>" + returnedData + "</div>").find("form");
