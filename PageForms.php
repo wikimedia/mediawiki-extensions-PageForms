@@ -578,6 +578,9 @@ require_once 'includes/PF_DatePickerSettings.php';
 # ##
 $GLOBALS['wgPageFormsUseDisplayTitle'] = false;
 
+// Other variables
+$GLOBALS['wgPageFormsSimpleUpload'] = false;
+
 # ##
 # Global variables for Javascript
 # ##

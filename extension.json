@@ -430,6 +430,7 @@
 	},
 	"config": {
 		"PageFormsUseDisplayTitle": false,
+		"PageFormsSimpleUpload": false,
 		"PageFormsMaxAutocompleteValues": 1000,
 		"PageFormsMaxLocalAutocompleteValues": 100,
 		"PageFormsAutocompleteOnAllChars": false,
