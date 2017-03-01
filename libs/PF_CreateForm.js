@@ -2,8 +2,9 @@ jQuery.fn.displayInputParams = function () {
 	var inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
 	jQuery.ajax( {
 		url: window.location.href +
-			'&showinputtypeoptions=' + this.val() +
-			'&formfield=' + this.attr('formfieldid'),
+			( ( window.location.href.indexOf('?') === -1 ) ? '?' : '&' ) +
+			'showinputtypeoptions=' + encodeURIComponent( this.val() ) +
+			'&formfield=' + encodeURIComponent( this.attr('formfieldid') ),
 		context: document.body,
 		success: function ( data ){
 			inputParamsDiv.html( data );

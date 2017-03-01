@@ -32,11 +32,11 @@ class PFCreateForm extends SpecialPage {
 			$inputType = $req->getVal( 'showinputtypeoptions' );
 			$fieldFormText = $req->getVal( 'formfield' );
 
+			$paramValues = array();
 			// @TODO - is any of this "params" stuff necesary?
 			// For now, it's removed - if the setting of params is
 			// going to be re-added, that has to be done in the JS.
 			/*
-			$paramValues = array();
 			foreach ( $req->getArray('params') as $key => $value ) {
 				if ( ( $pos = strpos( $key, '_' . $fieldFormText ) ) != false ) {
 					$paramName = substr( $key, 0, $pos );
