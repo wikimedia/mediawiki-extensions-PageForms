@@ -1,3 +1,7 @@
+/**
+ * @author Nischay Nahata
+ */
+
 ( function( $, mw, pf ) {
 	$( ".simpleupload_btn" ).each(function(){
 		var _this = $(this);
@@ -5,7 +9,8 @@
 		input.hide();
 		if ( input.val() !== '' ) {
 			_this.val( mw.message( 'pf_forminputs_change_file' ).text() );
-			$('<img class="simpleupload_prv" src="'+ mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + input.val() + '?width=100') +'">').insertAfter(input);
+			$('<img class="simpleupload_prv" src="' +
+				mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( input.val() ) + '?width=100') +'">').insertAfter(input);
 			_this.parent().find('.simpleupload_rmv_btn').show();
 		}
 	});
@@ -30,7 +35,7 @@
 		var fileToUpload = event.target.files[0]; // get (first) File 
 		var fileName = event.target.files[0].name;
 
-		var formdata = new FormData(); //see https://developer.mozilla.org/en-US/docs/Web/Guide/Using_FormData_Objects?redirectlocale=en-US&redirectslug=Web%2FAPI%2FFormData%2FUsing_FormData_Objects
+		var formdata = new FormData(); //see https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 		formdata.append("action", "upload");
 		formdata.append("format", "json");
 		formdata.append("filename", fileName);
@@ -39,7 +44,7 @@
 
 		_this.parent().find('.simpleupload_btn').hide();
 		_this.parent().find('img.loading').show();
-		//as we now have created the data to send, we send it...
+		// As we now have created the data to send, we send it...
 		$.ajax( { //http://stackoverflow.com/questions/6974684/how-to-send-formdata-objects-with-ajax-requests-in-jquery
 			url: mw.util.wikiScript( 'api' ), //url to api.php 
 			contentType:false,
@@ -51,7 +56,8 @@
 				if ( !data.error ) {
 					input.val(fileName);
 					input.parent().find('img.simpleupload_prv').remove();
-					$('<img class="simpleupload_prv" src="'+ mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + fileName + '?width=100') +'">').insertAfter(input);
+					$('<img class="simpleupload_prv" src="' +
+						mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + fileName + '?width=100') +'">').insertAfter(input);
 					_this.parent().find('.simpleupload_btn').show().val( mw.message( 'pf_forminputs_change_file' ).text() );
 					_this.parent().find('img.loading').hide();
 					_this.parent().find('.simpleupload_rmv_btn').show();
