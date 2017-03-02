@@ -75,7 +75,15 @@ class PFOpenLayersInput extends PFFormInput {
 			'size' => 40
 		);
 		$coordsInput = Html::element( 'input', $coordsInputAttrs );
-		$mapUpdateButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfUpdateMap', 'value' => wfMessage( 'pf-maps-setmarker' )->parse() ), null );
+		$mapUpdateButton = Html::element(
+			'input',
+			array(
+				'type' => 'button',
+				'class' => 'pfUpdateMap',
+				'value' => wfMessage( 'pf-maps-setmarker' )->text()
+			),
+			null
+		);
 		// For OpenLayers, doing an address lookup, i.e. a geocode,
 		// will require a separate geocoding address, which may
 		// require a server-side reader to access that API.
