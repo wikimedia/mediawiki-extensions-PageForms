@@ -164,7 +164,7 @@
 	"pf_editsource": "Edit source",
 	"pf_formedit_edittitle": "Edit $1: $2",
 	"pf_formedit_morethanoneform": "'''Warning:''' More than one default form is defined for this page.",
-	"pf_formedit_formwarning": "Warning: This page <a href=\"$1\">already exists</a>, but it does not use this form.",
+	"pf_formedit_formwarning": "Warning: This page [[$1|already exists]], but it does not use this form.",
 	"pf_formedit_mismatchedbrackets": "Warning: This page contains curly or square brackets that are not closed, so the page will not be handled correctly by the form. Please <a href=\"$1\">fix the error in the source text</a> before proceeding.",
 	"pf_formedit_remove": "Remove this instance",
 	"pf_formedit_addanotherabove": "Add another instance above this one",
