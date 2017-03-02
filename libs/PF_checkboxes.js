@@ -12,7 +12,6 @@
 	$.fn.appendSelectionSwitches = function () {
 
 		function insertSwitch( switchesWrapper, label, checked  ) {
-
 			// create a link element that will trigger the selection of all checkboxes
 			var link = $( '<a href="#">' + label + '</a>' );
 
@@ -21,7 +20,6 @@
 
 			// attach an event handler
 			link.click( function ( event ) {
-
 				event.preventDefault();
 
 				// store checkboxes during first method call so the DOM is not searched on every click on the link
@@ -35,16 +33,12 @@
 
 			// insert the complete switch into the DOM
 			switchesWrapper.append( switchWrapper );
-
 		}
 
 		this.each( function ( index, element ) {
-
 			var switchesWrapper = $( '<span class="checkboxSwitches">' ).prependTo( element );
-
-			insertSwitch( switchesWrapper, mw.message( 'pf_forminputs_checkboxes_select_all' ), true );
-			insertSwitch( switchesWrapper, mw.message( 'pf_forminputs_checkboxes_select_none' ), false );
-
+			insertSwitch( switchesWrapper, mw.message( 'pf_forminputs_checkboxes_select_all' ).escaped(), true );
+			insertSwitch( switchesWrapper, mw.message( 'pf_forminputs_checkboxes_select_none' ).escaped(), false );
 		} );
 
 		return this;

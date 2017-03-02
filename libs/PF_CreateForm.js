@@ -4,7 +4,7 @@ jQuery.fn.displayInputParams = function () {
 		url: window.location.href +
 			( ( window.location.href.indexOf('?') === -1 ) ? '?' : '&' ) +
 			'showinputtypeoptions=' + encodeURIComponent( this.val() ) +
-			'&formfield=' + encodeURIComponent( this.attr('formfieldid') ),
+			'&formfield=' + encodeURIComponent( this.attr( 'formfieldid' ) ),
 		context: document.body,
 		success: function ( data ){
 			inputParamsDiv.html( data );
@@ -20,7 +20,7 @@ jQuery(document).ready( function () {
 		if( jQuery( '#sectionname' ).val() === '' ) {
 			event.preventDefault();
 			jQuery( '#section_error' ).remove();
-			jQuery( '<div/>' ).append( '<span class="error" id="section_error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' ).appendTo( '#sectionerror' );
+			jQuery( '<div/>' ).append( '<span class="error" id="section_error"></span>' ).text( mediaWiki.msg( 'pf_blank_error' ) ).appendTo( '#sectionerror' );
 		}
 	} );
 } );

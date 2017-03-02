@@ -701,7 +701,7 @@ END;
 			$text .= "\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
-				$text .= "<div style=\"clear: both\";></div></div>\n";
+				$text .= "<div style=\"clear: both;\"></div></div>\n";
 			}
 			++$i;
 		}
