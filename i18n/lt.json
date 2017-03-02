@@ -115,7 +115,7 @@
 	"pf_viewform": "Rodyti formą",
 	"pf_editsource": "Redaguoti vikitekstą",
 	"pf_formedit_edittitle": "Redaguoti $1: $2",
-	"pf_formedit_formwarning": "Dėmesio: Šis puslapis <a href=\"$1\">jau yra</a>, bet jis nenaudoja šios formos.",
+	"pf_formedit_formwarning": "Dėmesio: Šis puslapis [[$1|jau yra]], bet jis nenaudoja šios formos.",
 	"pf_formedit_remove": "Pašalinti",
 	"pf_formedit_addanotherabove": "Pridėti dar vieną virš šio",
 	"pf_formedit_addanother": "Pridėti kitą",

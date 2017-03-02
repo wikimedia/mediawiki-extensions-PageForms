@@ -81,7 +81,7 @@
 	"pf_editsource": "Upraviť zdroj",
 	"pf_formedit_edittitle": "Upraviť $1: $2",
 	"pf_formedit_morethanoneform": "Upozornenie: Táto stránka má definovaný viac ako jeden štandardný formulár.",
-	"pf_formedit_formwarning": "Upozornenie: Táto stránka <a href=\"$1\">už existuje</a>, ale nepoužíva tento formulár.",
+	"pf_formedit_formwarning": "Upozornenie: Táto stránka [[$1|už existuje]], ale nepoužíva tento formulár.",
 	"pf_formedit_remove": "Odstrániť",
 	"pf_formedit_addanother": "Pridať ďalšiu",
 	"pf_formedit_none": "Žiadne",

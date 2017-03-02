@@ -42,7 +42,7 @@
 	"pf_viewform": "Ara l-formola",
 	"pf_editsource": "Immodifika s-sors",
 	"pf_formedit_edittitle": "Modifika $1: $2",
-	"pf_formedit_formwarning": "Attenzjoni: Din il-paġna <a href=\"$1\">diġà teżisti</a>, imma ma tużax din il-formola.",
+	"pf_formedit_formwarning": "Attenzjoni: Din il-paġna [[$1|diġà teżisti]], imma ma tużax din il-formola.",
 	"pf_formedit_remove": "Neħħi",
 	"pf_formedit_addanother": "Żid oħra",
 	"pf_formedit_none": "L-ebda",

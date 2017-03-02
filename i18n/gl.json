@@ -164,7 +164,7 @@
 	"pf_editsource": "Editar a fonte",
 	"pf_formedit_edittitle": "Editar $1: $2",
 	"pf_formedit_morethanoneform": "'''Aviso:''' Hai máis dun formulario definido por defecto para esta páxina.",
-	"pf_formedit_formwarning": "Aviso: Esta páxina <a href=\"$1\">xa existe</a>, pero non usa este formulario.",
+	"pf_formedit_formwarning": "Aviso: Esta páxina [[$1|xa existe]], pero non usa este formulario.",
 	"pf_formedit_mismatchedbrackets": "Aviso: Esta páxina contén parénteses, corchetes ou chaves sen pechar, de modo que o formulario non manexará a páxina correctamente. <a href=\"$1\">Arranxe o erro no texto fonte</a> antes de continuar.",
 	"pf_formedit_remove": "Eliminar esta instancia",
 	"pf_formedit_addanotherabove": "Engadir outra instancia por riba desta",

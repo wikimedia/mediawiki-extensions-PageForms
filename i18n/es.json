@@ -160,7 +160,7 @@
 	"pf_editsource": "Editar código",
 	"pf_formedit_edittitle": "Editar $1: $2",
 	"pf_formedit_morethanoneform": "'''Advertencia:''' se definió más de un formulario predeterminado para esta página.",
-	"pf_formedit_formwarning": "Advertencia: Esta página <a href=\"$1\">ya existe</a>, pero no usa este formulario.",
+	"pf_formedit_formwarning": "Advertencia: Esta página [[$1|ya existe]], pero no usa este formulario.",
 	"pf_formedit_mismatchedbrackets": "Aviso:  Esta página contiene paréntesis, corchetes o llaves sin cerrar, de modo que el formulario no manejará la página correctamente. <a href=\"$1\">Corrija el error en el texto fuente</a> antes de continuar.",
 	"pf_formedit_remove": "Quitar esta instancia",
 	"pf_formedit_addanotherabove": "Añadir otra instancia por encima de esta",

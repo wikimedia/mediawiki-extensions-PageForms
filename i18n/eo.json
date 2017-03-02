@@ -71,7 +71,7 @@
 	"pf_viewform": "Rigardi kamparon",
 	"pf_editsource": "Redaktu fonton",
 	"pf_formedit_edittitle": "Redaktu $1: $2",
-	"pf_formedit_formwarning": "Averto: Ĉi paĝo <a href=\"$1\">jam ekzistas</a>, sed ĝi ne uzas ĉi kamparon.",
+	"pf_formedit_formwarning": "Averto: Ĉi paĝo [[$1|jam ekzistas]], sed ĝi ne uzas ĉi kamparon.",
 	"pf_formedit_remove": "Forigi tiun ekzempleron",
 	"pf_formedit_addanother": "Aldoni plu",
 	"pf_formedit_none": "Neniu",

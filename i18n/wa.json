@@ -12,7 +12,7 @@
 	"pf_createclass_create": "Ahiver",
 	"pf_formstart_createoredit": "Ahiver ou candjî",
 	"formedit": "Candjî avou formulrece",
-	"pf_formedit_formwarning": "Asteme: cisse pådje ci <a href=\"$1\">egzistêye dedja</a>, mins elle n' eploye nén li formulrece.",
+	"pf_formedit_formwarning": "Asteme: cisse pådje ci [[$1|egzistêye dedja]], mins elle n' eploye nén li formulrece.",
 	"pf_formedit_remove": "Oister",
 	"pf_formedit_addanother": "Radjouter ene ôte",
 	"pf_formedit_none": "Nole",

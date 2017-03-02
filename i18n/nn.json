@@ -77,7 +77,7 @@
 	"pf_viewform": "Sjå skjema",
 	"pf_editsource": "Endra kjelda",
 	"pf_formedit_edittitle": "Endra $1: $2",
-	"pf_formedit_formwarning": "Åtvaring: Sida <a href=\"$1\">finst frå før</a>, men nyttar ikkje dette skjemaet.",
+	"pf_formedit_formwarning": "Åtvaring: Sida [[$1|finst frå før]], men nyttar ikkje dette skjemaet.",
 	"pf_formedit_remove": "Fjern",
 	"pf_formedit_addanother": "Legg til enno ein",
 	"pf_formedit_none": "Ingen",

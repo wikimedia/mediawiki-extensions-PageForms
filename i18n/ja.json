@@ -135,7 +135,7 @@
 	"pf_editsource": "ソースを編集",
 	"pf_formedit_edittitle": "$1 の編集: $2",
 	"pf_formedit_morethanoneform": "'''警告:''' このページに対する既定のフォームが複数定義されています。",
-	"pf_formedit_formwarning": "警告: このページは<a href=\"$1\">既に存在します</a>が、このフォームを使用していません。",
+	"pf_formedit_formwarning": "警告: このページは[[$1|既に存在します]]が、このフォームを使用していません。",
 	"pf_formedit_remove": "このインスタンスを除去",
 	"pf_formedit_addanotherabove": "これの上に別のインスタンスを追加",
 	"pf_formedit_addanother": "さらに追加",

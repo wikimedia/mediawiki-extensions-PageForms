@@ -164,7 +164,7 @@
 	"pf_editsource": "Editar la fonte",
 	"pf_formedit_edittitle": "Editar $1: $2",
 	"pf_formedit_morethanoneform": "'''Avisu:''' Hai más d'un formulariu predetermináu definíu pa esta páxina.",
-	"pf_formedit_formwarning": "Avisu: Esta páxina <a href=\"$1\">yá esiste</a>, pero nun usa esti formulariu.",
+	"pf_formedit_formwarning": "Avisu: Esta páxina [[$1|yá esiste]], pero nun usa esti formulariu.",
 	"pf_formedit_mismatchedbrackets": "Avisu: Esta páxina contien llaves o corchetes ensin zarrar, de manera que'l formulariu nun xestionará la páxina correutamente. Por favor, <a href=\"$1\">arregla l'error nel testu fonte</a> antes de siguir.",
 	"pf_formedit_remove": "Desaniciar esta instancia",
 	"pf_formedit_addanotherabove": "Amestar otra instancia per riba d'esta",

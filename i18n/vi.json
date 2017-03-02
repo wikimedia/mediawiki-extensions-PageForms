@@ -86,7 +86,7 @@
 	"pf_editsource": "Sửa đổi mã nguồn",
 	"pf_formedit_edittitle": "Sửa đổi $1: $2",
 	"pf_formedit_morethanoneform": "Cảnh báo: Có nhiều hơn một mẫu đơn mặc định được định nghĩa cho trang này.",
-	"pf_formedit_formwarning": "Cảnh báo: Trang này <a href=\"$1\">đã tồn tại</a>, nhưng nó không dùng mẫu này.",
+	"pf_formedit_formwarning": "Cảnh báo: Trang này [[$1|đã tồn tại]], nhưng nó không dùng mẫu này.",
 	"pf_formedit_remove": "Dời lần nhúng này",
 	"pf_formedit_addanother": "Thêm tiếp",
 	"pf_formedit_none": "Không có",

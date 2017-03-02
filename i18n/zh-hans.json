@@ -177,7 +177,7 @@
 	"pf_editsource": "编辑源代码",
 	"pf_formedit_edittitle": "编辑$1：$2",
 	"pf_formedit_morethanoneform": "'''警告：'''为该页面定义了不止一个的默认表单。",
-	"pf_formedit_formwarning": "警告：该页面<a href=\"$1\">已存在</a>，但它并未使用此表单。",
+	"pf_formedit_formwarning": "警告：该页面[[$1|已存在]]，但它并未使用此表单。",
 	"pf_formedit_mismatchedbrackets": "警告：此页面之中含有尚未结束的花括号或方括号，因而该页面将不会得到表单的正确处理。请在继续之前<a href=\"$1\">修复源文本之中的这一错误</a>。",
 	"pf_formedit_remove": "移除该实例",
 	"pf_formedit_addanotherabove": "在这个上面添加另一个实例",

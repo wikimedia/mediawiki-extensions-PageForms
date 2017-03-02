@@ -73,7 +73,7 @@
 	"pf_viewform": "عرض من",
 	"pf_editsource": "مصدر التعديل",
 	"pf_formedit_edittitle": "عدل $1: $2",
-	"pf_formedit_formwarning": "تحذير: هذه الصفحة <a href=\"$1\">موجودة بالفعل</a>، لكنها لا تستخدم هذه الاستمارة.",
+	"pf_formedit_formwarning": "تحذير: هذه الصفحة [[$1|موجودة بالفعل]]، لكنها لا تستخدم هذه الاستمارة.",
 	"pf_formedit_remove": "إزالة",
 	"pf_formedit_addanother": "إضافة آخر",
 	"pf_formedit_none": "لا شيء",

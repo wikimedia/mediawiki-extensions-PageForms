@@ -177,7 +177,7 @@
 	"pf_editsource": "Quelltext bearbeiten",
 	"pf_formedit_edittitle": "Bearbeite $1: $2",
 	"pf_formedit_morethanoneform": "'''Warnung:''' Es ist mehr als ein Standardformular für diese Seite definiert.",
-	"pf_formedit_formwarning": "Warnung: Diese Seite <a href=\"$1\">ist bereits vorhanden</a>, nutzt aber nicht dieses Formular.",
+	"pf_formedit_formwarning": "Warnung: Diese Seite [[$1|ist bereits vorhanden]], nutzt aber nicht dieses Formular.",
 	"pf_formedit_mismatchedbrackets": "Warnung: Diese Seite enthält geschweifte oder eckige Klammern, die nicht entsprechend geschlossen sind. Die Seite kann daher nicht richtig vom Formular verarbeitet werden. Bitte vor dem Weitermachen den <a href=\"$1\">Fehler im Quellcode korrigieren</a>.",
 	"pf_formedit_remove": "Diese Instanz entfernen",
 	"pf_formedit_addanotherabove": "Eine weitere Instanz oberhalb dieser hinzufügen",

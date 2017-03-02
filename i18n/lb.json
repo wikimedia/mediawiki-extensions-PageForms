@@ -97,7 +97,7 @@
 	"pf_editsource": "Quelltext änneren",
 	"pf_formedit_edittitle": "Ännert $1: $2",
 	"pf_formedit_morethanoneform": "'''Warnung:''' Et ass méi wéi ee Standardformular fir dës Säit definéiert.",
-	"pf_formedit_formwarning": "Opgepasst: Dës Säit <a href=\"$1\">gëtt et schonn</a>, awer si benotzt dëse Formulaire net.",
+	"pf_formedit_formwarning": "Opgepasst: Dës Säit [[$1|gëtt et schonn]], awer si benotzt dëse Formulaire net.",
 	"pf_formedit_remove": "Dës Instanz ewechhuelen",
 	"pf_formedit_addanother": "Nach een derbäisetzen",
 	"pf_formedit_none": "Keen",

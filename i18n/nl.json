@@ -164,7 +164,7 @@
 	"pf_editsource": "Bron bewerken",
 	"pf_formedit_edittitle": "$1 bewerken: $2",
 	"pf_formedit_morethanoneform": "'''Waarschuwing:''' er is meer dan één standaard formulier ingesteld voor deze pagina.",
-	"pf_formedit_formwarning": "Waarschuwing: deze pagina <a href=\"$1\">bestaat al</a>, maar die gebruikt dit formulier niet.",
+	"pf_formedit_formwarning": "Waarschuwing: deze pagina [[$1|bestaat al]], maar die gebruikt dit formulier niet.",
 	"pf_formedit_mismatchedbrackets": "Waarschuwing: Deze pagina bevat accolades of blokhaken die niet worden gesloten, dus de pagina wordt niet juist afgehandeld door het formulier. <a href=\"$1\">Corrigeer de fout</a> voordat u doorgaat.",
 	"pf_formedit_remove": "Instantie verwijderen",
 	"pf_formedit_addanotherabove": "Nog een instantie toevoegen boven deze",

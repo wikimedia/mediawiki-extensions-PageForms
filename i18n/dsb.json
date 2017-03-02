@@ -124,7 +124,7 @@
 	"pf_editsource": "Žrědło wobźěłaś",
 	"pf_formedit_edittitle": "$1 wobźěłaś: $2",
 	"pf_formedit_morethanoneform": "Warnowanje: Za toś ten bok jo se definěrował wěcej ako jaden standardny formular.",
-	"pf_formedit_formwarning": "Warnowanje: Toś ten bok <a href=\"$1\">južo eksistěrujo</a>, ale njewužywa toś ten formular.",
+	"pf_formedit_formwarning": "Warnowanje: Toś ten bok [[$1|južo eksistěrujo]], ale njewužywa toś ten formular.",
 	"pf_formedit_remove": "Toś tu instancu wótpóraś",
 	"pf_formedit_addanotherabove": "Dalšnu instancu nad toś teju pśidaś",
 	"pf_formedit_addanother": "Drugi pśidaś",

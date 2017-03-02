@@ -100,7 +100,7 @@
 	"pf_editsource": "Editar la font",
 	"pf_formedit_edittitle": "Editar $1 : $2",
 	"pf_formedit_morethanoneform": "Avertiment : Mai d’un formulari per defaut es especificat per aquesta pagina.",
-	"pf_formedit_formwarning": "Atencion : aquesta pagina <a href=\"$1\">existís ja</a>, mas utiliza pas aqueste formulari.",
+	"pf_formedit_formwarning": "Atencion : aquesta pagina [[$1|existís ja]], mas utiliza pas aqueste formulari.",
 	"pf_formedit_remove": "Levar aquesta instància",
 	"pf_formedit_addanother": "Apondre un autre",
 	"pf_formedit_none": "Cap",

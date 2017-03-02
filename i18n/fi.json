@@ -135,7 +135,7 @@
 	"pf_editsource": "Muokkaa wikitekstiä",
 	"pf_formedit_edittitle": "Muokkaa $1: $2",
 	"pf_formedit_morethanoneform": "'''Varoitus:''' Tällä sivulla on useita oletuslomakkeita.",
-	"pf_formedit_formwarning": "Varoitus: sivu <a href=\"$1\">on jo olemassa</a>, mutta se ei käytä tätä lomaketta.",
+	"pf_formedit_formwarning": "Varoitus: sivu [[$1|on jo olemassa]], mutta se ei käytä tätä lomaketta.",
 	"pf_formedit_mismatchedbrackets": "Varoitus: Sivulla ei ole lopettavia aalto- tai hakasulkeita, minkä takia lomake ei voi käsitellä sivua oikein. <a href=\"$1\">Korjaa virhe alkutekstissä</a> ennen kuin jatkat.",
 	"pf_formedit_remove": "Poista",
 	"pf_formedit_addanother": "Lisää toinen",
@@ -207,9 +207,6 @@
 	"pf-datepicker-highlightdaysofweek": "Luettelo päivistä, jotka korostetaan (esim. viikonloppu: 6, 0).",
 	"pf-datepicker-disabledates": "Pilkuilla erottu luettelo kielletyistä päivämäristä/päivämääräalueista (päivämäärät muodossa vvvv/kk/pp, päivämääräalueet muodossa vvvv/kk/pp-vvvv/kk/pp).",
 	"pf-datepicker-highlightdates": "Pilkuilla erottu luettelo päivämäristä/päivämääräalueista, jotka korostetaan (päivämäärät muodossa vvvv/kk/pp, päivämääräalueet muodossa vvvv/kk/pp-vvvv/kk/pp).",
-	"pf-datepicker-showweeknumbers": "Näytetäänkö viikkonumerot viikon vasemmalla puolella?",
-	"pf-datepicker-enableinputfield": "Saako käyttäjä syöttää tiedon kirjoittamalla vai vain päimääräpoimijan avulla?",
-	"pf-datepicker-showresetbutton": "Näytetäänkö \"Tyhjennä\" -painike? Se on ainoa tapa tyhjentää kentät, jos käyttäjä ei saa kirjoittaa niihin.",
 	"pf-regexp-wrongformat": "Väärä muoto.",
 	"pf-regexp-baseprefix": "Perustyypin parametrien etuliite.",
 	"pf-regexp-orchar": "Säännöllisessä lausekkeessa |-merkin sijasta käytettävä TAI-merkki. Oletuksena ”!”."

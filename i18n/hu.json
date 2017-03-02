@@ -99,7 +99,7 @@
 	"pf_editsource": "Forrás szerkesztése",
 	"pf_formedit_edittitle": "$1: $2 szerkesztése",
 	"pf_formedit_morethanoneform": "'''Figyelmeztetés:''' több mint egy alapértelmezett űrlap van megadva ehhez a laphoz.",
-	"pf_formedit_formwarning": "Figyelem: Ez a lap <a href=\"$1\">már létezik</a>, de nem használja ezt az űrlapot.",
+	"pf_formedit_formwarning": "Figyelem: Ez a lap [[$1|már létezik]], de nem használja ezt az űrlapot.",
 	"pf_formedit_remove": "Eltávolítás",
 	"pf_formedit_addanother": "Másik hozzáadása",
 	"pf_formedit_none": "Nincs",

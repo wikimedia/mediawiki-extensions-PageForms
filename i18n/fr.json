@@ -192,7 +192,7 @@
 	"pf_editsource": "Modifier le wikicode",
 	"pf_formedit_edittitle": "Modifier $1 : $2",
 	"pf_formedit_morethanoneform": "Avertissement : Plus d’un formulaire par défaut est spécifié pour cette page.",
-	"pf_formedit_formwarning": "Attention : cette page <a href=\"$1\">existe déjà</a>, mais elle n’utilise pas ce formulaire.",
+	"pf_formedit_formwarning": "Attention : cette page [[$1|existe déjà]], mais elle n’utilise pas ce formulaire.",
 	"pf_formedit_mismatchedbrackets": "Attention: Cette page contient des crochets ou des accolades qui ne sont pas fermés; la page ne sera donc pas affichée correctement par le formulaire. Veuillez <a href=\"$1\">corriger l'erreur dans le texte de la source</a> avant de poursuivre.",
 	"pf_formedit_remove": "Enlever cette instance",
 	"pf_formedit_addanotherabove": "Ajouter une autre instance au-dessus de celle-ci",

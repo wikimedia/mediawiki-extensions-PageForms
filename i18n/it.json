@@ -145,7 +145,7 @@
 	"pf_editsource": "Modifica wikitesto",
 	"pf_formedit_edittitle": "Modifica $1: $2",
 	"pf_formedit_morethanoneform": "'''Attenzione:''' Più di un modulo predefinito è stato definito per questa pagina.",
-	"pf_formedit_formwarning": "Attenzione: Questa pagina <a href=\"$1\">esiste già</a>, ma non usa questo form.",
+	"pf_formedit_formwarning": "Attenzione: Questa pagina [[$1|esiste già]], ma non usa questo form.",
 	"pf_formedit_mismatchedbrackets": "Attenzione: questa pagina contiene parentesi quadre o graffe non chiuse, quindi la pagina non sarà gestita correttamente dal modulo. <a href=\"$1\">Correggere l'errore nel testo di origine</a> prima di procedere.",
 	"pf_formedit_remove": "Rimuovi questa istanza",
 	"pf_formedit_addanotherabove": "Aggiungi un'altra istanza sopra di questa",

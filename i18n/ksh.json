@@ -90,7 +90,7 @@
 	"pf_editsource": "Dä Quellkode Ändere",
 	"pf_formedit_edittitle": "$1 Ändere: $2",
 	"pf_formedit_morethanoneform": "Opjepaß: För di Sigg heh es mih wi ein Schtandadt-Fommolaa ennjeschtallt.",
-	"pf_formedit_formwarning": "Opjepaß: Di Sigg <a href=\"$1\">jidd_et aldt</a>, ävver se deiht hee dat Fommulaa nit bruche.",
+	"pf_formedit_formwarning": "Opjepaß: Di Sigg [[$1|jidd_et aldt]], ävver se deiht hee dat Fommulaa nit bruche.",
 	"pf_formedit_remove": "Fott nämme",
 	"pf_formedit_addanother": "Donn noch mih dobei",
 	"pf_formedit_none": "Kei",

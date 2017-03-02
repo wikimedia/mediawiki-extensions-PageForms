@@ -93,7 +93,7 @@
 	"pf_editsource": "Quälltäxt bearbeite",
 	"pf_formedit_edittitle": "Bearbeit $1: $2",
 	"pf_formedit_morethanoneform": "Warnig: s isch meh wie ei Standardformular definiert fir die Syte.",
-	"pf_formedit_formwarning": "Warnig: Die Syte <a href=\"$1\">git s scho</a>, aber si bruucht nit des Formular.",
+	"pf_formedit_formwarning": "Warnig: Die Syte [[$1|git s scho]], aber si bruucht nit des Formular.",
 	"pf_formedit_remove": "Useneh",
 	"pf_formedit_addanother": "Wyteri zuefiege",
 	"pf_formedit_none": "Keini",

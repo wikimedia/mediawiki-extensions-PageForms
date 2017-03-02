@@ -168,7 +168,7 @@
 	"pf_editsource": "Modifica el codi",
 	"pf_formedit_edittitle": "Edita $1: $2",
 	"pf_formedit_morethanoneform": "'''Avís:''' s'ha definit més d'un formulari per defecte en aquesta pàgina.",
-	"pf_formedit_formwarning": "Atenció: Aquesta pàgina <a href=\"$1\">ja existeix</a>, però no fa servir aquest formulari.",
+	"pf_formedit_formwarning": "Atenció: Aquesta pàgina [[$1|ja existeix]], però no fa servir aquest formulari.",
 	"pf_formedit_mismatchedbrackets": "Avís: la pàgina conté claus o claudàtors que no s'han tancat, per tant el formulari no podrà gestionar correctament la pàgina. <a href=\"$1\">Arregleu-ne l'error en el text del codi</a> abans de procedir.",
 	"pf_formedit_remove": "Suprimeix aquesta instància",
 	"pf_formedit_addanotherabove": "Afegeix una altra instància sobre d'aquesta",

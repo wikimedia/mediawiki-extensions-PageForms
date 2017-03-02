@@ -54,7 +54,7 @@
 	"pf_viewform": "មើលបែបបទ",
 	"pf_editsource": "កែប្រែកូដ",
 	"pf_formedit_edittitle": "កែប្រែ $1: $2",
-	"pf_formedit_formwarning": "ការព្រមាន: ទំព័រ​នេះ <a href=\"$1\">មាន​រួចហើយ</a> ប៉ុន្តែ​វា​មិនអាច​ប្រើប្រាស់​ទម្រង់​នេះ​បាន​ទេ​។",
+	"pf_formedit_formwarning": "ការព្រមាន: ទំព័រ​នេះ [[$1|មាន​រួចហើយ]] ប៉ុន្តែ​វា​មិនអាច​ប្រើប្រាស់​ទម្រង់​នេះ​បាន​ទេ​។",
 	"pf_formedit_remove": "ដកចេញ",
 	"pf_formedit_addanother": "បន្ថែមមួយផ្សេងទៀត",
 	"pf_formedit_none": "ទទេ",

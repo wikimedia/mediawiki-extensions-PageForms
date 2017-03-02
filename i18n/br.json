@@ -89,7 +89,7 @@
 	"pf_editsource": "Kemmañ ar vammenn",
 	"pf_formedit_edittitle": "Aozañ $1: $2",
 	"pf_formedit_morethanoneform": "'''Evezh : ''' Ouzhpenn ur furmskrid dre ziouer zo termenet evit ar bajenn-mañ.",
-	"pf_formedit_formwarning": "Evezh : Ar bajenn-mañ <a href=\"$1\">zo anezhi dija</a>, met ne implij ket ar furmskrid-mañ.",
+	"pf_formedit_formwarning": "Evezh : Ar bajenn-mañ [[$1|zo anezhi dija]], met ne implij ket ar furmskrid-mañ.",
 	"pf_formedit_remove": "Tennañ",
 	"pf_formedit_addanother": "Ouzhpennañ unan all",
 	"pf_formedit_none": "Hini ebet",

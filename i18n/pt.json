@@ -173,7 +173,7 @@
 	"pf_editsource": "Editar a origem",
 	"pf_formedit_edittitle": "Editar $1: $2",
 	"pf_formedit_morethanoneform": "Atenção: Foi definido mais do que um formulário padrão para esta página.",
-	"pf_formedit_formwarning": "Aviso: Esta página <a href=\"$1\">já existe</a>, mas não utiliza este formulário.",
+	"pf_formedit_formwarning": "Aviso: Esta página [[$1|já existe]], mas não utiliza este formulário.",
 	"pf_formedit_mismatchedbrackets": "Aviso: Esta página contém chavetas ou parênteses retos que não foram fechados, portanto a página não será devidamente processada pelo formulário. <a href=\"$1\">Corrija o erro no texto de origem</a> antes de prosseguir, por favor.",
 	"pf_formedit_remove": "Remover esta instância",
 	"pf_formedit_addanotherabove": "Adicionar outra instância acima desta",

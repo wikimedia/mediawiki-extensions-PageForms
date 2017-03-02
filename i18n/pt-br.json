@@ -155,7 +155,7 @@
 	"pf_editsource": "Editar fonte",
 	"pf_formedit_edittitle": "Editar $1: $2",
 	"pf_formedit_morethanoneform": "'''Aviso''': mais de um formulário padrão está definido para esta página.",
-	"pf_formedit_formwarning": "Aviso: esta página <a href=\"$1\">já existe</a>, mas não utiliza este formulário.",
+	"pf_formedit_formwarning": "Aviso: esta página [[$1|já existe]], mas não utiliza este formulário.",
 	"pf_formedit_mismatchedbrackets": "Aviso: a página contém parêntesis, colchetes ou chaves sem fechamento, desse modo, a página não renderizará corretamente o formulário. Por favor, <a href=\"$1\">corrija o erro no texto fonte</a> antes de continuar.",
 	"pf_formedit_remove": "Remover essa instância",
 	"pf_formedit_addanotherabove": "Adicionar uma instância acima desta",

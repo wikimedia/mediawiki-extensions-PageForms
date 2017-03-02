@@ -114,7 +114,7 @@
 	"pf_editsource": "Sunting sumber",
 	"pf_formedit_edittitle": "Sunting $1: $2",
 	"pf_formedit_morethanoneform": "'''Peringatan:''' Lebih dari satu formulir baku ditentukan untuk halaman ini.",
-	"pf_formedit_formwarning": "Peringatan: Halaman ini <a href=\"$1\">telah ada</a> tapi tidak menggunakan formulir ini.",
+	"pf_formedit_formwarning": "Peringatan: Halaman ini [[$1|telah ada]] tapi tidak menggunakan formulir ini.",
 	"pf_formedit_remove": "Hapus",
 	"pf_formedit_addanother": "Tambah lagi",
 	"pf_formedit_none": "Tidak ada",
