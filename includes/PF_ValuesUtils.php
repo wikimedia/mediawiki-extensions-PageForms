@@ -112,7 +112,9 @@ class PFValuesUtils {
 		// The limit should be greater than the maximum number of local
 		// autocomplete values, so that form inputs also know whether
 		// to switch to remote autocompletion.
-		$limitStr = max( 100, $wgPageFormsMaxLocalAutocompleteValues + 1);
+		// (We increment by 10, to be on the safe side, since some values
+		// can be null, etc.)
+		$limitStr = max( 100, $wgPageFormsMaxLocalAutocompleteValues + 10);
 
 		try {
 			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );

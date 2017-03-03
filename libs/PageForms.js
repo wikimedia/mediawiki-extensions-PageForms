@@ -25,13 +25,19 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 	} else {
 		term = this.term.split( delim ).pop();
 	}
-	var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi");
-	var loc = item.label.search(re);
+	var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+		term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
+		")(?![^<>]*>)(?![^&;]+;)", "gi");
+	// HTML-encode the value's label.
+	var itemLabel = $('<div/>').text(item.label).html();
+	var loc = itemLabel.search(re);
 	var t;
 	if (loc >= 0) {
-		t = item.label.substr(0, loc) + '<strong>' + item.label.substr(loc, term.length) + '</strong>' + item.label.substr(loc + term.length);
+		t = itemLabel.substr(0, loc) +
+			'<strong>' + itemLabel.substr(loc, term.length) + '</strong>' +
+			itemLabel.substr(loc + term.length);
 	} else {
-		t = item.label;
+		t = itemLabel;
 	}
 	return $( "<li></li>" )
 		.data( "item.autocomplete", item )
