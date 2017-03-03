@@ -529,16 +529,16 @@ class PFValuesUtils {
 	}
 
 	/**
-	* Returns a SQL condition for autocompletion substring value in a column.
-	* @param string $value_column Value column name
-	* @param string $substring Substring to look for
-	* @return SQL condition for use in WHERE clause
-	*
-	* @author Ilmars Poikans
-	* @author Yaron Koren
-	*/
+	 * Returns a SQL condition for autocompletion substring value in a column.
+	 *
+	 * @param string $value_column Value column name
+	 * @param string $substring Substring to look for
+	 * @return SQL condition for use in WHERE clause
+	 */
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
 		global $wgDBtype, $wgPageFormsAutocompleteOnAllChars;
+
+		$db = wfGetDB( DB_SLAVE );
 
 		// CONVERT() is also supported in PostgreSQL, but it doesn't
 		// seem to work the same way.
@@ -552,15 +552,14 @@ class PFValuesUtils {
 		if ( $replaceSpaces ) {
 			$substring = str_replace( ' ', '_', $substring );
 		}
-		$substring = str_replace( "'", "\'", $substring );
-		$substring = str_replace( '_', '\_', $substring );
-		$substring = str_replace( '%', '\%', $substring );
 
 		if ( $wgPageFormsAutocompleteOnAllChars ) {
-			return "$column_value LIKE '%$substring%'";
+			return $column_value . $db->buildLike( $substring, $db->anyString() );
 		} else {
-			$spaceRepresentation = $replaceSpaces ? '\_' : ' ';
-			return "$column_value LIKE '$substring%' OR $column_value LIKE '%" . $spaceRepresentation . $substring . "%'";
+			$spaceRepresentation = $replaceSpaces ? '_' : ' ';
+			return $column_value . $db->buildLike( $substring, $db->anyString() ) .
+				' OR ' .$column_value .
+				$db->buildLike( $db->anyString(), $spaceRepresentation . $substring, $db->anyString() );
 		}
 	}
 
