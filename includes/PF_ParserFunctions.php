@@ -299,18 +299,10 @@ class PFParserFunctions {
 		if ( empty( $inAutocompletionSource ) ) {
 			$formInputAttrs['class'] = 'formInput';
 		} else {
+			$parser->getOutput()->addModules( 'ext.pageforms.main' );
+
 			self::$num_autocompletion_inputs++;
 			$input_num = self::$num_autocompletion_inputs;
-			// Place the necessary Javascript on the page, and
-			// disable the cache (so the Javascript will show up) -
-			// if there's more than one autocompleted #forminput
-			// on the page, we only need to do this the first time.
-			if ( $input_num == 1 ) {
-				$parser->disableCache();
-				$output = $parser->getOutput();
-				$output->addModules( 'ext.pageforms.main' );
-			}
-
 			$inputID = 'input_' . $input_num;
 			$formInputAttrs['id'] = $inputID;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
