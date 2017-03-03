@@ -748,7 +748,7 @@ window.ext.popupform = ( function () {
 	function handlePopupFormInput( ptarget, elem ) {
 		showForm();
 
-		iframe.one( 'load', function(){
+		iframe.on( 'load', function(){
 			// attach event handler to iframe
 			iframe.bind( 'load', handleLoadFrame );
 			return false;
