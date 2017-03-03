@@ -5,7 +5,7 @@
 			"Smeira"
 		]
 	},
-	"pf_createproperty_propname": "!!FUZZY!!Nem:",
+	"pf_createproperty_propname": "Nem:",
 	"pf_createproperty_proptype": "Sot:",
 	"templates": "Samafomots",
 	"createtemplate": "Jafön samafomoti",
@@ -56,7 +56,7 @@
 	"uploadwindow": "Löpükamafenät",
 	"pf_template_docu": "Atos binon samafomot: „$1“.\nSöton pavokön ma fomät fovik:",
 	"pf_template_docufooter": "Redakön padi at logön samafomotavödemi.",
-	"pf_form_docu": "!!FUZZY!!!!FUZZY!!Pad at binon fomet: „$1“.\nAd läükön padi me fomet at, penolös padanemi dono; if pad labü nem at ya dabinon, ologol fometi ad redakön padi dabinöl at.",
+	"pf_form_docu": "Pad at binon fomet: „$1“.\nAd läükön padi me fomet at, penolös padanemi dono; if pad labü nem at ya dabinon, ologol fometi ad redakön padi dabinöl at.",
 	"pf_form_freetextlabel": "Vödem libik",
 	"pf_category_hasdefaultform": "Klad at gebon fometi: $1.",
 	"pf_category_desc": "Atos binon klad: $1.",
