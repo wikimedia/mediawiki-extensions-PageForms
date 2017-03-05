@@ -93,6 +93,11 @@ $.fn.attachAutocomplete = function() {
 				} else {
 					matcher = new RegExp("\\b" + $.ui.autocomplete.escapeRegex(term), "i" );
 				}
+				// This may be an associative array instead of a
+				// regular one - grep() requires a regular one.
+				if ( typeof array === 'object' ) {
+					array = Object.values( array );
+				}
 				return $.grep( array, function(value) {
 					return matcher.test( value.label || value.value || value );
 				});
