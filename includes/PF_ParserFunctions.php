@@ -465,6 +465,8 @@ class PFParserFunctions {
 
 
 	static function renderAutoEdit( &$parser ) {
+		global $wgContentNamespaces;
+
 		$parser->getOutput()->addModules( 'ext.pageforms.autoedit' );
 
 		// Set defaults.
@@ -530,6 +532,14 @@ class PFParserFunctions {
 					$targetTitle = Title::newFromText( $value );
 
 					if ( $targetTitle !== null ) {
+						// It seems unnecessary to let
+						// #autoedit be called for non-
+						// content namespaces like
+						// "Template" or "Talk".
+						if ( !in_array( $targetTitle->getNamespace(), $wgContentNamespaces ) ) {
+							return '<div class="error">Error: Invalid namespace "' .
+								$targetTitle->getNsText() . '"; only content namespaces are allowed for #autoedit.</div>';
+						}
 						$targetArticle = new Article( $targetTitle );
 						$targetArticle->clear();
 						$editTime = $targetArticle->getTimestamp();
