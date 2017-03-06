@@ -264,17 +264,8 @@ class PFAutoeditAPI extends ApiBase {
 				}
 
 				$formNames = PFFormLinker::getDefaultFormsForPage( $targetTitle );
-
-				// if no default form can be found, try alternate forms
 				if ( count( $formNames ) === 0 ) {
-
-					$formNames = PFFormLinker::getFormsThatPagePointsTo( $targetTitle->getText(), $targetTitle->getNamespace(), PFFormLinker::ALTERNATE_FORM );
-
-					// if still no form can be found, give up
-					if ( count( $formNames ) === 0 ) {
-						throw new MWException( wfMessage( 'pf_autoedit_noformfound' )->parse() );
-					}
-
+					throw new MWException( wfMessage( 'pf_autoedit_noformfound' )->parse() );
 				}
 
 			}
