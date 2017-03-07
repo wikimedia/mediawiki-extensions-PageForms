@@ -468,6 +468,7 @@ class PFParserFunctions {
 		global $wgContentNamespaces;
 
 		$parser->getOutput()->addModules( 'ext.pageforms.autoedit' );
+		$parser->getOutput()->preventClickjacking( true );
 
 		// Set defaults.
 		$formcontent = '';
