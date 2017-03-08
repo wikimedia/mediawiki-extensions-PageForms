@@ -82,6 +82,7 @@
 	"pf_forminputs_maxlength": "Гранична довжина тексту в цьому полі",
 	"pf_forminputs_placeholder": "Текст довідки, який з'являється в полі вводу до тих пір, поки користувач натискає на нього",
 	"pf_forminputs_uploadable": "Додати посилання «{{int:upload}}» поряд з цим полем",
+	"pf_forminputs_change_file": "Змінити файл",
 	"pf_forminputs_defaultfilename": "Типове ім'я файлу для вивантажених файлів",
 	"pf_forminputs_rows": "Кількість рядків для цього вводу",
 	"pf_forminputs_cols": "Кількість стовпців для цього вводу",

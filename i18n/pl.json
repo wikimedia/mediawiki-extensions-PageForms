@@ -133,7 +133,7 @@
 	"pf_editsource": "Edytuj źródło",
 	"pf_formedit_edittitle": "Edytuj $1: $2",
 	"pf_formedit_morethanoneform": "'''Uwaga''' – dla tej strony zdefiniowano więcej niż jeden domyślny formularz.",
-	"pf_formedit_formwarning": "Uwaga – ta strona [[$1|już istnieje]], ale nie używa tego formularza.",
+	"pf_formedit_formwarning": "Uwaga: Ta strona [[$1|już istnieje]], ale nie używa tego formularza.",
 	"pf_formedit_remove": "Usuń tę instancję",
 	"pf_formedit_addanother": "Dodaj kolejny",
 	"pf_formedit_none": "Brak",
