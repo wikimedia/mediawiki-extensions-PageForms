@@ -986,6 +986,17 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 	});
+	$("div.pfTreeInput.mandatory").not(".hiddenByPF").each( function() {
+		// @HACK - handle both the options for tree, checkboxes and
+		// radiobuttons, at the same time, regardless of which one is
+		// being used. This seems to work fine, though.
+		if (! $(this).validateMandatoryCheckboxes() ) {
+			num_errors += 1;
+		}
+		if (! $(this).validateMandatoryRadioButton() ) {
+			num_errors += 1;
+		}
+	});
 	$("span.inputSpan.uniqueFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateUniqueField() ) {
 			num_errors += 1;

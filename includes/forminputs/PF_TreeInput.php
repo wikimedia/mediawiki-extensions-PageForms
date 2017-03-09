@@ -87,9 +87,6 @@ class PFTreeInput extends PFFormInput {
 			$width = '500';
 		}
 
-		$dummy_str = "REPLACE THIS TEXT";
-		$text = '<div class="pfTreeInput" id="' . $input_name . 'treeinput" style="height: ' . $height . 'px; width: ' . $width . 'px;">';
-
 		if ( array_key_exists( 'depth', $other_args ) ) {
 			$depth = $other_args['depth'];
 		} else {
@@ -119,13 +116,25 @@ class PFTreeInput extends PFFormInput {
 
 		// Replace values one at a time, by an incrementing index -
 		// inspired by http://bugs.php.net/bug.php?id=11457
+		$dummy_str = "REPLACE THIS TEXT";
 		$i = 0;
 		while ( ( $a = strpos( $inputText, $dummy_str ) ) > 0 ) {
 			$inputText = substr( $inputText, 0, $a ) . $i++ . substr( $inputText, $a + strlen( $dummy_str ) );
 		}
-		$text .= $inputText;
 
-		$text .= '</div>';
+		$class = 'pfTreeInput';
+		if ( $is_mandatory ) {
+			$class .= ' mandatory';
+		}
+		$text = Html::rawElement(
+			'div',
+			array(
+				'class' => $class,
+				'id' => $input_name . 'treeinput',
+				'style' => 'height: ' . $height . 'px; width: ' . $width . 'px;'
+			),
+			$inputText
+		);
 
 		return $text;
 	}
