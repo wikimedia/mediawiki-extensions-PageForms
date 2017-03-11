@@ -442,6 +442,7 @@
 		"PageForms24HourTime": false,
 		"PageFormsCacheFormDefinitions": false,
 		"PageFormsFormCacheType": null,
+		"PageFormsDisableOutsideServices": false,
 		"PageFormsLinkAllRedLinksToForms": false,
 		"PageFormsShowTabsForAllHelperForms": true,
 		"PageFormsRunQueryFormAtTop": false,

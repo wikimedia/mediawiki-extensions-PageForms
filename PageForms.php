@@ -110,6 +110,7 @@ if ( defined( 'SMW_VERSION' ) ) {
 	};
 } else {
 	$GLOBALS['wgPageFormsFormPrinter'] = new StubObject( 'wgPageFormsFormPrinter', 'PFFormPrinter' );
+
 }
 
 $GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLink';
@@ -580,6 +581,7 @@ $GLOBALS['wgPageFormsUseDisplayTitle'] = false;
 
 // Other variables
 $GLOBALS['wgPageFormsSimpleUpload'] = false;
+$GLOBALS['wgPageFormsDisableOutsideServices'] = false;
 
 # ##
 # Global variables for Javascript

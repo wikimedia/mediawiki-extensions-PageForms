@@ -22,6 +22,7 @@ class PFFormPrinter {
 	public $mPageTitle;
 
 	public function __construct() {
+		global $wgPageFormsDisableOutsideServices;
 		// Initialize variables.
 		$this->mSemanticTypeHooks = array();
 		$this->mCargoTypeHooks = array();
@@ -59,10 +60,12 @@ class PFFormPrinter {
 		$this->registerInputType( 'PFRatingInput' );
 		// Add this if the Semantic Maps extension is not
 		// included, or if it's SM (really Maps) v4.0 or higher.
-		if ( !defined( 'SM_VERSION' ) || version_compare( SM_VERSION, '4.0', '>=' ) ) {
-			$this->registerInputType( 'PFGoogleMapsInput' );
+		if( !$wgPageFormsDisableOutsideServices ) {
+			if ( !defined( 'SM_VERSION' ) || version_compare( SM_VERSION, '4.0', '>=' ) ) {
+				$this->registerInputType( 'PFGoogleMapsInput' );
+			}
+			$this->registerInputType( 'PFOpenLayersInput' );
 		}
-		$this->registerInputType( 'PFOpenLayersInput' );
 
 		// All-purpose setup hook.
 		Hooks::run( 'PageForms::FormPrinterSetup', array( $this ) );
