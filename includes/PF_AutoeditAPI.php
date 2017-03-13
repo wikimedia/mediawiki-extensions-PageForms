@@ -989,11 +989,13 @@ class PFAutoeditAPI extends ApiBase {
 
 		$data = array( );
 		$doc = new DOMDocument();
+		$oldVal = libxml_disable_entity_loader( true );
 		@$doc->loadHTML(
 			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
 			. $html
 			. '</body></html>'
 		);
+		libxml_disable_entity_loader( $oldVal );
 
 		// Process input tags.
 		$inputs = $doc->getElementsByTagName( 'input' );
