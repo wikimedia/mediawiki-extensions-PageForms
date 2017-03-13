@@ -33,7 +33,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$base_cargo_table = $params['base_cargo_table'];
 		$base_cargo_field = $params['base_cargo_field'];
 		$basevalue = $params['basevalue'];
-		//$limit = $params['limit'];
+		// $limit = $params['limit'];
 
 		if ( is_null( $baseprop ) && is_null( $base_cargo_table ) && strlen( $substr ) == 0 ) {
 			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
@@ -91,7 +91,7 @@ class PFAutocompleteAPI extends ApiBase {
 		if ( count( $data ) <= 0 ) {
 			return;
 		}
-		 */
+		*/
 
 		// Format data as the API requires it - this is not needed
 		// for "values from url", where the data is already formatted
@@ -116,8 +116,8 @@ class PFAutocompleteAPI extends ApiBase {
 	}
 
 	protected function getAllowedParams() {
-		return array (
-			'limit' => array (
+		return array(
+			'limit' => array(
 				ApiBase::PARAM_TYPE => 'limit',
 				ApiBase::PARAM_DFLT => 10,
 				ApiBase::PARAM_MIN => 1,
@@ -150,7 +150,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'external_url' => 'Alias for external URL from which to get values',
 			'baseprop' => 'A previous property in the form to check against',
 			'basevalue' => 'The value to check for the previous property',
-			//'limit' => 'Limit how many entries to return',
+			// 'limit' => 'Limit how many entries to return',
 		);
 	}
 
@@ -170,8 +170,14 @@ class PFAutocompleteAPI extends ApiBase {
 		return __CLASS__ . ': $Id$';
 	}
 
-	private static function getAllValuesForProperty( $property_name, $substring, $basePropertyName = null, $baseValue = null ) {
-		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
+	private static function getAllValuesForProperty(
+		$property_name,
+		$substring,
+		$basePropertyName = null,
+		$baseValue = null
+	) {
+		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues,
+		$wgPageFormsAutocompleteCacheTimeout;
 		global $smwgDefaultStore;
 
 		$values = array();
@@ -192,7 +198,7 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( !is_null( $basePropertyName ) ) {
 				$cacheKeyString .= ',' . $basePropertyName . ',' . $baseValue;
 			}
-			$cacheKey = wfMemcKey( 'pf-autocomplete' , md5( $cacheKeyString ) ); 		
+			$cacheKey = wfMemcKey( 'pf-autocomplete', md5( $cacheKeyString ) );
 			$values = $cache->get( $cacheKey );
 
 			if ( !empty( $values ) ){
@@ -299,7 +305,7 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( !is_null( $baseCargoTable ) ) {
 				$cacheKeyString .= '|' . $baseCargoTable . '|' . $baseCargoField . '|' . $baseValue;
 			}
-			$cacheKey = wfMemcKey( 'pf-autocomplete' , md5( $cacheKeyString ) ); 		
+			$cacheKey = wfMemcKey( 'pf-autocomplete', md5( $cacheKeyString ) );
 			$values = $cache->get( $cacheKey );
 
 			if ( !empty( $values ) ){
