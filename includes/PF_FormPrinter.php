@@ -791,7 +791,7 @@ END;
 		$preloaded_free_text = null;
 		// @HACK - replace the 'free text' standard input with a
 		// field declaration to get it to be handled as a field.
-		$form_def = str_replace( 'standard input|free text', 'field|<freetext>', $form_def );
+		$form_def = str_replace( 'standard input|free text', 'field|"freetext"', $form_def );
 		while ( $brackets_loc = strpos( $form_def, "{{{", $start_position ) ) {
 			$brackets_end_loc = strpos( $form_def, "}}}", $brackets_loc );
 			$bracketed_string = substr( $form_def, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
@@ -920,7 +920,7 @@ END;
 					// We get the field name both here
 					// and in the PFFormField constructor,
 					// because PFFormField isn't equipped
-					// to deal with the <freetext> hack,
+					// to deal with the "freetext" hack,
 					// among others.
 					$field_name = trim( $tag_components[1] );
 					$form_field = PFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled );
@@ -964,7 +964,7 @@ END;
 					}
 
 					// Handle the free text field.
-					if ( $field_name == '<freetext>' ) {
+					if ( $field_name == '"freetext"' ) {
 						// If there was no preloading, this will just be blank.
 						$preloaded_free_text = $cur_value;
 						// Add placeholders for the free text in both the form and
@@ -997,7 +997,7 @@ END;
 						$wiki_page->addFreeTextSection();
 					}
 
-					if ( $tif->getTemplateName() === '' || $field_name == '<freetext>' ) {
+					if ( $tif->getTemplateName() === '' || $field_name == '"freetext"' ) {
 						$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					} else {
 						if ( is_array( $cur_value ) ) {
