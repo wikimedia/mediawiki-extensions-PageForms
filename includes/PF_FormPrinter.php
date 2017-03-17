@@ -338,7 +338,7 @@ END;
 		$section = preg_replace_callback(
 			'/ id="(.*?)"/',
 			function ( $matches ) {
-				$id = htmlspecialchars( $matches[0] );
+				$id = htmlspecialchars( $matches[1], ENT_QUOTES );
 				return " id=\"$id\" data-origID=\"$id\" ";
 			},
 			$section
