@@ -100,6 +100,19 @@ class PFUploadForm extends HTMLForm {
 			);
 		}
 
+		$maxUploadSizeFile = ini_get( 'upload_max_filesize' );
+		$maxUploadSizeURL =  ini_get( 'upload_max_filesize' );
+		global $wgMaxUploadSize;
+		if( isset( $wgMaxUploadSize ) )	{
+			if( gettype( $wgMaxUploadSize ) == "array" ) {
+				$maxUploadSizeFile = $wgMaxUploadSize['*'];
+				$maxUploadSizeURL = $wgMaxUploadSize['url'];
+			} else {
+				$maxUploadSizeFile = $wgMaxUploadSize;
+				$maxUploadSizeURL = $wgMaxUploadSize;
+			}
+		}
+
 		$descriptor['UploadFile'] = array(
 				'class' => 'PFUploadSourceField',
 				'section' => 'source',
@@ -110,13 +123,12 @@ class PFUploadForm extends HTMLForm {
 				'radio' => &$radio,
 				'help' => wfMessage( 'upload-maxfilesize',
 						$this->getLanguage()->formatSize(
-							wfShorthandToInteger( ini_get( 'upload_max_filesize' ) )
+							wfShorthandToInteger( $maxUploadSizeFile )
 						)
 					)->parse() . ' ' . wfMessage( 'upload_source_file' )->escaped(),
 				'checked' => $selectedSourceType == 'file',
 		);
 		if ( $canUploadByUrl ) {
-			global $wgMaxUploadSize;
 			$descriptor['UploadFileURL'] = array(
 				'class' => 'UploadSourceField',
 				'section' => 'source',
@@ -125,7 +137,7 @@ class PFUploadForm extends HTMLForm {
 				'upload-type' => 'Url',
 				'radio' => &$radio,
 				'help' => wfMessage( 'upload-maxfilesize',
-						$this->getLanguage()->formatSize( $wgMaxUploadSize )
+						$this->getLanguage()->formatSize( $maxUploadSizeURL )
 					)->parse() . ' ' . wfMessage( 'upload_source_url' )->escaped(),
 				'checked' => $selectedSourceType == 'url',
 			);
