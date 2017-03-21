@@ -154,7 +154,7 @@ $.fn.attachAutocomplete = function() {
 			} else {
 				// Autocomplete for a single value
 				$(this).autocomplete({
-					source:values
+					source: ( typeof values === 'object' ) ? Object.values( values ) : values
 				});
 			}
 		} else {
