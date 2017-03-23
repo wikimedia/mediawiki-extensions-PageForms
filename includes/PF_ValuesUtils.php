@@ -144,7 +144,9 @@ class PFValuesUtils {
 	 * SMW's SMWInlineQuery::includeSubcategories()
 	 */
 	public static function getAllPagesForCategory( $top_category, $num_levels, $substring = null ) {
-		if ( 0 == $num_levels ) return $top_category;
+		if ( 0 == $num_levels ) {
+			return $top_category;
+		}
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsUseDisplayTitle;
 
 		$db = wfGetDB( DB_SLAVE );
@@ -198,7 +200,10 @@ class PFValuesUtils {
 					$columns,
 					$conditions,
 					__METHOD__,
-					'SORT BY cl_sortkey',
+					$options = array(
+						'ORDER BY' => 'cl_type, cl_sortkey',
+						'LIMIT' => $wgPageFormsMaxAutocompleteValues
+					),
 					$join );
 				if ( $res ) {
 					while ( $res && $row = $db->fetchRow( $res ) ) {
@@ -234,11 +239,6 @@ class PFValuesUtils {
 								} else {
 									$sortkeys[ $cur_value ] = $cur_value;
 								}
-							}
-							// return if we've reached the maximum number of allowed values
-							if ( count( $pages ) > $wgPageFormsMaxAutocompleteValues ) {
-								array_multisort( $sortkeys, $pages );
-								return $pages;
 							}
 						}
 					}
