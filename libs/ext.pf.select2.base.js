@@ -75,22 +75,27 @@
 			var description = value.description;
 			var markup = "";
 
-			var text_highlight = pf.select2.base.prototype.textHighlight;
+			// Escape quotes in image.
+			if ( image !== undefined ) {
+				image = image.replace( /"/g, '\\\"' );
+			}
+
+			var highlightedText = pf.select2.base.prototype.textHighlight( text, term );
 			if ( text !== undefined && image !== undefined && description !== undefined ) {
-				markup += "<table class='pf-select2-result'> <tr>";
-				markup += "<td class='pf-result-thumbnail'><img src='" + image + "'/></td>";
-				markup += "<td class='pf-result-info'><div class='pf-result-title'>" + text_highlight(text, term) + "</div>";
-				markup += "<div class='pf-result-description'>" + description + "</div>";
-				markup += "</td></tr></table>";
+				markup += '<table class="pf-select2-result"> <tr>';
+				markup += '<td class="pf-result-thumbnail"><img src="' + image + '"/></td>';
+				markup += '<td class="pf-result-info"><div class="pf-result-title">' + highlightedText + '</div>';
+				markup += '<div class="pf-result-description">' + description + '</div>';
+				markup += '</td></tr></table>';
 			} else if ( text !== undefined && image !== undefined ) {
-				markup += "<img class='pf-icon' src='"+ image +"'/>" + text_highlight(text, term);
+				markup += '<img class="pf-icon" src="' + image + '"/>' + highlightedText;
 			} else if ( text !== undefined && description !== undefined ) {
-				markup += "<table class='pf-select2-result'> <tr>";
-				markup += "<td class='pf-result-info'><div class='pf-result-title'>" + text_highlight(text, term) + "</div>";
-				markup += "<div class='pf-result-description'>" + description + "</div>";
-				markup += "</td></tr></table>";
+				markup += '<table class="pf-select2-result"> <tr>';
+				markup += '<td class="pf-result-info"><div class="pf-result-title">' + highlightedText + '</div>';
+				markup += '<div class="pf-result-description">' + description + '</div>';
+				markup += '</td></tr></table>';
 			} else {
-				markup += text_highlight(text, term);
+				markup += highlightedText;
 			}
 
 			return markup;
