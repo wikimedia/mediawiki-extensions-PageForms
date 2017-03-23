@@ -20,7 +20,8 @@ jQuery(document).ready( function () {
 		if( jQuery( '#sectionname' ).val() === '' ) {
 			event.preventDefault();
 			jQuery( '#section_error' ).remove();
-			jQuery( '<div/>' ).append( '<span class="error" id="section_error"></span>' ).text( mediaWiki.msg( 'pf_blank_error' ) ).appendTo( '#sectionerror' );
+			var errorSpan = jQuery( '<span class="error" id="section_error"></span>' ).text( mediaWiki.msg( 'pf_blank_error' ) );
+			jQuery( '<div/>' ).append( errorSpan ).appendTo( '#sectionerror' );
 		}
 	} );
 } );
