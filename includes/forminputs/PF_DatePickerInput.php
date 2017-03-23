@@ -628,11 +628,6 @@ class PFDatePickerInput extends PFFormInput {
 			'type' => 'string',
 			'description' => wfMessage( 'pf-datepicker-highlightdates' )->text()
 		);
-		$params[$wgPageFormsDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers'] = array(
-			'name' => $wgPageFormsDatePickerSettings["ShowWeekNumbers"]?'hide week numbers':'show week numbers',
-			'type' => 'boolean',
-			'description' => wfMessage( 'pf-datepicker-showweeknumbers' )->text()
-		);
 
 		return $params;
 	}
