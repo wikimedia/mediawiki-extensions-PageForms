@@ -285,23 +285,25 @@ class PFCreateForm extends SpecialPage {
 		if ( is_null( $presetFormName ) ) {
 			// Set 'title' field, in case there's no URL niceness
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() );
-			$text .= "\n\t<p>" . wfMessage( 'pf_createform_nameinput' )->escaped() . ' ' . wfMessage( 'pf_createform_nameinputdesc' )->escaped() . Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
+			$text .= "\n\t<p><label>" . wfMessage( 'pf_createform_nameinput' )->escaped() .
+				' ' . wfMessage( 'pf_createform_nameinputdesc' )->escaped() .
+				Html::input( 'form_name', $form_name, 'text', array( 'size'=> 25 ) );
 			if ( ! empty( $form_name_error_str ) ) {
 				$text .= "\t" . Html::element( 'span', array( 'class' => 'error' ), $form_name_error_str );
 			}
-			$text .= "</p>\n";
+			$text .= "</label></p>\n";
 		}
 
 		$text .= $this->formCreationHTML( $form );
 
 		$text .= "<h2> " . wfMessage( 'pf_createform_addelements' )->escaped() . " </h2>";
-		$text .= "\t<p>" . wfMessage( 'pf_createform_addtemplate' )->escaped() . "\n";
+		$text .= "\t<p><label>" . wfMessage( 'pf_createform_addtemplate' )->escaped() . "\n";
 
 		$select_body = "";
 		foreach ( $all_templates as $template ) {
 			$select_body .= "	" . Html::element( 'option', array( 'value' => $template ), $template ) . "\n";
 		}
-		$text .= "\t" . Html::rawElement( 'select', array( 'name' => 'new_template' ), $select_body ) . "\n";
+		$text .= "\t" . Html::rawElement( 'select', array( 'name' => 'new_template' ), $select_body ) . "\n</label>\n";
 
 		// If a template has already been added, show a dropdown letting
 		// the user choose where in the list to add a new dropdown.
@@ -321,8 +323,9 @@ class PFCreateForm extends SpecialPage {
 
 		// Selection for before which item this template should be placed
 		if ( count( $form_items ) > 0 ) {
-			$text .= wfMessage( 'pf_createform_before' )->escaped();
-			$text .= Html::rawElement( 'select', array( 'name' => 'before_template' ), $select_body ) . "\n";
+			$text .= '<label>' . wfMessage( 'pf_createform_before' )->escaped() .
+				Html::rawElement( 'select', array( 'name' => 'before_template' ), $select_body ) .
+				"\n</label>\n";
 		}
 
 		// Disable 'save' and 'preview' buttons if user has not yet
@@ -415,7 +418,7 @@ END;
 		}
 
 		$header_options = '';
-		$text .= Html::element( 'span', null, wfMessage( 'pf_createform_sectionlevel' )->text() ) . "\n";
+		$text .= '<label>' . wfMessage( 'pf_createform_sectionlevel' )->text() . "\n";
 		for ( $i = 1; $i < 7; $i++ ) {
 			if ( $section_level == $i ) {
 				$header_options .= " " . Html::element( 'option', array( 'value' => $i, 'selected' ), $i ) . "\n";
@@ -423,7 +426,7 @@ END;
 				$header_options .= " " . Html::element( 'option', array( 'value' => $i ), $i ) . "\n";
 			}
 		}
-		$text .= Html::rawElement( 'select', array( 'name' => "level_section_" . $section_count ), $header_options ) . "\n";
+		$text .= Html::rawElement( 'select', array( 'name' => "level_section_" . $section_count ), $header_options ) . "</label>\n";
 		$other_param_text = wfMessage( 'pf_createform_otherparameters' )->escaped();
 		$text .= "<fieldset class=\"pfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
 		$text .= Html::rawElement( 'div', array(),
@@ -445,12 +448,12 @@ END;
 		$text = Html::hidden( "template_$template_num", $tif->getTemplateName() );
 		$text .= '<div class="templateForm">';
 		$text .= Html::element( 'h2', array(), "$template_str '{$tif->getTemplateName()}'" );
-		$text .= Html::rawElement( 'p', array(),
-			$template_label_input . Html::input( "label_$template_num", $tif->getLabel(), 'text', array( 'size' => 25 ) )
-		);
-		$text .= Html::rawElement( 'p', array(),
-			Html::input( "allow_multiple_$template_num", '', 'checkbox', $checked_attribs ) . $allow_multiple_text
-		);
+		$text .= '<p><label>' . $template_label_input .
+			Html::input( "label_$template_num", $tif->getLabel(), 'text', array( 'size' => 25 ) ) .
+			"</label></p>\n";
+		$text .= '<p><label>' .
+			Html::input( "allow_multiple_$template_num", '', 'checkbox', $checked_attribs ) .
+			$allow_multiple_text . "</label></p>\n";
 		$text .= '<hr />';
 
 		foreach ( $tif->getFields() as $field_num => $field ) {
@@ -512,8 +515,8 @@ END;
 		$input_type_text = wfMessage( 'pf_createform_inputtype' )->escaped();
 		$text .= <<<END
 	<div class="formField">
-	<p>$form_label_text $form_label_input
-	&#160; $input_type_text
+	<p><label>$form_label_text $form_label_input</label>
+	&#160; <label>$input_type_text
 
 END;
 		global $wgPageFormsFormPrinter;
@@ -533,7 +536,7 @@ END;
 			$default_input_type = null;
 			$possible_input_types = $wgPageFormsFormPrinter->getAllInputTypes();
 		}
-		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $field->getInputType() );
+		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $field->getInputType() ) . "</label>\n";
 
 		if ( !is_null( $field->getInputType() ) ) {
 			$cur_input_type = $field->getInputType();
@@ -695,10 +698,10 @@ END;
 				$text .= "<div style=\"background: $bgcolor;\">";
 			}
 
-			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$paramName:\n";
+			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
 
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $fieldFormText );
-			$text .= "\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
+			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both;\"></div></div>\n";
@@ -740,10 +743,10 @@ END;
 				$text .= "<div style=\"background: $bgcolor;\">";
 			}
 
-			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">$paramName:\n";
+			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
 
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $section_text );
-			$text .= "\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
+			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";
 			}
