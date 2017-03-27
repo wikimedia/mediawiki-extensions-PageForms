@@ -5,7 +5,8 @@
 			"McDutchie",
 			"Toliño",
 			"Xosé",
-			"Elisardojm"
+			"Elisardojm",
+			"Banjo"
 		]
 	},
 	"pageforms-desc": "Formularios para crear e editar páxinas wiki",
@@ -75,6 +76,7 @@
 	"pf_forminputs_maxlength": "A lonxitude de texto máxima permitida neste campo",
 	"pf_forminputs_placeholder": "Texto de axuda que aparece na entrada ata que o usuario fai clic sobre el",
 	"pf_forminputs_uploadable": "Colocar unha ligazón \"{{int:upload}}\" ao carón desta entrada",
+	"pf_forminputs_change_file": "Cambiar ficheiro",
 	"pf_forminputs_defaultfilename": "O nome de ficheiro por defecto para os ficheiros cargados",
 	"pf_forminputs_rows": "O número de liñas para esta entrada",
 	"pf_forminputs_cols": "O número de columnas para esta entrada",
@@ -100,6 +102,8 @@
 	"pf_forminputs_checkboxes_select_all": "Seleccionar todos",
 	"pf_forminputs_checkboxes_select_none": "Borrar a selección",
 	"pf_forminputs_maxvalues": "Número máximo de valores permitidos para un campo que contén múltiples valores",
+	"pf_forminputs_starwidth": "Ancho (e alto) de cada estrela",
+	"pf_forminputs_numstars": "Número de estrelas a amosar",
 	"createform": "Crear un formulario",
 	"pf-createform-with-name": "Crear o formulario: $1",
 	"pf_createform_nameinput": "Nome do formulario",
