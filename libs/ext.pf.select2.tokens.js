@@ -34,6 +34,7 @@
 	};
 
 	var tokens_proto = new pf.select2.base();
+
 	/*
 	 * Applies select2 to the HTML element
 	 *
@@ -137,6 +138,7 @@
 
 		return opts;
 	};
+
 	/*
 	 * Returns data to be used by select2 for tokens autocompletion
 	 *
@@ -231,6 +233,7 @@
 
 		return values;
 	};
+
 	/*
 	 * Returns ajax options to be used by select2 for
 	 * remote autocompletion of tokens
@@ -303,6 +306,7 @@
 
 		return delimiter;
 	};
+
 	/*
 	 * Makes the choices rearrangable in tokens
 	 *
@@ -356,7 +360,7 @@
 		var tokensInput = $(currentSelect).parent().parent().parent().parent();
 		var itemValue = currentSelect.html();
 		if ( itemValue.indexOf("<input type") === -1 ) {
-			currentSelect.html("<input type=\"text\" value=\"" + itemValue + "\">");
+			currentSelect.html("<input type=\"text\" value=\"" + itemValue.replace( '"', '&quot;' ) + "\">");
 			var inputControl = currentSelect.children("input");
 			inputControl.focus()
 			// Normally, a click anywhere in the Select2 input will
