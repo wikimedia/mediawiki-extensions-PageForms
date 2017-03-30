@@ -75,7 +75,7 @@
 	"pf_forminputs_list": "이 입력이 값의 목록을 유지할 수 있도록 표시합니다",
 	"pf_forminputs_delimiter": "이 입력이 값의 목록으로 유지하면 필드 값 사이의 구분자",
 	"pf_forminputs_existingvaluesonly": "이미 목록 값만 허용",
-	"pf_forminputs_showonselect": "특정 값을 선택했을 때에만 보여줄 문서 요소 (예: \"value1=>div1;value2=>div2\")",
+	"pf_forminputs_showonselect": "특정 값을 선택했을 경우에만 표시할 문서 요소 (예: \"value1=>div1;value2=>div2\")",
 	"pf_forminputs_listboxsize": "이 목록 상자의 행 단위 높이",
 	"pf_forminputs_includetimezone": "시간대에 대한 입력을 포함",
 	"pf_forminputs_topcategory": "카테고리 집합의 부모 분류",
