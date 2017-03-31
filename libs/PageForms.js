@@ -95,8 +95,14 @@ $.fn.attachAutocomplete = function() {
 				}
 				// This may be an associative array instead of a
 				// regular one - grep() requires a regular one.
+				// (Is this "if" check necessary, or useful?)
 				if ( typeof array === 'object' ) {
 					array = Object.values( array );
+					// Unfortunately, Object.values() is
+					// not supported on all browsers.
+					array = Object.keys(array).map(function(key) {
+						return array[key];
+					});
 				}
 				return $.grep( array, function(value) {
 					return matcher.test( value.label || value.value || value );
@@ -154,7 +160,9 @@ $.fn.attachAutocomplete = function() {
 			} else {
 				// Autocomplete for a single value
 				$(this).autocomplete({
-					source: ( typeof values === 'object' ) ? Object.values( values ) : values
+					// Unfortunately, Object.values() is
+					// not supported on all browsers.
+					source: ( typeof values === 'object' ) ? Object.keys(values).map(function(key) { return values[key]; }) : values
 				});
 			}
 		} else {
