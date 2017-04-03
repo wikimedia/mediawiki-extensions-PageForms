@@ -97,7 +97,6 @@ $.fn.attachAutocomplete = function() {
 				// regular one - grep() requires a regular one.
 				// (Is this "if" check necessary, or useful?)
 				if ( typeof array === 'object' ) {
-					array = Object.values( array );
 					// Unfortunately, Object.values() is
 					// not supported on all browsers.
 					array = Object.keys(array).map(function(key) {
