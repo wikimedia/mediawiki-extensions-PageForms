@@ -117,7 +117,7 @@
 	"pf_editsource": "Рэдагаваць крыніцу",
 	"pf_formedit_edittitle": "Рэдагаваньне $1: $2",
 	"pf_formedit_morethanoneform": "Увага: для гэтай старонкі вызначана па змоўчваньні больш за адну форму.",
-	"pf_formedit_formwarning": "Увага: старонка [[$1|ужо існуе]], але яна не выкарыстоўвае гэтую форму.",
+	"pf_formedit_formwarning": "Увага: старонка [[$1|ўжо існуе]], але яна не выкарыстоўвае гэтую форму.",
 	"pf_formedit_remove": "Выдаліць гэтую існасьць",
 	"pf_formedit_addanother": "Дадаць іншую",
 	"pf_formedit_none": "Нічога",
