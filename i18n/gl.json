@@ -262,5 +262,12 @@
 	"pf-regexp-baseprefix": "Prefixo para os parámetros do tipo de base.",
 	"pf-regexp-orchar": "O carácter OU a usar na expresión regular no canto de \"|\". Por defecto é \"!\".",
 	"pf-regexp-inverse": "En caso de estar definida, a entrada NON debe coincidir coa expresión regular para ser válida. Por exemplo, se a expresión regular está invertida.",
-	"pf-regexp-message": "A mensaxe de erro a mostrar se falla a coincidencia. Por defecto é \"Formato incorrecto!\" (ou a forma equivalente na lingua local)"
+	"pf-regexp-message": "A mensaxe de erro a mostrar se falla a coincidencia. Por defecto é \"Formato incorrecto!\" (ou a forma equivalente na lingua local)",
+	"pf-missingconcept": "Non se puido atopar o concepto: $1",
+	"pf-missingnamespace": "Non se puido atopar o espazo de nomes: $1",
+	"pf-nocompletionurls": "Non se especificou ningunha URL externa para a función de autocompletado neste wiki.",
+	"pf-invalidexturl": "Valor de URL externa non válida.",
+	"pf-blankexturl": "Valor de URL externa en branco.",
+	"pf-externalpageempty": "A páxina externa non ten ningún contido.",
+	"pf-externalpagebadjson": "Non se puido analizar o JSON nunha páxina externa."
 }
