@@ -828,8 +828,12 @@ $.fn.validateMandatoryCheckboxes = function() {
 
 $.fn.validateURLField = function() {
 	var fieldVal = this.find("input").val();
-	// code borrowed from http://snippets.dzone.com/posts/show/452
-	var url_regexp = /(ftp|http|https|rtsp|news):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+	var url_protocol = mw.config.get( 'wgUrlProtocols' );
+	//removing backslash before colon from url_protocol string
+	url_protocol = url_protocol.replace( /\\:/, ':' );
+	//removing '//' from wgUrlProtocols as this causes to match any protocol in regexp
+	url_protocol = url_protocol.replace( /\|\\\/\\\//, '' );
+	var url_regexp = new RegExp( '(' + url_protocol + ')' + '(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\/|\/([\\w#!:.?+=&%@!\\-\/]))?' );
 	if (fieldVal === "" || url_regexp.test(fieldVal)) {
 		return true;
 	} else {
