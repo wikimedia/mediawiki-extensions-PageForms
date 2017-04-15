@@ -143,8 +143,8 @@ class PFHooks {
 		$parser->setFunctionHook( 'formlink', array( 'PFParserFunctions', 'renderFormLink' ) );
 		$parser->setFunctionHook( 'formredlink', array( 'PFParserFunctions', 'renderFormRedLink' ) );
 		$parser->setFunctionHook( 'queryformlink', array( 'PFParserFunctions', 'renderQueryFormLink' ) );
-		$parser->setFunctionHook( 'arraymap', array( 'PFParserFunctions', 'renderArrayMap' ), $parser::SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'arraymaptemplate', array( 'PFParserFunctions', 'renderArrayMapTemplate' ), $parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymap', array( 'PFParserFunctions', 'renderArrayMap' ), Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymaptemplate', array( 'PFParserFunctions', 'renderArrayMapTemplate' ), Parser::SFH_OBJECT_ARGS );
 
 		$parser->setFunctionHook( 'autoedit', array( 'PFParserFunctions', 'renderAutoEdit' ) );
 
