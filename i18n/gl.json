@@ -104,6 +104,7 @@
 	"pf_forminputs_maxvalues": "Número máximo de valores permitidos para un campo que contén múltiples valores",
 	"pf_forminputs_starwidth": "Ancho (e alto) de cada estrela",
 	"pf_forminputs_numstars": "Número de estrelas a amosar",
+	"pf_forminputs_allowhalfstars": "Permitir ou non medias estrelas, por exemplo, unha cualificación de 3,5",
 	"createform": "Crear un formulario",
 	"pf-createform-with-name": "Crear o formulario: $1",
 	"pf_createform_nameinput": "Nome do formulario",
