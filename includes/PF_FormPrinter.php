@@ -71,16 +71,16 @@ class PFFormPrinter {
 		Hooks::run( 'PageForms::FormPrinterSetup', array( $this ) );
 	}
 
-	public function setSemanticTypeHook( $type, $is_list, $function_name, $default_args ) {
-		$this->mSemanticTypeHooks[$type][$is_list] = array( $function_name, $default_args );
+	public function setSemanticTypeHook( $type, $is_list, $class_name, $default_args ) {
+		$this->mSemanticTypeHooks[$type][$is_list] = array( $class_name, $default_args );
 	}
 
-	public function setCargoTypeHook( $type, $is_list, $function_name, $default_args ) {
-		$this->mCargoTypeHooks[$type][$is_list] = array( $function_name, $default_args );
+	public function setCargoTypeHook( $type, $is_list, $class_name, $default_args ) {
+		$this->mCargoTypeHooks[$type][$is_list] = array( $class_name, $default_args );
 	}
 
-	public function setInputTypeHook( $input_type, $function_name, $default_args ) {
-		$this->mInputTypeHooks[$input_type] = array( $function_name, $default_args );
+	public function setInputTypeHook( $input_type, $class_name, $default_args ) {
+		$this->mInputTypeHooks[$input_type] = array( $class_name, $default_args );
 	}
 
 	/**
@@ -92,27 +92,27 @@ class PFFormPrinter {
 	public function registerInputType( $inputTypeClass ) {
 		$inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
 		$this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
-		$this->setInputTypeHook( $inputTypeName, array( $inputTypeClass, 'getHTML' ), array() );
+		$this->setInputTypeHook( $inputTypeName, $inputTypeClass, array() );
 
 		$defaultProperties = call_user_func( array( $inputTypeClass, 'getDefaultPropTypes' ) );
 		foreach ( $defaultProperties as $propertyType => $additionalValues ) {
-			$this->setSemanticTypeHook( $propertyType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->setSemanticTypeHook( $propertyType, false, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForPropType[$propertyType] = $inputTypeName;
 		}
 		$defaultPropertyLists = call_user_func( array( $inputTypeClass, 'getDefaultPropTypeLists' ) );
 		foreach ( $defaultPropertyLists as $propertyType => $additionalValues ) {
-			$this->setSemanticTypeHook( $propertyType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->setSemanticTypeHook( $propertyType, true, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForPropTypeList[$propertyType] = $inputTypeName;
 		}
 
 		$defaultCargoTypes = call_user_func( array( $inputTypeClass, 'getDefaultCargoTypes' ) );
 		foreach ( $defaultCargoTypes as $fieldType => $additionalValues ) {
-			$this->setCargoTypeHook( $fieldType, false, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->setCargoTypeHook( $fieldType, false, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForCargoType[$fieldType] = $inputTypeName;
 		}
 		$defaultCargoTypeLists = call_user_func( array( $inputTypeClass, 'getDefaultCargoTypeLists' ) );
 		foreach ( $defaultCargoTypeLists as $fieldType => $additionalValues ) {
-			$this->setCargoTypeHook( $fieldType, true, array( $inputTypeClass, 'getHTML' ), $additionalValues );
+			$this->setCargoTypeHook( $fieldType, true, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForCargoTypeList[$fieldType] = $inputTypeName;
 		}
 
@@ -983,7 +983,8 @@ END;
 							} else {
 								$default_value = $cur_value;
 							}
-							$new_text = PFTextAreaInput::getHTML( $default_value, 'pf_free_text', false, ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
+							$freeTextInput = new PFTextAreaInput( $input_number = null, $default_value, 'pf_free_text', ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
+							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
 								$edittools_text = $wgParser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
@@ -1291,7 +1292,8 @@ END;
 					if ( $page_section_in_form->isHidden() ) {
 						$form_section_text = Html::hidden( $input_name, $section_text );
 					} else {
-						$form_section_text = PFTextAreaInput::getHTML( $section_text, $input_name, false, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
+						$sectionInput = new PFTextAreaInput( $input_number = null, $section_text, $input_name, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
+						$form_section_text = $sectionInput->getHtmlText();
 					}
 
 					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
@@ -1556,31 +1558,28 @@ END;
 	}
 
 	/**
-	 * Create the HTML and Javascript to display this field within a form.
+	 * Create the HTML to display this field within a form.
 	 */
 	function formFieldHTML( $form_field, $cur_value ) {
+		global $wgPageFormsFieldNum;
+
 		// Also get the actual field, with all the semantic information
 		// (type is PFTemplateField, instead of PFFormField)
 		$template_field = $form_field->getTemplateField();
+		$class_name = null;
 
 		if ( $form_field->isHidden() ) {
 			$text = Html::hidden( $form_field->getInputName(), $cur_value );
 		} elseif ( $form_field->getInputType() !== '' &&
 				array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 				$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
-			$funcArgs = array();
-			$funcArgs[] = $cur_value;
-			$funcArgs[] = $form_field->getInputName();
-			$funcArgs[] = $form_field->isMandatory();
-			$funcArgs[] = $form_field->isDisabled();
-			// Last argument to function should be a hash, merging
-			// the default values for this input type with all
-			// other properties set in the form definition, plus
+			// Last argument to constructor should be a hash,
+			// merging the default values for this input type with
+			// all other properties set in the form definition, plus
 			// some semantic-related arguments.
 			$hook_values = $this->mInputTypeHooks[$form_field->getInputType()];
+			$class_name = $hook_values[0];
 			$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
-			$funcArgs[] = $other_args;
-			$text = call_user_func_array( $hook_values[0], $funcArgs );
 		} else { // input type not defined in form
 			$cargo_field_type = $template_field->getFieldType();
 			$property_type = $template_field->getPropertyType();
@@ -1588,28 +1587,17 @@ END;
 			if ( $cargo_field_type !== '' &&
 				array_key_exists( $cargo_field_type, $this->mCargoTypeHooks ) &&
 				isset( $this->mCargoTypeHooks[$cargo_field_type][$is_list] ) ) {
-				$funcArgs = array();
-				$funcArgs[] = $cur_value;
-				$funcArgs[] = $form_field->getInputName();
-				$funcArgs[] = $form_field->isMandatory();
-				$funcArgs[] = $form_field->isDisabled();
 				$hook_values = $this->mCargoTypeHooks[$cargo_field_type][$is_list];
+				$class_name = $hook_values[0];
 				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
-				$funcArgs[] = $other_args;
-				$text = call_user_func_array( $hook_values[0], $funcArgs );
 			} elseif ( $property_type !== '' &&
 				array_key_exists( $property_type, $this->mSemanticTypeHooks ) &&
 				isset( $this->mSemanticTypeHooks[$property_type][$is_list] ) ) {
-				$funcArgs = array();
-				$funcArgs[] = $cur_value;
-				$funcArgs[] = $form_field->getInputName();
-				$funcArgs[] = $form_field->isMandatory();
-				$funcArgs[] = $form_field->isDisabled();
 				$hook_values = $this->mSemanticTypeHooks[$property_type][$is_list];
+				$class_name = $hook_values[0];
 				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
-				$funcArgs[] = $other_args;
-				$text = call_user_func_array( $hook_values[0], $funcArgs );
 			} else { // Anything else.
+				$class_name = 'PFTextInput';
 				$other_args = $form_field->getArgumentsForInputCall();
 				// Set default size for list inputs.
 				if ( $form_field->isList() ) {
@@ -1617,9 +1605,15 @@ END;
 						$other_args['size'] = 100;
 					}
 				}
-				$text = PFTextInput::getHTML( $cur_value, $form_field->getInputName(), $form_field->isMandatory(), $form_field->isDisabled(), $other_args );
 			}
 		}
+
+		if ( $class_name !== null ) {
+			$form_input = new $class_name( $wgPageFormsFieldNum, $cur_value, $form_field->getInputName(), $form_field->isDisabled(), $other_args );
+			$form_input->addJavaScript();
+			$text = $form_input->getHtmlText();
+		}
+
 		return $text;
 	}
 }

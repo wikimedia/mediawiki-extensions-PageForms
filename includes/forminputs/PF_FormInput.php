@@ -148,8 +148,6 @@ abstract class PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if the
 	 * browser is not JavaScript capable. I.e. even without JavaScript the user
 	 * should be able to input values.
-	 *
-	 * This function is not used yet.
 	 */
 	public function getHtmlText() {
 		return null;
@@ -321,61 +319,37 @@ abstract class PFFormInput {
 	}
 
 	/**
-	 * Method to make new style input types compatible with old-style call from
-	 * the PF parser.
-	 *
-	 * @deprecated Do not use/override this in new input type classes
-	 *
-	 * TODO: remove/refactor once PF uses forminput objects properly
+	 * Add the necessary JavaScript for this input.
 	 */
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
-
-		global $wgPageFormsFieldNum, $wgOut;
-
-		// create an input of the called class
-		// TODO: get_called_class was introduced in PHP 5.3. The use of the
-		// backtrace should be removed once support for PHP 5.2 is dropped.
-		if ( function_exists('get_called_class') ) {
-			$calledClass = get_called_class();
-		} else {
-			if ( $input_name === 'pf_free_text' ) { // free text
-				$calledClass = 'PFTextAreaInput';
-			} else {
-				$bt = debug_backtrace(false);
-				$calledClass = $bt[1]['args'][0][0];
-			}
-		}
-
-		$input = new $calledClass ( $wgPageFormsFieldNum, $cur_value, $input_name, $is_disabled, $other_args );
+	public function addJavaScript() {
+		global $wgOut;
 
 		// @TODO - the first works better for Special:RunQuery, and the
 		// second better for Special:FormEdit? Try to find some solution
 		// that always works correctly.
 		//$output = $wgParser->getOutput();
 		$output = $wgOut;
-		$modules = $input->getResourceModuleNames();
+		$modules = $this->getResourceModuleNames();
 
-		// register modules for the input
+		// Register modules for the input.
 		if ( $modules !== null ) {
 			$output->addModuleStyles( $modules );
 			$output->addModuleScripts( $modules );
 		}
 
-		if ( $input->getJsInitFunctionData() || $input->getJsValidationFunctionData() ) {
+		if ( $this->getJsInitFunctionData() || $this->getJsValidationFunctionData() ) {
 
-			$input_id = $input_name == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
+			$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : 'input_' . $this->mInputNumber;
 			$configVars = $output->getJsConfigVars();
 
-			$initFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.initFunctionData', $configVars, $input->getJsInitFunctionData(), $input_id );
-			$validationFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.validationFunctionData', $configVars, $input->getJsValidationFunctionData(), $input_id );
+			$initFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.initFunctionData', $configVars, $this->getJsInitFunctionData(), $input_id );
+			$validationFunctionData = self::updateFormInputJsFunctionData( 'ext.pf.validationFunctionData', $configVars, $this->getJsValidationFunctionData(), $input_id );
 
 			$output->addJsConfigVars( array(
 				'ext.pf.initFunctionData' => $initFunctionData,
 				'ext.pf.validationFunctionData' => $validationFunctionData
 			) );
 		}
-
-		return $input->getHtmlText();
 	}
 
 }
