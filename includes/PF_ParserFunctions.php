@@ -685,7 +685,10 @@ class PFParserFunctions {
 		// If "red link only" was specified, and a target page was
 		// specified, and it exists, just link to the page.
 		if ( $inTargetName != '' ) {
-			$targetTitle = Title::newFromText( $inTargetName );
+			// Call urldecode() on it, in case the target was
+			// set via {{PAGENAMEE}}, and the page name contains
+			// an apostrophe or other unusual character.
+			$targetTitle = Title::newFromText( urldecode( $inTargetName ) );
 			$targetPageExists = ( $targetTitle != '' && $targetTitle->exists() );
 		} else {
 			$targetPageExists = false;
