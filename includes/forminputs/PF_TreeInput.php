@@ -159,34 +159,19 @@ class PFTreeInput extends PFFormInput {
 	}
 
 	private static function nodeToHTML( $node, $key_prefix, $input_name, $current_selection, $hidenode, $depth, $inputType, $index = 1 ) {
-		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
-
-		$input_id = "input_$wgPageFormsFieldNum";
-		// HTML IDs can't contain spaces.
-		$key_id = str_replace( ' ', '-', "$key_prefix-$index" );
-		$dataItems = array();
-		$li_data = "";
-		if ( in_array( $node->title, $current_selection ) ) {
-			$li_data .= 'class="selected" ';
-		}
-
-		if ( $depth > 0 ) {
-			$dataItems[] = "'expand': true";
-		}
-
-		if ( $dataItems ) {
-			$li_data .= "data=\"" . implode(",", $dataItems) . "\" ";
-		}
+		global $wgPageFormsTabIndex;
 
 		$text = '';
+
+		// HTML IDs can't contain spaces.
+		$key_id = str_replace( ' ', '-', "$key_prefix-$index" );
+
 		if ( !$hidenode ) {
 			$dummy_str = "REPLACE THIS TEXT";
-			$text .= "<li id=\"$key_id\" $li_data>";
-			if ( self::$multipleSelect) {
-				$inputName = $input_name . "[" . $dummy_str . "]";
-			} else {
-				$inputName = $input_name;
+			if ( self::$multipleSelect ) {
+				$input_name .= "[" . $dummy_str . "]";
 			}
+
 			$nodeAttribs = array(
 				'tabindex' => $wgPageFormsTabIndex,
 				'id' => "chb-$key_id",
@@ -195,9 +180,20 @@ class PFTreeInput extends PFFormInput {
 			if ( in_array( $node->title, $current_selection ) ) {
 				$nodeAttribs['checked'] = true;
 			}
-			$text .= Html::input( $inputName, $node->title, $inputType, $nodeAttribs );
+			$singleInput = Html::input( $input_name, $node->title, $inputType, $nodeAttribs );
+
+			$liAttribs = array( 'id' => $key_id );
+			if ( in_array( $node->title, $current_selection ) ) {
+				$liAttribs['class'] = 'selected';
+			}
+			if ( $depth > 0 ) {
+				$liAttribs['data'] = "'expand': true";
+			}
+
+			$text .= Html::rawElement( 'li', $liAttribs, $singleInput );
 			$text .= $node->title . "\n";
 		}
+
 		if ( array_key_exists( 'children', $node ) ) {
 			$text .= "<ul>\n";
 			$i = 1;
@@ -206,6 +202,7 @@ class PFTreeInput extends PFFormInput {
 			}
 			$text .= "</ul>\n";
 		}
+
 		return $text;
 	}
 
