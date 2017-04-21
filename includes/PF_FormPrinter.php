@@ -1178,8 +1178,10 @@ END;
 								$input_label = $wgParser->recursiveTagParse( $sub_components[1] );
 								break;
 							case 'class':
+								$attr['class'] = $sub_components[1];
+								break;
 							case 'style':
-								$attr[$sub_components[0]] = $sub_components[1];
+								$attr['style'] = Sanitizer::checkCSS( $sub_components[1] );
 								break;
 							}
 						}

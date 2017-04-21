@@ -77,12 +77,12 @@ class PFTreeInput extends PFFormInput {
 
 		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
 		if ( array_key_exists( 'height', $other_args ) ) {
-			$height = $other_args['height'];
+			$height = Sanitizer::checkCSS( $other_args['height'] );
 		} else {
 			$height = '100';
 		}
 		if ( array_key_exists( 'width', $other_args ) ) {
-			$width = $other_args['width'];
+			$width = Sanitizer::checkCSS( $other_args['width'] );
 		} else {
 			$width = '500';
 		}
