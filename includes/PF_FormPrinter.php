@@ -1349,6 +1349,7 @@ END;
 					// ignore it, other than to HTML-escape it.
 					$form_section_text = htmlspecialchars( substr( $section, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc ) );
 					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
+					$start_position = $brackets_end_loc;
 				} // end if
 			} // end while
 
