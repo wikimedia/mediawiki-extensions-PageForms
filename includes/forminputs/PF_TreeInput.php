@@ -167,11 +167,21 @@ class PFTreeInput extends PFFormInput {
 		$key_id = str_replace( ' ', '-', "$key_prefix-$index" );
 
 		if ( !$hidenode ) {
+			$liAttribs = array( 'id' => $key_id );
+			if ( in_array( $node->title, $current_selection ) ) {
+				$liAttribs['class'] = 'selected';
+			}
+			if ( $depth > 0 ) {
+				$liAttribs['data'] = "'expand': true";
+			}
+			// For some reason, the Dynatree JS library requires
+			// unclosed <li> tags; "<li>...</li>" won't work.
+			$text .= Html::openElement( 'li', $liAttribs );
+
 			$dummy_str = "REPLACE THIS TEXT";
 			if ( self::$multipleSelect ) {
 				$input_name .= "[" . $dummy_str . "]";
 			}
-
 			$nodeAttribs = array(
 				'tabindex' => $wgPageFormsTabIndex,
 				'id' => "chb-$key_id",
@@ -180,17 +190,9 @@ class PFTreeInput extends PFFormInput {
 			if ( in_array( $node->title, $current_selection ) ) {
 				$nodeAttribs['checked'] = true;
 			}
-			$singleInput = Html::input( $input_name, $node->title, $inputType, $nodeAttribs );
 
-			$liAttribs = array( 'id' => $key_id );
-			if ( in_array( $node->title, $current_selection ) ) {
-				$liAttribs['class'] = 'selected';
-			}
-			if ( $depth > 0 ) {
-				$liAttribs['data'] = "'expand': true";
-			}
+			$text .= Html::input( $input_name, $node->title, $inputType, $nodeAttribs );
 
-			$text .= Html::rawElement( 'li', $liAttribs, $singleInput );
 			$text .= $node->title . "\n";
 		}
 
