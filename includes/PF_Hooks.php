@@ -147,6 +147,7 @@ class PFHooks {
 		$parser->setFunctionHook( 'arraymaptemplate', array( 'PFParserFunctions', 'renderArrayMapTemplate' ), Parser::SFH_OBJECT_ARGS );
 
 		$parser->setFunctionHook( 'autoedit', array( 'PFParserFunctions', 'renderAutoEdit' ) );
+		$parser->setFunctionHook( 'autoedittoggle', array( 'PFParserFunctions', 'renderAutoEditToggle' ) );
 
 		return true;
 	}

@@ -149,6 +149,7 @@ use MediaWiki\MediaWikiServices;
  * @author Christoph Burgmer
  * @author Stephan Gambke
  * @author MWJames
+ * @author Pim Bax
  */
 
 class PFParserFunctions {
@@ -552,6 +553,127 @@ class PFParserFunctions {
 					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
 		}
+
+	static function renderAutoEditToggle( &$parser ) {
+		$parser->getOutput()->addModules( 'ext.pageforms.autoedit' );
+
+		// Set defaults.
+		$formcontent = '';
+		$linkString = null;
+		$linkType = 'span';
+		$summary = null;
+		$classString = 'autoedit-toggle';
+		$inTooltip = null;
+		$inQueryArr = array();
+		$editTime = null;
+		$action = 'toggle';
+
+		// Parse parameters.
+		$params = func_get_args();
+		array_shift( $params ); // don't need the parser
+
+		foreach ( $params as $param ) {
+			$elements = explode( '=', $param, 2 );
+
+			$key = trim( $elements[ 0 ] );
+			$value = ( count( $elements ) > 1 ) ? trim( $elements[ 1 ] ) : '';
+
+			switch ( $key ) {
+				case 'link text':
+					$linkString = $parser->recursiveTagParse( $value );
+					break;
+				case 'link type':
+					$linkType = $parser->recursiveTagParse( $value );
+					break;
+				case 'reload':
+					$classString .= ' reload';
+					break;
+				case 'summary':
+					$summary = $parser->recursiveTagParse( $value );
+					break;
+				case 'action':
+					if ($value == 'add' || $value == 'remove')
+						$action = $value;
+					// else stay on 'toggle'
+					break;
+
+				case 'ok text':
+				case 'error text':
+					// do not parse ok text or error text yet. Will be parsed on api call
+					$arr = array( $key => $value );
+					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					break;
+				case 'tooltip':
+					$inTooltip = Sanitizer::decodeCharReferences( $value );
+					break;
+
+				case 'target':
+				case 'title':
+					$value = $parser->recursiveTagParse( $value );
+					$arr = array( $key => $value );
+					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+
+					$targetTitle = Title::newFromText( $value );
+
+					if ( $targetTitle !== null ) {
+						$targetArticle = new Article( $targetTitle );
+						$targetArticle->clear();
+						$editTime = $targetArticle->getTimestamp();
+					}
+
+				default:
+					$value = $parser->recursiveTagParse( $value );
+					$arr = array( $key => $value );
+					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+			}
+		}
+
+		// query string has to be turned into hidden inputs.
+		if ( !empty( $inQueryArr ) )
+			foreach ( $inQueryArr as $var => $val )
+				$formcontent .= Html::hidden( urldecode( $var ), urldecode( $val ) );
+
+		if ( $linkString == null ) {
+			return null;
+		}
+
+		if ( $linkType == 'button' ) {
+			// Html::rawElement() before MW 1.21 or so drops the type attribute
+			// do not use Html::rawElement() for buttons!
+			$attrs = array( 'type' => 'submit', 'class' => $classString );
+			if ( $inTooltip != null ) {
+				$attrs['title'] = $inTooltip;
+			}
+			$linkElement = '<button ' . Html::expandAttributes( $attrs ) . '>' . $linkString . '</button>';
+		} elseif ( $linkType == 'link' ) {
+			$attrs = array( 'class' => $classString, 'href' => "#" );
+			if ( $inTooltip != null ) {
+				$attrs['title'] = $inTooltip;
+			}
+			$linkElement = Html::rawElement( 'a', $attrs, $linkString );
+		} else {
+			$linkElement = Html::rawElement( 'span', array( 'class' => $classString ), $linkString );
+		}
+
+		$formcontent .= Html::hidden( 'action', $action );
+
+		if ( $summary == null ) {
+			$summary = wfMessage( 'pf_autoedit_summary', "[[{$parser->getTitle()}]]" )->text();
+		}
+
+		$formcontent .= Html::hidden( 'wpSummary', $summary );
+
+		if ( $editTime !== null ) {
+			$formcontent .= Html::hidden( 'wpEdittime', $editTime );
+		}
+
+		$form = Html::rawElement( 'form', array( 'class' => 'autoedit-data' ), $formcontent );
+
+		$output = Html::rawElement( 'div', array( 'class' => 'autoedit' ),
+				$linkElement .
+				Html::rawElement( 'span', array( 'class' => "autoedit-result" ), null ) .
+				$form
+		);
 
 		// query string has to be turned into hidden inputs.
 		if ( !empty( $inQueryArr ) ) {
