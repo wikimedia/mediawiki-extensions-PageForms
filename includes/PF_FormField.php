@@ -688,7 +688,7 @@ class PFFormField {
 		// the value of this field, because disabled inputs for some
 		// reason don't submit their value.
 		if ( $this->mIsDisabled ) {
-			if ( $field_name == 'free text' || $field_name == '"freetext"' ) {
+			if ( $field_name == 'free text' || $field_name == '#freetext#' ) {
 				$text .= Html::hidden( 'pf_free_text', '!free_text!' );
 			} else {
 				if ( is_array( $cur_value ) ) {
