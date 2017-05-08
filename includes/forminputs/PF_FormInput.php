@@ -102,11 +102,13 @@ abstract class PFFormInput {
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_class' )->text()
 		);
-		$params['property'] = array(
-			'name' => 'property',
-			'type' => 'string',
-			'description' => wfMessage( 'pf_forminputs_property' )->text()
-		);
+		if ( defined( 'SMW_VERSION' ) ) {
+			$params['property'] = array(
+				'name' => 'property',
+				'type' => 'string',
+				'description' => wfMessage( 'pf_forminputs_property' )->text()
+			);
+		}
 		$params['default'] = array(
 			'name' => 'default',
 			'type' => 'string',
