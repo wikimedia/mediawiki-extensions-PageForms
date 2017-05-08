@@ -69,7 +69,7 @@ if ( defined( 'PF_VERSION' ) ) {
 	return 1;
 }
 
-define( 'PF_VERSION', '4.1' );
+define( 'PF_VERSION', '4.1.1' );
 
 $GLOBALS['wgExtensionCredits']['specialpage'][] = array(
 	'path' => __FILE__,
