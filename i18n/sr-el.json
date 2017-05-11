@@ -5,7 +5,8 @@
 			"Rancher",
 			"Жељко Тодоровић",
 			"Milicevic01",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"specialpages-group-pf_group": "Semantički obrasci",
@@ -61,7 +62,7 @@
 	"pf_formedit_edittitle": "Izmeni $1: $2",
 	"pf_formedit_remove": "Ukloni",
 	"pf_formedit_none": "Nema",
-	"pf_autoedit_anoneditwarning": "Upozorenje: niste prijavljeni. Vaša IP adresa će biti zabeležena u istoriji ove stranice.",
+	"pf_autoedit_anoneditwarning": "Upozorenje: Niste prijavljeni. Ako objavite stranicu, Vaša IP adresa će biti javno vidljiva u njenoj istoriji izmena i drugde.",
 	"pf_bad_number_error": "mora biti ispravan broj",
 	"pf_bad_date_error": "mora biti ispravan datum",
 	"uploadwindow": "Prozor za otpremanje",
