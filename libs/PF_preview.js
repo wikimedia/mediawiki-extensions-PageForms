@@ -133,7 +133,7 @@
 
 			// get the pagename and split it into parts
 			var pageName = mw.config.get( 'wgPageName' );
-			var parts = pageName.split( '/', 3 );
+			var parts = pageName.split( '/' );
 
 			if ( mw.util.getParamValue( 'form' ) ) {
 				data.form = mw.util.getParamValue( 'form' );
@@ -146,7 +146,8 @@
 				data.target = mw.util.getParamValue( 'target' );
 			}
 			else if ( parts.length > 2 ) { // found a pagename
-				data.target = parts[2];
+				// Put the name back together, if it contains slashes.
+				data.target = parts.slice(2).join( '/' );
 			}
 		}
 
