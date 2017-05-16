@@ -62,6 +62,8 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 
 
 	public static function getAutocompletionTypeAndSource( &$field_args ) {
+		global $wgCapitalLinks;
+
 		if ( array_key_exists( 'values from property', $field_args ) ) {
 			$autocompletionSource = $field_args['values from property'];
 			$autocompleteFieldType = 'property';
@@ -100,7 +102,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			$autocompletionSource = null;
 		}
 
-		if ( $autocompleteFieldType != 'external_url' ) {
+		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' ) {
 			global $wgContLang;
 			$autocompletionSource = $wgContLang->ucfirst( $autocompletionSource );
 		}
