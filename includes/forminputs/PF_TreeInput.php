@@ -179,8 +179,10 @@ class PFTreeInput extends PFFormInput {
 			$text .= Html::openElement( 'li', $liAttribs );
 
 			$dummy_str = "REPLACE THIS TEXT";
+
+			$cur_input_name = $input_name;
 			if ( self::$multipleSelect ) {
-				$input_name .= "[" . $dummy_str . "]";
+				$cur_input_name .= "[" . $dummy_str . "]";
 			}
 			$nodeAttribs = array(
 				'tabindex' => $wgPageFormsTabIndex,
@@ -191,7 +193,7 @@ class PFTreeInput extends PFFormInput {
 				$nodeAttribs['checked'] = true;
 			}
 
-			$text .= Html::input( $input_name, $node->title, $inputType, $nodeAttribs );
+			$text .= Html::input( $cur_input_name, $node->title, $inputType, $nodeAttribs );
 
 			$text .= $node->title . "\n";
 		}
