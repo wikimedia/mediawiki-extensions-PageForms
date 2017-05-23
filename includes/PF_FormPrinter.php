@@ -984,6 +984,7 @@ END;
 								$default_value = $cur_value;
 							}
 							$freeTextInput = new PFTextAreaInput( $input_number = null, $default_value, 'pf_free_text', ( $form_is_disabled || $form_field->isRestricted() ), $form_field->getFieldArgs() );
+							$freeTextInput->addJavaScript();
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
@@ -1295,6 +1296,7 @@ END;
 						$form_section_text = Html::hidden( $input_name, $section_text );
 					} else {
 						$sectionInput = new PFTextAreaInput( $input_number = null, $section_text, $input_name, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
+						$sectionInput->addJavaScript();
 						$form_section_text = $sectionInput->getHtmlText();
 					}
 
