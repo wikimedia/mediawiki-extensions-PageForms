@@ -54,9 +54,15 @@ class PFAutocompleteAPI extends ApiBase {
 		} elseif ( !is_null( $category ) ) {
 			$data = PFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
+			if ( $map ) {
+				$data = PFValuesUtils::disambiguateLabels( $data );
+			}
 		} elseif ( !is_null( $concept ) ) {
 			$data = PFValuesUtils::getAllPagesForConcept( $concept, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
+			if ( $map ) {
+				$data = PFValuesUtils::disambiguateLabels( $data );
+			}
 		} elseif ( !is_null( $cargo_table ) && !is_null( $cargo_field ) ) {
 			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $field_is_array, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
 		} elseif ( !is_null( $namespace ) ) {
