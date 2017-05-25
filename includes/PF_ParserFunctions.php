@@ -571,13 +571,11 @@ class PFParserFunctions {
 		}
 
 		if ( $linkType == 'button' ) {
-			// Html::rawElement() before MW 1.21 or so drops the type attribute
-			// do not use Html::rawElement() for buttons!
 			$attrs = array( 'type' => 'submit', 'class' => $classString );
 			if ( $inTooltip != null ) {
 				$attrs['title'] = $inTooltip;
 			}
-			$linkElement = '<button ' . Html::expandAttributes( $attrs ) . '>' . $linkString . '</button>';
+			$linkElement = Html::rawElement( 'button', $attrs, $linkString );
 		} elseif ( $linkType == 'link' ) {
 			$attrs = array( 'class' => $classString, 'href' => "#" );
 			if ( $inTooltip != null ) {
@@ -754,14 +752,19 @@ class PFParserFunctions {
 			}
 		}
 		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
-			$formMethod = ( $inLinkType == 'button' ) ? 'get' : 'post';
-			$str = Html::rawElement( 'form', array( 'action' => $link_url, 'method' => $formMethod, 'class' => $classStr, 'target' => $targetWindow ),
-
-				// Html::rawElement() before MW 1.21 or so drops the type attribute
-				// do not use Html::rawElement() for buttons!
-				'<button ' . Html::expandAttributes( array( 'type' => 'submit', 'value' => $inLinkStr, 'title' => $inTooltip ) ) . '>' . $inLinkStr . '</button>' .
-				$hidden_inputs
+			$buttonAttrs = array(
+				'type' => 'submit',
+				'value' => $inLinkStr,
+				'title' => $inTooltip
 			);
+			$buttonHTML = Html::rawElement( 'button', $buttonAttrs, $inLinkStr );
+			$formAttrs = array(
+				'action' => $link_url,
+				'method' => ( $inLinkType == 'button' ) ? 'get' : 'post',
+				'class' => $classStr,
+				'target' => $targetWindow
+			);
+			$str = Html::rawElement( 'form', $formAttrs, $buttonHTML . $hidden_inputs );
 		} else {
 			// If a target page has been specified but it doesn't
 			// exist, make it a red link.
