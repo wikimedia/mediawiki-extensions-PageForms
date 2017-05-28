@@ -100,7 +100,7 @@
 	"pf_forminputs_placeholder": "Texte d'aide qui apparaît dans l'entrée jusqu'à ce que l'utilisateur clique dessus",
 	"pf_forminputs_uploadable": "Placer un lien \"{{int:upload}}\" à côté de cette entrée",
 	"pf_forminputs_change_file": "Modifier le fichier",
-	"pf_forminputs_defaultfilename": "Le nom de fichier par défaut pour les fichiers téléchargés",
+	"pf_forminputs_defaultfilename": "Le nom de fichier par défaut pour les fichiers téléversés",
 	"pf_forminputs_rows": "Le nombre de lignes pour cette entrée.",
 	"pf_forminputs_cols": "Le nombre de colonnes pour cette entrée.",
 	"pf_forminputs_autogrow": "Autoriser cette entrée à s'agrandir si la longueur du texte dépasse les limites",
