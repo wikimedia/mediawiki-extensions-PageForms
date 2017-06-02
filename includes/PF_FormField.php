@@ -818,6 +818,10 @@ class PFFormField {
 			$other_args['full_cargo_field'] = $fullCargoField;
 		}
 
+		if( $this->template_field->getFieldType() == 'Hierarchy' ) {
+			$other_args['structure'] = $this->template_field->getHierarchyStructure();
+		}
+
 		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
 			if ( $this->template_field->getFieldType() == 'Page' || array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
 				$other_args['autocompletion source'] = $this->template_field->getFullCargoField();

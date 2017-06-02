@@ -22,6 +22,7 @@ class PFTemplateField {
 	private $mCargoTable;
 	private $mCargoField;
 	private $mFieldType;
+	private $mHierarchyStructure;
 
 	private $mPossibleValues;
 	private $mIsList;
@@ -127,7 +128,12 @@ class PFTemplateField {
 		// We have some "pseudo-types", used for setting the correct
 		// form input.
 		if ( $fieldDescription->mAllowedValues != null ) {
-			$this->mFieldType = 'Enumeration';
+			if( $fieldDescription->mIsHierarchy == true ) {
+				$this->mFieldType = 'Hierarchy';
+				$this->mHierarchyStructure = $fieldDescription->mHierarchyStructure;
+			} else {
+				$this->mFieldType = 'Enumeration';
+			}
 		} elseif ( $fieldDescription->mType == 'Text' && $fieldDescription->mSize != '' && $fieldDescription->mSize <= 100 ) {
 			$this->mFieldType = 'String';
 		} else {
@@ -178,6 +184,10 @@ class PFTemplateField {
 		return $this->mPossibleValues;
 	}
 
+	function getHierarchyStructure() {
+		return $this->mHierarchyStructure;
+	}
+
 	function isList() {
 		return $this->mIsList;
 	}
@@ -214,4 +224,7 @@ class PFTemplateField {
 		$this->mPossibleValues = $possibleValues;
 	}
 
+	function setHierarchyStructure( $hierarchyStructure ) {
+		$this->mHierarchyStructure = $hierarchyStructure;
+	}
 }
