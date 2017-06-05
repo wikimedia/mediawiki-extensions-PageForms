@@ -1,7 +1,7 @@
 {
 	"@Note": "When updating this file please also update PageForms.php with the same changes.",
 	"name": "Page Forms",
-	"version": "4.1.1",
+	"version": "4.1.2",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",
