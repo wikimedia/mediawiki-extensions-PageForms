@@ -10,7 +10,11 @@
 	"templates": "Predlošci",
 	"pf_templates_docu": "Postoje sljedeći predlošci na wikiju.",
 	"pf_createtemplate_deletefield": "Izbriši",
+	"forms": "Obrasci",
 	"formedit": "Uredi s obrascem",
+	"pf_formedit_createtitle": "Stvori $1: $2",
+	"pf_formedit_createtitlenotarget": "Stvori $1",
+	"pf_formedit_edittitle": "Uredi $1: $2",
 	"pf_formedit_remove": "Ukloni",
 	"pf_form_docu": "Ovo je obrazac \"$1\".\nZa kreiranje stranica uporabom ovog obrasca, unesite ime stranice u polje ispod;\nako takva stranica već postoji, otvorit će Vam se obrazac za uređivanje te stranice."
 }
