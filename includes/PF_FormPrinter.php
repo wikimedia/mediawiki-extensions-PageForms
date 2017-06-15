@@ -1357,6 +1357,9 @@ END;
 
 			if ( $tif && ( !$tif->allowsMultiple() || $tif->allInstancesPrinted() ) ) {
 				$template_text = $wiki_page->createTemplateCallsForTemplateName( $tif->getTemplateName() );
+				// Escape the '$' characters for the preg_replace() call.
+				$template_text = str_replace( '$', '\$', $template_text );
+
 				// If there is a placeholder in the text, we
 				// know that we are doing a replace.
 				if ( $existing_page_content && strpos( $existing_page_content, '{{{insertionpoint}}}', 0 ) !== false ) {
