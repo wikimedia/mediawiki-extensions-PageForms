@@ -14,6 +14,7 @@
 	},
 	"pageforms-desc": "위키 문서를 만들고 편집하기 위한 양식",
 	"specialpages-group-pf_group": "페이지 폼",
+	"apihelp-pfautocomplete-summary": "Page Forms 확장 기능에 의해 사용되는 자동 완성입니다.",
 	"apihelp-pfautoedit-param-form": "사용할 Semantic Forms의 양식",
 	"apihelp-pfautoedit-param-target": "만들거나 편집할 문서의 이름",
 	"apihelp-pfautoedit-param-query": "쿼리 문자열",
