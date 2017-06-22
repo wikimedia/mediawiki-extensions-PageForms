@@ -31,6 +31,8 @@ class PFCreateClass extends SpecialPage {
 
 		$template_name = trim( $req->getVal( "template_name" ) );
 		$template_multiple = $req->getBool( "template_multiple" );
+		$use_cargo = trim( $req->getBool( "use_cargo" ) );
+		$cargo_table = trim( $req->getVal( "cargo_table" ) );
 		// If this is a multiple-instance template, there
 		// shouldn't be a corresponding form or category.
 		if ( $template_multiple ) {
@@ -40,12 +42,14 @@ class PFCreateClass extends SpecialPage {
 			$form_name = trim( $req->getVal( "form_name" ) );
 			$category_name = trim( $req->getVal( "category_name" ) );
 		}
-		if ( $template_name === '' || ( !$template_multiple && ( $form_name === '' || $category_name === '' ) ) ) {
+		if ( $template_name === '' || ( !$template_multiple && ( $form_name === '' || $category_name === '' ) ) ||
+			( $use_cargo && ( $cargo_table === '' ) ) ) {
 			$out->addWikiMsg( 'pf_createclass_missingvalues' );
 			return;
 		}
 		$fields = array();
 		$jobs = array();
+		$allowedValuesForFields = array();
 		// Cycle through all the rows passed in.
 		for ( $i = 1; $req->getVal( "field_name_$i" ) != ''; $i++ ) {
 			// Go through the query values, setting the appropriate
@@ -60,11 +64,19 @@ class PFCreateClass extends SpecialPage {
 			$field = PFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
 
 			if ( defined( 'CARGO_VERSION' ) ) {
-				$field->setFieldType( $property_type );
 				// Hopefully it's safe to use a Cargo
 				// utility method here.
 				$possibleValues = CargoUtils::smartSplit( ',', $allowed_values );
 				$field->setPossibleValues( $possibleValues );
+				if ( $use_cargo ) {
+					$field->setFieldType( $property_type );
+					$field->setPossibleValues( $possibleValues );
+				} else {
+					if ( $allowed_values != '' ) {
+						$allowedValuesForFields[$field_name] = $allowed_values;
+					}
+				}
+
 			}
 
 			$fields[] = $field;
@@ -100,8 +112,8 @@ class PFCreateClass extends SpecialPage {
 		// one page, instead of just creating jobs for all of them).
 		$template_format = $req->getVal( "template_format" );
 		$pfTemplate = new PFTemplate( $template_name, $fields );
-		if ( defined( 'CARGO_VERSION' ) ) {
-			$pfTemplate->mCargoTable = trim( $req->getVal( "cargo_table" ) );
+		if ( defined( 'CARGO_VERSION' ) && $use_cargo ) {
+			$pfTemplate->mCargoTable = $cargo_table;
 		}
 		if ( defined( 'SMW_VERSION' ) && $template_multiple ) {
 			$pfTemplate->setConnectingProperty( $connectingProperty );
@@ -119,11 +131,23 @@ class PFCreateClass extends SpecialPage {
 
 		// Create the form, and make a job for it.
 		if ( $form_name != '' ) {
-			$form_template = PFTemplateInForm::create( $template_name, '', false );
+			$formFields = array();
+			foreach ( $fields as $field ) {
+				$formField = PFFormField::create( $field );
+				$fieldName = $field->getFieldName();
+				if ( array_key_exists( $fieldName, $allowedValuesForFields ) ) {
+					$formField->setInputType( 'dropdown' );
+					$formField->setFieldArg( 'values', $allowedValuesForFields[$fieldName] );
+				}
+				$formFields[] = $formField;
+			}
+			$form_template = PFTemplateInForm::create( $template_name, '', false, false, $formFields );
 			$form_items = array();
-			$form_items[] = array( 'type' => 'template',
-							'name' => $form_template->getTemplateName(),
-							'item' => $form_template );
+			$form_items[] = array(
+				'type' => 'template',
+				'name' => $form_template->getTemplateName(),
+				'item' => $form_template
+			);
 			$form = PFForm::create( $form_name, $form_items );
 			$full_text = $form->createMarkup();
 			$form_title = Title::makeTitleSafe( PF_NS_FORM, $form_name );
@@ -214,7 +238,20 @@ class PFCreateClass extends SpecialPage {
 		$templateNameLabel = wfMessage( 'pf_createtemplate_namelabel' )->escaped();
 		$templateNameInput = Html::input( 'template_name', null, 'text', array( 'size' => 30 ) );
 		$text .= "\t" . Html::rawElement( 'p', null, $templateNameLabel . ' ' . $templateNameInput ) . "\n";
-		$templateInfo = PFCreateTemplate::printTemplateStyleInput( 'template_format' );
+
+		$templateInfo = '';
+		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) ) {
+			$templateInfo .= "\t<p><label>" .
+				Html::check( 'use_cargo', true, array( 'id' => 'use_cargo' ) ) .
+				' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() .
+				"</label></p>\n";
+			$cargo_table_label = wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped();
+			$templateInfo .= "\t" . Html::rawElement( 'p', array( 'id' => 'cargo_table_input' ),
+				Html::element( 'label', array( 'for' => 'cargo_table' ), $cargo_table_label ) . ' ' .
+				Html::element( 'input', array( 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ), null )
+			) . "\n";
+		}
+		$templateInfo .= PFCreateTemplate::printTemplateStyleInput( 'template_format' );
 		$templateInfo .= Html::rawElement( 'p', null,
 			Html::element( 'input', array(
 				'type' => 'checkbox',
@@ -240,14 +277,10 @@ class PFCreateClass extends SpecialPage {
 		}
 		$text .= Html::rawElement( 'blockquote', null, $templateInfo );
 
-		$form_name_label = wfMessage( 'pf_createclass_nameinput' )->text();
-		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'form_name' ), $form_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null ) ) . "\n";
-		$category_name_label = wfMessage( 'pf_createcategory_name' )->text();
-		$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'category_name' ), $category_name_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null ) ) . "\n";
-		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) ) {
-			$cargo_table_label = wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped();
-			$text .= "\t" . Html::rawElement( 'p', null, Html::element( 'label', array( 'for' => 'cargo_table' ), $cargo_table_label ) . ' ' . Html::element( 'input', array( 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ), null ) ) . "\n";
-		}
+		$form_name_input = Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null );
+		$text .= "\t<p><label>" . wfMessage( 'pf_createclass_nameinput' )->escaped() . " $form_name_input</label></p>\n";
+		$category_name_input = Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null );
+		$text .= "\t<p><label>" . wfMessage( 'pf_createcategory_name' )->escaped() . " $category_name_input</label></p>\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
 		$text .= <<<END
 	<div>
@@ -281,10 +314,15 @@ END;
 END;
 		}
 
-		$type_label = wfMessage( 'pf_createproperty_proptype' )->escaped();
+		if ( defined( 'CARGO_VERSION' ) || defined( 'SMW_VERSION' ) ) {
+			$type_label = wfMessage( 'pf_createproperty_proptype' )->escaped();
+			$text .= <<<END
+			<th style="background: $specialBGColor; padding: 4px;">$type_label</th>
+
+END;
+		}
 		$allowed_values_label = wfMessage( 'pf_createclass_allowedvalues' )->escaped();
 		$text .= <<<END
-			<th style="background: $specialBGColor; padding: 4px;">$type_label</th>
 			<th style="background: $specialBGColor; padding: 4px;">$allowed_values_label</th>
 		</tr>
 
@@ -307,21 +345,23 @@ END;
 			<td style="text-align: center;"><input type="checkbox" name="is_list_$n" /></td>
 
 END;
-		if ( defined( 'SMW_VERSION' ) ) {
-			$text .= <<<END
+			if ( defined( 'SMW_VERSION' ) ) {
+				$text .= <<<END
 			<td style="background: $specialBGColor; padding: 4px;"><input type="text" size="25" name="property_name_$n" /></td>
 
 END;
-		}
-		$text .= <<<END
+			}
+			if ( defined( 'CARGO_VERSION' ) || defined( 'SMW_VERSION' ) ) {
+				$text .= <<<END
 			<td style="background: $specialBGColor; padding: 4px;">
 
 END;
-			$typeDropdownBody = '';
-			foreach ( $possibleTypes as $typeName ) {
-				$typeDropdownBody .= "\t\t\t\t<option>$typeName</option>\n";
+				$typeDropdownBody = '';
+				foreach ( $possibleTypes as $typeName ) {
+					$typeDropdownBody .= "\t\t\t\t<option>$typeName</option>\n";
+				}
+				$text .= "\t\t\t\t" . Html::rawElement( 'select', array( 'name' => "property_type_$n" ), $typeDropdownBody ) . "\n";
 			}
-			$text .= "\t\t\t\t" . Html::rawElement( 'select', array( 'name' => "property_type_$n" ), $typeDropdownBody ) . "\n";
 			$text .= <<<END
 			</td>
 			<td style="background: $specialBGColor; padding: 4px;"><input type="text" size="25" name="allowed_values_$n" /></td>

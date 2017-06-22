@@ -110,7 +110,7 @@ class PFCreateTemplate extends SpecialPage {
 			$text .= "\t<label>" . wfMessage( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
 			$dropdown_html = self::printFieldTypeDropdown( $id );
-			$text .= "\t<label>" . wfMessage( 'pf_createproperty_proptype' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
+			$text .= "\t<label class=\"cargo_field_type\">" . wfMessage( 'pf_createproperty_proptype' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		}
 
 		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . wfMessage( 'pf_createtemplate_fieldislist' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
@@ -121,7 +121,7 @@ class PFCreateTemplate extends SpecialPage {
 		$text .= "\t</p>\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
 			$text .= "\t<p>\n";
-			$text .= "\t<label>" . wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
+			$text .= "\t<label class=\"allowed_values_input\">" . wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
 			$text .= Html::input( 'allowed_values_' . $id, null, 'text',
 				array( 'size' => '80' ) ) . "</label>\n";
 			$text .= "\t</p>\n";
@@ -219,7 +219,9 @@ END;
 			$template_format = $req->getVal( 'template_format' );
 			$pfTemplate = new PFTemplate( $template_name, $fields );
 			$pfTemplate->setCategoryName( $category );
-			$pfTemplate->mCargoTable = $cargo_table;
+			if ( $req->getBool( 'use_cargo' ) ) {
+				$pfTemplate->mCargoTable = $cargo_table;
+			}
 			$pfTemplate->setAggregatingInfo( $aggregating_property, $aggregation_label );
 			$pfTemplate->setFormat( $template_format );
 			$full_text = $pfTemplate->createText();
@@ -231,13 +233,20 @@ END;
 
 		$text .= '	<form id="createTemplateForm" action="" method="post">' . "\n";
 		if ( is_null( $presetTemplateName ) ) {
-			// Set 'title' field, in case there's no URL niceness
+			// Set 'title' field, in case there's no URL niceness.
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
-			$text .= "\t<p id=\"template_name_p\">" . wfMessage( 'pf_createtemplate_namelabel' )->escaped() . ' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
+			$text .= "\t<p id=\"template_name_p\">" .
+				wfMessage( 'pf_createtemplate_namelabel' )->escaped() .
+				' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		}
 		$text .= "\t<p>" . wfMessage( 'pf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
 			$text .= "\t<p>" . wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() . ' <input size="25" name="cargo_table" /></p>' . "\n";
++                       $text .= "\t<p><label>" . Html::check( 'use_cargo', true, array( 'id' => 'use_cargo' ) ) .
++                               ' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
++                       $text .= "\t<p id=\"cargo_table_input\"><label>" .
++                               wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() .
++                               ' <input size="25" name="cargo_table" /></label></p>' . "\n";
 		}
 
 		$text .= "\t<fieldset>\n";

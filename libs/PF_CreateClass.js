@@ -23,9 +23,22 @@ function disableFormAndCategoryInputs() {
 	}
 }
 
+function toggleCargoInputs() {
+	if (jQuery('#use_cargo').prop('checked')) {
+		jQuery('#cargo_table_input').show('medium');
+		$('td:nth-child(4),th:nth-child(3)').show('medium');
+	} else {
+		jQuery('#cargo_table_input').hide('medium');
+		$('td:nth-child(4),th:nth-child(3)').hide('medium');
+	}
+}
+
 jQuery( document ).ready( function () {
 	jQuery( ".disableFormAndCategoryInputs" ).click( function () {
 		disableFormAndCategoryInputs();
+	} );
+	jQuery( "#use_cargo" ).click( function() {
+		toggleCargoInputs();
 	} );
 	jQuery( ".createClassAddRow" ).click( function () {
 		createClassAddRow();

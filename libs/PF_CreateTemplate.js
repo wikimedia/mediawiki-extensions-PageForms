@@ -1,3 +1,15 @@
+function toggleCargoInputs() {
+	if (jQuery('#use_cargo').prop('checked')) {
+		jQuery('#cargo_table_input').show('medium');
+		jQuery('label.cargo_field_type').show('medium');
+		jQuery('p.allowed_values_input').show('medium');
+	} else {
+		jQuery('#cargo_table_input').hide('medium');
+		jQuery('label.cargo_field_type').hide('medium');
+		jQuery('p.allowed_values_input').hide('medium');
+	}
+}
+
 var fieldNum = 1;
 function createTemplateAddField() {
 	fieldNum++;
@@ -31,6 +43,9 @@ function validateCreateTemplateForm() {
 }
 
 jQuery( document ).ready( function () {
+	jQuery( "#use_cargo" ).click( function() {
+		toggleCargoInputs();
+	} );
 	jQuery( ".createTemplateAddField" ).click( function () {
 		createTemplateAddField();
 	} );
