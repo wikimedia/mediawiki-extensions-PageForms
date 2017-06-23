@@ -241,12 +241,11 @@ END;
 		}
 		$text .= "\t<p>" . wfMessage( 'pf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
-			$text .= "\t<p>" . wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() . ' <input size="25" name="cargo_table" /></p>' . "\n";
-+                       $text .= "\t<p><label>" . Html::check( 'use_cargo', true, array( 'id' => 'use_cargo' ) ) .
-+                               ' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
-+                       $text .= "\t<p id=\"cargo_table_input\"><label>" .
-+                               wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() .
-+                               ' <input size="25" name="cargo_table" /></label></p>' . "\n";
+			$text .= "\t<p><label>" . Html::check( 'use_cargo', true, array( 'id' => 'use_cargo' ) ) .
+				' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
+			$text .= "\t<p id=\"cargo_table_input\"><label>" .
+				wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() .
+				' <input id="cargo_table" size="25" name="cargo_table" /></label></p>' . "\n";
 		}
 
 		$text .= "\t<fieldset>\n";

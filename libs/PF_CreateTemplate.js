@@ -32,10 +32,17 @@ function createTemplateAddField() {
 }
 
 function validateCreateTemplateForm() {
-	var templateName = jQuery( '#template_name' ).val();
-	if ( templateName === '' ) {
+	var blankTemplateName = ( jQuery( '#template_name' ).val() === '' );
+	var blankCargoTableName = ( jQuery( '#use_cargo' ).is(':checked') ||
+		jQuery( '#table_name' ).val() === '' );
+	if ( blankTemplateName || blankCargoTableName ) {
 		scroll( 0, 0 );
-		jQuery( '#template_name_p' ).append( '<span class="error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' );
+		if ( blankTemplateName ) {
+			jQuery( '#template_name_p' ).append( ' <span class="error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' );
+		}
+		if ( blankCargoTableName ) {
+			jQuery( '#cargo_table_input' ).append( ' <span class="error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' );
+		}
 		return false;
 	} else {
 		return true;
