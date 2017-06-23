@@ -33,6 +33,8 @@
 	"pf_createtemplate_multipleinstance": "이 틀은 문서에 여러 번 포함할 수 있습니다.",
 	"pf_createtemplate_connectingproperty": "문서의 나머지 부분에 틀의 필드를 연결하는 속성 이름:",
 	"pf_createtemplate_categorylabel": "틀에 의해 정의한 분류 (선택 사항):",
+	"pf_createtemplate_usecargo": "Cargo 확장을 사용하여 이 틀의 데이터를 저장합니다",
+	"pf_createtemplate_cargotablelabel": "틀에 의해 정의된 Cargo 테이블의 이름:",
 	"pf_createtemplate_templatefields": "틀 필드",
 	"pf_createtemplate_fieldsdesc": "필드 이름이 더 이상 필요하지 않는 이 틀에 필드를 갖기 위해서는 단순히 실제 이름 대신 이름으로 각 필드의 인덱스(예를 들어 1, 2, 3, 그 외)를 입력하세요.",
 	"pf_createtemplate_fieldname": "입력란 이름:",

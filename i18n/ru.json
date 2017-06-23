@@ -17,7 +17,8 @@
 			"Nemo bis",
 			"Дмитрий",
 			"INS Pirat",
-			"Kareyac"
+			"Kareyac",
+			"Alexey zakharenkov"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
@@ -38,6 +39,8 @@
 	"pf_createtemplate_multipleinstance": "Этот шаблон может быть включен несколько раз на странице.",
 	"pf_createtemplate_connectingproperty": "Имя свойства для подключения полей этого шаблона к остальной части страницы:",
 	"pf_createtemplate_categorylabel": "Категория, определяемая шаблоном (необязательно):",
+	"pf_createtemplate_usecargo": "Использовать расширение Cargo для хранения данных этого шаблона",
+	"pf_createtemplate_cargotablelabel": "Название таблицы Cargo, заданной шаблоном:",
 	"pf_createtemplate_templatefields": "Поля шаблона",
 	"pf_createtemplate_fieldsdesc": "Для указания полей шаблона не требуется указывать их имена, просто введите индекс каждого поля (например, 1, 2, 3 и т. д.) вместо фактического имени.",
 	"pf_createtemplate_fieldname": "Имя поля:",

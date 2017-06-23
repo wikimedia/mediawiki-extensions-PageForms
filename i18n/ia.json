@@ -17,6 +17,8 @@
 	"createtemplate": "Crear un patrono",
 	"pf_createtemplate_namelabel": "Nomine del patrono:",
 	"pf_createtemplate_categorylabel": "Categoria definite per patrono (optional):",
+	"pf_createtemplate_usecargo": "Usar le extension Cargo pro immagazinar le datos de iste patrono",
+	"pf_createtemplate_cargotablelabel": "Nomine del tabella Cargo definite per le patrono:",
 	"pf_createtemplate_templatefields": "Campos de patrono",
 	"pf_createtemplate_fieldsdesc": "Pro effectuar que le campos in iste patrono non require plus le nomines de campos, simplemente entra le indice de cata campo (p.ex. 1, 2, 3, etc.) como le nomine, in loco del nomine real.",
 	"pf_createtemplate_fieldname": "Nomine del campo:",
