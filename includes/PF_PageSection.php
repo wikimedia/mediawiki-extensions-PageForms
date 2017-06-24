@@ -14,6 +14,7 @@ class PFPageSection {
 	private $mIsMandatory = false;
 	private $mIsHidden = false;
 	private $mIsRestricted = false;
+	private $mHideIfEmpty = false;
 	private $mSectionArgs = array();
 
 	static function create( $section_name ) {
@@ -42,6 +43,8 @@ class PFPageSection {
 				$ps->mIsRestricted = !( $wgUser && $wgUser->isAllowed( 'editrestrictedfields' ) );
 			} elseif ( $component === 'autogrow' ) {
 				$ps->mSectionArgs['autogrow'] = true;
+			} elseif ( $component === 'hide if empty' ) {
+				$ps->mHideIfEmpty = true;
 			}
 
 			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
@@ -100,6 +103,10 @@ class PFPageSection {
 
 	public function isRestricted() {
 		return $this->mIsRestricted;
+	}
+
+	public function isHideIfEmpty() {
+		return $this->mHideIfEmpty;
 	}
 
 	public function setSectionArgs( $key, $value ) {

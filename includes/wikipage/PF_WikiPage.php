@@ -47,8 +47,8 @@ class PFWikiPage {
 		return null;
 	}
 
-	function addSection( $sectionName, $headerLevel, $sectionText ) {
-		$this->mComponents[] = new PFWikiPageSection( $sectionName, $headerLevel, $sectionText );
+	function addSection( $sectionName, $headerLevel, $sectionText, $sectionOptions ) {
+		$this->mComponents[] = new PFWikiPageSection( $sectionName, $headerLevel, $sectionText, $sectionOptions );
 	}
 
 	function addFreeTextSection() {
@@ -168,15 +168,17 @@ class PFWikiPage {
 					$pageText .= $this->createTemplateCall( $component ) . "\n";
 				}
 			} elseif ( get_class( $component ) == 'PFWikiPageSection' ) {
-				$sectionName = $component->getHeader();
-				for ( $i = 0; $i < $component->getHeaderLevel(); $i++ ) {
-					$sectionName = "=$sectionName=";
+				if ( $component->getText() !== "" || $component->isHideIfEmpty() === false ) {
+					$sectionName = $component->getHeader();
+					for ( $i = 0; $i < $component->getHeaderLevel(); $i++ ) {
+						$sectionName = "=$sectionName=";
+					}
+					$pageText .= "$sectionName\n";
+					if ( $component->getText() != '' ) {
+						$pageText .= $component->getText() . "\n";
+					}
+					$pageText .= "\n";
 				}
-				$pageText .= "$sectionName\n";
-				if ( $component->getText() != '' ) {
-					$pageText .= $component->getText() . "\n";
-				}
-				$pageText .= "\n";
 			} elseif ( get_class( $component ) == 'PFWikiPageFreeText' ) {
 				$freeText = $component->getText();
 				if ( $this->mFreeTextOnlyInclude ) {
