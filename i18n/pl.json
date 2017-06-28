@@ -13,7 +13,8 @@
 			"Woytecr",
 			"Alan ffm",
 			"Devwebtel",
-			"Vuh"
+			"Vuh",
+			"InternerowyGołąb"
 		]
 	},
 	"pageforms-desc": "Formularze do tworzenia i edycji stron wiki",
@@ -35,6 +36,7 @@
 	"pf_createtemplate_multipleinstance": "Ten szablon może być wstawiony na stronie wiele razy.",
 	"pf_createtemplate_connectingproperty": "Nazwa atrybutu łączącego pola szablonu z resztą strony:",
 	"pf_createtemplate_categorylabel": "Kategoria zdefiniowana przez szablon (opcjonalne):",
+	"pf_createtemplate_cargotablelabel": "Nazwa tabeli Cargo zdefiniowana przez szablon:",
 	"pf_createtemplate_templatefields": "Pola szablonu",
 	"pf_createtemplate_fieldsdesc": "Aby pola szablonu nie wymagały nazw pól, wprowadź indeks dla każdego pola (np. 1, 2, 3 itd.) jako nazwę.",
 	"pf_createtemplate_fieldname": "Nazwa pola:",
