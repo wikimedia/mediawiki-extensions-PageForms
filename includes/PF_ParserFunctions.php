@@ -215,12 +215,24 @@ class PFParserFunctions {
 		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'queryformlink' ), $parser->mStripState );
 	}
 
+	static function convertQueryString ( $queryString, $inQueryArr ) {
+		// Change HTML-encoded ampersands directly to URL-encoded
+		// ampersands, so that the string doesn't get split up on the '&'.
+		$queryString = str_replace( '&amp;', '%26', $queryString );
+		// "Decode" any other HTML tags.
+		$queryString = html_entity_decode( $queryString, ENT_QUOTES );
+
+		parse_str( $queryString, $arr );
+
+		return PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+	}
+
 	static function renderFormInput( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
 		// Set defaults.
-		$inFormName = $inValue = $inButtonStr = $inQueryStr = '';
+		$inFormName = $inValue = $inButtonStr = '';
 		$inQueryArr = array();
 		$inAutocompletionSource = '';
 		$inSize = 25;
@@ -254,15 +266,7 @@ class PFParserFunctions {
 			} elseif ( $paramName == 'button text' ) {
 				$inButtonStr = $value;
 			} elseif ( $paramName == 'query string' ) {
-				// Change HTML-encoded ampersands directly to
-				// URL-encoded ampersands, so that the string
-				// doesn't get split up on the '&'.
-				$inQueryStr = str_replace( '&amp;', '%26', $value );
-				// "Decode" any other HTML tags.
-				$inQueryStr = html_entity_decode( $inQueryStr, ENT_QUOTES );
-
-				parse_str( $inQueryStr, $arr );
-				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+				$inQueryArr = self::convertQueryString( $value, $inQueryArr );
 			} elseif ( $paramName == 'autocomplete on category' ) {
 				$inAutocompletionSource = $value;
 				$autocompletionType = 'category';
@@ -504,14 +508,7 @@ class PFParserFunctions {
 					$summary = $parser->recursiveTagParse( $value );
 					break;
 				case 'query string' :
-
-					// Change HTML-encoded ampersands directly to
-					// URL-encoded ampersands, so that the string
-					// doesn't get split up on the '&'.
-					$inQueryStr = str_replace( '&amp;', '%26', $value );
-
-					parse_str( $inQueryStr, $arr );
-					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					$inQueryArr = self::convertQueryString( $value, $inQueryArr );
 					break;
 
 				case 'ok text':
@@ -611,7 +608,7 @@ class PFParserFunctions {
 	static function createFormLink( &$parser, $params, $parserFunctionName ) {
 		// Set defaults.
 		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
-			$inTooltip = $inQueryStr = $inTargetName = '';
+			$inTooltip = $inTargetName = '';
 		if ( $parserFunctionName == 'queryformlink' ) {
 			$inLinkStr = wfMessage( 'runquery' )->parse();
 		}
@@ -648,13 +645,7 @@ class PFParserFunctions {
 			} elseif ( $param_name == 'link type' ) {
 				$inLinkType = $value;
 			} elseif ( $param_name == 'query string' ) {
-				// Change HTML-encoded ampersands directly to
-				// URL-encoded ampersands, so that the string
-				// doesn't get split up on the '&'.
-				$inQueryStr = str_replace( '&amp;', '%26', $value );
-
-				parse_str( $inQueryStr, $arr );
-				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+				$inQueryArr = self::convertQueryString( $value, $inQueryArr );
 			} elseif ( $param_name == 'tooltip' ) {
 				$inTooltip = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
