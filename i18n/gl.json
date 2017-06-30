@@ -48,7 +48,7 @@
 	"pf_createtemplate_multipleinstance": "Este modelo pódese incluír varias veces na páxina.",
 	"pf_createtemplate_connectingproperty": "Nome da propiedade para conectar os campos deste modelo co resto da páxina:",
 	"pf_createtemplate_categorylabel": "Categoría definida polo modelo (opcional):",
-	"pf_createtemplate_cargotablelabel": "Táboa de Cargo definida polo modelo (opcional):",
+	"pf_createtemplate_cargotablelabel": "Nome da táboa de Cargo definida polo modelo:",
 	"pf_createtemplate_templatefields": "Modelo dos campos",
 	"pf_createtemplate_fieldsdesc": "Para facer que os campos deste modelo non requiran xa nomes de campo, simplemente introduza o índice de cada campo (p. ex. 1, 2, 3, etc.) como nome, no canto dun nome real.",
 	"pf_createtemplate_fieldname": "Nome do campo:",

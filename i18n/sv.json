@@ -31,7 +31,7 @@
 	"pf_createtemplate_multipleinstance": "Mallen kan användas flera gånger på sidan.",
 	"pf_createtemplate_connectingproperty": "Namnet på egenskapen som ansluter den här mallens indata-fält till resten av sidan:",
 	"pf_createtemplate_categorylabel": "Kategori definierad av mall (valfri):",
-	"pf_createtemplate_cargotablelabel": "Cargo-tabell definierad av mallen (valfritt):",
+	"pf_createtemplate_cargotablelabel": "Namnet på Cargo-tabell definierad av mallen:",
 	"pf_createtemplate_templatefields": "Mallfält",
 	"pf_createtemplate_fieldsdesc": "För att fälten i denna mall inte längre ska kräva fältnamn, skriv in indexnummret till varje fält (alltså 1, 2, 3, osv.) som namn, i stället för ett riktigt namn.",
 	"pf_createtemplate_fieldname": "Fältnamn:",

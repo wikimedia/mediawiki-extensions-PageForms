@@ -12,6 +12,7 @@
 	"templates": "Predlošci",
 	"pf_templates_docu": "Postoje sljedeći predlošci na wikiju.",
 	"createtemplate": "Stvori predložak",
+	"pf_createtemplate_delimiter": "Razdjeljivač:",
 	"pf_createtemplate_deletefield": "Izbriši",
 	"forms": "Obrasci",
 	"createform": "Stvori obrazac",
