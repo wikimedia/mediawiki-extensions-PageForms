@@ -21,7 +21,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 */
 	public function __construct( $request = null ) {
 		parent::__construct( 'UploadWindow', 'upload' );
-		$this->loadRequest( is_null( $request ) ? $this->getRequest() : $request );
+		$this->loadRequest( $request instanceof WebRequest ? $request : $this->getRequest() );
 	}
 
 	/** Misc variables **/
@@ -208,7 +208,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		# Add upload error message
 		$form->addPreText( $message );
-		
+
 		# Add footer to form
 		if ( !wfMessage( 'uploadfooter' )->isDisabled() ) {
 			$uploadFooter = wfMessage( 'uploadfooter' )->plain();
@@ -257,7 +257,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$sessionKey = $this->mUpload->stashFile()->getFileKey();
 		$message = '<h2>' . wfMessage( 'uploadwarning' )->escaped() . "</h2>\n" .
 			'<div class="error">' . $message . "</div>\n";
-		
+
 		$form = $this->getUploadForm( $message, $sessionKey );
 		$form->setSubmitText( wfMessage( 'upload-tryagain' )->text() );
 		$this->showUploadForm( $form );
@@ -387,12 +387,12 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		// any more... and it messes up the encoding for all other
 		// browsers. @TODO - fix handling in IE!
 		//$basename = utf8_decode( $basename );
-		
+
 		$output = <<<END
 		<script type="text/javascript">
 		var input = parent.window.jQuery( parent.document.getElementById("{$this->mInputID}") );
 END;
-		
+
 		if ( $this->mDelimiter == null ) {
 			$output .= <<<END
 		input.val( '$basename' );
@@ -406,7 +406,7 @@ END;
 		// both a delimiter and a file name; and add on a delimiter
 		// at the end in any case
 		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
-		
+
 		if (cur_value === '') {
 			input.val( '$basename' + '{$this->mDelimiter} ' );
 			input.change();
