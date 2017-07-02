@@ -8,12 +8,14 @@
 			"YaronSh",
 			"חיים",
 			"ערן",
-			"Guycn2"
+			"Guycn2",
+			"Drorsnir"
 		]
 	},
 	"pageforms-desc": "טפסים ליצירה ולעריכה של דפי ויקי",
 	"specialpages-group-pf_group": "טפסים סמנטיים",
 	"apihelp-pfautocomplete-description": "השלמה אוטומטית נמצא בשימוש הרחבת Semantic Forms.",
+	"apihelp-pfautocomplete-summary": "השלמה אוטומטית הנמצאת בשימוש הרחבת Page Forms.",
 	"apihelp-pfautocomplete-param-limit": "הגבלה על מספר התוצאות שתוחזרנה",
 	"apihelp-pfautocomplete-param-substr": "איזו תת־מחרוזת להשלים אוטומטית",
 	"apihelp-pfautocomplete-param-property": "מאפיין מדיה־ויקי סמנטית שהערכים שלו יושלמו אוטומטית",
@@ -29,6 +31,7 @@
 	"apihelp-pfautocomplete-param-base_cargo_field": "שדה Cargo של שדה קודם שצריך לבדוק בטופס",
 	"apihelp-pfautocomplete-param-basevalue": "איזה ערך לבדוק בשביל המאפיין או השדה הקודם",
 	"apihelp-pfautoedit-description": "ליצור או לערוך דף האמצעות טופס שהוגדר על־ידי ההרחבה Page Forms.",
+	"apihelp-pfautoedit-summary": "ליצור או לערוך דף באמצעות טופס שהוגדר על־ידי ההרחבה Page Forms.",
 	"apihelp-pfautoedit-param-form": "באיזה טופס של Semantic Forms להשתמש.",
 	"apihelp-pfautoedit-param-target": "שם הדף שיש ליצור או לערוך",
 	"apihelp-pfautoedit-param-query": "מחרוזת השאילתה",
@@ -48,7 +51,8 @@
 	"pf_createtemplate_multipleinstance": "ניתן להטמיע תבנית זו בערך מספר פעמים.",
 	"pf_createtemplate_connectingproperty": "שם המאפיין שיקשר את שדות התבנית הזאת לשאר הדף:",
 	"pf_createtemplate_categorylabel": "קטגוריה מוגדרת על ידי תבנית (לא חובה):",
-	"pf_createtemplate_cargotablelabel": "טבלת Cargo מוגדרת באמצעות תבנית (לא חובה):",
+	"pf_createtemplate_usecargo": "השתמש בהרחבה Cargo כדי לשמור את המידע שבתבנית זו",
+	"pf_createtemplate_cargotablelabel": "טבלת Cargo מוגדרת באמצעות התבנית:",
 	"pf_createtemplate_templatefields": "שדות התבנית",
 	"pf_createtemplate_fieldsdesc": "כדי ששדות התבנית לא ידקקו לשמות, צריך פשוט להכניס את המספר של השדה (1, 2, 3...) בתור שם המקום השם האמתי.",
 	"pf_createtemplate_fieldname": "שם השדה:",
