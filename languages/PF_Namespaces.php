@@ -89,6 +89,15 @@ $namespaceNames['fr'] = array(
 );
 
 /**
+ * Hebrew (עברית)
+ * @author FreedomFightrerSparrow
+ */
+$namespaceNames['he'] = array(
+	PF_NS_FORM           => 'טופס',
+	PF_NS_FORM_TALK      => 'שיחת_טופס'
+);
+
+/**
  * @author Ivan Lanin
  */
 $namespaceNames['id'] = array(
