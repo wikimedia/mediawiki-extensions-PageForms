@@ -5,7 +5,8 @@
 			"Paucabot",
 			"SMP",
 			"Solde",
-			"Toniher"
+			"Toniher",
+			"Ssola"
 		]
 	},
 	"pageforms-desc": "Formularis per crear i editar pàgines wiki",
@@ -191,7 +192,7 @@
 	"pf_autoedit_redlinkexists": "$1 ja existeix.",
 	"pf_autoedit_noformfound": "No s'ha especificat cap formulari.",
 	"pf_autoedit_toomanyformsfound": "Hi ha més d'un formulari disponible per pàgina.",
-	"pf_autoedit_readonly": "La base de dades es troba actualment bloquejada a les modificacions. Motiu: $1",
+	"pf_autoedit_readonly": "Actualment, la base de dades es troba tancada a modificacions. Motiu: $1",
 	"pf_autoedit_nosemanticform": "No s'ha pogut aconseguir el formulari $2 de la pàgina $1. Consulteu [[{{#special:FormEdit}}/$2/$1]] per a més detalls.",
 	"pf_autoedit_summary": "Editat automàticament de la pàgina $1.",
 	"pf-autoedit-wait": "Espereu…",
