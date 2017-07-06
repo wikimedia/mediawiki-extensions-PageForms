@@ -1,5 +1,6 @@
 /**
  * @author Yaron Koren
+ * @author Peter Grassberger
  */
 
 function setupMapFormInput( inputDiv, mapService ) {
@@ -24,6 +25,24 @@ function setupMapFormInput( inputDiv, mapService ) {
 		});
 		google.maps.event.addListener( map, 'dblclick', function( event ) {
 			clearTimeout( update_timeout );
+		});
+	} else if (mapService == "Leaflet") {
+		var mapCanvas = inputDiv.find('.pfMapCanvas').get(0);
+		var mapOptions = {
+			zoom: 1,
+			center: [50, 50]
+		};
+		var layerOptions = {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		};
+
+		var map = L.map(mapCanvas, mapOptions);
+		new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', layerOptions).addTo(map);
+
+		var marker = null;
+
+		map.on( 'click', function( event ) {
+			leafletSetMarker( event.latlng );
 		});
 	} else { // if ( mapService == "OpenLayers" ) {
 		var mapCanvasID = inputDiv.find('.pfMapCanvas').attr('id');
@@ -71,7 +90,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 
 	if ( inputDiv.find('.pfCoordsInput').val() != '' ) {
 		setMarkerFromInput();
-		map.setZoom(14);
+		map.setZoom( 14 );
 	}
 
 	function doLookup() {
@@ -81,14 +100,14 @@ function setupMapFormInput( inputDiv, mapService ) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					map.setCenter(results[0].geometry.location);
 					googleMapsSetMarker( results[0].geometry.location );
-					map.setZoom(14);
+					map.setZoom( 14 );
 				} else {
 					alert("Geocode was not successful for the following reason: " + status);
 				}
 			});
-		} else { // if ( mapService == "OpenLayers" ) {
+		} else { // if ( mapService == "Leaflet" ) { } else if ( mapService == "OpenLayers" ) {
 			// Do nothing, for now - address lookup/geocode is
-			// not yet enabled for OpenLayers.
+			// not yet enabled for Leaflet or OpenLayers.
 		}
 	}
 
@@ -110,9 +129,13 @@ function setupMapFormInput( inputDiv, mapService ) {
 			return;
 		}
 		if ( mapService == "Google Maps" ) {
-			var gmPoint = new google.maps.LatLng( lat, lon );
-			googleMapsSetMarker( gmPoint );
-			map.setCenter( gmPoint );
+			var gmPoint = new google.maps.LatLng(lat, lon);
+			googleMapsSetMarker(gmPoint);
+			map.setCenter(gmPoint);
+		} else if ( mapService == "Leaflet" ){
+			var lPoint = L.latLng( lat, lon );
+			leafletSetMarker( lPoint );
+			map.setView( lPoint, 14 );
 		} else { // if ( mapService == "OpenLayers" ) {
 			var olPoint = toOpenLayersLonLat( map, lat, lon );
 			openLayersSetMarker( olPoint );
@@ -135,7 +158,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 		return Math.round( num * 100000 ) / 100000;
 	}
 
-	function googleMapsSetMarker(location) {
+	function googleMapsSetMarker( location ) {
 		if (marker == undefined){
 			marker = new google.maps.Marker({
 				position: location,
@@ -147,10 +170,30 @@ function setupMapFormInput( inputDiv, mapService ) {
 			});
 
 		} else {
-			marker.setPosition(location);
+			marker.setPosition( location );
 		}
 		var stringVal = pfRoundOffDecimal( location.lat() ) + ', ' + pfRoundOffDecimal( location.lng() );
 		inputDiv.find('.pfCoordsInput').val( stringVal );
+	}
+
+	function leafletSetMarker( location ) {
+		if ( marker == null) {
+			marker = L.marker( location ).addTo( map );
+		} else {
+			marker.setLatLng( location, { draggable: true } );
+		}
+		marker.dragging.enable();
+
+		function setInput() {
+			var stringVal = pfRoundOffDecimal( marker.getLatLng().lat ) + ', ' +
+					pfRoundOffDecimal( marker.getLatLng().lng );
+			inputDiv.find('.pfCoordsInput').val( stringVal );
+		}
+
+		marker.off('dragend').on('dragend', function( event ) {
+			setInput();
+		});
+		setInput();
 	}
 
 	function openLayersSetMarker( location ) {
@@ -175,6 +218,9 @@ function setupMapFormInput( inputDiv, mapService ) {
 jQuery(document).ready( function() {
 	jQuery(".pfGoogleMapsInput").each( function() {
 		setupMapFormInput( jQuery(this), "Google Maps" );
+	});
+	jQuery(".pfLeafletInput").each( function() {
+		setupMapFormInput( jQuery(this), "Leaflet" );
 	});
 	jQuery(".pfOpenLayersInput").each( function() {
 		setupMapFormInput( jQuery(this), "OpenLayers" );

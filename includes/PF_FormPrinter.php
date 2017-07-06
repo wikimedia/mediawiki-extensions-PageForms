@@ -65,6 +65,7 @@ class PFFormPrinter {
 				$this->registerInputType( 'PFGoogleMapsInput' );
 			}
 			$this->registerInputType( 'PFOpenLayersInput' );
+			$this->registerInputType( 'PFLeafletInput' );
 		}
 
 		// All-purpose setup hook.
