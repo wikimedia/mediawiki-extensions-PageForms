@@ -167,8 +167,13 @@ $.fn.attachAutocomplete = function() {
 		} else {
 			// Remote autocompletion.
 			var myServer = mw.util.wikiScript( 'api' );
-			var data_type = $(this).attr("autocompletedatatype");
-			myServer += "?action=pfautocomplete&format=json&" + data_type + "=" + data_source;
+			var autocomplete_type = $(this).attr("autocompletedatatype");
+			if ( autocomplete_type === 'cargo field' ) {
+				var table_and_field = data_source.split('|');
+				myServer += "?action=pfautocomplete&format=json&cargo_table=" + table_and_field[0] + "&cargo_field=" + table_and_field[1];
+			} else {
+				myServer += "?action=pfautocomplete&format=json&" + autocomplete_type + "=" + data_source;
+			}
 
 			if (delimiter !== null && delimiter !== undefined) {
 				$(this).autocomplete({
