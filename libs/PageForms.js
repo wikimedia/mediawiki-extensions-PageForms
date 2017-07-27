@@ -18,7 +18,7 @@
 /* extending jQuery functions for custom highlighting */
 $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 
-	var delim = this.element.context.delimiter;
+	var delim = this.element[0].delimiter;
 	var term;
 	if ( delim === null ) {
 		term = this.term;
