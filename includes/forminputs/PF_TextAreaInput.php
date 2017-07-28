@@ -235,6 +235,12 @@ class PFTextAreaInput extends PFFormInput {
 		if ( array_key_exists( 'placeholder', $this->mOtherArgs ) ) {
 			$textarea_attrs['placeholder'] = $this->mOtherArgs['placeholder'];
 		}
+		if ( array_key_exists( 'feeds to map', $this->mOtherArgs ) ) {
+			global $wgPageFormsMapsWithFeeders;
+			$targetMapName = $this->mOtherArgs['feeds to map'];
+			$wgPageFormsMapsWithFeeders[$targetMapName] = true;
+			$textarea_attrs['data-feeds-to-map'] = $targetMapName;
+		}
 
 		return $textarea_attrs;
 	}

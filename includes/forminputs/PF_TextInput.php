@@ -273,6 +273,12 @@ class PFTextInput extends PFFormInput {
 		if ( array_key_exists( 'placeholder', $other_args ) ) {
 			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
+		if ( array_key_exists( 'feeds to map', $other_args ) ) {
+			global $wgPageFormsMapsWithFeeders;
+			$targetMapName = $other_args['feeds to map'];
+			$wgPageFormsMapsWithFeeders[$targetMapName] = true;
+			$inputAttrs['data-feeds-to-map'] = $targetMapName;
+		}
 		$text = Html::input( $input_name, $cur_value, 'text', $inputAttrs );
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {

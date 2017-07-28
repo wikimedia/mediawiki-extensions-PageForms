@@ -582,6 +582,7 @@ $GLOBALS['wgPageFormsUseDisplayTitle'] = false;
 // Other variables
 $GLOBALS['wgPageFormsSimpleUpload'] = false;
 $GLOBALS['wgPageFormsDisableOutsideServices'] = false;
+$GLOBALS['wgPageFormsMapsWithFeeders'] = array();
 
 # ##
 # Global variables for Javascript

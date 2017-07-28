@@ -242,7 +242,7 @@
 	"pf-select2-selection-too-big": "This field cannot hold more than {{PLURAL:$1|$1 value|$1 values}}.",
 	"pf-maps-setmarker": "Set marker",
 	"pf-maps-enteraddress": "Enter address here",
-	"pf-maps-lookupcoordinates": "Look up coordinates",
+	"pf-maps-lookupcoordinates": "Calculate coordinates using address",
 	"pf-adminlinks-datastructure": "Data structure",
 	"pf-datepicker-close": "Close",
 	"pf-datepicker-prev": "Previous",

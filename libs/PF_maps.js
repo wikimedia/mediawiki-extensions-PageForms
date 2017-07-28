@@ -75,7 +75,17 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 
 	function doLookup() {
-		var addressText = inputDiv.find('.pfAddressInput').val();
+		var currentMapName = inputDiv.find('.pfCoordsInput').attr('name');
+		var allFeedersForCurrentMap = jQuery('[data-feeds-to-map="' + currentMapName + '"]').map( function() {
+			return $( this ).val()
+		}).get();
+		if ( allFeedersForCurrentMap.length > 0 ) {
+			// Assemble a single string from all the address inputs that feed to this map.
+			var addressText = allFeedersForCurrentMap.join( ', ' );
+		} else {
+			// No other inputs feed to this map, so use the standard "Enter address here" input.
+			var addressText = inputDiv.find('.pfAddressInput').val();
+		}
 		if ( mapService == "Google Maps" ) {
 			geocoder.geocode( { 'address': addressText }, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
