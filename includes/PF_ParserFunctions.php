@@ -534,7 +534,14 @@ class PFParserFunctions {
 						// #autoedit be called for non-
 						// content namespaces like
 						// "Template" or "Talk".
-						if ( !in_array( $targetTitle->getNamespace(), $wgContentNamespaces ) ) {
+						// $wgContentNamespaces mostly
+						// fits our needs, though it's
+						// slightly too restrictive.
+						$allowedNamespaces = array_merge(
+							$wgContentNamespaces,
+							array( NS_CATEGORY )
+						);
+						if ( !in_array( $targetTitle->getNamespace(), $allowedNamespaces ) ) {
 							return '<div class="error">Error: Invalid namespace "' .
 								$targetTitle->getNsText() . '"; only content namespaces are allowed for #autoedit.</div>';
 						}
