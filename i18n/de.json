@@ -251,7 +251,7 @@
 	"pf-select2-selection-too-big": "Dieses Feld kann nicht mehr als {{PLURAL:$1|einen Wert|$1 Werte}} enthalten.",
 	"pf-maps-setmarker": "Markierung setzen",
 	"pf-maps-enteraddress": "Adresse hier eingeben",
-	"pf-maps-lookupcoordinates": "Koordinaten ermitteln",
+	"pf-maps-lookupcoordinates": "Koordinaten mithilfe der Adresse berechnen",
 	"pf-adminlinks-datastructure": "Datenstruktur",
 	"pf-datepicker-close": "Schließen",
 	"pf-datepicker-prev": "Voriger Monat",
