@@ -38,6 +38,7 @@
 		var formdata = new FormData(); //see https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
 		formdata.append("action", "upload");
 		formdata.append("format", "json");
+		formdata.append("ignorewarnings", "true");
 		formdata.append("filename", fileName);
 		formdata.append("token", mw.user.tokens.get( 'editToken' ) );
 		formdata.append("file", fileToUpload);
@@ -46,7 +47,7 @@
 		_this.parent().find('img.loading').show();
 		// As we now have created the data to send, we send it...
 		$.ajax( { //http://stackoverflow.com/questions/6974684/how-to-send-formdata-objects-with-ajax-requests-in-jquery
-			url: mw.util.wikiScript( 'api' ), //url to api.php 
+			url: mw.util.wikiScript( 'api' ), //url to api.php
 			contentType:false,
 			processData:false,
 			type:'POST',
