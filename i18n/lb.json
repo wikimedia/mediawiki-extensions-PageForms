@@ -147,7 +147,7 @@
 	"pf-select2-input-too-short": "Gitt w.e.g. $1 oder méi Zeechen an",
 	"pf-select2-selection-too-big": "An dësem Feld kënnen net méi wéi {{PLURAL:$1|ee Wäert|$1 Wäerter}} sinn.",
 	"pf-maps-enteraddress": "Adress hei aginn",
-	"pf-maps-lookupcoordinates": "Koordinaten nokucken",
+	"pf-maps-lookupcoordinates": "Koordinate rechnen mat Hëllef vun der Addres",
 	"pf-adminlinks-datastructure": "Datestruktur",
 	"pf-datepicker-close": "Zoumaachen",
 	"pf-datepicker-prev": "Vireg",

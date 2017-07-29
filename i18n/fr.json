@@ -29,7 +29,8 @@
 			"Orlodrim",
 			"PifyZ",
 			"Seb35",
-			"Derugon"
+			"Derugon",
+			"Framawiki"
 		]
 	},
 	"pageforms-desc": "Formulaires pour créer et modifier des pages wiki",
@@ -268,7 +269,7 @@
 	"pf-select2-selection-too-big": "Ce champ ne peut pas contenir plus de {{PLURAL:$1|$1 valeur|$1 valeurs}}.",
 	"pf-maps-setmarker": "Positionner un marqueur",
 	"pf-maps-enteraddress": "Entrer l’adresse ici",
-	"pf-maps-lookupcoordinates": "Chercher les coordonnées",
+	"pf-maps-lookupcoordinates": "Calculer les coordonnées en utilisant l'adresse",
 	"pf-adminlinks-datastructure": "Structure des données",
 	"pf-datepicker-close": "Fermer",
 	"pf-datepicker-prev": "Précédent",

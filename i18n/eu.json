@@ -5,7 +5,8 @@
 			"Kobazulo",
 			"Xabier Armendaritz",
 			"Subi",
-			"Sator"
+			"Sator",
+			"Mikel Ibaiba"
 		]
 	},
 	"createproperty": "Propietatea sortu",
@@ -39,6 +40,7 @@
 	"pf_form_freetextlabel": "Testu askea",
 	"pf_blank_namespace": "Nagusia",
 	"pf-select2-searching": "Bilatzen...",
+	"pf-maps-lookupcoordinates": "Koordenatuak kalkulatu helbidea erabiliz",
 	"pf-datepicker-close": "Itxi",
 	"pf-datepicker-prev": "Aurrekoa",
 	"pf-datepicker-next": "Hurrengoa",

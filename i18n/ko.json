@@ -225,7 +225,7 @@
 	"pf-select2-selection-too-big": "이 필드는 {{PLURAL:$1|$1개|$1개}} 이상의 값을 보유할 수 없습니다.",
 	"pf-maps-setmarker": "마커 설정",
 	"pf-maps-enteraddress": "여기에 주소를 입력",
-	"pf-maps-lookupcoordinates": "좌표 찾기",
+	"pf-maps-lookupcoordinates": "주소를 사용하여 좌표 계산하기",
 	"pf-adminlinks-datastructure": "데이터 구조",
 	"pf-datepicker-close": "닫기",
 	"pf-datepicker-prev": "이전",

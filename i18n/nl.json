@@ -16,7 +16,8 @@
 			"Robin van der Vliet",
 			"Ecthelion3",
 			"Hex",
-			"Mainframe98"
+			"Mainframe98",
+			"Festina90"
 		]
 	},
 	"pageforms-desc": "Formulieren voor het toevoegen en bewerken van semantische gegevens",
@@ -236,7 +237,7 @@
 	"pf-select2-selection-too-big": "Dit veld kan niet meer dan {{PLURAL:$1|$1 waarde|$1 waarden}}.",
 	"pf-maps-setmarker": "Markering",
 	"pf-maps-enteraddress": "Voer hier het adres in",
-	"pf-maps-lookupcoordinates": "Coördinaten opzoeken",
+	"pf-maps-lookupcoordinates": "Coördinaten verkrijgen door middel van adres",
 	"pf-adminlinks-datastructure": "Gegevensstructuur",
 	"pf-datepicker-close": "Sluiten",
 	"pf-datepicker-prev": "Vorige",

@@ -253,7 +253,7 @@
 	"pf-select2-selection-too-big": "此字段不能保存$1个取值。",
 	"pf-maps-setmarker": "设置书签",
 	"pf-maps-enteraddress": "在此输入地址",
-	"pf-maps-lookupcoordinates": "查找坐标",
+	"pf-maps-lookupcoordinates": "使用地址计算坐标",
 	"pf-adminlinks-datastructure": "数据结构",
 	"pf-datepicker-close": "关闭",
 	"pf-datepicker-prev": "上一个",
