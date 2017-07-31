@@ -221,7 +221,7 @@
 	"pf-select2-selection-too-big": "Detta fält kan inte innehålla mer än {{PLURAL:$1|ett värde|$1 värden}}.",
 	"pf-maps-setmarker": "Placera markören",
 	"pf-maps-enteraddress": "Ange adress här",
-	"pf-maps-lookupcoordinates": "Kolla upp koordinater",
+	"pf-maps-lookupcoordinates": "Beräknar koordinater med hjälp av adresser",
 	"pf-adminlinks-datastructure": "Datastruktur",
 	"pf-datepicker-close": "Stäng",
 	"pf-datepicker-prev": "Föregående",

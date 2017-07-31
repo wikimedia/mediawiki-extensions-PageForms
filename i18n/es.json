@@ -233,7 +233,7 @@
 	"pf-select2-selection-too-big": "Este campo no acepta más de {{PLURAL:$1|$1 valor|$1 valores}}.",
 	"pf-maps-setmarker": "Establecer el marcador",
 	"pf-maps-enteraddress": "Escribe aquí la dirección",
-	"pf-maps-lookupcoordinates": "Buscar coordenadas",
+	"pf-maps-lookupcoordinates": "Calcular coordenadas utilizando la dirección",
 	"pf-adminlinks-datastructure": "Estructura de datos",
 	"pf-datepicker-close": "Cerrar",
 	"pf-datepicker-prev": "Anterior",
