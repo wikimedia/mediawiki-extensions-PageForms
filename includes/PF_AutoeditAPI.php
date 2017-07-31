@@ -900,6 +900,7 @@ class PFAutoeditAPI extends ApiBase {
 				$wgPageFormsFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
+			$formHtmlHasRun = true;
 
 			// Parse the data to be preloaded from the form HTML of
 			// the existing page.
@@ -928,7 +929,7 @@ class PFAutoeditAPI extends ApiBase {
 
 		// Get wikitext for submitted data and form - call formHTML(),
 		// if we haven't called it already.
-		if ( $preloadContent == '' ) {
+		if ( !$formHtmlHasRun ) {
 			list ( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$wgPageFormsFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 		} else {
