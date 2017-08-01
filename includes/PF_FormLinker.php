@@ -110,7 +110,11 @@ class PFFormLinker {
 		// (Disregard category pages for this check.)
 		if ( $title->getNamespace() != NS_CATEGORY ) {
 			$default_form = self::getDefaultForm( $title );
-			if ( $default_form != '' ) {
+			if ( $default_form === '' ) {
+				// A call to "{{#default_form:}}" (i.e., no form
+				// specified) should cancel any inherited forms.
+				return array();
+			} elseif ( $default_form !== null ) {
 				return array( $default_form );
 			}
 		}
