@@ -33,8 +33,8 @@ function createTemplateAddField() {
 
 function validateCreateTemplateForm() {
 	var blankTemplateName = ( jQuery( '#template_name' ).val() === '' );
-	var blankCargoTableName = ( jQuery( '#use_cargo' ).is(':checked') ||
-		jQuery( '#table_name' ).val() === '' );
+	var blankCargoTableName = ( jQuery( '#use_cargo' ).is(':checked') &&
+		jQuery( '#cargo_table' ).val() === '' );
 	if ( blankTemplateName || blankCargoTableName ) {
 		scroll( 0, 0 );
 		if ( blankTemplateName ) {

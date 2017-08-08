@@ -202,8 +202,13 @@ END;
 						$req->getVal( 'delimiter_' . $id )
 					);
 					$field->setFieldType( $req->getVal( 'field_type_' . $id ) );
-					// Fake attribute.
-					$field->mAllowedValuesStr = $req->getVal( 'allowed_values_' . $id );
+
+					if ( defined( 'CARGO_VERSION' ) ) {
+						$allowedValuesStr = $req->getVal( 'allowed_values_' . $id );
+						$possibleValues = CargoUtils::smartSplit( ',', $allowedValuesStr );
+						$field->setPossibleValues( $possibleValues );
+					}
+
 					$fields[] = $field;
 				}
 			}
