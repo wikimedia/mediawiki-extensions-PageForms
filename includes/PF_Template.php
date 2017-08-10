@@ -334,7 +334,10 @@ class PFTemplate {
 				$text .= "List ($delimiter) of ";
 			}
 			$text .= $field->getFieldType();
-			if ( count( $field->getPossibleValues() ) > 0 ) {
+			if ( $field->getHierarchyStructure() ) {
+				$hierarchyStructureString = $field->getHierarchyStructure();
+				$text .= " (hierarchy;allowed values=$hierarchyStructureString)";
+			} elseif ( count( $field->getPossibleValues() ) > 0 ) {
 				$allowedValuesString = implode( ',', $field->getPossibleValues() );
 				$text .= " (allowed values=$allowedValuesString)";
 			}

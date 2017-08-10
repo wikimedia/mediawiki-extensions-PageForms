@@ -2,11 +2,15 @@ function toggleCargoInputs() {
 	if (jQuery('#use_cargo').prop('checked')) {
 		jQuery('#cargo_table_input').show('medium');
 		jQuery('label.cargo_field_type').show('medium');
-		jQuery('p.allowed_values_input').show('medium');
+		jQuery('.allowed_values_input').show('medium');
+		jQuery('.is_hierarchy').show('medium');
 	} else {
 		jQuery('#cargo_table_input').hide('medium');
 		jQuery('label.cargo_field_type').hide('medium');
-		jQuery('p.allowed_values_input').hide('medium');
+		jQuery("input[name*='is_hierarchy_']").prop('checked', false);
+		jQuery('.is_hierarchy').hide('medium');
+		jQuery('.hierarchy_structure_input').hide('medium');
+		jQuery('.allowed_values_input').show('medium');
 	}
 }
 
@@ -25,6 +29,9 @@ function createTemplateAddField() {
 	} );
 	newField.find( ".isList" ).click( function () {
 		jQuery( this ).closest( ".fieldBox" ).find( ".delimiter" ).toggle();
+	} );
+	newField.find( ".is_hierarchy" ).click( function () {
+		toggleHierarchyInput(jQuery( this ).closest( ".fieldBox" ));
 	} );
 	var combobox = new pf.select2.combobox();
 	combobox.apply( $( newField.find( '.pfComboBox' ) ) );
@@ -49,6 +56,16 @@ function validateCreateTemplateForm() {
 	}
 }
 
+function toggleHierarchyInput(containerElement) {
+	if (containerElement.find( "input[name*='is_hierarchy_']" ).prop('checked')) {
+		containerElement.find( ".allowed_values_input" ).hide('medium');
+		containerElement.find( ".hierarchy_structure_input" ).show('medium');
+	} else {
+		containerElement.find( ".hierarchy_structure_input" ).hide('medium');
+		containerElement.find( ".allowed_values_input" ).show('medium');
+	}
+}
+
 jQuery( document ).ready( function () {
 	jQuery( "#use_cargo" ).click( function() {
 		toggleCargoInputs();
@@ -65,6 +82,9 @@ jQuery( document ).ready( function () {
 	} );
 	jQuery( ".isList" ).click( function () {
 		jQuery( this ).closest( ".fieldBox" ).find( ".delimiter" ).toggle();
+	} );
+	jQuery( ".is_hierarchy" ).click( function () {
+		toggleHierarchyInput( jQuery( this ).closest( ".fieldBox" ) );
 	} );
 	jQuery( '#createTemplateForm' ).submit( function () {
 		return validateCreateTemplateForm();

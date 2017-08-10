@@ -121,9 +121,17 @@ class PFCreateTemplate extends SpecialPage {
 		$text .= "\t</p>\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
 			$text .= "\t<p>\n";
+			$text .= "<label class=\"is_hierarchy\"><input type=\"checkbox\" name=\"is_hierarchy_" . $id . "\"/> " . wfMessage( 'pf_createtemplate_fieldishierarchy' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
+			$text .= "\t</p>\n";
+
+			$text .= "\t<p>\n";
 			$text .= "\t<label class=\"allowed_values_input\">" . wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
 			$text .= Html::input( 'allowed_values_' . $id, null, 'text',
 				array( 'size' => '80' ) ) . "</label>\n";
+
+			$text .= "\t<label class=\"hierarchy_structure_input\" style=\"display: none;\">" . wfMessage( 'pf_createproperty_allowedvalsforhierarchy' )->escaped();
+			$text .= Html::textarea( 'hierarchy_structure_' . $id, null,
+				array( 'rows' => '10', 'cols' => '80', 'placeholder' => wfMessage( 'pf_createtemplate_hierarchystructureplaceholder' )->escaped() ) ) . "</label>\n";
 			$text .= "\t</p>\n";
 		}
 		$text .= "\t</td><td>\n";
@@ -204,9 +212,14 @@ END;
 					$field->setFieldType( $req->getVal( 'field_type_' . $id ) );
 
 					if ( defined( 'CARGO_VERSION' ) ) {
-						$allowedValuesStr = $req->getVal( 'allowed_values_' . $id );
-						$possibleValues = CargoUtils::smartSplit( ',', $allowedValuesStr );
-						$field->setPossibleValues( $possibleValues );
+						if ( $req->getCheck( 'is_hierarchy_' .  $id ) ) {
+							$hierarchyStructureStr = $req->getVal( 'hierarchy_structure_' . $id );
+							$field->setHierarchyStructure( $hierarchyStructureStr );
+						} else {
+							$allowedValuesStr = $req->getVal( 'allowed_values_' . $id );
+							$possibleValues = CargoUtils::smartSplit( ',', $allowedValuesStr );
+							$field->setPossibleValues( $possibleValues );
+						}
 					}
 
 					$fields[] = $field;
