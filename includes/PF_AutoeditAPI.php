@@ -929,7 +929,7 @@ class PFAutoeditAPI extends ApiBase {
 
 		// Get wikitext for submitted data and form - call formHTML(),
 		// if we haven't called it already.
-		if ( !$formHtmlHasRun ) {
+		if ( $preloadContent == '' ) {
 			list ( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$wgPageFormsFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 		} else {
