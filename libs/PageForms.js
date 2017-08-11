@@ -366,7 +366,8 @@ $.fn.PageForms_unregisterInputInit = function() {
  */
 
 // Display a div that would otherwise be hidden by "show on select".
-function showDiv(div_id, instanceWrapperDiv, speed) {
+function showDiv( div_id, instanceWrapperDiv, initPage ) {
+	var speed = initPage ? 0 : 'fast';
 	var elem;
 	if ( instanceWrapperDiv !== null ) {
 		elem = $('[data-origID="' + div_id + '"]', instanceWrapperDiv);
@@ -375,8 +376,11 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 	}
 
 	elem
+	.addClass('shownByPF')
+
 	.find(".hiddenByPF")
 	.removeClass('hiddenByPF')
+	.addClass('shownByPF')
 
 	.find(".disabledByPF")
 	.removeAttr('disabled')
@@ -412,9 +416,9 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 				var options = showOnSelectVals[i][0];
 				var div_id2 = showOnSelectVals[i][1];
 				if ( uncoveredInput.hasClass( 'pfShowIfSelected' ) ) {
-					showDivIfSelected( options, div_id2, inputVal, instanceWrapperDiv, false );
+					showDivIfSelected( options, div_id2, inputVal, instanceWrapperDiv, initPage );
 				} else {
-					uncoveredInput.showDivIfChecked( options, div_id2, instanceWrapperDiv, false );
+					uncoveredInput.showDivIfChecked( options, div_id2, instanceWrapperDiv, initPage );
 				}
 			}
 		}
@@ -423,7 +427,8 @@ function showDiv(div_id, instanceWrapperDiv, speed) {
 
 // Hide a div due to "show on select". The CSS class is there so that PF can
 // ignore the div's contents when the form is submitted.
-function hideDiv(div_id, instanceWrapperDiv, speed) {
+function hideDiv( div_id, instanceWrapperDiv, initPage ) {
+	var speed = initPage ? 0 : 'fast';
 	var elem;
 	// IDs can't contain spaces, and jQuery won't work with such IDs - if
 	// this one has a space, display an alert.
@@ -438,6 +443,13 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 	} else {
 		elem = $('#' + div_id);
 	}
+
+	// If we're just setting up the page, and this element has already
+	// been marked to be shown by some other input, don't hide it.
+	if ( initPage && elem.hasClass('shownByPF') ) {
+		return;
+	}
+
 	elem.find("span, div").addClass('hiddenByPF');
 
 	elem.each( function() {
@@ -448,9 +460,9 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 			if ( $(this).is(':hidden') ) {
 				$(this).hide();
 			} else {
-			$(this).fadeTo(speed, 0, function() {
-				$(this).slideUp(speed);
-			});
+				$(this).fadeTo(speed, 0, function() {
+					$(this).slideUp(speed);
+				});
 			}
 		}
 	});
@@ -470,7 +482,7 @@ function hideDiv(div_id, instanceWrapperDiv, speed) {
 			for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 				//var options = showOnSelectVals[i][0];
 				var div_id2 = showOnSelectVals[i][1];
-				hideDiv(div_id2, instanceWrapperDiv, 'fast' );
+				hideDiv( div_id2, instanceWrapperDiv, initPage );
 			}
 		}
 	});
@@ -484,11 +496,11 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPa
 		// value, it'll be an array - handle either case.
 		if (($.isArray(inputVal) && $.inArray(options[i], inputVal) >= 0) ||
 			(!$.isArray(inputVal) && (inputVal === options[i]))) {
-			showDiv( div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
+			showDiv( div_id, instanceWrapperDiv, initPage );
 			return;
 		}
 	}
-	hideDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
+	hideDiv( div_id, instanceWrapperDiv, initPage );
 }
 
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
@@ -521,11 +533,11 @@ $.fn.showIfSelected = function(initPage) {
 $.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initPage ) {
 	for ( var i = 0; i < options.length; i++ ) {
 		if ($(this).find('[value="' + options[i] + '"]').is(":checked")) {
-			showDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
+			showDiv( div_id, instanceWrapperDiv, initPage );
 			return this;
 		}
 	}
-	hideDiv(div_id, instanceWrapperDiv, initPage ? 0 : 'fast' );
+	hideDiv( div_id, instanceWrapperDiv, initPage );
 
 	return this;
 };
@@ -549,7 +561,7 @@ $.fn.showIfChecked = function(initPage) {
 		for ( i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
 			var div_id = showOnSelectVals[i][1];
-			this.showDivIfChecked(options, div_id, instanceWrapperDiv, initPage );
+			this.showDivIfChecked( options, div_id, instanceWrapperDiv, initPage );
 		}
 	}
 
@@ -574,9 +586,9 @@ $.fn.showIfCheckedCheckbox = function( partOfMultiple, initPage ) {
 	for ( i = 0; i < divIDs.length; i++ ) {
 		var divID = divIDs[i];
 		if ($(this).is(":checked")) {
-			showDiv(divID, instanceWrapperDiv, initPage ? 0 : 'fast' );
+			showDiv( divID, instanceWrapperDiv, initPage );
 		} else {
-			hideDiv(divID, instanceWrapperDiv, initPage ? 0 : 'fast' );
+			hideDiv( divID, instanceWrapperDiv, initPage );
 		}
 	}
 
