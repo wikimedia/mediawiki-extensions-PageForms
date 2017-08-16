@@ -59,6 +59,7 @@ class PFCreateClass extends SpecialPage {
 			$property_type = $req->getVal( "property_type_$i" );
 			$allowed_values = $req->getVal( "allowed_values_$i" );
 			$is_list = $req->getCheck( "is_list_$i" );
+			$is_hierarchy = $req->getCheck( "is_hierarchy_$i" );
 			// Create an PFTemplateField object based on these
 			// values, and add it to the $fields array.
 			$field = PFTemplateField::create( $field_name, $field_name, $property_name, $is_list );
@@ -67,7 +68,11 @@ class PFCreateClass extends SpecialPage {
 				// Hopefully it's safe to use a Cargo
 				// utility method here.
 				$possibleValues = CargoUtils::smartSplit( ',', $allowed_values );
-				$field->setPossibleValues( $possibleValues );
+				if ( $is_hierarchy ) {
+					$field->setHierarchyStructure( $req->getVal( 'hierarchy_structure_' . $i ) );
+				} else {
+					$field->setPossibleValues( $possibleValues );
+				}
 				if ( $use_cargo ) {
 					$field->setFieldType( $property_type );
 					$field->setPossibleValues( $possibleValues );
@@ -324,7 +329,17 @@ END;
 		$allowed_values_label = wfMessage( 'pf_createclass_allowedvalues' )->escaped();
 		$text .= <<<END
 			<th style="background: $specialBGColor; padding: 4px;">$allowed_values_label</th>
-		</tr>
+
+END;
+		if ( defined( 'CARGO_VERSION' ) ) {
+			$is_hierarchy_label = wfMessage( 'pf_createclass_ishierarchy' )->escaped();
+			$text .= <<<END
+			<th style="background: $specialBGColor; padding: 4px;">$is_hierarchy_label</th>
+
+END;
+		}
+		$text .= <<<END
+			</tr>
 
 END;
 		// Make one more row than what we're displaying - use the
@@ -361,12 +376,27 @@ END;
 					$typeDropdownBody .= "\t\t\t\t<option>$typeName</option>\n";
 				}
 				$text .= "\t\t\t\t" . Html::rawElement( 'select', array( 'name' => "property_type_$n" ), $typeDropdownBody ) . "\n";
+				$text .= "</td>";
+			}
+
+			$text .= <<<END
+			<td style="background: $specialBGColor; padding: 4px;">
+			<input type="text" size="25" name="allowed_values_$n" />
+END;
+			if ( defined( 'CARGO_VERSION' ) ) {
+				$hierarchyStructurePlaceholder = wfMessage( 'pf_createtemplate_hierarchystructureplaceholder' )->escaped();
+				$text .= <<<END
+				<textarea rows="10" cols="20" name="hierarchy_structure_$n" placeholder="$hierarchyStructurePlaceholder" style="display: none;"></textarea>
+END;
 			}
 			$text .= <<<END
 			</td>
-			<td style="background: $specialBGColor; padding: 4px;"><input type="text" size="25" name="allowed_values_$n" /></td>
-
 END;
+			if ( defined( 'CARGO_VERSION' ) ) {
+				$text .= <<<END
+				<td style="text-align: center;"><input type="checkbox" name="is_hierarchy_$n" /></td>
+END;
+			}
 		}
 		$text .= <<<END
 		</tr>
