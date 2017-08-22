@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Uchup19"
+		]
+	},
+	"pf_createtemplate_hierarchystructureplaceholder": "*Énter\n**hirarki\n***niléy\n***di jero\n**hiji\n***format\n*resep\n**ieu",
+	"pf_createproperty_allowedvalsforhierarchy": "Niléy nu diwidian pikeun hirarki:",
+	"pf_createclass_ishierarchy": "Hirarki?"
+}

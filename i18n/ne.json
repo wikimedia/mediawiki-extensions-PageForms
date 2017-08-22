@@ -2,9 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Nirjal stha",
-			"Suniltheblue"
+			"Suniltheblue",
+			"Nirajan pant"
 		]
 	},
+	"pf_createproperty_allowedvalsforhierarchy": "पदानुक्रमको लागि अनुमति दिइएका मानहरू:",
+	"pf_createclass_ishierarchy": "पदक्रम?",
 	"pf-formedit-selectform": "यो पृष्ठ सिर्जना गर्न एउटा फारम चयन गर्नुहोस्:",
 	"pf-formedit-donotuseform": "कुनै फारम बिनै पृष्ठ तयार गर्नुहोस्।",
 	"pf_not_unique_error": "अद्वितीय हुनुपर्नेछ"

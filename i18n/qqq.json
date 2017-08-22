@@ -17,7 +17,8 @@
 			"Liuxinyu970226",
 			"Amire80",
 			"Seb35",
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Robby"
 		]
 	},
 	"pageforms-desc": "{{desc|name=Page Forms|url=https://www.mediawiki.org/wiki/Extension:Page_Forms}}",
@@ -165,7 +166,7 @@
 	"pf_createclass_missingvalues": "Error message, which appears after the user saves without all required field.",
 	"pf_createclass_success": "Informational message, which appears after the user successfully filled out the form.",
 	"pf_createclass_create": "{{Identical|Create}}",
-	"pf_createclass_ishierarchy": "In response the user has to tick a box deciding whether it is allowed to enter or store a hierarchy.",
+	"pf_createclass_ishierarchy": "In response the user has to tick a box deciding whether it is allowed to enter or store a hierarchy.\n{{Identical|Hierarchy}}",
 	"formstart": "{{doc-special|FormStart}}",
 	"pf_formstart_badform": "Used as error message. Parameters:\n* $1 - form name (with link)",
 	"pf_formstart_badtitle": "Used as error message. Parameters:\n* $1 - invalid page name which may contain forbidden characters",
