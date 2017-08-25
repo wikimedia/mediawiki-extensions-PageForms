@@ -7,7 +7,8 @@
 			"Михајло Анђелковић",
 			"Milicevic01",
 			"Сербијана",
-			"Obsuser"
+			"Obsuser",
+			"Prevodim"
 		]
 	},
 	"specialpages-group-pf_group": "Семантички обрасци",
@@ -26,6 +27,7 @@
 	"pf_createtemplate_displaylabel": "Натпис за приказ:",
 	"pf_createtemplate_semanticproperty": "Семантичко својство:",
 	"pf_createtemplate_fieldislist": "Ово поље може да садржи списак вредности, одвојених зарезима",
+	"pf_createtemplate_hierarchystructureplaceholder": "*Унеси\n**вредности\n***за\n***хијерархију\n**у\n***формату\n*попут\n**овог",
 	"pf_createtemplate_aggregation": "Агрегација",
 	"pf_createtemplate_aggregationlabel": "Наслов листе:",
 	"pf_createtemplate_outputformat": "Излазни формат:",
@@ -55,6 +57,7 @@
 	"createclass": "Направи класу",
 	"pf_createclass_allowedvalues": "Дозвољене вредности:",
 	"pf_createclass_listofvalues": "Списак вредности?",
+	"pf_createclass_ishierarchy": "Хијерархија?",
 	"formstart": "Почетак форме",
 	"pf_formstart_createoredit": "Направи или измени",
 	"formedit": "Измени формом",

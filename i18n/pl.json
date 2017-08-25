@@ -116,6 +116,7 @@
 	"pf_createclass_missingvalues": "Nie zostały wypełnione wszystkie wymagane pola.",
 	"pf_createclass_success": "Zostaną utworzone wybrane strony.",
 	"pf_createclass_create": "Utwórz",
+	"pf_createclass_ishierarchy": "Hierarchia?",
 	"formstart": "Dodaj stronę z formularzem",
 	"pf_formstart_badform": "Błąd – na $1 nie odnaleziono żadnego formularza",
 	"pf_formstart_badtitle": "Błąd – „$1” nie jest prawidłową nazwą strony.",

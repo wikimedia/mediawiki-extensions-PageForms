@@ -96,7 +96,7 @@
 	"pf_forminputs_checkboxes_select_all": "Seleccionar todo",
 	"pf_forminputs_checkboxes_select_none": "No seleccionar nada",
 	"pf_forminputs_maxvalues": "Número máximo de valores permitidos para un campo que contiene varios valores",
-	"pf_forminputs_starwidth": "El ancho (y alto) de cada estrella",
+	"pf_forminputs_starwidth": "La anchura (y la altura) de cada estrella",
 	"pf_forminputs_numstars": "El número de estrellas que mostrar",
 	"pf_forminputs_allowhalfstars": "Permitir o no medias estrellas, por ejemplo, una calificación de 3,5",
 	"createform": "Crear un formulario",
