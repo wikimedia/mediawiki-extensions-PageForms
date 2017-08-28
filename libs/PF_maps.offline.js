@@ -19,6 +19,8 @@ function setupMapFormInput( inputDiv, mapService ) {
 		marker,
 		markers;
 
+	var coordsInput = inputDiv.find('.pfCoordsInput');
+
 	function googleMapsSetMarker( location ) {
 		if ( marker === undefined ){
 			marker = new google.maps.Marker( {
@@ -33,7 +35,11 @@ function setupMapFormInput( inputDiv, mapService ) {
 			marker.setPosition(location);
 		}
 		var stringVal = pfRoundOffDecimal( location.lat() ) + ', ' + pfRoundOffDecimal( location.lng() );
-		inputDiv.find('.pfCoordsInput').val( stringVal );
+		coordsInput.val( stringVal )
+			.attr( 'data-original-value', stringVal )
+			.removeClass( 'modifiedInput' )
+			.parent().find('.pfCoordsInputHelpers').remove();
+
 	}
 
 	function openLayersSetMarker( location ) {
@@ -51,7 +57,10 @@ function setupMapFormInput( inputDiv, mapService ) {
 			new OpenLayers.Projection("EPSG:4326") // to WGS 1984
 		);
 		var stringVal = pfRoundOffDecimal( realLonLat.lat ) + ', ' + pfRoundOffDecimal( realLonLat.lon );
-		inputDiv.find('.pfCoordsInput').val( stringVal );
+		coordsInput.val( stringVal )
+			.attr( 'data-original-value', stringVal )
+			.removeClass( 'modifiedInput' )
+			.parent().find('.pfCoordsInputHelpers').remove();
 	}
 
 	if ( mapService === "Google Maps" ) {
@@ -97,21 +106,21 @@ function setupMapFormInput( inputDiv, mapService ) {
 		);
 	}
 
-	function setMarkerFromInput() {
-		var coordsText = inputDiv.find('.pfCoordsInput').val();
+	function setMarkerFromCoordinates() {
+		var coordsText = coordsInput.val();
 		var coordsParts = coordsText.split(",");
 		if ( coordsParts.length !== 2 ) {
-			inputDiv.find('.pfCoordsInput').val('');
+			coordsInput.val('');
 			return;
 		}
 		var lat = coordsParts[0].trim();
 		var lon = coordsParts[1].trim();
 		if ( !jQuery.isNumeric( lat ) || !jQuery.isNumeric( lon ) ) {
-			inputDiv.find('.pfCoordsInput').val('');
+			coordsInput.val('');
 			return;
 		}
 		if ( lat < -90 || lat > 90 || lon < -180 || lon > 180 ) {
-			inputDiv.find('.pfCoordsInput').val('');
+			coordsInput.val('');
 			return;
 		}
 		if ( mapService === "Google Maps" ) {
@@ -125,21 +134,43 @@ function setupMapFormInput( inputDiv, mapService ) {
 		}
 	}
 
-	inputDiv.find('.pfUpdateMap').click( function() {
-		setMarkerFromInput();
-	});
-
-	inputDiv.find('.pfCoordsInput').keypress( function( e ) {
+	coordsInput.keypress( function( e ) {
 		// Is this still necessary fro IE compatibility?
 		var keycode = (e.keyCode ? e.keyCode : e.which);
 		if ( keycode === 13 ) {
-			setMarkerFromInput();
+			setMarkerFromCoordinates();
 			// Prevent the form from getting submitted.
 			e.preventDefault();
+			$(this).removeClass( 'modifiedInput' )
+				.parent().find('.pfCoordsInputHelpers').remove();
+
 		}
 	});
 
-	function doLookup() {
+	coordsInput.keydown( function( e ) {
+		if ( ! coordsInput.hasClass( 'modifiedInput' ) ) {
+			coordsInput.addClass( 'modifiedInput' );
+			var checkMark = $('<a></a>').addClass( 'pfCoordsCheckMark' ).css( 'color', 'green' ).html( '&#10004;' );
+			var xMark = $('<a></a>').addClass( 'pfCoordsX' ).css( 'color', 'red' ).html( '&#10008;' );
+			var marksDiv = $('<span></span>').addClass( 'pfCoordsInputHelpers' )
+				.append( checkMark ).append( ' ' ).append( xMark );
+			coordsInput.parent().append( marksDiv );
+
+			checkMark.click( function() {
+				setMarkerFromCoordinates();
+				coordsInput.removeClass( 'modifiedInput' );
+				marksDiv.remove();
+			});
+
+			xMark.click( function() {
+				coordsInput.removeClass( 'modifiedInput' )
+					.val( coordsInput.attr('data-original-value') );
+				marksDiv.remove();
+			});
+		}
+	});
+
+	function setMarkerFromAddress() {
 		var addressText = inputDiv.find('.pfAddressInput').val(),
 			alert;
 		if ( mapService === "Google Maps" ) {
@@ -162,19 +193,19 @@ function setupMapFormInput( inputDiv, mapService ) {
 		// Is this still necessary fro IE compatibility?
 		var keycode = (e.keyCode ? e.keyCode : e.which);
 		if ( keycode === 13 ) {
-			doLookup();
+			setMarkerFromAddress();
 			// Prevent the form from getting submitted.
 			e.preventDefault();
 		}
 	} );
 
 	inputDiv.find('.pfLookUpAddress').click( function() {
-		doLookup();
+		setMarkerFromAddress();
 	});
 
 
-	if ( inputDiv.find('.pfCoordsInput').val() !== '' ) {
-		setMarkerFromInput();
+	if ( coordsInput.val() !== '' ) {
+		setMarkerFromCoordinates();
 		map.setZoom(14);
 	}
 }

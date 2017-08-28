@@ -48,7 +48,6 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 		);
 		$coordsInput = Html::element( 'input', $coordsInputAttrs );
 		$wgPageFormsTabIndex++;
-		$mapUpdateButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfUpdateMap', 'value' => wfMessage( 'pf-maps-setmarker' )->parse() ), null );
 		// The address input box is not necessary if we are using other form inputs for the address.
 		if ( array_key_exists( $input_name, $wgPageFormsMapsWithFeeders ) ) {
 			$addressLookupInput = '';
@@ -67,7 +66,6 @@ $addressLookupButton
 </div>
 <div style="padding-bottom: 10px;">
 $coordsInput
-$mapUpdateButton
 </div>
 $mapCanvas
 

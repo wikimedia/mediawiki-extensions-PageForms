@@ -194,6 +194,10 @@ div.errorMessage {
 	background: #FCEEEE;
 }
 
+input.modifiedInput {
+	background: #FFDDE5;
+}
+
 div.mainForms {
 	font-size: large;
 }
