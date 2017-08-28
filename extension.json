@@ -138,6 +138,7 @@
 		"PFTokensInput": "includes/forminputs/PF_TokensInput.php",
 		"PFGoogleMapsInput": "includes/forminputs/PF_GoogleMapsInput.php",
 		"PFOpenLayersInput": "includes/forminputs/PF_OpenLayersInput.php",
+		"PFLeafletInput": "includes/forminputs/PF_LeafletInput.php",
 		"PFRegExpInput": "includes/forminputs/PF_RegExpInput.php",
 		"PFRatingInput": "includes/forminputs/PF_RatingInput.php",
 		"PFWikiPage": "includes/wikipage/PF_WikiPage.php",
