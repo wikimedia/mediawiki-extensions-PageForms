@@ -81,7 +81,7 @@
 	"pf_createtemplate_semanticproperty": "Propriété sémantique :",
 	"pf_createtemplate_fieldislist": "Ce champ contient une liste de valeurs",
 	"pf_createtemplate_fieldishierarchy": "Le champ contient une hiérarchie",
-	"pf_createtemplate_hierarchystructureplaceholder": "*Entrer\n**les valeurs\n***de la hiérarchie\n***dans\n**un\n***format\n*comme\n**celui-ci",
+	"pf_createtemplate_hierarchystructureplaceholder": "* Entrer\n** les valeurs\n*** de la hiérarchie\n*** dans\n** un\n*** format\n* comme\n** celui-ci",
 	"pf_createproperty_allowedvalsforhierarchy": "Valeurs autorisées pour la hiérarchie :",
 	"pf_createtemplate_delimiter": "Séparateur :",
 	"pf_createtemplate_aggregation": "Agrégation",
