@@ -1055,6 +1055,11 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 	});
+	$("input.modifiedInput").not(".hiddenByPF").each( function() {
+		// No separate function needed.
+		$(this).parent().addErrorMessage( 'pf_modified_input_error' );
+		num_errors += 1;
+	});
 
 	// call registered validation functions
 	var pfdata = $("#pfForm").data('PageForms');
