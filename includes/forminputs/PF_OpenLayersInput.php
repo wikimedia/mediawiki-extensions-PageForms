@@ -75,15 +75,6 @@ class PFOpenLayersInput extends PFFormInput {
 			'size' => 40
 		);
 		$coordsInput = Html::element( 'input', $coordsInputAttrs );
-		$mapUpdateButton = Html::element(
-			'input',
-			array(
-				'type' => 'button',
-				'class' => 'pfUpdateMap',
-				'value' => wfMessage( 'pf-maps-setmarker' )->text()
-			),
-			null
-		);
 		// For OpenLayers, doing an address lookup, i.e. a geocode,
 		// will require a separate geocoding address, which may
 		// require a server-side reader to access that API.
@@ -97,13 +88,6 @@ class PFOpenLayersInput extends PFFormInput {
 		$width = self::getWidth( $other_args );
 		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'id' => 'pfMapCanvas' . $wgPageFormsFieldNum, 'style' => "height: $height; width: $width;" ), null );
 
-		$fullInputHTML = <<<END
-<div style="padding-bottom: 10px;">
-$coordsInput
-$mapUpdateButton
-</div>
-
-END;
 /*
 		$fullInputHTML = <<<END
 <div style="padding-bottom: 10px;">
@@ -113,6 +97,12 @@ $addressLookupButton
 
 END;
 */
+		$fullInputHTML = <<<END
+<div style="padding-bottom: 10px;">
+$coordsInput
+</div>
+
+END;
 		$fullInputHTML .= "$mapCanvas\n";
 		$text = Html::rawElement( 'div', array( 'class' => 'pfOpenLayersInput' ), $fullInputHTML );
 
