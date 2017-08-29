@@ -242,7 +242,6 @@
 	"pf-select2-searching": "Buscando...",
 	"pf-select2-input-too-short": "Escribi $1 o más caráuteres.",
 	"pf-select2-selection-too-big": "Esti campu nun pue contener más de {{PLURAL:$1|$1 valor|$1 valores}}.",
-	"pf-maps-setmarker": "Define'l marcador",
 	"pf-maps-enteraddress": "Escribi la direición equí",
 	"pf-maps-lookupcoordinates": "Calcular les coordenaes usando una direición",
 	"pf-adminlinks-datastructure": "Estructura de datos",

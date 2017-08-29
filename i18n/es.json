@@ -233,7 +233,6 @@
 	"pf-select2-searching": "Buscando…",
 	"pf-select2-input-too-short": "Escribe $1 o más caracteres",
 	"pf-select2-selection-too-big": "Este campo no acepta más de {{PLURAL:$1|$1 valor|$1 valores}}.",
-	"pf-maps-setmarker": "Establecer el marcador",
 	"pf-maps-enteraddress": "Escribe aquí la dirección",
 	"pf-maps-lookupcoordinates": "Calcular coordenadas utilizando la dirección",
 	"pf-adminlinks-datastructure": "Estructura de datos",

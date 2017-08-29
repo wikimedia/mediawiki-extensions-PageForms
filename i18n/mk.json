@@ -243,7 +243,6 @@
 	"pf-select2-searching": "Пребарувам...",
 	"pf-select2-input-too-short": "Внесете $1 или повеќе знаци",
 	"pf-select2-selection-too-big": "Полево не може да содржи повеќе од {{PLURAL:$1|една вредност|$1 вредности}}.",
-	"pf-maps-setmarker": "Задај бележник",
 	"pf-maps-enteraddress": "Тука внесете адреса",
 	"pf-maps-lookupcoordinates": "Најди координати преку адреса",
 	"pf-adminlinks-datastructure": "Структура на податоците",

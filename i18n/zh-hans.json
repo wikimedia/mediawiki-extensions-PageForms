@@ -255,7 +255,6 @@
 	"pf-select2-searching": "正在搜索…",
 	"pf-select2-input-too-short": "请输入$1或更多字符。",
 	"pf-select2-selection-too-big": "此字段不能保存$1个取值。",
-	"pf-maps-setmarker": "设置书签",
 	"pf-maps-enteraddress": "在此输入地址",
 	"pf-maps-lookupcoordinates": "使用地址计算坐标",
 	"pf-adminlinks-datastructure": "数据结构",
