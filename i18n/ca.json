@@ -6,7 +6,8 @@
 			"SMP",
 			"Solde",
 			"Toniher",
-			"Ssola"
+			"Ssola",
+			"Fitoschido"
 		]
 	},
 	"pageforms-desc": "Formularis per crear i editar pàgines wiki",
@@ -67,7 +68,7 @@
 	"forms": "Formularis",
 	"pf_forms_docu": "Els formularis següents ja existeixen al wiki.",
 	"pf_forminputs_mandatory": "Obligatori",
-	"pf_forminputs_restricted": "Només els administrador poden editar aquesta entrada",
+	"pf_forminputs_restricted": "Només els administradors poden editar aquesta entrada",
 	"pf_forminputs_class": "L'atribut HTML «class» d'aquesta entrada",
 	"pf_forminputs_default": "El valor per defecte de l'entrada",
 	"pf_forminputs_preload": "Una pàgina wiki, els continguts de la qual seran el valor per defecte de l'entrada",
@@ -240,7 +241,6 @@
 	"pf-select2-searching": "S'està cercant…",
 	"pf-select2-input-too-short": "Introduïu $1 o més caràcters.",
 	"pf-select2-selection-too-big": "Aquest camp no pot contenir més de {{PLURAL:$1|$1 valor|$1 valors}}.",
-	"pf-maps-setmarker": "Defineix el marcador",
 	"pf-maps-enteraddress": "Introduïu l'adreça aquí",
 	"pf-maps-lookupcoordinates": "Consulta les coordenades",
 	"pf-adminlinks-datastructure": "Estructura de dades",
