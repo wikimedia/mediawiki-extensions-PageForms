@@ -129,6 +129,7 @@
 	"pf_bad_email_error": "muss e valabelen E-Mailadresse-Format hunn",
 	"pf_bad_number_error": "muss eng valabel Zuel sinn",
 	"pf_bad_date_error": "muss e gëltegen Datum sinn",
+	"pf_modified_input_error": "Dës Ännerung soll nogekuckt oder refuséiert ginn.",
 	"pf_pipe_error": "\"|\" ass net erlaabt, ausser an {{...}} oder [[...]]",
 	"uploadwindow": "Fënster fir eropzelueden",
 	"pf_deletionlog": "Logbuch vum Läschen",
