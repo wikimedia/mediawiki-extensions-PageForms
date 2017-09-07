@@ -466,6 +466,8 @@ END;
 				$gridParamValues['type'] = 'textarea';
 			} elseif ( $inputType == 'checkbox' ) {
 				$gridParamValues['type'] = 'checkbox';
+			} elseif ( $inputType == 'date' ) {
+				$gridParamValues['type'] = 'date';
 			} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
 				array_unshift( $possibleValues, '' );
 				$completePossibleValues = array();
