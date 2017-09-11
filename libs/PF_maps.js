@@ -2,15 +2,17 @@
  * @author Yaron Koren
  */
 
+/* global L */
+
 function setupMapFormInput( inputDiv, mapService ) {
-	if ( mapService == "Google Maps" ) {
-		var mapCanvas = inputDiv.find('.pfMapCanvas')[0];
-		var mapOptions = {
+	var map, marker, markers, mapCanvas, mapOptions;
+	if ( mapService === "Google Maps" ) {
+		mapCanvas = inputDiv.find('.pfMapCanvas')[0];
+		mapOptions = {
 			zoom: 1,
 			center: new google.maps.LatLng(0,0)
 		};
-		var map = new google.maps.Map(mapCanvas, mapOptions);
-		var marker;
+		map = new google.maps.Map(mapCanvas, mapOptions);
 		var geocoder = new google.maps.Geocoder();
 		var update_timeout;
 
@@ -25,12 +27,28 @@ function setupMapFormInput( inputDiv, mapService ) {
 		google.maps.event.addListener( map, 'dblclick', function( event ) {
 			clearTimeout( update_timeout );
 		});
-	} else { // if ( mapService == "OpenLayers" ) {
+	} else if (mapService === "Leaflet") {
+		mapCanvas = inputDiv.find('.pfMapCanvas').get(0);
+		mapOptions = {
+			zoom: 1,
+			center: [0, 0]
+		};
+		var layerOptions = {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		};
+
+		map = L.map(mapCanvas, mapOptions);
+		new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', layerOptions).addTo(map);
+
+		map.on( 'click', function( event ) {
+			leafletSetMarker( event.latlng );
+		});
+	} else { // if ( mapService === "OpenLayers" ) {
 		var mapCanvasID = inputDiv.find('.pfMapCanvas').attr('id');
-		var map = new OpenLayers.Map( mapCanvasID );
+		map = new OpenLayers.Map( mapCanvasID );
 		map.addLayer( new OpenLayers.Layer.OSM() );
 		map.zoomTo(0);
-		var markers = new OpenLayers.Layer.Markers( "Markers" );
+		markers = new OpenLayers.Layer.Markers( "Markers" );
 		map.addLayer( markers );
 
 		map.events.register("click", map, function(e) {
@@ -93,7 +111,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 
 	if ( coordsInput.val() != '' ) {
 		setMarkerFromCoordinates();
-		map.setZoom(14);
+		map.setZoom( 14 );
 	}
 
 	function setMarkerFromAddress() {
@@ -108,7 +126,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			// No other inputs feed to this map, so use the standard "Enter address here" input.
 			var addressText = inputDiv.find('.pfAddressInput').val();
 		}
-		if ( mapService == "Google Maps" ) {
+		if ( mapService === "Google Maps" ) {
 			geocoder.geocode( { 'address': addressText }, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					map.setCenter(results[0].geometry.location);
@@ -118,9 +136,9 @@ function setupMapFormInput( inputDiv, mapService ) {
 					alert("Geocode was not successful for the following reason: " + status);
 				}
 			});
-		} else { // if ( mapService == "OpenLayers" ) {
+		//} else { // Leaflet, OpenLayers
 			// Do nothing, for now - address lookup/geocode is
-			// not yet enabled for OpenLayers.
+			// not yet enabled for Leaflet or OpenLayers.
 		}
 	}
 
@@ -141,11 +159,15 @@ function setupMapFormInput( inputDiv, mapService ) {
 			coordsInput.val('');
 			return;
 		}
-		if ( mapService == "Google Maps" ) {
+		if ( mapService === "Google Maps" ) {
 			var gmPoint = new google.maps.LatLng( lat, lon );
 			googleMapsSetMarker( gmPoint );
 			map.setCenter( gmPoint );
-		} else { // if ( mapService == "OpenLayers" ) {
+		} else if ( mapService === "Leaflet" ){
+			var lPoint = L.latLng( lat, lon );
+			leafletSetMarker( lPoint );
+			map.setView( lPoint );
+		} else { // if ( mapService === "OpenLayers" ) {
 			var olPoint = toOpenLayersLonLat( map, lat, lon );
 			openLayersSetMarker( olPoint );
 			map.setCenter( olPoint );
@@ -188,6 +210,29 @@ function setupMapFormInput( inputDiv, mapService ) {
 			.parent().find('.pfCoordsInputHelpers').remove();
 	}
 
+	function leafletSetMarker( location ) {
+		if ( marker == null) {
+			marker = L.marker( location ).addTo( map );
+		} else {
+			marker.setLatLng( location, { draggable: true } );
+		}
+		marker.dragging.enable();
+
+		function setInput() {
+			var stringVal = pfRoundOffDecimal( marker.getLatLng().lat ) + ', ' +
+				pfRoundOffDecimal( marker.getLatLng().lng );
+			coordsInput.val( stringVal )
+				.attr( 'data-original-value', stringVal )
+				.removeClass( 'modifiedInput' )
+				.parent().find('.pfCoordsInputHelpers').remove();
+		}
+
+		marker.off('dragend').on('dragend', function( event ) {
+			setInput();
+		});
+		setInput();
+	}
+
 	function openLayersSetMarker( location ) {
 		// OpenLayers does not have a real marker move
 		// option - instead, just delete the old marker
@@ -213,6 +258,9 @@ function setupMapFormInput( inputDiv, mapService ) {
 jQuery(document).ready( function() {
 	jQuery(".pfGoogleMapsInput").each( function() {
 		setupMapFormInput( jQuery(this), "Google Maps" );
+	});
+	jQuery(".pfLeafletInput").each( function() {
+		setupMapFormInput( jQuery(this), "Leaflet" );
 	});
 	jQuery(".pfOpenLayersInput").each( function() {
 		setupMapFormInput( jQuery(this), "OpenLayers" );
