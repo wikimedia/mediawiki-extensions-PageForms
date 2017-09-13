@@ -6,6 +6,8 @@
 
 function setupMapFormInput( inputDiv, mapService ) {
 	var map, marker, markers, mapCanvas, mapOptions;
+	var numClicks = 0, timer = null;
+
 	if ( mapService === "Google Maps" ) {
 		mapCanvas = inputDiv.find('.pfMapCanvas')[0];
 		mapOptions = {
@@ -14,18 +16,17 @@ function setupMapFormInput( inputDiv, mapService ) {
 		};
 		map = new google.maps.Map(mapCanvas, mapOptions);
 		var geocoder = new google.maps.Geocoder();
-		var update_timeout;
 
 		// Let a click set the marker, while keeping the default
 		// behavior (zoom and center) for double clicks.
 		// Code copied from http://stackoverflow.com/a/8417447
 		google.maps.event.addListener( map, 'click', function( event ) {
-			update_timeout = setTimeout( function() {
+			timer = setTimeout( function() {
 				googleMapsSetMarker( event.latLng );
 			}, 200 );
 		});
 		google.maps.event.addListener( map, 'dblclick', function( event ) {
-			clearTimeout( update_timeout );
+			clearTimeout( timer );
 		});
 	} else if (mapService === "Leaflet") {
 		mapCanvas = inputDiv.find('.pfMapCanvas').get(0);
@@ -41,7 +42,19 @@ function setupMapFormInput( inputDiv, mapService ) {
 		new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', layerOptions).addTo(map);
 
 		map.on( 'click', function( event ) {
-			leafletSetMarker( event.latlng );
+			// Place/move the marker only on a single click, not a
+			// double click (double clicks do a zoom).
+			// Code based on https://stackoverflow.com/a/7845282
+			numClicks++;
+			if (numClicks === 1) {
+				timer = setTimeout( function() {
+					leafletSetMarker( event.latlng );
+					numClicks = 0;
+				});
+			} else {
+				clearTimeout(timer);
+				numClicks = 0;
+			}
 		});
 	} else { // if ( mapService === "OpenLayers" ) {
 		var mapCanvasID = inputDiv.find('.pfMapCanvas').attr('id');
@@ -52,9 +65,18 @@ function setupMapFormInput( inputDiv, mapService ) {
 		map.addLayer( markers );
 
 		map.events.register("click", map, function(e) {
-			var opx = map.getLayerPxFromViewPortPx(e.xy) ;
-			var loc = map.getLonLatFromPixel( opx );
-			openLayersSetMarker( loc );
+			numClicks++;
+			if (numClicks === 1) {
+				timer = setTimeout( function() {
+					var opx = map.getLayerPxFromViewPortPx(e.xy) ;
+					var loc = map.getLonLatFromPixel( opx );
+					openLayersSetMarker( loc );
+					numClicks = 0;
+				});
+			} else {
+				clearTimeout(timer);
+				numClicks = 0;
+			}
 		});
 	}
 
