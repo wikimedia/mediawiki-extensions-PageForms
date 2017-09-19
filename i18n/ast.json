@@ -211,6 +211,7 @@
 	"pf_bad_email_error": "ha tener un formatu válidu de direición de corréu electrónicu",
 	"pf_bad_number_error": "tien de ser un númberu válidu",
 	"pf_bad_date_error": "tien de ser una data válida",
+	"pf_modified_input_error": "Esti cambiu tendría d'aprobase o refugase",
 	"pf_pipe_error": "Nun se permite \"|\", sacante nes llamaes dientro de {{...}} o [[...]]",
 	"uploadwindow": "Ventana de carga",
 	"pf_deletionlog": "Rexistru de desanicios",
