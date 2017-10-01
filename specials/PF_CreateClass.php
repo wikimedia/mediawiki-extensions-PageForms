@@ -235,7 +235,7 @@ class PFCreateClass extends SpecialPage {
 		$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateForm' );
 		$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateCategory' );
 
-		$text = '<form action="" method="post">' . "\n";
+		$text = '<form id="createClassForm" action="" method="post">' . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null,
 				wfMessage( 'pf_createclass_docu' )
 					->rawParams( $wgLang->listToText( $creation_links ) )

@@ -1,3 +1,5 @@
+/*global alert*/
+
 var rowNum = mediaWiki.config.get( '$numStartingRows');
 var hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
 function createClassAddRow() {
@@ -77,6 +79,42 @@ function removeHierarchyPlaceholder( textareaElement ) {
 	textareaElement.attr( 'validInput', 'true' );
 }
 
+function validateHierarchyStructure() {
+	var hierarchyTextAreas = jQuery("textarea[name*='hierarchy_structure_']");
+	for (var i = 0; i < hierarchyTextAreas.length; i++) {
+		var structure = hierarchyTextAreas[i].value.trim();
+		if (structure !== "") {
+			var nodes = structure.split(/\n/);
+			var matches = nodes[0].match(/^([*]*)[^*]*/i);
+			if (matches[1].length !== 1) {
+				alert("Error: First entry of hierarchy values should start with exact one \'*\', the entry \"" +
+					nodes[0] + "\" has " + matches[1].length + " \'*\'");
+				return false;
+			}
+			var level = 0;
+			for (var j = 0; j < nodes.length; j++) {
+				matches = nodes[j].match(/^([*]*)( *)(.*)/i);
+				if (matches[1].length < 1) {
+					alert("Error: Each entry of hierarchy values should start with at least one \'*\', the entry \"" +
+						nodes[j] + "\" has 0 '*'");
+					return false;
+				}
+				if (matches[1].length - level > 1) {
+					alert("Error: Level or count of '*' in hierarchy values should be increased only by count of 1, the entry \"" +
+						nodes[j] + "\" should have " + ( level + 1 ) + " or fewer '*'");
+					return false;
+				}
+				level = matches[1].length;
+				if (matches[3].length === 0) {
+					alert("Error: The entry of hierarchy values cannot be empty.");
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
 jQuery( document ).ready( function () {
 	jQuery( ".disableFormAndCategoryInputs" ).click( function () {
 		disableFormAndCategoryInputs();
@@ -97,5 +135,8 @@ jQuery( document ).ready( function () {
 		if (jQuery( this ).attr( 'validInput' ) === undefined || jQuery( this ).attr( 'validInput' ) !== 'true') {
 			removeHierarchyPlaceholder( jQuery( this ) );
 		}
+	} );
+	jQuery( '#createClassForm' ).submit( function () {
+		return validateHierarchyStructure();
 	} );
 } );
