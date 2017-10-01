@@ -130,8 +130,7 @@ class PFCreateTemplate extends SpecialPage {
 				array( 'size' => '80' ) ) . "</label>\n";
 
 			$text .= "\t<label class=\"hierarchy_structure_input\" style=\"display: none;\">" . wfMessage( 'pf_createproperty_allowedvalsforhierarchy' )->escaped();
-			$text .= Html::textarea( 'hierarchy_structure_' . $id, null,
-				array( 'rows' => '10', 'cols' => '80', 'placeholder' => wfMessage( 'pf_createtemplate_hierarchystructureplaceholder' )->escaped() ) ) . "</label>\n";
+			$text .= '<textarea class="hierarchy_structure" rows="10" cols="20" name="hierarchy_structure_' . $id .'"></textarea></label>';
 			$text .= "\t</p>\n";
 		}
 		$text .= "\t</td><td>\n";

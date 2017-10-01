@@ -15,6 +15,7 @@ function toggleCargoInputs() {
 }
 
 var fieldNum = 1;
+var hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
 function createTemplateAddField() {
 	fieldNum++;
 	var newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
@@ -32,6 +33,14 @@ function createTemplateAddField() {
 	} );
 	newField.find( ".is_hierarchy" ).click( function () {
 		toggleHierarchyInput(jQuery( this ).closest( ".fieldBox" ));
+	} );
+	newField.find( ".hierarchy_structure" ).click( function () {
+		if (jQuery( this ).attr( 'validInput' ) === undefined || jQuery( this ).attr( 'validInput' ) !== 'true') {
+			removeHierarchyPlaceholder( jQuery( this ) );
+		}
+	} );
+	newField.find( ".hierarchy_structure" ).blur( function () {
+		setHierarchyPlaceholder( jQuery( this ) );
 	} );
 	var combobox = new pf.select2.combobox();
 	combobox.apply( $( newField.find( '.pfComboBox' ) ) );
@@ -60,10 +69,27 @@ function toggleHierarchyInput(containerElement) {
 	if (containerElement.find( "input[name*='is_hierarchy_']" ).prop('checked')) {
 		containerElement.find( ".allowed_values_input" ).hide('medium');
 		containerElement.find( ".hierarchy_structure_input" ).show('medium');
+		if (containerElement.find( "textarea[name*='hierarchy_structure_']" ).val() === "") {
+			setHierarchyPlaceholder( containerElement.find( "textarea[name*='hierarchy_structure_']" ) );
+		}
 	} else {
 		containerElement.find( ".hierarchy_structure_input" ).hide('medium');
 		containerElement.find( ".allowed_values_input" ).show('medium');
 	}
+}
+
+function setHierarchyPlaceholder( textareaElement ) {
+	if (textareaElement.val() === "") {
+		textareaElement.val( hierarchyPlaceholder );
+		textareaElement.css( 'color', 'gray' );
+		textareaElement.attr( 'validInput', 'false' );
+	}
+}
+
+function removeHierarchyPlaceholder( textareaElement ) {
+	textareaElement.val( '' );
+	textareaElement.css( 'color', 'black' );
+	textareaElement.attr( 'validInput', 'true' );
 }
 
 jQuery( document ).ready( function () {
@@ -85,6 +111,14 @@ jQuery( document ).ready( function () {
 	} );
 	jQuery( ".is_hierarchy" ).click( function () {
 		toggleHierarchyInput( jQuery( this ).closest( ".fieldBox" ) );
+	} );
+	jQuery( ".hierarchy_structure" ).click( function () {
+		if (jQuery( this ).attr( 'validInput' ) === undefined || jQuery( this ).attr( 'validInput' ) !== 'true') {
+			removeHierarchyPlaceholder( jQuery( this ) );
+		}
+	} );
+	jQuery( ".hierarchy_structure" ).blur( function () {
+		setHierarchyPlaceholder( jQuery( this ) );
 	} );
 	jQuery( '#createTemplateForm' ).submit( function () {
 		return validateCreateTemplateForm();

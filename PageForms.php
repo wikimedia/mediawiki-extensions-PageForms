@@ -450,11 +450,15 @@ $GLOBALS['wgResourceModules'] += array(
 		),
 		'messages' => array(
 			'pf_blank_error',
+			'pf_createtemplate_hierarchystructureplaceholder',
 		),
 	),
 	'ext.pageforms.PF_CreateClass' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_CreateClass.js',
+		),
+		'messages' => array(
+			'pf_createtemplate_hierarchystructureplaceholder',
 		),
 	),
 	'ext.pageforms.PF_CreateForm' => $wgPageFormsResourceTemplate + array(

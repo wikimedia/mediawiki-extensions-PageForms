@@ -384,9 +384,8 @@ END;
 			<input type="text" size="25" name="allowed_values_$n" />
 END;
 			if ( defined( 'CARGO_VERSION' ) ) {
-				$hierarchyStructurePlaceholder = wfMessage( 'pf_createtemplate_hierarchystructureplaceholder' )->escaped();
 				$text .= <<<END
-				<textarea rows="10" cols="20" name="hierarchy_structure_$n" placeholder="$hierarchyStructurePlaceholder" style="display: none;"></textarea>
+				<textarea class="hierarchy_structure" rows="10" cols="20" name="hierarchy_structure_$n" style="display: none;"></textarea>
 END;
 			}
 			$text .= <<<END

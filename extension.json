@@ -372,12 +372,16 @@
 				"libs/PF_CreateTemplate.js"
 			],
 			"messages": [
-				"pf_blank_error"
+				"pf_blank_error",
+				"pf_createtemplate_hierarchystructureplaceholder"
 			]
 		},
 		"ext.pageforms.PF_CreateClass": {
 			"scripts": [
 				"libs/PF_CreateClass.js"
+			],
+			"messages": [
+				"pf_createtemplate_hierarchystructureplaceholder"
 			]
 		},
 		"ext.pageforms.PF_CreateForm": {
