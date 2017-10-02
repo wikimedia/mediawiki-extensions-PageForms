@@ -9,7 +9,8 @@
 			"Tgr",
 			"Csega",
 			"Máté",
-			"Wolf Rex"
+			"Wolf Rex",
+			"Tacsipacsi"
 		]
 	},
 	"pageforms-desc": "Űrlapok szemantikus adatok hozzáadásához és szerkesztéséhez",
@@ -111,7 +112,7 @@
 	"pf_formerrors_header": "Hibák voltak az űrlapon megadott adatokban; lásd lentebb",
 	"pf_blank_error": "nem lehet üres",
 	"pf_bad_url_error": "a helyes URL formátumban kell lennie, az elején „http://”-vel",
-	"pf_bad_email_error": "helyes e-mail cím formátumban kell lennie",
+	"pf_bad_email_error": "helyes e-mail-cím-formátumban kell lennie",
 	"pf_bad_number_error": "számnak kell lennie",
 	"pf_bad_date_error": "érvényes dátumnak kell lennie",
 	"uploadwindow": "Feltöltési ablak",
