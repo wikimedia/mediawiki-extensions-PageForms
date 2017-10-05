@@ -14,10 +14,10 @@
  */
 class PFTextAreaInput extends PFFormInput {
 
-	protected $mUseWikieditor = false;
+	protected $mEditor = null;
 
 	public static function getDefaultCargoTypes() {
-			return array( 'Text' => array() );
+		return array( 'Text' => array() );
 	}
 
 	public static function getDefaultCargoTypeLists() {
@@ -25,7 +25,7 @@ class PFTextAreaInput extends PFFormInput {
 			'Text' => array( 'field_type' => 'text', 'is_list' => 'true' )
 		);
 	}
-	
+
 	/**
 	 * Constructor for the PFTextAreaInput class.
 	 *
@@ -43,26 +43,21 @@ class PFTextAreaInput extends PFFormInput {
 	 *	input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
-		
 		global $wgOut;
-		
+
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
-		
+
 		if (
 			array_key_exists( 'editor', $this->mOtherArgs ) &&
 			$this->mOtherArgs['editor'] == 'wikieditor' &&
-			
-			method_exists( $wgOut, 'getResourceLoader' ) &&
 			in_array( 'jquery.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
-			
 			class_exists( 'WikiEditorHooks' )
 		) {
-			$this->mUseWikieditor = true;
+			$this->mEditor = 'wikieditor';
 			$this->addJsInitFunctionData( 'window.ext.wikieditor.init' );
 		}
 	}
 
-	
 	public static function getName() {
 		return 'textarea';
 	}
@@ -136,14 +131,18 @@ class PFTextAreaInput extends PFFormInput {
 
 	/**
 	 * Returns the names of the resource modules this input type uses.
-	 * 
-	 * Returns the names of the modules as an array or - if there is only one 
+	 *
+	 * Returns the names of the modules as an array or - if there is only one
 	 * module - as a string.
-	 * 
+	 *
 	 * @return null|string|array
 	 */
 	public function getResourceModuleNames() {
-		return $this->mUseWikieditor?'ext.pageforms.wikieditor':null;
+		if ( $this->mEditor == 'wikieditor' ) {
+			return 'ext.pageforms.wikieditor';
+		} else {
+			return null;
+		}
 	}
 
 	protected function getTextAreaAttributes() {
@@ -155,7 +154,7 @@ class PFTextAreaInput extends PFFormInput {
 		// useful for other stuff too.
 		$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
 
-		if ( $this->mUseWikieditor ) {
+		if ( $this->mEditor == 'wikieditor' ) {
 			// Load modules for all enabled WikiEditor features.
 			// The header for this function was changed in July
 			// 2014, and the function itself was changed
