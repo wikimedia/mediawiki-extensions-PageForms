@@ -87,7 +87,7 @@ function validateHierarchyStructure() {
 			var nodes = structure.split(/\n/);
 			var matches = nodes[0].match(/^([*]*)[^*]*/i);
 			if (matches[1].length !== 1) {
-				alert("Error: First entry of hierarchy values should start with exact one \'*\', the entry \"" +
+				alert("Error: The first entry of hierarchy values should start with exactly one \'*\'; the entry \"" +
 					nodes[0] + "\" has " + matches[1].length + " \'*\'");
 				return false;
 			}
@@ -95,18 +95,18 @@ function validateHierarchyStructure() {
 			for (var j = 0; j < nodes.length; j++) {
 				matches = nodes[j].match(/^([*]*)( *)(.*)/i);
 				if (matches[1].length < 1) {
-					alert("Error: Each entry of hierarchy values should start with at least one \'*\', the entry \"" +
-						nodes[j] + "\" has 0 '*'");
+					alert("Error: Each entry of hierarchy values should start with at least one \'*\'; the entry \"" +
+						nodes[j] + "\" starts with none");
 					return false;
 				}
 				if (matches[1].length - level > 1) {
-					alert("Error: Level or count of '*' in hierarchy values should be increased only by count of 1, the entry \"" +
+					alert("Error: Level or count of '*' in hierarchy values should increase by no more than 1 at a time, so the entry \"" +
 						nodes[j] + "\" should have " + ( level + 1 ) + " or fewer '*'");
 					return false;
 				}
 				level = matches[1].length;
 				if (matches[3].length === 0) {
-					alert("Error: The entry of hierarchy values cannot be empty.");
+					alert("Error: An entry in hierarchy values cannot be empty.");
 					return false;
 				}
 			}
