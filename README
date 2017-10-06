@@ -30,6 +30,9 @@ De Silva as part of the 2013 Google Summer of Code.
 The "tokens" and updated "combobox" input types were created by
 Jatin Mehta as part of the 2014 Google Summer of Code.
 
+Support for hierarchies in the Cargo extension was added by Feroz
+Ahmed as part of the 2017 Google Summer of Code.
+
 Important code contributions were also made by Christoph Burgmer,
 Cindy Cicalese, Daniel Friesen, Daniel Hansch, Eugene Mednikov,
 Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
