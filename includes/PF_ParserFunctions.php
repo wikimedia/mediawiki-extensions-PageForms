@@ -16,8 +16,8 @@ use MediaWiki\MediaWikiServices;
  * {{#default_form:formName}}
  *
  * This function sets the specified form to be the default form for pages
- * in that category. It is a substitute for the now-deprecated "Has
- * default form" special property.
+ * in that category, namespace or page. If called without an argument,
+ * it specifies that the relevant page(s) should have no form.
  *
  * '#forminput' is called as:
  *
@@ -104,11 +104,10 @@ use MediaWiki\MediaWikiServices;
  * together using the 'new_delimiter' string. Both 'delimiter' and
  * 'new_delimiter' default to commas.
  *
- * Example: to take a semicolon-delimited list, and place the attribute
- * 'Has color' around each element in the list, you could call the
- * following:
+ * Example: to take a semicolon-delimited list, and make each element
+ * in the list a link, you could call the following:
  *
- * {{#arraymap:blue;red;yellow|;|x|[[Has color::x]]|;}}
+ * {{#arraymap:blue;red;yellow|;|x|[[x]]|;}}
  *
  *
  * '#arraymaptemplate' is called as:
@@ -139,8 +138,8 @@ use MediaWiki\MediaWikiServices;
  * 'query string' variable.
  *
  * The parameters of #autoedit are called in the same format as those
- * of #formlink. The one addition, 'reload', will, if added, cause the page
- * to reload after the user clicks the button or link.
+ * of #formlink. The one addition, 'reload', causes the page to reload
+ * after the user clicks the button or link.
  *
  * @author Yaron Koren
  * @author Sergey Chernyshev
