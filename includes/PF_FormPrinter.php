@@ -1544,8 +1544,11 @@ END;
 			$form_text .= Html::hidden( 'wpStarttime', wfTimestampNow() );
 			$article = new Article( $this->mPageTitle, 0 );
 			$form_text .= Html::hidden( 'wpEdittime', $article->getTimestamp() );
-
 			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
+			if ( defined( 'EditPage::UNICODE_CHECK' ) ) {
+				// MW 1.30+
+				$form_text .= Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK );
+			}
 		}
 
 		$form_text .= "\t</form>\n";
