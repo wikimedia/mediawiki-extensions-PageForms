@@ -190,28 +190,22 @@ class PFParserFunctions {
 	static function renderFormLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-
-		// hack to remove newline from beginning of output, thanks to
-		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'formlink' ), $parser->mStripState );
+		$str = self::createFormLink( $parser, $params, 'formlink' );
+		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
 	static function renderFormRedLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-
-		// hack to remove newline from beginning of output, thanks to
-		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'formredlink' ), $parser->mStripState );
+		$str = self::createFormLink( $parser, $params, 'formredlink' );
+		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
 	static function renderQueryFormLink ( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
-
-		// hack to remove newline from beginning of output, thanks to
-		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( self::createFormLink( $parser, $params, 'queryformlink' ), $parser->mStripState );
+		$str = self::createFormLink( $parser, $params, 'queryformlink' );
+		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
 	static function convertQueryString ( $queryString, $inQueryArr ) {
@@ -385,9 +379,7 @@ class PFParserFunctions {
 				) . "\n";
 		}
 
-		// Hack to remove newline from beginning of output, thanks to
-		// http://jimbojw.com/wiki/index.php?title=Raw_HTML_Output_from_a_MediaWiki_Parser_Function
-		return $parser->insertStripItem( $str, $parser->mStripState );
+		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
 	/**
