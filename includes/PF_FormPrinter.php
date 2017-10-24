@@ -770,9 +770,11 @@ END;
 			}
 		} else {
 			$form_is_disabled = true;
-			$wgOut->setPageTitle( wfMessage( 'badaccess' )->text() );
-			$wgOut->addWikiText( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
-			$wgOut->addHTML( "\n<hr />\n" );
+			if ( $wgOut->getTitle() != null ) {
+				$wgOut->setPageTitle( wfMessage( 'badaccess' )->text() );
+				$wgOut->addWikiText( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
+				$wgOut->addHTML( "\n<hr />\n" );
+			}
 		}
 
 //		$oldParser = $wgParser;
