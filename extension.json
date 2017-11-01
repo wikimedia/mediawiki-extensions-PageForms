@@ -412,6 +412,9 @@
 		"ArticlePurge": [
 			"PFFormUtils::purgeCache"
 		],
+		"PageContentSave": [
+			"PFFormUtils::purgeCache"
+		],
 		"ParserFirstCallInit": [
 			"PFHooks::registerFunctions"
 		],
