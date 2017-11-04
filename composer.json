@@ -31,16 +31,23 @@
 			"dev-master": "4.0.x-dev"
 		},
 		"installer-paths": {
-			"../{$name}": ["mediawiki/open-layers"]
+			"../{$name}": [
+				"mediawiki/open-layers"
+			]
 		}
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9.2",
-		"jakub-onderka/php-console-highlighter": "0.3.2"
+		"jakub-onderka/php-console-highlighter": "0.3.2",
+		"mediawiki/minus-x": "0.2.0"
 	},
 	"scripts": {
 		"test": [
-			"parallel-lint . --exclude vendor"
+			"parallel-lint . --exclude vendor",
+			"minus-x check ."
+		],
+		"fix": [
+			"minus-x fix ."
 		]
 	}
 }
