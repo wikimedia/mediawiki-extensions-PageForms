@@ -279,6 +279,6 @@
 	"pf-nocompletionurls": "Não foi especificado nenhum URL externo para a função de preenchimento automático nesta wiki.",
 	"pf-invalidexturl": "Valor de URL externo inválido.",
 	"pf-blankexturl": "Valor de URL externo em branco.",
-	"pf-externalpageempty": "A página externa não possui conteúdo.",
+	"pf-externalpageempty": "A página externa não tem conteúdo.",
 	"pf-externalpagebadjson": "Não foi possível analisar o JSON da página externa."
 }
