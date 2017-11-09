@@ -25,8 +25,6 @@ class PFPageSection {
 	}
 
 	static function newFromFormTag( $tag_components ) {
-		global $wgUser;
-
 		$ps = new PFPageSection();
 		$ps->mSectionName = trim( $tag_components[1] );
 
@@ -40,6 +38,7 @@ class PFPageSection {
 			} elseif ( $component === 'hidden' ) {
 				$ps->mIsHidden = true;
 			} elseif ( $component === 'restricted' ) {
+				global $wgUser;
 				$ps->mIsRestricted = !( $wgUser && $wgUser->isAllowed( 'editrestrictedfields' ) );
 			} elseif ( $component === 'autogrow' ) {
 				$ps->mSectionArgs['autogrow'] = true;
@@ -58,6 +57,7 @@ class PFPageSection {
 				case 'cols':
 				case 'class':
 				case 'editor':
+				case 'placeholder':
 					$ps->mSectionArgs[$sub_components[0]] = $sub_components[1];
 					break;
 				default:

@@ -1303,7 +1303,7 @@ END;
 					if ( $page_section_in_form->isHidden() ) {
 						$form_section_text = Html::hidden( $input_name, $section_text );
 					} else {
-						$sectionInput = new PFTextAreaInput( $input_number = null, $section_text, $input_name, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
+						$sectionInput = new PFTextAreaInput( $wgPageFormsFieldNum, $section_text, $input_name, ( $form_is_disabled || $page_section_in_form->isRestricted() ), $other_args );
 						$sectionInput->addJavaScript();
 						$form_section_text = $sectionInput->getHtmlText();
 					}
