@@ -1271,12 +1271,12 @@ END;
 							}
 						}
 
-						if ( $section_end_loc === -1 ) {
-							$section_text = $existing_page_content;
-							$existing_page_content = '';
+						if ( $section_end_loc === -1 || $section_end_loc == null ) {
+							$section_text = substr( $existing_page_content, $section_start_loc );
+							$existing_page_content = substr( $existing_page_content, 0, $section_start_loc );
 						} else {
 							$section_text = substr( $existing_page_content, $section_start_loc, $section_end_loc - $section_start_loc );
-							$existing_page_content = substr( $existing_page_content, $section_end_loc );
+							$existing_page_content = substr( $existing_page_content, 0, $section_start_loc ) . substr( $existing_page_content, $section_end_loc );
 						}
 					}
 
