@@ -259,9 +259,7 @@ $GLOBALS['wgResourceModules'] += array(
 		'dependencies' => array(
 			'jquery.ui.core',
 			'jquery.ui.autocomplete',
-			'jquery.ui.button',
 			'jquery.ui.sortable',
-			'jquery.ui.widget',
 			'ext.pageforms.fancybox',
 			'ext.pageforms.autogrow',
 			'mediawiki.util',
