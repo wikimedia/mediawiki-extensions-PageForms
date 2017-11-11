@@ -12,10 +12,13 @@ module.exports = function ( grunt ) {
 			all: [
 				'**/*.js',
 				'!node_modules/**',
+				'!vendor/**',
 				'!libs/jquery.browser.js',
 				'!libs/jquery.dynatree.js',
 				'!libs/jquery.fancybox.js',
-				'!libs/select2.js'
+				'!libs/jsgrid.js',
+				'!libs/select2.js',
+				'!libs/PF_maps.js'
 			]
 		},
 		banana: {
@@ -24,7 +27,8 @@ module.exports = function ( grunt ) {
 		jsonlint: {
 			all: [
 				'**/*.json',
-				'!node_modules/**'
+				'!node_modules/**',
+				'!vendor/**'
 			]
 		}
 	} );
