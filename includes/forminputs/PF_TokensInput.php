@@ -150,11 +150,21 @@ class PFTokensInput extends PFFormInput {
 		if ( array_key_exists( 'max values', $other_args ) ) {
 			$inputAttrs['maxvalues'] = $other_args['max values'];
 		}
- 		if ( array_key_exists( 'namespace', $other_args ) ) {
- 			$inputAttrs['data-namespace'] = $other_args['namespace'];
- 		}
+		if ( array_key_exists( 'namespace', $other_args ) ) {
+			$inputAttrs['data-namespace'] = $other_args['namespace'];
+		}
 
 		$text = "\n\t" . Html::input( $input_name, $cur_value, 'text', $inputAttrs ) . "\n";
+
+		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
+			if ( array_key_exists( 'default filename', $other_args ) ) {
+				$default_filename = $other_args['default filename'];
+			} else {
+				$default_filename = '';
+			}
+
+			$text .= PFTextInput::uploadableHTML( $input_id, $delimiter, $default_filename, $cur_value, $other_args );
+		}
 
 		$spanClass = 'inputSpan';
 		if ( $is_mandatory ) {
@@ -189,6 +199,16 @@ class PFTokensInput extends PFFormInput {
 			'description' => wfMessage( 'pf_forminputs_maxvalues' )->text()
 		);
 		$params = array_merge( $params, PFTextWithAutocompleteInput::getAutocompletionParameters() );
+		$params[] = array(
+			'name' => 'uploadable',
+			'type' => 'boolean',
+			'description' => wfMessage( 'pf_forminputs_uploadable' )->text()
+		);
+		$params[] = array(
+			'name' => 'default filename',
+			'type' => 'string',
+			'description' => wfMessage( 'pf_forminputs_defaultfilename' )->text()
+		);
 
 		return $params;
 	}

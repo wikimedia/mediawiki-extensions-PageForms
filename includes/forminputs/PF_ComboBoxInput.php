@@ -83,9 +83,11 @@ class PFComboBoxInput extends PFFormInput {
 			list( $autocompleteSettings, $remoteDataType ) = self::setAutocompleteValues( $other_args );
 		}
 
+		$input_id = 'input_' . $wgPageFormsFieldNum;
+
 		$inputAttrs = array(
 			'type' => 'text',
-			'id' => "input_$wgPageFormsFieldNum",
+			'id' => $input_id,
 			'name' => $input_name,
 			'class' => $className,
 			'tabindex' => $wgPageFormsTabIndex,
@@ -111,6 +113,16 @@ class PFComboBoxInput extends PFFormInput {
  		}
 
 		$inputText = Html::rawElement( 'input', $inputAttrs);
+
+		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
+			if ( array_key_exists( 'default filename', $other_args ) ) {
+				$default_filename = $other_args['default filename'];
+			} else {
+				$default_filename = '';
+			}
+
+			$inputText .= PFTextInput::uploadableHTML( $input_id, $delimiter = null, $default_filename, $cur_value, $other_args );
+		}
 
 		$divClass = 'ui-widget';
 		if ( $is_mandatory ) {
@@ -164,6 +176,16 @@ class PFComboBoxInput extends PFFormInput {
 			'name' => 'existing values only',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_existingvaluesonly' )->text()
+		);
+		$params[] = array(
+			'name' => 'uploadable',
+			'type' => 'boolean',
+			'description' => wfMessage( 'pf_forminputs_uploadable' )->text()
+		);
+		$params[] = array(
+			'name' => 'default filename',
+			'type' => 'string',
+			'description' => wfMessage( 'pf_forminputs_defaultfilename' )->text()
 		);
 		return $params;
 	}
