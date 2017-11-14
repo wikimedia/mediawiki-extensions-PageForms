@@ -335,8 +335,7 @@ abstract class PFFormInput {
 
 		// Register modules for the input.
 		if ( $modules !== null ) {
-			$output->addModuleStyles( $modules );
-			$output->addModuleScripts( $modules );
+			$output->addModules( $modules );
 		}
 
 		if ( $this->getJsInitFunctionData() || $this->getJsValidationFunctionData() ) {
