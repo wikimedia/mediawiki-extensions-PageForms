@@ -64,7 +64,7 @@ $namespaceNames['en'] = array(
 
 $namespaceNames['es'] = array(
 	PF_NS_FORM           => 'Formulario',
-	PF_NS_FORM_TALK      => 'Discusión_formulario'
+	PF_NS_FORM_TALK      => 'Formulario_discusión'
 );
 
 /**
