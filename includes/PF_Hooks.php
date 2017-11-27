@@ -80,7 +80,7 @@ class PFHooks {
 					'styles' => '/skins/PF_wikieditor.css',
 					'dependencies' => array(
 						'ext.pageforms.main',
-						'jquery.wikiEditor'
+						'ext.wikiEditor'
 					),
 				),
 			) );
