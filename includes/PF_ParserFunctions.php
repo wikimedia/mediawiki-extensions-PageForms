@@ -303,16 +303,13 @@ class PFParserFunctions {
 			$inputID = 'input_' . $input_num;
 			$formInputAttrs['id'] = $inputID;
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
-			global $wgPageFormsMaxLocalAutocompleteValues;
-			$autocompletion_values = PFValuesUtils::getAutocompleteValues( $inAutocompletionSource, $autocompletionType );
-			if ( count( $autocompletion_values ) > $wgPageFormsMaxLocalAutocompleteValues ) {
-				$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
-				$formInputAttrs['autocompletedatatype'] = $autocompletionType;
-			} else {
-				global $wgPageFormsAutocompleteValues;
-				$wgPageFormsAutocompleteValues[$inputID] = $autocompletion_values;
-				$formInputAttrs['autocompletesettings'] = $inputID;
-			}
+			// This code formerly only used remote autocompletion
+			// when the number of autocompletion values was above
+			// a certain limit - as happens in regular forms -
+			// but local autocompletion didn't always work,
+			// apparently due to page caching.
+			$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
+			$formInputAttrs['autocompletedatatype'] = $autocompletionType;
 		}
 
 		// The value has already been HTML-encoded as a parameter,
