@@ -65,8 +65,6 @@ class PFTimePickerInput extends PFFormInput {
 		if ( array_key_exists( 'mintime', $this->mOtherArgs )
 			&& ( preg_match( '/^\d+:\d\d$/', trim( $this->mOtherArgs['mintime'] ) ) == 1 ) ) {
 			$minTime = trim( $this->mOtherArgs['mintime'] );
-//		} elseif ( $sfigSettings->timePickerMinTime != null ) {
-//			$minTime = $sfigSettings->timePickerMinTime;
 		} else {
 			$minTime = '00:00';
 		}
@@ -75,8 +73,6 @@ class PFTimePickerInput extends PFFormInput {
 		if ( array_key_exists( 'maxtime', $this->mOtherArgs )
 			&& ( preg_match( '/^\d+:\d\d$/', trim( $this->mOtherArgs['maxtime'] ) ) == 1 ) ) {
 			$maxTime = trim( $this->mOtherArgs['maxtime'] );
-//		} elseif ( $sfigSettings->timePickerMaxTime != null ) {
-//			$maxTime = $sfigSettings->timePickerMaxTime;
 		} else {
 			$maxTime = '23:59';
 		}
@@ -149,9 +145,6 @@ class PFTimePickerInput extends PFFormInput {
 	 * TODO: Specify parameters specific for menuselect.
 	 */
 	public static function getParameters() {
-
-		global $sfigSettings;
-
 		$params = parent::getParameters();
 		$params['mintime'] = array(
 			'name' => 'mintime',

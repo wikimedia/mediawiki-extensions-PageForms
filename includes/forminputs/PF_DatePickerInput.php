@@ -585,8 +585,6 @@ class PFDatePickerInput extends PFFormInput {
 	 * TODO: Add missing parameters
 	 */
 	public static function getParameters() {
-		global $wgPageFormsDatePickerSettings;
-
 		$params = parent::getParameters();
 		$params['date format'] = array(
 			'name' => 'date format',

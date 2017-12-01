@@ -52,7 +52,7 @@ class PFRatingInput extends PFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 */
 	public function getHtmlText() {
-		global $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
+		global $wgPageFormsFieldNum;
 
 		$className = 'pfRating';
 		if ( $this->mIsMandatory ) {
