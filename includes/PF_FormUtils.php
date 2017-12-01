@@ -112,8 +112,9 @@ class PFFormUtils {
 				$is_checked = true;
 			}
 		}
-		if ( $label == null )
+		if ( $label == null ) {
 			$label = $wgParser->recursiveTagParse( wfMessage( 'watchthis' )->text() );
+		}
 		$attrs += array(
 			'id' => 'wpWatchthis',
 			'accesskey' => wfMessage( 'accesskey-watch' )->text(),
@@ -230,10 +231,9 @@ class PFFormUtils {
 		}
 		if ( $wgTitle == null ) {
 			$cancel = '';
-		}
-		// If we're on the special 'FormEdit' page, just send the user
-		// back to the previous page they were on.
-		elseif ( $wgTitle->isSpecial( 'FormEdit' ) ) {
+		} elseif ( $wgTitle->isSpecial( 'FormEdit' ) ) {
+			// If we're on the special 'FormEdit' page, just send the user
+			// back to the previous page they were on.
 			$stepsBack = 1;
 			// For IE, we need to go back twice, past the redirect.
 			if ( array_key_exists( 'HTTP_USER_AGENT', $_SERVER ) &&
@@ -272,7 +272,7 @@ class PFFormUtils {
 	static function formBottom( $form_submitted, $is_disabled ) {
 		global $wgUser;
 
-		$summary_text = PFFormUtils::summaryInputHTML( $is_disabled );
+		$summary_text = self::summaryInputHTML( $is_disabled );
 		$text = <<<END
 	<br /><br />
 	<div class='editOptions'>
@@ -280,11 +280,11 @@ $summary_text	<br />
 
 END;
 		if ( $wgUser->isAllowed( 'minoredit' ) ) {
-			$text .= PFFormUtils::minorEditInputHTML( $form_submitted, $is_disabled, false );
+			$text .= self::minorEditInputHTML( $form_submitted, $is_disabled, false );
 		}
 
 		if ( $wgUser->isLoggedIn() ) {
-			$text .= PFFormUtils::watchInputHTML( $form_submitted, $is_disabled );
+			$text .= self::watchInputHTML( $form_submitted, $is_disabled );
 		}
 
 		$text .= <<<END
@@ -292,10 +292,10 @@ END;
 	<div class='editButtons'>
 
 END;
-		$text .= PFFormUtils::saveButtonHTML( $is_disabled );
-		$text .= PFFormUtils::showPreviewButtonHTML( $is_disabled );
-		$text .= PFFormUtils::showChangesButtonHTML( $is_disabled );
-		$text .= PFFormUtils::cancelLinkHTML( $is_disabled );
+		$text .= self::saveButtonHTML( $is_disabled );
+		$text .= self::showPreviewButtonHTML( $is_disabled );
+		$text .= self::showChangesButtonHTML( $is_disabled );
+		$text .= self::cancelLinkHTML( $is_disabled );
 		$text .= <<<END
 	</div><!-- editButtons -->
 	</div><!-- editOptions -->
@@ -399,12 +399,10 @@ END;
 				$markerIndex = count( $items );
 				$items[] = $matches[0];
 				return "$rnd-item-$markerIndex-$rnd";
-
 			},
 
 			$form_def
 		);
-
 
 		// parse wiki-text
 		if ( isset( $parser->mInParse ) && $parser->mInParse === true ) {
@@ -418,7 +416,7 @@ END;
 		$form_def = preg_replace_callback(
 			"/{$rnd}-item-(\d+)-{$rnd}/",
 			function ( array $matches ) use ( $items ) {
-				$markerIndex = (int) $matches[1];
+				$markerIndex = (int)$matches[1];
 				return $items[$markerIndex];
 			},
 			$form_def
@@ -542,10 +540,9 @@ END;
 	 */
 	public static function getFormCache() {
 		global $wgPageFormsFormCacheType, $wgParserCacheType;
-		$ret = wfGetCache( ( $wgPageFormsFormCacheType !== null ) ? $wgPageFormsFormCacheType : $wgParserCacheType  );
+		$ret = wfGetCache( ( $wgPageFormsFormCacheType !== null ) ? $wgPageFormsFormCacheType : $wgParserCacheType );
 		return $ret;
 	}
-
 
 	/**
 	 * Get a cache key.
@@ -563,11 +560,10 @@ END;
 		}
 	}
 
-	/*
+	/**
 	 * Get section header HTML
 	 */
 	static function headerHTML( $header_name , $header_level = 2 ) {
-
 		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;

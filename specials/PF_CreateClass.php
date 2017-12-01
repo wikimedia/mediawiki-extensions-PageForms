@@ -93,13 +93,13 @@ class PFCreateClass extends SpecialPage {
 				$params = array();
 				$params['user_id'] = $user->getId();
 				$params['page_text'] = $full_text;
-				$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
+				$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type )->inContentLanguage()->text();
 				$jobs[] = new PFCreatePageJob( $property_title, $params );
 			}
 		}
 
 		// Also create the "connecting property", if there is one.
-		$connectingProperty = trim( $req->getVal('connecting_property') );
+		$connectingProperty = trim( $req->getVal( 'connecting_property' ) );
 		if ( defined( 'SMW_VERSION' ) && $connectingProperty != '' ) {
 			global $smwgContLang;
 			$datatypeLabels = $smwgContLang->getDatatypeLabels();
@@ -109,7 +109,7 @@ class PFCreateClass extends SpecialPage {
 			$params = array();
 			$params['user_id'] = $user->getId();
 			$params['page_text'] = $full_text;
-			$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
+			$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type )->inContentLanguage()->text();
 			$jobs[] = new PFCreatePageJob( $property_title, $params );
 		}
 
@@ -270,7 +270,7 @@ class PFCreateClass extends SpecialPage {
 		global $smwgDefaultStore;
 		if ( defined( 'SIO_VERSION' ) || $smwgDefaultStore == "SMWSQLStore3" ) {
 			$templateInfo .= Html::rawElement( 'div',
-				array (
+				array(
 					'id' => 'connecting_property_div',
 					'style' => 'display: none;',
 				),

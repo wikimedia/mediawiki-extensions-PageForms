@@ -88,8 +88,7 @@ class PFDropdownInput extends PFEnumInput {
 				array_key_exists( 'value_labels', $other_args ) &&
 				is_array( $other_args['value_labels'] ) &&
 				array_key_exists( $possible_value, $other_args['value_labels'] )
-			)
-			{
+			) {
 				$label = $other_args['value_labels'][$possible_value];
 			} else {
 				$label = $possible_value;

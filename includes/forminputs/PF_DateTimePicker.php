@@ -21,20 +21,14 @@ class PFDateTimePicker extends PFFormInput {
 	/**
 	 * Constructor.
 	 *
-	 * @param String $input_number
-	 *		The number of the input in the form.
-	 * @param String $cur_value
-	 *		The current value of the input field.
-	 * @param String $input_name
-	 *		The name of the input.
-	 * @param String $disabled
-	 *		Is this input disabled?
-	 * @param Array $other_args
-	 *		An associative array of other parameters that were present in the
-	 *		input definition.
+	 * @param String $input_number The number of the input in the form.
+	 * @param String $cur_value The current value of the input field.
+	 * @param String $input_name The name of the input.
+	 * @param String $disabled Is this input disabled?
+	 * @param Array $other_args An associative array of other parameters that were present in the
+	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
-
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 
 		// prepare sub-inputs
@@ -43,8 +37,8 @@ class PFDateTimePicker extends PFFormInput {
 
 		// find allowed values and keep only the date portion
 		if ( array_key_exists( 'possible_values', $this->mOtherArgs ) &&
-				count( $this->mOtherArgs[ 'possible_values' ] ) ) {
-
+			count( $this->mOtherArgs[ 'possible_values' ] )
+		) {
 			$this->mOtherArgs[ 'possible_values' ] = preg_replace(
 				'/^\s*(\d{4}\/\d{2}\/\d{2}).*/',
 				'$1',
@@ -56,7 +50,7 @@ class PFDateTimePicker extends PFFormInput {
 		$dateString = '';
 		$timeString = '';
 
-		$separatorPos = strpos($dateTimeString, " ");
+		$separatorPos = strpos( $dateTimeString, " " );
 
 		// does it have a separating whitespace? assume it's a date & time
 		if ( $separatorPos ) {
@@ -77,7 +71,6 @@ class PFDateTimePicker extends PFFormInput {
 
 		// add JS data
 		$this->addJsInitFunctionData( 'PF_DTP_init', $this->setupJsInitAttribs() );
-
 	}
 
 	/**
@@ -125,12 +118,11 @@ class PFDateTimePicker extends PFFormInput {
 	 *
 	 */
 	public function getHtmlText() {
-		$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs) ? ' mandatoryFieldSpan' : '') . '">' .
-				PFDatePickerInput::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber ) .
-				'</span>';
+		$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs ) ? ' mandatoryFieldSpan' : '' ) . '">' .
+			PFDatePickerInput::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber ) .
+			'</span>';
 
 		return $html;
-
 	}
 
 	/**

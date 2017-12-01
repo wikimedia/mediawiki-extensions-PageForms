@@ -18,24 +18,17 @@ class PFTimePickerInput extends PFFormInput {
 	/**
 	 * Constructor.
 	 *
-	 * @param String $input_number
-	 *		The number of the input in the form.
-	 * @param String $cur_value
-	 *		The current value of the input field.
-	 * @param String $input_name
-	 *		The name of the input.
-	 * @param String $disabled
-	 *		Is this input disabled?
-	 * @param Array $other_args
-	 *		An associative array of other parameters that were present in the
-	 *		input definition.
+	 * @param String $input_number The number of the input in the form.
+	 * @param String $cur_value The current value of the input field.
+	 * @param String $input_name The name of the input.
+	 * @param String $disabled Is this input disabled?
+	 * @param Array $other_args An associative array of other parameters that were present in the
+	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
-
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 
 		$this->addJsInitFunctionData( 'PF_TP_init', $this->setupJsInitAttribs() );
-
 	}
 
 	/**
@@ -119,13 +112,13 @@ class PFTimePickerInput extends PFFormInput {
 	 * should be able to input values.
 	 *
 	 */
-	public function getHtmlText(){
+	public function getHtmlText() {
 		// create visible input field (for display) and invisible field (for data)
 		$html = PFDatePickerInput::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 
 		// wrap in span (e.g. used for mandatory inputs)
 		if ( ! array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
-			$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs )? ' mandatoryFieldSpan' : '') . '">' .$html . '</span>';
+			$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs ) ? ' mandatoryFieldSpan' : '' ) . '">' .$html . '</span>';
 		}
 
 		return $html;

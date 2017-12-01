@@ -30,7 +30,6 @@ class PFPageSection {
 
 		// cycle through the other components
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
-
 			$component = trim( $tag_components[$i] );
 
 			if ( $component === 'mandatory' ) {
@@ -67,7 +66,6 @@ class PFPageSection {
 		}
 		return $ps;
 	}
-
 
 	public function getSectionName() {
 		return $this->mSectionName;
@@ -121,10 +119,10 @@ class PFPageSection {
 		$section_name = $this->mSectionName;
 		$section_level = $this->mSectionLevel;
 		// Set default section level to 2
-		if ( $section_level == '' ){
+		if ( $section_level == '' ) {
 			$section_level = 2;
 		}
-		//display the section headers in wikitext
+		// display the section headers in wikitext
 		$header_string = "";
 		$header_string .= str_repeat( "=", $section_level );
 		$text = $header_string . $section_name . $header_string . "\n";

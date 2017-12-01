@@ -83,7 +83,7 @@ use MediaWiki\MediaWikiServices;
  * parameters. Its behavior is quite similar to that of 'formlink' as well;
  * the only difference is that, when the 'target' is an existing page, it
  * creates a link directly to that page, instead of to a form to edit the
- * page. 
+ * page.
  *
  *
  * '#queryformlink' links to Special:RunQuery, instead of Special:FormEdit.
@@ -274,7 +274,7 @@ class PFParserFunctions {
 			} elseif ( $paramName == 'no autofocus' ) {
 				$inAutofocus = false;
 			} else {
-				$value = urlencode($value);
+				$value = urlencode( $value );
 				parse_str( "$paramName=$value", $arr );
 				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 			}
@@ -406,12 +406,16 @@ class PFParserFunctions {
 		// non-null, and the new, mapped value is non-null as well.
 		foreach ( $values_array as $old_value ) {
 			$old_value = trim( $old_value );
-			if ( $old_value == '' ) continue;
+			if ( $old_value == '' ) {
+				continue;
+			}
 			$result_value = $frame->expand( $formula, PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES );
 			$result_value = str_replace( $var, $old_value, $result_value );
 			$result_value = $parser->preprocessToDom( $result_value, $frame->isTemplate() ? Parser::PTD_FOR_INCLUSION : 0 );
 			$result_value = trim( $frame->expand( $result_value ) );
-			if ( $result_value == '' ) continue;
+			if ( $result_value == '' ) {
+				continue;
+			}
 			$results_array[] = $result_value;
 		}
 		return implode( $new_delimiter, $results_array );
@@ -441,7 +445,9 @@ class PFParserFunctions {
 		$results_array = array();
 		foreach ( $values_array as $old_value ) {
 			$old_value = trim( $old_value );
-			if ( $old_value == '' ) continue;
+			if ( $old_value == '' ) {
+				continue;
+			}
 			$bracketed_value = $frame->virtualBracketedImplode( '{{', '|', '}}',
 				$template, '1=' . $old_value );
 			// Special handling if preprocessor class is set to
@@ -454,7 +460,6 @@ class PFParserFunctions {
 		}
 		return implode( $new_delimiter, $results_array );
 	}
-
 
 	public static function renderAutoEdit( &$parser ) {
 		global $wgContentNamespaces;
@@ -547,7 +552,6 @@ class PFParserFunctions {
 
 		// query string has to be turned into hidden inputs.
 		if ( !empty( $inQueryArr ) ) {
-
 			$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
 
 			foreach ( $query_components as $query_component ) {
@@ -723,7 +727,6 @@ class PFParserFunctions {
 			// Special handling for the buttons - query string
 			// has to be turned into hidden inputs.
 			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
-
 				$query_components = explode( '&', http_build_query( $inQueryArr, '', '&' ) );
 
 				foreach ( $query_components as $query_component ) {

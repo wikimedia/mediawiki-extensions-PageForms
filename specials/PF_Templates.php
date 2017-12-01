@@ -39,14 +39,18 @@ class TemplatesPage extends QueryPage {
 	public function __construct( $name = 'Templates' ) {
 		parent::__construct( $name );
 	}
-	
+
 	function getName() {
 		return "Templates";
 	}
 
-	function isExpensive() { return false; }
+	function isExpensive() {
+		return false;
+	}
 
-	function isSyndicated() { return false; }
+	function isSyndicated() {
+		return false;
+	}
 
 	function getPageHeader() {
 		$header = Html::element( 'p', null, wfMessage( 'pf_templates_docu' )->text() );

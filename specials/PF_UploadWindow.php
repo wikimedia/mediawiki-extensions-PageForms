@@ -69,12 +69,12 @@ class PFUploadWindow extends UnlistedSpecialPage {
 				|| $request->getCheck( 'wpUploadIgnoreWarning' ) );
 
 		// Guess the desired name from the filename if not provided
-		$this->mDesiredDestName   = $request->getText( 'wpDestFile' );
-		if ( !$this->mDesiredDestName )
+		$this->mDesiredDestName = $request->getText( 'wpDestFile' );
+		if ( !$this->mDesiredDestName ) {
 			$this->mDesiredDestName = $request->getText( 'wpUploadFile' );
+		}
 		$this->mComment	   = $request->getText( 'wpUploadDescription' );
 		$this->mLicense	   = $request->getText( 'wpLicense' );
-
 
 		$this->mDestWarningAck    = $request->getText( 'wpDestFileWarningAck' );
 		$this->mIgnoreWarning     = $request->getCheck( 'wpIgnoreWarning' )
@@ -83,10 +83,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$this->mCopyrightStatus   = $request->getText( 'wpUploadCopyStatus' );
 		$this->mCopyrightSource   = $request->getText( 'wpUploadSource' );
 
-
 		$this->mForReUpload       = $request->getBool( 'wpForReUpload' ); // updating a file
 		$this->mCancelUpload      = $request->getCheck( 'wpCancelUpload' )
-					 || $request->getCheck( 'wpReUpload' ); // b/w compat
+			|| $request->getCheck( 'wpReUpload' ); // b/w compat
 
 		// If it was posted check for the token (no remote POST'ing with user credentials)
 		$token = $request->getVal( 'wpEditToken' );
@@ -140,9 +139,10 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		# Unsave the temporary file in case this was a cancelled upload
 		if ( $this->mCancelUpload ) {
-			if ( !$this->unsaveUploadedFile() )
+			if ( !$this->unsaveUploadedFile() ) {
 				# Something went wrong, so unsaveUploadedFile showed a warning
 				return;
+			}
 		}
 
 		# Process upload or show a form
@@ -153,7 +153,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			# Backwards compatibility hook
 			// Avoid PHP 7.1 warning from passing $this by reference
 			$page = $this;
-			if( !Hooks::run( 'UploadForm:initial', array( &$page ) ) ) {
+			if ( !Hooks::run( 'UploadForm:initial', array( &$page ) ) ) {
 				wfDebug( "Hook 'UploadForm:initial' broke output of the upload form" );
 				return;
 			}
@@ -162,8 +162,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 
 		# Cleanup
-		if ( $this->mUpload )
+		if ( $this->mUpload ) {
 			$this->mUpload->cleanupTempFile();
+		}
 	}
 
 	/**
@@ -173,8 +174,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 */
 	protected function showUploadForm( $form ) {
 		# Add links if file was previously deleted
-		if ( !$this->mDesiredDestName )
+		if ( !$this->mDesiredDestName ) {
 			$this->showViewDeletedLinks();
+		}
 
 		$form->show();
 	}
@@ -203,8 +205,10 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		# Check the token, but only if necessary
 		if ( !$this->mTokenOk && !$this->mCancelUpload
-				&& ( $this->mUpload && $this->mUploadClicked ) )
+			&& ( $this->mUpload && $this->mUploadClicked )
+		) {
 			$form->addPreText( wfMessage( 'session_fail_preview' )->parse() );
+		}
 
 		# Add upload error message
 		$form->addPreText( $message );
@@ -283,9 +287,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 						array( Title::makeTitle( NS_FILE, $args )->getPrefixedText() )
 					)->parse() . "</li>\n";
 				} else {
-					if ( is_bool( $args ) )
+					if ( is_bool( $args ) ) {
 						$args = array();
-					elseif ( !is_array( $args ) ) {
+					} elseif ( !is_array( $args ) ) {
 						$args = array( $args );
 					}
 					$msg = "\t<li>" . wfMessage( $warning, $args )->parse() . "</li>\n";
@@ -321,17 +325,19 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	protected function processUpload() {
 		// Verify permissions
 		$permErrors = $this->mUpload->verifyPermissions( $this->getUser() );
-		if ( $permErrors !== true )
+		if ( $permErrors !== true ) {
 			return $this->getOutput()->showPermissionsErrorPage( $permErrors );
+		}
 
 		// Fetch the file if required
 		$status = $this->mUpload->fetchFile();
-		if ( !$status->isOK() )
+		if ( !$status->isOK() ) {
 			return $this->showUploadForm( $this->getUploadForm( $this->getOutput()->parse( $status->getWikiText() ) ) );
+		}
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		if( !Hooks::run( 'UploadForm:BeforeProcessing', array( &$page ) ) ) {
+		if ( !Hooks::run( 'UploadForm:BeforeProcessing', array( &$page ) ) ) {
 			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
 			// This code path is deprecated. If you want to break upload processing
 			// do so by hooking into the appropriate hooks in UploadBase::verifyUpload
@@ -343,16 +349,18 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		// Upload verification
 		$details = $this->mUpload->verifyUpload();
-		if ( $details['status'] != UploadBase::OK )
+		if ( $details['status'] != UploadBase::OK ) {
 			return $this->processVerificationError( $details );
+		}
 
 		$this->mLocalFile = $this->mUpload->getLocalFile();
 
 		// Check warnings if necessary
 		if ( !$this->mIgnoreWarning ) {
 			$warnings = $this->mUpload->checkWarnings();
-			if ( count( $warnings ) )
+			if ( count( $warnings ) ) {
 				return $this->uploadWarning( $warnings );
+			}
 		}
 
 		// Get the page text if this is not a reupload
@@ -363,8 +371,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			$pageText = false;
 		}
 		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchthis, $this->getUser() );
-		if ( !$status->isGood() )
+		if ( !$status->isGood() ) {
 			return $this->uploadError( $this->getOutput()->parse( $status->getWikiText() ) );
+		}
 
 		// $this->getOutput()->redirect( $this->mLocalFile->getTitle()->getFullURL() );
 		// Page Forms change - output Javascript to either
@@ -386,7 +395,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		// Actually, this doesn't seem to fix the encoding in IE
 		// any more... and it messes up the encoding for all other
 		// browsers. @TODO - fix handling in IE!
-		//$basename = utf8_decode( $basename );
+		// $basename = utf8_decode( $basename );
 
 		$output = <<<END
 		<script type="text/javascript">
@@ -447,15 +456,15 @@ END;
 			if ( $license !== '' ) {
 				$licensetxt = '== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
 			}
-			$pageText = '== ' . wfMessage ( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n" .
-			  '== ' . wfMessage( 'filestatus' )->inContentLanguage()->text() . " ==\n" . $copyStatus . "\n" .
-			  "$licensetxt" .
-			  '== ' . wfMessage( 'filesource' )->inContentLanguage()->text() . " ==\n" . $source ;
+			$pageText = '== ' . wfMessage( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n" .
+				'== ' . wfMessage( 'filestatus' )->inContentLanguage()->text() . " ==\n" . $copyStatus . "\n" .
+				"$licensetxt" .
+				'== ' . wfMessage( 'filesource' )->inContentLanguage()->text() . " ==\n" . $source;
 		} else {
 			if ( $license !== '' ) {
 				$filedesc = $comment === '' ? '' : '== ' . wfMessage( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n";
-				 $pageText = $filedesc .
-					 '== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
+				$pageText = $filedesc .
+					'== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
 			} else {
 				$pageText = $comment;
 			}
@@ -491,7 +500,6 @@ END;
 		}
 	}
 
-
 	/**
 	 * Provides output to the user for a result of UploadBase::verifyUpload
 	 *
@@ -501,8 +509,7 @@ END;
 	protected function processVerificationError( $details ) {
 		global $wgFileExtensions;
 
-		switch( $details['status'] ) {
-
+		switch ( $details['status'] ) {
 			/** Statuses that only require name changing **/
 			case UploadBase::MIN_LENGTH_PARTNAME:
 				$this->recoverableUploadError( wfMessage( 'minlength1' )->escaped() );
@@ -520,7 +527,7 @@ END;
 
 			/** Statuses that require reuploading **/
 			case UploadBase::FILE_TOO_LARGE:
-				$this->showUploadForm(  $this->getUploadForm( wfMessage( 'file-too-large' )->escaped() ) );
+				$this->showUploadForm( $this->getUploadForm( wfMessage( 'file-too-large' )->escaped() ) );
 				break;
 			case UploadBase::EMPTY_FILE:
 				$this->showUploadForm( $this->getUploadForm( wfMessage( 'emptyfile' )->escaped() ) );
@@ -557,8 +564,9 @@ END;
 	 * @return success
 	 */
 	protected function unsaveUploadedFile() {
-		if ( !( $this->mUpload instanceof UploadFromStash ) )
+		if ( !( $this->mUpload instanceof UploadFromStash ) ) {
 			return true;
+		}
 		$success = $this->mUpload->unsaveUploadedFile();
 		if ( ! $success ) {
 			$this->getOutput()->showFileDeleteError( $this->mUpload->getTempPath() );
@@ -579,8 +587,9 @@ END;
 	 * consisting of one or more <li> elements if there is a warning.
 	 */
 	public static function getExistsWarning( $exists ) {
-		if ( !$exists )
+		if ( !$exists ) {
 			return '';
+		}
 
 		$file = $exists['file'];
 		$filename = $file->getTitle()->getPrefixedText();

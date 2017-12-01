@@ -72,7 +72,7 @@ class PFCreateCategory extends SpecialPage {
 				// Redirect to wiki interface
 				$out->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
-				$full_text = PFCreateCategory::createCategoryText( $default_form, $category_name, $parent_category );
+				$full_text = self::createCategoryText( $default_form, $category_name, $parent_category );
 				$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
 				$out->addHTML( $text );
 				return;

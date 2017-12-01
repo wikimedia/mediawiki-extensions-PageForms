@@ -56,8 +56,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 				array_key_exists( 'value_labels', $this->mOtherArgs ) &&
 				is_array( $this->mOtherArgs['value_labels'] ) &&
 				array_key_exists( $possible_value, $this->mOtherArgs['value_labels'] )
-			)
-			{
+			) {
 				$optionLabel = $this->mOtherArgs['value_labels'][$possible_value];
 			} else {
 				$optionLabel = $possible_value;

@@ -86,7 +86,7 @@ $GLOBALS['wgExtensionCredits']['specialpage'][] = array(
 # seen from the web. Change it if required ($wgScriptPath is the
 # path to the base directory of your wiki). No final slash.
 # #
-$GLOBALS['wgExtensionFunctions'][] = function() {
+$GLOBALS['wgExtensionFunctions'][] = function () {
 	$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
 	$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
 };
@@ -97,13 +97,13 @@ $GLOBALS['wgExtensionFunctions'][] = function() {
 # seen on your local filesystem. Used against some PHP file path
 # issues.
 # #
-$GLOBALS['wgPageFormsIP'] = dirname( __FILE__ );
+$GLOBALS['wgPageFormsIP'] = __DIR__;
 # #
 
 // Sometimes this call needs to be delayed, and sometimes it shouldn't be
 // delayed. Is it just the precense of SMW that dictates which one's the case??
 if ( defined( 'SMW_VERSION' ) ) {
-	$GLOBALS['wgExtensionFunctions'][] = function() {
+	$GLOBALS['wgExtensionFunctions'][] = function () {
 		// This global variable is needed so that other extensions can
 		// hook into it to add their own input types.
 		$GLOBALS['wgPageFormsFormPrinter'] = new StubObject( 'wgPageFormsFormPrinter', 'PFFormPrinter' );
@@ -132,7 +132,7 @@ if ( defined( 'SMW_VERSION' ) ) {
 	// Admin Links hook needs to be called in a delayed way so that it
 	// will always be called after SMW's Admin Links addition; as of
 	// SMW 1.9, SMW delays calling all its hook functions.
-	$GLOBALS['wgExtensionFunctions'][] = function() {
+	$GLOBALS['wgExtensionFunctions'][] = function () {
 		$GLOBALS['wgHooks']['AdminLinks'][] = 'PFHooks::addToAdminLinks';
 	};
 } else {
@@ -376,7 +376,7 @@ $GLOBALS['wgResourceModules'] += array(
 		'scripts' => array(
 			'libs/PF_simpleupload.js'
 		),
-        'messages' => array(
+		'messages' => array(
 			'pf_forminputs_change_file',
 			'pf-simpleupload'
 		),

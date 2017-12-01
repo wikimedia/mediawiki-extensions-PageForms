@@ -38,7 +38,7 @@ class PFDateInput extends PFFormInput {
 				// Pad out month to always be two digits.
 				$month_value = ( $wgAmericanDates == true ) ? $name : str_pad( $i, 2, '0', STR_PAD_LEFT );
 			}
-			$optionAttrs = array ( 'value' => $month_value );
+			$optionAttrs = array( 'value' => $month_value );
 			if ( $name == $cur_month || $i == $cur_month ) {
 				$optionAttrs['selected'] = 'selected';
 			}

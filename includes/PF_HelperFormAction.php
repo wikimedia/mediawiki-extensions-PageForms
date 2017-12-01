@@ -2,7 +2,7 @@
 /**
  * Handles the formcreate action - used for helper forms for creating
  * properties, forms, etc..
- * 
+ *
  * @author Yaron Koren
  * @file
  * @ingroup PF
@@ -17,7 +17,7 @@ class PFHelperFormAction extends Action {
 	public function getName() {
 		return 'formcreate';
 	}
-	
+
 	/**
 	 * The main action entry point.  Do all output for display and send it to the context
 	 * output.  Do not use globals $wgOut, $wgRequest, etc, in implementations; use
@@ -41,7 +41,7 @@ class PFHelperFormAction extends Action {
 	 * a form
 	 */
 	static function displayTab( $obj, &$content_actions ) {
-		if ( method_exists ( $obj, 'getTitle' ) ) {
+		if ( method_exists( $obj, 'getTitle' ) ) {
 			$title = $obj->getTitle();
 		} else {
 			$title = $obj->mTitle;

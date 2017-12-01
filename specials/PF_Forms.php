@@ -38,7 +38,7 @@ class FormsPage extends QueryPage {
 	public function __construct( $name = 'Forms' ) {
 		parent::__construct( $name );
 	}
-	
+
 	function getName() {
 		return "Forms";
 	}

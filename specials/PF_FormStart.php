@@ -66,8 +66,9 @@ class PFFormStart extends SpecialPage {
 			if ( $page_name !== '' ) {
 				// Append the namespace prefix to the page name,
 				// if this namespace was not already entered.
-				if ( strpos( $page_name, $target_namespace . ':' ) === false && !is_null( $target_namespace ) )
+				if ( strpos( $page_name, $target_namespace . ':' ) === false && !is_null( $target_namespace ) ) {
 					$page_name = $target_namespace . ':' . $page_name;
+				}
 				// If there was no page title, it's probably an
 				// invalid page name, containing forbidden
 				// characters - in that case, display an error
@@ -88,8 +89,7 @@ class PFFormStart extends SpecialPage {
 		} else {
 			if ( $form_name === '' ) {
 				$description = wfMessage( 'pf_formstart_noform_docu', $form_name )->escaped();
-			}
-			else {
+			} else {
 				$description = wfMessage( 'pf_formstart_docu', $form_name )->escaped();
 			}
 
@@ -101,8 +101,9 @@ class PFFormStart extends SpecialPage {
 END;
 			// If no form was specified, display a dropdown letting
 			// the user choose the form.
-			if ( $form_name === '' )
+			if ( $form_name === '' ) {
 				$text .= PFUtils::formDropdownHTML();
+			}
 
 			$text .= "\t</p>\n";
 			$text .= Html::hidden( 'namespace', $target_namespace );
@@ -117,7 +118,7 @@ END;
 	/**
 	 * Helper function - returns a URL that includes Special:FormEdit.
 	 */
-	static function getFormEditURL( $formName, $targetName) {
+	static function getFormEditURL( $formName, $targetName ) {
 		$fe = SpecialPageFactory::getPage( 'FormEdit' );
 		// Special handling for forms whose name contains a slash.
 		if ( strpos( $formName, '/' ) !== false ) {

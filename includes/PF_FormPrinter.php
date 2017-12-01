@@ -60,7 +60,7 @@ class PFFormPrinter {
 		$this->registerInputType( 'PFRatingInput' );
 		// Add this if the Semantic Maps extension is not
 		// included, or if it's SM (really Maps) v4.0 or higher.
-		if( !$wgPageFormsDisableOutsideServices ) {
+		if ( !$wgPageFormsDisableOutsideServices ) {
 			if ( !defined( 'SM_VERSION' ) || version_compare( SM_VERSION, '4.0', '>=' ) ) {
 				$this->registerInputType( 'PFGoogleMapsInput' );
 			}
@@ -158,12 +158,12 @@ class PFFormPrinter {
 		//
 		// $initJSFunction = call_user_func( array( $inputTypeClass, 'getJsInitFunctionData' ) );
 		// if ( !is_null( $initJSFunction ) ) {
-		//		$wgPageFormsInitJSFunctions[] = $initJSFunction;
+		// 	$wgPageFormsInitJSFunctions[] = $initJSFunction;
 		// }
 		//
 		// $validationJSFunctions = call_user_func( array( $inputTypeClass, 'getJsValidationFunctionData' ) );
 		// if ( count( $validationJSFunctions ) > 0 ) {
-		//		$wgPageFormsValidationJSFunctions = array_merge( $wgPageFormsValidationJSFunctions, $initJSFunction );
+		// 	$wgPageFormsValidationJSFunctions = array_merge( $wgPageFormsValidationJSFunctions, $initJSFunction );
 		// }
 	}
 
@@ -593,14 +593,24 @@ END;
 			}
 			$year = $value['year'];
 			$hour = $minute = $second = $ampm24h = $timezone = null;
-			if ( isset( $value['hour'] ) ) $hour = $value['hour'];
-			if ( isset( $value['minute'] ) ) $minute = $value['minute'];
-			if ( isset( $value['second'] ) ) $second = $value['second'];
-			if ( isset( $value['ampm24h'] ) ) $ampm24h = $value['ampm24h'];
-			if ( isset( $value['timezone'] ) ) $timezone = $value['timezone'];
-			//if ( $month !== '' && $day !== '' && $year !== '' ) {
+			if ( isset( $value['hour'] ) ) {
+				$hour = $value['hour'];
+			}
+			if ( isset( $value['minute'] ) ) {
+				$minute = $value['minute'];
+			}
+			if ( isset( $value['second'] ) ) {
+				$second = $value['second'];
+			}
+			if ( isset( $value['ampm24h'] ) ) {
+				$ampm24h = $value['ampm24h'];
+			}
+			if ( isset( $value['timezone'] ) ) {
+				$timezone = $value['timezone'];
+			}
+			// if ( $month !== '' && $day !== '' && $year !== '' ) {
 			// We can accept either year, or year + month, or year + month + day.
-			//if ( $month !== '' && $day !== '' && $year !== '' ) {
+			// if ( $month !== '' && $day !== '' && $year !== '' ) {
 			if ( $year !== '' ) {
 				// special handling for American dates - otherwise, just
 				// the standard year/month/day (where month is a number)
@@ -749,7 +759,7 @@ END;
 			// The handling of $wgReadOnly and $wgReadOnlyFile
 			// has to be done separately.
 			if ( wfReadOnly() ) {
-				$permissionErrors = array( array( 'readonlytext', array ( wfReadOnlyReason() ) ) );
+				$permissionErrors = array( array( 'readonlytext', array( wfReadOnlyReason() ) ) );
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
 			Hooks::run( 'PageForms::UserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
@@ -777,9 +787,9 @@ END;
 			}
 		}
 
-//		$oldParser = $wgParser;
+		// $oldParser = $wgParser;
 
-//		$wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
+		// $wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
 		if ( !$wgParser->Options() ) {
 			$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
 		}
@@ -917,7 +927,6 @@ END;
 				// field processing
 				// =====================================================
 				} elseif ( $tag_title == 'field' ) {
-
 					// If the template is null, that (hopefully)
 					// means we're handling the free text field.
 					// Make the template a dummy variable.
@@ -1107,8 +1116,8 @@ END;
 						if ( $form_field->getDefaultValue() == 'current user' &&
 							// if the date is hidden, cur_value will already be set
 							// to the default value
-							( $cur_value === '' || $cur_value == 'current user' ) ) {
-
+							( $cur_value === '' || $cur_value == 'current user' )
+						) {
 							$cur_value_in_template = $wgUser->getName();
 							$cur_value = $cur_value_in_template;
 						}
@@ -1179,7 +1188,7 @@ END;
 								$is_checked = true;
 							}
 						} elseif ( count( $sub_components ) == 2 ) {
-							switch( $sub_components[0] ) {
+							switch ( $sub_components[0] ) {
 							case 'label':
 								$input_label = $wgParser->recursiveTagParse( $sub_components[1] );
 								break;
@@ -1571,7 +1580,7 @@ END;
 			$form_page_title = null;
 		}
 
-//		$wgParser = $oldParser;
+		// $wgParser = $oldParser;
 
 		return array( $form_text, $page_text, $form_page_title, $generated_page_name );
 	}

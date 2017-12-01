@@ -57,7 +57,6 @@ class PFWikiPageTemplate {
 				$this->addUnhandledParam( $paramName, $value );
 			}
 		}
-
 	}
 
 	function getName() {

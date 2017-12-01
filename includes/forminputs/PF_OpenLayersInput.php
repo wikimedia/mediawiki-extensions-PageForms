@@ -81,9 +81,9 @@ class PFOpenLayersInput extends PFFormInput {
 		// For now, let's just not do this, since the Google Maps
 		// input is much more widely used anyway.
 		// @TODO - add this in.
-		//$wgPageFormsTabIndex++;
-		//$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'tabindex' => $wgPageFormsTabIndex, 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
-		//$addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ), null );
+		// $wgPageFormsTabIndex++;
+		// $addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'tabindex' => $wgPageFormsTabIndex, 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
+		// $addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ), null );
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
 		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'id' => 'pfMapCanvas' . $wgPageFormsFieldNum, 'style' => "height: $height; width: $width;" ), null );

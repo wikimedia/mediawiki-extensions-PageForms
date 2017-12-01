@@ -339,7 +339,7 @@ class PFFormField {
 		}
 
 		// If we're using Cargo, there's no equivalent for "values from
-		// property" - instead, we just always get the values if a 
+		// property" - instead, we just always get the values if a
 		// field and table have been specified.
 		if ( is_null( $f->mPossibleValues ) && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
 			// We only want the non-null values. Ideally this could
@@ -431,8 +431,8 @@ class PFFormField {
 		$escaped_field_name = str_replace( "'", "\'", $field_name );
 		if ( isset( $template_instance_query_values ) &&
 			$template_instance_query_values != null &&
-			is_array( $template_instance_query_values ) ) {
-
+			is_array( $template_instance_query_values )
+		) {
 			// If the field name contains an apostrophe, the array
 			// sometimes has the apostrophe escaped, and sometimes
 			// not. For now, just check for both versions.
@@ -758,7 +758,9 @@ class PFFormField {
 			$text .= "! $fieldLabel: $descPlaceholder\n";
 		}
 
-		if ( ! $part_of_multiple ) { $text .= "| "; }
+		if ( ! $part_of_multiple ) {
+			$text .= "| ";
+		}
 		$text .= "{{{field|" . $this->template_field->getFieldName();
 		if ( $this->mIsHidden ) {
 			$text .= "|hidden";
@@ -818,7 +820,7 @@ class PFFormField {
 			$other_args['full_cargo_field'] = $fullCargoField;
 		}
 
-		if( $this->template_field->getFieldType() == 'Hierarchy' ) {
+		if ( $this->template_field->getFieldType() == 'Hierarchy' ) {
 			$other_args['structure'] = $this->template_field->getHierarchyStructure();
 		}
 

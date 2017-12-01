@@ -31,7 +31,7 @@ class PFValuesUtils {
 			} elseif ( $value instanceof SMWDIWikiPage ) {
 				$realValue = str_replace( '_', ' ', $value->getDBKey() );
 				if ( $value->getNamespace() != 0 ) {
-					$realValue = MWNamespace::getCanonicalName($value->getNamespace()) . ":$realValue";
+					$realValue = MWNamespace::getCanonicalName( $value->getNamespace() ) . ":$realValue";
 				}
 				$values[] = $realValue;
 			} else {
@@ -114,7 +114,7 @@ class PFValuesUtils {
 		// to switch to remote autocompletion.
 		// (We increment by 10, to be on the safe side, since some values
 		// can be null, etc.)
-		$limitStr = max( 100, $wgPageFormsMaxLocalAutocompleteValues + 10);
+		$limitStr = max( 100, $wgPageFormsMaxLocalAutocompleteValues + 10 );
 
 		try {
 			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );
@@ -226,14 +226,14 @@ class PFValuesUtils {
 							}
 							$cur_value = PFUtils::titleString( $cur_title );
 							if ( ! in_array( $cur_value, $pages ) ) {
-								if ( array_key_exists( 'pp_displaytitle_value' , $row ) &&
+								if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 									!is_null( $row[ 'pp_displaytitle_value' ] ) &&
 									trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
 									$pages[ $cur_value ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
 								} else {
 									$pages[ $cur_value ] = $cur_value;
 								}
-								if ( array_key_exists( 'pp_defaultsort_value' , $row ) &&
+								if ( array_key_exists( 'pp_defaultsort_value', $row ) &&
 									!is_null( $row[ 'pp_defaultsort_value' ] ) ) {
 									$sortkeys[ $cur_value ] = $row[ 'pp_defaultsort_value'];
 								} else {
@@ -441,14 +441,14 @@ class PFValuesUtils {
 		$sortkeys = array();
 		while ( $row = $db->fetchRow( $res ) ) {
 			$title = str_replace( '_', ' ', $row[0] );
-			if ( array_key_exists( 'pp_displaytitle_value' , $row ) &&
+			if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 				!is_null( $row[ 'pp_displaytitle_value' ] ) &&
 				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
 				$pages[ $title ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
 			} else {
 				$pages[ $title ] = $title;
 			}
-			if ( array_key_exists( 'pp_defaultsort_value' , $row ) &&
+			if ( array_key_exists( 'pp_defaultsort_value', $row ) &&
 				!is_null( $row[ 'pp_defaultsort_value' ] ) ) {
 				$sortkeys[ $title ] = $row[ 'pp_defaultsort_value'];
 			} else {

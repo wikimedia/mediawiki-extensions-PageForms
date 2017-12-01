@@ -37,7 +37,9 @@ class PFTree {
 			for ( $i = 0; $i < strlen( $line ) && $line[$i] == '*'; $i++ ) {
 				$numBullets++;
 			}
-			if ( $numBullets == 0 ) continue;
+			if ( $numBullets == 0 ) {
+				continue;
+			}
 			$lineText = trim( substr( $line, $numBullets ) );
 			$curParentNode = $fullTree->getLastNodeForLevel( $numBullets );
 			$curParentNode->addChild( new PFTree( $lineText ) );
@@ -68,9 +70,11 @@ class PFTree {
 	 * Recursive function to populate a tree based on category information.
 	 */
 	private function populateChildren( $depth ) {
-		if ( $depth == 0 ) return;
+		if ( $depth == 0 ) {
+			return;
+		}
 		$subcats = self::getSubcategories( $this->title );
-		foreach( $subcats as $subcat ) {
+		foreach ( $subcats as $subcat ) {
 			$childTree = new PFTree( $subcat );
 			$childTree->populateChildren( $depth - 1 );
 			$this->addChild( $childTree );

@@ -20,7 +20,7 @@ class PFCreatePageJob extends Job {
 
 	/**
 	 * Run a createPage job
-	 * @return boolean success
+	 * @return bool success
 	 */
 	function run() {
 		if ( is_null( $this->title ) ) {

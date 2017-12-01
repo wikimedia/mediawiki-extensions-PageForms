@@ -64,7 +64,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			$wgOut->setArticleBodyOnly( true );
 		}
 
-		list ( $form_text, $data_text, $form_page_title ) =
+		list( $form_text, $data_text, $form_page_title ) =
 			$wgPageFormsFormPrinter->formHTML( $form_definition, $form_submitted, false, $form_title->getArticleID(), $content, null, null, true, $embedded );
 		$text = "";
 
@@ -72,7 +72,6 @@ class PFRunQuery extends IncludableSpecialPage {
 		$resultsText = '';
 
 		if ( $form_submitted ) {
-
 			// @TODO - fix RunQuery's parsing so that this check
 			// isn't needed.
 			if ( $wgParser->getOutput() == null ) {
@@ -143,7 +142,7 @@ END;
 			$po = $wgParser->getOutput();
 			if ( $po ) {
 				// addParserOutputMetadata was introduced in 1.24 when addParserOutputNoText was deprecated
-				if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+				if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
 					$wgOut->addParserOutputMetadata( $po );
 				} else {
 					$wgOut->addParserOutputNoText( $po );

@@ -23,16 +23,16 @@ class PFPageSchemas extends PSExtensionHandler {
 	public static function createPageSchemasObject( $tagName, $xml ) {
 		$pfarray = array();
 
-		if( $tagName == "standardInputs" ) {
+		if ( $tagName == "standardInputs" ) {
 			foreach ( $xml->children() as $tag => $child ) {
-					foreach ( $child->children() as $tag => $formelem ) {
-						if ( $tag == $tagName ) {
-							foreach( $formelem->attributes() as $attr => $name) {
-								$pfarray[$attr] = (string)$formelem->attributes()->$attr;
-							}
+				foreach ( $child->children() as $tag => $formelem ) {
+					if ( $tag == $tagName ) {
+						foreach ( $formelem->attributes() as $attr => $name ) {
+							$pfarray[$attr] = (string)$formelem->attributes()->$attr;
 						}
 					}
-					return $pfarray;
+				}
+				return $pfarray;
 			}
 		}
 
@@ -68,7 +68,7 @@ class PFPageSchemas extends PSExtensionHandler {
 							if ( (string)$prop->attributes()->name == '' ) {
 								$pfarray[$prop->getName()] = (string)$prop;
 							} else {
-							$pfarray[(string)$prop->attributes()->name] = (string)$prop;
+								$pfarray[(string)$prop->attributes()->name] = (string)$prop;
 							}
 						}
 					}
@@ -88,7 +88,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		// Quick check: if the "form name" field hasn't been sent,
 		// it means the main "Form" checkbox wasn't selected; don't
 		// create any XML if so.
-		if ( !$wgRequest->getCheck( 'pf_form_name') ) {
+		if ( !$wgRequest->getCheck( 'pf_form_name' ) ) {
 			return '';
 		}
 
@@ -299,7 +299,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$createTitle = PageSchemas::getValueFromObject( $form_array, 'CreateTitle' );
 		$editTitle = PageSchemas::getValueFromObject( $form_array, 'EditTitle' );
 
-		//Inputs
+		// Inputs
 		if ( !is_null( $pageSchemaObj ) ) {
 			$standardInputs = $pageSchemaObj->getObject( 'standardInputs' );
 		} else {
@@ -326,12 +326,12 @@ class PFPageSchemas extends PSExtensionHandler {
 
 		$text .= "Free text label: " . Html::input( 'pf_fi_free_text_label', ( ( empty( $freeTextLabel ) ) ? wfMessage( 'pf_form_freetextlabel' )->inContentLanguage()->text() : $freeTextLabel ), 'text' ) . "</p><p>";
 
-		//Inputs
+		// Inputs
 		$text .= "<p>Define form buttons and inputs (all will be enabled if none are selected): &nbsp;</p><p>";
 
 		// Free text
 		$text .= '<span>';
-		$text .= Html::input( 'pf_fi_free_text', '1', 'checkbox', array( 'id' => 'pf_fi_free_text', 'checked' => ( isset( $standardInputs['inputFreeText'])) ? $standardInputs['inputFreeText'] : null ) );
+		$text .= Html::input( 'pf_fi_free_text', '1', 'checkbox', array( 'id' => 'pf_fi_free_text', 'checked' => ( isset( $standardInputs['inputFreeText'] ) ) ? $standardInputs['inputFreeText'] : null ) );
 		$text .= Html::rawElement( 'label', array( 'for' => 'pf_fi_free_text' ), 'Free text input' );
 		$text .= "&nbsp;</span>";
 		// Summary
@@ -687,8 +687,9 @@ class PFPageSchemas extends PSExtensionHandler {
 		}
 
 		$freeTextLabel = null;
-		if ( array_key_exists( 'freeTextLabel', $formDataFromSchema ) )
+		if ( array_key_exists( 'freeTextLabel', $formDataFromSchema ) ) {
 			$freeTextLabel = $formDataFromSchema['freeTextLabel'];
+		}
 
 		$form = PFForm::create( $formName, $formItems );
 		$form->setAssociatedCategory( $categoryName );
@@ -812,7 +813,7 @@ class PFPageSchemas extends PSExtensionHandler {
 				$psPageSection = $psFormItem['item'];
 				$form_section = self::getPageSection( $psPageSection );
 				$form_section->setSectionLevel( $psPageSection->getSectionLevel() );
-				$form_items[] = array( 'type' => 'section', 'name'=> $form_section->getSectionName(), 'item' => $form_section );
+				$form_items[] = array( 'type' => 'section', 'name' => $form_section->getSectionName(), 'item' => $form_section );
 			}
 
 		}

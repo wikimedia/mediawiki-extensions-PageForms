@@ -85,7 +85,7 @@ class PFTokensInput extends PFFormInput {
 				$image_param = $other_args['image'];
 				$wgPageFormsEDSettings[$name]['image'] = $image_param;
 				global $edgValues;
-				for ($i = 0; $i < count($edgValues[$image_param]); $i++) {
+				for ( $i = 0; $i < count( $edgValues[$image_param] ); $i++ ) {
 					$image = $edgValues[$image_param][$i];
 					if ( strpos( $image, "http" ) !== 0 ) {
 						$file = wfFindFile( $image );
@@ -174,7 +174,6 @@ class PFTokensInput extends PFFormInput {
 
 		return $text;
 	}
-
 
 	public static function getParameters() {
 		$params = parent::getParameters();

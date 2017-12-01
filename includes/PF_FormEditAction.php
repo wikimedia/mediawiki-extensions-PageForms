@@ -44,7 +44,7 @@ class PFFormEditAction extends Action {
 	 * a form
 	 */
 	static function displayTab( $obj, &$content_actions ) {
-		if ( method_exists ( $obj, 'getTitle' ) ) {
+		if ( method_exists( $obj, 'getTitle' ) ) {
 			$title = $obj->getTitle();
 		} else {
 			$title = $obj->mTitle;
@@ -171,7 +171,7 @@ class PFFormEditAction extends Action {
 			}
 		}
 		$otherForms = array();
-		foreach( $formNames as $i => $formName ) {
+		foreach ( $formNames as $i => $formName ) {
 			if ( !in_array( $formName, $popularForms ) ) {
 				$otherForms[] = $formName;
 			}
@@ -188,7 +188,7 @@ class PFFormEditAction extends Action {
 				) );
 			}
 			$text = self::printLinksToFormArray( $popularForms, $targetName, $fe );
-			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage mainForms'  ), $text ) );
+			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage mainForms' ), $text ) );
 		}
 
 		if ( count( $otherForms ) > 0 ) {
@@ -257,7 +257,7 @@ class PFFormEditAction extends Action {
 
 	static function printLinksToFormArray( $formNames, $targetName, $fe ) {
 		$text = '';
-		foreach( $formNames as $i => $formName ) {
+		foreach ( $formNames as $i => $formName ) {
 			if ( $i > 0 ) {
 				$text .= " &middot; ";
 			}

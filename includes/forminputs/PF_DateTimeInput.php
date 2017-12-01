@@ -112,7 +112,9 @@ class PFDateTimeInput extends PFDateInput {
 			$ampm24h_options = array( '', 'AM', 'PM' );
 			foreach ( $ampm24h_options as $value ) {
 				$text .= "				<option value=\"$value\"";
-				if ( $value == $ampm24h ) { $text .= " selected=\"selected\""; }
+				if ( $value == $ampm24h ) {
+					$text .= " selected=\"selected\"";
+				}
 				$text .= ">$value</option>\n";
 			}
 			$text .= "	</select>\n";

@@ -61,7 +61,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 		return $text;
 	}
 
-	function printForm( $form_name, $targetName, $alt_forms = array( ) ) {
+	function printForm( $form_name, $targetName, $alt_forms = array() ) {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
@@ -78,7 +78,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 			} else {
 				$module->setOption( 'preload', false );
 			}
-		} elseif ( !empty( $targetName ) && Title::newFromText( $targetName )->exists ( ) ) {
+		} elseif ( !empty( $targetName ) && Title::newFromText( $targetName )->exists() ) {
 			// If target page exists, do not overwrite it with
 			// preload data; just preload the page's data.
 			$module->setOption( 'preload', true );
@@ -111,8 +111,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 			}
 
 			if ( array_key_exists( 'errors', $resultData ) ) {
-
-				foreach ($resultData['errors'] as $error) {
+				foreach ( $resultData['errors'] as $error ) {
 					// FIXME: This should probably not be hard-coded to WARNING but put into a setting
 					if ( $error[ 'level' ] <= PFAutoeditAPI::WARNING ) {
 						$text .= Html::rawElement( 'p', array( 'class' => 'error' ), $error[ 'message' ] ) . "\n";
@@ -126,11 +125,9 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$result = $module->getOptions();
 		$targetTitle = Title::newFromText( $result[ 'target' ] );
 
-
 		// Set page title depending on whether an explicit title was
 		// specified in the form definition.
 		if ( array_key_exists( 'formtitle', $result ) ) {
-
 			// set page title depending on whether the target page exists
 			if ( empty( $targetName ) ) {
 				$pageTitle = $result[ 'formtitle' ];
@@ -155,7 +152,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 			// "Creating ..." and "Create ...", respectively.
 			// Does this make any difference? Who knows.
 			$pageTitle = wfMessage( 'creating', $targetName )->text();
-		} elseif ( $result[ 'form' ] == '' ) {  //FIXME: This looks weird; a simple else should be enough, right?
+		} elseif ( $result[ 'form' ] == '' ) {  // FIXME: This looks weird; a simple else should be enough, right?
 			// display error message if the form is not specified in the URL
 			$pageTitle = wfMessage( 'formedit' )->text();
 			$text .= Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'pf_formedit_badurl' )->text() ) . "\n";

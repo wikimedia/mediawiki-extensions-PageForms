@@ -116,7 +116,7 @@ class PFHooks {
 	 *
 	 * @since 2.4.1
 	 *
-	 * @param array $list
+	 * @param array &$list
 	 *
 	 * @return true
 	 */
@@ -158,7 +158,7 @@ class PFHooks {
 		global $wgPageFormsShowOnSelect, $wgPageFormsScriptPath;
 		global $edgValues, $wgPageFormsEDSettings;
 		global $wgAmericanDates;
-		//global $wgPageFormsInitJSFunctions, $wgPageFormsValidationJSFunctions;
+		// global $wgPageFormsInitJSFunctions, $wgPageFormsValidationJSFunctions;
 
 		$vars['wgPageFormsAutocompleteValues'] = $wgPageFormsAutocompleteValues;
 		$vars['wgPageFormsAutocompleteOnAllChars'] = $wgPageFormsAutocompleteOnAllChars;
@@ -172,8 +172,8 @@ class PFHooks {
 		$vars['edgValues'] = $edgValues;
 		$vars['wgPageFormsEDSettings'] = $wgPageFormsEDSettings;
 		$vars['wgAmericanDates'] = $wgAmericanDates;
-		//$vars['wgPageFormsInitJSFunctions'] = $wgPageFormsInitJSFunctions;
-		//$vars['wgPageFormsValidationJSFunctions'] = $wgPageFormsValidationJSFunctions;
+		// $vars['wgPageFormsInitJSFunctions'] = $wgPageFormsInitJSFunctions;
+		// $vars['wgPageFormsValidationJSFunctions'] = $wgPageFormsValidationJSFunctions;
 
 		return true;
 	}
@@ -205,8 +205,8 @@ class PFHooks {
 			// If SMW is not installed, don't bother with a "links
 			// to the documentation" row - it would only have one
 			// link.
-			//$smw_docu_row = new ALRow( 'smw_docu' );
-			//$data_structure_section->addRow( $smw_docu_row );
+			// $smw_docu_row = new ALRow( 'smw_docu' );
+			// $data_structure_section->addRow( $smw_docu_row );
 			$admin_links_tree->addSection( $data_structure_section, wfMessage( 'adminlinks_browsesearch' )->text() );
 		} else {
 			$smw_row = $data_structure_section->getRow( 'smw' );
@@ -249,11 +249,11 @@ class PFHooks {
 			'<div class="previewnote" style="font-weight: bold">' . $wgOut->parse( wfMessage( 'pf-preview-note' )->text() ) . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
-		list ( $form_text, $data_text, $form_page_title, $generated_page_name ) =
+		list( $form_text, $data_text, $form_page_title, $generated_page_name ) =
 			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
 
 		$parserOutput = $wgParser->getOutput();
-		if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+		if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
 			$wgOut->addParserOutputMetadata( $parserOutput );
 		} else {
 			$wgOut->addParserOutputNoText( $parserOutput );
@@ -270,7 +270,7 @@ class PFHooks {
 	 * Hook to add PHPUnit test cases.
 	 * From https://www.mediawiki.org/wiki/Manual:PHP_unit_testing/Writing_unit_tests_for_extensions
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function onUnitTestsList( &$files ) {
 		$testDir = dirname( __DIR__ ) . '/tests/phpunit/includes';

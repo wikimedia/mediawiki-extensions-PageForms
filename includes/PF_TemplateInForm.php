@@ -165,12 +165,16 @@ class PFTemplateInForm {
 		// For now, HTML for templates differs for multiple-instance
 		// templates; this may change if handling of form definitions
 		// gets more sophisticated.
-		if ( ! $this->mAllowMultiple ) { $text .= "{| class=\"formtable\"\n"; }
+		if ( ! $this->mAllowMultiple ) {
+			$text .= "{| class=\"formtable\"\n";
+		}
 		foreach ( $this->mFields as $i => $field ) {
 			$is_last_field = ( $i == count( $this->mFields ) - 1 );
 			$text .= $field->createMarkup( $this->mAllowMultiple, $is_last_field );
 		}
-		if ( ! $this->mAllowMultiple ) { $text .= "|}\n"; }
+		if ( ! $this->mAllowMultiple ) {
+			$text .= "|}\n";
+		}
 		$text .= "{{{end template}}}\n";
 		return $text;
 	}
@@ -239,7 +243,7 @@ class PFTemplateInForm {
 		$query_template_name = str_replace( '.', '_', $query_template_name );
 		// ...and escape apostrophes.
 		// (Or don't.)
-		//$query_template_name = str_replace( "'", "\'", $query_template_name );
+		// $query_template_name = str_replace( "'", "\'", $query_template_name );
 
 		$allValuesFromSubmit = $wgRequest->getArray( $query_template_name );
 		if ( is_null( $allValuesFromSubmit ) ) {

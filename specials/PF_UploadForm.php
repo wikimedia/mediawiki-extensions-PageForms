@@ -23,7 +23,7 @@ class PFUploadForm extends HTMLForm {
 	protected $mSessionKey;
 	protected $mHideIgnoreWarning;
 	protected $mDestWarningAck;
-	
+
 	protected $mSourceIds;
 
 	public function __construct( $options = array() ) {
@@ -54,19 +54,19 @@ class PFUploadForm extends HTMLForm {
 		# Build a list of IDs for javascript insertion
 		$this->mSourceIds = array();
 		foreach ( $sourceDescriptor as $key => $field ) {
-			if ( !empty( $field['id'] ) )
+			if ( !empty( $field['id'] ) ) {
 				$this->mSourceIds[] = $field['id'];
+			}
 		}
 		// added for Page Forms
 		$this->addHiddenField( 'pfInputID', $options['pfInputID'] );
 		$this->addHiddenField( 'pfDelimiter', $options['pfDelimiter'] );
-
 	}
 
 	/**
-	 * Get the descriptor of the fieldset that contains the file source 
+	 * Get the descriptor of the fieldset that contains the file source
 	 * selection. The section is 'source'
-	 * 
+	 *
 	 * @return array Descriptor array
 	 */
 	protected function getSourceSection() {
@@ -101,10 +101,10 @@ class PFUploadForm extends HTMLForm {
 		}
 
 		$maxUploadSizeFile = ini_get( 'upload_max_filesize' );
-		$maxUploadSizeURL =  ini_get( 'upload_max_filesize' );
+		$maxUploadSizeURL = ini_get( 'upload_max_filesize' );
 		global $wgMaxUploadSize;
-		if( isset( $wgMaxUploadSize ) )	{
-			if( gettype( $wgMaxUploadSize ) == "array" ) {
+		if ( isset( $wgMaxUploadSize ) ) {
+			if ( gettype( $wgMaxUploadSize ) == "array" ) {
 				$maxUploadSizeFile = $wgMaxUploadSize['*'];
 				$maxUploadSizeURL = $wgMaxUploadSize['url'];
 			} else {
@@ -153,10 +153,9 @@ class PFUploadForm extends HTMLForm {
 		return $descriptor;
 	}
 
-
 	/**
 	 * Get the messages indicating which extensions are preferred and prohibitted.
-	 * 
+	 *
 	 * @return string HTML string containing the message
 	 */
 	protected function getExtensionsMessage() {
@@ -192,7 +191,7 @@ class PFUploadForm extends HTMLForm {
 	/**
 	 * Get the descriptor of the fieldset that contains the file description
 	 * input. The section is 'description'
-	 * 
+	 *
 	 * @return array Descriptor array
 	 */
 	protected function getDescriptionSection() {
@@ -238,8 +237,9 @@ class PFUploadForm extends HTMLForm {
 			);
 		}
 
-		if ( $this->mForReUpload )
+		if ( $this->mForReUpload ) {
 			$descriptor['DestFile']['readonly'] = true;
+		}
 
 		global $wgUseCopyrightUpload;
 		if ( $wgUseCopyrightUpload ) {
@@ -261,9 +261,9 @@ class PFUploadForm extends HTMLForm {
 	}
 
 	/**
-	 * Get the descriptor of the fieldset that contains the upload options, 
+	 * Get the descriptor of the fieldset that contains the upload options,
 	 * such as "watch this file". The section is 'options'
-	 * 
+	 *
 	 * @return array Descriptor array
 	 */
 	protected function getOptionsSection() {
@@ -289,9 +289,7 @@ class PFUploadForm extends HTMLForm {
 			'default' => $this->mDestWarningAck ? '1' : '',
 		);
 
-
 		return $descriptor;
-
 	}
 
 	/**
@@ -372,7 +370,7 @@ END;
 
 	/**
 	 * Empty function; submission is handled elsewhere.
-	 * 
+	 *
 	 * @return bool false
 	 */
 	function trySubmit() {

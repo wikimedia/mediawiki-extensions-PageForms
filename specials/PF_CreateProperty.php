@@ -40,7 +40,9 @@ class PFCreateProperty extends SpecialPage {
 			$text .= "\n\n" . wfMessage( 'pf_property_allowedvals' )
 				->numParams( count( $allowed_values_array ) )->inContentLanguage()->text();
 			foreach ( $allowed_values_array as $i => $value ) {
-				if ( $value == '' ) continue;
+				if ( $value == '' ) {
+					continue;
+				}
 				// replace beep back with comma, trim
 				$value = str_replace( "\a", $wgPageFormsListSeparator, trim( $value ) );
 				$prop_labels = $smwgContLang->getPropertyLabels();
@@ -60,7 +62,7 @@ class PFCreateProperty extends SpecialPage {
 		// local variables.
 		$presetPropertyName = str_replace( '_', ' ', $query );
 		if ( $presetPropertyName !== '' ) {
-			$out->setPageTitle( wfMessage( 'pf-createproperty-with-name', $presetPropertyName)->text() );
+			$out->setPageTitle( wfMessage( 'pf-createproperty-with-name', $presetPropertyName )->text() );
 			$property_name = $presetPropertyName;
 		} else {
 			$property_name = $req->getVal( 'property_name' );
@@ -90,7 +92,7 @@ class PFCreateProperty extends SpecialPage {
 				$out->setArticleBodyOnly( true );
 				$title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$full_text = self::createPropertyText( $property_type, $allowed_values );
-				$edit_summary = wfMessage( 'pf_createproperty_editsummary', $property_type)->inContentLanguage()->text();
+				$edit_summary = wfMessage( 'pf_createproperty_editsummary', $property_type )->inContentLanguage()->text();
 				$text = PFUtils::printRedirectForm( $title, $full_text, $edit_summary, $save_page, $preview_page, false, false, false, null, null );
 				$out->addHTML( $text );
 				return;
@@ -120,7 +122,7 @@ END;
 		if ( $presetPropertyName === '' ) {
 			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
 			$text .= "$name_label\n";
-			$text .= Html::input ( 'property_name', '', array( 'size' => 25 ) );
+			$text .= Html::input( 'property_name', '', array( 'size' => 25 ) );
 			$text .= Html::element( 'span', array( 'style' => "color: red;" ), $property_name_error_str );
 		}
 		$text .= "\n$type_label\n";
@@ -128,7 +130,7 @@ END;
 		foreach ( $datatypeLabels as $label ) {
 			$select_body .= "\t" . Html::element( 'option', null, $label ) . "\n";
 		}
-		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type'  ), $select_body ) . "\n";
+		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type' ), $select_body ) . "\n";
 
 		$values_input = wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
 		$text .= <<<END

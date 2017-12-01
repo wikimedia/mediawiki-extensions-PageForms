@@ -98,7 +98,7 @@ class PFWikiPage {
 		$template->addUnhandledParams();
 
 		$templateCall = '{{' . $template->getName();
-		foreach( $template->getParams() as $templateParam ) {
+		foreach ( $template->getParams() as $templateParam ) {
 			$paramName = $templateParam->getName();
 			$embeddedTemplateName = $this->getEmbeddedTemplateForParam( $template->getName(), $paramName );
 			$paramValue = $templateParam->getValue();

@@ -35,18 +35,14 @@ abstract class PFFormInput {
 	/**
 	 * Constructor for the PFFormInput class.
 	 *
-	 * @param String $input_number
-	 *		The number of the input in the form. For a simple HTML input element
-	 *      this should end up in the id attribute in the format 'input_<number>'.
-	 * @param String $cur_value
-	 *		The current value of the input field. For a simple HTML input
-	 *		element this should end up in the value attribute.
-	 * @param String $input_name
-	 *		The name of the input. For a simple HTML input element this should
-	 *		end up in the name attribute.
-	 * @param Array $other_args
-	 *		An associative array of other parameters that were present in the
-	 *		input definition.
+	 * @param String $input_number The number of the input in the form. For a simple HTML input
+	 *  element this should end up in the id attribute in the format 'input_<number>'.
+	 * @param String $cur_value The current value of the input field. For a simple HTML input
+	 *  element this should end up in the value attribute.
+	 * @param String $input_name The name of the input. For a simple HTML input element this should
+	 *  end up in the name attribute.
+	 * @param Array $other_args An associative array of other parameters that were present in the
+	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
 		$this->mInputNumber = $input_number;
@@ -182,7 +178,6 @@ abstract class PFFormInput {
 	public function getJsValidationFunctionData() {
 		return $this->mJsValidationFunctionData;
 	}
-
 
 	/**
 	 * Returns the names of the resource modules this input type uses.
@@ -329,7 +324,7 @@ abstract class PFFormInput {
 		// @TODO - the first works better for Special:RunQuery, and the
 		// second better for Special:FormEdit? Try to find some solution
 		// that always works correctly.
-		//$output = $wgParser->getOutput();
+		// $output = $wgParser->getOutput();
 		$output = $wgOut;
 		$modules = $this->getResourceModuleNames();
 
@@ -339,7 +334,6 @@ abstract class PFFormInput {
 		}
 
 		if ( $this->getJsInitFunctionData() || $this->getJsValidationFunctionData() ) {
-
 			$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : 'input_' . $this->mInputNumber;
 			$configVars = $output->getJsConfigVars();
 

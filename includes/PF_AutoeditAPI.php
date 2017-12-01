@@ -39,7 +39,7 @@ class PFAutoeditAPI extends ApiBase {
 	 */
 	const DEBUG = 3;
 
-	private $mOptions = array( );
+	private $mOptions = array();
 	private $mAction;
 	private $mStatus;
 
@@ -108,7 +108,6 @@ class PFAutoeditAPI extends ApiBase {
 	 * getResult().
 	 */
 	function execute() {
-
 		$this->prepareAction();
 
 		try {
@@ -125,7 +124,6 @@ class PFAutoeditAPI extends ApiBase {
 	 *
 	 */
 	function prepareAction() {
-
 		// Get options from the request, but keep the explicitly set options.
 		$data = $this->getRequest()->getValues();
 		$this->mOptions = PFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
@@ -144,38 +142,31 @@ class PFAutoeditAPI extends ApiBase {
 		// MW uses the parameter 'title' instead of 'target' when submitting
 		// data for formedit action => use that
 		if ( !array_key_exists( 'target', $this->mOptions ) && array_key_exists( 'title', $this->mOptions ) ) {
-
 			$this->mOptions['target'] = $this->mOptions['title'];
 			unset( $this->mOptions['title'] );
 		}
 
 		// if the 'query' parameter was used, unpack the param string
 		if ( array_key_exists( 'query', $this->mOptions ) ) {
-
 			$this->addOptionsFromString( $this->mOptions['query'] );
 			unset( $this->mOptions['query'] );
 		}
 
 		// if an action is explicitly set in the form data, use that
 		if ( array_key_exists( 'wpSave', $this->mOptions ) ) {
-
 			// set action to 'save' if requested
 			$this->mAction = self::ACTION_SAVE;
 			unset( $this->mOptions['wpSave'] );
 		} elseif ( array_key_exists( 'wpPreview', $this->mOptions ) ) {
-
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_PREVIEW;
 			unset( $this->mOptions['wpPreview'] );
 		} elseif ( array_key_exists( 'wpDiff', $this->mOptions ) ) {
-
 			// set action to 'preview' if requested
 			$this->mAction = self::ACTION_DIFF;
 			unset( $this->mOptions['wpDiff'] );
 		} elseif ( array_key_exists( 'action', $this->mOptions ) ) {
-
 			switch ( $this->mOptions['action'] ) {
-
 				case 'pfautoedit' :
 					$this->mAction = self::ACTION_SAVE;
 					break;
@@ -233,24 +224,20 @@ class PFAutoeditAPI extends ApiBase {
 	 * @throws MWException
 	 */
 	protected function getFormTitle() {
-
 		// if no form was explicitly specified, try for explicitly set alternate forms
 		if ( $this->mOptions['form'] === '' ) {
-
 			$this->logMessage( 'No form specified. Will try to find the default form for the target page.', self::DEBUG );
 
 			$formNames = array();
 
 			// try explicitly set alternative forms
 			if ( array_key_exists( 'alt_form', $this->mOptions ) ) {
-
 				$formNames = (array)$this->mOptions['alt_form']; // cast to array to make sure we get an array, even if only a string was sent
 
 			}
 
 			// if no alternate forms were explicitly set, try finding a default form for the target page
 			if ( count( $formNames ) === 0 ) {
-
 				// if no form and and no alt forms and no target page was specified, give up
 				if ( $this->mOptions['target'] === '' ) {
 					throw new MWException( wfMessage( 'pf_autoedit_notargetspecified' )->parse() );
@@ -284,13 +271,12 @@ class PFAutoeditAPI extends ApiBase {
 		$formTitle = Title::makeTitleSafe( PF_NS_FORM, $this->mOptions['form'] );
 
 		// If the given form is not a valid title, give up.
-		if ( !($formTitle instanceOf Title) ) {
+		if ( !( $formTitle instanceof Title ) ) {
 			throw new MWException( wfMessage( 'pf_autoedit_invalidform', $this->mOptions['form'] )->parse() );
 		}
 
 		// If the form page is a redirect, follow the redirect.
 		if ( $formTitle->isRedirect() ) {
-
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
 			$formWikiPage = WikiPage::factory( $formTitle );
@@ -298,10 +284,9 @@ class PFAutoeditAPI extends ApiBase {
 
 			// if we exeeded $wgMaxRedirects or encountered an invalid redirect target, give up
 			if ( $formTitle->isRedirect() ) {
-
 				$newTitle = WikiPage::factory( $formTitle )->getRedirectTarget();
 
-				if ( $newTitle instanceOf Title && $newTitle->isValidRedirectTarget() ) {
+				if ( $newTitle instanceof Title && $newTitle->isValidRedirectTarget() ) {
 					throw new MWException( wfMessage( 'pf_autoedit_redirectlimitexeeded', $this->mOptions['form'] )->parse() );
 				} else {
 					throw new MWException( wfMessage( 'pf_autoedit_invalidredirecttarget', $newTitle->getFullText(), $this->mOptions['form'] )->parse() );
@@ -319,7 +304,6 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function setupEditPage( $targetContent ) {
-
 		// Find existing target article if it exists, or create a new one.
 		$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
@@ -380,7 +364,6 @@ class PFAutoeditAPI extends ApiBase {
 
 		// store the document as result
 		$this->getResult()->addValue( null, 'result', $targetHtml );
-
 	}
 
 	protected function doPreview( $editor ) {
@@ -400,7 +383,6 @@ class PFAutoeditAPI extends ApiBase {
 		$this->getOutput()->addHTML( Html::rawElement( 'div', array( 'id' => 'wikiPreview' ), $previewOutput ) );
 
 		$this->setResultFromOutput();
-
 	}
 
 	protected function doDiff( $editor ) {
@@ -409,7 +391,6 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function doStore( EditPage $editor ) {
-
 		$title = $editor->getTitle();
 
 		// If they used redlink=1 and the page exists, redirect to the main article and send notice
@@ -425,7 +406,6 @@ class PFAutoeditAPI extends ApiBase {
 		}
 
 		if ( $permErrors ) {
-
 			// Auto-block user's IP if the account was "hard" blocked
 			$this->getUser()->spreadAnyEditBlock();
 
@@ -457,13 +437,13 @@ class PFAutoeditAPI extends ApiBase {
 				// show normal Edit page
 
 				// remove Preview and Diff standard buttons from editor page
-				Hooks::register('EditPageBeforeEditButtons', function( &$editor, &$buttons, &$tabindex ){
-					foreach (array_keys($buttons) as $key) {
-						if ($key !== 'save') {
-							unset($buttons[$key]);
+				Hooks::register( 'EditPageBeforeEditButtons', function ( &$editor, &$buttons, &$tabindex ){
+					foreach ( array_keys( $buttons ) as $key ) {
+						if ( $key !== 'save' ) {
+							unset( $buttons[$key] );
 						}
 					}
-				});
+				} );
 
 				// Context title needed for correct Cancel link
 				$editor->setContextTitle( $title );
@@ -504,7 +484,7 @@ class PFAutoeditAPI extends ApiBase {
 				}
 
 				$this->getOutput()->redirect( $redirect );
-				$this->getResult()->addValue( NULL, 'redirect', $redirect );
+				$this->getResult()->addValue( null, 'redirect', $redirect );
 				return false; // success
 
 			case EditPage::AS_SUCCESS_UPDATE: // Article successfully updated
@@ -531,7 +511,7 @@ class PFAutoeditAPI extends ApiBase {
 				}
 
 				$this->getOutput()->redirect( $redirect );
-				$this->getResult()->addValue( NULL, 'redirect', $redirect );
+				$this->getResult()->addValue( null, 'redirect', $redirect );
 
 				return false; // success
 
@@ -540,7 +520,7 @@ class PFAutoeditAPI extends ApiBase {
 				$this->logMessage( 'User tried to create a blank page', self::DEBUG );
 
 				$this->getOutput()->redirect( $editor->getContextTitle()->getFullURL() );
-				$this->getResult()->addValue( NULL, 'redirect', $editor->getContextTitle()->getFullURL() );
+				$this->getResult()->addValue( null, 'redirect', $editor->getContextTitle()->getFullURL() );
 
 				return false; // success
 
@@ -584,7 +564,6 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function finalizeResults() {
-
 		// set response text depending on the status and the requested action
 		if ( $this->mStatus === 200 ) {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
@@ -612,7 +591,7 @@ class PFAutoeditAPI extends ApiBase {
 		}
 
 		$result->addValue( null, 'status', $this->mStatus, true );
-		$result->addValue( array('form'), 'title', $this->mOptions['form'] );
+		$result->addValue( array( 'form' ), 'title', $this->mOptions['form'] );
 		$result->addValue( null, 'target', $this->mOptions['target'], true );
 	}
 
@@ -620,9 +599,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * Set custom headers to attach to the answer
 	 */
 	protected function setHeaders() {
-
 		if ( !headers_sent() ) {
-
 			header( 'X-Status: ' . $this->mStatus, true, $this->mStatus );
 			header( 'X-Form: ' . $this->mOptions['form'] );
 			header( 'X-Target: ' . $this->mOptions['target'] );
@@ -665,7 +642,7 @@ class PFAutoeditAPI extends ApiBase {
 		// FIXME: This is wrong. If anything is still left, something
 		// should have been present in the form and wasn't. An error
 		// should be raised.
-		//$targetName = StringUtils::delimiterReplace( '<', '>', '', $targetName );
+		// $targetName = StringUtils::delimiterReplace( '<', '>', '', $targetName );
 
 		// Replace spaces back with underlines, in case a magic word or
 		// parser function name contains underlines - hopefully this
@@ -687,13 +664,11 @@ class PFAutoeditAPI extends ApiBase {
 				$isRandom = true;
 				$randomNumHasPadding = array_key_exists( 2, $matches );
 				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[3] : $randomNumDigits );
-				$titleNumber = PFAutoeditAPI::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
-			} elseif ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
-				// get unique number start value
+				$titleNumber = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+			} elseif ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {;				// get unique number start value
 				// from target name; if it's not
 				// there, or it's not a positive
 				// number, start it out as blank
-				;
 				if ( count( $matches ) == 2 && is_numeric( $matches[1] ) && $matches[1] >= 0 ) {
 					// the "start" value"
 					$titleNumber = $matches[1];
@@ -731,12 +706,11 @@ class PFAutoeditAPI extends ApiBase {
 					if ( $numAttemptsAtTitle > 20 ) {
 						$randomNumDigits++;
 					}
-					$titleNumber = PFAutoeditAPI::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
-				}
-				// If title number is blank, change it to 2;
-				// otherwise, increment it, and if necessary
-				// pad it with leading 0s as well.
-				elseif ( $titleNumber == "" ) {
+					$titleNumber = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
+				} elseif ( $titleNumber == "" ) {
+					// If title number is blank, change it to 2;
+					// otherwise, increment it, and if necessary
+					// pad it with leading 0s as well.
 					$titleNumber = 2;
 				} else {
 					$titleNumber = str_pad( $titleNumber + 1, strlen( $titleNumber ), '0', STR_PAD_LEFT );
@@ -763,7 +737,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * Returns a formatted (pseudo) random number
 	 *
 	 * @param number $numDigits the min width of the random number
-	 * @param boolean $hasPadding should the number should be padded with zeros instead of spaces?
+	 * @param bool $hasPadding should the number should be padded with zeros instead of spaces?
 	 * @return number
 	 */
 	static function makeRandomNumber( $numDigits = 1, $hasPadding = false ) {
@@ -772,7 +746,7 @@ class PFAutoeditAPI extends ApiBase {
 			$maxValue = getrandmax();
 		}
 		$value = rand( 0, $maxValue );
-		$format = '%' . ($hasPadding ? '0' : '') . $numDigits . 'd';
+		$format = '%' . ( $hasPadding ? '0' : '' ) . $numDigits . 'd';
 		return trim( sprintf( $format, $value ) ); // trim needed, when $hasPadding == false
 	}
 
@@ -796,7 +770,6 @@ class PFAutoeditAPI extends ApiBase {
 
 		// If the wiki is read-only, do not save.
 		if ( wfReadOnly() ) {
-
 			if ( $this->mAction === self::ACTION_SAVE ) {
 				throw new MWException( wfMessage( 'pf_autoedit_readonly', wfReadOnlyReason() )->parse() );
 			}
@@ -829,7 +802,6 @@ class PFAutoeditAPI extends ApiBase {
 		// if the target page was not specified, try finding the page name formula
 		// (Why is this not done in PFFormPrinter::formHTML?)
 		if ( $targetName === '' ) {
-
 			// Parse the form to see if it has a 'page name' value set.
 			if ( preg_match( '/{{{\s*info.*page name\s*=\s*(.*)}}}/msU', $formContent, $matches ) ) {
 				$pageNameElements = PFUtils::getFormTagComponents( trim( $matches[1] ) );
@@ -852,7 +824,6 @@ class PFAutoeditAPI extends ApiBase {
 
 		// preload data if not explicitly excluded and if the preload page exists
 		if ( !isset( $this->mOptions['preload'] ) || $this->mOptions['preload'] !== false ) {
-
 			if ( isset( $this->mOptions['preload'] ) && is_string( $this->mOptions['preload'] ) ) {
 				$preloadTitle = Title::newFromText( $this->mOptions['preload'] );
 			} else {
@@ -860,7 +831,6 @@ class PFAutoeditAPI extends ApiBase {
 			}
 
 			if ( $preloadTitle !== null && $preloadTitle->exists() ) {
-
 				// the content of the page that was specified to be used for preloading
 				$preloadContent = $this->getTextForPage( $preloadTitle );
 
@@ -883,7 +853,6 @@ class PFAutoeditAPI extends ApiBase {
 		$formHtmlHasRun = false;
 
 		if ( $preloadContent !== '' ) {
-
 			// @HACK - we need to set this for the preload to take
 			// effect in the form.
 			$pageExists = true;
@@ -896,7 +865,7 @@ class PFAutoeditAPI extends ApiBase {
 			}
 			// Call PFFormPrinter::formHTML() to get at the form
 			// HTML of the existing page.
-			list ( $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
+			list( $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 				$wgPageFormsFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
@@ -917,7 +886,7 @@ class PFAutoeditAPI extends ApiBase {
 			$pageExists = false;
 		} else {
 			// Source of the data is a page.
-			$pageExists = ( is_a( $targetTitle, 'Title') && $targetTitle->exists() );
+			$pageExists = ( is_a( $targetTitle, 'Title' ) && $targetTitle->exists() );
 		}
 
 		// Spoof $wgRequest for PFFormPrinter::formHTML().
@@ -930,7 +899,7 @@ class PFAutoeditAPI extends ApiBase {
 		// Get wikitext for submitted data and form - call formHTML(),
 		// if we haven't called it already.
 		if ( $preloadContent == '' ) {
-			list ( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
+			list( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$wgPageFormsFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
 		} else {
 			$generatedFormName = $form_page_title;
@@ -947,11 +916,9 @@ class PFAutoeditAPI extends ApiBase {
 		$this->mOptions['formHTML'] = $formHTML;
 
 		if ( $isFormSubmitted ) {
-
 			// If the target page was not specified, see if
 			// something was generated from the target name formula.
 			if ( $this->mOptions['target'] === '' ) {
-
 				// If no name was generated, we cannot save => give up
 				if ( $generatedTargetNameFormula === '' ) {
 					throw new MWException( wfMessage( 'pf_autoedit_notargetspecified' )->parse() );
@@ -974,9 +941,8 @@ class PFAutoeditAPI extends ApiBase {
 				$this->doStore( $editor );
 			}
 		} elseif ( $this->mAction === self::ACTION_FORMEDIT ) {
-
 			$parserOutput = $wgParser->getOutput();
-			if( method_exists( $wgOut, 'addParserOutputMetadata' ) ){
+			if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
 				$wgOut->addParserOutputMetadata( $parserOutput );
 			} else {
 				$wgOut->addParserOutputNoText( $parserOutput );
@@ -987,8 +953,7 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	private function parseDataFromHTMLFrag( $html ) {
-
-		$data = array( );
+		$data = array();
 		$doc = new DOMDocument();
 		$oldVal = libxml_disable_entity_loader( true );
 		@$doc->loadHTML(
@@ -1002,7 +967,6 @@ class PFAutoeditAPI extends ApiBase {
 		$inputs = $doc->getElementsByTagName( 'input' );
 
 		for ( $i = 0; $i < $inputs->length; $i++ ) {
-
 			$input = $inputs->item( $i );
 			$type = $input->getAttribute( 'type' );
 			$name = trim( $input->getAttribute( 'name' ) );
@@ -1039,7 +1003,6 @@ class PFAutoeditAPI extends ApiBase {
 		$selects = $doc->getElementsByTagName( 'select' );
 
 		for ( $i = 0; $i < $selects->length; $i++ ) {
-
 			$select = $selects->item( $i );
 			$name = trim( $select->getAttribute( 'name' ) );
 
@@ -1052,7 +1015,7 @@ class PFAutoeditAPI extends ApiBase {
 			// If the current $select is a radio button select
 			// (i.e. not multiple) set the first option to selected
 			// as default. This may be overwritten in the loop below.
-			if ( $options->length > 0 && (!$select->hasAttribute( 'multiple' ) ) ) {
+			if ( $options->length > 0 && ( !$select->hasAttribute( 'multiple' ) ) ) {
 				self::addToArray( $data, $name, $options->item( 0 )->getAttribute( 'value' ) );
 			}
 
@@ -1074,8 +1037,9 @@ class PFAutoeditAPI extends ApiBase {
 			$textarea = $textareas->item( $i );
 			$name = trim( $textarea->getAttribute( 'name' ) );
 
-			if ( !$name )
+			if ( !$name ) {
 				continue;
+			}
 
 			self::addToArray( $data, $name, $textarea->textContent );
 		}
@@ -1119,10 +1083,9 @@ class PFAutoeditAPI extends ApiBase {
 	 * @param $toplevel: if this is a toplevel value.
 	 */
 	public static function addToArray( &$array, $key, $value, $toplevel = true ) {
-		$matches = array( );
+		$matches = array();
 
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
-
 			// for some reason toplevel keys get their spaces encoded by MW.
 			// We have to imitate that.
 			if ( $toplevel ) {
@@ -1133,7 +1096,7 @@ class PFAutoeditAPI extends ApiBase {
 
 			// if subsequent element does not exist yet or is a string (we prefer arrays over strings)
 			if ( !array_key_exists( $key, $array ) || is_string( $array[$key] ) ) {
-				$array[$key] = array( );
+				$array[$key] = array();
 			}
 
 			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
@@ -1247,7 +1210,7 @@ END;
 	function getVersion() {
 		global $wgPageFormsIP;
 		$gitSha1 = SpecialVersion::getGitHeadSha1( $wgPageFormsIP );
-		return __CLASS__ . '-' . PF_VERSION . ($gitSha1 !== false) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
+		return __CLASS__ . '-' . PF_VERSION . ( $gitSha1 !== false ) ? ' (' . substr( $gitSha1, 0, 7 ) . ')' : '';
 	}
 
 }

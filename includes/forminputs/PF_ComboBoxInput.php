@@ -60,7 +60,7 @@ class PFComboBoxInput extends PFFormInput {
 				$image_param = $other_args['image'];
 				$wgPageFormsEDSettings[$name]['image'] = $image_param;
 				global $edgValues;
-				for ($i = 0; $i < count($edgValues[$image_param]); $i++) {
+				for ( $i = 0; $i < count( $edgValues[$image_param] ); $i++ ) {
 					$image = $edgValues[$image_param][$i];
 					if ( strpos( $image, "http" ) !== 0 ) {
 						$file = wfFindFile( $image );
@@ -76,7 +76,8 @@ class PFComboBoxInput extends PFFormInput {
 			if ( array_key_exists( 'description', $other_args ) ) {
 				$wgPageFormsEDSettings[$name]['description'] = $other_args['description'];
 				if ( !array_key_exists( 'size', $other_args ) ) {
-					$size = '80';//Set larger default size if description is also there
+					// Set larger default size if description is also there
+					$size = '80';
 				}
 			}
 		} else {
@@ -108,11 +109,11 @@ class PFComboBoxInput extends PFFormInput {
 		if ( !is_null( $remoteDataType ) ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
- 		if ( array_key_exists( 'namespace', $other_args ) ) {
- 			$inputAttrs['data-namespace'] = $other_args['namespace'];
- 		}
+		if ( array_key_exists( 'namespace', $other_args ) ) {
+			$inputAttrs['data-namespace'] = $other_args['namespace'];
+		}
 
-		$inputText = Html::rawElement( 'input', $inputAttrs);
+		$inputText = Html::rawElement( 'input', $inputAttrs );
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {

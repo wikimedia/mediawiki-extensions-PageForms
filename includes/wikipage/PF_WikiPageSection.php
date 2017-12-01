@@ -19,7 +19,7 @@ class PFWikiPageSection {
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	function isHideIfEmpty() {
 		return $this->mHideIfEmpty;

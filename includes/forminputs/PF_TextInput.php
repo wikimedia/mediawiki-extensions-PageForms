@@ -202,7 +202,7 @@ class PFTextInput extends PFFormInput {
 			// window; we're leaving it blank, because otherwise
 			// it can by mistaken by users for a button, leading
 			// to confusion.
-			//'title' => $upload_label,
+			// 'title' => $upload_label,
 			'rev' => $style,
 			'data-input-id' => $input_id
 		);
@@ -242,7 +242,8 @@ class PFTextInput extends PFFormInput {
 		$inputType = '';
 		if ( array_key_exists( 'field_type', $other_args ) &&
 			( !array_key_exists( 'is_list', $other_args ) ||
-			!$other_args['is_list']	) ) {
+			!$other_args['is_list'] )
+		) {
 			if ( $other_args['field_type'] == 'number' ) {
 				$size = 10;
 				$inputType = 'number';

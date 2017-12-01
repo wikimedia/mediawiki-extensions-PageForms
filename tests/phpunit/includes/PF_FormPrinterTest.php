@@ -12,14 +12,13 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 * @dataProvider pageSectionDataProvider
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
-
 		global $wgPageFormsFormPrinter, $wgTitle, $wgParser, $wgOut;
 
 		$wgParser = $this->getParser();
 		$wgTitle = $this->getTitle();
 		$wgOut->getContext()->setTitle( $wgTitle );
 
-		list ( $form_text, $page_text, $form_page_title, $generated_page_name ) =
+		list( $form_text, $page_text, $form_page_title, $generated_page_name ) =
 			$wgPageFormsFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
 
 		$this->assertContains(
@@ -32,14 +31,12 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 			$page_text,
 			'assert that formHTML() returns the correct text for the page created by the form'
 			);
-
 	}
 
 	/**
 	 * Data provider method
 	 */
 	public function pageSectionDataProvider() {
-
 		$provider = array();
 
 		// #1 form definition without other parameters
@@ -100,10 +97,9 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 * @return Title
 	 */
 	private function getTitle() {
-
 		$mockTitle = $this->getMockBuilder( 'Title' )
-						  ->disableOriginalConstructor()
-						  ->getMock();
+			->disableOriginalConstructor()
+			->getMock();
 
 		$mockTitle->expects( $this->any() )
 			->method( 'getDBkey' )
@@ -121,7 +117,6 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 * @return Parser
 	 */
 	private function getParser() {
-
 		return new StubObject(
 			'wgParser', $GLOBALS['wgParserConf']['class'],
 			array( $GLOBALS['wgParserConf'] )

@@ -56,7 +56,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 			'size' => 40
 		);
 		$coordsInput = Html::element( 'input', $coordsInputAttrs );
-		//$wgPageFormsTabIndex++;
+		// $wgPageFormsTabIndex++;
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
 		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ), 'Map goes here...' );

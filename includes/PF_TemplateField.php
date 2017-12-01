@@ -128,7 +128,7 @@ class PFTemplateField {
 		// We have some "pseudo-types", used for setting the correct
 		// form input.
 		if ( $fieldDescription->mAllowedValues != null ) {
-			if( $fieldDescription->mIsHierarchy == true ) {
+			if ( $fieldDescription->mIsHierarchy == true ) {
 				$this->mFieldType = 'Hierarchy';
 				$this->mHierarchyStructure = $fieldDescription->mHierarchyStructure;
 			} else {

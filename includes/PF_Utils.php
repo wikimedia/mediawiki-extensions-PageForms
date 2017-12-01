@@ -150,7 +150,7 @@ END;
 		$form_body .= Html::hidden( $action, null );
 
 		if ( $is_minor_edit ) {
-			$form_body .= Html::hidden( 'wpMinoredit' , null );
+			$form_body .= Html::hidden( 'wpMinoredit', null );
 		}
 		if ( $watch_this ) {
 			$form_body .= Html::hidden( 'wpWatchthis', null );
@@ -232,7 +232,7 @@ END;
 
 	/**
 	 * Returns an array of all form names on this wiki.
-	*/
+	 */
 	public static function getAllForms() {
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select( 'page',
@@ -256,7 +256,7 @@ END;
 		global $wgContLang;
 		$namespace_labels = $wgContLang->getNamespaces();
 		$form_label = $namespace_labels[PF_NS_FORM];
-		$form_names = PFUtils::getAllForms();
+		$form_names = self::getAllForms();
 		$select_body = "\n";
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";
@@ -347,14 +347,13 @@ END;
 	 *
 	 * See http://www.php.net/manual/en/function.array-merge-recursive.php#92195
 	 *
-	 * @param array $array1
-	 * @param array $array2
+	 * @param array &$array1
+	 * @param array &$array2
 	 * @return array
 	 * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
 	 * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
 	 */
 	public static function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
-
 		$merged = $array1;
 
 		foreach ( $array2 as $key => &$value ) {
