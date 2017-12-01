@@ -187,7 +187,7 @@ class PFAutocompleteAPI extends ApiBase {
 		global $smwgDefaultStore;
 
 		$values = array();
-		$db = wfGetDB( DB_SLAVE );
+		$db = wfGetDB( DB_REPLICA );
 		$sqlOptions = array();
 		$sqlOptions['LIMIT'] = $wgPageFormsMaxAutocompleteValues;
 

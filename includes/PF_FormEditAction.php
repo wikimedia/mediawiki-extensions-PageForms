@@ -225,7 +225,7 @@ class PFFormEditAction extends Action {
 	 * (hopefully) pretty rare.
 	 */
 	static function getNumPagesPerForm() {
-		$dbr = wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
 			array( 'category', 'page', 'page_props' ),
 			array( 'pp_value', 'SUM(cat_pages) AS total_pages' ),
