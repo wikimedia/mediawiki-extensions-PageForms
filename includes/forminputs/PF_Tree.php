@@ -8,14 +8,15 @@
  * @author Yaron Koren
  */
 class PFTree {
-	var $title, $children;
+	public $title;
+	public $children;
 
-	function __construct( $curTitle ) {
+	public function __construct( $curTitle ) {
 		$this->title = $curTitle;
 		$this->children = array();
 	}
 
-	function addChild( $child ) {
+	public function addChild( $child ) {
 		$this->children[] = $child;
 	}
 
@@ -44,7 +45,7 @@ class PFTree {
 		return $fullTree;
 	}
 
-	function getLastNodeForLevel( $level ) {
+	public function getLastNodeForLevel( $level ) {
 		if ( $level <= 1 || count( $this->children ) == 0 ) {
 			return $this;
 		}
@@ -56,7 +57,7 @@ class PFTree {
 	 * @param $top_category String
 	 * @return mixed
 	 */
-	static function newFromTopCategory( $top_category ) {
+	public static function newFromTopCategory( $top_category ) {
 		$pfTree = new PFTree( $top_category );
 		$defaultDepth = 20;
 		$pfTree->populateChildren( $defaultDepth );
