@@ -54,7 +54,7 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	/**
-	 * Returns the options array
+	 * @return array
 	 */
 	function getOptions() {
 		return $this->mOptions;
@@ -73,14 +73,15 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	/**
-	 * Sets the options array
+	 * @param array $options
 	 */
 	function setOptions( $options ) {
 		$this->mOptions = $options;
 	}
 
 	/**
-	 * Sets an option in the options array
+	 * @param string $option
+	 * @param mixed $value
 	 */
 	function setOption( $option, $value ) {
 		$this->mOptions[$option] = $value;
@@ -727,6 +728,8 @@ class PFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Helper function..
+	 * @param Title $title
+	 * @return string
 	 */
 	function getTextForPage( $title ) {
 		$wikiPage = WikiPage::factory( $title );
@@ -1076,11 +1079,11 @@ class PFAutoeditAPI extends ApiBase {
 	/**
 	 * This function recursively inserts the value into a tree.
 	 *
-	 * @param $array is root
-	 * @param $key identifies path to position in tree.
+	 * @param array &$array is root
+	 * @param string $key identifies path to position in tree.
 	 *    Format: 1stLevelName[2ndLevel][3rdLevel][...], i.e. normal array notation
-	 * @param $value: the value to insert
-	 * @param $toplevel: if this is a toplevel value.
+	 * @param mixed $value the value to insert
+	 * @param bool $toplevel if this is a toplevel value.
 	 */
 	public static function addToArray( &$array, $key, $value, $toplevel = true ) {
 		$matches = array();
@@ -1174,7 +1177,7 @@ class PFAutoeditAPI extends ApiBase {
 	/**
 	 * Returns the description string for this module
 	 *
-	 * @return mixed string or array of strings
+	 * @return string|string[]
 	 */
 	function getDescription() {
 		return <<<END
@@ -1191,7 +1194,7 @@ END;
 	/**
 	 * Returns usage examples for this module.
 	 *
-	 * @return mixed string or array of strings
+	 * @return string|string[]
 	 */
 	protected function getExamples() {
 		return array(

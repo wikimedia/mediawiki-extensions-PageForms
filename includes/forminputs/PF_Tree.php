@@ -26,6 +26,8 @@ class PFTree {
 	 * by the "menuselect" input type in the Semantic Forms Inputs
 	 * extension - the difference here is that the text is manually
 	 * parsed, instead of being run through the MediaWiki parser.
+	 * @param string $wikitext
+	 * @return self
 	 */
 	public static function newFromWikiText( $wikitext ) {
 		// The top node, called "Top", will be ignored, because
@@ -56,7 +58,7 @@ class PFTree {
 	}
 
 	/**
-	 * @param $top_category String
+	 * @param string $top_category
 	 * @return mixed
 	 */
 	public static function newFromTopCategory( $top_category ) {

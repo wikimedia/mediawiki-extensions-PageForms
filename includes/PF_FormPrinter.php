@@ -245,6 +245,8 @@ class PFFormPrinter {
 
 	/**
 	 * Show the set of previous deletions for the page being edited.
+	 * @param OutputPage $out
+	 * @return true
 	 */
 	function showDeletionLog( $out ) {
 		LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
@@ -263,6 +265,10 @@ class PFFormPrinter {
 	 * http://www.php.net/manual/en/function.str-replace.php#86177
 	 * - this might make sense in the PFUtils class, if it's useful in
 	 * other places.
+	 * @param string $search
+	 * @param string $replace
+	 * @param string $subject
+	 * @return string
 	 */
 	function strReplaceFirst( $search, $replace, $subject ) {
 		$firstChar = strpos( $subject, $search );
@@ -303,6 +309,9 @@ class PFFormPrinter {
 	/**
 	 * Creates the HTML for the inner table for every instance of a
 	 * multiple-instance template in the form.
+	 * @param bool $form_is_disabled
+	 * @param string $mainText
+	 * @return string
 	 */
 	function multipleTemplateInstanceTableHTML( $form_is_disabled, $mainText ) {
 		if ( $form_is_disabled ) {
@@ -329,6 +338,10 @@ END;
 	/**
 	 * Creates the HTML for a single instance of a multiple-instance
 	 * template.
+	 * @param PFTemplateInForm $template_in_form
+	 * @param bool $form_is_disabled
+	 * @param string &$section
+	 * @return string
 	 */
 	function multipleTemplateInstanceHTML( $template_in_form, $form_is_disabled, &$section ) {
 		// Add the character "a" onto the instance number of this input
@@ -364,6 +377,10 @@ END;
 	/**
 	 * Creates the end of the HTML for a multiple-instance template -
 	 * including the sections necessary for adding additional instances.
+	 * @param PFTemplateInForm $template_in_form
+	 * @param bool $form_is_disabled
+	 * @param string $section
+	 * @return string
 	 */
 	function multipleTemplateEndHTML( $template_in_form, $form_is_disabled, $section ) {
 		global $wgPageFormsTabIndex;
@@ -508,6 +525,9 @@ END;
 	/**
 	 * Get a string representing the current time, for the time zone
 	 * specified in the wiki.
+	 * @param string $includeTime
+	 * @param string $includeTimezone
+	 * @return string
 	 */
 	function getStringForCurrentTime( $includeTime, $includeTimezone ) {
 		global $wgLocaltimezone, $wgAmericanDates, $wgPageForms24HourTime;
@@ -560,6 +580,9 @@ END;
 	 * If the value passed in for a certain field, when a form is
 	 * submitted, is an array, then it might be from a checkbox
 	 * or date input - in that case, convert it into a string.
+	 * @param string $value
+	 * @param string $delimiter
+	 * @return string
 	 */
 	static function getStringFromPassedInArray( $value, $delimiter ) {
 		// If it's just a regular list, concatenate it.
@@ -665,6 +688,16 @@ END;
 	 *
 	 * It also does some related tasks, like figuring out the page name (if
 	 * only a page formula exists).
+	 * @param string $form_def
+	 * @param bool $form_submitted
+	 * @param bool $source_is_page
+	 * @param string|null $form_id
+	 * @param string|null $existing_page_content
+	 * @param string|null $page_name
+	 * @param string|null $page_name_formula
+	 * @param bool $is_query
+	 * @param bool $is_embedded
+	 * @return array
 	 */
 	function formHTML(
 		$form_def,
@@ -1587,6 +1620,9 @@ END;
 
 	/**
 	 * Create the HTML to display this field within a form.
+	 * @param PFFormField $form_field
+	 * @param string $cur_value
+	 * @return string
 	 */
 	function formFieldHTML( $form_field, $cur_value ) {
 		global $wgPageFormsFieldNum;

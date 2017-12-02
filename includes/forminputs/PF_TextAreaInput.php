@@ -27,15 +27,14 @@ class PFTextAreaInput extends PFFormInput {
 	}
 
 	/**
-	 * Constructor for the PFTextAreaInput class.
-	 *
-	 * @param String $input_number The number of the input in the form. For a simple HTML input
+	 * @param string $input_number The number of the input in the form. For a simple HTML input
 	 *  element this should end up in the id attribute in the format 'input_<number>'.
-	 * @param String $cur_value The current value of the input field. For a simple HTML input
+	 * @param string $cur_value The current value of the input field. For a simple HTML input
 	 *  element this should end up in the value attribute.
-	 * @param String $input_name The name of the input. For a simple HTML input element this should
+	 * @param string $input_name The name of the input. For a simple HTML input element this should
 	 *  end up in the name attribute.
-	 * @param Array $other_args An associative array of other parameters that were present in the
+	 * @param bool $disabled Is this input disabled?
+	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
@@ -241,6 +240,7 @@ class PFTextAreaInput extends PFFormInput {
 
 	/**
 	 * Returns the HTML code to be included in the output page for this input.
+	 * @return string
 	 */
 	public function getHtmlText() {
 		$textarea_attrs = $this->getTextAreaAttributes();

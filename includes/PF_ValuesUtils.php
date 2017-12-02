@@ -11,6 +11,11 @@ class PFValuesUtils {
 
 	/**
 	 * Helper function to handle getPropertyValues().
+	 * @param Store $store
+	 * @param Title $subject
+	 * @param string $propID
+	 * @param array $requestOptions
+	 * @return array
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
 		// If SMW is not installed, exit out.
@@ -48,6 +53,8 @@ class PFValuesUtils {
 	 * based on Title::getParentCategories(), but simpler
 	 * - this function doubles as a function to get all categories on
 	 * the site, if no article is specified
+	 * @param Title $title
+	 * @return array
 	 */
 	public static function getCategoriesForPage( $title = null ) {
 		$categories = array();
@@ -81,6 +88,8 @@ class PFValuesUtils {
 	 * because it uses the SMW data store, which can't perform
 	 * case-insensitive queries; for queries with a substring, the
 	 * function PFAutocompleteAPI::getAllValuesForProperty() exists.
+	 * @param string $property_name
+	 * @return array
 	 */
 	public static function getAllValuesForProperty( $property_name ) {
 		global $wgPageFormsMaxAutocompleteValues;
@@ -98,6 +107,9 @@ class PFValuesUtils {
 
 	/**
 	 * Used with the Cargo extension
+	 * @param string $tableName
+	 * @param string $fieldName
+	 * @return array
 	 */
 	public static function getAllValuesForCargoField( $tableName, $fieldName ) {
 		return self::getValuesForCargoField( $tableName, $fieldName );
@@ -105,6 +117,10 @@ class PFValuesUtils {
 
 	/**
 	 * Used with the Cargo extension
+	 * @param string $tableName
+	 * @param string $fieldName
+	 * @param string|null $whereStr
+	 * @return array
 	 */
 	public static function getValuesForCargoField( $tableName, $fieldName, $whereStr = null ) {
 		global $wgPageFormsMaxLocalAutocompleteValues;
@@ -142,6 +158,10 @@ class PFValuesUtils {
 	 * Get all the pages that belong to a category and all its
 	 * subcategories, down a certain number of levels - heavily based on
 	 * SMW's SMWInlineQuery::includeSubcategories()
+	 * @param string $top_category
+	 * @param int $num_levels
+	 * @param string|null $substring
+	 * @return string
 	 */
 	public static function getAllPagesForCategory( $top_category, $num_levels, $substring = null ) {
 		if ( 0 == $num_levels ) {
@@ -464,6 +484,9 @@ class PFValuesUtils {
 	/**
 	 * Creates an array of values that match the specified source name and
 	 * type, for use by both Javascript autocompletion and comboboxes.
+	 * @param string|null $source_name
+	 * @param string $source_type
+	 * @return string|null
 	 */
 	public static function getAutocompleteValues( $source_name, $source_type ) {
 		if ( $source_name == null ) {
@@ -492,6 +515,9 @@ class PFValuesUtils {
 	/**
 	 * Helper function to get an array of values out of what may be either
 	 * an array or a delimited string
+	 * @param string[]|string $value
+	 * @param string $delimiter
+	 * @return string[]
 	 */
 	public static function getValuesArray( $value, $delimiter ) {
 		if ( is_array( $value ) ) {
@@ -533,9 +559,10 @@ class PFValuesUtils {
 	/**
 	 * Returns a SQL condition for autocompletion substring value in a column.
 	 *
-	 * @param string $value_column Value column name
+	 * @param string $column Value column name
 	 * @param string $substring Substring to look for
-	 * @return SQL condition for use in WHERE clause
+	 * @param bool $replaceSpaces
+	 * @return string SQL condition for use in WHERE clause
 	 */
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
 		global $wgDBtype, $wgPageFormsAutocompleteOnAllChars;
@@ -567,8 +594,8 @@ class PFValuesUtils {
 
 	/**
 	 * returns an array of pages that are result of the semantic query
-	 * @param $rawQueryString string - the query string like [[Category:Trees]][[age::>1000]]
-	 * @return array of SMWDIWikiPage objects representing the result
+	 * @param string $rawQuery the query string like [[Category:Trees]][[age::>1000]]
+	 * @return SMWDIWikiPage[] SMWDIWikiPage objects representing the result
 	 */
 	public static function getAllPagesForQuery( $rawQuery ) {
 		$rawQueryArray = array( $rawQuery );

@@ -75,6 +75,13 @@ class PFFormLinker {
 	/**
 	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
 	 * AKA red-linked) page
+	 * @param Linker $linker
+	 * @param Title $target
+	 * @param array $options
+	 * @param string $text
+	 * @param array &$attribs
+	 * @param bool &$ret
+	 * @return true
 	 */
 	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
 		// If it's not a broken (red) link, exit.
@@ -103,6 +110,8 @@ class PFFormLinker {
 	 * - the default form(s) for a category that this article belongs to,
 	 * if there are any; or
 	 * - the default form(s) for the article's namespace, if there are any.
+	 * @param Title $title
+	 * @return array
 	 */
 	static function getDefaultFormsForPage( $title ) {
 		// See if the page itself has a default form (or forms), and

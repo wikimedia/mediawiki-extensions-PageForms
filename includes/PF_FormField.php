@@ -606,6 +606,8 @@ class PFFormField {
 
 	/**
 	 * Map a label back to a value.
+	 * @param string $label
+	 * @return string
 	 */
 	function labelToValue( $label ) {
 		$value = array_search( $label, $this->mPossibleValues );
@@ -618,6 +620,9 @@ class PFFormField {
 
 	/**
 	 * Map a template field value into labels.
+	 * @param string $valueString
+	 * @param string $delimiter
+	 * @return string|string[]
 	 */
 	public function valueStringToLabels( $valueString, $delimiter ) {
 		if ( strlen( trim( $valueString ) ) === 0 ||
@@ -837,6 +842,8 @@ class PFFormField {
 	 * create HTML inputs, most arguments are contained in the "$other_args"
 	 * array - create this array, using the attributes of this form
 	 * field and the template field it corresponds to, if any.
+	 * @param array|null $default_args
+	 * @return array
 	 */
 	function getArgumentsForInputCall( $default_args = null ) {
 		// start with the arguments array already defined

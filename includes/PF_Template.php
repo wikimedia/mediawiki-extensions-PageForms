@@ -177,6 +177,9 @@ class PFTemplate {
 	 * For a field name and its attached property name located in the
 	 * template text, create an PFTemplateField object out of it, and
 	 * add it to $this->mTemplateFields.
+	 * @param string $fieldName
+	 * @param string $propertyName
+	 * @param bool $isList
 	 */
 	function loadPropertySettingInTemplate( $fieldName, $propertyName, $isList ) {
 		global $wgContLang;
@@ -362,6 +365,7 @@ class PFTemplate {
 	 * Creates the text of a template, when called from
 	 * Special:CreateTemplate, Special:CreateClass or the Page Schemas
 	 * extension.
+	 * @return string
 	 */
 	public function createText() {
 		// Avoid PHP 7.1 warning from passing $this by reference

@@ -23,6 +23,7 @@ class PFHelperFormAction extends Action {
 	 * output.  Do not use globals $wgOut, $wgRequest, etc, in implementations; use
 	 * $this->getOutput(), etc.
 	 * @throws ErrorPageError
+	 * @return false
 	 */
 	public function show() {
 		return self::displayForm( $this, $this->page );
@@ -39,6 +40,9 @@ class PFHelperFormAction extends Action {
 	/**
 	 * Adds an "action" (i.e., a tab) to edit the current article with
 	 * a form
+	 * @param Title $obj
+	 * @param array &$content_actions
+	 * @return bool
 	 */
 	static function displayTab( $obj, &$content_actions ) {
 		if ( method_exists( $obj, 'getTitle' ) ) {
@@ -126,6 +130,9 @@ class PFHelperFormAction extends Action {
 	/**
 	 * Like displayTab(), but called with a different hook - this one is
 	 * called for the 'Vector' skin, and others.
+	 * @param Title $obj
+	 * @param array &$links
+	 * @return bool
 	 */
 	static function displayTab2( $obj, &$links ) {
 		// the old '$content_actions' array is thankfully just a
@@ -136,6 +143,9 @@ class PFHelperFormAction extends Action {
 	/**
 	 * The function called if we're in index.php (as opposed to one of the
 	 * special pages).
+	 * @param string $action
+	 * @param Article $article
+	 * @return false
 	 */
 	static function displayForm( $action, $article ) {
 		$title = $article->getTitle();

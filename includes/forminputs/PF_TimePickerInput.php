@@ -16,13 +16,11 @@
 class PFTimePickerInput extends PFFormInput {
 
 	/**
-	 * Constructor.
-	 *
-	 * @param String $input_number The number of the input in the form.
-	 * @param String $cur_value The current value of the input field.
-	 * @param String $input_name The name of the input.
-	 * @param String $disabled Is this input disabled?
-	 * @param Array $other_args An associative array of other parameters that were present in the
+	 * @param string $input_number The number of the input in the form.
+	 * @param string $cur_value The current value of the input field.
+	 * @param string $input_name The name of the input.
+	 * @param bool $disabled Is this input disabled?
+	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
@@ -110,7 +108,7 @@ class PFTimePickerInput extends PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if the
 	 * browser is not Javascript capable. I.e. even without Javascript the user
 	 * should be able to input values.
-	 *
+	 * @return string
 	 */
 	public function getHtmlText() {
 		// create visible input field (for display) and invisible field (for data)
@@ -127,6 +125,7 @@ class PFTimePickerInput extends PFFormInput {
 	/**
 	 * Returns the set of SMW property types which this input can
 	 * handle, but for which it isn't the default input.
+	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
 		return array( '_str', '_dat' );
@@ -136,6 +135,7 @@ class PFTimePickerInput extends PFFormInput {
 	 * Returns the set of parameters for this form input.
 	 *
 	 * TODO: Specify parameters specific for menuselect.
+	 * @return array[]
 	 */
 	public static function getParameters() {
 		$params = parent::getParameters();

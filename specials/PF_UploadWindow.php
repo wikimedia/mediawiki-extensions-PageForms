@@ -105,6 +105,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 	/**
 	 * Special page entry point
+	 * @param string|null $par
 	 */
 	public function execute( $par ) {
 		// Only output the body of the page.
@@ -186,6 +187,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 *
 	 * @param string $message HTML string to add to the form
 	 * @param string $sessionKey Session key in case this is a stashed upload
+	 * @param bool $hideIgnoreWarning
 	 * @return UploadForm
 	 */
 	protected function getUploadForm( $message = '', $sessionKey = '', $hideIgnoreWarning = false ) {
@@ -321,6 +323,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	/**
 	 * Do the upload.
 	 * Checks are made in SpecialUpload::execute()
+	 * @return array|bool
 	 */
 	protected function processUpload() {
 		// Verify permissions
@@ -448,6 +451,11 @@ END;
 
 	/**
 	 * Get the initial image page text based on a comment and optional file status information
+	 * @param string $comment
+	 * @param string $license
+	 * @param string $copyStatus
+	 * @param string $source
+	 * @return string
 	 */
 	public static function getInitialPageText( $comment = '', $license = '', $copyStatus = '', $source = '' ) {
 		global $wgUseCopyrightUpload;
@@ -482,6 +490,7 @@ END;
 	 *
 	 * Note that the page target can be changed *on the form*, so our check
 	 * state can get out of sync.
+	 * @return bool
 	 */
 	protected function watchCheck() {
 		if ( $this->getUser()->getOption( 'watchdefault' ) ) {
@@ -642,7 +651,7 @@ END;
 	/**
 	 * Get a list of warnings
 	 *
-	 * @param string local filename, e.g. 'file exists', 'non-descriptive filename'
+	 * @param string $filename local filename, e.g. 'file exists', 'non-descriptive filename'
 	 * @return array list of warning messages
 	 */
 	public static function ajaxGetExistsWarning( $filename ) {
@@ -684,6 +693,8 @@ END;
 
 	/**
 	 * Construct a warning and a gallery from an array of duplicate files.
+	 * @param File[] $dupes
+	 * @return string
 	 */
 	public static function getDupeWarning( $dupes ) {
 		if ( $dupes ) {

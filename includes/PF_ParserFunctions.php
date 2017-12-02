@@ -381,6 +381,10 @@ class PFParserFunctions {
 
 	/**
 	 * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
+	 * @param Parser &$parser
+	 * @param PPFrame $frame
+	 * @param array $args
+	 * @return string
 	 */
 	public static function renderArrayMap( &$parser, $frame, $args ) {
 		// Set variables.
@@ -423,6 +427,10 @@ class PFParserFunctions {
 
 	/**
 	 * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
+	 * @param Parser &$parser
+	 * @param PPFrame $frame
+	 * @param array $args
+	 * @return string
 	 */
 	public static function renderArrayMapTemplate( &$parser, $frame, $args ) {
 		// Set variables.

@@ -347,6 +347,7 @@ class PFTemplateInForm {
 	 * Set some vars based on the current contents of the page being
 	 * edited - or at least vars that only need to be set if there's
 	 * an existing page.
+	 * @param string $existing_page_content
 	 */
 	function setPageRelatedInfo( $existing_page_content ) {
 		// Replace underlines with spaces in template name, to allow for

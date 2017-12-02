@@ -270,6 +270,7 @@ class PFHooks {
 	 * Hook to add PHPUnit test cases.
 	 * From https://www.mediawiki.org/wiki/Manual:PHP_unit_testing/Writing_unit_tests_for_extensions
 	 *
+	 * @param string[] &$files
 	 * @return bool
 	 */
 	public static function onUnitTestsList( &$files ) {

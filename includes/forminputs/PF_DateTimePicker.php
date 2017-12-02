@@ -19,13 +19,11 @@ class PFDateTimePicker extends PFFormInput {
 	protected $mTimePicker;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param String $input_number The number of the input in the form.
-	 * @param String $cur_value The current value of the input field.
-	 * @param String $input_name The name of the input.
-	 * @param String $disabled Is this input disabled?
-	 * @param Array $other_args An associative array of other parameters that were present in the
+	 * @param string $input_number The number of the input in the form.
+	 * @param string $cur_value The current value of the input field.
+	 * @param string $input_name The name of the input.
+	 * @param bool $disabled Is this input disabled?
+	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
@@ -115,7 +113,7 @@ class PFDateTimePicker extends PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if the
 	 * browser is not JavaScript capable. I.e. even without JavaScript the user
 	 * should be able to input values.
-	 *
+	 * @return string
 	 */
 	public function getHtmlText() {
 		$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs ) ? ' mandatoryFieldSpan' : '' ) . '">' .
@@ -128,6 +126,7 @@ class PFDateTimePicker extends PFFormInput {
 	/**
 	 * Returns the set of SMW property types which this input can
 	 * handle, but for which it isn't the default input.
+	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
 		return array( '_str', '_dat' );
@@ -135,6 +134,7 @@ class PFDateTimePicker extends PFFormInput {
 
 	/**
 	 * Returns the set of parameters for this form input.
+	 * @return array[]
 	 */
 	public static function getParameters() {
 		$params = array_merge(
@@ -166,6 +166,7 @@ class PFDateTimePicker extends PFFormInput {
 	/**
 	 * Returns the name and parameters for the validation JavaScript
 	 * functions for this input type, if any.
+	 * @return array
 	 */
 	public function getJsValidationFunctionData() {
 		return array_merge(

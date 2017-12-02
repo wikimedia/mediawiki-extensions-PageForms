@@ -26,6 +26,7 @@ class PFFormEditAction extends Action {
 	 * output.  Do not use globals $wgOut, $wgRequest, etc, in implementations; use
 	 * $this->getOutput(), etc.
 	 * @throws ErrorPageError
+	 * @return false
 	 */
 	public function show() {
 		return self::displayForm( $this, $this->page );
@@ -33,7 +34,7 @@ class PFFormEditAction extends Action {
 
 	/**
 	 * Execute the action in a silent fashion: do not display anything or release any errors.
-	 * @return Bool whether execution was successful
+	 * @return bool whether execution was successful
 	 */
 	public function execute() {
 		return true;
@@ -42,6 +43,9 @@ class PFFormEditAction extends Action {
 	/**
 	 * Adds an "action" (i.e., a tab) to edit the current article with
 	 * a form
+	 * @param Title $obj
+	 * @param array &$content_actions
+	 * @return true
 	 */
 	static function displayTab( $obj, &$content_actions ) {
 		if ( method_exists( $obj, 'getTitle' ) ) {
@@ -142,6 +146,9 @@ class PFFormEditAction extends Action {
 	/**
 	 * Like displayTab(), but called with a different hook - this one is
 	 * called for the 'Vector' skin, and some others.
+	 * @param Title $obj
+	 * @param array &$links
+	 * @return true
 	 */
 	static function displayTab2( $obj, &$links ) {
 		// the old '$content_actions' array is thankfully just a
@@ -223,6 +230,7 @@ class PFFormEditAction extends Action {
 	 * creating a page in a namespace that has a form, this interface probably won't
 	 * get called anyway; and #default_form calls for individual pages are
 	 * (hopefully) pretty rare.
+	 * @return int[]
 	 */
 	static function getNumPagesPerForm() {
 		$dbr = wfGetDB( DB_SLAVE );
@@ -276,6 +284,9 @@ class PFFormEditAction extends Action {
 	/**
 	 * The function called if we're in index.php (as opposed to one of the
 	 * special pages)
+	 * @param Action $action
+	 * @param Article $article
+	 * @return true
 	 */
 	static function displayForm( $action, $article ) {
 		$output = $action->getOutput();

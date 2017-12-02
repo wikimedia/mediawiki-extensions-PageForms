@@ -18,6 +18,8 @@ class PFFormUtils {
 	/**
 	 * Add a hidden input for each field in the template call that's
 	 * not handled by the form itself
+	 * @param PFTemplateInForm|null $template_in_form
+	 * @return string
 	 */
 	static function unhandledFieldsHTML( $template_in_form ) {
 		// This shouldn't happen, but sometimes this value is null.
@@ -135,6 +137,11 @@ class PFFormUtils {
 
 	/**
 	 * Helper function to display a simple button
+	 * @param string $name
+	 * @param string $value
+	 * @param string $type
+	 * @param array $attrs
+	 * @return string
 	 */
 	static function buttonHTML( $name, $value, $type, $attrs ) {
 		return "\t\t" . Html::input( $name, $value, $type, $attrs ) . "\n";
@@ -327,6 +334,7 @@ END;
 
 	/**
 	 * Used by 'RunQuery' page
+	 * @return string
 	 */
 	static function queryFormBottom() {
 		return self::runQueryButtonHTML( false );
@@ -352,6 +360,10 @@ END;
 
 	/**
 	 * Parse the form definition and return it
+	 * @param Parser $parser
+	 * @param string|null $form_def
+	 * @param string|null $form_id
+	 * @return string
 	 */
 	public static function getFormDefinition( Parser $parser, $form_def = null, $form_id = null ) {
 		if ( $form_id !== null ) {
@@ -435,6 +447,9 @@ END;
 
 	/**
 	 * Get a form definition from cache
+	 * @param string $form_id
+	 * @param Parser $parser
+	 * @return string|null
 	 */
 	protected static function getFormDefinitionFromCache( $form_id, Parser $parser ) {
 		global $wgPageFormsCacheFormDefinitions;
@@ -465,6 +480,9 @@ END;
 
 	/**
 	 * Store a form definition in cache
+	 * @param string $form_id
+	 * @param string $form_def
+	 * @param Parser $parser
 	 */
 	protected static function cacheFormDefinition( $form_id, $form_def, Parser $parser ) {
 		global $wgPageFormsCacheFormDefinitions;
@@ -537,6 +555,7 @@ END;
 
 	/**
 	 *  Get the cache object used by the form cache
+	 * @return BagOStuff
 	 */
 	public static function getFormCache() {
 		global $wgPageFormsFormCacheType, $wgParserCacheType;
@@ -562,6 +581,9 @@ END;
 
 	/**
 	 * Get section header HTML
+	 * @param string $header_name
+	 * @param int $header_level
+	 * @return string
 	 */
 	static function headerHTML( $header_name , $header_level = 2 ) {
 		global $wgPageFormsTabIndex;
@@ -583,6 +605,10 @@ END;
 	/**
 	 * Get the changed index if a new template or section was
 	 * inserted before the end, or one was deleted in the form
+	 * @param int $i
+	 * @param int|null $new_item_loc
+	 * @param int|null $deleted_item_loc
+	 * @return int
 	 */
 	static function getChangedIndex( $i, $new_item_loc, $deleted_item_loc ) {
 		$old_i = $i;

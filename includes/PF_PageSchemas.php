@@ -19,6 +19,9 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Creates an object to hold form-wide information, based on an XML
 	 * object from the Page Schemas extension.
+	 * @param string $tagName
+	 * @param string $xml
+	 * @return string[]|null
 	 */
 	public static function createPageSchemasObject( $tagName, $xml ) {
 		$pfarray = array();
@@ -81,6 +84,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Creates Page Schemas XML for form-wide information.
+	 * @return string
 	 */
 	public static function createSchemaXMLFromForm() {
 		global $wgRequest;
@@ -163,6 +167,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Creates Page Schemas XML from form information on templates.
+	 * @return string[]
 	 */
 	public static function createTemplateXMLFromForm() {
 		global $wgRequest;
@@ -190,6 +195,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Creates Page Schemas XML for form fields.
+	 * @return string[]
 	 */
 	public static function createFieldXMLFromForm() {
 		global $wgRequest;
@@ -229,6 +235,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Creates Page Schemas XML for page sections
+	 * @return string[]
 	 */
 	public static function createPageSectionXMLFromForm() {
 		global $wgRequest;
@@ -404,6 +411,8 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Returns the HTML for inputs to define a single form field,
 	 * within the Page Schemas 'edit schema' page.
+	 * @param PFField $psField
+	 * @return array
 	 */
 	public static function getFieldEditingHTML( $psField ) {
 		$fieldValues = array();
@@ -589,6 +598,8 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Return the list of pages that Page Forms could generate from
 	 * the current Page Schemas schema.
+	 * @param PFPageSchemas $pageSchemaObj
+	 * @return Title[]
 	 */
 	public static function getPagesToGenerate( $pageSchemaObj ) {
 		$psTemplates = $pageSchemaObj->getTemplates();
@@ -608,6 +619,8 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Returns an array of PFTemplateField objects, representing the fields
 	 * of a template, based on the contents of a <PageSchema> tag.
+	 * @param PFTemplate $psTemplate
+	 * @return PFTemplateField[]
 	 */
 	public static function getFieldsFromTemplateSchema( $psTemplate ) {
 		$psFields = $psTemplate->getFields();
@@ -655,6 +668,11 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Creates a form page, when called from the 'generatepages' page
 	 * of Page Schemas.
+	 * @param string $formName
+	 * @param string $formTitle
+	 * @param array $formItems
+	 * @param array $formDataFromSchema
+	 * @param string $categoryName
 	 */
 	public static function generateForm( $formName, $formTitle,
 		$formItems, $formDataFromSchema, $categoryName ) {
@@ -714,6 +732,8 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Generate pages (form and templates) specified in the list.
+	 * @param PageSchemas $pageSchemaObj
+	 * @param array $selectedPages
 	 */
 	public static function generatePages( $pageSchemaObj, $selectedPages ) {
 		global $wgUser;
@@ -881,6 +901,8 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Displays form details for one template in the Page Schemas XML.
+	 * @param string $templateXML
+	 * @return null|array
 	 */
 	public static function getTemplateDisplayValues( $templateXML ) {
 		$templateValues = self::getTemplateValues( $templateXML );
@@ -910,6 +932,8 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	/**
 	 * Displays data on a single form input in the Page Schemas XML.
+	 * @param Node $fieldXML
+	 * @return array|null
 	 */
 	public static function getFieldDisplayValues( $fieldXML ) {
 		foreach ( $fieldXML->children() as $tag => $child ) {

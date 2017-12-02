@@ -50,6 +50,7 @@ class PFRatingInput extends PFFormInput {
 
 	/**
 	 * Returns the HTML code to be included in the output page for this input.
+	 * @return string
 	 */
 	public function getHtmlText() {
 		global $wgPageFormsFieldNum;

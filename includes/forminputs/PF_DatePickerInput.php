@@ -16,13 +16,11 @@
 class PFDatePickerInput extends PFFormInput {
 
 	/**
-	 * Constructor.
-	 *
-	 * @param String $input_number The number of the input in the form.
-	 * @param String $cur_value The current value of the input field.
-	 * @param String $input_name The name of the input.
-	 * @param String $disabled Is this input disabled?
-	 * @param Array $other_args An associative array of other parameters that were present in the
+	 * @param string $input_number The number of the input in the form.
+	 * @param string $cur_value The current value of the input field.
+	 * @param string $input_name The name of the input.
+	 * @param bool $disabled Is this input disabled?
+	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
@@ -432,8 +430,8 @@ class PFDatePickerInput extends PFFormInput {
 	 * Returns an array of arrays with the date ranges sorted and
 	 * overlapping ranges merged.
 	 *
-	 * @param array $ranges array of arrays of DateTimes
-	 * @return array of arrays of DateTimes
+	 * @param array[] $ranges array of arrays of DateTimes
+	 * @return array[] array of arrays of DateTimes
 	*/
 	private static function sortAndMergeRanges( $ranges ) {
 		// sort ranges, earliest date first
@@ -496,8 +494,8 @@ class PFDatePickerInput extends PFFormInput {
 	 * The result array will contain null values for unparseable date
 	 * strings.
 	 *
-	 * @param array $rangesAsStrings array of strings with dates and date ranges
-	 * @return array of arrays of DateTimes
+	 * @param string[] $rangesAsStrings dates and date ranges
+	 * @return array[] array of arrays of DateTimes
 	 */
 	private static function createRangesArray( $rangesAsStrings ) {
 		// transform array of strings into array of array of dates
@@ -522,8 +520,8 @@ class PFDatePickerInput extends PFFormInput {
 	 * lost in the process, of course, as they do not delimit a gap. This
 	 * means, after repeated inversions the result will eventually be empty.
 	 *
-	 * @param array $ranges of arrays of DateTimes
-	 * @return array of arrays of DateTimes
+	 * @param DateTime[] $ranges
+	 * @return array[] array of arrays of DateTimes
 	 */
 	private static function invertRangesArray( $ranges ) {
 		// the result (initially empty)
@@ -550,6 +548,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * Returns the set of parameters for this form input.
 	 *
 	 * TODO: Add missing parameters
+	 * @return array[]
 	 */
 	public static function getParameters() {
 		$params = parent::getParameters();
@@ -603,7 +602,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if
 	 * the browser is not JavaScript capable, i.e. even without JavaScript
 	 * the user should be able to input values.
-	 *
+	 * @return string
 	 */
 	public function getHtmlText() {
 		// Assemble HTML code.
@@ -622,7 +621,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * Returns the set of SMW property types which this input can
 	 * handle, but for which it isn't the default input.
 	 *
-	 * @return Array of strings
+	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
 		return array( '_str', '_dat' );

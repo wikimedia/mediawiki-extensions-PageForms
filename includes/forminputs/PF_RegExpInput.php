@@ -19,13 +19,11 @@ class PFRegExpInput extends PFFormInput {
 	protected $mBaseInput;
 
 	/**
-	 * Constructor.
-	 *
-	 * @param String $input_number The number of the input in the form.
-	 * @param String $cur_value The current value of the input field.
-	 * @param String $input_name The name of the input.
-	 * @param String $disabled Is this input disabled?
-	 * @param Array $other_args An associative array of other parameters that were present in the
+	 * @param string $input_number The number of the input in the form.
+	 * @param string $cur_value The current value of the input field.
+	 * @param string $input_name The name of the input.
+	 * @param bool $disabled Is this input disabled?
+	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
@@ -151,6 +149,7 @@ class PFRegExpInput extends PFFormInput {
 
 	/**
 	 * Returns the set of parameters for this form input.
+	 * @return array[]
 	 */
 	public static function getParameters() {
 		$params = parent::getParameters();
@@ -194,7 +193,7 @@ class PFRegExpInput extends PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if the
 	 * browser is not JavaScript capable. I.e. even without JavaScript the user
 	 * should be able to input values.
-	 *
+	 * @return string
 	 */
 	public function getHtmlText() {
 		return $this->mBaseInput->getHtmlText();
@@ -205,7 +204,7 @@ class PFRegExpInput extends PFFormInput {
 	 * handle, but for which it isn't the default input.
 	 *
 	 * @deprecated
-	 * @return Array of strings
+	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
 		return array( '_str', '_num', '_dat', '_geo', '_ema', '_tel', '_wpg', '_tem', '_qty' );
@@ -214,6 +213,7 @@ class PFRegExpInput extends PFFormInput {
 	/**
 	 * Returns the name and parameters for the initialization JavaScript
 	 * function for this input type, if any.
+	 * @return array[]
 	 */
 	public function getJsInitFunctionData() {
 		return array_merge( $this->mJsInitFunctionData, $this->mBaseInput->getJsInitFunctionData() );
@@ -222,6 +222,7 @@ class PFRegExpInput extends PFFormInput {
 	/**
 	 * Returns the name and parameters for the validation JavaScript
 	 * functions for this input type, if any.
+	 * @return array[]
 	 */
 	public function getJsValidationFunctionData() {
 		return array_merge( $this->mJsValidationFunctionData, $this->mBaseInput->getJsValidationFunctionData() );

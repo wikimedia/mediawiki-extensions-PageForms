@@ -33,15 +33,14 @@ abstract class PFFormInput {
 	protected $mJsValidationFunctionData = array();
 
 	/**
-	 * Constructor for the PFFormInput class.
-	 *
-	 * @param String $input_number The number of the input in the form. For a simple HTML input
+	 * @param string $input_number The number of the input in the form. For a simple HTML input
 	 *  element this should end up in the id attribute in the format 'input_<number>'.
-	 * @param String $cur_value The current value of the input field. For a simple HTML input
+	 * @param string $cur_value The current value of the input field. For a simple HTML input
 	 *  element this should end up in the value attribute.
-	 * @param String $input_name The name of the input. For a simple HTML input element this should
+	 * @param string $input_name The name of the input. For a simple HTML input element this should
 	 *  end up in the name attribute.
-	 * @param Array $other_args An associative array of other parameters that were present in the
+	 * @param bool $disabled Is this input disabled?
+	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
@@ -72,7 +71,7 @@ abstract class PFFormInput {
 	 * Returns the set of SMW property types which this input can
 	 * handle. See SMW's SMW_DataValueFactory.php
 	 *
-	 * @return Array of Strings
+	 * @return string[]
 	 */
 	public static function getHandledPropertyTypes() {
 		return null;
@@ -80,6 +79,7 @@ abstract class PFFormInput {
 
 	/**
 	 * Returns the set of parameters for this form input.
+	 * @return array[]
 	 */
 	public static function getParameters() {
 		$params = array();
@@ -114,10 +114,10 @@ abstract class PFFormInput {
 	}
 
 	/**
-	 * @param $key
-	 * @param $configVars
-	 * @param $functionData
-	 * @param $input_id
+	 * @param string $key
+	 * @param array &$configVars
+	 * @param array $functionData
+	 * @param string $input_id
 	 * @return array
 	 */
 	private static function updateFormInputJsFunctionData( $key, &$configVars, $functionData, $input_id ) {
@@ -134,7 +134,7 @@ abstract class PFFormInput {
 	 * Return an array of the default parameters for this input where the
 	 * parameter name is the key while the parameter value is the value.
 	 *
-	 * @return Array of Strings
+	 * @return string[]
 	 */
 	public function getDefaultParameters() {
 		return null;
@@ -146,6 +146,7 @@ abstract class PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if the
 	 * browser is not JavaScript capable. I.e. even without JavaScript the user
 	 * should be able to input values.
+	 * @return null
 	 */
 	public function getHtmlText() {
 		return null;
@@ -153,7 +154,7 @@ abstract class PFFormInput {
 
 	/**
 	 *
-	 * @return Boolean True, if this input type can handle lists
+	 * @return bool True, if this input type can handle lists
 	 */
 	public static function canHandleLists() {
 		return false;
@@ -164,6 +165,7 @@ abstract class PFFormInput {
 	 * function for this input type, if any.
 	 *
 	 * This function is not used yet.
+	 * @return array[]
 	 */
 	public function getJsInitFunctionData() {
 		return $this->mJsInitFunctionData;
@@ -174,6 +176,7 @@ abstract class PFFormInput {
 	 * functions for this input type, if any.
 	 *
 	 * This function is not used yet.
+	 * @return array[]
 	 */
 	public function getJsValidationFunctionData() {
 		return $this->mJsValidationFunctionData;
@@ -212,8 +215,8 @@ abstract class PFFormInput {
 	 * Adding initFoo like this: <code>addJsInitFunctionData( "initFoo", "array('bar', 'baz'" );</code> will result in this JavaScript call: <code>initFoo( inputID, array('bar', 'baz') );</code>.
 	 *
 	 *
-	 * @param String $name The name of the initialization function.
-	 * @param String $param The parameter passed to the initialization function.
+	 * @param string $name The name of the initialization function.
+	 * @param string $param The parameter passed to the initialization function.
 	 */
 	public function addJsInitFunctionData( $name, $param = null ) {
 		if ( is_string( $param ) ) {
@@ -243,8 +246,8 @@ abstract class PFFormInput {
 	 * Adding validateFoo like this: <code>addJsValidationFunctionData( "initFoo", "array('bar', 'baz'" );</code> will result in this JavaScript call: <code>validateFoo( inputID, array('bar', 'baz') );</code>.
 	 *
 	 *
-	 * @param String $name The name of the initialization function.
-	 * @param String $param The parameter passed to the initialization function.
+	 * @param string $name The name of the initialization function.
+	 * @param string $param The parameter passed to the initialization function.
 	 */
 	public function addJsValidationFunctionData( $name, $param = 'null' ) {
 		$this->mJsValidationFunctionData[] = array( 'name' => $name, 'param' => $param );
@@ -256,8 +259,8 @@ abstract class PFFormInput {
 	 * should declare itself the default for any specific type.
 	 *
 	 * @deprecated
-	 * @return Array of arrays (key is the property type, value is an array of
-	 *  default args to be used for this input)
+	 * @return array[] key is the property type, value is an array of
+	 *  default args to be used for this input
 	 */
 	public static function getDefaultPropTypes() {
 		return array();
@@ -269,8 +272,8 @@ abstract class PFFormInput {
 	 * should declare itself the default for any specific type.
 	 *
 	 * @deprecated
-	 * @return Array of arrays (key is the property type, value is an array of
-	 *  default args to be used for this input)
+	 * @return array[] key is the property type, value is an array of
+	 *  default args to be used for this input
 	 */
 	public static function getDefaultPropTypeLists() {
 		return array();
@@ -281,7 +284,7 @@ abstract class PFFormInput {
 	 * handle, but for which it isn't the default input.
 	 *
 	 * @deprecated
-	 * @return Array of strings
+	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
 		return array();
@@ -292,7 +295,7 @@ abstract class PFFormInput {
 	 * handle, but for which it isn't the default input.
 	 *
 	 * @deprecated
-	 * @return Array of strings
+	 * @return string[]
 	 */
 	public static function getOtherPropTypeListsHandled() {
 		return array();

@@ -604,6 +604,13 @@ END;
 	 * Prints an input for a form-field parameter.
 	 * Code borrowed from Semantic MediaWiki's
 	 * SMWAskPage::addOptionInput().
+	 * @param string $type
+	 * @param string $paramName
+	 * @param string $cur_value
+	 * @param array $param
+	 * @param array $paramValues
+	 * @param string $fieldFormText
+	 * @return string
 	 */
 	public static function inputTypeParamInput( $type, $paramName, $cur_value, array $param, array $paramValues, $fieldFormText ) {
 		if ( $type == 'int' ) {
@@ -659,7 +666,8 @@ END;
 	 * Display a form section showing the options for a given format,
 	 * based on the getParameters() value for that format's query printer.
 	 *
-	 * @param string $format
+	 * @param string $inputType
+	 * @param string $fieldFormText
 	 * @param array $paramValues
 	 *
 	 * @return string
@@ -716,6 +724,8 @@ END;
 	/**
 	 * Display other parameters for a page section
 	 *
+	 * @param int $section_count
+	 * @param array $paramValues
 	 * @return string
 	 */
 	function showSectionParameters( $section_count, $paramValues ) {

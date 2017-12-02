@@ -126,6 +126,7 @@ END;
 
 	/**
 	 * Returns the HTML code to be included in the output page for this input.
+	 * @return string
 	 */
 	public function getHtmlText() {
 		return self::getHTML(
@@ -142,6 +143,9 @@ END;
 	 *
 	 * Copied from CargoStore::coordinatePartToNumber() in the Cargo
 	 * extension.
+	 * @param string $coordinateStr
+	 * @return int
+	 * @throws MWException
 	 */
 	public static function coordinatePartToNumber( $coordinateStr ) {
 		$degreesSymbols = array( "\x{00B0}", "d" );
@@ -197,6 +201,7 @@ END;
 	 *
 	 * Copied from CargoStore::parseCoordinateString() in the Cargo
 	 * extension.
+	 * @param string $coordinatesString
 	 */
 	public static function parseCoordinatesString( $coordinatesString ) {
 		$coordinatesString = trim( $coordinatesString );

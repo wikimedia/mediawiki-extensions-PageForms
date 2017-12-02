@@ -91,6 +91,7 @@ class PFTemplateField {
 	/**
 	 * Called if a matching property is found for a template field when
 	 * a template is parsed during the creation of a form.
+	 * @param string $semantic_property
 	 */
 	function setSemanticProperty( $semantic_property ) {
 		$this->mSemanticProperty = str_replace( '\\', '', $semantic_property );
@@ -102,6 +103,9 @@ class PFTemplateField {
 	/**
 	 * Equivalent to setSemanticProperty(), but called when using Cargo
 	 * instead of SMW.
+	 * @param string $tableName
+	 * @param string $fieldName
+	 * @param string|null $fieldDescription
 	 */
 	function setCargoFieldData( $tableName, $fieldName, $fieldDescription = null ) {
 		$this->mCargoTable = $tableName;

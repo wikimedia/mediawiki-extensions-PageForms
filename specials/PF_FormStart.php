@@ -117,6 +117,9 @@ END;
 
 	/**
 	 * Helper function - returns a URL that includes Special:FormEdit.
+	 * @param string $formName
+	 * @param string $targetName
+	 * @return string
 	 */
 	static function getFormEditURL( $formName, $targetName ) {
 		$fe = SpecialPageFactory::getPage( 'FormEdit' );
