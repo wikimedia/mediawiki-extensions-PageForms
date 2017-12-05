@@ -226,7 +226,6 @@
 	"pf-select2-searching": "Поиск…",
 	"pf-select2-input-too-short": "Пожалуйста, введите $1 или более символов",
 	"pf-select2-selection-too-big": "Это поле не может содержать более {{PLURAL:$1|$1 значения|$1 значений}}.",
-	"pf-maps-setmarker": "Установить маркер",
 	"pf-maps-enteraddress": "Введите здесь адрес",
 	"pf-maps-lookupcoordinates": "Определить координаты с помощью адреса",
 	"pf-adminlinks-datastructure": "Структура данных",

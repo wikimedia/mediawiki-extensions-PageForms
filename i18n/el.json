@@ -236,7 +236,6 @@
 	"pf-select2-searching": "Γίνεται αναζήτηση...",
 	"pf-select2-input-too-short": "Παρακαλούμε εισαγάγετε $1 ή περισσότερους χαρακτήρες.",
 	"pf-select2-selection-too-big": "Αυτό το πεδίο δεν μπορεί να δεχτεί περισσότερες από {{PLURAL:$1|$1}} τιμές.",
-	"pf-maps-setmarker": "Ορισμός δείκτη",
 	"pf-maps-enteraddress": "Εισαγωγή διεύθυνσης εδώ",
 	"pf-maps-lookupcoordinates": "Εύρεση συντεταγμένων",
 	"pf-adminlinks-datastructure": "Δομή δεδομένων",

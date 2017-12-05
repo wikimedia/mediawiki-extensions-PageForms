@@ -6,7 +6,6 @@
 	},
 	"pageforms-desc": "Borang untuk menambahkan dan menyunting data semantik",
 	"createproperty": "Wujudkan sifat",
-	"pf_createproperty_linktoform": "Sifat ini akan dipautkan dengan laman-laman yang menggunakan borang ini:",
 	"pf_createproperty_allowedvalsinput": "Jika anda mahu sifat ini hanya dibenarkan mempunyai nilai-nilai tertentu, isikan senarai nilai yang dibenarkan, diikuti oleh tanda koma (jika sesuatu nilai ada tanda koma, gantinya dengan \"\\,\".):",
 	"pf_createproperty_propname": "Nama sifat:",
 	"pf_createproperty_proptype": "Jenis:",

@@ -246,7 +246,6 @@
 	"pf-select2-searching": "חיפוש...",
 	"pf-select2-input-too-short": "נא להזין {{PLURAL:$1|תו אחד|$1 תווים}} או יותר.",
 	"pf-select2-selection-too-big": "השדה הזה אינו יכול להכיל יותר {{PLURAL:$1|מערך אחד|מ־$1 ערכים}}.",
-	"pf-maps-setmarker": "הצבת סמן",
 	"pf-maps-enteraddress": "נא להזין כתובת כאן",
 	"pf-maps-lookupcoordinates": "חיפוש נקודות ציון",
 	"pf-adminlinks-datastructure": "מבנה הנתונים",

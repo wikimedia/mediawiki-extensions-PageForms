@@ -6,7 +6,7 @@
 			"SPQRobin"
 		]
 	},
-	"pf_createproperty_propname": "Naam:",
+	"pf_createproperty_propname": "!!FUZZY!!Naam:",
 	"pf_createproperty_proptype": "Tipe:",
 	"templates": "Sjablone",
 	"pf_createtemplate_standardformat": "Standaard",
@@ -16,7 +16,7 @@
 	"pf_createform_inputtypedefault": "(standaard)",
 	"pf_createform_hidden": "Verborge",
 	"pf_createform_add": "Voeg by",
-	"pf_createcategory_name": "Naam:",
+	"pf_createcategory_name": "!!FUZZY!!Naam:",
 	"pf_formedit_remove": "Skrap",
 	"pf_formedit_none": "Geen",
 	"pf_blank_error": "mag nie leeg wees nie",

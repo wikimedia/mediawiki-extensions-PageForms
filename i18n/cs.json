@@ -13,7 +13,7 @@
 		]
 	},
 	"createproperty": "Vytvořit vlastnost",
-	"pf_createproperty_propname": "Název:",
+	"pf_createproperty_propname": "!!FUZZY!!Název:",
 	"pf_createproperty_proptype": "Typ:",
 	"templates": "Šablony",
 	"createtemplate": "Vytvořit šablonu",

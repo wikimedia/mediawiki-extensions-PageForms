@@ -221,7 +221,6 @@
 	"pf-select2-searching": "Søker...",
 	"pf-select2-input-too-short": "Vær vennlig å legge inn $1 eller flere tegn.",
 	"pf-select2-selection-too-big": "Dette feltet kan ikke inneholde flere enn {{PLURAL:$1|$1 verdi|$1 verdier}}.",
-	"pf-maps-setmarker": "Sett markør",
 	"pf-maps-enteraddress": "Legg inn adresse her",
 	"pf-maps-lookupcoordinates": "Sjekk koordinater",
 	"pf-adminlinks-datastructure": "Datastruktur",

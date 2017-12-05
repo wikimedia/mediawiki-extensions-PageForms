@@ -216,7 +216,6 @@
 	"pf-select2-searching": "搜尋中...",
 	"pf-select2-input-too-short": "請輸入 $1 個或更多的字元。",
 	"pf-select2-selection-too-big": "此欄位不可使用超過 {{PLURAL:$1|$1 個值|$1 個值}}。",
-	"pf-maps-setmarker": "設定記號",
 	"pf-maps-enteraddress": "在此處輸入地址",
 	"pf-maps-lookupcoordinates": "尋找座標",
 	"pf-adminlinks-datastructure": "資料結構",

@@ -193,7 +193,6 @@
 	"action-viewedittab": "フォームで編集できるページに「{{int:edit}}」タブを表示",
 	"pf-select2-searching": "検索中...",
 	"pf-select2-input-too-short": "$1 文字以上入力してください。",
-	"pf-maps-setmarker": "マーカーを設定",
 	"pf-maps-lookupcoordinates": "座標を検索",
 	"pf-datepicker-close": "閉じる",
 	"pf-datepicker-prev": "前へ",
