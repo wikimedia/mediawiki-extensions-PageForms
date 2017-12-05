@@ -5,7 +5,7 @@
 			"Slomox"
 		]
 	},
-	"pf_createproperty_propname": "!!FUZZY!!Naam:",
+	"pf_createproperty_propname": "Naam:",
 	"pf_createproperty_proptype": "Typ:",
 	"templates": "Vörlagen",
 	"createtemplate": "Stell een Vörlaag op",
