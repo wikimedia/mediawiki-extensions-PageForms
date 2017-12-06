@@ -232,6 +232,7 @@
 	"pf_modified_input_error": "Warning message",
 	"pf_pipe_error": "An error message - if an input contains a pipe character (\"|\"), the pipe must be part of a link, like \"[[a|b]]\", or a call to a template, like \"{{c|d}}\", or a parser function, like \"{{#e:f}}\".",
 	"uploadwindow": "Special page name for [[Special:UploadWindow]].\n\n'''This is about a window for uploading files. The window is not the thing being uploaded.'''",
+	"pf-simpleupload": "A button label\n{{{Identical|Upload}}}",
 	"pf_deletionlog": "{{Identical|Deletion log}}",
 	"pf-preview-header": "Header when previewing a form in Special:CreateForm",
 	"pf-preview-note": "Informational message when previewing a form in Special:CreateForm",

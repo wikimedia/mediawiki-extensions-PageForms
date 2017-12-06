@@ -378,7 +378,7 @@ $GLOBALS['wgResourceModules'] += array(
 		),
         'messages' => array(
 			'pf_forminputs_change_file',
-			'upload-dialog-button-upload'
+			'pf-simpleupload'
 		),
 	),
 	'ext.pageforms.select2' => $wgPageFormsResourceTemplate + array(

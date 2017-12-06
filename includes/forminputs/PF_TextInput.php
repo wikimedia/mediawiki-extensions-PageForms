@@ -148,7 +148,7 @@ class PFTextInput extends PFFormInput {
 		if ( $wgPageFormsSimpleUpload ) {
 			$text = "\n" . '<img class="loading" style="display:none;" src="' . $wgPageFormsScriptPath . '/skins/loading.gif"/>' . "\n";
 			$text .= Html::input( '',
-				wfMessage( 'upload-dialog-button-upload' )->escaped(),
+				wfMessage( 'pf-simpleupload' )->escaped(),
 				'button',
 				array(
 					'class' => 'simpleupload_btn',

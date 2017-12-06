@@ -215,6 +215,7 @@
 	"pf_modified_input_error": "This modification should be approved or rejected",
 	"pf_pipe_error": "\"|\" is not allowed, except within {{...}} or [[...]]",
 	"uploadwindow": "Upload window",
+	"pf-simpleupload": "Upload",
 	"pf_deletionlog": "Deletion log",
 	"pf-preview-header": "Form preview",
 	"pf-preview-note": "This is what the form will look like when it is in use:",
