@@ -56,7 +56,7 @@ class PFCreateForm extends SpecialPage {
 	function doSpecialCreateForm( $query ) {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
-		$db = wfGetDB( DB_SLAVE );
+		$db = wfGetDB( DB_REPLICA );
 
 		if ( !is_null( $query ) ) {
 			$presetFormName = str_replace( '_', ' ', $query );
