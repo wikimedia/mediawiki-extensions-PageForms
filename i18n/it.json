@@ -186,6 +186,7 @@
 	"pf_modified_input_error": "Questa modifica deve essere approvata o rifiutata",
 	"pf_pipe_error": "\"|\" non è consentito, eccetto all'interno di {{...}} o [[...]]",
 	"uploadwindow": "Finestra di upload",
+	"pf-simpleupload": "Carica",
 	"pf_deletionlog": "Log cancellazioni",
 	"pf-preview-header": "Anteprima modulo",
 	"pf-preview-note": "Il modulo apparirà così quando sarà usato:",

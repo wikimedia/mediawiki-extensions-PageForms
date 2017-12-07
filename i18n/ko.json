@@ -195,6 +195,7 @@
 	"pf_modified_input_error": "이 수정은 승인되거나 거부되어야 합니다",
 	"pf_pipe_error": "{{...}} 또는 [[...]] 안에 쓰지 않는 한 \"|\"는 허용되지 않습니다.",
 	"uploadwindow": "올리기 창",
+	"pf-simpleupload": "업로드",
 	"pf_deletionlog": "삭제 기록",
 	"pf-preview-header": "양식 미리 보기",
 	"pf-preview-note": "양식을 사용할 때 이것 같이 보입니다:",
