@@ -154,9 +154,9 @@ class PFParserFunctions {
 
 	// static variable to guarantee that Javascript for autocompletion
 	// only gets added to the page once
-	static $num_autocompletion_inputs = 0;
+	private static $num_autocompletion_inputs = 0;
 
-	static function renderDefaultform( &$parser ) {
+	public static function renderDefaultForm( &$parser ) {
 		$curTitle = $parser->getTitle();
 
 		$params = func_get_args();
@@ -187,28 +187,28 @@ class PFParserFunctions {
 		// It's not a category - display nothing.
 	}
 
-	static function renderFormLink ( &$parser ) {
+	public static function renderFormLink( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
 		$str = self::createFormLink( $parser, $params, 'formlink' );
 		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
-	static function renderFormRedLink ( &$parser ) {
+	public static function renderFormRedLink( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
 		$str = self::createFormLink( $parser, $params, 'formredlink' );
 		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
-	static function renderQueryFormLink ( &$parser ) {
+	public static function renderQueryFormLink( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // We don't need the parser.
 		$str = self::createFormLink( $parser, $params, 'queryformlink' );
 		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}
 
-	static function convertQueryString ( $queryString, $inQueryArr ) {
+	private static function convertQueryString( $queryString, $inQueryArr ) {
 		// Change HTML-encoded ampersands directly to URL-encoded
 		// ampersands, so that the string doesn't get split up on the '&'.
 		$queryString = str_replace( '&amp;', '%26', $queryString );
@@ -220,7 +220,7 @@ class PFParserFunctions {
 		return PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
 	}
 
-	static function renderFormInput( &$parser ) {
+	public static function renderFormInput( &$parser ) {
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
@@ -382,7 +382,7 @@ class PFParserFunctions {
 	/**
 	 * {{#arraymap:value|delimiter|var|formula|new_delimiter}}
 	 */
-	static function renderArrayMap( &$parser, $frame, $args ) {
+	public static function renderArrayMap( &$parser, $frame, $args ) {
 		// Set variables.
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$delimiter = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : ',';
@@ -420,7 +420,7 @@ class PFParserFunctions {
 	/**
 	 * {{#arraymaptemplate:value|template|delimiter|new_delimiter}}
 	 */
-	static function renderArrayMapTemplate( &$parser, $frame, $args ) {
+	public static function renderArrayMapTemplate( &$parser, $frame, $args ) {
 		// Set variables.
 		$value = isset( $args[0] ) ? trim( $frame->expand( $args[0] ) ) : '';
 		$template = isset( $args[1] ) ? trim( $frame->expand( $args[1] ) ) : '';
@@ -456,7 +456,7 @@ class PFParserFunctions {
 	}
 
 
-	static function renderAutoEdit( &$parser ) {
+	public static function renderAutoEdit( &$parser ) {
 		global $wgContentNamespaces;
 
 		$parser->getOutput()->addModules( 'ext.pageforms.autoedit' );
@@ -600,7 +600,7 @@ class PFParserFunctions {
 		return $parser->insertStripItem( $output, $parser->mStripState );
 	}
 
-	static function createFormLink( &$parser, $params, $parserFunctionName ) {
+	private static function createFormLink( &$parser, $params, $parserFunctionName ) {
 		// Set defaults.
 		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
 			$inTooltip = $inTargetName = '';
@@ -770,7 +770,7 @@ class PFParserFunctions {
 		return $str;
 	}
 
-	static function loadScriptsForPopupForm( &$parser ) {
+	private static function loadScriptsForPopupForm( &$parser ) {
 		$parser->getOutput()->addModules( 'ext.pageforms.popupformedit' );
 		return true;
 	}
