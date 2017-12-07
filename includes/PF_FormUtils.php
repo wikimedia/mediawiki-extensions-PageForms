@@ -504,12 +504,12 @@ END;
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
 	 *
-	 * Hooks: ArticlePurge, ArticleSave
+	 * Hooks: ArticlePurge, PageContentSave
 	 *
-	 * @param Page $wikipage
+	 * @param WikiPage $wikipage
 	 * @return bool
 	 */
-	public static function purgeCache( Page $wikipage ) {
+	public static function purgeCache( WikiPage $wikipage ) {
 		if ( !$wikipage->getTitle()->inNamespace( PF_NS_FORM ) ) {
 			return true;
 		}
