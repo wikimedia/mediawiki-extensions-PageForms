@@ -244,7 +244,7 @@
 	"pf_modified_input_error": "Cette modification doit être approuvée ou rejetée",
 	"pf_pipe_error": "« | » n’est pas autorisé, sauf à l’intérieur de {{...}} ou de [[...]].",
 	"uploadwindow": "Fenêtre de téléversement",
-	"pf-simpleupload": "Télécharger",
+	"pf-simpleupload": "Téléverser",
 	"pf_deletionlog": "Historique des suppressions",
 	"pf-preview-header": "Aperçu du formulaire",
 	"pf-preview-note": "Voilà à qui ressemblera le formulaire une fois utilisé:",
