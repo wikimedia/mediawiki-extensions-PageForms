@@ -132,6 +132,7 @@
 	"pf_modified_input_error": "Dës Ännerung soll nogekuckt oder refuséiert ginn.",
 	"pf_pipe_error": "\"|\" ass net erlaabt, ausser an {{...}} oder [[...]]",
 	"uploadwindow": "Fënster fir eropzelueden",
+	"pf-simpleupload": "Eroplueden",
 	"pf_deletionlog": "Logbuch vum Läschen",
 	"pf-preview-note": "Sou gesäit de Formulaire aus wann e benotzt gëtt:",
 	"pf-pageschemas-createtitle": "Numm vum Formulaire fir nei Säiten:",

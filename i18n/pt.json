@@ -10,7 +10,8 @@
 			"555",
 			"Imperadeiro98",
 			"Vitorvicentevalente",
-			"Jaideraf"
+			"Jaideraf",
+			"MokaAkashiyaPT"
 		]
 	},
 	"pageforms-desc": "Formulários para criar e editar páginas da wiki",
@@ -223,6 +224,7 @@
 	"pf_modified_input_error": "Esta alteração devia ser aprovada ou rejeitada",
 	"pf_pipe_error": "\"|\" não é permitido, exceto entre {{...}} ou [[...]]",
 	"uploadwindow": "Janela de carregamento",
+	"pf-simpleupload": "Carregar",
 	"pf_deletionlog": "Registo de eliminações",
 	"pf-preview-header": "Antevisão de formulário",
 	"pf-preview-note": "Este é o aspeto do formulário quando estiver em uso:",
