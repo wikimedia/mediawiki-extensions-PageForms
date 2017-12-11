@@ -205,6 +205,7 @@
 	"pf_modified_input_error": "Esta modificación debería ser aprobada o rechazada",
 	"pf_pipe_error": "\"|\" no está permitido, excepto entre {{...}} o [[...]]",
 	"uploadwindow": "Ventana para subir archivos",
+	"pf-simpleupload": "Cargar",
 	"pf_deletionlog": "Registro de borrado",
 	"pf-preview-header": "Vista previa del formulario",
 	"pf-preview-note": "Este será el aspecto del formulario cuando esté en uso:",

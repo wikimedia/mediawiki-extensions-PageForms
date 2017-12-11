@@ -18,7 +18,8 @@
 			"Дмитрий",
 			"INS Pirat",
 			"Kareyac",
-			"Alexey zakharenkov"
+			"Alexey zakharenkov",
+			"Redredsonia"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
@@ -198,6 +199,7 @@
 	"pf_bad_number_error": "должно быть числом",
 	"pf_bad_date_error": "должно быть датой",
 	"uploadwindow": "Окно загрузки",
+	"pf-simpleupload": "Загрузить",
 	"pf_deletionlog": "Журнал удалений",
 	"pf-preview-header": "Предварительный просмотр формы",
 	"pf-preview-note": "Так форма будет выглядеть во время использованияː",

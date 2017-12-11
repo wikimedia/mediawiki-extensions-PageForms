@@ -190,6 +190,7 @@
 	"pf_bad_date_error": "måste vara ett giltigt datum",
 	"pf_pipe_error": "\"|\" är inte tillåtet, utom inom {{...}} eller [[...]]",
 	"uploadwindow": "Uppladdningsfönster",
+	"pf-simpleupload": "Ladda upp",
 	"pf_deletionlog": "Raderingslogg",
 	"pf-preview-header": "Förgranska formulär",
 	"pf-preview-note": "Så här kommer formuläret att se ut när det används:",
