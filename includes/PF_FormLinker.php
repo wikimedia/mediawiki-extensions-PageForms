@@ -21,7 +21,7 @@ class PFFormLinker {
 		}
 
 		$pageID = $title->getArticleID();
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select( 'page_props',
 			array(
 				'pp_value'

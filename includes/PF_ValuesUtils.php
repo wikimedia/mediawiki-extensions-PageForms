@@ -51,7 +51,7 @@ class PFValuesUtils {
 	 */
 	public static function getCategoriesForPage( $title = null ) {
 		$categories = array();
-		$db = wfGetDB( DB_REPLICA );
+		$db = wfGetDB( DB_SLAVE );
 		$conditions = null;
 		if ( !is_null( $title ) ) {
 			$titlekey = $title->getArticleID();
@@ -149,7 +149,7 @@ class PFValuesUtils {
 		}
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsUseDisplayTitle;
 
-		$db = wfGetDB( DB_REPLICA );
+		$db = wfGetDB( DB_SLAVE );
 		$top_category = str_replace( ' ', '_', $top_category );
 		$categories = array( $top_category );
 		$checkcategories = array( $top_category );
@@ -392,7 +392,7 @@ class PFValuesUtils {
 			return wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) );
 		}
 
-		$db = wfGetDB( DB_REPLICA );
+		$db = wfGetDB( DB_SLAVE );
 		$tables = array( 'page' );
 		$columns = array( 'page_title' );
 		$conditions = array();
@@ -540,7 +540,7 @@ class PFValuesUtils {
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
 		global $wgDBtype, $wgPageFormsAutocompleteOnAllChars;
 
-		$db = wfGetDB( DB_REPLICA );
+		$db = wfGetDB( DB_SLAVE );
 
 		// CONVERT() is also supported in PostgreSQL, but it doesn't
 		// seem to work the same way.
