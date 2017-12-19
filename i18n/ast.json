@@ -214,6 +214,7 @@
 	"pf_modified_input_error": "Esti cambiu tendría d'aprobase o refugase",
 	"pf_pipe_error": "Nun se permite \"|\", sacante nes llamaes dientro de {{...}} o [[...]]",
 	"uploadwindow": "Ventana de carga",
+	"pf-simpleupload": "Xubir",
 	"pf_deletionlog": "Rexistru de desanicios",
 	"pf-preview-header": "Vista previa del formulariu",
 	"pf-preview-note": "Esti sedrá l'aspectu del formulariu cuando tea n'usu:",
