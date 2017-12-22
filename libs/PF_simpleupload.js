@@ -56,8 +56,10 @@
 				if ( !data.error ) {
 					input.val(fileName);
 					input.parent().find('img.simpleupload_prv').remove();
-					$('<img class="simpleupload_prv" src="' +
-						mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + fileName + '?width=100') +'">').insertAfter(input);
+					var imagePreviewURL = mw.config.get('wgArticlePath').replace( '$1', 'Special:Redirect/file/' + encodeURIComponent( input.val() ) );
+					imagePreviewURL += ( imagePreviewURL.indexOf('?') === -1 ) ? '?' : '&';
+					imagePreviewURL += 'width=100';
+					$('<img class="simpleupload_prv" src="' + imagePreviewURL +'">').insertAfter(input);
 					_this.parent().find('.simpleupload_btn').show().val( mw.message( 'pf_forminputs_change_file' ).text() );
 					_this.parent().find('img.loading').hide();
 					_this.parent().find('.simpleupload_rmv_btn').show();
