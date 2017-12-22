@@ -75,9 +75,9 @@
 			var description = value.description;
 			var markup = "";
 
-			// Escape quotes in image.
+			// HTML-encode quotes in image name.
 			if ( image !== undefined ) {
-				image = image.replace( /"/g, '\\\"' );
+				image = image.replace( /"/g, "&quot;" );
 			}
 
 			var highlightedText = pf.select2.base.prototype.textHighlight( text, term );
