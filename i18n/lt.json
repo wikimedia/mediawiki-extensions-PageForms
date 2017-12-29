@@ -6,7 +6,8 @@
 			"Hugo.arg",
 			"Zygimantus",
 			"Homo",
-			"Eitvys200"
+			"Eitvys200",
+			"Manvydasz"
 		]
 	},
 	"createproperty": "Sukurti savybę",
@@ -40,7 +41,7 @@
 	"forms": "Formos",
 	"pf_forms_docu": "Šiame sąraše pateikiamos visos formos.",
 	"pf_forminputs_mandatory": "Privalomas",
-	"pf_forminputs_restricted": "Apribotas (jį redaguoti gali tik sysop naudotojai)",
+	"pf_forminputs_restricted": "Tik administratoriai gali redaguoti šią įvestį",
 	"pf_forminputs_default": "Šios įvesties numatytoji reikšmė",
 	"pf_forminputs_size": "Šio teksto laukelio dydis simboliais",
 	"pf_forminputs_maxlength": "Maksimalus leidžiamas teksto ilgis šiame laukelyje",
@@ -58,7 +59,7 @@
 	"pf_forminputs_allowhalfstars": "Ar leisti puse žvaigždutės, pvz. 3.5 įvertinimas",
 	"createform": "Sukurti formą",
 	"pf-createform-with-name": "Kurti formą: $1",
-	"pf_createform_nameinput": "Formos vardas (dažniausiai priimtina pavadinti pagrindinio formoje naudojamo šablono vardu):",
+	"pf_createform_nameinput": "Formos vardas",
 	"pf_createform_template": "Šablonas:",
 	"pf_createform_templatelabelinput": "Šablono kortelės užrašas (nebūtinas):",
 	"pf_createform_allowmultiple": "Leisti kelis (arba nė vieno) šio šablono vienetus sukurtame puslapyje",
@@ -85,7 +86,7 @@
 	"pf_createform_additembeforesave": "Prieš išsaugant šią formą, būtina pridėti bent vieną lauką.",
 	"createcategory": "Sukurti kategoriją",
 	"pf-createcategory-with-name": "Kurti kategorija: $1",
-	"pf_createcategory_name": "Vardas:",
+	"pf_createcategory_name": "Kategorijos pavadinimas:",
 	"pf_createcategory_defaultform": "Pagrindinė forma:",
 	"pf_createcategory_makesubcategory": "Padaryti kaip subkategoriją kitai kategorijai (nebūtina):",
 	"createclass": "Sukurti klasę",
