@@ -214,6 +214,7 @@
 	"pf_bad_date_error": "debe ser unha data válida",
 	"pf_pipe_error": "\"|\" non está permitido, excepto entre {{...}} o [[...]]",
 	"uploadwindow": "Ventá de carga",
+	"pf-simpleupload": "Subir",
 	"pf_deletionlog": "Rexistro de borrados",
 	"pf-preview-header": "Vista previa do formulario",
 	"pf-preview-note": "Así será o formulario ao empregalo:",
