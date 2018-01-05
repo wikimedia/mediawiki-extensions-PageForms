@@ -15,7 +15,7 @@
 
 	function setChanged( event ) {
 		sacButtons
-			.removeAttr( 'disabled' )
+			.prop( 'disabled', false )
 			.addClass( 'pf-save_and_continue-changed' );
 
 		return true;
