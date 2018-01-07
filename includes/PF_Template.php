@@ -64,7 +64,7 @@ class PFTemplate {
 				return;
 			}
 		}
-		return $this->loadTemplateFieldsSMWAndOther();
+		$this->loadTemplateFieldsSMWAndOther();
 	}
 
 	/**

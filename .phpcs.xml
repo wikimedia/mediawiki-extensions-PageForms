@@ -18,7 +18,6 @@
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamComment" />
-		<exclude name="MediaWiki.Commenting.FunctionComment.MissingReturn" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.WrongStyle" />
 	</rule>
 	<rule ref="MediaWiki.NamingConventions.PrefixedGlobalFunctions">
