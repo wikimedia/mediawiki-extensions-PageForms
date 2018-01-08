@@ -12,7 +12,8 @@
 			"Teles",
 			"555",
 			"TheEduGobi",
-			"Tuliouel"
+			"Tuliouel",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"pageforms-desc": "Formulários para adição e edição de dados semânticos",
@@ -32,7 +33,7 @@
 	"pf_createtemplate_multipleinstance": "Essa predefinição pode ser incluída várias vezes na página.",
 	"pf_createtemplate_connectingproperty": "Nome da propriedade utilizada para conectar os campos dessa predefinição com o resto da página:",
 	"pf_createtemplate_categorylabel": "Categoria definida pela predefinição (opcional):",
-	"pf_createtemplate_cargotablelabel": "Tabela Cargo definida pela predefinição (opcional):",
+	"pf_createtemplate_cargotablelabel": "Nome da tabela Cargo definida por predefinição:",
 	"pf_createtemplate_templatefields": "Campos da predefinição",
 	"pf_createtemplate_fieldsdesc": "Para ter os campos nessa predefinição não é necessário nomear os campos, simplesmente entre com o número de cada campo (por exemplo, 1, 2, 3, etc.) ao invés de um nome real.",
 	"pf_createtemplate_fieldname": "Nome do campo:",
@@ -227,7 +228,7 @@
 	"pf-select2-input-too-short": "Por favor, insira $1 ou mais caracteres.",
 	"pf-select2-selection-too-big": "Este campo não pode conter mais do que {{PLURAL:$1|$1 valor|$1 valores}}.",
 	"pf-maps-enteraddress": "Digite o endereço aqui",
-	"pf-maps-lookupcoordinates": "Pesquisar coordenadas",
+	"pf-maps-lookupcoordinates": "Calcular coordenadas utilizando o endereço",
 	"pf-adminlinks-datastructure": "Estrutura de dados",
 	"pf-datepicker-close": "Fechar",
 	"pf-datepicker-prev": "Anterior",
