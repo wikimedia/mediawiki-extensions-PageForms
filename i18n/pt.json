@@ -106,7 +106,7 @@
 	"pf_forminputs_listboxsize": "A altura desta caixa de listagem, em linhas",
 	"pf_forminputs_includetimezone": "Incluir uma entrada para o fuso horário",
 	"pf_forminputs_topcategory": "A categoria mãe de um conjunto de categorias",
-	"pf_forminputs_structure": "Uma lista de valores criada manualmente, na forma de lista não ordenada de valores, em texto com notação wiki",
+	"pf_forminputs_structure": "Uma lista de valores criada manualmente, na forma de lista não ordenada de valores, em texto wiki",
 	"pf_forminputs_hideroot": "Esconder a categoria mãe",
 	"pf_forminputs_depth": "O número de níveis de categorias a apresentar inicialmente",
 	"pf_forminputs_height": "A altura desta entrada, em píxeis",
