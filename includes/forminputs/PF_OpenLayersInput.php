@@ -202,11 +202,12 @@ END;
 	 * Copied from CargoStore::parseCoordinateString() in the Cargo
 	 * extension.
 	 * @param string $coordinatesString
+	 * @return string|null
 	 */
 	public static function parseCoordinatesString( $coordinatesString ) {
 		$coordinatesString = trim( $coordinatesString );
-		if ( $coordinatesString == null ) {
-			return;
+		if ( $coordinatesString === '' ) {
+			return null;
 		}
 
 		// This is safe to do, right?
