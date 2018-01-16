@@ -126,17 +126,18 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$targetTitle = Title::newFromText( $result[ 'target' ] );
 
 		// Set page title depending on whether an explicit title was
-		// specified in the form definition.
+		// specified in the form definition, and whether this is a
+		// new or existing page being edited.
 		if ( array_key_exists( 'formtitle', $result ) ) {
-			// set page title depending on whether the target page exists
+			$pageTitle = $result[ 'formtitle' ];
 			if ( empty( $targetName ) ) {
-				$pageTitle = $result[ 'formtitle' ];
+				// This is a new page - we're done.
+			} elseif ( strpos( $pageTitle, '&lt;page name&gt;' ) !== false ) {
+				$pageTitle = str_replace( '&lt;page name&gt;', $targetName, $pageTitle );
 			} else {
 				$pageTitle = $result[ 'formtitle' ] . ': ' . $targetName;
 			}
 		} elseif ( $result[ 'form' ] !== '' ) {
-			// Set page title depending on whether the target page
-			// exists.
 			if ( empty( $targetName ) ) {
 				$pageTitle = wfMessage( 'pf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
 			} elseif ( $targetTitle->exists() ) {

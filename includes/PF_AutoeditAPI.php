@@ -912,8 +912,7 @@ class PFAutoeditAPI extends ApiBase {
 		$wgRequest = $oldRequest;
 
 		if ( $generatedFormName !== '' ) {
-			$formTitle = Title::newFromText( $generatedFormName );
-			$this->mOptions['formtitle'] = $formTitle->getText();
+			$this->mOptions['formtitle'] = $generatedFormName;
 		}
 
 		$this->mOptions['formHTML'] = $formHTML;
