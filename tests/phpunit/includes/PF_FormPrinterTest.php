@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Tests for the PFFormPrinter class
+ * @covers \PFFormPrinter
  *
  * @author Himeshi De Silva
  */
