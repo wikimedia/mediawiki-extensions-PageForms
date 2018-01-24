@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFYearInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFYearInput class.
- *
  * @ingroup PFFormInput
  */
 class PFYearInput extends PFTextInput {

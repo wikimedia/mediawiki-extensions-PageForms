@@ -1,13 +1,10 @@
 <?php
 /**
- * File holding the PFEnumInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFEnumInput class.
  * The base class for every form input that holds a pre-set enumeration
  * of values.
  *

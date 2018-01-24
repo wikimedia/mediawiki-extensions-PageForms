@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFListBoxInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFListBoxInput class.
- *
  * @ingroup PFFormInput
  */
 class PFListBoxInput extends PFMultiEnumInput {

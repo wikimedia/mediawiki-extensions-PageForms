@@ -1,15 +1,11 @@
 <?php
 /**
- * File holding the PFAutoEditAPI class
- *
  * @author Stephan Gambke
  * @file
  * @ingroup PageForms
  */
 
 /**
- * The PF_AutoEditAPI class.
- *
  * @ingroup PageForms
  */
 class PFAutoeditAPI extends ApiBase {

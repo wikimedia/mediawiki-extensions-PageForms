@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFComboBoxInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFComboBoxInput class.
- *
  * @ingroup PFFormInput
  */
 class PFComboBoxInput extends PFFormInput {

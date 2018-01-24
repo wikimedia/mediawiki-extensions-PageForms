@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFTokensInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFTokensInput class.
- *
  * @ingroup PFFormInput
  */
 class PFTokensInput extends PFFormInput {

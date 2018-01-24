@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFTextAreaWithAutocompleteInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFTextAreaWithAutocompleteInput class.
- *
  * @ingroup PFFormInput
  */
 class PFTextAreaWithAutocompleteInput extends PFTextAreaInput {

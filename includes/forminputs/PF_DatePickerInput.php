@@ -1,16 +1,12 @@
 <?php
 
 /**
- * File holding the PFDatePickerInput class
- *
  * @author Stephan Gambke
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFDatePickerInput class.
- *
  * @ingroup PF
  */
 class PFDatePickerInput extends PFFormInput {

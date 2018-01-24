@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFCheckboxInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFCheckboxInput class.
- *
  * @ingroup PFFormInput
  */
 class PFCheckboxInput extends PFFormInput {

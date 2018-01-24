@@ -1,15 +1,11 @@
 <?php
 
 /**
- * File holding the PFTextAreaInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFTextAreaInput class.
- *
  * @ingroup PFFormInput
  */
 class PFTextAreaInput extends PFFormInput {

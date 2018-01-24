@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFOpenLayersInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFOpenLayersInput class.
- *
  * @ingroup PFFormInput
  */
 class PFOpenLayersInput extends PFFormInput {

@@ -1,16 +1,12 @@
 <?php
 
 /**
- * File holding the PFTimePickerInput class
- *
  * @author Stephan Gambke
  * @file
  * @ingroup SemanticFormsInputs
  */
 
 /**
- * The PFTimePickerInput class.
- *
  * @ingroup SemanticFormsInputs
  */
 class PFTimePickerInput extends PFFormInput {
