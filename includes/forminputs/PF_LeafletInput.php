@@ -1,15 +1,11 @@
 <?php
 /**
- * File holding the PFLeafletInput class
- *
  * @author Peter Grassberger
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFLeafletInput class.
- *
  * @ingroup PFFormInput
  */
 class PFLeafletInput extends PFOpenLayersInput {

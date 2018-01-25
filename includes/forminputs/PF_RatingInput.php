@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFRatingInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFRatingInput class.
- *
  * @ingroup PFFormInput
  */
 class PFRatingInput extends PFFormInput {

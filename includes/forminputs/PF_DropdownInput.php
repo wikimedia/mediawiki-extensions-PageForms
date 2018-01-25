@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFDropdownInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFDropdownInput class.
- *
  * @ingroup PFFormInput
  */
 class PFDropdownInput extends PFEnumInput {

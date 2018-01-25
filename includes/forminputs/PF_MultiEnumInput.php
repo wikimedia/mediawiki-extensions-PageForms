@@ -1,13 +1,10 @@
 <?php
 /**
- * File holding the PFMultiEnumInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFMultiEnumInput class.
  * The base class for every form input that holds a list of elements, each
  * one from a pre-set enumeration of values.
  *

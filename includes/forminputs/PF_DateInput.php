@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFDateInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFDateInput class.
- *
  * @ingroup PFFormInput
  */
 class PFDateInput extends PFFormInput {

@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFGoogleMapsInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFGoogleMapsInput class.
- *
  * @ingroup PFFormInput
  */
 class PFGoogleMapsInput extends PFOpenLayersInput {

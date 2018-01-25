@@ -1,7 +1,5 @@
 <?php
 /**
- * File holding the PFFormInput class.
- *
  * The predecessor of this file held several subclasses of PFFormInput. The
  * authors can not be sorted out with certainty anymore, thus are all listed
  * here.

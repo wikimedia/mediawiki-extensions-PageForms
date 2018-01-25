@@ -1,7 +1,5 @@
 <?php
 /**
- * File holding the PFTreeInput class
- *
  * @file
  * @ingroup PF
  *
@@ -10,8 +8,6 @@
  */
 
 /**
- * The PFTreeInput class.
- *
  * @ingroup PFFormInput
  */
 class PFTreeInput extends PFFormInput {

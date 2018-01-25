@@ -1,14 +1,10 @@
 <?php
 /**
- * File holding the PFRadioButtonInput class
- *
  * @file
  * @ingroup PF
  */
 
 /**
- * The PFRadioButtonInput class.
- *
  * @ingroup PFFormInput
  */
 class PFRadioButtonInput extends PFEnumInput {

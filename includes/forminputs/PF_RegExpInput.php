@@ -1,8 +1,6 @@
 <?php
 
 /**
- * File holding the PFRegExpInput class
- *
  * @author Stephan Gambke
  * @file
  * @ingroup PF
