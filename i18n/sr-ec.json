@@ -8,7 +8,8 @@
 			"Milicevic01",
 			"Сербијана",
 			"Obsuser",
-			"Prevodim"
+			"Prevodim",
+			"Acamicamacaraca"
 		]
 	},
 	"specialpages-group-pf_group": "Семантички обрасци",
@@ -21,7 +22,7 @@
 	"pf_templates_definescat": "дефинише категорију: $1",
 	"createtemplate": "Направи шаблон",
 	"pf_createtemplate_namelabel": "Име шаблона:",
-	"pf_createtemplate_categorylabel": "Категорија дефинисана шаблоном (опционо):",
+	"pf_createtemplate_categorylabel": "Категорија дефинисана шаблоном (необавезно):",
 	"pf_createtemplate_templatefields": "Поља шаблона",
 	"pf_createtemplate_fieldname": "Име поља:",
 	"pf_createtemplate_displaylabel": "Натпис за приказ:",
