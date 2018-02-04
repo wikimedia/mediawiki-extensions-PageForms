@@ -340,14 +340,12 @@ $GLOBALS['wgResourceModules'] += array(
 			'jquery.ui.datepicker',
 			'ext.pageforms.main'
 		),
-		'position' => 'bottom', // MW 1.26
 	),
 	'ext.pageforms.timepicker' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/PF_timepicker.js',
 		),
 		'styles' => 'skins/PF_Timepicker.css',
-		'position' => 'bottom', // MW 1.26
 	),
 	'ext.pageforms.datetimepicker' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
@@ -357,7 +355,6 @@ $GLOBALS['wgResourceModules'] += array(
 			'ext.pageforms.datepicker',
 			'ext.pageforms.timepicker'
 		),
-		'position' => 'bottom', // MW 1.26
 	),
 	'ext.pageforms.regexp' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_regexp.js',

@@ -267,21 +267,18 @@
 			"dependencies": [
 				"jquery.ui.datepicker",
 				"ext.pageforms.main"
-			],
-			"position": "bottom"
+			]
 		},
 		"ext.pageforms.timepicker": {
 			"scripts": "libs/PF_timepicker.js",
-			"styles": "skins/PF_Timepicker.css",
-			"position": "bottom"
+			"styles": "skins/PF_Timepicker.css"
 		},
 		"ext.pageforms.datetimepicker": {
 			"scripts": "libs/PF_datetimepicker.js",
 			"dependencies": [
 				"ext.pageforms.datepicker",
 				"ext.pageforms.timepicker"
-			],
-			"position": "bottom"
+			]
 		},
 		"ext.pageforms.regexp": {
 			"scripts": "libs/PF_regexp.js",
