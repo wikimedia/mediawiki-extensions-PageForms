@@ -9,7 +9,8 @@
 			"Reaperman",
 			"Vks",
 			"Aktron",
-			"Cvanca"
+			"Cvanca",
+			"Ilimanaq29"
 		]
 	},
 	"createproperty": "Vytvořit vlastnost",
@@ -44,6 +45,7 @@
 	"pf_createclass_success": "Uvedené stránky budou vytvořeny.",
 	"pf_createclass_create": "Založit",
 	"pf_formstart_createoredit": "Vytvořit nebo upravit",
+	"formedit": "Upravit pomocí formulátoru",
 	"pf_formedit_remove": "Odstranit",
 	"pf_formedit_none": "Nic",
 	"pf_formedit_tooltip_saveandcontinueediting": "Uložit a pokračovat v úpravách",
