@@ -14,7 +14,7 @@
 			maxValue: numStars,
 			rating: curValue
 		};
-		if ( allowsHalf === null ) {
+		if ( allowsHalf === undefined ) {
 			ratingsSettings.fullStar = true;
 		} else {
 			ratingsSettings.halfStar = true;
