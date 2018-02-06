@@ -66,17 +66,17 @@ class PFValuesUtils {
 				// Something's wrong - exit
 				return $categories;
 			}
-			$conditions['cl_from'] = $titlekey;
+			$conditions['cat_id'] = $titlekey;
 		}
 		$res = $db->select(
-			'categorylinks',
-			'DISTINCT cl_to',
+			'category',
+			'cat_title',
 			$conditions,
 			__METHOD__
 		);
 		if ( $db->numRows( $res ) > 0 ) {
 			while ( $row = $db->fetchRow( $res ) ) {
-				$categories[] = $row['cl_to'];
+				$categories[] = $row['cat_title'];
 			}
 		}
 		$db->freeResult( $res );
