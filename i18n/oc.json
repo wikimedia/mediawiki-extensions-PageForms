@@ -25,7 +25,7 @@
 	"pf_createtemplate_fieldname": "Nom del camp :",
 	"pf_createtemplate_displaylabel": "Etiqueta per l'afichatge :",
 	"pf_createtemplate_semanticproperty": "Proprietat de la semantica :",
-	"pf_createtemplate_fieldislist": "Aqueste camp pòt conten una lista de valors",
+	"pf_createtemplate_fieldislist": "Aqueste camp conten una lista de valors",
 	"pf_createtemplate_aggregation": "Agregacion",
 	"pf_createtemplate_aggregationdesc": "Per listar, sus cada pagina qu'utilizan aqueste modèl, totas las qu'an una proprietat que punta cap a aquesta pagina, indicatz la proprietat adeqüata çaijós :",
 	"pf_createtemplate_aggregationlabel": "Títol per la lista :",
