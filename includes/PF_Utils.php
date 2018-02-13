@@ -284,13 +284,16 @@ END;
 
 	/**
 	 * Creates a dropdown of possible form names.
+	 * @param array $form_names
 	 * @return string
 	 */
-	public static function formDropdownHTML() {
+	public static function formDropdownHTML( $form_names = null ) {
 		global $wgContLang;
 		$namespace_labels = $wgContLang->getNamespaces();
 		$form_label = $namespace_labels[PF_NS_FORM];
-		$form_names = self::getAllForms();
+		if ( $form_names === null ) {
+			$form_names = self::getAllForms();
+		}
 		$select_body = "\n";
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";

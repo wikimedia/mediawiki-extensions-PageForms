@@ -326,10 +326,17 @@ class PFParserFunctions {
 		if ( ( $pos = strpos( $fsURL, "title=" ) ) > - 1 ) {
 			$formContents .= Html::hidden( "title", urldecode( substr( $fsURL, $pos + 6 ) ) );
 		}
+		$listOfForms = preg_split( '~(?<!\\\)' . preg_quote( ',', '~' ) . '~', $inFormName );
+		foreach ( $listOfForms as & $formName ) {
+			$formName = str_replace( "\,", ",", $formName );
+		}
+		unset( $formName );
 		if ( $inFormName == '' ) {
 			$formContents .= PFUtils::formDropdownHTML();
-		} else {
+		} elseif ( count( $listOfForms ) == 1 ) {
 			$formContents .= Html::hidden( "form", $inFormName );
+		} else {
+			$formContents .= PFUtils::formDropdownHTML( $listOfForms );
 		}
 
 		// Recreate the passed-in query string as a set of hidden
