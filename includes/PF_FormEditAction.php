@@ -259,9 +259,9 @@ class PFFormEditAction extends Action {
 
 			// Special handling for forms whose name contains a slash.
 			if ( strpos( $formName, '/' ) !== false ) {
-				$url = $fe->getTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
+				$url = $fe->getPageTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
 			} else {
-				$url = $fe->getTitle( "$formName/$targetName" )->getLocalURL();
+				$url = $fe->getPageTitle( "$formName/$targetName" )->getLocalURL();
 			}
 			$text .= Html::element( 'a', array( 'href' => $url ), $formName );
 		}
