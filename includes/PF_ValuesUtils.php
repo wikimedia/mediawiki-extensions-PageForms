@@ -49,25 +49,19 @@ class PFValuesUtils {
 	}
 
 	/**
-	 * Helper function - gets names of categories for a page;
-	 * based on Title::getParentCategories(), but simpler
-	 * - this function doubles as a function to get all categories on
-	 * the site, if no article is specified
+	 * Helper function - returns the names of categories of the article.
 	 * @param Title $title
 	 * @return array
 	 */
-	public static function getCategoriesForPage( $title = null ) {
+	public static function getCategoriesForPage( $title ) {
 		$categories = array();
 		$db = wfGetDB( DB_SLAVE );
-		$conditions = null;
-		if ( !is_null( $title ) ) {
-			$titlekey = $title->getArticleID();
-			if ( $titlekey == 0 ) {
-				// Something's wrong - exit
-				return $categories;
-			}
-			$conditions['cl_from'] = $titlekey;
+		$titlekey = $title->getArticleID();
+		if ( $titlekey == 0 ) {
+			// Something's wrong - exit
+			return $categories;
 		}
+		$conditions['cl_from'] = $titlekey;
 		$res = $db->select(
 			'categorylinks',
 			'DISTINCT cl_to',
@@ -77,6 +71,28 @@ class PFValuesUtils {
 		if ( $db->numRows( $res ) > 0 ) {
 			while ( $row = $db->fetchRow( $res ) ) {
 				$categories[] = $row['cl_to'];
+			}
+		}
+		$db->freeResult( $res );
+		return $categories;
+	}
+
+	/**
+	 * Helper function - returns names of all the categories.
+	 * @return array
+	 */
+	public static function getAllCategories() {
+		$categories = array();
+		$db = wfGetDB( DB_SLAVE );
+		$res = $db->select(
+			'category',
+			'cat_title',
+			 null,
+			__METHOD__
+		);
+		if ( $db->numRows( $res ) > 0 ) {
+			while ( $row = $db->fetchRow( $res ) ) {
+				$categories[] = $row['cat_title'];
 			}
 		}
 		$db->freeResult( $res );
