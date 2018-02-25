@@ -44,10 +44,10 @@ class PFFormEditAction extends Action {
 	 * Adds an "action" (i.e., a tab) to edit the current article with
 	 * a form
 	 * @param Title $obj
-	 * @param array &$content_actions
+	 * @param array &$links
 	 * @return true
 	 */
-	static function displayTab( $obj, &$content_actions ) {
+	static function displayTab( $obj, &$links ) {
 		if ( method_exists( $obj, 'getTitle' ) ) {
 			$title = $obj->getTitle();
 		} else {
@@ -71,6 +71,8 @@ class PFFormEditAction extends Action {
 
 		global $wgRequest;
 		global $wgPageFormsRenameEditTabs, $wgPageFormsRenameMainEditTab;
+
+		$content_actions = &$links['views'];
 
 		$user_can_edit = $title->userCan( 'edit' );
 		// Create the form edit tab, and apply whatever changes are
@@ -141,19 +143,6 @@ class PFFormEditAction extends Action {
 		}
 
 		return true; // always return true, in order not to stop MW's hook processing!
-	}
-
-	/**
-	 * Like displayTab(), but called with a different hook - this one is
-	 * called for the 'Vector' skin, and some others.
-	 * @param Title $obj
-	 * @param array &$links
-	 * @return true
-	 */
-	static function displayTab2( $obj, &$links ) {
-		// the old '$content_actions' array is thankfully just a
-		// sub-array of this one
-		return self::displayTab( $obj, $links['views'] );
 	}
 
 	static function displayFormChooser( $output, $title ) {

@@ -114,11 +114,8 @@ if ( defined( 'SMW_VERSION' ) ) {
 }
 
 $GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLink';
-// 'SkinTemplateNavigation' replaced 'SkinTemplateTabs' in the Vector skin
-$GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'PFFormEditAction::displayTab';
-$GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFFormEditAction::displayTab2';
-$GLOBALS['wgHooks']['SkinTemplateTabs'][] = 'PFHelperFormAction::displayTab';
-$GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFHelperFormAction::displayTab2';
+$GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFFormEditAction::displayTab';
+$GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFHelperFormAction::displayTab';
 $GLOBALS['wgHooks']['ArticlePurge'][] = 'PFFormUtils::purgeCache';
 $GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'PFHooks::registerFunctions';
 $GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'PFHooks::setGlobalJSVariables';

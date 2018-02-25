@@ -396,13 +396,9 @@
 		"LinkEnd": [
 			"PFFormLinker::setBrokenLink"
 		],
-		"SkinTemplateTabs": [
+		"SkinTemplateNavigation": [
 			"PFFormEditAction::displayTab",
 			"PFHelperFormAction::displayTab"
-		],
-		"SkinTemplateNavigation": [
-			"PFFormEditAction::displayTab2",
-			"PFHelperFormAction::displayTab2"
 		],
 		"ArticlePurge": [
 			"PFFormUtils::purgeCache"
