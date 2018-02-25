@@ -322,7 +322,7 @@ class PFFormPrinter {
 		}
 
 		$text = <<<END
-			<table class="multipleTemplateInstance">
+			<table class="multipleTemplateInstanceTable">
 			<tr>
 			<td class="instanceRearranger"></td>
 			<td class="instanceMain">$mainText</td>
