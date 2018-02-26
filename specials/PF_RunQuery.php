@@ -20,6 +20,14 @@ class PFRunQuery extends IncludableSpecialPage {
 	}
 
 	function execute( $query ) {
+		// @HACK - for some reason, this is called twice when
+		// Special:RunQuery is embedded in a page, the second time
+		// being some sort of dummy call. Just exit if it's that.
+		// Better would be to prevent that 2nd call from occurring.
+		if ( $this->including() && $this->getUser()->getID() == 0 ) {
+			return;
+		}
+
 		if ( !$this->including() ) {
 			$this->setHeaders();
 		}
@@ -52,15 +60,20 @@ class PFRunQuery extends IncludableSpecialPage {
 		// Initialize variables.
 		$form_definition = PFUtils::getPageText( $form_title );
 		if ( $embedded ) {
-			$run_query = false;
-			$content = null;
-			$raw = false;
+			$req = $this->getUser()->getRequest();
+			// @HACK - set $wgRequest so that FormPrinter::formHTML()
+			// can have the right data. Much better would be to
+			// pass this in as a parameter to formHTML().
+			global $wgRequest;
+			$wgRequest = $req;
 		} else {
-			$run_query = $req->getCheck( 'wpRunQuery' );
-			$content = $req->getVal( 'wpTextbox1' );
-			$raw = $req->getBool( 'raw', false );
+			$req = $this->getRequest();
 		}
-		$form_submitted = ( $run_query );
+
+		$form_submitted = $req->getCheck( 'wpRunQuery' );
+		$content = $req->getVal( 'wpTextbox1' );
+		$raw = $req->getBool( 'raw', false );
+
 		if ( $raw ) {
 			$out->setArticleBodyOnly( true );
 		}
@@ -101,7 +114,15 @@ class PFRunQuery extends IncludableSpecialPage {
 				$additionalQueryHeader = "\n" . Html::element( 'h2', null, wfMessage( 'pf_runquery_additionalquery' )->text() ) . "\n";
 				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
-			$action = htmlspecialchars( $this->getTitle( $form_name )->getLocalURL() );
+
+			if ( $embedded ) {
+				$embeddingPageName = $req->getVal( 'title' );
+				$realTitle = Title::newFromText( $embeddingPageName );
+			} else {
+				$realTitle = $this->getTitle( $form_name );
+			}
+			$action = htmlspecialchars( $realTitle->getLocalURL() );
+
 			$fullFormText .= <<<END
 	<form id="pfForm" name="createbox" action="$action" method="post" class="createbox">
 

@@ -826,7 +826,9 @@ END;
 		if ( !$wgParser->Options() ) {
 			$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
 		}
-		$wgParser->Title( $this->mPageTitle );
+		if ( !$is_embedded ) {
+			$wgParser->Title( $this->mPageTitle );
+		}
 		// This is needed in order to make sure $parser->mLinkHolders
 		// is set.
 		$wgParser->clearState();
