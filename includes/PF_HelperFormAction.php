@@ -74,16 +74,14 @@ class PFHelperFormAction extends Action {
 			}
 		}
 
-		global $wgRequest, $wgUser;
-
 		$content_actions = &$links['views'];
 
-		if ( $wgUser->isAllowed( 'edit' ) && $title->userCan( 'edit' ) ) {
+		if ( $obj->getUser()->isAllowed( 'edit' ) && $title->userCan( 'edit' ) ) {
 			$form_create_tab_text = 'pf_formcreate';
 		} else {
 			$form_create_tab_text = 'pf_viewform';
 		}
-		$class_name = ( $wgRequest->getVal( 'action' ) == 'formcreate' ) ? 'selected' : '';
+		$class_name = ( $obj->getRequest()->getVal( 'action' ) == 'formcreate' ) ? 'selected' : '';
 		$form_create_tab = array(
 			'class' => $class_name,
 			'text' => wfMessage( $form_create_tab_text )->text(),
@@ -119,8 +117,7 @@ class PFHelperFormAction extends Action {
 			$content_actions[$tab_keys[$i]] = $tab_values[$i];
 		}
 
-		global $wgUser;
-		if ( ! $wgUser->isAllowed( 'viewedittab' ) ) {
+		if ( ! $obj->getUser()->isAllowed( 'viewedittab' ) ) {
 			// The tab can have either of these two actions.
 			unset( $content_actions['edit'] );
 			unset( $content_actions['viewsource'] );

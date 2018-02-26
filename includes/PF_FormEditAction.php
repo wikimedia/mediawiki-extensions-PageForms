@@ -69,7 +69,6 @@ class PFFormEditAction extends Action {
 			return true;
 		}
 
-		global $wgRequest;
 		global $wgPageFormsRenameEditTabs, $wgPageFormsRenameMainEditTab;
 
 		$content_actions = &$links['views'];
@@ -99,7 +98,7 @@ class PFFormEditAction extends Action {
 			}
 		}
 
-		$class_name = ( $wgRequest->getVal( 'action' ) == 'formedit' ) ? 'selected' : '';
+		$class_name = ( $obj->getRequest()->getVal( 'action' ) == 'formedit' ) ? 'selected' : '';
 		$form_edit_tab = array(
 			'class' => $class_name,
 			'text' => wfMessage( $form_edit_tab_msg )->text(),
@@ -135,8 +134,7 @@ class PFFormEditAction extends Action {
 			$content_actions[$tab_keys[$i]] = $tab_values[$i];
 		}
 
-		global $wgUser;
-		if ( ! $wgUser->isAllowed( 'viewedittab' ) ) {
+		if ( ! $obj->getUser()->isAllowed( 'viewedittab' ) ) {
 			// The tab can have either of these two actions.
 			unset( $content_actions['edit'] );
 			unset( $content_actions['viewsource'] );

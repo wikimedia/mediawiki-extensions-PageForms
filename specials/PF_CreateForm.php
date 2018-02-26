@@ -399,7 +399,6 @@ END;
 	}
 
 	function sectionCreationHTML( $section, $section_count ) {
-		global $wgRequest;
 		$paramValues = array();
 		$section_name = $section->getSectionName();
 		$section_level = $section->getSectionLevel();
@@ -409,7 +408,7 @@ END;
 		$text .= '<div class="sectionForm">';
 		$text .= Html::element( 'h2', array(), $section_str );
 
-		foreach ( $wgRequest->getValues() as $key => $value ) {
+		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_section_'.$section_count ) ) != false ) {
 				$paramName = substr( $key, 0, $pos );
 				$paramName = str_replace( '_', ' ', $paramName );
@@ -546,9 +545,8 @@ END;
 			$cur_input_type = $possible_input_types[0];
 		}
 
-		global $wgRequest;
 		$paramValues = array();
-		foreach ( $wgRequest->getValues() as $key => $value ) {
+		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
 				$paramName = substr( $key, 0, $pos );
 				// Spaces got replaced by underlines in the
