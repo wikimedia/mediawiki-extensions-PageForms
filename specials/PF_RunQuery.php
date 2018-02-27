@@ -20,14 +20,6 @@ class PFRunQuery extends IncludableSpecialPage {
 	}
 
 	function execute( $query ) {
-		// @HACK - for some reason, this is called twice when
-		// Special:RunQuery is embedded in a page, the second time
-		// being some sort of dummy call. Just exit if it's that.
-		// Better would be to prevent that 2nd call from occurring.
-		if ( $this->including() && $this->getUser()->getID() == 0 ) {
-			return;
-		}
-
 		if ( !$this->including() ) {
 			$this->setHeaders();
 		}
