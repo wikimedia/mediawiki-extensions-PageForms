@@ -32,6 +32,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			$this->setHeaders();
 		}
 		$form_name = $this->including() ? $query : $this->getRequest()->getVal( 'form', $query );
+		$form_name = str_replace( '_', ' ', $form_name );
 
 		$this->printPage( $form_name, $this->including() );
 	}
@@ -70,7 +71,10 @@ class PFRunQuery extends IncludableSpecialPage {
 			$req = $this->getRequest();
 		}
 
-		$form_submitted = $req->getCheck( 'wpRunQuery' );
+		// We check that the form name is the same, in case
+		// Special:RunQuery is embedded on the page and there's more
+		// than one of them.
+		$form_submitted = $req->getVal( 'pfRunQueryFormName' ) == $form_name;
 		$content = $req->getVal( 'wpTextbox1' );
 		$raw = $req->getBool( 'raw', false );
 
@@ -127,7 +131,7 @@ class PFRunQuery extends IncludableSpecialPage {
 	<form id="pfForm" name="createbox" action="$action" method="post" class="createbox">
 
 END;
-			$fullFormText .= Html::hidden( 'query', 'true' );
+			$fullFormText .= Html::hidden( 'pfRunQueryFormName', $form_name );
 			$fullFormText .= $form_text;
 		}
 
