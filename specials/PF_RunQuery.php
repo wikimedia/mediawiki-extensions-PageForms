@@ -111,8 +111,19 @@ class PFRunQuery extends IncludableSpecialPage {
 				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
 
+			$queryStringValues = array();
 			if ( $embedded ) {
-				$embeddingPageName = $req->getVal( 'title' );
+				$embeddingPageName = '';
+				// Preserve all query string values in the
+				// results page.
+				foreach ( $req->getValues() as $key => $value ) {
+					if ( $key == 'title' ) {
+						$embeddingPageName = $value;
+					} else {
+						$queryStringValues[$key] = $value;
+					}
+				}
+
 				if ( $embeddingPageName == '' ) {
 					// Seems to happen on page save.
 					$realTitle = $this->getTitle();
@@ -122,7 +133,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			} else {
 				$realTitle = $this->getTitle( $form_name );
 			}
-			$action = htmlspecialchars( $realTitle->getLocalURL() );
+			$action = htmlspecialchars( $realTitle->getLocalURL( $queryStringValues ) );
 
 			$fullFormText .= <<<END
 	<form id="pfForm" name="createbox" action="$action" method="post" class="createbox">
