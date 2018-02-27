@@ -113,7 +113,12 @@ class PFRunQuery extends IncludableSpecialPage {
 
 			if ( $embedded ) {
 				$embeddingPageName = $req->getVal( 'title' );
-				$realTitle = Title::newFromText( $embeddingPageName );
+				if ( $embeddingPageName == '' ) {
+					// Seems to happen on page save.
+					$realTitle = $this->getTitle();
+				} else {
+					$realTitle = Title::newFromText( $embeddingPageName );
+				}
 			} else {
 				$realTitle = $this->getTitle( $form_name );
 			}
