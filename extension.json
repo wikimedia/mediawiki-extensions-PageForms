@@ -418,6 +418,7 @@
 		"EditPage::importFormData": [
 			"PFHooks::showFormPreview"
 		],
+		"TinyMCEDisable": "PFHooks::disableTinyMCE",
 		"CanonicalNamespaces": [
 			"PFHooks::registerNamespaces"
 		],

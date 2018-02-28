@@ -38,6 +38,7 @@ class PFTextAreaInput extends PFFormInput {
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 
+		// WikiEditor
 		if (
 			array_key_exists( 'editor', $this->mOtherArgs ) &&
 			$this->mOtherArgs['editor'] == 'wikieditor' &&
@@ -46,6 +47,25 @@ class PFTextAreaInput extends PFFormInput {
 		) {
 			$this->mEditor = 'wikieditor';
 			$this->addJsInitFunctionData( 'window.ext.wikieditor.init' );
+		}
+
+		// TinyMCE
+		if (
+			array_key_exists( 'editor', $this->mOtherArgs ) &&
+			$this->mOtherArgs['editor'] == 'tinymce'
+		) {
+			$this->mEditor = 'tinymce';
+			global $wgTinyMCEEnabled;
+			$wgTinyMCEEnabled = true;
+			$newClasses = 'mceMinimizeOnBlur';
+			if ( $input_name != 'pf_free_text' && !array_key_exists( 'isSection', $this->mOtherArgs ) ) {
+				$newClasses .= ' mcePartOfTemplate';
+			}
+			if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
+				$this->mOtherArgs['class'] .= ' ' . $newClasses;
+			} else {
+				$this->mOtherArgs['class'] = $newClasses;
+			}
 		}
 	}
 
@@ -131,6 +151,8 @@ class PFTextAreaInput extends PFFormInput {
 	public function getResourceModuleNames() {
 		if ( $this->mEditor == 'wikieditor' ) {
 			return 'ext.pageforms.wikieditor';
+		} elseif ( $this->mEditor == 'tinymce' ) {
+			return 'ext.tinymce';
 		} else {
 			return null;
 		}
@@ -155,6 +177,8 @@ class PFTextAreaInput extends PFFormInput {
 			$editPage = new EditPage( $article );
 			WikiEditorHooks::editPageShowEditFormInitial( $editPage, $wgOut );
 			$className = 'wikieditor ';
+		} elseif ( $this->mEditor == 'tinymce' ) {
+			$className = 'tinymce ';
 		} else {
 			$className = '';
 		}
