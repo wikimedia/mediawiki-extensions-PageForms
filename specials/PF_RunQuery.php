@@ -94,7 +94,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			}
 
 			$wgParser->mOptions = ParserOptions::newFromUser( $user );
-			$resultsText = $wgParser->parse( $data_text, $this->getTitle(), $wgParser->mOptions )->getText();
+			$resultsText = $wgParser->parse( $data_text, $this->getTitle(), $wgParser->mOptions, true, false )->getText();
 		}
 
 		// Get the full text of the form.
