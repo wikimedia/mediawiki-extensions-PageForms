@@ -78,7 +78,7 @@ $GLOBALS['wgExtensionCredits']['specialpage'][] = array(
 	'author' => array( 'Yaron Koren', 'Stephan Gambke', '...' ),
 	'url' => 'https://www.mediawiki.org/wiki/Extension:Page_Forms',
 	'descriptionmsg' => 'pageforms-desc',
-	'license-name' => 'GPL-2.0+'
+	'license-name' => 'GPL-2.0-or-later'
 );
 
 # ##
