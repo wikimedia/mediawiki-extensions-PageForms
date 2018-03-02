@@ -49,7 +49,9 @@ class PFValuesUtils {
 	}
 
 	/**
-	 * Helper function - returns the names of categories of the article.
+	 * Helper function - gets names of categories for a page;
+	 * based on Title::getParentCategories(), but simpler.
+	 *
 	 * @param Title $title
 	 * @return array
 	 */
@@ -104,6 +106,7 @@ class PFValuesUtils {
 	 * because it uses the SMW data store, which can't perform
 	 * case-insensitive queries; for queries with a substring, the
 	 * function PFAutocompleteAPI::getAllValuesForProperty() exists.
+	 *
 	 * @param string $property_name
 	 * @return array
 	 */
@@ -122,7 +125,7 @@ class PFValuesUtils {
 	}
 
 	/**
-	 * Used with the Cargo extension
+	 * Used with the Cargo extension.
 	 * @param string $tableName
 	 * @param string $fieldName
 	 * @return array
@@ -132,7 +135,7 @@ class PFValuesUtils {
 	}
 
 	/**
-	 * Used with the Cargo extension
+	 * Used with the Cargo extension.
 	 * @param string $tableName
 	 * @param string $fieldName
 	 * @param string|null $whereStr
@@ -173,7 +176,8 @@ class PFValuesUtils {
 	/**
 	 * Get all the pages that belong to a category and all its
 	 * subcategories, down a certain number of levels - heavily based on
-	 * SMW's SMWInlineQuery::includeSubcategories()
+	 * SMW's SMWInlineQuery::includeSubcategories().
+	 *
 	 * @param string $top_category
 	 * @param int $num_levels
 	 * @param string|null $substring
@@ -500,6 +504,7 @@ class PFValuesUtils {
 	/**
 	 * Creates an array of values that match the specified source name and
 	 * type, for use by both Javascript autocompletion and comboboxes.
+	 *
 	 * @param string|null $source_name
 	 * @param string $source_type
 	 * @return string|null
@@ -509,8 +514,8 @@ class PFValuesUtils {
 			return null;
 		}
 
-		// The query depends on whether this is a property, category,
-		// concept or namespace.
+		// The query depends on whether this is a Cargo field, SMW
+		// property, category, SMW concept or namespace.
 		if ( $source_type == 'cargo field' ) {
 			list( $table_name, $field_name ) = explode( '|', $source_name, 2 );
 			$names_array = self::getAllValuesForCargoField( $table_name, $field_name );
@@ -530,7 +535,8 @@ class PFValuesUtils {
 
 	/**
 	 * Helper function to get an array of values out of what may be either
-	 * an array or a delimited string
+	 * an array or a delimited string.
+	 *
 	 * @param string[]|string $value
 	 * @param string $delimiter
 	 * @return string[]
@@ -539,7 +545,7 @@ class PFValuesUtils {
 		if ( is_array( $value ) ) {
 			return $value;
 		} else {
-			// remove extra spaces
+			// Remove extra spaces.
 			return array_map( 'trim', explode( $delimiter, $value ) );
 		}
 	}
@@ -609,7 +615,8 @@ class PFValuesUtils {
 	}
 
 	/**
-	 * returns an array of pages that are result of the semantic query
+	 * Returns an array of pages that are result of a semantic query.
+	 *
 	 * @param string $rawQuery the query string like [[Category:Trees]][[age::>1000]]
 	 * @return SMWDIWikiPage[] SMWDIWikiPage objects representing the result
 	 */
