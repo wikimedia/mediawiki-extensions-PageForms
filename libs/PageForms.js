@@ -10,7 +10,7 @@
  * @author Harold Solbrig
  * @author Eugene Mednikov
  */
-/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, pf*/
+/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, mwTinyMCEInit, pf*/
 
 // Activate autocomplete functionality for the specified field
 ( function ( $, mw ) {
@@ -1485,6 +1485,11 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 
 	this.find(".pfRating").each( function() {
 		$(this).applyRatingInput();
+	});
+
+	// @TODO - this should be in the TinyMCE extension, and use a hook.
+	this.find(".tinymce").not(".multipleTemplateStarter .tinymce").each( function() {
+		mwTinyMCEInit( '#' + $(this).attr('id') );
 	});
 
 };
