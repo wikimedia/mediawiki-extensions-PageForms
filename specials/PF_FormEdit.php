@@ -46,7 +46,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 	function printAltFormsList( $alt_forms, $target_name ) {
 		$text = "";
 		$fe = SpecialPageFactory::getPage( 'FormEdit' );
-		$fe_url = $fe->getTitle()->getFullURL();
+		$fe_url = $fe->getPageTitle()->getFullURL();
 		$i = 0;
 		foreach ( $alt_forms as $alt_form ) {
 			if ( $i++ > 0 ) {

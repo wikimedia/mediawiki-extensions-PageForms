@@ -94,7 +94,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			}
 
 			$wgParser->mOptions = ParserOptions::newFromUser( $user );
-			$resultsText = $wgParser->parse( $data_text, $this->getTitle(), $wgParser->mOptions, true, false )->getText();
+			$resultsText = $wgParser->parse( $data_text, $this->getPageTitle(), $wgParser->mOptions, true, false )->getText();
 		}
 
 		// Get the full text of the form.
@@ -126,12 +126,12 @@ class PFRunQuery extends IncludableSpecialPage {
 
 				if ( $embeddingPageName == '' ) {
 					// Seems to happen on page save.
-					$realTitle = $this->getTitle();
+					$realTitle = $this->getPageTitle();
 				} else {
 					$realTitle = Title::newFromText( $embeddingPageName );
 				}
 			} else {
-				$realTitle = $this->getTitle( $form_name );
+				$realTitle = $this->getPageTitle( $form_name );
 			}
 			$action = htmlspecialchars( $realTitle->getLocalURL( $queryStringValues ) );
 

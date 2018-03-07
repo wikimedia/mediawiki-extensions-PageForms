@@ -322,7 +322,7 @@ class PFParserFunctions {
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
 		$fs = SpecialPageFactory::getPage( 'FormStart' );
-		$fsURL = $fs->getTitle()->getLocalURL();
+		$fsURL = $fs->getPageTitle()->getLocalURL();
 		if ( ( $pos = strpos( $fsURL, "title=" ) ) > - 1 ) {
 			$formContents .= Html::hidden( "title", urldecode( substr( $fsURL, $pos + 6 ) ) );
 		}
@@ -723,15 +723,16 @@ class PFParserFunctions {
 		} else {
 			$formSpecialPage = SpecialPageFactory::getPage( 'FormEdit' );
 		}
+		$formSpecialPageTitle = $formSpecialPage->getPageTitle();
 
 		if ( $inFormName == '' ) {
 			$query = array( 'target' => $inTargetName );
-			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
+			$link_url = $formSpecialPageTitle->getLocalURL( $query );
 		} elseif ( strpos( $inFormName, '/' ) == true ) {
 			$query = array( 'form' => $inFormName, 'target' => $inTargetName );
-			$link_url = $formSpecialPage->getTitle()->getLocalURL( $query );
+			$link_url = $formSpecialPageTitle->getLocalURL( $query );
 		} else {
-			$link_url = $formSpecialPage->getTitle()->getLocalURL() . "/$inFormName";
+			$link_url = $formSpecialPageTitle->getLocalURL() . "/$inFormName";
 			if ( ! empty( $inTargetName ) ) {
 				$link_url .= "/$inTargetName";
 			}

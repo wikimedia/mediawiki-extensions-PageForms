@@ -125,9 +125,9 @@ END;
 		$fe = SpecialPageFactory::getPage( 'FormEdit' );
 		// Special handling for forms whose name contains a slash.
 		if ( strpos( $formName, '/' ) !== false ) {
-			return $fe->getTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
+			return $fe->getPageTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
 		}
-		return $fe->getTitle( "$formName/$targetName" )->getLocalURL();
+		return $fe->getPageTitle( "$formName/$targetName" )->getLocalURL();
 	}
 
 	function doRedirect( $form_name, $page_name, $params ) {

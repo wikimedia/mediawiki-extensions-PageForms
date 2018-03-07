@@ -37,7 +37,7 @@ class PFUtils {
 	 */
 	public static function linkForSpecialPage( $linkRenderer, $specialPageName ) {
 		$specialPage = SpecialPageFactory::getPage( $specialPageName );
-		return self::makeLink( $linkRenderer, $specialPage->getTitle(),
+		return self::makeLink( $linkRenderer, $specialPage->getPageTitle(),
 			htmlspecialchars( $specialPage->getDescription() ) );
 	}
 
