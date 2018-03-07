@@ -188,7 +188,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 		} else if ( mapService === "Leaflet" ){
 			var lPoint = L.latLng( lat, lon );
 			leafletSetMarker( lPoint );
-			map.setView( lPoint );
+			map.setView( lPoint, 14 );
 		} else { // if ( mapService === "OpenLayers" ) {
 			var olPoint = toOpenLayersLonLat( map, lat, lon );
 			openLayersSetMarker( olPoint );
