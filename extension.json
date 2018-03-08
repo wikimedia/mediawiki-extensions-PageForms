@@ -165,7 +165,8 @@
 				"ext.pageforms.fancybox",
 				"ext.pageforms.autogrow",
 				"mediawiki.util",
-				"ext.pageforms.select2"
+				"ext.pageforms.select2",
+				"ext.pageforms.wikieditor"
 			],
 			"messages": [
 				"pf_formerrors_header",
@@ -346,6 +347,10 @@
 			"styles": [
 				"skins/balloon.css"
 			]
+		},
+		"ext.pageforms.wikieditor": {
+			"scripts": "libs/PF_wikieditor.js",
+			"styles": "skins/PF_wikieditor.css"
 		},
 		"ext.pageforms": {
 			"scripts": [

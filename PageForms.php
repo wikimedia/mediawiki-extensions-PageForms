@@ -262,6 +262,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'ext.pageforms.autogrow',
 			'mediawiki.util',
 			'ext.pageforms.select2',
+			'ext.pageforms.wikieditor'
 		),
 		'messages' => array(
 			'pf_formerrors_header',
@@ -420,6 +421,10 @@ $GLOBALS['wgResourceModules'] += array(
 		'styles' => array(
 			'skins/balloon.css',
 		),
+	),
+	'ext.pageforms.wikieditor' => $wgPageFormsResourceTemplate + array(
+		'scripts' => '/libs/PF_wikieditor.js',
+		'styles' => '/skins/PF_wikieditor.css',
 	),
 	'ext.pageforms' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(

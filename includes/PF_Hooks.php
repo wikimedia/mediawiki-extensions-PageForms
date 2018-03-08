@@ -71,21 +71,6 @@ class PFHooks {
 		// the value here instead.
 		$pageFormsDir = __DIR__ . '/..';
 
-		if ( class_exists( 'WikiEditorHooks' ) ) {
-			$resourceLoader->register( array(
-				'ext.pageforms.wikieditor' => array(
-					'localBasePath' => $pageFormsDir,
-					'remoteExtPath' => 'PageForms',
-					'scripts' => '/libs/PF_wikieditor.js',
-					'styles' => '/skins/PF_wikieditor.css',
-					'dependencies' => array(
-						'ext.pageforms.main',
-						'ext.wikiEditor'
-					),
-				),
-			) );
-		}
-
 		if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) && ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
 			$resourceLoader->register( array(
 				'ext.pageforms.maps' => array(
