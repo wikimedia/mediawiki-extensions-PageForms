@@ -436,7 +436,7 @@ END;
 END;
 		}
 		$output .= <<<END
-		parent.jQuery.fancybox.close();
+		parent.jQuery.fancybox.close( true );
 	</script>
 
 END;

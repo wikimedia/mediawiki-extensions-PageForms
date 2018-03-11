@@ -200,7 +200,8 @@ class PFTextInput extends PFFormInput {
 			// to confusion.
 			// 'title' => $upload_label,
 			'rev' => $style,
-			'data-input-id' => $input_id
+			'data-input-id' => $input_id,
+			'data-type' => 'iframe'
 		);
 
 		$text = "\t" . Html::element( 'a', $linkAttrs, $upload_label ) . "\n";

@@ -1449,14 +1449,16 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 
 	this.find('.autoGrow').autoGrow();
 	this.find('.pfFancyBox').fancybox({
-		'width'         : '75%',
-		'height'        : '75%',
-		'autoScale'     : false,
-		'transitionIn'  : 'none',
-		'transitionOut' : 'none',
-		'type'          : 'iframe',
-		'overlayColor'  : '#222',
-		'overlayOpacity' : '0.8'
+		toolbar : false,
+		smallBtn : true,
+		iframe : {
+			preload : false,
+			css : {
+				width : '75%',
+				height : '75%'
+			}
+		},
+		animationEffect : false
 	});
 
 	// @TODO - this should ideally be called only for inputs that have
