@@ -134,6 +134,31 @@ function setupMapFormInput( inputDiv, mapService ) {
 	if ( coordsInput.val() != '' ) {
 		setMarkerFromCoordinates();
 		map.setZoom( 14 );
+	} else {
+		if ( coordsInput.attr('data-bound-coords') ) {
+			var boundCoords = coordsInput.attr('data-bound-coords');
+			var coords = boundCoords.split(";");
+			var boundCoords1 = coords[0];
+			var lat1 = boundCoords1.split(",")[0].trim();
+			var lon1 = boundCoords1.split(",")[1].trim();
+			var boundCoords2 = coords[1];
+			var lat2 = boundCoords2.split(",")[0].trim();
+			var lon2 = boundCoords2.split(",")[1].trim();
+			if ( !jQuery.isNumeric( lat1 ) || !jQuery.isNumeric( lon1 ) ||
+			!jQuery.isNumeric( lat2 ) || !jQuery.isNumeric( lon2 ) ) {
+				return;
+			}
+			if ( lat1 < -90 || lat1 > 90 || lon1 < -180 || lon1 > 180 ||
+				lat2 < -90 || lat2 > 90 || lon2 < -180 || lon2 > 180 ) {
+				return;
+			}
+			var bound1 = new google.maps.LatLng(lat1, lon1);
+			var bound2 = new google.maps.LatLng(lat2, lon2);
+			var bounds = new google.maps.LatLngBounds();
+			bounds.extend(bound1);
+			bounds.extend(bound2);
+			map.fitBounds(bounds);
+		}
 	}
 
 	function setMarkerFromAddress() {
