@@ -152,7 +152,7 @@ class PFValuesUtils {
 		$limitStr = max( 100, $wgPageFormsMaxLocalAutocompleteValues + 10 );
 
 		try {
-			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr );
+			$sqlQuery = CargoSQLQuery::newFromValues( $tableName, $fieldName, $whereStr, $joinOnStr = null, $fieldName, $havingStr = null, $fieldName, $limitStr, $offsetStr = 0 );
 		} catch ( Exception $e ) {
 			return array();
 		}
