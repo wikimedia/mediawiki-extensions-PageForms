@@ -69,7 +69,9 @@ class PFFormPrinter {
 		}
 
 		// All-purpose setup hook.
-		Hooks::run( 'PageForms::FormPrinterSetup', array( $this ) );
+		// Avoid PHP 7.1 warning from passing $this by reference.
+		$formPrinterRef = $this;
+		Hooks::run( 'PageForms::FormPrinterSetup', array( &$formPrinterRef ) );
 	}
 
 	public function setSemanticTypeHook( $type, $is_list, $class_name, $default_args ) {
