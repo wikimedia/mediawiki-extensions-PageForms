@@ -857,6 +857,12 @@ class PFFormField {
 			$other_args['value_labels'] = $this->template_field->getValueLabels();
 		}
 		$other_args['is_list'] = ( $this->mIsList || $this->template_field->isList() );
+		if ( $this->template_field->isMandatory() ) {
+			$other_args['mandatory'] = true;
+		}
+		if ( $this->template_field->isUnique() ) {
+			$other_args['unique'] = true;
+		}
 
 		// Now add some extension-specific arguments to the input call.
 		if ( defined( 'CARGO_VERSION' ) ) {

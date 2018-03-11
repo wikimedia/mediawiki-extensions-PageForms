@@ -29,6 +29,9 @@ class PFTemplateField {
 	private $mDelimiter;
 	private $mDisplay;
 	private $mNamespace;
+	private $mIsMandatory = false;
+	private $mIsUnique = false;
+	private $mRegex = null;
 
 	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null ) {
 		$f = new PFTemplateField();
@@ -151,6 +154,12 @@ class PFTemplateField {
 			$this->mDelimiter = $fieldDescription->mDelimiter;
 		}
 		$this->mPossibleValues = $fieldDescription->mAllowedValues;
+		if ( property_exists( $fieldDescription, 'mIsMandatory' ) ) {
+			// Cargo 1.7+
+			$this->mIsMandatory = $fieldDescription->mIsMandatory;
+			$this->mIsUnique = $fieldDescription->mIsUnique;
+			$this->mRegex = $fieldDescription->mRegex;
+		}
 	}
 
 	function getFieldName() {
@@ -206,6 +215,18 @@ class PFTemplateField {
 
 	function getNamespace() {
 		return $this->mNamespace;
+	}
+
+	function isMandatory() {
+		return $this->mIsMandatory;
+	}
+
+	function isUnique() {
+		return $this->mIsUnique;
+	}
+
+	function getRegex() {
+		return $this->mRegex;
 	}
 
 	function setTemplateField( $templateField ) {
