@@ -9,7 +9,8 @@
 			"Сербијана",
 			"Obsuser",
 			"Prevodim",
-			"Acamicamacaraca"
+			"Acamicamacaraca",
+			"BadDog"
 		]
 	},
 	"specialpages-group-pf_group": "Семантички обрасци",
@@ -73,6 +74,7 @@
 	"uploadwindow": "Прозор за отпремање",
 	"pf_deletionlog": "Историја брисања",
 	"pf_form_freetextlabel": "Слободан текст",
+	"action-viewedittab": "преглед картице „{{int:edit}}” за странице које су уредиве",
 	"pf-select2-selection-too-big": "Ово поље не може да садржи више од {{PLURAL:$1|$1 вредности}}.",
 	"pf-datepicker-dateformatlong": "d MM yy",
 	"pf-datepicker-dateformatshort": "dd.mm.yy",
