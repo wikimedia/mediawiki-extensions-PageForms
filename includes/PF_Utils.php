@@ -177,7 +177,8 @@ END;
 		$form_body .= Html::hidden( 'wpStarttime', $start_time );
 		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
 
-		$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ? $wgUser->getEditToken() : EDIT_TOKEN_SUFFIX );
+		$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ?
+			$wgUser->getEditToken() : \MediaWiki\Session\Token::SUFFIX );
 		$form_body .= Html::hidden( $action, null );
 
 		if ( $is_minor_edit ) {
