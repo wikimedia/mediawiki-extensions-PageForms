@@ -65,6 +65,10 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
+		// If this call is lower down, it doesn't take effect in
+		// "show changes" mode for some MW versions, for some reason.
+		PFUtils::addFormRLModules();
+
 		$module = new PFAutoeditAPI( new ApiMain(), 'pfautoedit' );
 		$module->setOption( 'form', $form_name );
 		$module->setOption( 'target', $targetName );
@@ -93,13 +97,12 @@ class PFFormEdit extends UnlistedSpecialPage {
 
 		$text = '';
 
-		// if action was successful and action was a Save, return
+		// If action was successful and action was a save, return.
 		if ( $module->getStatus() === 200 ) {
 			if ( $module->getAction() === PFAutoeditAPI::ACTION_SAVE ) {
 				return;
 			}
 		} else {
-
 			if ( defined( 'ApiResult::META_CONTENT' ) ) {
 				$resultData = $module->getResult()->getResultData( null, array(
 					'BC' => array(),
@@ -179,8 +182,6 @@ class PFFormEdit extends UnlistedSpecialPage {
 		if ( isset( $result[ 'formHTML' ] ) ) {
 			$text .= $result[ 'formHTML' ];
 		}
-
-		PFUtils::addFormRLModules();
 
 		$out->addHTML( $text );
 
