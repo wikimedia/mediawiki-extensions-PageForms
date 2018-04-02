@@ -7,7 +7,8 @@
 			"Protnet",
 			"ZaDiak",
 			"Απεργός",
-			"Geraki"
+			"Geraki",
+			"Nikosgranturismogt"
 		]
 	},
 	"pageforms-desc": "Φόρμες για τη δημιουργία και επεξεργασία σελίδων wiki",
@@ -144,6 +145,7 @@
 	"pf_createclass_missingvalues": "Δεν συμπληρώθηκαν όλα τα απαραίτητα πεδία.",
 	"pf_createclass_success": "Οι καθορισμένες σελίδες θα δημιουργηθούν.",
 	"pf_createclass_create": "Δημιουργία",
+	"pf_createclass_ishierarchy": "Ιεραρχία;",
 	"formstart": "Εκκίνηση φόρμας",
 	"pf_formstart_badform": "Σφάλμα: Δεν βρέθηκε φόρμα στη σελίδα «$1».",
 	"pf_formstart_badtitle": "Σφάλμα: Το «$1» είναι μη έγκυρος τίτλος σελίδας.",
@@ -207,6 +209,7 @@
 	"pf_bad_date_error": "πρέπει να είναι μια έγκυρη ημερομηνία",
 	"pf_pipe_error": "Το «|» δεν επιτρέπεται, εκτός αν είναι μέσα σε {{...}} ή [[...]]",
 	"uploadwindow": "Παράθυρο ανεβάσματος",
+	"pf-simpleupload": "Ανέβασμα αρχείου",
 	"pf_deletionlog": "Αρχείο καταγραφής διαγραφών",
 	"pf-preview-header": "Προεπισκόπηση φόρμας",
 	"pf-preview-note": "Έτσι θα φαίνεται η φόρμα όταν θα είναι σε χρήση:",
@@ -237,7 +240,7 @@
 	"pf-select2-input-too-short": "Παρακαλούμε εισαγάγετε $1 ή περισσότερους χαρακτήρες.",
 	"pf-select2-selection-too-big": "Αυτό το πεδίο δεν μπορεί να δεχτεί περισσότερες από {{PLURAL:$1|$1}} τιμές.",
 	"pf-maps-enteraddress": "Εισαγωγή διεύθυνσης εδώ",
-	"pf-maps-lookupcoordinates": "Εύρεση συντεταγμένων",
+	"pf-maps-lookupcoordinates": "Εύρεση συντεταγμένων χρησιμοποιώντας τη διεύθυνση",
 	"pf-adminlinks-datastructure": "Δομή δεδομένων",
 	"pf-datepicker-close": "Κλείσιμο",
 	"pf-datepicker-prev": "Προηγούμενο",
