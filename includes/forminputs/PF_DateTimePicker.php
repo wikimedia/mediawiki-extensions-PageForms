@@ -46,8 +46,11 @@ class PFDateTimePicker extends PFFormInput {
 
 		$separatorPos = strpos( $dateTimeString, " " );
 
+		if ( $dateTimeString == 'now' ) {
+			$dateString = $timeString = 'now';
+
 		// does it have a separating whitespace? assume it's a date & time
-		if ( $separatorPos ) {
+		} elseif ( $separatorPos ) {
 			$dateString = substr( $dateTimeString, 0, $separatorPos );
 			$timeString = substr( $dateTimeString, $separatorPos + 1 );
 

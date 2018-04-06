@@ -1141,6 +1141,9 @@ END;
 								// to the default value
 								( $cur_value == '' || $cur_value == 'now' ) ) {
 							$input_type = $form_field->getInputType();
+							// We don't handle the 'datepicker' and 'datetimepicker'
+							// input types here, because they have their own
+							// formatting; instead, they handle 'now' themselves.
 							if ( $input_type == 'date' || $input_type == 'datetime' ||
 									$input_type == 'year' ||
 									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {

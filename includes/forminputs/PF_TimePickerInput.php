@@ -20,6 +20,9 @@ class PFTimePickerInput extends PFFormInput {
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
+		if ( $cur_value == 'now' ) {
+			$cur_value = date( 'H:i' ); // hours and minutes
+		}
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 
 		$this->addJsInitFunctionData( 'PF_TP_init', $this->setupJsInitAttribs() );
