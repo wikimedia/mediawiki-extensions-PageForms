@@ -320,6 +320,7 @@ class PFAutoeditAPI extends ApiBase {
 		$data = array_merge(
 				array(
 					'wpTextbox1' => $targetContent,
+					'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
 					'wpSummary' => '',
 					'wpStarttime' => wfTimestampNow(),
 					'wpEdittime' => '',

@@ -173,6 +173,7 @@ class PFUtils {
 
 END;
 		$form_body = Html::hidden( 'wpTextbox1', $page_contents );
+		$form_body .= Html::hidden( 'wpUnicodeCheck', 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ' );
 		$form_body .= Html::hidden( 'wpSummary', $edit_summary );
 		$form_body .= Html::hidden( 'wpStarttime', $start_time );
 		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
