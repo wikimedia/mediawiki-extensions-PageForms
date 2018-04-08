@@ -212,7 +212,7 @@
 	"pf_bad_date_error": "ha de ser una data vàlida",
 	"pf_pipe_error": "No es permet «|», excepte entre {{...}} or [[...]]",
 	"uploadwindow": "Finestra de càrrega",
-	"pf_deletionlog": "Registre d'eliminació",
+	"pf_deletionlog": "Registre de supressions",
 	"pf-preview-header": "Previsualització del formulari",
 	"pf-preview-note": "Aquest és l'aspecte del formulari quan estigui en ús:",
 	"pf-pageschemas-pagenameformula": "Fórmula del nom de la pàgina:",
