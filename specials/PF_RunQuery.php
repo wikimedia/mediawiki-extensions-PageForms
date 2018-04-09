@@ -66,7 +66,11 @@ class PFRunQuery extends IncludableSpecialPage {
 		// We check that the form name is the same, in case
 		// Special:RunQuery is embedded on the page and there's more
 		// than one of them.
-		$form_submitted = $req->getVal( 'pfRunQueryFormName' ) == $form_name;
+		// Query/ies on the page can also be run automatically if
+		// "_run" is added to the query string (this was added in
+		// PF 4.3.1; in PF 4.3, there was no such option, and before
+		// 4.3, "wpRunQuery=true" was used).
+		$form_submitted = $req->getCheck( '_run' ) || $req->getVal( 'pfRunQueryFormName' ) == $form_name;
 		$content = $req->getVal( 'wpTextbox1' );
 		$raw = $req->getBool( 'raw', false );
 
