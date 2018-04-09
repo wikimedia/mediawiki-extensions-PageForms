@@ -178,8 +178,15 @@ END;
 		$form_body .= Html::hidden( 'wpStarttime', $start_time );
 		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
 
-		$form_body .= Html::hidden( 'wpEditToken', $wgUser->isLoggedIn() ?
-			$wgUser->getEditToken() : \MediaWiki\Session\Token::SUFFIX );
+		if ( $wgUser->isLoggedIn() ) {
+			$edit_token = $wgUser->getEditToken();
+		} elseif ( class_exists( '\MediaWiki\Session\Token' ) ) {
+			// MW 1.27+
+			$edit_token = \MediaWiki\Session\Token::SUFFIX;
+		} else {
+			$edit_token = EDIT_TOKEN_SUFFIX;
+		}
+		$form_body .= Html::hidden( 'wpEditToken', $edit_token );
 		$form_body .= Html::hidden( $action, null );
 
 		if ( $is_minor_edit ) {
