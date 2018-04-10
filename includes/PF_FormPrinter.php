@@ -458,7 +458,9 @@ END;
 			}
 
 			$labelCell = Html::rawElement( 'th', null, $label );
-			$inputCell = Html::rawElement( 'td', null, $this->formFieldHTML( $formField, $curValue ) );
+			$inputHTML = $this->formFieldHTML( $formField, $curValue );
+			$inputHTML .= $formField->additionalHTMLForInput( $curValue, $fieldName, $tif->getTemplateName() );
+			$inputCell = Html::rawElement( 'td', null, $inputHTML );
 			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
 		}
 
