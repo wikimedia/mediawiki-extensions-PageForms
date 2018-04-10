@@ -1126,7 +1126,7 @@ END;
 									if ( $form_field->hasFieldArg( 'delimiter' ) ) {
 										$delimiter = $form_field->getFieldArg( 'delimiter' );
 									} else {
-										$delimiter = ',';
+										$delimiter = null;
 									}
 								}
 								$cur_value = $form_field->valueStringToLabels( $cur_value, $delimiter );
