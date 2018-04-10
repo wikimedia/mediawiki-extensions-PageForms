@@ -432,6 +432,11 @@ END;
 				$curValue = $gridValues[$fieldName];
 			}
 
+			if ( $formField->isHidden() ) {
+				$html .= Html::hidden( $formField->getInputName(), $curValue );
+				continue;
+			}
+
 			$wgPageFormsFieldNum++;
 			if ( $formField->getLabel() !== null ) {
 				$labelText = $formField->getLabel();
