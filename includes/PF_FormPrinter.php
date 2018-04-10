@@ -1108,29 +1108,32 @@ END;
 							$generated_page_name = str_replace( '_', ' ', $generated_page_name );
 						}
 
+						if ( !empty( $cur_value ) &&
+							( $form_field->hasFieldArg( 'mapping template' ) ||
+							$form_field->hasFieldArg( 'mapping property' ) ||
+							( $form_field->hasFieldArg( 'mapping cargo table' ) &&
+							$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ||
+							$form_field->getUseDisplayTitle() ) {
+							// If the input type is "tokens', the value is not
+							// an array, but the delimiter still needs to be set.
+							if ( !is_array( $cur_value ) ) {
+								if ( $form_field->hasFieldArg( 'delimiter' ) ) {
+									$delimiter = $form_field->getFieldArg( 'delimiter' );
+								} else {
+									$delimiter = null;
+								}
+							}
+							$cur_value = $form_field->valueStringToLabels( $cur_value, $delimiter );
+						}
+
 						// Call hooks - unfortunately this has to be split into two
 						// separate calls, because of the different variable names in
 						// each case.
+						// @TODO - should it be $cur_value for both cases? Or should the
+						// hook perhaps modify both variables?
 						if ( $form_submitted ) {
 							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
-							if ( !empty( $cur_value ) &&
-								( $form_field->hasFieldArg( 'mapping template' ) ||
-								$form_field->hasFieldArg( 'mapping property' ) ||
-								( $form_field->hasFieldArg( 'mapping cargo table' ) &&
-								$form_field->hasFieldArg( 'mapping cargo field' ) ) ) ||
-								$form_field->getUseDisplayTitle() ) {
-								// If the input type is "tokens', the value is not
-								// an array, but the delimiter still needs to be set.
-								if ( !is_array( $cur_value ) ) {
-									if ( $form_field->hasFieldArg( 'delimiter' ) ) {
-										$delimiter = $form_field->getFieldArg( 'delimiter' );
-									} else {
-										$delimiter = null;
-									}
-								}
-								$cur_value = $form_field->valueStringToLabels( $cur_value, $delimiter );
-							}
 							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
 						// if this is not part of a 'multiple' template, increment the
