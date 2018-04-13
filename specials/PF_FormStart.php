@@ -56,7 +56,7 @@ class PFFormStart extends SpecialPage {
 		// Handle submission of this form.
 		$form_submitted = $req->getCheck( 'page_name' );
 		if ( $form_submitted ) {
-			$page_name = $req->getVal( 'page_name' );
+			$page_name = trim( $req->getVal( 'page_name' ) );
 			// This form can be used to create a sub-page for an
 			// existing page
 			if ( !is_null( $super_page ) && $super_page !== '' ) {
