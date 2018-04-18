@@ -191,7 +191,12 @@ class PFAutocompleteAPI extends ApiBase {
 		$sqlOptions = array();
 		$sqlOptions['LIMIT'] = $wgPageFormsMaxAutocompleteValues;
 
-		$property = SMWPropertyValue::makeUserProperty( $property_name );
+		if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
+			// SMW 3.0+
+			$property = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $property_name );
+		} else {
+			$property = SMWPropertyValue::makeUserProperty( $property_name );
+		}
 		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
 		$property_name = str_replace( ' ', '_', $property_name );
 		$conditions = array( 'p_ids.smw_title' => $property_name );
@@ -237,7 +242,12 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 
 		if ( !is_null( $basePropertyName ) ) {
-			$baseProperty = SMWPropertyValue::makeUserProperty( $basePropertyName );
+			if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
+				$baseProperty = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $basePropertyName );
+			} else {
+				// SMW 3.0+
+				$baseProperty = SMWPropertyValue::makeUserProperty( $basePropertyName );
+			}
 			$basePropertyHasTypePage = ( $baseProperty->getPropertyTypeID() == '_wpg' );
 
 			$basePropertyName = str_replace( ' ', '_', $basePropertyName );
