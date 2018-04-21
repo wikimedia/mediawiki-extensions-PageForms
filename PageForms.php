@@ -130,7 +130,6 @@ $GLOBALS['wgHooks']['EditPage::importFormData'][] = 'PFHooks::showFormPreview';
 $GLOBALS['wgHooks']['CargoTablesActionLinks'][] = 'PFHooks::addToCargoTablesLinks';
 $GLOBALS['wgHooks']['TinyMCEDisable'][] = 'PFHooks::disableTinyMCE';
 $GLOBALS['wgHooks']['CanonicalNamespaces'][] = 'PFHooks::registerNamespaces';
-$GLOBALS['wgHooks']['UnitTestsList'][] = 'PFHooks::onUnitTestsList';
 $GLOBALS['wgHooks']['ResourceLoaderRegisterModules'][] = 'PFHooks::registerModules';
 
 if ( defined( 'SMW_VERSION' ) ) {

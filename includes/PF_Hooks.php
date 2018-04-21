@@ -380,17 +380,4 @@ class PFHooks {
 		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
 		return true;
 	}
-
-	/**
-	 * Hook to add PHPUnit test cases.
-	 * From https://www.mediawiki.org/wiki/Manual:PHP_unit_testing/Writing_unit_tests_for_extensions
-	 *
-	 * @param string[] &$files
-	 * @return bool
-	 */
-	public static function onUnitTestsList( &$files ) {
-		$testDir = dirname( __DIR__ ) . '/tests/phpunit/includes';
-		$files = array_merge( $files, glob( "$testDir/*Test.php" ) );
-		return true;
-	}
 }
