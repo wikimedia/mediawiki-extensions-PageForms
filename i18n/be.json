@@ -3,7 +3,8 @@
 		"authors": [
 			"Тест",
 			"Irus",
-			"Mechanizatar"
+			"Mechanizatar",
+			"Artsiom91"
 		]
 	},
 	"pf_createproperty_proptype": "Тып:",
@@ -14,5 +15,6 @@
 	"formedit": "Рэдагаваць з дапамогай формы",
 	"pf_viewform": "Глядзець форму",
 	"pf_formedit_formwarning": "Папярэджаньне. Гэтая старонка [[$1|ужо існуе]], але не выкарыстоўвае гэтую форму.",
-	"pf_autoedit_redlinkexists": "$1 ужо існуе."
+	"pf_autoedit_redlinkexists": "$1 ужо існуе.",
+	"pf-datepicker-close": "Закрыць"
 }
