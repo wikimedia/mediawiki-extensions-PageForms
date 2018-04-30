@@ -43,7 +43,7 @@
 	"pf_createtemplate_multipleinstance": "Αυτό το πρότυπο μπορεί να συμπεριληφθεί πολλές φορές στη σελίδα.",
 	"pf_createtemplate_connectingproperty": "Όνομα ιδιότητας που να συνδέει τα πεδία αυτού του προτύπου με το υπόλοιπο της σελίδας:",
 	"pf_createtemplate_categorylabel": "Κατηγορία οριζόμενη από πρότυπο (προαιρετικό):",
-	"pf_createtemplate_cargotablelabel": "Πίνακας Cargo οριζόμενος από πρότυπο (προαιρετικό):",
+	"pf_createtemplate_cargotablelabel": "Όνομα πίνακα του Cargo οριζόμενου από πρότυπο:",
 	"pf_createtemplate_templatefields": "Πεδία προτύπου",
 	"pf_createtemplate_fieldsdesc": "Για να μην χρειάζονται ονόματα τα πεδία αυτού του προτύπου, απλά εισαγάγετε τον αύξοντα αριθμό κάθε πεδίου (π.χ. 1, 2, 3, κλπ.) σαν όνομα, αντί για κανονικό όνομα.",
 	"pf_createtemplate_fieldname": "Όνομα πεδίου:",
