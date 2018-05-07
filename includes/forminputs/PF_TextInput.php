@@ -140,7 +140,8 @@ class PFTextInput extends PFFormInput {
 	}
 
 	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', $other_args = array() ) {
-		global $wgPageFormsSimpleUpload, $wgPageFormsScriptPath;
+		global $wgPageFormsSimpleUpload, $wgPageFormsScriptPath,
+			$wgVersion;
 		if ( $wgPageFormsSimpleUpload ) {
 			$text = "\n" . '<img class="loading" style="display:none;" src="' . $wgPageFormsScriptPath . '/skins/loading.gif"/>' . "\n";
 			$text .= Html::input( '',
@@ -201,8 +202,11 @@ class PFTextInput extends PFFormInput {
 			// 'title' => $upload_label,
 			'rev' => $style,
 			'data-input-id' => $input_id,
-			'data-type' => 'iframe'
 		);
+
+		if ( version_compare( $wgVersion, '1.30', '>=' ) ) {
+			$linkAttrs['data-type'] = 'iframe';
+		}
 
 		$text = "\t" . Html::element( 'a', $linkAttrs, $upload_label ) . "\n";
 

@@ -59,7 +59,7 @@ div.popupform-close {
 	width: 30px;
 	height: 30px;
 	cursor: pointer;
-	background-image: url('fancy_close.png');
+	background-image: url('FancyBox/fancy_close.png');
 }
 
 div.popupform-loading {

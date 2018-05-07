@@ -258,7 +258,6 @@ $GLOBALS['wgResourceModules'] += array(
 			'jquery.ui.core',
 			'jquery.ui.autocomplete',
 			'jquery.ui.sortable',
-			'ext.pageforms.fancybox',
 			'ext.pageforms.autogrow',
 			'mediawiki.util',
 			'ext.pageforms.select2',
@@ -281,9 +280,14 @@ $GLOBALS['wgResourceModules'] += array(
 	'ext.pageforms.browser' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/jquery.browser.js',
 	),
-	'ext.pageforms.fancybox' => $wgPageFormsResourceTemplate + array(
-		'scripts' => 'libs/jquery.fancybox.js',
-		'styles' => 'skins/jquery.fancybox.css',
+	'ext.pageforms.fancybox.jquery1' => $wgPageFormsResourceTemplate + array(
+		'scripts' => 'libs/FancyBox/jquery.fancybox.1.3.4.js',
+		'styles' => 'skins/FancyBox/jquery.fancybox.1.3.4.css',
+		'dependencies' => array( 'ext.pageforms.browser' ),
+	),
+	'ext.pageforms.fancybox.jquery3' => $wgPageFormsResourceTemplate + array(
+		'scripts' => 'libs/FancyBox/jquery.fancybox.3.2.10.js',
+		'styles' => 'skins/FancyBox/jquery.fancybox.3.2.10.css',
 		'dependencies' => array( 'ext.pageforms.browser' ),
 	),
 	'ext.pageforms.dynatree' => $wgPageFormsResourceTemplate + array(

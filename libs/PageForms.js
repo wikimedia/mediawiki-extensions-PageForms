@@ -1448,18 +1448,34 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	});
 
 	this.find('.autoGrow').autoGrow();
-	this.find('.pfFancyBox').fancybox({
-		toolbar : false,
-		smallBtn : true,
-		iframe : {
-			preload : false,
-			css : {
-				width : '75%',
-				height : '75%'
-			}
-		},
-		animationEffect : false
-	});
+	// We use a different version of FancyBox depending on the version
+	// of jQuery (1 vs. 3) (which in turn depends on the version of
+	// MediaWiki (<= 1.29 vs. >= 1.30)).
+	if ( parseInt($().jquery) >= 3 ) {
+		this.find('.pfFancyBox').fancybox({
+			toolbar : false,
+			smallBtn : true,
+			iframe : {
+				preload : false,
+				css : {
+					width : '75%',
+					height : '75%'
+				}
+			},
+			animationEffect : false
+		});
+	} else {
+		this.find('.pfFancyBox').fancybox({
+			'width'         : '75%',
+			'height'        : '75%',
+			'autoScale'     : false,
+			'transitionIn'  : 'none',
+			'transitionOut' : 'none',
+			'type'          : 'iframe',
+			'overlayColor'  : '#222',
+			'overlayOpacity' : '0.8'
+		});
+	}
 
 	// @TODO - this should ideally be called only for inputs that have
 	// a dependent field - which might involve changing the storage of

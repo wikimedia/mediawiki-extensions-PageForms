@@ -226,7 +226,8 @@ END;
 	 * @param Parser $parser
 	 */
 	public static function addFormRLModules( $parser = null ) {
-		global $wgOut, $wgPageFormsSimpleUpload;
+		global $wgOut, $wgPageFormsSimpleUpload, $wgVersion,
+			$wgUsejQueryThree;
 
 		// Handling depends on whether or not this form is embedded
 		// in another page.
@@ -249,7 +250,6 @@ END;
 			// templates makes that tricky (every form input needs
 			// to re-apply the JS on a new instance) - it can be
 			// done via JS hooks, but it hasn't been done yet.
-			'ext.pageforms.fancybox',
 			'ext.pageforms.dynatree',
 			'ext.pageforms.imagepreview',
 			'ext.pageforms.autogrow',
@@ -257,6 +257,12 @@ END;
 			'ext.pageforms.select2',
 			'ext.pageforms.rating'
 		);
+
+		if ( version_compare( $wgVersion, '1.30', '<' ) || $wgUsejQueryThree === false ) {
+			$mainModules[] = 'ext.pageforms.fancybox.jquery1';
+		} else {
+			$mainModules[] = 'ext.pageforms.fancybox.jquery3';
+		}
 
 		if ( $wgPageFormsSimpleUpload ) {
 			$mainModules[] = 'ext.pageforms.simpleupload';
