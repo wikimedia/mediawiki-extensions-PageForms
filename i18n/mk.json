@@ -81,7 +81,7 @@
 	"pf_forminputs_change_file": "Смени податотека",
 	"pf_forminputs_defaultfilename": "Основно-зададено име на подигнатите податотеки",
 	"pf_forminputs_rows": "Број на редови за овој внос",
-	"pf_forminputs_cols": "Број на колони за овој внос",
+	"pf_forminputs_cols": "Број на столбови за овој внос",
 	"pf_forminputs_autogrow": "Поставете го овој внос да расте во големина ако текстот ги надминува неговите граници",
 	"pf_forminputs_valuesfromproperty": "Својство чиишто вредности во викито треба да се збирот вредности на овој внос",
 	"pf_forminputs_valuesfromcategory": "Категорија чиишто страници треба да се збирот вредности на овој внос",
