@@ -31,7 +31,6 @@ class PFCreatePageJob extends Job {
 		$wikiPage = new WikiPage( $this->title );
 		if ( !$wikiPage ) {
 			$this->error = 'createPage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
-			wfProfileOut( __METHOD__ );
 			return false;
 		}
 
