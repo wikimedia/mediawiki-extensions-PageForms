@@ -82,6 +82,7 @@
 	"pf_createtemplate_sectionsformat": "{{Identical|Section}}",
 	"pf_createtemplate_addfield": "Button",
 	"pf_createtemplate_deletefield": "{{Identical|Delete}}",
+	"editusingspreadsheet": "{{doc-special|EditUsingSpreadsheet}}",
 	"forms": "{{doc-special|Forms}}\n{{Identical|Form}}",
 	"pf_forms_docu": "Header describing the special page.",
 	"pf_forminputs_mandatory": "Longer explanation of an option when creating a form\n\nSee also:\n* {{msg-mw|pf forminputs restricted}}\n* {{msg-mw|pf createform hiddensection}}",

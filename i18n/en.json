@@ -65,6 +65,7 @@
 	"pf_createtemplate_sectionsformat": "Sections",
 	"pf_createtemplate_addfield": "Add field",
 	"pf_createtemplate_deletefield": "Delete",
+	"editusingspreadsheet": "Edit pages using spreadsheet",
 	"forms": "Forms",
 	"pf_forms_docu": "The following forms exist in the wiki.",
 	"pf_forminputs_mandatory": "A value must be entered for this input",

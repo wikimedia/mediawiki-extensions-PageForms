@@ -152,6 +152,8 @@ $GLOBALS['wgSpecialPages']['CreateForm'] = 'PFCreateForm';
 $GLOBALS['wgAutoloadClasses']['PFCreateForm'] = __DIR__ . '/specials/PF_CreateForm.php';
 $GLOBALS['wgSpecialPages']['Templates'] = 'PFTemplates';
 $GLOBALS['wgAutoloadClasses']['PFTemplates'] = __DIR__ . '/specials/PF_Templates.php';
+$GLOBALS['wgSpecialPages']['EditUsingSpreadsheet'] = 'PFEditUsingSpreadsheet';
+$GLOBALS['wgAutoloadClasses']['PFEditUsingSpreadsheet'] = __DIR__ . '/specials/PF_EditUsingSpreadsheet.php';
 $GLOBALS['wgSpecialPages']['CreateTemplate'] = 'PFCreateTemplate';
 $GLOBALS['wgAutoloadClasses']['PFCreateTemplate'] = __DIR__ . '/specials/PF_CreateTemplate.php';
 if ( defined( 'SMW_VERSION' ) ) {
@@ -174,6 +176,7 @@ $GLOBALS['wgAutoloadClasses']['PFUploadSourceField'] = __DIR__ . '/specials/PF_U
 $GLOBALS['wgAutoloadClasses']['PFUploadWindow'] = __DIR__ . '/specials/PF_UploadWindow.php';
 $GLOBALS['wgAutoloadClasses']['PFTemplateField'] = __DIR__ . '/includes/PF_TemplateField.php';
 $GLOBALS['wgAutoloadClasses']['TemplatesPage'] = __DIR__ . '/specials/PF_Templates.php';
+$GLOBALS['wgAutoloadClasses']['SpreadsheetTemplatesPage'] = __DIR__ . '/specials/PF_EditUsingSpreadsheet.php';
 $GLOBALS['wgAutoloadClasses']['FormsPage'] = __DIR__ . '/specials/PF_Forms.php';
 $GLOBALS['wgAutoloadClasses']['PFForm'] = __DIR__ . '/includes/PF_Form.php';
 $GLOBALS['wgAutoloadClasses']['PFTemplate'] = __DIR__ . '/includes/PF_Template.php';
