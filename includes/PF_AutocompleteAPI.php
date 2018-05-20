@@ -348,7 +348,8 @@ class PFAutocompleteAPI extends ApiBase {
 			$cargoField,
 			$havingStr = null,
 			$cargoField,
-			$wgPageFormsMaxAutocompleteValues
+			$wgPageFormsMaxAutocompleteValues,
+			$offsetStr = 0
 		);
 		$cargoFieldAlias = str_replace( '_', ' ', $cargoField );
 		$queryResults = $sqlQuery->run();
