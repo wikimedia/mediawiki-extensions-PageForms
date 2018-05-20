@@ -326,6 +326,7 @@ class PFFormField {
 				$f->mFieldArgs['delimiter'] = ',';
 			} else {
 				$f->mFieldArgs['delimiter'] = $delimiterFromTemplate;
+				$f->mIsList = true;
 			}
 		}
 		$delimiter = $f->mFieldArgs['delimiter'];
