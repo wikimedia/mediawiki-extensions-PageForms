@@ -78,6 +78,7 @@
 	"pf_createtemplate_sectionsformat": "小节",
 	"pf_createtemplate_addfield": "添加字段",
 	"pf_createtemplate_deletefield": "删除",
+	"editusingspreadsheet": "使用电子表格编辑页面",
 	"forms": "表单",
 	"pf_forms_docu": "当前wiki之中存在下列表单。",
 	"pf_forminputs_mandatory": "必须为该输入项录入取值",

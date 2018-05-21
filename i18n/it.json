@@ -52,6 +52,7 @@
 	"pf_createtemplate_sectionsformat": "Sezioni",
 	"pf_createtemplate_addfield": "Aggiungi campo",
 	"pf_createtemplate_deletefield": "Cancella",
+	"editusingspreadsheet": "Modifica pagine utilizzando un foglio di calcolo",
 	"forms": "Moduli",
 	"pf_forms_docu": "I seguenti moduli già esistono nel wiki.",
 	"pf_forminputs_mandatory": "Devi inserire un valore per questo input",
