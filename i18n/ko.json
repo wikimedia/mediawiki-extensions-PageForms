@@ -52,6 +52,7 @@
 	"pf_createtemplate_sectionsformat": "부분",
 	"pf_createtemplate_addfield": "필드 추가",
 	"pf_createtemplate_deletefield": "삭제",
+	"editusingspreadsheet": "스프레드시트를 사용하여 문서 편집",
 	"forms": "양식 목록",
 	"pf_forms_docu": "다음 양식은 위키에 존재합니다.",
 	"pf_forminputs_mandatory": "이 입력에 대한 값을 입력해야 합니다",

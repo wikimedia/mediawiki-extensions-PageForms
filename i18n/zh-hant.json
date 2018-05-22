@@ -75,6 +75,7 @@
 	"pf_createtemplate_sectionsformat": "章節",
 	"pf_createtemplate_addfield": "增加欄位",
 	"pf_createtemplate_deletefield": "刪除",
+	"editusingspreadsheet": "使用試算表來編輯頁面",
 	"forms": "表單",
 	"pf_forms_docu": "下列為 Wiki 已有的表單。",
 	"pf_forminputs_mandatory": "此輸入欄位必須填寫數值",

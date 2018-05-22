@@ -95,6 +95,7 @@
 	"pf_createtemplate_sectionsformat": "Sections",
 	"pf_createtemplate_addfield": "Ajouter un champ",
 	"pf_createtemplate_deletefield": "Supprimer",
+	"editusingspreadsheet": "Modifier les pages en utilisant le tableur",
 	"forms": "Formulaires",
 	"pf_forms_docu": "Les formulaires suivants existent dans le wiki.",
 	"pf_forminputs_mandatory": "Obligatoire",
