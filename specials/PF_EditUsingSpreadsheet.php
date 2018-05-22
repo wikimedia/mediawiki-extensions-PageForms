@@ -36,15 +36,130 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 	}
 
 	/**
-	 * Creates the spreadsheet Interface for a template.
+	 * Creates the spreadsheet Interface for a template and dislpays all the
+	 * template calls( instances ) as rows.
 	 * @param string $template_name
 	 */
 	private function createSpreadsheet( $template_name ) {
+		global $wgPageFormsGridValues, $wgPageFormsGridParams;
+		global $wgPageFormsScriptPath;
+
 		$out = $this->getOutput();
+		$out->addModules( 'ext.pageforms.jsgrid' );
 		$text = '';
 		$pageTitle = "Edit pages using spreadsheet for template: $this->mTemplate";
 		$out->setPageTitle( $pageTitle );
-		return;
+		// Use inner join to get all the pages which contain the template.
+		$dbr = wfGetDB( DB_SLAVE );
+		$res = $dbr->select(
+			array( 'templatelinks', 'page' ),
+			array( 'page_title' ),
+			array(
+				'tl_title' => $template_name,
+				'tl_from_namespace' => '0'
+			),
+			__METHOD__,
+			array(),
+			array( 'templatelinks' => array( 'INNER JOIN', array(
+				'tl_from=page_id' ) ) )
+		);
+		// $pages contains the title and contents of all the pages queried.
+		$pages = array();
+		$pageContents = array();
+		while ( $row = $dbr->fetchRow( $res ) ) {
+			$pageName = str_replace( '_', ' ', $row[0] );
+			$pageContents['page_title'] = $pageName;
+			$PageTitle = Title::makeTitle( NS_MAIN, $pageName );
+			$wikiPage = WikiPage::factory( $PageTitle );
+			$pageContents['page_content'] = $wikiPage->getContent( Revision::RAW )->getNativeData();
+			$pages[] = $pageContents;
+		}
+
+		$template = PFTemplate::newFromName( $template_name );
+		$templateCalls = array();
+
+		foreach ( $pages as $page ) {
+			$currentPageTemplateCalls = $this->getTemplateCalls( $page, $template_name );
+			$templateCalls = array_merge( $templateCalls, $currentPageTemplateCalls );
+		}
+
+		$templateFields = $template->getTemplateFields();
+		$gridValues = array();
+		foreach ( $templateCalls as $templateCall ) {
+			$gridValues[] = $this->getGridValues( $templateCall );
+		}
+
+		$gridParams = array();
+		$gridParamValues = array( 'name' => 'page', 'title' => 'page', 'type' => 'text' );
+		$gridParams[] = $gridParamValues;
+
+		foreach ( $templateFields as $templateField ) {
+			$gridParamValues = array( 'name' => $templateField->getFieldName() );
+			$gridParamValues['title'] = $templateField->getLabel();
+			$gridParamValues['type'] = 'text';
+			$gridParams[] = $gridParamValues;
+		}
+		$templateDivID = str_replace( ' ', '', $template_name ) . "Grid";
+		$templateDivAttrs = array(
+			'class' => 'pfJSGrid',
+			'id' => $templateDivID,
+			'data-template-name' => $template_name,
+			'height' => '200px'
+		);
+
+		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
+		$text = Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
+		$wgPageFormsGridParams[$template_name] = $gridParams;
+		$wgPageFormsGridValues[$template_name] = $gridValues;
+
+		$out->addHTML( $text );
+	}
+
+	/**
+	 * Retruns an array of template calls found in the page in form of an array
+	 * of strings.Takes care of multiple template calls in a single page.
+	 * This code is copied from
+	 * https://stackoverflow.com/questions/27078259/get-string-between-find-all-occurrences-php/27078384#27078384
+	 * @param array $page
+	 * @param string $template_name
+	 * @return array
+	 */
+	private function getTemplateCalls( $page, $template_name ) {
+		$str = $page['page_content'];
+		$startDelimiter = '{{' . $template_name;
+		$endDelimiter = '}}';
+		$contents = array();
+		$startDelimiterLength = strlen( $startDelimiter );
+		$endDelimiterLength = strlen( $endDelimiter );
+		$startFrom = $contentStart = $contentEnd = 0;
+		while ( false !== ( $contentStart = strpos( $str, $startDelimiter, $startFrom ) ) ) {
+			$contentStart += $startDelimiterLength;
+			$contentEnd = strpos( $str, $endDelimiter, $contentStart );
+			if ( false === $contentEnd ) {
+				break;
+			}
+			$contents[] = 'page=' . $page['page_title'] . substr( $str, $contentStart, $contentEnd - $contentStart );
+			$startFrom = $contentEnd + $endDelimiterLength;
+		}
+		return $contents;
+	}
+
+	/**
+	 * This function is used to get an array of field names and field values
+	 * from each template call to display in the spreadsheet.
+	 * @param array $templateCall
+	 * @return array
+	 */
+	private function getGridValues( $templateCall ) {
+		$fieldArray = explode( "|", $templateCall );
+		$fieldValueArray = array();
+		foreach ( $fieldArray as $field ) {
+			$equalPos = strpos( $field, '=' );
+			$fieldLabel = substr( $field, 0, $equalPos );
+			$fieldValue = substr( $field, $equalPos + 1, strlen( $field ) - ( $equalPos + 2 ) );
+			$fieldValueArray[$fieldLabel] = $fieldValue;
+		}
+		return $fieldValueArray;
 	}
 
 	protected function getGroupName() {
