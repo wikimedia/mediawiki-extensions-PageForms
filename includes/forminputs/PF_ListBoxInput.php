@@ -42,7 +42,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 			$delimiter = ',';
 		}
 		$cur_values = PFValuesUtils::getValuesArray( $this->mCurrentValue, $delimiter );
-		$className .= ' PfShowIfSelected';
+		$className .= ' pfShowIfSelected';
 
 		if ( ( $possible_values = $this->mOtherArgs['possible_values'] ) == null ) {
 			$possible_values = array();
