@@ -77,6 +77,7 @@
 	"pf_createtemplate_sectionsformat": "Seções",
 	"pf_createtemplate_addfield": "Adicionar campo",
 	"pf_createtemplate_deletefield": "Deletar",
+	"editusingspreadsheet": "Editar páginas usando planilha",
 	"forms": "Formulários",
 	"pf_forms_docu": "Existem os seguintes formulários neste wiki.",
 	"pf_forminputs_mandatory": "Um valor é obrigatório para este campo",
