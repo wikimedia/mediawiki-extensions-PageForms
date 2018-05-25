@@ -25,11 +25,7 @@ class PFHooks {
 		 * up properly before we add our stuff.
 		 */
 
-		// This global variable is needed so that other
-		// extensions can hook into it to add their own
-		// input types.
-
-		if ( defined( 'SMW_VERSION' ) ) {
+		if ( defined( 'SMW_VERSION' ) || ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki' ) ) {
 			$GLOBALS['wgSpecialPages']['CreateProperty'] = 'PFCreateProperty';
 			$GLOBALS['wgAutoloadClasses']['PFCreateProperty'] = __DIR__ . '/../specials/PF_CreateProperty.php';
 		}
