@@ -1000,7 +1000,7 @@ END;
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
 					// from the template call
-					if ( $source_is_page && ( $tif->getFullTextInPage() != '' && !$form_submitted ) ) {
+					if ( $source_is_page && ( $tif->getFullTextInPage() != '' ) && ( !$form_is_partial || !$form_submitted ) ) {
 						if ( $tif->hasValueFromPageForField( $field_name ) ) {
 							// Get value, and remove it,
 							// so that at the end we
