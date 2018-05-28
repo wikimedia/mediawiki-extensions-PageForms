@@ -18,7 +18,8 @@
 			"Ryo567",
 			"Sethladan",
 			"Matiia",
-			"Dgstranz"
+			"Dgstranz",
+			"Adjen"
 		]
 	},
 	"pageforms-desc": "Formularios para crear y editar páginas wiki",
@@ -58,6 +59,7 @@
 	"pf_createtemplate_sectionsformat": "Secciones",
 	"pf_createtemplate_addfield": "Agregar campo",
 	"pf_createtemplate_deletefield": "Borrar",
+	"editusingspreadsheet": "Editar páginas utilizando spreadsheet",
 	"forms": "Formularios",
 	"pf_forms_docu": "Los siguientes formularios existen en el wiki.",
 	"pf_forminputs_mandatory": "Obligado",

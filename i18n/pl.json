@@ -54,6 +54,7 @@
 	"pf_createtemplate_sectionsformat": "Sekcje",
 	"pf_createtemplate_addfield": "Dodaj pole",
 	"pf_createtemplate_deletefield": "Usuń",
+	"editusingspreadsheet": "Edycja stron za pomocą arkusza kalkulacyjnego",
 	"forms": "Formularze",
 	"pf_forms_docu": "Poniższe formularze są już zdefiniowane w przestrzeni wiki.",
 	"pf_forminputs_mandatory": "Obowiązkowe",
