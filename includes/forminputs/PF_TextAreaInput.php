@@ -49,6 +49,15 @@ class PFTextAreaInput extends PFFormInput {
 			$this->addJsInitFunctionData( 'window.ext.wikieditor.init' );
 		}
 
+		// VisualEditor (plus VEForAll)
+		if (
+			array_key_exists( 'editor', $this->mOtherArgs ) &&
+			$this->mOtherArgs['editor'] == 'visualeditor' &&
+			ExtensionRegistry::getInstance()->isLoaded( 'VisualEditor' )
+		) {
+			$this->mEditor = 'visualeditor';
+		}
+
 		// TinyMCE
 		if (
 			array_key_exists( 'editor', $this->mOtherArgs ) &&
@@ -151,6 +160,8 @@ class PFTextAreaInput extends PFFormInput {
 	public function getResourceModuleNames() {
 		if ( $this->mEditor == 'wikieditor' ) {
 			return 'ext.pageforms.wikieditor';
+		} elseif ( $this->mEditor == 'visualeditor' ) {
+			return 'ext.veforall.main';
 		} elseif ( $this->mEditor == 'tinymce' ) {
 			return 'ext.tinymce';
 		} else {
@@ -177,6 +188,8 @@ class PFTextAreaInput extends PFFormInput {
 			$editPage = new EditPage( $article );
 			WikiEditorHooks::editPageShowEditFormInitial( $editPage, $wgOut );
 			$className = 'wikieditor ';
+		} elseif ( $this->mEditor == 'visualeditor' ) {
+			$className = 'visualeditor ';
 		} elseif ( $this->mEditor == 'tinymce' ) {
 			$className = 'tinymce ';
 		} else {

@@ -1505,6 +1505,15 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		$(this).applyRatingInput();
 	});
 
+	var myThis = this;
+	if ( $.fn.applyVisualEditor ) {
+		myThis.find(".visualeditor").not(".multipleTemplateStarter .visualeditor").applyVisualEditor();
+	} else {
+		$(document).bind('VEForAllLoaded', function(e) {
+			myThis.find(".visualeditor").not(".multipleTemplateStarter .visualeditor").applyVisualEditor();
+		});
+	}
+
 	// @TODO - this should be in the TinyMCE extension, and use a hook.
 	this.find(".tinymce").not(".multipleTemplateStarter .tinymce").each( function() {
 		mwTinyMCEInit( '#' + $(this).attr('id') );
