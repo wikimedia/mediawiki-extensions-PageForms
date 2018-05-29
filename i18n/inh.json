@@ -6,6 +6,7 @@
 	},
 	"templates": "Лераш",
 	"pf_createform_template": "Ло:",
+	"pf_createform_inputtypedefault": "(юххьанцара хиннача тайпара)",
 	"pf_createclass_create": "Хьакхолла",
 	"pf_formedit_createtitle": "Хьакхоллар $1: $2",
 	"pf_formedit_createtitlenotarget": "Хьакхолла $1"
