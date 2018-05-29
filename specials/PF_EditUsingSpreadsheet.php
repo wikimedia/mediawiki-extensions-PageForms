@@ -90,13 +90,30 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 		}
 
 		$gridParams = array();
-		$gridParamValues = array( 'name' => 'page', 'title' => 'page', 'type' => 'text' );
+		$gridParamValues = array( 'name' => 'page', 'title' => 'Page' );
 		$gridParams[] = $gridParamValues;
 
 		foreach ( $templateFields as $templateField ) {
 			$gridParamValues = array( 'name' => $templateField->getFieldName() );
 			$gridParamValues['title'] = $templateField->getLabel();
 			$gridParamValues['type'] = 'text';
+			if ( !empty( $fieldType = $templateField->getFieldType() ) ) {
+				if ( $fieldType == 'Date' ) {
+					$gridParamValues['type'] = 'date';
+				} elseif ( $fieldType == 'Boolean' ) {
+					$gridParamValues['type'] = 'checkbox';
+				} elseif ( $fieldType == 'Text' ) {
+					$gridParamValues['type'] = 'textarea';
+				}
+			} elseif ( !empty( $propertyType = $templateField->getPropertyType() ) ) {
+				if ( $propertyType == '_dat' ) {
+					$gridParamValues['type'] = 'date';
+				} elseif ( $propertyType == '_boo' ) {
+					$gridParamValues['type'] = 'checkbox';
+				} elseif ( $propertyType == '_txt' || $propertyType == '_cod' ) {
+					$gridParamValues['type'] = 'textarea';
+				}
+			}
 			$gridParams[] = $gridParamValues;
 		}
 		$templateDivID = str_replace( ' ', '', $template_name ) . "Grid";
