@@ -14,6 +14,7 @@
 class PFEditUsingSpreadsheet extends SpecialPage {
 
 	public $mTemplate;
+	public $mForm;
 
 	/**
 	 * Constructor
@@ -25,13 +26,20 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 	function execute( $query ) {
 		$this->setHeaders();
 		$this->mTemplate = $this->getRequest()->getText( 'template' );
+		$this->mForm = $this->getRequest()->getText( 'form' );
 		// If a template is not specified, list all the available templates.
 		if ( empty( $this->mTemplate ) ) {
 			list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
 			$rep = new SpreadsheetTemplatesPage();
 			$rep->execute( $query );
 		} else {
-			$this->createSpreadsheet( $this->mTemplate );
+			if ( empty( $this->mForm ) ) {
+				$out = $this->getOutput();
+				$text = Html::element( 'p', array( 'class' => 'error' ), "You must specify a form name along with the template in the url." ) . "\n";
+				$out->addHTML( $text );
+			} else {
+				$this->createSpreadsheet( $this->mTemplate, $this->mForm );
+			}
 		}
 	}
 
@@ -40,11 +48,12 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 	 * template calls( instances ) as rows.
 	 * @param string $template_name
 	 */
-	private function createSpreadsheet( $template_name ) {
+	private function createSpreadsheet( $template_name, $form_name ) {
 		global $wgPageFormsGridValues, $wgPageFormsGridParams;
 		global $wgPageFormsScriptPath;
-
 		$out = $this->getOutput();
+		$req = $this->getRequest();
+
 		$out->addModules( 'ext.pageforms.jsgrid' );
 		$text = '';
 		$pageTitle = "Edit pages using spreadsheet for template: $this->mTemplate";
@@ -189,7 +198,28 @@ class PFEditUsingSpreadsheet extends SpecialPage {
  */
 class SpreadsheetTemplatesPage extends QueryPage {
 
+	private $templateInForm = array();
+
+	/**
+	 * This function is used to find all the non-repeating templates in all the
+	 * forms available in the wiki and store them along with the form names
+	 * in an array using helper functions.
+	 * @param string $name
+	 */
 	public function __construct( $name = 'EditUsingSpreadsheet' ) {
+		$dbr = wfGetDB( DB_SLAVE );
+		$res = $dbr->select(
+			array( 'page' ),
+			array( 'page_title' ),
+			array( 'page_namespace' => PF_NS_FORM, 'page_is_redirect' => 0 ),
+			__METHOD__,
+			array(),
+			array()
+		);
+		while ( $row = $dbr->fetchRow( $res ) ) {
+			$formTitle = Title::makeTitle( PF_NS_FORM, $row['page_title'] );
+			$this->findTemplates( $formTitle );
+		}
 		parent::__construct( $name );
 	}
 
@@ -225,17 +255,38 @@ class SpreadsheetTemplatesPage extends QueryPage {
 		return false;
 	}
 
+	function findTemplates( $formTitle ) {
+		$formWikiPage = WikiPage::factory( $formTitle );
+		$formContent = $formWikiPage->getContent( Revision::RAW )->getNativeData();
+		$start_position = 0;
+		while ( $brackets_loc = strpos( $formContent, '{{{', $start_position ) ) {
+			$brackets_end_loc = strpos( $formContent, "}}}", $brackets_loc );
+			$bracketed_string = substr( $formContent, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
+			$tag_components = PFUtils::getFormTagComponents( $bracketed_string );
+			$tag_title = trim( $tag_components[0] );
+			if ( $tag_title == 'for template' ) {
+				if ( count( $tag_components ) > 1 && !array_key_exists( $templateName = $tag_components[1], $this->templateInForm ) ) {
+					$this->templateInForm[$templateName] = $formTitle->getText();
+				}
+			}
+			$start_position = $brackets_loc + 1;
+		}
+	}
+
 	function formatResult( $skin, $result ) {
+		if ( !array_key_exists( $result->value, $this->templateInForm ) ) {
+			return false;
+		}
+		$formName = $this->templateInForm[$result->value];
 		$templateTitle = Title::makeTitle( NS_TEMPLATE, $result->value );
 		if ( method_exists( $this, 'getLinkRenderer' ) ) {
 			$linkRenderer = $this->getLinkRenderer();
 		} else {
 			$linkRenderer = null;
 		}
-
 		$sp = SpecialPageFactory::getPage( 'EditUsingSpreadsheet' );
 		$link = Title::makeTitle( NS_SPECIAL, $sp->mName );
-		$text = PFUtils::makeLink( $linkRenderer, $link, htmlspecialchars( $templateTitle->getText() ), array(), array( "template" => htmlspecialchars( $templateTitle->getText() ) ) );
+		$text = PFUtils::makeLink( $linkRenderer, $link, htmlspecialchars( $templateTitle->getText() ), array(), array( "template" => htmlspecialchars( $templateTitle->getText() ), "form" => $formName ) );
 		return $text;
 	}
 }
