@@ -5,6 +5,7 @@
  * @author Balabky9
  */
 /* global jsGrid, mw */
+/*jshint esversion: 6 */
 (function(jsGrid, $, undefined) {
 	/**
 	 * The following code handles the 'date' input type within the grid.
@@ -141,12 +142,212 @@
 			gridValues = mw.config.get( 'wgPageFormsGridValues' );
 		var $gridDiv = $( this );
 		var templateName = $gridDiv.attr( 'data-template-name' );
+		var formName = $gridDiv.attr( 'data-form-name' );
 		var gridHeight = $gridDiv.attr( 'height' );
+		var editMultiplePages = $gridDiv.attr( 'editMultiplePages' );
+		var baseUrl = mw.config.get( 'wgScriptPath' );
 		if ( gridHeight === undefined ) { gridHeight = '400px'; }
 		// The slice() is necessary to do a clone, so that
 		//gridParams does not get modified.
 		var templateParams = gridParams[templateName].slice(0);
-		templateParams.push( { type: 'control' } );
+		templateParams.push( { type: 'control', deleteButton: false } );
+		var dataValues = [];
+		var pages = [];
+		var cancelUpdate = 0;
+		if ( editMultiplePages !== undefined ) {
+			$.ajax({
+				url: baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateName,
+				dataType: 'json',
+				type: 'POST',
+				async: false,
+				headers: { 'Api-User-Agent': 'Example/1.0' },
+				success: function(data) {
+					var pageObjects = data.query.embeddedin;
+					for ( var i = 0; i < pageObjects.length; i++ ) {
+						pages.push( encodeURIComponent( pageObjects[i].title ) );
+					}
+					pages.sort(function( a, b ){ return a.toUpperCase().localeCompare( b.toUpperCase() ); });
+
+				},
+				error: function(xhr, status, error){
+					mw.notify( $( "<div class='errorbox'>" + "Unable to retrieve pages for the selected template" + "</div>") );
+				}
+			});
+		}
+
+		function getGridValues( pageNames ) {
+			return $.ajax({
+				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&formatversion=2&titles=' + pageNames,
+				dataType: 'json',
+				type: 'POST',
+				headers: { 'Api-User-Agent': 'Example/1.0' }
+			});
+		}
+
+		function getTemplateCalls( pageContent, pageName ) {
+			var startDelimiter = '{{' + templateName.toLowerCase();
+			var endDelimiter = '}}';
+			var contents = [];
+			var startFrom, contentStart, contentEnd;
+			startFrom = contentStart = contentEnd = 0;
+			while ( -1 !== ( contentStart = pageContent.toLowerCase().indexOf( startDelimiter, startFrom ) ) ) {
+				contentEnd = pageContent.indexOf( endDelimiter, contentStart );
+				if ( contentEnd === -1 ) {
+					break;
+				}
+				var content = pageContent.substring( contentStart + startDelimiter.length, contentEnd );
+				contents.push( 'page=' + pageName + content );
+				startFrom = contentEnd + 1;
+			}
+			return contents;
+		}
+
+		function getQueryString( preEdit, postEdit ){
+			var queryString = "";
+			$.each( postEdit, function( key, value ) {
+				if ( value !== preEdit[key] && key !== 'page' ) {
+					queryString += '&' + templateName + '[' + key + ']' + '=' + value;
+				}
+			});
+			return queryString;
+		}
+
+		function getToken() {
+			var url = baseUrl + '/api.php?action=query&format=json&meta=tokens&type=csrf';
+			return $.post( url );
+		}
+
+		function movePage( fromPage, toPage ) {
+			return $.when( getToken() ).then( function successHandler( postResult ){
+				var data = {};
+				var token = postResult.query.tokens.csrftoken;
+				data.token = token;
+				var query = 'from=' + encodeURIComponent( fromPage ) + "&to=" + encodeURIComponent( toPage ) + "&movetalk&noredirect";
+				return $.ajax( {
+					type:     'POST',
+					url:      baseUrl + '/api.php?action=move&format=json&' + query,
+					dataType: 'json',
+					data:     data
+				} );
+			});
+		}
+
+		function updatePage( args, queryString ) {
+			if ( queryString !== "") {
+				var data = {
+					action: 'pfautoedit',
+					format: 'json'
+				};
+				data.query = 'form=' + formName + '&target=' + encodeURIComponent( args.previousItem.page ) + encodeURI( queryString );
+				return $.ajax( {
+					type:     'POST',
+					url:      baseUrl + '/api.php',
+					data:     data,
+					dataType: 'json'
+				} );
+			} else {
+				var result = { status: 200 };
+				return result;
+			}
+		}
+
+		function addPage( args ){
+			var queryString = "";
+			$.each( args.item, function( key, value ) {
+				if ( key !== "page" ) {
+					if ( value === "" ) {
+						value = " ";
+					}
+					queryString += '&' + templateName + '[' + key + ']' + '=' + value;
+				}
+			});
+			var data = {
+				action: 'pfautoedit',
+				format: 'json'
+			};
+			data.query = 'form=' + formName + '&target=' + encodeURIComponent( args.item.page ) + encodeURI( queryString );
+			return $.ajax( {
+				type:     'POST',
+				url:      baseUrl + '/api.php',
+				data:     data,
+				dataType: 'json'
+			} );
+		}
+
+		mw.loader.using( 'oojs-ui-widgets' ).done( function () {
+			$( function () {
+
+				var option1 = new OO.ui.ButtonOptionWidget( {
+				    data: 1,
+				    label: '25',
+				    title: 'Button option 1'
+				} );
+				var option2 = new OO.ui.ButtonOptionWidget( {
+				    data: 2,
+				    label: '50',
+				    title: 'Button option 2'
+				} );
+				var option3 = new OO.ui.ButtonOptionWidget( {
+				    data: 3,
+				    label: '100',
+				    title: 'Button option 3'
+				} );
+				var option4 = new OO.ui.ButtonOptionWidget( {
+				    data: 4,
+				    label: '250',
+				    title: 'Button option 4'
+				} );
+
+				var buttonSelect = new OO.ui.ButtonSelectWidget( {
+				    items: [ option1, option2, option3, option4 ]
+				} );
+
+				var popupButton = new OO.ui.PopupButtonWidget( {
+				  label: 'Results to show',
+				  popup: {
+				    $content: buttonSelect.$element,
+				    padded: true,
+					width: 'auto',
+				    align: 'forwards'
+				  }
+				} );
+
+				buttonSelect.selectItem( option1 );
+				option1.on( 'click', function () {
+					$gridDiv.jsGrid("option", "pageSize", 25);
+				} );
+				option2.on( 'click', function () {
+					$gridDiv.jsGrid("option", "pageSize", 50);
+				} );
+				option3.on( 'click', function () {
+					$gridDiv.jsGrid("option", "pageSize", 100);
+				} );
+				option4.on( 'click', function () {
+					$gridDiv.jsGrid("option", "pageSize", 250);
+				} );
+
+				$( '#selectLimit' ).append( popupButton.$element );
+
+			} );
+		} );
+
+		var PFPageLoadingStrategy = function(grid) {
+		    jsGrid.loadStrategies.PageLoadingStrategy.call(this, grid);
+		};
+
+		PFPageLoadingStrategy.prototype = new jsGrid.loadStrategies.PageLoadingStrategy();
+
+		PFPageLoadingStrategy.prototype.finishInsert = function(insertedItem) {
+			var grid = this._grid;
+            grid.option("data").unshift(insertedItem);
+            grid.refresh();
+        };
+
+		PFPageLoadingStrategy.prototype.finishDelete = function(deletedItem, deletedItemIndex) {
+            var grid = this._grid;
+            grid.option("data").splice(deletedItemIndex, 1);
+            grid.refresh();
+        };
 
 		$gridDiv.jsGrid({
 			width: "100%",
@@ -156,8 +357,72 @@
 			inserting: true,
 			confirmDeleting: false,
 
+			autoload: ( editMultiplePages === undefined ) ? false : true,
+			paging: ( editMultiplePages === undefined ) ? false : true,
+			pageSize: 25,
+			pageIndex: 1,
+
+			loadStrategy: function() {
+				return new PFPageLoadingStrategy(this);
+			},
+
 			data: gridValues[templateName],
 			fields: templateParams,
+
+			controller: {
+				loadData: function ( filter ) {
+					$gridDiv.css( "visibility", "hidden" );
+					$("#selectLimit").css( "visibility", "hidden" );
+					$("#loadingImage").css( "display", "block" );
+					var start = filter.pageSize * ( filter.pageIndex - 1 );
+					var end = start + filter.pageSize;
+					dataValues = [];
+					var pageNames = "";
+
+					if ( pages.length > 0 ) {
+						for (var i = start; ( i < end - 1 ) && ( i < pages.length - 1 ); i++) {
+							pageNames += pages[i] + "|";
+						}
+						pageNames += pages[i];
+						return $.when( getGridValues( pageNames ) ).then( function successHandler( data ) {
+							var templateCalls = [];
+							data.query.pages.sort(function( a, b ){ return a.title.toUpperCase().localeCompare( b.title.toUpperCase() ); });
+							for (var i = 0; i < data.query.pages.length; i++) {
+								var pageContent = data.query.pages[i].revisions[0].content;
+								templateCalls = getTemplateCalls( pageContent, data.query.pages[i].title );
+								for ( const templateCall of templateCalls ) {
+									var fieldArray = templateCall.split( '|' );
+									var fieldValueObject = {};
+									for ( const field of fieldArray ) {
+										var equalPos = field.indexOf( '=' );
+										var fieldLabel = field.substring( 0, equalPos );
+										var fieldValue = field.substring( equalPos + 1 );
+										fieldLabel = fieldLabel.replace(/(\r\n\t|\n|\r\t)/gm,"");
+										fieldValueObject[fieldLabel] = fieldValue.replace(/(\r\n\t|\n|\r\t)/gm,"");
+									}
+									dataValues.push( fieldValueObject );
+								}
+							}
+							var dataResult = {
+								data: dataValues,
+								itemsCount: dataValues.length
+							};
+							$("#loadingImage").css( "display", "none" );
+							$gridDiv.css( "visibility", "visible" );
+							$("#selectLimit").css( "visibility", "visible" );
+							return dataResult;
+						}, function errorHandler( jqXHR, textStatus, errorThrown ){
+							mw.notify( $( "<div class='errorbox'>" + "Unable to retrieve pages" + "</div>") );
+							return false;
+						});
+					}
+				}
+			},
+
+			_pagesCount: function() {
+				var pageSize = this.pageSize;
+				return Math.ceil( pages.length / pageSize );
+			},
 
 			onEditRowCreated: function( args ) {
 				args.editRow.keypress( function( e ) {
@@ -189,27 +454,138 @@
 					}
 				});
 
+			},
+
+			onItemUpdating: function( args ){
+				if ( editMultiplePages === undefined || cancelUpdate === 1 ) {
+					cancelUpdate = 0;
+					return;
+				}
+				var queryString = getQueryString( args.previousItem, args.item );
+				if ( queryString !== "" || args.previousItem.page !== args.item.page ) {
+					$.when( updatePage( args, queryString ) ).then( function successHandler( result ) {
+						if ( result.status === 200 ) {
+							if ( queryString !== "" ) {
+								mw.notify( 'Update Successful' );
+							}
+
+							if ( args.previousItem.page !== args.item.page ) {
+								$.when( movePage( args.previousItem.page, args.item.page ) ).then( function successHandler( result ) {
+									if ( "error" in result ) {
+										// args.cancel = true;
+										mw.notify( $( "<div class='errorbox'>" + "Error in moving page: " + result.error.info + "</div>") );
+										cancelUpdate = 1;
+										$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
+									} else {
+										mw.notify( 'Update Successful: moved page "' + args.previousItem.page + '" to "' + args.item.page + '"' );
+									}
+								}, function errorHandler( jqXHR, textStatus, errorThrown ){
+									var result = jQuery.parseJSON(jqXHR.responseText);
+									var text = result.responseText;
+
+									for ( var i = 0; i < result.errors.length; i++ ) {
+										text += ' ' + result.errors[i].message;
+									}
+									// args.cancel = true;
+									mw.notify( $( "<div class='errorbox'>" + text + "</div>") );
+									cancelUpdate = 1;
+									$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
+								});
+							}
+
+						} else {
+							mw.notify( $( "<div class='errorbox'>" + result.status + "</div>") );
+							// args.cancel = true;
+							cancelUpdate = 1;
+							$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
+						}
+					}, function errorHandler( jqXHR, textStatus, errorThrown ){
+						// args.cancel = true;
+						var result = jQuery.parseJSON(jqXHR.responseText);
+						var text = result.responseText;
+
+						for ( var i = 0; i < result.errors.length; i++ ) {
+							text += ' ' + result.errors[i].message;
+						}
+						mw.notify( $( "<div class='errorbox'>" + text + "</div>") );
+						cancelUpdate = 1;
+						$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
+					} );
+				}
+			},
+
+			onItemInserting: function( args ){
+				if ( editMultiplePages === undefined ) {
+					return;
+				}
+
+				if ( args.item.page === "" ) {
+					mw.notify( $( "<div class='errorbox'>" + "Page name not specified" + "</div>") );
+					args.cancel = true;
+					return;
+				}
+
+				new mw.Api().get( {
+					action: "query",
+					titles: [ args.item.page ],
+				} ).then( function( ret ) {
+					$.each( ret.query.pages, function() {
+						if ( this.missing === "" ) {
+							$.when( addPage( args ) ).then( function successHandler( result ){
+								if ( result.status === 200 ) {
+									mw.notify( 'New page: ' + args.item.page + ' created successfully' );
+								} else {
+									mw.notify( $( "<div class='errorbox'>" + result.status + "</div>") );
+									// args.cancel = true;
+									$gridDiv.jsGrid("deleteItem", args.item );
+								}
+							}, function errorHandler( jqXHR, textStatus, errorThrown ){
+								// args.cancel = true;
+								var result = jQuery.parseJSON(jqXHR.responseText);
+								var text = result.responseText;
+
+								for ( var i = 0; i < result.errors.length; i++ ) {
+									text += ' ' + result.errors[i].message;
+								}
+								mw.notify( $( "<div class='errorbox'>" + text + "</div>") );
+								$gridDiv.jsGrid("deleteItem", args.item );
+							} );
+						} else {
+							mw.notify( $( "<div class='errorbox'>" + "Page already exists" + "</div>") );
+							// args.cancel = true;
+							$gridDiv.jsGrid("deleteItem", args.item );
+						}
+					} );
+				}, function( error ) {
+					mw.notify( $( "<div class='errorbox'>" + error + "</div>") );
+					// args.cancel = true;
+					$gridDiv.jsGrid("deleteItem", args.item );
+				} );
+
 			}
 		});
+
+
 
 		var $gridData = $gridDiv.find( ".jsgrid-grid-body tbody" );
 
 		// Copied from http://js-grid.com/demos/rows-reordering.html
-		$gridData.sortable({
-			update: function( e, ui ) {
-				// array of indexes
-				var clientIndexRegExp = /\s+client-(\d+)\s+/;
-				var indexes = $.map( $gridData.sortable( "toArray", { attribute: "class" } ), function(classes) {
-					return clientIndexRegExp.exec(classes)[1];
-				});
+		if ( editMultiplePages === undefined ) {
+			$gridData.sortable({
+				update: function( e, ui ) {
+					// array of indexes
+					var clientIndexRegExp = /\s+client-(\d+)\s+/;
+					var indexes = $.map( $gridData.sortable( "toArray", { attribute: "class" } ), function(classes) {
+						return clientIndexRegExp.exec(classes)[1];
+					});
 
-				// arrays of items
-				var items = $.map( $gridData.find("tr"), function(row) {
-					return $(row).data("JSGridItem");
-				});
-			}
-		});
-
+					// arrays of items
+					var items = $.map( $gridData.find("tr"), function(row) {
+						return $(row).data("JSGridItem");
+					});
+				}
+			});
+		}
 	});
 
 	$( "#pfForm" ).submit(function( event ) {

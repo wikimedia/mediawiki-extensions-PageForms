@@ -37,5 +37,9 @@
 		"ext": false,
 		"google": true,
 		"OpenLayers": true
-	}
+	},
+
+	"predef": [
+		"OO"
+	]
 }
