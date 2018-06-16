@@ -189,7 +189,7 @@
 	"pf-select2-input-too-short": "Podaj $1 lub więcej znaków",
 	"pf-select2-selection-too-big": "To pole nie może mieć więcej niż {{PLURAL:$1| $1 wartość|$1 wartości}}.",
 	"pf-maps-enteraddress": "Wprowadź adres",
-	"pf-maps-lookupcoordinates": "Znajdź współrzędne",
+	"pf-maps-lookupcoordinates": "Oblicz współrzędne za pomocą adresu",
 	"pf-adminlinks-datastructure": "Struktura danych",
 	"pf-datepicker-close": "Zamknij",
 	"pf-datepicker-prev": "Poprzednie",
