@@ -407,9 +407,6 @@
 		"remoteExtPath": "PageForms"
 	},
 	"Hooks": {
-		"LinkEnd": [
-			"PFFormLinker::setBrokenLink"
-		],
 		"SkinTemplateNavigation": [
 			"PFFormEditAction::displayTab",
 			"PFHelperFormAction::displayTab"

@@ -74,7 +74,8 @@ class PFFormLinker {
 
 	/**
 	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
-	 * AKA red-linked) page
+	 * AKA red-linked) page, for MW < 1.28 only.
+	 *
 	 * @param Linker $linker
 	 * @param Title $target
 	 * @param array $options
@@ -83,7 +84,7 @@ class PFFormLinker {
 	 * @param bool &$ret
 	 * @return true
 	 */
-	static function setBrokenLink( $linker, $target, $options, $text, &$attribs, &$ret ) {
+	static function setBrokenLinkOld( $linker, $target, $options, $text, &$attribs, &$ret ) {
 		// If it's not a broken (red) link, exit.
 		if ( !in_array( 'broken', $options, true ) ) {
 			return true;
@@ -94,7 +95,43 @@ class PFFormLinker {
 		}
 
 		global $wgPageFormsLinkAllRedLinksToForms;
-		// Don't do this is it it's a category page - it probably
+		// Don't do this if it's a category page - it probably
+		// won't have an associated form.
+		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
+			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			return true;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Called by the HtmlPageLinkRendererEnd hook.
+	 * The $target argument is listed in the documentation as being of type
+	 * LinkTarget, but in practice it seems to sometimes be of type Title
+	 * and sometimes of type TitleValue. So we just leave out a type
+	 * declaration for that argument in the header.
+	 *
+	 * @param LinkRenderer $linkRenderer
+	 * @param Title $target
+	 * @param bool $isKnown
+	 * @param string &$text
+	 * @param array &$attribs
+	 * @param bool &$ret
+	 * @return true
+	 */
+	static function setBrokenLink( MediaWiki\Linker\LinkRenderer $linkRenderer, $target, $isKnown, &$text, &$attribs, &$ret ) {
+		// If it's not a broken (red) link, exit.
+		if ( $isKnown ) {
+			return true;
+		}
+		// If the link is to a special page, exit.
+		if ( $target->getNamespace() == NS_SPECIAL ) {
+			return true;
+		}
+
+		global $wgPageFormsLinkAllRedLinksToForms;
+		// Don't do this if it's a category page - it probably
 		// won't have an associated form.
 		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
 			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );

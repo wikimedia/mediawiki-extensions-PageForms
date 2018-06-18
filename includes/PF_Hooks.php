@@ -41,6 +41,15 @@ class PFHooks {
 		$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
 		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
 
+		// We have to have this hook called here, instead of in
+		// extension.json, because it's conditional.
+		if ( class_exists( 'MediaWiki\Linker\LinkRenderer' ) ) {
+			// MW 1.28+
+			$GLOBALS['wgHooks']['HtmlPageLinkRendererEnd'][] = 'PFFormLinker::setBrokenLink';
+		} else {
+			$GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLinkOld';
+		}
+
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
 		// SMW 1.9, SMW delays calling all its hook functions.

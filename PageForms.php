@@ -113,7 +113,12 @@ if ( defined( 'SMW_VERSION' ) ) {
 
 }
 
-$GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLink';
+if ( class_exists( 'MediaWiki\Linker\LinkRenderer' ) ) {
+	// MW 1.28+
+	$GLOBALS['wgHooks']['HtmlPageLinkRendererEnd'][] = 'PFFormLinker::setBrokenLink';
+} else {
+	$GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLinkOld';
+}
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFFormEditAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFHelperFormAction::displayTab';
 $GLOBALS['wgHooks']['ArticlePurge'][] = 'PFFormUtils::purgeCache';
