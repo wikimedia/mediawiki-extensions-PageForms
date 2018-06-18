@@ -10,6 +10,8 @@
 
 class PFFormLinker {
 
+	private static $formPerNamespace = array();
+
 	static function getDefaultForm( $title ) {
 		// The title passed in can be null in at least one
 		// situation: if the "namespace page" is being checked, and
@@ -90,7 +92,8 @@ class PFFormLinker {
 			return true;
 		}
 		// If the link is to a special page, exit.
-		if ( $target->getNamespace() == NS_SPECIAL ) {
+		$namespace = $target->getNamespace();
+		if ( $namespace == NS_SPECIAL ) {
 			return true;
 		}
 
@@ -98,6 +101,11 @@ class PFFormLinker {
 		// Don't do this if it's a category page - it probably
 		// won't have an associated form.
 		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
+			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			return true;
+		}
+
+		if ( self::getDefaultFormForNamespace( $namespace ) !== null ) {
 			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}
@@ -126,7 +134,8 @@ class PFFormLinker {
 			return true;
 		}
 		// If the link is to a special page, exit.
-		if ( $target->getNamespace() == NS_SPECIAL ) {
+		$namespace = $target->getNamespace();
+		if ( $namespace == NS_SPECIAL ) {
 			return true;
 		}
 
@@ -134,6 +143,11 @@ class PFFormLinker {
 		// Don't do this if it's a category page - it probably
 		// won't have an associated form.
 		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
+			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			return true;
+		}
+
+		if ( self::getDefaultFormForNamespace( $namespace ) !== null ) {
 			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}
@@ -202,8 +216,19 @@ class PFFormLinker {
 			return array();
 		}
 
-		// If we're still here, just return the default form for the
-		// namespace, which may well be null.
+		$default_form = self::getDefaultFormForNamespace( $namespace );
+		if ( $default_form != '' ) {
+			return array( $default_form );
+		}
+
+		return array();
+	}
+
+	public static function getDefaultFormForNamespace( $namespace ) {
+		if ( array_key_exists( $namespace, self::$formPerNamespace ) ) {
+			return self::$formPerNamespace[$namespace];
+		}
+
 		if ( NS_MAIN === $namespace ) {
 			// If it's in the main (blank) namespace, check for the
 			// file named with the word for "Main" in this language.
@@ -215,11 +240,8 @@ class PFFormLinker {
 		}
 
 		$namespacePage = Title::makeTitleSafe( NS_PROJECT, $namespace_label );
-		$default_form = self::getDefaultForm( $namespacePage );
-		if ( $default_form != '' ) {
-			return array( $default_form );
-		}
-
-		return array();
+		$defaultForm = self::getDefaultForm( $namespacePage );
+		self::$formPerNamespace[$namespace] = $defaultForm;
+		return $defaultForm;
 	}
 }
