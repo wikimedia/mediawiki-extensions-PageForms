@@ -570,7 +570,10 @@ class PFAutoeditAPI extends ApiBase {
 				$responseText = wfMessage( 'pf_autoedit_success', $this->mOptions['target'], $this->mOptions['form'] )->parse();
 				// Force a HTMLCacheUpdate to prevent the page from missing the 'Edit with form'-tab.
 				// @see https://phabricator.wikimedia.org/T195281
-				$deferedHTMLCacheUpdate = new HTMLCacheUpdate( Title::newFromText( $this->mOptions['target'], 'pagelinks' );
+				$deferedHTMLCacheUpdate = new HTMLCacheUpdate( 
+					Title::newFromText( $this->mOptions['target'] ), 
+					'pagelinks' 
+				);
 				DeferredUpdates::addUpdate( $deferedHTMLCacheUpdate );
 				DeferredUpdates::doUpdates();
 			} else {
