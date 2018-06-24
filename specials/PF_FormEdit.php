@@ -148,7 +148,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 			} else {
 				$pageTitle = wfMessage( 'pf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
-		} elseif ( count( $alt_forms ) > 0 ) {
+		} elseif ( $alt_forms ) {
 			// We use the 'creating' message here, instead of
 			// 'pf_formedit_createtitlenotarget', to differentiate
 			// between a page with no (default) form, and one with
@@ -164,7 +164,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 		}
 
 		$out->setPageTitle( $pageTitle );
-		if ( count( $alt_forms ) > 0 ) {
+		if ( $alt_forms ) {
 			$text .= '<div class="infoMessage">';
 			if ( $result[ 'form' ] != '' ) {
 				$text .= wfMessage( 'pf_formedit_altforms' )->escaped();
