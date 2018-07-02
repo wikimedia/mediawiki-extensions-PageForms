@@ -461,11 +461,6 @@ END;
 			}
 			$separator = '';
 
-			$fieldStart = $this->mFieldStart;
-			Hooks::run( 'PageForms::TemplateFieldStart', array( $field, &$fieldStart ) );
-			$fieldEnd = $this->mFieldEnd;
-			Hooks::run( 'PageForms::TemplateFieldEnd', array( $field, &$fieldEnd ) );
-
 			$fieldLabel = $field->getLabel();
 			if ( $fieldLabel == '' ) {
 				$fieldLabel = $field->getFieldName();
@@ -524,29 +519,16 @@ END;
 				if ( $separator != '' ) {
 					$tableText .= "$separator ";
 				}
-				if ( $fieldStart != '' ) {
-					$tableText .= "$fieldStart ";
-				}
-				if ( $cargoInUse && ( $field->getFieldType() == 'Page' || $field->getFieldType() == 'File' ) ) {
-					$tableText .= "[[$fieldString]]";
-				} else {
-					$tableText .= $fieldString;
-				}
-				if ( $fieldEnd != '' ) {
-					$tableText .= " $fieldEnd";
-				}
-				$tableText .= "\n";
+				$tableText .= $this->createTextForField( $field );
 				if ( $fieldDisplay == 'nonempty' ) {
 					$tableText .= " }}";
 				}
+				$tableText .= "\n";
 			} elseif ( !is_null( $internalObjText ) ) {
 				if ( $separator != '' ) {
 					$tableText .= "$separator ";
 				}
-				if ( $fieldStart != '' ) {
-					$tableText .= "$fieldStart ";
-				}
-				$tableText .= "$fieldString $fieldEnd";
+				$tableText .= $this->createTextForField( $field );
 				if ( $fieldDisplay == 'nonempty' ) {
 					$tableText .= " }}";
 				}
@@ -570,55 +552,9 @@ END;
 				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 					$tableText .= '{{!}} ';
 				}
-				if ( $fieldStart != '' ) {
-					$tableText .= $fieldStart . ' ';
-				}
-				if ( !is_null( $field->getNamespace() ) ) {
-					// Special handling is needed, for at
-					// least the File and Category namespaces.
-					$tableText .= "[[$fieldString]] {{#set:$fieldProperty=$fieldString}}";
-				} else {
-					$tableText .= "[[$fieldProperty::$fieldString]]";
-				}
-				$tableText .= "}} $fieldEnd\n";
-			} elseif ( $fieldIsList ) {
-				// If this field is meant to contain a list,
-				// add on an 'arraymap' function, that will
-				// call this semantic markup tag on every
-				// element in the list.
-				// Find a string that's not in the semantic
-				// field call, to be used as the variable.
-				$var = "x"; // default - use this if all the attempts fail
-				if ( strstr( $fieldProperty, $var ) ) {
-					$var_options = array( 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' );
-					foreach ( $var_options as $option ) {
-						if ( ! strstr( $fieldProperty, $option ) ) {
-							$var = $option;
-							break;
-						}
-					}
-				}
-				$tableText .= "{{#arraymap:{{{" . $field->getFieldName() . '|}}}|' . $field->getDelimiter() . "|$var|[[";
-				if ( $cargoInUse ) {
-					$tableText .= "$var]]";
-				} elseif ( is_null( $field->getNamespace() ) ) {
-					$tableText .= "$fieldProperty::$var]]";
-				} else {
-					$tableText .= $field->getNamespace() . ":$var]] {{#set:" . $fieldProperty . "=$var}} ";
-				}
-				$tableText .= "}}\n";
+				$tableText .= $this->createTextForField( $field ) . "\n";
 			} else {
-				if ( $fieldStart != '' ) {
-					$tableText .= $fieldStart . ' ';
-				}
-				if ( !is_null( $field->getNamespace() ) ) {
-					// Special handling is needed, for at
-					// least the File and Category namespaces.
-					$tableText .= "[[$fieldString]] {{#set:$fieldProperty=$fieldString}}";
-				} else {
-					$tableText .= "[[$fieldProperty::$fieldString]]";
-				}
-				$tableText .= " $fieldEnd\n";
+				$tableText .= $this->createTextForField( $field ) . "\n";
 			}
 		}
 
@@ -676,4 +612,25 @@ END;
 
 		return $text;
 	}
+
+	function createTextForField( $field ) {
+		$text = '';
+		$fieldStart = $this->mFieldStart;
+		Hooks::run( 'PageForms::TemplateFieldStart', array( $field, &$fieldStart ) );
+		if ( $fieldStart != '' ) {
+			$text .= "$fieldStart ";
+		}
+
+		$cargoInUse = defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) && $this->mCargoTable != '';
+		$text .= $field->createText( $cargoInUse );
+
+		$fieldEnd = $this->mFieldEnd;
+		Hooks::run( 'PageForms::TemplateFieldEnd', array( $field, &$fieldEnd ) );
+		if ( $fieldEnd != '' ) {
+			$tableText .= " $fieldEnd";
+		}
+
+		return $text;
+	}
+
 }
