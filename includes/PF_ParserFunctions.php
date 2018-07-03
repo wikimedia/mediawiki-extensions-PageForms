@@ -402,9 +402,9 @@ class PFParserFunctions {
 		$new_delimiter = isset( $args[4] ) ? trim( $frame->expand( $args[4] ) ) : ', ';
 		# Unstrip some
 		$delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
-		# let '\n' represent newlines
-		$delimiter = str_replace( '\n', "\n", $delimiter );
-		$new_delimiter = str_replace( '\n', "\n", $new_delimiter );
+		# Let '\n' represent newlines, and '\s' represent spaces.
+		$delimiter = str_replace( array( '\n', '\s' ), array( "\n", ' ' ), $delimiter );
+		$new_delimiter = str_replace( array( '\n', '\s' ), array( "\n", ' ' ), $new_delimiter );
 
 		if ( $delimiter == '' ) {
 			$values_array = preg_split( '/(.)/u', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE );
