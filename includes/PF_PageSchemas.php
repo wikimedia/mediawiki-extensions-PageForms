@@ -602,17 +602,18 @@ class PFPageSchemas extends PSExtensionHandler {
 	 * @return Title[]
 	 */
 	public static function getPagesToGenerate( $pageSchemaObj ) {
+		$genPageList = array();
 		$psTemplates = $pageSchemaObj->getTemplates();
 		foreach ( $psTemplates as $psTemplate ) {
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $psTemplate->getName() );
 			$genPageList[] = $title;
 		}
 		$form_name = self::getFormName( $pageSchemaObj );
-		if ( $form_name == null ) {
-			return array();
+		if ( $form_name != null ) {
+			$title = Title::makeTitleSafe( PF_NS_FORM, $form_name );
+			$genPageList[] = $title;
 		}
-		$title = Title::makeTitleSafe( PF_NS_FORM, $form_name );
-		$genPageList[] = $title;
+
 		return $genPageList;
 	}
 
