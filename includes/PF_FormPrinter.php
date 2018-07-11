@@ -1868,6 +1868,7 @@ END;
 			// variable $wiki_page, which is of type PFWikiPage.
 			$mwWikiPage = WikiPage::factory( $this->mPageTitle );
 			$form_text .= Html::hidden( 'wpEdittime', $mwWikiPage->getTimestamp() );
+			$form_text .= Html::hidden( 'editRevId', 0 );
 			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
 			$form_text .= Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK );
 			$form_text .= Html::hidden( 'wpUltimateParam', true );

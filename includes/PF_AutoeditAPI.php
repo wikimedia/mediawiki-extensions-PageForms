@@ -328,7 +328,6 @@ class PFAutoeditAPI extends ApiBase {
 				'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
 				'wpSummary' => '',
 				'wpStarttime' => wfTimestampNow(),
-				'wpEdittime' => '',
 				'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
 				'action' => 'submit',
 			],

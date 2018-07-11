@@ -34,6 +34,7 @@ class PFAutoEdit {
 		$inTooltip = null;
 		$inQueryArr = [];
 		$editTime = null;
+		$latestRevId = null;
 		$confirmEdit = false;
 
 		// Parse parameters.
@@ -99,6 +100,7 @@ class PFAutoEdit {
 						$targetWikiPage = WikiPage::factory( $targetTitle );
 						$targetWikiPage->clear();
 						$editTime = $targetWikiPage->getTimestamp();
+						$latestRevId = $targetArticle->getRevision()->getId();
 					}
 					break;
 
@@ -159,6 +161,9 @@ class PFAutoEdit {
 
 		if ( $editTime !== null ) {
 			$formcontent .= Html::hidden( 'wpEdittime', $editTime );
+		}
+		if ( $latestRevId !== null ) {
+			$formcontent .= Html::hidden( 'editRevId', $latestRevId );
 		}
 
 		if ( $confirmEdit ) {
