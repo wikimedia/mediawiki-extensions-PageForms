@@ -58,7 +58,7 @@
 	"pf_formstart_createoredit": "Napravi ili izmeni",
 	"formedit": "Izmeni formom",
 	"pf_formedit_createtitle": "Napravi $1: $2",
-	"pf_editsource": "Uredi izvor",
+	"pf_editsource": "Uredi izvorni kod",
 	"pf_formedit_edittitle": "Izmeni $1: $2",
 	"pf_formedit_remove": "Ukloni",
 	"pf_formedit_none": "Nema",
