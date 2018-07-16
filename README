@@ -1,9 +1,9 @@
 == About ==
 
 Page Forms is an extension to MediaWiki that allows for the
-creation and usage of forms to add and edit semantic data. It can
-work in conjuction with two other extensions that both handle the
-storage of data: Semantic MediaWiki and Cargo.
+creation of forms that can be used to create and edit pages. It can
+work by itself, or in conjuction with two other extensions that
+both handle the storage of data: Cargo and Semantic MediaWiki.
 
 For much more information on Page Forms, see the extension
 homepage at https://www.mediawiki.org/wiki/Extension:Page_Forms
@@ -16,11 +16,11 @@ Page Forms was created, and mostly written by, Yaron Koren.
 
 Significant parts of the code were contributed by Stephan Gambke.
 
-Much of the jQuery and related Javascript functionality was initially
+Much of the jQuery and related JavaScript functionality was initially
 created by Sanyam Goyal as part of the 2010 Google Summer of Code
 program.
 
-Integration into the Page Schemas extension was initially created by
+Integration with the Page Schemas extension was initially created by
 Ankit Garg as part of the 2011 Google Summer of Code.
 
 Support for section handling, and PHPUnit tests, were added by Himeshi

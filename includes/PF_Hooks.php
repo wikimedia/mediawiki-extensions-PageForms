@@ -16,7 +16,7 @@ class PFHooks {
 			return 1;
 		}
 
-		define( 'PF_VERSION', '4.3.1' );
+		define( 'PF_VERSION', '4.4-alpha' );
 
 		$GLOBALS['wgPageFormsIP'] = dirname( __DIR__ ) . '/../';
 
