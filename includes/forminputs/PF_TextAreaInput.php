@@ -292,6 +292,9 @@ class PFTextAreaInput extends PFFormInput {
 		if ( array_key_exists( 'unique', $this->mOtherArgs ) ) {
 			$spanClass .= ' uniqueFieldSpan';
 		}
+		if ( $this->mEditor == 'visualeditor' ) {
+			$spanClass .= ' ve-area-wrapper';
+		}
 		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
 
 		return $text;
