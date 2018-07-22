@@ -27,7 +27,7 @@
 	"pf_createtemplate_categorylabel": "Категорија дефинисана шаблоном (необавезно):",
 	"pf_createtemplate_templatefields": "Поља шаблона",
 	"pf_createtemplate_fieldname": "Име поља:",
-	"pf_createtemplate_displaylabel": "Натпис за приказ:",
+	"pf_createtemplate_displaylabel": "Прикажи ознаку:",
 	"pf_createtemplate_semanticproperty": "Семантичко својство:",
 	"pf_createtemplate_fieldislist": "Ово поље може да садржи списак вредности, одвојених зарезима",
 	"pf_createtemplate_hierarchystructureplaceholder": "*Унеси\n**вредности\n***за\n***хијерархију\n**у\n***формату\n*попут\n**овог",

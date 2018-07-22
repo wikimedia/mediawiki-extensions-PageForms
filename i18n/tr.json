@@ -8,7 +8,8 @@
 			"Vito Genovese",
 			"Sucsuzz",
 			"Rapsar",
-			"Alikaan"
+			"Alikaan",
+			"Hedda"
 		]
 	},
 	"pageforms-desc": "Semantik veri ekleme ve düzenleme için formlar",
@@ -39,6 +40,7 @@
 	"pf_createtemplate_deletefield": "Sil",
 	"forms": "Formlar",
 	"pf_forminputs_mandatory": "Zorunlu",
+	"pf_forminputs_hideroot": "Ana kategoriyi gizle",
 	"pf_forminputs_checkboxes_select_all": "Tümünü seç",
 	"pf_forminputs_checkboxes_select_none": "Hiçbirini seçme",
 	"createform": "Form oluştur",
