@@ -1191,6 +1191,7 @@ END;
 						if ( $new_text ) {
 							$wiki_page->addTemplateParam( $template_name, $tif->getInstanceNum(), $field_name, $cur_value_in_template );
 							$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
+							$start_position = $brackets_loc + strlen( $new_text );
 						} else {
 							$start_position = $brackets_end_loc;
 						}
