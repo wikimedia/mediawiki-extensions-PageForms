@@ -19,7 +19,8 @@
 			"INS Pirat",
 			"Kareyac",
 			"Alexey zakharenkov",
-			"Redredsonia"
+			"Redredsonia",
+			"Vlad5250"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
@@ -218,7 +219,7 @@
 	"pf_category_hasdefaultform": "Эта категория использует форму $1.",
 	"pf_category_desc": "Это категория $1.",
 	"pf_blank_namespace": "Основное",
-	"right-viewedittab": "доступ к вкладке «{{int:edit}}» для страниц, редактируемых при помощи формы",
+	"right-viewedittab": "отображение вкладки «{{int:edit}}» для страниц, редактируемых при помощи формы",
 	"right-editrestrictedfields": "правка защищённых полей формы",
 	"right-createclass": "создание новых семантических классов",
 	"action-createclass": "создать новый семантический класс",
