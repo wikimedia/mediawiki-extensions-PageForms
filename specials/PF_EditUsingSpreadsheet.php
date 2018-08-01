@@ -49,11 +49,12 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 	 * @param string $template_name
 	 */
 	private function createSpreadsheet( $template_name, $form_name ) {
-		global $wgPageFormsGridParams;
-		global $wgPageFormsScriptPath;
+		global $wgPageFormsGridParams, $wgPageFormsScriptPath;
+		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
+		$out->addModules( 'ext.pageforms.select2' );
 		$out->addModules( 'ext.pageforms.jsgrid' );
 		$text = '';
 		$pageTitle = "Edit pages using spreadsheet for template: $this->mTemplate";
@@ -79,6 +80,22 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 					$gridParamValues['type'] = 'checkbox';
 				} elseif ( $fieldType == 'Text' ) {
 					$gridParamValues['type'] = 'textarea';
+				} elseif ( $fieldType == 'Page' ) {
+					$gridParamValues['type'] = 'select';
+					if ( $templateField->isList() ) {
+						$gridParamValues['type'] = 'tokens';
+						$gridParamValues['delimiter'] = $templateField->getDelimiter();
+					} else {
+						$gridParamValues['type'] = 'combobox';
+					}
+					$fullCargoField = $templateField->getFullCargoField();
+					$autocompleteValues = PFValuesUtils::getAutocompleteValues( $fullCargoField, 'cargo field' );
+					$gridParamValues['autocompletesettings'] = $fullCargoField;
+					if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues ) {
+						$gridParamValues['autocompletedatatype'] = 'cargo field';
+					} else {
+						$wgPageFormsAutocompleteValues[$fullCargoField] = $autocompleteValues;
+					}
 				}
 			} elseif ( !empty( $propertyType = $templateField->getPropertyType() ) ) {
 				if ( $propertyType == '_dat' ) {
@@ -87,6 +104,22 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 					$gridParamValues['type'] = 'checkbox';
 				} elseif ( $propertyType == '_txt' || $propertyType == '_cod' ) {
 					$gridParamValues['type'] = 'textarea';
+				} elseif ( $propertyType == '_wpg' ) {
+					if ( $templateField->isList() ) {
+						$gridParamValues['type'] = 'tokens';
+						$gridParamValues['delimiter'] = $templateField->getDelimiter();
+					} else {
+						$gridParamValues['type'] = 'combobox';
+					}
+					$property = $templateField->getSemanticProperty();
+					$autocompleteValues = PFValuesUtils::getAutocompleteValues( $property, 'property' );
+					$gridParamValues['autocompletesettings'] = $property;
+					if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues ) {
+						$gridParamValues['autocompletedatatype'] = 'property';
+					} else {
+						$wgPageFormsAutocompleteValues[$property] = $autocompleteValues;
+					}
+
 				}
 			}
 			$gridParams[] = $gridParamValues;

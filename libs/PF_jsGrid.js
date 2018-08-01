@@ -133,9 +133,101 @@
 	});
 
 	jsGrid.fields.date = PFDateField;
+
+	/**
+	 * The following code handles the 'combobox' input type within the grid.
+	 * insertTemplate preprocesses the value and returns it to the grid cell to display;
+	 * editTemplate/insertTemplate generate the edition/insertion forms;
+	 * editValue/insertValue is in charge of putting the final values into the grid.
+	 */
+
+	var PFComboBoxField = function(config) {
+		jsGrid.Field.call(this, config);
+	};
+
+	PFComboBoxField.prototype = new jsGrid.Field({
+
+		itemTemplate: function(value) {
+			return value;
+		},
+
+		insertTemplate: function(value) {
+			var autocompletedatatype = "";
+			if ( this.autocompletedatatype !== undefined ) {
+				autocompletedatatype = 'autocompletedatatype="' + this.autocompletedatatype + '"';
+			}
+			var inputHTML = '<input id="insertjsGridComboBox" class="pfCombobox" autocompletesettings="' + this.autocompletesettings + '" size="35" ' + autocompletedatatype + '>';
+			return inputHTML;
+		},
+
+		editTemplate: function(value) {
+			var autocompletedatatype = "";
+			if ( this.autocompletedatatype !== undefined ) {
+				autocompletedatatype = 'autocompletedatatype="' + this.autocompletedatatype + '"';
+			}
+			var inputHTML = '<input id="jsGridComboBox" class="pfCombobox" value="' + value + '" autocompletesettings="' + this.autocompletesettings + '" size="35" ' + autocompletedatatype + '>';
+			return inputHTML;
+		},
+
+		insertValue: function() {
+			return $('#insertjsGridComboBox').val();
+		},
+
+		editValue: function(value) {
+			return $('#jsGridComboBox').val();
+		}
+	});
+
+	jsGrid.fields.combobox = PFComboBoxField;
+
+	/**
+	 * The following code handles the 'tokens' input type within the grid.
+	 * insertTemplate preprocesses the value and returns it to the grid cell to display;
+	 * editTemplate/insertTemplate generate the edition/insertion forms;
+	 * editValue/insertValue is in charge of putting the final values into the grid.
+	 */
+
+	var PFTokensField = function(config) {
+		jsGrid.Field.call(this, config);
+	};
+
+	PFTokensField.prototype = new jsGrid.Field({
+
+		itemTemplate: function(value) {
+			return value;
+		},
+
+		insertTemplate: function(value) {
+			var autocompletedatatype = "";
+			if ( this.autocompletedatatype !== undefined ) {
+				autocompletedatatype = 'autocompletedatatype="' + this.autocompletedatatype + '"';
+			}
+			var inputHTML = '<input id="insertjsGridTokens" class="pfTokens createboxInput" autocompletesettings="' + this.autocompletesettings + '" size="50" ' + autocompletedatatype + '>';
+			return inputHTML;
+		},
+
+		editTemplate: function(value) {
+			var autocompletedatatype = "";
+			if ( this.autocompletedatatype !== undefined ) {
+				autocompletedatatype = 'autocompletedatatype="' + this.autocompletedatatype + '"';
+			}
+			var inputHTML = '<input id="jsGridTokens" class="pfTokens createboxInput" value="' + value + '" autocompletesettings="' + this.autocompletesettings + '" size="50" ' + autocompletedatatype + '>';
+			return inputHTML;
+		},
+
+		insertValue: function() {
+			return $('#insertjsGridTokens').val();
+		},
+
+		editValue: function(value) {
+			return $('#jsGridTokens').val();
+		}
+	});
+
+	jsGrid.fields.tokens = PFTokensField;
 }(jsGrid, jQuery));
 
-( function ( $, mw ) {
+( function ( $, mw, pf ) {
 
 	$( '.pfJSGrid' ).each( function() {
 		var gridParams = mw.config.get( 'wgPageFormsGridParams' ),
@@ -424,7 +516,27 @@
 				return Math.ceil( pages.length / pageSize );
 			},
 
+			onOptionChanging: function( args ){
+				if ( $('#insertjsGridComboBox').length ) {
+					var insertcombobox = new pf.select2.combobox();
+					insertcombobox.apply( $('#insertjsGridComboBox') );
+				}
+				if ( $('#insertjsGridTokens').length ) {
+					var inserttokens = new pf.select2.tokens();
+					inserttokens.apply( $('#insertjsGridTokens') );
+				}
+			},
+
 			onEditRowCreated: function( args ) {
+				if ( $('#jsGridComboBox').length ) {
+					var combobox = new pf.select2.combobox();
+					combobox.apply( $('#jsGridComboBox') );
+				}
+				if ( $('#jsGridTokens').length ) {
+					var tokens = new pf.select2.tokens();
+					tokens.apply( $('#jsGridTokens') );
+				}
+
 				args.editRow.keypress( function( e ) {
 					// Make the "Enter" key approve an update.
 					if ( e.which === 13 ) {
@@ -669,4 +781,4 @@
 		return this;
 	};
 
-}( jQuery, mediaWiki ) );
+}( jQuery, mediaWiki, pf ) );
