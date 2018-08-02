@@ -371,7 +371,6 @@ class PFAutoeditAPI extends ApiBase {
 
 		Hooks::run( 'EditPage::showEditForm:initial', array( &$editor, &$wgOut ) );
 
-		$this->getOutput()->addStyle( 'common/IE80Fixes.css', 'screen', 'IE 8' );
 		$this->getOutput()->setRobotPolicy( 'noindex,nofollow' );
 
 		// This hook seems slightly odd here, but makes things more
