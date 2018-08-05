@@ -84,8 +84,14 @@
 			var display_day_of_month = '';
 			var display_year = '';
 			var display_month = 0;
+			var dateValue;
+			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
+				dateValue = value;
+			} else {
+				dateValue = value.replace( /\//g, '-' );
+			}
 			if ( value !== null ) {
-				var dateObject = new Date(value);
+				var dateObject = new Date( dateValue );
 				display_day_of_month = dateObject.getDate();
 				display_year = dateObject.getFullYear();
 				display_month = dateObject.getMonth();
@@ -119,7 +125,13 @@
 			if ( Global_Insert_year === undefined || Global_Insert_year === "" ) {
 				return null;
 			}
-			var ret = Global_Insert_year + "-" + Global_Insert_month + "-" + Global_Insert_day_of_month;
+			var ret;
+			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
+				var monthNames = mw.config.get('wgMonthNames');
+				ret =  monthNames[parseInt( Global_Insert_month )] + " " + Global_Insert_day_of_month + ", " + Global_Insert_year;
+			} else {
+				ret = Global_Insert_year + "/" + Global_Insert_month + "/" + Global_Insert_day_of_month;
+			}
 			return ret;
 		},
 
@@ -127,7 +139,13 @@
 			if ( Global_Edit_year === undefined || Global_Edit_year === "" ) {
 				return null;
 			}
-			var ret = Global_Edit_year + "-" + Global_Edit_month + "-" + Global_Edit_day_of_month;
+			var ret;
+			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
+				var monthNames = mw.config.get('wgMonthNames');
+				ret =  monthNames[parseInt( Global_Edit_month )] + " " + Global_Edit_day_of_month + ", " + Global_Edit_year;
+			} else {
+				ret = Global_Edit_year + "/" + Global_Edit_month + "/" + Global_Edit_day_of_month;
+			}
 			return ret;
 		}
 	});
@@ -262,7 +280,7 @@
 
 				},
 				error: function(xhr, status, error){
-					mw.notify( $( "<div class='errorbox'>" + "Unable to retrieve pages for the selected template" + "</div>") );
+					mw.notify( "ERROR: Unable to retrieve pages for the selected template", { type: 'error' } );
 				}
 			});
 		}
@@ -504,7 +522,7 @@
 							$("#selectLimit").css( "visibility", "visible" );
 							return dataResult;
 						}, function errorHandler( jqXHR, textStatus, errorThrown ){
-							mw.notify( $( "<div class='errorbox'>" + "Unable to retrieve pages" + "</div>") );
+							mw.notify( "ERROR: Unable to retrieve pages", { type: 'error' } );
 							return false;
 						});
 					}
@@ -585,7 +603,7 @@
 								$.when( movePage( args.previousItem.page, args.item.page ) ).then( function successHandler( result ) {
 									if ( "error" in result ) {
 										// args.cancel = true;
-										mw.notify( $( "<div class='errorbox'>" + "Error in moving page: " + result.error.info + "</div>") );
+										mw.notify( "Error in renaming page: " + result.error.info, { type: 'error' } );
 										cancelUpdate = 1;
 										$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
 									} else {
@@ -599,14 +617,14 @@
 										text += ' ' + result.errors[i].message;
 									}
 									// args.cancel = true;
-									mw.notify( $( "<div class='errorbox'>" + text + "</div>") );
+									mw.notify( "ERROR: " + text, { type: 'error' } );
 									cancelUpdate = 1;
 									$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
 								});
 							}
 
 						} else {
-							mw.notify( $( "<div class='errorbox'>" + result.status + "</div>") );
+							mw.notify( "ERROR: " + result.status, { type: 'error' } );
 							// args.cancel = true;
 							cancelUpdate = 1;
 							$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
@@ -619,7 +637,7 @@
 						for ( var i = 0; i < result.errors.length; i++ ) {
 							text += ' ' + result.errors[i].message;
 						}
-						mw.notify( $( "<div class='errorbox'>" + text + "</div>") );
+						mw.notify( "ERROR: " + text, { type: 'error' } );
 						cancelUpdate = 1;
 						$gridDiv.jsGrid("updateItem", args.item, args.previousItem );
 					} );
@@ -632,7 +650,7 @@
 				}
 
 				if ( args.item.page === "" ) {
-					mw.notify( $( "<div class='errorbox'>" + "Page name not specified" + "</div>") );
+					mw.notify( "ERROR: " + "Page name not specified", { type: 'error' } );
 					args.cancel = true;
 					return;
 				}
@@ -647,7 +665,7 @@
 								if ( result.status === 200 ) {
 									mw.notify( 'New page: ' + args.item.page + ' created successfully' );
 								} else {
-									mw.notify( $( "<div class='errorbox'>" + result.status + "</div>") );
+									mw.notify( "ERROR: " + result.status, { type: 'error' } );
 									// args.cancel = true;
 									$gridDiv.jsGrid("deleteItem", args.item );
 								}
@@ -659,17 +677,17 @@
 								for ( var i = 0; i < result.errors.length; i++ ) {
 									text += ' ' + result.errors[i].message;
 								}
-								mw.notify( $( "<div class='errorbox'>" + text + "</div>") );
+								mw.notify( "ERROR: " + text, { type: 'error' } );
 								$gridDiv.jsGrid("deleteItem", args.item );
 							} );
 						} else {
-							mw.notify( $( "<div class='errorbox'>" + "Page already exists" + "</div>") );
+							mw.notify( "ERROR: " + "Page already exists", { type: 'error' } );
 							// args.cancel = true;
 							$gridDiv.jsGrid("deleteItem", args.item );
 						}
 					} );
 				}, function( error ) {
-					mw.notify( $( "<div class='errorbox'>" + error + "</div>") );
+					mw.notify( "ERROR: " + error, { type: 'error' } );
 					// args.cancel = true;
 					$gridDiv.jsGrid("deleteItem", args.item );
 				} );
