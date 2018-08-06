@@ -637,8 +637,8 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param string $inputName
 	 * @param bool $isDisabled
 	 * @param array $otherArgs
-	 * @param string $inputId (optional)
-	 * @param int $tabIndex (optional)
+	 * @param string|null $inputId (optional)
+	 * @param int|null $tabIndex (optional)
 	 * @param string $class
 	 * @return string the html text of an input element
 	 */
