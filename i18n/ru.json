@@ -20,7 +20,8 @@
 			"Kareyac",
 			"Alexey zakharenkov",
 			"Redredsonia",
-			"Vlad5250"
+			"Vlad5250",
+			"Shaleych"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
@@ -140,6 +141,7 @@
 	"pf_createclass_missingvalues": "Не все требуемые поля были заполнены.",
 	"pf_createclass_success": "Указанные страницы будут созданы.",
 	"pf_createclass_create": "Создать",
+	"pf_createclass_ishierarchy": "Иерархия?",
 	"formstart": "Добавить страницу с формой",
 	"pf_formstart_badform": "Ошибка. Форма не найдена на $1",
 	"pf_formstart_badtitle": "Ошибка. «$1» — недопустимое название страницы.",
@@ -148,6 +150,8 @@
 	"pf_formstart_createoredit": "Создать или править",
 	"formedit": "Редактировать с помощью формы",
 	"pf-formedit-selectform": "Выберите форму для создания этой страницы:",
+	"pf-formedit-mainforms": "Основные формы:",
+	"pf-formedit-otherforms": "Другие формы:",
 	"pf-formedit-donotuseform": "Создать страницу без формы.",
 	"pf_formedit_createtitle": "Создание $1: $2",
 	"pf_formedit_createtitlenotarget": "Создать $1",
@@ -251,5 +255,6 @@
 	"pf-regexp-baseprefix": "Префикс для параметров базового типа.",
 	"pf-regexp-orchar": "ИЛИ-символ, который используется в регулярном выражении вместо |. По умолчанию «!»",
 	"pf-regexp-inverse": "Если задано, входные данные не должны соответствовать регулярному выражению. Т.е. регулярное выражение инвертируется.",
-	"pf-regexp-message": "Отображаемое сообщение об ошибке, если сопоставление потерпит неудачу. По умолчанию \"Wrong format!\" (или эквивалент для текущей локали)"
+	"pf-regexp-message": "Отображаемое сообщение об ошибке, если сопоставление потерпит неудачу. По умолчанию \"Wrong format!\" (или эквивалент для текущей локали)",
+	"pf-invalidexturl": "Недопустимое значение внешнего URL-адреса."
 }
