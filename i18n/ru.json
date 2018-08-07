@@ -50,6 +50,8 @@
 	"pf_createtemplate_displaylabel": "Отображаемая надпись:",
 	"pf_createtemplate_semanticproperty": "Семантическое свойство:",
 	"pf_createtemplate_fieldislist": "Поле содержит список значений",
+	"pf_createtemplate_fieldishierarchy": "Поле содержит иерархию",
+	"pf_createtemplate_hierarchystructureplaceholder": "*Введите\n**значения\n***иерархии\n***в\n**таком\n***формате,\n*как\n**этот",
 	"pf_createtemplate_delimiter": "Разделитель:",
 	"pf_createtemplate_aggregation": "Соединение",
 	"pf_createtemplate_aggregationdesc": "Чтобы вывести на любую страницу, использующую этот шаблон, все страницы, у которых заданное свойство указывает на эту страницу, укажите соответствующее свойство ниже:",
@@ -73,6 +75,7 @@
 	"pf_forminputs_maxlength": "Максимально допустимая длина текста в этом поле",
 	"pf_forminputs_placeholder": "Справочный текст, который появляется в поле ввода до тех пор, пока пользователь не перейдет на него",
 	"pf_forminputs_uploadable": "Добавить ссылку «{{int:upload}}» рядом с этим полем",
+	"pf_forminputs_change_file": "Изменить файл",
 	"pf_forminputs_defaultfilename": "Имя файла по умолчанию для загруженных файлов",
 	"pf_forminputs_rows": "Размер поля в строках",
 	"pf_forminputs_cols": "Размер поля в столбцах",
@@ -229,6 +232,7 @@
 	"action-createclass": "создать новый семантический класс",
 	"action-editrestrictedfields": "правка защищённых полей формы",
 	"action-viewedittab": "доступ к вкладке «{{int:edit}}» для страниц, редактируемых при помощи формы",
+	"tooltip-ca-formedit": "Редактировать эту страницу формой",
 	"pf-select2-no-matches": "Cовпадений не найдено",
 	"pf-select2-searching": "Поиск…",
 	"pf-select2-input-too-short": "Пожалуйста, введите $1 или более символов",
@@ -256,5 +260,6 @@
 	"pf-regexp-orchar": "ИЛИ-символ, который используется в регулярном выражении вместо |. По умолчанию «!»",
 	"pf-regexp-inverse": "Если задано, входные данные не должны соответствовать регулярному выражению. Т.е. регулярное выражение инвертируется.",
 	"pf-regexp-message": "Отображаемое сообщение об ошибке, если сопоставление потерпит неудачу. По умолчанию \"Wrong format!\" (или эквивалент для текущей локали)",
+	"pf-missingconcept": "Не удалось найти концепцию: $1",
 	"pf-invalidexturl": "Недопустимое значение внешнего URL-адреса."
 }
