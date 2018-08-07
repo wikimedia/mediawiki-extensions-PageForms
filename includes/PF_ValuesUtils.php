@@ -14,7 +14,7 @@ class PFValuesUtils {
 	 * @param Store $store
 	 * @param Title $subject
 	 * @param string $propID
-	 * @param array $requestOptions
+	 * @param array|null $requestOptions
 	 * @return array
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {

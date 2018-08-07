@@ -17,7 +17,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	/**
 	 * Constructor : initialise object
 	 * Get data POSTed through the form and assign them to the object
-	 * @param WebRequest $request Data posted.
+	 * @param WebRequest|null $request Data posted.
 	 */
 	public function __construct( $request = null ) {
 		parent::__construct( 'UploadWindow', 'upload' );

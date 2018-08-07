@@ -214,7 +214,7 @@ abstract class PFFormInput {
 	 *
 	 *
 	 * @param string $name The name of the initialization function.
-	 * @param string $param The parameter passed to the initialization function.
+	 * @param string|null $param The parameter passed to the initialization function.
 	 */
 	public function addJsInitFunctionData( $name, $param = null ) {
 		if ( is_string( $param ) ) {

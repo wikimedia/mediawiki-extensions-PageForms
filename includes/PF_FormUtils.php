@@ -569,7 +569,7 @@ END;
 	 * Get a cache key.
 	 *
 	 * @param string $formId
-	 * @param Parser $parser Provide parser to get unique cache key
+	 * @param Parser|null $parser Provide parser to get unique cache key
 	 * @return string
 	 */
 	public static function getCacheKey( $formId, $parser = null ) {

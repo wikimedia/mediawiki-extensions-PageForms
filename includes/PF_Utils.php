@@ -223,7 +223,7 @@ END;
 	 * to display and work correctly.
 	 *
 	 * Accepts an optional Parser instance, or uses $wgOut if omitted.
-	 * @param Parser $parser
+	 * @param Parser|null $parser
 	 */
 	public static function addFormRLModules( $parser = null ) {
 		global $wgOut, $wgPageFormsSimpleUpload, $wgVersion,
@@ -299,7 +299,7 @@ END;
 
 	/**
 	 * Creates a dropdown of possible form names.
-	 * @param array $form_names
+	 * @param array|null $form_names
 	 * @return string
 	 */
 	public static function formDropdownHTML( $form_names = null ) {
