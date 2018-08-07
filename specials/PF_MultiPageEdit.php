@@ -11,7 +11,7 @@
 /**
  * @ingroup PFSpecialPages
  */
-class PFEditUsingSpreadsheet extends SpecialPage {
+class PFMultiPageEdit extends SpecialPage {
 
 	public $mTemplate;
 	public $mForm;
@@ -20,7 +20,7 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 	 * Constructor
 	 */
 	function __construct() {
-		parent::__construct( 'EditUsingSpreadsheet' );
+		parent::__construct( 'MultiPageEdit' );
 	}
 
 	function execute( $query ) {
@@ -34,9 +34,9 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 			$rep->execute( $query );
 		} else {
 			if ( empty( $this->mForm ) ) {
-				$out = $this->getOutput();
-				$text = Html::element( 'p', array( 'class' => 'error' ), "You must specify a form name along with the template in the url." ) . "\n";
-				$out->addHTML( $text );
+				list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
+				$rep = new SpreadsheetTemplatesPage();
+				$rep->execute( $query );
 			} else {
 				$this->createSpreadsheet( $this->mTemplate, $this->mForm );
 			}
@@ -57,8 +57,7 @@ class PFEditUsingSpreadsheet extends SpecialPage {
 		$out->addModules( 'ext.pageforms.select2' );
 		$out->addModules( 'ext.pageforms.jsgrid' );
 		$text = '';
-		$pageTitle = "Edit pages using spreadsheet for template: $this->mTemplate";
-		$out->setPageTitle( $pageTitle );
+		$out->setPageTitle( wfMessage( 'pf_multipageedit_with-name', $this->mTemplate )->text() );
 
 		$template = PFTemplate::newFromName( $template_name );
 		$templateCalls = array();
@@ -164,7 +163,7 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	 * in an array using helper functions.
 	 * @param string $name
 	 */
-	public function __construct( $name = 'EditUsingSpreadsheet' ) {
+	public function __construct( $name = 'MultiPageEdit' ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select(
 			array( 'page' ),
@@ -182,7 +181,7 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	}
 
 	function getName() {
-		return "EditUsingSpreadsheet";
+		return "MultiPageEdit";
 	}
 
 	function isExpensive() {
@@ -194,7 +193,7 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	}
 
 	function getPageHeader() {
-		$header = Html::element( 'p', null, wfMessage( 'pf_templates_docu' )->text() );
+		$header = Html::element( 'p', null, wfMessage( 'pf_multipageedit_docu' )->text() );
 		return $header;
 	}
 
@@ -248,7 +247,7 @@ class SpreadsheetTemplatesPage extends QueryPage {
 		} else {
 			$linkRenderer = null;
 		}
-		$sp = SpecialPageFactory::getPage( 'EditUsingSpreadsheet' );
+		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
 		$link = Title::makeTitle( NS_SPECIAL, $sp->mName );
 		$text = PFUtils::makeLink( $linkRenderer, $link, htmlspecialchars( $templateTitle->getText() ), array(), array( "template" => htmlspecialchars( $templateTitle->getText() ), "form" => $formName ) );
 		return $text;
