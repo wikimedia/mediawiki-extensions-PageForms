@@ -38,6 +38,7 @@ class PFAutoeditAPI extends ApiBase {
 	private $mOptions = array();
 	private $mAction;
 	private $mStatus;
+	private $mIsAutoEdit = false;
 
 	/**
 	 * Converts an options string into an options array and stores it
@@ -165,6 +166,7 @@ class PFAutoeditAPI extends ApiBase {
 		} elseif ( array_key_exists( 'action', $this->mOptions ) ) {
 			switch ( $this->mOptions['action'] ) {
 				case 'pfautoedit' :
+					$this->mIsAutoEdit = true;
 					$this->mAction = self::ACTION_SAVE;
 					break;
 				case 'preview' :
@@ -868,7 +870,12 @@ class PFAutoeditAPI extends ApiBase {
 			// HTML of the existing page.
 			list( $formHTML, $targetContent, $form_page_title, $generatedTargetNameFormula ) =
 				$wgPageFormsFormPrinter->formHTML(
-					$formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula
+					// Special handling for autoedit edits -
+					// otherwise, multi-instance templates
+					// don't get saved, for some convoluted
+					// reason.
+					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), $pageExists,
+					$formArticleId, $preloadContent, $targetName, $targetNameFormula
 				);
 			$formHtmlHasRun = true;
 
