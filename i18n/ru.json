@@ -63,6 +63,8 @@
 	"pf_createtemplate_sectionsformat": "Разделы",
 	"pf_createtemplate_addfield": "Добавить поле",
 	"pf_createtemplate_deletefield": "Удалить",
+	"multipageedit": "Редактировать несколько страниц",
+	"pf_multipageedit_docu": "Выберите один из следующих шаблонов, чтобы редактировать все страницы, содержащие этот шаблон. Вы также можете создавать новые страницы, используя выбранный шаблон.",
 	"forms": "Формы",
 	"pf_forms_docu": "В вики существуют следующие формы.",
 	"pf_forminputs_mandatory": "Обязательное",

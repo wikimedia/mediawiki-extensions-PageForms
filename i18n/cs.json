@@ -11,7 +11,8 @@
 			"Aktron",
 			"Cvanca",
 			"Ilimanaq29",
-			"Matěj Suchánek"
+			"Matěj Suchánek",
+			"Clon"
 		]
 	},
 	"createproperty": "Vytvořit vlastnost",
@@ -30,6 +31,7 @@
 	"pf_createtemplate_plainformat": "Prostý text",
 	"pf_createtemplate_addfield": "Přidat pole",
 	"pf_createtemplate_deletefield": "Smazat",
+	"multipageedit": "Editovat několik stránek",
 	"forms": "Formuláře",
 	"pf_createform_nameinput": "Název formuláře",
 	"pf_createform_template": "Šablona:",

@@ -72,7 +72,7 @@
 	"pf_createtemplate_sectionsformat": "Ενότητες",
 	"pf_createtemplate_addfield": "Προσθήκη πεδίου",
 	"pf_createtemplate_deletefield": "Διαγραφή",
-	"editusingspreadsheet": "Επεξεργασία σελίδων χρησιμοποιώντας υπολογιστικό φύλλο",
+	"multipageedit": "Επεξεργασία πολλαπλών σελίδων",
 	"forms": "Φόρμες",
 	"pf_forms_docu": "Στο wiki υπάρχουν οι παρακάτω φόρμες.",
 	"pf_forminputs_mandatory": "Υποχρεωτικό",

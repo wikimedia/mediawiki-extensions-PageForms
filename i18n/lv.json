@@ -33,6 +33,7 @@
 	"pf_createtemplate_sectionsformat": "Sadaļas",
 	"pf_createtemplate_addfield": "Pievienot lauku",
 	"pf_createtemplate_deletefield": "Izdzēst",
+	"multipageedit": "Labot vairākas lapas",
 	"forms": "Formas",
 	"pf_forms_docu": "Wiki ir sekojošas formas.",
 	"pf_forminputs_mandatory": "Šim laukam obligāti jāievada vērtība",
