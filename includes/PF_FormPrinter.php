@@ -899,7 +899,7 @@ END;
 					} else {
 						$previous_template_name = '';
 					}
-					$template_name = str_replace( '_', ' ', $tag_components[1] );
+					$template_name = str_replace( '_', ' ', $wgParser->recursiveTagParse( $tag_components[1] ) );
 					$is_new_template = ( $template_name != $previous_template_name );
 					if ( $is_new_template ) {
 						$template = PFTemplate::newFromName( $template_name );

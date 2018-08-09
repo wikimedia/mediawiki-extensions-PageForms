@@ -56,7 +56,7 @@ class PFTemplateInForm {
 	public static function newFromFormTag( $tag_components ) {
 		global $wgParser;
 
-		$template_name = str_replace( '_', ' ', trim( $tag_components[1] ) );
+		$template_name = str_replace( '_', ' ', trim( $wgParser->recursiveTagParse( $tag_components[1] ) ) );
 		$tif = new PFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', $template_name );
 
@@ -72,7 +72,7 @@ class PFTemplateInForm {
 			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
 			if ( count( $sub_components ) == 2 ) {
 				if ( $sub_components[0] == 'label' ) {
-					$tif->mLabel = $sub_components[1];
+					$tif->mLabel = $wgParser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'minimum instances' ) {
 					$tif->mMinAllowed = $sub_components[1];
 				} elseif ( $sub_components[0] == 'maximum instances' ) {
