@@ -28,7 +28,7 @@
 	function buildSelect( currentMonth ) {
 		var monthNames = mw.config.get('wgMonthNamesShort');
 		var str = '<select class="pf_jsGrid_month" style=" width: 100% !important; font-size:14px;">';
-		for (var val=1; val<=12; val++) {
+		for (var val=0; val<=12; val++) {
 			var val2;
 			if (val < 10) { //Adds a leading 0 to single digit months, ex 01 instead of 1.
 				val2 = "0" + val;
@@ -60,14 +60,14 @@
 		},
 
 		insertTemplate: function(value) {
-			var html_date = '<div style="float:left; width:19%;"><label style="display:block; text-align:center; font- size:14px;">DD:</label><input class="pf_jsGrid_day" style=" font-size:14px; " type="text" value="" placeholder="DD"></input></div>';
+			var html_day = '<div style="float:left; width:19%;"><label style="display:block; text-align:center; font- size:14px;">DD:</label><input class="pf_jsGrid_day" style=" font-size:14px; " type="text" value="" placeholder="DD"></input></div>';
 			var html_year = '<div style="float:left; width:29%;"><label style="display:block; text-align:center; width:29%; font-size:14px;">YYYY:</label><input class="pf_jsGrid_year" style=" font-size:14px; " type="text" value="" placeholder="YYYY"></input></div>';
-			var html_month = '<div style="float:left; width:48%; margin-left:2%; margin-right:2%;"><label style="display:block; text-align:center; font-size:14px;">MM:</label>' + buildSelect(1) + '</div>';
+			var html_month = '<div style="float:left; width:48%; margin-left:2%; margin-right:2%;"><label style="display:block; text-align:center; font-size:14px;">MM:</label>' + buildSelect(0) + '</div>';
 			var fullDateInputHTML = '<div class="pf_jsGrid_ymd_form">';
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
-				fullDateInputHTML += html_month + html_date + html_year;
+				fullDateInputHTML += html_month + html_day + html_year;
 			} else {
-				fullDateInputHTML += html_date + html_month + html_year;
+				fullDateInputHTML += html_day + html_month + html_year;
 			}
 			fullDateInputHTML += '</div>';
 
@@ -84,11 +84,44 @@
 			var display_day_of_month = '';
 			var display_year = '';
 			var display_month = 0;
-			var dateValue;
+			var dateValue, dateFormat;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
 				dateValue = value;
+				if ( /^\d+$/.test( dateValue ) && dateValue.length < 8 ){
+					dateFormat = 1;	//Year only
+					// Add a fake day and month that will be ignored later
+					// so that it's a valid date format in javascript
+					dateValue = "January 01," + dateValue;
+				} else {
+					var spaceCount = ( dateValue.match(/ /g) || [] ).length;
+					if ( spaceCount === 1 ) {
+						dateFormat = 2;	//Month and Year only
+						// Add a fake day that will be ignored later
+						// so that it's a valid date format in javascript
+						var temp = dateValue.split(' ');
+						dateValue = temp.join(' 01,');
+					} else {
+						dateFormat = 3; //Complete date
+					}
+				}
 			} else {
 				dateValue = value.replace( /\//g, '-' );
+				if ( /^\d+$/.test( dateValue ) && dateValue.length < 8 ){
+					dateFormat = 1;	//Year only
+					// Add a fake day and month that will be ignored later
+					// so that it's a valid date format in javascript
+					dateValue = dateValue + "-01-01";
+				} else {
+					var hyphenCount = ( dateValue.match(/-/g) || [] ).length;
+					if ( hyphenCount === 1 ) {
+						dateFormat = 2;	//Month and Year only
+						// Add a fake day that will be ignored later
+						// so that it's a valid date format in javascript
+						dateValue = dateValue + "-01";
+					} else {
+						dateFormat = 3; //Complete date
+					}
+				}
 			}
 			if ( value !== null ) {
 				var dateObject = new Date( dateValue );
@@ -97,13 +130,26 @@
 				display_month = dateObject.getMonth();
 			}
 			var fullDateInputHTML = '<div class="pf_jsGrid_ymd_form">';
-			var html_date = '<div style="float:left; width:19%;"><label style="display:block; text-align:center; font-size:14px;">DD:</label><input  class="pf_jsGrid_day" style=" font-size:14px; " type="text" value=' + display_day_of_month + '></input></div>';
-			var html_year = '<div style="float:left; width:29%;"><label style="display:block; text-align:center; width:29%; font-size:14px;">YYYY:</label><input class="pf_jsGrid_year" style=" font-size:14px; " type="text" value=' + display_year + '></input></div>';
-			var html_month = '<div style="float:left; width:48%; margin-left:2%; margin-right:2%;"><label style="display:block; text-align:center; font-size:14px;">MM:</label>' + buildSelect(display_month + 1) + '</div>';
-			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
-				fullDateInputHTML += html_month + html_date + html_year;
+			var monthElement;
+			var dayElement;
+			if ( dateFormat === 1 ) {
+				dayElement = '';
+				monthElement = buildSelect(0);
+			} else if ( dateFormat === 2 ) {
+				dayElement = '';
+				monthElement = buildSelect(display_month + 1);
 			} else {
-				fullDateInputHTML += html_date + html_month + html_year;
+				dayElement = display_day_of_month;
+				monthElement = buildSelect(display_month + 1);
+			}
+			var html_day = '<div style="float:left; width:19%;"><label style="display:block; text-align:center; font-size:14px;">DD:</label><input  class="pf_jsGrid_day" style=" font-size:14px; " type="text" value="' + dayElement + '" placeholder="DD"></input></div>';
+			var html_month = '<div style="float:left; width:48%; margin-left:2%; margin-right:2%;"><label style="display:block; text-align:center; font-size:14px;">MM:</label>' + monthElement + '</div>';
+			var html_year = '<div style="float:left; width:29%;"><label style="display:block; text-align:center; width:29%; font-size:14px;">YYYY:</label><input class="pf_jsGrid_year" style=" font-size:14px; " type="text" value=' + display_year + '></input></div>';
+
+			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
+				fullDateInputHTML += html_month + html_day + html_year;
+			} else {
+				fullDateInputHTML += html_day + html_month + html_year;
 			}
 			fullDateInputHTML += '</div>';
 
@@ -125,12 +171,19 @@
 			if ( Global_Insert_year === undefined || Global_Insert_year === "" ) {
 				return null;
 			}
-			var ret;
+			if ( Global_Insert_month === '00' && Global_Insert_day_of_month !== '' ) {
+				return null;
+			}
+			var ret, day, month;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
 				var monthNames = mw.config.get('wgMonthNames');
-				ret =  monthNames[parseInt( Global_Insert_month )] + " " + Global_Insert_day_of_month + ", " + Global_Insert_year;
+				day = ( Global_Insert_day_of_month === '' ) ? '' : Global_Insert_day_of_month + ", ";
+				month = ( Global_Insert_month === '00' ) ? '' : monthNames[parseInt( Global_Insert_month )] + " ";
+				ret = month + day + Global_Insert_year;
 			} else {
-				ret = Global_Insert_year + "/" + Global_Insert_month + "/" + Global_Insert_day_of_month;
+				day = ( Global_Insert_day_of_month === '' ) ? '' : "/" + Global_Insert_day_of_month;
+				month = ( Global_Insert_month === '00' ) ? '' : "/" + Global_Insert_month;
+				ret = Global_Insert_year + month + day;
 			}
 			return ret;
 		},
@@ -139,12 +192,19 @@
 			if ( Global_Edit_year === undefined || Global_Edit_year === "" ) {
 				return null;
 			}
-			var ret;
+			if ( Global_Edit_month === '00' && Global_Edit_day_of_month !== '' ) {
+				return null;
+			}
+			var ret, day, month;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
 				var monthNames = mw.config.get('wgMonthNames');
-				ret =  monthNames[parseInt( Global_Edit_month )] + " " + Global_Edit_day_of_month + ", " + Global_Edit_year;
+				day = ( Global_Edit_day_of_month === '' ) ? '' : Global_Edit_day_of_month + ", ";
+				month = ( Global_Edit_month === '00' ) ? '' : monthNames[parseInt( Global_Edit_month )] + " ";
+				ret = month + day + Global_Edit_year;
 			} else {
-				ret = Global_Edit_year + "/" + Global_Edit_month + "/" + Global_Edit_day_of_month;
+				day = ( Global_Edit_day_of_month === '' ) ? '' : "/" + Global_Edit_day_of_month;
+				month = ( Global_Edit_month === '00' ) ? '' : "/" + Global_Edit_month;
+				ret = Global_Edit_year + month + day;
 			}
 			return ret;
 		}
