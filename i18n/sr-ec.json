@@ -24,7 +24,7 @@
 	"pf_templates_definescat": "дефинише категорију: $1",
 	"createtemplate": "Прављење шаблона",
 	"pf_createtemplate_namelabel": "Име шаблона:",
-	"pf_createtemplate_categorylabel": "Категорија дефинисана шаблоном (необавезно):",
+	"pf_createtemplate_categorylabel": "Категорија дефинисана шаблоном (опционално):",
 	"pf_createtemplate_templatefields": "Поља шаблона",
 	"pf_createtemplate_fieldname": "Име поља:",
 	"pf_createtemplate_displaylabel": "Прикажи ознаку:",

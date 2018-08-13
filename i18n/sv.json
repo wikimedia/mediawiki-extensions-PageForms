@@ -49,6 +49,7 @@
 	"pf_createtemplate_sectionsformat": "Avsnitt",
 	"pf_createtemplate_addfield": "Lägg till fält",
 	"pf_createtemplate_deletefield": "Radera",
+	"multipageedit": "Redigera flera sidor",
 	"forms": "Formulär",
 	"pf_forms_docu": "Följande formulär finns på wikin.",
 	"pf_forminputs_mandatory": "Obligatorisk",
