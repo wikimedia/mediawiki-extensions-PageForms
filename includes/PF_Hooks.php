@@ -276,6 +276,39 @@ class PFHooks {
 	}
 
 	/**
+	 * Called by the PageSaveComplete hook.
+	 *
+	 * Set a cookie after the page save so that a "Your edit was saved"
+	 * popup will appear after form-based saves, just as it does after
+	 * standard saves. This code will be called after all saves, which
+	 * means that it will lead to redundant cookie-setting after normal
+	 * saves. However, there doesn't appear to be a way to to set the
++	 * cookie correctly only after form-based saves, unfortunately.
+	 *
+	 * @param WikiPage &$wikiPage The page modified
+	 * @param User &$user User performing the modification
+	 * @param Content $content New content
+	 * @param string $summary Edit summary/comment
+	 * @param bool $isMinor Whether or not the edit was marked as minor
+	 * @param bool $isWatch No longer used
+	 * @param bool $section No longer used
+	 * @param int[] &$flags Flags passed to WikiPage::doEditContent()
+	 * @param Revision $revision Revision object of the saved content
+	 * @param Status &$status Status object about to be returned by doEditContent()
+	 * @param int $baseRevId The rev ID (or false) this edit was based on
+	 * @param int $undidRevId The rev ID (or 0) this edit undid - added in MW 1.30
+	 *
+	 * @return bool
+	 */
+	public static function setPostEditCookie( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId ) {
+		// Code based on EditPage::setPostEditCookie().
+		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revision->getID();
+		$response = RequestContext::getMain()->getRequest()->response();
+		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
+		return true;
+	}
+
+	/**
 	 * Hook to add PHPUnit test cases.
 	 * From https://www.mediawiki.org/wiki/Manual:PHP_unit_testing/Writing_unit_tests_for_extensions
 	 *

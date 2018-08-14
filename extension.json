@@ -417,6 +417,7 @@
 		"PageContentSave": [
 			"PFFormUtils::purgeCache"
 		],
+		"PageContentSaveComplete": "PFHooks::setPostEditCookie",
 		"ParserFirstCallInit": [
 			"PFHooks::registerFunctions"
 		],

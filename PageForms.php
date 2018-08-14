@@ -122,6 +122,7 @@ if ( class_exists( 'MediaWiki\Linker\LinkRenderer' ) ) {
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFFormEditAction::displayTab';
 $GLOBALS['wgHooks']['SkinTemplateNavigation'][] = 'PFHelperFormAction::displayTab';
 $GLOBALS['wgHooks']['ArticlePurge'][] = 'PFFormUtils::purgeCache';
+$GLOBALS['wgHooks']['PageContentSaveComplete'][] = 'PFHooks::setPostEditCookie';
 $GLOBALS['wgHooks']['ParserFirstCallInit'][] = 'PFHooks::registerFunctions';
 $GLOBALS['wgHooks']['MakeGlobalVariablesScript'][] = 'PFHooks::setGlobalJSVariables';
 $GLOBALS['wgHooks']['PageSchemasRegisterHandlers'][] = 'PFPageSchemas::registerClass';
