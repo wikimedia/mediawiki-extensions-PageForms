@@ -504,17 +504,18 @@ function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPa
 }
 
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
-$.fn.showIfSelected = function(initPage) {
+$.fn.showIfSelected = function(partOfMultiple, initPage) {
 	var inputVal = this.val(),
 		wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
-		instanceWrapperDiv = this.closest('.multipleTemplateInstance');
+		instanceWrapperDiv;
 
-	if ( instanceWrapperDiv.length === 0 ) {
-		instanceWrapperDiv = null;
-		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
-	} else {
+	if ( partOfMultiple ) {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];
+		instanceWrapperDiv = this.closest('.multipleTemplateInstance');
+	} else {
+		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
+		instanceWrapperDiv = null;
 	}
 
 	if ( showOnSelectVals !== undefined ) {
@@ -544,17 +545,18 @@ $.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initPage )
 
 // Used for handling 'show on select' for the 'checkboxes' and 'radiobutton'
 // inputs.
-$.fn.showIfChecked = function(initPage) {
+$.fn.showIfChecked = function(partOfMultiple, initPage) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
+		instanceWrapperDiv,
 		i;
 
-	var instanceWrapperDiv = this.closest('.multipleTemplateInstance');
-	if ( instanceWrapperDiv.length === 0 ) {
-		instanceWrapperDiv = null;
-		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
-	} else {
+	if ( partOfMultiple ) {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];
+		instanceWrapperDiv = this.closest('.multipleTemplateInstance');
+	} else {
+		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
+		instanceWrapperDiv = null;
 	}
 
 	if ( showOnSelectVals !== undefined ) {
@@ -1382,19 +1384,21 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
  * instance of a multiple-instance template.
  */
 $.fn.initializeJSElements = function( partOfMultiple ) {
+	var fancyBoxSettings;
+
 	this.find(".pfShowIfSelected").each( function() {
 		$(this)
-		.showIfSelected(true)
+		.showIfSelected(partOfMultiple, true)
 		.change( function() {
-			$(this).showIfSelected(false);
+			$(this).showIfSelected(partOfMultiple, false);
 		});
 	});
 
 	this.find(".pfShowIfChecked").each( function() {
 		$(this)
-		.showIfChecked(true)
+		.showIfChecked(partOfMultiple, true)
 		.click( function() {
-			$(this).showIfChecked(false);
+			$(this).showIfChecked(partOfMultiple, false);
 		});
 	});
 
@@ -1406,36 +1410,34 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 	});
 
-	// Enable the new remove button
-	this.find(".removeButton").click( function() {
+	if ( partOfMultiple ) {
+		// Enable the new remove button
+		this.find(".removeButton").click( function() {
 
-		// Unregister initialization and validation for deleted inputs
-		$(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each(
+			// Unregister initialization and validation for deleted inputs
+			$(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each(
 			function() {
 				$(this).PageForms_unregisterInputInit();
 				$(this).PageForms_unregisterInputValidation();
 			}
 		);
 
-		// Remove the encompassing div for this instance.
-		$(this).closest(".multipleTemplateInstance")
-		.fadeTo('fast', 0, function() {
-			$(this).slideUp('fast', function() {
-				$(this).remove();
+			// Remove the encompassing div for this instance.
+			$(this).closest(".multipleTemplateInstance")
+			.fadeTo('fast', 0, function() {
+				$(this).slideUp('fast', function() {
+					$(this).remove();
+				});
 			});
+			return false;
 		});
-		return false;
-	});
 
-	// ...and the new adder
-	if ( partOfMultiple ) {
+		// ...and the new adder
 		this.find('.addAboveButton').click( function() {
 			$(this).addInstance( true );
 			return false; // needed to disable <a> behavior
 		});
 	}
-
-	this.find('.autocompleteInput').attachAutocomplete();
 
 	var combobox = new pf.select2.combobox();
 	this.find('.pfComboBox').not('#semantic_property_starter, .multipleTemplateStarter .pfComboBox, .select2-container').each( function() {
@@ -1447,12 +1449,11 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		tokens.apply($(this));
 	});
 
-	this.find('.autoGrow').autoGrow();
 	// We use a different version of FancyBox depending on the version
 	// of jQuery (1 vs. 3) (which in turn depends on the version of
 	// MediaWiki (<= 1.29 vs. >= 1.30)).
 	if ( parseInt($().jquery) >= 3 ) {
-		this.find('.pfFancyBox').fancybox({
+		fancyBoxSettings = {
 			toolbar : false,
 			smallBtn : true,
 			iframe : {
@@ -1463,9 +1464,9 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 				}
 			},
 			animationEffect : false
-		});
+		};
 	} else {
-		this.find('.pfFancyBox').fancybox({
+		fancyBoxSettings = {
 			'width'         : '75%',
 			'height'        : '75%',
 			'autoScale'     : false,
@@ -1474,6 +1475,24 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			'type'          : 'iframe',
 			'overlayColor'  : '#222',
 			'overlayOpacity' : '0.8'
+		};
+	}
+
+	if ( partOfMultiple ) {
+		this.find('.pfFancyBox').fancybox(fancyBoxSettings);
+		this.find('.autocompleteInput').attachAutocomplete();
+		this.find('.autoGrow').autoGrow();
+		this.find(".pfRating").applyRatingInput();
+		this.find(".pfTreeInput").each( function() {
+			$(this).applyDynatree();
+		});
+	} else {
+		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
+		this.find('.autocompleteInput').not('.multipleTemplateWrapper .autocompleteInput').attachAutocomplete();
+		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
+		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").applyRatingInput();
+		this.find(".pfTreeInput").not(".multipleTemplateWrapper .pfTreeInput").each( function() {
+			$(this).applyDynatree();
 		});
 	}
 
@@ -1497,27 +1516,33 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			$(this).setAutocompleteForDependentField( partOfMultiple );
 		});
 
-	this.find(".pfTreeInput").not(".multipleTemplateStarter .pfTreeInput").each( function() {
-		$(this).applyDynatree();
-	});
-
-	this.find(".pfRating").each( function() {
-		$(this).applyRatingInput();
-	});
-
 	var myThis = this;
 	if ( $.fn.applyVisualEditor ) {
-		myThis.find(".visualeditor").not(".multipleTemplateStarter .visualeditor").applyVisualEditor();
+		if ( partOfMultiple ) {
+			myThis.find(".visualeditor").applyVisualEditor();
+		} else {
+			myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
+		}
 	} else {
 		$(document).bind('VEForAllLoaded', function(e) {
-			myThis.find(".visualeditor").not(".multipleTemplateStarter .visualeditor").applyVisualEditor();
+			if ( partOfMultiple ) {
+				myThis.find(".visualeditor").applyVisualEditor();
+			} else {
+				myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
+			}
 		});
 	}
 
 	// @TODO - this should be in the TinyMCE extension, and use a hook.
-	this.find(".tinymce").not(".multipleTemplateStarter .tinymce").each( function() {
-		mwTinyMCEInit( '#' + $(this).attr('id') );
-	});
+	if ( partOfMultiple ) {
+		this.find(".tinymce").each( function() {
+			mwTinyMCEInit( '#' + $(this).attr('id') );
+		});
+	} else {
+		this.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
+			mwTinyMCEInit( '#' + $(this).attr('id') );
+		});
+	}
 
 };
 
