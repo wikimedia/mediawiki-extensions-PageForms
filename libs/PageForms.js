@@ -1398,6 +1398,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	var fancyBoxSettings;
 
 	this.find(".pfShowIfSelected").each( function() {
+		// Avoid duplicate calls on any one element.
+		if ( !partOfMultiple && $(this).parents('.multipleTemplateWrapper').length > 0 ) {
+			return;
+		}
 		$(this)
 		.showIfSelected(partOfMultiple, true)
 		.change( function() {
@@ -1406,6 +1410,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	});
 
 	this.find(".pfShowIfChecked").each( function() {
+		// Avoid duplicate calls on any one element.
+		if ( !partOfMultiple && $(this).parents('.multipleTemplateWrapper').length > 0 ) {
+			return;
+		}
 		$(this)
 		.showIfChecked(partOfMultiple, true)
 		.click( function() {
@@ -1414,6 +1422,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	});
 
 	this.find(".pfShowIfCheckedCheckbox").each( function() {
+		// Avoid duplicate calls on any one element.
+		if ( !partOfMultiple && $(this).parents('.multipleTemplateWrapper').length > 0 ) {
+			return;
+		}
 		$(this)
 		.showIfCheckedCheckbox(partOfMultiple, true)
 		.click( function() {
