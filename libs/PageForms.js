@@ -1260,10 +1260,21 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 						// Call every initialization method
 						// for this input
 						for ( var i = 0; i < thatData.length; i++ ) {
-							thatData[i].initFunction(
+							var initFunction = thatData[i].initFunction;
+							// If the code attempted to store
+							// this function before it was
+							// defined, only its name was stored.
+							// In that case, get the function now.
+							// @TODO - move getFunctionFromName()
+							// so that it can be called from here,
+							// which would be better than window[].
+							if ( typeof initFunction === 'string' ) {
+								initFunction = window[initFunction];
+							}
+							initFunction(
 								this.id,
 								thatData[i].parameters
-								);
+							);
 						}
 					}
 				}
@@ -1557,6 +1568,11 @@ $(document).ready( function() {
 		var namespaces = functionName.split( "." );
 		for ( var i = 0; i < namespaces.length; i++ ) {
 			func = func[ namespaces[ i ] ];
+		}
+		// If this gets called before the function is defined, just
+		// store the function name instead, for later lookup.
+		if ( func === null ) {
+			return functionName;
 		}
 		return func;
 	}
