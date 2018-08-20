@@ -8,7 +8,8 @@
 			"Nghtwlkr",
 			"Emilbk",
 			"Cocu",
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Kingu"
 		]
 	},
 	"pageforms-desc": "Skjemaer for å legge til og endre semantiske data",
@@ -53,6 +54,7 @@
 	"pf_createtemplate_sectionsformat": "Avsnitt",
 	"pf_createtemplate_addfield": "Legg til felt",
 	"pf_createtemplate_deletefield": "Slett",
+	"multipageedit": "Rediger flere sider",
 	"forms": "Skjemaer",
 	"pf_forms_docu": "Følgende skjemaer finnes på wikien.",
 	"pf_forminputs_mandatory": "Obligatorisk",
