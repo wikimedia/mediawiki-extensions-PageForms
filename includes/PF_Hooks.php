@@ -10,6 +10,9 @@
 
 class PFHooks {
 
+	// Used for caching by addToCargoTablesLinks().
+	private static $mMultiPageEditPage = null;
+
 	public static function registerExtension() {
 		if ( defined( 'PF_VERSION' ) ) {
 			// Do not load Page Forms more than once.
@@ -218,6 +221,61 @@ class PFHooks {
 			$smw_docu_row->addItem( ALItem::newFromExternalLink( "https://www.mediawiki.org/wiki/Extension:Page_Forms", $pf_docu_label ) );
 		}
 
+		return true;
+	}
+
+	/**
+	 * Called by the CargoTablesActionLinks hook.
+	 *
+	 * Adds an "Edit" link to Special:CargoTables, pointing to Special:MultiPageEdit.
+	 *
+	 * @param array &$actionLinks Action links
+	 * @param string $tableName Cargo table name
+	 * @param string[] $templatesThatDeclareTables An array
+	 * @param string[] $templatesThatAttachToTables An array
+	 *
+	 * @return bool
+	 *
+	 * @since 4.4
+	 */
+	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $templatesThatDeclareTables, $templatesThatAttachToTables ) {
+		global $wgUser;
+
+		// Check permissions.
+		if ( !$wgUser->isAllowed( 'multipageedit' ) ) {
+			return true;
+		}
+		// Only put in an "Edit" link if there's exactly one template
+		// for this Cargo table, and one form for that template.
+		if ( !array_key_exists( $tableName, $templatesThatDeclareTables ) ) {
+			return true;
+		}
+		if ( array_key_exists( $tableName, $templatesThatAttachToTables ) ) {
+			return true;
+		}
+		$templateIDs = $templatesThatDeclareTables[$tableName];
+		if ( count( $templateIDs ) > 1 ) {
+			return true;
+		}
+
+		$templateTitle = Title::newFromID( $templateIDs[0] );
+		$templateName = $templateTitle->getText();
+		if ( self::$mMultiPageEditPage == null ) {
+			self::$mMultiPageEditPage = new SpreadsheetTemplatesPage();
+		}
+		$formName = self::$mMultiPageEditPage->getFormForTemplate( $templateName );
+		if ( $formName == null ) {
+			return true;
+		}
+
+		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
+		$editMsg = wfMessage( 'edit' )->text();
+		$text = PFUtils::makeLink( $linkRenderer = null, $sp->getTitle(), $editMsg, array(),
+			array( "template" => $templateName, "form" => $formName ) );
+
+		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );
+		$pos = false === $indexOfDrilldown ? count( $array ) : $indexOfDrilldown + 1;
+		$actionLinks = array_merge( array_slice( $actionLinks, 0, $pos ), array( 'edit' => $text ), array_slice( $actionLinks, $pos ) );
 		return true;
 	}
 

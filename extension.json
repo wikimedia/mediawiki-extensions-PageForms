@@ -432,6 +432,7 @@
 		"EditPage::importFormData": [
 			"PFHooks::showFormPreview"
 		],
+		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
 		"TinyMCEDisable": "PFHooks::disableTinyMCE",
 		"CanonicalNamespaces": [
 			"PFHooks::registerNamespaces"

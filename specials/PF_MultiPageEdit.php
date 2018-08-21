@@ -243,20 +243,27 @@ class SpreadsheetTemplatesPage extends QueryPage {
 		}
 	}
 
+	function getFormForTemplate( $templateName ) {
+		if ( !array_key_exists( $templateName, $this->templateInForm ) ) {
+			return null;
+		}
+		return $this->templateInForm[$templateName];
+	}
+
 	function formatResult( $skin, $result ) {
-		if ( !array_key_exists( $result->value, $this->templateInForm ) ) {
+		$templateName = $result->value;
+		$formName = $this->getFormForTemplate( $templateName );
+		if ( $formName == null ) {
 			return false;
 		}
-		$formName = $this->templateInForm[$result->value];
-		$templateTitle = Title::makeTitle( NS_TEMPLATE, $result->value );
+		$templateTitle = Title::makeTitle( NS_TEMPLATE, $templateName );
 		if ( method_exists( $this, 'getLinkRenderer' ) ) {
 			$linkRenderer = $this->getLinkRenderer();
 		} else {
 			$linkRenderer = null;
 		}
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
-		$link = Title::makeTitle( NS_SPECIAL, $sp->mName );
-		$text = PFUtils::makeLink( $linkRenderer, $link, htmlspecialchars( $templateTitle->getText() ), array(), array( "template" => htmlspecialchars( $templateTitle->getText() ), "form" => $formName ) );
+		$text = PFUtils::makeLink( $linkRenderer, $sp->getTitle(), $templateTitle->getText(), array(), array( "template" => $templateTitle->getText(), "form" => $formName ) );
 		return $text;
 	}
 }
