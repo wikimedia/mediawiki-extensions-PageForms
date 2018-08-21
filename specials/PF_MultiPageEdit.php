@@ -20,11 +20,18 @@ class PFMultiPageEdit extends SpecialPage {
 	 * Constructor
 	 */
 	function __construct() {
-		parent::__construct( 'MultiPageEdit' );
+		parent::__construct( 'MultiPageEdit', 'multipageedit' );
 	}
 
 	function execute( $query ) {
 		$this->setHeaders();
+
+		// Check permissions.
+		if ( !$this->getUser()->isAllowed( 'multipageedit' ) ) {
+			$this->displayRestrictionError();
+			return;
+		}
+
 		$this->mTemplate = $this->getRequest()->getText( 'template' );
 		$this->mForm = $this->getRequest()->getText( 'form' );
 		// If a template is not specified, list all the available templates.

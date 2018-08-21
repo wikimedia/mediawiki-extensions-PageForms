@@ -40,13 +40,15 @@
 			"editrestrictedfields": true
 		},
 		"user": {
-			"createclass": true
+			"createclass": true,
+			"multipageedit": true
 		}
 	},
 	"AvailableRights": [
 		"viewedittab",
 		"editrestrictedfields",
-		"createclass"
+		"createclass",
+		"multipageedit"
 	],
 	"Actions": {
 		"formedit": "PFFormEditAction",

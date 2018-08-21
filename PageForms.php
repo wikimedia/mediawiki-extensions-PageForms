@@ -540,6 +540,12 @@ $GLOBALS['wgGroupPermissions']['user']['createclass'] = true;
 $GLOBALS['wgAvailableRights'][] = 'createclass';
 
 # ##
+# Permission to access Special:MultiPageEdit
+# ##
+$GLOBALS['wgGroupPermissions']['user']['multipageedit'] = true;
+$GLOBALS['wgAvailableRights'][] = 'multipageedit';
+
+# ##
 # List separator character
 # ##
 $GLOBALS['wgPageFormsListSeparator'] = ",";
