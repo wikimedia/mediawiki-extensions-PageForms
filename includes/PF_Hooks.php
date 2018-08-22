@@ -341,7 +341,7 @@ class PFHooks {
 	 * standard saves. This code will be called after all saves, which
 	 * means that it will lead to redundant cookie-setting after normal
 	 * saves. However, there doesn't appear to be a way to to set the
-+	 * cookie correctly only after form-based saves, unfortunately.
+	 * cookie correctly only after form-based saves, unfortunately.
 	 *
 	 * @param WikiPage &$wikiPage The page modified
 	 * @param User &$user User performing the modification
@@ -354,11 +354,11 @@ class PFHooks {
 	 * @param Revision $revision Revision object of the saved content
 	 * @param Status &$status Status object about to be returned by doEditContent()
 	 * @param int $baseRevId The rev ID (or false) this edit was based on
-	 * @param int $undidRevId The rev ID (or 0) this edit undid - added in MW 1.30
+	 * @param int $undidRevId The rev ID this edit undid (default 0)
 	 *
 	 * @return bool
 	 */
-	public static function setPostEditCookie( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId ) {
+	public static function setPostEditCookie( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId = 0 ) {
 		// Code based on EditPage::setPostEditCookie().
 		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revision->getID();
 		$response = RequestContext::getMain()->getRequest()->response();
