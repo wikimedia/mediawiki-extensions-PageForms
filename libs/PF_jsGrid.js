@@ -14,16 +14,6 @@
 	 * editValue/insertValue is in charge of putting the final values into the grid.
 	 */
 
-	// Global variables to store edit and insert values to be used
-	// by the editValue and insertValue functions to put them into
-	// the date field.
-	var Global_Edit_day_of_month;
-	var Global_Edit_month;
-	var Global_Edit_year;
-	var Global_Insert_day_of_month;
-	var Global_Insert_month;
-	var Global_Insert_year;
-
 	// Create month selector dropdown.
 	function buildSelect( currentMonth ) {
 		var monthNames = mw.config.get('wgMonthNamesShort');
@@ -70,14 +60,8 @@
 				fullDateInputHTML += html_day + html_month + html_year;
 			}
 			fullDateInputHTML += '</div>';
-
-			$('.pfJSGrid').on('click propertychange change keyup input paste', function() {
-				Global_Insert_day_of_month = $('.pf_jsGrid_day').val();
-				Global_Insert_year = $('.pf_jsGrid_year').val();
-				Global_Insert_month = $('.pf_jsGrid_month').val();
-			});
-
-			return fullDateInputHTML;
+			this.fullDateInputInsertHTML = $( fullDateInputHTML );
+			return this.fullDateInputInsertHTML;
 		},
 
 		editTemplate: function(value) {
@@ -152,59 +136,54 @@
 				fullDateInputHTML += html_day + html_month + html_year;
 			}
 			fullDateInputHTML += '</div>';
-
-			/*
-			 * Always use eq(1) on the edit functions since jsGrid
-			 * has a hidden insert row, so you have to ignore that
-			 * row else you will capture
-			 */
-			$('.pfJSGrid').on('click propertychange change keyup input paste', function() {
-				Global_Edit_day_of_month = $('.pf_jsGrid_day').eq(1).val();
-				Global_Edit_year = $('.pf_jsGrid_year').eq(1).val();
-				Global_Edit_month = $('.pf_jsGrid_month').eq(1).val();
-			});
-
-			return fullDateInputHTML;
+			this.fullDateInputEditHTML = $( fullDateInputHTML );
+			return this.fullDateInputEditHTML;
 		},
 
 		insertValue: function() {
-			if ( Global_Insert_year === undefined || Global_Insert_year === "" ) {
+			var Insert_year = this.fullDateInputInsertHTML.find(".pf_jsGrid_year").val();
+			var Insert_month = this.fullDateInputInsertHTML.find(".pf_jsGrid_month").val();
+			var Insert_day_of_month = this.fullDateInputInsertHTML.find(".pf_jsGrid_day").val();
+			if ( Insert_year === undefined || Insert_year === "" ) {
 				return null;
 			}
-			if ( Global_Insert_month === '00' && Global_Insert_day_of_month !== '' ) {
+			if ( Insert_month === '00' && Insert_day_of_month !== '' ) {
 				return null;
 			}
 			var ret, day, month;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
 				var monthNames = mw.config.get('wgMonthNames');
-				day = ( Global_Insert_day_of_month === '' ) ? '' : Global_Insert_day_of_month + ", ";
-				month = ( Global_Insert_month === '00' ) ? '' : monthNames[parseInt( Global_Insert_month )] + " ";
-				ret = month + day + Global_Insert_year;
+				day = ( Insert_day_of_month === '' ) ? '' : Insert_day_of_month + ", ";
+				month = ( Insert_month === '00' ) ? '' : monthNames[parseInt( Insert_month )] + " ";
+				ret = month + day + Insert_year;
 			} else {
-				day = ( Global_Insert_day_of_month === '' ) ? '' : "/" + Global_Insert_day_of_month;
-				month = ( Global_Insert_month === '00' ) ? '' : "/" + Global_Insert_month;
-				ret = Global_Insert_year + month + day;
+				day = ( Insert_day_of_month === '' ) ? '' : "/" + Insert_day_of_month;
+				month = ( Insert_month === '00' ) ? '' : "/" + Insert_month;
+				ret = Insert_year + month + day;
 			}
 			return ret;
 		},
 
 		editValue: function(value) {
-			if ( Global_Edit_year === undefined || Global_Edit_year === "" ) {
+			var Edit_year = this.fullDateInputEditHTML.find(".pf_jsGrid_year").val();
+			var Edit_month = this.fullDateInputEditHTML.find(".pf_jsGrid_month").val();
+			var Edit_day_of_month = this.fullDateInputEditHTML.find(".pf_jsGrid_day").val();
+			if ( Edit_year === undefined || Edit_year === "" ) {
 				return null;
 			}
-			if ( Global_Edit_month === '00' && Global_Edit_day_of_month !== '' ) {
+			if ( Edit_month === '00' && Edit_day_of_month !== '' ) {
 				return null;
 			}
 			var ret, day, month;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
 				var monthNames = mw.config.get('wgMonthNames');
-				day = ( Global_Edit_day_of_month === '' ) ? '' : Global_Edit_day_of_month + ", ";
-				month = ( Global_Edit_month === '00' ) ? '' : monthNames[parseInt( Global_Edit_month )] + " ";
-				ret = month + day + Global_Edit_year;
+				day = ( Edit_day_of_month === '' ) ? '' : Edit_day_of_month + ", ";
+				month = ( Edit_month === '00' ) ? '' : monthNames[parseInt( Edit_month )] + " ";
+				ret = month + day + Edit_year;
 			} else {
-				day = ( Global_Edit_day_of_month === '' ) ? '' : "/" + Global_Edit_day_of_month;
-				month = ( Global_Edit_month === '00' ) ? '' : "/" + Global_Edit_month;
-				ret = Global_Edit_year + month + day;
+				day = ( Edit_day_of_month === '' ) ? '' : "/" + Edit_day_of_month;
+				month = ( Edit_month === '00' ) ? '' : "/" + Edit_month;
+				ret = Edit_year + month + day;
 			}
 			return ret;
 		}
