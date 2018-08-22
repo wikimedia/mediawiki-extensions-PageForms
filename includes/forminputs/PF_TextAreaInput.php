@@ -13,12 +13,16 @@ class PFTextAreaInput extends PFFormInput {
 	protected $mEditor = null;
 
 	public static function getDefaultCargoTypes() {
-		return array( 'Text' => array() );
+		return array(
+			'Text' => array(),
+			'Searchtext' => array()
+		);
 	}
 
 	public static function getDefaultCargoTypeLists() {
 		return array(
-			'Text' => array( 'field_type' => 'text', 'is_list' => 'true' )
+			'Text' => array( 'field_type' => 'text', 'is_list' => 'true' ),
+			'Searchtext' => array( 'field_type' => 'text', 'is_list' => 'true' )
 		);
 	}
 
