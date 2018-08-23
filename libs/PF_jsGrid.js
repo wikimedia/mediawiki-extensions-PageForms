@@ -69,7 +69,15 @@
 			var display_year = '';
 			var display_month = 0;
 			var dateValue, dateFormat;
-			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
+
+			// These both sometimes happen.
+			if ( value === undefined || value === '' ) {
+				value = null;
+			}
+
+			if ( value === null ) {
+				dateValue = null;
+			} else if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
 				dateValue = value;
 				if ( /^\d+$/.test( dateValue ) && dateValue.length < 8 ){
 					dateFormat = 1;	//Year only
@@ -116,7 +124,10 @@
 			var fullDateInputHTML = '<div class="pf_jsGrid_ymd_form">';
 			var monthElement;
 			var dayElement;
-			if ( dateFormat === 1 ) {
+			if ( value === null ) {
+				dayElement = '';
+				monthElement = buildSelect(0);
+			} else if ( dateFormat === 1 ) {
 				dayElement = '';
 				monthElement = buildSelect(0);
 			} else if ( dateFormat === 2 ) {
