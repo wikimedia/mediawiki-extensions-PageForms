@@ -627,7 +627,7 @@ END;
 		$fieldEnd = $this->mFieldEnd;
 		Hooks::run( 'PageForms::TemplateFieldEnd', array( $field, &$fieldEnd ) );
 		if ( $fieldEnd != '' ) {
-			$tableText .= " $fieldEnd";
+			$text .= " $fieldEnd";
 		}
 
 		return $text;
