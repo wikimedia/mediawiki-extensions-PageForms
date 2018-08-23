@@ -47,11 +47,10 @@ the /i18n and /languages directories for the full listings.
 
 == Contact ==
 
-Comments, questions and suggestions can be sent to either the MediaWiki
-or the Semantic MediaWiki mailing lists:
+Comments, questions and suggestions should be sent to the MediaWiki
+or mailing list:
 
  https://lists.wikimedia.org/mailman/listinfo/mediawiki-l
- https://lists.sourceforge.net/lists/listinfo/semediawiki-user
 
 If possible, please add "[Page Forms]" at the beginning of the subject
 line, to clarify the subject matter.
@@ -84,4 +83,5 @@ It also includes the Balloon.css CSS library
 distributed under the MIT license.
 
 Page Forms also makes extensive use of the jQuery and jQuery UI
-JavaScript libraries, included within MediaWiki.
+JavaScript libraries, as well as some use of the OOUI library, all
+included within MediaWiki.
