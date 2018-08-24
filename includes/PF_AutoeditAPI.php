@@ -1164,7 +1164,7 @@ class PFAutoeditAPI extends ApiBase {
 
 	/**
 	 * Returns an array of parameter descriptions.
-	 * Don't call this functon directly: use getFinalParamDescription() to
+	 * Don't call this function directly: use getFinalParamDescription() to
 	 * allow hooks to modify descriptions as needed.
 	 *
 	 * @return array or false

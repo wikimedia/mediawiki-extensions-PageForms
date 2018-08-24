@@ -54,7 +54,7 @@ use MediaWiki\MediaWikiServices;
  * |popup|...additional query string values...}}
  *
  * This function returns HTML representing a link to a form; given that
- * no page name is entered by the the user, the form must be one that
+ * no page name is entered by the user, the form must be one that
  * creates an automatic page name, or else it will display an error
  * message when the user clicks on the link.
  *

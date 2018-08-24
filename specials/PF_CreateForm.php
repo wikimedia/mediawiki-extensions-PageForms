@@ -33,7 +33,7 @@ class PFCreateForm extends SpecialPage {
 			$fieldFormText = $req->getVal( 'formfield' );
 
 			$paramValues = array();
-			// @TODO - is any of this "params" stuff necesary?
+			// @TODO - is any of this "params" stuff necessary?
 			// For now, it's removed - if the setting of params is
 			// going to be re-added, that has to be done in the JS.
 			/*

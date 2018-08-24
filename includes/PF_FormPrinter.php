@@ -942,10 +942,10 @@ END;
 					}
 
 					// We get values from the request,
-					// regardless of whether the the source
-					// is the page or a form submit, because
-					// even if the source is a page, values
-					// can still come from a query string.
+					// regardless of whether the source is the
+					// page or a form submit, because even if
+					// the source is a page, values can still
+					// come from a query string.
 					$tif->setFieldValuesFromSubmit();
 
 					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
