@@ -51,7 +51,7 @@ window.ext.popupform = ( function () {
 	var brokenBrowser, brokenChrome;
 
 	var padding = 20;
-
+	var reload;
 	function fadeOut(elem, callback ) {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
@@ -341,7 +341,7 @@ window.ext.popupform = ( function () {
 			elem.fadeTo(time, target, callback);
 		}
 	}
-	
+
 	function showForm() {
 		instance++;
 
@@ -443,7 +443,15 @@ window.ext.popupform = ( function () {
 				doc.close();
 
 				handleCloseFrame();
-
+				if ( reload ) {
+					var reloadUrl = window.location.href;
+					if (reloadUrl.indexOf('?') > -1){
+					   reloadUrl += '&action=purge';
+					}else{
+					   reloadUrl += '?action=purge';
+					}
+					window.location.href = reloadUrl;
+				}
 				return false;
 			}
 
@@ -747,6 +755,7 @@ window.ext.popupform = ( function () {
 
 	function handlePopupFormInput( ptarget, elem ) {
 		showForm();
+		reload = $(elem).hasClass('reload');
 
 		iframe.on( 'load', function(){
 			// attach event handler to iframe
@@ -760,7 +769,7 @@ window.ext.popupform = ( function () {
 
 	function handlePopupFormLink( ptarget, elem ) {
 		showForm();
-
+		reload = $(elem).hasClass('reload');
 		// store initial readystate
 		var readystate = iframe.contents()[0].readyState;
 
@@ -818,7 +827,6 @@ window.ext.popupform = ( function () {
 			document.getElementsByTagName('body')[0].appendChild(form);
 			form.submit();
 			document.getElementsByTagName('body')[0].removeChild(form);
-
 			return false;
 		}
 	}
