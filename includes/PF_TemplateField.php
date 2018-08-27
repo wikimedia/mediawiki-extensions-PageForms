@@ -243,6 +243,10 @@ class PFTemplateField {
 
 	function setFieldType( $fieldType ) {
 		$this->mFieldType = $fieldType;
+
+		if ( $fieldType == 'File' ) {
+			$this->mNamespace = MWNamespace::getCanonicalName( NS_FILE );
+		}
 	}
 
 	function setPossibleValues( $possibleValues ) {
