@@ -148,6 +148,7 @@ class PFHooks {
 		global $wgPageFormsAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
 		global $wgPageFormsFieldProperties, $wgPageFormsCargoFields, $wgPageFormsDependentFields;
 		global $wgPageFormsGridValues, $wgPageFormsGridParams;
+		global $wgPageFormsContLangYes, $wgPageFormsContLangNo, $wgPageFormsContLangMonths;
 		global $wgPageFormsShowOnSelect, $wgPageFormsScriptPath;
 		global $edgValues, $wgPageFormsEDSettings;
 		global $wgAmericanDates;
@@ -160,6 +161,9 @@ class PFHooks {
 		$vars['wgPageFormsDependentFields'] = $wgPageFormsDependentFields;
 		$vars['wgPageFormsGridValues'] = $wgPageFormsGridValues;
 		$vars['wgPageFormsGridParams'] = $wgPageFormsGridParams;
+		$vars['wgPageFormsContLangYes'] = $wgPageFormsContLangYes;
+		$vars['wgPageFormsContLangNo'] = $wgPageFormsContLangNo;
+		$vars['wgPageFormsContLangMonths'] = $wgPageFormsContLangMonths;
 		$vars['wgPageFormsShowOnSelect'] = $wgPageFormsShowOnSelect;
 		$vars['wgPageFormsScriptPath'] = $wgPageFormsScriptPath;
 		$vars['edgValues'] = $edgValues;

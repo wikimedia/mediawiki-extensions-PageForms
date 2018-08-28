@@ -163,7 +163,7 @@
 			}
 			var ret, day, month;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
-				var monthNames = mw.config.get('wgMonthNames');
+				var monthNames = mw.config.get('wgPageFormsContLangMonths');
 				day = ( Insert_day_of_month === '' ) ? '' : Insert_day_of_month + ", ";
 				month = ( Insert_month === '00' ) ? '' : monthNames[parseInt( Insert_month )] + " ";
 				ret = month + day + Insert_year;
@@ -187,7 +187,7 @@
 			}
 			var ret, day, month;
 			if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
-				var monthNames = mw.config.get('wgMonthNames');
+				var monthNames = mw.config.get('wgPageFormsContLangMonths');
 				day = ( Edit_day_of_month === '' ) ? '' : Edit_day_of_month + ", ";
 				month = ( Edit_month === '00' ) ? '' : monthNames[parseInt( Edit_month )] + " ";
 				ret = month + day + Edit_year;
@@ -505,15 +505,15 @@
 
 		PFPageLoadingStrategy.prototype.finishInsert = function(insertedItem) {
 			var grid = this._grid;
-            grid.option("data").unshift(insertedItem);
-            grid.refresh();
-        };
+			grid.option("data").unshift(insertedItem);
+			grid.refresh();
+		};
 
 		PFPageLoadingStrategy.prototype.finishDelete = function(deletedItem, deletedItemIndex) {
-            var grid = this._grid;
-            grid.option("data").splice(deletedItemIndex, 1);
-            grid.refresh();
-        };
+			var grid = this._grid;
+			grid.option("data").splice(deletedItemIndex, 1);
+			grid.refresh();
+		};
 
 		$gridDiv.jsGrid({
 			width: "100%",
@@ -799,9 +799,9 @@
 					// will be undefined.
 					var isChecked = $( this ).find( ':checkbox' ).prop( 'checked' );
 					if ( isChecked === true ) {
-						value = mw.msg( 'htmlform-yes' );
+						value = mw.msg( 'wgPageFormsContLangYes' );
 					} else if ( isChecked === false ) {
-						value = mw.msg( 'htmlform-no' );
+						value = mw.msg( 'wgPageFormsContLangNo' );
 					}
 					var inputName = templateName + '[' + rowNum + '][' + paramName + ']';
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', value ).appendTo( '#pfForm' );
