@@ -841,9 +841,9 @@
 					// will be undefined.
 					var isChecked = $( this ).find( ':checkbox' ).prop( 'checked' );
 					if ( isChecked === true ) {
-						value = mw.msg( 'wgPageFormsContLangYes' );
+						value = mw.config.get( 'wgPageFormsContLangYes' );
 					} else if ( isChecked === false ) {
-						value = mw.msg( 'wgPageFormsContLangNo' );
+						value = mw.config.get( 'wgPageFormsContLangNo' );
 					}
 					var inputName = templateName + '[' + rowNum + '][' + paramName + ']';
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', value ).appendTo( '#pfForm' );
