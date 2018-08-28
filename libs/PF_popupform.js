@@ -101,10 +101,19 @@ window.ext.popupform = ( function () {
 		var scrollTop = $scrollTgt.scrollTop();
 		var scrollLeft = $scrollTgt.scrollLeft();
 
-		$content
-		.css('position', 'absolute')
-		.width( 'auto' )
-		.height( 'auto' );
+		if ( jQuery.browser.mozilla ) {
+			setTimeout(function() {
+				$content
+				.css('position', 'absolute')
+				.width( 'auto' )
+				.height( 'auto' );
+			}, 0);
+		} else {
+			$content
+			.css('position', 'absolute')
+			.width( 'auto' )
+			.height( 'auto' );
+		}
 
 		// set max dimensions for layout of content
 		$iframe
