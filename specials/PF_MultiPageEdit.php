@@ -58,6 +58,8 @@ class PFMultiPageEdit extends SpecialPage {
 	private function createSpreadsheet( $template_name, $form_name ) {
 		global $wgPageFormsGridParams, $wgPageFormsScriptPath;
 		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
+		global $wgPageFormsContLangYes, $wgPageFormsContLangNo, $wgPageFormsContLangMonths;
+
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
@@ -145,6 +147,19 @@ class PFMultiPageEdit extends SpecialPage {
 
 		$text .= Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
 		$wgPageFormsGridParams[$template_name] = $gridParams;
+
+		// JS variables that hol boolean and date values in wiki's (as
+		// opposed to user's) language.
+		$wgPageFormsContLangYes = wfMessage( 'htmlform-yes' )->inContentLanguage()->text();
+		$wgPageFormsContLangNo = wfMessage( 'htmlform-no' )->inContentLanguage()->text();
+		$monthMessages = array(
+			"january", "february", "march", "april", "may_long", "june",
+			"july", "august", "september", "october", "november", "december"
+		);
+		$wgPageFormsContLangMonths = array( '' );
+		foreach ( $monthMessages as $monthMsg ) {
+			$wgPageFormsContLangMonths[] = wfMessage( $monthMsg )->inContentLanguage()->text();
+		}
 
 		$text .= "<p><div id='selectLimit'></div></p>";
 

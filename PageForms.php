@@ -614,6 +614,9 @@ $GLOBALS['wgPageFormsShowOnSelect'] = array();
 $GLOBALS['wgPageFormsAutocompleteValues'] = array();
 $GLOBALS['wgPageFormsGridValues'] = array();
 $GLOBALS['wgPageFormsGridParams'] = array();
+$GLOBALS['wgPageFormsContLangYes'] = null;
+$GLOBALS['wgPageFormsContLangNo'] = null;
+$GLOBALS['wgPageFormsContLangMonths'] = array();
 // SMW
 $GLOBALS['wgPageFormsFieldProperties'] = array();
 // Cargo
