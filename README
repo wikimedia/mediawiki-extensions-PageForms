@@ -32,6 +32,9 @@ Jatin Mehta as part of the 2014 Google Summer of Code.
 Support for hierarchies in the Cargo extension was added by Feroz
 Ahmed as part of the 2017 Google Summer of Code.
 
+The page Special:MultiPageEdit was added by Yashdeep Thorat as part
+of the 2018 Google Summer of Code.
+
 Important code contributions were also made by Christoph Burgmer,
 Cindy Cicalese, Daniel Friesen, Daniel Hansch, Eugene Mednikov,
 Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
@@ -39,8 +42,7 @@ Joel Natividad, Jeroen De Dauw, Joel Natividad, Louis Gerbarg, LY Meng,
 Mathias Lidal, Matt Williamson, MWJames, Niklas Laxstrom, Nils
 Opperman, Paladox, Patrick Nagel, Peter Grassberger, Remco de Boer,
 Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland, Simon Heimler,
-Solitarius, Tom Fellows, Vedmaka, wheresmytab, Yashdeep Thorat and
-others.
+Solitarius, Tom Fellows, Vedmaka, wheresmytab and others.
 
 Language translations were provided by many people; see the files in
 the /i18n and /languages directories for the full listings.
