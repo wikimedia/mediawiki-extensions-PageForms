@@ -293,6 +293,48 @@
 	});
 
 	jsGrid.fields.tokens = PFTokensField;
+
+	// Override checkbox functions (and add valueIsYes()) to get correct
+	// handling of Yes/No/etc. values.
+	jsGrid.fields.checkbox.prototype.valueIsYes = function(value) {
+		value = value.toLowerCase();
+		var possibleYesMessages = [
+			mw.config.get( 'wgPageFormsContLangYes' ).toLowerCase(),
+			// Add in '1', and some hardcoded English.
+			'1', 'yes', 'true'
+		];
+		return ( possibleYesMessages.indexOf( value ) >= 0 );
+	};
+
+	jsGrid.fields.checkbox.prototype.itemTemplate = function(value) {
+		return this._createCheckbox().prop({
+			checked: this.valueIsYes( value ),
+			disabled: true
+		});
+	};
+
+	jsGrid.fields.checkbox.prototype.editTemplate = function(value) {
+		if(!this.editing) {
+			return this.itemTemplate(value);
+		}
+
+		var $result = this.editControl = this._createCheckbox();
+		$result.prop("checked", this.valueIsYes( value ));
+		return $result;
+	};
+
+	jsGrid.fields.checkbox.prototype.insertValue = function() {
+		return this.insertControl.is(":checked") ?
+			mw.config.get( 'wgPageFormsContLangYes' ) :
+			mw.config.get( 'wgPageFormsContLangNo' );
+	};
+
+	jsGrid.fields.checkbox.prototype.editValue = function() {
+		return this.editControl.is(":checked") ?
+			mw.config.get( 'wgPageFormsContLangYes' ) :
+			mw.config.get( 'wgPageFormsContLangNo' );
+	};
+
 }(jsGrid, jQuery));
 
 ( function ( $, mw, pf ) {
