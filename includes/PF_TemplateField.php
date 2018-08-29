@@ -298,7 +298,15 @@ class PFTemplateField {
 
 		if ( $fieldProperty == '' ) {
 			if ( $cargoInUse && ( $this->mFieldType == 'Page' || $this->mFieldType == 'File' ) ) {
-				return "[[$fieldString]]";
+				$fieldString = "[[$fieldString]]";
+				// Add an #if around the link, to prevent
+				// anything from getting displayed on the
+				// screen for blank values, if the
+				// ParserFunctions extension is installed.
+				if ( ExtensionRegistry::getInstance()->isLoaded( 'ParserFunctions' ) ) {
+					$fieldString = "{{#if:$fieldParam|$fieldString}}";
+				}
+				return $fieldString;
 			}
 			return $fieldString;
 		} elseif ( is_null( $this->mNamespace ) ) {
