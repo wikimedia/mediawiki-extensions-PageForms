@@ -3,7 +3,8 @@
 		"authors": [
 			"Kening Aldgilles",
 			"Snakesteuben",
-			"Robin0van0der0vliet"
+			"Robin0van0der0vliet",
+			"PiefPafPier"
 		]
 	},
 	"pf_createtemplate_standardformat": "Tabel",
@@ -14,7 +15,7 @@
 	"pf_formedit_createtitle": "$1 oanmeitsje: $2",
 	"pf_formedit_createtitlenotarget": "$1 oanmeitsje",
 	"pf_editsource": "Bewurkje boarne",
-	"pf_formedit_none": "Gjin",
+	"pf_formedit_none": "Gjint",
 	"pf-datepicker-close": "Slute",
 	"pf-datepicker-prev": "Foarige",
 	"pf-datepicker-next": "Folgjende",
