@@ -152,7 +152,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		return array( $autocompleteSettings, $remoteDataType, $delimiter );
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = self::setAutocompleteValues( $other_args );

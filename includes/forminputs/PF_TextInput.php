@@ -139,7 +139,7 @@ class PFTextInput extends PFFormInput {
 		return $previewImage;
 	}
 
-	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', $other_args = array() ) {
+	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', array $other_args = array() ) {
 		global $wgPageFormsSimpleUpload, $wgPageFormsScriptPath,
 			$wgVersion;
 		if ( $wgPageFormsSimpleUpload ) {
@@ -221,7 +221,7 @@ class PFTextInput extends PFFormInput {
 		return $text;
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		$className = 'createboxInput';

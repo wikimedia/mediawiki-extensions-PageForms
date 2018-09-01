@@ -19,7 +19,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @param array $other_args An associative array of other parameters that were present in the
 	 *  input definition.
 	 */
-	public function __construct( $input_number, $cur_value, $input_name, $disabled, $other_args ) {
+	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value == 'now' ) {
 			$cur_value = date( 'Y/m/d' );
 		}

@@ -24,7 +24,7 @@ class PFDateTimeInput extends PFDateInput {
 		return array( 'Datetime' => array() );
 	}
 
-	public static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgPageForms24HourTime;
 
 		$include_timezone = array_key_exists( 'include timezone', $other_args );

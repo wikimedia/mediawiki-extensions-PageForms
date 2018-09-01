@@ -20,7 +20,7 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 		return array( 'Coordinates' );
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsGoogleMapsKey, $wgPageFormsTabIndex;
 		global $wgOut, $wgPageFormsMapsWithFeeders;
 

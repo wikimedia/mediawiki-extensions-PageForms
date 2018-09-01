@@ -12,7 +12,7 @@ class PFRadioButtonInput extends PFEnumInput {
 		return 'radiobutton';
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		// Standardize $cur_value

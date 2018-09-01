@@ -56,7 +56,7 @@ class PFTreeInput extends PFFormInput {
 		return array( 'String', 'Page' );
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		// Handle the now-deprecated 'category' and 'categories'
 		// input types.
 		if ( array_key_exists( 'input type', $other_args ) && $other_args['input type'] == 'category' ) {

@@ -38,7 +38,12 @@ class PFFormField {
 	private $mInputName;
 	private $mIsDisabled;
 
-	static function create( $template_field ) {
+	/**
+	 * @param PFTemplateField $template_field
+	 *
+	 * @return self
+	 */
+	static function create( PFTemplateField $template_field ) {
 		$f = new PFFormField();
 		$f->template_field = $template_field;
 		$f->mInputType = null;
@@ -798,7 +803,7 @@ class PFFormField {
 		return $text;
 	}
 
-	function getArgumentsForInputCallSMW( &$other_args ) {
+	function getArgumentsForInputCallSMW( array &$other_args ) {
 		if ( $this->template_field->getSemanticProperty() !== '' &&
 			! array_key_exists( 'semantic_property', $other_args ) ) {
 			$other_args['semantic_property'] = $this->template_field->getSemanticProperty();
@@ -819,7 +824,7 @@ class PFFormField {
 		}
 	}
 
-	function getArgumentsForInputCallCargo( &$other_args ) {
+	function getArgumentsForInputCallCargo( array &$other_args ) {
 		$fullCargoField = $this->template_field->getFullCargoField();
 		if ( $fullCargoField !== null &&
 			! array_key_exists( 'full_cargo_field', $other_args ) ) {
@@ -846,7 +851,7 @@ class PFFormField {
 	 * @param array|null $default_args
 	 * @return array
 	 */
-	function getArgumentsForInputCall( $default_args = null ) {
+	function getArgumentsForInputCall( array $default_args = null ) {
 		// start with the arguments array already defined
 		$other_args = $this->mFieldArgs;
 		// a value defined for the form field should always supersede

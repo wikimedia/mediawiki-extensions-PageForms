@@ -122,7 +122,7 @@ class PFDateInput extends PFFormInput {
 		return array( $year, $month, $day );
 	}
 
-	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgAmericanDates;
 
 		$year = $month = $day = null;
@@ -154,7 +154,7 @@ class PFDateInput extends PFFormInput {
 		return $text;
 	}
 
-	public static function getHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $date, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		$text = self::getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args );
 		$spanClass = 'dateInput';
 		if ( $is_mandatory ) {

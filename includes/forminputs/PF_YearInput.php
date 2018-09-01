@@ -44,7 +44,7 @@ class PFYearInput extends PFTextInput {
 		return array();
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
+	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		$other_args['size'] = 4;
 		return parent::getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 	}
