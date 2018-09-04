@@ -235,6 +235,8 @@ class PFHooks {
 	 *
 	 * @param array &$actionLinks Action links
 	 * @param string $tableName Cargo table name
+	 * @param bool $isReplacementTable Whether this table iss a replacement table
+	 * @param bool $hasReplacementTable Whether this table has a replacement table
 	 * @param string[] $templatesThatDeclareTables An array
 	 * @param string[] $templatesThatAttachToTables An array
 	 *
@@ -242,8 +244,14 @@ class PFHooks {
 	 *
 	 * @since 4.4
 	 */
-	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $templatesThatDeclareTables, $templatesThatAttachToTables ) {
+	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables ) {
 		global $wgUser;
+
+		// If it has a "replacement table", it's read-only and can't
+		// be edited (though the replacement table can).
+		if ( $hasReplacementTable ) {
+			return true;
+		}
 
 		// Check permissions.
 		if ( !$wgUser->isAllowed( 'multipageedit' ) ) {
