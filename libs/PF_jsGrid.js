@@ -297,6 +297,11 @@
 	// Override checkbox functions (and add valueIsYes()) to get correct
 	// handling of Yes/No/etc. values.
 	jsGrid.fields.checkbox.prototype.valueIsYes = function(value) {
+		// This is sometimes called with an "undefined" value.
+		if ( value === undefined || value === null ) {
+			return false;
+		}
+
 		value = value.toLowerCase();
 		var possibleYesMessages = [
 			mw.config.get( 'wgPageFormsContLangYes' ).toLowerCase(),
