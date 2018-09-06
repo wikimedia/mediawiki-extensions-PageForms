@@ -272,7 +272,55 @@ class PFTemplateInForm {
 		return $this->mValuesFromSubmit;
 	}
 
+	/**
+	 * Change "non-template pipes", i.e. pipes that do not separate
+	 * between template params but rather are contained within tag
+	 * functions, into another character, so that they don't get
+	 * handled and can be changed back into pipes later.
+	 * (This doesn't include pipes contained within curly bracket
+	 * parser functions - those are handled separately.)
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	static function escapeNonTemplatePipes( $str ) {
+		$startAndEndTags = array(
+			array( '<pre', 'pre>' ),
+			array( '<syntaxhighlight', 'syntaxhighlight>' ),
+			array( '<source', 'source>' ),
+			array( '<ref', 'ref>' )
+		);
+
+		foreach ( $startAndEndTags as $tags ) {
+			list( $startTag, $endTag ) = $tags;
+			$pattern = "/($startTag.*)\|(.*$endTag)/mis";
+			while ( preg_match( $pattern, $str, $matches ) ) {
+				// Special handling, to avoid escaping pipes
+				// within a string that looks like:
+				// startTag ... endTag | startTag ... endTag
+				if ( strpos( $matches[1], $endTag ) &&
+					strpos( $matches[2], $startTag ) ) {
+					$str = preg_replace( $pattern, "$1" . "\2" . "$2", $str );
+				} else {
+					$str = preg_replace( $pattern, "$1" . "\1" . "$2", $str );
+				}
+			}
+		}
+		// Change the "true" pipes back into pipes.
+		$str = str_replace( "\2", '|', $str );
+		return $str;
+	}
+
+	/**
+	 * @param string $str
+	 * @return string
+	 */
+	static function unescapeNonTemplatePipes( $str ) {
+		return str_replace( "\1", '|', $str );
+	}
+
 	function setFieldValuesFromPage( $existing_page_content ) {
+		$existing_page_content = self::escapeNonTemplatePipes( $existing_page_content );
 		$matches = array();
 		$search_pattern = '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i';
 		$content_str = str_replace( '_', ' ', $existing_page_content );
@@ -311,14 +359,15 @@ class PFTemplateInForm {
 				$template_ended = ( $uncompleted_curly_brackets == 0 && $uncompleted_square_brackets == 0 );
 				$field_ended = ( $c == '|' && $uncompleted_square_brackets == 0 && $uncompleted_curly_brackets <= 2 );
 				if ( $template_ended || $field_ended ) {
-					// if this was the last character in the template, remove
-					// the closing curly brackets
+					// If this was the last character in the template, remove
+					// the closing curly brackets.
 					if ( $template_ended ) {
 						$field = substr( $field, 0, - 1 );
 					}
-					// either there's an equals sign near the beginning or not -
+					$field = self::unescapeNonTemplatePipes( $field );
+					// Either there's an equals sign near the beginning or not -
 					// handling is similar in either way; if there's no equals
-					// sign, the index of this field becomes the key
+					// sign, the index of this field becomes the key.
 					$sub_fields = explode( '=', $field, 2 );
 					if ( count( $sub_fields ) > 1 ) {
 						$this->mValuesFromPage[trim( $sub_fields[0] )] = trim( $sub_fields[1] );
