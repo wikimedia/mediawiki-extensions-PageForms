@@ -388,6 +388,7 @@ class PFTemplateInForm {
 			if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
 				throw new MWException( "PageFormsMismatchedBrackets" );
 			}
+			$existing_page_content = self::unescapeNonTemplatePipes( $existing_page_content );
 			$this->mFullTextInPage = substr( $existing_page_content, $start_char, $i - $start_char );
 		}
 	}
