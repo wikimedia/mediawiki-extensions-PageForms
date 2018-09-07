@@ -918,6 +918,35 @@ $.fn.checkForPipes = function() {
 		return true;
 	}
 
+	// Also allow pipes within special tags, like <pre> or <syntaxhighlight>.
+	// Code copied, more or less, from PFTemplateInForm::escapeNonTemplatePipes().
+	var startAndEndTags = [
+		[ '<pre', 'pre>' ],
+		[ '<syntaxhighlight', 'syntaxhighlight>' ],
+		[ '<source', 'source>' ],
+		[ '<ref', 'ref>' ]
+	];
+
+	for ( var i in startAndEndTags ) {
+		var startTag = startAndEndTags[i][0];
+		var endTag = startAndEndTags[i][1];
+		var pattern = RegExp( "(" + startTag + "[^]*?)\\|([^]*?" + endTag + ")", 'i' );
+		var matches;
+		while ( ( matches = fieldVal.match( pattern ) ) !== null ) {
+			// Special handling, to avoid escaping pipes
+			// within a string that looks like:
+			// startTag ... endTag | startTag ... endTag
+			if ( matches[1].includes( endTag ) &&
+				matches[2].includes( startTag ) ) {
+				fieldVal = fieldVal.replace( pattern, "$1" + "\2" + "$2");
+			} else {
+				fieldVal = fieldVal.replace( pattern, "$1" + "\1" + "$2" );
+			}
+		}
+	}
+	fieldVal = fieldVal.replace( "\2", '|' );
+
+	// Now check for pipes outside of brackets.
 	var nextPipe,
 		nextDoubleBracketsStart,
 		nextDoubleBracketsEnd;

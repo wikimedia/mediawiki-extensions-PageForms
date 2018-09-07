@@ -216,7 +216,7 @@
 	"pf_bad_number_error": "must be a valid number",
 	"pf_bad_date_error": "must be a valid date",
 	"pf_modified_input_error": "This modification should be approved or rejected",
-	"pf_pipe_error": "\"|\" is not allowed, except within {{...}} or [[...]]",
+	"pf_pipe_error": "\"|\" is not allowed, except within {{...}}, [[...]], or special tags",
 	"uploadwindow": "Upload window",
 	"pf-simpleupload": "Upload",
 	"pf_deletionlog": "Deletion log",
