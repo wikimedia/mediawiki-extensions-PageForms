@@ -228,7 +228,7 @@
 	"pf_bad_number_error": "muss eine gültige Zahl sein",
 	"pf_bad_date_error": "muss ein gültiges Datum sein",
 	"pf_modified_input_error": "Diese Veränderung sollte bestätigt oder abgelehnt werden",
-	"pf_pipe_error": "„|“ ist nicht erlaubt, mit Ausnahme innerhalb von {{...}} oder [[...]]",
+	"pf_pipe_error": "„|“ ist nicht erlaubt, mit Ausnahme innerhalb von {{...}}, [[...]] oder speziellen Tags",
 	"uploadwindow": "Formular zum Hochladen",
 	"pf-simpleupload": "Hochladen",
 	"pf_deletionlog": "Lösch-Logbuch",
