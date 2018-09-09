@@ -163,7 +163,7 @@
 	"pf_bad_email_error": "musi mieć poprawny format adresu e‐mail",
 	"pf_bad_number_error": "musi być poprawną liczbą",
 	"pf_bad_date_error": "musi być poprawną datą",
-	"pf_pipe_error": "„|” nie jest dozwolone, z wyjątkiem ciągu {{...}} lub [[...]]",
+	"pf_pipe_error": "„|” nie jest dozwolone, z wyjątkiem ciągu {{...}}, [[...]] lub specjalnych znaczników",
 	"uploadwindow": "Okno przesyłania plików",
 	"pf_deletionlog": "Rejestr usunięć",
 	"pf-preview-header": "Podgląd formularza",
