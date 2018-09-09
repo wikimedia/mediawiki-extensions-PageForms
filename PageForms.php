@@ -270,6 +270,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'jquery.ui.sortable',
 			'ext.pageforms.autogrow',
 			'mediawiki.util',
+			"mediawiki.api",
 			'ext.pageforms.select2',
 			'ext.pageforms.wikieditor'
 		),

@@ -415,6 +415,13 @@ window.ext.popupform = ( function () {
 		closeBtn.click( handleCloseFrame );
 	}
 
+	function purgePage() {
+		var path = location.pathname;
+		// get name of the current page from the url
+		var pageName = path.split("/").pop();
+		return ( new mw.Api() ).post( { action: 'purge', titles: pageName } );
+	}
+
 	function handleSubmitData( event, returnedData, textStatus, XMLHttpRequest ){
 		fadeOut( container, function() {
 			fadeIn( waitIndicator );
@@ -444,13 +451,9 @@ window.ext.popupform = ( function () {
 
 				handleCloseFrame();
 				if ( reload ) {
-					var reloadUrl = window.location.href;
-					if (reloadUrl.indexOf('?') > -1){
-					   reloadUrl += '&action=purge';
-					}else{
-					   reloadUrl += '?action=purge';
-					}
-					window.location.href = reloadUrl;
+					purgePage().then( function( data ) {
+						location.reload();
+					} );
 				}
 				return false;
 			}
