@@ -184,7 +184,7 @@
 	"pf_bad_number_error": "Dev'\\esser un numero valido",
 	"pf_bad_date_error": "Dev'\\esser una data valida",
 	"pf_modified_input_error": "Questa modifica deve essere approvata o rifiutata",
-	"pf_pipe_error": "\"|\" non è consentito, eccetto all'interno di {{...}} o [[...]]",
+	"pf_pipe_error": "\"|\" non è consentito, eccetto all'interno di {{...}}, [[...]] o etichette speciali",
 	"uploadwindow": "Finestra di upload",
 	"pf-simpleupload": "Carica",
 	"pf_deletionlog": "Log cancellazioni",
