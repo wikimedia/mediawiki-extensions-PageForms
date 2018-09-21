@@ -683,7 +683,7 @@ window.ext.popupform = ( function () {
 			if ( innerJ ) {
 				innerwdw.jQuery(form[0])
 				.bind( "submit", function( event ) {
-						submitok = event.result;
+						submitok = ( event.result === undefined ) ? true : event.result;
 						innersubmitprocessed = true;
 						return false;
 				});
