@@ -80,7 +80,7 @@
 	"pf_bad_date_error": "мора да буде важећи датум",
 	"pf_pipe_error": "Знак „|” није дозвољен, осим унутар {{...}}, [[...]] или посебних тагова",
 	"uploadwindow": "Прозор за отпремање",
-	"pf_deletionlog": "Евиденција брисања",
+	"pf_deletionlog": "Дневник брисања",
 	"pf_form_freetextlabel": "Слободан текст",
 	"right-multipageedit": "уређивање више страница користећи унакрсну табелу",
 	"action-editrestrictedfields": "уређујете ограничења из поља",
