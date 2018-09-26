@@ -52,7 +52,7 @@ class PFForm {
 		$fs = SpecialPageFactory::getPage( 'FormStart' );
 		$form_start_url = PFUtils::titleURLString( $fs->getTitle() ) . "/" . $title->getPartialURL();
 		$form_description = wfMessage( 'pf_form_docu', $this->mFormName, $form_start_url )->inContentLanguage()->text();
-		$form_input = "{{#forminput:form=" . $this->mFormName;
+		$form_input = "{{#forminput:form=" . str_replace( ',', '\,', $this->mFormName );
 		if ( !is_null( $this->mAssociatedCategory ) ) {
 			$form_input .= "|autocomplete on category=" . $this->mAssociatedCategory;
 		}

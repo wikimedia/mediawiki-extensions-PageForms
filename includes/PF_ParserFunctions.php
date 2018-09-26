@@ -340,6 +340,7 @@ class PFParserFunctions {
 		if ( $inFormName == '' ) {
 			$formContents .= PFUtils::formDropdownHTML();
 		} elseif ( count( $listOfForms ) == 1 ) {
+			$inFormName = str_replace( '\,', ',', $inFormName );
 			$formContents .= Html::hidden( "form", $inFormName );
 		} else {
 			$formContents .= PFUtils::formDropdownHTML( $listOfForms );
