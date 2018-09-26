@@ -568,6 +568,7 @@
 
 			editing: true,
 			inserting: true,
+			sorting: true,
 			confirmDeleting: false,
 
 			autoload: ( editMultiplePages === undefined ) ? false : true,
