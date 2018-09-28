@@ -52,7 +52,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 			if ( $i++ > 0 ) {
 				$text .= ', ';
 			}
-			$altFormURL = $fe_url . '/' . rawurlencode( $alt_form ) . '/' . rawurlencode( $target_name );
+			$altFormURL = $fe_url . '/' . $alt_form . '/' . $target_name;
 			$text .= Html::element( 'a',
 				array( 'href' => $altFormURL ),
 				str_replace( '_', ' ', $alt_form )
