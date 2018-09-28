@@ -313,7 +313,7 @@ class PFValuesUtils {
 
 		// Escape if there's no such concept.
 		if ( $conceptTitle == null || !$conceptTitle->exists() ) {
-			return wfMessage( 'pf-missingconcept', wfEscapeWikiText( $conceptName ) );
+			throw new MWException( wfMessage( 'pf-missingconcept', wfEscapeWikiText( $conceptName ) ) );
 		}
 
 		global $wgPageFormsUseDisplayTitle;
@@ -429,7 +429,7 @@ class PFValuesUtils {
 		}
 
 		if ( is_null( $matchingNamespaceCode ) ) {
-			return wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) );
+			throw new MWException( wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) ) );
 		}
 
 		$db = wfGetDB( DB_SLAVE );
@@ -469,13 +469,7 @@ class PFValuesUtils {
 				$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring );
 			}
 		}
-		$res = $db->select(
-			$tables,
-			$columns,
-			$conditions,
-			__METHOD__,
-			$options = array(),
-			$join );
+		$res = $db->select( $tables, $columns, $conditions, __METHOD__, $options = array(), $join );
 
 		$pages = array();
 		$sortkeys = array();
