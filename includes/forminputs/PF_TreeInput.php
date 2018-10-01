@@ -171,8 +171,14 @@ class PFTreeInput extends PFFormInput {
 
 		$text = '';
 
-		// HTML IDs can't contain spaces.
-		$key_id = str_replace( ' ', '-', "$key_prefix-$index" );
+		$key_id = "$key_prefix-$index";
+		// Replace characters not allowed in HTML IDs.
+		$key_id = preg_replace( '/[^a-zA-Z0-9-_:\.]/', '-', $key_id );
+		// Make sure it starts with a letter.
+		preg_match( '/$[^a-zA-Z]/', $key_id, $matches );
+		if ( count( $matches ) > 0 ) {
+			$key_id = 'a' . $key_id;
+		}
 
 		if ( !$hidenode ) {
 			$liAttribs = array( 'id' => $key_id );
