@@ -226,7 +226,7 @@
 	"pf_bad_number_error": "tem de ser um número válido",
 	"pf_bad_date_error": "tem de ser uma data válida",
 	"pf_modified_input_error": "Esta alteração devia ser aprovada ou rejeitada",
-	"pf_pipe_error": "\"|\" não é permitido, exceto entre {{...}} ou [[...]]",
+	"pf_pipe_error": "\"|\" não é permitido, exceto entre {{...}}, [[...]] ou elementos especiais",
 	"uploadwindow": "Janela de carregamento",
 	"pf-simpleupload": "Carregar",
 	"pf_deletionlog": "Registo de eliminações",
