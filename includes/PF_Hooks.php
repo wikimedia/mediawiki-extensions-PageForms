@@ -346,7 +346,7 @@ class PFHooks {
 	}
 
 	/**
-	 * Called by the PageSaveComplete hook.
+	 * Called by the PageContentSaveComplete hook.
 	 *
 	 * Set a cookie after the page save so that a "Your edit was saved"
 	 * popup will appear after form-based saves, just as it does after
@@ -363,7 +363,7 @@ class PFHooks {
 	 * @param bool $isWatch No longer used
 	 * @param bool $section No longer used
 	 * @param int[] &$flags Flags passed to WikiPage::doEditContent()
-	 * @param Revision $revision Revision object of the saved content
+	 * @param Revision $revision Revision object of the saved content (or null)
 	 * @param Status &$status Status object about to be returned by doEditContent()
 	 * @param int $baseRevId The rev ID (or false) this edit was based on
 	 * @param int $undidRevId The rev ID this edit undid (default 0)
@@ -371,6 +371,9 @@ class PFHooks {
 	 * @return bool
 	 */
 	public static function setPostEditCookie( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId = 0 ) {
+		if ( $revision == null ) {
+			return true;
+		}
 		// Code based on EditPage::setPostEditCookie().
 		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revision->getID();
 		$response = RequestContext::getMain()->getRequest()->response();
