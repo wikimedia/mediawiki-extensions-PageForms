@@ -42,10 +42,13 @@
 		 */
 		apply: function( element ) {
 			this.id = element.attr( "id" );
-			var opts = this.setOptions();
-
-			element.select2(opts);
-			element.on( "change", this.onChange );
+			try {
+				var opts = this.setOptions();
+				element.select2(opts);
+				element.on( "change", this.onChange );
+			} catch (e) {
+				window.console.log(e);
+			}
 		},
 		/*
 		 * Used to remove the select2 applied to the HTML element,
@@ -167,7 +170,7 @@
 		 *
 		 */
 		nameAttr: function( element ) {
-			return  this.partOfMultiple( element ) ? "origname" : "name";
+			return this.partOfMultiple( element ) ? "origname" : "name";
 		},
 		/*
 		 * Checks whether the field is part of multiple instance template or not
@@ -192,10 +195,11 @@
 		getDependentFieldOpts: function( dep_on ) {
 			var input_id = "#" + this.id;
 			var dep_field_opts = {};
-      		var base_element;
+			var base_element;
+
 			if ( this.partOfMultiple($(input_id)) ) {
 				base_element = $(input_id).closest( ".multipleTemplateInstance" )
-								.find( '[origname ="' + dep_on + '" ]' );
+					.find( '[origname ="' + dep_on + '" ]' );
 			} else {
 				base_element = $('[name ="' + dep_on + '" ]');
 			}
@@ -216,9 +220,13 @@
 		getAutocompleteOpts: function() {
 			var input_id = "#" + this.id;
 			var autocomplete_opts = {};
+
+			if ( $(input_id).attr( "autocompletesettings" ) === undefined ) {
+				throw "Error: No autocomplete settings set for input " + input_id;
+			}
+
 			autocomplete_opts.autocompletedatatype = $(input_id).attr( "autocompletedatatype" );
 			autocomplete_opts.autocompletesettings = $(input_id).attr( "autocompletesettings" );
-
 			return autocomplete_opts;
 		},
 		/*

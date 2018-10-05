@@ -42,11 +42,15 @@
 	 *
 	 */
 	tokens_proto.apply = function( element ) {
-		this.id = element.attr( "id" );
-		var opts = this.setOptions();
 		var cur_val = element.val();
+		this.id = element.attr( "id" );
 
-		element.select2(opts);
+		try {
+			var opts = this.setOptions();
+			element.select2(opts);
+		} catch (e) {
+			window.console.log(e);
+		}
 		this.sortable(element);
 		element.on( "change", this.onChange );
 		element.val(cur_val);
