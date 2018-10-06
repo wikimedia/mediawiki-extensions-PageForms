@@ -562,6 +562,13 @@
 			grid.refresh();
 		};
 
+		PFPageLoadingStrategy.prototype.sort = function(sort) {
+			var grid = this._grid;
+			grid._sortData();
+			grid.refresh();
+			return $.Deferred().resolve().promise();
+		};
+
 		$gridDiv.jsGrid({
 			width: "100%",
 			height: gridHeight,
