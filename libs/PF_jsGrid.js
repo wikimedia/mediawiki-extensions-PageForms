@@ -149,9 +149,15 @@
 		var baseUrl = mw.config.get( 'wgScriptPath' );
 		if ( gridHeight === undefined ) { gridHeight = '400px'; }
 		// The slice() is necessary to do a clone, so that
-		//gridParams does not get modified.
+		// gridParams does not get modified.
 		var templateParams = gridParams[templateName].slice(0);
-		templateParams.push( { type: 'control', deleteButton: false } );
+		// Different controls depending on whether it's
+		// Special:MultiPageEdit or "display=spreadsheet".
+		if ( editMultiplePages !== undefined ) {
+			templateParams.push( { type: 'control', deleteButton: false } );
+		} else {
+			templateParams.push( { type: 'control' } );
+		}
 		var dataValues = [];
 		var pages = [];
 		var cancelUpdate = 0;
