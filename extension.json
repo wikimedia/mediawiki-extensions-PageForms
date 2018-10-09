@@ -348,6 +348,7 @@
 				"skins/jsgrid/theme.css"
 			],
 			"dependencies": [
+				"ext.pageforms.select2",
 				"jquery.ui.sortable"
 			],
 			"messages": [
@@ -402,6 +403,14 @@
 			],
 			"messages": [
 				"pf_blank_error"
+			]
+		},
+		"ext.pageforms.PF_MultiPageEdit": {
+			"scripts": [
+				"libs/PF_MultiPageEdit.js"
+			],
+			"dependencies": [
+				"ext.pageforms.jsgrid"
 			]
 		}
 	},

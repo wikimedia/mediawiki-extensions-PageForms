@@ -425,6 +425,7 @@ $GLOBALS['wgResourceModules'] += array(
 			'skins/jsgrid/theme.css',
 		),
 		'dependencies' => array(
+			'ext.pageforms.select2',
 			'jquery.ui.sortable',
 		),
 		'messages' => array(
@@ -479,6 +480,14 @@ $GLOBALS['wgResourceModules'] += array(
 		),
 		'messages' => array(
 			'pf_blank_error',
+		),
+	),
+	'ext.pageforms.PF_MultiPageEdit' => $wgPageFormsResourceTemplate + array(
+		'scripts' => array(
+			'libs/PF_MultiPageEdit.js',
+		),
+		'dependencies' => array(
+			'ext.pageforms.jsgrid'
 		),
 	),
 );

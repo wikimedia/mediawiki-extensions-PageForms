@@ -64,8 +64,7 @@ class PFMultiPageEdit extends SpecialPage {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
-		$out->addModules( 'ext.pageforms.select2' );
-		$out->addModules( 'ext.pageforms.jsgrid' );
+		$out->addModules( 'ext.pageforms.PF_MultiPageEdit' );
 		$text = '';
 		$out->setPageTitle( wfMessage( 'pf_multipageedit_with-name', $this->mTemplate )->text() );
 
