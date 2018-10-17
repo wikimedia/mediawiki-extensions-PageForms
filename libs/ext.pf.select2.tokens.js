@@ -320,8 +320,8 @@
 	tokens_proto.sortable = function( element ) {
 		element.select2("container").find("ul.select2-choices").sortable({
 			containment: 'parent',
-			start: function() { $(".pfTokens").select2("onSortStart"); },
-			update: function() { $(".pfTokens").select2("onSortEnd"); }
+			start: function() { element.select2("onSortStart"); },
+			update: function() { element.select2("onSortEnd"); }
 		});
 	};
 
