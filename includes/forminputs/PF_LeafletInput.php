@@ -1,6 +1,7 @@
 <?php
 /**
  * @author Peter Grassberger
+ * @author Yaron Koren
  * @file
  * @ingroup PF
  */
@@ -23,7 +24,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args ) {
 		global $wgPageFormsTabIndex;
-		global $wgOut;
+		global $wgOut, $wgPageFormsMapsWithFeeders;
 
 		$scripts = array(
 			"https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
@@ -43,21 +44,46 @@ class PFLeafletInput extends PFOpenLayersInput {
 		$wgOut->addHeadItem( $stylesHTML, $stylesHTML );
 		$wgOut->addModules( 'ext.pageforms.maps' );
 
+		// The address input box is not necessary if we are using other form inputs for the address.
+		if ( array_key_exists( $input_name, $wgPageFormsMapsWithFeeders ) ) {
+			$addressLookupInput = '';
+		} else {
+			$addressLookupInputAttrs = array(
+				'type' => 'text',
+				'tabindex' => $wgPageFormsTabIndex++,
+				'class' => 'pfAddressInput',
+				'size' => 40,
+				'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse()
+			);
+			$addressLookupInput = Html::element( 'input', $addressLookupInputAttrs, null );
+		}
+		$addressLookupButtonAttrs = array(
+			'type' => 'button',
+			'tabindex' => $wgPageFormsTabIndex++,
+			'class' => 'pfLookUpAddress',
+			'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse()
+		);
+		$addressLookupButton = Html::element( 'input', $addressLookupButtonAttrs, null );
+
 		$coordsInputAttrs = array(
 			'type' => 'text',
-			'tabindex' => $wgPageFormsTabIndex,
+			'tabindex' => $wgPageFormsTabIndex++,
 			'class' => 'pfCoordsInput',
 			'name' => $input_name,
 			'value' => PFOpenLayersInput::parseCoordinatesString( $cur_value ),
 			'size' => 40
 		);
 		$coordsInput = Html::element( 'input', $coordsInputAttrs );
-		// $wgPageFormsTabIndex++;
+
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
 		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ), 'Map goes here...' );
 
 		$fullInputHTML = <<<END
+<div style="padding-bottom: 10px;">
+$addressLookupInput
+$addressLookupButton
+</div>
 <div style="padding-bottom: 10px;">
 $coordsInput
 </div>

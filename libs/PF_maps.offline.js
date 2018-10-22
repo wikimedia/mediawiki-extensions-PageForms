@@ -245,9 +245,39 @@ function setupMapFormInput( inputDiv, mapService ) {
 					alert("Geocode was not successful for the following reason: " + status);
 				}
 			});
-		//} else { // Leaflet, OpenLayers
-			// Do nothing, for now - address lookup/geocode is
-			// not yet enabled for Leaflet or OpenLayers.
+		 } else { // Leaflet, OpenLayers
+			$.ajax( 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent( addressText ) )
+			.done( function( result ) {
+				if ( result.length === 0 ) {
+					alert("Geocode was not successful");
+					return;
+				}
+				var lat = result[0].lat;
+				var lon = result[0].lon;
+				// Use the specified bounds - this is better
+				// than a preset zoom, because it handles the
+				// precision correctly for countries, cities,
+				// etc.
+				var boundsStr = String(result[0].boundingbox);
+				var vals = boundsStr.split(",");
+				var bottom = vals[0];
+				var top = vals[1];
+				var left = vals[2];
+				var right = vals[3];
+				if ( mapService === "OpenLayers" ) {
+					var olPoint = toOpenLayersLonLat( map, lat, lon );
+					openLayersSetMarker( olPoint );
+					map.setCenter( olPoint );
+					var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
+					var toProjection = map.getProjectionObject(); // to Spherical Mercator Projection
+					var bounds = new OpenLayers.Bounds(left,bottom,right,top).transform(fromProjection,toProjection);
+					map.zoomToExtent(bounds);
+				} else if ( mapService === "Leaflet" ) {
+					var lPoint = L.latLng( lat, lon );
+					leafletSetMarker( lPoint );
+					map.fitBounds([[bottom, left], [top, right]]);
+				}
+			});
 		}
 	}
 
