@@ -84,9 +84,11 @@
 		var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 		if ( !wgPageFormsAutocompleteOnAllChars ) {
 			opts.matcher = function( term, text ) {
-				var no_diac_text = pf.select2.base.prototype.removeDiacritics( text );
-				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
-				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
+				var folded_term = pf.select2.base.prototype.removeDiacritics( term ).toUpperCase();
+				var folded_text = pf.select2.base.prototype.removeDiacritics( text ).toUpperCase();
+
+				var position = folded_text.indexOf(folded_term);
+				var position_with_space = folded_text.indexOf(" " + folded_term);
 				if ( (position !== -1 && position === 0 ) || position_with_space !== -1 ) {
 					return true;
 				} else {
