@@ -114,6 +114,12 @@ window.ext.popupform = ( function () {
 		// get dimension values
 		var docW = content.width();
 		var docH = content.height();
+		// On Firefox, this doesn't work for some reason, so use
+		// this roundabout method to set the dimensions.
+		if ( docW === 0 || docH === 0 ) {
+			docW = availW * 0.95;
+			docH = availH * 0.95;
+		}
 
 		// set old dimensions for layout of content
 		iframe
