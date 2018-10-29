@@ -355,7 +355,7 @@ window.ext.popupform = ( function () {
 		( navigator.userAgent.indexOf("Chrome") >= 0 &&
 			navigator.platform.indexOf("Linux x86_64") >= 0 );
 
-		brokenBrowser= jQuery.browser.msie || brokenChrome;
+		brokenBrowser = jQuery.browser.msie || brokenChrome;
 
 		var maxZIndex = 0;
 
@@ -364,13 +364,12 @@ window.ext.popupform = ( function () {
 			maxZIndex = curr > maxZIndex ? curr : maxZIndex;
 		});
 
-
 		wrapper = jQuery( "<div class='popupform-wrapper' >" );
 		background = jQuery( "<div class='popupform-background' >" );
 
-		var waitIndicatorWrapper = jQuery(  "<div class='popupform-loading'>" );
+		var waitIndicatorWrapper = jQuery( "<div class='popupform-loading'>" );
 
-		waitIndicator = jQuery(  "<div class='popupform-loadingbg'></div><div class='popupform-loadingfg'></div>" );
+		waitIndicator = jQuery( "<div class='popupform-loadingbg'></div><div class='popupform-loadingfg'></div>" );
 
 		var anchor = jQuery( "<div class='popupform-anchor' >" );
 
@@ -554,12 +553,12 @@ window.ext.popupform = ( function () {
 		// GuMaxDD has #content but keeps headlines in #gumax-content-body
 		content = iframecontents.find("#gumax-content-body");
 
-		// normal skins use #content (e.g. Vector, Monobook)
+		// Normal skins use #content (e.g. Vector, Monobook)
 		if ( content.length === 0 ) {
 			content = iframecontents.find("#content");
 		}
 
-		// some skins use #mw_content (e.g. Modern)
+		// Some skins use #mw_content (e.g. Modern)
 		if ( content.length === 0 ) {
 			content = iframecontents.find("#mw_content");
 		}
@@ -567,12 +566,12 @@ window.ext.popupform = ( function () {
 		var iframebody = content.closest("body");
 		var iframedoc = iframebody.parent();
 
-		// this is not a normal MW page (or it uses an unknown skin)
+		// This is not a normal MW page (or it uses an unknown skin)
 		if ( content.length === 0 ) {
 			content = iframebody;
 		}
 
-		// the huge left margin looks ugly in Vector, reduce it
+		// The huge left margin looks ugly in Vector - reduce it.
 		// (How does this look for other skins?)
 		var siblings = content
 		.css( {
@@ -596,7 +595,7 @@ window.ext.popupform = ( function () {
 			height: "auto",
 			minWidth: "0px",
 			minHeight: "0px",
-			"float": "none",  // Cavendish skin uses floating -> unfloat content
+			"float": "none", // Cavendish skin uses floating -> unfloat content
 //			position: "relative",
 //			top: "0",
 //			left: "0",
@@ -617,9 +616,9 @@ window.ext.popupform = ( function () {
 				// TODO: Does this really help?
 				if ( getStyle(this, "display") !== "none" && ! (
 						( this.offsetLeft + elem.outerWidth(true) < 0 ) ||		// left of document
-						( this.offsetTop + elem.outerHeight(true) < 0 )  || // above document
+						( this.offsetTop + elem.outerHeight(true) < 0 ) || // above document
 						( this.offsetLeft > 100000 ) ||		// right of document
-						( this.offsetTop > 100000 )  // below document
+						( this.offsetTop > 100000 ) // below document
 						)
 					) {
 
@@ -746,7 +745,7 @@ window.ext.popupform = ( function () {
 		.not('a[href^="#"]')           // local links
 		.not('a.pfFancyBox')           // link to file upload
 		.click(function(event){
-			if ( event.result !== false ) {  // if not already caught by somebody else
+			if ( event.result !== false ) { // if not already caught by somebody else
 				closeFrameAndFollowLink( event.target.getAttribute('href') );
 			}
 			return false;
