@@ -86,7 +86,7 @@
 			var display_month = 0;
 			if ( value !== null ) {
 				var dateObject = new Date(value);
-				display_day_of_month = dateObject.getDate();
+				display_day_of_month = dateObject.getUTCDate();
 				display_year = dateObject.getFullYear();
 				display_month = dateObject.getMonth();
 			}

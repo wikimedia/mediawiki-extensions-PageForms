@@ -111,7 +111,7 @@
 			}
 			if ( value !== null ) {
 				var dateObject = new Date( dateValue );
-				display_day_of_month = dateObject.getDate();
+				display_day_of_month = dateObject.getUTCDate();
 				display_year = dateObject.getFullYear();
 				display_month = dateObject.getMonth();
 			}
