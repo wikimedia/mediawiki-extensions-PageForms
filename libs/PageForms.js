@@ -763,10 +763,10 @@ $.fn.validateUniqueField = function() {
 			if (namespace.replace(/\s+/, '') !== '') {
 				var ns = mw.config.get('wgNamespaceIds')[namespace.toLowerCase()];
 				if (typeof ns !== UNDEFINED) {
-					query +=  ns;
+					query += ns;
 				}
 			} else {
-				query +=  "0";
+				query += "0";
 			}
 		}
 
@@ -1155,6 +1155,15 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 		return false;
 	}
 
+	if ( ! multipleTemplateList.hasClass('minimizeAll') && multipleTemplateList.height() > 800 ) {
+		multipleTemplateList.addClass('minimizeAll');
+	}
+	if ( multipleTemplateList.hasClass('minimizeAll') ) {
+		multipleTemplateList
+			.addClass('currentFocus')
+			.possiblyMinimizeAllOpenInstances();
+	}
+
 	// Global variable.
 	num_elements++;
 
@@ -1205,7 +1214,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 				this.id = this.id.replace(/input_/g, 'input_' + num_elements + '_');
 
 				// TODO: Data in wgPageFormsShowOnSelect should probably be stored in
-				//  $("#pfForm").data('PageForms')
+				// $("#pfForm").data('PageForms')
 				if ( wgPageFormsShowOnSelect[ old_id ] ) {
 					wgPageFormsShowOnSelect[ this.id ] = wgPageFormsShowOnSelect[ old_id ];
 				}
@@ -1654,9 +1663,22 @@ $(document).ready( function() {
 	$('.multipleTemplateAdder').click( function() {
 		$(this).addInstance( false );
 	});
+	$('.multipleTemplateList').each( function() {
+		if ( $(this).height() > 800 ) {
+			$(this).addClass('minimizeAll');
+			$(this).possiblyMinimizeAllOpenInstances();
+		}
+	});
 	$('.multipleTemplateList').sortable({
 		axis: 'y',
-		handle: '.instanceRearranger'
+		handle: '.instanceRearranger',
+		start: function() {
+			$(this).possiblyMinimizeAllOpenInstances();
+			$(this).fullyMinimizeDuringSorting();
+		},
+		stop: function() {
+			$(this).fullyMinimizeDuringSorting();
+		}
 	});
 
 	// If the form is submitted, validate everything!
@@ -1664,4 +1686,98 @@ $(document).ready( function() {
 		return validateAll();
 	} );
 });
+
+/**
+ * Minimize all instances if the total height of all the instances
+ * is over 800 pixels - to allow for easier navigation and sorting.
+ */
+$.fn.possiblyMinimizeAllOpenInstances = function() {
+	if ( ! this.hasClass( 'minimizeAll' ) ) {
+		return;
+	}
+	this.find('.multipleTemplateInstance').not('.minimized').each( function() {
+		var instance = $(this);
+		instance.addClass('minimized');
+		var valuesStr = '';
+		instance.find( "input[type != 'hidden'], select, textarea" ).each( function() {
+			var curVal = $(this).val();
+			if ( curVal === '' ) {
+				return;
+			}
+			if ( curVal.length > 70 ) {
+				curVal = curVal.substring(0, 70) + "...";
+			}
+			if ( valuesStr !== '' ) {
+				valuesStr += ' &middot; ';
+			}
+			valuesStr += curVal;
+		});
+		if ( valuesStr === '' ) {
+			valuesStr = '<em>No data</em>';
+		}
+		instance.attr('data-instance-height', instance.height());
+		instance.find('.instanceMain').fadeOut( "medium", function() {
+			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
+			instance.animate({
+				height: '30px'
+			});
+		});
+	});
+};
+
+/**
+ * This for some reason needs to be called twice when the jQuery UI sortable()
+ * is being called, seemingly due to bugs in sortable().
+ */
+$.fn.fullyMinimizeDuringSorting = function() {
+	if ( ! this.hasClass( 'minimizeAll' ) ) {
+		return;
+	}
+	this.find('.multipleTemplateInstance.minimized').each( function() {
+		$(this).css('height', '30px');
+	});
+};
+
+// If some part of the screen is clicked, minimize any multiple-instance
+// template instances that need minimizing, and move the "focus" to the current
+// instance list, if one is being clicked and it's different from the
+// previous one.
+$('body').click( function(e) {
+	var target = $(e.target);
+	// Ignore the "add instance" buttons - those get handling of their own.
+	if ( target.hasClass('multipleTemplateAdder') || target.hasClass('addAboveButton') ) {
+		return;
+	}
+
+	var instance = target.closest('.multipleTemplateInstance');
+	if ( instance === null ) {
+		$('.multipleTemplateList.currentFocus')
+			.removeClass('currentFocus')
+			.possiblyMinimizeAllOpenInstances();
+		return;
+	}
+
+	var instancesList = instance.closest('.multipleTemplateList');
+	if ( !instancesList.hasClass('currentFocus') ) {
+		$('.multipleTemplateList.currentFocus')
+			.removeClass('currentFocus')
+			.possiblyMinimizeAllOpenInstances();
+		if ( instancesList.hasClass('minimizeAll') ) {
+			instancesList.addClass('currentFocus');
+		}
+	}
+
+	if ( instance.hasClass('minimized') ) {
+		instancesList.possiblyMinimizeAllOpenInstances();
+		instance.removeClass('minimized');
+		instance.find('.fieldValuesDisplay').html('');
+		instance.animate({
+			height: instance.attr('data-instance-height')
+		}, 'medium', function() {
+			instance.find('.instanceMain').fadeIn();
+			instance.find('.fieldValuesDisplay').remove();
+		});
+	}
+});
+
 }( jQuery, mediaWiki ) );
