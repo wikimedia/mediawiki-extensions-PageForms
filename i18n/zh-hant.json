@@ -225,7 +225,7 @@
 	"pf_bad_number_error": "必須為有效的數字",
 	"pf_bad_date_error": "必須為有效的日期",
 	"pf_modified_input_error": "此變動應被允許或拒絕",
-	"pf_pipe_error": "除了在 {{...}} 或 [[...]] 以內外，不允許使用 \"|\"",
+	"pf_pipe_error": "除了在 {{...}} 或 [[...]] 以內，和特殊標籤以外，不允許使用 \"|\"",
 	"uploadwindow": "上傳視窗",
 	"pf-simpleupload": "上傳",
 	"pf_deletionlog": "刪除日誌",
