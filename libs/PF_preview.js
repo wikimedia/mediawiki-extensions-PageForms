@@ -214,6 +214,15 @@
 		if ( mw.config.get( 'wgAction' ) === 'formedit' ||
 			mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 			$( '#wpPreview' ).pfAjaxPreview();
+			$( document ).on( 'VEForAllLoaded', function() {
+				if ( $('.visualeditor').length > 0 ) {
+					$( '#wpPreview' ).off('click', previewButtonClickedHandler).on('click', function( event ) {
+						mw.pageFormsActualizeVisualEditorFields( function() {
+							previewButtonClickedHandler( event );
+						});
+					});
+				}
+			});
 		}
 	} );
 
