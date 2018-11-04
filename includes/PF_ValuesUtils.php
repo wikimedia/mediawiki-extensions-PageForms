@@ -501,11 +501,11 @@ class PFValuesUtils {
 	 *
 	 * @param string|null $source_name
 	 * @param string $source_type
-	 * @return string|null
+	 * @return string[]
 	 */
 	public static function getAutocompleteValues( $source_name, $source_type ) {
-		if ( $source_name == null ) {
-			return null;
+		if ( $source_name === null ) {
+			return array();
 		}
 
 		// The query depends on whether this is a Cargo field, SMW
