@@ -482,14 +482,6 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf_blank_error',
 		),
 	),
-	'ext.pageforms.PF_MultiPageEdit' => $wgPageFormsResourceTemplate + array(
-		'scripts' => array(
-			'libs/PF_MultiPageEdit.js',
-		),
-		'dependencies' => array(
-			'ext.pageforms.jsgrid'
-		),
-	),
 );
 
 // PHP fails to find relative includes at some level of inclusion:
