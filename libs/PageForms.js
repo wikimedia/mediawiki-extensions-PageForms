@@ -1701,8 +1701,14 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		var valuesStr = '';
 		instance.find( "input[type != 'hidden'], select, textarea" ).each( function() {
 			var curVal = $(this).val();
-			if ( curVal === '' ) {
+			if ( typeof curVal !== 'string' || curVal === '' ) {
 				return;
+			}
+			var inputType = $(this).attr('type');
+			if ( inputType === 'checkbox' || inputType === 'radio' ) {
+				if ( ! $(this).is(':checked') ) {
+					return;
+				}
 			}
 			if ( curVal.length > 70 ) {
 				curVal = curVal.substring(0, 70) + "...";
