@@ -528,6 +528,8 @@ END;
 		$wgPageFormsGridParams[$templateName] = $gridParams;
 		$wgPageFormsGridValues[$templateName] = $tif->getGridValues();
 
+		PFFormUtils::setGlobalVarsForSpreadsheet();
+
 		return $text;
 	}
 

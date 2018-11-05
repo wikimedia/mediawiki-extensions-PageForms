@@ -358,6 +358,23 @@ END;
 		);
 	}
 
+	public static function setGlobalVarsForSpreadsheet() {
+		global $wgPageFormsContLangYes, $wgPageFormsContLangNo, $wgPageFormsContLangMonths;
+
+		// JS variables that hold boolean and date values in the wiki's
+		// (as opposed to the user's) language.
+		$wgPageFormsContLangYes = wfMessage( 'htmlform-yes' )->inContentLanguage()->text();
+		$wgPageFormsContLangNo = wfMessage( 'htmlform-no' )->inContentLanguage()->text();
+		$monthMessages = array(
+			"january", "february", "march", "april", "may_long", "june",
+			"july", "august", "september", "october", "november", "december"
+		);
+		$wgPageFormsContLangMonths = array( '' );
+		foreach ( $monthMessages as $monthMsg ) {
+			$wgPageFormsContLangMonths[] = wfMessage( $monthMsg )->inContentLanguage()->text();
+		}
+	}
+
 	/**
 	 * Parse the form definition and return it
 	 * @param Parser $parser
