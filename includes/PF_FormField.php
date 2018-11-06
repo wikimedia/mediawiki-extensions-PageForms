@@ -599,7 +599,7 @@ class PFFormField {
 				'_pageName="' . $value . '"'
 			);
 			if ( count( $vals ) > 0 ) {
-				$labels[$value] = trim( $vals[0] );
+				$labels[$value] = html_entity_decode( trim( $vals[0] ) );
 			}
 		}
 		$this->mPossibleValues = PFValuesUtils::disambiguateLabels( $labels );
