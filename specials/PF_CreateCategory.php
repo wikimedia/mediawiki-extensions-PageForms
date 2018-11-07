@@ -85,7 +85,7 @@ class PFCreateCategory extends SpecialPage {
 		$text = "\t" . '<form action="" method="post">' . "\n";
 		$firstRow = '';
 		if ( is_null( $presetCategoryName ) ) {
-			$text .= "\t" . Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
+			$text .= "\t" . Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$firstRow .= wfMessage( 'pf_createcategory_name' )->escaped() . ' ' .
 				Html::input( 'category_name', null, 'text',
 					array( 'size' => 25 ) ) . "\n";

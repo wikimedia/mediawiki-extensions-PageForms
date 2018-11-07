@@ -120,7 +120,7 @@ END;
 		$text .= "\n<p>";
 		// set 'title' as hidden field, in case there's no URL niceness
 		if ( $presetPropertyName === '' ) {
-			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
+			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$text .= "$name_label\n";
 			$text .= Html::input( 'property_name', '', array( 'size' => 25 ) );
 			$text .= Html::element( 'span', array( 'style' => "color: red;" ), $property_name_error_str );

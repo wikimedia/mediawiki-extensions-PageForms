@@ -255,7 +255,7 @@ END;
 		$text .= '	<form id="createTemplateForm" action="" method="post">' . "\n";
 		if ( is_null( $presetTemplateName ) ) {
 			// Set 'title' field, in case there's no URL niceness.
-			$text .= Html::hidden( 'title', $this->getTitle()->getPrefixedText() ) . "\n";
+			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$text .= "\t<p id=\"template_name_p\">" .
 				wfMessage( 'pf_createtemplate_namelabel' )->escaped() .
 				' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
