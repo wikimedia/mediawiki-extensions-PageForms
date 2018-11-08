@@ -229,6 +229,9 @@
 		},
 
 		editTemplate: function(value) {
+			if ( value === undefined ) {
+				value = '';
+			}
 			var autocompletedatatype = "";
 			if ( this.autocompletedatatype !== undefined ) {
 				autocompletedatatype = 'autocompletedatatype="' + this.autocompletedatatype + '"';
@@ -275,6 +278,9 @@
 		},
 
 		editTemplate: function(value) {
+			if ( value === undefined ) {
+				value = '';
+			}
 			var autocompletedatatype = "";
 			if ( this.autocompletedatatype !== undefined ) {
 				autocompletedatatype = 'autocompletedatatype="' + this.autocompletedatatype + '"';
