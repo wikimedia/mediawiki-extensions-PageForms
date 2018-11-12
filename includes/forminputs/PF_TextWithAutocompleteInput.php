@@ -196,7 +196,14 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		if ( array_key_exists( 'placeholder', $other_args ) ) {
 			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
-		$text = "\n\t" . Html::input( $input_name, $cur_value, 'text', $inputAttrs ) . "\n";
+
+		// The input value passed in to Html::input() cannot be an array.
+		if ( is_array( $cur_value ) ) {
+			$curValueStr = implode( $delimiter . ' ', $cur_value );
+		} else {
+			$curValueStr = $cur_value;
+		}
+		$text = "\n\t" . Html::input( $input_name, $curValueStr, 'text', $inputAttrs ) . "\n";
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {
