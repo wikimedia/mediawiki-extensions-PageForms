@@ -1685,6 +1685,9 @@ $(document).ready( function() {
 	$('#pfForm').submit( function() {
 		return validateAll();
 	} );
+
+	// We are all done - remove the loading spinner.
+	$('.loadingImage').remove();
 });
 
 /**

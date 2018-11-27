@@ -690,6 +690,17 @@ END;
 		return '';
 	}
 
+	static function displayLoadingImage() {
+		global $wgPageFormsScriptPath;
+
+		$loadingBGImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loadingbg.png" ) );
+		$text = '<div style="position: fixed; left: 50%; top: 50%;">' . $loadingBGImage . '</div>';
+		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
+		$text .= '<div style="position: fixed; left: 50%; top: 50%; padding: 48px;">' . $loadingImage . '</div>';
+
+		return Html::rawElement( 'span', array( 'class' => 'loadingImage' ), $text );
+	}
+
 	/**
 	 * This function is the real heart of the entire Page Forms
 	 * extension. It handles two main actions: (1) displaying a form on the
@@ -808,7 +819,10 @@ END;
 			$userCanEditPage = count( $permissionErrors ) == 0;
 			Hooks::run( 'PageForms::UserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
 		}
-		$form_text = "";
+
+		// Start off with a loading spinner - this will be removed by
+		// the JavaScript once everything has finished loading.
+		$form_text = self::displayLoadingImage();
 		if ( $is_query || $userCanEditPage ) {
 			$form_is_disabled = false;
 			// Show "Your IP address will be recorded" warning if
