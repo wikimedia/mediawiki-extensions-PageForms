@@ -97,10 +97,10 @@ class PFFormLinker {
 			return true;
 		}
 
-		global $wgPageFormsLinkAllRedLinksToForms;
-		// Don't do this if it's a category page - it probably
-		// won't have an associated form.
-		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
+		global $wgPageFormsLinkAllRedLinksToForms, $wgContentNamespaces;
+		// We'll do this only for "content namespaces" (by default, just
+		// the main namespace, though others can be added).
+		if ( $wgPageFormsLinkAllRedLinksToForms && in_array( $target->getNamespace(), $wgContentNamespaces ) ) {
 			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}
