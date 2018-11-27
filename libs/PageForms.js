@@ -1139,6 +1139,50 @@ window.validateAll = function () {
 	return (num_errors === 0);
 };
 
+/**
+ * Minimize all instances if the total height of all the instances
+ * is over 800 pixels - to allow for easier navigation and sorting.
+ */
+$.fn.possiblyMinimizeAllOpenInstances = function() {
+	if ( ! this.hasClass( 'minimizeAll' ) ) {
+		return;
+	}
+	this.find('.multipleTemplateInstance').not('.minimized').each( function() {
+		var instance = $(this);
+		instance.addClass('minimized');
+		var valuesStr = '';
+		instance.find( "input[type != 'hidden'], select, textarea" ).each( function() {
+			var curVal = $(this).val();
+			if ( typeof curVal !== 'string' || curVal === '' ) {
+				return;
+			}
+			var inputType = $(this).attr('type');
+			if ( inputType === 'checkbox' || inputType === 'radio' ) {
+				if ( ! $(this).is(':checked') ) {
+					return;
+				}
+			}
+			if ( curVal.length > 70 ) {
+				curVal = curVal.substring(0, 70) + "...";
+			}
+			if ( valuesStr !== '' ) {
+				valuesStr += ' &middot; ';
+			}
+			valuesStr += curVal;
+		});
+		if ( valuesStr === '' ) {
+			valuesStr = '<em>No data</em>';
+		}
+		instance.attr('data-instance-height', instance.height());
+		instance.find('.instanceMain').fadeOut( "medium", function() {
+			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
+			instance.animate({
+				height: '30px'
+			});
+		});
+	});
+};
+
 var num_elements = 0;
 
 /**
@@ -1689,50 +1733,6 @@ $(document).ready( function() {
 	// We are all done - remove the loading spinner.
 	$('.loadingImage').remove();
 });
-
-/**
- * Minimize all instances if the total height of all the instances
- * is over 800 pixels - to allow for easier navigation and sorting.
- */
-$.fn.possiblyMinimizeAllOpenInstances = function() {
-	if ( ! this.hasClass( 'minimizeAll' ) ) {
-		return;
-	}
-	this.find('.multipleTemplateInstance').not('.minimized').each( function() {
-		var instance = $(this);
-		instance.addClass('minimized');
-		var valuesStr = '';
-		instance.find( "input[type != 'hidden'], select, textarea" ).each( function() {
-			var curVal = $(this).val();
-			if ( typeof curVal !== 'string' || curVal === '' ) {
-				return;
-			}
-			var inputType = $(this).attr('type');
-			if ( inputType === 'checkbox' || inputType === 'radio' ) {
-				if ( ! $(this).is(':checked') ) {
-					return;
-				}
-			}
-			if ( curVal.length > 70 ) {
-				curVal = curVal.substring(0, 70) + "...";
-			}
-			if ( valuesStr !== '' ) {
-				valuesStr += ' &middot; ';
-			}
-			valuesStr += curVal;
-		});
-		if ( valuesStr === '' ) {
-			valuesStr = '<em>No data</em>';
-		}
-		instance.attr('data-instance-height', instance.height());
-		instance.find('.instanceMain').fadeOut( "medium", function() {
-			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
-			instance.animate({
-				height: '30px'
-			});
-		});
-	});
-};
 
 /**
  * This for some reason needs to be called twice when the jQuery UI sortable()
