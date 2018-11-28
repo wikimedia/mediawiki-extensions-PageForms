@@ -110,7 +110,9 @@ class PFAutoeditAPI extends ApiBase {
 
 		try {
 			$this->doAction();
-		} catch ( MWException $e ) {
+		} catch ( Exception $e ) {
+			// This has to be Exception, not MWException, due to
+			// DateTime errors and possibly others.
 			$this->logMessage( $e->getMessage(), $e->getCode() );
 		}
 
