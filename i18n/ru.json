@@ -22,7 +22,8 @@
 			"Redredsonia",
 			"Vlad5250",
 			"Shaleych",
-			"Alex Mashin"
+			"Alex Mashin",
+			"NBS"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
@@ -255,7 +256,7 @@
 	"right-viewedittab": "Отображение вкладки «{{int:edit}}» для страниц, редактируемых при помощи формы",
 	"right-editrestrictedfields": "Правка защищённых полей формы",
 	"right-createclass": "создание новых семантических классов",
-	"right-multipageedit": "редактирование нескольких страниц с использованием электронной таблицы",
+	"right-multipageedit": "Редактирование нескольких страниц с использованием электронной таблицы",
 	"action-createclass": "создать новый семантический класс",
 	"action-editrestrictedfields": "правка защищённых полей формы",
 	"action-viewedittab": "доступ к вкладке «{{int:edit}}» для страниц, редактируемых при помощи формы",

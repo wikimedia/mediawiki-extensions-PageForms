@@ -11,7 +11,8 @@
 			"Silvonen",
 			"Str4nd",
 			"Stryn",
-			"ZeiP"
+			"ZeiP",
+			"Valtlait"
 		]
 	},
 	"pageforms-desc": "Semanttisen tiedon syöttö- ja muokkauslomakkeet",
@@ -52,7 +53,7 @@
 	"pf_forms_docu": "Tässä wikissä on seuraavat lomakkeet:",
 	"pf_forminputs_mandatory": "Pakollinen",
 	"pf_forminputs_restricted": "Vain ylläpitäjät voivat muokata tätä",
-	"pf_forminputs_class": "Tämän syötteen HTML-attribuutti \"class\"",
+	"pf_forminputs_class": "Tämän syötteen HTML-attribuutti ”class”",
 	"pf_forminputs_default": "Tämän syötteen oletusarvo",
 	"pf_forminputs_preload": "Wikisivu, jonka sisällöstä tulee tämän syötteen oletusarvo",
 	"pf_forminputs_property": "Semanttinen ominaisuus, jota tämä kenttä vastaa",
@@ -73,7 +74,7 @@
 	"pf_forminputs_list": "Merkitse tämä kentäksi, jolla on arvoluettelo",
 	"pf_forminputs_delimiter": "Kentän arvojen erotin, jos kentällä on arvoluettelo",
 	"pf_forminputs_existingvaluesonly": "Salli vain luettelossa olevat arvot",
-	"pf_forminputs_showonselect": "Sivun elementit, jotka näytetään vain, jos jokin tietty arvo on valittu (esim.: \"arvo1=>div1;arvo2=>div2\")",
+	"pf_forminputs_showonselect": "Sivun elementit, jotka näytetään vain, jos jokin tietty arvo on valittu (esim.: ”arvo1=>div1;arvo2=>div2”)",
 	"pf_forminputs_listboxsize": "Luetteloruudun korkeus riveinä",
 	"pf_forminputs_includetimezone": "Lisää aikavyöhykekenttä",
 	"pf_forminputs_topcategory": "Tämän luokkajoukon ylätason luokka (pakollinen)",
@@ -143,7 +144,7 @@
 	"pf_formedit_emptytitle": "Virhe: Syötetyt tiedot aiheuttavat tyhjän sivun otsikon.",
 	"pf_formedit_hookerror": "Virhe: MediaWiki-laajennus esti kohdesivun muokkauksen.",
 	"pf_formedit_saveandcontinueediting": "Tallenna ja jatka",
-	"pf_formedit_saveandcontinue_summary": "Tallennettu lomakkeen \"$1\" -painikkeen avulla",
+	"pf_formedit_saveandcontinue_summary": "Tallennettu lomakkeen ”$1”-painikkeen avulla",
 	"pf_formedit_tooltip_saveandcontinueediting": "Tallenna tiedot ja jatka muokkaamista",
 	"pf_autoedit_anoneditwarning": "Varoitus: Et ole kirjautunut sisään. IP-osoitteesi kirjataan tämän sivun muokkaushistoriaan.",
 	"pf_autoedit_success": "[[$1]]: muokkaus lomakkeen $2 avulla onnistui.",
