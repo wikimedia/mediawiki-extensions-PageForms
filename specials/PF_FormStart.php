@@ -14,9 +14,6 @@
  */
 class PFFormStart extends SpecialPage {
 
-	/**
-	 * Constructor
-	 */
 	function __construct() {
 		parent::__construct( 'FormStart' );
 	}

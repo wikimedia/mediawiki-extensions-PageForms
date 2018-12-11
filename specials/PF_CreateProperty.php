@@ -13,9 +13,6 @@
  */
 class PFCreateProperty extends SpecialPage {
 
-	/**
-	 * Constructor
-	 */
 	function __construct() {
 		parent::__construct( 'CreateProperty' );
 	}

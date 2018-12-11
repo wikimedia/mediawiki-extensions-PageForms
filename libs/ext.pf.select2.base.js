@@ -23,9 +23,6 @@
 	pf.select2 = pf.select2 || {};
 
 	/**
-	 * Class constructor
-	 *
-	 *
 	 * @class
 	 * @constructor
 	 */

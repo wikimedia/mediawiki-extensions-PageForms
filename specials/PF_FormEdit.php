@@ -17,9 +17,6 @@ class PFFormEdit extends UnlistedSpecialPage {
 	public $mForm;
 	public $mError;
 
-	/**
-	 * Constructor
-	 */
 	function __construct() {
 		parent::__construct( 'FormEdit' );
 	}

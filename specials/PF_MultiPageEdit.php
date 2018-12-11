@@ -17,9 +17,6 @@ class PFMultiPageEdit extends SpecialPage {
 	public $mTemplate;
 	public $mForm;
 
-	/**
-	 * Constructor
-	 */
 	function __construct() {
 		parent::__construct( 'MultiPageEdit', 'multipageedit' );
 	}

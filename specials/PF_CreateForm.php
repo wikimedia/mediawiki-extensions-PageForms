@@ -13,9 +13,6 @@
  */
 class PFCreateForm extends SpecialPage {
 
-	/**
-	 * Constructor
-	 */
 	function __construct() {
 		parent::__construct( 'CreateForm' );
 	}

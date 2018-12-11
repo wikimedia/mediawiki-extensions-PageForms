@@ -12,9 +12,6 @@
  */
 class PFRunQuery extends IncludableSpecialPage {
 
-	/**
-	 * Constructor
-	 */
 	function __construct() {
 		parent::__construct( 'RunQuery' );
 	}
