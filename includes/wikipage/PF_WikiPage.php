@@ -29,7 +29,7 @@ class PFWikiPage {
 	function addTemplateParam( $templateName, $instanceNum, $paramName, $value ) {
 		$curInstance = 0;
 		foreach ( $this->mComponents as $i => $component ) {
-			if ( get_class( $component ) == 'PFWikiPageTemplate' && $component->getName() == $templateName ) {
+			if ( $component instanceof PFWikiPageTemplate && $component->getName() == $templateName ) {
 				if ( $curInstance++ == $instanceNum ) {
 					$this->mComponents[$i]->addParam( $paramName, $value );
 					return;
@@ -57,7 +57,7 @@ class PFWikiPage {
 
 	function setFreeText( $text ) {
 		foreach ( $this->mComponents as $i => $component ) {
-			if ( get_class( $component ) == 'PFWikiPageFreeText' ) {
+			if ( $component instanceof PFWikiPageFreeText ) {
 				$this->mComponents[$i]->setText( $text );
 				return;
 			}
@@ -81,7 +81,7 @@ class PFWikiPage {
 		foreach ( $this->mEmbeddedTemplateDefs as $etd ) {
 			$embeddedTemplateName = $etd[2];
 			foreach ( $this->mComponents as $component ) {
-				if ( get_class( $component ) == 'PFWikiPageTemplate' ) {
+				if ( $component instanceof PFWikiPageTemplate ) {
 					if ( $embeddedTemplateName == $component->getName() ) {
 						if ( !array_key_exists( $embeddedTemplateName, $this->mEmbeddedTemplateCalls ) ) {
 							$this->mEmbeddedTemplateCalls[$embeddedTemplateName] = array();
@@ -146,7 +146,7 @@ class PFWikiPage {
 	function createTemplateCallsForTemplateName( $templateName ) {
 		$text = '';
 		foreach ( $this->mComponents as $component ) {
-			if ( get_class( $component ) == 'PFWikiPageTemplate' ) {
+			if ( $component instanceof PFWikiPageTemplate ) {
 				if ( $component->getName() == $templateName ) {
 					$text .= $this->createTemplateCall( $component ) . "\n";
 				}
@@ -163,11 +163,11 @@ class PFWikiPage {
 		// Now create the text.
 		$pageText = '';
 		foreach ( $this->mComponents as $component ) {
-			if ( get_class( $component ) == 'PFWikiPageTemplate' ) {
+			if ( $component instanceof PFWikiPageTemplate ) {
 				if ( !array_key_exists( $component->getName(), $this->mEmbeddedTemplateCalls ) ) {
 					$pageText .= $this->createTemplateCall( $component ) . "\n";
 				}
-			} elseif ( get_class( $component ) == 'PFWikiPageSection' ) {
+			} elseif ( $component instanceof PFWikiPageSection ) {
 				if ( $component->getText() !== "" || $component->isHideIfEmpty() === false ) {
 					$sectionName = $component->getHeader();
 					for ( $i = 0; $i < $component->getHeaderLevel(); $i++ ) {
@@ -179,7 +179,7 @@ class PFWikiPage {
 					}
 					$pageText .= "\n";
 				}
-			} elseif ( get_class( $component ) == 'PFWikiPageFreeText' ) {
+			} elseif ( $component instanceof PFWikiPageFreeText ) {
 				$freeText = $component->getText();
 				if ( $this->mFreeTextOnlyInclude ) {
 					$freeText = "<onlyinclude>$freeText</onlyinclude>";
