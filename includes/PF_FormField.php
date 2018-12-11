@@ -13,6 +13,10 @@
  * @ingroup PF
  */
 class PFFormField {
+
+	/**
+	 * @var PFTemplateField
+	 */
 	public $template_field;
 	private $mInputType;
 	private $mIsMandatory;
@@ -53,10 +57,16 @@ class PFFormField {
 		return $f;
 	}
 
+	/**
+	 * @return PFTemplateField
+	 */
 	public function getTemplateField() {
 		return $this->template_field;
 	}
 
+	/**
+	 * @param PFTemplateField $templateField
+	 */
 	public function setTemplateField( $templateField ) {
 		$this->template_field = $templateField;
 	}

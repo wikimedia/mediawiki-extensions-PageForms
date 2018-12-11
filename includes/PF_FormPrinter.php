@@ -89,7 +89,7 @@ class PFFormPrinter {
 	/**
 	 * Register all information about the passed-in form input class.
 	 *
-	 * @param Class $inputTypeClass The class representing the new input.
+	 * @param string $inputTypeClass The full qualified class name representing the new input.
 	 * Must be derived from PFFormInput.
 	 */
 	public function registerInputType( $inputTypeClass ) {
