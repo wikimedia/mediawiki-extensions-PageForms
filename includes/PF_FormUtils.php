@@ -408,7 +408,8 @@ END;
 		// the Parser strip state because the Parser would during parsing replace all strip items and then
 		// mangle them into HTML code. So we have to use our own. Which means we also can not just use
 		// Parser::insertStripItem() (see below).
-		$rnd = wfRandomString( 32 );
+		// Also include a quotation mark, to help avoid security leaks.
+		$rnd = wfRandomString( 16 ) . '"' . wfRandomString( 15 );
 
 		// This regexp will find any PF triple braced tags (including correct handling of contained braces), i.e.
 		// {{{field|foo|default={{Bar}}}}} is not a problem. When used with preg_match and friends, $matches[0] will

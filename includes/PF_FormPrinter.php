@@ -288,7 +288,7 @@ class PFFormPrinter {
 	}
 
 	static function makePlaceholderInFormHTML( $str ) {
-		return '@insertHTML_' . $str . '@';
+		return '@insert"HTML_' . $str . '@';
 	}
 
 	function multipleTemplateStartHTML( $tif ) {

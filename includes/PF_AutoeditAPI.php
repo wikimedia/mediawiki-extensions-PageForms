@@ -113,7 +113,8 @@ class PFAutoeditAPI extends ApiBase {
 		} catch ( Exception $e ) {
 			// This has to be Exception, not MWException, due to
 			// DateTime errors and possibly others.
-			$this->logMessage( $e->getMessage(), $e->getCode() );
+			global $wgParser;
+			$this->logMessage( $wgParser->recursiveTagParseFully( $e->getMessage() ), $e->getCode() );
 		}
 
 		$this->finalizeResults();
