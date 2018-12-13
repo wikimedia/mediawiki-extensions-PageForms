@@ -9,8 +9,10 @@
 		input.hide();
 		if ( input.val() !== '' ) {
 			_this.val( mw.message( 'pf_forminputs_change_file' ).text() );
-			$('<img class="simpleupload_prv" src="' +
-				mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( input.val() ) + '?width=100') +'">').insertAfter(input);
+			var previewURL = mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( input.val() ) );
+			previewURL += ( previewURL.indexOf('?') < 0 ) ? '?' : '&';
+			previewURL += 'width=100';
+			$('<img class="simpleupload_prv" src="' + previewURL + '">').insertAfter(input);
 			_this.parent().find('.simpleupload_rmv_btn').show();
 		}
 	});
