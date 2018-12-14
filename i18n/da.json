@@ -2,14 +2,45 @@
 	"@metadata": {
 		"authors": [
 			"Jon Harald Søby",
-			"Christian List"
+			"Christian List",
+			"Saederup92"
 		]
 	},
+	"createproperty": "Opret en egenskab",
+	"pf-createproperty-with-name": "Opret egenskab: $1",
 	"pf_createproperty_propname": "Egenskabsnavn:",
+	"pf_createproperty_proptype": "Type:",
+	"templates": "Skabeloner",
+	"createtemplate": "Opret en skabelon",
+	"pf_createtemplate_namelabel": "Skabelonnavn:",
 	"pf_createtemplate_standardformat": "Tabel",
 	"pf_createtemplate_deletefield": "Slet",
+	"pf_forminputs_checkboxes_select_all": "Vælg alle",
+	"pf_forminputs_checkboxes_select_none": "Vælg ingen",
 	"pf_createform_template": "Skabelon:",
 	"pf_createform_inputtypedefault": "(standard)",
+	"pf_createform_hidden": "Skjult",
+	"pf_createform_removetemplate": "Fjern skabelon",
+	"pf_createform_addtemplate": "Tilføj skabelon:",
+	"pf_createform_atend": "Ved slutningen",
+	"pf_createform_add": "Tilføj",
+	"pf_createform_before": "Før:",
+	"pf_createform_addelements": "Tilføj elementer",
+	"pf_createform_otherparameters": "Andre parametre",
+	"createcategory": "Opret en kategori",
+	"pf-createcategory-with-name": "Opret kategori: $1",
 	"pf_createcategory_name": "Kategorinavn:",
-	"pf_formedit_none": "Ingen"
+	"createclass": "Opret en klasse",
+	"pf_createclass_create": "Opret",
+	"pf_editsource": "Rediger kilde",
+	"pf_formedit_none": "Ingen",
+	"pf_autoedit_redlinkexists": "$1 findes allerede.",
+	"pf-autoedit-wait": "Vent...",
+	"pf-select2-searching": "Søger...",
+	"pf-adminlinks-datastructure": "Datastruktur",
+	"pf-datepicker-close": "Luk",
+	"pf-datepicker-prev": "Forrige",
+	"pf-datepicker-next": "Næste",
+	"pf-datepicker-today": "I dag",
+	"pf-regexp-wrongformat": "Forkert format."
 }
