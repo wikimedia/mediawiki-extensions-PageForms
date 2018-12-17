@@ -17,7 +17,11 @@ class PFDateInput extends PFFormInput {
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array( 'Date' => array() );
+		return array(
+			'Date' => array(),
+			'Start date' => array(),
+			'End date' => array()
+		);
 	}
 
 	public static function monthDropdownHTML( $cur_month, $input_name, $is_disabled ) {
