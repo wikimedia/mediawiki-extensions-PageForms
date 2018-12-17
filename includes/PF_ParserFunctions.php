@@ -164,14 +164,10 @@ class PFParserFunctions {
 		$curTitle = $parser->getTitle();
 
 		$params = func_get_args();
-		array_shift( $params );
-
-		// Parameters
-		if ( count( $params ) == 0 ) {
-			// Escape!
+		if ( !isset( $params[1] ) ) {
 			return true;
 		}
-		$defaultForm = $params[0];
+		$defaultForm = $params[1];
 
 		$parserOutput = $parser->getOutput();
 		$parserOutput->setProperty( 'PFDefaultForm', $defaultForm );
