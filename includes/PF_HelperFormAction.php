@@ -113,8 +113,8 @@ class PFHelperFormAction extends Action {
 		array_splice( $tab_keys, $edit_tab_location, 0, 'formedit' );
 		array_splice( $tab_values, $edit_tab_location, 0, array( $form_create_tab ) );
 		$content_actions = array();
-		for ( $i = 0; $i < count( $tab_keys ); $i++ ) {
-			$content_actions[$tab_keys[$i]] = $tab_values[$i];
+		foreach ( $tab_keys as $i => $key ) {
+			$content_actions[$key] = $tab_values[$i];
 		}
 
 		if ( ! $obj->getUser()->isAllowed( 'viewedittab' ) ) {
