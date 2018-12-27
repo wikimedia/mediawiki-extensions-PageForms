@@ -1612,7 +1612,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find('.autoGrow').autoGrow();
 		this.find(".pfRating").applyRatingInput();
 		this.find(".pfTreeInput").each( function() {
-			$(this).applyDynatree();
+			$(this).applyFancytree();
 		});
 	} else {
 		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
@@ -1620,7 +1620,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
 		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").applyRatingInput();
 		this.find(".pfTreeInput").not(".multipleTemplateWrapper .pfTreeInput").each( function() {
-			$(this).applyDynatree();
+			$(this).applyFancytree();
 		});
 	}
 

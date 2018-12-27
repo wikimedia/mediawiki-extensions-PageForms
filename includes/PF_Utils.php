@@ -250,7 +250,7 @@ END;
 			// templates makes that tricky (every form input needs
 			// to re-apply the JS on a new instance) - it can be
 			// done via JS hooks, but it hasn't been done yet.
-			'ext.pageforms.dynatree',
+			'ext.pageforms.fancytree',
 			'ext.pageforms.imagepreview',
 			'ext.pageforms.autogrow',
 			'ext.pageforms.checkboxes',

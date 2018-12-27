@@ -1,78 +1,78 @@
 /**
- * Defines the applyDynatree() function, which turns an HTML "tree" of
+ * Defines the applyFancytree() function, which turns an HTML "tree" of
  * checkboxes or radiobuttons into a dynamic and collapsible tree of options
- * using the Dynatree JS library.
+ * using the Fancytree JS library.
  *
  * @author Mathias Lidal
  * @author Yaron Koren
+ * @author Priyanshu Varshney
  */
 
 ( function( $, mw, pf ) {
 	'use strict';
 
-	// Attach the Dynatree widget to an existing <div id="tree"> element
-	// and pass the tree options as an argument to the dynatree() function.
-	jQuery.fn.applyDynatree = function() {
+	// Attach the Fancytree widget to an existing <div id="tree"> element
+	// and pass the tree options as an argument to the fancytree() function.
+	jQuery.fn.applyFancytree = function() {
 		var node = this;
 		var selectMode = 2;
-		var checkboxClass = "dynatree-checkbox";
+		var checkboxClass = "fancytree-checkbox";
 		if (node.find(":input:radio").length) {
 			selectMode = 1;
-			checkboxClass = "dynatree-radio";
+			checkboxClass = "fancytree-radio";
 		}
 
-		// @HACK - normally, the "classNames" parameter for the
-		// dynatree() call only requires *changes* to the default set
-		// of class names. However, for trees contained in multiple-
-		// instance templates, the default classNames array is just
-		// blank. So we need to add the "selected" value in here,
-		// because that gets used later on. Ideally, the underlying
-		// bug causing the big blank value would be fixed instead.
 		var newClassNames = {
 			checkbox: checkboxClass,
-			selected: "dynatree-selected"
+			selected: "fancytree-selected"
 		};
 
-		node.dynatree({
+		node.fancytree({
 			checkbox: true,
-			minExpandLevel: 1,
-			classNames: newClassNames,
+			minExpandLevel: 5,
+			_classNames: newClassNames,
 			selectMode: selectMode,
-			onClick: function (dtNode, event) {
-				var targetType = dtNode.getEventTargetType(event);
+			// click event allows user to de/select the checkbox
+			// by just selecting the title
+			click: function(event, data) {
+				var node = data.node,
+				// Only for click and dblclick events
+				// 'title' | 'prefix' | 'expander' | 'checkbox' | 'icon'
+				targetType = data.targetType;
 				if ( targetType === "expander" ) {
-					dtNode.toggleExpand();
+				data.node.toggleExpanded();
 				} else if ( targetType === "checkbox" ||
-					   targetType === "title" ) {
-					dtNode.toggleSelect();
+					targetType === "title" ) {
+					data.node.toggleSelected();
 				}
-
 				return false;
 			},
 
 			// Un/check checkboxes/radiobuttons recursively after
 			// selection.
-			onSelect: function (select, dtNode) {
-				var inputkey = "chb-" + dtNode.data.key;
-				node.find("[id='" + inputkey + "']").attr("checked", select);
+			select: function (event, data) {
+				var inputkey = "chb-" + data.node.key;
+				var checkBoxes =  node.find("[id='" + inputkey + "']");
+				checkBoxes.attr("checked", !checkBoxes.attr("checked"));
 			},
 			// Prevent reappearing of checkbox when node is
 			// collapsed.
-			onExpand: function (select, dtNode) {
-				$("#chb-" + dtNode.data.key).attr("checked",
-					dtNode.isSelected()).addClass("hidden");
-			}
+			expand: function(select, data) {
+				$("#chb-" + data.node.key).attr("checked",
+					data.node.isSelected()).addClass("hidden");
+			},
+
 		});
 
 		// Update real checkboxes according to selections.
-		$.map(node.dynatree("getTree").getSelectedNodes(),
-			function (dtNode) {
-				$("#chb-" + dtNode.data.key).attr("checked", true);
-				dtNode.activate();
+		$.map(node.fancytree("getTree").getSelectedNodes(),
+			function (data) {
+				$("#chb-" + data.node.key).attr("checked", true);
+				data.node.setActive();
 			});
-		var activeNode = node.dynatree("getTree").getActiveNode();
+		var activeNode = node.fancytree("getTree").getActiveNode();
 		if (activeNode !== null) {
-			activeNode.deactivate();
+			activeNode.setActive(false);
 		}
 
 	};

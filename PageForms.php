@@ -301,13 +301,17 @@ $GLOBALS['wgResourceModules'] += array(
 		'styles' => 'skins/FancyBox/jquery.fancybox.3.2.10.css',
 		'dependencies' => array( 'ext.pageforms.browser' ),
 	),
-	'ext.pageforms.dynatree' => $wgPageFormsResourceTemplate + array(
-		'dependencies' => array( 'jquery.ui.widget' ),
+	'ext.pageforms.fancytree.dep' => $wgPageFormsResourceTemplate + array(
+		'scripts' => 'libs/jquery.fancytree.ui-deps.js',
+		'styles' => 'skins/skin-win8/ui.fancytree.css',
+	),
+	'ext.pageforms.fancytree' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
-			'libs/jquery.dynatree.js',
+			'libs/jquery.fancytree.js',
 			'libs/PF_dynatree.js',
 		),
-		'styles' => 'skins/ui.dynatree.css',
+		'styles' => 'skins/skin-win8/ui.fancytree.css',
+		'dependencies' => array( 'ext.pageforms.fancytree.dep' ),
 	),
 	'ext.pageforms.autogrow' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_autogrow.js',

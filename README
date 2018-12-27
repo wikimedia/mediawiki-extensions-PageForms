@@ -68,8 +68,8 @@ Page Forms includes the following JavaScript libraries:
 * fancyBox, also known as fancyBox3 (https://fancyapps.com/fancybox/3/),
 distributed under the GPLv3 license.
 
-* Dynatree (https://github.com/mar10/dynatree) by Martin Wendt,
-distributed under both the MIT and GPL licenses.
+* Fancytree (https://github.com/mar10/fancytree) by Martin Wendt,
+distributed under the MIT license.
 
 * jsGrid (http://js-grid.com) by Artem Tabalin, distributed under
 the MIT license.

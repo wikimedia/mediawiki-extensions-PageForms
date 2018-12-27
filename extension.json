@@ -206,15 +206,23 @@
 				"ext.pageforms.browser"
 			]
 		},
-		"ext.pageforms.dynatree": {
-			"dependencies": [
-				"jquery.ui.widget"
-			],
+		"ext.pageforms.fancytree.dep": {
 			"scripts": [
-				"libs/jquery.dynatree.js",
+				"libs/jquery.fancytree.ui-deps.js"
+			],
+			"styles": "skins/skin-win8/ui.fancytree.css"
+
+		},
+
+		"ext.pageforms.fancytree": {
+			"scripts": [
+				"libs/jquery.fancytree.js",
 				"libs/PF_dynatree.js"
 			],
-			"styles": "skins/ui.dynatree.css"
+			"styles": "skins/skin-win8/ui.fancytree.css",
+			"dependencies": [
+				"ext.pageforms.fancytree.dep"
+			]
 		},
 		"ext.pageforms.autogrow": {
 			"scripts": [

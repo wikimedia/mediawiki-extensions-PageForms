@@ -14,9 +14,11 @@ module.exports = function ( grunt ) {
 				'!node_modules/**',
 				'!vendor/**',
 				'!libs/jquery.browser.js',
-				'!libs/jquery.dynatree.js',
+				'!libs/jquery.fancytree.js',
 				'!libs/FancyBox/jquery.fancybox.1.3.4.js',
 				'!libs/FancyBox/jquery.fancybox.3.2.10.js',
+				'!libs/jquery.fancytree.ui-deps.js',
+				'!libs/jquery.fancytree.js',
 				'!libs/jsgrid.js',
 				'!libs/select2.js',
 				'!libs/PF_maps.js'
