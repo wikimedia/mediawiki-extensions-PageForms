@@ -12,7 +12,8 @@
 			"Str4nd",
 			"Stryn",
 			"ZeiP",
-			"Valtlait"
+			"Valtlait",
+			"Pyscowicz"
 		]
 	},
 	"pageforms-desc": "Semanttisen tiedon syöttö- ja muokkauslomakkeet",
@@ -49,6 +50,8 @@
 	"pf_createtemplate_sectionsformat": "Osiot",
 	"pf_createtemplate_addfield": "Lisää kenttä",
 	"pf_createtemplate_deletefield": "Poista",
+	"multipageedit": "Muokkaa useita sivuja",
+	"pf_multipageedit_docu": "Valitse yksi seuraavista mallineista muokataksesi kaikkia sen sisältäviä sivuja. Uusia sivuja voidaan luoda myös käyttämällä valittua mallinetta.",
 	"forms": "Lomakkeet",
 	"pf_forms_docu": "Tässä wikissä on seuraavat lomakkeet:",
 	"pf_forminputs_mandatory": "Pakollinen",
@@ -104,7 +107,9 @@
 	"pf_createform_atend": "Lopussa",
 	"pf_createform_add": "Lisää",
 	"pf_createform_choosefield": "Valitse lisättävä kenttä",
+	"pf_createform_addsection": "Lisää osio",
 	"pf_createform_before": "Ennen mallinetta",
+	"pf_createform_addelements": "Lisää elementtejä",
 	"pf_createform_additembeforesave": "Sinun pitää lisätä ainakin yksi malline tähän lomakkeeseen, ennen kuin voit tallentaa sen.",
 	"createcategory": "Luo luokka",
 	"pf-createcategory-with-name": "Luo luokka: $1",
@@ -173,6 +178,7 @@
 	"pf_bad_number_error": "pitää olla kelvollinen numero",
 	"pf_bad_date_error": "pitää olla kelvollinen päiväys",
 	"uploadwindow": "Tallennusikkuna",
+	"pf-simpleupload": "Tallenna",
 	"pf_deletionlog": "Poistoloki",
 	"pf-preview-header": "Lomakkeen esikatselu",
 	"pf-preview-note": "Lomake näyttää tällaiselta, kun sitä käytetään:",
