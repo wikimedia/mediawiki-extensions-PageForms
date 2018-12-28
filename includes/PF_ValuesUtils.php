@@ -397,46 +397,62 @@ class PFValuesUtils {
 		return $pages;
 	}
 
-	public static function getAllPagesForNamespace( $namespace_name, $substring = null ) {
+	public static function getAllPagesForNamespace( $namespaceStr, $substring = null ) {
 		global $wgContLang, $wgLanguageCode, $wgPageFormsUseDisplayTitle;
 
-		// Cycle through all the namespace names for this language, and
-		// if one matches the namespace specified in the form, get the
-		// names of all the pages in that namespace.
+		$namespaceNames = explode( ',', $namespaceStr );
 
-		// Switch to blank for the string 'Main'.
-		if ( $namespace_name == 'Main' || $namespace_name == 'main' ) {
-			$namespace_name = '';
-		}
-		$matchingNamespaceCode = null;
-		$namespaces = $wgContLang->getNamespaces();
-		foreach ( $namespaces as $curNSCode => $curNSName ) {
-			if ( $curNSName == $namespace_name ) {
-				$matchingNamespaceCode = $curNSCode;
-			}
-		}
+		$allNamespaces = $wgContLang->getNamespaces();
 
-		// If that didn't find anything, and we're in a language
-		// other than English, check English as well.
-		if ( is_null( $matchingNamespaceCode ) && $wgLanguageCode != 'en' ) {
+		if ( $wgLanguageCode != 'en' ) {
 			$englishLang = Language::factory( 'en' );
-			$namespaces = $englishLang->getNamespaces();
-			foreach ( $namespaces as $curNSCode => $curNSName ) {
+			$allEnglishNamespaces = $englishLang->getNamespaces();
+		}
+
+		$namespaceConditions = array();
+
+		foreach ( $namespaceNames as $namespace_name ) {
+
+			// Cycle through all the namespace names for this language, and
+			// if one matches the namespace specified in the form, get the
+			// names of all the pages in that namespace.
+
+			// Switch to blank for the string 'Main'.
+			if ( $namespace_name == 'Main' || $namespace_name == 'main' ) {
+				$namespace_name = '';
+			}
+			$matchingNamespaceCode = null;
+			foreach ( $allNamespaces as $curNSCode => $curNSName ) {
 				if ( $curNSName == $namespace_name ) {
 					$matchingNamespaceCode = $curNSCode;
 				}
 			}
-		}
 
-		if ( is_null( $matchingNamespaceCode ) ) {
-			throw new MWException( wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) ) );
+			// If that didn't find anything, and we're in a language
+			// other than English, check English as well.
+			if ( is_null( $matchingNamespaceCode ) && $wgLanguageCode != 'en' ) {
+				foreach ( $allEnglishNamespaces as $curNSCode => $curNSName ) {
+					if ( $curNSName == $namespace_name ) {
+						$matchingNamespaceCode = $curNSCode;
+					}
+				}
+			}
+
+			if ( is_null( $matchingNamespaceCode ) ) {
+				throw new MWException( wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) ) );
+			}
+
+			$namespaceConditions[] = "page_namespace = $matchingNamespaceCode";
 		}
 
 		$db = wfGetDB( DB_SLAVE );
+		$conditions = array();
+		$conditions[] = implode( ' OR ', $namespaceConditions );
 		$tables = array( 'page' );
 		$columns = array( 'page_title' );
-		$conditions = array();
-		$conditions['page_namespace'] = $matchingNamespaceCode;
+		if ( count( $namespaceNames ) > 1 ) {
+			$columns[] = 'page_namespace';
+		}
 		if ( $wgPageFormsUseDisplayTitle ) {
 			$tables['pp_displaytitle'] = 'page_props';
 			$tables['pp_defaultsort'] = 'page_props';
@@ -474,7 +490,14 @@ class PFValuesUtils {
 		$pages = array();
 		$sortkeys = array();
 		while ( $row = $db->fetchRow( $res ) ) {
-			$title = str_replace( '_', ' ', $row[0] );
+			// If there's more than one namespace, include the
+			// namespace prefix in the results - otherwise, don't.
+			if ( array_key_exists( 'page_namespace', $row ) ) {
+				$actualTitle = Title::newFromText( $row['page_title'], $row['page_namespace'] );
+				$title = $actualTitle->getPrefixedText();
+			} else {
+				$title = str_replace( '_', ' ', $row['page_title'] );
+			}
 			if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 				!is_null( $row[ 'pp_displaytitle_value' ] ) &&
 				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
