@@ -1176,8 +1176,9 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		instance.attr('data-instance-height', instance.height());
 		instance.find('.instanceMain').fadeOut( "medium", function() {
 			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
+			var contentHeight = instance.find('.multipleTemplateInstanceTable').height();
 			instance.animate({
-				height: '30px'
+				height: contentHeight
 			});
 		});
 	});
@@ -1743,7 +1744,8 @@ $.fn.fullyMinimizeDuringSorting = function() {
 		return;
 	}
 	this.find('.multipleTemplateInstance.minimized').each( function() {
-		$(this).css('height', '30px');
+		var contentHeight = $(this).find('.multipleTemplateInstanceTable').height();
+		$(this).css('height', contentHeight);
 	});
 };
 
