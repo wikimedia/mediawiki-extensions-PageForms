@@ -292,19 +292,18 @@ class PFFormPrinter {
 	}
 
 	function multipleTemplateStartHTML( $tif ) {
-		$text = '';
 		// If placeholder is set, it means we want to insert a
 		// multiple template form's HTML into the main form's HTML.
 		// So, the HTML will be stored in $text.
-		$text .= "\t" . '<div class="multipleTemplateWrapper">' . "\n";
-		$text .= "\t" . '<div class="multipleTemplateList"';
+		$text = "\t" . '<div class="multipleTemplateWrapper">' . "\n";
+		$attrs = array( 'class' => 'multipleTemplateList' );
 		if ( !is_null( $tif->getMinInstancesAllowed() ) ) {
-			$text .= " minimumInstances=\"{$tif->getMinInstancesAllowed()}\"";
+			$attrs['minimumInstances'] = $tif->getMinInstancesAllowed();
 		}
 		if ( !is_null( $tif->getMaxInstancesAllowed() ) ) {
-			$text .= " maximumInstances=\"{$tif->getMaxInstancesAllowed()}\"";
+			$attrs['maximumInstances'] = $tif->getMaxInstancesAllowed();
 		}
-		$text .= ">\n";
+		$text .= "\t" . Html::openElement( 'div', $attrs ) . "\n";
 		return $text;
 	}
 
