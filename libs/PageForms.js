@@ -1151,7 +1151,7 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		var instance = $(this);
 		instance.addClass('minimized');
 		var valuesStr = '';
-		instance.find( "input[type != 'hidden'], select, textarea" ).each( function() {
+		instance.find( "input[type != 'hidden'][type != 'button'], select, textarea" ).each( function() {
 			var curVal = $(this).val();
 			if ( typeof curVal !== 'string' || curVal === '' ) {
 				return;
