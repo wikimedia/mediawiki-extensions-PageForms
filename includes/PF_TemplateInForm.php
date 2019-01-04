@@ -19,6 +19,12 @@ class PFTemplateInForm {
 	private $mEmbedInField;
 	private $mPlaceholder;
 	private $mHeight = '200px';
+	// Conceptually, it would make more sense to define and store this
+	// parameter per-field, rather than per-template. However, it's a lot
+	// easier to handle it in just one place, rather than in every form
+	// input class. Also, this allows, in theory, to set the order of the
+	// fields being displayed - though that's not being done yet.
+	private $mDisplayedFieldsWhenMinimized;
 
 	// These fields are for a specific usage of a form (or more
 	// specifically, a template in a form) to edit a particular page.
@@ -94,6 +100,8 @@ class PFTemplateInForm {
 					$tif->mDisplay = $sub_components[1];
 				} elseif ( $sub_components[0] == 'height' ) {
 					$tif->mHeight = $sub_components[1];
+				} elseif ( $sub_components[0] == 'displayed fields when minimized' ) {
+					$tif->mDisplayedFieldsWhenMinimized = $sub_components[1];
 				}
 			}
 		}
@@ -135,6 +143,10 @@ class PFTemplateInForm {
 
 	function getPlaceholder() {
 		return $this->mPlaceholder;
+	}
+
+	function getDisplayedFieldsWhenMinimized() {
+		return $this->mDisplayedFieldsWhenMinimized;
 	}
 
 	function allowsMultiple() {

@@ -54,7 +54,6 @@ $.fn.attachAutocomplete = function() {
 
 		if ( typeof field_string === 'undefined' ) {
 			return;
-
 		}
 
 		var field_values = field_string.split(',');
@@ -1147,11 +1146,34 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 	if ( ! this.hasClass( 'minimizeAll' ) ) {
 		return;
 	}
+
+	var displayedFieldsWhenMinimized = this.attr('data-displayed-fields-when-minimized');
+	var allDisplayedFields = null;
+	if ( displayedFieldsWhenMinimized ) {
+		allDisplayedFields = displayedFieldsWhenMinimized.split(',').map(function(item) {
+			return item.trim().toLowerCase();
+		});
+	}
+
 	this.find('.multipleTemplateInstance').not('.minimized').each( function() {
 		var instance = $(this);
 		instance.addClass('minimized');
 		var valuesStr = '';
 		instance.find( "input[type != 'hidden'][type != 'button'], select, textarea" ).each( function() {
+			// If the set of fields to be displayed was specified in
+			// the form definition, check against that list.
+			if ( allDisplayedFields !== null ) {
+				var fieldFullName = $(this).attr('name');
+				if ( !fieldFullName ) {
+					return;
+				}
+				var matches = fieldFullName.match(/.*\[.*\]\[(.*)\]/);
+				var fieldRealName = matches[1].toLowerCase();
+				if ( !allDisplayedFields.includes( fieldRealName ) ) {
+					return;
+				}
+			}
+
 			var curVal = $(this).val();
 			if ( typeof curVal !== 'string' || curVal === '' ) {
 				return;

@@ -303,6 +303,9 @@ class PFFormPrinter {
 		if ( !is_null( $tif->getMaxInstancesAllowed() ) ) {
 			$attrs['maximumInstances'] = $tif->getMaxInstancesAllowed();
 		}
+		if ( $tif->getDisplayedFieldsWhenMinimized() != null ) {
+			$attrs['data-displayed-fields-when-minimized'] = $tif->getDisplayedFieldsWhenMinimized();
+		}
 		$text .= "\t" . Html::openElement( 'div', $attrs ) . "\n";
 		return $text;
 	}
