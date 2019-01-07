@@ -3,6 +3,11 @@
 
 	jQuery.fn.applyRatingInput = function() {
 		var starWidth = $(this).attr('data-starwidth');
+		if ( starWidth === undefined ) {
+			// This is probably because we're in a multple-instance
+			// template "starter", but, in any case, just exit.
+			return;
+		}
 		var curValue = $(this).attr('data-curvalue');
 		var numStars = $(this).attr('data-numstars');
 		var allowsHalf = $(this).attr('data-allows-half');
