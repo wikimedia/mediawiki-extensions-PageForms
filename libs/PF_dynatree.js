@@ -52,6 +52,9 @@
 			// Un/check checkboxes/radiobuttons recursively after
 			// selection.
 			select: function (event, data) {
+				if ( data.node === undefined ) {
+					return;
+				}
 				var inputkey = "chb-" + data.node.key;
 				var checkBoxes =  node.find("[id='" + inputkey + "']");
 				checkBoxes.attr("checked", !checkBoxes.attr("checked"));
@@ -59,6 +62,9 @@
 			// Prevent reappearing of checkbox when node is
 			// collapsed.
 			expand: function(select, data) {
+				if ( data.node === undefined ) {
+					return;
+				}
 				$("#chb-" + data.node.key).attr("checked",
 					data.node.isSelected()).addClass("hidden");
 			},
@@ -68,6 +74,9 @@
 		// Update real checkboxes according to selections.
 		$.map(node.fancytree("getTree").getSelectedNodes(),
 			function (data) {
+				if ( data.node === undefined ) {
+					return;
+				}
 				$("#chb-" + data.node.key).attr("checked", true);
 				data.node.setActive();
 			});
