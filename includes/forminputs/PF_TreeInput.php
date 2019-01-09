@@ -139,7 +139,7 @@ class PFTreeInput extends PFFormInput {
 			array(
 				'class' => $class,
 				'id' => $input_name . 'treeinput',
-				'style' => 'height: ' . $height . 'px; width: ' . $width . 'px;'
+				'style' => 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;'
 			),
 			$inputText
 		);

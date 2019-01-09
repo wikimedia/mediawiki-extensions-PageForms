@@ -29,6 +29,7 @@
 
 		node.fancytree({
 			checkbox: true,
+			autoScroll: true,
 			minExpandLevel: 5,
 			_classNames: newClassNames,
 			selectMode: selectMode,
