@@ -9,6 +9,9 @@
 			return;
 		}
 		var curValue = $(this).attr('data-curvalue');
+		if ( curValue === '' || curValue === undefined ) {
+			curValue = 0;
+		}
 		var numStars = $(this).attr('data-numstars');
 		var allowsHalf = $(this).attr('data-allows-half');
 		var disabled = $(this).attr('disabled');
