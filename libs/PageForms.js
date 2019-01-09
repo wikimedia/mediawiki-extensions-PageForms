@@ -1816,6 +1816,15 @@ $('body').click( function(e) {
 		instance.animate({
 			height: contentHeight
 		});
+		// Now that the height has been set (and animated), get rid of
+		// the 'height' CSS style, so that changes to the height
+		// within the contents will cause the whole instance to get
+		// resized.
+		instance.removeProp('height');
+		// This shouldn't be necessary, but it seems to be, for MS
+		// Edge, because removeProp() doesn't work. (?) Thankfully,
+		// 'height' is the only style being set.
+		instance.removeAttr('style');
 	}
 });
 
