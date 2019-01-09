@@ -131,9 +131,9 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			// Autocompletion from URL is always done remotely.
 			$remoteDataType = $autocompleteFieldType;
 		} elseif ( $autocompletionSource !== '' ) {
-			// @TODO - that count() check shouldn't be necessary
+			// @TODO - that empty() check shouldn't be necessary
 			if ( array_key_exists( 'possible_values', $field_args ) &&
-				count( $field_args['possible_values'] ) > 0
+				!empty( $field_args['possible_values'] )
 			) {
 				$autocompleteValues = $field_args['possible_values'];
 			} elseif ( $autocompleteFieldType == 'values' ) {
