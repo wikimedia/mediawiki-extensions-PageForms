@@ -325,8 +325,12 @@ $.fn.PageForms_registerInputInit = function( initFunction, param, noexecute ) {
 	// and if not forbidden
 	if ( this.closest(".multipleTemplateStarter").length === 0 && !noexecute) {
 		var input = this;
-		// ensure initFunction is only exectued after doc structure is complete
-		$(function() {initFunction ( input.attr("id"), param );});
+		// ensure initFunction is only executed after doc structure is complete
+		$(function() {
+			if ( initFunction !== undefined )  {
+				initFunction ( input.attr("id"), param );
+			}
+		});
 	}
 
 	return this;
@@ -1365,6 +1369,9 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 						// for this input
 						for ( var i = 0; i < thatData.length; i++ ) {
 							var initFunction = thatData[i].initFunction;
+							if ( initFunction === undefined ) {
+								continue;
+							}
 							// If the code attempted to store
 							// this function before it was
 							// defined, only its name was stored.
