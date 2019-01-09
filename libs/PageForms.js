@@ -1195,7 +1195,6 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		if ( valuesStr === '' ) {
 			valuesStr = '<em>No data</em>';
 		}
-		instance.attr('data-instance-height', instance.height());
 		instance.find('.instanceMain').fadeOut( "medium", function() {
 			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
 			var contentHeight = instance.find('.multipleTemplateInstanceTable').height();
@@ -1804,11 +1803,11 @@ $('body').click( function(e) {
 		instancesList.possiblyMinimizeAllOpenInstances();
 		instance.removeClass('minimized');
 		instance.find('.fieldValuesDisplay').html('');
+		instance.find('.instanceMain').fadeIn();
+		instance.find('.fieldValuesDisplay').remove();
+		var contentHeight = instance.find('.multipleTemplateInstanceTable').height();
 		instance.animate({
-			height: instance.attr('data-instance-height')
-		}, 'medium', function() {
-			instance.find('.instanceMain').fadeIn();
-			instance.find('.fieldValuesDisplay').remove();
+			height: contentHeight
 		});
 	}
 });
