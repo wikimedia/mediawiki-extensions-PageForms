@@ -1201,10 +1201,6 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		}
 		instance.find('.instanceMain').fadeOut( "medium", function() {
 			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
-			var contentHeight = instance.find('.multipleTemplateInstanceTable').height();
-			instance.animate({
-				height: contentHeight
-			});
 		});
 	});
 };
@@ -1747,10 +1743,6 @@ $(document).ready( function() {
 		handle: '.instanceRearranger',
 		start: function() {
 			$(this).possiblyMinimizeAllOpenInstances();
-			$(this).fullyMinimizeDuringSorting();
-		},
-		stop: function() {
-			$(this).fullyMinimizeDuringSorting();
 		}
 	});
 
@@ -1762,20 +1754,6 @@ $(document).ready( function() {
 	// We are all done - remove the loading spinner.
 	$('.loadingImage').remove();
 });
-
-/**
- * This for some reason needs to be called twice when the jQuery UI sortable()
- * is being called, seemingly due to bugs in sortable().
- */
-$.fn.fullyMinimizeDuringSorting = function() {
-	if ( ! this.hasClass( 'minimizeAll' ) ) {
-		return;
-	}
-	this.find('.multipleTemplateInstance.minimized').each( function() {
-		var contentHeight = $(this).find('.multipleTemplateInstanceTable').height();
-		$(this).css('height', contentHeight);
-	});
-};
 
 // If some part of the screen is clicked, minimize any multiple-instance
 // template instances that need minimizing, and move the "focus" to the current
@@ -1812,19 +1790,6 @@ $('body').click( function(e) {
 		instance.find('.fieldValuesDisplay').html('');
 		instance.find('.instanceMain').fadeIn();
 		instance.find('.fieldValuesDisplay').remove();
-		var contentHeight = instance.find('.multipleTemplateInstanceTable').height();
-		instance.animate({
-			height: contentHeight
-		});
-		// Now that the height has been set (and animated), get rid of
-		// the 'height' CSS style, so that changes to the height
-		// within the contents will cause the whole instance to get
-		// resized.
-		instance.removeProp('height');
-		// This shouldn't be necessary, but it seems to be, for MS
-		// Edge, because removeProp() doesn't work. (?) Thankfully,
-		// 'height' is the only style being set.
-		instance.removeAttr('style');
 	}
 });
 
