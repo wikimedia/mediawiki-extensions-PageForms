@@ -214,6 +214,10 @@ div.otherForms {
 	border-radius: 3px;
 }
 
+.multipleTemplateInstance.sortable-chosen {
+	background-color: #b5b5b5;
+}
+
 .multipleTemplateInstance table {
 	width: 100%;
 	padding: 0;

@@ -10,7 +10,7 @@
  * @author Harold Solbrig
  * @author Eugene Mednikov
  */
-/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, mwTinyMCEInit, pf*/
+/*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, mwTinyMCEInit, pf, Sortable*/
 
 // Activate autocomplete functionality for the specified field
 ( function ( $, mw ) {
@@ -1738,12 +1738,14 @@ $(document).ready( function() {
 			$(this).possiblyMinimizeAllOpenInstances();
 		}
 	});
-	$('.multipleTemplateList').sortable({
-		axis: 'y',
-		handle: '.instanceRearranger',
-		start: function() {
-			$(this).possiblyMinimizeAllOpenInstances();
-		}
+	$('.multipleTemplateList').each( function() {
+		var list = $(this);
+		var sortable = Sortable.create(list[0], {
+			handle: '.instanceRearranger',
+			onStart: function (/**Event*/evt) {
+				list.possiblyMinimizeAllOpenInstances();
+			}
+		});
 	});
 
 	// If the form is submitted, validate everything!

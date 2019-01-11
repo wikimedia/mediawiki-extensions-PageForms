@@ -166,7 +166,7 @@
 			"dependencies": [
 				"jquery.ui.core",
 				"jquery.ui.autocomplete",
-				"jquery.ui.sortable",
+				"ext.pageforms.sortable",
 				"ext.pageforms.autogrow",
 				"mediawiki.util",
 				"mediawiki.api",
@@ -213,7 +213,6 @@
 			"styles": "skins/skin-win8/ui.fancytree.css"
 
 		},
-
 		"ext.pageforms.fancytree": {
 			"scripts": [
 				"libs/jquery.fancytree.js",
@@ -222,6 +221,11 @@
 			"styles": "skins/skin-win8/ui.fancytree.css",
 			"dependencies": [
 				"ext.pageforms.fancytree.dep"
+			]
+		},
+		"ext.pageforms.sortable": {
+			"scripts": [
+				"libs/Sortable.js"
 			]
 		},
 		"ext.pageforms.autogrow": {
@@ -337,6 +341,7 @@
 			],
 			"dependencies": [
 				"ext.pageforms",
+				"jquery.ui.sortable",
 				"mediawiki.jqueryMsg"
 			],
 			"messages": [
