@@ -18,8 +18,16 @@
 
 $.ui = $.ui || {};
 
-var version = $.ui.version = "1.12.1";
-
+// Page Forms change - definining jQuery.ui.version messes up
+// the loading of jQuery UI.
+// FYI: the first two "classes" defined here, widget and position,
+// could probably be removed and replaced with loads of
+// jquery.ui.widget and jquery.ui.position from core MediaWiki.
+// The others - keycode, scroll and unique - are not included
+// in core MediaWiki. They could be split off into separate
+// files here, though - especially if/when jQuery UI gets copied
+// into Page Forms.
+var version = /*$.ui.version =*/ "1.12.1";
 
 /*!
  * jQuery UI Widget 1.12.1
