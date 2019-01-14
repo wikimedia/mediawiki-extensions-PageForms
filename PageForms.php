@@ -308,7 +308,7 @@ $GLOBALS['wgResourceModules'] += array(
 	'ext.pageforms.fancytree' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/jquery.fancytree.js',
-			'libs/PF_dynatree.js',
+			'libs/PF_tree.js',
 		),
 		'styles' => 'skins/skin-win8/ui.fancytree.css',
 		'dependencies' => array( 'ext.pageforms.fancytree.dep' ),
