@@ -267,7 +267,7 @@ $GLOBALS['wgResourceModules'] += array(
 		'dependencies' => array(
 			'jquery.ui.core',
 			'jquery.ui.autocomplete',
-			'jquery.ui.sortable',
+			'ext.pageforms.sortable',
 			'ext.pageforms.autogrow',
 			'mediawiki.util',
 			"mediawiki.api",
@@ -312,6 +312,9 @@ $GLOBALS['wgResourceModules'] += array(
 		),
 		'styles' => 'skins/skin-win8/ui.fancytree.css',
 		'dependencies' => array( 'ext.pageforms.fancytree.dep' ),
+	),
+	"ext.pageforms.sortable" => $wgPageFormsResourceTemplate + array(
+		'scripts' => 'libs/Sortable.js'
 	),
 	'ext.pageforms.autogrow' => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/PF_autogrow.js',
@@ -410,6 +413,7 @@ $GLOBALS['wgResourceModules'] += array(
 		),
 		'dependencies' => array(
 			'ext.pageforms',
+			'jquery.ui.sortable',
 			'mediawiki.jqueryMsg',
 		),
 		'messages' => array(

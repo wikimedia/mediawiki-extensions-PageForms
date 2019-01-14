@@ -21,6 +21,7 @@ module.exports = function ( grunt ) {
 				'!libs/jquery.fancytree.js',
 				'!libs/jsgrid.js',
 				'!libs/select2.js',
+				'!libs/Sortable.js',
 				'!libs/PF_maps.js'
 			]
 		},

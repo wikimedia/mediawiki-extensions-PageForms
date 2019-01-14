@@ -80,6 +80,9 @@ distributed under the MIT license.
 * Select2 (https://select2.github.io) by Igor Vaynberg, distributed
 under both the Apache and GPL licenses.
 
+* Sortable (http://sortablejs.github.io/Sortable/) by RubaXa and
+owenm, distributed under the MIT license.
+
 It also includes the Balloon.css CSS library
 (https://kazzkiq.github.io/balloon.css/) by Claudio Holanda,
 distributed under the MIT license.
