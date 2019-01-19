@@ -5,14 +5,15 @@
 			"Imre",
 			"Kghbln",
 			"The Evil IP address",
-			"Umherirrender"
+			"Umherirrender",
+			"Krabina"
 		]
 	},
 	"pf_createproperty_allowedvalsinput": "Um nur bestimmte Werte zuzulassen, geben Sie diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, müssen Sie es durch „\\,“ ersetzen):",
 	"pf_createform_allowmultiple": "Erlauben Sie mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite",
 	"pf_createform_additembeforesave": "Hinweis: Sie müssen mindestens eine Vorlage zu diesem Formular hinzufügen, bevor Sie es speichern können.",
 	"pf_createclass_docu": "Geben Sie hier alle Daten ein, um die Attribute, die Vorlage, das Formular und die Kategorie für eine einzelne Klasse zu erstellen.\nBitte nutzen Sie eine der folgenden Seiten für weitere Optionen: $1.",
-	"pf_createclass_listofvalues": "Werte-<br />liste?",
+	"pf_createclass_listofvalues": "Liste von Werten?",
 	"pf_formstart_docu": "Geben Sie in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.\nSofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem Sie sie bearbeiten können.\nAndernfalls wird das Formular zum Erstellen der Seite aufgerufen.",
 	"pf_formstart_noform_docu": "Geben Sie in dieses Textfeld den Namen der Seite ein und wählen Sie das Formular aus, mit dem sie bearbeitet werden soll.\nSofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem Sie sie bearbeiten können.\nAndernfalls wird das Formular zum Erstellen der Seite aufgerufen.",
 	"pf-formedit-selectform": "Wählen Sie ein Formular zum Erstellen dieser Seite aus:",
