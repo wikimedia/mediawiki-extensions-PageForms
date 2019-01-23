@@ -374,6 +374,14 @@ class PFHooks {
 		if ( $revision == null ) {
 			return true;
 		}
+
+		// Have this take effect only if the save came from a form -
+		// we need to use a global variable to determine that.
+		global $wgPageFormsFormPrinter;
+		if ( property_exists( $wgPageFormsFormPrinter, 'mInputTypeHooks' ) ) {
+			return true;
+		}
+
 		// Code based on EditPage::setPostEditCookie().
 		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revision->getID();
 		$response = RequestContext::getMain()->getRequest()->response();
