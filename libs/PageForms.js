@@ -1757,11 +1757,14 @@ $(document).ready( function() {
 	$('.loadingImage').remove();
 });
 
-// If some part of the screen is clicked, minimize any multiple-instance
+// If some part of the form is clicked, minimize any multiple-instance
 // template instances that need minimizing, and move the "focus" to the current
 // instance list, if one is being clicked and it's different from the
 // previous one.
-$('body').click( function(e) {
+// We make only the "content" div clickable, instead of the whole screen, to
+// try to avoid a click on a popup, like the "Upload file" window, minimizing
+// the current open instance.
+$('div#content').click( function(e) {
 	var target = $(e.target);
 	// Ignore the "add instance" buttons - those get handling of their own.
 	if ( target.hasClass('multipleTemplateAdder') || target.hasClass('addAboveButton') ) {
