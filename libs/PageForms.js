@@ -46,6 +46,7 @@ $.ui.autocomplete.prototype._renderItem = function( ul, item) {
 };
 
 $.fn.attachAutocomplete = function() {
+	try {
 	return this.each(function() {
 		// Get all the necessary values from the input's "autocompletesettings"
 		// attribute. This should probably be done as three separate attributes,
@@ -239,6 +240,15 @@ $.fn.attachAutocomplete = function() {
 			}
 		}
 	});
+	} catch ( error ) {
+		// Autocompletion (and specifically, the call to
+		// this.menu.element in line 195 of jquery.ui.autocomplete.js)
+		// for some reason sometimes fails when doing a preview of the
+		// form definition. It's not that importatnt, so, in lieu of
+		// showing it to the user (or debugging it), we'll just catch
+		// the error and log it in the console.
+		window.console.log("Error setting autocompletion: " + error);
+	}
 };
 
 
