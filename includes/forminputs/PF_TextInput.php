@@ -164,7 +164,7 @@ class PFTextInput extends PFFormInput {
 			$text .= Html::input( '', '', 'file',
 				array(
 					'class' => 'simpleupload',
-					'style' => 'display: none;',
+					'style' => 'width: 0;height: 0;overflow: hidden;',
 					'data-id' => $input_id
 				)
 			) . "\n";
