@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Octahedron80",
-			"Passawuth"
+			"Passawuth",
+			"Aefgh39622"
 		]
 	},
 	"pf_createtemplate_deletefield": "ลบ",
 	"pf_createform_add": "เพิ่ม",
+	"formedit": "แก้ไขด้วยแบบฟอร์ม",
 	"pf_formedit_none": "ไม่มี"
 }
