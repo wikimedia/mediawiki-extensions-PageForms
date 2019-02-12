@@ -410,7 +410,7 @@ END;
 		);
 		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";
 		// Set 'title' as hidden field, in case there's no URL niceness
-		$cc = $this->getTitle();
+		$cc = $this->getPageTitle();
 		$text .= Html::hidden( 'title', PFUtils::titleURLString( $cc ) );
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateClass' ) ) . "\n";
