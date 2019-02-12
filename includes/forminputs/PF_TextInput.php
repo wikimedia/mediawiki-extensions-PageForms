@@ -179,7 +179,7 @@ class PFTextInput extends PFFormInput {
 		if ( $default_filename != null ) {
 			$query_string .= "&wpDestFile=$default_filename";
 		}
-		$upload_window_url = $upload_window_page->getTitle()->getFullURL( $query_string );
+		$upload_window_url = $upload_window_page->getPageTitle()->getFullURL( $query_string );
 		$upload_label = wfMessage( 'upload' )->parse();
 		// We need to set the size by default.
 		$style = "width:650 height:500";

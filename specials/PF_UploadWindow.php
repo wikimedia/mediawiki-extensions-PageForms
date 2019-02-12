@@ -203,7 +203,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			'pfInputID' => $this->mInputID,
 			'pfDelimiter' => $this->mDelimiter,
 		) );
-		$form->setTitle( $this->getTitle() );
+		$form->setTitle( $this->getPageTitle() );
 
 		# Check the token, but only if necessary
 		if ( !$this->mTokenOk && !$this->mCancelUpload
@@ -268,6 +268,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$form->setSubmitText( wfMessage( 'upload-tryagain' )->text() );
 		$this->showUploadForm( $form );
 	}
+
 	/**
 	 * Stashes the upload, shows the main form, but adds an "continue anyway button"
 	 *

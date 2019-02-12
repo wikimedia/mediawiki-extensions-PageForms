@@ -282,7 +282,7 @@ class PFHooks {
 
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
 		$editMsg = wfMessage( 'edit' )->text();
-		$text = PFUtils::makeLink( $linkRenderer = null, $sp->getTitle(), $editMsg, array(),
+		$text = PFUtils::makeLink( $linkRenderer = null, $sp->getPageTitle(), $editMsg, array(),
 			array( "template" => $templateName, "form" => $formName ) );
 
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );

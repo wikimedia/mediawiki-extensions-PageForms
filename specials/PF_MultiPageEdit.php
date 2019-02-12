@@ -263,7 +263,7 @@ class SpreadsheetTemplatesPage extends QueryPage {
 			$linkRenderer = null;
 		}
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
-		$text = PFUtils::makeLink( $linkRenderer, $sp->getTitle(), $templateTitle->getText(), array(), array( "template" => $templateTitle->getText(), "form" => $formName ) );
+		$text = PFUtils::makeLink( $linkRenderer, $sp->getPageTitle(), $templateTitle->getText(), array(), array( "template" => $templateTitle->getText(), "form" => $formName ) );
 		return $text;
 	}
 }
