@@ -375,10 +375,13 @@ END;
 		// Turn each pipe within double curly brackets into another,
 		// unused character (here, "\1"), then do the explode, then
 		// convert them back.
-		$pattern = '/({{.*)\|(.*}})/';
-		while ( preg_match( $pattern, $str, $matches ) ) {
-			$str = preg_replace( $pattern, "$1" . "\1" . "$2", $str );
-		}
+		// regex adapted from:
+		// https://www.regular-expressions.info/recurse.html
+		$pattern = '/{{(?>[^{}]|(?R))*?}}/'; // needed to fix highlighting - <?
+		$str = preg_replace_callback( $pattern, function ( $match ) {
+			$hasPipe = strpos( $match[0], '|' );
+			return $hasPipe ? str_replace( "|", "\1", $match[0] ) : $match[0];
+		}, $str );
 		return array_map( array( 'PFUtils', 'convertBackToPipes' ), self::smartSplitFormTag( $str ) );
 	}
 
