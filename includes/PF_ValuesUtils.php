@@ -11,6 +11,7 @@ class PFValuesUtils {
 
 	/**
 	 * Helper function to handle getPropertyValues().
+	 *
 	 * @param Store $store
 	 * @param Title $subject
 	 * @param string $propID
@@ -544,6 +545,8 @@ class PFValuesUtils {
 			$names_array = self::getAllPagesForCategory( $source_name, 10 );
 		} elseif ( $source_type == 'concept' ) {
 			$names_array = self::getAllPagesForConcept( $source_name );
+		} elseif ( $source_type == 'query' ) {
+			$names_array = self::getAllPagesForQuery( $source_name, 10 );
 		} else { // i.e., $source_type == 'namespace'
 			$names_array = self::getAllPagesForNamespace( $source_name );
 		}
@@ -632,10 +635,10 @@ class PFValuesUtils {
 	}
 
 	/**
-	 * Returns an array of pages that are result of a semantic query.
+	 * Returns an array of the names of pages that are the result of an SMW query.
 	 *
 	 * @param string $rawQuery the query string like [[Category:Trees]][[age::>1000]]
-	 * @return SMWDIWikiPage[] SMWDIWikiPage objects representing the result
+	 * @return array
 	 */
 	public static function getAllPagesForQuery( $rawQuery ) {
 		$rawQueryArray = array( $rawQuery );
@@ -646,7 +649,11 @@ class PFValuesUtils {
 			$processedParams,
 			SMWQueryProcessor::SPECIAL_PAGE, '', $printouts );
 		$res = PFUtils::getSMWStore()->getQueryResult( $queryObj );
-		$pages = $res->getResults();
+		$rows = $res->getResults();
+		$pages = array();
+		foreach ( $rows as $row ) {
+			$pages[] = $row->getDbKey();
+		}
 
 		return $pages;
 	}
