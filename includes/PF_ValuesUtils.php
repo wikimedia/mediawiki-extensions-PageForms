@@ -651,6 +651,15 @@ class PFValuesUtils {
 		return $pages;
 	}
 
+	/**
+	 * Doing "mapping" on values can potentially lead to more than one
+	 * value having the same "label". To avoid this, we find duplicate
+	 * labels, if there are any, add on the real value, in parentheses,
+	 * to all of them.
+	 *
+	 * @param array $labels
+	 * @return array
+	 */
 	public static function disambiguateLabels( $labels ) {
 		asort( $labels );
 		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
@@ -672,6 +681,8 @@ class PFValuesUtils {
 		if ( count( $fixed_labels ) == count( array_unique( $fixed_labels ) ) ) {
 			return $fixed_labels;
 		}
+		// If that didn't work, just add on " (value)" to *all* the
+		// labels. @TODO - is this necessary?
 		foreach ( $labels as $value => $label ) {
 			$labels[$value] .= ' (' . $value . ')';
 		}
