@@ -385,7 +385,20 @@ class PFFormField {
 			}
 		}
 
-		if ( $mappingType !== null ) {
+		if ( $mappingType !== null && !empty( $f->mPossibleValues ) ) {
+			// If we're going to be mapping values, we need to have
+			// the exact page name - and if these values come from
+			// "values from namespace", the namespace prefix was
+			// not included, so we need to add it now.
+			if ( $valuesSourceType == 'namespace' && $valuesSource != '' && $valuesSource != 'Main' ) {
+				foreach ( $f->mPossibleValues as $index => &$value ) {
+					$value = $valuesSource .  ':' . $value;
+				}
+				// Has to be set to false to not mess up the
+				// handling.
+				$f->mUseDisplayTitle = false;
+			}
+
 			$f->setMappedValues( $mappingType );
 		}
 
@@ -543,12 +556,6 @@ class PFFormField {
 	}
 
 	function setMappedValues( $mappingType ) {
-		// Error-handling.
-		if ( !is_array( $this->mPossibleValues ) ) {
-			$this->mPossibleValues = array();
-			return;
-		}
-
 		if ( $mappingType == 'template' ) {
 			$this->setValuesWithMappingTemplate();
 		} elseif ( $mappingType == 'property' ) {
