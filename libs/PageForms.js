@@ -1674,13 +1674,27 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	}
 
 	// @TODO - this should be in the TinyMCE extension, and use a hook.
-	if ( partOfMultiple ) {
-		this.find(".tinymce").each( function() {
-			mwTinyMCEInit( '#' + $(this).attr('id') );
-		});
+	if ( mwTinyMCEInit ) {
+		if ( partOfMultiple ) {
+			myThis.find(".tinymce").each( function() {
+				mwTinyMCEInit( '#' + $(this).attr('id') );
+			});
+		} else {
+			myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
+				mwTinyMCEInit( '#' + $(this).attr('id') );
+			});
+		}
 	} else {
-		this.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
-			mwTinyMCEInit( '#' + $(this).attr('id') );
+		$(document).bind('TinyMCELoaded', function(e) {
+			if ( partOfMultiple ) {
+				myThis.find(".tinymce").each( function() {
+					mwTinyMCEInit( '#' + $(this).attr('id') );
+				});
+			} else {
+				myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
+					mwTinyMCEInit( '#' + $(this).attr('id') );
+				});
+			}
 		});
 	}
 
