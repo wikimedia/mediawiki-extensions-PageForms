@@ -236,6 +236,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 		var addressText = inputDiv.find('.pfAddressInput').val(),
 			alert;
 		if ( mapService === "Google Maps" ) {
+			map.setZoom(14);
 			geocoder.geocode( { 'address': addressText }, function(results, status) {
 				if (status === google.maps.GeocoderStatus.OK) {
 					map.setCenter(results[0].geometry.location);
@@ -298,7 +299,6 @@ function setupMapFormInput( inputDiv, mapService ) {
 
 	if ( coordsInput.val() !== '' ) {
 		setMarkerFromCoordinates();
-		map.setZoom(14);
 	}
 }
 
