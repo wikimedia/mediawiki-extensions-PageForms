@@ -145,8 +145,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			numClicks++;
 			if (numClicks === 1) {
 				timer = setTimeout( function() {
-					var opx = map.getLayerPxFromViewPortPx(e.xy) ;
-					var loc = map.getLonLatFromPixel( opx );
+					var loc = map.getLonLatFromPixel( e.xy );
 					openLayersSetMarker( loc );
 					numClicks = 0;
 				});
