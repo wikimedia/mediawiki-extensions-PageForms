@@ -452,9 +452,6 @@
 		"CanonicalNamespaces": [
 			"PFHooks::registerNamespaces"
 		],
-		"UnitTestsList": [
-			"PFHooks::onUnitTestsList"
-		],
 		"ResourceLoaderRegisterModules": [
 			"PFHooks::registerModules"
 		]
