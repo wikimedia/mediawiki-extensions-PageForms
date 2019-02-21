@@ -405,7 +405,7 @@ END;
 			array(
 				'type' => 'button',
 				'value' => wfMessage( 'pf_formedit_addanother' )->text(),
-				'class' => "createClassAddRow"
+				'class' => "createClassAddRow mw-ui-button mw-ui-progressive"
 			)
 		);
 		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";
