@@ -419,7 +419,8 @@ END;
 			array(
 				'type' => 'submit',
 				'name' => 'createAll',
-				'value' => wfMessage( 'Pf_createclass_create' )->text()
+				'value' => wfMessage( 'Pf_createclass_create' )->text(),
+				'class' => 'mw-ui-button mw-ui-progressive'
 			)
 		);
 		$text .= "</form>\n";
