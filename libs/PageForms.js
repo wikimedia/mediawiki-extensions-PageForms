@@ -1730,47 +1730,53 @@ $(document).ready( function() {
 		return;
 	}
 
-	// register init functions
-	var initFunctionData = mw.config.get( 'ext.pf.initFunctionData' );
-	for ( inputID in initFunctionData ) {
-		for ( i in initFunctionData[inputID] ) {
-			/*jshint -W069 */
-			$( '#' + inputID ).PageForms_registerInputInit( getFunctionFromName( initFunctionData[ inputID ][ i ][ 'name' ] ), initFunctionData[ inputID ][ i ][ 'param' ] );
-			/*jshint +W069 */
-		}
-	}
+	// jQuery's .ready() function is being called before the resource was actually loaded.
+	// This is a workaround for https://phabricator.wikimedia.org/T216805.
+	setTimeout( function(){
 
-	// register validation functions
-	validationFunctionData = mw.config.get( 'ext.pf.validationFunctionData' );
-	for ( inputID in validationFunctionData ) {
-		for ( i in validationFunctionData[inputID] ) {
-			/*jshint -W069 */
-			$( '#' + inputID ).PageForms_registerInputValidation( getFunctionFromName( validationFunctionData[ inputID ][ i ][ 'name' ] ), validationFunctionData[ inputID ][ i ][ 'param' ] );
-			/*jshint +W069 */
+		// register init functions
+		var initFunctionData = mw.config.get( 'ext.pf.initFunctionData' );
+		for ( inputID in initFunctionData ) {
+			for ( i in initFunctionData[inputID] ) {
+				/*jshint -W069 */
+				$( '#' + inputID ).PageForms_registerInputInit( getFunctionFromName( initFunctionData[ inputID ][ i ][ 'name' ] ), initFunctionData[ inputID ][ i ][ 'param' ] );
+				/*jshint +W069 */
+			}
 		}
-	}
 
-	$( 'body' ).initializeJSElements(false);
-
-	$('.multipleTemplateInstance').initializeJSElements(true);
-	$('.multipleTemplateAdder').click( function() {
-		$(this).addInstance( false );
-	});
-	$('.multipleTemplateList').each( function() {
-		if ( $(this).height() > 800 ) {
-			$(this).addClass('minimizeAll');
-			$(this).possiblyMinimizeAllOpenInstances();
+		// register validation functions
+		validationFunctionData = mw.config.get( 'ext.pf.validationFunctionData' );
+		for ( inputID in validationFunctionData ) {
+			for ( i in validationFunctionData[inputID] ) {
+				/*jshint -W069 */
+				$( '#' + inputID ).PageForms_registerInputValidation( getFunctionFromName( validationFunctionData[ inputID ][ i ][ 'name' ] ), validationFunctionData[ inputID ][ i ][ 'param' ] );
+				/*jshint +W069 */
+			}
 		}
-	});
-	$('.multipleTemplateList').each( function() {
-		var list = $(this);
-		var sortable = Sortable.create(list[0], {
-			handle: '.instanceRearranger',
-			onStart: function (/**Event*/evt) {
-				list.possiblyMinimizeAllOpenInstances();
+
+		$( 'body' ).initializeJSElements(false);
+
+		$('.multipleTemplateInstance').initializeJSElements(true);
+		$('.multipleTemplateAdder').click( function() {
+			$(this).addInstance( false );
+		});
+		$('.multipleTemplateList').each( function() {
+			if ( $(this).height() > 800 ) {
+				$(this).addClass('minimizeAll');
+				$(this).possiblyMinimizeAllOpenInstances();
 			}
 		});
-	});
+		$('.multipleTemplateList').each( function() {
+			var list = $(this);
+			var sortable = Sortable.create(list[0], {
+				handle: '.instanceRearranger',
+				onStart: function (/**Event*/evt) {
+					list.possiblyMinimizeAllOpenInstances();
+				}
+			});
+		});
+
+	}, 10 );
 
 	// If the form is submitted, validate everything!
 	$('#pfForm').submit( function() {
