@@ -27,7 +27,6 @@
 	"apihelp-pfautocomplete-param-concept": "«Концепт» Семантичної MediaWiki, на основі сторінок якого відбудеться автозаповнення",
 	"apihelp-pfautocomplete-param-cargo_table": "Таблиця бази даних, визначена розширенням Cargo, на основі значень якої відбудеться автозаповнення",
 	"apihelp-pfautocomplete-param-cargo_field": "Поле таблиці Cargo, на основі значень якого відбудеться автозаповнення",
-	"apihelp-pfautocomplete-param-field_is_array": "Чи вказане поле Cargo містить масив значень",
 	"apihelp-pfautocomplete-param-namespace": "Простір назв, на основі сторінок якого відбудеться автозаповнення",
 	"apihelp-pfautocomplete-param-external_url": "Псевдонім для зовнішньої URL-адреси, з якої отримати значення",
 	"apihelp-pfautocomplete-param-baseprop": "Попередня властивість Семантичної MediaWiki у формі, методом порівняння з якою проводити перевірку",

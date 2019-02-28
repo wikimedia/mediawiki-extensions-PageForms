@@ -204,7 +204,7 @@
 	"pf_bad_number_error": "debe ser un número válido",
 	"pf_bad_date_error": "debe ser una fecha válida",
 	"pf_modified_input_error": "Esta modificación debería ser aprobada o rechazada",
-	"pf_pipe_error": "\"|\" no está permitido, excepto entre {{...}} o [[...]]",
+	"pf_pipe_error": "No se permite «|», excepto entre {{...}}, [[...]] o en etiquetas especiales",
 	"uploadwindow": "Ventana para subir archivos",
 	"pf-simpleupload": "Cargar",
 	"pf_deletionlog": "Registro de borrado",

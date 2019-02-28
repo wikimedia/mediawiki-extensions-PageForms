@@ -21,7 +21,6 @@
 	"apihelp-pfautocomplete-param-concept": "\"مفهوم\" ميدياويكي الدلالي الذي سيتم إكمال صفحاته تلقائيا",
 	"apihelp-pfautocomplete-param-cargo_table": "جدول قاعدة بيانات، يتم تعريفه بواسطة ملحق Cargo، وسيتم إتمام قيمه تلقائيا",
 	"apihelp-pfautocomplete-param-cargo_field": "حقل جدول Cargo الذي سيتم إكمال قيمه تلقائيا",
-	"apihelp-pfautocomplete-param-field_is_array": "ما إذا كان حقل Cargo المحدد يحتوي على مجموعة من القيم",
 	"apihelp-pfautocomplete-param-namespace": "النطاق الذي سيتم إكمال صفحاته تلقائيا",
 	"apihelp-pfautocomplete-param-external_url": "اسم مستعار لمسار خارجي تحصل منه على القيم",
 	"apihelp-pfautocomplete-param-baseprop": "خاصية ميدياويكي الدلالي سابقة في النموذج للتحقق منها",

@@ -25,7 +25,6 @@
 	"apihelp-pfautocomplete-param-concept": "頁面會自動完成的語意 MediaWiki \"概念\"內容",
 	"apihelp-pfautocomplete-param-cargo_table": "由 Cargo 擴充所定義，內容值會自動完成的資料庫表格",
 	"apihelp-pfautocomplete-param-cargo_field": "內容值會自動完成的 Cargo 表格欄位",
-	"apihelp-pfautocomplete-param-field_is_array": "所指定 Cargo 是否能包含陣列值",
 	"apihelp-pfautocomplete-param-namespace": "頁面會自動完成的命名空間",
 	"apihelp-pfautocomplete-param-external_url": "來自所要獲取值的外部 URL 別名",
 	"apihelp-pfautocomplete-param-baseprop": "所要檢查的在表格裡先前語意 MediaWiki 之屬性",

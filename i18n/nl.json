@@ -23,7 +23,6 @@
 	"pageforms-desc": "Formulieren voor het toevoegen en bewerken van semantische gegevens",
 	"specialpages-group-pf_group": "Semantische formulieren",
 	"apihelp-pfautocomplete-param-limit": "Een limiet op het aantal geretourneerde resultaten",
-	"apihelp-pfautocomplete-param-field_is_array": "Of het gespecificeerde Cargo-veld een reeks aan waardes bevat",
 	"apihelp-pfautocomplete-param-external_url": "Een alias voor een externe URL waarvandaan de waardes opgehaald moeten worden",
 	"apihelp-pfautocomplete-param-baseprop": "Een vorige Semantic MediaWiki-eigenschap in het formulier waarmee vergeleken moet worden",
 	"apihelp-pfautocomplete-param-base_cargo_table": "De Cargo-gegevenstabel voor een vorig veld in het formulier waarmee vergeleken moet worden",

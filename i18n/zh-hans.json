@@ -29,7 +29,6 @@
 	"apihelp-pfautocomplete-param-concept": "页面将自动完成的语义MediaWiki“概念”",
 	"apihelp-pfautocomplete-param-cargo_table": "由Cargo扩展定义的，值将会自动完成的数据表",
 	"apihelp-pfautocomplete-param-cargo_field": "值将会自动完成的Cargo表格字段",
-	"apihelp-pfautocomplete-param-field_is_array": "指定Cargo字段是否保留一组值",
 	"apihelp-pfautocomplete-param-namespace": "页面将自动完成的名字空间",
 	"apihelp-pfautocomplete-param-external_url": "来自要获取值的外部URL的别名",
 	"apihelp-pfautocomplete-param-baseprop": "要检查的表单中早先的语义MediaWiki属性",

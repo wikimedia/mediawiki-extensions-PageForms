@@ -28,7 +28,6 @@
 	"apihelp-pfautocomplete-param-concept": "Ein semantisches Konzept, dessen zugeordnete Seiten für die Autovervollständigung genutzt werden sollen.",
 	"apihelp-pfautocomplete-param-cargo_table": "Eine Cargo-Datenbanktabelle, deren zugeordnete Datenwerte für die Autovervollständigung genutzt werden sollen.",
 	"apihelp-pfautocomplete-param-cargo_field": "Ein Cargo-Datenbanktabellenfeld, dessen zugeordnete Datenwerte für die Autovervollständigung genutzt werden sollen.",
-	"apihelp-pfautocomplete-param-field_is_array": "Ob das angegebene Cargo-Datenbanktabellenfeld mehrere Daten in Form einer Datenreihe („Array“) enthält.",
 	"apihelp-pfautocomplete-param-namespace": "Ein Namensraum, dessen zugeordnete Seiten für die Autovervollständigung genutzt werden sollen.",
 	"apihelp-pfautocomplete-param-external_url": "Ein Alias für eine externe URL, von der die Datenwerte abgerufen werden sollen.",
 	"apihelp-pfautocomplete-param-baseprop": "Ein vorher im Formular enthaltenes semantisches Attribut, auf das geprüft werden soll.",

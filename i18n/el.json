@@ -22,7 +22,6 @@
 	"apihelp-pfautocomplete-param-concept": "«Έννοια» του Σημασιολογικού MediaWiki από τις σελίδες της οποίας θα γίνεται η αυτόματη συμπλήρωση",
 	"apihelp-pfautocomplete-param-cargo_table": "Πίνακας βάσης δεδομένων, ορισμένος από την επέκταση Cargo, από τις τιμές του οποίου θα γίνεται η αυτόματη συμπλήρωση",
 	"apihelp-pfautocomplete-param-cargo_field": "Το πεδίο του πίνακα Cargo από τις τιμές του οποίου θα γίνεται η αυτόματη συμπλήρωση",
-	"apihelp-pfautocomplete-param-field_is_array": "Αν το καθορισμένο πεδίο Cargo περιέχει σειρά τιμών",
 	"apihelp-pfautocomplete-param-namespace": "Ονοματοχώρος από τις σελίδες του οποίου θα γίνεται η αυτόματη συμπλήρωση",
 	"apihelp-pfautocomplete-param-external_url": "Ψευδώνυμο για μια εξωτερική διεύθυνση URL από την οποία να ληφθούν τιμές",
 	"apihelp-pfautocomplete-param-baseprop": "Μια προηγούμενη ιδιότητα Σημασιολογικού MediaWiki στη φόρμα για έλεγχο κατά",

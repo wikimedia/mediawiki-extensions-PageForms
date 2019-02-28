@@ -36,7 +36,6 @@
 	"apihelp-pfautocomplete-param-concept": "Концепция SemanticMediaWiki, страницы которой будут источниками для автодополнения",
 	"apihelp-pfautocomplete-param-cargo_table": "Таблица базы данных, определённая расширением Cargo, страницы которой будут источниками для автодополнения",
 	"apihelp-pfautocomplete-param-cargo_field": "Поле таблицы Cargo, страницы которой будут источниками для автодополнения",
-	"apihelp-pfautocomplete-param-field_is_array": "Является ли указанное поле Cargo массивом значений",
 	"apihelp-pfautocomplete-param-namespace": "Пространство имён, страницы которого будут источниками для автодополнения",
 	"apihelp-pfautocomplete-param-external_url": "Идентификатор внешнего URL, который послужит источником для автодополнения",
 	"apihelp-pfautoedit-description": "Создать или изменить страницу, используя форму, определённую расширением Page Forms",

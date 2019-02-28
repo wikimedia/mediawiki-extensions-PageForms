@@ -16,7 +16,6 @@
 	"apihelp-pfautocomplete-param-concept": "„Концепт“ на Семантички МедијаВики чии страници треба да се самодополнат",
 	"apihelp-pfautocomplete-param-cargo_table": "Табела од базата, определена од додатокот „Карго“, чии страници треба да се самодополнат",
 	"apihelp-pfautocomplete-param-cargo_field": "Поле од табела на „Карго“ чии страници треба да се самодополнат",
-	"apihelp-pfautocomplete-param-field_is_array": "Дали укажаното поле од „Карго“ содржи низа вредности",
 	"apihelp-pfautocomplete-param-namespace": "Именски простор чии страници треба да се самодополнат",
 	"apihelp-pfautocomplete-param-external_url": "Истозначник на надворешната URL од која ќе преземат добијат вредностите",
 	"apihelp-pfautocomplete-param-baseprop": "Претходно својство на Семантички МедијаВики во образецот кое треба да се провери",

@@ -23,7 +23,6 @@
 	"apihelp-pfautocomplete-param-concept": "מושג של מדיה־ויקי סמנטית שהדפים שלו יושלמו אוטומטית",
 	"apihelp-pfautocomplete-param-cargo_table": "טבלת מסד נתונים, מוגדרת בהרחבה Cargo, שהערכים שלה יושלמו אוטומטית",
 	"apihelp-pfautocomplete-param-cargo_field": "השדה בטבלת Cargo שהערכים יושלמו אוטומטית מהם",
-	"apihelp-pfautocomplete-param-field_is_array": "האם שדות ה־Cargo המצוינים מחזיקים מערך של ערכים",
 	"apihelp-pfautocomplete-param-namespace": "מרחב שם שהדפים בו יושלמו אוטומטית",
 	"apihelp-pfautocomplete-param-external_url": "כינוי ל־URL חיצוני שהערכים יגיעו ממנו",
 	"apihelp-pfautocomplete-param-baseprop": "מאפיין מדיה־ויקי סמנטית קודם שצריך לבדוק בטופס",

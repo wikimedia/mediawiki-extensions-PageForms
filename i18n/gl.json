@@ -20,7 +20,6 @@
 	"apihelp-pfautocomplete-param-concept": "Un \"concepto\" de MediaWiki Semántica cuxos valores serán completados automaticamente",
 	"apihelp-pfautocomplete-param-cargo_table": "Unha táboa de base de datos, definida pola extensión Cargo, cuxos valores serán completados automaticamente",
 	"apihelp-pfautocomplete-param-cargo_field": "Campo da táboa Cargo cuxos valores serán completados automaticamente",
-	"apihelp-pfautocomplete-param-field_is_array": "Se o campo Cargo especificado contén unha matriz de valores",
 	"apihelp-pfautocomplete-param-namespace": "Un espazo de nomes cuxas páxinas serán completadas automaticamente",
 	"apihelp-pfautocomplete-param-external_url": "Un alias para unha URL externa desde a que obter valores",
 	"apihelp-pfautocomplete-param-baseprop": "Unha antiga propiedade de MediaWiki Semántica a verificar contra o formulario",
