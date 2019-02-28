@@ -27,7 +27,6 @@ class PFAutocompleteAPI extends ApiBase {
 		$concept = $params['concept'];
 		$cargo_table = $params['cargo_table'];
 		$cargo_field = $params['cargo_field'];
-		$field_is_array = $params['field_is_array'];
 		$external_url = $params['external_url'];
 		$baseprop = $params['baseprop'];
 		$base_cargo_table = $params['base_cargo_table'];
@@ -64,7 +63,7 @@ class PFAutocompleteAPI extends ApiBase {
 				$data = PFValuesUtils::disambiguateLabels( $data );
 			}
 		} elseif ( !is_null( $cargo_table ) && !is_null( $cargo_field ) ) {
-			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $field_is_array, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
+			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
 		} elseif ( !is_null( $namespace ) ) {
 			$data = PFValuesUtils::getAllPagesForNamespace( $namespace, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
@@ -136,7 +135,6 @@ class PFAutocompleteAPI extends ApiBase {
 			'concept' => null,
 			'cargo_table' => null,
 			'cargo_field' => null,
-			'field_is_array' => null,
 			'namespace' => null,
 			'external_url' => null,
 			'baseprop' => null,
@@ -303,7 +301,7 @@ class PFAutocompleteAPI extends ApiBase {
 		return $values;
 	}
 
-	private static function getAllValuesForCargoField( $cargoTable, $cargoField, $fieldIsArray, $substring, $baseCargoTable = null, $baseCargoField = null, $baseValue = null ) {
+	private static function getAllValuesForCargoField( $cargoTable, $cargoField, $substring, $baseCargoTable = null, $baseCargoField = null, $baseValue = null ) {
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
 		global $wgPageFormsAutocompleteOnAllChars;
 
@@ -342,7 +340,8 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $whereStr != '' ) {
 				$whereStr .= " AND ";
 			}
-			$operator = ( $fieldIsArray ) ? "HOLDS LIKE" : "LIKE";
+			$fieldIsList = self::cargoFieldIsList( $cargoTable, $cargoField );
+			$operator = ( $fieldIsList ) ? "HOLDS LIKE" : "LIKE";
 			if ( $wgPageFormsAutocompleteOnAllChars ) {
 				$whereStr .= "($cargoField $operator \"%$substring%\")";
 			} else {
@@ -377,6 +376,22 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 
 		return $values;
+	}
+
+	static function cargoFieldIsList( $cargoTable, $cargoField ) {
+		// @TODO - this is duplicate work; the schema is retrieved
+		// again when the CargoSQLQuery object is created. There should
+		// be some way of avoiding that duplicate retrieval.
+		$tableSchemas = CargoUtils::getTableSchemas( array( $cargoTable ) );
+		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {
+			return false;
+		}
+		$tableSchema = $tableSchemas[$cargoTable];
+		if ( !array_key_exists( $cargoField, $tableSchema->mFieldDescriptions ) ) {
+			return false;
+		}
+		$fieldDesc = $tableSchema->mFieldDescriptions[$cargoField];
+		return $fieldDesc->mIsList;
 	}
 
 }

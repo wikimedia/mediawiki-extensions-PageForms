@@ -15,7 +15,6 @@
 	"apihelp-pfautocomplete-param-concept": "A Semantic MediaWiki \"concept\" whose pages will be autocompleted on",
 	"apihelp-pfautocomplete-param-cargo_table": "A database table, defined by the Cargo extension, whose values will be autocompleted on",
 	"apihelp-pfautocomplete-param-cargo_field": "The field of the Cargo table whose values will be autocompleted on",
-	"apihelp-pfautocomplete-param-field_is_array": "Whether the specified Cargo field holds an array of values",
 	"apihelp-pfautocomplete-param-namespace": "A namespace whose pages will be autocompleted on",
 	"apihelp-pfautocomplete-param-external_url": "An alias for an external URL from which to get values",
 	"apihelp-pfautocomplete-param-baseprop": "A previous Semantic MediaWiki property in the form to check against",

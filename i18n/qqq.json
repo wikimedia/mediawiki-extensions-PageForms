@@ -32,7 +32,6 @@
 	"apihelp-pfautocomplete-param-concept": "{{doc-apihelp-param|pfautocomplete|concept}}",
 	"apihelp-pfautocomplete-param-cargo_table": "{{doc-apihelp-param|pfautocomplete|cargo_table}}",
 	"apihelp-pfautocomplete-param-cargo_field": "{{doc-apihelp-param|pfautocomplete|cargo_field}}",
-	"apihelp-pfautocomplete-param-field_is_array": "{{doc-apihelp-param|pfautocomplete|field_is_array}}",
 	"apihelp-pfautocomplete-param-namespace": "{{doc-apihelp-param|pfautocomplete|namespace}}",
 	"apihelp-pfautocomplete-param-external_url": "{{doc-apihelp-param|pfautocomplete|external_url}}",
 	"apihelp-pfautocomplete-param-baseprop": "{{doc-apihelp-param|pfautocomplete|baseprop}}",
