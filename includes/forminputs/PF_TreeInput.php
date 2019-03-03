@@ -202,7 +202,8 @@ class PFTreeInput extends PFFormInput {
 				'tabindex' => $wgPageFormsTabIndex,
 				'id' => "chb-$key_id",
 				'class' => 'hidden',
-				'hidden'
+				'hidden',
+				'style' => 'display:none',
 			);
 			if ( in_array( $node->title, $current_selection ) ) {
 				$nodeAttribs['checked'] = true;
