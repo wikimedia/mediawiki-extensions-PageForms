@@ -1674,7 +1674,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	}
 
 	// @TODO - this should be in the TinyMCE extension, and use a hook.
-	if ( mwTinyMCEInit ) {
+	if ( typeof( mwTinyMCEInit ) === 'function' ) {
 		if ( partOfMultiple ) {
 			myThis.find(".tinymce").each( function() {
 				mwTinyMCEInit( '#' + $(this).attr('id') );
