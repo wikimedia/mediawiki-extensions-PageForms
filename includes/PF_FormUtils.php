@@ -594,7 +594,12 @@ END;
 		if ( is_null( $parser ) ) {
 			return wfMemcKey( 'ext.PageForms.formdefinition', $formId );
 		} else {
-			$optionsHash = $parser->getOptions()->optionsHash( ParserOptions::legacyOptions() );
+			if ( method_exists( ParserOptions::class, 'allCacheVaryingOptions' ) ) {
+				$options = ParserOptions::allCacheVaryingOptions(); // 1.30
+			} else {
+				$options = ParserOptions::legacyOptions();
+			}
+			$optionsHash = $parser->getOptions()->optionsHash( $options );
 			return wfMemcKey( 'ext.PageForms.formdefinition', $formId, $optionsHash );
 		}
 	}
