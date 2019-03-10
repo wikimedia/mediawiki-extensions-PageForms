@@ -97,5 +97,6 @@
 	"pf_form_freetextlabel": "Fritekst",
 	"pf_category_hasdefaultform": "Denne kategorien nyttar skjemaet «$1».",
 	"pf_category_desc": "Dett er kategorien $1.",
-	"pf_blank_namespace": "Hovud"
+	"pf_blank_namespace": "Hovud",
+	"pf-maps-lookupcoordinates": "Rekn ut koordinatar frå adressa"
 }

@@ -7,5 +7,6 @@
 	},
 	"templates": "Shabloni",
 	"pf_createform_template": "Shablono:",
+	"pf_createform_formlabel": "Titulo dil formulario:",
 	"formedit": "Redaktar kun formulario"
 }

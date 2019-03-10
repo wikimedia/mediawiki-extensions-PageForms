@@ -26,7 +26,7 @@
 	"pf_createtemplate_multipleinstance": "Този шаблон може да бъде поставен многократно на същата страница.",
 	"pf_createtemplate_categorylabel": "Категория, дефинирана от шаблон (незадължително):",
 	"pf_createtemplate_usecargo": "Използване на разширението „Карго“ за складиране на данните на шаблона",
-	"pf_createtemplate_cargotablelabel": "Име на табелата на „Карго“, определена от шаблона:",
+	"pf_createtemplate_cargotablelabel": "Име на таблицата на „Карго“, дефинирана от шаблона:",
 	"pf_createtemplate_templatefields": "Полета на шаблона:",
 	"pf_createtemplate_fieldname": "Име на полето:",
 	"pf_createtemplate_displaylabel": "Надпис за приказ:",
