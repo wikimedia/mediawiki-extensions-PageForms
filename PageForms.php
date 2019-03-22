@@ -637,5 +637,8 @@ $GLOBALS['wgPageFormsDependentFields'] = array();
  */
 $GLOBALS['wgPageFormsCheckboxesSelectAllMinimum'] = 10;
 
+// Allowed namespaces for #autoedit parser function (only pages in these namespaces can be edited via #autoedit)
+$GLOBALS['wgPageFormsAutoeditNamespaces'] = array( 0 );
+
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
