@@ -55,12 +55,8 @@ class PFCreatePageJob extends Job {
 			$flags = 0;
 		}
 
-		if ( method_exists( 'WikiPage', 'doEditContent' ) ) {
-			$new_content = new WikitextContent( $page_text );
-			$wikiPage->doEditContent( $new_content, $edit_summary, $flags );
-		} else {
-			$article->doEditContent( $page_text, $edit_summary, $flags );
-		}
+		$new_content = new WikitextContent( $page_text );
+		$wikiPage->doEditContent( $new_content, $edit_summary, $flags );
 
 		$wgUser = $actual_user;
 		return true;
