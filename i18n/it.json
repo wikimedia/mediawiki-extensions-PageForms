@@ -10,7 +10,8 @@
 			"Melos",
 			"Nemo bis",
 			"VaiTon86",
-			"GabryBarbe"
+			"GabryBarbe",
+			"Daimona Eaytoy"
 		]
 	},
 	"pageforms-desc": "Moduli per creare e modificare pagine wiki",
@@ -144,7 +145,7 @@
 	"pf_formedit_altformsonly": "Per favore seleziona una dei seguenti moduli per aggiungere questa pagina:",
 	"pf_formcreate": "Crea con un modulo",
 	"pf_viewform": "Visualizza modulo",
-	"pf_editsource": "Modifica wikitesto",
+	"pf_editsource": "Modifica sorgente",
 	"pf_formedit_edittitle": "Modifica $1: $2",
 	"pf_formedit_morethanoneform": "'''Attenzione:''' Più di un modulo predefinito è stato definito per questa pagina.",
 	"pf_formedit_formwarning": "Attenzione: questa pagina [[$1|esiste già]], ma non utilizza questo modulo.",
