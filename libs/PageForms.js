@@ -1222,6 +1222,7 @@ var num_elements = 0;
  */
 $.fn.addInstance = function( addAboveCurInstance ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
+	var wgPageFormsHeightForMinimizingInstances = mw.config.get( 'wgPageFormsHeightForMinimizingInstances' );
 	var wrapper = this.closest(".multipleTemplateWrapper");
 	var multipleTemplateList = wrapper.find('.multipleTemplateList');
 
@@ -1231,13 +1232,16 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 		return false;
 	}
 
-	if ( ! multipleTemplateList.hasClass('minimizeAll') && multipleTemplateList.height() > 800 ) {
-		multipleTemplateList.addClass('minimizeAll');
-	}
-	if ( multipleTemplateList.hasClass('minimizeAll') ) {
-		multipleTemplateList
-			.addClass('currentFocus')
-			.possiblyMinimizeAllOpenInstances();
+	if ( wgPageFormsHeightForMinimizingInstances >= 0 ) {
+		if ( ! multipleTemplateList.hasClass('minimizeAll') &&
+			multipleTemplateList.height() >= wgPageFormsHeightForMinimizingInstances ) {
+			multipleTemplateList.addClass('minimizeAll');
+		}
+		if ( multipleTemplateList.hasClass('minimizeAll') ) {
+			multipleTemplateList
+				.addClass('currentFocus')
+				.possiblyMinimizeAllOpenInstances();
+		}
 	}
 
 	// Global variable.

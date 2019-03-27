@@ -482,6 +482,7 @@
 		"PageFormsContLangYes": null,
 		"PageFormsContLangNo": null,
 		"PageFormsContLangMonths": [],
+		"PageFormsHeightForMinimizingInstances": 800,
 		"PageFormsFieldProperties": [],
 		"PageFormsCargoFields": [],
 		"PageFormsDependentFields": [],

@@ -626,6 +626,7 @@ $GLOBALS['wgPageFormsGridParams'] = array();
 $GLOBALS['wgPageFormsContLangYes'] = null;
 $GLOBALS['wgPageFormsContLangNo'] = null;
 $GLOBALS['wgPageFormsContLangMonths'] = array();
+$GLOBALS['wgPageFormsHeightForMinimizingInstances'] = 800;
 // SMW
 $GLOBALS['wgPageFormsFieldProperties'] = array();
 // Cargo
