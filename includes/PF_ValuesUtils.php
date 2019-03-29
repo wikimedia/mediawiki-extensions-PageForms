@@ -410,6 +410,7 @@ class PFValuesUtils {
 			$allEnglishNamespaces = $englishLang->getNamespaces();
 		}
 
+		$queriedNamespaces = array();
 		$namespaceConditions = array();
 
 		foreach ( $namespaceNames as $namespace_name ) {
@@ -443,6 +444,7 @@ class PFValuesUtils {
 				throw new MWException( wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) ) );
 			}
 
+			$queriedNamespaces[] = $matchingNamespaceCode;
 			$namespaceConditions[] = "page_namespace = $matchingNamespaceCode";
 		}
 
@@ -474,11 +476,14 @@ class PFValuesUtils {
 				)
 			);
 			if ( $substring != null ) {
-				$conditions[] = '(pp_displaytitle.pp_value IS NULL AND (' .
+				$substringCondition = '(pp_displaytitle.pp_value IS NULL AND (' .
 					self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) .
 					')) OR ' .
-					self::getSQLConditionForAutocompleteInColumn( 'pp_displaytitle.pp_value', $substring ) .
-					' OR page_namespace = ' . NS_CATEGORY;
+					self::getSQLConditionForAutocompleteInColumn( 'pp_displaytitle.pp_value', $substring );
+				if ( !in_array( NS_CATEGORY, $queriedNamespaces ) ) {
+					$substringCondition .= ' OR page_namespace = ' . NS_CATEGORY;
+				}
+				$conditions[] = $substringCondition;
 			}
 		} else {
 			$join = array();
