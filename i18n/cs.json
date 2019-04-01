@@ -13,7 +13,8 @@
 			"Ilimanaq29",
 			"Matěj Suchánek",
 			"Clon",
-			"Jaroslav Cerny"
+			"Jaroslav Cerny",
+			"Want"
 		]
 	},
 	"pageforms-desc": "Formuláře pro vytváření a úpravu wiki stránek",
@@ -76,6 +77,7 @@
 	"pf_createtemplate_addfield": "Přidat pole",
 	"pf_createtemplate_deletefield": "Smazat",
 	"multipageedit": "Editovat několik stránek",
+	"pf_multipageedit_docu": "Vyberete-li jednu z následujících šablon, budete moct najednou editovat parametry u všech stránek, které ji obsahují. I založit novou stránku, co ji bude obsahovat.",
 	"pf_multipageedit_with-name": "Upravit více stránek pro šablonu: $1",
 	"forms": "Formuláře",
 	"pf_forms_docu": "Ve wiki existují následující formuláře.",
@@ -193,8 +195,13 @@
 	"pf_autoedit_redlinkexists": "$1 již existuje.",
 	"pf_autoedit_noformfound": "Není zadán žádný formulář.",
 	"pf-autoedit-wait": "Čekejte...",
+	"runquery": "Spustit dotaz",
+	"pf_runquery_badurl": "V URL musíte předat jméno formuláře; URL by mělo vypadat „Special:RunQuery/<jméno formuláře>“.",
+	"pf_runquery_title": "Dotaz spuštěn na: $1",
+	"pf_runquery_additionalquery": "Upřesňující dotaz",
 	"pf_not_unique_error": "musí být jedinečný",
 	"pf_deletionlog": "Kniha smazaných stránek",
+	"pf_form_freetextlabel": "Ostatní text",
 	"pf_blank_namespace": "Hlavní",
 	"right-viewedittab": "Zobrazování záložky „{{int:edit}}“ na stránkách editovatelných pomocí formuláře",
 	"right-editrestrictedfields": "Editování polí formulářů s omezeným přístupem",
