@@ -2,10 +2,19 @@
 	"@metadata": {
 		"authors": [
 			"S.Örvarr.S",
-			"Snævar"
+			"Snævar",
+			"Sveinn í Felli"
 		]
 	},
+	"specialpages-group-pf_group": "Útfyllingareitir síðu",
+	"createproperty": "Bjó til eigindi",
 	"pf_createproperty_propname": "Heiti eiginleika:",
+	"createtemplate": "Búa til sniðmát",
 	"pf_createtemplate_standardformat": "Tafla",
-	"pf_createcategory_name": "Nafn flokks:"
+	"multipageedit": "Breyta mörgum síðum",
+	"createform": "Búa til útfyllingaform",
+	"createcategory": "Búa til flokk",
+	"pf_createcategory_name": "Nafn flokks:",
+	"runquery": "Keyra fyrirspurn",
+	"pf_runquery_additionalquery": "Viðbótarfyrirspurn"
 }
