@@ -1764,12 +1764,15 @@ $(document).ready( function() {
 		$('.multipleTemplateAdder').click( function() {
 			$(this).addInstance( false );
 		});
-		$('.multipleTemplateList').each( function() {
-			if ( $(this).height() > 800 ) {
-				$(this).addClass('minimizeAll');
-				$(this).possiblyMinimizeAllOpenInstances();
-			}
-		});
+		var wgPageFormsHeightForMinimizingInstances = mw.config.get( 'wgPageFormsHeightForMinimizingInstances' );
+		if ( wgPageFormsHeightForMinimizingInstances >= 0) {
+			$('.multipleTemplateList').each( function() {
+				if ( $(this).height() > wgPageFormsHeightForMinimizingInstances ) {
+					$(this).addClass('minimizeAll');
+					$(this).possiblyMinimizeAllOpenInstances();
+				}
+			});
+		}
 		$('.multipleTemplateList').each( function() {
 			var list = $(this);
 			var sortable = Sortable.create(list[0], {
