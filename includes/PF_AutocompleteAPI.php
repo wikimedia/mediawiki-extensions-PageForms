@@ -170,10 +170,6 @@ class PFAutocompleteAPI extends ApiBase {
 		);
 	}
 
-	public function getVersion() {
-		return __CLASS__ . ': $Id$';
-	}
-
 	private static function getAllValuesForProperty(
 		$property_name,
 		$substring,
