@@ -499,7 +499,8 @@
 			"DisabledDates": null,
 			"HighlightedDates": null,
 			"_merge_strategy": "array_plus"
-		}
+		},
+		"PageFormsAutoeditNamespaces": [ 0 ]
 	},
 	"manifest_version": 1
 }
