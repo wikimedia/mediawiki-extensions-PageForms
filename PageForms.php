@@ -434,6 +434,7 @@ $GLOBALS['wgResourceModules'] += array(
 		'dependencies' => array(
 			'ext.pageforms.select2',
 			'jquery.ui.sortable',
+			'mediawiki.language.months',
 		),
 		'messages' => array(
 			'htmlform-yes',

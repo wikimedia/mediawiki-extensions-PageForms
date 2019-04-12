@@ -362,7 +362,8 @@
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"jquery.ui.sortable"
+				"jquery.ui.sortable",
+				"mediawiki.language.months"
 			],
 			"messages": [
 				"htmlform-yes",
