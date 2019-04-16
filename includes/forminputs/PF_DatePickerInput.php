@@ -307,7 +307,7 @@ class PFDatePickerInput extends PFFormInput {
 			} elseif ( $wgPageFormsDatePickerSettings["HighlightedDates"] ) {
 				$highlightedDates = self::sortAndMergeRanges( self::createRangesArray( explode( ',', $wgPageFormsDatePickerSettings["HighlightedDates"] ) ) );
 			} else {
-				$highlightedDates = null;
+				$highlightedDates = array();
 			}
 
 			// find disabled week days and mark them in an array
@@ -326,7 +326,7 @@ class PFDatePickerInput extends PFFormInput {
 					}
 				}
 			} else {
-				$disabledDays = null;
+				$disabledDays = array();
 			}
 
 			// find highlighted week days and mark them in an array
@@ -345,7 +345,7 @@ class PFDatePickerInput extends PFFormInput {
 					}
 				}
 			} else {
-				$highlightedDays = null;
+				$highlightedDays = array();
 			}
 
 			// set first day of the week
@@ -524,7 +524,7 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	private static function invertRangesArray( $ranges ) {
 		// the result (initially empty)
-		$invRanges = null;
+		$invRanges = array();
 
 		// the minimum of the current gap (initially none)
 		$min = null;
