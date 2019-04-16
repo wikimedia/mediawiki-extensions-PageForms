@@ -97,7 +97,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			$autocompletionSource = null;
 		}
 
-		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' ) {
+		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' && $autocompleteFieldType != 'cargo field' ) {
 			global $wgContLang;
 			$autocompletionSource = $wgContLang->ucfirst( $autocompletionSource );
 		}
