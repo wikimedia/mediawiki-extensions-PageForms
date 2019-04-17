@@ -7,13 +7,17 @@
 			"Bugoslav"
 		]
 	},
-	"specialpages-group-pf_group": "Semantički obrasci",
+	"pageforms-desc": "Obrasci za stvaranje i uređivanje wikistranica",
+	"specialpages-group-pf_group": "Stranični obrasci",
+	"apihelp-pfautocomplete-description": "Automatsko dovršavanje koje rabi proširenje »Stranični obrasci« (''Page Forms'')",
+	"apihelp-pfautocomplete-summary": "Automatsko dovršavanje koje rabi proširenje »Stranični obrasci«",
 	"createproperty": "Stvori svojstvo",
 	"templates": "Predlošci",
 	"pf_templates_docu": "Postoje sljedeći predlošci na wikiju.",
 	"createtemplate": "Stvori predložak",
 	"pf_createtemplate_delimiter": "Razdjeljivač:",
 	"pf_createtemplate_deletefield": "Izbriši",
+	"multipageedit": "Uređivanje više stranica",
 	"forms": "Obrasci",
 	"createform": "Stvori obrazac",
 	"createcategory": "Stvori kategoriju",
@@ -22,11 +26,13 @@
 	"formedit": "Uredi s obrascem",
 	"pf_formedit_createtitle": "Stvori $1: $2",
 	"pf_formedit_createtitlenotarget": "Stvori $1",
+	"pf_viewform": "Vidi obrazac",
 	"pf_formedit_edittitle": "Uredi $1: $2",
 	"pf_formedit_remove": "Ukloni",
 	"runquery": "Pokreni upit",
 	"pf_form_docu": "Ovo je obrazac \"$1\".\nZa kreiranje stranica uporabom ovog obrasca, unesite ime stranice u polje ispod;\nako takva stranica već postoji, otvorit će Vam se obrazac za uređivanje te stranice.",
 	"pf_form_freetextlabel": "Slobodni unos",
+	"tooltip-ca-formedit": "Uređivanje ove stranice pomoću obrasca",
 	"pf-maps-enteraddress": "Ovdje upišite adresu",
 	"pf-maps-lookupcoordinates": "Izračunaj koordinate rabeći adresu"
 }

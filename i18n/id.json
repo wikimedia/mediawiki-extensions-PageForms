@@ -8,7 +8,8 @@
 			"Rex",
 			"Kenrick95",
 			"Presidenvolksraad",
-			"Hidayatsrf"
+			"Hidayatsrf",
+			"William Surya Permana"
 		]
 	},
 	"pageforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
@@ -148,7 +149,7 @@
 	"pf_category_hasdefaultform": "Kategori ini menggunakan formulir $1.",
 	"pf_category_desc": "Ini adalah kategori $1.",
 	"pf_blank_namespace": "Utama",
-	"right-viewedittab": "Lihat tab \"Sunting\" untuk menyunting halaman dengan formulir",
+	"right-viewedittab": "Melihat tab \"{{int:edit}}\" untuk halaman yang dapat disunting dengan formulir",
 	"right-editrestrictedfields": "Sunting kolom formulir terbatas",
 	"pf-datepicker-close": "Penutup",
 	"pf-datepicker-prev": "Sebelumnya",
