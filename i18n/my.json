@@ -13,6 +13,7 @@
 	"pf-createtemplate-with-name": "တမ်းပလိတ် ဖန်တီးရန်: $1",
 	"pf_createtemplate_namelabel": "တမ်းပလိတ်အမည်",
 	"pf_createtemplate_deletefield": "ဖျက်ပါ",
+	"multipageedit": "စာမျက်နှာမြောက်များစွာ တည်းဖြတ်ရန်",
 	"pf_createform_template": "တမ်းပလိတ်:",
 	"pf_createform_inputtypedefault": "(နဂိုအတိုင်း)",
 	"createcategory": "ကဏ္ဍတစ်ခု ဖန်တီးရန်",
