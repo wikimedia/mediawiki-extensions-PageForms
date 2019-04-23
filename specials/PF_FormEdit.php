@@ -153,7 +153,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 			// "Creating ..." and "Create ...", respectively.
 			// Does this make any difference? Who knows.
 			$pageTitle = wfMessage( 'creating', $targetName )->text();
-		} elseif ( $result[ 'form' ] == '' ) {  // FIXME: This looks weird; a simple else should be enough, right?
+		} elseif ( $result[ 'form' ] == '' ) { // FIXME: This looks weird; a simple else should be enough, right?
 			// display error message if the form is not specified in the URL
 			$pageTitle = wfMessage( 'formedit' )->text();
 			$text .= Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'pf_formedit_badurl' )->text() ) . "\n";

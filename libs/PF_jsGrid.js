@@ -138,7 +138,7 @@
 				dayElement = display_day_of_month;
 				monthElement = buildSelect(display_month + 1);
 			}
-			var html_day = '<div style="float:left; width:19%;"><label style="display:block; text-align:center; font-size:14px;">DD:</label><input  class="pf_jsGrid_day" style=" font-size:14px; " type="text" value="' + dayElement + '" placeholder="DD"></input></div>';
+			var html_day = '<div style="float:left; width:19%;"><label style="display:block; text-align:center; font-size:14px;">DD:</label><input class="pf_jsGrid_day" style=" font-size:14px; " type="text" value="' + dayElement + '" placeholder="DD"></input></div>';
 			var html_month = '<div style="float:left; width:48%; margin-left:2%; margin-right:2%;"><label style="display:block; text-align:center; font-size:14px;">MM:</label>' + monthElement + '</div>';
 			var html_year = '<div style="float:left; width:29%;"><label style="display:block; text-align:center; width:29%; font-size:14px;">YYYY:</label><input class="pf_jsGrid_year" style=" font-size:14px; " type="text" value=' + display_year + '></input></div>';
 
@@ -558,7 +558,7 @@
 		} );
 
 		var PFPageLoadingStrategy = function(grid) {
-		    jsGrid.loadStrategies.PageLoadingStrategy.call(this, grid);
+			jsGrid.loadStrategies.PageLoadingStrategy.call(this, grid);
 		};
 
 		PFPageLoadingStrategy.prototype = new jsGrid.loadStrategies.PageLoadingStrategy();

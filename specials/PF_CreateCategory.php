@@ -101,7 +101,7 @@ class PFCreateCategory extends SpecialPage {
 		$firstRow .= Html::rawElement( 'select',
 			array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
 			$formSelector );
-		$text .= Html::rawElement( 'p', null, $firstRow )  . "\n";
+		$text .= Html::rawElement( 'p', null, $firstRow ) . "\n";
 		$secondRow = wfMessage( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
 		$selectBody = "\t" . Html::element( 'option', null, null ). "\n";
 		$categories = PFValuesUtils::getAllCategories();

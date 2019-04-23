@@ -23,7 +23,7 @@ class PFFormEditAction extends Action {
 
 	/**
 	 * The main action entry point.  Do all output for display and send it to the context
-	 * output.  Do not use globals $wgOut, $wgRequest, etc, in implementations; use
+	 * output. Do not use globals $wgOut, $wgRequest, etc, in implementations; use
 	 * $this->getOutput(), etc.
 	 * @throws ErrorPageError
 	 * @return false

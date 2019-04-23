@@ -213,7 +213,7 @@ END;
 					$field->setFieldType( $req->getVal( 'field_type_' . $id ) );
 
 					if ( defined( 'CARGO_VERSION' ) ) {
-						if ( $req->getCheck( 'is_hierarchy_' .  $id ) ) {
+						if ( $req->getCheck( 'is_hierarchy_' . $id ) ) {
 							$hierarchyStructureStr = $req->getVal( 'hierarchy_structure_' . $id );
 							$field->setHierarchyStructure( $hierarchyStructureStr );
 						} else {
