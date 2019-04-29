@@ -32,7 +32,7 @@
 	"pf_createform_nameinput": "ফর্মের নাম",
 	"pf_createform_template": "টেমপ্লেট:",
 	"pf_createform_field": "ফিল্ড:",
-	"pf_createform_hidden": "লুকায়িত",
+	"pf_createform_hidden": "লুকানো",
 	"pf_createform_removetemplate": "টেমপ্লেট অপসারণ",
 	"pf_createform_addtemplate": "টেমপ্লেট যোগ:",
 	"pf_createform_add": "যোগ করুন",
