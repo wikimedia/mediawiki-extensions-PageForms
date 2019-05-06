@@ -42,5 +42,6 @@
 	"pf-datepicker-prev": "Forrige",
 	"pf-datepicker-next": "Næste",
 	"pf-datepicker-today": "I dag",
-	"pf-regexp-wrongformat": "Forkert format."
+	"pf-regexp-wrongformat": "Forkert format.",
+	"pf-missingnamespace": "Kunne ikke finde navnerum: $1"
 }
