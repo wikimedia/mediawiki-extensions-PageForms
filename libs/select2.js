@@ -1695,7 +1695,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
             opts.query({
                 element: opts.element,
-                    term: search.val(),
+                    term: stripDiacritics(search.val()),
                     page: this.resultsPage,
                     context: null,
                     matcher: opts.matcher,
@@ -1734,7 +1734,7 @@ the specific language governing permissions and limitations under the Apache Lic
                 }
 
                 results.empty();
-                self.opts.populateResults.call(this, results, data.results, {term: search.val(), page: this.resultsPage, context:null});
+                self.opts.populateResults.call(this, results, data.results, {term: stripDiacritics(search.val()), page: this.resultsPage, context:null});
 
                 if (data.more === true && checkFormatter(opts.formatLoadMore, "formatLoadMore")) {
                     results.append("<li class='select2-more-results'>" + self.opts.escapeMarkup(evaluate(opts.formatLoadMore, this.resultsPage)) + "</li>");
