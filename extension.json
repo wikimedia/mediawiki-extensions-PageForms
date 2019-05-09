@@ -220,7 +220,9 @@
 			],
 			"styles": "skins/skin-win8/ui.fancytree.css",
 			"dependencies": [
-				"ext.pageforms.fancytree.dep"
+				"ext.pageforms.fancytree.dep",
+				"jquery.ui.widget",
+				"jquery.ui.position"
 			]
 		},
 		"ext.pageforms.sortable": {

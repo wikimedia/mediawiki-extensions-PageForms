@@ -310,7 +310,11 @@ $GLOBALS['wgResourceModules'] += array(
 			'libs/PF_tree.js',
 		),
 		'styles' => 'skins/skin-win8/ui.fancytree.css',
-		'dependencies' => array( 'ext.pageforms.fancytree.dep' ),
+		'dependencies' => array(
+			'ext.pageforms.fancytree.dep',
+			'jquery.ui.widget',
+			'jquery.ui.position'
+		 ),
 	),
 	"ext.pageforms.sortable" => $wgPageFormsResourceTemplate + array(
 		'scripts' => 'libs/Sortable.js'
