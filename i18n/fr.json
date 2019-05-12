@@ -37,7 +37,7 @@
 	"pageforms-desc": "Formulaires pour créer et modifier des pages wiki",
 	"specialpages-group-pf_group": "Formulaires sémantiques",
 	"apihelp-pfautocomplete-description": "Autocomplétion utilisée par l’extension Page Forms.",
-	"apihelp-pfautocomplete-summary": "Complétude automatique utilisée par l’extension Page Forms.",
+	"apihelp-pfautocomplete-summary": "Complétion automatique utilisée par l’extension Page Forms.",
 	"apihelp-pfautocomplete-param-limit": "Limite sur le nombre de résultats renvoyés",
 	"apihelp-pfautocomplete-param-substr": "Sous-chaîne sur laquelle effectuer l’autocomplétion",
 	"apihelp-pfautocomplete-param-property": "Une propriété de MédiaWiki Sémantique dont les valeurs seront complétées automatiquement",
