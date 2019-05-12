@@ -1842,6 +1842,17 @@ $(document).ready( function() {
 		return;
 	}
 
+	function minimizeInstances( minHeight ) {
+		if ( minHeight >= 0) {
+			$('.multipleTemplateList').each( function() {
+				if ( $(this).height() > minHeight ) {
+					$(this).addClass('minimizeAll');
+					$(this).possiblyMinimizeAllOpenInstances();
+				}
+			});
+		}
+	}
+
 	// jQuery's .ready() function is being called before the resource was actually loaded.
 	// This is a workaround for https://phabricator.wikimedia.org/T216805.
 	setTimeout( function(){
@@ -1877,14 +1888,8 @@ $(document).ready( function() {
 			$(this).addInstance( false );
 		});
 		var wgPageFormsHeightForMinimizingInstances = mw.config.get( 'wgPageFormsHeightForMinimizingInstances' );
-		if ( wgPageFormsHeightForMinimizingInstances >= 0) {
-			$('.multipleTemplateList').each( function() {
-				if ( $(this).height() > wgPageFormsHeightForMinimizingInstances ) {
-					$(this).addClass('minimizeAll');
-					$(this).possiblyMinimizeAllOpenInstances();
-				}
-			});
-		}
+		minimizeInstances( wgPageFormsHeightForMinimizingInstances );
+
 		$('.multipleTemplateList').each( function() {
 			var $list = $(this);
 			var sortable = Sortable.create($list[0], {
@@ -1894,6 +1899,14 @@ $(document).ready( function() {
 				}
 			});
 		});
+
+		// If the Header Tabs extension is being used in this form, minimize all the
+		// relevant instances any time the tab is changed.
+		if ( $( "#headertabs" ).length ) {
+			$( ".oo-ui-tabOptionWidget" ).on( 'click', function( event ) {
+				minimizeInstances( wgPageFormsHeightForMinimizingInstances );
+			});
+		}
 
 		// If there are any "wizard screen" elements defined in the
 		// form, turn the whole form into a wizard, with successive
