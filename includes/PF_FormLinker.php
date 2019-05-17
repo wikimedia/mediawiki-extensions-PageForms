@@ -236,6 +236,12 @@ class PFFormLinker {
 		} else {
 			global $wgContLang;
 			$namespace_labels = $wgContLang->getNamespaces();
+			if ( !array_key_exists( $namespace, $namespace_labels ) ) {
+				// This can happen if it's a custom namespace that
+				// was not entirely correctly declared.
+				self::$formPerNamespace[$namespace] = null;
+				return null;
+			}
 			$namespace_label = $namespace_labels[$namespace];
 		}
 
