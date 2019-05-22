@@ -236,8 +236,9 @@ class PFDatePickerInput extends PFFormInput {
 				$maxDate = null;
 			}
 
-			// find allowed values and invert them to get disabled values
-			if ( $this->mOtherArgs['possible_values'] !== null ) {
+			// Find allowed values and invert them to get disabled values.
+			// This value can be null, or an empty array - empty() checks for both.
+			if ( !empty( $this->mOtherArgs['possible_values'] ) ) {
 				$enabledDates = self::sortAndMergeRanges( self::createRangesArray( $this->mOtherArgs['possible_values'] ) );
 
 				// correct min/max date to the first/last allowed value
