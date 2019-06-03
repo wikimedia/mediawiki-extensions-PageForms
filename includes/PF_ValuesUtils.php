@@ -270,9 +270,9 @@ class PFValuesUtils {
 								if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 									!is_null( $row[ 'pp_displaytitle_value' ] ) &&
 									trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
-									$pages[ $cur_value ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
+									$pages[ $cur_value . '@' ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
 								} else {
-									$pages[ $cur_value ] = $cur_value;
+									$pages[ $cur_value . '@' ] = $cur_value;
 								}
 								if ( array_key_exists( 'pp_defaultsort_value', $row ) &&
 									!is_null( $row[ 'pp_defaultsort_value' ] ) ) {
@@ -287,15 +287,35 @@ class PFValuesUtils {
 				}
 			}
 			if ( count( $newcategories ) == 0 ) {
-				array_multisort( $sortkeys, $pages );
-				return $pages;
+				return self::fixedMultiSort( $sortkeys, $pages );
 			} else {
 				$categories = array_merge( $categories, $newcategories );
 			}
 			$checkcategories = array_diff( $newcategories, array() );
 		}
+		return self::fixedMultiSort( $sortkeys, $pages );
+	}
+
+	/**
+	 * array_multisort() unfortunately messes up array keys that are
+	 * numeric - they get converted to 0, 1, etc. There are a few ways to
+	 * get around this, but I (Yaron) couldn't get those working, so
+	 * instead we're going with this hack, where all key values get
+	 * appended with a '@' before sorting, which is then removed after
+	 * sorting. It's inefficient, but it's probably good enough.
+	 *
+	 * @param string[] $sortkeys
+	 * @param string[] $pages
+	 * @return string[] a sorted version of $pages, sorted via $sortkeys
+	 */
+	static function fixedMultiSort( $sortkeys, $pages ) {
 		array_multisort( $sortkeys, $pages );
-		return $pages;
+		$newPages = array();
+		foreach ( $pages as $key => $value ) {
+			$fixedKey = rtrim( $key, '@' );
+			$newPages[$fixedKey] = $value;
+		}
+		return $newPages;
 	}
 
 	public static function getAllPagesForConcept( $conceptName, $substring = null ) {
