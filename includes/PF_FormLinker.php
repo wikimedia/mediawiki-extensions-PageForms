@@ -143,12 +143,16 @@ class PFFormLinker {
 		// Don't do this if it's a category page - it probably
 		// won't have an associated form.
 		if ( $wgPageFormsLinkAllRedLinksToForms && $target->getNamespace() != NS_CATEGORY ) {
-			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			// The class of $target can be either Title or
+			// TitleValue.
+			$title = Title::newFromLinkTarget( $target );
+			$attribs['href'] = $title->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}
 
 		if ( self::getDefaultFormForNamespace( $namespace ) !== null ) {
-			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			$title = Title::newFromLinkTarget( $target );
+			$attribs['href'] = $title->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
 			return true;
 		}
 
