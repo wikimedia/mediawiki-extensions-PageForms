@@ -351,7 +351,7 @@ class PFFormField {
 
 		// If the 'values' parameter was set, separate it based on the
 		// 'delimiter' parameter, if any.
-		if ( ! empty( $values ) ) {
+		if ( $values != null ) {
 			// Remove whitespaces, and un-escape characters
 			$valuesArray = array_map( 'trim', explode( $delimiter, $values ) );
 			$f->mPossibleValues = array_map( 'htmlspecialchars_decode', $valuesArray );
