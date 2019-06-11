@@ -91,7 +91,7 @@ $.fn.attachAutocomplete = function() {
 				if ( wgPageFormsAutocompleteOnAllChars ) {
 					matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i" );
 				} else {
-					matcher = new RegExp("\\b" + $.ui.autocomplete.escapeRegex(term), "i" );
+					matcher = new RegExp("(^|\\s)" + $.ui.autocomplete.escapeRegex(term), "i" );
 				}
 				// This may be an associative array instead of a
 				// regular one - grep() requires a regular one.
