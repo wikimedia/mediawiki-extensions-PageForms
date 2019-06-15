@@ -648,3 +648,8 @@ $GLOBALS['wgPageFormsAutoeditNamespaces'] = array( 0 );
 
 // Necessary setting for SMW 1.9+
 $GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
+
+// Backward compatibility for MW < 1.28.
+if ( !defined( 'DB_REPLICA' ) ) {
+	define( 'DB_REPLICA', DB_SLAVE );
+}

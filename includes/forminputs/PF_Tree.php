@@ -92,7 +92,7 @@ class PFTree {
 	 * @return array
 	 */
 	private static function getSubcategories( $categoryName ) {
-		$dbr = wfGetDb( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 
 		$tables = array( 'page', 'categorylinks' );
 		$fields = array( 'page_id', 'page_namespace', 'page_title',

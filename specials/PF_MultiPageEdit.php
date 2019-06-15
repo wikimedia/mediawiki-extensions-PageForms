@@ -171,7 +171,7 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	 * @param string $name
 	 */
 	public function __construct( $name = 'MultiPageEdit' ) {
-		$dbr = wfGetDB( DB_SLAVE );
+		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
 			array( 'page' ),
 			array( 'page_title' ),
