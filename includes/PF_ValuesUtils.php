@@ -213,13 +213,13 @@ class PFValuesUtils {
 						'pp_displaytitle' => array(
 							'LEFT JOIN', array(
 								'pp_displaytitle.pp_page = page_id',
-								'pp_displaytitle.pp_propname = "displaytitle"'
+								'pp_displaytitle.pp_propname = \'displaytitle\''
 							)
 						),
 						'pp_defaultsort' => array(
 							'LEFT JOIN', array(
 								'pp_defaultsort.pp_page = page_id',
-								'pp_defaultsort.pp_propname = "defaultsort"'
+								'pp_defaultsort.pp_propname = \'defaultsort\''
 							)
 						)
 					);
@@ -485,13 +485,13 @@ class PFValuesUtils {
 				'pp_displaytitle' => array(
 					'LEFT JOIN', array(
 						'pp_displaytitle.pp_page = page_id',
-						'pp_displaytitle.pp_propname = "displaytitle"'
+						'pp_displaytitle.pp_propname = \'displaytitle\''
 					)
 				),
 				'pp_defaultsort' => array(
 					'LEFT JOIN', array(
 						'pp_defaultsort.pp_page = page_id',
-						'pp_defaultsort.pp_propname = "defaultsort"'
+						'pp_defaultsort.pp_propname = \'defaultsort\''
 					)
 				)
 			);
