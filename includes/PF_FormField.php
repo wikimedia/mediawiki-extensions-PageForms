@@ -195,7 +195,7 @@ class PFFormField {
 		$cargo_table = $cargo_field = null;
 		$show_on_select = array();
 		$fullFieldName = $template_name . '[' . $field_name . ']';
-		$valuesSourceType = $valuesSource = null;
+		$values = $valuesSourceType = $valuesSource = null;
 
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
