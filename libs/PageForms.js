@@ -1622,6 +1622,11 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		};
 	}
 
+	// Only defined if $wgPageFormsSimpleUpload == true.
+	if ( typeof this.initializeSimpleUpload === 'function' ) {
+		this.initializeSimpleUpload();
+	}
+
 	if ( partOfMultiple ) {
 		this.find('.pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autocompleteInput').attachAutocomplete();
