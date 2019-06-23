@@ -1,14 +1,20 @@
 ( function( $, mw, pf ) {
         'use strict';
 
-	jQuery.fn.applyRatingInput = function() {
+	jQuery.fn.applyRatingInput = function( fromCalendar ) {
 		var starWidth = $(this).attr('data-starwidth');
+		var curValue = '';
 		if ( starWidth === undefined ) {
 			// This is probably because we're in a multple-instance
 			// template "starter", but, in any case, just exit.
 			return;
 		}
-		var curValue = $(this).attr('data-curvalue');
+
+		if( fromCalendar !== undefined ) {
+			curValue = fromCalendar;
+		} else {
+			curValue = $(this).attr('data-curvalue');
+		}
 		if ( curValue === '' || curValue === undefined ) {
 			curValue = 0;
 		}

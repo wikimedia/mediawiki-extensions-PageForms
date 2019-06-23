@@ -10,6 +10,10 @@ class PFTemplateInForm {
 	private $mLabel;
 	private $mAddButtonText;
 	private $mDisplay;
+	private $mEventTitleField;
+	private $mEventDateField;
+	private $mEventStartDateField;
+	private $mEventEndDateField;
 	private $mAllowMultiple;
 	private $mStrictParsing;
 	private $mMinAllowed;
@@ -102,6 +106,14 @@ class PFTemplateInForm {
 					$tif->mHeight = $sub_components[1];
 				} elseif ( $sub_components[0] == 'displayed fields when minimized' ) {
 					$tif->mDisplayedFieldsWhenMinimized = $sub_components[1];
+				} elseif ( $sub_components[0] == 'event title field' ) {
+					$tif->mEventTitleField = $sub_components[1];
+				} elseif ( $sub_components[0] == 'event date field' ) {
+					$tif->mEventDateField = $sub_components[1];
+				} elseif ( $sub_components[0] == 'event start date field' ) {
+					$tif->mEventStartDateField = $sub_components[1];
+				} elseif ( $sub_components[0] == 'event end date field' ) {
+					$tif->mEventEndDateField = $sub_components[1];
 				}
 			}
 		}
@@ -139,6 +151,22 @@ class PFTemplateInForm {
 
 	function getDisplay() {
 		return $this->mDisplay;
+	}
+
+	function getEventTitleField() {
+		return $this->mEventTitleField;
+	}
+
+	function getEventDateField() {
+		return $this->mEventDateField;
+	}
+
+	function getEventStartDateField() {
+		return $this->mEventStartDateField;
+	}
+
+	function getEventEndDateField() {
+		return $this->mEventEndDateField;
 	}
 
 	function getPlaceholder() {
