@@ -650,7 +650,7 @@ class PFValuesUtils {
 		}
 
 		if ( $wgPageFormsAutocompleteOnAllChars ) {
-			return $column_value . $db->buildLike( $substring, $db->anyString() );
+			return $column_value . $db->buildLike( $db->anyString(), $substring, $db->anyString() );
 		} else {
 			$spaceRepresentation = $replaceSpaces ? '_' : ' ';
 			return $column_value . $db->buildLike( $substring, $db->anyString() ) .
