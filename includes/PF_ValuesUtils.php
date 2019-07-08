@@ -651,7 +651,10 @@ class PFValuesUtils {
 		if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues &&
 			$autocompleteFieldType != 'values' &&
 			!array_key_exists( 'values dependent on', $field_args ) &&
-			!array_key_exists( 'mapping template', $field_args )
+			!array_key_exists( 'mapping template', $field_args ) &&
+			!array_key_exists( 'mapping property', $field_args ) &&
+			!( array_key_exists( 'mapping cargo table', $field_args ) &&
+			array_key_exists( 'mapping cargo field', $field_args ) )
 		) {
 			return $autocompleteFieldType;
 		} else {
