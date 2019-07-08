@@ -98,7 +98,7 @@ class PFTokensInput extends PFFormInput {
 				$wgPageFormsEDSettings[$name]['description'] = $other_args['description'];
 			}
 		} else {
-			list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFTextWithAutocompleteInput::setAutocompleteValues( $other_args );
+			list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFValuesUtils::setAutocompleteValues( $other_args );
 		}
 
 		if ( is_array( $cur_value ) ) {

@@ -578,6 +578,116 @@ class PFValuesUtils {
 		return $names_array;
 	}
 
+	public static function getAutocompletionTypeAndSource( &$field_args ) {
+		global $wgCapitalLinks;
+
+		if ( array_key_exists( 'values from property', $field_args ) ) {
+			$autocompletionSource = $field_args['values from property'];
+			$autocompleteFieldType = 'property';
+		} elseif ( array_key_exists( 'values from category', $field_args ) ) {
+			$autocompleteFieldType = 'category';
+			$autocompletionSource = $field_args['values from category'];
+		} elseif ( array_key_exists( 'values from concept', $field_args ) ) {
+			$autocompleteFieldType = 'concept';
+			$autocompletionSource = $field_args['values from concept'];
+		} elseif ( array_key_exists( 'values from namespace', $field_args ) ) {
+			$autocompleteFieldType = 'namespace';
+			$autocompletionSource = $field_args['values from namespace'];
+		} elseif ( array_key_exists( 'values from url', $field_args ) ) {
+			$autocompleteFieldType = 'external_url';
+			$autocompletionSource = $field_args['values from url'];
+		} elseif ( array_key_exists( 'values', $field_args ) ) {
+			global $wgPageFormsFieldNum;
+			$autocompleteFieldType = 'values';
+			$autocompletionSource = "values-$wgPageFormsFieldNum";
+		} elseif ( array_key_exists( 'autocomplete field type', $field_args ) ) {
+			$autocompleteFieldType = $field_args['autocomplete field type'];
+			$autocompletionSource = $field_args['autocompletion source'];
+		} elseif ( array_key_exists( 'full_cargo_field', $field_args ) ) {
+			$autocompletionSource = $field_args['full_cargo_field'];
+			$autocompleteFieldType = 'cargo field';
+		} elseif ( array_key_exists( 'cargo field', $field_args ) ) {
+			$fieldName = $field_args['cargo field'];
+			$tableName = $field_args['cargo table'];
+			$autocompletionSource = "$tableName|$fieldName";
+			$autocompleteFieldType = 'cargo field';
+		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
+			$autocompletionSource = $field_args['semantic_property'];
+			$autocompleteFieldType = 'property';
+		} else {
+			$autocompleteFieldType = null;
+			$autocompletionSource = null;
+		}
+
+		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' && $autocompleteFieldType != 'cargo field' ) {
+			global $wgContLang;
+			$autocompletionSource = $wgContLang->ucfirst( $autocompletionSource );
+		}
+
+		return array( $autocompleteFieldType, $autocompletionSource );
+	}
+
+	public static function getRemoteDataTypeAndPossiblySetAutocompleteValues( $autocompleteFieldType, $autocompletionSource, $field_args, $autocompleteSettings ) {
+		global $wgPageFormsMaxLocalAutocompleteValues, $wgPageFormsAutocompleteValues;
+
+		if ( $autocompleteFieldType == 'external_url' ) {
+			// Autocompletion from URL is always done remotely.
+			return $autocompleteFieldType;
+		}
+		if ( $autocompletionSource == '' ) {
+			// No autocompletion.
+			return null;
+		}
+		// @TODO - that empty() check shouldn't be necessary.
+		if ( array_key_exists( 'possible_values', $field_args ) &&
+		! empty( $field_args['possible_values'] ) ) {
+			$autocompleteValues = $field_args['possible_values'];
+		} elseif ( $autocompleteFieldType == 'values' ) {
+			$autocompleteValues = explode( ',', $field_args['values'] );
+		} else {
+			$autocompleteValues = self::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
+		}
+
+		if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues &&
+			$autocompleteFieldType != 'values' &&
+			!array_key_exists( 'values dependent on', $field_args ) &&
+			!array_key_exists( 'mapping template', $field_args )
+		) {
+			return $autocompleteFieldType;
+		} else {
+			$wgPageFormsAutocompleteValues[$autocompleteSettings] = $autocompleteValues;
+			return null;
+		}
+	}
+
+	/**
+	 * Get all autocomplete-related values, plus delimiter value
+	 * (it's needed also for the 'uploadable' link, if there is one).
+	 *
+	 * @param array $field_args
+	 * @param bool $is_list
+	 * @return string[]
+	 */
+	public static function setAutocompleteValues( $field_args, $is_list ) {
+		list( $autocompleteFieldType, $autocompletionSource ) =
+			self::getAutocompletionTypeAndSource( $field_args );
+		$autocompleteSettings = $autocompletionSource;
+		if ( $is_list ) {
+			$autocompleteSettings .= ',list';
+			if ( array_key_exists( 'delimiter', $field_args ) ) {
+				$delimiter = $field_args['delimiter'];
+				$autocompleteSettings .= ',' . $delimiter;
+			} else {
+				$delimiter = ',';
+			}
+		} else {
+			$delimiter = null;
+		}
+
+		$remoteDataType = self::getRemoteDataTypeAndPossiblySetAutocompleteValues( $autocompleteFieldType, $autocompletionSource, $field_args, $autocompleteSettings );
+		return array( $autocompleteSettings, $remoteDataType, $delimiter );
+	}
+
 	/**
 	 * Helper function to get an array of values out of what may be either
 	 * an array or a delimited string.

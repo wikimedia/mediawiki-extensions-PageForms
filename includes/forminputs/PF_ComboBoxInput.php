@@ -77,7 +77,8 @@ class PFComboBoxInput extends PFFormInput {
 				}
 			}
 		} else {
-			list( $autocompleteSettings, $remoteDataType ) = self::setAutocompleteValues( $other_args );
+			list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFValuesUtils::setAutocompleteValues( $other_args, false );
+			$autocompleteSettings = str_replace( "'", "\'", $autocompleteSettings );
 		}
 
 		$input_id = 'input_' . $wgPageFormsFieldNum;
@@ -128,40 +129,6 @@ class PFComboBoxInput extends PFFormInput {
 
 		$text = Html::rawElement( 'div', array( 'class' => $divClass ), $inputText );
 		return $text;
-	}
-
-	public static function setAutocompleteValues( array $field_args ) {
-		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
-
-		list( $autocompleteFieldType, $autocompletionSource ) =
-			PFTextWithAutocompleteInput::getAutocompletionTypeAndSource( $field_args );
-
-		$remoteDataType = null;
-		if ( $autocompleteFieldType == 'external_url' ) {
-			// Autocompletion from URL is always done remotely.
-			$remoteDataType = $autocompleteFieldType;
-		} elseif ( $autocompletionSource !== '' ) {
-			// @TODO - that count() check shouldn't be necessary
-			if ( array_key_exists( 'possible_values', $field_args ) &&
-			! empty( $field_args['possible_values'] ) ) {
-				$autocompleteValues = $field_args['possible_values'];
-			} elseif ( $autocompleteFieldType == 'values' ) {
-				$autocompleteValues = explode( ',', $field_args['values'] );
-			} else {
-				$autocompleteValues = PFValuesUtils::getAutocompleteValues( $autocompletionSource, $autocompleteFieldType );
-			}
-			if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues &&
-				$autocompleteFieldType != 'values' &&
-				!array_key_exists( 'values dependent on', $field_args ) &&
-				!array_key_exists( 'mapping template', $field_args )
-			) {
-				$remoteDataType = $autocompleteFieldType;
-			} else {
-				$wgPageFormsAutocompleteValues[$autocompletionSource] = $autocompleteValues;
-			}
-		}
-		$autocompletionSource = str_replace( "'", "\'", $autocompletionSource );
-		return array( $autocompletionSource, $remoteDataType );
 	}
 
 	public static function getParameters() {
