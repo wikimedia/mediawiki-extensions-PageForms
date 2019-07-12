@@ -267,6 +267,7 @@
 	"pf-datepicker-prev": "Anterior",
 	"pf-datepicker-next": "Seguinte",
 	"pf-datepicker-today": "Hoje",
+	"pf-datepicker-dateformatshort": "dd/mm/aa",
 	"pf-datepicker-dateformat": "A string do formato de data. Veja a [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentação online] para mais informações.",
 	"pf-datepicker-weekstart": "O primeiro dia da semana (0 - Domingo, 1 - Segunda, ...).",
 	"pf-datepicker-firstdate": "A primeira data que pode ser escolhida (formato aaaa/mm/dd).",
