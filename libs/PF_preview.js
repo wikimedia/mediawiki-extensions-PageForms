@@ -69,6 +69,10 @@
 
 		previewHeight = newPreviewHeight;
 
+		$( function() {
+			window.dispatchEvent( new Event( 'resize' ) ); // It fixes form preview
+		} );
+
 		return false;
 	};
 
