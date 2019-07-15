@@ -842,7 +842,12 @@ END;
 			$form_is_disabled = true;
 			if ( $wgOut->getTitle() != null ) {
 				$wgOut->setPageTitle( wfMessage( 'badaccess' )->text() );
-				$wgOut->addWikiText( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
+				if ( method_exists( $wgOut, 'addWikiTextAsInterface' ) ) {
+					// MW 1.32
+					$wgOut->addWikiTextAsInterface( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
+				} else {
+					$wgOut->addWikiText( $wgOut->formatPermissionsErrorMessage( $permissionErrors, 'edit' ) );
+				}
 				$wgOut->addHTML( "\n<hr />\n" );
 			}
 		}
