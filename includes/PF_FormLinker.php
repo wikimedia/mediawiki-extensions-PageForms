@@ -43,6 +43,7 @@ class PFFormLinker {
 	}
 
 	public static function createPageWithForm( $title, $formName ) {
+		/** @var PFFormPrinter $wgPageFormsFormPrinter */
 		global $wgPageFormsFormPrinter;
 
 		$formTitle = Title::makeTitleSafe( PF_NS_FORM, $formName );
@@ -53,7 +54,7 @@ class PFFormLinker {
 		Hooks::run( 'PageForms::EditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
 
 		list( $formText, $pageText, $formPageTitle, $generatedPageName ) =
-			$wgPageFormsFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null );
+			$wgPageFormsFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null, false, false, true );
 		$params = array();
 
 		// Get user "responsible" for all auto-generated

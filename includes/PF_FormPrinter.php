@@ -726,7 +726,10 @@ END;
 	 * @param string|null $page_name_formula
 	 * @param bool $is_query
 	 * @param bool $is_embedded
+	 * @param bool $is_autocreate true when called by #formredlink with "create page"
 	 * @return array
+	 * @throws FatalError
+	 * @throws MWException
 	 */
 	function formHTML(
 		$form_def,
@@ -737,7 +740,8 @@ END;
 		$page_name = null,
 		$page_name_formula = null,
 		$is_query = false,
-		$is_embedded = false
+		$is_embedded = false,
+		$is_autocreate = false
 	) {
 		global $wgRequest, $wgUser;
 		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
@@ -991,7 +995,10 @@ END;
 					// page or a form submit, because even if
 					// the source is a page, values can still
 					// come from a query string.
-					$tif->setFieldValuesFromSubmit();
+					// (Unless it's called from #formredlink.)
+					if ( !$is_autocreate ) {
+						$tif->setFieldValuesFromSubmit();
+					}
 
 					$tif->checkIfAllInstancesPrinted( $form_submitted, $source_is_page );
 
@@ -1667,8 +1674,8 @@ END;
 			// whatever in the page hasn't already been inserted
 			// into the form.
 			$free_text = trim( $existing_page_content );
-		// or get it from a form submission
-		} elseif ( $wgRequest->getCheck( 'pf_free_text' ) ) {
+		// ...or get it from the form submission, if it's not called from #formredlink
+		} elseif ( !$is_autocreate && $wgRequest->getCheck( 'pf_free_text' ) ) {
 			$free_text = $wgRequest->getVal( 'pf_free_text' );
 			if ( !$free_text_was_included ) {
 				$wiki_page->addFreeTextSection();
