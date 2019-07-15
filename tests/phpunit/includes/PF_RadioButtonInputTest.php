@@ -13,7 +13,7 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 	) {
 		return "\t" . sprintf(
 			'<label class="radioButtonItem%s" for="input_\d+">'
-			. '<input name="%s" type="radio" value="%s" %s'
+			. '<input name="TestTemplate123\[%s\]" type="radio" value="%s" %s'
 			. 'id="input_\d+" tabindex="\d+"%s%s /> %s</label>',
 			( $class !== null ? " $class" : '' ), $name, $value,
 			( $checked !== null ? 'checked="' . $checked . '" ' : '' ),
@@ -29,8 +29,10 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 	 * @dataProvider radioButtonDataProvider
 	 */
 	public function testRadioButtons( $setup, $expected ) {
+		$args = $setup['args'];
+		$args[1] = "TestTemplate123[{$args[1]}]";
 		$result = call_user_func_array(
-			array( 'PFRadioButtonInput', 'getHTML' ), $setup['args']
+			array( 'PFRadioButtonInput', 'getHTML' ), $args
 		);
 
 		$this->assertRegexp(
@@ -351,9 +353,11 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 			$wgOut->getContext()->setTitle( $this->getTitle() );
 
 			if ( isset( $setup['form_definition'] ) ) {
+				// We have to specify a template name
+				$form_definition = "{{{for template|TestTemplate123}}}\n{$setup['form_definition']}\n{{{end template}}}\n{{{standard input|save}}}";
 				list( $form_text, $page_text, $form_page_title, $generated_page_name )
 					= $wgPageFormsFormPrinter->formHTML(
-						$setup['form_definition'], true, false, null, null,
+					$form_definition, true, false, null, null,
 						'TestStringForFormPageTitle', null
 					);
 			} else {

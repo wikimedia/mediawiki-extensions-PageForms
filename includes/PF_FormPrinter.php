@@ -1031,7 +1031,14 @@ END;
 					// Make the template a dummy variable.
 					if ( $tif == null ) {
 						$template = new PFTemplate( null, array() );
-						$tif = new PFTemplateInForm();
+						// Get free text from the query string, if it was set.
+						if ( $wgRequest->getCheck( 'free_text' ) ) {
+							$standard_input = $wgRequest->getArray( 'standard_input', array() );
+							$standard_input['#freetext#'] = $wgRequest->getVal( 'free_text' );
+							$wgRequest->setVal( 'standard_input', $standard_input );
+						}
+						$tif = PFTemplateInForm::create( 'standard_input', null, null, null, array() );
+						$tif->setFieldValuesFromSubmit();
 					}
 					// We get the field name both here
 					// and in the PFFormField constructor,
