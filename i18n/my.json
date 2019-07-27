@@ -14,6 +14,8 @@
 	"pf_createtemplate_namelabel": "တမ်းပလိတ်အမည်",
 	"pf_createtemplate_deletefield": "ဖျက်ပါ",
 	"multipageedit": "စာမျက်နှာမြောက်များစွာ တည်းဖြတ်ရန်",
+	"forms": "ဖောင်များ",
+	"pf_forms_docu": "ဝီကီထဲတွင် အောက်ပါဖောင်များ တည်ရှိသည်။",
 	"pf_createform_template": "တမ်းပလိတ်:",
 	"pf_createform_inputtypedefault": "(နဂိုအတိုင်း)",
 	"createcategory": "ကဏ္ဍတစ်ခု ဖန်တီးရန်",
