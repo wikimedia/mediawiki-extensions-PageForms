@@ -1788,15 +1788,14 @@ $(document).ready( function() {
 			});
 		});
 
-	}, 10 );
+		// If the form is submitted, validate everything!
+		$('#pfForm').submit( function() {
+			return validateAll();
+		} );
 
-	// If the form is submitted, validate everything!
-	$('#pfForm').submit( function() {
-		return validateAll();
-	} );
-
-	// We are all done - remove the loading spinner.
-	$('.loadingImage').remove();
+		// We are all done - remove the loading spinner.
+		$('.loadingImage').remove();
+	}, 0 );
 });
 
 // If some part of the form is clicked, minimize any multiple-instance
