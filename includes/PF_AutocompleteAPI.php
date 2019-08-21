@@ -46,10 +46,10 @@ class PFAutocompleteAPI extends ApiBase {
 		$map = false;
 		if ( !is_null( $baseprop ) ) {
 			if ( !is_null( $property ) ) {
-				$data = self::getAllValuesForProperty( $property, null, $baseprop, $basevalue );
+				$data = $this->getAllValuesForProperty( $property, null, $baseprop, $basevalue );
 			}
 		} elseif ( !is_null( $property ) ) {
-			$data = self::getAllValuesForProperty( $property, $substr );
+			$data = $this->getAllValuesForProperty( $property, $substr );
 		} elseif ( !is_null( $category ) ) {
 			$data = PFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
@@ -170,7 +170,7 @@ class PFAutocompleteAPI extends ApiBase {
 		);
 	}
 
-	private static function getAllValuesForProperty(
+	private function getAllValuesForProperty(
 		$property_name,
 		$substring,
 		$basePropertyName = null,
@@ -179,6 +179,10 @@ class PFAutocompleteAPI extends ApiBase {
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues,
 		$wgPageFormsAutocompleteCacheTimeout;
 		global $smwgDefaultStore;
+
+		if ( $smwgDefaultStore == null ) {
+			$this->dieUsage( 'Semantic MediaWiki must be installed to query on "property"', 'param_property' );
+		}
 
 		$values = array();
 		$db = wfGetDB( DB_REPLICA );
