@@ -426,6 +426,52 @@ $GLOBALS['wgResourceModules'] += array(
 			'pf-select2-selection-too-big',
 		),
 	),
+	'ext.pageforms.fullcalendar.jquery1' => $wgPageFormsResourceTemplate + array(
+		'scripts' => array(
+			'libs/FullCalendar-2.9.1/fullcalendar.js',
+			'libs/PF_FullCalendar.js',
+		),
+		'styles' => array(
+			'skins/FullCalendar-2.9.1/fullcalendar.css',
+			'skins/PF_FullCalendar.css',
+		),
+		'dependencies' => array(
+			'ext.pageforms.select2',
+			'jquery.ui.sortable',
+			'ext.pageforms.fancytree',
+			'ext.pageforms',
+			'moment',
+			'mediawiki.jqueryMsg',
+		),
+		'messages' => array(
+			'pf-calendar-createevent',
+			'pf-calendar-deleteevent',
+			'pf-calendar-updateevent',
+		),
+	),
+	'ext.pageforms.fullcalendar.jquery3' => $wgPageFormsResourceTemplate + array(
+		'scripts' => array(
+			'libs/FullCalendar-3.9.0/fullcalendar.js',
+			'libs/PF_FullCalendar.js',
+		),
+		'styles' => array(
+			'skins/FullCalendar-3.9.0/fullcalendar.css',
+			'skins/PF_FullCalendar.css',
+		),
+		'dependencies' => array(
+			'ext.pageforms.select2',
+			'jquery.ui.sortable',
+			'ext.pageforms.fancytree',
+			'ext.pageforms',
+			'moment',
+			'mediawiki.jqueryMsg',
+		),
+		'messages' => array(
+			'pf-calendar-createevent',
+			'pf-calendar-deleteevent',
+			'pf-calendar-updateevent',
+		),
+	),
 	'ext.pageforms.jsgrid' => $wgPageFormsResourceTemplate + array(
 		'scripts' => array(
 			'libs/jsgrid.js',
@@ -626,6 +672,9 @@ $GLOBALS['wgPageFormsMapsWithFeeders'] = array();
 # ##
 $GLOBALS['wgPageFormsShowOnSelect'] = array();
 $GLOBALS['wgPageFormsAutocompleteValues'] = array();
+$GLOBAL['wgPageFormsCalendarValues'] = array();
+$GLOBAL['wgPageFormsCalendarParams'] = array();
+$GLOBAL['wgPageFormsCalendarHTML'] = array();
 $GLOBALS['wgPageFormsGridValues'] = array();
 $GLOBALS['wgPageFormsGridParams'] = array();
 $GLOBALS['wgPageFormsContLangYes'] = null;

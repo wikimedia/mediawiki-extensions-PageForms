@@ -260,8 +260,10 @@ END;
 
 		if ( version_compare( $wgVersion, '1.30', '<' ) || $wgUsejQueryThree === false ) {
 			$mainModules[] = 'ext.pageforms.fancybox.jquery1';
+			$mainModules[] = 'ext.pageforms.fullcalendar.jquery1';
 		} else {
 			$mainModules[] = 'ext.pageforms.fancybox.jquery3';
+			$mainModules[] = 'ext.pageforms.fullcalendar.jquery3';
 		}
 
 		if ( $wgPageFormsSimpleUpload ) {

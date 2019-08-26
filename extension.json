@@ -353,6 +353,52 @@
 				"pf-select2-selection-too-big"
 			]
 		},
+		"ext.pageforms.fullcalendar.jquery1": {
+			"scripts": [
+				"libs/FullCalendar-2.9.1/fullcalendar.js",
+				"libs/PF_FullCalendar.js"
+			],
+			"styles": [
+				"skins/FullCalendar-2.9.1/fullcalendar.css",
+				"skins/PF_FullCalendar.css"
+			],
+			"dependencies": [
+				"ext.pageforms.select2",
+				"jquery.ui.sortable",
+				"ext.pageforms.fancytree",
+				"ext.pageforms",
+				"moment",
+				"mediawiki.jqueryMsg"
+			],
+			"messages": [
+				"pf-calendar-createevent",
+				"pf-calendar-deleteevent",
+				"pf-calendar-updateevent"
+			]
+		},
+		"ext.pageforms.fullcalendar.jquery3": {
+			"scripts": [
+				"libs/FullCalendar-3.9.0/fullcalendar.js",
+				"libs/PF_FullCalendar.js"
+			],
+			"styles": [
+				"skins/FullCalendar-3.9.0/fullcalendar.css",
+				"skins/PF_FullCalendar.css"
+			],
+			"dependencies": [
+				"ext.pageforms.select2",
+				"jquery.ui.sortable",
+				"ext.pageforms.fancytree",
+				"ext.pageforms",
+				"moment",
+				"mediawiki.jqueryMsg"
+			],
+			"messages": [
+				"pf-calendar-createevent",
+				"pf-calendar-deleteevent",
+				"pf-calendar-updateevent"
+			]
+		},
 		"ext.pageforms.jsgrid": {
 			"scripts": [
 				"libs/jsgrid.js",
@@ -480,6 +526,8 @@
 		"PageFormsGoogleMapsKey": null,
 		"PageFormsShowOnSelect": [],
 		"PageFormsAutocompleteValues": [],
+		"PageFormsCalendarParams": [],
+		"PageFormsCalendarValues": [],
 		"PageFormsGridValues": [],
 		"PageFormsGridParams": [],
 		"PageFormsContLangYes": null,
