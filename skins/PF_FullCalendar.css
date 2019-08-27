@@ -1,4 +1,4 @@
-.button {
+.submit-event-button {
   background-color: #3366CC;
   border: none;
   color: white;
@@ -11,20 +11,7 @@
   margin: 4px 2px;
   cursor: pointer;
 }
-.button-update {
-  background-color: #3366CC;
-  border: none;
-  color: white;
-  border-radius: 2px;
-  padding: 7px 30px;
-  font-weight: bold;
-  text-align: center;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-.button-delete {
+.delete-event-button {
   background-color: #DD3333;
   border: none;
   color: white;
