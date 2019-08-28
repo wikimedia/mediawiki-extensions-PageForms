@@ -48,9 +48,9 @@
 		var form_html = calendarHTML[templateName];
 
 		var popup = '<form id="popupForm">';
-		var delete_button = '<button  id="event_delete" class = "button-delete" name="data" type="button" >' + mw.msg('pf-calendar-deleteevent') + '</button>';
-		var create_button = '<button  id="form_submit" class = "button" name="data" type="button" >' + mw.msg('pf-calendar-createevent') + '</button>';
-		var update_button = '<button  id="form_submit" class = "button-update" name="data" type="button" >' + mw.msg('pf-calendar-updateevent') + '</button>';
+		var delete_button = '<button  id="event_delete" class = "delete-event-button" name="data" type="button" >' + mw.msg('pf-calendar-deleteevent') + '</button>';
+		var create_button = '<button  id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-createevent') + '</button>';
+		var update_button = '<button  id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-updateevent') + '</button>';
 		popup += form_html;
 		var createEventPopup = popup + create_button;
 		var updateEventPopup = popup + update_button;
