@@ -54,6 +54,8 @@
 	"pf_createtemplate_addfield": "Aggiungi campo",
 	"pf_createtemplate_deletefield": "Cancella",
 	"forms": "Moduli",
+	"pf-calendar-createevent": "Crea evento",
+	"pf-calendar-deleteevent": "Cancella evento",
 	"pf_forms_docu": "I seguenti moduli già esistono nel wiki.",
 	"pf_forminputs_mandatory": "Devi inserire un valore per questo input",
 	"pf_forminputs_restricted": "Solo gli amministratori possono modificare questo input",

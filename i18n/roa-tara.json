@@ -21,6 +21,8 @@
 	"pf_createtemplate_deletefield": "Scangìlle",
 	"multipageedit": "Cange cchiù pàggene",
 	"forms": "Module",
+	"pf-calendar-createevent": "Ccreje l'avvenimende",
+	"pf-calendar-deleteevent": "Scangille l'avvenimende",
 	"createform": "Ccreje 'nu module",
 	"pf-createform-with-name": "Ccreje 'u module: $1",
 	"pf_createform_nameinput": "Nome d'u module",
