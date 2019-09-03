@@ -14,7 +14,8 @@
 			"Alan ffm",
 			"Devwebtel",
 			"Vuh",
-			"InternerowyGołąb"
+			"InternerowyGołąb",
+			"Railfail536"
 		]
 	},
 	"pageforms-desc": "Formularze do tworzenia i edycji stron wiki",
@@ -55,6 +56,9 @@
 	"pf_createtemplate_addfield": "Dodaj pole",
 	"pf_createtemplate_deletefield": "Usuń",
 	"forms": "Formularze",
+	"pf-calendar-createevent": "Stwórz wydarzenie",
+	"pf-calendar-deleteevent": "Usuń wydarzenie",
+	"pf-calendar-updateevent": "Zaktualizuj wydarzenie",
 	"pf_forms_docu": "Poniższe formularze są już zdefiniowane w przestrzeni wiki.",
 	"pf_forminputs_mandatory": "Obowiązkowe",
 	"pf_forminputs_restricted": "Te informacje wprowadzać mogą wyłącznie administratorzy",
