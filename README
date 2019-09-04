@@ -35,6 +35,9 @@ Ahmed as part of the 2017 Google Summer of Code.
 The page Special:MultiPageEdit was added by Yashdeep Thorat as part
 of the 2018 Google Summer of Code.
 
+Handling of "display=calendar" was added by Priyanshu Varshney as
+part of the 2019 Google Summer of Code.
+
 Important code contributions were also made by Christoph Burgmer,
 Cindy Cicalese, Daniel Friesen, Daniel Hansch, Eugene Mednikov,
 Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
@@ -42,7 +45,7 @@ Joel Natividad, Jeroen De Dauw, Joel Natividad, Louis Gerbarg, LY Meng,
 Mathias Lidal, Matt Williamson, MWJames, Niklas Laxstrom, Nils
 Opperman, Paladox, Patrick Nagel, Peter Grassberger, Remco de Boer,
 Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland, Simon Heimler,
-Solitarius, Tom Fellows, Vedmaka, wheresmytab and others.
+Solitarius, Tombolano, Tom Fellows, Vedmaka, wheresmytab and others.
 
 Language translations were provided by many people; see the files in
 the /i18n and /languages directories for the full listings.
@@ -70,6 +73,9 @@ distributed under the GPLv3 license.
 
 * Fancytree (https://github.com/mar10/fancytree) by Martin Wendt,
 distributed under the MIT license.
+
+* FullCalendar (https://fullcalendar.io/), distributed under the MIT
+license.
 
 * jsGrid (http://js-grid.com) by Artem Tabalin, distributed under
 the MIT license.
