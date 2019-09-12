@@ -478,6 +478,17 @@ class PFAutoeditAPI extends ApiBase {
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
+				// Give extensions a chance to modify URL query on create
+				Hooks::run( 'ArticleUpdateBeforeRedirect', array( $editor->getArticle(), &$sectionanchor, &$extraQuery ) );
+
+				if ( $extraQuery ) {
+					if ( $query ) {
+						$query .= '&' . $extraQuery;
+					} else {
+						$query .= $extraQuery;
+					}
+				}
+
 				$redirect = $title->getFullURL( $query ) . $anchor;
 
 				$returnto = Title::newFromText( $this->getRequest()->getText( 'returnto' ) );
