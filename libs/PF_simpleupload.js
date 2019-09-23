@@ -44,7 +44,7 @@
 			formdata.append("format", "json");
 			formdata.append("ignorewarnings", "true");
 			formdata.append("filename", fileName);
-			formdata.append("token", mw.user.tokens.get( 'editToken' ) );
+			formdata.append("token", mw.user.tokens.get( 'csrfToken' ) );
 			formdata.append("file", fileToUpload);
 
 			_this.parent().find('.simpleupload_btn').hide();
