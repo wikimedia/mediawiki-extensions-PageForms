@@ -291,7 +291,7 @@ class PFParserFunctions {
 			$formInputAttrs['autofocus'] = 'autofocus';
 		}
 
-		// Now apply the necessary settings and Javascript, depending
+		// Now apply the necessary settings and JavaScript, depending
 		// on whether or not there's autocompletion (and whether the
 		// autocompletion is local or remote).
 		$input_num = 1;
@@ -385,6 +385,8 @@ class PFParserFunctions {
 					' '
 				) . "\n";
 		}
+
+		Hooks::run( 'PageForms::FormInputEnd', array( $params, &$formContents ) );
 
 		return array( $str, 'noparse' => true, 'isHTML' => true );
 	}

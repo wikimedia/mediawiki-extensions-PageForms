@@ -211,7 +211,9 @@ class PFTreeInput extends PFFormInput {
 
 			$text .= Html::input( $cur_input_name, $node->title, $inputType, $nodeAttribs );
 
-			$text .= $node->title . "\n";
+			$nodeDisplayTitle = $node->title;
+			wfRunHooks( 'PageForms::TreeNodeDisplay', array( &$nodeDisplayTitle ) );
+			$text .= $nodeDisplayTitle . "\n";
 		}
 
 		if ( array_key_exists( 'children', $node ) ) {
