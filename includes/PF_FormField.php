@@ -948,6 +948,8 @@ class PFFormField {
 	 * @return array
 	 */
 	function getArgumentsForInputCall( array $default_args = null ) {
+		global $wgParser;
+
 		// start with the arguments array already defined
 		$other_args = $this->mFieldArgs;
 		// a value defined for the form field should always supersede
@@ -956,7 +958,14 @@ class PFFormField {
 			$other_args['possible_values'] = $this->mPossibleValues;
 		} else {
 			$other_args['possible_values'] = $this->template_field->getPossibleValues();
-			$other_args['value_labels'] = $this->template_field->getValueLabels();
+			if ( $this->hasFieldArg( 'mapping using translate' ) ) {
+				$other_args['value_labels'] = array();
+				foreach ( $other_args['possible_values'] as $key ) {
+					$other_args['value_labels'][$key] = $wgParser->recursiveTagParse( '{{int:' . $this->getFieldArg( 'mapping using translate' ) . $key . '}}' );
+				}
+			} else {
+				$other_args['value_labels'] = $this->template_field->getValueLabels();
+			}
 		}
 		$other_args['is_list'] = ( $this->mIsList || $this->template_field->isList() );
 		if ( $this->template_field->isMandatory() ) {
