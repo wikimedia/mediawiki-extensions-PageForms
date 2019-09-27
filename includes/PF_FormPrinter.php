@@ -1161,6 +1161,7 @@ END;
 						if ( $form_submitted ) {
 							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
 						} else {
+							$this->createFormFieldTranslateTag( $template, $tif, $form_field, $cur_value );
 							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value, false ) );
 						}
 						// if this is not part of a 'multiple' template, increment the
@@ -1797,6 +1798,64 @@ END;
 			$text = $form_input->getHtmlText();
 		}
 
+		$this->addTranslatableInput( $form_field, $cur_value, $text );
 		return $text;
 	}
+
+	function isTranslateEnabled() {
+		return class_exists( 'SpecialTranslate' );
+	}
+
+	/**
+	 * for translatable fields, this function add an hidden input containing the translate tags
+	 *
+	 * @param unknown $form_field
+	 * @param unknown $cur_value
+	 * @param unknown $text
+	 */
+	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
+		if ( ! $this->isTranslateEnabled() || ! $form_field->hasFieldArg( 'translatable' ) || ! $form_field->getFieldArg( 'translatable' ) ) {
+			return;
+		}
+
+		if ( $form_field->hasFieldArg( 'translate_number_tag' ) ) {
+			$inputName = $form_field->getInputName();
+			$pattern = '/\[([^\\]\\]]+)\]$/';
+			if ( preg_match( $pattern, $inputName, $matches ) ) {
+				$inputName = preg_replace( $pattern, '[${1}_translate_number_tag]', $inputName );
+			} else {
+				$inputName .= '_translate_number_tag';
+			}
+			$translateTag = $form_field->getFieldArg( 'translate_number_tag' );
+			$text .= "<input type='hidden' name='$inputName' value='$translateTag'/>";
+		}
+	}
+
+	private function createFormFieldTranslateTag( &$template, &$tif, &$form_field, &$cur_value ) {
+		if ( ! $this->isTranslateEnabled() || ! $form_field->hasFieldArg( 'translatable' ) || ! $form_field->getFieldArg( 'translatable' ) ) {
+			return;
+		}
+
+		// If translatable, add translatable tags when saving, or remove them for displaying form.
+		if ( preg_match( '#^<translate>(.*)</translate>$#', $cur_value, $matches ) ) {
+			$cur_value = $matches[1];
+		} elseif ( substr( $cur_value, 0, strlen( '<translate>' ) ) == '<translate>'
+				&& substr( $cur_value, -1 * strlen( '</translate>' ) ) == '</translate>' ) {
+			// For unknown reasons, the pregmatch regex does not work every time !! :(
+			$cur_value = substr( $cur_value, strlen( '<translate>' ), -1 * strlen( '</translate>' ) );
+		}
+
+		if ( substr( $cur_value, 0, 6 ) == '<!--T:' ) {
+			// hide the tag <!-- T:X --> in another input
+			// if field does not use VisualEditor?
+
+			if ( preg_match( "/<!-- *T:([a-zA-Z0-9]+) *-->( |\n)/", $cur_value, $matches ) ) {
+				// Remove the tag from this input.
+				$cur_value = str_replace( $matches[0], '', $cur_value );
+				// Add a field arg, to add a hidden input in form with the tag.
+				$form_field->setFieldArg( 'translate_number_tag', $matches[0] );
+			}
+		}
+	}
+
 }

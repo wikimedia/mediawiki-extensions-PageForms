@@ -460,6 +460,43 @@ class PFFormField {
 		return $f;
 	}
 
+	function isTranslateEnabled() {
+		return class_exists( 'SpecialTranslate' );
+	}
+
+	function cleanupTranslateTags( &$value ) {
+		$i = 0;
+		// If there are two tags ("<!--T:X-->") with no content between them, remove the first one.
+		while ( preg_match( '/(<!--T:[0-9]+-->\s*)(<!--T:[0-9]+-->)/', $value, $matches ) ) {
+			$value = str_replace( $matches[1], '', $value );
+			if ( $i++ > 200 ) {
+				// Is this necessary?
+				break;
+			}
+		}
+
+		$i = 0;
+		// If there is a tag ("<!--T:X-->") at the end, with nothing after, remove it.
+		while ( preg_match( '#(<!--T:[0-9]+-->\s*)(</translate>)#', $value, $matches ) ) {
+			$value = str_replace( $matches[1], '', $value );
+			if ( $i++ > 200 ) {
+				// Is this necessary?
+				break;
+			}
+		}
+
+		$i = 0;
+		// If there is a tag ("<!--T:X-->") not separated from a template call ("{{ ..."),
+		// add a new line between them.
+		while ( preg_match( '/(<!--T:[0-9]+-->)({{[^}]+}}\s*)/', $value, $matches ) ) {
+			$value = str_replace( $matches[1], $matches[1] . "\n", $value );
+			if ( $i++ > 200 ) {
+				// Is this necessary?
+				break;
+			}
+		}
+	}
+
 	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed ) {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
@@ -467,6 +504,27 @@ class PFFormField {
 		$field_name = $this->template_field->getFieldName();
 		$delimiter = $this->mFieldArgs['delimiter'];
 		$escaped_field_name = str_replace( "'", "\'", $field_name );
+
+		if ( $this->isTranslateEnabled() && $this->hasFieldArg( 'translatable' ) && $this->getFieldArg( 'translatable' ) ) {
+			// If this is a translatable field, and both it and its corresponding translate ID tag are passed in, we add it.
+			$fieldName = $this->getTemplateField()->getFieldName();
+			$fieldNameTag = $fieldName . '_translate_number_tag';
+			if ( isset( $template_instance_query_values[$fieldName] ) && isset( $template_instance_query_values[$fieldNameTag] ) ) {
+				$tag = $template_instance_query_values[$fieldNameTag];
+				if ( !preg_match( '/( |\n)$/', $tag ) ) {
+					$tag = $tag . "\n";
+				}
+				if ( trim( $template_instance_query_values[$fieldName] ) ) {
+					// Don't add the tag if field content has been removed.
+					$template_instance_query_values[$fieldName] = $tag . $template_instance_query_values[$fieldName];
+				}
+			}
+			// If user has deleted some content, and there is some translate tag ("<!--T:X-->") with no content, remove the tag.
+			if ( isset( $template_instance_query_values[$fieldName] ) ) {
+				$this->cleanupTranslateTags( $template_instance_query_values[$fieldName] );
+			}
+		}
+
 		if ( isset( $template_instance_query_values ) &&
 			$template_instance_query_values != null &&
 			is_array( $template_instance_query_values )
