@@ -230,6 +230,7 @@ class PFParserFunctions {
 		$inAutocompletionSource = '';
 		$inSize = 25;
 		$classStr = "pfFormInput";
+		$inNamespaceSelector = null;
 		$inPlaceholder = null;
 		$inAutofocus = true;
 
@@ -266,6 +267,8 @@ class PFParserFunctions {
 			} elseif ( $paramName == 'autocomplete on namespace' ) {
 				$inAutocompletionSource = $value;
 				$autocompletionType = 'namespace';
+			} elseif ( $paramName == 'namespace selector' ) {
+				$inNamespaceSelector = explode( ',', $value );
 			} elseif ( $paramName == 'placeholder' ) {
 				$inPlaceholder = $value;
 			} elseif ( $paramName == 'popup' ) {
@@ -283,6 +286,16 @@ class PFParserFunctions {
 		}
 
 		$formInputAttrs = array( 'size' => $inSize );
+
+		$formContents = '';
+
+		if ( $inNamespaceSelector !== null ) {
+			$dropdownText = '';
+			foreach ( $inNamespaceSelector as $nsName ) {
+				$dropdownText .= Html::element( 'option', null, trim( $nsName ) );
+			}
+			$formContents .= Html::rawElement( 'select', array( 'name' => 'namespace' ), $dropdownText ) . ' : ';
+		}
 
 		if ( $inPlaceholder != null ) {
 			$formInputAttrs['placeholder'] = $inPlaceholder;
@@ -318,7 +331,7 @@ class PFParserFunctions {
 		// and it will get encoded again by Html::input() - prevent
 		// double-encoding.
 		$inValue = html_entity_decode( $inValue );
-		$formContents = Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
+		$formContents .= Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
 
 		// If the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
