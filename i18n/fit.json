@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pyscowicz"
+		]
+	},
+	"pf_forminputs_checkboxes_select_all": "Valitse kaikki",
+	"pf_createform_template": "Malli:",
+	"pf_formedit_edittitle": "Mookkaa $1: $2",
+	"pf-datepicker-close": "Sulje"
+}
