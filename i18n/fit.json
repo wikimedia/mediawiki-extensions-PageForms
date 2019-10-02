@@ -4,8 +4,28 @@
 			"Pyscowicz"
 		]
 	},
+	"templates": "Mallit",
+	"pf_createtemplate_namelabel": "Mallin nimi:",
+	"pf_createtemplate_deletefield": "Ota poies",
+	"pf_forminputs_change_file": "Muuta fiili",
 	"pf_forminputs_checkboxes_select_all": "Valitse kaikki",
 	"pf_createform_template": "Malli:",
+	"pf_createform_add": "Lissää",
+	"createcategory": "Luo katekuuri",
+	"pf-createcategory-with-name": "Luo katekuuri: $1",
+	"pf_createcategory_name": "Katekuurin nimi:",
+	"pf_formstart_createoredit": "Luo eli mookkaa",
+	"formedit": "Mookkaa lomakkeella",
+	"pf_editsource": "Mookkaa wikitekstiä",
 	"pf_formedit_edittitle": "Mookkaa $1: $2",
-	"pf-datepicker-close": "Sulje"
+	"pf_formedit_addanother": "Lissää toinen",
+	"pf_formedit_saveandcontinueediting": "Säästä ja jatka",
+	"pf_formedit_tooltip_saveandcontinueediting": "Säästä tieot ja jatka mookkaamista",
+	"pf-autoedit-wait": "Oota...",
+	"pf-simpleupload": "Lattaa ylös",
+	"pf_category_desc": "Tämä on katekuuri $1.",
+	"pf_blank_namespace": "Päänimityhjyys",
+	"pf-datepicker-close": "Sulje",
+	"pf-datepicker-prev": "Eelinen",
+	"pf-datepicker-next": "Seuraava"
 }
