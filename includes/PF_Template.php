@@ -512,7 +512,7 @@ END;
 
 			// If we're using Cargo, fields can simply be displayed
 			// normally - no need for any special tags - *unless*
-			// the field holds a list of Page value, in which case
+			// the field holds a list of Page values, in which case
 			// we need to apply #arraymap.
 			$isCargoListOfPages = $cargoInUse && $field->isList() && $field->getFieldType() == 'Page';
 			if ( !$fieldProperty && !$isCargoListOfPages ) {
@@ -552,7 +552,7 @@ END;
 				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 					$tableText .= '{{!}} ';
 				}
-				$tableText .= $this->createTextForField( $field ) . "\n";
+				$tableText .= $this->createTextForField( $field ) . "\n}}\n";
 			} else {
 				$tableText .= $this->createTextForField( $field ) . "\n";
 			}
