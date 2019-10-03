@@ -59,6 +59,10 @@ class PFFormEdit extends UnlistedSpecialPage {
 	}
 
 	function printForm( $form_name, $targetName, $alt_forms = array() ) {
+		global $wgPageFormsTargetName;
+		// For use by the VEForAll extension.
+		$wgPageFormsTargetName = $targetName;
+
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 

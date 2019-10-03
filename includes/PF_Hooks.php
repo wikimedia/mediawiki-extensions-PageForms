@@ -150,6 +150,7 @@ class PFHooks {
 	}
 
 	static function setGlobalJSVariables( &$vars ) {
+		global $wgPageFormsTargetName;
 		global $wgPageFormsAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
 		global $wgPageFormsFieldProperties, $wgPageFormsCargoFields, $wgPageFormsDependentFields;
 		global $wgPageFormsGridValues, $wgPageFormsGridParams;
@@ -161,6 +162,7 @@ class PFHooks {
 		global $wgAmericanDates;
 		// global $wgPageFormsInitJSFunctions, $wgPageFormsValidationJSFunctions;
 
+		$vars['wgPageFormsTargetName'] = $wgPageFormsTargetName;
 		$vars['wgPageFormsAutocompleteValues'] = $wgPageFormsAutocompleteValues;
 		$vars['wgPageFormsAutocompleteOnAllChars'] = $wgPageFormsAutocompleteOnAllChars;
 		$vars['wgPageFormsFieldProperties'] = $wgPageFormsFieldProperties;
