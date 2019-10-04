@@ -189,6 +189,7 @@
 	"pf_formedit_saveandcontinue_summary": "Saved using \"$1\" button in form",
 	"pf_formedit_tooltip_saveandcontinueediting": "Save data and continue editing",
 	"pf_formedit_accesskey_saveandcontinueediting": "a",
+	"pf-autoedit-invalidnamespace": "Error: #autoedit cannot be called on pages in the \"$1\" namespace on this wiki.",
 	"pf_autoedit_anoneditwarning": "Warning: You are not logged in. Your IP address will be recorded in this page's edit history.",
 	"pf_autoedit_success": "Modified [[$1]] using form $2.",
 	"pf_autoedit_fail": "Modifying [[$1]] failed.",

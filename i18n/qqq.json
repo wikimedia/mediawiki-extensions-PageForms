@@ -206,6 +206,7 @@
 	"pf_formedit_saveandcontinue_summary": "Summary logged in the page history for revisions that were created using the \"Save and continue\" button.\n\nParameters:\n* $1 - replaced with {{msg-mw|pf formedit saveandcontinueediting}}",
 	"pf_formedit_tooltip_saveandcontinueediting": "Button",
 	"pf_formedit_accesskey_saveandcontinueediting": "{{notranslate}}",
+	"pf-autoedit-invalidnamespace": "Error message. Parameters:\n* $1 - Namespace name",
 	"pf_autoedit_anoneditwarning": "This is a copy of the general MediaWiki \"anoneditwarning\" message, but without any markup.\n\nSee also:\n* {{msg-mw|Anoneditwarning}}\n* {{msg-mw|Wikibase-anonymouseditwarning-property}}\n* {{msg-mw|Wikibase-anonymouseditwarning-item}}",
 	"pf_autoedit_success": "Message sent upon successful operation. Parameters:\n* $1 - target\n* $2 - form\nSee also:\n* {{msg-mw|pf autoedit fail}}",
 	"pf_autoedit_fail": "Message sent upon failed operation. Parameters:\n* $1 - target\nSee also:\n* {{msg-mw|pf autoedit success}}",

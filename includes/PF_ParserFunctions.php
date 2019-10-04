@@ -565,9 +565,8 @@ class PFParserFunctions {
 							array( NS_CATEGORY )
 						);
 						if ( !in_array( $targetTitle->getNamespace(), $allowedNamespaces ) ) {
-							return '<div class="error">Error: Invalid namespace for "'
-								. $targetTitle->getNsText() . '" detected; see Page Forms\' documentation for help on'
-								. 'configuring #autoedit namespaces using <code>$wgPageFormsAutoeditNamespaces</code>.</div>';
+							$errorMsg = wfMessage( 'pf-autoedit-invalidnamespace', $targetTitle->getNsText() )->parse();
+							return Html::element( 'div', array( 'class' => 'error' ), $errorMsg );
 						}
 						$targetArticle = new Article( $targetTitle );
 						$targetArticle->clear();
