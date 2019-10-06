@@ -301,6 +301,11 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$warningHtml = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n"
 			. '<ul class="warningbox">';
 		foreach ( $warnings as $warning => $args ) {
+				// Unlike the other warnings, this one can be worked around.
+				if ( $warning == 'badfilename' ) {
+					$this->mDesiredDestName = Title::makeTitle( NS_FILE, $args )->getText();
+				}
+
 				if ( $warning == 'exists' ) {
 					$msg = self::getExistsWarning( $args );
 				} elseif ( $warning == 'duplicate' ) {

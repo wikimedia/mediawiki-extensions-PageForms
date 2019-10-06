@@ -28,6 +28,7 @@ class PFUploadForm extends HTMLForm {
 		$this->mSessionKey = isset( $options['sessionkey'] )
 				? $options['sessionkey'] : '';
 		$this->mHideIgnoreWarning = !empty( $options['hideignorewarning'] );
+		$this->mDestFile = isset( $options['destfile'] ) ? $options['destfile'] : '';
 
 		$this->mTextTop = isset( $options['texttop'] ) ? $options['texttop'] : '';
 		$this->mTextAfterSummary = isset( $options['textaftersummary'] ) ? $options['textaftersummary'] : '';
@@ -197,6 +198,9 @@ class PFUploadForm extends HTMLForm {
 				'id' => 'wpDestFile',
 				'label-message' => 'destfilename',
 				'size' => 60,
+				'default' => $this->mDestFile,
+				# @todo FIXME: Hack to work around poor handling of the 'default' option in HTMLForm
+				'nodata' => strval( $this->mDestFile ) !== '',
 			],
 			'UploadDescription' => [
 				'type' => 'textarea',
