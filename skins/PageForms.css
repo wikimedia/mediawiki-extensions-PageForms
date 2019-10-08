@@ -207,11 +207,12 @@ div.otherForms {
 }
 
 .multipleTemplateInstance {
-	background-color: #e9e9e9;
-	border: 1px solid #cccccc;
+	background-color: #eaecf0;
+	border: 1px solid #a2a9b1;
 	padding: 5px;
-	margin: 10px 0 10px 0;
+	margin: 15px 0 15px 0;
 	border-radius: 3px;
+	position: relative;
 }
 
 .multipleTemplateInstance.sortable-chosen {
@@ -228,32 +229,24 @@ div.otherForms {
 
 a.addAboveButton {
 	display: block;
-	width: 34px;
-	height: 34px;
-	background-image: url('PF_add_above.png');
-}
-
-a.addAboveButton:hover {
-	background-image: url('PF_add_above_hover.png');
-}
-
-a.addAboveButton:active {
-	background-image: url('PF_add_above_active.png');
+	background: center / contain no-repeat #000 url('PF_add_above.svg');
+	background-size: 14px;
 }
 
 a.removeButton {
 	display: block;
-	width: 34px;
-	height: 34px;
-	background-image: url('PF_remove.png');
+	background: center / contain no-repeat #000 url('PF_remove.svg');
+	background-size: 9px;
 }
 
-a.removeButton:hover {
-	background-image: url('PF_remove_hover.png');
-}
-
-a.removeButton:active {
-	background-image: url('PF_remove_active.png');
+.multipleTemplateWrapper .instanceRemove a.removeButton,
+.multipleTemplateWrapper .instanceAddAbove a.addAboveButton {
+	width: 21px;
+	height: 21px;
+	cursor: pointer;
+	border-radius: 100%;
+	opacity: 0.90;
+	transition: 0.1s;
 }
 
 td.instanceRearranger {
@@ -269,6 +262,35 @@ td.instanceAddAbove, td.instanceRemove {
 	padding: 0;
 	width: 34px;
 	overflow: visible;
+	position: absolute;
+	opacity: 0;
+	transition: opacity 0.25s;
+}
+
+td.instanceAddAbove {
+	right:30px;
+	top: -11px;
+}
+
+td.instanceRemove {
+	right:4px;
+	top: -11px;
+}
+
+.multipleTemplateInstance:hover .instanceRemove,
+.multipleTemplateInstance:hover .instanceAddAbove {
+	opacity:1;
+}
+
+.multipleTemplateWrapper .instanceAddAbove a:hover,
+.multipleTemplateWrapper .instanceAddAbove a:active,
+.multipleTemplateWrapper .instanceAddAbove a:focus,
+.multipleTemplateWrapper .instanceRemove a:hover,
+.multipleTemplateWrapper .instanceRemove a:active,
+.multipleTemplateWrapper .instanceRemove a:focus {
+	opacity: 1;
+	box-shadow: none !important;
+	outline: none;
 }
 
 .autoGrow {
@@ -289,4 +311,29 @@ button.ui-button-icon-only {
 /* Override CSS from Header Tabs extension, if tabs are used in the form */
 input.pfComboBoxActual {
 	border: 1px solid #a6a6a6;
+}
+
+/* Style for touch-screen devices */
+
+@media (hover: none), (pointer: none), (pointer: coarse) {
+	td.instanceAddAbove,
+	td.instanceRemove {
+		opacity:1;
+		position: initial;
+	}
+
+	td.instanceAddAbove {
+		width: 42px;
+	}
+
+	.multipleTemplateWrapper .instanceRemove a.removeButton,
+	.multipleTemplateWrapper .instanceAddAbove a.addAboveButton {
+		background-size: 21px;
+		width: 30px;
+		height: 30px;
+	}
+
+	.multipleTemplateWrapper .instanceRemove a.removeButton {
+		background-size: 14px;
+	}
 }
