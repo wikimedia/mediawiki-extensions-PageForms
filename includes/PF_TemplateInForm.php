@@ -386,13 +386,23 @@ class PFTemplateInForm {
 			$template_ended = false;
 			for ( $i = $fields_start_char; ! $template_ended && ( $i < strlen( $existing_page_content ) ); $i++ ) {
 				$c = $existing_page_content[$i];
-				if ( $c == '[' ) {
+				if ( $i + 1 < strlen( $existing_page_content ) ) {
+					$nextc = $existing_page_content[$i + 1];
+				} else {
+					$nextc = null;
+				}
+				if ( $i > 0 ) {
+					$prevc = $existing_page_content[$i - 1];
+				} else {
+					$prevc = null;
+				}
+				if ( $c == '[' && ( $nextc == '[' || $prevc == '[' ) ) {
 					$uncompleted_square_brackets++;
-				} elseif ( $c == ']' && $uncompleted_square_brackets > 0 ) {
+				} elseif ( $c == ']' && ( $nextc == ']' || $prevc == ']' ) && $uncompleted_square_brackets > 0 ) {
 					$uncompleted_square_brackets--;
-				} elseif ( $c == '{' ) {
+				} elseif ( $c == '{' && ( $nextc == '{' || $prevc == '{' ) ) {
 					$uncompleted_curly_brackets++;
-				} elseif ( $c == '}' && $uncompleted_curly_brackets > 0 ) {
+				} elseif ( $c == '}' && ( $nextc == '}' || $prevc == '}' ) && $uncompleted_curly_brackets > 0 ) {
 					$uncompleted_curly_brackets--;
 				}
 				// handle an end to a field and/or template declaration
