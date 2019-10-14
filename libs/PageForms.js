@@ -396,7 +396,7 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 	.addClass('shownByPF')
 
 	.find(".disabledByPF")
-	.removeAttr('disabled')
+	.prop('disabled', false)
 	.removeClass('disabledByPF');
 
 	elem.each( function() {
