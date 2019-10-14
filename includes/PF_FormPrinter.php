@@ -916,6 +916,9 @@ END;
 				$brackets_end_loc = strpos( $section, "}}}", $brackets_loc );
 				$bracketed_string = substr( $section, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
 				$tag_components = PFUtils::getFormTagComponents( $bracketed_string );
+				if ( count( $tag_components ) == 0 ) {
+					continue;
+				}
 				$tag_title = trim( $tag_components[0] );
 				// =====================================================
 				// for template processing
