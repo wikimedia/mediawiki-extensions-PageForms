@@ -82,6 +82,13 @@ class PFCheckboxInput extends PFFormInput {
 			$text .= "\t" . Xml::check( "{$input_name}[value]",
 				$isChecked, $checkboxAttrs );
 		}
+		if ( isset( $other_args['label'] ) ) {
+			$text = Html::rawElement(
+				'label',
+				array( 'for' => $inputID ),
+				$text . $other_args['label']
+			);
+		}
 		return $text;
 	}
 
