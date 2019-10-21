@@ -9,7 +9,8 @@
 			"Sucsuzz",
 			"Rapsar",
 			"Alikaan",
-			"Hedda"
+			"Hedda",
+			"BaRaN6161 TURK"
 		]
 	},
 	"pageforms-desc": "Semantik veri ekleme ve düzenleme için formlar",
@@ -110,5 +111,7 @@
 	"pf_category_desc": "Bu $1 kategorisidir.",
 	"pf_blank_namespace": "Ana",
 	"right-editrestrictedfields": "Kısıtlanmış form alanlarını değiştirir",
+	"action-createclass": "yeni anlamsal sınıflar oluştur",
+	"action-editrestrictedfields": "kısıtlı form alanlarını düzenle",
 	"pf-datepicker-today": "Bugün"
 }
