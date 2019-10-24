@@ -10,6 +10,11 @@ textarea.mandatoryField {
 	width: auto;
 }
 
+#loadingMask {
+	position: absolute;
+	z-index: 100;
+}
+
 /* Used in 'create template' page */
 .fieldBox {
 	border: 1px black solid;

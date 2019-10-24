@@ -1742,6 +1742,8 @@ $(document).ready( function() {
 	// jQuery's .ready() function is being called before the resource was actually loaded.
 	// This is a workaround for https://phabricator.wikimedia.org/T216805.
 	setTimeout( function(){
+		// "Mask" to prevent users from clicking while form is still loading.
+		$('#loadingMask').css({'width': $(document).width(),'height': $(document).height()});
 
 		// register init functions
 		var initFunctionData = mw.config.get( 'ext.pf.initFunctionData' );

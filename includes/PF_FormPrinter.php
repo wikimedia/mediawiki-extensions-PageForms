@@ -699,8 +699,9 @@ END;
 	static function displayLoadingImage() {
 		global $wgPageFormsScriptPath;
 
+		$text = '<div id="loadingMask"></div>';
 		$loadingBGImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loadingbg.png" ) );
-		$text = '<div style="position: fixed; left: 50%; top: 50%;">' . $loadingBGImage . '</div>';
+		$text .= '<div style="position: fixed; left: 50%; top: 50%;">' . $loadingBGImage . '</div>';
 		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
 		$text .= '<div style="position: fixed; left: 50%; top: 50%; padding: 48px;">' . $loadingImage . '</div>';
 
