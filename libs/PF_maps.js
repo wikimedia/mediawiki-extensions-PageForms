@@ -287,6 +287,14 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 
 	function leafletSetMarker( location ) {
+		// Leaflet permits longitude beyond ±180, so we have to normalize this here.
+		// Google Maps and OpenLayers don't have this issue.
+		while ( location.lng < -180 ) {
+			location.lng += 360;
+		}
+		while ( location.lng > 180 ) {
+			location.lng -= 360;
+		}
 		if ( marker == null) {
 			marker = L.marker( location ).addTo( map );
 		} else {
