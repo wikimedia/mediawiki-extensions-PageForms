@@ -1,14 +1,11 @@
-/*jshint node:true */
+/* eslint-env node */
 module.exports = function ( grunt ) {
-	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-jsonlint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 
 	grunt.initConfig( {
-		jshint: {
-			options: {
-				jshintrc: true
-			},
+		eslint: {
 			all: [
 				'**/*.js',
 				'!node_modules/**',
@@ -24,8 +21,7 @@ module.exports = function ( grunt ) {
 				'!libs/jquery.fancytree.js',
 				'!libs/jsgrid.js',
 				'!libs/select2.js',
-				'!libs/Sortable.js',
-				'!libs/PF_maps.js'
+				'!libs/Sortable.js'
 			]
 		},
 		banana: {
@@ -40,6 +36,6 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'jshint', 'jsonlint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'eslint', 'jsonlint', 'banana' ] );
 	grunt.registerTask( 'default', 'test' );
 };
