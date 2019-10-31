@@ -11,7 +11,6 @@
 		"commonjs": true
 	},
 	"rules": {
-		"array-bracket-spacing": "off",
 		"block-spacing": "off",
 		"brace-style": "off",
 		"camelcase": "off",

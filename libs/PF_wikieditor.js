@@ -14,7 +14,7 @@ window.ext.wikieditor = {
 				var input = $( '#' + input_id );
 
 				// load toolbar
-				mw.loader.using( ['jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config'] , function() {
+				mw.loader.using( [ 'jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config' ] , function() {
 					if ( typeof $.wikiEditor.isSupported !== 'function' || $.wikiEditor.isSupported( $.wikiEditor.modules.toolbar ) ) {
 						input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
 
@@ -31,7 +31,7 @@ window.ext.wikieditor = {
 				});
 
 				// load dialogs
-				mw.loader.using( ['jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config'] , function(){
+				mw.loader.using( [ 'jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config' ] , function(){
 					if ( typeof $.wikiEditor.isSupported !== 'function' || $.wikiEditor.isSupported( $.wikiEditor.modules.dialogs ) ) {
 						$.wikiEditor.modules.dialogs.config.replaceIcons( input );
 						input.wikiEditor( 'addModule', $.wikiEditor.modules.dialogs.config.getDefaultConfig() );

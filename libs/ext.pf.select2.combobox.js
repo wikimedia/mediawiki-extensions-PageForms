@@ -96,7 +96,7 @@
 	 */
 	combobox_proto.getData = function( autocompletesettings ) {
 		var input_id = "#" + this.id;
-		var values = [{id: 0, text: ""}];
+		var values = [ {id: 0, text: ""} ];
 		var dep_on = this.dependentOn();
 		var i, data;
 		if ( dep_on === null ) {
@@ -121,7 +121,7 @@
 						i = 0;
 						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
-								values[i+1].image = data.image[i];
+								values[ i+1 ].image = data.image[ i ];
 								i++;
 							});
 						}

@@ -17,7 +17,7 @@
 	// Create month selector dropdown.
 	function buildSelect( currentMonth ) {
 		// Add blank as the first value in the array.
-		var monthNames = [''].concat(mw.language.months.abbrev);
+		var monthNames = [ '' ].concat(mw.language.months.abbrev);
 		var str = '<select class="pf_jsGrid_month" style=" width: 100% !important; font-size:14px;">';
 		for (var val = 0; val <= 12; val++) {
 			var val2;

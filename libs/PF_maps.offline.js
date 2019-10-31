@@ -109,7 +109,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 		mapCanvas = inputDiv.find('.pfMapCanvas').get(0);
 		mapOptions = {
 			zoom: 1,
-			center: [0, 0]
+			center: [ 0, 0 ]
 		};
 		var layerOptions = {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -275,7 +275,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 				} else if ( mapService === "Leaflet" ) {
 					var lPoint = L.latLng( lat, lon );
 					leafletSetMarker( lPoint );
-					map.fitBounds([[bottom, left], [top, right]]);
+					map.fitBounds([ [ bottom, left ], [ top, right ] ]);
 				}
 			});
 		}

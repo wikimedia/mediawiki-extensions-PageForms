@@ -12,6 +12,7 @@ module.exports = function ( grunt ) {
 				'!vendor/**',
 				'!libs/jquery.browser.js',
 				'!libs/jquery.fancytree.js',
+				'!libs/jquery.rateyo.js',
 				'!libs/FullCalendar-2.9.1/fullcalendar.js',
 				'!libs/FullCalendar-3.9.0/fullcalendar.js',
 				'!libs/FullCalendar-3.9.0/locale-all.js',
