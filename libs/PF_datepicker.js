@@ -57,7 +57,7 @@ window.PF_DP_init = function ( input_id, params ) {
 			'showButtonPanel': true,
 			'firstDay': params.firstDay,
 			'dateFormat': params.dateFormat,
-			'beforeShowDay': function ( date ) {return PF_DP_checkDate( '#' + input_id + '_show', date );}
+			'beforeShowDay': function ( date ) { return PF_DP_checkDate( '#' + input_id + '_show', date ); }
 		} );
 
 		// at least in Firefox, the tabindex needs to be set delayed

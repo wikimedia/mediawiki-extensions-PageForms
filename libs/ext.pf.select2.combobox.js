@@ -71,7 +71,7 @@
 		opts.formatNoMatches = mw.msg( "pf-select2-no-matches" );
 		opts.placeholder = $(input_id).attr( "placeholder" );
 		if ( $(input_id).attr( "existingvaluesonly" ) !== "true" && input_tagname === "INPUT" ) {
-			opts.createSearchChoice = function( term, data ) { if ( $(data).filter(function() { return this.text.localeCompare( term )===0; }).length===0 ) {return { id:term, text:term };} };
+			opts.createSearchChoice = function( term, data ) { if ( $(data).filter(function() { return this.text.localeCompare( term )===0; }).length===0 ) { return { id:term, text:term }; } };
 		}
 		if ( $(input_id).val() !== "" && input_tagname === "INPUT" ) {
 			opts.initSelection = function ( element, callback ) { var data = {id: element.val(), text: element.val()}; callback(data); };

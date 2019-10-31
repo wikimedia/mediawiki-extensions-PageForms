@@ -335,27 +335,27 @@
 		function isValidDate(dateString) {
 			if( mw.config.get( 'wgAmericanDates' ) ) {
 				var reg = /^(January?|February?|March?|April?|May|June?|July?|August?|September?|October?|November?|December?)\s\d{1,2},\s\d{4}$/;
-				if(!dateString.match(reg)) {return false;}
+				if(!dateString.match(reg)) { return false; }
 			} else {
 				dateString = dateString.replace('/','-');
 				dateString = dateString.replace('/','-');
 				var regEx = /^\d{4}-\d{2}-\d{2}$/;
-				if(!dateString.match(regEx)) {return false;}  // Invalid format
+				if(!dateString.match(regEx)) { return false; }  // Invalid format
 				var d = new Date(dateString);
 				var dNum = d.getTime();
-				if(!dNum && dNum !== 0) {return false;} // NaN value, Invalid date
+				if(!dNum && dNum !== 0) { return false; } // NaN value, Invalid date
 				return d.toISOString().slice(0,10) === dateString;
 			}
 		}
 		function dateTimeValidation(dateString) {
 			if( mw.config.get( 'wgAmericanDates' ) ) {
 				var reg = /^(January?|February?|March?|April?|May|June?|July?|August?|September?|October?|November?|December?)\s\d{1,2},\s\d{4}\s\d{2}:\d{2}:\d{2}$/;
-				if(!dateString.match(reg)) {return false;}
+				if(!dateString.match(reg)) { return false; }
 			} else {
 				dateString = dateString.replace('/','-');
 				dateString = dateString.replace('/','-');
 				var regEx = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/;
-				if(!dateString.match(regEx)) {return false;}  // Invalid format
+				if(!dateString.match(regEx)) { return false; }  // Invalid format
 				return !!new Date(dateString).getTime();
 			}
 		}

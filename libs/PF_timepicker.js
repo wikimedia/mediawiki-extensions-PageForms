@@ -225,7 +225,7 @@ window.PF_TP_init = function( inputID, params ) { // minTime, maxTime, interval,
 	// hide timepicker when input loses focus
 	inputShow
 	.blur(function() {
-		jQuery( '#' + inputID + '_tree ul' ).fadeOut( 'normal', function() {jQuery(this).hide();});
+		jQuery( '#' + inputID + '_tree ul' ).fadeOut( 'normal', function() { jQuery(this).hide(); });
 	});
 
 	if ( ! params.partOfDTP ) {
