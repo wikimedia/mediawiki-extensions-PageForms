@@ -287,14 +287,6 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 
 	function leafletSetMarker( location ) {
-		// Leaflet permits longitude beyond ±180, so we have to normalize this here.
-		// Google Maps and OpenLayers don't have this issue.
-		while ( location.lng < -180 ) {
-			location.lng += 360;
-		}
-		while ( location.lng > 180 ) {
-			location.lng -= 360;
-		}
 		if ( marker == null) {
 			marker = L.marker( location ).addTo( map );
 		} else {
@@ -303,8 +295,17 @@ function setupMapFormInput( inputDiv, mapService ) {
 		marker.dragging.enable();
 
 		function setInput() {
+			var lng = marker.getLatLng().lng;
+			// Leaflet permits longitude beyond ±180, so we have to normalize this here.
+			// Google Maps and OpenLayers don't have this issue.
+			while ( lng < -180 ) {
+				lng += 360;
+			}
+			while ( lng > 180 ) {
+				lng -= 360;
+			}
 			var stringVal = pfRoundOffDecimal( marker.getLatLng().lat ) + ', ' +
-				pfRoundOffDecimal( marker.getLatLng().lng );
+				pfRoundOffDecimal( lng );
 			coordsInput.val( stringVal )
 				.attr( 'data-original-value', stringVal )
 				.removeClass( 'modifiedInput' )
