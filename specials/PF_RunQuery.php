@@ -131,15 +131,21 @@ class PFRunQuery extends IncludableSpecialPage {
 					$queryStringValues[$key] = $value;
 				}
 			}
-			$action = htmlspecialchars( $realTitle->getLocalURL( $queryStringValues ) );
+			if ( !array_key_exists( 'pfRunQueryFormName', $queryStringValues ) ) {
+				$queryStringValues['pfRunQueryFormName'] = $form_name;
+			}
+			$action = htmlspecialchars( $realTitle->getLocalURL() );
 
 			$fullFormText .= <<<END
 	<form id="pfForm" name="createbox" action="$action" method="get" class="createbox">
 
 END;
-			$fullFormText .= Html::hidden( 'pfRunQueryFormName', $form_name );
-			// Set 'title' as hidden field, in case there's no URL niceness.
-			$fullFormText .= Html::hidden( 'title', PFUtils::titleURLString( $realTitle ) );
+			foreach ( $queryStringValues as $key => $value ) {
+				if ( is_array( $value ) ) {
+					$value = wfArrayToCgi( $value );
+				}
+				$fullFormText .= Html::hidden( $key, $value ) . "\n";
+			}
 			$fullFormText .= $form_text;
 		}
 
