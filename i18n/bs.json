@@ -3,7 +3,8 @@
 		"authors": [
 			"CERminator",
 			"KWiki",
-			"Srdjan m"
+			"Srdjan m",
+			"Obsuser"
 		]
 	},
 	"pageforms-desc": "Obrasci za dodavanje i uređivanje semantičkih podataka",
@@ -80,7 +81,7 @@
 	"pf_bad_date_error": "mora biti valjan datum",
 	"uploadwindow": "Prozor za postavljanje",
 	"pf_deletionlog": "Zapisnik brisanja",
-	"pf_template_docu": "Ovo je '$1' obrazac.\nTrebao bi se nazvati u slijedećem formatu:",
+	"pf_template_docu": "Ovo je '$1' obrazac.\nTrebao bi se nazvati u sljedećem formatu:",
 	"pf_form_freetextlabel": "Slobodni tekst",
 	"pf_category_hasdefaultform": "Ova kategorija koristi obrazac $1.",
 	"pf_category_desc": "Ovo je $1 kategorija.",
@@ -88,7 +89,7 @@
 	"right-editrestrictedfields": "Uređivanje ograničenih polja obrazca",
 	"pf-datepicker-close": "Zatvori",
 	"pf-datepicker-prev": "Prethodno",
-	"pf-datepicker-next": "Slijedeće",
+	"pf-datepicker-next": "Sljedeće",
 	"pf-datepicker-today": "Danas",
 	"pf-regexp-wrongformat": "Pogrešan format."
 }
