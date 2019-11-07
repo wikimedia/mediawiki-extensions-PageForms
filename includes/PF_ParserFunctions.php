@@ -712,15 +712,11 @@ class PFParserFunctions {
 		}
 
 		if ( $parserFunctionName == 'formredlink' && $targetPageExists ) {
-			if ( function_exists( 'MediaWiki\MediaWikiServices::getLinkRenderer' ) ) {
-				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-			} else {
-				$linkRenderer = null;
-			}
+			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 			if ( $inExistingPageLinkStr == '' ) {
-				return PFUtils::makeLink( $linkRenderer, $targetTitle );
+				return $linkRenderer->makeKnownLink( $targetTitle );
 			} else {
-				return PFUtils::makeLink( $linkRenderer, $targetTitle, $inExistingPageLinkStr );
+				return $linkRenderer->makeKnownLink( $targetTitle, $inExistingPageLinkStr );
 			}
 		}
 

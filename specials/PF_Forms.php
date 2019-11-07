@@ -70,11 +70,6 @@ class FormsPage extends QueryPage {
 
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( PF_NS_FORM, $result->value );
-		if ( method_exists( $this, 'getLinkRenderer' ) ) {
-			$linkRenderer = $this->getLinkRenderer();
-		} else {
-			$linkRenderer = null;
-		}
-		return PFUtils::makeLink( $linkRenderer, $title, htmlspecialchars( $title->getText() ) );
+		return $this->getLinkRenderer()->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
 	}
 }

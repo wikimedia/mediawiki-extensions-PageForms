@@ -10,26 +10,6 @@
 class PFUtils {
 
 	/**
-	 * Helper function for backward compatibility.
-	 * @param LinkRenderer $linkRenderer
-	 * @param string $title
-	 * @param string|null $msg
-	 * @param array $attrs
-	 * @param array $params
-	 * @return string
-	 */
-	public static function makeLink( $linkRenderer, $title, $msg = null, $attrs = array(), $params = array() ) {
-		if ( !is_null( $linkRenderer ) ) {
-			// MW 1.28+
-			// Is there a makeLinkKnown() method? We'll just do it
-			// manually.
-			return $linkRenderer->makeLink( $title, $msg, $attrs, $params, array( 'known' ) );
-		} else {
-			return Linker::linkKnown( $title, $msg, $attrs, $params );
-		}
-	}
-
-	/**
 	 * Creates a link to a special page, using that page's top-level description as the link text.
 	 * @param LinkRenderer $linkRenderer
 	 * @param string $specialPageName
@@ -37,7 +17,7 @@ class PFUtils {
 	 */
 	public static function linkForSpecialPage( $linkRenderer, $specialPageName ) {
 		$specialPage = SpecialPageFactory::getPage( $specialPageName );
-		return self::makeLink( $linkRenderer, $specialPage->getPageTitle(),
+		return $linkRenderer->makeKnownLink( $specialPage->getPageTitle(),
 			htmlspecialchars( $specialPage->getDescription() ) );
 	}
 
@@ -180,11 +160,8 @@ END;
 
 		if ( $wgUser->isLoggedIn() ) {
 			$edit_token = $wgUser->getEditToken();
-		} elseif ( class_exists( '\MediaWiki\Session\Token' ) ) {
-			// MW 1.27+
-			$edit_token = \MediaWiki\Session\Token::SUFFIX;
 		} else {
-			$edit_token = EDIT_TOKEN_SUFFIX;
+			$edit_token = \MediaWiki\Session\Token::SUFFIX;
 		}
 		$form_body .= Html::hidden( 'wpEditToken', $edit_token );
 		$form_body .= Html::hidden( $action, null );

@@ -249,12 +249,8 @@ class PFFormUtils {
 			}
 			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
 		} else {
-			if ( function_exists( 'MediaWiki\MediaWikiServices::getLinkRenderer' ) ) {
-				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-			} else {
-				$linkRenderer = null;
-			}
-			$cancel = PFUtils::makeLink( $linkRenderer, $wgTitle, $label );
+			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+			$cancel = $linkRenderer->makeKnownLink( $wgTitle, $label );
 		}
 		return "\t\t" . Html::rawElement( 'span', array( 'class' => 'editHelp' ), $cancel ) . "\n";
 	}

@@ -75,45 +75,6 @@ class PFFormLinker {
 	}
 
 	/**
-	 * Sets the URL for form-based creation of a nonexistent (broken-linked,
-	 * AKA red-linked) page, for MW < 1.28 only.
-	 *
-	 * @param Linker $linker
-	 * @param Title $target
-	 * @param array $options
-	 * @param string $text
-	 * @param array &$attribs
-	 * @param bool &$ret
-	 * @return true
-	 */
-	static function setBrokenLinkOld( $linker, $target, $options, $text, &$attribs, &$ret ) {
-		// If it's not a broken (red) link, exit.
-		if ( !in_array( 'broken', $options, true ) ) {
-			return true;
-		}
-		// If the link is to a special page, exit.
-		$namespace = $target->getNamespace();
-		if ( $namespace == NS_SPECIAL ) {
-			return true;
-		}
-
-		global $wgPageFormsLinkAllRedLinksToForms, $wgContentNamespaces;
-		// We'll do this only for "content namespaces" (by default, just
-		// the main namespace, though others can be added).
-		if ( $wgPageFormsLinkAllRedLinksToForms && in_array( $target->getNamespace(), $wgContentNamespaces ) ) {
-			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
-			return true;
-		}
-
-		if ( self::getDefaultFormForNamespace( $namespace ) !== null ) {
-			$attribs['href'] = $target->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
-			return true;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Called by the HtmlPageLinkRendererEnd hook.
 	 * The $target argument is listed in the documentation as being of type
 	 * LinkTarget, but in practice it seems to sometimes be of type Title

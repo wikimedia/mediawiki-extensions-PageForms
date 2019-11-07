@@ -197,14 +197,9 @@ class PFFormEditAction extends Action {
 			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage otherForms' ), $text ) );
 		}
 
-		// We need to call linkKnown(), not link(), so that PF's
-		// edit=>formedit hook won't be called on this link.
-		if ( function_exists( 'MediaWiki\MediaWikiServices::getLinkRenderer' ) ) {
-			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-		} else {
-			$linkRenderer = null;
-		}
-		$noFormLink = PFUtils::makeLink( $linkRenderer, $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), array( 'action' => 'edit', 'redlink' => true ) );
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		$linkParams = array( 'action' => 'edit', 'redlink' => true );
+		$noFormLink = $linkRenderer->makeKnownLink( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), $linkParams );
 		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
 	}
 

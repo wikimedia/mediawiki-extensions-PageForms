@@ -1,7 +1,7 @@
 {
 	"@Note": "When updating this file please also update PageForms.php with the same changes.",
 	"name": "Page Forms",
-	"version": "4.6",
+	"version": "4.7-alpha",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",
@@ -30,7 +30,7 @@
 		"PFHooks::initialize"
 	],
 	"requires": {
-		"MediaWiki": ">= 1.27.0"
+		"MediaWiki": ">= 1.28.0"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -496,6 +496,7 @@
 		"EditPage::importFormData": [
 			"PFHooks::showFormPreview"
 		],
+		"HtmlPageLinkRendererEnd": "PFFormLinker::setBrokenLink",
 		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
 		"TinyMCEDisable": "PFHooks::disableTinyMCE",
 		"CanonicalNamespaces": [

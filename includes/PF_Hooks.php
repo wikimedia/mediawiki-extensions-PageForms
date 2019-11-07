@@ -19,7 +19,7 @@ class PFHooks {
 			return 1;
 		}
 
-		define( 'PF_VERSION', '4.6' );
+		define( 'PF_VERSION', '4.7-alpha' );
 
 		$GLOBALS['wgPageFormsIP'] = dirname( __DIR__ ) . '/../';
 
@@ -38,25 +38,11 @@ class PFHooks {
 
 		// Necessary setting for SMW 1.9+
 		$GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
-
-		// Backward compatibility for MW < 1.28.
-		if ( !defined( 'DB_REPLICA' ) ) {
-			define( 'DB_REPLICA', DB_SLAVE );
-		}
 	}
 
 	public static function initialize() {
 		$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
 		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
-
-		// We have to have this hook called here, instead of in
-		// extension.json, because it's conditional.
-		if ( class_exists( 'MediaWiki\Linker\LinkRenderer' ) ) {
-			// MW 1.28+
-			$GLOBALS['wgHooks']['HtmlPageLinkRendererEnd'][] = 'PFFormLinker::setBrokenLink';
-		} else {
-			$GLOBALS['wgHooks']['LinkEnd'][] = 'PFFormLinker::setBrokenLinkOld';
-		}
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
@@ -84,7 +70,7 @@ class PFHooks {
 		// the value here instead.
 		$pageFormsDir = __DIR__ . '/..';
 
-		if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) && ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
 			$resourceLoader->register( array(
 				'ext.pageforms.maps' => array(
 					'localBasePath' => $pageFormsDir,
@@ -295,8 +281,8 @@ class PFHooks {
 
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
 		$editMsg = wfMessage( 'edit' )->text();
-		$text = PFUtils::makeLink( $linkRenderer = null, $sp->getPageTitle(), $editMsg, array(),
-			array( "template" => $templateName, "form" => $formName ) );
+		$linkParams = array( 'template' => $templateName, 'form' => $formName );
+		$text = Linker::linkKnown( $sp->getPageTitle(), $editMsg, array(), $linkParams );
 
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );
 		$pos = false === $indexOfDrilldown ? count( $array ) : $indexOfDrilldown + 1;

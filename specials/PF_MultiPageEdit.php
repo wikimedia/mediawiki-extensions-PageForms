@@ -257,13 +257,10 @@ class SpreadsheetTemplatesPage extends QueryPage {
 			return false;
 		}
 		$templateTitle = Title::makeTitle( NS_TEMPLATE, $templateName );
-		if ( method_exists( $this, 'getLinkRenderer' ) ) {
-			$linkRenderer = $this->getLinkRenderer();
-		} else {
-			$linkRenderer = null;
-		}
+		$linkRenderer = $this->getLinkRenderer();
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
-		$text = PFUtils::makeLink( $linkRenderer, $sp->getPageTitle(), $templateTitle->getText(), array(), array( "template" => $templateTitle->getText(), "form" => $formName ) );
+		$linkParams = array( 'template' => $templateTitle->getText(), 'form' => $formName );
+		$text = $linkRenderer->makeKnownLink( $sp->getPageTitle(), $templateTitle->getText(), array(), $linkParams );
 		return $text;
 	}
 }

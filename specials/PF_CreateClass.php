@@ -221,11 +221,7 @@ class PFCreateClass extends SpecialPage {
 		// Make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page.
 		$creation_links = array();
-		if ( method_exists( $this, 'getLinkRenderer' ) ) {
-			$linkRenderer = $this->getLinkRenderer();
-		} else {
-			$linkRenderer = null;
-		}
+		$linkRenderer = $this->getLinkRenderer();
 		if ( defined( 'SMW_VERSION' ) ) {
 			$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateProperty' );
 		}

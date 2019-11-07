@@ -181,12 +181,7 @@ END;
 		if ( !$embedded ) {
 			$po = $wgParser->getOutput();
 			if ( $po ) {
-				// addParserOutputMetadata was introduced in 1.24 when addParserOutputNoText was deprecated
-				if ( method_exists( $out, 'addParserOutputMetadata' ) ) {
-					$out->addParserOutputMetadata( $po );
-				} else {
-					$out->addParserOutputNoText( $po );
-				}
+				$out->addParserOutputMetadata( $po );
 			}
 		}
 

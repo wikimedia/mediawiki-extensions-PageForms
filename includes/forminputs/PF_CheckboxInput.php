@@ -74,14 +74,7 @@ class PFCheckboxInput extends PFFormInput {
 		if ( $is_disabled ) {
 			$checkboxAttrs['disabled'] = true;
 		}
-		if ( method_exists( 'Html', 'check' ) ) {
-			// MW 1.24+
-			$text .= "\t" . Html::check( "{$input_name}[value]",
-				$isChecked, $checkboxAttrs );
-		} else {
-			$text .= "\t" . Xml::check( "{$input_name}[value]",
-				$isChecked, $checkboxAttrs );
-		}
+		$text .= "\t" . Html::check( "{$input_name}[value]", $isChecked, $checkboxAttrs );
 		if ( isset( $other_args['label'] ) ) {
 			$text = Html::rawElement(
 				'label',

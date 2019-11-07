@@ -50,9 +50,7 @@ class PFOpenLayersInput extends PFFormInput {
 		global $wgPageFormsFieldNum, $wgPageFormsTabIndex;
 		global $wgOut, $wgPageFormsMapsWithFeeders;
 
-		if ( version_compare( $GLOBALS['wgVersion'], '1.26c', '>' ) &&
-			ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' )
-		) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
 			$wgOut->addModuleStyles( 'ext.openlayers.main' );
 			$wgOut->addModuleScripts( 'ext.openlayers.main' );
 		} else {

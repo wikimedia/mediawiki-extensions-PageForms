@@ -92,12 +92,8 @@ class TemplatesPage extends QueryPage {
 
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( NS_TEMPLATE, $result->value );
-		if ( method_exists( $this, 'getLinkRenderer' ) ) {
-			$linkRenderer = $this->getLinkRenderer();
-		} else {
-			$linkRenderer = null;
-		}
-		$text = PFUtils::makeLink( $linkRenderer, $title, htmlspecialchars( $title->getText() ) );
+		$linkRenderer = $this->getLinkRenderer();
+		$text = $linkRenderer->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
 			$text .= ' ' . wfMessage(
