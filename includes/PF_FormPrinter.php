@@ -925,6 +925,15 @@ END;
 				// for template processing
 				// =====================================================
 				if ( $tag_title == 'for template' ) {
+					foreach ( $tag_components as $tag_component ) {
+						// Angled brackets could cause a security leak (and should not be necessary).
+						if ( strpos( $tag_component, '<' ) !== false || strpos( $tag_component, '>' ) !== false ) {
+							throw new MWException(
+								'<div class="error">Error in form definition! The following field tag contains forbidden characters:</div>' .
+								"\n<pre>" . htmlspecialchars( $section ) . "</pre>"
+							);
+						}
+					}
 					if ( $tif ) {
 						$previous_template_name = $tif->getTemplateName();
 					} else {
@@ -989,6 +998,9 @@ END;
 				// end template processing
 				// =====================================================
 				} elseif ( $tag_title == 'end template' ) {
+					if ( count( $tag_components ) > 1 ) {
+						throw new MWException( '<div class="error">Error in form definition: \'end template\' tag cannot contain any additional parameters.</div>' );
+					}
 					if ( $source_is_page ) {
 						// Add any unhandled template fields
 						// in the page as hidden variables.
@@ -1443,7 +1455,9 @@ END;
 							$wgPageFormsRunQueryFormAtTop = true;
 						}
 					}
-					$section = substr_replace( $section, '', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
+					// Replace the {{{info}}} tag with a hidden span, instead of a blank, to avoid a
+					// potential security issue.
+					$section = substr_replace( $section, '<span style="visibility: hidden;" />', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 				// =====================================================
 				// default outer level processing
 				// =====================================================
