@@ -309,7 +309,9 @@
 			return false;
 		}
 
-		value = value.toLowerCase();
+		if ( typeof value === 'string' ) {
+			value = value.toLowerCase();
+		}
 		var possibleYesMessages = [
 			mw.config.get( 'wgPageFormsContLangYes' ).toLowerCase(),
 			// Add in '1', and some hardcoded English.
