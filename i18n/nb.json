@@ -266,6 +266,8 @@
 	"pf-datepicker-prev": "Forrige",
 	"pf-datepicker-next": "Neste",
 	"pf-datepicker-today": "I dag",
+	"pf-datepicker-dateformatlong": "d. MM yy",
+	"pf-datepicker-dateformatshort": "dd.mm.yy",
 	"pf-datepicker-dateformat": "Datoformatstreng. Se [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters online documentation] for nærmere informasjon.",
 	"pf-datepicker-weekstart": "Første ukedag (0 - søndag, 1 - mandag, ...).",
 	"pf-datepicker-firstdate": "Første valgbare dato (med \"yyyy/mm/dd\"-format).",
