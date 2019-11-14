@@ -742,6 +742,7 @@ END;
 		global $wgRequest, $wgUser, $wgParser;
 		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
 		global $wgPageFormsFieldNum; // used for setting various HTML IDs
+		global $wgPageFormsShowExpandAllLink;
 
 		// Initialize some variables.
 		$wiki_page = new PFWikiPage();
@@ -855,6 +856,12 @@ END;
 				}
 				$wgOut->addHTML( "\n<hr />\n" );
 			}
+		}
+
+		if ( $wgPageFormsShowExpandAllLink ) {
+			$form_text .= Html::rawElement( 'p', array( 'id' => 'pf-expand-all' ),
+				// @TODO - add an i18n message for this.
+				Html::element( 'a', array( 'href' => '#' ), 'Expand all collapsed parts of the form' ) ) . "\n";
 		}
 
 		// $oldParser = $wgParser;

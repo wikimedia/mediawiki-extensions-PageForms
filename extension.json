@@ -508,6 +508,7 @@
 	},
 	"config": {
 		"PageFormsUseDisplayTitle": true,
+		"PageFormsShowExpandAllLink": false,
 		"PageFormsSimpleUpload": false,
 		"PageFormsMaxAutocompleteValues": 1000,
 		"PageFormsMaxLocalAutocompleteValues": 100,

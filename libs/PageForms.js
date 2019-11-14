@@ -1841,4 +1841,23 @@ $('form#pfForm').click( function(e) {
 	}
 });
 
+$('#pf-expand-all a').click(function( event ) {
+	event.preventDefault();
+
+	// Page Forms minimized template instances.
+	$('.minimized').each( function() {
+		$(this).removeClass('minimized');
+		$(this).find('.fieldValuesDisplay').html('');
+		$(this).find('.instanceMain').fadeIn();
+		$(this).find('.fieldValuesDisplay').remove();
+        });
+
+	// Standard MediaWiki "collapsible" sections.
+	$('div.mw-collapsed a.mw-collapsible-text').click();
+
+	// From "ToggleDisplay", a now-obsolete extension that some people
+	// are sadly still using...
+	('div.toggle-display').css('display', 'none').text('[hide details]');
+});
+
 }( jQuery, mediaWiki ) );
