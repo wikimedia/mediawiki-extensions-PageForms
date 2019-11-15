@@ -20,18 +20,20 @@ class PFRadioButtonInput extends PFEnumInput {
 			$cur_value = '';
 		}
 
-		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
+		if ( array_key_exists( 'possible_values', $other_args ) ) {
+			$possible_values = $other_args['possible_values'];
+		} elseif (
+			array_key_exists( 'property_type', $other_args ) &&
+			$other_args['property_type'] == '_boo'
+		) {
 			// If it's a Boolean property, display 'Yes' and 'No'
 			// as the values.
-			if ( array_key_exists( 'property_type', $other_args ) &&
-				$other_args['property_type'] == '_boo' ) {
-				$possible_values = array(
-					PFUtils::getWordForYesOrNo( true ),
-					PFUtils::getWordForYesOrNo( false ),
-				);
-			} else {
-				$possible_values = array();
-			}
+			$possible_values = array(
+				PFUtils::getWordForYesOrNo( true ),
+				PFUtils::getWordForYesOrNo( false ),
+			);
+		} else {
+			$possible_values = array();
 		}
 
 		// Add a "None" value at the beginning, unless this is a
