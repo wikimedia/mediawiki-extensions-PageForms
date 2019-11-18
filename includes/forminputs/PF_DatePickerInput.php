@@ -608,7 +608,7 @@ class PFDatePickerInput extends PFFormInput {
 		// Assemble HTML code.
 		$html = self::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 
-		if ( ! array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
+		if ( !array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
 			// wrap in span (e.g. used for mandatory inputs)
 			$class = array_key_exists( 'mandatory', $this->mOtherArgs ) ? 'inputSpan mandatoryFieldSpan' : 'inputSpan';
 			$html = Xml::tags( 'span', array( 'class' => $class ), $html );

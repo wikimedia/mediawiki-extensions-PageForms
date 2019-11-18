@@ -30,7 +30,7 @@ class PFFormStart extends SpecialPage {
 		$params = $req->getVal( 'params' );
 
 		// If the query string did not contain a form name, try the URL.
-		if ( ! $form_name ) {
+		if ( !$form_name ) {
 			$queryparts = explode( '/', $query, 2 );
 			$form_name = isset( $queryparts[0] ) ? $queryparts[0] : '';
 			// If a target was specified, it means we should

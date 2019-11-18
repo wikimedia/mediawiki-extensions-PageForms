@@ -270,7 +270,7 @@ class PFTemplateField {
 			if ( strstr( $fieldProperty, $var ) ) {
 				$var_options = array( 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' );
 				foreach ( $var_options as $option ) {
-					if ( ! strstr( $fieldProperty, $option ) ) {
+					if ( !strstr( $fieldProperty, $option ) ) {
 						$var = $option;
 						break;
 					}

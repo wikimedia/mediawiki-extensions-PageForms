@@ -659,7 +659,7 @@ END;
 				if ( $month == '' ) {
 					return $year;
 				} elseif ( $day == '' ) {
-					if ( ! $wgAmericanDates ) {
+					if ( !$wgAmericanDates ) {
 						// The month is a number - we
 						// need it to be a string, so
 						// that the date will be parsed
@@ -677,16 +677,16 @@ END;
 					}
 					// If there's a day, include whatever
 					// time information we have.
-					if ( ! is_null( $hour ) ) {
+					if ( !is_null( $hour ) ) {
 						$new_value .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 					}
-					if ( ! is_null( $second ) ) {
+					if ( !is_null( $second ) ) {
 						$new_value .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 					}
-					if ( ! is_null( $ampm24h ) ) {
+					if ( !is_null( $ampm24h ) ) {
 						$new_value .= " $ampm24h";
 					}
-					if ( ! is_null( $timezone ) ) {
+					if ( !is_null( $timezone ) ) {
 						$new_value .= " $timezone";
 					}
 					return $new_value;
@@ -768,7 +768,7 @@ END;
 		// minimize the html traffic and would allow us to do a concurrent
 		// update check. For now, we pass it through a hidden text field.
 
-		if ( ! $partial_form_submitted ) {
+		if ( !$partial_form_submitted ) {
 			$original_page_content = $existing_page_content;
 		} else {
 			$original_page_content = null;
@@ -805,7 +805,7 @@ END;
 		global $wgOut;
 		// Show previous set of deletions for this page, if it's been
 		// deleted before.
-		if ( ! $form_submitted &&
+		if ( !$form_submitted &&
 			( $this->mPageTitle && !$this->mPageTitle->exists() &&
 			is_null( $page_name_formula ) )
 		) {
@@ -835,7 +835,7 @@ END;
 			$form_is_disabled = false;
 			// Show "Your IP address will be recorded" warning if
 			// user is anonymous, and it's not a query.
-			if ( $wgUser->isAnon() && ! $is_query ) {
+			if ( $wgUser->isAnon() && !$is_query ) {
 				// Based on code in MediaWiki's EditPage.php.
 				$anonEditWarning = wfMessage( 'anoneditwarning',
 					// Log-in link
@@ -1189,7 +1189,7 @@ END;
 						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
-						if ( ! $form_field->hasFieldArg( 'part_of_multiple' ) ) {
+						if ( !$form_field->hasFieldArg( 'part_of_multiple' ) ) {
 							$wgPageFormsTabIndex++;
 						}
 						// increment the global field number regardless
@@ -1392,7 +1392,7 @@ END;
 					}
 
 					// If input is from the form.
-					if ( ( ! $source_is_page ) && $wgRequest ) {
+					if ( ( !$source_is_page ) && $wgRequest ) {
 						$text_per_section = $wgRequest->getArray( '_section' );
 						$section_text = $text_per_section[trim( $section_name )];
 
@@ -1589,7 +1589,7 @@ END;
 					if ( $tif->getInstanceNum() == 0 ) {
 						$multipleTemplateHTML .= $this->multipleTemplateStartHTML( $tif );
 					}
-					if ( ! $tif->allInstancesPrinted() ) {
+					if ( !$tif->allInstancesPrinted() ) {
 						$multipleTemplateHTML .= $this->multipleTemplateInstanceHTML( $tif, $form_is_disabled, $section );
 					} else {
 						$multipleTemplateHTML .= $this->multipleTemplateEndHTML( $tif, $form_is_disabled, $section );
@@ -1618,7 +1618,7 @@ END;
 					$multipleTemplateHTML .= self::makePlaceholderInFormHTML( $placeholder );
 					$form_text = str_replace( self::makePlaceholderInFormHTML( $placeholder ), $multipleTemplateHTML, $form_text );
 				}
-				if ( ! $tif->allInstancesPrinted() ) {
+				if ( !$tif->allInstancesPrinted() ) {
 					// This will cause the section to be
 					// re-parsed on the next go.
 					$section_num--;
@@ -1644,7 +1644,7 @@ END;
 
 		// If it wasn't included in the form definition, add the
 		// 'free text' input as a hidden field at the bottom.
-		if ( ! $free_text_was_included ) {
+		if ( !$free_text_was_included ) {
 			$form_text .= Html::hidden( 'pf_free_text', '!free_text!' );
 		}
 		// Get free text, and add to page data, as well as retroactively
@@ -1672,7 +1672,7 @@ END;
 		// or get it from a form submission
 		} elseif ( $wgRequest->getCheck( 'pf_free_text' ) ) {
 			$free_text = $wgRequest->getVal( 'pf_free_text' );
-			if ( ! $free_text_was_included ) {
+			if ( !$free_text_was_included ) {
 				$wiki_page->addFreeTextSection();
 			}
 		} elseif ( $preloaded_free_text != null ) {
@@ -1803,7 +1803,7 @@ END;
 				$other_args = $form_field->getArgumentsForInputCall();
 				// Set default size for list inputs.
 				if ( $form_field->isList() ) {
-					if ( ! array_key_exists( 'size', $other_args ) ) {
+					if ( !array_key_exists( 'size', $other_args ) ) {
 						$other_args['size'] = 100;
 					}
 				}
@@ -1839,7 +1839,7 @@ END;
 	 * @param unknown $text
 	 */
 	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
-		if ( ! $this->isTranslateEnabled() || ! $form_field->hasFieldArg( 'translatable' ) || ! $form_field->getFieldArg( 'translatable' ) ) {
+		if ( !$this->isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}
 
@@ -1857,7 +1857,7 @@ END;
 	}
 
 	private function createFormFieldTranslateTag( &$template, &$tif, &$form_field, &$cur_value ) {
-		if ( ! $this->isTranslateEnabled() || ! $form_field->hasFieldArg( 'translatable' ) || ! $form_field->getFieldArg( 'translatable' ) ) {
+		if ( !$this->isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}
 

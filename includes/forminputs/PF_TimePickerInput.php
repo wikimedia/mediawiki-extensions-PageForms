@@ -114,8 +114,8 @@ class PFTimePickerInput extends PFFormInput {
 		$html = PFDatePickerInput::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 
 		// wrap in span (e.g. used for mandatory inputs)
-		if ( ! array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
-			$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs ) ? ' mandatoryFieldSpan' : '' ) . '">' .$html . '</span>';
+		if ( !array_key_exists( 'part of dtp', $this->mOtherArgs ) ) {
+			$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs ) ? ' mandatoryFieldSpan' : '' ) . '">' . $html . '</span>';
 		}
 
 		return $html;

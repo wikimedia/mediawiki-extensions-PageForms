@@ -39,7 +39,7 @@ class PFTemplate {
 	}
 
 	/**
-	 * @TODO - fix so that this function only gets called once per
+	 * @todo - fix so that this function only gets called once per
 	 * template; right now it seems to get called once per field. (!)
 	 */
 	function loadTemplateFields() {
@@ -97,7 +97,7 @@ class PFTemplate {
 		// property onto a list.
 		if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $i => $field_name ) {
-				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
+				if ( !in_array( $field_name, $fieldNamesArray ) ) {
 					$propertyName = $matches[2][$i];
 					$this->loadPropertySettingInTemplate( $field_name, $propertyName, true );
 					$fieldNamesArray[] = $field_name;
@@ -115,7 +115,7 @@ class PFTemplate {
 		if ( preg_match_all( '/\[\[([^:|\[\]]*:*?[^:|\[\]]*)::{{{([^\]\|}]*).*?\]\]/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $i => $propertyName ) {
 				$field_name = trim( $matches[2][$i] );
-				if ( ! in_array( $field_name, $fieldNamesArray ) ) {
+				if ( !in_array( $field_name, $fieldNamesArray ) ) {
 					$propertyName = trim( $propertyName );
 					$this->loadPropertySettingInTemplate( $field_name, $propertyName, false );
 					$fieldNamesArray[] = $field_name;
@@ -130,7 +130,7 @@ class PFTemplate {
 				if ( preg_match_all( '/([^|{]*?)=\s*{{{([^|}]*)/mis', $match, $matches2 ) ) {
 					foreach ( $matches2[1] as $i => $propertyName ) {
 						$fieldName = trim( $matches2[2][$i] );
-						if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
+						if ( !in_array( $fieldName, $fieldNamesArray ) ) {
 							$propertyName = trim( $propertyName );
 							$this->loadPropertySettingInTemplate( $fieldName, $propertyName, false );
 							$fieldNamesArray[] = $fieldName;
@@ -150,7 +150,7 @@ class PFTemplate {
 					if ( count( $keyAndVal ) == 2 ) {
 						$propertyName = trim( $keyAndVal[0] );
 						$fieldName = trim( $keyAndVal[1] );
-						if ( ! in_array( $fieldName, $fieldNamesArray ) ) {
+						if ( !in_array( $fieldName, $fieldNamesArray ) ) {
 							$this->loadPropertySettingInTemplate( $fieldName, $propertyName, false );
 							$fieldNamesArray[] = $fieldName;
 						}
@@ -163,7 +163,7 @@ class PFTemplate {
 		if ( preg_match_all( '/{{{([^|}]*)/mis', $this->mTemplateText, $matches ) ) {
 			foreach ( $matches[1] as $fieldName ) {
 				$fieldName = trim( $fieldName );
-				if ( !empty( $fieldName ) && ( ! in_array( $fieldName, $fieldNamesArray ) ) ) {
+				if ( !empty( $fieldName ) && ( !in_array( $fieldName, $fieldNamesArray ) ) ) {
 					$cur_pos = stripos( $this->mTemplateText, $fieldName );
 					$this->mTemplateFields[$cur_pos] = PFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
 					$fieldNamesArray[] = $fieldName;

@@ -266,7 +266,7 @@ class PFValuesUtils {
 								continue;
 							}
 							$cur_value = PFUtils::titleString( $cur_title );
-							if ( ! in_array( $cur_value, $pages ) ) {
+							if ( !in_array( $cur_value, $pages ) ) {
 								if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 									!is_null( $row[ 'pp_displaytitle_value' ] ) &&
 									trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
@@ -640,7 +640,7 @@ class PFValuesUtils {
 		}
 		// @TODO - that empty() check shouldn't be necessary.
 		if ( array_key_exists( 'possible_values', $field_args ) &&
-		! empty( $field_args['possible_values'] ) ) {
+		!empty( $field_args['possible_values'] ) ) {
 			$autocompleteValues = $field_args['possible_values'];
 		} elseif ( $autocompleteFieldType == 'values' ) {
 			$autocompleteValues = explode( ',', $field_args['values'] );
@@ -713,7 +713,7 @@ class PFValuesUtils {
 		if ( empty( $wgPageFormsAutocompletionURLs ) ) {
 			return wfMessage( 'pf-nocompletionurls' );
 		}
-		if ( ! array_key_exists( $external_url_alias, $wgPageFormsAutocompletionURLs ) ) {
+		if ( !array_key_exists( $external_url_alias, $wgPageFormsAutocompletionURLs ) ) {
 			return wfMessage( 'pf-invalidexturl' );
 		}
 		$url = $wgPageFormsAutocompletionURLs[$external_url_alias];
@@ -767,7 +767,7 @@ class PFValuesUtils {
 		} else {
 			$spaceRepresentation = $replaceSpaces ? '_' : ' ';
 			return $column_value . $db->buildLike( $substring, $db->anyString() ) .
-				' OR ' .$column_value .
+				' OR ' . $column_value .
 				$db->buildLike( $db->anyString(), $spaceRepresentation . $substring, $db->anyString() );
 		}
 	}

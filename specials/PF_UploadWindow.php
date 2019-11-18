@@ -570,7 +570,7 @@ END;
 
 	/**
 	 * Remove a temporarily kept file stashed by saveTempUploadedFile().
-	 * @access private
+	 * @private
 	 * @return success
 	 */
 	protected function unsaveUploadedFile() {
@@ -578,7 +578,7 @@ END;
 			return true;
 		}
 		$success = $this->mUpload->unsaveUploadedFile();
-		if ( ! $success ) {
+		if ( !$success ) {
 			$this->getOutput()->showFatalError(
 				$this->msg( 'filedeleteerror' )
 					->params( $this->mUpload->getTempPath() )

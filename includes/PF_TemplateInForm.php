@@ -205,14 +205,14 @@ class PFTemplateInForm {
 		// For now, HTML for templates differs for multiple-instance
 		// templates; this may change if handling of form definitions
 		// gets more sophisticated.
-		if ( ! $this->mAllowMultiple ) {
+		if ( !$this->mAllowMultiple ) {
 			$text .= "{| class=\"formtable\"\n";
 		}
 		foreach ( $this->mFields as $i => $field ) {
 			$is_last_field = ( $i == count( $this->mFields ) - 1 );
 			$text .= $field->createMarkup( $this->mAllowMultiple, $is_last_field );
 		}
-		if ( ! $this->mAllowMultiple ) {
+		if ( !$this->mAllowMultiple ) {
 			$text .= "|}\n";
 		}
 		$text .= "{{{end template}}}\n";
@@ -262,7 +262,7 @@ class PFTemplateInForm {
 	}
 
 	function addGridValue( $field_name, $cur_value ) {
-		if ( ! array_key_exists( $this->mInstanceNum, $this->mGridValues ) ) {
+		if ( !array_key_exists( $this->mInstanceNum, $this->mGridValues ) ) {
 			$this->mGridValues[$this->mInstanceNum] = array();
 		}
 		$this->mGridValues[$this->mInstanceNum][$field_name] = $cur_value;
@@ -384,7 +384,7 @@ class PFTemplateInForm {
 			$uncompleted_square_brackets = 0;
 			$uncompleted_curly_brackets = 2;
 			$template_ended = false;
-			for ( $i = $fields_start_char; ! $template_ended && ( $i < strlen( $existing_page_content ) ); $i++ ) {
+			for ( $i = $fields_start_char; !$template_ended && ( $i < strlen( $existing_page_content ) ); $i++ ) {
 				$c = $existing_page_content[$i];
 				if ( $i + 1 < strlen( $existing_page_content ) ) {
 					$nextc = $existing_page_content[$i + 1];

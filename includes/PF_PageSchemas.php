@@ -842,7 +842,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		// Create the "!" hack template, if it's necessary
 		if ( $templateHackUsed ) {
 			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, '!' );
-			if ( ! $templateTitle->exists() ) {
+			if ( !$templateTitle->exists() ) {
 				$params = array();
 				$params['user_id'] = $wgUser->getId();
 				$params['page_text'] = '|';

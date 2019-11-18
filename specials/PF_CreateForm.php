@@ -206,7 +206,7 @@ class PFCreateForm extends SpecialPage {
 								$field->setInputType( $input_type );
 							}
 						} else {
-							if ( ! empty( $value ) ) {
+							if ( !empty( $value ) ) {
 								if ( $value == 'on' ) {
 									$value = true;
 								}
@@ -285,7 +285,7 @@ class PFCreateForm extends SpecialPage {
 			$text .= "\n\t<p><label>" . wfMessage( 'pf_createform_nameinput' )->escaped() .
 				' ' . wfMessage( 'pf_createform_nameinputdesc' )->escaped() .
 				Html::input( 'form_name', $form_name, 'text', array( 'size' => 25 ) );
-			if ( ! empty( $form_name_error_str ) ) {
+			if ( !empty( $form_name_error_str ) ) {
 				$text .= "\t" . Html::element( 'span', array( 'class' => 'error' ), $form_name_error_str );
 			}
 			$text .= "</label></p>\n";
@@ -406,7 +406,7 @@ END;
 		$text .= Html::element( 'h2', array(), $section_str );
 
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
-			if ( ( $pos = strpos( $key, '_section_'.$section_count ) ) != false ) {
+			if ( ( $pos = strpos( $key, '_section_' . $section_count ) ) != false ) {
 				$paramName = substr( $key, 0, $pos );
 				$paramName = str_replace( '_', ' ', $paramName );
 				$paramValues[$paramName] = $value;
@@ -644,7 +644,7 @@ END;
 			$cur_values = explode( ',', $cur_value );
 			foreach ( $param['values'] as $val ) {
 				$text .= '<span style="white-space: nowrap; padding-right: 5px; font-family: monospace;"><input type="checkbox" name="p[' .
-					htmlspecialchars( $paramName ) . '][' . htmlspecialchars( $val ). ']" value="true"' .
+					htmlspecialchars( $paramName ) . '][' . htmlspecialchars( $val ) . ']" value="true"' .
 					( in_array( $val, $cur_values ) ? ' checked' : '' ) . '/> ' . htmlspecialchars( $val ) . "</span>\n";
 			}
 			return $text;

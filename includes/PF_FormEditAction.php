@@ -134,7 +134,7 @@ class PFFormEditAction extends Action {
 			$content_actions[$key] = $tab_values[$i];
 		}
 
-		if ( ! $obj->getUser()->isAllowed( 'viewedittab' ) ) {
+		if ( !$obj->getUser()->isAllowed( 'viewedittab' ) ) {
 			// The tab can have either of these two actions.
 			unset( $content_actions['edit'] );
 			unset( $content_actions['viewsource'] );

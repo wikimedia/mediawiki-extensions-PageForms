@@ -606,7 +606,7 @@ END;
 	 * @param int $header_level
 	 * @return string
 	 */
-	static function headerHTML( $header_name , $header_level = 2 ) {
+	static function headerHTML( $header_name, $header_level = 2 ) {
 		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;
@@ -618,7 +618,7 @@ END;
 		}
 
 		$header_level = min( $header_level, 6 );
-		$elementName = 'h'. $header_level;
+		$elementName = 'h' . $header_level;
 		$text = Html::rawElement( $elementName, array(), $header_name );
 		return $text;
 	}

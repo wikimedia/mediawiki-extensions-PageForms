@@ -206,7 +206,7 @@ class PFFormField {
 			} elseif ( $component == 'hidden' ) {
 				$f->mIsHidden = true;
 			} elseif ( $component == 'restricted' ) {
-				$f->mIsRestricted = ( ! $wgUser || ! $wgUser->isAllowed( 'editrestrictedfields' ) );
+				$f->mIsRestricted = ( !$wgUser || !$wgUser->isAllowed( 'editrestrictedfields' ) );
 			} elseif ( $component == 'list' ) {
 				$f->mIsList = true;
 			} elseif ( $component == 'unique' ) {
@@ -392,7 +392,7 @@ class PFFormField {
 			// not included, so we need to add it now.
 			if ( $valuesSourceType == 'namespace' && $valuesSource != '' && $valuesSource != 'Main' ) {
 				foreach ( $f->mPossibleValues as $index => &$value ) {
-					$value = $valuesSource .  ':' . $value;
+					$value = $valuesSource . ':' . $value;
 				}
 				// Has to be set to false to not mess up the
 				// handling.
@@ -865,7 +865,7 @@ class PFFormField {
 			$text .= "! $fieldLabel: $descPlaceholder\n";
 		}
 
-		if ( ! $part_of_multiple ) {
+		if ( !$part_of_multiple ) {
 			$text .= "| ";
 		}
 		$text .= "{{{field|" . $this->template_field->getFieldName();
@@ -893,7 +893,7 @@ class PFFormField {
 		$text .= "}}}\n";
 		if ( $part_of_multiple ) {
 			$text .= "\n";
-		} elseif ( ! $is_last_field_in_template ) {
+		} elseif ( !$is_last_field_in_template ) {
 			$text .= "|-\n";
 		}
 		return $text;
@@ -901,7 +901,7 @@ class PFFormField {
 
 	function getArgumentsForInputCallSMW( array &$other_args ) {
 		if ( $this->template_field->getSemanticProperty() !== '' &&
-			! array_key_exists( 'semantic_property', $other_args ) ) {
+			!array_key_exists( 'semantic_property', $other_args ) ) {
 			$other_args['semantic_property'] = $this->template_field->getSemanticProperty();
 			$other_args['property_type'] = $this->template_field->getPropertyType();
 		}
@@ -909,7 +909,7 @@ class PFFormField {
 		// and it's a property of type page, or a property of another
 		// type with 'autocomplete' specified, set the necessary
 		// parameters.
-		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
+		if ( !array_key_exists( 'autocompletion source', $other_args ) ) {
 			if ( $this->template_field->getPropertyType() == '_wpg' ) {
 				$other_args['autocompletion source'] = $this->template_field->getSemanticProperty();
 				$other_args['autocomplete field type'] = 'property';
@@ -923,7 +923,7 @@ class PFFormField {
 	function getArgumentsForInputCallCargo( array &$other_args ) {
 		$fullCargoField = $this->template_field->getFullCargoField();
 		if ( $fullCargoField !== null &&
-			! array_key_exists( 'full_cargo_field', $other_args ) ) {
+			!array_key_exists( 'full_cargo_field', $other_args ) ) {
 			$other_args['full_cargo_field'] = $fullCargoField;
 		}
 
@@ -931,7 +931,7 @@ class PFFormField {
 			$other_args['structure'] = $this->template_field->getHierarchyStructure();
 		}
 
-		if ( ! array_key_exists( 'autocompletion source', $other_args ) ) {
+		if ( !array_key_exists( 'autocompletion source', $other_args ) ) {
 			if ( $this->template_field->getFieldType() == 'Page' || array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
 				$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
 				$other_args['autocomplete field type'] = 'cargo field';

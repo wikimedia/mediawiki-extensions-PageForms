@@ -86,7 +86,7 @@ class PFTree {
 	/**
 	 * Gets all the subcategories of the passed-in category.
 	 *
-	 * @TODO This might not belong in this class.
+	 * @todo This might not belong in this class.
 	 *
 	 * @param Title $title
 	 * @return array

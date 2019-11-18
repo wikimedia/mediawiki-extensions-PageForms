@@ -385,7 +385,7 @@ class PFParserFunctions {
 			), '<p>' . $formContents . '</p>'
 		) . "\n";
 
-		if ( ! empty( $inAutocompletionSource ) ) {
+		if ( !empty( $inAutocompletionSource ) ) {
 			$str .= "\t\t\t" .
 				Html::element( 'div',
 					array(
@@ -743,13 +743,13 @@ class PFParserFunctions {
 			$link_url = $formSpecialPageTitle->getLocalURL( $query );
 		} else {
 			$link_url = $formSpecialPageTitle->getLocalURL() . "/$inFormName";
-			if ( ! empty( $inTargetName ) ) {
+			if ( !empty( $inTargetName ) ) {
 				$link_url .= "/$inTargetName";
 			}
 			$link_url = str_replace( ' ', '_', $link_url );
 		}
 		$hidden_inputs = "";
-		if ( ! empty( $inQueryArr ) ) {
+		if ( !empty( $inQueryArr ) ) {
 			// Special handling for the buttons - query string
 			// has to be turned into hidden inputs.
 			if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
@@ -783,7 +783,7 @@ class PFParserFunctions {
 		} else {
 			// If a target page has been specified but it doesn't
 			// exist, make it a red link.
-			if ( ! empty( $inTargetName ) ) {
+			if ( !empty( $inTargetName ) ) {
 				if ( !$targetPageExists ) {
 					$classStr .= " new";
 				}

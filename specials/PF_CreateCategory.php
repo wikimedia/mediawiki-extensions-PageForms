@@ -93,7 +93,7 @@ class PFCreateCategory extends SpecialPage {
 			}
 		}
 		$firstRow .= "\t" . wfMessage( 'pf_createcategory_defaultform' )->escaped() . "\n";
-		$formSelector = "\t" . Html::element( 'option', null, null ). "\n";
+		$formSelector = "\t" . Html::element( 'option', null, null ) . "\n";
 		foreach ( $all_forms as $form ) {
 			$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
 		}
@@ -103,7 +103,7 @@ class PFCreateCategory extends SpecialPage {
 			$formSelector );
 		$text .= Html::rawElement( 'p', null, $firstRow ) . "\n";
 		$secondRow = wfMessage( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
-		$selectBody = "\t" . Html::element( 'option', null, null ). "\n";
+		$selectBody = "\t" . Html::element( 'option', null, null ) . "\n";
 		$categories = PFValuesUtils::getAllCategories();
 		foreach ( $categories as $category ) {
 			$category = str_replace( '_', ' ', $category );
