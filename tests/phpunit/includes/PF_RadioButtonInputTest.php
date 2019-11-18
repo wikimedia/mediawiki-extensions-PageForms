@@ -373,11 +373,9 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 	 */
 	public function testRadioButtonsFromWikitext( $setup, $expected ) {
 		if ( !isset( $expected['skip'] ) ) {
-			global $wgPageFormsFormPrinter, $wgTitle, $wgParser, $wgOut;
+			global $wgPageFormsFormPrinter, $wgOut;
 
-			$wgParser = $this->getParser();
-			$wgTitle = $this->getTitle();
-			$wgOut->getContext()->setTitle( $wgTitle );
+			$wgOut->getContext()->setTitle( $this->getTitle() );
 
 			if ( isset( $setup['form_definition'] ) ) {
 				list( $form_text, $page_text, $form_page_title, $generated_page_name )
@@ -683,16 +681,4 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 
 		return $mockTitle;
 	}
-
-	/**
-	 * Returns a Parser for test
-	 * @return Parser
-	 */
-	private function getParser() {
-		return new StubObject(
-			'wgParser', $GLOBALS['wgParserConf']['class'],
-			array( $GLOBALS['wgParserConf'] )
-		);
-	}
-
 }

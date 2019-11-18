@@ -13,11 +13,9 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 * @dataProvider pageSectionDataProvider
 	 */
 	public function testPageSectionsWithoutExistingPages( $setup, $expected ) {
-		global $wgPageFormsFormPrinter, $wgTitle, $wgParser, $wgOut;
+		global $wgPageFormsFormPrinter, $wgOut;
 
-		$wgParser = $this->getParser();
-		$wgTitle = $this->getTitle();
-		$wgOut->getContext()->setTitle( $wgTitle );
+		$wgOut->getContext()->setTitle( $this->getTitle() );
 
 		list( $form_text, $page_text, $form_page_title, $generated_page_name ) =
 			$wgPageFormsFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
@@ -111,17 +109,6 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 			->will( $this->returnValue( PF_NS_FORM ) );
 
 		return $mockTitle;
-	}
-
-	/**
-	 * Returns a Parser for test
-	 * @return Parser
-	 */
-	private function getParser() {
-		return new StubObject(
-			'wgParser', $GLOBALS['wgParserConf']['class'],
-			array( $GLOBALS['wgParserConf'] )
-		);
 	}
 
 }

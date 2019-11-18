@@ -27,7 +27,7 @@ class PFRunQuery extends IncludableSpecialPage {
 	}
 
 	function printPage( $form_name, $embedded = false ) {
-		global $wgPageFormsFormPrinter, $wgParser, $wgPageFormsRunQueryFormAtTop;
+		global $wgPageFormsFormPrinter, $wgPageFormsRunQueryFormAtTop;
 
 		$out = $this->getOutput();
 		$req = $this->getRequest();
@@ -85,17 +85,17 @@ class PFRunQuery extends IncludableSpecialPage {
 		if ( $form_submitted ) {
 			// @TODO - fix RunQuery's parsing so that this check
 			// isn't needed.
-			if ( $wgParser->getOutput() == null ) {
+			if ( PFUtils::getParser()->getOutput() == null ) {
 				$headItems = array();
 			} else {
-				$headItems = $wgParser->getOutput()->getHeadItems();
+				$headItems = PFUtils::getParser()->getOutput()->getHeadItems();
 			}
 			foreach ( $headItems as $key => $item ) {
 				$out->addHeadItem( $key, "\t\t" . $item . "\n" );
 			}
 
-			$wgParser->mOptions = ParserOptions::newFromUser( $user );
-			$resultsText = $wgParser->parse( $data_text, $this->getPageTitle(), $wgParser->mOptions, true, false )->getText();
+			PFUtils::getParser()->mOptions = ParserOptions::newFromUser( $user );
+			$resultsText = PFUtils::getParser()->parse( $data_text, $this->getPageTitle(), PFUtils::getParser()->mOptions, true, false )->getText();
 		}
 
 		// Get the full text of the form.
@@ -177,9 +177,9 @@ END;
 
 		// Now write everything to the screen.
 		$out->addHTML( $text );
-		PFUtils::addFormRLModules( $embedded ? $wgParser : null );
+		PFUtils::addFormRLModules( $embedded ? PFUtils::getParser() : null );
 		if ( !$embedded ) {
-			$po = $wgParser->getOutput();
+			$po = PFUtils::getParser()->getOutput();
 			if ( $po ) {
 				$out->addParserOutputMetadata( $po );
 			}

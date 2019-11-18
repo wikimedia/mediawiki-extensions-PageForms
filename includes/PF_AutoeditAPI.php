@@ -113,8 +113,7 @@ class PFAutoeditAPI extends ApiBase {
 		} catch ( Exception $e ) {
 			// This has to be Exception, not MWException, due to
 			// DateTime errors and possibly others.
-			global $wgParser;
-			$this->logMessage( $wgParser->recursiveTagParseFully( $e->getMessage() ), $e->getCode() );
+			$this->logMessage( PFUtils::getParser()->recursiveTagParseFully( $e->getMessage() ), $e->getCode() );
 		}
 
 		$this->finalizeResults();
@@ -129,12 +128,7 @@ class PFAutoeditAPI extends ApiBase {
 		$data = $this->getRequest()->getValues();
 		$this->mOptions = PFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
 
-		global $wgParser;
-		if ( $wgParser === null ) {
-			$wgParser = new Parser();
-		}
-
-		$wgParser->startExternalParse(
+		PFUtils::getParser()->startExternalParse(
 			null,
 			ParserOptions::newFromUser( $this->getUser() ),
 			Parser::OT_WIKI
@@ -662,8 +656,10 @@ class PFAutoeditAPI extends ApiBase {
 		$targetName = str_replace( ' ', '_', $targetName );
 
 		// now run the parser on it
-		global $wgParser, $wgTitle;
-		$targetName = $wgParser->transformMsg( $targetName, new ParserOptions(), $wgTitle );
+		global $wgTitle;
+		$targetName = PFUtils::getParser()->transformMsg(
+			$targetName, new ParserOptions(), $wgTitle
+		);
 
 		$titleNumber = '';
 		$isRandom = false;
@@ -780,7 +776,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * @throws MWException
 	 */
 	public function doAction() {
-		global $wgOut, $wgParser, $wgRequest, $wgPageFormsFormPrinter;
+		global $wgOut, $wgRequest, $wgPageFormsFormPrinter;
 
 		// If the wiki is read-only, do not save.
 		if ( wfReadOnly() ) {
@@ -961,7 +957,7 @@ class PFAutoeditAPI extends ApiBase {
 				$this->doStore( $editor );
 			}
 		} elseif ( $this->mAction === self::ACTION_FORMEDIT ) {
-			$parserOutput = $wgParser->getOutput();
+			$parserOutput = PFUtils::getParser()->getOutput();
 			if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
 				$wgOut->addParserOutputMetadata( $parserOutput );
 			} else {

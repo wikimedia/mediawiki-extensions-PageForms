@@ -165,7 +165,9 @@ class PFFormField {
 	}
 
 	static function newFromFormFieldTag( $tag_components, $template, $template_in_form, $form_is_disabled ) {
-		global $wgParser, $wgUser;
+		global $wgUser;
+
+		$parser = PFUtils::getParser();
 
 		$f = new PFFormField();
 		$f->mFieldArgs = array();
@@ -238,7 +240,7 @@ class PFFormField {
 					// recursiveTagParse(), so that
 					// wikitext in the value, and bare URLs,
 					// will not get turned into HTML.
-					$f->mDefaultValue = $wgParser->recursivePreprocess( $sub_components[1] );
+					$f->mDefaultValue = $parser->recursivePreprocess( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'preload' ) {
 					$f->mPreloadPage = $sub_components[1];
 				} elseif ( $sub_components[0] == 'label' ) {
@@ -267,7 +269,7 @@ class PFFormField {
 				} elseif ( $sub_components[0] == 'values' ) {
 					// Handle this one only after
 					// 'delimiter' has also been set.
-					$values = $wgParser->recursiveTagParse( $sub_components[1] );
+					$values = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from property' ) {
 					$propertyName = $sub_components[1];
 					$f->mPossibleValues = PFValuesUtils::getAllValuesForProperty( $propertyName );
@@ -320,7 +322,7 @@ class PFFormField {
 					$default_filename = str_replace( '<page name>', $page_name, $sub_components[1] );
 					// Parse value, so default filename can
 					// include parser functions.
-					$default_filename = $wgParser->recursiveTagParse( $default_filename );
+					$default_filename = $parser->recursiveTagParse( $default_filename );
 					$f->mFieldArgs['default filename'] = $default_filename;
 				} elseif ( $sub_components[0] == 'restricted' ) {
 					$f->mIsRestricted = !array_intersect(
@@ -630,8 +632,6 @@ class PFFormField {
 	 * given a mapping template.
 	 */
 	function setValuesWithMappingTemplate() {
-		global $wgParser;
-
 		$labels = array();
 		$templateName = $this->mFieldArgs['mapping template'];
 		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
@@ -641,7 +641,7 @@ class PFFormField {
 				$value = $index;
 			}
 			if ( $templateExists ) {
-				$label = trim( $wgParser->recursiveTagParse( '{{' . $templateName .
+				$label = trim( PFUtils::getParser()->recursiveTagParse( '{{' . $templateName .
 					'|' . $value . '}}' ) );
 				if ( $label == '' ) {
 					$labels[$value] = $value;
@@ -948,7 +948,7 @@ class PFFormField {
 	 * @return array
 	 */
 	function getArgumentsForInputCall( array $default_args = null ) {
-		global $wgParser;
+		$parser = PFUtils::getParser();
 
 		// start with the arguments array already defined
 		$other_args = $this->mFieldArgs;
@@ -961,7 +961,7 @@ class PFFormField {
 			if ( $this->hasFieldArg( 'mapping using translate' ) ) {
 				$other_args['value_labels'] = array();
 				foreach ( $other_args['possible_values'] as $key ) {
-					$other_args['value_labels'][$key] = $wgParser->recursiveTagParse( '{{int:' . $this->getFieldArg( 'mapping using translate' ) . $key . '}}' );
+					$other_args['value_labels'][$key] = $parser->recursiveTagParse( '{{int:' . $this->getFieldArg( 'mapping using translate' ) . $key . '}}' );
 				}
 			} else {
 				$other_args['value_labels'] = $this->template_field->getValueLabels();
@@ -990,11 +990,10 @@ class PFFormField {
 			$other_args = array_merge( $default_args, $other_args );
 		}
 
-		global $wgParser;
 		foreach ( $other_args as $argname => $argvalue ) {
 			if ( is_string( $argvalue ) ) {
 				$other_args[$argname] =
-					$wgParser->recursiveTagParse( $argvalue );
+					$parser->recursiveTagParse( $argvalue );
 			}
 		}
 

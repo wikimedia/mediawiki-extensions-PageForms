@@ -669,7 +669,6 @@ END;
 	 */
 	public static function showInputTypeOptions( $inputType, $fieldFormText, $paramValues ) {
 		global $wgPageFormsFormPrinter;
-		global $wgParser;
 
 		$text = '';
 
@@ -687,7 +686,7 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = $wgParser->parse( $param['description'], new Title(), new ParserOptions() )->getText();
+			$desc = PFUtils::getParser()->parse( $param['description'], new Title(), new ParserOptions() )->getText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
@@ -724,8 +723,6 @@ END;
 	 * @return string
 	 */
 	function showSectionParameters( $section_count, $paramValues ) {
-		global $wgParser;
-
 		$text = '';
 		$section_text = 'section_' . $section_count;
 
@@ -734,7 +731,7 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = $wgParser->parse( $param['description'], new Title(), new ParserOptions() )->getText();
+			$desc = PFUtils::getParser()->parse( $param['description'], new Title(), new ParserOptions() )->getText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];

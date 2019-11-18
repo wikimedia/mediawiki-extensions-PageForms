@@ -739,7 +739,7 @@ END;
 		$is_query = false,
 		$is_embedded = false
 	) {
-		global $wgRequest, $wgUser, $wgParser;
+		global $wgRequest, $wgUser;
 		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
 		global $wgPageFormsFieldNum; // used for setting various HTML IDs
 		global $wgPageFormsShowExpandAllLink;
@@ -864,20 +864,18 @@ END;
 				Html::element( 'a', array( 'href' => '#' ), 'Expand all collapsed parts of the form' ) ) . "\n";
 		}
 
-		// $oldParser = $wgParser;
-
-		// $wgParser = unserialize( serialize( $oldParser ) ); // deep clone of parser
-		if ( !$wgParser->Options() ) {
-			$wgParser->Options( ParserOptions::newFromUser( $wgUser ) );
+		$parser = PFUtils::getParser();
+		if ( !$parser->Options() ) {
+			$parser->Options( ParserOptions::newFromUser( $wgUser ) );
 		}
 		if ( !$is_embedded ) {
-			$wgParser->setTitle( $this->mPageTitle );
+			$parser->setTitle( $this->mPageTitle );
 		}
 		// This is needed in order to make sure $parser->mLinkHolders
 		// is set.
-		$wgParser->clearState();
+		$parser->clearState();
 
-		$form_def = PFFormUtils::getFormDefinition( $wgParser, $form_def, $form_id );
+		$form_def = PFFormUtils::getFormDefinition( $parser, $form_def, $form_id );
 
 		// Turn form definition file into an array of sections, one for
 		// each template definition (plus the first section).
@@ -946,7 +944,7 @@ END;
 					} else {
 						$previous_template_name = '';
 					}
-					$template_name = str_replace( '_', ' ', $wgParser->recursiveTagParse( $tag_components[1] ) );
+					$template_name = str_replace( '_', ' ', $parser->recursiveTagParse( $tag_components[1] ) );
 					$is_new_template = ( $template_name != $previous_template_name );
 					if ( $is_new_template ) {
 						$template = PFTemplate::newFromName( $template_name );
@@ -1096,7 +1094,7 @@ END;
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
-								$edittools_text = $wgParser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
+								$edittools_text = $parser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
 
 								$new_text .= <<<END
 		<div class="mw-editTools">
@@ -1292,7 +1290,7 @@ END;
 						} elseif ( count( $sub_components ) == 2 ) {
 							switch ( $sub_components[0] ) {
 							case 'label':
-								$input_label = $wgParser->recursiveTagParse( $sub_components[1] );
+								$input_label = $parser->recursiveTagParse( $sub_components[1] );
 								break;
 							case 'class':
 								$attr['class'] = $sub_components[1];
@@ -1734,7 +1732,7 @@ END;
 		}
 
 		$form_text .= "\t</form>\n";
-		$wgParser->replaceLinkHolders( $form_text );
+		$parser->replaceLinkHolders( $form_text );
 		Hooks::run( 'PageForms::RenderingEnd', array( &$form_text ) );
 
 		// Send the autocomplete values to the browser, along with the
@@ -1746,12 +1744,10 @@ END;
 		}
 
 		if ( !$is_embedded ) {
-			$form_page_title = $wgParser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
+			$form_page_title = $parser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
 		} else {
 			$form_page_title = null;
 		}
-
-		// $wgParser = $oldParser;
 
 		return array( $form_text, $page_text, $form_page_title, $generated_page_name );
 	}

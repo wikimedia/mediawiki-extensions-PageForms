@@ -67,7 +67,7 @@ class PFFormUtils {
 	}
 
 	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = array() ) {
-		global $wgPageFormsTabIndex, $wgUser, $wgParser;
+		global $wgPageFormsTabIndex, $wgUser;
 
 		$wgPageFormsTabIndex++;
 		if ( !$form_submitted ) {
@@ -75,7 +75,7 @@ class PFFormUtils {
 		}
 
 		if ( $label == null ) {
-			$label = $wgParser->recursiveTagParse( wfMessage( 'minoredit' )->text() );
+			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'minoredit' )->text() );
 		}
 
 		$tooltip = wfMessage( 'tooltip-minoredit' )->text();
@@ -97,7 +97,7 @@ class PFFormUtils {
 	}
 
 	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
-		global $wgPageFormsTabIndex, $wgUser, $wgTitle, $wgParser;
+		global $wgPageFormsTabIndex, $wgUser, $wgTitle;
 
 		$wgPageFormsTabIndex++;
 		// figure out if the checkbox should be checked -
@@ -115,7 +115,7 @@ class PFFormUtils {
 			}
 		}
 		if ( $label == null ) {
-			$label = $wgParser->recursiveTagParse( wfMessage( 'watchthis' )->text() );
+			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'watchthis' )->text() );
 		}
 		$attrs += array(
 			'id' => 'wpWatchthis',
@@ -231,10 +231,10 @@ class PFFormUtils {
 	}
 
 	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
-		global $wgTitle, $wgParser;
+		global $wgTitle;
 
 		if ( $label == null ) {
-			$label = $wgParser->recursiveTagParse( wfMessage( 'cancel' )->text() );
+			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'cancel' )->text() );
 		}
 		if ( $wgTitle == null ) {
 			$cancel = '';

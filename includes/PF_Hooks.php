@@ -310,7 +310,7 @@ class PFHooks {
 	}
 
 	public static function showFormPreview( EditPage $editpage, WebRequest $request ) {
-		global $wgOut, $wgParser, $wgPageFormsFormPrinter;
+		global $wgOut, $wgPageFormsFormPrinter;
 
 		wfDebug( __METHOD__ . ": enter.\n" );
 
@@ -331,7 +331,7 @@ class PFHooks {
 		list( $form_text, $data_text, $form_page_title, $generated_page_name ) =
 			$wgPageFormsFormPrinter->formHTML( $form_definition, null, false, null, null, "Page Forms form preview dummy title", null );
 
-		$parserOutput = $wgParser->getOutput();
+		$parserOutput = PFUtils::getParser()->getOutput();
 		if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
 			$wgOut->addParserOutputMetadata( $parserOutput );
 		} else {

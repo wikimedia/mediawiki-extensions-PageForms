@@ -7,7 +7,24 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 class PFUtils {
+
+	/**
+	 * Get a parser object.  For MW < 1.29, return the global.  For
+	 * all others, use MediaWikiServices.
+	 *
+	 * @return Parser
+	 */
+	public static function getParser() {
+		if ( method_exists( "MediaWiki\\MediaWikiServices", "getParser" ) ) {
+			return MediaWikiServices::getInstance()->getParser();
+		} else {
+			global $wgParser;
+			return $wgParser;
+		}
+	}
 
 	/**
 	 * Creates a link to a special page, using that page's top-level description as the link text.

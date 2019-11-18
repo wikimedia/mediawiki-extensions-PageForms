@@ -64,9 +64,9 @@ class PFTemplateInForm {
 	}
 
 	public static function newFromFormTag( $tag_components ) {
-		global $wgParser;
+		$parser = PFUtils::getParser();
 
-		$template_name = str_replace( '_', ' ', trim( $wgParser->recursiveTagParse( $tag_components[1] ) ) );
+		$template_name = str_replace( '_', ' ', trim( $parser->recursiveTagParse( $tag_components[1] ) ) );
 		$tif = new PFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', $template_name );
 
@@ -82,13 +82,13 @@ class PFTemplateInForm {
 			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
 			if ( count( $sub_components ) == 2 ) {
 				if ( $sub_components[0] == 'label' ) {
-					$tif->mLabel = $wgParser->recursiveTagParse( $sub_components[1] );
+					$tif->mLabel = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'minimum instances' ) {
 					$tif->mMinAllowed = $sub_components[1];
 				} elseif ( $sub_components[0] == 'maximum instances' ) {
 					$tif->mMaxAllowed = $sub_components[1];
 				} elseif ( $sub_components[0] == 'add button text' ) {
-					$tif->mAddButtonText = $wgParser->recursiveTagParse( $sub_components[1] );
+					$tif->mAddButtonText = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'embed in field' ) {
 					// Placeholder on form template level. Assume that the template form def
 					// will have a multiple+placeholder parameters, and get the placeholder value.
