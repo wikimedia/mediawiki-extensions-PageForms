@@ -2,7 +2,7 @@
  * @author Nischay Nahata
  */
 
-( function( $, mw, pf ) {
+( function( $, mw ) {
 	$.fn.initializeSimpleUpload = function() {
 
 		this.find( ".simpleupload_btn" ).each( function() {
@@ -85,4 +85,4 @@
 
 	};
 
-}( jQuery, mediaWiki, pf ) );
+}( jQuery, mediaWiki ) );
