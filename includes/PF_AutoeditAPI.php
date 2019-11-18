@@ -471,7 +471,6 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_PARSE_ERROR: // Can't parse content
 
 				throw new MWException( $status->getHTML() );
-				return true; // fail
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE: // Article successfully created
 
