@@ -301,8 +301,7 @@ class PFUploadForm extends HTMLForm {
 		// disable output - we'll print out the page manually,
 		// taking the body created by the form, plus the necessary
 		// Javascript files, and turning them into an HTML page
-		global $wgTitle, $wgLanguageCode,
-		$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces, $wgContLang;
+		global $wgTitle, $wgLanguageCode, $wgXhtmlDefaultNamespace, $wgXhtmlNamespaces;
 
 		$out = $this->getOutput();
 
@@ -322,7 +321,7 @@ END;
 		foreach ( $wgXhtmlNamespaces as $tag => $ns ) {
 			$text .= "xmlns:{$tag}=\"{$ns}\" ";
 		}
-		$dir = $wgContLang->isRTL() ? "rtl" : "ltr";
+		$dir = PFUtils::getContLang()->isRTL() ? "rtl" : "ltr";
 		$text .= "xml:lang=\"{$wgLanguageCode}\" lang=\"{$wgLanguageCode}\" dir=\"{$dir}\">";
 
 		$text .= <<<END

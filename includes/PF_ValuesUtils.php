@@ -419,11 +419,11 @@ class PFValuesUtils {
 	}
 
 	public static function getAllPagesForNamespace( $namespaceStr, $substring = null ) {
-		global $wgContLang, $wgLanguageCode, $wgPageFormsUseDisplayTitle;
+		global $wgLanguageCode, $wgPageFormsUseDisplayTitle;
 
 		$namespaceNames = explode( ',', $namespaceStr );
 
-		$allNamespaces = $wgContLang->getNamespaces();
+		$allNamespaces = PFUtils::getContLang()->getNamespaces();
 
 		if ( $wgLanguageCode != 'en' ) {
 			$englishLang = Language::factory( 'en' );
@@ -620,8 +620,7 @@ class PFValuesUtils {
 		}
 
 		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' && $autocompleteFieldType != 'cargo field' ) {
-			global $wgContLang;
-			$autocompletionSource = $wgContLang->ucfirst( $autocompletionSource );
+			$autocompletionSource = PFUtils::getContLang()->ucfirst( $autocompletionSource );
 		}
 
 		return array( $autocompleteFieldType, $autocompletionSource );

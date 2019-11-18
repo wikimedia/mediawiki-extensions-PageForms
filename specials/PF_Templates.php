@@ -70,10 +70,8 @@ class TemplatesPage extends QueryPage {
 	}
 
 	function getCategoryDefinedByTemplate( $templateTitle ) {
-		global $wgContLang;
-
 		$templateText = PFUtils::getPageText( $templateTitle );
-		$cat_ns_name = $wgContLang->getNsText( NS_CATEGORY );
+		$cat_ns_name = PFUtils::getContLang()->getNsText( NS_CATEGORY );
 		if ( preg_match_all( "/\[\[(Category|$cat_ns_name):([^\]]*)\]\]/", $templateText, $matches ) ) {
 			// Get the last match - if there's more than one
 			// category tag, there's a good chance that the last

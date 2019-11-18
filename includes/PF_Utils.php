@@ -10,6 +10,20 @@
 use MediaWiki\MediaWikiServices;
 
 class PFUtils {
+	/**
+	 * Get a content language (old $wgContLang) object. For MW < 1.32,
+	 * return the global.  For all others, use MediaWikiServices.
+	 *
+	 * @return Language
+	 */
+	public static function getContLang() {
+		if ( method_exists( "MediaWiki\\MediaWikiServices", "getContentLanguage" ) ) {
+			return MediaWikiServices::getInstance()->getContentLanguage();
+		} else {
+			global $wgContLang;
+			return $wgContLang;
+		}
+	}
 
 	/**
 	 * Get a parser object.  For MW < 1.29, return the global.  For
@@ -51,8 +65,7 @@ class PFUtils {
 			$namespace .= ':';
 		}
 		if ( MWNamespace::isCapitalized( $title->getNamespace() ) ) {
-			global $wgContLang;
-			return $namespace . $wgContLang->ucfirst( $title->getPartialURL() );
+			return $namespace . self::getContLang()->ucfirst( $title->getPartialURL() );
 		} else {
 			return $namespace . $title->getPartialURL();
 		}
@@ -70,8 +83,7 @@ class PFUtils {
 			$namespace .= ':';
 		}
 		if ( MWNamespace::isCapitalized( $title->getNamespace() ) ) {
-			global $wgContLang;
-			return $namespace . $wgContLang->ucfirst( $title->getText() );
+			return $namespace . self::getContLang()->ucfirst( $title->getText() );
 		} else {
 			return $namespace . $title->getText();
 		}
@@ -303,8 +315,7 @@ END;
 	 * @return string
 	 */
 	public static function formDropdownHTML( $form_names = null ) {
-		global $wgContLang;
-		$namespace_labels = $wgContLang->getNamespaces();
+		$namespace_labels = self::getContLang()->getNamespaces();
 		$form_label = $namespace_labels[PF_NS_FORM];
 		if ( $form_names === null ) {
 			$form_names = self::getAllForms();

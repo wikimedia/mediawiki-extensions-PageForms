@@ -72,7 +72,6 @@ class PFTemplate {
 	 * attached to each one (if any), by parsing the text of the template.
 	 */
 	function loadTemplateFieldsSMWAndOther() {
-		global $wgContLang;
 		$templateFields = array();
 		$fieldNamesArray = array();
 
@@ -165,7 +164,7 @@ class PFTemplate {
 				$fieldName = trim( $fieldName );
 				if ( !empty( $fieldName ) && ( !in_array( $fieldName, $fieldNamesArray ) ) ) {
 					$cur_pos = stripos( $this->mTemplateText, $fieldName );
-					$this->mTemplateFields[$cur_pos] = PFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ) );
+					$this->mTemplateFields[$cur_pos] = PFTemplateField::create( $fieldName, PFUtils::getContLang()->ucfirst( $fieldName ) );
 					$fieldNamesArray[] = $fieldName;
 				}
 			}
@@ -182,8 +181,10 @@ class PFTemplate {
 	 * @param bool $isList
 	 */
 	function loadPropertySettingInTemplate( $fieldName, $propertyName, $isList ) {
-		global $wgContLang;
-		$templateField = PFTemplateField::create( $fieldName, $wgContLang->ucfirst( $fieldName ), $propertyName, $isList );
+		$templateField = PFTemplateField::create(
+			$fieldName, PFUtils::getContLang()->ucfirst( $fieldName ), $propertyName,
+			$isList
+		);
 		$cur_pos = stripos( $this->mTemplateText, $fieldName . '|' );
 		$this->mTemplateFields[$cur_pos] = $templateField;
 	}
@@ -567,7 +568,7 @@ END;
 				}
 				$tableText .= <<<END
 ! $this->mAggregationLabel
-| 
+|
 END;
 			} elseif ( $this->mTemplateFormat == 'plain' ) {
 				$tableText .= "\n'''" . $this->mAggregationLabel . ":''' ";
@@ -599,8 +600,7 @@ END;
 
 		$text .= $tableText;
 		if ( ( $this->mCategoryName !== '' ) && ( $this->mCategoryName !== null ) ) {
-			global $wgContLang;
-			$namespaceLabels = $wgContLang->getNamespaces();
+			$namespaceLabels = PFUtils::getContLang()->getNamespaces();
 			$categoryNamespace = $namespaceLabels[NS_CATEGORY];
 			$text .= "\n[[$categoryNamespace:" . $this->mCategoryName . "]]\n";
 		}

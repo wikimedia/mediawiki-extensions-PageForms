@@ -24,8 +24,7 @@ class PFCreateCategory extends SpecialPage {
 			$text = "{{#default_form:$default_form}}";
 		}
 		if ( $parent_category !== '' ) {
-			global $wgContLang;
-			$namespace_labels = $wgContLang->getNamespaces();
+			$namespace_labels = PFUtils::getContLang()->getNamespaces();
 			$category_namespace = $namespace_labels[NS_CATEGORY];
 			$text .= "\n\n[[$category_namespace:$parent_category]]";
 		}

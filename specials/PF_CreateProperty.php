@@ -106,8 +106,7 @@ class PFCreateProperty extends SpecialPage {
 		$numberTypeLabel = $datatypeLabels['_num'];
 		$emailTypeLabel = $datatypeLabels['_ema'];
 
-		global $wgContLang;
-		$mw_namespace_labels = $wgContLang->getNamespaces();
+		$mw_namespace_labels = PFUtils::getContLang()->getNamespaces();
 		$name_label = wfMessage( 'pf_createproperty_propname' )->escaped();
 		$type_label = wfMessage( 'pf_createproperty_proptype' )->escaped();
 		$text = <<<END
