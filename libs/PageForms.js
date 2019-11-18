@@ -1272,7 +1272,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	.removeClass('hiddenByPF')
 
 	.find('.disabledByPF')
-	.removeAttr('disabled')
+	.prop('disabled', false)
 	.removeClass('disabledByPF');
 
 	// Make internal ID unique for the relevant form elements, and replace
@@ -1481,6 +1481,8 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 			dependent_on_me.push(dependentFieldPair[1]);
 		}
 	}
+	// @TODO - change to $.uniqueSort() once support for MW 1.28 is
+	// removed (and jQuery >= 3 is thus guaranteed).
 	dependent_on_me = $.unique(dependent_on_me);
 
 	var self = this;
@@ -1673,7 +1675,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
 		}
 	} else {
-		$(document).bind('VEForAllLoaded', function(e) {
+		$(document).on('VEForAllLoaded', function(e) {
 			if ( partOfMultiple ) {
 				myThis.find(".visualeditor").applyVisualEditor();
 			} else {
@@ -1694,7 +1696,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			});
 		}
 	} else {
-		$(document).bind('TinyMCELoaded', function(e) {
+		$(document).on('TinyMCELoaded', function(e) {
 			if ( partOfMultiple ) {
 				myThis.find(".tinymce").each( function() {
 					mwTinyMCEInit( '#' + $(this).attr('id') );
