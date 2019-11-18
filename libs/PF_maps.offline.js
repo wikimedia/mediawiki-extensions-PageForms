@@ -303,12 +303,35 @@ function setupMapFormInput( inputDiv, mapService ) {
 
 jQuery(document).ready( function() {
 	jQuery(".pfGoogleMapsInput").each( function() {
+		// Ignore the hidden "starter" div in multiple-instance templates.
+		if ( $(this).closest(".multipleTemplateStarter").length > 0 ) {
+			return;
+		}
 		setupMapFormInput( jQuery(this), "Google Maps" );
 	});
 	jQuery(".pfLeafletInput").each( function() {
+		if ( $(this).closest(".multipleTemplateStarter").length > 0 ) {
+			return;
+		}
 		setupMapFormInput( jQuery(this), "Leaflet" );
 	});
 	jQuery(".pfOpenLayersInput").each( function() {
+		if ( $(this).closest(".multipleTemplateStarter").length > 0 ) {
+			return;
+		}
+		setupMapFormInput( jQuery(this), "OpenLayers" );
+	});
+});
+
+// Activate maps in a new instance of a multiple-instance template.
+mw.hook('pf.addTemplateInstance').add(function( $newInstance ) {
+	$newInstance.find(".pfGoogleMapsInput").each( function() {
+		setupMapFormInput( jQuery(this), "Google Maps" );
+	});
+	$newInstance.find(".pfLeafletInput").each( function() {
+		setupMapFormInput( jQuery(this), "Leaflet" );
+	});
+	$newInstance.find(".pfOpenLayersInput").each( function() {
 		setupMapFormInput( jQuery(this), "OpenLayers" );
 	});
 });
