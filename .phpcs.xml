@@ -6,13 +6,12 @@
 		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
 		<exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound" />
 		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
-		<exclude name="MediaWiki.Usage.DeprecatedConstantUsage.DB_SLAVE" /><!-- Supports MediaWiki 1.22 -->
+		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle" />
 		<exclude name="MediaWiki.VariableAnalysis.ForbiddenGlobalVariables.ForbiddenGlobal$wgTitle" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
 		<exclude name="Generic.Arrays.DisallowLongArraySyntax" />
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed" />
 		<exclude name="Generic.Files.LineLength.TooLong" />
-		<exclude name="Generic.PHP.NoSilencedErrors.Discouraged" />
 		<exclude name="Generic.PHP.SAPIUsage.FunctionFound" />
 		<exclude name="Squiz.Scope.StaticThisUsage.Found" />
 		<exclude name="Squiz.Scope.MethodScope.Missing" />
