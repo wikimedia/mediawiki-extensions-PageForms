@@ -386,7 +386,7 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 						'TestStringForFormPageTitle', null
 					);
 			} else {
-				$this->markTestSkipped( "Nothing to test!" );
+				$this->markTestSkipped( "No form to test!" );
 				return;
 			}
 
@@ -408,7 +408,7 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 				!isset( $expected['expected_form_text'] ) &&
 				!isset( $expected['expected_page_text'] )
 			) {
-				$this->markTestSkipped( "Nothing to test!" );
+				$this->markTestSkipped( "No results to check!" );
 			}
 		} else {
 			$this->markTestSkipped( "Skipping: $expected[skip]" );
@@ -565,7 +565,9 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 		/**
 		 * data set #9 - No tests for origName in wikitext yet
 		 */
-		$provider[] = array( array(), array( 'skip' => 'No tests for origName in wikitext yet' ) );
+		$provider[] = array( array(), array(
+			'skip' => 'No tests for origName in wikitext yet'
+		) );
 
 		/**
 		 * data set #10 - restricted
