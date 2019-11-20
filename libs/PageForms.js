@@ -1173,7 +1173,7 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		var instance = $(this);
 		instance.addClass('minimized');
 		var valuesStr = '';
-		instance.find( "input[type != 'hidden'][type != 'button'], select, textarea" ).each( function() {
+		instance.find( "input[type != 'hidden'][type != 'button'], select, textarea, div.ve-ce-surface" ).each( function() {
 			// If the set of fields to be displayed was specified in
 			// the form definition, check against that list.
 			if ( allDisplayedFields !== null ) {
@@ -1189,6 +1189,10 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 			}
 
 			var curVal = $(this).val();
+			if ( $(this).hasClass('ve-ce-surface') ) {
+				// Special handling for VisualEditor/VEForAll textareas.
+				curVal = $(this).text();
+			}
 			if ( typeof curVal !== 'string' || curVal === '' ) {
 				return;
 			}
