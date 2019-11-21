@@ -8,10 +8,10 @@ if ( window.ext === null || typeof( window.ext ) === "undefined" ) {
 
 window.ext.wikieditor = {
 	// initialize the wikieditor on the specified element
-	init : function init ( input_id, params ) {
+	init : function init ( inputId, params ) {
 		$( function() {
 			if ( mw ) {
-				var input = $( '#' + input_id );
+				var input = $( '#' + inputId );
 
 				if ( mw.config.values.wgVersion < "1.33" ) {
 					var toolbarmodules = [ 'jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config' ];

@@ -16,6 +16,7 @@
  *		format: (String) a format string (unused) (do we even need it?)
  *
  */
+// eslint-disable-next-line camelcase
 window.PF_TP_init = function( inputID, params ) { // minTime, maxTime, interval, format
 
 	var inputIDshow = inputID + '_show';
