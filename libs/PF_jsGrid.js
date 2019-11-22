@@ -925,4 +925,30 @@
 		return this;
 	};
 
+	function addHideColumnIcons() {
+		// Only show the "hide column" icons if there are 7 or more columns.
+		// @TODO - make this number a configurable setting.
+		if ( $("th.jsgrid-header-sortable").length < 7 ) {
+			return;
+		}
+		$("th.jsgrid-header-sortable").each( function( index ) {
+			// Skip "Page name" column.
+			if ( index == 0 ) {
+				return;
+			}
+			$(this).attr('data-column-name', $(this).text())
+				.append(' <span class="pf-jsgrid-column-hider" />');
+		});
+		$(".pf-jsgrid-column-hider").click( function() {
+			var columnName = $(this).parent().attr('data-column-name');
+			$(".jsgrid").jsGrid("fieldOption", columnName, "visible", false);
+			// Making a column invisible causes all the column headers to
+			// be recreated, which makes all the "hide column" stuff go
+			// away, so we have to add it again.
+			addHideColumnIcons();
+		});
+	}
+
+	addHideColumnIcons();
+
 }( jQuery, mediaWiki, pf ) );

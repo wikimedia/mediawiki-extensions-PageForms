@@ -406,7 +406,8 @@
 			],
 			"styles": [
 				"skins/jsgrid/jsgrid.css",
-				"skins/jsgrid/theme.css"
+				"skins/jsgrid/theme.css",
+				"skins/PF_jsGrid.css"
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
