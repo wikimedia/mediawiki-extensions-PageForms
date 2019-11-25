@@ -163,6 +163,7 @@
 	"pf_formstart_createoredit": "Create or edit",
 	"formedit": "Edit with form",
 	"pf-formedit-selectform": "Select a form to create this page:",
+	"pf-noforms-error": "Error: No forms have been defined on this site.",
 	"pf-formedit-mainforms": "Main forms:",
 	"pf-formedit-otherforms": "Other forms:",
 	"pf-formedit-donotuseform": "Create page without a form.",

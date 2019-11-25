@@ -99,7 +99,12 @@ END;
 			// If no form was specified, display a dropdown letting
 			// the user choose the form.
 			if ( $form_name === '' ) {
-				$text .= PFUtils::formDropdownHTML();
+				try {
+					$text .= PFUtils::formDropdownHTML();
+				} catch ( MWException $e ) {
+					$out->addHTML( Html::element( 'div', array( 'class' => 'error' ), $e->getMessage() ) );
+					return;
+				}
 			}
 
 			$text .= "\t</p>\n";

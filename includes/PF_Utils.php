@@ -273,6 +273,10 @@ END;
 			$form_names[] = str_replace( '_', ' ', $row[0] );
 		}
 		$dbr->freeResult( $res );
+		if ( count( $form_names ) == 0 ) {
+			// This case requires special handling in the UI.
+			throw new MWException( wfMessage( 'pf-noforms-error' )->parse() );
+		}
 		return $form_names;
 	}
 

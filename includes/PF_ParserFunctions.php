@@ -352,7 +352,11 @@ class PFParserFunctions {
 			$inFormName = str_replace( '\,', ',', $inFormName );
 			$formContents .= Html::hidden( "form", $inFormName );
 		} else {
-			$formContents .= PFUtils::formDropdownHTML( $listOfForms );
+			try {
+				$formContents .= PFUtils::formDropdownHTML();
+			} catch ( MWException $e ) {
+				return Html::element( 'div', array( 'class' => 'error' ), $e->getMessage() );
+			}
 		}
 
 		// Recreate the passed-in query string as a set of hidden

@@ -149,8 +149,14 @@ class PFFormEditAction extends Action {
 		$targetName = $title->getPrefixedText();
 		$output->setPageTitle( wfMessage( "creating", $targetName )->text() );
 
+		try {
+			$formNames = PFUtils::getAllForms();
+		} catch ( MWException $e ) {
+			$output->addHTML( Html::element( 'div', array( 'class' => 'error' ), $e->getMessage() ) );
+			return;
+		}
+
 		$output->addHTML( Html::element( 'p', null, wfMessage( 'pf-formedit-selectform' )->text() ) );
-		$formNames = PFUtils::getAllForms();
 		$pagesPerForm = self::getNumPagesPerForm();
 		$totalPages = 0;
 		foreach ( $pagesPerForm as $formName => $numPages ) {

@@ -76,8 +76,6 @@ class PFCreateCategory extends SpecialPage {
 			}
 		}
 
-		$all_forms = PFUtils::getAllForms();
-
 		// Set 'title' as hidden field, in case there's no URL niceness.
 		$text = "\t" . '<form action="" method="post">' . "\n";
 		$firstRow = '';
@@ -92,15 +90,22 @@ class PFCreateCategory extends SpecialPage {
 					$category_name_error_str ) . "\n";
 			}
 		}
-		$firstRow .= "\t" . wfMessage( 'pf_createcategory_defaultform' )->escaped() . "\n";
-		$formSelector = "\t" . Html::element( 'option', null, null ) . "\n";
-		foreach ( $all_forms as $form ) {
-			$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
-		}
+		try {
+			$all_forms = PFUtils::getAllForms();
+			$firstRow .= "\t" . wfMessage( 'pf_createcategory_defaultform' )->escaped() . "\n";
+			$formSelector = "\t" . Html::element( 'option', null, null ) . "\n";
+			foreach ( $all_forms as $form ) {
+				$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
+			}
 
-		$firstRow .= Html::rawElement( 'select',
-			array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
-			$formSelector );
+			$firstRow .= Html::rawElement( 'select',
+				array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
+				$formSelector );
+		} catch ( MWException $e ) {
+			// If we're here, it's probably because no forms have
+			// been defined on this wiki. If that's case, just
+			// leave out the form selector.
+		}
 		$text .= Html::rawElement( 'p', null, $firstRow ) . "\n";
 		$secondRow = wfMessage( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
 		$selectBody = "\t" . Html::element( 'option', null, null ) . "\n";

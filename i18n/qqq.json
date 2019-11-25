@@ -180,6 +180,7 @@
 	"pf_formstart_createoredit": "Button",
 	"formedit": "{{doc-special|FormEdit}}",
 	"pf-formedit-selectform": "A header displayed above a group of choices for the user",
+	"pf-noforms-error": "Error message",
 	"pf-formedit-mainforms": "A header above a list of the most widely-used forms in the wiki",
 	"pf-formedit-otherforms": "A header above a list of the forms on the wiki that are not the most widely-used",
 	"pf-formedit-donotuseform": "An option displayed to users as a link. Doing without a form means using the normal wiki editor/textarea, while the forms provided by this extension present a list of fields to fill in order to create a page.",
