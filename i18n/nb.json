@@ -171,6 +171,7 @@
 	"pf_formstart_createoredit": "Opprett eller rediger",
 	"formedit": "Rediger med skjema",
 	"pf-formedit-selectform": "Velg et skjema for å opprette denne siden:",
+	"pf-noforms-error": "Feil: Ingen skjemaer har blitt definert på dette nettstedet.",
 	"pf-formedit-mainforms": "Hovedskjemaer:",
 	"pf-formedit-otherforms": "Andre skjemaer:",
 	"pf-formedit-donotuseform": "Opprett side uten skjema.",

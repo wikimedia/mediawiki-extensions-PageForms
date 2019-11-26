@@ -164,6 +164,7 @@
 	"pf_formstart_createoredit": "Создај или уреди",
 	"formedit": "Уреди со образец",
 	"pf-formedit-selectform": "Одберете образец за создавање на страницава:",
+	"pf-noforms-error": "Грешка: На мрежново место нема зададено обрасци.",
 	"pf-formedit-mainforms": "Главни обрасци:",
 	"pf-formedit-otherforms": "Други обрасци:",
 	"pf-formedit-donotuseform": "Создај ја страницата без образец.",

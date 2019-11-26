@@ -173,6 +173,7 @@
 	"pf_formstart_createoredit": "建立或編輯",
 	"formedit": "使用表單編輯",
 	"pf-formedit-selectform": "選擇要用來建立此頁面的表單：",
+	"pf-noforms-error": "錯誤：此站台上沒有定義的表單。",
 	"pf-formedit-mainforms": "主表單：",
 	"pf-formedit-otherforms": "其它表單：",
 	"pf-formedit-donotuseform": "不使用表單建立頁面。",
