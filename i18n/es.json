@@ -152,6 +152,7 @@
 	"pf_formstart_createoredit": "Crear o editar",
 	"formedit": "Editar con formulario",
 	"pf-formedit-selectform": "Selecciona un formulario para crear esta página:",
+	"pf-noforms-error": "Error: no se ha definido ningún formulario en este sitio.",
 	"pf-formedit-donotuseform": "Crear la página sin un formulario.",
 	"pf_formedit_createtitle": "Crear $1: $2",
 	"pf_formedit_createtitlenotarget": "Crear $1",

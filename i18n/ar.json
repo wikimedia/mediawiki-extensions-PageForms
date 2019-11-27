@@ -169,6 +169,7 @@
 	"pf_formstart_createoredit": "أنشئ أو عدل",
 	"formedit": "عدل بالنموذج",
 	"pf-formedit-selectform": "حدد نموذجًا لإنشاء هذه الصفحة:",
+	"pf-noforms-error": "خطأ: لم يتم تحديد نماذج على هذا الموقع.",
 	"pf-formedit-mainforms": "النماذج الرئيسية:",
 	"pf-formedit-otherforms": "نماذج أخرى:",
 	"pf-formedit-donotuseform": "قم بإنشاء صفحة بدون نموذج.",
