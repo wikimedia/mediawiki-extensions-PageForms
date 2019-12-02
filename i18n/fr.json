@@ -194,7 +194,7 @@
 	"pf_formstart_createoredit": "Créer ou modifier",
 	"formedit": "Modifier avec formulaire",
 	"pf-formedit-selectform": "Sélectionnez un formulaire pour créer cette page:",
-	"pf-noforms-error": "Erreur : Aucun formulaire n’a été défini sur ce site.",
+	"pf-noforms-error": "Erreur : aucun formulaire n’a été défini sur ce site.",
 	"pf-formedit-mainforms": "Formulaires principaux :",
 	"pf-formedit-otherforms": "Autres formulaires :",
 	"pf-formedit-donotuseform": "Créer une page sans formulaire.",
