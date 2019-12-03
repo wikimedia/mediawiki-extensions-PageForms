@@ -15,11 +15,6 @@ class PFRadioButtonInput extends PFEnumInput {
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
-		// Standardize $cur_value
-		if ( is_null( $cur_value ) ) {
-			$cur_value = '';
-		}
-
 		if ( array_key_exists( 'possible_values', $other_args ) ) {
 			$possible_values = $other_args['possible_values'];
 		} elseif (
@@ -44,17 +39,11 @@ class PFRadioButtonInput extends PFEnumInput {
 			array_unshift( $possible_values, '' );
 		}
 
-		// Set $cur_value to be one of the allowed options, if it isn't
-		// already - that makes it easier to automatically have one of
-		// the radiobuttons be checked at the beginning.
-		if ( !in_array( $cur_value, $possible_values ) ) {
-			if ( in_array( '', $possible_values ) ) {
-				$cur_value = '';
-			} elseif ( count( $possible_values ) == 0 ) {
-				$cur_value = '';
-			} else {
-				$cur_value = reset( $possible_values );
-			}
+		// If $cur_value is an invalid value (not null, and not one
+		// of the allowed options), set it to blank, so it can show
+		// up as "None" (if "None" is one of the options).
+		if ( $cur_value !== null && !in_array( $cur_value, $possible_values ) ) {
+			$cur_value = '';
 		}
 
 		$text = "\n";
@@ -75,11 +64,7 @@ class PFRadioButtonInput extends PFEnumInput {
 			if ( array_key_exists( 'origName', $other_args ) ) {
 				$radiobutton_attrs['origname'] = $other_args['origName'];
 			}
-			$isChecked = false;
-			if ( $cur_value == $possible_value ) {
-				$isChecked = true;
-				// $radiobutton_attrs['checked'] = true;
-			}
+			$isChecked = ( $cur_value == $possible_value );
 			if ( $is_disabled ) {
 				$radiobutton_attrs['disabled'] = true;
 			}

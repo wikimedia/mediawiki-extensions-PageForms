@@ -831,10 +831,9 @@ $.fn.validateMandatoryDateField = function() {
 	}
 };
 
-// Special handling for radiobuttons, because what's being checked
-// is the first radiobutton, which has an empty value.
 $.fn.validateMandatoryRadioButton = function() {
-	if (this.find("[value='']").is(':checked')) {
+	var checkedValue = this.find("input:checked").val();
+	if ( !checkedValue || checkedValue == '' ) {
 		this.addErrorMessage( 'pf_blank_error' );
 		return false;
 	} else {
