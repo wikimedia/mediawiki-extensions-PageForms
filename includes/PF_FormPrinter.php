@@ -1462,7 +1462,7 @@ END;
 					}
 					// Replace the {{{info}}} tag with a hidden span, instead of a blank, to avoid a
 					// potential security issue.
-					$section = substr_replace( $section, '<span style="visibility: hidden;" />', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
+					$section = substr_replace( $section, '<span style="visibility: hidden;"></span>', $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 				// =====================================================
 				// default outer level processing
 				// =====================================================
