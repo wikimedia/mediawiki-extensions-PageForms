@@ -196,6 +196,7 @@
 	"pf_formedit_saveandcontinueediting": "Lagre og fortsett",
 	"pf_formedit_saveandcontinue_summary": "Lagret ved å bruke \"$1\"-knappen i et skjema",
 	"pf_formedit_tooltip_saveandcontinueediting": "Lagre data og fortsett redigering",
+	"pf-autoedit-invalidnamespace": "Feil: #autoedit kan ikke kalles på sider i navnerommet «$1» på denne wikien.",
 	"pf_autoedit_anoneditwarning": "Advarsel: Du er ikke innlogget. Din IP-adresse vil logges i denne sidens redigeringshistorikk.",
 	"pf_autoedit_success": "Vellykket endring av [[$1]] med bruk av skjema $2.",
 	"pf_autoedit_fail": "Endring av [[$1]] mislyktes.",

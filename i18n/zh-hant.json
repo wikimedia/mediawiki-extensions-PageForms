@@ -198,6 +198,7 @@
 	"pf_formedit_saveandcontinueediting": "儲存並繼續",
 	"pf_formedit_saveandcontinue_summary": "使用表單中的 \"$1\" 按鈕儲存",
 	"pf_formedit_tooltip_saveandcontinueediting": "儲存資料並繼續編輯",
+	"pf-autoedit-invalidnamespace": "錯誤：#autoedit 不能被在此 wiki 上「$1」命名空間裡的頁面呼叫。",
 	"pf_autoedit_anoneditwarning": "警告：您尚未登入。您的 IP 位址將記錄在此頁面的編輯歷史中。",
 	"pf_autoedit_success": "已成功使用表單 $2 修改 [[$1]]。",
 	"pf_autoedit_fail": "修改 [[$1]] 失敗。",

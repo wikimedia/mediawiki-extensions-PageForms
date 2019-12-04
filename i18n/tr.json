@@ -101,6 +101,7 @@
 	"pf_formedit_addanotherabove": "Buna yukarıdakilerden başka bir örneği ekle",
 	"pf_formedit_addanother": "Başka ekle",
 	"pf_formedit_none": "Hiçbiri",
+	"pf-autoedit-invalidnamespace": "Hata: #autoedit, bu wikideki \"$1\" ad alanındaki sayfalarda çağrılamaz.",
 	"pf_autoedit_notargetspecified": "Hedef sayfa belirtilmedi.",
 	"runquery": "Sorgu Yürüt",
 	"pf_runquery_additionalquery": "Ek sorgu",

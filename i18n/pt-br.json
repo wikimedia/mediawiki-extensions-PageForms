@@ -200,6 +200,7 @@
 	"pf_formedit_saveandcontinueediting": "Salvar e continuar",
 	"pf_formedit_saveandcontinue_summary": "Salvo utilizando o botão \"$1\" do formulário",
 	"pf_formedit_tooltip_saveandcontinueediting": "Salvar os dados e continuar editando",
+	"pf-autoedit-invalidnamespace": "Erro: #autoedit não pode ser chamado em páginas no espaço para nome \"$1\" nessa wiki.",
 	"pf_autoedit_anoneditwarning": "Aviso: você não está autenticado. O seu endereço IP será gravado no histórico de edições da página.",
 	"pf_autoedit_success": "A página [[$1]] foi modificada utilizando o formulário $2.",
 	"pf_autoedit_fail": "A modificação de [[$1]] falhou.",

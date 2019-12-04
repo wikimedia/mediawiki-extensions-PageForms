@@ -219,6 +219,7 @@
 	"pf_formedit_saveandcontinueediting": "Sauvegarder et continuer",
 	"pf_formedit_saveandcontinue_summary": "Enregistré en utilisant le bouton \"$1\" du formulaire",
 	"pf_formedit_tooltip_saveandcontinueediting": "Sauvegarder les données et continuer la modification",
+	"pf-autoedit-invalidnamespace": "Erreur : #autoedit ne peut pas être appelé sur les pages dans l’espace de noms « $1 » sur ce wiki.",
 	"pf_autoedit_anoneditwarning": "Attention : vous n’êtes pas identifié{{GENDER:||e}}. Votre adresse IP sera enregistrée dans l’historique des modifications de cette page.",
 	"pf_autoedit_success": "[[$1]] modifié en utilisant le formulaire $2.",
 	"pf_autoedit_fail": "La modification de [[$1]] a échoué.",

@@ -189,6 +189,7 @@
 	"pf_formedit_saveandcontinueediting": "Зачувај и продолжи",
 	"pf_formedit_saveandcontinue_summary": "Зачувано со копчето „$1“ во образецот",
 	"pf_formedit_tooltip_saveandcontinueediting": "Зачувајте ги податоците и продолжите со уредување",
+	"pf-autoedit-invalidnamespace": "Грешка: #autoedit не може да се повика на страници во именскиот простор „$1“ на викито.",
 	"pf_autoedit_anoneditwarning": "Предупредување: Не сте најавени. Вашата IP-адреса ќе биде заведена во историјата на страницава.",
 	"pf_autoedit_success": "Изменета [[$1]] користејќи го образецот $2.",
 	"pf_autoedit_fail": "Измената на [[$1]] не успеа.",
