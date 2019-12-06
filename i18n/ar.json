@@ -194,6 +194,7 @@
 	"pf_formedit_saveandcontinueediting": "حفظ ومتابعة",
 	"pf_formedit_saveandcontinue_summary": "تم الحفظ باستخدام زر \"$1\" في النموذج",
 	"pf_formedit_tooltip_saveandcontinueediting": "حفظ البيانات ومواصلة التحرير",
+	"pf-autoedit-invalidnamespace": "خطأ: لا يمكن استدعاء #aededit على الصفحات في نطاق \"$1\" على هذا الويكي.",
 	"pf_autoedit_anoneditwarning": "تحذير: لم تقم بتسجيل الدخول; سيتم تسجيل عنوان الآيبي الخاص بك في تاريخ تحرير هذه الصفحة.",
 	"pf_autoedit_success": "تم تعديل [[$1]] باستخدام النموذج $2.",
 	"pf_autoedit_fail": "فشل تعديل [[$1]].",
