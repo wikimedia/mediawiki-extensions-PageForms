@@ -164,8 +164,7 @@
 				"skins/PF_jquery_ui_overrides.css"
 			],
 			"dependencies": [
-				"jquery.ui.core",
-				"jquery.ui.autocomplete",
+				"ext.pageforms.jqui.autocomplete",
 				"ext.pageforms.sortable",
 				"ext.pageforms.autogrow",
 				"mediawiki.util",
@@ -221,8 +220,7 @@
 			"styles": "skins/skin-win8/ui.fancytree.css",
 			"dependencies": [
 				"ext.pageforms.fancytree.dep",
-				"jquery.ui.widget",
-				"jquery.ui.position"
+				"ext.pageforms.jqui.fancytree.deps"
 			]
 		},
 		"ext.pageforms.sortable": {
@@ -292,7 +290,7 @@
 				"libs/PF_datepicker.js"
 			],
 			"dependencies": [
-				"jquery.ui.datepicker",
+				"ext.pageforms.jqui.datepicker",
 				"ext.pageforms.main"
 			]
 		},
@@ -343,7 +341,7 @@
 			],
 			"dependencies": [
 				"ext.pageforms",
-				"jquery.ui.sortable",
+				"ext.pageforms.jqui.sortable",
 				"mediawiki.jqueryMsg"
 			],
 			"messages": [
@@ -364,7 +362,7 @@
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"jquery.ui.sortable",
+				"ext.pageforms.jqui.sortable",
 				"ext.pageforms.fancytree",
 				"ext.pageforms",
 				"moment",
@@ -387,7 +385,7 @@
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"jquery.ui.sortable",
+				"ext.pageforms.jqui.sortable",
 				"ext.pageforms.fancytree",
 				"ext.pageforms",
 				"moment",
@@ -411,7 +409,7 @@
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"jquery.ui.sortable",
+				"ext.pageforms.jqui.sortable",
 				"mediawiki.language.months"
 			],
 			"messages": [
