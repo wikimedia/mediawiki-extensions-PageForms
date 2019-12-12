@@ -937,7 +937,7 @@
 				return;
 			}
 			$(this).attr('data-column-name', $(this).text())
-				.append(' <span class="pf-jsgrid-column-hider" />');
+				.append(' <span class="pf-jsgrid-column-hider">&#128473;</span>');
 		});
 		$(".pf-jsgrid-column-hider").click( function() {
 			var columnName = $(this).parent().attr('data-column-name');
