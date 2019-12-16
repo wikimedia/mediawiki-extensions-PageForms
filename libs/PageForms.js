@@ -1803,6 +1803,8 @@ $(document).ready( function() {
 		// We are all done - remove the loading spinner.
 		$('.loadingImage').remove();
 	}, 0 );
+
+	mw.hook('pf.formSetupAfter').fire();
 });
 
 // If some part of the form is clicked, minimize any multiple-instance
