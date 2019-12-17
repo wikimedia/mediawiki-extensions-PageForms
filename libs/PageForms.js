@@ -1862,9 +1862,14 @@ $('#pf-expand-all a').click(function( event ) {
 	// Standard MediaWiki "collapsible" sections.
 	$('div.mw-collapsed a.mw-collapsible-text').click();
 
-	// From "ToggleDisplay", a now-obsolete extension that some people
+	// For "ToggleDisplay", a now-obsolete extension that some people
 	// are sadly still using...
-	('div.toggle-display').css('display', 'none').text('[hide details]');
+	$('div.toggle-display').each( function() {
+		if ( $(this).css('display') == 'none' ) {
+			var linkID = $(this).attr('id') + 'l';
+			$('a#' + linkID).click();
+		}
+	});
 });
 
 }( jQuery, mediaWiki ) );
