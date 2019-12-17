@@ -135,15 +135,17 @@ use MediaWiki\MediaWikiServices;
  * '#autoedit' is called as:
  *
  * {{#autoedit:form=|target=|link text=|link type=|tooltip=|query string=
- * |reload}}
+ * |minor|reload}}
  *
  * This function creates a link or button that, when clicked on,
  * automatically modifies the specified page according to the values in the
  * 'query string' variable.
  *
  * The parameters of #autoedit are called in the same format as those
- * of #formlink. The one addition, 'reload', causes the page to reload
- * after the user clicks the button or link.
+ * of #formlink. T The two additions are:
+ * 'minor' - sets this to be a "minor edit"
+ * 'reload' - causes the page to reload after the user clicks the button
+ * or link.
  *
  * @author Yaron Koren
  * @author Sergey Chernyshev
@@ -509,6 +511,7 @@ class PFParserFunctions {
 		$linkString = null;
 		$linkType = 'span';
 		$summary = null;
+		$minorEdit = false;
 		$classString = 'autoedit-trigger';
 		$inTooltip = null;
 		$inQueryArr = array();
@@ -536,6 +539,9 @@ class PFParserFunctions {
 					break;
 				case 'summary':
 					$summary = $parser->recursiveTagParse( $value );
+					break;
+				case 'minor':
+					$minorEdit = true;
 					break;
 				case 'query string' :
 					$inQueryArr = self::convertQueryString( $value, $inQueryArr );
@@ -617,6 +623,10 @@ class PFParserFunctions {
 		}
 
 		$formcontent .= Html::hidden( 'wpSummary', $summary );
+
+		if ( $minorEdit ) {
+			$formcontent .= Html::hidden( 'wpMinoredit', true );
+		}
 
 		if ( $editTime !== null ) {
 			$formcontent .= Html::hidden( 'wpEdittime', $editTime );
