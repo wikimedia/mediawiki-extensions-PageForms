@@ -42,6 +42,8 @@ class PFTextAreaInput extends PFFormInput {
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 
+		$newClasses = null;
+
 		// WikiEditor
 		if (
 			array_key_exists( 'editor', $this->mOtherArgs ) &&
@@ -60,6 +62,9 @@ class PFTextAreaInput extends PFFormInput {
 			ExtensionRegistry::getInstance()->isLoaded( 'VisualEditor' )
 		) {
 			$this->mEditor = 'visualeditor';
+			if ( $input_name != 'pf_free_text' && !array_key_exists( 'isSection', $this->mOtherArgs ) ) {
+				$newClasses = 'vePartOfTemplate';
+			}
 		}
 
 		// TinyMCE
@@ -74,11 +79,14 @@ class PFTextAreaInput extends PFFormInput {
 			if ( $input_name != 'pf_free_text' && !array_key_exists( 'isSection', $this->mOtherArgs ) ) {
 				$newClasses .= ' mcePartOfTemplate';
 			}
-			if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
-				$this->mOtherArgs['class'] .= ' ' . $newClasses;
-			} else {
-				$this->mOtherArgs['class'] = $newClasses;
-			}
+		}
+
+		if ( $newClasses == null ) {
+			// Do nothing.
+		} elseif ( array_key_exists( 'class', $this->mOtherArgs ) ) {
+			$this->mOtherArgs['class'] .= ' ' . $newClasses;
+		} else {
+			$this->mOtherArgs['class'] = $newClasses;
 		}
 	}
 
