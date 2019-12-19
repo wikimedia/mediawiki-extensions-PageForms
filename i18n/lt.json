@@ -140,6 +140,7 @@
 	"pf_bad_url_error": "turi būti taisyklinga nuoroda (URL), prasidedanti „http“",
 	"pf_bad_email_error": "turi būti taisyklingas el. pašto adresas",
 	"pf_bad_number_error": "turi būti skaičius",
+	"pf_bad_integer_error": "turi būti teigiamas skaičius",
 	"pf_bad_date_error": "turi būti taisyklinga data",
 	"uploadwindow": "Failo įkėlimo langas",
 	"pf_deletionlog": "Trynimų žurnalas",

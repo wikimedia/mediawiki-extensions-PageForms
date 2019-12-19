@@ -54,6 +54,7 @@
 	"pf_formedit_none": "बिल्कुल नहीं",
 	"pf_blank_error": "खाली नहीं हो सकता",
 	"pf_bad_number_error": "एक वैध संख्या होना आवश्यक हैं",
+	"pf_bad_integer_error": "एक वैध इंटीजर होना आवश्यक हैं",
 	"pf_bad_date_error": "एक वैध तारीख होना आवश्यक हैं",
 	"pf_property_isproperty": "यह $1 प्रकार का गुणधर्म हैं।",
 	"pf_form_freetextlabel": "मुक्त पाठ",

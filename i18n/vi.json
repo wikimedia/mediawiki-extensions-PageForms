@@ -101,6 +101,7 @@
 	"pf_bad_url_error": "phải có định dạng URL đúng, bắt đầu bằng ‘http’",
 	"pf_bad_email_error": "phải có định dạng địa chỉ thư điện tử đúng",
 	"pf_bad_number_error": "phải có số đúng",
+	"pf_bad_integer_error": "phải là số nguyên đúng",
 	"pf_bad_date_error": "phải là ngày đúng",
 	"uploadwindow": "Cửa sổ tải",
 	"pf_deletionlog": "Nhật trình xóa",

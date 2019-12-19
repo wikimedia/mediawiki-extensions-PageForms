@@ -171,6 +171,7 @@
 	"pf_bad_url_error": "dyrbi korektny format URL měć, kotryž so z 'http://' započina",
 	"pf_bad_email_error": "dyrbi płaćiwy format za e-mejlowe adresy měć",
 	"pf_bad_number_error": "dyrbi płaćiwa ličba być",
+	"pf_bad_integer_error": "dyrbi płaćiwa cyła ličba być",
 	"pf_bad_date_error": "dyrbi płaćiwy datum być",
 	"uploadwindow": "Wokno nahraćow",
 	"pf_deletionlog": "protokol wušmórnjenjow",

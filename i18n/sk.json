@@ -94,6 +94,7 @@
 	"pf_bad_url_error": "musí mať správny formát URL, začínajúci „http“",
 	"pf_bad_email_error": "musí mať správny formát emailovej adresy",
 	"pf_bad_number_error": "musí byť platné číslo",
+	"pf_bad_integer_error": "musí byť platné celé číslo",
 	"pf_bad_date_error": "musí byť platný dátum",
 	"uploadwindow": "Okno nahrávania",
 	"pf_deletionlog": "Záznam mazaní",

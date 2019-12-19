@@ -114,6 +114,7 @@
 	"pf_bad_url_error": "a helyes URL formátumban kell lennie, az elején „http://”-vel",
 	"pf_bad_email_error": "helyes e-mail-cím-formátumban kell lennie",
 	"pf_bad_number_error": "számnak kell lennie",
+	"pf_bad_integer_error": "egész számnak kell lennie",
 	"pf_bad_date_error": "érvényes dátumnak kell lennie",
 	"uploadwindow": "Feltöltési ablak",
 	"pf_deletionlog": "Törlési napló",

@@ -110,6 +110,7 @@
 	"pf_bad_url_error": "a rank kaout ur furmad URL reizh, o kregiñ gant \"http\"",
 	"pf_bad_email_error": "a rank kaout ur furmad chomlec'h postel reizh",
 	"pf_bad_number_error": "a rank bezañ un niver reizh",
+	"pf_bad_integer_error": "a rank bezañ un niver anterin reizh",
 	"pf_bad_date_error": "a rank bezañ un deiziad reizh",
 	"uploadwindow": "Kargañ ar prenestr",
 	"pf_deletionlog": "Marilh an dilamadennoù",

@@ -151,6 +151,7 @@
 	"pf_bad_url_error": "dapat na mayroong tamang anyo/pormat ng URL, na nagsisimula sa 'http'",
 	"pf_bad_email_error": "dapat na mayroong isang tanggap na anyo/pormat ng adres ng e-liham",
 	"pf_bad_number_error": "dapat na isang tanggap na bilang",
+	"pf_bad_integer_error": "dapat na isang tanggap na buumbilang (''integer'')",
 	"pf_bad_date_error": "dapat na isang tanggap na petsa",
 	"pf_pipe_error": "Hindi pinapayagan ang \"|\", maliban kung nasa loob ng {{...}} o [[...]]",
 	"uploadwindow": "Dungawan ng pagkarga",

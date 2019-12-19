@@ -221,6 +221,7 @@
 	"pf_bad_url_error": "ha de tenir un format de URL correcte, començant per 'http'",
 	"pf_bad_email_error": "ha de tenir un format vàlid d'adreça de correu electrònic",
 	"pf_bad_number_error": "ha de ser un nombre vàlid",
+	"pf_bad_integer_error": "ha de ser un nombre enter",
 	"pf_bad_date_error": "ha de ser una data vàlida",
 	"pf_modified_input_error": "Cal aprovar o rebujar la modificació",
 	"pf_pipe_error": "No es permet «|», excepte entre {{...}}, [[...]] o etiquetes especials",

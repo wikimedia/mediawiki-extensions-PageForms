@@ -212,6 +212,7 @@
 	"pf_bad_url_error": "debe ter un correcto formato URL, comezando con 'http'",
 	"pf_bad_email_error": "debe ter un enderezo de correo electrónico cun formato válido",
 	"pf_bad_number_error": "debe ser un número válido",
+	"pf_bad_integer_error": "ha de ser un enteiro válido",
 	"pf_bad_date_error": "debe ser unha data válida",
 	"pf_pipe_error": "\"|\" non está permitido, excepto entre {{...}} o [[...]]",
 	"uploadwindow": "Ventá de carga",

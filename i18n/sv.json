@@ -188,6 +188,7 @@
 	"pf_bad_url_error": "måste ha korrekt URL-format, inkluderande \"http\"",
 	"pf_bad_email_error": "måste ha ett giltigt format på e-postadressen",
 	"pf_bad_number_error": "måste vara ett giltigt tal",
+	"pf_bad_integer_error": "måste vara ett giltigt heltal",
 	"pf_bad_date_error": "måste vara ett giltigt datum",
 	"pf_pipe_error": "\"|\" är inte tillåtet, utom inom {{...}} eller [[...]]",
 	"uploadwindow": "Uppladdningsfönster",

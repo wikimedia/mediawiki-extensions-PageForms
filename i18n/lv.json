@@ -121,6 +121,7 @@
 	"pf_bad_url_error": "jābūt derīgai tīmekļa adresei (URL), kas sākas ar \"http\"",
 	"pf_bad_email_error": "jābūt derīgam e-pasta adreses formātam",
 	"pf_bad_number_error": "jābūt derīgam skaitlim",
+	"pf_bad_integer_error": "jābūt derīgam veselam skaitlim",
 	"pf_bad_date_error": "jābūt derīgam datumam",
 	"uploadwindow": "Augšupielādes logs",
 	"pf_deletionlog": "Dzēšanas reģistrs",

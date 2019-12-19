@@ -78,6 +78,7 @@
 	"pf_blank_error": "ne može biti prazno",
 	"pf_bad_email_error": "mora se navesti valjan format e-mail adrese",
 	"pf_bad_number_error": "mora biti validan broj",
+	"pf_bad_integer_error": "mora biti valjan cijeli broj",
 	"pf_bad_date_error": "mora biti valjan datum",
 	"uploadwindow": "Prozor za postavljanje",
 	"pf_deletionlog": "Zapisnik brisanja",

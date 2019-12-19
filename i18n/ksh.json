@@ -111,6 +111,7 @@
 	"pf_bad_url_error": "moß et reschteje Fomaat för en <i lang=\"en\">URL</i> han un moß met <code>http</code> aanfange",
 	"pf_bad_email_error": "moß et reschteje Fomaat för en <i lang=\"en\">e-mail</i>-Adräß hann",
 	"pf_bad_number_error": "moß en reschteje Zahl sin",
+	"pf_bad_integer_error": "moß en reschteje janze Zahl sin",
 	"pf_bad_date_error": "moß e reschtesch Dattum sin",
 	"uploadwindow": "Dat Finster för zem Huhlaade",
 	"pf_deletionlog": "Logbooch vum Sigge Verschteische",

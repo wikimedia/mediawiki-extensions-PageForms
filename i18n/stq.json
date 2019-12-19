@@ -69,6 +69,7 @@
 	"pf_bad_url_error": "mout dät korrekte URL-Format hääbe, ounfangend mäd 'http://'",
 	"pf_bad_email_error": "mout n gultich Email-Adresformoat hääbe",
 	"pf_bad_number_error": "mout ne gultige Taal weese",
+	"pf_bad_integer_error": "mout ne gultige Ganstaal weese",
 	"pf_bad_date_error": "mout n gultich Doatum weese",
 	"pf_property_isproperty": "Dit is ne Oainskup fon dän Typ $1.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Die muugelke Wäid foar disse Oainskup is|Do muugelke Wäide foar disse Oainskup sunt}}:",

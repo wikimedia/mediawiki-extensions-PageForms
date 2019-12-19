@@ -151,6 +151,7 @@
 	"pf_bad_url_error": "musy korektny format URL měś a se z \"http://\" zachopiś",
 	"pf_bad_email_error": "musy płaśiwy format e-mailoweje adresy měś",
 	"pf_bad_number_error": "musy płaśiwa licba byś",
+	"pf_bad_integer_error": "musy płaśiw ceła licba byś",
 	"pf_bad_date_error": "musy płaśiwy datum byś",
 	"uploadwindow": "Wokno nagraśow",
 	"pf_deletionlog": "protokol wulašowanjow",

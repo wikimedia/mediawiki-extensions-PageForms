@@ -86,6 +86,7 @@
 	"pf_bad_url_error": "må ha korrekt adresseformat, inkludert 'http'",
 	"pf_bad_email_error": "må ha gyldig format på e-postadressa",
 	"pf_bad_number_error": "må vera eit gyldig tal",
+	"pf_bad_integer_error": "må vera eit gyldig heiltal",
 	"pf_bad_date_error": "må vera ein gyldig dato",
 	"uploadwindow": "Opplastingsvindauga",
 	"pf_property_isproperty": "Dette er ein eigenskap av typen $1.",

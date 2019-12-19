@@ -176,6 +176,7 @@
 	"pf_bad_url_error": "pitää olla kelvollinen URL-osoite, jonka protokolla on http",
 	"pf_bad_email_error": "pitää olla kelvollinen sähköpostiosoite",
 	"pf_bad_number_error": "pitää olla kelvollinen numero",
+	"pf_bad_integer_error": "pitää olla kelvollinen kokonaisluku",
 	"pf_bad_date_error": "pitää olla kelvollinen päiväys",
 	"uploadwindow": "Tallennusikkuna",
 	"pf-simpleupload": "Tallenna",

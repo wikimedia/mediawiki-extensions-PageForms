@@ -91,6 +91,7 @@
 	"pf_blank_error": "ora olèh kosong",
 	"pf_bad_email_error": "kudu duwé format alamat e-mail sing absah",
 	"pf_bad_number_error": "kudu angka sing absah",
+	"pf_bad_integer_error": "kudu integer sing absah",
 	"pf_bad_date_error": "kudu tanggal sing absah",
 	"pf_template_docufooter": "Besut kacané saperlu ndeleng tèksé cithakané.",
 	"pf_form_freetextlabel": "Tèks bébas",

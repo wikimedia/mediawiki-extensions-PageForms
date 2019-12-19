@@ -81,6 +81,7 @@
 	"pf_bad_url_error": "nepre havas la korektan URL-formaton, komence kun 'http'",
 	"pf_bad_email_error": "devas havi validan formaton de retpoŝta adreso",
 	"pf_bad_number_error": "devas esti valida nombro",
+	"pf_bad_integer_error": "devas esti valida enjero",
 	"pf_bad_date_error": "devas esti valida dato",
 	"uploadwindow": "Alŝuta fenestro",
 	"pf_deletionlog": "Protokolo pri forigado",

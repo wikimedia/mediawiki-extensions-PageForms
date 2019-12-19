@@ -107,6 +107,7 @@
 	"pf_runquery_additionalquery": "Ek sorgu",
 	"pf_blank_error": "boş olamaz",
 	"pf_bad_number_error": "geçerli bir sayı olmalı",
+	"pf_bad_integer_error": "geçerli bir tamsayı olmalı",
 	"pf_bad_date_error": "geçerli bir tarih olmalı",
 	"pf_form_freetextlabel": "Serbest metin",
 	"pf_category_desc": "Bu $1 kategorisidir.",

@@ -135,6 +135,7 @@
 	"pf_bad_url_error": "harus memiliki format URL yang benar, dimulai dengan 'http'",
 	"pf_bad_email_error": "harus memiliki format alamat surel yang benar",
 	"pf_bad_number_error": "harus berupa angka",
+	"pf_bad_integer_error": "harus berupa bilangan bulat",
 	"pf_bad_date_error": "harus berupa tanggal",
 	"pf_pipe_error": "\"|\" tidak diizinkan, kecuali dalam pemanggilan templat dan fungsi parser.",
 	"uploadwindow": "Jendela pengunggahan",

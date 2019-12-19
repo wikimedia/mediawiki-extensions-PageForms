@@ -206,6 +206,7 @@
 	"pf_bad_url_error": "moet de juiste URL hebben, beginnend met \"http\"",
 	"pf_bad_email_error": "moet een geldig e-mailadres zijn",
 	"pf_bad_number_error": "moet een geldig nummer zijn",
+	"pf_bad_integer_error": "moet een geldig geheel getal zijn",
 	"pf_bad_date_error": "moet een geldige datum zijn",
 	"pf_pipe_error": "\"|\" is niet toegestaan, behalve tussen {{...}} of [[...]]",
 	"uploadwindow": "Uploadscherm",

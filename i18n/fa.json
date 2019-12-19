@@ -178,6 +178,7 @@
 	"pf_bad_url_error": "باید قالب URL درستی داشته باشد و با 'http' شروع شود",
 	"pf_bad_email_error": "آدرس ایمیل باید قالب صحیحی داشته باشد",
 	"pf_bad_number_error": "باید یک عدد معتبر باشد",
+	"pf_bad_integer_error": "باید یک عدد صحیح معتبر باشد",
 	"pf_bad_date_error": "باید یک تاریخ معتبر باشد",
 	"uploadwindow": "پنجره بارگذاری",
 	"pf_deletionlog": "سیاههٔ حذف",

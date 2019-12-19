@@ -106,6 +106,7 @@
 	"pf_bad_url_error": "muess s richtig URL-Format haa, wu aafangt mit „http://“",
 	"pf_bad_email_error": "muess e giltig E-Mail-Adrässformat haa",
 	"pf_bad_number_error": "muess e giltigi Zahl syy",
+	"pf_bad_integer_error": "muess e giltigi Ganzzahl syy",
 	"pf_bad_date_error": "muess e giltig Datum syy",
 	"uploadwindow": "Fänschter zum Uffelade",
 	"pf_deletionlog": "Leschlogbuech",

@@ -158,6 +158,7 @@
 	"pf_bad_url_error": "a dev avèj ël formà d'adrëssa giust, partend con 'http'",
 	"pf_bad_email_error": "a dev avèj un formà bon ëd l'adrëssa ëd pòsta eletrònica",
 	"pf_bad_number_error": "a dev esse un nùmer vàlid",
+	"pf_bad_integer_error": "a dev esse n'antregh ch'a vada bin",
 	"pf_bad_date_error": "a dev esse na data vàlida",
 	"uploadwindow": "Carié la fnestra",
 	"pf_deletionlog": "Registr djë scancelament",
