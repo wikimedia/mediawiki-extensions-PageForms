@@ -235,6 +235,7 @@
 	"pf_bad_url_error": "Warning message",
 	"pf_bad_email_error": "Warning message",
 	"pf_bad_number_error": "Warning message",
+	"pf_bad_integer_error": "Warning message",
 	"pf_bad_date_error": "Warning message",
 	"pf_modified_input_error": "Warning message",
 	"pf_pipe_error": "An error message - if an input contains a pipe character (\"|\"), the pipe must be part of a link, like \"[[a|b]]\", or a call to a template, like \"{{c|d}}\", or a parser function, like \"{{#e:f}}\".",

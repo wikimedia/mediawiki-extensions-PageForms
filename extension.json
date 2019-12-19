@@ -181,6 +181,7 @@
 				"pf_bad_url_error",
 				"pf_bad_email_error",
 				"pf_bad_number_error",
+				"pf_bad_integer_error",
 				"pf_bad_date_error",
 				"pf_modified_input_error",
 				"pf_pipe_error"

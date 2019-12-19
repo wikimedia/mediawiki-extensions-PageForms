@@ -218,6 +218,7 @@
 	"pf_bad_url_error": "must have the correct URL format, starting with \"http\"",
 	"pf_bad_email_error": "must have a valid email address format",
 	"pf_bad_number_error": "must be a valid number",
+	"pf_bad_integer_error": "must be an integer",
 	"pf_bad_date_error": "must be a valid date",
 	"pf_modified_input_error": "This modification should be approved or rejected",
 	"pf_pipe_error": "\"|\" is not allowed, except within {{...}}, [[...]], or special tags",

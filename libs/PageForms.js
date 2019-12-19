@@ -898,6 +898,16 @@ $.fn.validateNumberField = function() {
 	}
 };
 
+$.fn.validateIntegerField = function() {
+	var fieldVal = this.find("input").val();
+	if ( fieldVal === '' || fieldVal == parseInt( fieldVal, 10 ) ) {
+		return true;
+	} else {
+		this.addErrorMessage( 'pf_bad_integer_error' );
+		return false;
+	}
+};
+
 $.fn.validateDateField = function() {
 	// validate only if day and year fields are both filled in
 	var dayVal = this.find(".dayInput").val();
@@ -1090,6 +1100,11 @@ window.validateAll = function () {
 	});
 	$("span.numberInput").not(".hiddenByPF").each( function() {
 		if (! $(this).validateNumberField() ) {
+			num_errors += 1;
+		}
+	});
+	$("span.integerInput").not(".hiddenByPF").each( function() {
+		if (! $(this).validateIntegerField() ) {
 			num_errors += 1;
 		}
 	});

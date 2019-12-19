@@ -52,7 +52,7 @@ class PFTextInput extends PFFormInput {
 
 	public static function getDefaultCargoTypes() {
 		return array(
-			'Integer' => array( 'field_type' => 'number' ),
+			'Integer' => array( 'field_type' => 'integer' ),
 			'Float' => array( 'field_type' => 'number' ),
 			'URL' => array( 'field_type' => 'URL' ),
 			'Email' => array( 'field_type' => 'email' ),
@@ -248,6 +248,9 @@ class PFTextInput extends PFFormInput {
 			if ( $other_args['field_type'] == 'number' ) {
 				$size = 10;
 				$inputType = 'number';
+			} elseif ( $other_args['field_type'] == 'integer' ) {
+				$size = 8;
+				$inputType = 'integer';
 			} elseif ( $other_args['field_type'] == 'URL' ) {
 				$size = 100;
 				$inputType = 'URL';
