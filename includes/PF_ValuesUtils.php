@@ -527,7 +527,7 @@ class PFValuesUtils {
 			if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 				!is_null( $row[ 'pp_displaytitle_value' ] ) &&
 				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
-				$pages[ $title ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
+				$pages[ $title ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'], ENT_QUOTES );
 			} else {
 				$pages[ $title ] = $title;
 			}
