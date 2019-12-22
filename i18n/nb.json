@@ -225,7 +225,7 @@
 	"pf_bad_url_error": "må ha korrekt URL-format, inkludert 'http'",
 	"pf_bad_email_error": "må ha gyldig format på e-postadressen",
 	"pf_bad_number_error": "må være et gyldig tall",
-	"pf_bad_integer_error": "må være et gyldig heltall",
+	"pf_bad_integer_error": "må være et heltall",
 	"pf_bad_date_error": "må være en gyldig dato",
 	"pf_modified_input_error": "Endringen bør godkjennes eller avvises",
 	"pf_pipe_error": "«|» er ikke tillatt utenom i {{…}}, [[...]] eller spesialtagger",

@@ -144,7 +144,7 @@
 	"pf_bad_url_error": "le adresse URL debe esser in formato correcte, comenciante con 'http'",
 	"pf_bad_email_error": "le adresse de e-mail debe esser in formato correcte",
 	"pf_bad_number_error": "debe esser un numero valide",
-	"pf_bad_integer_error": "debe esser un numero integre valide",
+	"pf_bad_integer_error": "debe esser un numero integre",
 	"pf_bad_date_error": "debe esser un data valide",
 	"uploadwindow": "Fenestra de incargamento",
 	"pf_deletionlog": "Registro de deletiones",

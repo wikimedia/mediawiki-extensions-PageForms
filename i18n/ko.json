@@ -196,6 +196,7 @@
 	"pf_bad_url_error": "\"http\"로 시작하는 올바른 URL 형식이어야 합니다",
 	"pf_bad_email_error": "올바른 이메일 주소 형식이어야 합니다",
 	"pf_bad_number_error": "올바른 숫자여야 합니다",
+	"pf_bad_integer_error": "정수여야 합니다",
 	"pf_bad_date_error": "올바른 날짜여야 합니다",
 	"pf_modified_input_error": "이 수정은 승인되거나 거부되어야 합니다",
 	"pf_pipe_error": "{{...}}, [[...]] 또는 특수 문서 안에 쓰지 않는 한 \"|\"는 허용되지 않습니다",

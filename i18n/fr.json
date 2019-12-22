@@ -248,7 +248,7 @@
 	"pf_bad_url_error": "doit avoir un format URL correct, commençant par « http »",
 	"pf_bad_email_error": "doit avoir un format correct d’adresse courriel.",
 	"pf_bad_number_error": "doit être un nombre valide",
-	"pf_bad_integer_error": "doit être un nombre entier valide",
+	"pf_bad_integer_error": "doit être un nombre entier",
 	"pf_bad_date_error": "doit être une date valide",
 	"pf_modified_input_error": "Cette modification doit être approuvée ou rejetée",
 	"pf_pipe_error": "« | » n’est pas autorisé, sauf à l’intérieur de {{...}}, de [[...]], ou de balises spéciales",

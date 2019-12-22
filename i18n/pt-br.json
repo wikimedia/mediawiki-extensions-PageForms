@@ -229,7 +229,7 @@
 	"pf_bad_url_error": "precisa ter o formato correto da URL, começando com 'http'",
 	"pf_bad_email_error": "precisa ter um formato válido de endereço de e-mail",
 	"pf_bad_number_error": "precisa ser um número válido",
-	"pf_bad_integer_error": "deve ser um válido integer",
+	"pf_bad_integer_error": "deve ser um número inteiro",
 	"pf_bad_date_error": "precisa ser uma data válida",
 	"pf_modified_input_error": "Esta alteração devia ser aprovada ou rejeitada",
 	"pf_pipe_error": "\"|\" não é permitido, exceto dentro de {{...}} ou [[...]], ou etiquetas especiais",

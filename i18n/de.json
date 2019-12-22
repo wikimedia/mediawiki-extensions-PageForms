@@ -14,7 +14,8 @@
 			"Purodha",
 			"The Evil IP address",
 			"Umherirrender",
-			"Emwiemaikel"
+			"Emwiemaikel",
+			"Domani"
 		]
 	},
 	"pageforms-desc": "Ermöglicht Formulare zum Erstellen und Bearbeiten von Wikiseiten",
@@ -225,7 +226,7 @@
 	"pf_bad_url_error": "muss ein gültiges URL-Format haben, beginnend mit „http://“",
 	"pf_bad_email_error": "muss ein gültiges E-Mail-Adressformat haben",
 	"pf_bad_number_error": "muss eine gültige Zahl sein",
-	"pf_bad_integer_error": "muss eine gültige Ganzzahl sein",
+	"pf_bad_integer_error": "muss eine ganze Zahl sein",
 	"pf_bad_date_error": "muss ein gültiges Datum sein",
 	"pf_modified_input_error": "Diese Veränderung sollte bestätigt oder abgelehnt werden",
 	"pf_pipe_error": "„|“ ist nicht erlaubt, mit Ausnahme innerhalb von {{...}}, [[...]] oder speziellen Tags",

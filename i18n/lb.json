@@ -128,7 +128,7 @@
 	"pf_bad_url_error": "muss de korrekten URL-format hunn, a mat 'http' ufänken",
 	"pf_bad_email_error": "muss e valabelen E-Mailadresse-Format hunn",
 	"pf_bad_number_error": "muss eng valabel Zuel sinn",
-	"pf_bad_integer_error": "muss eng valabel ganz Zuel sinn",
+	"pf_bad_integer_error": "muss eng ganz Zuel sinn",
 	"pf_bad_date_error": "muss e gëltegen Datum sinn",
 	"pf_modified_input_error": "Dës Ännerung soll nogekuckt oder refuséiert ginn.",
 	"pf_pipe_error": "\"|\" ass net erlaabt, ausser an {{...}}, [[...]] oder speziellen Tags",
