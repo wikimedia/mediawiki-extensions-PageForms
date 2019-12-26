@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Belkacem77",
-			"Nacy"
+			"Nacy",
+			"K Messaoudi"
 		]
 	},
 	"pf_forminputs_checkboxes_select_none": "Fren ula yiwen",
 	"pf_formedit_none": "Ulac",
+	"pf_bad_integer_error": "Yessefk ad yili d ummid",
 	"pf_modified_input_error": "Abeddel-a iwwi-d ad ittwaqbel neɣ ad ittwagi"
 }
