@@ -35,11 +35,7 @@ class PFAutocompleteAPI extends ApiBase {
 		// $limit = $params['limit'];
 
 		if ( is_null( $baseprop ) && is_null( $base_cargo_table ) && strlen( $substr ) == 0 ) {
-			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
-				$this->dieWithError( [ 'apierror-missingparam', 'substr' ], 'param_substr' );
-			} else {
-				$this->dieUsage( 'The substring must be specified', 'param_substr' );
-			}
+			$this->dieWithError( [ 'apierror-missingparam', 'substr' ], 'param_substr' );
 		}
 
 		global $wgPageFormsUseDisplayTitle;
@@ -86,7 +82,7 @@ class PFAutocompleteAPI extends ApiBase {
 					$code = $data instanceof IApiMessage ? $data->getApiCode() : $data->getKey();
 					$data = $data->inLanguage( 'en' )->useDatabase( false )->text();
 				}
-				$this->dieUsage( $data, $code );
+				$this->dieWithError( $data, $code );
 			}
 		}
 
@@ -181,7 +177,7 @@ class PFAutocompleteAPI extends ApiBase {
 		global $smwgDefaultStore;
 
 		if ( $smwgDefaultStore == null ) {
-			$this->dieUsage( 'Semantic MediaWiki must be installed to query on "property"', 'param_property' );
+			$this->dieWithError( 'Semantic MediaWiki must be installed to query on "property"', 'param_property' );
 		}
 
 		$values = [];

@@ -30,7 +30,7 @@
 		"PFHooks::initialize"
 	],
 	"requires": {
-		"MediaWiki": ">= 1.28.0"
+		"MediaWiki": ">= 1.29.0"
 	},
 	"GroupPermissions": {
 		"*": {
