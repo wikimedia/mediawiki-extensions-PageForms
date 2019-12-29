@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Anakmalaysia"
+			"Anakmalaysia",
+			"CyberTroopers"
 		]
 	},
 	"pageforms-desc": "Borang untuk menambahkan dan menyunting data semantik",
@@ -28,6 +29,7 @@
 	"pf_viewform": "Lihat borang",
 	"pf_editsource": "Sunting sumber",
 	"pf_formedit_saveandcontinueediting": "Simpan dan sambung",
+	"pf_bad_integer_error": "perlu dalam bentuk integer",
 	"pf_blank_namespace": "Utama",
 	"right-viewedittab": "Melihat tab \"{{int:edit}}\" untuk laman yang boleh disunting dengan borang",
 	"right-editrestrictedfields": "Menyunting ruangan borang yang terhad",

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Cedric31",
-			"McDutchie"
+			"McDutchie",
+			"Fitoschido"
 		]
 	},
 	"pageforms-desc": "Formularis per apondre e modificar de donadas semanticas",
@@ -118,7 +119,7 @@
 	"pf_bad_url_error": "deu aver un format URL corrècte, començant per « http »",
 	"pf_bad_email_error": "deu aver un format corrècte d'adreça de corrièr electronic.",
 	"pf_bad_number_error": "deu èsser un nombre valid",
-	"pf_bad_integer_error": "deu èsser un nombre entièr valid",
+	"pf_bad_integer_error": "deu èsser un nombre entièr",
 	"pf_bad_date_error": "deu èsser una data valida",
 	"pf_pipe_error": "« | » es pas autorizat, levat a l’interior de {{...}} o de [[...]].",
 	"uploadwindow": "Fenèstra de mandadís",

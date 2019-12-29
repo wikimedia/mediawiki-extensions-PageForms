@@ -15,7 +15,8 @@
 			"NigelSoft",
 			"Apflu",
 			"아라",
-			"夢蝶葬花"
+			"夢蝶葬花",
+			"沈澄心"
 		]
 	},
 	"pageforms-desc": "用于创建和编辑wiki页面的表单",
@@ -225,7 +226,7 @@
 	"pf_bad_url_error": "必须使用正确的URL格式，以“http”开头",
 	"pf_bad_email_error": "必须使用有效的电子邮件地址格式",
 	"pf_bad_number_error": "必须为有效数字",
-	"pf_bad_integer_error": "必须为有效整数",
+	"pf_bad_integer_error": "必须为整数",
 	"pf_bad_date_error": "必须为有效日期",
 	"pf_modified_input_error": "此修改应获通过或拒绝",
 	"pf_pipe_error": "除了在{{...}}或[[...]]之内外，不允许使用“|”",

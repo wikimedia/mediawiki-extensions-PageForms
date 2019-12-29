@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Cedric31",
-			"ChrisPtDe"
+			"ChrisPtDe",
+			"Fitoschido"
 		]
 	},
 	"specialpages-group-pf_group": "Formulèros sèmanticos",
@@ -86,7 +87,7 @@
 	"pf_runquery_additionalquery": "Requéta de ples",
 	"pf_blank_error": "pôt pas étre vouedo",
 	"pf_bad_number_error": "dêt étre un nombro valido",
-	"pf_bad_integer_error": "dêt étre un nombro entiér valido",
+	"pf_bad_integer_error": "dêt étre un nombro entiér",
 	"pf_bad_date_error": "dêt étre una dâta valida",
 	"uploadwindow": "Fenétra de tèlèchargement",
 	"pf_deletionlog": "Jornal de les suprèssions",
