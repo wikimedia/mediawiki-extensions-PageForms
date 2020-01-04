@@ -5,6 +5,8 @@
  * @ingroup PageForms
  */
 
+use Wikimedia\AtEase\AtEase;
+
 /**
  * @ingroup PageForms
  */
@@ -972,13 +974,23 @@ class PFAutoeditAPI extends ApiBase {
 		$data = array();
 		$doc = new DOMDocument();
 		$oldVal = libxml_disable_entity_loader( true );
-		\MediaWiki\suppressWarnings();
+		if ( method_exists( 'AtEase', 'suppressWarnings' ) ) {
+			// MW >= 1.33
+			AtEase::suppressWarnings();
+		} else {
+			Wikimedia\suppressWarnings();
+		}
 		$doc->loadHTML(
 			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
 			. $html
 			. '</body></html>'
 		);
-		\MediaWiki\restoreWarnings();
+		if ( method_exists( 'AtEase', 'suppressWarnings' ) ) {
+			// MW >= 1.33
+			AtEase::restoreWarnings();
+		} else {
+			Wikimedia\restoreWarnings();
+		}
 		libxml_disable_entity_loader( $oldVal );
 
 		// Process input tags.
