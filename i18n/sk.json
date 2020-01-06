@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Helix84"
+			"Helix84",
+			"Luky001"
 		]
 	},
 	"pageforms-desc": "Formuláre na pridávanie a úpravu sémantických údajov",
@@ -26,7 +27,7 @@
 	"pf_createtemplate_aggregationdesc": "Na vypísanie všetkých stránok, ktorých určená vlastnosť odkazuje na danú stránku (na akejkoľvek stránke používajúcej túto šablónu), zadajte príslušnú vlastnosť:",
 	"pf_createtemplate_aggregationlabel": "Názov zoznamu:",
 	"pf_createtemplate_outputformat": "Výstupný formát:",
-	"pf_createtemplate_standardformat": "Štandardný",
+	"pf_createtemplate_standardformat": "Tabuľka",
 	"pf_createtemplate_infoboxformat": "Infobox na pravej strane",
 	"pf_createtemplate_addfield": "Pridať pole",
 	"pf_createtemplate_deletefield": "Zmazať",
@@ -61,8 +62,8 @@
 	"pf_createcategory_makesubcategory": "Táto kategória je podkategóriou inej kategórie (nepovinné):",
 	"createclass": "Vytvoriť triedu",
 	"pf_createclass_docu": "Sem zadajte všetky údaje na vytvorenie vlastností, šablóny, formulára a kategórie jednej triedy. Ak chcete zadať ďalšie voľby, použite stránku $1.",
-	"pf_createclass_allowedvalues": "Povolené hodnoty",
-	"pf_createclass_listofvalues": "Zoznam hodnôt",
+	"pf_createclass_allowedvalues": "Povolené hodnoty:",
+	"pf_createclass_listofvalues": "Zoznam hodnôt?",
 	"pf_createclass_missingvalues": "Neboli vyplnené všetky požadované polia.",
 	"pf_createclass_success": "Vytvoria sa vlastnosti, šablóna, formulár a kategória.",
 	"formstart": "Pridať stránku s formulárom",
@@ -70,9 +71,9 @@
 	"pf_formstart_badtitle": "Chyba: „$1“ nie je platný názov stránky.",
 	"pf_formstart_docu": "Sem zadajte názov stránky, ktorá sa má upravovať formulárom „$1“. Ak táto stránka už existuje, budete presmerovaný na formulár pre úpravu tejto stránky. Inak budete presmerovaný na formulár pre pridanie tejto stránky.",
 	"pf_formstart_noform_docu": "Sem zadajte názov stránky a vyberte, ktorým formulárom sa má upravovať. Ak táto stránka už existuje, budete presmerovaný na formulár pre úpravu tejto stránky. Inak budete presmerovaný na formulár pre pridanie tejto stránky.",
-	"pf_formstart_createoredit": "Pridať alebo upraviť",
+	"pf_formstart_createoredit": "Vytvoriť alebo upraviť",
 	"formedit": "Upraviť pomocou formulára",
-	"pf_formedit_createtitle": "Pridať $1: $2",
+	"pf_formedit_createtitle": "Vytvoriť $1: $2",
 	"pf_formedit_badurl": "Toto je stránka na pridávanie údajov. Musíte v URL uviesť názov formulára aj cieľovú stránku. Mala by byť v tvare „Special:FormEdit?form=<názov formulára>&target=<cieľová stránka>“ alebo „Special:FormEdit/<názov formulára>/<cieľová stránka>“.",
 	"pf_formedit_altforms": "Namiesto toho môžete pridať túto stránku jedným z nasledovných formulárov:",
 	"pf_formedit_altformsonly": "Prosím, vyberte jeden z nasledovných formulárov, ktorým sa pridá táto stránka.",
