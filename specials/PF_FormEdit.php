@@ -187,13 +187,35 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$pre_form_html = '';
 		Hooks::run( 'PageForms::HTMLBeforeForm', [ &$targetTitle, &$pre_form_html ] );
 		$text .= $pre_form_html;
-		if ( isset( $result[ 'formHTML' ] ) ) {
-			$text .= $result[ 'formHTML' ];
-		}
 
 		$out->addHTML( $text );
+		$this->showCaptcha( $targetTitle ); // Should be before the closing </form> tag from $result
+
+		if ( isset( $result[ 'formHTML' ] ) ) {
+			$out->addHTML( $result[ 'formHTML' ] );
+		}
 
 		return null;
+	}
+
+	/**
+	 * Show captcha from Extension:ConfirmEdit, if any.
+	 * @param Title $targetTitle
+	 */
+	protected function showCaptcha( $targetTitle ) {
+		if ( !method_exists( 'ConfirmEditHooks', 'getInstance' ) ) {
+			return; // No Extension:ConfirmEdit
+		}
+
+		if ( !$targetTitle ) {
+			return; // Not an edit form (target page is not yet selected)
+		}
+
+		$article = new Article( $targetTitle );
+		$fakeEditPage = new EditPage( $article );
+
+		$captcha = ConfirmEditHooks::getInstance();
+		$captcha->editShowCaptcha( $fakeEditPage );
 	}
 
 	protected function getGroupName() {
