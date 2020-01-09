@@ -83,6 +83,9 @@
 		"valid-jsdoc": "off",
 		"vars-on-top": "off",
 		"wrap-iife": "off",
-		"yoda": "off"
+		"yoda": "off",
+		"no-jquery/no-class-state": "warn",
+		"no-jquery/no-sizzle": "warn",
+		"no-jquery/variable-pattern": "warn"
 	}
 }
