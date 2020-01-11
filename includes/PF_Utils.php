@@ -355,7 +355,7 @@ END;
 		$curReturnValue = '';
 
 		for ( $i = 0; $i < strlen( $string ); $i++ ) {
-			$curChar = $string{$i};
+			$curChar = $string[$i];
 			if ( $curChar == '{' ) {
 				$numOpenCurlyBrackets++;
 			} elseif ( $curChar == '}' ) {
