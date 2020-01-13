@@ -9,7 +9,8 @@
 			"חיים",
 			"ערן",
 			"Guycn2",
-			"Drorsnir"
+			"Drorsnir",
+			"Ghsuvr"
 		]
 	},
 	"pageforms-desc": "טפסים ליצירה ולעריכה של דפי ויקי",
@@ -213,9 +214,9 @@
 	"pf_bad_url_error": "עליו להיות בתסדיר כתובת תקין, המתחיל ב־\"http\"",
 	"pf_bad_email_error": "עליו להיות בתסדיר תקין של כתובת דוא\"ל",
 	"pf_bad_number_error": "עליו להיות מספר תקין",
-	"pf_bad_integer_error": "עליו להיות מספר שלם תקין",
+	"pf_bad_integer_error": "חייב להיות מספר שלם",
 	"pf_bad_date_error": "עליו להיות תאריך תקין",
-	"pf_pipe_error": "אסור להשתמש בתו \"|\", אלא אם כן הוא מופיע בתו {{...}} או [[...]]",
+	"pf_pipe_error": "אסור להשתמש בתו \"|\", אלא אם כן הוא מופיע בתו {{...}},[[...]] או תגיות מיוחדות",
 	"uploadwindow": "חלון ההעלאה",
 	"pf_deletionlog": "יומן מחיקות",
 	"pf-preview-header": "תצוגה מקדימה טופס",
@@ -247,7 +248,7 @@
 	"pf-select2-input-too-short": "נא להזין {{PLURAL:$1|תו אחד|$1 תווים}} או יותר.",
 	"pf-select2-selection-too-big": "השדה הזה אינו יכול להכיל יותר {{PLURAL:$1|מערך אחד|מ־$1 ערכים}}.",
 	"pf-maps-enteraddress": "נא להזין כתובת כאן",
-	"pf-maps-lookupcoordinates": "חיפוש נקודות ציון",
+	"pf-maps-lookupcoordinates": "חישוב נקודות ציון של כתובת",
 	"pf-adminlinks-datastructure": "מבנה הנתונים",
 	"pf-datepicker-close": "סגירה",
 	"pf-datepicker-prev": "הקודם",
