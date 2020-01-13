@@ -23,12 +23,12 @@ class PFRadioButtonInput extends PFEnumInput {
 		) {
 			// If it's a Boolean property, display 'Yes' and 'No'
 			// as the values.
-			$possible_values = array(
+			$possible_values = [
 				PFUtils::getWordForYesOrNo( true ),
 				PFUtils::getWordForYesOrNo( false ),
-			);
+			];
 		} else {
-			$possible_values = array();
+			$possible_values = [];
 		}
 
 		// Add a "None" value at the beginning, unless this is a
@@ -57,10 +57,10 @@ class PFRadioButtonInput extends PFEnumInput {
 			$wgPageFormsFieldNum++;
 			$input_id = "input_$wgPageFormsFieldNum";
 
-			$radiobutton_attrs = array(
+			$radiobutton_attrs = [
 				'id' => $input_id,
 				'tabindex' => $wgPageFormsTabIndex,
-			);
+			];
 			if ( array_key_exists( 'origName', $other_args ) ) {
 				$radiobutton_attrs['origname'] = $other_args['origName'];
 			}
@@ -80,7 +80,7 @@ class PFRadioButtonInput extends PFEnumInput {
 				$label = $possible_value;
 			}
 
-			$itemAttrs = array( 'class' => $itemClass, 'for' => $input_id );
+			$itemAttrs = [ 'class' => $itemClass, 'for' => $input_id ];
 			$text .= "\t" . Html::rawElement( 'label', $itemAttrs,
 				// Using Xml::radio() here because Html::input()
 				// unfortunately doesn't include the "value="
@@ -106,16 +106,16 @@ class PFRadioButtonInput extends PFEnumInput {
 			$spanClass .= ' pfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $spanID, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$spanID][] = array( $options, $div_id );
+					$wgPageFormsShowOnSelect[$spanID][] = [ $options, $div_id ];
 				} else {
-					$wgPageFormsShowOnSelect[$spanID] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$spanID] = [ [ $options, $div_id ] ];
 				}
 			}
 		}
-		$spanAttrs = array(
+		$spanAttrs = [
 			'id' => $spanID,
 			'class' => $spanClass
-		);
+		];
 		$text = Html::rawElement( 'span', $spanAttrs, $text );
 
 		return $text;

@@ -98,7 +98,7 @@ class PFTemplateField {
 	 */
 	function setSemanticProperty( $semantic_property ) {
 		$this->mSemanticProperty = str_replace( '\\', '', $semantic_property );
-		$this->mPossibleValues = array();
+		$this->mPossibleValues = [];
 		// set field type and possible values, if any
 		$this->setTypeAndPossibleValues();
 	}
@@ -116,7 +116,7 @@ class PFTemplateField {
 
 		if ( is_null( $fieldDescription ) ) {
 			try {
-				$tableSchemas = CargoUtils::getTableSchemas( array( $tableName ) );
+				$tableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
 			} catch ( MWException $e ) {
 				return;
 			}
@@ -268,7 +268,7 @@ class PFTemplateField {
 			// field call, to be used as the variable.
 			$var = "x"; // default - use this if all the attempts fail
 			if ( strstr( $fieldProperty, $var ) ) {
-				$var_options = array( 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' );
+				$var_options = [ 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' ];
 				foreach ( $var_options as $option ) {
 					if ( !strstr( $fieldProperty, $option ) ) {
 						$var = $option;

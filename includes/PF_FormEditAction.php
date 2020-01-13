@@ -99,11 +99,11 @@ class PFFormEditAction extends Action {
 		}
 
 		$class_name = ( $obj->getRequest()->getVal( 'action' ) == 'formedit' ) ? 'selected' : '';
-		$form_edit_tab = array(
+		$form_edit_tab = [
 			'class' => $class_name,
 			'text' => wfMessage( $form_edit_tab_msg )->text(),
 			'href' => $title->getLocalURL( 'action=formedit' )
-		);
+		];
 
 		// Find the location of the 'edit' tab, and add 'edit
 		// with form' right before it.
@@ -128,8 +128,8 @@ class PFFormEditAction extends Action {
 			$edit_tab_location = - 1;
 		}
 		array_splice( $tab_keys, $edit_tab_location, 0, 'formedit' );
-		array_splice( $tab_values, $edit_tab_location, 0, array( $form_edit_tab ) );
-		$content_actions = array();
+		array_splice( $tab_values, $edit_tab_location, 0, [ $form_edit_tab ] );
+		$content_actions = [];
 		foreach ( $tab_keys as $i => $key ) {
 			$content_actions[$key] = $tab_values[$i];
 		}
@@ -152,7 +152,7 @@ class PFFormEditAction extends Action {
 		try {
 			$formNames = PFUtils::getAllForms();
 		} catch ( MWException $e ) {
-			$output->addHTML( Html::element( 'div', array( 'class' => 'error' ), $e->getMessage() ) );
+			$output->addHTML( Html::element( 'div', [ 'class' => 'error' ], $e->getMessage() ) );
 			return;
 		}
 
@@ -164,13 +164,13 @@ class PFFormEditAction extends Action {
 		}
 		// We define "popular forms" as those that are used to
 		// edit more than 1% of the wiki's form-editable pages.
-		$popularForms = array();
+		$popularForms = [];
 		foreach ( $pagesPerForm as $formName => $numPages ) {
 			if ( $numPages > $totalPages / 100 ) {
 				$popularForms[] = $formName;
 			}
 		}
-		$otherForms = array();
+		$otherForms = [];
 		foreach ( $formNames as $i => $formName ) {
 			if ( !in_array( $formName, $popularForms ) ) {
 				$otherForms[] = $formName;
@@ -183,29 +183,29 @@ class PFFormEditAction extends Action {
 			if ( count( $otherForms ) > 0 ) {
 				$output->addHTML( Html::element(
 					'p',
-					array(),
+					[],
 					wfMessage( 'pf-formedit-mainforms' )->text()
 				) );
 			}
 			$text = self::printLinksToFormArray( $popularForms, $targetName, $fe );
-			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage mainForms' ), $text ) );
+			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'infoMessage mainForms' ], $text ) );
 		}
 
 		if ( count( $otherForms ) > 0 ) {
 			if ( count( $popularForms ) > 0 ) {
 				$output->addHTML( Html::element(
 					'p',
-					array(),
+					[],
 					wfMessage( 'pf-formedit-otherforms' )->text()
 				) );
 			}
 			$text = self::printLinksToFormArray( $otherForms, $targetName, $fe );
-			$output->addHTML( Html::rawElement( 'div', array( 'class' => 'infoMessage otherForms' ), $text ) );
+			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'infoMessage otherForms' ], $text ) );
 		}
 
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-		$linkParams = array( 'action' => 'edit', 'redlink' => true );
-		$noFormLink = $linkRenderer->makeKnownLink( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), array(), $linkParams );
+		$linkParams = [ 'action' => 'edit', 'redlink' => true ];
+		$noFormLink = $linkRenderer->makeKnownLink( $title, wfMessage( 'pf-formedit-donotuseform' )->escaped(), [], $linkParams );
 		$output->addHTML( Html::rawElement( 'p', null, $noFormLink ) );
 	}
 
@@ -223,27 +223,27 @@ class PFFormEditAction extends Action {
 	static function getNumPagesPerForm() {
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
-			array( 'category', 'page', 'page_props' ),
-			array( 'pp_value', 'SUM(cat_pages) AS total_pages' ),
-			array(
+			[ 'category', 'page', 'page_props' ],
+			[ 'pp_value', 'SUM(cat_pages) AS total_pages' ],
+			[
 				// Keep backward compatibility with
 				// the page property name for
 				// Semantic Forms.
-				'pp_propname' => array( 'PFDefaultForm', 'SFDefaultForm' )
-			),
+				'pp_propname' => [ 'PFDefaultForm', 'SFDefaultForm' ]
+			],
 			__METHOD__,
-			array(
+			[
 				'GROUP BY' => 'pp_value',
 				'ORDER BY' => 'total_pages DESC',
 				'LIMIT' => 100
-			),
-			array(
-				'page' => array( 'JOIN', 'cat_title = page_title' ),
-				'page_props' => array( 'JOIN', 'page_id = pp_page' )
-			)
+			],
+			[
+				'page' => [ 'JOIN', 'cat_title = page_title' ],
+				'page_props' => [ 'JOIN', 'page_id = pp_page' ]
+			]
 		);
 
-		$pagesPerForm = array();
+		$pagesPerForm = [];
 		while ( $row = $dbr->fetchRow( $res ) ) {
 			$formName = $row['pp_value'];
 			$pagesPerForm[$formName] = $row['total_pages'];
@@ -260,11 +260,11 @@ class PFFormEditAction extends Action {
 
 			// Special handling for forms whose name contains a slash.
 			if ( strpos( $formName, '/' ) !== false ) {
-				$url = $fe->getPageTitle()->getLocalURL( array( 'form' => $formName, 'target' => $targetName ) );
+				$url = $fe->getPageTitle()->getLocalURL( [ 'form' => $formName, 'target' => $targetName ] );
 			} else {
 				$url = $fe->getPageTitle( "$formName/$targetName" )->getLocalURL();
 			}
-			$text .= Html::element( 'a', array( 'href' => $url ), $formName );
+			$text .= Html::element( 'a', [ 'href' => $url ], $formName );
 		}
 		return $text;
 	}

@@ -15,11 +15,11 @@ class PFListBoxInput extends PFMultiEnumInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'size',
 			'type' => 'int',
 			'description' => wfMessage( 'Pf_forminputs_listboxsize' )->text()
-		);
+		];
 		return $params;
 	}
 
@@ -45,7 +45,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 		$className .= ' pfShowIfSelected';
 
 		if ( ( $possible_values = $this->mOtherArgs['possible_values'] ) == null ) {
-			$possible_values = array();
+			$possible_values = [];
 		}
 		$optionsText = '';
 		foreach ( $possible_values as $possible_value ) {
@@ -58,19 +58,19 @@ class PFListBoxInput extends PFMultiEnumInput {
 			} else {
 				$optionLabel = $possible_value;
 			}
-			$optionAttrs = array( 'value' => $possible_value );
+			$optionAttrs = [ 'value' => $possible_value ];
 			if ( in_array( $possible_value, $cur_values ) ) {
 				$optionAttrs['selected'] = 'selected';
 			}
 			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
 		}
-		$selectAttrs = array(
+		$selectAttrs = [
 			'id' => $input_id,
 			'tabindex' => $wgPageFormsTabIndex,
 			'name' => $this->mInputName . '[]',
 			'class' => $className,
 			'multiple' => 'multiple'
-		);
+		];
 		if ( array_key_exists( 'size', $this->mOtherArgs ) ) {
 			$selectAttrs['size'] = $this->mOtherArgs['size'];
 		}
@@ -80,15 +80,15 @@ class PFListBoxInput extends PFMultiEnumInput {
 		$text = Html::rawElement( 'select', $selectAttrs, $optionsText );
 		$text .= Html::hidden( $this->mInputName . '[is_list]', 1 );
 		if ( $this->mIsMandatory ) {
-			$text = Html::rawElement( 'span', array( 'class' => 'inputSpan mandatoryFieldSpan' ), $text );
+			$text = Html::rawElement( 'span', [ 'class' => 'inputSpan mandatoryFieldSpan' ], $text );
 		}
 
 		if ( array_key_exists( 'show on select', $this->mOtherArgs ) ) {
 			foreach ( $this->mOtherArgs['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $input_id, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$input_id][] = array( $options, $div_id );
+					$wgPageFormsShowOnSelect[$input_id][] = [ $options, $div_id ];
 				} else {
-					$wgPageFormsShowOnSelect[$input_id] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$input_id] = [ [ $options, $div_id ] ];
 				}
 			}
 		}

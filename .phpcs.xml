@@ -9,7 +9,6 @@
 		<exclude name="MediaWiki.Usage.DeprecatedGlobalVariables.Deprecated$wgTitle" />
 		<exclude name="MediaWiki.VariableAnalysis.ForbiddenGlobalVariables.ForbiddenGlobal$wgTitle" />
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
-		<exclude name="Generic.Arrays.DisallowLongArraySyntax" />
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed" />
 		<exclude name="Generic.Files.LineLength.TooLong" />
 		<exclude name="Generic.PHP.SAPIUsage.FunctionFound" />
@@ -30,8 +29,6 @@
 			<property name="ignoreList" type="array" value="$smwgContLang,$smwgDefaultStore,$edgValues" />
 		</properties>
 	</rule>
-	<!-- keep support for php 5.3 -->
-	<rule ref="Generic.Arrays.DisallowShortArraySyntax" />
 	<file>.</file>
 	<arg name="extensions" value="php"/>
 	<arg name="encoding" value="UTF-8"/>

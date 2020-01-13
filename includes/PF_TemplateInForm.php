@@ -36,18 +36,18 @@ class PFTemplateInForm {
 	private $mSearchTemplateStr;
 	private $mPregMatchTemplateStr;
 	private $mFullTextInPage;
-	private $mValuesFromPage = array();
+	private $mValuesFromPage = [];
 	private $mValuesFromSubmit;
 	private $mNumInstancesFromSubmit = 0;
 	private $mPageCallsThisTemplate = false;
 	private $mInstanceNum = 0;
 	private $mAllInstancesPrinted = false;
-	private $mGridValues = array();
+	private $mGridValues = [];
 
 	static function create( $name, $label = null, $allowMultiple = null, $maxAllowed = null, $formFields = null ) {
 		$tif = new PFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', $name );
-		$tif->mFields = array();
+		$tif->mFields = [];
 		if ( is_null( $formFields ) ) {
 			$template = PFTemplate::newFromName( $tif->mTemplateName );
 			$fields = $template->getTemplateFields();
@@ -263,7 +263,7 @@ class PFTemplateInForm {
 
 	function addGridValue( $field_name, $cur_value ) {
 		if ( !array_key_exists( $this->mInstanceNum, $this->mGridValues ) ) {
-			$this->mGridValues[$this->mInstanceNum] = array();
+			$this->mGridValues[$this->mInstanceNum] = [];
 		}
 		$this->mGridValues[$this->mInstanceNum][$field_name] = $cur_value;
 	}
@@ -292,7 +292,7 @@ class PFTemplateInForm {
 		// If this is a multiple-instance template, get the values for
 		// this instance of the template.
 		if ( $this->mAllowMultiple ) {
-			$valuesFromSubmitKeys = array();
+			$valuesFromSubmitKeys = [];
 			foreach ( array_keys( $allValuesFromSubmit ) as $key ) {
 				if ( $key != 'num' ) {
 					$valuesFromSubmitKeys[] = $key;
@@ -324,12 +324,12 @@ class PFTemplateInForm {
 	 * @return string
 	 */
 	static function escapeNonTemplatePipes( $str ) {
-		$startAndEndTags = array(
-			array( '<pre', 'pre>' ),
-			array( '<syntaxhighlight', 'syntaxhighlight>' ),
-			array( '<source', 'source>' ),
-			array( '<ref', 'ref>' )
-		);
+		$startAndEndTags = [
+			[ '<pre', 'pre>' ],
+			[ '<syntaxhighlight', 'syntaxhighlight>' ],
+			[ '<source', 'source>' ],
+			[ '<ref', 'ref>' ]
+		];
 
 		foreach ( $startAndEndTags as $tags ) {
 			list( $startTag, $endTag ) = $tags;
@@ -361,7 +361,7 @@ class PFTemplateInForm {
 
 	function setFieldValuesFromPage( $existing_page_content ) {
 		$existing_page_content = self::escapeNonTemplatePipes( $existing_page_content );
-		$matches = array();
+		$matches = [];
 		$search_pattern = '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i';
 		$content_str = str_replace( '_', ' ', $existing_page_content );
 		preg_match( $search_pattern, $content_str, $matches, PREG_OFFSET_CAPTURE );
@@ -370,14 +370,14 @@ class PFTemplateInForm {
 			$start_char = $matches[0][1];
 			$fields_start_char = $start_char + 2 + strlen( $this->mSearchTemplateStr );
 			// Skip ahead to the first real character.
-			while ( in_array( $existing_page_content[$fields_start_char], array( ' ', '\n' ) ) ) {
+			while ( in_array( $existing_page_content[$fields_start_char], [ ' ', '\n' ] ) ) {
 				$fields_start_char++;
 			}
 			// If the next character is a pipe, skip that too.
 			if ( $existing_page_content[$fields_start_char] == '|' ) {
 				$fields_start_char++;
 			}
-			$this->mValuesFromPage = array( '0' => '' );
+			$this->mValuesFromPage = [ '0' => '' ];
 			// Cycle through template call, splitting it up by pipes ('|'),
 			// except when that pipe is part of a piped link.
 			$field = "";
@@ -454,8 +454,8 @@ class PFTemplateInForm {
 		// searching on either.
 		$this->mSearchTemplateStr = str_replace( '_', ' ', $this->mTemplateName );
 		$this->mPregMatchTemplateStr = str_replace(
-			array( '/', '(', ')', '^' ),
-			array( '\/', '\(', '\)', '\^' ),
+			[ '/', '(', ')', '^' ],
+			[ '\/', '\(', '\)', '\^' ],
 			$this->mSearchTemplateStr );
 		$this->mPageCallsThisTemplate = preg_match( '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i', str_replace( '_', ' ', $existing_page_content ) );
 	}

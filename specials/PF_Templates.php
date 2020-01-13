@@ -58,11 +58,11 @@ class TemplatesPage extends QueryPage {
 	}
 
 	function getQueryInfo() {
-		return array(
-			'tables' => array( 'page' ),
-			'fields' => array( 'page_title AS title', 'page_title AS value' ),
-			'conds' => array( 'page_namespace' => NS_TEMPLATE )
-		);
+		return [
+			'tables' => [ 'page' ],
+			'fields' => [ 'page_title AS title', 'page_title AS value' ],
+			'conds' => [ 'page_namespace' => NS_TEMPLATE ]
+		];
 	}
 
 	function sortDescending() {

@@ -15,7 +15,7 @@ class PFPageSection {
 	private $mIsHidden = false;
 	private $mIsRestricted = false;
 	private $mHideIfEmpty = false;
-	private $mSectionArgs = array();
+	private $mSectionArgs = [];
 
 	static function create( $section_name ) {
 		$ps = new PFPageSection();
@@ -149,43 +149,43 @@ class PFPageSection {
 	}
 
 	public static function getParameters() {
-		$params = array();
+		$params = [];
 
-		$params['mandatory'] = array(
+		$params['mandatory'] = [
 			'name' => 'mandatory',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_mandatory' )->text()
-		);
-		$params['restricted'] = array(
+		];
+		$params['restricted'] = [
 			'name' => 'restricted',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_restricted' )->text()
-		);
-		$params['hidden'] = array(
+		];
+		$params['hidden'] = [
 			'name' => 'hidden',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_createform_hiddensection' )->text()
-		);
-		$params['class'] = array(
+		];
+		$params['class'] = [
 			'name' => 'class',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_class' )->text()
-		);
-		$params['rows'] = array(
+		];
+		$params['rows'] = [
 			'name' => 'rows',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_rows' )->text()
-		);
-		$params['cols'] = array(
+		];
+		$params['cols'] = [
 			'name' => 'cols',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_cols' )->text()
-		);
-		$params['autogrow'] = array(
+		];
+		$params['autogrow'] = [
 			'name' => 'autogrow',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_autogrow' )->text()
-		);
+		];
 
 		return $params;
 	}

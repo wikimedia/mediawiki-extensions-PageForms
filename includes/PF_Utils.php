@@ -203,12 +203,12 @@ END;
 		}
 		$text .= Html::rawElement(
 			'form',
-			array(
+			[
 				'id' => 'editform',
 				'name' => 'editform',
 				'method' => 'post',
 				'action' => $title instanceof Title ? $title->getLocalURL( 'action=submit' ) : $title
-			),
+			],
 			$form_body
 		);
 
@@ -220,7 +220,7 @@ END;
 	</script>
 
 END;
-		Hooks::run( 'PageForms::PrintRedirectForm', array( $is_save, $is_preview, $is_diff, &$text ) );
+		Hooks::run( 'PageForms::PrintRedirectForm', [ $is_save, $is_preview, $is_diff, &$text ] );
 		return $text;
 	}
 
@@ -244,7 +244,7 @@ END;
 			$output = $parser->getOutput();
 		}
 
-		$mainModules = array(
+		$mainModules = [
 			'ext.pageforms.main',
 			'ext.pageforms.submit',
 			'ext.smw.tooltips',
@@ -262,7 +262,7 @@ END;
 			'ext.pageforms.checkboxes',
 			'ext.pageforms.select2',
 			'ext.pageforms.rating'
-		);
+		];
 
 		if ( version_compare( $wgVersion, '1.30', '<' ) || $wgUsejQueryThree === false ) {
 			$mainModules[] = 'ext.pageforms.fancybox.jquery1';
@@ -278,8 +278,8 @@ END;
 
 		$output->addModules( $mainModules );
 
-		$otherModules = array();
-		Hooks::run( 'PageForms::AddRLModules', array( &$otherModules ) );
+		$otherModules = [];
+		Hooks::run( 'PageForms::AddRLModules', [ &$otherModules ] );
 		foreach ( $otherModules as $rlModule ) {
 			$output->addModules( $rlModule );
 		}
@@ -293,11 +293,11 @@ END;
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select( 'page',
 			'page_title',
-			array( 'page_namespace' => PF_NS_FORM,
-				'page_is_redirect' => false ),
+			[ 'page_namespace' => PF_NS_FORM,
+				'page_is_redirect' => false ],
 			__METHOD__,
-			array( 'ORDER BY' => 'page_title' ) );
-		$form_names = array();
+			[ 'ORDER BY' => 'page_title' ] );
+		$form_names = [];
 		while ( $row = $dbr->fetchRow( $res ) ) {
 			$form_names[] = str_replace( '_', ' ', $row[0] );
 		}
@@ -324,7 +324,7 @@ END;
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";
 		}
-		return "\t" . Html::rawElement( 'label', array( 'for' => 'formSelector' ), $form_label . wfMessage( 'colon-separator' )->escaped() ) . "\n" . Html::rawElement( 'select', array( 'id' => 'formSelector', 'name' => 'form' ), $select_body ) . "\n";
+		return "\t" . Html::rawElement( 'label', [ 'for' => 'formSelector' ], $form_label . wfMessage( 'colon-separator' )->escaped() ) . "\n" . Html::rawElement( 'select', [ 'id' => 'formSelector', 'name' => 'form' ], $select_body ) . "\n";
 	}
 
 	/**
@@ -346,11 +346,11 @@ END;
 	 */
 	static function smartSplitFormTag( $string ) {
 		if ( $string == '' ) {
-			return array();
+			return [];
 		}
 
 		$delimiter = '|';
-		$returnValues = array();
+		$returnValues = [];
 		$numOpenCurlyBrackets = 0;
 		$curReturnValue = '';
 
@@ -393,7 +393,7 @@ END;
 			$hasPipe = strpos( $match[0], '|' );
 			return $hasPipe ? str_replace( "|", "\1", $match[0] ) : $match[0];
 		}, $str );
-		return array_map( array( 'PFUtils', 'convertBackToPipes' ), self::smartSplitFormTag( $str ) );
+		return array_map( [ 'PFUtils', 'convertBackToPipes' ], self::smartSplitFormTag( $str ) );
 	}
 
 	/**

@@ -47,7 +47,7 @@ class PFForm {
 		$this->mAssociatedCategory = $associatedCategory;
 	}
 
-	function createMarkup( $standardInputs = array(), $freeTextLabel = null ) {
+	function createMarkup( $standardInputs = [], $freeTextLabel = null ) {
 		$title = Title::makeTitle( PF_NS_FORM, $this->mFormName );
 		$fs = SpecialPageFactory::getPage( 'FormStart' );
 		$form_start_url = PFUtils::titleURLString( $fs->getPageTitle() ) . "/" . $title->getPartialURL();

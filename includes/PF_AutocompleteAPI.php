@@ -35,8 +35,8 @@ class PFAutocompleteAPI extends ApiBase {
 		// $limit = $params['limit'];
 
 		if ( is_null( $baseprop ) && is_null( $base_cargo_table ) && strlen( $substr ) == 0 ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
-				$this->dieWithError( array( 'apierror-missingparam', 'substr' ), 'param_substr' );
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
+				$this->dieWithError( [ 'apierror-missingparam', 'substr' ], 'param_substr' );
 			} else {
 				$this->dieUsage( 'The substring must be specified', 'param_substr' );
 			}
@@ -70,14 +70,14 @@ class PFAutocompleteAPI extends ApiBase {
 		} elseif ( !is_null( $external_url ) ) {
 			$data = PFValuesUtils::getValuesFromExternalURL( $external_url, $substr );
 		} else {
-			$data = array();
+			$data = [];
 		}
 
 		// If we got back an error message, exit with that message.
 		if ( !is_array( $data ) ) {
-			if ( is_callable( array( $this, 'dieWithError' ) ) ) {
+			if ( is_callable( [ $this, 'dieWithError' ] ) ) {
 				if ( !$data instanceof Message ) {
-					$data = ApiMessage::create( new RawMessage( '$1', array( $data ) ), 'unknownerror' );
+					$data = ApiMessage::create( new RawMessage( '$1', [ $data ] ), 'unknownerror' );
 				}
 				$this->dieWithError( $data );
 			} else {
@@ -102,12 +102,12 @@ class PFAutocompleteAPI extends ApiBase {
 		// for "values from url", where the data is already formatted
 		// correctly.
 		if ( is_null( $external_url ) ) {
-			$formattedData = array();
+			$formattedData = [];
 			foreach ( $data as $index => $value ) {
 				if ( $map ) {
-					$formattedData[] = array( 'title' => $index, 'displaytitle' => $value );
+					$formattedData[] = [ 'title' => $index, 'displaytitle' => $value ];
 				} else {
-					$formattedData[] = array( 'title' => $value );
+					$formattedData[] = [ 'title' => $value ];
 				}
 			}
 		} else {
@@ -121,14 +121,14 @@ class PFAutocompleteAPI extends ApiBase {
 	}
 
 	protected function getAllowedParams() {
-		return array(
-			'limit' => array(
+		return [
+			'limit' => [
 				ApiBase::PARAM_TYPE => 'limit',
 				ApiBase::PARAM_DFLT => 10,
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => ApiBase::LIMIT_BIG1,
 				ApiBase::PARAM_MAX2 => ApiBase::LIMIT_BIG2
-			),
+			],
 			'substr' => null,
 			'property' => null,
 			'category' => null,
@@ -141,11 +141,11 @@ class PFAutocompleteAPI extends ApiBase {
 			'base_cargo_table' => null,
 			'base_cargo_field' => null,
 			'basevalue' => null,
-		);
+		];
 	}
 
 	protected function getParamDescription() {
-		return array(
+		return [
 			'substr' => 'Search substring',
 			'property' => 'Semantic property for which to search values',
 			'category' => 'Category for which to search values',
@@ -155,7 +155,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'baseprop' => 'A previous property in the form to check against',
 			'basevalue' => 'The value to check for the previous property',
 			// 'limit' => 'Limit how many entries to return',
-		);
+		];
 	}
 
 	protected function getDescription() {
@@ -163,11 +163,11 @@ class PFAutocompleteAPI extends ApiBase {
 	}
 
 	protected function getExamples() {
-		return array(
+		return [
 			'api.php?action=pfautocomplete&substr=te',
 			'api.php?action=pfautocomplete&substr=te&property=Has_author',
 			'api.php?action=pfautocomplete&substr=te&category=Authors',
-		);
+		];
 	}
 
 	private function getAllValuesForProperty(
@@ -184,9 +184,9 @@ class PFAutocompleteAPI extends ApiBase {
 			$this->dieUsage( 'Semantic MediaWiki must be installed to query on "property"', 'param_property' );
 		}
 
-		$values = array();
+		$values = [];
 		$db = wfGetDB( DB_REPLICA );
-		$sqlOptions = array();
+		$sqlOptions = [];
 		$sqlOptions['LIMIT'] = $wgPageFormsMaxAutocompleteValues;
 
 		if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
@@ -197,7 +197,7 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
 		$property_name = str_replace( ' ', '_', $property_name );
-		$conditions = array( 'p_ids.smw_title' => $property_name );
+		$conditions = [ 'p_ids.smw_title' => $property_name ];
 
 		// Use cache if allowed
 		if ( $wgPageFormsCacheAutocompleteValues ) {
@@ -305,7 +305,7 @@ class PFAutocompleteAPI extends ApiBase {
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
 		global $wgPageFormsAutocompleteOnAllChars;
 
-		$values = array();
+		$values = [];
 		$tablesStr = $cargoTable;
 		$fieldsStr = $cargoField;
 		$joinOnStr = '';
@@ -387,7 +387,7 @@ class PFAutocompleteAPI extends ApiBase {
 		// @TODO - this is duplicate work; the schema is retrieved
 		// again when the CargoSQLQuery object is created. There should
 		// be some way of avoiding that duplicate retrieval.
-		$tableSchemas = CargoUtils::getTableSchemas( array( $cargoTable ) );
+		$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
 		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {
 			return false;
 		}

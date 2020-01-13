@@ -86,7 +86,7 @@ class PFDateTimePicker extends PFFormInput {
 	}
 
 	protected function setupJsInitAttribs() {
-		$jsattribs = array();
+		$jsattribs = [];
 
 		$jsattribs['disabled'] = $this->mIsDisabled;
 
@@ -100,10 +100,10 @@ class PFDateTimePicker extends PFFormInput {
 			$this->mDatePicker->getHtmlText() . " " .
 			$this->mTimePicker->getHtmlText();
 
-		$jsattribs['subinputsInitData'] = array(
+		$jsattribs['subinputsInitData'] = [
 			'input_' . $this->mInputNumber . '_dp' => $this->mDatePicker->getJsInitFunctionData(),
 			'input_' . $this->mInputNumber . '_tp' => $this->mTimePicker->getJsInitFunctionData()
-		);
+		];
 
 		// build JS code from attributes array
 		return $jsattribs;
@@ -131,7 +131,7 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
-		return array( '_str', '_dat' );
+		return [ '_str', '_dat' ];
 	}
 
 	/**
@@ -146,21 +146,21 @@ class PFDateTimePicker extends PFFormInput {
 
 		// Copied from PFTimePickerInput, which was not moved
 		// over to Page Forms.
-		$params['mintime'] = array(
+		$params['mintime'] = [
 			'name' => 'mintime',
 			'type' => 'string',
 			'description' => wfMessage( 'pageforms-timepicker-mintime' )->text(),
-		);
-		$params['maxtime'] = array(
+		];
+		$params['maxtime'] = [
 			'name' => 'maxtime',
 			'type' => 'string',
 			'description' => wfMessage( 'pageforms-timepicker-maxtime' )->text(),
-		);
-		$params['interval'] = array(
+		];
+		$params['interval'] = [
 			'name' => 'interval',
 			'type' => 'int',
 			'description' => wfMessage( 'pageforms-timepicker-interval' )->text(),
-		);
+		];
 
 		return $params;
 	}
@@ -186,7 +186,7 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return null|string|array
 	 */
 	public function getResourceModuleNames() {
-		return array( 'ext.pageforms.timepicker', 'ext.pageforms.datetimepicker' );
+		return [ 'ext.pageforms.timepicker', 'ext.pageforms.datetimepicker' ];
 	}
 
 }

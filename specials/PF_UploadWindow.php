@@ -154,7 +154,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			# Backwards compatibility hook
 			// Avoid PHP 7.1 warning from passing $this by reference
 			$page = $this;
-			if ( !Hooks::run( 'UploadForm:initial', array( &$page ) ) ) {
+			if ( !Hooks::run( 'UploadForm:initial', [ &$page ] ) ) {
 				wfDebug( "Hook 'UploadForm:initial' broke output of the upload form" );
 				return;
 			}
@@ -192,7 +192,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 */
 	protected function getUploadForm( $message = '', $sessionKey = '', $hideIgnoreWarning = false ) {
 		# Initialize form
-		$form = new PFUploadForm( array(
+		$form = new PFUploadForm( [
 			'watch' => $this->watchCheck(),
 			'forreupload' => $this->mForReUpload,
 			'sessionkey' => $sessionKey,
@@ -202,7 +202,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			'destfile' => $this->mDesiredDestName,
 			'pfInputID' => $this->mInputID,
 			'pfDelimiter' => $this->mDelimiter,
-		) );
+		] );
 		$form->setTitle( $this->getPageTitle() );
 
 		# Check the token, but only if necessary
@@ -287,13 +287,13 @@ class PFUploadWindow extends UnlistedSpecialPage {
 				} elseif ( $warning == 'duplicate-archive' ) {
 					$msg = "\t<li>" . wfMessage(
 						'file-deleted-duplicate',
-						array( Title::makeTitle( NS_FILE, $args )->getPrefixedText() )
+						[ Title::makeTitle( NS_FILE, $args )->getPrefixedText() ]
 					)->parse() . "</li>\n";
 				} else {
 					if ( is_bool( $args ) ) {
-						$args = array();
+						$args = [];
 					} elseif ( !is_array( $args ) ) {
-						$args = array( $args );
+						$args = [ $args ];
 					}
 					$msg = "\t<li>" . wfMessage( $warning, $args )->parse() . "</li>\n";
 				}
@@ -341,7 +341,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		if ( !Hooks::run( 'UploadForm:BeforeProcessing', array( &$page ) ) ) {
+		if ( !Hooks::run( 'UploadForm:BeforeProcessing', [ &$page ] ) ) {
 			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
 			// This code path is deprecated. If you want to break upload processing
 			// do so by hooking into the appropriate hooks in UploadBase::verifyUpload
@@ -447,7 +447,7 @@ END;
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		Hooks::run( 'SpecialUploadComplete', array( &$page ) );
+		Hooks::run( 'SpecialUploadComplete', [ &$page ] );
 	}
 
 	/**
@@ -607,7 +607,7 @@ END;
 
 		$file = $exists['file'];
 		$filename = $file->getTitle()->getPrefixedText();
-		$warning = array();
+		$warning = [];
 
 		if ( $exists['warning'] == 'exists' ) {
 			// Exact match
@@ -636,11 +636,11 @@ END;
 			$llink = $linkRenderer->makeKnownLink(
 				$ltitle,
 				wfMessage( 'deletionlog' )->escaped(),
-				array(),
-				array(
+				[],
+				[
 					'type' => 'delete',
 					'page' => $filename
-				)
+				]
 			);
 			$warning[] = '<li>' . wfMessage( 'filewasdeleted' )->rawParams( $llink )->parse() . '</li>';
 		}

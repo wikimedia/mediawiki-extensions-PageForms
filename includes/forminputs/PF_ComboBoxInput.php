@@ -13,15 +13,15 @@ class PFComboBoxInput extends PFFormInput {
 	}
 
 	public static function getOtherPropTypesHandled() {
-		return array( '_wpg', '_str' );
+		return [ '_wpg', '_str' ];
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array( 'Page' => array() );
+		return [ 'Page' => [] ];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array( 'String' );
+		return [ 'String' ];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -48,7 +48,7 @@ class PFComboBoxInput extends PFFormInput {
 			} else {
 				$name = $input_name;
 			}
-			$wgPageFormsEDSettings[$name] = array();
+			$wgPageFormsEDSettings[$name] = [];
 			if ( $other_args['values from external data'] != null ) {
 				$wgPageFormsEDSettings[$name]['title'] = $other_args['values from external data'];
 			}
@@ -83,7 +83,7 @@ class PFComboBoxInput extends PFFormInput {
 
 		$input_id = 'input_' . $wgPageFormsFieldNum;
 
-		$inputAttrs = array(
+		$inputAttrs = [
 			'type' => 'text',
 			'id' => $input_id,
 			'name' => $input_name,
@@ -93,7 +93,7 @@ class PFComboBoxInput extends PFFormInput {
 			'value' => $cur_value,
 			'size' => $size,
 			'disabled' => $is_disabled,
-		);
+		];
 		if ( array_key_exists( 'origName', $other_args ) ) {
 			$inputAttrs['origname'] = $other_args['origName'];
 		}
@@ -127,33 +127,33 @@ class PFComboBoxInput extends PFFormInput {
 			$divClass .= ' mandatory';
 		}
 
-		$text = Html::rawElement( 'div', array( 'class' => $divClass ), $inputText );
+		$text = Html::rawElement( 'div', [ 'class' => $divClass ], $inputText );
 		return $text;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'size',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_size' )->text()
-		);
+		];
 		$params = array_merge( $params, PFEnumInput::getValuesParameters() );
-		$params[] = array(
+		$params[] = [
 			'name' => 'existing values only',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_existingvaluesonly' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'uploadable',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_uploadable' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'default filename',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_defaultfilename' )->text()
-		);
+		];
 		return $params;
 	}
 

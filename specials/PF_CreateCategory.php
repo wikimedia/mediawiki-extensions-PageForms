@@ -82,10 +82,10 @@ class PFCreateCategory extends SpecialPage {
 			$text .= "\t" . Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$firstRow .= wfMessage( 'pf_createcategory_name' )->escaped() . ' ' .
 				Html::input( 'category_name', null, 'text',
-					array( 'size' => 25 ) ) . "\n";
+					[ 'size' => 25 ] ) . "\n";
 			if ( !is_null( $category_name_error_str ) ) {
 				$firstRow .= Html::element( 'span',
-					array( 'style' => 'color: red;' ),
+					[ 'style' => 'color: red;' ],
 					$category_name_error_str ) . "\n";
 			}
 		}
@@ -98,7 +98,7 @@ class PFCreateCategory extends SpecialPage {
 			}
 
 			$firstRow .= Html::rawElement( 'select',
-				array( 'id' => 'form_dropdown', 'name' => 'default_form' ),
+				[ 'id' => 'form_dropdown', 'name' => 'default_form' ],
 				$formSelector );
 		} catch ( MWException $e ) {
 			// If we're here, it's probably because no forms have
@@ -113,14 +113,14 @@ class PFCreateCategory extends SpecialPage {
 			$category = str_replace( '_', ' ', $category );
 			$selectBody .= "\t" . Html::element( 'option', null, $category ) . "\n";
 		}
-		$secondRow .= Html::rawElement( 'select', array( 'id' => 'category_dropdown', 'name' => 'parent_category' ), $selectBody );
+		$secondRow .= Html::rawElement( 'select', [ 'id' => 'category_dropdown', 'name' => 'parent_category' ], $selectBody );
 		$text .= Html::rawElement( 'p', null, $secondRow ) . "\n";
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateCategory' ) ) . "\n";
 
-		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', array( 'id' => 'wpSave' ) ) . "\n";
-		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', array( 'id' => 'wpPreview' ) ) . "\n";
-		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $editButtonsText ) . "\n";
+		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', [ 'id' => 'wpSave' ] ) . "\n";
+		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', [ 'id' => 'wpPreview' ] ) . "\n";
+		$text .= "\t" . Html::rawElement( 'div', [ 'class' => 'editButtons' ], $editButtonsText ) . "\n";
 		$text .= "\t</form>\n";
 
 		$out->addHTML( $text );

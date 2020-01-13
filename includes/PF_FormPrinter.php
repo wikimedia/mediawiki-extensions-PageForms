@@ -24,18 +24,18 @@ class PFFormPrinter {
 	public function __construct() {
 		global $wgPageFormsDisableOutsideServices;
 		// Initialize variables.
-		$this->mSemanticTypeHooks = array();
-		$this->mCargoTypeHooks = array();
-		$this->mInputTypeHooks = array();
-		$this->mInputTypeClasses = array();
-		$this->mDefaultInputForPropType = array();
-		$this->mDefaultInputForPropTypeList = array();
-		$this->mPossibleInputsForPropType = array();
-		$this->mPossibleInputsForPropTypeList = array();
-		$this->mDefaultInputForCargoType = array();
-		$this->mDefaultInputForCargoTypeList = array();
-		$this->mPossibleInputsForCargoType = array();
-		$this->mPossibleInputsForCargoTypeList = array();
+		$this->mSemanticTypeHooks = [];
+		$this->mCargoTypeHooks = [];
+		$this->mInputTypeHooks = [];
+		$this->mInputTypeClasses = [];
+		$this->mDefaultInputForPropType = [];
+		$this->mDefaultInputForPropTypeList = [];
+		$this->mPossibleInputsForPropType = [];
+		$this->mPossibleInputsForPropTypeList = [];
+		$this->mDefaultInputForCargoType = [];
+		$this->mDefaultInputForCargoTypeList = [];
+		$this->mPossibleInputsForCargoType = [];
+		$this->mPossibleInputsForCargoTypeList = [];
 
 		$this->standardInputsIncluded = false;
 
@@ -71,19 +71,19 @@ class PFFormPrinter {
 		// All-purpose setup hook.
 		// Avoid PHP 7.1 warning from passing $this by reference.
 		$formPrinterRef = $this;
-		Hooks::run( 'PageForms::FormPrinterSetup', array( &$formPrinterRef ) );
+		Hooks::run( 'PageForms::FormPrinterSetup', [ &$formPrinterRef ] );
 	}
 
 	public function setSemanticTypeHook( $type, $is_list, $class_name, $default_args ) {
-		$this->mSemanticTypeHooks[$type][$is_list] = array( $class_name, $default_args );
+		$this->mSemanticTypeHooks[$type][$is_list] = [ $class_name, $default_args ];
 	}
 
 	public function setCargoTypeHook( $type, $is_list, $class_name, $default_args ) {
-		$this->mCargoTypeHooks[$type][$is_list] = array( $class_name, $default_args );
+		$this->mCargoTypeHooks[$type][$is_list] = [ $class_name, $default_args ];
 	}
 
 	public function setInputTypeHook( $input_type, $class_name, $default_args ) {
-		$this->mInputTypeHooks[$input_type] = array( $class_name, $default_args );
+		$this->mInputTypeHooks[$input_type] = [ $class_name, $default_args ];
 	}
 
 	/**
@@ -93,63 +93,63 @@ class PFFormPrinter {
 	 * Must be derived from PFFormInput.
 	 */
 	public function registerInputType( $inputTypeClass ) {
-		$inputTypeName = call_user_func( array( $inputTypeClass, 'getName' ) );
+		$inputTypeName = call_user_func( [ $inputTypeClass, 'getName' ] );
 		$this->mInputTypeClasses[$inputTypeName] = $inputTypeClass;
-		$this->setInputTypeHook( $inputTypeName, $inputTypeClass, array() );
+		$this->setInputTypeHook( $inputTypeName, $inputTypeClass, [] );
 
-		$defaultProperties = call_user_func( array( $inputTypeClass, 'getDefaultPropTypes' ) );
+		$defaultProperties = call_user_func( [ $inputTypeClass, 'getDefaultPropTypes' ] );
 		foreach ( $defaultProperties as $propertyType => $additionalValues ) {
 			$this->setSemanticTypeHook( $propertyType, false, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForPropType[$propertyType] = $inputTypeName;
 		}
-		$defaultPropertyLists = call_user_func( array( $inputTypeClass, 'getDefaultPropTypeLists' ) );
+		$defaultPropertyLists = call_user_func( [ $inputTypeClass, 'getDefaultPropTypeLists' ] );
 		foreach ( $defaultPropertyLists as $propertyType => $additionalValues ) {
 			$this->setSemanticTypeHook( $propertyType, true, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForPropTypeList[$propertyType] = $inputTypeName;
 		}
 
-		$defaultCargoTypes = call_user_func( array( $inputTypeClass, 'getDefaultCargoTypes' ) );
+		$defaultCargoTypes = call_user_func( [ $inputTypeClass, 'getDefaultCargoTypes' ] );
 		foreach ( $defaultCargoTypes as $fieldType => $additionalValues ) {
 			$this->setCargoTypeHook( $fieldType, false, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForCargoType[$fieldType] = $inputTypeName;
 		}
-		$defaultCargoTypeLists = call_user_func( array( $inputTypeClass, 'getDefaultCargoTypeLists' ) );
+		$defaultCargoTypeLists = call_user_func( [ $inputTypeClass, 'getDefaultCargoTypeLists' ] );
 		foreach ( $defaultCargoTypeLists as $fieldType => $additionalValues ) {
 			$this->setCargoTypeHook( $fieldType, true, $inputTypeClass, $additionalValues );
 			$this->mDefaultInputForCargoTypeList[$fieldType] = $inputTypeName;
 		}
 
-		$otherProperties = call_user_func( array( $inputTypeClass, 'getOtherPropTypesHandled' ) );
+		$otherProperties = call_user_func( [ $inputTypeClass, 'getOtherPropTypesHandled' ] );
 		foreach ( $otherProperties as $propertyTypeID ) {
 			if ( array_key_exists( $propertyTypeID, $this->mPossibleInputsForPropType ) ) {
 				$this->mPossibleInputsForPropType[$propertyTypeID][] = $inputTypeName;
 			} else {
-				$this->mPossibleInputsForPropType[$propertyTypeID] = array( $inputTypeName );
+				$this->mPossibleInputsForPropType[$propertyTypeID] = [ $inputTypeName ];
 			}
 		}
-		$otherPropertyLists = call_user_func( array( $inputTypeClass, 'getOtherPropTypeListsHandled' ) );
+		$otherPropertyLists = call_user_func( [ $inputTypeClass, 'getOtherPropTypeListsHandled' ] );
 		foreach ( $otherPropertyLists as $propertyTypeID ) {
 			if ( array_key_exists( $propertyTypeID, $this->mPossibleInputsForPropTypeList ) ) {
 				$this->mPossibleInputsForPropTypeList[$propertyTypeID][] = $inputTypeName;
 			} else {
-				$this->mPossibleInputsForPropTypeList[$propertyTypeID] = array( $inputTypeName );
+				$this->mPossibleInputsForPropTypeList[$propertyTypeID] = [ $inputTypeName ];
 			}
 		}
 
-		$otherCargoTypes = call_user_func( array( $inputTypeClass, 'getOtherCargoTypesHandled' ) );
+		$otherCargoTypes = call_user_func( [ $inputTypeClass, 'getOtherCargoTypesHandled' ] );
 		foreach ( $otherCargoTypes as $cargoType ) {
 			if ( array_key_exists( $cargoType, $this->mPossibleInputsForCargoType ) ) {
 				$this->mPossibleInputsForCargoType[$cargoType][] = $inputTypeName;
 			} else {
-				$this->mPossibleInputsForCargoType[$cargoType] = array( $inputTypeName );
+				$this->mPossibleInputsForCargoType[$cargoType] = [ $inputTypeName ];
 			}
 		}
-		$otherCargoTypeLists = call_user_func( array( $inputTypeClass, 'getOtherCargoTypeListsHandled' ) );
+		$otherCargoTypeLists = call_user_func( [ $inputTypeClass, 'getOtherCargoTypeListsHandled' ] );
 		foreach ( $otherCargoTypeLists as $cargoType ) {
 			if ( array_key_exists( $cargoType, $this->mPossibleInputsForCargoTypeList ) ) {
 				$this->mPossibleInputsForCargoTypeList[$cargoType][] = $inputTypeName;
 			} else {
-				$this->mPossibleInputsForCargoTypeList[$cargoType] = array( $inputTypeName );
+				$this->mPossibleInputsForCargoTypeList[$cargoType] = [ $inputTypeName ];
 			}
 		}
 
@@ -214,13 +214,13 @@ class PFFormPrinter {
 			if ( array_key_exists( $propertyType, $this->mPossibleInputsForPropTypeList ) ) {
 				return $this->mPossibleInputsForPropTypeList[$propertyType];
 			} else {
-				return array();
+				return [];
 			}
 		} else {
 			if ( array_key_exists( $propertyType, $this->mPossibleInputsForPropType ) ) {
 				return $this->mPossibleInputsForPropType[$propertyType];
 			} else {
-				return array();
+				return [];
 			}
 		}
 	}
@@ -230,13 +230,13 @@ class PFFormPrinter {
 			if ( array_key_exists( $fieldType, $this->mPossibleInputsForCargoTypeList ) ) {
 				return $this->mPossibleInputsForCargoTypeList[$fieldType];
 			} else {
-				return array();
+				return [];
 			}
 		} else {
 			if ( array_key_exists( $fieldType, $this->mPossibleInputsForCargoType ) ) {
 				return $this->mPossibleInputsForCargoType[$fieldType];
 			} else {
-				return array();
+				return [];
 			}
 		}
 	}
@@ -252,10 +252,10 @@ class PFFormPrinter {
 	 */
 	function showDeletionLog( $out ) {
 		LogEventsList::showLogExtract( $out, 'delete', $this->mPageTitle->getPrefixedText(),
-			'', array( 'lim' => 10,
-				'conds' => array( "log_action != 'revision'" ),
+			'', [ 'lim' => 10,
+				'conds' => [ "log_action != 'revision'" ],
 				'showIfEmpty' => false,
-				'msgKey' => array( 'moveddeleted-notice' ) )
+				'msgKey' => [ 'moveddeleted-notice' ] ]
 		);
 		return true;
 	}
@@ -296,7 +296,7 @@ class PFFormPrinter {
 		// multiple template form's HTML into the main form's HTML.
 		// So, the HTML will be stored in $text.
 		$text = "\t" . '<div class="multipleTemplateWrapper">' . "\n";
-		$attrs = array( 'class' => 'multipleTemplateList' );
+		$attrs = [ 'class' => 'multipleTemplateList' ];
 		if ( !is_null( $tif->getMinInstancesAllowed() ) ) {
 			$attrs['minimumInstances'] = $tif->getMinInstancesAllowed();
 		}
@@ -321,8 +321,8 @@ class PFFormPrinter {
 		if ( $form_is_disabled ) {
 			$addAboveButton = $removeButton = '';
 		} else {
-			$addAboveButton = Html::element( 'a', array( 'class' => "addAboveButton", 'title' => wfMessage( 'pf_formedit_addanotherabove' )->text() ) );
-			$removeButton = Html::element( 'a', array( 'class' => "removeButton", 'title' => wfMessage( 'pf_formedit_remove' )->text() ) );
+			$addAboveButton = Html::element( 'a', [ 'class' => "addAboveButton", 'title' => wfMessage( 'pf_formedit_addanotherabove' )->text() ] );
+			$removeButton = Html::element( 'a', [ 'class' => "removeButton", 'title' => wfMessage( 'pf_formedit_remove' )->text() ] );
 		}
 
 		$text = <<<END
@@ -370,12 +370,12 @@ END;
 		);
 
 		$text = "\t\t" . Html::rawElement( 'div',
-				array(
+				[
 				// The "multipleTemplate" class is there for
 				// backwards-compatibility with any custom CSS on people's
 				// wikis before PF 2.0.9.
 				'class' => "multipleTemplateInstance multipleTemplate"
-			),
+			],
 			$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 		) . "\n";
 
@@ -394,17 +394,17 @@ END;
 		global $wgPageFormsTabIndex;
 
 		$text = "\t\t" . Html::rawElement( 'div',
-			array(
+			[
 				'class' => "multipleTemplateStarter",
 				'style' => "display: none",
-			),
+			],
 			$this->multipleTemplateInstanceTableHTML( $form_is_disabled, $section )
 		) . "\n";
 
-		$attributes = array(
+		$attributes = [
 			'tabindex' => $wgPageFormsTabIndex,
 			'class' => 'multipleTemplateAdder',
-		);
+		];
 		if ( $form_is_disabled ) {
 			$attributes['disabled'] = true;
 		}
@@ -450,7 +450,7 @@ END;
 				$labelText = $fieldName . ': ';
 			}
 			$label = Html::element( 'label',
-				array( 'for' => "input_$wgPageFormsFieldNum" ),
+				[ 'for' => "input_$wgPageFormsFieldNum" ],
 				$labelText );
 
 			// If a 'tooltip' parameter was set, add a tooltip
@@ -460,12 +460,12 @@ END;
 
 				$wgOut->addModules( 'ext.pageforms.balloon' );
 				$tooltipText = $formField->getFieldArg( 'tooltip' );
-				$label .= ' ' . Html::element( 'button', array(
+				$label .= ' ' . Html::element( 'button', [
 					'data-balloon-length' => 'medium',
 					'data-balloon' => $tooltipText,
 					'disabled' => true,
 					'style' => "height: 13px; width: 13px; background: url($wgScriptPath/resources/src/mediawiki/images/question.png); border: none;"
-					), '' );
+					], '' );
 			}
 
 			$labelCell = Html::rawElement( 'th', null, $label );
@@ -475,7 +475,7 @@ END;
 			$html .= Html::rawElement( 'tr', null, $labelCell . $inputCell ) . "\n";
 		}
 
-		$html = Html::rawElement( 'table', array( 'class' => 'formtable' ), $html );
+		$html = Html::rawElement( 'table', [ 'class' => 'formtable' ], $html );
 
 		return $html;
 	}
@@ -486,12 +486,12 @@ END;
 
 		$wgOut->addModules( 'ext.pageforms.jsgrid' );
 
-		$gridParams = array();
+		$gridParams = [];
 		foreach ( $tif->getFields() as $formField ) {
 			$templateField = $formField->template_field;
 
 			$inputType = $formField->getInputType();
-			$gridParamValues = array( 'name' => $templateField->getFieldName() );
+			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
 			if ( $formField->getLabel() !== null ) {
 				$gridParamValues['title'] = $formField->getLabel();
 			}
@@ -503,9 +503,9 @@ END;
 				$gridParamValues['type'] = 'date';
 			} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
 				array_unshift( $possibleValues, '' );
-				$completePossibleValues = array();
+				$completePossibleValues = [];
 				foreach ( $possibleValues as $value ) {
-					$completePossibleValues[] = array( 'Name' => $value, 'Id' => $value );
+					$completePossibleValues[] = [ 'Name' => $value, 'Id' => $value ];
 				}
 				$gridParamValues['type'] = 'select';
 				$gridParamValues['items'] = $completePossibleValues;
@@ -519,16 +519,16 @@ END;
 
 		$templateName = $tif->getTemplateName();
 		$templateDivID = str_replace( ' ', '', $templateName ) . "Grid";
-		$templateDivAttrs = array(
+		$templateDivAttrs = [
 			'class' => 'pfJSGrid',
 			'id' => $templateDivID,
 			'data-template-name' => $templateName
-		);
+		];
 		if ( $tif->getHeight() != null ) {
 			$templateDivAttrs['height'] = $tif->getHeight();
 		}
 
-		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
+		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
 		$text = Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
 
 		$wgPageFormsGridParams[$templateName] = $gridParams;
@@ -700,12 +700,12 @@ END;
 		global $wgPageFormsScriptPath;
 
 		$text = '<div id="loadingMask"></div>';
-		$loadingBGImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loadingbg.png" ) );
+		$loadingBGImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loadingbg.png" ] );
 		$text .= '<div style="position: fixed; left: 50%; top: 50%;">' . $loadingBGImage . '</div>';
-		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
+		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
 		$text .= '<div style="position: fixed; left: 50%; top: 50%; padding: 48px;">' . $loadingImage . '</div>';
 
-		return Html::rawElement( 'span', array( 'class' => 'loadingImage' ), $text );
+		return Html::rawElement( 'span', [ 'class' => 'loadingImage' ], $text );
 	}
 
 	/**
@@ -826,10 +826,10 @@ END;
 			// The handling of $wgReadOnly and $wgReadOnlyFile
 			// has to be done separately.
 			if ( wfReadOnly() ) {
-				$permissionErrors = array( array( 'readonlytext', array( wfReadOnlyReason() ) ) );
+				$permissionErrors = [ [ 'readonlytext', [ wfReadOnlyReason() ] ] ];
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
-			Hooks::run( 'PageForms::UserCanEditPage', array( $this->mPageTitle, &$userCanEditPage ) );
+			Hooks::run( 'PageForms::UserCanEditPage', [ $this->mPageTitle, &$userCanEditPage ] );
 		}
 
 		// Start off with a loading spinner - this will be removed by
@@ -846,7 +846,7 @@ END;
 					'{{fullurl:Special:UserLogin|returnto={{FULLPAGENAMEE}}}}',
 					// Sign-up link
 					'{{fullurl:Special:UserLogin/signup|returnto={{FULLPAGENAMEE}}}}' )->parse();
-				$form_text .= Html::rawElement( 'div', array( 'id' => 'mw-anon-edit-warning', 'class' => 'warningbox' ), $anonEditWarning );
+				$form_text .= Html::rawElement( 'div', [ 'id' => 'mw-anon-edit-warning', 'class' => 'warningbox' ], $anonEditWarning );
 			}
 		} else {
 			$form_is_disabled = true;
@@ -863,9 +863,9 @@ END;
 		}
 
 		if ( $wgPageFormsShowExpandAllLink ) {
-			$form_text .= Html::rawElement( 'p', array( 'id' => 'pf-expand-all' ),
+			$form_text .= Html::rawElement( 'p', [ 'id' => 'pf-expand-all' ],
 				// @TODO - add an i18n message for this.
-				Html::element( 'a', array( 'href' => '#' ), 'Expand all collapsed parts of the form' ) ) . "\n";
+				Html::element( 'a', [ 'href' => '#' ], 'Expand all collapsed parts of the form' ) ) . "\n";
 		}
 
 		$parser = PFUtils::getParser();
@@ -883,7 +883,7 @@ END;
 
 		// Turn form definition file into an array of sections, one for
 		// each template definition (plus the first section).
-		$form_def_sections = array();
+		$form_def_sections = [];
 		$start_position = 0;
 		$section_start = 0;
 		$free_text_was_included = false;
@@ -914,7 +914,7 @@ END;
 		$template = null;
 		$tif = null;
 		// This array will keep track of all the replaced @<name>@ strings
-		$placeholderFields = array();
+		$placeholderFields = [];
 
 		for ( $section_num = 0; $section_num < count( $form_def_sections ); $section_num++ ) {
 			$start_position = 0;
@@ -1030,14 +1030,14 @@ END;
 					// means we're handling the free text field.
 					// Make the template a dummy variable.
 					if ( $tif == null ) {
-						$template = new PFTemplate( null, array() );
+						$template = new PFTemplate( null, [] );
 						// Get free text from the query string, if it was set.
 						if ( $wgRequest->getCheck( 'free_text' ) ) {
-							$standard_input = $wgRequest->getArray( 'standard_input', array() );
+							$standard_input = $wgRequest->getArray( 'standard_input', [] );
 							$standard_input['#freetext#'] = $wgRequest->getVal( 'free_text' );
 							$wgRequest->setVal( 'standard_input', $standard_input );
 						}
-						$tif = PFTemplateInForm::create( 'standard_input', null, null, null, array() );
+						$tif = PFTemplateInForm::create( 'standard_input', null, null, null, [] );
 						$tif->setFieldValuesFromSubmit();
 					}
 					// We get the field name both here
@@ -1108,7 +1108,7 @@ END;
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
-								$edittools_text = $parser->recursiveTagParse( wfMessage( 'edittools', array( 'content' ) )->text() );
+								$edittools_text = $parser->recursiveTagParse( wfMessage( 'edittools', [ 'content' ] )->text() );
 
 								$new_text .= <<<END
 		<div class="mw-editTools">
@@ -1194,10 +1194,10 @@ END;
 						// @TODO - should it be $cur_value for both cases? Or should the
 						// hook perhaps modify both variables?
 						if ( $form_submitted ) {
-							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value_in_template, true ) );
+							Hooks::run( 'PageForms::CreateFormField', [ &$form_field, &$cur_value_in_template, true ] );
 						} else {
 							$this->createFormFieldTranslateTag( $template, $tif, $form_field, $cur_value );
-							Hooks::run( 'PageForms::CreateFormField', array( &$form_field, &$cur_value, false ) );
+							Hooks::run( 'PageForms::CreateFormField', [ &$form_field, &$cur_value, false ] );
 						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
@@ -1282,7 +1282,7 @@ END;
 					// handle all the possible values
 					$input_name = $tag_components[1];
 					$input_label = null;
-					$attr = array();
+					$attr = [];
 
 					// if it's a query, ignore all standard inputs except run query
 					if ( ( $is_query && $input_name != 'run query' ) || ( !$is_query && $input_name == 'run query' ) ) {
@@ -1409,7 +1409,7 @@ END;
 						$section_text = $text_per_section[trim( $section_name )];
 
 						// $section_options will allow to pass additional options in the future without breaking backword compatibility
-						$section_options = array( 'hideIfEmpty' => $page_section_in_form->isHideIfEmpty() );
+						$section_options = [ 'hideIfEmpty' => $page_section_in_form->isHideIfEmpty() ];
 						$wiki_page->addSection( $section_name, $page_section_in_form->getSectionLevel(), $section_text, $section_options );
 					}
 
@@ -1532,11 +1532,11 @@ END;
 						global $wgOut, $wgPageFormsCalendarParams, $wgPageFormsCalendarValues;
 						global $wgPageFormsScriptPath;
 						$text = '';
-						$params = array();
+						$params = [];
 						foreach ( $tif->getFields() as $formField ) {
 							$templateField = $formField->template_field;
 							$inputType = $formField->getInputType();
-							$values = array( 'name' => $templateField->getFieldName() );
+							$values = [ 'name' => $templateField->getFieldName() ];
 							if ( $formField->getLabel() !== null ) {
 								$values['title'] = $formField->getLabel();
 							}
@@ -1560,9 +1560,9 @@ END;
 								$values['type'] = 'tokens';
 							} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
 								array_unshift( $possibleValues, '' );
-								$completePossibleValues = array();
+								$completePossibleValues = [];
 								foreach ( $possibleValues as $value ) {
-									$completePossibleValues[] = array( 'Name' => $value, 'Id' => $value );
+									$completePossibleValues[] = [ 'Name' => $value, 'Id' => $value ];
 								}
 								$values['type'] = 'select';
 								$values['items'] = $completePossibleValues;
@@ -1575,7 +1575,7 @@ END;
 						}
 						$templateName = $tif->getTemplateName();
 						$templateDivID = str_replace( ' ', '', $templateName ) . "FullCalendar";
-						$templateDivAttrs = array(
+						$templateDivAttrs = [
 							'class' => 'pfFullCalendarJS',
 							'id' => $templateDivID,
 							'template-name' => $templateName,
@@ -1583,8 +1583,8 @@ END;
 							'event-date-field' => $tif->getEventDateField(),
 							'event-start-date-field' => $tif->getEventStartDateField(),
 							'event-end-date-field' => $tif->getEventEndDateField()
-						);
-						$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
+						];
+						$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
 						$text = "<div id='fullCalendarLoading1' style='display: none;'>" . $loadingImage . "</div>";
 						$text .= Html::rawElement( 'div', $templateDivAttrs, $text );
 						$wgPageFormsCalendarParams[$templateName] = $params;
@@ -1670,8 +1670,8 @@ END;
 				$free_text = $original_page_content;
 			} else {
 				$free_text = null;
-				$existing_page_content = preg_replace( array( '/�\{/m', '/\}�/m' ),
-					array( '{{', '}}' ),
+				$existing_page_content = preg_replace( [ '/�\{/m', '/\}�/m' ],
+					[ '{{', '}}' ],
 					$existing_page_content );
 				$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
 			}
@@ -1702,7 +1702,7 @@ END;
 		$page_text = '';
 
 		Hooks::run( 'PageForms::BeforeFreeTextSubst',
-			array( &$free_text, $existing_page_content, &$page_text ) );
+			[ &$free_text, $existing_page_content, &$page_text ] );
 
 		// Now that we have the free text, we can create the full page
 		// text.
@@ -1747,7 +1747,7 @@ END;
 
 		$form_text .= "\t</form>\n";
 		$parser->replaceLinkHolders( $form_text );
-		Hooks::run( 'PageForms::RenderingEnd', array( &$form_text ) );
+		Hooks::run( 'PageForms::RenderingEnd', [ &$form_text ] );
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.
@@ -1763,7 +1763,7 @@ END;
 			$form_page_title = null;
 		}
 
-		return array( $form_text, $page_text, $form_page_title, $generated_page_name );
+		return [ $form_text, $page_text, $form_page_title, $generated_page_name ];
 	}
 
 	/**

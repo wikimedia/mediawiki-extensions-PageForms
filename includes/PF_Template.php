@@ -33,7 +33,7 @@ class PFTemplate {
 	}
 
 	public static function newFromName( $templateName ) {
-		$template = new PFTemplate( $templateName, array() );
+		$template = new PFTemplate( $templateName, [] );
 		$template->loadTemplateFields();
 		return $template;
 	}
@@ -51,7 +51,7 @@ class PFTemplate {
 		$templateText = PFUtils::getPageText( $templateTitle );
 		// Ignore 'noinclude' sections and 'includeonly' tags.
 		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
-		$this->mTemplateText = strtr( $templateText, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+		$this->mTemplateText = strtr( $templateText, [ '<includeonly>' => '', '</includeonly>' => '' ] );
 
 		// The Cargo-based function is more specific; it only gets
 		// data structure information from the template schema. If
@@ -72,8 +72,8 @@ class PFTemplate {
 	 * attached to each one (if any), by parsing the text of the template.
 	 */
 	function loadTemplateFieldsSMWAndOther() {
-		$templateFields = array();
-		$fieldNamesArray = array();
+		$templateFields = [];
+		$fieldNamesArray = [];
 
 		// The way this works is that fields are found and then stored
 		// in an array based on their location in the template text, so
@@ -190,7 +190,7 @@ class PFTemplate {
 	}
 
 	function loadTemplateFieldsCargo( $templateTitle ) {
-		$cargoFieldsOfTemplateParams = array();
+		$cargoFieldsOfTemplateParams = [];
 
 		// First, get the table name, and fields, declared for this
 		// template.
@@ -219,7 +219,7 @@ class PFTemplate {
 		// search for this, because it's hard to know which set of
 		// double brackets represents the end of such a call. Instead,
 		// we'll do some manual parsing.
-		$cargoStoreLocations = array();
+		$cargoStoreLocations = [];
 		$curPos = 0;
 		while ( true ) {
 			$newPos = strpos( $this->mTemplateText, "#cargo_store:", $curPos );
@@ -230,7 +230,7 @@ class PFTemplate {
 			$cargoStoreLocations[] = $curPos;
 		}
 
-		$cargoStoreCalls = array();
+		$cargoStoreCalls = [];
 		foreach ( $cargoStoreLocations as $locNum => $startPos ) {
 			$numUnclosedBrackets = 2;
 			if ( $locNum < count( $cargoStoreLocations ) - 1 ) {
@@ -371,7 +371,7 @@ class PFTemplate {
 	public function createText() {
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$template = $this;
-		Hooks::run( 'PageForms::CreateTemplateText', array( &$template ) );
+		Hooks::run( 'PageForms::CreateTemplateText', [ &$template ] );
 		$templateHeader = wfMessage( 'pf_template_docu', $this->mTemplateName )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
@@ -616,7 +616,7 @@ END;
 	function createTextForField( $field ) {
 		$text = '';
 		$fieldStart = $this->mFieldStart;
-		Hooks::run( 'PageForms::TemplateFieldStart', array( $field, &$fieldStart ) );
+		Hooks::run( 'PageForms::TemplateFieldStart', [ $field, &$fieldStart ] );
 		if ( $fieldStart != '' ) {
 			$text .= "$fieldStart ";
 		}
@@ -625,7 +625,7 @@ END;
 		$text .= $field->createText( $cargoInUse );
 
 		$fieldEnd = $this->mFieldEnd;
-		Hooks::run( 'PageForms::TemplateFieldEnd', array( $field, &$fieldEnd ) );
+		Hooks::run( 'PageForms::TemplateFieldEnd', [ $field, &$fieldEnd ] );
 		if ( $fieldEnd != '' ) {
 			$text .= " $fieldEnd";
 		}

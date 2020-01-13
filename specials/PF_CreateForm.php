@@ -29,7 +29,7 @@ class PFCreateForm extends SpecialPage {
 			$inputType = $req->getVal( 'showinputtypeoptions' );
 			$fieldFormText = $req->getVal( 'formfield' );
 
-			$paramValues = array();
+			$paramValues = [];
 			// @TODO - is any of this "params" stuff necessary?
 			// For now, it's removed - if the setting of params is
 			// going to be re-added, that has to be done in the JS.
@@ -66,16 +66,16 @@ class PFCreateForm extends SpecialPage {
 
 		$section_name_error_str = '<span class="error" id="section_error">' . wfMessage( 'pf_blank_error' )->escaped() . '</span>';
 
-		$out->addModules( array( 'ext.pageforms.collapsible', 'ext.pageforms.PF_CreateForm' ) );
+		$out->addModules( [ 'ext.pageforms.collapsible', 'ext.pageforms.PF_CreateForm' ] );
 
 		// Get the names of all templates on this site.
-		$all_templates = array();
+		$all_templates = [];
 		$res = $db->select(
 			'page',
 			'page_title',
-			array( 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ),
+			[ 'page_namespace' => NS_TEMPLATE, 'page_is_redirect' => 0 ],
 			__METHOD__,
-			array( 'ORDER BY' => 'page_title' )
+			[ 'ORDER BY' => 'page_title' ]
 		);
 
 		if ( $db->numRows( $res ) > 0 ) {
@@ -88,7 +88,7 @@ class PFCreateForm extends SpecialPage {
 		$deleted_template_loc = null;
 		$deleted_section_loc = null;
 		// To keep the templates and sections
-		$form_items = array();
+		$form_items = [];
 
 		// Handle inputs.
 		foreach ( $req->getValues() as $var => $val ) {
@@ -106,18 +106,18 @@ class PFCreateForm extends SpecialPage {
 						$form_template = PFTemplateInForm::create( $val,
 							$req->getVal( "label_$id" ),
 							$req->getVal( "allow_multiple_$id" ) );
-						$form_items[] = array( 'type' => 'template',
+						$form_items[] = [ 'type' => 'template',
 							'name' => $form_template->getTemplateName(),
-							'item' => $form_template );
+							'item' => $form_template ];
 					}
 				} elseif ( $action == "section" ) {
 					if ( $req->getVal( "delsection_$id" ) != null ) {
 						$deleted_section_loc = $id;
 					} else {
 						$form_section = PFPageSection::create( $val );
-						$form_items[] = array( 'type' => 'section',
+						$form_items[] = [ 'type' => 'section',
 							'name' => $form_section->getSectionName(),
-							'item' => $form_section );
+							'item' => $form_section ];
 					}
 				}
 			}
@@ -143,7 +143,7 @@ class PFCreateForm extends SpecialPage {
 			// we have to first insert a stub element into the
 			// array, then replace that with the actual object.
 			array_splice( $form_items, $template_loc, 0, "stub" );
-			$form_items[$template_loc] = array( 'type' => 'template', 'name' => $form_template->getTemplateName(), 'item' => $form_template );
+			$form_items[$template_loc] = [ 'type' => 'template', 'name' => $form_template->getTemplateName(), 'item' => $form_template ];
 		} else {
 			$template_loc = null;
 			$new_template_loc = null;
@@ -168,7 +168,7 @@ class PFCreateForm extends SpecialPage {
 			}
 			// The same used hack for templates
 			array_splice( $form_items, $section_loc, 0, "stub" );
-			$form_items[$section_loc] = array( 'type' => 'section', 'name' => $form_section->getSectionName(), 'item' => $form_section );
+			$form_items[$section_loc] = [ 'type' => 'section', 'name' => $form_section->getSectionName(), 'item' => $form_section ];
 		} else {
 			$section_loc = null;
 			$new_section_loc = null;
@@ -284,9 +284,9 @@ class PFCreateForm extends SpecialPage {
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() );
 			$text .= "\n\t<p><label>" . wfMessage( 'pf_createform_nameinput' )->escaped() .
 				' ' . wfMessage( 'pf_createform_nameinputdesc' )->escaped() .
-				Html::input( 'form_name', $form_name, 'text', array( 'size' => 25 ) );
+				Html::input( 'form_name', $form_name, 'text', [ 'size' => 25 ] );
 			if ( !empty( $form_name_error_str ) ) {
-				$text .= "\t" . Html::element( 'span', array( 'class' => 'error' ), $form_name_error_str );
+				$text .= "\t" . Html::element( 'span', [ 'class' => 'error' ], $form_name_error_str );
 			}
 			$text .= "</label></p>\n";
 		}
@@ -298,9 +298,9 @@ class PFCreateForm extends SpecialPage {
 
 		$select_body = "";
 		foreach ( $all_templates as $template ) {
-			$select_body .= "	" . Html::element( 'option', array( 'value' => $template ), $template ) . "\n";
+			$select_body .= "	" . Html::element( 'option', [ 'value' => $template ], $template ) . "\n";
 		}
-		$text .= "\t" . Html::rawElement( 'select', array( 'name' => 'new_template' ), $select_body ) . "\n</label>\n";
+		$text .= "\t" . Html::rawElement( 'select', [ 'name' => 'new_template' ], $select_body ) . "\n</label>\n";
 
 		// If a template has already been added, show a dropdown letting
 		// the user choose where in the list to add a new dropdown.
@@ -312,16 +312,16 @@ class PFCreateForm extends SpecialPage {
 				$option_str = wfMessage( 'pf_createform_pagesection' )->escaped();
 			}
 			$option_str .= $fi['name'];
-			$select_body .= "\t" . Html::element( 'option', array( 'value' => $i ), $option_str ) . "\n";
+			$select_body .= "\t" . Html::element( 'option', [ 'value' => $i ], $option_str ) . "\n";
 		}
 		$final_index = count( $form_items );
 		$at_end_msg = wfMessage( 'pf_createform_atend' )->escaped();
-		$select_body .= "\t" . Html::element( 'option', array( 'value' => $final_index, 'selected' => 'selected' ), $at_end_msg );
+		$select_body .= "\t" . Html::element( 'option', [ 'value' => $final_index, 'selected' => 'selected' ], $at_end_msg );
 
 		// Selection for before which item this template should be placed
 		if ( count( $form_items ) > 0 ) {
 			$text .= '<label>' . wfMessage( 'pf_createform_before' )->escaped() .
-				Html::rawElement( 'select', array( 'name' => 'before_template' ), $select_body ) .
+				Html::rawElement( 'select', [ 'name' => 'before_template' ], $select_body ) .
 				"\n</label>\n";
 		}
 
@@ -332,17 +332,17 @@ class PFCreateForm extends SpecialPage {
 
 		// The form HTML for page sections
 		$text .= "<br/></br/>" . Html::element( 'span', null, wfMessage( 'pf_createform_addsection' )->text() . ":" ) . "\n";
-		$text .= Html::input( 'sectionname', '', 'text', array( 'size' => '30', 'placeholder' => wfMessage( 'pf_createform_sectionname' )->text(), 'id' => 'sectionname' ) ) . "\n";
+		$text .= Html::input( 'sectionname', '', 'text', [ 'size' => '30', 'placeholder' => wfMessage( 'pf_createform_sectionname' )->text(), 'id' => 'sectionname' ] ) . "\n";
 
 		// Selection for before which item this section should be placed
 		if ( count( $form_items ) > 0 ) {
 			$text .= wfMessage( 'pf_createform_before' )->escaped();
-			$text .= Html::rawElement( 'select', array( 'name' => 'before_section' ), $select_body ) . "\n";
+			$text .= Html::rawElement( 'select', [ 'name' => 'before_section' ], $select_body ) . "\n";
 		}
 
 		$add_section_text = wfMessage( 'pf_createform_addsection' )->text();
-		$text .= "\t" . Html::input( 'add_section', $add_section_text, 'submit', array( 'id' => 'addsection' ) );
-		$text .= "\n\t" . Html::rawElement( 'div', array( 'id' => 'sectionerror' ) );
+		$text .= "\t" . Html::input( 'add_section', $add_section_text, 'submit', [ 'id' => 'addsection' ] );
+		$text .= "\n\t" . Html::rawElement( 'div', [ 'id' => 'sectionerror' ] );
 		$text .= <<<END
 </p>
 	<br />
@@ -351,18 +351,18 @@ END;
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateForm' ) ) . "\n";
 
-		$saveAttrs = array( 'id' => 'wpSave' );
+		$saveAttrs = [ 'id' => 'wpSave' ];
 		if ( count( $form_items ) == 0 ) {
 			$saveAttrs['disabled'] = true;
 		}
 		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', $saveAttrs ) . "\n";
-		$previewAttrs = array( 'id' => 'wpPreview' );
+		$previewAttrs = [ 'id' => 'wpPreview' ];
 		if ( count( $form_items ) == 0 ) {
 			$previewAttrs['disabled'] = true;
 		}
 		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', $previewAttrs ) . "\n";
-		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ),
-			Html::rawElement( 'p', array(), $editButtonsText ) . "\n" ) . "\n";
+		$text .= "\t" . Html::rawElement( 'div', [ 'class' => 'editButtons' ],
+			Html::rawElement( 'p', [], $editButtonsText ) . "\n" ) . "\n";
 		// Explanatory message if buttons are disabled because no
 		// templates have been added.
 		if ( count( $form_items ) == 0 ) {
@@ -396,14 +396,14 @@ END;
 	}
 
 	function sectionCreationHTML( $section, $section_count ) {
-		$paramValues = array();
+		$paramValues = [];
 		$section_name = $section->getSectionName();
 		$section_level = $section->getSectionLevel();
 
 		$section_str = wfMessage( 'pf_createform_pagesection' )->text() . " '" . $section_name . "'";
 		$text = Html::hidden( "section_$section_count", $section_name );
 		$text .= '<div class="sectionForm">';
-		$text .= Html::element( 'h2', array(), $section_str );
+		$text .= Html::element( 'h2', [], $section_str );
 
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_section_' . $section_count ) ) != false ) {
@@ -417,15 +417,15 @@ END;
 		$text .= '<label>' . wfMessage( 'pf_createform_sectionlevel' )->text() . "\n";
 		for ( $i = 1; $i < 7; $i++ ) {
 			if ( $section_level == $i ) {
-				$header_options .= " " . Html::element( 'option', array( 'value' => $i, 'selected' ), $i ) . "\n";
+				$header_options .= " " . Html::element( 'option', [ 'value' => $i, 'selected' ], $i ) . "\n";
 			} else {
-				$header_options .= " " . Html::element( 'option', array( 'value' => $i ), $i ) . "\n";
+				$header_options .= " " . Html::element( 'option', [ 'value' => $i ], $i ) . "\n";
 			}
 		}
-		$text .= Html::rawElement( 'select', array( 'name' => "level_section_" . $section_count ), $header_options ) . "</label>\n";
+		$text .= Html::rawElement( 'select', [ 'name' => "level_section_" . $section_count ], $header_options ) . "</label>\n";
 		$other_param_text = wfMessage( 'pf_createform_otherparameters' )->escaped();
 		$text .= "<fieldset class=\"pfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
-		$text .= Html::rawElement( 'div', array(),
+		$text .= Html::rawElement( 'div', [],
 		$this->showSectionParameters( $section_count, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
 		$removeSectionButton = Html::input( 'delsection_' . $section_count, wfMessage( 'pf_createform_removesection' )->text(), 'submit' ) . "\n";
@@ -436,16 +436,16 @@ END;
 	}
 
 	function templateCreationHTML( $tif, $template_num ) {
-		$checked_attribs = ( $tif->allowsMultiple() ) ? array( 'checked' => 'checked' ) : array();
+		$checked_attribs = ( $tif->allowsMultiple() ) ? [ 'checked' => 'checked' ] : [];
 		$template_str = wfMessage( 'pf_createform_template' )->escaped();
 		$template_label_input = wfMessage( 'pf_createform_templatelabelinput' )->escaped();
 		$allow_multiple_text = wfMessage( 'pf_createform_allowmultiple' )->escaped();
 
 		$text = Html::hidden( "template_$template_num", $tif->getTemplateName() );
 		$text .= '<div class="templateForm">';
-		$text .= Html::element( 'h2', array(), "$template_str '{$tif->getTemplateName()}'" );
+		$text .= Html::element( 'h2', [], "$template_str '{$tif->getTemplateName()}'" );
 		$text .= '<p><label>' . $template_label_input .
-			Html::input( "label_$template_num", $tif->getLabel(), 'text', array( 'size' => 25 ) ) .
+			Html::input( "label_$template_num", $tif->getLabel(), 'text', [ 'size' => 25 ] ) .
 			"</label></p>\n";
 		$text .= '<p><label>' .
 			Html::input( "allow_multiple_$template_num", '', 'checkbox', $checked_attribs ) .
@@ -506,7 +506,7 @@ END;
 			'label_' . $field_form_text,
 			$template_field->getLabel(),
 			'text',
-			array( 'size' => 20 )
+			[ 'size' => 20 ]
 		);
 		$input_type_text = wfMessage( 'pf_createform_inputtype' )->escaped();
 		$text .= <<<END
@@ -525,7 +525,7 @@ END;
 		} else {
 			// Most likely, template uses neither SMW nor Cargo.
 			$default_input_type = null;
-			$possible_input_types = array();
+			$possible_input_types = [];
 		}
 
 		if ( $default_input_type == null && count( $possible_input_types ) == 0 ) {
@@ -542,7 +542,7 @@ END;
 			$cur_input_type = $possible_input_types[0];
 		}
 
-		$paramValues = array();
+		$paramValues = [];
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
 				$paramName = substr( $key, 0, $pos );
@@ -555,7 +555,7 @@ END;
 
 		$other_param_text = wfMessage( 'pf_createform_otherparameters' )->escaped();
 		$text .= "<fieldset class=\"pfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
-		$text .= Html::rawElement( 'div', array( 'class' => 'otherInputParams' ),
+		$text .= Html::rawElement( 'div', [ 'class' => 'otherInputParams' ],
 			self::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
 		$text .= <<<END
@@ -587,11 +587,11 @@ END;
 		// @todo FIXME: Contains hard coded parentheses.
 		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
 		$text = "\t" . Html::rawElement( 'select',
-			array(
+			[
 				'class' => 'inputTypeSelector',
 				'name' => 'input_type_' . $field_form_text,
 				'formfieldid' => $field_form_text
-			), $dropdownHTML ) . "\n";
+			], $dropdownHTML ) . "\n";
 		return $text;
 	}
 
@@ -613,25 +613,25 @@ END;
 				$paramName . '_' . $fieldFormText,
 				$cur_value,
 				'text',
-				array( 'size' => 6 )
+				[ 'size' => 6 ]
 			);
 		} elseif ( $type == 'string' ) {
 			return Html::input(
 				$paramName . '_' . $fieldFormText,
 				$cur_value,
 				'text',
-				array( 'size' => 32 )
+				[ 'size' => 32 ]
 			);
 		} elseif ( $type == 'text' ) {
-			return Html::element( 'textarea', array(
+			return Html::element( 'textarea', [
 				'name' => $paramName . '_' . $fieldFormText,
 				'rows' => 4
-			), $cur_value );
+			], $cur_value );
 		} elseif ( $type == 'enumeration' ) {
 			$text = '<select name="p[' . htmlspecialchars( $paramName ) . ']">';
 			$text .= "\n	<option value=''></option>\n";
 
-			$parts = array();
+			$parts = [];
 			foreach ( $param['values'] as $value ) {
 				$parts[] = '<option value="' . htmlspecialchars( $value ) . '"' .
 				( $cur_value == $value ? ' selected' : '' ) . '>' .
@@ -649,7 +649,7 @@ END;
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
-			$checkboxAttrs = array();
+			$checkboxAttrs = [];
 			if ( $cur_value ) {
 				$checkboxAttrs['checked'] = true;
 			}
@@ -680,7 +680,7 @@ END;
 
 		$inputTypeClass = $wgPageFormsFormPrinter->getInputType( $inputType );
 
-		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( array( $inputTypeClass, 'getParameters' ) ) : array();
+		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( [ $inputTypeClass, 'getParameters' ] ) : [];
 
 		$i = 0;
 		foreach ( $params as $param ) {
@@ -704,7 +704,7 @@ END;
 
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
 
-			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $fieldFormText );
+			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, [], $fieldFormText );
 			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
@@ -749,7 +749,7 @@ END;
 
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
 
-			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, array(), $section_text );
+			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, [], $section_text );
 			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 			if ( $i % 3 == 2 || $i == count( $params ) - 1 ) {
 				$text .= "<div style=\"clear: both\";></div></div>\n";

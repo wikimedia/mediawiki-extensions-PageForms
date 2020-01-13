@@ -13,11 +13,11 @@ class PFTokensInput extends PFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherPropTypesHandled() {
-		$otherPropTypesHandled = array( '_wpg' );
+		$otherPropTypesHandled = [ '_wpg' ];
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
 			$otherPropTypesHandled[] = '_str';
@@ -28,36 +28,36 @@ class PFTokensInput extends PFFormInput {
 	}
 
 	public static function getDefaultPropTypeLists() {
-		return array(
-			'_wpg' => array( 'is_list' => true, 'size' => 100 )
-		);
+		return [
+			'_wpg' => [ 'is_list' => true, 'size' => 100 ]
+		];
 	}
 
 	public static function getOtherPropTypeListsHandled() {
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			return array( '_str' );
+			return [ '_str' ];
 		} else {
-			return array( '_txt' );
+			return [ '_txt' ];
 		}
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array( 'Page', 'String' );
+		return [ 'Page', 'String' ];
 	}
 
 	public static function getDefaultCargoTypeLists() {
-		return array(
-			'Page' => array( 'is_list' => true, 'size' => 100 )
-		);
+		return [
+			'Page' => [ 'is_list' => true, 'size' => 100 ]
+		];
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return array( 'String' );
+		return [ 'String' ];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -73,7 +73,7 @@ class PFTokensInput extends PFFormInput {
 			} else {
 				$name = $input_name;
 			}
-			$wgPageFormsEDSettings[$name] = array();
+			$wgPageFormsEDSettings[$name] = [];
 			if ( $other_args['values from external data'] != null ) {
 				$wgPageFormsEDSettings[$name]['title'] = $other_args['values from external data'];
 			}
@@ -118,13 +118,13 @@ class PFTokensInput extends PFFormInput {
 			$size = '100';
 		}
 
-		$inputAttrs = array(
+		$inputAttrs = [
 			'id' => $input_id,
 			'size' => $size,
 			'class' => $className,
 			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
-		);
+		];
 		if ( array_key_exists( 'origName', $other_args ) ) {
 			$inputAttrs['origName'] = $other_args['origName'];
 		}
@@ -166,44 +166,44 @@ class PFTokensInput extends PFFormInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = "\n" . Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
+		$text = "\n" . Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
 
 		return $text;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'size',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_size' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'placeholder',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_placeholder' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'existing values only',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_existingvaluesonly' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'max values',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_maxvalues' )->text()
-		);
+		];
 		$params = array_merge( $params, PFTextWithAutocompleteInput::getAutocompletionParameters() );
-		$params[] = array(
+		$params[] = [
 			'name' => 'uploadable',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_uploadable' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'default filename',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_defaultfilename' )->text()
-		);
+		];
 
 		return $params;
 	}

@@ -36,57 +36,57 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 	 * Data provider method
 	 */
 	public function pageSectionDataProvider() {
-		$provider = array();
+		$provider = [];
 
 		// #1 form definition without other parameters
-		$provider[] = array(
-		array(
+		$provider[] = [
+		[
 			'form_definition' => "==section1==
-								 {{{section|section1|level=2}}}" ),
-		array(
+								 {{{section|section1|level=2}}}" ],
+		[
 			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section1]\" id=\"input_1\" class=\"createboxInput\" rows=\"5\" cols=\"90\" style=\"width: 100%\"></textarea></span>",
-			'expected_page_text' => "==section1==" )
-		);
+			'expected_page_text' => "==section1==" ]
+		];
 
 		// #2 'rows' and 'colums' parameters set
-		$provider[] = array(
-		array(
+		$provider[] = [
+		[
 			'form_definition' => "=====section 2=====
-								 {{{section|section 2|level=5|rows=10|cols=5}}}" ),
-		array(
+								 {{{section|section 2|level=5|rows=10|cols=5}}}" ],
+		[
 			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[section 2]\" id=\"input_1\" class=\"createboxInput\" rows=\"10\" cols=\"5\" style=\"width: auto\"></textarea></span>",
-			'expected_page_text' => "=====section 2=====" )
-		);
+			'expected_page_text' => "=====section 2=====" ]
+		];
 
 		// #3 'mandatory' and 'autogrow' parameters set
-		$provider[] = array(
-		array(
+		$provider[] = [
+		[
 			'form_definition' => "==section 3==
-								 {{{section|section 3|level=2|mandatory|rows=20|cols=50|autogrow}}}" ),
-		array(
+								 {{{section|section 3|level=2|mandatory|rows=20|cols=50|autogrow}}}" ],
+		[
 			'expected_form_text' => "<span class=\"inputSpan pageSection mandatoryFieldSpan\"><textarea tabindex=\"1\" name=\"_section[section 3]\" id=\"input_1\" class=\"mandatoryField autoGrow\" rows=\"20\" cols=\"50\" style=\"width: auto\"></textarea></span>",
-			'expected_page_text' => "==section 3==" )
-		);
+			'expected_page_text' => "==section 3==" ]
+		];
 
 		// #4 'restricted' parameter set
-		$provider[] = array(
-		array(
+		$provider[] = [
+		[
 			'form_definition' => "===Section 5===
-								 {{{section|Section 5|level=3|restricted|class=FormTest}}}" ),
-		array(
+								 {{{section|Section 5|level=3|restricted|class=FormTest}}}" ],
+		[
 			'expected_form_text' => "<span class=\"inputSpan pageSection\"><textarea tabindex=\"1\" name=\"_section[Section 5]\" id=\"input_1\" class=\"createboxInput FormTest\" rows=\"5\" cols=\"90\" style=\"width: 100%\" disabled=\"\"></textarea></span>",
-			'expected_page_text' => "===Section 5===" )
-		);
+			'expected_page_text' => "===Section 5===" ]
+		];
 
 		// #5 'hidden' parameter set
-		$provider[] = array(
-		array(
+		$provider[] = [
+		[
 			'form_definition' => "====section 4====
-								 {{{section|section 4|level=4|hidden}}}" ),
-		array(
+								 {{{section|section 4|level=4|hidden}}}" ],
+		[
 			'expected_form_text' => "<input type=\"hidden\" name=\"_section[section 4]\"/>",
-			'expected_page_text' => "====section 4====" )
-		);
+			'expected_page_text' => "====section 4====" ]
+		];
 
 		return $provider;
 	}

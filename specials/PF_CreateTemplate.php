@@ -23,7 +23,7 @@ class PFCreateTemplate extends SpecialPage {
 	}
 
 	public static function getAllPropertyNames() {
-		$all_properties = array();
+		$all_properties = [];
 
 		// Set limit on results - we don't want a massive dropdown
 		// of properties, if there are a lot of properties in this wiki.
@@ -72,13 +72,13 @@ class PFCreateTemplate extends SpecialPage {
 	public static function printPropertiesComboBox( $all_properties, $id, $selected_property = null ) {
 		$selectBody = "<option value=\"\"></option>\n";
 		foreach ( $all_properties as $prop_name ) {
-			$optionAttrs = array( 'value' => $prop_name );
+			$optionAttrs = [ 'value' => $prop_name ];
 			if ( $selected_property == $prop_name ) {
 				$optionAttrs['selected'] = 'selected';
 			}
 			$selectBody .= Html::element( 'option', $optionAttrs, $prop_name ) . "\n";
 		}
-		return Html::rawElement( 'select', array( 'id' => "semantic_property_$id", 'name' => "semantic_property_$id", 'class' => 'pfComboBox' ), $selectBody ) . "\n";
+		return Html::rawElement( 'select', [ 'id' => "semantic_property_$id", 'name' => "semantic_property_$id", 'class' => 'pfComboBox' ], $selectBody ) . "\n";
 	}
 
 	static function printFieldTypeDropdown( $id ) {
@@ -86,10 +86,10 @@ class PFCreateTemplate extends SpecialPage {
 
 		$selectBody = '';
 		foreach ( $wgCargoFieldTypes as $type ) {
-			$optionAttrs = array( 'value' => $type );
+			$optionAttrs = [ 'value' => $type ];
 			$selectBody .= Html::element( 'option', $optionAttrs, $type ) . "\n";
 		}
-		return Html::rawElement( 'select', array( 'id' => "field_type_$id", 'name' => "field_type_$id", ), $selectBody ) . "\n";
+		return Html::rawElement( 'select', [ 'id' => "field_type_$id", 'name' => "field_type_$id", ], $selectBody ) . "\n";
 	}
 
 	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
@@ -98,11 +98,11 @@ class PFCreateTemplate extends SpecialPage {
 		$text .= "\t<table style=\"width: 100%;\"><tr><td>\n";
 		$text .= "\t<p><label>" . wfMessage( 'pf_createtemplate_fieldname' )->escaped() . ' ' .
 			Html::input( 'name_' . $id, null, 'text',
-				array( 'size' => '15' )
+				[ 'size' => '15' ]
 			) . "</label>&nbsp;&nbsp;&nbsp;\n";
 		$text .= "\t<label>" . wfMessage( 'pf_createtemplate_displaylabel' )->escaped() . ' ' .
 			Html::input( 'label_' . $id, null, 'text',
-				array( 'size' => '15' )
+				[ 'size' => '15' ]
 			) . "</label>&nbsp;&nbsp;&nbsp;\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
@@ -116,7 +116,7 @@ class PFCreateTemplate extends SpecialPage {
 		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . wfMessage( 'pf_createtemplate_fieldislist' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
 		$text .= "\t" . '<label class="delimiter" style="display: none;">' . wfMessage( 'pf_createtemplate_delimiter' )->escaped() . ' ' .
 			Html::input( 'delimiter_' . $id, ',', 'text',
-				array( 'size' => '2' )
+				[ 'size' => '2' ]
 			) . "</label>\n";
 		$text .= "\t</p>\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
@@ -127,7 +127,7 @@ class PFCreateTemplate extends SpecialPage {
 			$text .= "\t<p>\n";
 			$text .= "\t<label class=\"allowed_values_input\">" . wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
 			$text .= Html::input( 'allowed_values_' . $id, null, 'text',
-				array( 'size' => '80' ) ) . "</label>\n";
+				[ 'size' => '80' ] ) . "</label>\n";
 
 			$text .= "\t<label class=\"hierarchy_structure_input\" style=\"display: none;\">" . wfMessage( 'pf_createproperty_allowedvalsforhierarchy' )->escaped();
 			$text .= '<textarea class="hierarchy_structure" rows="10" cols="20" name="hierarchy_structure_' . $id . '"></textarea></label>';
@@ -145,12 +145,12 @@ END;
 	}
 
 	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
-		$attrs = array( 'id' => $formatStr );
+		$attrs = [ 'id' => $formatStr ];
 		if ( $formatStr === $curSelection ) {
 			$attrs['checked'] = true;
 		}
 		return "\t" . Html::input( $htmlFieldName, $formatStr, 'radio', $attrs ) .
-			' ' . Html::element( 'label', array( 'for' => $formatStr ), wfMessage( $formatMsg )->escaped() ) . "\n";
+			' ' . Html::element( 'label', [ 'for' => $formatStr ], wfMessage( $formatMsg )->escaped() ) . "\n";
 	}
 
 	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
@@ -179,7 +179,7 @@ END;
 			$template_name = $req->getVal( 'template_name' );
 		}
 
-		$out->addModules( array( 'ext.pageforms.main', 'ext.pageforms.PF_CreateTemplate' ) );
+		$out->addModules( [ 'ext.pageforms.main', 'ext.pageforms.PF_CreateTemplate' ] );
 
 		$text = '';
 		$save_page = $req->getCheck( 'wpSave' );
@@ -192,7 +192,7 @@ END;
 				return;
 			}
 
-			$fields = array();
+			$fields = [];
 			// Cycle through the query values, setting the
 			// appropriate local variables.
 			foreach ( $req->getValues() as $var => $val ) {
@@ -260,7 +260,7 @@ END;
 		}
 		$text .= "\t<p>" . wfMessage( 'pf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
-			$text .= "\t<p><label>" . Html::check( 'use_cargo', true, array( 'id' => 'use_cargo' ) ) .
+			$text .= "\t<p><label>" . Html::check( 'use_cargo', true, [ 'id' => 'use_cargo' ] ) .
 				' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
 			$text .= "\t<p id=\"cargo_table_input\"><label>" .
 				wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() .
@@ -274,7 +274,7 @@ END;
 		if ( defined( 'SMW_VERSION' ) ) {
 			$all_properties = self::getAllPropertyNames();
 		} else {
-			$all_properties = array();
+			$all_properties = [];
 		}
 		$text .= '<div id="fieldsList">' . "\n";
 		$text .= self::printFieldEntryBox( "1", $all_properties );
@@ -285,7 +285,7 @@ END;
 			null,
 			wfMessage( 'pf_createtemplate_addfield' )->text(),
 			'button',
-			array( 'class' => "createTemplateAddField" )
+			[ 'class' => "createTemplateAddField" ]
 		);
 		$text .= Html::rawElement( 'p', null, $add_field_button ) . "\n";
 		$text .= "\t</fieldset>\n";
@@ -298,7 +298,7 @@ END;
 				self::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
 			$text .= "\t<p>" . wfMessage( 'pf_createtemplate_aggregationlabel' )->escaped() . ' ' .
 				Html::input( 'aggregation_label', null, 'text',
-					array( 'size' => '25' ) ) .
+					[ 'size' => '25' ] ) .
 				"</p>\n";
 			$text .= "\t</fieldset>\n";
 		}

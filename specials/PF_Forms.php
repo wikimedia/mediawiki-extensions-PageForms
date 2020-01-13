@@ -57,11 +57,11 @@ class FormsPage extends QueryPage {
 	}
 
 	function getQueryInfo() {
-		return array(
-			'tables' => array( 'page' ),
-			'fields' => array( 'page_title AS title', 'page_title AS value' ),
-			'conds' => array( 'page_namespace' => PF_NS_FORM, 'page_is_redirect' => 0 )
-		);
+		return [
+			'tables' => [ 'page' ],
+			'fields' => [ 'page_title AS title', 'page_title AS value' ],
+			'conds' => [ 'page_namespace' => PF_NS_FORM, 'page_is_redirect' => 0 ]
+		];
 	}
 
 	function sortDescending() {

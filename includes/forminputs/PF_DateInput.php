@@ -13,15 +13,15 @@ class PFDateInput extends PFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array( '_dat' => array() );
+		return [ '_dat' => [] ];
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array(
-			'Date' => array(),
-			'Start date' => array(),
-			'End date' => array()
-		);
+		return [
+			'Date' => [],
+			'Start date' => [],
+			'End date' => []
+		];
 	}
 
 	public static function monthDropdownHTML( $cur_month, $input_name, $is_disabled ) {
@@ -38,17 +38,17 @@ class PFDateInput extends PFFormInput {
 				// Pad out month to always be two digits.
 				$month_value = ( $wgAmericanDates == true ) ? $name : str_pad( $i, 2, '0', STR_PAD_LEFT );
 			}
-			$optionAttrs = array( 'value' => $month_value );
+			$optionAttrs = [ 'value' => $month_value ];
 			if ( $name == $cur_month || $i == $cur_month ) {
 				$optionAttrs['selected'] = 'selected';
 			}
 			$optionsText .= Html::element( 'option', $optionAttrs, $name );
 		}
-		$selectAttrs = array(
+		$selectAttrs = [
 			'class' => 'monthInput',
 			'name' => $input_name . '[month]',
 			'tabindex' => $wgPageFormsTabIndex
-		);
+		];
 		if ( $is_disabled ) {
 			$selectAttrs['disabled'] = 'disabled';
 		}
@@ -72,12 +72,12 @@ class PFDateInput extends PFFormInput {
 			if ( isset( $wgLocaltimezone ) ) {
 				date_default_timezone_set( $serverTimezone );
 			}
-			return array( $year, $month, $day );
+			return [ $year, $month, $day ];
 		}
 
 		// All other dates.
 		if ( ctype_digit( $date ) ) {
-			return array( $date, null, null );
+			return [ $date, null, null ];
 		}
 
 		$seconds = strtotime( $date );
@@ -90,10 +90,10 @@ class PFDateInput extends PFFormInput {
 		if ( $seconds == null && $wgLanguageCode != 'en' ) {
 			$date = strtolower( $date );
 			$monthNames = PFFormUtils::getMonthNames();
-			$englishMonthNames = array( 'January', 'February',
+			$englishMonthNames = [ 'January', 'February',
 				'March', 'April', 'May', 'June', 'July',
 				'August', 'September', 'October', 'November',
-				'December' );
+				'December' ];
 			foreach ( $monthNames as $i => $monthName ) {
 				$monthName = strtolower( $monthName );
 				if ( strpos( $date, $monthName ) !== false ) {
@@ -108,7 +108,7 @@ class PFDateInput extends PFFormInput {
 
 		// If we still don't have a date value, exit.
 		if ( $seconds == null ) {
-			return array( null, null, null );
+			return [ null, null, null ];
 		}
 
 		$year = date( 'Y', $seconds );
@@ -119,11 +119,11 @@ class PFDateInput extends PFFormInput {
 		// exactly one altogether, we'll guess that it's a month only.
 		$numSpecialChars = substr_count( $date, ' ' ) + substr_count( $date, '/' ) + substr_count( $date, '-' );
 		if ( $numSpecialChars == 1 ) {
-			return array( $year, $month, null );
+			return [ $year, $month, null ];
 		}
 
 		$day = date( 'j', $seconds );
-		return array( $year, $month, $day );
+		return [ $year, $month, $day ];
 	}
 
 	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -164,7 +164,7 @@ class PFDateInput extends PFFormInput {
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
 		return $text;
 	}
 

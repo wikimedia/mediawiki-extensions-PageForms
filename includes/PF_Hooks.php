@@ -76,57 +76,57 @@ class PFHooks {
 		// merged into one big module, "jquery.ui". We create some
 		// "wrapper" modules here to cover both cases.
 		if ( version_compare( $wgVersion, '1.35', '>=' ) ) {
-			$jQueryUIModules = array(
-				'ext.pageforms.jqui.autocomplete' => array(
+			$jQueryUIModules = [
+				'ext.pageforms.jqui.autocomplete' => [
 					'dependencies' => 'jquery.ui'
-				),
-				'ext.pageforms.jqui.fancytree.deps' => array(
+				],
+				'ext.pageforms.jqui.fancytree.deps' => [
 					'dependencies' => 'jquery.ui'
-				),
-				'ext.pageforms.jqui.datepicker' => array(
+				],
+				'ext.pageforms.jqui.datepicker' => [
 					'dependencies' => 'jquery.ui'
-				),
-				'ext.pageforms.jqui.sortable' => array(
+				],
+				'ext.pageforms.jqui.sortable' => [
 					'dependencies' => 'jquery.ui'
-				)
-			);
+				]
+			];
 		} else {
-			$jQueryUIModules = array(
-				'ext.pageforms.jqui.autocomplete' => array(
+			$jQueryUIModules = [
+				'ext.pageforms.jqui.autocomplete' => [
 					'dependencies' => 'jquery.ui.autocomplete'
-				),
-				'ext.pageforms.jqui.fancytree.deps' => array(
-					'dependencies' => array( 'jquery.ui.widget', 'jquery.ui.position' )
-				),
-				'ext.pageforms.jqui.datepicker' => array(
+				],
+				'ext.pageforms.jqui.fancytree.deps' => [
+					'dependencies' => [ 'jquery.ui.widget', 'jquery.ui.position' ]
+				],
+				'ext.pageforms.jqui.datepicker' => [
 					'dependencies' => 'jquery.ui.datepicker'
-				),
-				'ext.pageforms.jqui.sortable' => array(
+				],
+				'ext.pageforms.jqui.sortable' => [
 					'dependencies' => 'jquery.ui.sortable'
-				)
-			);
+				]
+			];
 		}
 		$resourceLoader->register( $jQueryUIModules );
 
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
-			$resourceLoader->register( array(
-				'ext.pageforms.maps' => array(
+			$resourceLoader->register( [
+				'ext.pageforms.maps' => [
 					'localBasePath' => $pageFormsDir,
 					'remoteExtPath' => 'PageForms',
 					'scripts' => '/libs/PF_maps.offline.js',
-					'dependencies' => array(
+					'dependencies' => [
 						'ext.openlayers.main',
-					),
-				),
-			) );
+					],
+				],
+			] );
 		} else {
-			$resourceLoader->register( array(
-				'ext.pageforms.maps' => array(
+			$resourceLoader->register( [
+				'ext.pageforms.maps' => [
 					'localBasePath' => $pageFormsDir,
 					'remoteExtPath' => 'PageForms',
 					'scripts' => '/libs/PF_maps.js',
-				),
-			) );
+				],
+			] );
 		}
 
 		return true;
@@ -160,15 +160,15 @@ class PFHooks {
 	}
 
 	static function registerFunctions( &$parser ) {
-		$parser->setFunctionHook( 'default_form', array( 'PFParserFunctions', 'renderDefaultForm' ) );
-		$parser->setFunctionHook( 'forminput', array( 'PFParserFunctions', 'renderFormInput' ) );
-		$parser->setFunctionHook( 'formlink', array( 'PFParserFunctions', 'renderFormLink' ) );
-		$parser->setFunctionHook( 'formredlink', array( 'PFParserFunctions', 'renderFormRedLink' ) );
-		$parser->setFunctionHook( 'queryformlink', array( 'PFParserFunctions', 'renderQueryFormLink' ) );
-		$parser->setFunctionHook( 'arraymap', array( 'PFParserFunctions', 'renderArrayMap' ), Parser::SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'arraymaptemplate', array( 'PFParserFunctions', 'renderArrayMapTemplate' ), Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'default_form', [ 'PFParserFunctions', 'renderDefaultForm' ] );
+		$parser->setFunctionHook( 'forminput', [ 'PFParserFunctions', 'renderFormInput' ] );
+		$parser->setFunctionHook( 'formlink', [ 'PFParserFunctions', 'renderFormLink' ] );
+		$parser->setFunctionHook( 'formredlink', [ 'PFParserFunctions', 'renderFormRedLink' ] );
+		$parser->setFunctionHook( 'queryformlink', [ 'PFParserFunctions', 'renderQueryFormLink' ] );
+		$parser->setFunctionHook( 'arraymap', [ 'PFParserFunctions', 'renderArrayMap' ], Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymaptemplate', [ 'PFParserFunctions', 'renderArrayMapTemplate' ], Parser::SFH_OBJECT_ARGS );
 
-		$parser->setFunctionHook( 'autoedit', array( 'PFParserFunctions', 'renderAutoEdit' ) );
+		$parser->setFunctionHook( 'autoedit', [ 'PFParserFunctions', 'renderAutoEdit' ] );
 
 		return true;
 	}
@@ -319,12 +319,12 @@ class PFHooks {
 
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
 		$editMsg = wfMessage( 'edit' )->text();
-		$linkParams = array( 'template' => $templateName, 'form' => $formName );
-		$text = Linker::linkKnown( $sp->getPageTitle(), $editMsg, array(), $linkParams );
+		$linkParams = [ 'template' => $templateName, 'form' => $formName ];
+		$text = Linker::linkKnown( $sp->getPageTitle(), $editMsg, [], $linkParams );
 
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );
 		$pos = false === $indexOfDrilldown ? count( $array ) : $indexOfDrilldown + 1;
-		$actionLinks = array_merge( array_slice( $actionLinks, 0, $pos ), array( 'edit' => $text ), array_slice( $actionLinks, $pos ) );
+		$actionLinks = array_merge( array_slice( $actionLinks, 0, $pos ), [ 'edit' => $text ], array_slice( $actionLinks, $pos ) );
 		return true;
 	}
 

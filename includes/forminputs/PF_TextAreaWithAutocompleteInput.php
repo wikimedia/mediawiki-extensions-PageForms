@@ -13,11 +13,11 @@ class PFTextAreaWithAutocompleteInput extends PFTextAreaInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getParameters() {

@@ -10,7 +10,7 @@
 
 class PFFormLinker {
 
-	private static $formPerNamespace = array();
+	private static $formPerNamespace = [];
 
 	static function getDefaultForm( $title ) {
 		// The title passed in can be null in at least one
@@ -25,16 +25,16 @@ class PFFormLinker {
 		$pageID = $title->getArticleID();
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select( 'page_props',
-			array(
+			[
 				'pp_value'
-			),
-			array(
+			],
+			[
 				'pp_page' => $pageID,
 				// Keep backward compatibility with
 				// the page property name for
 				// Semantic Forms.
-				'pp_propname' => array( 'PFDefaultForm', 'SFDefaultForm' )
-			)
+				'pp_propname' => [ 'PFDefaultForm', 'SFDefaultForm' ]
+			]
 		);
 
 		if ( $row = $dbr->fetchRow( $res ) ) {
@@ -51,11 +51,11 @@ class PFFormLinker {
 		$preloadContent = null;
 
 		// Allow outside code to set/change the preloaded text.
-		Hooks::run( 'PageForms::EditFormPreloadText', array( &$preloadContent, $title, $formTitle ) );
+		Hooks::run( 'PageForms::EditFormPreloadText', [ &$preloadContent, $title, $formTitle ] );
 
 		list( $formText, $pageText, $formPageTitle, $generatedPageName ) =
 			$wgPageFormsFormPrinter->formHTML( $formDefinition, false, false, null, $preloadContent, 'Some very long page name that will hopefully never get created ABCDEF123', null, false, false, true );
-		$params = array();
+		$params = [];
 
 		// Get user "responsible" for all auto-generated
 		// pages from red links.
@@ -71,7 +71,7 @@ class PFFormLinker {
 		$params['page_text'] = $pageText;
 		$job = new PFCreatePageJob( $title, $params );
 
-		$jobs = array( $job );
+		$jobs = [ $job ];
 		JobQueueGroup::singleton()->push( $jobs );
 	}
 
@@ -108,13 +108,13 @@ class PFFormLinker {
 			// The class of $target can be either Title or
 			// TitleValue.
 			$title = Title::newFromLinkTarget( $target );
-			$attribs['href'] = $title->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			$attribs['href'] = $title->getLinkURL( [ 'action' => 'formedit', 'redlink' => '1' ] );
 			return true;
 		}
 
 		if ( self::getDefaultFormForNamespace( $namespace ) !== null ) {
 			$title = Title::newFromLinkTarget( $target );
-			$attribs['href'] = $title->getLinkURL( array( 'action' => 'formedit', 'redlink' => '1' ) );
+			$attribs['href'] = $title->getLinkURL( [ 'action' => 'formedit', 'redlink' => '1' ] );
 			return true;
 		}
 
@@ -139,9 +139,9 @@ class PFFormLinker {
 			if ( $default_form === '' ) {
 				// A call to "{{#default_form:}}" (i.e., no form
 				// specified) should cancel any inherited forms.
-				return array();
+				return [];
 			} elseif ( $default_form !== null ) {
-				return array( $default_form );
+				return [ $default_form ];
 			}
 		}
 
@@ -149,7 +149,7 @@ class PFFormLinker {
 		// for its parent category or categories.
 		$namespace = $title->getNamespace();
 		if ( NS_CATEGORY !== $namespace ) {
-			$default_forms = array();
+			$default_forms = [];
 			$categories = PFValuesUtils::getCategoriesForPage( $title );
 			foreach ( $categories as $category ) {
 				if ( class_exists( 'PSSchema' ) ) {
@@ -179,15 +179,15 @@ class PFFormLinker {
 		// a subpage, exit out - default forms for namespaces don't
 		// apply to subpages.
 		if ( $title->isSubpage() ) {
-			return array();
+			return [];
 		}
 
 		$default_form = self::getDefaultFormForNamespace( $namespace );
 		if ( $default_form != '' ) {
-			return array( $default_form );
+			return [ $default_form ];
 		}
 
-		return array();
+		return [];
 	}
 
 	public static function getDefaultFormForNamespace( $namespace ) {

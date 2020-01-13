@@ -13,28 +13,28 @@
 abstract class PFMultiEnumInput extends PFEnumInput {
 
 	public static function getOtherPropTypesHandled() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		return array( 'enumeration' );
+		return [ 'enumeration' ];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return array( 'Enumeration' );
+		return [ 'Enumeration' ];
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'delimiter',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_delimiter' )->text()
-		);
+		];
 		return $params;
 	}
 }

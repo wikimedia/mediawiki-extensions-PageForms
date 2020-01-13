@@ -10,7 +10,7 @@
  */
 class PFWikiPageTemplate {
 	private $mName;
-	private $mParams = array();
+	private $mParams = [];
 	private $mAddUnhandledParams;
 
 	function __construct( $name, $addUnhandledParams ) {

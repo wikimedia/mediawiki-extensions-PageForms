@@ -13,47 +13,47 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array(
-			'_wpg' => array()
-		);
+		return [
+			'_wpg' => []
+		];
 	}
 
 	public static function getOtherPropTypesHandled() {
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			return array( '_str' );
+			return [ '_str' ];
 		} else {
-			return array( '_txt' );
+			return [ '_txt' ];
 		}
 	}
 
 	public static function getDefaultPropTypeLists() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherPropTypeListsHandled() {
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			return array( '_str' );
+			return [ '_str' ];
 		} else {
-			return array( '_txt' );
+			return [ '_txt' ];
 		}
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array( 'Page', 'String' );
+		return [ 'Page', 'String' ];
 	}
 
 	public static function getDefaultCargoTypeLists() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return array( 'String' );
+		return [ 'String' ];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -79,13 +79,13 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			$size = '35';
 		}
 
-		$inputAttrs = array(
+		$inputAttrs = [
 			'id' => $input_id,
 			'size' => $size,
 			'class' => $className,
 			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
-		);
+		];
 		if ( array_key_exists( 'origName', $other_args ) ) {
 			$inputAttrs['origName'] = $other_args['origName'];
 		}
@@ -126,28 +126,28 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		if ( array_key_exists( 'unique', $other_args ) ) {
 			$spanClass .= ' uniqueFieldSpan';
 		}
-		$text = "\n" . Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
+		$text = "\n" . Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
 
 		return $text;
 	}
 
 	public static function getAutocompletionParameters() {
 		$params = PFEnumInput::getValuesParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'values from url',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_valuesfromurl' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'list',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_list' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'delimiter',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_delimiter' )->text()
-		);
+		];
 		return $params;
 	}
 

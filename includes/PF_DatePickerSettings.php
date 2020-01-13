@@ -10,7 +10,7 @@ if ( !defined( 'PF_VERSION' ) ) {
 	die( 'This file is part of the Page Forms extension, it is not a valid entry point.' );
 }
 
-$GLOBALS[ 'wgPageFormsDatePickerSettings' ] = array(
+$GLOBALS[ 'wgPageFormsDatePickerSettings' ] = [
 
 	##
 	# This is the first selectable date (format yyyy/mm/dd)
@@ -97,4 +97,4 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = array(
 	#
 	'HighlightedDates'      => null
 
-);
+];

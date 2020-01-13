@@ -45,9 +45,9 @@ class PFCreateClass extends SpecialPage {
 			$out->addWikiMsg( 'pf_createclass_missingvalues' );
 			return;
 		}
-		$fields = array();
-		$jobs = array();
-		$allowedValuesForFields = array();
+		$fields = [];
+		$jobs = [];
+		$allowedValuesForFields = [];
 		// Cycle through all the rows passed in.
 		for ( $i = 1; $req->getVal( "field_name_$i" ) != ''; $i++ ) {
 			// Go through the query values, setting the appropriate
@@ -88,7 +88,7 @@ class PFCreateClass extends SpecialPage {
 			if ( defined( 'SMW_VERSION' ) && !empty( $property_name ) ) {
 				$full_text = PFCreateProperty::createPropertyText( $property_type, $allowed_values );
 				$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
-				$params = array();
+				$params = [];
 				$params['user_id'] = $user->getId();
 				$params['page_text'] = $full_text;
 				$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type )->inContentLanguage()->text();
@@ -104,7 +104,7 @@ class PFCreateClass extends SpecialPage {
 			$property_type = $datatypeLabels['_wpg'];
 			$full_text = PFCreateProperty::createPropertyText( $property_type, $allowed_values );
 			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $connectingProperty );
-			$params = array();
+			$params = [];
 			$params['user_id'] = $user->getId();
 			$params['page_text'] = $full_text;
 			$params['edit_summary'] = wfMessage( 'pf_createproperty_editsummary', $property_type )->inContentLanguage()->text();
@@ -134,7 +134,7 @@ class PFCreateClass extends SpecialPage {
 
 		// Create the form, and make a job for it.
 		if ( $form_name != '' ) {
-			$formFields = array();
+			$formFields = [];
 			foreach ( $fields as $field ) {
 				$formField = PFFormField::create( $field );
 				$fieldName = $field->getFieldName();
@@ -145,16 +145,16 @@ class PFCreateClass extends SpecialPage {
 				$formFields[] = $formField;
 			}
 			$form_template = PFTemplateInForm::create( $template_name, '', false, false, $formFields );
-			$form_items = array();
-			$form_items[] = array(
+			$form_items = [];
+			$form_items[] = [
 				'type' => 'template',
 				'name' => $form_template->getTemplateName(),
 				'item' => $form_template
-			);
+			];
 			$form = PFForm::create( $form_name, $form_items );
 			$full_text = $form->createMarkup();
 			$form_title = Title::makeTitleSafe( PF_NS_FORM, $form_name );
-			$params = array();
+			$params = [];
 			$params['user_id'] = $user->getId();
 			$params['page_text'] = $full_text;
 			$jobs[] = new PFCreatePageJob( $form_title, $params );
@@ -164,7 +164,7 @@ class PFCreateClass extends SpecialPage {
 		if ( $category_name != '' ) {
 			$full_text = PFCreateCategory::createCategoryText( $form_name, $category_name, '' );
 			$category_title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
-			$params = array();
+			$params = [];
 			$params['user_id'] = $user->getId();
 			$params['page_text'] = $full_text;
 			$jobs[] = new PFCreatePageJob( $category_title, $params );
@@ -191,7 +191,7 @@ class PFCreateClass extends SpecialPage {
 
 		$numStartingRows = 5;
 		$out->addJsConfigVars( '$numStartingRows', $numStartingRows );
-		$out->addModules( array( 'ext.pageforms.PF_CreateClass' ) );
+		$out->addModules( [ 'ext.pageforms.PF_CreateClass' ] );
 
 		$createAll = $req->getCheck( 'createAll' );
 		if ( $createAll ) {
@@ -215,12 +215,12 @@ class PFCreateClass extends SpecialPage {
 			$possibleTypes = $wgCargoFieldTypes;
 			$specialBGColor = '';
 		} else {
-			$possibleTypes = array();
+			$possibleTypes = [];
 		}
 
 		// Make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page.
-		$creation_links = array();
+		$creation_links = [];
 		$linkRenderer = $this->getLinkRenderer();
 		if ( defined( 'SMW_VERSION' ) ) {
 			$creation_links[] = PFUtils::linkForSpecialPage( $linkRenderer, 'CreateProperty' );
@@ -235,50 +235,50 @@ class PFCreateClass extends SpecialPage {
 					->rawParams( $wgLang->listToText( $creation_links ) )
 					->escaped() ) . "\n";
 		$templateNameLabel = wfMessage( 'pf_createtemplate_namelabel' )->escaped();
-		$templateNameInput = Html::input( 'template_name', null, 'text', array( 'size' => 30 ) );
+		$templateNameInput = Html::input( 'template_name', null, 'text', [ 'size' => 30 ] );
 		$text .= "\t" . Html::rawElement( 'p', null, $templateNameLabel . ' ' . $templateNameInput ) . "\n";
 
 		$templateInfo = '';
 		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) ) {
 			$templateInfo .= "\t<p><label>" .
-				Html::check( 'use_cargo', true, array( 'id' => 'use_cargo' ) ) .
+				Html::check( 'use_cargo', true, [ 'id' => 'use_cargo' ] ) .
 				' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() .
 				"</label></p>\n";
 			$cargo_table_label = wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped();
-			$templateInfo .= "\t" . Html::rawElement( 'p', array( 'id' => 'cargo_table_input' ),
-				Html::element( 'label', array( 'for' => 'cargo_table' ), $cargo_table_label ) . ' ' .
-				Html::element( 'input', array( 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ), null )
+			$templateInfo .= "\t" . Html::rawElement( 'p', [ 'id' => 'cargo_table_input' ],
+				Html::element( 'label', [ 'for' => 'cargo_table' ], $cargo_table_label ) . ' ' .
+				Html::element( 'input', [ 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ], null )
 			) . "\n";
 		}
 		$templateInfo .= PFCreateTemplate::printTemplateStyleInput( 'template_format' );
 		$templateInfo .= Html::rawElement( 'p', null,
-			Html::element( 'input', array(
+			Html::element( 'input', [
 				'type' => 'checkbox',
 				'name' => 'template_multiple',
 				'id' => 'template_multiple',
 				'class' => "disableFormAndCategoryInputs",
-			) ) . ' ' . wfMessage( 'pf_createtemplate_multipleinstance' )->escaped() ) . "\n";
+			] ) . ' ' . wfMessage( 'pf_createtemplate_multipleinstance' )->escaped() ) . "\n";
 		// Either #set_internal or #subobject will be added to the
 		// template, depending on whether Semantic Internal Objects is
 		// installed.
 		global $smwgDefaultStore;
 		if ( defined( 'SIO_VERSION' ) || $smwgDefaultStore == "SMWSQLStore3" ) {
 			$templateInfo .= Html::rawElement( 'div',
-				array(
+				[
 					'id' => 'connecting_property_div',
 					'style' => 'display: none;',
-				),
+				],
 				wfMessage( 'pf_createtemplate_connectingproperty' )->escaped() . "\n" .
-				Html::element( 'input', array(
+				Html::element( 'input', [
 					'type' => 'text',
 					'name' => 'connecting_property',
-				) ) ) . "\n";
+				] ) ) . "\n";
 		}
 		$text .= Html::rawElement( 'blockquote', null, $templateInfo );
 
-		$form_name_input = Html::element( 'input', array( 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ), null );
+		$form_name_input = Html::element( 'input', [ 'size' => '30', 'name' => 'form_name', 'id' => 'form_name' ], null );
 		$text .= "\t<p><label>" . wfMessage( 'pf_createclass_nameinput' )->escaped() . " $form_name_input</label></p>\n";
-		$category_name_input = Html::element( 'input', array( 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ), null );
+		$category_name_input = Html::element( 'input', [ 'size' => '30', 'name' => 'category_name', 'id' => 'category_name' ], null );
 		$text .= "\t<p><label>" . wfMessage( 'pf_createcategory_name' )->escaped() . " $category_name_input</label></p>\n";
 		$text .= "\t" . Html::element( 'br', null, null ) . "\n";
 		$text .= <<<END
@@ -369,7 +369,7 @@ END;
 				foreach ( $possibleTypes as $typeName ) {
 					$typeDropdownBody .= "\t\t\t\t<option>$typeName</option>\n";
 				}
-				$text .= "\t\t\t\t" . Html::rawElement( 'select', array( 'name' => "property_type_$n" ), $typeDropdownBody ) . "\n";
+				$text .= "\t\t\t\t" . Html::rawElement( 'select', [ 'name' => "property_type_$n" ], $typeDropdownBody ) . "\n";
 				$text .= "</td>";
 			}
 
@@ -398,11 +398,11 @@ END;
 
 END;
 		$add_another_button = Html::element( 'input',
-			array(
+			[
 				'type' => 'button',
 				'value' => wfMessage( 'pf_formedit_addanother' )->text(),
 				'class' => "createClassAddRow mw-ui-button mw-ui-progressive"
-			)
+			]
 		);
 		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";
 		// Set 'title' as hidden field, in case there's no URL niceness
@@ -412,12 +412,12 @@ END;
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateClass' ) ) . "\n";
 
 		$text .= Html::element( 'input',
-			array(
+			[
 				'type' => 'submit',
 				'name' => 'createAll',
 				'value' => wfMessage( 'Pf_createclass_create' )->text(),
 				'class' => 'mw-ui-button mw-ui-progressive'
-			)
+			]
 		);
 		$text .= "</form>\n";
 		$out->addHTML( $text );

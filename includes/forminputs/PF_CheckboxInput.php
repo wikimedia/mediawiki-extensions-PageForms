@@ -13,11 +13,11 @@ class PFCheckboxInput extends PFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array( '_boo' => array() );
+		return [ '_boo' => [] ];
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array( 'Boolean' => array() );
+		return [ 'Boolean' => [] ];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -36,7 +36,7 @@ class PFCheckboxInput extends PFFormInput {
 				if ( array_key_exists( $inputID, $wgPageFormsShowOnSelect ) ) {
 					$wgPageFormsShowOnSelect[$inputID][] = $div_id;
 				} else {
-					$wgPageFormsShowOnSelect[$inputID] = array( $div_id );
+					$wgPageFormsShowOnSelect[$inputID] = [ $div_id ];
 				}
 			}
 		}
@@ -50,11 +50,11 @@ class PFCheckboxInput extends PFFormInput {
 			// a 'false' word.
 			$lowercaseCurValue = strtolower( trim( $cur_value ) );
 
-			$possibleYesMessages = array(
+			$possibleYesMessages = [
 				strtolower( wfMessage( 'htmlform-yes' )->inContentLanguage()->text() ),
 				// Add in '1', and some hardcoded English.
 				'1', 'yes', 'true'
-			);
+			];
 
 			// Add values from Semantic MediaWiki, if it's installed.
 			if ( wfMessage( 'smw_true_words' )->exists() ) {
@@ -66,11 +66,11 @@ class PFCheckboxInput extends PFFormInput {
 			$isChecked = in_array( $lowercaseCurValue, $possibleYesMessages );
 		}
 		$text = "\t" . Html::hidden( $input_name . '[is_checkbox]', 'true' ) . "\n";
-		$checkboxAttrs = array(
+		$checkboxAttrs = [
 			'id' => $inputID,
 			'class' => $className,
 			'tabindex' => $wgPageFormsTabIndex
-		);
+		];
 		if ( $is_disabled ) {
 			$checkboxAttrs['disabled'] = true;
 		}
@@ -78,7 +78,7 @@ class PFCheckboxInput extends PFFormInput {
 		if ( isset( $other_args['label'] ) ) {
 			$text = Html::rawElement(
 				'label',
-				array( 'for' => $inputID ),
+				[ 'for' => $inputID ],
 				$text . $other_args['label']
 			);
 		}
@@ -88,7 +88,7 @@ class PFCheckboxInput extends PFFormInput {
 	public static function getParameters() {
 		// Remove the 'mandatory' option - it doesn't make sense for
 		// checkboxes.
-		$params = array();
+		$params = [];
 		foreach ( parent::getParameters() as $param ) {
 			if ( $param['name'] != 'mandatory' ) {
 				$params[] = $param;

@@ -38,9 +38,9 @@ class PFRunQuery extends IncludableSpecialPage {
 
 		if ( !$form_title || !$form_title->exists() ) {
 			if ( $form_name === '' ) {
-				$text = Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'pf_runquery_badurl' )->text() ) . "\n";
+				$text = Html::element( 'p', [ 'class' => 'error' ], wfMessage( 'pf_runquery_badurl' )->text() ) . "\n";
 			} else {
-				$text = Html::rawElement( 'p', array( 'class' => 'error' ),
+				$text = Html::rawElement( 'p', [ 'class' => 'error' ],
 					wfMessage( 'pf_formstart_badform', PFUtils::linkText( PF_NS_FORM, $form_name ) )->parse() ) . "\n";
 			}
 			$out->addHTML( $text );
@@ -86,7 +86,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			// @TODO - fix RunQuery's parsing so that this check
 			// isn't needed.
 			if ( PFUtils::getParser()->getOutput() == null ) {
-				$headItems = array();
+				$headItems = [];
 			} else {
 				$headItems = PFUtils::getParser()->getOutput()->getHeadItems();
 			}
@@ -125,7 +125,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			}
 
 			// Preserve all query string values in the results page.
-			$queryStringValues = array();
+			$queryStringValues = [];
 			foreach ( $req->getValues() as $key => $value ) {
 				if ( $key != 'title' ) {
 					$queryStringValues[$key] = $value;
@@ -155,14 +155,14 @@ END;
 		if ( $req->getVal( 'additionalquery' ) == 'false' ) {
 			$text .= $resultsText;
 		} elseif ( $wgPageFormsRunQueryFormAtTop ) {
-			$text .= Html::openElement( 'div', array( 'class' => 'pf-runquery-formcontent' ) );
+			$text .= Html::openElement( 'div', [ 'class' => 'pf-runquery-formcontent' ] );
 			$text .= $fullFormText;
 			$text .= $dividerText;
 			$text .= Html::closeElement( 'div' );
 			$text .= $resultsText;
 		} else {
 			$text .= $resultsText;
-			$text .= Html::openElement( 'div', array( 'class' => 'pf-runquery-formcontent' ) );
+			$text .= Html::openElement( 'div', [ 'class' => 'pf-runquery-formcontent' ] );
 			$text .= $additionalQueryHeader;
 			$text .= $fullFormText;
 			$text .= Html::closeElement( 'div' );

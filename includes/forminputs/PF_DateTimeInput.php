@@ -13,19 +13,19 @@ class PFDateTimeInput extends PFDateInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherPropTypesHandled() {
-		return array( '_dat' );
+		return [ '_dat' ];
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array(
-			'Datetime' => array(),
-			'Start datetime' => array(),
-			'End datetime' => array()
-		);
+		return [
+			'Datetime' => [],
+			'Start datetime' => [],
+			'End datetime' => []
+		];
 	}
 
 	public static function getHTML( $datetime, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -103,7 +103,7 @@ class PFDateTimeInput extends PFDateInput {
 		if ( !$wgPageForms24HourTime ) {
 			$wgPageFormsTabIndex++;
 			$text .= '	 <select tabindex="' . $wgPageFormsTabIndex . '" name="' . $input_name . "[ampm24h]\" class=\"ampmInput\" $disabled_text>\n";
-			$ampm24h_options = array( '', 'AM', 'PM' );
+			$ampm24h_options = [ '', 'AM', 'PM' ];
 			foreach ( $ampm24h_options as $value ) {
 				$text .= "				<option value=\"$value\"";
 				if ( $value == $ampm24h ) {
@@ -124,11 +124,11 @@ class PFDateTimeInput extends PFDateInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'include timezone',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_includetimezone' )->text()
-		);
+		];
 		return $params;
 	}
 

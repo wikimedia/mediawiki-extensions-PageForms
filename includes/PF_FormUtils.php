@@ -41,14 +41,14 @@ class PFFormUtils {
 		return $text;
 	}
 
-	static function summaryInputHTML( $is_disabled, $label = null, $attr = array(), $value = '' ) {
+	static function summaryInputHTML( $is_disabled, $label = null, $attr = [], $value = '' ) {
 		global $wgPageFormsTabIndex;
 
 		if ( $label == null ) {
 			$label = wfMessage( 'summary' )->text();
 		}
-		$text = Html::rawElement( 'span', array( 'id' => 'wpSummaryLabel' ),
-			Html::element( 'label', array( 'for' => 'wpSummary' ), $label ) );
+		$text = Html::rawElement( 'span', [ 'id' => 'wpSummaryLabel' ],
+			Html::element( 'label', [ 'for' => 'wpSummary' ], $label ) );
 
 		$wgPageFormsTabIndex++;
 		$attr['tabindex'] = $wgPageFormsTabIndex;
@@ -66,7 +66,7 @@ class PFFormUtils {
 		return $text;
 	}
 
-	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = array() ) {
+	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = [] ) {
 		global $wgPageFormsTabIndex, $wgUser;
 
 		$wgPageFormsTabIndex++;
@@ -79,24 +79,24 @@ class PFFormUtils {
 		}
 
 		$tooltip = wfMessage( 'tooltip-minoredit' )->text();
-		$attrs += array(
+		$attrs += [
 			'id' => 'wpMinoredit',
 			'accesskey' => wfMessage( 'accesskey-minoredit' )->text(),
 			'tabindex' => $wgPageFormsTabIndex,
-		);
+		];
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpMinoredit', $is_checked, $attrs ) . "\n";
-		$text .= "\t" . Html::rawElement( 'label', array(
+		$text .= "\t" . Html::rawElement( 'label', [
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
-		), $label ) . "\n";
+		], $label ) . "\n";
 
 		return $text;
 	}
 
-	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = array() ) {
+	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = [] ) {
 		global $wgPageFormsTabIndex, $wgUser, $wgTitle;
 
 		$wgPageFormsTabIndex++;
@@ -117,20 +117,20 @@ class PFFormUtils {
 		if ( $label == null ) {
 			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'watchthis' )->text() );
 		}
-		$attrs += array(
+		$attrs += [
 			'id' => 'wpWatchthis',
 			'accesskey' => wfMessage( 'accesskey-watch' )->text(),
 			'tabindex' => $wgPageFormsTabIndex,
-		);
+		];
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
 		$text = "\t" . Xml::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
 		$tooltip = wfMessage( 'tooltip-watch' )->text();
-		$text .= "\t" . Html::rawElement( 'label', array(
+		$text .= "\t" . Html::rawElement( 'label', [
 			'for' => 'wpWatchthis',
 			'title' => $tooltip
-		), $label ) . "\n";
+		], $label ) . "\n";
 
 		return $text;
 	}
@@ -147,26 +147,26 @@ class PFFormUtils {
 		return "\t\t" . Html::input( $name, $value, $type, $attrs ) . "\n";
 	}
 
-	static function saveButtonHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function saveButtonHTML( $is_disabled, $label = null, $attr = [] ) {
 		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'savearticle' )->text();
 		}
-		$temp = $attr + array(
+		$temp = $attr + [
 			'id'        => 'wpSave',
 			'tabindex'  => $wgPageFormsTabIndex,
 			'accesskey' => wfMessage( 'accesskey-save' )->text(),
 			'title'     => wfMessage( 'tooltip-save' )->text(),
-		);
+		];
 		if ( $is_disabled ) {
 			$temp['disabled'] = true;
 		}
 		return self::buttonHTML( 'wpSave', $label, 'submit', $temp );
 	}
 
-	static function saveAndContinueButtonHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function saveAndContinueButtonHTML( $is_disabled, $label = null, $attr = [] ) {
 		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;
@@ -175,13 +175,13 @@ class PFFormUtils {
 			$label = wfMessage( 'pf_formedit_saveandcontinueediting' )->text();
 		}
 
-		$temp = $attr + array(
+		$temp = $attr + [
 			'id'        => 'wpSaveAndContinue',
 			'tabindex'  => $wgPageFormsTabIndex,
 			'disabled'  => true,
 			'accesskey' => wfMessage( 'pf_formedit_accesskey_saveandcontinueediting' )->text(),
 			'title'     => wfMessage( 'pf_formedit_tooltip_saveandcontinueediting' )->text(),
-		);
+		];
 
 		if ( $is_disabled ) {
 			$temp['class'] = 'pf-save_and_continue disabled';
@@ -192,45 +192,45 @@ class PFFormUtils {
 		return self::buttonHTML( 'wpSaveAndContinue', $label, 'button', $temp );
 	}
 
-	static function showPreviewButtonHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function showPreviewButtonHTML( $is_disabled, $label = null, $attr = [] ) {
 		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'showpreview' )->text();
 		}
-		$temp = $attr + array(
+		$temp = $attr + [
 			'id'        => 'wpPreview',
 			'tabindex'  => $wgPageFormsTabIndex,
 			'accesskey' => wfMessage( 'accesskey-preview' )->text(),
 			'title'     => wfMessage( 'tooltip-preview' )->text(),
-		);
+		];
 		if ( $is_disabled ) {
 			$temp['disabled'] = true;
 		}
 		return self::buttonHTML( 'wpPreview', $label, 'submit', $temp );
 	}
 
-	static function showChangesButtonHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function showChangesButtonHTML( $is_disabled, $label = null, $attr = [] ) {
 		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;
 		if ( $label == null ) {
 			$label = wfMessage( 'showdiff' )->text();
 		}
-		$temp = $attr + array(
+		$temp = $attr + [
 			'id'        => 'wpDiff',
 			'tabindex'  => $wgPageFormsTabIndex,
 			'accesskey' => wfMessage( 'accesskey-diff' )->text(),
 			'title'     => wfMessage( 'tooltip-diff' )->text(),
-		);
+		];
 		if ( $is_disabled ) {
 			$temp['disabled'] = true;
 		}
 		return self::buttonHTML( 'wpDiff', $label, 'submit', $temp );
 	}
 
-	static function cancelLinkHTML( $is_disabled, $label = null, $attr = array() ) {
+	static function cancelLinkHTML( $is_disabled, $label = null, $attr = [] ) {
 		global $wgTitle;
 
 		if ( $label == null ) {
@@ -252,10 +252,10 @@ class PFFormUtils {
 			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 			$cancel = $linkRenderer->makeKnownLink( $wgTitle, $label );
 		}
-		return "\t\t" . Html::rawElement( 'span', array( 'class' => 'editHelp' ), $cancel ) . "\n";
+		return "\t\t" . Html::rawElement( 'span', [ 'class' => 'editHelp' ], $cancel ) . "\n";
 	}
 
-	static function runQueryButtonHTML( $is_disabled = false, $label = null, $attr = array() ) {
+	static function runQueryButtonHTML( $is_disabled = false, $label = null, $attr = [] ) {
 		// is_disabled is currently ignored
 		global $wgPageFormsTabIndex;
 
@@ -264,11 +264,11 @@ class PFFormUtils {
 			$label = wfMessage( 'runquery' )->text();
 		}
 		return self::buttonHTML( 'wpRunQuery', $label, 'submit',
-			$attr + array(
+			$attr + [
 			'id'        => 'wpRunQuery',
 			'tabindex'  => $wgPageFormsTabIndex,
 			'title'     => $label,
-		) );
+		] );
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()
@@ -320,7 +320,7 @@ END;
 					$text = ContentHandler::getContentText( $content );
 					// Remove <noinclude> sections and <includeonly> tags from text
 					$text = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $text );
-					$text = strtr( $text, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+					$text = strtr( $text, [ '<includeonly>' => '', '</includeonly>' => '' ] );
 					return $text;
 				}
 			}
@@ -337,7 +337,7 @@ END;
 	}
 
 	static function getMonthNames() {
-		return array(
+		return [
 			wfMessage( 'january' )->inContentLanguage()->text(),
 			wfMessage( 'february' )->inContentLanguage()->text(),
 			wfMessage( 'march' )->inContentLanguage()->text(),
@@ -351,7 +351,7 @@ END;
 			wfMessage( 'october' )->inContentLanguage()->text(),
 			wfMessage( 'november' )->inContentLanguage()->text(),
 			wfMessage( 'december' )->inContentLanguage()->text()
-		);
+		];
 	}
 
 	public static function setGlobalVarsForSpreadsheet() {
@@ -361,11 +361,11 @@ END;
 		// (as opposed to the user's) language.
 		$wgPageFormsContLangYes = wfMessage( 'htmlform-yes' )->inContentLanguage()->text();
 		$wgPageFormsContLangNo = wfMessage( 'htmlform-no' )->inContentLanguage()->text();
-		$monthMessages = array(
+		$monthMessages = [
 			"january", "february", "march", "april", "may_long", "june",
 			"july", "august", "september", "october", "november", "december"
-		);
-		$wgPageFormsContLangMonths = array( '' );
+		];
+		$wgPageFormsContLangMonths = [ '' ];
 		foreach ( $monthMessages as $monthMsg ) {
 			$wgPageFormsContLangMonths[] = wfMessage( $monthMsg )->inContentLanguage()->text();
 		}
@@ -398,7 +398,7 @@ END;
 
 		// Remove <noinclude> sections and <includeonly> tags from form definition
 		$form_def = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $form_def );
-		$form_def = strtr( $form_def, array( '<includeonly>' => '', '</includeonly>' => '' ) );
+		$form_def = strtr( $form_def, [ '<includeonly>' => '', '</includeonly>' => '' ] );
 
 		// We need to replace all PF tags in the form definition by strip items. But we can not just use
 		// the Parser strip state because the Parser would during parsing replace all strip items and then
@@ -413,7 +413,7 @@ END;
 		$regexp = '#\{\{\{((?>[^\{\}]+)|(\{((?>[^\{\}]+)|(?-2))*\}))*\}\}\}#';
 		// Needed to restore highlighting in vi - <?
 
-		$items = array();
+		$items = [];
 
 		// replace all PF tags by strip markers
 		$form_def = preg_replace_callback(
@@ -619,7 +619,7 @@ END;
 
 		$header_level = min( $header_level, 6 );
 		$elementName = 'h' . $header_level;
-		$text = Html::rawElement( $elementName, array(), $header_name );
+		$text = Html::rawElement( $elementName, [], $header_name );
 		return $text;
 	}
 

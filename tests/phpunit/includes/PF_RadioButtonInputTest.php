@@ -32,7 +32,7 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 		$args = $setup['args'];
 		$args[1] = "TestTemplate123[{$args[1]}]";
 		$result = call_user_func_array(
-			array( 'PFRadioButtonInput', 'getHTML' ), $args
+			[ 'PFRadioButtonInput', 'getHTML' ], $args
 		);
 
 		$this->assertRegexp(
@@ -46,28 +46,28 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 	 * Data provider method
 	 */
 	public function radioButtonDataProvider() {
-		$provider = array();
+		$provider = [];
 		$label = "froot_loops";
 
 		// data set #0 radiobutton definition without other parameters
 		//
 		// FIXME: This seems like it shouldn't be possible
-		$provider[] = array( array(
-			'args' => array( 999, $label, false, false, array() ),
-		), array(
+		$provider[] = [ [
+			'args' => [ 999, $label, false, false, [] ],
+		], [
 			'expected_html' => '<span id="span_\d+" '
 			. 'class="radioButtonSpan">' . "\n"
 
 			. $this->radioButtonFormat( $label, '', 'None', 'checked' )
 
 			. "</span>"
-		) );
+		] ];
 
 		// data set #1 form definition with only 'property_type' => '_boo'
-		$provider[] = array( array(
-			'args' => array( 999, $label, false, false, array(
+		$provider[] = [ [
+			'args' => [ 999, $label, false, false, [
 				'property_type' => '_boo'
-			) ) ), array(
+			] ] ], [
 				'expected_html' => '<span id="span_\d+" '
 				. 'class="radioButtonSpan">' . "\n"
 
@@ -76,14 +76,14 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 				. $this->radioButtonFormat( $label, 'No' )
 
 				. "</span>"
-			) );
+			] ];
 
 		// data set #2 form definition with only 'possible_values' =>
 		// [ 'one', 'deux', 'drei' ]
-		$provider[] = array( array(
-			'args' => array( 999, $label, false, false, array(
-				'possible_values' => array( 'one', 'deux', 'drei' )
-			) ) ), array(
+		$provider[] = [ [
+			'args' => [ 999, $label, false, false, [
+				'possible_values' => [ 'one', 'deux', 'drei' ]
+			] ] ], [
 				'expected_html' => '<span id="span_\d+" '
 				. 'class="radioButtonSpan">' . "\n"
 
@@ -93,15 +93,15 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 				. $this->radioButtonFormat( $label, 'drei' )
 
 				. "</span>"
-				) );
+				] ];
 
 		// data set #3 - if this is a mandatory field,
 		// make sure mandatoryFieldSpan class is added.
-		$provider[] = array( array(
-			'args' => array(
-				999, $label, true, false, array(
-					'possible_values' => array( 'one', 'deux', 'drei' )
-				) ) ), array(
+		$provider[] = [ [
+			'args' => [
+				999, $label, true, false, [
+					'possible_values' => [ 'one', 'deux', 'drei' ]
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -110,14 +110,14 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'drei' )
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #4
-		$provider[] = array( array(
-			'args' => array(
-				'drei', $label, true, false, array(
-					'possible_values' => array( 'one', 'deux', 'drei' )
-				) ) ), array(
+		$provider[] = [ [
+			'args' => [
+				'drei', $label, true, false, [
+					'possible_values' => [ 'one', 'deux', 'drei' ]
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -128,15 +128,15 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					)
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #5 - if null is the current value provided on a
 		// mandatory field, none of the options should be selected.
-		$provider[] = array( array(
-			'args' => array(
-				null, $label, true, false, array(
-					'possible_values' => array( 'one', 'deux', 'drei' )
-				) ) ), array(
+		$provider[] = [ [
+			'args' => [
+				null, $label, true, false, [
+					'possible_values' => [ 'one', 'deux', 'drei' ]
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -145,15 +145,15 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'drei' )
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #6 - if null is the current value provided on a
 		// non-mandatory field, make sure 'None' is selected.
-		$provider[] = array( array(
-			'args' => array(
-				null, $label, false, false, array(
-					'possible_values' => array( 'one', 'deux', 'drei' )
-				) ) ), array(
+		$provider[] = [ [
+			'args' => [
+				null, $label, false, false, [
+					'possible_values' => [ 'one', 'deux', 'drei' ]
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan">' . "\n"
 
@@ -163,15 +163,15 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'drei' )
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #7 - if null is the current value provided on a
 		// _boo, make sure 'None' is available.
-		$provider[] = array( array(
-			'args' => array(
-				null, $label, false, false, array(
+		$provider[] = [ [
+			'args' => [
+				null, $label, false, false, [
 					'property_type' => '_boo'
-				) ) ), array(
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan">' . "\n"
 
@@ -180,15 +180,15 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'No' )
 
 					. "</span>",
-				) );
+				] ];
 
 		// data set #8 Add CSS class(es)
-		$provider[] = array( array(
-			'args' => array(
-				999, $label, false, false, array(
-					"possible_values" => array( "one", "deux", "drei" ),
+		$provider[] = [ [
+			'args' => [
+				999, $label, false, false, [
+					"possible_values" => [ "one", "deux", "drei" ],
 					'class' => 'testME'
-				) ) ), array(
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan testME">' . "\n"
 
@@ -198,15 +198,15 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'drei', null, null, 'testME' )
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #9 origName attribute
-		$provider[] = array( array(
-			'args' => array(
-				999, $label, false, false, array(
+		$provider[] = [ [
+			'args' => [
+				999, $label, false, false, [
 					'property_type' => '_boo',
 					'origName' => 'testME'
-				) ) ), array(
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan">' . "\n"
 
@@ -221,16 +221,16 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					)
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #10 is_disabled is true
 		// FIXME: I can see an argument for using None here, but,
 		// still seems wonky.
-		$provider[] = array( array(
-			'args' => array(
-				999, $label, false, true, array(
-					'possible_values' => array( 'Yes', 'No' ),
-				) ) ), array(
+		$provider[] = [ [
+			'args' => [
+				999, $label, false, true, [
+					'possible_values' => [ 'Yes', 'No' ],
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan">' . "\n"
 
@@ -245,16 +245,16 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					)
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #11 is_disabled is true and is_mandatory is true
 		// FIXME: shouldn't this fail instead of forcing true?
-		$provider[] = array( array(
-			'args' => array(
-				999, $label, true, true, array(
+		$provider[] = [ [
+			'args' => [
+				999, $label, true, true, [
 					'property_type' => '_boo',
 					'origName' => 'testME'
-				) ) ), array(
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -268,16 +268,16 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					)
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #12 - Ensure value_labels are used when provided.
-		$provider[] = array( array(
-			'args' => array(
-				null, $label, true, false, array(
-					'possible_values' => array( 'one', 'deux', 'drei' ),
-					'value_labels' => array(
+		$provider[] = [ [
+			'args' => [
+				null, $label, true, false, [
+					'possible_values' => [ 'one', 'deux', 'drei' ],
+					'value_labels' => [
 						'deux' => 'two', 'drei' => 'three'
-					) ) ) ), array(
+					] ] ] ], [
 						'expected_html' => '<span id="span_\d+" '
 						. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -286,16 +286,16 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 						. $this->radioButtonFormat( $label, 'drei', 'three' )
 
 						. "</span>"
-					) );
+					] ];
 
 		// data set #13 - Ensure value_labels are escaped properly
-		$provider[] = array( array(
-			'args' => array(
-				null, $label, true, false, array(
-					'possible_values' => array( 'one', 'deux', 'drei' ),
-					'value_labels' => array(
+		$provider[] = [ [
+			'args' => [
+				null, $label, true, false, [
+					'possible_values' => [ 'one', 'deux', 'drei' ],
+					'value_labels' => [
 						'deux' => '&2&', 'drei' => '<3>'
-					) ) ) ), array(
+					] ] ] ], [
 						'expected_html' => '<span id="span_\d+" '
 						. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -304,16 +304,16 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 						. $this->radioButtonFormat( $label, 'drei', '&lt;3&gt;' )
 
 						. "</span>"
-					) );
+					] ];
 
 		// data set #14 - Show on Select handling
 		// FIXME: We're only dealing with the CSS class here
-		$provider[] = array( array(
-			'args' => array(
-				null, $label, true, false, array(
-					'show on select' => array(),
+		$provider[] = [ [
+			'args' => [
+				null, $label, true, false, [
+					'show on select' => [],
 					'property_type' => '_boo'
-				) ) ), array(
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan mandatoryFieldSpan '
 					. 'pfShowIfChecked">' . "\n"
@@ -322,14 +322,14 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'No' )
 
 					. "</span>"
-				) );
+				] ];
 
 		// data set #15 - mandatory boolean with default value
-		$provider[] = array( array(
-			'args' => array(
-				'No', $label, true, false, array(
+		$provider[] = [ [
+			'args' => [
+				'No', $label, true, false, [
 					'property_type' => '_boo'
-				) ) ), array(
+				] ] ], [
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan mandatoryFieldSpan">'
 					. "\n"
@@ -338,7 +338,7 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 					. $this->radioButtonFormat( $label, 'No', null, 'checked' )
 
 					. "</span>"
-				) );
+				] ];
 
 		return $provider;
 	}
@@ -394,7 +394,7 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 	 * Data provider method
 	 */
 	public function radioButtomFromWikitextDataProvider() {
-		$provider = array();
+		$provider = [];
 
 		$label = "field_radiobutton";
 
@@ -403,61 +403,61 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 		 *
 		 * FIXME: This seems like it shouldn't be possible
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton}}}"
-		), array(
+		], [
 			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None', 'checked' )
-		) );
+		] ];
 
 		/**
 		 * data set #1 form definition with only 'property_type' => '_boo'
 		 */
-		$provider[] = array( array(
-		), array(
+		$provider[] = [ [
+		], [
 			'expected_form_test' =>
 			$this->radioButtonFormat( $label, '', 'None', 'checked' )
 			. $this->radioButtonFormat( $label, 'Yes' )
 			. $this->radioButtonFormat( $label, 'No' ),
 			'skip' => 'How to do SMW?'
-		) );
+		] ];
 
 		/**
 		 * data set #2 form definition with only 'possible_values' =>
 		 *             [ 'one', 'deux', 'drei' ]
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label| input type=radiobutton| values=one, "
 			. "deux, drei}}}"
-		), array(
+		], [
 			'expected_form_test' =>
 			$this->radioButtonFormat( $label, '', 'None', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' )
-		) );
+		] ];
 
 		/**
 		 * data set #3 - mandatory field
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label| input type=radiobutton| values=one, "
 			. "deux, drei|mandatory}}}"
-		), array(
+		], [
 			'expected_form_text' => $this->radioButtonFormat(
 				$label, 'one', null, 'checked'
 			)
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' ),
 			'skip' => 'Mandatory does not seem to work, see also #16 in this set'
-		) );
+		] ];
 
 		/**
 		 * data set #4 - mandatory field with default value
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label| input type=radiobutton| values=one, "
 			. "deux, drei|mandatory|default=drei}}}"
-		), array(
+		], [
 			'expected_form_text'  => '<span id="span_\d+" '
 			. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -469,94 +469,94 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 
 			. "</span>",
 			'skip' => "This should pass, but doesn't see 'code, default value' above"
-		) );
+		] ];
 
 		/*
 		 * data set #5 - if null is the current value provided on a
 		 *               mandatory field, make sure nothing is selected
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|mandatory}}}"
-		), array(
+		], [
 			'expected_form_text' => $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' ),
 			'skip' => 'Works with parameters (see above), but wikitext parsing fails'
-		) );
+		] ];
 
 		/**
 		 * data set #6 - if null is the current value provided on a
 		 *               non-mandatory field, make sure 'None' is
 		 *               selected.
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei}}}"
-		), array(
+		], [
 			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' )
-		) );
+		] ];
 
 		/**
 		 * data set #7 - if null is the current value provided on a
 		 *               mandatory boolean field, make sure 'None' is
 		 *               not available.
 		 */
-		$provider[] = array( array(
-		), array(
+		$provider[] = [ [
+		], [
 			'expected_form_text' => $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' ),
 			'skip' => 'no SMW'
-		) );
+		] ];
 
 		/**
 		 * data set #8 - Add CSS if specified
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|class=testME}}}"
-		), array(
+		], [
 			'expected_form_text' =>
 			$this->radioButtonFormat( $label, '', 'None', 'checked', 'testME' )
 			. $this->radioButtonFormat( $label, 'one', null, null, 'testME' )
 			. $this->radioButtonFormat( $label, 'deux', null, null, 'testME' )
 			. $this->radioButtonFormat( $label, 'drei', null, null, 'testME' )
-		) );
+		] ];
 
 		/**
 		 * data set #9 - No tests for origName in wikitext yet
 		 */
-		$provider[] = array( array(), array(
+		$provider[] = [ [], [
 			'skip' => 'No tests for origName in wikitext yet'
-		) );
+		] ];
 
 		/**
 		 * data set #10 - restricted
 		 */
-		$provider[] = array( array(
+		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|restricted}}}"
-		), array(
+		], [
 			'expected_form_text' =>
 			$this->radioButtonFormat( $label, '', 'None', 'checked', null, null, true )
 			. $this->radioButtonFormat( $label, 'one', null, null, null, null, true )
 			. $this->radioButtonFormat( $label, 'deux', null, null, null, null, true )
 			. $this->radioButtonFormat( $label, 'drei', null, null, null, null, true )
-		) );
+		] ];
 
 		/**
 		 * restricted, but mandatory
 		 *
 		 * FIXME: This should flag permission denied for the whole form
 		 */
-		$provider["wikitext, restricted, mandatory"] = array( array(
+		$provider["wikitext, restricted, mandatory"] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|restricted|mandatory}}}"
-		), array(
+		], [
 			'expected_form_text' => '<span id="span_\d+" '
 			. 'class="radioButtonSpan mandatoryFieldSpan">' . "\n"
 
@@ -565,48 +565,48 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 			. $this->radioButtonFormat( $label, 'drei', null, null, null, null, true )
 
 			. "</span>"
-		) );
+		] ];
 
 		/**
 		 * Ensure value labels are used when provided
 		 */
-		$provider["wikitext, value labels"] = array( array(
+		$provider["wikitext, value labels"] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei}}}"
-		), array(
+		], [
 			'skip' => "How to do this in wikitext?"
-		) );
+		] ];
 
 		/**
 		 * Ensure proper escaping for labels
 		 */
-		$provider["wikitext, value labels, escaping"] = array( array(
+		$provider["wikitext, value labels, escaping"] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|label=deux=>&2&;drei=><3>}}}"
-		), array(
+		], [
 			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux', '&amp;2&amp;' )
 			. $this->radioButtonFormat( $label, 'drei', '&lt;3&gt;' ),
 			'skip' => 'This looks wrong, but I need to understand the code'
-		) );
+		] ];
 
 		/**
 		 * Show on select handling
 		 *
 		 * FIXME: This is only the CSS classes
 		 */
-		$provider["wikitext, show on select"] = array( array(
+		$provider["wikitext, show on select"] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|show on select=one=>blah}}}"
-		), array(
+		], [
 			'expected_form_text' => '<span id="span_\d+" class="radioButtonSpan '
 			. 'pfShowIfChecked">' . "\n"
 			. $this->radioButtonFormat( $label, '', 'None', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' ),
-		) );
+		] ];
 
 		/**
 		 * https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types#radiobutton
@@ -617,13 +617,13 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 		 * making one of the allowed values the field's "default="
 		 * value.
 		 */
-		$provider['wikitext, smw no none'] = array( array(
+		$provider['wikitext, smw no none'] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|"
-		), array(
+		], [
 			'skip' => "No SMW test yet!",
 			'expected_form_text' => $this->radioButtonFormat( $label, 'Yes' )
 					. $this->radioButtonFormat( $label, 'No', null, 'checked' )
-		) );
+		] ];
 
 		return $provider;
 	}

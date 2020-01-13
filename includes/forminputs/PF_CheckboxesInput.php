@@ -14,23 +14,23 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 	}
 
 	public static function getDefaultPropTypeLists() {
-		return array(
-			'enumeration' => array()
-		);
+		return [
+			'enumeration' => []
+		];
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		return array();
+		return [];
 	}
 
 	public static function getDefaultCargoTypeLists() {
-		return array(
-			'Enumeration' => array()
-		);
+		return [
+			'Enumeration' => []
+		];
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return array();
+		return [];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -51,7 +51,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
 
 		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
-			$possible_values = array();
+			$possible_values = [];
 		}
 		$text = '';
 		foreach ( $possible_values as $key => $possible_value ) {
@@ -67,11 +67,11 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 				$label = $possible_value;
 			}
 
-			$checkbox_attrs = array(
+			$checkbox_attrs = [
 				'id' => $input_id,
 				'tabindex' => $wgPageFormsTabIndex,
 				'class' => $checkboxClass,
-			);
+			];
 			if ( in_array( $possible_value, $cur_values ) ) {
 				$checkbox_attrs['checked'] = 'checked';
 			}
@@ -83,7 +83,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 			// Put a <label> tag around each checkbox, for CSS
 			// purposes as well as to clarify this element.
 			$text .= "\t" . Html::rawElement( 'label',
-				array( 'class' => $labelClass ),
+				[ 'class' => $labelClass ],
 				$checkbox_input . '&nbsp;' . $label
 			) . " ";
 			$wgPageFormsTabIndex++;
@@ -117,15 +117,15 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 			$outerSpanClass .= ' pfShowIfChecked';
 			foreach ( $other_args['show on select'] as $div_id => $options ) {
 				if ( array_key_exists( $outerSpanID, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$outerSpanID][] = array( $options, $div_id );
+					$wgPageFormsShowOnSelect[$outerSpanID][] = [ $options, $div_id ];
 				} else {
-					$wgPageFormsShowOnSelect[$outerSpanID] = array( array( $options, $div_id ) );
+					$wgPageFormsShowOnSelect[$outerSpanID] = [ [ $options, $div_id ] ];
 				}
 			}
 		}
 
 		$text .= Html::hidden( $input_name . '[is_list]', 1 );
-		$outerSpanAttrs = array( 'id' => $outerSpanID, 'class' => $outerSpanClass );
+		$outerSpanAttrs = [ 'id' => $outerSpanID, 'class' => $outerSpanClass ];
 		$text = "\t" . Html::rawElement( 'span', $outerSpanAttrs, $text ) . "\n";
 
 		return $text;

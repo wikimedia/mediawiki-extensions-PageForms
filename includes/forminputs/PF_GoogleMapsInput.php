@@ -13,34 +13,34 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array();
+		return [];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array( 'Coordinates' );
+		return [ 'Coordinates' ];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		global $wgPageFormsGoogleMapsKey, $wgPageFormsTabIndex;
 		global $wgOut, $wgPageFormsMapsWithFeeders;
 
-		$scripts = array(
+		$scripts = [
 			"https://maps.googleapis.com/maps/api/js?v=3.exp&key=$wgPageFormsGoogleMapsKey"
-		);
+		];
 		$scriptsHTML = '';
 		foreach ( $scripts as $script ) {
 			$scriptsHTML .= Html::linkedScript( $script );
 		}
 		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
 		$wgOut->addModules( 'ext.pageforms.maps' );
-		$coordsInputAttrs = array(
+		$coordsInputAttrs = [
 			'type' => 'text',
 			'tabindex' => $wgPageFormsTabIndex,
 			'class' => 'pfCoordsInput',
 			'name' => $input_name,
 			'value' => PFOpenLayersInput::parseCoordinatesString( $cur_value ),
 			'size' => 40
-		);
+		];
 		if ( array_key_exists( 'starting bounds', $other_args ) ) {
 			$boundCoords = $other_args['starting bounds'];
 			$boundCoords = explode( ";", $boundCoords );
@@ -54,12 +54,12 @@ class PFGoogleMapsInput extends PFOpenLayersInput {
 		if ( array_key_exists( $input_name, $wgPageFormsMapsWithFeeders ) ) {
 			$addressLookupInput = '';
 		} else {
-			$addressLookupInput = Html::element( 'input', array( 'type' => 'text', 'tabindex' => $wgPageFormsTabIndex, 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ), null );
+			$addressLookupInput = Html::element( 'input', [ 'type' => 'text', 'tabindex' => $wgPageFormsTabIndex, 'class' => 'pfAddressInput', 'size' => 40, 'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse() ], null );
 		}
-		$addressLookupButton = Html::element( 'input', array( 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ), null );
+		$addressLookupButton = Html::element( 'input', [ 'type' => 'button', 'class' => 'pfLookUpAddress', 'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse() ], null );
 		$height = self::getHeight( $other_args );
 		$width = self::getWidth( $other_args );
-		$mapCanvas = Html::element( 'div', array( 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ), 'Map goes here...' );
+		$mapCanvas = Html::element( 'div', [ 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ], 'Map goes here...' );
 
 		$fullInputHTML = <<<END
 <div style="padding-bottom: 10px;">
@@ -72,7 +72,7 @@ $coordsInput
 $mapCanvas
 
 END;
-		$text = Html::rawElement( 'div', array( 'class' => 'pfGoogleMapsInput' ), $fullInputHTML );
+		$text = Html::rawElement( 'div', [ 'class' => 'pfGoogleMapsInput' ], $fullInputHTML );
 
 		return $text;
 	}

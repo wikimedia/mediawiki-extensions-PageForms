@@ -13,69 +13,69 @@ class PFTextInput extends PFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		$defaultPropTypes = array(
-			'_num' => array( 'field_type' => 'number' ),
-			'_uri' => array( 'field_type' => 'URL' ),
-			'_ema' => array( 'field_type' => 'email' )
-		);
+		$defaultPropTypes = [
+			'_num' => [ 'field_type' => 'number' ],
+			'_uri' => [ 'field_type' => 'URL' ],
+			'_ema' => [ 'field_type' => 'email' ]
+		];
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			$defaultPropTypes['_str'] = array( 'field_type' => 'string' );
+			$defaultPropTypes['_str'] = [ 'field_type' => 'string' ];
 		} else {
-			$defaultPropTypes['_txt'] = array( 'field_type' => 'text' );
+			$defaultPropTypes['_txt'] = [ 'field_type' => 'text' ];
 		}
 		return $defaultPropTypes;
 	}
 
 	public static function getOtherPropTypesHandled() {
-		return array( '_wpg', '_geo' );
+		return [ '_wpg', '_geo' ];
 	}
 
 	public static function getDefaultPropTypeLists() {
-		$defaultPropTypeLists = array(
-			'_num' => array( 'field_type' => 'number', 'is_list' => 'true', 'size' => '100' ),
-			'_uri' => array( 'field_type' => 'URL', 'is_list' => 'true' ),
-			'_ema' => array( 'field_type' => 'email', 'is_list' => 'true' )
-		);
+		$defaultPropTypeLists = [
+			'_num' => [ 'field_type' => 'number', 'is_list' => 'true', 'size' => '100' ],
+			'_uri' => [ 'field_type' => 'URL', 'is_list' => 'true' ],
+			'_ema' => [ 'field_type' => 'email', 'is_list' => 'true' ]
+		];
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			$defaultPropTypeLists['_str'] = array( 'field_type' => 'string', 'is_list' => 'true', 'size' => '100' );
+			$defaultPropTypeLists['_str'] = [ 'field_type' => 'string', 'is_list' => 'true', 'size' => '100' ];
 		} else {
-			$defaultPropTypeLists['_txt'] = array( 'field_type' => 'text', 'is_list' => 'true', 'size' => '100' );
+			$defaultPropTypeLists['_txt'] = [ 'field_type' => 'text', 'is_list' => 'true', 'size' => '100' ];
 		}
 		return $defaultPropTypeLists;
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		return array( '_wpg' );
+		return [ '_wpg' ];
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array(
-			'Integer' => array( 'field_type' => 'integer' ),
-			'Float' => array( 'field_type' => 'number' ),
-			'URL' => array( 'field_type' => 'URL' ),
-			'Email' => array( 'field_type' => 'email' ),
-			'File' => array( 'field_type' => 'string', 'uploadable' => true ),
-			'String' => array( 'field_type' => 'string' )
-		);
+		return [
+			'Integer' => [ 'field_type' => 'integer' ],
+			'Float' => [ 'field_type' => 'number' ],
+			'URL' => [ 'field_type' => 'URL' ],
+			'Email' => [ 'field_type' => 'email' ],
+			'File' => [ 'field_type' => 'string', 'uploadable' => true ],
+			'String' => [ 'field_type' => 'string' ]
+		];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array( 'Page', 'Coordinates' );
+		return [ 'Page', 'Coordinates' ];
 	}
 
 	public static function getDefaultCargoTypeLists() {
-		return array(
-			'Number' => array( 'field_type' => 'number', 'is_list' => 'true', 'size' => '100' ),
-			'URL' => array( 'field_type' => 'URL', 'is_list' => 'true' ),
-			'Email' => array( 'field_type' => 'email', 'is_list' => 'true' ),
-			'String' => array( 'field_type' => 'text', 'is_list' => 'true', 'size' => '100' )
-		);
+		return [
+			'Number' => [ 'field_type' => 'number', 'is_list' => 'true', 'size' => '100' ],
+			'URL' => [ 'field_type' => 'URL', 'is_list' => 'true' ],
+			'Email' => [ 'field_type' => 'email', 'is_list' => 'true' ],
+			'String' => [ 'field_type' => 'text', 'is_list' => 'true', 'size' => '100' ]
+		];
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return array( 'Page' );
+		return [ 'Page' ];
 	}
 
 	/**
@@ -96,22 +96,22 @@ class PFTextInput extends PFFormInput {
 			return $previewImage;
 		}
 
-		$api = new ApiMain( new FauxRequest( array(
+		$api = new ApiMain( new FauxRequest( [
 			'action' => 'query',
 			'format' => 'json',
 			'prop' => 'imageinfo',
 			'iiprop' => 'url',
 			'titles' => $imageTitle->getFullText(),
 			'iiurlwidth' => 200
-		), true ), true );
+		], true ), true );
 
 		$api->execute();
 		if ( defined( 'ApiResult::META_CONTENT' ) ) {
-			$result = $api->getResult()->getResultData( null, array(
-				'BC' => array(),
-				'Types' => array(),
+			$result = $api->getResult()->getResultData( null, [
+				'BC' => [],
+				'Types' => [],
 				'Strip' => 'all',
-			) );
+			] );
 		} else {
 			$result = $api->getResultData();
 		}
@@ -132,14 +132,14 @@ class PFTextInput extends PFFormInput {
 		if ( $url !== false ) {
 			$previewImage = Html::element(
 				'img',
-				array( 'src' => $url )
+				[ 'src' => $url ]
 			);
 		}
 
 		return $previewImage;
 	}
 
-	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', array $other_args = array() ) {
+	public static function uploadableHTML( $input_id, $delimiter = null, $default_filename = null, $cur_value = '', array $other_args = [] ) {
 		global $wgPageFormsSimpleUpload, $wgPageFormsScriptPath,
 			$wgVersion;
 		if ( $wgPageFormsSimpleUpload ) {
@@ -147,26 +147,26 @@ class PFTextInput extends PFFormInput {
 			$text .= Html::input( '',
 				wfMessage( 'pf-simpleupload' )->escaped(),
 				'button',
-				array(
+				[
 					'class' => 'simpleupload_btn',
 					'data-id' => $input_id
-				)
+				]
 			) . "\n";
 			$text .= Html::input( '',
 				wfMessage( 'htmlform-cloner-delete' )->escaped(),
 				'button',
-				array(
+				[
 					'class' => 'simpleupload_rmv_btn',
 					'style' => 'display: none;',
 					'data-id' => $input_id
-				)
+				]
 			) . "\n";
 			$text .= Html::input( '', '', 'file',
-				array(
+				[
 					'class' => 'simpleupload',
 					'style' => 'width: 0;height: 0;overflow: hidden;',
 					'data-id' => $input_id
-				)
+				]
 			) . "\n";
 
 			return $text;
@@ -184,7 +184,7 @@ class PFTextInput extends PFFormInput {
 		// We need to set the size by default.
 		$style = "width:650 height:500";
 
-		$cssClasses = array( 'pfFancyBox', 'pfUploadable' );
+		$cssClasses = [ 'pfFancyBox', 'pfUploadable' ];
 
 		$showPreview = array_key_exists( 'image preview', $other_args );
 
@@ -192,7 +192,7 @@ class PFTextInput extends PFFormInput {
 			$cssClasses[] = 'pfImagePreview';
 		}
 
-		$linkAttrs = array(
+		$linkAttrs = [
 			'href' => $upload_window_url,
 			'class' => implode( ' ', $cssClasses ),
 			// The 'title' parameter sets the label below the
@@ -202,7 +202,7 @@ class PFTextInput extends PFFormInput {
 			// 'title' => $upload_label,
 			'rev' => $style,
 			'data-input-id' => $input_id,
-		);
+		];
 
 		if ( version_compare( $wgVersion, '1.30', '>=' ) ) {
 			$linkAttrs['data-type'] = 'iframe';
@@ -213,7 +213,7 @@ class PFTextInput extends PFFormInput {
 		if ( $showPreview ) {
 			$text .= Html::rawElement(
 				'div',
-				array( 'id' => $input_id . '_imagepreview', 'class' => 'pfImagePreviewWrapper' ),
+				[ 'id' => $input_id . '_imagepreview', 'class' => 'pfImagePreviewWrapper' ],
 				self::getPreviewImage( $cur_value )
 			);
 		}
@@ -263,12 +263,12 @@ class PFTextInput extends PFFormInput {
 			$size = $other_args['size'];
 		}
 
-		$inputAttrs = array(
+		$inputAttrs = [
 			'id' => $input_id,
 			'tabindex' => $wgPageFormsTabIndex,
 			'class' => $className,
 			'size' => $size
-		);
+		];
 		if ( $is_disabled ) {
 			$inputAttrs['disabled'] = 'disabled';
 		}
@@ -314,37 +314,37 @@ class PFTextInput extends PFFormInput {
 		if ( array_key_exists( 'unique', $other_args ) ) {
 			$spanClass .= ' uniqueFieldSpan';
 		}
-		$text = Html::rawElement( 'span', array( 'class' => $spanClass ), $text );
+		$text = Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
 		return $text;
 	}
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'size',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_size' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'maxlength',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_maxlength' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'placeholder',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_placeholder' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'uploadable',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_uploadable' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'default filename',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_defaultfilename' )->text()
-		);
+		];
 		return $params;
 	}
 

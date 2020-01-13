@@ -51,14 +51,14 @@ class PFFormEdit extends UnlistedSpecialPage {
 			}
 			$altFormURL = $fe_url . '/' . $alt_form . '/' . $target_name;
 			$text .= Html::element( 'a',
-				array( 'href' => $altFormURL ),
+				[ 'href' => $altFormURL ],
 				str_replace( '_', ' ', $alt_form )
 			);
 		}
 		return $text;
 	}
 
-	function printForm( $form_name, $targetName, $alt_forms = array() ) {
+	function printForm( $form_name, $targetName, $alt_forms = [] ) {
 		global $wgPageFormsTargetName;
 
 		// For use by the VEForAll extension.
@@ -112,11 +112,11 @@ class PFFormEdit extends UnlistedSpecialPage {
 			}
 		} else {
 			if ( defined( 'ApiResult::META_CONTENT' ) ) {
-				$resultData = $module->getResult()->getResultData( null, array(
-					'BC' => array(),
-					'Types' => array(),
+				$resultData = $module->getResult()->getResultData( null, [
+					'BC' => [],
+					'Types' => [],
 					'Strip' => 'all',
-				) );
+				] );
 			} else {
 				$resultData = $module->getResultData();
 			}
@@ -125,7 +125,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 				foreach ( $resultData['errors'] as $error ) {
 					// FIXME: This should probably not be hard-coded to WARNING but put into a setting
 					if ( $error[ 'level' ] <= PFAutoeditAPI::WARNING ) {
-						$text .= Html::rawElement( 'p', array( 'class' => 'error' ), $error[ 'message' ] ) . "\n";
+						$text .= Html::rawElement( 'p', [ 'class' => 'error' ], $error[ 'message' ] ) . "\n";
 					}
 				}
 			}
@@ -167,7 +167,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 		} elseif ( $result[ 'form' ] == '' ) { // FIXME: This looks weird; a simple else should be enough, right?
 			// display error message if the form is not specified in the URL
 			$pageTitle = wfMessage( 'formedit' )->text();
-			$text .= Html::element( 'p', array( 'class' => 'error' ), wfMessage( 'pf_formedit_badurl' )->text() ) . "\n";
+			$text .= Html::element( 'p', [ 'class' => 'error' ], wfMessage( 'pf_formedit_badurl' )->text() ) . "\n";
 			$out->addHTML( $text );
 		}
 
@@ -185,7 +185,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 
 		$text .= '<form name="createbox" id="pfForm" method="post" class="createbox">';
 		$pre_form_html = '';
-		Hooks::run( 'PageForms::HTMLBeforeForm', array( &$targetTitle, &$pre_form_html ) );
+		Hooks::run( 'PageForms::HTMLBeforeForm', [ &$targetTitle, &$pre_form_html ] );
 		$text .= $pre_form_html;
 		if ( isset( $result[ 'formHTML' ] ) ) {
 			$text .= $result[ 'formHTML' ];

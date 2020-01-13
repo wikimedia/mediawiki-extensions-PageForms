@@ -118,15 +118,15 @@ END;
 		if ( $presetPropertyName === '' ) {
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$text .= "$name_label\n";
-			$text .= Html::input( 'property_name', '', array( 'size' => 25 ) );
-			$text .= Html::element( 'span', array( 'style' => "color: red;" ), $property_name_error_str );
+			$text .= Html::input( 'property_name', '', [ 'size' => 25 ] );
+			$text .= Html::element( 'span', [ 'style' => "color: red;" ], $property_name_error_str );
 		}
 		$text .= "\n$type_label\n";
 		$select_body = "";
 		foreach ( $datatypeLabels as $label ) {
 			$select_body .= "\t" . Html::element( 'option', null, $label ) . "\n";
 		}
-		$text .= Html::rawElement( 'select', array( 'id' => 'property_dropdown', 'name' => 'property_type' ), $select_body ) . "\n";
+		$text .= Html::rawElement( 'select', [ 'id' => 'property_dropdown', 'name' => 'property_type' ], $select_body ) . "\n";
 
 		$values_input = wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
 		$text .= <<<END
@@ -139,9 +139,9 @@ END;
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateProperty' ) ) . "\n";
 
-		$edit_buttons = "\t" . Html::input( 'wpSave', $save_button_text, 'submit', array( 'id' => 'wpSave' ) );
-		$edit_buttons .= "\t" . Html::input( 'wpPreview', $preview_button_text, 'submit', array( 'id' => 'wpPreview' ) );
-		$text .= "\t" . Html::rawElement( 'div', array( 'class' => 'editButtons' ), $edit_buttons ) . "\n";
+		$edit_buttons = "\t" . Html::input( 'wpSave', $save_button_text, 'submit', [ 'id' => 'wpSave' ] );
+		$edit_buttons .= "\t" . Html::input( 'wpPreview', $preview_button_text, 'submit', [ 'id' => 'wpPreview' ] );
+		$text .= "\t" . Html::rawElement( 'div', [ 'class' => 'editButtons' ], $edit_buttons ) . "\n";
 		$text .= "\t</form>\n";
 
 		$out->addJsConfigVars( 'wgPageTypeLabel', $pageTypeLabel );
@@ -149,7 +149,7 @@ END;
 		$out->addJsConfigVars( 'wgNumberTypeLabel', $numberTypeLabel );
 		$out->addJsConfigVars( 'wgEmailTypeLabel', $emailTypeLabel );
 
-		$out->addModules( array( 'ext.pageforms.PF_CreateProperty' ) );
+		$out->addModules( [ 'ext.pageforms.PF_CreateProperty' ] );
 		$out->addHTML( $text );
 	}
 

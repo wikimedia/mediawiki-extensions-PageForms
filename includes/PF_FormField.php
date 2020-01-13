@@ -57,8 +57,8 @@ class PFFormField {
 		$f->mIsUploadable = false;
 		$f->mPossibleValues = null;
 		$f->mUseDisplayTitle = false;
-		$f->mFieldArgs = array();
-		$f->mDescriptionArgs = array();
+		$f->mFieldArgs = [];
+		$f->mDescriptionArgs = [];
 		return $f;
 	}
 
@@ -170,7 +170,7 @@ class PFFormField {
 		$parser = PFUtils::getParser();
 
 		$f = new PFFormField();
-		$f->mFieldArgs = array();
+		$f->mFieldArgs = [];
 
 		$field_name = trim( $tag_components[1] );
 		$template_name = $template_in_form->getTemplateName();
@@ -195,7 +195,7 @@ class PFFormField {
 
 		$semantic_property = null;
 		$cargo_table = $cargo_field = null;
-		$show_on_select = array();
+		$show_on_select = [];
 		$fullFieldName = $template_name . '[' . $field_name . ']';
 		$values = $valuesSourceType = $valuesSource = null;
 
@@ -260,10 +260,10 @@ class PFFormField {
 							if ( array_key_exists( $div_id, $show_on_select ) ) {
 								$show_on_select[$div_id][] = $option;
 							} else {
-								$show_on_select[$div_id] = array( $option );
+								$show_on_select[$div_id] = [ $option ];
 							}
 						} else {
-							$show_on_select[$val] = array();
+							$show_on_select[$val] = [];
 						}
 					}
 				} elseif ( $sub_components[0] == 'values' ) {
@@ -291,7 +291,7 @@ class PFFormField {
 					$valuesSource = $sub_components[1];
 				} elseif ( $sub_components[0] == 'values dependent on' ) {
 					global $wgPageFormsDependentFields;
-					$wgPageFormsDependentFields[] = array( $sub_components[1], $fullFieldName );
+					$wgPageFormsDependentFields[] = [ $sub_components[1], $fullFieldName ];
 				} elseif ( $sub_components[0] == 'unique for category' ) {
 					$f->mFieldArgs['unique'] = true;
 					$f->mFieldArgs['unique_for_category'] = $sub_components[1];
@@ -334,7 +334,7 @@ class PFFormField {
 
 		if ( $valuesSourceType !== null ) {
 			$f->mPossibleValues = PFValuesUtils::getAutocompleteValues( $valuesSource, $valuesSourceType );
-			if ( in_array( $valuesSourceType, array( 'category', 'namespace', 'concept' ) ) ) {
+			if ( in_array( $valuesSourceType, [ 'category', 'namespace', 'concept' ] ) ) {
 				global $wgPageFormsUseDisplayTitle;
 				$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
 			}
@@ -549,9 +549,9 @@ class PFFormField {
 					$map_field = true;
 				}
 				if ( is_array( $field_query_val ) ) {
-					$cur_values = array();
+					$cur_values = [];
 					if ( $map_field && !is_null( $this->mPossibleValues ) ) {
-						$cur_values = array();
+						$cur_values = [];
 						foreach ( $field_query_val as $key => $val ) {
 							$val = trim( $val );
 							if ( $key === 'is_list' ) {
@@ -632,7 +632,7 @@ class PFFormField {
 	 * given a mapping template.
 	 */
 	function setValuesWithMappingTemplate() {
-		$labels = array();
+		$labels = [];
 		$templateName = $this->mFieldArgs['mapping template'];
 		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
 		$templateExists = $title->exists();
@@ -666,7 +666,7 @@ class PFFormField {
 		}
 
 		$propertyName = $this->mFieldArgs['mapping property'];
-		$labels = array();
+		$labels = [];
 		foreach ( $this->mPossibleValues as $index => $value ) {
 			if ( $this->mUseDisplayTitle ) {
 				$value = $index;
@@ -688,7 +688,7 @@ class PFFormField {
 	 * given a mapping Cargo table/field.
 	 */
 	function setValuesWithMappingCargoField() {
-		$labels = array();
+		$labels = [];
 		foreach ( $this->mPossibleValues as $index => $value ) {
 			if ( $this->mUseDisplayTitle ) {
 				$value = $index;
@@ -734,9 +734,9 @@ class PFFormField {
 		if ( !is_null( $delimiter ) ) {
 			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
 		} else {
-			$values = array( $valueString );
+			$values = [ $valueString ];
 		}
-		$labels = array();
+		$labels = [];
 		foreach ( $values as $value ) {
 			if ( $value != '' ) {
 				if ( array_key_exists( $value, $this->mPossibleValues ) ) {
@@ -959,7 +959,7 @@ class PFFormField {
 		} else {
 			$other_args['possible_values'] = $this->template_field->getPossibleValues();
 			if ( $this->hasFieldArg( 'mapping using translate' ) ) {
-				$other_args['value_labels'] = array();
+				$other_args['value_labels'] = [];
 				foreach ( $other_args['possible_values'] as $key ) {
 					$other_args['value_labels'][$key] = $parser->recursiveTagParse( '{{int:' . $this->getFieldArg( 'mapping using translate' ) . $key . '}}' );
 				}

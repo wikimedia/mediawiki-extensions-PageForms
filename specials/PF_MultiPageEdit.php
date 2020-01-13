@@ -65,16 +65,16 @@ class PFMultiPageEdit extends SpecialPage {
 		$out->setPageTitle( wfMessage( 'pf_multipageedit_with-name', $this->mTemplate )->text() );
 
 		$template = PFTemplate::newFromName( $template_name );
-		$templateCalls = array();
+		$templateCalls = [];
 
 		$templateFields = $template->getTemplateFields();
 
-		$gridParams = array();
-		$gridParamValues = array( 'name' => 'page', 'title' => 'Page', 'type' => 'text' );
+		$gridParams = [];
+		$gridParamValues = [ 'name' => 'page', 'title' => 'Page', 'type' => 'text' ];
 		$gridParams[] = $gridParamValues;
 
 		foreach ( $templateFields as $templateField ) {
-			$gridParamValues = array( 'name' => $templateField->getFieldName() );
+			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
 			$gridParamValues['title'] = $templateField->getLabel();
 			$gridParamValues['type'] = 'text';
 			if ( !empty( $fieldType = $templateField->getFieldType() ) ) {
@@ -129,15 +129,15 @@ class PFMultiPageEdit extends SpecialPage {
 			$gridParams[] = $gridParamValues;
 		}
 		$templateDivID = str_replace( ' ', '', $template_name ) . "Grid";
-		$templateDivAttrs = array(
+		$templateDivAttrs = [
 			'class' => 'pfJSGrid',
 			'id' => $templateDivID,
 			'data-template-name' => $template_name,
 			'data-form-name' => $form_name,
 			'height' => '500px',
 			'editMultiplePages' => true
-		);
-		$loadingImage = Html::element( 'img', array( 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ) );
+		];
+		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
 
 		$text .= "<div id='loadingImage' style='display: none;'>" . $loadingImage . "</div>";
 
@@ -161,8 +161,8 @@ class PFMultiPageEdit extends SpecialPage {
  */
 class SpreadsheetTemplatesPage extends QueryPage {
 
-	private $templateInForm = array();
-	private $templatesUsed = array();
+	private $templateInForm = [];
+	private $templatesUsed = [];
 
 	/**
 	 * This function is used to find all the non-repeating templates in all the
@@ -173,12 +173,12 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	public function __construct( $name = 'MultiPageEdit' ) {
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
-			array( 'page' ),
-			array( 'page_title' ),
-			array( 'page_namespace' => PF_NS_FORM, 'page_is_redirect' => 0 ),
+			[ 'page' ],
+			[ 'page_title' ],
+			[ 'page_namespace' => PF_NS_FORM, 'page_is_redirect' => 0 ],
 			__METHOD__,
-			array(),
-			array()
+			[],
+			[]
 		);
 		while ( $row = $dbr->fetchRow( $res ) ) {
 			$formTitle = Title::makeTitle( PF_NS_FORM, $row['page_title'] );
@@ -208,11 +208,11 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	}
 
 	function getQueryInfo() {
-		return array(
-			'tables' => array( 'page' ),
-			'fields' => array( 'page_title AS title', 'page_title AS value' ),
-			'conds' => array( 'page_namespace' => NS_TEMPLATE )
-		);
+		return [
+			'tables' => [ 'page' ],
+			'fields' => [ 'page_title AS title', 'page_title AS value' ],
+			'conds' => [ 'page_namespace' => NS_TEMPLATE ]
+		];
 	}
 
 	function sortDescending() {
@@ -259,8 +259,8 @@ class SpreadsheetTemplatesPage extends QueryPage {
 		$templateTitle = Title::makeTitle( NS_TEMPLATE, $templateName );
 		$linkRenderer = $this->getLinkRenderer();
 		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
-		$linkParams = array( 'template' => $templateTitle->getText(), 'form' => $formName );
-		$text = $linkRenderer->makeKnownLink( $sp->getPageTitle(), $templateTitle->getText(), array(), $linkParams );
+		$linkParams = [ 'template' => $templateTitle->getText(), 'form' => $formName ];
+		$text = $linkRenderer->makeKnownLink( $sp->getPageTitle(), $templateTitle->getText(), [], $linkParams );
 		return $text;
 	}
 }

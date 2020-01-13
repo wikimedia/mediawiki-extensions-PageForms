@@ -21,39 +21,39 @@ class PFTreeInput extends PFFormInput {
 	public static function getOtherPropTypesHandled() {
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			return array( '_str', '_wpg' );
+			return [ '_str', '_wpg' ];
 		} else {
-			return array( '_txt', '_wpg' );
+			return [ '_txt', '_wpg' ];
 		}
 	}
 
 	public static function getOtherPropTypeListsHandled() {
 		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
 			// SMW < 1.9
-			return array( '_str', '_wpg' );
+			return [ '_str', '_wpg' ];
 		} else {
-			return array( '_txt', '_wpg' );
+			return [ '_txt', '_wpg' ];
 		}
 	}
 
 	public static function getDefaultCargoTypes() {
-		return array(
-			'Hierarchy' => array()
-		);
+		return [
+			'Hierarchy' => []
+		];
 	}
 
 	public static function getDefaultCargoTypeLists() {
-		return array(
-			'Hierarchy' => array()
-		);
+		return [
+			'Hierarchy' => []
+		];
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return array( 'String', 'Page' );
+		return [ 'String', 'Page' ];
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return array( 'String', 'Page' );
+		return [ 'String', 'Page' ];
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
@@ -136,11 +136,11 @@ class PFTreeInput extends PFFormInput {
 		}
 		$text = Html::rawElement(
 			'div',
-			array(
+			[
 				'class' => $class,
 				'id' => $input_name . 'treeinput',
 				'style' => 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;'
-			),
+			],
 			$inputText
 		);
 
@@ -181,7 +181,7 @@ class PFTreeInput extends PFFormInput {
 		}
 
 		if ( !$hidenode ) {
-			$liAttribs = array( 'id' => $key_id );
+			$liAttribs = [ 'id' => $key_id ];
 			if ( in_array( $node->title, $current_selection ) ) {
 				$liAttribs['class'] = 'selected';
 			}
@@ -198,13 +198,13 @@ class PFTreeInput extends PFFormInput {
 			if ( self::$multipleSelect ) {
 				$cur_input_name .= "[" . $dummy_str . "]";
 			}
-			$nodeAttribs = array(
+			$nodeAttribs = [
 				'tabindex' => $wgPageFormsTabIndex,
 				'id' => "chb-$key_id",
 				'class' => 'hidden',
 				'hidden',
 				'style' => 'display:none',
-			);
+			];
 			if ( in_array( $node->title, $current_selection ) ) {
 				$nodeAttribs['checked'] = true;
 			}
@@ -212,7 +212,7 @@ class PFTreeInput extends PFFormInput {
 			$text .= Html::input( $cur_input_name, $node->title, $inputType, $nodeAttribs );
 
 			$nodeDisplayTitle = $node->title;
-			Hooks::run( 'PageForms::TreeNodeDisplay', array( &$nodeDisplayTitle ) );
+			Hooks::run( 'PageForms::TreeNodeDisplay', [ &$nodeDisplayTitle ] );
 			$text .= $nodeDisplayTitle . "\n";
 		}
 
@@ -230,36 +230,36 @@ class PFTreeInput extends PFFormInput {
 
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params[] = array(
+		$params[] = [
 			'name' => 'top category',
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_topcategory' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'structure',
 			'type' => 'text',
 			'description' => wfMessage( 'pf_forminputs_structure' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'hideroot',
 			'type' => 'boolean',
 			'description' => wfMessage( 'pf_forminputs_hideroot' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'depth',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_depth' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'height',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_height' )->text()
-		);
-		$params[] = array(
+		];
+		$params[] = [
 			'name' => 'width',
 			'type' => 'int',
 			'description' => wfMessage( 'pf_forminputs_width' )->text()
-		);
+		];
 		return $params;
 	}
 

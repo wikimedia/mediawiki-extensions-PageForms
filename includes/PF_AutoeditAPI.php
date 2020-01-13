@@ -37,7 +37,7 @@ class PFAutoeditAPI extends ApiBase {
 	 */
 	const DEBUG = 3;
 
-	private $mOptions = array();
+	private $mOptions = [];
 	private $mAction;
 	private $mStatus;
 	private $mIsAutoEdit = false;
@@ -209,7 +209,7 @@ class PFAutoeditAPI extends ApiBase {
 			$this->mOptions['target'] = $target->getPrefixedText();
 		}
 
-		Hooks::run( 'PageForms::SetTargetName', array( &$this->mOptions['target'], $hookQuery ) );
+		Hooks::run( 'PageForms::SetTargetName', [ &$this->mOptions['target'], $hookQuery ] );
 
 		// set html return status. If all goes well, this will not be changed
 		$this->mStatus = 200;
@@ -226,7 +226,7 @@ class PFAutoeditAPI extends ApiBase {
 		if ( $this->mOptions['form'] === '' ) {
 			$this->logMessage( 'No form specified. Will try to find the default form for the target page.', self::DEBUG );
 
-			$formNames = array();
+			$formNames = [];
 
 			// try explicitly set alternative forms
 			if ( array_key_exists( 'alt_form', $this->mOptions ) ) {
@@ -319,7 +319,7 @@ class PFAutoeditAPI extends ApiBase {
 		// set up form data:
 		// merge data coming from the web request on top of some defaults
 		$data = array_merge(
-				array(
+				[
 					'wpTextbox1' => $targetContent,
 					'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
 					'wpSummary' => '',
@@ -327,7 +327,7 @@ class PFAutoeditAPI extends ApiBase {
 					'wpEdittime' => '',
 					'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
 					'action' => 'submit',
-				),
+				],
 				$this->mOptions
 		);
 
@@ -370,15 +370,15 @@ class PFAutoeditAPI extends ApiBase {
 
 		$previewOutput = $editor->getPreviewText();
 
-		Hooks::run( 'EditPage::showEditForm:initial', array( &$editor, &$wgOut ) );
+		Hooks::run( 'EditPage::showEditForm:initial', [ &$editor, &$wgOut ] );
 
 		$this->getOutput()->setRobotPolicy( 'noindex,nofollow' );
 
 		// This hook seems slightly odd here, but makes things more
 		// consistent for extensions.
-		Hooks::run( 'OutputPageBeforeHTML', array( &$wgOut, &$previewOutput ) );
+		Hooks::run( 'OutputPageBeforeHTML', [ &$wgOut, &$previewOutput ] );
 
-		$this->getOutput()->addHTML( Html::rawElement( 'div', array( 'id' => 'wikiPreview' ), $previewOutput ) );
+		$this->getOutput()->addHTML( Html::rawElement( 'div', [ 'id' => 'wikiPreview' ], $previewOutput ) );
 
 		$this->setResultFromOutput();
 	}
@@ -474,7 +474,7 @@ class PFAutoeditAPI extends ApiBase {
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
 				// Give extensions a chance to modify URL query on create
-				Hooks::run( 'ArticleUpdateBeforeRedirect', array( $editor->getArticle(), &$sectionanchor, &$extraQuery ) );
+				Hooks::run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				if ( $extraQuery ) {
 					if ( $query ) {
@@ -501,7 +501,7 @@ class PFAutoeditAPI extends ApiBase {
 				$sectionanchor = $resultDetails['sectionanchor'];
 
 				// Give extensions a chance to modify URL query on update
-				Hooks::run( 'ArticleUpdateBeforeRedirect', array( $editor->getArticle(), &$sectionanchor, &$extraQuery ) );
+				Hooks::run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				if ( $resultDetails['redirect'] ) {
 					if ( $extraQuery == '' ) {
@@ -599,7 +599,7 @@ class PFAutoeditAPI extends ApiBase {
 		}
 
 		$result->addValue( null, 'status', $this->mStatus, true );
-		$result->addValue( array( 'form' ), 'title', $this->mOptions['form'] );
+		$result->addValue( [ 'form' ], 'title', $this->mOptions['form'] );
 		$result->addValue( null, 'target', $this->mOptions['target'], true );
 	}
 
@@ -858,9 +858,9 @@ class PFAutoeditAPI extends ApiBase {
 		// Allow extensions to set/change the preload text, for new
 		// pages.
 		if ( !$pageExists ) {
-			Hooks::run( 'PageForms::EditFormPreloadText', array( &$preloadContent, $targetTitle, $formTitle ) );
+			Hooks::run( 'PageForms::EditFormPreloadText', [ &$preloadContent, $targetTitle, $formTitle ] );
 		} else {
-			Hooks::run( 'PageForms::EditFormInitialText', array( &$preloadContent, $targetTitle, $formTitle ) );
+			Hooks::run( 'PageForms::EditFormInitialText', [ &$preloadContent, $targetTitle, $formTitle ] );
 		}
 
 		// Flag to keep track of formHTML() runs.
@@ -946,7 +946,7 @@ class PFAutoeditAPI extends ApiBase {
 			}
 
 			// Lets other code process additional form-definition syntax
-			Hooks::run( 'PageForms::WritePageData', array( $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ) );
+			Hooks::run( 'PageForms::WritePageData', [ $this->mOptions['form'], Title::newFromText( $this->mOptions['target'] ), &$targetContent ] );
 
 			$editor = $this->setupEditPage( $targetContent );
 
@@ -966,12 +966,12 @@ class PFAutoeditAPI extends ApiBase {
 				$wgOut->addParserOutputNoText( $parserOutput );
 			}
 
-			$this->getResult()->addValue( array( 'form' ), 'HTML', $formHTML );
+			$this->getResult()->addValue( [ 'form' ], 'HTML', $formHTML );
 		}
 	}
 
 	private function parseDataFromHTMLFrag( $html ) {
-		$data = array();
+		$data = [];
 		$doc = new DOMDocument();
 		$oldVal = libxml_disable_entity_loader( true );
 		if ( method_exists( 'AtEase', 'suppressWarnings' ) ) {
@@ -1113,7 +1113,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * @param bool $toplevel if this is a toplevel value.
 	 */
 	public static function addToArray( &$array, $key, $value, $toplevel = true ) {
-		$matches = array();
+		$matches = [];
 
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
 			// for some reason toplevel keys get their spaces encoded by MW.
@@ -1126,7 +1126,7 @@ class PFAutoeditAPI extends ApiBase {
 
 			// if subsequent element does not exist yet or is a string (we prefer arrays over strings)
 			if ( !array_key_exists( $key, $array ) || is_string( $array[$key] ) ) {
-				$array[$key] = array();
+				$array[$key] = [];
 			}
 
 			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
@@ -1155,7 +1155,7 @@ class PFAutoeditAPI extends ApiBase {
 			$this->mStatus = 400;
 		}
 
-		$this->getResult()->addValue( array( 'errors' ), null, array( 'level' => $errorLevel, 'message' => $msg ) );
+		$this->getResult()->addValue( [ 'errors' ], null, [ 'level' => $errorLevel, 'message' => $msg ] );
 
 		return $msg;
 	}
@@ -1177,12 +1177,12 @@ class PFAutoeditAPI extends ApiBase {
 	 * @return array or false
 	 */
 	function getAllowedParams() {
-		return array(
+		return [
 			'form' => null,
 			'target' => null,
 			'query' => null,
 			'preload' => null
-		);
+		];
 	}
 
 	/**
@@ -1193,12 +1193,12 @@ class PFAutoeditAPI extends ApiBase {
 	 * @return array or false
 	 */
 	function getParamDescription() {
-		return array(
+		return [
 			'form' => 'The form to use.',
 			'target' => 'The target page.',
 			'query' => 'The query string.',
 			'preload' => 'The name of a page to preload'
-		);
+		];
 	}
 
 	/**
@@ -1224,10 +1224,10 @@ END;
 	 * @return string|string[]
 	 */
 	protected function getExamples() {
-		return array(
+		return [
 			'With query parameter:    api.php?action=pfautoedit&form=form-name&target=page-name&query=template-name[field-name-1]=field-value-1%26template-name[field-name-2]=field-value-2',
 			'Without query parameter: api.php?action=pfautoedit&form=form-name&target=page-name&template-name[field-name-1]=field-value-1&template-name[field-name-2]=field-value-2'
-		);
+		];
 	}
 
 	/**

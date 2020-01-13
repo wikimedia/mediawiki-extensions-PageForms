@@ -65,11 +65,11 @@ class PFRegExpInput extends PFFormInput {
 		}
 
 		// sanitize error message and regexp for JS
-		$jsFunctionData = array(
+		$jsFunctionData = [
 			'retext' => $this->mRegExp,
 			'inverse' => $invertRegexp,
 			'message' => $this->mErrorMessage,
-		);
+		];
 
 		// Finally set name and parameters for the validation function
 		$this->addJsValidationFunctionData( 'PF_RE_validate', $jsFunctionData );
@@ -94,7 +94,7 @@ class PFRegExpInput extends PFFormInput {
 			unset( $this->mOtherArgs['base prefix'] );
 
 			// create new other_args param
-			$newOtherArgs = array();
+			$newOtherArgs = [];
 
 			foreach ( $this->mOtherArgs as $key => $value ) {
 				if ( strpos( $key, $basePrefix ) === 0 ) {
@@ -153,9 +153,9 @@ class PFRegExpInput extends PFFormInput {
 	public function getResourceModuleNames() {
 		$modules = $this->mBaseInput->getResourceModuleNames();
 		if ( is_array( $modules ) ) {
-			return array_merge( $modules, array( 'ext.pageforms.regexp' ) );
+			return array_merge( $modules, [ 'ext.pageforms.regexp' ] );
 		} elseif ( is_string( $modules ) ) {
-			return array( $modules, 'ext.pageforms.regexp' );
+			return [ $modules, 'ext.pageforms.regexp' ];
 		} else {
 			return 'ext.pageforms.regexp';
 		}
@@ -167,36 +167,36 @@ class PFRegExpInput extends PFFormInput {
 	 */
 	public static function getParameters() {
 		$params = parent::getParameters();
-		$params['regexp'] = array(
+		$params['regexp'] = [
 			'name' => 'regexp',
 			'type' => 'string',
 			'description' => wfMessage( 'pf-regexp-regexp' )->text()
-		);
-		$params['base type'] = array(
+		];
+		$params['base type'] = [
 			'name' => 'base type',
 			'type' => 'string',
 			'description' => wfMessage( 'pf-regexp-basetype' )->text()
-		);
-		$params['base prefix'] = array(
+		];
+		$params['base prefix'] = [
 			'name' => 'base prefix',
 			'type' => 'string',
 			'description' => wfMessage( 'pf-regexp-baseprefix' )->text()
-		);
-		$params['or char'] = array(
+		];
+		$params['or char'] = [
 			'name' => 'or char',
 			'type' => 'string',
 			'description' => wfMessage( 'pf-regexp-orchar' )->text()
-		);
-		$params['inverse'] = array(
+		];
+		$params['inverse'] = [
 			'name' => 'inverse',
 			'type' => 'string',
 			'description' => wfMessage( 'pf-regexp-inverse' )->text()
-		);
-		$params['message'] = array(
+		];
+		$params['message'] = [
 			'name' => 'message',
 			'type' => 'string',
 			'description' => wfMessage( 'pf-regexp-message' )->text()
-		);
+		];
 
 		return $params;
 	}
@@ -221,7 +221,7 @@ class PFRegExpInput extends PFFormInput {
 	 * @return string[]
 	 */
 	public static function getOtherPropTypesHandled() {
-		return array( '_str', '_num', '_dat', '_geo', '_ema', '_tel', '_wpg', '_tem', '_qty' );
+		return [ '_str', '_num', '_dat', '_geo', '_ema', '_tel', '_wpg', '_tem', '_qty' ];
 	}
 
 	/**
