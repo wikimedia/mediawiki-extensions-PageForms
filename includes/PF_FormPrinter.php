@@ -870,7 +870,7 @@ END;
 				Html::element( 'a', [ 'href' => '#' ], 'Expand all collapsed parts of the form' ) ) . "\n";
 		}
 
-		$parser = PFUtils::getParser();
+		$parser = PFUtils::getParser()->getFreshParser();
 		if ( !$parser->Options() ) {
 			$parser->Options( ParserOptions::newFromUser( $wgUser ) );
 		}
