@@ -363,7 +363,7 @@ class PFHooks {
 
 		// The "pfForm" ID is there so the form JS will be activated.
 		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMessage( 'pf-preview-header' )->text() ) . "\n" .
-			'<div id="pfForm" class="previewnote" style="font-weight: bold">' . $wgOut->parse( wfMessage( 'pf-preview-note' )->text() ) . "</div>\n<hr />\n";
+			'<div id="pfForm" class="previewnote" style="font-weight: bold">' . $wgOut->parseAsInterface( wfMessage( 'pf-preview-note' )->text() ) . "</div>\n<hr />\n";
 
 		$form_definition = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $editpage->textbox1 );
 		list( $form_text, $data_text, $form_page_title, $generated_page_name ) =

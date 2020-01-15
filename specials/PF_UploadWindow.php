@@ -219,7 +219,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		if ( !wfMessage( 'uploadfooter' )->isDisabled() ) {
 			$uploadFooter = wfMessage( 'uploadfooter' )->plain();
 			$form->addPostText( '<div id="mw-upload-footer-message">'
-				. $this->getOutput()->parse( $uploadFooter ) . "</div>\n" );
+				. $this->getOutput()->parseAsInterface( $uploadFooter ) . "</div>\n" );
 		}
 
 		return $form;
@@ -336,7 +336,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		// Fetch the file if required
 		$status = $this->mUpload->fetchFile();
 		if ( !$status->isOK() ) {
-			return $this->showUploadForm( $this->getUploadForm( $this->getOutput()->parse( $status->getWikiText() ) ) );
+			return $this->showUploadForm( $this->getUploadForm( $this->getOutput()->parseAsInterface( $status->getWikiText() ) ) );
 		}
 
 		// Avoid PHP 7.1 warning from passing $this by reference
@@ -376,7 +376,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchthis, $this->getUser() );
 		if ( !$status->isGood() ) {
-			return $this->uploadError( $this->getOutput()->parse( $status->getWikiText() ) );
+			return $this->uploadError( $this->getOutput()->parseAsInterface( $status->getWikiText() ) );
 		}
 
 		// $this->getOutput()->redirect( $this->mLocalFile->getTitle()->getFullURL() );
@@ -708,7 +708,7 @@ END;
 			$msg .= "</gallery>";
 			return "<li>" .
 				wfMessage( "file-exists-duplicate" )->numParams( count( $dupes ) )->parseAsBlock() .
-				$wgOut->parse( $msg ) .
+				$wgOut->parseAsInterface( $msg ) .
 				"</li>\n";
 		} else {
 			return '';
