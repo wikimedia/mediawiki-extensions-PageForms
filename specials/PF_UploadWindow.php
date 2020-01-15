@@ -217,9 +217,13 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		# Add footer to form
 		if ( !wfMessage( 'uploadfooter' )->isDisabled() ) {
-			$uploadFooter = wfMessage( 'uploadfooter' )->plain();
-			$form->addPostText( '<div id="mw-upload-footer-message">'
-				. $this->getOutput()->parseAsInterface( $uploadFooter ) . "</div>\n" );
+			$output = $this->getOutput();
+			if ( method_exists( $output, 'parseAsInterface' ) ) {
+				$uploadFooter = $output->parseAsInterface( wfMessage( 'uploadfooter' )->plain() );
+			} else {
+				$uploadFooter = $output->parse( wfMessage( 'uploadfooter' )->plain() );
+			}
+			$form->addPostText( '<div id="mw-upload-footer-message">' . $uploadFooter . "</div>\n" );
 		}
 
 		return $form;
@@ -335,8 +339,14 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		// Fetch the file if required
 		$status = $this->mUpload->fetchFile();
+		$output = $this->getOutput();
+		if ( method_exists( $output, 'parseAsInterface' ) ) {
+			$statusText = $output->parseAsInterface( $status->getWikiText() );
+		} else {
+			$statusText = $output->parse( $status->getWikiText() );
+		}
 		if ( !$status->isOK() ) {
-			return $this->showUploadForm( $this->getUploadForm( $this->getOutput()->parseAsInterface( $status->getWikiText() ) ) );
+			return $this->showUploadForm( $this->getUploadForm( $statusText ) );
 		}
 
 		// Avoid PHP 7.1 warning from passing $this by reference
@@ -376,7 +386,12 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchthis, $this->getUser() );
 		if ( !$status->isGood() ) {
-			return $this->uploadError( $this->getOutput()->parseAsInterface( $status->getWikiText() ) );
+			if ( method_exists( $output, 'parseAsInterface' ) ) {
+				$statusText = $output->parseAsInterface( $status->getWikiText() );
+			} else {
+				$statusText = $output->parse( $status->getWikiText() );
+			}
+			return $this->uploadError( $statusText );
 		}
 
 		// $this->getOutput()->redirect( $this->mLocalFile->getTitle()->getFullURL() );
@@ -706,9 +721,14 @@ END;
 					"|" . $title->getText() . "\n";
 			}
 			$msg .= "</gallery>";
+			if ( method_exists( $wgOut, 'parseAsInterface' ) ) {
+				$galleryText = $wgOut->parseAsInterface( $msg );
+			} else {
+				$galleryText = $wgOut->parse( $msg );
+			}
 			return "<li>" .
 				wfMessage( "file-exists-duplicate" )->numParams( count( $dupes ) )->parseAsBlock() .
-				$wgOut->parseAsInterface( $msg ) .
+				$galleryText .
 				"</li>\n";
 		} else {
 			return '';
