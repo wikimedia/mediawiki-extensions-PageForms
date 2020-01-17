@@ -203,6 +203,7 @@
 	"action-createclass": "luoda uusia semanttisia luokkia",
 	"action-editrestrictedfields": "muokata rajoitettuja lomakekenttiä",
 	"action-viewedittab": "nähdä ”Muokkaa”-välilehteä lomakkeella muokattavilla sivuilla",
+	"tooltip-ca-formedit": "Muokkaa tätä sivua lomakkeella",
 	"pf-datepicker-close": "Sulje",
 	"pf-datepicker-prev": "Edellinen",
 	"pf-datepicker-next": "Seuraava",
