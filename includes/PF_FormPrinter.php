@@ -284,6 +284,8 @@ class PFFormPrinter {
 	}
 
 	static function placeholderFormat( $templateName, $fieldName ) {
+		$templateName = str_replace( '_', ' ', $templateName );
+		$fieldName = str_replace( '_', ' ', $fieldName );
 		return $templateName . '___' . $fieldName;
 	}
 
