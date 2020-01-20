@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Botuzhaleny-sodamo"
+			"Botuzhaleny-sodamo",
+			"Rueter"
 		]
 	},
 	"pf_createproperty_propname": "Йонксонть лемезэ:",
 	"pf_createproperty_proptype": "Типезэ:",
 	"pf_createtemplate_deletefield": "Нардамс",
-	"pf_createform_template": "Лопа парцунось:",
+	"pf_createform_template": "Лопапарцунось:",
 	"pf_createform_field": "Паксясь:",
 	"pf_createform_hidden": "Кекшезь",
 	"pf_createform_add": "Поладомс",
