@@ -170,7 +170,8 @@
 				"mediawiki.util",
 				"mediawiki.api",
 				"ext.pageforms.select2",
-				"ext.pageforms.wikieditor"
+				"ext.pageforms.wikieditor",
+				"ext.pageforms.editwarning"
 			],
 			"messages": [
 				"pf_formerrors_header",
@@ -430,6 +431,13 @@
 		"ext.pageforms": {
 			"scripts": [
 				"libs/ext.pf.js"
+			]
+		},
+		"ext.pageforms.editwarning": {
+			"scripts": "libs/PF_editWarning.js",
+			"dependencies": [
+				"mediawiki.confirmCloseWindow",
+				"jquery.textSelection"
 			]
 		},
 		"ext.pageforms.PF_CreateProperty": {
