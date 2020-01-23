@@ -159,7 +159,7 @@ class PFHooks {
 		return true;
 	}
 
-	static function registerFunctions( &$parser ) {
+	static function registerFunctions( Parser $parser ) {
 		$parser->setFunctionHook( 'default_form', [ 'PFParserFunctions', 'renderDefaultForm' ] );
 		$parser->setFunctionHook( 'forminput', [ 'PFParserFunctions', 'renderFormInput' ] );
 		$parser->setFunctionHook( 'formlink', [ 'PFParserFunctions', 'renderFormLink' ] );
