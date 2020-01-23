@@ -485,34 +485,18 @@
 			"PFFormEditAction::displayTab",
 			"PFHelperFormAction::displayTab"
 		],
-		"ArticlePurge": [
-			"PFFormUtils::purgeCache"
-		],
-		"PageContentSave": [
-			"PFFormUtils::purgeCache"
-		],
+		"ArticlePurge": "PFFormUtils::purgeCache",
+		"PageContentSave": "PFFormUtils::purgeCache",
 		"PageContentSaveComplete": "PFHooks::setPostEditCookie",
-		"ParserFirstCallInit": [
-			"PFHooks::registerFunctions"
-		],
-		"MakeGlobalVariablesScript": [
-			"PFHooks::setGlobalJSVariables"
-		],
-		"PageSchemasRegisterHandlers": [
-			"PFPageSchemas::registerClass"
-		],
-		"EditPage::importFormData": [
-			"PFHooks::showFormPreview"
-		],
+		"ParserFirstCallInit": "PFHooks::registerFunctions",
+		"MakeGlobalVariablesScript": "PFHooks::setGlobalJSVariables",
+		"PageSchemasRegisterHandlers": "PFPageSchemas::registerClass",
+		"EditPage::importFormData": "PFHooks::showFormPreview",
 		"HtmlPageLinkRendererEnd": "PFFormLinker::setBrokenLink",
 		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
 		"TinyMCEDisable": "PFHooks::disableTinyMCE",
-		"CanonicalNamespaces": [
-			"PFHooks::registerNamespaces"
-		],
-		"ResourceLoaderRegisterModules": [
-			"PFHooks::registerModules"
-		]
+		"CanonicalNamespaces": "PFHooks::registerNamespaces",
+		"ResourceLoaderRegisterModules": "PFHooks::registerModules"
 	},
 	"config": {
 		"PageFormsUseDisplayTitle": true,
