@@ -1322,10 +1322,10 @@ END;
 						$new_text = PFFormUtils::summaryInputHTML( $form_is_disabled, $input_label, $attr, $value );
 					} elseif ( $input_name == 'minor edit' ) {
 						$is_checked = $wgRequest->getCheck( 'wpMinoredit' );
-						$new_text = PFFormUtils::minorEditInputHTML( $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
+						$new_text = PFFormUtils::minorEditInputHTML( $form_submitted, $form_is_disabled, $is_checked, $wgUser, $input_label, $attr );
 					} elseif ( $input_name == 'watch' ) {
 						$is_checked = $wgRequest->getCheck( 'wpWatchthis' );
-						$new_text = PFFormUtils::watchInputHTML( $form_submitted, $form_is_disabled, $is_checked, $input_label, $attr );
+						$new_text = PFFormUtils::watchInputHTML( $form_submitted, $form_is_disabled, $wgUser, $is_checked, $input_label, $attr );
 					} elseif ( $input_name == 'save' ) {
 						$new_text = PFFormUtils::saveButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'save and continue' ) {
@@ -1732,7 +1732,7 @@ END;
 			if ( $is_query ) {
 				$form_text .= PFFormUtils::queryFormBottom( $form_is_disabled );
 			} else {
-				$form_text .= PFFormUtils::formBottom( $form_submitted, $form_is_disabled );
+				$form_text .= PFFormUtils::formBottom( $form_submitted, $form_is_disabled, $wgUser );
 			}
 		}
 
