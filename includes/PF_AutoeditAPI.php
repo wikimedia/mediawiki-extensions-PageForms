@@ -122,9 +122,6 @@ class PFAutoeditAPI extends ApiBase {
 		$this->setHeaders();
 	}
 
-	/**
-	 *
-	 */
 	function prepareAction() {
 		// Get options from the request, but keep the explicitly set options.
 		$data = $this->getRequest()->getValues();
@@ -1080,9 +1077,9 @@ class PFAutoeditAPI extends ApiBase {
 	/**
 	 * Parses data from a query string into the $data array
 	 *
-	 * @param Array $data
-	 * @param String $queryString
-	 * @return Array
+	 * @param array &$data
+	 * @param string $queryString
+	 * @return array
 	 */
 	private function parseDataFromQueryString( &$data, $queryString ) {
 		$params = explode( '&', $queryString );
