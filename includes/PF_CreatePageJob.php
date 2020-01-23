@@ -14,8 +14,8 @@
  */
 class PFCreatePageJob extends Job {
 
-	function __construct( $title, $params = '', $id = 0 ) {
-		parent::__construct( 'createPage', $title, $params, $id );
+	function __construct( Title $title, array $params ) {
+		parent::__construct( 'createPage', $title, $params );
 		$this->removeDuplicates = true;
 	}
 
