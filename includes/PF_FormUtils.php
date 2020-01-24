@@ -66,12 +66,12 @@ class PFFormUtils {
 		return $text;
 	}
 
-	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, $label = null, $attrs = [] ) {
-		global $wgPageFormsTabIndex, $wgUser;
+	static function minorEditInputHTML( $form_submitted, $is_disabled, $is_checked, User $user, $label = null, $attrs = [] ) {
+		global $wgPageFormsTabIndex;
 
 		$wgPageFormsTabIndex++;
 		if ( !$form_submitted ) {
-			$is_checked = $wgUser->getOption( 'minordefault' );
+			$is_checked = $user->getOption( 'minordefault' );
 		}
 
 		if ( $label == null ) {
@@ -96,20 +96,20 @@ class PFFormUtils {
 		return $text;
 	}
 
-	static function watchInputHTML( $form_submitted, $is_disabled, $is_checked = false, $label = null, $attrs = [] ) {
-		global $wgPageFormsTabIndex, $wgUser, $wgTitle;
+	static function watchInputHTML( $form_submitted, $is_disabled, User $user, $is_checked = false, $label = null, $attrs = [] ) {
+		global $wgPageFormsTabIndex, $wgTitle;
 
 		$wgPageFormsTabIndex++;
 		// figure out if the checkbox should be checked -
 		// this code borrowed from /includes/EditPage.php
 		if ( !$form_submitted ) {
-			if ( $wgUser->getOption( 'watchdefault' ) ) {
+			if ( $user->getOption( 'watchdefault' ) ) {
 				# Watch all edits
 				$is_checked = true;
-			} elseif ( $wgUser->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
+			} elseif ( $user->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
 				# Watch creations
 				$is_checked = true;
-			} elseif ( $wgUser->isWatched( $wgTitle ) ) {
+			} elseif ( $user->isWatched( $wgTitle ) ) {
 				# Already watched
 				$is_checked = true;
 			}
@@ -272,9 +272,7 @@ class PFFormUtils {
 	}
 
 	// Much of this function is based on MediaWiki's EditPage::showEditForm()
-	static function formBottom( $form_submitted, $is_disabled ) {
-		global $wgUser;
-
+	static function formBottom( $form_submitted, $is_disabled, User $user ) {
 		$summary_text = self::summaryInputHTML( $is_disabled );
 		$text = <<<END
 	<br /><br />
@@ -282,12 +280,12 @@ class PFFormUtils {
 $summary_text	<br />
 
 END;
-		if ( $wgUser->isAllowed( 'minoredit' ) ) {
-			$text .= self::minorEditInputHTML( $form_submitted, $is_disabled, false );
+		if ( $user->isAllowed( 'minoredit' ) ) {
+			$text .= self::minorEditInputHTML( $form_submitted, $is_disabled, false, $user );
 		}
 
-		if ( $wgUser->isLoggedIn() ) {
-			$text .= self::watchInputHTML( $form_submitted, $is_disabled );
+		if ( $user->isLoggedIn() ) {
+			$text .= self::watchInputHTML( $form_submitted, $is_disabled, $user );
 		}
 
 		$text .= <<<END
