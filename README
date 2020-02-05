@@ -39,13 +39,15 @@ Handling of "display=calendar" was added by Priyanshu Varshney as
 part of the 2019 Google Summer of Code.
 
 Important code contributions were also made by Christoph Burgmer,
-Cindy Cicalese, Daniel Friesen, Daniel Hansch, Eugene Mednikov,
-Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger, Jeffrey Stuckman,
-Joel Natividad, Jeroen De Dauw, Joel Natividad, Louis Gerbarg, LY Meng,
-Mathias Lidal, Matt Williamson, MWJames, Niklas Laxstrom, Nils
-Opperman, Paladox, Patrick Nagel, Peter Grassberger, Remco de Boer,
-Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland, Simon Heimler,
-Solitarius, Tombolano, Tom Fellows, Vedmaka, wheresmytab and others.
+Cindy Cicalese, Clément Flipo, Daniel Friesen, Daniel Hansch,
+Eugene Mednikov, Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger,
+Jeffrey Stuckman, Jeroen De Dauw, Joel Natividad, Louis Gerbarg,
+LY Meng, Mark Hershberger, Mathias Lidal, Matt Williamson, MWJames,
+Niklas Laxstrom, Nils Opperman, Paladox, Patrick Nagel, Pastakhov,
+Peter Grassberger, Pierre Boutet, Remco de Boer, Sam Wilson,
+Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland,
+Simon Heimler, Solitarius, Tombolano, Tom Fellows, Vedmaka,
+wheresmytab and others.
 
 Language translations were provided by many people; see the files in
 the /i18n and /languages directories for the full listings.
