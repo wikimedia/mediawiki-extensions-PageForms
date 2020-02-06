@@ -36,12 +36,7 @@ class PFCreatePageJob extends Job {
 		}
 
 		$page_text = $this->params['page_text'];
-		// change global $wgUser variable to the one
-		// specified by the job only for the extent of this
-		// replacement
-		global $wgUser;
-		$actual_user = $wgUser;
-		$wgUser = User::newFromId( $this->params['user_id'] );
+		$user = User::newFromId( $this->params['user_id'] );
 		$edit_summary = '';
 		if ( array_key_exists( 'edit_summary', $this->params ) ) {
 			$edit_summary = $this->params['edit_summary'];
@@ -50,16 +45,15 @@ class PFCreatePageJob extends Job {
 		// It's strange that doEditContent() doesn't
 		// automatically attach the 'bot' flag when the user
 		// is a bot...
-		if ( $wgUser->isAllowed( 'bot' ) ) {
+		if ( $user->isAllowed( 'bot' ) ) {
 			$flags = EDIT_FORCE_BOT;
 		} else {
 			$flags = 0;
 		}
 
 		$new_content = new WikitextContent( $page_text );
-		$wikiPage->doEditContent( $new_content, $edit_summary, $flags );
+		$wikiPage->doEditContent( $new_content, $edit_summary, $flags, false, $user );
 
-		$wgUser = $actual_user;
 		return true;
 	}
 }

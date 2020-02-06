@@ -1055,7 +1055,7 @@ END;
 					// to deal with the #freetext# hack,
 					// among others.
 					$field_name = trim( $tag_components[1] );
-					$form_field = PFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled );
+					$form_field = PFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled, $wgUser );
 					// For special displays, add in the
 					// form fields, so we know the data
 					// structure.
@@ -1355,7 +1355,7 @@ END;
 					$wgPageFormsTabIndex++;
 
 					$section_name = trim( $tag_components[1] );
-					$page_section_in_form = PFPageSection::newFromFormTag( $tag_components );
+					$page_section_in_form = PFPageSection::newFromFormTag( $tag_components, $wgUser );
 					$section_text = null;
 
 					// Split the existing page contents into the textareas in the form.

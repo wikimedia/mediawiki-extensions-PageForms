@@ -24,7 +24,7 @@ class PFPageSection {
 		return $ps;
 	}
 
-	static function newFromFormTag( $tag_components ) {
+	static function newFromFormTag( $tag_components, User $user ) {
 		$ps = new PFPageSection();
 		$ps->mSectionName = trim( $tag_components[1] );
 
@@ -37,8 +37,7 @@ class PFPageSection {
 			} elseif ( $component === 'hidden' ) {
 				$ps->mIsHidden = true;
 			} elseif ( $component === 'restricted' ) {
-				global $wgUser;
-				$ps->mIsRestricted = !( $wgUser && $wgUser->isAllowed( 'editrestrictedfields' ) );
+				$ps->mIsRestricted = ( !$user || !$user->isAllowed( 'editrestrictedfields' ) );
 			} elseif ( $component === 'autogrow' ) {
 				$ps->mSectionArgs['autogrow'] = true;
 			} elseif ( $component === 'hide if empty' ) {

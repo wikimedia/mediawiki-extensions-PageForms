@@ -164,9 +164,13 @@ class PFFormField {
 		$this->mDescriptionArgs[$key] = $value;
 	}
 
-	static function newFromFormFieldTag( $tag_components, $template, $template_in_form, $form_is_disabled ) {
-		global $wgUser;
-
+	static function newFromFormFieldTag(
+		$tag_components,
+		$template,
+		$template_in_form,
+		$form_is_disabled,
+		User $user
+	) {
 		$parser = PFUtils::getParser();
 
 		$f = new PFFormField();
@@ -208,7 +212,7 @@ class PFFormField {
 			} elseif ( $component == 'hidden' ) {
 				$f->mIsHidden = true;
 			} elseif ( $component == 'restricted' ) {
-				$f->mIsRestricted = ( !$wgUser || !$wgUser->isAllowed( 'editrestrictedfields' ) );
+				$f->mIsRestricted = ( !$user || !$user->isAllowed( 'editrestrictedfields' ) );
 			} elseif ( $component == 'list' ) {
 				$f->mIsList = true;
 			} elseif ( $component == 'unique' ) {
@@ -326,7 +330,7 @@ class PFFormField {
 					$f->mFieldArgs['default filename'] = $default_filename;
 				} elseif ( $sub_components[0] == 'restricted' ) {
 					$f->mIsRestricted = !array_intersect(
-						$wgUser->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
+						$user->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
 					);
 				}
 			}
