@@ -42,7 +42,7 @@
 	"forms": "Formlar",
 	"pf_forminputs_mandatory": "Zorunlu",
 	"pf_forminputs_hideroot": "Ana kategoriyi gizle",
-	"pf_forminputs_checkboxes_select_all": "Tümünü seç",
+	"pf_forminputs_checkboxes_select_all": "Hepsini seç",
 	"pf_forminputs_checkboxes_select_none": "Hiçbirini seçme",
 	"createform": "Form oluştur",
 	"pf-createform-with-name": "Form oluştur: $1",
