@@ -18,7 +18,7 @@ class PFFormLinker {
 		// the project namespace alias contains any non-ASCII
 		// characters. There may be other cases too.
 		// If that happens, just exit.
-		if ( is_null( $title ) ) {
+		if ( $title === null ) {
 			return null;
 		}
 
@@ -61,9 +61,9 @@ class PFFormLinker {
 		// pages from red links.
 		$userID = 1;
 		global $wgPageFormsAutoCreateUser;
-		if ( !is_null( $wgPageFormsAutoCreateUser ) ) {
+		if ( $wgPageFormsAutoCreateUser !== null ) {
 			$user = User::newFromName( $wgPageFormsAutoCreateUser );
-			if ( !is_null( $user ) ) {
+			if ( $user !== null ) {
 				$userID = $user->getId();
 			}
 		}
@@ -157,7 +157,7 @@ class PFFormLinker {
 					$psSchema = new PSSchema( $category );
 					if ( $psSchema->isPSDefined() ) {
 						$formName = PFPageSchemas::getFormName( $psSchema );
-						if ( !is_null( $formName ) ) {
+						if ( $formName !== null ) {
 							$default_forms[] = $formName;
 						}
 					}

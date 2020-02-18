@@ -223,7 +223,7 @@ class PFHooks {
 	public static function addToAdminLinks( &$admin_links_tree ) {
 		$data_structure_label = wfMessage( 'smw_adminlinks_datastructure' )->text();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
-		if ( is_null( $data_structure_section ) ) {
+		if ( $data_structure_section === null ) {
 			$data_structure_section = new ALSection( wfMessage( 'pf-adminlinks-datastructure' )->text() );
 
 			// If we are here, it most likely means that SMW is

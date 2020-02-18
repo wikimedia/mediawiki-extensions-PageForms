@@ -433,7 +433,7 @@ class PFDatePickerInput extends PFFormInput {
 	 *
 	 * @param array[] $ranges array of arrays of DateTimes
 	 * @return array[] array of arrays of DateTimes
-	*/
+	 */
 	private static function sortAndMergeRanges( $ranges ) {
 		// sort ranges, earliest date first
 		sort( $ranges );

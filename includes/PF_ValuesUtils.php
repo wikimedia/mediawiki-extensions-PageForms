@@ -23,7 +23,7 @@ class PFValuesUtils {
 		if ( !class_exists( 'SMWDIWikiPage' ) ) {
 			return [];
 		}
-		if ( is_null( $subject ) ) {
+		if ( $subject === null ) {
 			$page = null;
 		} else {
 			$page = SMWDIWikiPage::newFromTitle( $subject );
@@ -259,7 +259,7 @@ class PFValuesUtils {
 							}
 						} else {
 							$cur_title = Title::makeTitleSafe( $page_namespace, $page_name );
-							if ( is_null( $cur_title ) ) {
+							if ( $cur_title === null ) {
 								// This can happen if it's
 								// a "phantom" page, in a
 								// namespace that no longer exists.
@@ -268,14 +268,14 @@ class PFValuesUtils {
 							$cur_value = PFUtils::titleString( $cur_title );
 							if ( !in_array( $cur_value, $pages ) ) {
 								if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
-									!is_null( $row[ 'pp_displaytitle_value' ] ) &&
+									( $row[ 'pp_displaytitle_value' ] ) !== null &&
 									trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
 									$pages[ $cur_value . '@' ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'] );
 								} else {
 									$pages[ $cur_value . '@' ] = $cur_value;
 								}
 								if ( array_key_exists( 'pp_defaultsort_value', $row ) &&
-									!is_null( $row[ 'pp_defaultsort_value' ] ) ) {
+									( $row[ 'pp_defaultsort_value' ] ) !== null ) {
 									$sortkeys[ $cur_value ] = $row[ 'pp_defaultsort_value'];
 								} else {
 									$sortkeys[ $cur_value ] = $cur_value;
@@ -328,7 +328,7 @@ class PFValuesUtils {
 
 		$conceptTitle = Title::makeTitleSafe( SMW_NS_CONCEPT, $conceptName );
 
-		if ( !is_null( $substring ) ) {
+		if ( $substring !== null ) {
 			$substring = strtolower( $substring );
 		}
 
@@ -352,7 +352,7 @@ class PFValuesUtils {
 			$page = $res[0]->getNextText( SMW_OUTPUT_WIKI );
 			if ( $wgPageFormsUseDisplayTitle && class_exists( 'PageProps' ) ) {
 				$title = Title::newFromText( $page );
-				if ( !is_null( $title ) ) {
+				if ( $title !== null ) {
 					$titles[] = $title;
 				}
 			} else {
@@ -382,7 +382,7 @@ class PFValuesUtils {
 			}
 		}
 
-		if ( !is_null( $substring ) ) {
+		if ( $substring !== null ) {
 			$filtered_pages = [];
 			$filtered_sortkeys = [];
 			foreach ( $pages as $index => $pageName ) {
@@ -452,7 +452,7 @@ class PFValuesUtils {
 
 			// If that didn't find anything, and we're in a language
 			// other than English, check English as well.
-			if ( is_null( $matchingNamespaceCode ) && $wgLanguageCode != 'en' ) {
+			if ( $matchingNamespaceCode === null && $wgLanguageCode != 'en' ) {
 				foreach ( $allEnglishNamespaces as $curNSCode => $curNSName ) {
 					if ( $curNSName == $namespace_name ) {
 						$matchingNamespaceCode = $curNSCode;
@@ -460,7 +460,7 @@ class PFValuesUtils {
 				}
 			}
 
-			if ( is_null( $matchingNamespaceCode ) ) {
+			if ( $matchingNamespaceCode === null ) {
 				throw new MWException( wfMessage( 'pf-missingnamespace', wfEscapeWikiText( $namespace_name ) ) );
 			}
 
@@ -525,14 +525,14 @@ class PFValuesUtils {
 				$title = str_replace( '_', ' ', $row['page_title'] );
 			}
 			if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
-				!is_null( $row[ 'pp_displaytitle_value' ] ) &&
+				( $row[ 'pp_displaytitle_value' ] ) !== null &&
 				trim( str_replace( '&#160;', '', strip_tags( $row[ 'pp_displaytitle_value' ] ) ) ) !== '' ) {
 				$pages[ $title ] = htmlspecialchars_decode( $row[ 'pp_displaytitle_value'], ENT_QUOTES );
 			} else {
 				$pages[ $title ] = $title;
 			}
 			if ( array_key_exists( 'pp_defaultsort_value', $row ) &&
-				!is_null( $row[ 'pp_defaultsort_value' ] ) ) {
+				( $row[ 'pp_defaultsort_value' ] ) !== null ) {
 				$sortkeys[ $title ] = $row[ 'pp_defaultsort_value'];
 			} else {
 				$sortkeys[ $title ] = $title;

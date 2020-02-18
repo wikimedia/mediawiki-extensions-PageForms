@@ -25,7 +25,7 @@ class PFFormUtils {
 		// This shouldn't happen, but sometimes this value is null.
 		// @TODO - fix the code that calls this function so the
 		// value is never null.
-		if ( is_null( $template_in_form ) ) {
+		if ( $template_in_form === null ) {
 			return '';
 		}
 
@@ -33,7 +33,7 @@ class PFFormUtils {
 		$templateName = str_replace( ' ', '_', $template_in_form->getTemplateName() );
 		$text = "";
 		foreach ( $template_in_form->getValuesFromPage() as $key => $value ) {
-			if ( !is_null( $key ) && !is_numeric( $key ) ) {
+			if ( $key !== null && !is_numeric( $key ) ) {
 				$key = urlencode( $key );
 				$text .= Html::hidden( '_unhandled_' . $templateName . '_' . $key, $value );
 			}
@@ -588,7 +588,7 @@ END;
 	 * @return string
 	 */
 	public static function getCacheKey( $formId, $parser = null ) {
-		if ( is_null( $parser ) ) {
+		if ( $parser === null ) {
 			return wfMemcKey( 'ext.PageForms.formdefinition', $formId );
 		} else {
 			if ( method_exists( ParserOptions::class, 'allCacheVaryingOptions' ) ) {

@@ -34,36 +34,36 @@ class PFAutocompleteAPI extends ApiBase {
 		$basevalue = $params['basevalue'];
 		// $limit = $params['limit'];
 
-		if ( is_null( $baseprop ) && is_null( $base_cargo_table ) && strlen( $substr ) == 0 ) {
+		if ( $baseprop === null && $base_cargo_table === null && strlen( $substr ) == 0 ) {
 			$this->dieWithError( [ 'apierror-missingparam', 'substr' ], 'param_substr' );
 		}
 
 		global $wgPageFormsUseDisplayTitle;
 		$map = false;
-		if ( !is_null( $baseprop ) ) {
-			if ( !is_null( $property ) ) {
+		if ( $baseprop !== null ) {
+			if ( $property !== null ) {
 				$data = $this->getAllValuesForProperty( $property, null, $baseprop, $basevalue );
 			}
-		} elseif ( !is_null( $property ) ) {
+		} elseif ( $property !== null ) {
 			$data = $this->getAllValuesForProperty( $property, $substr );
-		} elseif ( !is_null( $category ) ) {
+		} elseif ( $category !== null ) {
 			$data = PFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
 				$data = PFValuesUtils::disambiguateLabels( $data );
 			}
-		} elseif ( !is_null( $concept ) ) {
+		} elseif ( $concept !== null ) {
 			$data = PFValuesUtils::getAllPagesForConcept( $concept, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
 				$data = PFValuesUtils::disambiguateLabels( $data );
 			}
-		} elseif ( !is_null( $cargo_table ) && !is_null( $cargo_field ) ) {
+		} elseif ( $cargo_table !== null && $cargo_field !== null ) {
 			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
-		} elseif ( !is_null( $namespace ) ) {
+		} elseif ( $namespace !== null ) {
 			$data = PFValuesUtils::getAllPagesForNamespace( $namespace, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
-		} elseif ( !is_null( $external_url ) ) {
+		} elseif ( $external_url !== null ) {
 			$data = PFValuesUtils::getValuesFromExternalURL( $external_url, $substr );
 		} else {
 			$data = [];
@@ -97,7 +97,7 @@ class PFAutocompleteAPI extends ApiBase {
 		// Format data as the API requires it - this is not needed
 		// for "values from url", where the data is already formatted
 		// correctly.
-		if ( is_null( $external_url ) ) {
+		if ( $external_url === null ) {
 			$formattedData = [];
 			foreach ( $data as $index => $value ) {
 				if ( $map ) {
@@ -200,7 +200,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$cache = PFFormUtils::getFormCache();
 			// Remove trailing whitespace to avoid unnecessary database selects
 			$cacheKeyString = $property_name . '::' . rtrim( $substring );
-			if ( !is_null( $basePropertyName ) ) {
+			if ( $basePropertyName !== null ) {
 				$cacheKeyString .= ',' . $basePropertyName . ',' . $baseValue;
 			}
 			$cacheKey = wfMemcKey( 'pf-autocomplete', md5( $cacheKeyString ) );
@@ -235,7 +235,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 		}
 
-		if ( !is_null( $basePropertyName ) ) {
+		if ( $basePropertyName !== null ) {
 			if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
 				$baseProperty = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $basePropertyName );
 			} else {
@@ -274,7 +274,7 @@ class PFAutocompleteAPI extends ApiBase {
 			}
 		}
 
-		if ( !is_null( $substring ) ) {
+		if ( $substring !== null ) {
 			// "Page" type property valeus are stored differently
 			// in the DB, i.e. underlines instead of spaces.
 			$conditions[] = PFValuesUtils::getSQLConditionForAutocompleteInColumn( $valueField, $substring, $propertyHasTypePage );
@@ -312,7 +312,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$cache = PFFormUtils::getFormCache();
 			// Remove trailing whitespace to avoid unnecessary database selects
 			$cacheKeyString = $cargoTable . '|' . $cargoField . '|' . rtrim( $substring );
-			if ( !is_null( $baseCargoTable ) ) {
+			if ( $baseCargoTable !== null ) {
 				$cacheKeyString .= '|' . $baseCargoTable . '|' . $baseCargoField . '|' . $baseValue;
 			}
 			$cacheKey = wfMemcKey( 'pf-autocomplete', md5( $cacheKeyString ) );
@@ -324,7 +324,7 @@ class PFAutocompleteAPI extends ApiBase {
 			}
 		}
 
-		if ( !is_null( $baseCargoTable ) && !is_null( $baseCargoField ) ) {
+		if ( $baseCargoTable !== null && $baseCargoField !== null ) {
 			if ( $baseCargoTable != $cargoTable ) {
 				$tablesStr .= ", $baseCargoTable";
 				$joinOnStr = "$cargoTable._pageName = $baseCargoTable._pageName";
@@ -332,7 +332,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$whereStr = "$baseCargoTable.$baseCargoField = \"$baseValue\"";
 		}
 
-		if ( !is_null( $substring ) ) {
+		if ( $substring !== null ) {
 			if ( $whereStr != '' ) {
 				$whereStr .= " AND ";
 			}

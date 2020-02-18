@@ -293,9 +293,9 @@ class PFPageSchemas extends PSExtensionHandler {
 	public static function getSchemaEditingHTML( $pageSchemaObj ) {
 		$form_array = [];
 		$hasExistingValues = false;
-		if ( !is_null( $pageSchemaObj ) ) {
+		if ( $pageSchemaObj !== null ) {
 			$form_array = $pageSchemaObj->getObject( 'pageforms_Form' );
-			if ( !is_null( $form_array ) ) {
+			if ( $form_array !== null ) {
 				$hasExistingValues = true;
 			}
 		}
@@ -307,7 +307,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$editTitle = PageSchemas::getValueFromObject( $form_array, 'EditTitle' );
 
 		// Inputs
-		if ( !is_null( $pageSchemaObj ) ) {
+		if ( $pageSchemaObj !== null ) {
 			$standardInputs = $pageSchemaObj->getObject( 'standardInputs' );
 		} else {
 			$standardInputs = [];
@@ -320,7 +320,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		// we set it based on whether or not a page formula has been
 		// specified.
 		$twoStepProcessAttrs = [ 'id' => 'pf-two-step-process' ];
-		if ( is_null( $pageNameFormula ) ) {
+		if ( $pageNameFormula === null ) {
 			$twoStepProcessAttrs['checked'] = true;
 		}
 		$text .= '<p>' . Html::input( 'pf_two_step_process', null, 'checkbox', $twoStepProcessAttrs );
@@ -391,9 +391,9 @@ class PFPageSchemas extends PSExtensionHandler {
 		$hasExistingValues = false;
 		$templateLabel = null;
 		$addAnotherText = null;
-		if ( !is_null( $psTemplate ) ) {
+		if ( $psTemplate !== null ) {
 			$form_array = $psTemplate->getObject( 'pageforms_TemplateDetails' );
-			if ( !is_null( $form_array ) ) {
+			if ( $form_array !== null ) {
 				$hasExistingValues = true;
 				$templateLabel = PageSchemas::getValueFromObject( $form_array, 'Label' );
 				$addAnotherText = PageSchemas::getValueFromObject( $form_array, 'AddAnotherText' );
@@ -420,9 +420,9 @@ class PFPageSchemas extends PSExtensionHandler {
 		$inputDesc = null;
 		$inputDescTooltipMode = null;
 		$inputBeforeText = null;
-		if ( !is_null( $psField ) ) {
+		if ( $psField !== null ) {
 			$fieldValues = $psField->getObject( 'pageforms_FormInput' );
-			if ( !is_null( $fieldValues ) ) {
+			if ( $fieldValues !== null ) {
 				$hasExistingValues = true;
 				$inputType = PageSchemas::getValueFromObject( $fieldValues, 'InputType' );
 				$inputDesc = PageSchemas::getValueFromObject( $fieldValues, 'Description' );
@@ -484,11 +484,11 @@ class PFPageSchemas extends PSExtensionHandler {
 	public static function getPageSectionEditingHTML( $psPageSection ) {
 		$otherParams = [];
 
-		if ( !is_null( $psPageSection ) ) {
+		if ( $psPageSection !== null ) {
 			$otherParams = $psPageSection->getObject( 'pageforms_PageSection' );
 		}
 		$paramValues = [];
-		if ( !is_null( $otherParams ) ) {
+		if ( $otherParams !== null ) {
 			foreach ( $otherParams as $param => $value ) {
 				if ( !empty( $param ) ) {
 					if ( !empty( $value ) ) {
@@ -513,7 +513,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 	public static function getFormName( $pageSchemaObj ) {
 		$mainFormInfo = self::getMainFormInfo( $pageSchemaObj );
-		if ( is_null( $mainFormInfo ) || !array_key_exists( 'name', $mainFormInfo ) ) {
+		if ( $mainFormInfo === null || !array_key_exists( 'name', $mainFormInfo ) ) {
 			return null;
 		}
 		return $mainFormInfo['name'];
@@ -552,7 +552,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$fieldsInfo = $psTemplate->getFields();
 		foreach ( $fieldsInfo as $i => $psField ) {
 			$fieldFormArray = $psField->getObject( 'pageforms_FormInput' );
-			if ( !is_null( $fieldFormArray ) ) {
+			if ( $fieldFormArray !== null ) {
 				$formField = PFFormField::create( $template_fields[$i] );
 				foreach ( $fieldFormArray as $var => $val ) {
 					if ( $var == 'InputType' ) {
@@ -578,7 +578,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	public static function getPageSection( $psPageSection ) {
 		$pageSection = PFPageSection::create( $psPageSection->getSectionName() );
 		$pageSectionArray = $psPageSection->getObject( 'pageforms_PageSection' );
-		if ( !is_null( $pageSectionArray ) ) {
+		if ( $pageSectionArray !== null ) {
 			foreach ( $pageSectionArray as $var => $val ) {
 				if ( $var == 'mandatory' ) {
 					$pageSection->setIsMandatory( true );
@@ -629,7 +629,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			if ( defined( 'SMW_VERSION' ) ) {
 				$prop_array = $psField->getObject( 'semanticmediawiki_Property' );
 				$propertyName = PageSchemas::getValueFromObject( $prop_array, 'name' );
-				if ( !is_null( $prop_array ) && empty( $propertyName ) ) {
+				if ( $prop_array !== null && empty( $propertyName ) ) {
 					$propertyName = $psField->getName();
 				}
 			} else {
@@ -796,7 +796,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 				// Set Cargo table, if one was set in the schema.
 				$cargoArray = $psTemplate->getObject( 'cargo_TemplateDetails' );
-				if ( !is_null( $cargoArray ) ) {
+				if ( $cargoArray !== null ) {
 					$pfTemplate->mCargoTable = PageSchemas::getValueFromObject( $cargoArray, 'Table' );
 				}
 

@@ -198,7 +198,7 @@ class PFTemplate {
 		$tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
 		// See if there even is DB storage for this template - if not,
 		// exit.
-		if ( is_null( $tableSchemaString ) ) {
+		if ( $tableSchemaString === null ) {
 			// There's no declared table - but see if there's an
 			// attached table.
 			list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
@@ -455,7 +455,7 @@ END;
 			}
 
 			$fieldParam = '{{{' . $field->getFieldName() . '|}}}';
-			if ( is_null( $field->getNamespace() ) ) {
+			if ( $field->getNamespace() === null ) {
 				$fieldString = $fieldParam;
 			} else {
 				$fieldString = $field->getNamespace() . ':' . $fieldParam;
@@ -471,7 +471,7 @@ END;
 			$fieldIsList = $field->isList();
 
 			// Header/field label column
-			if ( is_null( $fieldDisplay ) ) {
+			if ( $fieldDisplay === null ) {
 				if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 					if ( $i > 0 ) {
 						$tableText .= "|-\n";
@@ -525,7 +525,7 @@ END;
 					$tableText .= " }}";
 				}
 				$tableText .= "\n";
-			} elseif ( !is_null( $internalObjText ) ) {
+			} elseif ( $internalObjText !== null ) {
 				if ( $separator != '' ) {
 					$tableText .= "$separator ";
 				}
@@ -561,7 +561,7 @@ END;
 
 		// Add an inline query to the output text, for
 		// aggregation, if a property was specified.
-		if ( !is_null( $this->mAggregatingProperty ) && $this->mAggregatingProperty !== '' ) {
+		if ( $this->mAggregatingProperty !== null && $this->mAggregatingProperty !== '' ) {
 			if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 				if ( count( $this->mTemplateFields ) > 0 ) {
 					$tableText .= "|-\n";
@@ -583,7 +583,7 @@ END;
 		// Leave out newlines if there's an internal property
 		// set here (which would mean that there are meant to be
 		// multiple instances of this template.)
-		if ( is_null( $internalObjText ) ) {
+		if ( $internalObjText === null ) {
 			if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 				$tableText .= "\n";
 			}

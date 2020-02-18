@@ -114,7 +114,7 @@ class PFTemplateField {
 		$this->mCargoTable = $tableName;
 		$this->mCargoField = $fieldName;
 
-		if ( is_null( $fieldDescription ) ) {
+		if ( $fieldDescription === null ) {
 			try {
 				$tableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
 			} catch ( MWException $e ) {
@@ -290,7 +290,7 @@ class PFTemplateField {
 
 		// Not a list.
 		$fieldParam = '{{{' . $this->mFieldName . '|}}}';
-		if ( is_null( $this->mNamespace ) ) {
+		if ( $this->mNamespace === null ) {
 			$fieldString = $fieldParam;
 		} else {
 			$fieldString = $this->mNamespace . ':' . $fieldParam;
@@ -309,7 +309,7 @@ class PFTemplateField {
 				return $fieldString;
 			}
 			return $fieldString;
-		} elseif ( is_null( $this->mNamespace ) ) {
+		} elseif ( $this->mNamespace === null ) {
 			return "[[$fieldProperty::$fieldString]]";
 		} else {
 			// Special handling is needed, for at

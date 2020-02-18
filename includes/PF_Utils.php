@@ -129,10 +129,10 @@ class PFUtils {
 	 */
 	public static function linkText( $namespace, $name, $text = null ) {
 		$title = Title::makeTitleSafe( $namespace, $name );
-		if ( is_null( $title ) ) {
+		if ( $title === null ) {
 			return $name; // TODO maybe report an error here?
 		}
-		if ( is_null( $text ) ) {
+		if ( $text === null ) {
 			return '[[:' . $title->getPrefixedText() . '|' . $name . ']]';
 		} else {
 			return '[[:' . $title->getPrefixedText() . '|' . $text . ']]';

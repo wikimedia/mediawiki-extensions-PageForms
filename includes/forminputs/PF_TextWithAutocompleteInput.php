@@ -89,7 +89,7 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		if ( array_key_exists( 'origName', $other_args ) ) {
 			$inputAttrs['origName'] = $other_args['origName'];
 		}
-		if ( !is_null( $remoteDataType ) ) {
+		if ( $remoteDataType !== null ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
 		if ( $is_disabled ) {

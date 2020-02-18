@@ -170,7 +170,7 @@ END;
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
-		if ( !is_null( $query ) ) {
+		if ( $query !== null ) {
 			$presetTemplateName = str_replace( '_', ' ', $query );
 			$out->setPageTitle( wfMessage( 'pf-createtemplate-with-name', $presetTemplateName )->text() );
 			$template_name = $presetTemplateName;
@@ -251,7 +251,7 @@ END;
 		}
 
 		$text .= '	<form id="createTemplateForm" action="" method="post">' . "\n";
-		if ( is_null( $presetTemplateName ) ) {
+		if ( $presetTemplateName === null ) {
 			// Set 'title' field, in case there's no URL niceness.
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$text .= "\t<p id=\"template_name_p\">" .

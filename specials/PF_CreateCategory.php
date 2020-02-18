@@ -39,7 +39,7 @@ class PFCreateCategory extends SpecialPage {
 
 		// Cycle through the query values, setting the appropriate
 		// local variables.
-		if ( !is_null( $query ) ) {
+		if ( $query !== null ) {
 			$presetCategoryName = str_replace( '_', ' ', $query );
 			$out->setPageTitle( wfMessage( 'pf-createcategory-with-name', $presetCategoryName )->text() );
 			$category_name = $presetCategoryName;
@@ -78,12 +78,12 @@ class PFCreateCategory extends SpecialPage {
 		// Set 'title' as hidden field, in case there's no URL niceness.
 		$text = "\t" . '<form action="" method="post">' . "\n";
 		$firstRow = '';
-		if ( is_null( $presetCategoryName ) ) {
+		if ( $presetCategoryName === null ) {
 			$text .= "\t" . Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$firstRow .= wfMessage( 'pf_createcategory_name' )->escaped() . ' ' .
 				Html::input( 'category_name', null, 'text',
 					[ 'size' => 25 ] ) . "\n";
-			if ( !is_null( $category_name_error_str ) ) {
+			if ( $category_name_error_str !== null ) {
 				$firstRow .= Html::element( 'span',
 					[ 'style' => 'color: red;' ],
 					$category_name_error_str ) . "\n";

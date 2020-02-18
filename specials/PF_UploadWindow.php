@@ -24,7 +24,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$this->loadRequest( $request instanceof WebRequest ? $request : $this->getRequest() );
 	}
 
-	/** Misc variables **/
+	/** Misc variables */
 	public $mRequest;			// The WebRequest or FauxRequest this form is supposed to handle
 	public $mSourceType;
 	/** @var UploadBase */
@@ -35,23 +35,23 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	protected $mTextTop;
 	protected $mTextAfterSummary;
 
-	/** User input variables from the "description" section **/
+	/** User input variables from the "description" section */
 	public $mDesiredDestName;	// The requested target file name
 	public $mComment;
 	public $mLicense;
 
-	/** User input variables from the root section **/
+	/** User input variables from the root section */
 	public $mIgnoreWarning;
 	public $mWatchThis;
 	public $mCopyrightStatus;
 	public $mCopyrightSource;
 
-	/** Hidden variables **/
+	/** Hidden variables */
 	public $mForReUpload;		// The user followed an "overwrite this file" link
 	public $mCancelUpload;		// The user clicked "Cancel and return to upload form" button
 	public $mTokenOk;
 
-	/** used by Page Forms **/
+	/** used by Page Forms */
 	public $mInputID;
 	public $mDelimiter;
 
@@ -535,7 +535,7 @@ END;
 		global $wgFileExtensions;
 
 		switch ( $details['status'] ) {
-			/** Statuses that only require name changing **/
+			/** Statuses that only require name changing */
 			case UploadBase::MIN_LENGTH_PARTNAME:
 				$this->recoverableUploadError( wfMessage( 'minlength1' )->escaped() );
 				break;
@@ -550,7 +550,7 @@ END;
 				$this->recoverableUploadError( wfMessage( 'filetype-missing' )->parse() );
 				break;
 
-			/** Statuses that require reuploading **/
+			/** Statuses that require reuploading */
 			case UploadBase::FILE_TOO_LARGE:
 				$this->showUploadForm( $this->getUploadForm( wfMessage( 'file-too-large' )->escaped() ) );
 				break;
@@ -605,7 +605,7 @@ END;
 		}
 	}
 
-	/*** Functions for formatting warnings ***/
+	/** Functions for formatting warnings */
 
 	/**
 	 * Formats a result of UploadBase::getExistsWarning as HTML

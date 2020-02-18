@@ -55,7 +55,7 @@ class PFCreateForm extends SpecialPage {
 		$req = $this->getRequest();
 		$db = wfGetDB( DB_REPLICA );
 
-		if ( !is_null( $query ) ) {
+		if ( $query !== null ) {
 			$presetFormName = str_replace( '_', ' ', $query );
 			$out->setPageTitle( wfMessage( 'pf-createform-with-name', $presetFormName )->text() );
 			$form_name = $presetFormName;
@@ -279,7 +279,7 @@ class PFCreateForm extends SpecialPage {
 		}
 
 		$text = "\t" . '<form action="" method="post">' . "\n";
-		if ( is_null( $presetFormName ) ) {
+		if ( $presetFormName === null ) {
 			// Set 'title' field, in case there's no URL niceness
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() );
 			$text .= "\n\t<p><label>" . wfMessage( 'pf_createform_nameinput' )->escaped() .
@@ -516,10 +516,10 @@ END;
 
 END;
 		global $wgPageFormsFormPrinter;
-		if ( !is_null( $template_field->getPropertyType() ) ) {
+		if ( $template_field->getPropertyType() !== null ) {
 			$default_input_type = $wgPageFormsFormPrinter->getDefaultInputTypeSMW( $template_field->isList(), $template_field->getPropertyType() );
 			$possible_input_types = $wgPageFormsFormPrinter->getPossibleInputTypesSMW( $template_field->isList(), $template_field->getPropertyType() );
-		} elseif ( !is_null( $template_field->getFieldType() ) ) {
+		} elseif ( $template_field->getFieldType() !== null ) {
 			$default_input_type = $wgPageFormsFormPrinter->getDefaultInputTypeCargo( $template_field->isList(), $template_field->getFieldType() );
 			$possible_input_types = $wgPageFormsFormPrinter->getPossibleInputTypesCargo( $template_field->isList(), $template_field->getFieldType() );
 		} else {
@@ -534,9 +534,9 @@ END;
 		}
 		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $field->getInputType() ) . "</label>\n";
 
-		if ( !is_null( $field->getInputType() ) ) {
+		if ( $field->getInputType() !== null ) {
 			$cur_input_type = $field->getInputType();
-		} elseif ( !is_null( $default_input_type ) ) {
+		} elseif ( $default_input_type !== null ) {
 			$cur_input_type = $default_input_type;
 		} else {
 			$cur_input_type = $possible_input_types[0];
@@ -568,7 +568,7 @@ END;
 	}
 
 	function inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $cur_input_type ) {
-		if ( !is_null( $default_input_type ) ) {
+		if ( $default_input_type !== null ) {
 			array_unshift( $possible_input_types, $default_input_type );
 		}
 		// create the dropdown HTML for a list of possible input types

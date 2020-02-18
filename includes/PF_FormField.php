@@ -362,7 +362,7 @@ class PFFormField {
 		// If we're using Cargo, there's no equivalent for "values from
 		// property" - instead, we just always get the values if a
 		// field and table have been specified.
-		if ( is_null( $f->mPossibleValues ) && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
+		if ( $f->mPossibleValues === null && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
 			// We only want the non-null values. Ideally this could
 			// be done by calling getValuesForCargoField() with
 			// an "IS NOT NULL" clause, but unfortunately that fails
@@ -374,7 +374,7 @@ class PFFormField {
 		}
 
 		$mappingType = null;
-		if ( !is_null( $f->mPossibleValues ) ) {
+		if ( $f->mPossibleValues !== null ) {
 			if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
 				$mappingType = 'template';
 			} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
@@ -427,12 +427,12 @@ class PFFormField {
 			// it seemed like too much work, though, to create an
 			// PFFormField::setSemanticProperty() function just for
 			// this call.
-			if ( !is_null( $semantic_property ) ) {
+			if ( $semantic_property !== null ) {
 				$f->template_field->setSemanticProperty( $semantic_property );
 			} else {
 				$semantic_property = $f->template_field->getSemanticProperty();
 			}
-			if ( !is_null( $semantic_property ) ) {
+			if ( $semantic_property !== null ) {
 				global $wgPageFormsFieldProperties;
 				$wgPageFormsFieldProperties[$fullFieldName] = $semantic_property;
 			}
@@ -442,7 +442,7 @@ class PFFormField {
 				$f->template_field->setCargoFieldData( $cargo_table, $cargo_field );
 			}
 			$fullCargoField = $f->template_field->getFullCargoField();
-			if ( !is_null( $fullCargoField ) ) {
+			if ( $fullCargoField !== null ) {
 				global $wgPageFormsCargoFields;
 				$wgPageFormsCargoFields[$fullFieldName] = $fullCargoField;
 			}
@@ -550,7 +550,7 @@ class PFFormField {
 				}
 				if ( is_array( $field_query_val ) ) {
 					$cur_values = [];
-					if ( $map_field && !is_null( $this->mPossibleValues ) ) {
+					if ( $map_field && $this->mPossibleValues !== null ) {
 						$cur_values = [];
 						foreach ( $field_query_val as $key => $val ) {
 							$val = trim( $val );
@@ -568,7 +568,7 @@ class PFFormField {
 					return PFFormPrinter::getStringFromPassedInArray( $cur_values, $delimiter );
 				} else {
 					$field_query_val = trim( $field_query_val );
-					if ( $map_field && !is_null( $this->mPossibleValues ) ) {
+					if ( $map_field && $this->mPossibleValues !== null ) {
 						// this should be replaced with an input type neutral way of
 						// figuring out if this scalar input type is a list
 						if ( $this->mInputType == "tokens" ) {
@@ -603,7 +603,7 @@ class PFFormField {
 		$part_of_multiple = array_key_exists( 'part_of_multiple', $this->mFieldArgs );
 		$printing_starter_instance = $part_of_multiple && $all_instances_printed;
 		if ( ( !$source_is_page || $printing_starter_instance ) && !$form_submitted ) {
-			if ( !is_null( $this->mDefaultValue ) ) {
+			if ( $this->mDefaultValue !== null ) {
 				// Set to the default value specified in the form, if it's there.
 				return $this->mDefaultValue;
 			} elseif ( $this->mPreloadPage ) {
@@ -728,10 +728,10 @@ class PFFormField {
 	 */
 	public function valueStringToLabels( $valueString, $delimiter ) {
 		if ( strlen( trim( $valueString ) ) === 0 ||
-			is_null( $this->mPossibleValues ) ) {
+			$this->mPossibleValues === null ) {
 			return $valueString;
 		}
-		if ( !is_null( $delimiter ) ) {
+		if ( $delimiter !== null ) {
 			$values = array_map( 'trim', explode( $delimiter, $valueString ) );
 		} else {
 			$values = [ $valueString ];
@@ -871,7 +871,7 @@ class PFFormField {
 		$text .= "{{{field|" . $this->template_field->getFieldName();
 		if ( $this->mIsHidden ) {
 			$text .= "|hidden";
-		} elseif ( !is_null( $this->getInputType() ) ) {
+		} elseif ( $this->getInputType() !== null ) {
 			$text .= "|input type=" . $this->getInputType();
 		}
 		foreach ( $this->mFieldArgs as $arg => $value ) {

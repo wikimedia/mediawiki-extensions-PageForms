@@ -32,7 +32,7 @@ class PFDateInput extends PFFormInput {
 		// Add a "null" value at the beginning.
 		array_unshift( $month_names, null );
 		foreach ( $month_names as $i => $name ) {
-			if ( is_null( $name ) ) {
+			if ( $name === null ) {
 				$month_value = null;
 			} else {
 				// Pad out month to always be two digits.

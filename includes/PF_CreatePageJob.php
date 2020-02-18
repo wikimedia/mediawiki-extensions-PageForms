@@ -24,7 +24,7 @@ class PFCreatePageJob extends Job {
 	 * @return bool success
 	 */
 	function run() {
-		if ( is_null( $this->title ) ) {
+		if ( $this->title === null ) {
 			$this->error = "createPage: Invalid title";
 			return false;
 		}

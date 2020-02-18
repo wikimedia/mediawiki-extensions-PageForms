@@ -48,7 +48,7 @@ class PFTemplateInForm {
 		$tif = new PFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', $name );
 		$tif->mFields = [];
-		if ( is_null( $formFields ) ) {
+		if ( $formFields === null ) {
 			$template = PFTemplate::newFromName( $tif->mTemplateName );
 			$fields = $template->getTemplateFields();
 			foreach ( $fields as $field ) {
@@ -286,7 +286,7 @@ class PFTemplateInForm {
 		// $query_template_name = str_replace( "'", "\'", $query_template_name );
 
 		$allValuesFromSubmit = $wgRequest->getArray( $query_template_name );
-		if ( is_null( $allValuesFromSubmit ) ) {
+		if ( $allValuesFromSubmit === null ) {
 			return;
 		}
 		// If this is a multiple-instance template, get the values for

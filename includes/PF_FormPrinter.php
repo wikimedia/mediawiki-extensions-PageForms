@@ -299,10 +299,10 @@ class PFFormPrinter {
 		// So, the HTML will be stored in $text.
 		$text = "\t" . '<div class="multipleTemplateWrapper">' . "\n";
 		$attrs = [ 'class' => 'multipleTemplateList' ];
-		if ( !is_null( $tif->getMinInstancesAllowed() ) ) {
+		if ( $tif->getMinInstancesAllowed() !== null ) {
 			$attrs['minimumInstances'] = $tif->getMinInstancesAllowed();
 		}
-		if ( !is_null( $tif->getMaxInstancesAllowed() ) ) {
+		if ( $tif->getMaxInstancesAllowed() !== null ) {
 			$attrs['maximumInstances'] = $tif->getMaxInstancesAllowed();
 		}
 		if ( $tif->getDisplayedFieldsWhenMinimized() != null ) {
@@ -679,16 +679,16 @@ END;
 					}
 					// If there's a day, include whatever
 					// time information we have.
-					if ( !is_null( $hour ) ) {
+					if ( $hour !== null ) {
 						$new_value .= " " . str_pad( intval( substr( $hour, 0, 2 ) ), 2, '0', STR_PAD_LEFT ) . ":" . str_pad( intval( substr( $minute, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 					}
-					if ( !is_null( $second ) ) {
+					if ( $second !== null ) {
 						$new_value .= ":" . str_pad( intval( substr( $second, 0, 2 ) ), 2, '0', STR_PAD_LEFT );
 					}
-					if ( !is_null( $ampm24h ) ) {
+					if ( $ampm24h !== null ) {
 						$new_value .= " $ampm24h";
 					}
-					if ( !is_null( $timezone ) ) {
+					if ( $timezone !== null ) {
 						$new_value .= " $timezone";
 					}
 					return $new_value;
@@ -813,7 +813,7 @@ END;
 		// deleted before.
 		if ( !$form_submitted &&
 			( $this->mPageTitle && !$this->mPageTitle->exists() &&
-			is_null( $page_name_formula ) )
+			$page_name_formula === null )
 		) {
 			$this->showDeletionLog( $wgOut );
 		}
@@ -1100,7 +1100,7 @@ END;
 						} else {
 							$wgPageFormsTabIndex++;
 							$wgPageFormsFieldNum++;
-							if ( $cur_value === '' || is_null( $cur_value ) ) {
+							if ( $cur_value === '' || $cur_value === null ) {
 								$default_value = '!free_text!';
 							} else {
 								$default_value = $cur_value;
@@ -1719,7 +1719,7 @@ END;
 
 		// Add a warning in, if we're editing an existing page and that
 		// page appears to not have been created with this form.
-		if ( !$is_query && is_null( $page_name_formula ) &&
+		if ( !$is_query && $page_name_formula === null &&
 			$this->mPageTitle->exists() && $existing_page_content !== ''
 			&& !$source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningbox">' .

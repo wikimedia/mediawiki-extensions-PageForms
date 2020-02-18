@@ -103,7 +103,7 @@ class PFComboBoxInput extends PFFormInput {
 		if ( array_key_exists( 'placeholder', $other_args ) ) {
 			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
-		if ( !is_null( $remoteDataType ) ) {
+		if ( $remoteDataType !== null ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
 		if ( array_key_exists( 'namespace', $other_args ) ) {

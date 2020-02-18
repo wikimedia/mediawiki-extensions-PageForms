@@ -32,7 +32,7 @@ class PFTextAreaWithAutocompleteInput extends PFTextAreaInput {
 		$is_list = ( array_key_exists( 'is_list', $this->mOtherArgs ) && $this->mOtherArgs['is_list'] == true );
 		list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFValuesUtils::setAutocompleteValues( $this->mOtherArgs, $is_list );
 
-		if ( !is_null( $remoteDataType ) ) {
+		if ( $remoteDataType !== null ) {
 			$textarea_attrs['autocompletedatatype'] = $remoteDataType;
 		}
 		$textarea_attrs['autocompletesettings'] = $autocompleteSettings;

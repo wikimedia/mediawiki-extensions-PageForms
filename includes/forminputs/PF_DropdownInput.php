@@ -36,7 +36,7 @@ class PFDropdownInput extends PFEnumInput {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		// Standardize $cur_value
-		if ( is_null( $cur_value ) ) {
+		if ( $cur_value === null ) {
 			$cur_value = '';
 		}
 
