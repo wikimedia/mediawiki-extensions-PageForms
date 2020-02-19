@@ -10,35 +10,10 @@
 /**
  * @ingroup PFSpecialPages
  */
-class PFTemplates extends SpecialPage {
-
-	function __construct() {
-		parent::__construct( 'Templates' );
-	}
-
-	function execute( $query ) {
-		$this->setHeaders();
-		list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
-		$rep = new TemplatesPage();
-		$rep->execute( $query );
-	}
-
-	protected function getGroupName() {
-		return 'pages';
-	}
-}
-
-/**
- * @ingroup PFSpecialPages
- */
-class TemplatesPage extends QueryPage {
+class PFTemplates extends QueryPage {
 
 	public function __construct( $name = 'Templates' ) {
 		parent::__construct( $name );
-	}
-
-	function getName() {
-		return "Templates";
 	}
 
 	function isExpensive() {
@@ -100,5 +75,9 @@ class TemplatesPage extends QueryPage {
 			)->parse();
 		}
 		return $text;
+	}
+
+	protected function getGroupName() {
+		return 'pf_group';
 	}
 }

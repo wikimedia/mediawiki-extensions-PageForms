@@ -10,34 +10,10 @@
 /**
  * @ingroup PFSpecialPages
  */
-class PFForms extends SpecialPage {
+class PFForms extends QueryPage {
 
-	function __construct() {
-		parent::__construct( 'Forms' );
-	}
-
-	function execute( $query ) {
-		$this->setHeaders();
-		list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
-		$rep = new FormsPage();
-		return $rep->execute( $query );
-	}
-
-	protected function getGroupName() {
-		return 'pages';
-	}
-}
-
-/**
- * @ingroup PFSpecialPages
- */
-class FormsPage extends QueryPage {
 	public function __construct( $name = 'Forms' ) {
 		parent::__construct( $name );
-	}
-
-	function getName() {
-		return "Forms";
 	}
 
 	function isExpensive() {
@@ -71,5 +47,9 @@ class FormsPage extends QueryPage {
 	function formatResult( $skin, $result ) {
 		$title = Title::makeTitle( PF_NS_FORM, $result->value );
 		return $this->getLinkRenderer()->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
+	}
+
+	protected function getGroupName() {
+		return 'pf_group';
 	}
 }
