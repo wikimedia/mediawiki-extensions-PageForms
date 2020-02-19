@@ -99,7 +99,6 @@
 		"PFUploadSourceField": "specials/PF_UploadSourceField.php",
 		"PFUploadWindow": "specials/PF_UploadWindow.php",
 		"PFTemplateField": "includes/PF_TemplateField.php",
-		"SpreadsheetTemplatesPage": "specials/PF_MultiPageEdit.php",
 		"PFForm": "includes/PF_Form.php",
 		"PFTemplate": "includes/PF_Template.php",
 		"PFTemplateInForm": "includes/PF_TemplateInForm.php",

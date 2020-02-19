@@ -1,21 +1,26 @@
 <?php
+
 /**
- * Displays a spreadsheet interface for editing and adding pages for a particular
- * template. If no template is specified, displays a list of all available templates.
+ * Displays a spreadsheet interface for editing and adding pages for a
+ * particular template. If no template is specified, displays a list of all
+ * available templates.
  *
  *
  * @file
  * @ingroup PF
  * @author Yashdeep Thorat
+ * @author Yaron Koren
  */
 
 /**
  * @ingroup PFSpecialPages
  */
-class PFMultiPageEdit extends SpecialPage {
+class PFMultiPageEdit extends QueryPage {
 
 	public $mTemplate;
 	public $mForm;
+	private $mTemplateInForm = [];
+	private $mTemplatesUsed = [];
 
 	function __construct() {
 		parent::__construct( 'MultiPageEdit', 'multipageedit' );
@@ -32,28 +37,25 @@ class PFMultiPageEdit extends SpecialPage {
 
 		$this->mTemplate = $this->getRequest()->getText( 'template' );
 		$this->mForm = $this->getRequest()->getText( 'form' );
-		// If a template is not specified, list all the available templates.
-		if ( empty( $this->mTemplate ) ) {
-			list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
-			$rep = new SpreadsheetTemplatesPage();
-			$rep->execute( $query );
+
+		// If the template and form are both specified, show the
+		// editable spreadsheet; otherwise, show the list of templates.
+		if ( $this->mTemplate != '' && $this->mForm != '' ) {
+			$this->displaySpreadsheet( $this->mTemplate, $this->mForm );
 		} else {
-			if ( empty( $this->mForm ) ) {
-				list( $limit, $offset ) = $this->getRequest()->getLimitOffset();
-				$rep = new SpreadsheetTemplatesPage();
-				$rep->execute( $query );
-			} else {
-				$this->createSpreadsheet( $this->mTemplate, $this->mForm );
-			}
+			$this->setTemplateList();
+			parent::execute( $query );
 		}
 	}
 
 	/**
-	 * Creates the spreadsheet Interface for a template and dislpays all the
-	 * template calls( instances ) as rows.
+	 * Displays the spreadsheet interface for a template, with each
+	 * template call/instance as a row.
+	 *
 	 * @param string $template_name
+	 * @param string $form_name
 	 */
-	private function createSpreadsheet( $template_name, $form_name ) {
+	private function displaySpreadsheet( $template_name, $form_name ) {
 		global $wgPageFormsGridParams, $wgPageFormsScriptPath;
 		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
 
@@ -151,26 +153,12 @@ class PFMultiPageEdit extends SpecialPage {
 		$out->addHTML( $text );
 	}
 
-	protected function getGroupName() {
-		return 'pf_group';
-	}
-}
-
-/**
- * @ingroup PFSpecialPages
- */
-class SpreadsheetTemplatesPage extends QueryPage {
-
-	private $templateInForm = [];
-	private $templatesUsed = [];
-
 	/**
-	 * This function is used to find all the non-repeating templates in all the
-	 * forms available in the wiki and store them along with the form names
-	 * in an array using helper functions.
-	 * @param string $name
+	 * This function is used to find all the non-repeating templates in
+	 * all the forms available in the wiki and store them along with the
+	 * form names in an array using helper functions.
 	 */
-	public function __construct( $name = 'MultiPageEdit' ) {
+	function setTemplateList() {
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
 			[ 'page' ],
@@ -181,14 +169,8 @@ class SpreadsheetTemplatesPage extends QueryPage {
 			[]
 		);
 		while ( $row = $dbr->fetchRow( $res ) ) {
-			$formTitle = Title::makeTitle( PF_NS_FORM, $row['page_title'] );
-			$this->findTemplates( $formTitle );
+			$this->findTemplatesForForm( $row['page_title'] );
 		}
-		parent::__construct( $name );
-	}
-
-	function getName() {
-		return "MultiPageEdit";
 	}
 
 	function isExpensive() {
@@ -219,7 +201,8 @@ class SpreadsheetTemplatesPage extends QueryPage {
 		return false;
 	}
 
-	function findTemplates( $formTitle ) {
+	function findTemplatesForForm( $formName ) {
+		$formTitle = Title::makeTitle( PF_NS_FORM, $formName );
 		$formWikiPage = WikiPage::factory( $formTitle );
 		$formContent = $formWikiPage->getContent( Revision::RAW )->getNativeData();
 		$start_position = 0;
@@ -231,11 +214,11 @@ class SpreadsheetTemplatesPage extends QueryPage {
 			if ( $tag_title == 'for template' ) {
 				if ( count( $tag_components ) > 1 ) {
 					$templateName = $tag_components[1];
-					if ( array_key_exists( $templateName, $this->templatesUsed ) ) {
-						unset( $this->templateInForm[$templateName] );
+					if ( array_key_exists( $templateName, $this->mTemplatesUsed ) ) {
+						unset( $this->mTemplateInForm[$templateName] );
 					} else {
-						$this->templateInForm[$templateName] = $formTitle->getText();
-						$this->templatesUsed[$templateName] = $formTitle->getText();
+						$this->mTemplateInForm[$templateName] = $formTitle->getText();
+						$this->mTemplatesUsed[$templateName] = $formTitle->getText();
 					}
 				}
 			}
@@ -244,10 +227,10 @@ class SpreadsheetTemplatesPage extends QueryPage {
 	}
 
 	function getFormForTemplate( $templateName ) {
-		if ( !array_key_exists( $templateName, $this->templateInForm ) ) {
+		if ( !array_key_exists( $templateName, $this->mTemplateInForm ) ) {
 			return null;
 		}
-		return $this->templateInForm[$templateName];
+		return $this->mTemplateInForm[$templateName];
 	}
 
 	function formatResult( $skin, $result ) {
@@ -256,11 +239,13 @@ class SpreadsheetTemplatesPage extends QueryPage {
 		if ( $formName == null ) {
 			return false;
 		}
-		$templateTitle = Title::makeTitle( NS_TEMPLATE, $templateName );
 		$linkRenderer = $this->getLinkRenderer();
-		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
-		$linkParams = [ 'template' => $templateTitle->getText(), 'form' => $formName ];
-		$text = $linkRenderer->makeKnownLink( $sp->getPageTitle(), $templateTitle->getText(), [], $linkParams );
+		$linkParams = [ 'template' => $templateName, 'form' => $formName ];
+		$text = $linkRenderer->makeKnownLink( $this->getTitle(), $templateName, [], $linkParams );
 		return $text;
+	}
+
+	protected function getGroupName() {
+		return 'pf_group';
 	}
 }
