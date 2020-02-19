@@ -4,7 +4,8 @@
 			"Michawiki",
 			"Yekrats",
 			"KuboF",
-			"Psychoslave"
+			"Psychoslave",
+			"Robin van der Vliet"
 		]
 	},
 	"pageforms-desc": "Formularoj por aldonado kaj redaktado de semantikaj datumoj",
@@ -78,7 +79,7 @@
 	"pf_runquery_additionalquery": "Aldona serĉomendo",
 	"pf_formerrors_header": "Estis eraroj kun via kampara enigo, jene:",
 	"pf_blank_error": "ne povas esti malplena",
-	"pf_bad_url_error": "nepre havas la korektan URL-formaton, komence kun 'http'",
+	"pf_bad_url_error": "nepre havu la ĝustan URL-formaton, komence kun 'http'",
 	"pf_bad_email_error": "devas havi validan formaton de retpoŝta adreso",
 	"pf_bad_number_error": "devas esti valida nombro",
 	"pf_bad_integer_error": "devas esti valida enjero",
