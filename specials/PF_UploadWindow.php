@@ -340,12 +340,12 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		// Fetch the file if required
 		$status = $this->mUpload->fetchFile();
 		$output = $this->getOutput();
-		if ( method_exists( $output, 'parseAsInterface' ) ) {
-			$statusText = $output->parseAsInterface( $status->getWikiText() );
-		} else {
-			$statusText = $output->parse( $status->getWikiText() );
-		}
 		if ( !$status->isOK() ) {
+			if ( method_exists( $output, 'parseAsInterface' ) ) {
+				$statusText = $output->parseAsInterface( $status->getWikiText() );
+			} else {
+				$statusText = $output->parse( $status->getWikiText() );
+			}
 			return $this->showUploadForm( $this->getUploadForm( $statusText ) );
 		}
 
