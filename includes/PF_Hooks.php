@@ -310,7 +310,8 @@ class PFHooks {
 		$templateTitle = Title::newFromID( $templateIDs[0] );
 		$templateName = $templateTitle->getText();
 		if ( self::$mMultiPageEditPage == null ) {
-			self::$mMultiPageEditPage = new SpreadsheetTemplatesPage();
+			self::$mMultiPageEditPage = new PFMultiPageEdit();
+			self::$mMultiPageEditPage->setTemplateList();
 		}
 		$formName = self::$mMultiPageEditPage->getFormForTemplate( $templateName );
 		if ( $formName == null ) {
