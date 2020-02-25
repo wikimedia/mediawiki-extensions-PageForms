@@ -817,13 +817,12 @@ END;
 		) {
 			$this->showDeletionLog( $wgOut );
 		}
-		// Unfortunately, we can't just call userCan() here because,
-		// since MW 1.16, it has a bug in which it ignores a setting of
+		// Unfortunately, we can't just call userCan() or its
+		// equivalent here because it seems to ignore the setting
 		// "$wgEmailConfirmToEdit = true;". Instead, we'll just get the
 		// permission errors from the start, and use those to determine
 		// whether the page is editable.
 		if ( !$is_query ) {
-			// $userCanEditPage = ( $wgUser->isAllowed( 'edit' ) && $this->mPageTitle->userCan( 'edit' ) );
 			$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
 			// The handling of $wgReadOnly and $wgReadOnlyFile
 			// has to be done separately.

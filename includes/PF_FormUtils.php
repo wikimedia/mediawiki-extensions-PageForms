@@ -308,25 +308,41 @@ END;
 		return $text;
 	}
 
-	// based on MediaWiki's EditPage::getPreloadedText()
+	// Loosely based on MediaWiki's EditPage::getPreloadedContent().
 	static function getPreloadedText( $preload ) {
 		if ( $preload === '' ) {
 			return '';
-		} else {
-			$preloadTitle = Title::newFromText( $preload );
-			if ( isset( $preloadTitle ) && $preloadTitle->userCan( 'read' ) ) {
-				$rev = Revision::newFromTitle( $preloadTitle );
-				if ( is_object( $rev ) ) {
-					$content = $rev->getContent();
-					$text = ContentHandler::getContentText( $content );
-					// Remove <noinclude> sections and <includeonly> tags from text
-					$text = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $text );
-					$text = strtr( $text, [ '<includeonly>' => '', '</includeonly>' => '' ] );
-					return $text;
-				}
-			}
+		}
+
+		$preloadTitle = Title::newFromText( $preload );
+		if ( !isset( $preloadTitle ) ) {
 			return '';
 		}
+
+		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCan' ) ) {
+			// MW 1.33+
+			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+			$user = RequestContext::getMain()->getUser();
+			if ( !$permissionManager->userCan( 'read', $user, $preloadTitle ) ) {
+				return '';
+			}
+		} else {
+			if ( !$preloadTitle->userCan( 'read' ) ) {
+				return '';
+			}
+		}
+
+		$rev = Revision::newFromTitle( $preloadTitle );
+		if ( !is_object( $rev ) ) {
+			return '';
+		}
+
+		$content = $rev->getContent();
+		$text = ContentHandler::getContentText( $content );
+		// Remove <noinclude> sections and <includeonly> tags from text
+		$text = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $text );
+		$text = strtr( $text, [ '<includeonly>' => '', '</includeonly>' => '' ] );
+		return $text;
 	}
 
 	/**

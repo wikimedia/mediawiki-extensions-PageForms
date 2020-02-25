@@ -45,11 +45,9 @@ class PFHelperFormAction extends Action {
 	 * @return bool
 	 */
 	static function displayTab( $obj, &$links ) {
-		if ( method_exists( $obj, 'getTitle' ) ) {
-			$title = $obj->getTitle();
-		} else {
-			$title = $obj->mTitle;
-		}
+		$title = $obj->getTitle();
+		$user = $obj->getUser();
+
 		// Make sure that this page is in one of the relevant
 		// namespaces, and that it doesn't exist yet.
 		$namespacesWithHelperForms = [ NS_TEMPLATE, PF_NS_FORM, NS_CATEGORY ];
@@ -76,11 +74,15 @@ class PFHelperFormAction extends Action {
 
 		$content_actions = &$links['views'];
 
-		if ( $obj->getUser()->isAllowed( 'edit' ) && $title->userCan( 'edit' ) ) {
-			$form_create_tab_text = 'pf_formcreate';
+		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCant' ) ) {
+			// MW 1.33+
+			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+			$userCanEdit = $permissionManager->userCan( 'edit', $user, $title );
 		} else {
-			$form_create_tab_text = 'pf_viewform';
+			$userCanEdit = $title->userCan( 'edit', $user ) && $user->isAllowed( 'edit' );
 		}
+		$form_create_tab_text = ( $userCanEdit ) ? 'pf_formcreate' : 'pf_viewform';
+
 		$class_name = ( $obj->getRequest()->getVal( 'action' ) == 'formcreate' ) ? 'selected' : '';
 		$form_create_tab = [
 			'class' => $class_name,

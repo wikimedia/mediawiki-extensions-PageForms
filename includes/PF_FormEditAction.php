@@ -48,11 +48,9 @@ class PFFormEditAction extends Action {
 	 * @return true
 	 */
 	static function displayTab( $obj, &$links ) {
-		if ( method_exists( $obj, 'getTitle' ) ) {
-			$title = $obj->getTitle();
-		} else {
-			$title = $obj->mTitle;
-		}
+		$title = $obj->getTitle();
+		$user = $obj->getUser();
+
 		// Make sure that this is not a special page, and
 		// that the user is allowed to edit it
 		// - this function is almost never called on special pages,
@@ -73,7 +71,14 @@ class PFFormEditAction extends Action {
 
 		$content_actions = &$links['views'];
 
-		$user_can_edit = $title->userCan( 'edit' );
+		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCan' ) ) {
+			// MW 1.33+
+			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+			$user_can_edit = $permissionManager->userCan( 'edit', $user, $title );
+		} else {
+			$user_can_edit = $title->userCan( 'edit', $user );
+		}
+
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
 		if ( $wgPageFormsRenameEditTabs ) {
