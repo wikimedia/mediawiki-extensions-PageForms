@@ -13,6 +13,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 class PFFormPrinter {
 
 	public $mSemanticTypeHooks;
@@ -823,7 +825,13 @@ END;
 		// permission errors from the start, and use those to determine
 		// whether the page is editable.
 		if ( !$is_query ) {
-			$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
+			if ( class_exists( 'MediaWiki\Permissions\PermissionManager' ) ) {
+				// MW 1.33+
+				$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
+					->getPermissionErrors( 'edit', $wgUser, $this->mPageTitle );
+			} else {
+				$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
+			}
 			// The handling of $wgReadOnly and $wgReadOnlyFile
 			// has to be done separately.
 			if ( wfReadOnly() ) {

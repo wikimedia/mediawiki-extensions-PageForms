@@ -5,6 +5,7 @@
  * @ingroup PageForms
  */
 
+use MediaWiki\MediaWikiServices;
 use Wikimedia\AtEase\AtEase;
 
 /**
@@ -393,16 +394,31 @@ class PFAutoeditAPI extends ApiBase {
 			$this->logMessage( wfMessage( 'pf_autoedit_redlinkexists' )->parse(), self::WARNING );
 		}
 
-		$permErrors = $title->getUserPermissionsErrors( 'edit', $this->getUser() );
+		$user = $this->getUser();
+
+		if ( class_exists( 'MediaWiki\Permissions\PermissionManager' ) ) {
+			// MW 1.33+
+			$permManager = MediaWikiServices::getInstance()->getPermissionManager();
+			$permErrors = $permManager->getPermissionErrors( 'edit', $user, $title );
+		} else {
+			$permManager = null;
+			$permErrors = $title->getUserPermissionsErrors( 'edit', $user );
+		}
 
 		// if this title needs to be created, user needs create rights
 		if ( !$title->exists() ) {
-			$permErrors = array_merge( $permErrors, wfArrayDiff2( $title->getUserPermissionsErrors( 'create', $this->getUser() ), $permErrors ) );
+			if ( $permManager != null ) {
+				// MW 1.33+
+				$permErrorsForCreate = $permManager->getPermissionErrors( 'create', $user, $title );
+			} else {
+				$permErrorsForCreate = $title->getUserPermissionsErrors( 'create', $user );
+			}
+			$permErrors = array_merge( $permErrors, wfArrayDiff2( $permErrorsForCreate, $permErrors ) );
 		}
 
 		if ( $permErrors ) {
 			// Auto-block user's IP if the account was "hard" blocked
-			$this->getUser()->spreadAnyEditBlock();
+			$user->spreadAnyEditBlock();
 
 			foreach ( $permErrors as $error ) {
 				$this->logMessage( call_user_func_array( 'wfMessage', $error )->parse() );
@@ -413,7 +429,7 @@ class PFAutoeditAPI extends ApiBase {
 
 		$resultDetails = false;
 		# Allow bots to exempt some edits from bot flagging
-		$bot = $this->getUser()->isAllowed( 'bot' ) && $editor->bot;
+		$bot = $user->isAllowed( 'bot' ) && $editor->bot;
 
 		$request = $editor->pfFauxRequest;
 		if ( $editor->tokenOk( $request ) ) {
