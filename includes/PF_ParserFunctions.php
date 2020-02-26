@@ -247,7 +247,7 @@ class PFParserFunctions {
 				// We call recursivePreprocess() and not
 				// recursiveTagParse() so that URL values will
 				// not be turned into links.
-				$value = trim( $parser->recursivePreprocess( $elements[1] ) );
+				$value = trim( $parser->recursivePreprocess( html_entity_decode( $elements[1], ENT_QUOTES ) ) );
 			} else {
 				$paramName = trim( $param );
 				$value = null;
