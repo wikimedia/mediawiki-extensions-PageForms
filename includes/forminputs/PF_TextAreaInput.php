@@ -315,9 +315,10 @@ class PFTextAreaInput extends PFFormInput {
 			if ( array_key_exists( 'max height', $this->mOtherArgs ) ) {
 				$maxHeight = (int)$this->mOtherArgs['max height'];
 			} else {
-				$maxHeight = 400;
+				$config = RequestContext::getMain()->getConfig();
+				$maxHeight = $config->get( 'PageFormsVisualEditorMaxHeight' );
 			}
-			$spanAttrs['style'] = "max-height: {$maxHeight}px; overflow-y: scroll;";
+			$spanAttrs['style'] = "max-height: {$maxHeight}px; overflow-y: auto;";
 		}
 
 		$text = Html::rawElement( 'span', $spanAttrs, $text );

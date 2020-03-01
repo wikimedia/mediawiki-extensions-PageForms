@@ -498,6 +498,7 @@
 		"ResourceLoaderRegisterModules": "PFHooks::registerModules"
 	},
 	"config": {
+		"PageFormsVisualEditorMaxHeight": 400,
 		"PageFormsUseDisplayTitle": true,
 		"PageFormsShowExpandAllLink": false,
 		"PageFormsSimpleUpload": false,
