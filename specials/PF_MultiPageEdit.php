@@ -195,7 +195,7 @@ class PFMultiPageEdit extends QueryPage {
 			'fields' => [ 'page_title AS title', 'page_title AS value' ],
 			'conds' => [
 				'page_namespace' => NS_TEMPLATE,
-				'page_title IN ("' . implode( '", "', array_keys( $this->mTemplateInForm ) ) . '") '
+				'page_title' => array_keys( $this->mTemplateInForm )
 			]
 		];
 	}
