@@ -216,7 +216,7 @@ class PFMultiPageEdit extends QueryPage {
 			$tag_title = trim( $tag_components[0] );
 			if ( $tag_title == 'for template' ) {
 				if ( count( $tag_components ) > 1 ) {
-					$templateName = $tag_components[1];
+					$templateName = str_replace( ' ', '_', $tag_components[1] );
 					if ( array_key_exists( $templateName, $this->mTemplatesUsed ) ) {
 						unset( $this->mTemplateInForm[$templateName] );
 					} else {
@@ -237,11 +237,13 @@ class PFMultiPageEdit extends QueryPage {
 	}
 
 	function formatResult( $skin, $result ) {
-		$templateName = $result->value;
-		$formName = $this->getFormForTemplate( $templateName );
-		if ( $formName == null ) {
+		$escapedTemplateName = $result->value;
+		$escapedFormName = $this->getFormForTemplate( $escapedTemplateName );
+		if ( $escapedFormName == null ) {
 			return false;
 		}
+		$templateName = str_replace( '_', ' ', $escapedTemplateName );
+		$formName = str_replace( '_', ' ', $escapedFormName );
 		$linkRenderer = $this->getLinkRenderer();
 		$linkParams = [ 'template' => $templateName, 'form' => $formName ];
 		$text = $linkRenderer->makeKnownLink( $this->getTitle(), $templateName, [], $linkParams );
