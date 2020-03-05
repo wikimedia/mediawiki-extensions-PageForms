@@ -47,7 +47,7 @@ class PFUtils {
 	 * @return string
 	 */
 	public static function linkForSpecialPage( $linkRenderer, $specialPageName ) {
-		$specialPage = SpecialPageFactory::getPage( $specialPageName );
+		$specialPage = self::getSpecialPage( $specialPageName );
 		return $linkRenderer->makeKnownLink( $specialPage->getPageTitle(),
 			htmlspecialchars( $specialPage->getDescription() ) );
 	}
@@ -101,6 +101,17 @@ class PFUtils {
 			return $content->getNativeData();
 		} else {
 			return null;
+		}
+	}
+
+	public static function getSpecialPage( $pageName ) {
+		if ( class_exists( 'MediaWiki\Special\SpecialPageFactory' ) ) {
+			// MW 1.32+
+			return MediaWikiServices::getInstance()
+				->getSpecialPageFactory()
+				->getPage( $pageName );
+		} else {
+			return SpecialPageFactory::getPage( $pageName );
 		}
 	}
 

@@ -182,7 +182,7 @@ class PFFormEditAction extends Action {
 			}
 		}
 
-		$fe = SpecialPageFactory::getPage( 'FormEdit' );
+		$fe = PFUtils::getSpecialPage( 'FormEdit' );
 
 		if ( count( $popularForms ) > 0 ) {
 			if ( count( $otherForms ) > 0 ) {

@@ -318,7 +318,7 @@ class PFHooks {
 			return true;
 		}
 
-		$sp = SpecialPageFactory::getPage( 'MultiPageEdit' );
+		$sp = PFUtils::getSpecialPage( 'MultiPageEdit' );
 		$editMsg = wfMessage( 'edit' )->text();
 		$linkParams = [ 'template' => $templateName, 'form' => $formName ];
 		$text = Linker::linkKnown( $sp->getPageTitle(), $editMsg, [], $linkParams );

@@ -338,7 +338,7 @@ class PFParserFunctions {
 		// If the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a
 		// hidden value
-		$fs = SpecialPageFactory::getPage( 'FormStart' );
+		$fs = PFUtils::getSpecialPage( 'FormStart' );
 		$fsURL = $fs->getPageTitle()->getLocalURL();
 		if ( ( $pos = strpos( $fsURL, "title=" ) ) > - 1 ) {
 			$formContents .= Html::hidden( "title", urldecode( substr( $fsURL, $pos + 6 ) ) );
@@ -742,9 +742,9 @@ class PFParserFunctions {
 		}
 
 		if ( $parserFunctionName == 'queryformlink' ) {
-			$formSpecialPage = SpecialPageFactory::getPage( 'RunQuery' );
+			$formSpecialPage = PFUtils::getSpecialPage( 'RunQuery' );
 		} else {
-			$formSpecialPage = SpecialPageFactory::getPage( 'FormEdit' );
+			$formSpecialPage = PFUtils::getSpecialPage( 'FormEdit' );
 		}
 		$formSpecialPageTitle = $formSpecialPage->getPageTitle();
 

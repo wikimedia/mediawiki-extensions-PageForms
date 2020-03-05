@@ -124,7 +124,7 @@ END;
 	 * @return string
 	 */
 	static function getFormEditURL( $formName, $targetName ) {
-		$fe = SpecialPageFactory::getPage( 'FormEdit' );
+		$fe = PFUtils::getSpecialPage( 'FormEdit' );
 		// Special handling for forms whose name contains a slash.
 		if ( strpos( $formName, '/' ) !== false ) {
 			return $fe->getPageTitle()->getLocalURL( [ 'form' => $formName, 'target' => $targetName ] );

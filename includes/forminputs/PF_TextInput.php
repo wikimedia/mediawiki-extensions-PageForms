@@ -171,7 +171,7 @@ class PFTextInput extends PFFormInput {
 
 			return $text;
 		}
-		$upload_window_page = SpecialPageFactory::getPage( 'UploadWindow' );
+		$upload_window_page = PFUtils::getSpecialPage( 'UploadWindow' );
 		$query_string = "pfInputID=$input_id";
 		if ( $delimiter != null ) {
 			$query_string .= "&pfDelimiter=$delimiter";
