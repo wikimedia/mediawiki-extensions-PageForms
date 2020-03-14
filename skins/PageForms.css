@@ -132,12 +132,27 @@ form input.formInput,
     border: 1px solid #BBB;
     padding: 4px 8px;
 }
+
 #pfForm select,
 #pfForm input[type="checkbox"] {
-    min-width: 0;
     max-width: 100%;
     width: auto !important;
 }
+
+#pfForm label.checkboxLabel {
+	display: inline-block;
+}
+
+body.ltr #pfForm label.checkboxLabel {
+	margin-right: 20px;
+}
+
+body.rtl #pfForm label.checkboxLabel {
+	margin-left: 20px;
+}
+
+
+
 #pfForm input#wpSummary,
 #pfForm input#wpSummary:hover {
     max-width: 100%;
