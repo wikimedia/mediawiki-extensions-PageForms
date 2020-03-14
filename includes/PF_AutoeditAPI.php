@@ -588,7 +588,7 @@ class PFAutoeditAPI extends ApiBase {
 		// set response text depending on the status and the requested action
 		if ( $this->mStatus === 200 ) {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
-				$responseText = MessageCache::singleton()->parse( $this->mOptions['ok text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
+				$responseText = $this->getMessageCache()->parse( $this->mOptions['ok text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				$responseText = wfMessage( 'pf_autoedit_success', $this->mOptions['target'], $this->mOptions['form'] )->parse();
 			} else {
@@ -597,7 +597,7 @@ class PFAutoeditAPI extends ApiBase {
 		} else {
 			// get errortext (or use default)
 			if ( array_key_exists( 'error text', $this->mOptions ) ) {
-				$responseText = MessageCache::singleton()->parse( $this->mOptions['error text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
+				$responseText = $this->getMessageCache()->parse( $this->mOptions['error text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
 				$responseText = wfMessage( 'pf_autoedit_fail', $this->mOptions['target'] )->parse();
 			} else {
@@ -1152,6 +1152,19 @@ class PFAutoeditAPI extends ApiBase {
 			} else {
 				array_push( $array, $value );
 			}
+		}
+	}
+
+	/**
+	 * Get a MessageCache depending on mediawiki version
+	 * @return MessageCache
+	 */
+	private function getMessageCache() {
+		if ( method_exists( MediaWikiServices::class, 'getMessageCache' ) ) {
+			// MW 1.34+
+			return MediaWikiServices::getInstance()->getMessageCache();
+		} else {
+			return MessageCache::singleton();
 		}
 	}
 
