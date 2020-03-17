@@ -42,7 +42,7 @@ class PFCreateTemplate extends SpecialPage {
 				continue;
 			}
 			$propName = $property[0]->getKey();
-			if ( $propName{0} != '_' ) {
+			if ( $propName[0] != '_' ) {
 				$all_properties[] = str_replace( '_', ' ', $propName );
 			}
 		}
