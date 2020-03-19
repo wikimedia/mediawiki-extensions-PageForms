@@ -298,13 +298,13 @@ class PFFormField {
 					$wgPageFormsDependentFields[] = [ $sub_components[1], $fullFieldName ];
 				} elseif ( $sub_components[0] == 'unique for category' ) {
 					$f->mFieldArgs['unique'] = true;
-					$f->mFieldArgs['unique_for_category'] = $sub_components[1];
+					$f->mFieldArgs['unique_for_category'] = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'unique for namespace' ) {
 					$f->mFieldArgs['unique'] = true;
-					$f->mFieldArgs['unique_for_namespace'] = $sub_components[1];
+					$f->mFieldArgs['unique_for_namespace'] = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'unique for concept' ) {
 					$f->mFieldArgs['unique'] = true;
-					$f->mFieldArgs['unique_for_concept'] = $sub_components[1];
+					$f->mFieldArgs['unique_for_concept'] = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'property' ) {
 					$semantic_property = $sub_components[1];
 				} elseif ( $sub_components[0] == 'cargo table' ) {
