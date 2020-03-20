@@ -6,8 +6,28 @@
 			"Aefgh39622"
 		]
 	},
+	"createproperty": "สร้างคุณสมบัติ",
+	"pf_createproperty_propname": "ชื่อคุณสมบัติ:",
+	"pf_createproperty_proptype": "ประเภท:",
+	"templates": "แม่แบบ",
+	"createtemplate": "สร้างแม่แบบ",
+	"pf_createtemplate_namelabel": "ชื่อแม่แบบ:",
+	"pf_createtemplate_standardformat": "ตาราง",
 	"pf_createtemplate_deletefield": "ลบ",
+	"pf_createform_template": "แม่แบบ:",
+	"pf_createform_inputtypedefault": "(ค่าเริ่มต้น)",
+	"pf_createform_hidden": "ซ่อน",
+	"pf_createform_removetemplate": "เอาแม่แบบออก",
+	"pf_createform_addtemplate": "เพิ่มแม่แบบ:",
+	"pf_createform_atend": "ที่จุดสิ้นสุด",
 	"pf_createform_add": "เพิ่ม",
+	"pf_createform_before": "ก่อน:",
+	"createcategory": "สร้างหมวดหมู่",
+	"pf_createcategory_name": "ชื่อหมวดหมู่:",
+	"createclass": "สร้างคลาส",
+	"pf_createclass_create": "สร้าง",
 	"formedit": "แก้ไขด้วยแบบฟอร์ม",
-	"pf_formedit_none": "ไม่มี"
+	"pf_editsource": "แก้ไขต้นฉบับ",
+	"pf_formedit_none": "ไม่มี",
+	"pf-datepicker-today": "วันนี้"
 }
