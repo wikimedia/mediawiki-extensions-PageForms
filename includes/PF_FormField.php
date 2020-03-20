@@ -281,7 +281,7 @@ class PFFormField {
 					$valuesSourceType = 'query';
 					$valuesSource = $sub_components[1];
 				} elseif ( $sub_components[0] == 'values from category' ) {
-					$valuesSource = $sub_components[1];
+					$valuesSource = $parser->recursiveTagParse( $sub_components[1] );
 					global $wgCapitalLinks;
 					if ( $wgCapitalLinks ) {
 						$valuesSource = ucfirst( $valuesSource );
@@ -289,10 +289,10 @@ class PFFormField {
 					$valuesSourceType = 'category';
 				} elseif ( $sub_components[0] == 'values from concept' ) {
 					$valuesSourceType = 'concept';
-					$valuesSource = $sub_components[1];
+					$valuesSource = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from namespace' ) {
 					$valuesSourceType = 'namespace';
-					$valuesSource = $sub_components[1];
+					$valuesSource = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values dependent on' ) {
 					global $wgPageFormsDependentFields;
 					$wgPageFormsDependentFields[] = [ $sub_components[1], $fullFieldName ];
