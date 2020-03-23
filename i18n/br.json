@@ -97,6 +97,7 @@
 	"pf_formedit_tooltip_saveandcontinueediting": "Enrollañ ar roadennoù ha kenderc'hel da zegas kemmoù",
 	"pf_autoedit_anoneditwarning": "'''Diwallit :''' N'oc'h ket kevreet. Ho chomlec'h IP eo a vo enrollet war istor kemmoù ar bajenn-mañ.",
 	"pf_autoedit_success": "Kemmet ervat [[$1]] en ur ober gant furmskrid $2.",
+	"pf_autoedit_fail": "N'eus ket bet gallet kemmañ $1.",
 	"pf_autoedit_invalidform": "N'eo ket '''$1''' ur furmskrid reizh.",
 	"pf_autoedit_redlinkexists": "$1 zo anezhañ c'hoazh.",
 	"pf_autoedit_toomanyformsfound": "Ouzhpenn ur furmskrid zo da gaout evit ar bajenn.",
