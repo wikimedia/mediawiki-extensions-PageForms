@@ -103,26 +103,33 @@ class PFDateInput extends PFFormInput {
 					break;
 				}
 			}
-			$seconds = strtotime( $date );
 		}
 
-		// If we still don't have a date value, exit.
-		if ( $seconds == null ) {
-			return [ null, null, null ];
-		}
-
-		$year = date( 'Y', $seconds );
-		$month = date( 'm', $seconds );
 		// Determine if there's a month but no day. There's no ideal
 		// way to do this, so: we'll just look for the total
 		// number of spaces, slashes and dashes, and if there's
 		// exactly one altogether, we'll guess that it's a month only.
 		$numSpecialChars = substr_count( $date, ' ' ) + substr_count( $date, '/' ) + substr_count( $date, '-' );
 		if ( $numSpecialChars == 1 ) {
+			$dateTimeObj = DateTime::createFromFormat( 'F Y', $date );
+			if ( $dateTimeObj == null ) {//If true then the date is invalid
+				return [ null, null, null ];
+			}
+			// Separating individual year and month
+			$year = $dateTimeObj->format( 'Y' );
+			$month = $dateTimeObj->format( 'F' );
 			return [ $year, $month, null ];
 		}
-
-		$day = date( 'j', $seconds );
+		//If $numSpecialChars !=1
+		$dateonly = explode( " ", $date )[0];// To extract date from datetime input like Y/m/d h:i:s A
+		$dateTimeObj = DateTime::createFromFormat( 'Y/m/d', $dateonly );
+		if ( $dateTimeObj == null ) {//If true then the date is invalid
+			return [ null, null, null ];
+		}
+		// Separating individual year, month and day
+		$year = $dateTimeObj->format( 'Y' );
+		$month = $dateTimeObj->format( 'm' );
+		$day = $dateTimeObj->format( 'd' );
 		return [ $year, $month, $day ];
 	}
 
