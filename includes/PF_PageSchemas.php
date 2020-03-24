@@ -797,7 +797,8 @@ class PFPageSchemas extends PSExtensionHandler {
 				// Set Cargo table, if one was set in the schema.
 				$cargoArray = $psTemplate->getObject( 'cargo_TemplateDetails' );
 				if ( $cargoArray !== null ) {
-					$pfTemplate->mCargoTable = PageSchemas::getValueFromObject( $cargoArray, 'Table' );
+					$cargoTable = PageSchemas::getValueFromObject( $cargoArray, 'Table' );
+					$pfTemplate->setCargoTable( $cargoTable );
 				}
 
 				$templateText = $pfTemplate->createText();

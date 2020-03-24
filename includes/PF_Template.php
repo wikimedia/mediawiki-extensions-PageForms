@@ -18,7 +18,7 @@ class PFTemplate {
 	private $mTemplateFields;
 	private $mConnectingProperty;
 	private $mCategoryName;
-	public $mCargoTable;
+	private $mCargoTable;
 	private $mAggregatingProperty;
 	private $mAggregationLabel;
 	private $mTemplateFormat;
@@ -297,6 +297,10 @@ class PFTemplate {
 
 	public function setCategoryName( $categoryName ) {
 		$this->mCategoryName = $categoryName;
+	}
+
+	public function setCargoTable( $cargoTable ) {
+		$this->mCargoTable = str_replace( ' ', '_', $cargoTable );
 	}
 
 	public function setAggregatingInfo( $aggregatingProperty, $aggregationLabel ) {

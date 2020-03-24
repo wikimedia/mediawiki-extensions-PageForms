@@ -116,7 +116,7 @@ class PFCreateClass extends SpecialPage {
 		$template_format = $req->getVal( "template_format" );
 		$pfTemplate = new PFTemplate( $template_name, $fields );
 		if ( defined( 'CARGO_VERSION' ) && $use_cargo ) {
-			$pfTemplate->mCargoTable = $cargo_table;
+			$pfTemplate->setCargoTable( $cargo_table );
 		}
 		if ( defined( 'SMW_VERSION' ) && $template_multiple ) {
 			$pfTemplate->setConnectingProperty( $connectingProperty );

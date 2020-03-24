@@ -239,7 +239,7 @@ END;
 			$pfTemplate = new PFTemplate( $template_name, $fields );
 			$pfTemplate->setCategoryName( $category );
 			if ( $req->getBool( 'use_cargo' ) ) {
-				$pfTemplate->mCargoTable = $cargo_table;
+				$pfTemplate->setCargoTable( $cargo_table );
 			}
 			$pfTemplate->setAggregatingInfo( $aggregating_property, $aggregation_label );
 			$pfTemplate->setFormat( $template_format );
