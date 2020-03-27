@@ -424,6 +424,7 @@ class PFParserFunctions {
 		$var = isset( $args[2] ) ? trim( $frame->expand( $args[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) ) : 'x';
 		$formula = isset( $args[3] ) ? $args[3] : 'x';
 		$new_delimiter = isset( $args[4] ) ? trim( $frame->expand( $args[4] ) ) : ', ';
+		$conjunction = isset( $args[5] ) ? trim( $frame->expand( $args[5] ) ) : $new_delimiter;
 		# Unstrip some
 		$delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
 		# Let '\n' represent newlines, and '\s' represent spaces.
@@ -453,7 +454,22 @@ class PFParserFunctions {
 			}
 			$results_array[] = $result_value;
 		}
-		return implode( $new_delimiter, $results_array );
+		if ( $conjunction != $new_delimiter ) {
+			$conjunction = " " . trim( $conjunction ) . " ";
+		}
+
+		$result_text = "";
+		$num_values = count( $results_array );
+		for ( $i = 0; $i < $num_values; $i++ ) {
+			if ( $i == 0 ) {
+				$result_text .= $results_array[$i];
+			} elseif ( $i == $num_values - 1 ) {
+				$result_text .= $conjunction . $results_array[$i];
+			} else {
+				$result_text .= $new_delimiter . $results_array[$i];
+			}
+		}
+		return $result_text;
 	}
 
 	/**
