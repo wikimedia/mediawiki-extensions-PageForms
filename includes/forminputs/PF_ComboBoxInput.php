@@ -4,6 +4,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @ingroup PFFormInput
  */
@@ -53,13 +55,19 @@ class PFComboBoxInput extends PFFormInput {
 				$wgPageFormsEDSettings[$name]['title'] = $other_args['values from external data'];
 			}
 			if ( array_key_exists( 'image', $other_args ) ) {
+				if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+					// MediaWiki 1.34+
+					$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
+				} else {
+					$repoGroup = RepoGroup::singleton();
+				}
 				$image_param = $other_args['image'];
 				$wgPageFormsEDSettings[$name]['image'] = $image_param;
 				global $edgValues;
 				for ( $i = 0; $i < count( $edgValues[$image_param] ); $i++ ) {
 					$image = $edgValues[$image_param][$i];
 					if ( strpos( $image, "http" ) !== 0 ) {
-						$file = wfFindFile( $image );
+						$file = $repoGroup->findFile( $image );
 						if ( $file ) {
 							$url = $file->getFullUrl();
 							$edgValues[$image_param][$i] = $url;

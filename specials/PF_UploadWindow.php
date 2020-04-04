@@ -10,6 +10,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @ingroup PFSpecialPages
  */
@@ -514,7 +516,13 @@ END;
 			return true;
 		}
 
-		$local = wfLocalFile( $this->mDesiredDestName );
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			$local = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()
+				->newFile( $this->mDesiredDestName );
+		} else {
+			$local = wfLocalFile( $this->mDesiredDestName );
+		}
 		if ( $local && $local->exists() ) {
 			// We're uploading a new version of an existing file.
 			// No creation, so don't watch it if we're not already.
@@ -670,11 +678,17 @@ END;
 	 * @return array list of warning messages
 	 */
 	public static function ajaxGetExistsWarning( $filename ) {
-		$file = wfFindFile( $filename );
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
+		} else {
+			$repoGroup = RepoGroup::singleton();
+		}
+		$file = $repoGroup->findFile( $filename );
 		if ( !$file ) {
 			// Force local file so we have an object to do further checks against
 			// if there isn't an exact match...
-			$file = wfLocalFile( $filename );
+			$file = $repoGroup->getLocalRepo()->newFile( $filename );
 		}
 		$s = '&#160;';
 		if ( $file ) {
