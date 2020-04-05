@@ -246,7 +246,7 @@ class PFMultiPageEdit extends QueryPage {
 		$formName = str_replace( '_', ' ', $escapedFormName );
 		$linkRenderer = $this->getLinkRenderer();
 		$linkParams = [ 'template' => $templateName, 'form' => $formName ];
-		$text = $linkRenderer->makeKnownLink( $this->getTitle(), $templateName, [], $linkParams );
+		$text = $linkRenderer->makeKnownLink( $this->getPageTitle(), $templateName, [], $linkParams );
 		return $text;
 	}
 
