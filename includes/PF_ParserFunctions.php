@@ -39,8 +39,9 @@ use MediaWiki\MediaWikiServices;
  * choice, using 'autocomplete on category' or 'autocomplete on namespace'
  * (you can only use one). To autcomplete on all pages in the main (blank)
  * namespace, specify "autocomplete on namespace=main".
- * 'reload' is an optional value to be used along with 'popup', causes the page
- * to reload with 'action=purge' after the form is submitted successfully.
+ * 'reload' is an optional parameter that can be used alongside either
+ * 'popup' or 'returnto'; it causes the page that the user ends up on after
+ * submitting the form to get reloaded with 'action=purge'.
  *
  * Example: to create an input to add or edit a page with a form called
  * 'User' within a namespace also called 'User', and to have the form
@@ -71,8 +72,9 @@ use MediaWiki\MediaWikiServices;
  * (or, in the case of 'post button', to be sent as hidden inputs).
  * 'target' is an optional value, setting the name of the page to be
  * edited by the form.
- * 'reload' is an optional value to be used along with 'popup', causes the page
- * to reload with 'action=purge' after the form is submitted successfully.
+ * 'reload' is an optional parameter that can be used alongside either
+ * 'popup' or 'returnto'; it causes the page that the user ends up on after
+ * submitting the form to get reloaded with 'action=purge'.
  *
  * Example: to create a link to add data with a form called
  * 'User' within a namespace also called 'User', and to have the form
@@ -278,6 +280,7 @@ class PFParserFunctions {
 				$classStr .= ' popupforminput';
 			} elseif ( $paramName == 'reload' ) {
 				$classStr .= ' reload';
+				$inQueryArr['reload'] = '1';
 			} elseif ( $paramName == 'no autofocus' ) {
 				$inAutofocus = false;
 			} else {
@@ -710,6 +713,7 @@ class PFParserFunctions {
 				$classStr = 'popupformlink';
 			} elseif ( $param_name == null && $value == 'reload' ) {
 				$classStr .= ' reload';
+				$inQueryArr['reload'] = '1';
 			} elseif ( $param_name == null && $value == 'new window' ) {
 				$targetWindow = '_blank';
 			} elseif ( $param_name == null && $value == 'create page' ) {

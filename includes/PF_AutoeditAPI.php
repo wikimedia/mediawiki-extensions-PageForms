@@ -500,7 +500,13 @@ class PFAutoeditAPI extends ApiBase {
 				$redirect = $title->getFullURL( $query ) . $anchor;
 
 				$returnto = Title::newFromText( $this->getRequest()->getText( 'returnto' ) );
+				$reload = $this->getRequest()->getText( 'reload' );
 				if ( $returnto !== null ) {
+					// Purge the returnto page
+					$returntoPage = WikiPage::factory( $returnto );
+					if ( $returntoPage && $returntoPage->exists() && $reload ) {
+						$returntoPage->doPurge();
+					}
 					$redirect = $returnto->getFullURL();
 				}
 
@@ -527,7 +533,13 @@ class PFAutoeditAPI extends ApiBase {
 				$redirect = $title->getFullURL( $extraQuery ) . $sectionanchor;
 
 				$returnto = Title::newFromText( $this->getRequest()->getText( 'returnto' ) );
+				$reload = $this->getRequest()->getText( 'reload' );
 				if ( $returnto !== null ) {
+					// Purge the returnto page
+					$returntoPage = WikiPage::factory( $returnto );
+					if ( $returntoPage && $returntoPage->exists() && $reload ) {
+						$returntoPage->doPurge();
+					}
 					$redirect = $returnto->getFullURL();
 				}
 
