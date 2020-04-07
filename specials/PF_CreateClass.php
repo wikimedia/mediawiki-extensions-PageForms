@@ -152,6 +152,9 @@ class PFCreateClass extends SpecialPage {
 				'item' => $form_template
 			];
 			$form = PFForm::create( $form_name, $form_items );
+			if ( $category_name != '' ) {
+				$form->setAssociatedCategory( $category_name );
+			}
 			$full_text = $form->createMarkup();
 			$form_title = Title::makeTitleSafe( PF_NS_FORM, $form_name );
 			$params = [];
