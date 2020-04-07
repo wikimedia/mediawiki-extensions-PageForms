@@ -1,24 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"EugeneZelenko",
 			"Fryed-peach",
+			"Hamilton Abreu",
 			"Jon Harald Søby",
 			"Kghbln",
+			"Liuxinyu970226",
 			"McDutchie",
 			"Nemo bis",
 			"Protnet",
 			"Purodha",
 			"Raymond",
+			"Robby",
+			"Seb35",
 			"Shirayuki",
 			"Siebrand",
 			"Umherirrender",
-			"아라",
-			"Liuxinyu970226",
-			"Amire80",
-			"Seb35",
-			"Hamilton Abreu",
-			"Robby"
+			"아라"
 		]
 	},
 	"pageforms-desc": "{{desc|name=Page Forms|url=https://www.mediawiki.org/wiki/Extension:Page_Forms}}",

@@ -4,9 +4,9 @@
 			"Dst",
 			"Imre",
 			"Kghbln",
+			"Krabina",
 			"The Evil IP address",
-			"Umherirrender",
-			"Krabina"
+			"Umherirrender"
 		]
 	},
 	"pf_createproperty_allowedvalsinput": "Um nur bestimmte Werte zuzulassen, geben Sie diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, müssen Sie es durch „\\,“ ersetzen):",

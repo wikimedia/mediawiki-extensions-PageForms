@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Crazymadlover",
+			"Eduardo Addad de Oliveira",
 			"Eduardo.mps",
 			"Enqd",
 			"Jaideraf",
@@ -10,10 +11,9 @@
 			"Luckas Blade",
 			"Rafael Vargas",
 			"Teles",
-			"555",
 			"TheEduGobi",
 			"Tuliouel",
-			"Eduardo Addad de Oliveira"
+			555
 		]
 	},
 	"pageforms-desc": "Formulários para adição e edição de dados semânticos",

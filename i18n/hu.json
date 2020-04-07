@@ -1,16 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
+			"Csega",
 			"Dani",
 			"Dj",
 			"Dorgan",
 			"Glanthor Reviol",
-			"TK-999",
-			"Tgr",
-			"Csega",
 			"Máté",
-			"Wolf Rex",
-			"Tacsipacsi"
+			"TK-999",
+			"Tacsipacsi",
+			"Tgr",
+			"Wolf Rex"
 		]
 	},
 	"pageforms-desc": "Űrlapok szemantikus adatok hozzáadásához és szerkesztéséhez",

@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cocu",
+			"Emilbk",
 			"EvenT",
 			"Event",
 			"Harald Khan",
-			"Laaknor",
-			"Nghtwlkr",
-			"Emilbk",
-			"Cocu",
 			"Jon Harald Søby",
-			"Kingu"
+			"Kingu",
+			"Laaknor",
+			"Nghtwlkr"
 		]
 	},
 	"pageforms-desc": "Skjemaer for å legge til og endre semantiske data",

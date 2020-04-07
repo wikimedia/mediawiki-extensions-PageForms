@@ -1,23 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
+			"Arg",
+			"Ecthelion3",
+			"Esketti",
+			"Festina90",
 			"HanV",
+			"Hex",
 			"JurgenNL",
+			"Kghbln",
+			"Mainframe98",
 			"McDutchie",
 			"Rcdeboer",
-			"SPQRobin",
-			"Siebrand",
-			"Arg",
-			"Kghbln",
-			"Robin0van0der0vliet",
-			"Saruman",
-			"Sjoerddebruin",
-			"Esketti",
 			"Robin van der Vliet",
-			"Ecthelion3",
-			"Hex",
-			"Mainframe98",
-			"Festina90"
+			"Robin0van0der0vliet",
+			"SPQRobin",
+			"Saruman",
+			"Siebrand",
+			"Sjoerddebruin"
 		]
 	},
 	"pageforms-desc": "Formulieren voor het toevoegen en bewerken van semantische gegevens",

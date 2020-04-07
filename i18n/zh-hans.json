@@ -1,22 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
+			"Apflu",
+			"Duolaimi",
 			"Gzdavidwong",
+			"Hudafu",
 			"Hydra",
 			"Liangent",
 			"Linforest",
 			"Liuxinyu970226",
+			"NigelSoft",
 			"PhiLiP",
 			"Shirayuki",
 			"Xiaomingyan",
 			"Yfdyh000",
-			"Duolaimi",
-			"Hudafu",
-			"NigelSoft",
-			"Apflu",
-			"아라",
 			"夢蝶葬花",
-			"沈澄心"
+			"沈澄心",
+			"아라"
 		]
 	},
 	"pageforms-desc": "用于创建和编辑wiki页面的表单",

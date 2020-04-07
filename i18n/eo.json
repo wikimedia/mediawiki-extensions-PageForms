@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Michawiki",
-			"Yekrats",
 			"KuboF",
+			"Michawiki",
 			"Psychoslave",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Yekrats"
 		]
 	},
 	"pageforms-desc": "Formularoj por aldonado kaj redaktado de semantikaj datumoj",
