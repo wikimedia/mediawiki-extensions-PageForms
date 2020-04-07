@@ -265,6 +265,21 @@ class PFHooks {
 		return true;
 	}
 
+	public static function addToCargoTablesColumns( $cargoTablesPage, &$allowedActions ) {
+		if ( !$cargoTablesPage->getUser()->isAllowed( 'multipageedit' ) ) {
+			return true;
+		}
+
+		$cargoTablesPage->getOutput()->addModuleStyles( [ 'oojs-ui.styles.icons-editing-core' ] );
+
+		$editColumn = [ 'edit' => [ 'ooui-icon' => 'edit', 'ooui-title' => 'edit' ] ];
+		$indexOfDrilldown = array_search( 'drilldown', array_keys( $allowedActions ) );
+		$pos = false === $indexOfDrilldown ? count( $allowedActions ) : $indexOfDrilldown + 1;
+		$allowedActions = array_merge( array_slice( $allowedActions, 0, $pos ), $editColumn, array_slice( $allowedActions, $pos ) );
+
+		return true;
+	}
+
 	/**
 	 * Called by the CargoTablesActionLinks hook.
 	 *
@@ -324,8 +339,44 @@ class PFHooks {
 		$text = Linker::linkKnown( $sp->getPageTitle(), $editMsg, [], $linkParams );
 
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );
-		$pos = false === $indexOfDrilldown ? count( $array ) : $indexOfDrilldown + 1;
+		$pos = false === $indexOfDrilldown ? count( $actionLinks ) : $indexOfDrilldown + 1;
 		$actionLinks = array_merge( array_slice( $actionLinks, 0, $pos ), [ 'edit' => $text ], array_slice( $actionLinks, $pos ) );
+		return true;
+	}
+
+	/**
+	 * Called by the CargoTablesSetActionLinks hook.
+	 *
+	 * Adds an "Edit" link to Special:CargoTables, pointing to Special:MultiPageEdit.
+	 *
+	 * @param SpecialPage $cargoTablesPage
+	 * @param array &$actionLinks Action links
+	 * @param string $tableName Cargo table name
+	 * @param bool $isReplacementTable Whether this table iss a replacement table
+	 * @param bool $hasReplacementTable Whether this table has a replacement table
+	 * @param string[] $templatesThatDeclareTables An array
+	 * @param string[] $templatesThatAttachToTables An array
+	 * @param string[] $actionList
+	 *
+	 * @return bool
+	 *
+	 * @since 4.8.1
+	 */
+	public static function addToCargoTablesRow( $cargoTablesPage, &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $actionList ) {
+		$cargoTablesPage->getOutput()->addModuleStyles( [ 'oojs-ui.styles.icons-editing-core' ] );
+
+		// For the sake of simplicity, this function basically just
+		// wraps around the previous hook function, for Cargo <= 2.4.
+		// That's why there's this awkward behavior of parsing links
+		// to get their URL. Hopefully this won't cause problems.
+		self::addToCargoTablesLinks( $actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables );
+
+		if ( array_key_exists( 'edit', $actionLinks ) ) {
+			preg_match( '/href="(.*?)"/', $actionLinks['edit'], $matches );
+			$mpeURL = html_entity_decode( $matches[1] );
+			$actionLinks['edit'] = $cargoTablesPage->getActionButton( 'edit', $mpeURL );
+		}
+
 		return true;
 	}
 

@@ -491,6 +491,8 @@
 		"EditPage::importFormData": "PFHooks::showFormPreview",
 		"HtmlPageLinkRendererEnd": "PFFormLinker::setBrokenLink",
 		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
+		"CargoTablesSetAllowedActions": "PFHooks::addToCargoTablesColumns",
+		"CargoTablesSetActionLinks": "PFHooks::addToCargoTablesRow",
 		"TinyMCEDisable": "PFHooks::disableTinyMCE",
 		"CanonicalNamespaces": "PFHooks::registerNamespaces",
 		"ResourceLoaderRegisterModules": "PFHooks::registerModules"
