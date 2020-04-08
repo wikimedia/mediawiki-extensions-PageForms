@@ -311,14 +311,15 @@ class PFTextAreaInput extends PFFormInput {
 		if ( $this->mEditor == 'visualeditor' ) {
 			// VisualEditor, by default, autogrows with no limit -
 			// which is fine in a regular edit page, but not good
-			// in a form. So add a "max-height" value.
+			// in a form. So we add a "max height" value, which in
+			// turn gets processed by VEForAll into true CSS.
 			if ( array_key_exists( 'max height', $this->mOtherArgs ) ) {
 				$maxHeight = (int)$this->mOtherArgs['max height'];
 			} else {
 				$config = RequestContext::getMain()->getConfig();
 				$maxHeight = $config->get( 'PageFormsVisualEditorMaxHeight' );
 			}
-			$spanAttrs['style'] = "max-height: {$maxHeight}px; overflow-y: auto;";
+			$spanAttrs['data-max-height'] = $maxHeight . 'px';
 		}
 
 		$text = Html::rawElement( 'span', $spanAttrs, $text );
