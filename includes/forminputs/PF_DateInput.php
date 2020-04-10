@@ -80,14 +80,17 @@ class PFDateInput extends PFFormInput {
 			return [ $date, null, null ];
 		}
 
-		$seconds = strtotime( $date );
+		// Convert any date format to ISO standards.
+		$date = str_replace( "/", "-", $date );
+		// Returns an array with detailed information about the date.
+		$date_array = date_parse( $date );
 
-		// If strtotime() parsing didn't work, it may be because the
+		// If parsing didn't work, it may be because the
 		// date contains a month name in a language other than English.
 		// (Page Forms only puts in a month name if there's no day
 		// value, but the date text could also be coming from an
 		// outside source.)
-		if ( $seconds == null && $wgLanguageCode != 'en' ) {
+		if ( $date_array['error_count'] > 0 && $wgLanguageCode != 'en' ) {
 			$date = strtolower( $date );
 			$monthNames = PFFormUtils::getMonthNames();
 			$englishMonthNames = [ 'January', 'February',
@@ -103,26 +106,30 @@ class PFDateInput extends PFFormInput {
 					break;
 				}
 			}
-			$seconds = strtotime( $date );
+			$date_array = date_parse( $date );
 		}
 
-		// If we still don't have a date value, exit.
-		if ( $seconds == null ) {
-			return [ null, null, null ];
-		}
+		$year = $date_array['year'];
+		$month = $date_array['month'];
+		$day = $date_array['day'];
 
-		$year = date( 'Y', $seconds );
-		$month = date( 'm', $seconds );
 		// Determine if there's a month but no day. There's no ideal
 		// way to do this, so: we'll just look for the total
-		// number of spaces, slashes and dashes, and if there's
+		// number of spaces and dashes, and if there's
 		// exactly one altogether, we'll guess that it's a month only.
-		$numSpecialChars = substr_count( $date, ' ' ) + substr_count( $date, '/' ) + substr_count( $date, '-' );
+		$numSpecialChars = substr_count( $date, ' ' ) + substr_count( $date, '-' );
 		if ( $numSpecialChars == 1 ) {
+			// For the case of date format Month YYYY
+			if ( $date_array['error_count'] > 0 ) {
+				// Separating date into its individual components
+				$dateParts = explode( " ", $date );
+				$month = $dateParts[0];
+				$year = $dateParts[1];
+			}
 			return [ $year, $month, null ];
+
 		}
 
-		$day = date( 'j', $seconds );
 		return [ $year, $month, $day ];
 	}
 
