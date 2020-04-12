@@ -1179,7 +1179,7 @@ END;
 							$generated_page_name = str_replace( '_', ' ', $generated_page_name );
 						}
 
-						if ( !empty( $cur_value ) &&
+						if ( $cur_value !== '' &&
 							( $form_field->hasFieldArg( 'mapping template' ) ||
 							$form_field->hasFieldArg( 'mapping property' ) ||
 							( $form_field->hasFieldArg( 'mapping cargo table' ) &&
