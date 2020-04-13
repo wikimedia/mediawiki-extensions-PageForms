@@ -6,6 +6,7 @@
 
 function setupMapFormInput( inputDiv, mapService ) {
 	var map, marker, markers, mapCanvas, mapOptions;
+	var imageHeight = null, imageWidth = null;
 	var numClicks = 0, timer = null;
 
 	if ( mapService === "Google Maps" ) {
@@ -38,8 +39,22 @@ function setupMapFormInput( inputDiv, mapService ) {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		};
 
+		var imageUrl = inputDiv.attr('data-image-path');
+		if ( imageUrl !== undefined ) {
+			imageHeight = inputDiv.attr('data-height');
+			imageWidth = inputDiv.attr('data-width');
+			mapOptions.crs = L.CRS.Simple;
+		}
+
 		map = L.map(mapCanvas, mapOptions);
-		new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', layerOptions).addTo(map);
+
+		if ( imageUrl !== undefined ) {
+			var imageBounds = [ [ 0, 0 ], [ imageHeight, imageWidth ] ];
+			L.imageOverlay(imageUrl, imageBounds).addTo(map);
+			map.fitBounds(imageBounds);
+		} else {
+			new L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', layerOptions).addTo(map);
+		}
 
 		map.on( 'click', function( event ) {
 			// Place/move the marker only on a single click, not a
@@ -240,9 +255,15 @@ function setupMapFormInput( inputDiv, mapService ) {
 			googleMapsSetMarker( gmPoint );
 			map.setCenter( gmPoint );
 		} else if ( mapService === "Leaflet" ){
+			if ( imageHeight !== null && imageWidth !== null ) {
+				lat *= imageWidth / 100;
+				lon *= imageWidth / 100;
+			}
 			var lPoint = L.latLng( lat, lon );
 			leafletSetMarker( lPoint );
-			map.setView( lPoint, 14 );
+			if ( imageHeight == null && imageWidth == null ) {
+				map.setView( lPoint, 14 );
+			}
 		} else { // if ( mapService === "OpenLayers" ) {
 			var olPoint = toOpenLayersLonLat( map, lat, lon );
 			openLayersSetMarker( olPoint );
@@ -295,16 +316,25 @@ function setupMapFormInput( inputDiv, mapService ) {
 		marker.dragging.enable();
 
 		function setInput() {
+			var lat = marker.getLatLng().lat;
 			var lng = marker.getLatLng().lng;
-			// Leaflet permits longitude beyond ±180, so we have to normalize this here.
-			// Google Maps and OpenLayers don't have this issue.
-			while ( lng < -180 ) {
-				lng += 360;
+			if ( imageHeight == null && imageWidth == null ) {
+				// Normal map.
+				// Leaflet permits longitude beyond ±180, so
+				// we have to normalize this here.
+				// Google Maps and OpenLayers don't have this
+				// issue.
+				while ( lng < -180 ) {
+					lng += 360;
+				}
+				while ( lng > 180 ) {
+					lng -= 360;
+				}
+			} else {
+				lat *= 100 / imageWidth;
+				lng *= 100 / imageWidth;
 			}
-			while ( lng > 180 ) {
-				lng -= 360;
-			}
-			var stringVal = pfRoundOffDecimal( marker.getLatLng().lat ) + ', ' +
+			var stringVal = pfRoundOffDecimal( lat ) + ', ' +
 				pfRoundOffDecimal( lng );
 			coordsInput.val( stringVal )
 				.attr( 'data-original-value', stringVal )

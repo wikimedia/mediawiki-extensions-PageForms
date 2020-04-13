@@ -75,22 +75,70 @@ class PFLeafletInput extends PFOpenLayersInput {
 		];
 		$coordsInput = Html::element( 'input', $coordsInputAttrs );
 
-		$height = self::getHeight( $other_args );
-		$width = self::getWidth( $other_args );
+		if ( array_key_exists( 'image', $other_args ) ) {
+			global $wgUploadDirectory;
+			$fileName = $other_args['image'];
+			$fileTitle = Title::makeTitleSafe( NS_FILE, $fileName );
+			$imagePage = new ImagePage( $fileTitle );
+			$file = $imagePage->getDisplayedFile();
+			$filePath = $wgUploadDirectory . '/' . $file->getUrlRel();
+			list( $imageWidth, $imageHeight, $type, $attr ) = getimagesize( $filePath );
+			if ( !array_key_exists( 'height', $other_args ) && !array_key_exists( 'width', $other_args ) ) {
+				// Scale down image if it's huge.
+				$maxDimension = max( $imageHeight, $imageWidth );
+				$maxAllowedSize = 1000;
+				if ( $maxDimension > $maxAllowedSize ) {
+					$imageHeight *= $maxAllowedSize / $maxDimension;
+					$imageWidth *= $maxAllowedSize / $maxDimension;
+				}
+				$height = $imageHeight . 'px';
+				$width = $imageWidth . 'px';
+			} else {
+				$height = self::getHeight( $other_args );
+				$width = self::getWidth( $other_args );
+				// Reduce image height and width if necessary,
+				// to fit it into the display.
+				$heightRatio = (int)$height / $imageHeight;
+				$widthRatio = (int)$width / $imageWidth;
+				$smallerRatio = min( $heightRatio, $widthRatio );
+				if ( $smallerRatio < 1 ) {
+					$imageHeight *= $smallerRatio;
+					$imageWidth *= $smallerRatio;
+				}
+			}
+		} else {
+			$fileName = null;
+			$height = self::getHeight( $other_args );
+			$width = self::getWidth( $other_args );
+		}
+
 		$mapCanvas = Html::element( 'div', [ 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ], 'Map goes here...' );
 
-		$fullInputHTML = <<<END
+		if ( !array_key_exists( 'image', $other_args ) ) {
+			$fullInputHTML = <<<END
 <div style="padding-bottom: 10px;">
 $addressLookupInput
 $addressLookupButton
 </div>
+
+END;
+		}
+		$fullInputHTML = <<<END
 <div style="padding-bottom: 10px;">
 $coordsInput
 </div>
 $mapCanvas
 
 END;
-		$text = Html::rawElement( 'div', [ 'class' => 'pfLeafletInput' ], $fullInputHTML );
+
+		$divAttrs = [ 'class' => 'pfLeafletInput' ];
+		if ( $fileName !== null ) {
+			$divAttrs['data-image-path'] = $file->getUrl();
+			$divAttrs['data-height'] = $imageHeight;
+			$divAttrs['data-width'] = $imageWidth;
+		}
+
+		$text = Html::rawElement( 'div', $divAttrs, $fullInputHTML );
 
 		return $text;
 	}
