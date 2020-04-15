@@ -92,15 +92,15 @@ class PFComboBoxInput extends PFFormInput {
 		$input_id = 'input_' . $wgPageFormsFieldNum;
 
 		$inputAttrs = [
-			'type' => 'text',
 			'id' => $input_id,
 			'name' => $input_name,
 			'class' => $className,
 			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 			'value' => $cur_value,
-			'size' => $size,
-			'disabled' => $is_disabled,
+			'data-size' => $size * 6 . 'px',
+			'style' => 'width:' . $size * 6 . 'px',
+			'disabled' => $is_disabled
 		];
 		if ( array_key_exists( 'origName', $other_args ) ) {
 			$inputAttrs['origname'] = $other_args['origName'];
@@ -118,7 +118,50 @@ class PFComboBoxInput extends PFFormInput {
 			$inputAttrs['data-namespace'] = $other_args['namespace'];
 		}
 
-		$inputText = Html::rawElement( 'input', $inputAttrs );
+		$innerDropdown = '';
+		$isValueinPossibleValue = false;
+
+		if ( !$is_mandatory || $cur_value === '' ) {
+			$innerDropdown .= "	<option value=\"\"></option>\n";
+		}
+		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
+			// If it's a Boolean property, display 'Yes' and 'No'
+			// as the values.
+			if ( array_key_exists( 'property_type', $other_args ) && $other_args['property_type'] == '_boo' ) {
+				$possible_values = [
+					PFUtils::getWordForYesOrNo( true ),
+					PFUtils::getWordForYesOrNo( false ),
+				];
+			} else {
+				$possible_values = [];
+			}
+		}
+		foreach ( $possible_values as $possible_value ) {
+			$optionAttrs = [ 'value' => $possible_value ];
+			if ( $possible_value == $cur_value ) {
+				$optionAttrs['selected'] = "selected";
+				$isValueinPossibleValue = true;
+			}
+			if (
+				array_key_exists( 'value_labels', $other_args ) &&
+				is_array( $other_args['value_labels'] ) &&
+				array_key_exists( $possible_value, $other_args['value_labels'] )
+			) {
+				$label = $other_args['value_labels'][$possible_value];
+			} else {
+				$label = $possible_value;
+			}
+			// echo $possible_value;
+			$innerDropdown .= Html::element( 'option', $optionAttrs, $label );
+		}
+		if ( $isValueinPossibleValue === false ) {
+			$optionAttrs = [ 'value' => $cur_value ];
+			$optionAttrs['selected'] = "selected";
+			$label = $cur_value;
+			$innerDropdown .= Html::element( 'option', $optionAttrs, $label );
+		}
+
+		$inputText = Html::rawElement( 'select', $inputAttrs, $innerDropdown );
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {

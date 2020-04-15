@@ -4,8 +4,8 @@
 	font-weight: bold;
 }
 
-.pf-select2-dropdown .select2-results .select2-highlighted {
-	background-color: #0645ad;
+.pf-select2-dropdown .select2-results__options .select2-results__option--highlighted {
+	background-color: #2A4B8D;
 }
 
 .pf-select2-dropdown .select2-search input {

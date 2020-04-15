@@ -128,8 +128,13 @@ class PFTokensInput extends PFFormInput {
 
 		$inputAttrs = [
 			'id' => $input_id,
-			'size' => $size,
+			'name' => $input_name . '[]',
 			'class' => $className,
+			'style' => 'width:' . $size * 6 . 'px',
+			'multiple' => 'multiple',
+			'value' => $cur_value,
+			'size' => 1,
+			'data-size' => $size * 6 . 'px',
 			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 		];
@@ -157,8 +162,53 @@ class PFTokensInput extends PFFormInput {
 		if ( array_key_exists( 'namespace', $other_args ) ) {
 			$inputAttrs['data-namespace'] = $other_args['namespace'];
 		}
+		// This code adds predefined tokens in the form of <options>
 
-		$text = "\n\t" . Html::input( $input_name, $cur_value, 'text', $inputAttrs ) . "\n";
+		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
+		$optionsText = '';
+
+		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
+			// If it's a Boolean property, display 'Yes' and 'No'
+			// as the values.
+			if ( array_key_exists( 'property_type', $other_args ) && $other_args['property_type'] == '_boo' ) {
+				$possible_values = [
+					PFUtils::getWordForYesOrNo( true ),
+					PFUtils::getWordForYesOrNo( false ),
+				];
+			} else {
+				$possible_values = [];
+			}
+		}
+
+		foreach ( $possible_values as $possible_value ) {
+			if (
+				array_key_exists( 'value_labels', $other_args ) &&
+				is_array( $other_args['value_labels'] ) &&
+				array_key_exists( $possible_value, $other_args['value_labels'] )
+			) {
+				$optionLabel = $other_args['value_labels'][$possible_value];
+			} else {
+				$optionLabel = $possible_value;
+			}
+			$optionAttrs = [ 'value' => $possible_value ];
+			if ( in_array( $possible_value, $cur_values ) ) {
+				$optionAttrs['selected'] = 'selected';
+			}
+			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
+		}
+		foreach ( $cur_values as $current_value ) {
+
+			if ( !in_array( $current_value, $possible_values ) && $current_value !== '' ) {
+				$optionAttrs = [ 'value' => $current_value ];
+				$optionAttrs['selected'] = 'selected';
+				$optionLabel = $current_value;
+				$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
+			}
+
+		}
+
+		$text = "\n\t" . Html::rawElement( 'select',  $inputAttrs, $optionsText ) . "\n";
+		$text .= Html::hidden( $input_name . '[is_list]', 1 );
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
 			if ( array_key_exists( 'default filename', $other_args ) ) {

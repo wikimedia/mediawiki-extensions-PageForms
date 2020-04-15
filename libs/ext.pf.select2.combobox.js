@@ -8,6 +8,7 @@
  *
  * @licence GNU GPL v2+
  * @author Jatin Mehta
+ * @author Priyanshu Varshney
  */
 
 ( function( $, mw, pf ) {
@@ -43,48 +44,59 @@
 		input_id = "#" + input_id;
 		var input_tagname = $(input_id).prop( "tagName" );
 		var autocomplete_opts = this.getAutocompleteOpts();
-
+		opts.escapeMarkup = function (m) { return m; };
 		if ( autocomplete_opts.autocompletedatatype !== undefined ) {
 			opts.ajax = this.getAjaxOpts();
 			opts.minimumInputLength = 1;
 			opts.formatInputTooShort = mw.msg( "pf-select2-input-too-short", opts.minimumInputLength );
-			opts.formatSelection = this.formatSelection;
-			opts.escapeMarkup = function (m) { return m; };
-		} else if ( input_tagname === "INPUT" ) {
+		} else if ( input_tagname === "SELECT" ) {
 			opts.data = this.getData( autocomplete_opts.autocompletesettings );
 		}
 		var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 		if ( !wgPageFormsAutocompleteOnAllChars ) {
 			opts.matcher = function( term, text ) {
-				var no_diac_text = pf.select2.base.prototype.removeDiacritics( text );
-				var position = no_diac_text.toUpperCase().indexOf(term.toUpperCase());
-				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.toUpperCase());
-				if ( (position !== -1 && position === 0 ) || position_with_space !== -1 ) {
-					return true;
-				} else {
-					return false;
+				if( term.term === undefined ) {
+					term.term = "";
 				}
+				var no_diac_text = pf.select2.base.prototype.removeDiacritics( text.text );
+				var position = no_diac_text.toUpperCase().indexOf(term.term.toString().toUpperCase());
+				var position_with_space = no_diac_text.toUpperCase().indexOf(" " + term.term.toString().toUpperCase());
+				if ( (position !== -1 && position === 0 ) || position_with_space !== -1 ) {
+					return text;
+				} else {
+					return null;
+				}
+				return null;
 			};
 		}
-		opts.formatResult = this.formatResult;
+		opts.templateResult = function( result ) {
+			var term = $( input_id ).data("select2").dropdown.$search.val();
+			if( term === undefined ) {
+				term = "";
+			}
+			var text = result.id;
+			var highlightedText = pf.select2.base.prototype.textHighlight( text, term );
+			var markup = highlightedText;
+
+			return markup;
+		}
 		opts.formatSearching = mw.msg( "pf-select2-searching" );
 		opts.formatNoMatches = mw.msg( "pf-select2-no-matches" );
 		opts.placeholder = $(input_id).attr( "placeholder" );
-		if ( $(input_id).attr( "existingvaluesonly" ) !== "true" && input_tagname === "INPUT" ) {
-			opts.createSearchChoice = function( term, data ) { if ( $(data).filter(function() { return this.text.localeCompare( term )===0; }).length===0 ) { return { id:term, text:term }; } };
-		}
-		if ( $(input_id).val() !== "" && input_tagname === "INPUT" ) {
-			opts.initSelection = function ( element, callback ) { var data = {id: element.val(), text: element.val()}; callback(data); };
+		if( opts.placeholder === undefined ) {
+			opts.placeholder = "";
 		}
 		opts.allowClear = true;
-		var size = $(input_id).attr("size");
+		var size = $(input_id).attr("data-size");
 		if ( size === undefined ) {
-			size = 35; //default value
+			size = '200'; //default value
 		}
-		opts.containerCss = { 'min-width': size * 6 };
+		opts.containerCss = { 'min-width': size };
+		opts.width= NaN;
+		opts.tags = true;
 		opts.containerCssClass = 'pf-select2-container';
 		opts.dropdownCssClass = 'pf-select2-dropdown';
-
+		opts.selectOnClose = true;
 		return opts;
 	};
 	/*
@@ -96,7 +108,7 @@
 	 */
 	combobox_proto.getData = function( autocompletesettings ) {
 		var input_id = "#" + this.id;
-		var values = [ {id: 0, text: ""} ];
+		var values = [];
 		var dep_on = this.dependentOn();
 		var i, data;
 		if ( dep_on === null ) {
@@ -107,13 +119,11 @@
 				data = {};
 				if ( wgPageFormsEDSettings[name].title !== undefined && wgPageFormsEDSettings[name].title !== "" ) {
 					data.title = edgValues[wgPageFormsEDSettings[name].title];
-					i = 0;
 					if ( data.title !== undefined && data.title !== null ) {
 						data.title.forEach(function() {
 							values.push({
-								id: i + 1, text: data.title[i]
+								id: data.title[i], text: data.title[i]
 							});
-							i++;
 						});
 					}
 					if ( wgPageFormsEDSettings[name].image !== undefined && wgPageFormsEDSettings[name].image !== "" ) {
@@ -143,12 +153,10 @@
 				data = wgPageFormsAutocompleteValues[autocompletesettings];
 				//Convert data into the format accepted by Select2
 				if (data !== undefined && data !== null ) {
-					var index = 1;
 					for (var key in data) {
 						values.push({
-							id: index, text: data[key]
+							id: data[key], text: data[key]
 						});
-						index++;
 					}
 				}
 			}
@@ -173,22 +181,21 @@
 				var baseCargoField = baseCargoTableAndField[1];
 				my_server += "&cargo_table=" + cargoTable + "&cargo_field=" + cargoField + "&base_cargo_table=" + baseCargoTable + "&base_cargo_field=" + baseCargoField + "&basevalue=" + dep_field_opts.base_value;
 			}
-			//alert(my_server);
+
 			$.ajax({
 				url: my_server,
 				dataType: 'json',
 				async: false,
 				success: function(data) {
-					var id = 1;
 					//Convert data into the format accepted by Select2
 					data.pfautocomplete.forEach( function(item) {
 						if (item.displaytitle !== undefined) {
 							values.push({
-								id: id++, text: item.displaytitle
+								id: item.displaytitle, text: item.displaytitle
 							});
 						} else {
 							values.push({
-								id: id++, text: item.title
+								id: item.title, text: item.title
 							});
 						}
 					});
@@ -223,14 +230,13 @@
 			dataType: 'json',
 			data: function (term) {
 				return {
-					substr: term, // search term
+					substr: term.term, // search term
 				};
 			},
-			results: function (data, page, query) { // parse the results into the format expected by Select2.
-				var id = 0;
+			processResults: function (data) { // parse the results into the format expected by Select2.
 				if (data.pfautocomplete !== undefined) {
 					data.pfautocomplete.forEach( function(item) {
-						item.id = id++;
+						item.id = item.title;
 						if (item.displaytitle !== undefined) {
 							item.text = item.displaytitle;
 						} else {
@@ -255,17 +261,19 @@
 		var self = this;
 		var data = $(this).select2( "data" );
 		var namespace = $(this).attr( "data-namespace" );
-
-		if (data !== null) {
- 			var val = data.text;
- 			if ( namespace && data.id === data.text ) {
+		if (data.length !== 0) {
+ 			var val = data[0].text;
+ 			if ( namespace && data[0].id === data[0].text ) {
  				if ( val.indexOf( namespace + ':' ) !== 0 ) {
  					val = namespace + ':' + val;
  				}
  			}
- 			$(this).val( val );
+			$(this)[0].children[0].text=val;
+			$(this)[0].children[0].value=val;
+
+ 			$(this).value = val;
 		} else {
-			$(this).val( '' );
+			$(this).value = '';
 		}
 
 		// Set the corresponding values for any other field
