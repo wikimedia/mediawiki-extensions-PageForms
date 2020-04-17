@@ -44,7 +44,7 @@ class PFCreateForm extends SpecialPage {
 				}
 			}
 			*/
-			echo self::showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
+			echo $this->showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
 		} else {
 			$this->doSpecialCreateForm( $query );
 		}
@@ -556,7 +556,7 @@ END;
 		$other_param_text = wfMessage( 'pf_createform_otherparameters' )->escaped();
 		$text .= "<fieldset class=\"pfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
 		$text .= Html::rawElement( 'div', [ 'class' => 'otherInputParams' ],
-			self::showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
+			$this->showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
 		$text .= <<<END
 	</p>
@@ -667,7 +667,7 @@ END;
 	 *
 	 * @return string
 	 */
-	public static function showInputTypeOptions( $inputType, $fieldFormText, $paramValues ) {
+	public function showInputTypeOptions( $inputType, $fieldFormText, $paramValues ) {
 		global $wgPageFormsFormPrinter;
 
 		$text = '';
@@ -686,7 +686,7 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = PFUtils::getParser()->parse( $param['description'], new Title(), new ParserOptions() )->getText();
+			$desc = PFUtils::getParser()->parse( $param['description'], $this->getTitle(), new ParserOptions() )->getText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
@@ -731,7 +731,7 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = PFUtils::getParser()->parse( $param['description'], new Title(), new ParserOptions() )->getText();
+			$desc = PFUtils::getParser()->parse( $param['description'], $this->getTitle(), new ParserOptions() )->getText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
