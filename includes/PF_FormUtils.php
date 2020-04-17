@@ -452,7 +452,7 @@ END;
 			$form_def = $parser->recursiveTagParse( $form_def );
 			$output = $parser->getOutput();
 		} else {
-			$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : new Title();
+			$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : $form_title;
 			// We need to pass "false" in to the parse() $clearState param so that
 			// embedding Special:RunQuery will work.
 			$output = $parser->parse( $form_def, $title, $parser->getOptions(), true, false );
