@@ -878,8 +878,8 @@ END;
 		}
 
 		$parser = PFUtils::getParser()->getFreshParser();
-		if ( !$parser->Options() ) {
-			$parser->Options( ParserOptions::newFromUser( $wgUser ) );
+		if ( !$parser->getOptions() ) {
+			$parser->setOptions( ParserOptions::newFromUser( $wgUser ) );
 		}
 		if ( !$is_embedded ) {
 			$parser->setTitle( $this->mPageTitle );
