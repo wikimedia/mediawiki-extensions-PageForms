@@ -879,7 +879,12 @@ END;
 
 		$parser = PFUtils::getParser()->getFreshParser();
 		if ( !$parser->getOptions() ) {
-			$parser->setOptions( ParserOptions::newFromUser( $wgUser ) );
+			if ( method_exists( $parser, 'setOptions' ) ) {
+				// MW 1.35+
+				$parser->setOptions( ParserOptions::newFromUser( $wgUser ) );
+			} else {
+				$parser->Options( ParserOptions::newFromUser( $wgUser ) );
+			}
 		}
 		if ( !$is_embedded ) {
 			$parser->setTitle( $this->mPageTitle );
