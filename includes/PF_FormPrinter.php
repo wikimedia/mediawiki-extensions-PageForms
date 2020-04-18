@@ -1606,7 +1606,7 @@ END;
 							$params[] = $values;
 						}
 						$templateName = $tif->getTemplateName();
-						$templateDivID = str_replace( ' ', '', $templateName ) . "FullCalendar";
+						$templateDivID = str_replace( ' ', '_', $templateName ) . "FullCalendar";
 						$templateDivAttrs = [
 							'class' => 'pfFullCalendarJS',
 							'id' => $templateDivID,

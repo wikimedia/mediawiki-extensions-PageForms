@@ -21,8 +21,8 @@
 		var calendarHTML = mw.config.get('wgPageFormsCalendarHTML');
 
 		var $fcDiv = $( this );
+		var calendarId = $fcDiv.attr( 'id' );
 		var templateName = $fcDiv.attr( 'template-name' );
-		var templateNameCopy = templateName;
 		var eventTitleField = $fcDiv.attr( 'title-field' );
 		var eventDateField = $fcDiv.attr( 'event-date-field' );
 		var eventStartDateField = $fcDiv.attr( 'event-start-date-field' );
@@ -46,7 +46,6 @@
 		// From here the game begins - getting the form HTML to be used as the popup form  -
 		// for the calendar interface
 		var formHtml = calendarHTML[templateName];
-
 		var popup = '<form id="popupForm">';
 		var deleteButton = '<button  id="event_delete" class = "delete-event-button" name="data" type="button" >' + mw.msg('pf-calendar-deleteevent') + '</button>';
 		var createButton = '<button  id="form_submit" class = "submit-event-button" name="data" type="button" >' + mw.msg('pf-calendar-createevent') + '</button>';
@@ -55,7 +54,7 @@
 		var createEventPopup = popup + createButton;
 		var updateEventPopup = popup + updateButton;
 		var suitableForCalendar = true;
-		var calendarIdSelector = '#' + templateName + "FullCalendar";
+		var calendarIdSelector = '#' + calendarId;
 		var events = [], data = [], dateFields = [], dateStartFields = [], dateEndFields = [], eventsNoDate = [], checkboxesNum = [];
 		var segment, dateSegment, yearFC, monthFC, dateFC,
 				timeSegment, hourFC, minuteFC, secondFC, ampm24h,
@@ -67,7 +66,8 @@
 				eventStartDateDay, eventStartDateYear, eventStartDateMonth, eventStartDateHour,
 				eventStartDateMinute, eventStartDateSecond, eventStartDateAmPm24;
 		var currentEndDateMoment;
-		var checkboxesValues =[];
+		var checkboxesValues = [];
+		var listboxValues = [];
 		var tokensProto, comboboxProto, result, eventTemplateName, parameterName, eventContents, allEvents,
 				dateElement, nextDate, formatted, i, j;
 
@@ -92,7 +92,6 @@
 				autoFillEndMinute = templateName+'[cf]['+ eventEndDateField + '][minute]',
 				autoFillEndSecond = templateName+'[cf]['+ eventEndDateField + '][second]',
 				autoFillEndAmPm24h = templateName+'[cf]['+ eventEndDateField + '][ampm24h]';
-
 		for( i = 0; i<calendarParams[templateName].length; i++ ) {
 			fieldType[calendarParams[templateName][i].name]=calendarParams[templateName][i].type;
 		}
@@ -386,12 +385,12 @@
 
 			// Populate the calendar with the already saved events - if any
 			events: function( start, end, timezone, callback ) {
-				var calendarValues = calendarGridValues[templateNameCopy];
+				var calendarValues = calendarGridValues[templateName];
 				for( i = 0; i<calendarValues.length; i++ ) {
 					data = [];
 					eventData = calendarValues[i];
-					for( j=0; j<calendarParams[templateNameCopy].length;j++ ) {
-						currParam = calendarParams[templateNameCopy][j];
+					for( j=0; j<calendarParams[templateName].length;j++ ) {
+						currParam = calendarParams[templateName][j];
 						temp = eventData[currParam.name];
 						if( fieldType[currParam.name] === 'date' && isValidDate(temp) === false ) {
 							eventsNoDate.push(eventData);
@@ -402,8 +401,8 @@
 						}
 					}
 					if(suitableForCalendar === true ) {
-						for( j=0; j<calendarParams[templateNameCopy].length;j++ ) {
-							currParam = calendarParams[templateNameCopy][j];
+						for( j=0; j<calendarParams[templateName].length;j++ ) {
+							currParam = calendarParams[templateName][j];
 							temp = eventData[currParam.name];
 							if( fieldType[currParam.name] === 'date' ) {
 								if ( mw.config.get( 'wgAmericanDates' ) ) { //check for date-style format.
@@ -418,17 +417,17 @@
 									dateFC = padNumber(dateSegment[2]);
 								}
 								dateEntry = {
-									'name' : templateNameCopy + '[cf]['+currParam.name+'][day]',
+									'name' : templateName + '[cf]['+currParam.name+'][day]',
 									'value': dateFC
 								};
 								data.push( dateEntry );
 								monthEntry = {
-									'name' : templateNameCopy + '[cf]['+currParam.name+'][month]',
+									'name' : templateName + '[cf]['+currParam.name+'][month]',
 									'value': monthFC
 								};
 								data.push( monthEntry );
 								yearEntry = {
-									'name' : templateNameCopy + '[cf]['+currParam.name+'][year]',
+									'name' : templateName + '[cf]['+currParam.name+'][year]',
 									'value': yearFC
 								};
 								data.push( yearEntry );
@@ -463,43 +462,43 @@
 								}
 
 								dateEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][day]',
+									'name' : templateName+'[cf]['+currParam.name+'][day]',
 									'value': dateFC
 								};
 								data.push( dateEntry );
 								monthEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][month]',
+									'name' : templateName+'[cf]['+currParam.name+'][month]',
 									'value': monthFC
 								};
 								data.push( monthEntry );
 								yearEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][year]',
+									'name' : templateName+'[cf]['+currParam.name+'][year]',
 									'value': yearFC
 								};
 								data.push(yearEntry);
 								hourEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][hour]',
+									'name' : templateName+'[cf]['+currParam.name+'][hour]',
 									'value': hourFC
 								};
 								data.push( hourEntry );
 								minuteEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][minute]',
+									'name' : templateName+'[cf]['+currParam.name+'][minute]',
 									'value': minuteFC
 								};
 								data.push( minuteEntry );
 								secondEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][second]',
+									'name' : templateName+'[cf]['+currParam.name+'][second]',
 									'value': secondFC
 								};
 								data.push( secondEntry );
 								ampm24hEntry = {
-									'name' : templateNameCopy+'[cf]['+currParam.name+'][ampm24h]',
+									'name' : templateName+'[cf]['+currParam.name+'][ampm24h]',
 									'value': ampm24h
 								};
 								data.push( ampm24hEntry );
 							} else {
 								regularEntry = {
-									'name': templateNameCopy+'[cf]['+currParam.name+']',
+									'name': templateName+'[cf]['+currParam.name+']',
 									'value':temp
 								};
 								data.push( regularEntry );
@@ -750,7 +749,7 @@
 					} else if ( temp.includes('day') ) {
 						$(':input[name="'+temp+'"]').val( Number(formContents[i].value) );
 					} else {
-						if(fieldType[paramName] === 'radiobutton' || fieldType[paramName] === 'checkbox' || fieldType[paramName] === 'checkboxes' ) {
+						if(fieldType[paramName] === 'radiobutton' || fieldType[paramName] === 'checkbox' || fieldType[paramName] === 'checkboxes' || fieldType[paramName] === 'listbox' ) {
 							if( fieldType[paramName] === 'radiobutton' ) {
 								$(':input[value="' + formContents[i].value + '"]').attr('checked',true);
 							}
@@ -771,6 +770,17 @@
 								} else {
 									$(':input[value="' + formContents[i].value + '"]').attr('checked',true);
 									// checkboxes_values.push(formContents[i].value);
+								}
+							}
+							if( fieldType[paramName] === 'listbox' && !temp.includes('[is_list]')) {
+								if( formContents[i].value.includes(',') ) {
+									listboxValues = formContents[i].value.split(', ');
+									for( var list = 0; list<listboxValues.length; list++ ) {
+										$('option[value="' + listboxValues[list] + '"]').attr("selected", "selected");
+									}
+								} else {
+									$('option[value="' + formContents[i].value + '"]').attr("selected", "selected");
+									// checkboxes_values.push(form_contents[i].value);
 								}
 							}
 						} else {
@@ -1046,8 +1056,8 @@
 			for( i =0;i<allEvents.length;i++ ) {
 				var eventContent = allEvents[i].contents;
 				var finalFieldValues = [];
-				for( var ii=0; ii<calendarParams[templateNameCopy].length; ii++ ) {
-					parameterName = calendarParams[templateNameCopy][ii].name;
+				for( var ii=0; ii<calendarParams[templateName].length; ii++ ) {
+					parameterName = calendarParams[templateName][ii].name;
 					var inputValue = '';
 					if( fieldType[parameterName] === "date" ) {
 						dateValue = '';
@@ -1127,7 +1137,7 @@
 					} else {
 						var checkboxesFinal = '';
 						checkboxesNum= [];
-						if( fieldType[parameterName] === 'checkboxes' ) {
+						if( fieldType[parameterName] === 'checkboxes' || fieldType[parameterName] === 'listbox' ) {
 							for( j=0;j<eventContent.length;j++ ) {
 								if( eventContent[j].name.includes('['+parameterName+']') && !eventContent[j].name.includes('[is_list]') ) {
 									checkboxesNum.push(eventContent[j].value);
@@ -1149,16 +1159,16 @@
 							}
 						}
 					}
-					var inputName = templateNameCopy + '['+ (i+1) +'][' + parameterName + ']';
+					var inputName = templateName + '['+ (i+1) +'][' + parameterName + ']';
 					finalFieldValues[inputName] = inputValue;
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value',finalFieldValues[inputName] ).appendTo( '#pfForm' );
 				}
 			}
 			for( var k =0;k<eventsNoDate.length; k++ ) {
 				var index = i+1;
-				for( var jj=0; jj<calendarParams[templateNameCopy].length; jj++ ) {
-					parameterName = calendarParams[templateNameCopy][jj].name;
-					var entryName = templateNameCopy + '['+ (index) +'][' + parameterName + ']';
+				for( var jj=0; jj<calendarParams[templateName].length; jj++ ) {
+					parameterName = calendarParams[templateName][jj].name;
+					var entryName = templateName + '['+ (index) +'][' + parameterName + ']';
 					$('<input>').attr( 'type', 'hidden' ).attr( 'name', entryName ).attr( 'value',eventsNoDate[k][parameterName] ).appendTo( '#pfForm' );
 				}
 			}
