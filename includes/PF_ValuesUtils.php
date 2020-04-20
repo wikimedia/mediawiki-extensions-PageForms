@@ -367,17 +367,21 @@ class PFValuesUtils {
 			foreach ( $titles as $title ) {
 				if ( array_key_exists( $title->getArticleID(), $properties ) ) {
 					$titleprops = $properties[$title->getArticleID()];
-					if ( array_key_exists( 'displaytitle', $titleprops ) &&
-						trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
-						$pages[$title->getPrefixedText()] = htmlspecialchars_decode( $titleprops['displaytitle'] );
-					} else {
-						$pages[$title->getPrefixedText()] = $title->getPrefixedText();
-					}
-					if ( array_key_exists( 'defaultsort', $titleprops ) ) {
-						$sortkeys[$title->getPrefixedText()] = $titleprops['defaultsort'];
-					} else {
-						$sortkeys[$title->getPrefixedText()] = $title->getPrefixedText();
-					}
+				} else {
+					$titleprops = [];
+				}
+
+				$titleText = $title->getPrefixedText();
+				if ( array_key_exists( 'displaytitle', $titleprops ) &&
+					trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
+					$pages[$titleText] = htmlspecialchars_decode( $titleprops['displaytitle'] );
+				} else {
+					$pages[$titleText] = $titleText;
+				}
+				if ( array_key_exists( 'defaultsort', $titleprops ) ) {
+					$sortkeys[$titleText] = $titleprops['defaultsort'];
+				} else {
+					$sortkeys[$titleText] = $titleText;
 				}
 			}
 		}
