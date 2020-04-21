@@ -625,6 +625,9 @@ $.fn.addErrorMessage = function(msg, val) {
 	this.find('input').addClass('inputError');
 	this.find('select2-container').addClass('inputError');
 	this.append($('<div>').addClass( 'errorMessage' ).text( mw.msg( msg, val ) ));
+	// If this is part of a minimized multiple-template instance, add a
+	// red border around the instance rectangle to make it easier to find.
+	this.parents( '.multipleTemplateInstance.minimized' ).css( 'border', '1px solid red' );
 };
 
 $.fn.isAtMaxInstances = function() {
