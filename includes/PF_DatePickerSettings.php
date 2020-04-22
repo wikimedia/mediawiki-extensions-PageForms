@@ -12,19 +12,19 @@ if ( !defined( 'PF_VERSION' ) ) {
 
 $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = [
 
-	##
+	# #
 	# This is the first selectable date (format yyyy/mm/dd)
 	# Sample value: '2005/01/01'
 	#
 	'FirstDate'             => null,
 
-	##
+	# #
 	# This is the last selectable date (format yyyy/mm/dd)
 	# Sample value: '2015/31/12'
 	#
 	'LastDate'              => null,
 
-	##
+	# #
 	# The date format string used for the user input.
 	# The date sent back to the form is fixed to yyyy/mm/dd
 	# (that is, yy/mm/dd in the format code below).
@@ -56,7 +56,7 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = [
 	#
 	'DateFormat'            => 'SHORT',
 
-	##
+	# #
 	# This determines the start of the week in the display.
 	# Set it to: 0 (Zero) for Sunday, 1 (One) for Monday etc.
 	# If set to null the day is localized to the wiki user language
@@ -64,7 +64,7 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = [
 	#
 	'WeekStart'             => null,
 
-	##
+	# #
 	# This is a string of disabled days of the week, i.e. days the user can not
 	# pick. The days must be given as comma-separated list of numbers starting
 	# with 0 for Sunday.
@@ -72,14 +72,14 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = [
 	#
 	'DisabledDaysOfWeek'    => null,
 
-	##
+	# #
 	# This is a string of highlighted days of the week. The days must be given as
 	# comma-separated list of numbers starting with 0 for Sunday.
 	# Sample value: "6,0"
 	#
 	'HighlightedDaysOfWeek' => null,
 
-	##
+	# #
 	# This is a string of disabled dates, i.e. days the user cannot pick. The
 	# days must be given as comma-separated list of dates or date ranges. The
 	# format for days is yyyy/mm/dd, for date ranges use yyyy/mm/dd-yyyy/mm/dd.
@@ -88,7 +88,7 @@ $GLOBALS[ 'wgPageFormsDatePickerSettings' ] = [
 	#
 	'DisabledDates'         => null,
 
-	##
+	# #
 	# This is a string of highlighted dates. The days must be given as
 	# comma-separated list of dates or date ranges. The format for days is
 	# yyyy/mm/dd, for date ranges use yyyy/mm/dd-yyyy/mm/dd. Spaces are

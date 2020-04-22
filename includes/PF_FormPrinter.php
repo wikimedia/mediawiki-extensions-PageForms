@@ -1878,7 +1878,7 @@ END;
 	 *
 	 * @param unknown $form_field
 	 * @param unknown $cur_value
-	 * @param unknown $text
+	 * @param unknown &$text
 	 */
 	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
 		if ( !$this->isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
