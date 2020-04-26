@@ -999,7 +999,7 @@ class PFAutoeditAPI extends ApiBase {
 		$data = [];
 		$doc = new DOMDocument();
 		$oldVal = libxml_disable_entity_loader( true );
-		if ( method_exists( 'AtEase', 'suppressWarnings' ) ) {
+		if ( method_exists( AtEase::class, 'suppressWarnings' ) ) {
 			// MW >= 1.33
 			AtEase::suppressWarnings();
 		} else {
@@ -1010,7 +1010,7 @@ class PFAutoeditAPI extends ApiBase {
 			. $html
 			. '</body></html>'
 		);
-		if ( method_exists( 'AtEase', 'suppressWarnings' ) ) {
+		if ( method_exists( AtEase::class, 'restoreWarnings' ) ) {
 			// MW >= 1.33
 			AtEase::restoreWarnings();
 		} else {
