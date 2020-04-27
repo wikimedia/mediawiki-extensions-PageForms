@@ -192,7 +192,7 @@
 	"right-createclass": "新しい意味クラスを作成",
 	"action-createclass": "新しい意味クラスを作成",
 	"action-editrestrictedfields": "制限されたフォームフィールドの編集",
-	"action-viewedittab": "フォームで編集できるページに「{{int:edit}}」タブを表示",
+	"action-viewedittab": "フォームで編集できるページへの「{{int:edit}}」タブの表示",
 	"action-multipageedit": "スプレッドシートを使って複数ページを編集",
 	"pf-select2-searching": "検索中...",
 	"pf-select2-input-too-short": "$1 文字以上入力してください。",
