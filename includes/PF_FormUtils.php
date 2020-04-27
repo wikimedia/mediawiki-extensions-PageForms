@@ -56,7 +56,7 @@ class PFFormUtils {
 		$attr['value'] = $value;
 		$attr['name'] = 'wpSummary';
 		$attr['id'] = 'wpSummary';
-		$attr['maxlength'] = 200;
+		$attr['maxlength'] = 255;
 		$attr['size'] = 60;
 		if ( $is_disabled ) {
 			$attr['disabled'] = true;
