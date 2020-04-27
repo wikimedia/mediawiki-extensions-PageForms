@@ -1768,8 +1768,11 @@ END;
 
 		if ( !$is_query ) {
 			$form_text .= Html::hidden( 'wpStarttime', wfTimestampNow() );
-			$article = new Article( $this->mPageTitle, 0 );
-			$form_text .= Html::hidden( 'wpEdittime', $article->getTimestamp() );
+			// This variable is called $mwWikiPage and not
+			// something simpler, to avoid confusion with the
+			// variable $wiki_page, which is of type PFWikiPage.
+			$mwWikiPage = WikiPage::factory( $this->mPageTitle );
+			$form_text .= Html::hidden( 'wpEdittime', $mwWikiPage->getTimestamp() );
 			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
 			if ( defined( 'EditPage::UNICODE_CHECK' ) ) {
 				// MW 1.30+

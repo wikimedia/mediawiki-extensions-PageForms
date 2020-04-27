@@ -594,9 +594,9 @@ class PFParserFunctions {
 							$errorMsg = wfMessage( 'pf-autoedit-invalidnamespace', $targetTitle->getNsText() )->parse();
 							return Html::element( 'div', [ 'class' => 'error' ], $errorMsg );
 						}
-						$targetArticle = new Article( $targetTitle );
-						$targetArticle->clear();
-						$editTime = $targetArticle->getTimestamp();
+						$targetWikiPage = WikiPage::factory( $targetTitle );
+						$targetWikiPage->clear();
+						$editTime = $wikiPage->getTimestamp();
 					}
 
 				default:
