@@ -9,5 +9,6 @@
 	"pf_createtemplate_deletefield": "Efacar",
 	"pf_createform_template": "Shablono:",
 	"pf_createform_formlabel": "Titulo dil formulario:",
-	"formedit": "Redaktar kun formulario"
+	"formedit": "Redaktar kun formulario",
+	"pf-simpleupload": "Kargar"
 }
