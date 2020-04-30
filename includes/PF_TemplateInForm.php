@@ -313,54 +313,53 @@ class PFTemplateInForm {
 	}
 
 	/**
-	 * Change "non-template pipes", i.e. pipes that do not separate
-	 * between template params but rather are contained within tag
-	 * functions, into another character, so that they don't get
-	 * handled and can be changed back into pipes later.
-	 * (This doesn't include pipes contained within curly bracket
-	 * parser functions - those are handled separately.)
+	 * Remove all the bits that should not be parsed - those
+	 * contained in <pre> tags, etc. - and place them in an array,
+	 * so that they can be added back in later. This will prevent
+	 * the brackets, curly braces and pipes within those bits from
+	 * interfering with the parsing we need to do.
 	 *
 	 * @param string $str
+	 * @param string[] &$replacements
 	 * @return string
 	 */
-	static function escapeNonTemplatePipes( $str ) {
+	static function removeUnparsedText( $str, &$replacements ) {
 		$startAndEndTags = [
 			[ '<pre', 'pre>' ],
 			[ '<syntaxhighlight', 'syntaxhighlight>' ],
 			[ '<source', 'source>' ],
-			[ '<ref', 'ref>' ]
+			[ '<ref', 'ref>' ],
+			[ '<nowiki', 'nowiki>' ]
 		];
-
 		foreach ( $startAndEndTags as $tags ) {
 			list( $startTag, $endTag ) = $tags;
-			$pattern = "/($startTag.*)\|(.*$endTag)/mis";
-			while ( preg_match( $pattern, $str, $matches ) ) {
-				// Special handling, to avoid escaping pipes
-				// within a string that looks like:
-				// startTag ... endTag | startTag ... endTag
-				if ( strpos( $matches[1], $endTag ) &&
-					strpos( $matches[2], $startTag ) ) {
-					$str = preg_replace( $pattern, "$1" . "\2" . "$2", $str );
-				} else {
-					$str = preg_replace( $pattern, "$1" . "\1" . "$2", $str );
-				}
+			$startTagLoc = -1;
+			while ( ( $startTagLoc = strpos( $str, $startTag, $startTagLoc + 1 ) ) !== false ) {
+				$endTagLoc = strpos( $str, $endTag, $startTagLoc + strlen( $startTag ) );
+				$fullTagTextLength = $endTagLoc + strlen( $endTag ) - $startTagLoc;
+				$replacements[] = substr( $str, $startTagLoc, $fullTagTextLength );
+				$replacementNum = count( $replacements ) - 1;
+				$str = substr_replace( $str, "\1" . $replacementNum . "\2", $startTagLoc, $fullTagTextLength );
 			}
 		}
-		// Change the "true" pipes back into pipes.
-		$str = str_replace( "\2", '|', $str );
 		return $str;
 	}
 
 	/**
 	 * @param string $str
+	 * @param string[] $replacements
 	 * @return string
 	 */
-	static function unescapeNonTemplatePipes( $str ) {
-		return str_replace( "\1", '|', $str );
+	static function restoreUnparsedText( $str, $replacements ) {
+		foreach ( $replacements as $i => $fullTagText ) {
+			$str = str_replace( "\1" . $i . "\2", $fullTagText, $str );
+		}
+		return $str;
 	}
 
 	function setFieldValuesFromPage( $existing_page_content ) {
-		$existing_page_content = self::escapeNonTemplatePipes( $existing_page_content );
+		$unparsedTextReplacements = [];
+		$existing_page_content = self::removeUnparsedText( $existing_page_content, $unparsedTextReplacements );
 		$matches = [];
 		$search_pattern = '/{{' . $this->mPregMatchTemplateStr . '\s*[\|}]/i';
 		$content_str = str_replace( '_', ' ', $existing_page_content );
@@ -414,7 +413,7 @@ class PFTemplateInForm {
 					if ( $template_ended ) {
 						$field = substr( $field, 0, - 1 );
 					}
-					$field = self::unescapeNonTemplatePipes( $field );
+					$field = self::restoreUnparsedText( $field, $unparsedTextReplacements );
 					// Either there's an equals sign near the beginning or not -
 					// handling is similar in either way; if there's no equals
 					// sign, the index of this field becomes the key.
@@ -438,8 +437,9 @@ class PFTemplateInForm {
 			if ( $uncompleted_curly_brackets > 0 || $uncompleted_square_brackets > 0 ) {
 				throw new MWException( "PageFormsMismatchedBrackets" );
 			}
-			$existing_page_content = self::unescapeNonTemplatePipes( $existing_page_content );
-			$this->mFullTextInPage = substr( $existing_page_content, $start_char, $i - $start_char );
+
+			$fullText = substr( $existing_page_content, $start_char, $i - $start_char );
+			$this->mFullTextInPage = self::restoreUnparsedText( $fullText, $unparsedTextReplacements );
 		}
 	}
 
