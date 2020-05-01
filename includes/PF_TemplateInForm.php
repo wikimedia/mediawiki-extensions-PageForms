@@ -334,8 +334,17 @@ class PFTemplateInForm {
 		foreach ( $startAndEndTags as $tags ) {
 			list( $startTag, $endTag ) = $tags;
 			$startTagLoc = -1;
-			while ( ( $startTagLoc = strpos( $str, $startTag, $startTagLoc + 1 ) ) !== false ) {
+			while ( ( $startTagLoc = strpos( $str, $startTag, $startTagLoc + strlen( $startTag ) ) ) !== false ) {
+				// Ignore "singleton" tags, like '<ref name="abc" />'.
+				$possibleSingletonTagEnd = strpos( $str, '/>', $startTagLoc );
+				if ( $possibleSingletonTagEnd !== false && $possibleSingletonTagEnd < strpos( $str, '>', $startTagLoc ) ) {
+					continue;
+				}
 				$endTagLoc = strpos( $str, $endTag, $startTagLoc + strlen( $startTag ) );
+				// Also ignore unclosed tags.
+				if ( $endTagLoc === false ) {
+					continue;
+				}
 				$fullTagTextLength = $endTagLoc + strlen( $endTag ) - $startTagLoc;
 				$replacements[] = substr( $str, $startTagLoc, $fullTagTextLength );
 				$replacementNum = count( $replacements ) - 1;
