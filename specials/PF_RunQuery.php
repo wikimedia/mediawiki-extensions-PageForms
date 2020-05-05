@@ -137,7 +137,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			$action = htmlspecialchars( $realTitle->getLocalURL() );
 
 			$fullFormText .= <<<END
-	<form id="pfForm" name="createbox" action="$action" method="get" class="createbox">
+	<form id="pfForm" name="createbox" action="$action" method="post" class="createbox">
 
 END;
 			foreach ( $queryStringValues as $key => $value ) {
