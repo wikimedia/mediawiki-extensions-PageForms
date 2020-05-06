@@ -596,7 +596,7 @@ class PFParserFunctions {
 						}
 						$targetWikiPage = WikiPage::factory( $targetTitle );
 						$targetWikiPage->clear();
-						$editTime = $wikiPage->getTimestamp();
+						$editTime = $targetWikiPage->getTimestamp();
 					}
 
 				default:
