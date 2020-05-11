@@ -358,7 +358,7 @@ class PFParserFunctions {
 			$formContents .= Html::hidden( "form", $inFormName );
 		} else {
 			try {
-				$formContents .= PFUtils::formDropdownHTML();
+				$formContents .= PFUtils::formDropdownHTML( $listOfForms );
 			} catch ( MWException $e ) {
 				return Html::element( 'div', [ 'class' => 'error' ], $e->getMessage() );
 			}
