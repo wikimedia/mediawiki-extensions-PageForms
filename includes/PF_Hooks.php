@@ -212,14 +212,6 @@ class PFHooks {
 		return true;
 	}
 
-	public static function registerProperty( $id, $typeid, $label ) {
-		if ( class_exists( 'SMWDIProperty' ) ) {
-			SMWDIProperty::registerProperty( $id, $typeid, $label, true );
-		} else {
-			SMWPropertyValue::registerProperty( $id, $typeid, $label, true );
-		}
-	}
-
 	public static function addToAdminLinks( &$admin_links_tree ) {
 		$data_structure_label = wfMessage( 'smw_adminlinks_datastructure' )->text();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
