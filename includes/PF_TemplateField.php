@@ -147,19 +147,11 @@ class PFTemplateField {
 			$this->mFieldType = $fieldDescription->mType;
 		}
 		$this->mIsList = $fieldDescription->mIsList;
-		if ( method_exists( $fieldDescription, 'getDelimiter' ) ) {
-			// Cargo 0.11+
-			$this->mDelimiter = $fieldDescription->getDelimiter();
-		} else {
-			$this->mDelimiter = $fieldDescription->mDelimiter;
-		}
+		$this->mDelimiter = $fieldDescription->getDelimiter();
 		$this->mPossibleValues = $fieldDescription->mAllowedValues;
-		if ( property_exists( $fieldDescription, 'mIsMandatory' ) ) {
-			// Cargo 1.7+
-			$this->mIsMandatory = $fieldDescription->mIsMandatory;
-			$this->mIsUnique = $fieldDescription->mIsUnique;
-			$this->mRegex = $fieldDescription->mRegex;
-		}
+		$this->mIsMandatory = $fieldDescription->mIsMandatory;
+		$this->mIsUnique = $fieldDescription->mIsUnique;
+		$this->mRegex = $fieldDescription->mRegex;
 	}
 
 	function getFieldName() {

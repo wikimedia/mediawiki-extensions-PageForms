@@ -26,18 +26,12 @@ class PFUtils {
 	}
 
 	/**
-	 * Get a parser object.  For MW < 1.29, return the global.  For
-	 * all others, use MediaWikiServices.
+	 * Get a parser object.
 	 *
 	 * @return Parser
 	 */
 	public static function getParser() {
-		if ( method_exists( "MediaWiki\\MediaWikiServices", "getParser" ) ) {
-			return MediaWikiServices::getInstance()->getParser();
-		} else {
-			global $wgParser;
-			return $wgParser;
-		}
+		return MediaWikiServices::getInstance()->getParser();
 	}
 
 	/**
@@ -116,16 +110,12 @@ class PFUtils {
 	}
 
 	/**
-	 * Helper function to get the SMW data store for different versions
-	 * of SMW.
+	 * Helper function to get the SMW data store, if SMW is installed.
 	 * @return Store|null
 	 */
 	public static function getSMWStore() {
 		if ( class_exists( '\SMW\StoreFactory' ) ) {
-			// SMW 1.9+
 			return \SMW\StoreFactory::getStore();
-		} elseif ( function_exists( 'smwfGetStore' ) ) {
-			return smwfGetStore();
 		} else {
 			return null;
 		}
