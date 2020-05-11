@@ -247,6 +247,8 @@
 	"pf-pageschemas-pagenameformula": "Label for a text field",
 	"pf-pageschemas-createtitle": "Label for a text field",
 	"pf-pageschemas-edittitle": "Label for a text field",
+	"pf-pageschemas-forminput": "Header for a section",
+	"pf-pageschemas-inputdescription": "Label for a text field",
 	"pf-pageschemas-inputtype": "Label for a text field",
 	"pf-pageschemas-otherparams": "Used as label for \"Form inputs\" and \"Other parameters\" input boxes.\n\nParameters:\n* $1 - any one of the following (hard-coded):\n** \"size=20, mandatory\"\n** \"rows=10, mandatory\"",
 	"pf_property_isproperty": "Parameters:\n* $1 - property type (with link)",

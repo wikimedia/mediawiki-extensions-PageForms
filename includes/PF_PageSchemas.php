@@ -469,9 +469,10 @@ class PFPageSchemas extends PSExtensionHandler {
 		$inputBeforeTextPrint = Html::input( 'pf_input_befo_num', $inputBeforeText, 'text', [ 'size' => 80 ] );
 		$text .= "\t<p>Text that will be printed before the field: $inputBeforeTextPrint</p>\n";
 
+		$inputDescriptionLabel = wfMessage( 'pf-pageschemas-inputdescription' )->parse();
 		$inputDescription = Html::input( 'pf_input_desc_num', $inputDesc, 'text', [ 'size' => 80 ] );
 		$inputDescriptionTooltipMode = Html::input( 'pf_input_desctool_num', $inputDescTooltipMode, 'checkbox', [ 'checked' => ( $inputDescTooltipMode ) ? 'checked' : null ] );
-		$text .= "\t<p>Field description: $inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
+		$text .= "\t<p>$inputDescriptionLabel $inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
 
 		// @HACK to make input parsing easier.
 		$text .= Html::hidden( 'pf_input_finish_num', 1 );
@@ -924,7 +925,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	}
 
 	public static function getFieldDisplayString() {
-		return 'Form input';
+		return wfMessage( 'pf-pageschemas-forminput' )->parse();
 	}
 
 	public static function getPageSectionDisplayString() {

@@ -230,6 +230,8 @@
 	"pf-pageschemas-pagenameformula": "Page name formula:",
 	"pf-pageschemas-createtitle": "Title of form for new pages:",
 	"pf-pageschemas-edittitle": "Title of form for existing pages:",
+	"pf-pageschemas-forminput": "Form input",
+	"pf-pageschemas-inputdescription": "Field description:",
 	"pf-pageschemas-inputtype": "Input type (leave blank to set to default):",
 	"pf-pageschemas-otherparams": "Enter parameter names and their values as key=value pairs, separated by commas (if a value contains a comma, replace it with \"\\,\"). For example: $1",
 	"pf_property_isproperty": "This is a property of type $1.",
