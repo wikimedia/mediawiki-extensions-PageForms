@@ -1415,6 +1415,9 @@ END;
 									// Check for the next section if no pattern match
 									} elseif ( $page_next_section_in_form->isHideIfEmpty() ) {
 										$previous_brackets_end_loc = $next_bracket_end_loc;
+									} else {
+										// If none of the above conditions is satisfied, exit the loop.
+										break;
 									}
 								} else {
 									$next_section_found = true;
