@@ -553,25 +553,26 @@ class PFPageSchemas extends PSExtensionHandler {
 		$fieldsInfo = $psTemplate->getFields();
 		foreach ( $fieldsInfo as $i => $psField ) {
 			$fieldFormArray = $psField->getObject( 'pageforms_FormInput' );
-			if ( $fieldFormArray !== null ) {
-				$formField = PFFormField::create( $template_fields[$i] );
-				foreach ( $fieldFormArray as $var => $val ) {
-					if ( $var == 'InputType' ) {
-						$formField->setInputType( $val );
-					} elseif ( $var == 'mandatory' ) {
-						$formField->setIsMandatory( true );
-					} elseif ( $var == 'hidden' ) {
-						$formField->setIsHidden( true );
-					} elseif ( $var == 'restricted' ) {
-						$formField->setIsRestricted( true );
-					} elseif ( in_array( $var, [ 'Description', 'DescriptionTooltipMode', 'TextBeforeField' ] ) ) {
-						$formField->setDescriptionArg( $var, $val );
-					} else {
-						$formField->setFieldArg( $var, $val );
-					}
-				}
-				$form_fields[] = $formField;
+			if ( $fieldFormArray == null ) {
+				continue;
 			}
+			$formField = PFFormField::create( $template_fields[$i] );
+			foreach ( $fieldFormArray as $var => $val ) {
+				if ( $var == 'InputType' ) {
+					$formField->setInputType( $val );
+				} elseif ( $var == 'mandatory' ) {
+					$formField->setIsMandatory( true );
+				} elseif ( $var == 'hidden' ) {
+					$formField->setIsHidden( true );
+				} elseif ( $var == 'restricted' ) {
+					$formField->setIsRestricted( true );
+				} elseif ( in_array( $var, [ 'Description', 'DescriptionTooltipMode', 'TextBeforeField' ] ) ) {
+					$formField->setDescriptionArg( $var, $val );
+				} else {
+					$formField->setFieldArg( $var, $val );
+				}
+			}
+			$form_fields[] = $formField;
 		}
 		return $form_fields;
 	}
@@ -579,19 +580,22 @@ class PFPageSchemas extends PSExtensionHandler {
 	public static function getPageSection( $psPageSection ) {
 		$pageSection = PFPageSection::create( $psPageSection->getSectionName() );
 		$pageSectionArray = $psPageSection->getObject( 'pageforms_PageSection' );
-		if ( $pageSectionArray !== null ) {
-			foreach ( $pageSectionArray as $var => $val ) {
-				if ( $var == 'mandatory' ) {
-					$pageSection->setIsMandatory( true );
-				} elseif ( $var == 'hidden' ) {
-					$pageSection->setIsHidden( true );
-				} elseif ( $var == 'restricted' ) {
-					$pageSection->setIsRestricted( true );
-				} else {
-					$pageSection->setSectionArgs( $var, $val );
-				}
+		if ( $pageSectionArray == null ) {
+			return null;
+		}
+
+		foreach ( $pageSectionArray as $var => $val ) {
+			if ( $var == 'mandatory' ) {
+				$pageSection->setIsMandatory( true );
+			} elseif ( $var == 'hidden' ) {
+				$pageSection->setIsHidden( true );
+			} elseif ( $var == 'restricted' ) {
+				$pageSection->setIsRestricted( true );
+			} else {
+				$pageSection->setSectionArgs( $var, $val );
 			}
 		}
+
 		return $pageSection;
 	}
 

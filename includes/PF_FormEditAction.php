@@ -215,14 +215,15 @@ class PFFormEditAction extends Action {
 	}
 
 	/**
-	 * Finds the number of pages on the wiki that use each form, by getting all the
-	 * categories that have a #default_form call pointing to a particular form, and
-	 * adding up the number of pages in each such category.
+	 * Find the number of pages on the wiki that use each form, by getting
+	 * all the categories that have a #default_form call pointing to a
+	 * particular form, and adding up the number of pages in each such
+	 * category.
 	 * This approach doesn't count #default_form calls for namespaces or
-	 * individual pages, but that doesn't seem like a big deal, because, when
-	 * creating a page in a namespace that has a form, this interface probably won't
-	 * get called anyway; and #default_form calls for individual pages are
-	 * (hopefully) pretty rare.
+	 * individual pages, but that doesn't seem like a big deal, because,
+	 * when creating a page in a namespace that has a form, this interface
+	 * probably won't get called anyway; and #default_form calls for
+	 * individual pages are (hopefully) pretty rare.
 	 * @return int[]
 	 */
 	static function getNumPagesPerForm() {

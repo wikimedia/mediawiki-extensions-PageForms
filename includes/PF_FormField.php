@@ -823,9 +823,9 @@ class PFFormField {
 		return $text;
 	}
 
-	// for now, HTML of an individual field depends on whether or not it's
+	// For now, HTML of an individual field depends on whether or not it's
 	// part of multiple-instance template; this may change if handling of
-	// such templates in form definitions gets more sophisticated
+	// such templates in form definitions gets more sophisticated.
 	function createMarkup( $part_of_multiple, $is_last_field_in_template ) {
 		$text = "";
 		$descPlaceholder = "";
@@ -936,7 +936,11 @@ class PFFormField {
 		}
 
 		if ( !array_key_exists( 'autocompletion source', $other_args ) ) {
-			if ( $this->template_field->getFieldType() == 'Page' || array_key_exists( 'autocomplete', $other_args ) || array_key_exists( 'remote autocompletion', $other_args ) ) {
+			if (
+				$this->template_field->getFieldType() == 'Page' ||
+				array_key_exists( 'autocomplete', $other_args ) ||
+				array_key_exists( 'remote autocompletion', $other_args )
+			) {
 				$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
 				$other_args['autocomplete field type'] = 'cargo field';
 			}

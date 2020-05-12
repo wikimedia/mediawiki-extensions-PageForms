@@ -102,7 +102,7 @@ class PFCreateCategory extends SpecialPage {
 				$formSelector );
 		} catch ( MWException $e ) {
 			// If we're here, it's probably because no forms have
-			// been defined on this wiki. If that's case, just
+			// been defined on this wiki. If that's the case, just
 			// leave out the form selector.
 		}
 		$text .= Html::rawElement( 'p', null, $firstRow ) . "\n";

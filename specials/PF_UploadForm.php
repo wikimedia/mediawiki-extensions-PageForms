@@ -1,17 +1,10 @@
 <?php
 /**
- * PFUploadWindow - used for uploading files from within a form.
- * This class is nearly identical to MediaWiki's SpecialUpload class, with
- * a few changes to remove skin CSS and HTML, and to populate the relevant
- * field in the form with the name of the uploaded form.
+ * Subclass of HTMLForm that provides the form section of Special:Upload.
  *
  * @author Yaron Koren
  * @file
  * @ingroup PF
- */
-
-/**
- * Sub class of HTMLForm that provides the form section of SpecialUpload
  */
 
 /**
@@ -114,19 +107,19 @@ class PFUploadForm extends HTMLForm {
 		}
 
 		$descriptor['UploadFile'] = [
-				'class' => 'PFUploadSourceField',
-				'section' => 'source',
-				'type' => 'file',
-				'id' => 'wpUploadFile',
-				'label-message' => 'sourcefilename',
-				'upload-type' => 'File',
-				'radio' => &$radio,
-				'help' => wfMessage( 'upload-maxfilesize',
-						$this->getLanguage()->formatSize(
-							wfShorthandToInteger( $maxUploadSizeFile )
-						)
-					)->parse() . ' ' . wfMessage( 'upload_source_file' )->escaped(),
-				'checked' => $selectedSourceType == 'file',
+			'class' => 'PFUploadSourceField',
+			'section' => 'source',
+			'type' => 'file',
+			'id' => 'wpUploadFile',
+			'label-message' => 'sourcefilename',
+			'upload-type' => 'File',
+			'radio' => &$radio,
+			'help' => wfMessage( 'upload-maxfilesize',
+					$this->getLanguage()->formatSize(
+						wfShorthandToInteger( $maxUploadSizeFile )
+					)
+				)->parse() . ' ' . wfMessage( 'upload_source_file' )->escaped(),
+			'checked' => $selectedSourceType == 'file'
 		];
 		if ( $canUploadByUrl ) {
 			$descriptor['UploadFileURL'] = [

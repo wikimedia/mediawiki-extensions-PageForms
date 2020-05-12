@@ -316,8 +316,14 @@ END;
 	 * @return string
 	 */
 	public static function formDropdownHTML( $form_names = null ) {
-		$namespace_labels = self::getContLang()->getNamespaces();
-		$form_label = $namespace_labels[PF_NS_FORM];
+		$namespaceStrings = self::getContLang()->getNamespaces();
+		$formNSString = $namespaceStrings[PF_NS_FORM];
+		$dropdownLabel = Html::rawElement(
+			'label',
+			[ 'for' => 'formSelector' ],
+			$formNSString . wfMessage( 'colon-separator' )->escaped()
+		);
+
 		if ( $form_names === null ) {
 			$form_names = self::getAllForms();
 		}
@@ -325,7 +331,13 @@ END;
 		foreach ( $form_names as $form_name ) {
 			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";
 		}
-		return "\t" . Html::rawElement( 'label', [ 'for' => 'formSelector' ], $form_label . wfMessage( 'colon-separator' )->escaped() ) . "\n" . Html::rawElement( 'select', [ 'id' => 'formSelector', 'name' => 'form' ], $select_body ) . "\n";
+		$dropdownHTML = Html::rawElement(
+			'select',
+			[ 'id' => 'formSelector', 'name' => 'form' ],
+			$select_body
+		);
+
+		return "\t" . $dropdownLabel . "\n" . $dropdownHTML . "\n";
 	}
 
 	/**
