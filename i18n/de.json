@@ -3,6 +3,7 @@
 		"authors": [
 			"Als-Holder",
 			"Cipher",
+			"CloeRiva",
 			"DaSch",
 			"Domani",
 			"Dominik Rodler",
@@ -238,6 +239,7 @@
 	"pf-pageschemas-pagenameformula": "Seitennamenformel:",
 	"pf-pageschemas-createtitle": "Name des Formulars für neue Seiten:",
 	"pf-pageschemas-edittitle": "Name des Formulars für vorhandene Seiten:",
+	"pf-pageschemas-inputdescription": "Dateibeschreibung",
 	"pf-pageschemas-inputtype": "Eingabetyp (leer lassen, um die Standardeinstellung zu nutzen):",
 	"pf-pageschemas-otherparams": "Gib die Parameternamen und ihre Werte, durch Kommata getrennt, als „Parametername=Parameterwert“-Paare ein (Sofern ein Wert ein Komma enthält, ersetze es durch „\\,“). Eingabebeispiel: „$1“.",
 	"pf_property_isproperty": "Dies ist ein Attribut des Datentyps $1.",

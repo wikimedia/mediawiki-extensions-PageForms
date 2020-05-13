@@ -260,6 +260,8 @@
 	"pf-pageschemas-pagenameformula": "Formule du nom de page:",
 	"pf-pageschemas-createtitle": "Titre du formulaire pour les nouvelles pages:",
 	"pf-pageschemas-edittitle": "Titre du formulaire pour les pages existantes:",
+	"pf-pageschemas-forminput": "Entrée de formulaire",
+	"pf-pageschemas-inputdescription": "Description du champ :",
 	"pf-pageschemas-inputtype": "Type d'entrée (laissez-le à blanc pour la valeur par défaut):",
 	"pf-pageschemas-otherparams": "Entrez les noms des paramètres et leurs valeurs comme clé = paires de valeur, séparées par des virgules (si une valeur contient une virgule, la remplacer par « \\, »). Par exemple :$1",
 	"pf_property_isproperty": "Cette propriété est de type $1.",

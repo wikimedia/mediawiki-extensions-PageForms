@@ -196,6 +196,7 @@
 	"pf-preview-note": "Il modulo apparirà così quando sarà usato:",
 	"pf-pageschemas-createtitle": "Titolo del modulo per le nuove pagine:",
 	"pf-pageschemas-edittitle": "Titolo del modulo per le pagine esistenti:",
+	"pf-pageschemas-inputdescription": "Descrizione campo:",
 	"pf-pageschemas-inputtype": "Tipo di input (lasciare vuoto per impostare al valore predefinito):",
 	"pf_property_isproperty": "Questa è una proprietà di tipo $1.",
 	"pf_property_linkstoform": "Ti collegherà alle pagine che usano il modulo $1.",

@@ -182,6 +182,7 @@
 	"pf-preview-header": "Podgląd formularza",
 	"pf-pageschemas-createtitle": "Tytuł formularza dla nowych stron:",
 	"pf-pageschemas-edittitle": "Tytuł formularza dla istniejących stron:",
+	"pf-pageschemas-inputdescription": "Opis pola:",
 	"pf_property_isproperty": "To jest właściwość typu $1.",
 	"pf_property_linkstoform": "Linkuje do stron, używających formularza $1.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Dopuszczalna wartość dla tej własności to|Dopuszczalne wartości dla tej własności to:}}",

@@ -239,6 +239,8 @@
 	"pf-pageschemas-pagenameformula": "頁面名稱公式：",
 	"pf-pageschemas-createtitle": "新頁面的表單標題：",
 	"pf-pageschemas-edittitle": "現有頁面的表單標題：",
+	"pf-pageschemas-forminput": "表單輸入",
+	"pf-pageschemas-inputdescription": "欄位描述：",
 	"pf-pageschemas-inputtype": "輸入欄位類型 (使用預設值請空白)：",
 	"pf-pageschemas-otherparams": "輸入參數名稱與其數值，如：key=value 一組，並以逗號分隔 (若參數值中含逗號，請將該逗號取代為 \"\\,\")，例如： $1",
 	"pf_property_isproperty": "此屬性的類型為 $1。",

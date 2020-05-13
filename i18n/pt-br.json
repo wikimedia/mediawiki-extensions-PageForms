@@ -241,6 +241,8 @@
 	"pf-pageschemas-pagenameformula": "Fórmula para a criação do nome da página:",
 	"pf-pageschemas-createtitle": "Título do formulário para páginas novas:",
 	"pf-pageschemas-edittitle": "Título do formulário para páginas existentes:",
+	"pf-pageschemas-forminput": "Entrada de formulário",
+	"pf-pageschemas-inputdescription": "Descrição do campo:",
 	"pf-pageschemas-inputtype": "Tipo de entrada (deixe em branco para definir como padrão):",
 	"pf-pageschemas-otherparams": "Preencha com nomes de parâmetros e seus valores como pares chave=valor, separados por vírgulas (se os valores contêm vírgulas, substitua-as por \"\\,\"). Por exemplo: $1",
 	"pf_property_isproperty": "Esta é uma propriedade do tipo $1.",
