@@ -15,23 +15,23 @@
 class PFCreatePageJob extends Job {
 
 	function __construct( Title $title, array $params ) {
-		parent::__construct( 'createPage', $title, $params );
+		parent::__construct( 'pageFormsCreatePage', $title, $params );
 		$this->removeDuplicates = true;
 	}
 
 	/**
-	 * Run a createPage job
+	 * Run a pageFormsCreatePage job
 	 * @return bool success
 	 */
 	function run() {
 		if ( $this->title === null ) {
-			$this->error = "createPage: Invalid title";
+			$this->error = "pageFormsCreatePage: Invalid title";
 			return false;
 		}
 
 		$wikiPage = WikiPage::factory( $this->title );
 		if ( !$wikiPage ) {
-			$this->error = 'createPage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
+			$this->error = 'pageFormsCreatePage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
 			return false;
 		}
 

@@ -68,7 +68,7 @@
 		"UploadWindow": "PFUploadWindow"
 	},
 	"JobClasses": {
-		"createPage": "PFCreatePageJob"
+		"pageFormsCreatePage": "PFCreatePageJob"
 	},
 	"APIModules": {
 		"pfautocomplete": "PFAutocompleteAPI",
