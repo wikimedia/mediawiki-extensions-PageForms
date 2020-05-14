@@ -189,6 +189,7 @@
 	"pf-pageschemas-pagenameformula": "فرمول نام صفحه:",
 	"pf-pageschemas-createtitle": "عنوان فرم برای صفحات تازه:",
 	"pf-pageschemas-edittitle": "عنوان فرم برای صفحات موجود:",
+	"pf-pageschemas-forminput": "از ورودی",
 	"pf-pageschemas-inputtype": "نوع ورودی (ترک جای خالی برای تنظیم به پیش‌فرض):",
 	"pf-pageschemas-otherparams": "نام‌های پارامتر و مقادیر آن‌ها به عنوان کلید=جفت مقدار که با کاما جدا شده(اگر یک مقدار شامل یک کاما،جایگزین آن با \"\\,\" شود) وارد کنید. برای مثال: $1",
 	"pf_property_isproperty": "این یک ویژگی از نوع $1 است.",
