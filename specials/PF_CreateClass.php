@@ -127,10 +127,9 @@ class PFCreateClass extends SpecialPage {
 		$full_text = $pfTemplate->createText();
 
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
+		$template_page = WikiPage::factory( $template_title );
 		$edit_summary = '';
-		$template_page = new WikiPage( $template_title );
-		$content = new WikitextContent( $full_text );
-		$template_page->doEditContent( $content, $edit_summary );
+		PFCreatePageJob::createOrModifyPage( $template_page, $full_text, $edit_summary, $user );
 
 		// Create the form, and make a job for it.
 		if ( $form_name != '' ) {
