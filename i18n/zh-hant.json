@@ -42,7 +42,7 @@
 	"pf_createproperty_allowedvalsinput": "只允許使用特定的數值，請輸入數值清單，以逗號分隔 (若數值中含有逗號，請取代該逗號為 \"\\,\")：",
 	"pf_createproperty_propname": "屬性名稱：",
 	"pf_createproperty_proptype": "類型：",
-	"pf_createproperty_editsummary": "已建立屬性類型 [[Has type::$1]]",
+	"pf_createproperty_editsummary": "已建立$1類型的屬性",
 	"templates": "模板",
 	"pf_templates_docu": "下列為 wiki 已有的模板。",
 	"pf_templates_definescat": "定義分類：$1",

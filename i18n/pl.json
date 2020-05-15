@@ -29,7 +29,7 @@
 	"pf_createproperty_allowedvalsinput": "Aby zezwolić tylko na określone wartości, podaj listę dozwolonych wartości oddzielonych przecinkami (jeśli wartość zawiera przecinek, zastąp go „\\,”):",
 	"pf_createproperty_propname": "Nazwa właściwości:",
 	"pf_createproperty_proptype": "Typ:",
-	"pf_createproperty_editsummary": "Utworzono właściwość typu [[Has type::$1]]",
+	"pf_createproperty_editsummary": "Utworzono właściwość typu $1",
 	"templates": "Szablony",
 	"pf_templates_docu": "Następujące szablony istnieją w przestrzeni wiki.",
 	"pf_templates_definescat": "definiuje kategorię $1",

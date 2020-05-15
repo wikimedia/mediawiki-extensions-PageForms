@@ -3,6 +3,7 @@
 		"authors": [
 			"Meno25",
 			"OsamaK",
+			"Tala Ali",
 			"Uwe",
 			"أحمد",
 			"ديفيد",
@@ -235,6 +236,7 @@
 	"pf-pageschemas-pagenameformula": "صيغة اسم الصفحة:",
 	"pf-pageschemas-createtitle": "عنوان النموذج للصفحات الجديدة:",
 	"pf-pageschemas-edittitle": "عنوان النموذج للصفحات الحالية:",
+	"pf-pageschemas-inputdescription": "وصف الملف",
 	"pf-pageschemas-inputtype": "نوع الإدخال (اتركه فارغا لتعيينه على الافتراضي):",
 	"pf-pageschemas-otherparams": "أدخل أسماء الوسائط وقيمها كأزواج key=value، مفصولة بفواصل (إذا كانت القيمة تحتوي على فاصلة، استبدلها بـ \"/\")، على سبيل المثال: $1",
 	"pf_property_isproperty": "هذه خاصية من نوع $1.",

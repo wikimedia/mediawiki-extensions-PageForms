@@ -63,7 +63,7 @@
 	"pf_createproperty_allowedvalsinput": "Si vous voulez restreindre ce champ à certaines valeurs, entrez la liste des valeurs permises séparées par des virgules (si une valeur contient une virgule, utilisez « \\, ») :",
 	"pf_createproperty_propname": "Nom de la propriété :",
 	"pf_createproperty_proptype": "Type :",
-	"pf_createproperty_editsummary": "Propriété de type [[Has type::$1]] créée",
+	"pf_createproperty_editsummary": "Propriété de type $1 créée",
 	"templates": "Modèles",
 	"pf_templates_docu": "Les modèles suivants existent dans le wiki.",
 	"pf_templates_definescat": "définit la catégorie : $1",

@@ -26,7 +26,7 @@
 	"pf_createproperty_allowedvalsinput": "Per consentire solo determinati valori, inserisci la lista dei valori, separati da virgole (se un valore presenta una virgola, sostituiscilo con \"\\,\"):",
 	"pf_createproperty_propname": "Nome proprietà:",
 	"pf_createproperty_proptype": "Tipo:",
-	"pf_createproperty_editsummary": "Creata una proprietà di tipo [[Has type::$1]]",
+	"pf_createproperty_editsummary": "Creata una proprietà di tipo $1",
 	"templates": "Template",
 	"pf_templates_docu": "Il seguente template già esiste nel wiki.",
 	"pf_templates_definescat": "Definisci categorie: $1",
