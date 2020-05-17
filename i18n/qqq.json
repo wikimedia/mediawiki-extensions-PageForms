@@ -195,7 +195,6 @@
 	"pf_formedit_edittitle": "Used as page title. Parameters:\n* $1 - the main part of the title of a page form\n* $2 - the prefixed title, with spaces for the target page\nSee also:\n* {{msg-mw|pf formedit createtitlenotarget}}\n* {{msg-mw|pf formedit createtitle}}",
 	"pf_formedit_morethanoneform": "Warning message",
 	"pf_formedit_formwarning": "Used as warning. Parameters:\n* $1 - full URL of the page",
-	"pf_formedit_mismatchedbrackets": "Used as warning. Parameters:\n* $1 - full URL of the page (with \"action=edit\")",
 	"pf_formedit_remove": "The text for a button that removes one row/\"instance\" in a form",
 	"pf_formedit_addanotherabove": "The text for a button in a form that adds a row/\"instance\" above the current one",
 	"pf_formedit_addanother": "Button; the implied sentence is: Add another [field].\n\nSee also:\n* {{msg-mw|pf createtemplate fieldname}}",
