@@ -64,7 +64,7 @@ class PFMultiPageEdit extends QueryPage {
 
 		$out->addModules( 'ext.pageforms.jsgrid' );
 		$text = '';
-		$out->setPageTitle( wfMessage( 'pf_multipageedit_with-name', $this->mTemplate )->text() );
+		$out->setPageTitle( $this->msg( 'pf_multipageedit_with-name', $this->mTemplate )->text() );
 
 		$template = PFTemplate::newFromName( $template_name );
 		$templateCalls = [];
@@ -182,7 +182,7 @@ class PFMultiPageEdit extends QueryPage {
 	}
 
 	function getPageHeader() {
-		$header = Html::element( 'p', null, wfMessage( 'pf_multipageedit_docu' )->text() );
+		$header = Html::element( 'p', null, $this->msg( 'pf_multipageedit_docu' )->text() );
 		return $header;
 	}
 
@@ -229,7 +229,7 @@ class PFMultiPageEdit extends QueryPage {
 		}
 	}
 
-	function getFormForTemplate( $templateName ) {
+	public function getFormForTemplate( $templateName ) {
 		if ( !array_key_exists( $templateName, $this->mTemplateInForm ) ) {
 			return null;
 		}

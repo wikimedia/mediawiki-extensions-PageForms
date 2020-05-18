@@ -30,20 +30,6 @@ class PFCreateForm extends SpecialPage {
 			$fieldFormText = $req->getVal( 'formfield' );
 
 			$paramValues = [];
-			// @TODO - is any of this "params" stuff necessary?
-			// For now, it's removed - if the setting of params is
-			// going to be re-added, that has to be done in the JS.
-			/*
-			foreach ( $req->getArray('params') as $key => $value ) {
-				if ( ( $pos = strpos( $key, '_' . $fieldFormText ) ) != false ) {
-					$paramName = substr( $key, 0, $pos );
-					// Spaces got replaced by underlines in
-					// the query.
-					$paramName = str_replace( '_', ' ', $paramName );
-					$paramValues[$paramName] = $value;
-				}
-			}
-			*/
 			echo $this->showInputTypeOptions( $inputType, $fieldFormText, $paramValues );
 		} else {
 			$this->doSpecialCreateForm( $query );
@@ -57,14 +43,14 @@ class PFCreateForm extends SpecialPage {
 
 		if ( $query !== null ) {
 			$presetFormName = str_replace( '_', ' ', $query );
-			$out->setPageTitle( wfMessage( 'pf-createform-with-name', $presetFormName )->text() );
+			$out->setPageTitle( $this->msg( 'pf-createform-with-name', $presetFormName )->text() );
 			$form_name = $presetFormName;
 		} else {
 			$presetFormName = null;
 			$form_name = $req->getVal( 'form_name' );
 		}
 
-		$section_name_error_str = '<span class="error" id="section_error">' . wfMessage( 'pf_blank_error' )->escaped() . '</span>';
+		$section_name_error_str = '<span class="error" id="section_error">' . $this->msg( 'pf_blank_error' )->escaped() . '</span>';
 
 		$out->addModules( [ 'ext.pageforms.collapsible', 'ext.pageforms.PF_CreateForm' ] );
 
@@ -103,12 +89,16 @@ class PFCreateForm extends SpecialPage {
 					if ( $req->getVal( "del_$id" ) != null ) {
 						$deleted_template_loc = $id;
 					} else {
-						$form_template = PFTemplateInForm::create( $val,
+						$form_template = PFTemplateInForm::create(
+							$val,
 							$req->getVal( "label_$id" ),
-							$req->getVal( "allow_multiple_$id" ) );
-						$form_items[] = [ 'type' => 'template',
+							$req->getVal( "allow_multiple_$id" )
+						);
+						$form_items[] = [
+							'type' => 'template',
 							'name' => $form_template->getTemplateName(),
-							'item' => $form_template ];
+							'item' => $form_template
+						];
 					}
 				} elseif ( $action == "section" ) {
 					if ( $req->getVal( "delsection_$id" ) != null ) {
@@ -266,7 +256,7 @@ class PFCreateForm extends SpecialPage {
 
 			// Validate form name.
 			if ( $form->getFormName() == "" ) {
-				$form_name_error_str = wfMessage( 'pf_blank_error' )->text();
+				$form_name_error_str = $this->msg( 'pf_blank_error' )->text();
 			} else {
 				// Redirect to wiki interface.
 				$out->setArticleBodyOnly( true );
@@ -282,8 +272,8 @@ class PFCreateForm extends SpecialPage {
 		if ( $presetFormName === null ) {
 			// Set 'title' field, in case there's no URL niceness
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() );
-			$text .= "\n\t<p><label>" . wfMessage( 'pf_createform_nameinput' )->escaped() .
-				' ' . wfMessage( 'pf_createform_nameinputdesc' )->escaped() .
+			$text .= "\n\t<p><label>" . $this->msg( 'pf_createform_nameinput' )->escaped() .
+				' ' . $this->msg( 'pf_createform_nameinputdesc' )->escaped() .
 				Html::input( 'form_name', $form_name, 'text', [ 'size' => 25 ] );
 			if ( !empty( $form_name_error_str ) ) {
 				$text .= "\t" . Html::element( 'span', [ 'class' => 'error' ], $form_name_error_str );
@@ -293,8 +283,8 @@ class PFCreateForm extends SpecialPage {
 
 		$text .= $this->formCreationHTML( $form );
 
-		$text .= "<h2> " . wfMessage( 'pf_createform_addelements' )->escaped() . " </h2>";
-		$text .= "\t<p><label>" . wfMessage( 'pf_createform_addtemplate' )->escaped() . "\n";
+		$text .= "<h2> " . $this->msg( 'pf_createform_addelements' )->escaped() . " </h2>";
+		$text .= "\t<p><label>" . $this->msg( 'pf_createform_addtemplate' )->escaped() . "\n";
 
 		$select_body = "";
 		foreach ( $all_templates as $template ) {
@@ -307,40 +297,40 @@ class PFCreateForm extends SpecialPage {
 		$select_body = "";
 		foreach ( $form_items as $i => $fi ) {
 			if ( $fi['type'] == 'template' ) {
-				$option_str = wfMessage( 'pf_createform_template' )->escaped();
+				$option_str = $this->msg( 'pf_createform_template' )->escaped();
 			} elseif ( $fi['type'] == 'section' ) {
-				$option_str = wfMessage( 'pf_createform_pagesection' )->escaped();
+				$option_str = $this->msg( 'pf_createform_pagesection' )->escaped();
 			}
 			$option_str .= $fi['name'];
 			$select_body .= "\t" . Html::element( 'option', [ 'value' => $i ], $option_str ) . "\n";
 		}
 		$final_index = count( $form_items );
-		$at_end_msg = wfMessage( 'pf_createform_atend' )->escaped();
+		$at_end_msg = $this->msg( 'pf_createform_atend' )->escaped();
 		$select_body .= "\t" . Html::element( 'option', [ 'value' => $final_index, 'selected' => 'selected' ], $at_end_msg );
 
 		// Selection for before which item this template should be placed
 		if ( count( $form_items ) > 0 ) {
-			$text .= '<label>' . wfMessage( 'pf_createform_before' )->escaped() .
+			$text .= '<label>' . $this->msg( 'pf_createform_before' )->escaped() .
 				Html::rawElement( 'select', [ 'name' => 'before_template' ], $select_body ) .
 				"\n</label>\n";
 		}
 
 		// Disable 'save' and 'preview' buttons if user has not yet
 		// added any templates.
-		$add_button_text = wfMessage( 'pf_createform_add' )->text();
+		$add_button_text = $this->msg( 'pf_createform_add' )->text();
 		$text .= "\t" . Html::input( 'add_field', $add_button_text, 'submit' ) . "\n";
 
 		// The form HTML for page sections
-		$text .= "<br/></br/>" . Html::element( 'span', null, wfMessage( 'pf_createform_addsection' )->text() . ":" ) . "\n";
-		$text .= Html::input( 'sectionname', '', 'text', [ 'size' => '30', 'placeholder' => wfMessage( 'pf_createform_sectionname' )->text(), 'id' => 'sectionname' ] ) . "\n";
+		$text .= "<br/></br/>" . Html::element( 'span', null, $this->msg( 'pf_createform_addsection' )->text() . ":" ) . "\n";
+		$text .= Html::input( 'sectionname', '', 'text', [ 'size' => '30', 'placeholder' => $this->msg( 'pf_createform_sectionname' )->text(), 'id' => 'sectionname' ] ) . "\n";
 
 		// Selection for before which item this section should be placed
 		if ( count( $form_items ) > 0 ) {
-			$text .= wfMessage( 'pf_createform_before' )->escaped();
+			$text .= $this->msg( 'pf_createform_before' )->escaped();
 			$text .= Html::rawElement( 'select', [ 'name' => 'before_section' ], $select_body ) . "\n";
 		}
 
-		$add_section_text = wfMessage( 'pf_createform_addsection' )->text();
+		$add_section_text = $this->msg( 'pf_createform_addsection' )->text();
 		$text .= "\t" . Html::input( 'add_section', $add_section_text, 'submit', [ 'id' => 'addsection' ] );
 		$text .= "\n\t" . Html::rawElement( 'div', [ 'id' => 'sectionerror' ] );
 		$text .= <<<END
@@ -355,18 +345,18 @@ END;
 		if ( count( $form_items ) == 0 ) {
 			$saveAttrs['disabled'] = true;
 		}
-		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', $saveAttrs ) . "\n";
+		$editButtonsText = "\t" . Html::input( 'wpSave', $this->msg( 'savearticle' )->text(), 'submit', $saveAttrs ) . "\n";
 		$previewAttrs = [ 'id' => 'wpPreview' ];
 		if ( count( $form_items ) == 0 ) {
 			$previewAttrs['disabled'] = true;
 		}
-		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', $previewAttrs ) . "\n";
+		$editButtonsText .= "\t" . Html::input( 'wpPreview', $this->msg( 'preview' )->text(), 'submit', $previewAttrs ) . "\n";
 		$text .= "\t" . Html::rawElement( 'div', [ 'class' => 'editButtons' ],
 			Html::rawElement( 'p', [], $editButtonsText ) . "\n" ) . "\n";
 		// Explanatory message if buttons are disabled because no
 		// templates have been added.
 		if ( count( $form_items ) == 0 ) {
-			$text .= "\t" . Html::element( 'p', null, "(" . wfMessage( 'pf_createform_additembeforesave' )->text() . ")" );
+			$text .= "\t" . Html::element( 'p', null, "(" . $this->msg( 'pf_createform_additembeforesave' )->text() . ")" );
 		}
 		$text .= <<<END
 	</form>
@@ -400,7 +390,7 @@ END;
 		$section_name = $section->getSectionName();
 		$section_level = $section->getSectionLevel();
 
-		$section_str = wfMessage( 'pf_createform_pagesection' )->text() . " '" . $section_name . "'";
+		$section_str = $this->msg( 'pf_createform_pagesection' )->text() . " '" . $section_name . "'";
 		$text = Html::hidden( "section_$section_count", $section_name );
 		$text .= '<div class="sectionForm">';
 		$text .= Html::element( 'h2', [], $section_str );
@@ -414,7 +404,7 @@ END;
 		}
 
 		$header_options = '';
-		$text .= '<label>' . wfMessage( 'pf_createform_sectionlevel' )->text() . "\n";
+		$text .= '<label>' . $this->msg( 'pf_createform_sectionlevel' )->text() . "\n";
 		for ( $i = 1; $i < 7; $i++ ) {
 			if ( $section_level == $i ) {
 				$header_options .= " " . Html::element( 'option', [ 'value' => $i, 'selected' ], $i ) . "\n";
@@ -423,13 +413,13 @@ END;
 			}
 		}
 		$text .= Html::rawElement( 'select', [ 'name' => "level_section_" . $section_count ], $header_options ) . "</label>\n";
-		$other_param_text = wfMessage( 'pf_createform_otherparameters' )->escaped();
+		$other_param_text = $this->msg( 'pf_createform_otherparameters' )->escaped();
 		$text .= "<fieldset class=\"pfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
 		$text .= Html::rawElement( 'div', [],
-		$this->showSectionParameters( $section_count, $paramValues ) ) . "\n";
+			$this->showSectionParameters( $section_count, $paramValues ) ) . "\n";
 		$text .= "</fieldset>\n";
-		$removeSectionButton = Html::input( 'delsection_' . $section_count, wfMessage( 'pf_createform_removesection' )->text(), 'submit' ) . "\n";
-		$text .= "</br>" . Html::rawElement( 'p', null, $removeSectionButton ) . "\n";
+		$removeSectionButton = Html::input( 'delsection_' . $section_count, $this->msg( 'pf_createform_removesection' )->text(), 'submit' ) . "\n";
+		$text .= "<br />" . Html::rawElement( 'p', null, $removeSectionButton ) . "\n";
 		$text .= "	</div>\n";
 
 		return $text;
@@ -437,9 +427,9 @@ END;
 
 	function templateCreationHTML( $tif, $template_num ) {
 		$checked_attribs = ( $tif->allowsMultiple() ) ? [ 'checked' => 'checked' ] : [];
-		$template_str = wfMessage( 'pf_createform_template' )->escaped();
-		$template_label_input = wfMessage( 'pf_createform_templatelabelinput' )->escaped();
-		$allow_multiple_text = wfMessage( 'pf_createform_allowmultiple' )->escaped();
+		$template_str = $this->msg( 'pf_createform_template' )->escaped();
+		$template_label_input = $this->msg( 'pf_createform_templatelabelinput' )->escaped();
+		$allow_multiple_text = $this->msg( 'pf_createform_allowmultiple' )->escaped();
 
 		$text = Html::hidden( "template_$template_num", $tif->getTemplateName() );
 		$text .= '<div class="templateForm">';
@@ -457,7 +447,7 @@ END;
 		}
 		$removeTemplateButton = Html::input(
 			'del_' . $template_num,
-			wfMessage( 'pf_createform_removetemplate' )->text(),
+			$this->msg( 'pf_createform_removetemplate' )->text(),
 			'submit'
 		);
 		$text .= "\t" . Html::rawElement( 'p', null, $removeTemplateButton ) . "\n";
@@ -468,13 +458,13 @@ END;
 	function fieldCreationHTML( $field, $field_num, $template_num ) {
 		$field_form_text = $template_num . "_" . $field_num;
 		$template_field = $field->template_field;
-		$text = Html::element( 'h3', null, wfMessage( 'pf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
-		// TODO - remove this probably-unnecessary check?
+		$text = Html::element( 'h3', null, $this->msg( 'pf_createform_field' )->text() . " " . $template_field->getFieldName() ) . "\n";
+
 		if ( !defined( 'SMW_VERSION' ) || $template_field->getSemanticProperty() == "" ) {
 			// Print nothing if there's no semantic property.
 		} elseif ( $template_field->getPropertyType() == "" ) {
 			$prop_link_text = PFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
-			$text .= wfMessage( 'pf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "\n";
+			$text .= $this->msg( 'pf_createform_fieldpropunknowntype', $prop_link_text )->parseAsBlock() . "\n";
 		} else {
 			if ( $template_field->isList() ) {
 				$propDisplayMsg = 'pf_createform_fieldproplist';
@@ -498,17 +488,17 @@ END;
 				}
 				$propertyTypeStr = $datatypeLabels[$propTypeID];
 			}
-			$text .= Html::rawElement( 'p', null, wfMessage( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
+			$text .= Html::rawElement( 'p', null, $this->msg( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";
 		}
 		// If it's not a semantic field - don't add any text.
-		$form_label_text = wfMessage( 'pf_createform_formlabel' )->escaped();
+		$form_label_text = $this->msg( 'pf_createform_formlabel' )->escaped();
 		$form_label_input = Html::input(
 			'label_' . $field_form_text,
 			$template_field->getLabel(),
 			'text',
 			[ 'size' => 20 ]
 		);
-		$input_type_text = wfMessage( 'pf_createform_inputtype' )->escaped();
+		$input_type_text = $this->msg( 'pf_createform_inputtype' )->escaped();
 		$text .= <<<END
 	<div class="formField">
 	<p><label>$form_label_text $form_label_input</label>
@@ -553,7 +543,7 @@ END;
 			}
 		}
 
-		$other_param_text = wfMessage( 'pf_createform_otherparameters' )->escaped();
+		$other_param_text = $this->msg( 'pf_createform_otherparameters' )->escaped();
 		$text .= "<fieldset class=\"pfCollapsibleFieldset\"><legend>$other_param_text</legend>\n";
 		$text .= Html::rawElement( 'div', [ 'class' => 'otherInputParams' ],
 			$this->showInputTypeOptions( $cur_input_type, $field_form_text, $paramValues ) ) . "\n";
@@ -576,13 +566,13 @@ END;
 		foreach ( $possible_input_types as $i => $input_type ) {
 			if ( $i == 0 ) {
 				$dropdownHTML .= "	<option value=\".$input_type\">$input_type " .
-					wfMessage( 'pf_createform_inputtypedefault' )->escaped() . "</option>\n";
+					$this->msg( 'pf_createform_inputtypedefault' )->escaped() . "</option>\n";
 			} else {
 				$selected_str = ( $cur_input_type == $input_type ) ? "selected" : "";
 				$dropdownHTML .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
 			}
 		}
-		$hidden_text = wfMessage( 'pf_createform_hidden' )->escaped();
+		$hidden_text = $this->msg( 'pf_createform_hidden' )->escaped();
 		$selected_str = ( $cur_input_type == 'hidden' ) ? "selected" : "";
 		// @todo FIXME: Contains hard coded parentheses.
 		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
@@ -628,24 +618,28 @@ END;
 				'rows' => 4
 			], $cur_value );
 		} elseif ( $type == 'enumeration' ) {
-			$text = '<select name="p[' . htmlspecialchars( $paramName ) . ']">';
-			$text .= "\n	<option value=''></option>\n";
-
-			$parts = [];
+			$selectBody = Html::element( 'option' ) . "\n";
 			foreach ( $param['values'] as $value ) {
-				$parts[] = '<option value="' . htmlspecialchars( $value ) . '"' .
-				( $cur_value == $value ? ' selected' : '' ) . '>' .
-				htmlspecialchars( $value ) . '</option>';
+				$optionAttrs = [ 'value' => $value ];
+				if ( $cur_value == $value ) {
+					$optionAttrs['selected'] = true;
+				}
+				$selectBody .= Html::element( 'option', $optionAttrs, $value ) . "\n";
 			}
 
-			$text .= implode( "\n", $parts ) . "\n</select>";
-			return $text;
+			return Html::rawElement( 'select', [ 'name' => 'p[' . $paramName . ']' ], $selectBody );
 		} elseif ( $type == 'enum-list' ) {
 			$cur_values = explode( ',', $cur_value );
 			foreach ( $param['values'] as $val ) {
-				$text .= '<span style="white-space: nowrap; padding-right: 5px; font-family: monospace;"><input type="checkbox" name="p[' .
-					htmlspecialchars( $paramName ) . '][' . htmlspecialchars( $val ) . ']" value="true"' .
-					( in_array( $val, $cur_values ) ? ' checked' : '' ) . '/> ' . htmlspecialchars( $val ) . "</span>\n";
+				$checkboxName = 'p[' . $paramName . '][' . $val . ']';
+				$checkboxAttrs = [];
+				if ( in_array( $val, $cur_values ) ) {
+					$checkboxAttrs['checked'] = true;
+				}
+				$checkboxHTML = Html::input( $checkboxName, 'true', 'checkbox', $checkboxAttrs );
+				$text .= Html::rawElement( 'span', [
+						'style' => 'white-space: nowrap; padding-right: 5px; font-family: monospace;'
+					], $checkboxHTML );
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {

@@ -39,7 +39,7 @@ class PFUploadForm extends HTMLForm {
 		parent::__construct( $descriptor, 'upload' );
 
 		# Set some form properties
-		$this->setSubmitText( wfMessage( 'uploadbtn' )->text() );
+		$this->setSubmitText( $this->msg( 'uploadbtn' )->text() );
 		$this->setSubmitName( 'wpUpload' );
 		$this->setSubmitTooltip( 'upload' );
 		$this->setId( 'mw-upload-form' );
@@ -114,11 +114,11 @@ class PFUploadForm extends HTMLForm {
 			'label-message' => 'sourcefilename',
 			'upload-type' => 'File',
 			'radio' => &$radio,
-			'help' => wfMessage( 'upload-maxfilesize',
+			'help' => $this->msg( 'upload-maxfilesize',
 					$this->getLanguage()->formatSize(
 						wfShorthandToInteger( $maxUploadSizeFile )
 					)
-				)->parse() . ' ' . wfMessage( 'upload_source_file' )->escaped(),
+				)->parse() . ' ' . $this->msg( 'upload_source_file' )->escaped(),
 			'checked' => $selectedSourceType == 'file'
 		];
 		if ( $canUploadByUrl ) {
@@ -129,9 +129,9 @@ class PFUploadForm extends HTMLForm {
 				'label-message' => 'sourceurl',
 				'upload-type' => 'Url',
 				'radio' => &$radio,
-				'help' => wfMessage( 'upload-maxfilesize',
+				'help' => $this->msg( 'upload-maxfilesize',
 						$this->getLanguage()->formatSize( $maxUploadSizeURL )
-					)->parse() . ' ' . wfMessage( 'upload_source_url' )->escaped(),
+					)->parse() . ' ' . $this->msg( 'upload_source_url' )->escaped(),
 				'checked' => $selectedSourceType == 'url',
 			];
 		}
@@ -162,16 +162,16 @@ class PFUploadForm extends HTMLForm {
 				# Everything not permitted is banned
 				$extensionsList =
 					'<div id="mw-upload-permitted">' .
-						wfMessage( 'upload-permitted', $this->getLanguage()->commaList( $wgFileExtensions ) )->parse() .
+						$this->msg( 'upload-permitted', $this->getLanguage()->commaList( $wgFileExtensions ) )->parse() .
 					"</div>\n";
 			} else {
 				# We have to list both preferred and prohibited
 				$extensionsList =
 					'<div id="mw-upload-preferred">' .
-						wfMessage( 'upload-preferred', $this->getLanguage()->commaList( $wgFileExtensions ) )->parse() .
+						$this->msg( 'upload-preferred', $this->getLanguage()->commaList( $wgFileExtensions ) )->parse() .
 					"</div>\n" .
 					'<div id="mw-upload-prohibited">' .
-						wfMessage( 'upload-prohibited', $this->getLanguage()->commaList( $wgFileBlacklist ) )->parse() .
+						$this->msg( 'upload-prohibited', $this->getLanguage()->commaList( $wgFileBlacklist ) )->parse() .
 					"</div>\n";
 			}
 		} else {

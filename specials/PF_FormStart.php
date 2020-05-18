@@ -72,7 +72,7 @@ class PFFormStart extends SpecialPage {
 				// message.
 				$page_title = Title::newFromText( $page_name );
 				if ( !$page_title ) {
-					$out->addHTML( wfMessage( 'pf_formstart_badtitle', $page_name )->escaped() );
+					$out->addHTML( $this->msg( 'pf_formstart_badtitle', $page_name )->escaped() );
 					return;
 				} else {
 					$this->doRedirect( $form_name, $page_name, $params );
@@ -82,12 +82,14 @@ class PFFormStart extends SpecialPage {
 		}
 
 		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name !== '' ) ) {
-			$text = Html::rawElement( 'p', [ 'class' => 'error' ], wfMessage( 'pf_formstart_badform', PFUtils::linkText( PF_NS_FORM, $form_name ) )->parse() ) . "\n";
+			$linkToForm = PFUtils::linkText( PF_NS_FORM, $form_name );
+			$badFormMsg = $this->msg( 'pf_formstart_badform', $linkToForm )->parse();
+			$text = Html::rawElement( 'p', [ 'class' => 'error' ], $badFormMsg ) . "\n";
 		} else {
 			if ( $form_name === '' ) {
-				$description = wfMessage( 'pf_formstart_noform_docu', $form_name )->escaped();
+				$description = $this->msg( 'pf_formstart_noform_docu', $form_name )->escaped();
 			} else {
-				$description = wfMessage( 'pf_formstart_docu', $form_name )->escaped();
+				$description = $this->msg( 'pf_formstart_docu', $form_name )->escaped();
 			}
 
 			$text = <<<END
@@ -111,7 +113,7 @@ END;
 			$text .= Html::hidden( 'namespace', $target_namespace );
 			$text .= Html::hidden( 'super_page', $super_page );
 			$text .= Html::hidden( 'params', $params );
-			$text .= "\n\t" . Html::input( null, wfMessage( 'pf_formstart_createoredit' )->text(), 'submit' ) . "\n";
+			$text .= "\n\t" . Html::input( null, $this->msg( 'pf_formstart_createoredit' )->text(), 'submit' ) . "\n";
 			$text .= "\t</form>\n";
 		}
 		$out->addHTML( $text );
@@ -193,7 +195,8 @@ END;
 		// Show "loading" animated image while people wait for the
 		// redirect.
 		global $wgPageFormsScriptPath;
-		$text = "\t" . Html::rawElement( 'p', [ 'style' => "position: absolute; left: 45%; top: 45%;" ], Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] ) );
+		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
+		$text = "\t" . Html::rawElement( 'p', [ 'style' => "position: absolute; left: 45%; top: 45%;" ], $loadingImage );
 		$text .= "\t" . Html::element( 'meta', [ 'http-equiv' => 'refresh', 'content' => "0; url=$redirect_url" ] );
 		$out->addHTML( $text );
 	}

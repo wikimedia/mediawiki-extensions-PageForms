@@ -150,11 +150,11 @@ class PFFormEdit extends UnlistedSpecialPage {
 			}
 		} elseif ( $result[ 'form' ] !== '' ) {
 			if ( empty( $targetName ) ) {
-				$pageTitle = wfMessage( 'pf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
+				$pageTitle = $this->msg( 'pf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
 			} elseif ( $targetTitle->exists() ) {
-				$pageTitle = wfMessage( 'pf_formedit_edittitle', $result[ 'form' ], $targetName )->text();
+				$pageTitle = $this->msg( 'pf_formedit_edittitle', $result[ 'form' ], $targetName )->text();
 			} else {
-				$pageTitle = wfMessage( 'pf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
+				$pageTitle = $this->msg( 'pf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
 			}
 		} elseif ( $alt_forms ) {
 			// We use the 'creating' message here, instead of
@@ -163,11 +163,11 @@ class PFFormEdit extends UnlistedSpecialPage {
 			// no target; in English they'll show up as
 			// "Creating ..." and "Create ...", respectively.
 			// Does this make any difference? Who knows.
-			$pageTitle = wfMessage( 'creating', $targetName )->text();
+			$pageTitle = $this->msg( 'creating', $targetName )->text();
 		} elseif ( $result[ 'form' ] == '' ) { // FIXME: This looks weird; a simple else should be enough, right?
 			// display error message if the form is not specified in the URL
-			$pageTitle = wfMessage( 'formedit' )->text();
-			$text .= Html::element( 'p', [ 'class' => 'error' ], wfMessage( 'pf_formedit_badurl' )->text() ) . "\n";
+			$pageTitle = $this->msg( 'formedit' )->text();
+			$text .= Html::element( 'p', [ 'class' => 'error' ], $this->msg( 'pf_formedit_badurl' )->text() ) . "\n";
 			$out->addHTML( $text );
 		}
 
@@ -175,9 +175,9 @@ class PFFormEdit extends UnlistedSpecialPage {
 		if ( $alt_forms ) {
 			$text .= '<div class="infoMessage">';
 			if ( $result[ 'form' ] != '' ) {
-				$text .= wfMessage( 'pf_formedit_altforms' )->escaped();
+				$text .= $this->msg( 'pf_formedit_altforms' )->escaped();
 			} else {
-				$text .= wfMessage( 'pf_formedit_altformsonly' )->escaped();
+				$text .= $this->msg( 'pf_formedit_altformsonly' )->escaped();
 			}
 			$text .= ' ' . $this->printAltFormsList( $alt_forms, $targetName );
 			$text .= "</div>\n";

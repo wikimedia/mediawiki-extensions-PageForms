@@ -19,7 +19,7 @@ class PFCreateCategory extends SpecialPage {
 
 	static function createCategoryText( $default_form, $category_name, $parent_category ) {
 		if ( $default_form === '' ) {
-			$text = wfMessage( 'pf_category_desc', $category_name )->inContentLanguage()->text();
+			$text = $this->msg( 'pf_category_desc', $category_name )->inContentLanguage()->text();
 		} else {
 			$text = "{{#default_form:$default_form}}";
 		}
@@ -41,7 +41,7 @@ class PFCreateCategory extends SpecialPage {
 		// local variables.
 		if ( $query !== null ) {
 			$presetCategoryName = str_replace( '_', ' ', $query );
-			$out->setPageTitle( wfMessage( 'pf-createcategory-with-name', $presetCategoryName )->text() );
+			$out->setPageTitle( $this->msg( 'pf-createcategory-with-name', $presetCategoryName )->text() );
 			$category_name = $presetCategoryName;
 		} else {
 			$presetCategoryName = null;
@@ -63,7 +63,7 @@ class PFCreateCategory extends SpecialPage {
 			}
 			// Validate category name
 			if ( $category_name === '' ) {
-				$category_name_error_str = wfMessage( 'pf_blank_error' )->escaped();
+				$category_name_error_str = $this->msg( 'pf_blank_error' )->escaped();
 			} else {
 				// Redirect to wiki interface
 				$out->setArticleBodyOnly( true );
@@ -80,7 +80,7 @@ class PFCreateCategory extends SpecialPage {
 		$firstRow = '';
 		if ( $presetCategoryName === null ) {
 			$text .= "\t" . Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
-			$firstRow .= wfMessage( 'pf_createcategory_name' )->escaped() . ' ' .
+			$firstRow .= $this->msg( 'pf_createcategory_name' )->escaped() . ' ' .
 				Html::input( 'category_name', null, 'text',
 					[ 'size' => 25 ] ) . "\n";
 			if ( $category_name_error_str !== null ) {
@@ -91,7 +91,7 @@ class PFCreateCategory extends SpecialPage {
 		}
 		try {
 			$all_forms = PFUtils::getAllForms();
-			$firstRow .= "\t" . wfMessage( 'pf_createcategory_defaultform' )->escaped() . "\n";
+			$firstRow .= "\t" . $this->msg( 'pf_createcategory_defaultform' )->escaped() . "\n";
 			$formSelector = "\t" . Html::element( 'option', null, null ) . "\n";
 			foreach ( $all_forms as $form ) {
 				$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
@@ -106,7 +106,7 @@ class PFCreateCategory extends SpecialPage {
 			// leave out the form selector.
 		}
 		$text .= Html::rawElement( 'p', null, $firstRow ) . "\n";
-		$secondRow = wfMessage( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
+		$secondRow = $this->msg( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
 		$selectBody = "\t" . Html::element( 'option', null, null ) . "\n";
 		$categories = PFValuesUtils::getAllCategories();
 		foreach ( $categories as $category ) {
@@ -118,8 +118,8 @@ class PFCreateCategory extends SpecialPage {
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateCategory' ) ) . "\n";
 
-		$editButtonsText = "\t" . Html::input( 'wpSave', wfMessage( 'savearticle' )->text(), 'submit', [ 'id' => 'wpSave' ] ) . "\n";
-		$editButtonsText .= "\t" . Html::input( 'wpPreview', wfMessage( 'preview' )->text(), 'submit', [ 'id' => 'wpPreview' ] ) . "\n";
+		$editButtonsText = "\t" . Html::input( 'wpSave', $this->msg( 'savearticle' )->text(), 'submit', [ 'id' => 'wpSave' ] ) . "\n";
+		$editButtonsText .= "\t" . Html::input( 'wpPreview', $this->msg( 'preview' )->text(), 'submit', [ 'id' => 'wpPreview' ] ) . "\n";
 		$text .= "\t" . Html::rawElement( 'div', [ 'class' => 'editButtons' ], $editButtonsText ) . "\n";
 		$text .= "\t</form>\n";
 

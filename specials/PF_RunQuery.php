@@ -38,10 +38,10 @@ class PFRunQuery extends IncludableSpecialPage {
 
 		if ( !$form_title || !$form_title->exists() ) {
 			if ( $form_name === '' ) {
-				$text = Html::element( 'p', [ 'class' => 'error' ], wfMessage( 'pf_runquery_badurl' )->text() ) . "\n";
+				$text = Html::element( 'p', [ 'class' => 'error' ], $this->msg( 'pf_runquery_badurl' )->text() ) . "\n";
 			} else {
 				$text = Html::rawElement( 'p', [ 'class' => 'error' ],
-					wfMessage( 'pf_formstart_badform', PFUtils::linkText( PF_NS_FORM, $form_name ) )->parse() ) . "\n";
+					$this->msg( 'pf_formstart_badform', PFUtils::linkText( PF_NS_FORM, $form_name ) )->parse() ) . "\n";
 			}
 			$out->addHTML( $text );
 			return;
@@ -108,7 +108,7 @@ class PFRunQuery extends IncludableSpecialPage {
 			// the query form is at the top or bottom) is displayed
 			// if the form has already been submitted.
 			if ( $form_submitted ) {
-				$additionalQueryHeader = "\n" . Html::element( 'h2', null, wfMessage( 'pf_runquery_additionalquery' )->text() ) . "\n";
+				$additionalQueryHeader = "\n" . Html::element( 'h2', null, $this->msg( 'pf_runquery_additionalquery' )->text() ) . "\n";
 				$dividerText = "\n<hr style=\"margin: 15px 0;\" />\n";
 			}
 
@@ -192,7 +192,7 @@ END;
 			if ( $form_page_title != null ) {
 				$out->setPageTitle( $form_page_title );
 			} else {
-				$s = wfMessage( 'pf_runquery_title', $form_title->getText() )->text();
+				$s = $this->msg( 'pf_runquery_title', $form_title->getText() )->text();
 				$out->setPageTitle( $s );
 			}
 		}

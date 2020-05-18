@@ -25,7 +25,7 @@ class PFTemplates extends QueryPage {
 	}
 
 	function getPageHeader() {
-		$header = Html::element( 'p', null, wfMessage( 'pf_templates_docu' )->text() );
+		$header = Html::element( 'p', null, $this->msg( 'pf_templates_docu' )->text() );
 		return $header;
 	}
 
@@ -69,7 +69,7 @@ class PFTemplates extends QueryPage {
 		$text = $linkRenderer->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
 		$category = $this->getCategoryDefinedByTemplate( $title );
 		if ( $category !== '' ) {
-			$text .= ' ' . wfMessage(
+			$text .= ' ' . $this->msg(
 				'pf_templates_definescat',
 				PFUtils::linkText( NS_CATEGORY, $category )
 			)->parse();

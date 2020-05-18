@@ -1,7 +1,7 @@
 <?php
 /**
  * A special page holding a form that allows the user to create a template
- * with semantic fields.
+ * that potentially stores its data with Cargo or Semantic MediaWiki.
  *
  * @author Yaron Koren
  * @file
@@ -69,7 +69,7 @@ class PFCreateTemplate extends SpecialPage {
 		return $all_properties;
 	}
 
-	public static function printPropertiesComboBox( $all_properties, $id, $selected_property = null ) {
+	public function printPropertiesComboBox( $all_properties, $id, $selected_property = null ) {
 		$selectBody = "<option value=\"\"></option>\n";
 		foreach ( $all_properties as $prop_name ) {
 			$optionAttrs = [ 'value' => $prop_name ];
@@ -81,7 +81,7 @@ class PFCreateTemplate extends SpecialPage {
 		return Html::rawElement( 'select', [ 'id' => "semantic_property_$id", 'name' => "semantic_property_$id", 'class' => 'pfComboBox' ], $selectBody ) . "\n";
 	}
 
-	static function printFieldTypeDropdown( $id ) {
+	function printFieldTypeDropdown( $id ) {
 		global $wgCargoFieldTypes;
 
 		$selectBody = '';
@@ -92,49 +92,49 @@ class PFCreateTemplate extends SpecialPage {
 		return Html::rawElement( 'select', [ 'id' => "field_type_$id", 'name' => "field_type_$id", ], $selectBody ) . "\n";
 	}
 
-	public static function printFieldEntryBox( $id, $all_properties, $display = true ) {
+	public function printFieldEntryBox( $id, $all_properties, $display = true ) {
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
 		$text .= "\t<table style=\"width: 100%;\"><tr><td>\n";
-		$text .= "\t<p><label>" . wfMessage( 'pf_createtemplate_fieldname' )->escaped() . ' ' .
+		$text .= "\t<p><label>" . $this->msg( 'pf_createtemplate_fieldname' )->escaped() . ' ' .
 			Html::input( 'name_' . $id, null, 'text',
 				[ 'size' => '15' ]
 			) . "</label>&nbsp;&nbsp;&nbsp;\n";
-		$text .= "\t<label>" . wfMessage( 'pf_createtemplate_displaylabel' )->escaped() . ' ' .
+		$text .= "\t<label>" . $this->msg( 'pf_createtemplate_displaylabel' )->escaped() . ' ' .
 			Html::input( 'label_' . $id, null, 'text',
 				[ 'size' => '15' ]
 			) . "</label>&nbsp;&nbsp;&nbsp;\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
-			$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
-			$text .= "\t<label>" . wfMessage( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
+			$dropdown_html = $this->printPropertiesComboBox( $all_properties, $id );
+			$text .= "\t<label>" . $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
-			$dropdown_html = self::printFieldTypeDropdown( $id );
-			$text .= "\t<label class=\"cargo_field_type\">" . wfMessage( 'pf_createproperty_proptype' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
+			$dropdown_html = $this->printFieldTypeDropdown( $id );
+			$text .= "\t<label class=\"cargo_field_type\">" . $this->msg( 'pf_createproperty_proptype' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		}
 
-		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . wfMessage( 'pf_createtemplate_fieldislist' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
-		$text .= "\t" . '<label class="delimiter" style="display: none;">' . wfMessage( 'pf_createtemplate_delimiter' )->escaped() . ' ' .
+		$text .= "\t<p>" . '<label><input type="checkbox" name="is_list_' . $id . '" class="isList" /> ' . $this->msg( 'pf_createtemplate_fieldislist' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
+		$text .= "\t" . '<label class="delimiter" style="display: none;">' . $this->msg( 'pf_createtemplate_delimiter' )->escaped() . ' ' .
 			Html::input( 'delimiter_' . $id, ',', 'text',
 				[ 'size' => '2' ]
 			) . "</label>\n";
 		$text .= "\t</p>\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
 			$text .= "\t<p>\n";
-			$text .= "<label class=\"is_hierarchy\"><input type=\"checkbox\" name=\"is_hierarchy_" . $id . "\"/> " . wfMessage( 'pf_createtemplate_fieldishierarchy' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
+			$text .= "<label class=\"is_hierarchy\"><input type=\"checkbox\" name=\"is_hierarchy_" . $id . "\"/> " . $this->msg( 'pf_createtemplate_fieldishierarchy' )->escaped() . "</label>&nbsp;&nbsp;&nbsp;\n";
 			$text .= "\t</p>\n";
 
 			$text .= "\t<p>\n";
-			$text .= "\t<label class=\"allowed_values_input\">" . wfMessage( 'pf_createproperty_allowedvalsinput' )->escaped();
+			$text .= "\t<label class=\"allowed_values_input\">" . $this->msg( 'pf_createproperty_allowedvalsinput' )->escaped();
 			$text .= Html::input( 'allowed_values_' . $id, null, 'text',
 				[ 'size' => '80' ] ) . "</label>\n";
 
-			$text .= "\t<label class=\"hierarchy_structure_input\" style=\"display: none;\">" . wfMessage( 'pf_createproperty_allowedvalsforhierarchy' )->escaped();
+			$text .= "\t<label class=\"hierarchy_structure_input\" style=\"display: none;\">" . $this->msg( 'pf_createproperty_allowedvalsforhierarchy' )->escaped();
 			$text .= '<textarea class="hierarchy_structure" rows="10" cols="20" name="hierarchy_structure_' . $id . '"></textarea></label>';
 			$text .= "\t</p>\n";
 		}
 		$text .= "\t</td><td>\n";
-		$text .= "\t" . '<input type="button" value="' . wfMessage( 'pf_createtemplate_deletefield' )->escaped() . '" class="deleteField" />' . "\n";
+		$text .= "\t" . '<input type="button" value="' . $this->msg( 'pf_createtemplate_deletefield' )->escaped() . '" class="deleteField" />' . "\n";
 
 		$text .= <<<END
 </td></tr></table>
@@ -172,7 +172,7 @@ END;
 
 		if ( $query !== null ) {
 			$presetTemplateName = str_replace( '_', ' ', $query );
-			$out->setPageTitle( wfMessage( 'pf-createtemplate-with-name', $presetTemplateName )->text() );
+			$out->setPageTitle( $this->msg( 'pf-createtemplate-with-name', $presetTemplateName )->text() );
 			$template_name = $presetTemplateName;
 		} else {
 			$presetTemplateName = null;
@@ -255,21 +255,21 @@ END;
 			// Set 'title' field, in case there's no URL niceness.
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$text .= "\t<p id=\"template_name_p\">" .
-				wfMessage( 'pf_createtemplate_namelabel' )->escaped() .
+				$this->msg( 'pf_createtemplate_namelabel' )->escaped() .
 				' <input size="25" id="template_name" name="template_name" /></p>' . "\n";
 		}
-		$text .= "\t<p>" . wfMessage( 'pf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
+		$text .= "\t<p>" . $this->msg( 'pf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
 			$text .= "\t<p><label>" . Html::check( 'use_cargo', true, [ 'id' => 'use_cargo' ] ) .
-				' ' . wfMessage( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
+				' ' . $this->msg( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
 			$text .= "\t<p id=\"cargo_table_input\"><label>" .
-				wfMessage( 'pf_createtemplate_cargotablelabel' )->escaped() .
+				$this->msg( 'pf_createtemplate_cargotablelabel' )->escaped() .
 				' <input id="cargo_table" size="25" name="cargo_table" /></label></p>' . "\n";
 		}
 
 		$text .= "\t<fieldset>\n";
-		$text .= "\t" . Html::element( 'legend', null, wfMessage( 'pf_createtemplate_templatefields' )->text() ) . "\n";
-		$text .= "\t" . Html::element( 'p', null, wfMessage( 'pf_createtemplate_fieldsdesc' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_templatefields' )->text() ) . "\n";
+		$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_fieldsdesc' )->text() ) . "\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$all_properties = self::getAllPropertyNames();
@@ -277,13 +277,13 @@ END;
 			$all_properties = [];
 		}
 		$text .= '<div id="fieldsList">' . "\n";
-		$text .= self::printFieldEntryBox( "1", $all_properties );
-		$text .= self::printFieldEntryBox( "starter", $all_properties, false );
+		$text .= $this->printFieldEntryBox( "1", $all_properties );
+		$text .= $this->printFieldEntryBox( "starter", $all_properties, false );
 		$text .= "</div>\n";
 
 		$add_field_button = Html::input(
 			null,
-			wfMessage( 'pf_createtemplate_addfield' )->text(),
+			$this->msg( 'pf_createtemplate_addfield' )->text(),
 			'button',
 			[ 'class' => "createTemplateAddField" ]
 		);
@@ -292,11 +292,11 @@ END;
 
 		if ( defined( 'SMW_VERSION' ) ) {
 			$text .= "\t<fieldset>\n";
-			$text .= "\t" . Html::element( 'legend', null, wfMessage( 'pf_createtemplate_aggregation' )->text() ) . "\n";
-			$text .= "\t" . Html::element( 'p', null, wfMessage( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
-			$text .= "\t<p>" . wfMessage( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' .
-				self::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
-			$text .= "\t<p>" . wfMessage( 'pf_createtemplate_aggregationlabel' )->escaped() . ' ' .
+			$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_aggregation' )->text() ) . "\n";
+			$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
+			$text .= "\t<p>" . $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' .
+				$this->printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
+			$text .= "\t<p>" . $this->msg( 'pf_createtemplate_aggregationlabel' )->escaped() . ' ' .
 				Html::input( 'aggregation_label', null, 'text',
 					[ 'size' => '25' ] ) .
 				"</p>\n";
@@ -307,16 +307,11 @@ END;
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateTemplate' ) ) . "\n";
 
-		$save_button_text = wfMessage( 'savearticle' )->escaped();
-		$preview_button_text = wfMessage( 'preview' )->escaped();
-		$text .= <<<END
-	<div class="editButtons">
-	<input type="submit" id="wpSave" name="wpSave" value="$save_button_text" />
-	<input type="submit" id="wpPreview" name="wpPreview" value="$preview_button_text" />
-	</div>
-	</form>
+		$save_button = Html::input( 'wpSave', $this->msg( 'savearticle' )->escaped(), 'submit', [ 'id' => 'wpSave' ] );
+		$preview_button = Html::input( 'wpPreview', $this->msg( 'preview' )->escaped(), 'submit', [ 'id' => 'wpPreview' ] );
+		$text .= Html::rawElement( 'div', [ 'class' => 'editButtons' ], $save_button . "\n" . $preview_button );
 
-END;
+		$text .= '</form>';
 
 		$out->addHTML( $text );
 	}
