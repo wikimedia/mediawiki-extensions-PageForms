@@ -37,7 +37,7 @@
 	"action-createclass": "buat kelas semantik baru",
 	"pf-datepicker-prev": "Sebelumnya",
 	"pf-datepicker-next": "Berikutnya",
-	"pf-datepicker-dateformat": "Rentetan format tarikh. Lihat [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters pendokumenan dalam talian] untuk keterangan lanjut.",
+	"pf-datepicker-dateformat": "Rentetan format tarikh. Lihat [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters pendokumenan dalam talian] untuk keterangan lanjut.",
 	"pf-datepicker-disabledaysofweek": "Senarai hari-hari yang tidak boleh dipilih (cth. hujung minggu: 6, 0).",
 	"pf-regexp-basetype": "Jenis asas yang hendak digunakan. Barangkali itu sebarang jenis input yang menghasilkan elemen borang HTML dalam bentuk jenis input atau pilihan (cth. text, listbox, datepicker) atau ungkapan nalar yang lain. Asalinya \"text\"."
 }

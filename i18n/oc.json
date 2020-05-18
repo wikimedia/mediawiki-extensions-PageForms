@@ -150,7 +150,7 @@
 	"pf-datepicker-prev": "Precedent",
 	"pf-datepicker-next": "Seguent",
 	"pf-datepicker-today": "Uèi",
-	"pf-datepicker-dateformat": "La cadena de format de data. Vejatz la [https://www.mediawiki.org/w/index.php?title=Extension:Semantic_Forms_Inputs&fromsection=Date_picker#Parameters documentacion en linha] per mai d'informacion.",
+	"pf-datepicker-dateformat": "La cadena de format de data. Vejatz la [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentacion en linha] per mai d'informacion.",
 	"pf-datepicker-weekstart": "Lo primièr jorn de la setmana (0 - dimenge, 1 - diluns, ...).",
 	"pf-datepicker-firstdate": "La primièra data que pòt èsser causida (al format aaaa/mm/jj).",
 	"pf-datepicker-lastdate": "La darrièra data que pòt èsser causida (al format aaaa/mm/jj).",
