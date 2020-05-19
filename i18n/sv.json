@@ -198,6 +198,8 @@
 	"pf-pageschemas-pagenameformula": "Formel för sidnamn:",
 	"pf-pageschemas-createtitle": "Titel på formulär för nya sidor:",
 	"pf-pageschemas-edittitle": "Titel på formulär för befintliga sidor:",
+	"pf-pageschemas-forminput": "Formulärinmatning",
+	"pf-pageschemas-inputdescription": "Fältbeskrivning:",
 	"pf-pageschemas-inputtype": "Typ av indatafält (lämna tom för förvald typ):",
 	"pf-pageschemas-otherparams": "Ange parameternamn och deras värden som nyckel=värde-par, separerade av kommatecken (om ett värde innehåller ett kommatecken, ersätt den med \"\\,\"). Till exempel: $1",
 	"pf_property_isproperty": "Det här är en egenskap av typen $1.",

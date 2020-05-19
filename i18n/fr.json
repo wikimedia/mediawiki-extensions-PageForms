@@ -275,7 +275,7 @@
 	"pf_blank_namespace": "Principal",
 	"right-viewedittab": "Voir l’onglet « {{int:edit}} » pour les pages modifiables via un formulaire",
 	"right-editrestrictedfields": "Modifier les champs restreints des formulaires",
-	"right-createclass": "Créer de nouvelles « classes » de page",
+	"right-createclass": "Créer de nouvelles « classes » de pages",
 	"right-multipageedit": "Modifier plusieurs pages à l'aide d'un tableur",
 	"action-createclass": "créer de nouvelles « classes » de pages",
 	"action-editrestrictedfields": "Modifier les champs de formulaire protégés",

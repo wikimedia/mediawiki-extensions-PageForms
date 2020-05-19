@@ -47,7 +47,7 @@
 	"pf_createproperty_allowedvalsinput": "Um nur bestimmte Werte zuzulassen, gib diese bitte in Form einer kommagetrennten Liste an (falls ein Wert ein Komma enthält, musst du es durch „\\,“ ersetzen):",
 	"pf_createproperty_propname": "Attributname:",
 	"pf_createproperty_proptype": "Datentyp:",
-	"pf_createproperty_editsummary": "Erstellte ein Attribut des Typs $1.",
+	"pf_createproperty_editsummary": "Erstellte ein Attribut des Datentyps $1.",
 	"templates": "Vorlagen",
 	"pf_templates_docu": "Die folgenden Vorlagen sind in diesem Wiki vorhanden:",
 	"pf_templates_definescat": "definiert die Kategorie: $1",
