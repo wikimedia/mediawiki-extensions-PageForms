@@ -44,7 +44,7 @@
 	"pf_createproperty_allowedvalsinput": "Щоб дозволити тільки певні значення, введіть список дозволених значень, розділених комами (якщо значення містить кому, замініть її на «\\,»):",
 	"pf_createproperty_propname": "Назва властивості:",
 	"pf_createproperty_proptype": "Тип:",
-	"pf_createproperty_editsummary": "Створюється властивість типу [[Has type::$1]]",
+	"pf_createproperty_editsummary": "Створено властивість типу $1",
 	"templates": "Шаблони",
 	"pf_templates_docu": "Наступні шаблони існують у вікі.",
 	"pf_templates_definescat": "визначає категорію: $1",
