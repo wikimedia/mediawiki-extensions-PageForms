@@ -230,6 +230,9 @@ class PFMultiPageEdit extends QueryPage {
 	}
 
 	public function getFormForTemplate( $templateName ) {
+		// This escaping is needed because, when this method is called
+		// from Cargo, the template can have a space in its name.
+		$templateName = str_replace( ' ', '_', $templateName );
 		if ( !array_key_exists( $templateName, $this->mTemplateInForm ) ) {
 			return null;
 		}
