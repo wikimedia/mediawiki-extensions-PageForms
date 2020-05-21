@@ -5,6 +5,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * Background job to create a new page, for use by the 'CreateClass' special
  * page.

@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * Handles the formcreate action - used for helper forms for creating
  * properties, forms, etc..
