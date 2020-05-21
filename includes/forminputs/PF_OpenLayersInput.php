@@ -55,7 +55,7 @@ class PFOpenLayersInput extends PFFormInput {
 			$wgOut->addModuleScripts( 'ext.openlayers.main' );
 		} else {
 			$scripts = [
-				"https://www.openlayers.org/api/OpenLayers.js"
+				"https://openlayers.org/api/OpenLayers.js"
 			];
 			$scriptsHTML = '';
 			foreach ( $scripts as $script ) {
