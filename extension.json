@@ -1,5 +1,6 @@
 {
-	"name": "Page Forms",
+	"name": "PageForms",
+	"namemsg": "pageforms-name",
 	"version": "4.9.2",
 	"author": [
 		"Yaron Koren",

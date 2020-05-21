@@ -4,6 +4,7 @@
 			"Yaron Koren"
 		]
 	},
+	"pageforms-name": "Page Forms",
 	"pageforms-desc": "Forms for creating and editing wiki pages",
 	"specialpages-group-pf_group": "Page Forms",
 	"apihelp-pfautocomplete-description": "Autocompletion used by the Page Forms extension.",
