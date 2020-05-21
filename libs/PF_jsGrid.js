@@ -399,7 +399,7 @@
 
 		function getGridValues( pageNames ) {
 			return $.ajax({
-				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&formatversion=2&titles=' + pageNames,
+				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&titles=' + pageNames,
 				dataType: 'json',
 				type: 'POST',
 				headers: { 'Api-User-Agent': 'Example/1.0' }
@@ -624,7 +624,13 @@
 							var templateCalls = [];
 							data.query.pages.sort(function( a, b ){ return a.title.toUpperCase().localeCompare( b.title.toUpperCase() ); });
 							for (var i = 0; i < data.query.pages.length; i++) {
-								var pageContent = data.query.pages[i].revisions[0].content;
+								var curRevision = data.query.pages[i].revisions[0];
+								if ( curRevision.hasOwnProperty('slots') ) {
+									// MW 1.31+ (or maybe 1.32+)
+									var pageContent = curRevision.slots.main.content;
+								} else {
+									var pageContent = curRevision.content;
+								}
 								templateCalls = getTemplateCalls( pageContent, data.query.pages[i].title );
 								for ( const templateCall of templateCalls ) {
 									var fieldArray = templateCall.split( '|' );
