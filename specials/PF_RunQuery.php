@@ -124,13 +124,10 @@ class PFRunQuery extends IncludableSpecialPage {
 				$realTitle = $this->getPageTitle( $form_name );
 			}
 
-			// Preserve all query string values in the results page.
-			$queryStringValues = [];
-			foreach ( $req->getValues() as $key => $value ) {
-				if ( $key != 'title' ) {
-					$queryStringValues[$key] = $value;
-				}
-			}
+			// Preserve all query string values in the results
+			// page - including "title", in case this wiki has the
+			// default URL structure.
+			$queryStringValues = $req->getValues();
 			if ( !array_key_exists( 'pfRunQueryFormName', $queryStringValues ) ) {
 				$queryStringValues['pfRunQueryFormName'] = $form_name;
 			}
