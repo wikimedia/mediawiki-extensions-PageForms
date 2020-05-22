@@ -77,7 +77,7 @@ class PFHelperFormAction extends Action {
 
 		$content_actions = &$links['views'];
 
-		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCant' ) ) {
+		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCan' ) ) {
 			// MW 1.33+
 			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 			$userCanEdit = $permissionManager->userCan( 'edit', $user, $title );
