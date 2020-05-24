@@ -285,7 +285,7 @@
 	"pf-datepicker-dateformatlong": "{{Optional}}\n{{DataFormatSpecifiers/en}}",
 	"pf-datepicker-dateformatshort": "{{Optional}}\n{{DataFormatSpecifiers/en}}",
 	"pf-datepicker-firstdayofweek": "{{optional}}\n0 - sunday, 1 - monday...",
-	"pf-datepicker-dateformat": "This is a help text for the [[Special:CreateForm]] page.",
+	"pf-datepicker-dateformat": "This is a help text for the [[Special:CreateForm]] page.\n\nParameters:\n $1 - a URL on mediawiki.org",
 	"pf-datepicker-weekstart": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-firstdate": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-lastdate": "This is a help text for the [[Special:CreateForm]] page.",

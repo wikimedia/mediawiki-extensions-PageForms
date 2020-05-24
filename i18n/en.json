@@ -268,7 +268,7 @@
 	"pf-datepicker-dateformatlong": "d MM yy",
 	"pf-datepicker-dateformatshort": "dd/mm/yy",
 	"pf-datepicker-firstdayofweek": "0",
-	"pf-datepicker-dateformat": "The date format string. See the [[mw:Special:MyLanguage/Extension:Page_Forms/Input_types/Datepicker#Parameters|online documentation]] for more information.",
+	"pf-datepicker-dateformat": "The date format string. See the [$1 online documentation] for more information.",
 	"pf-datepicker-weekstart": "The first day of the week (0 - Sunday, 1 - Monday, ...).",
 	"pf-datepicker-firstdate": "The first date that can be chosen (in yyyy/mm/dd format).",
 	"pf-datepicker-lastdate": "The last date that can be chosen (in yyyy/mm/dd format).",

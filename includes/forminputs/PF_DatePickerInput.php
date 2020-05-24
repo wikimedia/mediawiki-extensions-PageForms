@@ -555,7 +555,10 @@ class PFDatePickerInput extends PFFormInput {
 		$params['date format'] = [
 			'name' => 'date format',
 			'type' => 'string',
-			'description' => wfMessage( 'pf-datepicker-dateformat' )->text()
+			'description' => wfMessage(
+				'pf-datepicker-dateformat',
+				'https://www.mediawiki.org/wiki/Special:MyLanguage/Extension:Page_Forms/Input_types/Datepicker#Parameters'
+			)->text()
 		];
 		$params['week start'] = [
 			'name' => 'week start',
