@@ -14,11 +14,13 @@
 			"Shirayuki",
 			"Xiaomingyan",
 			"Yfdyh000",
+			"列维劳德",
 			"夢蝶葬花",
 			"沈澄心",
 			"아라"
 		]
 	},
+	"pageforms-name": "页面表单",
 	"pageforms-desc": "用于创建和编辑wiki页面的表单",
 	"specialpages-group-pf_group": "页面表单",
 	"apihelp-pfautocomplete-description": "由页面表单扩展所使用的自动完成。",

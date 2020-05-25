@@ -7,6 +7,7 @@
 			"SpeedyGonsales"
 		]
 	},
+	"pageforms-name": "Stranični obrasci",
 	"pageforms-desc": "Obrasci za stvaranje i uređivanje wikistranica",
 	"specialpages-group-pf_group": "Stranični obrasci",
 	"apihelp-pfautocomplete-description": "Automatsko dovršavanje koje rabi proširenje »Stranični obrasci« (''Page Forms'')",
@@ -34,5 +35,6 @@
 	"pf_form_freetextlabel": "Slobodni unos",
 	"tooltip-ca-formedit": "Uređivanje ove stranice pomoću obrasca",
 	"pf-maps-enteraddress": "Ovdje upišite adresu",
-	"pf-maps-lookupcoordinates": "Izračunaj koordinate rabeći adresu"
+	"pf-maps-lookupcoordinates": "Izračunaj koordinate rabeći adresu",
+	"pf-datepicker-dateformat": "Niz znakova za formatiranje datuma. Vidi [$1 dokumentaciju na mreži] za više informacija."
 }

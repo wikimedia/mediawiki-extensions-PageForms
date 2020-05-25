@@ -14,6 +14,7 @@
 			"WikiPhoenix"
 		]
 	},
+	"pageforms-name": "Sidformulär",
 	"pageforms-desc": "Formulär för att lägga till och redigera semantisk data",
 	"specialpages-group-pf_group": "Semantiska formulär",
 	"createproperty": "Skapa en egenskap",

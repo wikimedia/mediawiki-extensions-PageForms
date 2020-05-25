@@ -14,6 +14,7 @@
 			"아라"
 		]
 	},
+	"pageforms-name": "Page Forms",
 	"pageforms-desc": "可用來建立與編輯 wiki 頁面的表單",
 	"specialpages-group-pf_group": "Page Forms",
 	"apihelp-pfautocomplete-description": "透過 Page Forms 擴充所使用的自動化功能。",
@@ -273,7 +274,7 @@
 	"pf-datepicker-next": "下一個",
 	"pf-datepicker-today": "今天",
 	"pf-datepicker-dateformatlong": "yy年m月d日",
-	"pf-datepicker-dateformat": "日期格式字符串。詳情請參見[https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters 在線文檔]。",
+	"pf-datepicker-dateformat": "日期格式字串。詳情請參見[$1 線上文件]。",
 	"pf-datepicker-weekstart": "一週的首日（0-週日，1-週一，等等）。",
 	"pf-datepicker-firstdate": "可選擇的第一個日期（採用 dd/yyyy/mm 格式）。",
 	"pf-datepicker-lastdate": "可選擇的最後日期（採用 dd/yyyy/mm 格式）。",

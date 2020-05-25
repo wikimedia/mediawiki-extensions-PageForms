@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Codenstory",
 			"Hym411",
 			"Jerrykim306",
 			"Joolee0104",
@@ -12,6 +13,7 @@
 			"아라"
 		]
 	},
+	"pageforms-name": "문서 폼",
 	"pageforms-desc": "위키 문서를 만들고 편집하기 위한 양식",
 	"specialpages-group-pf_group": "페이지 폼",
 	"apihelp-pfautocomplete-summary": "Page Forms 확장 기능에 의해 사용되는 자동 완성입니다.",
@@ -24,6 +26,7 @@
 	"pf_createproperty_allowedvalsinput": "이 속성이 특정 값을 가질 수 있도록 허용하려면 쉼표로 구분하여 허용하는 값 목록을 입력하세요 (값이 쉼표로 포함되어 있으면 \"\\,\"로 바꾸세요):",
 	"pf_createproperty_propname": "속성 이름:",
 	"pf_createproperty_proptype": "유형:",
+	"pf_createproperty_editsummary": "$1 형태의 특성을 생성했습니다.",
 	"templates": "틀 목록",
 	"pf_templates_docu": "다음 틀은 위키에 존재합니다.",
 	"pf_templates_definescat": "분류 정의: $1",
@@ -207,6 +210,7 @@
 	"pf-pageschemas-pagenameformula": "문서 이름 공식:",
 	"pf-pageschemas-createtitle": "새 문서에 대한 양식 제목:",
 	"pf-pageschemas-edittitle": "기존 문서에 대한 양식 제목:",
+	"pf-pageschemas-forminput": "폼 입력",
 	"pf-pageschemas-inputtype": "입력 형식 (기본값으로 설정하려면 비워두세요):",
 	"pf-pageschemas-otherparams": "변수 이름과 값을 key=value와 같은 쌍을 쉼표로 구분하여 입력하세요. (값에 쉼표를 포함하면, \"\\,\"로 바꾸세요) 예를 들어: $1",
 	"pf_property_isproperty": "$1 유형의 속성입니다.",
@@ -221,9 +225,9 @@
 	"pf_blank_namespace": "주요",
 	"right-viewedittab": "양식에서 편집할 문서에 \"{{int:edit}}\" 탭을 보여줍니다",
 	"right-editrestrictedfields": "제한된 양식 입력란 편집",
-	"right-createclass": "새 시맨틱 클래스 만들기",
+	"right-createclass": "문서의 새 클래스 만들기",
 	"right-multipageedit": "스프레드시트를 사용하여 여러 문서 편집",
-	"action-createclass": "새 시맨틱 클래스 만들기",
+	"action-createclass": "문서의 새 클래스 만들기",
 	"action-editrestrictedfields": "제한된 양식 입력란 편집",
 	"action-viewedittab": "양식에서 편집할 문서에 \"{{int:edit}}\" 탭을 보이기",
 	"action-multipageedit": "스프레드시트를 사용하여 여러 문서 편집",
@@ -241,7 +245,7 @@
 	"pf-datepicker-today": "오늘",
 	"pf-datepicker-dateformatlong": "yy년 MM d일",
 	"pf-datepicker-dateformatshort": "yy/mm/dd",
-	"pf-datepicker-dateformat": "날짜 형식 문자열. 더 많은 정보에 대한 [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters 온라인 문서]를 참조하세요.",
+	"pf-datepicker-dateformat": "날짜 형식 문자열. 더 많은 정보에 대한 [$1 온라인 문서]를 참조하세요.",
 	"pf-datepicker-weekstart": "주의 첫 요일(0 - 일요일, 1 - 월요일, ...).",
 	"pf-datepicker-firstdate": "선택할 수 있는 첫 날짜. (yyyy/mm/dd 형식으로)",
 	"pf-datepicker-lastdate": "선택할 수 있는 마지막 날짜. (yyyy/mm/dd 형식으로)",

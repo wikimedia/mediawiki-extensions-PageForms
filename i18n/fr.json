@@ -22,6 +22,7 @@
 			"Peter17",
 			"PieRRoMaN",
 			"PifyZ",
+			"Pols12",
 			"Rastus Vernon",
 			"Seb35",
 			"Sherbrooke",
@@ -35,6 +36,7 @@
 			"Zebulon84"
 		]
 	},
+	"pageforms-name": "Formulaires de page",
 	"pageforms-desc": "Formulaires pour créer et modifier des pages wiki",
 	"specialpages-group-pf_group": "Formulaires sémantiques",
 	"apihelp-pfautocomplete-description": "Autocomplétion utilisée par l’extension Page Forms.",
@@ -295,7 +297,7 @@
 	"pf-datepicker-today": "Aujourd'hui",
 	"pf-datepicker-dateformatlong": "j MM aa",
 	"pf-datepicker-dateformatshort": "dd / mm / yy",
-	"pf-datepicker-dateformat": "La chaîne de format de date. Voyez la [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentation en ligne] pour plus d'information.",
+	"pf-datepicker-dateformat": "La chaîne de format de date. Consultez la [$1 documentation en ligne] pour plus d’informations.",
 	"pf-datepicker-weekstart": "Le premier jour de la semaine (0 - dimanche, 1 - lundi, ...).",
 	"pf-datepicker-firstdate": "La première date qui peut être choisie (au format aaaa/mm/jj).",
 	"pf-datepicker-lastdate": "La dernière date qui peut être choisie (au format aaaa/mm/jj).",
