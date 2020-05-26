@@ -16,6 +16,7 @@
 			555
 		]
 	},
+	"pageforms-name": "Formulários de página",
 	"pageforms-desc": "Formulários para criação e edição de páginas wiki",
 	"specialpages-group-pf_group": "Formulários de página",
 	"apihelp-pfautocomplete-description": "Preenchimento automático através da extensão Formulários de Página.",
@@ -275,7 +276,7 @@
 	"pf-datepicker-next": "Seguinte",
 	"pf-datepicker-today": "Hoje",
 	"pf-datepicker-dateformatshort": "dd/mm/aa",
-	"pf-datepicker-dateformat": "A string do formato de data. Veja a [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentação online] para mais informações.",
+	"pf-datepicker-dateformat": "A string do formato de data. Veja a [$1 documentação online] para mais informações.",
 	"pf-datepicker-weekstart": "O primeiro dia da semana (0 - Domingo, 1 - Segunda, ...).",
 	"pf-datepicker-firstdate": "A primeira data que pode ser escolhida (formato aaaa/mm/dd).",
 	"pf-datepicker-lastdate": "A última data que pode ser escolhida (formato aaaa/mm/dd).",

@@ -222,7 +222,7 @@
 	"pf-datepicker-prev": "Precedente",
 	"pf-datepicker-next": "Successivo",
 	"pf-datepicker-today": "Oggi",
-	"pf-datepicker-dateformat": "La stringa di formato data. Vedi la [[mw:Special:MyLanguage/Extension:Page_Forms/Input_types/Datepicker#Parameters|documentazione online]] per ulteriori informazioni.",
+	"pf-datepicker-dateformat": "La stringa di formato data. Vedi la [$1 documentazione online] per ulteriori informazioni.",
 	"pf-datepicker-weekstart": "Il primo giorno della settimana (0 - domenica, 1 - lunedì, ...).",
 	"pf-datepicker-firstdate": "La prima data che può essere scelta (in formato aaaa/mm/gg).",
 	"pf-datepicker-lastdate": "L'ultima data che può essere scelta (in formato aaaa/mm/gg).",

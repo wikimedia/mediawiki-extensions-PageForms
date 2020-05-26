@@ -245,7 +245,7 @@
 	"pf-datepicker-today": "오늘",
 	"pf-datepicker-dateformatlong": "yy년 MM d일",
 	"pf-datepicker-dateformatshort": "yy/mm/dd",
-	"pf-datepicker-dateformat": "날짜 형식 문자열. 더 많은 정보에 대한 [$1 온라인 문서]를 참조하세요.",
+	"pf-datepicker-dateformat": "날짜 형식 문자열입니다. 더 많은 정보를 보려면 [$1 온라인 문서]를 참조하세요.",
 	"pf-datepicker-weekstart": "주의 첫 요일(0 - 일요일, 1 - 월요일, ...).",
 	"pf-datepicker-firstdate": "선택할 수 있는 첫 날짜. (yyyy/mm/dd 형식으로)",
 	"pf-datepicker-lastdate": "선택할 수 있는 마지막 날짜. (yyyy/mm/dd 형식으로)",
