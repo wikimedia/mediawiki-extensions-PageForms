@@ -237,6 +237,7 @@ class PFParserFunctions {
 		$inNamespaceSelector = null;
 		$inPlaceholder = null;
 		$inAutofocus = true;
+		$hasPopup = $hasReturnTo = false;
 
 		// Assign params.
 		foreach ( $params as $i => $param ) {
@@ -278,6 +279,7 @@ class PFParserFunctions {
 			} elseif ( $paramName == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr .= ' popupforminput';
+				$hasPopup = true;
 			} elseif ( $paramName == 'reload' ) {
 				$classStr .= ' reload';
 				$inQueryArr['reload'] = '1';
@@ -287,7 +289,14 @@ class PFParserFunctions {
 				$value = urlencode( $value );
 				parse_str( "$paramName=$value", $arr );
 				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+				if ( $paramName == 'returnto' ) {
+					$hasReturnTo = true;
+				}
 			}
+		}
+
+		if ( $hasPopup && $hasReturnTo ) {
+			return '<div class="error">Error: \'popup\' and \'returnto\' cannot be set in the same function.</div>';
 		}
 
 		$formInputAttrs = [ 'size' => $inSize ];
@@ -668,6 +677,7 @@ class PFParserFunctions {
 		// Set defaults.
 		$inFormName = $inLinkStr = $inExistingPageLinkStr = $inLinkType =
 			$inTooltip = $inTargetName = '';
+		$hasPopup = $hasReturnTo = false;
 		if ( $parserFunctionName == 'queryformlink' ) {
 			$inLinkStr = wfMessage( 'runquery' )->parse();
 		}
@@ -712,6 +722,7 @@ class PFParserFunctions {
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
+				$hasPopup = true;
 			} elseif ( $param_name == null && $value == 'reload' ) {
 				$classStr .= ' reload';
 				$inQueryArr['reload'] = '1';
@@ -723,7 +734,14 @@ class PFParserFunctions {
 				$value = urlencode( $value );
 				parse_str( "$param_name=$value", $arr );
 				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+				if ( $param_name == 'returnto' ) {
+					$hasReturnTo = true;
+				}
 			}
+		}
+
+		if ( $hasPopup && $hasReturnTo ) {
+			return '<div class="error">Error: \'popup\' and \'returnto\' cannot be set in the same function.</div>';
 		}
 
 		// Not the most graceful way to do this, but it is the
