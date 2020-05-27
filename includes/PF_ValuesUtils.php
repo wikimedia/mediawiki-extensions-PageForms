@@ -753,13 +753,13 @@ class PFValuesUtils {
 	 * @return string SQL condition for use in WHERE clause
 	 */
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
-		global $wgDBtype, $wgPageFormsAutocompleteOnAllChars;
+		global $wgPageFormsAutocompleteOnAllChars;
 
 		$db = wfGetDB( DB_REPLICA );
 
 		// CONVERT() is also supported in PostgreSQL, but it doesn't
 		// seem to work the same way.
-		if ( $wgDBtype == 'mysql' ) {
+		if ( $db->getType == 'mysql' ) {
 			$column_value = "LOWER(CONVERT($column USING utf8))";
 		} else {
 			$column_value = "LOWER($column)";
