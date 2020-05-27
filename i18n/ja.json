@@ -204,7 +204,7 @@
 	"pf-datepicker-today": "今日",
 	"pf-datepicker-dateformatlong": "yy年m月d日",
 	"pf-datepicker-dateformatshort": "yy/mm/dd",
-	"pf-datepicker-dateformat": "日付の書式の文字列です。詳細情報は[https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters オンライン説明文書]を参照してください。",
+	"pf-datepicker-dateformat": "日付の書式の文字列です。詳細情報は[$1 オンライン説明文書]を参照してください。",
 	"pf-datepicker-weekstart": "週の初日の曜日 (0: 日曜日、1: 月曜日、...)",
 	"pf-regexp-wrongformat": "間違った形式です。"
 }
