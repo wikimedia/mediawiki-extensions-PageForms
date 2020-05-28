@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Diki Ananta",
 			"Meursault2004",
 			"NoiX180",
 			"Pras"
@@ -89,7 +90,7 @@
 	"pf_formedit_addanother": "Tambah liyané",
 	"pf_formedit_none": "Ora ana",
 	"pf_blank_error": "ora olèh kosong",
-	"pf_bad_email_error": "kudu duwé format alamat e-mail sing absah",
+	"pf_bad_email_error": "kudu duwé format alamat layang-èl sing absah",
 	"pf_bad_number_error": "kudu angka sing absah",
 	"pf_bad_integer_error": "kudu integer sing absah",
 	"pf_bad_date_error": "kudu tanggal sing absah",
