@@ -272,7 +272,7 @@
 	"pf-datepicker-prev": "Önceki",
 	"pf-datepicker-next": "Sonraki",
 	"pf-datepicker-today": "Bugün",
-	"pf-datepicker-dateformat": "Tarih biçimi dizesi. Daha fazla bilgi için [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters çevrimiçi belgelendirmesine] bakın.",
+	"pf-datepicker-dateformat": "Tarih biçimi dizesi. Daha fazla bilgi için [$1 çevrimiçi belgesine] bakın.",
 	"pf-datepicker-weekstart": "Haftanın ilk günü (0 - Pazar, 1 - Pazartesi, ...).",
 	"pf-datepicker-firstdate": "Seçilebilen ilk tarih (yyyy/aa/gg biçiminde).",
 	"pf-datepicker-lastdate": "Seçilebilecek son tarih (yyyy/aa/gg biçiminde).",
