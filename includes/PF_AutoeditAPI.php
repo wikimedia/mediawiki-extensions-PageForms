@@ -700,7 +700,8 @@ class PFAutoeditAPI extends ApiBase {
 				$randomNumHasPadding = array_key_exists( 2, $matches );
 				$randomNumDigits = ( array_key_exists( 3, $matches ) ? $matches[3] : $randomNumDigits );
 				$titleNumber = self::makeRandomNumber( $randomNumDigits, $randomNumHasPadding );
-			} elseif ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {;				// get unique number start value
+			} elseif ( preg_match( '/{num.*start[_]*=[_]*([^;]*).*}/', $targetName, $matches ) ) {
+				// get unique number start value
 				// from target name; if it's not
 				// there, or it's not a positive
 				// number, start it out as blank
