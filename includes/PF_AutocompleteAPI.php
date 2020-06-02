@@ -366,9 +366,12 @@ class PFAutocompleteAPI extends ApiBase {
 
 		foreach ( $queryResults as $row ) {
 			// @TODO - this check should not be necessary.
-			if ( ( $value = $row[$cargoFieldAlias] ) != '' ) {
-				$values[] = $value;
+			if ( ( $value = $row[$cargoFieldAlias] ) == '' ) {
+				continue;
 			}
+			// Cargo HTML-encodes everything - let's decode double
+			// quotes, at least.
+			$values[] = str_replace( '&quot;', '"', $value );
 		}
 
 		if ( $wgPageFormsCacheAutocompleteValues ) {

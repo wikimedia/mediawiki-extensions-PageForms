@@ -169,7 +169,9 @@ class PFValuesUtils {
 			$fieldAlias = str_replace( '_', ' ', $fieldName );
 		}
 		foreach ( $queryResults as $row ) {
-			$values[] = $row[$fieldAlias];
+			// Cargo HTML-encodes everything - let's decode double
+			// quotes, at least.
+			$values[] = str_replace( '&quot;', '"', $row[$fieldAlias] );
 		}
 		return $values;
 	}
