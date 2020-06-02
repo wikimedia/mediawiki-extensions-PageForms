@@ -207,7 +207,7 @@
 	"pf-datepicker-prev": "Edellinen",
 	"pf-datepicker-next": "Seuraava",
 	"pf-datepicker-today": "Tänään",
-	"pf-datepicker-dateformat": "Päivämäärän muotomerkkijono. Lisätietoja löytyy [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters ohjeesta].",
+	"pf-datepicker-dateformat": "Päivämäärän muotomerkkijono. Lisätietoja löytyy [$1 ohjeesta].",
 	"pf-datepicker-weekstart": "Viikon ensimmäinen päivä (0 - sunnuntai, 1 - maanantai...).",
 	"pf-datepicker-firstdate": "Ensimmäinen päivämäärä, joka voidaan valita (muodossa vvvv/kk/pp).",
 	"pf-datepicker-lastdate": "Viimeinen päivämäärä, joka voidaan valita (muodossa vvvv/kk/pp).",
