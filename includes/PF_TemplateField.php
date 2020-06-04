@@ -186,6 +186,9 @@ class PFTemplateField {
 	}
 
 	function getPossibleValues() {
+		if ( $this->mPossibleValues == null ) {
+			return [];
+		}
 		return $this->mPossibleValues;
 	}
 
