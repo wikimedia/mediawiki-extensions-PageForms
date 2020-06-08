@@ -50,7 +50,7 @@
 	"pf_createproperty_allowedvalsinput": "如果只允许特定的值，输入值的列表，以逗号分隔（如果一个值包含逗号，使用“\\,”替换）：",
 	"pf_createproperty_propname": "属性名称：",
 	"pf_createproperty_proptype": "类型：",
-	"pf_createproperty_editsummary": "已创建类型[[Has type::$1]]的属性",
+	"pf_createproperty_editsummary": "已创建类型$1的属性",
 	"templates": "模板",
 	"pf_templates_docu": "当前wiki之中存在下列模板。",
 	"pf_templates_definescat": "定义分类：$1",
