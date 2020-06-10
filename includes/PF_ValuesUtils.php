@@ -505,7 +505,7 @@ class PFValuesUtils {
 				$substringCondition = '(pp_displaytitle.pp_value IS NULL AND (' .
 					self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) .
 					')) OR ' .
-					self::getSQLConditionForAutocompleteInColumn( 'pp_displaytitle.pp_value', $substring );
+					self::getSQLConditionForAutocompleteInColumn( 'pp_displaytitle.pp_value', $substring, false );
 				if ( !in_array( NS_CATEGORY, $queriedNamespaces ) ) {
 					$substringCondition .= ' OR page_namespace = ' . NS_CATEGORY;
 				}
