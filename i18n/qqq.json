@@ -303,6 +303,7 @@
 	"pf-missingconcept": "Error message.\n\nParameters:\n* $1 - Concept that is missing",
 	"pf-missingnamespace": "Error message.\n\nParameters:\n* $1 - Namespace that is missing",
 	"pf-nocompletionurls": "Error message.",
+	"pf-resultstoshow": "Used as label for the \"Results to show\" button in jsGrid to show popup window",
 	"pf-invalidexturl": "Error message.",
 	"pf-blankexturl": "Error message.",
 	"pf-externalpageempty": "Error message.",

@@ -412,6 +412,7 @@
 				"mediawiki.language.months"
 			],
 			"messages": [
+				"pf-resultstoshow",
 				"htmlform-yes",
 				"htmlform-no"
 			]

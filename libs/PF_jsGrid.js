@@ -529,7 +529,7 @@
 				} );
 
 				var popupButton = new OO.ui.PopupButtonWidget( {
-				  label: 'Results to show',
+				  label: mw.msg( 'pf-resultstoshow' ),
 				  popup: {
 				    $content: buttonSelect.$element,
 				    padded: true,
