@@ -40,7 +40,7 @@
 	"pf_createproperty_allowedvalsinput": "Για να επιτρέπονται μόνο συγκεκριμένες τιμές, εισαγάγετε μια λίστα με τις επιτρεπτές τιμές, διαχωρισμένες με κόμμα (αν μια τιμή περιέχει κόμμα, αντικαταστήστε το με \"\\,\"):",
 	"pf_createproperty_propname": "Όνομα ιδιότητας:",
 	"pf_createproperty_proptype": "Τύπος:",
-	"pf_createproperty_editsummary": "Δημιουργήθηκε ιδιότητα τύπου [[Has type::$1]]",
+	"pf_createproperty_editsummary": "Δημιουργήθηκε ιδιότητα τύπου $1",
 	"templates": "Πρότυπα",
 	"pf_templates_docu": "Στο wiki υπάρχουν τα παρακάτω πρότυπα.",
 	"pf_templates_definescat": "ορίζει την κατηγορία: $1",
