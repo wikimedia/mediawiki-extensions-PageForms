@@ -259,7 +259,7 @@
 	"pf-datepicker-prev": "Anterior",
 	"pf-datepicker-next": "Siguiente",
 	"pf-datepicker-today": "Güei",
-	"pf-datepicker-dateformat": "La cadena de formatu de data. Vea la [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentación en llinia] pa más información.",
+	"pf-datepicker-dateformat": "La cadena de formatu de data. Mira la [$1 documentación en llinia] pa más información.",
 	"pf-datepicker-weekstart": "El primer día de la selmana (0 - domingu, 1 - llunes,...).",
 	"pf-datepicker-firstdate": "La primera data que pue escoyese (en formatu aaaa/mm/dd).",
 	"pf-datepicker-lastdate": "La cabera data que pue escoyese (en formatu aaaa/mm/dd).",
