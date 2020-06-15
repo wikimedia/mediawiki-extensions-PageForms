@@ -45,12 +45,31 @@
 
 		try {
 			var opts = this.setOptions();
-			var $select2 = element.select2(opts);
-			var select2 = $select2.data("select2");
+			var $input = element.select2(opts);
+			var inputData = $input.data("select2");
 		} catch (e) {
 			window.console.log(e);
 		}
-
+		var rawValue = "";
+		$(inputData.$container[0]).on("keyup",function(e){
+			var keycode = e.keyCode || e.which;
+			if( keycode !== 9 ){
+				rawValue = inputData.$results.find('.select2-results__option--highlighted')[0].textContent;
+			}
+			if( e.keyCode === 9 ){
+				var checkIfPresent = false;
+				var newValue = $.grep(inputData.val(), function (value) {
+					if( value === rawValue ){
+						checkIfPresent = true;
+					}
+					return value !== rawValue;
+				});
+				if( checkIfPresent === false ){
+					newValue.push(rawValue);
+				}
+				$input.val(newValue).trigger("change");
+			}
+		});
 		if ( element.attr( "existingvaluesonly" ) !== "true" ) {
 			element.parent().on( "dblclick", "li.select2-selection__choice", function ( event ) {
 				var $target = $(event.target);
@@ -61,13 +80,13 @@
 				var clickedValueId = targetData.select2Id;
 
 				// remove that value from select2 selection
-				var newValue = $.grep(select2.val(), function (value) {
+				var newValue = $.grep(inputData.val(), function (value) {
 					return value !== clickedValue;
 				});
-				$select2.val(newValue).trigger("change");
+				$input.val(newValue).trigger("change");
 
 				// set the currently entered text to equal the clicked value
-				select2.$container.find(".select2-search__field").val(clickedValue).trigger("input").focus();
+				inputData.$container.find(".select2-search__field").val(clickedValue).trigger("input").focus();
 			} );
 		}
 	};
@@ -143,7 +162,7 @@
 			opts.maximumSelectionLength = maxvalues;
 			opts.formatSelectionTooBig = mw.msg( "pf-select2-selection-too-big", maxvalues );
 		}
-		opts.selectOnClose = true;
+		// opts.selectOnClose = true;
 		opts.adaptContainerCssClass = function( clazz ) {
 			if (clazz === "mandatoryField") {
 				return "";

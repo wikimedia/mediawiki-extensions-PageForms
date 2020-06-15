@@ -96,7 +96,6 @@
 		opts.tags = true;
 		opts.containerCssClass = 'pf-select2-container';
 		opts.dropdownCssClass = 'pf-select2-dropdown';
-		opts.selectOnClose = true;
 		return opts;
 	};
 	/*
