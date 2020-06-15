@@ -407,19 +407,23 @@
 		}
 
 		function getTemplateCalls( pageContent, pageName ) {
-			var startDelimiter = '{{' + templateName.toLowerCase();
+			// Match all the template calls and their contents
+			var startDelimiter = '{{' + templateName.toLowerCase() + '\\b';
 			var endDelimiter = '}}';
+			var regex = new RegExp( startDelimiter, 'g' );
 			var contents = [];
-			var startFrom, contentStart, contentEnd;
-			startFrom = contentStart = contentEnd = 0;
-			while ( -1 !== ( contentStart = pageContent.toLowerCase().indexOf( startDelimiter, startFrom ) ) ) {
+			var contentStart, contentEnd;
+			contentStart = contentEnd = 0;
+			var match;
+			// Parse contents of individual templates
+			while ( ( match = regex.exec( pageContent.toLowerCase() ) ) !== null ) {
+				contentStart = match['index'];
 				contentEnd = pageContent.indexOf( endDelimiter, contentStart );
 				if ( contentEnd === -1 ) {
 					break;
 				}
-				var content = pageContent.substring( contentStart + startDelimiter.length, contentEnd );
+				var content = pageContent.substring( contentStart + startDelimiter.length - 2, contentEnd );
 				contents.push( 'page=' + pageName + content );
-				startFrom = contentEnd + 1;
 			}
 			return contents;
 		}
