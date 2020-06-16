@@ -42,18 +42,7 @@
 			this.id = element.attr( "id" );
 			try {
 				var opts = this.setOptions();
-				// element.val() would be simpler, but for some
-				// reason it returns the wrong value.
-				var origValue = element.attr('value');
-				// We call empty() in case this input was
-				// modified due to "values dependent on", and
-				// the old set of allowed values needs to
-				// be removed.
-				element.empty();
 				var $input = element.select2(opts);
-				// This call is needed after the empty() call,
-				// to restore the correct value.
-				$select2.val(origValue).trigger('change');
 				var inputData = $input.data("select2");
 				var rawValue = "";
 				$(inputData.dropdown.$searchContainer).on("keyup",function(e){
