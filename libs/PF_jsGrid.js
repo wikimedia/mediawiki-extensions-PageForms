@@ -500,13 +500,7 @@
 			} );
 		}
 
-		var ooJSUIModule = 'oojs-ui-widgets';
-		if ( mw.loader.getVersion( 'oojs-ui-widgets' ) === null ) {
-			// MW < 1.29 (?)
-			ooJSUIModule = 'oojs-ui';
-		}
-
-		mw.loader.using( ooJSUIModule ).done( function () {
+		mw.loader.using( 'oojs-ui-widgets' ).done( function () {
 			$( function () {
 
 				var option1 = new OO.ui.ButtonOptionWidget( {
