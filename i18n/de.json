@@ -299,6 +299,7 @@
 	"pf-missingconcept": "Das Konzept konnte nicht gefunden werden: $1",
 	"pf-missingnamespace": "Der Namensraum konnte nicht gefunden werden: $1",
 	"pf-nocompletionurls": "Zur Autovervollständigung auf diesem Wiki wurden keine externen URLs angegeben.",
+	"pf-resultstoshow": "Anzuzeigende Ergebnisse",
 	"pf-invalidexturl": "Ungültiger Externe-URL-Wert.",
 	"pf-blankexturl": "Leerer Externe-URL-Wert.",
 	"pf-externalpageempty": "Die externe Seite enthält keine Inhalte.",

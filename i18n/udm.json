@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kaganer"
+			"Kaganer",
+			"Wadorgurt"
 		]
 	},
+	"pf_createtemplate_plainformat": "Огшоры текст",
 	"pf_formedit_none": "Номыре"
 }

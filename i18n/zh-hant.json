@@ -292,6 +292,7 @@
 	"pf-missingconcept": "找不到概念內容：$1",
 	"pf-missingnamespace": "找不到命名空間：$1",
 	"pf-nocompletionurls": "此 wiki 上沒有指定用於自動完成的外部 URL。",
+	"pf-resultstoshow": "要顯示的結果",
 	"pf-invalidexturl": "無效的外部 URL 值。",
 	"pf-blankexturl": "空白的外部 URL 值。",
 	"pf-externalpageempty": "外部頁面未包含內容。",
