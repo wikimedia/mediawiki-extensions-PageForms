@@ -8,127 +8,56 @@
  * @ingroup PFFormInput
  */
 class PFTextWithAutocompleteInput extends PFTextInput {
+	private static $alias;
+
+	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
+		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
+		$isList = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
+		if ( $isList ) {
+			self::$alias = 'PFTokensInput';
+		} else {
+			self::$alias = 'PFComboBoxInput';
+		}
+	}
+
 	public static function getName() {
 		return 'text with autocomplete';
 	}
 
 	public static function getDefaultPropTypes() {
-		return [
-			'_wpg' => []
-		];
+		return call_user_func( self::getAlias() . "::getDefaultPropTypes" );
 	}
 
 	public static function getOtherPropTypesHandled() {
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			return [ '_str' ];
-		} else {
-			return [ '_txt' ];
-		}
+		return call_user_func( self::getAlias() . "::getOtherPropTypesHandled" );
 	}
 
 	public static function getDefaultPropTypeLists() {
-		return [];
+		return call_user_func( self::getAlias() . "::getDefaultPropTypeLists" );
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			return [ '_str' ];
-		} else {
-			return [ '_txt' ];
-		}
+		return call_user_func( self::getAlias() . "::getOtherPropTypeListsHandled" );
 	}
 
 	public static function getDefaultCargoTypes() {
-		return [];
+		return call_user_func( self::getAlias() . "::getDefaultCargoTypes" );
 	}
 
 	public static function getOtherCargoTypesHandled() {
-		return [ 'Page', 'String' ];
+		return call_user_func( self::getAlias() . "::getOtherCargoTypesHandled" );
 	}
 
 	public static function getDefaultCargoTypeLists() {
-		return [];
+		return call_user_func( self::getAlias() . "::getDefaultCargoTypeLists" );
 	}
 
 	public static function getOtherCargoTypeListsHandled() {
-		return [ 'String' ];
+		return call_user_func( self::getAlias() . "::getOtherCargoTypeListsHandled" );
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
-		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
-
-		$is_list = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
-		list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFValuesUtils::setAutocompleteValues( $other_args, $is_list );
-
-		$className = ( $is_mandatory ) ? 'autocompleteInput mandatoryField' : 'autocompleteInput createboxInput';
-		if ( array_key_exists( 'unique', $other_args ) ) {
-			$className .= ' uniqueField';
-		}
-		if ( array_key_exists( 'class', $other_args ) ) {
-			$className .= ' ' . $other_args['class'];
-		}
-		$input_id = 'input_' . $wgPageFormsFieldNum;
-
-		if ( array_key_exists( 'size', $other_args ) ) {
-			$size = $other_args['size'];
-		} elseif ( $is_list ) {
-			$size = '100';
-		} else {
-			$size = '35';
-		}
-
-		$inputAttrs = [
-			'id' => $input_id,
-			'size' => $size,
-			'class' => $className,
-			'tabindex' => $wgPageFormsTabIndex,
-			'autocompletesettings' => $autocompleteSettings,
-		];
-		if ( array_key_exists( 'origName', $other_args ) ) {
-			$inputAttrs['origName'] = $other_args['origName'];
-		}
-		if ( $remoteDataType !== null ) {
-			$inputAttrs['autocompletedatatype'] = $remoteDataType;
-		}
-		if ( $is_disabled ) {
-			$inputAttrs['disabled'] = true;
-		}
-		if ( array_key_exists( 'maxlength', $other_args ) ) {
-			$inputAttrs['maxlength'] = $other_args['maxlength'];
-		}
-		if ( array_key_exists( 'placeholder', $other_args ) ) {
-			$inputAttrs['placeholder'] = $other_args['placeholder'];
-		}
-
-		// The input value passed in to Html::input() cannot be an array.
-		if ( is_array( $cur_value ) ) {
-			$curValueStr = implode( $delimiter . ' ', $cur_value );
-		} else {
-			$curValueStr = $cur_value;
-		}
-		$text = "\n\t" . Html::input( $input_name, $curValueStr, 'text', $inputAttrs ) . "\n";
-
-		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {
-			if ( array_key_exists( 'default filename', $other_args ) ) {
-				$default_filename = $other_args['default filename'];
-			} else {
-				$default_filename = '';
-			}
-			$text .= self::uploadableHTML( $input_id, $delimiter, $default_filename, $cur_value, $other_args );
-		}
-
-		$spanClass = 'inputSpan';
-		if ( $is_mandatory ) {
-			$spanClass .= ' mandatoryFieldSpan';
-		}
-		if ( array_key_exists( 'unique', $other_args ) ) {
-			$spanClass .= ' uniqueFieldSpan';
-		}
-		$text = "\n" . Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
-
-		return $text;
+		return call_user_func( self::getAlias() . "::getHTML", $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args );
 	}
 
 	public static function getAutocompletionParameters() {
@@ -155,6 +84,14 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 		$params = parent::getParameters();
 		$params = array_merge( $params, self::getAutocompletionParameters() );
 		return $params;
+	}
+
+	protected static function getAlias() {
+		if ( isset( self::$alias ) ) {
+			return self::$alias;
+		} else {
+			return 'PFComboBoxInput';
+		}
 	}
 
 	/**
