@@ -632,11 +632,7 @@ END;
 		if ( $parser === null ) {
 			return wfMemcKey( 'ext.PageForms.formdefinition', $formId );
 		} else {
-			if ( method_exists( ParserOptions::class, 'allCacheVaryingOptions' ) ) {
-				$options = ParserOptions::allCacheVaryingOptions(); // 1.30
-			} else {
-				$options = ParserOptions::legacyOptions();
-			}
+			$options = ParserOptions::legacyOptions();
 			$optionsHash = $parser->getOptions()->optionsHash( $options );
 			return wfMemcKey( 'ext.PageForms.formdefinition', $formId, $optionsHash );
 		}

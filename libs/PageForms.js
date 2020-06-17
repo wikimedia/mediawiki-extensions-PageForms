@@ -1282,9 +1282,7 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 			dependent_on_me.push(dependentFieldPair[1]);
 		}
 	}
-	// @TODO - change to $.uniqueSort() once support for MW 1.28 is
-	// removed (and jQuery >= 3 is thus guaranteed).
-	dependent_on_me = $.unique(dependent_on_me);
+	dependent_on_me = $.uniqueSort(dependent_on_me);
 
 	var self = this;
 	$.each( dependent_on_me, function() {
@@ -1398,34 +1396,18 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		tokens.apply($(this));
 	});
 
-	// We use a different version of FancyBox depending on the version
-	// of jQuery (1 vs. 3) (which in turn depends on the version of
-	// MediaWiki (<= 1.29 vs. >= 1.30)).
-	if ( parseInt($().jquery) >= 3 ) {
-		fancyBoxSettings = {
-			toolbar : false,
-			smallBtn : true,
-			iframe : {
-				preload : false,
-				css : {
-					width : '75%',
-					height : '75%'
-				}
-			},
-			animationEffect : false
-		};
-	} else {
-		fancyBoxSettings = {
-			'width'         : '75%',
-			'height'        : '75%',
-			'autoScale'     : false,
-			'transitionIn'  : 'none',
-			'transitionOut' : 'none',
-			'type'          : 'iframe',
-			'overlayColor'  : '#222',
-			'overlayOpacity' : '0.8'
-		};
-	}
+	fancyBoxSettings = {
+		toolbar : false,
+		smallBtn : true,
+		iframe : {
+			preload : false,
+			css : {
+				width : '75%',
+				height : '75%'
+			}
+		},
+		animationEffect : false
+	};
 
 	// Only defined if $wgPageFormsSimpleUpload == true.
 	if ( typeof this.initializeSimpleUpload === 'function' ) {

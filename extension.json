@@ -30,7 +30,7 @@
 		"PFHooks::initialize"
 	],
 	"requires": {
-		"MediaWiki": ">= 1.29.0"
+		"MediaWiki": ">= 1.30.0"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -188,16 +188,9 @@
 				"libs/jquery.browser.js"
 			]
 		},
-		"ext.pageforms.fancybox.jquery1": {
-			"scripts": "libs/FancyBox/jquery.fancybox.1.3.4.js",
-			"styles": "skins/FancyBox/jquery.fancybox.1.3.4.css",
-			"dependencies": [
-				"ext.pageforms.browser"
-			]
-		},
-		"ext.pageforms.fancybox.jquery3": {
-			"scripts": "libs/FancyBox/jquery.fancybox.3.2.10.js",
-			"styles": "skins/FancyBox/jquery.fancybox.3.2.10.css",
+		"ext.pageforms.fancybox": {
+			"scripts": "libs/FancyBox/jquery.fancybox.js",
+			"styles": "skins/FancyBox/jquery.fancybox.css",
 			"dependencies": [
 				"ext.pageforms.browser"
 			]
@@ -362,35 +355,13 @@
 				"ext.pageforms.ooui.autocomplete"
 			]
 		},
-		"ext.pageforms.fullcalendar.jquery1": {
+		"ext.pageforms.fullcalendar": {
 			"scripts": [
-				"libs/FullCalendar-2.9.1/fullcalendar.js",
+				"libs/FullCalendar/fullcalendar.js",
 				"libs/PF_FullCalendar.js"
 			],
 			"styles": [
-				"skins/FullCalendar-2.9.1/fullcalendar.css",
-				"skins/PF_FullCalendar.css"
-			],
-			"dependencies": [
-				"ext.pageforms.select2",
-				"ext.pageforms.jstree",
-				"ext.pageforms",
-				"moment",
-				"mediawiki.jqueryMsg"
-			],
-			"messages": [
-				"pf-calendar-createevent",
-				"pf-calendar-deleteevent",
-				"pf-calendar-updateevent"
-			]
-		},
-		"ext.pageforms.fullcalendar.jquery3": {
-			"scripts": [
-				"libs/FullCalendar-3.9.0/fullcalendar.js",
-				"libs/PF_FullCalendar.js"
-			],
-			"styles": [
-				"skins/FullCalendar-3.9.0/fullcalendar.css",
+				"skins/FullCalendar/fullcalendar.css",
 				"skins/PF_FullCalendar.css"
 			],
 			"dependencies": [
