@@ -236,5 +236,6 @@
 	"pf-regexp-baseprefix": "Prefisso per i parametri di tipo base.",
 	"pf-regexp-orchar": "Il carattere OR da usare nelle espressioni regolari, al posto di |. Il valore predefinito è \"!\"",
 	"pf-regexp-inverse": "Se impostato, l'inserimento NON deve rispettare l'espressione regolare per essere valido. Cioè, l'espressione regolare è invertita.",
-	"pf-regexp-message": "Il messaggio di errore da visualizzare se la corrispondenza non riesce. Il valore predefinito è \"Formato non valido!\" (o equivalente nella lingua selezionata)"
+	"pf-regexp-message": "Il messaggio di errore da visualizzare se la corrispondenza non riesce. Il valore predefinito è \"Formato non valido!\" (o equivalente nella lingua selezionata)",
+	"pf-resultstoshow": "Risultati da mostrare"
 }
