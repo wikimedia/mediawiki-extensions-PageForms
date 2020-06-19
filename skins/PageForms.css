@@ -191,6 +191,10 @@ body.rtl #pfForm label.checkboxLabel {
     border-radius: 0;
 }
 
+.formInput .select2-arrow {
+	visibility: hidden;
+}
+
 .select2-container .select2-choice > .select2-chosen {
     color: #000;
 }
