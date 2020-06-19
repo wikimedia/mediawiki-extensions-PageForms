@@ -39,6 +39,8 @@
 		 *
 		 */
 		apply: function( element ) {
+			var existingValuesOnly = (element.attr("existingvaluesonly") == "true");
+			this.existingValuesOnly = existingValuesOnly;
 			this.id = element.attr( "id" );
 			try {
 				var opts = this.setOptions();
@@ -46,12 +48,18 @@
 				var inputData = $input.data("select2");
 				var rawValue = "";
 				$(inputData.dropdown.$searchContainer).on("keyup",function(e){
+					if( existingValuesOnly ){
+						return ;
+					}
 					var keycode = e.keyCode || e.which;
 					if( keycode !== 9 ){
 						rawValue = inputData.$results.find('.select2-results__option--highlighted')[0].textContent;
 					}
 				});
 				$(inputData.dropdown.$searchContainer).on("keydown",function(e){
+					if( existingValuesOnly ){
+						return ;
+					}
 					if( e.keyCode === 9 ){
 						$input.val(rawValue).trigger("change");
 					}

@@ -41,6 +41,8 @@
 	 */
 	tokens_proto.apply = function( element ) {
 		var cur_val = element.attr('value');
+		var existingValuesOnly = (element.attr("existingvaluesonly") == "true");
+		this.existingValuesOnly = existingValuesOnly;
 		this.id = element.attr( "id" );
 
 		try {
@@ -52,6 +54,9 @@
 		}
 		var rawValue = "";
 		$(inputData.$container[0]).on("keyup",function(e){
+			if( existingValuesOnly ){
+				return ;
+			}
 			var keycode = e.keyCode || e.which;
 			if( keycode !== 9 ){
 				rawValue = inputData.$results.find('.select2-results__option--highlighted')[0].textContent;
@@ -153,7 +158,9 @@
 		opts.containerCss = { 'min-width': size };
 		opts.containerCssClass = 'pf-select2-container';
 		opts.dropdownCssClass = 'pf-select2-dropdown';
-		opts.tags = true;
+		if( !this.existingValuesOnly ){
+			opts.tags = true;
+		}
 		opts.multiple = true;
 		opts.width= NaN; // A helpful way to expand tokenbox horizontally
 		opts.tokenSeparators = this.getDelimiter($(input_id));

@@ -93,7 +93,9 @@
 		}
 		opts.containerCss = { 'min-width': size };
 		opts.width= NaN;
-		opts.tags = true;
+		if( !this.existingValuesOnly ){
+			opts.tags = true;
+		}
 		opts.containerCssClass = 'pf-select2-container';
 		opts.dropdownCssClass = 'pf-select2-dropdown';
 		return opts;
