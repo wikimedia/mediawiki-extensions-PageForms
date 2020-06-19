@@ -294,6 +294,7 @@
 	"pf-missingconcept": "Não foi encontrado o conceito: $1",
 	"pf-missingnamespace": "Não foi encontrado o namespace: $1",
 	"pf-nocompletionurls": "Nenhum URL externo foi especificado para a função de autocompletar neste wiki.",
+	"pf-resultstoshow": "Resultados para mostrar",
 	"pf-invalidexturl": "Valor de URL externo inválido.",
 	"pf-blankexturl": "Valor de URL externo em branco.",
 	"pf-externalpageempty": "A página externa não possui conteúdo.",

@@ -217,6 +217,7 @@
 	"pf-datepicker-disabledates": "Rozdzielana przecinkami lista dat/zakresy dat (daty w formacie rrrr/mm/dd, zakresy w formacie rrrr/mm/dd-rrrr/mm/dd).",
 	"pf-regexp-wrongformat": "Niewłaściwy format.",
 	"pf-regexp-orchar": "Znak LUB stosowany w wyrażeniu regularnym zamiast |. Domyślnie \"!\"",
+	"pf-resultstoshow": "Wyników do pokazania",
 	"pf-invalidexturl": "Nieprawidłowa wartość zewnętrznego adresu URL.",
 	"pf-blankexturl": "Pusta wartość zewnętrznego adresu URL.",
 	"pf-externalpageempty": "Strona zewnętrzna nie zawiera żadnych treści."
