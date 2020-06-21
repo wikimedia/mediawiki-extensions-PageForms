@@ -44,7 +44,37 @@
 			this.id = element.attr( "id" );
 			try {
 				var opts = this.setOptions();
+				// element.val() would be simpler, but for some
+				// reason it returns the wrong value.
+				var origValue = element.attr('value');
+				// We call empty() in case this input was
+				// modified due to "values dependent on", and
+				// the old set of allowed values needs to
+				// be removed.
+				element.empty();
 				var $input = element.select2(opts);
+				if( origValue === undefined ){
+					origValue = "";
+				}
+				if( this.getAutocompleteOpts().autocompletedatatype !== undefined ) {
+					if( this.dependentOn() === null ){
+						var data = {
+							id: origValue,
+							text: origValue
+						};
+						// This is needed after the empty() call,
+						// to create an option element to restore
+						// correct value in remote autocompletion.
+						var newOption = new Option(data.text, data.id, false, false);
+						$input.append(newOption).trigger('change');
+					} else{
+						// This call is needed after the empty() call,
+						// to restore the correct value.
+						$input.val(origValue).trigger('change');
+					}
+				} else{
+					$input.val(origValue).trigger('change');
+				}
 				var inputData = $input.data("select2");
 				var rawValue = "";
 				$(inputData.dropdown.$searchContainer).on("keyup",function(e){
@@ -53,7 +83,9 @@
 					}
 					var keycode = e.keyCode || e.which;
 					if( keycode !== 9 ){
-						rawValue = inputData.$results.find('.select2-results__option--highlighted')[0].textContent;
+						if( inputData.$results.find('.select2-results__option--highlighted')[0] !== undefined ){
+							rawValue = inputData.$results.find('.select2-results__option--highlighted')[0].textContent;
+						}
 					}
 				});
 				$(inputData.dropdown.$searchContainer).on("keydown",function(e){
