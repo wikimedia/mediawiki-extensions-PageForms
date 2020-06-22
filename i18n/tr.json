@@ -290,6 +290,7 @@
 	"pf-missingconcept": "Kavram bulunamadı: $1",
 	"pf-missingnamespace": "Ad alanı bulunamadı: $1",
 	"pf-nocompletionurls": "Bu vikide otomatik tamamlama için harici URL belirtilmedi.",
+	"pf-resultstoshow": "Gösterilecek sonuçlar",
 	"pf-invalidexturl": "Geçersiz harici URL değeri.",
 	"pf-blankexturl": "Boş harici URL değeri.",
 	"pf-externalpageempty": "Harici sayfa içerik içermiyor.",

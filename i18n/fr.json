@@ -315,7 +315,7 @@
 	"pf-missingconcept": "Impossible de trouver le concept: $1",
 	"pf-missingnamespace": "Impossible de trouver l'espace de noms  : $1",
 	"pf-nocompletionurls": "Aucune URL externe spécifiée pour l'autocomplétion sur ce wiki.",
-	"pf-resultstoshow": "Resultats à afficher",
+	"pf-resultstoshow": "Résultats à afficher",
 	"pf-invalidexturl": "Valeur invalide de l'URL externe.",
 	"pf-blankexturl": "Valeur vide d'une URL externe.",
 	"pf-externalpageempty": "La page externe ne contient aucun contenu.",

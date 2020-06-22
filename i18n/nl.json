@@ -267,5 +267,6 @@
 	"pf-regexp-inverse": "Als dit is ingesteld moet de invoer NIET overeen komen met de reguliere expressie om geldig te zijn. Dat wil zeggen, de reguliere expressie is omgekeerd.",
 	"pf-regexp-message": "Het foutbericht dat moet worden weergegeven als het vergelijken mislukt. De standaardinstelling is \"Verkeerde opmaak!\" (of het equivalent in de ingestelde taal).",
 	"pf-missingnamespace": "Kon naamruimte $1 niet vinden",
+	"pf-resultstoshow": "Resultaten om te tonen",
 	"pf-externalpageempty": "Externe pagina bevat geen inhoud."
 }

@@ -16,6 +16,7 @@
 			"Тест"
 		]
 	},
+	"pageforms-name": "Сторінкові форми",
 	"pageforms-desc": "Форми для створення та редагування вікісторінок",
 	"specialpages-group-pf_group": "Семантичні форми",
 	"apihelp-pfautocomplete-description": "Автозаповнення, що використовується розширенням Semantic Forms.",
@@ -240,6 +241,8 @@
 	"pf-pageschemas-pagenameformula": "Формула назви сторінки:",
 	"pf-pageschemas-createtitle": "Назва форми для нових сторінок:",
 	"pf-pageschemas-edittitle": "Назва форми для існуючих сторінок:",
+	"pf-pageschemas-forminput": "Форма вводу",
+	"pf-pageschemas-inputdescription": "Опис поля:",
 	"pf-pageschemas-inputtype": "Тип вводу (залиште порожнім для встановлення за замовчуванням):",
 	"pf-pageschemas-otherparams": "Введіть імена параметрів і їх значення як ключ=значення, відокремлюючи комами кілька значень (якщо значення містить кому, то замініть його на \"\\,\"). Наприклад:$1",
 	"pf_property_isproperty": "Це властивість типу $1.",
@@ -272,7 +275,7 @@
 	"pf-datepicker-prev": "Попередня",
 	"pf-datepicker-next": "Наступна",
 	"pf-datepicker-today": "Сьогодні",
-	"pf-datepicker-dateformat": "Рядок формату дати. Див. [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters Онлайн параметри] для отримання додаткової інформації.",
+	"pf-datepicker-dateformat": "Рядок формату дати. Див. [$1 Онлайн параметри] для отримання додаткової інформації.",
 	"pf-datepicker-weekstart": "Перший день тижня (0 - неділя, 1 - понеділок, ...).",
 	"pf-datepicker-firstdate": "Перша дата, яка може бути обрана (у форматі рррр/мм/дд).",
 	"pf-datepicker-lastdate": "Остання дата, яка може бути обрана (у форматі рррр/мм/дд).",
@@ -290,6 +293,7 @@
 	"pf-missingconcept": "Не вдалося знайти концепт: $1",
 	"pf-missingnamespace": "Не вдалося знайти простір назв: $1",
 	"pf-nocompletionurls": "Не вказано жодної зовнішньої URL-адреси для автозаповнення в цій вікі.",
+	"pf-resultstoshow": "Результати, які треба показати",
 	"pf-invalidexturl": "Недійсне значення зовнішньої URL-адреси.",
 	"pf-blankexturl": "Порожнє значення зовнішньої URL-адреси.",
 	"pf-externalpageempty": "Зовнішня сторінка не має жодного вмісту.",

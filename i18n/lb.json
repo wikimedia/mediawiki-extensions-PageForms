@@ -165,5 +165,6 @@
 	"pf-regexp-wrongformat": "Falsche Format.",
 	"pf-missingconcept": "D'Konzept konnt net fonnt ginn: $1",
 	"pf-missingnamespace": "Den Nummraum konnt net fonnt ginn: $1",
+	"pf-resultstoshow": "Resultater fir ze weisen",
 	"pf-externalpageempty": "Déi extern Säit huet keen Inhalt."
 }
