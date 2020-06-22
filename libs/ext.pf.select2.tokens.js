@@ -45,6 +45,12 @@
 		this.existingValuesOnly = existingValuesOnly;
 		this.id = element.attr( "id" );
 
+		// This happens sometimes, although it shouldn't. If it does,
+		// something went wrong, so just exit.
+		if ( this.id == undefined ) {
+			return;
+		}
+
 		try {
 			var opts = this.setOptions();
 			var $input = element.select2(opts);
