@@ -333,6 +333,12 @@ class PFTemplateInForm {
 		];
 		foreach ( $startAndEndTags as $tags ) {
 			list( $startTag, $endTag ) = $tags;
+			if ( strlen( $startTag ) >= strlen( $str ) ) {
+				// If the page contents are very short, skip
+				// tags that would cause a PHP warning.
+				continue;
+			}
+
 			$startTagLoc = -1;
 			while ( ( $startTagLoc = strpos( $str, $startTag, $startTagLoc + strlen( $startTag ) ) ) !== false ) {
 				// Ignore "singleton" tags, like '<ref name="abc" />'.
