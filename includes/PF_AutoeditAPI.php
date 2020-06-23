@@ -110,6 +110,7 @@ class PFAutoeditAPI extends ApiBase {
 	 */
 	function execute() {
 		$this->prepareAction();
+		$this->getOutput()->enableOOUI();
 
 		try {
 			$this->doAction();

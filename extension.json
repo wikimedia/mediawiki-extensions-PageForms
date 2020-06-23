@@ -280,7 +280,7 @@
 				"libs/PF_datepicker.js"
 			],
 			"dependencies": [
-				"ext.pageforms.jqui.datepicker",
+				"mediawiki.widgets.datetime",
 				"ext.pageforms.main"
 			]
 		},

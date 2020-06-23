@@ -2,6 +2,8 @@
 
 /**
  * @author Stephan Gambke
+ * @author Sam Wilson
+ * @author Amr El-Absy
  * @file
  * @ingroup PageForms
  */
@@ -9,6 +11,9 @@
 /**
  * @ingroup PageForms
  */
+
+use MediaWiki\Widget\DateTimeInputWidget;
+
 class PFDateTimePicker extends PFFormInput {
 
 	protected $mDatePicker;
@@ -27,50 +32,6 @@ class PFDateTimePicker extends PFFormInput {
 			$cur_value = date( 'Y/m/d H:i' ); // include hours and minutes
 		}
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
-
-		// prepare sub-inputs
-
-		$this->mOtherArgs["part of dtp"] = true;
-
-		// find allowed values and keep only the date portion
-		if ( array_key_exists( 'possible_values', $this->mOtherArgs ) &&
-			count( $this->mOtherArgs[ 'possible_values' ] )
-		) {
-			$this->mOtherArgs[ 'possible_values' ] = preg_replace(
-				'/^\s*(\d{4}\/\d{2}\/\d{2}).*/',
-				'$1',
-				$this->mOtherArgs[ 'possible_values' ]
-			);
-		}
-
-		$dateTimeString = trim( $this->mCurrentValue );
-		$dateString = '';
-		$timeString = '';
-
-		$separatorPos = strpos( $dateTimeString, " " );
-
-		if ( $dateTimeString == 'now' ) {
-			$dateString = $timeString = 'now';
-
-		// does it have a separating whitespace? assume it's a date & time
-		} elseif ( $separatorPos ) {
-			$dateString = substr( $dateTimeString, 0, $separatorPos );
-			$timeString = substr( $dateTimeString, $separatorPos + 1 );
-
-		// does it start with a time of some kind?
-		} elseif ( preg_match( '/^\d?\d:\d\d/', $dateTimeString ) ) {
-			$timeString = $dateTimeString;
-
-		// if all else fails assume it's a date
-		} else {
-			$dateString = $dateTimeString;
-		}
-
-		$this->mDatePicker = new PFDatePickerInput( $this->mInputNumber . '_dp', $dateString, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs );
-		$this->mTimePicker = new PFTimePickerInput( $this->mInputNumber . '_tp', $timeString, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs );
-
-		// add JS data
-		$this->addJsInitFunctionData( 'PF_DTP_init', $this->setupJsInitAttribs() );
 	}
 
 	/**
@@ -85,30 +46,6 @@ class PFDateTimePicker extends PFFormInput {
 		return 'datetimepicker';
 	}
 
-	protected function setupJsInitAttribs() {
-		$jsattribs = [];
-
-		$jsattribs['disabled'] = $this->mIsDisabled;
-
-		if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
-			$jsattribs['userClasses'] = $this->mOtherArgs['class'];
-		} else {
-			$jsattribs['userClasses'] = '';
-		}
-
-		$jsattribs['subinputs'] =
-			$this->mDatePicker->getHtmlText() . " " .
-			$this->mTimePicker->getHtmlText();
-
-		$jsattribs['subinputsInitData'] = [
-			'input_' . $this->mInputNumber . '_dp' => $this->mDatePicker->getJsInitFunctionData(),
-			'input_' . $this->mInputNumber . '_tp' => $this->mTimePicker->getJsInitFunctionData()
-		];
-
-		// build JS code from attributes array
-		return $jsattribs;
-	}
-
 	/**
 	 * Returns the HTML code to be included in the output page for this input.
 	 *
@@ -118,11 +55,15 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return string
 	 */
 	public function getHtmlText() {
-		$html = '<span class="inputSpan' . ( array_key_exists( 'mandatory', $this->mOtherArgs ) ? ' mandatoryFieldSpan' : '' ) . '">' .
-			PFDatePickerInput::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber ) .
-			'</span>';
-
-		return $html;
+		$widget = new DateTimeInputWidget( [
+			'type' => 'datetime',
+			'name' => $this->mInputName,
+			'value' => $this->mCurrentValue,
+			'id' => 'input_' . $this->mInputNumber,
+			'classes' => [ 'ext-pageforms-datetimewidget' ],
+			'infusable' => true,
+		] );
+		return $widget->toString();
 	}
 
 	/**
@@ -163,18 +104,6 @@ class PFDateTimePicker extends PFFormInput {
 		];
 
 		return $params;
-	}
-
-	/**
-	 * Returns the name and parameters for the validation JavaScript
-	 * functions for this input type, if any.
-	 * @return array
-	 */
-	public function getJsValidationFunctionData() {
-		return array_merge(
-			$this->mJsValidationFunctionData,
-			$this->mDatePicker->getJsValidationFunctionData()
-		);
 	}
 
 	/**

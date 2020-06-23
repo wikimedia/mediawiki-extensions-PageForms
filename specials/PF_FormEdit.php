@@ -23,6 +23,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 
 	function execute( $query ) {
 		$this->setHeaders();
+		$this->getOutput()->enableOOUI();
 
 		$this->mForm = $this->getRequest()->getText( 'form' );
 		$this->mTarget = $this->getRequest()->getText( 'target' );
