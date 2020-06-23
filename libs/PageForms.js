@@ -814,8 +814,8 @@ $.fn.validateUniqueField = function() {
 };
 
 $.fn.validateMandatoryComboBox = function() {
-	var combobox = this.find( "input.pfComboBox" );
-	if (combobox.val() === '') {
+	var combobox = this.find('.mandatoryField');
+	if (combobox.val() === null) {
 		this.addErrorMessage( 'pf_blank_error' );
 		return false;
 	} else {
