@@ -104,7 +104,10 @@ class PFWikiPage {
 			$paramValue = $templateParam->getValue();
 
 			// If there's no value, skip this param.
-			if ( $embeddedTemplateName == '' && $paramValue === '' ) {
+			if ( $embeddedTemplateName == '' &&
+				// Filter out blank values, but not '0'.
+				( $paramValue === '' || $paramValue === null )
+			) {
 				continue;
 			}
 
