@@ -65,7 +65,10 @@
 			}
 			var keycode = e.keyCode || e.which;
 			if( keycode !== 9 ){
-				rawValue = inputData.$results.find('.select2-results__option--highlighted')[0].textContent;
+				var valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
+				if( valHighlighted !== undefined ){
+					rawValue = valHighlighted.textContent;
+				}
 			}
 			if( e.keyCode === 9 ){
 				var checkIfPresent = false;
