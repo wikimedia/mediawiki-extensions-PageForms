@@ -337,11 +337,32 @@ class PFAutocompleteAPI extends ApiBase {
 				$whereStr .= " AND ";
 			}
 			$fieldIsList = self::cargoFieldIsList( $cargoTable, $cargoField );
-			$operator = ( $fieldIsList ) ? "HOLDS LIKE" : "LIKE";
+
+			if ( $fieldIsList ) {
+				// If it's a list field, we query directly on
+				// the "helper table" for that field. We could
+				// instead use "HOLDS LIKE", but this would
+				// return false positives - other values that
+				// have been listed alongside the values we're
+				// looking for - at least for Cargo >= 2.6.
+				$fieldTableName = $cargoTable . '__' . $cargoField;
+				// Because of the way Cargo querying works, the
+				// field table has to be listed first for only
+				// the right values to show up.
+				$tablesStr = $fieldTableName . ', ' . $tablesStr;
+				if ( $joinOnStr != '' ) {
+					$joinOnStr = ', ' . $joinOnStr;
+				}
+				$joinOnStr = $fieldTableName . '._rowID=' .
+					$cargoTable . '._ID' . $joinOnStr;
+
+				$fieldsStr = $cargoField = '_value';
+			}
+
 			if ( $wgPageFormsAutocompleteOnAllChars ) {
-				$whereStr .= "($cargoField $operator \"%$substring%\")";
+				$whereStr .= "($cargoField LIKE \"%$substring%\")";
 			} else {
-				$whereStr .= "($cargoField $operator \"$substring%\" OR $cargoField $operator \"% $substring%\")";
+				$whereStr .= "($cargoField LIKE \"$substring%\" OR $cargoField LIKE \"% $substring%\")";
 			}
 		}
 
