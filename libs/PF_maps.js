@@ -160,12 +160,14 @@ function setupMapFormInput( inputDiv, mapService ) {
 
 
 	if ( coordsInput.val() != '' ) {
-		setMarkerFromCoordinates();
 		if ( mapService == 'OpenLayers' ) {
 			map.zoomTo( 14 );
 		} else {
 			map.setZoom( 14 );
 		}
+		// This has to be called after the zooming, for the OpenLayers
+		// zoom to work correctly.
+		setMarkerFromCoordinates();
 	} else {
 		if ( coordsInput.attr('data-bound-coords') ) {
 			var boundCoords = coordsInput.attr('data-bound-coords');
