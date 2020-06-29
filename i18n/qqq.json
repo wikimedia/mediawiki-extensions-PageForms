@@ -21,7 +21,7 @@
 			"아라"
 		]
 	},
-	"pageforms-name": "Display name for the Page Forms extension",
+	"pageforms-name": "{{name}}\nDisplay name for the Page Forms extension",
 	"pageforms-desc": "{{desc|name=Page Forms|url=https://www.mediawiki.org/wiki/Extension:Page_Forms}}",
 	"specialpages-group-pf_group": "{{doc-special-group|that=are related to Page Forms|like=[[Special:CreateForm]], [[Special:CreateTemplate]], [[Special:CreateProperty]], [[Special:CreateCategory]], [[Special:CreateClass]], [[Special:FormStart]], [[Special:FormEdit]], [[Special:RunQuery]]}}",
 	"apihelp-pfautocomplete-description": "{{doc-apihelp-description|pfautocomplete}}",
