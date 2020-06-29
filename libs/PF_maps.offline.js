@@ -136,7 +136,20 @@ function setupMapFormInput( inputDiv, mapService ) {
 	} else { // if ( mapService == "OpenLayers" ) {
 		var mapCanvasID = inputDiv.find( '.pfMapCanvas' ).attr( 'id' );
 		map = new OpenLayers.Map( mapCanvasID );
-		map.addLayer( new OpenLayers.Layer.OSM() );
+		// We do this more complex initialization, rather than just
+		// calling OpenLayers.Layer.OSM(), so that the tiles will be
+		// loaded via either HTTP or HTTPS, depending on what we are
+		// using.
+		map.addLayer( new OpenLayers.Layer.OSM(
+			"OpenStreetMap",
+			// Official OSM tileset as protocol-independent URLs
+			[
+				'//a.tile.openstreetmap.org/${z}/${x}/${y}.png',
+				'//b.tile.openstreetmap.org/${z}/${x}/${y}.png',
+				'//c.tile.openstreetmap.org/${z}/${x}/${y}.png'
+			],
+			null
+		) );
 		map.zoomTo( 0 );
 		markers = new OpenLayers.Layer.Markers( "Markers" );
 		map.addLayer( markers );
