@@ -262,9 +262,10 @@
 			var markup = "";
 			var remove_diacritics = pf.select2.base.prototype.removeDiacritics;
 			var no_diac_text = remove_diacritics(text);
-			var start = no_diac_text.toUpperCase().indexOf(term.toString().toUpperCase());
+			var no_diac_term = remove_diacritics(term);
+			var start = no_diac_text.toUpperCase().indexOf(no_diac_term.toString().toUpperCase());
 			if (start !== 0 && !mw.config.get( 'wgPageFormsAutocompleteOnAllChars' )) {
-				start = no_diac_text.toUpperCase().indexOf(" " + term.toString().toUpperCase());
+				start = no_diac_text.toUpperCase().indexOf(" " + no_diac_term.toString().toUpperCase());
 				if ( start !== -1 ) {
 					start = start + 1;
 				}
