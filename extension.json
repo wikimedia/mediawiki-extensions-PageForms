@@ -485,7 +485,6 @@
 		],
 		"ArticlePurge": "PFFormUtils::purgeCache",
 		"PageContentSave": "PFFormUtils::purgeCache",
-		"PageContentSaveComplete": "PFHooks::setPostEditCookie",
 		"ParserFirstCallInit": "PFHooks::registerFunctions",
 		"MakeGlobalVariablesScript": "PFHooks::setGlobalJSVariables",
 		"PageSchemasRegisterHandlers": "PFPageSchemas::registerClass",

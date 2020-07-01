@@ -41,13 +41,21 @@ class PFHooks {
 	}
 
 	public static function initialize() {
+		global $wgHooks;
+
 		$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
 		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
 
+		if ( class_exists( 'MediaWiki\HookContainer\HookContainer' ) ) {
+			// MW 1.35+
+			$wgHooks['PageSaveComplete'][] = 'PFHooks::setPostEditCookie';
+		} else {
+			$wgHooks['PageContentSaveComplete'][] = 'PFHooks::setPostEditCookieOld';
+		}
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
 		// SMW 1.9, SMW delays calling all its hook functions.
-		$GLOBALS['wgHooks']['AdminLinks'][] = 'PFHooks::addToAdminLinks';
+		$wgHooks['AdminLinks'][] = 'PFHooks::addToAdminLinks';
 
 		// This global variable is needed so that other
 		// extensions can hook into it to add their own
@@ -431,7 +439,7 @@ class PFHooks {
 	}
 
 	/**
-	 * Called by the PageContentSaveComplete hook.
+	 * Called by the PageContentSaveComplete hook; used for MW < 1.35.
 	 *
 	 * Set a cookie after the page save so that a "Your edit was saved"
 	 * popup will appear after form-based saves, just as it does after
@@ -455,7 +463,7 @@ class PFHooks {
 	 *
 	 * @return bool
 	 */
-	public static function setPostEditCookie( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId = 0 ) {
+	public static function setPostEditCookieOld( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId = 0 ) {
 		if ( $revision == null ) {
 			return true;
 		}
@@ -473,4 +481,37 @@ class PFHooks {
 		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
 		return true;
 	}
+
+	/**
+	 * Called by the PageSaveComplete hook; used for MW >= 1.35.
+	 *
+	 * Set a cookie after the page save so that a "Your edit was saved"
+	 * popup will appear after form-based saves, just as it does after
+	 * standard saves. This code will be called after all saves, which
+	 * means that it will lead to redundant cookie-setting after normal
+	 * saves. However, there doesn't appear to be a way to to set the
+	 * cookie correctly only after form-based saves, unfortunately.
+	 *
+	 * @return bool
+	 */
+	public static function setPostEditCookie( WikiPage $wikiPage, User $user, string $summary, int $flags,
+		MediaWiki\Revision\RevisionStoreRecord $revisionRecord, MediaWiki\Storage\EditResult $editResult ) {
+		if ( $revisionRecord == null ) {
+			return true;
+		}
+
+		// Have this take effect only if the save came from a form -
+		// we need to use a global variable to determine that.
+		global $wgPageFormsFormPrinter;
+		if ( !property_exists( $wgPageFormsFormPrinter, 'mInputTypeHooks' ) ) {
+			return true;
+		}
+
+		// Code based loosely on EditPage::setPostEditCookie().
+		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revisionRecord->getID();
+		$response = RequestContext::getMain()->getRequest()->response();
+		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
+		return true;
+	}
+
 }
