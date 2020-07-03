@@ -1,90 +1,105 @@
 /**
- * Defines the applyFancytree() function, which turns an HTML "tree" of
+ * Defines the applyJStree() function, which turns an HTML "tree" of
  * checkboxes or radiobuttons into a dynamic and collapsible tree of options
- * using the Fancytree JS library.
+ * using the jsTree JS library.
  *
  * @author Mathias Lidal
  * @author Yaron Koren
  * @author Priyanshu Varshney
+ * @author Amr El-Absy
  */
 
-( function( $, mw, pf ) {
-	'use strict';
+ ( function ($, mw, pf) {
 
-	// Attach the Fancytree widget to an existing <div id="tree"> element
-	// and pass the tree options as an argument to the fancytree() function.
-	jQuery.fn.applyFancytree = function() {
-		var node = this;
-		var selectMode = 2;
-		var checkboxClass = "fancytree-checkbox";
-		if (node.find(":input:radio").length) {
-			selectMode = 1;
-			checkboxClass = "fancytree-radio";
-		}
-
-		var newClassNames = {
-			checkbox: checkboxClass,
-			selected: "fancytree-selected"
-		};
-
-		node.fancytree({
-			checkbox: true,
-			autoScroll: true,
-			minExpandLevel: 5,
-			_classNames: newClassNames,
-			selectMode: selectMode,
-			// click event allows user to de/select the checkbox
-			// by just selecting the title
-			click: function(event, data) {
-				var node = data.node,
-				// Only for click and dblclick events
-				// 'title' | 'prefix' | 'expander' | 'checkbox' | 'icon'
-				targetType = data.targetType;
-				if ( targetType === "expander" ) {
-				data.node.toggleExpanded();
-				} else if ( targetType === "checkbox" ||
-					targetType === "title" ) {
-					data.node.toggleSelected();
-				}
-				return false;
-			},
-
-			// Un/check checkboxes/radiobuttons recursively after
-			// selection.
-			select: function (event, data) {
-				if ( data.node === undefined ) {
-					return;
-				}
-				var inputkey = "chb-" + data.node.key;
-				var checkBoxes =  node.find("[id='" + inputkey + "']");
-				checkBoxes.attr("checked", !checkBoxes.attr("checked"));
-			},
-			// Prevent reappearing of checkbox when node is
-			// collapsed.
-			expand: function(select, data) {
-				if ( data.node === undefined ) {
-					return;
-				}
-				$("#chb-" + data.node.key).attr("checked",
-					data.node.isSelected()).addClass("hidden");
-			},
-
-		});
-
-		// Update real checkboxes according to selections.
-		$.map(node.fancytree("getTree").getSelectedNodes(),
-			function (data) {
-				if ( data.node === undefined ) {
-					return;
-				}
-				$("#chb-" + data.node.key).attr("checked", true);
-				data.node.setActive();
-			});
-		var activeNode = node.fancytree("getTree").getActiveNode();
-		if (activeNode !== null) {
-			activeNode.setActive(false);
-		}
-
+	pf.TreeInput = function (elem) {
+		this.element = elem;
+		this.id = $(this.element).attr('id');
 	};
 
-}( jQuery, mediaWiki, pf ) );
+	var TreeInput_proto = new pf.TreeInput();
+
+	TreeInput_proto.setOptions = function () {
+		var data = $(this.element).attr('data');
+		this.data = JSON.parse(data);
+		var params = $(this.element).attr('params');
+		this.params = JSON.parse(params);
+		this.delimiter = this.params.delimiter;
+		this.multiple = this.params.multiple;
+		this.values = [];
+		this.cur_value = this.params.cur_value;
+
+		var options = {
+			'plugins' :  [ 'checkbox' ],
+			'core' : {
+				'data' : this.data,
+				'multiple': this.multiple,
+				'themes' : {
+					"icons": false
+				}
+			},
+			'checkbox': {
+				'three_state': false,
+				'cascade': "none"
+			}
+		};
+
+		return options;
+	};
+
+	TreeInput_proto.check = function( data ) {
+		var div_id = $(this.element).attr('id');
+		var input_name = div_id.replace("treeinput", "");
+		var input = $(this.element).next('input.PFTree_data');
+
+		if ( this.multiple ) {
+			this.values.push( data );
+			var data_string = this.values.join( this.delimiter );
+			input.attr( 'value', data_string );
+		} else {
+			this.values.push( data );
+			input.attr('value', data);
+		}
+	};
+
+	TreeInput_proto.uncheck = function( data ) {
+		var div_id = $( this.element ).attr('id');
+		var input_name = div_id.replace( "treeinput", "" );
+		var input = $( this.element ).next( 'input.PFTree_data' );
+
+		this.values.splice( this.values.indexOf( data ), 1 );
+		var data_string = this.values.join( this.delimiter );
+		input.attr( 'value', data_string );
+	};
+
+	TreeInput_proto.setCurValue = function () {
+		if ( this.cur_value !== null && this.cur_value !== undefined && this.cur_value !== "" ) {
+			var div_id = $( this.element ).attr('id');
+			var input_name = div_id.replace( "treeinput", "" );
+			var input = $( this.element ).next( 'input.PFTree_data' );
+
+			input.attr( 'value', this.cur_value );
+			this.values = this.cur_value.split( this.delimiter );
+		}
+	};
+
+	pf.TreeInput.prototype = TreeInput_proto;
+
+} (jQuery, mediaWiki, pf) );
+
+$.fn.extend({
+	applyJSTree: function () {
+		var tree = new pf.TreeInput(this);
+		var options = tree.setOptions();
+
+		$(this).jstree(options);
+
+		$(this).bind('select_node.jstree', function (evt, data) {
+			tree.check(data.node.text);
+		});
+		$(this).bind('deselect_node.jstree', function (evt, data) {
+			tree.uncheck(data.node.text);
+		});
+
+		tree.setCurValue();
+	}
+});

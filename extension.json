@@ -204,22 +204,13 @@
 				"ext.pageforms.browser"
 			]
 		},
-		"ext.pageforms.fancytree.dep": {
+		"ext.pageforms.jstree": {
 			"scripts": [
-				"libs/jquery.fancytree.ui-deps.js"
-			],
-			"styles": "skins/skin-win8/ui.fancytree.css"
-
-		},
-		"ext.pageforms.fancytree": {
-			"scripts": [
-				"libs/jquery.fancytree.js",
+				"libs/jstree.js",
 				"libs/PF_tree.js"
 			],
-			"styles": "skins/skin-win8/ui.fancytree.css",
-			"dependencies": [
-				"ext.pageforms.fancytree.dep",
-				"ext.pageforms.jqui.fancytree.deps"
+			"styles": [
+				"skins/jstree/jstree.css"
 			]
 		},
 		"ext.pageforms.sortable": {
@@ -362,7 +353,7 @@
 			"dependencies": [
 				"ext.pageforms.select2",
 				"ext.pageforms.jqui.sortable",
-				"ext.pageforms.fancytree",
+				"ext.pageforms.jstree",
 				"ext.pageforms",
 				"moment",
 				"mediawiki.jqueryMsg"
@@ -385,7 +376,7 @@
 			"dependencies": [
 				"ext.pageforms.select2",
 				"ext.pageforms.jqui.sortable",
-				"ext.pageforms.fancytree",
+				"ext.pageforms.jstree",
 				"ext.pageforms",
 				"moment",
 				"mediawiki.jqueryMsg"

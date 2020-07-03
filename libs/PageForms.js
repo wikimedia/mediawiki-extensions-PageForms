@@ -835,24 +835,44 @@ $.fn.validateMandatoryDateField = function() {
 };
 
 $.fn.validateMandatoryRadioButton = function() {
-	var checkedValue = this.find("input:checked").val();
-	if ( !checkedValue || checkedValue == '' ) {
-		this.addErrorMessage( 'pf_blank_error' );
-		return false;
+	if ( $(this).hasClass( 'pfTreeInput' ) ) {
+		var input_value = $(this).siblings( 'input' ).attr( 'value' );
+		if ( input_value === undefined || input_value === '' ) {
+			this.addErrorMessage( 'pf_blank_error' );
+			return false;
+		} else {
+			return true;
+		}
 	} else {
-		return true;
+		var checkedValue = this.find("input:checked").val();
+		if (!checkedValue || checkedValue == '') {
+			this.addErrorMessage('pf_blank_error');
+			return false;
+		} else {
+			return true;
+		}
 	}
 };
 
 $.fn.validateMandatoryCheckboxes = function() {
 	// Get the number of checked checkboxes within this span - must
 	// be at least one.
-	var numChecked = this.find("input:checked").size();
-	if (numChecked === 0) {
-		this.addErrorMessage( 'pf_blank_error' );
-		return false;
+	if ( $( this ).hasClass( 'pfTreeInput' ) ) {
+		var input_value = $( this ).siblings( 'input' ).attr( 'value' );
+		if ( input_value === undefined || input_value === '' ) {
+			this.addErrorMessage( 'pf_blank_error' );
+			return false;
+		} else {
+			return true;
+		}
 	} else {
-		return true;
+		var numChecked = this.find("input:checked").size();
+		if (numChecked === 0) {
+			this.addErrorMessage('pf_blank_error');
+			return false;
+		} else {
+			return true;
+		}
 	}
 };
 
@@ -1658,7 +1678,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find('.autoGrow').autoGrow();
 		this.find(".pfRating").applyRatingInput();
 		this.find(".pfTreeInput").each( function() {
-			$(this).applyFancytree();
+			$(this).applyJSTree();
 		});
 	} else {
 		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
@@ -1666,7 +1686,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
 		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").applyRatingInput();
 		this.find(".pfTreeInput").not(".multipleTemplateWrapper .pfTreeInput").each( function() {
-			$(this).applyFancytree();
+			$(this).applyJSTree();
 		});
 	}
 

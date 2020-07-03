@@ -623,10 +623,10 @@
 
 				// Handle the tree input types
 				$('#popupForm').find(".pfTreeInput").each( function() {
-					$(this).applyFancytree();
+					$(this).applyJSTree();
 				});
 				$('#popupForm').find(".pfRating").each( function() {
-					$(this).applyRatingInput();
+					$(this).applyJSTree();
 				});
 				// Check if the event is only one day long
 				// For current code - it is required to see if the event is one day long or not.

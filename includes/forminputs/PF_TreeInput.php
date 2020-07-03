@@ -5,6 +5,7 @@
  *
  * @author Yaron Koren
  * @author Mathias Lidal
+ * @author Amr El-Absy
  */
 
 /**
@@ -60,18 +61,14 @@ class PFTreeInput extends PFFormInput {
 		// Handle the now-deprecated 'category' and 'categories'
 		// input types.
 		if ( array_key_exists( 'input type', $other_args ) && $other_args['input type'] == 'category' ) {
-			$inputType = "radio";
 			self::$multipleSelect = false;
 		} elseif ( array_key_exists( 'input type', $other_args ) && $other_args['input type'] == 'categories' ) {
-			$inputType = "checkbox";
 			self::$multipleSelect = true;
 		} else {
 			$is_list = ( array_key_exists( 'is_list', $other_args ) && $other_args['is_list'] == true );
 			if ( $is_list ) {
-				$inputType = "checkbox";
 				self::$multipleSelect = true;
 			} else {
-				$inputType = "radio";
 				self::$multipleSelect = false;
 			}
 		}
@@ -108,123 +105,35 @@ class PFTreeInput extends PFFormInput {
 			if ( $title->getNamespace() != NS_CATEGORY ) {
 				return null;
 			}
-
-			$tree = PFTree::newFromTopCategory( $top_category );
 			$hideroot = array_key_exists( 'hideroot', $other_args );
+
+			$pftree = new PFTree( $depth, $cur_values );
+			$pftree->getFromTopCategory( $top_category, $hideroot );
 		} elseif ( array_key_exists( 'structure', $other_args ) ) {
 			$structure = $other_args['structure'];
-			$tree = PFTree::newFromWikiText( $structure );
-			$hideroot = true;
+
+			$pftree = new PFTree( $depth, $cur_values );
+			$pftree->getTreeFromWikiText( $structure );
+
 		} else {
 			// Escape - we can't do anything.
 			return null;
-		}
-
-		$inputText = self::treeToHTML( $tree, $input_name, $cur_values, $hideroot, $depth, $inputType );
-
-		// Replace values one at a time, by an incrementing index -
-		// inspired by http://bugs.php.net/bug.php?id=11457
-		$dummy_str = "REPLACE THIS TEXT";
-		$i = 0;
-		while ( ( $a = strpos( $inputText, $dummy_str ) ) > 0 ) {
-			$inputText = substr( $inputText, 0, $a ) . $i++ . substr( $inputText, $a + strlen( $dummy_str ) );
 		}
 
 		$class = 'pfTreeInput';
 		if ( $is_mandatory ) {
 			$class .= ' mandatory';
 		}
-		$text = Html::rawElement(
-			'div',
-			[
-				'class' => $class,
-				'id' => $input_name . 'treeinput',
-				'style' => 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;'
-			],
-			$inputText
-		);
 
-		return $text;
-	}
+		$tree = json_encode( $pftree->tree_array );
+		$cur_value = implode( $delimiter, $pftree->current_values );
 
-	// Perhaps treeToHTML() and nodeToHTML() should be moved to the
-	// PFTree class? Currently PFTree doesn't know about HTML stuff, but
-	// maybe it should.
-	private static function treeToHTML( $fullTree, $input_name, $current_selection, $hideprefix, $depth, $inputType ) {
-		$key_prefix = $input_name . "key";
-		$text = '';
-		if ( !$hideprefix ) {
-			$text .= "<ul>\n";
-		}
-		$text .= self::nodeToHTML( $fullTree, $key_prefix, $input_name, $current_selection, $hideprefix, $depth, $inputType );
-		if ( !$hideprefix ) {
-			$text .= "</ul>\n";
-		}
-		if ( self::$multipleSelect ) {
-			$text .= Html::hidden( $input_name . '[is_list]', 1 );
-		}
-		return $text;
-	}
+		$params['multiple'] = self::$multipleSelect;
+		$params['delimiter'] = $delimiter;
+		$params['cur_value'] = $cur_value;
 
-	private static function nodeToHTML( $node, $key_prefix, $input_name, $current_selection, $hidenode, $depth, $inputType, $index = 1 ) {
-		global $wgPageFormsTabIndex;
-
-		$text = '';
-
-		$key_id = "$key_prefix-$index";
-		// Replace characters not allowed in HTML IDs.
-		$key_id = preg_replace( '/[^a-zA-Z0-9-_:\.]/', '-', $key_id );
-		// Make sure it starts with a letter.
-		preg_match( '/$[^a-zA-Z]/', $key_id, $matches );
-		if ( count( $matches ) > 0 ) {
-			$key_id = 'a' . $key_id;
-		}
-
-		if ( !$hidenode ) {
-			$liAttribs = [ 'id' => $key_id ];
-			if ( in_array( $node->title, $current_selection ) ) {
-				$liAttribs['class'] = 'selected';
-			}
-			if ( $depth > 0 ) {
-				$liAttribs['data'] = "'expand': true";
-			}
-			// For some reason, the Dynatree JS library requires
-			// unclosed <li> tags; "<li>...</li>" won't work.
-			$text .= Html::openElement( 'li', $liAttribs );
-
-			$dummy_str = "REPLACE THIS TEXT";
-
-			$cur_input_name = $input_name;
-			if ( self::$multipleSelect ) {
-				$cur_input_name .= "[" . $dummy_str . "]";
-			}
-			$nodeAttribs = [
-				'tabindex' => $wgPageFormsTabIndex,
-				'id' => "chb-$key_id",
-				'class' => 'hidden',
-				'hidden',
-				'style' => 'display:none',
-			];
-			if ( in_array( $node->title, $current_selection ) ) {
-				$nodeAttribs['checked'] = true;
-			}
-
-			$text .= Html::input( $cur_input_name, $node->title, $inputType, $nodeAttribs );
-
-			$nodeDisplayTitle = $node->title;
-			Hooks::run( 'PageForms::TreeNodeDisplay', [ &$nodeDisplayTitle ] );
-			$text .= $nodeDisplayTitle . "\n";
-		}
-
-		if ( array_key_exists( 'children', $node ) ) {
-			$text .= "<ul>\n";
-			$i = 1;
-			foreach ( $node->children as $cat ) {
-				$text .= self::nodeToHTML( $cat, $key_id, $input_name, $current_selection, false, $depth - 1, $inputType, $i++ );
-			}
-			$text .= "</ul>\n";
-		}
-
+		$params = json_encode( $params );
+		$text = "<div id='" . $input_name . 'treeinput' . "' class='" . $class . "' style='" . 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;' . "' data='" . $tree . "' params='" . $params . "'></div><input type='hidden' class='PFTree_data' name='" . $input_name . "'>";
 		return $text;
 	}
 
