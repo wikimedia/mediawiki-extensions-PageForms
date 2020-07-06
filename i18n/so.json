@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abdullahi",
 			"Abshirdheere"
 		]
 	},
+	"pf-createcategory-with-name": "Abuur qaybta: $1",
 	"right-viewedittab": "Muuji \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka",
 	"action-viewedittab": "Eegista \"{{int:edit}}\" bogagga ay suurtowdo wax ka bedelkooda adigoo adeegsanaya qaabka"
 }
