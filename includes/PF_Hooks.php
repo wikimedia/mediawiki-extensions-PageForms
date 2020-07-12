@@ -492,6 +492,12 @@ class PFHooks {
 	 * saves. However, there doesn't appear to be a way to to set the
 	 * cookie correctly only after form-based saves, unfortunately.
 	 *
+	 * @param WikiPage $wikiPage
+	 * @param MediaWiki\User\UserIdentity $user
+	 * @param string $summary
+	 * @param int $flags
+	 * @param MediaWiki\Revision\RevisionRecord $revisionRecord
+	 * @param MediaWiki\Storage\EditResult $editResult
 	 * @return bool
 	 */
 	public static function setPostEditCookie( WikiPage $wikiPage, MediaWiki\User\UserIdentity $user, string $summary, int $flags,

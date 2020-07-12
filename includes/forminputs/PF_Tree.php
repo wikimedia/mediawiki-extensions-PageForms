@@ -70,6 +70,7 @@ class PFTree {
 
 	/**
 	 * Recursive function to populate a tree based on category information.
+	 * @param int $depth
 	 */
 	private function populateChildren( $depth ) {
 		if ( $depth == 0 ) {
@@ -88,7 +89,7 @@ class PFTree {
 	 *
 	 * @todo This might not belong in this class.
 	 *
-	 * @param Title $title
+	 * @param string $categoryName
 	 * @return array
 	 */
 	private static function getSubcategories( $categoryName ) {
