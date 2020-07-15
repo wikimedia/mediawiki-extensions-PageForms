@@ -114,8 +114,9 @@ class PFLeafletInput extends PFOpenLayersInput {
 
 		$mapCanvas = Html::element( 'div', [ 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ], 'Map goes here...' );
 
+		$fullInputHTML = '';
 		if ( !array_key_exists( 'image', $other_args ) ) {
-			$fullInputHTML = <<<END
+			$fullInputHTML .= <<<END
 <div style="padding-bottom: 10px;">
 $addressLookupInput
 $addressLookupButton
@@ -123,7 +124,7 @@ $addressLookupButton
 
 END;
 		}
-		$fullInputHTML = <<<END
+		$fullInputHTML .= <<<END
 <div style="padding-bottom: 10px;">
 $coordsInput
 </div>
