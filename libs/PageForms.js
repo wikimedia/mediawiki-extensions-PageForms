@@ -1240,6 +1240,8 @@ var num_elements = 0;
 
 /**
  * Functions for multiple-instance templates.
+ *
+ * @param addAboveCurInstance
  */
 $.fn.addInstance = function( addAboveCurInstance ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
@@ -1483,6 +1485,8 @@ $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue
 /**
  * Called on a 'base' field (e.g., for a country) - sets the autocompletion
  * for its 'dependent' field (e.g., for a city).
+ *
+ * @param partOfMultiple
  */
 $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 	var curValue = $(this).val();
@@ -1533,6 +1537,8 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
  * Initialize all the JS-using elements contained within this block - can be
  * called for either the entire HTML body, or for a div representing an
  * instance of a multiple-instance template.
+ *
+ * @param partOfMultiple
  */
 $.fn.initializeJSElements = function( partOfMultiple ) {
 	var fancyBoxSettings;

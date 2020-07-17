@@ -1,8 +1,8 @@
 /**
-* Javascript handler for the save-and-continue button
-*
+ * Javascript handler for the save-and-continue button
+ *
  * @author Stephan Gambke
-*/
+ */
 
 /*global validateAll */
 
@@ -23,6 +23,10 @@
 
 	/**
 	 * Called when the server has sent the preview
+	 *
+	 * @param result
+	 * @param textStatus
+	 * @param jqXHR
 	 */
 	var resultReceivedHandler = function handleResultReceived( result, textStatus, jqXHR ) {
 

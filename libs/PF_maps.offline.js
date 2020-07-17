@@ -10,6 +10,8 @@ function setupMapFormInput( inputDiv, mapService ) {
 	/**
 	 * Round off a number to five decimal places - that's the most
 	 * we need for coordinates, one would think.
+	 *
+	 * @param num
 	 */
 	function pfRoundOffDecimal( num ) {
 		return Math.round( num * 100000 ) / 100000;
