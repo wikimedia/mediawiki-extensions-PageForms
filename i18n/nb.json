@@ -12,6 +12,7 @@
 			"Nghtwlkr"
 		]
 	},
+	"pageforms-name": "Sideskjemaer",
 	"pageforms-desc": "Skjemaer for å legge til og endre semantiske data",
 	"specialpages-group-pf_group": "Semantiske skjemaer",
 	"apihelp-pfautocomplete-description": "Autofullføring brukt av Page Forms-utvidelsen.",
@@ -236,6 +237,8 @@
 	"pf-pageschemas-pagenameformula": "Sidenavnsformel:",
 	"pf-pageschemas-createtitle": "Skjematittel for nye sider:",
 	"pf-pageschemas-edittitle": "Skjematittel for eksisterende sider:",
+	"pf-pageschemas-forminput": "Skjemainndata",
+	"pf-pageschemas-inputdescription": "Feltbeskrivelse:",
 	"pf-pageschemas-inputtype": "Inndatatype (bruk blanktegn for å indikere standardverdi):",
 	"pf-pageschemas-otherparams": "Legg inn parameternavn og tilhørende verdier som \"nøkkel=verdi\"-par, hvert par adskilt av kommaer (hvis en verdi inneholder komma, erstatt dette med \"\\,\"). For eksempel: $1",
 	"pf_property_isproperty": "Dette er en egenskap av type $1.",
@@ -288,6 +291,7 @@
 	"pf-missingconcept": "Kunne ikke finne konsept: $1",
 	"pf-missingnamespace": "Kunne ikke finne navnerom: $1",
 	"pf-nocompletionurls": "Ingen eksterne URL-er er angitt for autofullføring på denne wikien.",
+	"pf-resultstoshow": "Resultater som skal vises",
 	"pf-invalidexturl": "Ugyldig ekstern URL-verdi.",
 	"pf-blankexturl": "Blank ekstern URL-verdi.",
 	"pf-externalpageempty": "Ekstern side har ikke noe innhold.",
