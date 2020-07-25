@@ -78,6 +78,8 @@
 
 	/**
 	 * Called when the server has sent the preview
+	 *
+	 * @param result
 	 */
 	var resultReceivedHandler = function handleResultReceived( result ) {
 
