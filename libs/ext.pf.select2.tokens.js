@@ -58,20 +58,17 @@
 		} catch (e) {
 			window.console.log(e);
 		}
-		var rawValue = "";
 		$(inputData.$container[0]).on("keyup",function(e){
 			if( existingValuesOnly ){
 				return ;
 			}
-			var keycode = e.keyCode || e.which;
-			if( keycode !== 9 ){
+			if( e.keyCode === 9 ){
+				var rawValue = "";
+				var checkIfPresent = false;
 				var valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
 				if( valHighlighted !== undefined ){
 					rawValue = valHighlighted.textContent;
 				}
-			}
-			if( e.keyCode === 9 ){
-				var checkIfPresent = false;
 				var newValue = $.grep(inputData.val(), function (value) {
 					if( value === rawValue ){
 						checkIfPresent = true;
@@ -81,7 +78,11 @@
 				if( checkIfPresent === false ){
 					newValue.push(rawValue);
 				}
-				$input.val(newValue).trigger("change");
+				if ( !$input.find( "option[value='" + rawValue + "']" ).length ) {
+					var newOption = new Option( rawValue, rawValue, false, false );
+					$input.append(newOption).trigger( 'change' );
+				}
+				$input.val( newValue ).trigger( 'change' );
 			}
 		});
 		if ( element.attr( "existingvaluesonly" ) !== "true" ) {
