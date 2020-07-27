@@ -53,11 +53,17 @@
 				// be removed.
 				element.empty();
 				var $input = element.select2(opts);
+
+				// We need an empty string as the first option Otherwise
+				// if it's non-empty string, select2 might pick it and
+				// display it as it's value even if we remove it.
+				var newEmptyOption = new Option( "", "", false, false );
+				$input.append(newEmptyOption).trigger('change');
+
 				if( origValue === undefined ){
 					origValue = "";
 				}
-				if( this.getAutocompleteOpts().autocompletedatatype !== undefined ) {
-					if( this.dependentOn() === null ){
+				if( this.getAutocompleteOpts().autocompletedatatype !== undefined && this.dependentOn() === null ) {
 						var data = {
 							id: origValue,
 							text: origValue
@@ -67,33 +73,26 @@
 						// correct value in remote autocompletion.
 						var newOption = new Option(data.text, data.id, false, false);
 						$input.append(newOption).trigger('change');
-					} else{
-						// This call is needed after the empty() call,
-						// to restore the correct value.
-						$input.val(origValue).trigger('change');
-					}
-				} else{
-					$input.val(origValue).trigger('change');
 				}
+				// This is required so that the exisiting value
+				// can be displayed.
+				$input.val(origValue).trigger('change');
 				var inputData = $input.data("select2");
 				var rawValue = "";
-				$(inputData.dropdown.$searchContainer).on("keyup",function(e){
-					if( existingValuesOnly ){
-						return ;
-					}
-					var keycode = e.keyCode || e.which;
-					if( keycode !== 9 ){
-						var valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
-						if( valHighlighted !== undefined ){
-							rawValue = valHighlighted.textContent;
-						}
-					}
-				});
+
 				$(inputData.dropdown.$searchContainer).on("keydown",function(e){
 					if( existingValuesOnly ){
 						return ;
 					}
 					if( e.keyCode === 9 ){
+						var valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
+						if( valHighlighted !== undefined ){
+							rawValue = valHighlighted.textContent;
+						};
+						if ( !$input.find( "option[value='" + rawValue + "']" ).length ) {
+							var newOption = new Option( rawValue, rawValue, false, false );
+							$input.append(newOption).trigger( 'change' );
+						}
 						$input.val(rawValue).trigger("change");
 					}
 				});

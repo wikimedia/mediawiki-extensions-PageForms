@@ -152,6 +152,10 @@
 			} else {
 				var wgPageFormsAutocompleteValues = mw.config.get( 'wgPageFormsAutocompleteValues' );
 				data = wgPageFormsAutocompleteValues[autocompletesettings];
+				// We need to insert an empty string at the starting
+				// of this array so that when select2 gets the data
+				// it doesn't duplicate the first option in the dropdown
+				data.unshift("");
 				//Convert data into the format accepted by Select2
 				if (data !== undefined && data !== null ) {
 					for (var key in data) {
