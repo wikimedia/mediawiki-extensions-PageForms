@@ -75,7 +75,7 @@
 					}
 					return value !== rawValue;
 				});
-				if( checkIfPresent === false ){
+				if( checkIfPresent === false && rawValue !== "" ) {
 					newValue.push(rawValue);
 				}
 				if ( !$input.find( "option[value='" + rawValue + "']" ).length ) {
