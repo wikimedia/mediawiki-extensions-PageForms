@@ -1,12 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jinoytommanjaly",
 			"Praveenp",
 			"Shijualex"
 		]
 	},
-	"pf_createproperty_propname": "പേര്‌:",
+	"createproperty": "ഒരു പ്രോപ്പർട്ടി സൃഷ്ടിക്കുക",
+	"pf_createproperty_propname": "പ്രോപ്പർട്ടി നാമം:",
 	"pf_createproperty_proptype": "തരം:",
+	"pf_createproperty_editsummary": "$1 തരത്തിലുള്ള ഒരു പ്രോപ്പർട്ടി സൃഷ്‌ടിച്ചു",
 	"templates": "ഫലകങ്ങൾ",
 	"pf_templates_docu": "താഴെ പ്രദർശിപ്പിച്ചിരിക്കുന്ന ഫലകങ്ങൾ ഈ വിക്കിയിൽ നിലവിലുണ്ട്.",
 	"pf_templates_definescat": "വർഗ്ഗം നിർ‌വചിക്കുന്നു: $1",
