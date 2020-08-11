@@ -52,7 +52,7 @@
 	"pf_createtemplate_semanticproperty": "Semantic property:",
 	"pf_createtemplate_fieldislist": "Field holds a list of values",
 	"pf_createtemplate_fieldishierarchy": "Field holds a hierarchy",
-	"pf_createtemplate_hierarchystructureplaceholder": "*Enter\n**hierarchy\n***values\n***in\n**a\n***format\n*like\n**this\n",
+	"pf_createtemplate_hierarchystructureplaceholder": "*Enter\n**hierarchy\n***values\n***in\n**a\n***format\n*like\n**this",
 	"pf_createproperty_allowedvalsforhierarchy": "Allowed values for hierarchy:",
 	"pf_createtemplate_delimiter": "Delimiter:",
 	"pf_createtemplate_aggregation": "Aggregation",
