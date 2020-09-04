@@ -1676,7 +1676,9 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find('.pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autocompleteInput').attachAutocomplete();
 		this.find('.autoGrow').autoGrow();
-		this.find(".pfRating").applyRatingInput();
+		this.find(".pfRating").each( function() {
+			$(this).applyRatingInput();
+		});
 		this.find(".pfTreeInput").each( function() {
 			$(this).applyJSTree();
 		});
@@ -1684,7 +1686,9 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autocompleteInput').not('.multipleTemplateWrapper .autocompleteInput').attachAutocomplete();
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
-		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").applyRatingInput();
+		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").each( function() {
+			$(this).applyRatingInput();
+		});
 		this.find(".pfTreeInput").not(".multipleTemplateWrapper .pfTreeInput").each( function() {
 			$(this).applyJSTree();
 		});
