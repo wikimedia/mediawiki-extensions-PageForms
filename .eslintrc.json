@@ -86,6 +86,8 @@
 		"yoda": "off",
 		"no-jquery/no-class-state": "warn",
 		"no-jquery/no-sizzle": "warn",
-		"no-jquery/variable-pattern": "warn"
+		"no-jquery/variable-pattern": "warn",
+		"no-shadow": "warn",
+		"no-unreachable-loop": "warn"
 	}
 }
