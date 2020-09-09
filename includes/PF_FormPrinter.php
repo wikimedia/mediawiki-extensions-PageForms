@@ -613,7 +613,7 @@ END;
 		// parsed twice.
 		if ( array_key_exists( 'is_list', $value ) ) {
 			unset( $value['is_list'] );
-			return htmlentities( implode( "$delimiter ", $value ) );
+			return str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], implode( "$delimiter ", $value ) );
 		}
 
 		// if it has 1 or 2 elements, assume it's a checkbox; if it has
