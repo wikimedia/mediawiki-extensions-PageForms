@@ -324,6 +324,7 @@ class PFParserFunctions {
 		$input_num = 1;
 		if ( empty( $inAutocompletionSource ) ) {
 			$formInputAttrs['class'] = 'formInput';
+			$formContents .= Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
 		} else {
 			$parser->getOutput()->addModules( 'ext.pageforms.main' );
 
@@ -331,7 +332,9 @@ class PFParserFunctions {
 			$input_num = self::$num_autocompletion_inputs;
 			$inputID = 'input_' . $input_num;
 			$formInputAttrs['id'] = $inputID;
+			$formInputAttrs['name'] = 'page_name';
 			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
+			$formInputAttrs['value'] = $inValue;
 			// This code formerly only used remote autocompletion
 			// when the number of autocompletion values was above
 			// a certain limit - as happens in regular forms -
@@ -339,13 +342,9 @@ class PFParserFunctions {
 			// apparently due to page caching.
 			$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 			$formInputAttrs['autocompletedatatype'] = $autocompletionType;
+			$formInputAttrs['data-size'] = $inSize * 6 . 'px';
+			$formContents .= Html::element( 'select', $formInputAttrs, null );
 		}
-
-		// The value has already been HTML-encoded as a parameter,
-		// and it will get encoded again by Html::input() - prevent
-		// double-encoding.
-		$inValue = html_entity_decode( $inValue );
-		$formContents .= Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
 
 		// If the form start URL looks like "index.php?title=Special:FormStart"
 		// (i.e., it's in the default URL style), add in the title as a

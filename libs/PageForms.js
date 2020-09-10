@@ -1781,7 +1781,9 @@ $(document).ready( function() {
 	// Initialize inputs created by #forminput.
 	if ( $('.pfFormInput').length > 0 ) {
 		var combobox = new pf.select2.combobox();
-		combobox.apply( $( '.autocompleteInput' ) );
+		$( '.autocompleteInput' ).each( function() {
+			combobox.apply( $(this) );
+		});
 	}
 
 	// Exit now if a Page Forms form is not present.
