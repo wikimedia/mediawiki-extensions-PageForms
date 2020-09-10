@@ -35,12 +35,12 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 		list( $form_text, $page_text, $form_page_title, $generated_page_name ) =
 			$wgPageFormsFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			$expected['expected_form_text'],
 			$form_text,
 			'asserts that formHTML() returns the correct HTML text for the form for the given test input'
 			);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			$expected['expected_page_text'],
 			$page_text,
 			'assert that formHTML() returns the correct text for the page created by the form'
