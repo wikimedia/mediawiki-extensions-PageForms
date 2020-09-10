@@ -1245,7 +1245,12 @@ END;
 							// to the default value
 							( $cur_value === '' || $cur_value == 'current user' )
 						) {
-							$cur_value_in_template = $wgUser->isRegistered() ? $wgUser->getName() : '';
+							if ( method_exists( $wgUser, 'isRegistered' ) ) {
+								// MW 1.34+
+								$cur_value_in_template = $wgUser->isRegistered() ? $wgUser->getName() : '';
+							} else {
+								$cur_value_in_template = $wgUser->getName();
+							}
 							$cur_value = $cur_value_in_template;
 						}
 
