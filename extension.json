@@ -387,15 +387,15 @@
 				"pf-calendar-updateevent"
 			]
 		},
-		"ext.pageforms.jsgrid": {
+		"ext.pageforms.spreadsheet": {
 			"scripts": [
 				"libs/jsgrid.js",
-				"libs/PF_jsGrid.js"
+				"libs/PF_spreadsheet.js"
 			],
 			"styles": [
 				"skins/jsgrid/jsgrid.css",
 				"skins/jsgrid/theme.css",
-				"skins/PF_jsGrid.css"
+				"skins/PF_spreadsheet.css"
 			],
 			"dependencies": [
 				"ext.pageforms.select2",

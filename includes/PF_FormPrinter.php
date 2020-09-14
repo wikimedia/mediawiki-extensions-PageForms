@@ -488,7 +488,7 @@ END;
 		global $wgOut, $wgPageFormsGridValues, $wgPageFormsGridParams;
 		global $wgPageFormsScriptPath;
 
-		$wgOut->addModules( 'ext.pageforms.jsgrid' );
+		$wgOut->addModules( 'ext.pageforms.spreadsheet' );
 
 		$gridParams = [];
 		foreach ( $tif->getFields() as $formField ) {

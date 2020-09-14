@@ -62,7 +62,7 @@ class PFMultiPageEdit extends QueryPage {
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
-		$out->addModules( 'ext.pageforms.jsgrid' );
+		$out->addModules( 'ext.pageforms.spreadsheet' );
 		$text = '';
 		$out->setPageTitle( $this->msg( 'pf_multipageedit_with-name', $this->mTemplate )->text() );
 
