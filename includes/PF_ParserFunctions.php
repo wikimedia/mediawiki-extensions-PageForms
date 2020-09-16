@@ -343,6 +343,10 @@ class PFParserFunctions {
 			$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
 			$formInputAttrs['autocompletedatatype'] = $autocompletionType;
 			$formInputAttrs['data-size'] = $inSize * 6 . 'px';
+			// These style settings have no effect after Select2
+			// loads - they exist only to avoid a major "flash of
+			// unstyled content" when the page is loading.
+			$formInputAttrs['style'] = 'width: ' . $inSize * 6 . 'px; height: 25px;';
 			$formContents .= Html::element( 'select', $formInputAttrs, null );
 		}
 
