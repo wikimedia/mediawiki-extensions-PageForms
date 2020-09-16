@@ -474,10 +474,10 @@ END;
 			$prop_link_text = PFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
 
 			// Get the display label for this property type.
-			global $smwgContLang;
 			$propertyTypeStr = '';
-			if ( $smwgContLang != null ) {
-				$datatypeLabels = $smwgContLang->getDatatypeLabels();
+			$smwContLang = PFUtils::getSMWContLang();
+			if ( $smwContLang != null ) {
+				$datatypeLabels = $smwContLang->getDatatypeLabels();
 				$datatypeLabels['enumeration'] = 'enumeration';
 
 				$propTypeID = $template_field->getPropertyType();

@@ -100,9 +100,8 @@ class PFCreateClass extends SpecialPage {
 		// Also create the "connecting property", if there is one.
 		$connectingProperty = trim( $req->getVal( 'connecting_property' ) );
 		if ( defined( 'SMW_VERSION' ) && $connectingProperty != '' ) {
-			global $smwgContLang;
 			$property_title = Title::makeTitleSafe( SMW_NS_PROPERTY, $connectingProperty );
-			$datatypeLabels = $smwgContLang->getDatatypeLabels();
+			$datatypeLabels = PFUtils::getSMWContLang()->getDatatypeLabels();
 			$property_type = $datatypeLabels['_wpg'];
 			$full_text = PFCreateProperty::createPropertyText( $property_type, $allowed_values );
 			$params = [
@@ -183,7 +182,7 @@ class PFCreateClass extends SpecialPage {
 	}
 
 	function execute( $query ) {
-		global $wgLang, $smwgContLang;
+		global $wgLang;
 
 		$out = $this->getOutput();
 		$req = $this->getRequest();
@@ -216,7 +215,7 @@ class PFCreateClass extends SpecialPage {
 
 		$specialBGColor = '#eeffcc';
 		if ( defined( 'SMW_VERSION' ) ) {
-			$possibleTypes = $smwgContLang->getDatatypeLabels();
+			$possibleTypes = PFUtils::getSMWContLang()->getDatatypeLabels();
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
 			global $wgCargoFieldTypes;
 			$possibleTypes = $wgCargoFieldTypes;

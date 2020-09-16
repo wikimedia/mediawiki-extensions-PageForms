@@ -23,8 +23,7 @@ class PFCreateProperty extends SpecialPage {
 	}
 
 	static function createPropertyText( $property_type, $allowed_values_str ) {
-		global $smwgContLang;
-		$prop_labels = $smwgContLang->getPropertyLabels();
+		$prop_labels = PFUtils::getSMWContLang()->getPropertyLabels();
 		$type_tag = "[[{$prop_labels['_TYPE']}::$property_type]]";
 		$text = wfMessage( 'pf_property_isproperty', $type_tag )->inContentLanguage()->text();
 
@@ -42,7 +41,6 @@ class PFCreateProperty extends SpecialPage {
 				}
 				// replace beep back with comma, trim
 				$value = str_replace( "\a", $wgPageFormsListSeparator, trim( $value ) );
-				$prop_labels = $smwgContLang->getPropertyLabels();
 				$text .= "\n* [[" . $prop_labels['_PVAL'] . "::$value]]";
 			}
 		}
@@ -50,8 +48,6 @@ class PFCreateProperty extends SpecialPage {
 	}
 
 	function printCreatePropertyForm( $query ) {
-		global $smwgContLang;
-
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
@@ -96,7 +92,7 @@ class PFCreateProperty extends SpecialPage {
 			}
 		}
 
-		$datatypeLabels = $smwgContLang->getDatatypeLabels();
+		$datatypeLabels = PFUtils::getSMWContLang()->getDatatypeLabels();
 		$pageTypeLabel = $datatypeLabels['_wpg'];
 		if ( array_key_exists( '_str', $datatypeLabels ) ) {
 			$stringTypeLabel = $datatypeLabels['_str'];
