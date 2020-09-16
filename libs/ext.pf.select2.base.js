@@ -1,16 +1,14 @@
 /*
  * ext.pf.select2.base.js
  *
- * Base class to handle autocomplete
- * for various input types using Select2 JS library
+ * Base class to handle autocomplete for various
+ * input types using the Select2 JS library.
  *
  * @file
- *
  *
  * @licence GNU GPL v2+
  * @author Jatin Mehta
  * @author Priyanshu Varshney
- *
  */
 
 ( function ( $, mw, pf ) {
@@ -54,37 +52,37 @@
 				element.empty();
 				var $input = element.select2(opts);
 
-				// We need an empty string as the first option Otherwise
-				// if it's non-empty string, select2 might pick it and
-				// display it as it's value even if we remove it.
+				// We need an empty string as the first option; otherwise,
+				// if it's non-empty string, Select2 might pick it and
+				// display it as its value even if we remove it.
 				var newEmptyOption = new Option( "", "", false, false );
 				$input.append(newEmptyOption).trigger('change');
 
-				if( origValue === undefined ){
+				if ( origValue === undefined ) {
 					origValue = "";
 				}
-				if( this.getAutocompleteOpts().autocompletedatatype !== undefined && this.dependentOn() === null ) {
-						var data = {
-							id: origValue,
-							text: origValue
-						};
-						// This is needed after the empty() call,
-						// to create an option element to restore
-						// correct value in remote autocompletion.
-						var newOption = new Option(data.text, data.id, false, false);
-						$input.append(newOption).trigger('change');
+				if ( this.getAutocompleteOpts().autocompletedatatype !== undefined && this.dependentOn() === null ) {
+					var data = {
+						id: origValue,
+						text: origValue
+					};
+					// This is needed after the empty() call,
+					// to create an option element to restore
+					// correct value in remote autocompletion.
+					var newOption = new Option(data.text, data.id, false, false);
+					$input.append(newOption).trigger('change');
 				}
-				// This is required so that the exisiting value
+				// This is required so that the existing value
 				// can be displayed.
 				$input.val(origValue).trigger('change');
 				var inputData = $input.data("select2");
 				var rawValue = "";
 
 				$(inputData.dropdown.$searchContainer).on("keydown",function(e){
-					if( existingValuesOnly ){
+					if ( existingValuesOnly ) {
 						return ;
 					}
-					if( e.keyCode === 9 ){
+					if ( e.keyCode === 9 ) {
 						var valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
 						if( valHighlighted !== undefined ){
 							rawValue = valHighlighted.textContent;
@@ -102,7 +100,7 @@
 			}
 		},
 		/*
-		 * Used to remove the select2 applied to the HTML element,
+		 * Used to remove the Select2 applied to the HTML element;
 		 * the selected value will remain preserved.
 		 *
 		 * @param {HTMLElement} element
@@ -158,7 +156,7 @@
 		},
 		/*
 		 * Returns the name attribute of the field depending on
-		 * whether it is a part of multiple instance template or not
+		 * whether it is a part of a multiple instance template or not
 		 *
 		 * @param {HTMLElement} element
 		 *
@@ -169,7 +167,7 @@
 			return this.partOfMultiple( element ) ? "origname" : "name";
 		},
 		/*
-		 * Checks whether the field is part of multiple instance template or not
+		 * Checks whether the field is part of a multiple instance template or not
 		 *
 		 * @param {HTMLElement} element
 		 *
@@ -209,7 +207,6 @@
 		/*
 		 * Gives autocomplete options for a field
 		 *
-		 *
 		 * @return {object} autocomplete_opts
 		 *
 		 */
@@ -238,7 +235,7 @@
 		},
 		/*
 		 * Removes diacritics from the string and replaces
-		 * them with english characters.
+		 * them with English characters.
 		 * This code is basically copied from:
 		 * http://jpfiddle.net/potherca/Gtmr2/
 		 *
@@ -255,7 +252,7 @@
 			});
 		},
 		textHighlight: function( text, term ) {
-			if( text === undefined ){
+			if ( text === undefined ) {
 				text = "";
 			}
 			var markup = "";
@@ -263,7 +260,7 @@
 			var no_diac_text = remove_diacritics(text);
 			var no_diac_term = remove_diacritics(term);
 			var start = no_diac_text.toUpperCase().indexOf(no_diac_term.toString().toUpperCase());
-			if (start !== 0 && !mw.config.get( 'wgPageFormsAutocompleteOnAllChars' )) {
+			if ( start !== 0 && !mw.config.get( 'wgPageFormsAutocompleteOnAllChars' ) ) {
 				start = no_diac_text.toUpperCase().indexOf(" " + no_diac_term.toString().toUpperCase());
 				if ( start !== -1 ) {
 					start = start + 1;
