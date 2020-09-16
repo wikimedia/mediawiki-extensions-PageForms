@@ -54,6 +54,8 @@ class PFTree {
 		$this->configArray();
 		$this->setParentsId();
 		$this->setChildren();
+		// Get rid of array keys, to fit the format that jsTree requires.
+		$this->tree_array = array_values( $this->tree_array );
 	}
 
 	/**
