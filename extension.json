@@ -475,7 +475,6 @@
 			"PFHelperFormAction::displayTab"
 		],
 		"ArticlePurge": "PFFormUtils::purgeCache",
-		"PageContentSave": "PFFormUtils::purgeCache",
 		"ParserFirstCallInit": "PFHooks::registerFunctions",
 		"MakeGlobalVariablesScript": "PFHooks::setGlobalJSVariables",
 		"PageSchemasRegisterHandlers": "PFPageSchemas::registerClass",

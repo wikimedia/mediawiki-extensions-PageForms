@@ -49,8 +49,10 @@ class PFHooks {
 		if ( class_exists( 'MediaWiki\HookContainer\HookContainer' ) ) {
 			// MW 1.35+
 			$wgHooks['PageSaveComplete'][] = 'PFHooks::setPostEditCookie';
+			$wgHooks['MultiContentSave'][] = 'PFFormUtils::purgeCache2';
 		} else {
 			$wgHooks['PageContentSaveComplete'][] = 'PFHooks::setPostEditCookieOld';
+			$wgHooks['PageContentSave'][] = 'PFFormUtils::purgeCache';
 		}
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of

@@ -587,6 +587,31 @@ END;
 	}
 
 	/**
+	 * Deletes the form definition associated with the given wiki page
+	 * from the main cache, for MW 1.35+.
+	 *
+	 * Hook: MultiContentSave
+	 *
+	 * @param RenderedRevision $renderedRevision
+	 * @return bool
+	 */
+	public static function purgeCache2( MediaWiki\Revision\RenderedRevision $renderedRevision ) {
+		$articleID = $renderedRevision->getRevision()->getPageId();
+		if ( class_exists( 'MediaWiki\Page\WikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $articleID );
+		} else {
+			// MW 1.35
+			$wikiPage = WikiPage::newFromID( $articleID );
+		}
+		if ( $wikiPage == null ) {
+			// @TODO - should this ever happen?
+			return true;
+		}
+		return self::purgeCache( $wikiPage );
+	}
+
+	/**
 	 *  Get the cache object used by the form cache
 	 * @return BagOStuff
 	 */
