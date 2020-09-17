@@ -69,10 +69,10 @@ class PFCreatePageJob extends Job {
 			}
 		}
 
-		if ( class_exists( 'PageUpdater' ) ) {
+		if ( class_exists( 'MediaWiki\Storage\PageUpdater' ) ) {
 			// MW 1.32+
 			$updater = $wikiPage->newPageUpdater( $user );
-			$updater->setContent( SlotRecord::MAIN, $newContent );
+			$updater->setContent( MediaWiki\Storage\SlotRecord::MAIN, $newContent );
 			$updater->saveRevision( CommentStoreComment::newUnsavedComment( $editSummary ), $flags );
 		} else {
 			$wikiPage->doEditContent( $newContent, $editSummary, $flags, $originalRevId = false, $user );
