@@ -90,12 +90,6 @@ class PFHooks {
 				'ext.pageforms.jqui.autocomplete' => [
 					'dependencies' => 'jquery.ui'
 				],
-				'ext.pageforms.jqui.fancytree.deps' => [
-					'dependencies' => 'jquery.ui'
-				],
-				'ext.pageforms.jqui.datepicker' => [
-					'dependencies' => 'jquery.ui'
-				],
 				'ext.pageforms.jqui.sortable' => [
 					'dependencies' => 'jquery.ui'
 				]
@@ -104,12 +98,6 @@ class PFHooks {
 			$jQueryUIModules = [
 				'ext.pageforms.jqui.autocomplete' => [
 					'dependencies' => 'jquery.ui.autocomplete'
-				],
-				'ext.pageforms.jqui.fancytree.deps' => [
-					'dependencies' => [ 'jquery.ui.widget', 'jquery.ui.position' ]
-				],
-				'ext.pageforms.jqui.datepicker' => [
-					'dependencies' => 'jquery.ui.datepicker'
 				],
 				'ext.pageforms.jqui.sortable' => [
 					'dependencies' => 'jquery.ui.sortable'
