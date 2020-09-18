@@ -157,8 +157,7 @@
 				"libs/PF_preview.js"
 			],
 			"styles": [
-				"skins/PageForms.css",
-				"skins/PF_jquery_ui_overrides.css"
+				"skins/PageForms.css"
 			],
 			"dependencies": [
 				"ext.pageforms.jqui.autocomplete",
