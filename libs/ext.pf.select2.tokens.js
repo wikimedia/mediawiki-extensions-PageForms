@@ -115,6 +115,7 @@
 		var self = this;
 		var input_id = this.id;
 		var opts = {};
+		opts.language = {};
 		input_id = "#" + input_id;
 		var input_tagname = $(input_id).prop( "tagName" );
 		var autocomplete_opts = this.getAutocompleteOpts();
@@ -122,7 +123,9 @@
 		if ( autocomplete_opts.autocompletedatatype !== undefined ) {
 			opts.ajax = this.getAjaxOpts();
 			opts.minimumInputLength = 1;
-			opts.formatInputTooShort = mw.msg( "pf-select2-input-too-short", opts.minimumInputLength );
+			opts.language.inputTooShort = function() {
+				return mw.msg( "pf-select2-input-too-short", opts.minimumInputLength );
+			};
 		} else if ( input_tagname === "SELECT" ) {
 			opts.data = this.getData( autocomplete_opts.autocompletesettings );
 		}
@@ -158,7 +161,9 @@
 
 			return markup;
 		};
-		opts.formatSearching = mw.msg( "pf-select2-searching" );
+		opts.language.searching = function() {
+			return mw.msg( "pf-select2-searching" );
+		};
 		opts.placeholder = $(input_id).attr( "placeholder" );
 
 		var size = $(input_id).attr("data-size");
@@ -177,7 +182,9 @@
 		var maxvalues = $(input_id).attr( "maxvalues" );
 		if ( maxvalues !== undefined ) {
 			opts.maximumSelectionLength = maxvalues;
-			opts.formatSelectionTooBig = mw.msg( "pf-select2-selection-too-big", maxvalues );
+			opts.language.maximumSelected = function() {
+				return mw.msg( "pf-select2-selection-too-big", maxvalues );
+			};
 		}
 		// opts.selectOnClose = true;
 		opts.adaptContainerCssClass = function( clazz ) {
