@@ -145,21 +145,18 @@
 		}
 		opts.templateResult = function( result ) {
 			var term = "";
-			if( $( input_id ).data("select2").results.lastParams !== undefined ){
-				term = $( input_id ).data("select2").results.lastParams.term;
+			var inputData = $( input_id ).data("select2");
+			if ( inputData.results.lastParams !== undefined ){
+				term = inputData.results.lastParams.term;
 			}
-			if( term === "" || term === undefined ) {
-				term = $( input_id ).data("select2").$dropdown[0].textContent;
-				if( term === undefined || term === "" ) {
-					var lenChild = $( input_id ).data("select2").$selection[0].children	[0].children.length;
-					term = $( input_id ).data("select2").$selection[0].children	[0].children[lenChild-1].children[0].value;
-				}
+			if ( term === "" || term === undefined ) {
+				term = inputData.$dropdown[0].textContent;
 			}
-			var text = result.id;
-			var highlightedText = pf.select2.base.prototype.textHighlight( text, term );
-			var markup = highlightedText;
-
-			return markup;
+			if ( term === "" || term === undefined ) {
+				var htmlElements = inputData.$selection[0].children[0].children;
+				term = htmlElements[htmlElements.length - 1].children[0].value;
+			}
+			return pf.select2.base.prototype.textHighlight( result.id, term );
 		};
 		opts.language.searching = function() {
 			return mw.msg( "pf-select2-searching" );

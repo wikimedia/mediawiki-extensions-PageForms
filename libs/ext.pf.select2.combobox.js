@@ -74,14 +74,10 @@
 		}
 		opts.templateResult = function( result ) {
 			var term = $( input_id ).data("select2").dropdown.$search.val();
-			if( term === undefined ) {
+			if ( term === undefined ) {
 				term = "";
 			}
-			var text = result.id;
-			var highlightedText = pf.select2.base.prototype.textHighlight( text, term );
-			var markup = highlightedText;
-
-			return markup;
+			return pf.select2.base.prototype.textHighlight( result.id, term );
 		}
 		opts.language.searching = function() {
 			return mw.msg( "pf-select2-searching" );
