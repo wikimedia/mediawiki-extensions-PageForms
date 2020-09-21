@@ -26,7 +26,7 @@ class PFUtils {
 	}
 
 	public static function getSMWContLang() {
-		if ( method_exists( 'smwfContLang' ) ) {
+		if ( function_exists( 'smwfContLang' ) ) {
 			// SMW 3.2+
 			return smwfContLang();
 		} else {
