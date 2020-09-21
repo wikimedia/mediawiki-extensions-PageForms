@@ -58,6 +58,20 @@
 		} catch (e) {
 			window.console.log(e);
 		}
+
+		// Make sure that entries added with "local autocompletion"
+		// show up in the order they were entered, not alphabetical
+		// order.
+		// Copied from https://github.com/select2/select2/issues/3106#issuecomment-234702241
+		element.on("select2:select", function (evt) {
+			var elem = evt.params.data.element;
+			var $element = $(elem);
+
+			$element.detach();
+			$(this).append($element);
+			$(this).trigger("change");
+		});
+
 		$(inputData.$container[0]).on("keyup",function(e){
 			if( existingValuesOnly ){
 				return ;
