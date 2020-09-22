@@ -166,10 +166,10 @@ class PFFormEdit extends UnlistedSpecialPage {
 			// Does this make any difference? Who knows.
 			$pageTitle = $this->msg( 'creating', $targetName )->text();
 		} elseif ( $result[ 'form' ] == '' ) { // FIXME: This looks weird; a simple else should be enough, right?
-			// display error message if the form is not specified in the URL
-			$pageTitle = $this->msg( 'formedit' )->text();
+			// Display error message if the form is not specified in the URL.
 			$text .= Html::element( 'p', [ 'class' => 'error' ], $this->msg( 'pf_formedit_badurl' )->text() ) . "\n";
 			$out->addHTML( $text );
+			return;
 		}
 
 		$out->setPageTitle( $pageTitle );
