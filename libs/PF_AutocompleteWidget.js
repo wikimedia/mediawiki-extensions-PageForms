@@ -81,8 +81,7 @@ pf.AutocompleteWidget.prototype.getLookupCacheDataFromResponse = function ( resp
 /**
  * @inheritdoc
  */
-PFAutocompleteWidget.prototype.getLookupMenuOptionsFromData = function ( data ) {
-
+pf.AutocompleteWidget.prototype.getLookupMenuOptionsFromData = function ( data ) {
 	var i,
 		item,
 		items = [];
@@ -113,7 +112,7 @@ PFAutocompleteWidget.prototype.getLookupMenuOptionsFromData = function ( data ) 
 	return items;
 };
 
-PFAutocompleteWidget.prototype.highlightText = function ( suggestion ) {
+pf.AutocompleteWidget.prototype.highlightText = function ( suggestion ) {
 	var searchTerm = this.getValue();
 	var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
 		searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
