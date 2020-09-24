@@ -1778,14 +1778,6 @@ $(document).ready( function() {
 		return func;
 	}
 
-	// Initialize inputs created by #forminput.
-	if ( $('.pfFormInput').length > 0 ) {
-		var combobox = new pf.select2.combobox();
-		$( '.autocompleteInput' ).each( function() {
-			combobox.apply( $(this) );
-		});
-	}
-
 	// Exit now if a Page Forms form is not present.
 	if ( $('#pfForm').length === 0 ) {
 		return;

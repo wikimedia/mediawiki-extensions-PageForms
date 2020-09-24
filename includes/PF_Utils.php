@@ -320,34 +320,10 @@ END;
 		return $form_names;
 	}
 
-	/**
-	 * Creates a dropdown of possible form names.
-	 * @param array|null $form_names
-	 * @return string
-	 */
-	public static function formDropdownHTML( $form_names = null ) {
+	public static function getFormDropdownLabel() {
 		$namespaceStrings = self::getContLang()->getNamespaces();
 		$formNSString = $namespaceStrings[PF_NS_FORM];
-		$dropdownLabel = Html::rawElement(
-			'label',
-			[ 'for' => 'formSelector' ],
-			$formNSString . wfMessage( 'colon-separator' )->escaped()
-		);
-
-		if ( $form_names === null ) {
-			$form_names = self::getAllForms();
-		}
-		$select_body = "\n";
-		foreach ( $form_names as $form_name ) {
-			$select_body .= "\t" . Html::element( 'option', null, $form_name ) . "\n";
-		}
-		$dropdownHTML = Html::rawElement(
-			'select',
-			[ 'id' => 'formSelector', 'name' => 'form' ],
-			$select_body
-		);
-
-		return "\t" . $dropdownLabel . "\n" . $dropdownHTML . "\n";
+		return $formNSString . wfMessage( 'colon-separator' )->escaped();
 	}
 
 	/**

@@ -340,6 +340,30 @@
 				"pf-select2-selection-too-big"
 			]
 		},
+		"ext.pageforms.ooui.autocomplete": {
+			"scripts": [
+				"libs/PF_AutocompleteWidget.js"
+			],
+			"dependencies": [
+				"oojs-ui-core",
+				"oojs-ui-widgets"
+			],
+			"messages": [
+				"pf-select2-no-matches"
+			]
+		},
+		"ext.pageforms.forminput": {
+			"scripts": [
+				"libs/PF_formInput.js"
+			],
+			"styles": [
+				"skins/PF_formInput.css"
+			],
+			"dependencies": [
+				"ext.pageforms",
+				"ext.pageforms.ooui.autocomplete"
+			]
+		},
 		"ext.pageforms.fullcalendar.jquery1": {
 			"scripts": [
 				"libs/FullCalendar-2.9.1/fullcalendar.js",

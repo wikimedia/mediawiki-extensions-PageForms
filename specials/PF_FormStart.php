@@ -81,6 +81,8 @@ class PFFormStart extends SpecialPage {
 			}
 		}
 
+		$out->addModules( 'ext.pageforms.forminput' );
+
 		if ( ( !$form_title || !$form_title->exists() ) && ( $form_name !== '' ) ) {
 			$linkToForm = PFUtils::linkText( PF_NS_FORM, $form_name );
 			$badFormMsg = $this->msg( 'pf_formstart_badform', $linkToForm )->parse();
@@ -95,25 +97,33 @@ class PFFormStart extends SpecialPage {
 			$text = <<<END
 	<form action="" method="post">
 	<p>$description</p>
-	<p><input type="text" size="40" name="page_name" />
 
 END;
+			$text .= Html::hidden( 'namespace', $target_namespace );
+			$text .= Html::hidden( 'super_page', $super_page );
+			$text .= Html::hidden( 'params', $params );
+
+			$formInputAttrs = [
+				'class' => 'pfFormInputWrapper',
+				'data-button-label' => $this->msg( 'pf_formstart_createoredit' )->text()
+			];
+
 			// If no form was specified, display a dropdown letting
 			// the user choose the form.
 			if ( $form_name === '' ) {
 				try {
-					$text .= PFUtils::formDropdownHTML();
+					$allForms = PFUtils::getAllForms();
 				} catch ( MWException $e ) {
 					$out->addHTML( Html::element( 'div', [ 'class' => 'error' ], $e->getMessage() ) );
 					return;
 				}
+				$formInputAttrs['data-possible-forms'] = implode( '|', $allForms );
+				$formInputAttrs['data-form-label'] = PFUtils::getFormDropdownLabel();
+			} else {
+				$formInputAttrs['data-autofocus'] = true;
 			}
 
-			$text .= "\t</p>\n";
-			$text .= Html::hidden( 'namespace', $target_namespace );
-			$text .= Html::hidden( 'super_page', $super_page );
-			$text .= Html::hidden( 'params', $params );
-			$text .= "\n\t" . Html::input( null, $this->msg( 'pf_formstart_createoredit' )->text(), 'submit' ) . "\n";
+			$text .= "\t" . Html::element( 'div', $formInputAttrs, null ) . "\n";
 			$text .= "\t</form>\n";
 		}
 		$out->addHTML( $text );

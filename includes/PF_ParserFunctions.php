@@ -228,6 +228,8 @@ class PFParserFunctions {
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
+		$parser->getOutput()->addModules( 'ext.pageforms.forminput' );
+
 		// Set defaults.
 		$inFormName = $inValue = $inButtonStr = '';
 		$inQueryArr = [];
@@ -299,55 +301,48 @@ class PFParserFunctions {
 			return '<div class="error">Error: \'popup\' and \'returnto\' cannot be set in the same function.</div>';
 		}
 
-		$formInputAttrs = [ 'size' => $inSize ];
+		$formInputAttrs = [
+			'class' => 'pfFormInputWrapper',
+			'data-size' => $inSize
+		];
 
 		$formContents = '';
 
+		if ( $inValue != null ) {
+			$formInputAttrs['data-default-value'] = $inValue;
+		}
+
 		if ( $inNamespaceSelector !== null ) {
-			$dropdownText = '';
-			foreach ( $inNamespaceSelector as $nsName ) {
-				$dropdownText .= Html::element( 'option', null, trim( $nsName ) );
+			foreach ( $inNamespaceSelector as &$nsName ) {
+				$nsName = htmlspecialchars( trim( $nsName ) );
 			}
-			$formContents .= Html::rawElement( 'select', [ 'name' => 'namespace' ], $dropdownText ) . ' : ';
+			$possibleNamespacesStr = implode( '|', $inNamespaceSelector );
+			$formInputAttrs['data-possible-namespaces'] = $possibleNamespacesStr;
 		}
 
 		if ( $inPlaceholder != null ) {
-			$formInputAttrs['placeholder'] = $inPlaceholder;
+			$formInputAttrs['data-placeholder'] = $inPlaceholder;
 		}
 		if ( $inAutofocus ) {
-			$formInputAttrs['autofocus'] = 'autofocus';
+			$formInputAttrs['data-autofocus'] = true;
 		}
 
 		// Now apply the necessary settings and JavaScript, depending
 		// on whether or not there's autocompletion (and whether the
 		// autocompletion is local or remote).
 		$input_num = 1;
-		if ( empty( $inAutocompletionSource ) ) {
-			$formInputAttrs['class'] = 'formInput';
-			$formContents .= Html::input( 'page_name', $inValue, 'text', $formInputAttrs );
-		} else {
-			$parser->getOutput()->addModules( 'ext.pageforms.main' );
-
+		if ( !empty( $inAutocompletionSource ) ) {
 			self::$num_autocompletion_inputs++;
 			$input_num = self::$num_autocompletion_inputs;
 			$inputID = 'input_' . $input_num;
 			$formInputAttrs['id'] = $inputID;
-			$formInputAttrs['name'] = 'page_name';
-			$formInputAttrs['class'] = 'autocompleteInput createboxInput formInput';
-			$formInputAttrs['value'] = $inValue;
 			// This code formerly only used remote autocompletion
 			// when the number of autocompletion values was above
 			// a certain limit - as happens in regular forms -
 			// but local autocompletion didn't always work,
 			// apparently due to page caching.
-			$formInputAttrs['autocompletesettings'] = $inAutocompletionSource;
-			$formInputAttrs['autocompletedatatype'] = $autocompletionType;
-			$formInputAttrs['data-size'] = $inSize * 6 . 'px';
-			// These style settings have no effect after Select2
-			// loads - they exist only to avoid a major "flash of
-			// unstyled content" when the page is loading.
-			$formInputAttrs['style'] = 'width: ' . $inSize * 6 . 'px; height: 25px;';
-			$formContents .= Html::element( 'select', $formInputAttrs, null );
+			$formInputAttrs['data-autocomplete-settings'] = $inAutocompletionSource;
+			$formInputAttrs['data-autocomplete-data-type'] = $autocompletionType;
 		}
 
 		// If the form start URL looks like "index.php?title=Special:FormStart"
@@ -364,16 +359,18 @@ class PFParserFunctions {
 		}
 		unset( $formName );
 		if ( $inFormName == '' ) {
-			$formContents .= PFUtils::formDropdownHTML();
+			try {
+				$allForms = PFUtils::getAllForms();
+			} catch ( MWException $e ) {
+				return Html::element( 'div', [ 'class' => 'error' ], $e->getMessage() );
+			}
+			$formInputAttrs['data-possible-forms'] = implode( '|', $allForms );
+			$formInputAttrs['data-form-label'] = PFUtils::getFormDropdownLabel();
 		} elseif ( count( $listOfForms ) == 1 ) {
 			$inFormName = str_replace( '\,', ',', $inFormName );
 			$formContents .= Html::hidden( "form", $inFormName );
 		} else {
-			try {
-				$formContents .= PFUtils::formDropdownHTML( $listOfForms );
-			} catch ( MWException $e ) {
-				return Html::element( 'div', [ 'class' => 'error' ], $e->getMessage() );
-			}
+			$formInputAttrs['data-possible-forms'] = $listOfForms;
 		}
 
 		// Recreate the passed-in query string as a set of hidden
@@ -390,13 +387,10 @@ class PFParserFunctions {
 			}
 		}
 
-		$buttonStr = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'pf_formstart_createoredit' )->escaped();
-		$formContents .= "&nbsp;" . Html::input( null, $buttonStr, 'submit',
-			[
-				'id' => "input_button_$input_num",
-				'class' => 'forminput_button'
-			]
-		);
+		$formInputAttrs['data-button-label'] = ( $inButtonStr != '' ) ? $inButtonStr : wfMessage( 'pf_formstart_createoredit' )->escaped();
+		$formContents .= Html::element( 'div', $formInputAttrs, null );
+
+		Hooks::run( 'PageForms::FormInputEnd', [ $params, &$formContents ] );
 
 		$str = "\t" . Html::rawElement( 'form', [
 				'name' => 'createbox',
@@ -405,22 +399,6 @@ class PFParserFunctions {
 				'class' => $classStr
 			], '<p>' . $formContents . '</p>'
 		) . "\n";
-
-		if ( !empty( $inAutocompletionSource ) ) {
-			$str .= "\t\t\t" .
-				Html::element( 'div',
-					[
-						'class' => 'page_name_auto_complete',
-						'id' => "div_$input_num",
-					],
-					// It has to be <div></div>, not
-					// <div />, to work properly - stick
-					// in a space as the content.
-					' '
-				) . "\n";
-		}
-
-		Hooks::run( 'PageForms::FormInputEnd', [ $params, &$formContents ] );
 
 		return [ $str, 'noparse' => true, 'isHTML' => true ];
 	}

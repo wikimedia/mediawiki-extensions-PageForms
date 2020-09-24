@@ -1,0 +1,15 @@
+/**
+ * CSS for #forminput and Special:FormStart.
+ */
+
+div.pfFormInputWrapper {
+        margin-top: 25px;
+}
+
+div.pfPageWithNamespace {
+        margin-top: 20px;
+}
+
+div.pfNamespaceDropdown {
+        max-width: 110px;
+}

@@ -61,7 +61,6 @@ class PFForm {
 <noinclude>
 $form_description
 
-
 $form_input
 </noinclude><includeonly>
 
