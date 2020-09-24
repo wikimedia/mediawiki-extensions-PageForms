@@ -160,7 +160,6 @@
 				"skins/PageForms.css"
 			],
 			"dependencies": [
-				"ext.pageforms.jqui.autocomplete",
 				"ext.pageforms.sortable",
 				"ext.pageforms.autogrow",
 				"mediawiki.util",

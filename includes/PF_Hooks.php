@@ -87,18 +87,12 @@ class PFHooks {
 		// "wrapper" modules here to cover both cases.
 		if ( version_compare( $wgVersion, '1.35', '>=' ) ) {
 			$jQueryUIModules = [
-				'ext.pageforms.jqui.autocomplete' => [
-					'dependencies' => 'jquery.ui'
-				],
 				'ext.pageforms.jqui.sortable' => [
 					'dependencies' => 'jquery.ui'
 				]
 			];
 		} else {
 			$jQueryUIModules = [
-				'ext.pageforms.jqui.autocomplete' => [
-					'dependencies' => 'jquery.ui.autocomplete'
-				],
 				'ext.pageforms.jqui.sortable' => [
 					'dependencies' => 'jquery.ui.sortable'
 				]

@@ -12,246 +12,7 @@
  */
 /*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, mwTinyMCEInit, pf, Sortable*/
 
-// Activate autocomplete functionality for the specified field
 ( function ( $, mw ) {
-
-/* extending jQuery functions for custom highlighting */
-$.ui.autocomplete.prototype._renderItem = function( ul, item) {
-
-	var delim = this.element[0].delimiter;
-	var term;
-	if ( delim === null ) {
-		term = this.term;
-	} else {
-		term = this.term.split( delim ).pop();
-	}
-	var re = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
-		term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
-		")(?![^<>]*>)(?![^&;]+;)", "gi");
-	// HTML-encode the value's label.
-	var itemLabel = $('<div/>').text(item.label).html();
-	var loc = itemLabel.search(re);
-	var t;
-	if (loc >= 0) {
-		t = itemLabel.substr(0, loc) +
-			'<strong>' + itemLabel.substr(loc, term.length) + '</strong>' +
-			itemLabel.substr(loc + term.length);
-	} else {
-		t = itemLabel;
-	}
-	return $( "<li></li>" )
-		.data( "item.autocomplete", item )
-		.append( " <a>" + t + "</a>" )
-		.appendTo( ul );
-};
-
-$.fn.attachAutocomplete = function() {
-	try {
-	return this.each(function() {
-		// Get all the necessary values from the input's "autocompletesettings"
-		// attribute. This should probably be done as three separate attributes,
-		// instead.
-		var field_string = $(this).attr("autocompletesettings");
-
-		if ( typeof field_string === 'undefined' ) {
-			return;
-		}
-
-		var field_values = field_string.split(',');
-		var delimiter = null;
-		var data_source = field_values[0];
-		if (field_values[1] === 'list') {
-			delimiter = ",";
-			if (field_values[2] !== null && field_values[2] !== '' && field_values[2] !== undefined) {
-				delimiter = field_values[2];
-			}
-		}
-
-		// Modify the delimiter. If it's "\n", change it to an actual
-		// newline - otherwise, add a space to the end.
-		// This doesn't cover the case of a delimiter that's a newline
-		// plus something else, like ".\n" or "\n\n", but as far as we
-		// know no one has yet needed that.
-		if ( delimiter !== null && delimiter !== '' && delimiter !== undefined ) {
-			if ( delimiter === "\\n" ) {
-				delimiter = "\n";
-			} else {
-				delimiter += " ";
-			}
-		}
-		// Store this value within the object, so that it can be used
-		// during highlighting of the search term as well.
-		this.delimiter = delimiter;
-
-		/* extending jQuery functions */
-		$.extend( $.ui.autocomplete, {
-			filter: function(array, term) {
-				var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
-				var matcher;
-				if ( wgPageFormsAutocompleteOnAllChars ) {
-					matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i" );
-				} else {
-					matcher = new RegExp("(^|\\s)" + $.ui.autocomplete.escapeRegex(term), "i" );
-				}
-				// This may be an associative array instead of a
-				// regular one - grep() requires a regular one.
-				// (Is this "if" check necessary, or useful?)
-				if ( typeof array === 'object' ) {
-					// Unfortunately, Object.values() is
-					// not supported on all browsers.
-					array = Object.keys(array).map(function(key) {
-						return array[key];
-					});
-				}
-				return $.grep( array, function(value) {
-					return matcher.test( value.label || value.value || value );
-				});
-			}
-		} );
-
-		var values = $(this).data('autocompletevalues');
-		if ( !values ) {
-			var wgPageFormsAutocompleteValues = mw.config.get( 'wgPageFormsAutocompleteValues' );
-			values = wgPageFormsAutocompleteValues[field_string];
-		}
-		var split = function (val) {
-			return val.split(delimiter);
-		};
-		var extractLast = function (term) {
-			return split(term).pop();
-		};
-		if (values !== null && values !== undefined) {
-			// Local autocompletion
-
-			if (delimiter !== null && delimiter !== undefined) {
-				// Autocomplete for multiple values
-
-				var thisInput = $(this);
-
-				$(this).autocomplete({
-					minLength: 0,
-					source: function(request, response) {
-						// We need to re-get the set of values, since
-						// the "values" variable gets overwritten.
-						values = thisInput.data( 'autocompletevalues' );
-						if ( !values ) {
-							values = wgPageFormsAutocompleteValues[field_string];
-						}
-						response($.ui.autocomplete.filter(values, extractLast(request.term)));
-					},
-					focus: function() {
-						// prevent value inserted on focus
-						return false;
-					},
-					select: function(event, ui) {
-						var terms = split( this.value );
-						// remove the current input
-						terms.pop();
-						// add the selected item
-						terms.push( ui.item.value );
-						// add placeholder to get the comma-and-space at the end
-						terms.push("");
-						this.value = terms.join(delimiter);
-						return false;
-					}
-				});
-
-			} else {
-				// Autocomplete for a single value
-				$(this).autocomplete({
-					// Unfortunately, Object.values() is
-					// not supported on all browsers.
-					source: ( typeof values === 'object' ) ? Object.keys(values).map(function(key) { return values[key]; }) : values
-				});
-			}
-		} else {
-			// Remote autocompletion.
-			var myServer = mw.util.wikiScript( 'api' );
-			var autocomplete_type = $(this).attr("autocompletedatatype");
-			if ( autocomplete_type === 'cargo field' ) {
-				var table_and_field = data_source.split('|');
-				myServer += "?action=pfautocomplete&format=json&cargo_table=" + table_and_field[0] + "&cargo_field=" + table_and_field[1];
-			} else {
-				myServer += "?action=pfautocomplete&format=json&" + autocomplete_type + "=" + data_source;
-			}
-
-			if (delimiter !== null && delimiter !== undefined) {
-				$(this).autocomplete({
-					source: function(request, response) {
-						$.getJSON(myServer, {
-							substr: extractLast(request.term)
-						}, function( data ) {
-							response($.map(data.pfautocomplete, function(item) {
-								return {
-									value: item.title
-								};
-							}));
-						});
-					},
-					search: function() {
-						// custom minLength
-						var term = extractLast(this.value);
-						if (term.length < 1) {
-							return false;
-						}
-					},
-					focus: function() {
-						// prevent value inserted on focus
-						return false;
-					},
-					select: function(event, ui) {
-						var terms = split( this.value );
-						// remove the current input
-						terms.pop();
-						// add the selected item
-						terms.push( ui.item.value );
-						// add placeholder to get the comma-and-space at the end
-						terms.push("");
-						this.value = terms.join(delimiter);
-						return false;
-					}
-				} );
-			} else {
-				$(this).autocomplete({
-					minLength: 1,
-					source: function(request, response) {
-						$.ajax({
-							url: myServer,
-							dataType: "json",
-							data: {
-								substr:request.term
-							},
-							success: function( data ) {
-								response($.map(data.pfautocomplete, function(item) {
-									return {
-										value: item.title
-									};
-								}));
-							}
-						});
-					},
-					open: function() {
-						$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-					},
-					close: function() {
-						$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-					}
-				} );
-			}
-		}
-	});
-	} catch ( error ) {
-		// Autocompletion (and specifically, the call to
-		// this.menu.element in line 195 of jquery.ui.autocomplete.js)
-		// for some reason sometimes fails when doing a preview of the
-		// form definition. It's not that importatnt, so, in lieu of
-		// showing it to the user (or debugging it), we'll just catch
-		// the error and log it in the console.
-		window.console.log("Error setting autocompletion: " + error);
-	}
-};
-
-
 
 /*
  * Functions to register/unregister methods for the initialization and
@@ -337,7 +98,7 @@ $.fn.PageForms_registerInputInit = function( initFunction, param, noexecute ) {
 		var input = this;
 		// ensure initFunction is only executed after doc structure is complete
 		$(function() {
-			if ( initFunction !== undefined )  {
+			if ( initFunction !== undefined ) {
 				initFunction ( input.attr("id"), param );
 			}
 		});
@@ -1497,7 +1258,6 @@ $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue
 				dependentValues.push(val.title);
 			});
 			thisInput.data('autocompletevalues', dependentValues);
-			thisInput.attachAutocomplete();
 		}
 	});
 };
@@ -1674,7 +1434,6 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 
 	if ( partOfMultiple ) {
 		this.find('.pfFancyBox').fancybox(fancyBoxSettings);
-		this.find('.autocompleteInput').attachAutocomplete();
 		this.find('.autoGrow').autoGrow();
 		this.find(".pfRating").each( function() {
 			$(this).applyRatingInput();
@@ -1684,7 +1443,6 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 	} else {
 		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
-		this.find('.autocompleteInput').not('.multipleTemplateWrapper .autocompleteInput').attachAutocomplete();
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
 		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").each( function() {
 			$(this).applyRatingInput();
