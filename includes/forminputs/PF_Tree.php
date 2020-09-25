@@ -198,12 +198,9 @@ class PFTree {
 	 * Recursive function to populate a tree based on category information.
 	 */
 	private function populateChildren() {
-		if ( $this->depth == 0 ) {
-			return;
-		}
 		$subcats = self::getSubcategories( $this->top_category );
 		foreach ( $subcats as $subcat ) {
-			$childTree = new PFTree( $this->depth - 1, $this->current_values );
+			$childTree = new PFTree( $this->depth, $this->current_values );
 			$childTree->top_category = $subcat;
 			$childTree->title = $subcat;
 			$childTree->populateChildren();
