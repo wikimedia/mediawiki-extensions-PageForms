@@ -136,7 +136,16 @@ function setupMapFormInput( inputDiv, mapService ) {
 			}
 		});
 	} else { // if ( mapService == "OpenLayers" ) {
-		var mapCanvasID = inputDiv.find( '.pfMapCanvas' ).attr( 'id' );
+		var mapCanvas = inputDiv.find('.pfMapCanvas');
+		var mapCanvasID = mapCanvas.attr('id');
+		if ( mapCanvasID === undefined ) {
+			// If no ID is set, it's probably in a multiple-
+			// instance template; just set the ID to a random
+			// string, so we can attach the map to it.
+			mapCanvasID = mapCanvas.attr('data-origID') + '-' +
+				Math.random().toString(36).substring(2, 15);
+			mapCanvas.attr('ID', mapCanvasID);
+		}
 		map = new OpenLayers.Map( mapCanvasID );
 		// We do this more complex initialization, rather than just
 		// calling OpenLayers.Layer.OSM(), so that the tiles will be
