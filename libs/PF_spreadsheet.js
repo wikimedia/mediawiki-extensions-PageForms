@@ -398,6 +398,8 @@
 		}
 
 		function getGridValues( pageNames ) {
+			// @TODO - should Page Forms define its own API action
+			// for this, so that the parsing can be done in PHP?
 			return $.ajax({
 				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&titles=' + pageNames,
 				dataType: 'json',
@@ -418,14 +420,60 @@
 			// Parse contents of individual templates
 			while ( ( match = regex.exec( pageContent.toLowerCase() ) ) !== null ) {
 				contentStart = match['index'];
-				contentEnd = pageContent.indexOf( endDelimiter, contentStart );
-				if ( contentEnd === -1 ) {
-					break;
-				}
-				var content = pageContent.substring( contentStart + startDelimiter.length - 2, contentEnd );
+				var content = '';
+				var numOpenCurlyBracketPairs = 1;
+				var curPos = contentStart + startDelimiter.length - 2;
+				do {
+					var curChar = pageContent.charAt(curPos);
+					var curPair = curChar + pageContent.charAt(curPos + 1);
+					if ( curPair == '{{' ) {
+						numOpenCurlyBracketPairs++;
+					} else if ( curPair == '}}' ) {
+						numOpenCurlyBracketPairs--;
+					}
+					if ( numOpenCurlyBracketPairs > 0 ) {
+						content += curChar;
+					}
+					curPos++;
+				} while ( numOpenCurlyBracketPairs > 0 && curPair !== '' );
 				contents.push( 'page=' + pageName + content );
 			}
 			return contents;
+		}
+
+		function getTemplateParams( templateText ) {
+			var params = [];
+			if ( templateText == '' ) {
+				return params;
+			}
+
+			var numOpenCurlyBrackets = 0;
+			var numOpenSquareBrackets = 0;
+			var curReturnValue = '';
+
+			for ( var i = 0; i < templateText.length; i++ ) {
+				var curChar = templateText.charAt(i);
+				if ( curChar == '{' ) {
+					numOpenCurlyBrackets++;
+				} else if ( curChar == '}' ) {
+					numOpenCurlyBrackets--;
+				}
+				if ( curChar == '[' ) {
+					numOpenSquareBrackets++;
+				} else if ( curChar == ']' ) {
+					numOpenSquareBrackets--;
+				}
+
+				if ( curChar == '|' && numOpenCurlyBrackets == 0 && numOpenSquareBrackets == 0 ) {
+					params.push( curReturnValue.trim() );
+					curReturnValue = '';
+				} else {
+					curReturnValue += curChar;
+				}
+			}
+			params.push( curReturnValue.trim() );
+
+			return params;
 		}
 
 		function getQueryString( preEdit, postEdit ){
@@ -631,7 +679,7 @@
 								}
 								templateCalls = getTemplateCalls( pageContent, data.query.pages[i].title );
 								for ( const templateCall of templateCalls ) {
-									var fieldArray = templateCall.split( '|' );
+									var fieldArray = getTemplateParams( templateCall );
 									var fieldValueObject = {};
 									for ( const field of fieldArray ) {
 										var equalPos = field.indexOf( '=' );
