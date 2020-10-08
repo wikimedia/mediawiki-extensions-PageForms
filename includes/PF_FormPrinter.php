@@ -1236,11 +1236,10 @@ END;
 									( $input_type == '' && $form_field->getTemplateField()->getPropertyType() == '_dat' ) ) {
 								$cur_value_in_template = self::getStringForCurrentTime( $input_type == 'datetime', $form_field->hasFieldArg( 'include timezone' ) );
 							}
-						}
 						// If the field is a text field, and its default value was set
 						// to 'current user', and it has no current value, set $cur_value
 						// to be the current user.
-						if ( $form_field->getDefaultValue() == 'current user' &&
+						} elseif ( $form_field->getDefaultValue() == 'current user' &&
 							// if the date is hidden, cur_value will already be set
 							// to the default value
 							( $cur_value === '' || $cur_value == 'current user' )
@@ -1252,6 +1251,19 @@ END;
 								$cur_value_in_template = $wgUser->getName();
 							}
 							$cur_value = $cur_value_in_template;
+						// UUID is the only default value (so far) that can also be set
+						// by the JavaScript, for multiple-instance templates - for the
+						// other default values, there's no real need to have a
+						// different value for each instance.
+						} elseif ( $form_field->getDefaultValue() == 'uuid' &&
+							( $cur_value === '' || $cur_value == 'uuid' )
+						) {
+							if ( $tif->allowsMultiple() ) {
+								// Will be set by the JS.
+								$form_field->setFieldArg( 'class', 'new-uuid' );
+							} else {
+								$cur_value = $cur_value_in_template = self::generateUUID();
+							}
 						}
 
 						// If all instances have been
@@ -1934,6 +1946,25 @@ END;
 				$form_field->setFieldArg( 'translate_number_tag', $matches[0] );
 			}
 		}
+	}
+
+	private static function generateUUID() {
+		// Copied from https://www.php.net/manual/en/function.uniqid.php#94959
+		return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+			// 32 bits for "time_low"
+			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+			// 16 bits for "time_mid"
+			mt_rand( 0, 0xffff ),
+			// 16 bits for "time_hi_and_version",
+			// four most significant bits holds version number 4
+			mt_rand( 0, 0x0fff ) | 0x4000,
+			// 16 bits, 8 bits for "clk_seq_hi_res",
+			// 8 bits for "clk_seq_low",
+			// two most significant bits holds zero and one for variant DCE1.1
+			mt_rand( 0, 0x3fff ) | 0x8000,
+			// 48 bits for "node"
+			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+		);
 	}
 
 }
