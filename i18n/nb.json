@@ -10,6 +10,7 @@
 			"Jon Harald Søby",
 			"Kingu",
 			"Laaknor",
+			"MuratTheTurkish",
 			"Nghtwlkr"
 		]
 	},
@@ -229,7 +230,7 @@
 	"pf_bad_integer_error": "må være et heltall",
 	"pf_bad_date_error": "må være en gyldig dato",
 	"pf_modified_input_error": "Endringen bør godkjennes eller avvises",
-	"pf_pipe_error": "«|» er ikke tillatt utenom i {{…}}, [[...]] eller spesialtagger",
+	"pf_pipe_error": "«|» er ikke tillatt utenom i {{...}}, [[...]] eller spesialtagger",
 	"uploadwindow": "Opplastingsvindu",
 	"pf-simpleupload": "Last opp",
 	"pf_deletionlog": "Slettelogg",
