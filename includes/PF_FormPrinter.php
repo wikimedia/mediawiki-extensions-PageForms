@@ -443,7 +443,11 @@ END;
 			}
 
 			if ( $formField->isHidden() ) {
-				$html .= Html::hidden( $formField->getInputName(), $curValue );
+				$attribs = [];
+				if ( $form_field->hasFieldArg( 'class' ) ) {
+					$attribs['class'] = $form_field->getFieldArg( 'class' );
+				}
+				$html .= Html::hidden( $formField->getInputName(), $curValue, $attribs );
 				continue;
 			}
 
@@ -1256,7 +1260,7 @@ END;
 						// other default values, there's no real need to have a
 						// different value for each instance.
 						} elseif ( $form_field->getDefaultValue() == 'uuid' &&
-							( $cur_value === '' || $cur_value == 'uuid' )
+							( $cur_value == '' || $cur_value == 'uuid' )
 						) {
 							if ( $tif->allowsMultiple() ) {
 								// Will be set by the JS.
@@ -1836,7 +1840,11 @@ END;
 		$class_name = null;
 
 		if ( $form_field->isHidden() ) {
-			$text = Html::hidden( $form_field->getInputName(), $cur_value );
+			$attribs = [];
+			if ( $form_field->hasFieldArg( 'class' ) ) {
+				$attribs['class'] = $form_field->getFieldArg( 'class' );
+			}
+			$text = Html::hidden( $form_field->getInputName(), $cur_value, $attribs );
 		} elseif ( $form_field->getInputType() !== '' &&
 				array_key_exists( $form_field->getInputType(), $this->mInputTypeHooks ) &&
 				$this->mInputTypeHooks[$form_field->getInputType()] != null ) {
