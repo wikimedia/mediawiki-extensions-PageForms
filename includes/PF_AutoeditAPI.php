@@ -603,7 +603,11 @@ class PFAutoeditAPI extends ApiBase {
 			if ( array_key_exists( 'ok text', $this->mOptions ) ) {
 				$responseText = $this->getMessageCache()->parse( $this->mOptions['ok text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
-				$responseText = wfMessage( 'pf_autoedit_success', $this->mOptions['target'], $this->mOptions['form'] )->parse();
+				// We turn this into a link of the form [[:A|A]]
+				// so that pages in the File: namespace won't
+				// cause the actual image to be displayed.
+				$targetText = ':' . $this->mOptions['target'] . '|' . $this->mOptions['target'];
+				$responseText = wfMessage( 'pf_autoedit_success', $targetText, $this->mOptions['form'] )->parse();
 			} else {
 				$responseText = null;
 			}
@@ -612,7 +616,8 @@ class PFAutoeditAPI extends ApiBase {
 			if ( array_key_exists( 'error text', $this->mOptions ) ) {
 				$responseText = $this->getMessageCache()->parse( $this->mOptions['error text'], Title::newFromText( $this->mOptions['target'] ) )->getText();
 			} elseif ( $this->mAction === self::ACTION_SAVE ) {
-				$responseText = wfMessage( 'pf_autoedit_fail', $this->mOptions['target'] )->parse();
+				$targetText = ':' . $this->mOptions['target'] . '|' . $this->mOptions['target'];
+				$responseText = wfMessage( 'pf_autoedit_fail', $targetText )->parse();
 			} else {
 				$responseText = null;
 			}
