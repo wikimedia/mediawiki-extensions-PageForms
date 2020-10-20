@@ -304,7 +304,7 @@ class PFTextAreaInput extends PFFormInput {
 		if ( array_key_exists( 'unique', $this->mOtherArgs ) ) {
 			$spanClass .= ' uniqueFieldSpan';
 		}
-		if ( $this->mEditor == 'visualeditor' ) {
+		if ( $this->mEditor == 'visualeditor' && !$this->mIsDisabled ) {
 			$spanClass .= ' ve-area-wrapper';
 		}
 		$spanAttrs = [ 'class' => $spanClass ];
