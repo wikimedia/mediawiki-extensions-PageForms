@@ -59,6 +59,38 @@
 			window.console.log(e);
 		}
 
+		// Make the tokens sortable, using the SortableJS library.
+		var tokensUL = element.parent().find('ul.select2-selection__rendered');
+		var tokensSelect = element.parents('span.inputSpan').find('select');
+		var sortable = Sortable.create(tokensUL[0], {
+			ghostClass: 'pfTokensGhost',
+
+			// Somewhat of a @HACK - the tokens are stored in two
+			// places in the DOM, a <ul> tag (which is displayed)
+			// and a <select> tag (which is what gets submitted).
+			// SortableJS only handles the first of these, so when
+			// a rearrange is done, we rearrange the <select> layout
+			// to match what's in the <ul>.
+			// Is there a simpler way to do this?
+			onEnd: function(event, dragEvent) {
+				var newTokensOrder = [];
+				tokensUL.find('li.select2-selection__choice').not('.sortable-ghost').each( function() {
+					// Remove the "x" from the beginning of
+					// the string.
+					newTokensOrder.push($(this).text().substring(1));
+				});
+				var dropdownItems = {};
+				tokensSelect.find('option').each( function() {
+					var optionName = $(this).text();
+					dropdownItems[optionName] = $(this);
+				} );
+				tokensSelect.prepend(dropdownItems[newTokensOrder[i]]);
+				for ( var i = 1; i < newTokensOrder.length; i++ ){
+					dropdownItems[newTokensOrder[i]].insertAfter(dropdownItems[newTokensOrder[i - 1]]);
+				}
+			}
+		});
+
 		// Make sure that entries added with "local autocompletion"
 		// show up in the order they were entered, not alphabetical
 		// order.
