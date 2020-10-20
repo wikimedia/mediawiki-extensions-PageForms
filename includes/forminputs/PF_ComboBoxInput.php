@@ -172,12 +172,12 @@ class PFComboBoxInput extends PFFormInput {
 			$inputText .= PFTextInput::uploadableHTML( $input_id, $delimiter = null, $default_filename, $cur_value, $other_args );
 		}
 
-		$divClass = 'ui-widget';
+		$spanClass = 'comboboxSpan';
 		if ( $is_mandatory ) {
-			$divClass .= ' mandatory';
+			$spanClass .= ' mandatoryFieldSpan';
 		}
 
-		$text = Html::rawElement( 'div', [ 'class' => $divClass ], $inputText );
+		$text = Html::rawElement( 'span', [ 'class' => $spanClass ], $inputText );
 		return $text;
 	}
 

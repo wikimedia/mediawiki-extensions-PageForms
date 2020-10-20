@@ -831,7 +831,7 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 	});
-	$("div.ui-widget.mandatory").not(".hiddenByPF").each( function() {
+	$("span.comboboxSpan.mandatoryFieldSpan").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryComboBox() ) {
 			num_errors += 1;
 		}
