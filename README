@@ -38,16 +38,20 @@ of the 2018 Google Summer of Code.
 Handling of "display=calendar" was added by Priyanshu Varshney as
 part of the 2019 Google Summer of Code.
 
-Important code contributions were also made by Christoph Burgmer,
-Cindy Cicalese, Clément Flipo, Daniel Friesen, Daniel Hansch,
-Eugene Mednikov, Harold Solbrig, Ilmārs Poikāns, Jayson Harshbarger,
-Jeffrey Stuckman, Jeroen De Dauw, Joel Natividad, Louis Gerbarg,
-LY Meng, Mark Hershberger, Mathias Lidal, Matt Williamson, MWJames,
-Niklas Laxstrom, Nils Opperman, Paladox, Patrick Nagel, Pastakhov,
-Peter Grassberger, Pierre Boutet, Remco de Boer, Sam Wilson,
-Sebastian Richter, Sergey Chernyshev, Siebrand Mazeland,
-Simon Heimler, Solitarius, Tombolano, Tom Fellows, Vedmaka,
-wheresmytab and others.
+Use of the jExcel and jsTree libraries, and greater use of the
+OOUI library, were added by Amr El-Absy as part of the 2020 Google
+Summer of Code.
+
+Important code contributions were also made by Addshore, Christoph
+Burgmer, Cindy Cicalese, Clément Flipo, Daniel Friesen, Daniel
+Hansch, Eugene Mednikov, Harold Solbrig, Ilmārs Poikāns, Jayson
+Harshbarger, Jeffrey Stuckman, Jeroen De Dauw, Joel Natividad, Louis
+Gerbarg, LY Meng, Mark Hershberger, Mathias Lidal, Matt Williamson,
+MWJames, Niklas Laxstrom, Nils Opperman, Paladox, Pastakhov, Patrick
+Nagel, Peter Grassberger, Pierre Boutet, Reedy, Remco de Boer, Sahaj
+Khandelwal, Sam Wilson, Sebastian Richter, Sergey Chernyshev,
+Siebrand Mazeland, Simon Heimler, Solitarius, Tombolano, Tom Fellows,
+Vedmaka, wheresmytab and others.
 
 Language translations were provided by many people; see the files in
 the /i18n and /languages directories for the full listings.
@@ -73,28 +77,27 @@ Page Forms includes the following JavaScript libraries:
 * fancyBox, also known as fancyBox3 (https://fancyapps.com/fancybox/3/),
 distributed under the GPLv3 license.
 
-* Fancytree (https://github.com/mar10/fancytree) by Martin Wendt,
-distributed under the MIT license.
-
 * FullCalendar (https://fullcalendar.io/), distributed under the MIT
 license.
 
 * jExcel (https://bossanova.uk/jexcel/v3/) by Paul Hodel, distributed
 under the MIT license.
 
-* RateYo! (http://rateyo.fundoocode.ninja/) by Prashanth Pamidi,
+* jsTree (https://www.jstree.com/) by Ivan Bozhanov, distributed under
+the MIT license.
+
+* RateYo! (https://rateyo.fundoocode.ninja/) by Prashanth Pamidi,
 distributed under the MIT license.
 
-* Select2 (https://select2.github.io) by Igor Vaynberg, distributed
-under both the Apache and GPL licenses.
+* Select2 (https://select2.org/) by Igor Vaynberg, Kevin Brown and
+others, distributed under the MIT license.
 
-* Sortable (http://sortablejs.github.io/Sortable/) by RubaXa and
+* SortableJS (https://sortablejs.github.io/sortablejs/) by RubaXa and
 owenm, distributed under the MIT license.
 
 It also includes the Balloon.css CSS library
 (https://kazzkiq.github.io/balloon.css/) by Claudio Holanda,
 distributed under the MIT license.
 
-Page Forms also makes extensive use of the jQuery and jQuery UI
-JavaScript libraries, as well as some use of the OOUI library, all
-included within MediaWiki.
+Page Forms also makes extensive use of the jQuery and OOUI
+JavaScript libraries, both of which are included within MediaWiki.
