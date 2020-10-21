@@ -173,6 +173,8 @@
 	"pf_createclass_success": "Informational message, which appears after the user successfully filled out the form.",
 	"pf_createclass_create": "{{Identical|Create}}",
 	"pf_createclass_ishierarchy": "In response the user has to tick a box deciding whether it is allowed to enter or store a hierarchy.\n{{Identical|Hierarchy}}",
+	"pf-spreadsheet-addrow": "Link to add a row to a spreadsheet of data",
+	"pf-spreadsheet-addrowinstructions": "Instructions on how to add a row to a spreadsheet",
 	"formstart": "{{doc-special|FormStart}}",
 	"pf_formstart_badform": "Used as error message. Parameters:\n* $1 - form name (with link)",
 	"pf_formstart_badtitle": "Used as error message. Parameters:\n* $1 - invalid page name which may contain forbidden characters",

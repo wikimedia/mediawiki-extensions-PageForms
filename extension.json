@@ -411,23 +411,31 @@
 		},
 		"ext.pageforms.spreadsheet": {
 			"scripts": [
-				"libs/jsgrid.js",
+				"libs/jsuites.js",
+				"libs/jexcel.js",
 				"libs/PF_spreadsheet.js"
 			],
 			"styles": [
-				"skins/jsgrid/jsgrid.css",
-				"skins/jsgrid/theme.css",
+				"skins/jsuites.css",
+				"skins/jexcel.css",
 				"skins/PF_spreadsheet.css"
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"ext.pageforms.jqui.sortable",
-				"mediawiki.language.months"
+				"mediawiki.language.months",
+				"oojs-ui-core",
+				"oojs-ui-windows",
+				"oojs-ui.styles.icons-moderation"
 			],
 			"messages": [
+				"pf-spreadsheet-addrow",
 				"pf-resultstoshow",
 				"htmlform-yes",
-				"htmlform-no"
+				"htmlform-no",
+				"upload-dialog-button-save",
+				"apisandbox-add-multi",
+				"cancel",
+				"delete"
 			]
 		},
 		"ext.pageforms.balloon": {
