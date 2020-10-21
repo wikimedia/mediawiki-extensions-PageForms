@@ -480,17 +480,17 @@ END;
 		if ( $wgUseCopyrightUpload ) {
 			$licensetxt = '';
 			if ( $license !== '' ) {
-				$licensetxt = '== ' . $this->msg( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
+				$licensetxt = '== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
 			}
-			$pageText = '== ' . $this->msg( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n" .
-				'== ' . $this->msg( 'filestatus' )->inContentLanguage()->text() . " ==\n" . $copyStatus . "\n" .
+			$pageText = '== ' . wfMessage( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n" .
+				'== ' . wfMessage( 'filestatus' )->inContentLanguage()->text() . " ==\n" . $copyStatus . "\n" .
 				"$licensetxt" .
-				'== ' . $this->msg( 'filesource' )->inContentLanguage()->text() . " ==\n" . $source;
+				'== ' . wfMessage( 'filesource' )->inContentLanguage()->text() . " ==\n" . $source;
 		} else {
 			if ( $license !== '' ) {
-				$filedesc = $comment === '' ? '' : '== ' . $this->msg( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n";
+				$filedesc = $comment === '' ? '' : '== ' . wfMessage( 'filedesc' )->inContentLanguage()->text() . " ==\n" . $comment . "\n";
 				$pageText = $filedesc .
-					'== ' . $this->msg( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
+					'== ' . wfMessage( 'license-header' )->inContentLanguage()->text() . " ==\n" . '{{' . $license . '}}' . "\n";
 			} else {
 				$pageText = $comment;
 			}
@@ -634,38 +634,38 @@ END;
 
 		if ( $exists['warning'] == 'exists' ) {
 			// Exact match
-			$warning[] = '<li>' . $this->msg( 'fileexists', $filename )->parse() . '</li>';
+			$warning[] = '<li>' . wfMessage( 'fileexists', $filename )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'page-exists' ) {
 			// Page exists but file does not
-			$warning[] = '<li>' . $this->msg( 'filepageexists', $filename )->parse() . '</li>';
+			$warning[] = '<li>' . wfMessage( 'filepageexists', $filename )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'exists-normalized' ) {
-			$warning[] = '<li>' . $this->msg( 'fileexists-extension', $filename,
+			$warning[] = '<li>' . wfMessage( 'fileexists-extension', $filename,
 				$exists['normalizedFile']->getTitle()->getPrefixedText() )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'thumb' ) {
 			// Swapped argument order compared with other messages for backwards compatibility
-			$warning[] = '<li>' . $this->msg( 'fileexists-thumbnail-yes',
+			$warning[] = '<li>' . wfMessage( 'fileexists-thumbnail-yes',
 				$exists['thumbFile']->getTitle()->getPrefixedText(), $filename )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'thumb-name' ) {
 			// Image w/o '180px-' does not exists, but we do not like these filenames
 			$name = $file->getName();
 			$badPart = substr( $name, 0, strpos( $name, '-' ) + 1 );
-			$warning[] = '<li>' . $this->msg( 'file-thumbnail-no', $badPart )->parse() . '</li>';
+			$warning[] = '<li>' . wfMessage( 'file-thumbnail-no', $badPart )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'bad-prefix' ) {
-			$warning[] = '<li>' . $this->msg( 'filename-bad-prefix', $exists['prefix'] )->parse() . '</li>';
+			$warning[] = '<li>' . wfMessage( 'filename-bad-prefix', $exists['prefix'] )->parse() . '</li>';
 		} elseif ( $exists['warning'] == 'was-deleted' ) {
 			# If the file existed before and was deleted, warn the user of this
 			$ltitle = SpecialPage::getTitleFor( 'Log' );
 			$linkRenderer = $this->getLinkRenderer();
 			$llink = $linkRenderer->makeKnownLink(
 				$ltitle,
-				$this->msg( 'deletionlog' )->escaped(),
+				wfMessage( 'deletionlog' )->escaped(),
 				[],
 				[
 					'type' => 'delete',
 					'page' => $filename
 				]
 			);
-			$warning[] = '<li>' . $this->msg( 'filewasdeleted' )->rawParams( $llink )->parse() . '</li>';
+			$warning[] = '<li>' . wfMessage( 'filewasdeleted' )->rawParams( $llink )->parse() . '</li>';
 		}
 
 		return implode( "\n", $warning );
