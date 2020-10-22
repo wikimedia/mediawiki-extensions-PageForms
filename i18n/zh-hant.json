@@ -166,6 +166,8 @@
 	"pf_createclass_success": "將會建立指定的頁面。",
 	"pf_createclass_create": "建立",
 	"pf_createclass_ishierarchy": "等級？",
+	"pf-spreadsheet-addrow": "新增列",
+	"pf-spreadsheet-addrowinstructions": "您可以在最後一個列裡按下「Enter」，來新增一個列。",
 	"formstart": "使用表單",
 	"pf_formstart_badform": "錯誤：在頁面 \"$1\" 上沒有找到表單。",
 	"pf_formstart_badtitle": "錯誤：\"$1\" 不是有效的頁面標題。",

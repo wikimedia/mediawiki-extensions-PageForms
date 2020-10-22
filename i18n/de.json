@@ -173,6 +173,8 @@
 	"pf_createclass_success": "Die angegebenen Seiten werden erstellt.",
 	"pf_createclass_create": "Erstellen",
 	"pf_createclass_ishierarchy": "Hierarchie?",
+	"pf-spreadsheet-addrow": "Zeile ergänzen",
+	"pf-spreadsheet-addrowinstructions": "Du kannst eine neue Zeile hinzufügen, indem du in der letzten Zeile „Enter“ drückst.",
 	"formstart": "Mit Formular hinzufügen",
 	"pf_formstart_badform": "Fehler: Das Formular „$1“ wurde nicht gefunden.",
 	"pf_formstart_badtitle": "Fehler: „$1“ ist kein gültiger Seitenname.",
