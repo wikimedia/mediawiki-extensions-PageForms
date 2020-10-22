@@ -74,31 +74,11 @@ class PFHooks {
 	 * @return bool Always true
 	 */
 	public static function registerModules( ResourceLoader &$resourceLoader ) {
-		global $wgVersion;
-
 		// These used to use a value of __DIR__ for 'localBasePath',
 		// but apparently in some installations that had a value of
 		// /PageForms/libs and in others just /PageForms, so we'll set
 		// the value here instead.
 		$pageFormsDir = __DIR__ . '/..';
-
-		// Between MW 1.34 and 1.35, all the jquery.ui.* modules were
-		// merged into one big module, "jquery.ui". We create some
-		// "wrapper" modules here to cover both cases.
-		if ( version_compare( $wgVersion, '1.35', '>=' ) ) {
-			$jQueryUIModules = [
-				'ext.pageforms.jqui.sortable' => [
-					'dependencies' => 'jquery.ui'
-				]
-			];
-		} else {
-			$jQueryUIModules = [
-				'ext.pageforms.jqui.sortable' => [
-					'dependencies' => 'jquery.ui.sortable'
-				]
-			];
-		}
-		$resourceLoader->register( $jQueryUIModules );
 
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
 			$resourceLoader->register( [

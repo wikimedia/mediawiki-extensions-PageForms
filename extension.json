@@ -329,7 +329,6 @@
 			],
 			"dependencies": [
 				"ext.pageforms",
-				"ext.pageforms.jqui.sortable",
 				"mediawiki.jqueryMsg"
 			],
 			"messages": [
@@ -374,7 +373,6 @@
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"ext.pageforms.jqui.sortable",
 				"ext.pageforms.jstree",
 				"ext.pageforms",
 				"moment",
@@ -397,7 +395,6 @@
 			],
 			"dependencies": [
 				"ext.pageforms.select2",
-				"ext.pageforms.jqui.sortable",
 				"ext.pageforms.jstree",
 				"ext.pageforms",
 				"moment",
