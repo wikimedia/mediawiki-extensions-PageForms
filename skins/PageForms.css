@@ -334,6 +334,12 @@ input.pfComboBoxActual {
 	border: 1px solid #a6a6a6;
 }
 
+.pfTokensGhost {
+	color: #777;
+	background-color: #f7f7f7 !important;
+	border: 1px solid #ddd !important;
+}
+
 /* Style for touch-screen devices */
 
 @media (hover: none), (pointer: none), (pointer: coarse) {

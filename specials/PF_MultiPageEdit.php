@@ -132,18 +132,18 @@ class PFMultiPageEdit extends QueryPage {
 		}
 		$templateDivID = str_replace( ' ', '', $template_name ) . "Grid";
 		$templateDivAttrs = [
-			'class' => 'pfJSGrid',
+			'class' => 'pfSpreadsheet',
 			'id' => $templateDivID,
 			'data-template-name' => $template_name,
 			'data-form-name' => $form_name,
 			'height' => '500px',
 			'editMultiplePages' => true
 		];
+		$text .= Html::element( 'p', null, wfMessage( 'pf-spreadsheet-addrowinstructions' )->parse() );
 		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
+		$text .= "<div id='loadingImage'>" . $loadingImage . "</div>";
+		$text .= Html::rawElement( 'div', $templateDivAttrs );
 
-		$text .= "<div id='loadingImage' style='display: none;'>" . $loadingImage . "</div>";
-
-		$text .= Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
 		$wgPageFormsGridParams[$template_name] = $gridParams;
 
 		PFFormUtils::setGlobalVarsForSpreadsheet();
