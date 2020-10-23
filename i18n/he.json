@@ -11,6 +11,7 @@
 			"Yaron Koren",
 			"YaronSh",
 			"חיים",
+			"ישראל קלר",
 			"ערן"
 		]
 	},
@@ -155,6 +156,7 @@
 	"pf_createclass_missingvalues": "לא כל השדות הנדרשים מולאו.",
 	"pf_createclass_success": "הדפים המצוינים ייוצרו.",
 	"pf_createclass_create": "יצירה",
+	"pf-spreadsheet-addrow": "הוספת שורה",
 	"formstart": "הוספת דף עם טופס",
 	"pf_formstart_badform": "שגיאה: לא נמצא דף טופס ב־$1",
 	"pf_formstart_badtitle": "שגיאה: \"$1\" היא כותרת דף בלתי תקינה.",

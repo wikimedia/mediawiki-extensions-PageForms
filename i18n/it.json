@@ -130,6 +130,7 @@
 	"pf_createclass_missingvalues": "Campi richiesti non completamente riempiti.",
 	"pf_createclass_success": "Le pagine specificate verranno create.",
 	"pf_createclass_create": "Crea",
+	"pf-spreadsheet-addrow": "Aggiungi riga",
 	"formstart": "Aggiungi pagina usando un modulo",
 	"pf_formstart_badform": "Errore: nessun modulo è stato trovato alla pagina $1",
 	"pf_formstart_badtitle": "Errore: \"$1\" non è un titolo valido per la pagina",

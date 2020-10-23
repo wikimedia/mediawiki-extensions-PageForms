@@ -188,6 +188,8 @@
 	"pf_createclass_success": "Les pages indiquées seront créées.",
 	"pf_createclass_create": "Créer",
 	"pf_createclass_ishierarchy": "Hiérarchie ?",
+	"pf-spreadsheet-addrow": "Ajouter une ligne",
+	"pf-spreadsheet-addrowinstructions": "Vous pouvez ajouter une nouvelle ligne en appuyant sur 'Enter' dans la dernière ligne.",
 	"formstart": "Ajouter une page avec un formulaire",
 	"pf_formstart_badform": "Erreur : aucune page de formulaire n’a été trouvée sur \"$1\".",
 	"pf_formstart_badtitle": "Erreur : « $1 » est un titre de page invalide.",

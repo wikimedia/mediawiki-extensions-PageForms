@@ -169,6 +169,8 @@
 	"pf_createclass_success": "As páginas especificadas serão criadas.",
 	"pf_createclass_create": "Criar",
 	"pf_createclass_ishierarchy": "Hierarquia?",
+	"pf-spreadsheet-addrow": "Adicionar linha",
+	"pf-spreadsheet-addrowinstructions": "Você pode adicionar uma nova linha pressionando 'Enter' na última linha.",
 	"formstart": "Adicionar página",
 	"pf_formstart_badform": "Erro: nenhum formulário foi encontrado na página \"$1\".",
 	"pf_formstart_badtitle": "Erro: \"$1\" é um título inválido para uma página.",

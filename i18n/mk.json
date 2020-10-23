@@ -157,6 +157,8 @@
 	"pf_createclass_success": "Ќе бидат создадени укажаните страници.",
 	"pf_createclass_create": "Создај",
 	"pf_createclass_ishierarchy": "Чинослед?",
+	"pf-spreadsheet-addrow": "Додај ред",
+	"pf-spreadsheet-addrowinstructions": "Можете да додадете нов ред стискајќи на „Enter“ во последниот ред.",
 	"formstart": "Додај страница со образец",
 	"pf_formstart_badform": "Грешка: на $1 не е пронајден образец",
 	"pf_formstart_badtitle": "Грешка: „$1“ не претставува важечки наслов за страница.",
