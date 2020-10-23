@@ -243,8 +243,7 @@ END;
 	 * @param Parser|null $parser
 	 */
 	public static function addFormRLModules( $parser = null ) {
-		global $wgOut, $wgPageFormsSimpleUpload, $wgVersion,
-			$wgUsejQueryThree;
+		global $wgOut, $wgPageFormsSimpleUpload;
 
 		// Handling depends on whether or not this form is embedded
 		// in another page.
@@ -272,16 +271,10 @@ END;
 			'ext.pageforms.autogrow',
 			'ext.pageforms.checkboxes',
 			'ext.pageforms.select2',
-			'ext.pageforms.rating'
+			'ext.pageforms.rating',
+			'ext.pageforms.fancybox',
+			'ext.pageforms.fullcalendar'
 		];
-
-		if ( version_compare( $wgVersion, '1.30', '<' ) || $wgUsejQueryThree === false ) {
-			$mainModules[] = 'ext.pageforms.fancybox.jquery1';
-			$mainModules[] = 'ext.pageforms.fullcalendar.jquery1';
-		} else {
-			$mainModules[] = 'ext.pageforms.fancybox.jquery3';
-			$mainModules[] = 'ext.pageforms.fullcalendar.jquery3';
-		}
 
 		if ( $wgPageFormsSimpleUpload ) {
 			$mainModules[] = 'ext.pageforms.simpleupload';
