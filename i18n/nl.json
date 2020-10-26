@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aranka",
 			"Arg",
 			"Ecthelion3",
 			"Esketti",
@@ -150,6 +151,7 @@
 	"pf_createclass_missingvalues": "Niet alle verplichte velden zijn ingevuld.",
 	"pf_createclass_success": "De opgegeven pagina ' s worden gemaakt.",
 	"pf_createclass_create": "Aanmaken",
+	"pf-spreadsheet-addrow": "Rij toevoegen",
 	"formstart": "Pagina toevoegen met formulier",
 	"pf_formstart_badform": "Fout: er is geen formulierpagina aangetroffen op \"$1\".",
 	"pf_formstart_badtitle": "Fout: \"$1\" is een ongeldige paginanaam.",

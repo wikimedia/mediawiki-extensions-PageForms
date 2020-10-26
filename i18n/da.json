@@ -33,6 +33,7 @@
 	"createclass": "Opret en klasse",
 	"pf_createclass_allowedvalues": "Tilladte værdier:",
 	"pf_createclass_create": "Opret",
+	"pf-spreadsheet-addrow": "Tilføj række",
 	"pf_editsource": "Rediger kilde",
 	"pf_formedit_none": "Ingen",
 	"pf_autoedit_redlinkexists": "$1 findes allerede.",
