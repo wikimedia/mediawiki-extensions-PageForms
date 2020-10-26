@@ -47,8 +47,6 @@
 	};
 
 	TreeInput_proto.check = function( data ) {
-		var div_id = $(this.element).attr('id');
-		var input_name = div_id.replace("treeinput", "");
 		var input = $(this.element).next('input.PFTree_data');
 
 		if ( this.multiple ) {
@@ -62,8 +60,6 @@
 	};
 
 	TreeInput_proto.uncheck = function( data ) {
-		var div_id = $( this.element ).attr('id');
-		var input_name = div_id.replace( "treeinput", "" );
 		var input = $( this.element ).next( 'input.PFTree_data' );
 
 		this.values.splice( this.values.indexOf( data ), 1 );
@@ -73,8 +69,6 @@
 
 	TreeInput_proto.setCurValue = function () {
 		if ( this.cur_value !== null && this.cur_value !== undefined && this.cur_value !== "" ) {
-			var div_id = $( this.element ).attr('id');
-			var input_name = div_id.replace( "treeinput", "" );
 			var input = $( this.element ).next( 'input.PFTree_data' );
 
 			input.attr( 'value', this.cur_value );
