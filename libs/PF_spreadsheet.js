@@ -558,7 +558,7 @@ const manageColumnTitle = '\u2699';
 					//dataValues[spreadsheetID].splice(y, 1);
 				} );
 
-				$("#loadingImage").css( "display", "none" );
+				$('div#' + spreadsheetID + ' div.loadingImage').css( "display", "none" );
 
 			});
 		})();

@@ -141,8 +141,8 @@ class PFMultiPageEdit extends QueryPage {
 		];
 		$text .= Html::element( 'p', null, wfMessage( 'pf-spreadsheet-addrowinstructions' )->parse() );
 		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
-		$text .= "<div id='loadingImage'>" . $loadingImage . "</div>";
-		$text .= Html::rawElement( 'div', $templateDivAttrs );
+		$loadingImageDiv = '<div class="loadingImage">' . $loadingImage . '</div>';
+		$text .= Html::rawElement( 'div', $templateDivAttrs, $loadingImageDiv );
 
 		$wgPageFormsGridParams[$template_name] = $gridParams;
 

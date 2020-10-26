@@ -528,7 +528,7 @@ END;
 		$templateName = $tif->getTemplateName();
 		$templateDivID = str_replace( ' ', '', $templateName ) . "Grid";
 		$templateDivAttrs = [
-			'class' => 'pfJSGrid',
+			'class' => 'pfSpreadsheet',
 			'id' => $templateDivID,
 			'data-template-name' => $templateName
 		];
@@ -537,7 +537,8 @@ END;
 		}
 
 		$loadingImage = Html::element( 'img', [ 'src' => "$wgPageFormsScriptPath/skins/loading.gif" ] );
-		$text = Html::rawElement( 'div', $templateDivAttrs, $loadingImage );
+		$loadingImageDiv = '<div class="loadingImage">' . $loadingImage . '</div>';
+		$text = Html::rawElement( 'div', $templateDivAttrs, $loadingImageDiv );
 
 		$wgPageFormsGridParams[$templateName] = $gridParams;
 		$wgPageFormsGridValues[$templateName] = $tif->getGridValues();
