@@ -16,9 +16,6 @@ use MediaWiki\Widget\DateTimeInputWidget;
 
 class PFDateTimePicker extends PFFormInput {
 
-	protected $mDatePicker;
-	protected $mTimePicker;
-
 	/**
 	 * @param string $input_number The number of the input in the form.
 	 * @param string $cur_value The current value of the input field.
@@ -60,7 +57,7 @@ class PFDateTimePicker extends PFFormInput {
 			'name' => $this->mInputName,
 			'value' => $this->mCurrentValue,
 			'id' => 'input_' . $this->mInputNumber,
-			'classes' => [ 'ext-pageforms-datetimewidget' ],
+			'classes' => [ 'pfDateTimePicker' ],
 			'infusable' => true,
 		] );
 		return $widget->toString();
@@ -85,8 +82,6 @@ class PFDateTimePicker extends PFFormInput {
 			PFDatePickerInput::getParameters()
 		);
 
-		// Copied from PFTimePickerInput, which was not moved
-		// over to Page Forms.
 		$params['mintime'] = [
 			'name' => 'mintime',
 			'type' => 'string',
@@ -115,7 +110,7 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return null|string|array
 	 */
 	public function getResourceModuleNames() {
-		return [ 'ext.pageforms.timepicker', 'ext.pageforms.datetimepicker' ];
+		return [ 'ext.pageforms.datetimepicker' ];
 	}
 
 }

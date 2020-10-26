@@ -2,19 +2,16 @@
  * JavaScript code to be used with input type datepicker.
  *
  * @author Sam Wilson
+ * @author Yaron Koren
  */
 
-( function( $, oo ) {
-    'use strict';
+( function( $, oo, mw, pf ) {
+	'use strict';
 
-    // Infuse all DateTimeInput widgets.
-    mw.loader.using([
-        'mediawiki.widgets',
-        'mediawiki.widgets.DateInputWidget'
-    ]).done(function () {
-        $( '.ext-pageforms-datewidget' ).each( function () {
-            var widget = oo.ui.infuse( $( this ) );
-        } );
-    });
+	jQuery.fn.applyDatePicker = function() {
+		return this.each(function() {
+			oo.ui.infuse( this );
+		});
+	};
 
-} )( jQuery, OO );
+} )( jQuery, OO, mediaWiki, pf )

@@ -53,7 +53,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * @return null|string|array
 	 */
 	public function getResourceModuleNames() {
-		return [ 'jquery.ui.datepicker', 'ext.pageforms.datepicker' ];
+		return [ 'ext.pageforms.datepicker' ];
 	}
 
 	/**
@@ -101,7 +101,7 @@ class PFDatePickerInput extends PFFormInput {
 			'name' => $this->mInputName,
 			'value' => $this->mCurrentValue,
 			'id' => 'input_' . $this->mInputNumber,
-			'classes' => [ 'ext-pageforms-datewidget' ],
+			'classes' => [ 'pfDatePicker' ],
 			'infusable' => true,
 		] );
 		$widget = new DateInputWidget( $options );

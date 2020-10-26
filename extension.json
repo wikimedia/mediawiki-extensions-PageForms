@@ -162,6 +162,8 @@
 			"dependencies": [
 				"ext.pageforms.sortable",
 				"ext.pageforms.autogrow",
+				"ext.pageforms.datepicker",
+				"ext.pageforms.datetimepicker",
 				"mediawiki.util",
 				"mediawiki.api",
 				"ext.pageforms.select2",
@@ -267,12 +269,9 @@
 			]
 		},
 		"ext.pageforms.datepicker": {
-			"scripts": [
-				"libs/PF_datepicker.js"
-			],
+			"scripts": "libs/PF_datepicker.js",
 			"dependencies": [
-				"mediawiki.widgets.datetime",
-				"ext.pageforms.main"
+				"mediawiki.widgets.DateInputWidget"
 			]
 		},
 		"ext.pageforms.timepicker": {
@@ -282,8 +281,7 @@
 		"ext.pageforms.datetimepicker": {
 			"scripts": "libs/PF_datetimepicker.js",
 			"dependencies": [
-				"ext.pageforms.datepicker",
-				"ext.pageforms.timepicker"
+				"mediawiki.widgets.datetime"
 			]
 		},
 		"ext.pageforms.regexp": {

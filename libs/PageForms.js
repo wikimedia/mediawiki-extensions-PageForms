@@ -1423,6 +1423,8 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find(".pfTreeInput").each( function() {
 			$(this).applyJSTree();
 		});
+		this.find('.pfDatePicker').applyDatePicker();
+		this.find('.pfDateTimePicker').applyDateTimePicker();
 	} else {
 		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
@@ -1432,6 +1434,8 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find(".pfTreeInput").not(".multipleTemplateWrapper .pfTreeInput").each( function() {
 			$(this).applyJSTree();
 		});
+		this.find('.pfDatePicker').not(".multipleTemplateWrapper .pfDatePicker").applyDatePicker();
+		this.find('.pfDateTimePicker').not(".multipleTemplateWrapper .pfDateTimePicker").applyDateTimePicker();
 	}
 
 	// @TODO - this should ideally be called only for inputs that have
