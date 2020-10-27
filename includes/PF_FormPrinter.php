@@ -503,7 +503,13 @@ END;
 			if ( $formField->getLabel() !== null ) {
 				$gridParamValues['title'] = $formField->getLabel();
 			}
-			if ( $inputType == 'textarea' ) {
+			if ( !empty( $allowedValues = $formField->getPossibleValues() ) ) {
+				$gridParamValues['values'] = $allowedValues;
+				if ( $formField->isList() ) {
+					$gridParamValues['list'] = true;
+					$gridParamValues['delimiter'] = $formField->getFieldArg( 'delimiter' );
+				}
+			} elseif ( $inputType == 'textarea' ) {
 				$gridParamValues['type'] = 'textarea';
 			} elseif ( $inputType == 'checkbox' ) {
 				$gridParamValues['type'] = 'checkbox';

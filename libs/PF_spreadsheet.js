@@ -1,4 +1,3 @@
-
 /**
  * Code to integrate the jExcel JavaScript library into Page Forms.
  *
@@ -6,6 +5,7 @@
  * @author Balabky9
  * @author Amr El-Absy
  */
+
 const saveIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-check oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'upload-dialog-button-save' ) + '"></span>';
 const cancelIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-close oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'cancel' ) + '"></span>';
 const addIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-add oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'apisandbox-add-multi' ) + '"></span>';
@@ -23,6 +23,10 @@ const manageColumnTitle = '\u2699';
 			return false;
 		}
 
+		if ( typeof value === 'boolean' ) {
+			return value;
+		}
+
 		if ( typeof value === 'string' ) {
 			value = value.toLowerCase();
 		}
@@ -34,15 +38,32 @@ const manageColumnTitle = '\u2699';
 		return ( possibleYesMessages.indexOf( value ) >= 0 );
 	};
 
+	jexcel.prototype.getjExcelValue = function( mwValue, columnAttributes ) {
+		if ( columnAttributes['type'] == 'checkbox' ) {
+			return jexcel.prototype.valueIsYes(mwValue);
+		} else if ( columnAttributes['list'] == true ) {
+			// The list delimiter unfortunately can't be set for
+			// jExcel - it's hardcoded to a semicolon - and values
+			// can't have spaces around them. So we have to
+			// modify the current value for it to be handled
+			// correctly.
+			var individualValues = mwValue.split( columnAttributes['delimiter'] );
+			return $.map( individualValues, $.trim ).join(';');
+		} else if ( columnAttributes['type'] == 'date' ) {
+			var date = new Date( mwValue );
+			var monthNum = date.getMonth() + 1;
+			return date.getFullYear() + '-' + monthNum + '-' + date.getDate();
+		} else {
+			return mwValue;
+		}
+	}
+
 	jexcel.prototype.saveChanges = function( spreadsheetID, pageName, newPageName, queryString, formName, rowNum, rowValues, columns, editMultiplePages ) {
 		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function () {
 			var columnNum = $(this).attr("data-x");
 			var curColumn = columns[columnNum]['title'];
 			var curValue = rowValues[curColumn];
 			if ( rowValues[curColumn] !== undefined ) {
-				if ( columns[columnNum]['type'] == 'checkbox' ) {
-					curValue = jexcel.prototype.valueIsYes(curValue);
-				}
 				mw.spreadsheets[spreadsheetID].setValue( this, curValue );
 			}
 		});
@@ -159,13 +180,35 @@ const manageColumnTitle = '\u2699';
 	function getjExcelType( mwType ) {
 		var convert = {
 			"date": "calendar",
-			"checkbox": "checkbox",
-			"dropdown": "dropdown"
+			"checkbox": "checkbox"
 		};
 		if ( convert[mwType] !== undefined ) {
 			return convert[mwType];
 		}
 		return "text";
+	}
+
+        function getMWValueFromCell( $cell, columnAttributes ) {
+		var jExcelValue;
+                if ( columnAttributes['type'] == 'checkbox' ) {
+                        jExcelValue = $cell.find('input').prop( 'checked' );
+                } else {
+                        jExcelValue = $cell.html();
+                }
+		return getMWValueFromjExcelValue( jExcelValue, columnAttributes );
+        }
+
+	function getMWValueFromjExcelValue( jExcelValue, columnAttributes ) {
+		if ( columnAttributes['type'] == 'checkbox' ) {
+			return ( jExcelValue == true ) ?
+				mw.config.get( 'wgPageFormsContLangYes' ) :
+				mw.config.get( 'wgPageFormsContLangNo' );
+		} else if ( columnAttributes['list'] == true ) {
+			var delimiter = columnAttributes['delimiter'] + ' ';
+			return jExcelValue.replace(/;/g, delimiter);
+		} else {
+			return jExcelValue;
+		}
 	}
 
 	$( '.pfSpreadsheet' ).each( function() {
@@ -203,6 +246,14 @@ const manageColumnTitle = '\u2699';
 			}
 			if ( jExcelType == 'text' ) {
 				columnAttributes['wordWrap'] = true;
+			}
+			var allowedValues = templateParam['values'];
+			if ( allowedValues !== undefined ) {
+				columnAttributes['type'] = 'dropdown';
+				columnAttributes['source'] = allowedValues;
+				if ( templateParam['list'] === true ) {
+					columnAttributes['multiple'] = true;
+				}
 			}
 			columns.push( columnAttributes );
 		}
@@ -336,17 +387,13 @@ const manageColumnTitle = '\u2699';
 			// Called whenever the user makes a change to the data.
 			function editMade( instance, cell, x, y, value ) {
 				var spreadsheetID = $(instance).attr('id');
-				if ( columns[x]['type'] == 'checkbox' ) {
-					value = ( value == true ) ?
-						mw.config.get( 'wgPageFormsContLangYes' ) :
-						mw.config.get( 'wgPageFormsContLangNo' );
-				}
 				var columnName = columnNames[x];
 				if ( columnName === "page" ) {
 					newPageNames[y] = value;
 					page = value === '' ? " " : value;
 				} else {
-					queryStrings[y] += '&' + templateName + '[' + columnName + ']' + '=' + value;
+					var mwValue = getMWValueFromjExcelValue( value, gridParams[templateName][x] );
+					queryStrings[y] += '&' + templateName + '[' + columnName + ']' + '=' + mwValue;
 				}
 
 				// Update either the "save" or the "add" icon,
@@ -466,8 +513,9 @@ const manageColumnTitle = '\u2699';
 						}
 
 						if ( curValue !== undefined ) {
-							myData[rowNum].push( curValue );
-							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']' + '=' + curValue;
+							var jExcelValue = jexcel.prototype.getjExcelValue( curValue, gridParams[templateName][columnNum] );
+							myData[rowNum].push( jExcelValue );
+							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']' + '=' + jExcelValue;
 						} else if ( columnName === manageColumnTitle ) {
 							var cellContents = "<span style='display: none' id='page-span-" + pageName + "'>" +
 								"<a href=\"#\" class=\"save-changes\">" + saveIcon + "</a>" +
@@ -581,17 +629,10 @@ const manageColumnTitle = '\u2699';
 					return;
 				}
 
-				var paramType = getjExcelType( gridParams[templateName][columnNum].type );
-				if ( paramType == 'checkbox' ) {
-					var value = $(this).find('input').prop( 'checked' ) ?
-						mw.config.get( 'wgPageFormsContLangYes' ) :
-						mw.config.get( 'wgPageFormsContLangNo' );
-				} else {
-					var value = $(this).html();
-				}
+				var mwValue = getMWValueFromCell( $(this), gridParams[templateName][columnNum] );
 				var paramName = gridParams[templateName][columnNum].name;
 				var inputName = templateName + '[' + ( rowNum + 1 ) + '][' + paramName + ']';
-				$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', value ).appendTo( '#pfForm' );
+				$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', mwValue ).appendTo( '#pfForm' );
 			});
 		});
 	});

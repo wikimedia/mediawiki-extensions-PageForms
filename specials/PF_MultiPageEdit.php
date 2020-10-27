@@ -79,7 +79,13 @@ class PFMultiPageEdit extends QueryPage {
 			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
 			$gridParamValues['title'] = $templateField->getLabel();
 			$gridParamValues['type'] = 'text';
-			if ( !empty( $fieldType = $templateField->getFieldType() ) ) {
+			if ( !empty( $allowedValues = $templateField->getPossibleValues() ) ) {
+				$gridParamValues['values'] = $allowedValues;
+				if ( $templateField->isList() ) {
+					$gridParamValues['list'] = true;
+					$gridParamValues['delimiter'] = $templateField->getDelimiter();
+				}
+			} elseif ( !empty( $fieldType = $templateField->getFieldType() ) ) {
 				if ( $fieldType == 'Date' ) {
 					$gridParamValues['type'] = 'date';
 				} elseif ( $fieldType == 'Boolean' ) {
