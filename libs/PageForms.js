@@ -813,6 +813,10 @@ window.validateAll = function () {
 
 	var num_errors = 0;
 
+	var args = {num_errors: 0};
+	mw.hook('pf.formValidation').fire( args );
+	num_errors = args.num_errors;
+
 	// Remove all old error messages.
 	$(".errorMessage").remove();
 
