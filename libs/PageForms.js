@@ -811,11 +811,9 @@ window.validateAll = function () {
 	// Hook that fires on form submission, before the validation.
 	mw.hook('pf.formValidationBefore').fire();
 
-	var num_errors = 0;
-
-	var args = {num_errors: 0};
+	var args = {numErrors: 0};
 	mw.hook('pf.formValidation').fire( args );
-	num_errors = args.num_errors;
+	var num_errors = args.numErrors;
 
 	// Remove all old error messages.
 	$(".errorMessage").remove();
