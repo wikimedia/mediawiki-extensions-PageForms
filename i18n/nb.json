@@ -166,6 +166,8 @@
 	"pf_createclass_success": "De angitte sidene vil bli opprettet.",
 	"pf_createclass_create": "Opprett",
 	"pf_createclass_ishierarchy": "Hierarki?",
+	"pf-spreadsheet-addrow": "Legg til rad",
+	"pf-spreadsheet-addrowinstructions": "Du kan legge til en ny rad ved å trykke retur i siste rad.",
 	"formstart": "Legg til side gjennom et skjema",
 	"pf_formstart_badform": "Feil: Ingen skjema ble funnet på side $1",
 	"pf_formstart_badtitle": "Feil: «$1» er en ugyldig sidetittel.",
