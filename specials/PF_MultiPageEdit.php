@@ -88,12 +88,13 @@ class PFMultiPageEdit extends QueryPage {
 			} elseif ( !empty( $fieldType = $templateField->getFieldType() ) ) {
 				if ( $fieldType == 'Date' ) {
 					$gridParamValues['type'] = 'date';
+				} elseif ( $fieldType == 'Datetime' ) {
+					$gridParamValues['type'] = 'datetime';
 				} elseif ( $fieldType == 'Boolean' ) {
 					$gridParamValues['type'] = 'checkbox';
 				} elseif ( $fieldType == 'Text' ) {
 					$gridParamValues['type'] = 'textarea';
 				} elseif ( $fieldType == 'Page' ) {
-					$gridParamValues['type'] = 'select';
 					if ( $templateField->isList() ) {
 						$gridParamValues['type'] = 'tokens';
 						$gridParamValues['delimiter'] = $templateField->getDelimiter();

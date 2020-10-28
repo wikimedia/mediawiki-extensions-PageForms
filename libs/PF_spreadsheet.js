@@ -53,6 +53,11 @@ const manageColumnTitle = '\u2699';
 			var date = new Date( mwValue );
 			var monthNum = date.getMonth() + 1;
 			return date.getFullYear() + '-' + monthNum + '-' + date.getDate();
+		} else if ( columnAttributes['type'] == 'datetime' ) {
+			var date = new Date( mwValue );
+			var monthNum = date.getMonth() + 1;
+			return date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
+				' ' + date.getHours() + ':' + date.getMinutes();
 		} else {
 			return mwValue;
 		}
@@ -177,26 +182,15 @@ const manageColumnTitle = '\u2699';
 		gridParams = mw.config.get( 'wgPageFormsGridParams' ),
 		gridValues = mw.config.get( 'wgPageFormsGridValues' );
 
-	function getjExcelType( mwType ) {
-		var convert = {
-			"date": "calendar",
-			"checkbox": "checkbox"
-		};
-		if ( convert[mwType] !== undefined ) {
-			return convert[mwType];
-		}
-		return "text";
-	}
-
-        function getMWValueFromCell( $cell, columnAttributes ) {
+	function getMWValueFromCell( $cell, columnAttributes ) {
 		var jExcelValue;
-                if ( columnAttributes['type'] == 'checkbox' ) {
-                        jExcelValue = $cell.find('input').prop( 'checked' );
-                } else {
-                        jExcelValue = $cell.html();
-                }
+		if ( columnAttributes['type'] == 'checkbox' ) {
+			jExcelValue = $cell.find('input').prop( 'checked' );
+		} else {
+			jExcelValue = $cell.html();
+		}
 		return getMWValueFromjExcelValue( jExcelValue, columnAttributes );
-        }
+	}
 
 	function getMWValueFromjExcelValue( jExcelValue, columnAttributes ) {
 		if ( columnAttributes['type'] == 'checkbox' ) {
@@ -235,7 +229,8 @@ const manageColumnTitle = '\u2699';
 
 		for ( var templateParam of gridParams[templateName] ) {
 			var columnName = templateParam['name'];
-			var jExcelType = getjExcelType( templateParam['type'] );
+			var columnType = templateParam['type'];
+			var jExcelType = 'text';
 			var columnAttributes = {
 				title: columnName,
 				width: columnWidth + "px",
@@ -243,6 +238,22 @@ const manageColumnTitle = '\u2699';
 			};
 			if ( columnName == 'page' ) {
 				columnAttributes['readOnly'] = true;
+			}
+			if ( columnType == 'date' ) {
+				jExcelType = 'calendar';
+			} else if ( columnType == 'datetime' ) {
+				jExcelType = 'calendar';
+				columnAttributes['options'] = {
+					time: 1
+				}
+			}
+			var allowedValues = templateParam['values'];
+			if ( allowedValues !== undefined ) {
+				jExcelType = 'dropdown';
+				columnAttributes['source'] = allowedValues;
+				if ( templateParam['list'] === true ) {
+					columnAttributes['multiple'] = true;
+				}
 			}
 			if ( jExcelType == 'text' ) {
 				columnAttributes['wordWrap'] = true;
@@ -255,6 +266,7 @@ const manageColumnTitle = '\u2699';
 					columnAttributes['multiple'] = true;
 				}
 			}
+			columnAttributes['type'] = jExcelType;
 			columns.push( columnAttributes );
 		}
 

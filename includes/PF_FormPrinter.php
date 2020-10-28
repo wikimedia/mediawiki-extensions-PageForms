@@ -515,6 +515,8 @@ END;
 				$gridParamValues['type'] = 'checkbox';
 			} elseif ( $inputType == 'date' ) {
 				$gridParamValues['type'] = 'date';
+			} elseif ( $inputType == 'datetime' ) {
+				$gridParamValues['type'] = 'datetime';
 			} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
 				array_unshift( $possibleValues, '' );
 				$completePossibleValues = [];
