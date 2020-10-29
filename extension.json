@@ -204,7 +204,8 @@
 			],
 			"styles": [
 				"skins/jstree/jstree.css"
-			]
+			],
+			"dependencies": "ext.pageforms"
 		},
 		"ext.pageforms.sortable": {
 			"scripts": [

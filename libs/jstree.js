@@ -4,9 +4,10 @@
 	if (typeof define === 'function' && define.amd) {
 		define(['jquery'], factory);
 	}
-	else if(typeof module !== 'undefined' && module.exports) {
-		module.exports = factory(require('jquery'));
-	}
+	// Commented out for Page Forms.
+	//else if(typeof module !== 'undefined' && module.exports) {
+	//	module.exports = factory(require('jquery'));
+	//}
 	else {
 		factory(jQuery);
 	}
