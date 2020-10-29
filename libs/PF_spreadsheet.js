@@ -200,6 +200,13 @@ const manageColumnTitle = '\u2699';
 		} else if ( columnAttributes['list'] == true ) {
 			var delimiter = columnAttributes['delimiter'] + ' ';
 			return jExcelValue.replace(/;/g, delimiter);
+		} else if ( columnAttributes['type'] == 'date' ) {
+			// For some reason, even if there is no time input,
+			// jExcel still appends " 00:00:00" onto every
+			// generated date value. Until there's a way to avoid
+			// that, just get rid of it here.
+			var dateParts = jExcelValue.split( ' ' );
+			return dateParts[0];
 		} else {
 			return jExcelValue;
 		}
