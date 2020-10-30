@@ -26,7 +26,7 @@ class PFDatePickerInput extends PFFormInput {
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value == 'now' ) {
-			$cur_value = date( 'Y/m/d' );
+			$cur_value = date( 'Y-m-d' );
 		}
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );

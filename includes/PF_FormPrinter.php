@@ -579,7 +579,7 @@ END;
 			$month_name = $month_names[$month - 1];
 			$curTimeString = "$month_name $day, $year";
 		} else {
-			$curTimeString = "$year/$month/$day";
+			$curTimeString = "$year-$month-$day";
 		}
 		if ( isset( $wgLocaltimezone ) ) {
 			date_default_timezone_set( $serverTimezone );

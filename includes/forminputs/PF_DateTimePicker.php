@@ -26,7 +26,7 @@ class PFDateTimePicker extends PFFormInput {
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value == 'now' ) {
-			$cur_value = date( 'Y/m/d H:i' ); // include hours and minutes
+			$cur_value = date( 'Y-m-d H:i' ); // include hours and minutes
 		}
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 	}
