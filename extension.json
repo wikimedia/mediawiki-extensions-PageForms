@@ -392,7 +392,8 @@
 				"mediawiki.language.months",
 				"oojs-ui-core",
 				"oojs-ui-windows",
-				"oojs-ui.styles.icons-moderation"
+				"oojs-ui.styles.icons-moderation",
+				"oojs-ui.styles.icons-movement"
 			],
 			"messages": [
 				"pf-spreadsheet-addrow",

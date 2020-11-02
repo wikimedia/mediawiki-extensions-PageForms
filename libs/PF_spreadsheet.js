@@ -9,6 +9,8 @@
 const saveIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-check oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'upload-dialog-button-save' ) + '"></span>';
 const cancelIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-close oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'cancel' ) + '"></span>';
 const addIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-add oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'apisandbox-add-multi' ) + '"></span>';
+const upIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-upTriangle oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + 'Raise' + '"></span>';
+const downIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-downTriangle oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + 'Lower' + '"></span>';
 const deleteIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-trash oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'delete' ) + '"></span>';
 const manageColumnTitle = '\u2699';
 
@@ -133,7 +135,7 @@ const manageColumnTitle = '\u2699';
 		queryStrings[rowNum] = "";
 		$("div#" + spreadsheetID + " td[data-y = " + rowNum + "] .save-changes").each( function () {
 			$(this).parent().hide();
-			$(this).parent().siblings('.delete-row').show();
+			$(this).parent().siblings('.mit-row-icons').show();
 		} );
 	}
 
@@ -141,17 +143,16 @@ const manageColumnTitle = '\u2699';
 	jexcel.prototype.saveNewRow = function( spreadsheetID, page, queryString, formName, rowNum, pageName, rowValues, columnNames, editMultiplePages ) {
 		var $manageCell = $( "div#" + spreadsheetID + " td[data-y=" + rowNum + "]" ).last();
 
-		var spanContents = "<a href=\"#\" class=\"save-changes\">" + saveIcon + "</a>" +
-			" | " +
-			"<a href=\"#\" class=\"cancel-changes\">" + cancelIcon + "</a>";
+		var spanContents = '<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
+			'<a href="#" class="cancel-changes">' + cancelIcon + '</a>';
 
-		$manageCell.children('span')
+		$manageCell.children('span.save-or-cancel')
 			.attr('id', 'page-span-' + pageName)
 			.html( spanContents )
 			.hide();
 
 		if ( editMultiplePages == undefined ) {
-			$manageCell.children('a.delete-row').show();
+			$manageCell.children('.mit-row-icons').show();
 			return;
 		}
 
@@ -278,7 +279,7 @@ const manageColumnTitle = '\u2699';
 		// One more column, for the management icons.
 		columns.push( {
 			title: manageColumnTitle,
-			width: "90px",
+			width: "100px",
 			type: "html",
 			readOnly: true
 		} );
@@ -440,11 +441,11 @@ const manageColumnTitle = '\u2699';
 						);
 						dataValues[spreadsheetID][y] = JSON.parse(JSON.stringify(modifiedDataValues[spreadsheetID][y]));
 						$(this).parent().hide();
-						$(this).parent().siblings('.delete-row').show();
+						$(this).parent().siblings('.mit-row-icons').show();
 					} );
 					// Use this opportunity to make the icons appear.
 					$(this).parent().show();
-					$(this).parent().siblings('.delete-row').hide();
+					$(this).parent().siblings('.mit-row-icons').hide();
 				});
 				$("div#" + spreadsheetID + " td[data-y = " + y + "] .save-new-row").each(function () {
 					$(this).click( function( event ) {
@@ -474,7 +475,7 @@ const manageColumnTitle = '\u2699';
 							columnNames
 						);
 						$(this).parent().hide();
-						$(this).parent().siblings('.delete-row').show();
+						$(this).parent().siblings('.mit-row-icons').show();
 					} );
 				});
 			}
@@ -534,14 +535,17 @@ const manageColumnTitle = '\u2699';
 							myData[rowNum].push( jExcelValue );
 							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']' + '=' + jExcelValue;
 						} else if ( columnName === manageColumnTitle ) {
-							var cellContents = "<span style='display: none' id='page-span-" + pageName + "'>" +
-								"<a href=\"#\" class=\"save-changes\">" + saveIcon + "</a>" +
-								" | " +
-								"<a class=\"cancel-changes\" href=\"#\">" + cancelIcon + "</a>" +
-								"</span>";
+							var cellContents = '<span class="save-or-cancel" style="display: none" id="page-span-' + pageName + '">' +
+								'<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
+								'<a href="#" class="cancel-changes">' + cancelIcon + '</a>' +
+								'</span>';
 
 							if ( editMultiplePages === undefined ) {
-								cellContents += "<a href=\"#\" class=\"delete-row\">" + deleteIcon + "</a>";
+								cellContents += '<span class="mit-row-icons">' + // "mit" = "multiple-instance template"
+									'<a href="#" class="raise-row">' + upIcon + '</a>' +
+									' <a href="#" class="lower-row">' + downIcon + '</a>' +
+									' | <a href="#" class="delete-row">' + deleteIcon + '</a>' +
+									'</span>';
 							}
 							myData[rowNum].push( cellContents );
 						} else {
@@ -560,11 +564,16 @@ const manageColumnTitle = '\u2699';
 
 				function rowAdded2( $instance, spreadsheetID ) {
 					var cell = $instance.find("tr").last().find("td").last();
-					var manageCellContents = "<span><a class=\"save-new-row\">" + addIcon + "</a>" + " | " +
-						"<a class=\"cancel-adding\">" + cancelIcon + "</a></span>";
+					var manageCellContents = '<span class="save-or-cancel">' +
+						'<a class="save-new-row">' + addIcon + '</a> | ' +
+						'<a class="cancel-adding">' + cancelIcon + '</a></span>';
 
 					if ( editMultiplePages === undefined ) {
-						manageCellContents += "<a href=\"#\" class=\"delete-row\">" + deleteIcon + "</a>";
+						manageCellContents += '<span class="mit-row-icons">' +
+							'<a href="#" class="raise-row">' + upIcon + '</a>' +
+							' <a href="#" class="lower-row">' + downIcon + '</a>' +
+							' | <a href="#" class="delete-row">' + deleteIcon + '</a>' +
+							'</span>';
 					}
 					cell.html(manageCellContents);
 					// Don't activate the "add page" icon
@@ -576,12 +585,28 @@ const manageColumnTitle = '\u2699';
 						jexcel.prototype.deleteRow(spreadsheetID, dataValues[spreadsheetID].length);
 					} );
 					if ( editMultiplePages === undefined ) {
-						cell.find("a.delete-row").hide().click( function( event ) {
+						cell.find("a.delete-row").click( function( event ) {
 							var y = cell.attr("data-y");
 							event.preventDefault();
 							jexcel.prototype.deleteRow( spreadsheetID, y );
 							//dataValues[spreadsheetID].splice(y, 1);
 						} );
+						cell.find("a.raise-row").click( function( event ) {
+							var y = cell.attr("data-y");
+							event.preventDefault();
+							if ( y > 0 ) {
+								mw.spreadsheets[spreadsheetID].moveRow( y, y - 1 );
+							}
+						} );
+						cell.find("a.lower-row").click( function( event ) {
+							var curSpreadsheet = mw.spreadsheets[spreadsheetID];
+							var y = parseInt( cell.attr("data-y") );
+							event.preventDefault();
+							if ( y + 1 < curSpreadsheet.getData().length ) {
+								curSpreadsheet.moveRow( y, y + 1 );
+							}
+						} );
+						cell.find('.mit-row-icons').hide();
 					}
 
 					queryStrings.push("");
@@ -614,6 +639,21 @@ const manageColumnTitle = '\u2699';
 						curSpreadsheet.setData([ ' ' ]);
 						var $curSpreadsheetDiv = $(this).closest('.pfSpreadsheet');
 						rowAdded2($curSpreadsheetDiv, spreadsheetID);
+					}
+				} );
+				$('div#' + spreadsheetID + ' a.raise-row').click( function ( event ) {
+					var y = $(this).parents('td').attr("data-y");
+					event.preventDefault();
+					if ( y > 0 ) {
+						mw.spreadsheets[spreadsheetID].moveRow( y, y - 1 );
+					}
+				} );
+				$('div#' + spreadsheetID + ' a.lower-row').click( function ( event ) {
+					var curSpreadsheet = mw.spreadsheets[spreadsheetID];
+					var y = parseInt( $(this).parents('td').attr("data-y") );
+					event.preventDefault();
+					if ( y + 1 < curSpreadsheet.getData().length ) {
+						mw.spreadsheets[spreadsheetID].moveRow( y, y + 1 );
 					}
 				} );
 				$('div#' + spreadsheetID + ' a.delete-row').click( function ( event ) {
