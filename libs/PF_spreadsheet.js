@@ -242,9 +242,6 @@ const manageColumnTitle = '\u2699';
 				title: columnName,
 				width: columnWidth + "px"
 			};
-			if ( columnName == 'page' ) {
-				columnAttributes['readOnly'] = true;
-			}
 			if ( columnType == 'checkbox' ) {
 				jExcelType = 'checkbox';
 			} else if ( columnType == 'date' ) {
