@@ -240,13 +240,14 @@ const manageColumnTitle = '\u2699';
 			var jExcelType = 'text';
 			var columnAttributes = {
 				title: columnName,
-				width: columnWidth + "px",
-				type: jExcelType
+				width: columnWidth + "px"
 			};
 			if ( columnName == 'page' ) {
 				columnAttributes['readOnly'] = true;
 			}
-			if ( columnType == 'date' ) {
+			if ( columnType == 'checkbox' ) {
+				jExcelType = 'checkbox';
+			} else if ( columnType == 'date' ) {
 				jExcelType = 'calendar';
 			} else if ( columnType == 'datetime' ) {
 				jExcelType = 'calendar';
