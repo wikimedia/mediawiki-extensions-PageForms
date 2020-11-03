@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajam",
 			"Alirezaaa",
 			"Armin1392",
 			"Ebraminio",
@@ -125,6 +126,7 @@
 	"pf_createclass_missingvalues": "همه زمینه‌های مورد نیاز پر نشده‌اند.",
 	"pf_createclass_success": "خواص، الگوها، فرم و دسته‌بندی ایجاد خواهند‌ شد.",
 	"pf_createclass_create": "ایجاد",
+	"pf-spreadsheet-addrowinstructions": "با زدن کلید 'اینتر' در آخرین ردیف می‌توانید یک ردیف جدید اضافه کنید.",
 	"formstart": "افزودن صفحه",
 	"pf_formstart_badform": "خطا: هیچ صفحه فرمی در $1 پیدا نشد",
 	"pf_formstart_badtitle": "خطا: \"$1\" یک عنوان صفحهٔ نامعتبر است.",
