@@ -215,7 +215,8 @@ const manageColumnTitle = '\u2699';
 			var dateParts = jExcelValue.split( ' ' );
 			return dateParts[0];
 		} else {
-			return jExcelValue;
+			var mwValue = jExcelValue.replace( /\<br\>/g, "\n" );
+			return mwValue;
 		}
 	}
 
@@ -684,6 +685,12 @@ const manageColumnTitle = '\u2699';
 				templateName = $(this).attr( 'data-template-name' ),
 				formName = $(this).attr( 'data-form-name' ),
 				editMultiplePages = $(this).attr( 'editMultiplePages' );
+
+			// Add a hidden input for each template, so that the PHP code can know
+			// which values came from a spreadsheet.
+			if ( !editMultiplePages ) {
+				$('<input>').attr( 'type', 'hidden' ).attr( 'name', 'spreadsheet_templates[' + templateName + ']' ).attr( 'value', 'true' ).appendTo( '#pfForm' );
+			}
 
 			$grid.find( "td" ).not('.readonly').each( function() {
 				var rowNum = $(this).attr('data-y');
