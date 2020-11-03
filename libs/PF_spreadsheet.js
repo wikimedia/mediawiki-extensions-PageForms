@@ -56,10 +56,17 @@ const manageColumnTitle = '\u2699';
 			return $.map( individualValues, $.trim ).join(';');
 		} else if ( columnAttributes['type'] == 'date' ) {
 			var date = new Date( mwValue );
+			// Avoid timezone strangeness.
+			date.setTime( date.getTime() + 60000 * date.getTimezoneOffset());
 			var monthNum = date.getMonth() + 1;
 			return date.getFullYear() + '-' + monthNum + '-' + date.getDate();
 		} else if ( columnAttributes['type'] == 'datetime' ) {
 			var date = new Date( mwValue );
+			// Avoid timezone strangeness, if what we're handling
+			// is just a date.
+			if ( ! mwValue.includes(':') ) {
+				date.setTime( date.getTime() + 60000 * date.getTimezoneOffset());
+			}
 			var monthNum = date.getMonth() + 1;
 			return date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
 				' ' + date.getHours() + ':' + date.getMinutes();
@@ -207,13 +214,8 @@ const manageColumnTitle = '\u2699';
 		} else if ( columnAttributes['list'] == true ) {
 			var delimiter = columnAttributes['delimiter'] + ' ';
 			return jExcelValue.replace(/;/g, delimiter);
-		} else if ( columnAttributes['type'] == 'date' ) {
-			// For some reason, even if there is no time input,
-			// jExcel still appends " 00:00:00" onto every
-			// generated date value. Until there's a way to avoid
-			// that, just get rid of it here.
-			var dateParts = jExcelValue.split( ' ' );
-			return dateParts[0];
+		} else if ( columnAttributes['type'] == 'date' || columnAttributes['type'] == 'datetime' ) {
+			return jExcelValue;
 		} else {
 			var mwValue = jExcelValue.replace( /\<br\>/g, "\n" );
 			return mwValue;
@@ -254,10 +256,14 @@ const manageColumnTitle = '\u2699';
 				jExcelType = 'checkbox';
 			} else if ( columnType == 'date' ) {
 				jExcelType = 'calendar';
+				columnAttributes['options'] = {
+					format: 'YYYY-MM-DD'
+				}
 			} else if ( columnType == 'datetime' ) {
 				jExcelType = 'calendar';
 				columnAttributes['options'] = {
-					time: 1
+					time: 1,
+					format: 'YYYY-MM-DD HH:MI'
 				}
 			}
 			var allowedValues = templateParam['values'];
