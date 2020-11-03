@@ -282,7 +282,7 @@ class PFTemplateInForm {
 		// POST does to strings anyway.
 		$query_template_name = str_replace( '.', '_', $query_template_name );
 		// ...and escape apostrophes.
-		// (Or don't.)
+			// (Or don't.)
 		// $query_template_name = str_replace( "'", "\'", $query_template_name );
 
 		$allValuesFromSubmit = $wgRequest->getArray( $query_template_name );
@@ -292,6 +292,15 @@ class PFTemplateInForm {
 		// If this is a multiple-instance template, get the values for
 		// this instance of the template.
 		if ( $this->mAllowMultiple ) {
+			// If this data came from a spreadsheet, unescape some characters.
+			$spreadsheetTemplates = $wgRequest->getArray( 'spreadsheet_templates' );
+			if ( is_array( $spreadsheetTemplates ) && array_key_exists( $query_template_name, $spreadsheetTemplates ) ) {
+				foreach ( $allValuesFromSubmit as &$rowValues ) {
+					foreach ( $rowValues as &$curValue ) {
+						$curValue = str_replace( [ '&lt;', '&gt;' ], [ '<', '>' ], $curValue );
+					}
+				}
+			}
 			$valuesFromSubmitKeys = [];
 			foreach ( array_keys( $allValuesFromSubmit ) as $key ) {
 				if ( $key != 'num' ) {
