@@ -41,6 +41,9 @@ const manageColumnTitle = '\u2699';
 	};
 
 	jexcel.prototype.getjExcelValue = function( mwValue, columnAttributes ) {
+		if ( mwValue == null ) {
+			return null;
+		}
 		if ( columnAttributes['type'] == 'checkbox' ) {
 			return jexcel.prototype.valueIsYes(mwValue);
 		} else if ( columnAttributes['list'] == true ) {
@@ -194,6 +197,9 @@ const manageColumnTitle = '\u2699';
 	}
 
 	function getMWValueFromjExcelValue( jExcelValue, columnAttributes ) {
+		if ( jExcelValue == null ) {
+			return null;
+		}
 		if ( columnAttributes['type'] == 'checkbox' ) {
 			return ( jExcelValue == true ) ?
 				mw.config.get( 'wgPageFormsContLangYes' ) :
