@@ -350,7 +350,7 @@ class PFParserFunctions {
 		// hidden value
 		$fs = PFUtils::getSpecialPage( 'FormStart' );
 		$fsURL = $fs->getPageTitle()->getLocalURL();
-		if ( ( $pos = strpos( $fsURL, "title=" ) ) > - 1 ) {
+		if ( ( $pos = strpos( $fsURL, "title=" ) ) > -1 ) {
 			$formContents .= Html::hidden( "title", urldecode( substr( $fsURL, $pos + 6 ) ) );
 		}
 		$listOfForms = preg_split( '~(?<!\\\)' . preg_quote( ',', '~' ) . '~', $inFormName );

@@ -181,7 +181,7 @@ END;
 			// identify the latter because they show up as arrays.
 			foreach ( $_REQUEST as $key => $val ) {
 				if ( is_array( $val ) ) {
-					$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
+					$redirect_url .= ( strpos( $redirect_url, '?' ) > -1 ) ? '&' : '?';
 					// Re-add the key (i.e. the template
 					// name), so we can make a nice query
 					// string snippet out of the whole
@@ -189,14 +189,14 @@ END;
 					$wrapperArray = [ $key => $val ];
 					$redirect_url .= urldecode( http_build_query( $wrapperArray ) );
 				} elseif ( $key == 'preload' || $key == 'returnto' ) {
-					$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
+					$redirect_url .= ( strpos( $redirect_url, '?' ) > -1 ) ? '&' : '?';
 					$redirect_url .= "$key=$val";
 				}
 			}
 		}
 
 		if ( $params !== null && $params !== '' ) {
-			$redirect_url .= ( strpos( $redirect_url, '?' ) > - 1 ) ? '&' : '?';
+			$redirect_url .= ( strpos( $redirect_url, '?' ) > -1 ) ? '&' : '?';
 			$redirect_url .= $params;
 		}
 

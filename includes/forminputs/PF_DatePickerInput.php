@@ -38,7 +38,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * This is the name to be used in the field definition for the
 	 * "input type" parameter.
 	 *
-	 * @return String The name of the input type this class handles.
+	 * @return string The name of the input type this class handles.
 	 */
 	public static function getName() {
 		return 'datepicker';
