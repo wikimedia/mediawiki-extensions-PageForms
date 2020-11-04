@@ -431,7 +431,7 @@ class PFTemplateInForm {
 					// If this was the last character in the template, remove
 					// the closing curly brackets.
 					if ( $template_ended ) {
-						$field = substr( $field, 0, - 1 );
+						$field = substr( $field, 0, -1 );
 					}
 					$field = self::restoreUnparsedText( $field, $unparsedTextReplacements );
 					// Either there's an equals sign near the beginning or not -

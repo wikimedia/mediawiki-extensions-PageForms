@@ -56,7 +56,7 @@ abstract class PFFormInput {
 	 * This is the name to be used in the field definition for the "input type"
 	 * parameter.
 	 *
-	 * @return String The name of the input type this class handles.
+	 * @return string The name of the input type this class handles.
 	 * @fixme Should be declared abstract. Static functions cannot be abstract.
 	 * Do we need this method at all? The name should be set outside this class
 	 * when the input type is registered.

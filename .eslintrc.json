@@ -5,7 +5,8 @@
 	},
 	"extends": [
 		"wikimedia/client",
-		"wikimedia/jquery"
+		"wikimedia/jquery",
+		"wikimedia/mediawiki"
 	],
 	"env": {
 		"commonjs": true
@@ -88,6 +89,7 @@
 		"no-jquery/no-sizzle": "warn",
 		"no-jquery/variable-pattern": "warn",
 		"no-shadow": "warn",
-		"no-unreachable-loop": "warn"
+		"no-unreachable-loop": "warn",
+		"mediawiki/msg-doc": "warn"
 	}
 }

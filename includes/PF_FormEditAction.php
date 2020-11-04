@@ -15,7 +15,7 @@ class PFFormEditAction extends Action {
 
 	/**
 	 * Return the name of the action this object responds to
-	 * @return String lowercase
+	 * @return string lowercase
 	 */
 	public function getName() {
 		return 'formedit';
@@ -130,7 +130,7 @@ class PFFormEditAction extends Action {
 		// view source tab, set the location index to -1, so the
 		// tab shows up near the end.
 		if ( $edit_tab_location == null ) {
-			$edit_tab_location = - 1;
+			$edit_tab_location = -1;
 		}
 		array_splice( $tab_keys, $edit_tab_location, 0, 'formedit' );
 		array_splice( $tab_values, $edit_tab_location, 0, [ $form_edit_tab ] );

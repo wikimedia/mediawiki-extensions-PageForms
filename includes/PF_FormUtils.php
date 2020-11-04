@@ -677,7 +677,7 @@ END;
 			} elseif ( $i == $new_item_loc ) {
 				// it's the new template; it shouldn't
 				// get any query-string data
-				$old_i = - 1;
+				$old_i = -1;
 			}
 		} elseif ( $deleted_item_loc != null ) {
 			if ( $i >= $deleted_item_loc ) {
