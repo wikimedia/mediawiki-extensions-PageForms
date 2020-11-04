@@ -576,7 +576,7 @@ $.fn.validateUniqueField = function() {
 
 $.fn.validateMandatoryComboBox = function() {
 	var combobox = this.find('.mandatoryField');
-	if (combobox.val() === null) {
+	if (combobox.val() === null || combobox.val() === '') {
 		this.addErrorMessage( 'pf_blank_error' );
 		return false;
 	} else {
