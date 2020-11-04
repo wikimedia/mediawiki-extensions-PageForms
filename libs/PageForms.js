@@ -1461,7 +1461,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 
 	this.find('.new-uuid').each( function() {
-		$(this).val(generateUUID());
+		$(this).val(window.pfGenerateUUID());
 	});
 
 	var myThis = this;
@@ -1509,8 +1509,9 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 };
 
 // Copied from https://stackoverflow.com/a/8809472
-function generateUUID() { // Public domain/MIT
-	var d = new Date().getTime(); // Timestamp
+// License: public domain/MIT
+window.pfGenerateUUID = function() {
+	var d = new Date().getTime();
 	var d2 = (performance && performance.now && (performance.now() * 1000)) || 0; // Time in microseconds since page-load or 0 if unsupported
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random() * 16; // random number between 0 and 16
