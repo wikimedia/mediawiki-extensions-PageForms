@@ -503,6 +503,9 @@ END;
 			if ( $formField->getLabel() !== null ) {
 				$gridParamValues['title'] = $formField->getLabel();
 			}
+			if ( $formField->getDefaultValue() !== null ) {
+				$gridParamValues['default'] = $formField->getDefaultValue();
+			}
 			if ( !empty( $allowedValues = $formField->getPossibleValues() ) ) {
 				$gridParamValues['values'] = $allowedValues;
 				if ( $formField->isList() ) {

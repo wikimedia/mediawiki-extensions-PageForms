@@ -576,7 +576,29 @@ const manageColumnTitle = '\u2699';
 				}
 
 				function rowAdded2( $instance, spreadsheetID ) {
-					var cell = $instance.find("tr").last().find("td").last();
+					var $newRow = $instance.find("tr").last();
+					var columnParams = gridParams[templateName];
+					for ( var columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
+						var defaultValue = columnParams[columnNum]['default'];
+						if ( defaultValue == undefined ) {
+							continue;
+						}
+						var realDefaultValue = defaultValue;
+						// Special handling for some default values.
+						if ( defaultValue == 'now' ) {
+							var date = new Date();
+							var monthNum = date.getMonth() + 1;
+							realDefaultValue =  date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
+								' ' + date.getHours() + ':' + date.getMinutes();
+						} else if ( defaultValue == 'current user' ) {
+							realDefaultValue = mw.config.get( 'wgUserName' );
+						} else if ( defaultValue == 'uuid' ) {
+							realDefaultValue = window.pfGenerateUUID();
+						}
+						var $curCell = $newRow.find("td:nth-child(" + ( columnNum + 2 ) + ")");
+						$curCell.html(realDefaultValue);
+					}
+					var cell = $newRow.find("td").last();
 					var manageCellContents = '<span class="save-or-cancel">' +
 						'<a class="save-new-row">' + addIcon + '</a> | ' +
 						'<a class="cancel-adding">' + cancelIcon + '</a></span>';
