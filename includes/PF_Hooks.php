@@ -374,6 +374,9 @@ class PFHooks {
 			return true;
 		}
 
+		// Needed in case there are any OOUI-based input types in the form.
+		$wgOut->enableOOUI();
+
 		if ( method_exists( $wgOut, 'parseAsInterface' ) ) {
 			// MW 1.32+
 			$previewNote = $wgOut->parseAsInterface( wfMessage( 'pf-preview-note' )->text() );
