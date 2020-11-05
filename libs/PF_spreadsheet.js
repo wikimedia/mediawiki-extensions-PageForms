@@ -599,9 +599,7 @@ const manageColumnTitle = '\u2699';
 						$curCell.html(realDefaultValue);
 					}
 					var cell = $newRow.find("td").last();
-					var manageCellContents = '<span class="save-or-cancel">' +
-						'<a class="save-new-row">' + addIcon + '</a> | ' +
-						'<a class="cancel-adding">' + cancelIcon + '</a></span>';
+					var manageCellContents = '';
 
 					if ( editMultiplePages === undefined ) {
 						manageCellContents += '<span class="mit-row-icons">' +
@@ -609,8 +607,13 @@ const manageColumnTitle = '\u2699';
 							' <a href="#" class="lower-row">' + downIcon + '</a>' +
 							' | <a href="#" class="delete-row">' + deleteIcon + '</a>' +
 							'</span>';
+					} else {
+						manageCellContents += '<span class="save-or-cancel">' +
+							'<a class="save-new-row">' + addIcon + '</a> | ' +
+							'<a class="cancel-adding">' + cancelIcon + '</a></span>';
 					}
 					cell.html(manageCellContents);
+
 					// Don't activate the "add page" icon
 					// yet, because the row doesn't have a
 					// page name.
@@ -641,7 +644,6 @@ const manageColumnTitle = '\u2699';
 								curSpreadsheet.moveRow( y, y + 1 );
 							}
 						} );
-						cell.find('.mit-row-icons').hide();
 					}
 
 					queryStrings.push("");
