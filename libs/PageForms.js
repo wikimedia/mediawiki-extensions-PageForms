@@ -1579,7 +1579,9 @@ $(document).ready( function() {
 
 		$( 'body' ).initializeJSElements(false);
 
-		$('.multipleTemplateInstance').initializeJSElements(true);
+		$('.multipleTemplateInstance').each( function() {
+			$(this).initializeJSElements(true);
+		});
 		$('.multipleTemplateAdder').click( function() {
 			$(this).addInstance( false );
 		});
