@@ -82,16 +82,19 @@
 					if ( existingValuesOnly ) {
 						return ;
 					}
-					if ( e.keyCode === 9 ) {
+					if ( e.keyCode === 9 ) { // Tab.
 						var valHighlighted = inputData.$results.find('.select2-results__option--highlighted')[0];
-						if( valHighlighted !== undefined ){
+						if ( valHighlighted !== undefined ){
 							rawValue = valHighlighted.textContent;
 						};
 						if ( !$input.find( "option[value='" + rawValue + "']" ).length ) {
+							// Does this ever get called?
 							var newOption = new Option( rawValue, rawValue, false, false );
 							$input.append(newOption).trigger( 'change' );
 						}
-						$input.val(rawValue).trigger("change");
+						if ( rawValue !== '' ) {
+							$input.val(rawValue).trigger("change");
+                                                }
 					}
 				});
 				element.on( "change", this.onChange );
