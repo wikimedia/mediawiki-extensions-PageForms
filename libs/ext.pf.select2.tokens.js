@@ -102,6 +102,12 @@
 			$element.detach();
 			$(this).append($element);
 			$(this).trigger("change");
+			// In order for this selection to truly "take", the
+			// full input needs to be clicked on, for some reason.
+			// We click on it *twice*, though, to get rid of the
+			// "Please enter..." message.
+			// There's probably a less hacky way to accomplish this.
+			$(this).parent().find('span.select2-selection').click().click();
 		});
 
 		$(inputData.$container[0]).on("keyup",function(e){
