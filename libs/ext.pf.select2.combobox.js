@@ -1,7 +1,7 @@
 /*
  * ext.pf.select2.comboboxjs
  *
- * Javascript utility class to handle autocomplete
+ * JavaScript utility class to handle autocomplete
  * for combobox input type using Select2 JS library
  *
  * @file
@@ -326,5 +326,16 @@
 	};
 
 	pf.select2.combobox.prototype = combobox_proto;
+
+	// Open the combobox if the user tabs to it, but only if it's blank.
+	// Based in part on
+	// https://github.com/select2/select2/issues/4025#issuecomment-372735893
+	$(document).on('focus', '.select2.select2-container', function (e) {
+		if ( e.originalEvent &&
+		$(this).find(".select2-selection--single").length > 0 &&
+		$(this).find('.select2-selection__rendered').attr('title') == undefined ) {
+			$(this).siblings('select').select2('open');
+		}
+	});
 
 }( jQuery, mediaWiki, pageforms ) );
