@@ -25,8 +25,9 @@ class PFDatePickerInput extends PFFormInput {
 	 *  input definition.
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
-		if ( $cur_value == 'now' ) {
-			$cur_value = date( 'Y-m-d' );
+		if ( $cur_value != '' ) {
+			list( $year, $month, $day ) = PFDateInput::parseDate( $cur_value );
+			$cur_value = sprintf( '%04d-%02d-%02d', $year, $month, $day );
 		}
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );

@@ -56,7 +56,7 @@ class PFDateInput extends PFFormInput {
 		return $text;
 	}
 
-	static function parseDate( $date ) {
+	static function parseDate( $date, $includeTime = false ) {
 		global $wgLanguageCode;
 
 		// Special handling for 'default=now'.
@@ -69,10 +69,18 @@ class PFDateInput extends PFFormInput {
 			$year = date( 'Y' );
 			$month = date( 'm' );
 			$day = date( 'j' );
+			if ( $includeTime ) {
+				$time = date( 'H:i:s' );
+			}
+
 			if ( isset( $wgLocaltimezone ) ) {
 				date_default_timezone_set( $serverTimezone );
 			}
-			return [ $year, $month, $day ];
+			if ( $includeTime ) {
+				return [ $year, $month, $day, $time ];
+			} else {
+				return [ $year, $month, $day ];
+			}
 		}
 
 		// All other dates.
@@ -112,6 +120,9 @@ class PFDateInput extends PFFormInput {
 		$year = $date_array['year'];
 		$month = $date_array['month'];
 		$day = $date_array['day'];
+		if ( $includeTime ) {
+			$time = date( 'H:i:s' );
+		}
 
 		// Determine if there's a month but no day. There's no ideal
 		// way to do this, so: we'll just look for the total
@@ -130,7 +141,11 @@ class PFDateInput extends PFFormInput {
 
 		}
 
-		return [ $year, $month, $day ];
+		if ( $includeTime ) {
+			return [ $year, $month, $day, $time ];
+		} else {
+			return [ $year, $month, $day ];
+		}
 	}
 
 	public static function getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
