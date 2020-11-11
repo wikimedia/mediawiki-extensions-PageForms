@@ -112,6 +112,11 @@ class PFAutoeditAPI extends ApiBase {
 		$this->prepareAction();
 		$this->getOutput()->enableOOUI();
 
+		if ( PFUtils::ignoreFormName( $this->mOptions['form'] ) ) {
+			$this->logMessage( wfMessage( 'pf_autoedit_invalidform', $this->mOptions['form'] )->parse() );
+			return;
+		}
+
 		try {
 			$this->doAction();
 		} catch ( Exception $e ) {

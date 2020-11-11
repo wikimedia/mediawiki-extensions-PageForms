@@ -45,7 +45,13 @@ class PFForms extends QueryPage {
 	}
 
 	function formatResult( $skin, $result ) {
-		$title = Title::makeTitle( PF_NS_FORM, $result->value );
+		$pageName = $result->value;
+
+		if ( PFUtils::ignoreFormName( $pageName ) ) {
+			return null;
+		}
+
+		$title = Title::makeTitle( PF_NS_FORM, $pageName );
 		return $this->getLinkRenderer()->makeKnownLink( $title, htmlspecialchars( $title->getText() ) );
 	}
 

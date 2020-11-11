@@ -533,7 +533,8 @@
 			"HighlightedDates": null,
 			"_merge_strategy": "array_plus"
 		},
-		"PageFormsAutoeditNamespaces": [ 0 ]
+		"PageFormsAutoeditNamespaces": [ 0 ],
+		"PageFormsIgnoreTitlePattern": []
 	},
 	"manifest_version": 1
 }

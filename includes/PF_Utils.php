@@ -433,4 +433,26 @@ END;
 		return $merged;
 	}
 
+	/**
+	 * Return whether to "ignore" (treat as a non-form) a form with this
+	 * name, based on whether it matches any of the specified text patterns.
+	 *
+	 * @param string $formName
+	 * @return bool
+	 */
+	public static function ignoreFormName( $formName ) {
+		global $wgPageFormsIgnoreTitlePattern;
+
+		if ( !is_array( $wgPageFormsIgnoreTitlePattern ) ) {
+			$wgPageFormsIgnoreTitlePattern = [ $wgPageFormsIgnoreTitlePattern ];
+		}
+
+		foreach ( $wgPageFormsIgnoreTitlePattern as $pattern ) {
+			if ( preg_match( '/' . $pattern . '/', $formName ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
