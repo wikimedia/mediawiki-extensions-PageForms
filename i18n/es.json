@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Adjen",
+			"ArenaL5",
 			"Armando-Martin",
 			"Cmitnick",
 			"Crazymadlover",
@@ -31,7 +32,7 @@
 	"pf_createproperty_allowedvalsinput": "Para permitir solo ciertos valores, escríbelos separados por comas (si un valor contiene una coma, reemplázalo con \"\\,\"):",
 	"pf_createproperty_propname": "Nombre de la propiedad:",
 	"pf_createproperty_proptype": "Tipo:",
-	"pf_createproperty_editsummary": "Se creó una propiedad de tipo [[Has type::$1]]",
+	"pf_createproperty_editsummary": "Se creó una propiedad de tipo $1",
 	"templates": "Plantillas",
 	"pf_templates_docu": "Las siguientes plantillas existen en el wiki.",
 	"pf_templates_definescat": "define la categoría: $1",
