@@ -277,14 +277,6 @@ const manageColumnTitle = '\u2699';
 			if ( jExcelType == 'text' ) {
 				columnAttributes['wordWrap'] = true;
 			}
-			var allowedValues = templateParam['values'];
-			if ( allowedValues !== undefined ) {
-				columnAttributes['type'] = 'dropdown';
-				columnAttributes['source'] = allowedValues;
-				if ( templateParam['list'] === true ) {
-					columnAttributes['multiple'] = true;
-				}
-			}
 			columnAttributes['type'] = jExcelType;
 			columns.push( columnAttributes );
 		}
