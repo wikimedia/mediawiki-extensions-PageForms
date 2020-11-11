@@ -121,7 +121,8 @@ class PFDateInput extends PFFormInput {
 		$month = $date_array['month'];
 		$day = $date_array['day'];
 		if ( $includeTime ) {
-			$time = date( 'H:i:s' );
+			$time = sprintf( '%02d:%02d:%02d', $date_array['hour'],
+				$date_array['minute'], $date_array['second'] );
 		}
 
 		// Determine if there's a month but no day. There's no ideal
