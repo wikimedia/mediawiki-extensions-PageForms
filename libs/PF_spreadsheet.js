@@ -294,13 +294,16 @@ const manageColumnTitle = '\u2699';
 			columnNames.push( column.title );
 		}
 
-		var pages = [];
+		var pageNames = [];
+		var pageIDs = [];
 		var queryStrings = [];
 		var myData = [];
 		var newPageNames = [];
 
 		if ( editMultiplePages !== undefined ) {
 			$.ajax({
+				// We get 500 pages because that's the limit
+				// for "prop=revision".
 				url: baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateName,
 				dataType: 'json',
 				type: 'POST',
@@ -309,7 +312,8 @@ const manageColumnTitle = '\u2699';
 				success: function( data ) {
 					var pageObjects = data.query.embeddedin;
 					for ( var i = 0; i < pageObjects.length; i++ ) {
-						pages.push(pageObjects[i].title);
+						pageNames.push(pageObjects[i].title);
+						pageIDs.push(pageObjects[i].pageid);
 					}
 				},
 				error: function(xhr, status, error){
@@ -318,10 +322,10 @@ const manageColumnTitle = '\u2699';
 			});
 		}
 
-		function getGridValues( pages ) {
-			var pageNamesStr = pages.join('|');
+		function getGridValues( ids ) {
+			var pageIDsStr = ids.join('|');
 			return $.ajax({
-				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&titles=' + pageNamesStr,
+				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&pageids=' + pageIDsStr,
 				dataType: 'json',
 				type: 'POST',
 				headers: { 'Api-User-Agent': 'Example/1.0' }
@@ -404,7 +408,6 @@ const manageColumnTitle = '\u2699';
 		(function getData () {
 			var dataValues = [];
 			var modifiedDataValues = [];
-			var pageNames = "";
 			var page = "";
 
 			// Called whenever the user makes a change to the data.
@@ -486,7 +489,7 @@ const manageColumnTitle = '\u2699';
 			}
 
 			// Populate the starting spreadsheet.
-			$.when( getGridValues( pages ) ).then( function successHandler( data ) {
+			$.when( getGridValues( pageIDs ) ).then( function successHandler( data ) {
 				if ( dataValues[spreadsheetID] == undefined ) {
 					dataValues[spreadsheetID] = [];
 				}
