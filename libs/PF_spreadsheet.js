@@ -536,9 +536,10 @@ const manageColumnTitle = '\u2699';
 						}
 
 						if ( curValue !== undefined ) {
+							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']' + '=' + curValue;
 							var jExcelValue = jexcel.prototype.getjExcelValue( curValue, gridParams[templateName][columnNum] );
 							myData[rowNum].push( jExcelValue );
-							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']' + '=' + jExcelValue;
+							dataValues[spreadsheetID][rowNum][columnName] = jExcelValue;
 						} else if ( columnName === manageColumnTitle ) {
 							var cellContents = '<span class="save-or-cancel" style="display: none" id="page-span-' + pageName + '">' +
 								'<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
