@@ -401,7 +401,7 @@ const manageColumnTitle = '\u2699';
 		}
 
 		// Initialize queryStrings array.
-		for ( var page in pages ) {
+		for ( var page in pageNames ) {
 			queryStrings.push("");
 		}
 
