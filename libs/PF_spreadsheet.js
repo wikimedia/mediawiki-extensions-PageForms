@@ -400,11 +400,11 @@ const manageColumnTitle = '\u2699';
 			return params;
 		}
 
-		var arguments = [];
+		// Initialize queryStrings array.
 		for ( var page in pages ) {
 			queryStrings.push("");
-			arguments.push({});
 		}
+
 		(function getData () {
 			var dataValues = [];
 			var modifiedDataValues = [];
@@ -527,10 +527,7 @@ const manageColumnTitle = '\u2699';
 				for ( var rowNum = 0; rowNum < dataValues[spreadsheetID].length; rowNum++ ) {
 					var rowValues = dataValues[spreadsheetID][rowNum];
 					//var notAllowed = 'page';
-					var pageName = pages[rowNum];
-					arguments[rowNum] = {
-						previousPage: pageName
-					}
+					var pageName = pageNames[rowNum];
 					for ( var columnNum = 0; columnNum < columnNames.length; columnNum++ ) {
 						var columnName = columnNames[columnNum];
 						var curValue = rowValues[columnName];
