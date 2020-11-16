@@ -403,7 +403,8 @@
 				"upload-dialog-button-save",
 				"apisandbox-add-multi",
 				"cancel",
-				"delete"
+				"delete",
+				"search"
 			]
 		},
 		"ext.pageforms.balloon": {

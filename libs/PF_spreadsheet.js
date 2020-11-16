@@ -655,7 +655,11 @@ const manageColumnTitle = '\u2699';
 					oninsertrow: rowAdded,
 					contextMenu: function() { return false; },
 					tableHeight: "2500px",
-					pagination: (editMultiplePages === undefined ) ? false : 100
+					pagination: (editMultiplePages === undefined ) ? false : 100,
+					search: (editMultiplePages !== undefined ),
+					text: {
+						search: mw.msg( 'search' )
+					}
 				} );
 
 				$(table).append('<p><a href="#" class="add-row">' + mw.msg( 'pf-spreadsheet-addrow' ) + '</a></p>');
