@@ -296,15 +296,28 @@ const manageColumnTitle = '\u2699';
 
 		var pageNames = [];
 		var pageIDs = [];
+		var pagesData = [];
 		var queryStrings = [];
 		var myData = [];
 		var newPageNames = [];
+		var dataValues = [];
+		var modifiedDataValues = [];
 
-		if ( editMultiplePages !== undefined ) {
+		if ( editMultiplePages == undefined ) {
+			populateSpreadsheet();
+		} else {
+			getPagesForTemplate( templateName, null );
+		}
+
+		function getPagesForTemplate( templateName, continueStr ) {
+			var apiUrl = baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateName;
+			if ( continueStr !== null ) {
+				apiUrl += "&eicontinue=" + continueStr;
+			}
 			$.ajax({
 				// We get 500 pages because that's the limit
 				// for "prop=revision".
-				url: baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateName,
+				url: apiUrl,
 				dataType: 'json',
 				type: 'POST',
 				async: false,
@@ -315,6 +328,11 @@ const manageColumnTitle = '\u2699';
 						pageNames.push(pageObjects[i].title);
 						pageIDs.push(pageObjects[i].pageid);
 					}
+					if ( data.continue !== undefined ) {
+						getPagesForTemplate( templateName, data.continue.eicontinue );
+					} else {
+						getAllPageDataAndPopulateSpreadsheet( 0 );
+					}
 				},
 				error: function(xhr, status, error){
 					mw.notify( "ERROR: Unable to retrieve pages for the selected template", { type: 'error' } );
@@ -322,13 +340,36 @@ const manageColumnTitle = '\u2699';
 			});
 		}
 
-		function getGridValues( ids ) {
-			var pageIDsStr = ids.join('|');
-			return $.ajax({
+		// Recursive function to get the contents of each page from
+		// the API, 500 pages at a time.
+		function getAllPageDataAndPopulateSpreadsheet( offset ) {
+			var curPageIDs = pageIDs.slice(offset, offset + 500);
+			var pageIDsStr = curPageIDs.join('|');
+			$.ajax({
 				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&pageids=' + pageIDsStr,
 				dataType: 'json',
 				type: 'POST',
-				headers: { 'Api-User-Agent': 'Example/1.0' }
+				headers: { 'Api-User-Agent': 'Example/1.0' },
+				success: function(data) {
+					for ( var pageNum = 0; pageNum < data.query.pages.length; pageNum++ ) {
+						var curRevision = data.query.pages[pageNum].revisions[0];
+						if (curRevision.hasOwnProperty('slots')) {
+							// MW 1.31+ (or maybe 1.32+)
+							var pageContents = curRevision.slots.main.content;
+						} else {
+							var pageContents = curRevision.content;
+						}
+						pagesData.push( {
+							title: data.query.pages[pageNum].title,
+							contents: pageContents
+						} );
+					}
+					if ( curPageIDs.length == 500 ) {
+						getAllPageDataAndPopulateSpreadsheet( offset + 500 );
+					} else {
+						populateSpreadsheet();
+					}
+				}
 			});
 		}
 
@@ -405,9 +446,7 @@ const manageColumnTitle = '\u2699';
 			queryStrings.push("");
 		}
 
-		(function getData () {
-			var dataValues = [];
-			var modifiedDataValues = [];
+		//(function getData () {
 			var page = "";
 
 			// Called whenever the user makes a change to the data.
@@ -489,24 +528,14 @@ const manageColumnTitle = '\u2699';
 			}
 
 			// Populate the starting spreadsheet.
-			$.when( getGridValues( pageIDs ) ).then( function successHandler( data ) {
+			function populateSpreadsheet() {
 				if ( dataValues[spreadsheetID] == undefined ) {
 					dataValues[spreadsheetID] = [];
 				}
 				var templateCalls = [];
-				var numRows = 0;
-				if ( data.query !== undefined ) {
-					numRows = data.query.pages.length;
-				}
+				var numRows = pagesData.length;
 				for (var j = 0; j < numRows; j++) {
-					var curRevision = data.query.pages[j].revisions[0];
-					if (curRevision.hasOwnProperty('slots')) {
-						// MW 1.31+ (or maybe 1.32+)
-						var pageContent = curRevision.slots.main.content;
-					} else {
-						var pageContent = curRevision.content;
-					}
-					templateCalls = getTemplateCalls(pageContent, data.query.pages[j].title);
+					templateCalls = getTemplateCalls(pagesData[j].contents, pagesData[j].title);
 					for (const templateCall of templateCalls) {
 						var fieldArray = getTemplateParams( templateCall );
 						var fieldValueObject = {};
@@ -581,7 +610,7 @@ const manageColumnTitle = '\u2699';
 						if ( defaultValue == 'now' ) {
 							var date = new Date();
 							var monthNum = date.getMonth() + 1;
-							realDefaultValue =  date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
+							realDefaultValue = date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
 								' ' + date.getHours() + ':' + date.getMinutes();
 						} else if ( defaultValue == 'current user' ) {
 							realDefaultValue = mw.config.get( 'wgUserName' );
@@ -595,13 +624,13 @@ const manageColumnTitle = '\u2699';
 					var manageCellContents = '';
 
 					if ( editMultiplePages === undefined ) {
-						manageCellContents += '<span class="mit-row-icons">' +
+						manageCellContents = '<span class="mit-row-icons">' +
 							'<a href="#" class="raise-row">' + upIcon + '</a>' +
 							' <a href="#" class="lower-row">' + downIcon + '</a>' +
 							' | <a href="#" class="delete-row">' + deleteIcon + '</a>' +
 							'</span>';
 					} else {
-						manageCellContents += '<span class="save-or-cancel">' +
+						manageCellContents = '<span class="save-or-cancel">' +
 							'<a class="save-new-row">' + addIcon + '</a> | ' +
 							'<a class="cancel-adding">' + cancelIcon + '</a></span>';
 					}
@@ -699,8 +728,8 @@ const manageColumnTitle = '\u2699';
 
 				$('div#' + spreadsheetID + ' div.loadingImage').css( "display", "none" );
 
-			});
-		})();
+			}
+		//})();
 	});
 
 	// If this is a spreadsheet display within a form, create hidden
