@@ -399,6 +399,13 @@ const manageColumnTitle = '\u2699';
 					}
 					curPos++;
 				} while ( numOpenCurlyBracketPairs > 0 && curPair !== '' );
+
+				content = content.trim();
+				// If this is actually a call to a template with
+				// a different name, ignore it.
+				if ( content !== '' && content.charAt(0) !== '|' ) {
+					continue;
+				}
 				contents.push( 'page=' + pageName + content );
 			}
 			return contents;
