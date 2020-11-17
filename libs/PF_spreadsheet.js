@@ -294,7 +294,6 @@ const manageColumnTitle = '\u2699';
 			columnNames.push( column.title );
 		}
 
-		var pageNames = [];
 		var pageIDs = [];
 		var pagesData = [];
 		var queryStrings = [];
@@ -325,7 +324,6 @@ const manageColumnTitle = '\u2699';
 				success: function( data ) {
 					var pageObjects = data.query.embeddedin;
 					for ( var i = 0; i < pageObjects.length; i++ ) {
-						pageNames.push(pageObjects[i].title);
 						pageIDs.push(pageObjects[i].pageid);
 					}
 					if ( data.continue !== undefined ) {
@@ -441,11 +439,6 @@ const manageColumnTitle = '\u2699';
 			return params;
 		}
 
-		// Initialize queryStrings array.
-		for ( var page in pageNames ) {
-			queryStrings.push("");
-		}
-
 		//(function getData () {
 			var page = "";
 
@@ -554,14 +547,17 @@ const manageColumnTitle = '\u2699';
 					dataValues[spreadsheetID] = gridValues[templateName];
 				}
 				for ( var rowNum = 0; rowNum < dataValues[spreadsheetID].length; rowNum++ ) {
+					queryStrings[rowNum] = '';
 					var rowValues = dataValues[spreadsheetID][rowNum];
-					//var notAllowed = 'page';
-					var pageName = pageNames[rowNum];
 					for ( var columnNum = 0; columnNum < columnNames.length; columnNum++ ) {
 						var columnName = columnNames[columnNum];
 						var curValue = rowValues[columnName];
 						if ( myData[rowNum] == undefined ) {
 							myData[rowNum] = [];
+						}
+
+						if ( columnName == 'page' ) {
+							var pageName = curValue;
 						}
 
 						if ( curValue !== undefined ) {
