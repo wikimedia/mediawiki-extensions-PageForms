@@ -1236,10 +1236,12 @@ END;
 						}
 						// increment the global field number regardless
 						$wgPageFormsFieldNum++;
+						if ( $source_is_page ) {
+							// If the source is a page, don't use the default values.
 						// If the field is a date field, and its default value was set
 						// to 'now', and it has no current value, set $cur_value to be
 						// the current date.
-						if ( $form_field->getDefaultValue() == 'now' &&
+						} elseif ( $form_field->getDefaultValue() == 'now' &&
 								// if the date is hidden, cur_value will already be set
 								// to the default value
 								( $cur_value == '' || $cur_value == 'now' ) ) {
