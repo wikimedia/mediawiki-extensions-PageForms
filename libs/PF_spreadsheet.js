@@ -16,7 +16,6 @@ const manageColumnTitle = '\u2699';
 
 ( function( jexcel, mw ) {
 	var baseUrl = mw.config.get( 'wgScriptPath' );
-	var queryStrings = [];
 	mw.spreadsheets = {};
 
 	// Handle any possible Boolean values from the wiki page.
@@ -75,7 +74,54 @@ const manageColumnTitle = '\u2699';
 		}
 	}
 
-	jexcel.prototype.saveChanges = function( spreadsheetID, pageName, newPageName, queryString, formName, rowNum, rowValues, columns, editMultiplePages ) {
+	jexcel.prototype.getMWValueFromCell = function( $cell, columnAttributes ) {
+		var jExcelValue;
+		if ( columnAttributes['type'] == 'checkbox' ) {
+			jExcelValue = $cell.find('input').prop( 'checked' );
+		} else {
+			jExcelValue = $cell.html();
+		}
+		return jexcel.prototype.getMWValueFromjExcelValue( jExcelValue, columnAttributes );
+	}
+
+	jexcel.prototype.getMWValueFromjExcelValue = function( jExcelValue, columnAttributes ) {
+		if ( jExcelValue == null ) {
+			return null;
+		}
+		if ( columnAttributes['type'] == 'checkbox' ) {
+			return ( jExcelValue == true ) ?
+				mw.config.get( 'wgPageFormsContLangYes' ) :
+				mw.config.get( 'wgPageFormsContLangNo' );
+		} else if ( columnAttributes['list'] == true ) {
+			var delimiter = columnAttributes['delimiter'] + ' ';
+			return jExcelValue.replace(/;/g, delimiter);
+		} else if ( columnAttributes['type'] == 'date' || columnAttributes['type'] == 'datetime' ) {
+			return jExcelValue;
+		} else {
+			var mwValue = jExcelValue.replace( /\<br\>/g, "\n" );
+			return mwValue;
+		}
+	}
+
+	jexcel.prototype.generateQueryStringForSave = function( formName, templateName, pageName, rowValues, columns ) {
+		var queryString = 'form=' + formName + '&target=' + encodeURIComponent( pageName );
+		for ( var columnName in rowValues ) {
+			if ( columnName == 'page' ) {
+				continue;
+			}
+			for ( var columnNum in columns ) {
+				if ( columns[columnNum]['title'] == columnName ) {
+					var curColumn = columns[columnNum];
+					break;
+				}
+			}
+			queryString += '&' + templateName + '[' + columnName + ']=' +
+				encodeURIComponent( jexcel.prototype.getMWValueFromjExcelValue( rowValues[columnName], curColumn ) );
+		}
+		return queryString;
+	}
+
+	jexcel.prototype.saveChanges = function( spreadsheetID, templateName, pageName, newPageName, formName, rowNum, rowValues, columns, editMultiplePages ) {
 		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function () {
 			var columnNum = $(this).attr("data-x");
 			var curColumn = columns[columnNum]['title'];
@@ -89,15 +135,11 @@ const manageColumnTitle = '\u2699';
 			return;
 		}
 
-		if ( queryString == "" ) {
-			var result = {status: 200};
-			return result;
-		}
 		var data = {
 			action: 'pfautoedit',
-			format: 'json'
+			format: 'json',
+			query: jexcel.prototype.generateQueryStringForSave( formName, templateName, pageName, rowValues, columns )
 		};
-		data.query = 'form=' + formName + '&target=' + encodeURIComponent( pageName ) + encodeURI( queryString );
 		return $.ajax({
 			type: 'POST',
 			url: baseUrl + '/api.php',
@@ -142,7 +184,6 @@ const manageColumnTitle = '\u2699';
 			}
 		} );
 
-		queryStrings[rowNum] = "";
 		$("div#" + spreadsheetID + " td[data-y = " + rowNum + "] .save-changes").each( function () {
 			$(this).parent().hide();
 			$(this).parent().siblings('.mit-row-icons').show();
@@ -150,7 +191,7 @@ const manageColumnTitle = '\u2699';
 	}
 
 	// Add a new page.
-	jexcel.prototype.saveNewRow = function( spreadsheetID, page, queryString, formName, rowNum, pageName, rowValues, columnNames, editMultiplePages ) {
+	jexcel.prototype.saveNewRow = function( spreadsheetID, templateName, formName, rowNum, pageName, rowValues, columns, editMultiplePages ) {
 		var $manageCell = $( "div#" + spreadsheetID + " td[data-y=" + rowNum + "]" ).last();
 
 		var spanContents = '<a href="#" class="save-changes">' + saveIcon + '</a> | ' +
@@ -168,9 +209,9 @@ const manageColumnTitle = '\u2699';
 
 		var data = {
 			action: 'pfautoedit',
-			format: 'json'
+			format: 'json',
+			query: jexcel.prototype.generateQueryStringForSave( formName, templateName, pageName, rowValues, columns )
 		};
-		data.query = 'form=' + formName + '&target=' + encodeURIComponent( page ) + encodeURI( queryString );
 		return $.ajax( {
 			type: 'POST',
 			url: baseUrl + '/api.php',
@@ -192,35 +233,6 @@ const manageColumnTitle = '\u2699';
 	var baseUrl = mw.config.get( 'wgScriptPath' ),
 		gridParams = mw.config.get( 'wgPageFormsGridParams' ),
 		gridValues = mw.config.get( 'wgPageFormsGridValues' );
-
-	function getMWValueFromCell( $cell, columnAttributes ) {
-		var jExcelValue;
-		if ( columnAttributes['type'] == 'checkbox' ) {
-			jExcelValue = $cell.find('input').prop( 'checked' );
-		} else {
-			jExcelValue = $cell.html();
-		}
-		return getMWValueFromjExcelValue( jExcelValue, columnAttributes );
-	}
-
-	function getMWValueFromjExcelValue( jExcelValue, columnAttributes ) {
-		if ( jExcelValue == null ) {
-			return null;
-		}
-		if ( columnAttributes['type'] == 'checkbox' ) {
-			return ( jExcelValue == true ) ?
-				mw.config.get( 'wgPageFormsContLangYes' ) :
-				mw.config.get( 'wgPageFormsContLangNo' );
-		} else if ( columnAttributes['list'] == true ) {
-			var delimiter = columnAttributes['delimiter'] + ' ';
-			return jExcelValue.replace(/;/g, delimiter);
-		} else if ( columnAttributes['type'] == 'date' || columnAttributes['type'] == 'datetime' ) {
-			return jExcelValue;
-		} else {
-			var mwValue = jExcelValue.replace( /\<br\>/g, "\n" );
-			return mwValue;
-		}
-	}
 
 	$( '.pfSpreadsheet' ).each( function() {
 		var table = this;
@@ -296,7 +308,6 @@ const manageColumnTitle = '\u2699';
 
 		var pageIDs = [];
 		var pagesData = [];
-		var queryStrings = [];
 		var myData = [];
 		var newPageNames = [];
 		var dataValues = [];
@@ -456,9 +467,6 @@ const manageColumnTitle = '\u2699';
 				if ( columnName === "page" ) {
 					newPageNames[y] = value;
 					page = value === '' ? " " : value;
-				} else {
-					var mwValue = getMWValueFromjExcelValue( value, gridParams[templateName][x] );
-					queryStrings[y] += '&' + templateName + '[' + columnName + ']' + '=' + mwValue;
 				}
 
 				// Update either the "save" or the "add" icon,
@@ -473,13 +481,16 @@ const manageColumnTitle = '\u2699';
 						modifiedDataValues[spreadsheetID][y] = JSON.parse(JSON.stringify(dataValues[spreadsheetID][y]));
 					}
 					modifiedDataValues[spreadsheetID][y][columnName] = value;
+					// @HACK - there's probably a better way to only
+					// attach one click listener to this icon.
+					$(this).off();
 					$(this).click( function( event ) {
 						event.preventDefault();
 						jexcel.prototype.saveChanges(
 							spreadsheetID,
+							templateName,
 							pageName,
 							newPageNames[y],
-							queryStrings[y],
 							formName,
 							y,
 							modifiedDataValues[spreadsheetID][y],
@@ -495,24 +506,27 @@ const manageColumnTitle = '\u2699';
 					$(this).parent().siblings('.mit-row-icons').hide();
 				});
 				$("div#" + spreadsheetID + " td[data-y = " + y + "] .save-new-row").each(function () {
+					dataValues[spreadsheetID][y][columnName] = value;
+					// @HACK - see above
+					$(this).off();
 					$(this).click( function( event ) {
-						dataValues[spreadsheetID][y][columnName] = value;
 						event.preventDefault();
 						jexcel.prototype.saveNewRow(
 							spreadsheetID,
-							page,
-							queryStrings[y],
+							templateName,
 							formName,
 							y,
 							page,
 							dataValues[spreadsheetID][y],
-							columnNames,
+							columns,
 							editMultiplePages
 						);
 						$(this).parent().hide();
 					} );
 				});
 				$( "div#" + spreadsheetID + " td[data-y = " + y + "] .cancel-changes" ).each( function () {
+					// @HACK - see above
+					$(this).off();
 					$(this).click( function( event ) {
 						event.preventDefault();
 						jexcel.prototype.cancelChanges(
@@ -554,7 +568,6 @@ const manageColumnTitle = '\u2699';
 					dataValues[spreadsheetID] = gridValues[templateName];
 				}
 				for ( var rowNum = 0; rowNum < dataValues[spreadsheetID].length; rowNum++ ) {
-					queryStrings[rowNum] = '';
 					var rowValues = dataValues[spreadsheetID][rowNum];
 					for ( var columnNum = 0; columnNum < columnNames.length; columnNum++ ) {
 						var columnName = columnNames[columnNum];
@@ -568,7 +581,6 @@ const manageColumnTitle = '\u2699';
 						}
 
 						if ( curValue !== undefined ) {
-							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']' + '=' + curValue;
 							var jExcelValue = jexcel.prototype.getjExcelValue( curValue, gridParams[templateName][columnNum] );
 							myData[rowNum].push( jExcelValue );
 							dataValues[spreadsheetID][rowNum][columnName] = jExcelValue;
@@ -588,7 +600,6 @@ const manageColumnTitle = '\u2699';
 							myData[rowNum].push( cellContents );
 						} else {
 							myData[rowNum].push("");
-							queryStrings[rowNum] += '&' + templateName + '[' + columnName + ']=';
 						}
 					}
 				}
@@ -671,7 +682,6 @@ const manageColumnTitle = '\u2699';
 						} );
 					}
 
-					queryStrings.push("");
 					dataValues[spreadsheetID].push( {} );
 				}
 
@@ -758,7 +768,7 @@ const manageColumnTitle = '\u2699';
 					return;
 				}
 
-				var mwValue = getMWValueFromCell( $(this), gridParams[templateName][columnNum] );
+				var mwValue = jexcel.prototype.getMWValueFromCell( $(this), gridParams[templateName][columnNum] );
 				var paramName = gridParams[templateName][columnNum].name;
 				var inputName = templateName + '[' + ( rowNum + 1 ) + '][' + paramName + ']';
 				$('<input>').attr( 'type', 'hidden' ).attr( 'name', inputName ).attr( 'value', mwValue ).appendTo( '#pfForm' );
