@@ -48,10 +48,13 @@
     .jexcel_content { padding-right:10px; } 
 }
 
+// Commented out for Page Forms.
+/*
 .jexcel_content::-webkit-scrollbar {
     width: 5px;
     height: 5px;
 }
+*/
 
 .jexcel_content::-webkit-scrollbar-track {
     background: #eee;
