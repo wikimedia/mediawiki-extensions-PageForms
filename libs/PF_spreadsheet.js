@@ -6,6 +6,8 @@
  * @author Amr El-Absy
  */
 
+// @TODO - make this based on the API limit, which in turn is based on whether the user has the "apihighlimits" right.
+const numPagesToQuery = 50;
 const saveIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-check oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'upload-dialog-button-save' ) + '"></span>';
 const cancelIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-close oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'cancel' ) + '"></span>';
 const addIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-add oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'apisandbox-add-multi' ) + '"></span>';
@@ -350,9 +352,9 @@ const manageColumnTitle = '\u2699';
 		}
 
 		// Recursive function to get the contents of each page from
-		// the API, 500 pages at a time.
+		// the API, some number of pages at a time.
 		function getAllPageDataAndPopulateSpreadsheet( offset ) {
-			var curPageIDs = pageIDs.slice(offset, offset + 500);
+			var curPageIDs = pageIDs.slice(offset, offset + numPagesToQuery);
 			var pageIDsStr = curPageIDs.join('|');
 			$.ajax({
 				url: baseUrl + '/api.php?action=query&format=json&prop=revisions&rvprop=content&rvslots=main&formatversion=2&pageids=' + pageIDsStr,
@@ -373,8 +375,8 @@ const manageColumnTitle = '\u2699';
 							contents: pageContents
 						} );
 					}
-					if ( curPageIDs.length == 500 ) {
-						getAllPageDataAndPopulateSpreadsheet( offset + 500 );
+					if ( curPageIDs.length == numPagesToQuery ) {
+						getAllPageDataAndPopulateSpreadsheet( offset + numPagesToQuery );
 					} else {
 						populateSpreadsheet();
 					}
