@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DannyS712",
 			"Karmwiki",
 			"McDutchie"
 		]
@@ -175,7 +176,7 @@
 	"pf-datepicker-prev": "Precedente",
 	"pf-datepicker-next": "Sequente",
 	"pf-datepicker-today": "Hodie",
-	"pf-datepicker-dateformat": "Le specification del formato del data. Vide le [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentation in linea] pro plus information.",
+	"pf-datepicker-dateformat": "Le specification del formato del data. Vide le [$1 documentation in linea] pro plus information.",
 	"pf-datepicker-weekstart": "Le prime die del septimana (0 - dominica, 1 - lunedi, ...).",
 	"pf-datepicker-firstdate": "Le prime data que pote esser seligite (in formato aaaa/mm/dd).",
 	"pf-datepicker-lastdate": "Le ultime data que pote esser seligite (in formato aaaa/mm/dd).",

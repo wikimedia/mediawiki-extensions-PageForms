@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DannyS712",
 			"Michawiki"
 		]
 	},
@@ -201,7 +202,7 @@
 	"pf-datepicker-prev": "Předchadny",
 	"pf-datepicker-next": "Přichodny",
 	"pf-datepicker-today": "Dźensa",
-	"pf-datepicker-dateformat": "Rjećazk znamjškow za datumowy format. Hlej [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters online-dokumentaciju]",
+	"pf-datepicker-dateformat": "Rjećazk znamjškow za datumowy format. Hlej [$1 online-dokumentaciju]",
 	"pf-datepicker-weekstart": "Prěni dźeń tydźenja (0 - njedźela, 1 - póndźela, ...)",
 	"pf-datepicker-firstdate": "Prěni datum, kotryž da so wubrać (we formaće JJJJ/MM/TT).",
 	"pf-datepicker-lastdate": "Posledni datum, kotryž da so wubrać (we formaće JJJJ/MM/TT).",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DannyS712",
 			"Dvdgmz",
 			"Fitoschido",
 			"Mguix",
@@ -265,7 +266,7 @@
 	"pf-datepicker-prev": "Anterior",
 	"pf-datepicker-next": "Següent",
 	"pf-datepicker-today": "Avui",
-	"pf-datepicker-dateformat": "La cadena de format de data. Vegeu la [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentació en línia] per a més informació.",
+	"pf-datepicker-dateformat": "La cadena de format de data. Vegeu la [$1 documentació en línia] per a més informació.",
 	"pf-datepicker-weekstart": "El primer dia de la setmana (0 - diumenge, 1 - dilluns, ...).",
 	"pf-datepicker-firstdate": "La primera data que es pot triar (en format yyyy/mm/dd).",
 	"pf-datepicker-lastdate": "La darrera data que es pot triar (en format yyyy/mm/dd).",

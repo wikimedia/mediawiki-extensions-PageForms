@@ -3,6 +3,7 @@
 		"authors": [
 			"Aranka",
 			"Arg",
+			"DannyS712",
 			"Ecthelion3",
 			"Esketti",
 			"Festina90",
@@ -253,7 +254,7 @@
 	"pf-datepicker-prev": "Vorige",
 	"pf-datepicker-next": "Volgende",
 	"pf-datepicker-today": "Vandaag",
-	"pf-datepicker-dateformat": "De datumopmaak. Zie de [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters online documentatie] voor meer informatie.",
+	"pf-datepicker-dateformat": "De datumopmaak. Zie de [$1 online documentatie] voor meer informatie.",
 	"pf-datepicker-weekstart": "De eerste dag van de week (0: zondag, 1: maandag, ...).",
 	"pf-datepicker-firstdate": "De eerste datum die gekozen kan worden (in de opmaak jjjj/mm/dd).",
 	"pf-datepicker-lastdate": "De laatste datum die gekozen kan worden (in de opmaak jjjj/mm/dd).",
