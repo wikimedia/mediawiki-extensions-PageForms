@@ -629,13 +629,15 @@ END;
 	 * @return string
 	 */
 	public static function getCacheKey( $formId, $parser = null ) {
-		if ( $parser === null ) {
-			return wfMemcKey( 'ext.PageForms.formdefinition', $formId );
-		} else {
-			$options = ParserOptions::legacyOptions();
-			$optionsHash = $parser->getOptions()->optionsHash( $options );
-			return wfMemcKey( 'ext.PageForms.formdefinition', $formId, $optionsHash );
-		}
+		$cache = self::getFormCache();
+
+		return ( $parser === null )
+			? $cache->makeKey( 'ext.PageForms.formdefinition', $formId )
+			: $cache->makeKey(
+				'ext.PageForms.formdefinition',
+				$formId,
+				$parser->getOptions()->optionsHash( ParserOptions::legacyOptions() )
+			);
 	}
 
 	/**

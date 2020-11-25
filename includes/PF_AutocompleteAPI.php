@@ -203,7 +203,7 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $basePropertyName !== null ) {
 				$cacheKeyString .= ',' . $basePropertyName . ',' . $baseValue;
 			}
-			$cacheKey = wfMemcKey( 'pf-autocomplete', md5( $cacheKeyString ) );
+			$cacheKey = $cache->makeKey( 'pf-autocomplete', md5( $cacheKeyString ) );
 			$values = $cache->get( $cacheKey );
 
 			if ( !empty( $values ) ) {
@@ -315,7 +315,7 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $baseCargoTable !== null ) {
 				$cacheKeyString .= '|' . $baseCargoTable . '|' . $baseCargoField . '|' . $baseValue;
 			}
-			$cacheKey = wfMemcKey( 'pf-autocomplete', md5( $cacheKeyString ) );
+			$cacheKey = $cache->makeKey( 'pf-autocomplete', md5( $cacheKeyString ) );
 			$values = $cache->get( $cacheKey );
 
 			if ( !empty( $values ) ) {
