@@ -559,8 +559,8 @@ const manageColumnTitle = '\u2699';
 							var equalPos = field.indexOf('=');
 							var fieldLabel = field.substring(0, equalPos);
 							var fieldValue = field.substring(equalPos + 1);
-							fieldLabel = fieldLabel.replace(/(\r\n\t|\n|\r\t)/gm, "");
-							fieldValueObject[fieldLabel] = fieldValue.replace(/(\r\n\t|\n|\r\t)/gm, "");
+							fieldLabel = fieldLabel.trim();
+							fieldValueObject[fieldLabel] = fieldValue.trim();
 						}
 						dataValues[spreadsheetID].push(fieldValueObject);
 					}
