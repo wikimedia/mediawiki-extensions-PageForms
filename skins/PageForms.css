@@ -148,6 +148,17 @@ body.rtl #pfForm label.checkboxLabel {
 	margin-left: 20px;
 }
 
+#pfForm label.radioButtonItem {
+	display: inline-block;
+}
+
+body.ltr #pfForm label.radioButtonItem {
+	margin-right: 20px;
+}
+
+body.rtl #pfForm label.radioButtonItem {
+	margin-left: 20px;
+}
 
 
 #pfForm input#wpSummary,

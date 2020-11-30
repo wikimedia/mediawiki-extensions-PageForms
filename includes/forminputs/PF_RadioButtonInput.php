@@ -87,8 +87,9 @@ class PFRadioButtonInput extends PFEnumInput {
 				// attribute if the value is blank - which
 				// somehow leads to the string "on" being passed
 				// to the page.
-				// Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) . " $label" ) . "\n";
-				Xml::radio( $input_name, $possible_value, $isChecked, $radiobutton_attrs ) . " $label" ) . "\n";
+				// Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) .
+				Xml::radio( $input_name, $possible_value, $isChecked, $radiobutton_attrs ) .
+				'&nbsp;' . $label ) . "\n";
 		}
 
 		$spanClass = 'radioButtonSpan';
