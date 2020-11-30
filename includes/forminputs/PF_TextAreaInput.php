@@ -190,15 +190,12 @@ class PFTextAreaInput extends PFFormInput {
 		$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
 
 		if ( $this->mEditor == 'wikieditor' ) {
-			// Load modules for all enabled WikiEditor features.
-			// The header for this function was changed in July
-			// 2014, and the function itself was changed
-			// significantly in March 2015 - this call should
-			// hopefully work for all versions.
 			global $wgTitle, $wgOut;
-			$article = new Article( $wgTitle );
-			$editPage = new EditPage( $article );
-			WikiEditorHooks::editPageShowEditFormInitial( $editPage, $wgOut );
+			if ( $wgTitle !== null ) {
+				$article = new Article( $wgTitle );
+				$editPage = new EditPage( $article );
+				WikiEditorHooks::editPageShowEditFormInitial( $editPage, $wgOut );
+			}
 			$className = 'wikieditor ';
 		} elseif ( $this->mEditor == 'visualeditor' ) {
 			$className = 'visualeditor ';
