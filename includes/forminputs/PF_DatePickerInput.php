@@ -281,7 +281,7 @@ class PFDatePickerInput extends PFFormInput {
 			$attribs['tabindex'] = $tabIndex;
 		}
 
-		$html = Xml::element( 'input', $attribs );
+		$html = Html::element( 'input', $attribs );
 
 		return $html;
 	}

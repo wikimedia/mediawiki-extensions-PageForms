@@ -88,7 +88,7 @@ class PFFormUtils {
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		$text = "\t" . Xml::check( 'wpMinoredit', $is_checked, $attrs ) . "\n";
+		$text = "\t" . Html::check( 'wpMinoredit', $is_checked, $attrs ) . "\n";
 		$text .= "\t" . Html::rawElement( 'label', [
 			'for' => 'wpMinoredit',
 			'title' => $tooltip
@@ -127,7 +127,7 @@ class PFFormUtils {
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
 		}
-		$text = "\t" . Xml::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
+		$text = "\t" . Html::check( 'wpWatchthis', $is_checked, $attrs ) . "\n";
 		$tooltip = wfMessage( 'tooltip-watch' )->text();
 		$text .= "\t" . Html::rawElement( 'label', [
 			'for' => 'wpWatchthis',

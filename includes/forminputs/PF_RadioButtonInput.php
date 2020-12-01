@@ -58,6 +58,7 @@ class PFRadioButtonInput extends PFEnumInput {
 			$input_id = "input_$wgPageFormsFieldNum";
 
 			$radiobutton_attrs = [
+				'value' => $possible_value,
 				'id' => $input_id,
 				'tabindex' => $wgPageFormsTabIndex,
 			];
@@ -82,13 +83,7 @@ class PFRadioButtonInput extends PFEnumInput {
 
 			$itemAttrs = [ 'class' => $itemClass, 'for' => $input_id ];
 			$text .= "\t" . Html::rawElement( 'label', $itemAttrs,
-				// Using Xml::radio() here because Html::input()
-				// unfortunately doesn't include the "value="
-				// attribute if the value is blank - which
-				// somehow leads to the string "on" being passed
-				// to the page.
-				// Html::input( $input_name, $possible_value, 'radio', $radiobutton_attrs ) .
-				Xml::radio( $input_name, $possible_value, $isChecked, $radiobutton_attrs ) .
+				Html::radio( $input_name, $isChecked, $radiobutton_attrs ) .
 				'&nbsp;' . $label ) . "\n";
 		}
 
