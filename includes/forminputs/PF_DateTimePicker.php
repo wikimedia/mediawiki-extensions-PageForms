@@ -53,12 +53,17 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return string
 	 */
 	public function getHtmlText() {
+		$classes = [ 'pfDateTimePicker' ];
+		if ( isset( $this->mOtherArgs[ 'mandatory' ] ) ) {
+			$classes[] = 'mandatory';
+		}
+
 		$widget = new DateTimeInputWidget( [
 			'type' => 'datetime',
 			'name' => $this->mInputName,
 			'value' => $this->mCurrentValue,
 			'id' => 'input_' . $this->mInputNumber,
-			'classes' => [ 'pfDateTimePicker' ],
+			'classes' => $classes,
 			'infusable' => true,
 		] );
 		return $widget->toString();

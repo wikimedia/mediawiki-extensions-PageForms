@@ -637,6 +637,16 @@ $.fn.validateMandatoryCheckboxes = function() {
 	}
 };
 
+$.fn.validateMandatoryDatePicker = function() {
+	var input = this.find('input');
+	if (input.val() === null || input.val() === '') {
+		this.addErrorMessage( 'pf_blank_error' );
+		return false;
+	} else {
+		return true;
+	}
+};
+
 /*
  * Type-based validation
  */
@@ -861,6 +871,16 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 		if (! $(this).validateMandatoryRadioButton() ) {
+			num_errors += 1;
+		}
+	});
+	$("div.pfDatePicker.mandatory").not(".hiddenByPF").each( function() {
+		if (! $(this).validateMandatoryDatePicker() ) {
+			num_errors += 1;
+		}
+	});
+	$("div.pfDateTimePicker.mandatory").not(".hiddenByPF").each( function() {
+		if (! $(this).validateMandatoryDatePicker() ) {
 			num_errors += 1;
 		}
 	});

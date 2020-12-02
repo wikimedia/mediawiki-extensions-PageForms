@@ -96,13 +96,17 @@ class PFDatePickerInput extends PFFormInput {
 	 * @return string
 	 */
 	public function getHtmlText() {
+		$classes = [ 'pfDatePicker' ];
+		if ( isset( $this->mOtherArgs[ 'mandatory' ] ) ) {
+			$classes[] = 'mandatory';
+		}
 		$options = $this->getOptions();
 		$options = array_merge( $options, [
 			'type' => 'date',
 			'name' => $this->mInputName,
 			'value' => $this->mCurrentValue,
 			'id' => 'input_' . $this->mInputNumber,
-			'classes' => [ 'pfDatePicker' ],
+			'classes' => $classes,
 			'infusable' => true,
 		] );
 		$widget = new DateInputWidget( $options );
@@ -128,9 +132,12 @@ class PFDatePickerInput extends PFFormInput {
 		if ( isset( $params[ 'maxlength' ] ) ) {
 			$options[ 'maxLength' ] = $params[ 'maxlength' ];
 		}
-		if ( isset( $params[ 'mandatory' ] ) ) {
-			$options[ 'required' ] = true;
-		}
+		// It would be nice to set this, since it leads to a useful
+		// display (an asterisk), but unfortunately it also causes a
+		// JS error that prevents saving.
+		//if ( isset( $params[ 'mandatory' ] ) ) {
+		//	$options[ 'required' ] = true;
+		//}
 
 		return $options;
 	}
@@ -253,11 +260,6 @@ class PFDatePickerInput extends PFFormInput {
 		// set maxlength attrib
 		if ( array_key_exists( 'maxlength', $otherArgs ) ) {
 			$attribs['maxlength'] = $otherArgs['maxlength'];
-		}
-
-		// modify class attribute for mandatory form fields
-		if ( array_key_exists( 'mandatory', $otherArgs ) ) {
-			$attribs['class'] .= ' mandatoryField';
 		}
 
 		// add user class(es) to class attribute of input field
