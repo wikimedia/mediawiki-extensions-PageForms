@@ -20,6 +20,8 @@ class PFRunQuery extends IncludableSpecialPage {
 		if ( !$this->including() ) {
 			$this->setHeaders();
 		}
+		$this->getOutput()->enableOOUI();
+
 		$form_name = $this->including() ? $query : $this->getRequest()->getVal( 'form', $query );
 		$form_name = str_replace( '_', ' ', $form_name );
 
