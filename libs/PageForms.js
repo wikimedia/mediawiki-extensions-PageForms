@@ -596,44 +596,39 @@ $.fn.validateMandatoryDateField = function() {
 };
 
 $.fn.validateMandatoryRadioButton = function() {
-	if ( $(this).hasClass( 'pfTreeInput' ) ) {
-		var input_value = $(this).siblings( 'input' ).attr( 'value' );
-		if ( input_value === undefined || input_value === '' ) {
-			this.addErrorMessage( 'pf_blank_error' );
-			return false;
-		} else {
-			return true;
-		}
+	var checkedValue = this.find("input:checked").val();
+	if (!checkedValue || checkedValue == '') {
+		this.addErrorMessage('pf_blank_error');
+		return false;
 	} else {
-		var checkedValue = this.find("input:checked").val();
-		if (!checkedValue || checkedValue == '') {
-			this.addErrorMessage('pf_blank_error');
-			return false;
-		} else {
-			return true;
-		}
+		return true;
 	}
 };
 
 $.fn.validateMandatoryCheckboxes = function() {
 	// Get the number of checked checkboxes within this span - must
 	// be at least one.
-	if ( $( this ).hasClass( 'pfTreeInput' ) ) {
-		var input_value = $( this ).siblings( 'input' ).attr( 'value' );
-		if ( input_value === undefined || input_value === '' ) {
-			this.addErrorMessage( 'pf_blank_error' );
-			return false;
-		} else {
-			return true;
-		}
+	var numChecked = this.find("input:checked").size();
+	if (numChecked === 0) {
+		this.addErrorMessage('pf_blank_error');
+		return false;
 	} else {
-		var numChecked = this.find("input:checked").size();
-		if (numChecked === 0) {
-			this.addErrorMessage('pf_blank_error');
-			return false;
-		} else {
-			return true;
-		}
+		return true;
+	}
+};
+
+$.fn.validateMandatoryTree = function() {
+	var input_value = $(this).siblings( 'input' ).attr( 'value' );
+	if ( input_value === undefined || input_value === '' ) {
+		// There is a separate HTML tag just for holding the error
+		// message, and we add our message there. This is better than
+		// adding it directly to the tree div, because, if the tree
+		// input has a scrollbar, it's very easy to miss the error
+		// message.
+		this.next().next().addErrorMessage( 'pf_blank_error' );
+		return false;
+	} else {
+		return true;
 	}
 };
 
@@ -864,13 +859,7 @@ window.validateAll = function () {
 		}
 	});
 	$("div.pfTreeInput.mandatory").not(".hiddenByPF").each( function() {
-		// @HACK - handle both the options for tree, checkboxes and
-		// radiobuttons, at the same time, regardless of which one is
-		// being used. This seems to work fine, though.
-		if (! $(this).validateMandatoryCheckboxes() ) {
-			num_errors += 1;
-		}
-		if (! $(this).validateMandatoryRadioButton() ) {
+		if (! $(this).validateMandatoryTree() ) {
 			num_errors += 1;
 		}
 	});

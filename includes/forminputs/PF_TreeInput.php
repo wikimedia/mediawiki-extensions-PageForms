@@ -125,15 +125,27 @@ class PFTreeInput extends PFFormInput {
 			$class .= ' mandatory';
 		}
 
-		$tree = json_encode( $pftree->tree_array );
 		$cur_value = implode( $delimiter, $pftree->current_values );
+		$params = [
+			'multiple' => self::$multipleSelect,
+			'delimiter' => $delimiter,
+			'cur_value' => $cur_value
+		];
 
-		$params['multiple'] = self::$multipleSelect;
-		$params['delimiter'] = $delimiter;
-		$params['cur_value'] = $cur_value;
-
-		$params = json_encode( $params );
-		$text = "<div id='" . $input_name . 'treeinput' . "' class='" . $class . "' style='" . 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;' . "' data='" . $tree . "' params='" . $params . "'></div><input type='hidden' class='PFTree_data' name='" . $input_name . "'>";
+		$treeInputAttrs = [
+			'id' => $input_name . 'treeinput',
+			'class' => $class,
+			'style' => 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;',
+			'data' => json_encode( $pftree->tree_array ),
+			'params' => json_encode( $params )
+		];
+		$text = Html::element( 'div', $treeInputAttrs, null );
+		$text .= "<input type='hidden' class='PFTree_data' name='" . $input_name . "'>";
+		// A "wrapper" span that can hold an error message would have
+		// been nicer than a separate span, but it doesn't seem possible
+		// to get a wrapper to work based on how jsTree modifies the
+		// HTML.
+		$text .= Html::element( 'span', [ 'class' => 'pfTreeInputErrorDisplay' ], null );
 		return $text;
 	}
 
