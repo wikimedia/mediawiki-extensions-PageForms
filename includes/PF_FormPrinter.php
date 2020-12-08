@@ -444,8 +444,8 @@ END;
 
 			if ( $formField->isHidden() ) {
 				$attribs = [];
-				if ( $form_field->hasFieldArg( 'class' ) ) {
-					$attribs['class'] = $form_field->getFieldArg( 'class' );
+				if ( $formField->hasFieldArg( 'class' ) ) {
+					$attribs['class'] = $formField->getFieldArg( 'class' );
 				}
 				$html .= Html::hidden( $formField->getInputName(), $curValue, $attribs );
 				continue;
