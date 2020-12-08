@@ -268,10 +268,12 @@
 				if ( wgPageFormsEDSettings[name].title !== undefined && wgPageFormsEDSettings[name].title !== "" ) {
 					data.title = edgValues[wgPageFormsEDSettings[name].title];
 					if ( data.title !== undefined && data.title !== null ) {
+						i = 0;
 						data.title.forEach(function() {
 							values.push({
 								id: data.title[i], text: data.title[i]
 							});
+							i++;
 						});
 					}
 					if ( wgPageFormsEDSettings[name].image !== undefined && wgPageFormsEDSettings[name].image !== "" ) {

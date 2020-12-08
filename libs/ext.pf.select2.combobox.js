@@ -124,10 +124,12 @@
 				if ( wgPageFormsEDSettings[name].title !== undefined && wgPageFormsEDSettings[name].title !== "" ) {
 					data.title = edgValues[wgPageFormsEDSettings[name].title];
 					if ( data.title !== undefined && data.title !== null ) {
+						i = 0;
 						data.title.forEach(function() {
 							values.push({
 								id: data.title[i], text: data.title[i]
 							});
+							i++;
 						});
 					}
 					if ( wgPageFormsEDSettings[name].image !== undefined && wgPageFormsEDSettings[name].image !== "" ) {
@@ -135,7 +137,7 @@
 						i = 0;
 						if ( data.image !== undefined && data.image !== null ) {
 							data.image.forEach(function() {
-								values[ i+1 ].image = data.image[ i ];
+								values[i].image = data.image[i];
 								i++;
 							});
 						}
@@ -145,7 +147,7 @@
 						i = 0;
 						if ( data.description !== undefined && data.description !== null ) {
 							data.description.forEach(function() {
-								values[i+1].description = data.description[i];
+								values[i].description = data.description[i];
 								i++;
 							});
 						}
