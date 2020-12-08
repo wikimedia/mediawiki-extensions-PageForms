@@ -863,13 +863,8 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 	});
-	$("div.pfDatePicker.mandatory").not(".hiddenByPF").each( function() {
-		if (! $(this).validateMandatoryDatePicker() ) {
-			num_errors += 1;
-		}
-	});
-	$("div.pfDateTimePicker.mandatory").not(".hiddenByPF").each( function() {
-		if (! $(this).validateMandatoryDatePicker() ) {
+	$("div.pfPickerWrapper.mandatory").not(".hiddenByPF").each( function() {
+		if (! $(this).find('.pfPicker').validateMandatoryDatePicker() ) {
 			num_errors += 1;
 		}
 	});

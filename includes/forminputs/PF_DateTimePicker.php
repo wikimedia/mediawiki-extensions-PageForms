@@ -53,20 +53,24 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return string
 	 */
 	public function getHtmlText() {
-		$classes = [ 'pfDateTimePicker' ];
-		if ( isset( $this->mOtherArgs[ 'mandatory' ] ) ) {
-			$classes[] = 'mandatory';
-		}
-
 		$widget = new DateTimeInputWidget( [
 			'type' => 'datetime',
 			'name' => $this->mInputName,
 			'value' => $this->mCurrentValue,
 			'id' => 'input_' . $this->mInputNumber,
-			'classes' => $classes,
-			'infusable' => true,
+			'classes' => [ 'pfDateTimePicker', 'pfPicker' ],
+			'infusable' => true
 		] );
-		return $widget->toString();
+		$text = $widget->toString();
+
+		// We need a wrapper div so that OOUI won't override
+		// any classes added by "show on select".
+		$wrapperClass = 'pfPickerWrapper';
+		if ( isset( $this->mOtherArgs[ 'mandatory' ] ) ) {
+			$wrapperClass .= ' mandatory';
+		}
+
+		return Html::rawElement( 'div', [ 'class' => $wrapperClass ], $text );
 	}
 
 	/**
