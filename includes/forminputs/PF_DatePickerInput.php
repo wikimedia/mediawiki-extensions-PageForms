@@ -147,66 +147,66 @@ class PFDatePickerInput extends PFFormInput {
 	}
 
 	private function getConvertedFormat() {
-	$oldFormat = $this->mOtherArgs['date format'];
-	$j = 0;
-	for ( $i = 0; $i < strlen( $oldFormat ); $i++ ) {
-		if ( $oldFormat[$i] === "d" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "d" ) {
-			// If the letter is "d" and next letter is not "d"
-			$newFormat[$j] = "D";
-			$j++;
-		} elseif ( $oldFormat[$i] === "d" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "d" ) {
-			// If the letter is "d" and next letter is "d", which means "dd"
-			$newFormat[$j] = "DD";
-			$j += 2;
-			$i++;
-		} elseif ( $oldFormat[$i] === "d" && !isset( $oldFormat[$i + 1] ) ) {
-			// If the letter is "d" and it is the last letter.
-			$newFormat[$j] = "D";
-		} elseif ( $oldFormat[$i] === "D" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "D" ) {
-			// If the letter is "D" and next letter is not "D"
-			$newFormat[$j] = "dd";
-			$j += 2;
-		} elseif ( $oldFormat[$i] === "D" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "D" ) {
-			// If the letter is "D" and next letter is "D", which means "DD".
-			// Until now, we don't know a corresponding format, so, let's let at as it is.
-			$newFormat[$j] = "DD";
-			$j += 2;
-			$i++;
-		} elseif ( $oldFormat[$i] === "D" && !isset( $oldFormat[$i + 1] ) ) {
-			// If the letter is "D" and it is the last letter.
-			$newFormat[$j] = "dd";
-		} elseif ( $oldFormat[$i] === "m" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "m" ) {
-			// If the letter is "m" and next letter is not "m"
-			$newFormat[$j] = "M";
-			$j++;
-		} elseif ( $oldFormat[$i] === "m" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "m" ) {
-			// If the letter is "m" and next letter is "m", which means "mm".
-			$newFormat[$j] = "MM";
-			$j += 2;
-			$i++;
-		} elseif ( $oldFormat[$i] === "m" && !isset( $oldFormat[$i + 1] ) ) {
-			// If the letter is "m" and it is the last letter.
-			$newFormat[$j] = "M";
-		} elseif ( $oldFormat[$i] === "y" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "y" ) {
-			// If the letter is "y" and next letter is not "y"
-			$newFormat[$j] = "YY";
-			$j += 2;
-		} elseif ( $oldFormat[$i] === "y" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "y" ) {
-			// If the letter is "y" and next letter is "y", which means "yy".
-			$newFormat[$j] = "YYYY";
-			$j += 4;
-			$i++;
-		} elseif ( $oldFormat[$i] === "y" && !isset( $oldFormat[$i + 1] ) ) {
-			// If the letter is "y" and it is the last letter.
-			$newFormat[$j] = "YY";
-		} else {
-			// Any another letters, or special characters.
-			$newFormat[$j] = $oldFormat[$i];
-			$j++;
+		$oldFormat = $this->mOtherArgs['date format'];
+		$j = 0;
+		for ( $i = 0; $i < strlen( $oldFormat ); $i++ ) {
+			if ( $oldFormat[$i] === "d" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "d" ) {
+				// If the letter is "d" and next letter is not "d"
+				$newFormat[$j] = "D";
+				$j++;
+			} elseif ( $oldFormat[$i] === "d" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "d" ) {
+				// If the letter is "d" and next letter is "d", which means "dd"
+				$newFormat[$j] = "DD";
+				$j += 2;
+				$i++;
+			} elseif ( $oldFormat[$i] === "d" && !isset( $oldFormat[$i + 1] ) ) {
+				// If the letter is "d" and it is the last letter.
+				$newFormat[$j] = "D";
+			} elseif ( $oldFormat[$i] === "D" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "D" ) {
+				// If the letter is "D" and next letter is not "D"
+				$newFormat[$j] = "dd";
+				$j += 2;
+			} elseif ( $oldFormat[$i] === "D" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "D" ) {
+				// If the letter is "D" and next letter is "D", which means "DD".
+				// Until now, we don't know a corresponding format, so, let's let at as it is.
+				$newFormat[$j] = "DD";
+				$j += 2;
+				$i++;
+			} elseif ( $oldFormat[$i] === "D" && !isset( $oldFormat[$i + 1] ) ) {
+				// If the letter is "D" and it is the last letter.
+				$newFormat[$j] = "dd";
+			} elseif ( $oldFormat[$i] === "m" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "m" ) {
+				// If the letter is "m" and next letter is not "m"
+				$newFormat[$j] = "M";
+				$j++;
+			} elseif ( $oldFormat[$i] === "m" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "m" ) {
+				// If the letter is "m" and next letter is "m", which means "mm".
+				$newFormat[$j] = "MM";
+				$j += 2;
+				$i++;
+			} elseif ( $oldFormat[$i] === "m" && !isset( $oldFormat[$i + 1] ) ) {
+				// If the letter is "m" and it is the last letter.
+				$newFormat[$j] = "M";
+			} elseif ( $oldFormat[$i] === "y" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "y" ) {
+				// If the letter is "y" and next letter is not "y"
+				$newFormat[$j] = "YY";
+				$j += 2;
+			} elseif ( $oldFormat[$i] === "y" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] === "y" ) {
+				// If the letter is "y" and next letter is "y", which means "yy".
+				$newFormat[$j] = "YYYY";
+				$j += 4;
+				$i++;
+			} elseif ( $oldFormat[$i] === "y" && !isset( $oldFormat[$i + 1] ) ) {
+				// If the letter is "y" and it is the last letter.
+				$newFormat[$j] = "YY";
+			} else {
+				// Any another letters, or special characters.
+				$newFormat[$j] = $oldFormat[$i];
+				$j++;
+			}
 		}
-	}
-	$newFormat = implode( $newFormat );
-	return $newFormat;
+		$newFormat = implode( $newFormat );
+		return $newFormat;
 	}
 
 	/**
