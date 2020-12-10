@@ -254,14 +254,16 @@ class PFTemplateField {
 
 	function createText( $cargoInUse ) {
 		$fieldProperty = $this->mSemanticProperty;
-		if ( $this->mIsList ) {
-			// If this field is meant to contain a list,
-			// add on an 'arraymap' function, that will
-			// call this semantic markup tag on every
-			// element in the list.
-			// Find a string that's not in the semantic
-			// field call, to be used as the variable.
-			$var = "x"; // default - use this if all the attempts fail
+		// If this field is meant to contain a list, and the field has
+		// an associated SMW property, add on an 'arraymap' function,
+		// which will call the property tag on every element in the
+		// list. If, on the other hand, it uses Cargo, use #arraymap
+		// just for the link - but only if it's of type "Page".
+		if ( $this->mIsList && ( $fieldProperty != '' ||
+			( $cargoInUse && $this->mFieldType == 'Page' ) ) ) {
+			// Find a string that's not in the SMW property
+			// name, to be used as the variable.
+			$var = "x"; // default - also use this if all the attempts fail
 			if ( strstr( $fieldProperty, $var ) ) {
 				$var_options = [ 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' ];
 				foreach ( $var_options as $option ) {
