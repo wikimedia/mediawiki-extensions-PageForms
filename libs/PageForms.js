@@ -618,14 +618,9 @@ $.fn.validateMandatoryCheckboxes = function() {
 };
 
 $.fn.validateMandatoryTree = function() {
-	var input_value = $(this).siblings( 'input' ).attr( 'value' );
+	var input_value = this.find( 'input' ).attr( 'value' );
 	if ( input_value === undefined || input_value === '' ) {
-		// There is a separate HTML tag just for holding the error
-		// message, and we add our message there. This is better than
-		// adding it directly to the tree div, because, if the tree
-		// input has a scrollbar, it's very easy to miss the error
-		// message.
-		this.next().next().addErrorMessage( 'pf_blank_error' );
+		this.addErrorMessage( 'pf_blank_error' );
 		return false;
 	} else {
 		return true;
@@ -858,7 +853,7 @@ window.validateAll = function () {
 			num_errors += 1;
 		}
 	});
-	$("div.pfTreeInput.mandatory").not(".hiddenByPF").each( function() {
+	$("div.pfTreeInputWrapper.mandatory").not(".hiddenByPF").each( function() {
 		if (! $(this).validateMandatoryTree() ) {
 			num_errors += 1;
 		}

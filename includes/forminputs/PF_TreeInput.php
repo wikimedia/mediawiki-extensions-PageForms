@@ -120,11 +120,6 @@ class PFTreeInput extends PFFormInput {
 			return null;
 		}
 
-		$class = 'pfTreeInput';
-		if ( $is_mandatory ) {
-			$class .= ' mandatory';
-		}
-
 		$cur_value = implode( $delimiter, $pftree->current_values );
 		$params = [
 			'multiple' => self::$multipleSelect,
@@ -134,18 +129,21 @@ class PFTreeInput extends PFFormInput {
 
 		$treeInputAttrs = [
 			'id' => $input_name . 'treeinput',
-			'class' => $class,
+			'class' => 'pfTreeInput',
 			'style' => 'height: ' . $height . 'px; width: ' . $width . 'px; overflow: auto; position: relative;',
 			'data' => json_encode( $pftree->tree_array ),
 			'params' => json_encode( $params )
 		];
+
 		$text = Html::element( 'div', $treeInputAttrs, null );
 		$text .= "<input type='hidden' class='PFTree_data' name='" . $input_name . "'>";
-		// A "wrapper" span that can hold an error message would have
-		// been nicer than a separate span, but it doesn't seem possible
-		// to get a wrapper to work based on how jsTree modifies the
-		// HTML.
-		$text .= Html::element( 'span', [ 'class' => 'pfTreeInputErrorDisplay' ], null );
+
+		$wrapperClass = 'pfTreeInputWrapper';
+		if ( $is_mandatory ) {
+			$wrapperClass .= ' mandatory';
+		}
+		$text = Html::rawElement( 'div', [ 'class' => $wrapperClass ], $text );
+
 		return $text;
 	}
 
