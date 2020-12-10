@@ -174,7 +174,12 @@ class PFHooks {
 		$vars['wgPageFormsHeightForMinimizingInstances'] = $wgPageFormsHeightForMinimizingInstances;
 		$vars['wgPageFormsShowOnSelect'] = $wgPageFormsShowOnSelect;
 		$vars['wgPageFormsScriptPath'] = $wgPageFormsScriptPath;
-		$vars['edgValues'] = $edgValues;
+		if ( method_exists( 'EDParserFunctions', 'getAllValues' ) ) {
+			// External Data 2.3+
+			$vars['edgValues'] = EDParserFunctions::getAllValues();
+		} else {
+			$vars['edgValues'] = $edgValues;
+		}
 		$vars['wgPageFormsEDSettings'] = $wgPageFormsEDSettings;
 		$vars['wgAmericanDates'] = $wgAmericanDates;
 
