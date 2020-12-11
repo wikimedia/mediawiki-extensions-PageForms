@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"BrennodAloisi",
 			"Cedric31",
 			"DannyS712",
 			"Fitoschido",
@@ -125,7 +126,7 @@
 	"pf_pipe_error": "« | » es pas autorizat, levat a l’interior de {{...}} o de [[...]].",
 	"uploadwindow": "Fenèstra de mandadís",
 	"pf_deletionlog": "Istoric de las supressions",
-	"pf-preview-header": "Apercebut del formulari",
+	"pf-preview-header": "Previsualizacion del formulari",
 	"pf-preview-note": "Aquí vesètz a qué se semblarà lo formulari un còp utilizat :",
 	"pf-pageschemas-pagenameformula": "Formula del nom de pagina :",
 	"pf-pageschemas-createtitle": "Títol del formulari per las paginas novèlas :",
