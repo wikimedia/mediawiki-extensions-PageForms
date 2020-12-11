@@ -171,6 +171,22 @@
 							id: data[key], text: data[key]
 						});
 					}
+
+					// Add the current value to the list of allowed
+					// values, if it's not there already, so that the
+					// combobox won't show up as blank.
+					// Should this be done even if "existing values
+					// only" is specified"? For now, yes - based on
+					// the "principle of least astonishment", it's
+					// generally better for the form to not wipe out
+					// existing content when possible. However,
+					// there's also an argument the other way.
+					var curValue = $('#' + this.id).attr('value');
+					if ( curValue !== '' && curValue !== undefined && !Object.keys(data).includes( curValue ) ) {
+						values.push({
+							id: curValue, text: curValue
+						});
+					}
 				}
 			}
 		} else { //Dependent field autocompletion
