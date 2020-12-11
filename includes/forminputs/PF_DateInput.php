@@ -121,6 +121,10 @@ class PFDateInput extends PFFormInput {
 			$date_array = date_parse( $date );
 		}
 
+		if ( $date_array['error_count'] > 0 ) {
+			return null;
+		}
+
 		$year = $date_array['year'];
 		$month = $date_array['month'];
 		$day = $date_array['day'];
