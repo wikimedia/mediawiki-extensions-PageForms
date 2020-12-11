@@ -90,6 +90,10 @@ class PFDateInput extends PFFormInput {
 
 		// Convert any date format to ISO standards.
 		$date = str_replace( "/", "-", $date );
+		// Special handling for "MM.YYYY" format.
+		if ( preg_match( '/^(\d\d)\.(\d\d\d\d)$/', $date, $matches ) ) {
+			$date = $matches[2] . '-' . $matches[1];
+		}
 		// Returns an array with detailed information about the date.
 		$date_array = date_parse( $date );
 
