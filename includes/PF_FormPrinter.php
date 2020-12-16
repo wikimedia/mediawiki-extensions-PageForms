@@ -1812,10 +1812,7 @@ END;
 			$mwWikiPage = WikiPage::factory( $this->mPageTitle );
 			$form_text .= Html::hidden( 'wpEdittime', $mwWikiPage->getTimestamp() );
 			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
-			if ( defined( 'EditPage::UNICODE_CHECK' ) ) {
-				// MW 1.30+
-				$form_text .= Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK );
-			}
+			$form_text .= Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK );
 		}
 
 		$form_text .= "\t</form>\n";
