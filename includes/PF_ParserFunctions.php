@@ -651,7 +651,7 @@ class PFParserFunctions {
 		);
 
 		// Return output HTML.
-		return $parser->insertStripItem( $output );
+		return [ $output, 'noparse' => true, 'isHTML' => true ];
 	}
 
 	private static function createFormLink( Parser $parser, $params, $parserFunctionName ) {
