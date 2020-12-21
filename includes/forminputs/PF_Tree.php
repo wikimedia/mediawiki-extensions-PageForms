@@ -131,6 +131,9 @@ class PFTree {
 		$this->populateChildren();
 
 		$this->tree_array[0]['text'] = $top_category;
+		if ( in_array( $top_category, $this->current_values ) ) {
+			$this->tree_array[0]['state']['selected'] = true;
+		}
 		$children = $this->children;
 		$this->tree_array[0]['level'] = 1;
 		$this->tree_array[0]['state']['opened'] = true;
