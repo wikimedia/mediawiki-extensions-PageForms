@@ -240,7 +240,7 @@ class PFHooks {
 
 		$editColumn = [ 'edit' => [ 'ooui-icon' => 'edit', 'ooui-title' => 'edit' ] ];
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $allowedActions ) );
-		$pos = false === $indexOfDrilldown ? count( $allowedActions ) : $indexOfDrilldown + 1;
+		$pos = $indexOfDrilldown === false ? count( $allowedActions ) : $indexOfDrilldown + 1;
 		$allowedActions = array_merge( array_slice( $allowedActions, 0, $pos ), $editColumn, array_slice( $allowedActions, $pos ) );
 
 		return true;
@@ -305,7 +305,7 @@ class PFHooks {
 		$text = Linker::linkKnown( $sp->getPageTitle(), $editMsg, [], $linkParams );
 
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );
-		$pos = false === $indexOfDrilldown ? count( $actionLinks ) : $indexOfDrilldown + 1;
+		$pos = $indexOfDrilldown === false ? count( $actionLinks ) : $indexOfDrilldown + 1;
 		$actionLinks = array_merge( array_slice( $actionLinks, 0, $pos ), [ 'edit' => $text ], array_slice( $actionLinks, $pos ) );
 		return true;
 	}

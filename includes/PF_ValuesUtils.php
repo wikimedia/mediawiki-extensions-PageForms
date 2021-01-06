@@ -187,7 +187,7 @@ class PFValuesUtils {
 	 * @return string
 	 */
 	public static function getAllPagesForCategory( $top_category, $num_levels, $substring = null ) {
-		if ( 0 == $num_levels ) {
+		if ( $num_levels == 0 ) {
 			return $top_category;
 		}
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsUseDisplayTitle;
