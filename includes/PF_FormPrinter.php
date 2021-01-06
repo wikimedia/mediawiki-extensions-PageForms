@@ -1599,7 +1599,7 @@ END;
 					}
 				} elseif ( $tif->getDisplay() == 'calendar' ) {
 					if ( $tif->allInstancesPrinted() ) {
-						global $wgOut, $wgPageFormsCalendarParams, $wgPageFormsCalendarValues;
+						global $wgPageFormsCalendarParams, $wgPageFormsCalendarValues;
 						global $wgPageFormsScriptPath;
 						$text = '';
 						$params = [];
