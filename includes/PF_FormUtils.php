@@ -636,7 +636,7 @@ END;
 			: $cache->makeKey(
 				'ext.PageForms.formdefinition',
 				$formId,
-				$parser->getOptions()->optionsHash( ParserOptions::legacyOptions() )
+				$parser->getOptions()->optionsHash( ParserOptions::allCacheVaryingOptions() )
 			);
 	}
 
