@@ -701,10 +701,15 @@ class PFFormField {
 				$value = $index;
 			}
 			$labels[$value] = $value;
+			if ( $this->hasFieldArg( 'mapping cargo value field' ) ) {
+				$valueField = $this->mFieldArgs['mapping cargo value field'];
+			} else {
+				$valueField = '_pageName';
+			}
 			$vals = PFValuesUtils::getValuesForCargoField(
 				$this->mFieldArgs['mapping cargo table'],
 				$this->mFieldArgs['mapping cargo field'],
-				'_pageName="' . $value . '"'
+				$valueField . '="' . $value . '"'
 			);
 			if ( count( $vals ) > 0 ) {
 				$labels[$value] = html_entity_decode( trim( $vals[0] ) );
