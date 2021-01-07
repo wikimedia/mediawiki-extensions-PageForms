@@ -359,4 +359,15 @@
 		}
 	});
 
+	// When the combobox dropdown appears, put the current selected value
+	// in the entry field, so that it can be edited.
+	$(document).on('click', 'span.select2-selection', function(e) {
+		var comboboxAltID = $(this).attr('aria-owns');
+		if ( comboboxAltID == undefined ) {
+			return;
+		}
+		var comboboxValue = $(this).parents('span.comboboxSpan').find('select').val();
+		$( "[aria-controls='" + comboboxAltID + "']" ).val(comboboxValue);
+	});
+
 }( jQuery, mediaWiki, pageforms ) );
