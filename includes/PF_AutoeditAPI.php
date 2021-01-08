@@ -694,9 +694,9 @@ class PFAutoeditAPI extends ApiBase {
 		$targetName = str_replace( ' ', '_', $targetName );
 
 		// now run the parser on it
-		global $wgTitle;
+		global $wgTitle, $wgUser;
 		$targetName = PFUtils::getParser()->transformMsg(
-			$targetName, new ParserOptions(), $wgTitle
+			$targetName, ParserOptions::newFromUser( $wgUser ), $wgTitle
 		);
 
 		$titleNumber = '';

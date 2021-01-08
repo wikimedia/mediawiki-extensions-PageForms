@@ -680,7 +680,7 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = PFUtils::getParser()->parse( $param['description'], $this->getPageTitle(), new ParserOptions() )->getText();
+			$desc = PFUtils::getParser()->parse( $param['description'], $this->getPageTitle(), ParserOptions::newFromUser( $this->getUser() ) )->getText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
@@ -725,7 +725,7 @@ END;
 		foreach ( $params as $param ) {
 			$paramName = $param['name'];
 			$type = $param['type'];
-			$desc = PFUtils::getParser()->parse( $param['description'], $this->getPageTitle(), new ParserOptions() )->getText();
+			$desc = PFUtils::getParser()->parse( $param['description'], $this->getPageTitle(), ParserOptions::newFromUser( $this->getUser() ) )->getText();
 
 			if ( array_key_exists( $paramName, $paramValues ) ) {
 				$cur_value = $paramValues[$paramName];
