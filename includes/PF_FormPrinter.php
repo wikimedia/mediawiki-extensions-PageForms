@@ -1595,7 +1595,9 @@ END;
 						$multipleTemplateHTML .= $this->spreadsheetHTML( $tif );
 						// For spreadsheets, this needs
 						// to be specially inserted.
-						$multipleTemplateHTML .= "</fieldset>\n";
+						if ( $tif->getLabel() != null ) {
+							$multipleTemplateHTML .= "</fieldset>\n";
+						}
 					}
 				} elseif ( $tif->getDisplay() == 'calendar' ) {
 					if ( $tif->allInstancesPrinted() ) {
