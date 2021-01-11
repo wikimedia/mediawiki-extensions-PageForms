@@ -225,6 +225,8 @@ class PFParserFunctions {
 	}
 
 	public static function renderFormInput( Parser $parser ) {
+		global $wgCapitalLinks;
+
 		$params = func_get_args();
 		array_shift( $params ); // don't need the parser
 
@@ -325,6 +327,9 @@ class PFParserFunctions {
 		}
 		if ( $inAutofocus ) {
 			$formInputAttrs['data-autofocus'] = true;
+		}
+		if ( !$wgCapitalLinks ) {
+			$formInputAttrs['data-autocapitalize'] = 'off';
 		}
 
 		// Now apply the necessary settings and JavaScript, depending

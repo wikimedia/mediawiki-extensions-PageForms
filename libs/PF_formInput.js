@@ -50,6 +50,9 @@
 		if ( this.attr('data-placeholder') !== undefined ) {
 			autocompleteWidgetConfig['placeholder'] = this.attr('data-placeholder');
 		}
+		if ( this.attr('data-autocapitalize') !== undefined ) {
+			autocompleteWidgetConfig['autocapitalize'] = this.attr('data-autocapitalize');
+		}
 		var pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 		var createOrEditButton = new OO.ui.ButtonInputWidget( {
 			type: 'submit',
