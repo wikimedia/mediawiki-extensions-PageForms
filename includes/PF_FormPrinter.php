@@ -501,7 +501,7 @@ END;
 			$inputType = $formField->getInputType();
 			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
 			if ( $formField->getLabel() !== null ) {
-				$gridParamValues['title'] = $formField->getLabel();
+				$gridParamValues['label'] = $formField->getLabel();
 			}
 			if ( $formField->getDefaultValue() !== null ) {
 				$gridParamValues['default'] = $formField->getDefaultValue();

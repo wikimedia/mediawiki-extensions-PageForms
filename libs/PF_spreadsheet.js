@@ -706,6 +706,16 @@ const manageColumnTitle = '\u2699';
 					}
 				} );
 
+				// Set the "label" for columns that have a label defined.
+				var columnParams = gridParams[templateName];
+				for ( var columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
+					var columnLabel = columnParams[columnNum]['label'];
+					if ( columnLabel == undefined ) {
+						continue;
+					}
+					$(table).find('thead').find('td[data-x=' + columnNum + ']').html(columnLabel);
+				}
+
 				$(table).append('<p><a href="#" class="add-row">' + mw.msg( 'pf-spreadsheet-addrow' ) + '</a></p>');
 
 				$('div#' + spreadsheetID + ' a.add-row').click( function ( event ) {
