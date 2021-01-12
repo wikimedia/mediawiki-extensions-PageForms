@@ -275,6 +275,9 @@ class PFTextInput extends PFFormInput {
 		if ( array_key_exists( 'placeholder', $other_args ) ) {
 			$inputAttrs['placeholder'] = $other_args['placeholder'];
 		}
+		if ( array_key_exists( 'autocapitalize', $other_args ) ) {
+			$inputAttrs['autocapitalize'] = $other_args['autocapitalize'];
+		}
 		if ( array_key_exists( 'feeds to map', $other_args ) ) {
 			global $wgPageFormsMapsWithFeeders;
 			$targetMapName = $other_args['feeds to map'];
