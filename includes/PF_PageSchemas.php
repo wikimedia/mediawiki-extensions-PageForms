@@ -838,8 +838,10 @@ class PFPageSchemas extends PSExtensionHandler {
 			} elseif ( $psFormItem['type'] == 'Section' ) {
 				$psPageSection = $psFormItem['item'];
 				$form_section = self::getPageSection( $psPageSection );
-				$form_section->setSectionLevel( $psPageSection->getSectionLevel() );
-				$form_items[] = [ 'type' => 'section', 'name' => $form_section->getSectionName(), 'item' => $form_section ];
+				if ( $form_section !== null ) {
+					$form_section->setSectionLevel( $psPageSection->getSectionLevel() );
+					$form_items[] = [ 'type' => 'section', 'name' => $form_section->getSectionName(), 'item' => $form_section ];
+				}
 			}
 
 		}
