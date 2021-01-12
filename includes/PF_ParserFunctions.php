@@ -618,11 +618,20 @@ class PFParserFunctions {
 		}
 
 		if ( $linkType == 'button' ) {
-			$attrs = [ 'type' => 'submit', 'class' => $classString ];
+			$attrs = [
+				'flags' => 'progressive',
+				'label' => $linkString,
+				'classes' => [ $classString ]
+			];
 			if ( $inTooltip != null ) {
 				$attrs['title'] = $inTooltip;
 			}
-			$linkElement = Html::rawElement( 'button', $attrs, $linkString );
+			// For some reason, the cache needs to be disabled for
+			// OOUI to take effect.
+			$parser->getOutput()->updateCacheExpiry( 0 );
+			global $wgOut;
+			$wgOut->enableOOUI();
+			$linkElement = new OOUI\ButtonWidget( $attrs );
 		} elseif ( $linkType == 'link' ) {
 			$attrs = [ 'class' => $classString, 'href' => "#" ];
 			if ( $inTooltip != null ) {
