@@ -13,6 +13,23 @@ window.ext.wikieditor = {
 			if ( mw ) {
 				var input = $( '#' + inputId );
 
+				// The code below this "if" clause does not
+				// work for MW 1.34 and higher. Therefore, this
+				// alternative approach is needed. However, it
+				// requires the presence of an addWikiEditor()
+				// function, which, at the time of this writing
+				// (January 2021) had not yet been added to
+				// WikiEditor. Anyone who wants this code to run
+				// may thus need to patch the WikiEditor code
+				// themselves, with the following:
+				// https://github.com/Nikerabbit/mediawiki-extensions-WikiEditor/commit/9a1188d0850418d8ae64bd06b7f39d9a8cbf127f
+				if ( typeof( mw.addWikiEditor ) == 'function' ) {
+					mw.loader.using( [ 'ext.wikiEditor' ], function () {
+						mw.addWikiEditor( input );
+					} );
+					return;
+				}
+
 				if ( mw.config.values.wgVersion < "1.33" ) {
 					var toolbarmodules = [ 'jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config' ];
 					var dialogmodules = [ 'jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config' ];
