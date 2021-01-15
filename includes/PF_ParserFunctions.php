@@ -626,11 +626,8 @@ class PFParserFunctions {
 			if ( $inTooltip != null ) {
 				$attrs['title'] = $inTooltip;
 			}
-			// For some reason, the cache needs to be disabled for
-			// OOUI to take effect.
-			$parser->getOutput()->updateCacheExpiry( 0 );
-			global $wgOut;
-			$wgOut->enableOOUI();
+			$parser->getOutput()->setEnableOOUI( true );
+			OutputPage::setupOOUI();
 			$linkElement = new OOUI\ButtonWidget( $attrs );
 		} elseif ( $linkType == 'link' ) {
 			$attrs = [ 'class' => $classString, 'href' => "#" ];
