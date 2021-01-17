@@ -1153,16 +1153,23 @@ class PFAutoeditAPI extends ApiBase {
 	 */
 	public static function addToArray( &$array, $key, $value, $toplevel = true ) {
 		$matches = [];
-
 		if ( preg_match( '/^([^\[\]]*)\[([^\[\]]*)\](.*)/', $key, $matches ) ) {
 			// for some reason toplevel keys get their spaces encoded by MW.
 			// We have to imitate that.
 			if ( $toplevel ) {
 				$key = str_replace( ' ', '_', $matches[1] );
 			} else {
-				$key = $matches[1];
+				if ( is_numeric( $matches[1] ) && isset( $matches[2] ) ) {
+					// Multiple instances are indexed like 0a,1a,2a... to differentiate
+					// the inputs the form starts out with from any inputs added by the Javascript.
+					// Append the character "a" only if the instance number is numeric.
+					// If the key(i.e. the instance) doesn't exists then the numerically next
+					// instance is created whatever be the key.
+					$key = $matches[1] . 'a';
+				} else {
+					$key = $matches[1];
+				}
 			}
-
 			// if subsequent element does not exist yet or is a string (we prefer arrays over strings)
 			if ( !array_key_exists( $key, $array ) || is_string( $array[$key] ) ) {
 				$array[$key] = [];
