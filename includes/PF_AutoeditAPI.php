@@ -1058,6 +1058,8 @@ class PFAutoeditAPI extends ApiBase {
 				case 'hidden':
 				case 'image':
 				case 'password':
+				case 'date':
+				case 'datetime':
 				// case 'reset':
 				// case 'submit':
 				case 'text':
