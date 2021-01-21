@@ -1236,8 +1236,10 @@ END;
 						}
 						// increment the global field number regardless
 						$wgPageFormsFieldNum++;
-						if ( $source_is_page ) {
-							// If the source is a page, don't use the default values.
+						if ( $source_is_page && !$tif->allInstancesPrinted() ) {
+							// If the source is a page, don't use the default
+							// values - except for newly-added instances of a
+							// multiple-instance template.
 						// If the field is a date field, and its default value was set
 						// to 'now', and it has no current value, set $cur_value to be
 						// the current date.
@@ -1258,7 +1260,7 @@ END;
 						// to 'current user', and it has no current value, set $cur_value
 						// to be the current user.
 						} elseif ( $form_field->getDefaultValue() == 'current user' &&
-							// if the date is hidden, cur_value will already be set
+							// if the input is hidden, cur_value will already be set
 							// to the default value
 							( $cur_value === '' || $cur_value == 'current user' )
 						) {
