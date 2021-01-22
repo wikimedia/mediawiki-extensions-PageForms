@@ -105,6 +105,11 @@ class PFTokensInput extends PFFormInput {
 			if ( array_key_exists( 'description', $other_args ) ) {
 				$wgPageFormsEDSettings[$name]['description'] = $other_args['description'];
 			}
+			if ( array_key_exists( 'delimiter', $field_args ) ) {
+				$delimiter = $field_args['delimiter'];
+			} else {
+				$delimiter = ',';
+			}
 		} else {
 			list( $autocompleteSettings, $remoteDataType, $delimiter ) = PFValuesUtils::setAutocompleteValues( $other_args, true );
 		}
