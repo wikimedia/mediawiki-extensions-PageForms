@@ -1084,11 +1084,48 @@ END;
 						( $tif->getDisplay() == 'spreadsheet' && $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) || ( $tif->getDisplay() == 'calendar' && $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) ) {
 						$tif->addField( $form_field );
 					}
-					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted() );
+					$val_modifier = null;
+					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
+					$delimiter = $form_field->getFieldArg( 'delimiter' );
 					if ( $form_field->holdsTemplate() ) {
 						$placeholderFields[] = self::placeholderFormat( $tif->getTemplateName(), $field_name );
 					}
 
+					if ( $val_modifier !== null ) {
+						$page_value = $tif->getValuesFromPage()[$field_name];
+					}
+					if ( $val_modifier === '+' ) {
+						if ( preg_match( "#(,|\^)\s*$cur_value\s*(,|\$)#", $page_value ) === 0 ) {
+							if ( trim( $page_value ) !== '' ) {
+								// if page_value is empty, simply don't do anything, because then cur_value
+								// is already the value it has to be (no delimiter needed).
+								$cur_value = $page_value . $delimiter . $cur_value;
+							}
+						} else {
+							$cur_value = $page_value;
+						}
+						$tif->changeFieldValues( $field_name, $cur_value, $delimiter );
+					} elseif ( $val_modifier === '-' ) {
+						// get an array of elements to remove:
+						$remove = array_map( 'trim', explode( ",", $cur_value ) );
+						// process the current value:
+						$val_array = array_map( 'trim', explode( $delimiter, $page_value ) );
+						// remove element(s) from list
+						foreach ( $remove as $rmv ) {
+							// go through each element and remove match(es)
+							if ( ( $key = array_search( $rmv, $val_array ) ) !== false ) {
+								unset( $val_array[$key] );
+							}
+						}
+						// Convert modified array back to a comma-separated string value and modify
+						$cur_value = implode( ",", $val_array );
+						if ( $cur_value === '' ) {
+							// HACK: setting an empty string prevents anything from happening at all.
+							// set a dummy string that evaluates to an empty string
+							$cur_value = '{{subst:lc: }}';
+						}
+						$tif->changeFieldValues( $field_name, $cur_value, $delimiter );
+					}
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
 					// from the template call
@@ -1339,7 +1376,7 @@ END;
 					if ( ( $is_query && $input_name != 'run query' ) || ( !$is_query && $input_name == 'run query' ) ) {
 						$new_text = "";
 						$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
-						continue;
+						return;
 					}
 					// set a flag so that the standard 'form bottom' won't get displayed
 					$this->standardInputsIncluded = true;

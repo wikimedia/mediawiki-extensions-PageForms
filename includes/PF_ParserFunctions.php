@@ -218,6 +218,11 @@ class PFParserFunctions {
 		$queryString = str_replace( '&amp;', '%26', $queryString );
 		// "Decode" any other HTML tags.
 		$queryString = html_entity_decode( $queryString, ENT_QUOTES );
+		// next, replace  Foo[Bar] += Baz  with  Foo[Bar+] = Baz
+		// and do the same for -=
+		// This way, parse_str won't strip out the += and -=
+		$queryString = preg_replace( "/\[([^\]]+)\]\s*(\+|-)=/", "[$1$2]=", $queryString );
+		$queryString = str_replace( '+', '%2B', $queryString ); // prevent decoding + to space character
 
 		parse_str( $queryString, $arr );
 

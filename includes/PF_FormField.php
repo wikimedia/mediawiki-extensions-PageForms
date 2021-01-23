@@ -503,7 +503,7 @@ class PFFormField {
 		}
 	}
 
-	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed ) {
+	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed, &$val_modifier = null ) {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
 		$cur_value = null;
@@ -544,6 +544,15 @@ class PFFormField {
 				$field_query_val = $template_instance_query_values[$escaped_field_name];
 			} elseif ( array_key_exists( $field_name, $template_instance_query_values ) ) {
 				$field_query_val = $template_instance_query_values[$field_name];
+			} else {
+				// The next checks are to allow for support for appending/prepending with autoedit.
+				if ( array_key_exists( "$field_name+", $template_instance_query_values ) ) {
+					$field_query_val = $template_instance_query_values["$field_name+"];
+					$val_modifier = '+';
+				} elseif ( array_key_exists( "$field_name-", $template_instance_query_values ) ) {
+					$field_query_val = $template_instance_query_values["$field_name-"];
+					$val_modifier = '-';
+				}
 			}
 
 			if ( $form_submitted && $field_query_val != '' ) {

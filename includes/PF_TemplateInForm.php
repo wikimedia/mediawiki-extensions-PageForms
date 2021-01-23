@@ -37,7 +37,7 @@ class PFTemplateInForm {
 	private $mPregMatchTemplateStr;
 	private $mFullTextInPage;
 	private $mValuesFromPage = [];
-	private $mValuesFromSubmit;
+	private $mValuesFromSubmit = [];
 	private $mNumInstancesFromSubmit = 0;
 	private $mPageCallsThisTemplate = false;
 	private $mInstanceNum = 0;
@@ -272,17 +272,24 @@ class PFTemplateInForm {
 		$this->mFields[] = $form_field;
 	}
 
+	// this makes it possible for += and -= to modify values based on existing values.
+	function changeFieldValues( $field_name, $new_value, $modifier = null ) {
+		$this->mValuesFromPage[$field_name] = $new_value;
+		if ( $modifier !== null && array_key_exists( $field_name . $modifier, $this->mValuesFromPage ) ) {
+			// clean up old values with + or - in them from the array
+			unset( $this->mValuesFromPage[$field_name . $modifier] );
+		}
+	}
+
 	function setFieldValuesFromSubmit() {
 		global $wgRequest;
-
-		$this->mValuesFromSubmit = null;
 
 		$query_template_name = str_replace( ' ', '_', $this->mTemplateName );
 		// Also replace periods with underlines, since that's what
 		// POST does to strings anyway.
 		$query_template_name = str_replace( '.', '_', $query_template_name );
 		// ...and escape apostrophes.
-			// (Or don't.)
+		//  (Or don't.)
 		// $query_template_name = str_replace( "'", "\'", $query_template_name );
 
 		$allValuesFromSubmit = $wgRequest->getArray( $query_template_name );
