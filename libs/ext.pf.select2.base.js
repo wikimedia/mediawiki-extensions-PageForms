@@ -226,6 +226,43 @@
 			autocomplete_opts.autocompletesettings = $(input_id).attr( "autocompletesettings" );
 			return autocomplete_opts;
 		},
+
+		/**
+		 * Escape out any HTML, and then add our own HTML to display
+		 * the correct bolding.
+		 * The first part of this function is directly copied from
+		 * Utils::escapeMarkup() in the Select2 code. @TODO: figure out
+		 * how to just call that code directly.
+		 */
+		escapeMarkupAndAddHTML: function( markup ) {
+			var replaceMap = {
+				'\\': '&#92;',
+				'&': '&amp;',
+				'<': '&lt;',
+				'>': '&gt;',
+				'"': '&quot;',
+				'\'': '&#39;',
+				'/': '&#47;'
+			};
+
+			// Do not try to escape the markup if it's not a string
+			if (typeof markup !== 'string') {
+				return markup;
+			}
+
+			var escapedMarkup = String(markup).replace(/[&<>"'\/\\]/g, function (match) {
+				return replaceMap[match];
+			})
+
+			var boldStart = String.fromCharCode(1);
+			var boldEnd = String.fromCharCode(2);
+			return '<span class="select2-match-entire">' +
+				escapedMarkup
+				.replace(boldStart, '<span class="select2-match"><b>')
+				.replace(boldEnd, '</b></span>') +
+				'</span>';
+		},
+
 		/*
 		 * Refreshes the field if there is a change
 		 * in the autocomplete vlaues
@@ -272,11 +309,11 @@
 			}
 
 			if ( start !== -1 ) {
-				markup = (text.substr(0, start) +
-				'<span class="select2-match-entire"><span class="select2-match"><b>' +
-				text.substr(start,term.length) +
-				'</b></span>' +
-				text.substr(start + term.length, text.length)+'</span>');
+				var boldStart = String.fromCharCode(1);
+				var boldEnd = String.fromCharCode(2);
+				markup = text.substr(0, start) + boldStart +
+					text.substr(start,term.length) + boldEnd +
+					text.substr(start + term.length, text.length);
 			} else {
 				markup = (text);
 			}
