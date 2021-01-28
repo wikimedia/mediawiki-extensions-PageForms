@@ -105,8 +105,8 @@ class PFTokensInput extends PFFormInput {
 			if ( array_key_exists( 'description', $other_args ) ) {
 				$wgPageFormsEDSettings[$name]['description'] = $other_args['description'];
 			}
-			if ( array_key_exists( 'delimiter', $field_args ) ) {
-				$delimiter = $field_args['delimiter'];
+			if ( array_key_exists( 'delimiter', $other_args ) ) {
+				$delimiter = $other_args['delimiter'];
 			} else {
 				$delimiter = ',';
 			}
