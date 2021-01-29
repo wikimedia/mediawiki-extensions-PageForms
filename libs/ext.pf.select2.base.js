@@ -232,6 +232,8 @@
 		 * The first part of this function is directly copied from
 		 * Utils::escapeMarkup() in the Select2 code. @TODO: figure out
 		 * how to just call that code directly.
+		 *
+		 * @param markup
 		 */
 		escapeMarkupAndAddHTML: function( markup ) {
 			var replaceMap = {

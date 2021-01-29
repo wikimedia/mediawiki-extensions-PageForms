@@ -90,6 +90,7 @@
 		"no-jquery/variable-pattern": "warn",
 		"no-shadow": "warn",
 		"no-unreachable-loop": "warn",
-		"mediawiki/msg-doc": "warn"
+		"mediawiki/msg-doc": "warn",
+		"compat/compat": "warn"
 	}
 }
