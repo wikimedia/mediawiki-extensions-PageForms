@@ -81,7 +81,7 @@ class PFRadioButtonInput extends PFEnumInput {
 				$label = $possible_value;
 			}
 
-			$itemAttrs = [ 'class' => $itemClass, 'for' => $input_id ];
+			$itemAttrs = [ 'class' => $itemClass ];
 			$text .= "\t" . Html::rawElement( 'label', $itemAttrs,
 				Html::radio( $input_name, $isChecked, $radiobutton_attrs ) .
 				'&nbsp;' . $label ) . "\n";
