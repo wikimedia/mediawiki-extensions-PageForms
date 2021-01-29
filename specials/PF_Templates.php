@@ -47,6 +47,8 @@ class PFTemplates extends QueryPage {
 	function getCategoryDefinedByTemplate( $templateTitle ) {
 		$templateText = PFUtils::getPageText( $templateTitle );
 		$cat_ns_name = PFUtils::getContLang()->getNsText( NS_CATEGORY );
+		// Ignore categories inside <noinclude> tags.
+		$templateText = preg_replace( '/<noinclude>.*<\/noinclude>/isU', '', $templateText );
 		if ( preg_match_all( "/\[\[(Category|$cat_ns_name):([^\]]*)\]\]/", $templateText, $matches ) ) {
 			// Get the last match - if there's more than one
 			// category tag, there's a good chance that the last
