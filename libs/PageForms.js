@@ -1163,46 +1163,44 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	new_div.initializeJSElements(true);
 
 	// Initialize new inputs.
-	new_div.find("input, select, textarea").each(
-		function() {
-
-			if (this.id) {
-
-				var pfdata = $("#pfForm").data('PageForms');
-				if ( pfdata ) {
-
-					// have to store data array: the id attribute
-					// of 'this' might be changed in the init function
-					var thatData = pfdata.initFunctions[this.id] ;
-
-					if ( thatData ) { // if anything registered at all
-						// Call every initialization method
-						// for this input
-						for ( var i = 0; i < thatData.length; i++ ) {
-							var initFunction = thatData[i].initFunction;
-							if ( initFunction === undefined ) {
-								continue;
-							}
-							// If the code attempted to store
-							// this function before it was
-							// defined, only its name was stored.
-							// In that case, get the function now.
-							// @TODO - move getFunctionFromName()
-							// so that it can be called from here,
-							// which would be better than window[].
-							if ( typeof initFunction === 'string' ) {
-								initFunction = window[initFunction];
-							}
-							initFunction(
-								this.id,
-								thatData[i].parameters
-							);
-						}
-					}
-				}
-			}
+	new_div.find("input, select, textarea").each( function() {
+		if ( ! this.id ) {
+			return;
 		}
-	);
+
+		var pfdata = $("#pfForm").data('PageForms');
+		if ( ! pfdata ) {
+			return;
+		}
+
+		// have to store data array: the id attribute
+		// of 'this' might be changed in the init function
+		var thatData = pfdata.initFunctions[this.id] ;
+		if ( !thatData ) {
+			return;
+		}
+
+		// Call every initialization method for this input.
+		for ( var i = 0; i < thatData.length; i++ ) {
+			var initFunction = thatData[i].initFunction;
+			if ( initFunction === undefined ) {
+				continue;
+			}
+			// If the code attempted to store this function before
+			// it was defined, only its name was stored. In that
+			// case, get the function now.
+			// @TODO - move getFunctionFromName() so that it can be
+			// called from here, which would be better than
+			// window[].
+			if ( typeof initFunction === 'string' ) {
+				initFunction = window[initFunction];
+			}
+			initFunction(
+				this.id,
+				thatData[i].parameters
+			);
+		}
+	});
 
 	// Hook that fires each time a new template instance is added.
 	// The first parameter is a jQuery selection of the newly created instance div.
