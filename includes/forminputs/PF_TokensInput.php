@@ -202,17 +202,15 @@ class PFTokensInput extends PFFormInput {
 			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
 		}
 		foreach ( $cur_values as $current_value ) {
-
 			if ( !in_array( $current_value, $possible_values ) && $current_value !== '' ) {
 				$optionAttrs = [ 'value' => $current_value ];
 				$optionAttrs['selected'] = 'selected';
 				$optionLabel = $current_value;
 				$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
 			}
-
 		}
 
-		$text = "\n\t" . Html::rawElement( 'select',  $inputAttrs, $optionsText ) . "\n";
+		$text = "\n\t" . Html::rawElement( 'select', $inputAttrs, $optionsText ) . "\n";
 		$text .= Html::hidden( $input_name . '[is_list]', 1 );
 
 		if ( array_key_exists( 'uploadable', $other_args ) && $other_args['uploadable'] == true ) {

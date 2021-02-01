@@ -1363,12 +1363,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		this.find(".removeButton").click( function() {
 
 			// Unregister initialization and validation for deleted inputs
-			$(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each(
-			function() {
+			$(this).parentsUntil( '.multipleTemplateInstance' ).last().parent().find("input, select, textarea").each( function() {
 				$(this).PageForms_unregisterInputInit();
 				$(this).PageForms_unregisterInputValidation();
-			}
-		);
+			});
 
 			// Remove the encompassing div for this instance.
 			$(this).closest(".multipleTemplateInstance")

@@ -323,16 +323,16 @@ class PFAutoeditAPI extends ApiBase {
 		// set up form data:
 		// merge data coming from the web request on top of some defaults
 		$data = array_merge(
-				[
-					'wpTextbox1' => $targetContent,
-					'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
-					'wpSummary' => '',
-					'wpStarttime' => wfTimestampNow(),
-					'wpEdittime' => '',
-					'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
-					'action' => 'submit',
-				],
-				$this->mOptions
+			[
+				'wpTextbox1' => $targetContent,
+				'wpUnicodeCheck' => 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ',
+				'wpSummary' => '',
+				'wpStarttime' => wfTimestampNow(),
+				'wpEdittime' => '',
+				'wpEditToken' => isset( $this->mOptions[ 'token' ] ) ? $this->mOptions[ 'token' ] : $this->getUser()->getEditToken(),
+				'action' => 'submit',
+			],
+			$this->mOptions
 		);
 
 		if ( array_key_exists( 'format', $data ) ) {

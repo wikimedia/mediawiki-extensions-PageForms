@@ -1,7 +1,7 @@
 /*
  * ext.pf.select2.tokens.js
  *
- * Javascript utility class to handle autocomplete
+ * JavaScript utility class to handle autocomplete
  * for tokens input type using Select2 JS library
  *
  * @file
@@ -314,16 +314,17 @@
 					}
 				}
 			}
-		} else { //Dependent field autocompletion
+		} else { // Dependent field autocompletion
 			var dep_field_opts = this.getDependentFieldOpts( dep_on );
 			var my_server = mw.config.get( 'wgScriptPath' ) + "/api.php";
-			my_server += "?action=pfautocomplete&format=json&property=" + dep_field_opts.prop + "&baseprop=" + dep_field_opts.base_prop + "&basevalue=" + dep_field_opts.base_value;
+			my_server += "?action=pfautocomplete&format=json&property=" + dep_field_opts.prop +
+				"&baseprop=" + dep_field_opts.base_prop + "&basevalue=" + dep_field_opts.base_value;
 			$.ajax({
 				url: my_server,
 				dataType: 'json',
 				async: false,
 				success: function(data) {
-					//Convert data into the format accepted by Select2
+					// Convert data into the format accepted by Select2.
 					data.pfautocomplete.forEach( function(item) {
 						if (item.displaytitle !== undefined) {
 							values.push({

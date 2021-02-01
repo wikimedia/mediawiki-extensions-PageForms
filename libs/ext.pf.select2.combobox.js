@@ -9,6 +9,7 @@
  * @licence GNU GPL v2+
  * @author Jatin Mehta
  * @author Priyanshu Varshney
+ * @author Yaron Koren
  */
 
 ( function( $, mw, pf ) {
@@ -106,6 +107,7 @@
 		opts.dropdownCssClass = 'pf-select2-dropdown';
 		return opts;
 	};
+
 	/*
 	 * Returns data to be used by select2 for combobox autocompletion
 	 *
@@ -192,7 +194,7 @@
 					}
 				}
 			}
-		} else { //Dependent field autocompletion
+		} else { // Dependent field autocompletion
 			var dep_field_opts = this.getDependentFieldOpts( dep_on );
 			var my_server = mw.config.get( 'wgScriptPath' ) + "/api.php";
 			my_server += "?action=pfautocomplete&format=json";
@@ -238,6 +240,7 @@
 
 		return values;
 	};
+
 	/*
 	 * Returns ajax options to be used by select2 for
 	 * remote autocompletion of combobox
@@ -284,6 +287,7 @@
 
 		return ajaxOpts;
 	};
+
 	/*
 	 * Used to set the value of the HTMLInputElement
 	 * when there is a change in the select2 value

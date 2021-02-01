@@ -1,14 +1,15 @@
 /*
  * ext.pf.select2.base.js
  *
- * Base class to handle autocomplete for various
- * input types using the Select2 JS library.
+ * Base class to handle autocomplete for various input types using the Select2
+ * JS library.
  *
  * @file
  *
  * @licence GNU GPL v2+
  * @author Jatin Mehta
  * @author Priyanshu Varshney
+ * @author Yaron Koren
  */
 
 ( function ( $, mw, pf ) {
@@ -266,7 +267,7 @@
 
 		/*
 		 * Refreshes the field if there is a change
-		 * in the autocomplete vlaues
+		 * in the autocomplete values.
 		 *
 		 * @param {HTMLElement} element
 		 *

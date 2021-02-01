@@ -12,7 +12,7 @@ use MediaWiki\MediaWikiServices;
 class PFUtils {
 	/**
 	 * Get a content language (old $wgContLang) object. For MW < 1.32,
-	 * return the global.  For all others, use MediaWikiServices.
+	 * return the global. For all others, use MediaWikiServices.
 	 *
 	 * @return Language
 	 */
