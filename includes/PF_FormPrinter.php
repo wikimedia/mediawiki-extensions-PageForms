@@ -1376,7 +1376,7 @@ END;
 					if ( ( $is_query && $input_name != 'run query' ) || ( !$is_query && $input_name == 'run query' ) ) {
 						$new_text = "";
 						$section = substr_replace( $section, $new_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
-						return;
+						return null;
 					}
 					// set a flag so that the standard 'form bottom' won't get displayed
 					$this->standardInputsIncluded = true;

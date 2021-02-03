@@ -330,7 +330,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	/**
 	 * Do the upload.
 	 * Checks are made in SpecialUpload::execute()
-	 * @return array|bool
+	 * @return array|bool|void
 	 */
 	protected function processUpload() {
 		// Verify permissions
