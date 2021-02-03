@@ -362,6 +362,11 @@ const manageColumnTitle = '\u2699';
 				type: 'POST',
 				headers: { 'Api-User-Agent': 'Example/1.0' },
 				success: function(data) {
+					if ( data.query == undefined ) {
+						// There are no calls to this template.
+						populateSpreadsheet();
+						return;
+					}
 					for ( var pageNum = 0; pageNum < data.query.pages.length; pageNum++ ) {
 						var curRevision = data.query.pages[pageNum].revisions[0];
 						if (curRevision.hasOwnProperty('slots')) {
