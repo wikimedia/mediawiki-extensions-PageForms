@@ -1422,6 +1422,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 		this.find('.pfDatePicker').applyDatePicker();
 		this.find('.pfDateTimePicker').applyDateTimePicker();
+
+		// Also add support in new template instances to any non-Page
+		// Forms classes that require special JS handling.
+		this.find('.mw-collapsible').makeCollapsible();
 	} else {
 		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
