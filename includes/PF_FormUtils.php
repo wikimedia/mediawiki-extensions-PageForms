@@ -76,7 +76,7 @@ class PFFormUtils {
 		}
 
 		if ( $label == null ) {
-			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'minoredit' )->text() );
+			$label = wfMessage( 'minoredit' )->parse();
 		}
 
 		$tooltip = wfMessage( 'tooltip-minoredit' )->text();
@@ -117,7 +117,7 @@ class PFFormUtils {
 			}
 		}
 		if ( $label == null ) {
-			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'watchthis' )->text() );
+			$label = wfMessage( 'watchthis' )->parse();
 		}
 		$attrs += [
 			'id' => 'wpWatchthis',
@@ -236,7 +236,7 @@ class PFFormUtils {
 		global $wgTitle;
 
 		if ( $label == null ) {
-			$label = PFUtils::getParser()->recursiveTagParse( wfMessage( 'cancel' )->text() );
+			$label = wfMessage( 'cancel' )->parse();
 		}
 		if ( $wgTitle == null ) {
 			$cancel = '';

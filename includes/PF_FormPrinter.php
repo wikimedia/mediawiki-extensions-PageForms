@@ -1175,7 +1175,7 @@ END;
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
-								$edittools_text = $parser->recursiveTagParse( wfMessage( 'edittools', [ 'content' ] )->text() );
+								$edittools_text = wfMessage( 'edittools' )->inContentLanguage()->parse();
 
 								$new_text .= <<<END
 		<div class="mw-editTools">
