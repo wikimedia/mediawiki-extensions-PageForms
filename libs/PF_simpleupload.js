@@ -1,41 +1,41 @@
 /**
  * @author Nischay Nahata
+ * @author Yaron Koren
  */
 
 ( function( $, mw ) {
 	$.fn.initializeSimpleUpload = function() {
 
-		this.find( ".simpleupload_btn" ).each( function() {
-			var _this = $(this);
-			var input = _this.parent().find('#' + _this.data('id'));
-			input.hide();
-			if ( input.val() !== '' && typeof input.val() !== 'undefined' ) {
-				_this.val( mw.message( 'pf_forminputs_change_file' ).text() );
-				var previewURL = mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( input.val() ) );
-				previewURL += ( previewURL.indexOf('?') < 0 ) ? '?' : '&';
-				previewURL += 'width=100';
-				$('<img class="simpleupload_prv" src="' + previewURL + '">').insertAfter(input);
-				_this.parent().find('.simpleupload_rmv_btn').show();
-			}
-		});
+		var uploadButton = this.find( ".simpleupload_btn" );
+		var removeButton = this.find( ".simpleupload_rmv_btn" );
+		var fileButton = this.find( ".simpleupload" );
+		var inputSpan = this.parent();
+		var input = inputSpan.find('input.createboxInput');
+		var loadingImage = inputSpan.find('img.loading');
 
-		this.find( ".simpleupload_rmv_btn" ).click( function () {
-			var _this = $(this);
-			var input = _this.parent().find('#' + _this.data('id'));
-			_this.parent().find('img.simpleupload_prv').remove();
-			_this.parent().find( "input[type='file']" ).val('');
+		input.hide();
+		if ( input.val() !== '' && typeof input.val() !== 'undefined' ) {
+			uploadButton.val( mw.message( 'pf_forminputs_change_file' ).text() );
+			var previewURL = mw.config.get('wgArticlePath').replace('$1', 'Special:Redirect/file/' + encodeURIComponent( input.val() ) );
+			previewURL += ( previewURL.indexOf('?') < 0 ) ? '?' : '&';
+			previewURL += 'width=100';
+			$('<img class="simpleupload_prv" src="' + previewURL + '">').insertAfter(input);
+			removeButton.show();
+		}
+
+		removeButton.click( function () {
+			inputSpan.find('img.simpleupload_prv').remove();
+			fileButton.val('');
 			input.val('');
-			_this.hide();
-			_this.parent().find('.simpleupload_btn').val( mw.message( 'pf-simpleupload' ).text() );
+			removeButton.hide();
+			uploadButton.val( mw.message( 'pf-simpleupload' ).text() );
 		});
 
-		this.find( ".simpleupload_btn" ).click( function () {
-			$(this).parent().find("input[type='file']").trigger('click');
+		uploadButton.click( function () {
+			fileButton.trigger('click');
 		});
 
-		this.find( "input[type='file'].simpleupload" ).change( function(event) {
-			var _this = $(this);
-			var input = _this.parent().find('#' + _this.data('id'));
+		fileButton.change( function(event) {
 			var fileToUpload = event.target.files[0]; // get (first) File
 			var fileName = event.target.files[0].name;
 
@@ -47,8 +47,8 @@
 			formdata.append("token", mw.user.tokens.get( 'csrfToken' ) );
 			formdata.append("file", fileToUpload);
 
-			_this.parent().find('.simpleupload_btn').hide();
-			_this.parent().find('img.loading').show();
+			uploadButton.hide();
+			loadingImage.show();
 			// As we now have created the data to send, we send it...
 			$.ajax( { //http://stackoverflow.com/questions/6974684/how-to-send-formdata-objects-with-ajax-requests-in-jquery
 				url: mw.util.wikiScript( 'api' ), //url to api.php
@@ -65,19 +65,19 @@
 						imagePreviewURL += ( imagePreviewURL.indexOf('?') === -1 ) ? '?' : '&';
 						imagePreviewURL += 'width=100';
 						$('<img class="simpleupload_prv" src="' + imagePreviewURL +'">').insertAfter(input);
-						_this.parent().find('.simpleupload_btn').show().val( mw.message( 'pf_forminputs_change_file' ).text() );
-						_this.parent().find('img.loading').hide();
-						_this.parent().find('.simpleupload_rmv_btn').show();
+						uploadButton.show().val( mw.message( 'pf_forminputs_change_file' ).text() );
+						loadingImage.hide();
+						removeButton.show();
 					} else {
 						window.alert("Error: " + data.error.info);
-						_this.parent().find('.simpleupload_btn').show().val( mw.message( 'pf-simpleupload' ).text() );
-						_this.parent().find('img.loading').hide();
+						uploadButton.show().val( mw.message( 'pf-simpleupload' ).text() );
+						loadingImage.hide();
 					}
 				},
 				error: function( xhr,status, error ) {
 					window.alert('Something went wrong! Please check the log for errors');
-					_this.parent().find('.simpleupload_btn').show().val( mw.message( 'pf-simpleupload' ).text() );
-					_this.parent().find('img.loading').hide();
+					uploadButton.show().val( mw.message( 'pf-simpleupload' ).text() );
+					loadingImage.hide();
 					mw.log(error);
 				}
 			});

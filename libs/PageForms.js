@@ -1406,11 +1406,6 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		animationEffect : false
 	};
 
-	// Only defined if $wgPageFormsSimpleUpload == true.
-	if ( typeof this.initializeSimpleUpload === 'function' ) {
-		this.initializeSimpleUpload();
-	}
-
 	if ( partOfMultiple ) {
 		this.find('.pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autoGrow').autoGrow();
@@ -1422,6 +1417,12 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 		this.find('.pfDatePicker').applyDatePicker();
 		this.find('.pfDateTimePicker').applyDateTimePicker();
+		// Only defined if $wgPageFormsSimpleUpload == true.
+		if ( typeof this.initializeSimpleUpload === 'function' ) {
+			this.find(".simpleUploadInterface").each( function() {
+				$(this).initializeSimpleUpload();
+			});
+		}
 
 		// Also add support in new template instances to any non-Page
 		// Forms classes that require special JS handling.
@@ -1437,6 +1438,12 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 		this.find('.pfDatePicker').not(".multipleTemplateWrapper .pfDatePicker").applyDatePicker();
 		this.find('.pfDateTimePicker').not(".multipleTemplateWrapper .pfDateTimePicker").applyDateTimePicker();
+		// Only defined if $wgPageFormsSimpleUpload == true.
+		if ( typeof this.initializeSimpleUpload === 'function' ) {
+			this.find(".simpleUploadInterface").not(".multipleTemplateWrapper .simpleUploadInterface").each( function() {
+				$(this).initializeSimpleUpload();
+			});
+		}
 	}
 
 	// @TODO - this should ideally be called only for inputs that have

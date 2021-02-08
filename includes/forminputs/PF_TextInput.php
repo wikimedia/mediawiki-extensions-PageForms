@@ -144,30 +144,29 @@ class PFTextInput extends PFFormInput {
 
 		if ( $wgPageFormsSimpleUpload ) {
 			$text = "\n" . '<img class="loading" style="display:none;" src="' . $wgPageFormsScriptPath . '/skins/loading.gif"/>' . "\n";
-			$text .= Html::input( '',
+			$buttonsText = Html::input( '',
 				wfMessage( 'pf-simpleupload' )->escaped(),
 				'button',
 				[
-					'class' => 'simpleupload_btn',
-					'data-id' => $input_id
+					'class' => 'simpleupload_btn'
 				]
 			) . "\n";
-			$text .= Html::input( '',
+			$buttonsText .= Html::input( '',
 				wfMessage( 'htmlform-cloner-delete' )->escaped(),
 				'button',
 				[
 					'class' => 'simpleupload_rmv_btn',
-					'style' => 'display: none;',
-					'data-id' => $input_id
+					'style' => 'display: none;'
 				]
 			) . "\n";
-			$text .= Html::input( '', '', 'file',
+			$buttonsText .= Html::input( '', '', 'file',
 				[
 					'class' => 'simpleupload',
-					'style' => 'width: 0;height: 0;overflow: hidden;',
-					'data-id' => $input_id
+					'style' => 'width: 0; height: 0; overflow: hidden;'
 				]
 			) . "\n";
+
+			$text .= Html::rawElement( 'span', [ 'class' => 'simpleUploadInterface' ], $buttonsText );
 
 			return $text;
 		}
