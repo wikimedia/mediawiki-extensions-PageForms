@@ -273,7 +273,8 @@ END;
 			'ext.pageforms.select2',
 			'ext.pageforms.rating',
 			'ext.pageforms.fancybox',
-			'ext.pageforms.fullcalendar'
+			'ext.pageforms.fullcalendar',
+			'jquery.makeCollapsible'
 		];
 
 		if ( $wgPageFormsSimpleUpload ) {
