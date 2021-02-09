@@ -1143,6 +1143,11 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 		}
 	);
 
+	// datepicker and datetimepicker inputs require special handling.
+	new_div.find("div.pfPicker").attr('data-ooui', function() {
+		return $(this).attr('data-ooui').replace(/\[num\]/g, '[' + num_elements + 'b]');
+	});
+
 	new_div.find('a').attr('href', function() {
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
