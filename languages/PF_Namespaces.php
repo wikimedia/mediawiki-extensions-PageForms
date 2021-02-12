@@ -133,6 +133,14 @@ $namespaceNames['nl'] = [
 	PF_NS_FORM_TALK => 'Overleg_formulier'
 ];
 
+/**
+ * @author UnknownSkyrimPasserby
+ */
+$namespaceNames['pl'] = [
+	PF_NS_FORM           => 'Formularz',
+	PF_NS_FORM_TALK      => 'Dyskusja formularza'
+];
+
 $namespaceNames['ru'] = [
 	PF_NS_FORM           => 'Форма',
 	PF_NS_FORM_TALK      => 'Обсуждение_формы'
