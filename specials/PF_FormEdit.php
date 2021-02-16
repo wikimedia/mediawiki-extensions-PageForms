@@ -36,6 +36,9 @@ class PFFormEdit extends UnlistedSpecialPage {
 			$this->mTarget = str_replace( '_', ' ', $this->mTarget );
 		}
 
+		$this->mForm = trim( $this->mForm );
+		$this->mTarget = trim( $this->mTarget );
+
 		$alt_forms = $this->getRequest()->getArray( 'alt_form' );
 
 		$this->printForm( $this->mForm, $this->mTarget, $alt_forms );
