@@ -241,15 +241,7 @@ class PFFormUtils {
 		if ( $wgTitle == null ) {
 			$cancel = '';
 		} elseif ( $wgTitle->isSpecial( 'FormEdit' ) ) {
-			// If we're on the special 'FormEdit' page, just send the user
-			// back to the previous page they were on.
-			$stepsBack = 1;
-			// For IE, we need to go back twice, past the redirect.
-			if ( array_key_exists( 'HTTP_USER_AGENT', $_SERVER ) &&
-				stristr( $_SERVER['HTTP_USER_AGENT'], "msie" ) ) {
-				$stepsBack = 2;
-			}
-			$cancel = "<a href=\"javascript:history.go(-$stepsBack);\">$label</a>";
+			$cancel = "<a href=\"#\" class=\"pfSendBack\">$label</a>";
 		} else {
 			$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 			$cancel = $linkRenderer->makeKnownLink( $wgTitle, $label );
