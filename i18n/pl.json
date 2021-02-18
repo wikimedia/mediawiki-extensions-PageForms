@@ -142,7 +142,7 @@
 	"pf_formstart_docu": "Wprowadź tutaj nazwę strony, która ma być edytowana z użyciem formularza „$1”.\nJeśli strona istnieje, zostanie otwarta do edycji w tym formularzu.\nW przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stronę.",
 	"pf_formstart_noform_docu": "Wprowadź tutaj nazwę strony, a następnie wybierz formularz, z którego użyciem ma być edytowana.\nJeśli strona istnieje, zostanie otwarta do edycji w tym formularzu.\nW przeciwnym wypadku będziesz mógł edytować z użyciem formularza nową stronę.",
 	"pf_formstart_createoredit": "Utwórz lub edytuj",
-	"formedit": "Edytuj korzystając z formularza",
+	"formedit": "Edytuj formularzem",
 	"pf-formedit-selectform": "Wybierz formularz, aby utworzyć tę stronę:",
 	"pf-formedit-mainforms": "Główne formularze:",
 	"pf-formedit-otherforms": "Inne formularze:",
