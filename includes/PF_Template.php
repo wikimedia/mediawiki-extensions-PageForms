@@ -268,12 +268,30 @@ class PFTemplate {
 		// Now, combine the two sets of information into an array of
 		// PFTemplateFields objects.
 		$fieldDescriptions = $tableSchema->mFieldDescriptions;
+		// First, go through the #cargo_store parameters, add add them
+		// all to the array, matching them with Cargo field descriptions
+		// where possible.
 		foreach ( $cargoFieldsOfTemplateParams as $templateParameter => $cargoField ) {
 			$templateField = PFTemplateField::create( $templateParameter, $templateParameter );
 			if ( array_key_exists( $cargoField, $fieldDescriptions ) ) {
 				$fieldDescription = $fieldDescriptions[$cargoField];
 				$templateField->setCargoFieldData( $tableName, $cargoField, $fieldDescription );
 			}
+			$this->mTemplateFields[] = $templateField;
+		}
+
+		// Now, go through the Cargo field descriptions, and add
+		// whichever ones were not in #cargo_store (as of version 3.0,
+		// Cargo does not require template parameters whose name matches
+		// their Cargo field name to be passed in to #cargo_store).
+		foreach ( $fieldDescriptions as $cargoField => $fieldDescription ) {
+			$templateParameter = array_search( $cargoField, $cargoFieldsOfTemplateParams );
+			if ( $templateParameter !== false ) {
+				continue;
+			}
+			$templateParameter = str_replace( '_', ' ', $cargoField );
+			$templateField = PFTemplateField::create( $templateParameter, $templateParameter );
+			$templateField->setCargoFieldData( $tableName, $cargoField, $fieldDescription );
 			$this->mTemplateFields[] = $templateField;
 		}
 	}
