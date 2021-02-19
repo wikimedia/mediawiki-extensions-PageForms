@@ -152,7 +152,7 @@
 	"pf_formedit_badurl": "Tę stronę edytuje się przy użyciu formularza. Musisz określić w adresie URL nazwę formularza i stronę docelową. Powinno to wyglądać podobnie do „Special:FormEdit?form=<nazwa formularza>&target=<strona docelowa>” lub  „Special:FormEdit/<nazwa formularza>/<strona docelowa>”.",
 	"pf_formedit_altforms": "Zamiast tego możesz dodać stronę z jednym z następujących formularzy:",
 	"pf_formedit_altformsonly": "Wybierz jeden z poniższych formularzy, aby dodać tę stronę:",
-	"pf_formcreate": "Utwórz korzystając z formularza",
+	"pf_formcreate": "Utwórz formularzem",
 	"pf_viewform": "Zobacz formularz",
 	"pf_editsource": "Edytuj źródło",
 	"pf_formedit_edittitle": "Edytuj $1: $2",
