@@ -743,6 +743,10 @@ class PFPageSchemas extends PSExtensionHandler {
 	public static function generatePages( $pageSchemaObj, $selectedPages ) {
 		global $wgUser;
 
+		if ( $selectedPages == null ) {
+			return;
+		}
+
 		$psFormItems = $pageSchemaObj->getFormItemsList();
 		$form_items = [];
 		$jobs = [];
