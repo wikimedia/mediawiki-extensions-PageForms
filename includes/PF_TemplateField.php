@@ -152,6 +152,9 @@ class PFTemplateField {
 		$this->mIsMandatory = $fieldDescription->mIsMandatory;
 		$this->mIsUnique = $fieldDescription->mIsUnique;
 		$this->mRegex = $fieldDescription->mRegex;
+		if ( array_key_exists( 'label', $fieldDescription->mOtherParams ) ) {
+			$this->mLabel = $fieldDescription->mOtherParams['label'];
+		}
 	}
 
 	function getFieldName() {

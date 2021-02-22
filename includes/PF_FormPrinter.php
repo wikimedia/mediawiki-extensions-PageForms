@@ -454,6 +454,8 @@ END;
 			$wgPageFormsFieldNum++;
 			if ( $formField->getLabel() !== null ) {
 				$labelText = $formField->getLabel();
+			} elseif ( $formField->template_field->getLabel() !== null ) {
+				$labelText = $formField->template_field->getLabel() . ':';
 			} else {
 				$labelText = $fieldName . ': ';
 			}
