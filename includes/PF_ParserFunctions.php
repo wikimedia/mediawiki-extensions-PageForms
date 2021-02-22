@@ -683,6 +683,9 @@ class PFParserFunctions {
 		$inQueryArr = [];
 		$targetWindow = '_self';
 
+		// Needed for the 'next' icon.
+		$parser->getOutput()->addModules( 'oojs-ui.styles.icons-movement' );
+
 		// assign params
 		// - support unlabelled params, for backwards compatibility
 		// - parse and sanitize all parameter values
@@ -816,12 +819,15 @@ class PFParserFunctions {
 			}
 		}
 		if ( $inLinkType == 'button' || $inLinkType == 'post button' ) {
+			$parser->getOutput()->setEnableOOUI( true );
+			OutputPage::setupOOUI();
 			$buttonAttrs = [
 				'type' => 'submit',
-				'value' => $inLinkStr,
-				'title' => $inTooltip
+				'label' => $inLinkStr,
+				'title' => $inTooltip,
+				'icon' => 'next'
 			];
-			$buttonHTML = Html::rawElement( 'button', $buttonAttrs, $inLinkStr );
+			$buttonHTML = new OOUI\ButtonInputWidget( $buttonAttrs );
 			$formAttrs = [
 				'action' => $link_url,
 				'method' => ( $inLinkType == 'button' ) ? 'get' : 'post',
