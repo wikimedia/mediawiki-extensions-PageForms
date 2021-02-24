@@ -605,7 +605,7 @@ class PFFormField {
 				} else {
 					$str = $field_query_val;
 				}
-				return htmlspecialchars( $str, ENT_QUOTES );
+				return str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $str );
 
 			}
 		}
