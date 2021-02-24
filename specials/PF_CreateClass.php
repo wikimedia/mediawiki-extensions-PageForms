@@ -194,6 +194,7 @@ class PFCreateClass extends SpecialPage {
 		}
 
 		$this->setHeaders();
+		$out->enableOOUI();
 
 		$numStartingRows = 5;
 		$out->addJsConfigVars( '$numStartingRows', $numStartingRows );
@@ -384,28 +385,30 @@ END;
 	</div>
 
 END;
-		$add_another_button = Html::element( 'input',
-			[
-				'type' => 'button',
-				'value' => $this->msg( 'pf_formedit_addanother' )->text(),
-				'class' => "createClassAddRow mw-ui-button mw-ui-progressive"
-			]
-		);
-		$text .= Html::rawElement( 'p', null, $add_another_button ) . "\n";
+
+		$attrs = [
+			'classes' => [ "createClassAddRow" ],
+			'label' => $this->msg( 'pf_formedit_addanother' )->text(),
+			'icon' => 'add'
+		];
+		$addAnotherButton = new OOUI\ButtonWidget( $attrs );
+		$text .= new OOUI\FieldLayout( $addAnotherButton );
+
 		// Set 'title' as hidden field, in case there's no URL niceness
 		$cc = $this->getPageTitle();
 		$text .= Html::hidden( 'title', PFUtils::titleURLString( $cc ) );
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateClass' ) ) . "\n";
 
-		$text .= Html::element( 'input',
-			[
-				'type' => 'submit',
-				'name' => 'createAll',
-				'value' => $this->msg( 'Pf_createclass_create' )->text(),
-				'class' => 'mw-ui-button mw-ui-progressive'
-			]
-		);
+		$attrs = [
+			'type' => 'submit',
+			'flags' => [ 'primary', 'progressive' ],
+			'name' => 'createAll',
+			'label' => $this->msg( 'pf_createclass_create' )->text()
+		];
+		$createButton = new OOUI\ButtonInputWidget( $attrs );
+		$text .= new OOUI\FieldLayout( $createButton );
+
 		$text .= "</form>\n";
 		$out->addHTML( $text );
 	}
