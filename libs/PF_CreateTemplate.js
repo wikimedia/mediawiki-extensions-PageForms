@@ -3,12 +3,12 @@ function toggleCargoInputs() {
 		jQuery('#cargo_table_input').show('medium');
 		jQuery('label.cargo_field_type').show('medium');
 		jQuery('.allowed_values_input').show('medium');
-		jQuery('.is_hierarchy').show('medium');
+		jQuery('.is_hierarchy').parent().show('medium');
 	} else {
 		jQuery('#cargo_table_input').hide('medium');
 		jQuery('label.cargo_field_type').hide('medium');
 		jQuery("input[name*='is_hierarchy_']").prop('checked', false);
-		jQuery('.is_hierarchy').hide('medium');
+		jQuery('.is_hierarchy').parent().hide('medium');
 		jQuery('.hierarchy_structure_input').hide('medium');
 		jQuery('.allowed_values_input').show('medium');
 	}
