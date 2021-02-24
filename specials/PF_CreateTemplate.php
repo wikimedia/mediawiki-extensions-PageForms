@@ -19,6 +19,8 @@ class PFCreateTemplate extends SpecialPage {
 
 	public function execute( $query ) {
 		$this->setHeaders();
+		$out = $this->getOutput();
+		$out->enableOOUI();
 		$this->printCreateTemplateForm( $query );
 	}
 
@@ -134,7 +136,11 @@ class PFCreateTemplate extends SpecialPage {
 			$text .= "\t</p>\n";
 		}
 		$text .= "\t</td><td>\n";
-		$text .= "\t" . '<input type="button" value="' . $this->msg( 'pf_createtemplate_deletefield' )->escaped() . '" class="deleteField" />' . "\n";
+		$text .= new OOUI\ButtonWidget( [
+			'label' => $this->msg( 'pf_createtemplate_deletefield' )->escaped(),
+			'classes' => [ 'deleteField' ],
+			'icon' => 'close'
+		] );
 
 		$text .= <<<END
 </td></tr></table>
@@ -281,13 +287,12 @@ END;
 		$text .= $this->printFieldEntryBox( "starter", $all_properties, false );
 		$text .= "</div>\n";
 
-		$add_field_button = Html::input(
-			null,
-			$this->msg( 'pf_createtemplate_addfield' )->text(),
-			'button',
-			[ 'class' => "createTemplateAddField" ]
-		);
-		$text .= Html::rawElement( 'p', null, $add_field_button ) . "\n";
+		$add_field_button = new OOUI\ButtonWidget( [
+			'label' => $this->msg( 'pf_createtemplate_addfield' )->text(),
+			'classes' => [ 'createTemplateAddField' ],
+			'icon' => 'add'
+		] );
+		$text .= new OOUI\FieldLayout( $add_field_button ) . "\n";
 		$text .= "\t</fieldset>\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
@@ -307,8 +312,20 @@ END;
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateTemplate' ) ) . "\n";
 
-		$save_button = Html::input( 'wpSave', $this->msg( 'savearticle' )->escaped(), 'submit', [ 'id' => 'wpSave' ] );
-		$preview_button = Html::input( 'wpPreview', $this->msg( 'preview' )->escaped(), 'submit', [ 'id' => 'wpPreview' ] );
+		$save_button = new OOUI\ButtonInputWidget( [
+			'type' => 'submit',
+			'name' => 'wpSave',
+			'id' => 'wpSave',
+			'label' => $this->msg( 'savearticle' )->escaped(),
+			'flags' => [ 'primary', 'progressive' ]
+		] );
+		$preview_button = new OOUI\ButtonInputWidget( [
+			'type' => 'submit',
+			'name' => 'wpPreview',
+			'id' => 'wpPreview',
+			'label' => $this->msg( 'preview' )->escaped(),
+			'flags' => [ 'progressive' ]
+		] );
 		$text .= Html::rawElement( 'div', [ 'class' => 'editButtons' ], $save_button . "\n" . $preview_button );
 
 		$text .= '</form>';
