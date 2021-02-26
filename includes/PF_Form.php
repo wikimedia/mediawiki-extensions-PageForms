@@ -131,13 +131,6 @@ END;
 '''$freeTextLabel:'''
 
 {{{standard input|free text|rows=10}}}
-
-
-{{{standard input|summary}}}
-
-{{{standard input|minor edit}}} {{{standard input|watch}}}
-
-{{{standard input|save}}} {{{standard input|preview}}} {{{standard input|changes}}} {{{standard input|cancel}}}
 END;
 		}
 		$text .= "\n</includeonly>\n";
