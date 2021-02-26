@@ -212,6 +212,9 @@ END;
 		if ( $watch_this ) {
 			$form_body .= Html::hidden( 'wpWatchthis', null );
 		}
+
+		$form_body .= Html::hidden( 'wpUltimateParam', true );
+
 		$text .= Html::rawElement(
 			'form',
 			[
