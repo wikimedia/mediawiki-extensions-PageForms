@@ -19,7 +19,7 @@
 
 	$( function () {
 		var allowCloseWindow,
-			$allInputs = $( 'form#pfForm textarea, form#pfForm input[type=text], #wpSummary' );
+			$allInputs = $( 'form#pfForm textarea, form#pfForm input[type=text], form#pfForm input:not([type]), select, #wpSummary' );
 
 		// Check if EditWarning is enabled and if we need it.
 		if ( !mw.user.options.get( 'useeditwarning' ) ) {
@@ -40,7 +40,11 @@
 				// We use .textSelection, because editors might not have updated the form yet.
 				$allInputs.each( function( index, element ) {
 					var $element = $( element );
-					if ( $element.data( 'origtext' ) !== $element.textSelection( 'getContents' ) ) {
+					var origText = $element.data( 'origtext' );
+					// For some reason, the addition of a blank string is sometimes
+					// necessary, to get the type right.
+					var newText = $element.textSelection( 'getContents' ) + '';
+					if ( origText != newText ) {
 						changesWereMade = true;
 						return false;
 					}
