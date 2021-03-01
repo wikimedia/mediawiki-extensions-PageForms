@@ -352,7 +352,7 @@ class PFValuesUtils {
 		$titles = [];
 		while ( $res = $query_result->getNext() ) {
 			$page = $res[0]->getNextText( SMW_OUTPUT_WIKI );
-			if ( $wgPageFormsUseDisplayTitle && class_exists( 'PageProps' ) ) {
+			if ( $wgPageFormsUseDisplayTitle ) {
 				$title = Title::newFromText( $page );
 				if ( $title !== null ) {
 					$titles[] = $title;
@@ -363,7 +363,7 @@ class PFValuesUtils {
 			}
 		}
 
-		if ( $wgPageFormsUseDisplayTitle && class_exists( 'PageProps' ) ) {
+		if ( $wgPageFormsUseDisplayTitle ) {
 			$properties = PageProps::getInstance()->getProperties( $titles,
 				[ 'displaytitle', 'defaultsort' ] );
 			foreach ( $titles as $title ) {
