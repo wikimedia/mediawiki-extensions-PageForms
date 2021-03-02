@@ -123,13 +123,6 @@ form input.formInput,
     padding: 3px 8px;
 }
 
-#pfForm input#wpSummary,
-#pfForminput#wpSummary:hover {
-    border-radius: 3px;
-    border: 1px solid #BBB;
-    padding: 4px 8px;
-}
-
 #pfForm select,
 #pfForm input[type="checkbox"] {
     max-width: 100%;
@@ -160,11 +153,6 @@ body.rtl #pfForm label.radioButtonItem {
 	margin-left: 20px;
 }
 
-
-#pfForm input#wpSummary,
-#pfForm input#wpSummary:hover {
-    max-width: 100%;
-}
 /* Select2 inputs */
 #pfForm .select2-container {
     width: auto;

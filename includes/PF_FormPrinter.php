@@ -406,13 +406,16 @@ END;
 		) . "\n";
 
 		$attributes = [
-			'tabindex' => $wgPageFormsTabIndex,
-			'class' => 'multipleTemplateAdder',
+			'tabIndex' => $wgPageFormsTabIndex,
+			'classes' => [ 'multipleTemplateAdder' ],
+			'label' => Sanitizer::decodeCharReferences( $template_in_form->getAddButtonText() ),
+			'icon' => 'add'
 		];
 		if ( $form_is_disabled ) {
 			$attributes['disabled'] = true;
+			$attributes['classes'] = [];
 		}
-		$button = Html::input( null, Sanitizer::decodeCharReferences( $template_in_form->getAddButtonText() ), 'button', $attributes );
+		$button = new OOUI\ButtonWidget( $attributes );
 		$text .= <<<END
 	</div><!-- multipleTemplateList -->
 		<p>$button</p>
