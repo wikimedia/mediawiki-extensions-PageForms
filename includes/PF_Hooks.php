@@ -82,7 +82,8 @@ class PFHooks {
 
 		$mapsModuleAttrs = [
 			'localBasePath' => $pageFormsDir,
-			'remoteExtPath' => 'PageForms'
+			'remoteExtPath' => 'PageForms',
+			'dependencies' => [ 'oojs-ui.styles.icons-location' ]
 		];
 
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {

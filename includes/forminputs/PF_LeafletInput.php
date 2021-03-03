@@ -23,8 +23,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
-		global $wgPageFormsTabIndex;
-		global $wgOut, $wgPageFormsMapsWithFeeders;
+		global $wgOut;
 
 		$scripts = [
 			"https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
@@ -43,37 +42,6 @@ class PFLeafletInput extends PFOpenLayersInput {
 		$wgOut->addHeadItem( $scriptsHTML, $scriptsHTML );
 		$wgOut->addHeadItem( $stylesHTML, $stylesHTML );
 		$wgOut->addModules( 'ext.pageforms.maps' );
-
-		// The address input box is not necessary if we are using other form inputs for the address.
-		if ( array_key_exists( $input_name, $wgPageFormsMapsWithFeeders ) ) {
-			$addressLookupInput = '';
-		} else {
-			$addressLookupInputAttrs = [
-				'type' => 'text',
-				'tabindex' => $wgPageFormsTabIndex++,
-				'class' => 'pfAddressInput',
-				'size' => 40,
-				'placeholder' => wfMessage( 'pf-maps-enteraddress' )->parse()
-			];
-			$addressLookupInput = Html::element( 'input', $addressLookupInputAttrs, null );
-		}
-		$addressLookupButtonAttrs = [
-			'type' => 'button',
-			'tabindex' => $wgPageFormsTabIndex++,
-			'class' => 'pfLookUpAddress',
-			'value' => wfMessage( 'pf-maps-lookupcoordinates' )->parse()
-		];
-		$addressLookupButton = Html::element( 'input', $addressLookupButtonAttrs, null );
-
-		$coordsInputAttrs = [
-			'type' => 'text',
-			'tabindex' => $wgPageFormsTabIndex++,
-			'class' => 'pfCoordsInput',
-			'name' => $input_name,
-			'value' => PFOpenLayersInput::parseCoordinatesString( $cur_value ),
-			'size' => 40
-		];
-		$coordsInput = Html::element( 'input', $coordsInputAttrs );
 
 		if ( array_key_exists( 'image', $other_args ) ) {
 			global $wgUploadDirectory;
@@ -112,25 +80,7 @@ class PFLeafletInput extends PFOpenLayersInput {
 			$width = self::getWidth( $other_args );
 		}
 
-		$mapCanvas = Html::element( 'div', [ 'class' => 'pfMapCanvas', 'style' => "height: $height; width: $width;" ], 'Map goes here...' );
-
-		$fullInputHTML = '';
-		if ( !array_key_exists( 'image', $other_args ) ) {
-			$fullInputHTML .= <<<END
-<div style="padding-bottom: 10px;">
-$addressLookupInput
-$addressLookupButton
-</div>
-
-END;
-		}
-		$fullInputHTML .= <<<END
-<div style="padding-bottom: 10px;">
-$coordsInput
-</div>
-$mapCanvas
-
-END;
+		$fullInputHTML = self::mapLookupHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args, $height, $width, $fileName == null );
 
 		$divAttrs = [ 'class' => 'pfLeafletInput' ];
 		if ( $fileName !== null ) {
