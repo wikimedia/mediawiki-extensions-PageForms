@@ -375,6 +375,12 @@ class PFTemplate {
 	public function createCargoStoreCall() {
 		$text = '{{#cargo_store:';
 		$text .= '_table=' . $this->mCargoTable;
+		if ( defined( 'CargoStore::PARAMS_OPTIONAL' ) ) {
+			// Cargo 3.0+
+			$text .= '}}';
+			return $text;
+		}
+
 		foreach ( $this->mTemplateFields as $i => $field ) {
 			$text .= '|' .
 				str_replace( ' ', '_', $field->getFieldName() ) .
