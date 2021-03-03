@@ -80,26 +80,19 @@ class PFHooks {
 		// the value here instead.
 		$pageFormsDir = __DIR__ . '/..';
 
+		$mapsModuleAttrs = [
+			'localBasePath' => $pageFormsDir,
+			'remoteExtPath' => 'PageForms'
+		];
+
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
-			$resourceLoader->register( [
-				'ext.pageforms.maps' => [
-					'localBasePath' => $pageFormsDir,
-					'remoteExtPath' => 'PageForms',
-					'scripts' => '/libs/PF_maps.offline.js',
-					'dependencies' => [
-						'ext.openlayers.main',
-					],
-				],
-			] );
+			$mapsModuleAttrs['scripts'] = '/libs/PF_maps.offline.js';
+			$mapsModuleAttrs['dependencies'][] = 'ext.openlayers.main';
 		} else {
-			$resourceLoader->register( [
-				'ext.pageforms.maps' => [
-					'localBasePath' => $pageFormsDir,
-					'remoteExtPath' => 'PageForms',
-					'scripts' => '/libs/PF_maps.js',
-				],
-			] );
+			$mapsModuleAttrs['scripts'] = '/libs/PF_maps.js';
 		}
+
+		$resourceLoader->register( [ 'ext.pageforms.maps' => $mapsModuleAttrs ] );
 
 		return true;
 	}
