@@ -615,7 +615,7 @@ END;
 	 */
 	public static function purgeCache2( MediaWiki\Revision\RenderedRevision $renderedRevision ) {
 		$articleID = $renderedRevision->getRevision()->getPageId();
-		if ( class_exists( 'MediaWiki\Page\WikiPageFactory' ) ) {
+		if ( method_exists( 'MediaWikiServices', 'getWikiPageFactory' ) ) {
 			// MW 1.36+
 			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $articleID );
 		} else {
