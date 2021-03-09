@@ -1,7 +1,7 @@
 {
 	"name": "PageForms",
 	"namemsg": "pageforms-name",
-	"version": "5.1",
+	"version": "5.2-alpha",
 	"author": [
 		"Yaron Koren",
 		"Stephan Gambke",
@@ -111,6 +111,8 @@
 		"PFFormLinker": "includes/PF_FormLinker.php",
 		"PFPageSchemas": "includes/PF_PageSchemas.php",
 		"PFParserFunctions": "includes/PF_ParserFunctions.php",
+		"PFTemplateParams": "includes/parserfunctions/PF_TemplateParams.php",
+		"PFTemplateDisplay": "includes/parserfunctions/PF_TemplateDisplay.php",
 		"PFAutocompleteAPI": "includes/PF_AutocompleteAPI.php",
 		"PFAutoeditAPI": "includes/PF_AutoeditAPI.php",
 		"PFFormEditAction": "includes/PF_FormEditAction.php",
@@ -462,6 +464,9 @@
 			"messages": [
 				"pf_blank_error"
 			]
+		},
+		"ext.pageforms.templatedisplay": {
+			"styles": "skins/PF_templateDisplay.css"
 		}
 	},
 	"ResourceFileModulePaths": {

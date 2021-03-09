@@ -1,8 +1,8 @@
 <?php
 /**
  * Defines a class, PFTemplateField, that represents a field in a template,
- * including any possible semantic aspects it may have. Used in both creating
- * templates and displaying user-created forms.
+ * including any possible Cargo or SMW storage it may have. Used in both
+ * creating templates and displaying user-created forms.
  *
  * @author Yaron Koren
  * @file
@@ -32,6 +32,7 @@ class PFTemplateField {
 	private $mIsMandatory = false;
 	private $mIsUnique = false;
 	private $mRegex = null;
+	private $mHoldsTemplate = null;
 
 	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null ) {
 		$f = new PFTemplateField();
@@ -43,6 +44,77 @@ class PFTemplateField {
 		$f->mDisplay = $display;
 		// Delimiter should default to ','.
 		if ( $isList && !$delimiter ) {
+			$f->mDelimiter = ',';
+		}
+		return $f;
+	}
+
+	public function toWikitext() {
+		$attribsStrings = [];
+		if ( $this->mLabel != '' ) {
+			$attribsStrings['label'] = $this->mLabel;
+		}
+		if ( $this->mCargoField != '' && $this->mCargoField !== str_replace( ' ', '_', $this->mFieldName ) ) {
+			$attribsStrings['cargo field'] = $this->mCargoField;
+		}
+		// Only set list and delimiter information if there's no Cargo
+		// field - if there is, they will be set in #cargo_declare.
+		if ( $this->mCargoField == '' ) {
+			if ( $this->mIsList == true ) {
+				$attribsStrings['list'] = true;
+			}
+			if ( $this->mDelimiter != '' ) {
+				$attribsStrings['delimiter'] = $this->mDelimiter;
+			}
+		}
+		if ( $this->mSemanticProperty != '' ) {
+			$attribsStrings['property'] = $this->mSemanticProperty;
+		}
+		if ( $this->mNamespace != '' ) {
+			$attribsStrings['namespace'] = $this->mNamespace;
+		}
+		if ( $this->mDisplay != '' ) {
+			$attribsStrings['display'] = $this->mDisplay;
+		}
+		$text = $this->mFieldName;
+		if ( count( $attribsStrings ) > 0 ) {
+			$attribsFullStrings = [];
+			foreach ( $attribsStrings as $key => $value ) {
+				if ( $value === true ) {
+					$attribsFullStrings[] = $key;
+				} else {
+					$attribsFullStrings[] = "$key=$value";
+				}
+			}
+			$text .= ' (' . implode( ';', $attribsFullStrings ) . ')';
+		}
+		return $text;
+	}
+
+	static function newFromParams( $fieldName, $fieldParams ) {
+		$f = new PFTemplateField();
+		$f->mFieldName = $fieldName;
+		foreach ( $fieldParams as $key => $value ) {
+			if ( $key == 'label' ) {
+				$f->mLabel = $value;
+			} elseif ( $key == 'cargo field' ) {
+				$f->mCargoField = $value;
+			} elseif ( $key == 'property' ) {
+				$f->setSemanticProperty( $value );
+			} elseif ( $key == 'list' ) {
+				$f->mIsList = true;
+			} elseif ( $key == 'delimiter' ) {
+				$f->mDelimiter = $value;
+			} elseif ( $key == 'namespace' ) {
+				$f->mNamespace = $value;
+			} elseif ( $key == 'display' ) {
+				$f->mDisplay = $value;
+			} elseif ( $key == 'holds template' ) {
+				$f->mHoldsTemplate = $value;
+			}
+		}
+		// Delimiter should default to ','.
+		if ( $f->mIsList && !$f->mDelimiter ) {
 			$f->mDelimiter = ',';
 		}
 		return $f;
@@ -152,9 +224,6 @@ class PFTemplateField {
 		$this->mIsMandatory = $fieldDescription->mIsMandatory;
 		$this->mIsUnique = $fieldDescription->mIsUnique;
 		$this->mRegex = $fieldDescription->mRegex;
-		if ( array_key_exists( 'label', $fieldDescription->mOtherParams ) ) {
-			$this->mLabel = $fieldDescription->mOtherParams['label'];
-		}
 	}
 
 	function getFieldName() {
@@ -225,6 +294,10 @@ class PFTemplateField {
 
 	function getRegex() {
 		return $this->mRegex;
+	}
+
+	function getHoldsTemplate() {
+		return $this->mHoldsTemplate;
 	}
 
 	function setTemplateField( $templateField ) {

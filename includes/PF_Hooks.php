@@ -19,7 +19,7 @@ class PFHooks {
 			return 1;
 		}
 
-		define( 'PF_VERSION', '5.1' );
+		define( 'PF_VERSION', '5.2-alpha' );
 
 		$GLOBALS['wgPageFormsIP'] = dirname( __DIR__ ) . '/../';
 
@@ -135,6 +135,8 @@ class PFHooks {
 		$parser->setFunctionHook( 'arraymaptemplate', [ 'PFParserFunctions', 'renderArrayMapTemplate' ], Parser::SFH_OBJECT_ARGS );
 
 		$parser->setFunctionHook( 'autoedit', [ 'PFParserFunctions', 'renderAutoEdit' ] );
+		$parser->setFunctionHook( 'template_params', [ 'PFTemplateParams', 'run' ] );
+		$parser->setFunctionHook( 'template_display', [ 'PFTemplateDisplay', 'run' ], Parser::SFH_OBJECT_ARGS );
 
 		return true;
 	}

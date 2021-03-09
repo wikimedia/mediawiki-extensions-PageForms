@@ -16,6 +16,8 @@ $magicWords['en'] = [
 	'arraymap' => [ 0, 'arraymap' ],
 	'arraymaptemplate' => [ 0, 'arraymaptemplate' ],
 	'autoedit' => [ 0, 'autoedit' ],
+	'template_params' => [ 0, 'template_params' ],
+	'template_display' => [ 0, 'template_display' ],
 ];
 
 /** Arabic (العربية) */

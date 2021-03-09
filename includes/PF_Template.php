@@ -1,11 +1,8 @@
 <?php
 /**
  * Defines a class, PFTemplate, that represents a MediaWiki "infobox"
- * template that holds structured data, which may or may not include
- * SMW properties.
- *
- * For now, this class is used only to generate the text of a template,
- * by various helper pages.
+ * template that holds structured data, which may or may not be
+ * additionally stored by Cargo and/or Semantic MediaWiki.
  *
  * @author Yaron Koren
  * @file
@@ -282,8 +279,8 @@ class PFTemplate {
 
 		// Now, go through the Cargo field descriptions, and add
 		// whichever ones were not in #cargo_store (as of version 3.0,
-		// Cargo does not require template parameters whose name matches
-		// their Cargo field name to be passed in to #cargo_store).
+		// Cargo does not require template parameters to be passed in
+		// to #cargo_store).
 		foreach ( $fieldDescriptions as $cargoField => $fieldDescription ) {
 			$templateParameter = array_search( $cargoField, $cargoFieldsOfTemplateParams );
 			if ( $templateParameter !== false ) {
@@ -400,22 +397,19 @@ class PFTemplate {
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$template = $this;
 		Hooks::run( 'PageForms::CreateTemplateText', [ &$template ] );
-		$templateHeader = wfMessage( 'pf_template_docu', $this->mTemplateName )->inContentLanguage()->text();
 		$text = <<<END
 <noinclude>
-$templateHeader
-<pre>
+{{#template_params:
 
 END;
-		$text .= '{{' . $this->mTemplateName;
-		if ( count( $this->mTemplateFields ) > 0 ) {
-			$text .= "\n";
-		}
-		foreach ( $this->mTemplateFields as $field ) {
+		foreach ( $this->mTemplateFields as $i => $field ) {
 			if ( $field->getFieldName() == '' ) {
 				continue;
 			}
-			$text .= "|" . $field->getFieldName() . "=\n";
+			if ( $i > 0 ) {
+				$text .= "|";
+			}
+			$text .= $field->toWikitext() . "\n";
 		}
 		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) && $this->mCargoTable != '' ) {
 			$cargoInUse = true;
@@ -427,13 +421,19 @@ END;
 			$cargoStoreCall = '';
 		}
 
-		$templateFooter = wfMessage( 'pf_template_docufooter' )->inContentLanguage()->text();
 		$text .= <<<END
 }}
-</pre>
-$templateFooter
 $cargoDeclareCall</noinclude><includeonly>$cargoStoreCall
 END;
+
+		if ( !defined( 'SMW_VERSION' ) ) {
+			$text .= "\n{{#display_params:";
+			if ( $this->mTemplateFormat != null ) {
+				$text .= "_format=" . $this->mTemplateFormat;
+			}
+			$text .= "}}\n</includeonly>";
+			return $text;
+		}
 
 		// Before text
 		$text .= $this->mTemplateStart;
