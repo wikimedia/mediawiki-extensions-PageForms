@@ -140,7 +140,10 @@
 		if ( element.attr( "existingvaluesonly" ) !== "true" ) {
 			element.parent().on( "dblclick", "li.select2-selection__choice", function ( event ) {
 				var $target = $(event.target);
-
+				// If the target element is the span within li then change it to the parent li
+				if ( $target.is( $("span.select2-match-entire") ) ) {
+					$target = $target.parent();
+				}
 				// get the text and id of the clicked value
 				var targetData = $target.data();
 				var clickedValue = $target[0].title;
