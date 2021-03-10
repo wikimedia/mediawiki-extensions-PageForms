@@ -13,7 +13,7 @@
 		var autocompleteWidgetConfig = {};
 		var possibleFormsStr = this.attr('data-possible-forms');
 		if ( possibleFormsStr !== undefined ) {
-			var menuOptions = [ {} ];
+			var menuOptions = [];
 			var possibleForms = possibleFormsStr.split('|');
 			for ( var possibleForm of possibleForms ) {
 				menuOptions.push( {

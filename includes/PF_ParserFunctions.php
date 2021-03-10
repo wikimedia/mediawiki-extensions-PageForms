@@ -380,7 +380,8 @@ class PFParserFunctions {
 			$inFormName = str_replace( '\,', ',', $inFormName );
 			$formContents .= Html::hidden( "form", $inFormName );
 		} else {
-			$formInputAttrs['data-possible-forms'] = $listOfForms;
+			$formInputAttrs['data-possible-forms'] = implode( '|', $listOfForms );
+			$formInputAttrs['data-form-label'] = PFUtils::getFormDropdownLabel();
 		}
 
 		// Recreate the passed-in query string as a set of hidden
