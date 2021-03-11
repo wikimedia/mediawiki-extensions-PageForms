@@ -47,7 +47,7 @@ class PFForm {
 		$this->mAssociatedCategory = $associatedCategory;
 	}
 
-	function createMarkup( $standardInputs = [], $freeTextLabel = null ) {
+	function createMarkup( $includeFreeText = true, $freeTextLabel = null ) {
 		$title = Title::makeTitle( PF_NS_FORM, $this->mFormName );
 		$fs = PFUtils::getSpecialPage( 'FormStart' );
 		$form_start_url = PFUtils::titleURLString( $fs->getPageTitle() ) . "/" . $title->getPartialURL();
@@ -92,48 +92,18 @@ END;
 			}
 		}
 
-		if ( $freeTextLabel === null ) {
-			$freeTextLabel = wfMessage( 'pf_form_freetextlabel' )->inContentLanguage()->text();
-		}
-
-		// Add in standard inputs if they were specified.
-		if ( count( $standardInputs ) > 0 ) {
-			if ( array_key_exists( 'free text', $standardInputs ) ) {
-				$text .= "'''$freeTextLabel:'''\n\n";
-				$text .= $standardInputs['free text'] . "\n\n\n";
+		if ( $includeFreeText ) {
+			if ( $freeTextLabel === null ) {
+				$freeTextLabel = wfMessage( 'pf_form_freetextlabel' )->inContentLanguage()->text();
 			}
-			if ( array_key_exists( 'summary', $standardInputs ) ) {
-				$text .= $standardInputs['summary'] . "\n\n";
-			}
-			if ( array_key_exists( 'minor edit', $standardInputs ) ) {
-				$text .= $standardInputs['minor edit'] . ' ';
-			}
-			if ( array_key_exists( 'watch', $standardInputs ) ) {
-				$text .= $standardInputs['watch'];
-			}
-			if ( array_key_exists( 'minor edit', $standardInputs ) || array_key_exists( 'watch', $standardInputs ) ) {
-				$text .= "\n\n";
-			}
-			if ( array_key_exists( 'save', $standardInputs ) ) {
-				$text .= $standardInputs['save'] . ' ';
-			}
-			if ( array_key_exists( 'preview', $standardInputs ) ) {
-				$text .= $standardInputs['preview'] . ' ';
-			}
-			if ( array_key_exists( 'changes', $standardInputs ) ) {
-				$text .= $standardInputs['changes'] . ' ';
-			}
-			if ( array_key_exists( 'cancel', $standardInputs ) ) {
-				$text .= $standardInputs['cancel'];
-			}
-		} else {
 			$text .= <<<END
 '''$freeTextLabel:'''
 
 {{{standard input|free text|rows=10}}}
+
 END;
 		}
-		$text .= "\n</includeonly>\n";
+		$text .= "</includeonly>\n";
 
 		return $text;
 	}
