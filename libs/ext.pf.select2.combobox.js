@@ -296,14 +296,8 @@
 	combobox_proto.onChange = function() {
 		var self = this;
 		var data = $(this).select2( "data" );
-		var namespace = $(this).attr( "data-namespace" );
 		if (data.length !== 0) {
  			var val = data[0].text;
- 			if ( namespace && data[0].id === data[0].text ) {
- 				if ( val.indexOf( namespace + ':' ) !== 0 ) {
- 					val = namespace + ':' + val;
- 				}
- 			}
 			$(this)[0].children[0].text=val;
 			$(this)[0].children[0].value=val;
 

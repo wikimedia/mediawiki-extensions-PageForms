@@ -114,9 +114,6 @@ class PFComboBoxInput extends PFFormInput {
 		if ( $remoteDataType !== null ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
 		}
-		if ( array_key_exists( 'namespace', $other_args ) ) {
-			$inputAttrs['data-namespace'] = $other_args['namespace'];
-		}
 
 		$innerDropdown = '';
 		$isValueInPossibleValues = false;
