@@ -126,15 +126,15 @@ class PFHooks {
 	}
 
 	static function registerFunctions( Parser $parser ) {
-		$parser->setFunctionHook( 'default_form', [ 'PFParserFunctions', 'renderDefaultForm' ] );
-		$parser->setFunctionHook( 'forminput', [ 'PFParserFunctions', 'renderFormInput' ] );
-		$parser->setFunctionHook( 'formlink', [ 'PFParserFunctions', 'renderFormLink' ] );
-		$parser->setFunctionHook( 'formredlink', [ 'PFParserFunctions', 'renderFormRedLink' ] );
-		$parser->setFunctionHook( 'queryformlink', [ 'PFParserFunctions', 'renderQueryFormLink' ] );
-		$parser->setFunctionHook( 'arraymap', [ 'PFParserFunctions', 'renderArrayMap' ], Parser::SFH_OBJECT_ARGS );
-		$parser->setFunctionHook( 'arraymaptemplate', [ 'PFParserFunctions', 'renderArrayMapTemplate' ], Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'default_form', [ 'PFDefaultForm', 'run' ] );
+		$parser->setFunctionHook( 'forminput', [ 'PFFormInputParserFunction', 'run' ] );
+		$parser->setFunctionHook( 'formlink', [ 'PFFormLink', 'run' ] );
+		$parser->setFunctionHook( 'formredlink', [ 'PFFormRedLink', 'run' ] );
+		$parser->setFunctionHook( 'queryformlink', [ 'PFQueryFormLink', 'run' ] );
+		$parser->setFunctionHook( 'arraymap', [ 'PFArrayMap', 'run' ], Parser::SFH_OBJECT_ARGS );
+		$parser->setFunctionHook( 'arraymaptemplate', [ 'PFArrayMapTemplate', 'run' ], Parser::SFH_OBJECT_ARGS );
 
-		$parser->setFunctionHook( 'autoedit', [ 'PFParserFunctions', 'renderAutoEdit' ] );
+		$parser->setFunctionHook( 'autoedit', [ 'PFAutoEdit', 'run' ] );
 		$parser->setFunctionHook( 'template_params', [ 'PFTemplateParams', 'run' ] );
 		$parser->setFunctionHook( 'template_display', [ 'PFTemplateDisplay', 'run' ], Parser::SFH_OBJECT_ARGS );
 
