@@ -8,6 +8,7 @@
 class PFTemplateInForm {
 	private $mTemplateName;
 	private $mLabel;
+	private $mIntro;
 	private $mAddButtonText;
 	private $mDisplay;
 	private $mEventTitleField;
@@ -83,6 +84,8 @@ class PFTemplateInForm {
 			if ( count( $sub_components ) == 2 ) {
 				if ( $sub_components[0] == 'label' ) {
 					$tif->mLabel = $parser->recursiveTagParse( $sub_components[1] );
+				} elseif ( $sub_components[0] == 'intro' ) {
+					$tif->mIntro = $sub_components[1];
 				} elseif ( $sub_components[0] == 'minimum instances' ) {
 					$tif->mMinAllowed = $sub_components[1];
 				} elseif ( $sub_components[0] == 'maximum instances' ) {
@@ -143,6 +146,10 @@ class PFTemplateInForm {
 
 	function getLabel() {
 		return $this->mLabel;
+	}
+
+	function getIntro() {
+		return $this->mIntro;
 	}
 
 	function getAddButtonText() {

@@ -1625,12 +1625,22 @@ END;
 			}
 
 			$multipleTemplateHTML = '';
-			if ( $tif && $tif->getLabel() != null ) {
-				$fieldsetStartHTML = "<fieldset>\n" . Html::element( 'legend', null, $tif->getLabel() ) . "\n";
-				if ( !$tif->allowsMultiple() ) {
-					$form_text .= $fieldsetStartHTML;
-				} elseif ( $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) {
-					$multipleTemplateHTML .= $fieldsetStartHTML;
+			if ( $tif ) {
+				if ( $tif->getLabel() != null ) {
+					$fieldsetStartHTML = "<fieldset>\n" . Html::element( 'legend', null, $tif->getLabel() ) . "\n";
+					$fieldsetStartHTML .= $tif->getIntro();
+					if ( !$tif->allowsMultiple() ) {
+						$form_text .= $fieldsetStartHTML;
+					} elseif ( $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) {
+						$multipleTemplateHTML .= $fieldsetStartHTML;
+					}
+				} else {
+					if ( !$tif->allowsMultiple() ) {
+						$form_text .= $tif->getIntro();
+					}
+					if ( $tif->allowsMultiple() && $tif->getInstanceNum() == 0 ) {
+						$multipleTemplateHTML .= $tif->getIntro();
+					}
 				}
 			}
 			if ( $tif && $tif->allowsMultiple() ) {
