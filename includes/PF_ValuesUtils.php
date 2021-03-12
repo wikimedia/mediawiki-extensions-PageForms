@@ -169,6 +169,9 @@ class PFValuesUtils {
 			$fieldAlias = str_replace( '_', ' ', $fieldName );
 		}
 		foreach ( $queryResults as $row ) {
+			if ( !array_key_exists( $fieldAlias, $row ) ) {
+				continue;
+			}
 			// Cargo HTML-encodes everything - let's decode double
 			// quotes, at least.
 			$values[] = str_replace( '&quot;', '"', $row[$fieldAlias] );
