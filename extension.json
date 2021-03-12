@@ -115,7 +115,7 @@
 		"PFAutoEdit": "includes/parserfunctions/PF_AutoEdit.php",
 		"PFDefaultForm": "includes/parserfunctions/PF_DefaultForm.php",
 		"PFFormInputParserFunction": "includes/parserfunctions/PF_FormInputParserFunction.php",
-		"PFFormLink": "includes/PF_ParserFunctions.php",
+		"PFFormLink": "includes/parserfunctions/PF_FormLink.php",
 		"PFFormRedLink": "includes/parserfunctions/PF_FormRedLink.php",
 		"PFQueryFormLink": "includes/parserfunctions/PF_QueryFormLink.php",
 		"PFTemplateParams": "includes/parserfunctions/PF_TemplateParams.php",
