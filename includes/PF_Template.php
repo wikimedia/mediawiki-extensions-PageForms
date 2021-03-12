@@ -427,7 +427,7 @@ $cargoDeclareCall</noinclude><includeonly>$cargoStoreCall
 END;
 
 		if ( !defined( 'SMW_VERSION' ) ) {
-			$text .= "\n{{#display_params:";
+			$text .= "\n{{#template_display:";
 			if ( $this->mTemplateFormat != null ) {
 				$text .= "_format=" . $this->mTemplateFormat;
 			}
