@@ -18,7 +18,6 @@ class PFTemplateDisplay {
 		}
 
 		$templateFields = [];
-		$tableName = null;
 		$format = 'infobox';
 		$tableFieldValues = [];
 
@@ -47,9 +46,7 @@ class PFTemplateDisplay {
 			} else {
 				$key = trim( $parts[0] );
 				$value = trim( $parts[1] );
-				if ( $key == '_table' ) {
-					$tableName = $value;
-				} elseif ( $key == '_format' ) {
+				if ( $key == '_format' ) {
 					$format = $value;
 				} else {
 					$tableFieldValues[$key] = $value;
@@ -57,12 +54,10 @@ class PFTemplateDisplay {
 			}
 		}
 
-		if ( $tableName == '' ) {
-			list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
-		}
+		list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
 
 		// Get field data from Cargo, if there is any.
-		if ( $tableName !== '' ) {
+		if ( $tableName !== null ) {
 			$cargoTableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
 			$cargoFieldDescriptions = $cargoTableSchemas[$tableName]->mFieldDescriptions;
 			foreach ( $templateFields as $fieldName => $templateField ) {
