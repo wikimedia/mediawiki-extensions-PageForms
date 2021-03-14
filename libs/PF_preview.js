@@ -190,28 +190,10 @@
 			return this;
 		}
 
-		// IE does not allow setting of the 'type' attribute for inputs
-		// => completely replace the original preview button
-		var btn = $( '<input type=\'button\' />' ).insertBefore( this );
-
-		this.remove();
-
-		// copy all explicitly specified attributes (except 'type' attribute)
-		// from the old to the new button
-		var oldBtnElement = this[0];
-		var i;
-
-		for ( i = 0; i < oldBtnElement.attributes.length; i = i + 1 ) {
-			var attribute = oldBtnElement.attributes[i];
-			if ( attribute.name !== 'type' ) {
-				btn.attr( attribute.name,  attribute.value );
-			}
-		}
-
 		// register event handler
-		btn.click( previewButtonClickedHandler );
+		this.click( previewButtonClickedHandler );
 
-		return btn;
+		return this;
 	};
 
 	$( document ).ready( function () {
