@@ -344,6 +344,14 @@ div.editOptions {
 	border: 1px solid #c8ccd1;
 }
 
+span#wpMinoredit {
+	margin-right: 13px;
+}
+span#wpWatchthis {
+	margin-right: 13px;
+}
+
+
 /* Style for touch-screen devices */
 
 @media (hover: none), (pointer: none), (pointer: coarse) {
