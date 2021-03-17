@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"DannyS712",
+			"J budissin",
 			"Michawiki"
 		]
 	},
+	"pageforms-name": "Stronske formulary",
 	"pageforms-desc": "Formulary za přidawanje a wobdźěłowanje semantiskich datow",
 	"specialpages-group-pf_group": "Semantiske formulary",
 	"createproperty": "Wutwor kajkosć",
@@ -198,6 +200,7 @@
 	"action-createclass": "nowe semantiske klasy wutworić",
 	"action-editrestrictedfields": "wobmjezowane formularne pola wobdźěłać",
 	"action-viewedittab": "Rajtark \"{{int:edit}}\" za strony pokazać, kotrež su přez formular wobźěłujomne",
+	"pf-select2-no-matches": "Žane wuslědki",
 	"pf-datepicker-close": "Začinić",
 	"pf-datepicker-prev": "Předchadny",
 	"pf-datepicker-next": "Přichodny",
