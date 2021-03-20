@@ -97,7 +97,8 @@ class PFCreateTemplate extends SpecialPage {
 	public function printFieldEntryBox( $id, $all_properties, $display = true ) {
 		$fieldString = $display ? '' : 'id="starterField" style="display: none"';
 		$text = "\t<div class=\"fieldBox\" $fieldString>\n";
-		$text .= "\t<table style=\"width: 100%;\"><tr><td>\n";
+		$text .= "\t<table style=\"width: 100%;\"><tr><td class=\"instanceRearranger\"></td>";
+		$text .= "<td style=\"padding-left:10px\">\n";
 		$text .= "\t<p><label>" . $this->msg( 'pf_createtemplate_fieldname' )->escaped() . ' ' .
 			Html::input( 'name_' . $id, null, 'text',
 				[ 'size' => '15' ]
@@ -108,6 +109,10 @@ class PFCreateTemplate extends SpecialPage {
 			) . "</label>&nbsp;&nbsp;&nbsp;\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
+			$text .= "\t<p><label>" . $this->msg( 'pf_createproperty_propname' )->escaped() . ' ' .
+				Html::input( 'property_name_' . $id, null, 'text',
+					[ 'size' => '15' ]
+				) . "</label>&nbsp;&nbsp;&nbsp;\n";
 			$dropdown_html = $this->printPropertiesComboBox( $all_properties, $id );
 			$text .= "\t<label>" . $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
