@@ -45,6 +45,7 @@ table.formtable {
 
 table.formtable th {
 	text-align: left;
+	vertical-align: top;
 }
 /* another possible layout */
 table.formtable2 {
