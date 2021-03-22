@@ -203,6 +203,7 @@
 	"action-editrestrictedfields": "muokata rajoitettuja lomakekenttiä",
 	"action-viewedittab": "nähdä ”Muokkaa”-välilehteä lomakkeella muokattavilla sivuilla",
 	"tooltip-ca-formedit": "Muokkaa tätä sivua lomakkeella",
+	"pf-select2-input-too-short": "Syötä vähintään $1 merkki(ä).",
 	"pf-datepicker-close": "Sulje",
 	"pf-datepicker-prev": "Edellinen",
 	"pf-datepicker-next": "Seuraava",

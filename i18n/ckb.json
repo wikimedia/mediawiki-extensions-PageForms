@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Asoxor",
-			"Sarchia"
+			"Sarchia",
+			"ئارام بکر"
 		]
 	},
 	"pf_createproperty_proptype": "جۆر:",
@@ -45,7 +46,7 @@
 	"pf_formstart_badform": "ھەڵە: ھیچ فۆرمێک لە پەڕەی «$1»دا نەدۆزرایەوە.",
 	"pf_formstart_badtitle": "ھەڵە: «$1» سەرناوێکی ڕێگەپێدراو نییە.",
 	"pf_formstart_noform_docu": "ناوی پەڕەیەکە لێرەدا بنووسە و فۆرمەکە ھەڵبژێرە بۆ دستکاری کردنی.\nئەگەر ئەم پەڕەیە ھەیە، دەنێررێیت بۆ فۆرمەکە بۆ دەستکاری کردنی ئەو پەڕەیە.\nدەنا، دەنێررێیت بۆ فۆرمەکە بۆ زیاد کردنی پەڕەیەکە.",
-	"pf_formstart_createoredit": "دروست کردن یا دەستکاری",
+	"pf_formstart_createoredit": "دروستکردن یان دەستکاری",
 	"formedit": "دەستکاری بە فۆرمەوە",
 	"pf-formedit-selectform": "فۆرمێک ھەڵبژێرە بۆ دروستکردنی ئەم پەڕەیە:",
 	"pf-formedit-donotuseform": "پەڕە دروست بکە بەبێ فۆرم.",
