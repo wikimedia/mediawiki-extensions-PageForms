@@ -445,6 +445,18 @@ END;
 				$curValue = $gridValues[$fieldName];
 			}
 
+			if ( $formField->holdsTemplate() ) {
+				$attribs = [];
+				if ( $formField->hasFieldArg( 'class' ) ) {
+					$attribs['class'] = $formField->getFieldArg( 'class' );
+				}
+				$html .= '</table>' . "\n";
+				$html .= Html::hidden( $formField->getInputName(), $curValue, $attribs );
+				$html .= $formField->additionalHTMLForInput( $curValue, $fieldName, $tif->getTemplateName() );
+				$html .= '<table class="formtable">' . "\n";
+				continue;
+			}
+
 			if ( $formField->isHidden() ) {
 				$attribs = [];
 				if ( $formField->hasFieldArg( 'class' ) ) {
