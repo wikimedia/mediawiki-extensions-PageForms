@@ -469,6 +469,8 @@ END;
 			$wgPageFormsFieldNum++;
 			if ( $formField->getLabel() !== null ) {
 				$labelText = $formField->getLabel();
+			} elseif ( $formField->getLabelMsg() !== null ) {
+				$labelText = wfMessage( $formField->getLabelMsg() )->parse();
 			} elseif ( $formField->template_field->getLabel() !== null ) {
 				$labelText = $formField->template_field->getLabel() . ':';
 			} else {

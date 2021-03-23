@@ -34,6 +34,7 @@ class PFFormField {
 	private $mFieldArgs;
 	private $mDescriptionArgs;
 	private $mLabel;
+	private $mLabelMsg;
 	// somewhat of a hack - these two fields are for a field in a specific
 	// representation of a form, not the form definition; ideally these
 	// should be contained in a third 'field' class, called something like
@@ -156,6 +157,10 @@ class PFFormField {
 		return $this->mLabel;
 	}
 
+	public function getLabelMsg() {
+		return $this->mLabelMsg;
+	}
+
 	public function isDisabled() {
 		return $this->mIsDisabled;
 	}
@@ -249,6 +254,8 @@ class PFFormField {
 					$f->mPreloadPage = $sub_components[1];
 				} elseif ( $sub_components[0] == 'label' ) {
 					$f->mLabel = $sub_components[1];
+				} elseif ( $sub_components[0] == 'label msg' ) {
+					$f->mLabelMsg = $sub_components[1];
 				} elseif ( $sub_components[0] == 'show on select' ) {
 					// html_entity_decode() is needed to turn '&gt;' to '>'
 					$vals = explode( ';', html_entity_decode( $sub_components[1] ) );
