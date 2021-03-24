@@ -195,12 +195,21 @@ function setupMapFormInput( inputDiv, mapService ) {
 				lat2 < -90 || lat2 > 90 || lon2 < -180 || lon2 > 180 ) {
 				return;
 			}
-			var bound1 = new google.maps.LatLng(lat1, lon1);
-			var bound2 = new google.maps.LatLng(lat2, lon2);
-			var bounds = new google.maps.LatLngBounds();
-			bounds.extend(bound1);
-			bounds.extend(bound2);
-			map.fitBounds(bounds);
+			if ( mapService === "Google Maps" ) {
+				var bound1 = new google.maps.LatLng(lat1, lon1);
+				var bound2 = new google.maps.LatLng(lat2, lon2);
+				var bounds = new google.maps.LatLngBounds();
+				bounds.extend(bound1);
+				bounds.extend(bound2);
+				map.fitBounds(bounds);
+			} else if ( mapService === "Leaflet" ){
+				map.fitBounds([ [ lat1, lon1 ], [ lat2, lon2 ] ]);
+			} else { // if ( mapService === "OpenLayers" ) {
+				var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
+				var toProjection = map.getProjectionObject(); // to Spherical Mercator Projection
+				var bounds = new OpenLayers.Bounds(lon1, lat1, lon2, lat2).transform(fromProjection,toProjection);
+				map.zoomToExtent(bounds);
+			}
 		}
 	}
 
