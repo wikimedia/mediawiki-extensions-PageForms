@@ -51,7 +51,9 @@ class PFTemplateField {
 
 	public function toWikitext() {
 		$attribsStrings = [];
-		if ( $this->mLabel != '' ) {
+		// Only include the label if it's different from the field name.
+		if ( $this->mLabel != '' &&
+			( $this->mLabel !== $this->mFieldName ) ) {
 			$attribsStrings['label'] = $this->mLabel;
 		}
 		if ( $this->mCargoField != '' && $this->mCargoField !== str_replace( ' ', '_', $this->mFieldName ) ) {
