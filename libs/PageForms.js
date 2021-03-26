@@ -1637,7 +1637,8 @@ $(document).ready( function() {
 $('form#pfForm').click( function(e) {
 	var target = $(e.target);
 	// Ignore the "add instance" buttons - those get handling of their own.
-	if ( target.hasClass('multipleTemplateAdder') || target.hasClass('addAboveButton') ) {
+	var clickedOnAddAnother = target.parents('.multipleTemplateAdder').length > 0;
+	if ( clickedOnAddAnother || target.hasClass('addAboveButton') ) {
 		return;
 	}
 
