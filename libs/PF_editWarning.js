@@ -19,7 +19,7 @@
 
 	$( function () {
 		var allowCloseWindow,
-			$allInputs = $( 'form#pfForm textarea, form#pfForm input[type=text], form#pfForm input:not([type]), select, #wpSummary' );
+			$allInputs = $( 'form#pfForm textarea, form#pfForm input[type=text], form#pfForm input:not([type]), form#pfForm select, #wpSummary' );
 
 		// Check if EditWarning is enabled and if we need it.
 		if ( !mw.user.options.get( 'useeditwarning' ) ) {
