@@ -1,3 +1,7 @@
+
+var fieldNum = 1;
+var hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
+
 function toggleCargoInputs() {
 	if (jQuery('#use_cargo').prop('checked')) {
 		jQuery('#cargo_table_input').show('medium');
@@ -14,8 +18,6 @@ function toggleCargoInputs() {
 	}
 }
 
-var fieldNum = 1;
-var hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
 function createTemplateAddField() {
 	fieldNum++;
 	var newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
@@ -51,7 +53,7 @@ function validateCreateTemplateForm() {
 	var blankTemplateName = ( jQuery( '#template_name' ).val() === '' );
 	var blankCargoTableName = ( jQuery( '#use_cargo' ).is(':checked') &&
 		jQuery( '#cargo_table' ).val() === '' );
-	if ( blankTemplateName || blankCargoTableName ) {
+	if ( blankTemplateName || blankCargoTableName || !validateHierarchyStructure() ) {
 		scroll( 0, 0 );
 		if ( blankTemplateName ) {
 			jQuery( '#template_name_p' ).append( ' <span class="error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' );
@@ -92,7 +94,47 @@ function removeHierarchyPlaceholder( textareaElement ) {
 	textareaElement.attr( 'validInput', 'true' );
 }
 
+function validateHierarchyStructure() {
+	var hierarchyTextAreas = jQuery("textarea[name*='hierarchy_structure_']");
+	for (var i = 0; i < hierarchyTextAreas.length; i++) {
+		var structure = hierarchyTextAreas[i].value.trim();
+		if (structure !== "") {
+			var nodes = structure.split(/\n/);
+			var matches = nodes[0].match(/^([*]*)[^*]*/i);
+			if (matches[1].length !== 1) {
+				alert("Error: The first entry of hierarchy values should start with exactly one \'*\'; the entry \"" +
+					nodes[0] + "\" has " + matches[1].length + " \'*\'");
+				return false;
+			}
+			var level = 0;
+			for (var j = 0; j < nodes.length; j++) {
+				matches = nodes[j].match(/^([*]*)( *)(.*)/i);
+				if (matches[1].length < 1) {
+					alert("Error: Each entry of hierarchy values should start with at least one \'*\'; the entry \"" +
+						nodes[j] + "\" starts with none");
+					return false;
+				}
+				if (matches[1].length - level > 1) {
+					alert("Error: Level or count of '*' in hierarchy values should increase by no more than 1 at a time, so the entry \"" +
+						nodes[j] + "\" should have " + (level + 1) + " or fewer '*'");
+					return false;
+				}
+				level = matches[1].length;
+				if (matches[3].length === 0) {
+					alert("Error: An entry in hierarchy values cannot be empty.");
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
 jQuery( document ).ready( function () {
+	var el = document.getElementById('fieldsList');
+	var sortable = Sortable.create(el, {
+		handle: '.instanceRearranger',
+	});
 	jQuery( "#use_cargo" ).click( function() {
 		toggleCargoInputs();
 	} );
