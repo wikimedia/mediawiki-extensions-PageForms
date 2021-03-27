@@ -9,19 +9,9 @@
 ( function ( $, mw ) {
 
 	'use strict';
-
-	var autoEditHandler = function handleAutoEdit(){
-
-		if ( mw.config.get( 'wgUserName' ) === null &&
-			! confirm( mw.msg( 'pf_autoedit_anoneditwarning' ) ) ) {
-
-			return;
-		}
-
-		var jtrigger = jQuery( this );
+	function sendData( jtrigger ){
 		var jautoedit = jtrigger.closest( '.autoedit' );
 		var jresult = jautoedit.find( '.autoedit-result' );
-
 		var reload = jtrigger.hasClass( 'reload' );
 
 		jtrigger.attr( 'class', 'autoedit-trigger autoedit-trigger-wait' );
@@ -74,6 +64,29 @@
 				jtrigger.removeClass( 'autoedit-trigger-wait' ).addClass( 'autoedit-trigger-error' );
 			} // function to be called if the request fails
 		} );
+	}
+
+	var autoEditHandler = function handleAutoEdit(){
+
+		if ( mw.config.get( 'wgUserName' ) === null &&
+			! confirm( mw.msg( 'pf_autoedit_anoneditwarning' ) ) ) {
+			return;
+		}
+
+		var jtrigger = jQuery( this );
+		var jautoedit = jtrigger.closest( '.autoedit' );
+		var jeditdata = jautoedit.find( 'form.autoedit-data' );
+		var targetpage = jeditdata.find( 'input[name=target]' ).val();
+		var confirmEdit = jeditdata.hasClass( 'confirm-edit' );
+		if ( confirmEdit ) {
+			OO.ui.confirm( mw.msg( 'pf_autoedit_confirm', targetpage ) ).done( confirmed => {
+				if ( confirmed ) {
+					sendData( jtrigger );
+				}
+			})
+		} else {
+			sendData( jtrigger );
+		}
 	};
 
 	jQuery( document ).ready( function ( $ ) {

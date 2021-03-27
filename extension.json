@@ -236,9 +236,13 @@
 		"ext.pageforms.autoedit": {
 			"scripts": "libs/PF_autoedit.js",
 			"styles": "skins/PF_autoedit.css",
+			"dependencies": [
+				"oojs-ui-windows"
+			],
 			"messages": [
 				"pf-autoedit-wait",
-				"pf_autoedit_anoneditwarning"
+				"pf_autoedit_anoneditwarning",
+				"pf_autoedit_confirm"
 			]
 		},
 		"ext.pageforms.submit": {

@@ -34,6 +34,7 @@ class PFAutoEdit {
 		$inTooltip = null;
 		$inQueryArr = [];
 		$editTime = null;
+		$confirmEdit = false;
 
 		// Parse parameters.
 		$params = func_get_args();
@@ -60,6 +61,9 @@ class PFAutoEdit {
 					break;
 				case 'minor':
 					$minorEdit = true;
+					break;
+				case 'confirm':
+					$confirmEdit = true;
 					break;
 				case 'query string' :
 					$inQueryArr = self::convertQueryString( $value, $inQueryArr );
@@ -156,7 +160,13 @@ class PFAutoEdit {
 			$formcontent .= Html::hidden( 'wpEdittime', $editTime );
 		}
 
-		$form = Html::rawElement( 'form', [ 'class' => 'autoedit-data' ], $formcontent );
+		if ( $confirmEdit ) {
+			$formAttrs = [ 'class' => [ 'autoedit-data', 'confirm-edit' ] ];
+		} else {
+			$formAttrs = [ 'class' => 'autoedit-data' ];
+		}
+
+		$form = Html::rawElement( 'form', $formAttrs, $formcontent );
 
 		$output = Html::rawElement( 'div', [ 'class' => 'autoedit' ],
 				$linkElement .
