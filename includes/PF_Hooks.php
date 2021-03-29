@@ -43,8 +43,7 @@ class PFHooks {
 	public static function initialize() {
 		global $wgHooks;
 
-		$GLOBALS['wgPageFormsPartialPath'] = '/extensions/PageForms';
-		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgScriptPath'] . $GLOBALS['wgPageFormsPartialPath'];
+		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgExtensionAssetsPath'] . '/PageForms';
 
 		if ( class_exists( 'MediaWiki\HookContainer\HookContainer' ) ) {
 			// MW 1.35+
