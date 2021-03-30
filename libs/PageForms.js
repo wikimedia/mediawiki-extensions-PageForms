@@ -1666,6 +1666,9 @@ $('form#pfForm').click( function(e) {
 		instance.find('.fieldValuesDisplay').html('');
 		instance.find('.instanceMain').fadeIn();
 		instance.find('.fieldValuesDisplay').remove();
+		// Remove unhelpful styling added by VisualEditor.
+		instance.find('div.oo-ui-toolbar-bar').css('left', null);
+		instance.find('div.oo-ui-toolbar-bar').css('right', null);
 	}
 });
 
@@ -1678,6 +1681,9 @@ $('#pf-expand-all a').click(function( event ) {
 		$(this).find('.fieldValuesDisplay').html('');
 		$(this).find('.instanceMain').fadeIn();
 		$(this).find('.fieldValuesDisplay').remove();
+		// Remove unhelpful styling added by VisualEditor.
+		$(this).find('div.oo-ui-toolbar-bar').css('left', null);
+		$(this).find('div.oo-ui-toolbar-bar').css('right', null);
 	});
 
 	// Standard MediaWiki "collapsible" sections.
