@@ -224,6 +224,7 @@
 	"pf_autoedit_nosemanticform": "Das Formular „$2“ konnte nicht für Seite $1 abgerufen werden. Siehe [[{{#special:FormEdit}}/$2/$1]] für Informationen hierzu.",
 	"pf_autoedit_summary": "Automatisch von Seite $1 bearbeitet.",
 	"pf-autoedit-wait": "Verarbeite …",
+	"pf_autoedit_confirm": "Bist du sicher, dass du „$1“ ändern willst?",
 	"runquery": "Abfrage ausführen",
 	"pf_runquery_badurl": "In der URL wurde nicht der Name des Formulars angegeben.\nDie URL sollte wie folgt aussehen: „Spezial:Abfrage_ausführen/<Formularname>”",
 	"pf_runquery_title": "Abfrage ausführen: $1",
