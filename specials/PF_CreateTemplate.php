@@ -140,15 +140,15 @@ class PFCreateTemplate extends SpecialPage {
 			$text .= '<textarea class="hierarchy_structure" rows="10" cols="20" name="hierarchy_structure_' . $id . '"></textarea></label>';
 			$text .= "\t</p>\n";
 		}
-		$text .= "\t</td><td>\n";
-		$text .= new OOUI\ButtonWidget( [
-			'label' => $this->msg( 'pf_createtemplate_deletefield' )->escaped(),
-			'classes' => [ 'deleteField' ],
-			'icon' => 'close'
-		] );
+		$text .= "\t</td>\n";
+		$addAboveButton = Html::element( 'a', [ 'class' => "addAboveButton", 'title' => wfMessage( 'pf_createtemplate_addanotherabove' )->text() ] );
+		$removeButton = Html::element( 'a', [ 'class' => "removeButton", 'title' => wfMessage( 'pf_createtemplate_deletefield' )->text() ] );
 
 		$text .= <<<END
-</td></tr></table>
+			<td class="instanceAddAbove">$addAboveButton</td>
+			<td class="instanceRemove">$removeButton</td>
+		</tr>
+	</table>
 </div>
 
 END;

@@ -21,6 +21,7 @@ textarea.mandatoryField {
 	background: #dddddd;
 	padding: 10px 20px 10px 10px;
 	margin: 0 20px 20px 20px;
+	position: relative;
 }
 
 /* Used in 'create form' page */
@@ -260,6 +261,8 @@ a.removeButton {
 	background-size: 9px;
 }
 
+.fieldBox .instanceRemove a.removeButton,
+.fieldBox .instanceAddAbove a.addAboveButton,
 .multipleTemplateWrapper .instanceRemove a.removeButton,
 .multipleTemplateWrapper .instanceAddAbove a.addAboveButton {
 	width: 21px;
@@ -298,11 +301,19 @@ td.instanceRemove {
 	top: -11px;
 }
 
+.fieldBox:hover .instanceRemove,
+.fieldBox:hover .instanceAddAbove,
 .multipleTemplateInstance:hover .instanceRemove,
 .multipleTemplateInstance:hover .instanceAddAbove {
 	opacity:1;
 }
 
+.fieldBox .instanceAddAbove a:hover,
+.fieldBox .instanceAddAbove a:active,
+.fieldBox .instanceAddAbove a:focus,
+.fieldBox .instanceRemove a:hover,
+.fieldBox .instanceRemove a:active,
+.fieldBox .instanceRemove a:focus,
 .multipleTemplateWrapper .instanceAddAbove a:hover,
 .multipleTemplateWrapper .instanceAddAbove a:active,
 .multipleTemplateWrapper .instanceAddAbove a:focus,
@@ -366,6 +377,8 @@ span#wpWatchthis {
 		width: 42px;
 	}
 
+	.fieldBox .instanceRemove a.removeButton,
+	.fieldBox .instanceAddAbove a.addAboveButton,
 	.multipleTemplateWrapper .instanceRemove a.removeButton,
 	.multipleTemplateWrapper .instanceAddAbove a.addAboveButton {
 		background-size: 21px;
@@ -373,6 +386,7 @@ span#wpWatchthis {
 		height: 30px;
 	}
 
+	.fieldBox .instanceRemove a.removeButton,
 	.multipleTemplateWrapper .instanceRemove a.removeButton {
 		background-size: 14px;
 	}

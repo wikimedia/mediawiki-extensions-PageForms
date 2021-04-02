@@ -18,35 +18,43 @@ function toggleCargoInputs() {
 	}
 }
 
-function createTemplateAddField() {
+jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 	fieldNum++;
 	var newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
 	var newHTML = newField.html().replace(/starter/g, fieldNum);
 	newField.html( newHTML );
-	newField.find( ".deleteField" ).click( function () {
+	newField.find( ".removeButton" ).click( function () {
 		// Remove the encompassing div for this instance.
-		jQuery( this ).closest( ".fieldBox" )
+		$( this ).closest( ".fieldBox" )
 			.fadeOut( 'fast', function () {
 				jQuery(this).remove();
 			} );
 	} );
+	newField.find( ".addAboveButton" ).click( function() {
+		$( this ).createTemplateAddField( true );
+	} );
 	newField.find( ".isList" ).click( function () {
-		jQuery( this ).closest( ".fieldBox" ).find( ".delimiter" ).toggle();
+		$( this ).closest( ".fieldBox" ).find( ".delimiter" ).toggle();
 	} );
 	newField.find( ".is_hierarchy" ).click( function () {
-		toggleHierarchyInput(jQuery( this ).closest( ".fieldBox" ));
+		toggleHierarchyInput($( this ).closest( ".fieldBox" ));
 	} );
 	newField.find( ".hierarchy_structure" ).click( function () {
-		if (jQuery( this ).attr( 'validInput' ) === undefined || jQuery( this ).attr( 'validInput' ) !== 'true') {
+		if ($( this ).attr( 'validInput' ) === undefined || $( this ).attr( 'validInput' ) !== 'true') {
 			removeHierarchyPlaceholder( jQuery( this ) );
 		}
 	} );
 	newField.find( ".hierarchy_structure" ).blur( function () {
-		setHierarchyPlaceholder( jQuery( this ) );
+		setHierarchyPlaceholder( $( this ) );
 	} );
 	var combobox = new pf.select2.combobox();
 	combobox.apply( $( newField.find( '.pfComboBox' ) ) );
-	jQuery( '#fieldsList' ).append( newField );
+	if ( addAboveCurInstance ){
+		newField.insertBefore(this.closest(".fieldBox"))
+                        .hide().fadeIn();
+	} else {
+		jQuery( '#fieldsList' ).append( newField.hide().fadeIn() );
+	}
 }
 
 function validateCreateTemplateForm() {
@@ -139,9 +147,12 @@ jQuery( document ).ready( function () {
 		toggleCargoInputs();
 	} );
 	jQuery( ".createTemplateAddField" ).click( function () {
-		createTemplateAddField();
+		$( this ).createTemplateAddField( false );
 	} );
-	jQuery( ".deleteField" ).click( function () {
+	jQuery( ".addAboveButton" ).click( function () {
+		$( this ).createTemplateAddField( true );
+	} );
+	jQuery( ".removeButton" ).click( function () {
 		// Remove the encompassing div for this instance.
 		jQuery( this ).closest( ".fieldBox" )
 			.fadeOut( 'fast', function () {
