@@ -19,7 +19,7 @@ class PFTemplateInForm {
 	private $mStrictParsing;
 	private $mMinAllowed;
 	private $mMaxAllowed;
-	private $mFields;
+	private $mFields = [];
 	private $mEmbedInTemplate;
 	private $mEmbedInField;
 	private $mPlaceholder;
@@ -48,7 +48,6 @@ class PFTemplateInForm {
 	static function create( $name, $label = null, $allowMultiple = null, $maxAllowed = null, $formFields = null ) {
 		$tif = new PFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', $name );
-		$tif->mFields = [];
 		if ( $formFields === null ) {
 			$template = PFTemplate::newFromName( $tif->mTemplateName );
 			$fields = $template->getTemplateFields();

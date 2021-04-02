@@ -511,6 +511,10 @@ END;
 		global $wgOut, $wgPageFormsGridValues, $wgPageFormsGridParams;
 		global $wgPageFormsScriptPath;
 
+		if ( empty( $tif->getFields() ) ) {
+			return;
+		}
+
 		$wgOut->addModules( 'ext.pageforms.spreadsheet' );
 
 		$gridParams = [];
@@ -1734,7 +1738,7 @@ END;
 						$multipleTemplateHTML .= "</fieldset>\n";
 						PFFormUtils::setGlobalVarsForSpreadsheet();
 					}
-				} else {
+				} elseif ( empty( $tif->getFields() ) == false ) {
 					if ( $tif->getDisplay() == 'table' ) {
 						$section = $this->tableHTML( $tif, $tif->getInstanceNum() );
 					}
