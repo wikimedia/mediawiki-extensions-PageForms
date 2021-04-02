@@ -173,6 +173,7 @@
 	"pf_autoedit_nosemanticform": "Impossibile ottenere il modulo $2 per la pagina $1. Vedere [[{{#special:FormEdit}}/$2/$1]] per maggiori dettagli.",
 	"pf_autoedit_summary": "Modificato automaticamente dalla pagina $1.",
 	"pf-autoedit-wait": "Attendere prego...",
+	"pf_autoedit_confirm": "Sei sicuro di voler modificare \"$1\"?",
 	"runquery": "Esegui query",
 	"pf_runquery_badurl": "Devi specificare il nome del form nell'\\ URL;\nl'\\ URL dovrebbe risultare una cosa di questo tipo 'Special:RunQuery/<form name>'.",
 	"pf_runquery_title": "Esegui query: $1",

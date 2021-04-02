@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ahrada2016",
 			"Tumsaa"
 		]
 	},
+	"pf_autoedit_confirm": "Mirkannoodhaa $1 tolchuu barbaaddaa?",
 	"pf-regexp-wrongformat": "Dhangii dogoggoraa"
 }

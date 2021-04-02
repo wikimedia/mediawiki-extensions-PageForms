@@ -218,6 +218,7 @@
 	"pf_autoedit_nosemanticform": "$1 sayfası için $2 formu alınamadı. Ayrıntılar için [[{{#special:FormEdit}}/$2/$1]] sayfasına bakın.",
 	"pf_autoedit_summary": "$1 sayfasından otomatik olarak düzenlendi.",
 	"pf-autoedit-wait": "Bekle...",
+	"pf_autoedit_confirm": "\"$1\" sayfasını değiştirmek istediğinizden emin misiniz?",
 	"runquery": "Sorgu çalıştır",
 	"pf_runquery_badurl": "URL'de bir form adı belirtmelisiniz;\nURL \"Special:RunQuery/<form adı>\" şeklinde görünmelidir.",
 	"pf_runquery_title": "Sorguyu çalıştır: $1",
