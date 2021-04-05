@@ -1158,11 +1158,12 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 
 	// Add the new instance.
 	if ( addAboveCurInstance ) {
-		new_div.insertBefore(this.closest(".multipleTemplateInstance"));
+		new_div.insertBefore(this.closest(".multipleTemplateInstance"))
+			.hide().fadeIn();
 	} else {
 		this.closest(".multipleTemplateWrapper")
 			.find(".multipleTemplateList")
-			.append(new_div);
+			.append(new_div.hide().fadeIn());
 	}
 
 	new_div.initializeJSElements(true);
