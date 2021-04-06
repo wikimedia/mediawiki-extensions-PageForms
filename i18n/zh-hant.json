@@ -10,6 +10,7 @@
 			"Mark85296341",
 			"Oapbtommy",
 			"Shirayuki",
+			"SiderealArt",
 			"Wrightbus",
 			"아라"
 		]
@@ -217,6 +218,7 @@
 	"pf_autoedit_nosemanticform": "無法取得頁面 $1 的表單 $2。詳情請見 [[{{#special:FormEdit}}/$2/$1]]。",
 	"pf_autoedit_summary": "已使用頁面 $1 自動編輯。",
 	"pf-autoedit-wait": "請稍候...",
+	"pf_autoedit_confirm": "您確定要修改 \"$1\" 嗎？",
 	"runquery": "執行查詢",
 	"pf_runquery_badurl": "您必須在 URL 中指定表單名稱，\nURL 的格式為 \"Special:RunQuery/<表單名稱>\"。",
 	"pf_runquery_title": "執行查詢：$1",

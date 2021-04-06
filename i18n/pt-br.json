@@ -221,6 +221,7 @@
 	"pf_autoedit_nosemanticform": "Não foi possível obter o formulário $2 para a página $1. Para mais detalhes, consulte a página [[{{#special:FormEdit}}/$2/$1]].",
 	"pf_autoedit_summary": "Editado automaticamente a partir da página $1.",
 	"pf-autoedit-wait": "Aguarde...",
+	"pf_autoedit_confirm": "Tem certeza de que quer modificar \"$1\"?",
 	"runquery": "Pesquisar",
 	"pf_runquery_badurl": "Você deve especificar um nome de formulário na URL;\na URL deve se parecer com 'Special:RunQuery/<form name>'.",
 	"pf_runquery_title": "Pesquisar: $1",

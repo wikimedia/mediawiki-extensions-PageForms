@@ -208,6 +208,7 @@
 	"pf_autoedit_nosemanticform": "Не можев да го добијам образецот $2 за страницата $1. Поподробно на [[{{#special:FormEdit}}/$2/$1]].",
 	"pf_autoedit_summary": "Автоматски уредено од страницата $1.",
 	"pf-autoedit-wait": "Почекајте...",
+	"pf_autoedit_confirm": "Дали сте сигурни дека сакате да ја измените „$1“?",
 	"runquery": "Пушти барање",
 	"pf_runquery_badurl": "Мора да назначите име на образецот во URL-адресата;\nURL-адресата треба да изгледа вака: „Special:RunQuery/<form name>“.",
 	"pf_runquery_title": "Постави прашање: $1",

@@ -177,6 +177,7 @@
 	"pf_autoedit_nosemanticform": "Kan inte få formulär $2 för sidan $1. Se [[{{#special:FormEdit}}/$2/$1]] för ytterligare information.",
 	"pf_autoedit_summary": "Har redigerats automatiskt från sidan $1.",
 	"pf-autoedit-wait": "Var vänlig vänta...",
+	"pf_autoedit_confirm": "Är du säker på att du vill ändra \"$1\"?",
 	"runquery": "Kör sökning",
 	"pf_runquery_badurl": "Du måste ange ett namn på ett formulär i URL-en;\nURL-en måste se ut som 'Special:RunQuery/<form name>'.",
 	"pf_runquery_title": "Kör sökning: $1",
