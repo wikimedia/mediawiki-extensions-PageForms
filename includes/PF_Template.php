@@ -400,7 +400,6 @@ class PFTemplate {
 		$text = <<<END
 <noinclude>
 {{#template_params:
-
 END;
 		foreach ( $this->mTemplateFields as $i => $field ) {
 			if ( $field->getFieldName() == '' ) {
@@ -409,7 +408,7 @@ END;
 			if ( $i > 0 ) {
 				$text .= "|";
 			}
-			$text .= $field->toWikitext() . "\n";
+			$text .= $field->toWikitext();
 		}
 		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) && $this->mCargoTable != '' ) {
 			$cargoInUse = true;
