@@ -64,9 +64,9 @@ class PFTemplateField {
 		if ( $this->mCargoField == '' ) {
 			if ( $this->mIsList == true ) {
 				$attribsStrings['list'] = true;
-			}
-			if ( $this->mDelimiter != '' ) {
-				$attribsStrings['delimiter'] = $this->mDelimiter;
+				if ( $this->mDelimiter != ',' ) {
+					$attribsStrings['delimiter'] = $this->mDelimiter;
+				}
 			}
 		}
 		if ( $this->mSemanticProperty != '' ) {
