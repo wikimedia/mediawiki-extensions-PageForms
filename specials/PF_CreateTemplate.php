@@ -203,6 +203,9 @@ END;
 				return;
 			}
 
+			$use_cargo = $req->getBool( 'use_cargo' );
+			$cargo_table = $req->getVal( 'cargo_table' );
+
 			$fields = [];
 			// Cycle through the query values, setting the
 			// appropriate local variables.
@@ -223,7 +226,9 @@ END;
 					);
 					$field->setFieldType( $req->getVal( 'field_type_' . $id ) );
 
-					if ( defined( 'CARGO_VERSION' ) ) {
+					if ( $use_cargo ) {
+						$cargo_field = str_replace( ' ', '_', $val );
+						$field->setCargoFieldData( $cargo_table, $cargo_field );
 						if ( $req->getCheck( 'is_hierarchy_' . $id ) ) {
 							$hierarchyStructureStr = $req->getVal( 'hierarchy_structure_' . $id );
 							$field->setHierarchyStructure( $hierarchyStructureStr );
@@ -243,13 +248,12 @@ END;
 			$out->setArticleBodyOnly( true );
 			$title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
 			$category = $req->getVal( 'category' );
-			$cargo_table = $req->getVal( 'cargo_table' );
 			$aggregating_property = $req->getVal( 'semantic_property_aggregation' );
 			$aggregation_label = $req->getVal( 'aggregation_label' );
 			$template_format = $req->getVal( 'template_format' );
 			$pfTemplate = new PFTemplate( $template_name, $fields );
 			$pfTemplate->setCategoryName( $category );
-			if ( $req->getBool( 'use_cargo' ) ) {
+			if ( $use_cargo ) {
 				$pfTemplate->setCargoTable( $cargo_table );
 			}
 			$pfTemplate->setAggregatingInfo( $aggregating_property, $aggregation_label );

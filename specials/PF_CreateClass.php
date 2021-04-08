@@ -86,6 +86,8 @@ class PFCreateClass extends SpecialPage {
 					$field->setPossibleValues( $possibleValues );
 				}
 				if ( $use_cargo ) {
+					$cargo_field = str_replace( ' ', '_', $field_name );
+					$field->setCargoFieldData( $cargo_table, $cargo_field );
 					$field->setFieldType( $property_type );
 					$field->setPossibleValues( $possibleValues );
 				} else {
