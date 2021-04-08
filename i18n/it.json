@@ -52,7 +52,7 @@
 	"pf_createtemplate_plainformat": "Testo normale",
 	"pf_createtemplate_sectionsformat": "Sezioni",
 	"pf_createtemplate_addfield": "Aggiungi campo",
-	"pf_createtemplate_deletefield": "Cancella",
+	"pf_createtemplate_deletefield": "Cancella questo campo",
 	"forms": "Moduli",
 	"pf-calendar-createevent": "Crea evento",
 	"pf-calendar-deleteevent": "Cancella evento",

@@ -189,7 +189,7 @@
 	"pf_property_linkstoform": "Wotkazuje k stronam, kotrež formular $1 wužiwaja.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Dowolena hódnota za tutu kajkosć je|Dowolenej hódnoće za tutu kajkosć stej|Dowolene hódnoty za tutu kajkosć su|Dowolene hódnoty za tutu kajkosć su}}:",
 	"pf_template_docu": "To je předłoha '$1'. Měła so w slědowacym formaće wołać:",
-	"pf_template_docufooter": "Wobdźěłaj tutu stronu, zo by tekst předłohi widźał.",
+	"pf_template_docufooter": "Wobdźěłaj tutu stronu, zo by tekst předłohi widźał{{GENDER:||a|(a)}}.",
 	"pf_form_docu": "To je formular \"$1\".\nZo by stronu z tutym formularom wutworił, zapodaj deleka mjeno strony;\njeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, z kotrymž móžeš tutu stronu wobdźěłać.",
 	"pf_form_freetextlabel": "Swobodny tekst",
 	"pf_category_hasdefaultform": "Tuta kategorija wužiwa formular $1.",

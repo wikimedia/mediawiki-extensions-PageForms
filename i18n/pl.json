@@ -62,7 +62,7 @@
 	"pf_createtemplate_plainformat": "Zwykły tekst",
 	"pf_createtemplate_sectionsformat": "Sekcje",
 	"pf_createtemplate_addfield": "Dodaj pole",
-	"pf_createtemplate_deletefield": "Usuń",
+	"pf_createtemplate_deletefield": "Usuń to pole",
 	"multipageedit": "Edytuj wiele stron",
 	"pf_multipageedit_with-name": "Edytuj wiele stron dla szablonu: $1",
 	"forms": "Formularze",

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Apflu",
+			"Colathewikian",
 			"Duolaimi",
 			"Gzdavidwong",
 			"Hudafu",
@@ -82,7 +83,7 @@
 	"pf_createtemplate_plainformat": "纯文本",
 	"pf_createtemplate_sectionsformat": "小节",
 	"pf_createtemplate_addfield": "添加字段",
-	"pf_createtemplate_deletefield": "删除",
+	"pf_createtemplate_deletefield": "删除此字段",
 	"multipageedit": "编辑多个页面：",
 	"pf_multipageedit_docu": "选择以下模板之一以编辑包含它的所有页面。也可以使用所选模板创建新页面。",
 	"forms": "表单",
