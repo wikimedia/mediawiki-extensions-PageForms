@@ -290,6 +290,12 @@ class PFTemplateInForm {
 	function setFieldValuesFromSubmit() {
 		global $wgRequest;
 
+		// Reset values for every new instance, if this is a
+		// multiple-instance template.
+		if ( $this->mInstanceNum > 0 ) {
+			$this->mValuesFromSubmit = [];
+		}
+
 		$query_template_name = str_replace( ' ', '_', $this->mTemplateName );
 		// Also replace periods with underlines, since that's what
 		// POST does to strings anyway.
