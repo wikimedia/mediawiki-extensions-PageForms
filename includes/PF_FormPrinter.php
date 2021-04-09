@@ -1738,7 +1738,7 @@ END;
 						$multipleTemplateHTML .= "</fieldset>\n";
 						PFFormUtils::setGlobalVarsForSpreadsheet();
 					}
-				} elseif ( empty( $tif->getFields() ) == false ) {
+				} else {
 					if ( $tif->getDisplay() == 'table' ) {
 						$section = $this->tableHTML( $tif, $tif->getInstanceNum() );
 					}
