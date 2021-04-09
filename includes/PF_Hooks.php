@@ -8,6 +8,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 class PFHooks {
 
 	// Used for caching by addToCargoTablesLinks().
