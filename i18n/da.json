@@ -14,7 +14,7 @@
 	"createtemplate": "Opret en skabelon",
 	"pf_createtemplate_namelabel": "Skabelonnavn:",
 	"pf_createtemplate_standardformat": "Tabel",
-	"pf_createtemplate_deletefield": "Slet",
+	"pf_createtemplate_deletefield": "Slet dette felt",
 	"pf_forminputs_checkboxes_select_all": "Vælg alle",
 	"pf_forminputs_checkboxes_select_none": "Vælg ingen",
 	"pf_createform_template": "Skabelon:",
