@@ -54,7 +54,7 @@
 	"pf_createtemplate_plainformat": "일반 텍스트",
 	"pf_createtemplate_sectionsformat": "부분",
 	"pf_createtemplate_addfield": "필드 추가",
-	"pf_createtemplate_deletefield": "삭제",
+	"pf_createtemplate_deletefield": "이 칸을 삭제",
 	"multipageedit": "여러 문서 편집",
 	"pf_multipageedit_docu": "틀을 포함하는 모든 문서를 편집하려면 다음의 틀 중 하나를 선택하십시오. 선택된 틀을 사용하여 새 문서를 만들 수도 있습니다.",
 	"forms": "양식 목록",
