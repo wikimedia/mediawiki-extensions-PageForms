@@ -42,7 +42,7 @@ class PFFormLinker {
 		}
 	}
 
-	public static function createPageWithForm( $title, $formName ) {
+	public static function createPageWithForm( $title, $formName, $inQueryArr ) {
 		/** @var PFFormPrinter $wgPageFormsFormPrinter */
 		global $wgPageFormsFormPrinter;
 
@@ -57,7 +57,7 @@ class PFFormLinker {
 			$wgPageFormsFormPrinter->formHTML(
 				$formDefinition, false, false, null, $preloadContent,
 				'Some very long page name that will hopefully never get created ABCDEF123',
-				null, false, false, true
+				null, false, false, true, $inQueryArr
 			);
 		$params = [];
 
