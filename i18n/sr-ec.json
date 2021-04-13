@@ -3,6 +3,7 @@
 		"authors": [
 			"Acamicamacaraca",
 			"BadDog",
+			"Kizule",
 			"Milicevic01",
 			"Obsuser",
 			"Prevodim",
@@ -36,7 +37,7 @@
 	"pf_createtemplate_outputformat": "Излазни формат:",
 	"pf_createtemplate_standardformat": "Табела",
 	"pf_createtemplate_addfield": "Додај поље",
-	"pf_createtemplate_deletefield": "Избриши",
+	"pf_createtemplate_deletefield": "Избриши ово поље",
 	"multipageedit": "Уређивање више страница",
 	"pf_multipageedit_docu": "Изаберите један од следећих шаблона да бисте уређивали све странице које га садрже. Нове странице такође могу да се направе његовим коришћењем.",
 	"pf_multipageedit_with-name": "Уређивање више страница за шаблон: $1",

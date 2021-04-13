@@ -33,7 +33,7 @@
 	"pf_createtemplate_standardformat": "Tabella",
 	"pf_createtemplate_infoboxformat": "Quadro de information lateral",
 	"pf_createtemplate_addfield": "Adder campo",
-	"pf_createtemplate_deletefield": "Deler",
+	"pf_createtemplate_deletefield": "Deler iste campo",
 	"forms": "Formularios",
 	"pf_forms_docu": "Le sequente formularios existe in le wiki.",
 	"pf_forminputs_mandatory": "Es necessari mitter un valor pro iste entrata",
