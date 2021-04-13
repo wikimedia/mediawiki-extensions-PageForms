@@ -91,6 +91,7 @@
 		"no-shadow": "warn",
 		"no-unreachable-loop": "warn",
 		"mediawiki/msg-doc": "warn",
-		"compat/compat": "warn"
+		"compat/compat": "warn",
+		"block-scoped-var": "warn"
 	}
 }
