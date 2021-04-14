@@ -770,6 +770,7 @@ END;
 	 * @param bool $is_query
 	 * @param bool $is_embedded
 	 * @param bool $is_autocreate true when called by #formredlink with "create page"
+	 * @param array $autocreate_query query parameters from #formredlink
 	 * @return array
 	 * @throws FatalError
 	 * @throws MWException
@@ -784,7 +785,8 @@ END;
 		$page_name_formula = null,
 		$is_query = false,
 		$is_embedded = false,
-		$is_autocreate = false
+		$is_autocreate = false,
+		$autocreate_query = []
 	) {
 		global $wgRequest, $wgUser;
 		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
@@ -1108,7 +1110,12 @@ END;
 						$tif->addField( $form_field );
 					}
 					$val_modifier = null;
-					$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
+					if ( $is_autocreate ) {
+						$values_from_query = $autocreate_query[$tif->getTemplateName()];
+						$cur_value = $form_field->getCurrentValue( $values_from_query, $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
+					} else {
+						$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
+					}
 					$delimiter = $form_field->getFieldArg( 'delimiter' );
 					if ( $form_field->holdsTemplate() ) {
 						$placeholderFields[] = self::placeholderFormat( $tif->getTemplateName(), $field_name );

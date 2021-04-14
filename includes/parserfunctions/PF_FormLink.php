@@ -152,7 +152,7 @@ class PFFormLink {
 		if ( $className == 'PFFormRedLink' &&
 			$inCreatePage && $inTargetName != '' ) {
 			$targetTitle = Title::newFromText( $inTargetName );
-			PFFormLinker::createPageWithForm( $targetTitle, $inFormName );
+			PFFormLinker::createPageWithForm( $targetTitle, $inFormName, $inQueryArr );
 		}
 
 		if ( $className == 'PFQueryFormLink' ) {
