@@ -979,6 +979,11 @@ END;
 
 			while ( $brackets_loc = strpos( $section, '{{{', $start_position ) ) {
 				$brackets_end_loc = strpos( $section, "}}}", $brackets_loc );
+				// For cases with more than 3 ending brackets,
+				// take the last 3 ones as the tag end.
+				while ( $section[$brackets_end_loc + 3] == "}" ) {
+					$brackets_end_loc++;
+				}
 				$bracketed_string = substr( $section, $brackets_loc + 3, $brackets_end_loc - ( $brackets_loc + 3 ) );
 				$tag_components = PFUtils::getFormTagComponents( $bracketed_string );
 				if ( count( $tag_components ) == 0 ) {
