@@ -76,7 +76,7 @@
 	"pf_createtemplate_plainformat": "Простий текст",
 	"pf_createtemplate_sectionsformat": "Розділи",
 	"pf_createtemplate_addfield": "Додати поле",
-	"pf_createtemplate_deletefield": "Вилучити",
+	"pf_createtemplate_deletefield": "Вилучити це поле",
 	"multipageedit": "Редагування декількох сторінок",
 	"pf_multipageedit_docu": "Виберіть один із поданих шаблонів, щоб редагувати всі сторінки, які його містять. Також можна створити нові сторінки, використовуючи вибраний шаблон.",
 	"pf_multipageedit_with-name": "Редагувати декілька сторінок із шаблоном: $1",
