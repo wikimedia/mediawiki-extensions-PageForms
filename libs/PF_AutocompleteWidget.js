@@ -31,7 +31,7 @@ pf.AutocompleteWidget = function( config ) {
 	OO.ui.TextInputWidget.call( this, textInputConfig );
 	// Mixin constructors
 	if ( config.autocompletedatatype !== undefined ) {
-		OO.ui.mixin.LookupElement.call( this, {} );
+		OO.ui.mixin.LookupElement.call( this, { highlightFirst: false } );
 	}
 
 	this.config = config;
