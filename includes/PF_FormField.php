@@ -266,7 +266,7 @@ class PFFormField {
 						}
 						$option_div_pair = explode( '=>', $val, 2 );
 						if ( count( $option_div_pair ) > 1 ) {
-							$option = $option_div_pair[0];
+							$option = trim( $parser->recursiveTagParse( $option_div_pair[0] ) );
 							$div_id = $option_div_pair[1];
 							if ( array_key_exists( $div_id, $show_on_select ) ) {
 								$show_on_select[$div_id][] = $option;
