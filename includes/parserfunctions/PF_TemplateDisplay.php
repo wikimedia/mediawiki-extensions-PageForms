@@ -149,7 +149,7 @@ class PFTemplateDisplay {
 					$formattedFieldValue = self::pageListText( $fieldValue, $templateField );
 				} else {
 					$fieldValueTitle = Title::newFromText( $fieldValue );
-					$formattedFieldValue = $linkRenderer->makeLink( $fieldValueTitle );
+					$formattedFieldValue = PFUtils::makeLink( $linkRenderer, $fieldValueTitle );
 				}
 			} elseif ( $fieldType == 'Coordinates' ) {
 				$formattedFieldValue = self::mapText( $fieldValue, $format, $parser );
@@ -220,7 +220,7 @@ class PFTemplateDisplay {
 				$text .= ' <span class="CargoDelimiter">&bull;</span> ';
 			}
 			$title = Title::newFromText( $fieldValue );
-			$text .= CargoUtils::makeLink( $linkRenderer, $title );
+			$text .= PFUtils::makeLink( $linkRenderer, $title );
 		}
 		return $text;
 	}

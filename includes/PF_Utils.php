@@ -57,6 +57,31 @@ class PFUtils {
 	}
 
 	/**
+	 * @param LinkRenderer $linkRenderer
+	 * @param LinkTarget|Title $title
+	 * @param string|null $msg Must already be HTML escaped
+	 * @param array $attrs link attributes
+	 * @param array $params query parameters
+	 *
+	 * @return string HTML link
+	 *
+	 * Copied from CargoUtils::makeLink().
+	 */
+	public static function makeLink( $linkRenderer, $title, $msg = null, $attrs = [], $params = [] ) {
+		global $wgTitle;
+
+		if ( $title === null ) {
+			return null;
+		} elseif ( $wgTitle !== null && $title->equals( $wgTitle ) ) {
+			// Display bolded text instead of a link.
+			return Linker::makeSelfLinkObj( $title, $msg );
+		} else {
+			$html = ( $msg == null ) ? null : new HtmlArmor( $msg );
+			return $linkRenderer->makeLink( $title, $html, $attrs, $params );
+		}
+	}
+
+	/**
 	 * Creates the name of the page that appears in the URL;
 	 * this method is necessary because Title::getPartialURL(), for
 	 * some reason, doesn't include the namespace
