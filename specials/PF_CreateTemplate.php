@@ -71,7 +71,7 @@ class PFCreateTemplate extends SpecialPage {
 		return $all_properties;
 	}
 
-	public function printPropertiesComboBox( $all_properties, $id, $selected_property = null ) {
+	public static function printPropertiesComboBox( $all_properties, $id, $selected_property = null ) {
 		$selectBody = "<option value=\"\"></option>\n";
 		foreach ( $all_properties as $prop_name ) {
 			$optionAttrs = [ 'value' => $prop_name ];
@@ -113,7 +113,7 @@ class PFCreateTemplate extends SpecialPage {
 				Html::input( 'property_name_' . $id, null, 'text',
 					[ 'size' => '15' ]
 				) . "</label>&nbsp;&nbsp;&nbsp;\n";
-			$dropdown_html = $this->printPropertiesComboBox( $all_properties, $id );
+			$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
 			$text .= "\t<label>" . $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' . $dropdown_html . "</label></p>\n";
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
 			$dropdown_html = $this->printFieldTypeDropdown( $id );

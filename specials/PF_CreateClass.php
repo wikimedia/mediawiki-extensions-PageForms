@@ -317,7 +317,7 @@ class PFCreateClass extends SpecialPage {
 			$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_aggregation' )->text() ) . "\n";
 			$text .= "\t" . Html::element( 'p', null, $this->msg( 'pf_createtemplate_aggregationdesc' )->text() ) . "\n";
 			$text .= "\t<p>" . $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() . ' ' .
-				$this->printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
+				PFCreateTemplate::printPropertiesComboBox( $all_properties, "aggregation" ) . "</p>\n";
 			$text .= "\t<p>" . $this->msg( 'pf_createtemplate_aggregationlabel' )->escaped() . ' ' .
 				Html::input( 'aggregation_label', null, 'text',
 					[ 'size' => '25' ] ) .
