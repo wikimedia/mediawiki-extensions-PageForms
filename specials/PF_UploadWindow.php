@@ -268,7 +268,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	protected function recoverableUploadError( $message ) {
 		$sessionKey = $this->mUpload->stashFile()->getFileKey();
 		$message = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n" .
-			'<div class="error">' . $message . "</div>\n";
+			'<div class="errorbox">' . $message . "</div>\n";
 
 		$form = $this->getUploadForm( $message, $sessionKey );
 		$form->setSubmitText( $this->msg( 'upload-tryagain' )->text() );
@@ -284,7 +284,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$sessionKey = $this->mUpload->stashFile()->getFileKey();
 
 		$warningHtml = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n"
-			. '<ul class="warning">';
+			. '<ul class="warningbox">';
 		foreach ( $warnings as $warning => $args ) {
 				if ( $warning == 'exists' ) {
 					$msg = self::getExistsWarning( $args );
@@ -323,7 +323,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 */
 	protected function uploadError( $message ) {
 		$message = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n" .
-			'<div class="error">' . $message . "</div>\n";
+			'<div class="errorbox">' . $message . "</div>\n";
 		$this->showUploadForm( $this->getUploadForm( $message ) );
 	}
 
