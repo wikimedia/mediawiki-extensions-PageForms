@@ -138,7 +138,9 @@ class PFTemplateDisplay {
 				}
 				continue;
 			}
-			if ( $fieldType == 'Page' ) {
+			if ( trim( $fieldValue ) == '' ) {
+				$formattedFieldValue = '';
+			} elseif ( $fieldType == 'Page' ) {
 				if ( $templateField->getNamespace() != '' ) {
 					$fieldValue = $templateField->getNamespace() . ":$fieldValue";
 				}
