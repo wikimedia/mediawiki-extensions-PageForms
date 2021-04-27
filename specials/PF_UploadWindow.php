@@ -511,7 +511,14 @@ END;
 	 * @return bool
 	 */
 	protected function watchCheck() {
-		if ( $this->getUser()->getOption( 'watchdefault' ) ) {
+		if ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
+			// MediaWiki 1.35+
+			if ( MediaWikiServices::getInstance()->getUserOptionsLookup()
+				->getOption( $this->getUser(), 'watchdefault' ) ) {
+				// Watch all edits!
+				return true;
+			}
+		} elseif ( $this->getUser()->getOption( 'watchdefault' ) ) {
 			// Watch all edits!
 			return true;
 		}
@@ -526,7 +533,18 @@ END;
 		if ( $local && $local->exists() ) {
 			// We're uploading a new version of an existing file.
 			// No creation, so don't watch it if we're not already.
-			return $this->getUser()->isWatched( $local->getTitle() );
+			if ( method_exists( \MediaWiki\Watchlist\WatchlistManager::class, 'isWatched' ) ) {
+				// MediaWiki 1.37+
+				return MediaWikiServices::getInstance()->getWatchlistManager()
+					->isWatched( $this->getUser(), $local->getTitle() );
+			} else {
+				return $this->getUser()->isWatched( $local->getTitle() );
+			}
+		} elseif ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
+			// MediaWiki 1.35+
+			// New page should get watched if that's our option.
+			return MediaWikiServices::getInstance()->getUserOptionsLookup()
+				->getOption( $this->getUser(), 'watchcreations' );
 		} else {
 			// New page should get watched if that's our option.
 			return $this->getUser()->getOption( 'watchcreations' );
