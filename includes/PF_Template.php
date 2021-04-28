@@ -430,7 +430,9 @@ END;
 			if ( $this->mTemplateFormat != null ) {
 				$text .= "_format=" . $this->mTemplateFormat;
 			}
-			$text .= "}}\n</includeonly>";
+			$text .= "}}";
+			$text .= $this->printCategoryTag();
+			$text .= "</includeonly>";
 			return $text;
 		}
 
@@ -626,11 +628,7 @@ END;
 		}
 
 		$text .= $tableText;
-		if ( ( $this->mCategoryName !== '' ) && ( $this->mCategoryName !== null ) ) {
-			$namespaceLabels = PFUtils::getContLang()->getNamespaces();
-			$categoryNamespace = $namespaceLabels[NS_CATEGORY];
-			$text .= "\n[[$categoryNamespace:" . $this->mCategoryName . "]]\n";
-		}
+		$text .= $this->printCategoryTag();
 
 		// After text
 		$text .= $this->mTemplateEnd;
@@ -658,6 +656,15 @@ END;
 		}
 
 		return $text;
+	}
+
+	function printCategoryTag() {
+		if ( ( $this->mCategoryName === '' || $this->mCategoryName === null ) ) {
+			return '';
+		}
+		$namespaceLabels = PFUtils::getContLang()->getNamespaces();
+		$categoryNamespace = $namespaceLabels[NS_CATEGORY];
+		return "\n[[$categoryNamespace:" . $this->mCategoryName . "]]\n";
 	}
 
 }
