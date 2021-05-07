@@ -474,7 +474,8 @@
 			],
 			"messages": [
 				"pf_blank_error"
-			]
+			],
+			"styles": "skins/PF_CreateForm.css"
 		},
 		"ext.pageforms.templatedisplay": {
 			"styles": "skins/PF_templateDisplay.css"

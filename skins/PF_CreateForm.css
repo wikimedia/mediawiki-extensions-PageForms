@@ -1,0 +1,41 @@
+/**
+ * CSS for Special:CreateForm.
+ */
+
+.templateForm {
+	border: 1px black solid;
+	background: #dddddd;
+	padding: 0 20px 10px 20px;
+	margin-bottom: 20px;
+}
+
+.sectionForm {
+	border: 1px black solid;
+	background: #d0dae6;
+	padding: 0 20px 10px 20px;
+	margin-bottom: 20px;
+}
+
+#pfFormName {
+	width: 300px;
+}
+
+#pfBlankFormName{
+	color: red;
+}
+
+#pfAddTemplateDropdown{
+	width: 250px;
+}
+
+#pfAddTemplateBeforeDropdown{
+	width: 200px;
+}
+
+#pfAddSectionTextInput{
+	width: 250px;
+}
+
+#pfAddSectionBefore{
+	width: 200px;
+}
