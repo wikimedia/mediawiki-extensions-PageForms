@@ -361,7 +361,7 @@ $.fn.showIfCheckedCheckbox = function( partOfMultiple, initPage ) {
 
 	for ( i = 0; i < divIDs.length; i++ ) {
 		var divID = divIDs[i];
-		if ($(this).is(":checked")) {
+		if ($(this).find('[value]').is(":checked")) {
 			showDiv( divID, instanceWrapperDiv, initPage );
 		} else {
 			hideDiv( divID, instanceWrapperDiv, initPage );
