@@ -324,7 +324,7 @@
 			"scripts": [
 				"libs/select2.js",
 				"libs/ext.pf.select2.base.js",
-				"libs/ext.pf.select2.combobox.js",
+				"libs/PF_ComboBoxInput.js",
 				"libs/ext.pf.select2.tokens.js"
 			],
 			"styles": [
