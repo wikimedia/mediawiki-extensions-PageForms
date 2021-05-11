@@ -223,7 +223,13 @@ END;
 		$form_body .= Html::hidden( 'wpStarttime', $start_time );
 		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
 
-		if ( $wgUser->isLoggedIn() ) {
+		if ( method_exists( $wgUser, 'isRegistered' ) ) {
+			// MW 1.34+
+			$userIsRegistered = $wgUser->isRegistered();
+		} else {
+			$userIsRegistered = $wgUser->isLoggedIn();
+		}
+		if ( $userIsRegistered ) {
 			$edit_token = $wgUser->getEditToken();
 		} else {
 			$edit_token = \MediaWiki\Session\Token::SUFFIX;

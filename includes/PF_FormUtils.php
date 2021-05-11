@@ -324,7 +324,13 @@ END;
 			$text .= self::minorEditInputHTML( $form_submitted, $is_disabled, false );
 		}
 
-		if ( $user->isLoggedIn() ) {
+		if ( method_exists( $user, 'isRegistered' ) ) {
+			// MW 1.34+
+			$userIsRegistered = $user->isRegistered();
+		} else {
+			$userIsRegistered = $user->isLoggedIn();
+		}
+		if ( $userIsRegistered ) {
 			$text .= self::watchInputHTML( $form_submitted, $is_disabled );
 		}
 
