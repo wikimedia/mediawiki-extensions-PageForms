@@ -153,7 +153,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 		}
 	});
 
-	inputDiv.find('.pfAddressInput').keypress( function( e ) {
+	inputDiv.find('.pfAddressInput > input').keypress( function( e ) {
 		// Is this still necessary fro IE compatibility?
 		var keycode = (e.keyCode ? e.keyCode : e.which);
 		if ( keycode == 13 ) {
@@ -223,7 +223,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			var addressText = allFeedersForCurrentMap.join( ', ' );
 		} else {
 			// No other inputs feed to this map, so use the standard "Enter address here" input.
-			var addressText = inputDiv.find('.pfAddressInput').val();
+			var addressText = inputDiv.find('.pfAddressInput > input').val();
 		}
 		if ( mapService === "Google Maps" ) {
 			geocoder.geocode( { 'address': addressText }, function(results, status) {
