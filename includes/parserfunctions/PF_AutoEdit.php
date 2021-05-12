@@ -65,7 +65,7 @@ class PFAutoEdit {
 				case 'confirm':
 					$confirmEdit = true;
 					break;
-				case 'query string' :
+				case 'query string':
 					$inQueryArr = self::convertQueryString( $value, $inQueryArr );
 					break;
 
@@ -100,6 +100,7 @@ class PFAutoEdit {
 						$targetWikiPage->clear();
 						$editTime = $targetWikiPage->getTimestamp();
 					}
+					break;
 
 				default:
 					$value = $parser->recursiveTagParse( $value );

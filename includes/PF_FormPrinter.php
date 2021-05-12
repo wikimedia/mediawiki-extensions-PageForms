@@ -366,7 +366,7 @@ END;
 		// necessary; but currently it is, for "show on select".
 		$section = preg_replace_callback(
 			'/ id="(.*?)"/',
-			function ( $matches ) {
+			static function ( $matches ) {
 				$id = htmlspecialchars( $matches[1], ENT_QUOTES );
 				return " id=\"$id\" data-origID=\"$id\" ";
 			},

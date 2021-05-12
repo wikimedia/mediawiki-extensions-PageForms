@@ -14,7 +14,7 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 		// Make sure the form is not in "disabled" state. Unfortunately setting up the global state
 		// environment in a proper way to have PFFormPrinter work on a mock title object is very
 		// difficult. Therefore we just override the permission check by using a hook.
-		Hooks::register( 'PageForms::UserCanEditPage', function ( $pageTitle, &$userCanEditPage ) {
+		Hooks::register( 'PageForms::UserCanEditPage', static function ( $pageTitle, &$userCanEditPage ) {
 			$userCanEditPage = true;
 			return true;
 		} );

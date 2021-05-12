@@ -481,7 +481,7 @@ END;
 
 			// This is essentially a copy of Parser::insertStripItem().
 			// The 'use' keyword will bump the minimum PHP version to 5.3
-			function ( array $matches ) use ( &$items, $rnd ) {
+			static function ( array $matches ) use ( &$items, $rnd ) {
 				$markerIndex = count( $items );
 				$items[] = $matches[0];
 				return "$rnd-item-$markerIndex-$rnd";
@@ -503,7 +503,7 @@ END;
 		}
 		$form_def = preg_replace_callback(
 			"/{$rnd}-item-(\d+)-{$rnd}/",
-			function ( array $matches ) use ( $items ) {
+			static function ( array $matches ) use ( $items ) {
 				$markerIndex = (int)$matches[1];
 				return $items[$markerIndex];
 			},

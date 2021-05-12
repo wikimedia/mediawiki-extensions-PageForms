@@ -168,14 +168,14 @@ class PFAutoeditAPI extends ApiBase {
 			unset( $this->mOptions['wpDiff'] );
 		} elseif ( array_key_exists( 'action', $this->mOptions ) ) {
 			switch ( $this->mOptions['action'] ) {
-				case 'pfautoedit' :
+				case 'pfautoedit':
 					$this->mIsAutoEdit = true;
 					$this->mAction = self::ACTION_SAVE;
 					break;
-				case 'preview' :
+				case 'preview':
 					$this->mAction = self::ACTION_PREVIEW;
 					break;
-				default :
+				default:
 					$this->mAction = self::ACTION_FORMEDIT;
 			}
 		} else {
@@ -450,11 +450,10 @@ class PFAutoeditAPI extends ApiBase {
 
 		switch ( $status->value ) {
 			case EditPage::AS_HOOK_ERROR_EXPECTED: // A hook function returned an error
-
 				// show normal Edit page
 
 				// remove Preview and Diff standard buttons from editor page
-				Hooks::register( 'EditPageBeforeEditButtons', function ( &$editor, &$buttons, &$tabindex ){
+				Hooks::register( 'EditPageBeforeEditButtons', static function ( &$editor, &$buttons, &$tabindex ){
 					foreach ( array_keys( $buttons ) as $key ) {
 						if ( $key !== 'save' ) {
 							unset( $buttons[$key] );
@@ -475,20 +474,16 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_TEXTBOX_EMPTY: // user tried to create a new section without content
 			case EditPage::AS_MAX_ARTICLE_SIZE_EXCEEDED: // article is too big (> $wgMaxArticleSize), after merging in the new section
 			case EditPage::AS_END: // WikiPage::doEdit() was unsuccessfull
-
 				throw new MWException( wfMessage( 'pf_autoedit_fail', $this->mOptions['target'] )->parse() );
 
 			case EditPage::AS_HOOK_ERROR: // Article update aborted by a hook function
-
 				$this->logMessage( 'Article update aborted by a hook function', self::DEBUG );
 				return false; // success
 
 			case EditPage::AS_PARSE_ERROR: // Can't parse content
-
 				throw new MWException( $status->getHTML() );
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE: // Article successfully created
-
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
@@ -521,7 +516,6 @@ class PFAutoeditAPI extends ApiBase {
 				return false; // success
 
 			case EditPage::AS_SUCCESS_UPDATE: // Article successfully updated
-
 				$extraQuery = '';
 				$sectionanchor = $resultDetails['sectionanchor'];
 
@@ -555,7 +549,6 @@ class PFAutoeditAPI extends ApiBase {
 				return false; // success
 
 			case EditPage::AS_BLANK_ARTICLE: // user tried to create a blank page
-
 				$this->logMessage( 'User tried to create a blank page', self::DEBUG );
 
 				$this->getOutput()->redirect( $editor->getContextTitle()->getFullURL() );
@@ -564,7 +557,6 @@ class PFAutoeditAPI extends ApiBase {
 				return false; // success
 
 			case EditPage::AS_SPAM_ERROR: // summary contained spam according to one of the regexes in $wgSummarySpamRegex
-
 				$match = $resultDetails['spam'];
 				if ( is_array( $match ) ) {
 					$match = $this->getLanguage()->listToText( $match );
