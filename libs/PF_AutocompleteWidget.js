@@ -14,6 +14,10 @@ pf.AutocompleteWidget = function( config ) {
 	// Parent constructor
 	var textInputConfig = {
 		name: 'page_name',
+		// The following classes are used here:
+		// * pfPageNameWithNamespace
+		// * pfPageNameWithoutNamespace
+		classes: config.classes,
 		// This turns off the local, browser-based autocompletion,
 		// which would normally suggest values that the user has
 		// typed before on that computer.

@@ -13,3 +13,19 @@ div.pfPageWithNamespace {
 div.pfNamespaceDropdown {
         max-width: 110px;
 }
+
+span.pfCreateOrEditButton {
+        margin-left: -9px;
+}
+
+div.pfFormChooserDropdown {
+        width: 800px;
+}
+
+div.pfPageNameWithNamespace {
+        width: 500px;
+}
+
+div.pfPageNameWithoutNamespace {
+        width: 628px;
+}

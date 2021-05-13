@@ -21,15 +21,18 @@
 					label: possibleForm
 				} );
 			}
+			var formChooserText = new OO.ui.LabelWidget( {
+				label: this.attr('data-form-label')
+			} )
 			var formChooserDropdown = new OO.ui.DropdownInputWidget( {
 				name: 'form',
-				options: menuOptions
+				options: menuOptions,
+				classes: [ 'pfFormChooserDropdown' ]
 			} );
-			var formChooserLayout = new OO.ui.FieldLayout( formChooserDropdown, {
-				label: this.attr('data-form-label'),
-				align: 'top'
+			var formChooserHorizontalLayout = new OO.ui.HorizontalLayout( {
+				items: [ formChooserText,  formChooserDropdown ],
 			} );
-			formLayouts.push(formChooserLayout);
+			formLayouts.push(formChooserHorizontalLayout);
 		} else {
 			// Only provide autofocus if there's no "form" dropdown -
 			// otherwise, it might be confusing.
@@ -53,11 +56,11 @@
 		if ( this.attr('data-autocapitalize') !== undefined ) {
 			autocompleteWidgetConfig['autocapitalize'] = this.attr('data-autocapitalize');
 		}
-		var pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 		var createOrEditButton = new OO.ui.ButtonInputWidget( {
 			type: 'submit',
 			label: this.attr('data-button-label'),
-			value: 'Submit'
+			value: 'Submit',
+			classes: [ 'pfCreateOrEditButton' ]
 		} );
 		var possibleNamespacesStr = this.attr('data-possible-namespaces');
 		if ( possibleNamespacesStr !== undefined ) {
@@ -65,6 +68,8 @@
 			// namespace and page name inputs can be on the same
 			// line, replicating a full page name.
 			var pageWithNamespaceItems = [];
+			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithNamespace' ];
+			var pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 
 			var possibleNamespaces = possibleNamespacesStr.split('|');
 			menuOptions = [];
@@ -91,13 +96,11 @@
 				classes: [ 'pfPageWithNamespace' ]
 			} );
 		} else {
-			var layout = new OO.ui.ActionFieldLayout(
-				pageNameInput,
-				createOrEditButton,
-				{
-					align: 'top'
-				}
-			);
+			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithoutNamespace' ];
+			var pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
+			var layout = new OO.ui.HorizontalLayout( {
+				items: [ pageNameInput, createOrEditButton ]
+			} );
 		}
 		formLayouts.push(layout);
 		var fieldset = new OO.ui.FieldsetLayout( {
