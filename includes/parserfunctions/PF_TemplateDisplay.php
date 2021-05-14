@@ -57,8 +57,16 @@ class PFTemplateDisplay {
 		list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
 
 		// Get field data from Cargo, if there is any.
+		$cargoTableSchemas = null;
 		if ( $tableName !== null ) {
-			$cargoTableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
+			try {
+				$cargoTableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
+			} catch ( MWException $e ) {
+				// Do nothing.
+			}
+		}
+
+		if ( $cargoTableSchemas !== null ) {
 			$cargoFieldDescriptions = $cargoTableSchemas[$tableName]->mFieldDescriptions;
 			foreach ( $templateFields as $fieldName => $templateField ) {
 				$fullCargoFieldName = $templateField->getFullCargoField();

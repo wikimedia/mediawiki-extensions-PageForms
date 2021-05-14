@@ -407,7 +407,11 @@ class PFAutocompleteAPI extends ApiBase {
 		// @TODO - this is duplicate work; the schema is retrieved
 		// again when the CargoSQLQuery object is created. There should
 		// be some way of avoiding that duplicate retrieval.
-		$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
+		try {
+			$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
+		} catch ( MWException $e ) {
+			return false;
+		}
 		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {
 			return false;
 		}
