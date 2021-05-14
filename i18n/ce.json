@@ -37,7 +37,7 @@
 	"pf_forminputs_restricted": "Куьйгалхошна бен цатарло хӀара хийца",
 	"pf_forminputs_class": "HTML-атрибут \"class\" хӀокху меттиган",
 	"pf_forminputs_checkboxes_select_all": "Билгалйе массо",
-	"pf_forminputs_checkboxes_select_none": "ДӀаяха массо",
+	"pf_forminputs_checkboxes_select_none": "ДӀайаха йерриге",
 	"createform": "Кхолла къеп",
 	"pf-createform-with-name": "Кхолла къеп: $1",
 	"pf_createform_nameinput": "Форман цӀе",
