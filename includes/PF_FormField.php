@@ -5,6 +5,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * This class is distinct from PFTemplateField in that it represents a template
  * field defined in a form definition - it contains an PFTemplateField object
@@ -336,8 +338,14 @@ class PFFormField {
 					$default_filename = $parser->recursiveTagParse( $default_filename );
 					$f->mFieldArgs['default filename'] = $default_filename;
 				} elseif ( $sub_components[0] == 'restricted' ) {
+					if ( method_exists( MediaWikiServices::class, 'getUserGroupManager' ) ) {
+						// MediaWiki >= 1.35
+						$effectiveGroups = MediaWikiServices::getInstance()->getUserGroupManager()->getUserEffectiveGroups( $user );
+					} else {
+						$effectiveGroups = $user->getEffectiveGroups();
+					}
 					$f->mIsRestricted = !array_intersect(
-						$user->getEffectiveGroups(), array_map( 'trim', explode( ',', $sub_components[1] ) )
+						$effectiveGroups, array_map( 'trim', explode( ',', $sub_components[1] ) )
 					);
 				}
 			}
