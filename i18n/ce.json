@@ -41,7 +41,7 @@
 	"createform": "Кхолла къеп",
 	"pf-createform-with-name": "Кхолла къеп: $1",
 	"pf_createform_nameinput": "Форман цӀе",
-	"pf_createform_nameinputdesc": "(Къепан тӀе дуккхачу хьолехь коьрта кепан сана цӀе йазйе):",
+	"pf_createform_nameinputdesc": "(Къепан тӀе дуккхачу хьолехь коьрта кепан санна цӀе йазйе):",
 	"pf_createform_template": "Кеп:",
 	"pf_createform_field": "Меттиг:",
 	"pf_createform_inputtype": "Меттиган тайп:",
