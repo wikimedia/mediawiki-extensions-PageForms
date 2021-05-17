@@ -36,6 +36,7 @@ class PFCreateCategory extends SpecialPage {
 
 		$out = $this->getOutput();
 		$req = $this->getRequest();
+		$out->enableOOUI();
 
 		// Cycle through the query values, setting the appropriate
 		// local variables.
@@ -50,7 +51,6 @@ class PFCreateCategory extends SpecialPage {
 		$default_form = $req->getVal( 'default_form' );
 		$parent_category = $req->getVal( 'parent_category' );
 
-		$category_name_error_str = null;
 		$save_page = $req->getCheck( 'wpSave' );
 		$preview_page = $req->getCheck( 'wpPreview' );
 		if ( $save_page || $preview_page ) {
@@ -61,18 +61,13 @@ class PFCreateCategory extends SpecialPage {
 				$out->addHTML( $text );
 				return;
 			}
-			// Validate category name
-			if ( $category_name === '' ) {
-				$category_name_error_str = $this->msg( 'pf_blank_error' )->escaped();
-			} else {
-				// Redirect to wiki interface
-				$out->setArticleBodyOnly( true );
-				$title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
-				$full_text = self::createCategoryText( $default_form, $category_name, $parent_category );
-				$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
-				$out->addHTML( $text );
-				return;
-			}
+			// Redirect to wiki interface
+			$out->setArticleBodyOnly( true );
+			$title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
+			$full_text = self::createCategoryText( $default_form, $category_name, $parent_category );
+			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
+			$out->addHTML( $text );
+			return;
 		}
 
 		// Set 'title' as hidden field, in case there's no URL niceness.
@@ -80,47 +75,89 @@ class PFCreateCategory extends SpecialPage {
 		$firstRow = '';
 		if ( $presetCategoryName === null ) {
 			$text .= "\t" . Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
-			$firstRow .= $this->msg( 'pf_createcategory_name' )->escaped() . ' ' .
-				Html::input( 'category_name', null, 'text',
-					[ 'size' => 25 ] ) . "\n";
-			if ( $category_name_error_str !== null ) {
-				$firstRow .= Html::element( 'span',
-					[ 'style' => 'color: red;' ],
-					$category_name_error_str ) . "\n";
-			}
+
+			$categoryNameTextInput = new OOUI\TextInputWidget( [
+				'required' => true,
+				'name' => 'category_name'
+			] );
+			$firstRow .= new OOUI\FieldLayout(
+				$categoryNameTextInput,
+				[
+					'label' => $this->msg( 'pf_createcategory_name' )->escaped(),
+					'align' => 'top'
+				]
+			);
 		}
+		$secondRow = '';
 		try {
 			$all_forms = PFUtils::getAllForms();
-			$firstRow .= "\t" . $this->msg( 'pf_createcategory_defaultform' )->escaped() . "\n";
-			$formSelector = "\t" . Html::element( 'option', null, null ) . "\n";
+			$options = [];
+			array_push( $options, [ 'data' => null, 'label' => null ] );
 			foreach ( $all_forms as $form ) {
-				$formSelector .= "\t" . Html::element( 'option', null, $form ) . "\n";
+				array_push( $options, [ 'data' => $form, 'label' => $form ] );
 			}
+			$formSelector = new OOUI\DropdownInputWidget( [
+				'options' => $options,
+				'id' => 'form_dropdown',
+				'name' => 'default_form',
+			] );
+			$secondRow .= new OOUI\FieldLayout(
+				$formSelector,
+				[
+					'label' => $this->msg( 'pf_createcategory_defaultform' )->escaped(),
+					'align' => 'top'
+				]
+			);
 
-			$firstRow .= Html::rawElement( 'select',
-				[ 'id' => 'form_dropdown', 'name' => 'default_form' ],
-				$formSelector );
 		} catch ( MWException $e ) {
 			// If we're here, it's probably because no forms have
 			// been defined on this wiki. If that's the case, just
 			// leave out the form selector.
 		}
-		$text .= Html::rawElement( 'p', null, $firstRow ) . "\n";
-		$secondRow = $this->msg( 'pf_createcategory_makesubcategory' )->escaped() . ' ';
-		$selectBody = "\t" . Html::element( 'option', null, null ) . "\n";
+		$text .= $firstRow . $secondRow . "\n";
+		$options = [];
+		array_push( $options, [ 'data' => null, 'label' => null ] );
 		$categories = PFValuesUtils::getAllCategories();
 		foreach ( $categories as $category ) {
 			$category = str_replace( '_', ' ', $category );
-			$selectBody .= "\t" . Html::element( 'option', null, $category ) . "\n";
+			array_push( $options, [ 'data' => $category, 'label' => $category ] );
 		}
-		$secondRow .= Html::rawElement( 'select', [ 'id' => 'category_dropdown', 'name' => 'parent_category' ], $selectBody );
-		$text .= Html::rawElement( 'p', null, $secondRow ) . "\n";
+		$selectBody = new OOUI\DropdownInputWidget( [
+			'options' => $options,
+			'id' => 'category_dropdown',
+			'name' => 'parent_category',
+		] );
+		$thirdRow = new OOUI\FieldLayout(
+				$selectBody,
+				[
+					'label' => $this->msg( 'pf_createcategory_makesubcategory' )->escaped(),
+					'align' => 'top'
+				]
+		);
+		$text .= $thirdRow . "\n";
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateCategory' ) ) . "\n";
+		$savePageButton = new OOUI\ButtonInputWidget( [
+			'label' => $this->msg( 'savearticle' )->text(),
+			'type' => 'submit',
+			'name' => 'wpSave',
+			'id' => 'wpSave',
+			'flags' => [ 'primary', 'progressive' ],
+			'useInputTag' => true
+		] );
 
-		$editButtonsText = "\t" . Html::input( 'wpSave', $this->msg( 'savearticle' )->text(), 'submit', [ 'id' => 'wpSave' ] ) . "\n";
-		$editButtonsText .= "\t" . Html::input( 'wpPreview', $this->msg( 'preview' )->text(), 'submit', [ 'id' => 'wpPreview' ] ) . "\n";
-		$text .= "\t" . Html::rawElement( 'div', [ 'class' => 'editButtons' ], $editButtonsText ) . "\n";
+		$previewPageButton = new OOUI\ButtonInputWidget( [
+			'label' => $this->msg( 'preview' )->text(),
+			'type' => 'submit',
+			'name' => 'wpPreview',
+			'id' => 'wpPreview',
+			'flags' => [ 'progressive' ],
+			'useInputTag' => true
+		] );
+
+		$editButtonsText = $savePageButton . "\n";
+		$editButtonsText .= $previewPageButton . "\n";
+		$text .= "<br>" . Html::rawElement( 'div', [ 'class' => 'editButtons' ], $editButtonsText ) . "\n";
 		$text .= "\t</form>\n";
 
 		$out->addHTML( $text );
