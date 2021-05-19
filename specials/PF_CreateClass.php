@@ -248,9 +248,9 @@ class PFCreateClass extends SpecialPage {
 
 		$templateInfo = '';
 		if ( defined( 'CARGO_VERSION' ) && !defined( 'SMW_VERSION' ) ) {
-			$templateInfo .= "\t<p><label>" .
-				Html::check( 'use_cargo', true, [ 'id' => 'use_cargo' ] ) .
-				' ' . $this->msg( 'pf_createtemplate_usecargo' )->escaped() .
+			$templateInfo .= "\t<p><label id='cargo_toggle'>" .
+				Html::hidden( 'use_cargo', true ) .
+				$this->msg( 'pf_createtemplate_usecargo' )->escaped() .
 				"</label></p>\n";
 			$cargo_table_label = $this->msg( 'pf_createtemplate_cargotablelabel' )->escaped();
 			$templateInfo .= "\t" . Html::rawElement( 'p', [ 'id' => 'cargo_table_input' ],
@@ -260,13 +260,8 @@ class PFCreateClass extends SpecialPage {
 		}
 		$createTemplatePage = new PFCreateTemplate();
 		$templateInfo .= $createTemplatePage->printTemplateStyleInput( 'template_format' );
-		$templateInfo .= Html::rawElement( 'p', null,
-			Html::element( 'input', [
-				'type' => 'checkbox',
-				'name' => 'template_multiple',
-				'id' => 'template_multiple',
-				'class' => "disableFormAndCategoryInputs",
-			] ) . ' ' . $this->msg( 'pf_createtemplate_multipleinstance' )->escaped() ) . "\n";
+		$templateInfo .= Html::rawElement( 'p', [ 'id' => 'template_multiple_p' ],
+			Html::hidden( 'multiple_template', false ) . $this->msg( 'pf_createtemplate_multipleinstance' )->escaped() ) . "\n";
 		// Either #set_internal or #subobject will be added to the
 		// template, depending on whether Semantic Internal Objects is
 		// installed.

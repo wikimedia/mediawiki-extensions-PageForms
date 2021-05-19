@@ -158,10 +158,14 @@ END;
 	static function printTemplateStyleButton( $formatStr, $formatMsg, $htmlFieldName, $curSelection ) {
 		$attrs = [ 'id' => $formatStr ];
 		if ( $formatStr === $curSelection ) {
-			$attrs['checked'] = true;
+			$attrs['selected'] = true;
 		}
-		return "\t" . Html::input( $htmlFieldName, $formatStr, 'radio', $attrs ) .
-			' ' . Html::element( 'label', [ 'for' => $formatStr ], wfMessage( $formatMsg )->escaped() ) . "\n";
+		$attrs[ 'name' ] = $htmlFieldName;
+		$attrs[ 'value' ] = $formatStr;
+		$radioButton = new OOUI\RadioInputWidget(
+			$attrs
+		);
+		return $radioButton . Html::element( 'label', [ 'for' => $formatStr ], wfMessage( $formatMsg )->escaped() ) . "\n";
 	}
 
 	static function printTemplateStyleInput( $htmlFieldName, $curSelection = null ) {
@@ -275,7 +279,7 @@ END;
 		}
 		$text .= "\t<p>" . $this->msg( 'pf_createtemplate_categorylabel' )->escaped() . ' <input size="25" name="category" /></p>' . "\n";
 		if ( !defined( 'SMW_VERSION' ) && defined( 'CARGO_VERSION' ) ) {
-			$text .= "\t<p><label>" . Html::check( 'use_cargo', true, [ 'id' => 'use_cargo' ] ) .
+			$text .= "\t<p><label id='cargo_toggle'>" . Html::hidden( 'use_cargo', true ) .
 				' ' . $this->msg( 'pf_createtemplate_usecargo' )->escaped() . "</label></p>\n";
 			$text .= "\t<p id=\"cargo_table_input\"><label>" .
 				$this->msg( 'pf_createtemplate_cargotablelabel' )->escaped() .

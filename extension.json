@@ -455,6 +455,9 @@
 			"scripts": [
 				"libs/PF_CreateTemplate.js"
 			],
+			"dependencies": [
+				"oojs-ui-widgets"
+			],
 			"messages": [
 				"pf_blank_error",
 				"pf_createtemplate_hierarchystructureplaceholder"
@@ -463,6 +466,9 @@
 		"ext.pageforms.PF_CreateClass": {
 			"scripts": [
 				"libs/PF_CreateClass.js"
+			],
+			"dependencies": [
+				"oojs-ui-widgets"
 			],
 			"messages": [
 				"pf_createtemplate_hierarchystructureplaceholder"

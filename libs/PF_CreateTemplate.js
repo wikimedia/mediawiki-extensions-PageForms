@@ -3,12 +3,14 @@ var fieldNum = 1;
 var hierarchyPlaceholder =  mediaWiki.msg( 'pf_createtemplate_hierarchystructureplaceholder' );
 
 function toggleCargoInputs() {
-	if (jQuery('#use_cargo').prop('checked')) {
+	if (jQuery('#use_cargo_toggle').attr('aria-checked') == 'true') {
+		jQuery('input[name="use_cargo"]').attr('value', '1');
 		jQuery('#cargo_table_input').show('medium');
 		jQuery('label.cargo_field_type').show('medium');
 		jQuery('.allowed_values_input').show('medium');
 		jQuery('.is_hierarchy').parent().show('medium');
 	} else {
+		jQuery('input[name="use_cargo"]').attr('value', '0');
 		jQuery('#cargo_table_input').hide('medium');
 		jQuery('label.cargo_field_type').hide('medium');
 		jQuery("input[name*='is_hierarchy_']").prop('checked', false);
@@ -59,7 +61,7 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 
 function validateCreateTemplateForm() {
 	var blankTemplateName = ( jQuery( '#template_name' ).val() === '' );
-	var blankCargoTableName = ( jQuery( '#use_cargo' ).is(':checked') &&
+	var blankCargoTableName = ( jQuery( '#use_cargo_toggle' ).attr('aria-checked') == 'true' &&
 		jQuery( '#cargo_table' ).val() === '' );
 	if ( blankTemplateName || blankCargoTableName || !validateHierarchyStructure() ) {
 		scroll( 0, 0 );
@@ -143,7 +145,13 @@ jQuery( document ).ready( function () {
 	var sortable = Sortable.create(el, {
 		handle: '.instanceRearranger',
 	});
-	jQuery( "#use_cargo" ).click( function() {
+	var toggleSwitch = new OO.ui.ToggleSwitchWidget( {
+		id: 'use_cargo_toggle',
+		value: true,
+	} );
+	jQuery( '#cargo_toggle' ).prepend( toggleSwitch.$element );
+	jQuery( '#use_cargo_toggle' ).attr( 'name', 'use_cargo_toggle' );
+	jQuery( '#use_cargo_toggle' ).click( function() {
 		toggleCargoInputs();
 	} );
 	jQuery( ".createTemplateAddField" ).click( function () {
