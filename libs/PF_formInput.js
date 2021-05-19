@@ -97,6 +97,7 @@
 			} );
 		} else {
 			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithoutNamespace' ];
+			autocompleteWidgetConfig['name'] = 'page_name';
 			var pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 			var layout = new OO.ui.HorizontalLayout( {
 				items: [ pageNameInput, createOrEditButton ]

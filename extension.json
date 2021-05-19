@@ -324,7 +324,6 @@
 			"scripts": [
 				"libs/select2.js",
 				"libs/ext.pf.select2.base.js",
-				"libs/PF_ComboBoxInput.js",
 				"libs/ext.pf.select2.tokens.js"
 			],
 			"styles": [
@@ -353,6 +352,16 @@
 			],
 			"messages": [
 				"pf-select2-no-matches"
+			]
+		},
+		"ext.pageforms.ooui.combobox": {
+			"scripts": [
+				"libs/PF_ComboBoxInput.js"
+			],
+			"dependencies": [
+				"oojs-ui-core",
+				"oojs-ui-widgets",
+				"ext.pageforms.ooui.autocomplete"
 			]
 		},
 		"ext.pageforms.forminput": {

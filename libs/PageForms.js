@@ -1301,10 +1301,7 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 			element = $('[name="' + dependentField + '"]');
 		}
 
-		if ( element.hasClass( 'pfComboBox' ) ) {
-			cmbox = new pf.select2.combobox();
-			cmbox.refresh(element);
-		} else if ( element.hasClass( 'pfTokens' ) ) {
+		if ( element.hasClass( 'pfTokens' ) ) {
 			tokens = new pf.select2.tokens();
 			tokens.refresh(element);
 		} else {
@@ -1389,9 +1386,28 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 	}
 
-	var combobox = new pf.select2.combobox();
-	this.find('.pfComboBox').not('#semantic_property_starter, .multipleTemplateStarter .pfComboBox, .select2-container').each( function() {
-		combobox.apply($(this));
+	this.find('.pfComboBox').not('.multipleTemplateStarter .pfComboBox').each(function(){
+		var autocomplete_data_type = $(this).attr('autocompletedatatype')
+		var input_tagname = $(this).prop("tagName");
+		var min_width = $(this).data('size');
+		var input_width = $(this).val().length*11;
+		if (autocomplete_data_type !== undefined) {
+			// Use pf.AutocompleteWidget for remote autocompletion
+			var inputType = new pf.AutocompleteWidget({});
+			inputType.apply($(this))
+		} else if (input_tagname === "SELECT") {
+			// Use pf.ComboBoxInput for local autocompletion
+			var inputType = new pf.ComboBoxInput({
+				menu: {
+					filterFromInput: true
+				}
+			});
+			inputType.apply($(this))
+		}
+		inputType.$element.css("width", input_width > min_width ? input_width : min_width);
+		inputType.$element.css("min-width", min_width);
+		$(this).after(inputType.$element);
+		$(this).remove()
 	});
 
 	var tokens = new pf.select2.tokens();

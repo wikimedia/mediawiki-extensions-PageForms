@@ -98,7 +98,7 @@ class PFComboBoxInput extends PFFormInput {
 			'tabindex' => $wgPageFormsTabIndex,
 			'autocompletesettings' => $autocompleteSettings,
 			'value' => $cur_value,
-			'data-size' => $size * 6 . 'px',
+			'data-size' => $size * 6,
 			'style' => 'width:' . $size * 6 . 'px',
 			'disabled' => $is_disabled
 		];
@@ -216,5 +216,9 @@ class PFComboBoxInput extends PFFormInput {
 			$this->mIsDisabled,
 			$this->mOtherArgs
 		);
+	}
+
+	public function getResourceModuleNames() {
+		return [ 'ext.pageforms.ooui.combobox' ];
 	}
 }
