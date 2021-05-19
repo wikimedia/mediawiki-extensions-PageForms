@@ -539,18 +539,6 @@
 		"PageFormsDependentFields": [],
 		"PageFormsCheckboxesSelectAllMinimum": 10,
 		"PageFormsMapsWithFeeders": [],
-		"PageFormsDatePickerSettings": {
-			"@note": "See PF_DefaultInputSettings.php for allowed values",
-			"FirstDate": null,
-			"LastDate": null,
-			"DateFormat": "SHORT",
-			"WeekStart": null,
-			"DisabledDaysOfWeek": null,
-			"HighlightedDaysOfWeek": null,
-			"DisabledDates": null,
-			"HighlightedDates": null,
-			"_merge_strategy": "array_plus"
-		},
 		"PageFormsAutoeditNamespaces": [ 0 ],
 		"PageFormsIgnoreTitlePattern": []
 	},
