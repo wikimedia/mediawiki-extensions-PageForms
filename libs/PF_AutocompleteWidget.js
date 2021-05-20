@@ -23,6 +23,12 @@ pf.AutocompleteWidget = function( config ) {
 	if ( config.name !== undefined ) {
 		textInputConfig.name = config.name;
 	}
+	if ( config.classes !== undefined ) {
+		// The following classes are used here:
+		// * pfPageNameWithNamespace
+		// * pfPageNameWithoutNamespace
+		textInputConfig.classes = config.classes;
+	}
 	if ( config.id !== undefined ) {
 		textInputConfig.id = config.id;
 	}
