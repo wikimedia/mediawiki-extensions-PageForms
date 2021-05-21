@@ -465,7 +465,8 @@
 				"libs/PF_CreateTemplate.js"
 			],
 			"dependencies": [
-				"oojs-ui-widgets"
+				"oojs-ui-widgets",
+				"ext.pageforms.ooui.combobox"
 			],
 			"messages": [
 				"pf_blank_error",

@@ -49,7 +49,7 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 	newField.find( ".hierarchy_structure" ).blur( function () {
 		setHierarchyPlaceholder( $( this ) );
 	} );
-	var combobox = new pf.select2.combobox();
+	var combobox = new pf.ComboBoxInput();
 	combobox.apply( $( newField.find( '.pfComboBox' ) ) );
 	if ( addAboveCurInstance ){
 		newField.insertBefore(this.closest(".fieldBox"))
