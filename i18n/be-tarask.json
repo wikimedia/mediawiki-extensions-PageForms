@@ -34,7 +34,7 @@
 	"pf_createtemplate_standardformat": "Табліца",
 	"pf_createtemplate_infoboxformat": "Бакавая інфармацыйная панэль",
 	"pf_createtemplate_addfield": "Дадаць поле",
-	"pf_createtemplate_deletefield": "Выдаліць",
+	"pf_createtemplate_deletefield": "Выдаліць гэтае поле",
 	"forms": "Формы",
 	"pf_forms_docu": "У {{GRAMMAR:месны|{{SITENAME}}}} існуюць наступныя формы.",
 	"pf_forminputs_mandatory": "Абавязковая",
