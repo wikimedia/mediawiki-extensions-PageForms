@@ -929,7 +929,7 @@ class PFAutoeditAPI extends ApiBase {
 
 		// We already preloaded stuff for saving/previewing -
 		// do not do this again.
-		if ( $isFormSubmitted && !$wgRequest->getCheck( 'partial' ) ) {
+		if ( $isFormSubmitted ) {
 			$preloadContent = '';
 			$pageExists = false;
 		} else {

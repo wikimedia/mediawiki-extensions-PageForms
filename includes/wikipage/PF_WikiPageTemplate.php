@@ -26,8 +26,7 @@ class PFWikiPageTemplate {
 		// See if there's already a value for this parameter, and
 		// if it's blank, replace it.
 		// This only happens if values are coming in from both the
-		// page and the form submission, i.e. for partial forms and
-		// #autoedit.
+		// page and the form submission, i.e. for #autoedit.
 		foreach ( $this->mParams as $i => $param ) {
 			if ( $param->getName() == $paramName ) {
 				if ( $param->getValue() == '' ) {

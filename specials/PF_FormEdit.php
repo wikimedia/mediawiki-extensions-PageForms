@@ -87,13 +87,8 @@ class PFFormEdit extends UnlistedSpecialPage {
 
 		if ( $req->getCheck( 'wpSave' ) || $req->getCheck( 'wpPreview' ) || $req->getCheck( 'wpDiff' ) ) {
 			// If the page was submitted, form data should be
-			// complete => do not preload (unless it's a partial
-			// form).
-			if ( $req->getCheck( 'partial' ) ) {
-				$module->setOption( 'preload', true );
-			} else {
-				$module->setOption( 'preload', false );
-			}
+			// complete => do not preload
+			$module->setOption( 'preload', false );
 		} elseif ( !empty( $targetName ) && Title::newFromText( $targetName )->exists() ) {
 			// If target page exists, do not overwrite it with
 			// preload data; just preload the page's data.

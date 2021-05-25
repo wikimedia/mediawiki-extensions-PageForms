@@ -800,34 +800,8 @@ END;
 		$source_page_matches_this_form = false;
 		$form_page_title = null;
 		$generated_page_name = $page_name_formula;
-		// $form_is_partial is true if:
-		// (a) 'partial' == 1 in the arguments
-		// (b) 'partial form' is found in the form definition
-		// in the latter case, it may remain false until close to the end of
-		// the parsing, so we have to assume that it will become a possibility
-		$form_is_partial = false;
-		$partial_form_submitted = $wgRequest->getCheck( 'partial' );
 		$new_text = "";
-
-		// If we have existing content and we're not in an active replacement
-		// situation, preserve the original content. We do this because we want
-		// to pass the original content on IF this is a partial form.
-		// TODO: A better approach here would be to pass the revision ID of the
-		// existing page content through the replace value, which would
-		// minimize the html traffic and would allow us to do a concurrent
-		// update check. For now, we pass it through a hidden text field.
-
-		if ( !$partial_form_submitted ) {
-			$original_page_content = $existing_page_content;
-		} else {
-			$original_page_content = null;
-			if ( $wgRequest->getCheck( 'pf_free_text' ) ) {
-				if ( !isset( $existing_page_content ) || $existing_page_content == '' ) {
-					$existing_page_content = $wgRequest->getVal( 'pf_free_text' );
-				}
-				$form_is_partial = true;
-			}
-		}
+		$original_page_content = $existing_page_content;
 
 		// Disable all form elements if user doesn't have edit
 		// permission - two different checks are needed, because
@@ -1021,7 +995,7 @@ END;
 					// once in that page, and multiple
 					// values are allowed, repeat this
 					// section.
-					if ( $source_is_page || $partial_form_submitted ) {
+					if ( $source_is_page ) {
 						$tif->setPageRelatedInfo( $existing_page_content );
 						// Get the first instance of
 						// this template on the page
@@ -1031,17 +1005,7 @@ END;
 							$tif->setFieldValuesFromPage( $existing_page_content );
 							$existing_template_text = $tif->getFullTextInPage();
 							// Now remove this template from the text being edited.
-							// If this is a partial form, establish a new insertion point.
-							if ( $existing_page_content && $partial_form_submitted ) {
-								// If something already exists, set the new insertion point
-								// to its position; otherwise just let it lie.
-								if ( strpos( $existing_page_content, $existing_template_text ) !== false ) {
-									$existing_page_content = str_replace( "\n" . '{{{insertionpoint}}}', '', $existing_page_content );
-									$existing_page_content = str_replace( $existing_template_text, '{{{insertionpoint}}}', $existing_page_content );
-								}
-							} else {
-								$existing_page_content = $this->strReplaceFirst( $existing_template_text, '', $existing_page_content );
-							}
+							$existing_page_content = $this->strReplaceFirst( $existing_template_text, '', $existing_page_content );
 							// If we've found a match in the source
 							// page, there's a good chance that this
 							// page was created with this form - note
@@ -1164,7 +1128,7 @@ END;
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
 					// from the template call
-					if ( $source_is_page && ( $tif->getFullTextInPage() != '' ) && ( !$form_is_partial || !$form_submitted ) ) {
+					if ( $source_is_page && ( $tif->getFullTextInPage() != '' ) && !$form_submitted ) {
 						if ( $tif->hasValueFromPageForField( $field_name ) ) {
 							// Get value, and remove it,
 							// so that at the end we
@@ -1603,10 +1567,6 @@ END;
 							if ( $is_query ) {
 								$form_page_title = $sub_components[1];
 							}
-						} elseif ( $tag == 'partial form' ) {
-							$form_is_partial = true;
-							// replacement pages may have minimal matches...
-							$source_page_matches_this_form = true;
 						} elseif ( $tag == 'includeonly free text' || $tag == 'onlyinclude free text' ) {
 							$wiki_page->makeFreeTextOnlyInclude();
 						} elseif ( $tag == 'query form at top' ) {
@@ -1645,12 +1605,6 @@ END;
 							preg_replace( '/\{\{/m', '�{', $template_text ) ) .
 						"{{{insertionpoint}}}",
 						$existing_page_content );
-				// Otherwise, if it's a partial form, we have to add the new
-				// text somewhere.
-				} elseif ( $partial_form_submitted ) {
-					$existing_page_content = preg_replace( '/\}\}/m', '}�',
-						preg_replace( '/\{\{/m', '�{', $template_text ) ) .
-							"{{{insertionpoint}}}" . $existing_page_content;
 				}
 			}
 
@@ -1818,21 +1772,7 @@ END;
 		// Get free text, and add to page data, as well as retroactively
 		// inserting it into the form.
 
-		// If $form_is_partial is true then either:
-		// (a) we're processing a replacement (param 'partial' == 1)
-		// (b) we're sending out something to be replaced (param 'partial' is missing)
-		if ( $form_is_partial ) {
-			if ( !$partial_form_submitted ) {
-				$free_text = $original_page_content;
-			} else {
-				$free_text = null;
-				$existing_page_content = preg_replace( [ '/�\{/m', '/\}�/m' ],
-					[ '{{', '}}' ],
-					$existing_page_content );
-				$existing_page_content = str_replace( '{{{insertionpoint}}}', '', $existing_page_content );
-			}
-			$form_text .= Html::hidden( 'partial', 1 );
-		} elseif ( $source_is_page ) {
+		if ( $source_is_page ) {
 			// If the page is the source, free_text will just be
 			// whatever in the page hasn't already been inserted
 			// into the form.
@@ -1909,10 +1849,6 @@ END;
 		// mappings of which values should apply to which fields.
 		// If doing a replace, the page text is actually the modified
 		// original page.
-		if ( $partial_form_submitted ) {
-			$page_text = $existing_page_content;
-		}
-
 		if ( !$is_embedded ) {
 			$form_page_title = $parser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
 		} else {
