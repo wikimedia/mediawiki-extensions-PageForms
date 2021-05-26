@@ -256,7 +256,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 	});
 
 	function setMarkerFromAddress() {
-		var addressText = inputDiv.find('.pfAddressInput').val(),
+		var addressText = inputDiv.find('.pfAddressInput input').val(),
 			alert;
 		if ( mapService === "Google Maps" ) {
 			map.setZoom(14);
