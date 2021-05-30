@@ -443,7 +443,7 @@ class PFValuesUtils {
 		$namespaceConditions = [];
 
 		foreach ( $namespaceNames as $namespace_name ) {
-
+			$namespace_name = self::standardizeNamespace( $namespace_name );
 			// Cycle through all the namespace names for this language, and
 			// if one matches the namespace specified in the form, get the
 			// names of all the pages in that namespace.
@@ -842,4 +842,14 @@ class PFValuesUtils {
 		return $labels;
 	}
 
+	/**
+	 * Get the exact canonical namespace string, given a user-created string
+	 *
+	 * @param string $namespaceStr
+	 * @return string
+	 */
+	public function standardizeNamespace( $namespaceStr ) {
+		$dummyTitle = Title::newFromText( "$namespaceStr:ABC" );
+		return $dummyTitle ? $dummyTitle->getNsText() : $namespaceStr;
+	}
 }
