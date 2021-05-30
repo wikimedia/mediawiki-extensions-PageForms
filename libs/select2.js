@@ -4528,7 +4528,10 @@ S2.define('select2/dropdown/attachBody',[
 
     css.top -= parentOffset.top;
     css.left -= parentOffset.left;
-
+    //fix for rtl forms
+    if( 'rtl' == $('html').attr('dir') ){
+      css.left += this.$element.next().width();
+    }
     if (!isCurrentlyAbove && !isCurrentlyBelow) {
       newDirection = 'below';
     }
