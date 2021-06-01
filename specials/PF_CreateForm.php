@@ -280,13 +280,15 @@ class PFCreateForm extends SpecialPage {
 			$formNameTextInput = new OOUI\TextInputWidget( [
 				'name' => 'form_name',
 				'id' => 'pfFormName',
+				'value' => $form_name
 			] );
 			array_push( $formNameItems, $formNameText, $formNameTextInput );
 			$text .= "\n\t<p><label>";
 			if ( !empty( $form_name_error_str ) ) {
-				$blankError = new OOUI\LabelWidget( [
-					'label' => $form_name_error_str,
-					'id' => 'pfBlankFormName',
+				$blankError = new OOUI\MessageWidget( [
+					"type" => 'error',
+					"inline" => true,
+					"label" => $form_name_error_str
 				] );
 				array_push( $formNameItems, $blankError );
 			}
