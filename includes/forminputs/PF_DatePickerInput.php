@@ -16,6 +16,10 @@ use MediaWiki\Widget\DateInputWidget;
 
 class PFDatePickerInput extends PFFormInput {
 
+	public static function getName(): string {
+		return 'datepicker';
+	}
+
 	/**
 	 * @param string $input_number The number of the input in the form.
 	 * @param string $cur_value The current value of the input field.
@@ -31,18 +35,6 @@ class PFDatePickerInput extends PFFormInput {
 		}
 
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
-	}
-
-	/**
-	 * Returns the name of the input type this class handles.
-	 *
-	 * This is the name to be used in the field definition for the
-	 * "input type" parameter.
-	 *
-	 * @return string The name of the input type this class handles.
-	 */
-	public static function getName() {
-		return 'datepicker';
 	}
 
 	/**

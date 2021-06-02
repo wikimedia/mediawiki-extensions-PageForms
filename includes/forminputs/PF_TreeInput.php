@@ -15,7 +15,7 @@ class PFTreeInput extends PFFormInput {
 
 	private static $multipleSelect = false;
 
-	public static function getName() {
+	public static function getName(): string {
 		return 'tree';
 	}
 

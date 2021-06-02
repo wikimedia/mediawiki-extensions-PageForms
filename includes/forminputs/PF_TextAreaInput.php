@@ -12,6 +12,10 @@ class PFTextAreaInput extends PFFormInput {
 
 	protected $mEditor = null;
 
+	public static function getName(): string {
+		return 'textarea';
+	}
+
 	public static function getDefaultCargoTypes() {
 		return [
 			'Text' => [],
@@ -88,10 +92,6 @@ class PFTextAreaInput extends PFFormInput {
 		} else {
 			$this->mOtherArgs['class'] = $newClasses;
 		}
-	}
-
-	public static function getName() {
-		return 'textarea';
 	}
 
 	public static function getDefaultPropTypes() {

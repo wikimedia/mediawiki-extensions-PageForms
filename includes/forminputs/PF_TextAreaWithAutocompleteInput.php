@@ -8,7 +8,8 @@
  * @ingroup PFFormInput
  */
 class PFTextAreaWithAutocompleteInput extends PFTextWithAutocompleteInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'textarea with autocomplete';
 	}
 

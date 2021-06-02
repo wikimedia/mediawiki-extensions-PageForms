@@ -8,7 +8,8 @@
  * @ingroup PFFormInput
  */
 class PFGoogleMapsInput extends PFOpenLayersInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'googlemaps';
 	}
 

@@ -8,7 +8,8 @@
  * @ingroup PFFormInput
  */
 class PFCheckboxInput extends PFFormInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'checkbox';
 	}
 

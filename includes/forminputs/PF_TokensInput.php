@@ -10,7 +10,8 @@ use MediaWiki\MediaWikiServices;
  * @ingroup PFFormInput
  */
 class PFTokensInput extends PFFormInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'tokens';
 	}
 

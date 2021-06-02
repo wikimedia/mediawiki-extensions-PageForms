@@ -10,7 +10,8 @@ use MediaWiki\MediaWikiServices;
  * @ingroup PFFormInput
  */
 class PFComboBoxInput extends PFFormInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'combobox';
 	}
 

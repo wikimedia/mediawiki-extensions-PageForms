@@ -9,7 +9,7 @@
  */
 class PFListBoxInput extends PFMultiEnumInput {
 
-	public static function getName() {
+	public static function getName(): string {
 		return 'listbox';
 	}
 

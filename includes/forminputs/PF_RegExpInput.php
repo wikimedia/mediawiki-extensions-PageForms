@@ -16,6 +16,10 @@ class PFRegExpInput extends PFFormInput {
 	/** @var PFFormInput */
 	protected $mBaseInput;
 
+	public static function getName(): string {
+		return 'regexp';
+	}
+
 	/**
 	 * @param string $input_number The number of the input in the form.
 	 * @param string $cur_value The current value of the input field.
@@ -128,18 +132,6 @@ class PFRegExpInput extends PFFormInput {
 			$formInput->mIsDisabled,
 			$formInput->mOtherArgs
 		);
-	}
-
-	/**
-	 * Returns the name of the input type this class handles.
-	 *
-	 * This is the name to be used in the field definition for the "input type"
-	 * parameter.
-	 *
-	 * @return string The name of the input type this class handles.
-	 */
-	public static function getName() {
-		return 'regexp';
 	}
 
 	/**

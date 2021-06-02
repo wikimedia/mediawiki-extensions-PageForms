@@ -8,7 +8,8 @@
  * @ingroup PFFormInput
  */
 class PFYearInput extends PFTextInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'year';
 	}
 

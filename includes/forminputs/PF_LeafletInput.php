@@ -10,7 +10,8 @@
  * @ingroup PFFormInput
  */
 class PFLeafletInput extends PFOpenLayersInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'leaflet';
 	}
 

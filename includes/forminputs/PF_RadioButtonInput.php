@@ -8,7 +8,8 @@
  * @ingroup PFFormInput
  */
 class PFRadioButtonInput extends PFEnumInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'radiobutton';
 	}
 

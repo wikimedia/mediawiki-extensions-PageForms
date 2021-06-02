@@ -8,7 +8,8 @@
  * @ingroup PFFormInput
  */
 class PFDateTimeInput extends PFDateInput {
-	public static function getName() {
+
+	public static function getName(): string {
 		return 'datetime';
 	}
 
