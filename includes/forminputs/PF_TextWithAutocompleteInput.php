@@ -107,4 +107,17 @@ class PFTextWithAutocompleteInput extends PFTextInput {
 			$this->mOtherArgs
 		);
 	}
+
+	public function getResourceModuleNames() {
+		// It would have been better to call the getResourceModuleNames()
+		// methods for these two classes directly, but that's a little
+		// tricky to do because (for no good reason) this is not a
+		// static method.
+		if ( self::$alias == 'PFTokensInput' ) {
+			return [];
+		} else {
+			return [ 'ext.pageforms.ooui.combobox' ];
+		}
+	}
+
 }
