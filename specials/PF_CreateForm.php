@@ -348,7 +348,8 @@ class PFCreateForm extends SpecialPage {
 		$addButton = new OOUI\ButtonInputWidget( [
 			'label' => $this->msg( 'pf_createform_add' )->text(),
 			'type' => 'submit',
-			'useInputTag' => true,
+			'icon' => 'add',
+			'id' => 'pfAddTemplateButton',
 			'name' => 'add_field',
 			'flags' => [ 'progressive' ],
 		] );
@@ -413,7 +414,8 @@ class PFCreateForm extends SpecialPage {
 		$addSectionButton = new OOUI\ButtonInputWidget( [
 			'label' => $this->msg( 'pf_createform_addsection' )->text(),
 			'type' => 'submit',
-			'useInputTag' => true,
+			'icon' => 'add',
+			'id' => 'pfAddSectionButton',
 			'name' => 'add_section',
 			'flags' => [ 'progressive' ],
 		] );
@@ -529,9 +531,10 @@ END;
 		$removeSectionButton = new OOUI\ButtonInputWidget( [
 			'label' => $this->msg( 'pf_createform_removesection' )->text(),
 			'type' => 'submit',
-			'useInputTag' => true,
+			'icon' => 'subtract',
+			'id' => 'pfRemoveSectionButton',
 			'name' => 'delsection_' . $section_count,
-			'flags' => [ 'destructive' ]
+			'flags' => [ 'destructive' ],
 		] ) . "\n";
 		$text .= "<br />" . $removeSectionButton . "\n";
 		$text .= "	</div>\n";
@@ -562,7 +565,8 @@ END;
 		$removeTemplateButton = new OOUI\ButtonInputWidget( [
 			'label' => $this->msg( 'pf_createform_removetemplate' )->text(),
 			'type' => 'submit',
-			'useInputTag' => true,
+			'icon' => 'subtract',
+			'id' => 'pfRemoveTemplateButton',
 			'name' => 'del_' . $template_num,
 			'flags' => [ 'destructive' ],
 		] );

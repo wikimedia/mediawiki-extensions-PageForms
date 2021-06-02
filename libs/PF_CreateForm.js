@@ -16,13 +16,34 @@ jQuery(document).ready( function () {
 	jQuery( '.inputTypeSelector' ).change( function () {
 		jQuery( this ).displayInputParams();
 	} );
-	jQuery( '#addsection' ).click( function( event ) {
-		if( jQuery( '#sectionname' ).val() === '' ) {
+
+	jQuery( 'span#pfAddTemplateButton' ).click( function() {
+		jQuery( 'button[name="add_field"]' ).attr( 'value', 'true' );
+	} );
+
+	jQuery( 'span#pfAddSectionButton' ).click( function( event ) {
+		if( jQuery( 'input[name="sectionname"]' ).val() === '' ) {
 			event.preventDefault();
 			jQuery( '#section_error' ).remove();
-			var errorSpan = jQuery( '<span class="error" id="section_error"></span>' ).text( mediaWiki.msg( 'pf_blank_error' ) );
-			jQuery( '<div/>' ).append( errorSpan ).appendTo( '#sectionerror' );
+			var errorMessage = new OO.ui.MessageWidget( {
+				type: 'error',
+				inline: true,
+				label: mediaWiki.msg( 'pf_blank_error' )
+			} )
+			var errorSpan = '<span class="error" id="section_error"></span>';
+			jQuery( 'div#sectionerror' ).append(errorSpan);
+			jQuery( 'span#section_error' ).append( errorMessage.$element );
+		} else {
+			jQuery( 'button[name="add_section"]' ).attr( 'value', 'true' );
 		}
+	} );
+
+	jQuery( 'span#pfRemoveTemplateButton' ).click( function() {
+		jQuery( 'span#pfRemoveTemplateButton' ).find( 'button' ).attr( 'value', 'true' );
+	} );
+
+	jQuery( 'span#pfRemoveSectionButton' ).click( function() {
+		jQuery( 'span#pfRemoveSectionButton' ).find( 'button' ).attr( 'value', 'true' );
 	} );
 } );
 
