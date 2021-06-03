@@ -27,7 +27,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 * @return string
 	 */
-	public function getHtmlText() {
+	public function getHtmlText(): string {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
 
 		$className = ( $this->mIsMandatory ) ? 'mandatoryField' : 'createboxInput';

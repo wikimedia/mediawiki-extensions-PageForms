@@ -101,7 +101,7 @@ class PFTimePickerInput extends PFFormInput {
 	 * should be able to input values.
 	 * @return string
 	 */
-	public function getHtmlText() {
+	public function getHtmlText(): string {
 		// create visible input field (for display) and invisible field (for data)
 		$html = PFDatePickerInput::genericTextHTML( $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $this->mOtherArgs, 'input_' . $this->mInputNumber );
 

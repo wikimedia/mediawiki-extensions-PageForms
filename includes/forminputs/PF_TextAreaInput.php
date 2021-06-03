@@ -287,7 +287,7 @@ class PFTextAreaInput extends PFFormInput {
 	 * Returns the HTML code to be included in the output page for this input.
 	 * @return string
 	 */
-	public function getHtmlText() {
+	public function getHtmlText(): string {
 		$textarea_attrs = $this->getTextAreaAttributes();
 
 		$text = Html::element( 'textarea', $textarea_attrs, $this->mCurrentValue );

@@ -87,7 +87,7 @@ class PFDatePickerInput extends PFFormInput {
 	 * the user should be able to input values.
 	 * @return string
 	 */
-	public function getHtmlText() {
+	public function getHtmlText(): string {
 		$options = array_merge( $this->getOptions(), [
 			'type' => 'date',
 			'name' => $this->mInputName,

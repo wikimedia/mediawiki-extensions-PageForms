@@ -44,7 +44,7 @@ class PFDateTimePicker extends PFFormInput {
 	 * should be able to input values.
 	 * @return string
 	 */
-	public function getHtmlText() {
+	public function getHtmlText(): string {
 		$widget = new DateTimeInputWidget( [
 			'type' => 'datetime',
 			'name' => $this->mInputName,

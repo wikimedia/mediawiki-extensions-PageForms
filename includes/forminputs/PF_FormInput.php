@@ -139,11 +139,9 @@ abstract class PFFormInput {
 	 * Ideally this HTML code should provide a basic functionality even if the
 	 * browser is not JavaScript capable. I.e. even without JavaScript the user
 	 * should be able to input values.
-	 * @return null
+	 * @return string
 	 */
-	public function getHtmlText() {
-		return null;
-	}
+	abstract public function getHtmlText(): string;
 
 	/**
 	 *
