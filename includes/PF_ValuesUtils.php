@@ -759,7 +759,7 @@ class PFValuesUtils {
 
 		// CONVERT() is also supported in PostgreSQL, but it doesn't
 		// seem to work the same way.
-		if ( $db->getType == 'mysql' ) {
+		if ( $db->getType() == 'mysql' ) {
 			$column_value = "LOWER(CONVERT($column USING utf8))";
 		} else {
 			$column_value = "LOWER($column)";
