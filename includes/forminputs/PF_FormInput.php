@@ -58,7 +58,7 @@ abstract class PFFormInput {
 	 *
 	 * @return string The name of the input type this class handles.
 	 */
-	abstract public static function getName(): string;
+	abstract public static function getName();
 
 	/**
 	 * Returns the set of SMW property types which this input can
@@ -141,7 +141,7 @@ abstract class PFFormInput {
 	 * should be able to input values.
 	 * @return string
 	 */
-	abstract public function getHtmlText(): string;
+	abstract public function getHtmlText();
 
 	/**
 	 *
