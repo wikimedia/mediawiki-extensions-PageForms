@@ -586,10 +586,8 @@ class PFAutoeditAPI extends ApiBase {
 				throw new PermissionsError( $permission );
 
 			default:
-				// We don't recognize $status->value. The only way that can happen
-				// is if an extension hook aborted from inside ArticleSave.
-				// Render the status object into $editor->hookError
-				$editor->hookError = '<div class="error">' . $status->getWikitext() . '</div>';
+				// We don't recognize $status->value. Presumably this can only
+				// happen if some other extension set the value.
 				throw new MWException( $status->getHTML() );
 		}
 	}
