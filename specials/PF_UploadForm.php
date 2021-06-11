@@ -289,23 +289,18 @@ class PFUploadForm extends HTMLForm {
 	 * Add the upload JS and show the form.
 	 */
 	public function show() {
-		$this->addUploadJS();
+		// $this->addUploadJS();
 		parent::show();
 		// disable output - we'll print out the page manually,
 		// taking the body created by the form, plus the necessary
 		// Javascript files, and turning them into an HTML page
-		global $wgTitle, $wgLanguageCode, $wgXhtmlDefaultNamespace, $wgXhtmlNamespaces;
+		global $wgTitle, $wgLanguageCode, $wgScriptPath,
+			$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces;
 
 		$out = $this->getOutput();
 
 		$out->disable();
 		$wgTitle = SpecialPage::getTitleFor( 'Upload' );
-
-		$out->addModules( [
-			'mediawiki.action.edit', // For <charinsert> support
-			'mediawiki.special.upload', // Extras for thumbnail and license preview.
-			'mediawiki.legacy.upload', // For backward compatibility (this was removed 2014-09-10)
-		] );
 
 		$text = <<<END
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -320,9 +315,12 @@ END;
 		$text .= <<<END
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+<script src="{$wgScriptPath}/resources/lib/jquery/jquery.js"></script>
+<script src="{$wgScriptPath}/extensions/PageForms/libs/PF_upload.js"></script>
+</head>
 <body>
 {$out->getHTML()}
-{$out->getBottomScripts()}
 </body>
 </html>
 
@@ -334,6 +332,7 @@ END;
 	/**
 	 * Add upload JS to the OutputPage
 	 */
+	/*
 	protected function addUploadJS() {
 		$config = $this->getConfig();
 
@@ -356,6 +355,7 @@ END;
 		$out = $this->getOutput();
 		$out->addJsConfigVars( $scriptVars );
 	}
+	*/
 
 	/**
 	 * Empty function; submission is handled elsewhere.
