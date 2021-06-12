@@ -175,7 +175,7 @@ class PFComboBoxInput extends PFFormInput {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
 
-		$text = Html::rawElement( 'span', [ 'class' => $spanClass ], $inputText );
+		$text = Html::rawElement( 'span', [ 'class' => $spanClass, 'data-input-type' => 'combobox' ], $inputText );
 		return $text;
 	}
 

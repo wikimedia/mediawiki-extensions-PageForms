@@ -317,7 +317,8 @@
 			],
 			"messages": [
 				"pf_forminputs_change_file",
-				"pf-simpleupload"
+				"pf-simpleupload",
+				"htmlform-cloner-delete"
 			]
 		},
 		"ext.pageforms.select2": {

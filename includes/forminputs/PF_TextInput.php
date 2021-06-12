@@ -145,29 +145,7 @@ class PFTextInput extends PFFormInput {
 
 		if ( $wgPageFormsSimpleUpload ) {
 			$text = "\n" . '<img class="loading" style="display:none;" src="' . $wgPageFormsScriptPath . '/skins/loading.gif"/>' . "\n";
-			$buttonsText = Html::input( '',
-				wfMessage( 'pf-simpleupload' )->escaped(),
-				'button',
-				[
-					'class' => 'simpleupload_btn'
-				]
-			) . "\n";
-			$buttonsText .= Html::input( '',
-				wfMessage( 'htmlform-cloner-delete' )->escaped(),
-				'button',
-				[
-					'class' => 'simpleupload_rmv_btn',
-					'style' => 'display: none;'
-				]
-			) . "\n";
-			$buttonsText .= Html::input( '', '', 'file',
-				[
-					'class' => 'simpleupload',
-					'style' => 'width: 0; height: 0; overflow: hidden;'
-				]
-			) . "\n";
-
-			$text .= Html::rawElement( 'span', [ 'class' => 'simpleUploadInterface' ], $buttonsText );
+			$text .= Html::rawElement( 'span', [ 'class' => 'simpleUploadInterface' ], null );
 
 			return $text;
 		}
@@ -314,7 +292,7 @@ class PFTextInput extends PFFormInput {
 		if ( array_key_exists( 'unique', $other_args ) ) {
 			$spanClass .= ' uniqueFieldSpan';
 		}
-		$text = Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
+		$text = Html::rawElement( 'span', [ 'class' => $spanClass, 'data-input-type' => 'text' ], $text );
 		return $text;
 	}
 
