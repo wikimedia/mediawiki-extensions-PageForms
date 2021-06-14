@@ -1000,7 +1000,10 @@ class PFAutoeditAPI extends ApiBase {
 	private function parseDataFromHTMLFrag( $html ) {
 		$data = [];
 		$doc = new DOMDocument();
-		$oldVal = libxml_disable_entity_loader( true );
+		if ( LIBXML_VERSION < 20900 ) {
+			// PHP < 8
+			$oldVal = libxml_disable_entity_loader( true );
+		}
 		if ( method_exists( AtEase::class, 'suppressWarnings' ) ) {
 			// MW >= 1.33
 			AtEase::suppressWarnings();
@@ -1018,7 +1021,10 @@ class PFAutoeditAPI extends ApiBase {
 		} else {
 			\MediaWiki\restoreWarnings();
 		}
-		libxml_disable_entity_loader( $oldVal );
+		if ( LIBXML_VERSION < 20900 ) {
+			// PHP < 8
+			libxml_disable_entity_loader( $oldVal );
+		}
 
 		// Process input tags.
 		$inputs = $doc->getElementsByTagName( 'input' );
