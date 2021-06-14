@@ -1839,6 +1839,7 @@ END;
 			$form_text .= Html::hidden( 'wpEdittime', $mwWikiPage->getTimestamp() );
 			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
 			$form_text .= Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK );
+			$form_text .= Html::hidden( 'wpUltimateParam', true );
 		}
 
 		$form_text .= "\t</form>\n";
