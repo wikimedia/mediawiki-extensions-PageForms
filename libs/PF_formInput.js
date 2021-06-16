@@ -69,6 +69,7 @@
 			// line, replicating a full page name.
 			var pageWithNamespaceItems = [];
 			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithNamespace' ];
+                        autocompleteWidgetConfig['name'] = 'page_name';
 			var pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
 
 			var possibleNamespaces = possibleNamespacesStr.split('|');
