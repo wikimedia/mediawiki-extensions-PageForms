@@ -1387,23 +1387,10 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	}
 
 	this.find('.pfComboBox').not('.multipleTemplateStarter .pfComboBox').each(function(){
-		var autocomplete_data_type = $(this).attr('autocompletedatatype')
-		var input_tagname = $(this).prop("tagName");
 		var min_width = $(this).data('size');
 		var input_width = $(this).val().length*11;
-		if (autocomplete_data_type !== undefined) {
-			// Use pf.AutocompleteWidget for remote autocompletion
-			var inputType = new pf.AutocompleteWidget({});
-			inputType.apply($(this))
-		} else if (input_tagname === "SELECT") {
-			// Use pf.ComboBoxInput for local autocompletion
-			var inputType = new pf.ComboBoxInput({
-				menu: {
-					filterFromInput: true
-				}
-			});
-			inputType.apply($(this))
-		}
+		var inputType = new pf.ComboBoxInput({});
+		inputType.apply($(this));
 		inputType.$element.css("width", input_width > min_width ? input_width : min_width);
 		inputType.$element.css("min-width", min_width);
 		inputType.$element.find("a").css("margin-left", "-1px");

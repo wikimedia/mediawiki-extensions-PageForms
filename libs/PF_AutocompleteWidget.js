@@ -12,26 +12,18 @@
  */
 
 pf.AutocompleteWidget = function( config ) {
-	this.config = config || {};
 	// Parent constructor
 	var textInputConfig = {
+		name: 'page_name',
+		// The following classes are used here:
+		// * pfPageNameWithNamespace
+		// * pfPageNameWithoutNamespace
+		classes: config.classes,
 		// This turns off the local, browser-based autocompletion,
 		// which would normally suggest values that the user has
 		// typed before on that computer.
 		autocomplete: false
 	};
-	if ( config.name !== undefined ) {
-		textInputConfig.name = config.name;
-	}
-	if ( config.classes !== undefined ) {
-		// The following classes are used here:
-		// * pfPageNameWithNamespace
-		// * pfPageNameWithoutNamespace
-		textInputConfig.classes = config.classes;
-	}
-	if ( config.id !== undefined ) {
-		textInputConfig.id = config.id;
-	}
 	if ( config.value !== undefined ) {
 		textInputConfig.value = config.value;
 	}
@@ -41,9 +33,13 @@ pf.AutocompleteWidget = function( config ) {
 	if ( config.autofocus !== undefined ) {
 		textInputConfig.autofocus = config.autofocus;
 	}
-	OO.ui.TextInputWidget.call(this, textInputConfig);
-	// Mixin constructor
-	OO.ui.mixin.LookupElement.call(this, { highlightFirst: false });
+	OO.ui.TextInputWidget.call( this, textInputConfig );
+	// Mixin constructors
+	if ( config.autocompletedatatype !== undefined ) {
+		OO.ui.mixin.LookupElement.call( this, { highlightFirst: false } );
+	}
+
+	this.config = config;
 
 	// dataCache will temporarily store entity id => entity data mappings of
 	// entities, so that if we somehow then alter the text (add characters,
@@ -56,15 +52,6 @@ pf.AutocompleteWidget = function( config ) {
 OO.inheritClass( pf.AutocompleteWidget, OO.ui.TextInputWidget );
 OO.mixinClass( pf.AutocompleteWidget, OO.ui.mixin.LookupElement );
 
-pf.AutocompleteWidget.prototype.apply = function ( element ) {
-	this.config['autocompletesettings'] = element.attr('autocompletesettings')
-	this.config['autocompletedatatype'] = element.attr('autocompletedatatype')
-	this.setInputAttribute('name', element.attr('name'));
-	this.setInputAttribute('autocompletesettings', this.config['autocompletesettings']);
-	this.setInputAttribute('origname', element.attr('origname'));
-	this.setInputId(element.attr('id'));
-	this.setValue(element.val());
-}
 /**
  * @inheritdoc
  */
@@ -81,15 +68,11 @@ pf.AutocompleteWidget.prototype.getLookupRequest = function () {
 		format: 'json',
 		substr: value
 	};
+
 	if ( this.config.autocompletedatatype == 'category' ) {
 		requestParams.category = this.config.autocompletesettings;
 	} else if ( this.config.autocompletedatatype == 'namespace' ) {
 		requestParams.namespace = this.config.autocompletesettings;
-	} else if (this.config.autocompletedatatype == 'cargo field') {
-		var data_source = this.config.autocompletesettings.split(',')[0];
-		var table_and_field = data_source.split('|');
-		requestParams.cargo_table = table_and_field[0];
-		requestParams.cargo_field=table_and_field[1];
 	}
 
 	return api.get( requestParams );
@@ -119,7 +102,7 @@ pf.AutocompleteWidget.prototype.getLookupMenuOptionsFromData = function ( data )
 		return [
 			new OO.ui.MenuOptionWidget( {
 				disabled: true,
-				label: mw.message( 'pf-select2-no-matches' ).text()
+				label: mw.message( 'pf-autocomplete-no-matches' ).text()
 			} )
 		];
 	}
@@ -152,9 +135,4 @@ pf.AutocompleteWidget.prototype.highlightText = function ( suggestion ) {
 	}
 
 	return new OO.ui.HtmlSnippet( t );
-};
-
-pf.AutocompleteWidget.prototype.setInputAttribute = function (attr, value) {
-	this.$input.attr(attr, value);
-	return this;
 };

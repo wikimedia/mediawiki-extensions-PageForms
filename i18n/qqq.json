@@ -276,7 +276,7 @@
 	"action-multipageedit": "{{doc-action|multipageedit}}",
 	"tooltip-ca-formedit": "Tooltip shown when the cursor hovers over the \"Edit with form\" tab",
 	"accesskey-ca-formedit": "{{doc-accesskey}}",
-	"pf-select2-no-matches": "A message that is displayed when nothing is matched in Select2 autocompletion.",
+	"pf-autocomplete-no-matches": "A message that is displayed when nothing is matched in OOUI autocompletion.",
 	"pf-select2-searching": "A message that is displayed while search is in progress in Select2 autocompletion.",
 	"pf-select2-input-too-short": "A message that is displayed when search string for Select2 autocompletion is smaller than the defined value.\n\nParameters:\n* $1 - number of characters",
 	"pf-select2-selection-too-big": "A message that is displayed when the number of selections for a multi-valued input is more than a certain number.\n\nParameters:\n* $1 - number of values",

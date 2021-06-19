@@ -337,7 +337,6 @@
 				"mediawiki.jqueryMsg"
 			],
 			"messages": [
-				"pf-select2-no-matches",
 				"pf-select2-searching",
 				"pf-select2-input-too-short",
 				"pf-select2-selection-too-big"
@@ -352,7 +351,7 @@
 				"oojs-ui-widgets"
 			],
 			"messages": [
-				"pf-select2-no-matches"
+				"pf-autocomplete-no-matches"
 			]
 		},
 		"ext.pageforms.ooui.combobox": {
@@ -361,8 +360,10 @@
 			],
 			"dependencies": [
 				"oojs-ui-core",
-				"oojs-ui-widgets",
-				"ext.pageforms.ooui.autocomplete"
+				"oojs-ui-widgets"
+			],
+			"messages": [
+				"pf-autocomplete-no-matches"
 			]
 		},
 		"ext.pageforms.forminput": {
