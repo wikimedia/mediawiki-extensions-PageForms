@@ -402,12 +402,12 @@
 		"ext.pageforms.spreadsheet": {
 			"scripts": [
 				"libs/jsuites.js",
-				"libs/jexcel.js",
+				"libs/jspreadsheet.js",
 				"libs/PF_spreadsheet.js"
 			],
 			"styles": [
 				"skins/jsuites.css",
-				"skins/jexcel.css",
+				"skins/jspreadsheet.css",
 				"skins/PF_spreadsheet.css"
 			],
 			"dependencies": [

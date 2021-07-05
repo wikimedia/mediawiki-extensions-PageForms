@@ -19,7 +19,7 @@ module.exports = function ( grunt ) {
 				'!libs/FancyBox/jquery.fancybox.js',
 				'!libs/jstree.js',
 				'!libs/jsuites.js',
-				'!libs/jexcel.js',
+				'!libs/jspreadsheet.js',
 				'!libs/select2.js',
 				'!libs/Sortable.js'
 			]

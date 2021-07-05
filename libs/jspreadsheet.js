@@ -1,27 +1,26 @@
 /**
- * jExcel v4.4.1
+ * Jspreadsheet v4.6.0
  *
- * Author: Paul Hodel <paul.hodel@gmail.com>
- * Website: https://bossanova.uk/jexcel/
+ * Website: https://bossanova.uk/jspreadsheet/
  * Description: Create amazing web based spreadsheets.
  *
  * This software is distribute under MIT License
  */
 
-// if (! jSuites && typeof(require) === 'function') {
-//    var jSuites = require('jsuites');
-//    require('jsuites/dist/jsuites.css');
-//}
+//  if (! jSuites && typeof(require) === 'function') {
+//     var jSuites = require('jsuites');
+//     require('jsuites/dist/jsuites.css');
+// }
 
 ;(function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :
-    global.jexcel = factory();
+    global.jspreadsheet = global.jexcel = factory();
 }(this, (function () {
 
     'use strict';
 
-    // Jexcel core object
+    // Jspreadsheet core object
 
     var jexcel = (function(el, options) {
         // Create jexcel object
@@ -29,7 +28,7 @@
         obj.options = {};
 
         if (! (el instanceof Element || el instanceof HTMLDocument)) {
-            console.error('JEXCEL: el is not a valid DOM element');
+            console.error('Jspreadsheet: el is not a valid DOM element');
             return false;
         } else if (el.tagName == 'TABLE') {
             if (options = jexcel.createFromTable(el, options)) {
@@ -38,7 +37,7 @@
                 el.remove();
                 el = div;
             } else {
-                console.error('JEXCEL: el is not a valid DOM element');
+                console.error('Jspreadsheet: el is not a valid DOM element');
                 return false;
             }
         }
@@ -47,8 +46,13 @@
         var defaults = {
             // External data
             url:null,
+            // Ajax options
+            method: 'GET',
+            requestVariables: null,
             // Data
             data:null,
+            // Custom sorting handler
+            sorting:null,
             // Copy behavior
             copyCompatibility:false,
             root:null,
@@ -139,10 +143,12 @@
             tableOverflow:false,
             tableHeight:'300px',
             tableWidth:null,
+            textOverflow:false,
             // Meta
             meta: null,
             // Style
             style:null,
+            classes:null,
             // Execute formulas
             parseFormulas:true,
             autoIncrement:true,
@@ -159,6 +165,7 @@
             onredo:null,
             onload:null,
             onchange:null,
+            oncomments:null,
             onbeforechange:null,
             onafterchanges:null,
             onbeforeinsertrow: null,
@@ -234,7 +241,7 @@
                 noCellsSelected: 'No cells selected',
             },
             // About message
-            about:"jExcel CE Spreadsheet\nVersion 4.4.1\nAuthor: Paul Hodel <paul.hodel@gmail.com>\nWebsite: https://bossanova.uk/jexcel/v3",
+            about:"jExcel CE Spreadsheet\nVersion 4.5.0\nWebsite: https://bossanova.uk/jexcel/v3",
         };
     
         // Loading initial configuration from user
@@ -301,7 +308,7 @@
     
         // Lazy loading
         if (obj.options.lazyLoading == true && (obj.options.tableOverflow == false && obj.options.fullscreen == false)) {
-            console.error('JEXCEL: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
+            console.error('Jspreadsheet: The lazyloading only works when tableOverflow = yes or fullscreen = yes');
             obj.options.lazyLoading = false;
         }
         
@@ -452,7 +459,6 @@
                     }
                 }
             }
-
             // Create the table when is ready
             if (! multiple.length) {
                 obj.createTable();
@@ -595,6 +601,10 @@
             obj.table.appendChild(obj.thead);
             obj.table.appendChild(obj.tbody);
 
+            if (! obj.options.textOverflow) {
+                obj.table.classList.add('jexcel_overflow');
+            }
+
             // Spreadsheet corner
             obj.corner = document.createElement('div');
             obj.corner.className = 'jexcel_corner';
@@ -608,7 +618,7 @@
             // Textarea helper
             obj.textarea = document.createElement('textarea');
             obj.textarea.className = 'jexcel_textarea';
-            //obj.textarea.id = 'jexcel_textarea';
+            obj.textarea.id = 'jexcel_textarea';
             obj.textarea.tabIndex = '-1';
 
             // Contextmenu container
@@ -688,6 +698,7 @@
                 if (obj.options.tableOverflow == true) {
                     if (obj.options.tableHeight) {
                         obj.content.style['overflow-y'] = 'auto';
+                        obj.content.style['box-shadow'] = 'rgb(221 221 221) 2px 2px 5px 0.1px';
                         obj.content.style.maxHeight = obj.options.tableHeight;
                     }
                     if (obj.options.tableWidth) {
@@ -723,6 +734,15 @@
             if (obj.options.style) {
                 obj.setStyle(obj.options.style, null, null, 1, 1);
             }
+
+            // Classes
+            if (obj.options.classes) {
+                var k = Object.keys(obj.options.classes);
+                for (var i = 0; i < k.length; i++) {
+                    var cell = jexcel.getIdFromColumnName(k[i], true);
+                    obj.records[cell[1]][cell[0]].classList.add(obj.options.classes[k[i]]);
+                }
+            }
         }
 
         /**
@@ -739,7 +759,8 @@
     
                 jSuites.ajax({
                     url: obj.options.url,
-                    method: 'GET',
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
                     dataType: 'json',
                     success: function(result) {
                         // Data
@@ -836,7 +857,7 @@
     
                 if (obj.options.pagination) {
                     obj.options.pagination = false;
-                    console.error('JEXCEL: Pagination will be disable due the lazyLoading');
+                    console.error('Jspreadsheet: Pagination will be disable due the lazyLoading');
                 }
             } else if (obj.options.pagination) {
                 // Pagination
@@ -931,11 +952,32 @@
     
            return dataset;
         }
-    
+
+        /**
+        * Get json data by row number
+        *
+        * @param integer row number
+        * @return object
+        */
+        obj.getJsonRow = function(rowNumber) {
+            var rowData = obj.options.data[rowNumber];
+            var x = obj.options.columns.length
+
+            var row = {};
+            for (var i = 0; i < x; i++) {
+                if (! obj.options.columns[i].name) {
+                    obj.options.columns[i].name = i;
+                }
+                row[obj.options.columns[i].name] = rowData[i];
+            }
+
+            return row;
+        }
+
         /**
          * Get the whole table data
          * 
-         * @param integer row number
+         * @param bool highlighted cells only
          * @return string value
          */
         obj.getJson = function(highlighted) {
@@ -1001,7 +1043,6 @@
         obj.save = function(url, data) {
             // Parse anything in the data before sending to the server
             var ret = obj.dispatch('onbeforesave', el, obj, data);
-
             if (ret) {
                 var data = ret;
             } else {
@@ -1085,15 +1126,19 @@
             // New line of data to be append in the table
             obj.rows[j] = document.createElement('tr');
             obj.rows[j].setAttribute('data-y', j);
+            // Index
+            var index = null;
             // Definitions
             if (obj.options.rows[j]) {
                 if (obj.options.rows[j].height) {
                     obj.rows[j].style.height = obj.options.rows[j].height;
                 }
-                
-                var index = obj.options.rows[j].title;
-            } else {
-                var index = parseInt(j + 1);
+                if (obj.options.rows[j].title) {
+                    index = obj.options.rows[j].title;
+                }
+            }
+            if (! index) {
+                index = parseInt(j + 1);
             }
             // Row number label
             var td = document.createElement('td');
@@ -1231,15 +1276,16 @@
     
             // Overflow
             if (i > 0) {
-                if (value || td.innerHTML) {
-                    obj.records[j][i-1].style.overflow = 'hidden';
-                } else {
-                    if (i == obj.options.columns.length - 1) {
-                        td.style.overflow = 'hidden';
+                if (this.options.textOverflow == true) {
+                    if (value || td.innerHTML) {
+                        obj.records[j][i-1].style.overflow = 'hidden';
+                    } else {
+                        if (i == obj.options.columns.length - 1) {
+                            td.style.overflow = 'hidden';
+                        }
                     }
                 }
             }
-
             return td;
         }
     
@@ -1341,7 +1387,6 @@
             } else {
                 var toolbar = obj.options.toolbar;
             }
-
             for (var i = 0; i < toolbar.length; i++) {
                 if (toolbar[i].type == 'i') {
                     var toolbarItem = document.createElement('i');
@@ -1349,6 +1394,8 @@
                     toolbarItem.classList.add('material-icons');
                     toolbarItem.setAttribute('data-k', toolbar[i].k);
                     toolbarItem.setAttribute('data-v', toolbar[i].v);
+                    toolbarItem.setAttribute('id', toolbar[i].id);
+
                     // Tooltip
                     if (toolbar[i].tooltip) {
                         toolbarItem.setAttribute('title', toolbar[i].tooltip);
@@ -1667,26 +1714,38 @@
          */
         obj.openFilter = function(columnId) {
             if (! obj.options.filters) {
-                console.log('JEXCEL: filters not enabled.');
+                console.log('Jspreadsheet: filters not enabled.');
             } else {
                 // Make sure is integer
                 columnId = parseInt(columnId);
                 // Reset selection
                 obj.resetSelection();
                 // Load options
-                var options = [];
-                for (var j = 0; j < obj.options.data.length; j++) {
-                    var k = obj.options.data[j][columnId];
-                    var v = obj.records[j][columnId].innerHTML;
-                    if (k && v) {
-                        options[k] = v;
-                    }
-                }
-                var keys = Object.keys(options);
                 var optionsFiltered = [];
-                optionsFiltered.push({ id: '', name: 'Blanks' });
-                for (var j = 0; j < keys.length; j++) {
-                    optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                if (obj.options.columns[columnId].type == 'checkbox') {
+                    optionsFiltered.push({ id: 'true', name: 'True' });
+                    optionsFiltered.push({ id: 'false', name: 'False' });
+                } else {
+                    var options = [];
+                    var hasBlanks = false;
+                    for (var j = 0; j < obj.options.data.length; j++) {
+                        var k = obj.options.data[j][columnId];
+                        var v = obj.records[j][columnId].innerHTML;
+                        if (k && v) {
+                            options[k] = v;
+                        } else {
+                            var hasBlanks = true;
+                        }
+                    }
+                    var keys = Object.keys(options);
+                    var optionsFiltered = [];
+                    for (var j = 0; j < keys.length; j++) {
+                        optionsFiltered.push({ id: keys[j], name: options[keys[j]] });
+                    }
+                    // Has blank options
+                    if (hasBlanks) {
+                        optionsFiltered.push({ value: '', id: '', name: '(Blanks)' });
+                    }
                 }
 
                 // Create dropdown
@@ -1713,6 +1772,7 @@
                         obj.filter.children[columnId + 1].style.paddingRight = '';
                         obj.filter.children[columnId + 1].style.overflow = '';
                         obj.closeFilter(columnId);
+                        obj.refreshSelection();
                     }
                 };
 
@@ -1742,15 +1802,13 @@
             // Search filter
             var search = function(query, x, y) {
                 for (var i = 0; i < query.length; i++) {
-                    if (query[i] == '') {
-                        if (obj.options.data[y][x] == '') {
-                            return true;
-                        }
-                    } else {
-                        if ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
-                            (''+obj.records[y][x].innerHTML).search(query[i]) >= 0) {
-                            return true;
-                        }
+                    if ((query[i] == '' && // Blank matching
+                        ((obj.options.data[y][x] === false) || // Unchecked checkbox
+                        (''+obj.options.data[y][x]) == '')) || // Blank non-checkbox value
+                        ((query[i] != '' && // Normal non-blank filtering
+                        ((''+obj.options.data[y][x]).search(query[i]) >= 0 ||
+                        (''+obj.records[y][x].innerHTML).search(query[i]) >= 0)))) {
+                        return true;
                     }
                 }
                 return false;
@@ -1907,8 +1965,8 @@
                             focus: true,
                             value: value,
                         });
-                        const rect = cell.getBoundingClientRect();
-                        const rectContent = div.getBoundingClientRect();
+                        var rect = cell.getBoundingClientRect();
+                        var rectContent = div.getBoundingClientRect();
                         if (window.innerHeight < rect.bottom + rectContent.height) {
                             div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                         } else {
@@ -1927,8 +1985,8 @@
                         }
                         editor.appendChild(div);
                         jSuites.image(div, obj.options.imageOptions);
-                        const rect = cell.getBoundingClientRect();
-                        const rectContent = div.getBoundingClientRect();
+                        var rect = cell.getBoundingClientRect();
+                        var rectContent = div.getBoundingClientRect();
                         if (window.innerHeight < rect.bottom + rectContent.height) {
                             div.style.top = (rect.top - (rectContent.height + 2)) + 'px';
                         } else {
@@ -1954,6 +2012,7 @@
                         };
                         editor.focus();
                         editor.value = value;
+                        editor.scrollLeft = editor.scrollWidth;
                     }
                 }
             }
@@ -2286,7 +2345,6 @@
                 obj.onafterchanges(el, records);
             }
         }
-
         /**
          * Strip tags
          */
@@ -2821,11 +2879,11 @@
                 for (var i = borderLeft; i <= borderRight; i++) {
                     if (obj.options.columns[i].type != 'hidden') {
                         // Top border
-                        if (obj.records[borderTop][i]) {
+                        if (obj.records[borderTop] && obj.records[borderTop][i]) {
                             obj.records[borderTop][i].classList.add('highlight-top');
                         }
                         // Bottom border
-                        if (obj.records[borderBottom][i]) {
+                        if (obj.records[borderBottom] && obj.records[borderBottom][i]) {
                             obj.records[borderBottom][i].classList.add('highlight-bottom');
                         }
                         // Add selected from headers
@@ -2834,7 +2892,7 @@
                 }
     
                 for (var j = borderTop; j <= borderBottom; j++) {
-                    if (obj.rows[j].style.display != 'none') {
+                    if (obj.rows[j] && obj.rows[j].style.display != 'none') {
                         // Left border
                         obj.records[j][borderLeft].classList.add('highlight-left');
                         // Right border
@@ -2950,11 +3008,11 @@
                 // Get last cell
                 var last = obj.highlighted[obj.highlighted.length-1];
 
-                const contentRect = obj.content.getBoundingClientRect();
+                var contentRect = obj.content.getBoundingClientRect();
                 var x1 = contentRect.left;
                 var y1 = contentRect.top;
 
-                const lastRect = last.getBoundingClientRect();
+                var lastRect = last.getBoundingClientRect();
                 var x2 = lastRect.left;
                 var y2 = lastRect.top;
                 var w2 = lastRect.width;
@@ -2989,7 +3047,7 @@
          */
         obj.updateScroll = function(direction) {
             // jExcel Container information
-            const contentRect = obj.content.getBoundingClientRect();
+            var contentRect = obj.content.getBoundingClientRect();
             var x1 = contentRect.left;
             var y1 = contentRect.top;
             var w1 = contentRect.width;
@@ -2999,7 +3057,7 @@
             var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
     
             // Reference
-            const referenceRect = reference.getBoundingClientRect();
+            var referenceRect = reference.getBoundingClientRect();
             var x2 = referenceRect.left;
             var y2 = referenceRect.top;
             var w2 = referenceRect.width;
@@ -3439,7 +3497,7 @@
                 // Position
                 var cell = jexcel.getIdFromColumnName(cellId, true);
     
-                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]]) {
+                if (obj.records[cell[1]] && obj.records[cell[1]][cell[0]] && (obj.records[cell[1]][cell[0]].classList.contains('readonly')==false || force)) {
                     // Current value
                     var currentValue = obj.records[cell[1]][cell[0]].style[key];
     
@@ -3585,6 +3643,8 @@
                 newValue: [ comments, author ],
                 oldValue: oldValue,
             });
+            // Set comments
+            obj.dispatch('oncomments', el, comments, title);
         }
     
         /**
@@ -3621,20 +3681,6 @@
                     order = order ? 1 : 0;
                 }
     
-                // Filter
-                Array.prototype.orderBy = function(p, o) {
-                    return this.slice(0).sort(function(a, b) {
-                        var valueA = a[p];
-                        var valueB = b[p];
-
-                        if (! o) {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
-                        } else {
-                            return (valueA == '' && valueB != '') ? 1 : (valueA != '' && valueB == '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
-                        }
-                    });
-                }
-
                 // Test order
                 var temp = [];
                 if (obj.options.columns[column].type == 'number' || obj.options.columns[column].type == 'percentage' || obj.options.columns[column].type == 'autonumber' || obj.options.columns[column].type == 'color') {
@@ -3650,7 +3696,24 @@
                         temp[j] = [ j, obj.records[j][column].innerText.toLowerCase() ];
                     }
                 }
-                temp = temp.orderBy(1, order);
+    
+                // Default sorting method
+                if (typeof(obj.options.sorting) !== 'function') {
+                    obj.options.sorting = function(direction) {
+                        return function(a, b) {
+                            var valueA = a[1];
+                            var valueB = b[1];
+
+                            if (! direction) {
+                                return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? 1 : (valueA < valueB) ? -1 :  0;
+                            } else {
+                                return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 : (valueA > valueB) ? -1 : (valueA < valueB) ? 1 :  0;
+                            }
+                        }
+                    }
+                }
+
+                temp = temp.sort(obj.options.sorting(order));
     
                 // Save history
                 var newValue = [];
@@ -4027,6 +4090,12 @@
                             obj.results = null;
                         }
     
+                        // If delete all rows, and set allowDeletingAllRows false, will stay one row
+                        if (obj.options.allowDeletingAllRows == false && lastRow + 1 === numOfRows) {
+                            numOfRows--;
+                            console.error('JEXCEL. It is not possible to delete the last row');
+                        }
+    
                         // Remove node
                         for (var row = rowNumber; row < rowNumber + numOfRows; row++) {
                             if (Array.prototype.indexOf.call(obj.tbody.children, obj.rows[row]) >= 0) {
@@ -4291,6 +4360,12 @@
                             var colspan = parseInt(obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan) + numOfColumns;
                             obj.options.nestedHeaders[j][obj.options.nestedHeaders[j].length-1].colspan = colspan;
                             obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('colspan', colspan);
+                            var o = obj.thead.children[j].children[obj.thead.children[j].children.length-1].getAttribute('data-column');
+                            o = o.split(',');
+                            for (var col = columnIndex; col < (numOfColumns + columnIndex); col++) {
+                                o.push(col);
+                            }
+                            obj.thead.children[j].children[obj.thead.children[j].children.length-1].setAttribute('data-column', o);
                         }
                     } else {
                         var colspan = parseInt(obj.options.nestedHeaders[0].colspan) + numOfColumns;
@@ -4985,6 +5060,9 @@
                     }
                 }
     
+                // Range with $ remove $
+                expression = expression.replace(/\$?([A-Z]+)\$?([0-9]+)/g, "$1$2");
+
                 var tokens = expression.match(/([A-Z]+[0-9]+)\:([A-Z]+[0-9]+)/g);
                 if (tokens && tokens.length) {
                     tokensUpdate(tokens);
@@ -5915,7 +5993,7 @@
                 // Data
                 var data = '';
                 if (includeHeaders == true || obj.options.includeHeadersOnDownload == true) {
-                    data += obj.getHeaders();
+                    data += obj.getHeaders().replace(/\s+/gm,' ');
                     data += "\r\n";
                 }
 
@@ -6633,7 +6711,8 @@
                 // Load CSV file
                 jSuites.ajax({
                     url: obj.options.csv,
-                    method: 'GET',
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
                     dataType: 'text',
                     success: function(result) {
                         // Convert data
@@ -6670,7 +6749,8 @@
     
                 jSuites.ajax({
                     url: obj.options.url,
-                    method: 'GET',
+                    method: obj.options.method,
+                    data: obj.options.requestVariables,
                     dataType: 'json',
                     success: function(result) {
                         // Data
@@ -7292,7 +7372,7 @@
                             }
                         } else if (jexcel.current.options.columnDrag == true && info.height - e.offsetY < 6) {
                             if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('JEXCEL: This column is part of a merged cell.');
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
                             } else {
                                 // Reset selection
                                 jexcel.current.resetSelection();
@@ -7368,9 +7448,9 @@
                             e.target.parentNode.classList.add('resizing');
                         } else if (jexcel.current.options.rowDrag == true && info.width - e.offsetX < 6) {
                             if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('JEXCEL: This row is part of a merged cell');
+                                console.error('Jspreadsheet: This row is part of a merged cell');
                             } else if (jexcel.current.options.search == true && jexcel.current.results) {
-                                console.error('JEXCEL: Please clear your search before perform this action');
+                                console.error('Jspreadsheet: Please clear your search before perform this action');
                             } else {
                                 // Reset selection
                                 jexcel.current.resetSelection();
@@ -7681,7 +7761,7 @@
                     if (jexcel.current.dragging.column) {
                         if (columnId) {
                             if (jexcel.current.isColMerged(columnId).length) {
-                                console.error('JEXCEL: This column is part of a merged cell.');
+                                console.error('Jspreadsheet: This column is part of a merged cell.');
                             } else {
                                 for (var i = 0; i < jexcel.current.headers.length; i++) {
                                     jexcel.current.headers[i].classList.remove('dragging-left');
@@ -7712,7 +7792,7 @@
                     } else {
                         if (rowId) {
                             if (jexcel.current.isRowMerged(rowId).length) {
-                                console.error('JEXCEL: This row is part of a merged cell.');
+                                console.error('Jspreadsheet: This row is part of a merged cell.');
                             } else {
                                 var target = (e.target.clientHeight / 2 > e.offsetY) ? e.target.parentNode.nextSibling : e.target.parentNode;
                                 if (jexcel.current.dragging.element != target) {
@@ -7885,6 +7965,12 @@
                     var y = e.target.getAttribute('data-y');
     
                     if (x || y) {
+                        if ((x < parseInt(jexcel.current.selectedCell[0])) || (x > parseInt(jexcel.current.selectedCell[2])) ||
+                            (y < parseInt(jexcel.current.selectedCell[1])) || (y > parseInt(jexcel.current.selectedCell[3])))
+                        {
+                            jexcel.current.updateSelectionFromCoords(x, y, x, y);
+                        }
+
                         // Table found
                         var items = jexcel.current.options.contextMenu(jexcel.current, x, y, e);
                         // The id is depending on header and body
@@ -8324,11 +8410,12 @@
             var mergeCells = {};
             var rows = {};
             var style = {};
+            var classes = {};
 
             var content = el.querySelectorAll('table > tr, tbody tr');
             for (var j = 0; j < content.length; j++) {
                 options.data[rowNumber] = [];
-                if (options.parseTableFirstRowAsHeader == true && j == 0) {
+                if (options.parseTableFirstRowAsHeader == true && ! headers.length && j == 0) {
                     for (var i = 0; i < content[j].children.length; i++) {
                         parseHeader(content[j].children[i]);
                     }
@@ -8347,6 +8434,12 @@
 
                         // Key
                         var cellName = jexcel.getColumnNameFromId([ i, j ]);
+
+                        // Classes
+                        var tmp = content[j].children[i].getAttribute('class');
+                        if (tmp) {
+                            classes[cellName] = tmp;
+                        }
 
                         // Merged cells
                         var mergedColspan = parseInt(content[j].children[i].getAttribute('colspan')) || 0;
@@ -8395,6 +8488,10 @@
             // Row height
             if (Object.keys(rows).length > 0) {
                 options.rows = rows;
+            }
+            // Classes
+            if (Object.keys(classes).length > 0) {
+                options.classes = classes;
             }
 
             // TODO: data-hiddencolumns="3,4"
@@ -9635,7 +9732,7 @@
                 ["admiralty knot", "admkn", null, "speed", false, true, 0.514773333],
                 ["ampere", "A", null, "electric_current", true, false, 1],
                 ["ampere per meter", "A/m", null, "magnetic_field_intensity", true, false, 1],
-                ["Ã¥ngstrÃ¶m", "Ã…", ["ang"], "length", false, true, 1e-10],
+                ["ångström", "Å", ["ang"], "length", false, true, 1e-10],
                 ["are", "ar", null, "area", false, true, 100],
                 ["astronomical unit", "ua", null, "length", false, false, 1.49597870691667e-11],
                 ["bar", "bar", null, "pressure", false, false, 100000],
@@ -9647,7 +9744,7 @@
                 ["candela", "cd", null, "luminous_intensity", true, false, 1],
                 ["candela per square metre", "cd/m?", null, "luminance", true, false, 1],
                 ["coulomb", "C", null, "electric_charge", true, false, 1],
-                ["cubic Ã¥ngstrÃ¶m", "ang3", ["ang^3"], "volume", false, true, 1e-30],
+                ["cubic ångström", "ang3", ["ang^3"], "volume", false, true, 1e-30],
                 ["cubic foot", "ft3", ["ft^3"], "volume", false, true, 0.028316846592],
                 ["cubic inch", "in3", ["in^3"], "volume", false, true, 0.000016387064],
                 ["cubic light-year", "ly3", ["ly^3"], "volume", false, true, 8.46786664623715e-47],
@@ -9659,7 +9756,7 @@
                 ["cup", "cup", null, "volume", false, true, 0.0002365882365],
                 ["dalton", "Da", ["u"], "mass", false, false, 1.66053886282828e-27],
                 ["day", "d", ["day"], "time", false, true, 86400],
-                ["degree", "Â°", null, "angle", false, false, 0.0174532925199433],
+                ["degree", "°", null, "angle", false, false, 0.0174532925199433],
                 ["degrees Rankine", "Rank", null, "temperature", false, true, 0.555555555555556],
                 ["dyne", "dyn", ["dy"], "force", false, true, 0.00001],
                 ["electronvolt", "eV", ["ev"], "energy", false, true, 1.60217656514141],
@@ -9719,12 +9816,12 @@
                 ["n.u. of time", "?/(me?c??)", null, "time", false, false, 1.28808866778687e-21],
                 ["nautical mile", "M", ["Nmi"], "length", false, true, 1852],
                 ["newton", "N", null, "force", true, true, 1],
-                ["Å“rsted", "Oe ", null, "magnetic_field_intensity", false, false, 79.5774715459477],
-                ["ohm", "Î©", null, "electric_resistance", true, false, 1],
+                ["œrsted", "Oe ", null, "magnetic_field_intensity", false, false, 79.5774715459477],
+                ["ohm", "Ω", null, "electric_resistance", true, false, 1],
                 ["ounce mass", "ozm", null, "mass", false, true, 0.028349523125],
                 ["pascal", "Pa", null, "pressure", true, false, 1],
                 ["pascal second", "Pa?s", null, "dynamic_viscosity", true, false, 1],
-                ["pferdestÃ¤rke", "PS", null, "power", false, true, 735.49875],
+                ["pferdestärke", "PS", null, "power", false, true, 735.49875],
                 ["phot", "ph", null, "illuminance", false, false, 0.0001],
                 ["pica (1/6 inch)", "pica", null, "length", false, true, 0.00035277777777778],
                 ["pica (1/72 inch)", "Pica", ["Picapt"], "length", false, true, 0.00423333333333333],
@@ -9740,7 +9837,7 @@
                 ["siemens", "S", null, "electrical_conductance", true, false, 1],
                 ["sievert", "Sv", null, "equivalent_dose", true, false, 1],
                 ["slug", "sg", null, "mass", false, true, 14.59390294],
-                ["square Ã¥ngstrÃ¶m", "ang2", ["ang^2"], "area", false, true, 1e-20],
+                ["square ångström", "ang2", ["ang^2"], "area", false, true, 1e-20],
                 ["square foot", "ft2", ["ft^2"], "area", false, true, 0.09290304],
                 ["square inch", "in2", ["in^2"], "area", false, true, 0.00064516],
                 ["square light-year", "ly2", ["ly^2"], "area", false, true, 8.95054210748189e+31],
@@ -13565,7 +13662,7 @@
         exports.MODE = {};
     
         exports.MODE.MULT = function() {
-            // Credits: RoÃ¶naÃ¤n
+            // Credits: Roönaän
             var range = utils.parseNumberArray(utils.flatten(arguments));
             if (range instanceof Error) {
                 return range;
