@@ -507,6 +507,26 @@ END;
 		return $html;
 	}
 
+	function getSpreadsheetAutocompleteAttributes( $formFieldArgs ) {
+		if ( array_key_exists( 'values from category', $formFieldArgs ) ) {
+			return [ 'category', $formFieldArgs[ 'values from category' ] ];
+		} elseif ( array_key_exists( 'cargo table', $formFieldArgs ) ) {
+			$cargo_table = $formFieldArgs[ 'cargo table' ];
+			$cargo_field = $formFieldArgs[ 'cargo field' ];
+			return [ 'cargo field', $cargo_table . '|' . $cargo_field ];
+		} elseif ( array_key_exists( 'values from property', $formFieldArgs ) ) {
+			return [ 'property', $formFieldArgs['values from property'] ];
+		} elseif ( array_key_exists( 'values from concept', $formFieldArgs ) ) {
+			return [ 'concept', $formFieldArgs['values from concept'] ];
+		} elseif ( array_key_exists( 'values dependent on', $formFieldArgs ) ) {
+			return [ 'dep_on', '' ];
+		} elseif ( array_key_exists( 'values from external data', $formFieldArgs ) ) {
+			return [ 'external data', $formFieldArgs['origName'] ];
+		} else {
+			return [ '', '' ];
+		}
+	}
+
 	function spreadsheetHTML( $tif ) {
 		global $wgOut, $wgPageFormsGridValues, $wgPageFormsGridParams;
 		global $wgPageFormsScriptPath;
@@ -520,16 +540,20 @@ END;
 		$gridParams = [];
 		foreach ( $tif->getFields() as $formField ) {
 			$templateField = $formField->template_field;
+			$formFieldArgs = $formField->getFieldArgs();
 
 			$inputType = $formField->getInputType();
 			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
+			list( $autocompletedatatype, $autocompletesettings ) = $this->getSpreadsheetAutocompleteAttributes( $formFieldArgs );
 			if ( $formField->getLabel() !== null ) {
 				$gridParamValues['label'] = $formField->getLabel();
 			}
 			if ( $formField->getDefaultValue() !== null ) {
 				$gridParamValues['default'] = $formField->getDefaultValue();
 			}
-			if ( !empty( $allowedValues = $formField->getPossibleValues() ) ) {
+			if ( !empty( $allowedValues = $formField->getPossibleValues() )
+				&& $autocompletedatatype != 'category' && $autocompletedatatype != 'cargo field'
+				&& $autocompletedatatype != 'concept' && $autocompletedatatype != 'property' ) {
 				$gridParamValues['values'] = $allowedValues;
 				if ( $formField->isList() ) {
 					$gridParamValues['list'] = true;
@@ -556,6 +580,8 @@ END;
 			} else {
 				$gridParamValues['type'] = 'text';
 			}
+			$gridParamValues['autocompletedatatype'] = $autocompletedatatype;
+			$gridParamValues['autocompletesettings'] = $autocompletesettings;
 			$gridParams[] = $gridParamValues;
 		}
 

@@ -403,7 +403,8 @@
 			"scripts": [
 				"libs/jsuites.js",
 				"libs/jspreadsheet.js",
-				"libs/PF_spreadsheet.js"
+				"libs/PF_spreadsheet.js",
+				"libs/PF_SpreadsheetAutocompleteWidget.js"
 			],
 			"styles": [
 				"skins/jsuites.css",
@@ -414,6 +415,7 @@
 				"ext.pageforms.select2",
 				"mediawiki.language.months",
 				"oojs-ui-core",
+				"oojs-ui-widgets",
 				"oojs-ui-windows",
 				"oojs-ui.styles.icons-moderation",
 				"oojs-ui.styles.icons-movement"

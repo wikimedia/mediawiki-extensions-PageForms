@@ -57,7 +57,6 @@ class PFMultiPageEdit extends QueryPage {
 	 */
 	private function displaySpreadsheet( $template_name, $form_name ) {
 		global $wgPageFormsGridParams, $wgPageFormsScriptPath;
-		global $wgPageFormsAutocompleteValues, $wgPageFormsMaxLocalAutocompleteValues;
 
 		$out = $this->getOutput();
 		$req = $this->getRequest();
@@ -102,13 +101,9 @@ class PFMultiPageEdit extends QueryPage {
 						$gridParamValues['type'] = 'combobox';
 					}
 					$fullCargoField = $templateField->getFullCargoField();
-					$autocompleteValues = PFValuesUtils::getAutocompleteValues( $fullCargoField, 'cargo field' );
+					// these attributes would be utilised for the autocompletion
 					$gridParamValues['autocompletesettings'] = $fullCargoField;
-					if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues ) {
-						$gridParamValues['autocompletedatatype'] = 'cargo field';
-					} else {
-						$wgPageFormsAutocompleteValues[$fullCargoField] = $autocompleteValues;
-					}
+					$gridParamValues['autocompletedatatype'] = 'cargo field';
 				}
 			} elseif ( !empty( $propertyType = $templateField->getPropertyType() ) ) {
 				if ( $propertyType == '_dat' ) {
@@ -125,14 +120,9 @@ class PFMultiPageEdit extends QueryPage {
 						$gridParamValues['type'] = 'combobox';
 					}
 					$property = $templateField->getSemanticProperty();
-					$autocompleteValues = PFValuesUtils::getAutocompleteValues( $property, 'property' );
+					// these attributes would be utilised for the autocompletion
 					$gridParamValues['autocompletesettings'] = $property;
-					if ( count( $autocompleteValues ) > $wgPageFormsMaxLocalAutocompleteValues ) {
-						$gridParamValues['autocompletedatatype'] = 'property';
-					} else {
-						$wgPageFormsAutocompleteValues[$property] = $autocompleteValues;
-					}
-
+					$gridParamValues['autocompletedatatype'] = 'property';
 				}
 			}
 			$gridParams[] = $gridParamValues;

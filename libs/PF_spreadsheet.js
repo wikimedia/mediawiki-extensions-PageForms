@@ -229,6 +229,116 @@ const manageColumnTitle = '\u2699';
 		dataValues[spreadsheetID].splice(rowNum, 1);
 	}
 
+	jexcel.prototype.getAutocompleteAttributes = function ( cell ) {
+		var autocompletedatatype = jQuery(cell).attr('data-autocomplete-data-type');
+		var autocompletesettings = jQuery(cell).attr('data-autocomplete-settings');
+		if ( autocompletedatatype == undefined || autocompletesettings == undefined ) {
+			// that means we are in Special:MultipageEdit
+			// here we take attributes from the column head,
+			// to use other types of autocompletion( apart from
+			// "cargo field" and "property" ), the attributes in
+			// each cell can also be set.
+			var data_x = jQuery(cell).attr('data-x');
+			var table = jQuery(cell).parents().find('table');
+			autocompletedatatype = jQuery(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type');
+			autocompletesettings = jQuery(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
+		}
+		return {
+			autocompletedatatype, autocompletesettings
+		};
+	}
+
+	// If a field is dependent on some other field in the form
+	// then it returns its name.
+	jexcel.prototype.dependenton = function (origname) {
+		var wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
+			for (var i = 0; i < wgPageFormsDependentFields.length; i++) {
+				var dependentFieldPair = wgPageFormsDependentFields[i];
+				if (dependentFieldPair[1] === origname) {
+					return dependentFieldPair[0];
+				}
+			}
+	};
+
+	jexcel.prototype.getEditorForAutocompletion = function( x, y, autocompletedatatype, autocompletesettings, cell, type ) {
+		var pfSpreadsheetAutocomplete = false;
+		var config = {
+			data_x: x,
+			data_y: y,
+			autocompletedatatype: autocompletedatatype,
+		};
+		if ( autocompletedatatype == 'category' || autocompletedatatype == 'cargo field'
+			|| autocompletedatatype == 'property' || autocompletedatatype == 'concept' ) {
+			pfSpreadsheetAutocomplete = true;
+			config['autocompletesettings'] = autocompletesettings;
+			var widget = new pf.spreadsheetAutocompleteWidget(config);
+			var editor = widget.$element[0];
+		} else if ( autocompletedatatype == 'dep_on' ) {
+			// values dependent on
+			var dep_on_field = jexcel.prototype.dependenton(cell.getAttribute('origname'));
+			if ( dep_on_field !== null ) {
+				pfSpreadsheetAutocomplete = true;
+				config['autocompletesettings'] = cell.getAttribute('name');
+				config['dep_on_field'] = dep_on_field;
+				var widget = new pf.spreadsheetAutocompleteWidget(config);
+				var editor = widget.$element[0];
+			} else {
+				// this is probably the case where some parameters are set
+				// in a wrong way in form defintion, in that case use the default jexcel editor
+				pfSpreadsheetAutocomplete = false;
+				var editor = document.createElement( type );
+			}
+		} else if ( autocompletedatatype == 'external data' ) {
+			// values from external data
+			if ( autocompletesettings == cell.getAttribute('origname') ) {
+				pfSpreadsheetAutocomplete = true;
+				config['autocompletesettings'] = autocompletesettings;
+				var widget = new pf.spreadsheetAutocompleteWidget(config);
+				var editor = widget.$element[0];
+			} else {
+				// this is probably the case where some autocomplete parameters are set
+				// in a wrong way in form defintion, in that case use the default jexcel editor
+				pfSpreadsheetAutocomplete = false;
+				var editor = document.createElement(type);
+			}
+		}
+
+		return {
+			editor, pfSpreadsheetAutocomplete
+		};
+	}
+
+	jexcel.prototype.getValueToBeSavedAfterClosingEditor = function ( cell, pfSpreadsheetAutocomplete, ooui_input_val ) {
+		if (pfSpreadsheetAutocomplete) {
+			// setting the value to be saved after closing the editor
+			return ooui_input_val;
+		} else {
+			return cell.children[0].value;
+		}
+	}
+
+	jexcel.prototype.setAutocompleteAtrributesOfColumns = function ( cell, gridParams, templateName, fieldNum ) {
+		$(cell).attr( 'name', templateName + '[' + $(cell).attr('title') + ']' );
+		if ( gridParams[templateName][fieldNum]['autocompletedatatype'] == undefined ) {
+			$(cell).attr( 'data-autocomplete-data-type', '' );
+			$(cell).attr( 'data-autocomplete-settings', '' );
+		} else {
+			$(cell).attr( 'data-autocomplete-data-type', gridParams[templateName][fieldNum]['autocompletedatatype'] );
+			$(cell).attr( 'data-autocomplete-settings', gridParams[templateName][fieldNum]['autocompletesettings'] );
+		}
+	}
+
+	jexcel.prototype.setAutocompleteAtrributesOfCells = function( table, templateName, data_x, cell ) {
+		var autocompletedatatype = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type'),
+			autocompletesettings = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
+		$(cell).attr({
+			'name': templateName +'|'+$(table).find('thead td[data-x="'+data_x+'"]').attr('title'),
+			'origname': templateName +'['+$(table).find('thead td[data-x="'+data_x+'"]').attr('title')+']',
+			'data-autocomplete-data-type': autocompletedatatype,
+			'data-autocomplete-settings': autocompletesettings
+		});
+	}
+
 })( jexcel, mediaWiki );
 
 ( function ( $, mw, pf ) {
@@ -689,6 +799,14 @@ const manageColumnTitle = '\u2699';
 						} );
 					}
 
+					// Providing the autocomplete attributes whenever a new row is added
+					if ( editMultiplePages === undefined ) {
+						$(table).find('tbody td').not('.jexcel_row').each(function() {
+							var data_x = $(this).attr('data-x');
+							jexcel.prototype.setAutocompleteAtrributesOfCells( table, templateName, data_x, this );
+						});
+					}
+
 					dataValues[spreadsheetID].push( {} );
 				}
 
@@ -710,7 +828,6 @@ const manageColumnTitle = '\u2699';
 						search: mw.msg( 'search' )
 					}
 				} );
-
 				// Set the "label" for columns that have a label defined.
 				var columnParams = gridParams[templateName];
 				for ( var columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
@@ -721,9 +838,29 @@ const manageColumnTitle = '\u2699';
 					$(table).find('thead').find('td[data-x=' + columnNum + ']').html(columnLabel);
 				}
 
-				$(table).append('<p><a href="#" class="add-row">' + mw.msg( 'pf-spreadsheet-addrow' ) + '</a></p>');
+				if ( editMultiplePages !== undefined ) {
+					var numberOfColumns = $(table).find('thead td').not('.jexcel_selectall').length,
+						fieldNum = 0;
+					// Provide the autocomplete attributes to each column of the spreadsheet
+					// which is populated at the starting.
+					$(table).find('thead td').not('.jexcel_selectall').each( function() {
+						// to avoid the last column, used numberOfColumns-1
+						if ( fieldNum < numberOfColumns-1 ) {
+							jexcel.prototype.setAutocompleteAtrributesOfColumns( this, gridParams, templateName, fieldNum );
+							fieldNum++;
+						}
+					} );
+				}
 
-				$('div#' + spreadsheetID + ' a.add-row').click( function ( event ) {
+				var addRowButton = new OO.ui.FieldLayout( new OO.ui.ButtonWidget( {
+					classes: [ 'add-row' ],
+					icon: 'add',
+					label: mw.msg( 'pf-spreadsheet-addrow' )
+				} ) );
+
+				$(table).append(addRowButton.$element);
+
+				$('div#' + spreadsheetID + ' span.add-row').click( function ( event ) {
 					var curSpreadsheet = mw.spreadsheets[spreadsheetID];
 					event.preventDefault();
 					if ( curSpreadsheet.getData().length > 0 ) {
@@ -761,6 +898,31 @@ const manageColumnTitle = '\u2699';
 			}
 		//})();
 	});
+
+	$('.pfSpreadsheet').each( function() {
+		var templateName = $(this).attr( 'data-template-name' ),
+			table = this,
+			fieldNum = 0,
+			editMultiplePages = $(this).attr('editmultiplepages');
+		var numberOfColumns = $(table).find('thead td').not('.jexcel_selectall').length;
+
+		if ( editMultiplePages == undefined ) {
+			// Provide the autocomplete attributes to each column of the spreadsheet
+			// which is populated at the starting.
+			$(table).find('thead td').not('.jexcel_selectall').each( function() {
+				// to avoid the last column, used numberOfColumns-1
+				if ( fieldNum < numberOfColumns-1 ) {
+					jexcel.prototype.setAutocompleteAtrributesOfColumns( this, gridParams, templateName, fieldNum );
+					fieldNum++;
+				}
+			} );
+			// Providing "name" and "origname" and autocomplete attributes to every cell of the spreadsheet
+			$(table).find('tbody td').not('.jexcel_row').each(function() {
+				var data_x = $(this).attr('data-x');
+				jexcel.prototype.setAutocompleteAtrributesOfCells( table, templateName, data_x, this );
+			});
+		}
+	} )
 
 	// If this is a spreadsheet display within a form, create hidden
 	// inputs for every cell when the form is submitted, so that all the

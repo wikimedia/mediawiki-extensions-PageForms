@@ -1841,6 +1841,9 @@
     
             // On edition start
             obj.dispatch('oneditionstart', el, cell, x, y);
+            // this variable will be used to determine
+            // whether the cell supports autocompletion in Page Forms or not
+            var pfSpreadsheetAutocomplete;
     
             // Overflow
             if (x > 0) {
@@ -1849,20 +1852,37 @@
     
             // Create editor
             var createEditor = function(type) {
+                // =====================================
+                // Changes made for Page Forms
+                // =====================================
+                cell.classList.add('editor');
                 // Cell information
                 var info = cell.getBoundingClientRect();
-    
-                // Create dropdown
-                var editor = document.createElement(type);
+
+                // Special Handling For Autocompletion in Spreadsheet-style display of Page Forms
+                var autocompleteAttrs = jexcel.prototype.getAutocompleteAttributes(cell);
+                var autocompletedatatype = autocompleteAttrs.autocompletedatatype;
+                var autocompletesettings = autocompleteAttrs.autocompletesettings;
+                if (autocompletedatatype.length !== 0) {
+                    // function present in PF_spreadsheet.js
+                    var autocompleteConfigs = jexcel.prototype.getEditorForAutocompletion(x, y, autocompletedatatype, autocompletesettings, cell, type);
+                    var editor = autocompleteConfigs.editor;
+                    pfSpreadsheetAutocomplete = autocompleteConfigs.pfSpreadsheetAutocomplete;
+
+                } else {
+                    // using the default jexcel editor
+                    var editor = document.createElement(type);
+                }
                 editor.style.width = (info.width) + 'px';
                 editor.style.height = (info.height - 2) + 'px';
                 editor.style.minHeight = (info.height - 2) + 'px';
-    
+                // =====================================
+                // =====================================
+
                 // Edit cell
-                cell.classList.add('editor');
                 cell.innerHTML = '';
                 cell.appendChild(editor);
-    
+
                 // On edition start
                 obj.dispatch('oncreateeditor', el, cell, x, y, editor);
 
@@ -2006,12 +2026,34 @@
                                 editor.setAttribute('data-mask', obj.options.columns[x].mask);
                             }
                         }
-    
-                        editor.onblur = function() {
-                            obj.closeEditor(cell, true);
-                        };
-                        editor.focus();
-                        editor.value = value;
+
+                        // =====================================
+                        // Changes made for Page Forms
+                        // =====================================
+                        if (pfSpreadsheetAutocomplete) {
+                            // we are in Autocompletion mode in spreadsheets
+                            var ooui_input_val = '';
+                            $('td.editor').find('div').find('input').on('change', function() {
+                                ooui_input_val = $(this).val();
+                            });
+                            editor.children[0].onblur = function() {
+                                obj.closeEditor(cell, true, ooui_input_val, pfSpreadsheetAutocomplete);
+                            };
+                            // focus on the OOUI's TextInputWidget so that
+                            // on pressing any key one can directly type
+                            // inside the widget
+                            editor.children[0].focus();
+                            editor.children[0].value = value;
+                        } else {
+                            editor.onblur = function() {
+                                obj.closeEditor(cell, true);
+                            };
+                            // focus on editor
+                            editor.focus();
+                            editor.value = value;
+                        }
+                        // =====================================
+                        // =====================================
                         editor.scrollLeft = editor.scrollWidth;
                     }
                 }
@@ -2025,7 +2067,7 @@
          * @param boolean save
          * @return void
          */
-        obj.closeEditor = function(cell, save) {
+        obj.closeEditor = function(cell, save, ooui_input_val, pfSpreadsheetAutocomplete = false) {
             var x = parseInt(cell.getAttribute('data-x'));
             var y = parseInt(cell.getAttribute('data-y'));
 
@@ -2059,17 +2101,24 @@
                         }
                         cell.children[0].onblur = null;
                     } else {
-                        var value = cell.children[0].value;
+                        // =====================================
+                        // Changes made for Page Forms
+                        // =====================================
+                        var value = jexcel.prototype.getValueToBeSavedAfterClosingEditor(cell, pfSpreadsheetAutocomplete, ooui_input_val);
                         cell.children[0].onblur = null;
+                        // =====================================
+                        // =====================================
                     }
                 }
 
-                // Ignore changes if the value is the same
-                if (obj.options.data[y][x] == value) {
-                    cell.innerHTML = obj.edition[1];
-                } else {
+                // =====================================
+                // Changes made for Page Forms
+                // =====================================
+                if (value !== undefined) {
                     obj.setValue(cell, value);
                 }
+                // =====================================
+                // =====================================
             } else {
                 if (obj.options.columns[x].editor) {
                     // Custom editor
@@ -7121,7 +7170,24 @@
                             editorTextarea.selectionStart = editorIndexOf + 1;
                             editorTextarea.selectionEnd = editorIndexOf + 1;
                         } else {
-                            jexcel.current.edition[0].children[0].blur();
+                            // =====================================
+                            // Changes made for Page Forms
+                            // =====================================
+                            e.preventDefault();
+                            var element = jexcel.current.edition[0].children[0];
+                            var table = jQuery(element).parents().find('table');
+                            var data_x = jQuery(element).parent().attr('data-x');
+                            var autocompletedatatype = jQuery(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type');
+                            if ( autocompletedatatype !== '' ) {
+                                // that means we are in autocompletion mode,
+                                // this has been done to close the editor on
+                                // pressing "Enter" key.
+                                jQuery(element).find('input')[0].blur();
+                            } else {
+                                jexcel.current.edition[0].children[0].blur();
+                            }
+                            // =====================================
+                            // =====================================
                         }
                     }
                 } else if (e.which == 9) {
