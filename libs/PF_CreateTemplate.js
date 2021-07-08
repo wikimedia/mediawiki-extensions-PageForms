@@ -7,15 +7,18 @@ function toggleCargoInputs() {
 		jQuery('input[name="use_cargo"]').attr('value', '1');
 		jQuery('#cargo_table_input').show('medium');
 		jQuery('label.cargo_field_type').show('medium');
+		jQuery('div.pfFieldTypeDropdown').show('medium');
 		jQuery('.allowed_values_input').show('medium');
 		jQuery('.is_hierarchy').parent().show('medium');
 	} else {
 		jQuery('input[name="use_cargo"]').attr('value', '0');
 		jQuery('#cargo_table_input').hide('medium');
 		jQuery('label.cargo_field_type').hide('medium');
+		jQuery('div.pfFieldTypeDropdown').hide('medium');
 		jQuery("input[name*='is_hierarchy_']").prop('checked', false);
 		jQuery('.is_hierarchy').parent().hide('medium');
 		jQuery('.hierarchy_structure_input').hide('medium');
+		jQuery('div.hierarchy_structure').hide('medium');
 		jQuery('.allowed_values_input').show('medium');
 	}
 }
@@ -60,16 +63,20 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 }
 
 function validateCreateTemplateForm() {
-	var blankTemplateName = ( jQuery( '#template_name' ).val() === '' );
+	var blankTemplateName = ( jQuery( 'input[name="template_name"]' ).val() === '' );
 	var blankCargoTableName = ( jQuery( '#use_cargo_toggle' ).attr('aria-checked') == 'true' &&
-		jQuery( '#cargo_table' ).val() === '' );
+		jQuery( 'input[name="cargo_table"]' ).val() === '' );
 	if ( blankTemplateName || blankCargoTableName || !validateHierarchyStructure() ) {
 		scroll( 0, 0 );
 		if ( blankTemplateName ) {
-			jQuery( '#template_name_p' ).append( ' <span class="error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' );
+			jQuery( 'div.pfTemplateNameBlankError' ).show();
+		} else {
+			jQuery( "div.pfTemplateNameBlankError" ).hide();
 		}
 		if ( blankCargoTableName ) {
-			jQuery( '#cargo_table_input' ).append( ' <span class="error">' + mediaWiki.msg( 'pf_blank_error' ) + '</span>' );
+			jQuery( 'div.pfCargoTableNameBlankError' ).show();
+		} else {
+			jQuery( "div.pfCargoTableNameBlankError" ).hide();
 		}
 		return false;
 	} else {
@@ -81,11 +88,13 @@ function toggleHierarchyInput(containerElement) {
 	if (containerElement.find( "input[name*='is_hierarchy_']" ).prop('checked')) {
 		containerElement.find( ".allowed_values_input" ).hide('medium');
 		containerElement.find( ".hierarchy_structure_input" ).show('medium');
+		containerElement.find( ".hierarchy_structure" ).show('medium');
 		if (containerElement.find( "textarea[name*='hierarchy_structure_']" ).val() === "") {
 			setHierarchyPlaceholder( containerElement.find( "textarea[name*='hierarchy_structure_']" ) );
 		}
 	} else {
 		containerElement.find( ".hierarchy_structure_input" ).hide('medium');
+		containerElement.find( ".hierarchy_structure" ).hide('medium');
 		containerElement.find( ".allowed_values_input" ).show('medium');
 	}
 }
@@ -151,6 +160,16 @@ jQuery( document ).ready( function () {
 	} );
 	jQuery( '#cargo_toggle' ).prepend( toggleSwitch.$element );
 	jQuery( '#use_cargo_toggle' ).attr( 'name', 'use_cargo_toggle' );
+	jQuery( "div.pfTemplateNameBlankError" ).hide();
+	jQuery( "div.pfCargoTableNameBlankError" ).hide();
+	jQuery( "label.delimiter" ).css( 'display', 'none' );
+	jQuery( "div.delimiter" ).css( {
+		'display': 'none',
+		'width': '35px'
+	} );
+	jQuery( "label.hierarchy_structure_input" ).css( 'display', 'none' );
+	jQuery( "div.hierarchy_structure" ).css( 'display', 'none' );
+	jQuery( 'form#createTemplateForm' ).removeAttr('style');
 	jQuery( '#use_cargo_toggle' ).click( function() {
 		toggleCargoInputs();
 	} );

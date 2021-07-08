@@ -1,0 +1,35 @@
+/**
+ * CSS for Special:CreateTemplate.
+ */
+
+div#template_name {
+    width: 200px;
+}
+
+div#category {
+    width: 200px;
+}
+
+div#cargo_table {
+    width: 200px;
+}
+
+div.pfFieldName {
+    width: 200px;
+}
+
+div.pfDisplayLabel {
+    width: 200px;
+}
+
+div.pfFieldTypeDropdown {
+    width: 200px;
+}
+
+div.pfAggregationLabel {
+    width: 200px;
+}
+
+div.pfPropertyName {
+    width: 100px;
+}

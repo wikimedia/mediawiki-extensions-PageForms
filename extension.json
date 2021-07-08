@@ -468,6 +468,7 @@
 			"scripts": [
 				"libs/PF_CreateTemplate.js"
 			],
+			"styles": "skins/PF_CreateTemplate.css",
 			"dependencies": [
 				"oojs-ui-widgets",
 				"ext.pageforms.ooui.combobox"
