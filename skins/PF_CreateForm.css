@@ -35,3 +35,25 @@
 #pfAddSectionBefore{
 	width: 200px;
 }
+
+div.pfTemplateLabel {
+	width: 200px;
+}
+
+div.pfFormLabel {
+	width: 200px;
+}
+
+div.inputTypeSelector {
+	width:200px;
+}
+
+div.pfTextFieldForInt {
+	width: 50px;
+	display: inline-block;
+}
+
+div.pfTextFieldForString {
+	width: 250px;
+	display: inline-block;
+}

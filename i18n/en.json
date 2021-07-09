@@ -127,7 +127,7 @@
 	"pf_createform_inputtype": "Input type:",
 	"pf_createform_inputtypedefault": "(default)",
 	"pf_createform_formlabel": "Form label:",
-	"pf_createform_hidden": "Hidden",
+	"pf_createform_hidden": "(Hidden)",
 	"pf_createform_removetemplate": "Remove template",
 	"pf_createform_addtemplate": "Add template:",
 	"pf_createform_atend": "At end",

@@ -4,7 +4,7 @@ jQuery.fn.displayInputParams = function () {
 		url: window.location.href +
 			( ( window.location.href.indexOf('?') === -1 ) ? '?' : '&' ) +
 			'showinputtypeoptions=' + encodeURIComponent( this.val() ) +
-			'&formfield=' + encodeURIComponent( this.attr( 'formfieldid' ) ),
+			'&formfield=' + encodeURIComponent( this.attr( 'id' ) ),
 		context: document.body,
 		success: function ( data ){
 			inputParamsDiv.html( data );
@@ -44,6 +44,15 @@ jQuery(document).ready( function () {
 
 	jQuery( 'span#pfRemoveSectionButton' ).click( function() {
 		jQuery( 'span#pfRemoveSectionButton' ).find( 'button' ).attr( 'value', 'true' );
+	} );
+
+	// this is done as the OOUI's Checkbox behave differently than the normal checkbox
+	jQuery( 'div.templateForm' ).find( 'input[type="checkbox"]' ).click( function() {
+		if ( jQuery( this ).attr( 'value' ) == 'on' ){
+			jQuery( this ).attr( 'value', '' );
+		} else {
+			jQuery( this ).attr( 'value', 'on' );
+		}
 	} );
 } );
 

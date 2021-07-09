@@ -543,7 +543,6 @@ END;
 	}
 
 	function templateCreationHTML( $tif, $template_num ) {
-		$checked_attribs = ( $tif->allowsMultiple() ) ? [ 'checked' => 'checked' ] : [];
 		$template_str = $this->msg( 'pf_createform_template' )->escaped();
 		$template_label_input = $this->msg( 'pf_createform_templatelabelinput' )->escaped();
 		$allow_multiple_text = $this->msg( 'pf_createform_allowmultiple' )->escaped();
@@ -551,12 +550,30 @@ END;
 		$text = Html::hidden( "template_$template_num", $tif->getTemplateName() );
 		$text .= '<div class="templateForm">';
 		$text .= Html::element( 'h2', [], "$template_str '{$tif->getTemplateName()}'" );
-		$text .= '<p><label>' . $template_label_input .
-			Html::input( "label_$template_num", $tif->getLabel(), 'text', [ 'size' => 25 ] ) .
-			"</label></p>\n";
-		$text .= '<p><label>' .
-			Html::input( "allow_multiple_$template_num", '', 'checkbox', $checked_attribs ) .
-			$allow_multiple_text . "</label></p>\n";
+		$text .= new OOUI\HorizontalLayout( [
+			'items' => [
+				new OOUI\LabelWidget( [
+					'label' => $template_label_input
+				] ),
+				new OOUI\TextInputWidget( [
+					'name' => "label_$template_num",
+					'value' => $tif->getLabel(),
+					'classes' => [ 'pfTemplateLabel' ]
+				] )
+			]
+		] );
+		$text .= new OOUI\HorizontalLayout( [
+			'items' => [
+				new OOUI\CheckboxInputWidget( [
+					'name' => "allow_multiple_$template_num",
+					'selected' => ( $tif->allowsMultiple() ) ? true : false,
+					'value' => ( $tif->allowsMultiple() ) ? 'on' : ''
+				] ),
+				new OOUI\LabelWidget( [
+					'label' => $allow_multiple_text
+				] )
+			]
+		] );
 		$text .= '<hr />';
 
 		foreach ( $tif->getFields() as $field_num => $field ) {
@@ -592,7 +609,6 @@ END;
 				$propDisplayMsg = 'pf_createform_fieldprop';
 			}
 			$prop_link_text = PFUtils::linkText( SMW_NS_PROPERTY, $template_field->getSemanticProperty() );
-
 			// Get the display label for this property type.
 			$propertyTypeStr = '';
 			$smwContLang = PFUtils::getSMWContLang();
@@ -612,19 +628,8 @@ END;
 		}
 		// If it's not a semantic field - don't add any text.
 		$form_label_text = $this->msg( 'pf_createform_formlabel' )->escaped();
-		$form_label_input = Html::input(
-			'label_' . $field_form_text,
-			$template_field->getLabel(),
-			'text',
-			[ 'size' => 20 ]
-		);
 		$input_type_text = $this->msg( 'pf_createform_inputtype' )->escaped();
-		$text .= <<<END
-	<div class="formField">
-	<p><label>$form_label_text $form_label_input</label>
-	&#160; <label>$input_type_text
 
-END;
 		global $wgPageFormsFormPrinter;
 		if ( $template_field->getPropertyType() !== null ) {
 			$default_input_type = $wgPageFormsFormPrinter->getDefaultInputTypeSMW( $template_field->isList(), $template_field->getPropertyType() );
@@ -642,7 +647,6 @@ END;
 			$default_input_type = null;
 			$possible_input_types = $wgPageFormsFormPrinter->getAllInputTypes();
 		}
-		$text .= $this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $field->getInputType() ) . "</label>\n";
 
 		if ( $field->getInputType() !== null ) {
 			$cur_input_type = $field->getInputType();
@@ -652,6 +656,28 @@ END;
 			$cur_input_type = $possible_input_types[0];
 		}
 
+		$formFieldRow = new OOUI\HorizontalLayout( [
+			'items' => [
+				new OOUI\LabelWidget( [
+					'label' => $form_label_text
+				] ),
+				new OOUI\TextInputWidget( [
+					'name' => "label_$field_form_text",
+					'value' => $template_field->getLabel(),
+					'classes' => [ 'pfFormLabel' ]
+				] ),
+				new OOUI\LabelWidget( [
+					'label' => $input_type_text
+				] ),
+				$this->inputTypeDropdownHTML( $field_form_text, $default_input_type, $possible_input_types, $field->getInputType() )
+			]
+		] );
+
+		$text .= <<<END
+	<div class="formField">
+	$formFieldRow
+
+END;
 		$paramValues = [];
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
@@ -682,26 +708,23 @@ END;
 			array_unshift( $possible_input_types, $default_input_type );
 		}
 		// create the dropdown HTML for a list of possible input types
-		$dropdownHTML = "";
+		$dropdownAttrs = [];
 		foreach ( $possible_input_types as $i => $input_type ) {
 			if ( $i == 0 ) {
-				$dropdownHTML .= "	<option value=\".$input_type\">$input_type " .
-					$this->msg( 'pf_createform_inputtypedefault' )->escaped() . "</option>\n";
+				array_push( $dropdownAttrs, [ 'data' => $input_type, 'label' => $input_type . $this->msg( 'pf_createform_inputtypedefault' )->escaped() ] );
 			} else {
-				$selected_str = ( $cur_input_type == $input_type ) ? "selected" : "";
-				$dropdownHTML .= "	<option value=\"$input_type\" $selected_str>$input_type</option>\n";
+				$value = ( $cur_input_type == $input_type ) ? $input_type : "";
+				array_push( $dropdownAttrs, [ 'data' => $input_type, 'label' => $input_type ] );
 			}
 		}
-		$hidden_text = $this->msg( 'pf_createform_hidden' )->escaped();
-		$selected_str = ( $cur_input_type == 'hidden' ) ? "selected" : "";
-		// @todo FIXME: Contains hard coded parentheses.
-		$dropdownHTML .= "	<option value=\"hidden\" $selected_str>($hidden_text)</option>\n";
-		$text = "\t" . Html::rawElement( 'select',
-			[
-				'class' => 'inputTypeSelector',
-				'name' => 'input_type_' . $field_form_text,
-				'formfieldid' => $field_form_text
-			], $dropdownHTML ) . "\n";
+		array_push( $dropdownAttrs, [ 'data' => 'hidden', 'label' => $this->msg( 'pf_createform_hidden' )->escaped() ] );
+		$value = ( $cur_input_type == 'hidden' ) ? 'hidden' : "";
+		$text = new OOUI\DropdownInputWidget( [
+			'classes' => [ 'inputTypeSelector' ],
+			'name' => 'input_type_' . $field_form_text,
+			'id' => $field_form_text,
+			'options' => $dropdownAttrs
+		] );
 		return $text;
 	}
 
@@ -719,55 +742,57 @@ END;
 	 */
 	public static function inputTypeParamInput( $type, $paramName, $cur_value, array $param, array $paramValues, $fieldFormText ) {
 		if ( $type == 'int' ) {
-			return Html::input(
-				$paramName . '_' . $fieldFormText,
-				$cur_value,
-				'text',
-				[ 'size' => 6 ]
-			);
-		} elseif ( $type == 'string' ) {
-			return Html::input(
-				$paramName . '_' . $fieldFormText,
-				$cur_value,
-				'text',
-				[ 'size' => 32 ]
-			);
-		} elseif ( $type == 'text' ) {
-			return Html::element( 'textarea', [
+			return new OOUI\TextInputWidget( [
 				'name' => $paramName . '_' . $fieldFormText,
-				'rows' => 4
-			], $cur_value );
+				'value' => $cur_value,
+				'classes' => [ 'pfTextFieldForInt' ]
+			] );
+		} elseif ( $type == 'string' ) {
+			return new OOUI\TextInputWidget( [
+				'name' => $paramName . '_' . $fieldFormText,
+				'value' => $cur_value,
+				'classes' => [ 'pfTextFieldForString' ]
+			] );
+		} elseif ( $type == 'text' ) {
+			return new OOUI\MultilineTextInputWidget( [
+				'name' => $paramName . '_' . $fieldFormText,
+				'rows' => 4,
+				'value' => $cur_value
+			] );
 		} elseif ( $type == 'enumeration' ) {
-			$selectBody = Html::element( 'option' ) . "\n";
+			$optionAttrs;
+			$val = '';
 			foreach ( $param['values'] as $value ) {
+				array_push( $options, [ 'data' => $value, 'label' => $value ] );
 				$optionAttrs = [ 'value' => $value ];
 				if ( $cur_value == $value ) {
-					$optionAttrs['selected'] = true;
+					$val = $value;
 				}
-				$selectBody .= Html::element( 'option', $optionAttrs, $value ) . "\n";
 			}
-
-			return Html::rawElement( 'select', [ 'name' => 'p[' . $paramName . ']' ], $selectBody );
+			return new OOUI\DropdownInputWidget( [
+				'name' => 'p[' . $paramName . ']',
+				'options' => $optionAttrs,
+				'value' => $val
+			] );
 		} elseif ( $type == 'enum-list' ) {
 			$cur_values = explode( ',', $cur_value );
 			foreach ( $param['values'] as $val ) {
-				$checkboxName = 'p[' . $paramName . '][' . $val . ']';
-				$checkboxAttrs = [];
-				if ( in_array( $val, $cur_values ) ) {
-					$checkboxAttrs['checked'] = true;
-				}
-				$checkboxHTML = Html::input( $checkboxName, 'true', 'checkbox', $checkboxAttrs );
+				$checkboxHTML = new OOUI\CheckboxInputHtml( [
+					'name' => 'p[' . $paramName . '][' . $val . ']',
+					'selected' => in_array( $val, $cur_values ) ? true : false,
+					'value' => in_array( $val, $cur_values ) ? 'on' : ''
+				] );
 				$text .= Html::rawElement( 'span', [
 						'style' => 'white-space: nowrap; padding-right: 5px; font-family: monospace;'
 					], $checkboxHTML );
 			}
 			return $text;
 		} elseif ( $type == 'boolean' ) {
-			$checkboxAttrs = [];
-			if ( $cur_value ) {
-				$checkboxAttrs['checked'] = true;
-			}
-			return Html::input( $paramName . '_' . $fieldFormText, null, 'checkbox', $checkboxAttrs );
+			return new OOUI\CheckboxInputWidget( [
+				'name' => $paramName . '_' . $fieldFormText,
+				'selected' => $cur_value ? true : false,
+				'value' => $cur_value ? 'on' : ''
+			] );
 		}
 	}
 
@@ -791,7 +816,6 @@ END;
 		if ( substr( $inputType, 0, 1 ) == '.' ) {
 			$inputType = substr( $inputType, 1 );
 		}
-
 		$inputTypeClass = $wgPageFormsFormPrinter->getInputType( $inputType );
 
 		$params = method_exists( $inputTypeClass, 'getParameters' ) ? call_user_func( [ $inputTypeClass, 'getParameters' ] ) : [];
@@ -817,7 +841,6 @@ END;
 			}
 
 			$text .= "<div style=\"width: 30%; padding: 5px; float: left;\">\n<label>$paramName:\n";
-
 			$text .= self::inputTypeParamInput( $type, $paramName, $cur_value, $param, [], $fieldFormText );
 			$text .= "\n</label>\n<br />" . Html::rawElement( 'em', null, $desc ) . "\n</div>\n";
 
