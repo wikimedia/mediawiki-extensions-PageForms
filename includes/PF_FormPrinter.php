@@ -1843,7 +1843,8 @@ END;
 			$this->mPageTitle->exists() && $existing_page_content !== ''
 			&& !$source_page_matches_this_form ) {
 			$form_text = "\t" . '<div class="warningbox">' .
-				wfMessage( 'pf_formedit_formwarning', $page_name )->parse() .
+				// Prepend with a colon in case it's a file or category page.
+				wfMessage( 'pf_formedit_formwarning', ':' . $page_name )->parse() .
 				"</div>\n<br clear=\"both\" />\n" . $form_text;
 		}
 
