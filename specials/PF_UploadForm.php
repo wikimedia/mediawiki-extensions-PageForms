@@ -295,6 +295,7 @@ class PFUploadForm extends HTMLForm {
 		// taking the body created by the form, plus the necessary
 		// Javascript files, and turning them into an HTML page
 		global $wgTitle, $wgLanguageCode, $wgScriptPath,
+			$wgPageFormsScriptPath,
 			$wgXhtmlDefaultNamespace, $wgXhtmlNamespaces;
 
 		$out = $this->getOutput();
@@ -317,7 +318,7 @@ END;
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
 <script src="{$wgScriptPath}/resources/lib/jquery/jquery.js"></script>
-<script src="{$wgScriptPath}/extensions/PageForms/libs/PF_upload.js"></script>
+<script src="{$wgPageFormsScriptPath}/libs/PF_upload.js"></script>
 </head>
 <body>
 {$out->getHTML()}
