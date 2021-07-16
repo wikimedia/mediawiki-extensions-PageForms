@@ -95,9 +95,5 @@ others, distributed under the MIT license.
 * SortableJS (https://sortablejs.github.io/sortablejs/) by RubaXa and
 owenm, distributed under the MIT license.
 
-It also includes the Balloon.css CSS library
-(https://kazzkiq.github.io/balloon.css/) by Claudio Holanda,
-distributed under the MIT license.
-
 Page Forms also makes extensive use of the jQuery and OOUI
 JavaScript libraries, both of which are included within MediaWiki.

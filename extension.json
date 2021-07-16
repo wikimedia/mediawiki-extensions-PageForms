@@ -433,11 +433,6 @@
 				"search"
 			]
 		},
-		"ext.pageforms.balloon": {
-			"styles": [
-				"skins/balloon.css"
-			]
-		},
 		"ext.pageforms.wikieditor": {
 			"scripts": "libs/PF_wikieditor.js",
 			"styles": "skins/PF_wikieditor.css"

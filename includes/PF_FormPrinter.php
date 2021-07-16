@@ -480,22 +480,12 @@ END;
 				[ 'for' => "input_$wgPageFormsFieldNum" ],
 				$labelText );
 
-			// If a 'tooltip' parameter was set, add a tooltip
-			// right after the label.
+			$labelCellAttrs = [];
 			if ( $formField->hasFieldArg( 'tooltip' ) ) {
-				global $wgOut, $wgScriptPath;
-
-				$wgOut->addModules( 'ext.pageforms.balloon' );
-				$tooltipText = $formField->getFieldArg( 'tooltip' );
-				$label .= ' ' . Html::element( 'button', [
-					'data-balloon-length' => 'medium',
-					'data-balloon' => $tooltipText,
-					'disabled' => true,
-					'style' => "height: 13px; width: 13px; background: url($wgScriptPath/resources/src/mediawiki/images/question.png); border: none;"
-					], '' );
+				$labelCellAttrs['data-tooltip'] = $formField->getFieldArg( 'tooltip' );
 			}
 
-			$labelCell = Html::rawElement( 'th', null, $label );
+			$labelCell = Html::rawElement( 'th', $labelCellAttrs, $label );
 			$inputHTML = $this->formFieldHTML( $formField, $curValue );
 			$inputHTML .= $formField->additionalHTMLForInput( $curValue, $fieldName, $tif->getTemplateName() );
 			$inputCell = Html::rawElement( 'td', null, $inputHTML );
