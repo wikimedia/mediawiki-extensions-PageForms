@@ -266,7 +266,7 @@
 	"action-viewedittab": "ver o separador \"{{int:edit}}\" nas páginas editáveis por formulário",
 	"action-multipageedit": "editar várias páginas usando uma folha de cálculo",
 	"tooltip-ca-formedit": "Editar esta página com um formulário",
-	"pf-select2-no-matches": "Sem correspondências",
+	"pf-autocomplete-no-matches": "Sem correspondências",
 	"pf-select2-searching": "A pesquisar...",
 	"pf-select2-input-too-short": "Insira $1 ou mais caracteres",
 	"pf-select2-selection-too-big": "Este campo não pode conter mais do que {{PLURAL:$1|$1 valor|$1 valores}}.",

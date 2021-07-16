@@ -243,7 +243,7 @@
 	"action-editrestrictedfields": "beperkte formuliervelden te bewerken",
 	"action-viewedittab": "het tabblad \"{{int:edit}}\" te zien voor pagina's die via een formulier te bewerken zijn",
 	"tooltip-ca-formedit": "Deze pagina met een formulier bewerken",
-	"pf-select2-no-matches": "Geen resultaten",
+	"pf-autocomplete-no-matches": "Geen resultaten",
 	"pf-select2-searching": "Zoeken...",
 	"pf-select2-input-too-short": "Voer  $1  of meer tekens in.",
 	"pf-select2-selection-too-big": "Dit veld kan niet meer dan {{PLURAL:$1|$1 waarde|$1 waarden}}.",

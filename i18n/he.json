@@ -266,7 +266,7 @@
 	"action-viewedittab": "להשתמש בלשונית \"{{int:edit}}\" בדפים הניתנים לעריכה על־ידי טופס",
 	"action-multipageedit": "לערוך דפים מרובים באמצעות גיליון אלקטרוני",
 	"tooltip-ca-formedit": "עריכת הדף הזה באמצעות טופס",
-	"pf-select2-no-matches": "אין התאמות",
+	"pf-autocomplete-no-matches": "אין התאמות",
 	"pf-select2-searching": "חיפוש...",
 	"pf-select2-input-too-short": "נא להזין {{PLURAL:$1|תו אחד|$1 תווים}} או יותר.",
 	"pf-select2-selection-too-big": "השדה הזה אינו יכול להכיל יותר {{PLURAL:$1|מערך אחד|מ־$1 ערכים}}.",

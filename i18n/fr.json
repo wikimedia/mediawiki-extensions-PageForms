@@ -288,7 +288,7 @@
 	"action-viewedittab": "voir l’onglet \"{{int:edit}}\" pour les pages modifiables via un formulaire",
 	"action-multipageedit": "modifier plusieurs pages à l’aide d’un tableur",
 	"tooltip-ca-formedit": "Modifier cette page avec un formulaire",
-	"pf-select2-no-matches": "Aucune correspondance",
+	"pf-autocomplete-no-matches": "Aucune correspondance",
 	"pf-select2-searching": "Recherche en cours…",
 	"pf-select2-input-too-short": "Veuillez saisir $1 {{PLURAL:$1|caractère|caractères}} ou plus",
 	"pf-select2-selection-too-big": "Ce champ ne peut pas contenir plus de {{PLURAL:$1|$1 valeur|$1 valeurs}}.",

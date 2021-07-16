@@ -42,7 +42,7 @@
 	"pf-simpleupload": "ဖိုင်တင်ရန်",
 	"pf_deletionlog": "ဖျက်ထားသည်များ မှတ်တမ်း",
 	"pf_blank_namespace": "ပင်မ",
-	"pf-select2-no-matches": "ကိုက်ညီမှုများ မရှိပါ",
+	"pf-autocomplete-no-matches": "ကိုက်ညီမှုများ မရှိပါ",
 	"pf-select2-searching": "ရှာဖွေနေသည်...",
 	"pf-select2-input-too-short": "$1 သို့မဟုတ် အက္ခရာ ပိုမိုရိုက်ထည့်ပါ။",
 	"pf-maps-enteraddress": "ဤနေရာတွင် လိပ်စာထည့်ပါ",

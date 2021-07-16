@@ -267,7 +267,7 @@
 	"action-viewedittab": "forma göre düzenlenebilir sayfalar için \"{{int:edit}}\" sekmesini görüntüleyin",
 	"action-multipageedit": "e-tablo kullanarak birden çok sayfayı düzenle",
 	"tooltip-ca-formedit": "Bu sayfayı bir formla düzenle",
-	"pf-select2-no-matches": "Eşleşme yok",
+	"pf-autocomplete-no-matches": "Eşleşme yok",
 	"pf-select2-searching": "Aranıyor...",
 	"pf-select2-input-too-short": "Lütfen $1 veya daha fazla karakter girin.",
 	"pf-select2-selection-too-big": "Bu alan $1 değer alanından fazlasını içeremez.",

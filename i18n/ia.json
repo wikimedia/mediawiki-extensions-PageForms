@@ -80,7 +80,7 @@
 	"pf_createform_inputtype": "Typo de entrata:",
 	"pf_createform_inputtypedefault": "(predefinition)",
 	"pf_createform_formlabel": "Etiquetta de formulario:",
-	"pf_createform_hidden": "Celate",
+	"pf_createform_hidden": "(Celate)",
 	"pf_createform_removetemplate": "Remover patrono",
 	"pf_createform_addtemplate": "Adder patrono:",
 	"pf_createform_atend": "Al fin",

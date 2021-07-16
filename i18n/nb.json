@@ -264,7 +264,7 @@
 	"action-viewedittab": "vis «{{int:edit}}»-fanen for sider som kan redigeres via skjema",
 	"action-multipageedit": "redigere flere sider med regneark",
 	"tooltip-ca-formedit": "Rediger denne siden med et skjema",
-	"pf-select2-no-matches": "Ingen funn",
+	"pf-autocomplete-no-matches": "Ingen funn",
 	"pf-select2-searching": "Søker...",
 	"pf-select2-input-too-short": "Vær vennlig å legge inn $1 eller flere tegn.",
 	"pf-select2-selection-too-big": "Dette feltet kan ikke inneholde flere enn {{PLURAL:$1|$1 verdi|$1 verdier}}.",

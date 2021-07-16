@@ -159,7 +159,7 @@
 	"action-viewedittab": "преглеждане на таб „{{int:edit}}“ при страниците, които могат да се редактират с формуляр",
 	"action-multipageedit": "редактиране на множество страници с електронна таблица",
 	"tooltip-ca-formedit": "Редактиране на страницата с формуляр",
-	"pf-select2-no-matches": "Няма съвпадения",
+	"pf-autocomplete-no-matches": "Няма съвпадения",
 	"pf-select2-searching": "Търсене...",
 	"pf-select2-input-too-short": "Въведете $1 или повече знака.",
 	"pf-select2-selection-too-big": "Полето не може да съдържа повече от {{PLURAL:$1|една стойност|$1 стойности}}.",

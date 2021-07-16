@@ -201,7 +201,7 @@
 	"action-createclass": "nowe semantiske klasy wutworić",
 	"action-editrestrictedfields": "wobmjezowane formularne pola wobdźěłać",
 	"action-viewedittab": "Rajtark \"{{int:edit}}\" za strony pokazać, kotrež su přez formular wobźěłujomne",
-	"pf-select2-no-matches": "Žane wuslědki",
+	"pf-autocomplete-no-matches": "Žane wuslědki",
 	"pf-datepicker-close": "Začinić",
 	"pf-datepicker-prev": "Předchadny",
 	"pf-datepicker-next": "Přichodny",

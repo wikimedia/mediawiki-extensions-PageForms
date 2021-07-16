@@ -256,7 +256,7 @@
 	"action-viewedittab": "Mostra la pestanya «{{int:edit}}» a les pàgines que es poden editar amb un formulari",
 	"action-multipageedit": "edita més d'una pàgina fent servir un full de càlcul",
 	"tooltip-ca-formedit": "Edita aquesta pàgina amb un formulari",
-	"pf-select2-no-matches": "Cap coincidència",
+	"pf-autocomplete-no-matches": "Cap coincidència",
 	"pf-select2-searching": "S'està cercant…",
 	"pf-select2-input-too-short": "Introduïu $1 o més caràcters.",
 	"pf-select2-selection-too-big": "Aquest camp no pot contenir més de {{PLURAL:$1|$1 valor|$1 valors}}.",

@@ -222,7 +222,7 @@
 	"action-editrestrictedfields": "redigera begränsade formulär-fält",
 	"action-viewedittab": "visa fliken \"{{int:edit}}\" för sidor som går att redigera med formulär",
 	"tooltip-ca-formedit": "Redigera denna sida med ett formulär",
-	"pf-select2-no-matches": "Inga träffar",
+	"pf-autocomplete-no-matches": "Inga träffar",
 	"pf-select2-searching": "Söker...",
 	"pf-select2-input-too-short": "Ange $1 eller fler tecken",
 	"pf-select2-selection-too-big": "Detta fält kan inte innehålla mer än {{PLURAL:$1|ett värde|$1 värden}}.",

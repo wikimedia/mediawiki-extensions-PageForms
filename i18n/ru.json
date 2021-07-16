@@ -267,7 +267,7 @@
 	"action-viewedittab": "доступ к вкладке «{{int:edit}}» для страниц, редактируемых при помощи формы",
 	"action-multipageedit": "редактирование нескольких страниц с использованием электронной таблицы",
 	"tooltip-ca-formedit": "Редактировать эту страницу формой",
-	"pf-select2-no-matches": "Cовпадений не найдено",
+	"pf-autocomplete-no-matches": "Cовпадений не найдено",
 	"pf-select2-searching": "Поиск…",
 	"pf-select2-input-too-short": "Пожалуйста, введите $1 или более символов",
 	"pf-select2-selection-too-big": "Это поле не может содержать более {{PLURAL:$1|$1 значения|$1 значений}}.",

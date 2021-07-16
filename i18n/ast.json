@@ -248,7 +248,7 @@
 	"action-viewedittab": "ver la llingüeta \"{{int:edit}}\" nes páxines editables con un formulariu",
 	"action-multipageedit": "editar delles páxines usando una fueya de cálculu",
 	"tooltip-ca-formedit": "Editar esta páxina con un formulariu",
-	"pf-select2-no-matches": "Nun hai coincidencies",
+	"pf-autocomplete-no-matches": "Nun hai coincidencies",
 	"pf-select2-searching": "Buscando...",
 	"pf-select2-input-too-short": "Escribi $1 o más caráuteres.",
 	"pf-select2-selection-too-big": "Esti campu nun pue contener más de {{PLURAL:$1|$1 valor|$1 valores}}.",

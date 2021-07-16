@@ -271,7 +271,7 @@
 	"action-viewedittab": "veja a aba \"{{int:edit}}\" para páginas editáveis pelo formulário",
 	"action-multipageedit": "editar várias páginas usando uma planilha",
 	"tooltip-ca-formedit": "Edite esta página com um formulário",
-	"pf-select2-no-matches": "Sem correspondências",
+	"pf-autocomplete-no-matches": "Sem correspondências",
 	"pf-select2-searching": "Pesquisando...",
 	"pf-select2-input-too-short": "Por favor, insira $1 ou mais caracteres.",
 	"pf-select2-selection-too-big": "Este campo não pode conter mais do que {{PLURAL:$1|$1 valor|$1 valores}}.",

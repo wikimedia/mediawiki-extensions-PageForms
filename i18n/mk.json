@@ -257,7 +257,7 @@
 	"action-viewedittab": "приказ на јазичето „{{int:edit}}“ кај страниците уредливи со образец",
 	"action-multipageedit": "уредување на повеќе страници наеднаш со помош на таблица",
 	"tooltip-ca-formedit": "Уреди ја страницава со образец",
-	"pf-select2-no-matches": "Нема совпаѓања",
+	"pf-autocomplete-no-matches": "Нема совпаѓања",
 	"pf-select2-searching": "Пребарувам...",
 	"pf-select2-input-too-short": "Внесете $1 или повеќе знаци",
 	"pf-select2-selection-too-big": "Полево не може да содржи повеќе од {{PLURAL:$1|една вредност|$1 вредности}}.",

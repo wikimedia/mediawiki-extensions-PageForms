@@ -130,7 +130,7 @@
 	"pf_blank_namespace": "Fő",
 	"right-viewedittab": "a „{{int:edit}}” fül megjelenítése űrlappal szerkeszthető lapokon",
 	"right-editrestrictedfields": "korlátozott űrlap-mezők szerkesztése",
-	"pf-select2-no-matches": "Nincs találat",
+	"pf-autocomplete-no-matches": "Nincs találat",
 	"pf-select2-searching": "Keresés...",
 	"pf-datepicker-close": "Bezárás",
 	"pf-datepicker-prev": "Előző",

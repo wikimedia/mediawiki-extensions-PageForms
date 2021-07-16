@@ -92,7 +92,7 @@
 	"pf_blank_error": "йаьсса хила цамега",
 	"pf-preview-header": "Кепан хьалххе хьажар",
 	"pf_blank_namespace": "Коьрта",
-	"pf-select2-no-matches": "Терниш цакарий",
+	"pf-autocomplete-no-matches": "Терниш цакарий",
 	"pf-select2-searching": "Лахар…",
 	"pf-select2-input-too-short": "Дехар до, йазъе $1 йа дукха хьаьркаш",
 	"pf-select2-selection-too-big": "ХӀокху меттигехь $1 дукъа маьӀнаш хилийла дац.",
