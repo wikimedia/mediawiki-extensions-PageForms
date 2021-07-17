@@ -69,7 +69,6 @@
 		"no-useless-escape": "off",
 		"no-whitespace-before-property": "off",
 		"object-curly-spacing": "off",
-		"one-var": "off",
 		"operator-linebreak": "off",
 		"quote-props": "off",
 		"quotes": "off",
