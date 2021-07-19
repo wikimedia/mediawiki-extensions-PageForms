@@ -3,6 +3,7 @@
 		"authors": [
 			"Ch.Andrew",
 			"Cwlin0416",
+			"Emojiwiki",
 			"Gzdavidwong",
 			"Kly",
 			"LNDDYL",
@@ -138,7 +139,7 @@
 	"pf_createform_inputtype": "輸入欄位類型：",
 	"pf_createform_inputtypedefault": "(預設)",
 	"pf_createform_formlabel": "表單標籤：",
-	"pf_createform_hidden": "隱藏",
+	"pf_createform_hidden": "（已被隱藏）",
 	"pf_createform_removetemplate": "移除模板",
 	"pf_createform_addtemplate": "新增模板：",
 	"pf_createform_atend": "在最後",

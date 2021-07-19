@@ -134,7 +134,7 @@
 	"pf_createform_inputtype": "Tipus d'entrada:",
 	"pf_createform_inputtypedefault": "(per defecte)",
 	"pf_createform_formlabel": "Etiqueta de formulari:",
-	"pf_createform_hidden": "Amagat",
+	"pf_createform_hidden": "(Amagat)",
 	"pf_createform_removetemplate": "Suprimeix la plantilla",
 	"pf_createform_addtemplate": "Afegeix una plantilla:",
 	"pf_createform_atend": "Al final",

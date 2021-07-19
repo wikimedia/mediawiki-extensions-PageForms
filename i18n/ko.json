@@ -112,7 +112,7 @@
 	"pf_createform_inputtype": "입력 종류:",
 	"pf_createform_inputtypedefault": "(기본값)",
 	"pf_createform_formlabel": "양식 레이불:",
-	"pf_createform_hidden": "숨겨짐",
+	"pf_createform_hidden": "(숨김)",
 	"pf_createform_removetemplate": "틀 제거",
 	"pf_createform_addtemplate": "틀 추가:",
 	"pf_createform_atend": "끝으로",

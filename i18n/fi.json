@@ -102,7 +102,7 @@
 	"pf_createform_inputtype": "Syötetyyppi",
 	"pf_createform_inputtypedefault": "(oletus)",
 	"pf_createform_formlabel": "Lomakkeen otsikko",
-	"pf_createform_hidden": "Piilotettu",
+	"pf_createform_hidden": "(Piilotettu)",
 	"pf_createform_removetemplate": "Poista malline",
 	"pf_createform_addtemplate": "Lisää malline",
 	"pf_createform_atend": "Lopussa",

@@ -142,7 +142,7 @@
 	"pf_createform_inputtype": "Тип поля:",
 	"pf_createform_inputtypedefault": "(по умолчанию)",
 	"pf_createform_formlabel": "Метка поля:",
-	"pf_createform_hidden": "скрытая",
+	"pf_createform_hidden": "(скрытая)",
 	"pf_createform_removetemplate": "Удалить шаблон",
 	"pf_createform_addtemplate": "Добавить шаблон:",
 	"pf_createform_atend": "В конце",

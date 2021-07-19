@@ -19,7 +19,7 @@
 	"pf_forminputs_checkboxes_select_none": "Vælg ingen",
 	"pf_createform_template": "Skabelon:",
 	"pf_createform_inputtypedefault": "(standard)",
-	"pf_createform_hidden": "Skjult",
+	"pf_createform_hidden": "(Skjult)",
 	"pf_createform_removetemplate": "Fjern skabelon",
 	"pf_createform_addtemplate": "Tilføj skabelon:",
 	"pf_createform_atend": "Ved slutningen",

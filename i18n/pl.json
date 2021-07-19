@@ -105,7 +105,7 @@
 	"pf_createform_inputtype": "Podaj typ:",
 	"pf_createform_inputtypedefault": "(wartość domyślna)",
 	"pf_createform_formlabel": "Etykieta formularza:",
-	"pf_createform_hidden": "Ukryte",
+	"pf_createform_hidden": "(Ukryte)",
 	"pf_createform_removetemplate": "Usuń szablon",
 	"pf_createform_addtemplate": "Dodaj szablon:",
 	"pf_createform_atend": "Na końcu",

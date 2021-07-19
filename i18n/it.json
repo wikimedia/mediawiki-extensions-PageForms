@@ -101,7 +101,7 @@
 	"pf_createform_inputtype": "Tipo input:",
 	"pf_createform_inputtypedefault": "(predefinito)",
 	"pf_createform_formlabel": "Etcihetta del modulo:",
-	"pf_createform_hidden": "Nascosto",
+	"pf_createform_hidden": "(Nascosto)",
 	"pf_createform_removetemplate": "Rimuovi template",
 	"pf_createform_addtemplate": "Aggiungi template:",
 	"pf_createform_atend": "Alla fine:",

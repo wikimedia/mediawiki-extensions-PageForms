@@ -159,7 +159,7 @@
 	"pf_createform_inputtype": "Type d’entrée :",
 	"pf_createform_inputtypedefault": "(par défaut)",
 	"pf_createform_formlabel": "Étiquette dans le formulaire :",
-	"pf_createform_hidden": "Masqué",
+	"pf_createform_hidden": "(Masqué)",
 	"pf_createform_removetemplate": "Enlever ce modèle",
 	"pf_createform_addtemplate": "Ajouter un modèle :",
 	"pf_createform_atend": "À la fin",

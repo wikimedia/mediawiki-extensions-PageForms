@@ -142,7 +142,7 @@
 	"pf_createform_inputtype": "Tipo de entrada:",
 	"pf_createform_inputtypedefault": "(padrão)",
 	"pf_createform_formlabel": "Título do formulário:",
-	"pf_createform_hidden": "Escondido",
+	"pf_createform_hidden": "(oculto)",
 	"pf_createform_removetemplate": "Remover predefinição",
 	"pf_createform_addtemplate": "Adicionar predefinição:",
 	"pf_createform_atend": "No final",

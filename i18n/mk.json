@@ -128,7 +128,7 @@
 	"pf_createform_inputtype": "Вносен тип:",
 	"pf_createform_inputtypedefault": "(по основно)",
 	"pf_createform_formlabel": "Наслов на образецот:",
-	"pf_createform_hidden": "Скриена",
+	"pf_createform_hidden": "(Скриена)",
 	"pf_createform_removetemplate": "Отстрани предлошка",
 	"pf_createform_addtemplate": "Додај предлошка:",
 	"pf_createform_atend": "На крај",
