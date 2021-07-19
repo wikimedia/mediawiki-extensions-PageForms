@@ -469,6 +469,13 @@ END;
 			$wgPageFormsFieldNum++;
 			if ( $formField->getLabel() !== null ) {
 				$labelText = $formField->getLabel();
+				// Kind of a @HACK - for a checkbox within
+				// display=table, 'label' is used for two
+				// purposes: the label column, and the text
+				// after the checkbox. Unset the value here so
+				// that it's only used for the first purpose,
+				// and doesn't show up twice.
+				$formField->setFieldArg( 'label', '' );
 			} elseif ( $formField->getLabelMsg() !== null ) {
 				$labelText = wfMessage( $formField->getLabelMsg() )->parse();
 			} elseif ( $formField->template_field->getLabel() !== null ) {
