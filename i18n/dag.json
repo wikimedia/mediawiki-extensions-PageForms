@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Alhassan Peter"
+			"Alhassan Peter",
+			"Munkaila Sulemana"
 		]
 	},
 	"pf_createtemplate_deletefield": "Yihimi yaɣili ŋɔ bahi",
 	"pf_createtemplate_addanotherabove": "Pahi yaɣ'shɛli din gari ŋɔ",
+	"pf_createform_hidden": "(soɣabu)",
 	"pf_autoedit_confirm": "A bɔri ni a taɣila $1?"
 }
