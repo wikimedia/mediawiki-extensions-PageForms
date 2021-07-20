@@ -37,7 +37,10 @@ class PFTemplateField {
 	static function create( $name, $label, $semanticProperty = null, $isList = null, $delimiter = null, $display = null ) {
 		$f = new PFTemplateField();
 		$f->mFieldName = trim( str_replace( '\\', '', $name ) );
-		$f->mLabel = trim( str_replace( '\\', '', $label ) );
+		if ( $label !== null ) {
+			// Keep this field null if no value was set.
+			$f->mLabel = trim( str_replace( '\\', '', $label ) );
+		}
 		$f->setSemanticProperty( $semanticProperty );
 		$f->mIsList = $isList;
 		$f->mDelimiter = $delimiter;
