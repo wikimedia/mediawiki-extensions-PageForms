@@ -2800,6 +2800,14 @@
          * Update selection from coords
          */
         obj.updateSelectionFromCoords = function(x1, y1, x2, y2, origin) {
+            // =====================================
+            // Changes made for Page Forms
+            // =====================================
+            if (!obj.rows.length) {
+                return;
+            }
+            // =====================================
+            // =====================================
             // Reset Selection
             var updated = null;
             var previousState = obj.resetSelection();
@@ -5485,6 +5493,14 @@
         }
     
         obj.left = function(shiftKey, ctrlKey) {
+            // =====================================
+            // Changes made for Page Forms
+            // =====================================
+            if (obj.selectedCell == null) {
+                return;
+            }
+            // =====================================
+            // =====================================
             if (shiftKey) {
                 if (obj.selectedCell[2] > 0) {
                     obj.left.visible(1, ctrlKey ? 0 : 1)

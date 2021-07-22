@@ -15,6 +15,7 @@ const upIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement
 const downIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-downTriangle oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + 'Lower' + '"></span>';
 const deleteIcon = '<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-iconElement oo-ui-iconElement-icon oo-ui-icon-trash oo-ui-labelElement-invisible oo-ui-iconWidget" aria-disabled="false" title="' + mw.msg( 'delete' ) + '"></span>';
 const manageColumnTitle = '\u2699';
+var dataValues = [];
 
 ( function( jexcel, mw ) {
 	var baseUrl = mw.config.get( 'wgScriptPath' );
@@ -422,7 +423,6 @@ const manageColumnTitle = '\u2699';
 		var pagesData = [];
 		var myData = [];
 		var newPageNames = [];
-		var dataValues = [];
 		var modifiedDataValues = [];
 
 		if ( editMultiplePages == undefined ) {
