@@ -10,16 +10,16 @@
  * removed in jQuery 1.9.
  */
 
-function pfHideFieldsetContent(obj){
-	obj.find('div').slideUp( 'medium' );
-	obj.removeClass("pfExpandedFieldset");
-	obj.addClass("pfCollapsedFieldset");
+function pfHideFieldsetContent($obj){
+	$obj.find('div').slideUp( 'medium' );
+	$obj.removeClass("pfExpandedFieldset");
+	$obj.addClass("pfCollapsedFieldset");
 }
 
-function pfShowFieldsetContent(obj){
-	obj.find('div').slideDown( 'medium' );
-	obj.removeClass("pfCollapsedFieldset");
-	obj.addClass("pfExpandedFieldset");
+function pfShowFieldsetContent($obj){
+	$obj.find('div').slideDown( 'medium' );
+	$obj.removeClass("pfCollapsedFieldset");
+	$obj.addClass("pfExpandedFieldset");
 }
 
 jQuery.fn.pfMakeCollapsible = function(){

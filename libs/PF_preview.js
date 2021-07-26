@@ -10,7 +10,7 @@
 
 	'use strict';
 
-	var form;
+	var $form;
 	var $previewpane;
 	var previewHeight;
 
@@ -158,7 +158,7 @@
 		}
 
 		// add form values to the data
-		data.query = form.serialize();
+		data.query = $form.serialize();
 
 		if ( data.query.length > 0 ) {
 			data.query += '&';
@@ -183,7 +183,7 @@
 	 */
 	$.fn.pfAjaxPreview = function () {
 
-		form = this.closest( 'form' );
+		$form = this.closest( 'form' );
 		$previewpane = $( '#wikiPreview' );
 
 		// do some sanity checks

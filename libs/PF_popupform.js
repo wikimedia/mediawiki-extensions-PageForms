@@ -52,19 +52,19 @@ window.ext.popupform = ( function () {
 
 	var padding = 20;
 	var reload;
-	function fadeOut(elem, callback ) {
+	function fadeOut($elem, callback ) {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
-			elem.hide();
+			$elem.hide();
 			if ( callback ) {
 				callback();
 			}
 		} else {
 			// what an ugly hack
-			if ( elem === $waitIndicator ) {
-				elem.fadeOut( 200, callback );
+			if ( $elem === $waitIndicator ) {
+				$elem.fadeOut( 200, callback );
 			} else {
-				elem.fadeOut( callback );
+				$elem.fadeOut( callback );
 			}
 		}
 	}
@@ -85,7 +85,6 @@ window.ext.popupform = ( function () {
 		// FIXME: these might not be the true values
 		var scrollW = 25;
 		var scrollH = 25;
-
 
 		// find the dimensions of the document
 
@@ -315,28 +314,28 @@ window.ext.popupform = ( function () {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
 
-			elem.show();
+			$elem.show();
 			if ( callback ) {
 				callback();
 			}
 		} else {
 			// what an ugly hack
-			if ( elem === $waitIndicator ) {
-				elem.fadeIn( 200, callback );
+			if ( $elem === $waitIndicator ) {
+				$elem.fadeIn( 200, callback );
 			} else {
-				elem.fadeIn( callback );
+				$elem.fadeIn( callback );
 			}
 		}
 	}
 
-	function fadeTo(elem, time, target, callback) {
+	function fadeTo($elem, time, target, callback) {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
 
 			if (target > 0) {
-				elem[0].style.visibility = "visible";
+				$elem[0].style.visibility = "visible";
 			} else {
-				elem[0].style.visibility = "hidden";
+				$elem[0].style.visibility = "hidden";
 			}
 
 			if ( callback ) {
@@ -344,7 +343,7 @@ window.ext.popupform = ( function () {
 			}
 
 		} else {
-			elem.fadeTo(time, target, callback);
+			$elem.fadeTo(time, target, callback);
 		}
 	}
 
@@ -572,7 +571,7 @@ window.ext.popupform = ( function () {
 
 		// The huge left margin looks ugly in Vector - reduce it.
 		// (How does this look for other skins?)
-		var siblings = $content
+		var $siblings = $content
 		.css( {
 			margin: 0,
 			padding: padding,
@@ -605,7 +604,7 @@ window.ext.popupform = ( function () {
 		$iframedoc.height('100%').width('100%');
 		$iframebody.height('100%').width('100%');
 
-		siblings.each( function(){
+		$siblings.each( function(){
 			var $elem = jQuery(this);
 
 			// TODO: Does this really help?

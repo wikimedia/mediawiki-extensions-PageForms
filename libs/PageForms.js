@@ -95,11 +95,11 @@ $.fn.PageForms_registerInputInit = function( initFunction, param, noexecute ) {
 	// execute initialization if input is not part of multipleTemplateStarter
 	// and if not forbidden
 	if ( this.closest(".multipleTemplateStarter").length === 0 && !noexecute) {
-		var input = this;
+		var $input = this;
 		// ensure initFunction is only executed after doc structure is complete
 		$(function() {
 			if ( initFunction !== undefined ) {
-				initFunction ( input.attr("id"), param );
+				initFunction ( $input.attr("id"), param );
 			}
 		});
 	}
@@ -140,11 +140,11 @@ $.fn.PageForms_unregisterInputInit = function() {
  */
 
 // Display a div that would otherwise be hidden by "show on select".
-function showDiv( div_id, instanceWrapperDiv, initPage ) {
+function showDiv( div_id, $instanceWrapperDiv, initPage ) {
 	var speed = initPage ? 0 : 'fast';
 	var $elem;
-	if ( instanceWrapperDiv !== null ) {
-		$elem = $('[data-origID="' + div_id + '"]', instanceWrapperDiv);
+	if ( $instanceWrapperDiv !== null ) {
+		$elem = $('[data-origID="' + div_id + '"]', $instanceWrapperDiv);
 	} else {
 		$elem = $('#' + div_id);
 	}
@@ -177,7 +177,7 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 	$elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
 		var $uncoveredInput = $(this);
 		var uncoveredInputID = null;
-		if ( instanceWrapperDiv === null ) {
+		if ( $instanceWrapperDiv === null ) {
 			uncoveredInputID = $uncoveredInput.attr("id");
 		} else {
 			uncoveredInputID = $uncoveredInput.attr("data-origID");
@@ -190,9 +190,9 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 				var options = showOnSelectVals[i][0];
 				var div_id2 = showOnSelectVals[i][1];
 				if ( $uncoveredInput.hasClass( 'pfShowIfSelected' ) ) {
-					showDivIfSelected( options, div_id2, inputVal, instanceWrapperDiv, initPage );
+					showDivIfSelected( options, div_id2, inputVal, $instanceWrapperDiv, initPage );
 				} else {
-					$uncoveredInput.showDivIfChecked( options, div_id2, instanceWrapperDiv, initPage );
+					$uncoveredInput.showDivIfChecked( options, div_id2, $instanceWrapperDiv, initPage );
 				}
 			}
 		}
@@ -201,7 +201,7 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 
 // Hide a div due to "show on select". The CSS class is there so that PF can
 // ignore the div's contents when the form is submitted.
-function hideDiv( div_id, instanceWrapperDiv, initPage ) {
+function hideDiv( div_id, $instanceWrapperDiv, initPage ) {
 	var speed = initPage ? 0 : 'fast';
 	var $elem;
 	// IDs can't contain spaces, and jQuery won't work with such IDs - if
@@ -212,8 +212,8 @@ function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 		alert( "Warning: this form has \"show on select\" pointing to an invalid element ID (\"" + div_id + "\") - IDs in HTML cannot contain spaces." );
 	}
 
-	if ( instanceWrapperDiv !== null ) {
-		$elem = instanceWrapperDiv.find('[data-origID=' + div_id + ']');
+	if ( $instanceWrapperDiv !== null ) {
+		$elem = $instanceWrapperDiv.find('[data-origID=' + div_id + ']');
 	} else {
 		$elem = $('#' + div_id);
 	}
@@ -246,7 +246,7 @@ function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
 	$elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
 		var showOnSelectVals;
-		if ( instanceWrapperDiv === null ) {
+		if ( $instanceWrapperDiv === null ) {
 			showOnSelectVals = wgPageFormsShowOnSelect[$(this).attr("id")];
 		} else {
 			showOnSelectVals = wgPageFormsShowOnSelect[$(this).attr("data-origID")];
@@ -256,7 +256,7 @@ function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 			for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 				//var options = showOnSelectVals[i][0];
 				var div_id2 = showOnSelectVals[i][1];
-				hideDiv( div_id2, instanceWrapperDiv, initPage );
+				hideDiv( div_id2, $instanceWrapperDiv, initPage );
 			}
 		}
 	});
@@ -264,17 +264,17 @@ function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 
 // Show this div if the current value is any of the relevant options -
 // otherwise, hide it.
-function showDivIfSelected(options, div_id, inputVal, instanceWrapperDiv, initPage) {
+function showDivIfSelected(options, div_id, inputVal, $instanceWrapperDiv, initPage) {
 	for ( var i = 0; i < options.length; i++ ) {
 		// If it's a listbox and the user has selected more than one
 		// value, it'll be an array - handle either case.
 		if (($.isArray(inputVal) && $.inArray(options[i], inputVal) >= 0) ||
 			(!$.isArray(inputVal) && (inputVal === options[i]))) {
-			showDiv( div_id, instanceWrapperDiv, initPage );
+			showDiv( div_id, $instanceWrapperDiv, initPage );
 			return;
 		}
 	}
-	hideDiv( div_id, instanceWrapperDiv, initPage );
+	hideDiv( div_id, $instanceWrapperDiv, initPage );
 }
 
 // Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
@@ -282,21 +282,21 @@ $.fn.showIfSelected = function(partOfMultiple, initPage) {
 	var inputVal = this.val(),
 		wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
-		instanceWrapperDiv;
+		$instanceWrapperDiv;
 
 	if ( partOfMultiple ) {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];
-		instanceWrapperDiv = this.closest('.multipleTemplateInstance');
+		$instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	} else {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
-		instanceWrapperDiv = null;
+		$instanceWrapperDiv = null;
 	}
 
 	if ( showOnSelectVals !== undefined ) {
 		for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
 			var div_id = showOnSelectVals[i][1];
-			showDivIfSelected( options, div_id, inputVal, instanceWrapperDiv, initPage );
+			showDivIfSelected( options, div_id, inputVal, $instanceWrapperDiv, initPage );
 		}
 	}
 
@@ -305,14 +305,14 @@ $.fn.showIfSelected = function(partOfMultiple, initPage) {
 
 // Show this div if any of the relevant selections are checked -
 // otherwise, hide it.
-$.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initPage ) {
+$.fn.showDivIfChecked = function(options, div_id, $instanceWrapperDiv, initPage ) {
 	for ( var i = 0; i < options.length; i++ ) {
 		if ($(this).find('[value="' + options[i] + '"]').is(":checked")) {
-			showDiv( div_id, instanceWrapperDiv, initPage );
+			showDiv( div_id, $instanceWrapperDiv, initPage );
 			return this;
 		}
 	}
-	hideDiv( div_id, instanceWrapperDiv, initPage );
+	hideDiv( div_id, $instanceWrapperDiv, initPage );
 
 	return this;
 };
@@ -322,22 +322,22 @@ $.fn.showDivIfChecked = function(options, div_id, instanceWrapperDiv, initPage )
 $.fn.showIfChecked = function(partOfMultiple, initPage) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
-		instanceWrapperDiv,
+		$instanceWrapperDiv,
 		i;
 
 	if ( partOfMultiple ) {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];
-		instanceWrapperDiv = this.closest('.multipleTemplateInstance');
+		$instanceWrapperDiv = this.closest('.multipleTemplateInstance');
 	} else {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("id")];
-		instanceWrapperDiv = null;
+		$instanceWrapperDiv = null;
 	}
 
 	if ( showOnSelectVals !== undefined ) {
 		for ( i = 0; i < showOnSelectVals.length; i++ ) {
 			var options = showOnSelectVals[i][0];
 			var div_id = showOnSelectVals[i][1];
-			this.showDivIfChecked( options, div_id, instanceWrapperDiv, initPage );
+			this.showDivIfChecked( options, div_id, $instanceWrapperDiv, initPage );
 		}
 	}
 
@@ -348,23 +348,23 @@ $.fn.showIfChecked = function(partOfMultiple, initPage) {
 $.fn.showIfCheckedCheckbox = function( partOfMultiple, initPage ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		divIDs,
-		instanceWrapperDiv,
+		$instanceWrapperDiv,
 		i;
 
 	if (partOfMultiple) {
 		divIDs = wgPageFormsShowOnSelect[this.attr("data-origID")];
-		instanceWrapperDiv = this.closest(".multipleTemplateInstance");
+		$instanceWrapperDiv = this.closest(".multipleTemplateInstance");
 	} else {
 		divIDs = wgPageFormsShowOnSelect[this.attr("id")];
-		instanceWrapperDiv = null;
+		$instanceWrapperDiv = null;
 	}
 
 	for ( i = 0; i < divIDs.length; i++ ) {
 		var divID = divIDs[i];
 		if ($(this).find('[value]').is(":checked")) {
-			showDiv( divID, instanceWrapperDiv, initPage );
+			showDiv( divID, $instanceWrapperDiv, initPage );
 		} else {
-			hideDiv( divID, instanceWrapperDiv, initPage );
+			hideDiv( divID, $instanceWrapperDiv, initPage );
 		}
 	}
 
@@ -575,8 +575,8 @@ $.fn.validateUniqueField = function() {
 };
 
 $.fn.validateMandatoryComboBox = function() {
-	var combobox = this.find('.mandatoryField');
-	if (combobox.val() === null || combobox.val() === '') {
+	var $combobox = this.find('.mandatoryField');
+	if ($combobox.val() === null || $combobox.val() === '') {
 		this.addErrorMessage( 'pf_blank_error' );
 		return false;
 	} else {
@@ -1029,22 +1029,22 @@ var num_elements = 0;
 $.fn.addInstance = function( addAboveCurInstance ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
 	var wgPageFormsHeightForMinimizingInstances = mw.config.get( 'wgPageFormsHeightForMinimizingInstances' );
-	var wrapper = this.closest(".multipleTemplateWrapper");
-	var multipleTemplateList = wrapper.find('.multipleTemplateList');
+	var $wrapper = this.closest(".multipleTemplateWrapper");
+	var $multipleTemplateList = $wrapper.find('.multipleTemplateList');
 
 	// If the nubmer of instances is already at the maximum allowed,
 	// exit here.
-	if ( multipleTemplateList.isAtMaxInstances() ) {
+	if ( $multipleTemplateList.isAtMaxInstances() ) {
 		return false;
 	}
 
 	if ( wgPageFormsHeightForMinimizingInstances >= 0 ) {
-		if ( ! multipleTemplateList.hasClass('minimizeAll') &&
-			multipleTemplateList.height() >= wgPageFormsHeightForMinimizingInstances ) {
-			multipleTemplateList.addClass('minimizeAll');
+		if ( ! $multipleTemplateList.hasClass('minimizeAll') &&
+			$multipleTemplateList.height() >= wgPageFormsHeightForMinimizingInstances ) {
+			$multipleTemplateList.addClass('minimizeAll');
 		}
-		if ( multipleTemplateList.hasClass('minimizeAll') ) {
-			multipleTemplateList
+		if ( $multipleTemplateList.hasClass('minimizeAll') ) {
+			$multipleTemplateList
 				.addClass('currentFocus')
 				.possiblyMinimizeAllOpenInstances();
 		}
@@ -1054,7 +1054,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	num_elements++;
 
 	// Create the new instance
-	var new_div = wrapper
+	var $new_div = $wrapper
 		.find(".multipleTemplateStarter")
 		.clone()
 		.removeClass('multipleTemplateStarter')
@@ -1071,10 +1071,10 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	// of any divs and spans (presumably, these exist only for the
 	// sake of "show on select"). We do the deletions because no two
 	// elements on the page are allowed to have the same ID.
-	new_div.find('[id!=""]').attr('data-origID', function() { return this.id; });
-	new_div.find('div[id!=""], span[id!=""]').removeAttr('id');
+	$new_div.find('[id!=""]').attr('data-origID', function() { return this.id; });
+	$new_div.find('div[id!=""], span[id!=""]').removeAttr('id');
 
-	new_div.find('.hiddenByPF')
+	$new_div.find('.hiddenByPF')
 	.removeClass('hiddenByPF')
 
 	.find('.disabledByPF')
@@ -1083,7 +1083,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 
 	// Make internal ID unique for the relevant form elements, and replace
 	// the [num] index in the element names with an actual unique index
-	new_div.find("input, select, textarea").each(
+	$new_div.find("input, select, textarea").each(
 		function() {
 			// Add in a 'b' at the end of the name to reduce the
 			// chance of name collision with another field
@@ -1145,32 +1145,32 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	);
 
 	// datepicker and datetimepicker inputs require special handling.
-	new_div.find("div.pfPicker").attr('data-ooui', function() {
+	$new_div.find("div.pfPicker").attr('data-ooui', function() {
 		return $(this).attr('data-ooui').replace(/\[num\]/g, '[' + num_elements + 'b]');
 	});
 
-	new_div.find('a').attr('href', function() {
+	$new_div.find('a').attr('href', function() {
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
 
-	new_div.find('span').attr('id', function() {
+	$new_div.find('span').attr('id', function() {
 		return this.id.replace(/span_/g, 'span_' + num_elements + '_');
 	});
 
 	// Add the new instance.
 	if ( addAboveCurInstance ) {
-		new_div.insertBefore(this.closest(".multipleTemplateInstance"))
+		$new_div.insertBefore(this.closest(".multipleTemplateInstance"))
 			.hide().fadeIn();
 	} else {
 		this.closest(".multipleTemplateWrapper")
 			.find(".multipleTemplateList")
-			.append(new_div.hide().fadeIn());
+			.append($new_div.hide().fadeIn());
 	}
 
-	new_div.initializeJSElements(true);
+	$new_div.initializeJSElements(true);
 
 	// Initialize new inputs.
-	new_div.find("input, select, textarea").each( function() {
+	$new_div.find("input, select, textarea").each( function() {
 		if ( ! this.id ) {
 			return;
 		}
@@ -1211,7 +1211,7 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 
 	// Hook that fires each time a new template instance is added.
 	// The first parameter is a jQuery selection of the newly created instance div.
-	mw.hook('pf.addTemplateInstance').fire(new_div);
+	mw.hook('pf.addTemplateInstance').fire($new_div);
 };
 
 // The first argument is needed, even though it's an attribute of the element
@@ -1305,7 +1305,7 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 		if ( $element.hasClass( 'pfTokens' ) ) {
 			tokens = new pf.select2.tokens();
-			tokens.refresh($element);
+			tokens.refresh(element);
 		} else {
 			$element.setDependentAutocompletion(dependentField, name, curValue);
 		}
@@ -1496,19 +1496,19 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		$(this).append( tooltip.$element )
 	});
 
-	var myThis = this;
+	var $myThis = this;
 	if ( $.fn.applyVisualEditor ) {
 		if ( partOfMultiple ) {
-			myThis.find(".visualeditor").applyVisualEditor();
+			$myThis.find(".visualeditor").applyVisualEditor();
 		} else {
-			myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
+			$myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
 		}
 	} else {
 		$(document).on('VEForAllLoaded', function(e) {
 			if ( partOfMultiple ) {
-				myThis.find(".visualeditor").applyVisualEditor();
+				$myThis.find(".visualeditor").applyVisualEditor();
 			} else {
-				myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
+				$myThis.find(".visualeditor").not(".multipleTemplateWrapper .visualeditor").applyVisualEditor();
 			}
 		});
 	}
@@ -1516,22 +1516,22 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	// @TODO - this should be in the TinyMCE extension, and use a hook.
 	if ( typeof( mwTinyMCEInit ) === 'function' ) {
 		if ( partOfMultiple ) {
-			myThis.find(".tinymce").each( function() {
+			$myThis.find(".tinymce").each( function() {
 				mwTinyMCEInit( '#' + $(this).attr('id') );
 			});
 		} else {
-			myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
+			$myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
 				mwTinyMCEInit( '#' + $(this).attr('id') );
 			});
 		}
 	} else {
 		$(document).on('TinyMCELoaded', function(e) {
 			if ( partOfMultiple ) {
-				myThis.find(".tinymce").each( function() {
+				$myThis.find(".tinymce").each( function() {
 					mwTinyMCEInit( '#' + $(this).attr('id') );
 				});
 			} else {
-				myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
+				$myThis.find(".tinymce").not(".multipleTemplateWrapper .tinymce").each( function() {
 					mwTinyMCEInit( '#' + $(this).attr('id') );
 				});
 			}
@@ -1656,40 +1656,40 @@ $(document).ready( function() {
 // try to avoid a click on a popup, like the "Upload file" window, minimizing
 // the current open instance.
 $('form#pfForm').click( function(e) {
-	var target = $(e.target);
+	var $target = $(e.target);
 	// Ignore the "add instance" buttons - those get handling of their own.
-	var clickedOnAddAnother = target.parents('.multipleTemplateAdder').length > 0;
-	if ( clickedOnAddAnother || target.hasClass('addAboveButton') ) {
+	var clickedOnAddAnother = $target.parents('.multipleTemplateAdder').length > 0;
+	if ( clickedOnAddAnother || $target.hasClass('addAboveButton') ) {
 		return;
 	}
 
-	var instance = target.closest('.multipleTemplateInstance');
-	if ( instance === null ) {
+	var $instance = $target.closest('.multipleTemplateInstance');
+	if ( $instance === null ) {
 		$('.multipleTemplateList.currentFocus')
 			.removeClass('currentFocus')
 			.possiblyMinimizeAllOpenInstances();
 		return;
 	}
 
-	var instancesList = instance.closest('.multipleTemplateList');
-	if ( !instancesList.hasClass('currentFocus') ) {
+	var $instancesList = $instance.closest('.multipleTemplateList');
+	if ( !$instancesList.hasClass('currentFocus') ) {
 		$('.multipleTemplateList.currentFocus')
 			.removeClass('currentFocus')
 			.possiblyMinimizeAllOpenInstances();
-		if ( instancesList.hasClass('minimizeAll') ) {
-			instancesList.addClass('currentFocus');
+		if ( $instancesList.hasClass('minimizeAll') ) {
+			$instancesList.addClass('currentFocus');
 		}
 	}
 
-	if ( instance.hasClass('minimized') ) {
-		instancesList.possiblyMinimizeAllOpenInstances();
-		instance.removeClass('minimized');
-		instance.find('.fieldValuesDisplay').html('');
-		instance.find('.instanceMain').fadeIn();
-		instance.find('.fieldValuesDisplay').remove();
+	if ( $instance.hasClass('minimized') ) {
+		$instancesList.possiblyMinimizeAllOpenInstances();
+		$instance.removeClass('minimized');
+		$instance.find('.fieldValuesDisplay').html('');
+		$instance.find('.instanceMain').fadeIn();
+		$instance.find('.fieldValuesDisplay').remove();
 		// Remove unhelpful styling added by VisualEditor.
-		instance.find('div.oo-ui-toolbar-bar').css('left', null);
-		instance.find('div.oo-ui-toolbar-bar').css('right', null);
+		$instance.find('div.oo-ui-toolbar-bar').css('left', null);
+		$instance.find('div.oo-ui-toolbar-bar').css('right', null);
 	}
 });
 
