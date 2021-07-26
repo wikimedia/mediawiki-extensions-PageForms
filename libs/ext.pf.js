@@ -17,7 +17,7 @@ window.pf = ( function ( $, undefined ) {
 	 * namespace.
 	 *
 	 * @class pf
-	 * @alternateClassName pageforms
+	 * @classdesc alternateClassName pageforms
 	 * @singleton
 	 */
 	return {

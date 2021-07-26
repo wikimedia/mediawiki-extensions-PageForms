@@ -73,19 +73,19 @@
 			return;
 		}
 
-		var jtrigger = jQuery( this );
-		var jautoedit = jtrigger.closest( '.autoedit' );
+		var $jtrigger = jQuery( this );
+		var jautoedit = $jtrigger.closest( '.autoedit' );
 		var jeditdata = jautoedit.find( 'form.autoedit-data' );
 		var targetpage = jeditdata.find( 'input[name=target]' ).val();
 		var confirmEdit = jeditdata.hasClass( 'confirm-edit' );
 		if ( confirmEdit ) {
 			OO.ui.confirm( mw.msg( 'pf_autoedit_confirm', targetpage ) ).done( confirmed => {
 				if ( confirmed ) {
-					sendData( jtrigger );
+					sendData( $jtrigger );
 				}
 			})
 		} else {
-			sendData( jtrigger );
+			sendData( $jtrigger );
 		}
 	};
 

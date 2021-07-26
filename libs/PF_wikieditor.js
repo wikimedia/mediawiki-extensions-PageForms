@@ -11,7 +11,7 @@ window.ext.wikieditor = {
 	init : function init ( inputId, params ) {
 		$( function() {
 			if ( mw ) {
-				var input = $( '#' + inputId );
+				var $input = $( '#' + inputId );
 
 				// The code below this "if" clause does not
 				// work for MW 1.34 and higher. Therefore, this
@@ -25,27 +25,28 @@ window.ext.wikieditor = {
 				// https://github.com/Nikerabbit/mediawiki-extensions-WikiEditor/commit/9a1188d0850418d8ae64bd06b7f39d9a8cbf127f
 				if ( typeof( mw.addWikiEditor ) == 'function' ) {
 					mw.loader.using( [ 'ext.wikiEditor' ], function () {
-						mw.addWikiEditor( input );
+						mw.addWikiEditor( $input );
 					} );
 					return;
 				}
-
+				var toolbarmodules,
+					dialogmodules;
 				if ( mw.config.values.wgVersion < "1.33" ) {
-					var toolbarmodules = [ 'jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config' ];
-					var dialogmodules = [ 'jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config' ];
+					toolbarmodules = [ 'jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config' ];
+					dialogmodules = [ 'jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config' ];
 				} else {
-					var toolbarmodules = [ 'ext.wikiEditor' ];
-					var dialogmodules = [ 'ext.wikiEditor' ];
+					toolbarmodules = [ 'ext.wikiEditor' ];
+					dialogmodules = [ 'ext.wikiEditor' ];
 				}
 
 				// load toolbar
 				$.when( mw.loader.using( toolbarmodules ), $.ready ).then( function() {
 					if ( typeof $.wikiEditor.isSupported !== 'function' || $.wikiEditor.isSupported( $.wikiEditor.modules.toolbar ) ) {
-						input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
+						$input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
 
 						// hide sig if required
 						if ( mw.config.get( 'wgWikiEditorEnabledModules' ) && mw.config.get( 'wgWikiEditorEnabledModules.hidesig' ) === true ) {
-							input.wikiEditor( 'removeFromToolbar', {
+							$input.wikiEditor( 'removeFromToolbar', {
 								'section': 'main',
 								'group': 'insert',
 								'tool': 'signature'
@@ -57,8 +58,8 @@ window.ext.wikieditor = {
 				// load dialogs
 				$.when( mw.loader.using( dialogmodules ), $.ready ).then( function() {
 					if ( typeof $.wikiEditor.isSupported !== 'function' || $.wikiEditor.isSupported( $.wikiEditor.modules.dialogs ) ) {
-						$.wikiEditor.modules.dialogs.config.replaceIcons( input );
-						input.wikiEditor( 'addModule', $.wikiEditor.modules.dialogs.config.getDefaultConfig() );
+						$.wikiEditor.modules.dialogs.config.replaceIcons( $input );
+						$input.wikiEditor( 'addModule', $.wikiEditor.modules.dialogs.config.getDefaultConfig() );
 					}
 				} );
 			}

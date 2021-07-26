@@ -14,7 +14,7 @@
  * "Destination filename" input when a file is specified. Still, that's the
  * most important thing.
  *
- * @TODO - figure out how to get the real upload JS code to work within the
+ * @todo - figure out how to get the real upload JS code to work within the
  * window, in one way or another.
  */
 

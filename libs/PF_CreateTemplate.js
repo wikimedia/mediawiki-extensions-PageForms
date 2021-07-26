@@ -25,40 +25,40 @@ function toggleCargoInputs() {
 
 jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 	fieldNum++;
-	var newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
-	var newHTML = newField.html().replace(/starter/g, fieldNum);
-	newField.html( newHTML );
-	newField.find( ".removeButton" ).click( function () {
+	var $newField = jQuery( '#starterField' ).clone().css( 'display', '' ).removeAttr( 'id' );
+	var newHTML = $newField.html().replace(/starter/g, fieldNum);
+	$newField.html( newHTML );
+	$newField.find( ".removeButton" ).click( function () {
 		// Remove the encompassing div for this instance.
 		$( this ).closest( ".fieldBox" )
 			.fadeOut( 'fast', function () {
 				jQuery(this).remove();
 			} );
 	} );
-	newField.find( ".addAboveButton" ).click( function() {
+	$newField.find( ".addAboveButton" ).click( function() {
 		$( this ).createTemplateAddField( true );
 	} );
-	newField.find( ".isList" ).click( function () {
+	$newField.find( ".isList" ).click( function () {
 		$( this ).closest( ".fieldBox" ).find( ".delimiter" ).toggle();
 	} );
-	newField.find( ".is_hierarchy" ).click( function () {
+	$newField.find( ".is_hierarchy" ).click( function () {
 		toggleHierarchyInput($( this ).closest( ".fieldBox" ));
 	} );
-	newField.find( ".hierarchy_structure" ).click( function () {
+	$newField.find( ".hierarchy_structure" ).click( function () {
 		if ($( this ).attr( 'validInput' ) === undefined || $( this ).attr( 'validInput' ) !== 'true') {
 			removeHierarchyPlaceholder( jQuery( this ) );
 		}
 	} );
-	newField.find( ".hierarchy_structure" ).blur( function () {
+	$newField.find( ".hierarchy_structure" ).blur( function () {
 		setHierarchyPlaceholder( $( this ) );
 	} );
 	var combobox = new pf.ComboBoxInput();
-	combobox.apply( $( newField.find( '.pfComboBox' ) ) );
+	combobox.apply( $( $newField.find( '.pfComboBox' ) ) );
 	if ( addAboveCurInstance ){
-		newField.insertBefore(this.closest(".fieldBox"))
+		$newField.insertBefore(this.closest(".fieldBox"))
                         .hide().fadeIn();
 	} else {
-		jQuery( '#fieldsList' ).append( newField.hide().fadeIn() );
+		jQuery( '#fieldsList' ).append( $newField.hide().fadeIn() );
 	}
 }
 
@@ -114,9 +114,9 @@ function removeHierarchyPlaceholder( textareaElement ) {
 }
 
 function validateHierarchyStructure() {
-	var hierarchyTextAreas = jQuery("textarea[name*='hierarchy_structure_']");
-	for (var i = 0; i < hierarchyTextAreas.length; i++) {
-		var structure = hierarchyTextAreas[i].value.trim();
+	var $hierarchyTextAreas = jQuery("textarea[name*='hierarchy_structure_']");
+	for (var i = 0; i < $hierarchyTextAreas.length; i++) {
+		var structure = $hierarchyTextAreas[i].value.trim();
 		if (structure !== "") {
 			var nodes = structure.split(/\n/);
 			var matches = nodes[0].match(/^([*]*)[^*]*/i);

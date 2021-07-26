@@ -11,13 +11,14 @@ function setupMapFormInput( inputDiv, mapService ) {
 	 * Round off a number to five decimal places - that's the most
 	 * we need for coordinates, one would think.
 	 *
-	 * @param num
+	 * @param {Mixed} num
+	 * @return {Mixed}
 	 */
 	function pfRoundOffDecimal( num ) {
 		return Math.round( num * 100000 ) / 100000;
 	}
 
-	var map, marker, markers, mapCanvas, mapOptions;
+	var map, marker, markers, mapCanvas, mapOptions, geocoder;
 	var numClicks = 0, timer = null;
 
 	var coordsInput = inputDiv.find('.pfCoordsInput');
@@ -94,7 +95,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			center: new google.maps.LatLng( 0, 0 )
 		};
 		map = new google.maps.Map( mapCanvas, mapOptions );
-		var geocoder = new google.maps.Geocoder();
+		geocoder = new google.maps.Geocoder();
 
 		// Let a click set the marker, while keeping the default
 		// behavior (zoom and center) for double clicks.
@@ -136,7 +137,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			}
 		});
 	} else { // if ( mapService == "OpenLayers" ) {
-		var mapCanvas = inputDiv.find('.pfMapCanvas');
+		mapCanvas = inputDiv.find('.pfMapCanvas');
 		var mapCanvasID = mapCanvas.attr('id');
 		if ( mapCanvasID === undefined ) {
 			// If no ID is set, it's probably in a multiple-
@@ -180,10 +181,10 @@ function setupMapFormInput( inputDiv, mapService ) {
 		} );
 	}
 
-	function toOpenLayersLonLat( map, lat, lon ) {
+	function toOpenLayersLonLat( maps, lat, lon ) {
 		return new OpenLayers.LonLat( lon, lat ).transform(
 			new OpenLayers.Projection( "EPSG:4326" ), // transform from WGS 1984
-			map.getProjectionObject() // to Spherical Mercator Projection
+			maps.getProjectionObject() // to Spherical Mercator Projection
 		);
 	}
 
@@ -235,22 +236,22 @@ function setupMapFormInput( inputDiv, mapService ) {
 	coordsInput.keydown( function( e ) {
 		if ( ! coordsInput.hasClass( 'modifiedInput' ) ) {
 			coordsInput.addClass( 'modifiedInput' );
-			var checkMark = $('<a></a>').addClass( 'pfCoordsCheckMark' ).css( 'color', 'green' ).html( '&#10004;' );
-			var xMark = $('<a></a>').addClass( 'pfCoordsX' ).css( 'color', 'red' ).html( '&#10008;' );
-			var marksDiv = $('<span></span>').addClass( 'pfCoordsInputHelpers' )
-				.append( checkMark ).append( ' ' ).append( xMark );
-			coordsInput.parent().append( marksDiv );
+			var $checkMark = $('<a></a>').addClass( 'pfCoordsCheckMark' ).css( 'color', 'green' ).html( '&#10004;' );
+			var $xMark = $('<a></a>').addClass( 'pfCoordsX' ).css( 'color', 'red' ).html( '&#10008;' );
+			var $marksDiv = $('<span></span>').addClass( 'pfCoordsInputHelpers' )
+				.append( $checkMark ).append( ' ' ).append( $xMark );
+			coordsInput.parent().append( $marksDiv );
 
-			checkMark.click( function() {
+			$checkMark.click( function() {
 				setMarkerFromCoordinates();
 				coordsInput.removeClass( 'modifiedInput' );
-				marksDiv.remove();
+				$marksDiv.remove();
 			});
 
-			xMark.click( function() {
+			$xMark.click( function() {
 				coordsInput.removeClass( 'modifiedInput' )
 					.val( coordsInput.attr('data-original-value') );
-				marksDiv.remove();
+				$marksDiv.remove();
 			});
 		}
 	});

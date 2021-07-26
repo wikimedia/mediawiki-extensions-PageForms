@@ -47,31 +47,31 @@
 	};
 
 	TreeInput_proto.check = function( data ) {
-		var input = $(this.element).next('input.PFTree_data');
+		var $input = $(this.element).next('input.PFTree_data');
 
 		if ( this.multiple ) {
 			this.values.push( data );
 			var data_string = this.values.join( this.delimiter );
-			input.attr( 'value', data_string );
+			$input.attr( 'value', data_string );
 		} else {
 			this.values.push( data );
-			input.attr('value', data);
+			$input.attr('value', data);
 		}
 	};
 
 	TreeInput_proto.uncheck = function( data ) {
-		var input = $( this.element ).next( 'input.PFTree_data' );
+		var $input = $( this.element ).next( 'input.PFTree_data' );
 
 		this.values.splice( this.values.indexOf( data ), 1 );
 		var data_string = this.values.join( this.delimiter );
-		input.attr( 'value', data_string );
+		$input.attr( 'value', data_string );
 	};
 
 	TreeInput_proto.setCurValue = function () {
 		if ( this.cur_value !== null && this.cur_value !== undefined && this.cur_value !== "" ) {
-			var input = $( this.element ).next( 'input.PFTree_data' );
+			var $input = $( this.element ).next( 'input.PFTree_data' );
 
-			input.attr( 'value', this.cur_value );
+			$input.attr( 'value', this.cur_value );
 			this.values = this.cur_value.split( this.delimiter );
 		}
 	};

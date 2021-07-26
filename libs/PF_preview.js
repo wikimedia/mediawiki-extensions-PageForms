@@ -11,30 +11,32 @@
 	'use strict';
 
 	var form;
-	var previewpane;
+	var $previewpane;
 	var previewHeight;
 
 	/**
 	 * Called when the content is loaded into the preview pane
+	 *
+	 * @return {Mixed}
 	 */
 	var loadFrameHandler = function handleLoadFrame() {
 
-		var iframe = $( this );
-		var iframecontents = iframe.contents();
+		var $iframe = $( this );
+		var $iframecontents = $iframe.contents();
 
 		// find div containing the preview
-		var content = iframecontents.find( '#wikiPreview' );
+		var $content = $iframecontents.find( '#wikiPreview' );
 
-		var iframebody = content.closest( 'body' );
-		var iframedoc = iframebody.parent();
-		iframedoc.height( 'auto' );
+		var $iframebody = $content.closest( 'body' );
+		var $iframedoc = $iframebody.parent();
+		$iframedoc.height( 'auto' );
 
 		// this is not a normal MW page (or it uses an unknown skin)
-		if ( content.length === 0 ) {
-			content = iframebody;
+		if ( $content.length === 0 ) {
+			$content = $iframebody;
 		}
 
-		content.parentsUntil( 'html' ).andSelf()
+		$content.parentsUntil( 'html' ).andBack()
 		.css( {
 			margin: 0,
 			padding: 0,
@@ -52,19 +54,19 @@
 		// and attach event handler to adjust frame size every time the window
 		// size changes
 		$( window ).resize( function () {
-			iframe.height( iframedoc.height() );
+			$iframe.height( $iframedoc.height() );
 		} );
 
-		previewpane.show();
+		$previewpane.show();
 
-		var newPreviewHeight = iframedoc.height();
+		var newPreviewHeight = $iframedoc.height();
 
-		iframe.height( newPreviewHeight );
+		$iframe.height( newPreviewHeight );
 
 		$( 'html, body' )
 		.scrollTop( $( 'html, body' ).scrollTop() + newPreviewHeight - previewHeight )
 		.animate( {
-			scrollTop: previewpane.offset().top
+			scrollTop: $previewpane.offset().top
 		}, 1000 );
 
 		previewHeight = newPreviewHeight;
@@ -79,20 +81,20 @@
 	/**
 	 * Called when the server has sent the preview
 	 *
-	 * @param result
+	 * @param {Mixed} result
 	 */
 	var resultReceivedHandler = function handleResultReceived( result ) {
 
 		var htm = result.result;
 
-		var iframe = previewpane.children();
+		var $iframe = $previewpane.children();
 
-		if ( iframe.length === 0 ) {
+		if ( $iframe.length === 0 ) {
 
 			// set initial height of preview area
 			previewHeight = 0;
 
-			iframe = $( '<iframe>' )
+			$iframe = $( '<iframe>' )
 			.css( { //FIXME: Should this go in a style file?
 				'width': '100%',
 				'height': previewHeight,
@@ -100,11 +102,11 @@
 				'overflow': 'hidden'
 			} )
 			.load( loadFrameHandler )
-			.appendTo( previewpane );
+			.appendTo( $previewpane );
 
 		}
 
-		var ifr = iframe[0];
+		var ifr = $iframe[0];
 		var doc = ifr.contentDocument || ifr.contentWindow.document || ifr.Document;
 
 		doc.open();
@@ -176,15 +178,17 @@
 
 	/**
 	 * Register plugin
+	 *
+	 *  @return {Mixed}
 	 */
 	$.fn.pfAjaxPreview = function () {
 
 		form = this.closest( 'form' );
-		previewpane = $( '#wikiPreview' );
+		$previewpane = $( '#wikiPreview' );
 
 		// do some sanity checks
-		if ( previewpane.length === 0 || // no ajax preview without preview area
-			previewpane.contents().length > 0 || // preview only on an empty previewpane
+		if ( $previewpane.length === 0 || // no ajax preview without preview area
+			$previewpane.contents().length > 0 || // preview only on an empty previewpane
 			form.length === 0 ) { // no ajax preview without form
 
 			return this;

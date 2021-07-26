@@ -111,7 +111,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 		if ( data.length === 0 ) {
 			return this.getNoMatchesOOUIMenuOptionWidget();
 		}
-		for ( var i = 0; i < data.length; i++ ) {
+		for ( let i = 0; i < data.length; i++ ) {
 			item = new OO.ui.MenuOptionWidget( {
 				data: data[ i ].title,
 				label: this.highlightText( data[ i ].title )
@@ -123,17 +123,18 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 			wgPageFormsEDSettings = mw.config.get('wgPageFormsEDSettings'),
 			name = this.config.autocompletesettings,
 			edgValues = mw.config.get('edgValues'),
-        	data = {};
+			valueFilter;
+        data = {};
 		if ( wgPageFormsEDSettings !== null && wgPageFormsEDSettings[name].title !== undefined && wgPageFormsEDSettings[name].title !== "" ) {
 			data.title = edgValues[wgPageFormsEDSettings[name].title];
 			if (data.title !== undefined && data.title !== null) {
-				var i = 0;
+				let i = 0;
 				data.title.forEach(function () {
 					var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 					if ( wgPageFormsAutocompleteOnAllChars ) {
-						var valueFilter = data.title[i].toLowerCase().includes(self.getValue().toLowerCase());
+						valueFilter = data.title[i].toLowerCase().includes(self.getValue().toLowerCase());
 					} else {
-						var valueFilter = self.checkIfOptionsStartWithInputValue( data.title[i].toLowerCase(), self.getValue().toLowerCase() );
+						valueFilter = self.checkIfOptionsStartWithInputValue( data.title[i].toLowerCase(), self.getValue().toLowerCase() );
 					}
 					if ( valueFilter ) {
 						item = new OO.ui.MenuOptionWidget( {
@@ -159,7 +160,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 /**
  *
  * @param {string} suggestion
- * @returns HtmlSnipppet
+ * @return {Mixed} HtmlSnipppet
  *
  */
 pf.spreadsheetAutocompleteWidget.prototype.highlightText = function ( suggestion ) {
@@ -185,7 +186,7 @@ pf.spreadsheetAutocompleteWidget.prototype.highlightText = function ( suggestion
 /**
  * Provides an OOUI's MenuOptionWidget with a "No Matches" label
  *
- * @returns OOUi's MenuOptionWidget
+ * @return {Mixed} OOUi's MenuOptionWidget
  */
 pf.spreadsheetAutocompleteWidget.prototype.getNoMatchesOOUIMenuOptionWidget = function() {
 	return [
@@ -204,7 +205,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getNoMatchesOOUIMenuOptionWidget = fu
  *
  * @param {string} word
  *
- * @returns {boolean}
+ * @return {boolean}
  *
  */
 pf.spreadsheetAutocompleteWidget.prototype.checkIfOptionsStartWithInputValue = function( string, word ) {
@@ -212,21 +213,21 @@ pf.spreadsheetAutocompleteWidget.prototype.checkIfOptionsStartWithInputValue = f
 }
 
 /**
-* Gives dependent field options which include
-* property, base property and base value
-*
-* @param {string} dep_on
-*
-* @return {object} dep_field_opts
-*
-*/
+ * Gives dependent field options which include
+ * property, base property and base value
+ *
+ * @param {string} data_y
+ * @param {string} dep_on_field
+ * @return {Object} dep_field_opts
+ *
+ */
 pf.spreadsheetAutocompleteWidget.prototype.getDependentFieldOpts = function( data_y, dep_on_field ) {
     var dep_field_opts = {};
-    var baseElement;
-	baseElement = $('td[data-y="'+data_y+'"][origname="'+dep_on_field+'"]');
-    dep_field_opts.base_value = baseElement.html();
+    var $baseElement;
+	$baseElement = $('td[data-y="'+data_y+'"][origname="'+dep_on_field+'"]');
+    dep_field_opts.base_value = $baseElement.html();
     dep_field_opts.base_prop = mw.config.get('wgPageFormsFieldProperties')[dep_on_field] ||
-		baseElement.attr('name');
+		$baseElement.attr('name');
     dep_field_opts.prop = this.config['autocompletesettings'];
 
     return dep_field_opts;

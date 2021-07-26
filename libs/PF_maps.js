@@ -7,7 +7,7 @@
 function setupMapFormInput( inputDiv, mapService ) {
 	var map, marker, markers, mapCanvas, mapOptions;
 	var imageHeight = null, imageWidth = null;
-	var numClicks = 0, timer = null;
+	var numClicks = 0, timer = null, geocoder;
 
 	if ( mapService === "Google Maps" ) {
 		mapCanvas = inputDiv.find('.pfMapCanvas')[0];
@@ -16,7 +16,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			center: new google.maps.LatLng(0,0)
 		};
 		map = new google.maps.Map(mapCanvas, mapOptions);
-		var geocoder = new google.maps.Geocoder();
+		geocoder = new google.maps.Geocoder();
 
 		// Let a click set the marker, while keeping the default
 		// behavior (zoom and center) for double clicks.
@@ -72,7 +72,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			}
 		});
 	} else { // if ( mapService === "OpenLayers" ) {
-		var mapCanvas = inputDiv.find('.pfMapCanvas');
+		mapCanvas = inputDiv.find('.pfMapCanvas');
 		var mapCanvasID = mapCanvas.attr('id');
 		if ( mapCanvasID === undefined ) {
 			// If no ID is set, it's probably in a multiple-
@@ -133,22 +133,22 @@ function setupMapFormInput( inputDiv, mapService ) {
 	coordsInput.keydown( function( e ) {
 		if ( ! coordsInput.hasClass( 'modifiedInput' ) ) {
 			coordsInput.addClass( 'modifiedInput' );
-			var checkMark = $('<a></a>').addClass( 'pfCoordsCheckMark' ).css( 'color', 'green' ).html( '&#10004;' );
-			var xMark = $('<a></a>').addClass( 'pfCoordsX' ).css( 'color', 'red' ).html( '&#10008;' );
-			var marksDiv = $('<span></span>').addClass( 'pfCoordsInputHelpers' )
-				.append( checkMark ).append( ' ' ).append( xMark );
-			coordsInput.parent().append( marksDiv );
+			var $checkMark = $('<a></a>').addClass( 'pfCoordsCheckMark' ).css( 'color', 'green' ).html( '&#10004;' );
+			var $xMark = $('<a></a>').addClass( 'pfCoordsX' ).css( 'color', 'red' ).html( '&#10008;' );
+			var $marksDiv = $('<span></span>').addClass( 'pfCoordsInputHelpers' )
+				.append( $checkMark ).append( ' ' ).append( $xMark );
+			coordsInput.parent().append( $marksDiv );
 
-			checkMark.click( function() {
+			$checkMark.click( function() {
 				setMarkerFromCoordinates();
 				coordsInput.removeClass( 'modifiedInput' );
-				marksDiv.remove();
+				$marksDiv.remove();
 			});
 
-			xMark.click( function() {
+			$xMark.click( function() {
 				coordsInput.removeClass( 'modifiedInput' )
 					.val( coordsInput.attr('data-original-value') );
-				marksDiv.remove();
+				$marksDiv.remove();
 			});
 		}
 	});
@@ -198,16 +198,16 @@ function setupMapFormInput( inputDiv, mapService ) {
 			if ( mapService === "Google Maps" ) {
 				var bound1 = new google.maps.LatLng(lat1, lon1);
 				var bound2 = new google.maps.LatLng(lat2, lon2);
-				var bounds = new google.maps.LatLngBounds();
+				let bounds = new google.maps.LatLngBounds();
 				bounds.extend(bound1);
 				bounds.extend(bound2);
 				map.fitBounds(bounds);
 			} else if ( mapService === "Leaflet" ){
 				map.fitBounds([ [ lat1, lon1 ], [ lat2, lon2 ] ]);
 			} else { // if ( mapService === "OpenLayers" ) {
-				var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
-				var toProjection = map.getProjectionObject(); // to Spherical Mercator Projection
-				var bounds = new OpenLayers.Bounds(lon1, lat1, lon2, lat2).transform(fromProjection,toProjection);
+				let fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
+				let toProjection = map.getProjectionObject(); // to Spherical Mercator Projection
+				let bounds = new OpenLayers.Bounds(lon1, lat1, lon2, lat2).transform(fromProjection,toProjection);
 				map.zoomToExtent(bounds);
 			}
 		}
@@ -215,15 +215,16 @@ function setupMapFormInput( inputDiv, mapService ) {
 
 	function setMarkerFromAddress() {
 		var currentMapName = coordsInput.attr('name');
+		var addressText;
 		var allFeedersForCurrentMap = jQuery('[data-feeds-to-map="' + currentMapName + '"]').map( function() {
 			return $( this ).val()
 		}).get();
 		if ( allFeedersForCurrentMap.length > 0 ) {
 			// Assemble a single string from all the address inputs that feed to this map.
-			var addressText = allFeedersForCurrentMap.join( ', ' );
+			addressText = allFeedersForCurrentMap.join( ', ' );
 		} else {
 			// No other inputs feed to this map, so use the standard "Enter address here" input.
-			var addressText = inputDiv.find('.pfAddressInput input').val();
+			addressText = inputDiv.find('.pfAddressInput input').val();
 		}
 		if ( mapService === "Google Maps" ) {
 			geocoder.geocode( { 'address': addressText }, function(results, status) {
@@ -258,9 +259,9 @@ function setupMapFormInput( inputDiv, mapService ) {
 					var olPoint = toOpenLayersLonLat( map, lat, lon );
 					openLayersSetMarker( olPoint );
 					map.setCenter( olPoint );
-					var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
-					var toProjection = map.getProjectionObject(); // to Spherical Mercator Projection
-					var bounds = new OpenLayers.Bounds(left,bottom,right,top).transform(fromProjection,toProjection);
+					let fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
+					let toProjection = map.getProjectionObject(); // to Spherical Mercator Projection
+					let bounds = new OpenLayers.Bounds(left,bottom,right,top).transform(fromProjection,toProjection);
 					map.zoomToExtent(bounds);
 				} else if ( mapService === "Leaflet" ) {
 					var lPoint = L.latLng( lat, lon );
@@ -309,10 +310,10 @@ function setupMapFormInput( inputDiv, mapService ) {
 		}
 	}
 
-	function toOpenLayersLonLat( map, lat, lon ) {
+	function toOpenLayersLonLat( maps, lat, lon ) {
 		return new OpenLayers.LonLat( lon, lat ).transform(
 			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-			map.getProjectionObject() // to Spherical Mercator Projection
+			maps.getProjectionObject() // to Spherical Mercator Projection
 		);
 	}
 
@@ -320,7 +321,8 @@ function setupMapFormInput( inputDiv, mapService ) {
 	 * Round off a number to five decimal places - that's the most
 	 * we need for coordinates, one would think.
 	 *
-	 * @param num
+	 * @param {Mixed} num
+	 * @return {Mixed}
 	 */
 	function pfRoundOffDecimal( num ) {
 		return Math.round( num * 100000 ) / 100000;

@@ -4,6 +4,7 @@
  * @author Priyanshu Varshney
  */
 /* global moment */
+/* eslint-disable no-jquery/no-sizzle */
 ( function ( $, mw, pf ) {
 	'use strict';
 
@@ -265,12 +266,12 @@
 
 		// flag : 0 - one day , 1 - start, 2 - end
 		function setDateAndTime( arrData, flag ) {
-			for( var dateEntry=0; dateEntry < arrData.length ; dateEntry++ ) {
+			for( dateEntry=0; dateEntry < arrData.length ; dateEntry++ ) {
 				if( arrData[dateEntry].name.includes('year') ) {
 					eventDateYear = arrData[dateEntry].value;
 				} else if ( arrData[dateEntry].name.includes('month') ) {
 					if ( mw.config.get('wgAmericanDates') ) { //check for date-style format.
-						var monthIndex = englishMonthNames.indexOf( arrData[dateEntry].value );
+						monthIndex = englishMonthNames.indexOf( arrData[dateEntry].value );
 						eventDateMonth = padNumber(monthIndex + 1);
 					} else {
 						eventDateMonth = padNumber(arrData[dateEntry].value);
@@ -1056,7 +1057,7 @@
 			var hour = '';
 			var minute = '';
 			var second = '';
-			var ampm24h = ' ';
+			ampm24h = ' ';
 			for( i =0;i<allEvents.length;i++ ) {
 				var eventContent = allEvents[i].contents;
 				var finalFieldValues = [];

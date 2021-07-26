@@ -44,6 +44,8 @@
 		var existingValuesOnly = (element.attr("existingvaluesonly") == "true");
 		this.existingValuesOnly = existingValuesOnly;
 		this.id = element.attr( "id" );
+		var inputData,
+			$input;
 
 		// This happens sometimes, although it shouldn't. If it does,
 		// something went wrong, so just exit.
@@ -53,8 +55,8 @@
 
 		try {
 			var opts = this.setOptions();
-			var $input = element.select2(opts);
-			var inputData = $input.data("select2");
+			$input = element.select2(opts);
+			inputData = $input.data("select2");
 		} catch (e) {
 			window.console.log(e);
 		}
@@ -85,7 +87,7 @@
 					dropdownItems[optionName] = $(this);
 				} );
 				tokensSelect.prepend(dropdownItems[newTokensOrder[i]]);
-				for ( var i = 1; i < newTokensOrder.length; i++ ){
+				for ( let i = 1; i < newTokensOrder.length; i++ ){
 					dropdownItems[newTokensOrder[i]].insertAfter(dropdownItems[newTokensOrder[i - 1]]);
 				}
 			}
@@ -326,9 +328,9 @@
 				url: my_server,
 				dataType: 'json',
 				async: false,
-				success: function(data) {
+				success: function(value) {
 					// Convert data into the format accepted by Select2.
-					data.pfautocomplete.forEach( function(item) {
+					value.pfautocomplete.forEach( function(item) {
 						if (item.displaytitle !== undefined) {
 							values.push({
 								id: item.displaytitle, text: item.displaytitle

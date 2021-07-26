@@ -70,7 +70,7 @@
 					// This is needed after the empty() call,
 					// to create an option element to restore
 					// correct value in remote autocompletion.
-					var newOption = new Option(data.text, data.id, false, false);
+					let newOption = new Option(data.text, data.id, false, false);
 					$input.append(newOption).trigger('change');
 				}
 				// This is required so that the existing value
@@ -90,7 +90,7 @@
 						};
 						if ( !$input.find( "option[value='" + rawValue + "']" ).length ) {
 							// Does this ever get called?
-							var newOption = new Option( rawValue, rawValue, false, false );
+							let newOption = new Option( rawValue, rawValue, false, false );
 							$input.append(newOption).trigger( 'change' );
 						}
 						if ( rawValue !== '' ) {
@@ -193,17 +193,17 @@
 		getDependentFieldOpts: function( dep_on ) {
 			var input_id = "#" + this.id;
 			var dep_field_opts = {};
-			var base_element;
+			var $base_element;
 
 			if ( this.partOfMultiple($(input_id)) ) {
-				base_element = $(input_id).closest( ".multipleTemplateInstance" )
+				$base_element = $(input_id).closest( ".multipleTemplateInstance" )
 					.find( '[origname ="' + dep_on + '" ]' );
 			} else {
-				base_element = $('[name ="' + dep_on + '" ]');
+				$base_element = $('[name ="' + dep_on + '" ]');
 			}
-			dep_field_opts.base_value = base_element.val();
+			dep_field_opts.base_value = $base_element.val();
 			dep_field_opts.base_prop = mw.config.get( 'wgPageFormsFieldProperties' )[dep_on] ||
-				base_element.attr( "autocompletesettings" );
+				$base_element.attr( "autocompletesettings" );
 			dep_field_opts.prop = $(input_id).attr( "autocompletesettings" ).split( "," )[0];
 
 			return dep_field_opts;
@@ -234,7 +234,8 @@
 		 * Utils::escapeMarkup() in the Select2 code. @TODO: figure out
 		 * how to just call that code directly.
 		 *
-		 * @param markup
+		 * @param {Mixed} markup
+		 * @return {Mixed}
 		 */
 		escapeMarkupAndAddHTML: function( markup ) {
 			var replaceMap = {

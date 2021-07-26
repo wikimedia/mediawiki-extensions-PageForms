@@ -142,14 +142,14 @@ $.fn.PageForms_unregisterInputInit = function() {
 // Display a div that would otherwise be hidden by "show on select".
 function showDiv( div_id, instanceWrapperDiv, initPage ) {
 	var speed = initPage ? 0 : 'fast';
-	var elem;
+	var $elem;
 	if ( instanceWrapperDiv !== null ) {
-		elem = $('[data-origID="' + div_id + '"]', instanceWrapperDiv);
+		$elem = $('[data-origID="' + div_id + '"]', instanceWrapperDiv);
 	} else {
-		elem = $('#' + div_id);
+		$elem = $('#' + div_id);
 	}
 
-	elem
+	$elem
 	.addClass('shownByPF')
 
 	.find(".hiddenByPF")
@@ -160,7 +160,7 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 	.prop('disabled', false)
 	.removeClass('disabledByPF');
 
-	elem.each( function() {
+	$elem.each( function() {
 		if ( $(this).css('display') === 'none' ) {
 
 			$(this).slideDown(speed, function() {
@@ -174,25 +174,25 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 	// to the current value of form inputs in this div that are now
 	// being uncovered.
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
-	elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
-		var uncoveredInput = $(this);
+	$elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
+		var $uncoveredInput = $(this);
 		var uncoveredInputID = null;
 		if ( instanceWrapperDiv === null ) {
-			uncoveredInputID = uncoveredInput.attr("id");
+			uncoveredInputID = $uncoveredInput.attr("id");
 		} else {
-			uncoveredInputID = uncoveredInput.attr("data-origID");
+			uncoveredInputID = $uncoveredInput.attr("data-origID");
 		}
 		var showOnSelectVals = wgPageFormsShowOnSelect[uncoveredInputID];
 
 		if ( showOnSelectVals !== undefined ) {
-			var inputVal = uncoveredInput.val();
+			var inputVal = $uncoveredInput.val();
 			for ( var i = 0; i < showOnSelectVals.length; i++ ) {
 				var options = showOnSelectVals[i][0];
 				var div_id2 = showOnSelectVals[i][1];
-				if ( uncoveredInput.hasClass( 'pfShowIfSelected' ) ) {
+				if ( $uncoveredInput.hasClass( 'pfShowIfSelected' ) ) {
 					showDivIfSelected( options, div_id2, inputVal, instanceWrapperDiv, initPage );
 				} else {
-					uncoveredInput.showDivIfChecked( options, div_id2, instanceWrapperDiv, initPage );
+					$uncoveredInput.showDivIfChecked( options, div_id2, instanceWrapperDiv, initPage );
 				}
 			}
 		}
@@ -203,7 +203,7 @@ function showDiv( div_id, instanceWrapperDiv, initPage ) {
 // ignore the div's contents when the form is submitted.
 function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 	var speed = initPage ? 0 : 'fast';
-	var elem;
+	var $elem;
 	// IDs can't contain spaces, and jQuery won't work with such IDs - if
 	// this one has a space, display an alert.
 	if ( div_id.indexOf( ' ' ) > -1 ) {
@@ -213,20 +213,20 @@ function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 	}
 
 	if ( instanceWrapperDiv !== null ) {
-		elem = instanceWrapperDiv.find('[data-origID=' + div_id + ']');
+		$elem = instanceWrapperDiv.find('[data-origID=' + div_id + ']');
 	} else {
-		elem = $('#' + div_id);
+		$elem = $('#' + div_id);
 	}
 
 	// If we're just setting up the page, and this element has already
 	// been marked to be shown by some other input, don't hide it.
-	if ( initPage && elem.hasClass('shownByPF') ) {
+	if ( initPage && $elem.hasClass('shownByPF') ) {
 		return;
 	}
 
-	elem.find("span, div").addClass('hiddenByPF');
+	$elem.find("span, div").addClass('hiddenByPF');
 
-	elem.each( function() {
+	$elem.each( function() {
 		if ( $(this).css('display') !== 'none' ) {
 
 			// if 'display' is not 'hidden', but the element is hidden otherwise
@@ -244,7 +244,7 @@ function hideDiv( div_id, instanceWrapperDiv, initPage ) {
 	// Also, recursively hide further elements that are only shown because
 	// inputs within this now-hidden div were checked/selected.
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
-	elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
+	$elem.find(".pfShowIfSelected, .pfShowIfChecked").each( function() {
 		var showOnSelectVals;
 		if ( instanceWrapperDiv === null ) {
 			showOnSelectVals = wgPageFormsShowOnSelect[$(this).attr("id")];
@@ -451,12 +451,12 @@ $.fn.validateUniqueField = function() {
 	}
 
 	var categoryFieldName = field.prop("id") + "_unique_for_category";
-	var categoryField = $("[name=" + categoryFieldName + "]");
-	var category = categoryField.val();
+	var $categoryField = $("[name=" + categoryFieldName + "]");
+	var category = $categoryField.val();
 
 	var namespaceFieldName = field.prop("id") + "_unique_for_namespace";
-	var namespaceField = $("[name=" + namespaceFieldName + "]");
-	var namespace = namespaceField.val();
+	var $namespaceField = $("[name=" + namespaceFieldName + "]");
+	var namespace = $namespaceField.val();
 
 	var url = mw.config.get( 'wgScriptPath' ) + "/api.php?format=json&action=";
 
@@ -465,8 +465,8 @@ $.fn.validateUniqueField = function() {
 
 	// SMW
 	var propertyFieldName = field.prop("id") + "_unique_property",
-		propertyField = $("[name=" + propertyFieldName + "]"),
-		property = propertyField.val();
+		$propertyField = $("[name=" + propertyFieldName + "]"),
+		property = $propertyField.val();
 	if (typeof property !== UNDEFINED && property.replace(/\s+/, '') !== '') {
 
 		query = "[[" + property + "::" + fieldVal + "]]";
@@ -485,8 +485,8 @@ $.fn.validateUniqueField = function() {
 		}
 
 		var conceptFieldName = field.prop("id") + "_unique_for_concept";
-		var conceptField = $("[name=" + conceptFieldName + "]");
-		var concept = conceptField.val();
+		var $conceptField = $("[name=" + conceptFieldName + "]");
+		var concept = $conceptField.val();
 		if (typeof concept !== UNDEFINED &&
 			concept.replace(/\s+/, '') !== '') {
 			query += "[[Concept:" + concept + "]]";
@@ -517,11 +517,11 @@ $.fn.validateUniqueField = function() {
 
 	// Cargo
 	var cargoTableFieldName = field.prop("id") + "_unique_cargo_table";
-	var cargoTableField = $("[name=" + cargoTableFieldName + "]");
-	var cargoTable = cargoTableField.val();
+	var $cargoTableField = $("[name=" + cargoTableFieldName + "]");
+	var cargoTable = $cargoTableField.val();
 	var cargoFieldFieldName = field.prop("id") + "_unique_cargo_field";
-	var cargoFieldField = $("[name=" + cargoFieldFieldName + "]");
-	var cargoField = cargoFieldField.val();
+	var $cargoFieldField = $("[name=" + cargoFieldFieldName + "]");
+	var cargoField = $cargoFieldField.val();
 	if (typeof cargoTable !== UNDEFINED && cargoTable.replace(/\s+/, '') !== ''
 		&& typeof cargoField !== UNDEFINED
 		&& cargoField.replace(/\s+/, '') !== '') {
@@ -969,10 +969,10 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 	}
 
 	this.find('.multipleTemplateInstance').not('.minimized').each( function() {
-		var instance = $(this);
-		instance.addClass('minimized');
+		var $instance = $(this);
+		$instance.addClass('minimized');
 		var valuesStr = '';
-		instance.find( "input[type != 'hidden'][type != 'button'], select, textarea, div.ve-ce-surface" ).each( function() {
+		$instance.find( "input[type != 'hidden'][type != 'button'], select, textarea, div.ve-ce-surface" ).each( function() {
 			// If the set of fields to be displayed was specified in
 			// the form definition, check against that list.
 			if ( allDisplayedFields !== null ) {
@@ -1012,8 +1012,8 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 		if ( valuesStr === '' ) {
 			valuesStr = '<em>No data</em>';
 		}
-		instance.find('.instanceMain').fadeOut( "medium", function() {
-			instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
+		$instance.find('.instanceMain').fadeOut( "medium", function() {
+			$instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
 		});
 	});
 };
@@ -1023,7 +1023,8 @@ var num_elements = 0;
 /**
  * Functions for multiple-instance templates.
  *
- * @param addAboveCurInstance
+ * @param {Mixed} addAboveCurInstance
+ * @return {Mixed}
  */
 $.fn.addInstance = function( addAboveCurInstance ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' );
@@ -1239,7 +1240,7 @@ $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue
 		myServer += "&property=" + propName + "&baseprop=" + baseProp + "&basevalue=" + baseValue;
 	}
 	var dependentValues = [];
-	var thisInput = $(this);
+	var $thisInput = $(this);
 	// We use $.ajax() here instead of $.getJSON() so that the
 	// 'async' parameter can be set. That, in turn, is set because
 	// if the 2nd, "dependent" field is a combo box, it can have weird
@@ -1262,7 +1263,7 @@ $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue
 			$.each(realData, function(key, val) {
 				dependentValues.push(val.title);
 			});
-			thisInput.data('autocompletevalues', dependentValues);
+			$thisInput.data('autocompletevalues', dependentValues);
 		}
 	});
 };
@@ -1271,7 +1272,8 @@ $.fn.setDependentAutocompletion = function( dependentField, baseField, baseValue
  * Called on a 'base' field (e.g., for a country) - sets the autocompletion
  * for its 'dependent' field (e.g., for a city).
  *
- * @param partOfMultiple
+ * @param {Mixed} partOfMultiple
+ * @return {Mixed}
  */
 $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 	var curValue = $(this).val();
@@ -1291,21 +1293,21 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 	var self = this;
 	$.each( dependent_on_me, function() {
-		var element, cmbox, tokens,
+		var $element, cmbox, tokens,
 			dependentField = this;
 
 		if ( partOfMultiple ) {
-			element = $( self ).closest( '.multipleTemplateInstance' )
+			$element = $( self ).closest( '.multipleTemplateInstance' )
 				.find('[origName="' + dependentField + '"]');
 		} else {
-			element = $('[name="' + dependentField + '"]');
+			$element = $('[name="' + dependentField + '"]');
 		}
 
-		if ( element.hasClass( 'pfTokens' ) ) {
+		if ( $element.hasClass( 'pfTokens' ) ) {
 			tokens = new pf.select2.tokens();
-			tokens.refresh(element);
+			tokens.refresh($element);
 		} else {
-			element.setDependentAutocompletion(dependentField, name, curValue);
+			$element.setDependentAutocompletion(dependentField, name, curValue);
 		}
 	});
 
@@ -1318,7 +1320,7 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
  * called for either the entire HTML body, or for a div representing an
  * instance of a multiple-instance template.
  *
- * @param partOfMultiple
+ * @param {Mixed} partOfMultiple
  */
 $.fn.initializeJSElements = function( partOfMultiple ) {
 	var fancyBoxSettings;
@@ -1565,7 +1567,7 @@ $(document).ready( function() {
 	function getFunctionFromName( functionName ) {
 		var func = window;
 		var namespaces = functionName.split( "." );
-		for ( var i = 0; i < namespaces.length; i++ ) {
+		for ( i = 0; i < namespaces.length; i++ ) {
 			func = func[ namespaces[ i ] ];
 		}
 		// If this gets called before the function is defined, just
@@ -1625,11 +1627,11 @@ $(document).ready( function() {
 			});
 		}
 		$('.multipleTemplateList').each( function() {
-			var list = $(this);
-			var sortable = Sortable.create(list[0], {
+			var $list = $(this);
+			var sortable = Sortable.create($list[0], {
 				handle: '.instanceRearranger',
 				onStart: function (/**Event*/evt) {
-					list.possiblyMinimizeAllOpenInstances();
+					$list.possiblyMinimizeAllOpenInstances();
 				}
 			});
 		});

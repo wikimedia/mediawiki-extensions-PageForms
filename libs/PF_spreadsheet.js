@@ -43,6 +43,8 @@ var dataValues = [];
 	};
 
 	jexcel.prototype.getjExcelValue = function( mwValue, columnAttributes ) {
+		var date,
+			monthNum;
 		if ( mwValue == null ) {
 			return null;
 		}
@@ -57,19 +59,19 @@ var dataValues = [];
 			var individualValues = mwValue.split( columnAttributes['delimiter'] );
 			return $.map( individualValues, $.trim ).join(';');
 		} else if ( columnAttributes['type'] == 'date' ) {
-			var date = new Date( mwValue );
+			date = new Date( mwValue );
 			// Avoid timezone strangeness.
 			date.setTime( date.getTime() + 60000 * date.getTimezoneOffset());
-			var monthNum = date.getMonth() + 1;
+			monthNum = date.getMonth() + 1;
 			return date.getFullYear() + '-' + monthNum + '-' + date.getDate();
 		} else if ( columnAttributes['type'] == 'datetime' ) {
-			var date = new Date( mwValue );
+			date = new Date( mwValue );
 			// Avoid timezone strangeness, if what we're handling
 			// is just a date.
 			if ( ! mwValue.includes(':') ) {
 				date.setTime( date.getTime() + 60000 * date.getTimezoneOffset());
 			}
-			var monthNum = date.getMonth() + 1;
+			monthNum = date.getMonth() + 1;
 			return date.getFullYear() + '-' + monthNum + '-' + date.getDate() +
 				' ' + date.getHours() + ':' + date.getMinutes();
 		} else {
@@ -108,13 +110,14 @@ var dataValues = [];
 
 	jexcel.prototype.generateQueryStringForSave = function( formName, templateName, pageName, rowValues, columns ) {
 		var queryString = 'form=' + formName + '&target=' + encodeURIComponent( pageName );
+		var curColumn;
 		for ( var columnName in rowValues ) {
 			if ( columnName == 'page' ) {
 				continue;
 			}
 			for ( var columnNum in columns ) {
 				if ( columns[columnNum]['title'] == columnName ) {
-					var curColumn = columns[columnNum];
+					curColumn = columns[columnNum];
 					break;
 				}
 			}
@@ -240,9 +243,9 @@ var dataValues = [];
 			// "cargo field" and "property" ), the attributes in
 			// each cell can also be set.
 			var data_x = jQuery(cell).attr('data-x');
-			var table = jQuery(cell).parents().find('table');
-			autocompletedatatype = jQuery(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type');
-			autocompletesettings = jQuery(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
+			var $table = jQuery(cell).parents().find('table');
+			autocompletedatatype = jQuery($table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type');
+			autocompletesettings = jQuery($table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
 		}
 		return {
 			autocompletedatatype, autocompletesettings
@@ -262,7 +265,9 @@ var dataValues = [];
 	};
 
 	jexcel.prototype.getEditorForAutocompletion = function( x, y, autocompletedatatype, autocompletesettings, cell, type ) {
-		var pfSpreadsheetAutocomplete = false;
+		var editor;
+		var pfSpreadsheetAutocomplete = false,
+			widget;
 		var config = {
 			data_x: x,
 			data_y: y,
@@ -272,8 +277,8 @@ var dataValues = [];
 			|| autocompletedatatype == 'property' || autocompletedatatype == 'concept' ) {
 			pfSpreadsheetAutocomplete = true;
 			config['autocompletesettings'] = autocompletesettings;
-			var widget = new pf.spreadsheetAutocompleteWidget(config);
-			var editor = widget.$element[0];
+			widget = new pf.spreadsheetAutocompleteWidget(config);
+			editor = widget.$element[0];
 		} else if ( autocompletedatatype == 'dep_on' ) {
 			// values dependent on
 			var dep_on_field = jexcel.prototype.dependenton(cell.getAttribute('origname'));
@@ -281,26 +286,26 @@ var dataValues = [];
 				pfSpreadsheetAutocomplete = true;
 				config['autocompletesettings'] = cell.getAttribute('name');
 				config['dep_on_field'] = dep_on_field;
-				var widget = new pf.spreadsheetAutocompleteWidget(config);
-				var editor = widget.$element[0];
+				widget = new pf.spreadsheetAutocompleteWidget(config);
+				editor = widget.$element[0];
 			} else {
 				// this is probably the case where some parameters are set
 				// in a wrong way in form defintion, in that case use the default jexcel editor
 				pfSpreadsheetAutocomplete = false;
-				var editor = document.createElement( type );
+				editor = document.createElement( type );
 			}
 		} else if ( autocompletedatatype == 'external data' ) {
 			// values from external data
 			if ( autocompletesettings == cell.getAttribute('origname') ) {
 				pfSpreadsheetAutocomplete = true;
 				config['autocompletesettings'] = autocompletesettings;
-				var widget = new pf.spreadsheetAutocompleteWidget(config);
-				var editor = widget.$element[0];
+				widget = new pf.spreadsheetAutocompleteWidget(config);
+				editor = widget.$element[0];
 			} else {
 				// this is probably the case where some autocomplete parameters are set
 				// in a wrong way in form defintion, in that case use the default jexcel editor
 				pfSpreadsheetAutocomplete = false;
-				var editor = document.createElement(type);
+				editor = document.createElement(type);
 			}
 		}
 
@@ -369,8 +374,9 @@ var dataValues = [];
 			columnWidth = 400;
 		}
 
+		var columnName;
 		for ( var templateParam of gridParams[templateName] ) {
-			var columnName = templateParam['name'];
+			columnName = templateParam['name'];
 			var columnType = templateParam['type'];
 			var jExcelType = 'text';
 			var columnAttributes = {
@@ -431,8 +437,8 @@ var dataValues = [];
 			getPagesForTemplate( templateName, null );
 		}
 
-		function getPagesForTemplate( templateName, continueStr ) {
-			var apiUrl = baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateName;
+		function getPagesForTemplate( templateNamed, continueStr ) {
+			var apiUrl = baseUrl + '/api.php?action=query&format=json&list=embeddedin&eilimit=500&eititle=Template:' + templateNamed;
 			if ( continueStr !== null ) {
 				apiUrl += "&eicontinue=" + continueStr;
 			}
@@ -450,7 +456,7 @@ var dataValues = [];
 						pageIDs.push(pageObjects[i].pageid);
 					}
 					if ( data.continue !== undefined ) {
-						getPagesForTemplate( templateName, data.continue.eicontinue );
+						getPagesForTemplate( templateNamed, data.continue.eicontinue );
 					} else {
 						getAllPageDataAndPopulateSpreadsheet( 0 );
 					}
@@ -479,11 +485,12 @@ var dataValues = [];
 					}
 					for ( var pageNum = 0; pageNum < data.query.pages.length; pageNum++ ) {
 						var curRevision = data.query.pages[pageNum].revisions[0];
+						var pageContents;
 						if (curRevision.hasOwnProperty('slots')) {
 							// MW 1.31+ (or maybe 1.32+)
-							var pageContents = curRevision.slots.main.content;
+							pageContents = curRevision.slots.main.content;
 						} else {
-							var pageContents = curRevision.content;
+							pageContents = curRevision.content;
 						}
 						pagesData.push( {
 							title: data.query.pages[pageNum].title,
@@ -514,9 +521,10 @@ var dataValues = [];
 				var content = '';
 				var numOpenCurlyBracketPairs = 1;
 				var curPos = contentStart + startDelimiter.length - 2;
+				var curPair;
 				do {
 					var curChar = pageContent.charAt(curPos);
-					var curPair = curChar + pageContent.charAt(curPos + 1);
+					curPair = curChar + pageContent.charAt(curPos + 1);
 					if ( curPair == '{{' ) {
 						numOpenCurlyBracketPairs++;
 					} else if ( curPair == '}}' ) {
@@ -579,8 +587,8 @@ var dataValues = [];
 
 			// Called whenever the user makes a change to the data.
 			function editMade( instance, cell, x, y, value ) {
-				var spreadsheetID = $(instance).attr('id');
-				var columnName = columnNames[x];
+				spreadsheetID = $(instance).attr('id');
+				columnName = columnNames[x];
 				if ( columnName === "page" ) {
 					newPageNames[y] = value;
 					page = value === '' ? " " : value;
@@ -665,6 +673,7 @@ var dataValues = [];
 				}
 				var templateCalls = [];
 				var numRows = pagesData.length;
+				var columnNum;
 				for (var j = 0; j < numRows; j++) {
 					templateCalls = getTemplateCalls(pagesData[j].contents, pagesData[j].title);
 					for (const templateCall of templateCalls) {
@@ -686,15 +695,16 @@ var dataValues = [];
 				}
 				for ( var rowNum = 0; rowNum < dataValues[spreadsheetID].length; rowNum++ ) {
 					var rowValues = dataValues[spreadsheetID][rowNum];
-					for ( var columnNum = 0; columnNum < columnNames.length; columnNum++ ) {
-						var columnName = columnNames[columnNum];
+					var pageName;
+					for ( columnNum = 0; columnNum < columnNames.length; columnNum++ ) {
+						columnName = columnNames[columnNum];
 						var curValue = rowValues[columnName];
 						if ( myData[rowNum] == undefined ) {
 							myData[rowNum] = [];
 						}
 
 						if ( columnName == 'page' ) {
-							var pageName = curValue;
+							pageName = curValue;
 						}
 
 						if ( curValue !== undefined ) {
@@ -724,14 +734,14 @@ var dataValues = [];
 				// Called after a new row is added.
 				function rowAdded(instance) {
 					var $instance = $(instance);
-					var spreadsheetID = $instance.attr('id');
-					rowAdded2( $instance, spreadsheetID );
+					var spreadsheetId = $instance.attr('id');
+					rowAdded2( $instance, spreadsheetId );
 				}
 
-				function rowAdded2( $instance, spreadsheetID ) {
+				function rowAdded2( $instance, spreadsheetId ) {
 					var $newRow = $instance.find("tr").last();
 					var columnParams = gridParams[templateName];
-					for ( var columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
+					for ( columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
 						var defaultValue = columnParams[columnNum]['default'];
 						if ( defaultValue == undefined ) {
 							continue;
@@ -751,7 +761,7 @@ var dataValues = [];
 						var $curCell = $newRow.find("td:nth-child(" + ( columnNum + 2 ) + ")");
 						$curCell.html(realDefaultValue);
 					}
-					var cell = $newRow.find("td").last();
+					var $cell = $newRow.find("td").last();
 					var manageCellContents = '';
 
 					if ( editMultiplePages === undefined ) {
@@ -765,33 +775,33 @@ var dataValues = [];
 							'<a class="save-new-row">' + addIcon + '</a> | ' +
 							'<a class="cancel-adding">' + cancelIcon + '</a></span>';
 					}
-					cell.html(manageCellContents);
+					$cell.html(manageCellContents);
 
 					// Don't activate the "add page" icon
 					// yet, because the row doesn't have a
 					// page name.
 					// @TODO - should the icon even be there?
-					cell.find("a.cancel-adding").click( function( event ) {
+					$cell.find("a.cancel-adding").click( function( event ) {
 						event.preventDefault();
-						jexcel.prototype.deleteRow(spreadsheetID, dataValues[spreadsheetID].length);
+						jexcel.prototype.deleteRow(spreadsheetId, dataValues[spreadsheetId].length);
 					} );
 					if ( editMultiplePages === undefined ) {
-						cell.find("a.delete-row").click( function( event ) {
-							var y = cell.attr("data-y");
+						$cell.find("a.delete-row").click( function( event ) {
+							var y = $cell.attr("data-y");
 							event.preventDefault();
-							jexcel.prototype.deleteRow( spreadsheetID, y );
-							//dataValues[spreadsheetID].splice(y, 1);
+							jexcel.prototype.deleteRow( spreadsheetId, y );
+							//dataValues[spreadsheetId].splice(y, 1);
 						} );
-						cell.find("a.raise-row").click( function( event ) {
-							var y = cell.attr("data-y");
+						$cell.find("a.raise-row").click( function( event ) {
+							var y = $cell.attr("data-y");
 							event.preventDefault();
 							if ( y > 0 ) {
-								mw.spreadsheets[spreadsheetID].moveRow( y, y - 1 );
+								mw.spreadsheets[spreadsheetId].moveRow( y, y - 1 );
 							}
 						} );
-						cell.find("a.lower-row").click( function( event ) {
-							var curSpreadsheet = mw.spreadsheets[spreadsheetID];
-							var y = parseInt( cell.attr("data-y") );
+						$cell.find("a.lower-row").click( function( event ) {
+							var curSpreadsheet = mw.spreadsheets[spreadsheetId];
+							var y = parseInt( $cell.attr("data-y") );
 							event.preventDefault();
 							if ( y + 1 < curSpreadsheet.getData().length ) {
 								curSpreadsheet.moveRow( y, y + 1 );
@@ -807,7 +817,7 @@ var dataValues = [];
 						});
 					}
 
-					dataValues[spreadsheetID].push( {} );
+					dataValues[spreadsheetId].push( {} );
 				}
 
 				mw.spreadsheets[spreadsheetID] = jexcel( table, {
@@ -830,7 +840,7 @@ var dataValues = [];
 				} );
 				// Set the "label" for columns that have a label defined.
 				var columnParams = gridParams[templateName];
-				for ( var columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
+				for ( columnNum = 0; columnNum < columnParams.length; columnNum++ ) {
 					var columnLabel = columnParams[columnNum]['label'];
 					if ( columnLabel == undefined ) {
 						continue;

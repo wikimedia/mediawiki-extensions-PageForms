@@ -24,16 +24,16 @@ function pfShowFieldsetContent(obj){
 
 jQuery.fn.pfMakeCollapsible = function(){
 	this.each(function(){
-		var fieldset = jQuery(this);
+		var $fieldset = jQuery(this);
 
-		fieldset.children('legend').click( function() {
-			if (fieldset.hasClass('pfCollapsedFieldset')) {
-				pfShowFieldsetContent(fieldset);
+		$fieldset.children('legend').click( function() {
+			if ($fieldset.hasClass('pfCollapsedFieldset')) {
+				pfShowFieldsetContent($fieldset);
 			} else {
-				pfHideFieldsetContent(fieldset);
+				pfHideFieldsetContent($fieldset);
 			}
 		});
-		pfHideFieldsetContent(fieldset);
+		pfHideFieldsetContent($fieldset);
 	});
 };
 
