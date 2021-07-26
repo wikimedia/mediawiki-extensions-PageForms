@@ -131,11 +131,6 @@ window.ext.popupform = ( function () {
 		.width( oldContW )
 		.height( oldContH );
 
-		if ( jQuery.browser.msie ) {
-			docW += 20;
-			docH += 20;
-		}
-
 		var docpW = docW + 2 * padding;
 		var docpH = docH + 2 * padding;
 
@@ -220,8 +215,6 @@ window.ext.popupform = ( function () {
 
 						if ( jQuery.browser.safari ) {
 							$html[0].style.overflow="visible";
-						} else if ( jQuery.browser.msie ) {
-							$iframe[0].style.overflow="auto";
 						} else {
 							$iframe[0].style.overflow="visible";
 						}
@@ -251,8 +244,6 @@ window.ext.popupform = ( function () {
 
 						if ( jQuery.browser.safari ) {
 							$html[0].style.overflow="visible";
-						} else if ( jQuery.browser.msie ) {
-							$iframe[0].style.overflow="auto";
 						} else {
 							$iframe[0].style.overflow="visible";
 						}
@@ -355,7 +346,7 @@ window.ext.popupform = ( function () {
 		( navigator.userAgent.indexOf("Chrome") >= 0 &&
 			navigator.platform.indexOf("Linux x86_64") >= 0 );
 
-		brokenBrowser = jQuery.browser.msie || brokenChrome;
+		brokenBrowser = brokenChrome;
 
 		var maxZIndex = 0;
 
@@ -605,23 +596,19 @@ window.ext.popupform = ( function () {
 		$iframedoc.height('100%').width('100%');
 		$iframebody.height('100%').width('100%');
 
-		if ( jQuery.browser.msie && jQuery.browser.version < "8" ) {
-			siblings.hide();
-		} else {
-			siblings
-			.each( function(){
-				var $elem = jQuery(this);
+		siblings.each( function(){
+			var $elem = jQuery(this);
 
-				// TODO: Does this really help?
-				if ( getStyle(this, "display") !== "none" && ! (
-						( this.offsetLeft + $elem.outerWidth(true) < 0 ) ||		// left of document
-						( this.offsetTop + $elem.outerHeight(true) < 0 ) || // above document
-						( this.offsetLeft > 100000 ) ||		// right of document
-						( this.offsetTop > 100000 ) // below document
-						)
-					) {
+			// TODO: Does this really help?
+			if ( getStyle(this, "display") !== "none" && ! (
+					( this.offsetLeft + $elem.outerWidth(true) < 0 ) ||		// left of document
+					( this.offsetTop + $elem.outerHeight(true) < 0 ) || // above document
+					( this.offsetLeft > 100000 ) ||		// right of document
+					( this.offsetTop > 100000 ) // below document
+					)
+			) {
 
-					jQuery(this).hide();
+				jQuery(this).hide();
 				//					css({
 				//						height : "0px",
 				//						width : "0px",
@@ -633,16 +620,15 @@ window.ext.popupform = ( function () {
 				//						overflow: "hidden"
 				//					//position: "static"
 				//					});
-				}
-				if ( ( this.offsetLeft + $elem.outerWidth() < 0 ) ||
-					( this.offsetTop + $elem.outerHeight() < 0 )
-					) {
-					this.style.left = (-$elem.outerWidth(true)) + "px";
-					this.style.top = (-$elem.outerHeight(true)) + "px";
-				}
-			});
+			}
+			if ( ( this.offsetLeft + $elem.outerWidth() < 0 ) ||
+				( this.offsetTop + $elem.outerHeight() < 0 )
+				) {
+				this.style.left = (-$elem.outerWidth(true)) + "px";
+				this.style.top = (-$elem.outerHeight(true)) + "px";
+			}
+		});
 		//.children().css("position", "static");
-		}
 
 		container.show();
 
