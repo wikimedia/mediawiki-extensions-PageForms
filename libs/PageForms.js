@@ -1305,7 +1305,7 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
 
 		if ( $element.hasClass( 'pfTokens' ) ) {
 			tokens = new pf.select2.tokens();
-			tokens.refresh(element);
+			tokens.refresh($element);
 		} else {
 			$element.setDependentAutocompletion(dependentField, name, curValue);
 		}
