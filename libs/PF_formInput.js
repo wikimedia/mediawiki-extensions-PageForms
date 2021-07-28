@@ -12,7 +12,8 @@
 		var formLayouts = [];
 		var autocompleteWidgetConfig = {};
 		var possibleFormsStr = this.attr('data-possible-forms');
-		var menuOptions = [];
+		var menuOptions = [],
+			layout;
 		if ( possibleFormsStr !== undefined ) {
 			var possibleForms = possibleFormsStr.split('|');
 			for ( var possibleForm of possibleForms ) {
@@ -91,14 +92,14 @@
 			pageWithNamespaceItems.push( colonLabel );
 			pageWithNamespaceItems.push( pageNameInput );
 			pageWithNamespaceItems.push( createOrEditButton );
-			let layout = new OO.ui.HorizontalLayout( {
+			layout = new OO.ui.HorizontalLayout( {
 				items: pageWithNamespaceItems,
 				classes: [ 'pfPageWithNamespace' ]
 			} );
 		} else {
 			autocompleteWidgetConfig['classes'] = [ 'pfPageNameWithoutNamespace' ];
 			let pageNameInput = new pf.AutocompleteWidget( autocompleteWidgetConfig );
-			let layout = new OO.ui.HorizontalLayout( {
+			layout = new OO.ui.HorizontalLayout( {
 				items: [ pageNameInput, createOrEditButton ]
 			} );
 		}
