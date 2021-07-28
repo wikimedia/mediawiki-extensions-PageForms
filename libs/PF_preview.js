@@ -189,7 +189,7 @@
 		// do some sanity checks
 		if ( $previewpane.length === 0 || // no ajax preview without preview area
 			$previewpane.contents().length > 0 || // preview only on an empty previewpane
-			form.length === 0 ) { // no ajax preview without form
+			$form.length === 0 ) { // no ajax preview without form
 
 			return this;
 		}

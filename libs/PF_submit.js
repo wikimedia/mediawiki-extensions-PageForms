@@ -10,10 +10,10 @@
 
 	'use strict';
 
-	var sacButtons;
-
+	var $sacButtons;
+	var form;
 	function setChanged( event ) {
-		sacButtons
+		$sacButtons
 			.prop( 'disabled', false )
 			.addClass( 'pf-save_and_continue-changed' );
 
@@ -28,7 +28,6 @@
 	 * @param {Mixed} jqXHR
 	 */
 	var resultReceivedHandler = function handleResultReceived( result, textStatus, jqXHR ) {
-		var form;
 		// Store the target name
 		var $target = form.find( 'input[name="target"]' );
 
@@ -49,7 +48,7 @@
 
 		$target.attr( 'value', result.form.title );
 
-		sacButtons
+		$sacButtons
 		.addClass( 'pf-save_and_continue-ok' )
 		.removeClass( 'pf-save_and_continue-wait' )
 		.removeClass( 'pf-save_and_continue-error' );
@@ -60,7 +59,7 @@
 
 		var errors = $.parseJSON( jqXHR.responseText ).errors;
 
-		sacButtons
+		$sacButtons
 		.addClass( 'pf-save_and_continue-error' )
 		.removeClass( 'pf-save_and_continue-wait' );
 
@@ -81,8 +80,8 @@
 		}
 	};
 
-	function collectData( form ) {
-		var $summaryfield = jQuery( '#wpSummary', form );
+	function collectData( $form ) {
+		var $summaryfield = jQuery( '#wpSummary', $form );
 		var saveAndContinueSummary = mw.msg( 'pf_formedit_saveandcontinue_summary', mw.msg( 'pf_formedit_saveandcontinueediting' ) );
 		var params;
 
@@ -96,11 +95,11 @@
 				$summaryfield.attr( 'value', saveAndContinueSummary );
 			}
 
-			params = form.serialize();
+			params = $form.serialize();
 
 			$summaryfield.attr( 'value', oldsummary );
 		} else {
-			params = form.serialize();
+			params = $form.serialize();
 			params += '&wpSummary=' + saveAndContinueSummary;
 		}
 
@@ -147,7 +146,7 @@
 
 		if ( validateAll() ) {
 			// disable save and continue button
-			sacButtons
+			$sacButtons
 			.attr( 'disabled', 'disabled' )
 			.addClass( 'pf-save_and_continue-wait' )
 			.removeClass( 'pf-save_and_continue-changed' );
@@ -197,7 +196,7 @@
 			$sacButtons = $( '.pf-save_and_continue', $form );
 			$sacButtons.click( handleSaveAndContinue );
 
-			$( form )
+			$( $form )
 			.on( 'keyup', 'input,select,textarea', function ( event ) {
 				if ( event.which < 32 ){
 					return true;
