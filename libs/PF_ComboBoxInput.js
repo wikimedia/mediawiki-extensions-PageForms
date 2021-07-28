@@ -70,9 +70,9 @@
             var data_source = this.config.autocompletesettings,
                 data_type = this.config.autocompletedatatype;
             curValue = this.getValue();
-            if (curValue == 0) {
+            if (curValue.length == 0) {
                 values.push({
-                    label: mw.message('pf-select2-input-too-short',1).text(), disabled: true
+                    data:self.getValue(), label: mw.message('pf-select2-input-too-short',1).text(), disabled: true
                 });
                 this.setOptions(values);
                 return;
@@ -94,18 +94,18 @@
                         Data = Data.pfautocomplete;
                         if (Data.length == 0) {
                             values.push({
-                                label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
+                                data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                             });
                         } else {
                             for ( i = 0; i < Data.length; i++ ) {
                                 values.push({
-                                    Data: Data[i].title, label: self.highlightText(Data[i].title)
+                                    data: Data[i].title, label: self.highlightText(Data[i].title)
                                 })
                             }
                         }
                     } else {
                         values.push({
-                            label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
+                            data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                         });
                     }
                     self.setOptions(values);
@@ -192,15 +192,11 @@
                         dataType: 'json',
                         async: false,
                         success: function (response) {
-                            if ( response.error !== undefined ) {
+                            if ( response.error !== undefined || response.pfautocomplete.length == 0 ) {
                                 values.push({
-                                    label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
+                                    data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                                 });
                                 return values;
-                            }else if (response.pfautocomplete.length == 0) {
-                                values.push({
-                                    label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
-                                });
                             }
                             response.pfautocomplete.forEach(function (item) {
                                 curValue = self.getValue();
@@ -240,13 +236,13 @@
                 } else {
                     // this condition will come when the wrong parameters are used in form definition
                     values.push({
-                        label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
+                        data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                     });
                 }
             }
             if (values.length == 0) {
                 values.push({
-                    label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
+                    data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                 });
             }
             this.setOptions(values);
