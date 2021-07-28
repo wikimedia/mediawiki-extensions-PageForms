@@ -78,7 +78,11 @@ class PFMultiPageEdit extends QueryPage {
 			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
 			$gridParamValues['title'] = $templateField->getLabel();
 			$gridParamValues['type'] = 'text';
-			if ( !empty( $allowedValues = $templateField->getPossibleValues() ) ) {
+			if ( $templateField->isList() ) {
+				$autocompletedatatype = '';
+				$autocompletesettings = '';
+				$gridParamValues['type'] = 'text';
+			} elseif ( !empty( $allowedValues = $templateField->getPossibleValues() ) ) {
 				$gridParamValues['values'] = $allowedValues;
 				if ( $templateField->isList() ) {
 					$gridParamValues['list'] = true;
@@ -99,6 +103,7 @@ class PFMultiPageEdit extends QueryPage {
 						$gridParamValues['delimiter'] = $templateField->getDelimiter();
 					} else {
 						$gridParamValues['type'] = 'combobox';
+						$gridParamValues['inputType'] = 'combobox';
 					}
 					$fullCargoField = $templateField->getFullCargoField();
 					// these attributes would be utilised for the autocompletion
@@ -118,6 +123,7 @@ class PFMultiPageEdit extends QueryPage {
 						$gridParamValues['delimiter'] = $templateField->getDelimiter();
 					} else {
 						$gridParamValues['type'] = 'combobox';
+						$gridParamValues['inputType'] = 'combobox';
 					}
 					$property = $templateField->getSemanticProperty();
 					// these attributes would be utilised for the autocompletion

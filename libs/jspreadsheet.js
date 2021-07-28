@@ -1863,9 +1863,12 @@
                 var autocompleteAttrs = jexcel.prototype.getAutocompleteAttributes(cell);
                 var autocompletedatatype = autocompleteAttrs.autocompletedatatype;
                 var autocompletesettings = autocompleteAttrs.autocompletesettings;
+                var templateName = $(cell).closest('.pfSpreadsheet').attr('data-template-name');
+                var gridParams = mw.config.get( 'wgPageFormsGridParams' )
+                var inputType = gridParams[templateName][x]['inputType'];
                 if (autocompletedatatype.length !== 0) {
                     // function present in PF_spreadsheet.js
-                    var autocompleteConfigs = jexcel.prototype.getEditorForAutocompletion(x, y, autocompletedatatype, autocompletesettings, cell, type);
+                    var autocompleteConfigs = jexcel.prototype.getEditorForAutocompletion(inputType, x, y, autocompletedatatype, autocompletesettings, cell, type);
                     var editor = autocompleteConfigs.editor;
                     pfSpreadsheetAutocomplete = autocompleteConfigs.pfSpreadsheetAutocomplete;
 
@@ -2033,17 +2036,29 @@
                         if (pfSpreadsheetAutocomplete) {
                             // we are in Autocompletion mode in spreadsheets
                             var ooui_input_val = '';
-                            $('td.editor').find('div').find('input').on('change', function() {
-                                ooui_input_val = $(this).val();
-                            });
-                            editor.children[0].onblur = function() {
-                                obj.closeEditor(cell, true, ooui_input_val, pfSpreadsheetAutocomplete);
-                            };
-                            // focus on the OOUI's TextInputWidget so that
-                            // on pressing any key one can directly type
-                            // inside the widget
-                            editor.children[0].focus();
-                            editor.children[0].value = value;
+                            if ( $(editor).hasClass('oo-ui-comboBoxInputWidget') ) {
+                                // don't close the editor on clicking dropdown button
+                                editor.children[2].children[1].onmousedown = function(e) {
+                                    e.preventDefault();
+                                }
+                                editor.children[2].children[0].onblur = function() {
+                                    ooui_input_val = editor.children[2].children[0].value;
+                                    obj.closeEditor(cell, true, ooui_input_val, pfSpreadsheetAutocomplete);
+                                };
+                                // focus inside the input field of combobox
+                                editor.children[2].children[0].focus();
+                                editor.children[2].children[0].value = value;
+                            } else {
+                                editor.children[0].onblur = function() {
+                                    ooui_input_val = editor.children[0].value;
+                                    obj.closeEditor(cell, true, ooui_input_val, pfSpreadsheetAutocomplete);
+                                };
+                                // focus on the OOUI's TextInputWidget so that
+                                // on pressing any key one can directly type
+                                // inside the widget
+                                editor.children[0].focus();
+                                editor.children[0].value = value;
+                            }
                         } else {
                             editor.onblur = function() {
                                 obj.closeEditor(cell, true);

@@ -264,7 +264,7 @@ var dataValues = [];
 			}
 	};
 
-	jexcel.prototype.getEditorForAutocompletion = function( x, y, autocompletedatatype, autocompletesettings, cell, type ) {
+	jexcel.prototype.getEditorForAutocompletion = function( inputType, x, y, autocompletedatatype, autocompletesettings, cell, type ) {
 		var editor;
 		var pfSpreadsheetAutocomplete = false,
 			widget;
@@ -277,8 +277,11 @@ var dataValues = [];
 			|| autocompletedatatype == 'property' || autocompletedatatype == 'concept' ) {
 			pfSpreadsheetAutocomplete = true;
 			config['autocompletesettings'] = autocompletesettings;
-			widget = new pf.spreadsheetAutocompleteWidget(config);
-			editor = widget.$element[0];
+			if ( inputType == 'combobox' ) {
+				widget = new pf.SpreadsheetComboBoxInput(config);
+			} else {
+				widget = new pf.spreadsheetAutocompleteWidget(config);
+			}
 		} else if ( autocompletedatatype == 'dep_on' ) {
 			// values dependent on
 			var dep_on_field = jexcel.prototype.dependenton(cell.getAttribute('origname'));
@@ -286,28 +289,34 @@ var dataValues = [];
 				pfSpreadsheetAutocomplete = true;
 				config['autocompletesettings'] = cell.getAttribute('name');
 				config['dep_on_field'] = dep_on_field;
-				widget = new pf.spreadsheetAutocompleteWidget(config);
-				editor = widget.$element[0];
+				if ( inputType == 'combobox' ) {
+					widget = new pf.SpreadsheetComboBoxInput(config);
+				} else {
+					widget = new pf.spreadsheetAutocompleteWidget(config);
+				}
 			} else {
 				// this is probably the case where some parameters are set
 				// in a wrong way in form defintion, in that case use the default jexcel editor
 				pfSpreadsheetAutocomplete = false;
-				editor = document.createElement( type );
 			}
 		} else if ( autocompletedatatype == 'external data' ) {
 			// values from external data
 			if ( autocompletesettings == cell.getAttribute('origname') ) {
 				pfSpreadsheetAutocomplete = true;
 				config['autocompletesettings'] = autocompletesettings;
-				widget = new pf.spreadsheetAutocompleteWidget(config);
-				editor = widget.$element[0];
+				if ( inputType == 'combobox' ) {
+					widget = new pf.SpreadsheetComboBoxInput(config);
+				} else {
+					widget = new pf.spreadsheetAutocompleteWidget(config);
+				}
 			} else {
 				// this is probably the case where some autocomplete parameters are set
 				// in a wrong way in form defintion, in that case use the default jexcel editor
 				pfSpreadsheetAutocomplete = false;
-				editor = document.createElement(type);
 			}
 		}
+
+		editor = pfSpreadsheetAutocomplete ? widget.$element[0] : document.createElement(type);
 
 		return {
 			editor, pfSpreadsheetAutocomplete

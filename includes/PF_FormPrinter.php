@@ -548,7 +548,13 @@ END;
 			if ( $formField->getDefaultValue() !== null ) {
 				$gridParamValues['default'] = $formField->getDefaultValue();
 			}
-			if ( !empty( $allowedValues = $formField->getPossibleValues() )
+			// currently the spreadsheets in Page Forms doesn't support the tokens input
+			// so it's better to take a default jspreadsheet editor for tokens
+			if ( $formField->isList() || $inputType == 'tokens' ) {
+				$autocompletedatatype = '';
+				$autocompletesettings = '';
+				$gridParamValues['type'] = 'text';
+			} elseif ( !empty( $allowedValues = $formField->getPossibleValues() )
 				&& $autocompletedatatype != 'category' && $autocompletedatatype != 'cargo field'
 				&& $autocompletedatatype != 'concept' && $autocompletedatatype != 'property' ) {
 				$gridParamValues['values'] = $allowedValues;
@@ -579,6 +585,7 @@ END;
 			}
 			$gridParamValues['autocompletedatatype'] = $autocompletedatatype;
 			$gridParamValues['autocompletesettings'] = $autocompletesettings;
+			$gridParamValues['inputType'] = $inputType;
 			$gridParams[] = $gridParamValues;
 		}
 

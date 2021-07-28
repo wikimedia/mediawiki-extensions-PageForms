@@ -338,7 +338,7 @@
 			],
 			"messages": [
 				"pf-select2-searching",
-				"pf-select2-input-too-short",
+				"pf-autocomplete-input-too-short",
 				"pf-select2-selection-too-big"
 			]
 		},
@@ -405,7 +405,8 @@
 				"libs/jsuites.js",
 				"libs/jspreadsheet.js",
 				"libs/PF_spreadsheet.js",
-				"libs/PF_SpreadsheetAutocompleteWidget.js"
+				"libs/PF_SpreadsheetAutocompleteWidget.js",
+				"libs/PF_SpreadsheetComboBoxInput.js"
 			],
 			"styles": [
 				"skins/jsuites.css",
