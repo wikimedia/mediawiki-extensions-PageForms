@@ -25,8 +25,8 @@
 
 					for ( var p in pages ) { // object, not an array
 						var info = pages[p].imageinfo;
-						for ( var i = 0; i < info.length; i++ ) {
-							callback( info[i].thumburl );
+						if ( info.length > 0 ) {
+							callback( info[0].thumburl );
 							return;
 						}
 					}
