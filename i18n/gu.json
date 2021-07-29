@@ -8,7 +8,7 @@
 	},
 	"pf_forminputs_mandatory": "ફરજિયાત",
 	"pf_forminputs_restricted": "ફક્ત પ્રબંધકો જ ફેરફાર કરી શકે છે",
-	"pf_createform_hidden": "છુપાયેલ",
+	"pf_createform_hidden": "(છુપાયેલ)",
 	"pf_createform_removetemplate": "ઢાંચો દૂર કરો",
 	"pf_createform_addtemplate": "ઢાંચો ઉમેરો:",
 	"pf_createform_atend": "અંતમાં",
