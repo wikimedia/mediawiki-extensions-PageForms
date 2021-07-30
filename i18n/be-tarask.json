@@ -80,7 +80,7 @@
 	"pf_createform_inputtype": "Уваходны тып:",
 	"pf_createform_inputtypedefault": "(па змоўчваньні)",
 	"pf_createform_formlabel": "Пазнака формы:",
-	"pf_createform_hidden": "Схаваная",
+	"pf_createform_hidden": "(Схаваная)",
 	"pf_createform_removetemplate": "Выдаліць шаблён",
 	"pf_createform_addtemplate": "Дадаць шаблён:",
 	"pf_createform_atend": "У канцы",
