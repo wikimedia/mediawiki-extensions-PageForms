@@ -98,11 +98,13 @@ class PFFormUtils {
 		}
 
 		// We can't use OOUI\FieldLayout here, because it will make the display too wide.
-		$labelSpan = Html::element( 'span', [ 'class' => 'oo-ui-fieldLayout-header' ], $label );
+		$labelWidget = new OOUI\LabelWidget( [
+			'label' => new OOUI\HtmlSnippet( $label )
+		] );
 		$text = Html::rawElement(
 			'label',
 			[ 'title' => wfMessage( 'tooltip-minoredit' )->parse() ],
-			new OOUI\CheckboxInputWidget( $attrs ) . $labelSpan
+			new OOUI\CheckboxInputWidget( $attrs ) . $labelWidget
 		);
 		$text = Html::rawElement( 'div', [ 'style' => 'display: inline-block; padding: 12px 16px 12px 0;' ], $text );
 
@@ -163,11 +165,13 @@ class PFFormUtils {
 		}
 
 		// We can't use OOUI\FieldLayout here, because it will make the display too wide.
-		$labelSpan = Html::element( 'span', [ 'class' => 'oo-ui-fieldLayout-header' ], $label );
+		$labelWidget = new OOUI\LabelWidget( [
+			'label' => new OOUI\HtmlSnippet( $label )
+		] );
 		$text = Html::rawElement(
 			'label',
 			[ 'title' => wfMessage( 'tooltip-watch' )->parse() ],
-			new OOUI\CheckboxInputWidget( $attrs ) . $labelSpan
+			new OOUI\CheckboxInputWidget( $attrs ) . $labelWidget
 		);
 		$text = Html::rawElement( 'div', [ 'style' => 'display: inline-block; padding: 12px 16px 12px 0;' ], $text );
 
