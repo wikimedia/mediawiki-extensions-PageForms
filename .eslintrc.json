@@ -81,7 +81,6 @@
 		"space-in-parens": "off",
 		"space-unary-ops": "off",
 		"valid-jsdoc": "off",
-		"vars-on-top": "off",
 		"wrap-iife": "off",
 		"yoda": "off",
 		"no-jquery/no-class-state": "warn",
