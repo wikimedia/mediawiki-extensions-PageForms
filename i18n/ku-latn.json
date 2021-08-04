@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bikarhêner",
 			"George Animal",
 			"Ghybu",
 			"Guherto"
@@ -11,7 +12,7 @@
 	"pf_createtemplate_namelabel": "Navê şablonê:",
 	"pf_createtemplate_standardformat": "Tablo",
 	"pf_createtemplate_sectionsformat": "Beş",
-	"pf_createtemplate_deletefield": "Jê bibe",
+	"pf_createtemplate_deletefield": "Vê qadê jê bibe",
 	"pf_forminputs_checkboxes_select_all": "Hemûyan hilbijêre",
 	"pf_createform_template": "Şablon:",
 	"pf_createform_removetemplate": "Şablonê jê bibe",
