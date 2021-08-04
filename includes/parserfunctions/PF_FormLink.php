@@ -93,7 +93,7 @@ class PFFormLink {
 			} elseif ( $param_name == 'tooltip' ) {
 				$inTooltip = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == 'target' ) {
-				$inTargetName = $value;
+				$inTargetName = Sanitizer::decodeCharReferences( $value );
 			} elseif ( $param_name == null && $value == 'popup' ) {
 				self::loadScriptsForPopupForm( $parser );
 				$classStr = 'popupformlink';
