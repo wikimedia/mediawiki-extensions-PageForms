@@ -599,7 +599,7 @@ window.ext.popupform = ( function () {
 //			left: "0",
 			background: "transparent"
 		})
-		.andBack().siblings();
+		.addBack().siblings();
 
 		$iframedoc.height('100%').width('100%');
 		$iframebody.height('100%').width('100%');

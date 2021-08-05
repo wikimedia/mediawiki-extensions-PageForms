@@ -36,7 +36,7 @@
 			$content = $iframebody;
 		}
 
-		$content.parentsUntil( 'html' ).andBack()
+		$content.parentsUntil( 'html' ).addBack()
 		.css( {
 			margin: 0,
 			padding: 0,
