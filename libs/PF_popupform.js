@@ -310,10 +310,9 @@ window.ext.popupform = ( function () {
 		return false;
 	}
 
-	function fadeIn(elem, callback ) {
+	function fadeIn( $elem, callback ) {
 		// no fading for broken browsers
 		if ( brokenBrowser ){
-
 			$elem.show();
 			if ( callback ) {
 				callback();
