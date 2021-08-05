@@ -249,7 +249,7 @@
 	"tooltip-ca-formedit": "Upravit tuto stránku přes formulář",
 	"pf-autocomplete-no-matches": "Žádná shoda",
 	"pf-select2-searching": "Hledání...",
-	"pf-select2-input-too-short": "Zadejte prosím $1 a více znaků.",
+	"pf-autocomplete-input-too-short": "Zadejte prosím $1 a více znaků.",
 	"pf-select2-selection-too-big": "Toto pole nemůže obsahovat více než {{PLURAL:$1|$1 hodnotu|$1 hodnoty}}.",
 	"pf-maps-enteraddress": "Sem zadejte adresu",
 	"pf-maps-lookupcoordinates": "Vypočítat souřadnice podle adresy",

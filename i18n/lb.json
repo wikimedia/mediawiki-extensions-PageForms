@@ -149,7 +149,7 @@
 	"right-viewedittab": "\"{{int:edit}}\"-Tab fir Säiten, déi duerch e Formlaire geännert kënne ginn, weisen",
 	"pf-autocomplete-no-matches": "Näischt fonnt",
 	"pf-select2-searching": "Sichen...",
-	"pf-select2-input-too-short": "Gitt wgl. $1 oder méi Zeechen an",
+	"pf-autocomplete-input-too-short": "Gitt wgl. $1 oder méi Zeechen an",
 	"pf-select2-selection-too-big": "An dësem Feld kënnen net méi wéi {{PLURAL:$1|ee Wäert|$1 Wäerter}} sinn.",
 	"pf-maps-enteraddress": "Adress hei aginn",
 	"pf-maps-lookupcoordinates": "Koordinate rechnen mat Hëllef vun der Addres",

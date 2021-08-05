@@ -270,7 +270,7 @@
 	"tooltip-ca-formedit": "Bu sayfayı bir formla düzenle",
 	"pf-autocomplete-no-matches": "Eşleşme yok",
 	"pf-select2-searching": "Aranıyor...",
-	"pf-select2-input-too-short": "Lütfen $1 veya daha fazla karakter girin.",
+	"pf-autocomplete-input-too-short": "Lütfen $1 veya daha fazla karakter girin.",
 	"pf-select2-selection-too-big": "Bu alan $1 değer alanından fazlasını içeremez.",
 	"pf-maps-enteraddress": "Adresi buraya girin",
 	"pf-maps-lookupcoordinates": "Adresi kullanarak koordinatları hesapla",

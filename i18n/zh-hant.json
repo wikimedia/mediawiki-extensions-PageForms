@@ -270,7 +270,7 @@
 	"tooltip-ca-formedit": "以表單編輯此頁面",
 	"pf-autocomplete-no-matches": "無符何條件的結果",
 	"pf-select2-searching": "搜尋中...",
-	"pf-select2-input-too-short": "請輸入 $1 個或更多的字元。",
+	"pf-autocomplete-input-too-short": "請輸入 $1 個或更多的字元。",
 	"pf-select2-selection-too-big": "此欄位不可使用超過 {{PLURAL:$1|$1 個值|$1 個值}}。",
 	"pf-maps-enteraddress": "在此處輸入地址",
 	"pf-maps-lookupcoordinates": "使用地址計算座標",

@@ -199,7 +199,7 @@
 	"action-viewedittab": "フォームで編集できるページへの「{{int:edit}}」タブの表示",
 	"action-multipageedit": "スプレッドシートを使用した複数ページの編集",
 	"pf-select2-searching": "検索中...",
-	"pf-select2-input-too-short": "$1 文字以上入力してください。",
+	"pf-autocomplete-input-too-short": "$1 文字以上入力してください。",
 	"pf-maps-lookupcoordinates": "住所から座標を算出",
 	"pf-datepicker-close": "閉じる",
 	"pf-datepicker-prev": "前へ",

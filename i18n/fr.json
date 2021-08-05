@@ -290,7 +290,7 @@
 	"tooltip-ca-formedit": "Modifier cette page avec un formulaire",
 	"pf-autocomplete-no-matches": "Aucune correspondance",
 	"pf-select2-searching": "Recherche en cours…",
-	"pf-select2-input-too-short": "Veuillez saisir $1 {{PLURAL:$1|caractère|caractères}} ou plus",
+	"pf-autocomplete-input-too-short": "Veuillez saisir $1 {{PLURAL:$1|caractère|caractères}} ou plus",
 	"pf-select2-selection-too-big": "Ce champ ne peut pas contenir plus de {{PLURAL:$1|$1 valeur|$1 valeurs}}.",
 	"pf-maps-enteraddress": "Entrer l’adresse ici",
 	"pf-maps-lookupcoordinates": "Calculer les coordonnées en utilisant l'adresse",

@@ -275,7 +275,7 @@
 	"tooltip-ca-formedit": "Diese Seite mit einem Formular bearbeiten",
 	"pf-autocomplete-no-matches": "Keine Treffer",
 	"pf-select2-searching": "Suche …",
-	"pf-select2-input-too-short": "Bitte $1 oder mehr Zeichen eingeben.",
+	"pf-autocomplete-input-too-short": "Bitte $1 oder mehr Zeichen eingeben.",
 	"pf-select2-selection-too-big": "Dieses Feld kann nicht mehr als {{PLURAL:$1|einen Wert|$1 Werte}} enthalten.",
 	"pf-maps-enteraddress": "Adresse hier eingeben",
 	"pf-maps-lookupcoordinates": "Koordinaten mithilfe der Adresse berechnen",

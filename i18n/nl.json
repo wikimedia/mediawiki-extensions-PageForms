@@ -245,7 +245,7 @@
 	"tooltip-ca-formedit": "Deze pagina met een formulier bewerken",
 	"pf-autocomplete-no-matches": "Geen resultaten",
 	"pf-select2-searching": "Zoeken...",
-	"pf-select2-input-too-short": "Voer  $1  of meer tekens in.",
+	"pf-autocomplete-input-too-short": "Voer  $1  of meer tekens in.",
 	"pf-select2-selection-too-big": "Dit veld kan niet meer dan {{PLURAL:$1|$1 waarde|$1 waarden}}.",
 	"pf-maps-enteraddress": "Voer hier het adres in",
 	"pf-maps-lookupcoordinates": "Coördinaten verkrijgen door middel van adres",

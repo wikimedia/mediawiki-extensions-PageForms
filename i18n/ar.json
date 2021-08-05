@@ -261,7 +261,7 @@
 	"tooltip-ca-formedit": "عدل هذه الصفحة بنموذج",
 	"pf-autocomplete-no-matches": "لا توجد مطابقات",
 	"pf-select2-searching": "جارٍ البحث...",
-	"pf-select2-input-too-short": "الرجاء إدخال $1 حرف أو أكثر",
+	"pf-autocomplete-input-too-short": "الرجاء إدخال $1 حرف أو أكثر",
 	"pf-select2-selection-too-big": "لا يمكن لهذا الحقل حمل أكثر من {{PLURAL:$1|قيمة}}.",
 	"pf-maps-enteraddress": "أدخل العنوان هنا",
 	"pf-maps-lookupcoordinates": "حساب الإحداثيات باستخدام العنوان",

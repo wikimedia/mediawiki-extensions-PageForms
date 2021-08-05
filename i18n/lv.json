@@ -136,6 +136,6 @@
 	"right-createclass": "Izveidot jaunas semantiskās klases",
 	"action-createclass": "izveidot jaunas semantiskās klases",
 	"action-editrestrictedfields": "rediģēt ierobežotos formas laukus",
-	"pf-select2-input-too-short": "Lūdzu, ievadiet $1 vai vairāk rakstzīmes.",
+	"pf-autocomplete-input-too-short": "Lūdzu, ievadiet $1 vai vairāk rakstzīmes.",
 	"pf-datepicker-close": "Aizvērt"
 }

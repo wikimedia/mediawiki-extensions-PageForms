@@ -268,7 +268,7 @@
 	"tooltip-ca-formedit": "עריכת הדף הזה באמצעות טופס",
 	"pf-autocomplete-no-matches": "אין התאמות",
 	"pf-select2-searching": "חיפוש...",
-	"pf-select2-input-too-short": "נא להזין {{PLURAL:$1|תו אחד|$1 תווים}} או יותר.",
+	"pf-autocomplete-input-too-short": "נא להזין {{PLURAL:$1|תו אחד|$1 תווים}} או יותר.",
 	"pf-select2-selection-too-big": "השדה הזה אינו יכול להכיל יותר {{PLURAL:$1|מערך אחד|מ־$1 ערכים}}.",
 	"pf-maps-enteraddress": "נא להזין כתובת כאן",
 	"pf-maps-lookupcoordinates": "חישוב נקודות ציון של כתובת",

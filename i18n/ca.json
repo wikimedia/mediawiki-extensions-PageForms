@@ -258,7 +258,7 @@
 	"tooltip-ca-formedit": "Edita aquesta pàgina amb un formulari",
 	"pf-autocomplete-no-matches": "Cap coincidència",
 	"pf-select2-searching": "S'està cercant…",
-	"pf-select2-input-too-short": "Introduïu $1 o més caràcters.",
+	"pf-autocomplete-input-too-short": "Introduïu $1 o més caràcters.",
 	"pf-select2-selection-too-big": "Aquest camp no pot contenir més de {{PLURAL:$1|$1 valor|$1 valors}}.",
 	"pf-maps-enteraddress": "Introduïu l'adreça aquí",
 	"pf-maps-lookupcoordinates": "Calcula les coordenades fent servir una adreça",
