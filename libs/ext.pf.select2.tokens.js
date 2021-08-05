@@ -270,7 +270,9 @@
 			if ( autocompletesettings === 'external data' ) {
 				var name = $(input_id).attr(this.nameAttr($(input_id)));
 				// Remove the final "[]".
-				name = name.substring(0, name.length - 2);
+				if (name.includes('[]')) {
+					name = name.substring(0, name.length - 2);
+				}
 				var wgPageFormsEDSettings = mw.config.get( 'wgPageFormsEDSettings' );
 				var edgValues = mw.config.get( 'edgValues' );
 				data = {};
