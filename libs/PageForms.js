@@ -1567,8 +1567,8 @@ $(document).ready( function() {
 	function getFunctionFromName( functionName ) {
 		var func = window;
 		var namespaces = functionName.split( "." );
-		for ( i = 0; i < namespaces.length; i++ ) {
-			func = func[ namespaces[ i ] ];
+		for ( var nsNum = 0; nsNum < namespaces.length; nsNum++ ) {
+			func = func[ namespaces[ nsNum ] ];
 		}
 		// If this gets called before the function is defined, just
 		// store the function name instead, for later lookup.
