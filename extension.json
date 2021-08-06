@@ -299,10 +299,7 @@
 			]
 		},
 		"ext.pageforms.regexp": {
-			"scripts": "libs/PF_regexp.js",
-			"dependencies": [
-				"ext.pageforms.main"
-			]
+			"scripts": "libs/PF_regexp.js"
 		},
 		"ext.pageforms.rating": {
 			"scripts": [
