@@ -11,6 +11,7 @@
  * @author Priyanshu Varshney
  * @author Yaron Koren
  * @author Sahaj Khandelwal
+ * @author Yash Varshney
  */
 
 (function ($, mw, pf) {

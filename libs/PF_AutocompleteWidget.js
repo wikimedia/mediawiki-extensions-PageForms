@@ -9,6 +9,7 @@
  * @param {Object} config Configuration options
  * @author Yaron Koren
  * @author Sahaj Khandelwal
+ * @author Yash Varshney
  */
 
 pf.AutocompleteWidget = function( config ) {
