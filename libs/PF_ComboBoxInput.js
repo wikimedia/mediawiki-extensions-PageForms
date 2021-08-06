@@ -27,7 +27,8 @@
         this.setValue(element.val())
         this.config['autocompletesettings'] = element.attr('autocompletesettings');
         this.config['autocompletedatatype'] = element.attr('autocompletedatatype');
-        this.setInputAttribute('autocompletesettings', this.config['autocompletesettings']);
+        this.setInputAttribute('autocompletesettings', this.config['autocompletesettings']);;
+        this.setInputAttribute('placeholder', element.attr('placeholder'));
         // Initialize values in the combobox
         this.setValues();
 
