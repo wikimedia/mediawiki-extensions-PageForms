@@ -183,7 +183,7 @@
 			opts.ajax = this.getAjaxOpts();
 			opts.minimumInputLength = 1;
 			opts.language.inputTooShort = function() {
-				return mw.msg( "pf-select2-input-too-short", opts.minimumInputLength );
+				return mw.msg( "pf-autocomplete-input-too-short", opts.minimumInputLength );
 			};
 		} else if ( input_tagname === "SELECT" ) {
 			opts.data = this.getData( autocomplete_opts.autocompletesettings );

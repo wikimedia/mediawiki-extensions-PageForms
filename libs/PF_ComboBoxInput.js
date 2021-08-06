@@ -73,7 +73,7 @@
             curValue = this.getValue();
             if (curValue.length == 0) {
                 values.push({
-                    data:self.getValue(), label: mw.message('pf-select2-input-too-short',1).text(), disabled: true
+                    data:self.getValue(), label: mw.message('pf-autocomplete-input-too-short',1).text(), disabled: true
                 });
                 this.setOptions(values);
                 return;
