@@ -218,7 +218,7 @@
 			return pf.select2.base.prototype.textHighlight( result.id, term );
 		};
 		opts.language.searching = function() {
-			return mw.msg( "pf-select2-searching" );
+			return mw.msg( "pf-autocomplete-searching" );
 		};
 		opts.placeholder = $(input_id).attr( "placeholder" );
 
@@ -239,7 +239,7 @@
 		if ( maxvalues !== undefined ) {
 			opts.maximumSelectionLength = maxvalues;
 			opts.language.maximumSelected = function() {
-				return mw.msg( "pf-select2-selection-too-big", maxvalues );
+				return mw.msg( "pf-autocomplete-selection-too-big", maxvalues );
 			};
 		}
 		// opts.selectOnClose = true;

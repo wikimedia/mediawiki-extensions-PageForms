@@ -334,9 +334,9 @@
 				"mediawiki.jqueryMsg"
 			],
 			"messages": [
-				"pf-select2-searching",
+				"pf-autocomplete-searching",
 				"pf-autocomplete-input-too-short",
-				"pf-select2-selection-too-big"
+				"pf-autocomplete-selection-too-big"
 			]
 		},
 		"ext.pageforms.ooui.autocomplete": {

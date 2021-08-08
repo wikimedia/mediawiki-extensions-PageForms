@@ -192,7 +192,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getNoMatchesOOUIMenuOptionWidget = fu
 	return [
 		new OO.ui.MenuOptionWidget( {
 			data: this.getValue(),
-			label: mw.message('pf-select2-no-matches').text(),
+			label: mw.message('pf-autocomplete-no-matches').text(),
 			disabled: true
 		} )
 	];
