@@ -131,7 +131,7 @@
 	"pf_blank_namespace": "Pennañ",
 	"right-viewedittab": "Gwelet an ivinell \"kemmañ\" evit ar pajennoù kemmus dre ur furmskrid",
 	"right-editrestrictedfields": "Aozañ maeziennoù strishaet ar furmskridoù",
-	"pf-select2-searching": "O klask...",
+	"pf-autocomplete-searching": "O klask...",
 	"pf-autocomplete-input-too-short": "Merkit $1 arouezenn pe vuioc'h.",
 	"pf-datepicker-close": "Serriñ",
 	"pf-datepicker-prev": "Kent",

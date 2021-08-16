@@ -69,7 +69,7 @@
 	"uploadwindow": "Prozor za otpremanje",
 	"pf_deletionlog": "Istorija brisanja",
 	"pf_form_freetextlabel": "Slobodan tekst",
-	"pf-select2-selection-too-big": "Ovo polje ne može da sadrži više od {{PLURAL:$1|$1 vrednosti}}.",
+	"pf-autocomplete-selection-too-big": "Ovo polje ne može da sadrži više od {{PLURAL:$1|$1 vrednosti}}.",
 	"pf-datepicker-dateformatlong": "d MM yy",
 	"pf-datepicker-dateformatshort": "dd.mm.yy",
 	"pf-datepicker-firstdayofweek": "1"

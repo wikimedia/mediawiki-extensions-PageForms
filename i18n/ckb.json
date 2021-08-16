@@ -80,7 +80,7 @@
 	"pf_category_hasdefaultform": "ئەم پۆلە، فۆرمی $1 بە کار دەبات.",
 	"pf_category_desc": "ئەم پۆلی $1 ـە.",
 	"pf_blank_namespace": "سەرەکی",
-	"pf-select2-searching": "گەڕان...",
+	"pf-autocomplete-searching": "گەڕان...",
 	"pf-autocomplete-input-too-short": "تکایە $1 یان زۆرتر کاراکتەر بنووسە.",
 	"pf-maps-enteraddress": "ناونیشان لێرەدا زیاد بکە",
 	"pf-maps-lookupcoordinates": "پۆوتانی جوگرافی بدۆزەوە"

@@ -211,7 +211,7 @@
 	"action-createclass": "ایجاد کلاس‌های معنایی تازه",
 	"action-editrestrictedfields": "ویرایش محدود شده از زمینه‌ها",
 	"action-viewedittab": "مشاهده تب \"{{int:edit}}\" برای صفحات قابل ویرایش توسط فرم",
-	"pf-select2-searching": "در حال جستجو...",
+	"pf-autocomplete-searching": "در حال جستجو...",
 	"pf-maps-enteraddress": "آدرس را اینجا وارد کنید",
 	"pf-maps-lookupcoordinates": "نگاه کردن مختصات",
 	"pf-adminlinks-datastructure": "ساختار داده‌ها",

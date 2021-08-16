@@ -131,7 +131,7 @@
 	"right-viewedittab": "a „{{int:edit}}” fül megjelenítése űrlappal szerkeszthető lapokon",
 	"right-editrestrictedfields": "korlátozott űrlap-mezők szerkesztése",
 	"pf-autocomplete-no-matches": "Nincs találat",
-	"pf-select2-searching": "Keresés...",
+	"pf-autocomplete-searching": "Keresés...",
 	"pf-datepicker-close": "Bezárás",
 	"pf-datepicker-prev": "Előző",
 	"pf-datepicker-next": "Következő",

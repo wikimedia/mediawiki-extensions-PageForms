@@ -157,7 +157,7 @@
 	"pf_category_hasdefaultform": "Ši kategorija naudoja „$1“ formą.",
 	"pf_category_desc": "Tai yra „$1“ kategorija.",
 	"pf_blank_namespace": "Pagrindinis",
-	"pf-select2-selection-too-big": "Šiame laukelyje negali būti daugiau nei {{PLURAL:$1|$1 reikšmės|$1 reikšmių}}.",
+	"pf-autocomplete-selection-too-big": "Šiame laukelyje negali būti daugiau nei {{PLURAL:$1|$1 reikšmės|$1 reikšmių}}.",
 	"pf-maps-enteraddress": "Įveskite adresą čia",
 	"pf-maps-lookupcoordinates": "Ieškoti koordinačių pagal adresą",
 	"pf-adminlinks-datastructure": "Duomenų struktūra",

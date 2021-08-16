@@ -217,7 +217,7 @@
 	"action-viewedittab": "visualizzare la scheda \"{{int:edit}}\" per le pagine modificabili tramite modulo",
 	"tooltip-ca-formedit": "Modifica questa pagina con un modello",
 	"pf-autocomplete-no-matches": "Nessuna corrispondenza",
-	"pf-select2-selection-too-big": "Questo campo non può contenere più di $1 {{PLURAL:$1|valore|valori}}.",
+	"pf-autocomplete-selection-too-big": "Questo campo non può contenere più di $1 {{PLURAL:$1|valore|valori}}.",
 	"pf-maps-enteraddress": "Inserisci indirizzo qui",
 	"pf-adminlinks-datastructure": "Struttura dei dati",
 	"pf-datepicker-close": "Chiudi",
