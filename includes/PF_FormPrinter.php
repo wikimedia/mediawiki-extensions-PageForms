@@ -46,9 +46,13 @@ class PFFormPrinter {
 		$this->registerInputType( 'PFTextAreaInput' );
 		$this->registerInputType( 'PFTextAreaWithAutocompleteInput' );
 		$this->registerInputType( 'PFDateInput' );
+		$this->registerInputType( 'PFStartDateInput' );
+		$this->registerInputType( 'PFEndDateInput' );
 		$this->registerInputType( 'PFDatePickerInput' );
 		$this->registerInputType( 'PFDateTimePicker' );
 		$this->registerInputType( 'PFDateTimeInput' );
+		$this->registerInputType( 'PFStartDateTimeInput' );
+		$this->registerInputType( 'PFEndDateTimeInput' );
 		$this->registerInputType( 'PFYearInput' );
 		$this->registerInputType( 'PFCheckboxInput' );
 		$this->registerInputType( 'PFDropdownInput' );

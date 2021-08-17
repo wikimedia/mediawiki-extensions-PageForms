@@ -19,9 +19,7 @@ class PFDateInput extends PFFormInput {
 
 	public static function getDefaultCargoTypes() {
 		return [
-			'Date' => [],
-			'Start date' => [],
-			'End date' => []
+			'Date' => []
 		];
 	}
 
@@ -55,6 +53,10 @@ class PFDateInput extends PFFormInput {
 		}
 		$text = Html::rawElement( 'select', $selectAttrs, $optionsText );
 		return $text;
+	}
+
+	public function getInputClass() {
+		return 'dateInput';
 	}
 
 	static function parseDate( $date, $includeTime = false ) {
@@ -190,9 +192,9 @@ class PFDateInput extends PFFormInput {
 		return $text;
 	}
 
-	public static function getHTML( $date, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
+	public function getHTML( $date, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
 		$text = self::getMainHTML( $date, $input_name, $is_mandatory, $is_disabled, $other_args );
-		$spanClass = 'dateInput';
+		$spanClass = $this->getInputClass();
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
@@ -205,7 +207,7 @@ class PFDateInput extends PFFormInput {
 	 * @return string
 	 */
 	public function getHtmlText(): string {
-		return self::getHTML(
+		return $this->getHTML(
 			$this->mCurrentValue,
 			$this->mInputName,
 			$this->mIsMandatory,

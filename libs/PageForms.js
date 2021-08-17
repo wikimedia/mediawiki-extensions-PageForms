@@ -806,6 +806,89 @@ $.fn.checkForPipes = function() {
 	return true;
 };
 
+function leftPad( number, targetLength ) {
+	var negative = false;
+	if ( number < 0 ) {
+		number = number * -1;
+		var negative = true;
+	}
+	var output = number + '';
+	while ( output.length < targetLength ) {
+		output = '0' + output;
+	}
+	if ( negative ) {
+		output = '-' + output
+	}
+	return output;
+}
+
+function validateStartEndDateField( startInput, endInput ) {
+	if ( !startInput.length || !endInput.length ) {
+		return true;
+	}
+	var startYearVal = leftPad( startInput.find(".yearInput").val(),4 );
+	var startMonthVal = leftPad( startInput.find(".monthInput").val(),2 );
+	var startDayVal = leftPad( startInput.find(".dayInput").val(),2 );
+
+	var endYearVal = leftPad( endInput.find(".yearInput").val(),4 );
+	var endMonthVal = leftPad( endInput.find(".monthInput").val(),2 );
+	var endDayVal = leftPad( endInput.find(".dayInput").val(),2 );
+
+	var startDate = startYearVal + "/" + startMonthVal + "/" + startDayVal;
+
+	var endDate = endYearVal + "/" + endMonthVal + "/" + endDayVal;
+
+	if ( startDate <= endDate || endDate == "0000/00/00") {
+		return true;
+	} else {
+		if ( endInput ) {
+			endInput.addErrorMessage( 'pf_start_end_date_error' )
+		} else if ( startInput ) {
+			startInput.addErrorMessage( 'pf_start_end_date_error' )
+		}
+		return false;
+	}
+}
+
+function validateStartEndDateTimeField( startInput, endInput ) {
+	if ( !startInput.length || !endInput.length ) {
+		return true;
+	}
+	var startYearVal = leftPad( startInput.find(".yearInput").val(),4 );
+	var startMonthVal = leftPad( startInput.find(".monthInput").val(),2 );
+	var startDayVal = leftPad( startInput.find(".dayInput").val(),2 );
+	var startHoursVal = leftPad( startInput.find(".hoursInput").val(),2 );
+	var startMinutesVal = leftPad( startInput.find(".minutesInput").val(),2 );
+	var startSecondsVal = leftPad( startInput.find(".secondsInput").val(),2 );
+	var startAmPmVal = startInput.find(".ampmInput").val();
+
+	var endYearVal = leftPad( endInput.find(".yearInput").val(),4 );
+	var endMonthVal = leftPad( endInput.find(".monthInput").val(),2 );
+	var endDayVal = leftPad( endInput.find(".dayInput").val(),2 );
+	var endHoursVal = leftPad( endInput.find(".hoursInput").val(),2 );
+	var endMinutesVal = leftPad( endInput.find(".minutesInput").val(),2 );
+	var endSecondsVal = leftPad( endInput.find(".secondsInput").val(),2 );
+	var endAmPmVal = endInput.find(".ampmInput").val();
+
+	var startDateTime = startYearVal + "/" + startMonthVal + "/" + startDayVal + " " +
+	startHoursVal + ":" + startMinutesVal + ":" + startSecondsVal + " " + startAmPmVal;
+
+	var endDateTime = endYearVal + "/" + endMonthVal + "/" + endDayVal + " " +
+		endHoursVal + ":" + endMinutesVal + ":" + endSecondsVal + " " + endAmPmVal;
+
+	if ( startDateTime <= endDateTime || endDateTime == "0000/00/00 00:00:00 " ) {
+		return true;
+	} else {
+		if ( endInput ) {
+			endInput.addErrorMessage( 'pf_start_end_datetime_error' )
+		} else if ( startInput ) {
+			startInput.addErrorMessage( 'pf_start_end_datetime_error' )
+		}
+		return false;
+	}
+
+}
+
 window.validateAll = function () {
 
 	// Hook that fires on form submission, before the validation.
@@ -904,6 +987,19 @@ window.validateAll = function () {
 		num_errors += 1;
 	});
 
+	var startDateInput = $("span.startDateInput").not(".hiddenByPF")
+	var endDateInput = $("span.endDateInput").not(".hiddenByPF")
+
+	if ( !validateStartEndDateField( startDateInput, endDateInput ) ) {
+		num_errors += 1;
+	}
+
+	var startDateTimeInput = $("span.startDateTimeInput").not(".hiddenByPF")
+	var endDateTimeInput = $("span.endDateTimeInput").not(".hiddenByPF")
+
+	if ( !validateStartEndDateTimeField( startDateTimeInput, endDateTimeInput ) ) {
+		num_errors += 1;
+	}
 	// call registered validation functions
 	var pfdata = $("#pfForm").data('PageForms');
 

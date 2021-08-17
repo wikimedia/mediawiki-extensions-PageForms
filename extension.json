@@ -139,10 +139,14 @@
 		"PFListBoxInput": "includes/forminputs/PF_ListBoxInput.php",
 		"PFComboBoxInput": "includes/forminputs/PF_ComboBoxInput.php",
 		"PFDateInput": "includes/forminputs/PF_DateInput.php",
+		"PFStartDateInput": "includes/forminputs/PF_StartDateInput.php",
+		"PFEndDateInput": "includes/forminputs/PF_EndDateInput.php",
 		"PFDatePickerInput": "includes/forminputs/PF_DatePickerInput.php",
 		"PFTimePickerInput": "includes/forminputs/PF_TimePickerInput.php",
 		"PFDateTimePicker": "includes/forminputs/PF_DateTimePicker.php",
 		"PFDateTimeInput": "includes/forminputs/PF_DateTimeInput.php",
+		"PFStartDateTimeInput": "includes/forminputs/PF_StartDateTimeInput.php",
+		"PFEndDateTimeInput": "includes/forminputs/PF_EndDateTimeInput.php",
 		"PFYearInput": "includes/forminputs/PF_YearInput.php",
 		"PFTreeInput": "includes/forminputs/PF_TreeInput.php",
 		"PFTree": "includes/forminputs/PF_Tree.php",
@@ -191,7 +195,9 @@
 				"pf_bad_integer_error",
 				"pf_bad_date_error",
 				"pf_modified_input_error",
-				"pf_pipe_error"
+				"pf_pipe_error",
+				"pf_start_end_date_error",
+				"pf_start_end_datetime_error"
 			]
 		},
 		"ext.pageforms.browser": {
