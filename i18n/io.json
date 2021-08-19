@@ -13,5 +13,6 @@
 	"formedit": "Redaktar kun formulario",
 	"pf_formedit_none": "Nula",
 	"pf-simpleupload": "Kargar",
-	"pf_deletionlog": "Registro pri efaci"
+	"pf_deletionlog": "Registro pri efaci",
+	"pf-datepicker-close": "Klozez"
 }

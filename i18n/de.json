@@ -240,6 +240,8 @@
 	"pf_bad_number_error": "muss eine gültige Zahl sein",
 	"pf_bad_integer_error": "muss eine ganze Zahl sein",
 	"pf_bad_date_error": "muss ein gültiges Datum sein",
+	"pf_start_end_date_error": "Das Enddatum muss nach dem Startdatum liegen",
+	"pf_start_end_datetime_error": "Der Endzeitpunkt muss nach dem Startzeitpunkt liegen.",
 	"pf_modified_input_error": "Diese Veränderung sollte bestätigt oder abgelehnt werden",
 	"pf_pipe_error": "„|“ ist nicht erlaubt, außer innerhalb von {{...}}, [[...]] oder speziellen Tags",
 	"uploadwindow": "Formular zum Hochladen",
