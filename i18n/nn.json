@@ -5,7 +5,8 @@
 			"Harald Khan",
 			"Jon Harald Søby",
 			"Nghtwlkr",
-			"Njardarlogar"
+			"Njardarlogar",
+			"Olve Utne"
 		]
 	},
 	"pageforms-desc": "Skjema for å leggja til og endra semantiske data",
@@ -88,6 +89,7 @@
 	"pf_bad_number_error": "må vera eit gyldig tal",
 	"pf_bad_integer_error": "må vera eit gyldig heiltal",
 	"pf_bad_date_error": "må vera ein gyldig dato",
+	"pf_start_end_date_error": "Sluttdatoen må vera etter startdatoen.",
 	"uploadwindow": "Opplastingsvindauga",
 	"pf_property_isproperty": "Dette er ein eigenskap av typen $1.",
 	"pf_property_linkstoform": "Det lenker til sida som nyttar skjemaet $1.",

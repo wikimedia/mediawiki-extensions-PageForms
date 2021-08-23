@@ -51,7 +51,7 @@
 	"pf_createform_inputtype": "Врста уноса:",
 	"pf_createform_inputtypedefault": "(подразумевано)",
 	"pf_createform_formlabel": "Из ознаке:",
-	"pf_createform_hidden": "Сакривено",
+	"pf_createform_hidden": "(Сакривено)",
 	"pf_createform_removetemplate": "Уклони шаблон",
 	"pf_createform_addtemplate": "Додај шаблон:",
 	"pf_createform_atend": "На крају",

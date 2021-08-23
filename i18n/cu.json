@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"NR Deblocked",
 			"ОйЛ"
 		]
 	},
 	"pf_createtemplate_deletefield": "поничьжєниѥ",
+	"pf_start_end_date_error": "​Дата​ ​и҆​ вре́мѧ ѡ҆конча́нїѧ ​до́лжно​ бы́ть ​позже​ ​даты​ ​и҆​ ​вре́мени​ ​нача́ла​.",
+	"pf_start_end_datetime_error": "​Дата​ ​и҆​ вре́мѧ ѡ҆конча́нїѧ ​до́лжно​ бы́ть ​позже​ ​даты​ ​и҆​ ​вре́мени​ ​нача́ла​.",
 	"pf-datepicker-close": "ꙁакрꙑи"
 }
