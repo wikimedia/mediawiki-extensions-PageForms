@@ -66,9 +66,8 @@ class PFTemplateInForm {
 	public static function newFromFormTag( $tag_components ) {
 		$parser = PFUtils::getParser();
 
-		$template_name = str_replace( '_', ' ', trim( $parser->recursiveTagParse( $tag_components[1] ) ) );
 		$tif = new PFTemplateInForm();
-		$tif->mTemplateName = str_replace( '_', ' ', $template_name );
+		$tif->mTemplateName = str_replace( '_', ' ', trim( $parser->recursiveTagParse( $tag_components[1] ) ) );
 
 		$tif->mAddButtonText = wfMessage( 'pf_formedit_addanother' )->text();
 		// Cycle through the other components.
