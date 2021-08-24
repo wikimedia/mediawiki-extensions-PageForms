@@ -100,7 +100,7 @@ class PFAutoEdit {
 						$targetWikiPage = WikiPage::factory( $targetTitle );
 						$targetWikiPage->clear();
 						$editTime = $targetWikiPage->getTimestamp();
-						$latestRevId = $targetArticle->getRevision()->getId();
+						$latestRevId = $targetWikiPage->getLatest();
 					}
 					break;
 
