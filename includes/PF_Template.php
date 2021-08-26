@@ -190,24 +190,12 @@ class PFTemplate {
 		$cargoFieldsOfTemplateParams = [];
 
 		// First, get the table name, and fields, declared for this
-		// template.
-		$templatePageID = $templateTitle->getArticleID();
-		$tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
-		// See if there even is DB storage for this template - if not,
-		// exit.
-		if ( $tableSchemaString === null ) {
-			// There's no declared table - but see if there's an
-			// attached table.
-			list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
-			if ( $tableName == null ) {
-				return null;
-			}
-			$mainTemplatePageID = CargoUtils::getTemplateIDForDBTable( $tableName );
-			$tableSchemaString = CargoUtils::getPageProp( $mainTemplatePageID, 'CargoFields' );
-		} else {
-			$tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
+		// template, if any.
+		list( $tableName, $tableSchema ) = $this->getCargoTableAndSchema( $templateTitle );
+		if ( $tableName == null ) {
+			return;
 		}
-		$tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
+		$fieldDescriptions = $tableSchema->mFieldDescriptions;
 
 		// Then, match template params to Cargo table fields, by
 		// parsing call(s) to #cargo_store.
@@ -264,7 +252,6 @@ class PFTemplate {
 
 		// Now, combine the two sets of information into an array of
 		// PFTemplateFields objects.
-		$fieldDescriptions = $tableSchema->mFieldDescriptions;
 		// First, go through the #cargo_store parameters, add add them
 		// all to the array, matching them with Cargo field descriptions
 		// where possible.
@@ -291,6 +278,27 @@ class PFTemplate {
 			$templateField->setCargoFieldData( $tableName, $cargoField, $fieldDescription );
 			$this->mTemplateFields[] = $templateField;
 		}
+	}
+
+	function getCargoTableAndSchema( $templateTitle ) {
+		$templatePageID = $templateTitle->getArticleID();
+		$tableSchemaString = CargoUtils::getPageProp( $templatePageID, 'CargoFields' );
+		// See if there even is DB storage for this template - if not,
+		// exit.
+		if ( $tableSchemaString === null ) {
+			// There's no declared table - but see if there's an
+			// attached table.
+			list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
+			if ( $tableName == null ) {
+				return [ null, null ];
+			}
+			$mainTemplatePageID = CargoUtils::getTemplateIDForDBTable( $tableName );
+			$tableSchemaString = CargoUtils::getPageProp( $mainTemplatePageID, 'CargoFields' );
+		} else {
+			$tableName = CargoUtils::getPageProp( $templatePageID, 'CargoTableName' );
+		}
+		$tableSchema = CargoTableSchema::newFromDBString( $tableSchemaString );
+		return [ $tableName, $tableSchema ];
 	}
 
 	public function getTemplateFields() {
