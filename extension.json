@@ -563,7 +563,8 @@
 		"PageFormsCheckboxesSelectAllMinimum": 10,
 		"PageFormsMapsWithFeeders": [],
 		"PageFormsAutoeditNamespaces": [ 0 ],
-		"PageFormsIgnoreTitlePattern": []
+		"PageFormsIgnoreTitlePattern": [],
+		"PageFormsEmbeddedTemplates": []
 	},
 	"manifest_version": 1
 }

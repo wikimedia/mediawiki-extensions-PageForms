@@ -64,12 +64,21 @@ class PFTemplateInForm {
 	}
 
 	public static function newFromFormTag( $tag_components ) {
+		global $wgPageFormsEmbeddedTemplates;
+
 		$parser = PFUtils::getParser();
 
 		$tif = new PFTemplateInForm();
 		$tif->mTemplateName = str_replace( '_', ' ', trim( $parser->recursiveTagParse( $tag_components[1] ) ) );
 
 		$tif->mAddButtonText = wfMessage( 'pf_formedit_addanother' )->text();
+
+		if ( array_key_exists( $tif->mTemplateName, $wgPageFormsEmbeddedTemplates ) ) {
+			list( $tif->mEmbedInTemplate, $tif->mEmbedInField ) =
+				$wgPageFormsEmbeddedTemplates[$tif->mTemplateName];
+			$tif->mPlaceholder = PFFormPrinter::placeholderFormat( $tif->mEmbedInTemplate, $tif->mEmbedInField );
+		}
+
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 			$component = $tag_components[$i];

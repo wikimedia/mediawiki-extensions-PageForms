@@ -178,6 +178,8 @@ class PFFormField {
 		$form_is_disabled,
 		User $user
 	) {
+		global $wgPageFormsEmbeddedTemplates;
+
 		$parser = PFUtils::getParser();
 
 		$f = new PFFormField();
@@ -202,6 +204,19 @@ class PFFormField {
 				return $f;
 			}
 			$f->template_field = PFTemplateField::create( $field_name, null );
+		}
+
+		$embeddedTemplate = $f->template_field->getHoldsTemplate();
+		if ( $embeddedTemplate != '' ) {
+			$f->mIsHidden = true;
+			$f->mHoldsTemplate = true;
+			// Store this information so that the embedded/"held"
+			// template - which is hopefully after this one in the
+			// form definition - can be handled correctly. In forms,
+			// both the embedding field and the embedded template are
+			// specified as such, but in templates (i.e., with
+			// #template_params), it's only the embedding field.
+			$wgPageFormsEmbeddedTemplates[$embeddedTemplate] = [ $template_name, $field_name ];
 		}
 
 		$semantic_property = null;
