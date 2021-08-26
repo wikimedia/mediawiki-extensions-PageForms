@@ -13,6 +13,7 @@ class PFTemplate {
 	private $mTemplateName;
 	private $mTemplateText;
 	private $mTemplateFields;
+	private $mTemplateParams;
 	private $mConnectingProperty;
 	private $mCategoryName;
 	private $mCargoTable;
@@ -31,8 +32,32 @@ class PFTemplate {
 
 	public static function newFromName( $templateName ) {
 		$template = new PFTemplate( $templateName, [] );
+		$template->loadTemplateParams();
 		$template->loadTemplateFields();
 		return $template;
+	}
+
+	/**
+	 * Get (and store in memory) the values from this template's
+	 * #template_params call, if it exists.
+	 */
+	public function loadTemplateParams() {
+		$embeddedTemplate = null;
+		$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
+		$properties = PageProps::getInstance()->getProperties(
+			[ $templateTitle ], [ 'PageFormsTemplateParams' ]
+		);
+		if ( count( $properties ) == 0 ) {
+			return;
+		}
+
+		$paramsForPage = reset( $properties );
+		$paramsForProperty = reset( $paramsForPage );
+		$this->mTemplateParams = unserialize( $paramsForProperty );
+	}
+
+	public function getTemplateParams() {
+		return $this->mTemplateParams;
 	}
 
 	/**
@@ -197,8 +222,27 @@ class PFTemplate {
 		}
 		$fieldDescriptions = $tableSchema->mFieldDescriptions;
 
-		// Then, match template params to Cargo table fields, by
-		// parsing call(s) to #cargo_store.
+		// If #template_params was declared for this template, our
+		// job is easy - we just go through the declared fields, get
+		// the Cargo data for each field if it exists, and populate
+		// $mTemplateFields with it.
+		if ( $this->mTemplateParams !== null ) {
+			foreach ( $this->mTemplateParams as $fieldName => $fieldParams ) {
+				$templateField = PFTemplateField::newFromParams( $fieldName, $fieldParams );
+				$cargoField = $templateField->getExpectedCargoField();
+				if ( array_key_exists( $cargoField, $fieldDescriptions ) ) {
+					$fieldDescription = $fieldDescriptions[$cargoField];
+					$templateField->setCargoFieldData( $tableName, $cargoField, $fieldDescription );
+				}
+				$this->mTemplateFields[$fieldName] = $templateField;
+			}
+			return;
+		}
+
+		// No #template_params call, so we have to do a more manual
+		// process.
+		// Match template params to Cargo table fields, by parsing
+		// call(s) to #cargo_store.
 		// Let's find every #cargo_store tag.
 		// Unfortunately, it doesn't seem possible to use a regexp
 		// search for this, because it's hard to know which set of

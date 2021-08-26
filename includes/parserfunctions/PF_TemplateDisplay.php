@@ -22,22 +22,13 @@ class PFTemplateDisplay {
 		$tableFieldValues = [];
 
 		$templateTitle = $frame->title;
-		$properties = PageProps::getInstance()->getProperties(
-			[ $templateTitle ], [ 'PageFormsTemplateParams' ]
-		);
-		if ( count( $properties ) == 0 ) {
+		$template = PFTemplate::newFromName( $templateTitle->getText() );
+		$templateParams = $template->getTemplateParams();
+		if ( $templateParams == null ) {
 			return '<div class="error">' . 'Error: #template_params must be called in the template "' . $templateTitle->getText() . '".</div>';
 		}
 
 		$parser->getOutput()->addModules( 'ext.pageforms.templatedisplay' );
-
-		$paramsForPage = reset( $properties );
-		$paramsForProperty = reset( $paramsForPage );
-		$templateParams = unserialize( $paramsForProperty );
-
-		foreach ( $templateParams as $paramName => $paramAttributes ) {
-			$templateFields[$paramName] = PFTemplateField::newFromParams( $paramName, $paramAttributes );
-		}
 
 		foreach ( $params as $param ) {
 			$parts = explode( '=', $param, 2 );
@@ -54,41 +45,8 @@ class PFTemplateDisplay {
 			}
 		}
 
-		list( $tableName, $isDeclared ) = CargoUtils::getTableNameForTemplate( $templateTitle );
-
-		// Get field data from Cargo, if there is any.
-		$cargoTableSchemas = null;
-		if ( $tableName !== null ) {
-			try {
-				$cargoTableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
-			} catch ( MWException $e ) {
-				// Do nothing.
-			}
-		}
-
-		if ( $cargoTableSchemas !== null ) {
-			$cargoFieldDescriptions = $cargoTableSchemas[$tableName]->mFieldDescriptions;
-			foreach ( $templateFields as $fieldName => $templateField ) {
-				$fullCargoFieldName = $templateField->getFullCargoField();
-				if ( $fullCargoFieldName == null ) {
-					$cargoFieldName = str_replace( ' ', '_', $fieldName );
-				} else {
-					list( $cargoTableName, $cargoFieldName ) = explode( '|', $fullCargoFieldName );
-					if ( $cargoTableName !== $tableName ) {
-						// @TODO - need better handling
-						// for the case of multiple tables
-						// for the same template.
-						continue;
-					}
-				}
-				if ( array_key_exists( $cargoFieldName, $cargoFieldDescriptions ) ) {
-					$templateField->setCargoFieldData( $tableName, $cargoFieldName, $cargoFieldDescriptions[$cargoFieldName] );
-					$templateFields[$fieldName] = $templateField;
-				}
-			}
-		}
-
 		// Get all the values in this template call.
+		$templateFields = $template->getTemplateFields();
 		foreach ( $templateFields as $fieldName => $templateField ) {
 			$curFieldValue = $frame->getArgument( $fieldName );
 			if ( $curFieldValue == null ) {

@@ -251,6 +251,14 @@ class PFTemplateField {
 		return $this->mPropertyType;
 	}
 
+	function getExpectedCargoField() {
+		if ( $this->mCargoField != '' ) {
+			return $this->mCargoField;
+		} else {
+			return str_replace( ' ', '_', $this->mFieldName );
+		}
+	}
+
 	function getFullCargoField() {
 		if ( $this->mCargoTable == '' || $this->mCargoField == '' ) {
 			return null;
