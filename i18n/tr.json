@@ -235,6 +235,8 @@
 	"pf_bad_number_error": "geçerli bir sayı olmalı",
 	"pf_bad_integer_error": "tam sayı olmalı",
 	"pf_bad_date_error": "geçerli bir tarih olmalı",
+	"pf_start_end_date_error": "Bitiş tarihi, başlangıç tarihinden sonra olmalıdır",
+	"pf_start_end_datetime_error": "Bitiş tarih saati, başlangıç tarihinden sonra olmalıdır",
 	"pf_modified_input_error": "Bu değişiklik onaylanmalı veya reddedilmelidir",
 	"pf_pipe_error": "\"|\" izin verilmiyor, {{...}}, [[...]] veya özel etiketler dışında izin hariç",
 	"uploadwindow": "Yükleme penceresi",
