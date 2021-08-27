@@ -189,7 +189,6 @@ class PFUtils {
 	 * @param bool $watch_this
 	 * @param string $start_time
 	 * @param string $edit_time
-	 * @param int $edit_rev_id
 	 * @return string
 	 */
 	public static function printRedirectForm(
@@ -202,8 +201,7 @@ class PFUtils {
 		$is_minor_edit,
 		$watch_this,
 		$start_time,
-		$edit_time,
-		$edit_rev_id
+		$edit_time
 	) {
 		global $wgUser, $wgPageFormsScriptPath;
 
@@ -224,7 +222,9 @@ END;
 		$form_body .= Html::hidden( 'wpSummary', $edit_summary );
 		$form_body .= Html::hidden( 'wpStarttime', $start_time );
 		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
-		$form_body .= Html::hidden( 'editRevId', $edit_rev_id );
+		// @TODO - add this in at some point. For now, most of these
+		// fields are not getting used anyway.
+		//$form_body .= Html::hidden( 'editRevId', $edit_rev_id );
 
 		if ( method_exists( $wgUser, 'isRegistered' ) ) {
 			// MW 1.34+
