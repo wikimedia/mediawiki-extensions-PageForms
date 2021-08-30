@@ -238,6 +238,7 @@
 	"pf_bad_number_error": "precisa ser um número válido",
 	"pf_bad_integer_error": "deve ser um número inteiro",
 	"pf_bad_date_error": "precisa ser uma data válida",
+	"pf_start_end_date_error": "Data final deve ser após a data de início",
 	"pf_start_end_datetime_error": "A data de término deve ser posterior a data de início",
 	"pf_modified_input_error": "Esta alteração devia ser aprovada ou rejeitada",
 	"pf_pipe_error": "\"|\" não é permitido, exceto dentro de {{...}} ou [[...]], ou etiquetas especiais",
