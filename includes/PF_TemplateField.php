@@ -22,6 +22,7 @@ class PFTemplateField {
 	private $mCargoTable;
 	private $mCargoField;
 	private $mFieldType;
+	private $mRealFieldType = null;
 	private $mHierarchyStructure;
 
 	private $mPossibleValues;
@@ -218,6 +219,7 @@ class PFTemplateField {
 			} else {
 				$this->mFieldType = 'Enumeration';
 			}
+			$this->mRealFieldType = $fieldDescription->mType;
 		} elseif ( $fieldDescription->mType == 'Text' && $fieldDescription->mSize != '' && $fieldDescription->mSize <= 100 ) {
 			$this->mFieldType = 'String';
 		} else {
@@ -268,6 +270,10 @@ class PFTemplateField {
 
 	function getFieldType() {
 		return $this->mFieldType;
+	}
+
+	function getRealFieldType() {
+		return $this->mRealFieldType;
 	}
 
 	function getPossibleValues() {

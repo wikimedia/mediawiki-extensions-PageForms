@@ -73,7 +73,14 @@ class PFTemplateDisplay {
 			if ( $fieldDisplay == 'nonempty' && $fieldValue == '' ) {
 				continue;
 			}
+
 			$fieldType = $templateField->getFieldType();
+			// Ignore stuff like 'Enumeration' - we don't need it.
+			$realFieldType = $templateField->getRealFieldType();
+			if ( $realFieldType !== null ) {
+				$fieldType = $realFieldType;
+			}
+
 			$fieldLabel = $templateField->getLabel();
 			if ( $fieldLabel == null ) {
 				$fieldLabel = $fieldName;
