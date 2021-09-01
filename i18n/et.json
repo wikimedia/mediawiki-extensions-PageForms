@@ -32,7 +32,7 @@
 	"pf_createform_templatelabelinput": "Malli silt (valikuline):",
 	"pf_createform_field": "Väli:",
 	"pf_createform_inputtypedefault": "(vaikeväärtus)",
-	"pf_createform_hidden": "Peidetud",
+	"pf_createform_hidden": "(Peidetud)",
 	"pf_createform_removetemplate": "Eemalda mall",
 	"pf_createform_addtemplate": "Lisa mall:",
 	"pf_createform_atend": "Lõpus",
