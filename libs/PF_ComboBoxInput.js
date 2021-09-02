@@ -30,6 +30,7 @@
         this.config['autocompletedatatype'] = element.attr('autocompletedatatype');
         this.setInputAttribute('autocompletesettings', this.config['autocompletesettings']);;
         this.setInputAttribute('placeholder', element.attr('placeholder'));
+        this.setInputAttribute('tabIndex', element.attr('tabindex'));
         // Initialize values in the combobox
         this.setValues();
 
