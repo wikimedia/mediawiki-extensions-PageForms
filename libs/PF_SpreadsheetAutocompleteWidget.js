@@ -134,7 +134,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 					if ( wgPageFormsAutocompleteOnAllChars ) {
 						valueFilter = data.title[i].toLowerCase().includes(self.getValue().toLowerCase());
 					} else {
-						valueFilter = self.checkIfOptionsStartWithInputValue( data.title[i].toLowerCase(), self.getValue().toLowerCase() );
+						valueFilter = self.checkIfAnyWordStartsWithInputValue( data.title[i], self.getValue() );
 					}
 					if ( valueFilter ) {
 						item = new OO.ui.MenuOptionWidget( {
@@ -199,17 +199,18 @@ pf.spreadsheetAutocompleteWidget.prototype.getNoMatchesOOUIMenuOptionWidget = fu
 }
 
 /**
- * Checks if the given string starts with the word or not
+ * Checks if any "word" in the given string starts with the given search term.
  *
  * @param {string} string
  *
- * @param {string} word
+ * @param {string} curValue
  *
  * @return {boolean}
  *
  */
-pf.spreadsheetAutocompleteWidget.prototype.checkIfOptionsStartWithInputValue = function( string, word ) {
-	return string.lastIndexOf( word, 0 ) === 0;
+pf.spreadsheetAutocompleteWidget.prototype.checkIfAnyWordStartsWithInputValue = function( string, curValue ) {
+	var regex = new RegExp('\\b' + curValue.toLowerCase());
+	return string.toLowerCase().match(regex) !== null;
 }
 
 /**

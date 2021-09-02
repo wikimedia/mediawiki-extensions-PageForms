@@ -53,7 +53,7 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 					if ( wgPageFormsAutocompleteOnAllChars ) {
 						var valueFilter = self.getConditionForAutocompleteOnAllChars( data.title[i], curValue.toLowerCase() )
 					} else {
-						var valueFilter = self.checkIfOptionsStartWithInputValue( data.title[i].toLowerCase(), curValue.toLowerCase() );
+						var valueFilter = self.checkIfAnyWordStartsWithInputValue( data.title[i], curValue );
 					}
 					if ( valueFilter ) {
 						values.push( {
@@ -163,14 +163,15 @@ pf.SpreadsheetComboBoxInput.prototype.getNoMatchesOption = function() {
 		}
 }
 /**
- * Checks if the given string starts with the word or not
+ * Checks if any "word" in the given string starts with the given search term.
  *
  * @param {string} string
- * @param {string} word
+ * @param {string} curValue
  * @returns {boolean}
  */
-pf.SpreadsheetComboBoxInput.prototype.checkIfOptionsStartWithInputValue = function( string, word ) {
-	return string.lastIndexOf( word, 0 ) === 0;
+pf.SpreadsheetComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function( string, curValue ) {
+	var regex = new RegExp('\\b' + curValue.toLowerCase());
+	return string.toLowerCase().match(regex) !== null;
 }
 /**
  * Checks if the given string contains the word or not

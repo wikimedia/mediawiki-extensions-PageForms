@@ -133,7 +133,7 @@
                                         });
                                     }
                                 } else {
-                                    if (self.checkIfOptionsStartWithInputValue(data.title[i], curValue)) {
+                                    if (self.checkIfAnyWordStartsWithInputValue(data.title[i], curValue)) {
                                         values.push({
                                             data: data.title[i], label: self.highlightText(data.title[i])
                                         });
@@ -158,7 +158,7 @@
                             }
                         } else {
                             for (let key in data) {
-                                if (this.checkIfOptionsStartWithInputValue(data[key], curValue)) {
+                                if (this.checkIfAnyWordStartsWithInputValue(data[key], curValue)) {
                                     values.push({
                                         data: data[key], label: this.highlightText(data[key])
                                     });
@@ -218,13 +218,13 @@
                                     }
                                 } else {
                                     if (item.displaytitle !== undefined) {
-                                        if (self.checkIfOptionsStartWithInputValue(item.displaytitle, curValue)){
+                                        if (self.checkIfAnyWordStartsWithInputValue(item.displaytitle, curValue)) {
                                             values.push({
                                                 data: item.displaytitle, label: self.highlightText(item.displaytitle)
                                             });
                                         }
                                     } else {
-                                        if (self.checkIfOptionsStartWithInputValue(item.title,curValue)) {
+                                        if (self.checkIfAnyWordStartsWithInputValue(item.title, curValue)) {
                                             values.push({
                                                 data: item.title, label: self.highlightText(item.title)
                                             });
@@ -365,8 +365,9 @@
         return new OO.ui.HtmlSnippet(t);
     };
 
-    pf.ComboBoxInput.prototype.checkIfOptionsStartWithInputValue = function(string, curValue) {
-        return string.toLowerCase().lastIndexOf( curValue.toLowerCase(), 0 ) === 0;
+    pf.ComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function(string, curValue) {
+        var regex = new RegExp('\\b' + curValue.toLowerCase());
+        return string.toLowerCase().match(regex) !== null;
     }
 
     pf.ComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = function(string, curValue) {
