@@ -428,6 +428,7 @@
 			"messages": [
 				"pf-spreadsheet-addrow",
 				"pf-resultstoshow",
+				"pf-autocomplete-no-matches",
 				"htmlform-yes",
 				"htmlform-no",
 				"upload-dialog-button-save",
