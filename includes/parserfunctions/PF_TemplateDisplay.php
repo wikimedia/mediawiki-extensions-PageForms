@@ -128,6 +128,8 @@ class PFTemplateDisplay {
 				$formattedFieldValue = self::mapText( $fieldValue, $format, $parser );
 			} elseif ( $fieldType == 'Rating' ) {
 				$formattedFieldValue = self::ratingText( $fieldValue );
+			} elseif ( $fieldType == 'File' ) {
+				$formattedFieldValue = self::fileText( $fieldValue );
 			} else {
 				$formattedFieldValue = $fieldValue;
 			}
@@ -206,6 +208,26 @@ class PFTemplateDisplay {
 		$text = '<span style="display: block; width: 65px; height: 13px; background: url(\'' . $url . '\') 0 0;">
 			<span style="display: block; width: ' . $rate . '%; height: 13px; background: url(\'' . $url . '\') 0 -13px;"></span>';
 		return $text;
+	}
+
+	private static function fileText( $value ) {
+		$title = Title::newFromText( $value, NS_FILE );
+		if ( $title == null || !$title->exists() ) {
+			return $value;
+		}
+		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
+			// MediaWiki 1.34+
+			$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
+		} else {
+			$file = wfLocalFile( $title );
+		}
+		return Linker::makeThumbLinkObj(
+			$title,
+			$file,
+			$value,
+			'',
+			'left'
+		);
 	}
 
 }
