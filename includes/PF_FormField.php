@@ -407,18 +407,20 @@ class PFFormField {
 			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
 		}
 
+		if ( $f->mPossibleValues == null ) {
+			$f->mPossibleValues = $f->template_field->getPossibleValues();
+		}
+
 		$mappingType = null;
-		if ( $f->mPossibleValues !== null ) {
-			if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
-				$mappingType = 'template';
-			} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
-				$mappingType = 'property';
-			} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
-				array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
-				$mappingType = 'cargo field';
-			} elseif ( $f->mUseDisplayTitle ) {
-				$f->mPossibleValues = PFValuesUtils::disambiguateLabels( $f->mPossibleValues );
-			}
+		if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
+			$mappingType = 'template';
+		} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
+			$mappingType = 'property';
+		} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
+			array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
+			$mappingType = 'cargo field';
+		} elseif ( $f->mUseDisplayTitle ) {
+			$f->mPossibleValues = PFValuesUtils::disambiguateLabels( $f->mPossibleValues );
 		}
 
 		if ( $mappingType !== null && !empty( $f->mPossibleValues ) ) {
