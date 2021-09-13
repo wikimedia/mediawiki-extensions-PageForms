@@ -1578,7 +1578,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		$(this).val(window.pfGenerateUUID());
 	});
 
-	this.find('[data-tooltip]').each( function() {
+	this.find('[data-tooltip]').not('.multipleTemplateStarter [data-tooltip]').each( function() {
 		// Even if it's within a <th>, display the text unbolded.
 		var tooltipText = '<p style="font-weight: normal;">' + $(this).attr('data-tooltip') + '</p>';
 		var tooltip = new OO.ui.PopupButtonWidget( {
