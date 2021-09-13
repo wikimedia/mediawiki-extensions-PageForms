@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Seipinne",
 			"Yupik"
 		]
 	},
 	"pf_createtemplate_standardformat": "Tavlustâh",
+	"pf_createform_hidden": "(Čiehhum)",
 	"pf_blank_namespace": "Uáivikomovuotâ"
 }
