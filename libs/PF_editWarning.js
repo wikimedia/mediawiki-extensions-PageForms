@@ -68,7 +68,6 @@
 				return changesWereMade;
 			},
 
-			message: mw.msg( 'editwarning-warning' ),
 			namespace: 'editwarning'
 		} );
 
