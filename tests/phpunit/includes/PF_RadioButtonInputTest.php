@@ -358,8 +358,9 @@ class PFRadioButtonInputTest extends MediaWikiTestCase {
 				$form_definition = "{{{for template|TestTemplate123}}}\n{$setup['form_definition']}\n{{{end template}}}\n{{{standard input|save}}}";
 				list( $form_text, $page_text, $form_page_title, $generated_page_name )
 					= $wgPageFormsFormPrinter->formHTML(
-					$form_definition, true, false, null, null,
-						'TestStringForFormPageTitle', null
+						$form_definition, true, false, null, null,
+						'TestStringForFormPageTitle', null,
+						false, false, false, [], self::getTestUser()->getUser()
 					);
 			} else {
 				$this->markTestSkipped( "No form to test!" );

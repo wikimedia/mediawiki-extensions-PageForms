@@ -805,6 +805,7 @@ END;
 	 * @param bool $is_embedded
 	 * @param bool $is_autocreate true when called by #formredlink with "create page"
 	 * @param array $autocreate_query query parameters from #formredlink
+	 * @param User|null $user
 	 * @return array
 	 * @throws FatalError
 	 * @throws MWException
@@ -820,7 +821,8 @@ END;
 		$is_query = false,
 		$is_embedded = false,
 		$is_autocreate = false,
-		$autocreate_query = []
+		$autocreate_query = [],
+		$user = null
 	) {
 		global $wgRequest, $wgUser;
 		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
@@ -859,6 +861,10 @@ END;
 			$this->mPageTitle = Title::newFromText( $page_name );
 		}
 
+		if ( $user === null ) {
+			$user = $wgUser;
+		}
+
 		global $wgOut;
 		// Show previous set of deletions for this page, if it's been
 		// deleted before.
@@ -877,9 +883,9 @@ END;
 			if ( class_exists( 'MediaWiki\Permissions\PermissionManager' ) ) {
 				// MW 1.33+
 				$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
-					->getPermissionErrors( 'edit', $wgUser, $this->mPageTitle );
+					->getPermissionErrors( 'edit', $user, $this->mPageTitle );
 			} else {
-				$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $wgUser );
+				$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $user );
 			}
 			// The handling of $wgReadOnly and $wgReadOnlyFile
 			// has to be done separately.
@@ -897,7 +903,7 @@ END;
 			$form_is_disabled = false;
 			// Show "Your IP address will be recorded" warning if
 			// user is anonymous, and it's not a query.
-			if ( $wgUser->isAnon() && !$is_query ) {
+			if ( $user->isAnon() && !$is_query ) {
 				// Based on code in MediaWiki's EditPage.php.
 				$anonEditWarning = wfMessage( 'anoneditwarning',
 					// Log-in link
@@ -930,9 +936,9 @@ END;
 		if ( !$parser->getOptions() ) {
 			if ( method_exists( $parser, 'setOptions' ) ) {
 				// MW 1.35+
-				$parser->setOptions( ParserOptions::newFromUser( $wgUser ) );
+				$parser->setOptions( ParserOptions::newFromUser( $user ) );
 			} else {
-				$parser->Options( ParserOptions::newFromUser( $wgUser ) );
+				$parser->Options( ParserOptions::newFromUser( $user ) );
 			}
 		}
 		if ( !$is_embedded ) {
@@ -1104,7 +1110,7 @@ END;
 					// to deal with the #freetext# hack,
 					// among others.
 					$field_name = trim( $tag_components[1] );
-					$form_field = PFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled, $wgUser );
+					$form_field = PFFormField::newFromFormFieldTag( $tag_components, $template, $tif, $form_is_disabled, $user );
 					// For special displays, add in the
 					// form fields, so we know the data
 					// structure.
@@ -1334,11 +1340,11 @@ END;
 							// to the default value
 							( $cur_value === '' || $cur_value == 'current user' )
 						) {
-							if ( method_exists( $wgUser, 'isRegistered' ) ) {
+							if ( method_exists( $user, 'isRegistered' ) ) {
 								// MW 1.34+
-								$cur_value_in_template = $wgUser->isRegistered() ? $wgUser->getName() : '';
+								$cur_value_in_template = $user->isRegistered() ? $user->getName() : '';
 							} else {
-								$cur_value_in_template = $wgUser->getName();
+								$cur_value_in_template = $user->getName();
 							}
 							$cur_value = $cur_value_in_template;
 						// UUID is the only default value (so far) that can also be set
@@ -1467,7 +1473,7 @@ END;
 					$wgPageFormsTabIndex++;
 
 					$section_name = trim( $tag_components[1] );
-					$page_section_in_form = PFPageSection::newFromFormTag( $tag_components, $wgUser );
+					$page_section_in_form = PFPageSection::newFromFormTag( $tag_components, $user );
 					$section_text = null;
 
 					// Split the existing page contents into the textareas in the form.
@@ -1512,7 +1518,7 @@ END;
 								$next_bracket_end_loc = strpos( $section, '}}}', $next_bracket_start_loc );
 								$bracketed_string_next_section = substr( $section, $next_bracket_start_loc + 3, $next_bracket_end_loc - ( $next_bracket_start_loc + 3 ) );
 								$tag_components_next_section = PFUtils::getFormTagComponents( $bracketed_string_next_section );
-								$page_next_section_in_form = PFPageSection::newFromFormTag( $tag_components_next_section, $wgUser );
+								$page_next_section_in_form = PFPageSection::newFromFormTag( $tag_components_next_section, $user );
 								$tag_title_next_section = trim( $tag_components_next_section[0] );
 								if ( $tag_title_next_section == 'section' ) {
 									// There is no pattern match for the next section if the section is empty and its hideIfEmpty attribute is set
@@ -1873,7 +1879,7 @@ END;
 			$mwWikiPage = WikiPage::factory( $this->mPageTitle );
 			$form_text .= Html::hidden( 'wpEdittime', $mwWikiPage->getTimestamp() );
 			$form_text .= Html::hidden( 'editRevId', 0 );
-			$form_text .= Html::hidden( 'wpEditToken', $wgUser->getEditToken() );
+			$form_text .= Html::hidden( 'wpEditToken', $user->getEditToken() );
 			$form_text .= Html::hidden( 'wpUnicodeCheck', EditPage::UNICODE_CHECK );
 			$form_text .= Html::hidden( 'wpUltimateParam', true );
 		}
