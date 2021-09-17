@@ -252,8 +252,8 @@ class PFHooks {
 	 * @param string $tableName Cargo table name
 	 * @param bool $isReplacementTable Whether this table iss a replacement table
 	 * @param bool $hasReplacementTable Whether this table has a replacement table
-	 * @param string[] $templatesThatDeclareTables An array
-	 * @param string[] $templatesThatAttachToTables An array
+	 * @param int[][] $templatesThatDeclareTables
+	 * @param string[] $templatesThatAttachToTables
 	 *
 	 * @return bool
 	 *
@@ -318,8 +318,8 @@ class PFHooks {
 	 * @param string $tableName Cargo table name
 	 * @param bool $isReplacementTable Whether this table iss a replacement table
 	 * @param bool $hasReplacementTable Whether this table has a replacement table
-	 * @param string[] $templatesThatDeclareTables An array
-	 * @param string[] $templatesThatAttachToTables An array
+	 * @param int[][] $templatesThatDeclareTables
+	 * @param string[] $templatesThatAttachToTables
 	 * @param string[] $actionList
 	 *
 	 * @return bool
@@ -348,7 +348,7 @@ class PFHooks {
 	 * Disable TinyMCE if this is a form definition page, or a form-editable page.
 	 *
 	 * @param Title $title The page Title object
-	 * @return Whether or not to disable TinyMCE
+	 * @return bool Whether or not to disable TinyMCE
 	 */
 	public static function disableTinyMCE( $title ) {
 		if ( $title->getNamespace() == PF_NS_FORM ) {

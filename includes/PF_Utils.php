@@ -7,6 +7,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 
 class PFUtils {
@@ -17,7 +19,7 @@ class PFUtils {
 	 * @return Language
 	 */
 	public static function getContLang() {
-		if ( method_exists( "MediaWiki\\MediaWikiServices", "getContentLanguage" ) ) {
+		if ( method_exists( MediaWikiServices::class, "getContentLanguage" ) ) {
 			return MediaWikiServices::getInstance()->getContentLanguage();
 		} else {
 			global $wgContLang;

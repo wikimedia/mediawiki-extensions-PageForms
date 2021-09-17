@@ -20,14 +20,14 @@ class PFPageSchemas extends PSExtensionHandler {
 	 * Creates an object to hold form-wide information, based on an XML
 	 * object from the Page Schemas extension.
 	 * @param string $tagName
-	 * @param string $xml
+	 * @param SimpleXMLElement $xml
 	 * @return string[]|null
 	 */
 	public static function createPageSchemasObject( $tagName, $xml ) {
 		$pfarray = [];
 
 		if ( $tagName == "standardInputs" ) {
-			foreach ( $xml->children() as $tag => $child ) {
+			foreach ( $xml->children() as $_ => $child ) {
 				foreach ( $child->children() as $tag => $formelem ) {
 					if ( $tag == $tagName ) {
 						foreach ( $formelem->attributes() as $attr => $name ) {
@@ -142,15 +142,16 @@ class PFPageSchemas extends PSExtensionHandler {
 
 		$xmlPerTemplate = [];
 		$templateNum = -1;
+		$xml = '';
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			$val = str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $val );
-			if ( substr( $var, 0, 18 ) == 'pf_template_label_' ) {
+			if ( substr( $var, 0, 18 ) === 'pf_template_label_' ) {
 				$templateNum = substr( $var, 18 );
 				$xml = '<pageforms_TemplateDetails>';
 				if ( !empty( $val ) ) {
 					$xml .= "<Label>$val</Label>";
 				}
-			} elseif ( substr( $var, 0, 23 ) == 'pf_template_addanother_' ) {
+			} elseif ( substr( $var, 0, 23 ) === 'pf_template_addanother_' ) {
 				if ( !empty( $val ) ) {
 					$xml .= "<AddAnotherText>$val</AddAnotherText>";
 				}
@@ -341,7 +342,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Returns the HTML for inputs to define a single form field,
 	 * within the Page Schemas 'edit schema' page.
-	 * @param PFField $psField
+	 * @param PSField $psField
 	 * @return array
 	 */
 	public static function getFieldEditingHTML( $psField ) {

@@ -674,7 +674,7 @@ END;
 	 * If the value passed in for a certain field, when a form is
 	 * submitted, is an array, then it might be from a checkbox
 	 * or date input - in that case, convert it into a string.
-	 * @param string $value
+	 * @param array $value
 	 * @param string $delimiter
 	 * @return string
 	 */
@@ -1983,9 +1983,9 @@ END;
 	/**
 	 * for translatable fields, this function add an hidden input containing the translate tags
 	 *
-	 * @param unknown $form_field
-	 * @param unknown $cur_value
-	 * @param unknown &$text
+	 * @param PFFormField $form_field
+	 * @param string $cur_value
+	 * @param string &$text
 	 */
 	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
 		if ( !$this->isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {

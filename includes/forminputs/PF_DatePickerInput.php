@@ -141,6 +141,7 @@ class PFDatePickerInput extends PFFormInput {
 	private function getConvertedFormat() {
 		$oldFormat = $this->mOtherArgs['date format'];
 		$j = 0;
+		$newFormat = [];
 		for ( $i = 0; $i < strlen( $oldFormat ); $i++ ) {
 			if ( $oldFormat[$i] === "d" && isset( $oldFormat[$i + 1] ) && $oldFormat[$i + 1] !== "d" ) {
 				// If the letter is "d" and next letter is not "d"

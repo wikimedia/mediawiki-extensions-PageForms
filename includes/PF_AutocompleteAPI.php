@@ -172,15 +172,52 @@ class PFAutocompleteAPI extends ApiBase {
 		$basePropertyName = null,
 		$baseValue = null
 	) {
-		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues,
-		$wgPageFormsAutocompleteCacheTimeout;
+		global $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
 		global $smwgDefaultStore;
 
 		if ( $smwgDefaultStore == null ) {
 			$this->dieWithError( 'Semantic MediaWiki must be installed to query on "property"', 'param_property' );
 		}
 
-		$values = [];
+		$property_name = str_replace( ' ', '_', $property_name );
+
+		// Use cache if allowed
+		if ( !$wgPageFormsCacheAutocompleteValues ) {
+			return $this->computeAllValuesForProperty( $property_name, $substring, $basePropertyName, $baseValue );
+		}
+
+		$cache = PFFormUtils::getFormCache();
+		// Remove trailing whitespace to avoid unnecessary database selects
+		$cacheKeyString = $property_name . '::' . rtrim( $substring );
+		if ( $basePropertyName !== null ) {
+			$cacheKeyString .= ',' . $basePropertyName . ',' . $baseValue;
+		}
+		$cacheKey = $cache->makeKey( 'pf-autocomplete', md5( $cacheKeyString ) );
+		return $cache->getWithSetCallback(
+			$cacheKey,
+			$wgPageFormsAutocompleteCacheTimeout,
+			function () use ( $property_name, $substring, $basePropertyName, $baseValue ) {
+				return $this->computeAllValuesForProperty( $property_name, $substring, $basePropertyName, $baseValue );
+			}
+		);
+	}
+
+	/**
+	 * @param string $property_name
+	 * @param string $substring
+	 * @param string|null $basePropertyName
+	 * @param mixed $baseValue
+	 * @return array
+	 */
+	private function computeAllValuesForProperty(
+		$property_name,
+		$substring,
+		$basePropertyName = null,
+		$baseValue = null
+	) {
+		global $wgPageFormsMaxAutocompleteValues;
+		global $smwgDefaultStore;
+
 		$db = wfGetDB( DB_REPLICA );
 		$sqlOptions = [];
 		$sqlOptions['LIMIT'] = $wgPageFormsMaxAutocompleteValues;
@@ -191,27 +228,9 @@ class PFAutocompleteAPI extends ApiBase {
 		} else {
 			$property = SMWPropertyValue::makeUserProperty( $property_name );
 		}
+
 		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
-		$property_name = str_replace( ' ', '_', $property_name );
 		$conditions = [ 'p_ids.smw_title' => $property_name ];
-
-		// Use cache if allowed
-		if ( $wgPageFormsCacheAutocompleteValues ) {
-			$cache = PFFormUtils::getFormCache();
-			// Remove trailing whitespace to avoid unnecessary database selects
-			$cacheKeyString = $property_name . '::' . rtrim( $substring );
-			if ( $basePropertyName !== null ) {
-				$cacheKeyString .= ',' . $basePropertyName . ',' . $baseValue;
-			}
-			$cacheKey = $cache->makeKey( 'pf-autocomplete', md5( $cacheKeyString ) );
-			$values = $cache->get( $cacheKey );
-
-			if ( !empty( $values ) ) {
-				// Return with results immediately
-				return $values;
-			}
-		}
-
 		if ( $propertyHasTypePage ) {
 			$valueField = 'o_ids.smw_title';
 			if ( $smwgDefaultStore === 'SMWSQLStore2' ) {
@@ -284,16 +303,11 @@ class PFAutocompleteAPI extends ApiBase {
 		$res = $db->select( $fromClause, "DISTINCT $valueField",
 			$conditions, __METHOD__, $sqlOptions );
 
+		$values = [];
 		while ( $row = $db->fetchRow( $res ) ) {
 			$values[] = str_replace( '_', ' ', $row[0] );
 		}
 		$db->freeResult( $res );
-
-		if ( $wgPageFormsCacheAutocompleteValues ) {
-			// Save to cache.
-			$cache->set( $cacheKey, $values, $wgPageFormsAutocompleteCacheTimeout );
-		}
-
 		return $values;
 	}
 

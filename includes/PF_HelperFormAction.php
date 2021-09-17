@@ -29,7 +29,7 @@ class PFHelperFormAction extends Action {
 	 * @return false
 	 */
 	public function show() {
-		return self::displayForm( $this, $this->page );
+		return self::displayForm( $this->page );
 	}
 
 	/**
@@ -41,9 +41,11 @@ class PFHelperFormAction extends Action {
 	}
 
 	/**
+	 * Handler for the SkinTemplateNavigation hook.
+	 *
 	 * Adds an "action" (i.e., a tab) to edit the current article with
 	 * a form
-	 * @param Title $obj
+	 * @param SkinTemplate $obj
 	 * @param array &$links
 	 * @return bool
 	 */
@@ -134,11 +136,10 @@ class PFHelperFormAction extends Action {
 	/**
 	 * The function called if we're in index.php (as opposed to one of the
 	 * special pages).
-	 * @param string $action
 	 * @param Article $article
 	 * @return false
 	 */
-	static function displayForm( $action, $article ) {
+	private static function displayForm( $article ) {
 		$title = $article->getTitle();
 		if ( defined( 'SMW_NS_PROPERTY' ) && $title->getNamespace() == SMW_NS_PROPERTY ) {
 			$createPropertyPage = new PFCreateProperty();

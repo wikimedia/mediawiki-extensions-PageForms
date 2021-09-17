@@ -64,7 +64,7 @@ class PFValuesUtils {
 			// Something's wrong - exit
 			return $categories;
 		}
-		$conditions['cl_from'] = $titlekey;
+		$conditions = [ 'cl_from' => $titlekey ];
 		$res = $db->select(
 			'categorylinks',
 			'DISTINCT cl_to',
@@ -323,6 +323,11 @@ class PFValuesUtils {
 		return $newPages;
 	}
 
+	/**
+	 * @param string $conceptName
+	 * @param string|null $substring
+	 * @return string[]
+	 */
 	public static function getAllPagesForConcept( $conceptName, $substring = null ) {
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
 
