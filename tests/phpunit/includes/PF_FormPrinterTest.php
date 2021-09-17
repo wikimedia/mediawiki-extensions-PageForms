@@ -33,7 +33,20 @@ class PFFormPrinterTest extends MediaWikiTestCase {
 		$wgOut->getContext()->setTitle( $this->getTitle() );
 
 		list( $form_text, $page_text, $form_page_title, $generated_page_name ) =
-			$wgPageFormsFormPrinter->formHTML( $setup['form_definition'], true, false, null, null, 'TestStringForFormPageTitle', null );
+			$wgPageFormsFormPrinter->formHTML(
+				$form_def = $setup['form_definition'],
+				$form_submitted = true,
+				$source_is_page = false,
+				$form_id = null,
+				$existing_page_content = null,
+				$page_name = 'TestStringForFormPageTitle',
+				$page_name_formula = null,
+				$is_query = false,
+				$is_embedded = false,
+				$is_autocreate = false,
+				$autocreate_query = [],
+				$user = self::getTestUser()->getUser()
+			);
 
 		$this->assertStringContainsString(
 			$expected['expected_form_text'],

@@ -912,7 +912,9 @@ class PFAutoeditAPI extends ApiBase {
 					// don't get saved, for some convoluted
 					// reason.
 					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), $pageExists,
-					$formArticleId, $preloadContent, $targetName, $targetNameFormula
+					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
+					$is_query = false, $is_embedded = false, $is_autocreate = false,
+					$autocreate_query = [], $this->getUser()
 				);
 			$formHtmlHasRun = true;
 
@@ -945,7 +947,12 @@ class PFAutoeditAPI extends ApiBase {
 		// if we haven't called it already.
 		if ( $preloadContent == '' ) {
 			list( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
-				$wgPageFormsFormPrinter->formHTML( $formContent, $isFormSubmitted, $pageExists, $formArticleId, $preloadContent, $targetName, $targetNameFormula );
+				$wgPageFormsFormPrinter->formHTML(
+					$formContent, $isFormSubmitted, $pageExists,
+					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
+					$is_query = false, $is_embedded = false, $is_autocreate = false,
+					$autocreate_query = [], $this->getUser()
+				);
 		} else {
 			$generatedFormName = $form_page_title;
 		}
