@@ -31,6 +31,7 @@ class PFArrayMap {
 			// MW 1.35+
 			$delimiter = $parser->getStripState()->unstripNoWiki( $delimiter );
 		} else {
+			// @phan-suppress-next-line PhanAccessPropertyPrivate
 			$delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
 		}
 		// Let '\n' represent newlines, and '\s' represent spaces.

@@ -65,6 +65,7 @@ class PFTree {
 	 * This function also determine whether or not the node will be opened, depending on
 	 * the attribute $depth.
 	 * This function also determine whether or not the node is selected.
+	 * @suppress PhanTypeInvalidDimOffset TODO Document tree_array
 	 */
 	private function configArray() {
 		for ( $i = 0; $i < count( $this->tree_array ); $i++ ) {

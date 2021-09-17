@@ -301,6 +301,7 @@ END;
 
 		$otherModules = [];
 		Hooks::run( 'PageForms::AddRLModules', [ &$otherModules ] );
+		// @phan-suppress-next-line PhanEmptyForeach
 		foreach ( $otherModules as $rlModule ) {
 			$output->addModules( $rlModule );
 		}

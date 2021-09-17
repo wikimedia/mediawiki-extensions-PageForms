@@ -188,7 +188,7 @@ class PFFormUtils {
 	 * @param array $attrs
 	 * @return ButtonInputWidget
 	 */
-	static function buttonHTML( $name, $value, $type, $attrs ) {
+	private static function buttonHTML( $name, $value, $type, $attrs ) {
 		$attrs += [
 			'type' => $type,
 			'name' => $name,
@@ -513,6 +513,7 @@ END;
 			$form_def = $parser->recursiveTagParse( $form_def );
 			$output = $parser->getOutput();
 		} else {
+			// @phan-suppress-next-line PhanRedundantCondition for BC with old MW
 			$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : $form_title;
 			// We need to pass "false" in to the parse() $clearState param so that
 			// embedding Special:RunQuery will work.

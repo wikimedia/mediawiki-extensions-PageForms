@@ -330,8 +330,8 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		$form = $this->getUploadForm( $warningHtml, $sessionKey, true );
 		$form->setSubmitText( $this->msg( 'upload-tryagain' )->text() );
-		$form->addButton( 'wpUploadIgnoreWarning', $this->msg( 'ignorewarning' )->text() );
-		$form->addButton( 'wpCancelUpload', $this->msg( 'reuploaddesc' )->text() );
+		$form->addButton( [ 'name' => 'wpUploadIgnoreWarning', 'value' => $this->msg( 'ignorewarning' )->text() ] );
+		$form->addButton( [ 'name' => 'wpCancelUpload', 'value' => $this->msg( 'reuploaddesc' )->text() ] );
 
 		$this->showUploadForm( $form );
 	}

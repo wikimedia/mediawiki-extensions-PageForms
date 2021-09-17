@@ -512,6 +512,7 @@ class PFAutoeditAPI extends ApiBase {
 				$extraQuery = null;
 				Hooks::run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
+				// @phan-suppress-next-line PhanImpossibleCondition
 				if ( $extraQuery ) {
 					if ( $query ) {
 						$query .= '&' . $extraQuery;
@@ -546,6 +547,7 @@ class PFAutoeditAPI extends ApiBase {
 				Hooks::run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				if ( $resultDetails['redirect'] ) {
+					// @phan-suppress-next-line PhanSuspiciousValueComparison
 					if ( $extraQuery == '' ) {
 						$extraQuery = 'redirect=no';
 					} else {
@@ -1202,6 +1204,7 @@ class PFAutoeditAPI extends ApiBase {
 				$array[$key] = [];
 			}
 
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			self::addToArray( $array[$key], $matches[2] . $matches[3], $value, false );
 		} else {
 			if ( $key ) {

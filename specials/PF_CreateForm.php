@@ -656,6 +656,7 @@ END;
 		} elseif ( $default_input_type !== null ) {
 			$cur_input_type = $default_input_type;
 		} else {
+			// @phan-suppress-next-line PhanTypeInvalidDimOffset
 			$cur_input_type = $possible_input_types[0];
 		}
 

@@ -17,8 +17,9 @@ class PFValuesUtils {
 	 * @param Store $store
 	 * @param Title $subject
 	 * @param string $propID
-	 * @param array|null $requestOptions
+	 * @param SMWRequestOptions|null $requestOptions
 	 * @return array
+	 * @suppress PhanUndeclaredTypeParameter For Store
 	 */
 	public static function getSMWPropertyValues( $store, $subject, $propID, $requestOptions = null ) {
 		// If SMW is not installed, exit out.

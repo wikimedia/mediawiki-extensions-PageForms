@@ -819,6 +819,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		if ( $psTemplate instanceof PSTemplate ) {
 			$psTemplate = $psTemplate->getXML();
 		}
+		// @phan-suppress-next-line PhanNonClassMethodCall
 		foreach ( $psTemplate->children() as $tag => $child ) {
 			if ( $tag == "pageforms_TemplateDetails" ) {
 				foreach ( $child->children() as $prop ) {
@@ -868,6 +869,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	 * Displays data on a single form input in the Page Schemas XML.
 	 * @param Node $fieldXML
 	 * @return array|null
+	 * @suppress PhanUndeclaredTypeParameter
 	 */
 	public static function getFieldDisplayValues( $fieldXML ) {
 		foreach ( $fieldXML->children() as $tag => $child ) {

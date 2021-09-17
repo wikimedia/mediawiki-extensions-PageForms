@@ -22,6 +22,9 @@ class PFUploadForm extends HTMLForm {
 	private $mTextTop;
 	private $mTextAfterSummary;
 
+	/** @var string */
+	private $mDestFile;
+
 	public function __construct( $options = [] ) {
 		$this->mWatch = !empty( $options['watch'] );
 		$this->mForReUpload = !empty( $options['forreupload'] );

@@ -65,6 +65,7 @@ class PFHooks {
 		// This global variable is needed so that other
 		// extensions can hook into it to add their own
 		// input types.
+		// @phan-suppress-next-line PhanUndeclaredFunctionInCallable
 		$GLOBALS['wgPageFormsFormPrinter'] = new StubObject( 'wgPageFormsFormPrinter', 'PFFormPrinter' );
 	}
 
@@ -436,6 +437,7 @@ class PFHooks {
 	 * @param int $undidRevId The rev ID this edit undid (default 0)
 	 *
 	 * @return bool
+	 * @suppress PhanUndeclaredTypeParameter For Revision
 	 */
 	public static function setPostEditCookieOld( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId = 0 ) {
 		if ( $revision == null ) {
