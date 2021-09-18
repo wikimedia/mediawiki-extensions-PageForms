@@ -146,6 +146,9 @@ class PFTemplateField {
 		$store = PFUtils::getSMWStore();
 		// this returns an array of objects
 		$allowed_values = PFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Allows value" );
+		if ( empty( $allowed_values ) ) {
+			$allowed_values = PFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Allows value list" );
+		}
 		$label_formats = PFValuesUtils::getSMWPropertyValues( $store, $proptitle, "Has field label format" );
 		$propValue = SMWDIProperty::newFromUserLabel( $this->mSemanticProperty );
 		$this->mPropertyType = $propValue->findPropertyTypeID();
