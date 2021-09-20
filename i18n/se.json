@@ -4,5 +4,6 @@
 			"Yupik"
 		]
 	},
-	"pf_createtemplate_standardformat": "Tabealla"
+	"pf_createtemplate_standardformat": "Tabealla",
+	"pf_forminputs_checkboxes_select_all": "Vállje buot"
 }

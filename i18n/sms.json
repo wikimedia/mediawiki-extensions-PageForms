@@ -4,5 +4,7 @@
 			"Yupik"
 		]
 	},
-	"pf_createtemplate_standardformat": "Taullõk"
+	"pf_createtemplate_standardformat": "Taullõk",
+	"pf_forminputs_checkboxes_select_all": "Vaʹlljed pukid",
+	"pf_editsource": "Muuʹtt wikiteeʹkst"
 }
