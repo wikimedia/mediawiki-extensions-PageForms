@@ -32,7 +32,6 @@ class PFMultiPageEdit extends QueryPage {
 		// Check permissions.
 		if ( !$this->getUser()->isAllowed( 'multipageedit' ) ) {
 			$this->displayRestrictionError();
-			return;
 		}
 
 		$this->mTemplate = $this->getRequest()->getText( 'template' );

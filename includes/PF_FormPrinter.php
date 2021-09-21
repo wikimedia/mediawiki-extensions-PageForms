@@ -1499,7 +1499,7 @@ END;
 							$existing_page_content .= "\n";
 						}
 
-						$equalsSigns = str_pad( '', $page_section_in_form->getSectionLevel(), '=' );
+						$equalsSigns = str_repeat( '=', $page_section_in_form->getSectionLevel() );
 						$searchStr =
 							'/^' .
 							preg_quote( $equalsSigns, '/' ) .
@@ -1877,7 +1877,7 @@ END;
 		// Add form bottom, if no custom "standard inputs" have been defined.
 		if ( !$this->standardInputsIncluded ) {
 			if ( $is_query ) {
-				$form_text .= PFFormUtils::queryFormBottom( $form_is_disabled );
+				$form_text .= PFFormUtils::queryFormBottom();
 			} else {
 				$form_text .= PFFormUtils::formBottom( $form_submitted, $form_is_disabled );
 			}

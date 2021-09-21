@@ -141,7 +141,7 @@ $namespaceNames['ru'] = [
 /**
  * @author Roc Michael
  */
-$namespaceNamess['zh-cn'] = [
+$namespaceNames['zh-cn'] = [
 	PF_NS_FORM           => '表单',
 	PF_NS_FORM_TALK      => '表单讨论'
 ];

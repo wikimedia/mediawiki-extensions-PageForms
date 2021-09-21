@@ -238,7 +238,7 @@ abstract class PFFormInput {
 	 *
 	 *
 	 * @param string $name The name of the initialization function.
-	 * @param string $param The parameter passed to the initialization function.
+	 * @param string|array $param The parameter passed to the initialization function.
 	 */
 	public function addJsValidationFunctionData( $name, $param = 'null' ) {
 		$this->mJsValidationFunctionData[] = [ 'name' => $name, 'param' => $param ];

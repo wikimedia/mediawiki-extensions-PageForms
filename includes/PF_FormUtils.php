@@ -2,6 +2,7 @@
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RenderedRevision;
+use OOUI\ButtonInputWidget;
 
 /**
  * Utilities for the display and retrieval of forms.
@@ -185,7 +186,7 @@ class PFFormUtils {
 	 * @param string $value
 	 * @param string $type
 	 * @param array $attrs
-	 * @return string
+	 * @return ButtonInputWidget
 	 */
 	static function buttonHTML( $name, $value, $type, $attrs ) {
 		$attrs += [
@@ -199,7 +200,7 @@ class PFFormUtils {
 			}
 			$button->addClasses( $attrs['class'] );
 		}
-		return new OOUI\ButtonInputWidget( $attrs );
+		return new ButtonInputWidget( $attrs );
 	}
 
 	static function saveButtonHTML( $is_disabled, $label = null, $attr = [] ) {

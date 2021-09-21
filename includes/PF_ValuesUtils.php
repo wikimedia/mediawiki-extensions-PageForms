@@ -594,7 +594,7 @@ class PFValuesUtils {
 		} elseif ( $source_type == 'concept' ) {
 			$names_array = self::getAllPagesForConcept( $source_name );
 		} elseif ( $source_type == 'query' ) {
-			$names_array = self::getAllPagesForQuery( $source_name, 10 );
+			$names_array = self::getAllPagesForQuery( $source_name );
 		} else { // i.e., $source_type == 'namespace'
 			$names_array = self::getAllPagesForNamespace( $source_name );
 		}
@@ -862,7 +862,7 @@ class PFValuesUtils {
 	 * @param string $namespaceStr
 	 * @return string
 	 */
-	public function standardizeNamespace( $namespaceStr ) {
+	public static function standardizeNamespace( $namespaceStr ) {
 		$dummyTitle = Title::newFromText( "$namespaceStr:ABC" );
 		return $dummyTitle ? $dummyTitle->getNsText() : $namespaceStr;
 	}

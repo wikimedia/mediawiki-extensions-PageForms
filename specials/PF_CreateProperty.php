@@ -114,7 +114,7 @@ END;
 		if ( $presetPropertyName === '' ) {
 			$text .= Html::hidden( 'title', $this->getPageTitle()->getPrefixedText() ) . "\n";
 			$text .= "$name_label\n";
-			$text .= Html::input( 'property_name', '', [ 'size' => 25 ] );
+			$text .= Html::input( 'property_name', '', 'text', [ 'size' => 25 ] );
 			$text .= Html::element( 'span', [ 'style' => "color: red;" ], $property_name_error_str );
 		}
 		$text .= "\n$type_label\n";

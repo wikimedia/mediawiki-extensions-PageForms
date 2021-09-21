@@ -29,7 +29,6 @@ class PFCreateClass extends SpecialPage {
 		// Check permissions.
 		if ( !$this->getUser()->isAllowed( 'createclass' ) ) {
 			$this->displayRestrictionError();
-			return;
 		}
 		$this->printCreateClassForm( $query );
 	}
@@ -66,7 +65,7 @@ class PFCreateClass extends SpecialPage {
 			// local variables.
 			$field_name = trim( $req->getVal( "name_$i" ) );
 			$display_label = trim( $req->getVal( "label_$i" ) );
-			$display_label = $display_label ? $display_label : $field_name;
+			$display_label = $display_label ?: $field_name;
 			$property_name = trim( $req->getVal( "property_name_$i" ) );
 			$property_type = $req->getVal( "field_type_$i" );
 			$allowed_values = $req->getVal( "allowed_values_$i" );

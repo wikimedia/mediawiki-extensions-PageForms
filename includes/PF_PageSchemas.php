@@ -343,7 +343,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	/**
 	 * Returns the HTML for inputs to define a single form field,
 	 * within the Page Schemas 'edit schema' page.
-	 * @param PSField $psField
+	 * @param PSTemplateField $psField
 	 * @return array
 	 */
 	public static function getFieldEditingHTML( $psField ) {
@@ -607,7 +607,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	 * Creates a form page, when called from the 'generatepages' page
 	 * of Page Schemas.
 	 * @param string $formName
-	 * @param string $formTitle
+	 * @param Title $formTitle
 	 * @param array $formItems
 	 * @param array $formDataFromSchema
 	 * @param string $categoryName

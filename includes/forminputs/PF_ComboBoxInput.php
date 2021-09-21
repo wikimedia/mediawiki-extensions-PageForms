@@ -151,7 +151,7 @@ class PFComboBoxInput extends PFFormInput {
 			}
 			$innerDropdown .= Html::element( 'option', $optionAttrs, $label );
 		}
-		if ( $isValueInPossibleValues === false ) {
+		if ( !$isValueInPossibleValues ) {
 			$optionAttrs = [ 'value' => $cur_value ];
 			$optionAttrs['selected'] = "selected";
 			$label = $cur_value;

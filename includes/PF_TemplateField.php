@@ -155,7 +155,8 @@ class PFTemplateField {
 
 		foreach ( $allowed_values as $allowed_value ) {
 			// HTML-unencode each value
-			$this->mPossibleValues[] = html_entity_decode( $allowed_value );
+			$wiki_value = html_entity_decode( $allowed_value );
+			$this->mPossibleValues[] = $wiki_value;
 			if ( count( $label_formats ) > 0 ) {
 				$label_format = $label_formats[0];
 				$prop_instance = SMWDataValueFactory::findTypeID( $this->mPropertyType );
@@ -189,7 +190,7 @@ class PFTemplateField {
 	 * instead of SMW.
 	 * @param string $tableName
 	 * @param string $fieldName
-	 * @param string|null $fieldDescription
+	 * @param CargoFieldDescription|null $fieldDescription
 	 */
 	function setCargoFieldData( $tableName, $fieldName, $fieldDescription = null ) {
 		$this->mCargoTable = $tableName;
@@ -320,10 +321,6 @@ class PFTemplateField {
 
 	function getHoldsTemplate() {
 		return $this->mHoldsTemplate;
-	}
-
-	function setTemplateField( $templateField ) {
-		$this->mTemplateField = $templateField;
 	}
 
 	function setLabel( $label ) {

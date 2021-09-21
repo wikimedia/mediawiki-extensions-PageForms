@@ -765,7 +765,7 @@ class PFAutoeditAPI extends ApiBase {
 	/**
 	 * Returns a formatted (pseudo) random number
 	 *
-	 * @param number $numDigits the min width of the random number
+	 * @param int $numDigits the min width of the random number
 	 * @param bool $hasPadding should the number should be padded with zeros instead of spaces?
 	 * @return string
 	 */

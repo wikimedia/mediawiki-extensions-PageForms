@@ -538,7 +538,6 @@ class PFFormField {
 	function getCurrentValue( $template_instance_query_values, $form_submitted, $source_is_page, $all_instances_printed, &$val_modifier = null ) {
 		// Get the value from the request, if
 		// it's there, and if it's not an array.
-		$cur_value = null;
 		$field_name = $this->template_field->getFieldName();
 		$delimiter = $this->mFieldArgs['delimiter'];
 		$escaped_field_name = str_replace( "'", "\'", $field_name );
@@ -639,10 +638,6 @@ class PFFormField {
 				return str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $str );
 
 			}
-		}
-
-		if ( !empty( $cur_value ) ) {
-			return $cur_value;
 		}
 
 		// Default values in new instances of multiple-instance

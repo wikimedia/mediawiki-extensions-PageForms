@@ -57,6 +57,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	public $mInputID;
 	public $mDelimiter;
 
+	private $uploadFormTextTop;
+	private $uploadFormTextAfterSummary;
+
 	/**
 	 * Initialize instance variables from request and create an Upload handler
 	 *
@@ -78,10 +81,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$this->mComment	   = $request->getText( 'wpUploadDescription' );
 		$this->mLicense	   = $request->getText( 'wpLicense' );
 
-		$this->mDestWarningAck    = $request->getText( 'wpDestFileWarningAck' );
 		$this->mIgnoreWarning     = $request->getCheck( 'wpIgnoreWarning' )
 			|| $request->getCheck( 'wpUploadIgnoreWarning' );
-		$this->mWatchthis	 = $request->getBool( 'wpWatchthis' );
+		$this->mWatchThis	 = $request->getBool( 'wpWatchthis' );
 		$this->mCopyrightStatus   = $request->getText( 'wpUploadCopyStatus' );
 		$this->mCopyrightSource   = $request->getText( 'wpUploadSource' );
 
@@ -173,7 +175,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	/**
 	 * Show the main upload form.
 	 *
-	 * @param UploadForm $form
+	 * @param PFUploadForm $form
 	 */
 	protected function showUploadForm( $form ) {
 		# Add links if file was previously deleted
@@ -190,7 +192,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 * @param string $message HTML string to add to the form
 	 * @param string $sessionKey Session key in case this is a stashed upload
 	 * @param bool $hideIgnoreWarning
-	 * @return UploadForm
+	 * @return PFUploadForm
 	 */
 	protected function getUploadForm( $message = '', $sessionKey = '', $hideIgnoreWarning = false ) {
 		# Initialize form
@@ -386,7 +388,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		} else {
 			$pageText = false;
 		}
-		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchthis, $this->getUser() );
+		$status = $this->mUpload->performUpload( $this->mComment, $pageText, $this->mWatchThis, $this->getUser() );
 		if ( !$status->isGood() ) {
 			if ( method_exists( $output, 'parseAsInterface' ) ) {
 				$statusText = $output->parseAsInterface( $status->getWikiText() );
@@ -408,7 +410,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			$imageTitle = $this->mUpload->getTitle();
 			$basename = $imageTitle->getText();
 		} else {
-			$basename = $this->mSrcName;
+			$basename = null;
 		}
 
 		$basename = str_replace( '_', ' ', $basename );
@@ -612,7 +614,7 @@ END;
 	/**
 	 * Remove a temporarily kept file stashed by saveTempUploadedFile().
 	 * @private
-	 * @return success
+	 * @return bool Success
 	 */
 	protected function unsaveUploadedFile() {
 		if ( !( $this->mUpload instanceof UploadFromStash ) ) {
@@ -693,7 +695,7 @@ END;
 	 * Get a list of warnings
 	 *
 	 * @param string $filename local filename, e.g. 'file exists', 'non-descriptive filename'
-	 * @return array list of warning messages
+	 * @return string list of warning messages
 	 */
 	public static function ajaxGetExistsWarning( $filename ) {
 		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {

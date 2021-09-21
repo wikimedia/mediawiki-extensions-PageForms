@@ -13,6 +13,10 @@ class PFTree {
 	public $children;
 	public $depth;
 	public $top_category;
+	/**
+	 * @var array[]
+	 * @phan-var list<array>
+	 */
 	public $tree_array;
 	public $current_values; // Array
 
@@ -21,7 +25,6 @@ class PFTree {
 		$this->current_values = $cur_values;
 		$this->title = "";
 		$this->children = [];
-		$this->cur_value = "";
 	}
 
 	public function addChild( $child ) {
@@ -54,8 +57,6 @@ class PFTree {
 		$this->configArray();
 		$this->setParentsId();
 		$this->setChildren();
-		// Get rid of array keys, to fit the format that jsTree requires.
-		$this->tree_array = array_values( $this->tree_array );
 	}
 
 	/**

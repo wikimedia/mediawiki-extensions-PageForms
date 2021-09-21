@@ -454,7 +454,7 @@ END;
 			$previewAttrs['disabled'] = true;
 		}
 		$previewAttrs['label'] = $this->msg( 'preview' )->text();
-		$savepreviewAttrsttrs['useInputTag'] = true;
+		$previewAttrs['useInputTag'] = true;
 		$previewAttrs['name'] = 'wpPreview';
 		$previewAttrs['type'] = 'submit';
 		$previewAttrs['flags'] = [ 'progressive' ];
@@ -760,10 +760,8 @@ END;
 				'value' => $cur_value
 			] );
 		} elseif ( $type == 'enumeration' ) {
-			$optionAttrs;
 			$val = '';
 			foreach ( $param['values'] as $value ) {
-				array_push( $options, [ 'data' => $value, 'label' => $value ] );
 				$optionAttrs = [ 'value' => $value ];
 				if ( $cur_value == $value ) {
 					$val = $value;
@@ -776,8 +774,9 @@ END;
 			] );
 		} elseif ( $type == 'enum-list' ) {
 			$cur_values = explode( ',', $cur_value );
+			$text = '';
 			foreach ( $param['values'] as $val ) {
-				$checkboxHTML = new OOUI\CheckboxInputHtml( [
+				$checkboxHTML = new OOUI\CheckboxInputWidget( [
 					'name' => 'p[' . $paramName . '][' . $val . ']',
 					'selected' => in_array( $val, $cur_values ) ? true : false,
 					'value' => in_array( $val, $cur_values ) ? 'on' : ''

@@ -19,13 +19,15 @@ class PFUploadForm extends HTMLForm {
 
 	protected $mSourceIds;
 
+	private $mTextTop;
+	private $mTextAfterSummary;
+
 	public function __construct( $options = [] ) {
 		$this->mWatch = !empty( $options['watch'] );
 		$this->mForReUpload = !empty( $options['forreupload'] );
 		$this->mSessionKey = isset( $options['sessionkey'] )
 				? $options['sessionkey'] : '';
 		$this->mHideIgnoreWarning = !empty( $options['hideignorewarning'] );
-		$this->mDestFile = isset( $options['destfile'] ) ? $options['destfile'] : '';
 
 		$this->mTextTop = isset( $options['texttop'] ) ? $options['texttop'] : '';
 		$this->mTextAfterSummary = isset( $options['textaftersummary'] ) ? $options['textaftersummary'] : '';
@@ -287,6 +289,7 @@ class PFUploadForm extends HTMLForm {
 
 	/**
 	 * Add the upload JS and show the form.
+	 * @inheritDoc
 	 */
 	public function show() {
 		// $this->addUploadJS();
@@ -328,35 +331,8 @@ END;
 
 END;
 		print $text;
+		return true;
 	}
-
-	/**
-	 * Add upload JS to the OutputPage
-	 */
-	/*
-	protected function addUploadJS() {
-		$config = $this->getConfig();
-
-		$this->mMaxUploadSize['*'] = UploadBase::getMaxUploadSize();
-
-		$scriptVars = [
-			'wgAjaxUploadDestCheck' => $config->get( 'AjaxUploadDestCheck' ),
-			'wgAjaxLicensePreview' => $config->get( 'AjaxLicensePreview' ),
-			'wgUploadAutoFill' => !$this->mForReUpload &&
-				// If we received mDestFile from the request, don't autofill
-				// the wpDestFile textbox
-				$this->mDestFile === '',
-			'wgUploadSourceIds' => $this->mSourceIds,
-			'wgCheckFileExtensions' => $config->get( 'CheckFileExtensions' ),
-			'wgStrictFileExtensions' => $config->get( 'StrictFileExtensions' ),
-			'wgCapitalizeUploads' => PFUtils::isCapitalized( NS_FILE ),
-			'wgMaxUploadSize' => $this->mMaxUploadSize,
-		];
-
-		$out = $this->getOutput();
-		$out->addJsConfigVars( $scriptVars );
-	}
-	*/
 
 	/**
 	 * Empty function; submission is handled elsewhere.
