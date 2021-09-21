@@ -951,7 +951,9 @@ END;
 				$parser->Options( ParserOptions::newFromUser( $user ) );
 			}
 		}
-		if ( !$is_embedded ) {
+		if ( !$is_embedded || method_exists( $parser, 'setOptions' ) ) {
+			// Once support for MW < 1.35 is removed, this check will no longer be necessary.
+			// (It might be unnecessary already.)
 			$parser->setTitle( $this->mPageTitle );
 		}
 		// This is needed in order to make sure $parser->mLinkHolders
