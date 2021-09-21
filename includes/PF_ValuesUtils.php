@@ -187,11 +187,11 @@ class PFValuesUtils {
 	 * @param string $top_category
 	 * @param int $num_levels
 	 * @param string|null $substring
-	 * @return string
+	 * @return string[]
 	 */
 	public static function getAllPagesForCategory( $top_category, $num_levels, $substring = null ) {
 		if ( $num_levels == 0 ) {
-			return $top_category;
+			return [ $top_category ];
 		}
 		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsUseDisplayTitle;
 
@@ -818,7 +818,7 @@ class PFValuesUtils {
 	 * @param array $labels
 	 * @return array
 	 */
-	public static function disambiguateLabels( $labels ) {
+	public static function disambiguateLabels( array $labels ) {
 		asort( $labels );
 		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
 			return $labels;

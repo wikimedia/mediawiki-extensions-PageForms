@@ -484,7 +484,7 @@ class PFFormField {
 			}
 		}
 
-		if ( $template_name == null || $template_name === '' ) {
+		if ( $template_name === null || $template_name === '' ) {
 			$f->mInputName = $field_name;
 		} elseif ( $template_in_form->allowsMultiple() ) {
 			// 'num' will get replaced by an actual index, either in PHP
@@ -550,7 +550,7 @@ class PFFormField {
 			if ( isset( $template_instance_query_values[$fieldName] ) && isset( $template_instance_query_values[$fieldNameTag] ) ) {
 				$tag = $template_instance_query_values[$fieldNameTag];
 				if ( !preg_match( '/( |\n)$/', $tag ) ) {
-					$tag = $tag . "\n";
+					$tag .= "\n";
 				}
 				if ( trim( $template_instance_query_values[$fieldName] ) ) {
 					// Don't add the tag if field content has been removed.
@@ -596,7 +596,6 @@ class PFFormField {
 				if ( is_array( $field_query_val ) ) {
 					$cur_values = [];
 					if ( $map_field && $this->mPossibleValues !== null ) {
-						$cur_values = [];
 						foreach ( $field_query_val as $key => $val ) {
 							$val = trim( $val );
 							if ( $key === 'is_list' ) {

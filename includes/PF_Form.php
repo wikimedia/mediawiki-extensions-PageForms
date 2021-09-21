@@ -65,18 +65,18 @@ $form_input
 </noinclude><includeonly>
 
 END;
-		if ( !empty( $this->mPageNameFormula ) || !empty( $this->mCreateTitle ) || !empty( $this->mEditTitle ) ) {
-			$text .= "{{{info";
-			if ( !empty( $this->mPageNameFormula ) ) {
-				$text .= "|page name=" . $this->mPageNameFormula;
-			}
-			if ( !empty( $this->mCreateTitle ) ) {
-				$text .= "|create title=" . $this->mCreateTitle;
-			}
-			if ( !empty( $this->mEditTitle ) ) {
-				$text .= "|edit title=" . $this->mEditTitle;
-			}
-			$text .= "}}}\n";
+		$info = '';
+		if ( !empty( $this->mPageNameFormula ) ) {
+			$info .= "|page name=" . $this->mPageNameFormula;
+		}
+		if ( !empty( $this->mCreateTitle ) ) {
+			$info .= "|create title=" . $this->mCreateTitle;
+		}
+		if ( !empty( $this->mEditTitle ) ) {
+			$info .= "|edit title=" . $this->mEditTitle;
+		}
+		if ( $info ) {
+			$text .= "{{{info" . $info . "}}}\n";
 		}
 		$text .= <<<END
 <div id="wikiPreview" style="display: none; padding-bottom: 25px; margin-bottom: 25px; border-bottom: 1px solid #AAAAAA;"></div>

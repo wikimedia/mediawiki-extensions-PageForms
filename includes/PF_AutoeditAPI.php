@@ -6,7 +6,6 @@
  */
 
 use MediaWiki\MediaWikiServices;
-use Wikimedia\AtEase\AtEase;
 
 /**
  * @ingroup PageForms
@@ -39,7 +38,9 @@ class PFAutoeditAPI extends ApiBase {
 	const DEBUG = 3;
 
 	private $mOptions = [];
+	/** @var int|null */
 	private $mAction;
+	/** @var int|null */
 	private $mStatus;
 	private $mIsAutoEdit = false;
 
@@ -47,7 +48,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * Converts an options string into an options array and stores it
 	 *
 	 * @param string $options
-	 * @return the options array
+	 * @return array Options
 	 */
 	function addOptionsFromString( $options ) {
 		return $this->parseDataFromQueryString( $this->mOptions, $options );
@@ -66,7 +67,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * Return value is either null or one of ACTION_SAVE, ACTION_PREVIEW,
 	 * ACTION_FORMEDIT
 	 *
-	 * @return null|number
+	 * @return int|null
 	 */
 	function getAction() {
 		return $this->mAction;
@@ -93,7 +94,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * 200 - ok
 	 * 400 - error
 	 *
-	 * @return number
+	 * @return int
 	 */
 	function getStatus() {
 		return $this->mStatus;
@@ -432,7 +433,7 @@ class PFAutoeditAPI extends ApiBase {
 			return;
 		}
 
-		$resultDetails = false;
+		$resultDetails = [];
 		# Allow bots to exempt some edits from bot flagging
 		$bot = $user->isAllowed( 'bot' ) && $editor->bot;
 
@@ -487,6 +488,8 @@ class PFAutoeditAPI extends ApiBase {
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
 				// Give extensions a chance to modify URL query on create
+				$sectionanchor = null;
+				$extraQuery = null;
 				Hooks::run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
 				if ( $extraQuery ) {
@@ -649,10 +652,10 @@ class PFAutoeditAPI extends ApiBase {
 	 *
 	 * This parses the formula and replaces &lt;unique number&gt; tags
 	 *
-	 * @param type $targetNameFormula
+	 * @param string $targetNameFormula
 	 *
 	 * @throws MWException
-	 * @return type
+	 * @return string
 	 */
 	protected function generateTargetName( $targetNameFormula ) {
 		$targetName = $targetNameFormula;
@@ -713,8 +716,6 @@ class PFAutoeditAPI extends ApiBase {
 				// the target name contains only underscores and number fields,
 				// i.e. would result in an empty title without the number set
 				$titleNumber = '1';
-			} else {
-				$titleNumber = '';
 			}
 
 			// set target title
@@ -776,7 +777,7 @@ class PFAutoeditAPI extends ApiBase {
 	 *
 	 * @param number $numDigits the min width of the random number
 	 * @param bool $hasPadding should the number should be padded with zeros instead of spaces?
-	 * @return number
+	 * @return string
 	 */
 	static function makeRandomNumber( $numDigits = 1, $hasPadding = false ) {
 		$maxValue = pow( 10, $numDigits ) - 1;
@@ -936,16 +937,15 @@ class PFAutoeditAPI extends ApiBase {
 			$pageExists = ( is_a( $targetTitle, 'Title' ) && $targetTitle->exists() );
 		}
 
-		// Spoof $wgRequest for PFFormPrinter::formHTML().
-		if ( isset( $_SESSION ) ) {
-			$wgRequest = new FauxRequest( $this->mOptions, true, $_SESSION );
-		} else {
-			$wgRequest = new FauxRequest( $this->mOptions, true );
-		}
-
 		// Get wikitext for submitted data and form - call formHTML(),
 		// if we haven't called it already.
 		if ( $preloadContent == '' ) {
+			// Spoof $wgRequest for PFFormPrinter::formHTML().
+			if ( isset( $_SESSION ) ) {
+				$wgRequest = new FauxRequest( $this->mOptions, true, $_SESSION );
+			} else {
+				$wgRequest = new FauxRequest( $this->mOptions, true );
+			}
 			list( $formHTML, $targetContent, $generatedFormName, $generatedTargetNameFormula ) =
 				$wgPageFormsFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists,
@@ -953,12 +953,11 @@ class PFAutoeditAPI extends ApiBase {
 					$is_query = false, $is_embedded = false, $is_autocreate = false,
 					$autocreate_query = [], $this->getUser()
 				);
+			// Restore original request.
+			$wgRequest = $oldRequest;
 		} else {
 			$generatedFormName = $form_page_title;
 		}
-
-		// Restore original request.
-		$wgRequest = $oldRequest;
 
 		if ( $generatedFormName !== '' ) {
 			$this->mOptions['formtitle'] = $generatedFormName;
@@ -1010,23 +1009,14 @@ class PFAutoeditAPI extends ApiBase {
 			// PHP < 8
 			$oldVal = libxml_disable_entity_loader( true );
 		}
-		if ( method_exists( AtEase::class, 'suppressWarnings' ) ) {
-			// MW >= 1.33
-			AtEase::suppressWarnings();
-		} else {
-			\MediaWiki\suppressWarnings();
-		}
-		$doc->loadHTML(
+
+		// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		@$doc->loadHTML(
 			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body>'
 			. $html
 			. '</body></html>'
 		);
-		if ( method_exists( AtEase::class, 'restoreWarnings' ) ) {
-			// MW >= 1.33
-			AtEase::restoreWarnings();
-		} else {
-			\MediaWiki\restoreWarnings();
-		}
+
 		if ( LIBXML_VERSION < 20900 ) {
 			// PHP < 8
 			libxml_disable_entity_loader( $oldVal );
@@ -1037,6 +1027,7 @@ class PFAutoeditAPI extends ApiBase {
 
 		for ( $i = 0; $i < $inputs->length; $i++ ) {
 			$input = $inputs->item( $i );
+			'@phan-var DOMElement $input';/** @var DOMElement $input */
 			$type = $input->getAttribute( 'type' );
 			$name = trim( $input->getAttribute( 'name' ) );
 

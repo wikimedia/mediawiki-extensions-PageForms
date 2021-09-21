@@ -23,6 +23,16 @@ class PFFormPrinter {
 	public $standardInputsIncluded;
 	public $mPageTitle;
 
+	private $mInputTypeClasses;
+	private $mDefaultInputForPropType;
+	private $mDefaultInputForPropTypeList;
+	private $mPossibleInputsForPropType;
+	private $mPossibleInputsForPropTypeList;
+	private $mDefaultInputForCargoType;
+	private $mDefaultInputForCargoTypeList;
+	private $mPossibleInputsForCargoType;
+	private $mPossibleInputsForCargoTypeList;
+
 	public function __construct() {
 		global $wgPageFormsDisableOutsideServices;
 		// Initialize variables.

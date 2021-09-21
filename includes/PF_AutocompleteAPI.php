@@ -312,31 +312,44 @@ class PFAutocompleteAPI extends ApiBase {
 	}
 
 	private static function getAllValuesForCargoField( $cargoTable, $cargoField, $substring, $baseCargoTable = null, $baseCargoField = null, $baseValue = null ) {
-		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
-		global $wgPageFormsAutocompleteOnAllChars;
+		global $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
 
-		$values = [];
+		if ( !$wgPageFormsCacheAutocompleteValues ) {
+			return self::computeAllValuesForCargoField(
+				$cargoTable, $cargoField, $substring, $baseCargoTable, $baseCargoField, $baseValue );
+		}
+
+		$cache = PFFormUtils::getFormCache();
+		// Remove trailing whitespace to avoid unnecessary database selects
+		$cacheKeyString = $cargoTable . '|' . $cargoField . '|' . rtrim( $substring );
+		if ( $baseCargoTable !== null ) {
+			$cacheKeyString .= '|' . $baseCargoTable . '|' . $baseCargoField . '|' . $baseValue;
+		}
+		$cacheKey = $cache->makeKey( 'pf-autocomplete', md5( $cacheKeyString ) );
+		return $cache->getWithSetCallback(
+			$cacheKey,
+			$wgPageFormsAutocompleteCacheTimeout,
+			function () use ( $cargoTable, $cargoField, $substring, $baseCargoTable, $baseCargoField, $baseValue ) {
+				return self::computeAllValuesForCargoField(
+					$cargoTable, $cargoField, $substring, $baseCargoTable, $baseCargoField, $baseValue );
+			}
+		);
+	}
+
+	private static function computeAllValuesForCargoField(
+		$cargoTable,
+		$cargoField,
+		$substring,
+		$baseCargoTable,
+		$baseCargoField,
+		$baseValue
+	) {
+		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
+
 		$tablesStr = $cargoTable;
 		$fieldsStr = $cargoField;
 		$joinOnStr = '';
 		$whereStr = '';
-
-		// Use cache if allowed
-		if ( $wgPageFormsCacheAutocompleteValues ) {
-			$cache = PFFormUtils::getFormCache();
-			// Remove trailing whitespace to avoid unnecessary database selects
-			$cacheKeyString = $cargoTable . '|' . $cargoField . '|' . rtrim( $substring );
-			if ( $baseCargoTable !== null ) {
-				$cacheKeyString .= '|' . $baseCargoTable . '|' . $baseCargoField . '|' . $baseValue;
-			}
-			$cacheKey = $cache->makeKey( 'pf-autocomplete', md5( $cacheKeyString ) );
-			$values = $cache->get( $cacheKey );
-
-			if ( !empty( $values ) ) {
-				// Return with results immediately
-				return $values;
-			}
-		}
 
 		if ( $baseCargoTable !== null && $baseCargoField !== null ) {
 			if ( $baseCargoTable != $cargoTable ) {
@@ -399,6 +412,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$cargoFieldAlias = $cargoField;
 		}
 
+		$values = [];
 		foreach ( $queryResults as $row ) {
 			// @TODO - this check should not be necessary.
 			if ( ( $value = $row[$cargoFieldAlias] ) == '' ) {
@@ -408,12 +422,6 @@ class PFAutocompleteAPI extends ApiBase {
 			// quotes, at least.
 			$values[] = str_replace( '&quot;', '"', $value );
 		}
-
-		if ( $wgPageFormsCacheAutocompleteValues ) {
-			// Save to cache.
-			$cache->set( $cacheKey, $values, $wgPageFormsAutocompleteCacheTimeout );
-		}
-
 		return $values;
 	}
 

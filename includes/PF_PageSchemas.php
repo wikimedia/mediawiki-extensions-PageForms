@@ -44,8 +44,8 @@ class PFPageSchemas extends PSExtensionHandler {
 				if ( $tag == $tagName ) {
 					$formName = (string)$child->attributes()->name;
 					$pfarray['name'] = $formName;
-					foreach ( $child->children() as $tag => $formelem ) {
-						$pfarray[$tag] = (string)$formelem;
+					foreach ( $child->children() as $childTag => $formelem ) {
+						$pfarray[$childTag] = (string)$formelem;
 					}
 					return $pfarray;
 				}
@@ -54,8 +54,8 @@ class PFPageSchemas extends PSExtensionHandler {
 		if ( $tagName == "pageforms_TemplateDetails" ) {
 			foreach ( $xml->children() as $tag => $child ) {
 				if ( $tag == $tagName ) {
-					foreach ( $child->children() as $tag => $formelem ) {
-						$pfarray[$tag] = (string)$formelem;
+					foreach ( $child->children() as $childTag => $formelem ) {
+						$pfarray[$childTag] = (string)$formelem;
 					}
 					return $pfarray;
 				}
@@ -171,29 +171,30 @@ class PFPageSchemas extends PSExtensionHandler {
 
 		$xmlPerField = [];
 		$fieldNum = -1;
+		$xml = '';
 		foreach ( $wgRequest->getValues() as $var => $val ) {
 			$val = str_replace( [ '<', '>' ], [ '&lt;', '&gt;' ], $val );
-			if ( substr( $var, 0, 14 ) == 'pf_input_type_' ) {
+			if ( substr( $var, 0, 14 ) === 'pf_input_type_' ) {
 				$fieldNum = substr( $var, 14 );
 				$xml = '<pageforms_FormInput>';
 				if ( !empty( $val ) ) {
 					$xml .= '<InputType>' . $val . '</InputType>';
 				}
-			} elseif ( substr( $var, 0, 14 ) == 'pf_key_values_' ) {
+			} elseif ( substr( $var, 0, 14 ) === 'pf_key_values_' ) {
 				$xml .= self::createFormInputXMLFromForm( $val );
-			} elseif ( substr( $var, 0, 14 ) == 'pf_input_befo_' ) {
+			} elseif ( substr( $var, 0, 14 ) === 'pf_input_befo_' ) {
 				if ( $val !== '' ) {
 					$xml .= '<TextBeforeField>' . $val . '</TextBeforeField>';
 				}
-			} elseif ( substr( $var, 0, 14 ) == 'pf_input_desc_' ) {
+			} elseif ( substr( $var, 0, 14 ) === 'pf_input_desc_' ) {
 				if ( $val !== '' ) {
 					$xml .= '<Description>' . $val . '</Description>';
 				}
-			} elseif ( substr( $var, 0, 18 ) == 'pf_input_desctool_' ) {
+			} elseif ( substr( $var, 0, 18 ) === 'pf_input_desctool_' ) {
 				if ( $val !== '' ) {
 					$xml .= '<DescriptionTooltipMode>' . $val . '</DescriptionTooltipMode>';
 				}
-			} elseif ( substr( $var, 0, 16 ) == 'pf_input_finish_' ) {
+			} elseif ( substr( $var, 0, 16 ) === 'pf_input_finish_' ) {
 				// This is a hack.
 				$xml .= '</pageforms_FormInput>';
 				$xmlPerField[$fieldNum] = $xml;
@@ -465,13 +466,13 @@ class PFPageSchemas extends PSExtensionHandler {
 				$pfarray = [];
 				$formName = (string)$child->attributes()->name;
 				$pfarray['name'] = $formName;
-				foreach ( $child->children() as $tag => $formelem ) {
-					if ( $tag == "standardInputs" ) {
+				foreach ( $child->children() as $childTag => $formelem ) {
+					if ( $childTag == "standardInputs" ) {
 						foreach ( $formelem->attributes() as $attr => $value ) {
 							$pfarray[$attr] = (string)$formelem->attributes()->$attr;
 						}
 					} else {
-						$pfarray[$tag] = (string)$formelem;
+						$pfarray[$childTag] = (string)$formelem;
 					}
 				}
 				return $pfarray;

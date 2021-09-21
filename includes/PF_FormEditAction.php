@@ -43,7 +43,7 @@ class PFFormEditAction extends Action {
 	/**
 	 * Adds an "action" (i.e., a tab) to edit the current article with
 	 * a form
-	 * @param Title $obj
+	 * @param IContextSource $obj
 	 * @param array &$links
 	 * @return true
 	 */
