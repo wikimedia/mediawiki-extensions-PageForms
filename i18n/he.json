@@ -138,7 +138,7 @@
 	"pf_createform_inputtype": "סוג הקלט:",
 	"pf_createform_inputtypedefault": "(ברירת מחדל)",
 	"pf_createform_formlabel": "תוית בטופס:",
-	"pf_createform_hidden": "מוסתר",
+	"pf_createform_hidden": "(מוסתר)",
 	"pf_createform_removetemplate": "הסרת תבנית",
 	"pf_createform_addtemplate": "הוספת תבנית:",
 	"pf_createform_atend": "בסוף",
