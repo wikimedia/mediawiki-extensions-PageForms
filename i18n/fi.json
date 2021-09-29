@@ -16,6 +16,7 @@
 			"Str4nd",
 			"Stryn",
 			"Valtlait",
+			"Yupik",
 			"ZeiP"
 		]
 	},
@@ -94,7 +95,7 @@
 	"pf-createform-with-name": "Luo lomake: $1",
 	"pf_createform_nameinput": "Lomakkeen nimi",
 	"pf_createform_nameinputdesc": "(lomakkeen nimi on tavallisesti sama kuin sen päämallineen nimi):",
-	"pf_createform_template": "Malline",
+	"pf_createform_template": "Malline:",
 	"pf_createform_templatelabelinput": "Mallineen otsikko (valinnainen)",
 	"pf_createform_allowmultiple": "Tämä malline voi esiintyä luodulla sivulla useasti tai ei kertaakaan",
 	"pf_createform_field": "Kenttä",
