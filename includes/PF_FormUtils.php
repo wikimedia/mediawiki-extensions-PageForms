@@ -192,6 +192,12 @@ class PFFormUtils {
 			'name' => $name,
 			'label' => $value
 		];
+		if ( isset( $attrs['class'] ) ) {
+			if ( is_string( $attrs['class'] ) ) {
+				$attrs['class'] = [ $attrs['class'] ];
+			}
+			$button->addClasses( $attrs['class'] );
+		}
 		return new OOUI\ButtonInputWidget( $attrs );
 	}
 
