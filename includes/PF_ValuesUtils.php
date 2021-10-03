@@ -7,6 +7,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 class PFValuesUtils {
 
 	/**
@@ -372,7 +374,14 @@ class PFValuesUtils {
 		}
 
 		if ( $wgPageFormsUseDisplayTitle ) {
-			$properties = PageProps::getInstance()->getProperties( $titles,
+			$services = MediaWikiServices::getInstance();
+			if ( method_exists( $services, 'getPageProps' ) ) {
+				// MW 1.36+
+				$pageProps = $services->getPageProps();
+			} else {
+				$pageProps = PageProps::getInstance();
+			}
+			$properties = $pageProps->getProperties( $titles,
 				[ 'displaytitle', 'defaultsort' ] );
 			foreach ( $titles as $title ) {
 				if ( array_key_exists( $title->getArticleID(), $properties ) ) {

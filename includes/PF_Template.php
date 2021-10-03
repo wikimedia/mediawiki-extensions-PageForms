@@ -9,6 +9,8 @@
  * @ingroup PF
  */
 
+use MediaWiki\MediaWikiServices;
+
 class PFTemplate {
 	private $mTemplateName;
 	private $mTemplateText;
@@ -44,7 +46,14 @@ class PFTemplate {
 	public function loadTemplateParams() {
 		$embeddedTemplate = null;
 		$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
-		$properties = PageProps::getInstance()->getProperties(
+		$services = MediaWikiServices::getInstance();
+		if ( method_exists( $services, 'getPageProps' ) ) {
+			// MW 1.36+
+			$pageProps = $services->getPageProps();
+		} else {
+			$pageProps = PageProps::getInstance();
+		}
+		$properties = $pageProps->getProperties(
 			[ $templateTitle ], [ 'PageFormsTemplateParams' ]
 		);
 		if ( count( $properties ) == 0 ) {
