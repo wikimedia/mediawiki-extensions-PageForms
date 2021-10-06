@@ -349,7 +349,7 @@ END;
 			'wgUploadSourceIds' => $this->mSourceIds,
 			'wgCheckFileExtensions' => $config->get( 'CheckFileExtensions' ),
 			'wgStrictFileExtensions' => $config->get( 'StrictFileExtensions' ),
-			'wgCapitalizeUploads' => MWNamespace::isCapitalized( NS_FILE ),
+			'wgCapitalizeUploads' => PFUtils::isCapitalized( NS_FILE ),
 			'wgMaxUploadSize' => $this->mMaxUploadSize,
 		];
 

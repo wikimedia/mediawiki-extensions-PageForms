@@ -338,7 +338,7 @@ class PFTemplateField {
 		$this->mFieldType = $fieldType;
 
 		if ( $fieldType == 'File' ) {
-			$this->mNamespace = MWNamespace::getCanonicalName( NS_FILE );
+			$this->mNamespace = PFUtils::getCanonicalName( NS_FILE );
 		}
 	}
 

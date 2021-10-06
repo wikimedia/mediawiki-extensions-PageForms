@@ -95,7 +95,7 @@ class PFUtils {
 		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
-		if ( MWNamespace::isCapitalized( $title->getNamespace() ) ) {
+		if ( self::isCapitalized( $title->getNamespace() ) ) {
 			return $namespace . self::getContLang()->ucfirst( $title->getPartialURL() );
 		} else {
 			return $namespace . $title->getPartialURL();
@@ -113,7 +113,7 @@ class PFUtils {
 		if ( $namespace !== '' ) {
 			$namespace .= ':';
 		}
-		if ( MWNamespace::isCapitalized( $title->getNamespace() ) ) {
+		if ( self::isCapitalized( $title->getNamespace() ) ) {
 			return $namespace . self::getContLang()->ucfirst( $title->getText() );
 		} else {
 			return $namespace . $title->getText();
@@ -493,5 +493,27 @@ END;
 		}
 
 		return false;
+	}
+
+	public static function isCapitalized( $index ) {
+		if ( class_exists( NamespaceInfo::class ) ) {
+			// MW 1.34+
+			return MediaWikiServices::getInstance()
+				->getNamespaceInfo()
+				->isCapitalized( $index );
+		} else {
+			return MWNamespace::isCapitalized( $index );
+		}
+	}
+
+	public static function getCanonicalName( $index ) {
+		if ( class_exists( NamespaceInfo::class ) ) {
+			// MW 1.34+
+			return MediaWikiServices::getInstance()
+				->getNamespaceInfo()
+				->getCanonicalName( $index );
+		} else {
+			return MWNamespace::getCanonicalIndex( $index );
+		}
 	}
 }

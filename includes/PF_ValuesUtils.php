@@ -39,7 +39,7 @@ class PFValuesUtils {
 			} elseif ( $value instanceof SMWDIWikiPage ) {
 				$realValue = str_replace( '_', ' ', $value->getDBKey() );
 				if ( $value->getNamespace() != 0 ) {
-					$realValue = MWNamespace::getCanonicalName( $value->getNamespace() ) . ":$realValue";
+					$realValue = PFUtils::getCanonicalName( $value->getNamespace() ) . ":$realValue";
 				}
 				$values[] = $realValue;
 			} else {
