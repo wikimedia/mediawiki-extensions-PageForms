@@ -10,6 +10,11 @@
 use MediaWiki\MediaWikiServices;
 
 class PFUtils {
+	// Replace with MediaWiki\Revision\RevisionRecord once MW 1.31 is no longer supported
+	public const FOR_PUBLIC = 1;
+	public const FOR_THIS_USER = 2;
+	public const RAW = 3;
+
 	/**
 	 * Get a content language (old $wgContLang) object. For MW < 1.32,
 	 * return the global. For all others, use MediaWikiServices.
@@ -121,13 +126,19 @@ class PFUtils {
 	/**
 	 * Gets the text contents of a page with the passed-in Title object.
 	 * @param Title $title
+	 * @param int $audience
 	 * @return string|null
 	 */
-	public static function getPageText( $title ) {
+	public static function getPageText( $title, $audience = self::FOR_PUBLIC ) {
 		$wikiPage = new WikiPage( $title );
-		$content = $wikiPage->getContent();
-		if ( $content !== null ) {
-			return $content->getNativeData();
+		$content = $wikiPage->getContent( $audience );
+		if ( $content instanceof TextContent ) {
+			// Since MW 1.33
+			if ( method_exists( $content, 'getText' ) ) {
+				return $content->getText();
+			} else {
+				return $content->getNativeData();
+			}
 		} else {
 			return null;
 		}
