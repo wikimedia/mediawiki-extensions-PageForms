@@ -283,9 +283,9 @@ class PFAutoeditAPI extends ApiBase {
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
 			$formWikiPage = WikiPage::factory( $formTitle );
-			$formTitle = $formWikiPage->getContent( Revision::RAW )->getUltimateRedirectTarget();
+			$formTitle = $formWikiPage->getContent( PFUtils::RAW )->getUltimateRedirectTarget();
 
-			// if we exeeded $wgMaxRedirects or encountered an invalid redirect target, give up
+			// if we exceeded $wgMaxRedirects or encountered an invalid redirect target, give up
 			if ( $formTitle->isRedirect() ) {
 				$newTitle = WikiPage::factory( $formTitle )->getRedirectTarget();
 
@@ -763,16 +763,6 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	/**
-	 * Helper function..
-	 * @param Title $title
-	 * @return string
-	 */
-	function getTextForPage( $title ) {
-		$wikiPage = WikiPage::factory( $title );
-		return $wikiPage->getContent( Revision::RAW )->getNativeData();
-	}
-
-	/**
 	 * Returns a formatted (pseudo) random number
 	 *
 	 * @param number $numDigits the min width of the random number
@@ -825,7 +815,7 @@ class PFAutoeditAPI extends ApiBase {
 			'<noinclude>', // start delimiter
 			'</noinclude>', // end delimiter
 			'', // replace by
-			$this->getTextForPage( $formTitle ) // subject
+			PFUtils::getPageText( $formTitle, PFUtils::RAW ) // subject
 		);
 
 		// signals that the form was submitted
@@ -871,7 +861,7 @@ class PFAutoeditAPI extends ApiBase {
 
 			if ( $preloadTitle !== null && $preloadTitle->exists() ) {
 				// the content of the page that was specified to be used for preloading
-				$preloadContent = $this->getTextForPage( $preloadTitle );
+				$preloadContent = PFUtils::getPageText( $preloadTitle, PFUtils::RAW );
 
 				$pageExists = true;
 

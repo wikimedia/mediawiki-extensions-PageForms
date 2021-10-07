@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RenderedRevision;
 
 /**
  * Utilities for the display and retrieval of forms.
@@ -385,13 +386,7 @@ END;
 			}
 		}
 
-		$rev = Revision::newFromTitle( $preloadTitle );
-		if ( !is_object( $rev ) ) {
-			return '';
-		}
-
-		$content = $rev->getContent();
-		$text = ContentHandler::getContentText( $content );
+		$text = PFUtils::getPageText( $preloadTitle );
 		// Remove <noinclude> sections and <includeonly> tags from text
 		$text = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $text );
 		$text = strtr( $text, [ '<includeonly>' => '', '</includeonly>' => '' ] );
@@ -648,7 +643,7 @@ END;
 	 * @param RenderedRevision $renderedRevision
 	 * @return bool
 	 */
-	public static function purgeCache2( MediaWiki\Revision\RenderedRevision $renderedRevision ) {
+	public static function purgeCache2( RenderedRevision $renderedRevision ) {
 		$articleID = $renderedRevision->getRevision()->getPageId();
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+

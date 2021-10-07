@@ -209,8 +209,7 @@ class PFMultiPageEdit extends QueryPage {
 
 	function findTemplatesForForm( $formName ) {
 		$formTitle = Title::makeTitle( PF_NS_FORM, $formName );
-		$formWikiPage = WikiPage::factory( $formTitle );
-		$formContent = $formWikiPage->getContent( Revision::RAW )->getNativeData();
+		$formContent = PFUtils::getPageText( $formTitle, PFUtils::RAW );
 		$start_position = 0;
 		while ( $brackets_loc = strpos( $formContent, '{{{', $start_position ) ) {
 			$brackets_end_loc = strpos( $formContent, "}}}", $brackets_loc );
