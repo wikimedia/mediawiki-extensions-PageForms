@@ -186,6 +186,7 @@
 	"pf_bad_integer_error": "باید یک عدد صحیح معتبر باشد",
 	"pf_bad_date_error": "باید یک تاریخ معتبر باشد",
 	"uploadwindow": "پنجره بارگذاری",
+	"pf-simpleupload": "بارگذاری",
 	"pf_deletionlog": "سیاههٔ حذف",
 	"pf-preview-header": "پیش‌نمایش فرم",
 	"pf-preview-note": "این شبیه چیزی خواهدبود که هنگامی که فرم در حال استفاده است:",
