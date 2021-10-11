@@ -1,11 +1,16 @@
 <?php
 
+if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
+	// MW pre-1.34
+	class_alias( 'MediaWikiTestCase', 'MediaWikiIntegrationTestCase' );
+}
+
 /**
  * @covers \PFFormPrinter
  *
  * @author Himeshi De Silva
  */
-class PFFormPrinterTest extends MediaWikiTestCase {
+class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * Set up the environment

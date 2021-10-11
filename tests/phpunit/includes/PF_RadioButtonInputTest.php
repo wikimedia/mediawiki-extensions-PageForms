@@ -1,11 +1,16 @@
 <?php
 
+if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
+	// MW pre-1.34
+	class_alias( 'MediaWikiTestCase', 'MediaWikiIntegrationTestCase' );
+}
+
 /**
  * @covers \PFRadioButtonInput
  *
  * @author Mark A. Hershberger <mah@nichework.com>
  */
-class PFRadioButtonInputTest extends MediaWikiTestCase {
+class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 
 	private function radioButtonFormat(
 		$name, $value, $label = null, $checked = null, $class = null,
