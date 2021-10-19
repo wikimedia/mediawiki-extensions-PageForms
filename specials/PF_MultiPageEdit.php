@@ -12,6 +12,8 @@
  * @author Yaron Koren
  */
 
+use MediaWiki\Revision\RevisionRecord;
+
 /**
  * @ingroup PFSpecialPages
  */
@@ -208,7 +210,7 @@ class PFMultiPageEdit extends QueryPage {
 
 	function findTemplatesForForm( $formName ) {
 		$formTitle = Title::makeTitle( PF_NS_FORM, $formName );
-		$formContent = PFUtils::getPageText( $formTitle, PFUtils::RAW );
+		$formContent = PFUtils::getPageText( $formTitle, RevisionRecord::RAW );
 		$start_position = 0;
 		while ( $brackets_loc = strpos( $formContent, '{{{', $start_position ) ) {
 			$brackets_end_loc = strpos( $formContent, "}}}", $brackets_loc );

@@ -755,12 +755,7 @@ END;
 					"|" . $title->getText() . "\n";
 			}
 			$msg .= "</gallery>";
-			if ( method_exists( $out, 'parseAsInterface' ) ) {
-				// MW 1.32+
-				$galleryText = $out->parseAsInterface( $msg );
-			} else {
-				$galleryText = $out->parse( $msg );
-			}
+			$galleryText = $out->parseAsInterface( $msg );
 			return "<li>" .
 				$this->msg( "file-exists-duplicate" )->numParams( count( $dupes ) )->parseAsBlock() .
 				$galleryText .

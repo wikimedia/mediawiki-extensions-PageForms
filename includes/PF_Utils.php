@@ -10,26 +10,17 @@
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
 
 class PFUtils {
-	// Replace with MediaWiki\Revision\RevisionRecord once MW 1.31 is no longer supported
-	public const FOR_PUBLIC = 1;
-	public const FOR_THIS_USER = 2;
-	public const RAW = 3;
 
 	/**
-	 * Get a content language (old $wgContLang) object. For MW < 1.32,
-	 * return the global. For all others, use MediaWikiServices.
+	 * Get a content language object.
 	 *
 	 * @return Language
 	 */
 	public static function getContLang() {
-		if ( method_exists( MediaWikiServices::class, "getContentLanguage" ) ) {
-			return MediaWikiServices::getInstance()->getContentLanguage();
-		} else {
-			global $wgContLang;
-			return $wgContLang;
-		}
+		return MediaWikiServices::getInstance()->getContentLanguage();
 	}
 
 	public static function getSMWContLang() {
@@ -131,7 +122,7 @@ class PFUtils {
 	 * @param int $audience
 	 * @return string|null
 	 */
-	public static function getPageText( $title, $audience = self::FOR_PUBLIC ) {
+	public static function getPageText( $title, $audience = RevisionRecord::FOR_PUBLIC ) {
 		$wikiPage = new WikiPage( $title );
 		$content = $wikiPage->getContent( $audience );
 		if ( $content instanceof TextContent ) {
@@ -147,14 +138,9 @@ class PFUtils {
 	}
 
 	public static function getSpecialPage( $pageName ) {
-		if ( class_exists( 'MediaWiki\Special\SpecialPageFactory' ) ) {
-			// MW 1.32+
-			return MediaWikiServices::getInstance()
-				->getSpecialPageFactory()
-				->getPage( $pageName );
-		} else {
-			return SpecialPageFactory::getPage( $pageName );
-		}
+		return MediaWikiServices::getInstance()
+			->getSpecialPageFactory()
+			->getPage( $pageName );
 	}
 
 	/**

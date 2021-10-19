@@ -380,12 +380,7 @@ class PFHooks {
 		// Needed in case there are any OOUI-based input types in the form.
 		$wgOut->enableOOUI();
 
-		if ( method_exists( $wgOut, 'parseAsInterface' ) ) {
-			// MW 1.32+
-			$previewNote = $wgOut->parseAsInterface( wfMessage( 'pf-preview-note' )->text() );
-		} else {
-			$previewNote = $wgOut->parse( wfMessage( 'pf-preview-note' )->text() );
-		}
+		$previewNote = $wgOut->parseAsInterface( wfMessage( 'pf-preview-note' )->text() );
 		// The "pfForm" ID is there so the form JS will be activated.
 		$editpage->previewTextAfterContent .= Html::element( 'h2', null, wfMessage( 'pf-preview-header' )->text() ) . "\n" .
 			'<div id="pfForm" class="previewnote" style="font-weight: bold">' . $previewNote . "</div>\n<hr />\n";

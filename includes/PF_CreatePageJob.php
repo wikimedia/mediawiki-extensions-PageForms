@@ -55,7 +55,7 @@ class PFCreatePageJob extends Job {
 
 		// It's strange that doEditContent() doesn't automatically
 		// attach the 'bot' flag when the user is a bot...
-		// @TODO - is all this code still necessary for MW 1.32+?
+		// @TODO - is all this code still necessary?
 		$flags = 0;
 		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userHasRight' ) ) {
 			// MW 1.34+
@@ -69,14 +69,9 @@ class PFCreatePageJob extends Job {
 			}
 		}
 
-		if ( class_exists( 'MediaWiki\Storage\PageUpdater' ) ) {
-			// MW 1.32+
-			$updater = $wikiPage->newPageUpdater( $user );
-			$updater->setContent( MediaWiki\Storage\SlotRecord::MAIN, $newContent );
-			$updater->saveRevision( CommentStoreComment::newUnsavedComment( $editSummary ), $flags );
-		} else {
-			$wikiPage->doEditContent( $newContent, $editSummary, $flags, $originalRevId = false, $user );
-		}
+		$updater = $wikiPage->newPageUpdater( $user );
+		$updater->setContent( MediaWiki\Storage\SlotRecord::MAIN, $newContent );
+		$updater->saveRevision( CommentStoreComment::newUnsavedComment( $editSummary ), $flags );
 	}
 
 }
