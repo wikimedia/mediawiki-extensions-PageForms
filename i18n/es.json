@@ -21,7 +21,8 @@
 			"Ryo567",
 			"Sanbec",
 			"Sethladan",
-			"Vivaelcelta"
+			"Vivaelcelta",
+			"Whovian Biologist"
 		]
 	},
 	"pageforms-desc": "Formularios para crear y editar páginas wiki",
@@ -60,7 +61,7 @@
 	"pf_createtemplate_plainformat": "Texto sin formato",
 	"pf_createtemplate_sectionsformat": "Secciones",
 	"pf_createtemplate_addfield": "Agregar campo",
-	"pf_createtemplate_deletefield": "Borrar",
+	"pf_createtemplate_deletefield": "Eliminar este campo",
 	"forms": "Formularios",
 	"pf_forms_docu": "Los siguientes formularios existen en el wiki.",
 	"pf_forminputs_mandatory": "Obligado",
@@ -116,7 +117,7 @@
 	"pf_createform_inputtype": "Tipo de entrada:",
 	"pf_createform_inputtypedefault": "(predeterminado)",
 	"pf_createform_formlabel": "Etiqueta del formulario:",
-	"pf_createform_hidden": "Oculto",
+	"pf_createform_hidden": "(oculto)",
 	"pf_createform_removetemplate": "Eliminar plantilla",
 	"pf_createform_addtemplate": "Agregar plantilla:",
 	"pf_createform_atend": "Al final",
