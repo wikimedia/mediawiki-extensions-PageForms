@@ -86,7 +86,7 @@ class PFCreateProperty extends SpecialPage {
 				$title = Title::makeTitleSafe( SMW_NS_PROPERTY, $property_name );
 				$full_text = self::createPropertyText( $property_type, $allowed_values );
 				$edit_summary = wfMessage( 'pf_createproperty_editsummary', $property_type )->inContentLanguage()->text();
-				$text = PFUtils::printRedirectForm( $title, $full_text, $edit_summary, $save_page, $preview_page, false, false, false, null, null );
+				$text = PFUtils::printRedirectForm( $title, $full_text, $edit_summary, $save_page, $this->getUser() );
 				$out->addHTML( $text );
 				return;
 			}

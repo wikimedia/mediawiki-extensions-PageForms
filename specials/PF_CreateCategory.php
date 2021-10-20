@@ -65,7 +65,7 @@ class PFCreateCategory extends SpecialPage {
 			$out->setArticleBodyOnly( true );
 			$title = Title::makeTitleSafe( NS_CATEGORY, $category_name );
 			$full_text = self::createCategoryText( $default_form, $category_name, $parent_category );
-			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
+			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $this->getUser() );
 			$out->addHTML( $text );
 			return;
 		}

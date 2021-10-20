@@ -175,19 +175,15 @@ class PFUtils {
 	}
 
 	/**
-	 * Prints the mini-form contained at the bottom of various pages, that
-	 * allows pages to spoof a normal edit page, that can preview, save,
-	 * etc.
+	 * Returns a hidden mini-form to be printed at the bottom of various helper
+	 * forms, like Special:CreateForm, so that the main form can either save or
+	 * preview the resulting page.
+	 *
 	 * @param string $title
 	 * @param string $page_contents
 	 * @param string $edit_summary
 	 * @param bool $is_save
-	 * @param bool $is_preview
-	 * @param bool $is_diff
-	 * @param bool $is_minor_edit
-	 * @param bool $watch_this
-	 * @param string $start_time
-	 * @param string $edit_time
+	 * @param User $user
 	 * @return string
 	 */
 	public static function printRedirectForm(
@@ -195,21 +191,14 @@ class PFUtils {
 		$page_contents,
 		$edit_summary,
 		$is_save,
-		$is_preview,
-		$is_diff,
-		$is_minor_edit,
-		$watch_this,
-		$start_time,
-		$edit_time
+		$user
 	) {
-		global $wgUser, $wgPageFormsScriptPath;
+		global $wgPageFormsScriptPath;
 
 		if ( $is_save ) {
 			$action = "wpSave";
-		} elseif ( $is_preview ) {
+		} else {
 			$action = "wpPreview";
-		} else { // $is_diff
-			$action = "wpDiff";
 		}
 
 		$text = <<<END
@@ -219,32 +208,22 @@ END;
 		$form_body = Html::hidden( 'wpTextbox1', $page_contents );
 		$form_body .= Html::hidden( 'wpUnicodeCheck', 'ℳ𝒲♥𝓊𝓃𝒾𝒸ℴ𝒹ℯ' );
 		$form_body .= Html::hidden( 'wpSummary', $edit_summary );
-		$form_body .= Html::hidden( 'wpStarttime', $start_time );
-		$form_body .= Html::hidden( 'wpEdittime', $edit_time );
-		// @TODO - add this in at some point. For now, most of these
-		// fields are not getting used anyway.
+		// @TODO - add this in at some point.
 		//$form_body .= Html::hidden( 'editRevId', $edit_rev_id );
 
-		if ( method_exists( $wgUser, 'isRegistered' ) ) {
+		if ( method_exists( $user, 'isRegistered' ) ) {
 			// MW 1.34+
-			$userIsRegistered = $wgUser->isRegistered();
+			$userIsRegistered = $user->isRegistered();
 		} else {
-			$userIsRegistered = $wgUser->isLoggedIn();
+			$userIsRegistered = $user->isLoggedIn();
 		}
 		if ( $userIsRegistered ) {
-			$edit_token = $wgUser->getEditToken();
+			$edit_token = $user->getEditToken();
 		} else {
 			$edit_token = \MediaWiki\Session\Token::SUFFIX;
 		}
 		$form_body .= Html::hidden( 'wpEditToken', $edit_token );
 		$form_body .= Html::hidden( $action, null );
-
-		if ( $is_minor_edit ) {
-			$form_body .= Html::hidden( 'wpMinoredit', null );
-		}
-		if ( $watch_this ) {
-			$form_body .= Html::hidden( 'wpWatchthis', null );
-		}
 
 		$form_body .= Html::hidden( 'wpUltimateParam', true );
 
@@ -267,7 +246,8 @@ END;
 	</script>
 
 END;
-		Hooks::run( 'PageForms::PrintRedirectForm', [ $is_save, $is_preview, $is_diff, &$text ] );
+		// @TODO - remove this hook? It seems useless.
+		Hooks::run( 'PageForms::PrintRedirectForm', [ $is_save, !$is_save, false, &$text ] );
 		return $text;
 	}
 

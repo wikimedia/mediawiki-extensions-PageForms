@@ -334,7 +334,7 @@ END;
 			$pfTemplate->setFormat( $template_format );
 			$full_text = $pfTemplate->createText();
 
-			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $preview_page, false, false, false, null, null );
+			$text = PFUtils::printRedirectForm( $title, $full_text, "", $save_page, $this->getUser() );
 			$out->addHTML( $text );
 			return;
 		}
