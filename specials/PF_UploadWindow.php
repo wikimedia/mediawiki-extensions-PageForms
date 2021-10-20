@@ -692,55 +692,6 @@ END;
 	}
 
 	/**
-	 * Get a list of warnings
-	 *
-	 * @param string $filename local filename, e.g. 'file exists', 'non-descriptive filename'
-	 * @return string list of warning messages
-	 */
-	public static function ajaxGetExistsWarning( $filename ) {
-		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
-			// MediaWiki 1.34+
-			$repoGroup = MediaWikiServices::getInstance()->getRepoGroup();
-		} else {
-			$repoGroup = RepoGroup::singleton();
-		}
-		$file = $repoGroup->findFile( $filename );
-		if ( !$file ) {
-			// Force local file so we have an object to do further checks against
-			// if there isn't an exact match...
-			$file = $repoGroup->getLocalRepo()->newFile( $filename );
-		}
-		$s = '&#160;';
-		if ( $file ) {
-			$exists = UploadBase::getExistsWarning( $file );
-			$warning = self::getExistsWarning( $exists );
-			if ( $warning !== '' ) {
-				$s = "<ul>$warning</ul>";
-			}
-		}
-		return $s;
-	}
-
-	/**
-	 * Render a preview of a given license for the AJAX preview on upload
-	 *
-	 * @param string $license
-	 * @return string
-	 */
-	public static function ajaxGetLicensePreview( $license ) {
-		global $wgUser;
-		$text = '{{' . $license . '}}';
-		$title = Title::makeTitle( NS_FILE, 'Sample.jpg' );
-		$options = ParserOptions::newFromUser( $wgUser );
-
-		// Expand subst: first, then live templates...
-		$text = PFUtils::getParser()->preSaveTransform( $text, $title, $wgUser, $options );
-		$output = PFUtils::getParser()->parse( $text, $title, $options );
-
-		return $output->getText();
-	}
-
-	/**
 	 * Construct a warning and a gallery from an array of duplicate files.
 	 * @param File[] $dupes
 	 * @return string
