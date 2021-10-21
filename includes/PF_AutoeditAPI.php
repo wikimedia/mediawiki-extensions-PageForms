@@ -686,10 +686,10 @@ class PFAutoeditAPI extends ApiBase {
 		// won't cause problems of its own.
 		$targetName = str_replace( ' ', '_', $targetName );
 
-		// now run the parser on it
-		global $wgTitle, $wgUser;
+		// Now run the parser on it.
+		$parserOptions = ParserOptions::newFromUser( $this->getUser() );
 		$targetName = PFUtils::getParser()->transformMsg(
-			$targetName, ParserOptions::newFromUser( $wgUser ), $wgTitle
+			$targetName, $parserOptions, $this->getTitle()
 		);
 
 		$titleNumber = '';
@@ -791,12 +791,11 @@ class PFAutoeditAPI extends ApiBase {
 	 * key. The general request status is maintained in mStatus.
 	 *
 	 * @global $wgRequest
-	 * @global $wgOut
 	 * @global PFFormPrinter $wgPageFormsFormPrinter
 	 * @throws MWException
 	 */
 	public function doAction() {
-		global $wgOut, $wgRequest, $wgPageFormsFormPrinter;
+		global $wgRequest, $wgPageFormsFormPrinter;
 
 		// If the wiki is read-only, do not save.
 		if ( wfReadOnly() ) {
@@ -982,8 +981,9 @@ class PFAutoeditAPI extends ApiBase {
 				$this->doStore( $editor );
 			}
 		} elseif ( $this->mAction === self::ACTION_FORMEDIT ) {
+			$out = $this->getOutput();
 			$parserOutput = PFUtils::getParser()->getOutput();
-			$wgOut->addParserOutputMetadata( $parserOutput );
+			$out->addParserOutputMetadata( $parserOutput );
 
 			$this->getResult()->addValue( [ 'form' ], 'HTML', $formHTML );
 		}
