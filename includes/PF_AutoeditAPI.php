@@ -983,11 +983,7 @@ class PFAutoeditAPI extends ApiBase {
 			}
 		} elseif ( $this->mAction === self::ACTION_FORMEDIT ) {
 			$parserOutput = PFUtils::getParser()->getOutput();
-			if ( method_exists( $wgOut, 'addParserOutputMetadata' ) ) {
-				$wgOut->addParserOutputMetadata( $parserOutput );
-			} else {
-				$wgOut->addParserOutputNoText( $parserOutput );
-			}
+			$wgOut->addParserOutputMetadata( $parserOutput );
 
 			$this->getResult()->addValue( [ 'form' ], 'HTML', $formHTML );
 		}
