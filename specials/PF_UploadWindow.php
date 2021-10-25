@@ -133,7 +133,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 
 		# Check blocks
-		if ( $this->getUser()->isBlocked() ) {
+		if ( $this->getUser()->getBlock() ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 
