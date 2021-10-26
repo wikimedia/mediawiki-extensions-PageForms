@@ -47,7 +47,9 @@ class PFFormLinker {
 
 	public static function createPageWithForm( $title, $formName, $inQueryArr ) {
 		/** @var PFFormPrinter $wgPageFormsFormPrinter */
-		global $wgPageFormsFormPrinter;
+		global $wgPageFormsFormPrinter, $wgOut;
+
+		$wgOut->enableOOUI();
 
 		$formTitle = Title::makeTitleSafe( PF_NS_FORM, $formName );
 		$formDefinition = PFUtils::getPageText( $formTitle );
