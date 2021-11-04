@@ -243,7 +243,7 @@
 	"pf_start_end_date_error": "Das Enddatum muss nach dem Startdatum liegen",
 	"pf_start_end_datetime_error": "Der Endzeitpunkt muss nach dem Startzeitpunkt liegen.",
 	"pf_modified_input_error": "Diese Veränderung sollte bestätigt oder abgelehnt werden",
-	"pf_pipe_error": "„|“ ist nicht erlaubt, außer innerhalb von {{...}}, [[...]] oder speziellen Tags",
+	"pf_pipe_error": "Das Zeichen „|“ kann an dieser Stelle nicht verwendet werden. Dies ist nur innerhalb von {{...}}, [[...]] oder speziellen Tags möglich.",
 	"uploadwindow": "Formular zum Hochladen",
 	"pf-simpleupload": "Hochladen",
 	"pf_deletionlog": "Lösch-Logbuch",
