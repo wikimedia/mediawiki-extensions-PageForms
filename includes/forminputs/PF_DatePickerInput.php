@@ -97,6 +97,7 @@ class PFDatePickerInput extends PFFormInput {
 			'infusable' => true
 		] );
 		$widget = new DateInputWidget( $options );
+		$widget->setDisabled( $this->mIsDisabled );
 		$text = $widget->toString();
 
 		// We need a wrapper div so that OOUI won't override
