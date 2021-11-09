@@ -332,7 +332,7 @@ var dataValues = [];
 		}
 	}
 
-	jexcel.prototype.setAutocompleteAtrributesOfColumns = function ( cell, gridParams, templateName, fieldNum ) {
+	jexcel.prototype.setAutocompleteAttributesOfColumns = function ( cell, gridParams, templateName, fieldNum ) {
 		$(cell).attr( 'name', templateName + '[' + $(cell).attr('title') + ']' );
 		if ( gridParams[templateName][fieldNum]['autocompletedatatype'] == undefined ) {
 			$(cell).attr( 'data-autocomplete-data-type', '' );
@@ -343,7 +343,7 @@ var dataValues = [];
 		}
 	}
 
-	jexcel.prototype.setAutocompleteAtrributesOfCells = function( table, templateName, data_x, cell ) {
+	jexcel.prototype.setAutocompleteAttributesOfCells = function( table, templateName, data_x, cell ) {
 		var autocompletedatatype = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-data-type'),
 			autocompletesettings = $(table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
 		$(cell).attr({
@@ -822,7 +822,7 @@ var dataValues = [];
 					if ( editMultiplePages === undefined ) {
 						$(table).find('tbody td').not('.jexcel_row').each(function() {
 							var data_x = $(this).attr('data-x');
-							jexcel.prototype.setAutocompleteAtrributesOfCells( table, templateName, data_x, this );
+							jexcel.prototype.setAutocompleteAttributesOfCells( table, templateName, data_x, this );
 						});
 					}
 
@@ -865,7 +865,7 @@ var dataValues = [];
 					$(table).find('thead td').not('.jexcel_selectall').each( function() {
 						// to avoid the last column, used numberOfColumns-1
 						if ( fieldNum < numberOfColumns-1 ) {
-							jexcel.prototype.setAutocompleteAtrributesOfColumns( this, gridParams, templateName, fieldNum );
+							jexcel.prototype.setAutocompleteAttributesOfColumns( this, gridParams, templateName, fieldNum );
 							fieldNum++;
 						}
 					} );
@@ -931,14 +931,14 @@ var dataValues = [];
 			$(table).find('thead td').not('.jexcel_selectall').each( function() {
 				// to avoid the last column, used numberOfColumns-1
 				if ( fieldNum < numberOfColumns-1 ) {
-					jexcel.prototype.setAutocompleteAtrributesOfColumns( this, gridParams, templateName, fieldNum );
+					jexcel.prototype.setAutocompleteAttributesOfColumns( this, gridParams, templateName, fieldNum );
 					fieldNum++;
 				}
 			} );
 			// Providing "name" and "origname" and autocomplete attributes to every cell of the spreadsheet
 			$(table).find('tbody td').not('.jexcel_row').each(function() {
 				var data_x = $(this).attr('data-x');
-				jexcel.prototype.setAutocompleteAtrributesOfCells( table, templateName, data_x, this );
+				jexcel.prototype.setAutocompleteAttributesOfCells( table, templateName, data_x, this );
 			});
 		}
 	} )
