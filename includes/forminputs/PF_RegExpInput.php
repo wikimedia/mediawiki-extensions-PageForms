@@ -113,7 +113,8 @@ class PFRegExpInput extends PFFormInput {
 		}
 
 		// Create base input.
-		$this->mBaseInput = new $wgPageFormsFormPrinter->mInputTypeClasses[ $baseType ] (
+		$baseInputClass = $wgPageFormsFormPrinter->getInputType( $baseType );
+		$this->mBaseInput = new $baseInputClass(
 			$this->mInputNumber, $this->mCurrentValue, $this->mInputName, $this->mIsDisabled, $newOtherArgs
 		);
 	}
