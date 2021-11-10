@@ -212,6 +212,7 @@ class PFHooks {
 		}
 		$smw_row->addItem( ALItem::newFromSpecialPage( 'Templates' ), 'Properties' );
 		$smw_row->addItem( ALItem::newFromSpecialPage( 'Forms' ), 'SemanticStatistics' );
+		$smw_row->addItem( ALItem::newFromSpecialPage( 'MultiPageEdit' ) );
 		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateClass' ), 'SMWAdmin' );
 		if ( class_exists( 'PFCreateProperty' ) ) {
 			$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateProperty' ), 'SMWAdmin' );
