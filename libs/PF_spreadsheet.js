@@ -843,6 +843,7 @@ var dataValues = [];
 					tableHeight: "2500px",
 					pagination: (editMultiplePages === undefined ) ? false : 100,
 					search: (editMultiplePages !== undefined ),
+					filters: (editMultiplePages !== undefined ),
 					text: {
 						search: mw.msg( 'search' )
 					}
@@ -858,11 +859,11 @@ var dataValues = [];
 				}
 
 				if ( editMultiplePages !== undefined ) {
-					var numberOfColumns = $(table).find('thead td').not('.jexcel_selectall').length,
+					var numberOfColumns = $(table).find('thead tr:first td').not('.jexcel_selectall').length,
 						fieldNum = 0;
 					// Provide the autocomplete attributes to each column of the spreadsheet
 					// which is populated at the starting.
-					$(table).find('thead td').not('.jexcel_selectall').each( function() {
+					$(table).find('thead tr:first td').not('.jexcel_selectall').each( function() {
 						// to avoid the last column, used numberOfColumns-1
 						if ( fieldNum < numberOfColumns-1 ) {
 							jexcel.prototype.setAutocompleteAttributesOfColumns( this, gridParams, templateName, fieldNum );
@@ -923,12 +924,12 @@ var dataValues = [];
 			table = this,
 			fieldNum = 0,
 			editMultiplePages = $(this).attr('editmultiplepages');
-		var numberOfColumns = $(table).find('thead td').not('.jexcel_selectall').length;
+		var numberOfColumns = $(table).find('thead tr:first td').not('.jexcel_selectall').length;
 
 		if ( editMultiplePages == undefined ) {
 			// Provide the autocomplete attributes to each column of the spreadsheet
 			// which is populated at the starting.
-			$(table).find('thead td').not('.jexcel_selectall').each( function() {
+			$(table).find('thead tr:first td').not('.jexcel_selectall').each( function() {
 				// to avoid the last column, used numberOfColumns-1
 				if ( fieldNum < numberOfColumns-1 ) {
 					jexcel.prototype.setAutocompleteAttributesOfColumns( this, gridParams, templateName, fieldNum );
