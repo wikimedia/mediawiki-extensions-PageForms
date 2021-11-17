@@ -213,7 +213,7 @@
 				// Special submit form & other actions handling when VEForAll editor is present
 				if ( $('.visualeditor').length > 0 ) {
 					// Interrupt "Save page" and "Show changes" actions
-					var $formButtons = $( '#wpSave, #wpDiff' );
+					var $formButtons = $( 'button[name="wpSave"], button[name="wpDiff"]' );
 					var canSubmit = false;
 
 					if ( $formButtons.length > 0 ) {
