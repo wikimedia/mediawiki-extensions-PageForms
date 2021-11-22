@@ -486,7 +486,6 @@ END;
 			$regexp,
 
 			// This is essentially a copy of Parser::insertStripItem().
-			// The 'use' keyword will bump the minimum PHP version to 5.3
 			static function ( array $matches ) use ( &$items, $rnd ) {
 				$markerIndex = count( $items );
 				$items[] = $matches[0];
