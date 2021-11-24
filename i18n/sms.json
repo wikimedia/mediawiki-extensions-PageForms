@@ -4,5 +4,11 @@
 			"Yupik"
 		]
 	},
-	"pf_createtemplate_standardformat": "Taullõk"
+	"templates": "Maall",
+	"pf_createtemplate_namelabel": "Maall nõmm:",
+	"pf_createtemplate_standardformat": "Taullõk",
+	"pf_forminputs_checkboxes_select_all": "Vaʹlljed pukid",
+	"pf_createform_template": "Mall:",
+	"pf_createclass_create": "Raaj",
+	"pf_editsource": "Muuʹtt wikiteeʹkst"
 }
