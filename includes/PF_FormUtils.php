@@ -665,7 +665,7 @@ END;
 	 */
 	public static function getFormCache() {
 		global $wgPageFormsFormCacheType, $wgParserCacheType;
-		$ret = wfGetCache( ( $wgPageFormsFormCacheType !== null ) ? $wgPageFormsFormCacheType : $wgParserCacheType );
+		$ret = ObjectCache::getInstance( ( $wgPageFormsFormCacheType !== null ) ? $wgPageFormsFormCacheType : $wgParserCacheType );
 		return $ret;
 	}
 
