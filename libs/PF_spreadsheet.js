@@ -494,13 +494,7 @@ var dataValues = [];
 					}
 					for ( var pageNum = 0; pageNum < data.query.pages.length; pageNum++ ) {
 						var curRevision = data.query.pages[pageNum].revisions[0];
-						var pageContents;
-						if (curRevision.hasOwnProperty('slots')) {
-							// MW 1.31+ (or maybe 1.32+)
-							pageContents = curRevision.slots.main.content;
-						} else {
-							pageContents = curRevision.content;
-						}
+						var pageContents = curRevision.slots.main.content;
 						pagesData.push( {
 							title: data.query.pages[pageNum].title,
 							contents: pageContents
