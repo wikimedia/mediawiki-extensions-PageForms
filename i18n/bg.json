@@ -59,7 +59,7 @@
 	"pf_createform_fieldpropunknowntype": "Това поле дефинира свойството $1 от неуказан тип.",
 	"pf_createform_inputtypedefault": "(по подразбиране)",
 	"pf_createform_formlabel": "Заглавие на формуляра:",
-	"pf_createform_hidden": "Скрита",
+	"pf_createform_hidden": "(Скрита)",
 	"pf_createform_removetemplate": "Премахване на шаблон",
 	"pf_createform_addtemplate": "Добавяне на шаблон:",
 	"pf_createform_atend": "В края",

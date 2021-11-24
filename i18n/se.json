@@ -4,5 +4,9 @@
 			"Yupik"
 		]
 	},
-	"pf_createtemplate_standardformat": "Tabealla"
+	"templates": "Mállet",
+	"pf_createtemplate_namelabel": "Málle namma:",
+	"pf_createtemplate_standardformat": "Tabealla",
+	"pf_forminputs_checkboxes_select_all": "Vállje buot",
+	"pf_createform_template": "Málle:"
 }
