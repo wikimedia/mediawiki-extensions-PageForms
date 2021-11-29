@@ -255,12 +255,13 @@ class PFHooks {
 	 * @param bool $hasReplacementTable Whether this table has a replacement table
 	 * @param int[][] $templatesThatDeclareTables
 	 * @param string[] $templatesThatAttachToTables
+	 * @param User|null $user The current user
 	 *
 	 * @return bool
 	 *
 	 * @since 4.4
 	 */
-	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables ) {
+	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $user = null ) {
 		global $wgUser;
 
 		// If it has a "replacement table", it's read-only and can't
@@ -270,7 +271,13 @@ class PFHooks {
 		}
 
 		// Check permissions.
-		if ( !$wgUser->isAllowed( 'multipageedit' ) ) {
+		if ( $user == null ) {
+			// For Cargo versions < 3.1.
+			global $wgUser;
+			$user = $wgUser;
+		}
+
+		if ( !$user->isAllowed( 'multipageedit' ) ) {
 			return true;
 		}
 		// Only put in an "Edit" link if there's exactly one template
@@ -322,19 +329,20 @@ class PFHooks {
 	 * @param int[][] $templatesThatDeclareTables
 	 * @param string[] $templatesThatAttachToTables
 	 * @param string[] $actionList
+	 * @param User|null $user The current user
 	 *
 	 * @return bool
 	 *
 	 * @since 4.8.1
 	 */
-	public static function addToCargoTablesRow( $cargoTablesPage, &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $actionList ) {
+	public static function addToCargoTablesRow( $cargoTablesPage, &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $actionList, $user = null ) {
 		$cargoTablesPage->getOutput()->addModuleStyles( [ 'oojs-ui.styles.icons-editing-core' ] );
 
 		// For the sake of simplicity, this function basically just
 		// wraps around the previous hook function, for Cargo <= 2.4.
 		// That's why there's this awkward behavior of parsing links
 		// to get their URL. Hopefully this won't cause problems.
-		self::addToCargoTablesLinks( $actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables );
+		self::addToCargoTablesLinks( $actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $user );
 
 		if ( array_key_exists( 'edit', $actionLinks ) ) {
 			preg_match( '/href="(.*?)"/', $actionLinks['edit'], $matches );
