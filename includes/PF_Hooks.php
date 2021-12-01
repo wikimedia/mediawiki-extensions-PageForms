@@ -251,7 +251,7 @@ class PFHooks {
 	 *
 	 * @param array &$actionLinks Action links
 	 * @param string $tableName Cargo table name
-	 * @param bool $isReplacementTable Whether this table iss a replacement table
+	 * @param bool $isReplacementTable Whether this table is a replacement table
 	 * @param bool $hasReplacementTable Whether this table has a replacement table
 	 * @param int[][] $templatesThatDeclareTables
 	 * @param string[] $templatesThatAttachToTables
@@ -262,8 +262,6 @@ class PFHooks {
 	 * @since 4.4
 	 */
 	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $user = null ) {
-		global $wgUser;
-
 		// If it has a "replacement table", it's read-only and can't
 		// be edited (though the replacement table can).
 		if ( $hasReplacementTable ) {
