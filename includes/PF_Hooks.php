@@ -271,8 +271,7 @@ class PFHooks {
 		// Check permissions.
 		if ( $user == null ) {
 			// For Cargo versions < 3.1.
-			global $wgUser;
-			$user = $wgUser;
+			$user = RequestContext::getMain()->getUser();
 		}
 
 		if ( !$user->isAllowed( 'multipageedit' ) ) {

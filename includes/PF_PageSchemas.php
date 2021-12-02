@@ -614,8 +614,6 @@ class PFPageSchemas extends PSExtensionHandler {
 	 */
 	public static function generateForm( $formName, $formTitle,
 		$formItems, $formDataFromSchema, $categoryName ) {
-		global $wgUser;
-
 		$includeFreeText = array_key_exists( 'inputFreeText', $formDataFromSchema );
 		$freeTextLabel = null;
 		if ( $includeFreeText && array_key_exists( 'freeTextLabel', $formDataFromSchema ) ) {
@@ -633,9 +631,12 @@ class PFPageSchemas extends PSExtensionHandler {
 		if ( array_key_exists( 'EditTitle', $formDataFromSchema ) ) {
 			$form->setEditTitle( $formDataFromSchema['EditTitle'] );
 		}
+
+		$user = RequestContext::getMain()->getUser();
+
 		$formContents = $form->createMarkup( $includeFreeText, $freeTextLabel );
 		$params = [];
-		$params['user_id'] = $wgUser->getId();
+		$params['user_id'] = $user->getId();
 		$params['page_text'] = $formContents;
 		$job = new PSCreatePageJob( $formTitle, $params );
 
@@ -649,11 +650,11 @@ class PFPageSchemas extends PSExtensionHandler {
 	 * @param array $selectedPages
 	 */
 	public static function generatePages( $pageSchemaObj, $selectedPages ) {
-		global $wgUser;
-
 		if ( $selectedPages == null ) {
 			return;
 		}
+
+		$user = RequestContext::getMain()->getUser();
 
 		$psFormItems = $pageSchemaObj->getFormItemsList();
 		$form_items = [];
@@ -722,7 +723,7 @@ class PFPageSchemas extends PSExtensionHandler {
 
 				if ( in_array( $fullTemplateName, $selectedPages ) ) {
 					$params = [];
-					$params['user_id'] = $wgUser->getId();
+					$params['user_id'] = $user->getId();
 					$params['page_text'] = $templateText;
 					$jobs[] = new PSCreatePageJob( $templateTitle, $params );
 					if ( strpos( $templateText, '{{!}}' ) > 0 ) {
@@ -763,7 +764,7 @@ class PFPageSchemas extends PSExtensionHandler {
 			$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, '!' );
 			if ( !$templateTitle->exists() ) {
 				$params = [];
-				$params['user_id'] = $wgUser->getId();
+				$params['user_id'] = $user->getId();
 				$params['page_text'] = '|';
 				$jobs[] = new PSCreatePageJob( $templateTitle, $params );
 			}

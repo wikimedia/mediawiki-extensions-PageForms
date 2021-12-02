@@ -834,7 +834,7 @@ END;
 		$autocreate_query = [],
 		$user = null
 	) {
-		global $wgRequest, $wgUser;
+		global $wgRequest;
 		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
 		global $wgPageFormsFieldNum; // used for setting various HTML IDs
 		global $wgPageFormsShowExpandAllLink;
@@ -872,7 +872,7 @@ END;
 		}
 
 		if ( $user === null ) {
-			$user = $wgUser;
+			$user = RequestContext::getMain()->getUser();
 		}
 
 		global $wgOut;
