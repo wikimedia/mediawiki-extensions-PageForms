@@ -19,7 +19,23 @@
 
 		return true;
 	}
-
+	// Prevent multiple submission of form
+	jQuery.fn.preventDoubleSubmission = function() {
+		$( this ).on( 'submit', function(e) {
+			var $form = $(this);
+			if ( $form.data('submitted') === true ) {
+				// Previously submitted - don't submit again
+				e.preventDefault();
+			} else {
+				// Mark it so that the next submit can be ignored
+				$form.data('submitted', true);
+				$( '.editButtons > .oo-ui-buttonElement' ).removeClass( 'oo-ui-widget-enabled' ).addClass( 'oo-ui-widget-disabled' );
+			}
+		});
+		// Keep chainability
+		return this;
+	};
+	$( '#pfForm' ).preventDoubleSubmission();
 	/**
 	 * Called when the server has sent the preview
 	 *
