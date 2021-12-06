@@ -15,8 +15,10 @@
 
 	function setChanged( event ) {
 		$sacButtons
-			.prop( 'disabled', false )
-			.addClass( 'pf-save_and_continue-changed' );
+			.addClass( 'pf-save_and_continue-changed' )
+			.addClass( 'oo-ui-widget-enabled' )
+			.removeClass( 'oo-ui-widget-disabled' );
+		$sacButtons.children('button').prop( 'disabled', false );
 
 		return true;
 	}
