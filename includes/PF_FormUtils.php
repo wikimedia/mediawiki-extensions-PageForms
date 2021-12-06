@@ -194,13 +194,16 @@ class PFFormUtils {
 			'name' => $name,
 			'label' => $value
 		];
+		$button = new ButtonInputWidget( $attrs );
+		// Special handling for 'class'.
 		if ( isset( $attrs['class'] ) ) {
+			// Make sure it's an array.
 			if ( is_string( $attrs['class'] ) ) {
 				$attrs['class'] = [ $attrs['class'] ];
 			}
 			$button->addClasses( $attrs['class'] );
 		}
-		return new ButtonInputWidget( $attrs );
+		return $button;
 	}
 
 	static function saveButtonHTML( $is_disabled, $label = null, $attr = [] ) {
