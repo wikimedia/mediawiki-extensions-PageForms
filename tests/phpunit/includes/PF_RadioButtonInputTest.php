@@ -1,5 +1,7 @@
 <?php
 
+use OOUI\BlankTheme;
+
 if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
 	// MW pre-1.34
 	class_alias( 'MediaWikiTestCase', 'MediaWikiIntegrationTestCase' );
@@ -11,6 +13,15 @@ if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
  * @author Mark A. Hershberger <mah@nichework.com>
  */
 class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
+
+	/**
+	 * Set up the environment
+	 */
+	protected function setUp(): void {
+		\OOUI\Theme::setSingleton( new BlankTheme() );
+
+		parent::setUp();
+	}
 
 	private function radioButtonFormat(
 		$name, $value, $label = null, $checked = null, $class = null,

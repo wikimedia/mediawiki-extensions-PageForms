@@ -1,5 +1,7 @@
 <?php
 
+use OOUI\BlankTheme;
+
 if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
 	// MW pre-1.34
 	class_alias( 'MediaWikiTestCase', 'MediaWikiIntegrationTestCase' );
@@ -16,6 +18,8 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	 * Set up the environment
 	 */
 	protected function setUp(): void {
+		\OOUI\Theme::setSingleton( new BlankTheme() );
+
 		// Make sure the form is not in "disabled" state. Unfortunately setting up the global state
 		// environment in a proper way to have PFFormPrinter work on a mock title object is very
 		// difficult. Therefore we just override the permission check by using a hook.
