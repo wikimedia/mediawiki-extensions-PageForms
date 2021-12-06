@@ -179,6 +179,7 @@
 				"ext.pageforms.datetimepicker",
 				"mediawiki.util",
 				"mediawiki.api",
+				"mediawiki.action.edit",
 				"ext.pageforms.select2",
 				"ext.pageforms.wikieditor",
 				"ext.pageforms.editwarning"
