@@ -5,22 +5,18 @@
 * There might be several classes set at the same time.
 */
 
-.pf-save_and_continue {
-    background-color: inherit;
+.pf-save_and_continue-ok button {
+    background-color: #afa !important;
 }
 
-.pf-save_and_continue-ok {
-    background-color: #afa;
+.pf-save_and_continue-error button {
+    background-color: #f35 !important;
 }
 
-.pf-save_and_continue-error {
-    background-color: #f35;
+.pf-save_and_continue-wait button {
+    background-color: transparent !important;
 }
 
-.pf-save_and_continue-wait {
-    background-color: transparent;
-}
-
-.pf-save_and_continue-changed {
-    background-color: #ff0;
+.pf-save_and_continue-changed button {
+    background-color: #ff0 !important;
 }
