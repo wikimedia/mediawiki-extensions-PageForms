@@ -11,7 +11,8 @@
 	'use strict';
 
 	var $sacButtons;
-	var form;
+	var $form;
+
 	function setChanged( event ) {
 		$sacButtons
 			.prop( 'disabled', false )
@@ -22,7 +23,6 @@
 	// Prevent multiple submission of form
 	jQuery.fn.preventDoubleSubmission = function() {
 		$( this ).on( 'submit', function(e) {
-			var $form = $(this);
 			if ( $form.data('submitted') === true ) {
 				// Previously submitted - don't submit again
 				e.preventDefault();
@@ -45,21 +45,21 @@
 	 */
 	var resultReceivedHandler = function handleResultReceived( result, textStatus, jqXHR ) {
 		// Store the target name
-		var $target = form.find( 'input[name="target"]' );
+		var $target = $form.find( 'input[name="target"]' );
 
 		if ( $target.length === 0 ) {
 			$target = $( '<input type="hidden" name="target">' );
-			form.append ( $target );
+			$form.append ( $target );
 		}
 
 		$target.attr( 'value', result.$target );
 
 		// Store the form name
-		$target = form.find( 'input[name="form"]' );
+		$target = $form.find( 'input[name="form"]' );
 
 		if ( $target.length === 0 ) {
 			$target = $( '<input type="hidden" name="form">' );
-			form.append ( $target );
+			$form.append ( $target );
 		}
 
 		$target.attr( 'value', result.form.title );
@@ -72,7 +72,6 @@
 	};
 
 	var resultReceivedErrorHandler = function handleError( jqXHR ){
-
 		var errors = $.parseJSON( jqXHR.responseText ).errors;
 
 		$sacButtons
@@ -96,7 +95,7 @@
 		}
 	};
 
-	function collectData( $form ) {
+	function collectData() {
 		var $summaryfield = jQuery( '#wpSummary', $form );
 		var saveAndContinueSummary = mw.msg( 'pf_formedit_saveandcontinue_summary', mw.msg( 'pf_formedit_saveandcontinueediting' ) );
 		var params;
@@ -172,7 +171,7 @@
 			var data = {
 				action: 'pfautoedit',
 				format: 'json',
-				query: collectData( $form ) // add form values to the data
+				query: collectData() // add form values to the data
 			};
 
 			data.query +=  '&wpSave=' + encodeURIComponent( $( event.currentTarget ).attr( 'value' ) );
@@ -207,12 +206,11 @@
 
 	if ( mw.config.get( 'wgAction' ) === 'formedit' || mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 		$(function() { // Wait until DOM is loaded.
-			var $form = $( '#pfForm' );
-
+			$form = $( '#pfForm' );
 			$sacButtons = $( '.pf-save_and_continue', $form );
 			$sacButtons.click( handleSaveAndContinue );
 
-			$( $form )
+			$form
 			.on( 'keyup', 'input,select,textarea', function ( event ) {
 				if ( event.which < 32 ){
 					return true;
