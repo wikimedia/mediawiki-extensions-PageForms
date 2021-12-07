@@ -1461,7 +1461,12 @@ END;
 					} elseif ( $input_name == 'save' ) {
 						$new_text = PFFormUtils::saveButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'save and continue' ) {
-						$new_text = PFFormUtils::saveAndContinueButtonHTML( $form_is_disabled, $input_label, $attr );
+						// Remove save and continue button in one-step-process
+						if ( $this->mPageTitle == $page_name ) {
+							$new_text = PFFormUtils::saveAndContinueButtonHTML( $form_is_disabled, $input_label, $attr );
+						} else {
+							$new_text = '';
+						}
 					} elseif ( $input_name == 'preview' ) {
 						$new_text = PFFormUtils::showPreviewButtonHTML( $form_is_disabled, $input_label, $attr );
 					} elseif ( $input_name == 'changes' ) {
