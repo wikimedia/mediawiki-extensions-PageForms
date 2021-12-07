@@ -9,7 +9,11 @@
 	"pf_createtemplate_deletefield": "Efacar",
 	"pf_createform_template": "Shablono:",
 	"pf_createform_formlabel": "Titulo dil formulario:",
+	"pf_createclass_create": "Kreez",
 	"formedit": "Redaktar kun formulario",
+	"pf_viewform": "Videz de",
 	"pf_formedit_none": "Nula",
-	"pf-simpleupload": "Kargar"
+	"pf-simpleupload": "Kargar",
+	"pf_deletionlog": "Registro pri efaci",
+	"pf-datepicker-close": "Klozez"
 }

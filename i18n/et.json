@@ -22,7 +22,7 @@
 	"pf_createtemplate_plainformat": "Lihttekst",
 	"pf_createtemplate_sectionsformat": "Alaosad",
 	"pf_createtemplate_addfield": "Lisa väli",
-	"pf_createtemplate_deletefield": "Kustuta",
+	"pf_createtemplate_deletefield": "Kustuta see väli",
 	"forms": "Vormid",
 	"pf_forms_docu": "Vikis on olemas järgmised vormid.",
 	"pf_forminputs_defaultfilename": "Eelmääratletud nimi üles laaditud failide jaoks",

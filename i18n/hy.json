@@ -12,7 +12,7 @@
 	"pf_createtemplate_standardformat": "Աղյուսակ",
 	"pf_createtemplate_sectionsformat": "Բաժիններ",
 	"pf_createtemplate_addfield": "Ավելացնել դաշտ",
-	"pf_createtemplate_deletefield": "Ջնջել",
+	"pf_createtemplate_deletefield": "Ջնջել այս դաշտը",
 	"pf_forminputs_checkboxes_select_all": "Նշել ամբողջը",
 	"pf_forminputs_checkboxes_select_none": "Հանել հատկացումը",
 	"pf-createform-with-name": "Ստեղծել ձևը $1",

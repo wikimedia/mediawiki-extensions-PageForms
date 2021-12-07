@@ -15,7 +15,10 @@
 			"Sujiniku",
 			"Whym",
 			"青子守歌",
-			"아라"
+			"아라",
+			"MathXplore",
+			"RYOUMA1117",
+			"カッパ鳥"
 		]
 	},
 	"pageforms-desc": "ウィキのページを作成および編集するフォーム",
@@ -49,7 +52,7 @@
 	"pf_createtemplate_plainformat": "プレーンテキスト",
 	"pf_createtemplate_sectionsformat": "節",
 	"pf_createtemplate_addfield": "フィールドを追加",
-	"pf_createtemplate_deletefield": "削除",
+	"pf_createtemplate_deletefield": "このフィールドを削除します",
 	"forms": "フォーム一覧",
 	"pf_forms_docu": "以下のフォームがウィキに存在します。",
 	"pf_forminputs_mandatory": "この入力の必須入力の値",
@@ -191,7 +194,7 @@
 	"pf_blank_namespace": "標準",
 	"right-viewedittab": "フォームで編集できるページに「{{int:edit}}」タブが表示される",
 	"right-editrestrictedfields": "制限されたフォームフィールドを編集",
-	"right-createclass": "新しい意味クラスを作成",
+	"right-createclass": "ページの新しい「クラス」を作成",
 	"right-multipageedit": "スプレッドシートを使用して複数ページを編集",
 	"action-createclass": "ページの新しい「クラス」の作成",
 	"action-editrestrictedfields": "制限されたフォームフィールドの編集",

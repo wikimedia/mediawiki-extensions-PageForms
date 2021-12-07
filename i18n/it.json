@@ -11,7 +11,9 @@
 			"Gloria sah",
 			"Melos",
 			"Nemo bis",
-			"VaiTon86"
+			"VaiTon86",
+			"Ajeje Brazorf",
+			"Stefano"
 		]
 	},
 	"pageforms-desc": "Moduli per creare e modificare pagine wiki",
@@ -30,7 +32,7 @@
 	"templates": "Template",
 	"pf_templates_docu": "Il seguente template già esiste nel wiki.",
 	"pf_templates_definescat": "Definisci categorie: $1",
-	"createtemplate": "Crea un nuovo template",
+	"createtemplate": "Crea un template",
 	"pf-createtemplate-with-name": "Crea template: $1",
 	"pf_createtemplate_namelabel": "Nome template:",
 	"pf_createtemplate_multipleinstance": "Questo template può essere incluso più volte nella pagina.",

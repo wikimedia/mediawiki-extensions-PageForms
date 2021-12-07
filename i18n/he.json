@@ -13,7 +13,8 @@
 			"חיים",
 			"ישראל קלר",
 			"מגזין יהלום",
-			"ערן"
+			"ערן",
+			"Neriah"
 		]
 	},
 	"pageforms-desc": "טפסים ליצירה ולעריכה של דפי ויקי",
@@ -75,7 +76,8 @@
 	"pf_createtemplate_plainformat": "טקסט פשוט",
 	"pf_createtemplate_sectionsformat": "סעיפים",
 	"pf_createtemplate_addfield": "הוספת שדה",
-	"pf_createtemplate_deletefield": "מחיקה",
+	"pf_createtemplate_deletefield": "מחיקת שדה",
+	"pf_createtemplate_addanotherabove": "להוסיף עוד שדה מעל השדה הזה",
 	"multipageedit": "עריכת דפים מרובים",
 	"pf_multipageedit_docu": "נא לבחור אחת מהתבניות הבאות כדי לערוך את כל הדפים שמכילים אותה. אפשר גם ליצור דפים חדשים באמצעות התבנית שנבחרה.",
 	"pf_multipageedit_with-name": "עריכת דפים מרובים עבור תבנית: $1",
@@ -218,6 +220,7 @@
 	"pf_autoedit_nosemanticform": "לא הצליחה קבלת טופס $2 עבור דף $1. ר׳ [[{{#special:FormEdit}}/$2/$1]] לפרטים.",
 	"pf_autoedit_summary": "נערך אוטומטית מהדף $1.",
 	"pf-autoedit-wait": "נא להמתין...",
+	"pf_autoedit_confirm": "האם {{GENDER:|אתה בטוח שאתה רוצה|את בטוחה שאת רוצה}} לשנות את \"$1\"?",
 	"runquery": "הרצת שאילתה",
 	"pf_runquery_badurl": "יש לציין את שם הטופס בכתובת;\nעל הכתובת להיות מהצורה 'Special:RunQuery/<שם הטופס>'.",
 	"pf_runquery_title": "הרצת שאילתה: $1",

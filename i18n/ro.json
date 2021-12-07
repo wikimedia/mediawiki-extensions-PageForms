@@ -7,7 +7,8 @@
 			"KlaudiuMihaila",
 			"Mihai",
 			"Minisarm",
-			"Stelistcristi"
+			"Stelistcristi",
+			"NGC 54"
 		]
 	},
 	"pageforms-desc": "Formulare pentru adăugarea sau modificarea datelor semantice",
@@ -37,7 +38,7 @@
 	"pf_createtemplate_plainformat": "Text simplu",
 	"pf_createtemplate_sectionsformat": "Secțiuni",
 	"pf_createtemplate_addfield": "Adaugă un câmp",
-	"pf_createtemplate_deletefield": "Șterge",
+	"pf_createtemplate_deletefield": "Șterge acest câmp",
 	"forms": "Formular",
 	"pf_forminputs_mandatory": "Obligatoriu",
 	"pf_forminputs_restricted": "Doar administratorii pot modifica această intrare",
