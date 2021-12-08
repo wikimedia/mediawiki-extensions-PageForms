@@ -17,7 +17,8 @@
 			"Whym",
 			"青子守歌",
 			"아라",
-			"RYOUMA1117"
+			"RYOUMA1117",
+			"カッパ鳥"
 		]
 	},
 	"pageforms-desc": "ウィキのページを作成および編集するフォーム",
@@ -193,7 +194,7 @@
 	"pf_blank_namespace": "標準",
 	"right-viewedittab": "フォームで編集できるページに「{{int:edit}}」タブが表示される",
 	"right-editrestrictedfields": "制限されたフォームフィールドを編集",
-	"right-createclass": "新しい意味クラスを作成",
+	"right-createclass": "ページの新しい「クラス」を作成",
 	"right-multipageedit": "スプレッドシートを使用して複数ページを編集",
 	"action-createclass": "ページの新しい「クラス」の作成",
 	"action-editrestrictedfields": "制限されたフォームフィールドの編集",
