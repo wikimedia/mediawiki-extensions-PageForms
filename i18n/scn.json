@@ -10,6 +10,7 @@
 	"pf-createtemplate-with-name": "Crea template: $1",
 	"pf_createtemplate_namelabel": "Nomu template:",
 	"pf_forminputs_change_file": "Cancia file",
+	"pf_createform_field": "Campu:",
 	"pf_createform_hidden": "(Ammucciatu)",
 	"pf_createform_removetemplate": "Leva template",
 	"pf_createform_add": "Agghiunci",
