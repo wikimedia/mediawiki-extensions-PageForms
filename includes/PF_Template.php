@@ -227,9 +227,10 @@ class PFTemplate {
 		// template, if any.
 		list( $tableName, $tableSchema ) = $this->getCargoTableAndSchema( $templateTitle );
 		if ( $tableName == null ) {
-			return;
+			$fieldDescriptions = [];
+		} else {
+			$fieldDescriptions = $tableSchema->mFieldDescriptions;
 		}
-		$fieldDescriptions = $tableSchema->mFieldDescriptions;
 
 		// If #template_params was declared for this template, our
 		// job is easy - we just go through the declared fields, get
@@ -245,6 +246,12 @@ class PFTemplate {
 				}
 				$this->mTemplateFields[$fieldName] = $templateField;
 			}
+			return;
+		}
+
+		// If there are no declared template params *or* Cargo fields,
+		// exit.
+		if ( count( $fieldDescriptions ) == 0 ) {
 			return;
 		}
 
