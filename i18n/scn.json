@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajeje Brazorf"
+		]
+	},
+	"pf_createproperty_proptype": "Tipu:",
+	"templates": "Template",
+	"createtemplate": "Crea nu template",
+	"pf-createtemplate-with-name": "Crea template: $1",
+	"pf_createtemplate_namelabel": "Nomu template:",
+	"pf_forminputs_change_file": "Cancia file",
+	"pf_createform_field": "Campu:",
+	"pf_createform_removetemplate": "Leva template",
+	"pf_createform_add": "Agghiunci",
+	"pf_createform_addsection": "Agghiunci sizzioni",
+	"pf_createform_sectionname": "Nomu dâ sizzioni",
+	"pf_createcategory_name": "Nomu dâ catigurìa:",
+	"pf_formedit_edittitle": "Cancia $1:$2",
+	"pf_formedit_addanother": "Agghiunci n'àutru",
+	"pf_formedit_none": "Nuddu",
+	"pf_autoedit_redlinkexists": "$1 già esisti.",
+	"pf_deletionlog": "Riggistru dî cancillazzioni",
+	"pf_category_desc": "Chista è la catigurìa $1.",
+	"pf_blank_namespace": "Principali"
+}

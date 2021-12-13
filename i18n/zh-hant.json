@@ -11,10 +11,13 @@
 			"Oapbtommy",
 			"Shirayuki",
 			"Wrightbus",
-			"아라"
+			"아라",
+			"Emojiwiki",
+			"SiderealArt",
+			"Winston Sung"
 		]
 	},
-	"pageforms-name": "Page Forms",
+	"pageforms-name": "頁面表單（Page Forms）",
 	"pageforms-desc": "可用來建立與編輯 wiki 頁面的表單",
 	"specialpages-group-pf_group": "Page Forms",
 	"apihelp-pfautocomplete-description": "透過 Page Forms 擴充所使用的自動化功能。",

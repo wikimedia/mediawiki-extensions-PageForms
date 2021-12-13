@@ -18,7 +18,8 @@
 			"Shirayuki",
 			"Siebrand",
 			"Umherirrender",
-			"아라"
+			"아라",
+			"Verdy p"
 		]
 	},
 	"pageforms-name": "{{name}}\nDisplay name for the Page Forms extension",
@@ -284,7 +285,7 @@
 	"pf-datepicker-today": "Used as label for the \"Today\" button in the Date picker.\n{{Identical|Today}}",
 	"pf-datepicker-dateformatlong": "{{Optional}}\n{{DataFormatSpecifiers/en}}",
 	"pf-datepicker-dateformatshort": "{{Optional}}\n{{DataFormatSpecifiers/en}}",
-	"pf-datepicker-firstdayofweek": "{{optional}}\n0 - sunday, 1 - monday...",
+	"pf-datepicker-firstdayofweek": "{{optional}}\nFirst day of week to show in the calendar for the date picker:<br />\n0 = Sunday, 1 = Monday, ..., 5 = Friday, 6 = Saturday",
 	"pf-datepicker-dateformat": "This is a help text for the [[Special:CreateForm]] page.\n\nParameters:\n $1 - a URL on mediawiki.org",
 	"pf-datepicker-weekstart": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-firstdate": "This is a help text for the [[Special:CreateForm]] page.",

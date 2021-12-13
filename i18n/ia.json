@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Karmwiki",
-			"McDutchie"
+			"McDutchie",
+			"DannyS712"
 		]
 	},
 	"pageforms-desc": "Formularios pro adder e modificar datos semantic",
@@ -165,9 +166,9 @@
 	"pf_blank_namespace": "Principal",
 	"right-viewedittab": "Vider le scheda \"{{int:edit}}\" pro paginas modificabile per formulario",
 	"right-editrestrictedfields": "Modificar le campos restringite de formularios",
-	"right-createclass": "Crear nove classes semantic",
+	"right-createclass": "Crear nove \"classes\" de paginas",
 	"right-multipageedit": "Modificar plure paginas usante un folio de calculo",
-	"action-createclass": "crear nove classes semantic",
+	"action-createclass": "crear nove \"classes\" de paginas",
 	"action-editrestrictedfields": "modificar le campos restringite de formularios",
 	"action-viewedittab": "vider le scheda \"{{int:edit}}\" pro paginas modificabile per formulario",
 	"action-multipageedit": "modificar plure paginas usante un folio de calculo",
@@ -175,7 +176,7 @@
 	"pf-datepicker-prev": "Precedente",
 	"pf-datepicker-next": "Sequente",
 	"pf-datepicker-today": "Hodie",
-	"pf-datepicker-dateformat": "Le specification del formato del data. Vide le [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentation in linea] pro plus information.",
+	"pf-datepicker-dateformat": "Le specification del formato del data. Vide le [$1 documentation in linea] pro plus information.",
 	"pf-datepicker-weekstart": "Le prime die del septimana (0 - dominica, 1 - lunedi, ...).",
 	"pf-datepicker-firstdate": "Le prime data que pote esser seligite (in formato aaaa/mm/dd).",
 	"pf-datepicker-lastdate": "Le ultime data que pote esser seligite (in formato aaaa/mm/dd).",

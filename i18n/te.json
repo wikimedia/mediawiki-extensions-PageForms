@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Veeven"
+			"Veeven",
+			"Chaduvari"
 		]
 	},
 	"pf_createproperty_propname": "లక్షణపు పేరు:",
@@ -38,6 +39,7 @@
 	"pf_formedit_remove": "తొలగించు",
 	"pf_formedit_addanother": "మరోటి చేర్చండి",
 	"pf_formedit_none": "ఏమీలేదు",
+	"pf_autoedit_redlinkexists": "$1 ఈసరికే ఉంది.",
 	"pf_blank_error": "ఖాళీగా ఉండకూడదు",
 	"pf_bad_number_error": "ఖచ్చితంగా ఓ సంఖ్య అయివుండాలి",
 	"pf_bad_integer_error": "సరైన పూర్ణసంఖ్య అయివుండాలి",

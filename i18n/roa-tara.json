@@ -23,6 +23,7 @@
 	"forms": "Module",
 	"pf-calendar-createevent": "Ccreje l'avvenimende",
 	"pf-calendar-deleteevent": "Scangille l'avvenimende",
+	"pf_forminputs_change_file": "Cange 'u file",
 	"createform": "Ccreje 'nu module",
 	"pf-createform-with-name": "Ccreje 'u module: $1",
 	"pf_createform_nameinput": "Nome d'u module",

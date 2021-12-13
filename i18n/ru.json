@@ -24,7 +24,9 @@
 			"Vlad5250",
 			"Vlsergey",
 			"Александр Сигачёв",
-			"Дмитрий"
+			"Дмитрий",
+			"Megakott",
+			"Nastua Buldakova"
 		]
 	},
 	"pageforms-desc": "Формы для создания и правки вики-страниц",
@@ -274,7 +276,7 @@
 	"pf-datepicker-next": "Следующая",
 	"pf-datepicker-today": "Сегодня",
 	"pf-datepicker-firstdayofweek": "1",
-	"pf-datepicker-dateformat": "Строка формата даты. Смотрите [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters онлайн документацию] для получения дополнительной информации.",
+	"pf-datepicker-dateformat": "Строка формата даты. См.[$1 онлайн-документацию] для получения дополнительной информации.",
 	"pf-datepicker-weekstart": "Первый день недели (0 - воскресенье, 1 - понедельник,...).",
 	"pf-datepicker-firstdate": "Первая дата, которая может быть выбрана (в формате yyyy/mm/dd).",
 	"pf-datepicker-lastdate": "Последняя дата, которая может быть выбрана (в формате yyyy/mm/dd).",

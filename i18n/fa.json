@@ -11,7 +11,10 @@
 			"Momeni",
 			"Omidh",
 			"Reza1615",
-			"Tofighi"
+			"Tofighi",
+			"Ajam",
+			"DannyS712",
+			"Jeeputer"
 		]
 	},
 	"pageforms-desc": "فرم‌هایی برای افزودن و ویرایش اطلاعات معنایی",
@@ -182,6 +185,7 @@
 	"pf_bad_integer_error": "باید یک عدد صحیح معتبر باشد",
 	"pf_bad_date_error": "باید یک تاریخ معتبر باشد",
 	"uploadwindow": "پنجره بارگذاری",
+	"pf-simpleupload": "بارگذاری",
 	"pf_deletionlog": "سیاههٔ حذف",
 	"pf-preview-header": "پیش‌نمایش فرم",
 	"pf-preview-note": "این شبیه چیزی خواهدبود که هنگامی که فرم در حال استفاده است:",
@@ -215,7 +219,7 @@
 	"pf-datepicker-prev": "قبلی",
 	"pf-datepicker-next": "بعدی",
 	"pf-datepicker-today": "امروز",
-	"pf-datepicker-dateformat": "دسته فرمت تاریخ. برای اطلاعات بیشتر [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters online documentation] را مشاهده کنید.",
+	"pf-datepicker-dateformat": "دسته فرمت تاریخ. برای اطلاعات بیشتر [$1 online documentation] را مشاهده کنید.",
 	"pf-datepicker-weekstart": "اولین روز هفته (۰ - یکشنبه، ۱ - دوشنبه،...).",
 	"pf-datepicker-firstdate": "اول تاریخی که می‌تواند انتخاب شود (در فرمت ‌دی‌دی/ام‌ام/وای‌وای‌وای‌وای).",
 	"pf-datepicker-lastdate": "آخرین تاریخی که می‌تواند انتخاب شود (در فرمت دی‌دی/ام‌ام/وای‌وای‌وای‌وای).",

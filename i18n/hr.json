@@ -4,7 +4,8 @@
 			"Bugoslav",
 			"Dalibor Bosits",
 			"MaGa",
-			"SpeedyGonsales"
+			"SpeedyGonsales",
+			"Ivi104"
 		]
 	},
 	"pageforms-name": "Stranični obrasci",
@@ -28,6 +29,7 @@
 	"pf_formedit_createtitle": "Stvori $1: $2",
 	"pf_formedit_createtitlenotarget": "Stvori $1",
 	"pf_viewform": "Vidi obrazac",
+	"pf_editsource": "Uredi kôd",
 	"pf_formedit_edittitle": "Uredi $1: $2",
 	"pf_formedit_remove": "Ukloni",
 	"runquery": "Pokreni upit",

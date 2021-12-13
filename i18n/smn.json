@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Seipinne",
+			"Yupik"
+		]
+	},
+	"templates": "Myenstereh",
+	"createtemplate": "Räähti myenster",
+	"pf-createtemplate-with-name": "Räähti myenster: $1",
+	"pf_createtemplate_namelabel": "Myenster nommâ:",
+	"pf_createtemplate_standardformat": "Tavlustâh",
+	"pf_forminputs_checkboxes_select_all": "Valjii puoh",
+	"pf_createform_template": "Myenster:",
+	"pf_blank_namespace": "Uáivikomovuotâ"
+}

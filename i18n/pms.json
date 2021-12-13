@@ -3,7 +3,8 @@
 		"authors": [
 			"Borichèt",
 			"Dragonòt",
-			"McDutchie"
+			"McDutchie",
+			"DannyS712"
 		]
 	},
 	"pageforms-desc": "Formolari për gionté e selessioné dat semàntich",
@@ -187,7 +188,7 @@
 	"pf-datepicker-prev": "Prima",
 	"pf-datepicker-next": "Apress",
 	"pf-datepicker-today": "Ancheuj",
-	"pf-datepicker-dateformat": "La stringa ëd formà ëd data. Ch'a vëdda la [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentassion an linia] për savèjne ëd pi.",
+	"pf-datepicker-dateformat": "La stringa ëd formà ëd data. Ch'a vëdda la [$1 documentassion an linia] për savèjne ëd pi.",
 	"pf-datepicker-weekstart": "Ël prim di dla sman-a (0 - Dumìnica, 1 - Lùn-es, ...).",
 	"pf-datepicker-firstdate": "La prima data ch'a peul esse sërnùa (ant ël formà aaaa/mm/dd).",
 	"pf-datepicker-lastdate": "L'ùltima data ch'a peul esse sërnùa (ant ël formà aaaa/mm/dd).",

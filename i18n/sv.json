@@ -11,7 +11,8 @@
 			"Najami",
 			"Per",
 			"Rotsee",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"DannyS712"
 		]
 	},
 	"pageforms-name": "Sidformulär",
@@ -231,7 +232,7 @@
 	"pf-datepicker-prev": "Föregående",
 	"pf-datepicker-next": "Nästa",
 	"pf-datepicker-today": "Idag",
-	"pf-datepicker-dateformat": "Format för datum. Se [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters online documentation] för ytterligare information.",
+	"pf-datepicker-dateformat": "Format för datum. Se [$1 online documentation] för ytterligare information.",
 	"pf-datepicker-weekstart": "Första dagen i veckan (0 - söndag, 1 - måndag, ...).",
 	"pf-datepicker-firstdate": "Första datum som kan väljas (i formatet åååå/mm/dd).",
 	"pf-datepicker-lastdate": "Sista datum som kan väljas (i formatet åååå/mm/dd).",

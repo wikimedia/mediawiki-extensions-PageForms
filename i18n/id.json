@@ -11,7 +11,8 @@
 			"Presidenvolksraad",
 			"Rex",
 			"Sumbukompor",
-			"William Surya Permana"
+			"William Surya Permana",
+			"RXerself"
 		]
 	},
 	"pageforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
@@ -128,10 +129,10 @@
 	"pf_formedit_tooltip_saveandcontinueediting": "Simpan dan lanjutkan penyuntingan",
 	"pf_autoedit_anoneditwarning": "Peringatan: Anda belum masuk. Alamat IP Anda akan tercatat dalam riwayat suntingan halaman ini.",
 	"pf_autoedit_success": "Berhasil mengubah [[$1]] dengan menggunakan formulir $2.",
-	"runquery": "Jalankan query",
+	"runquery": "Jalankan kueri",
 	"pf_runquery_badurl": "Anda harus menentukan suatu nama formulir di URL;\nbentuknya harus seperti 'Special:RunQuery/<form name>'.",
-	"pf_runquery_title": "Jalankan query: $1",
-	"pf_runquery_additionalquery": "Query tambahan",
+	"pf_runquery_title": "Jalankan kueri: $1",
+	"pf_runquery_additionalquery": "Kueri tambahan",
 	"pf_formerrors_header": "Ada kesalahan pada masukan formulir Anda; lihat di bawah",
 	"pf_blank_error": "tidak boleh kosong",
 	"pf_bad_url_error": "harus memiliki format URL yang benar, dimulai dengan 'http'",

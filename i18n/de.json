@@ -16,10 +16,12 @@
 			"Pill",
 			"Purodha",
 			"The Evil IP address",
-			"Umherirrender"
+			"Umherirrender",
+			"Ameisenigel",
+			"MuratTheTurkish"
 		]
 	},
-	"pageforms-name": "Formulare",
+	"pageforms-name": "Page Forms",
 	"pageforms-desc": "Ermöglicht Formulare zum Erstellen und Bearbeiten von Wikiseiten",
 	"specialpages-group-pf_group": "Formulare",
 	"apihelp-pfautocomplete-description": "Von der Softwareerweiterung „Page Forms“ genutzte Autovervollständigung.",
@@ -235,7 +237,7 @@
 	"pf_bad_integer_error": "muss eine ganze Zahl sein",
 	"pf_bad_date_error": "muss ein gültiges Datum sein",
 	"pf_modified_input_error": "Diese Veränderung sollte bestätigt oder abgelehnt werden",
-	"pf_pipe_error": "„|“ ist nicht erlaubt, mit Ausnahme innerhalb von {{...}}, [[...]] oder speziellen Tags",
+	"pf_pipe_error": "Das Zeichen „|“ kann an dieser Stelle nicht verwendet werden. Dies ist nur innerhalb von {{...}}, [[...]] oder speziellen Tags möglich.",
 	"uploadwindow": "Formular zum Hochladen",
 	"pf-simpleupload": "Hochladen",
 	"pf_deletionlog": "Lösch-Logbuch",
@@ -251,7 +253,7 @@
 	"pf_property_isproperty": "Dies ist ein Attribut des Datentyps $1.",
 	"pf_property_linkstoform": "Es verlinkt auf Seiten, die das Formular „$1“ nutzen.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Der mögliche Wert für dieses Attribut ist|Die möglichen Werte für dieses Attribut sind}}:",
-	"pf_template_docu": "Dies ist die Vorlage „$1“.\nSie sollte im folgenden Format genutzt werden:",
+	"pf_template_docu": "Dies ist die Vorlage „$1“.\n\nSie hat die folgende Struktur:",
 	"pf_template_docufooter": "Klick auf „Bearbeiten“, um den Quelltext der Vorlage anzusehen.",
 	"pf_form_docu": "Dies ist das Formular „$1“.\nUm eine Seite mit diesem Formular zu erstellen, gib den Seitennamen in das Eingabefeld unten ein.\nSofern bereits eine Seite dieses Namens vorhanden ist, wirst du automatisch zum Bearbeitungsformular der Seite weitergeleitet.",
 	"pf_form_freetextlabel": "Freitext",

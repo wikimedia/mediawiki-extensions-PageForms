@@ -29,6 +29,7 @@
 	"pf_createform_removesection": "Kendu atala",
 	"createcategory": "Kategoria sortu",
 	"pf_createcategory_name": "Kategoriaren izena:",
+	"pf_createclass_allowedvalues": "Onartutako balioak:",
 	"pf_createclass_create": "Sortu",
 	"pf_createclass_ishierarchy": "Hierarkia?",
 	"pf_formstart_createoredit": "Sortu edo aldatu",

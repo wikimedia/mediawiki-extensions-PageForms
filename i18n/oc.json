@@ -3,7 +3,9 @@
 		"authors": [
 			"Cedric31",
 			"Fitoschido",
-			"McDutchie"
+			"McDutchie",
+			"BrennodAloisi",
+			"DannyS712"
 		]
 	},
 	"pageforms-desc": "Formularis per apondre e modificar de donadas semanticas",
@@ -124,7 +126,7 @@
 	"pf_pipe_error": "« | » es pas autorizat, levat a l’interior de {{...}} o de [[...]].",
 	"uploadwindow": "Fenèstra de mandadís",
 	"pf_deletionlog": "Istoric de las supressions",
-	"pf-preview-header": "Apercebut del formulari",
+	"pf-preview-header": "Previsualizacion del formulari",
 	"pf-preview-note": "Aquí vesètz a qué se semblarà lo formulari un còp utilizat :",
 	"pf-pageschemas-pagenameformula": "Formula del nom de pagina :",
 	"pf-pageschemas-createtitle": "Títol del formulari per las paginas novèlas :",
@@ -150,7 +152,7 @@
 	"pf-datepicker-prev": "Precedent",
 	"pf-datepicker-next": "Seguent",
 	"pf-datepicker-today": "Uèi",
-	"pf-datepicker-dateformat": "La cadena de format de data. Vejatz la [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters documentacion en linha] per mai d'informacion.",
+	"pf-datepicker-dateformat": "La cadena de format de data. Vejatz la [$1 documentacion en linha] per mai d'informacion.",
 	"pf-datepicker-weekstart": "Lo primièr jorn de la setmana (0 - dimenge, 1 - diluns, ...).",
 	"pf-datepicker-firstdate": "La primièra data que pòt èsser causida (al format aaaa/mm/jj).",
 	"pf-datepicker-lastdate": "La darrièra data que pòt èsser causida (al format aaaa/mm/jj).",

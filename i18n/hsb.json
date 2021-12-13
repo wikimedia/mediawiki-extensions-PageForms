@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Michawiki"
+			"Michawiki",
+			"DannyS712",
+			"J budissin"
 		]
 	},
+	"pageforms-name": "Stronske formulary",
 	"pageforms-desc": "Formulary za přidawanje a wobdźěłowanje semantiskich datow",
 	"specialpages-group-pf_group": "Semantiske formulary",
 	"createproperty": "Wutwor kajkosć",
@@ -170,9 +173,10 @@
 	"pf_bad_url_error": "dyrbi korektny format URL měć, kotryž so z 'http://' započina",
 	"pf_bad_email_error": "dyrbi płaćiwy format za e-mejlowe adresy měć",
 	"pf_bad_number_error": "dyrbi płaćiwa ličba być",
-	"pf_bad_integer_error": "dyrbi płaćiwa cyła ličba być",
+	"pf_bad_integer_error": "dyrbi cyła ličba być",
 	"pf_bad_date_error": "dyrbi płaćiwy datum być",
 	"uploadwindow": "Wokno nahraćow",
+	"pf-simpleupload": "Nahrać",
 	"pf_deletionlog": "protokol wušmórnjenjow",
 	"pf-preview-header": "Formularny přehlad",
 	"pf-preview-note": "Tak budźe formular wupadać, hdyž so wužiwa:",
@@ -185,7 +189,7 @@
 	"pf_property_linkstoform": "Wotkazuje k stronam, kotrež formular $1 wužiwaja.",
 	"pf_property_allowedvals": "{{PLURAL:$1|Dowolena hódnota za tutu kajkosć je|Dowolenej hódnoće za tutu kajkosć stej|Dowolene hódnoty za tutu kajkosć su|Dowolene hódnoty za tutu kajkosć su}}:",
 	"pf_template_docu": "To je předłoha '$1'. Měła so w slědowacym formaće wołać:",
-	"pf_template_docufooter": "Wobdźěłaj tutu stronu, zo by tekst předłohi widźał.",
+	"pf_template_docufooter": "Wobdźěłaj tutu stronu, zo by tekst předłohi widźał{{GENDER:||a|(a)}}.",
 	"pf_form_docu": "To je formular \"$1\".\nZo by stronu z tutym formularom wutworił, zapodaj deleka mjeno strony;\njeli strona z tutym mjenom hižo eksistuje, posrědkuješ so dale k formularej, z kotrymž móžeš tutu stronu wobdźěłać.",
 	"pf_form_freetextlabel": "Swobodny tekst",
 	"pf_category_hasdefaultform": "Tuta kategorija wužiwa formular $1.",
@@ -193,15 +197,15 @@
 	"pf_blank_namespace": "Hłowny",
 	"right-viewedittab": "Rajtark \"{{int:edit}}\" za strony sej wobhladać, kotrež su přez formular wobźěłujomne",
 	"right-editrestrictedfields": "Wobmjezowane formularne pola wobdźěłać",
-	"right-createclass": "Nowe semantiske klasy wutworić",
-	"action-createclass": "nowe semantiske klasy wutworić",
+	"right-createclass": "Nowe „klasy“ stronow wutworić",
+	"action-createclass": "nowe „klasy“ stronow wutworić",
 	"action-editrestrictedfields": "wobmjezowane formularne pola wobdźěłać",
 	"action-viewedittab": "Rajtark \"{{int:edit}}\" za strony pokazać, kotrež su přez formular wobźěłujomne",
 	"pf-datepicker-close": "Začinić",
 	"pf-datepicker-prev": "Předchadny",
 	"pf-datepicker-next": "Přichodny",
 	"pf-datepicker-today": "Dźensa",
-	"pf-datepicker-dateformat": "Rjećazk znamjškow za datumowy format. Hlej [https://www.mediawiki.org/wiki/Extension:Page_Forms/Input_types/Datepicker#Parameters online-dokumentaciju]",
+	"pf-datepicker-dateformat": "Rjećazk znamjškow za datumowy format. Hlej [$1 online-dokumentaciju]",
 	"pf-datepicker-weekstart": "Prěni dźeń tydźenja (0 - njedźela, 1 - póndźela, ...)",
 	"pf-datepicker-firstdate": "Prěni datum, kotryž da so wubrać (we formaće JJJJ/MM/TT).",
 	"pf-datepicker-lastdate": "Posledni datum, kotryž da so wubrać (we formaće JJJJ/MM/TT).",

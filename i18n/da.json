@@ -31,6 +31,7 @@
 	"pf-createcategory-with-name": "Opret kategori: $1",
 	"pf_createcategory_name": "Kategorinavn:",
 	"createclass": "Opret en klasse",
+	"pf_createclass_allowedvalues": "Tilladte værdier:",
 	"pf_createclass_create": "Opret",
 	"pf_editsource": "Rediger kilde",
 	"pf_formedit_none": "Ingen",

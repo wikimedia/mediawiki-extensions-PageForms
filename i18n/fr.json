@@ -297,6 +297,7 @@
 	"pf-datepicker-today": "Aujourd'hui",
 	"pf-datepicker-dateformatlong": "j MM aa",
 	"pf-datepicker-dateformatshort": "dd / mm / yy",
+	"pf-datepicker-firstdayofweek": "1",
 	"pf-datepicker-dateformat": "La chaîne de format de date. Consultez la [$1 documentation en ligne] pour plus d’informations.",
 	"pf-datepicker-weekstart": "Le premier jour de la semaine (0 - dimanche, 1 - lundi, ...).",
 	"pf-datepicker-firstdate": "La première date qui peut être choisie (au format aaaa/mm/jj).",
