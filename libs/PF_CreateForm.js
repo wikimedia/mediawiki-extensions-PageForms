@@ -3,7 +3,7 @@ jQuery.fn.displayInputParams = function () {
 	jQuery.ajax( {
 		url: window.location.href +
 			( ( window.location.href.indexOf('?') === -1 ) ? '?' : '&' ) +
-			'showinputtypeoptions=' + encodeURIComponent( this.val() ) +
+			'showinputtypeoptions=' + encodeURIComponent( $(this).find('select').val() ) +
 			'&formfield=' + encodeURIComponent( this.attr( 'id' ) ),
 		context: document.body,
 		success: function ( data ){
