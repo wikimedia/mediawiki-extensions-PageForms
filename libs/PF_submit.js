@@ -239,7 +239,7 @@
 									event.preventDefault();
 									mw.pageFormsActualizeVisualEditorFields( function () {
 										canSubmit = true;
-										$( button ).click();
+										$( button ).find("[type='submit']").click();
 									} );
 								}
 							} );
