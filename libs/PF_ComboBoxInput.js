@@ -28,6 +28,7 @@
         this.setValue(element.val())
         this.config['autocompletesettings'] = element.attr('autocompletesettings');
         this.config['autocompletedatatype'] = element.attr('autocompletedatatype');
+        this.config['existingvaluesonly'] = element.attr('existingvaluesonly');
         this.setInputAttribute('autocompletesettings', this.config['autocompletesettings']);;
         this.setInputAttribute('placeholder', element.attr('placeholder'));
         this.setInputAttribute('tabIndex', element.attr('tabindex'));
@@ -45,7 +46,11 @@
         }
         // Bind the blur event to resize input according to the value
         this.$input.blur( () => {
-            this.$element.css("width", this.getValue().length * 11);
+            if ( !this.itemFound && this.config['existingvaluesonly'] ){
+                this.setValue("");
+            } else {
+                this.$element.css("width", this.getValue().length * 11);
+            }
         });
         this.$input.focus( () => {
             this.setValues();
@@ -69,6 +74,7 @@
             curValue,
             my_server,
             wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
+        this.itemFound = true;
         if (this.config.autocompletedatatype !== undefined) {
             var data_source = this.config.autocompletesettings,
                 data_type = this.config.autocompletedatatype;
@@ -96,6 +102,7 @@
                     if (Data.pfautocomplete !== undefined) {
                         Data = Data.pfautocomplete;
                         if (Data.length == 0) {
+                            self.itemFound = false;
                             values.push({
                                 data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                             });
@@ -107,6 +114,7 @@
                             }
                         }
                     } else {
+                        self.itemFound = false;
                         values.push({
                             data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                         });
@@ -244,6 +252,7 @@
                 }
             }
             if (values.length == 0) {
+                this.itemFound = false;
                 values.push({
                     data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                 });
