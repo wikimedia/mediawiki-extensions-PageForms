@@ -348,20 +348,18 @@ $.fn.showIfChecked = function(partOfMultiple, initPage) {
 $.fn.showIfCheckedCheckbox = function( partOfMultiple, initPage ) {
 	var wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		divIDs,
-		$instanceWrapperDiv,
+		$instanceWrapperDiv = null,
 		i;
-
-	if (partOfMultiple) {
-		divIDs = wgPageFormsShowOnSelect[this.attr("data-origID")];
-		$instanceWrapperDiv = this.closest(".multipleTemplateInstance");
-	} else {
-		divIDs = wgPageFormsShowOnSelect[this.attr("id")];
-		$instanceWrapperDiv = null;
+	if ( partOfMultiple ) {
+		divIDs = wgPageFormsShowOnSelect[this.attr( "data-origID" )];
+		$instanceWrapperDiv = this.closest( ".multipleTemplateInstance" );
 	}
-
+	if ( divIDs === undefined ) {
+		divIDs = wgPageFormsShowOnSelect[this.attr( "id" )];
+	}
 	for ( i = 0; i < divIDs.length; i++ ) {
 		var divID = divIDs[i];
-		if ($(this).find('[value]').is(":checked")) {
+		if ( $( this ).find( '[value]' ).is( ":checked" ) ) {
 			showDiv( divID, $instanceWrapperDiv, initPage );
 		} else {
 			hideDiv( divID, $instanceWrapperDiv, initPage );
