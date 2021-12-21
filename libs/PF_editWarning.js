@@ -39,7 +39,15 @@
 
 		allowCloseWindow = mw.confirmCloseWindow( {
 			test: function () {
+				// Don't show a warning if the form is being
+				// submitted.
 				if ( mw.config.get( 'wgAction' ) === 'submit' ) {
+					return false;
+				}
+				// Don't show a warning if we're in Special:RunQuery,
+				// or a page where Special:RunQuery is embedded.
+				if ( mw.config.get( 'wgCanonicalSpecialPageName' ) !== 'FormEdit' &&
+					mw.config.get( 'wgAction' ) !== 'formedit' ) {
 					return false;
 				}
 				// We use .textSelection, because editors might not have updated the form yet.
