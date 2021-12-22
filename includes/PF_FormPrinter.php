@@ -1011,19 +1011,22 @@ END;
 					continue;
 				}
 				$tag_title = trim( $tag_components[0] );
-				// =====================================================
-				// for template processing
-				// =====================================================
-				if ( $tag_title == 'for template' ) {
+				// Checks for forbidden characters
+				if ( $tag_title != 'info' ) {
 					foreach ( $tag_components as $tag_component ) {
 						// Angled brackets could cause a security leak (and should not be necessary).
-						if ( strpos( $tag_component, '<' ) !== false || strpos( $tag_component, '>' ) !== false ) {
+						if ( strpos( $tag_component, '<' ) !== false && strpos( $tag_component, '>' ) !== false ) {
 							throw new MWException(
 								'<div class="error">Error in form definition! The following field tag contains forbidden characters:</div>' .
 								"\n<pre>" . htmlspecialchars( $section ) . "</pre>"
 							);
 						}
 					}
+				}
+				// =====================================================
+				// for template processing
+				// =====================================================
+				if ( $tag_title == 'for template' ) {
 					if ( $tif ) {
 						$previous_template_name = $tif->getTemplateName();
 					} else {
