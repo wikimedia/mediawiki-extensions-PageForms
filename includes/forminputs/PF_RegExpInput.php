@@ -83,8 +83,9 @@ class PFRegExpInput extends PFFormInput {
 			$baseType = trim( $this->mOtherArgs['base type'] );
 			unset( $this->mOtherArgs['base type'] );
 
-			// if unknown set default base input type
-			if ( !array_key_exists( $baseType, $wgPageFormsFormPrinter->mInputTypeClasses ) ) {
+			// If base type is unknown, set it to 'text'.
+			$allInputTypes = $wgPageFormsFormPrinter->getAllInputTypes();
+			if ( !in_array( $baseType, $allInputTypes ) ) {
 				$baseType = 'text';
 			}
 		} else {
