@@ -1499,6 +1499,26 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		tokens.apply($(this));
 	});
 
+	// Set the end date input to the value selected in start date
+	this.find("span.startDateInput").not(".hiddenByPF").find("input").last().blur( () => {
+		var endInput = $(this).find("span.endDateInput").not(".hiddenByPF");
+		var endYearInput = endInput.find(".yearInput");
+		var endMonthInput = endInput.find(".monthInput");
+		var endDayInput = endInput.find(".dayInput");
+
+		// Update end date value only if it is not set
+		if (endYearInput.val() == '' && endMonthInput.val() == '' && endDayInput.val() == ''){
+			var startInput = $(this);
+			var startYearVal = startInput.find(".yearInput").val();
+			var startMonthVal = startInput.find(".monthInput").val();
+			var startDayVal = startInput.find(".dayInput").val();
+
+			endYearInput.val(startYearVal);
+			endMonthInput.val(startMonthVal);
+			endDayInput.val(startDayVal);
+		}
+	});
+
 	fancyBoxSettings = {
 		toolbar : false,
 		smallBtn : true,
