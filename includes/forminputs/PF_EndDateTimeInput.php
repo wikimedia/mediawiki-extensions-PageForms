@@ -22,4 +22,8 @@ class PFEndDateTimeInput extends PFDateTimeInput {
 			'End datetime' => [],
 		];
 	}
+
+	public static function getOtherCargoTypesHandled() {
+		return [ 'Datetime' ];
+	}
 }

@@ -27,6 +27,10 @@ class PFStartDateInput extends PFDateInput {
 		];
 	}
 
+	public static function getOtherCargoTypesHandled() {
+		return [ 'Date' ];
+	}
+
 	public function getInputClass() {
 		return 'dateInput startDateInput';
 	}

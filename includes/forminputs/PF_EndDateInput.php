@@ -27,6 +27,10 @@ class PFEndDateInput extends PFDateInput {
 		return [ '_dat' ];
 	}
 
+	public static function getOtherCargoTypesHandled() {
+		return [ 'Date' ];
+	}
+
 	public function getInputClass() {
 		return 'dateInput endDateInput';
 	}
