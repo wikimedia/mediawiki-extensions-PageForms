@@ -60,6 +60,9 @@
                 this.setValues();
             }
         });
+        this.$element.mouseup( () =>{
+            this.setValues();
+        })
     };
     /**
      * Sets the values for combobox
@@ -74,7 +77,7 @@
             curValue,
             my_server,
             wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
-        this.itemFound = true;
+        this.itemFound = false;
         if (this.config.autocompletedatatype !== undefined) {
             var data_source = this.config.autocompletesettings,
                 data_type = this.config.autocompletedatatype;
@@ -102,19 +105,20 @@
                     if (Data.pfautocomplete !== undefined) {
                         Data = Data.pfautocomplete;
                         if (Data.length == 0) {
-                            self.itemFound = false;
                             values.push({
                                 data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                             });
                         } else {
                             for ( i = 0; i < Data.length; i++ ) {
+                                if ( Data[i].title == self.getValue() ){
+                                    self.itemFound = true;
+                                }
                                 values.push({
                                     data: Data[i].title, label: self.highlightText(Data[i].title)
                                 })
                             }
                         }
                     } else {
-                        self.itemFound = false;
                         values.push({
                             data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                         });
@@ -135,6 +139,9 @@
                         if (data.title !== undefined && data.title !== null) {
                             i = 0;
                             data.title.forEach(function () {
+                                if (data.title[i] == curValue ){
+                                    self.itemFound = true;
+                                }
                                 if (wgPageFormsAutocompleteOnAllChars) {
                                     if (self.getConditionForAutocompleteOnAllChars(data.title[i], curValue)) {
                                         values.push({
@@ -159,6 +166,9 @@
                     if (Array.isArray(data) || typeof data == 'object') {
                         if (wgPageFormsAutocompleteOnAllChars) {
                             for (let key in data) {
+                                if ( data[key] == curValue ) {
+                                    self.itemFound = true;
+                                }
                                 if (this.getConditionForAutocompleteOnAllChars(data[key], curValue )) {
                                     values.push({
                                         data: data[key], label: this.highlightText(data[key])
@@ -167,6 +177,9 @@
                             }
                         } else {
                             for (let key in data) {
+                                if ( data[key] == curValue ) {
+                                    self.itemFound = true;
+                                }
                                 if (this.checkIfAnyWordStartsWithInputValue(data[key], curValue)) {
                                     values.push({
                                         data: data[key], label: this.highlightText(data[key])
@@ -211,6 +224,9 @@
                             }
                             response.pfautocomplete.forEach(function (item) {
                                 curValue = self.getValue();
+                                if ( item.displaytitle == curValue || item.title == curValue ) {
+                                    self.itemFound = true;
+                                }
                                 if (wgPageFormsAutocompleteOnAllChars) {
                                     if (item.displaytitle !== undefined) {
                                         if (self.getConditionForAutocompleteOnAllChars(item.displaytitle, curValue)){
@@ -252,7 +268,6 @@
                 }
             }
             if (values.length == 0) {
-                this.itemFound = false;
                 values.push({
                     data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
                 });
