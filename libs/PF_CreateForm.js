@@ -1,9 +1,8 @@
 jQuery.fn.displayInputParams = function () {
 	var inputParamsDiv = this.closest( '.formField' ).find( '.otherInputParams' );
 	jQuery.ajax( {
-		url: window.location.href +
-			( ( window.location.href.indexOf('?') === -1 ) ? '?' : '&' ) +
-			'showinputtypeoptions=' + encodeURIComponent( $(this).find('select').val() ) +
+		url: mw.util.wikiScript() + '?title=' + mw.config.get('wgPageName') +
+			'&showinputtypeoptions=' + encodeURIComponent( $(this).find('select').val() ) +
 			'&formfield=' + encodeURIComponent( this.attr( 'id' ) ),
 		context: document.body,
 		success: function ( data ){
