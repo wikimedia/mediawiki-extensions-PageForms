@@ -236,7 +236,8 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $smwgDefaultStore === 'SMWSQLStore2' ) {
 				$idsTable = $db->tableName( 'smw_ids' );
 				$propsTable = $db->tableName( 'smw_rels2' );
-			} else { // SMWSQLStore3 - also the backup for SMWSPARQLStore
+			} else {
+				// SMWSQLStore3 - also the backup for SMWSPARQLStore
 				$idsTable = $db->tableName( 'smw_object_ids' );
 				$propsTable = $db->tableName( 'smw_di_wikipage' );
 			}
@@ -246,7 +247,8 @@ class PFAutocompleteAPI extends ApiBase {
 				$valueField = 'p.value_xsd';
 				$idsTable = $db->tableName( 'smw_ids' );
 				$propsTable = $db->tableName( 'smw_atts2' );
-			} else { // SMWSQLStore3 - also the backup for SMWSPARQLStore
+			} else {
+				// SMWSQLStore3 - also the backup for SMWSPARQLStore
 				$valueField = 'p.o_hash';
 				$idsTable = $db->tableName( 'smw_object_ids' );
 				$propsTable = $db->tableName( 'smw_di_blob' );
@@ -414,8 +416,9 @@ class PFAutocompleteAPI extends ApiBase {
 
 		$values = [];
 		foreach ( $queryResults as $row ) {
+			$value = $row[$cargoFieldAlias];
 			// @TODO - this check should not be necessary.
-			if ( ( $value = $row[$cargoFieldAlias] ) == '' ) {
+			if ( $value == '' ) {
 				continue;
 			}
 			// Cargo HTML-encodes everything - let's decode double

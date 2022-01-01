@@ -174,7 +174,8 @@ class PFCreateForm extends SpecialPage {
 				foreach ( $fi['item']->getFields() as $j => $field ) {
 					$old_i = PFFormUtils::getChangedIndex( $templates, $new_template_loc, $deleted_template_loc );
 					foreach ( $req->getValues() as $key => $value ) {
-						if ( ( $pos = strpos( $key, '_' . $old_i . '_' . $j ) ) != false ) {
+						$pos = strpos( $key, '_' . $old_i . '_' . $j );
+						if ( $pos !== false ) {
 							$paramName = substr( $key, 0, $pos );
 							// Spaces got replaced by
 							// underlines in the query.
@@ -212,7 +213,8 @@ class PFCreateForm extends SpecialPage {
 				$section = $fi['item'];
 				$old_i = PFFormUtils::getChangedIndex( $sections, $new_section_loc, $deleted_section_loc );
 				foreach ( $req->getValues() as $key => $value ) {
-					if ( ( $pos = strpos( $key, '_section_' . $old_i ) ) != false ) {
+					$pos = strpos( $key, '_section_' . $old_i );
+					if ( $pos !== false ) {
 						$paramName = substr( $key, 0, $pos );
 						$paramName = str_replace( '_', ' ', $paramName );
 					} else {
@@ -506,7 +508,8 @@ END;
 		$text .= Html::element( 'h2', [], $section_str );
 
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
-			if ( ( $pos = strpos( $key, '_section_' . $section_count ) ) != false ) {
+			$pos = strpos( $key, '_section_' . $section_count );
+			if ( $pos !== false ) {
 				$paramName = substr( $key, 0, $pos );
 				$paramName = str_replace( '_', ' ', $paramName );
 				$paramValues[$paramName] = $value;
@@ -680,7 +683,8 @@ END;
 END;
 		$paramValues = [];
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
-			if ( ( $pos = strpos( $key, '_' . $field_form_text ) ) != false ) {
+			$pos = strpos( $key, '_' . $field_form_text );
+			if ( $pos !== false ) {
 				$paramName = substr( $key, 0, $pos );
 				// Spaces got replaced by underlines in the
 				// query.

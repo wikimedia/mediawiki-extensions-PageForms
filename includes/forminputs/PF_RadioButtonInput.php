@@ -70,7 +70,8 @@ class PFRadioButtonInput extends PFEnumInput {
 			if ( $is_disabled ) {
 				$radiobutton_attrs['disabled'] = true;
 			}
-			if ( $possible_value === '' ) { // blank/"None" value
+			if ( $possible_value === '' ) {
+				// blank/"None" value
 				$label = wfMessage( 'pf_formedit_none' )->text();
 			} elseif (
 				array_key_exists( 'value_labels', $other_args ) &&

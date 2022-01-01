@@ -165,7 +165,8 @@ class PFUtils {
 	public static function linkText( $namespace, $name, $text = null ) {
 		$title = Title::makeTitleSafe( $namespace, $name );
 		if ( $title === null ) {
-			return $name; // TODO maybe report an error here?
+			// TODO maybe report an error here?
+			return $name;
 		}
 		if ( $text === null ) {
 			return '[[:' . $title->getPrefixedText() . '|' . $name . ']]';
@@ -396,7 +397,8 @@ END;
 		// convert them back.
 		// regex adapted from:
 		// https://www.regular-expressions.info/recurse.html
-		$pattern = '/{{(?>[^{}]|(?R))*?}}/'; // needed to fix highlighting - <?
+		$pattern = '/{{(?>[^{}]|(?R))*?}}/';
+		// needed to fix highlighting - <?
 		$str = preg_replace_callback( $pattern, static function ( $match ) {
 			$hasPipe = strpos( $match[0], '|' );
 			return $hasPipe ? str_replace( "|", "\1", $match[0] ) : $match[0];

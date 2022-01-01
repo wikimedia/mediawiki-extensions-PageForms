@@ -23,7 +23,10 @@ abstract class PFFormInput {
 	protected $mInputNumber;
 	protected $mCurrentValue;
 	protected $mInputName;
-	protected $mIsMandatory; // @deprecated, check for array_key_exists('mandatory', $this->mOtherArgs) instead
+	/**
+	 * @deprecated, check for array_key_exists('mandatory', $this->mOtherArgs) instead
+	 */
+	protected $mIsMandatory;
 	protected $mIsDisabled;
 	protected $mOtherArgs;
 
@@ -292,7 +295,6 @@ abstract class PFFormInput {
 		return [];
 	}
 
-	// Now the same set of methods, but for Cargo instead of SMW.
 	public static function getDefaultCargoTypes() {
 		return [];
 	}

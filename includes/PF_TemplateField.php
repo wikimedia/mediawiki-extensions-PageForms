@@ -14,11 +14,15 @@ class PFTemplateField {
 	private $mValueLabels;
 	private $mLabel;
 
-	// SMW-specific
+	/**
+	 * SMW-specific fields
+	 */
 	private $mSemanticProperty;
 	private $mPropertyType;
 
-	// Cargo-specific
+	/**
+	 * Cargo-specific fields
+	 */
 	private $mCargoTable;
 	private $mCargoField;
 	private $mFieldType;
@@ -356,9 +360,10 @@ class PFTemplateField {
 		// just for the link - but only if it's of type "Page".
 		if ( $this->mIsList && ( $fieldProperty != '' ||
 			( $cargoInUse && $this->mFieldType == 'Page' ) ) ) {
-			// Find a string that's not in the SMW property
+			// Find a string that's not in the property
 			// name, to be used as the variable.
-			$var = "x"; // default - also use this if all the attempts fail
+			// Default is "x" - also use this if all the attempts fail.
+			$var = "x";
 			if ( strstr( $fieldProperty, $var ) ) {
 				$var_options = [ 'y', 'z', 'xx', 'yy', 'zz', 'aa', 'bb', 'cc' ];
 				foreach ( $var_options as $option ) {
@@ -376,7 +381,8 @@ class PFTemplateField {
 			} else {
 				$text .= $this->mNamespace . ":$var]] {{#set:" . $fieldProperty . "=$var}} ";
 			}
-			$text .= "}}\n"; // close #arraymap call.
+			// Close #arraymap call.
+			$text .= "}}\n";
 			return $text;
 		}
 

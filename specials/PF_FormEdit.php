@@ -163,7 +163,8 @@ class PFFormEdit extends UnlistedSpecialPage {
 			// "Creating ..." and "Create ...", respectively.
 			// Does this make any difference? Who knows.
 			$pageTitle = $this->msg( 'creating', $targetName )->text();
-		} elseif ( $result[ 'form' ] == '' ) { // FIXME: This looks weird; a simple else should be enough, right?
+		} elseif ( $result[ 'form' ] == '' ) {
+			// FIXME: The "elseif" looks weird; a simple else should be enough, right?
 			// Display error message if the form is not specified in the URL.
 			$text .= Html::element( 'p', [ 'class' => 'error' ], $this->msg( 'pf_formedit_badurl' )->text() ) . "\n";
 			$out->addHTML( $text );
@@ -188,7 +189,8 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$text .= $pre_form_html;
 
 		$out->addHTML( $text );
-		$this->showCaptcha( $targetTitle ); // Should be before the closing </form> tag from $result
+		// This should be before the closing </form> tag from $result
+		$this->showCaptcha( $targetTitle );
 
 		if ( isset( $result[ 'formHTML' ] ) ) {
 			$out->addHTML( $result[ 'formHTML' ] );
@@ -203,11 +205,13 @@ class PFFormEdit extends UnlistedSpecialPage {
 	 */
 	protected function showCaptcha( $targetTitle ) {
 		if ( !method_exists( 'ConfirmEditHooks', 'getInstance' ) ) {
-			return; // No Extension:ConfirmEdit
+			// ConfirmEdit extension is not installed.
+			return;
 		}
 
 		if ( !$targetTitle ) {
-			return; // Not an edit form (target page is not yet selected)
+			// This is not an edit form (target page is not yet selected).
+			return;
 		}
 
 		$article = new Article( $targetTitle );

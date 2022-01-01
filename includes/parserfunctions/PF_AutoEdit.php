@@ -39,7 +39,8 @@ class PFAutoEdit {
 
 		// Parse parameters.
 		$params = func_get_args();
-		array_shift( $params ); // don't need the parser
+		// We don't need the parser.
+		array_shift( $params );
 
 		foreach ( $params as $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -194,7 +195,8 @@ class PFAutoEdit {
 		// and do the same for -=
 		// This way, parse_str won't strip out the += and -=
 		$queryString = preg_replace( "/\[([^\]]+)\]\s*(\+|-)=/", "[$1$2]=", $queryString );
-		$queryString = str_replace( '+', '%2B', $queryString ); // prevent decoding + to space character
+		// Prevent "decoding" + into a space character
+		$queryString = str_replace( '+', '%2B', $queryString );
 
 		parse_str( $queryString, $arr );
 

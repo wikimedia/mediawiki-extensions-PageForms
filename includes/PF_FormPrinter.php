@@ -552,6 +552,7 @@ END;
 		foreach ( $tif->getFields() as $formField ) {
 			$templateField = $formField->template_field;
 			$formFieldArgs = $formField->getFieldArgs();
+			$possibleValues = $formField->getPossibleValues();
 
 			$inputType = $formField->getInputType();
 			$gridParamValues = [ 'name' => $templateField->getFieldName() ];
@@ -568,10 +569,10 @@ END;
 				$autocompletedatatype = '';
 				$autocompletesettings = '';
 				$gridParamValues['type'] = 'text';
-			} elseif ( !empty( $allowedValues = $formField->getPossibleValues() )
+			} elseif ( !empty( $possibleValues )
 				&& $autocompletedatatype != 'category' && $autocompletedatatype != 'cargo field'
 				&& $autocompletedatatype != 'concept' && $autocompletedatatype != 'property' ) {
-				$gridParamValues['values'] = $allowedValues;
+				$gridParamValues['values'] = $possibleValues;
 				if ( $formField->isList() ) {
 					$gridParamValues['list'] = true;
 					$gridParamValues['delimiter'] = $formField->getFieldArg( 'delimiter' );
@@ -584,7 +585,7 @@ END;
 				$gridParamValues['type'] = 'date';
 			} elseif ( $inputType == 'datetime' ) {
 				$gridParamValues['type'] = 'datetime';
-			} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
+			} elseif ( $possibleValues != null ) {
 				array_unshift( $possibleValues, '' );
 				$completePossibleValues = [];
 				foreach ( $possibleValues as $value ) {
@@ -835,8 +836,10 @@ END;
 		$user = null
 	) {
 		global $wgRequest;
-		global $wgPageFormsTabIndex; // used to represent the current tab index in the form
-		global $wgPageFormsFieldNum; // used for setting various HTML IDs
+		// used to represent the current tab index in the form
+		global $wgPageFormsTabIndex;
+		// used for setting various HTML IDs
+		global $wgPageFormsFieldNum;
 		global $wgPageFormsShowExpandAllLink;
 
 		// Initialize some variables.
@@ -979,7 +982,8 @@ END;
 				$section_start = $brackets_loc;
 			}
 			$start_position = $brackets_loc + 1;
-		} // end while
+		}
+		// end while
 		$form_def_sections[] = trim( substr( $form_def, $section_start ) );
 
 		// Cycle through the form definition file, and possibly an
@@ -1162,7 +1166,8 @@ END;
 						// remove element(s) from list
 						foreach ( $remove as $rmv ) {
 							// go through each element and remove match(es)
-							if ( ( $key = array_search( $rmv, $val_array ) ) !== false ) {
+							$key = array_search( $rmv, $val_array );
+							if ( $key !== false ) {
 								unset( $val_array[$key] );
 							}
 						}
@@ -1268,7 +1273,8 @@ END;
 							// set the value to null to avoid getting
 							// whatever is currently on the page.
 							$cur_value_in_template = null;
-						} else { // value is not an array
+						} else {
+							// value is not an array.
 							$cur_value_in_template = $cur_value;
 						}
 
@@ -1639,13 +1645,16 @@ END;
 				// =====================================================
 				// default outer level processing
 				// =====================================================
-				} else { // Tag is not one of the allowed values -
+				} else {
+					// Tag is not one of the allowed values -
 					// ignore it, other than to HTML-escape it.
 					$form_section_text = htmlspecialchars( substr( $section, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc ) );
 					$section = substr_replace( $section, $form_section_text, $brackets_loc, $brackets_end_loc + 3 - $brackets_loc );
 					$start_position = $brackets_end_loc;
-				} // end if
-			} // end while
+				}
+				// end if
+			}
+			// end while
 
 			if ( $tif && ( !$tif->allowsMultiple() || $tif->allInstancesPrinted() ) ) {
 				$template_text = $wiki_page->createTemplateCallsForTemplateName( $tif->getTemplateName() );
@@ -1705,6 +1714,7 @@ END;
 							if ( $formField->getLabel() !== null ) {
 								$values['title'] = $formField->getLabel();
 							}
+							$possibleValues = $formField->getPossibleValues();
 							if ( $inputType == 'textarea' ) {
 								$values['type'] = 'textarea';
 							} elseif ( $inputType == 'datetime' ) {
@@ -1723,7 +1733,7 @@ END;
 								$values['type'] = 'radiobutton';
 							} elseif ( $inputType == 'tokens' ) {
 								$values['type'] = 'tokens';
-							} elseif ( ( $possibleValues = $formField->getPossibleValues() ) != null ) {
+							} elseif ( $possibleValues != null ) {
 								array_unshift( $possibleValues, '' );
 								$completePossibleValues = [];
 								foreach ( $possibleValues as $value ) {
@@ -1808,7 +1818,8 @@ END;
 			} else {
 				$form_text .= $section;
 			}
-		} // end for
+		}
+		// end for
 
 		// Cleanup - everything has been browsed.
 		// Remove all the remaining placeholder
@@ -1946,7 +1957,8 @@ END;
 			$hook_values = $this->mInputTypeHooks[$form_field->getInputType()];
 			$class_name = $hook_values[0];
 			$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
-		} else { // input type not defined in form
+		} else {
+			// The input type is not defined in the form.
 			$cargo_field_type = $template_field->getFieldType();
 			$property_type = $template_field->getPropertyType();
 			$is_list = ( $form_field->isList() || $template_field->isList() );
@@ -1962,7 +1974,8 @@ END;
 				$hook_values = $this->mSemanticTypeHooks[$property_type][$is_list];
 				$class_name = $hook_values[0];
 				$other_args = $form_field->getArgumentsForInputCall( $hook_values[1] );
-			} else { // Anything else.
+			} else {
+				// Anything else.
 				$class_name = 'PFTextInput';
 				$other_args = $form_field->getArgumentsForInputCall();
 				// Set default size for list inputs.

@@ -47,8 +47,20 @@ class PFOpenLayersInput extends PFFormInput {
 		return $width;
 	}
 
-	// @todo - change to non-static functions for all the map-based
-	// form input classes, so we don't need all these parameters.
+	/**
+	 * @todo - change to non-static functions for all the map-based
+	 * form input classes, so we don't need all these parameters.
+	 *
+	 * @param string $cur_value
+	 * @param string $input_name
+	 * @param bool $is_mandatory
+	 * @param bool $is_disabled
+	 * @param array $other_args
+	 * @param int $height
+	 * @param int $width
+	 * @param bool $includeAddressLookup
+	 * @return string
+	 */
 	public static function mapLookupHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, $other_args, $height, $width, $includeAddressLookup = true ) {
 		global $wgPageFormsFieldNum, $wgPageFormsTabIndex;
 		global $wgPageFormsMapsWithFeeders;

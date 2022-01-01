@@ -18,7 +18,7 @@ class PFTree {
 	 * @phan-var list<array>
 	 */
 	public $tree_array;
-	public $current_values; // Array
+	public $current_values;
 
 	public function __construct( $depth, $cur_values ) {
 		$this->depth = $depth;

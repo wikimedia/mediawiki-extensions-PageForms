@@ -3,12 +3,8 @@
 /**
  * @author Stephan Gambke
  * @file
- * @ingroup SemanticFormsInputs
  */
 
-/**
- * @ingroup SemanticFormsInputs
- */
 class PFTimePickerInput extends PFFormInput {
 
 	public static function getName(): string {
@@ -25,7 +21,8 @@ class PFTimePickerInput extends PFFormInput {
 	 */
 	public function __construct( $input_number, $cur_value, $input_name, $disabled, array $other_args ) {
 		if ( $cur_value == 'now' ) {
-			$cur_value = date( 'H:i' ); // hours and minutes
+			// Hours and minutes.
+			$cur_value = date( 'H:i' );
 		}
 		parent::__construct( $input_number, $cur_value, $input_name, $disabled, $other_args );
 

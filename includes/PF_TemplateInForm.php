@@ -24,16 +24,20 @@ class PFTemplateInForm {
 	private $mEmbedInField;
 	private $mPlaceholder;
 	private $mHeight = '200px';
-	// Conceptually, it would make more sense to define and store this
-	// parameter per-field, rather than per-template. However, it's a lot
-	// easier to handle it in just one place, rather than in every form
-	// input class. Also, this allows, in theory, to set the order of the
-	// fields being displayed - though that's not being done yet.
+	/**
+	 * Conceptually, it would make more sense to define and store this
+	 * parameter per-field, rather than per-template. However, it's a lot
+	 * easier to handle it in just one place, rather than in every form
+	 * input class. Also, this allows, in theory, to set the order of the
+	 * fields being displayed - though that's not being done yet.
+	 */
 	private $mDisplayedFieldsWhenMinimized;
 
-	// These fields are for a specific usage of a form (or more
-	// specifically, a template in a form) to edit a particular page.
-	// Perhaps they should go in another class.
+	/**
+	 * These fields are for a specific usage of a form (or more
+	 * specifically, a template in a form) to edit a particular page.
+	 * Perhaps they should go in another class.
+	 */
 	private $mSearchTemplateStr;
 	private $mPregMatchTemplateStr;
 	private $mFullTextInPage;
@@ -233,10 +237,13 @@ class PFTemplateInForm {
 		return $text;
 	}
 
-	// The remaining functions here are intended for an instance of a
-	// template in a specific form, and perhaps should be moved into
-	// another class.
-
+	/**
+	 * This method, and all methods below it, are intended for an instance
+	 * of a template in a specific form, and perhaps should be moved into
+	 * another class.
+	 *
+	 * @return string
+	 */
 	function getFullTextInPage() {
 		return $this->mFullTextInPage;
 	}
@@ -286,7 +293,13 @@ class PFTemplateInForm {
 		$this->mFields[] = $form_field;
 	}
 
-	// this makes it possible for += and -= to modify values based on existing values.
+	/**
+	 * This makes it possible for += and -= to modify values based on existing values.
+	 *
+	 * @param string $field_name
+	 * @param string $new_value
+	 * @param string|null $modifier
+	 */
 	function changeFieldValues( $field_name, $new_value, $modifier = null ) {
 		$this->mValuesFromPage[$field_name] = $new_value;
 		if ( $modifier !== null && array_key_exists( $field_name . $modifier, $this->mValuesFromPage ) ) {
@@ -371,7 +384,7 @@ class PFTemplateInForm {
 			list( $startTag, $endTag ) = $tags;
 
 			$startTagLoc = -1;
-			while ( ( $startTagLoc + strlen( $startTag ) < strlen( $str ) ) && // Avoid PHP warnings
+			while ( ( $startTagLoc + strlen( $startTag ) < strlen( $str ) ) &&
 				( ( $startTagLoc = strpos( $str, $startTag, $startTagLoc + strlen( $startTag ) ) ) !== false ) ) {
 				// Ignore "singleton" tags, like '<ref name="abc" />'.
 				$possibleSingletonTagEnd = strpos( $str, '/>', $startTagLoc );

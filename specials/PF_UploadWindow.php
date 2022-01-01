@@ -27,10 +27,15 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	}
 
 	/** Misc variables */
-	public $mRequest;			// The WebRequest or FauxRequest this form is supposed to handle
+
+	/** @var WebRequest|FauxRequest The request this form is supposed to handle */
+	public $mRequest;
 	public $mSourceType;
+
 	/** @var UploadBase */
 	public $mUpload;
+
+	/** @var LocalFile */
 	public $mLocalFile;
 	public $mUploadClicked;
 
@@ -38,7 +43,9 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	protected $mTextAfterSummary;
 
 	/** User input variables from the "description" section */
-	public $mDesiredDestName;	// The requested target file name
+
+	/** @var string The requested target file name */
+	public $mDesiredDestName;
 	public $mComment;
 	public $mLicense;
 
@@ -49,8 +56,12 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	public $mCopyrightSource;
 
 	/** Hidden variables */
-	public $mForReUpload;		// The user followed an "overwrite this file" link
-	public $mCancelUpload;		// The user clicked "Cancel and return to upload form" button
+
+	/** @var bool The user followed an "overwrite this file" link */
+	public $mForReUpload;
+
+	/** @var bool The user clicked "Cancel and return to upload form" button */
+	public $mCancelUpload;
 	public $mTokenOk;
 
 	/** used by Page Forms */
@@ -87,9 +98,11 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$this->mCopyrightStatus   = $request->getText( 'wpUploadCopyStatus' );
 		$this->mCopyrightSource   = $request->getText( 'wpUploadSource' );
 
-		$this->mForReUpload       = $request->getBool( 'wpForReUpload' ); // updating a file
+		// updating a file
+		$this->mForReUpload       = $request->getBool( 'wpForReUpload' );
 		$this->mCancelUpload      = $request->getCheck( 'wpCancelUpload' )
-			|| $request->getCheck( 'wpReUpload' ); // b/w compat
+		// b/w compat
+			|| $request->getCheck( 'wpReUpload' );
 
 		// If it was posted check for the token (no remote POST'ing with user credentials)
 		$token = $request->getVal( 'wpEditToken' );
@@ -310,7 +323,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		$warningHtml .= "</ul>\n";
 		$warningHtml .= $this->msg( 'uploadwarning-text' )->parseAsBlock();
 
-		$form = $this->getUploadForm( $warningHtml, $sessionKey, /* $hideIgnoreWarning */ true );
+		$form = $this->getUploadForm( $warningHtml, $sessionKey, true );
 		$form->setSubmitText( $this->msg( 'upload-tryagain' )->text() );
 		$form->addButton( 'wpUploadIgnoreWarning', $this->msg( 'ignorewarning' )->text() );
 		$form->addButton( 'wpCancelUpload', $this->msg( 'reuploaddesc' )->text() );
@@ -462,7 +475,6 @@ END;
 END;
 		// $this->getOutput()->addHTML( $output );
 		print $output;
-		$img = null; // @todo: added to avoid passing a ref to null - should this be defined somewhere?
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
@@ -589,7 +601,8 @@ END;
 				$finalExt = $details['finalExt'];
 				$this->uploadError(
 					$this->msg( 'filetype-banned-type',
-						htmlspecialchars( $finalExt ), // @todo Double escaping?
+						// @todo Double escaping?
+						htmlspecialchars( $finalExt ),
 						implode(
 							$this->msg( 'comma-separator' )->text(),
 							$wgFileExtensions

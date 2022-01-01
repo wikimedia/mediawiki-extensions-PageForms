@@ -243,7 +243,8 @@ class PFValuesUtils {
 						$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) . ' OR page_namespace = ' . NS_CATEGORY;
 					}
 				}
-				$res = $db->select( // make the query
+				// Make the query.
+				$res = $db->select(
 					$tables,
 					$columns,
 					$conditions,
@@ -595,7 +596,8 @@ class PFValuesUtils {
 			$names_array = self::getAllPagesForConcept( $source_name );
 		} elseif ( $source_type == 'query' ) {
 			$names_array = self::getAllPagesForQuery( $source_name );
-		} else { // i.e., $source_type == 'namespace'
+		} else {
+			// i.e., $source_type == 'namespace'
 			$names_array = self::getAllPagesForNamespace( $source_name );
 		}
 		return $names_array;

@@ -197,7 +197,7 @@ class PFCreateClass extends SpecialPage {
 	}
 
 	private function printCreateClassForm( $query ) {
-		global $wgLang;
+		$lang = $this->getLanguage();
 		$out = $this->getOutput();
 		$req = $this->getRequest();
 
@@ -239,7 +239,7 @@ class PFCreateClass extends SpecialPage {
 		$text = '<form id="createClassForm" action="" method="post">' . "\n";
 		$text .= "\t" . Html::rawElement( 'p', null,
 				$this->msg( 'pf_createclass_docu' )
-					->rawParams( $wgLang->listToText( $creation_links ) )
+					->rawParams( $lang->listToText( $creation_links ) )
 					->escaped() ) . "\n";
 		$templateNameLabel = $this->msg( 'pf_createtemplate_namelabel' )->escaped();
 		$templateNameInput = Html::input( 'template_name', null, 'text', [ 'size' => 30 ] );

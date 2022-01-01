@@ -33,15 +33,18 @@
  */
 
 class PFFormInputParserFunction {
-	// static variable to guarantee that Javascript for autocompletion
-	// only gets added to the page once
+	/**
+	 * static variable to guarantee that JavaScript for autocompletion
+	 * only gets added to the page once.
+	 */
 	private static $num_autocompletion_inputs = 0;
 
 	public static function run( Parser $parser ) {
 		global $wgCapitalLinks;
 
 		$params = func_get_args();
-		array_shift( $params ); // don't need the parser
+		// We don't need the parser.
+		array_shift( $params );
 
 		$parser->getOutput()->addModules( 'ext.pageforms.forminput' );
 
@@ -168,7 +171,8 @@ class PFFormInputParserFunction {
 		// hidden value
 		$fs = PFUtils::getSpecialPage( 'FormStart' );
 		$fsURL = $fs->getPageTitle()->getLocalURL();
-		if ( ( $pos = strpos( $fsURL, "title=" ) ) > -1 ) {
+		$pos = strpos( $fsURL, "title=" );
+		if ( $pos > -1 ) {
 			$formContents .= Html::hidden( "title", urldecode( substr( $fsURL, $pos + 6 ) ) );
 		}
 		$listOfForms = preg_split( '~(?<!\\\)' . preg_quote( ',', '~' ) . '~', $inFormName );

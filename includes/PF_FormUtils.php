@@ -326,7 +326,12 @@ class PFFormUtils {
 		return new OOUI\FieldLayout( $buttonHTML );
 	}
 
-	// Much of this function is based on MediaWiki's EditPage::showEditForm()
+	/**
+	 * Much of this function is based on MediaWiki's EditPage::showEditForm().
+	 * @param bool $form_submitted
+	 * @param bool $is_disabled
+	 * @return string
+	 */
 	static function formBottom( $form_submitted, $is_disabled ) {
 		$text = <<<END
 	<br />
@@ -366,7 +371,12 @@ END;
 		return $text;
 	}
 
-	// Loosely based on MediaWiki's EditPage::getPreloadedContent().
+	/**
+	 * Loosely based on MediaWiki's EditPage::getPreloadedContent().
+	 *
+	 * @param string $preload
+	 * @return string
+	 */
 	static function getPreloadedText( $preload ) {
 		if ( $preload === '' ) {
 			return '';

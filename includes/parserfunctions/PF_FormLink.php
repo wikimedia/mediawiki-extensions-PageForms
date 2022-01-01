@@ -39,7 +39,8 @@ class PFFormLink {
 
 	public static function run( Parser $parser ) {
 		$params = func_get_args();
-		array_shift( $params ); // We don't need the parser.
+		// We don't need the parser.
+		array_shift( $params );
 		$str = self::createFormLink( $parser, $params );
 		return [ $str, 'noparse' => true, 'isHTML' => true ];
 	}

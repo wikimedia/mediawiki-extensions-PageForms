@@ -25,7 +25,7 @@ class PFForms extends QueryPage {
 	}
 
 	function getPageHeader() {
-		$header = Html::element( 'p', null, wfMessage( 'pf_forms_docu' )->text() );
+		$header = Html::element( 'p', null, $this->msg( 'pf_forms_docu' )->text() );
 		return $header;
 	}
 

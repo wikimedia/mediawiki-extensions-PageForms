@@ -90,7 +90,8 @@ class PFDateTimeInput extends PFDateInput {
 		} else {
 			$hour = null;
 			$minute = null;
-			$second = '00'; // default at least this value
+			// Default at least the "seconds" field.
+			$second = '00';
 			$ampm24h = '';
 			$timezone = '';
 		}

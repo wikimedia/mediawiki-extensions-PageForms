@@ -28,7 +28,8 @@ class PFTemplateParams {
 		$wgRenderHashAppend = ';lang=' . $wgLang->getCode();
 
 		$params = func_get_args();
-		array_shift( $params ); // We don't need the parser.
+		// We don't need the parser.
+		array_shift( $params );
 
 		$fieldData = [];
 		foreach ( $params as $param ) {

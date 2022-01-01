@@ -125,7 +125,8 @@ class PFTemplate {
 
 		// Look for "arraymap" parser function calls that map a
 		// property onto a list.
-		if ( $ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $this->mTemplateText, $matches ) ) {
+		$ret = preg_match_all( '/{{#arraymap:{{{([^|}]*:?[^|}]*)[^\[]*\[\[([^:]*:?[^:]*)::/mis', $this->mTemplateText, $matches );
+		if ( $ret ) {
 			foreach ( $matches[1] as $i => $field_name ) {
 				if ( !in_array( $field_name, $fieldNamesArray ) ) {
 					$propertyName = $matches[2][$i];
@@ -391,18 +392,6 @@ class PFTemplate {
 		$this->mAggregationLabel = $aggregationLabel;
 	}
 
-	// Currently unused method.
-	public function setFieldStartAndEnd( $fieldStart, $fieldEnd ) {
-		$this->mFieldStart = $fieldStart;
-		$this->mFieldEnd = $fieldEnd;
-	}
-
-	// Currently unused method.
-	public function setTemplateStartAndEnd( $templateStart, $templateEnd ) {
-		$this->mTemplateStart = $templateStart;
-		$this->mTemplateEnd = $templateEnd;
-	}
-
 	public function setFormat( $templateFormat ) {
 		$this->mTemplateFormat = $templateFormat;
 	}
@@ -597,7 +586,9 @@ END;
 					$tableText .= '==' . $fieldLabel . "==\n";
 					$separator = '';
 				}
-			} // If it's 'hidden', do nothing
+			} else {
+				// If it's 'hidden', do nothing
+			}
 			// Value column
 			if ( $this->mTemplateFormat == 'standard' || $this->mTemplateFormat == 'infobox' ) {
 				if ( $fieldDisplay == 'hidden' ) {

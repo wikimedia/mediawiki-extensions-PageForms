@@ -9,7 +9,10 @@
  * Represents a section (header and contents) in a wiki page.
  */
 class PFWikiPageSection {
-	private $mHeader, $mHeaderLevel, $mText, $mHideIfEmpty;
+	private $mHeader;
+	private $mHeaderLevel;
+	private $mText;
+	private $mHideIfEmpty;
 
 	function __construct( $sectionName, $headerLevel, $sectionText, $sectionOptions ) {
 		$this->mHeader      = $sectionName;

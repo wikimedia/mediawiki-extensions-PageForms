@@ -145,7 +145,8 @@ class PFFormEditAction extends Action {
 			unset( $content_actions['viewsource'] );
 		}
 
-		return true; // always return true, in order not to stop MW's hook processing!
+		// always return true, in order not to stop MW's hook processing!
+		return true;
 	}
 
 	static function displayFormChooser( $output, $title ) {

@@ -49,7 +49,8 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 		}
 		$cur_values = PFValuesUtils::getValuesArray( $cur_value, $delimiter );
 
-		if ( ( $possible_values = $other_args['possible_values'] ) == null ) {
+		$possible_values = $other_args['possible_values'];
+		if ( $possible_values == null ) {
 			$possible_values = [];
 		}
 		$text = '';

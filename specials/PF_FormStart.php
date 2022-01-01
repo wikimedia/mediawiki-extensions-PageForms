@@ -41,7 +41,8 @@ class PFFormStart extends SpecialPage {
 			}
 
 			// Get namespace from the URL, if it's there.
-			if ( $namespace_label_loc = strpos( $form_name, "/Namespace:" ) ) {
+			$namespace_label_loc = strpos( $form_name, "/Namespace:" );
+			if ( $namespace_label_loc !== false ) {
 				$target_namespace = substr( $form_name, $namespace_label_loc + 11 );
 				$form_name = substr( $form_name, 0, $namespace_label_loc );
 			}
