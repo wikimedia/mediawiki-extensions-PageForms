@@ -12,7 +12,8 @@
 			"Rex",
 			"Sumbukompor",
 			"William Surya Permana",
-			"RXerself"
+			"RXerself",
+			"Daud I.F. Argana"
 		]
 	},
 	"pageforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
@@ -38,7 +39,7 @@
 	"pf_createtemplate_aggregationlabel": "Judul daftar:",
 	"pf_createtemplate_outputformat": "Format keluaran:",
 	"pf_createtemplate_standardformat": "Tabel",
-	"pf_createtemplate_infoboxformat": "Kotak info di sisi kanan",
+	"pf_createtemplate_infoboxformat": "Kotak info di sisi",
 	"pf_createtemplate_addfield": "Tambahkan kolom",
 	"pf_createtemplate_deletefield": "Hapus",
 	"forms": "Formulir",
@@ -140,7 +141,7 @@
 	"pf_bad_number_error": "harus berupa angka",
 	"pf_bad_integer_error": "harus berupa bilangan bulat",
 	"pf_bad_date_error": "harus berupa tanggal",
-	"pf_pipe_error": "\"|\" tidak diizinkan, kecuali dalam pemanggilan templat dan fungsi parser.",
+	"pf_pipe_error": "\"|\" tidak diizinkan, kecuali di dalam {{...}}, [[...]], atau tag istimewa",
 	"uploadwindow": "Jendela pengunggahan",
 	"pf_deletionlog": "Log penghapusan",
 	"pf_property_isproperty": "Ini adalah properti bertipe $1",
