@@ -281,7 +281,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 * @param string $message HTML message to be passed to mainUploadForm
 	 */
 	protected function recoverableUploadError( $message ) {
-		$sessionKey = $this->mUpload->stashFile()->getFileKey();
+		$sessionKey = $this->mUpload->tryStashFile( $this->getUser() )->getStatusValue()->getValue()->getFileKey();
 		$message = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n" .
 			'<div class="errorbox">' . $message . "</div>\n";
 
@@ -296,7 +296,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	 * @param array $warnings
 	 */
 	protected function uploadWarning( $warnings ) {
-		$sessionKey = $this->mUpload->stashFile()->getFileKey();
+		$sessionKey = $this->mUpload->tryStashFile( $this->getUser() )->getStatusValue()->getValue()->getFileKey();
 
 		$warningHtml = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n"
 			. '<ul class="warningbox">';
