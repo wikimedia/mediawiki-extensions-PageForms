@@ -423,7 +423,7 @@ END;
 	 * keys to arrays rather than overwriting the value in the first array with the duplicate
 	 * value in the second array, as array_merge does.
 	 *
-	 * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.
+	 * arrayMergeRecursiveDistinct() does not change the datatypes of the values in the arrays.
 	 * Matching keys' values in the second array overwrite those in the first array.
 	 *
 	 * Parameters are passed by reference, though only for performance reasons. They're not
@@ -437,12 +437,12 @@ END;
 	 * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
 	 * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
 	 */
-	public static function array_merge_recursive_distinct( array &$array1, array &$array2 ) {
+	public static function arrayMergeRecursiveDistinct( array &$array1, array &$array2 ) {
 		$merged = $array1;
 
 		foreach ( $array2 as $key => &$value ) {
 			if ( is_array( $value ) && isset( $merged[$key] ) && is_array( $merged[$key] ) ) {
-				$merged[$key] = self::array_merge_recursive_distinct( $merged[$key], $value );
+				$merged[$key] = self::arrayMergeRecursiveDistinct( $merged[$key], $value );
 			} else {
 				$merged[$key] = $value;
 			}

@@ -75,7 +75,7 @@ class PFAutoEdit {
 				case 'error text':
 					// do not parse ok text or error text yet. Will be parsed on api call
 					$arr = [ $key => $value ];
-					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
 					break;
 				case 'tooltip':
 					$inTooltip = Sanitizer::decodeCharReferences( $value );
@@ -85,7 +85,7 @@ class PFAutoEdit {
 				case 'title':
 					$value = $parser->recursiveTagParse( $value );
 					$arr = [ $key => $value ];
-					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
 
 					$targetTitle = Title::newFromText( $value );
 
@@ -108,7 +108,7 @@ class PFAutoEdit {
 				default:
 					$value = $parser->recursiveTagParse( $value );
 					$arr = [ $key => $value ];
-					$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+					$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
 			}
 		}
 
@@ -200,6 +200,6 @@ class PFAutoEdit {
 
 		parse_str( $queryString, $arr );
 
-		return PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+		return PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
 	}
 }

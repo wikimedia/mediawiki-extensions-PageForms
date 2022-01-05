@@ -140,7 +140,7 @@ class PFAutoeditAPI extends ApiBase {
 	function prepareAction() {
 		// Get options from the request, but keep the explicitly set options.
 		$data = $this->getRequest()->getValues();
-		$this->mOptions = PFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
+		$this->mOptions = PFUtils::arrayMergeRecursiveDistinct( $data, $this->mOptions );
 
 		PFUtils::getParser()->startExternalParse(
 			null,
@@ -946,7 +946,7 @@ class PFAutoeditAPI extends ApiBase {
 			$data = $this->parseDataFromHTMLFrag( $formHTML );
 
 			// ...and merge/overwrite it with the new data.
-			$this->mOptions = PFUtils::array_merge_recursive_distinct( $data, $this->mOptions );
+			$this->mOptions = PFUtils::arrayMergeRecursiveDistinct( $data, $this->mOptions );
 		}
 
 		// We already preloaded stuff for saving/previewing -

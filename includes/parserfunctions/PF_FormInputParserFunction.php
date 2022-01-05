@@ -108,7 +108,7 @@ class PFFormInputParserFunction {
 			} else {
 				$value = urlencode( $value );
 				parse_str( "$paramName=$value", $arr );
-				$inQueryArr = PFUtils::array_merge_recursive_distinct( $inQueryArr, $arr );
+				$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
 				if ( $paramName == 'returnto' ) {
 					$hasReturnTo = true;
 				}
