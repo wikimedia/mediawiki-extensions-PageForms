@@ -1187,6 +1187,13 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 				this.name = this.name.replace(/\[num\]/g, '[' + num_elements + 'b]');
 			}
 
+			// Do something similar with "feeds to map", which also
+			// needs to be modified for each instance.
+			var feedsToMap = $(this).attr('data-feeds-to-map');
+			if ( feedsToMap !== undefined && feedsToMap !== false ) {
+				$(this).attr('data-feeds-to-map', feedsToMap.replace(/\[/g, '[' + num_elements + 'b][') );
+			}
+
 			if (this.id) {
 
 				var old_id = this.id;
@@ -1244,6 +1251,10 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 	});
 
 	$new_div.find('a').attr('href', function() {
+		// Make sure not to add a valid "href" attribute to <a> tags that don't have it.
+		if ( this.href == undefined || this.href == false ) {
+			return null;
+		}
 		return this.href.replace(/input_/g, 'input_' + num_elements + '_');
 	});
 
