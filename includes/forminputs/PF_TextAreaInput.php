@@ -276,7 +276,7 @@ class PFTextAreaInput extends PFFormInput {
 		if ( array_key_exists( 'feeds to map', $this->mOtherArgs ) ) {
 			global $wgPageFormsMapsWithFeeders;
 			$targetMapName = $this->mOtherArgs['feeds to map'];
-			if ( array_key_exists( 'part_of_multiple', $other_args ) ) {
+			if ( array_key_exists( 'part_of_multiple', $this->mOtherArgs ) ) {
 				$targetMapName = str_replace( '[', '[num][', $targetMapName );
 			}
 			$wgPageFormsMapsWithFeeders[$targetMapName] = true;
