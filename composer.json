@@ -6,7 +6,6 @@
 		"Page Forms",
 		"Semantic Forms",
 		"forms",
-		"SF",
 		"PF",
 		"Wiki",
 		"MediaWiki"
@@ -15,8 +14,7 @@
 	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
-			"name": "Yaron Koren",
-			"homepage": "http://yaronkoren.com/"
+			"name": "Yaron Koren"
 		}
 	],
 	"require": {
@@ -24,7 +22,7 @@
 		"composer/installers": "1.*,>=1.0.1"
 	},
 	"suggest": {
-		"mediawiki/open-layers": "Allow us to use ResourceLoader for OpenLayers."
+		"mediawiki/open-layers": "Allow us to use a local version of OpenLayers."
 	},
 	"extra": {
 		"branch-alias": {
