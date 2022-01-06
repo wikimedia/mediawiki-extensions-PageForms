@@ -67,10 +67,7 @@ class PFOpenLayersInput extends PFFormInput {
 
 		if ( $includeAddressLookup ) {
 			// The address input box is not necessary if we are using other form inputs for the address.
-
-			// Handle the case of a multiple-instance template, in a somewhat hacky way.
-			$searchInputName = str_replace( '[num][', '[', $input_name );
-			if ( array_key_exists( $searchInputName, $wgPageFormsMapsWithFeeders ) ) {
+			if ( array_key_exists( $input_name, $wgPageFormsMapsWithFeeders ) ) {
 				$addressLookupInput = '';
 			} else {
 				$addressLookupInputAttrs = [

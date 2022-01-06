@@ -259,6 +259,9 @@ class PFTextInput extends PFFormInput {
 		if ( array_key_exists( 'feeds to map', $other_args ) ) {
 			global $wgPageFormsMapsWithFeeders;
 			$targetMapName = $other_args['feeds to map'];
+			if ( array_key_exists( 'part_of_multiple', $other_args ) ) {
+				$targetMapName = str_replace( '[', '[num][', $targetMapName );
+			}
 			$wgPageFormsMapsWithFeeders[$targetMapName] = true;
 			$inputAttrs['data-feeds-to-map'] = $targetMapName;
 		}

@@ -1187,11 +1187,11 @@ $.fn.addInstance = function( addAboveCurInstance ) {
 				this.name = this.name.replace(/\[num\]/g, '[' + num_elements + 'b]');
 			}
 
-			// Do something similar with "feeds to map", which also
+			// Do the same thing with "feeds to map", which also
 			// needs to be modified for each instance.
 			var feedsToMap = $(this).attr('data-feeds-to-map');
 			if ( feedsToMap !== undefined && feedsToMap !== false ) {
-				$(this).attr('data-feeds-to-map', feedsToMap.replace(/\[/g, '[' + num_elements + 'b][') );
+				$(this).attr('data-feeds-to-map', feedsToMap.replace(/\[num\]/g, '[' + num_elements + 'b]') );
 			}
 
 			if (this.id) {
