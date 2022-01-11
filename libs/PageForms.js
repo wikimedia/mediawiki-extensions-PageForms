@@ -606,7 +606,7 @@ $.fn.validateMandatoryRadioButton = function() {
 $.fn.validateMandatoryCheckboxes = function() {
 	// Get the number of checked checkboxes within this span - must
 	// be at least one.
-	var numChecked = this.find("input:checked").size();
+	var numChecked = this.find("input:checked").length;
 	if (numChecked === 0) {
 		this.addErrorMessage('pf_blank_error');
 		return false;
@@ -1023,7 +1023,7 @@ window.validateAll = function () {
 
 	if (num_errors > 0) {
 		// add error header, if it's not there already
-		if ($("#form_error_header").size() === 0) {
+		if ($("#form_error_header").length === 0) {
 			$("#contentSub").append('<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + mw.message( 'pf_formerrors_header' ).escaped() + '</div><br clear="both" />');
 		}
 		scroll(0, 0);
