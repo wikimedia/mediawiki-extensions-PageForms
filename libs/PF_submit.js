@@ -22,6 +22,7 @@
 
 		return true;
 	}
+
 	// Prevent multiple submission of form
 	jQuery.fn.preventDoubleSubmission = function() {
 		$( this ).on( 'submit', function(e) {
@@ -89,7 +90,9 @@
 			for ( i = 0; i < errors.length; i += 1 ) {
 				if ( errors[i].level < 2 ) { // show errors and warnings
 					$( '#contentSub' )
-					.append( '<div id="form_error_header" class="errorbox" style="font-size: medium"><img src="' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />&nbsp;' + errors[i].message + '</div><br clear="both" />' );
+					.append( '<div id="form_error_header" class="errorbox" style="font-size: medium">' +
+						'<img src="' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/MW-Icon-AlertMark.png" />' +
+						'&nbsp;' + errors[i].message + '</div><br clear="both" />' );
 				}
 			}
 
@@ -120,7 +123,7 @@
 			params += '&wpSummary=' + saveAndContinueSummary;
 		}
 
-		if  ( mw.config.get( 'wgAction' ) === 'formedit' ) {
+		if ( mw.config.get( 'wgAction' ) === 'formedit' ) {
 			params += '&target=' + encodeURIComponent( mw.config.get( 'wgPageName' ) );
 		} else if ( mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 			var url = mw.config.get( 'wgPageName' );
@@ -176,10 +179,9 @@
 				query: collectData() // add form values to the data
 			};
 
-			data.query +=  '&wpSave=' + encodeURIComponent( $( event.currentTarget ).attr( 'value' ) );
+			data.query += '&wpSave=' + encodeURIComponent( $( event.currentTarget ).attr( 'value' ) );
 
 			$.ajax( {
-
 				type: 'POST', // request type ( GET or POST )
 				url: mw.util.wikiScript( 'api' ), // URL to which the request is sent
 				data: data, // data to be sent to the server
