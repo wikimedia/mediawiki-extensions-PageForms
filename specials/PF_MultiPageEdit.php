@@ -175,7 +175,7 @@ class PFMultiPageEdit extends QueryPage {
 			[],
 			[]
 		);
-		while ( $row = $dbr->fetchRow( $res ) ) {
+		while ( $row = $res->fetchRow() ) {
 			$this->findTemplatesForForm( $row['page_title'] );
 		}
 	}

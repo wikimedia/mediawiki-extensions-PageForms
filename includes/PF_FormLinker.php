@@ -40,7 +40,7 @@ class PFFormLinker {
 			]
 		);
 
-		$row = $dbr->fetchRow( $res );
+		$row = $res->fetchRow();
 		if ( $row ) {
 			return $row['pp_value'];
 		}

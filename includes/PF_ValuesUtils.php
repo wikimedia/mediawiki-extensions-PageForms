@@ -73,12 +73,12 @@ class PFValuesUtils {
 			$conditions,
 			__METHOD__
 		);
-		if ( $db->numRows( $res ) > 0 ) {
-			while ( $row = $db->fetchRow( $res ) ) {
+		if ( $res->numRows() > 0 ) {
+			while ( $row = $res->fetchRow() ) {
 				$categories[] = $row['cl_to'];
 			}
 		}
-		$db->freeResult( $res );
+		$res->free();
 		return $categories;
 	}
 
@@ -95,12 +95,12 @@ class PFValuesUtils {
 			 null,
 			__METHOD__
 		);
-		if ( $db->numRows( $res ) > 0 ) {
-			while ( $row = $db->fetchRow( $res ) ) {
+		if ( $res->numRows() > 0 ) {
+			while ( $row = $res->fetchRow() ) {
 				$categories[] = $row['cat_title'];
 			}
 		}
-		$db->freeResult( $res );
+		$res->free();
 		return $categories;
 	}
 
@@ -255,7 +255,7 @@ class PFValuesUtils {
 					],
 					$join );
 				if ( $res ) {
-					while ( $res && $row = $db->fetchRow( $res ) ) {
+					while ( $res && $row = $res->fetchRow() ) {
 						if ( !array_key_exists( 'page_title', $row ) ) {
 							continue;
 						}
@@ -291,7 +291,7 @@ class PFValuesUtils {
 							}
 						}
 					}
-					$db->freeResult( $res );
+					$res->free();
 				}
 			}
 			if ( count( $newcategories ) == 0 ) {
@@ -539,7 +539,7 @@ class PFValuesUtils {
 
 		$pages = [];
 		$sortkeys = [];
-		while ( $row = $db->fetchRow( $res ) ) {
+		while ( $row = $res->fetchRow() ) {
 			// If there's more than one namespace, include the
 			// namespace prefix in the results - otherwise, don't.
 			if ( array_key_exists( 'page_namespace', $row ) ) {
@@ -562,7 +562,7 @@ class PFValuesUtils {
 				$sortkeys[ $title ] = $title;
 			}
 		}
-		$db->freeResult( $res );
+		$res->free();
 
 		array_multisort( $sortkeys, $pages );
 		return $pages;

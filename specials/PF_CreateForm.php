@@ -65,8 +65,8 @@ class PFCreateForm extends SpecialPage {
 			[ 'ORDER BY' => 'page_title' ]
 		);
 
-		if ( $db->numRows( $res ) > 0 ) {
-			while ( $row = $db->fetchRow( $res ) ) {
+		if ( $res->numRows() > 0 ) {
+			while ( $row = $res->fetchRow() ) {
 				$template_name = str_replace( '_', ' ', $row[0] );
 				$all_templates[] = $template_name;
 			}

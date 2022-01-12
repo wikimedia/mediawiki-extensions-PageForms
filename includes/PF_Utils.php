@@ -319,10 +319,10 @@ END;
 			__METHOD__,
 			[ 'ORDER BY' => 'page_title' ] );
 		$form_names = [];
-		while ( $row = $dbr->fetchRow( $res ) ) {
+		while ( $row = $res->fetchRow() ) {
 			$form_names[] = str_replace( '_', ' ', $row[0] );
 		}
-		$dbr->freeResult( $res );
+		$res->free();
 		if ( count( $form_names ) == 0 ) {
 			// This case requires special handling in the UI.
 			throw new MWException( wfMessage( 'pf-noforms-error' )->parse() );
