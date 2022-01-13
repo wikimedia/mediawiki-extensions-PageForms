@@ -73,10 +73,8 @@ class PFValuesUtils {
 			$conditions,
 			__METHOD__
 		);
-		if ( $res->numRows() > 0 ) {
-			while ( $row = $res->fetchRow() ) {
-				$categories[] = $row['cl_to'];
-			}
+		while ( $row = $res->fetchRow() ) {
+			$categories[] = $row['cl_to'];
 		}
 		$res->free();
 		return $categories;
@@ -95,10 +93,8 @@ class PFValuesUtils {
 			 null,
 			__METHOD__
 		);
-		if ( $res->numRows() > 0 ) {
-			while ( $row = $res->fetchRow() ) {
-				$categories[] = $row['cat_title'];
-			}
+		while ( $row = $res->fetchRow() ) {
+			$categories[] = $row['cat_title'];
 		}
 		$res->free();
 		return $categories;

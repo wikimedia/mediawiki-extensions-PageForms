@@ -64,12 +64,8 @@ class PFCreateForm extends SpecialPage {
 			__METHOD__,
 			[ 'ORDER BY' => 'page_title' ]
 		);
-
-		if ( $res->numRows() > 0 ) {
-			while ( $row = $res->fetchRow() ) {
-				$template_name = str_replace( '_', ' ', $row[0] );
-				$all_templates[] = $template_name;
-			}
+		while ( $row = $res->fetchRow() ) {
+			$all_templates[] = str_replace( '_', ' ', $row['page_title'] );
 		}
 
 		$deleted_template_loc = null;
