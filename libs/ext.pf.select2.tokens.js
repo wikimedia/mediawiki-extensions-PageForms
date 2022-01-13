@@ -99,6 +99,18 @@
 		// Copied from https://github.com/select2/select2/issues/3106#issuecomment-234702241
 		element.on("select2:select", function (evt) {
 			var elem = evt.params.data.element;
+
+			if( !elem ) {
+				var data = $(element).select2('data');
+				elem = data.filter(obj => {
+					return obj.id === evt.params.data.id
+				});
+				if( !elem.length || !elem[0] || typeof elem[0].element == 'undefined' ) {
+					return;
+				}
+				elem = elem[0].element;
+			}
+
 			var $element = $(elem);
 
 			$element.detach();
