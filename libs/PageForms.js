@@ -1031,6 +1031,8 @@ window.validateAll = function () {
 		// them so that the form can be submitted again after the
 		// user tries to fix these errors.
 		$( '.editButtons > .oo-ui-buttonElement' ).removeClass( 'oo-ui-widget-disabled' ).addClass( 'oo-ui-widget-enabled' );
+		// Also undo the indicator that the form was submitted.
+		$( '#pfForm' ).data('submitted', false);
 		scroll(0, 0);
 	} else {
 		// Disable inputs hidden due to either "show on select" or
