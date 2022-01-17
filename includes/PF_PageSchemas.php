@@ -486,7 +486,7 @@ class PFPageSchemas extends PSExtensionHandler {
 		$fieldsInfo = $psTemplate->getFields();
 		foreach ( $fieldsInfo as $i => $psField ) {
 			$fieldFormArray = $psField->getObject( 'pageforms_FormInput' );
-			if ( $fieldFormArray == null ) {
+			if ( $fieldFormArray === null ) {
 				continue;
 			}
 			$formField = PFFormField::create( $template_fields[$i] );
