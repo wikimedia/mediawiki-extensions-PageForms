@@ -434,28 +434,32 @@ END;
 
 		$text .= "\t" . Html::hidden( 'csrf', $this->getUser()->getEditToken( 'CreateForm' ) ) . "\n";
 
-		$saveAttrs = [ 'id' => 'wpSave' ];
+		$saveAttrs = [
+			'id' => 'wpSave',
+			'name' => 'wpSave',
+			'type' => 'submit',
+			'label' => $this->msg( 'savearticle' )->text(),
+			'useInputTag' => true,
+			'flags' => [ 'primary', 'progressive' ]
+		];
 		if ( count( $form_items ) == 0 ) {
 			$saveAttrs['disabled'] = true;
 		}
-		$saveAttrs['label'] = $this->msg( 'savearticle' )->text();
-		$saveAttrs['useInputTag'] = true;
-		$saveAttrs['name'] = 'wpSave';
-		$saveAttrs['type'] = 'submit';
-		$saveAttrs['flags'] = [ 'primary', 'progressive' ];
 		$saveButton = new OOUI\ButtonInputWidget( $saveAttrs );
 
 		$editButtonsText = "\t" . $saveButton . "\n";
 
-		$previewAttrs = [ 'id' => 'wpPreview' ];
+		$previewAttrs = [
+			'id' => 'wpPreview',
+			'name' => 'wpPreview',
+			'type' => 'submit',
+			'label' => $this->msg( 'preview' )->text(),
+			'useInputTag' => true,
+			'flags' => [ 'progressive' ]
+		];
 		if ( count( $form_items ) == 0 ) {
 			$previewAttrs['disabled'] = true;
 		}
-		$previewAttrs['label'] = $this->msg( 'preview' )->text();
-		$previewAttrs['useInputTag'] = true;
-		$previewAttrs['name'] = 'wpPreview';
-		$previewAttrs['type'] = 'submit';
-		$previewAttrs['flags'] = [ 'progressive' ];
 		$previewButton = new OOUI\ButtonInputWidget( $previewAttrs );
 
 		$editButtonsText .= "\t" . $previewButton . "\n";
