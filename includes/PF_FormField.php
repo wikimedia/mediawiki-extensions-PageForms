@@ -224,7 +224,7 @@ class PFFormField {
 		}
 
 		$semantic_property = null;
-		$cargo_table = $cargo_field = null;
+		$cargo_table = $cargo_field = $cargo_where = null;
 		$show_on_select = [];
 		$fullFieldName = $template_name . '[' . $field_name . ']';
 		$values = $valuesSourceType = $valuesSource = null;
@@ -340,6 +340,8 @@ class PFFormField {
 					$cargo_table = $sub_components[1];
 				} elseif ( $sub_components[0] == 'cargo field' ) {
 					$cargo_field = $sub_components[1];
+				} elseif ( $sub_components[0] == 'cargo where' ) {
+					$cargo_where = $sub_components[1];
 				} elseif ( $sub_components[0] == 'default filename' ) {
 					global $wgTitle;
 					$page_name = $wgTitle->getText();
@@ -410,6 +412,17 @@ class PFFormField {
 			// Instead of getting involved with all that, we'll just
 			// remove the null/blank values afterward.
 			$cargoValues = PFValuesUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
+		}
+
+		if ( defined( 'CARGO_VERSION' ) && $cargo_where != null ) {
+			if ( $cargo_table == null || $cargo_field == null ) {
+				$fullCargoField = $f->template_field->getFullCargoField();
+				$table_and_field = explode( '|', $fullCargoField );
+				$cargo_table = $table_and_field[0];
+				$cargo_field = $table_and_field[1];
+			}
+			$cargoValues = PFValuesUtils::getValuesForCargoField( $cargo_table, $cargo_field, $cargo_where );
 			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
 		}
 
@@ -983,7 +996,11 @@ class PFFormField {
 		$fullCargoField = $this->template_field->getFullCargoField();
 		if ( $fullCargoField !== null &&
 			!array_key_exists( 'full_cargo_field', $other_args ) ) {
-			$other_args['full_cargo_field'] = $fullCargoField;
+				if ( array_key_exists( 'cargo where', $other_args ) ) {
+					$other_args['full_cargo_field'] = $fullCargoField . '|' . $other_args['cargo where'];
+				} else {
+					$other_args['full_cargo_field'] = $fullCargoField;
+				}
 		}
 
 		if ( $this->template_field->getFieldType() == 'Hierarchy' ) {

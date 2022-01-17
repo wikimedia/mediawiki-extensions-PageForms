@@ -580,8 +580,18 @@ class PFValuesUtils {
 		// The query depends on whether this is a Cargo field, SMW
 		// property, category, SMW concept or namespace.
 		if ( $source_type == 'cargo field' ) {
-			list( $table_name, $field_name ) = explode( '|', $source_name, 2 );
-			$names_array = self::getAllValuesForCargoField( $table_name, $field_name );
+			$arr = explode( '|', $source_name );
+			if ( count( $arr ) == 3 ) {
+				$names_array = self::getValuesForCargoField( $arr[0], $arr[1], $arr[2] );
+			} else {
+				list( $table_name, $field_name ) = explode( '|', $source_name, 2 );
+				$names_array = self::getAllValuesForCargoField( $table_name, $field_name );
+			}
+			// Remove blank/null values from the array.
+			$names_array = array_values( array_filter( $names_array ) );
+		} elseif ( $source_type == 'cargo where' ) {
+			list( $table_name, $field_name, $whereStr ) = explode( '|', $source_name, 3 );
+			$names_array = self::getValuesForCargoField( $table_name, $field_name, $whereStr );
 			// Remove blank/null values from the array.
 			$names_array = array_values( array_filter( $names_array ) );
 		} elseif ( $source_type == 'property' ) {
@@ -632,6 +642,11 @@ class PFValuesUtils {
 			$tableName = $field_args['cargo table'];
 			$autocompletionSource = "$tableName|$fieldName";
 			$autocompleteFieldType = 'cargo field';
+		} elseif ( array_key_exists( 'cargo where', $field_args ) ) {
+			$fieldName = $field_args['cargo field'];
+			$tableName = $field_args['cargo table'];
+			$autocompletionSource = "$tableName|$fieldName|$whereStr";
+			$autocompleteFieldType = 'cargo where';
 		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
 			$autocompletionSource = $field_args['semantic_property'];
 			$autocompleteFieldType = 'property';

@@ -27,6 +27,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$concept = $params['concept'];
 		$cargo_table = $params['cargo_table'];
 		$cargo_field = $params['cargo_field'];
+		$cargo_where = $params['cargo_where'];
 		$external_url = $params['external_url'];
 		$baseprop = $params['baseprop'];
 		$base_cargo_table = $params['base_cargo_table'];
@@ -59,7 +60,7 @@ class PFAutocompleteAPI extends ApiBase {
 				$data = PFValuesUtils::disambiguateLabels( $data );
 			}
 		} elseif ( $cargo_table !== null && $cargo_field !== null ) {
-			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
+			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $cargo_where, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
 		} elseif ( $namespace !== null ) {
 			$data = PFValuesUtils::getAllPagesForNamespace( $namespace, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
@@ -131,6 +132,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'concept' => null,
 			'cargo_table' => null,
 			'cargo_field' => null,
+			'cargo_where' => null,
 			'namespace' => null,
 			'external_url' => null,
 			'baseprop' => null,
@@ -313,12 +315,12 @@ class PFAutocompleteAPI extends ApiBase {
 		return $values;
 	}
 
-	private static function getAllValuesForCargoField( $cargoTable, $cargoField, $substring, $baseCargoTable = null, $baseCargoField = null, $baseValue = null ) {
+	private static function getAllValuesForCargoField( $cargoTable, $cargoField, $cargoWhere, $substring, $baseCargoTable = null, $baseCargoField = null, $baseValue = null ) {
 		global $wgPageFormsCacheAutocompleteValues, $wgPageFormsAutocompleteCacheTimeout;
 
 		if ( !$wgPageFormsCacheAutocompleteValues ) {
 			return self::computeAllValuesForCargoField(
-				$cargoTable, $cargoField, $substring, $baseCargoTable, $baseCargoField, $baseValue );
+				$cargoTable, $cargoField, $cargoWhere, $substring, $baseCargoTable, $baseCargoField, $baseValue );
 		}
 
 		$cache = PFFormUtils::getFormCache();
@@ -331,9 +333,9 @@ class PFAutocompleteAPI extends ApiBase {
 		return $cache->getWithSetCallback(
 			$cacheKey,
 			$wgPageFormsAutocompleteCacheTimeout,
-			function () use ( $cargoTable, $cargoField, $substring, $baseCargoTable, $baseCargoField, $baseValue ) {
+			function () use ( $cargoTable, $cargoField, $cargoWhere, $substring, $baseCargoTable, $baseCargoField, $baseValue ) {
 				return self::computeAllValuesForCargoField(
-					$cargoTable, $cargoField, $substring, $baseCargoTable, $baseCargoField, $baseValue );
+					$cargoTable, $cargoField, $cargoWhere, $substring, $baseCargoTable, $baseCargoField, $baseValue );
 			}
 		);
 	}
@@ -341,6 +343,7 @@ class PFAutocompleteAPI extends ApiBase {
 	private static function computeAllValuesForCargoField(
 		$cargoTable,
 		$cargoField,
+		$cargoWhere,
 		$substring,
 		$baseCargoTable,
 		$baseCargoField,
@@ -353,12 +356,19 @@ class PFAutocompleteAPI extends ApiBase {
 		$joinOnStr = '';
 		$whereStr = '';
 
+		if ( $cargoWhere !== null ) {
+			$whereStr = '(' . stripslashes( $cargoWhere ) . ')';
+		}
+
 		if ( $baseCargoTable !== null && $baseCargoField !== null ) {
+			if ( $whereStr != '' ) {
+				$whereStr .= " AND ";
+			}
 			if ( $baseCargoTable != $cargoTable ) {
 				$tablesStr .= ", $baseCargoTable";
 				$joinOnStr = "$cargoTable._pageName = $baseCargoTable._pageName";
 			}
-			$whereStr = "$baseCargoTable.$baseCargoField = \"$baseValue\"";
+			$whereStr .= "$baseCargoTable.$baseCargoField = \"$baseValue\"";
 		}
 
 		if ( $substring !== null ) {

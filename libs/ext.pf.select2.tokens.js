@@ -378,6 +378,9 @@
 		if ( autocomplete_type === 'cargo field' ) {
 			var table_and_field = data_source.split('|');
 			my_server += "?action=pfautocomplete&format=json&cargo_table=" + table_and_field[0] + "&cargo_field=" + table_and_field[1];
+			if ( table_and_field.length > 2 ) {
+				my_server += '&cargo_where=' + table_and_field[2];
+			}
 		} else {
 			my_server += "?action=pfautocomplete&format=json&" + autocomplete_opts.autocompletedatatype + "=" + data_source;
 		}
