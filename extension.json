@@ -113,6 +113,7 @@
 		"PFArrayMap": "includes/parserfunctions/PF_ArrayMap.php",
 		"PFArrayMapTemplate": "includes/parserfunctions/PF_ArrayMapTemplate.php",
 		"PFAutoEdit": "includes/parserfunctions/PF_AutoEdit.php",
+		"PFAutoEditRating": "includes/parserfunctions/PF_AutoEditRating.php",
 		"PFDefaultForm": "includes/parserfunctions/PF_DefaultForm.php",
 		"PFFormInputParserFunction": "includes/parserfunctions/PF_FormInputParserFunction.php",
 		"PFFormLink": "includes/parserfunctions/PF_FormLink.php",
@@ -243,6 +244,21 @@
 		"ext.pageforms.autoedit": {
 			"scripts": "libs/PF_autoedit.js",
 			"styles": "skins/PF_autoedit.css",
+			"dependencies": [
+				"oojs-ui-windows"
+			],
+			"messages": [
+				"pf-autoedit-wait",
+				"pf_autoedit_anoneditwarning",
+				"pf_autoedit_confirm"
+			]
+		},
+		"ext.pageforms.autoeditrating": {
+			"scripts": [
+				"libs/jquery.rateyo.js",
+				"libs/PF_AutoEditRating.js"
+			],
+			"styles": "skins/jquery.rateyo.css",
 			"dependencies": [
 				"oojs-ui-windows"
 			],

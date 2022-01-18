@@ -138,6 +138,7 @@ class PFHooks {
 		$parser->setFunctionHook( 'arraymaptemplate', [ 'PFArrayMapTemplate', 'run' ], Parser::SFH_OBJECT_ARGS );
 
 		$parser->setFunctionHook( 'autoedit', [ 'PFAutoEdit', 'run' ] );
+		$parser->setFunctionHook( 'autoedit_rating', [ 'PFAutoEditRating', 'run' ] );
 		$parser->setFunctionHook( 'template_params', [ 'PFTemplateParams', 'run' ] );
 		$parser->setFunctionHook( 'template_display', [ 'PFTemplateDisplay', 'run' ], Parser::SFH_OBJECT_ARGS );
 

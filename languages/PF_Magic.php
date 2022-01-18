@@ -16,6 +16,7 @@ $magicWords['en'] = [
 	'arraymap' => [ 0, 'arraymap' ],
 	'arraymaptemplate' => [ 0, 'arraymaptemplate' ],
 	'autoedit' => [ 0, 'autoedit' ],
+	'autoedit_rating' => [ 0, 'autoedit_rating' ],
 	'template_params' => [ 0, 'template_params' ],
 	'template_display' => [ 0, 'template_display' ],
 ];
