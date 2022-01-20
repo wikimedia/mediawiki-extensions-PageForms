@@ -124,7 +124,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 				foreach ( $resultData['errors'] as $error ) {
 					// FIXME: This should probably not be hard-coded to WARNING but put into a setting
 					if ( $error[ 'level' ] <= PFAutoeditAPI::WARNING ) {
-						$text .= Html::rawElement( 'p', [ 'class' => 'error' ], $error[ 'message' ] ) . "\n";
+						$text .= Html::rawElement( 'div', [ 'class' => 'error' ], $error[ 'message' ] ) . "\n";
 					}
 				}
 			}
