@@ -45,15 +45,31 @@ class PFDateTimePicker extends PFFormInput {
 	 * @return string
 	 */
 	public function getHtmlText(): string {
+		$inputID = 'input_' . $this->mInputNumber;
 		$widget = new DateTimeInputWidget( [
 			'type' => 'datetime',
 			'name' => $this->mInputName,
 			'value' => $this->mCurrentValue,
-			'id' => 'input_' . $this->mInputNumber,
+			'id' => $inputID,
 			'classes' => [ 'pfDateTimePicker', 'pfPicker' ],
 			'infusable' => true
 		] );
 		$text = $widget->toString();
+
+		// Unfortunately, DateTimeInputWidget only allows 24-hour
+		// (as opposed to AM/PM) data entry, so we'll add a label to
+		// explain the situation. DateTimeInputWidget unfortunately
+		// also doesn't allow a 'label' parameter, so we have to add it
+		// manually. The 'for' seems to have no effect, sadly, but
+		// we'll add it anyway.
+		$text .= Html::element( 'label',
+			[
+				'for' => $inputID,
+				'class' => 'oo-ui-labelWidget oo-ui-inline-help',
+				'style' => 'margin-top: 4px;'
+			],
+			wfMessage( 'pf-datetimepicker-24hour' )->parse()
+		);
 
 		// We need a wrapper div so that OOUI won't override
 		// any classes added by "show on select".
