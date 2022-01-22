@@ -36,6 +36,9 @@ class PFAutoEdit {
 		$editTime = null;
 		$latestRevId = null;
 		$confirmEdit = false;
+		$redirect = '';
+		$bringToPage = false;
+		$linkToPage = '#';
 
 		// Parse parameters.
 		$params = func_get_args();
@@ -104,12 +107,29 @@ class PFAutoEdit {
 						$latestRevId = $targetWikiPage->getLatest();
 					}
 					break;
+				case 'redirect':
+					$redirect = $value;
+					break;
+				case 'bring to page':
+					$bringToPage = true;
+					break;
 
 				default:
 					$value = $parser->recursiveTagParse( $value );
 					$arr = [ $key => $value ];
 					$inQueryArr = PFUtils::arrayMergeRecursiveDistinct( $inQueryArr, $arr );
 			}
+		}
+
+		if ( $redirect != '' && $bringToPage ) {
+			$errorMsg = wfMessage( 'pf_autoedit_notsettogether', 'redirect', 'bring to page' )->parse();
+			return Html::element( 'div', [ 'class' => 'error' ], $errorMsg );
+		}
+
+		if ( $redirect != '' ) {
+			$linkToPage = $redirect;
+		} elseif ( $bringToPage ) {
+			$linkToPage = $targetTitle->getFullURL();
 		}
 
 		// query string has to be turned into hidden inputs.
@@ -132,7 +152,8 @@ class PFAutoEdit {
 			$attrs = [
 				'flags' => 'progressive',
 				'label' => $linkString,
-				'classes' => [ $classString ]
+				'classes' => [ $classString ],
+				'href' => $linkToPage
 			];
 			if ( $inTooltip != null ) {
 				$attrs['title'] = $inTooltip;
@@ -141,7 +162,7 @@ class PFAutoEdit {
 			OutputPage::setupOOUI();
 			$linkElement = new OOUI\ButtonWidget( $attrs );
 		} elseif ( $linkType == 'link' ) {
-			$attrs = [ 'class' => $classString, 'href' => "#" ];
+			$attrs = [ 'class' => $classString, 'href' => $linkToPage ];
 			if ( $inTooltip != null ) {
 				$attrs['title'] = $inTooltip;
 			}

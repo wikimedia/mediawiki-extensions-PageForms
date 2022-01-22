@@ -210,6 +210,7 @@
 	"pf_autoedit_summary": "Edited automatically from page $1.",
 	"pf-autoedit-wait": "Wait...",
 	"pf_autoedit_confirm": "Are you sure you want to modify \"$1\"?",
+	"pf_autoedit_notsettogether": "'$1' and '$2' cannot be set in the same function.",
 	"runquery": "Run query",
 	"pf_runquery_badurl": "You must specify a form name in the URL;\nthe URL should look like \"Special:RunQuery/<form name>\".",
 	"pf_runquery_title": "Run query: $1",
