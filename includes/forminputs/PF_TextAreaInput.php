@@ -190,12 +190,9 @@ class PFTextAreaInput extends PFFormInput {
 		$input_id = $this->mInputName == 'pf_free_text' ? 'pf_free_text' : "input_$wgPageFormsFieldNum";
 
 		if ( $this->mEditor == 'wikieditor' ) {
-			global $wgTitle, $wgOut;
-			if ( $wgTitle !== null ) {
-				$article = new Article( $wgTitle );
-				$editPage = new EditPage( $article );
-				WikiEditorHooks::editPageShowEditFormInitial( $editPage, $wgOut );
-			}
+			global $wgOut;
+			$wgOut->addModuleStyles( 'ext.wikiEditor.styles' );
+			$wgOut->addModules( 'ext.wikiEditor' );
 			$className = 'wikieditor ';
 		} elseif ( $this->mEditor == 'visualeditor' ) {
 			$className = 'visualeditor ';
