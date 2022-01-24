@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bir morty",
 			"Mousa"
 		]
 	},
-	"formedit": "فورم ایله دَییشدیرمک"
+	"formedit": "فورم ایله دَییشدیرمک",
+	"pf-datetimepicker-24hour": "زامان 24-ساعات فوْرمتینده یازیلمالی‌دیر."
 }

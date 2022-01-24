@@ -3,6 +3,7 @@
 		"authors": [
 			"Alikaan",
 			"BaRaN6161 TURK",
+			"Can",
 			"Hedda",
 			"Incelemeelemani",
 			"Joseph",
@@ -221,6 +222,7 @@
 	"pf_autoedit_summary": "$1 sayfasından otomatik olarak düzenlendi.",
 	"pf-autoedit-wait": "Bekle...",
 	"pf_autoedit_confirm": "\"$1\" sayfasını değiştirmek istediğinizden emin misiniz?",
+	"pf_autoedit_notsettogether": "'$1' ve '$2' aynı fonksiyon içinde ayarlanamaz.",
 	"runquery": "Sorgu çalıştır",
 	"pf_runquery_badurl": "URL'de bir form adı belirtmelisiniz;\nURL \"Special:RunQuery/<form adı>\" şeklinde görünmelidir.",
 	"pf_runquery_title": "Sorguyu çalıştır: $1",
@@ -289,6 +291,7 @@
 	"pf-datepicker-highlightdaysofweek": "Vurgulanan günlerin listesi (örneğin, hafta sonu: 6, 0).",
 	"pf-datepicker-disabledates": "Devre dışı bırakılmış devre dışı tarihler/tarih aralıkları listesi (yyyy/aa/gg biçimindeki tarihler, yyyy/aa/gg-yyyy/aa/gg biçimindeki tarihler).",
 	"pf-datepicker-highlightdates": "Vurgulanacak şekilde virgülle ayrılmış tarihler/tarih aralıkları listesi (yyyy/aa/gg biçimindeki tarihler, yyyy/aa/gg-yyyy/aa/gg biçimindeki aralıklar).",
+	"pf-datetimepicker-24hour": "Zaman 24-saat biçiminde girilmelidir.",
 	"pf-regexp-wrongformat": "Yanlış biçim.",
 	"pf-regexp-regexp": "Girdinin geçerli olması için eşleşmesi gereken normal ifade. Bu, eğik çizgiler dahil olmak üzere verilmelidir! Varsayılan olarak \"/.*/\", yani herhangi bir değer.",
 	"pf-regexp-basetype": "Kullanılacak gerçek giriş türü. Varsayılan olarak \"text\".",
