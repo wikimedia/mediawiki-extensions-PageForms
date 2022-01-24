@@ -398,10 +398,19 @@ class PFAutocompleteAPI extends ApiBase {
 				$fieldsStr = $cargoField = '_value';
 			}
 
+			// LIKE is almost always case-insensitive for MySQL,
+			// usually (?) case-sensitive for PostgreSQL, and
+			// case-insensitive (though only for ASCII characters)
+			// in SQLite. In order to make this check consistenly
+			// case-sensitive everywhere, we call LOWER() on all
+			// the fields. There are other ways to accomplish this,
+			// but this one works consistently across the different
+			// DB systems.
 			if ( $wgPageFormsAutocompleteOnAllChars ) {
-				$whereStr .= "($cargoField LIKE \"%$substring%\")";
+				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"%$substring%\"))";
 			} else {
-				$whereStr .= "($cargoField LIKE \"$substring%\" OR $cargoField LIKE \"% $substring%\")";
+				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"$substring%\") OR " .
+					"LOWER($cargoField) LIKE LOWER(\"% $substring%\"))";
 			}
 		}
 
