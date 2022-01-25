@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\MediaWikiServices;
+
 /**
  * Static functions for Page Forms, for use by the Page Schemas
  * extension.
@@ -641,7 +644,12 @@ class PFPageSchemas extends PSExtensionHandler {
 		$job = new PSCreatePageJob( $formTitle, $params );
 
 		$jobs = [ $job ];
-		JobQueueGroup::singleton()->push( $jobs );
+		if ( method_exists( MediaWikiServices::class, 'getJobQueueGroup' ) ) {
+			// MW 1.37+
+			MediaWikiServices::getInstance()->getJobQueueGroup()->push( $jobs );
+		} else {
+			JobQueueGroup::singleton()->push( $jobs );
+		}
 	}
 
 	/**
@@ -770,7 +778,12 @@ class PFPageSchemas extends PSExtensionHandler {
 			}
 		}
 
-		JobQueueGroup::singleton()->push( $jobs );
+		if ( method_exists( MediaWikiServices::class, 'getJobQueueGroup' ) ) {
+			// MW 1.37+
+			MediaWikiServices::getInstance()->getJobQueueGroup()->push( $jobs );
+		} else {
+			JobQueueGroup::singleton()->push( $jobs );
+		}
 
 		// Create form, if it's specified.
 		$formName = self::getFormName( $pageSchemaObj );

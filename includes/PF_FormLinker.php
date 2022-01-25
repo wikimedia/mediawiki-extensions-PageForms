@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Gets the form(s) used to edit a page, both for existing pages and for
@@ -82,7 +83,12 @@ class PFFormLinker {
 		$job = new PFCreatePageJob( $title, $params );
 
 		$jobs = [ $job ];
-		JobQueueGroup::singleton()->push( $jobs );
+		if ( method_exists( MediaWikiServices::class, 'getJobQueueGroup' ) ) {
+			// MW 1.37+
+			MediaWikiServices::getInstance()->getJobQueueGroup()->push( $jobs );
+		} else {
+			JobQueueGroup::singleton()->push( $jobs );
+		}
 	}
 
 	/**
