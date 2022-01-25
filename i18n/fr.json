@@ -242,6 +242,7 @@
 	"pf_autoedit_summary": "Modifié automatiquement depuis la page $1.",
 	"pf-autoedit-wait": "Patientez...",
 	"pf_autoedit_confirm": "Êtes-vous sûr{{GENDER:||e}} de vouloir modifier « $1 » ?",
+	"pf_autoedit_notsettogether": "'$1' et '$2' ne peuvent pas être définis dans la même fonction.",
 	"runquery": "Exécuter la requête",
 	"pf_runquery_badurl": "Vous devez spécifier un nom de formulaire dans l’URL ;\nquelque chose comme « Special:RunQuery/<nom du formulaire> ».",
 	"pf_runquery_title": "Exécuter la requête : $1",
