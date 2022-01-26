@@ -210,6 +210,7 @@
 	"pf_autoedit_summary": "Автоматски уредено од страницата $1.",
 	"pf-autoedit-wait": "Почекајте...",
 	"pf_autoedit_confirm": "Дали сте сигурни дека сакате да ја измените „$1“?",
+	"pf_autoedit_notsettogether": "„$1“ и „$2“ не можат да се зададат во истата функција.",
 	"runquery": "Пушти барање",
 	"pf_runquery_badurl": "Мора да назначите име на образецот во URL-адресата;\nURL-адресата треба да изгледа вака: „Special:RunQuery/<form name>“.",
 	"pf_runquery_title": "Постави прашање: $1",
