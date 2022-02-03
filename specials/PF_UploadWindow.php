@@ -151,7 +151,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 		}
 
 		# Check whether we actually want to allow changing stuff
-		if ( wfReadOnly() ) {
+		if ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
 			throw new ReadOnlyError();
 		}
 

@@ -900,10 +900,8 @@ END;
 			} else {
 				$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $user );
 			}
-			// The handling of $wgReadOnly and $wgReadOnlyFile
-			// has to be done separately.
-			if ( wfReadOnly() ) {
-				$permissionErrors = [ [ 'readonlytext', [ wfReadOnlyReason() ] ] ];
+			if ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
+				$permissionErrors = [ [ 'readonlytext', [ MediaWikiServices::getInstance()->getReadOnlyMode()->getReason() ] ] ];
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
 			Hooks::run( 'PageForms::UserCanEditPage', [ $this->mPageTitle, &$userCanEditPage ] );

@@ -607,7 +607,7 @@ class PFAutoeditAPI extends ApiBase {
 				throw new PermissionsError( 'edit' );
 
 			case EditPage::AS_READ_ONLY_PAGE:
-				// wiki is in readonly mode (wfReadOnly() == true)
+				// wiki is in readonly mode
 				throw new ReadOnlyError;
 
 			case EditPage::AS_RATE_LIMITED:
@@ -832,13 +832,13 @@ class PFAutoeditAPI extends ApiBase {
 		global $wgRequest, $wgPageFormsFormPrinter;
 
 		// If the wiki is read-only, do not save.
-		if ( wfReadOnly() ) {
+		if ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
 			if ( $this->mAction === self::ACTION_SAVE ) {
-				throw new MWException( $this->msg( 'pf_autoedit_readonly', wfReadOnlyReason() )->parse() );
+				throw new MWException( $this->msg( 'pf_autoedit_readonly', MediaWikiServices::getInstance()->getReadOnlyMode()->getReason() )->parse() );
 			}
 
 			// even if not saving notify client anyway. Might want to display a notice
-			$this->logMessage( $this->msg( 'pf_autoedit_readonly', wfReadOnlyReason() )->parse(), self::NOTICE );
+			$this->logMessage( $this->msg( 'pf_autoedit_readonly', MediaWikiServices::getInstance()->getReadOnlyMode()->getReason() )->parse(), self::NOTICE );
 		}
 
 		// find the title of the form to be used
