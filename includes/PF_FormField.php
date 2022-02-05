@@ -1009,7 +1009,14 @@ class PFFormField {
 				array_key_exists( 'autocomplete', $other_args ) ||
 				array_key_exists( 'remote autocompletion', $other_args )
 			) {
-				$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
+				if ( array_key_exists( 'mapping cargo table', $other_args ) &&
+				array_key_exists( 'mapping cargo field', $other_args ) ) {
+					$mapping_cargo_field = $other_args[ 'mapping cargo field' ];
+					$mapping_cargo_table = $other_args[ 'mapping cargo table' ];
+					$other_args['autocompletion source'] = $mapping_cargo_table . '|' . $mapping_cargo_field;
+				} else {
+					$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
+				}
 				$other_args['autocomplete field type'] = 'cargo field';
 			}
 		}

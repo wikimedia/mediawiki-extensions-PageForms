@@ -1294,7 +1294,18 @@ END;
 							// with spaces.
 							$generated_page_name = str_replace( '_', ' ', $generated_page_name );
 						}
-
+						if ( defined( 'CARGO_VERSION' ) && $form_field->hasFieldArg( 'mapping cargo table' ) &&
+						$form_field->hasFieldArg( 'mapping cargo field' ) && $form_field->hasFieldArg( 'mapping cargo value field' ) ) {
+								$mappingCargoTable = $form_field->getFieldArg( 'mapping cargo table' );
+								$mappingCargoField = $form_field->getFieldArg( 'mapping cargo field' );
+								$mappingCargoValueField = $form_field->getFieldArg( 'mapping cargo value field' );
+								if ( !$form_submitted && $cur_value !== null && $cur_value !== '' ) {
+									$cur_value = $this->getCargoBasedMapping( $cur_value, $mappingCargoTable, $mappingCargoField, $mappingCargoValueField, $form_field );
+								}
+								if ( $form_submitted && $cur_value_in_template !== null && $cur_value_in_template !== '' ) {
+									$cur_value_in_template = $this->getCargoBasedMapping( $cur_value_in_template, $mappingCargoTable, $mappingCargoValueField, $mappingCargoField, $form_field );
+								}
+						}
 						if ( $cur_value !== '' &&
 							( $form_field->hasFieldArg( 'mapping template' ) ||
 							$form_field->hasFieldArg( 'mapping property' ) ||
@@ -1928,6 +1939,34 @@ END;
 		}
 
 		return [ $form_text, $page_text, $form_page_title, $generated_page_name ];
+	}
+
+	/**
+	 * Cargo based mapping compatible with autocompletion
+	 * @param string $currentValue
+	 * @param string $mappingCargoTable
+	 * @param string $mappingCargoField
+	 * @param string $mappingCargoValueField
+	 * @param PFFormField $form_field
+	 * @return string|null $currentValue
+	 */
+	private function getCargoBasedMapping( $currentValue, $mappingCargoTable, $mappingCargoField, $mappingCargoValueField, $form_field ) {
+		$cargoValues = [];
+		$delimiter = $form_field->getFieldArg( 'delimiter' );
+		$cur_value = str_replace( '"', '\"', $currentValue );
+		if ( $form_field->isList() ) {
+			$cargoValues = explode( $delimiter, $currentValue );
+		} else {
+			$cargoValues = [ $currentValue ];
+		}
+		foreach ( $cargoValues as $key => $value ) {
+			$cargoValue = PFValuesUtils::getValuesForCargoField( $mappingCargoTable, $mappingCargoField, $mappingCargoValueField . '="' . trim( $value ) . '"' );
+			if ( !empty( $cargoValue ) ) {
+				$cargoValues[ $key ] = current( $cargoValue );
+			}
+		}
+		$currentValue = implode( $delimiter, $cargoValues );
+		return $currentValue;
 	}
 
 	/**
