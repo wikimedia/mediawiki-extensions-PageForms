@@ -4,14 +4,15 @@
 			"Akapochtli",
 			"Fluence",
 			"Ricardo gs",
-			"Teòtlalili"
+			"Teòtlalili",
+			"Languaeditor"
 		]
 	},
 	"pf_createproperty_propname": "Axcayotl itoca:",
 	"templates": "Nemachiyotilli",
 	"createtemplate": "Ticchīhuāz cē nemachiyōtīlli",
 	"pf_createtemplate_namelabel": "Nemachiyōtīlli ītōca:",
-	"pf_createtemplate_deletefield": "Ticpolōz",
+	"pf_createtemplate_deletefield": "Xikixpolo inin",
 	"pf_createform_inputtypedefault": "(ic default)",
 	"pf_createform_hidden": "Ichtac",
 	"pf_createform_atend": "Tlamilizpan",
