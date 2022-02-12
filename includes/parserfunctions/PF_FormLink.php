@@ -60,7 +60,7 @@ class PFFormLink {
 		$targetWindow = '_self';
 
 		// Needed for the 'next' icon.
-		$parser->getOutput()->addModules( 'oojs-ui.styles.icons-movement' );
+		$parser->getOutput()->addModules( [ 'oojs-ui.styles.icons-movement' ] );
 
 		// assign params
 		// - support unlabelled params, for backwards compatibility
@@ -232,7 +232,7 @@ class PFFormLink {
 	}
 
 	public static function loadScriptsForPopupForm( Parser $parser ) {
-		$parser->getOutput()->addModules( 'ext.pageforms.popupformedit' );
+		$parser->getOutput()->addModules( [ 'ext.pageforms.popupformedit' ] );
 		return true;
 	}
 }

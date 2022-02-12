@@ -11,7 +11,7 @@ class PFAutoEditRating {
 	public static function run( Parser $parser ) {
 		global $wgPageFormsAutoeditNamespaces;
 
-		$parser->getOutput()->addModules( 'ext.pageforms.autoeditrating' );
+		$parser->getOutput()->addModules( [ 'ext.pageforms.autoeditrating' ] );
 
 		// Set defaults.
 		$formcontent = '';

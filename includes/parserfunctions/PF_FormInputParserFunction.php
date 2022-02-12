@@ -46,7 +46,7 @@ class PFFormInputParserFunction {
 		// We don't need the parser.
 		array_shift( $params );
 
-		$parser->getOutput()->addModules( 'ext.pageforms.forminput' );
+		$parser->getOutput()->addModules( [ 'ext.pageforms.forminput' ] );
 
 		// Set defaults.
 		$inFormName = $inValue = $inButtonStr = '';

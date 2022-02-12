@@ -28,7 +28,7 @@ class PFTemplateDisplay {
 			return '<div class="error">' . 'Error: #template_params must be called in the template "' . $templateTitle->getText() . '".</div>';
 		}
 
-		$parser->getOutput()->addModules( 'ext.pageforms.templatedisplay' );
+		$parser->getOutput()->addModules( [ 'ext.pageforms.templatedisplay' ] );
 
 		foreach ( $params as $param ) {
 			$parts = explode( '=', $param, 2 );
