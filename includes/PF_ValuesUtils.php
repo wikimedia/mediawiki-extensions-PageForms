@@ -227,7 +227,7 @@ class PFValuesUtils {
 						]
 					];
 					if ( $substring != null ) {
-						$conditions[] = '(pp_displaytitle.pp_value IS NULL OR pp_displaytitle.pp_value = \'\' AND (' .
+						$conditions[] = '((pp_displaytitle.pp_value IS NULL OR pp_displaytitle.pp_value = \'\') AND (' .
 							self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring ) .
 							')) OR ' .
 							self::getSQLConditionForAutocompleteInColumn( 'pp_displaytitle.pp_value', $substring ) .
