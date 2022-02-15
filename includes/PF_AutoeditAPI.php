@@ -1050,11 +1050,14 @@ class PFAutoeditAPI extends ApiBase {
 			$type = $input->getAttribute( 'type' );
 			$name = trim( $input->getAttribute( 'name' ) );
 
-			if ( !$name || $input->hasAttribute( 'disabled' ) ) {
+			if ( !$name ) {
+				continue;
+			}
+			if ( $input->hasAttribute( 'disabled' ) ) {
 				// Remove fields from mOptions which are restricted or disabled
 				// so that they do not get edited in an #autoedit call.
 				$restrictedField = preg_split( "/[\[\]]/", $name, -1, PREG_SPLIT_NO_EMPTY );
-				if ( $restrictedField ) {
+				if ( $restrictedField && count( $restrictedField ) > 1 ) {
 					unset( $this->mOptions[$restrictedField[0]][$restrictedField[1]] );
 				}
 				continue;
