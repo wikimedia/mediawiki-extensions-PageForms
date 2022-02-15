@@ -220,7 +220,7 @@
 	"pf_autoedit_nosemanticform": "לא הצליחה קבלת טופס $2 עבור דף $1. ר׳ [[{{#special:FormEdit}}/$2/$1]] לפרטים.",
 	"pf_autoedit_summary": "נערך אוטומטית מהדף $1.",
 	"pf-autoedit-wait": "נא להמתין...",
-	"pf_autoedit_confirm": "האם {{GENDER:|אתה בטוח שאתה רוצה|את בטוחה שאת רוצה}} לשנות את \"$1\"?",
+	"pf_autoedit_confirm": "האם {{GENDER:|אתה בטוח שאתה רוצה|את בטוחה שאת רוצה|ברצונך באמת}} לשנות את \"$1\"?",
 	"pf_autoedit_notsettogether": "לא ניתן להגדיר את \"$1\" ואת \"$2\" באותה פונקציה.",
 	"runquery": "הרצת שאילתה",
 	"pf_runquery_badurl": "יש לציין את שם הטופס בכתובת;\nעל הכתובת להיות מהצורה 'Special:RunQuery/<שם הטופס>'.",
