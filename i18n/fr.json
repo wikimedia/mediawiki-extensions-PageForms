@@ -33,7 +33,8 @@
 			"Weft",
 			"Wladek92",
 			"Wyz",
-			"Zebulon84"
+			"Zebulon84",
+			"DreZhsh"
 		]
 	},
 	"pageforms-name": "Formulaires de page",
@@ -258,7 +259,7 @@
 	"pf_start_end_date_error": "La date de fin doit être postérieure à celle de début",
 	"pf_start_end_datetime_error": "L’horodatage de fin doit être postérieur à celui de début",
 	"pf_modified_input_error": "Cette modification doit être approuvée ou rejetée",
-	"pf_pipe_error": "« | » n’est pas autorisé, sauf à l’intérieur de {{...}}, de [[...]], ou de balises spéciales",
+	"pf_pipe_error": "« | » n’est pas autorisé, sauf à l’intérieur de {{...}}, de [[...]] ou de balises spéciales",
 	"uploadwindow": "Fenêtre de téléversement",
 	"pf-simpleupload": "Téléverser",
 	"pf_deletionlog": "Historique des suppressions",
