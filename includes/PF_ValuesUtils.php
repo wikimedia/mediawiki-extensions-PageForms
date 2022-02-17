@@ -589,11 +589,6 @@ class PFValuesUtils {
 			}
 			// Remove blank/null values from the array.
 			$names_array = array_values( array_filter( $names_array ) );
-		} elseif ( $source_type == 'cargo where' ) {
-			list( $table_name, $field_name, $whereStr ) = explode( '|', $source_name, 3 );
-			$names_array = self::getValuesForCargoField( $table_name, $field_name, $whereStr );
-			// Remove blank/null values from the array.
-			$names_array = array_values( array_filter( $names_array ) );
 		} elseif ( $source_type == 'property' ) {
 			$names_array = self::getAllValuesForProperty( $source_name );
 		} elseif ( $source_type == 'category' ) {
@@ -642,11 +637,10 @@ class PFValuesUtils {
 			$tableName = $field_args['cargo table'];
 			$autocompletionSource = "$tableName|$fieldName";
 			$autocompleteFieldType = 'cargo field';
-		} elseif ( array_key_exists( 'cargo where', $field_args ) ) {
-			$fieldName = $field_args['cargo field'];
-			$tableName = $field_args['cargo table'];
-			$autocompletionSource = "$tableName|$fieldName|$whereStr";
-			$autocompleteFieldType = 'cargo where';
+			if ( array_key_exists( 'cargo where', $field_args ) ) {
+				$whereStr = $field_args['cargo where'];
+				$autocompletionSource .= "|$whereStr";
+			}
 		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
 			$autocompletionSource = $field_args['semantic_property'];
 			$autocompleteFieldType = 'property';
