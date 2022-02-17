@@ -57,6 +57,9 @@
 		if ( this.attr('data-autocapitalize') !== undefined ) {
 			autocompleteWidgetConfig['autocapitalize'] = this.attr('data-autocapitalize');
 		}
+		if ( this.attr('data-size') !== undefined ) {
+			autocompleteWidgetConfig['size'] = this.attr('data-size');
+		}
 		var createOrEditButton = new OO.ui.ButtonInputWidget( {
 			type: 'submit',
 			label: this.attr('data-button-label'),

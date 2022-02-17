@@ -42,6 +42,13 @@ pf.AutocompleteWidget = function( config ) {
 
 	this.config = config;
 
+	// Initialization
+	if ( config.size !== undefined && config.size !== '' ) {
+		this.$element.css('width', 'initial');
+		this.$input.css('width', 'initial');
+		this.$input.attr('size', config.size);
+	}
+
 	// dataCache will temporarily store entity id => entity data mappings of
 	// entities, so that if we somehow then alter the text (add characters,
 	// remove some) and then adjust our typing to form a known item,
