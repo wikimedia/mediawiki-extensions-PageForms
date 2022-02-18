@@ -57,6 +57,9 @@ class PFTree {
 		$this->configArray();
 		$this->setParentsId();
 		$this->setChildren();
+		// Get rid of array keys, to make this a regular array again, as jsTree requires.
+		// @phan-suppress-next-line PhanRedundantArrayValuesCall False positive: array_values() renumbers here to 0, 1, 2,…
+		$this->tree_array = array_values( $this->tree_array );
 	}
 
 	/**
