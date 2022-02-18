@@ -185,22 +185,6 @@ class PFTokensInput extends PFFormInput {
 			}
 		}
 
-		foreach ( $possible_values as $possible_value ) {
-			if (
-				array_key_exists( 'value_labels', $other_args ) &&
-				is_array( $other_args['value_labels'] ) &&
-				array_key_exists( $possible_value, $other_args['value_labels'] )
-			) {
-				$optionLabel = $other_args['value_labels'][$possible_value];
-			} else {
-				$optionLabel = $possible_value;
-			}
-			$optionAttrs = [ 'value' => $possible_value ];
-			if ( in_array( $possible_value, $cur_values ) ) {
-				$optionAttrs['selected'] = 'selected';
-			}
-			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
-		}
 		foreach ( $cur_values as $current_value ) {
 			if ( !in_array( $current_value, $possible_values ) && $current_value !== '' ) {
 				$optionAttrs = [ 'value' => $current_value ];

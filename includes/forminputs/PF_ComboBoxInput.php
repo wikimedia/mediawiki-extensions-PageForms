@@ -117,7 +117,6 @@ class PFComboBoxInput extends PFFormInput {
 		}
 
 		$innerDropdown = '';
-		$isValueInPossibleValues = false;
 
 		if ( !$is_mandatory || $cur_value === '' ) {
 			$innerDropdown .= "	<option value=\"\"></option>\n";
@@ -135,23 +134,8 @@ class PFComboBoxInput extends PFFormInput {
 				$possible_values = [];
 			}
 		}
-		foreach ( $possible_values as $possible_value ) {
-			$optionAttrs = [ 'value' => $possible_value ];
-			if ( $possible_value == $cur_value ) {
-				$optionAttrs['selected'] = "selected";
-				$isValueInPossibleValues = true;
-			}
-			if (
-				array_key_exists( 'value_labels', $other_args ) &&
-				is_array( $other_args['value_labels'] ) &&
-				array_key_exists( $possible_value, $other_args['value_labels'] )
-			) {
-				$label = $other_args['value_labels'][$possible_value];
-			} else {
-				$label = $possible_value;
-			}
-			$innerDropdown .= Html::element( 'option', $optionAttrs, $label );
-		}
+
+		$isValueInPossibleValues = in_array( $cur_value, $possible_values );
 		if ( !$isValueInPossibleValues ) {
 			$optionAttrs = [ 'value' => $cur_value ];
 			$optionAttrs['selected'] = "selected";
