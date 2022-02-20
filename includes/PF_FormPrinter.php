@@ -2002,10 +2002,6 @@ END;
 		return $text;
 	}
 
-	function isTranslateEnabled() {
-		return class_exists( 'SpecialTranslate' );
-	}
-
 	/**
 	 * for translatable fields, this function add an hidden input containing the translate tags
 	 *
@@ -2014,7 +2010,7 @@ END;
 	 * @param string &$text
 	 */
 	private function addTranslatableInput( $form_field, $cur_value, &$text ) {
-		if ( !$this->isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
+		if ( PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}
 
@@ -2032,7 +2028,7 @@ END;
 	}
 
 	private function createFormFieldTranslateTag( &$template, &$tif, &$form_field, &$cur_value ) {
-		if ( !$this->isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
+		if ( PFUtils::isTranslateEnabled() || !$form_field->hasFieldArg( 'translatable' ) || !$form_field->getFieldArg( 'translatable' ) ) {
 			return;
 		}
 

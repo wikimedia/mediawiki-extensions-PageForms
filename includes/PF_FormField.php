@@ -517,10 +517,6 @@ class PFFormField {
 		return $f;
 	}
 
-	function isTranslateEnabled() {
-		return class_exists( 'SpecialTranslate' );
-	}
-
 	function cleanupTranslateTags( &$value ) {
 		$i = 0;
 		// If there are two tags ("<!--T:X-->") with no content between them, remove the first one.
@@ -561,7 +557,7 @@ class PFFormField {
 		$delimiter = $this->mFieldArgs['delimiter'];
 		$escaped_field_name = str_replace( "'", "\'", $field_name );
 
-		if ( $this->isTranslateEnabled() && $this->hasFieldArg( 'translatable' ) && $this->getFieldArg( 'translatable' ) ) {
+		if ( PFUtils::isTranslateEnabled() && $this->hasFieldArg( 'translatable' ) && $this->getFieldArg( 'translatable' ) ) {
 			// If this is a translatable field, and both it and its corresponding translate ID tag are passed in, we add it.
 			$fieldName = $this->getTemplateField()->getFieldName();
 			$fieldNameTag = $fieldName . '_translate_number_tag';

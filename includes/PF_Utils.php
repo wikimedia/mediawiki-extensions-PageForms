@@ -496,4 +496,8 @@ END;
 			return MWNamespace::getCanonicalIndex( $index );
 		}
 	}
+
+	public static function isTranslateEnabled() {
+		return ExtensionRegistry::getInstance()->isLoaded( 'Translate' );
+	}
 }
