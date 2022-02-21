@@ -239,7 +239,7 @@
 	"pf_bad_integer_error": "Warning message",
 	"pf_bad_date_error": "Warning message",
 	"pf_modified_input_error": "Warning message",
-	"pf_pipe_error": "An error message - if an input contains a pipe character (\"|\"), the pipe must be part of a link, like \"[[a|b]]\", or a call to a template, like \"{{c|d}}\", or a parser function, like \"{{#e:f}}\".",
+	"pf_pipe_error": "An error message — if an input contains a pipe character {{C|<nowiki>|</nowiki>}}, the pipe must be part of a link, like {{C|<nowiki>[[a|b]]</nowiki>}}, or a template transclusion like {{C|<nowiki>{{d}}</nowiki>}}, or a parser function call like {{C|<nowiki>{{#e:f}}</nowiki>}}.",
 	"uploadwindow": "Special page name for [[Special:UploadWindow]].\n\n'''This is about a window for uploading files. The window is not the thing being uploaded.'''",
 	"pf-simpleupload": "A button label\n{{Identical|Upload}}",
 	"pf_deletionlog": "{{Identical|Deletion log}}",
