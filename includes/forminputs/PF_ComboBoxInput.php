@@ -135,13 +135,9 @@ class PFComboBoxInput extends PFFormInput {
 			}
 		}
 
-		$isValueInPossibleValues = in_array( $cur_value, $possible_values );
-		if ( !$isValueInPossibleValues ) {
-			$optionAttrs = [ 'value' => $cur_value ];
-			$optionAttrs['selected'] = "selected";
-			$label = $cur_value;
-			$innerDropdown .= Html::element( 'option', $optionAttrs, $label );
-		}
+		// Make sure that the current value always shows up when the
+		// form is first displayed.
+		$innerDropdown .= Html::element( 'option', [ 'selected' => true ], $cur_value );
 
 		$inputText = Html::rawElement( 'select', $inputAttrs, $innerDropdown );
 
