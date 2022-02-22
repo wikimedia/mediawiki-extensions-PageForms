@@ -1020,7 +1020,7 @@ END;
 						if ( strpos( $tag_component, '<' ) !== false && strpos( $tag_component, '>' ) !== false ) {
 							throw new MWException(
 								'<div class="error">Error in form definition! The following field tag contains forbidden characters:</div>' .
-								"\n<pre>" . htmlspecialchars( $section ) . "</pre>"
+								"\n<pre>" . htmlspecialchars( $tag_component ) . "</pre>"
 							);
 						}
 					}
