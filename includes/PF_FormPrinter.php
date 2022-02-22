@@ -1017,6 +1017,11 @@ END;
 				if ( $tag_title != 'info' ) {
 					foreach ( $tag_components as $tag_component ) {
 						// Angled brackets could cause a security leak (and should not be necessary).
+						// Allow them in "default filename", though.
+						$tagParts = explode( '=', $tag_component, 2 );
+						if ( count( $tagParts ) == 2 && $tagParts[0] == 'default filename' ) {
+							continue;
+						}
 						if ( strpos( $tag_component, '<' ) !== false && strpos( $tag_component, '>' ) !== false ) {
 							throw new MWException(
 								'<div class="error">Error in form definition! The following field tag contains forbidden characters:</div>' .
