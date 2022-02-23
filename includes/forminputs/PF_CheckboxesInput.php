@@ -81,7 +81,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 			if ( $is_disabled ) {
 				$checkbox_attrs['disabled'] = 'disabled';
 			}
-			$checkbox_input = new OOUI\CheckboxInputWidget( $checkbox_attrs ) . "<t>";
+			$checkbox_input = new OOUI\CheckboxInputWidget( $checkbox_attrs ) . "<t />";
 
 			// Put a <label> tag around each checkbox, for CSS
 			// purposes as well as to clarify this element.

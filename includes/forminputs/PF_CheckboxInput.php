@@ -77,7 +77,7 @@ class PFCheckboxInput extends PFFormInput {
 		if ( $is_disabled ) {
 			$checkboxAttrs['disabled'] = true;
 		}
-		$text .= "\t" . new OOUI\CheckboxInputWidget( $checkboxAttrs ) . "\t" . "<t>";
+		$text .= "\t" . new OOUI\CheckboxInputWidget( $checkboxAttrs ) . "<t />";
 		if ( isset( $other_args['label'] ) ) {
 			$text = Html::rawElement(
 				'label',
