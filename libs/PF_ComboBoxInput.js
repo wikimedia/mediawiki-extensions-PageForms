@@ -405,7 +405,10 @@
     };
 
     pf.ComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function(string, curValue) {
-        var regex = new RegExp('\\b' + curValue.toLowerCase());
+        let wordSeparators = [
+            '/', '(', ')', '|', 's'
+        ].map( p => "\\" + p).concat('^', '-', "'",'"');
+        let regex = new RegExp('(' + wordSeparators.join('|') + ')' + curValue.toLowerCase());
         return string.toLowerCase().match(regex) !== null;
     }
 
