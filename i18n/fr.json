@@ -201,7 +201,7 @@
 	"pf-formedit-mainforms": "Formulaires principaux :",
 	"pf-formedit-otherforms": "Autres formulaires :",
 	"pf-formedit-donotuseform": "Créer une page sans formulaire.",
-	"pf_formedit_createtitle": "Créer $1 : $2",
+	"pf_formedit_createtitle": "Créer $1 : $2",
 	"pf_formedit_createtitlenotarget": "Créer $1",
 	"pf_formedit_badurl": "Ceci est la page pour modifier les données en utilisant un formulaire. Il faut indiquer un nom de formulaire et une page cible dans l’URL ;\nl’URL doit ressembler à « Special:FormEdit?form=<nom de formulaire>&target=<nom de page cible> » ou « Special:FormEdit/<nom de formulaire>/<nom de page cible> ».",
 	"pf_formedit_altforms": "Vous pouvez, à la place, ajouter cette page avec l’un des formulaires suivants :",

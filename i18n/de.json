@@ -18,7 +18,8 @@
 			"The Evil IP address",
 			"Umherirrender",
 			"Ameisenigel",
-			"MuratTheTurkish"
+			"MuratTheTurkish",
+			"Mschlindwein"
 		]
 	},
 	"pageforms-name": "Page Forms",
@@ -132,7 +133,7 @@
 	"createform": "Formular erstellen",
 	"pf-createform-with-name": "Formular erstellen: $1",
 	"pf_createform_nameinput": "Formularname",
-	"pf_createform_nameinputdesc": "(In der Regel wird das das Formular nach der Hauptvorlage benannt):",
+	"pf_createform_nameinputdesc": "(In der Regel wird das Formular nach der Hauptvorlage benannt):",
 	"pf_createform_template": "Vorlage:",
 	"pf_createform_templatelabelinput": "Vorlagenbezeichnung (optional):",
 	"pf_createform_allowmultiple": "Erlaube mehrere (oder keine) Instanzen dieser Vorlage auf der erstellten Seite",
