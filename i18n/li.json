@@ -9,6 +9,7 @@
 	"pf_createproperty_proptype": "Type:",
 	"templates": "Sjablone",
 	"createtemplate": "'n Sjabloon aanmake",
+	"pf_createtemplate_deletefield": "Sjaf dit veldj eweg",
 	"forms": "Formelere",
 	"createform": "Formeleer aanmake",
 	"createcategory": "'n Categorie aanmake",
