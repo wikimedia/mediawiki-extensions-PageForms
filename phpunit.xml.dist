@@ -11,11 +11,10 @@
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         strict="true"
          verbose="true">
     <testsuites>
         <testsuite name="extension-page-forms">
-            <directory>tests/phpunit/includes</directory>
+            <directory>tests/phpunit/integration/includes</directory>
         </testsuite>
     </testsuites>
     <filter>
