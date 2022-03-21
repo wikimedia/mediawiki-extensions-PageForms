@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fitoschido",
 			"Xuacu"
 		]
 	},
@@ -125,7 +126,7 @@
 	"pf_createform_inputtype": "Tipu d'entrada:",
 	"pf_createform_inputtypedefault": "(predetermináu)",
 	"pf_createform_formlabel": "Etiqueta del formulariu:",
-	"pf_createform_hidden": "Tapecíu",
+	"pf_createform_hidden": "(Anubríu)",
 	"pf_createform_removetemplate": "Desaniciar plantía",
 	"pf_createform_addtemplate": "Añadir plantía:",
 	"pf_createform_atend": "Al final",
