@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mousa"
+			"Mousa",
+			"Alp Er Tunqa",
+			"Bir morty"
 		]
 	},
+	"pf_createform_removetemplate": "شابلونو سیل",
 	"formedit": "فورم ایله دَییشدیرمک"
 }
