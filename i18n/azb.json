@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Bir morty",
-			"Mousa"
+			"Mousa",
+			"Alp Er Tunqa"
 		]
 	},
+	"pf_createform_removetemplate": "شابلونو سیل",
 	"formedit": "فورم ایله دَییشدیرمک",
 	"pf-datetimepicker-24hour": "زامان 24-ساعات فوْرمتینده یازیلمالی‌دیر."
 }
