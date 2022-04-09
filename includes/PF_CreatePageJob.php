@@ -70,7 +70,7 @@ class PFCreatePageJob extends Job {
 		}
 
 		$updater = $wikiPage->newPageUpdater( $user );
-		$updater->setContent( MediaWiki\Storage\SlotRecord::MAIN, $newContent );
+		$updater->setContent( MediaWiki\Revision\SlotRecord::MAIN, $newContent );
 		$updater->saveRevision( CommentStoreComment::newUnsavedComment( $editSummary ), $flags );
 	}
 
