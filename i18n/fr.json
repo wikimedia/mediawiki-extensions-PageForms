@@ -135,7 +135,7 @@
 	"pf_forminputs_listboxsize": "La hauteur de cette zone de liste, en nombre de lignes",
 	"pf_forminputs_includetimezone": "Ajouter un champ pour le fuseau horaire",
 	"pf_forminputs_topcategory": "La catégorie parente d’un ensemble de catégories",
-	"pf_forminputs_structure": "Une liste manuelle de valeurs, sous forme d’une liste non ordonnée de valeurs en wikitexte",
+	"pf_forminputs_structure": "Une liste manuelle de valeurs, sous forme d’une liste non ordonnée de valeurs en wikicode",
 	"pf_forminputs_hideroot": "Masquer la catégorie parente",
 	"pf_forminputs_depth": "Le nombre de niveaux de catégorie à montrer au départ",
 	"pf_forminputs_height": "La hauteur de cette entrée, en pixels",
