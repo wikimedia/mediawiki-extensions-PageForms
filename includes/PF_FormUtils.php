@@ -509,17 +509,12 @@ END;
 		);
 
 		// Parse wiki-text.
-		if ( isset( $parser->mInParse ) && $parser->mInParse === true ) {
-			$form_def = $parser->recursiveTagParse( $form_def );
-			$output = $parser->getOutput();
-		} else {
-			// @phan-suppress-next-line PhanRedundantCondition for BC with old MW
-			$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : $form_title;
-			// We need to pass "false" in to the parse() $clearState param so that
-			// embedding Special:RunQuery will work.
-			$output = $parser->parse( $form_def, $title, $parser->getOptions(), true, false );
-			$form_def = $output->getText();
-		}
+		// @phan-suppress-next-line PhanRedundantCondition for BC with old MW
+		$title = is_object( $parser->getTitle() ) ? $parser->getTitle() : $form_title;
+		// We need to pass "false" in to the parse() $clearState param so that
+		// embedding Special:RunQuery will work.
+		$output = $parser->parse( $form_def, $title, $parser->getOptions(), true, false );
+		$form_def = $output->getText();
 		$form_def = preg_replace_callback(
 			"/{$rnd}-item-(\d+)-{$rnd}/",
 			static function ( array $matches ) use ( $items ) {

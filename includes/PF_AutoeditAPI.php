@@ -444,7 +444,7 @@ class PFAutoeditAPI extends ApiBase {
 		$bot = $user->isAllowed( 'bot' ) && $editor->bot;
 
 		$request = $editor->pfFauxRequest;
-		if ( $editor->tokenOk( $request ) ) {
+		if ( $this->tokenOk( $request ) ) {
 			$ctx = RequestContext::getMain();
 			$tempTitle = $ctx->getTitle();
 			$ctx->setTitle( $title );
@@ -1021,6 +1021,12 @@ class PFAutoeditAPI extends ApiBase {
 
 			$this->getResult()->addValue( [ 'form' ], 'HTML', $formHTML );
 		}
+	}
+
+	private function tokenOk( WebRequest $request ) {
+		$token = $request->getVal( 'wpEditToken' );
+		$user = $this->getUser();
+		return $user->matchEditToken( $token );
 	}
 
 	private function parseDataFromHTMLFrag( $html ) {
