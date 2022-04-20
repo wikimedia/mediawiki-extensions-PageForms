@@ -31,9 +31,6 @@ class PFComboBoxInput extends PFFormInput {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsEDSettings;
 
 		$className = 'pfComboBox';
-		if ( $is_mandatory ) {
-			$className .= ' mandatoryField';
-		}
 		if ( array_key_exists( 'class', $other_args ) ) {
 			$className .= ' ' . $other_args['class'];
 		}
