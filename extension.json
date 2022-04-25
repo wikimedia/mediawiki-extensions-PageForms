@@ -170,9 +170,6 @@
 				"libs/PageForms.js",
 				"libs/PF_preview.js"
 			],
-			"styles": [
-				"skins/PageForms.css"
-			],
 			"dependencies": [
 				"ext.pageforms.sortable",
 				"ext.pageforms.autogrow",
@@ -202,6 +199,11 @@
 				"pf_start_end_datetime_error"
 			]
 		},
+		"ext.pageforms.main.styles": {
+			"styles": [
+				"skins/PageForms.css"
+			]
+		},
 		"ext.pageforms.browser": {
 			"scripts": [
 				"libs/jquery.browser.js"
@@ -209,10 +211,12 @@
 		},
 		"ext.pageforms.fancybox": {
 			"scripts": "libs/FancyBox/jquery.fancybox.js",
-			"styles": "skins/FancyBox/jquery.fancybox.css",
 			"dependencies": [
 				"ext.pageforms.browser"
 			]
+		},
+		"ext.pageforms.fancybox.styles": {
+			"styles": "skins/FancyBox/jquery.fancybox.css"
 		},
 		"ext.pageforms.jstree": {
 			"scripts": [
@@ -272,12 +276,14 @@
 			"scripts": [
 				"libs/PF_submit.js"
 			],
-			"styles": [
-				"skins/PF_submit.css"
-			],
 			"messages": [
 				"pf_formedit_saveandcontinue_summary",
 				"pf_formedit_saveandcontinueediting"
+			]
+		},
+		"ext.pageforms.submit.styles": {
+			"styles": [
+				"skins/PF_submit.css"
 			]
 		},
 		"ext.pageforms.collapsible": {
@@ -297,12 +303,14 @@
 			"scripts": [
 				"libs/PF_checkboxes.js"
 			],
-			"styles": [
-				"skins/PF_checkboxes.css"
-			],
 			"messages": [
 				"pf_forminputs_checkboxes_select_all",
 				"pf_forminputs_checkboxes_select_none"
+			]
+		},
+		"ext.pageforms.checkboxes.styles": {
+			"styles": [
+				"skins/PF_checkboxes.css"
 			]
 		},
 		"ext.pageforms.datepicker": {
@@ -328,7 +336,9 @@
 			"scripts": [
 				"libs/jquery.rateyo.js",
 				"libs/PF_rating.js"
-			],
+			]
+		},
+		"ext.pageforms.rating.styles": {
 			"styles": "skins/jquery.rateyo.css"
 		},
 		"ext.pageforms.simpleupload": {
@@ -347,11 +357,6 @@
 				"libs/ext.pf.select2.base.js",
 				"libs/ext.pf.select2.tokens.js"
 			],
-			"styles": [
-				"skins/select2/select2.css",
-				"skins/select2/select2-bootstrap.css",
-				"skins/ext.pf.select2.css"
-			],
 			"dependencies": [
 				"ext.pageforms",
 				"mediawiki.jqueryMsg"
@@ -360,6 +365,13 @@
 				"pf-autocomplete-searching",
 				"pf-autocomplete-input-too-short",
 				"pf-autocomplete-selection-too-big"
+			]
+		},
+		"ext.pageforms.select2.styles": {
+			"styles": [
+				"skins/select2/select2.css",
+				"skins/select2/select2-bootstrap.css",
+				"skins/ext.pf.select2.css"
 			]
 		},
 		"ext.pageforms.ooui.autocomplete": {
@@ -390,12 +402,14 @@
 			"scripts": [
 				"libs/PF_formInput.js"
 			],
-			"styles": [
-				"skins/PF_formInput.css"
-			],
 			"dependencies": [
 				"ext.pageforms",
 				"ext.pageforms.ooui.autocomplete"
+			]
+		},
+		"ext.pageforms.forminput.styles": {
+			"styles": [
+				"skins/PF_formInput.css"
 			]
 		},
 		"ext.pageforms.fullcalendar": {

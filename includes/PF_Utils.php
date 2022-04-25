@@ -293,11 +293,22 @@ END;
 			'jquery.makeCollapsible'
 		];
 
+		$mainModuleStyles = [
+			'ext.pageforms.main.styles',
+			'ext.pageforms.submit.styles',
+			"ext.pageforms.checkboxes.styles",
+			'ext.pageforms.select2.styles',
+			'ext.pageforms.rating.styles',
+			'ext.pageforms.fancybox.styles',
+			"ext.pageforms.forminput.styles"
+		];
+
 		if ( $wgPageFormsSimpleUpload ) {
 			$mainModules[] = 'ext.pageforms.simpleupload';
 		}
 
 		$output->addModules( $mainModules );
+		$output->addModuleStyles( $mainModuleStyles );
 
 		$otherModules = [];
 		Hooks::run( 'PageForms::AddRLModules', [ &$otherModules ] );
