@@ -190,7 +190,7 @@
 	"pf_formedit_badurl": "Это страница редактирования с помощью формы. Необходимо указать как имя формы, так и целевую страницу в URL;\nэто должно выглядеть как \"Special:FormEdit?form=<form name>&target=<target page>\", или  \"Special:FormEdit/<form name>/<target page>\".",
 	"pf_formedit_altforms": "Вы можете вместо этого добавить эту страницу с помощью одной из следующих форм:",
 	"pf_formedit_altformsonly": "Пожалуйста, выберите одну из следующих форм для добавления этой страницы:",
-	"pf_formcreate": "Создать с формой",
+	"pf_formcreate": "Создать через форму",
 	"pf_viewform": "Смотреть форму",
 	"pf_editsource": "Править исходники",
 	"pf_formedit_edittitle": "Редактирование $1: $2",
