@@ -23,7 +23,8 @@
 			"ArenaL5",
 			"DannyS712",
 			"Jakeukalane",
-			"Whovian Biologist"
+			"Whovian Biologist",
+			"DiegoAmbrocio"
 		]
 	},
 	"pageforms-desc": "Formularios para crear y editar páginas wiki",
@@ -64,6 +65,9 @@
 	"pf_createtemplate_addfield": "Agregar campo",
 	"pf_createtemplate_deletefield": "Borrar",
 	"forms": "Formularios",
+	"pf-calendar-createevent": "Crear evento",
+	"pf-calendar-deleteevent": "Eliminar el evento",
+	"pf-calendar-updateevent": "Actualizar evento",
 	"pf_forms_docu": "Los siguientes formularios existen en la wiki.",
 	"pf_forminputs_mandatory": "Obligado",
 	"pf_forminputs_restricted": "Solo los administradores pueden editar esta entrada",
@@ -266,6 +270,9 @@
 	"pf-regexp-message": "El mensaje de error a mostrar si falla la coincidencia. Por defecto es \"¡Formato incorrecto!\" (o una forma equivalente en el idioma local)",
 	"pf-missingconcept": "No se pudo encontrar el concepto: $1",
 	"pf-missingnamespace": "No se pudo encontrar el espacio de nombres: $1",
+	"pf-resultstoshow": "Resultados a mostrar",
+	"pf-invalidexturl": "Valor de la URL externa no válido.",
+	"pf-blankexturl": "Valor de la URL externa vacío.",
 	"pf-externalpageempty": "La página externa no tiene ningún contenido.",
 	"pf-externalpagebadjson": "No se pudo analizar el JSON en una página externa."
 }
