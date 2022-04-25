@@ -796,10 +796,14 @@ class PFValuesUtils {
 		if ( $wgPageFormsAutocompleteOnAllChars ) {
 			return $column_value . $db->buildLike( $db->anyString(), $substring, $db->anyString() );
 		} else {
+			$sqlCond = $column_value . $db->buildLike( $substring, $db->anyString() );
 			$spaceRepresentation = $replaceSpaces ? '_' : ' ';
-			return $column_value . $db->buildLike( $substring, $db->anyString() ) .
-				' OR ' . $column_value .
-				$db->buildLike( $db->anyString(), $spaceRepresentation . $substring, $db->anyString() );
+			$wordSeparators = [ $spaceRepresentation, '/', '(', ')', '-', '\'', '\"' ];
+			foreach ( $wordSeparators as $wordSeparator ) {
+				$sqlCond .= ' OR ' . $column_value .
+					$db->buildLike( $db->anyString(), $wordSeparator . $substring, $db->anyString() );
+			}
+			return $sqlCond;
 		}
 	}
 

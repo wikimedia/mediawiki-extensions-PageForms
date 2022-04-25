@@ -410,8 +410,21 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $wgPageFormsAutocompleteOnAllChars ) {
 				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"%$substring%\"))";
 			} else {
-				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"$substring%\") OR " .
-					"LOWER($cargoField) LIKE LOWER(\"% $substring%\"))";
+				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"$substring%\")";
+				// Also look for the substring after any word
+				// separator (most commonly, a space). In theory,
+				// any punctuation can be a word separator,
+				// but we will just look for the most common
+				// ones.
+				// This would be much easier to do with the
+				// REGEXP operator, but its presence is
+				// inconsistent between MySQL, PostgreSQL and
+				// SQLite.
+				$wordSeparators = [ ' ', '/', '(', ')', '-', '|', '\'', '\"' ];
+				foreach ( $wordSeparators as $wordSeparator ) {
+					$whereStr .= " OR LOWER($cargoField) LIKE LOWER(\"%$wordSeparator$substring%\")";
+				}
+				$whereStr .= ')';
 			}
 		}
 
