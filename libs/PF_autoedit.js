@@ -66,7 +66,10 @@
 		} );
 	}
 
-	var autoEditHandler = function handleAutoEdit(){
+	var autoEditHandler = function handleAutoEdit( e ){
+
+		// Prevents scroll from jumping to the top of the page due to anchor #
+		e.preventDefault();
 
 		if ( mw.config.get( 'wgUserName' ) === null &&
 			! confirm( mw.msg( 'pf_autoedit_anoneditwarning' ) ) ) {
