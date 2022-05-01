@@ -296,7 +296,7 @@ var dataValues = [];
 				}
 			} else {
 				// this is probably the case where some parameters are set
-				// in a wrong way in form defintion, in that case use the default jexcel editor
+				// in a wrong way in form definition, in that case use the default jexcel editor
 				pfSpreadsheetAutocomplete = false;
 			}
 		} else if ( autocompletedatatype == 'external data' ) {
@@ -311,7 +311,7 @@ var dataValues = [];
 				}
 			} else {
 				// this is probably the case where some autocomplete parameters are set
-				// in a wrong way in form defintion, in that case use the default jexcel editor
+				// in a wrong way in form definition, in that case use the default jexcel editor
 				pfSpreadsheetAutocomplete = false;
 			}
 		}
