@@ -893,13 +893,8 @@ END;
 		// permission errors from the start, and use those to determine
 		// whether the page is editable.
 		if ( !$is_query ) {
-			if ( class_exists( 'MediaWiki\Permissions\PermissionManager' ) ) {
-				// MW 1.33+
-				$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
-					->getPermissionErrors( 'edit', $user, $this->mPageTitle );
-			} else {
-				$permissionErrors = $this->mPageTitle->getUserPermissionsErrors( 'edit', $user );
-			}
+			$permissionErrors = MediaWikiServices::getInstance()->getPermissionManager()
+				->getPermissionErrors( 'edit', $user, $this->mPageTitle );
 			if ( MediaWikiServices::getInstance()->getReadOnlyMode()->isReadOnly() ) {
 				$permissionErrors = [ [ 'readonlytext', [ MediaWikiServices::getInstance()->getReadOnlyMode()->getReason() ] ] ];
 			}

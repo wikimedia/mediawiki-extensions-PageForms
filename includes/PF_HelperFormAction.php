@@ -79,13 +79,8 @@ class PFHelperFormAction extends Action {
 
 		$content_actions = &$links['views'];
 
-		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCan' ) ) {
-			// MW 1.33+
-			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
-			$userCanEdit = $permissionManager->userCan( 'edit', $user, $title );
-		} else {
-			$userCanEdit = $title->userCan( 'edit', $user ) && $user->isAllowed( 'edit' );
-		}
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$userCanEdit = $permissionManager->userCan( 'edit', $user, $title );
 		$form_create_tab_text = ( $userCanEdit ) ? 'pf_formcreate' : 'pf_viewform';
 
 		$class_name = ( $obj->getRequest()->getVal( 'action' ) == 'formcreate' ) ? 'selected' : '';

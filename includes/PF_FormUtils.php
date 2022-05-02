@@ -387,17 +387,10 @@ END;
 			return '';
 		}
 
-		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCan' ) ) {
-			// MW 1.33+
-			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
-			$user = RequestContext::getMain()->getUser();
-			if ( !$permissionManager->userCan( 'read', $user, $preloadTitle ) ) {
-				return '';
-			}
-		} else {
-			if ( !$preloadTitle->userCan( 'read' ) ) {
-				return '';
-			}
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$user = RequestContext::getMain()->getUser();
+		if ( !$permissionManager->userCan( 'read', $user, $preloadTitle ) ) {
+			return '';
 		}
 
 		$text = PFUtils::getPageText( $preloadTitle );

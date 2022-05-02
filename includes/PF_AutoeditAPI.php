@@ -408,23 +408,12 @@ class PFAutoeditAPI extends ApiBase {
 
 		$user = $this->getUser();
 
-		if ( class_exists( 'MediaWiki\Permissions\PermissionManager' ) ) {
-			// MW 1.33+
-			$permManager = MediaWikiServices::getInstance()->getPermissionManager();
-			$permErrors = $permManager->getPermissionErrors( 'edit', $user, $title );
-		} else {
-			$permManager = null;
-			$permErrors = $title->getUserPermissionsErrors( 'edit', $user );
-		}
+		$permManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$permErrors = $permManager->getPermissionErrors( 'edit', $user, $title );
 
 		// if this title needs to be created, user needs create rights
 		if ( !$title->exists() ) {
-			if ( $permManager != null ) {
-				// MW 1.33+
-				$permErrorsForCreate = $permManager->getPermissionErrors( 'create', $user, $title );
-			} else {
-				$permErrorsForCreate = $title->getUserPermissionsErrors( 'create', $user );
-			}
+			$permErrorsForCreate = $permManager->getPermissionErrors( 'create', $user, $title );
 			$permErrors = array_merge( $permErrors, wfArrayDiff2( $permErrorsForCreate, $permErrors ) );
 		}
 

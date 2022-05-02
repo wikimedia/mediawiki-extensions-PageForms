@@ -71,13 +71,8 @@ class PFFormEditAction extends Action {
 
 		$content_actions = &$links['views'];
 
-		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userCan' ) ) {
-			// MW 1.33+
-			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
-			$user_can_edit = $permissionManager->userCan( 'edit', $user, $title );
-		} else {
-			$user_can_edit = $title->userCan( 'edit', $user );
-		}
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$user_can_edit = $permissionManager->userCan( 'edit', $user, $title );
 
 		// Create the form edit tab, and apply whatever changes are
 		// specified by the edit-tab global variables.
