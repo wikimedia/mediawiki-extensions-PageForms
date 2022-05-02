@@ -34,7 +34,7 @@
 	"forms": "Формаш",
 	"pf_forms_docu": "Вики чохь йу хӀара кепаш.",
 	"pf_forminputs_mandatory": "ТӀехь дерг",
-	"pf_forminputs_restricted": "Куьйгалхошна бен цатарло хӀара хийца",
+	"pf_forminputs_restricted": "Администраторшна бен цатарло хӀара хийца",
 	"pf_forminputs_class": "HTML-атрибут \"class\" хӀокху меттиган",
 	"pf_forminputs_checkboxes_select_all": "Билгалйе массо",
 	"pf_forminputs_checkboxes_select_none": "ДӀайаха йерриге",
