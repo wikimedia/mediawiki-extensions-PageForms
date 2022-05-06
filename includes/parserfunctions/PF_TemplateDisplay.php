@@ -65,6 +65,9 @@ class PFTemplateDisplay {
 			$text = '';
 		}
 		foreach ( $tableFieldValues as $fieldName => $fieldValue ) {
+			if ( !array_key_exists( $fieldName, $templateFields ) ) {
+				continue;
+			}
 			$templateField = $templateFields[$fieldName];
 			$fieldDisplay = $templateField->getDisplay();
 			if ( $fieldDisplay == 'hidden' ) {
