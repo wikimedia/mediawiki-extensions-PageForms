@@ -36,9 +36,12 @@ class PFComboBoxInput extends PFFormInput {
 		}
 
 		if ( array_key_exists( 'size', $other_args ) ) {
-			$size = $other_args['size'];
+			$size = intval( $other_args['size'] );
+			if ( $size == 0 ) {
+				$size = 35;
+			}
 		} else {
-			$size = '35';
+			$size = 35;
 		}
 		if ( array_key_exists( 'values from external data', $other_args ) ) {
 			$autocompleteSettings = 'external data';

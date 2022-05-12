@@ -127,9 +127,12 @@ class PFTokensInput extends PFFormInput {
 		$input_id = 'input_' . $wgPageFormsFieldNum;
 
 		if ( array_key_exists( 'size', $other_args ) ) {
-			$size = $other_args['size'];
+			$size = intval( $other_args['size'] );
+			if ( $size == 0 ) {
+				$size = 100;
+			}
 		} else {
-			$size = '100';
+			$size = 100;
 		}
 
 		$inputAttrs = [
