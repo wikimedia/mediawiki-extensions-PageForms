@@ -47,7 +47,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 	// editor and hence we get "No Matches found" so we can
 	// simply remove that space.
 	if ( value[0] == ' ' ) {
-		value = value.substring(1);
+		value = value.slice(1);
 	}
 	api = new mw.Api();
 	requestParams = {
@@ -166,7 +166,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 pf.spreadsheetAutocompleteWidget.prototype.highlightText = function ( suggestion ) {
 	var searchTerm = this.getValue();
 	if ( searchTerm[0] == ' ' ) {
-		searchTerm = searchTerm.substring(1);
+		searchTerm = searchTerm.slice(1);
 	}
     var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
         searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
@@ -175,9 +175,9 @@ pf.spreadsheetAutocompleteWidget.prototype.highlightText = function ( suggestion
     var loc = itemLabel.search(searchRegexp);
     var t;
     if (loc >= 0) {
-        t = itemLabel.substr(0, loc) +
+        t = itemLabel.slice(0, Math.max(0, loc)) +
             '<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
-            itemLabel.substr(loc + searchTerm.length);
+            itemLabel.slice(loc + searchTerm.length);
     } else {
         t = itemLabel;
     }

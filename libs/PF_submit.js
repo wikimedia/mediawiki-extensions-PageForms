@@ -141,10 +141,10 @@
 				params += '&form=' + encodeURIComponent( url.substring( start, stop ) );
 
 				start = stop + 1;
-				params += '&target=' + encodeURIComponent( url.substr( start ) );
+				params += '&target=' + encodeURIComponent( url.slice( start ) );
 
 			} else {
-				params += '&form=' + encodeURIComponent( url.substr( start ) );
+				params += '&form=' + encodeURIComponent( url.slice( start ) );
 			}
 		}
 

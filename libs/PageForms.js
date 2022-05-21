@@ -1103,7 +1103,7 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 				}
 			}
 			if ( curVal.length > 70 ) {
-				curVal = curVal.substring(0, 70) + "...";
+				curVal = curVal.slice(0, 70) + "...";
 			}
 			if ( valuesStr !== '' ) {
 				valuesStr += ' &middot; ';
@@ -1675,7 +1675,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 // Copied from https://stackoverflow.com/a/8809472
 // License: public domain/MIT
 window.pfGenerateUUID = function() {
-	var d = new Date().getTime();
+	var d = Date.now();
 	var d2 = (performance && performance.now && (performance.now() * 1000)) || 0; // Time in microseconds since page-load or 0 if unsupported
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 		var r = Math.random() * 16; // random number between 0 and 16

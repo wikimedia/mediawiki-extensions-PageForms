@@ -684,8 +684,8 @@ var dataValues = [];
 						var fieldValueObject = {};
 						for (const field of fieldArray) {
 							var equalPos = field.indexOf('=');
-							var fieldLabel = field.substring(0, equalPos);
-							var fieldValue = field.substring(equalPos + 1);
+							var fieldLabel = field.slice(0, Math.max(0, equalPos));
+							var fieldValue = field.slice(Math.max(0, equalPos + 1));
 							fieldLabel = fieldLabel.trim();
 							fieldValueObject[fieldLabel] = fieldValue.trim();
 						}

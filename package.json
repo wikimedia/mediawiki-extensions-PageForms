@@ -1,12 +1,13 @@
 {
+	"name": "PageForms",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.20.0",
-		"grunt": "1.4.0",
+		"eslint-config-wikimedia": "0.22.1",
+		"grunt": "1.5.2",
 		"grunt-banana-checker": "0.9.0",
-		"grunt-eslint": "23.0.0"
+		"grunt-eslint": "24.0.0"
 	}
 }

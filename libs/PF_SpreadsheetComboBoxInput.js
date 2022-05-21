@@ -37,7 +37,7 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 	// editor and hence we get "No Matches found" so we can
 	// simply remove that space.
 	if ( curValue[0] == ' ' ) {
-		curValue = curValue.substring(1);
+		curValue = curValue.slice(1);
 	}
 	if ( data_type == 'external data' ) { // External Data Autocompletion
 		var	wgPageFormsEDSettings = mw.config.get( 'wgPageFormsEDSettings' ),
@@ -128,12 +128,12 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 /**
  *
  * @param {string} suggestion
- * @returns HtmlSnippet
+ * @return HtmlSnippet
  */
 pf.SpreadsheetComboBoxInput.prototype.highlightText = function ( suggestion ) {
 	var searchTerm = this.getValue();
 	if ( searchTerm[0] == ' ' ) {
-		searchTerm = searchTerm.substring(1);
+		searchTerm = searchTerm.slice(1);
 	}
     var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
         searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
@@ -142,9 +142,9 @@ pf.SpreadsheetComboBoxInput.prototype.highlightText = function ( suggestion ) {
     var loc = itemLabel.search(searchRegexp);
     var t;
     if (loc >= 0) {
-        t = itemLabel.substr(0, loc) +
+        t = itemLabel.slice(0, Math.max(0, loc)) +
             '<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
-            itemLabel.substr(loc + searchTerm.length);
+            itemLabel.slice(loc + searchTerm.length);
     } else {
         t = itemLabel;
     }
@@ -153,7 +153,7 @@ pf.SpreadsheetComboBoxInput.prototype.highlightText = function ( suggestion ) {
 /**
  * Provides an option with "No Matches" label
  *
- * @returns {object}
+ * @return {Object}
  */
 pf.SpreadsheetComboBoxInput.prototype.getNoMatchesOption = function() {
 	return {
@@ -167,7 +167,7 @@ pf.SpreadsheetComboBoxInput.prototype.getNoMatchesOption = function() {
  *
  * @param {string} string
  * @param {string} curValue
- * @returns {boolean}
+ * @return {boolean}
  */
 pf.SpreadsheetComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function( string, curValue ) {
 	var regex = new RegExp('\\b' + curValue.toLowerCase());
@@ -178,7 +178,7 @@ pf.SpreadsheetComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = funct
  *
  * @param {string} string
  * @param {string} curValue
- * @returns {boolean}
+ * @return {boolean}
  */
 pf.SpreadsheetComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = function(string, curValue) {
 	return string.toLowerCase().includes(curValue.toLowerCase())
@@ -189,7 +189,7 @@ pf.SpreadsheetComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = fu
  *
  * @param {integer} data_y
  * @param {string} dep_on_field
- * @returns {object} dep_field_opts
+ * @return {Object} dep_field_opts
  */
 pf.SpreadsheetComboBoxInput.prototype.getDependentFieldOpts = function( data_y, dep_on_field ) {
 	var dep_field_opts = {};

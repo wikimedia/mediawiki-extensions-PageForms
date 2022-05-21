@@ -41,7 +41,7 @@
             var input_id = "#" + this.getInputId();
             var name = $(input_id).attr(this.nameAttr($(input_id)));
             var positionOfBracket = name.indexOf('[');
-            var data_autocomplete = name.substring(0,positionOfBracket)+'|'+name.substring(positionOfBracket+1,name.length-1);
+            var data_autocomplete = name.slice(0,Math.max(0, positionOfBracket))+'|'+name.substring(positionOfBracket+1,name.length-1);
             this.setInputAttribute('data-autocomplete',data_autocomplete);
         }
         // Bind the blur event to resize input according to the value
@@ -384,9 +384,9 @@
         var t;
 
         if (loc >= 0) {
-            t = itemLabel.substr(0, loc) +
+            t = itemLabel.slice(0, Math.max(0, loc)) +
                 '<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
-                itemLabel.substr(loc + searchTerm.length);
+                itemLabel.slice(loc + searchTerm.length);
         } else {
             t = itemLabel;
         }

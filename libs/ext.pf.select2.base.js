@@ -314,7 +314,7 @@
 			if ( start !== -1 ) {
 				var boldStart = String.fromCharCode(1);
 				var boldEnd = String.fromCharCode(2);
-				markup = text.substr(0, start) + boldStart +
+				markup = text.slice(0, Math.max(0, start)) + boldStart +
 					text.substr(start,term.length) + boldEnd +
 					text.substr(start + term.length, text.length);
 			} else {
