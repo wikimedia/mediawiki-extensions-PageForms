@@ -201,6 +201,25 @@ class PFTemplate {
 				}
 			}
 		}
+
+		// If #template_params was declared for this template, go
+		// through the declared fields, and, for any that were not
+		// already found by parsing the template, populate
+		// $mTemplateFields with it.
+		// @todo - it would be good to combine the #template_params
+		// data with any SMW data found, instead of just getting one
+		// or the other. In practice, though, it doesn't really matter.
+		if ( $this->mTemplateParams !== null ) {
+			foreach ( $this->mTemplateParams as $fieldName => $fieldParams ) {
+				if ( in_array( $fieldName, $fieldNamesArray ) ) {
+					continue;
+				}
+				$templateField = PFTemplateField::newFromParams( $fieldName, $fieldParams );
+				$this->mTemplateFields[$fieldName] = $templateField;
+			}
+			return;
+		}
+
 		ksort( $this->mTemplateFields );
 	}
 
