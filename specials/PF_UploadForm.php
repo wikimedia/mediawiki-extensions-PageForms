@@ -42,7 +42,7 @@ class PFUploadForm extends HTMLForm {
 			+ $this->getOptionsSection();
 
 		Hooks::run( 'UploadFormInitDescriptor', [ &$descriptor ] );
-		parent::__construct( $descriptor, 'upload' );
+		parent::__construct( $descriptor, $this->getContext() );
 
 		# Set some form properties
 		$this->setSubmitText( $this->msg( 'uploadbtn' )->text() );
