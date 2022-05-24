@@ -52,8 +52,7 @@ class PFTextAreaInput extends PFFormInput {
 		if (
 			array_key_exists( 'editor', $this->mOtherArgs ) &&
 			$this->mOtherArgs['editor'] == 'wikieditor' &&
-			in_array( 'ext.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() ) &&
-			class_exists( 'WikiEditorHooks' )
+			in_array( 'ext.wikiEditor', $wgOut->getResourceLoader()->getModuleNames() )
 		) {
 			$this->mEditor = 'wikieditor';
 			$this->addJsInitFunctionData( 'window.ext.wikieditor.init' );
