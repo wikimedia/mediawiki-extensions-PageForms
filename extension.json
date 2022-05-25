@@ -192,11 +192,19 @@
 				"pf_bad_date_error",
 				"pf_modified_input_error",
 				"pf_pipe_error"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.browser": {
 			"scripts": [
 				"libs/jquery.browser.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.fancybox": {
@@ -204,6 +212,10 @@
 			"styles": "skins/FancyBox/jquery.fancybox.css",
 			"dependencies": [
 				"ext.pageforms.browser"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.jstree": {
@@ -219,11 +231,19 @@
 		"ext.pageforms.sortable": {
 			"scripts": [
 				"libs/Sortable.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.autogrow": {
 			"scripts": [
 				"libs/PF_autogrow.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.popupformedit": {
@@ -286,6 +306,10 @@
 			"scripts": "libs/PF_datepicker.js",
 			"dependencies": [
 				"mediawiki.widgets.DateInputWidget"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.timepicker": {
@@ -296,6 +320,10 @@
 			"scripts": "libs/PF_datetimepicker.js",
 			"dependencies": [
 				"mediawiki.widgets.datetime"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.regexp": {
@@ -341,6 +369,10 @@
 				"pf-select2-searching",
 				"pf-select2-input-too-short",
 				"pf-select2-selection-too-big"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.ooui.autocomplete": {
@@ -365,6 +397,10 @@
 			"dependencies": [
 				"ext.pageforms",
 				"ext.pageforms.ooui.autocomplete"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.fullcalendar": {
@@ -427,11 +463,19 @@
 		},
 		"ext.pageforms.wikieditor": {
 			"scripts": "libs/PF_wikieditor.js",
-			"styles": "skins/PF_wikieditor.css"
+			"styles": "skins/PF_wikieditor.css",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
 		},
 		"ext.pageforms": {
 			"scripts": [
 				"libs/ext.pf.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.editwarning": {
@@ -439,6 +483,10 @@
 			"dependencies": [
 				"mediawiki.confirmCloseWindow",
 				"jquery.textSelection"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.PF_CreateProperty": {
