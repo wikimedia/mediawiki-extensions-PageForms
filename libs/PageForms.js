@@ -1119,6 +1119,68 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 	});
 };
 
+$.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
+	var $wizardScreens = $(this);
+	$wizardScreens.each( function(i) {
+		// screenNum starts at 1, not 0.
+		if ( i + 1 == screenNum ) {
+			$(this).show();
+		} else {
+			$(this).hide();
+		}
+	});
+
+	// The rest of this function is taken up with displaying the
+	// navigation to the next and previous wizard screens.
+	var numScreens = $wizardScreens.length;
+
+	$wizardNav.empty();
+
+	var $navButtons = $('<div class="pf-wizard-buttons"></div>');
+
+	if ( screenNum > 1 ) {
+		var prevButton = new OO.ui.ButtonWidget( {
+			label: 'Back',
+			classes: [ 'pf-wizard-back-button' ]
+		} );
+		prevButton.$element.click( function() {
+			$wizardScreens.displayWizardScreen( screenNum - 1, $wizardNav );
+		});
+		$navButtons.append( prevButton.$element );
+	}
+
+	if ( screenNum < numScreens ) {
+		var nextButton = new OO.ui.ButtonWidget( {
+			label: 'Continue',
+			flags: [
+				'primary',
+				'progressive'
+			],
+			classes: [ 'pf-wizard-next' ]
+		} );
+		nextButton.$element.click( function() {
+			$wizardScreens.displayWizardScreen( screenNum + 1, $wizardNav );
+		});
+		$navButtons.append( nextButton.$element );
+	}
+	$wizardNav.append( $navButtons );
+
+	// We need this in order to clear the float from the "previous" button.
+	$wizardNav.append('<br style="clear: both;" />');
+
+	var progressBar = new OO.ui.ProgressBarWidget( {
+		progress: 100 * screenNum / numScreens
+	} );
+	var progressBarLayout = new OO.ui.FieldLayout(
+		progressBar,
+		{
+			label: 'Step ' + screenNum + ' of ' + numScreens,
+			align: 'inline'
+		}
+	);
+	$wizardNav.append( progressBarLayout.$element );
+};
+
 var num_elements = 0;
 
 /**
@@ -1767,6 +1829,16 @@ $(document).ready( function() {
 				}
 			});
 		});
+
+		// If there are any "wizard screen" elements defined in the
+		// form, turn the whole form into a wizard, with successive
+		// screens for each element.
+		var $wizardScreens = $('form#pfForm').find('div.pf-wizard-screen');
+		if ( $wizardScreens.length > 0 ) {
+			var $wizardNav = $('<div class="pf-wizard-navigation"></div>');
+			$('form#pfForm').append( $wizardNav );
+			$wizardScreens.displayWizardScreen( 1, $wizardNav );
+		}
 
 		// If the form is submitted, validate everything!
 		$('#pfForm').submit( function() {
