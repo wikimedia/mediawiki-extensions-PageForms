@@ -1141,6 +1141,7 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	if ( screenNum > 1 ) {
 		var prevButton = new OO.ui.ButtonWidget( {
 			label: 'Back',
+			icon: 'previous',
 			classes: [ 'pf-wizard-back-button' ]
 		} );
 		prevButton.$element.click( function() {
@@ -1156,7 +1157,8 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 				'primary',
 				'progressive'
 			],
-			classes: [ 'pf-wizard-next' ]
+			icon: 'next',
+			classes: [ 'pf-wizard-continue-button' ]
 		} );
 		nextButton.$element.click( function() {
 			$wizardScreens.displayWizardScreen( screenNum + 1, $wizardNav );

@@ -356,13 +356,14 @@ span#wpWatchthis {
 }
 
 div.pf-wizard-navigation {
-	max-width: 900px;
-	padding-top: 25px;
+	background-color: #eaf3ff;
+	padding: 25px;
 	margin-top: 25px;
-	border-top: #c8ccd1 2px solid;
+	border: #c8ccd1 1px solid;
 }
 
 div.pf-wizard-buttons {
+	max-width: 900px;
 	text-align: right;
 }
 
