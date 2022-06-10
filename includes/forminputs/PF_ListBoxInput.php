@@ -42,7 +42,6 @@ class PFListBoxInput extends PFMultiEnumInput {
 			$delimiter = ',';
 		}
 		$cur_values = PFValuesUtils::getValuesArray( $this->mCurrentValue, $delimiter );
-		$className .= ' pfShowIfSelected';
 
 		$possible_values = $this->mOtherArgs['possible_values'];
 		if ( $possible_values == null ) {
@@ -65,6 +64,12 @@ class PFListBoxInput extends PFMultiEnumInput {
 			}
 			$optionsText .= Html::element( 'option', $optionAttrs, $optionLabel );
 		}
+
+		if ( array_key_exists( 'show on select', $this->mOtherArgs ) ) {
+			$className .= ' pfShowIfSelected';
+			PFFormUtils::setShowOnSelect( $this->mOtherArgs['show on select'], $input_id );
+		}
+
 		$selectAttrs = [
 			'id' => $input_id,
 			'tabindex' => $wgPageFormsTabIndex,
@@ -82,10 +87,6 @@ class PFListBoxInput extends PFMultiEnumInput {
 		$text .= Html::hidden( $this->mInputName . '[is_list]', 1 );
 		if ( $this->mIsMandatory ) {
 			$text = Html::rawElement( 'span', [ 'class' => 'inputSpan mandatoryFieldSpan' ], $text );
-		}
-
-		if ( array_key_exists( 'show on select', $this->mOtherArgs ) ) {
-			PFFormUtils::setShowOnSelect( $this->mOtherArgs['show on select'], $input_id );
 		}
 
 		return $text;
