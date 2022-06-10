@@ -34,7 +34,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
-		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		$labelClass = 'checkboxLabel';
 		if ( array_key_exists( 'class', $other_args ) ) {
@@ -118,13 +118,7 @@ class PFCheckboxesInput extends PFMultiEnumInput {
 
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$outerSpanClass .= ' pfShowIfChecked';
-			foreach ( $other_args['show on select'] as $div_id => $options ) {
-				if ( array_key_exists( $outerSpanID, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$outerSpanID][] = [ $options, $div_id ];
-				} else {
-					$wgPageFormsShowOnSelect[$outerSpanID] = [ [ $options, $div_id ] ];
-				}
-			}
+			PFFormUtils::setShowOnSelect( $other_args['show on select'], $outerSpanID );
 		}
 
 		$text .= Html::hidden( $input_name . '[is_list]', 1 );

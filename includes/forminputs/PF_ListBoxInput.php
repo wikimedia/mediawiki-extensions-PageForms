@@ -28,7 +28,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 	 * @return string
 	 */
 	public function getHtmlText(): string {
-		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		$className = ( $this->mIsMandatory ) ? 'mandatoryField' : 'createboxInput';
 		if ( array_key_exists( 'class', $this->mOtherArgs ) ) {
@@ -85,13 +85,7 @@ class PFListBoxInput extends PFMultiEnumInput {
 		}
 
 		if ( array_key_exists( 'show on select', $this->mOtherArgs ) ) {
-			foreach ( $this->mOtherArgs['show on select'] as $div_id => $options ) {
-				if ( array_key_exists( $input_id, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$input_id][] = [ $options, $div_id ];
-				} else {
-					$wgPageFormsShowOnSelect[$input_id] = [ [ $options, $div_id ] ];
-				}
-			}
+			PFFormUtils::setShowOnSelect( $this->mOtherArgs['show on select'], $input_id );
 		}
 
 		return $text;

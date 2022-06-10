@@ -22,7 +22,7 @@ class PFCheckboxInput extends PFFormInput {
 	}
 
 	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
-		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsShowOnSelect;
+		global $wgPageFormsTabIndex, $wgPageFormsFieldNum;
 
 		$className = '';
 		if ( array_key_exists( 'class', $other_args ) ) {
@@ -31,15 +31,7 @@ class PFCheckboxInput extends PFFormInput {
 		$inputID = "input_$wgPageFormsFieldNum";
 		if ( array_key_exists( 'show on select', $other_args ) ) {
 			$className .= ' pfShowIfCheckedCheckbox';
-			foreach ( $other_args['show on select'] as $div_id => $options ) {
-				// We don't actually use "$options" for
-				// anything, because it's just a checkbox.
-				if ( array_key_exists( $inputID, $wgPageFormsShowOnSelect ) ) {
-					$wgPageFormsShowOnSelect[$inputID][] = $div_id;
-				} else {
-					$wgPageFormsShowOnSelect[$inputID] = [ $div_id ];
-				}
-			}
+			PFFormUtils::setShowOnSelect( $other_args['show on select'], $inputID, true );
 		}
 
 		// Can show up here either as an array or a string, depending on

@@ -738,4 +738,18 @@ END;
 		}
 		return $old_i;
 	}
+
+	static function setShowOnSelect( $showOnSelectVals, $inputID, $isCheckbox = false ) {
+		global $wgPageFormsShowOnSelect;
+
+		foreach ( $showOnSelectVals as $divID => $options ) {
+			// A checkbox will just have div ID(s).
+			$data = $isCheckbox ? $divID : [ $options, $divID ];
+			if ( array_key_exists( $inputID, $wgPageFormsShowOnSelect ) ) {
+				$wgPageFormsShowOnSelect[$inputID][] = $data;
+			} else {
+				$wgPageFormsShowOnSelect[$inputID] = [ $data ];
+			}
+		}
+	}
 }
