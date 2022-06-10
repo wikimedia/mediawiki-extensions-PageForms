@@ -151,12 +151,23 @@ class PFComboBoxInput extends PFFormInput {
 			$inputText .= PFTextInput::uploadableHTML( $input_id, $delimiter = null, $default_filename, $cur_value, $other_args );
 		}
 
+		$spanID = 'span_' . $wgPageFormsFieldNum;
 		$spanClass = 'comboboxSpan';
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
 
-		$text = Html::rawElement( 'span', [ 'class' => $spanClass, 'data-input-type' => 'combobox' ], $inputText );
+		if ( array_key_exists( 'show on select', $other_args ) ) {
+			$spanClass .= ' pfShowIfSelected';
+			PFFormUtils::setShowOnSelect( $other_args['show on select'], $spanID );
+		}
+
+		$spanAttrs = [
+			'id' => $spanID,
+			'class' => $spanClass,
+			'data-input-type' => 'combobox'
+		];
+		$text = Html::rawElement( 'span', $spanAttrs, $inputText );
 		return $text;
 	}
 

@@ -277,12 +277,32 @@ function showDivIfSelected(options, div_id, inputVal, $instanceWrapperDiv, initP
 	hideDiv( div_id, $instanceWrapperDiv, initPage );
 }
 
-// Used for handling 'show on select' for the 'dropdown' and 'listbox' inputs.
+// Used for handling 'show on select' for the 'dropdown', 'listbox',
+// 'combobox' and 'tokens' input types.
 $.fn.showIfSelected = function(partOfMultiple, initPage) {
-	var inputVal = this.val(),
+	var inputVal,
 		wgPageFormsShowOnSelect = mw.config.get( 'wgPageFormsShowOnSelect' ),
 		showOnSelectVals,
 		$instanceWrapperDiv;
+
+	if ( this.attr( 'data-input-type' ) == 'combobox' ) {
+		if ( initPage ) {
+			inputVal = $(this).find('select').val();
+		} else {
+			inputVal = $(this).find('input').val();
+		}
+	} else if ( this.attr( 'data-input-type' ) == 'tokens' ) {
+		if ( initPage ) {
+			inputVal = $(this).find('select').val();
+		} else {
+			inputVal = [];
+			$(this).find('li.select2-selection__choice').each( function() {
+				inputVal.push( $(this).attr('title') );
+			});
+		}
+	} else {
+		inputVal = this.val();
+	}
 
 	if ( partOfMultiple ) {
 		showOnSelectVals = wgPageFormsShowOnSelect[this.attr("data-origID")];

@@ -226,11 +226,23 @@ class PFTokensInput extends PFFormInput {
 			$text .= PFTextInput::uploadableHTML( $input_id, $delimiter, $default_filename, $cur_value, $other_args );
 		}
 
+		$spanID = 'span_' . $wgPageFormsFieldNum;
 		$spanClass = 'inputSpan';
 		if ( $is_mandatory ) {
 			$spanClass .= ' mandatoryFieldSpan';
 		}
-		$text = "\n" . Html::rawElement( 'span', [ 'class' => $spanClass ], $text );
+
+		if ( array_key_exists( 'show on select', $other_args ) ) {
+			$spanClass .= ' pfShowIfSelected';
+			PFFormUtils::setShowOnSelect( $other_args['show on select'], $spanID );
+		}
+
+		$spanAttrs = [
+			'id' => $spanID,
+			'class' => $spanClass,
+			'data-input-type' => 'tokens'
+		];
+		$text = "\n" . Html::rawElement( 'span', $spanAttrs, $text );
 
 		return $text;
 	}
