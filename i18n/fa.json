@@ -214,7 +214,7 @@
 	"action-viewedittab": "مشاهده تب \"{{int:edit}}\" برای صفحات قابل ویرایش توسط فرم",
 	"pf-select2-searching": "در حال جستجو...",
 	"pf-maps-enteraddress": "آدرس را اینجا وارد کنید",
-	"pf-maps-lookupcoordinates": "نگاه کردن مختصات",
+	"pf-maps-lookupcoordinates": "محاسبهٔ مختصات با استفاده از نشانی",
 	"pf-adminlinks-datastructure": "ساختار داده‌ها",
 	"pf-datepicker-close": "بستن",
 	"pf-datepicker-prev": "قبلی",
