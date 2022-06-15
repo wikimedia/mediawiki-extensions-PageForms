@@ -41,7 +41,7 @@
 	"pf_createtemplate_plainformat": "Обикновен текст",
 	"pf_createtemplate_sectionsformat": "Раздели",
 	"pf_createtemplate_addfield": "Добавяне на поле",
-	"pf_createtemplate_deletefield": "Изтриване",
+	"pf_createtemplate_deletefield": "Изтриване на полето",
 	"multipageedit": "Редактиране на множество страници",
 	"pf_multipageedit_with-name": "Редактиране на множество страници за шаблон: „$1“",
 	"forms": "Формуляри",
