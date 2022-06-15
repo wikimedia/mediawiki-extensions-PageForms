@@ -277,6 +277,11 @@
             }
             this.setOptions(values);
         }
+
+        var $parentSpan = $(input_id).closest('span');
+        if ( $parentSpan.hasClass('pfShowIfSelected') ) {
+            mw.hook('pf.comboboxChange').fire($parentSpan);
+        }
     };
     /**
      * Returns the name attribute of the field depending on

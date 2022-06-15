@@ -135,6 +135,13 @@ $.fn.PageForms_unregisterInputInit = function() {
 	return this;
 };
 
+// Called from within PF_ComboBoxInput.php.
+mw.hook('pf.comboboxChange').add( function( $parentSpan ) {
+	var initPage = $parentSpan.find('select').length > 0;
+	var partOfMultiple = $parentSpan.attr('data-origid') !== undefined;
+	$parentSpan.showIfSelected( partOfMultiple, initPage );
+});
+
 /*
  * Functions for handling 'show on select'
  */
@@ -1526,6 +1533,17 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		if ( !partOfMultiple && $(this).parents('.multipleTemplateWrapper').length > 0 ) {
 			return;
 		}
+
+		// Don't call this for combobox inputs, except when a new
+		// multiple-instance template instance is created - in all
+		// other cases, their "show on select" is triggered separately.
+		if ( $(this).attr( 'data-input-type' ) == 'combobox' ) {
+			if ( partOfMultiple ) {
+				$(this).showIfSelected(true, true)
+			}
+			return;
+		}
+
 		$(this)
 		.showIfSelected(partOfMultiple, true)
 		.change( function() {
