@@ -57,17 +57,17 @@
         });
         this.$input.keyup( (event) => {
             if (event.keyCode !== 38 && event.keyCode !== 40 && event.keyCode !== 37 && event.keyCode !== 39) {
-                this.setValues();
+                this.setValues(false);
             }
         });
         this.$element.mouseup( () =>{
-            this.setValues();
+            this.setValues(false);
         })
     };
     /**
      * Sets the values for combobox
      */
-    pf.ComboBoxInput.prototype.setValues = function () {
+    pf.ComboBoxInput.prototype.setValues = function ( showAllValues = true ) {
         var input_id = "#" + this.getInputId(),
             values = [],
             dep_on = this.dependentOn(),
@@ -133,6 +133,9 @@
             if (dep_on === null) {
                 if (this.config['autocompletesettings'] === 'external data') {
                     curValue = this.getValue();
+                    if ( showAllValues ) {
+                        curValue = "";
+                    }
                     var name = $(input_id).attr(this.nameAttr($(input_id)));
                     var wgPageFormsEDSettings = mw.config.get('wgPageFormsEDSettings');
                     var edgValues = mw.config.get('edgValues');
@@ -166,6 +169,9 @@
                     var wgPageFormsAutocompleteValues = mw.config.get('wgPageFormsAutocompleteValues');
                     data = wgPageFormsAutocompleteValues[this.config['autocompletesettings']];
                     curValue = this.getValue();
+                    if ( showAllValues ) {
+                        curValue = "";
+                    }
                     if (Array.isArray(data) || typeof data == 'object') {
                         if (wgPageFormsAutocompleteOnAllChars) {
                             for (let key in data) {
