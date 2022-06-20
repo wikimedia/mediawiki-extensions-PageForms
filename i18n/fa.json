@@ -49,7 +49,7 @@
 	"pf_createtemplate_plainformat": "متن ساده",
 	"pf_createtemplate_sectionsformat": "بخش‌ها",
 	"pf_createtemplate_addfield": "افزودن ورودی",
-	"pf_createtemplate_deletefield": "حذف",
+	"pf_createtemplate_deletefield": "حذف این فیلد",
 	"forms": "فرم‌ها",
 	"pf-calendar-updateevent": "روزآمدسازی رویداد",
 	"pf_forms_docu": "فرم‌های زیر در این ویکی وجود دارند.",
