@@ -86,7 +86,7 @@
 					var optionName = $(this).text();
 					dropdownItems[optionName] = $(this);
 				} );
-				tokensSelect.prepend(dropdownItems[newTokensOrder[i]]);
+				tokensSelect.prepend(dropdownItems[newTokensOrder[0]]);
 				for ( let i = 1; i < newTokensOrder.length; i++ ){
 					dropdownItems[newTokensOrder[i]].insertAfter(dropdownItems[newTokensOrder[i - 1]]);
 				}
