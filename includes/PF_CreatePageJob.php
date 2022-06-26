@@ -31,7 +31,12 @@ class PFCreatePageJob extends Job {
 			return false;
 		}
 
-		$wikiPage = WikiPage::factory( $this->title );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $this->title );
+		} else {
+			$wikiPage = WikiPage::factory( $this->title );
+		}
 		if ( !$wikiPage ) {
 			$this->error = 'pageFormsCreatePage: Wiki page not found "' . $this->title->getPrefixedDBkey() . '"';
 			return false;

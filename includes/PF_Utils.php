@@ -123,7 +123,12 @@ class PFUtils {
 	 * @return string|null
 	 */
 	public static function getPageText( $title, $audience = RevisionRecord::FOR_PUBLIC ) {
-		$wikiPage = new WikiPage( $title );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		} else {
+			$wikiPage = new WikiPage( $title );
+		}
 		$content = $wikiPage->getContent( $audience );
 		if ( $content instanceof TextContent ) {
 			// Since MW 1.33

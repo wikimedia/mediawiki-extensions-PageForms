@@ -289,12 +289,22 @@ class PFAutoeditAPI extends ApiBase {
 		if ( $formTitle->isRedirect() ) {
 			$this->logMessage( 'Form ' . $this->mOptions['form'] . ' is a redirect. Finding target.', self::DEBUG );
 
-			$formWikiPage = WikiPage::factory( $formTitle );
+			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+				// MW 1.36+
+				$formWikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $formTitle );
+			} else {
+				$formWikiPage = WikiPage::factory( $formTitle );
+			}
 			$formTitle = $formWikiPage->getContent( RevisionRecord::RAW )->getUltimateRedirectTarget();
 
 			// if we exceeded $wgMaxRedirects or encountered an invalid redirect target, give up
 			if ( $formTitle->isRedirect() ) {
-				$newTitle = WikiPage::factory( $formTitle )->getRedirectTarget();
+				if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+					// MW 1.36+
+					$newTitle = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $formTitle )->getRedirectTarget();
+				} else {
+					$newTitle = WikiPage::factory( $formTitle )->getRedirectTarget();
+				}
 
 				if ( $newTitle instanceof Title && $newTitle->isValidRedirectTarget() ) {
 					throw new MWException( $this->msg( 'pf_autoedit_redirectlimitexeeded', $this->mOptions['form'] )->parse() );
@@ -516,7 +526,12 @@ class PFAutoeditAPI extends ApiBase {
 				$reload = $this->getRequest()->getText( 'reload' );
 				if ( $returnto !== null ) {
 					// Purge the returnto page
-					$returntoPage = WikiPage::factory( $returnto );
+					if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+						// MW 1.36+
+						$returntoPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $returnto );
+					} else {
+						$returntoPage = WikiPage::factory( $returnto );
+					}
 					if ( $returntoPage && $returntoPage->exists() && $reload ) {
 						$returntoPage->doPurge();
 					}
@@ -550,7 +565,12 @@ class PFAutoeditAPI extends ApiBase {
 				$reload = $this->getRequest()->getText( 'reload' );
 				if ( $returnto !== null ) {
 					// Purge the returnto page
-					$returntoPage = WikiPage::factory( $returnto );
+					if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+						// MW 1.36+
+						$returntoPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $returnto );
+					} else {
+						$returntoPage = WikiPage::factory( $returnto );
+					}
 					if ( $returntoPage && $returntoPage->exists() && $reload ) {
 						$returntoPage->doPurge();
 					}

@@ -7,6 +7,8 @@
  *
  */
 
+use MediaWiki\MediaWikiServices;
+
 class PFAutoEditRating {
 	public static function run( Parser $parser ) {
 		global $wgPageFormsAutoeditNamespaces;
@@ -32,6 +34,13 @@ class PFAutoEditRating {
 		// Parse parameters.
 		$params = func_get_args();
 		array_shift( $params );
+
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$wikiPageFactory = MediaWikiServices::getInstance()->getWikiPageFactory();
+		} else {
+			$wikiPageFactory = null;
+		}
 
 		foreach ( $params as $param ) {
 			$elements = explode( '=', $param, 2 );
@@ -59,7 +68,12 @@ class PFAutoEditRating {
 							$errorMsg = wfMessage( 'pf-autoedit-invalidnamespace', $targetTitle->getNsText() )->parse();
 							return Html::element( 'div', [ 'class' => 'error' ], $errorMsg );
 						}
-						$targetWikiPage = WikiPage::factory( $targetTitle );
+						if ( $wikiPageFactory !== null ) {
+							// MW 1.36+
+							$targetWikiPage = $wikiPageFactory->newFromTitle( $targetTitle );
+						} else {
+							$targetWikiPage = WikiPage::factory( $targetTitle );
+						}
 						$targetWikiPage->clear();
 						$editTime = $targetWikiPage->getTimestamp();
 						$latestRevId = $targetWikiPage->getLatest();
