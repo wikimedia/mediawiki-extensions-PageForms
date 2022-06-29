@@ -1148,9 +1148,12 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 
 $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	var $wizardScreens = $(this);
+	var $curScreen;
+
 	$wizardScreens.each( function(i) {
 		// screenNum starts at 1, not 0.
 		if ( i + 1 == screenNum ) {
+			$curScreen = $(this);
 			$(this).show();
 		} else {
 			$(this).hide();
@@ -1166,8 +1169,12 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	var $navButtons = $('<div class="pf-wizard-buttons"></div>');
 
 	if ( screenNum > 1 ) {
+		var backText = $curScreen.attr('data-back-text');
+		if ( backText == undefined ) {
+			backText = 'Back';
+		}
 		var prevButton = new OO.ui.ButtonWidget( {
-			label: 'Back',
+			label: backText,
 			icon: 'previous',
 			classes: [ 'pf-wizard-back-button' ]
 		} );
@@ -1178,8 +1185,12 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	}
 
 	if ( screenNum < numScreens ) {
-		var nextButton = new OO.ui.ButtonWidget( {
-			label: 'Continue',
+		var continueText = $curScreen.attr('data-continue-text');
+		if ( continueText == undefined ) {
+			continueText = 'Continue';
+		}
+		var continueButton = new OO.ui.ButtonWidget( {
+			label: continueText,
 			flags: [
 				'primary',
 				'progressive'
@@ -1187,10 +1198,10 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 			icon: 'next',
 			classes: [ 'pf-wizard-continue-button' ]
 		} );
-		nextButton.$element.click( function() {
+		continueButton.$element.click( function() {
 			$wizardScreens.displayWizardScreen( screenNum + 1, $wizardNav );
 		});
-		$navButtons.append( nextButton.$element );
+		$navButtons.append( continueButton.$element );
 	}
 	$wizardNav.append( $navButtons );
 
