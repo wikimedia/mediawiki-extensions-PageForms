@@ -408,9 +408,9 @@ class PFAutocompleteAPI extends ApiBase {
 			// but this one works consistently across the different
 			// DB systems.
 			if ( $wgPageFormsAutocompleteOnAllChars ) {
-				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"%$substring%\"))";
+				$whereStr .= "(LOWER($cargoField) LIKE LOWER('%$substring%'))";
 			} else {
-				$whereStr .= "(LOWER($cargoField) LIKE LOWER(\"$substring%\")";
+				$whereStr .= "(LOWER($cargoField) LIKE LOWER('$substring%')";
 				// Also look for the substring after any word
 				// separator (most commonly, a space). In theory,
 				// any punctuation can be a word separator,
@@ -420,9 +420,9 @@ class PFAutocompleteAPI extends ApiBase {
 				// REGEXP operator, but its presence is
 				// inconsistent between MySQL, PostgreSQL and
 				// SQLite.
-				$wordSeparators = [ ' ', '/', '(', ')', '-', '|', '\'', '\"' ];
+				$wordSeparators = [ ' ', '/', '(', ')', '-', '|', "\'", '"' ];
 				foreach ( $wordSeparators as $wordSeparator ) {
-					$whereStr .= " OR LOWER($cargoField) LIKE LOWER(\"%$wordSeparator$substring%\")";
+					$whereStr .= " OR LOWER($cargoField) LIKE LOWER('%$wordSeparator$substring%')";
 				}
 				$whereStr .= ')';
 			}
