@@ -168,6 +168,20 @@ class PFComboBoxInput extends PFFormInput {
 			'data-input-type' => 'combobox'
 		];
 		$text = Html::rawElement( 'span', $spanAttrs, $inputText );
+		if ( array_key_exists( 'feeds to map', $other_args ) ) {
+			global $wgPageFormsMapsWithFeeders;
+			$targetMapName = $other_args['feeds to map'];
+			if ( array_key_exists( 'part_of_multiple', $other_args ) ) {
+				$targetMapName = str_replace( '[', '[num][', $targetMapName );
+			}
+			$mapField = Html::rawElement( 'input', [
+				'class' => 'combobox_map_feed',
+				'data-feeds-to-map' => $targetMapName,
+				'style' => 'display:none;'
+			] );
+			$wgPageFormsMapsWithFeeders[$targetMapName] = true;
+			$text .= $mapField;
+		}
 		return $text;
 	}
 
