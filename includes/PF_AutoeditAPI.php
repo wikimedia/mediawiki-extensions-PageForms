@@ -324,6 +324,7 @@ class PFAutoeditAPI extends ApiBase {
 	}
 
 	protected function setupEditPage( $targetContent ) {
+		global $wgRequest;
 		// Find existing target article if it exists, or create a new one.
 		$targetTitle = Title::newFromText( $this->mOptions['target'] );
 
@@ -351,6 +352,16 @@ class PFAutoeditAPI extends ApiBase {
 			],
 			$this->mOptions
 		);
+
+		// Checks if the "Watch this page" checkbox is checked
+		if ( $wgRequest->getCheck( 'wpWatchthis' ) ) {
+			$data[ 'wpWatchthis' ] = true;
+		}
+
+		// Checks if the "Minor edit" checkbox is checked
+		if ( $wgRequest->getCheck( 'wpMinoredit' ) ) {
+			$data[ 'wpMinoredit' ] = true;
+		}
 
 		if ( array_key_exists( 'format', $data ) ) {
 			unset( $data['format'] );
