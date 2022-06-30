@@ -399,6 +399,9 @@ class PFAutocompleteAPI extends ApiBase {
 				$fieldsStr = $cargoField = '_value';
 			}
 
+			$cdb = CargoUtils::getDB();
+			$quotedCargoField = $cdb->addIdentifierQuotes( $cargoField );
+
 			// LIKE is almost always case-insensitive for MySQL,
 			// usually (?) case-sensitive for PostgreSQL, and
 			// case-insensitive (though only for ASCII characters)
@@ -408,9 +411,9 @@ class PFAutocompleteAPI extends ApiBase {
 			// but this one works consistently across the different
 			// DB systems.
 			if ( $wgPageFormsAutocompleteOnAllChars ) {
-				$whereStr .= "(LOWER($cargoField) LIKE LOWER('%$substring%'))";
+				$whereStr .= "(LOWER($quotedCargoField) LIKE LOWER('%$substring%'))";
 			} else {
-				$whereStr .= "(LOWER($cargoField) LIKE LOWER('$substring%')";
+				$whereStr .= "(LOWER($quotedCargoField) LIKE LOWER('$substring%')";
 				// Also look for the substring after any word
 				// separator (most commonly, a space). In theory,
 				// any punctuation can be a word separator,
@@ -422,7 +425,7 @@ class PFAutocompleteAPI extends ApiBase {
 				// SQLite.
 				$wordSeparators = [ ' ', '/', '(', ')', '-', '|', "\'", '"' ];
 				foreach ( $wordSeparators as $wordSeparator ) {
-					$whereStr .= " OR LOWER($cargoField) LIKE LOWER('%$wordSeparator$substring%')";
+					$whereStr .= " OR LOWER($quotedCargoField) LIKE LOWER('%$wordSeparator$substring%')";
 				}
 				$whereStr .= ')';
 			}
