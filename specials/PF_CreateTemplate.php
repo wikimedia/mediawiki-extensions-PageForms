@@ -265,6 +265,7 @@ END;
 		}
 
 		$out->addModules( [ 'ext.pageforms.main', 'ext.pageforms.PF_CreateTemplate' ] );
+		$out->addModuleStyles( [ 'ext.pageforms.main.styles' ] );
 
 		$text = '';
 		$save_page = $req->getCheck( 'wpSave' );

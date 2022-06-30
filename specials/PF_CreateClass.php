@@ -214,6 +214,7 @@ class PFCreateClass extends SpecialPage {
 		$req = $this->getRequest();
 
 		$out->addModules( [ 'ext.pageforms.PF_CreateClass', 'ext.pageforms.main', 'ext.pageforms.PF_CreateTemplate' ] );
+		$out->addModuleStyles( [ 'ext.pageforms.main.styles' ] );
 		$createAll = $req->getCheck( 'createAll' );
 		if ( $createAll ) {
 			// Guard against cross-site request forgeries (CSRF).
