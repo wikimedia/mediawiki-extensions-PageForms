@@ -1208,17 +1208,31 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	// We need this in order to clear the float from the "previous" button.
 	$wizardNav.append('<br style="clear: both;" />');
 
-	var progressBar = new OO.ui.ProgressBarWidget( {
-		progress: 100 * screenNum / numScreens
-	} );
-	var progressBarLayout = new OO.ui.FieldLayout(
-		progressBar,
-		{
-			label: 'Step ' + screenNum + ' of ' + numScreens,
-			align: 'inline'
+	// Use progress bar if the number of screens is greater than 10 and circles in the other case
+	if ( numScreens > 10 ) {
+		var progressBar = new OO.ui.ProgressBarWidget( {
+			progress: 100 * screenNum / numScreens
+		} );
+		var progressBarLayout = new OO.ui.FieldLayout(
+			progressBar,
+			{
+				label: 'Step ' + screenNum + ' of ' + numScreens,
+				align: 'inline'
+			}
+		);
+		$wizardNav.append( progressBarLayout.$element );
+	} else {
+		$( '.pf-wizard-buttons' ).addClass( 'pf-wizard-buttons-circle' );
+		var progressCiclesUL = $( '<ul class="pfWizardCircles"></ul>' );
+		for( let i = 1; i <= numScreens; i++ ) {
+			var circle = '<li>' + i + '</li>';
+			if ( i == screenNum ) {
+				circle = '<li class="active">' + i + '</li>';
+			}
+			progressCiclesUL.append( $( circle ) );
 		}
-	);
-	$wizardNav.append( progressBarLayout.$element );
+		$wizardNav.append( progressCiclesUL );
+	}
 };
 
 var num_elements = 0;

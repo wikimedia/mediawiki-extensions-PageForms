@@ -1,0 +1,116 @@
+:root {
+	--active-bg-color: #36c;
+	--active-text-color: white;
+	--inactive-bg-color: #C4DDF4;
+	--inactive-text-color: #3480D2;
+	--line-width: 5%;
+	--active-circle-diam: 35px;
+	--inactive-circle-diam: 28px;
+}
+
+div.pf-wizard-navigation {
+	background-color: #eaf3ff;
+	padding: 25px;
+	margin-top: 25px;
+	border: #c8ccd1 1px solid;
+}
+
+div.pf-wizard-buttons {
+	max-width: 900px;
+	text-align: right;
+}
+
+div.pf-wizard-buttons-circle {
+	max-width: inherit;
+	text-align: right;
+}
+
+.pf-wizard-back-button {
+	float: left;
+}
+
+ul.pfWizardCircles {
+	position:relative;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0;
+	z-index: 1;
+}
+.pfWizardCircles > li:only-child {
+	margin: auto;
+}
+
+.pfWizardCircles > li:not(:last-child):after {
+	content: '';
+	position: absolute;
+	top: calc((100% - var(--line-width)) / 2);
+	height: var(--line-width);
+	z-index: -1;
+	color: var(--active-bg-color);
+}
+
+.pfWizardCircles > li {
+	overflow: hidden;
+	text-align:center;
+	border-radius: 50%;
+	text-indent: 0;
+	list-style-type: none;
+}
+
+.pfWizardCircles > li,
+.pfWizardCircles > li:not(:last-child):after {
+	background: var(--active-bg-color);
+	color: var(--active-text-color);
+}
+
+.pfWizardCircles > li.active:after,
+.pfWizardCircles > li.active ~ li,
+.pfWizardCircles > li.active ~ li:not(:last-child):after {
+	background: var(--inactive-bg-color);
+	color: var(--inactive-text-color);
+}
+
+.pfWizardCircles > li.active {
+	width: var(--active-circle-diam);
+	height: var(--active-circle-diam);
+	line-height: calc(var(--active-circle-diam) + 0.1rem);
+	font-size: calc(var(--active-circle-diam) / 1.5);
+	font-weight: bold;
+}
+.pfWizardCircles > li:not(.active) {
+	width: var(--inactive-circle-diam);
+	height: var(--inactive-circle-diam);
+	line-height: calc(var(--inactive-circle-diam) + 0.1rem);
+	font-size: calc(var(--inactive-circle-diam) / 1.5);
+}
+
+.pfWizardCircles > li:first-child:nth-last-child(2):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(2) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 1);
+}
+.pfWizardCircles > li:first-child:nth-last-child(3):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(3) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 2);
+}
+.pfWizardCircles > li:first-child:nth-last-child(4):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(4) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 3);
+}
+.pfWizardCircles > li:first-child:nth-last-child(5):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(5) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 4);
+}
+.pfWizardCircles > li:first-child:nth-last-child(6):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(6) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 5);
+}
+.pfWizardCircles > li:first-child:nth-last-child(7):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(7) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 6);
+}
+
+.pfWizardCircles > li:first-child:nth-last-child(8):not(:last-child):after,
+.pfWizardCircles > li:first-child:nth-last-child(8) ~ li:not(:last-child):after {
+	width: calc((100% - 2rem) / 7);
+}

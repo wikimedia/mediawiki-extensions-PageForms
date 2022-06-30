@@ -355,22 +355,6 @@ span#wpWatchthis {
 	margin-right: 13px;
 }
 
-div.pf-wizard-navigation {
-	background-color: #eaf3ff;
-	padding: 25px;
-	margin-top: 25px;
-	border: #c8ccd1 1px solid;
-}
-
-div.pf-wizard-buttons {
-	max-width: 900px;
-	text-align: right;
-}
-
-.pf-wizard-back-button {
-	float: left;
-}
-
 /* Style for touch-screen devices */
 
 @media (hover: none), (pointer: none), (pointer: coarse) {
