@@ -17,6 +17,7 @@
 			"Seb35",
 			"Shirayuki",
 			"Siebrand",
+			"Simbu123",
 			"Umherirrender",
 			"Verdy p",
 			"아라"
@@ -183,7 +184,7 @@
 	"pf_formstart_docu": "Used as description for the HTML form. Parameters:\n* $1 - page form name\nSee also:\n* {{msg-mw|pf formstart noform docu}}",
 	"pf_formstart_noform_docu": "Used as description for the HTML form.\n\nSee also:\n* {{msg-mw|pf formstart docu}}",
 	"pf_formstart_createoredit": "Button",
-	"formedit": "{{doc-special|FormEdit}}",
+	"formedit": "{{doc-special|ফৰ্মৰ সৈতে সম্পাদনা কৰক}}",
 	"pf-formedit-selectform": "A header displayed above a group of choices for the user",
 	"pf-noforms-error": "Error message",
 	"pf-formedit-mainforms": "A header above a list of the most widely-used forms in the wiki",
