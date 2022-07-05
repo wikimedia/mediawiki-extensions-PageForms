@@ -542,7 +542,7 @@
 		"remoteExtPath": "PageForms"
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": [
+		"SkinTemplateNavigation::Universal": [
 			"PFFormEditAction::displayTab",
 			"PFHelperFormAction::displayTab"
 		],
