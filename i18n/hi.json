@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kaustubh",
-			"Siddhartha Ghai"
+			"Siddhartha Ghai",
+			"Saurmandal"
 		]
 	},
 	"createproperty": "एक गुणधर्म बनायें",
@@ -43,7 +44,7 @@
 	"createcategory": "श्रेणी बनायें",
 	"pf_createcategory_name": "नाम:",
 	"pf_createcategory_defaultform": "डिफ़ाल्ट फ़ार्म:",
-	"formstart": "पन्ना बढायें",
+	"formstart": "फ़ॉर्म की शुरुआत",
 	"pf_formstart_createoredit": "बढायें या बदलें",
 	"formedit": "फ़ार्म के साथ बदलें",
 	"pf_formedit_createtitle": "बढायें $1: $2",
