@@ -133,6 +133,8 @@ class PFTemplateDisplay {
 				$formattedFieldValue = self::ratingText( $fieldValue );
 			} elseif ( $fieldType == 'File' ) {
 				$formattedFieldValue = self::fileText( $fieldValue );
+			} elseif ( $fieldType == 'URL' ) {
+				$formattedFieldValue = Linker::makeExternalLink( $fieldValue, $fieldValue );
 			} else {
 				$formattedFieldValue = $fieldValue;
 			}
