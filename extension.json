@@ -196,7 +196,9 @@
 				"pf_modified_input_error",
 				"pf_pipe_error",
 				"pf_start_end_date_error",
-				"pf_start_end_datetime_error"
+				"pf_start_end_datetime_error",
+				"pf-wizard-back",
+				"pf-wizard-continue"
 			]
 		},
 		"ext.pageforms.main.styles": {

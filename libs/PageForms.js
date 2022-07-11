@@ -1171,7 +1171,7 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	if ( screenNum > 1 ) {
 		var backText = $curScreen.attr('data-back-text');
 		if ( backText == undefined ) {
-			backText = 'Back';
+			backText = mw.msg('pf-wizard-back');
 		}
 		var prevButton = new OO.ui.ButtonWidget( {
 			label: backText,
@@ -1187,7 +1187,7 @@ $.fn.displayWizardScreen = function( screenNum, $wizardNav ) {
 	if ( screenNum < numScreens ) {
 		var continueText = $curScreen.attr('data-continue-text');
 		if ( continueText == undefined ) {
-			continueText = 'Continue';
+			continueText = mw.msg('pf-wizard-continue');
 		}
 		var continueButton = new OO.ui.ButtonWidget( {
 			label: continueText,
