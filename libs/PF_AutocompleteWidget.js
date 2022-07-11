@@ -135,9 +135,9 @@ pf.AutocompleteWidget.prototype.highlightText = function ( suggestion ) {
 	var t;
 
 	if (loc >= 0) {
-		t = itemLabel.substr(0, loc) +
+		t = itemLabel.slice(0, Math.max(0, loc)) +
 			 '<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
-			itemLabel.substr(loc + searchTerm.length);
+			itemLabel.slice(loc + searchTerm.length);
 	} else {
 		t = itemLabel;
 	}

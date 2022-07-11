@@ -79,7 +79,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 			// instance template; just set the ID to a random
 			// string, so we can attach the map to it.
 			mapCanvasID = mapCanvas.attr('data-origID') + '-' +
-				Math.random().toString(36).substring(2, 15);
+				Math.random().toString(36).slice(2, 15);
 			mapCanvas.attr('ID', mapCanvasID);
 		}
 		map = new OpenLayers.Map( mapCanvasID );

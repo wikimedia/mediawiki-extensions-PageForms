@@ -79,7 +79,7 @@
 				tokensUL.find('li.select2-selection__choice').not('.sortable-ghost').each( function() {
 					// Remove the "x" from the beginning of
 					// the string.
-					newTokensOrder.push($(this).text().substring(1));
+					newTokensOrder.push($(this).text().slice(1));
 				});
 				var dropdownItems = {};
 				tokensSelect.find('option').each( function() {
@@ -283,7 +283,7 @@
 				var name = $(input_id).attr(this.nameAttr($(input_id)));
 				// Remove the final "[]".
 				if (name.includes('[]')) {
-					name = name.substring(0, name.length - 2);
+					name = name.slice(0, Math.max(0, name.length - 2));
 				}
 				var wgPageFormsEDSettings = mw.config.get( 'wgPageFormsEDSettings' );
 				var edgValues = mw.config.get( 'edgValues' );

@@ -477,9 +477,9 @@ window.ext.popupform = ( function () {
 				var stop = url.indexOf("&", start);
 
 				if ( stop >= 0 ) {
-					url = url.substr( 0, start - 1 ) + url.substr(stop + 1);
+					url = url.slice( 0, Math.max(0, start - 1) ) + url.slice(stop + 1);
 				} else {
-					url = url.substr( 0, start - 1 );
+					url = url.slice( 0, Math.max(0, start - 1) );
 				}
 
 			}
@@ -809,8 +809,8 @@ window.ext.popupform = ( function () {
 
 			// Do we have parameters?
 			if ( delim > 0 ) {
-				form.action = ptarget.substr( 0, delim );
-				var params = String( ptarget.substr( delim + 1 ) ).split("&");
+				form.action = ptarget.slice( 0, Math.max(0, delim) );
+				var params = String( ptarget.slice( delim + 1 ) ).split("&");
 				for ( var i = 0; i < params.length; ++i ) {
 
 					var input = document.createElement("input");

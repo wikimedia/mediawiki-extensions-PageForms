@@ -90,6 +90,7 @@
 		"no-unreachable-loop": "warn",
 		"mediawiki/msg-doc": "warn",
 		"compat/compat": "warn",
-		"block-scoped-var": "warn"
+		"block-scoped-var": "warn",
+		"unicorn/prefer-string-slice": "warn"
 	}
 }
