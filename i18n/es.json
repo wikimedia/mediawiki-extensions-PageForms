@@ -24,7 +24,8 @@
 			"DannyS712",
 			"Jakeukalane",
 			"Whovian Biologist",
-			"DiegoAmbrocio"
+			"DiegoAmbrocio",
+			"Francodiaz7"
 		]
 	},
 	"pageforms-desc": "Formularios para crear y editar páginas wiki",
@@ -237,8 +238,8 @@
 	"pf_blank_namespace": "Principal",
 	"right-viewedittab": "Ver la pestaña \"{{int:edit}}\" para páginas editables por formulario",
 	"right-editrestrictedfields": "Editar los campos restringidos de los formularios",
-	"right-createclass": "Crear nuevas clases semánticas",
-	"action-createclass": "crear nuevas clases semánticas",
+	"right-createclass": "Crear nuevas \"clases\" de páginas",
+	"action-createclass": "crear nuevas \"clases\" de páginas",
 	"action-editrestrictedfields": "editar los campos restringidos de los formularios",
 	"action-viewedittab": "ver la pestaña \"{{int:edit}}\" en las páginas editables por formularios",
 	"tooltip-ca-formedit": "Editar esta página con un formulario",
