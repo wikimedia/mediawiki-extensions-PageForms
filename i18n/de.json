@@ -209,6 +209,8 @@
 	"pf_formedit_saveandcontinueediting": "Zwischenspeichern",
 	"pf_formedit_saveandcontinue_summary": "Wurde mit Schaltfläche „$1“ im Formular gespeichert",
 	"pf_formedit_tooltip_saveandcontinueediting": "Eingaben speichern und Bearbeitung fortsetzen",
+	"pf-wizard-back": "Zurück",
+	"pf-wizard-continue": "Fortfahren",
 	"pf-autoedit-invalidnamespace": "Fehler: #autoedit kann nicht auf Seiten im Namensraum „$1“ in diesem Wiki aufgerufen werden.",
 	"pf_autoedit_anoneditwarning": "Warnung: Diese Seite wird gerade unangemeldet bearbeitet. Beim Speichern wird die aktuelle IP-Adresse des Bearbeiters in der Versionsgeschichte aufgezeichnet und ist damit unwiderruflich '''öffentlich''' einsehbar.",
 	"pf_autoedit_success": "[[$1]] wurde mit Formular „$2“ erfolgreich geändert.",

@@ -149,6 +149,8 @@
 	"pf_formedit_saveandcontinueediting": "保存して続行",
 	"pf_formedit_saveandcontinue_summary": "フォームの「$1」ボタンで保存済み",
 	"pf_formedit_tooltip_saveandcontinueediting": "データを保存して編集を続行",
+	"pf-wizard-back": "戻る",
+	"pf-wizard-continue": "続行",
 	"pf_autoedit_anoneditwarning": "'''警告:''' ログインしていません。編集すると、IPアドレスがこのページの編集履歴に記録されます。",
 	"pf_autoedit_success": "フォーム $2 を使用して [[$1]] を変更しました。",
 	"pf_autoedit_fail": "[[$1]] の変更に失敗しました。",

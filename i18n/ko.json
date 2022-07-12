@@ -170,6 +170,8 @@
 	"pf_formedit_saveandcontinueediting": "저장하고 계속",
 	"pf_formedit_saveandcontinue_summary": "양식에서 \"$1\" 버튼을 사용하여 저장함",
 	"pf_formedit_tooltip_saveandcontinueediting": "데이터를 저장하고 편집을 계속하기",
+	"pf-wizard-back": "뒤로",
+	"pf-wizard-continue": "계속",
 	"pf_autoedit_anoneditwarning": "주의: 로그인하고 있지 않습니다. IP 주소가 문서의 편집 역사에 남게 됩니다.",
 	"pf_autoedit_success": "$2 양식을 사용하여 [[$1]] 문서를 수정했습니다.",
 	"pf_autoedit_fail": "[[$1]]을(를) 수정하는 데 실패했습니다.",
