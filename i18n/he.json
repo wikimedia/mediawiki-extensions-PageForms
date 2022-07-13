@@ -203,6 +203,8 @@
 	"pf_formedit_saveandcontinueediting": "לשמור ולהמשיך",
 	"pf_formedit_saveandcontinue_summary": "נשמר באמצעות כפתור \"$1\" בטופס",
 	"pf_formedit_tooltip_saveandcontinueediting": "לשמור את הנתונים והמשיך לערוך",
+	"pf-wizard-back": "חזרה",
+	"pf-wizard-continue": "המשך",
 	"pf-autoedit-invalidnamespace": "שגיאה: אי־אפשר לקרוא ל־#autoedit בדפים במרחב השם \"$1\" בוויקי הזה.",
 	"pf_autoedit_anoneditwarning": "אזהרה: לא נכנסתם לחשבון. כתובת ה־IP שלכם תירשם בהיסטוריית הדף הזה.",
 	"pf_autoedit_success": "[[$1]] שוּנה באמצעות הטופס $2.",

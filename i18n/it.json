@@ -162,6 +162,8 @@
 	"pf_formedit_saveandcontinueediting": "Salva e continua",
 	"pf_formedit_saveandcontinue_summary": "Salvato utilizzando il pulsante \"$1\" nel modulo",
 	"pf_formedit_tooltip_saveandcontinueediting": "Salva i dati e continua a modificare",
+	"pf-wizard-back": "Indietro",
+	"pf-wizard-continue": "Continua",
 	"pf_autoedit_anoneditwarning": "Attenzione: non hai effettuato l'accesso.\nNella cronologia della pagina verrà registrato il tuo indirizzo IP.",
 	"pf_autoedit_success": "Modificato [[$1]] utilizzando il modulo $2.",
 	"pf_autoedit_notargetspecified": "Nessuna pagina di destinazione specificata.",

@@ -183,6 +183,8 @@
 	"pf_formedit_saveandcontinueediting": "Opslaan en doorgaan",
 	"pf_formedit_saveandcontinue_summary": "Opgeslagen met de knop \"$1\" in het formulier",
 	"pf_formedit_tooltip_saveandcontinueediting": "Gegevens opslaan en doorgaan met bewerken",
+	"pf-wizard-back": "Terug",
+	"pf-wizard-continue": "Doorgaan",
 	"pf_autoedit_anoneditwarning": "Waarschuwing: u bent niet aangemeld. Uw IP-adres wordt opgenomen in de bewerkingsgeschiedenis van deze pagina.",
 	"pf_autoedit_success": "[[$1]] is gewijzigd via het formulier $2.",
 	"pf_autoedit_fail": "Het wijzigen van [[$1]] is mislukt.",
