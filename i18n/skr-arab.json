@@ -1,7 +1,11 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Saraiki"
+		]
 	},
+	"pf-wizard-back": "پچھوں",
+	"pf-wizard-continue": "جاری رکھو",
 	"pf-autoedit-wait": "رک ونڄو",
 	"pf-datepicker-close": "بند کرو"
 }
