@@ -60,6 +60,7 @@
 	"pf-createtemplate-with-name": "Used as page title. Parameters:\n* $1 - template name\n{{Identical|Create template}}",
 	"pf_createtemplate_namelabel": "Used as label for the \"Template name\" input box.\n{{Identical|Template name}}",
 	"pf_createtemplate_multipleinstance": "Used as label for the checkbox.",
+	"pf_createtemplate_fullwikitext": "Used as label for the checkbox. Parameters:\n* $1 - template_display",
 	"pf_createtemplate_connectingproperty": "Used as label for the input box.",
 	"pf_createtemplate_categorylabel": "Used as label for the \"Category name\" input box.",
 	"pf_createtemplate_usecargo": "Used as a label for a checkbox.",

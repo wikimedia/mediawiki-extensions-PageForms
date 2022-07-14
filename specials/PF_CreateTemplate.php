@@ -280,6 +280,7 @@ END;
 
 			$use_cargo = $req->getBool( 'use_cargo' );
 			$cargo_table = $req->getVal( 'cargo_table' );
+			$use_fullwikitext = $req->getBool( 'use_fullwikitext' );
 
 			$fields = [];
 			// Cycle through the query values, setting the
@@ -331,6 +332,7 @@ END;
 			if ( $use_cargo ) {
 				$pfTemplate->setCargoTable( $cargo_table );
 			}
+			$pfTemplate->setFullWikiTextStatus( $use_fullwikitext );
 			$pfTemplate->setAggregatingInfo( $aggregating_property, $aggregation_label );
 			$pfTemplate->setFormat( $template_format );
 			$full_text = $pfTemplate->createText();
@@ -400,6 +402,11 @@ END;
 			] );
 			$text .= $cargoTableNameRow;
 		}
+
+		$text .= "\t<p><label id='fullwikitext_toggle'>" .
+			Html::hidden( 'use_fullwikitext', false ) .
+			$this->msg( 'pf_createtemplate_fullwikitext', '#template_display' )->escaped() .
+			"</label></p>";
 
 		$text .= "\t<fieldset>\n";
 		$text .= "\t" . Html::element( 'legend', null, $this->msg( 'pf_createtemplate_templatefields' )->text() ) . "\n";

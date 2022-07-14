@@ -158,6 +158,10 @@ jQuery( document ).ready( function () {
 		id: 'use_cargo_toggle',
 		value: true,
 	} );
+	var fullWikiSwitch = new OO.ui.ToggleSwitchWidget( {
+		id: 'use_fullwikitext_toggle',
+		value: false
+	} );
 	jQuery( '#cargo_toggle' ).prepend( toggleSwitch.$element );
 	jQuery( '#use_cargo_toggle' ).attr( 'name', 'use_cargo_toggle' );
 	jQuery( "div.pfTemplateNameBlankError" ).hide();
@@ -172,6 +176,15 @@ jQuery( document ).ready( function () {
 	jQuery( 'form#createTemplateForm' ).removeAttr('style');
 	jQuery( '#use_cargo_toggle' ).click( function() {
 		toggleCargoInputs();
+	} );
+	jQuery( '#fullwikitext_toggle' ).prepend( fullWikiSwitch.$element );
+	jQuery( '#use_fullwikitext_toggle' ).attr( 'name', 'use_fullwikitext_toggle' );
+	jQuery( '#use_fullwikitext_toggle' ).click( function() {
+		if (jQuery('#use_fullwikitext_toggle').attr('aria-checked') == 'true') {
+			jQuery('input[name="use_fullwikitext"]').attr('value', '1');
+		} else {
+			jQuery('input[name="use_fullwikitext"]').attr('value', '0');
+		}
 	} );
 	jQuery( ".createTemplateAddField" ).click( function () {
 		$( this ).createTemplateAddField( false );

@@ -41,6 +41,7 @@
 	"pf-createtemplate-with-name": "Create template: $1",
 	"pf_createtemplate_namelabel": "Template name:",
 	"pf_createtemplate_multipleinstance": "This template can be included multiple times on the page.",
+	"pf_createtemplate_fullwikitext": "Use full wikitext instead of $1",
 	"pf_createtemplate_connectingproperty": "Name of property to connect this template's fields to the rest of the page:",
 	"pf_createtemplate_categorylabel": "Category defined by template (optional):",
 	"pf_createtemplate_usecargo": "Use the Cargo extension to store this template's data",

@@ -44,6 +44,7 @@ class PFCreateClass extends SpecialPage {
 		$template_multiple = $req->getBool( "template_multiple" );
 		$use_cargo = trim( $req->getBool( "use_cargo" ) );
 		$cargo_table = trim( $req->getVal( "cargo_table" ) );
+		$use_fullwikitext = trim( $req->getBool( "use_fullwikitext" ) );
 		// If this is a multiple-instance template, there
 		// shouldn't be a corresponding form or category.
 		if ( $template_multiple ) {
@@ -136,6 +137,7 @@ class PFCreateClass extends SpecialPage {
 		} else {
 			$pfTemplate->setCategoryName( $category_name );
 		}
+		$pfTemplate->setFullWikiTextStatus( $use_fullwikitext );
 		$pfTemplate->setFormat( $template_format );
 		$full_text = $pfTemplate->createText();
 
@@ -269,6 +271,10 @@ class PFCreateClass extends SpecialPage {
 		$templateInfo .= $createTemplatePage->printTemplateStyleInput( 'template_format' );
 		$templateInfo .= Html::rawElement( 'p', [ 'id' => 'template_multiple_p' ],
 			Html::hidden( 'multiple_template', false ) . $this->msg( 'pf_createtemplate_multipleinstance' )->escaped() ) . "\n";
+		$templateInfo .= "\t<p><label id='fullwikitext_toggle'>" .
+			Html::hidden( 'use_fullwikitext', false ) .
+			$this->msg( 'pf_createtemplate_fullwikitext', '#template_display' )->escaped() .
+			"</label></p>\n";
 		// Either #set_internal or #subobject will be added to the
 		// template, depending on whether Semantic Internal Objects is
 		// installed.
