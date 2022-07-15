@@ -185,7 +185,7 @@
 	"pf_formedit_remove": "Remove this instance",
 	"pf_formedit_addanotherabove": "Add another instance above this one",
 	"pf_formedit_addanother": "Add another",
-	"pf_formedit_none": "None",
+	"pf_formedit_none": "None/unknown",
 	"pf_formedit_emptytitle": "Error: The inserted data results in an empty page title.",
 	"pf_formedit_hookerror": "Error: A MediaWiki extension prevented the modification of the target page.",
 	"pf_formedit_saveandcontinueediting": "Save and continue",

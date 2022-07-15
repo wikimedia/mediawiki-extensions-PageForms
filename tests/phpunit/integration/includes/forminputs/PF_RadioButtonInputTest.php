@@ -75,7 +75,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			'expected_html' => '<span id="span_\d+" '
 			. 'class="radioButtonSpan">' . "\n"
 
-			. $this->radioButtonFormat( $label, '', 'None', 'checked' )
+			. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 
 			. "</span>"
 		] ];
@@ -88,7 +88,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 				'expected_html' => '<span id="span_\d+" '
 				. 'class="radioButtonSpan">' . "\n"
 
-				. $this->radioButtonFormat( $label, '', 'None', 'checked' )
+				. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 				. $this->radioButtonFormat( $label, 'Yes' )
 				. $this->radioButtonFormat( $label, 'No' )
 
@@ -104,7 +104,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 				'expected_html' => '<span id="span_\d+" '
 				. 'class="radioButtonSpan">' . "\n"
 
-				. $this->radioButtonFormat( $label, '', 'None', 'checked' )
+				. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 				. $this->radioButtonFormat( $label, 'one' )
 				. $this->radioButtonFormat( $label, 'deux' )
 				. $this->radioButtonFormat( $label, 'drei' )
@@ -165,7 +165,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 				] ];
 
 		// data set #6 - if null is the current value provided on a
-		// non-mandatory field, make sure 'None' is selected.
+		// non-mandatory field, make sure 'None/unknown' is selected.
 		$provider[] = [ [
 			'args' => [
 				null, $label, false, false, [
@@ -174,7 +174,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan">' . "\n"
 
-					. $this->radioButtonFormat( $label, '', 'None', 'checked' )
+					. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 					. $this->radioButtonFormat( $label, 'one' )
 					. $this->radioButtonFormat( $label, 'deux' )
 					. $this->radioButtonFormat( $label, 'drei' )
@@ -183,7 +183,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 				] ];
 
 		// data set #7 - if null is the current value provided on a
-		// _boo, make sure 'None' is available.
+		// _boo, make sure 'None/unknown' is available.
 		$provider[] = [ [
 			'args' => [
 				null, $label, false, false, [
@@ -192,7 +192,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan">' . "\n"
 
-					. $this->radioButtonFormat( $label, '', 'None', 'checked' )
+					. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 					. $this->radioButtonFormat( $label, 'Yes' )
 					. $this->radioButtonFormat( $label, 'No' )
 
@@ -209,7 +209,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 					'expected_html' => '<span id="span_\d+" '
 					. 'class="radioButtonSpan testME">' . "\n"
 
-					. $this->radioButtonFormat( $label, '', 'None', 'checked', 'testME' )
+					. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked', 'testME' )
 					. $this->radioButtonFormat( $label, 'one', null, null, 'testME' )
 					. $this->radioButtonFormat( $label, 'deux', null, null, 'testME' )
 					. $this->radioButtonFormat( $label, 'drei', null, null, 'testME' )
@@ -228,7 +228,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 					. 'class="radioButtonSpan">' . "\n"
 
 					. $this->radioButtonFormat(
-						$label, '', 'None', 'checked', null, 'origname="testME"'
+						$label, '', 'None/unknown', 'checked', null, 'origname="testME"'
 					)
 					. $this->radioButtonFormat(
 						$label, 'Yes', null, null, null, 'origname="testME"'
@@ -252,7 +252,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 					. 'class="radioButtonSpan">' . "\n"
 
 					. $this->radioButtonFormat(
-						$label, '', 'None', 'checked', null, null, true
+						$label, '', 'None/unknown', 'checked', null, null, true
 					)
 					. $this->radioButtonFormat(
 						$label, 'Yes', null, null, null, null, true
@@ -424,7 +424,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton}}}"
 		], [
-			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None', 'checked' )
+			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 		] ];
 
 		/**
@@ -433,7 +433,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 		$provider[] = [ [
 		], [
 			'expected_form_test' =>
-			$this->radioButtonFormat( $label, '', 'None', 'checked' )
+			$this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 			. $this->radioButtonFormat( $label, 'Yes' )
 			. $this->radioButtonFormat( $label, 'No' ),
 			'skip' => 'How to do SMW?'
@@ -448,7 +448,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			. "deux, drei}}}"
 		], [
 			'expected_form_test' =>
-			$this->radioButtonFormat( $label, '', 'None', 'checked' )
+			$this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' )
@@ -505,14 +505,14 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 
 		/**
 		 * data set #6 - if null is the current value provided on a
-		 *               non-mandatory field, make sure 'None' is
+		 *               non-mandatory field, make sure 'None/unknown' is
 		 *               selected.
 		 */
 		$provider[] = [ [
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei}}}"
 		], [
-			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None', 'checked' )
+			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' )
@@ -520,7 +520,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 
 		/**
 		 * data set #7 - if null is the current value provided on a
-		 *               mandatory boolean field, make sure 'None' is
+		 *               mandatory boolean field, make sure 'None/unknown' is
 		 *               not available.
 		 */
 		$provider[] = [ [
@@ -539,7 +539,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			. "deux,drei|class=testME}}}"
 		], [
 			'expected_form_text' =>
-			$this->radioButtonFormat( $label, '', 'None', 'checked', 'testME' )
+			$this->radioButtonFormat( $label, '', 'None/unknown', 'checked', 'testME' )
 			. $this->radioButtonFormat( $label, 'one', null, null, 'testME' )
 			. $this->radioButtonFormat( $label, 'deux', null, null, 'testME' )
 			. $this->radioButtonFormat( $label, 'drei', null, null, 'testME' )
@@ -560,7 +560,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			. "deux,drei|restricted}}}"
 		], [
 			'expected_form_text' =>
-			$this->radioButtonFormat( $label, '', 'None', 'checked', null, null, true )
+			$this->radioButtonFormat( $label, '', 'None/unknown', 'checked', null, null, true )
 			. $this->radioButtonFormat( $label, 'one', null, null, null, null, true )
 			. $this->radioButtonFormat( $label, 'deux', null, null, null, null, true )
 			. $this->radioButtonFormat( $label, 'drei', null, null, null, null, true )
@@ -602,7 +602,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			'form_definition' => "{{{field|$label|input type=radiobutton|values=one,"
 			. "deux,drei|label=deux=>&2&;drei=><3>}}}"
 		], [
-			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None', 'checked' )
+			'expected_form_text' => $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux', '&amp;2&amp;' )
 			. $this->radioButtonFormat( $label, 'drei', '&lt;3&gt;' ),
@@ -620,7 +620,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 		], [
 			'expected_form_text' => '<span id="span_\d+" class="radioButtonSpan '
 			. 'pfShowIfChecked">' . "\n"
-			. $this->radioButtonFormat( $label, '', 'None', 'checked' )
+			. $this->radioButtonFormat( $label, '', 'None/unknown', 'checked' )
 			. $this->radioButtonFormat( $label, 'one' )
 			. $this->radioButtonFormat( $label, 'deux' )
 			. $this->radioButtonFormat( $label, 'drei' ),
