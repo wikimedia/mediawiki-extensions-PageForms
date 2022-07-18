@@ -177,7 +177,7 @@
 	"pf_formedit_remove": "Instantie verwijderen",
 	"pf_formedit_addanotherabove": "Nog een instantie toevoegen boven deze",
 	"pf_formedit_addanother": "Volgende toevoegen",
-	"pf_formedit_none": "Geen",
+	"pf_formedit_none": "Geen/onbekend",
 	"pf_formedit_emptytitle": "Fout: De toegevoegde gegevens leveren een lege paginanaam op.",
 	"pf_formedit_hookerror": "Fout: een MediaWiki-uitbreiding voorkomt het wijzigen van de doelpagina.",
 	"pf_formedit_saveandcontinueediting": "Opslaan en doorgaan",

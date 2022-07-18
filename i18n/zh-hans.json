@@ -201,7 +201,7 @@
 	"pf_formedit_remove": "移除该实例",
 	"pf_formedit_addanotherabove": "在这个上面添加另一个实例",
 	"pf_formedit_addanother": "添加另一个",
-	"pf_formedit_none": "无",
+	"pf_formedit_none": "无/未知",
 	"pf_formedit_emptytitle": "错误：所插入的数据生成的是空白页面标题。",
 	"pf_formedit_hookerror": "出错：MediaWiki扩展程序阻止了对目标页面的修改。",
 	"pf_formedit_saveandcontinueediting": "保存并继续",
