@@ -520,7 +520,8 @@
 				"oojs-ui-widgets"
 			],
 			"messages": [
-				"pf_createtemplate_hierarchystructureplaceholder"
+				"pf_createtemplate_hierarchystructureplaceholder",
+				"pf_blank_error"
 			]
 		},
 		"ext.pageforms.PF_CreateForm": {

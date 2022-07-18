@@ -53,11 +53,6 @@ class PFCreateClass extends SpecialPage {
 			$form_name = trim( $req->getVal( "form_name" ) );
 			$category_name = trim( $req->getVal( "category_name" ) );
 		}
-		if ( $template_name === '' || ( !$template_multiple && $form_name === '' ) ||
-			( $use_cargo && ( $cargo_table === '' ) ) ) {
-			$out->addWikiMsg( 'pf_createclass_missingvalues' );
-			return;
-		}
 		$fields = [];
 		$jobs = [];
 		$allowedValuesForFields = [];
