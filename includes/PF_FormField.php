@@ -902,7 +902,10 @@ class PFFormField {
 					// The wikitext we use for tooltips
 					// depends on which other extensions
 					// are installed.
-					if ( defined( 'SMW_VERSION' ) ) {
+					if ( class_exists( 'RegularTooltipsParser' ) ) {
+						// RegularTooltips
+						$descPlaceholder = " {{#info-tooltip:$fieldDesc}}";
+					} elseif ( defined( 'SMW_VERSION' ) ) {
 						// Semantic MediaWiki
 						$descPlaceholder = " {{#info:$fieldDesc}}";
 					} elseif ( class_exists( 'SimpleTooltipParserFunction' ) ) {
