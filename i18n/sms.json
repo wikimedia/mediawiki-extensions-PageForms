@@ -4,6 +4,7 @@
 			"Yupik"
 		]
 	},
+	"apihelp-pfautoedit-param-query": "Kõjldõõzz miârkkräidd",
 	"templates": "Maall",
 	"pf_createtemplate_namelabel": "Maall nõmm:",
 	"pf_createtemplate_standardformat": "Taullõk",
@@ -11,6 +12,7 @@
 	"pf-calendar-updateevent": "Peiʹvved šõddmõõžž",
 	"pf_forminputs_checkboxes_select_all": "Vaʹlljed pukid",
 	"pf_createform_template": "Mall:",
+	"pf_createform_templatelabelinput": "Maall nõmm (vaʹlljeemnallšem):",
 	"pf_createform_hidden": "(Čiõkkum)",
 	"pf_createform_addtemplate": "Lââʹzzet maall:",
 	"pf_createform_add": "Lââʹzzet",
