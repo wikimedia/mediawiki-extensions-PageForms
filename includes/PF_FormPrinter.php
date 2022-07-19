@@ -533,6 +533,8 @@ END;
 			return [ 'dep_on', '' ];
 		} elseif ( array_key_exists( 'values from external data', $formFieldArgs ) ) {
 			return [ 'external data', $formFieldArgs['origName'] ];
+		} elseif ( array_key_exists( 'values from wikidata', $formFieldArgs ) ) {
+			return [ 'wikidata', $formFieldArgs['wikidata'] ];
 		} else {
 			return [ '', '' ];
 		}

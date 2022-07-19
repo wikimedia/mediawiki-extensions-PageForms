@@ -127,6 +127,82 @@ class PFValuesUtils {
 	}
 
 	/**
+	 * This function is used for fetching the values from wikidata based on the provided
+	 * annotations. For queries with substring, the function returns all the values which
+	 * have the substring in it.
+	 *
+	 * @param string $query
+	 * @param string|null $substring
+	 * @return array
+	 */
+	public static function getAllValuesFromWikidata( $query, $substring = null ) {
+		$endpointUrl = "https://query.wikidata.org/sparql";
+
+		$query = urldecode( $query );
+
+		$filter_strings = explode( '&', $query );
+		$filters = [];
+
+		foreach ( $filter_strings as $filter ) {
+			$temp = explode( "=", $filter );
+			$filters[ $temp[ 0 ] ] = $temp[ 1 ];
+		}
+
+		$attributesQuery = "";
+
+		foreach ( $filters as $key => $val ) {
+			$attributesQuery .= "wdt:" . $key . " wd:" . $val . ";";
+		}
+		$attributesQuery = rtrim( $attributesQuery, ";" );
+		global $wgLanguageCode;
+
+		$sparqlQueryString = "
+SELECT DISTINCT ?valueLabel WHERE {
+{
+SELECT ?value  WHERE {
+?value " . $attributesQuery . " .
+?value rdfs:label ?valueLabel .
+FILTER(LANG(?valueLabel) = \"" . $wgLanguageCode . "\") .
+FILTER(REGEX(LCASE(?valueLabel), \"\\\\b" . strtolower( $substring ) . "\"))
+} ";
+		if ( $substring != null ) {
+			global $wgPageFormsMaxAutocompleteValues;
+			$sparqlQueryString .= "LIMIT " . ( $wgPageFormsMaxAutocompleteValues + 10 );
+		}
+		$sparqlQueryString .= "}
+SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode . "\". }
+}";
+		if ( $substring != null ) {
+			global $wgPageFormsMaxAutocompleteValues;
+			$sparqlQueryString .= "LIMIT " . $wgPageFormsMaxAutocompleteValues;
+		}
+		$opts = [
+			'http' => [
+				'method' => 'GET',
+				'header' => [
+					'Accept: application/sparql-results+json',
+					'User-Agent: PageForms_API PHP/8.0'
+				],
+			],
+		];
+		$context = stream_context_create( $opts );
+
+		$url = $endpointUrl . '?query=' . urlencode( $sparqlQueryString );
+		$response = file_get_contents( $url, false, $context );
+		$apiResults = json_decode( $response, true );
+		$results = [];
+		if ( $apiResults != null ) {
+			$apiResults = $apiResults[ 'results' ][ 'bindings' ];
+			foreach ( $apiResults as $result ) {
+				foreach ( $result as $key => $val ) {
+					array_push( $results, $val[ 'value' ] );
+				}
+			}
+		}
+		return $results;
+	}
+
+	/**
 	 * Used with the Cargo extension.
 	 * @param string $tableName
 	 * @param string $fieldName
@@ -601,6 +677,9 @@ class PFValuesUtils {
 			$names_array = self::getAllPagesForConcept( $source_name );
 		} elseif ( $source_type == 'query' ) {
 			$names_array = self::getAllPagesForQuery( $source_name );
+		} elseif ( $source_type == 'wikidata' ) {
+			$names_array = self::getAllValuesFromWikidata( $source_name );
+			sort( $names_array );
 		} else {
 			// i.e., $source_type == 'namespace'
 			$names_array = self::getAllPagesForNamespace( $source_name );
@@ -626,6 +705,9 @@ class PFValuesUtils {
 		} elseif ( array_key_exists( 'values from url', $field_args ) ) {
 			$autocompleteFieldType = 'external_url';
 			$autocompletionSource = $field_args['values from url'];
+		} elseif ( array_key_exists( 'values from wikidata', $field_args ) ) {
+			$autocompleteFieldType = 'wikidata';
+			$autocompletionSource = $field_args['values from wikidata'];
 		} elseif ( array_key_exists( 'values', $field_args ) ) {
 			global $wgPageFormsFieldNum;
 			$autocompleteFieldType = 'values';
@@ -663,7 +745,7 @@ class PFValuesUtils {
 	public static function getRemoteDataTypeAndPossiblySetAutocompleteValues( $autocompleteFieldType, $autocompletionSource, $field_args, $autocompleteSettings ) {
 		global $wgPageFormsMaxLocalAutocompleteValues, $wgPageFormsAutocompleteValues;
 
-		if ( $autocompleteFieldType == 'external_url' ) {
+		if ( $autocompleteFieldType == 'external_url' || $autocompleteFieldType == 'wikidata' ) {
 			// Autocompletion from URL is always done remotely.
 			return $autocompleteFieldType;
 		}

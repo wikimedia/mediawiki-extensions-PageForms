@@ -306,6 +306,9 @@ class PFFormField {
 				} elseif ( $sub_components[0] == 'values from property' ) {
 					$propertyName = $sub_components[1];
 					$f->mPossibleValues = PFValuesUtils::getAllValuesForProperty( $propertyName );
+				} elseif ( $sub_components[0] == 'values from wikidata' ) {
+					$valuesSourceType = 'wikidata';
+					$valuesSource = urlencode( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from query' ) {
 					$valuesSourceType = 'query';
 					$valuesSource = $sub_components[1];
@@ -373,8 +376,8 @@ class PFFormField {
 			}
 		}
 		// end for
-
-		if ( $valuesSourceType !== null ) {
+		if ( $valuesSourceType !== null && ( $valuesSourceType !== 'wikidata' || ( $f->mInputType !== 'combobox' &&
+		$f->mInputType !== 'tokens' ) ) ) {
 			$f->mPossibleValues = PFValuesUtils::getAutocompleteValues( $valuesSource, $valuesSourceType );
 			if ( in_array( $valuesSourceType, [ 'category', 'namespace', 'concept' ] ) ) {
 				global $wgPageFormsUseDisplayTitle;

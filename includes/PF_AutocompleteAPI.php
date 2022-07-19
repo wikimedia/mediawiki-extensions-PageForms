@@ -24,6 +24,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$namespace = $params['namespace'];
 		$property = $params['property'];
 		$category = $params['category'];
+		$wikidata = $params['wikidata'];
 		$concept = $params['concept'];
 		$cargo_table = $params['cargo_table'];
 		$cargo_field = $params['cargo_field'];
@@ -47,6 +48,8 @@ class PFAutocompleteAPI extends ApiBase {
 			}
 		} elseif ( $property !== null ) {
 			$data = $this->getAllValuesForProperty( $property, $substr );
+		} elseif ( $wikidata !== null ) {
+			$data = PFValuesUtils::getAllValuesFromWikidata( urlencode( $wikidata ), $substr );
 		} elseif ( $category !== null ) {
 			$data = PFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
@@ -130,6 +133,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'property' => null,
 			'category' => null,
 			'concept' => null,
+			'wikidata' => null,
 			'cargo_table' => null,
 			'cargo_field' => null,
 			'cargo_where' => null,
@@ -148,6 +152,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'property' => 'Semantic property for which to search values',
 			'category' => 'Category for which to search values',
 			'concept' => 'Concept for which to search values',
+			'wikidata' => 'Search string for getting values from wikidata',
 			'namespace' => 'Namespace for which to search values',
 			'external_url' => 'Alias for external URL from which to get values',
 			'baseprop' => 'A previous property in the form to check against',

@@ -15,6 +15,7 @@
  */
 
 (function ($, mw, pf) {
+    var apiRequest = null;
     pf.ComboBoxInput = function (config) {
         this.config = config || {}
         OO.ui.ComboBoxInputWidget.call(this, config);
@@ -66,6 +67,11 @@
         this.$element.focusout( () =>{
             $( '.combobox_map_feed' ).val( this.$input.val() );
         });
+
+        var $loadingIcon = $( '<img src = "' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/loading.gif'
+        + '" id="loading-' + this.getInputId() + '">' );
+        $loadingIcon.hide();
+        $( '#' + element.attr('id') ).parent().append( $loadingIcon );
     };
     /**
      * Sets the values for combobox
@@ -109,12 +115,22 @@
                     my_server += '&cargo_where=' + table_and_field[2];
                 }
             } else {
+                if ( data_type === 'wikidata' ) {
+                    data_source = encodeURIComponent( data_source );
+                }
                 my_server += "?action=pfautocomplete&format=json&" + data_type + "=" + data_source + "&substr=" + curValue;
             }
-            $.ajax({
+            apiRequest = $.ajax({
                 url: my_server,
                 dataType: 'json',
+                beforeSend: () => {
+                    if ( apiRequest !== null ) {
+                        apiRequest.abort();
+                    }
+                    $( '#loading-' + input_id.replace( '#', '' ) ).show();
+                },
                 success: function (Data) {
+                    $( '#loading-' + input_id.replace( '#', '' ) ).hide();
                     if (Data.pfautocomplete !== undefined) {
                         Data = Data.pfautocomplete;
                         if (Data.length == 0) {

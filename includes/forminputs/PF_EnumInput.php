@@ -44,6 +44,11 @@ abstract class PFEnumInput extends PFFormInput {
 			'type' => 'string',
 			'description' => wfMessage( 'pf_forminputs_valuesfromnamespace' )->text()
 		];
+		$params[] = [
+			'name' => 'values from wikidata',
+			'type' => 'string',
+			'description' => wfMessage( 'pf_forminputs_valuesfromwikidata' )->text()
+		];
 		if ( defined( 'SMW_VERSION' ) ) {
 			$params[] = [
 				'name' => 'values from concept',
