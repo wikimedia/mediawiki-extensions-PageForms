@@ -120,7 +120,7 @@
 	"pf_formedit_formwarning": "Attention: Iste pagina [[$1|jam existe]], ma non usa iste formulario.",
 	"pf_formedit_remove": "Remover iste instantia",
 	"pf_formedit_addanother": "Adder un altere",
-	"pf_formedit_none": "Nulle",
+	"pf_formedit_none": "Nulle/incognite",
 	"pf_formedit_emptytitle": "Error: Le datos inserite resulta in un titulo de pagina vacue.",
 	"pf_formedit_hookerror": "Error: Un extension de MediaWiki impediva le modification del articulo de destination.",
 	"pf_formedit_saveandcontinueediting": "Salveguardar e continuar",
