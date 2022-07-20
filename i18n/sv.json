@@ -12,6 +12,7 @@
 			"Najami",
 			"Per",
 			"Rotsee",
+			"Sabelöga",
 			"WikiPhoenix"
 		]
 	},
@@ -161,6 +162,8 @@
 	"pf_formedit_saveandcontinueediting": "Spara och fortsätt",
 	"pf_formedit_saveandcontinue_summary": "Sparad med hjälp av \"$1\"-knappen i formuläret",
 	"pf_formedit_tooltip_saveandcontinueediting": "Spara data och fortsätt redigera",
+	"pf-wizard-back": "Tillbaka",
+	"pf-wizard-continue": "Fortsätt",
 	"pf_autoedit_anoneditwarning": "Varning: Du är inte inloggad. Din IP-adress kommer att sparas i historiken för den här sidan.",
 	"pf_autoedit_success": "Ändrade [[$1]] med hjälp av formuläret $2.",
 	"pf_autoedit_fail": "Ändring av [[$1]] misslyckades.",

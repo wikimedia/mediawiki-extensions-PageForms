@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Crazymadlover",
+			"Duke of Wikipädia",
 			"Eduardo Addad de Oliveira",
 			"Eduardo.mps",
 			"Eduardoaddad",
@@ -200,7 +201,7 @@
 	"pf_formedit_remove": "Remover essa instância",
 	"pf_formedit_addanotherabove": "Adicionar uma instância acima desta",
 	"pf_formedit_addanother": "Adicionar outro",
-	"pf_formedit_none": "Nenhum",
+	"pf_formedit_none": "Nenhum/desconhecido",
 	"pf_formedit_emptytitle": "Erro: os dados inseridos resultam num título de página em branco.",
 	"pf_formedit_hookerror": "Erro: uma extensão do MediaWiki impediu a modificação da página de destino.",
 	"pf_formedit_saveandcontinueediting": "Salvar e continuar",
