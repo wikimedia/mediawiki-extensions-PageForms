@@ -204,6 +204,8 @@
 	"pf_formedit_saveandcontinueediting": "Kaydet ve devam et",
 	"pf_formedit_saveandcontinue_summary": "Formda \"$1\" düğmesi kullanılarak kaydedildi",
 	"pf_formedit_tooltip_saveandcontinueediting": "Verileri kaydedin ve düzenlemeye devam edin",
+	"pf-wizard-back": "Geri",
+	"pf-wizard-continue": "Devam et",
 	"pf-autoedit-invalidnamespace": "Hata: #autoedit, bu vikideki \"$1\" ad alanındaki sayfalarda çağrılamaz.",
 	"pf_autoedit_anoneditwarning": "Uyarı: Giriş yapmadınız. IP adresiniz bu sayfanın düzenleme geçmişine kaydedilecek.",
 	"pf_autoedit_success": "$2 formu kullanılarak [[$1]] değiştirildi.",
