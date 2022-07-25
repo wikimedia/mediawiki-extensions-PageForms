@@ -257,7 +257,7 @@ class PFFormEditAction extends Action {
 		$text = '';
 		foreach ( $formNames as $i => $formName ) {
 			if ( $i > 0 ) {
-				$text .= " &middot; ";
+				$text .= ' <span class="pageforms-separator">&middot;</span> ';
 			}
 
 			// Special handling for forms whose name contains a slash.
