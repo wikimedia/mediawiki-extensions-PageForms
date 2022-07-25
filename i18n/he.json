@@ -53,6 +53,7 @@
 	"pf-createtemplate-with-name": "יצירת תבנית: $1",
 	"pf_createtemplate_namelabel": "שם התבנית:",
 	"pf_createtemplate_multipleinstance": "ניתן להטמיע תבנית זו בערך מספר פעמים.",
+	"pf_createtemplate_fullwikitext": "להשתמש בקוד ויקי מלא במקום $1",
 	"pf_createtemplate_connectingproperty": "שם המאפיין שיקשר את שדות התבנית הזאת לשאר הדף:",
 	"pf_createtemplate_categorylabel": "קטגוריה מוגדרת על ידי תבנית (לא חובה):",
 	"pf_createtemplate_usecargo": "השתמש בהרחבה Cargo כדי לשמור את המידע שבתבנית זו",

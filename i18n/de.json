@@ -59,6 +59,7 @@
 	"pf-createtemplate-with-name": "Vorlage erstellen: $1",
 	"pf_createtemplate_namelabel": "Vorlagenname:",
 	"pf_createtemplate_multipleinstance": "Diese Vorlage kann mehrfach in eine Seite eingebettet werden.",
+	"pf_createtemplate_fullwikitext": "Vollständigen Wikitext anstelle von $1 verwenden",
 	"pf_createtemplate_connectingproperty": "Name des semantischen Attributs, mit dem die Felder dieser Vorlage mit dem Rest der Seite verknüpft werden:",
 	"pf_createtemplate_categorylabel": "Durch die Vorlage definierte Kategorie (optional Angabe):",
 	"pf_createtemplate_usecargo": "Verwende die Softwareerweiterung „Cargo“, um die Daten dieser Vorlage zu speichern.",

@@ -6,6 +6,7 @@
 		]
 	},
 	"pf_createproperty_propname": "Nomo dil atributo:",
+	"pf_createproperty_proptype": "Tipo:",
 	"templates": "Shabloni",
 	"pf_createtemplate_deletefield": "Efacar",
 	"pf_createform_template": "Shablono:",

@@ -74,6 +74,7 @@
 	"pf-createtemplate-with-name": "Créer le modèle :$1",
 	"pf_createtemplate_namelabel": "Nom de modèle :",
 	"pf_createtemplate_multipleinstance": "Ce modèle peut être inclus plusieurs fois dans la page.",
+	"pf_createtemplate_fullwikitext": "Utiliser le wikicode complet au lieu de $1",
 	"pf_createtemplate_connectingproperty": "Nom de propriété pour connecter les champs de ce modèle pour le reste de la page :",
 	"pf_createtemplate_categorylabel": "Catégorie définie par ce modèle (facultatif) :",
 	"pf_createtemplate_usecargo": "Utiliser l'extension Cargo pour sauvegarder les données de ce modèle",
