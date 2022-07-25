@@ -829,7 +829,7 @@ var dataValues = [];
 					tableOverflow: true,
 					loadingSpin: true,
 					onchange: editMade,
-					columnSorting: false,
+					columnSorting: true,
 					allowInsertColumn: false,
 					allowDeletingAllRows: true,
 					oninsertrow: rowAdded,
