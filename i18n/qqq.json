@@ -30,7 +30,7 @@
 	"apihelp-pfautocomplete-summary": "{{doc-apihelp-summary|pfautocomplete}}",
 	"apihelp-pfautocomplete-param-limit": "{{doc-apihelp-param|pfautocomplete|limit}}",
 	"apihelp-pfautocomplete-param-substr": "{{doc-apihelp-param|pfautocomplete|substr}}",
-	"apihelp-pfautocomplete-param-wikidata": "{{doc-apihelp-param|pfautocomplete|wikidata}}",
+	"apihelp-pfautocomplete-param-wikidata": "{{Doc-apihelp-param|pfautocomplete|wikidata}}",
 	"apihelp-pfautocomplete-param-property": "{{doc-apihelp-param|pfautocomplete|property}}",
 	"apihelp-pfautocomplete-param-category": "{{doc-apihelp-param|pfautocomplete|category}}",
 	"apihelp-pfautocomplete-param-concept": "{{doc-apihelp-param|pfautocomplete|concept}}",
