@@ -222,12 +222,12 @@ class PFAutocompleteAPI extends ApiBase {
 		$basePropertyName = null,
 		$baseValue = null
 	) {
-		global $wgPageFormsMaxAutocompleteValues;
 		global $smwgDefaultStore;
 
 		$db = wfGetDB( DB_REPLICA );
-		$sqlOptions = [];
-		$sqlOptions['LIMIT'] = $wgPageFormsMaxAutocompleteValues;
+		$sqlOptions = [
+			'LIMIT' => PFValuesUtils::getMaxValuesToRetrieve( $substring )
+		];
 
 		if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
 			// SMW 3.0+
@@ -355,7 +355,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$baseCargoField,
 		$baseValue
 	) {
-		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
+		global $wgPageFormsAutocompleteOnAllChars;
 
 		$tablesStr = $cargoTable;
 		$fieldsStr = $cargoField;
@@ -444,7 +444,7 @@ class PFAutocompleteAPI extends ApiBase {
 			$cargoField,
 			$havingStr = null,
 			$cargoField,
-			$wgPageFormsMaxAutocompleteValues,
+			PFValuesUtils::getMaxValuesToRetrieve( $substring ),
 			$offsetStr = 0
 		);
 		$queryResults = $sqlQuery->run();

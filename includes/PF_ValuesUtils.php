@@ -112,14 +112,12 @@ class PFValuesUtils {
 	 * @return array
 	 */
 	public static function getAllValuesForProperty( $property_name ) {
-		global $wgPageFormsMaxAutocompleteValues;
-
 		$store = PFUtils::getSMWStore();
 		if ( $store == null ) {
 			return [];
 		}
 		$requestoptions = new SMWRequestOptions();
-		$requestoptions->limit = $wgPageFormsMaxAutocompleteValues;
+		$requestoptions->limit = self::getMaxValuesToRetrieve();
 		$values = self::getSMWPropertyValues( $store, null, $property_name, $requestoptions );
 		sort( $values );
 		$values = self::shiftShortestMatch( $values );
@@ -165,17 +163,12 @@ SELECT ?value  WHERE {
 FILTER(LANG(?valueLabel) = \"" . $wgLanguageCode . "\") .
 FILTER(REGEX(LCASE(?valueLabel), \"\\\\b" . strtolower( $substring ) . "\"))
 } ";
-		if ( $substring != null ) {
-			global $wgPageFormsMaxAutocompleteValues;
-			$sparqlQueryString .= "LIMIT " . ( $wgPageFormsMaxAutocompleteValues + 10 );
-		}
+		$maxValues = self::getMaxValuesToRetrieve( $substring );
+		$sparqlQueryString .= "LIMIT " . ( $maxValues + 10 );
 		$sparqlQueryString .= "}
 SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode . "\". }
 }";
-		if ( $substring != null ) {
-			global $wgPageFormsMaxAutocompleteValues;
-			$sparqlQueryString .= "LIMIT " . $wgPageFormsMaxAutocompleteValues;
-		}
+		$sparqlQueryString .= "LIMIT " . $maxValues;
 		$opts = [
 			'http' => [
 				'method' => 'GET',
@@ -271,7 +264,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		if ( $num_levels == 0 ) {
 			return [ $top_category ];
 		}
-		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsUseDisplayTitle;
+		global $wgPageFormsUseDisplayTitle;
 
 		$db = wfGetDB( DB_REPLICA );
 		$top_category = str_replace( ' ', '_', $top_category );
@@ -327,7 +320,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 					__METHOD__,
 					$options = [
 						'ORDER BY' => 'cl_type, cl_sortkey',
-						'LIMIT' => $wgPageFormsMaxAutocompleteValues
+						'LIMIT' => self::getMaxValuesToRetrieve( $substring )
 					],
 					$join );
 				if ( $res ) {
@@ -408,7 +401,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	 * @return string[]
 	 */
 	public static function getAllPagesForConcept( $conceptName, $substring = null ) {
-		global $wgPageFormsMaxAutocompleteValues, $wgPageFormsAutocompleteOnAllChars;
+		global $wgPageFormsAutocompleteOnAllChars;
 
 		$store = PFUtils::getSMWStore();
 		if ( $store == null ) {
@@ -432,7 +425,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		$printout = new SMWPrintRequest( SMWPrintRequest::PRINT_THIS, "" );
 		$desc->addPrintRequest( $printout );
 		$query = new SMWQuery( $desc );
-		$query->setLimit( $wgPageFormsMaxAutocompleteValues );
+		$query->setLimit( self::getMaxValuesToRetrieve( $substring ) );
 		$query_result = $store->getQueryResult( $query );
 		$pages = [];
 		$sortkeys = [];
@@ -911,6 +904,25 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 
 		return $pages;
+	}
+
+	public static function getMaxValuesToRetrieve( $substring = null ) {
+		// $wgPageFormsMaxAutocompleteValues is currently misnamed,
+		// or mis-used - it's actually used for those cases where
+		// autocomplete *isn't* used, i.e. to populate a radiobutton
+		// input, where it makes sense to have a very large limit
+		// (current value: 1,000). For actual autocompletion, though,
+		// with a substring, a limit like 20 makes more sense. It
+		// would be good use the variable for this purpose instead,
+		// with a default like 20, and then create a new global
+		// variable, like $wgPageFormsMaxNonAutocompleteValues, to
+		// hold the much larger number.
+		if ( $substring == null ) {
+			global $wgPageFormsMaxAutocompleteValues;
+			return $wgPageFormsMaxAutocompleteValues;
+		} else {
+			return 20;
+		}
 	}
 
 	/**
