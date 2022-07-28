@@ -604,7 +604,10 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				$conditions[] = self::getSQLConditionForAutocompleteInColumn( 'page_title', $substring );
 			}
 		}
-		$res = $db->select( $tables, $columns, $conditions, __METHOD__, $options = [], $join );
+		$options = [
+			'LIMIT' => self::getMaxValuesToRetrieve( $substring )
+		];
+		$res = $db->select( $tables, $columns, $conditions, __METHOD__, $options, $join );
 
 		$pages = [];
 		$sortkeys = [];
