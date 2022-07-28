@@ -137,7 +137,7 @@ class PFOpenLayersInput extends PFFormInput {
 
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'OpenLayers' ) ) {
 			$wgOut->addModuleStyles( 'ext.openlayers.main' );
-			$wgOut->addModuleScripts( 'ext.openlayers.main' );
+			$wgOut->addModules( 'ext.openlayers.main' );
 		} else {
 			$scripts = [
 				"https://openlayers.org/api/OpenLayers.js"
