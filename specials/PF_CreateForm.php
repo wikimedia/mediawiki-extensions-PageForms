@@ -352,12 +352,14 @@ class PFCreateForm extends SpecialPage {
 			'flags' => [ 'progressive' ],
 		] );
 
-		// Selection for before which item this template should be placed
-		if ( count( $form_items ) > 0 ) {
+		if ( count( $all_templates ) == 0 ) {
+			$addTemplateHtml = '';
+		} elseif ( count( $form_items ) > 0 ) {
 			$addTemplateHtml = new OOUI\HorizontalLayout( [
 				'items' => [
 					$addTemplateText,
 					$addTemplateDropdown,
+					// Selection for before which item this template should be placed
 					new OOUI\LabelWidget( [
 						'label' => $this->msg( 'pf_createform_before' )->escaped(),
 					] ),
