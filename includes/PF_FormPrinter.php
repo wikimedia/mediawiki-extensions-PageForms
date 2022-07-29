@@ -1134,7 +1134,7 @@ END;
 					}
 					$val_modifier = null;
 					if ( $is_autocreate ) {
-						$values_from_query = $autocreate_query[$tif->getTemplateName()];
+						$values_from_query = $autocreate_query[$tif->getTemplateName()] ?? [];
 						$cur_value = $form_field->getCurrentValue( $values_from_query, $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
 					} else {
 						$cur_value = $form_field->getCurrentValue( $tif->getValuesFromSubmit(), $form_submitted, $source_is_page, $tif->allInstancesPrinted(), $val_modifier );
