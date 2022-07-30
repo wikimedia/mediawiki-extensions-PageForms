@@ -61,9 +61,12 @@
                 this.setValues(false);
             }
         });
-        this.$element.mouseup( () =>{
-            this.setValues(false);
-        })
+        this.$element.mouseup( (event) =>{
+            // Avoid re-fetching values if the user clicks on the scrollbar.
+            if ( $( event.target ).hasClass( 'oo-ui-labelElement-label' ) ) {
+                this.setValues( false );
+            }
+        });
         this.$element.focusout( () =>{
             $( '.combobox_map_feed' ).val( this.$input.val() );
         });
