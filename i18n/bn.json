@@ -6,6 +6,7 @@
 			"Bellayet",
 			"Wikitanvir",
 			"Zaheen",
+			"আজিজ",
 			"আফতাবুজ্জামান",
 			"খাত্তাব হাসান"
 		]
@@ -73,7 +74,9 @@
 	"pf_formedit_edittitle": "সম্পাদনা $1: $2",
 	"pf_formedit_remove": "অপসারণ",
 	"pf_formedit_addanother": "আরেকটি যোগ করুন",
-	"pf_formedit_none": "কোনটিই নয়",
+	"pf_formedit_none": "কোনটিই নয়/অজানা",
+	"pf-wizard-back": "পিছনে যান",
+	"pf-wizard-continue": "চালিয়ে যান",
 	"pf-autoedit-wait": "অপেক্ষা করুন...",
 	"pf_runquery_additionalquery": "অতিরিক্ত কোয়েরি",
 	"pf_bad_number_error": "একটি বৈধ সংখ্যা হতে হবে",

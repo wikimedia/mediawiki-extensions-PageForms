@@ -199,7 +199,7 @@
 	"pf_formedit_remove": "Удалить",
 	"pf_formedit_addanotherabove": "Добавить ещё один экземпляр к этому одному",
 	"pf_formedit_addanother": "Добавить ещё",
-	"pf_formedit_none": "Ничего",
+	"pf_formedit_none": "Ничего/неизвестно",
 	"pf_formedit_emptytitle": "Ошибка: Вставляемые данные приводят к появлению пустого заголовка страницы.",
 	"pf_formedit_hookerror": "Ошибка: Расширение MediaWiki помешало изменить целевую страницу.",
 	"pf_formedit_saveandcontinueediting": "Сохранить и продолжить",
