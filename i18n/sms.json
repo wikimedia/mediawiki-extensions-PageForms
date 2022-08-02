@@ -15,6 +15,7 @@
 	"pf-calendar-updateevent": "Peiʹvved šõddmõõžž",
 	"pf_forminputs_change_file": "Muuʹtt teâttõõzz",
 	"pf_forminputs_checkboxes_select_all": "Vaʹlljed pukid",
+	"pf_forminputs_starwidth": "Juõʹǩǩ tääʹsn kobddâdvuõtt (da õllâdvuõtt)",
 	"pf_createform_template": "Mall:",
 	"pf_createform_templatelabelinput": "Maall nõmm (vaʹlljeemnallšem):",
 	"pf_createform_hidden": "(Čiõkkum)",
@@ -34,5 +35,6 @@
 	"pf_category_desc": "Tät lij kategoria $1.",
 	"pf-autocomplete-no-matches": "Ni mâiʹd ij käunnʼjam",
 	"pf-maps-enteraddress": "Lââʹzzet addrõõzz tääʹzz",
-	"pf-datepicker-today": "Täʹbbe"
+	"pf-datepicker-today": "Täʹbbe",
+	"pf-missingconcept": "Fiʹttõs ij käunnʼjam: $1"
 }
