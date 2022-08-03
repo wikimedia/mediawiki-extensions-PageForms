@@ -4,7 +4,8 @@
 			"Nirajan pant",
 			"Nirjal stha",
 			"Suniltheblue",
-			"हिमाल सुबेदी"
+			"हिमाल सुबेदी",
+			"Bada Kaji"
 		]
 	},
 	"pf_createproperty_allowedvalsforhierarchy": "पदानुक्रमको लागि अनुमति दिइएका मानहरू:",
@@ -13,5 +14,6 @@
 	"pf-formedit-selectform": "यो पृष्ठ सिर्जना गर्न एउटा फारम चयन गर्नुहोस्:",
 	"pf-formedit-donotuseform": "कुनै फारम बिनै पृष्ठ तयार गर्नुहोस्।",
 	"pf_not_unique_error": "अद्वितीय हुनुपर्नेछ",
+	"pf_deletionlog": "मेटाइएको अभिलेख",
 	"pf-datepicker-today": "आज"
 }
