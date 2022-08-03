@@ -382,7 +382,9 @@
 				my_server += '&cargo_where=' + table_and_field[2];
 			}
 		} else {
-			my_server += "?action=pfautocomplete&format=json&" + autocomplete_opts.autocompletedatatype + "=" + data_source;
+			my_server += "?action=pfautocomplete&format=json&" +
+				autocomplete_opts.autocompletedatatype + "=" +
+				encodeURIComponent( data_source );
 		}
 
 		var ajaxOpts = {
