@@ -120,7 +120,7 @@
 	"pf_formedit_formwarning": "Увага: старонка [[$1|ўжо існуе]], але яна не выкарыстоўвае гэтую форму.",
 	"pf_formedit_remove": "Выдаліць гэтую існасьць",
 	"pf_formedit_addanother": "Дадаць іншую",
-	"pf_formedit_none": "Нічога",
+	"pf_formedit_none": "Нічога/невядома",
 	"pf_formedit_emptytitle": "Памылка: уведзеныя выніковыя зьвесткі ў пустой назьве старонкі.",
 	"pf_formedit_hookerror": "Памылка: пашырэньне MediaWiki не дазваляе зьмены мэтавай старонкі.",
 	"pf_formedit_saveandcontinueediting": "Захаваць і працягваць",
