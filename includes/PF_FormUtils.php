@@ -340,7 +340,9 @@ class PFFormUtils {
 	<div class='editOptions'>
 
 END;
-		$text .= self::summaryInputHTML( $is_disabled );
+		$req = RequestContext::getMain()->getRequest();
+		$summary = $req->getVal( 'wpSummary' );
+		$text .= self::summaryInputHTML( $is_disabled, null, [], $summary );
 		$user = RequestContext::getMain()->getUser();
 		if ( $user->isAllowed( 'minoredit' ) ) {
 			$text .= self::minorEditInputHTML( $form_submitted, $is_disabled, false );
