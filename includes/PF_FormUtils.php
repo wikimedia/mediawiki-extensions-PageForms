@@ -56,7 +56,7 @@ class PFFormUtils {
 			'value' => $value,
 			'name' => 'wpSummary',
 			'id' => 'wpSummary',
-			'maxlength' => 255,
+			'maxlength' => CommentStore::COMMENT_CHARACTER_LIMIT,
 			'title' => wfMessage( 'tooltip-summary' )->text(),
 			'accessKey' => wfMessage( 'accesskey-summary' )->text()
 		];
