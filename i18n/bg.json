@@ -105,7 +105,7 @@
 	"pf_formedit_formwarning": "Внимание: Тази страница [[$1|вече съществува]], но не използва този формуляр.",
 	"pf_formedit_remove": "Премахване",
 	"pf_formedit_addanother": "Добавяне на още",
-	"pf_formedit_none": "Няма",
+	"pf_formedit_none": "Няма/неизвестно",
 	"pf_formedit_emptytitle": "Грешка: Добавените данни водят до празно заглавие на страницата.",
 	"pf_formedit_hookerror": "Грешка: Разширение на МедияУики предотврати промяната на целевата страница.",
 	"pf_formedit_saveandcontinueediting": "Запази и продължи",
