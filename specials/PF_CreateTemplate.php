@@ -242,12 +242,12 @@ END;
 		if ( !$curSelection ) {
 			$curSelection = 'standard';
 		}
-		$text = "<br>\t<p>" . wfMessage( 'pf_createtemplate_outputformat' )->escaped() . "\n";
+		$text = "<p class=\"pfCreateTemplateStyle\">" . wfMessage( 'pf_createtemplate_outputformat' )->escaped() . "\n";
 		$text .= self::printTemplateStyleButton( 'standard', 'pf_createtemplate_standardformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'infobox', 'pf_createtemplate_infoboxformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'plain', 'pf_createtemplate_plainformat', $htmlFieldName, $curSelection );
 		$text .= self::printTemplateStyleButton( 'sections', 'pf_createtemplate_sectionsformat', $htmlFieldName, $curSelection );
-		$text .= "</p>\n<br>";
+		$text .= "</p>";
 		return $text;
 	}
 

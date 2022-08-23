@@ -33,3 +33,7 @@ div.pfAggregationLabel {
 div.pfPropertyName {
     width: 100px;
 }
+
+p.pfCreateTemplateStyle {
+    padding: 15px 0;
+}
