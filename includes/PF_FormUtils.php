@@ -80,7 +80,13 @@ class PFFormUtils {
 		$wgPageFormsTabIndex++;
 		if ( !$form_submitted ) {
 			$user = RequestContext::getMain()->getUser();
-			$is_checked = $user->getOption( 'minordefault' );
+			if ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
+				// MediaWiki 1.35+
+				$is_checked = MediaWikiServices::getInstance()->getUserOptionsLookup()
+					->getOption( $user, 'minordefault' );
+			} else {
+				$is_checked = $user->getOption( 'minordefault' );
+			}
 		}
 
 		if ( $label == null ) {
@@ -122,10 +128,10 @@ class PFFormUtils {
 		// this code borrowed from /includes/EditPage.php
 		if ( !$form_submitted ) {
 			$user = RequestContext::getMain()->getUser();
+			$services = MediaWikiServices::getInstance();
 			if ( method_exists( \MediaWiki\Watchlist\WatchlistManager::class, 'isWatched' ) ) {
 				// MediaWiki 1.37+
 				// UserOptionsLookup::getOption was introduced in MW 1.35
-				$services = MediaWikiServices::getInstance();
 				$userOptionsLookup = $services->getUserOptionsLookup();
 				$watchlistManager = $services->getWatchlistManager();
 				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
@@ -136,6 +142,21 @@ class PFFormUtils {
 					# Watch creations
 					$is_checked = true;
 				} elseif ( $watchlistManager->isWatched( $user, $wgTitle ) ) {
+					# Already watched
+					$is_checked = true;
+				}
+			} elseif ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
+				// MediaWiki 1.35+
+				$userOptionsLookup = $services->getUserOptionsLookup();
+				$watchlistManager = $services->getWatchlistManager();
+				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
+					# Watch all edits
+					$is_checked = true;
+				} elseif ( $userOptionsLookup->getOption( $user, 'watchcreations' ) &&
+					!$wgTitle->exists() ) {
+					# Watch creations
+					$is_checked = true;
+				} elseif ( $user->isWatched( $wgTitle ) ) {
 					# Already watched
 					$is_checked = true;
 				}
