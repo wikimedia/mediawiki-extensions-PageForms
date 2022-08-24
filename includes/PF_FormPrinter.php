@@ -937,18 +937,9 @@ END;
 
 		$parser = PFUtils::getParser()->getFreshParser();
 		if ( !$parser->getOptions() ) {
-			if ( method_exists( $parser, 'setOptions' ) ) {
-				// MW 1.35+
-				$parser->setOptions( ParserOptions::newFromUser( $user ) );
-			} else {
-				$parser->Options( ParserOptions::newFromUser( $user ) );
-			}
+			$parser->setOptions( ParserOptions::newFromUser( $user ) );
 		}
-		if ( !$is_embedded || method_exists( $parser, 'setOptions' ) ) {
-			// Once support for MW < 1.35 is removed, this check will no longer be necessary.
-			// (It might be unnecessary already.)
-			$parser->setTitle( $this->mPageTitle );
-		}
+		$parser->setTitle( $this->mPageTitle );
 		// This is needed in order to make sure $parser->mLinkHolders
 		// is set.
 		$parser->clearState();
@@ -1367,12 +1358,7 @@ END;
 							// to the default value
 							( $cur_value === '' || $cur_value == 'current user' )
 						) {
-							if ( method_exists( $user, 'isRegistered' ) ) {
-								// MW 1.34+
-								$cur_value_in_template = $user->isRegistered() ? $user->getName() : '';
-							} else {
-								$cur_value_in_template = $user->getName();
-							}
+							$cur_value_in_template = $user->isRegistered() ? $user->getName() : '';
 							$cur_value = $cur_value_in_template;
 						// UUID is the only default value (so far) that can also be set
 						// by the JavaScript, for multiple-instance templates - for the

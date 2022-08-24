@@ -242,12 +242,7 @@ class PFTemplateDisplay {
 		if ( $title == null || !$title->exists() ) {
 			return $value;
 		}
-		if ( method_exists( MediaWikiServices::class, 'getRepoGroup' ) ) {
-			// MediaWiki 1.34+
-			$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
-		} else {
-			$file = wfLocalFile( $title );
-		}
+		$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
 		return Linker::makeThumbLinkObj(
 			$title,
 			$file,

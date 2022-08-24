@@ -80,13 +80,8 @@ class PFFormUtils {
 		$wgPageFormsTabIndex++;
 		if ( !$form_submitted ) {
 			$user = RequestContext::getMain()->getUser();
-			if ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
-				// MediaWiki 1.35+
-				$is_checked = MediaWikiServices::getInstance()->getUserOptionsLookup()
-					->getOption( $user, 'minordefault' );
-			} else {
-				$is_checked = $user->getOption( 'minordefault' );
-			}
+			$is_checked = MediaWikiServices::getInstance()->getUserOptionsLookup()
+				->getOption( $user, 'minordefault' );
 		}
 
 		if ( $label == null ) {
@@ -129,10 +124,9 @@ class PFFormUtils {
 		if ( !$form_submitted ) {
 			$user = RequestContext::getMain()->getUser();
 			$services = MediaWikiServices::getInstance();
+			$userOptionsLookup = $services->getUserOptionsLookup();
 			if ( method_exists( \MediaWiki\Watchlist\WatchlistManager::class, 'isWatched' ) ) {
 				// MediaWiki 1.37+
-				// UserOptionsLookup::getOption was introduced in MW 1.35
-				$userOptionsLookup = $services->getUserOptionsLookup();
 				$watchlistManager = $services->getWatchlistManager();
 				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
 					# Watch all edits
@@ -145,25 +139,12 @@ class PFFormUtils {
 					# Already watched
 					$is_checked = true;
 				}
-			} elseif ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
-				// MediaWiki 1.35+
-				$userOptionsLookup = $services->getUserOptionsLookup();
+			} else {
 				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
 					# Watch all edits
 					$is_checked = true;
 				} elseif ( $userOptionsLookup->getOption( $user, 'watchcreations' ) &&
 					!$wgTitle->exists() ) {
-					# Watch creations
-					$is_checked = true;
-				} elseif ( $user->isWatched( $wgTitle ) ) {
-					# Already watched
-					$is_checked = true;
-				}
-			} else {
-				if ( $user->getOption( 'watchdefault' ) ) {
-					# Watch all edits
-					$is_checked = true;
-				} elseif ( $user->getOption( 'watchcreations' ) && !$wgTitle->exists() ) {
 					# Watch creations
 					$is_checked = true;
 				} elseif ( $user->isWatched( $wgTitle ) ) {
@@ -368,12 +349,7 @@ END;
 			$text .= self::minorEditInputHTML( $form_submitted, $is_disabled, false );
 		}
 
-		if ( method_exists( $user, 'isRegistered' ) ) {
-			// MW 1.34+
-			$userIsRegistered = $user->isRegistered();
-		} else {
-			$userIsRegistered = $user->isLoggedIn();
-		}
+		$userIsRegistered = $user->isRegistered();
 		if ( $userIsRegistered ) {
 			$text .= self::watchInputHTML( $form_submitted, $is_disabled );
 		}
@@ -662,7 +638,7 @@ END;
 
 	/**
 	 * Deletes the form definition associated with the given wiki page
-	 * from the main cache, for MW 1.35+.
+	 * from the main cache.
 	 *
 	 * Hook: MultiContentSave
 	 *

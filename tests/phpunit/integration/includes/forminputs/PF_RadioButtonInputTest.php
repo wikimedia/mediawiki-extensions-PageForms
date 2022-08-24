@@ -2,11 +2,6 @@
 
 use OOUI\BlankTheme;
 
-if ( !class_exists( 'MediaWikiIntegrationTestCase' ) ) {
-	// MW pre-1.34
-	class_alias( 'MediaWikiTestCase', 'MediaWikiIntegrationTestCase' );
-}
-
 /**
  * @covers \PFRadioButtonInput
  *

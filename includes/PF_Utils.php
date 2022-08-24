@@ -113,12 +113,7 @@ class PFUtils {
 		}
 		$content = $wikiPage->getContent( $audience );
 		if ( $content instanceof TextContent ) {
-			// Since MW 1.33
-			if ( method_exists( $content, 'getText' ) ) {
-				return $content->getText();
-			} else {
-				return $content->getNativeData();
-			}
+			return $content->getText();
 		} else {
 			return null;
 		}
@@ -199,12 +194,7 @@ END;
 		// @TODO - add this in at some point.
 		//$form_body .= Html::hidden( 'editRevId', $edit_rev_id );
 
-		if ( method_exists( $user, 'isRegistered' ) ) {
-			// MW 1.34+
-			$userIsRegistered = $user->isRegistered();
-		} else {
-			$userIsRegistered = $user->isLoggedIn();
-		}
+		$userIsRegistered = $user->isRegistered();
 		if ( $userIsRegistered ) {
 			$edit_token = $user->getEditToken();
 		} else {
@@ -474,25 +464,15 @@ END;
 	}
 
 	public static function isCapitalized( $index ) {
-		if ( class_exists( NamespaceInfo::class ) ) {
-			// MW 1.34+
-			return MediaWikiServices::getInstance()
-				->getNamespaceInfo()
-				->isCapitalized( $index );
-		} else {
-			return MWNamespace::isCapitalized( $index );
-		}
+		return MediaWikiServices::getInstance()
+			->getNamespaceInfo()
+			->isCapitalized( $index );
 	}
 
 	public static function getCanonicalName( $index ) {
-		if ( class_exists( NamespaceInfo::class ) ) {
-			// MW 1.34+
-			return MediaWikiServices::getInstance()
-				->getNamespaceInfo()
-				->getCanonicalName( $index );
-		} else {
-			return MWNamespace::getCanonicalIndex( $index );
-		}
+		return MediaWikiServices::getInstance()
+			->getNamespaceInfo()
+			->getCanonicalName( $index );
 	}
 
 	public static function isTranslateEnabled() {

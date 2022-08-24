@@ -49,14 +49,8 @@ class PFHooks {
 
 		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgExtensionAssetsPath'] . '/PageForms';
 
-		if ( class_exists( 'MediaWiki\HookContainer\HookContainer' ) ) {
-			// MW 1.35+
-			$wgHooks['PageSaveComplete'][] = 'PFHooks::setPostEditCookie';
-			$wgHooks['MultiContentSave'][] = 'PFFormUtils::purgeCache2';
-		} else {
-			$wgHooks['PageContentSaveComplete'][] = 'PFHooks::setPostEditCookieOld';
-			$wgHooks['PageContentSave'][] = 'PFFormUtils::purgeCache';
-		}
+		$wgHooks['PageSaveComplete'][] = 'PFHooks::setPostEditCookie';
+		$wgHooks['MultiContentSave'][] = 'PFFormUtils::purgeCache2';
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
 		// SMW 1.9, SMW delays calling all its hook functions.
@@ -414,52 +408,7 @@ class PFHooks {
 	}
 
 	/**
-	 * Called by the PageContentSaveComplete hook; used for MW < 1.35.
-	 *
-	 * Set a cookie after the page save so that a "Your edit was saved"
-	 * popup will appear after form-based saves, just as it does after
-	 * standard saves. This code will be called after all saves, which
-	 * means that it will lead to redundant cookie-setting after normal
-	 * saves. However, there doesn't appear to be a way to to set the
-	 * cookie correctly only after form-based saves, unfortunately.
-	 *
-	 * @param WikiPage &$wikiPage The page modified
-	 * @param User &$user User performing the modification
-	 * @param Content $content New content
-	 * @param string $summary Edit summary/comment
-	 * @param bool $isMinor Whether or not the edit was marked as minor
-	 * @param bool $isWatch No longer used
-	 * @param bool $section No longer used
-	 * @param int[] &$flags Flags passed to WikiPage::doEditContent()
-	 * @param Revision $revision Revision object of the saved content (or null)
-	 * @param Status &$status Status object about to be returned by doEditContent()
-	 * @param int $baseRevId The rev ID (or false) this edit was based on
-	 * @param int $undidRevId The rev ID this edit undid (default 0)
-	 *
-	 * @return bool
-	 * @suppress PhanUndeclaredTypeParameter For Revision
-	 */
-	public static function setPostEditCookieOld( &$wikiPage, &$user, $content, $summary, $isMinor, $isWatch, $section, &$flags, $revision, &$status, $baseRevId, $undidRevId = 0 ) {
-		if ( $revision == null ) {
-			return true;
-		}
-
-		// Have this take effect only if the save came from a form -
-		// we need to use a global variable to determine that.
-		global $wgPageFormsFormPrinter;
-		if ( !property_exists( $wgPageFormsFormPrinter, 'mInputTypeHooks' ) ) {
-			return true;
-		}
-
-		// Code based on EditPage::setPostEditCookie().
-		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revision->getID();
-		$response = RequestContext::getMain()->getRequest()->response();
-		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
-		return true;
-	}
-
-	/**
-	 * Called by the PageSaveComplete hook; used for MW >= 1.35.
+	 * Called by the PageSaveComplete hook.
 	 *
 	 * Set a cookie after the page save so that a "Your edit was saved"
 	 * popup will appear after form-based saves, just as it does after
