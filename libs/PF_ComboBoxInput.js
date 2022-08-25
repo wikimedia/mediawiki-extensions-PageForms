@@ -119,6 +119,19 @@
                 }
             } else {
                 if ( data_type === 'wikidata' ) {
+                    // Support for getting query values from an existing field in the form
+                    var terms = data_source.split( "&" );
+                    terms.forEach( element => {
+                        var subTerms = element.split( "=" );
+                        var matches = subTerms[1].match( /\[(.*?)\]/ );
+                        if ( matches ) {
+                            var dep_value = $( '[name="' + subTerms[1] + '"]' ).val();
+                            if ( dep_value && dep_value.trim().length ) {
+                                data_source = data_source.replace( subTerms[1], dep_value );
+                            }
+                            return;
+                        }
+                    } );
                     data_source = encodeURIComponent( data_source );
                 }
                 my_server += "?action=pfautocomplete&format=json&" + data_type + "=" + data_source + "&substr=" + curValue;

@@ -391,9 +391,25 @@
 			url: my_server,
 			dataType: 'json',
 			data: function (term) {
-				return {
-					substr: term.term, // search term
-				};
+				var reqParams = { substr: term.term }; // search term
+				if ( autocomplete_type === 'wikidata' ) {
+					// Support for getting query values from an existing field in the form
+					var dsource_copy = data_source;
+					var terms = dsource_copy.split( "&" );
+					terms.forEach( element => {
+						var subTerms = element.split( "=" );
+						var matches = subTerms[1].match( /\[(.*?)\]/ );
+						if ( matches ) {
+							var dep_value = $( '[name="' + subTerms[1] + '"]' ).val();
+							if ( dep_value && dep_value.trim().length ) {
+								dsource_copy = dsource_copy.replace( subTerms[1], dep_value );
+							}
+							return;
+						}
+					} );
+					reqParams[ 'wikidata' ] = dsource_copy;
+				}
+				return reqParams;
 			},
 			processResults: function (data) { // parse the results into the format expected by Select2.
 				if (data.pfautocomplete !== undefined) {

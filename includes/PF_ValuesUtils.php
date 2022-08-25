@@ -135,6 +135,7 @@ class PFValuesUtils {
 	 */
 	public static function getAllValuesFromWikidata( $query, $substring = null ) {
 		$endpointUrl = "https://query.wikidata.org/sparql";
+		global $wgLanguageCode;
 
 		$query = urldecode( $query );
 
@@ -147,12 +148,21 @@ class PFValuesUtils {
 		}
 
 		$attributesQuery = "";
-
+		$count = 0;
 		foreach ( $filters as $key => $val ) {
-			$attributesQuery .= "wdt:" . $key . " wd:" . $val . ";";
+			$attributesQuery .= "wdt:" . $key;
+			if ( is_numeric( str_replace( "Q", "", $val ) ) ) {
+				$attributesQuery .= " wd:" . $val . ";";
+			} else {
+				$attributesQuery .= "?customLabel" . $count . " .
+				?customLabel" . $count . " rdfs:label \"" . $val . "\"@" . $wgLanguageCode . " . ";
+				$count++;
+				$attributesQuery .= "?value ";
+			}
 		}
+		unset( $count );
 		$attributesQuery = rtrim( $attributesQuery, ";" );
-		global $wgLanguageCode;
+		$attributesQuery = rtrim( $attributesQuery, ". ?value " );
 
 		$sparqlQueryString = "
 SELECT DISTINCT ?valueLabel WHERE {
