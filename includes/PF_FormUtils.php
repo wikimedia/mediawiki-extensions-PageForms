@@ -148,7 +148,6 @@ class PFFormUtils {
 			} elseif ( method_exists( MediaWikiServices::class, 'getUserOptionsLookup' ) ) {
 				// MediaWiki 1.35+
 				$userOptionsLookup = $services->getUserOptionsLookup();
-				$watchlistManager = $services->getWatchlistManager();
 				if ( $userOptionsLookup->getOption( $user, 'watchdefault' ) ) {
 					# Watch all edits
 					$is_checked = true;
