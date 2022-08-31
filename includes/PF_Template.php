@@ -47,6 +47,9 @@ class PFTemplate {
 	public function loadTemplateParams() {
 		$embeddedTemplate = null;
 		$templateTitle = Title::makeTitleSafe( NS_TEMPLATE, $this->mTemplateName );
+		if ( $templateTitle === null ) {
+			return;
+		}
 		$services = MediaWikiServices::getInstance();
 		if ( method_exists( $services, 'getPageProps' ) ) {
 			// MW 1.36+
