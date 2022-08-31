@@ -32,6 +32,7 @@
 	"pf_formedit_createtitlenotarget": "Raaj $1",
 	"pf_editsource": "Muuʹtt wikiteeʹkst",
 	"pf_formedit_edittitle": "Muuʹtt $1: $2",
+	"pf_autoedit_fail": "[[$1]] mottmõš ij oʹnnstam.",
 	"pf-simpleupload": "Ruõkk",
 	"pf_category_desc": "Tät lij kategoria $1.",
 	"pf-autocomplete-no-matches": "Ni mâiʹd ij käunnʼjam",
