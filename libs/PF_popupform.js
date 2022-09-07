@@ -692,7 +692,7 @@ window.ext.popupform = ( function () {
 
 		if (innerJ) {
 			// FIXME: Why did I put this in?
-			innerwdw.jQuery( innerwdw[0] ).unload(function (event) {
+			innerwdw.jQuery( innerwdw[0] ).on('unload', function (event) {
 				return false;
 			});
 
