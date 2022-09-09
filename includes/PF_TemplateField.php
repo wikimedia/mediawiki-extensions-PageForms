@@ -381,6 +381,10 @@ class PFTemplateField {
 			} else {
 				$text .= $this->mNamespace . ":$var]] {{#set:" . $fieldProperty . "=$var}} ";
 			}
+			// If the delimiter isn't a comma, use that as the "new delimiter" as well.
+			if ( $this->mDelimiter !== ',' ) {
+				$text .= '|' . $this->mDelimiter . '\s';
+			}
 			// Close #arraymap call.
 			$text .= "}}\n";
 			return $text;
