@@ -260,7 +260,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	}
 
 	public static function getSchemaDisplayString() {
-		return 'Form';
+		return wfMessage( 'pf-pageschemas-header' )->escaped();
 	}
 
 	public static function getSchemaEditingHTML( $pageSchemaObj ) {
@@ -301,17 +301,24 @@ class PFPageSchemas extends PSExtensionHandler {
 		$text .= ' Users must enter the page name before getting to the form (default)';
 		$text .= "</p>\n";
 		$text .= '<div class="editSchemaMinorFields">';
-		$text .= "\t<p id=\"pf-page-name-formula\">" . wfMessage( 'pf-pageschemas-pagenameformula' )->escaped() . ' ' . Html::input( 'pf_page_name_formula', $pageNameFormula, 'text', [ 'size' => 30 ] ) . "</p>\n";
-		$text .= "\t<p>" . wfMessage( 'pf-pageschemas-createtitle' )->escaped() . ' ' . Html::input( 'pf_create_title', $createTitle, 'text', [ 'size' => 25 ] ) . "</p>\n";
-		$text .= "\t<p id=\"pf-edit-title\">" . wfMessage( 'pf-pageschemas-edittitle' )->escaped() . ' ' . Html::input( 'pf_edit_title', $editTitle, 'text', [ 'size' => 25 ] ) . "</p>\n";
+		$text .= "\t<p id=\"pf-page-name-formula\">" . wfMessage( 'pf-pageschemas-pagenameformula' )->escaped() . ' ' .
+			Html::input( 'pf_page_name_formula', $pageNameFormula, 'text', [ 'size' => 30 ] ) . "</p>\n";
+		$text .= "\t<p>" . wfMessage( 'pf-pageschemas-createtitle' )->escaped() . ' ' .
+			Html::input( 'pf_create_title', $createTitle, 'text', [ 'size' => 25 ] ) . "</p>\n";
+		$text .= "\t<p id=\"pf-edit-title\">" . wfMessage( 'pf-pageschemas-edittitle' )->escaped() . ' ' .
+			Html::input( 'pf_edit_title', $editTitle, 'text', [ 'size' => 25 ] ) . "</p>\n";
 
 		// This checkbox went from a default of false to true in PF 5.2.
 		$text .= '<p>';
-		$text .= Html::input( 'pf_fi_free_text', '1', 'checkbox', [ 'id' => 'pf_fi_free_text', 'checked' => $includeFreeText ] );
-		$text .= Html::rawElement( 'label', [ 'for' => 'pf_fi_free_text' ], 'Include free text input' );
+		$text .= Html::input( 'pf_fi_free_text', '1', 'checkbox', [ 'id' => 'pf_fi_free_text', 'checked' => $includeFreeText ] ) . ' ';
+		$text .= Html::rawElement( 'label', [ 'for' => 'pf_fi_free_text' ], wfMessage( 'pf-pageschemas-includefreetextinput' )->escaped() );
 		$text .= "</p>";
 
-		$text .= "Free text label: " . Html::input( 'pf_fi_free_text_label', ( ( empty( $freeTextLabel ) ) ? wfMessage( 'pf_form_freetextlabel' )->inContentLanguage()->text() : $freeTextLabel ), 'text' ) . "</p><p>";
+		if ( empty( $freeTextLabel ) ) {
+			$freeTextLabel = wfMessage( 'pf_form_freetextlabel' )->inContentLanguage()->text();
+		}
+		$text .= '<p>' . wfMessage( 'pf-pageschemas-freetextlabel' )->escaped() . ' ' .
+			Html::input( 'pf_fi_free_text_label', $freeTextLabel, 'text' ) . "</p>";
 
 		$text .= "</div>\n";
 
@@ -336,9 +343,11 @@ class PFPageSchemas extends PSExtensionHandler {
 			}
 		}
 
-		$text = "\t<p>" . "The following fields are useful if there can be multiple instances of this template." . "</p>\n";
-		$text .= "\t<p>" . wfMessage( 'exif-label' )->escaped() . ': ' . Html::input( 'pf_template_label_num', $templateLabel, 'text', [ 'size' => 15 ] ) . "</p>\n";
-		$text .= "\t<p>" . 'Text of button to add another instance (default is "Add another"):' . ' ' . Html::input( 'pf_template_addanother_num', $addAnotherText, 'text', [ 'size' => 25 ] ) . "</p>\n";
+		$text = "\t<p>" . wfMessage( 'pf-pageschemas-templatedetailslabel' )->escaped() . "</p>\n";
+		$text .= "\t<p>" . wfMessage( 'exif-label' )->escaped() . ': ' .
+			Html::input( 'pf_template_label_num', $templateLabel, 'text', [ 'size' => 15 ] ) . "</p>\n";
+		$text .= "\t<p>" . 'Text of button to add another instance (default is "Add another"):' . ' ' .
+			Html::input( 'pf_template_addanother_num', $addAnotherText, 'text', [ 'size' => 25 ] ) . "</p>\n";
 
 		return [ $text, $hasExistingValues ];
 	}
@@ -408,7 +417,8 @@ class PFPageSchemas extends PSExtensionHandler {
 		$inputDescriptionLabel = wfMessage( 'pf-pageschemas-inputdescription' )->parse();
 		$inputDescription = Html::input( 'pf_input_desc_num', $inputDesc, 'text', [ 'size' => 80 ] );
 		$inputDescriptionTooltipMode = Html::input( 'pf_input_desctool_num', $inputDescTooltipMode, 'checkbox', [ 'checked' => ( $inputDescTooltipMode ) ? 'checked' : null ] );
-		$text .= "\t<p>$inputDescriptionLabel $inputDescription<br>$inputDescriptionTooltipMode Show description as pop-up tooltip</p>\n";
+		$useTooltipLabel = wfMessage( 'pf-pageschemas-usetooltip' )->escaped();
+		$text .= "\t<p>$inputDescriptionLabel $inputDescription<br>$inputDescriptionTooltipMode $useTooltipLabel</p>\n";
 
 		// @HACK to make input parsing easier.
 		$text .= Html::hidden( 'pf_input_finish_num', 1 );
@@ -831,7 +841,7 @@ class PFPageSchemas extends PSExtensionHandler {
 	}
 
 	public static function getTemplateDisplayString() {
-		return 'Details for template in form';
+		return wfMessage( 'pf-pageschemas-templatedetails' )->escaped();
 	}
 
 	/**
