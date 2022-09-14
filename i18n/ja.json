@@ -180,6 +180,7 @@
 	"pf_deletionlog": "削除記録",
 	"pf-preview-header": "フォーム プレビュー",
 	"pf-preview-note": "フォームが使用される際、このように表示されます:",
+	"pf-pageschemas-header": "フォーム",
 	"pf-pageschemas-createtitle": "新しいページに使用するフォーム名:",
 	"pf-pageschemas-edittitle": "既存のページに使用するフォーム名:",
 	"pf-pageschemas-inputtype": "入力型 (既定値を使用する場合は空白):",

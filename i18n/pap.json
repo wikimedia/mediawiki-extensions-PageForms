@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"ObaTango"
+		]
+	},
+	"pf-pageschemas-header": "Formulario",
+	"pf-pageschemas-includefreetextinput": "Inkluí entrada liber di teksto",
+	"pf-pageschemas-templatedetails": "Tin detaye tokante e malchi den e formulario",
+	"pf-pageschemas-usetooltip": "Mustra e deskripshon komo un tep ku ta pop-up"
+}
