@@ -135,6 +135,8 @@ class PFTemplateDisplay {
 				$formattedFieldValue = self::fileText( $fieldValue );
 			} elseif ( $fieldType == 'URL' ) {
 				$formattedFieldValue = Linker::makeExternalLink( $fieldValue, $fieldValue );
+			} elseif ( $templateField->isList() ) {
+				$formattedFieldValue = self::stringListText( $fieldValue, $templateField );
 			} else {
 				$formattedFieldValue = $fieldValue;
 			}
@@ -203,6 +205,12 @@ class PFTemplateDisplay {
 			$text .= PFUtils::makeLink( $linkRenderer, $title );
 		}
 		return $text;
+	}
+
+	private static function stringListText( $value, $templateField ) {
+		$delimiter = $templateField->getDelimiter();
+		$fieldValues = explode( $delimiter, $value );
+		return implode( ' <span class="CargoDelimiter">&bull;</span> ', $fieldValues );
 	}
 
 	private static function ratingText( $value ) {
