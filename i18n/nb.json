@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Cocu",
+			"EdoAug",
 			"Emilbk",
 			"EvenT",
 			"Event",
@@ -238,6 +239,7 @@
 	"pf_deletionlog": "Slettelogg",
 	"pf-preview-header": "Forhåndsvisning av skjemaet",
 	"pf-preview-note": "Slik vil skjemaet se ut i bruk:",
+	"pf-pageschemas-header": "Skjema",
 	"pf-pageschemas-pagenameformula": "Sidenavnsformel:",
 	"pf-pageschemas-createtitle": "Skjematittel for nye sider:",
 	"pf-pageschemas-edittitle": "Skjematittel for eksisterende sider:",
