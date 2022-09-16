@@ -274,7 +274,7 @@ class PFCreateClass extends SpecialPage {
 				Html::element( 'input', [ 'size' => '30', 'name' => 'cargo_table', 'id' => 'cargo_table' ], null )
 			) . "\n";
 		}
-		$createTemplatePage = new PFCreateTemplate();
+		$createTemplatePage = new PFCreateTemplate( true );
 		$templateInfo .= $createTemplatePage->printTemplateStyleInput( 'template_format' );
 		$templateInfo .= Html::rawElement( 'p', [ 'id' => 'template_multiple_p' ],
 			Html::hidden( 'multiple_template', false ) . $this->msg( 'pf_createtemplate_multipleinstance' )->escaped() ) . "\n";
