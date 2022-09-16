@@ -959,6 +959,37 @@ class PFFormField {
 				$text .= "|$arg=$value";
 			}
 		}
+
+		// Special handling if neither SMW nor Cargo are installed - the
+		// form has to handle stuff that otherwise would go in the
+		// template.
+		if (
+			!defined( 'SMW_VERSION' ) &&
+			!defined( 'CARGO_VERSION' ) &&
+			!array_key_exists( 'values', $this->mFieldArgs ) &&
+			is_array( $this->template_field->getPossibleValues() ) &&
+			count( $this->template_field->getPossibleValues() ) > 0
+		) {
+			if ( $this->getInputType() == null ) {
+				if ( $this->template_field->isList() ) {
+					$text .= '|input type=checkboxes';
+				} else {
+					$text .= '|input type=dropdown';
+				}
+			}
+			$delimiter = ',';
+			if ( $this->template_field->isList() ) {
+				$delimiter = $this->template_field->getDelimiter();
+				if ( $delimiter == '' ) {
+					$delimiter = ',';
+				}
+				// @todo - we need to add a "|delimiter=" param
+				// here too, if #template_params is not being
+				// called in the template.
+			}
+			$text .= '|values=' . implode( $delimiter, $this->template_field->getPossibleValues() );
+		}
+
 		if ( $this->mIsMandatory ) {
 			$text .= "|mandatory";
 		} elseif ( $this->mIsRestricted ) {

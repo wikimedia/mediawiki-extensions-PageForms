@@ -13,8 +13,11 @@
  */
 class PFCreateTemplate extends SpecialPage {
 
-	public function __construct() {
+	private $mCalledFromCreateClass;
+
+	public function __construct( $calledFromCreateClass = false ) {
 		parent::__construct( 'CreateTemplate' );
+		$this->mCalledFromCreateClass = $calledFromCreateClass;
 	}
 
 	public function execute( $query ) {
@@ -210,6 +213,20 @@ class PFCreateTemplate extends SpecialPage {
 				'rows' => 10,
 			] );
 		}
+
+		// If this code is being called from Special:CreateClass, we want to have the "allowed values"
+		// input in there no matter what.
+		if ( !defined( 'SMW_VERSION' ) && !defined( 'CARGO_VERSION' ) && $this->mCalledFromCreateClass ) {
+			$text .= new OOUI\LabelWidget( [
+				'label' => new OOUI\HtmlSnippet( $this->msg( 'pf_createproperty_allowedvalsinput' )->escaped() ),
+				'classes' => [ 'allowed_values_input' ]
+			] );
+			$text .= new OOUI\TextInputWidget( [
+				'name' => "allowed_values_$id",
+				'classes' => [ 'allowed_values_input' ]
+			] );
+		}
+
 		$text .= "\t</td>\n";
 		$addAboveButton = Html::element( 'a', [ 'class' => "addAboveButton", 'title' => $this->msg( 'pf_createtemplate_addanotherabove' )->text() ] );
 		$removeButton = Html::element( 'a', [ 'class' => "removeButton", 'title' => $this->msg( 'pf_createtemplate_deletefield' )->text() ] );
