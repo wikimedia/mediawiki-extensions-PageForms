@@ -929,6 +929,9 @@ class PFFormField {
 		}
 
 		$fieldLabel = $this->template_field->getLabel();
+		if ( $fieldLabel == '' ) {
+			$fieldLabel = $this->template_field->getFieldName();
+		}
 		if ( $textBeforeField != '' ) {
 			$fieldLabel = $textBeforeField . ' ' . $fieldLabel;
 		}
