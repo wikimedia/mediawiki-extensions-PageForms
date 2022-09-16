@@ -74,20 +74,26 @@ class PFCreateClass extends SpecialPage {
 			// values, and add it to the $fields array.
 			$field = PFTemplateField::create( $field_name, $display_label, $property_name, $is_list, $delimiter );
 
-			if ( defined( 'CARGO_VERSION' ) ) {
-				// Hopefully it's safe to use a Cargo
-				// utility method here.
-				$possibleValues = CargoUtils::smartSplit( ',', $allowed_values );
-				if ( $is_hierarchy ) {
-					$field->setHierarchyStructure( $req->getVal( 'hierarchy_structure_' . $i ) );
-				} else {
-					$field->setPossibleValues( $possibleValues );
+			if ( $is_hierarchy ) {
+				$field->setHierarchyStructure( $req->getVal( 'hierarchy_structure_' . $i ) );
+			} elseif ( trim( $allowed_values ) == '' ) {
+				// Do nothing.
+			} else {
+				// To ignore escaped commas during the split, we replace them with an
+				// obscure character (a "beep"), then replace them back afterwards.
+				$allowed_values_mod = str_replace( '\,', "\a", $allowed_values );
+				$possibleValues = explode( ',', $allowed_values_mod );
+				foreach ( $possibleValues as &$possibleValue ) {
+					$possibleValue = str_replace( "\a", '\,', trim( $possibleValue ) );
 				}
+				$field->setPossibleValues( $possibleValues );
+			}
+
+			if ( defined( 'CARGO_VERSION' ) ) {
 				if ( $use_cargo ) {
 					$cargo_field = str_replace( ' ', '_', $field_name );
 					$field->setCargoFieldData( $cargo_table, $cargo_field );
 					$field->setFieldType( $property_type );
-					$field->setPossibleValues( $possibleValues );
 				} else {
 					if ( $allowed_values != '' ) {
 						$allowedValuesForFields[$field_name] = $allowed_values;
