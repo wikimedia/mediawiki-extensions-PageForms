@@ -68,10 +68,11 @@ class PFCreateClass extends SpecialPage {
 			$property_type = $req->getVal( "field_type_$i" );
 			$allowed_values = $req->getVal( "allowed_values_$i" );
 			$is_list = $req->getCheck( "is_list_$i" );
+			$delimiter = $req->getVal( "delimiter_$i" );
 			$is_hierarchy = $req->getCheck( "is_hierarchy_$i" );
 			// Create an PFTemplateField object based on these
 			// values, and add it to the $fields array.
-			$field = PFTemplateField::create( $field_name, $display_label, $property_name, $is_list );
+			$field = PFTemplateField::create( $field_name, $display_label, $property_name, $is_list, $delimiter );
 
 			if ( defined( 'CARGO_VERSION' ) ) {
 				// Hopefully it's safe to use a Cargo
