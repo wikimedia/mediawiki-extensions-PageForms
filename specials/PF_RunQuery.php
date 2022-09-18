@@ -207,6 +207,16 @@ END;
 		}
 	}
 
+	/**
+	 * Overrides base maxIncludeCacheTime to make it configurable
+	 * for Special:RunQuery embed pages, see base method for details
+	 * @return int
+	 */
+	public function maxIncludeCacheTime() {
+		global $wgPageFormsEmbedQueryCacheTTL;
+		return $wgPageFormsEmbedQueryCacheTTL;
+	}
+
 	protected function getGroupName() {
 		return 'pf_group';
 	}

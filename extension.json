@@ -600,7 +600,8 @@
 		"PageFormsMapsWithFeeders": [],
 		"PageFormsAutoeditNamespaces": [ 0 ],
 		"PageFormsIgnoreTitlePattern": [],
-		"PageFormsEmbeddedTemplates": []
+		"PageFormsEmbeddedTemplates": [],
+		"PageFormsEmbedQueryCacheTTL": 0
 	},
 	"manifest_version": 1
 }
