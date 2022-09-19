@@ -215,6 +215,7 @@
 	"pf-pageschemas-createtitle": "새 문서에 대한 양식 제목:",
 	"pf-pageschemas-edittitle": "기존 문서에 대한 양식 제목:",
 	"pf-pageschemas-forminput": "폼 입력",
+	"pf-pageschemas-usetooltip": "팝업 툴팁으로 설명 표시",
 	"pf-pageschemas-inputtype": "입력 형식 (기본값으로 설정하려면 비워두세요):",
 	"pf-pageschemas-otherparams": "변수 이름과 값을 key=value와 같은 쌍을 쉼표로 구분하여 입력하세요. (값에 쉼표를 포함하면, \"\\,\"로 바꾸세요) 예를 들어: $1",
 	"pf_property_isproperty": "$1 유형의 속성입니다.",
