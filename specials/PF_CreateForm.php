@@ -720,12 +720,10 @@ END;
 			if ( $i == 0 ) {
 				array_push( $dropdownAttrs, [ 'data' => '', 'label' => $input_type . ' ' . $this->msg( 'pf_createform_inputtypedefault' )->escaped() ] );
 			} else {
-				$value = ( $cur_input_type == $input_type ) ? $input_type : "";
 				array_push( $dropdownAttrs, [ 'data' => $input_type, 'label' => $input_type ] );
 			}
 		}
 		array_push( $dropdownAttrs, [ 'data' => 'hidden', 'label' => $this->msg( 'pf_createform_hidden' )->escaped() ] );
-		$value = ( $cur_input_type == 'hidden' ) ? 'hidden' : "";
 		$text = new OOUI\DropdownInputWidget( [
 			'classes' => [ 'inputTypeSelector' ],
 			'name' => 'input_type_' . $field_form_text,
