@@ -718,7 +718,7 @@ END;
 		$dropdownAttrs = [];
 		foreach ( $possible_input_types as $i => $input_type ) {
 			if ( $i == 0 ) {
-				array_push( $dropdownAttrs, [ 'data' => $input_type, 'label' => $input_type . ' ' . $this->msg( 'pf_createform_inputtypedefault' )->escaped() ] );
+				array_push( $dropdownAttrs, [ 'data' => '', 'label' => $input_type . ' ' . $this->msg( 'pf_createform_inputtypedefault' )->escaped() ] );
 			} else {
 				$value = ( $cur_input_type == $input_type ) ? $input_type : "";
 				array_push( $dropdownAttrs, [ 'data' => $input_type, 'label' => $input_type ] );
