@@ -48,6 +48,7 @@ var dataValues = [];
 		if ( mwValue == null ) {
 			return null;
 		}
+		mwValue = this.decodeValues( mwValue );
 		if ( columnAttributes['type'] == 'checkbox' ) {
 			return jexcel.prototype.valueIsYes(mwValue);
 		} else if ( columnAttributes['list'] == true ) {
@@ -93,6 +94,7 @@ var dataValues = [];
 		if ( jExcelValue == null ) {
 			return null;
 		}
+		jExcelValue = this.decodeValues( jExcelValue );
 		if ( columnAttributes['type'] == 'checkbox' ) {
 			return ( jExcelValue == true ) ?
 				mw.config.get( 'wgPageFormsContLangYes' ) :
@@ -226,6 +228,11 @@ var dataValues = [];
 		} );
 	}
 
+	// Decode values
+	jexcel.prototype.decodeValues = function( value ) {
+		value = $('<div />').html( value ).text();
+		return value;
+	}
 
 	jexcel.prototype.deleteRow = function( spreadsheetID, rowNum ) {
 		rowNum = parseInt(rowNum);
