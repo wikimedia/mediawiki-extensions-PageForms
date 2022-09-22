@@ -232,16 +232,6 @@ class PFCreateClass extends SpecialPage {
 			return;
 		}
 
-		if ( defined( 'SMW_VERSION' ) ) {
-			$possibleTypes = PFUtils::getSMWContLang()->getDatatypeLabels();
-		} elseif ( defined( 'CARGO_VERSION' ) ) {
-			global $wgCargoFieldTypes;
-			$possibleTypes = $wgCargoFieldTypes;
-			$specialBGColor = '';
-		} else {
-			$possibleTypes = [];
-		}
-
 		// Make links to all the other 'Create...' pages, in order to
 		// link to them at the top of the page.
 		$creation_links = [];

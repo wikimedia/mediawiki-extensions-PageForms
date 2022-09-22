@@ -92,11 +92,17 @@ class PFCreateTemplate extends SpecialPage {
 	}
 
 	function printFieldTypeDropdown( $id ) {
-		global $wgCargoFieldTypes;
+		if ( defined( 'SMW_VERSION' ) ) {
+			$possibleTypes = PFUtils::getSMWContLang()->getDatatypeLabels();
+		} elseif ( defined( 'CARGO_VERSION' ) ) {
+			global $wgCargoFieldTypes;
+			$possibleTypes = $wgCargoFieldTypes;
+		} else {
+			$possibleTypes = [];
+		}
 
-		$selectBody = '';
 		$optionAttrs = [];
-		foreach ( $wgCargoFieldTypes as $type ) {
+		foreach ( $possibleTypes as $type ) {
 			array_push( $optionAttrs, [ 'data' => $type, 'label' => $type ] );
 		}
 		return new OOUI\DropdownInputWidget( [
@@ -131,30 +137,44 @@ class PFCreateTemplate extends SpecialPage {
 		$text .= "<td style=\"padding-left:10px\">\n";
 
 		if ( defined( 'SMW_VERSION' ) ) {
-			$dropdown_html = self::printPropertiesComboBox( $all_properties, $id );
-			array_push(
-				$items,
-				new OOUI\LabelWidget( [
-					'label' => new OOUi\HtmlSnippet( $this->msg( 'pf_createproperty_propname' )->escaped() )
-				] ),
-				new OOUI\TextInputWidget( [
-					'name' => 'property_name_' . $id,
-					'classes' => [ 'pfPropertyName' ]
-				] ),
-				new OOUI\LabelWidget( [
-					'label' => new OOUi\HtmlSnippet( $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() )
-				] ),
-				$dropdown_html
-			);
+			// If it's CreateClass, the property is created as
+			// well; if it's CreateTemplate, the user just chooses
+			// from a dropdown.
+			if ( $this->mCalledFromCreateClass ) {
+				$propertyTypeDropdown = $this->printFieldTypeDropdown( $id );
+				array_push(
+					$items,
+					new OOUI\LabelWidget( [
+						'label' => new OOUI\HtmlSnippet( $this->msg( 'pf_createproperty_propname' )->escaped() )
+					] ),
+					new OOUI\TextInputWidget( [
+						'name' => 'property_name_' . $id,
+						'classes' => [ 'pfPropertyName' ]
+					] ),
+					new OOUI\LabelWidget( [
+						'label' => new OOUI\HtmlSnippet( $this->msg( 'pf_createproperty_proptype' )->escaped() )
+					] ),
+					$propertyTypeDropdown
+				);
+			} else {
+				$propertiesDropdown = self::printPropertiesComboBox( $all_properties, $id );
+				array_push(
+					$items,
+					new OOUI\LabelWidget( [
+						'label' => new OOUI\HtmlSnippet( $this->msg( 'pf_createtemplate_semanticproperty' )->escaped() )
+					] ),
+					$propertiesDropdown
+				);
+			}
 		} elseif ( defined( 'CARGO_VERSION' ) ) {
-			$dropdown_html = $this->printFieldTypeDropdown( $id );
+			$fieldTypeDropdown = $this->printFieldTypeDropdown( $id );
 			array_push(
 				$items,
 				new OOUI\LabelWidget( [
 					'label' => new OOUI\HtmlSnippet( $this->msg( 'pf_createproperty_proptype' )->escaped() ),
 					'classes' => [ 'cargo_field_type' ]
 				] ),
-				$dropdown_html
+				$fieldTypeDropdown
 			);
 		}
 		$fieldBoxFirstRow = new OOUI\HorizontalLayout( [
