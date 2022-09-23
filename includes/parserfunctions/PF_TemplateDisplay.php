@@ -117,14 +117,11 @@ class PFTemplateDisplay {
 			if ( trim( $fieldValue ) == '' ) {
 				$formattedFieldValue = '';
 			} elseif ( $fieldType == 'Page' ) {
-				if ( $templateField->getNamespace() != '' ) {
-					$fieldValue = $templateField->getNamespace() . ":$fieldValue";
-				}
 				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 				if ( $templateField->isList() ) {
 					$formattedFieldValue = self::pageListText( $fieldValue, $templateField );
 				} else {
-					$fieldValueTitle = Title::newFromText( $fieldValue );
+					$fieldValueTitle = Title::makeTitleSafe( $templateField->getNamespace(), $fieldValue );
 					$formattedFieldValue = PFUtils::makeLink( $linkRenderer, $fieldValueTitle );
 				}
 			} elseif ( $fieldType == 'Coordinates' ) {
@@ -201,7 +198,7 @@ class PFTemplateDisplay {
 			if ( $i > 0 ) {
 				$text .= ' <span class="CargoDelimiter">&bull;</span> ';
 			}
-			$title = Title::newFromText( $fieldValue );
+			$title = Title::makeTitleSafe( $templateField->getNamespace(), $fieldValue );
 			$text .= PFUtils::makeLink( $linkRenderer, $title );
 		}
 		return $text;
