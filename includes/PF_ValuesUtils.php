@@ -352,7 +352,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 								// namespace that no longer exists.
 								continue;
 							}
-							$cur_value = PFUtils::titleString( $cur_title );
+							$cur_value = $cur_title->getPrefixedText();
 							if ( !in_array( $cur_value, $pages ) ) {
 								if ( array_key_exists( 'pp_displaytitle_value', $row ) &&
 									( $row[ 'pp_displaytitle_value' ] ) !== null &&

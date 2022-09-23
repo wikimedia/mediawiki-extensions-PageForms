@@ -99,24 +99,6 @@ class PFUtils {
 	}
 
 	/**
-	 * A very similar function to titleURLString(), to get the
-	 * non-URL-encoded title string
-	 * @param Title $title
-	 * @return string
-	 */
-	public static function titleString( $title ) {
-		$namespace = $title->getNsText();
-		if ( $namespace !== '' ) {
-			$namespace .= ':';
-		}
-		if ( self::isCapitalized( $title->getNamespace() ) ) {
-			return $namespace . self::getContLang()->ucfirst( $title->getText() );
-		} else {
-			return $namespace . $title->getText();
-		}
-	}
-
-	/**
 	 * Gets the text contents of a page with the passed-in Title object.
 	 * @param Title $title
 	 * @param int $audience

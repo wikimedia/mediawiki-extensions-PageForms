@@ -296,7 +296,7 @@ class PFFormEditAction extends Action {
 		}
 
 		$form_name = $form_names[0];
-		$page_name = PFUtils::titleString( $title );
+		$page_name = $title->getPrefixedText();
 
 		$pfFormEdit = new PFFormEdit();
 		$pfFormEdit->printForm( $form_name, $page_name );
