@@ -17,6 +17,7 @@
 	"pf-pageschemas-includefreetextinput": "Vključi vnos prostega besedila",
 	"pf-pageschemas-freetextlabel": "Oznaka prostega besedila:",
 	"pf-pageschemas-templatedetails": "Podrobnosti za predlogo v obrazcu",
+	"pf-pageschemas-templatedetailslabel": "Naslednja polja so uporabna, če obstaja več primerkov te predloge.",
 	"pf-pageschemas-usetooltip": "Prikaži opis kot pojavni namig",
 	"right-viewedittab": "Ogled zavihka »{{int:edit}}« za strani, ki jih lahko urejate z obrazcem",
 	"pf-maps-lookupcoordinates": "Izračunaj koordinate z uporabo naslova",
