@@ -239,6 +239,10 @@ class PFFormField {
 		if ( $categoryFromTemplate !== null ) {
 			$f->mFieldArgs['values from category'] = $categoryFromTemplate;
 		}
+		$namespaceFromTemplate = $f->getTemplateField()->getNSText();
+		if ( $namespaceFromTemplate !== null ) {
+			$f->mFieldArgs['values from namespace'] = $namespaceFromTemplate;
+		}
 
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {

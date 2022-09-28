@@ -333,6 +333,12 @@ class PFTemplateField {
 			return $this->mForm;
 		}
 
+		$defaultFormForNamespace = PFFormLinker::getDefaultFormForNamespace( $this->mNamespace );
+		if ( $defaultFormForNamespace !== null ) {
+			$this->mForm = $defaultFormForNamespace;
+			return $defaultFormForNamespace;
+		}
+
 		if ( $this->mCategory != null ) {
 			$categoryPage = Title::makeTitleSafe( NS_CATEGORY, $this->mCategory );
 			$defaultFormForCategory = PFFormLinker::getDefaultForm( $categoryPage );
