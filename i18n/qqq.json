@@ -121,7 +121,7 @@
 	"pf_forminputs_listboxsize": "Longer explanation of an option when creating a form\n\nSee [[wikipedia:list box|listbox]] for a listbox example.",
 	"pf_forminputs_includetimezone": "Longer explanation of an option when creating a form",
 	"pf_forminputs_topcategory": "Longer explanation of an option when creating a form",
-	"pf_forminputs_structure": "Longer explanation of an option when creating a form\n\nThis describes one parameter to the \"tree\" form input, that takes in wikitext and sets the structure. The wikitext that should be entered for this parameter should look something like:\n* A\n** B\n** C\n*** D\n* E",
+	"pf_forminputs_structure": "Longer explanation of an option when creating a form\n\nThis describes one parameter to the \"tree\" form input, that takes in wikitext and sets the structure. The wikitext that should be entered for this parameter should look something like:\n<pre><nowiki>\n* A\n** B\n** C\n*** D\n* E\n</nowiki></pre>",
 	"pf_forminputs_hideroot": "Longer explanation of an option when creating a form",
 	"pf_forminputs_depth": "Longer explanation of an option when creating a form",
 	"pf_forminputs_height": "Longer explanation of an option when creating a form",
