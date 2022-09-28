@@ -6,6 +6,7 @@
 			"HairyFotr"
 		]
 	},
+	"pageforms-desc": "Obrazci za ustvarjanje in urejanje viki strani",
 	"pf_createtemplate_connectingproperty": "Ime lastnosti za povezovanje polj te predloge s preostalo stranjo:",
 	"pf_createtemplate_sectionsformat": "Razdelki",
 	"pf_createform_add": "Dodaj",
@@ -20,6 +21,8 @@
 	"pf-pageschemas-templatedetailslabel": "Naslednja polja so uporabna, če obstaja več primerkov te predloge.",
 	"pf-pageschemas-usetooltip": "Prikaži opis kot pojavni namig",
 	"right-viewedittab": "Ogled zavihka »{{int:edit}}« za strani, ki jih lahko urejate z obrazcem",
+	"right-editrestrictedfields": "Urejanje zaklenjenih polj obrazcev",
+	"action-editrestrictedfields": "urejati zaklenjenih polj obrazcev",
 	"pf-maps-lookupcoordinates": "Izračunaj koordinate z uporabo naslova",
 	"pf-datepicker-close": "Zapri"
 }
