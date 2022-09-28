@@ -35,6 +35,8 @@ class PFTemplateField {
 	private $mDisplay;
 	private $mNSText = null;
 	private $mNamespace = 0;
+	private $mCategory = null;
+	private $mForm = null;
 	private $mIsMandatory = false;
 	private $mIsUnique = false;
 	private $mRegex = null;
@@ -125,6 +127,8 @@ class PFTemplateField {
 				$f->mDisplay = $value;
 			} elseif ( $key == 'holds template' ) {
 				$f->mHoldsTemplate = $value;
+			} elseif ( $key == 'category' ) {
+				$f->mCategory = $value;
 			}
 		}
 		// Delimiter should default to ','.
@@ -317,6 +321,28 @@ class PFTemplateField {
 
 	function getNamespace() {
 		return $this->mNamespace;
+	}
+
+	function getCategory() {
+		return $this->mCategory;
+	}
+
+	function getForm() {
+		// @todo - add alternate forms here too.
+		if ( $this->mForm !== null ) {
+			return $this->mForm;
+		}
+
+		if ( $this->mCategory != null ) {
+			$categoryPage = Title::makeTitleSafe( NS_CATEGORY, $this->mCategory );
+			$defaultFormForCategory = PFFormLinker::getDefaultForm( $categoryPage );
+			if ( $defaultFormForCategory !== null ) {
+				$this->mForm = $defaultFormForCategory;
+				return $defaultFormForCategory;
+			}
+		}
+
+		return null;
 	}
 
 	function isMandatory() {

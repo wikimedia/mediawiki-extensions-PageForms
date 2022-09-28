@@ -117,12 +117,10 @@ class PFTemplateDisplay {
 			if ( trim( $fieldValue ) == '' ) {
 				$formattedFieldValue = '';
 			} elseif ( $fieldType == 'Page' ) {
-				$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 				if ( $templateField->isList() ) {
 					$formattedFieldValue = self::pageListText( $fieldValue, $templateField );
 				} else {
-					$fieldValueTitle = Title::makeTitleSafe( $templateField->getNamespace(), $fieldValue );
-					$formattedFieldValue = PFUtils::makeLink( $linkRenderer, $fieldValueTitle );
+					$formattedFieldValue = self::pageText( $fieldValue, $templateField );
 				}
 			} elseif ( $fieldType == 'Coordinates' ) {
 				$formattedFieldValue = self::mapText( $fieldValue, $format, $parser );
@@ -187,7 +185,6 @@ class PFTemplateDisplay {
 	}
 
 	private static function pageListText( $value, $templateField ) {
-		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 		$text = '';
 		$delimiter = $templateField->getDelimiter();
 		$fieldValues = explode( $delimiter, $value );
@@ -198,10 +195,30 @@ class PFTemplateDisplay {
 			if ( $i > 0 ) {
 				$text .= ' <span class="CargoDelimiter">&bull;</span> ';
 			}
-			$title = Title::makeTitleSafe( $templateField->getNamespace(), $fieldValue );
-			$text .= PFUtils::makeLink( $linkRenderer, $title );
+			$text .= self::pageText( $fieldValue, $templateField );
 		}
 		return $text;
+	}
+
+	private static function pageText( $value, $templateField ) {
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		$namespace = $templateField->getNamespace();
+		$title = Title::makeTitleSafe( $namespace, $value );
+		if ( $title->exists() ) {
+			return PFUtils::makeLink( $linkRenderer, $title );
+		}
+		$form = $templateField->getForm();
+		if ( $form == null ) {
+			return PFUtils::makeLink( $linkRenderer, $title );
+		}
+		// The page doesn't exist, and a form has been found for this
+		// template field - link to this form for this page.
+		$formSpecialPage = PFUtils::getSpecialPage( 'FormEdit' );
+		$formSpecialPageTitle = $formSpecialPage->getPageTitle();
+		$target = $title->getFullText();
+		$formURL = $formSpecialPageTitle->getLocalURL() .
+			str_replace( ' ', '_', "/$form/$target" );
+		return Html::rawElement( 'a', [ 'href' => $formURL, 'class' => 'new' ], $value );
 	}
 
 	private static function stringListText( $value, $templateField ) {

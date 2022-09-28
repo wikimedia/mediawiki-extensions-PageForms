@@ -229,6 +229,17 @@ class PFFormField {
 		$fullFieldName = $template_name . '[' . $field_name . ']';
 		$values = $valuesSourceType = $valuesSource = null;
 
+		// We set "values from ..." params if there are corresponding
+		// values set in #template_params - this is a bit of a @hack,
+		// since we should really just use these values directly, but
+		// there are various places in the code that check for "values
+		// from ...", so it's easier to just pretend that these params
+		// were set.
+		$categoryFromTemplate = $f->getTemplateField()->getCategory();
+		if ( $categoryFromTemplate !== null ) {
+			$f->mFieldArgs['values from category'] = $categoryFromTemplate;
+		}
+
 		// Cycle through the other components.
 		for ( $i = 2; $i < count( $tag_components ); $i++ ) {
 			$component = trim( $tag_components[$i] );
