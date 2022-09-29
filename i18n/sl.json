@@ -23,6 +23,7 @@
 	"right-viewedittab": "Ogled zavihka »{{int:edit}}« za strani, ki jih lahko urejate z obrazcem",
 	"right-editrestrictedfields": "Urejanje zaklenjenih polj obrazcev",
 	"action-editrestrictedfields": "urejati zaklenjenih polj obrazcev",
+	"pf-maps-enteraddress": "Tukaj vnesite naslov",
 	"pf-maps-lookupcoordinates": "Izračunaj koordinate z uporabo naslova",
 	"pf-datepicker-close": "Zapri"
 }
