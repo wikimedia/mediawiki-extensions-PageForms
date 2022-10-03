@@ -600,7 +600,7 @@ class PFPageSchemas extends PSExtensionHandler {
 				$psField->getDelimiter(),
 				$psField->getDisplay()
 			);
-			$templateField->setNamespace( $psField->getNamespace() );
+			$templateField->setNSText( $psField->getNamespace() );
 			if ( defined( 'CARGO_VERSION' ) ) {
 				$cargoFieldArray = $psField->getObject( 'cargo_Field' );
 				$fieldType = PageSchemas::getValueFromObject( $cargoFieldArray, 'Type' );

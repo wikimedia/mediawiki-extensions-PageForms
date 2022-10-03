@@ -119,10 +119,7 @@ class PFTemplateField {
 			} elseif ( $key == 'delimiter' ) {
 				$f->mDelimiter = $value;
 			} elseif ( $key == 'namespace' ) {
-				$f->mNSText = $value;
-				// Translate from text to ID.
-				$dummyTitle = Title::newFromText( $value . ':ABC' );
-				$f->mNamespace = $dummyTitle->getNamespace();
+				$f->setNSText( $value );
 			} elseif ( $key == 'display' ) {
 				$f->mDisplay = $value;
 			} elseif ( $key == 'holds template' ) {
@@ -372,7 +369,15 @@ class PFTemplateField {
 	}
 
 	function setNamespace( $namespace ) {
+		$this->mNSText = PFUtils::getCanonicalName( $namespace );
 		$this->mNamespace = $namespace;
+	}
+
+	function setNSText( $nsText ) {
+		$this->mNSText = $nsText;
+		// Translate from text to ID.
+		$dummyTitle = Title::newFromText( $nsText . ':ABC' );
+		$this->mNamespace = $dummyTitle->getNamespace();
 	}
 
 	function setFieldType( $fieldType ) {
