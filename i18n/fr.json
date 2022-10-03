@@ -192,7 +192,7 @@
 	"formstart": "Début de formulaire",
 	"pf_formstart_badform": "Erreur : aucune page de formulaire n’a été trouvée sur « $1 ».",
 	"pf_formstart_badtitle": "Erreur : « $1 » n’est pas un titre de page valide.",
-	"pf_formstart_docu": "Saisissez ici le nom d’une à modifier avec le formulaire « $1 ».\nSi cette page existe déjà, vous serez dirigé vers son formulaire de modification.\nDans le cas contraire, vous serez redirigé vers le formulaire de création de la page.",
+	"pf_formstart_docu": "Saisissez ici le nom d’une page à modifier avec le formulaire « $1 ».\nSi cette page existe déjà, vous serez dirigé vers son formulaire de modification.\nDans le cas contraire, vous serez redirigé vers le formulaire de création de la page.",
 	"pf_formstart_noform_docu": "Saisissez ici le nom d’une page, puis sélectionnez le formulaire qui servira à la modifier.\nSi cette page existe déjà, vous serez dirigé vers son formulaire de modification.\nDans le cas contraire, vous serez redirigé vers le formulaire de création de la page.",
 	"pf_formstart_createoredit": "Créer ou modifier",
 	"formedit": "Modifier avec formulaire",
