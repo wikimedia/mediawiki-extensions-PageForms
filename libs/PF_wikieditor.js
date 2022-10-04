@@ -29,38 +29,23 @@ window.ext.wikieditor = {
 					} );
 					return;
 				}
-				var toolbarmodules,
-					dialogmodules;
-				if ( mw.config.values.wgVersion < "1.33" ) {
-					toolbarmodules = [ 'jquery.wikiEditor.toolbar', 'jquery.wikiEditor.toolbar.config' ];
-					dialogmodules = [ 'jquery.wikiEditor.dialogs', 'jquery.wikiEditor.dialogs.config' ];
-				} else {
-					toolbarmodules = [ 'ext.wikiEditor' ];
-					dialogmodules = [ 'ext.wikiEditor' ];
-				}
 
-				// load toolbar
-				$.when( mw.loader.using( toolbarmodules ), $.ready ).then( function() {
-					if ( typeof $.wikiEditor.isSupported !== 'function' || $.wikiEditor.isSupported( $.wikiEditor.modules.toolbar ) ) {
-						$input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
+				$.when( mw.loader.using( 'ext.wikiEditor' ), $.ready ).then( function() {
+					// load toolbar
+					$input.wikiEditor( 'addModule', $.wikiEditor.modules.toolbar.config.getDefaultConfig() );
 
-						// hide sig if required
-						if ( mw.config.get( 'wgWikiEditorEnabledModules' ) && mw.config.get( 'wgWikiEditorEnabledModules.hidesig' ) === true ) {
-							$input.wikiEditor( 'removeFromToolbar', {
-								'section': 'main',
-								'group': 'insert',
-								'tool': 'signature'
-							} );
-						}
+					// hide sig if required
+					if ( mw.config.get( 'wgWikiEditorEnabledModules' ) && mw.config.get( 'wgWikiEditorEnabledModules.hidesig' ) === true ) {
+						$input.wikiEditor( 'removeFromToolbar', {
+							'section': 'main',
+							'group': 'insert',
+							'tool': 'signature'
+						} );
 					}
-				} );
 
-				// load dialogs
-				$.when( mw.loader.using( dialogmodules ), $.ready ).then( function() {
-					if ( typeof $.wikiEditor.isSupported !== 'function' || $.wikiEditor.isSupported( $.wikiEditor.modules.dialogs ) ) {
-						$.wikiEditor.modules.dialogs.config.replaceIcons( $input );
-						$input.wikiEditor( 'addModule', $.wikiEditor.modules.dialogs.config.getDefaultConfig() );
-					}
+					// load dialogs
+					$.wikiEditor.modules.dialogs.config.replaceIcons( $input );
+					$input.wikiEditor( 'addModule', $.wikiEditor.modules.dialogs.config.getDefaultConfig() );
 				} );
 			}
 		} );
