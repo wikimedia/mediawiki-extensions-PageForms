@@ -63,6 +63,10 @@ class PFFormUtils {
 		if ( $is_disabled ) {
 			$attr['disabled'] = true;
 		}
+		if ( array_key_exists( 'class', $attr ) ) {
+			$attr['classes'] = [ $attr['class'] ];
+		}
+
 		$text = new OOUI\FieldLayout(
 			new OOUI\TextInputWidget( $attr ),
 			[
@@ -104,6 +108,10 @@ class PFFormUtils {
 		}
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
+		}
+		// @phan-suppress-next-line PhanImpossibleTypeComparison
+		if ( array_key_exists( 'class', $attrs ) ) {
+			$attrs['classes'] = [ $attrs['class'] ];
 		}
 
 		// We can't use OOUI\FieldLayout here, because it will make the display too wide.
@@ -186,6 +194,10 @@ class PFFormUtils {
 		}
 		if ( $is_disabled ) {
 			$attrs['disabled'] = true;
+		}
+		// @phan-suppress-next-line PhanImpossibleTypeComparison
+		if ( array_key_exists( 'class', $attrs ) ) {
+			$attrs['classes'] = [ $attrs['class'] ];
 		}
 
 		// We can't use OOUI\FieldLayout here, because it will make the display too wide.
@@ -318,14 +330,19 @@ class PFFormUtils {
 		if ( $label == null ) {
 			$label = wfMessage( 'cancel' )->parse();
 		}
+		$attr['classes'] = [];
 		if ( $wgTitle == null || $wgTitle->isSpecial( 'FormEdit' ) ) {
-			$attr['classes'] = [ 'pfSendBack' ];
+			$attr['classes'][] = 'pfSendBack';
 		} else {
 			$attr['href'] = $wgTitle->getFullURL();
 		}
 		$attr['framed'] = false;
 		$attr['label'] = $label;
 		$attr['flags'] = [ 'destructive' ];
+		if ( array_key_exists( 'class', $attr ) ) {
+			$attr['classes'][] = $attr['class'];
+		}
+
 		return "\t\t" . new OOUI\ButtonWidget( $attr ) . "\n";
 	}
 
