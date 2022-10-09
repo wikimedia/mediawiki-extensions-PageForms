@@ -514,6 +514,7 @@ class PFAutoeditAPI extends ApiBase {
 
 			case EditPage::AS_SUCCESS_NEW_ARTICLE:
 				// Article successfully created
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$query = $resultDetails['redirect'] ? 'redirect=no' : '';
 				$anchor = isset( $resultDetails['sectionanchor'] ) ? $resultDetails['sectionanchor'] : '';
 
@@ -556,11 +557,13 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_SUCCESS_UPDATE:
 				// Article successfully updated
 				$extraQuery = '';
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$sectionanchor = $resultDetails['sectionanchor'];
 
 				// Give extensions a chance to modify URL query on update
 				Hooks::run( 'ArticleUpdateBeforeRedirect', [ $editor->getArticle(), &$sectionanchor, &$extraQuery ] );
 
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				if ( $resultDetails['redirect'] ) {
 					// @phan-suppress-next-line PhanSuspiciousValueComparison
 					if ( $extraQuery == '' ) {
@@ -604,6 +607,7 @@ class PFAutoeditAPI extends ApiBase {
 
 			case EditPage::AS_SPAM_ERROR:
 				// summary contained spam according to one of the regexes in $wgSummarySpamRegex
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				$match = $resultDetails['spam'];
 				if ( is_array( $match ) ) {
 					$match = $this->getLanguage()->listToText( $match );
