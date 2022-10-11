@@ -11,7 +11,8 @@
 			"Kingu",
 			"Laaknor",
 			"MuratTheTurkish",
-			"Nghtwlkr"
+			"Nghtwlkr",
+			"EdoAug"
 		]
 	},
 	"pageforms-name": "Sideskjemaer",
@@ -136,7 +137,7 @@
 	"pf_createform_inputtype": "Type inndata:",
 	"pf_createform_inputtypedefault": "(standard)",
 	"pf_createform_formlabel": "Skjemaetikett:",
-	"pf_createform_hidden": "Skjult",
+	"pf_createform_hidden": "(Skjult)",
 	"pf_createform_removetemplate": "Fjern mal",
 	"pf_createform_addtemplate": "Legg til mal:",
 	"pf_createform_atend": "Ved slutten",
