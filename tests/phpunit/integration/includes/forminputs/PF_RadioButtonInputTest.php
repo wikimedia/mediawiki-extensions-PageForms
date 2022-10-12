@@ -52,7 +52,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			[ 'PFRadioButtonInput', 'getHTML' ], $args
 		);
 
-		$this->assertRegexp(
+		$this->assertMatchesRegularExpression(
 			'#' . $expected['expected_html'] . '#',
 			$result,
 			'asserts that getHTML() returns the correct HTML text'
@@ -384,14 +384,14 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 			}
 
 			if ( isset( $expected['expected_form_text'] ) ) {
-				$this->assertRegexp(
+				$this->assertMatchesRegularExpression(
 					'#' . $expected['expected_form_text'] . '#',
 					$form_text,
 					'asserts that formHTML() returns the correct HTML text for the form'
 				);
 			}
 			if ( isset( $expected['expected_page_text'] ) ) {
-				$this->assertRegexp(
+				$this->assertMatchesRegularExpression(
 					'#' . $expected['expected_page_text'] . '#',
 					$page_text,
 					'assert that formHTML() returns the correct text for the page created'
