@@ -62,16 +62,9 @@ class PFCreatePageJob extends Job {
 		// attach the 'bot' flag when the user is a bot...
 		// @TODO - is all this code still necessary?
 		$flags = 0;
-		if ( method_exists( 'MediaWiki\Permissions\PermissionManager', 'userHasRight' ) ) {
-			// MW 1.34+
-			$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
-			if ( $permissionManager->userHasRight( $user, 'bot' ) ) {
-				$flags = EDIT_FORCE_BOT;
-			}
-		} else {
-			if ( $user->isAllowed( 'bot' ) ) {
-				$flags = EDIT_FORCE_BOT;
-			}
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		if ( $permissionManager->userHasRight( $user, 'bot' ) ) {
+			$flags = EDIT_FORCE_BOT;
 		}
 
 		$updater = $wikiPage->newPageUpdater( $user );

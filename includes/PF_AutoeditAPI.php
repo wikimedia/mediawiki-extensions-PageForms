@@ -1243,12 +1243,7 @@ class PFAutoeditAPI extends ApiBase {
 	 * @return MessageCache
 	 */
 	private function getMessageCache() {
-		if ( method_exists( MediaWikiServices::class, 'getMessageCache' ) ) {
-			// MW 1.34+
-			return MediaWikiServices::getInstance()->getMessageCache();
-		} else {
-			return MessageCache::singleton();
-		}
+		return MediaWikiServices::getInstance()->getMessageCache();
 	}
 
 	/**

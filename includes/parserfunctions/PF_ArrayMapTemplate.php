@@ -27,13 +27,7 @@ class PFArrayMapTemplate {
 		$delimiter = isset( $args[2] ) ? trim( $frame->expand( $args[2] ) ) : ',';
 		$new_delimiter = isset( $args[3] ) ? trim( $frame->expand( $args[3] ) ) : ', ';
 		// Unstrip some.
-		if ( method_exists( $parser, 'getStripState' ) ) {
-			// MW 1.35+
-			$delimiter = $parser->getStripState()->unstripNoWiki( $delimiter );
-		} else {
-			// @phan-suppress-next-line PhanAccessPropertyPrivate
-			$delimiter = $parser->mStripState->unstripNoWiki( $delimiter );
-		}
+		$delimiter = $parser->getStripState()->unstripNoWiki( $delimiter );
 		// let '\n' represent newlines
 		$delimiter = str_replace( '\n', "\n", $delimiter );
 		$new_delimiter = str_replace( '\n', "\n", $new_delimiter );
