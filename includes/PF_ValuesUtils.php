@@ -528,8 +528,8 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 
 		$allNamespaces = PFUtils::getContLang()->getNamespaces();
 
-		if ( $wgLanguageCode != 'en' ) {
-			$englishLang = Language::factory( 'en' );
+		if ( $wgLanguageCode !== 'en' ) {
+			$englishLang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
 			$allEnglishNamespaces = $englishLang->getNamespaces();
 		}
 
