@@ -4,5 +4,12 @@
 			"Vlad5250"
 		]
 	},
-	"pf-pageschemas-header": "Oblik"
+	"pageforms-desc": "Obrasci za pravljenje i uređivanje wikistranica",
+	"specialpages-group-pf_group": "Semantički obrasci",
+	"pf-pageschemas-header": "Oblik",
+	"right-viewedittab": "Prikaz kartice \"{{int:edit}}\" za stranice koje se mogu uređivati ​​putem obrasca",
+	"right-editrestrictedfields": "Uređivanje ograničenih polja obrazca",
+	"action-editrestrictedfields": "uređivanje ograničenih polja obrazca",
+	"action-viewedittab": "prikaz kartice \"{{int:edit}}\" za stranice koje se mogu uređivati ​​putem obrasca",
+	"tooltip-ca-formedit": "Uređivanje ove stranice pomoću obrasca"
 }
