@@ -620,7 +620,7 @@ END;
 	 * Deletes the form definition associated with the given wiki page
 	 * from the main cache.
 	 *
-	 * Hooks: ArticlePurge, PageContentSave
+	 * Hooks: ArticlePurge
 	 *
 	 * @param WikiPage $wikipage
 	 * @return bool
@@ -662,7 +662,7 @@ END;
 	 * @param RenderedRevision $renderedRevision
 	 * @return bool
 	 */
-	public static function purgeCache2( RenderedRevision $renderedRevision ) {
+	public static function purgeCacheOnSave( RenderedRevision $renderedRevision ) {
 		$articleID = $renderedRevision->getRevision()->getPageId();
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+

@@ -554,6 +554,8 @@
 		"MakeGlobalVariablesScript": "PFHooks::setGlobalJSVariables",
 		"PageSchemasRegisterHandlers": "PFPageSchemas::registerClass",
 		"EditPage::importFormData": "PFHooks::showFormPreview",
+		"PageSaveComplete": "PFHooks::setPostEditCookie",
+		"MultiContentSave": "PFFormUtils::purgeCacheOnSave",
 		"HtmlPageLinkRendererEnd": "PFFormLinker::setBrokenLink",
 		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
 		"CargoTablesSetAllowedActions": "PFHooks::addToCargoTablesColumns",
