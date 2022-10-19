@@ -26,6 +26,10 @@
 			return true;
 		}
 
+		if ( mw.config.get( 'wgPageFormsDisableEditWarning' ) ) {
+			return true;
+		}
+
 		// Save the original value of the inputs.
 		$allInputs.each( function ( index, element ) {
 			var $element = $( element );

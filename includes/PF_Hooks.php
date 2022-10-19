@@ -153,6 +153,7 @@ class PFHooks {
 		global $wgPageFormsShowOnSelect, $wgPageFormsScriptPath;
 		global $edgValues, $wgPageFormsEDSettings;
 		global $wgAmericanDates;
+		global $wgPageFormsDisableEditWarning;
 
 		$vars['wgPageFormsTargetName'] = $wgPageFormsTargetName;
 		$vars['wgPageFormsAutocompleteValues'] = $wgPageFormsAutocompleteValues;
@@ -179,6 +180,7 @@ class PFHooks {
 		}
 		$vars['wgPageFormsEDSettings'] = $wgPageFormsEDSettings;
 		$vars['wgAmericanDates'] = $wgAmericanDates;
+		$vars['wgPageFormsDisableEditWarning'] = $wgPageFormsDisableEditWarning;
 
 		return true;
 	}
