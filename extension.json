@@ -199,6 +199,10 @@
 				"pf_start_end_datetime_error",
 				"pf-wizard-back",
 				"pf-wizard-continue"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.main.styles": {
@@ -210,12 +214,20 @@
 		"ext.pageforms.browser": {
 			"scripts": [
 				"libs/jquery.browser.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.fancybox": {
 			"scripts": "libs/FancyBox/jquery.fancybox.js",
 			"dependencies": [
 				"ext.pageforms.browser"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.fancybox.styles": {
@@ -229,16 +241,28 @@
 			"styles": [
 				"skins/jstree/jstree.css"
 			],
-			"dependencies": "ext.pageforms"
+			"dependencies": "ext.pageforms",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
 		},
 		"ext.pageforms.sortable": {
 			"scripts": [
 				"libs/Sortable.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.autogrow": {
 			"scripts": [
 				"libs/PF_autogrow.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.popupformedit": {
@@ -258,6 +282,10 @@
 				"pf-autoedit-wait",
 				"pf_autoedit_anoneditwarning",
 				"pf_autoedit_confirm"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.autoeditrating": {
@@ -273,6 +301,10 @@
 				"pf-autoedit-wait",
 				"pf_autoedit_anoneditwarning",
 				"pf_autoedit_confirm"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.submit": {
@@ -282,6 +314,10 @@
 			"messages": [
 				"pf_formedit_saveandcontinue_summary",
 				"pf_formedit_saveandcontinueediting"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.submit.styles": {
@@ -295,6 +331,10 @@
 			],
 			"styles": [
 				"skins/PF_collapsible.css"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.imagepreview": {
@@ -309,6 +349,10 @@
 			"messages": [
 				"pf_forminputs_checkboxes_select_all",
 				"pf_forminputs_checkboxes_select_none"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.checkboxes.styles": {
@@ -320,25 +364,45 @@
 			"scripts": "libs/PF_datepicker.js",
 			"dependencies": [
 				"mediawiki.widgets.DateInputWidget"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.timepicker": {
 			"scripts": "libs/PF_timepicker.js",
-			"styles": "skins/PF_Timepicker.css"
+			"styles": "skins/PF_Timepicker.css",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
 		},
 		"ext.pageforms.datetimepicker": {
 			"scripts": "libs/PF_datetimepicker.js",
 			"dependencies": [
 				"mediawiki.widgets.datetime"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.regexp": {
-			"scripts": "libs/PF_regexp.js"
+			"scripts": "libs/PF_regexp.js",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
 		},
 		"ext.pageforms.rating": {
 			"scripts": [
 				"libs/jquery.rateyo.js",
 				"libs/PF_rating.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.rating.styles": {
@@ -352,6 +416,10 @@
 				"pf_forminputs_change_file",
 				"pf-simpleupload",
 				"htmlform-cloner-delete"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.select2": {
@@ -368,6 +436,10 @@
 				"pf-autocomplete-searching",
 				"pf-autocomplete-input-too-short",
 				"pf-autocomplete-selection-too-big"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.select2.styles": {
@@ -387,6 +459,10 @@
 			],
 			"messages": [
 				"pf-autocomplete-no-matches"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.ooui.combobox": {
@@ -399,6 +475,10 @@
 			],
 			"messages": [
 				"pf-autocomplete-no-matches"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.forminput": {
@@ -408,6 +488,10 @@
 			"dependencies": [
 				"ext.pageforms",
 				"ext.pageforms.ooui.autocomplete"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.forminput.styles": {
@@ -435,6 +519,10 @@
 				"pf-calendar-createevent",
 				"pf-calendar-deleteevent",
 				"pf-calendar-updateevent"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.spreadsheet": {
@@ -474,11 +562,19 @@
 		},
 		"ext.pageforms.wikieditor": {
 			"scripts": "libs/PF_wikieditor.js",
-			"styles": "skins/PF_wikieditor.css"
+			"styles": "skins/PF_wikieditor.css",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
 		},
 		"ext.pageforms": {
 			"scripts": [
 				"libs/ext.pf.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.editwarning": {
@@ -486,11 +582,19 @@
 			"dependencies": [
 				"mediawiki.confirmCloseWindow",
 				"jquery.textSelection"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.PF_CreateProperty": {
 			"scripts": [
 				"libs/PF_CreateProperty.js"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.PF_PageSchemas": {
@@ -510,6 +614,10 @@
 			"messages": [
 				"pf_blank_error",
 				"pf_createtemplate_hierarchystructureplaceholder"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.PF_CreateClass": {
@@ -522,6 +630,10 @@
 			"messages": [
 				"pf_createtemplate_hierarchystructureplaceholder",
 				"pf_blank_error"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.PF_CreateForm": {
@@ -534,10 +646,18 @@
 			],
 			"messages": [
 				"pf_blank_error"
+			],
+			"targets": [
+				"desktop",
+				"mobile"
 			]
 		},
 		"ext.pageforms.templatedisplay": {
-			"styles": "skins/PF_templateDisplay.css"
+			"styles": "skins/PF_templateDisplay.css",
+			"targets": [
+				"desktop",
+				"mobile"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
