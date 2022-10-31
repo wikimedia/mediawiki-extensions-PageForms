@@ -3,7 +3,8 @@
 		"authors": [
 			"Kareyac",
 			"Vadgt",
-			"Xelgen"
+			"Xelgen",
+			"Սերգեյ Սաֆարյան"
 		]
 	},
 	"pf_createtemplate_namelabel": "Կաղապարի անունը",
@@ -18,7 +19,7 @@
 	"pf-createform-with-name": "Ստեղծել ձևը $1",
 	"pf_createform_nameinput": "Ձևի անվանումը",
 	"pf_createform_template": "Կաղապար",
-	"pf_createform_field": "Դաշտ",
+	"pf_createform_field": "Դաշտ՝",
 	"pf_createform_hidden": "Թաքցված",
 	"pf_createform_removetemplate": "Հեռացնել կաղապարը",
 	"pf_createform_atend": "Վերջում",
@@ -29,7 +30,7 @@
 	"pf_formstart_badform": "Սխալ է ։ $1 էջում Ձեւը չի գտնվել",
 	"pf_formstart_badtitle": "Սխալ է \"$1\" էջի անթույլատրելի անվանումն է",
 	"pf_formstart_createoredit": "Ստեղծել կամ խմբագրել",
-	"formedit": "Ձևի միջոցով խմբագրել",
+	"formedit": "Խմբագրել ձևի միջոցով",
 	"pf_formedit_createtitlenotarget": "Ստեղծել $1",
 	"pf_viewform": "Դիտել ձևը",
 	"pf_formedit_remove": "Հեռացնել",
