@@ -312,13 +312,24 @@ class PFTextAreaInput extends PFFormInput {
 			// which is fine in a regular edit page, but not good
 			// in a form. So we add a "max height" value, which in
 			// turn gets processed by VEForAll into true CSS.
+			$maxHeightNumOnly = true;
 			if ( array_key_exists( 'max height', $this->mOtherArgs ) ) {
-				$maxHeight = (int)$this->mOtherArgs['max height'];
+				$maxHeightStr = $this->mOtherArgs['max height'];
+				if ( substr( $maxHeightStr, -2 ) == 'em' || substr( $maxHeightStr, -2 ) == 'vh' ) {
+					$maxHeightNumOnly = false;
+					$maxHeight = $maxHeightStr;
+				} else {
+					$maxHeight = (int)$maxHeightStr;
+				}
 			} else {
 				$config = RequestContext::getMain()->getConfig();
 				$maxHeight = $config->get( 'PageFormsVisualEditorMaxHeight' );
 			}
-			$spanAttrs['data-max-height'] = $maxHeight . 'px';
+			if ( $maxHeightNumOnly ) {
+				$spanAttrs['data-max-height'] = $maxHeight . 'px';
+			} else {
+				$spanAttrs['data-max-height'] = $maxHeight;
+			}
 		}
 
 		$text = Html::rawElement( 'span', $spanAttrs, $text );
