@@ -41,7 +41,7 @@
 	"pf_createproperty_allowedvalsinput": "لو كنت تريد أن تحتوي هذه الخاصية فقط على قيم معينة، أدخل قائمة القيم المسموحة، مفصولة بفاصلات (لو أن قيمة ما تحتوي على فاصلة، استبدلها ب \"\\,\"):",
 	"pf_createproperty_propname": "اسم الخاصية:",
 	"pf_createproperty_proptype": "النوع:",
-	"pf_createproperty_editsummary": "تم إنشاء خاصية من النوع [[Has type::$1]]",
+	"pf_createproperty_editsummary": "تم إنشاء خاصية من النوع $1",
 	"templates": "قوالب",
 	"pf_templates_docu": "القوالب التالية موجودة في الويكي.",
 	"pf_templates_definescat": "يعرف التصنيف: $1",
