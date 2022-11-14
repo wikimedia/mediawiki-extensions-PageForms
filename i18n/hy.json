@@ -41,6 +41,8 @@
 	"pf_autoedit_noformfound": "Ձևը որոշված չէ",
 	"pf-autoedit-wait": "Սպասեք...",
 	"pf_not_unique_error": "պետք է լինի եզակի",
+	"uploadwindow": "Վերբեռնման լուսամուտ",
+	"pf-simpleupload": "Վերբեռնել",
 	"pf_deletionlog": "Ջնջման տեղեկամատյան",
 	"pf_property_isproperty": "Այս գույքը $1 տեսակի է",
 	"pf_template_docufooter": "Խմբագրեք այս էջը կաղապարի տեքստը տեսնելու համար",
