@@ -15,6 +15,7 @@
 	"pf-formedit-donotuseform": "Ustvarite stran brez obrazca.",
 	"pf_formedit_altformsonly": "Prosimo, izberite enega od naslednjih obrazcev za vključitev te strani:",
 	"pf_formedit_none": "Nič/neznano",
+	"pf_autoedit_anoneditwarning": "Opozorilo: Niste prijavljeni. V zgodovino urejanja te strani se bo zapisal vaš IP-naslov.",
 	"pf-pageschemas-header": "Obrazec",
 	"pf-pageschemas-includefreetextinput": "Vključi vnos prostega besedila",
 	"pf-pageschemas-freetextlabel": "Oznaka prostega besedila:",
