@@ -97,7 +97,7 @@
 	"pf_forminputs_placeholder": "Texto de ajuda que aparece na caixa de entrada até que o utilizador clique a caixa",
 	"pf_forminputs_uploadable": "Colocar uma hiperligação \"{{int:upload}}\" ao lado desta entrada",
 	"pf_forminputs_change_file": "Alterar ficheiro",
-	"pf_forminputs_defaultfilename": "O nome de ficheiro por omissão, dos ficheiros enviados",
+	"pf_forminputs_defaultfilename": "O nome de ficheiro por omissão, dos ficheiros carregados",
 	"pf_forminputs_rows": "O número de linhas desta entrada",
 	"pf_forminputs_cols": "O número de colunas desta entrada",
 	"pf_forminputs_autogrow": "Definir que esta entrada deve aumentar de tamanho se o texto exceder os seus limites",
