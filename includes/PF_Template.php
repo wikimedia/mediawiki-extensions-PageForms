@@ -83,7 +83,7 @@ class PFTemplate {
 			return;
 		}
 
-		$templateText = PFUtils::getPageText( $templateTitle );
+		$templateText = PFUtils::getPageText( $templateTitle ) ?? '';
 		// Ignore 'noinclude' sections and 'includeonly' tags.
 		$templateText = StringUtils::delimiterReplace( '<noinclude>', '</noinclude>', '', $templateText );
 		$this->mTemplateText = strtr( $templateText, [ '<includeonly>' => '', '</includeonly>' => '' ] );

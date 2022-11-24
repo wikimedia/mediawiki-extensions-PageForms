@@ -49,7 +49,9 @@ class PFTemplateField {
 			// Keep this field null if no value was set.
 			$f->mLabel = trim( str_replace( '\\', '', $label ) );
 		}
-		$f->setSemanticProperty( $semanticProperty );
+		if ( $semanticProperty !== null ) {
+			$f->setSemanticProperty( $semanticProperty );
+		}
 		$f->mIsList = $isList;
 		$f->mDelimiter = $delimiter;
 		$f->mDisplay = $display;

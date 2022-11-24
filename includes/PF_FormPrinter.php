@@ -849,8 +849,8 @@ END;
 		$wgPageFormsTabIndex = 0;
 		$wgPageFormsFieldNum = 0;
 		$source_page_matches_this_form = false;
-		$form_page_title = null;
-		$generated_page_name = $page_name_formula;
+		$form_page_title = '';
+		$generated_page_name = $page_name_formula ?? '';
 		$new_text = "";
 		$original_page_content = $existing_page_content;
 
@@ -1849,7 +1849,7 @@ END;
 		} elseif ( $preloaded_free_text != null ) {
 			$free_text = $preloaded_free_text;
 		} else {
-			$free_text = null;
+			$free_text = '';
 		}
 
 		if ( $wiki_page->freeTextOnlyInclude() ) {
