@@ -29,7 +29,7 @@ class PFHelperFormAction extends Action {
 	 * @return false
 	 */
 	public function show() {
-		return self::displayForm( $this->page );
+		return self::displayForm( $this->getArticle() );
 	}
 
 	/**
