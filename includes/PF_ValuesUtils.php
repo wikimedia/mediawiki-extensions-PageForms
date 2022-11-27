@@ -733,6 +733,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				$whereStr = $field_args['cargo where'];
 				$autocompletionSource .= "|$whereStr";
 			}
+		} elseif ( array_key_exists( 'semantic_query', $field_args ) ) {
+			$autocompletionSource = $field_args['semantic_query'];
+			$autocompleteFieldType = 'semantic_query';
 		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
 			$autocompletionSource = $field_args['semantic_property'];
 			$autocompleteFieldType = 'property';
@@ -741,7 +744,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			$autocompletionSource = null;
 		}
 
-		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' && $autocompleteFieldType != 'cargo field' ) {
+		if ( $wgCapitalLinks && $autocompleteFieldType != 'external_url' && $autocompleteFieldType != 'cargo field' && $autocompleteFieldType != 'semantic_query' ) {
 			$autocompletionSource = PFUtils::getContLang()->ucfirst( $autocompletionSource );
 		}
 
@@ -902,8 +905,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	 * @return array
 	 */
 	public static function getAllPagesForQuery( $rawQuery ) {
+		global $wgPageFormsUseDisplayTitle;
 		$rawQueryArray = [ $rawQuery ];
-		SMWQueryProcessor::processFunctionParams( $rawQueryArray, $queryString, $processedParams, $printouts );
+		list( $queryString, $processedParams, $printouts ) = SMWQueryProcessor::getComponentsFromFunctionParams( $rawQueryArray, false );
 		SMWQueryProcessor::addThisPrintout( $printouts, $processedParams );
 		$processedParams = SMWQueryProcessor::getProcessedParams( $processedParams, $printouts );
 		$queryObj = SMWQueryProcessor::createQuery( $queryString,
@@ -911,9 +915,38 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			SMWQueryProcessor::SPECIAL_PAGE, '', $printouts );
 		$res = PFUtils::getSMWStore()->getQueryResult( $queryObj );
 		$rows = $res->getResults();
+		$titles = [];
 		$pages = [];
-		foreach ( $rows as $row ) {
-			$pages[] = $row->getDbKey();
+
+		foreach ( $rows as $diWikiPage ) {
+			$titles[] = $diWikiPage->getTitle();
+		}
+
+		if ( $wgPageFormsUseDisplayTitle ) {
+			$services = MediaWikiServices::getInstance();
+			if ( method_exists( $services, 'getPageProps' ) ) {
+				// MW 1.36+
+				$pageProps = $services->getPageProps();
+			} else {
+				$pageProps = PageProps::getInstance();
+			}
+			$properties = $pageProps->getProperties( $titles,
+				[ 'displaytitle', 'defaultsort' ] );
+			foreach ( $titles as $title ) {
+				if ( array_key_exists( $title->getArticleID(), $properties ) ) {
+					$titleprops = $properties[$title->getArticleID()];
+				} else {
+					$titleprops = [];
+				}
+
+				$titleText = $title->getPrefixedText();
+				if ( array_key_exists( 'displaytitle', $titleprops ) &&
+					 trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
+					$pages[$titleText] = htmlspecialchars_decode( $titleprops['displaytitle'] );
+				} else {
+					$pages[$titleText] = $titleText;
+				}
+			}
 		}
 
 		return $pages;
