@@ -1041,12 +1041,12 @@ class PFFormField {
 	function getArgumentsForInputCallCargo( array &$other_args ) {
 		$fullCargoField = $this->template_field->getFullCargoField();
 		if ( $fullCargoField !== null &&
+			array_key_exists( 'cargo where', $other_args ) ) {
+			$fullCargoField .= '|' . $other_args['cargo where'];
+		}
+		if ( $fullCargoField !== null &&
 			!array_key_exists( 'full_cargo_field', $other_args ) ) {
-				if ( array_key_exists( 'cargo where', $other_args ) ) {
-					$other_args['full_cargo_field'] = $fullCargoField . '|' . $other_args['cargo where'];
-				} else {
-					$other_args['full_cargo_field'] = $fullCargoField;
-				}
+			$other_args['full_cargo_field'] = $fullCargoField;
 		}
 
 		if ( $this->template_field->getFieldType() == 'Hierarchy' ) {
@@ -1065,7 +1065,7 @@ class PFFormField {
 					$mapping_cargo_table = $other_args[ 'mapping cargo table' ];
 					$other_args['autocompletion source'] = $mapping_cargo_table . '|' . $mapping_cargo_field;
 				} else {
-					$other_args['autocompletion source'] = $this->template_field->getFullCargoField();
+					$other_args['autocompletion source'] = $fullCargoField;
 				}
 				$other_args['autocomplete field type'] = 'cargo field';
 			}
