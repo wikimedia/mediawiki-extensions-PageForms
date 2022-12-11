@@ -840,7 +840,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			return wfMessage( 'pf-blankexturl' );
 		}
 		$url = str_replace( '<substr>', urlencode( $substring ), $url );
-		$page_contents = Http::get( $url );
+		$page_contents = MediaWikiServices::getInstance()->getHttpRequestFactory()->get( $url );
 		if ( empty( $page_contents ) ) {
 			return wfMessage( 'pf-externalpageempty' );
 		}
