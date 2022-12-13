@@ -24,7 +24,12 @@ class PFAutoEdit {
 		global $wgPageFormsAutoeditNamespaces;
 
 		$parser->getOutput()->addModules( [ 'ext.pageforms.autoedit' ] );
-		$parser->getOutput()->preventClickjacking( true );
+		if ( method_exists( $parser->getOutput(), 'setPreventClickjacking' ) ) {
+			// MW 1.38+
+			$parser->getOutput()->setPreventClickjacking( true );
+		} else {
+			$parser->getOutput()->preventClickjacking( true );
+		}
 
 		// Set defaults.
 		$formcontent = '';
