@@ -247,7 +247,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Shows the "view X deleted revivions link""
+	 * Shows the "view X deleted revisions link"
 	 */
 	protected function showViewDeletedLinks() {
 		$title = Title::makeTitleSafe( NS_FILE, $this->mDesiredDestName );
@@ -428,15 +428,10 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			$imageTitle = $this->mUpload->getTitle();
 			$basename = $imageTitle->getText();
 		} else {
-			$basename = null;
+			$basename = '';
 		}
 
 		$basename = str_replace( '_', ' ', $basename );
-		// UTF8-decoding is needed for IE.
-		// Actually, this doesn't seem to fix the encoding in IE
-		// any more... and it messes up the encoding for all other
-		// browsers. @TODO - fix handling in IE!
-		// $basename = utf8_decode( $basename );
 
 		$output = <<<END
 		<script type="text/javascript">
