@@ -35,13 +35,11 @@ class PFHooks {
 		if ( defined( 'SMW_VERSION' ) || ExtensionRegistry::getInstance()->isLoaded( 'SemanticMediaWiki' ) ) {
 			$GLOBALS['wgSpecialPages']['CreateProperty'] = 'PFCreateProperty';
 			$GLOBALS['wgAutoloadClasses']['PFCreateProperty'] = __DIR__ . '/../specials/PF_CreateProperty.php';
+			$GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
 		}
 
 		// Allow for popup windows for file upload
 		$GLOBALS['wgEditPageFrameOptions'] = 'SAMEORIGIN';
-
-		// Necessary setting for SMW 1.9+
-		$GLOBALS['smwgEnabledSpecialPage'][] = 'RunQuery';
 	}
 
 	public static function initialize() {
