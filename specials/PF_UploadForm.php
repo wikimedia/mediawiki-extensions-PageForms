@@ -1,11 +1,13 @@
 <?php
 /**
- * Subclass of HTMLForm that provides the form section of Special:Upload.
+ * Subclass of HTMLForm that provides the form section of Special:UploadWindow.
  *
  * @author Yaron Koren
  * @file
  * @ingroup PF
  */
+
+use MediaWiki\Linker\LinkRenderer;
 
 /**
  * @ingroup PFSpecialPages
@@ -19,22 +21,45 @@ class PFUploadForm extends HTMLForm {
 
 	protected $mSourceIds;
 
-	private $mTextTop;
-	private $mTextAfterSummary;
+	/** @var string raw html */
+	protected $mTextTop;
+	/** @var string raw html */
+	protected $mTextAfterSummary;
+
+	/** @var array */
+	protected $mMaxUploadSize = [];
 
 	/** @var string */
 	private $mDestFile;
 
-	public function __construct( $options = [] ) {
+	/**
+	 * @param array $options
+	 * @param IContextSource|null $context
+	 * @param LinkRenderer|null $linkRenderer
+	 * @param LocalRepo|null $localRepo
+	 * @param Language|null $contentLanguage
+	 * @param NamespaceInfo|null $nsInfo
+	 */
+	public function __construct(
+		array $options = [],
+		IContextSource $context = null,
+		LinkRenderer $linkRenderer = null,
+		LocalRepo $localRepo = null,
+		Language $contentLanguage = null,
+		NamespaceInfo $nsInfo = null
+	) {
+		if ( $context instanceof IContextSource ) {
+			$this->setContext( $context );
+		}
+
 		$this->mWatch = !empty( $options['watch'] );
 		$this->mForReUpload = !empty( $options['forreupload'] );
-		$this->mSessionKey = isset( $options['sessionkey'] )
-				? $options['sessionkey'] : '';
+		$this->mSessionKey = $options['sessionkey'] ?? '';
 		$this->mHideIgnoreWarning = !empty( $options['hideignorewarning'] );
-		$this->mDestFile = isset( $options['destfile'] ) ? $options['destfile'] : '';
+		$this->mDestFile = $options['destfile'] ?? '';
 
-		$this->mTextTop = isset( $options['texttop'] ) ? $options['texttop'] : '';
-		$this->mTextAfterSummary = isset( $options['textaftersummary'] ) ? $options['textaftersummary'] : '';
+		$this->mTextTop = $options['texttop'] ?? '';
+		$this->mTextAfterSummary = $options['textaftersummary'] ?? '';
 
 		$sourceDescriptor = $this->getSourceSection();
 		$descriptor = $sourceDescriptor
@@ -45,14 +70,15 @@ class PFUploadForm extends HTMLForm {
 		parent::__construct( $descriptor, $this->getContext() );
 
 		# Set some form properties
-		$this->setSubmitText( $this->msg( 'uploadbtn' )->text() );
+		$this->setSubmitTextMsg( 'uploadbtn' );
 		$this->setSubmitName( 'wpUpload' );
+		# Used message keys: 'accesskey-upload', 'tooltip-upload'
 		$this->setSubmitTooltip( 'upload' );
 		$this->setId( 'mw-upload-form' );
 
 		# Build a list of IDs for javascript insertion
 		$this->mSourceIds = [];
-		foreach ( $sourceDescriptor as $key => $field ) {
+		foreach ( $sourceDescriptor as $field ) {
 			if ( !empty( $field['id'] ) ) {
 				$this->mSourceIds[] = $field['id'];
 			}
@@ -84,7 +110,9 @@ class PFUploadForm extends HTMLForm {
 			];
 		}
 
-		$canUploadByUrl = UploadFromUrl::isEnabled() && $this->getUser()->isAllowed( 'upload_by_url' );
+		$canUploadByUrl = UploadFromUrl::isEnabled()
+			&& ( UploadFromUrl::isAllowed( $this->getUser() ) === true )
+			&& $this->getConfig()->get( 'CopyUploadsFromSpecialUpload' );
 		$radio = $canUploadByUrl;
 		$selectedSourceType = strtolower( $this->getRequest()->getText( 'wpSourceType', 'File' ) );
 
@@ -99,45 +127,46 @@ class PFUploadForm extends HTMLForm {
 			];
 		}
 
-		$maxUploadSizeFile = ini_get( 'upload_max_filesize' );
-		$maxUploadSizeURL = ini_get( 'upload_max_filesize' );
-		global $wgMaxUploadSize;
-		if ( isset( $wgMaxUploadSize ) ) {
-			if ( gettype( $wgMaxUploadSize ) == "array" ) {
-				$maxUploadSizeFile = $wgMaxUploadSize['*'];
-				$maxUploadSizeURL = $wgMaxUploadSize['url'];
-			} else {
-				$maxUploadSizeFile = $wgMaxUploadSize;
-				$maxUploadSizeURL = $wgMaxUploadSize;
-			}
+		$this->mMaxUploadSize['file'] = min(
+			UploadBase::getMaxUploadSize( 'file' ),
+			UploadBase::getMaxPhpUploadSize()
+		);
+
+		$help = $this->msg( 'upload-maxfilesize',
+				$this->getContext()->getLanguage()->formatSize( $this->mMaxUploadSize['file'] )
+			)->parse();
+
+		// If the user can also upload by URL, there are 2 different file size limits.
+		// This extra message helps stress which limit corresponds to what.
+		if ( $canUploadByUrl ) {
+			$help .= $this->msg( 'word-separator' )->escaped();
+			$help .= $this->msg( 'upload_source_file' )->parse();
 		}
 
 		$descriptor['UploadFile'] = [
-			'class' => 'PFUploadSourceField',
+			'class' => PFUploadSourceField::class,
 			'section' => 'source',
 			'type' => 'file',
 			'id' => 'wpUploadFile',
 			'label-message' => 'sourcefilename',
 			'upload-type' => 'File',
 			'radio' => &$radio,
-			'help' => $this->msg( 'upload-maxfilesize',
-					$this->getLanguage()->formatSize(
-						wfShorthandToInteger( $maxUploadSizeFile )
-					)
-				)->parse() . ' ' . $this->msg( 'upload_source_file' )->escaped(),
-			'checked' => $selectedSourceType == 'file'
+			'help' => $help,
+			'checked' => $selectedSourceType == 'file',
 		];
 		if ( $canUploadByUrl ) {
 			$descriptor['UploadFileURL'] = [
-				'class' => 'UploadSourceField',
+				'class' => UploadSourceField::class,
 				'section' => 'source',
 				'id' => 'wpUploadFileURL',
 				'label-message' => 'sourceurl',
-				'upload-type' => 'Url',
+				'upload-type' => 'url',
 				'radio' => &$radio,
 				'help' => $this->msg( 'upload-maxfilesize',
-						$this->getLanguage()->formatSize( $maxUploadSizeURL )
-					)->parse() . ' ' . $this->msg( 'upload_source_url' )->escaped(),
+					$this->getContext()->getLanguage()->formatSize( $this->mMaxUploadSize['url'] )
+				)->parse() .
+					$this->msg( 'word-separator' )->escaped() .
+					$this->msg( 'upload_source_url' )->parse(),
 				'checked' => $selectedSourceType == 'url',
 			];
 		}
@@ -345,9 +374,9 @@ END;
 	/**
 	 * Empty function; submission is handled elsewhere.
 	 *
-	 * @return bool false
+	 * @return bool False
 	 */
-	function trySubmit() {
+	public function trySubmit() {
 		return false;
 	}
 
