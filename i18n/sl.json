@@ -7,8 +7,10 @@
 		]
 	},
 	"pageforms-desc": "Obrazci za ustvarjanje in urejanje viki strani",
+	"pf_createtemplate_fullwikitext": "Uporaba celotnega vikibesedila namesto $1",
 	"pf_createtemplate_connectingproperty": "Ime lastnosti za povezovanje polj te predloge s preostalo stranjo:",
 	"pf_createtemplate_sectionsformat": "Razdelki",
+	"pf_forminputs_structure": "Ročni seznam vrednosti, ustvarjen kot neurejen seznam vrednosti v vikibesedilu",
 	"pf_forminputs_checkboxes_select_all": "Izberi vse",
 	"pf_createform_hidden": "(Skrito)",
 	"pf_createform_add": "Dodaj",
