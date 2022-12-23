@@ -96,7 +96,6 @@
 		"PFFormEdit": "specials/PF_FormEdit.php",
 		"PFRunQuery": "specials/PF_RunQuery.php",
 		"PFUploadForm": "specials/PF_UploadForm.php",
-		"PFUploadSourceField": "specials/PF_UploadSourceField.php",
 		"PFUploadWindow": "specials/PF_UploadWindow.php",
 		"PFTemplateField": "includes/PF_TemplateField.php",
 		"PFForm": "includes/PF_Form.php",

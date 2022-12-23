@@ -144,7 +144,7 @@ class PFUploadForm extends HTMLForm {
 		}
 
 		$descriptor['UploadFile'] = [
-			'class' => PFUploadSourceField::class,
+			'class' => UploadSourceField::class,
 			'section' => 'source',
 			'type' => 'file',
 			'id' => 'wpUploadFile',
