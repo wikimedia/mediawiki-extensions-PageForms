@@ -214,6 +214,7 @@ class PFUploadForm extends HTMLForm {
 					: 'fileuploadsummary',
 				'cols' => 80,
 				'rows' => 4,
+				'default' => '',
 			],
 /*
 			'EditTools' => array(
