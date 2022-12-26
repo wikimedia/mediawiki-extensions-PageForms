@@ -26,6 +26,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$category = $params['category'];
 		$wikidata = $params['wikidata'];
 		$concept = $params['concept'];
+		$query = $params['semantic_query'];
 		$cargo_table = $params['cargo_table'];
 		$cargo_field = $params['cargo_field'];
 		$cargo_where = $params['cargo_where'];
@@ -58,6 +59,13 @@ class PFAutocompleteAPI extends ApiBase {
 			}
 		} elseif ( $concept !== null ) {
 			$data = PFValuesUtils::getAllPagesForConcept( $concept, $substr );
+			$map = $wgPageFormsUseDisplayTitle;
+			if ( $map ) {
+				$data = PFValuesUtils::disambiguateLabels( $data );
+			}
+		} elseif ( $query !== null ) {
+			$query = $this->processSemanticQuery( $query, $substr );
+			$data = PFValuesUtils::getAllPagesForQuery( $query );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
 				$data = PFValuesUtils::disambiguateLabels( $data );
@@ -134,6 +142,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'category' => null,
 			'concept' => null,
 			'wikidata' => null,
+			'semantic_query' => null,
 			'cargo_table' => null,
 			'cargo_field' => null,
 			'cargo_where' => null,
@@ -153,6 +162,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'category' => 'Category for which to search values',
 			'concept' => 'Concept for which to search values',
 			'wikidata' => 'Search string for getting values from wikidata',
+			'semantic_query' => 'Query for which to search values',
 			'namespace' => 'Namespace for which to search values',
 			'external_url' => 'Alias for external URL from which to get values',
 			'baseprop' => 'A previous property in the form to check against',
@@ -170,7 +180,17 @@ class PFAutocompleteAPI extends ApiBase {
 			'api.php?action=pfautocomplete&substr=te',
 			'api.php?action=pfautocomplete&substr=te&property=Has_author',
 			'api.php?action=pfautocomplete&substr=te&category=Authors',
+			'api.php?action=pfautocomplete&semantic_query=((Category:Test)) ((MyProperty::Something))',
 		];
+	}
+
+	private function processSemanticQuery( $query, $substr = '' ) {
+		$query = str_replace(
+			[ "&lt;", "&gt;", "(", ")", '%', '@' ],
+			[ "<", ">", "[", "]", '|', $substr ],
+			$query
+		);
+		return $query;
 	}
 
 	private function getAllValuesForProperty(
