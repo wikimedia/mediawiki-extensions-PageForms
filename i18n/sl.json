@@ -10,6 +10,7 @@
 	"pf_createproperty_proptype": "Vrsta:",
 	"pf_createtemplate_fullwikitext": "Uporaba celotnega vikibesedila namesto $1",
 	"pf_createtemplate_connectingproperty": "Ime lastnosti za povezovanje polj te predloge s preostalo stranjo:",
+	"pf_createtemplate_plainformat": "Golo besedilo",
 	"pf_createtemplate_sectionsformat": "Razdelki",
 	"pf_forminputs_structure": "Ročni seznam vrednosti, ustvarjen kot neurejen seznam vrednosti v vikibesedilu",
 	"pf_forminputs_checkboxes_select_all": "Izberi vse",
