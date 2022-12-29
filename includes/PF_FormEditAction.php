@@ -291,7 +291,7 @@ class PFFormEditAction extends Action {
 		}
 
 		if ( count( $form_names ) > 1 ) {
-			$warning_text = "\t" . '<div class="warningbox">' . wfMessage( 'pf_formedit_morethanoneform' )->text() . "</div>\n";
+			$warning_text = Html::warningBox( wfMessage( 'pf_formedit_morethanoneform' )->text() );
 			$output->addWikiTextAsInterface( $warning_text );
 		}
 
