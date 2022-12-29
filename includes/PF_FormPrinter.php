@@ -918,7 +918,7 @@ END;
 					'{{fullurl:Special:UserLogin|returnto={{FULLPAGENAMEE}}}}',
 					// Sign-up link
 					'{{fullurl:Special:UserLogin/signup|returnto={{FULLPAGENAMEE}}}}' )->parse();
-				$form_text .= Html::rawElement( 'div', [ 'id' => 'mw-anon-edit-warning', 'class' => 'warningbox' ], $anonEditWarning );
+				$form_text .= Html::warningBox( $anonEditWarning, 'mw-anon-edit-warning' );
 			}
 		} else {
 			$form_is_disabled = true;
