@@ -53,7 +53,9 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 		setHierarchyPlaceholder( $( this ) );
 	} );
 	var combobox = new pf.ComboBoxInput();
-	combobox.apply( $( $newField.find( '.pfComboBox' ) ) );
+	$newField.find( '.pfComboBox' ).each( function() {
+		combobox.apply( $( this ) );
+	} );
 	if ( addAboveCurInstance ){
 		$newField.insertBefore(this.closest(".fieldBox"))
                         .hide().fadeIn();
