@@ -7,6 +7,7 @@
 		]
 	},
 	"pageforms-desc": "Obrazci za ustvarjanje in urejanje viki strani",
+	"apihelp-pfautoedit-param-query": "Poizvedbeni niz",
 	"pf_createproperty_proptype": "Vrsta:",
 	"pf_createtemplate_fullwikitext": "Uporaba celotnega vikibesedila namesto $1",
 	"pf_createtemplate_connectingproperty": "Ime lastnosti za povezovanje polj te predloge s preostalo stranjo:",
@@ -27,7 +28,10 @@
 	"pf_formedit_none": "Nič/neznano",
 	"pf_autoedit_anoneditwarning": "Opozorilo: Niste prijavljeni. V zgodovino urejanja te strani se bo zapisal vaš IP-naslov.",
 	"pf_autoedit_fail": "Obveščanje [[$1]] ni uspelo.",
+	"pf_autoedit_invalidform": "'''$1''' ni veljaven obrazec.",
 	"pf_autoedit_invalidredirecttarget": "$1 je neveljaven preusmeritveni cilj za obrazec $2.",
+	"runquery": "Izvedi poizvedbo",
+	"pf_runquery_additionalquery": "Dodatna poizvedba",
 	"pf-pageschemas-header": "Obrazec",
 	"pf-pageschemas-includefreetextinput": "Vključi vnos prostega besedila",
 	"pf-pageschemas-freetextlabel": "Oznaka prostega besedila:",
