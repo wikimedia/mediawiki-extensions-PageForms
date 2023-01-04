@@ -32,6 +32,7 @@
 	"pf_autoedit_invalidredirecttarget": "$1 je neveljaven preusmeritveni cilj za obrazec $2.",
 	"runquery": "Izvedi poizvedbo",
 	"pf_runquery_additionalquery": "Dodatna poizvedba",
+	"pf-preview-header": "Predogled obrazca",
 	"pf-pageschemas-header": "Obrazec",
 	"pf-pageschemas-includefreetextinput": "Vključi vnos prostega besedila",
 	"pf-pageschemas-freetextlabel": "Oznaka prostega besedila:",
