@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Kimberli Mäkäräinen (WMNO)"
 		]
 	},
 	"templates": "Mállet",
@@ -11,5 +12,6 @@
 	"pf-calendar-deleteevent": "Sihko dáhpáhusa",
 	"pf_forminputs_checkboxes_select_all": "Vállje buot",
 	"pf_createform_template": "Málle:",
-	"pf_createform_removetemplate": "Sihko málle"
+	"pf_createform_removetemplate": "Sihko málle",
+	"pf-autocomplete-no-matches": "Eai bohtosat"
 }
