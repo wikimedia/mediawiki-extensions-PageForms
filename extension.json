@@ -400,6 +400,9 @@
 				"libs/jquery.rateyo.js",
 				"libs/PF_rating.js"
 			],
+			"dependencies": [
+				"ext.pageforms.main"
+			],
 			"targets": [
 				"desktop",
 				"mobile"
