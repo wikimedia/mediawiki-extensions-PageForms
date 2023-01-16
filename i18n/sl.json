@@ -53,6 +53,7 @@
 	"pf_createtemplate_plainformat": "Golo besedilo",
 	"pf_createtemplate_sectionsformat": "Razdelki",
 	"pf_createtemplate_addfield": "Dodaj polje",
+	"pf_forminputs_preload": "Viki stran, katere vsebina bo postala privzeta vrednost tega vnosa",
 	"pf_forminputs_change_file": "Spremeni datoteko",
 	"pf_forminputs_rows": "Število vrstic za ta vnos",
 	"pf_forminputs_listboxsize": "Višina polja seznama, v vrsticah",
@@ -107,5 +108,7 @@
 	"pf-maps-lookupcoordinates": "Izračunaj koordinate z uporabo naslova",
 	"pf-datepicker-close": "Zapri",
 	"pf-datepicker-prev": "Prejšnji",
-	"pf-datepicker-next": "Naslednji"
+	"pf-datepicker-next": "Naslednji",
+	"pf-datepicker-today": "Danes",
+	"pf-externalpageempty": "Zunanja stran ne vsebuje vsebine."
 }
