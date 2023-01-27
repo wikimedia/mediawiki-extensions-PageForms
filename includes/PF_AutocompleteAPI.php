@@ -235,8 +235,6 @@ class PFAutocompleteAPI extends ApiBase {
 		$basePropertyName = null,
 		$baseValue = null
 	) {
-		global $smwgDefaultStore;
-
 		$db = wfGetDB( DB_REPLICA );
 		$sqlOptions = [
 			'LIMIT' => PFValuesUtils::getMaxValuesToRetrieve( $substring )
@@ -247,26 +245,13 @@ class PFAutocompleteAPI extends ApiBase {
 		$conditions = [ 'p_ids.smw_title' => $property_name ];
 		if ( $propertyHasTypePage ) {
 			$valueField = 'o_ids.smw_title';
-			if ( $smwgDefaultStore === 'SMWSQLStore2' ) {
-				$idsTable = $db->tableName( 'smw_ids' );
-				$propsTable = $db->tableName( 'smw_rels2' );
-			} else {
-				// SMWSQLStore3 - also the backup for SMWSPARQLStore
-				$idsTable = $db->tableName( 'smw_object_ids' );
-				$propsTable = $db->tableName( 'smw_di_wikipage' );
-			}
+			$idsTable = $db->tableName( 'smw_object_ids' );
+			$propsTable = $db->tableName( 'smw_di_wikipage' );
 			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
 		} else {
-			if ( $smwgDefaultStore === 'SMWSQLStore2' ) {
-				$valueField = 'p.value_xsd';
-				$idsTable = $db->tableName( 'smw_ids' );
-				$propsTable = $db->tableName( 'smw_atts2' );
-			} else {
-				// SMWSQLStore3 - also the backup for SMWSPARQLStore
-				$valueField = 'p.o_hash';
-				$idsTable = $db->tableName( 'smw_object_ids' );
-				$propsTable = $db->tableName( 'smw_di_blob' );
-			}
+			$valueField = 'p.o_hash';
+			$idsTable = $db->tableName( 'smw_object_ids' );
+			$propsTable = $db->tableName( 'smw_di_blob' );
 			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 		}
 
@@ -277,27 +262,16 @@ class PFAutocompleteAPI extends ApiBase {
 			$basePropertyName = str_replace( ' ', '_', $basePropertyName );
 			$conditions['base_p_ids.smw_title'] = $basePropertyName;
 			if ( $basePropertyHasTypePage ) {
-				if ( $smwgDefaultStore === 'SMWSQLStore2' ) {
-					$idsTable = $db->tableName( 'smw_ids' );
-					$propsTable = $db->tableName( 'smw_rels2' );
-				} else {
-					$idsTable = $db->tableName( 'smw_object_ids' );
-					$propsTable = $db->tableName( 'smw_di_wikipage' );
-				}
+				$idsTable = $db->tableName( 'smw_object_ids' );
+				$propsTable = $db->tableName( 'smw_di_wikipage' );
 				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
 				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id JOIN $idsTable base_o_ids ON p_base.o_id = base_o_ids.smw_id";
 				$baseValue = str_replace( ' ', '_', $baseValue );
 				$conditions['base_o_ids.smw_title'] = $baseValue;
 			} else {
-				if ( $smwgDefaultStore === 'SMWSQLStore2' ) {
-					$baseValueField = 'p_base.value_xsd';
-					$idsTable = $db->tableName( 'smw_ids' );
-					$propsTable = $db->tableName( 'smw_atts2' );
-				} else {
-					$baseValueField = 'p_base.o_hash';
-					$idsTable = $db->tableName( 'smw_object_ids' );
-					$propsTable = $db->tableName( 'smw_di_blob' );
-				}
+				$baseValueField = 'p_base.o_hash';
+				$idsTable = $db->tableName( 'smw_object_ids' );
+				$propsTable = $db->tableName( 'smw_di_blob' );
 				$fromClause .= " JOIN $propsTable p_base ON p.s_id = p_base.s_id";
 				$fromClause .= " JOIN $idsTable base_p_ids ON p_base.p_id = base_p_ids.smw_id";
 				$conditions[$baseValueField] = $baseValue;
