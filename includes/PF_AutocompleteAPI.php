@@ -242,17 +242,36 @@ class PFAutocompleteAPI extends ApiBase {
 
 		$property = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $property_name );
 		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
-		$conditions = [ 'p_ids.smw_title' => $property_name ];
+		$store = smwfGetStore();
+		if ( $store instanceof SMW\SQLStore\SQLStore ) {
+			$inceptiveProperty = $property->getInceptiveProperty();
+			$propertyTableId = $store->findPropertyTableID( $inceptiveProperty );
+			$isFixedProperty = preg_match( '/smw_fpt_/', $propertyTableId );
+		} else {
+			$isFixedProperty = false;
+		}
+
+		$idsTable = $db->tableName( 'smw_object_ids' );
+
+		if ( $isFixedProperty ) {
+			$propsTable = $db->tableName( $propertyTableId );
+			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.s_id = p_ids.smw_id";
+		} else {
+			$conditions = [ 'p_ids.smw_title' => $property_name ];
+			if ( $propertyHasTypePage ) {
+				$propsTable = $db->tableName( 'smw_di_wikipage' );
+			} else {
+				$propsTable = $db->tableName( 'smw_di_blob' );
+			}
+
+			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
+		}
+
 		if ( $propertyHasTypePage ) {
 			$valueField = 'o_ids.smw_title';
-			$idsTable = $db->tableName( 'smw_object_ids' );
-			$propsTable = $db->tableName( 'smw_di_wikipage' );
-			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
+			$fromClause .= " JOIN $idsTable o_ids ON p.o_id = o_ids.smw_id";
 		} else {
 			$valueField = 'p.o_hash';
-			$idsTable = $db->tableName( 'smw_object_ids' );
-			$propsTable = $db->tableName( 'smw_di_blob' );
-			$fromClause = "$propsTable p JOIN $idsTable p_ids ON p.p_id = p_ids.smw_id";
 		}
 
 		if ( $basePropertyName !== null ) {
