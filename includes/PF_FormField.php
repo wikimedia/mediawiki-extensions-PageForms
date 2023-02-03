@@ -386,13 +386,10 @@ class PFFormField {
 			}
 		}
 		// end for
-		if ( $valuesSourceType !== null && ( $valuesSourceType !== 'wikidata' || ( $f->mInputType !== 'combobox' &&
-		$f->mInputType !== 'tokens' ) ) ) {
-			$f->mPossibleValues = PFValuesUtils::getAutocompleteValues( $valuesSource, $valuesSourceType );
-			if ( in_array( $valuesSourceType, [ 'category', 'namespace', 'concept' ] ) ) {
-				global $wgPageFormsUseDisplayTitle;
-				$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
-			}
+
+		if ( in_array( $valuesSourceType, [ 'category', 'namespace', 'concept' ] ) ) {
+			global $wgPageFormsUseDisplayTitle;
+			$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
 		}
 
 		if ( !array_key_exists( 'delimiter', $f->mFieldArgs ) ) {
@@ -404,44 +401,8 @@ class PFFormField {
 				$f->mIsList = true;
 			}
 		}
-		$delimiter = $f->mFieldArgs['delimiter'];
 
-		// If the 'values' parameter was set, separate it based on the
-		// 'delimiter' parameter, if any.
-		if ( $values != null ) {
-			// Remove whitespaces, and un-escape characters
-			$valuesArray = array_map( 'trim', explode( $delimiter, $values ) );
-			$f->mPossibleValues = array_map( 'htmlspecialchars_decode', $valuesArray );
-		}
-
-		// If we're using Cargo, there's no equivalent for "values from
-		// property" - instead, we just always get the values if a
-		// field and table have been specified.
-		if ( $f->mPossibleValues === null && defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
-			// We only want the non-null values. Ideally this could
-			// be done by calling getValuesForCargoField() with
-			// an "IS NOT NULL" clause, but unfortunately that fails
-			// for array/list fields.
-			// Instead of getting involved with all that, we'll just
-			// remove the null/blank values afterward.
-			$cargoValues = PFValuesUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
-			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
-		}
-
-		if ( defined( 'CARGO_VERSION' ) && $cargo_where != null ) {
-			if ( $cargo_table == null || $cargo_field == null ) {
-				$fullCargoField = $f->template_field->getFullCargoField();
-				$table_and_field = explode( '|', $fullCargoField );
-				$cargo_table = $table_and_field[0];
-				$cargo_field = $table_and_field[1];
-			}
-			$cargoValues = PFValuesUtils::getValuesForCargoField( $cargo_table, $cargo_field, $cargo_where );
-			$f->mPossibleValues = array_filter( $cargoValues, 'strlen' );
-		}
-
-		if ( $f->mPossibleValues == null ) {
-			$f->mPossibleValues = $f->template_field->getPossibleValues();
-		}
+		$f->setPossibleValues( $valuesSourceType, $valuesSource, $values, $cargo_table, $cargo_field, $cargo_where );
 
 		$mappingType = null;
 		if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
@@ -528,6 +489,58 @@ class PFFormField {
 		}
 
 		return $f;
+	}
+
+	private function setPossibleValues( $valuesSourceType, $valuesSource, $values, $cargo_table, $cargo_field, $cargo_where ) {
+		// Set the $mPossibleValues field, using the following logic:
+		// - If "values" was set in the form definition, use that.
+		// - If any "values from ..." parameter was set, use that.
+		// - If "cargo where" was set, use it, if a Cargo table and field have also been defined.
+		// - If "cargo table" and "cargo field" were set, use that table's values.
+		// - Otherwise, use the possible values defined within the corresponding template field, if any.
+
+		if ( $values != null ) {
+			$delimiter = $this->mFieldArgs['delimiter'];
+			// Remove whitespaces, and un-escape characters
+			$valuesArray = array_map( 'trim', explode( $delimiter, $values ) );
+			$this->mPossibleValues = array_map( 'htmlspecialchars_decode', $valuesArray );
+			return;
+		}
+
+		if ( $valuesSourceType !== null && ( $valuesSourceType !== 'wikidata' || ( $this->mInputType !== 'combobox' &&
+		$this->mInputType !== 'tokens' ) ) ) {
+			$this->mPossibleValues = PFValuesUtils::getAutocompleteValues( $valuesSource, $valuesSourceType );
+			return;
+		}
+
+		if ( defined( 'CARGO_VERSION' ) && $cargo_where != null ) {
+			if ( $cargo_table == null || $cargo_field == null ) {
+				$fullCargoField = $this->template_field->getFullCargoField();
+				$table_and_field = explode( '|', $fullCargoField );
+				$cargo_table = $table_and_field[0];
+				$cargo_field = $table_and_field[1];
+			}
+			$cargoValues = PFValuesUtils::getValuesForCargoField( $cargo_table, $cargo_field, $cargo_where );
+			$this->mPossibleValues = array_filter( $cargoValues, 'strlen' );
+			return;
+		}
+
+		// If we're using Cargo, there's no equivalent for "values from
+		// property" - instead, we just always get the values if a
+		// field and table have been specified.
+		if ( defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
+			// We only want the non-null values. Ideally this could
+			// be done by calling getValuesForCargoField() with
+			// an "IS NOT NULL" clause, but unfortunately that fails
+			// for array/list fields.
+			// Instead of getting involved with all that, we'll just
+			// remove the null/blank values afterward.
+			$cargoValues = PFValuesUtils::getAllValuesForCargoField( $cargo_table, $cargo_field );
+			$this->mPossibleValues = array_filter( $cargoValues, 'strlen' );
+			return;
+		}
+
+		$this->mPossibleValues = $this->template_field->getPossibleValues();
 	}
 
 	function cleanupTranslateTags( &$value ) {
