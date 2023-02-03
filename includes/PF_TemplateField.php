@@ -208,19 +208,8 @@ class PFTemplateField {
 		$this->mCargoField = $fieldName;
 
 		if ( $fieldDescription === null ) {
-			try {
-				$tableSchemas = CargoUtils::getTableSchemas( [ $tableName ] );
-			} catch ( MWException $e ) {
-				return;
-			}
-			if ( count( $tableSchemas ) == 0 ) {
-				return;
-			}
-			$tableSchema = $tableSchemas[$tableName];
-			$fieldDescriptions = $tableSchema->mFieldDescriptions;
-			if ( array_key_exists( $fieldName, $fieldDescriptions ) ) {
-				$fieldDescription = $fieldDescriptions[$fieldName];
-			} else {
+			$fieldDescription = PFUtils::getCargoFieldDescription( $tableName, $fieldName );
+			if ( $fieldDescription == null ) {
 				return;
 			}
 		}

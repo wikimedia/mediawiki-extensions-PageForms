@@ -401,9 +401,12 @@ class PFAutocompleteAPI extends ApiBase {
 			if ( $whereStr != '' ) {
 				$whereStr .= " AND ";
 			}
-			$fieldIsList = self::cargoFieldIsList( $cargoTable, $cargoField );
+			// @TODO - this is duplicate work; the schema is retrieved
+			// again when the CargoSQLQuery object is created. There should
+			// be some way of avoiding that duplicate retrieval.
+			$fieldDesc = PFUtils::getCargoFieldDescription( $cargoTable, $cargoField );
 
-			if ( $fieldIsList ) {
+			if ( $fieldDesc !== null && $fieldDesc->mIsList ) {
 				// If it's a list field, we query directly on
 				// the "helper table" for that field. We could
 				// instead use "HOLDS LIKE", but this would
@@ -488,26 +491,6 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 		$values = self::shiftExactMatch( $substring, $values );
 		return $values;
-	}
-
-	static function cargoFieldIsList( $cargoTable, $cargoField ) {
-		// @TODO - this is duplicate work; the schema is retrieved
-		// again when the CargoSQLQuery object is created. There should
-		// be some way of avoiding that duplicate retrieval.
-		try {
-			$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
-		} catch ( MWException $e ) {
-			return false;
-		}
-		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {
-			return false;
-		}
-		$tableSchema = $tableSchemas[$cargoTable];
-		if ( !array_key_exists( $cargoField, $tableSchema->mFieldDescriptions ) ) {
-			return false;
-		}
-		$fieldDesc = $tableSchema->mFieldDescriptions[$cargoField];
-		return $fieldDesc->mIsList;
 	}
 
 	/**

@@ -480,4 +480,17 @@ END;
 	public static function isTranslateEnabled() {
 		return ExtensionRegistry::getInstance()->isLoaded( 'Translate' );
 	}
+
+	public static function getCargoFieldDescription( $cargoTable, $cargoField ) {
+		try {
+			$tableSchemas = CargoUtils::getTableSchemas( [ $cargoTable ] );
+		} catch ( MWException $e ) {
+			return null;
+		}
+		if ( !array_key_exists( $cargoTable, $tableSchemas ) ) {
+			return null;
+		}
+		$tableSchema = $tableSchemas[$cargoTable];
+		return $tableSchema->mFieldDescriptions[$cargoField] ?? null;
+	}
 }
