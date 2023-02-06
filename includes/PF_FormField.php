@@ -359,7 +359,7 @@ class PFFormField {
 				} elseif ( $sub_components[0] == 'cargo field' ) {
 					$cargo_field = $sub_components[1];
 				} elseif ( $sub_components[0] == 'cargo where' ) {
-					$cargo_where = $sub_components[1];
+					$cargo_where = $parser->recursiveTagParse( $sub_components[1] );
 				} elseif ( $sub_components[0] == 'default filename' ) {
 					global $wgTitle;
 					$page_name = $wgTitle->getText();
