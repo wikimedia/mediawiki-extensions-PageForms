@@ -16,7 +16,8 @@
 			"Vks",
 			"Want",
 			"DannyS712",
-			"Georg101"
+			"Georg101",
+			"Fraxinus.cs"
 		]
 	},
 	"pageforms-desc": "Formuláře pro vytváření a úpravu wiki stránek",
@@ -165,9 +166,10 @@
 	"pf_createclass_success": "Uvedené stránky budou vytvořeny.",
 	"pf_createclass_create": "Založit",
 	"pf_createclass_ishierarchy": "Hierarchie?",
-	"formstart": "Začátek formuláře",
+	"formstart": "Založit formulář",
 	"pf_formstart_badform": "Chyba: Ve stránce \"$1\" nebyl nalezen žádný formulář.",
 	"pf_formstart_badtitle": "Chyba: \"$1\" je neplatný název stránky.",
+	"pf_formstart_noform_docu": "Zadejte název stránky a vyberte název formuláře, který ji budete chtít upravit. Pokud stránka již existuje a obsahuje šablonu pro zvolený formulář, budete obsah příslušné šablony předán do formuláře, kde bude možné udělat provést editaci parametrů. Pokud taková šablona neexistuje, tak ji formulář po zadání parametrů vloží do kódu zadané stránky.",
 	"pf_formstart_createoredit": "Vytvořit nebo upravit",
 	"formedit": "Upravit přes formulář",
 	"pf-formedit-selectform": "Vyberte formulář k vytvoření této stránky:",
