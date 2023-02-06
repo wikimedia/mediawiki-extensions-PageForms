@@ -496,7 +496,9 @@ class PFFormField {
 		// - If "values" was set in the form definition, use that.
 		// - If any "values from ..." parameter was set, use that.
 		// - If "cargo where" was set, use it, if a Cargo table and field have also been defined.
-		// - If "cargo table" and "cargo field" were set, use that table's values.
+		// - If "cargo table" and "cargo field" were set, then:
+		//     - If there are "allowed values" for that field use those.
+		//     - Otherwise, use that field's existing values.
 		// - Otherwise, use the possible values defined within the corresponding template field, if any.
 
 		if ( $values != null ) {
@@ -529,6 +531,12 @@ class PFFormField {
 		// property" - instead, we just always get the values if a
 		// field and table have been specified.
 		if ( defined( 'CARGO_VERSION' ) && $cargo_table != null && $cargo_field != null ) {
+			// If there are "allowed values" defined, use those.
+			$fieldDesc = PFUtils::getCargoFieldDescription( $cargo_table, $cargo_field );
+			if ( $fieldDesc !== null && $fieldDesc->mAllowedValues !== null ) {
+				$this->mPossibleValues = $fieldDesc->mAllowedValues;
+				return;
+			}
 			// We only want the non-null values. Ideally this could
 			// be done by calling getValuesForCargoField() with
 			// an "IS NOT NULL" clause, but unfortunately that fails
