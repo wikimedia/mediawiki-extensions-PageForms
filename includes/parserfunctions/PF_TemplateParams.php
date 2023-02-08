@@ -55,7 +55,7 @@ class PFTemplateParams {
 		$text .= "}}</pre>\n";
 		$text .= '<p>' . wfMessage( "pf_template_docufooter" )->escaped() . '</p>';
 
-		return [ $text, 'noparse' => true, 'isHTML' => true ];
+		return $text;
 	}
 
 	public static function parseWikitextString( $fieldString ) {
