@@ -83,6 +83,6 @@
 	"action-multipageedit": "uređujete više stranica koristeći unakrsnu tabelu",
 	"pf-select2-selection-too-big": "Ovo polje ne može da sadrži više od {{PLURAL:$1|$1 vrednosti}}.",
 	"pf-datepicker-dateformatlong": "d MM yy",
-	"pf-datepicker-dateformatshort": "dd.mm.yy",
+	"pf-datepicker-dateformatshort": "dd/mm/gg",
 	"pf-datepicker-firstdayofweek": "1"
 }
