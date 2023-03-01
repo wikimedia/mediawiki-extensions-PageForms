@@ -65,7 +65,6 @@ class PFHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderRegisterModules
 	 *
 	 * @param ResourceLoader &$resourceLoader The ResourceLoader object
-	 * @return bool Always true
 	 */
 	public static function registerModules( ResourceLoader &$resourceLoader ) {
 		// These used to use a value of __DIR__ for 'localBasePath',
@@ -88,8 +87,6 @@ class PFHooks {
 		}
 
 		$resourceLoader->register( [ 'ext.pageforms.maps' => $mapsModuleAttrs ] );
-
-		return true;
 	}
 
 	/**
@@ -99,8 +96,6 @@ class PFHooks {
 	 * @since 2.4.1
 	 *
 	 * @param array &$list
-	 *
-	 * @return true
 	 */
 	public static function registerNamespaces( array &$list ) {
 		global $wgNamespacesWithSubpages;
@@ -115,8 +110,6 @@ class PFHooks {
 
 		// Support subpages only for talk pages by default
 		$wgNamespacesWithSubpages[PF_NS_FORM_TALK] = true;
-
-		return true;
 	}
 
 	static function registerFunctions( Parser $parser ) {
@@ -132,8 +125,6 @@ class PFHooks {
 		$parser->setFunctionHook( 'autoedit_rating', [ 'PFAutoEditRating', 'run' ] );
 		$parser->setFunctionHook( 'template_params', [ 'PFTemplateParams', 'run' ] );
 		$parser->setFunctionHook( 'template_display', [ 'PFTemplateDisplay', 'run' ], Parser::SFH_OBJECT_ARGS );
-
-		return true;
 	}
 
 	static function setGlobalJSVariables( &$vars ) {
@@ -173,8 +164,6 @@ class PFHooks {
 		}
 		$vars['wgPageFormsEDSettings'] = $wgPageFormsEDSettings;
 		$vars['wgAmericanDates'] = $wgAmericanDates;
-
-		return true;
 	}
 
 	public static function addToAdminLinks( &$admin_links_tree ) {
@@ -219,13 +208,11 @@ class PFHooks {
 			$pf_docu_label = wfMessage( 'adminlinks_documentation', $pf_name )->text();
 			$smw_docu_row->addItem( ALItem::newFromExternalLink( "https://www.mediawiki.org/wiki/Extension:Page_Forms", $pf_docu_label ) );
 		}
-
-		return true;
 	}
 
 	public static function addToCargoTablesColumns( $cargoTablesPage, &$allowedActions ) {
 		if ( !$cargoTablesPage->getUser()->isAllowed( 'multipageedit' ) ) {
-			return true;
+			return;
 		}
 
 		$cargoTablesPage->getOutput()->addModuleStyles( [ 'oojs-ui.styles.icons-editing-core' ] );
@@ -234,8 +221,6 @@ class PFHooks {
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $allowedActions ) );
 		$pos = $indexOfDrilldown === false ? count( $allowedActions ) : $indexOfDrilldown + 1;
 		$allowedActions = array_merge( array_slice( $allowedActions, 0, $pos ), $editColumn, array_slice( $allowedActions, $pos ) );
-
-		return true;
 	}
 
 	/**
@@ -251,15 +236,13 @@ class PFHooks {
 	 * @param string[] $templatesThatAttachToTables
 	 * @param User|null $user The current user
 	 *
-	 * @return bool
-	 *
 	 * @since 4.4
 	 */
 	public static function addToCargoTablesLinks( &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $user = null ) {
 		// If it has a "replacement table", it's read-only and can't
 		// be edited (though the replacement table can).
 		if ( $hasReplacementTable ) {
-			return true;
+			return;
 		}
 
 		// Check permissions.
@@ -269,19 +252,19 @@ class PFHooks {
 		}
 
 		if ( !$user->isAllowed( 'multipageedit' ) ) {
-			return true;
+			return;
 		}
 		// Only put in an "Edit" link if there's exactly one template
 		// for this Cargo table, and one form for that template.
 		if ( !array_key_exists( $tableName, $templatesThatDeclareTables ) ) {
-			return true;
+			return;
 		}
 		if ( array_key_exists( $tableName, $templatesThatAttachToTables ) ) {
-			return true;
+			return;
 		}
 		$templateIDs = $templatesThatDeclareTables[$tableName];
 		if ( count( $templateIDs ) > 1 ) {
-			return true;
+			return;
 		}
 
 		$templateTitle = Title::newFromID( $templateIDs[0] );
@@ -292,7 +275,7 @@ class PFHooks {
 		}
 		$formName = self::$mMultiPageEditPage->getFormForTemplate( $templateName );
 		if ( $formName == null ) {
-			return true;
+			return;
 		}
 
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
@@ -304,7 +287,6 @@ class PFHooks {
 		$indexOfDrilldown = array_search( 'drilldown', array_keys( $actionLinks ) );
 		$pos = $indexOfDrilldown === false ? count( $actionLinks ) : $indexOfDrilldown + 1;
 		$actionLinks = array_merge( array_slice( $actionLinks, 0, $pos ), [ 'edit' => $text ], array_slice( $actionLinks, $pos ) );
-		return true;
 	}
 
 	/**
@@ -322,8 +304,6 @@ class PFHooks {
 	 * @param string[] $actionList
 	 * @param User|null $user The current user
 	 *
-	 * @return bool
-	 *
 	 * @since 4.8.1
 	 */
 	public static function addToCargoTablesRow( $cargoTablesPage, &$actionLinks, $tableName, $isReplacementTable, $hasReplacementTable, $templatesThatDeclareTables, $templatesThatAttachToTables, $actionList, $user = null ) {
@@ -340,8 +320,6 @@ class PFHooks {
 			$mpeURL = html_entity_decode( $matches[1] );
 			$actionLinks['edit'] = $cargoTablesPage->getActionButton( 'edit', $mpeURL );
 		}
-
-		return true;
 	}
 
 	/**
@@ -370,11 +348,11 @@ class PFHooks {
 
 		// Exit if we're not in preview mode.
 		if ( !$editpage->preview ) {
-			return true;
+			return;
 		}
 		// Exit if we aren't in the "Form" namespace.
 		if ( $editpage->getArticle()->getTitle()->getNamespace() != PF_NS_FORM ) {
-			return true;
+			return;
 		}
 
 		// Needed in case there are any OOUI-based input types in the form.
@@ -399,8 +377,6 @@ class PFHooks {
 		PFUtils::addFormRLModules();
 		$editpage->previewTextAfterContent .=
 			'<div style="margin-top: 15px">' . $form_text . "</div>";
-
-		return true;
 	}
 
 	/**
@@ -419,7 +395,6 @@ class PFHooks {
 	 * @param int $flags
 	 * @param MediaWiki\Revision\RevisionRecord $revisionRecord
 	 * @param MediaWiki\Storage\EditResult $editResult
-	 * @return bool
 	 */
 	public static function setPostEditCookie( WikiPage $wikiPage, MediaWiki\User\UserIdentity $user, string $summary, int $flags,
 		MediaWiki\Revision\RevisionRecord $revisionRecord, MediaWiki\Storage\EditResult $editResult
@@ -428,14 +403,13 @@ class PFHooks {
 		// we need to use a global variable to determine that.
 		global $wgPageFormsFormPrinter;
 		if ( !property_exists( $wgPageFormsFormPrinter, 'mInputTypeHooks' ) ) {
-			return true;
+			return;
 		}
 
 		// Code based loosely on EditPage::setPostEditCookie().
 		$postEditKey = EditPage::POST_EDIT_COOKIE_KEY_PREFIX . $revisionRecord->getID();
 		$response = RequestContext::getMain()->getRequest()->response();
 		$response->setCookie( $postEditKey, 'saved', time() + EditPage::POST_EDIT_COOKIE_DURATION );
-		return true;
 	}
 
 }
