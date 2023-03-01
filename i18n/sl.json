@@ -134,6 +134,7 @@
 	"runquery": "Izvedi poizvedbo",
 	"pf_runquery_additionalquery": "Dodatna poizvedba",
 	"pf_formerrors_header": "Pri vnosu v obrazec je prišlo do napak; glejte spodaj.",
+	"pf_blank_error": "ne more biti prazno",
 	"pf_bad_email_error": "imeti mora pravilen zapis e-poštnega naslova",
 	"pf-simpleupload": "Naloži",
 	"pf_deletionlog": "Dnevnik brisanja",
@@ -156,6 +157,7 @@
 	"pf-datepicker-prev": "Prejšnji",
 	"pf-datepicker-next": "Naslednji",
 	"pf-datepicker-today": "Danes",
+	"pf-datepicker-disabledaysofweek": "Seznam dni, ki jih ni mogoče izbrati (npr. konec tedna: 6,0).",
 	"pf-regexp-wrongformat": "Napačen format.",
 	"pf-resultstoshow": "Zadetki za prikaz",
 	"pf-externalpageempty": "Zunanja stran ne vsebuje vsebine."
