@@ -53,7 +53,7 @@ class PFTemplateDisplay {
 				$unescapedFieldName = str_replace( '_', ' ', $fieldName );
 				$curFieldValue = $frame->getArgument( $unescapedFieldName );
 			}
-			$tableFieldValues[$fieldName] = $curFieldValue;
+			$tableFieldValues[$fieldName] = $parser->internalParse( $curFieldValue );
 		}
 
 		if ( $format == 'table' ) {
