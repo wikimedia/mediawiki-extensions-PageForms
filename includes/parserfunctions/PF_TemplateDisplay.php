@@ -128,8 +128,6 @@ class PFTemplateDisplay {
 				$formattedFieldValue = self::ratingText( $fieldValue );
 			} elseif ( $fieldType == 'File' ) {
 				$formattedFieldValue = self::fileText( $fieldValue );
-			} elseif ( $fieldType == 'URL' ) {
-				$formattedFieldValue = self::urlText( $fieldValue );
 			} elseif ( $templateField->isList() ) {
 				$formattedFieldValue = self::stringListText( $fieldValue, $templateField );
 			} else {
@@ -250,11 +248,6 @@ class PFTemplateDisplay {
 			'',
 			'left'
 		);
-	}
-
-	private static function urlText( $value ) {
-		global $wgExternalLinkTarget;
-		return Linker::makeExternalLink( $value, $value, true, '', [ 'target' => $wgExternalLinkTarget ] );
 	}
 
 }
