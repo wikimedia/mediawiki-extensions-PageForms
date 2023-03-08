@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Pacha Tchernof",
 			"פוילישער",
 			"පසිඳු කාවින්ද"
 		]
@@ -15,6 +16,7 @@
 	"pf_createtemplate_namelabel": "מוסטער נאמען:",
 	"pf_createtemplate_templatefields": "מוסטער פֿעלדער",
 	"pf_createtemplate_deletefield": "אויסמעקן",
+	"pf_createform_template": "מוסטער:",
 	"pf_createform_hidden": "באַהאַלטן",
 	"pf_createform_atend": "בײַם סוף",
 	"pf_createform_add": "צולייגן",
@@ -23,7 +25,8 @@
 	"pf_createcategory_name": "קאטעגאריע נאָמען:",
 	"pf_createclass_create": "שאַפֿן",
 	"formedit": "רעדאַקטירן מיט א פֿארעם",
-	"pf_formedit_createtitlenotarget": "שאפן $1",
+	"pf_formedit_createtitle": "שאַפֿן $1: $2",
+	"pf_formedit_createtitlenotarget": "שאַפֿן $1",
 	"pf_viewform": "ווײַזן פארעם",
 	"pf_editsource": "רעדאקטירן מקור",
 	"pf_formedit_edittitle": "רעדאקטירן $1: $2",
