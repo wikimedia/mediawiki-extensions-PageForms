@@ -391,8 +391,10 @@
         }
         dep_field_opts.base_value = $baseElement.val();
         dep_field_opts.base_prop = mw.config.get('wgPageFormsFieldProperties')[dep_on] ||
-            $baseElement.attr("autocompletesettings") == 'external data' ?
-            $baseElement.attr("data-autocomplete") : $baseElement.attr("autocompletesettings");
+            (
+                $baseElement.attr("autocompletesettings") == 'external data' ?
+                $baseElement.attr("data-autocomplete") : $baseElement.attr("autocompletesettings")
+            );
         dep_field_opts.prop = $(input_id).attr("autocompletesettings").split(",")[0];
 
         return dep_field_opts;
