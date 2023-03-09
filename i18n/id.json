@@ -18,7 +18,7 @@
 	},
 	"pageforms-desc": "Formulir untuk menambahkan dan menyunting data semantik",
 	"specialpages-group-pf_group": "Halaman Formulir",
-	"createproperty": "Buat properti",
+	"createproperty": "Buat atribut baru",
 	"pf_createproperty_allowedvalsinput": "Jika Anda ingin properti ini hanya diizinkan untuk memiliki suatu nilai tertentu, masukkan daftar nilai yang diizinkan, dipisahkan dengan koma (jika suatu nilai mengandung koma, ganti dengan \"\\,\"):",
 	"pf_createproperty_propname": "Nama properti:",
 	"pf_createproperty_proptype": "Tipe:",
