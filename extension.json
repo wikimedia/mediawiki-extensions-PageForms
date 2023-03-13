@@ -381,7 +381,8 @@
 		"ext.pageforms.datetimepicker": {
 			"scripts": "libs/PF_datetimepicker.js",
 			"dependencies": [
-				"mediawiki.widgets.datetime"
+				"mediawiki.widgets.datetime",
+				"ext.pageforms"
 			],
 			"targets": [
 				"desktop",
@@ -458,7 +459,8 @@
 			],
 			"dependencies": [
 				"oojs-ui-core",
-				"oojs-ui-widgets"
+				"oojs-ui-widgets",
+				"ext.pageforms"
 			],
 			"messages": [
 				"pf-autocomplete-no-matches"
