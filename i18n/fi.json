@@ -18,7 +18,8 @@
 			"Valtlait",
 			"Veikk0.ma",
 			"Yupik",
-			"ZeiP"
+			"ZeiP",
+			"Valtlai"
 		]
 	},
 	"pageforms-desc": "Semanttisen tiedon syöttö- ja muokkauslomakkeet",
@@ -149,7 +150,7 @@
 	"pf_formedit_formwarning": "Varoitus: Sivu [[$1|on jo olemassa]], mutta se ei käytä tätä lomaketta.",
 	"pf_formedit_remove": "Poista",
 	"pf_formedit_addanother": "Lisää toinen",
-	"pf_formedit_none": "ei mikään",
+	"pf_formedit_none": "Ei mitään/tuntematon",
 	"pf_formedit_emptytitle": "Virhe: Syötetyt tiedot aiheuttavat tyhjän sivun otsikon.",
 	"pf_formedit_hookerror": "Virhe: MediaWiki-laajennus esti kohdesivun muokkauksen.",
 	"pf_formedit_saveandcontinueediting": "Tallenna ja jatka",
