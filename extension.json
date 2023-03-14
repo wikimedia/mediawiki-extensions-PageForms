@@ -363,7 +363,8 @@
 		"ext.pageforms.datepicker": {
 			"scripts": "libs/PF_datepicker.js",
 			"dependencies": [
-				"mediawiki.widgets.DateInputWidget"
+				"mediawiki.widgets.DateInputWidget",
+				"ext.pageforms"
 			],
 			"targets": [
 				"desktop",
