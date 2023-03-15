@@ -1645,7 +1645,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 	});
 
 	// Set the end date input to the value selected in start date
-	this.find("span.startDateInput").not(".hiddenByPF").find("input").last().blur( () => {
+	this.find("span.startDateInput").not(".hiddenByPF").find("input").last().blur( function() {
 		var endInput = $(this).find("span.endDateInput").not(".hiddenByPF");
 		var endYearInput = endInput.find(".yearInput");
 		var endMonthInput = endInput.find(".monthInput");
@@ -1662,7 +1662,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 			endMonthInput.val(startMonthVal);
 			endDayInput.val(startDayVal);
 		}
-	});
+	}.bind(this));
 
 	fancyBoxSettings = {
 		toolbar : false,

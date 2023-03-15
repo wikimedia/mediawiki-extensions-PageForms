@@ -82,7 +82,7 @@
 		var targetpage = $jeditdata.find( 'input[name=target]' ).val();
 		var confirmEdit = $jeditdata.hasClass( 'confirm-edit' );
 		if ( confirmEdit ) {
-			OO.ui.confirm( mw.msg( 'pf_autoedit_confirm', targetpage ) ).done( confirmed => {
+			OO.ui.confirm( mw.msg( 'pf_autoedit_confirm', targetpage ) ).done( function(confirmed) {
 				if ( confirmed ) {
 					sendData( $jtrigger );
 				}

@@ -12,14 +12,14 @@
  pf.SpreadsheetComboBoxInput = function( config ) {
 	this.config = config || {};
 	OO.ui.ComboBoxInputWidget.call( this, config );
-	this.$input.focus( () => {
+	this.$input.focus( function() {
 		this.setValues();
-	});
-	this.$input.keyup( (event) => {
+	}.bind(this));
+	this.$input.keyup( function(event) {
 		if (event.keyCode !== 38 && event.keyCode !== 40 && event.keyCode !== 37 && event.keyCode !== 39) {
 			this.setValues();
 		}
-	});
+	}.bind(this));
 }
 OO.inheritClass( pf.SpreadsheetComboBoxInput, OO.ui.ComboBoxInputWidget );
 /**

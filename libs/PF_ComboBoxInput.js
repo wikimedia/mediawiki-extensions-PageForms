@@ -46,30 +46,30 @@
             this.setInputAttribute('data-autocomplete',data_autocomplete);
         }
         // Bind the blur event to resize input according to the value
-        this.$input.blur( () => {
+        this.$input.blur( function() {
             if ( !this.itemFound && this.config['existingvaluesonly'] ){
                 this.setValue("");
             } else {
                 this.$element.css("width", this.getValue().length * 11);
             }
-        });
-        this.$input.focus( () => {
+        }.bind(this));
+        this.$input.focus( function() {
             this.setValues();
-        });
-        this.$input.keyup( (event) => {
+        }.bind(this));
+        this.$input.keyup( function(event) {
             if (event.keyCode !== 38 && event.keyCode !== 40 && event.keyCode !== 37 && event.keyCode !== 39) {
                 this.setValues(false);
             }
-        });
-        this.$element.mouseup( (event) =>{
+        }.bind(this));
+        this.$element.mouseup( function(event) {
             // Avoid re-fetching values if the user clicks on the scrollbar.
             if ( $( event.target ).hasClass( 'oo-ui-labelElement-label' ) ) {
                 this.setValues( false );
             }
-        });
-        this.$element.focusout( () =>{
+        }.bind(this));
+        this.$element.focusout( function() {
             $( '.combobox_map_feed' ).val( this.$input.val() );
-        });
+        }.bind(this));
 
         var $loadingIcon = $( '<img src = "' + mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/loading.gif'
         + '" id="loading-' + this.getInputId() + '">' );
@@ -78,6 +78,8 @@
     };
     /**
      * Sets the values for combobox
+     *
+     * @param showAllValues
      */
     pf.ComboBoxInput.prototype.setValues = function ( showAllValues = true ) {
         var input_id = "#" + this.getInputId(),
@@ -121,7 +123,7 @@
                 if ( data_type === 'wikidata' ) {
                     // Support for getting query values from an existing field in the form
                     var terms = data_source.split( "&" );
-                    terms.forEach( element => {
+                    terms.forEach( function(element) {
                         var subTerms = element.split( "=" );
                         var matches = subTerms[1].match( /\[(.*?)\]/ );
                         if ( matches ) {
@@ -139,7 +141,7 @@
             apiRequest = $.ajax({
                 url: my_server,
                 dataType: 'json',
-                beforeSend: () => {
+                beforeSend: function() {
                     if ( apiRequest !== null ) {
                         apiRequest.abort();
                     }
@@ -446,7 +448,7 @@
     pf.ComboBoxInput.prototype.checkIfAnyWordStartsWithInputValue = function(string, curValue) {
         let wordSeparators = [
             '/', '(', ')', '|', 's'
-        ].map( p => "\\" + p).concat('^', '-', "'",'"');
+        ].map( function(p) { return "\\" + p }).concat('^', '-', "'",'"');
         let regex = new RegExp('(' + wordSeparators.join('|') + ')' + curValue.toLowerCase());
         return string.toLowerCase().match(regex) !== null;
     }

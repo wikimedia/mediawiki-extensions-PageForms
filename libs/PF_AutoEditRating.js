@@ -63,7 +63,7 @@
 		var confirmEdit = $jeditdata.hasClass( 'confirm-edit' );
 		if ( confirmEdit ) {
 			OO.ui.confirm( mw.msg( 'pf_autoedit_confirm', targetpage ) )
-				.done( confirmed => {
+				.done( function(confirmed) {
 					if ( confirmed ) {
 						sendData( $jtrigger );
 					}

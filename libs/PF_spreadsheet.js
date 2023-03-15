@@ -255,7 +255,7 @@ var dataValues = [];
 			autocompletesettings = jQuery($table).find('thead td[data-x="'+data_x+'"]').attr('data-autocomplete-settings');
 		}
 		return {
-			autocompletedatatype, autocompletesettings
+			autocompletedatatype: autocompletedatatype, autocompletesettings: autocompletesettings
 		};
 	}
 
@@ -326,7 +326,7 @@ var dataValues = [];
 		editor = pfSpreadsheetAutocomplete ? widget.$element[0] : document.createElement(type);
 
 		return {
-			editor, pfSpreadsheetAutocomplete
+			editor: editor, pfSpreadsheetAutocomplete: pfSpreadsheetAutocomplete
 		};
 	}
 

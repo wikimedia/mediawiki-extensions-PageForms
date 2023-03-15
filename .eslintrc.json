@@ -91,6 +91,11 @@
 		"mediawiki/msg-doc": "warn",
 		"compat/compat": "warn",
 		"block-scoped-var": "warn",
-		"unicorn/prefer-string-slice": "warn"
+		"unicorn/prefer-string-slice": "warn",
+		"es-x/no-array-prototype-includes": "warn",
+		"es-x/no-block-scoped-variables": "warn",
+		"es-x/no-default-parameters": "warn",
+		"es-x/no-for-of-loops": "warn",
+		"es-x/no-string-prototype-includes": "warn"
 	}
 }
