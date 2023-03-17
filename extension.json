@@ -698,6 +698,7 @@
 		"PageFormsMaxAutocompleteValues": 1000,
 		"PageFormsMaxLocalAutocompleteValues": 100,
 		"PageFormsAutocompleteOnAllChars": false,
+		"PageFormsAutocompletionURLs": [],
 		"PageFormsCacheAutocompleteValues": false,
 		"PageFormsAutocompleteCacheTimeout": null,
 		"PageFormsRenameEditTabs": false,
