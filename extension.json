@@ -728,6 +728,7 @@
 		"PageFormsCheckboxesSelectAllMinimum": 10,
 		"PageFormsMapsWithFeeders": [],
 		"PageFormsAutoeditNamespaces": [ 0 ],
+		"PageFormsAutoCreateUser": null,
 		"PageFormsIgnoreTitlePattern": [],
 		"PageFormsEmbeddedTemplates": [],
 		"PageFormsEmbedQueryCacheTTL": 0
