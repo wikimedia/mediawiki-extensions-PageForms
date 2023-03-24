@@ -468,7 +468,8 @@ class PFAutocompleteAPI extends ApiBase {
 			$havingStr = null,
 			$cargoField,
 			PFValuesUtils::getMaxValuesToRetrieve( $substring ),
-			$offsetStr = 0
+			$offsetStr = 0,
+			true
 		);
 		$queryResults = $sqlQuery->run();
 
