@@ -69,14 +69,25 @@ class PFCheckboxInput extends PFFormInput {
 		if ( $is_disabled ) {
 			$checkboxAttrs['disabled'] = true;
 		}
-		$text .= "\t" . new OOUI\CheckboxInputWidget( $checkboxAttrs ) . "<t />";
 		if ( isset( $other_args['label'] ) ) {
-			$text = Html::rawElement(
-				'label',
-				[ 'for' => $inputID ],
-				$text . $other_args['label']
-			);
+			$labelText = new OOUI\HtmlSnippet( $other_args['label'] );
+			$labelAttrs = [
+				'label' => $labelText,
+				'align' => 'inline',
+				'for' => $inputID
+			];
+		} else {
+			$labelAttrs = [];
 		}
+		$text .= new OOUI\FieldLayout(
+			new OOUI\CheckboxInputWidget( $checkboxAttrs ),
+			$labelAttrs
+		);
+		$text = Html::rawElement(
+			'div',
+			[ 'class' => 'pf-checkbox-input-container' ],
+			$text
+		);
 		return $text;
 	}
 
