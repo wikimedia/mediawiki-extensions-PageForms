@@ -435,40 +435,40 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		$output = <<<END
 		<script type="text/javascript">
-		var input = parent.window.jQuery( parent.document.getElementById("{$this->mInputID}") );
-END;
-
-		if ( $this->mDelimiter == null ) {
-			$output .= <<<END
-		input.val( '$basename' );
-		input.change();
-END;
-		} else {
-			$output .= <<<END
-		// if the current value is blank, set it to this file name;
-		// if it's not blank and ends in a space or delimiter, append
-		// the file name; if it ends with a normal character, append
-		// both a delimiter and a file name; and add on a delimiter
-		// at the end in any case
-		var cur_value = parent.document.getElementById("{$this->mInputID}").value;
-
-		if (cur_value === '') {
-			input.val( '$basename' + '{$this->mDelimiter} ' );
+		var input = parent.window.jQuery( parent.document.getElementById( "{$this->mInputID}" ) );
+		var classes = input.attr( "class" ).split( /\s+/ );
+		var checkIfPresent = false;
+		if ( classes.indexOf( 'pfTokens' ) > -1 ) {
+			var inputData = input.data( "select2" );
+			var newValue = parent.window.jQuery.grep( inputData.val(), function ( value ) {
+				if( value === '$basename' ){
+					checkIfPresent = true;
+				}
+				return value !== '$basename';
+			});
+			if( checkIfPresent === false && '$basename' !== "" ) {
+				newValue.push( '$basename' );
+			}
+			if ( !input.find( "option[value='" + '$basename' + "']" ).length ) {
+				var newOption = new Option( '$basename', '$basename', false, false );
+				input.append( newOption ).trigger( 'change' );
+			}
+			input.val( newValue );
 			input.change();
 		} else {
-			var last_char = cur_value.charAt(cur_value.length - 1);
-			if (last_char == '{$this->mDelimiter}' || last_char == ' ') {
-				parent.document.getElementById("{$this->mInputID}").value += '$basename' + '{$this->mDelimiter} ';
-				input.change();
+			var cur_value = parent.document.getElementById( "{$this->mInputID}" ).value;
+			if ( cur_value === '' ) {
+				input.val( '$basename' );
 			} else {
-				parent.document.getElementById("{$this->mInputID}").value += '{$this->mDelimiter} $basename{$this->mDelimiter} ';
-				input.change();
+				var last_char = cur_value.charAt( cur_value.length - 1 );
+				if ( last_char == '{$this->mDelimiter}' || last_char == ' ' ) {
+					input.val( cur_value + '$basename' + '{$this->mDelimiter} ' );
+				} else {
+					input.val( cur_value + '{$this->mDelimiter} $basename{$this->mDelimiter} ' );
+				}
 			}
+			input.change();
 		}
-
-END;
-		}
-		$output .= <<<END
 		parent.jQuery.fancybox.close( true );
 	</script>
 
