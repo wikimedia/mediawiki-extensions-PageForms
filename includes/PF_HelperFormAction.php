@@ -47,7 +47,6 @@ class PFHelperFormAction extends Action {
 	 * a form
 	 * @param SkinTemplate $obj
 	 * @param array &$links
-	 * @return bool
 	 */
 	static function displayTab( $obj, &$links ) {
 		$title = $obj->getTitle();
@@ -61,10 +60,10 @@ class PFHelperFormAction extends Action {
 		}
 		if ( !isset( $title ) ||
 			( !in_array( $title->getNamespace(), $namespacesWithHelperForms ) ) ) {
-			return true;
+			return;
 		}
 		if ( $title->exists() ) {
-			return true;
+			return;
 		}
 
 		// The tab should show up automatically for properties and
@@ -73,7 +72,7 @@ class PFHelperFormAction extends Action {
 		if ( in_array( $title->getNamespace(), [ NS_TEMPLATE, NS_CATEGORY ] ) ) {
 			global $wgPageFormsShowTabsForAllHelperForms;
 			if ( !$wgPageFormsShowTabsForAllHelperForms ) {
-				return true;
+				return;
 			}
 		}
 
@@ -124,9 +123,6 @@ class PFHelperFormAction extends Action {
 			unset( $content_actions['edit'] );
 			unset( $content_actions['viewsource'] );
 		}
-
-		// always return true, in order not to stop MW's hook processing!
-		return true;
 	}
 
 	/**

@@ -45,7 +45,6 @@ class PFFormEditAction extends Action {
 	 * a form
 	 * @param IContextSource $obj
 	 * @param array &$links
-	 * @return true
 	 */
 	static function displayTab( $obj, &$links ) {
 		$title = $obj->getTitle();
@@ -59,12 +58,12 @@ class PFFormEditAction extends Action {
 		// special-page check is there.
 		if ( !isset( $title ) ||
 			( $title->getNamespace() == NS_SPECIAL ) ) {
-			return true;
+			return;
 		}
 
 		$form_names = PFFormLinker::getDefaultFormsForPage( $title );
 		if ( count( $form_names ) == 0 ) {
-			return true;
+			return;
 		}
 
 		global $wgPageFormsRenameEditTabs, $wgPageFormsRenameMainEditTab;
@@ -139,9 +138,6 @@ class PFFormEditAction extends Action {
 			unset( $content_actions['edit'] );
 			unset( $content_actions['viewsource'] );
 		}
-
-		// always return true, in order not to stop MW's hook processing!
-		return true;
 	}
 
 	static function displayFormChooser( $output, $title ) {
