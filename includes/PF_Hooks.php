@@ -43,14 +43,14 @@ class PFHooks {
 	}
 
 	public static function initialize() {
-		global $wgHooks;
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 
 		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgExtensionAssetsPath'] . '/PageForms';
 
 		// Admin Links hook needs to be called in a delayed way so that it
 		// will always be called after SMW's Admin Links addition; as of
 		// SMW 1.9, SMW delays calling all its hook functions.
-		$wgHooks['AdminLinks'][] = 'PFHooks::addToAdminLinks';
+		$hookContainer->register( 'AdminLinks', 'PFHooks::addToAdminLinks' );
 
 		// This global variable is needed so that other
 		// extensions can hook into it to add their own
