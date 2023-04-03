@@ -43,14 +43,7 @@ class PFHooks {
 	}
 
 	public static function initialize() {
-		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
-
 		$GLOBALS['wgPageFormsScriptPath'] = $GLOBALS['wgExtensionAssetsPath'] . '/PageForms';
-
-		// Admin Links hook needs to be called in a delayed way so that it
-		// will always be called after SMW's Admin Links addition; as of
-		// SMW 1.9, SMW delays calling all its hook functions.
-		$hookContainer->register( 'AdminLinks', 'PFHooks::addToAdminLinks' );
 
 		// This global variable is needed so that other
 		// extensions can hook into it to add their own
@@ -167,47 +160,30 @@ class PFHooks {
 	}
 
 	public static function addToAdminLinks( &$admin_links_tree ) {
-		$data_structure_label = wfMessage( 'smw_adminlinks_datastructure' )->text();
+		$data_structure_label = wfMessage( 'pf-adminlinks-datastructure' )->escaped();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
 		if ( $data_structure_section === null ) {
-			$data_structure_section = new ALSection( wfMessage( 'pf-adminlinks-datastructure' )->text() );
-
-			// If we are here, it most likely means that SMW is
-			// not installed. Still, we'll refer to everything as
-			// SMW, to make the rest of the code more
-			// straightforward.
-			$smw_row = new ALRow( 'smw' );
-			$smw_row->addItem( ALItem::newFromSpecialPage( 'Categories' ) );
-			$data_structure_section->addRow( $smw_row );
-			$smw_admin_row = new ALRow( 'smw_admin' );
-			$data_structure_section->addRow( $smw_admin_row );
-
-			// If SMW is not installed, don't bother with a "links
-			// to the documentation" row - it would only have one
-			// link.
-			// $smw_docu_row = new ALRow( 'smw_docu' );
-			// $data_structure_section->addRow( $smw_docu_row );
-			$admin_links_tree->addSection( $data_structure_section, wfMessage( 'adminlinks_browsesearch' )->text() );
-		} else {
-			$smw_row = $data_structure_section->getRow( 'smw' );
-			$smw_admin_row = $data_structure_section->getRow( 'smw_admin' );
-			$smw_docu_row = $data_structure_section->getRow( 'smw_docu' );
+			$data_structure_section = new ALSection( wfMessage( 'pf-adminlinks-datastructure' )->escaped() );
 		}
-		$smw_row->addItem( ALItem::newFromSpecialPage( 'Templates' ), 'Properties' );
-		$smw_row->addItem( ALItem::newFromSpecialPage( 'Forms' ), 'SemanticStatistics' );
-		$smw_row->addItem( ALItem::newFromSpecialPage( 'MultiPageEdit' ) );
-		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateClass' ), 'SMWAdmin' );
+
+		$pf_row = new ALRow( 'pageforms' );
+		$pf_row->addItem( ALItem::newFromSpecialPage( 'Categories' ) );
+		$data_structure_section->addRow( $pf_row );
+		$pf_admin_row = new ALRow( 'pageforms_admin' );
+		$data_structure_section->addRow( $pf_admin_row );
+
+		$admin_links_tree->addSection( $data_structure_section, wfMessage( 'adminlinks_browsesearch' )->escaped() );
+
+		$pf_row->addItem( ALItem::newFromSpecialPage( 'Templates' ), 'Properties' );
+		$pf_row->addItem( ALItem::newFromSpecialPage( 'Forms' ), 'SemanticStatistics' );
+		$pf_row->addItem( ALItem::newFromSpecialPage( 'MultiPageEdit' ) );
+		$pf_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateClass' ), 'SMWAdmin' );
 		if ( class_exists( 'PFCreateProperty' ) ) {
-			$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateProperty' ), 'SMWAdmin' );
+			$pf_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateProperty' ), 'SMWAdmin' );
 		}
-		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateTemplate' ), 'SMWAdmin' );
-		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateForm' ), 'SMWAdmin' );
-		$smw_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateCategory' ), 'SMWAdmin' );
-		if ( isset( $smw_docu_row ) ) {
-			$pf_name = wfMessage( 'specialpages-group-pf_group' )->text();
-			$pf_docu_label = wfMessage( 'adminlinks_documentation', $pf_name )->text();
-			$smw_docu_row->addItem( ALItem::newFromExternalLink( "https://www.mediawiki.org/wiki/Extension:Page_Forms", $pf_docu_label ) );
-		}
+		$pf_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateTemplate' ), 'SMWAdmin' );
+		$pf_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateForm' ), 'SMWAdmin' );
+		$pf_admin_row->addItem( ALItem::newFromSpecialPage( 'CreateCategory' ), 'SMWAdmin' );
 	}
 
 	public static function addToCargoTablesColumns( $cargoTablesPage, &$allowedActions ) {

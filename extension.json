@@ -683,6 +683,7 @@
 		"PageSaveComplete": "PFHooks::setPostEditCookie",
 		"MultiContentSave": "PFFormUtils::purgeCacheOnSave",
 		"HtmlPageLinkRendererEnd": "PFFormLinker::setBrokenLink",
+		"AdminLinks": "PFHooks::addToAdminLinks",
 		"CargoTablesActionLinks": "PFHooks::addToCargoTablesLinks",
 		"CargoTablesSetAllowedActions": "PFHooks::addToCargoTablesColumns",
 		"CargoTablesSetActionLinks": "PFHooks::addToCargoTablesRow",
