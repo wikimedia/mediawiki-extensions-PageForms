@@ -450,15 +450,14 @@ class PFAutoeditAPI extends ApiBase {
 		}
 
 		$resultDetails = [];
-		# Allow bots to exempt some edits from bot flagging
-		$bot = $user->isAllowed( 'bot' ) && $editor->bot;
+		$isBot = $user->isAllowed( 'bot' );
 
 		$request = $editor->pfFauxRequest;
 		if ( $this->tokenOk( $request ) ) {
 			$ctx = RequestContext::getMain();
 			$tempTitle = $ctx->getTitle();
 			$ctx->setTitle( $title );
-			$status = $editor->internalAttemptSave( $resultDetails, $bot );
+			$status = $editor->internalAttemptSave( $resultDetails, $isBot );
 			$ctx->setTitle( $tempTitle );
 		} else {
 			throw new MWException( $this->msg( 'session_fail_preview' )->parse() );
