@@ -110,7 +110,7 @@ form input.formInput,
 }
 
 #pfForm select,
-#pfForm input[type="checkbox"] {
+#pfForm span.checkboxesSpan input[type="checkbox"] {
     max-width: 100%;
     width: auto !important;
 }
