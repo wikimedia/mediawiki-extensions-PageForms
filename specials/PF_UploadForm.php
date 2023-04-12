@@ -90,7 +90,7 @@ class PFUploadForm extends HTMLForm {
 
 	/**
 	 * Get the descriptor of the fieldset that contains the file source
-	 * selection. The section is 'source'
+	 * selection. The section is 'upload-source'
 	 *
 	 * @return array Descriptor array
 	 */
@@ -121,7 +121,7 @@ class PFUploadForm extends HTMLForm {
 		if ( $this->mTextTop ) {
 			$descriptor['UploadFormTextTop'] = [
 				'type' => 'info',
-				'section' => 'source',
+				'section' => 'upload-source',
 				'default' => $this->mTextTop,
 				'raw' => true,
 			];
@@ -145,7 +145,7 @@ class PFUploadForm extends HTMLForm {
 
 		$descriptor['UploadFile'] = [
 			'class' => UploadSourceField::class,
-			'section' => 'source',
+			'section' => 'upload-source',
 			'type' => 'file',
 			'id' => 'wpUploadFile',
 			'label-message' => 'sourcefilename',
@@ -157,7 +157,7 @@ class PFUploadForm extends HTMLForm {
 		if ( $canUploadByUrl ) {
 			$descriptor['UploadFileURL'] = [
 				'class' => UploadSourceField::class,
-				'section' => 'source',
+				'section' => 'upload-source',
 				'id' => 'wpUploadFileURL',
 				'label-message' => 'sourceurl',
 				'upload-type' => 'url',
@@ -174,7 +174,7 @@ class PFUploadForm extends HTMLForm {
 
 		$descriptor['Extensions'] = [
 			'type' => 'info',
-			'section' => 'source',
+			'section' => 'upload-source',
 			'default' => $this->getExtensionsMessage(),
 			'raw' => true,
 		];
@@ -218,7 +218,7 @@ class PFUploadForm extends HTMLForm {
 
 	/**
 	 * Get the descriptor of the fieldset that contains the file description
-	 * input. The section is 'description'
+	 * input. The section is 'upload-description'
 	 *
 	 * @return array Descriptor array
 	 */
@@ -226,7 +226,7 @@ class PFUploadForm extends HTMLForm {
 		$descriptor = [
 			'DestFile' => [
 				'type' => 'text',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'id' => 'wpDestFile',
 				'label-message' => 'destfilename',
 				'size' => 60,
@@ -236,7 +236,7 @@ class PFUploadForm extends HTMLForm {
 			],
 			'UploadDescription' => [
 				'type' => 'textarea',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'id' => 'wpUploadDescription',
 				'label-message' => $this->mForReUpload
 					? 'filereuploadsummary'
@@ -248,13 +248,13 @@ class PFUploadForm extends HTMLForm {
 /*
 			'EditTools' => array(
 				'type' => 'edittools',
-				'section' => 'description',
+				'section' => 'upload-description',
 			),
 */
 			'License' => [
 				'type' => 'select',
 				'class' => 'Licenses',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'id' => 'wpLicense',
 				'label-message' => 'license',
 			],
@@ -263,7 +263,7 @@ class PFUploadForm extends HTMLForm {
 		if ( $this->mTextAfterSummary ) {
 			$descriptor['UploadFormTextAfterSummary'] = [
 				'type' => 'info',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'default' => $this->mTextAfterSummary,
 				'raw' => true,
 			];
@@ -277,13 +277,13 @@ class PFUploadForm extends HTMLForm {
 		if ( $wgUseCopyrightUpload ) {
 			$descriptor['UploadCopyStatus'] = [
 				'type' => 'text',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'id' => 'wpUploadCopyStatus',
 				'label-message' => 'filestatus',
 			];
 			$descriptor['UploadSource'] = [
 				'type' => 'text',
-				'section' => 'description',
+				'section' => 'upload-description',
 				'id' => 'wpUploadSource',
 				'label-message' => 'filesource',
 			];
@@ -294,7 +294,7 @@ class PFUploadForm extends HTMLForm {
 
 	/**
 	 * Get the descriptor of the fieldset that contains the upload options,
-	 * such as "watch this file". The section is 'options'
+	 * such as "watch this file". The section is 'upload-options'
 	 *
 	 * @return array Descriptor array
 	 */
@@ -304,7 +304,7 @@ class PFUploadForm extends HTMLForm {
 				'type' => 'check',
 				'id' => 'wpWatchthis',
 				'label-message' => 'watchthisupload',
-				'section' => 'options',
+				'section' => 'upload-options',
 			]
 		];
 		if ( !$this->mHideIgnoreWarning ) {
@@ -312,7 +312,7 @@ class PFUploadForm extends HTMLForm {
 				'type' => 'check',
 				'id' => 'wpIgnoreWarning',
 				'label-message' => 'ignorewarnings',
-				'section' => 'options',
+				'section' => 'upload-options',
 			];
 		}
 		$descriptor['DestFileWarningAck'] = [
