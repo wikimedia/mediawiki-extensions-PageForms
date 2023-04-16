@@ -923,32 +923,48 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 
 		if ( $wgPageFormsUseDisplayTitle ) {
-			$services = MediaWikiServices::getInstance();
-			if ( method_exists( $services, 'getPageProps' ) ) {
-				// MW 1.36+
-				$pageProps = $services->getPageProps();
-			} else {
-				$pageProps = PageProps::getInstance();
-			}
-			$properties = $pageProps->getProperties( $titles,
-				[ 'displaytitle', 'defaultsort' ] );
-			foreach ( $titles as $title ) {
-				if ( array_key_exists( $title->getArticleID(), $properties ) ) {
-					$titleprops = $properties[$title->getArticleID()];
-				} else {
-					$titleprops = [];
-				}
-
-				$titleText = $title->getPrefixedText();
-				if ( array_key_exists( 'displaytitle', $titleprops ) &&
-					 trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
-					$pages[$titleText] = htmlspecialchars_decode( $titleprops['displaytitle'] );
-				} else {
-					$pages[$titleText] = $titleText;
-				}
-			}
+			$pages = self::getDisplayTitles( $titles );
 		}
 
+		return $pages;
+	}
+
+	/**
+	 * Returns a list of pages with their display title as the value.
+	 * @param array $titlesUnfiltered
+	 * @return array
+	 */
+	public static function getDisplayTitles( array $titlesUnfiltered ) {
+		$pages = [];
+		$titles = [];
+		foreach ( $titlesUnfiltered as $k => $title ) {
+			if ( $title instanceof Title ) {
+				$titles[ $k ] = $title;
+			}
+		}
+		$services = MediaWikiServices::getInstance();
+		if ( method_exists( $services, 'getPageProps' ) ) {
+			// MW 1.36+
+			$pageProps = $services->getPageProps();
+		} else {
+			$pageProps = PageProps::getInstance();
+		}
+		$properties = $pageProps->getProperties( $titles, [ 'displaytitle', 'defaultsort' ] );
+		foreach ( $titles as $title ) {
+			if ( array_key_exists( $title->getArticleID(), $properties ) ) {
+				$titleprops = $properties[$title->getArticleID()];
+			} else {
+				$titleprops = [];
+			}
+
+			$titleText = $title->getPrefixedText();
+			if ( array_key_exists( 'displaytitle', $titleprops ) &&
+				trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
+				$pages[$titleText] = htmlspecialchars_decode( $titleprops['displaytitle'] );
+			} else {
+				$pages[$titleText] = $titleText;
+			}
+		}
 		return $pages;
 	}
 
