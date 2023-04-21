@@ -117,8 +117,8 @@ pf.AutocompleteWidget.prototype.getLookupMenuOptionsFromData = function ( data )
 	for ( i = 0; i < data.length; i++ ) {
 		item = new OO.ui.MenuOptionWidget( {
 			// this data will be passed to onLookupMenuChoose when item is selected
-			data: data[ i ].title,
-			label: this.highlightText( data[ i ].title )
+			data: data[ i ].title.toString(),
+			label: this.highlightText( data[ i ].title.toString() )
 		} );
 		items.push( item );
 	}
