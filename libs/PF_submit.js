@@ -240,8 +240,14 @@
 								if ( !canSubmit ) {
 									event.preventDefault();
 									pfActivateVEFields( function () {
+										// canSubmit is set regardless
+										// of whether this passes validation,
+										// because it indicates only whether
+										// the VE inputs are ready.
 										canSubmit = true;
-										$( button ).find("[type='submit']").click();
+										if ( validateAll() ) {
+											$( button ).find("[type='submit']").click();
+										}
 									} );
 								}
 							} );
