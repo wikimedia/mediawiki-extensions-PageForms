@@ -207,7 +207,7 @@
 			$( document ).on( 'VEForAllLoaded', function() {
 				if ( $('.visualeditor').length > 0 ) {
 					$( '#wpPreview' ).off('click', previewButtonClickedHandler).on('click', function( event ) {
-						pfApplyFunctionToVEFields( function() {
+						pfActivateVEFields( function() {
 							previewButtonClickedHandler( event );
 						});
 					});
