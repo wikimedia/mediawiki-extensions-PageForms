@@ -195,7 +195,7 @@
 		return false;
 	}
 
-	mw.pageFormsActualizeVisualEditorFields = function( callback ) {
+	pfApplyFunctionToVEFields = function( callback ) {
 		var visualEditors = $.fn.getVEInstances();
 		if( visualEditors.length > 0 ) {
 			var savingQueue = [];
@@ -239,7 +239,7 @@
 							$( button ).on( 'click', function ( event ) {
 								if ( !canSubmit ) {
 									event.preventDefault();
-									mw.pageFormsActualizeVisualEditorFields( function () {
+									pfApplyFunctionToVEFields( function () {
 										canSubmit = true;
 										$( button ).find("[type='submit']").click();
 									} );
@@ -249,7 +249,7 @@
 					}
 					// Interrupt "Save and continue" action
 					$sacButtons.off('click', handleSaveAndContinue).click( function( event ) {
-						mw.pageFormsActualizeVisualEditorFields( function() {
+						pfApplyFunctionToVEFields( function() {
 							handleSaveAndContinue( event );
 						});
 					});

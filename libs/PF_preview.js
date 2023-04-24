@@ -207,7 +207,7 @@
 			$( document ).on( 'VEForAllLoaded', function() {
 				if ( $('.visualeditor').length > 0 ) {
 					$( '#wpPreview' ).off('click', previewButtonClickedHandler).on('click', function( event ) {
-						mw.pageFormsActualizeVisualEditorFields( function() {
+						pfApplyFunctionToVEFields( function() {
 							previewButtonClickedHandler( event );
 						});
 					});
