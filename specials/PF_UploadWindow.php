@@ -469,7 +469,6 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			}
 			input.change();
 		}
-		parent.jQuery.fancybox.close( true );
 	</script>
 
 END;

@@ -219,19 +219,6 @@
 				"mobile"
 			]
 		},
-		"ext.pageforms.fancybox": {
-			"scripts": "libs/FancyBox/jquery.fancybox.js",
-			"dependencies": [
-				"ext.pageforms.browser"
-			],
-			"targets": [
-				"desktop",
-				"mobile"
-			]
-		},
-		"ext.pageforms.fancybox.styles": {
-			"styles": "skins/FancyBox/jquery.fancybox.css"
-		},
 		"ext.pageforms.jstree": {
 			"scripts": [
 				"libs/jstree.js",

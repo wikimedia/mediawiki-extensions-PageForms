@@ -265,7 +265,7 @@ END;
 			'ext.pageforms.checkboxes',
 			'ext.pageforms.select2',
 			'ext.pageforms.rating',
-			'ext.pageforms.fancybox',
+			'ext.pageforms.popupformedit',
 			'ext.pageforms.fullcalendar',
 			'jquery.makeCollapsible'
 		];
@@ -276,7 +276,6 @@ END;
 			"ext.pageforms.checkboxes.styles",
 			'ext.pageforms.select2.styles',
 			'ext.pageforms.rating.styles',
-			'ext.pageforms.fancybox.styles',
 			"ext.pageforms.forminput.styles"
 		];
 

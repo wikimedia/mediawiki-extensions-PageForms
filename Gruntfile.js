@@ -16,7 +16,6 @@ module.exports = function ( grunt ) {
 				'!libs/jquery.rateyo.js',
 				'!libs/FullCalendar/fullcalendar.js',
 				'!libs/FullCalendar/locale-all.js',
-				'!libs/FancyBox/jquery.fancybox.js',
 				'!libs/jstree.js',
 				'!libs/jsuites.js',
 				'!libs/jspreadsheet.js',

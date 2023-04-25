@@ -78,9 +78,6 @@ Bug reports should be submitted at the Wikimedia Phabricator site:
 
 Page Forms includes the following JavaScript libraries:
 
-* fancyBox, also known as fancyBox3 (https://fancyapps.com/fancybox/3/),
-distributed under the GPLv3 license.
-
 * FullCalendar (https://fullcalendar.io/), distributed under the MIT
 license.
 

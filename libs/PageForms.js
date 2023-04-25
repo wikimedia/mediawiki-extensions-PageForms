@@ -1551,8 +1551,6 @@ $.fn.setAutocompleteForDependentField = function( partOfMultiple ) {
  * @param {Mixed} partOfMultiple
  */
 $.fn.initializeJSElements = function( partOfMultiple ) {
-	var fancyBoxSettings;
-
 	this.find(".pfShowIfSelected").each( function() {
 		// Avoid duplicate calls on any one element.
 		if ( !partOfMultiple && $(this).parents('.multipleTemplateWrapper').length > 0 ) {
@@ -1664,21 +1662,7 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		}
 	}.bind(this));
 
-	fancyBoxSettings = {
-		toolbar : false,
-		smallBtn : true,
-		iframe : {
-			preload : false,
-			css : {
-				width : '75%',
-				height : '75%'
-			}
-		},
-		animationEffect : false
-	};
-
 	if ( partOfMultiple ) {
-		this.find('.pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autoGrow').autoGrow();
 		this.find(".pfRating").each( function() {
 			$(this).applyRatingInput();
@@ -1688,6 +1672,9 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		});
 		this.find('.pfDatePicker').applyDatePicker();
 		this.find('.pfDateTimePicker').applyDateTimePicker();
+		this.find('a.popupformlink').click(function(evt){
+			return ext.popupform.handlePopupFormLink( this.getAttribute('href'), this );
+		});
 		// Only defined if $wgPageFormsSimpleUpload == true.
 		if ( typeof this.initializeSimpleUpload === 'function' ) {
 			this.find(".simpleUploadInterface").each( function() {
@@ -1699,7 +1686,6 @@ $.fn.initializeJSElements = function( partOfMultiple ) {
 		// Forms classes that require special JS handling.
 		this.find('.mw-collapsible').makeCollapsible();
 	} else {
-		this.find('.pfFancyBox').not('multipleTemplateWrapper .pfFancyBox').fancybox(fancyBoxSettings);
 		this.find('.autoGrow').not('.multipleTemplateWrapper .autoGrow').autoGrow();
 		this.find(".pfRating").not(".multipleTemplateWrapper .pfRating").each( function() {
 			$(this).applyRatingInput();

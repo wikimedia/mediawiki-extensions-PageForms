@@ -162,7 +162,7 @@ class PFTextInput extends PFFormInput {
 		// We need to set the size by default.
 		$style = "width:650 height:500";
 
-		$cssClasses = [ 'pfFancyBox', 'pfUploadable' ];
+		$cssClasses = [ 'popupformlink', 'pfUploadable' ];
 
 		$showPreview = array_key_exists( 'image preview', $other_args );
 

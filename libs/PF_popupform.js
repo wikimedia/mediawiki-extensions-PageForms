@@ -719,6 +719,12 @@ window.ext.popupform = ( function () {
 			});
 		}
 
+		// The handling for the file upload window is much simpler.
+		$content.find('#mw-upload-form').submit( function( event ) {
+			handleCloseFrame();
+		});
+
+
 		// find all links. Have to use inner jQuery so event.result below
 		// reflects the result of inner event handlers. We (hopefully) come last
 		// in the chain of event handlers as we only attach when the frame is
@@ -735,7 +741,7 @@ window.ext.popupform = ( function () {
 		.not('a[href*="javascript:"]') // scripted links
 		.not('a[target]')              // targeted links
 		.not('a[href^="#"]')           // local links
-		.not('a.pfFancyBox')           // link to file upload
+		.not('a.pfUploadable')         // link to file upload
 		.click(function(event){
 			if ( event.result !== false ) { // if not already caught by somebody else
 				closeFrameAndFollowLink( event.target.getAttribute('href') );

@@ -360,8 +360,18 @@ END;
 <script src="{$wgScriptPath}/resources/lib/jquery/jquery.js"></script>
 <script src="{$wgPageFormsScriptPath}/libs/PF_upload.js"></script>
 </head>
+<style>
+fieldset {
+	margin-bottom: 20px;
+}
+td {
+	padding: 3px 0;
+}
+</style>
 <body>
+<div id="content">
 {$out->getHTML()}
+</div>
 </body>
 </html>
 
