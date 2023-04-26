@@ -195,7 +195,7 @@
 		return false;
 	}
 
-	pfActivateVEFields = function( callback ) {
+	mw.pageFormsActivateVEFields = function( callback ) {
 		var visualEditors = $.fn.getVEInstances();
 		if( visualEditors.length > 0 ) {
 			var savingQueue = [];
@@ -239,7 +239,7 @@
 							$( button ).on( 'click', function ( event ) {
 								if ( !canSubmit ) {
 									event.preventDefault();
-									pfActivateVEFields( function () {
+									mw.pageFormsActivateVEFields( function () {
 										// canSubmit is set regardless
 										// of whether this passes validation,
 										// because it indicates only whether
@@ -255,7 +255,7 @@
 					}
 					// Interrupt "Save and continue" action
 					$sacButtons.off('click', handleSaveAndContinue).click( function( event ) {
-						pfActivateVEFields( function() {
+						mw.pageFormsActivateVEFields( function() {
 							handleSaveAndContinue( event );
 						});
 					});
