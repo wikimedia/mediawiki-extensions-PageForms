@@ -685,7 +685,7 @@ $.fn.validateURLField = function() {
 $.fn.validateEmailField = function() {
 	var fieldVal = this.find("input").val();
 	// code borrowed from http://javascript.internet.com/forms/email-validation---basic.html
-	var email_regexp = /^\s*\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+\s*$/;
+	var email_regexp = /^\s*\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,63})+\s*$/;
 	if (fieldVal === '' || email_regexp.test(fieldVal)) {
 		return true;
 	} else {
