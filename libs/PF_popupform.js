@@ -410,7 +410,7 @@ window.ext.popupform = ( function () {
 
 		// fade background in
 		if ( !brokenChrome ) {
-			$background.fadeTo( 400, 0.3 );
+			$background.fadeTo( 400, 0.6 );
 		}
 		fadeIn( $waitIndicator );
 
