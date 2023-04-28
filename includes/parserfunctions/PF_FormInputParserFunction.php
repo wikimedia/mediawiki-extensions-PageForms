@@ -188,13 +188,13 @@ class PFFormInputParserFunction {
 				return Html::element( 'div', [ 'class' => 'error' ], $e->getMessage() );
 			}
 			$formInputAttrs['data-possible-forms'] = implode( '|', $allForms );
-			$formInputAttrs['data-form-label'] = PFUtils::getFormDropdownLabel();
+			$formInputAttrs['data-form-label'] = wfMessage( 'pf-formstart-formlabel' )->escaped();
 		} elseif ( count( $listOfForms ) == 1 ) {
 			$inFormName = str_replace( '\,', ',', $inFormName );
 			$formContents .= Html::hidden( "form", $inFormName );
 		} else {
 			$formInputAttrs['data-possible-forms'] = implode( '|', $listOfForms );
-			$formInputAttrs['data-form-label'] = PFUtils::getFormDropdownLabel();
+			$formInputAttrs['data-form-label'] = wfMessage( 'pf-formstart-formlabel' )->escaped();
 		}
 
 		// Recreate the passed-in query string as a set of hidden

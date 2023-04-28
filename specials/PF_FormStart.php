@@ -121,7 +121,7 @@ END;
 					return;
 				}
 				$formInputAttrs['data-possible-forms'] = implode( '|', $allForms );
-				$formInputAttrs['data-form-label'] = PFUtils::getFormDropdownLabel();
+				$formInputAttrs['data-form-label'] = wfMessage( 'pf-formstart-formlabel' )->escaped();
 			} else {
 				$formInputAttrs['data-autofocus'] = true;
 			}

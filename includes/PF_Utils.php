@@ -318,12 +318,6 @@ END;
 		return $form_names;
 	}
 
-	public static function getFormDropdownLabel() {
-		$namespaceStrings = self::getContLang()->getNamespaces();
-		$formNSString = $namespaceStrings[PF_NS_FORM];
-		return $formNSString . wfMessage( 'colon-separator' )->escaped();
-	}
-
 	/**
 	 * A helper function, used by getFormTagComponents().
 	 * @param string $s

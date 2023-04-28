@@ -163,6 +163,7 @@
 	"pf-spreadsheet-addrow": "Add row",
 	"pf-spreadsheet-addrowinstructions": "You can add a new row by hitting 'Enter' in the last row.",
 	"formstart": "Start of form",
+	"pf-formstart-formlabel": "Form:",
 	"pf_formstart_badform": "Error: No form was found on page \"$1\".",
 	"pf_formstart_badtitle": "Error: \"$1\" is an invalid page title.",
 	"pf_formstart_docu": "Enter the name of a page here, to be edited with the form \"$1\".\nIf this page already exists, you will be sent to the form for editing that page.\nOtherwise, you will be sent to the form for adding the page.",

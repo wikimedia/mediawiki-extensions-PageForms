@@ -182,6 +182,7 @@
 	"pf-spreadsheet-addrow": "Link to add a row to a spreadsheet of data",
 	"pf-spreadsheet-addrowinstructions": "Instructions on how to add a row to a spreadsheet",
 	"formstart": "{{doc-special|FormStart}}",
+	"pf-formstart-formlabel": "Label for a form name",
 	"pf_formstart_badform": "Used as error message. Parameters:\n* $1 - form name (with link)",
 	"pf_formstart_badtitle": "Used as error message. Parameters:\n* $1 - invalid page name which may contain forbidden characters",
 	"pf_formstart_docu": "Used as description for the HTML form. Parameters:\n* $1 - page form name\nSee also:\n* {{msg-mw|pf formstart noform docu}}",
