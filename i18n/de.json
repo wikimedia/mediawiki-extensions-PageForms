@@ -181,6 +181,7 @@
 	"pf-spreadsheet-addrow": "Zeile ergänzen",
 	"pf-spreadsheet-addrowinstructions": "Du kannst eine neue Zeile hinzufügen, indem du in der letzten Zeile „Enter“ drückst.",
 	"formstart": "Mit Formular hinzufügen",
+	"pf-formstart-formlabel": "Formular:",
 	"pf_formstart_badform": "Fehler: Das Formular „$1“ wurde nicht gefunden.",
 	"pf_formstart_badtitle": "Fehler: „$1“ ist kein gültiger Seitenname.",
 	"pf_formstart_docu": "Gib in dieses Textfeld den Namen der Seite ein, die mit dem Formular „$1“ bearbeitet werden soll.\nSofern bereits eine Seite dieses Namens vorhanden ist, wird das Formular aufgerufen, mit dem du sie bearbeiten kannst.\nAndernfalls wird das Formular zum Erstellen der Seite aufgerufen.",

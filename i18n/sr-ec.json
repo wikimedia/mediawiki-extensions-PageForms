@@ -66,6 +66,7 @@
 	"pf_createclass_listofvalues": "Списак вредности?",
 	"pf_createclass_ishierarchy": "Хијерархија?",
 	"formstart": "Почетак образца",
+	"pf-formstart-formlabel": "Образац:",
 	"pf_formstart_createoredit": "Направи или уреди",
 	"formedit": "Уреди обрасцем",
 	"pf_formedit_createtitle": "Прављење $1: $2",

@@ -196,6 +196,7 @@
 	"pf-spreadsheet-addrow": "Ajouter une ligne",
 	"pf-spreadsheet-addrowinstructions": "Vous pouvez ajouter une nouvelle ligne en appuyant sur « Entrée » dans la dernière ligne.",
 	"formstart": "Début de formulaire",
+	"pf-formstart-formlabel": "Formulaire :",
 	"pf_formstart_badform": "Erreur : aucune page de formulaire n’a été trouvée sur « $1 ».",
 	"pf_formstart_badtitle": "Erreur : « $1 » n’est pas un titre de page valide.",
 	"pf_formstart_docu": "Saisissez ici le nom d’une page à modifier avec le formulaire « $1 ».\nSi cette page existe déjà, vous serez dirigé vers son formulaire de modification.\nDans le cas contraire, vous serez redirigé vers le formulaire de création de la page.",

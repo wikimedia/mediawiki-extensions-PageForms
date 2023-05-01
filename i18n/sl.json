@@ -106,6 +106,7 @@
 	"pf_createclass_ishierarchy": "Hierarhija?",
 	"pf-spreadsheet-addrow": "Dodaj vrstico",
 	"formstart": "Začetek obrazca",
+	"pf-formstart-formlabel": "Obrazec:",
 	"pf_formstart_badform": "Napaka: Obrazec »$1« ni bil najden.",
 	"pf_formstart_badtitle": "Napaka: »$1« je neveljaven naslov strani.",
 	"pf_formstart_createoredit": "Ustvari ali uredi",

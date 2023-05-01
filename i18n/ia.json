@@ -164,6 +164,7 @@
 	"pf-spreadsheet-addrow": "Adder linea",
 	"pf-spreadsheet-addrowinstructions": "Tu pote adder un nove linea premente 'Enter' in le ultime linea.",
 	"formstart": "Adder pagina con formulario",
+	"pf-formstart-formlabel": "Formulario:",
 	"pf_formstart_badform": "Error: nulle pagina de formulario esseva trovate a $1",
 	"pf_formstart_badtitle": "Error: \"$1\" es un titulo invalide pro un pagina.",
 	"pf_formstart_docu": "Entra hic le nomine de un pagina, pro esser modificate con le formulario \"$1\".\nSi iste pagina jam existe, tu essera inviate al formulario pro modificar ille pagina.\nAlteremente, tu essera inviate al formulario pro adder le pagina.",
