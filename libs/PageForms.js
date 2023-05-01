@@ -699,7 +699,7 @@ $.fn.validateNumberField = function() {
 	// Handle "E notation"/scientific notation ("1.2e-3") in addition
 	// to regular numbers
 	if (fieldVal === '' ||
-	fieldVal.match(/^\s*[\-+]?((\d+[\.,]?\d*)|(\d*[\.,]?\d+))([eE]?[\-\+]?\d+)?\s*$/)) {
+	fieldVal.match(/^\s*[\-+]?((\d{1,3}(,\d{3})+[\.,]?\d*)|(\d*[\.,]?\d+))([eE]?[\-\+]?\d+)?\s*$/)) {
 		return true;
 	} else {
 		this.addErrorMessage( 'pf_bad_number_error' );
