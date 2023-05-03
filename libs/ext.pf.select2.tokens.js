@@ -40,7 +40,6 @@
 	 *
 	 */
 	tokens_proto.apply = function( element ) {
-		var cur_val = element.attr('value');
 		var existingValuesOnly = (element.attr("existingvaluesonly") == "true");
 		this.existingValuesOnly = existingValuesOnly;
 		this.id = element.attr( "id" );
