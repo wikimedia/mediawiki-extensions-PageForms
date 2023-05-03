@@ -97,6 +97,8 @@
         if ( $parentSpan.hasClass('pfShowIfSelected') ) {
             mw.hook('pf.comboboxChange').fire($parentSpan);
         }
+	// Used for "image preview".
+        mw.hook('pf.comboboxChange2').fire(this.getInputId());
 
         this.itemFound = false;
         if (this.config.autocompletedatatype !== undefined) {

@@ -25,7 +25,7 @@
 
 					for ( var p in pages ) { // object, not an array
 						var info = pages[p].imageinfo;
-						if ( info.length > 0 ) {
+						if ( info && info.length > 0 ) {
 							callback( info[0].thumburl );
 							return;
 						}
@@ -37,29 +37,35 @@
 	};
 
 	$( document ).ready( function() {
+		var showPreview = function( inputId ) {
+			var $input = $( '#' + inputId );
+			var $previewDiv = $( '#' + inputId + '_imagepreview' );
+			_this.getPreviewImage(
+				{
+					'title': $input.val(),
+					'width': 200
+				},
+				function( url ) {
+					if ( url === false ) {
+						$previewDiv.html( '' );
+					} else {
+						$previewDiv.html( $( '<img />' ).attr( { 'src': url } ) );
+					}
+				}
+			);
+		};
+
 		$( '.pfImagePreview' ).each( function( index, domElement ) {
 			var $uploadLink = $( domElement );
 			var inputId = $uploadLink.attr( 'data-input-id' );
 			var $input = $( '#' + inputId );
-			var $previewDiv = $( '#' + inputId + '_imagepreview' );
+			$input.change( function() {
+				showPreview( inputId );
+			} );
+		} );
 
-			var showPreview = function() {
-				_this.getPreviewImage(
-					{
-						'title': $input.val(),
-						'width': 200
-					},
-					function( url ) {
-						if ( url === false ) {
-							$previewDiv.html( '' );
-						} else {
-							$previewDiv.html( $( '<img />' ).attr( { 'src': url } ) );
-						}
-					}
-				);
-			};
-
-			$input.change( showPreview );
+		mw.hook( 'pf.comboboxChange2' ).add( function( inputId ) {
+			showPreview( inputId );
 		} );
 	} );
 }( jQuery, mediaWiki ) );
