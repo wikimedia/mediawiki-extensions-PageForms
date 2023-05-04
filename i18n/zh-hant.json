@@ -123,7 +123,7 @@
 	"pf_forminputs_depth": "開始顯示的分類階層數",
 	"pf_forminputs_height": "此輸入欄位的高度 (像素)",
 	"pf_forminputs_width": "此輸入欄位的寬度 (像素)",
-	"pf_forminputs_checkboxes_select_all": "全部選擇",
+	"pf_forminputs_checkboxes_select_all": "全選",
 	"pf_forminputs_checkboxes_select_none": "全部取消",
 	"pf_forminputs_maxvalues": "欄位值允許填寫的數量限制",
 	"pf_forminputs_starwidth": "每顆星的寬度（與高度）",
