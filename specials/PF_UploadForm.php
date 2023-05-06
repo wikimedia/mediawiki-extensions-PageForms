@@ -8,6 +8,7 @@
  */
 
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\MediaWikiServices;
 
 /**
  * @ingroup PFSpecialPages
@@ -66,7 +67,7 @@ class PFUploadForm extends HTMLForm {
 			+ $this->getDescriptionSection()
 			+ $this->getOptionsSection();
 
-		Hooks::run( 'UploadFormInitDescriptor', [ &$descriptor ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'UploadFormInitDescriptor', [ &$descriptor ] );
 		parent::__construct( $descriptor, $this->getContext() );
 
 		# Set some form properties
@@ -170,7 +171,7 @@ class PFUploadForm extends HTMLForm {
 				'checked' => $selectedSourceType == 'url',
 			];
 		}
-		Hooks::run( 'UploadFormSourceDescriptors', [ &$descriptor, &$radio, $selectedSourceType ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'UploadFormSourceDescriptors', [ &$descriptor, &$radio, $selectedSourceType ] );
 
 		$descriptor['Extensions'] = [
 			'type' => 'info',

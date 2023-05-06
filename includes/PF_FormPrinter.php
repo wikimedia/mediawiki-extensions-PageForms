@@ -87,7 +87,7 @@ class PFFormPrinter {
 		// All-purpose setup hook.
 		// Avoid PHP 7.1 warning from passing $this by reference.
 		$formPrinterRef = $this;
-		Hooks::run( 'PageForms::FormPrinterSetup', [ &$formPrinterRef ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'PageForms::FormPrinterSetup', [ &$formPrinterRef ] );
 	}
 
 	public function setSemanticTypeHook( $type, $is_list, $class_name, $default_args ) {
@@ -889,6 +889,7 @@ END;
 		) {
 			$this->showDeletionLog( $wgOut );
 		}
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 		// Unfortunately, we can't just call userCan() or its
 		// equivalent here because it seems to ignore the setting
 		// "$wgEmailConfirmToEdit = true;". Instead, we'll just get the
@@ -901,7 +902,7 @@ END;
 				$permissionErrors = [ [ 'readonlytext', [ MediaWikiServices::getInstance()->getReadOnlyMode()->getReason() ] ] ];
 			}
 			$userCanEditPage = count( $permissionErrors ) == 0;
-			Hooks::run( 'PageForms::UserCanEditPage', [ $this->mPageTitle, &$userCanEditPage ] );
+			$hookContainer->run( 'PageForms::UserCanEditPage', [ $this->mPageTitle, &$userCanEditPage ] );
 		}
 
 		// Start off with a loading spinner - this will be removed by
@@ -1318,10 +1319,10 @@ END;
 						// @TODO - should it be $cur_value for both cases? Or should the
 						// hook perhaps modify both variables?
 						if ( $form_submitted ) {
-							Hooks::run( 'PageForms::CreateFormField', [ &$form_field, &$cur_value_in_template, true ] );
+							$hookContainer->run( 'PageForms::CreateFormField', [ &$form_field, &$cur_value_in_template, true ] );
 						} else {
 							$this->createFormFieldTranslateTag( $template, $tif, $form_field, $cur_value );
-							Hooks::run( 'PageForms::CreateFormField', [ &$form_field, &$cur_value, false ] );
+							$hookContainer->run( 'PageForms::CreateFormField', [ &$form_field, &$cur_value, false ] );
 						}
 						// if this is not part of a 'multiple' template, increment the
 						// global tab index (used for correct tabbing)
@@ -1860,7 +1861,7 @@ END;
 
 		$page_text = '';
 
-		Hooks::run( 'PageForms::BeforeFreeTextSubst',
+		$hookContainer->run( 'PageForms::BeforeFreeTextSubst',
 			[ &$free_text, $existing_page_content, &$page_text ] );
 
 		// Now that we have the free text, we can create the full page
@@ -1914,7 +1915,7 @@ END;
 
 		$form_text .= "\t</form>\n";
 		$parser->replaceLinkHolders( $form_text );
-		Hooks::run( 'PageForms::RenderingEnd', [ &$form_text ] );
+		$hookContainer->run( 'PageForms::RenderingEnd', [ &$form_text ] );
 
 		// Send the autocomplete values to the browser, along with the
 		// mappings of which values should apply to which fields.

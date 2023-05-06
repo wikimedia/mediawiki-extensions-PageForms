@@ -225,7 +225,7 @@ END;
 
 END;
 		// @TODO - remove this hook? It seems useless.
-		Hooks::run( 'PageForms::PrintRedirectForm', [ $is_save, !$is_save, false, &$text ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'PageForms::PrintRedirectForm', [ $is_save, !$is_save, false, &$text ] );
 		return $text;
 	}
 
@@ -287,7 +287,7 @@ END;
 		$output->addModuleStyles( $mainModuleStyles );
 
 		$otherModules = [];
-		Hooks::run( 'PageForms::AddRLModules', [ &$otherModules ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'PageForms::AddRLModules', [ &$otherModules ] );
 		// @phan-suppress-next-line PhanEmptyForeach
 		foreach ( $otherModules as $rlModule ) {
 			$output->addModules( $rlModule );

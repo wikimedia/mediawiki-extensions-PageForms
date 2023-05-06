@@ -171,7 +171,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			# Backwards compatibility hook
 			// Avoid PHP 7.1 warning from passing $this by reference
 			$page = $this;
-			if ( !Hooks::run( 'UploadForm:initial', [ &$page ] ) ) {
+			if ( !MediaWikiServices::getInstance()->getHookContainer()->run( 'UploadForm:initial', [ &$page ] ) ) {
 				wfDebug( "Hook 'UploadForm:initial' broke output of the upload form" );
 				return;
 			}
@@ -371,9 +371,10 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			return $this->showUploadForm( $this->getUploadForm( $statusText ) );
 		}
 
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		if ( !Hooks::run( 'UploadForm:BeforeProcessing', [ &$page ] ) ) {
+		if ( !$hookContainer->run( 'UploadForm:BeforeProcessing', [ &$page ] ) ) {
 			wfDebug( "Hook 'UploadForm:BeforeProcessing' broke processing the file.\n" );
 			// This code path is deprecated. If you want to break upload processing
 			// do so by hooking into the appropriate hooks in UploadBase::verifyUpload
@@ -477,7 +478,7 @@ END;
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
-		Hooks::run( 'SpecialUploadComplete', [ &$page ] );
+		$hookContainer->run( 'SpecialUploadComplete', [ &$page ] );
 	}
 
 	/**
