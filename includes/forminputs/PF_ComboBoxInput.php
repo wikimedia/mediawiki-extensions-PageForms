@@ -27,8 +27,25 @@ class PFComboBoxInput extends PFFormInput {
 		return [ 'String' ];
 	}
 
-	public static function getHTML( $cur_value, $input_name, $is_mandatory, $is_disabled, array $other_args ) {
+	/**
+	 * @param string|string[] $cur_value
+	 * @param string $input_name
+	 * @param bool $is_mandatory
+	 * @param bool $is_disabled
+	 * @param array $other_args
+	 * @return string
+	 */
+	public static function getHTML( $cur_value, string $input_name, bool $is_mandatory, bool $is_disabled, array $other_args ) {
 		global $wgPageFormsTabIndex, $wgPageFormsFieldNum, $wgPageFormsEDSettings;
+		// $cur_value may be a simple string or an array,
+		// possibly even a mapped value-label array.
+		if ( is_array( $cur_value ) ) {
+			$cur_label = reset( $cur_value );
+			$cur_val_keys = array_keys( $cur_value );
+			$cur_value = reset( $cur_val_keys );
+		} else {
+			$cur_label = $cur_value;
+		}
 
 		$className = 'pfComboBox';
 		if ( array_key_exists( 'class', $other_args ) ) {
@@ -96,7 +113,9 @@ class PFComboBoxInput extends PFFormInput {
 			'value' => $cur_value,
 			'data-size' => $size * 6,
 			'style' => 'width:' . $size * 6 . 'px',
-			'disabled' => $is_disabled
+			'disabled' => $is_disabled,
+			'data-value' => $cur_value,
+			'data-label' => $cur_label
 		];
 		if ( array_key_exists( 'origName', $other_args ) ) {
 			$inputAttrs['origname'] = $other_args['origName'];
@@ -109,6 +128,12 @@ class PFComboBoxInput extends PFFormInput {
 		}
 		if ( $remoteDataType !== null ) {
 			$inputAttrs['autocompletedatatype'] = $remoteDataType;
+		}
+		if ( array_key_exists( 'mapping property', $other_args ) ) {
+			$inputAttrs['mappingproperty'] = $other_args['mapping property'];
+		}
+		if ( array_key_exists( 'mapping template', $other_args ) ) {
+			$inputAttrs['mappingtemplate'] = $other_args['mapping template'];
 		}
 
 		$innerDropdown = '';
@@ -132,7 +157,11 @@ class PFComboBoxInput extends PFFormInput {
 
 		// Make sure that the current value always shows up when the
 		// form is first displayed.
-		$innerDropdown .= Html::element( 'option', [ 'selected' => true ], $cur_value );
+		$innerDropdown .= Html::element(
+			'option',
+			[ 'selected' => true, 'value' => $cur_value ],
+			$cur_label
+		);
 
 		$inputText = Html::rawElement( 'select', $inputAttrs, $innerDropdown );
 
