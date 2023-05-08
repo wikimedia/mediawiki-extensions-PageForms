@@ -390,6 +390,8 @@ class PFFormField {
 		if ( in_array( $valuesSourceType, [ 'category', 'namespace', 'concept' ] ) ) {
 			global $wgPageFormsUseDisplayTitle;
 			$f->mUseDisplayTitle = $wgPageFormsUseDisplayTitle;
+		} else {
+			$f->mUseDisplayTitle = false;
 		}
 
 		if ( !array_key_exists( 'delimiter', $f->mFieldArgs ) ) {
@@ -404,18 +406,7 @@ class PFFormField {
 
 		$f->setPossibleValues( $valuesSourceType, $valuesSource, $values, $cargo_table, $cargo_field, $cargo_where );
 
-		$mappingType = null;
-		if ( array_key_exists( 'mapping template', $f->mFieldArgs ) ) {
-			$mappingType = 'template';
-		} elseif ( array_key_exists( 'mapping property', $f->mFieldArgs ) ) {
-			$mappingType = 'property';
-		} elseif ( array_key_exists( 'mapping cargo table', $f->mFieldArgs ) &&
-			array_key_exists( 'mapping cargo field', $f->mFieldArgs ) ) {
-			$mappingType = 'cargo field';
-		} elseif ( $f->mUseDisplayTitle ) {
-			$f->mPossibleValues = PFValuesUtils::disambiguateLabels( $f->mPossibleValues );
-		}
-
+		$mappingType = PFMappingUtils::getMappingType( $f->mFieldArgs, $f->mUseDisplayTitle );
 		if ( $mappingType !== null && !empty( $f->mPossibleValues ) ) {
 			// If we're going to be mapping values, we need to have
 			// the exact page name - and if these values come from
@@ -429,8 +420,8 @@ class PFFormField {
 				// handling.
 				$f->mUseDisplayTitle = false;
 			}
-
-			$f->setMappedValues( $mappingType );
+			$mappedValues = PFMappingUtils::getMappedValuesForInput( $f->mPossibleValues, $f->mFieldArgs );
+			$f->mPossibleValues = $mappedValues;
 		}
 
 		if ( $template_in_form->allowsMultiple() ) {
@@ -649,7 +640,7 @@ class PFFormField {
 							if ( $key === 'is_list' ) {
 								$cur_values[$key] = $val;
 							} else {
-								$cur_values[] = $this->labelToValue( $val );
+								$cur_values[] = PFValuesUtils::labelToValue( $val, $this->mPossibleValues );
 							}
 						}
 					} else {
@@ -669,11 +660,11 @@ class PFFormField {
 						if ( $this->mIsList ) {
 							$cur_values = array_map( 'trim', explode( $delimiter, $field_query_val ) );
 							foreach ( $cur_values as $key => $val ) {
-								$cur_values[$key] = $this->labelToValue( $val );
+								$cur_values[$key] = PFValuesUtils::labelToValue( $val, $this->mPossibleValues );
 							}
 							return implode( $delimiter, $cur_values );
 						}
-						return $this->labelToValue( $field_query_val );
+						return PFValuesUtils::labelToValue( $field_query_val, $this->mPossibleValues );
 					}
 					return $field_query_val;
 				}
@@ -704,116 +695,6 @@ class PFFormField {
 
 		// We're still here...
 		return null;
-	}
-
-	function setMappedValues( $mappingType ) {
-		if ( $mappingType == 'template' ) {
-			$this->setValuesWithMappingTemplate();
-		} elseif ( $mappingType == 'property' ) {
-			$this->setValuesWithMappingProperty();
-		} elseif ( $mappingType == 'cargo field' ) {
-			$this->setValuesWithMappingCargoField();
-		}
-
-		$this->mPossibleValues = PFValuesUtils::disambiguateLabels( $this->mPossibleValues );
-	}
-
-	/**
-	 * Helper function to get an array of labels from an array of values
-	 * given a mapping template.
-	 */
-	function setValuesWithMappingTemplate() {
-		$labels = [];
-		$templateName = $this->mFieldArgs['mapping template'];
-		$title = Title::makeTitleSafe( NS_TEMPLATE, $templateName );
-		$templateExists = $title->exists();
-		foreach ( $this->mPossibleValues as $index => $value ) {
-			if ( $this->mUseDisplayTitle ) {
-				$value = $index;
-			}
-			if ( $templateExists ) {
-				$label = trim( PFUtils::getParser()->recursiveTagParse( '{{' . $templateName .
-					'|' . $value . '}}' ) );
-				if ( $label == '' ) {
-					$labels[$value] = $value;
-				} else {
-					$labels[$value] = $label;
-				}
-			} else {
-				$labels[$value] = $value;
-			}
-		}
-		$this->mPossibleValues = $labels;
-	}
-
-	/**
-	 * Helper function to get an array of labels from an array of values
-	 * given a mapping property.
-	 */
-	function setValuesWithMappingProperty() {
-		$store = PFUtils::getSMWStore();
-		if ( $store == null ) {
-			return;
-		}
-
-		$propertyName = $this->mFieldArgs['mapping property'];
-		$labels = [];
-		foreach ( $this->mPossibleValues as $index => $value ) {
-			if ( $this->mUseDisplayTitle ) {
-				$value = $index;
-			}
-			$labels[$value] = $value;
-			$subject = Title::newFromText( $value );
-			if ( $subject != null ) {
-				$vals = PFValuesUtils::getSMWPropertyValues( $store, $subject, $propertyName );
-				if ( count( $vals ) > 0 ) {
-					$labels[$value] = trim( $vals[0] );
-				}
-			}
-		}
-		$this->mPossibleValues = $labels;
-	}
-
-	/**
-	 * Helper function to get an array of labels from an array of values
-	 * given a mapping Cargo table/field.
-	 */
-	function setValuesWithMappingCargoField() {
-		$labels = [];
-		foreach ( $this->mPossibleValues as $index => $value ) {
-			if ( $this->mUseDisplayTitle ) {
-				$value = $index;
-			}
-			$labels[$value] = $value;
-			if ( $this->hasFieldArg( 'mapping cargo value field' ) ) {
-				$valueField = $this->mFieldArgs['mapping cargo value field'];
-			} else {
-				$valueField = '_pageName';
-			}
-			$vals = PFValuesUtils::getValuesForCargoField(
-				$this->mFieldArgs['mapping cargo table'],
-				$this->mFieldArgs['mapping cargo field'],
-				$valueField . '="' . $value . '"'
-			);
-			if ( count( $vals ) > 0 ) {
-				$labels[$value] = html_entity_decode( trim( $vals[0] ) );
-			}
-		}
-		$this->mPossibleValues = $labels;
-	}
-
-	/**
-	 * Map a label back to a value.
-	 * @param string $label
-	 * @return string
-	 */
-	function labelToValue( $label ) {
-		$value = array_search( $label, $this->mPossibleValues );
-		if ( $value === false ) {
-			return $label;
-		} else {
-			return $value;
-		}
 	}
 
 	/**
@@ -1113,10 +994,8 @@ class PFFormField {
 		} else {
 			$other_args['possible_values'] = $this->template_field->getPossibleValues();
 			if ( $this->hasFieldArg( 'mapping using translate' ) ) {
-				$other_args['value_labels'] = [];
-				foreach ( $other_args['possible_values'] as $key ) {
-					$other_args['value_labels'][$key] = $parser->recursiveTagParse( '{{int:' . $this->getFieldArg( 'mapping using translate' ) . $key . '}}' );
-				}
+				$mappedValues = PFValuesUtils::getValuesWithTranslateMapping( $other_args['possible_values'], $other_args['mapping using translate'] );
+				$other_args['value_labels'] = array_values( $mappedValues );
 			} else {
 				$other_args['value_labels'] = $this->template_field->getValueLabels();
 			}

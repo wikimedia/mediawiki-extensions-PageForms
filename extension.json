@@ -106,6 +106,7 @@
 		"PFFormUtils": "includes/PF_FormUtils.php",
 		"PFUtils": "includes/PF_Utils.php",
 		"PFValuesUtils": "includes/PF_ValuesUtils.php",
+		"PFMappingUtils": "includes/PF_MappingUtils.php",
 		"PFHooks": "includes/PF_Hooks.php",
 		"PFFormLinker": "includes/PF_FormLinker.php",
 		"PFPageSchemas": "includes/PF_PageSchemas.php",

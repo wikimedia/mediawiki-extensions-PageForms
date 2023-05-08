@@ -923,48 +923,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 
 		if ( $wgPageFormsUseDisplayTitle ) {
-			$pages = self::getDisplayTitles( $titles );
+			$pages = PFMappingUtils::getDisplayTitles( $titles );
 		}
 
-		return $pages;
-	}
-
-	/**
-	 * Returns a list of pages with their display title as the value.
-	 * @param array $titlesUnfiltered
-	 * @return array
-	 */
-	public static function getDisplayTitles( array $titlesUnfiltered ) {
-		$pages = [];
-		$titles = [];
-		foreach ( $titlesUnfiltered as $k => $title ) {
-			if ( $title instanceof Title ) {
-				$titles[ $k ] = $title;
-			}
-		}
-		$services = MediaWikiServices::getInstance();
-		if ( method_exists( $services, 'getPageProps' ) ) {
-			// MW 1.36+
-			$pageProps = $services->getPageProps();
-		} else {
-			$pageProps = PageProps::getInstance();
-		}
-		$properties = $pageProps->getProperties( $titles, [ 'displaytitle', 'defaultsort' ] );
-		foreach ( $titles as $title ) {
-			if ( array_key_exists( $title->getArticleID(), $properties ) ) {
-				$titleprops = $properties[$title->getArticleID()];
-			} else {
-				$titleprops = [];
-			}
-
-			$titleText = $title->getPrefixedText();
-			if ( array_key_exists( 'displaytitle', $titleprops ) &&
-				trim( str_replace( '&#160;', '', strip_tags( $titleprops['displaytitle'] ) ) ) !== '' ) {
-				$pages[$titleText] = htmlspecialchars_decode( $titleprops['displaytitle'] );
-			} else {
-				$pages[$titleText] = $titleText;
-			}
-		}
 		return $pages;
 	}
 
@@ -985,44 +946,6 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		} else {
 			return 20;
 		}
-	}
-
-	/**
-	 * Doing "mapping" on values can potentially lead to more than one
-	 * value having the same "label". To avoid this, we find duplicate
-	 * labels, if there are any, add on the real value, in parentheses,
-	 * to all of them.
-	 *
-	 * @param array $labels
-	 * @return array
-	 */
-	public static function disambiguateLabels( array $labels ) {
-		asort( $labels );
-		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
-			return $labels;
-		}
-		$fixed_labels = [];
-		foreach ( $labels as $value => $label ) {
-			$fixed_labels[$value] = $labels[$value];
-		}
-		$counts = array_count_values( $fixed_labels );
-		foreach ( $counts as $current_label => $count ) {
-			if ( $count > 1 ) {
-				$matching_keys = array_keys( $labels, $current_label );
-				foreach ( $matching_keys as $key ) {
-					$fixed_labels[$key] .= ' (' . $key . ')';
-				}
-			}
-		}
-		if ( count( $fixed_labels ) == count( array_unique( $fixed_labels ) ) ) {
-			return $fixed_labels;
-		}
-		// If that didn't work, just add on " (value)" to *all* the
-		// labels. @TODO - is this necessary?
-		foreach ( $labels as $value => $label ) {
-			$labels[$value] .= ' (' . $value . ')';
-		}
-		return $labels;
 	}
 
 	/**
@@ -1060,5 +983,20 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		unset( $values[ $firstMatchIdx ] );
 		array_unshift( $values, $shortestString );
 		return $values;
+	}
+
+	/**
+	 * Map a label back to a value.
+	 * @param string $label
+	 * @param array $values
+	 * @return string
+	 */
+	public static function labelToValue( $label, $values ) {
+		$value = array_search( $label, $values );
+		if ( $value === false ) {
+			return $label;
+		} else {
+			return $value;
+		}
 	}
 }
