@@ -6,8 +6,9 @@
 		]
 	},
 	"pf_createtemplate_plainformat": "سادو متن",
+	"pf_createtemplate_deletefield": "ھن ميدان کي ڊاھيو",
 	"pf_createform_hidden": "لڪل",
-	"pf_formedit_none": "ڪوبہ نہ",
+	"pf_formedit_none": "ڪوبہ نہ/اڻڄاتل",
 	"pf_form_freetextlabel": "مفت متن",
 	"pf-datepicker-close": "بند ڪريو",
 	"pf-datepicker-prev": "پويون"
