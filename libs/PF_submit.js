@@ -230,8 +230,8 @@
 			$( document ).on( 'VEForAllLoaded', function() {
 				// Special submit form & other actions handling when VEForAll editor is present
 				if ( $('.visualeditor').length > 0 ) {
-					// Interrupt "Save page" and "Show changes" actions
-					var $formButtons = $( '#wpSave, #wpDiff' );
+					// Interrupt "Save page", "Show preview" and "Show changes" actions
+					var $formButtons = $( '#wpSave, #wpPreview, #wpDiff' );
 					var canSubmit = false;
 
 					if ( $formButtons.length > 0 ) {
