@@ -25,7 +25,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 		return "\t" . sprintf(
 			'<label class="radioButtonItem%s">'
 			. '<input id="input_\d+" tabindex="\d+"%s%s%s type="radio" value="%s" '
-			. 'name="TestTemplate123\[%s\]"/>&nbsp;%s</label>',
+			. 'name="TestTemplate123\[%s\]">&nbsp;%s</label>',
 			( $class !== null ? " $class" : '' ),
 			( $append !== null ? " $append" : '' ),
 			( $disabled !== null ? ' disabled=""' : '' ),
