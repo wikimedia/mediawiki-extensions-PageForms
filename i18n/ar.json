@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Alshamiri1",
 			"DannyS712",
 			"Meno25",
 			"OsamaK",
@@ -165,6 +166,7 @@
 	"pf_createclass_create": "أنشئ",
 	"pf_createclass_ishierarchy": "تسلسل هرمي؟",
 	"formstart": "إضافة صفحة مع نموذج",
+	"pf-formstart-formlabel": "استمارة:",
 	"pf_formstart_badform": "خطأ: لا صفحة نموذج تم العثور عليها في $1",
 	"pf_formstart_badtitle": "خطأ: \"$1\" عنوان غير صحيح لصفحة.",
 	"pf_formstart_docu": "أدخل اسم الصفحة هنا، لكي يتم تعديلها بالنموذج '$1'.\nإذا كانت هذه الصفحة موجودة بالفعل، سيتم إرسالك إلى النموذج لتعديل هذه الصفحة.\nوإلا فسيتم إرسالك إلى النموذج لإضافة الصفحة.",
