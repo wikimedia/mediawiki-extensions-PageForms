@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Adriendelucca",
 			"Fohanno",
 			"Fulup",
 			"Huñvreüs",
@@ -77,6 +78,7 @@
 	"pf_createclass_success": "Krouet e vo ar perzhioù, ar patrom ar furmskrid hag ar rummad.",
 	"pf_createclass_create": "Krouiñ",
 	"formstart": "Ouzhpennañ ur bajenn gant ur furmskrid",
+	"pf-formstart-formlabel": "Furmskridoù:",
 	"pf_formstart_badform": "Fazi : n'eus bet kavet pajenn furmskrid ebet en $1.",
 	"pf_formstart_badtitle": "Fazi : « $1 » n'eo ket un titl reizh evit ur bajenn.",
 	"pf_formstart_createoredit": "Krouiñ pe kemmañ",
