@@ -679,7 +679,16 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		} elseif ( $source_type == 'concept' ) {
 			$names_array = self::getAllPagesForConcept( $source_name );
 		} elseif ( $source_type == 'query' ) {
-			$names_array = self::getAllPagesForQuery( $source_name );
+			// Get rid of the "@", which is a placeholder for the substring,
+			// since there is no substring here.
+			// May not cover all possible use cases.
+			$baseQuery = str_replace(
+				[ "~*@*", "~@*", "~*@", "~@", "like:*@*", "like:@*", "like:*@", "like:@", "&lt;@", "&gt;@", "@" ],
+				"+",
+				$source_name
+			);
+			$smwQuery = self::processSemanticQuery( $baseQuery );
+			$names_array = self::getAllPagesForQuery( $smwQuery );
 		} elseif ( $source_type == 'wikidata' ) {
 			$names_array = self::getAllValuesFromWikidata( $source_name );
 			sort( $names_array );
@@ -711,6 +720,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		} elseif ( array_key_exists( 'values from wikidata', $field_args ) ) {
 			$autocompleteFieldType = 'wikidata';
 			$autocompletionSource = $field_args['values from wikidata'];
+		} elseif ( array_key_exists( 'values from query', $field_args ) ) {
+			$autocompletionSource = $field_args['values from query'];
+			$autocompleteFieldType = 'semantic_query';
 		} elseif ( array_key_exists( 'values', $field_args ) ) {
 			global $wgPageFormsFieldNum;
 			$autocompleteFieldType = 'values';
@@ -730,9 +742,6 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 				$whereStr = $field_args['cargo where'];
 				$autocompletionSource .= "|$whereStr";
 			}
-		} elseif ( array_key_exists( 'semantic_query', $field_args ) ) {
-			$autocompletionSource = $field_args['semantic_query'];
-			$autocompleteFieldType = 'semantic_query';
 		} elseif ( array_key_exists( 'semantic_property', $field_args ) ) {
 			$autocompletionSource = $field_args['semantic_property'];
 			$autocompleteFieldType = 'property';
@@ -902,11 +911,16 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	 * @return array
 	 */
 	public static function getAllPagesForQuery( $rawQuery ) {
+		global $wgPageFormsMaxAutocompleteValues;
 		global $wgPageFormsUseDisplayTitle;
-		$rawQueryArray = [ $rawQuery ];
+
+		$rawQuery = $rawQuery . "|named args=yes|link=none|limit=$wgPageFormsMaxAutocompleteValues|searchlabel=";
+		$rawQueryArray = explode( "|", $rawQuery );
 		list( $queryString, $processedParams, $printouts ) = SMWQueryProcessor::getComponentsFromFunctionParams( $rawQueryArray, false );
 		SMWQueryProcessor::addThisPrintout( $printouts, $processedParams );
 		$processedParams = SMWQueryProcessor::getProcessedParams( $processedParams, $printouts );
+
+		// Run query and get results.
 		$queryObj = SMWQueryProcessor::createQuery( $queryString,
 			$processedParams,
 			SMWQueryProcessor::SPECIAL_PAGE, '', $printouts );
@@ -916,6 +930,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		$pages = [];
 
 		foreach ( $rows as $diWikiPage ) {
+			$pages[] = $diWikiPage->getDbKey();
 			$titles[] = $diWikiPage->getTitle();
 		}
 
@@ -924,6 +939,15 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 
 		return $pages;
+	}
+
+	public static function processSemanticQuery( $query, $substr = '' ) {
+		$query = str_replace(
+			[ "&lt;", "&gt;", "(", ")", '%', '@' ],
+			[ "<", ">", "[", "]", '|', $substr ],
+			$query
+		);
+		return $query;
 	}
 
 	public static function getMaxValuesToRetrieve( $substring = null ) {

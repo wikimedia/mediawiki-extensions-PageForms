@@ -64,7 +64,7 @@ class PFAutocompleteAPI extends ApiBase {
 				$data = PFMappingUtils::disambiguateLabels( $data );
 			}
 		} elseif ( $query !== null ) {
-			$query = $this->processSemanticQuery( $query, $substr );
+			$query = PFValuesUtils::processSemanticQuery( $query, $substr );
 			$data = PFValuesUtils::getAllPagesForQuery( $query );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
@@ -184,15 +184,6 @@ class PFAutocompleteAPI extends ApiBase {
 			'api.php?action=pfautocomplete&substr=te&category=Authors',
 			'api.php?action=pfautocomplete&semantic_query=((Category:Test)) ((MyProperty::Something))',
 		];
-	}
-
-	private function processSemanticQuery( $query, $substr = '' ) {
-		$query = str_replace(
-			[ "&lt;", "&gt;", "(", ")", '%', '@' ],
-			[ "<", ">", "[", "]", '|', $substr ],
-			$query
-		);
-		return $query;
 	}
 
 	private function getAllValuesForProperty(
