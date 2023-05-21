@@ -69,7 +69,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * Data provider method
 	 */
-	public function pageSectionDataProvider() {
+	public static function pageSectionDataProvider() {
 		$provider = [];
 
 		// #1 form definition without other parameters
