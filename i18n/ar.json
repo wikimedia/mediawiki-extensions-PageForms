@@ -9,7 +9,8 @@
 			"ديفيد",
 			"زكريا",
 			"محمد أحمد عبد الفتاح",
-			"DannyS712"
+			"DannyS712",
+			"Alshamiri1"
 		]
 	},
 	"pageforms-name": "استمارات الصفحة",
@@ -237,6 +238,7 @@
 	"pf-pageschemas-pagenameformula": "صيغة اسم الصفحة:",
 	"pf-pageschemas-createtitle": "عنوان النموذج للصفحات الجديدة:",
 	"pf-pageschemas-edittitle": "عنوان النموذج للصفحات الحالية:",
+	"pf-pageschemas-forminput": "إدخال النموذج",
 	"pf-pageschemas-inputdescription": "وصف الملف",
 	"pf-pageschemas-inputtype": "نوع الإدخال (اتركه فارغا لتعيينه على الافتراضي):",
 	"pf-pageschemas-otherparams": "أدخل أسماء الوسائط وقيمها كأزواج key=value، مفصولة بفواصل (إذا كانت القيمة تحتوي على فاصلة، استبدلها بـ \"/\")، على سبيل المثال: $1",
@@ -288,6 +290,7 @@
 	"pf-missingconcept": "لا يمكن العثور على مفهوم:$1",
 	"pf-missingnamespace": "تعذر العثور على نطاق: $1",
 	"pf-nocompletionurls": "لا يتم تحديد مسارات خارجية للإكمال التلقائي في هذا الويكي.",
+	"pf-resultstoshow": "النتائج للعرض",
 	"pf-invalidexturl": "قيمة مسار خارجي غير صالحة.",
 	"pf-blankexturl": "قيمة مسار خارجي فارغة.",
 	"pf-externalpageempty": "لا تتضمن الصفحة الخارجية محتوى",
