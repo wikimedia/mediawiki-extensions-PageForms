@@ -1028,6 +1028,9 @@ END;
 					} else {
 						$previous_template_name = '';
 					}
+					if ( count( $tag_components ) < 2 ) {
+						throw new MWException( 'Error: a template name must be specified in each "for template" tag.' );
+					}
 					$template_name = str_replace( '_', ' ', $parser->recursiveTagParse( $tag_components[1] ) );
 					$is_new_template = ( $template_name != $previous_template_name );
 					if ( $is_new_template ) {
