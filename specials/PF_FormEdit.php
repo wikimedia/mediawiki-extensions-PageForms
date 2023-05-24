@@ -133,7 +133,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 		// Override the default title for this page if a title was
 		// specified in the form.
 		$result = $module->getOptions();
-		$targetTitle = Title::newFromText( $result[ 'target' ] );
+		$targetTitle = Title::newFromText( html_entity_decode( $result[ 'target' ] ) );
 
 		// Set page title depending on whether an explicit title was
 		// specified in the form definition, and whether this is a
@@ -150,7 +150,7 @@ class PFFormEdit extends UnlistedSpecialPage {
 		} elseif ( $result[ 'form' ] !== '' ) {
 			if ( empty( $targetName ) ) {
 				$pageTitle = $this->msg( 'pf_formedit_createtitlenotarget', $result[ 'form' ] )->text();
-			} elseif ( $targetTitle->exists() ) {
+			} elseif ( $targetTitle !== null && $targetTitle->exists() ) {
 				$pageTitle = $this->msg( 'pf_formedit_edittitle', $result[ 'form' ], $targetName )->text();
 			} else {
 				$pageTitle = $this->msg( 'pf_formedit_createtitle', $result[ 'form' ], $targetName )->text();
