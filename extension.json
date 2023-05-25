@@ -691,6 +691,7 @@
 		"PageFormsAutocompleteCacheTimeout": null,
 		"PageFormsRenameEditTabs": false,
 		"PageFormsRenameMainEditTab": false,
+		"PageFormsMainFormsMinimum": 0.01,
 		"PageFormsListSeparator":  ",",
 		"PageForms24HourTime": false,
 		"PageFormsCacheFormDefinitions": false,

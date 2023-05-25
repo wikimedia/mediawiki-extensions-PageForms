@@ -141,6 +141,8 @@ class PFFormEditAction extends Action {
 	}
 
 	static function displayFormChooser( $output, $title ) {
+		global $wgPageFormsMainFormsMinimum;
+
 		$output->addModules( 'ext.pageforms.main.styles' );
 
 		$targetName = $title->getPrefixedText();
@@ -160,10 +162,12 @@ class PFFormEditAction extends Action {
 			$totalPages += $numPages;
 		}
 		// We define "popular forms" as those that are used to
-		// edit more than 1% of the wiki's form-editable pages.
+		// edit more than the specified amount of the wiki's
+		// form-editable pages. (Set by $wgPageFormsMainFormsMinimum,
+		// which by default is 1%.)
 		$popularForms = [];
 		foreach ( $pagesPerForm as $formName => $numPages ) {
-			if ( $numPages > $totalPages / 100 ) {
+			if ( $numPages > $totalPages * $wgPageFormsMainFormsMinimum ) {
 				$popularForms[] = $formName;
 			}
 		}
