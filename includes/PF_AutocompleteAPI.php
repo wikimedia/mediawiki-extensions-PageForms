@@ -55,20 +55,20 @@ class PFAutocompleteAPI extends ApiBase {
 			$data = PFValuesUtils::getAllPagesForCategory( $category, 3, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
-				$data = PFValuesUtils::disambiguateLabels( $data );
+				$data = PFMappingUtils::disambiguateLabels( $data );
 			}
 		} elseif ( $concept !== null ) {
 			$data = PFValuesUtils::getAllPagesForConcept( $concept, $substr );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
-				$data = PFValuesUtils::disambiguateLabels( $data );
+				$data = PFMappingUtils::disambiguateLabels( $data );
 			}
 		} elseif ( $query !== null ) {
 			$query = $this->processSemanticQuery( $query, $substr );
 			$data = PFValuesUtils::getAllPagesForQuery( $query );
 			$map = $wgPageFormsUseDisplayTitle;
 			if ( $map ) {
-				$data = PFValuesUtils::disambiguateLabels( $data );
+				$data = PFMappingUtils::disambiguateLabels( $data );
 			}
 		} elseif ( $cargo_table !== null && $cargo_field !== null ) {
 			$data = self::getAllValuesForCargoField( $cargo_table, $cargo_field, $cargo_where, $substr, $base_cargo_table, $base_cargo_field, $basevalue );
