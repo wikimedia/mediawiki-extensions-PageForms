@@ -426,7 +426,6 @@ class PFMappingUtils {
 	 * @return array
 	 */
 	public static function disambiguateLabels( array $labels ) {
-		asort( $labels );
 		if ( count( $labels ) == count( array_unique( $labels ) ) ) {
 			return $labels;
 		}
