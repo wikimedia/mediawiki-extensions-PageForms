@@ -433,7 +433,7 @@
         var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
             searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
             ")(?![^<>]*>)(?![^&;]+;)", "gi");
-        var itemLabel = suggestion;
+        var itemLabel = suggestion.toString();
         var loc = itemLabel.search(searchRegexp);
         var t;
 
@@ -452,7 +452,7 @@
             '/', '(', ')', '|', 's'
         ].map( function(p) { return "\\" + p }).concat('^', '-', "'",'"');
         let regex = new RegExp('(' + wordSeparators.join('|') + ')' + curValue.toLowerCase());
-        return string.toLowerCase().match(regex) !== null;
+        return string.toString().toLowerCase().match(regex) !== null;
     }
 
     pf.ComboBoxInput.prototype.getConditionForAutocompleteOnAllChars = function(string, curValue) {
