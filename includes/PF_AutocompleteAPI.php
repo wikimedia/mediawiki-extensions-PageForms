@@ -97,6 +97,8 @@ class PFAutocompleteAPI extends ApiBase {
 				$this->dieWithError( $data, $code );
 			}
 		}
+		// Sort the values by their lengths for better UX
+		$data = self::sortValuesByLength( $data );
 
 		// to prevent JS parsing problems, display should be the same
 		// even if there are no results
@@ -337,7 +339,6 @@ class PFAutocompleteAPI extends ApiBase {
 			$values[] = str_replace( '_', ' ', $row[0] );
 		}
 		$res->free();
-		$values = self::shiftExactMatch( $substring, $values );
 		return $values;
 	}
 
@@ -490,23 +491,22 @@ class PFAutocompleteAPI extends ApiBase {
 			// quotes, at least.
 			$values[] = str_replace( '&quot;', '"', $value );
 		}
-		$values = self::shiftExactMatch( $substring, $values );
 		return $values;
 	}
 
 	/**
-	 * Move the exact match to the top for better autocompletion
-	 * @param string $substring
+	 * Sort the values of an array by their lengths (shortest to longest)
+	 *
 	 * @param array $values
 	 * @return array $values
 	 */
-	static function shiftExactMatch( $substring, $values ) {
-		$firstMatchIdx = array_search( $substring, $values );
-		if ( $firstMatchIdx ) {
-			unset( $values[ $firstMatchIdx ] );
-			array_unshift( $values, $substring );
+	static function sortValuesByLength( $values ) {
+		if ( empty( $values ) ) {
+			return $values;
 		}
+		usort( $values, static function ( $a, $b ) {
+			return strlen( $a ) - strlen( $b );
+		} );
 		return $values;
 	}
-
 }
