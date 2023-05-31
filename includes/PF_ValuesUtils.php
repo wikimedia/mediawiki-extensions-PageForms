@@ -252,9 +252,9 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			if ( !array_key_exists( $fieldAlias, $row ) ) {
 				continue;
 			}
-			// Cargo HTML-encodes everything - let's decode double
-			// quotes, at least.
-			$values[] = str_replace( '&quot;', '"', $row[$fieldAlias] );
+			// Cargo HTML-encodes everything - decode the quotes and
+			// angular brackets.
+			$values[] = html_entity_decode( $row[$fieldAlias] );
 		}
 		$values = self::shiftShortestMatch( $values );
 		return $values;
