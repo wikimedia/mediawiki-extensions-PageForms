@@ -58,7 +58,7 @@ jQuery.fn.createTemplateAddField = function( addAboveCurInstance ) {
 	} );
 	if ( addAboveCurInstance ){
 		$newField.insertBefore(this.closest(".fieldBox"))
-                        .hide().fadeIn();
+			.hide().fadeIn();
 	} else {
 		jQuery( '#fieldsList' ).append( $newField.hide().fadeIn() );
 	}

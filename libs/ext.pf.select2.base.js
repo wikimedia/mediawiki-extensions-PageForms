@@ -95,7 +95,7 @@
 						}
 						if ( rawValue !== '' ) {
 							$input.val(rawValue).trigger("change");
-                                                }
+						}
 					}
 				});
 				element.on( "change", this.onChange );

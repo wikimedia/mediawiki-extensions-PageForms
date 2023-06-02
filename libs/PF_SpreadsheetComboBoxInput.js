@@ -135,20 +135,20 @@ pf.SpreadsheetComboBoxInput.prototype.highlightText = function ( suggestion ) {
 	if ( searchTerm[0] == ' ' ) {
 		searchTerm = searchTerm.slice(1);
 	}
-    var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
-        searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
-        ")(?![^<>]*>)(?![^&;]+;)", "gi");
-    var itemLabel = suggestion;
-    var loc = itemLabel.search(searchRegexp);
-    var t;
-    if (loc >= 0) {
-        t = itemLabel.slice(0, Math.max(0, loc)) +
-            '<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
-            itemLabel.slice(loc + searchTerm.length);
-    } else {
-        t = itemLabel;
-    }
-    return new OO.ui.HtmlSnippet(t);
+	var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
+		searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
+			")(?![^<>]*>)(?![^&;]+;)", "gi");
+	var itemLabel = suggestion;
+	var loc = itemLabel.search(searchRegexp);
+	var t;
+	if (loc >= 0) {
+		t = itemLabel.slice(0, Math.max(0, loc)) +
+			'<strong>' + itemLabel.substr(loc, searchTerm.length) + '</strong>' +
+		itemLabel.slice(loc + searchTerm.length);
+	} else {
+		t = itemLabel;
+	}
+	return new OO.ui.HtmlSnippet(t);
 };
 /**
  * Provides an option with "No Matches" label

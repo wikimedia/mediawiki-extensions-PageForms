@@ -1,5 +1,5 @@
 ( function( $, mw, pf ) {
-        'use strict';
+	'use strict';
 
 	jQuery.fn.applyRatingInput = function( fromCalendar ) {
 		var starWidth = $(this).attr('data-starwidth');
