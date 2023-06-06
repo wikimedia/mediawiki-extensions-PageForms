@@ -223,8 +223,8 @@
 				return setChanged( event );
 			} )
 			.on( 'change', 'input,select,textarea', setChanged )
-			.on( 'click', '.multipleTemplateAdder,.removeButton,.rearrangerImage', setChanged )
-			.on( 'mousedown', '.rearrangerImage',setChanged );
+			.on( 'click', '.multipleTemplateAdder', setChanged )
+			.on( 'mousedown', '.instanceRearranger,.removeButton', setChanged );
 
 			// Run only when VEForAll extension is present
 			$( document ).on( 'VEForAllLoaded', function() {
