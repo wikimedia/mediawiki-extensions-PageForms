@@ -458,9 +458,15 @@ class PFAutoeditAPI extends ApiBase {
 		if ( $this->tokenOk( $request ) ) {
 			$ctx = RequestContext::getMain();
 			$tempTitle = $ctx->getTitle();
-			$ctx->setTitle( $title );
+			// We add an @ before the setTitle() calls to silence
+			// the "Unexpected clearActionName after getActionName"
+			// PHP notice that MediaWiki outputs.
+			// @todo Make a real fix for this.
+			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@$ctx->setTitle( $title );
 			$status = $editor->internalAttemptSave( $resultDetails, $isBot );
-			$ctx->setTitle( $tempTitle );
+			// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+			@$ctx->setTitle( $tempTitle );
 		} else {
 			throw new MWException( $this->msg( 'session_fail_preview' )->parse() );
 		}
