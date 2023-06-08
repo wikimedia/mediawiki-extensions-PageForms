@@ -278,7 +278,7 @@
 	"pf_form_freetextlabel": "Freitext",
 	"pf_category_hasdefaultform": "Seiten in dieser Kategorie nutzen das Formular „$1“.",
 	"pf_category_desc": "Dies ist die Kategorie $1.",
-	"pf_blank_namespace": "Startseite",
+	"pf_blank_namespace": "Seiten",
 	"right-viewedittab": "Den Reiter „{{int:edit}}“ auf Seiten sehen, die bearbeitet werden können",
 	"right-editrestrictedfields": "Für die Bearbeitung beschränkte Formularfelder bearbeiten",
 	"right-createclass": "Erstellen neuer „Klassen“ von Seiten",
