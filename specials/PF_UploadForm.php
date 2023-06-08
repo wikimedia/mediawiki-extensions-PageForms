@@ -231,9 +231,6 @@ class PFUploadForm extends HTMLForm {
 				'id' => 'wpDestFile',
 				'label-message' => 'destfilename',
 				'size' => 60,
-				'default' => $this->mDestFile,
-				# @todo FIXME: Hack to work around poor handling of the 'default' option in HTMLForm
-				'nodata' => strval( $this->mDestFile ) !== '',
 			],
 			'UploadDescription' => [
 				'type' => 'textarea',
@@ -268,6 +265,13 @@ class PFUploadForm extends HTMLForm {
 				'default' => $this->mTextAfterSummary,
 				'raw' => true,
 			];
+		}
+
+		if ( strval( $this->mDestFile ) !== '' ) {
+			$descriptor['DestFile']['default'] = $this->mDestFile;
+			# @todo FIXME: Hack to work around poor handling of the 'default' option in HTMLForm
+			$descriptor['DestFile']['nodata'] = true;
+			$descriptor['DestFile']['cssclass'] = 'defaultFilename';
 		}
 
 		if ( $this->mForReUpload ) {
