@@ -504,7 +504,7 @@ class PFAutocompleteAPI extends ApiBase {
 		if ( empty( $values ) ) {
 			return $values;
 		}
-		usort( $values, static function ( $a, $b ) {
+		uasort( $values, static function ( $a, $b ) {
 			return strlen( $a ) - strlen( $b );
 		} );
 		return $values;
