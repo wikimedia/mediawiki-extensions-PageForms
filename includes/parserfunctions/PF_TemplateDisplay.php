@@ -240,6 +240,21 @@ class PFTemplateDisplay {
 		if ( $title == null || !$title->exists() ) {
 			return $value;
 		}
+
+		if ( $title->isRedirect() ) {
+			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+				// MW 1.36+
+				$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+			} else {
+				$wikiPage = new WikiPage( $title );
+			}
+
+			$title = $wikiPage->getRedirectTarget();
+			if ( !$title->exists() ) {
+				return $title->getText();
+			}
+		}
+
 		$file = MediaWikiServices::getInstance()->getRepoGroup()->getLocalRepo()->newFile( $title );
 		return Linker::makeThumbLinkObj(
 			$title,
