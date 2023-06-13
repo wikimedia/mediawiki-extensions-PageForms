@@ -33,6 +33,8 @@ class PFFormPrinter {
 	private $mPossibleInputsForCargoType;
 	private $mPossibleInputsForCargoTypeList;
 
+	private static $mParsedValues = [];
+
 	public function __construct() {
 		global $wgPageFormsDisableOutsideServices;
 		// Initialize variables.
@@ -1031,7 +1033,7 @@ END;
 					if ( count( $tag_components ) < 2 ) {
 						throw new MWException( 'Error: a template name must be specified in each "for template" tag.' );
 					}
-					$template_name = str_replace( '_', ' ', $parser->recursiveTagParse( $tag_components[1] ) );
+					$template_name = str_replace( '_', ' ', self::getParsedValue( $parser, $tag_components[1] ) );
 					$is_new_template = ( $template_name != $previous_template_name );
 					if ( $is_new_template ) {
 						$template = PFTemplate::newFromName( $template_name );
@@ -1224,7 +1226,7 @@ END;
 							$new_text = $freeTextInput->getHtmlText();
 							if ( $form_field->hasFieldArg( 'edittools' ) ) {
 								// borrowed from EditPage::showEditTools()
-								$edittools_text = $parser->recursiveTagParse( wfMessage( 'edittools', [ 'content' ] )->text() );
+								$edittools_text = self::getParsedValue( $parser, wfMessage( 'edittools', [ 'content' ] )->text() );
 
 								$new_text .= <<<END
 		<div class="mw-editTools">
@@ -1448,7 +1450,7 @@ END;
 						} elseif ( count( $sub_components ) == 2 ) {
 							switch ( $sub_components[0] ) {
 							case 'label':
-								$input_label = $parser->recursiveTagParse( $sub_components[1] );
+								$input_label = self::getParsedValue( $parser, $sub_components[1] );
 								break;
 							case 'class':
 								$attr['class'] = $sub_components[1];
@@ -1925,7 +1927,7 @@ END;
 		// If doing a replace, the page text is actually the modified
 		// original page.
 		if ( !$is_embedded ) {
-			$form_page_title = $parser->recursiveTagParse( str_replace( "{{!}}", "|", $form_page_title ) );
+			$form_page_title = self::getParsedValue( $parser, str_replace( "{{!}}", "|", $form_page_title ) );
 		} else {
 			$form_page_title = null;
 		}
@@ -2107,6 +2109,22 @@ END;
 			// 48 bits for "node"
 			mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 		);
+	}
+
+	/**
+	 * Cache parsed values as much as possible, to avoid computing-
+	 * intensive parsing.
+	 *
+	 * @param Parser $parser
+	 * @param string $value
+	 * @return string
+	 */
+	public static function getParsedValue( $parser, $value ) {
+		if ( !array_key_exists( $value, self::$mParsedValues ) ) {
+			self::$mParsedValues[$value] = $parser->recursiveTagParse( $value );
+		}
+
+		return self::$mParsedValues[$value];
 	}
 
 }

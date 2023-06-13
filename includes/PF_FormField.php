@@ -303,7 +303,7 @@ class PFFormField {
 						}
 						$option_div_pair = explode( '=>', $val, 2 );
 						if ( count( $option_div_pair ) > 1 ) {
-							$option = trim( $parser->recursiveTagParse( $option_div_pair[0] ) );
+							$option = PFFormPrinter::getParsedValue( $parser, trim( $option_div_pair[0] ) );
 							$div_id = $option_div_pair[1];
 							if ( array_key_exists( $div_id, $show_on_select ) ) {
 								$show_on_select[$div_id][] = $option;
@@ -317,7 +317,7 @@ class PFFormField {
 				} elseif ( $sub_components[0] == 'values' ) {
 					// Handle this one only after
 					// 'delimiter' has also been set.
-					$values = $parser->recursiveTagParse( $sub_components[1] );
+					$values = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from property' ) {
 					$propertyName = $sub_components[1];
 					$f->mPossibleValues = PFValuesUtils::getAllValuesForProperty( $propertyName );
@@ -328,7 +328,7 @@ class PFFormField {
 					$valuesSourceType = 'query';
 					$valuesSource = $sub_components[1];
 				} elseif ( $sub_components[0] == 'values from category' ) {
-					$valuesSource = $parser->recursiveTagParse( $sub_components[1] );
+					$valuesSource = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 					global $wgCapitalLinks;
 					if ( $wgCapitalLinks ) {
 						$valuesSource = ucfirst( $valuesSource );
@@ -336,22 +336,22 @@ class PFFormField {
 					$valuesSourceType = 'category';
 				} elseif ( $sub_components[0] == 'values from concept' ) {
 					$valuesSourceType = 'concept';
-					$valuesSource = $parser->recursiveTagParse( $sub_components[1] );
+					$valuesSource = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from namespace' ) {
 					$valuesSourceType = 'namespace';
-					$valuesSource = $parser->recursiveTagParse( $sub_components[1] );
+					$valuesSource = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values dependent on' ) {
 					global $wgPageFormsDependentFields;
 					$wgPageFormsDependentFields[] = [ $sub_components[1], $fullFieldName ];
 				} elseif ( $sub_components[0] == 'unique for category' ) {
 					$f->mFieldArgs['unique'] = true;
-					$f->mFieldArgs['unique_for_category'] = $parser->recursiveTagParse( $sub_components[1] );
+					$f->mFieldArgs['unique_for_category'] = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'unique for namespace' ) {
 					$f->mFieldArgs['unique'] = true;
-					$f->mFieldArgs['unique_for_namespace'] = $parser->recursiveTagParse( $sub_components[1] );
+					$f->mFieldArgs['unique_for_namespace'] = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'unique for concept' ) {
 					$f->mFieldArgs['unique'] = true;
-					$f->mFieldArgs['unique_for_concept'] = $parser->recursiveTagParse( $sub_components[1] );
+					$f->mFieldArgs['unique_for_concept'] = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'property' ) {
 					$semantic_property = $sub_components[1];
 				} elseif ( $sub_components[0] == 'cargo table' ) {
@@ -359,7 +359,7 @@ class PFFormField {
 				} elseif ( $sub_components[0] == 'cargo field' ) {
 					$cargo_field = $sub_components[1];
 				} elseif ( $sub_components[0] == 'cargo where' ) {
-					$cargo_where = $parser->recursiveTagParse( $sub_components[1] );
+					$cargo_where = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'default filename' ) {
 					global $wgTitle;
 					$page_name = $wgTitle->getText();
@@ -375,7 +375,7 @@ class PFFormField {
 					$default_filename = str_replace( '<page name>', $page_name, $sub_components[1] );
 					// Parse value, so default filename can
 					// include parser functions.
-					$default_filename = $parser->recursiveTagParse( $default_filename );
+					$default_filename = PFFormPrinter::getParsedValue( $parser, $default_filename );
 					$f->mFieldArgs['default filename'] = $default_filename;
 				} elseif ( $sub_components[0] == 'restricted' ) {
 					$effectiveGroups = MediaWikiServices::getInstance()->getUserGroupManager()->getUserEffectiveGroups( $user );
@@ -1026,7 +1026,7 @@ class PFFormField {
 		foreach ( $other_args as $argname => $argvalue ) {
 			if ( is_string( $argvalue ) ) {
 				$other_args[$argname] =
-					$parser->recursiveTagParse( $argvalue );
+					PFFormPrinter::getParsedValue( $parser, $argvalue );
 			}
 		}
 

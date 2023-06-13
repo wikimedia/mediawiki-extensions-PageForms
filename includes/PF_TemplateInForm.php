@@ -73,7 +73,7 @@ class PFTemplateInForm {
 		$parser = PFUtils::getParser();
 
 		$tif = new PFTemplateInForm();
-		$tif->mTemplateName = str_replace( '_', ' ', trim( $parser->recursiveTagParse( $tag_components[1] ) ) );
+		$tif->mTemplateName = str_replace( '_', ' ', trim( PFFormPrinter::getParsedValue( $parser, $tag_components[1] ) ) );
 
 		$tif->mAddButtonText = wfMessage( 'pf_formedit_addanother' )->text();
 
@@ -94,7 +94,7 @@ class PFTemplateInForm {
 			$sub_components = array_map( 'trim', explode( '=', $component, 2 ) );
 			if ( count( $sub_components ) == 2 ) {
 				if ( $sub_components[0] == 'label' ) {
-					$tif->mLabel = $parser->recursiveTagParse( $sub_components[1] );
+					$tif->mLabel = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'intro' ) {
 					$tif->mIntro = $sub_components[1];
 				} elseif ( $sub_components[0] == 'minimum instances' ) {
@@ -102,7 +102,7 @@ class PFTemplateInForm {
 				} elseif ( $sub_components[0] == 'maximum instances' ) {
 					$tif->mMaxAllowed = $sub_components[1];
 				} elseif ( $sub_components[0] == 'add button text' ) {
-					$tif->mAddButtonText = $parser->recursiveTagParse( $sub_components[1] );
+					$tif->mAddButtonText = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'embed in field' ) {
 					// Placeholder on form template level. Assume that the template form def
 					// will have a multiple+placeholder parameters, and get the placeholder value.
