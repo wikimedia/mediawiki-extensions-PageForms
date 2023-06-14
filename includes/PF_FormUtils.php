@@ -476,12 +476,13 @@ END;
 			}
 		}
 
-		if ( $form_id !== null ) {
+		if ( $form_def !== null ) {
+			// Do nothing.
+		} elseif ( $form_id !== null ) {
 			$form_title = Title::newFromID( $form_id );
 			$form_def = PFUtils::getPageText( $form_title );
-		} elseif ( $form_def == null ) {
-			// No id, no text -> nothing to do
-
+		} else {
+			// No text, no ID -> no form definition.
 			return '';
 		}
 
