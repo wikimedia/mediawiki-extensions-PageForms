@@ -18,7 +18,8 @@
 			"Valtlait",
 			"Veikk0.ma",
 			"Yupik",
-			"ZeiP"
+			"ZeiP",
+			"Valtlai"
 		]
 	},
 	"pageforms-desc": "Semanttisen tiedon syöttö- ja muokkauslomakkeet",
@@ -69,6 +70,7 @@
 	"pf_forminputs_maxlength": "Tekstin suurin sallittu pituus tässä kentässä",
 	"pf_forminputs_placeholder": "Ohjeteksti, joka näkyy kentässä, kunnes käyttäjä napsauttaa sitä",
 	"pf_forminputs_uploadable": "Lisää ”{{int:upload}}” -linkin tämän kentän viereen",
+	"pf_forminputs_change_file": "Vaihda tiedosto",
 	"pf_forminputs_defaultfilename": "Ladattujen tiedostojen oletusnimi",
 	"pf_forminputs_rows": "Syötteen rivimäärä",
 	"pf_forminputs_cols": "Syötteen sarakemäärä",
@@ -129,6 +131,7 @@
 	"pf_createclass_missingvalues": "Kaikkia pakollisia kenttiä ei ole täytetty.",
 	"pf_createclass_success": "Ominaisuudet, malline, lomake ja luokka luodaan.",
 	"pf_createclass_create": "Luo",
+	"pf_createclass_ishierarchy": "Hierarkia?",
 	"formstart": "Lomakeluonti",
 	"pf_formstart_badform": "Virhe: lomaketta ei löytynyt sivulta $1.",
 	"pf_formstart_badtitle": "Virhe: ”$1” on virheellinen nimi sivulle.",
@@ -210,6 +213,8 @@
 	"action-viewedittab": "nähdä \"{{int:edit}}\"-välilehti lomakkeella muokattavilla sivuilla",
 	"tooltip-ca-formedit": "Muokkaa tätä sivua lomakkeella",
 	"pf-autocomplete-input-too-short": "Syötä vähintään $1 merkki(ä).",
+	"pf-maps-enteraddress": "Kirjoita osoite tähän",
+	"pf-maps-lookupcoordinates": "Laske koordinaatit osoitteen avulla",
 	"pf-datepicker-close": "Sulje",
 	"pf-datepicker-prev": "Edellinen",
 	"pf-datepicker-next": "Seuraava",
