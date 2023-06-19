@@ -13,11 +13,6 @@ use MediaWiki\MediaWikiServices;
  */
 
 class PFPageSchemas extends PSExtensionHandler {
-	public static function registerClass() {
-		global $wgPageSchemasHandlerClasses;
-		$wgPageSchemasHandlerClasses[] = 'PFPageSchemas';
-		return true;
-	}
 
 	/**
 	 * Creates an object to hold form-wide information, based on an XML

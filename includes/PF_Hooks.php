@@ -159,6 +159,12 @@ class PFHooks {
 		$vars['wgAmericanDates'] = $wgAmericanDates;
 	}
 
+	public static function registerPageSchemasClass() {
+		global $wgPageSchemasHandlerClasses;
+		$wgPageSchemasHandlerClasses[] = 'PFPageSchemas';
+		return true;
+	}
+
 	public static function addToAdminLinks( &$admin_links_tree ) {
 		$data_structure_label = wfMessage( 'pf-adminlinks-datastructure' )->escaped();
 		$data_structure_section = $admin_links_tree->getSection( $data_structure_label );
