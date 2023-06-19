@@ -298,6 +298,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	protected function uploadWarning( $warnings ) {
 		$sessionKey = $this->mUpload->tryStashFile( $this->getUser() )->getStatusValue()->getValue()->getFileKey();
 
+		$linkRenderer = $this->getLinkRenderer();
 		$warningHtml = '<h2>' . $this->msg( 'uploadwarning' )->escaped() . "</h2>\n"
 			. '<ul class="warningbox">';
 		foreach ( $warnings as $warning => $args ) {
@@ -308,6 +309,31 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 				if ( $warning == 'exists' ) {
 					$msg = self::getExistsWarning( $args );
+				} elseif ( $warning == 'no-change' ) {
+					$file = $args;
+					$filename = $file->getTitle()->getPrefixedText();
+					$msg = "\t<li>" . $this->msg( 'fileexists-no-change', $filename )->parse() . "</li>\n";
+				} elseif ( $warning == 'duplicate-version' ) {
+					$file = $args[0];
+					$count = count( $args );
+					$filename = $file->getTitle()->getPrefixedText();
+					$message = $this->msg( 'fileexists-duplicate-version' )
+						->params( $filename )
+						->numParams( $count );
+					$msg = "\t<li>" . $message->parse() . "</li>\n";
+				} elseif ( $warning == 'was-deleted' ) {
+					# If the file existed before and was deleted, warn the user of this
+					$ltitle = SpecialPage::getTitleFor( 'Log' );
+					$llink = $linkRenderer->makeKnownLink(
+						$ltitle,
+						$this->msg( 'deletionlog' )->text(),
+						[],
+						[
+							'type' => 'delete',
+							'page' => Title::makeTitle( NS_FILE, $args )->getPrefixedText(),
+						]
+					);
+					$msg = "\t<li>" . $this->msg( 'filewasdeleted' )->rawParams( $llink )->parse() . "</li>\n";
 				} elseif ( $warning == 'duplicate' ) {
 					$msg = $this->getDupeWarning( $args );
 				} elseif ( $warning == 'duplicate-archive' ) {
