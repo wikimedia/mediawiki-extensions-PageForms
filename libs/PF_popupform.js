@@ -719,12 +719,6 @@ window.ext.popupform = ( function () {
 			});
 		}
 
-		// The handling for the file upload window is much simpler.
-		$content.find('#mw-upload-form').submit( function( event ) {
-			handleCloseFrame();
-		});
-
-
 		// find all links. Have to use inner jQuery so event.result below
 		// reflects the result of inner event handlers. We (hopefully) come last
 		// in the chain of event handlers as we only attach when the frame is

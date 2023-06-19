@@ -470,6 +470,12 @@ class PFUploadWindow extends UnlistedSpecialPage {
 			}
 			input.change();
 		}
+
+		// Close the upload window, now that everything is completed.
+		// A little bit of a @hack - instead of calling all of the
+		// window-closing code, we just "click" on the close button,
+		// which takes care of the rest.
+		parent.window.jQuery( '.popupform-close' ).click();
 	</script>
 
 END;
