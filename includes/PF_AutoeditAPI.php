@@ -606,9 +606,17 @@ class PFAutoeditAPI extends ApiBase {
 			case EditPage::AS_BLANK_ARTICLE:
 				// user tried to create a blank page
 				$this->logMessage( 'User tried to create a blank page', self::DEBUG );
+				try {
+					$contextTitle = $editor->getContextTitle();
+				} catch ( Exception $e ) {
+					// getContextTitle() throws an exception
+					// if there's no context title - this
+					// happens when using the one-stop process.
+					throw new RuntimeException( 'Error: Saving this form would result in a blank page.' );
+				}
 
-				$this->getOutput()->redirect( $editor->getContextTitle()->getFullURL() );
-				$this->getResult()->addValue( null, 'redirect', $editor->getContextTitle()->getFullURL() );
+				$this->getOutput()->redirect( $contextTitle->getFullURL() );
+				$this->getResult()->addValue( null, 'redirect', $contextTitle->getFullURL() );
 
 				return false;
 
