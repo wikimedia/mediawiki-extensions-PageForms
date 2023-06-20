@@ -404,37 +404,6 @@ class PFFormField {
 			}
 		}
 
-		$f->setPossibleValues( $valuesSourceType, $valuesSource, $values, $cargo_table, $cargo_field, $cargo_where );
-
-		$mappingType = PFMappingUtils::getMappingType( $f->mFieldArgs, $f->mUseDisplayTitle );
-		if ( $mappingType !== null && !empty( $f->mPossibleValues ) ) {
-			// If we're going to be mapping values, we need to have
-			// the exact page name - and if these values come from
-			// "values from namespace", the namespace prefix was
-			// not included, so we need to add it now.
-			if ( $valuesSourceType == 'namespace' && $valuesSource != '' && $valuesSource != 'Main' ) {
-				foreach ( $f->mPossibleValues as $index => &$value ) {
-					$value = $valuesSource . ':' . $value;
-				}
-				// Has to be set to false to not mess up the
-				// handling.
-				$f->mUseDisplayTitle = false;
-			}
-			$mappedValues = PFMappingUtils::getMappedValuesForInput( $f->mPossibleValues, $f->mFieldArgs );
-			$f->mPossibleValues = $mappedValues;
-		}
-
-		if ( $template_in_form->allowsMultiple() ) {
-			$f->mFieldArgs['part_of_multiple'] = true;
-		}
-		if ( count( $show_on_select ) > 0 ) {
-			$f->mFieldArgs['show on select'] = $show_on_select;
-		}
-
-		// Disable this field if either the whole form is disabled, or
-		// it's a restricted field and user doesn't have sysop privileges.
-		$f->mIsDisabled = ( $form_is_disabled || $f->mIsRestricted );
-
 		// Do some data storage specific to the Semantic MediaWiki and
 		// Cargo extensions.
 		if ( defined( 'SMW_VERSION' ) ) {
@@ -467,6 +436,37 @@ class PFFormField {
 				$wgPageFormsCargoFields[$fullFieldName] = $fullCargoField;
 			}
 		}
+
+		$f->setPossibleValues( $valuesSourceType, $valuesSource, $values, $cargo_table, $cargo_field, $cargo_where );
+
+		$mappingType = PFMappingUtils::getMappingType( $f->mFieldArgs, $f->mUseDisplayTitle );
+		if ( $mappingType !== null && !empty( $f->mPossibleValues ) ) {
+			// If we're going to be mapping values, we need to have
+			// the exact page name - and if these values come from
+			// "values from namespace", the namespace prefix was
+			// not included, so we need to add it now.
+			if ( $valuesSourceType == 'namespace' && $valuesSource != '' && $valuesSource != 'Main' ) {
+				foreach ( $f->mPossibleValues as $index => &$value ) {
+					$value = $valuesSource . ':' . $value;
+				}
+				// Has to be set to false to not mess up the
+				// handling.
+				$f->mUseDisplayTitle = false;
+			}
+			$mappedValues = PFMappingUtils::getMappedValuesForInput( $f->mPossibleValues, $f->mFieldArgs );
+			$f->mPossibleValues = $mappedValues;
+		}
+
+		if ( $template_in_form->allowsMultiple() ) {
+			$f->mFieldArgs['part_of_multiple'] = true;
+		}
+		if ( count( $show_on_select ) > 0 ) {
+			$f->mFieldArgs['show on select'] = $show_on_select;
+		}
+
+		// Disable this field if either the whole form is disabled, or
+		// it's a restricted field and user doesn't have sysop privileges.
+		$f->mIsDisabled = ( $form_is_disabled || $f->mIsRestricted );
 
 		if ( $template_name === null || $template_name === '' ) {
 			$f->mInputName = $field_name;
