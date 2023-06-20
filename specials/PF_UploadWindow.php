@@ -460,7 +460,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 
 		$basename = str_replace( '_', ' ', $basename );
 
-		$output = <<<END
+		$text = <<<END
 		<script type="text/javascript">
 		var input = parent.window.jQuery( parent.document.getElementById( "{$this->mInputID}" ) );
 		var classes = input.attr( "class" ).split( /\s+/ );
@@ -505,8 +505,7 @@ class PFUploadWindow extends UnlistedSpecialPage {
 	</script>
 
 END;
-		// $this->getOutput()->addHTML( $output );
-		print $output;
+		print $text;
 
 		// Avoid PHP 7.1 warning from passing $this by reference
 		$page = $this;
