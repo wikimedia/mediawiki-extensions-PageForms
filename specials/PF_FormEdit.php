@@ -24,9 +24,10 @@ class PFFormEdit extends UnlistedSpecialPage {
 	function execute( $query ) {
 		$this->setHeaders();
 		$this->getOutput()->enableOOUI();
+		$req = $this->getRequest();
 
-		$this->mForm = $this->getRequest()->getText( 'form' );
-		$this->mTarget = $this->getRequest()->getText( 'target' );
+		$this->mForm = $req->getText( 'form' );
+		$this->mTarget = $req->getText( 'target' );
 
 		// if query string did not contain these variables, try the URL
 		if ( !$this->mForm && !$this->mTarget ) {
@@ -39,7 +40,16 @@ class PFFormEdit extends UnlistedSpecialPage {
 		$this->mForm = trim( $this->mForm );
 		$this->mTarget = trim( $this->mTarget );
 
-		$alt_forms = $this->getRequest()->getArray( 'alt_form' );
+		// This enables a @hack where the $wgUploadMissingFileUrl
+		// setting can be used to point red links to files to a form
+		// (which otherwise can't be done).
+		if ( $this->mTarget == '' && $req->getCheck( 'wpDestFile' ) ) {
+			$destFile = $req->getText( 'wpDestFile' );
+			$targetTitle = Title::makeTitleSafe( NS_FILE, $destFile );
+			$this->mTarget = $targetTitle->getFullText();
+		}
+
+		$alt_forms = $req->getArray( 'alt_form' );
 
 		$this->printForm( $this->mForm, $this->mTarget, $alt_forms );
 	}
