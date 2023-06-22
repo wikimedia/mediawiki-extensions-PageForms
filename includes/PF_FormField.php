@@ -319,8 +319,8 @@ class PFFormField {
 					// 'delimiter' has also been set.
 					$values = PFFormPrinter::getParsedValue( $parser, $sub_components[1] );
 				} elseif ( $sub_components[0] == 'values from property' ) {
-					$propertyName = $sub_components[1];
-					$f->mPossibleValues = PFValuesUtils::getAllValuesForProperty( $propertyName );
+					$valuesSourceType = 'property';
+					$valuesSource = $sub_components[1];
 				} elseif ( $sub_components[0] == 'values from wikidata' ) {
 					$valuesSourceType = 'wikidata';
 					$valuesSource = urlencode( $sub_components[1] );
