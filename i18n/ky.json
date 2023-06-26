@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bosogo",
 			"Connexx"
 		]
 	},
+	"templates": "Калыптар",
+	"pf_createform_template": "Калып:",
 	"pf_editsource": "Булагын оңдоо"
 }

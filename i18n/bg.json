@@ -12,7 +12,6 @@
 	"pageforms-desc": "Формуляри за създаване и редактиране на уикистраници",
 	"specialpages-group-pf_group": "Семантични формуляри",
 	"apihelp-pfautocomplete-param-limit": "Ограничения на броя върнати резултати",
-	"apihelp-pfautoedit-description": "Създаване или промяна/редактиране на страница, използвайки формуляр определен от разширението Page Forms",
 	"apihelp-pfautoedit-summary": "Създаване или промяна/редактиране на страница, използвайки формуляр определен от разширението Page Forms",
 	"createproperty": "Създаване на свойство",
 	"pf-createproperty-with-name": "Създаване на свойство: $1",

@@ -13,7 +13,6 @@
 	},
 	"pageforms-desc": "উইকি পৃষ্ঠা তৈরি এবং সম্পাদনা করার জন্য ফর্ম",
 	"specialpages-group-pf_group": "পৃষ্ঠা ফর্ম",
-	"apihelp-pfautocomplete-description": "পৃষ্ঠা ফর্ম এক্সটেনশন দ্বারা ব্যবহৃত স্বয়ংসম্পূর্ণতা।",
 	"apihelp-pfautocomplete-summary": "পৃষ্ঠা ফর্ম এক্সটেনশন দ্বারা ব্যবহৃত স্বয়ংসম্পূর্ণতা।",
 	"apihelp-pfautocomplete-param-limit": "ফিরে আসা ফলাফলের সংখ্যার একটি সীমা",
 	"apihelp-pfautocomplete-param-substr": "স্বয়ংসম্পূর্ণ করার জন্য সাবস্ট্রিং",

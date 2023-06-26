@@ -18,7 +18,6 @@
 	},
 	"pageforms-desc": "Moduli per creare e modificare pagine wiki",
 	"specialpages-group-pf_group": "Moduli semantici",
-	"apihelp-pfautoedit-description": "Crea o modifica una pagina utilizzando un modulo definito dall'estensione Page Forms.",
 	"apihelp-pfautoedit-summary": "Crea o modifica una pagina usando un modulo definito dall'estensione Page Forms.",
 	"apihelp-pfautoedit-param-form": "Il modulo Page Forms da utilizzare",
 	"apihelp-pfautoedit-param-target": "Il nome della pagina da creare o modificare",

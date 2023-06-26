@@ -23,7 +23,6 @@
 	},
 	"pageforms-desc": "Formularze do tworzenia i edycji stron wiki",
 	"specialpages-group-pf_group": "Formularze Stron",
-	"apihelp-pfautocomplete-description": "Autouzupełnianie używane przez rozszerzenie Formularze Stron.",
 	"apihelp-pfautocomplete-summary": "Autouzupełnianie używane przez rozszerzenie Formularze Stron.",
 	"apihelp-pfautocomplete-param-limit": "Ograniczenie liczby zwracanych wyników",
 	"apihelp-pfautocomplete-param-property": "Właściwość Semantycznej MediaWiki, której wartości będą automatycznie uzupełniane",
