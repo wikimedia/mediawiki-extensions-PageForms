@@ -33,7 +33,7 @@ if ( typeof( window.ext ) === "undefined" ) {
 	window.ext = {};
 }
 
-window.ext.popupform = ( function () {
+window.ext.popupform = ( function() {
 	var $wrapper;
 	var $background;
 	var container;
@@ -523,7 +523,7 @@ window.ext.popupform = ( function () {
 		if(document.defaultView && document.defaultView.getComputedStyle){
 			strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
 		} else if(oElm.currentStyle){
-			strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
+			strCssRule = strCssRule.replace(/\-(\w)/g, function(strMatch, p1) {
 				return p1.toUpperCase();
 			});
 			strValue = oElm.currentStyle[strCssRule];
@@ -692,7 +692,7 @@ window.ext.popupform = ( function () {
 
 		if (innerJ) {
 			// FIXME: Why did I put this in?
-			innerwdw.jQuery( innerwdw[0] ).on('unload', function (event) {
+			innerwdw.jQuery( innerwdw[0] ).on('unload', function(event) {
 				return false;
 			});
 
@@ -745,7 +745,7 @@ window.ext.popupform = ( function () {
 
 		// finally show the frame, but only if it is not already visible
 		if ( ! containerAlreadyVisible ) {
-				fadeOut ( $waitIndicator, function () {
+				fadeOut ( $waitIndicator, function() {
 				fadeTo( container, 400, 1 );
 			} );
 		}

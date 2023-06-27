@@ -6,7 +6,7 @@
 
 /*global confirm */
 
-( function ( $, mw ) {
+( function( $, mw ) {
 
 	'use strict';
 	function sendData( $jtrigger ){
@@ -35,7 +35,7 @@
 			url:      mw.util.wikiScript( 'api' ), // URL to which the request is sent
 			data:     data, // data to be sent to the server
 			dataType: 'json', // type of data expected back from the server
-			success:  function ( result ){
+			success:  function( result ){
 				$jresult.empty().append( result.responseText );
 
 				if ( result.status === 200 ) {
@@ -51,7 +51,7 @@
 					$jtrigger.removeClass( 'autoedit-trigger-wait' ).addClass( 'autoedit-trigger-error' );
 				}
 			}, // function to be called if the request succeeds
-			error:  function ( jqXHR, textStatus, errorThrown ) {
+			error:  function( jqXHR, textStatus, errorThrown ) {
 				var result = jQuery.parseJSON(jqXHR.responseText);
 				var text = result.responseText;
 
@@ -92,7 +92,7 @@
 		}
 	};
 
-	jQuery( document ).ready( function ( $ ) {
+	jQuery( document ).ready( function( $ ) {
 		$( '.autoedit-trigger' ).click( autoEditHandler );
 	} );
 

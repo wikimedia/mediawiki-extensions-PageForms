@@ -5,7 +5,7 @@
  */
 /* global moment */
 /* eslint-disable no-jquery/no-sizzle */
-( function ( $, mw, pf ) {
+( function( $, mw, pf ) {
 	'use strict';
 
 	$( '.pfFullCalendarJS' ).each( function() {

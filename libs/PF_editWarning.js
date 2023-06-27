@@ -7,7 +7,7 @@
  *
  * @author Yaron Koren
  */
-( function () {
+( function() {
 	'use strict';
 
 	var changesWereMade = false;
@@ -17,7 +17,7 @@
 	});
 
 
-	$( function () {
+	$( function() {
 		var allowCloseWindow, origText, newText, origValues = {},
 			$allInputs = $( 'form#pfForm textarea, form#pfForm input[type=text], form#pfForm input:not([type]), form#pfForm select, #wpSummary' );
 
@@ -27,7 +27,7 @@
 		}
 
 		// Save the original value of the inputs.
-		$allInputs.each( function ( index, element ) {
+		$allInputs.each( function( index, element ) {
 			var $element = $( element );
 			if ( $element.hasClass( 'pfComboBox' ) ) {
 				// data() can't be used for combobox inputs, probably because they use OOUI.
@@ -38,7 +38,7 @@
 		});
 
 		allowCloseWindow = mw.confirmCloseWindow( {
-			test: function () {
+			test: function() {
 				// Don't show a warning if the form is being
 				// submitted.
 				if ( mw.config.get( 'wgAction' ) === 'submit' ) {
@@ -80,7 +80,7 @@
 		} );
 
 		// Add form submission handler
-		$( '#pfForm' ).on( 'submit', function () {
+		$( '#pfForm' ).on( 'submit', function() {
 			allowCloseWindow.release();
 		} );
 	} );

@@ -1,4 +1,4 @@
-( function ( $, mw ) {
+( function( $, mw ) {
 
 function disableFormAndCategoryInputs() {
 	if ($('#template_multiple').attr('aria-checked') == 'true') {
@@ -24,10 +24,10 @@ var toggleSwitch = new OO.ui.ToggleSwitchWidget( {
 } );
 $( '#template_multiple_p' ).prepend( toggleSwitch.$element );
 $( '#template_mutliple' ).attr( 'name','template_multiple' );
-$( ".disableFormAndCategoryInputs" ).click( function () {
+$( ".disableFormAndCategoryInputs" ).click( function() {
 	disableFormAndCategoryInputs();
 } );
-$( '#createClassForm' ).submit( function () {
+$( '#createClassForm' ).submit( function() {
 
 	var num_errors = 0;
 
@@ -84,7 +84,7 @@ $( '#createClassForm' ).submit( function () {
 	return (num_errors === 0);
 } );
 
-$.fn.validateField = function () {
+$.fn.validateField = function() {
 	var isEmpty;
 	var target = $( this ).val();
 

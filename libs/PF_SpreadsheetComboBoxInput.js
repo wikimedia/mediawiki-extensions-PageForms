@@ -48,7 +48,7 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 			data.title = edgValues[ wgPageFormsEDSettings[ name ].title ];
 			if ( data.title !== undefined && data.title !== null ) {
 				var i = 0;
-				data.title.forEach( function () {
+				data.title.forEach( function() {
 					var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 					if ( wgPageFormsAutocompleteOnAllChars ) {
 						var valueFilter = self.getConditionForAutocompleteOnAllChars( data.title[i], curValue.toLowerCase() )
@@ -105,7 +105,7 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
 		$.ajax( {
 			url: my_server,
 			dataType: 'json',
-			success: function ( data ) {
+			success: function( data ) {
 				if ( data.pfautocomplete !== undefined ) {
 					data = data.pfautocomplete;
 					if ( data.length == 0 ) {
@@ -130,7 +130,7 @@ pf.SpreadsheetComboBoxInput.prototype.setValues = function() {
  * @param {string} suggestion
  * @return HtmlSnippet
  */
-pf.SpreadsheetComboBoxInput.prototype.highlightText = function ( suggestion ) {
+pf.SpreadsheetComboBoxInput.prototype.highlightText = function( suggestion ) {
 	var searchTerm = this.getValue();
 	if ( searchTerm[0] == ' ' ) {
 		searchTerm = searchTerm.slice(1);

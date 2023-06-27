@@ -12,7 +12,7 @@
  */
 /*global wgPageFormsShowOnSelect, wgPageFormsFieldProperties, wgPageFormsCargoFields, wgPageFormsDependentFields, validateAll, alert, mwTinyMCEInit, pf, Sortable*/
 
-( function ( $, mw ) {
+( function( $, mw ) {
 
 /*
  * Functions to register/unregister methods for the initialization and
@@ -99,7 +99,7 @@ $.fn.PageForms_registerInputInit = function( initFunction, param, noexecute ) {
 		// ensure initFunction is only executed after doc structure is complete
 		$(function() {
 			if ( initFunction !== undefined ) {
-				initFunction ( $input.attr("id"), param );
+				initFunction( $input.attr("id"), param );
 			}
 		});
 	}
@@ -914,7 +914,7 @@ function validateStartEndDateTimeField( startInput, endInput ) {
 
 }
 
-window.validateAll = function () {
+window.validateAll = function() {
 
 	// Hook that fires on form submission, before the validation.
 	mw.hook('pf.formValidationBefore').fire();
@@ -1880,7 +1880,7 @@ $(document).ready( function() {
 			var $list = $(this);
 			var sortable = Sortable.create($list[0], {
 				handle: '.instanceRearranger',
-				onStart: function (/**Event*/evt) {
+				onStart: function(/**Event*/evt) {
 					$list.possiblyMinimizeAllOpenInstances();
 				}
 			});

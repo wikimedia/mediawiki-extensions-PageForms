@@ -6,7 +6,7 @@
  * @author Yaron Koren
  */
 
-( function ( $, mw ) {
+( function( $, mw ) {
 
 	$.fn.displayPFFormInput = function() {
 		var formLayouts = [];

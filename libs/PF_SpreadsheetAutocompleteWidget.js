@@ -36,7 +36,7 @@ OO.mixinClass( pf.spreadsheetAutocompleteWidget, OO.ui.mixin.LookupElement );
 /**
  * @inheritdoc
  */
-pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
+pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function() {
 	var
 		value = this.getValue(),
 		deferred = $.Deferred(),
@@ -88,14 +88,14 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 /**
  * @inheritdoc
  */
- pf.spreadsheetAutocompleteWidget.prototype.getLookupCacheDataFromResponse = function ( response ) {
+ pf.spreadsheetAutocompleteWidget.prototype.getLookupCacheDataFromResponse = function( response ) {
 	return response || [];
 };
 
 /**
  * @inheritdoc
  */
- pf.spreadsheetAutocompleteWidget.prototype.getLookupMenuOptionsFromData = function ( data ) {
+ pf.spreadsheetAutocompleteWidget.prototype.getLookupMenuOptionsFromData = function( data ) {
 	var item,
 		items = [];
 
@@ -129,7 +129,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
 			data.title = edgValues[wgPageFormsEDSettings[name].title];
 			if (data.title !== undefined && data.title !== null) {
 				let i = 0;
-				data.title.forEach(function () {
+				data.title.forEach(function() {
 					var wgPageFormsAutocompleteOnAllChars = mw.config.get( 'wgPageFormsAutocompleteOnAllChars' );
 					if ( wgPageFormsAutocompleteOnAllChars ) {
 						valueFilter = data.title[i].toLowerCase().includes(self.getValue().toLowerCase());
@@ -163,7 +163,7 @@ pf.spreadsheetAutocompleteWidget.prototype.getLookupRequest = function () {
  * @return {Mixed} HtmlSnipppet
  *
  */
-pf.spreadsheetAutocompleteWidget.prototype.highlightText = function ( suggestion ) {
+pf.spreadsheetAutocompleteWidget.prototype.highlightText = function( suggestion ) {
 	var searchTerm = this.getValue();
 	if ( searchTerm[0] == ' ' ) {
 		searchTerm = searchTerm.slice(1);

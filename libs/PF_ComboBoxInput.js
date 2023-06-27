@@ -14,14 +14,14 @@
  * @author Yash Varshney
  */
 
-(function ($, mw, pf) {
+(function($, mw, pf) {
 	var apiRequest = null;
-	pf.ComboBoxInput = function (config) {
+	pf.ComboBoxInput = function(config) {
 		this.config = config || {}
 		OO.ui.ComboBoxInputWidget.call(this, config);
 	};
 	OO.inheritClass(pf.ComboBoxInput, OO.ui.ComboBoxInputWidget);
-	pf.ComboBoxInput.prototype.apply = function (element) {
+	pf.ComboBoxInput.prototype.apply = function(element) {
 		// Apply ComboBoxInput to the element
 		this.setInputAttribute('name', element.attr('name'));
 		this.setInputAttribute('origname', element.attr('origname'));
@@ -82,7 +82,7 @@
 	 *
 	 * @param showAllValues
 	 */
-	pf.ComboBoxInput.prototype.setValues = function ( showAllValues = true ) {
+	pf.ComboBoxInput.prototype.setValues = function( showAllValues = true ) {
 		var input_id = "#" + this.getInputId(),
 			values = [],
 			dep_on = this.dependentOn(),
@@ -150,7 +150,7 @@
 					}
 					$( '#loading-' + input_id.replace( '#', '' ) ).show();
 				},
-				success: function (Data) {
+				success: function(Data) {
 					$( '#loading-' + input_id.replace( '#', '' ) ).hide();
 					if (Data.pfautocomplete !== undefined) {
 						Data = Data.pfautocomplete;
@@ -191,7 +191,7 @@
 						data.title = edgValues[wgPageFormsEDSettings[name].title];
 						if (data.title !== undefined && data.title !== null) {
 							i = 0;
-							data.title.forEach(function () {
+							data.title.forEach(function() {
 								if (data.title[i] == curValue ){
 									self.itemFound = true;
 								}
@@ -271,14 +271,14 @@
 						url: my_server,
 						dataType: 'json',
 						async: false,
-						success: function (response) {
+						success: function(response) {
 							if ( response.error !== undefined || response.pfautocomplete.length == 0 ) {
 								values.push({
 									data:self.getValue(), label: mw.message('pf-autocomplete-no-matches').text(), disabled: true
 								});
 								return values;
 							}
-							response.pfautocomplete.forEach(function (item) {
+							response.pfautocomplete.forEach(function(item) {
 								curValue = self.getValue();
 								if ( item.displaytitle == curValue || item.title == curValue ) {
 									self.itemFound = true;
@@ -341,7 +341,7 @@
 	 * @return {string}
 	 *
 	 */
-	pf.ComboBoxInput.prototype.nameAttr = function (element) {
+	pf.ComboBoxInput.prototype.nameAttr = function(element) {
 		return this.partOfMultiple(element) ? "origname" : "name";
 	};
 
@@ -353,7 +353,7 @@
 	 * @return {boolean}
 	 *
 	 */
-	pf.ComboBoxInput.prototype.partOfMultiple = function (element) {
+	pf.ComboBoxInput.prototype.partOfMultiple = function(element) {
 		return element.attr("origname") !== undefined ? true : false;
 	};
 
@@ -364,7 +364,7 @@
 	 * @return {string}
 	 *
 	 */
-	pf.ComboBoxInput.prototype.dependentOn = function () {
+	pf.ComboBoxInput.prototype.dependentOn = function() {
 		var input_id = "#" + this.getInputId();
 		var name_attr = this.nameAttr($(input_id));
 		var name = $(input_id).attr(name_attr);
@@ -388,7 +388,7 @@
 	 * @return {Object} dep_field_opts
 	 *
 	 */
-	pf.ComboBoxInput.prototype.getDependentFieldOpts = function (dep_on) {
+	pf.ComboBoxInput.prototype.getDependentFieldOpts = function(dep_on) {
 		var input_id = "#" + this.getInputId();
 		var dep_field_opts = {};
 		var $baseElement;
@@ -418,7 +418,7 @@
 	 * @return {Array} dependent_on_me (associative array)
 	 *
 	 */
-	pf.ComboBoxInput.prototype.dependentOnMe = function () {
+	pf.ComboBoxInput.prototype.dependentOnMe = function() {
 		var input_id = "#" + this.getInputId();
 		var name_attr = this.nameAttr($(input_id));
 		var name = $(input_id).attr(name_attr);
@@ -434,7 +434,7 @@
 		return dependent_on_me;
 	};
 
-	pf.ComboBoxInput.prototype.highlightText = function (suggestion) {
+	pf.ComboBoxInput.prototype.highlightText = function(suggestion) {
 		var searchTerm = this.getValue();
 		var searchRegexp = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" +
 			searchTerm.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") +
@@ -465,7 +465,7 @@
 		return string.toLowerCase().includes(curValue.toLowerCase())
 	}
 
-	pf.ComboBoxInput.prototype.setInputAttribute = function (attr, value) {
+	pf.ComboBoxInput.prototype.setInputAttribute = function(attr, value) {
 		this.$input.attr(attr, value);
 	};
 }(jQuery, mediaWiki, pageforms));

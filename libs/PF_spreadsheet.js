@@ -130,7 +130,7 @@ var dataValues = [];
 	}
 
 	jexcel.prototype.saveChanges = function( spreadsheetID, templateName, pageName, newPageName, formName, rowNum, rowValues, columns, editMultiplePages ) {
-		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function () {
+		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function() {
 			var columnNum = $(this).attr("data-x");
 			var curColumn = columns[columnNum]['title'];
 			var curValue = rowValues[curColumn];
@@ -182,7 +182,7 @@ var dataValues = [];
 	}
 
 	jexcel.prototype.cancelChanges = function( spreadsheetID, rowValues, rowNum, columnNames ) {
-		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function () {
+		$("div#" + spreadsheetID + " table.jexcel td[data-y = " + rowNum + "]").not(".jexcel_row").each( function() {
 			var columnNum = $(this).attr("data-x");
 			var curColumn = columnNames[columnNum];
 			if ( rowValues[curColumn] !== undefined ) {
@@ -192,7 +192,7 @@ var dataValues = [];
 			}
 		} );
 
-		$("div#" + spreadsheetID + " td[data-y = " + rowNum + "] .save-changes").each( function () {
+		$("div#" + spreadsheetID + " td[data-y = " + rowNum + "] .save-changes").each( function() {
 			$(this).parent().hide();
 			$(this).parent().siblings('.mit-row-icons').show();
 		} );
@@ -240,7 +240,7 @@ var dataValues = [];
 		dataValues[spreadsheetID].splice(rowNum, 1);
 	}
 
-	jexcel.prototype.getAutocompleteAttributes = function ( cell ) {
+	jexcel.prototype.getAutocompleteAttributes = function( cell ) {
 		var autocompletedatatype = jQuery(cell).attr('data-autocomplete-data-type');
 		var autocompletesettings = jQuery(cell).attr('data-autocomplete-settings');
 		if ( autocompletedatatype == undefined || autocompletesettings == undefined ) {
@@ -261,7 +261,7 @@ var dataValues = [];
 
 	// If a field is dependent on some other field in the form
 	// then it returns its name.
-	jexcel.prototype.dependenton = function (origname) {
+	jexcel.prototype.dependenton = function(origname) {
 		var wgPageFormsDependentFields = mw.config.get('wgPageFormsDependentFields');
 			for (var i = 0; i < wgPageFormsDependentFields.length; i++) {
 				var dependentFieldPair = wgPageFormsDependentFields[i];
@@ -330,7 +330,7 @@ var dataValues = [];
 		};
 	}
 
-	jexcel.prototype.getValueToBeSavedAfterClosingEditor = function ( cell, pfSpreadsheetAutocomplete, ooui_input_val ) {
+	jexcel.prototype.getValueToBeSavedAfterClosingEditor = function( cell, pfSpreadsheetAutocomplete, ooui_input_val ) {
 		if (pfSpreadsheetAutocomplete) {
 			// setting the value to be saved after closing the editor
 			return ooui_input_val;
@@ -339,7 +339,7 @@ var dataValues = [];
 		}
 	}
 
-	jexcel.prototype.setAutocompleteAttributesOfColumns = function ( cell, gridParams, templateName, fieldNum ) {
+	jexcel.prototype.setAutocompleteAttributesOfColumns = function( cell, gridParams, templateName, fieldNum ) {
 		$(cell).attr( 'name', templateName + '[' + $(cell).attr('title') + ']' );
 		if ( gridParams[templateName][fieldNum]['autocompletedatatype'] == undefined ) {
 			$(cell).attr( 'data-autocomplete-data-type', '' );
@@ -363,7 +363,7 @@ var dataValues = [];
 
 })( jexcel, mediaWiki );
 
-( function ( $, mw, pf ) {
+( function( $, mw, pf ) {
 	var baseUrl = mw.config.get( 'wgScriptPath' ),
 		gridParams = mw.config.get( 'wgPageFormsGridParams' ),
 		gridValues = mw.config.get( 'wgPageFormsGridValues' );
@@ -606,7 +606,7 @@ var dataValues = [];
 
 				// Update either the "save" or the "add" icon,
 				// depending on which one exists for this row.
-				$( "div#" + spreadsheetID + " td[data-y = " + y + "] .save-changes" ).each( function () {
+				$( "div#" + spreadsheetID + " td[data-y = " + y + "] .save-changes" ).each( function() {
 					if ( modifiedDataValues[spreadsheetID] === undefined ) {
 						modifiedDataValues[spreadsheetID] = {};
 					}
@@ -640,7 +640,7 @@ var dataValues = [];
 					$(this).parent().show();
 					$(this).parent().siblings('.mit-row-icons').hide();
 				});
-				$("div#" + spreadsheetID + " td[data-y = " + y + "] .save-new-row").each(function () {
+				$("div#" + spreadsheetID + " td[data-y = " + y + "] .save-new-row").each(function() {
 					dataValues[spreadsheetID][y][columnName] = value;
 					// @HACK - see above
 					$(this).off();
@@ -659,7 +659,7 @@ var dataValues = [];
 						$(this).parent().hide();
 					} );
 				});
-				$( "div#" + spreadsheetID + " td[data-y = " + y + "] .cancel-changes" ).each( function () {
+				$( "div#" + spreadsheetID + " td[data-y = " + y + "] .cancel-changes" ).each( function() {
 					// @HACK - see above
 					$(this).off();
 					$(this).click( function( event ) {
@@ -881,7 +881,7 @@ var dataValues = [];
 
 				$(table).append(addRowButton.$element);
 
-				$('div#' + spreadsheetID + ' span.add-row').click( function ( event ) {
+				$('div#' + spreadsheetID + ' span.add-row').click( function( event ) {
 					var curSpreadsheet = mw.spreadsheets[spreadsheetID];
 					event.preventDefault();
 					if ( curSpreadsheet.getData().length > 0 ) {
@@ -892,14 +892,14 @@ var dataValues = [];
 						rowAdded2($curSpreadsheetDiv, spreadsheetID);
 					}
 				} );
-				$('div#' + spreadsheetID + ' a.raise-row').click( function ( event ) {
+				$('div#' + spreadsheetID + ' a.raise-row').click( function( event ) {
 					var y = $(this).parents('td').attr("data-y");
 					event.preventDefault();
 					if ( y > 0 ) {
 						mw.spreadsheets[spreadsheetID].moveRow( y, y - 1 );
 					}
 				} );
-				$('div#' + spreadsheetID + ' a.lower-row').click( function ( event ) {
+				$('div#' + spreadsheetID + ' a.lower-row').click( function( event ) {
 					var curSpreadsheet = mw.spreadsheets[spreadsheetID];
 					var y = parseInt( $(this).parents('td').attr("data-y") );
 					event.preventDefault();
@@ -907,7 +907,7 @@ var dataValues = [];
 						mw.spreadsheets[spreadsheetID].moveRow( y, y + 1 );
 					}
 				} );
-				$('div#' + spreadsheetID + ' a.delete-row').click( function ( event ) {
+				$('div#' + spreadsheetID + ' a.delete-row').click( function( event ) {
 					var y = $(this).parents('td').attr("data-y");
 					event.preventDefault();
 					jexcel.prototype.deleteRow( spreadsheetID, y );

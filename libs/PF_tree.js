@@ -9,16 +9,16 @@
  * @author Amr El-Absy
  */
 
- ( function ($, mw, pf) {
+ ( function($, mw, pf) {
 
-	pf.TreeInput = function (elem) {
+	pf.TreeInput = function(elem) {
 		this.element = elem;
 		this.id = $(this.element).attr('id');
 	};
 
 	var TreeInput_proto = new pf.TreeInput();
 
-	TreeInput_proto.setOptions = function () {
+	TreeInput_proto.setOptions = function() {
 		var data = $(this.element).attr('data');
 		this.data = JSON.parse(data);
 		var params = $(this.element).attr('params');
@@ -67,7 +67,7 @@
 		$input.attr( 'value', data_string );
 	};
 
-	TreeInput_proto.setCurValue = function () {
+	TreeInput_proto.setCurValue = function() {
 		if ( this.cur_value !== null && this.cur_value !== undefined && this.cur_value !== "" ) {
 			var $input = $( this.element ).next( 'input.PFTree_data' );
 
@@ -81,16 +81,16 @@
 } (jQuery, mediaWiki, pf) );
 
 $.fn.extend({
-	applyJSTree: function () {
+	applyJSTree: function() {
 		var tree = new pf.TreeInput(this);
 		var options = tree.setOptions();
 
 		$(this).jstree(options);
 
-		$(this).bind('select_node.jstree', function (evt, data) {
+		$(this).bind('select_node.jstree', function(evt, data) {
 			tree.check(data.node.text);
 		});
-		$(this).bind('deselect_node.jstree', function (evt, data) {
+		$(this).bind('deselect_node.jstree', function(evt, data) {
 			tree.uncheck(data.node.text);
 		});
 

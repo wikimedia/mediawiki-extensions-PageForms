@@ -6,7 +6,7 @@
 
 /*global validateAll */
 
-( function ( $, mw ) {
+( function( $, mw ) {
 
 	'use strict';
 
@@ -202,7 +202,7 @@
 			$(visualEditors).each( function( i, ve ) {
 				savingQueue.push( ve.target.updateContent() );
 			});
-			$.when.apply( $, savingQueue ).then( function () {
+			$.when.apply( $, savingQueue ).then( function() {
 				callback();
 			});
 		}
@@ -215,7 +215,7 @@
 			$sacButtons.click( handleSaveAndContinue );
 
 			$form
-			.on( 'keyup', 'input,select,textarea', function ( event ) {
+			.on( 'keyup', 'input,select,textarea', function( event ) {
 				if ( event.which < 32 ){
 					return true;
 				}
@@ -235,11 +235,11 @@
 					var canSubmit = false;
 
 					if ( $formButtons.length > 0 ) {
-						$formButtons.each( function ( i, button ) {
-							$( button ).on( 'click', function ( event ) {
+						$formButtons.each( function( i, button ) {
+							$( button ).on( 'click', function( event ) {
 								if ( !canSubmit ) {
 									event.preventDefault();
-									mw.pageFormsActivateVEFields( function () {
+									mw.pageFormsActivateVEFields( function() {
 										// canSubmit is set regardless
 										// of whether this passes validation,
 										// because it indicates only whether

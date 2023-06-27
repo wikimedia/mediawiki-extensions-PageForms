@@ -4,7 +4,7 @@ if ( window.ext === null || typeof( window.ext ) === "undefined" ) {
 	window.ext = {};
 }
 
-( function ( $, mw ) {
+( function( $, mw ) {
 
 window.ext.wikieditor = {
 	// initialize the wikieditor on the specified element
@@ -24,7 +24,7 @@ window.ext.wikieditor = {
 				// themselves, with the following:
 				// https://github.com/Nikerabbit/mediawiki-extensions-WikiEditor/commit/9a1188d0850418d8ae64bd06b7f39d9a8cbf127f
 				if ( typeof( mw.addWikiEditor ) == 'function' ) {
-					mw.loader.using( [ 'ext.wikiEditor' ], function () {
+					mw.loader.using( [ 'ext.wikiEditor' ], function() {
 						mw.addWikiEditor( $input );
 					} );
 					return;

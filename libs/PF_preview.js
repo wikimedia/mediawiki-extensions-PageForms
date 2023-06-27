@@ -6,7 +6,7 @@
 
 /*global validateAll */
 
-( function ( $, mw ) {
+( function( $, mw ) {
 
 	'use strict';
 
@@ -53,7 +53,7 @@
 
 		// and attach event handler to adjust frame size every time the window
 		// size changes
-		$( window ).resize( function () {
+		$( window ).resize( function() {
 			$iframe.height( $iframedoc.height() );
 		} );
 
@@ -181,7 +181,7 @@
 	 *
 	 *  @return {Mixed}
 	 */
-	$.fn.pfAjaxPreview = function () {
+	$.fn.pfAjaxPreview = function() {
 
 		$form = this.closest( 'form' );
 		$previewpane = $( '#wikiPreview' );
@@ -200,7 +200,7 @@
 		return this;
 	};
 
-	$( document ).ready( function () {
+	$( document ).ready( function() {
 		if ( mw.config.get( 'wgAction' ) === 'formedit' ||
 			mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 			$( '#wpPreview' ).pfAjaxPreview();
