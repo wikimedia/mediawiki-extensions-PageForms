@@ -74,10 +74,12 @@
 
 		this.bindEvents();
 
-		var $loadingIcon = $('<img src = "' + mw.config.get('wgPageFormsScriptPath') + '/skins/loading.gif' +
-			'" id="loading-' + this.getInputId() + '">');
+		var $loadingIcon = $('<img>').attr( {
+			src: mw.config.get( 'wgPageFormsScriptPath' ) + '/skins/loading.gif',
+			id: 'loading-' + this.getInputId()
+		} );
 		$loadingIcon.hide();
-		$('#' + element.attr('id')).parent().append($loadingIcon);
+		$(document.getElementById(this.getInputId())).parent().append( $loadingIcon );
 
 	};
 
