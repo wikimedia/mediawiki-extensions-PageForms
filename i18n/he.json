@@ -210,7 +210,7 @@
 	"pf-wizard-continue": "המשך",
 	"pf-autoedit-invalidnamespace": "שגיאה: אי־אפשר לקרוא ל־#autoedit בדפים במרחב השם \"$1\" בוויקי הזה.",
 	"pf_autoedit_anoneditwarning": "אזהרה: לא נכנסתם לחשבון. כתובת ה־IP שלכם תירשם בהיסטוריית הדף הזה.",
-	"pf_autoedit_success": "[[$1]] שוּנה באמצעות הטופס $2.",
+	"pf_autoedit_success": "[[$1]] שונה באמצעות הטופס $2.",
 	"pf_autoedit_fail": "שינוי [[$1]] נכשל.",
 	"pf_autoedit_notargetspecified": "לא צוין דף יעד.",
 	"pf_autoedit_invalidtargetspecified": "דף היעד שצוין '''$1''' אינו חוקי.",
