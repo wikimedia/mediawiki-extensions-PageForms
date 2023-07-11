@@ -197,7 +197,7 @@
 
 	mw.pageFormsActivateVEFields = function( callback ) {
 		var visualEditors = $.fn.getVEInstances();
-		if( visualEditors.length > 0 ) {
+		if ( visualEditors.length > 0 ) {
 			var savingQueue = [];
 			$(visualEditors).each( function( i, ve ) {
 				savingQueue.push( ve.target.updateContent() );
@@ -205,6 +205,8 @@
 			$.when.apply( $, savingQueue ).then( function() {
 				callback();
 			});
+		} else {
+			callback();
 		}
 	};
 
