@@ -811,7 +811,7 @@ END;
 	 * only a page formula exists).
 	 * @param string $form_def
 	 * @param bool $form_submitted
-	 * @param bool $source_is_page
+	 * @param bool $page_exists
 	 * @param string|null $form_id
 	 * @param string|null $existing_page_content
 	 * @param string|null $page_name
@@ -828,7 +828,7 @@ END;
 	function formHTML(
 		$form_def,
 		$form_submitted,
-		$source_is_page,
+		$page_exists,
 		$form_id = null,
 		$existing_page_content = null,
 		$page_name = null,
@@ -848,6 +848,7 @@ END;
 
 		// Initialize some variables.
 		$wiki_page = new PFWikiPage();
+		$source_is_page = $page_exists || $existing_page_content !== null;
 		$wgPageFormsTabIndex = 0;
 		$wgPageFormsFieldNum = 0;
 		$source_page_matches_this_form = false;
@@ -1179,8 +1180,10 @@ END;
 					}
 					// If the user is editing a page, and that page contains a call to
 					// the template being processed, get the current field's value
-					// from the template call
-					if ( $source_is_page && ( $tif->getFullTextInPage() != '' ) && !$form_submitted ) {
+					// from the template call.
+					// Do the same thing if it's a new page but there's a "preload" -
+					// unless a value for this field was already set in the query string.
+					if ( ( $page_exists || $cur_value == '' ) && ( $tif->getFullTextInPage() != '' ) && !$form_submitted ) {
 						if ( $tif->hasValueFromPageForField( $field_name ) ) {
 							// Get value, and remove it,
 							// so that at the end we

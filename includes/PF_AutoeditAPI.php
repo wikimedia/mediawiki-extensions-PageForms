@@ -1,6 +1,7 @@
 <?php
 /**
  * @author Stephan Gambke
+ * @author Yaron Koren
  * @file
  * @ingroup PageForms
  */
@@ -924,24 +925,17 @@ class PFAutoeditAPI extends ApiBase {
 		$oldRequest = $wgRequest;
 		$pageExists = false;
 
-		// preload data if not explicitly excluded and if the preload page exists
-		if ( !isset( $this->mOptions['preload'] ) || $this->mOptions['preload'] !== false ) {
-			if ( isset( $this->mOptions['preload'] ) && is_string( $this->mOptions['preload'] ) ) {
-				$preloadTitle = Title::newFromText( $this->mOptions['preload'] );
-			} else {
-				$preloadTitle = Title::newFromText( $targetName );
-			}
+		if ( $targetTitle !== null && $targetTitle->exists() ) {
+			$preloadContent = PFUtils::getPageText( $targetTitle, RevisionRecord::RAW );
+			$pageExists = true;
+		} elseif ( isset( $this->mOptions['preload'] ) && is_string( $this->mOptions['preload'] ) ) {
+			$preloadTitle = Title::newFromText( $this->mOptions['preload'] );
 
 			if ( $preloadTitle !== null && $preloadTitle->exists() ) {
 				// the content of the page that was specified to be used for preloading
 				$preloadContent = PFUtils::getPageText( $preloadTitle, RevisionRecord::RAW );
-
-				$pageExists = true;
-
 			} else {
-				if ( isset( $this->mOptions['preload'] ) ) {
-					$this->logMessage( $this->msg( 'pf_autoedit_invalidpreloadspecified', $this->mOptions['preload'] )->parse(), self::WARNING );
-				}
+				$this->logMessage( $this->msg( 'pf_autoedit_invalidpreloadspecified', $this->mOptions['preload'] )->parse(), self::WARNING );
 			}
 		}
 
@@ -957,10 +951,6 @@ class PFAutoeditAPI extends ApiBase {
 		$formHtmlHasRun = false;
 
 		if ( $preloadContent !== '' ) {
-			// @HACK - we need to set this for the preload to take
-			// effect in the form.
-			$pageExists = true;
-
 			// Spoof $wgRequest for PFFormPrinter::formHTML().
 			$session = RequestContext::getMain()->getRequest()->getSession();
 			$wgRequest = new FauxRequest( $this->mOptions, true, $session );
