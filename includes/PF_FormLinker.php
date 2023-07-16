@@ -16,7 +16,7 @@ class PFFormLinker {
 
 	private static $formPerNamespace = [];
 
-	static function getDefaultForm( $title ) {
+	static function getDefaultForm( ?Title $title ): ?string {
 		// The title passed in can be null in at least one
 		// situation: if the "namespace page" is being checked, and
 		// the project namespace alias contains any non-ASCII
@@ -26,25 +26,15 @@ class PFFormLinker {
 			return null;
 		}
 
+		$services = MediaWikiServices::getInstance();
+		// MW < 1.36 compatibility
+		$pageProps = method_exists( $services, 'getPageProps' )
+			? $services->getPageProps() : PageProps::getInstance();
+		$props = $pageProps->getProperties( $title, [ 'PFDefaultForm', 'SFDefaultForm' ] );
 		$pageID = $title->getArticleID();
-		$dbr = wfGetDB( DB_REPLICA );
-		$res = $dbr->select( 'page_props',
-			[
-				'pp_value'
-			],
-			[
-				'pp_page' => $pageID,
-				// Keep backward compatibility with
-				// the page property name for
-				// Semantic Forms.
-				'pp_propname' => [ 'PFDefaultForm', 'SFDefaultForm' ]
-			]
-		);
 
-		$row = $res->fetchRow();
-		if ( $row ) {
-			return $row['pp_value'];
-		}
+		// Keep backward compatibility with the page property name for Semantic Forms.
+		return $props[$pageID]['PFDefaultForm'] ?? $props[$pageID]['SFDefaultForm'] ?? null;
 	}
 
 	public static function createPageWithForm( $title, $formName, $inQueryArr ) {
