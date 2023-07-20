@@ -7,5 +7,6 @@
 	},
 	"templates": "Калыптар",
 	"pf_createform_template": "Калып:",
-	"pf_editsource": "Булагын оңдоо"
+	"pf_editsource": "Булагын оңдоо",
+	"pf-simpleupload": "Жүктөө"
 }
