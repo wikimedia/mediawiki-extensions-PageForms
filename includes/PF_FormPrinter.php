@@ -1844,7 +1844,7 @@ END;
 		// Get free text, and add to page data, as well as retroactively
 		// inserting it into the form.
 
-		if ( $source_is_page ) {
+		if ( $page_exists ) {
 			// If the page is the source, free_text will just be
 			// whatever in the page hasn't already been inserted
 			// into the form.
