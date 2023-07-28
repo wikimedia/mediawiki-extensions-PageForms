@@ -19,7 +19,7 @@
 	],
 	"require": {
 		"php": ">=5.5.9",
-		"composer/installers": "1.*,>=1.0.1"
+		"composer/installers": "^2|^1.0.1"
 	},
 	"suggest": {
 		"mediawiki/open-layers": "Allow us to use a local version of OpenLayers."
