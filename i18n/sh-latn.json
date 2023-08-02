@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"pageforms-desc": "Obrasci za pravljenje i uređivanje wikistranica",
+	"specialpages-group-pf_group": "Semantički obrasci",
+	"apihelp-pfautocomplete-summary": "Automatsko dovršavanje koje rabi proširenje »Stranični obrasci«.",
+	"createproperty": "Pravljenje svojstva",
+	"pf-createproperty-with-name": "Pravljenje svojstva: $1",
+	"pf_createproperty_allowedvalsinput": "Ako želite da bude dozvoljeno samo za određene vrijednosti, unesite spisak dozvoljenih vrijednosti, odvojenih zarezima (ako vrijednost sadrži zarez, onda pišite zarez kao „\\,“):",
+	"pf_createproperty_propname": "Naziv svojstva:",
+	"pf_createproperty_proptype": "Vrsta:",
+	"pf_createproperty_editsummary": "Napravljeno svojstvo vrste $1",
+	"templates": "Šabloni",
+	"pf_templates_docu": "Sljedeći šabloni postoje na wikiju.",
+	"pf_templates_definescat": "definiše kategoriju: $1",
+	"createtemplate": "Pravljenje šablona",
+	"pf-createtemplate-with-name": "Pravljenje šablona: $1",
+	"pf_createtemplate_namelabel": "Ime šablona:",
+	"uploadwindow": "Prozor za postavljanje",
+	"pf-simpleupload": "Postavi",
+	"pf_deletionlog": "Evidencija brisanja",
+	"pf_blank_namespace": "Glavna",
+	"right-viewedittab": "Prikaz kartice \"{{int:edit}}\" za stranice koje se mogu uređivati ​​putem obrasca",
+	"right-editrestrictedfields": "Uređivanje ograničenih polja obrazca",
+	"action-editrestrictedfields": "uređivanje ograničenih polja obrazca",
+	"action-viewedittab": "prikaz kartice \"{{int:edit}}\" za stranice koje se mogu uređivati ​​putem obrasca",
+	"tooltip-ca-formedit": "Uređivanje ove stranice pomoću obrasca"
+}
