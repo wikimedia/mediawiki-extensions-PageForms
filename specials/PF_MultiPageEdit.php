@@ -45,6 +45,15 @@ class PFMultiPageEdit extends QueryPage {
 			$this->displaySpreadsheet( $this->mTemplate, $this->mForm );
 		} else {
 			$this->setTemplateList();
+			if ( count( $this->mTemplateInForm ) == 0 ) {
+				// No connections found between templates and
+				// forms - possibly because there are no forms
+				// and/or templates defined on the wiki.
+				// @todo - replace this with a custom message.
+				$this->getOutput()->addWikiMsg( 'mw-widgets-mediasearch-noresults' );
+				return;
+			}
+
 			parent::execute( $query );
 		}
 	}
