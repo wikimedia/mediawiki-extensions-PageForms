@@ -5,7 +5,13 @@
 			"Bosogo"
 		]
 	},
+	"pageforms-name": "Барак тариздери",
+	"pageforms-desc": "Вики барактарды түзүү жана түзөтүү үчүн тариздер",
+	"specialpages-group-pf_group": "Барак тариздери",
 	"templates": "Калыптар",
+	"createtemplate": "Калып түзүү",
+	"pf-createtemplate-with-name": "«$1‎» калыбын түзүү",
+	"pf_createtemplate_delimiter": "Бөлгүч:",
 	"pf_createform_template": "Калып:",
 	"pf_editsource": "Булагын оңдоо",
 	"pf-simpleupload": "Жүктөө",
