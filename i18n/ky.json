@@ -6,12 +6,16 @@
 		]
 	},
 	"pageforms-name": "Барак тариздери",
+	"pageforms-desc": "Вики барактарды түзүү жана түзөтүү үчүн тариздер",
 	"specialpages-group-pf_group": "Барак тариздери",
 	"templates": "Калыптар",
 	"createtemplate": "Калып түзүү",
 	"pf-createtemplate-with-name": "«$1‎» калыбын түзүү",
 	"pf_createtemplate_delimiter": "Бөлгүч:",
 	"pf_createform_template": "Калып:",
+	"pf_createclass_create": "Түзүү",
+	"pf_formedit_createtitle": "«‎$1» түзүү: $2",
+	"pf_formedit_createtitlenotarget": "«‎$1» түзүү",
 	"pf_editsource": "Булагын оңдоо",
 	"pf-simpleupload": "Жүктөө",
 	"pf-datepicker-close": "Жабуу"

@@ -7,9 +7,12 @@
 			"Hugo.arg",
 			"Manvydasz",
 			"Pofka",
-			"Zygimantus"
+			"Zygimantus",
+			"Nokeoo"
 		]
 	},
+	"pageforms-desc": "Formos, skirtos kurti ir keisti viki puslapius",
+	"specialpages-group-pf_group": "Puslapio formos",
 	"createproperty": "Sukurti savybę",
 	"pf-createproperty-with-name": "Sukurti ypatybę: $1",
 	"pf_createproperty_allowedvalsinput": "Jeigu norite, kad šis laukas galėtų įgyti tik konkrečias reikšmes, surašykite visas leistinas reikšmes, atskirtas kableliais (jeigu reikšmė turi kablelį, pakeiskite jį į „\\,“):",
