@@ -5,7 +5,7 @@ use OOUI\BlankTheme;
 
 /**
  * @covers \PFFormPrinter
- *
+ * @group Database
  * @author Himeshi De Silva
  */
 class PFFormPrinterTest extends MediaWikiIntegrationTestCase {

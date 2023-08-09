@@ -4,7 +4,7 @@ use OOUI\BlankTheme;
 
 /**
  * @covers \PFRadioButtonInput
- *
+ * @group Database
  * @author Mark A. Hershberger <mah@nichework.com>
  */
 class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
