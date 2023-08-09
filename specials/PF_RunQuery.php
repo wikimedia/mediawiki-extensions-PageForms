@@ -20,11 +20,17 @@ class PFRunQuery extends IncludableSpecialPage {
 		if ( !$this->including() ) {
 			$this->setHeaders();
 		}
-		$this->getOutput()->enableOOUI();
 
 		$form_name = $this->including() ? $query : $this->getRequest()->getVal( 'form', $query );
+		if ( $form_name == '' ) {
+			$text = Html::element( 'p', [ 'class' => 'error' ], $this->msg( 'pf_runquery_badurl' )->text() ) . "\n";
+			$this->getOutput()->addHTML( $text );
+			return;
+		}
+
 		$form_name = str_replace( '_', ' ', $form_name );
 
+		$this->getOutput()->enableOOUI();
 		$this->printPage( $form_name, $this->including() );
 	}
 
@@ -46,12 +52,8 @@ class PFRunQuery extends IncludableSpecialPage {
 		$form_title = Title::makeTitleSafe( PF_NS_FORM, $form_name );
 
 		if ( !$form_title || !$form_title->exists() ) {
-			if ( $form_name === '' ) {
-				$text = Html::element( 'p', [ 'class' => 'error' ], $this->msg( 'pf_runquery_badurl' )->text() ) . "\n";
-			} else {
-				$text = Html::rawElement( 'p', [ 'class' => 'error' ],
-					$this->msg( 'pf_formstart_badform', PFUtils::linkText( PF_NS_FORM, $form_name ) )->parse() ) . "\n";
-			}
+			$text = Html::rawElement( 'p', [ 'class' => 'error' ],
+				$this->msg( 'pf_formstart_badform', PFUtils::linkText( PF_NS_FORM, $form_name ) )->parse() ) . "\n";
 			$out->addHTML( $text );
 			return;
 		}
