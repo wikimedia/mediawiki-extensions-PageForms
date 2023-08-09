@@ -41,13 +41,6 @@ class PFFormStart extends SpecialPage {
 				$target_name = $queryparts[1];
 				$this->doRedirect( $form_name, $target_name, $params );
 			}
-
-			// Get namespace from the URL, if it's there.
-			$namespace_label_loc = strpos( $form_name, "/Namespace:" );
-			if ( $namespace_label_loc !== false ) {
-				$target_namespace = substr( $form_name, $namespace_label_loc + 11 );
-				$form_name = substr( $form_name, 0, $namespace_label_loc );
-			}
 		}
 
 		// Get title of form.
