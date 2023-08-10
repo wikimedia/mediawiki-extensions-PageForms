@@ -53,7 +53,7 @@ class PFCreateProperty extends SpecialPage {
 
 		// Cycle through the query values, setting the appropriate
 		// local variables.
-		$presetPropertyName = str_replace( '_', ' ', $query );
+		$presetPropertyName = str_replace( '_', ' ', $query ?? '' );
 		if ( $presetPropertyName !== '' ) {
 			$out->setPageTitle( $this->msg( 'pf-createproperty-with-name', $presetPropertyName )->text() );
 			$property_name = $presetPropertyName;

@@ -830,6 +830,8 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	public static function getValuesArray( $value, $delimiter ) {
 		if ( is_array( $value ) ) {
 			return $value;
+		} elseif ( $value == null ) {
+			return [];
 		} else {
 			// Remove extra spaces.
 			return array_map( 'trim', explode( $delimiter, $value ) );
