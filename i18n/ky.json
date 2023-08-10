@@ -13,6 +13,9 @@
 	"pf-createtemplate-with-name": "«$1‎» калыбын түзүү",
 	"pf_createtemplate_delimiter": "Бөлгүч:",
 	"pf_createform_template": "Калып:",
+	"pf_createclass_create": "Түзүү",
+	"pf_formedit_createtitle": "«‎$1» түзүү: $2",
+	"pf_formedit_createtitlenotarget": "«‎$1» түзүү",
 	"pf_editsource": "Булагын оңдоо",
 	"pf-simpleupload": "Жүктөө",
 	"pf-datepicker-close": "Жабуу"

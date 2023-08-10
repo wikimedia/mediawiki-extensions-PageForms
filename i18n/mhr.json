@@ -2,9 +2,10 @@
 	"@metadata": {
 		"authors": [
 			"Сай",
-			"Санюн Вадик"
+			"Санюн Вадик",
+			"Lifeway"
 		]
 	},
-	"pf_createtemplate_deletefield": "Шӧраш",
+	"pf_createtemplate_deletefield": "Тиде кышкарым кораҥдаш",
 	"pf_createform_inputtypedefault": "(тӱҥалтыш)"
 }
