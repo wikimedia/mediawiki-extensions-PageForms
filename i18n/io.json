@@ -10,6 +10,7 @@
 	"templates": "Shabloni",
 	"pf_createtemplate_deletefield": "Efacar",
 	"pf_createform_template": "Shablono:",
+	"pf_createform_field": "Skribo-loko:",
 	"pf_createform_formlabel": "Titulo dil formulario:",
 	"pf_createclass_create": "Kreez",
 	"formedit": "Redaktar kun formulario",
