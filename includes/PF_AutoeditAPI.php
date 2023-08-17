@@ -926,7 +926,9 @@ class PFAutoeditAPI extends ApiBase {
 		$pageExists = false;
 
 		if ( $targetTitle !== null && $targetTitle->exists() ) {
-			$preloadContent = PFUtils::getPageText( $targetTitle, RevisionRecord::RAW );
+			if ( !$isFormSubmitted ) {
+				$preloadContent = PFUtils::getPageText( $targetTitle, RevisionRecord::RAW );
+			}
 			$pageExists = true;
 		} elseif ( isset( $this->mOptions['preload'] ) && is_string( $this->mOptions['preload'] ) ) {
 			$preloadTitle = Title::newFromText( $this->mOptions['preload'] );
