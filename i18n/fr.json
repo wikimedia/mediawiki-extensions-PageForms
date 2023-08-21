@@ -45,7 +45,7 @@
 	"apihelp-pfautocomplete-param-substr": "La sous-chaîne sur laquelle effectuer la complétion automatique",
 	"apihelp-pfautocomplete-param-wikidata": "Chaîne de recherche pour obtenir des valeurs de Wikidata",
 	"apihelp-pfautocomplete-param-property": "Une propriété de MediaWiki Sémantique dont les valeurs seront complétées automatiquement",
-	"apihelp-pfautocomplete-param-semantic_query": "Une requête de Médiawiki Sémantique dont les résultats seront automatiquement complétés",
+	"apihelp-pfautocomplete-param-semantic_query": "Une requête de Mediawiki Sémantique dont les résultats seront automatiquement complétés",
 	"apihelp-pfautocomplete-param-category": "Une catégorie dont les pages seront automatiquement complétées",
 	"apihelp-pfautocomplete-param-concept": "Un « concept » de MediaWiki Sémantique dont les pages seront automatiquement complétées",
 	"apihelp-pfautocomplete-param-cargo_table": "Une table de base de données, définie par l’extension Cargo, dont les valeurs seront automatiquement complétées",
