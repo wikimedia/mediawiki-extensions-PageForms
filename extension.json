@@ -197,6 +197,7 @@
 				"pf_pipe_error",
 				"pf_start_end_date_error",
 				"pf_start_end_datetime_error",
+				"pf-datetimepicker-localtime",
 				"pf-wizard-back",
 				"pf-wizard-continue"
 			],

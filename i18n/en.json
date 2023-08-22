@@ -296,6 +296,7 @@
 	"pf-datepicker-disabledates": "A comma-separated list of disabled dates/date ranges (dates in yyyy/mm/dd format, ranges in yyyy/mm/dd-yyyy/mm/dd format).",
 	"pf-datepicker-highlightdates": "A comma-separated list of dates/date ranges that shall appear highlighted (dates in yyyy/mm/dd format, ranges in yyyy/mm/dd-yyyy/mm/dd format).",
 	"pf-datetimepicker-24hour": "Time should be entered in 24-hour format.",
+	"pf-datetimepicker-localtime": "In your local time:",
 	"pf-regexp-wrongformat": "Wrong format.",
 	"pf-regexp-regexp": "The regular expression the input has to match to be valid. This must be given including the slashes! Defaults to \"/.*/\", i.e. any value.",
 	"pf-regexp-basetype": "The real input type to be used. Defaults to \"text\".",
