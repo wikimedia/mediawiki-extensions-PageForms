@@ -14,6 +14,7 @@
 	"pageforms-desc": "Formos, skirtos kurti ir keisti viki puslapius",
 	"specialpages-group-pf_group": "Puslapio formos",
 	"apihelp-pfautocomplete-param-limit": "Gražinamų rezultatų skaičiaus limitas",
+	"apihelp-pfautocomplete-param-cargo_where": "Filtras, taikomas, jei nustatyti cargo_table ir cargo_field parametrai",
 	"apihelp-pfautocomplete-param-external_url": "Išorinio URL, iš kurio gaunamos vertės, pseudonimas",
 	"apihelp-pfautoedit-param-target": "Kuriamo ar redaguojamo puslapio pavadinimas",
 	"apihelp-pfautoedit-param-query": "Užklausos eilutė",
