@@ -807,13 +807,12 @@ $.fn.checkForPipes = function() {
 				this.addErrorMessage( 'pf_pipe_error' );
 				return false;
 			}
-		} else {
-			if ( nextDoubleBracketsEnd < 0 ) {
-				// Something is malformed - might as well throw
-				// an error.
-				this.addErrorMessage( 'pf_pipe_error' );
-				return false;
-			}
+		}
+		if ( nextDoubleBracketsEnd < 0 ) {
+			// Something is malformed - might as well throw
+			// an error.
+			this.addErrorMessage( 'pf_pipe_error' );
+			return false;
 		}
 
 		nextDoubleBracketsEnd = fieldVal.indexOf( ']]', curIndex );
