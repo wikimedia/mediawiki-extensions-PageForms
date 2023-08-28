@@ -3,7 +3,8 @@
 		"authors": [
 			"Aefgh39622",
 			"Octahedron80",
-			"Passawuth"
+			"Passawuth",
+			"RidJasper"
 		]
 	},
 	"createproperty": "สร้างคุณสมบัติ",
@@ -13,10 +14,10 @@
 	"createtemplate": "สร้างแม่แบบ",
 	"pf_createtemplate_namelabel": "ชื่อแม่แบบ:",
 	"pf_createtemplate_standardformat": "ตาราง",
-	"pf_createtemplate_deletefield": "ลบ",
+	"pf_createtemplate_deletefield": "ลบฟิลด์นี้",
 	"pf_createform_template": "แม่แบบ:",
 	"pf_createform_inputtypedefault": "(ค่าเริ่มต้น)",
-	"pf_createform_hidden": "ซ่อน",
+	"pf_createform_hidden": "(ซ่อน)",
 	"pf_createform_removetemplate": "เอาแม่แบบออก",
 	"pf_createform_addtemplate": "เพิ่มแม่แบบ:",
 	"pf_createform_atend": "ที่จุดสิ้นสุด",
@@ -28,6 +29,6 @@
 	"pf_createclass_create": "สร้าง",
 	"formedit": "แก้ไขด้วยแบบฟอร์ม",
 	"pf_editsource": "แก้ไขต้นฉบับ",
-	"pf_formedit_none": "ไม่มี",
+	"pf_formedit_none": "ไม่มี/ไม่ทราบ",
 	"pf-datepicker-today": "วันนี้"
 }
