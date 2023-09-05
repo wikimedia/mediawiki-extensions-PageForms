@@ -848,7 +848,7 @@ END;
 
 		// Initialize some variables.
 		$wiki_page = new PFWikiPage();
-		$source_is_page = $page_exists || $existing_page_content !== null;
+		$source_is_page = $page_exists || $existing_page_content != null;
 		$wgPageFormsTabIndex = 0;
 		$wgPageFormsFieldNum = 0;
 		$source_page_matches_this_form = false;
