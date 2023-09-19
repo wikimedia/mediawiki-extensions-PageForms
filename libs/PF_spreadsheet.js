@@ -96,7 +96,7 @@ var dataValues = [];
 		}
 		jExcelValue = this.decodeValues( jExcelValue );
 		if ( columnAttributes['type'] == 'checkbox' ) {
-			return ( jExcelValue == true ) ?
+			return ( jExcelValue == 'true' ) ?
 				mw.config.get( 'wgPageFormsContLangYes' ) :
 				mw.config.get( 'wgPageFormsContLangNo' );
 		} else if ( columnAttributes['list'] == true ) {
