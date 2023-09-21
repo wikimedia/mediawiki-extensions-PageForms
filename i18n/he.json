@@ -303,6 +303,7 @@
 	"pf-datepicker-disabledates": "רשימה מופרדת בפסיקים של תאריך/תאריכים לא אפשריים (תאריכים בתסדיר yyyy/mm/dd, או טווח תאריכים בתסדיר yyyy/mm/dd-yyyy/mm/dd).",
 	"pf-datepicker-highlightdates": "רשימת מופרדת בפסיקים של תאריכים או טווחי תאריכים שיופיעו מודגשים (תאריכים בתסדיר yyyy/mm/dd, טווחי תאריכים בתסדיר yyyy/mm/dd-yyyy/mm/dd).",
 	"pf-datetimepicker-24hour": "יש למלא את זה בתבנית 24 שעות.",
+	"pf-datetimepicker-localtime": "בזמן המקומי שלך:",
 	"pf-regexp-wrongformat": "תסדיר שגוי.",
 	"pf-regexp-regexp": "הביטוי הרגולרי שהשדה צריך לתאום כדי להיות תקין. זה צריך להינתן עם קווים נטויים! ברירת המחדל היא \"/.*/\", כלומר כל ערך.",
 	"pf-regexp-basetype": "באיזה סוג הקלט באמת להשתמש. ברירת המחדל היא \"text\".",

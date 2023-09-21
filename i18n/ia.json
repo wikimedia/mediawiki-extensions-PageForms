@@ -292,6 +292,7 @@
 	"pf-datepicker-disabledates": "Un lista separate per commas de datas disactivate, o intervallos de datas disactivate (datas in formato aaaa/mm/dd, intervallos in formato aaaa/mm/dd-aaaa/mm/dd).",
 	"pf-datepicker-highlightdates": "Un lista separate per commas de datas o intervallos de datas que debe apparer in forma accentuate (datas in formato aaaa/mm/dd, intervallos in formato aaaa/mm/dd-aaaa/mm/dd).",
 	"pf-datetimepicker-24hour": "Le hora debe esser entrate in formato de 24 horas.",
+	"pf-datetimepicker-localtime": "In tu hora local:",
 	"pf-regexp-wrongformat": "Formato incorrecte.",
 	"pf-regexp-regexp": "Le expression regular a que le entrata debe corresponder pro esser valide. Isto debe esser specificate includente le barras oblique! Le predefinition es \"/.*/\", i.e. omne valor.",
 	"pf-regexp-basetype": "Le typo real de entrata a usar. Le typo predefinite es \"text\".",
