@@ -313,7 +313,7 @@
 	"pf-datepicker-highlightdaysofweek": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-disabledates": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-datepicker-highlightdates": "This is a help text for the [[Special:CreateForm]] page.",
-	"pf-datetimepicker-24hour": "Used as a lable for a datetime picker.",
+	"pf-datetimepicker-24hour": "Used as a label for a datetime picker.",
 	"pf-regexp-wrongformat": "Used as error message.",
 	"pf-regexp-regexp": "This is a help text for the [[Special:CreateForm]] page.",
 	"pf-regexp-basetype": "{{doc-important|Do not translate \"text\".}}\nThis is a help text for the [[Special:CreateForm]] page.",
