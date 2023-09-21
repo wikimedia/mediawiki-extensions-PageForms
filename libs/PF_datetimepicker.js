@@ -29,7 +29,7 @@
 				.next( '.pf-datetimepicker-help' )
 				.append( '<br>', $localDatetimeLabel );
 			widget.connect( this, { change: function ( newDatetimeVal ) {
-				if ( newDatetimeVal === '' ) {
+				if ( newDatetimeVal === '' || newDatetimeVal === undefined ) {
 					$localDatetime.text( '' );
 					return;
 				}
@@ -37,6 +37,8 @@
 				var localDatetime = date.toLocaleString( [], localeOptions );
 				$localDatetime.text( localDatetime );
 			} } );
+			// Also fire the change handler once when instantiating, to operate on the default value.
+			widget.emit( 'change', widget.getValue() );
 		} );
 	};
 
