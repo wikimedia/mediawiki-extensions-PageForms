@@ -327,6 +327,7 @@
 	"pf-datepicker-disabledates": "Une liste, séparée par des virgules, de dates (au format « aaaa/mm/jj ») ou de plages de dates (au format « aaaa/mm/jj- aaaa/mm/jj ») désactivées.",
 	"pf-datepicker-highlightdates": "Une liste, séparée par des virgules, de dates (au format « aaaa/mm/jj ») ou de plages de dates (au format « aaaa/mm/jj-aaaa/mm/jj ») qui doivent apparaître en surbrillance.",
 	"pf-datetimepicker-24hour": "L’heure doit être saisie au format 24 heures.",
+	"pf-datetimepicker-localtime": "Dans votre heure locale :",
 	"pf-regexp-wrongformat": "Format erroné.",
 	"pf-regexp-regexp": "L’expression rationnelle que doit satisfaire l’entrée pour être valide. Cela doit être donné en incluant les barres obliques ! Par défaut, « /.*/ », c’est-à-dire n’importe quelle valeur.",
 	"pf-regexp-basetype": "Le vrai type d’entrée à utiliser. Par défaut, « text » pour un texte quelconque.",

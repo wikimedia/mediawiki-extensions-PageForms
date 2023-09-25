@@ -89,6 +89,7 @@
 	"pf-datepicker-prev": "পূর্ববর্তী",
 	"pf-datepicker-next": "পরবর্তী",
 	"pf-datepicker-today": "আজ",
+	"pf-datetimepicker-localtime": "আপনার স্থানীয় সময়ে:",
 	"pf-regexp-wrongformat": "ভুল বিন্যাস।",
 	"pf-externalpageempty": "বহিরাগত পৃষ্ঠায় কোনো বিষয়বস্তু নেই।",
 	"pf-externalpagebadjson": "বহিরাগত পৃষ্ঠায় JSON পার্স করা যায়নি।"

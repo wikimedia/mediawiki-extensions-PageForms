@@ -296,6 +296,7 @@
 	"pf-datepicker-disabledates": "Seznam onemogočenih datumov/obdobij, ločenih z vejicami (datumi v obliki llll/mm/dd, obdobja v obliki llll/mm/dd-llll/mm/dd).",
 	"pf-datepicker-highlightdates": "Seznam datumov/obdobij, ločenih z vejicami, ki bodo prikazani označeni (datumi v obliki llll/mm/dd, obdobja v obliki llll/mm/dd-llll/mm/dd).",
 	"pf-datetimepicker-24hour": "Čas je treba vnesti v 24-urni obliki.",
+	"pf-datetimepicker-localtime": "Po vašem lokalnem času:",
 	"pf-regexp-wrongformat": "Napačen format.",
 	"pf-regexp-regexp": "Regularni izraz, s katerim se mora vnos ujemati, da je veljaven. To mora biti navedeno vključno s poševnicami! Privzeta vrednost je »/.*/«, tj. poljubna vrednost.",
 	"pf-regexp-basetype": "Prava vrsta vnosa, ki naj bo uporabljena. Privzeto je »text«.",

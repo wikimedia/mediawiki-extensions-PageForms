@@ -3,7 +3,8 @@
 		"authors": [
 			"Les Meloures",
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Volvox"
 		]
 	},
 	"specialpages-group-pf_group": "Säiteformulairen",
@@ -163,6 +164,7 @@
 	"pf-datepicker-firstdate": "Den éischten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
 	"pf-datepicker-lastdate": "De leschten Datum deen erausgesicht ka ginn (am Format JJJJ/MM/DD)",
 	"pf-datepicker-disabledaysofweek": "Eng Lëscht vun Deeg déi net erausgesicht kënne ginn (z. B. Weekend:6, 0).",
+	"pf-datetimepicker-localtime": "An Ärer lokaler Zäit:",
 	"pf-regexp-wrongformat": "Falsche Format.",
 	"pf-missingconcept": "D'Konzept konnt net fonnt ginn: $1",
 	"pf-missingnamespace": "Den Nummraum konnt net fonnt ginn: $1",
