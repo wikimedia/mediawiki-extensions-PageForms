@@ -29,7 +29,7 @@
 	"pf_createtemplate_infoboxformat": "Хааман панелан агӀо",
 	"pf_createtemplate_plainformat": "Цхьалхе йоза",
 	"pf_createtemplate_sectionsformat": "Дакъош",
-	"pf_createtemplate_addfield": "ТӀетоха тӀеха",
+	"pf_createtemplate_addfield": "ТӀетоха тӀаьхьо",
 	"pf_createtemplate_deletefield": "ДӀайаккха",
 	"forms": "Формаш",
 	"pf_forms_docu": "Вики чохь йу хӀара кепаш.",
@@ -96,6 +96,8 @@
 	"pf-autocomplete-searching": "Лахар…",
 	"pf-autocomplete-input-too-short": "Дехар до, йазъе $1 йа дукха хьаьркаш",
 	"pf-autocomplete-selection-too-big": "ХӀокху меттигехь $1 дукъа маьӀнаш хилийла дац.",
+	"pf-maps-enteraddress": "Йазде адрес кхуза",
+	"pf-maps-lookupcoordinates": "Билгалдаха координаташ адресан гӀоьнца",
 	"pf-datepicker-close": "ДӀачӀагӀа",
 	"pf-datepicker-prev": "Хьалхара",
 	"pf-datepicker-next": "РогӀера"
