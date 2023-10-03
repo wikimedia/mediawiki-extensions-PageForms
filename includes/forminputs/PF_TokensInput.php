@@ -20,14 +20,7 @@ class PFTokensInput extends PFFormInput {
 	}
 
 	public static function getOtherPropTypesHandled() {
-		$otherPropTypesHandled = [ '_wpg' ];
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			$otherPropTypesHandled[] = '_str';
-		} else {
-			$otherPropTypesHandled[] = '_txt';
-		}
-		return $otherPropTypesHandled;
+		return [ '_txt', '_wpg' ];
 	}
 
 	public static function getDefaultPropTypeLists() {
@@ -37,12 +30,7 @@ class PFTokensInput extends PFFormInput {
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			return [ '_str' ];
-		} else {
-			return [ '_txt' ];
-		}
+		return [ '_txt' ];
 	}
 
 	public static function getDefaultCargoTypes() {

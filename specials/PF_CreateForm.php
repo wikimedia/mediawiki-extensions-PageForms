@@ -620,13 +620,7 @@ END;
 			if ( $smwContLang != null ) {
 				$datatypeLabels = $smwContLang->getDatatypeLabels();
 				$datatypeLabels['enumeration'] = 'enumeration';
-
 				$propTypeID = $template_field->getPropertyType();
-
-				// Special handling for SMW 1.9
-				if ( $propTypeID == '_str' && !array_key_exists( '_str', $datatypeLabels ) ) {
-					$propTypeID = '_txt';
-				}
 				$propertyTypeStr = $datatypeLabels[$propTypeID];
 			}
 			$text .= Html::rawElement( 'p', null, $this->msg( $propDisplayMsg, $prop_link_text, $propertyTypeStr )->parse() ) . "\n";

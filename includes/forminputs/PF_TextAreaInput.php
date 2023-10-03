@@ -94,34 +94,15 @@ class PFTextAreaInput extends PFFormInput {
 	}
 
 	public static function getDefaultPropTypes() {
-		$defaultPropTypes = [ '_cod' => [] ];
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			$defaultPropTypes['_txt'] = [];
-		}
-		return $defaultPropTypes;
+		return [ '_cod' => [] ];
 	}
 
 	public static function getOtherPropTypesHandled() {
-		$otherPropTypesHandled = [ '_wpg' ];
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			$otherPropTypesHandled[] = '_str';
-		} else {
-			$otherPropTypesHandled[] = '_txt';
-		}
-		return $otherPropTypesHandled;
+		return [ '_txt', '_wpg' ];
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		$otherPropTypeListsHandled = [ '_wpg' ];
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			$otherPropTypeListsHandled[] = '_str';
-		} else {
-			$otherPropTypeListsHandled[] = '_txt';
-		}
-		return $otherPropTypeListsHandled;
+		return [ '_txt', '_wpg' ];
 	}
 
 	public static function getParameters() {

@@ -20,21 +20,11 @@ class PFTreeInput extends PFFormInput {
 	}
 
 	public static function getOtherPropTypesHandled() {
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			return [ '_str', '_wpg' ];
-		} else {
-			return [ '_txt', '_wpg' ];
-		}
+		return [ '_txt', '_wpg' ];
 	}
 
 	public static function getOtherPropTypeListsHandled() {
-		if ( defined( 'SMWDataItem::TYPE_STRING' ) ) {
-			// SMW < 1.9
-			return [ '_str', '_wpg' ];
-		} else {
-			return [ '_txt', '_wpg' ];
-		}
+		return [ '_txt', '_wpg' ];
 	}
 
 	public static function getDefaultCargoTypes() {
