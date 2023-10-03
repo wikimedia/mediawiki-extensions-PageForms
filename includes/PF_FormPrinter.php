@@ -939,7 +939,12 @@ END;
 				Html::element( 'a', [ 'href' => '#' ], 'Expand all collapsed parts of the form' ) ) . "\n";
 		}
 
-		$parser = PFUtils::getParser()->getFreshParser();
+		if ( method_exists( ParserFactory::class, 'getInstance' ) ) {
+			// MW 1.39+
+			$parser = MediaWikiServices::getInstance()->getParserFactory()->getInstance();
+		} else {
+			$parser = PFUtils::getParser()->getFreshParser();
+		}
 		if ( !$parser->getOptions() ) {
 			$parser->setOptions( ParserOptions::newFromUser( $user ) );
 		}
