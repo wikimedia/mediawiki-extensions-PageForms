@@ -242,13 +242,7 @@ class PFAutocompleteAPI extends ApiBase {
 			'LIMIT' => PFValuesUtils::getMaxValuesToRetrieve( $substring )
 		];
 
-		if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
-			// SMW 3.0+
-			$property = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $property_name );
-		} else {
-			$property = SMWPropertyValue::makeUserProperty( $property_name );
-		}
-
+		$property = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $property_name );
 		$propertyHasTypePage = ( $property->getPropertyTypeID() == '_wpg' );
 		$conditions = [ 'p_ids.smw_title' => $property_name ];
 		if ( $propertyHasTypePage ) {
@@ -277,12 +271,7 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 
 		if ( $basePropertyName !== null ) {
-			if ( method_exists( 'SMW\DataValueFactory', 'newPropertyValueByLabel' ) ) {
-				$baseProperty = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $basePropertyName );
-			} else {
-				// SMW 3.0+
-				$baseProperty = SMWPropertyValue::makeUserProperty( $basePropertyName );
-			}
+			$baseProperty = SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( $basePropertyName );
 			$basePropertyHasTypePage = ( $baseProperty->getPropertyTypeID() == '_wpg' );
 
 			$basePropertyName = str_replace( ' ', '_', $basePropertyName );
