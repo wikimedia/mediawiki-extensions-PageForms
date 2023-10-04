@@ -20,9 +20,16 @@ window.PF_RE_validate = function( inputId, params ) { //input_number, retext, in
 
 	var match;
 	var message;
+	var $curInput = jQuery( '#' + inputId );
+
+	// Ignore blank fields.
+	if ( $curInput.val() == '' ) {
+		return true;
+	}
+
 	try {
 		var re = new RegExp( params.retext );
-		match = re.test( jQuery('#' + inputId).val() );
+		match = re.test( $curInput.val() );
 		message = params.message;
 	} catch (e) {
 		match = false;
@@ -32,7 +39,7 @@ window.PF_RE_validate = function( inputId, params ) { //input_number, retext, in
 	if ( ( match && ! params.inverse ) || ( ! match && params.inverse ) ) {
 		return true;
 	} else {
-		jQuery( '#' + inputId ).parent().addErrorMessage( message );
+		$curInput.parent().addErrorMessage( message );
 		return false;
 	}
 };
