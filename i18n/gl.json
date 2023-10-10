@@ -67,7 +67,7 @@
 	"pf_createtemplate_plainformat": "Texto simple",
 	"pf_createtemplate_sectionsformat": "Seccións",
 	"pf_createtemplate_addfield": "Engadir un campo",
-	"pf_createtemplate_deletefield": "Borrar",
+	"pf_createtemplate_deletefield": "Eliminar este campo",
 	"forms": "Formularios",
 	"pf_forms_docu": "Os seguintes formularios existen neste wiki.",
 	"pf_forminputs_mandatory": "Obrigatorio",
