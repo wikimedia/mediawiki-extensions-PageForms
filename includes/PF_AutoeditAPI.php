@@ -926,7 +926,7 @@ class PFAutoeditAPI extends ApiBase {
 		$pageExists = false;
 
 		if ( $targetTitle !== null && $targetTitle->exists() ) {
-			if ( !$isFormSubmitted ) {
+			if ( !$isFormSubmitted || $this->mIsAutoEdit ) {
 				$preloadContent = PFUtils::getPageText( $targetTitle, RevisionRecord::RAW );
 			}
 			$pageExists = true;
@@ -964,7 +964,7 @@ class PFAutoeditAPI extends ApiBase {
 					// otherwise, multi-instance templates
 					// don't get saved, for some convoluted
 					// reason.
-					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), $pageExists,
+					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), ( $pageExists && !$this->mIsAutoEdit ),
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
 					$is_query = false, $is_embedded = false, $is_autocreate = false,
 					$autocreate_query = [], $this->getUser()
