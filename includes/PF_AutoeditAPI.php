@@ -966,7 +966,7 @@ class PFAutoeditAPI extends ApiBase {
 					// otherwise, multi-instance templates
 					// don't get saved, for some convoluted
 					// reason.
-					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), ( $pageExists && !$this->mIsAutoEdit ),
+					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), $pageExists,
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
 					$formContext, $autocreate_query = [], $this->getUser()
 				);

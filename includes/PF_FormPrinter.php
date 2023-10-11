@@ -1194,7 +1194,7 @@ END;
 					// from the template call.
 					// Do the same thing if it's a new page but there's a "preload" -
 					// unless a value for this field was already set in the query string.
-					if ( ( $page_exists || $cur_value == '' ) && ( $tif->getFullTextInPage() != '' ) && !$form_submitted ) {
+					if ( ( $page_exists || $cur_value == '' ) && ( $tif->getFullTextInPage() != '' ) && !$form_submitted && !$is_autoedit ) {
 						if ( $tif->hasValueFromPageForField( $field_name ) ) {
 							// Get value, and remove it,
 							// so that at the end we
