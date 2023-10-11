@@ -47,9 +47,7 @@ class PFFormPrinterTest extends MediaWikiIntegrationTestCase {
 				$existing_page_content = null,
 				$page_name = 'TestStringForFormPageTitle',
 				$page_name_formula = null,
-				$is_query = false,
-				$is_embedded = false,
-				$is_autocreate = false,
+				PFFormPrinter::CONTEXT_REGULAR,
 				$autocreate_query = [],
 				$user = self::getTestUser()->getUser()
 			);

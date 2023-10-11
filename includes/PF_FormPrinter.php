@@ -17,6 +17,12 @@ use MediaWiki\MediaWikiServices;
 
 class PFFormPrinter {
 
+	public const CONTEXT_REGULAR = 0;
+	public const CONTEXT_QUERY = 1;
+	public const CONTEXT_EMBEDDED_QUERY = 2;
+	public const CONTEXT_AUTOEDIT = 3;
+	public const CONTEXT_AUTOCREATE = 4;
+
 	public $mSemanticTypeHooks;
 	public $mCargoTypeHooks;
 	public $mInputTypeHooks;
@@ -816,9 +822,7 @@ END;
 	 * @param string|null $existing_page_content
 	 * @param string|null $page_name
 	 * @param string|null $page_name_formula
-	 * @param bool $is_query
-	 * @param bool $is_embedded
-	 * @param bool $is_autocreate true when called by #formredlink with "create page"
+	 * @param int $form_context
 	 * @param array $autocreate_query query parameters from #formredlink
 	 * @param User|null $user
 	 * @return array
@@ -833,9 +837,7 @@ END;
 		$existing_page_content = null,
 		$page_name = null,
 		$page_name_formula = null,
-		$is_query = false,
-		$is_embedded = false,
-		$is_autocreate = false,
+		$form_context = self::CONTEXT_REGULAR,
 		$autocreate_query = [],
 		$user = null
 	) {
@@ -856,6 +858,10 @@ END;
 		$generated_page_name = $page_name_formula ?? '';
 		$new_text = "";
 		$original_page_content = $existing_page_content;
+		$is_query = ( $form_context == self::CONTEXT_QUERY || $form_context == self::CONTEXT_EMBEDDED_QUERY );
+		$is_embedded = $form_context == self::CONTEXT_EMBEDDED_QUERY;
+		$is_autoedit = $form_context == self::CONTEXT_AUTOEDIT;
+		$is_autocreate = $form_context == self::CONTEXT_AUTOCREATE;
 
 		// Disable all form elements if user doesn't have edit
 		// permission - two different checks are needed, because
@@ -863,7 +869,7 @@ END;
 		// HACK - sometimes we don't know the page name in advance, but
 		// we still need to set a title here for testing permissions.
 		if ( $is_embedded ) {
-			// If this is an embedded form (probably a 'RunQuery'),
+			// If this is an embedded form,
 			// just use the name of the actual page we're on.
 			global $wgTitle;
 			$this->mPageTitle = $wgTitle;

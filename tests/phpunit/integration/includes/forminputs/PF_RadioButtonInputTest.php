@@ -371,7 +371,7 @@ class PFRadioButtonInputTest extends MediaWikiIntegrationTestCase {
 					= $wgPageFormsFormPrinter->formHTML(
 						$form_definition, true, false, null, null,
 						'TestStringForFormPageTitle', null,
-						false, false, false, [], self::getTestUser()->getUser()
+						PFFormPrinter::CONTEXT_REGULAR, [], self::getTestUser()->getUser()
 					);
 			} else {
 				$this->markTestSkipped( "No form to test!" );

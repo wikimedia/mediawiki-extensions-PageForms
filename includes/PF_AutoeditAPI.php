@@ -952,6 +952,8 @@ class PFAutoeditAPI extends ApiBase {
 		// Flag to keep track of formHTML() runs.
 		$formHtmlHasRun = false;
 
+		$formContext = $this->mIsAutoEdit ? PFFormPrinter::CONTEXT_AUTOEDIT : PFFormPrinter::CONTEXT_REGULAR;
+
 		if ( $preloadContent !== '' ) {
 			// Spoof $wgRequest for PFFormPrinter::formHTML().
 			$session = RequestContext::getMain()->getRequest()->getSession();
@@ -966,8 +968,7 @@ class PFAutoeditAPI extends ApiBase {
 					// reason.
 					$formContent, ( $isFormSubmitted && !$this->mIsAutoEdit ), ( $pageExists && !$this->mIsAutoEdit ),
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
-					$is_query = false, $is_embedded = false, $is_autocreate = false,
-					$autocreate_query = [], $this->getUser()
+					$formContext, $autocreate_query = [], $this->getUser()
 				);
 			$formHtmlHasRun = true;
 
@@ -999,8 +1000,7 @@ class PFAutoeditAPI extends ApiBase {
 				$wgPageFormsFormPrinter->formHTML(
 					$formContent, $isFormSubmitted, $pageExists,
 					$formArticleId, $preloadContent, $targetName, $targetNameFormula,
-					$is_query = false, $is_embedded = false, $is_autocreate = false,
-					$autocreate_query = [], $this->getUser()
+					$formContext, $autocreate_query = [], $this->getUser()
 				);
 			// Restore original request.
 			$wgRequest = $oldRequest;

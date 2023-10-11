@@ -54,7 +54,7 @@ class PFFormLinker {
 			$wgPageFormsFormPrinter->formHTML(
 				$formDefinition, false, false, null, $preloadContent,
 				'Some very long page name that will hopefully never get created ABCDEF123',
-				null, false, false, true, $inQueryArr
+				null, PFFormPrinter::CONTEXT_AUTOCREATE, $inQueryArr
 			);
 		$params = [];
 
