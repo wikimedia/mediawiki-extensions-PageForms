@@ -38,7 +38,7 @@
 		);
 	};
 
-	$( document ).ready( function() {
+	$( function() {
 		var showPreview = function( inputId ) {
 			var $input = $( '#' + inputId );
 			var $previewDiv = $( '#' + inputId + '_imagepreview' );

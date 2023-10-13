@@ -200,7 +200,7 @@
 		return this;
 	};
 
-	$( document ).ready( function() {
+	$( function() {
 		if ( mw.config.get( 'wgAction' ) === 'formedit' ||
 			mw.config.get( 'wgCanonicalSpecialPageName' ) === 'FormEdit' ) {
 			$( '#wpPreview' ).pfAjaxPreview();

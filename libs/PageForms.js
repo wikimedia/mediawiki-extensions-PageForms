@@ -1805,7 +1805,7 @@ window.pfGenerateUUID = function() {
 }
 
 // Once the document has finished loading, set up everything!
-$(document).ready( function() {
+$( function() {
 	var i,
 		inputID,
 		validationFunctionData;

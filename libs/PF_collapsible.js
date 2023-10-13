@@ -37,6 +37,6 @@ jQuery.fn.pfMakeCollapsible = function(){
 	});
 };
 
-jQuery(document).ready(function() {
+$(function() {
 	jQuery('.pfCollapsibleFieldset').pfMakeCollapsible();
 });

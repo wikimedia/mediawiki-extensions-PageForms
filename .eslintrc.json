@@ -43,7 +43,6 @@
 		"no-jquery/no-map-util": "off",
 		"no-jquery/no-parse-html-literal": "off",
 		"no-jquery/no-parse-json": "off",
-		"no-jquery/no-ready-shorthand": "off",
 		"no-jquery/no-size": "off",
 		"no-jquery/no-slide": "off",
 		"no-jquery/no-trim": "off",

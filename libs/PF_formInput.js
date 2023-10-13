@@ -120,7 +120,7 @@
 		// needed, so we'll leave that to the PHP to do.
 	};
 
-	$(document).ready( function() {
+	$( function() {
 		$( '.pfFormInputWrapper' ).each( function() {
 			$(this).displayPFFormInput();
 		});

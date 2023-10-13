@@ -326,7 +326,7 @@ function setupMapFormInput( inputDiv, mapService ) {
 	}
 }
 
-jQuery(document).ready( function() {
+$( function() {
 	jQuery(".pfGoogleMapsInput").each( function() {
 		// Ignore the hidden "starter" div in multiple-instance templates.
 		if ( $(this).closest(".multipleTemplateStarter").length > 0 ) {

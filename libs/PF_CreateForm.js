@@ -11,7 +11,7 @@ jQuery.fn.displayInputParams = function () {
 	});
 };
 
-jQuery(document).ready( function () {
+jQuery( function () {
 	jQuery( '.inputTypeSelector' ).change( function () {
 		jQuery( this ).displayInputParams();
 	} );
