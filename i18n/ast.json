@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"pageforms-desc": "Formularios pa crear y editar páxines wiki",
@@ -48,8 +49,8 @@
 	"pf_createtemplate_fieldname": "Nome del campu:",
 	"pf_createtemplate_displaylabel": "Amosar la etiqueta:",
 	"pf_createtemplate_semanticproperty": "Propiedá semántica:",
-	"pf_createtemplate_fieldislist": "El campu contien una llista de valores",
-	"pf_createtemplate_fieldishierarchy": "El campu contien una xerarquía",
+	"pf_createtemplate_fieldislist": "El campu contién una llista de valores",
+	"pf_createtemplate_fieldishierarchy": "El campu contién una xerarquía",
 	"pf_createtemplate_hierarchystructureplaceholder": "*Escribi\n**valores\n***de\n***xerarquía\n**nun\n***formatu\n*como\n**esti",
 	"pf_createproperty_allowedvalsforhierarchy": "Valores permitíos pa la xerarquía:",
 	"pf_createtemplate_delimiter": "Delimitador:",

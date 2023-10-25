@@ -194,7 +194,7 @@
 	"pf_formedit_altformsonly": "אנא בחרו מאחד הטפסים הבאים להוספת דף זה:",
 	"pf_formcreate": "יצירה עם טופס",
 	"pf_viewform": "הצגת הטופס",
-	"pf_editsource": "עריכת מקור",
+	"pf_editsource": "עריכת קוד מקור",
 	"pf_formedit_edittitle": "עריכת $1: $2",
 	"pf_formedit_morethanoneform": "'''אזהרה:''' יותר מטופס ברירת מחדל אחד מוגדר לדף זה.",
 	"pf_formedit_formwarning": "אזהרה: דף זה [[$1|כבר קיים]], אך אינו משתמש בטופס זה.",
