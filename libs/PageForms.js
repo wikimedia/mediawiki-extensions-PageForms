@@ -915,15 +915,15 @@ function validateStartEndDateTimeField( startInput, endInput ) {
 
 window.validateAll = function() {
 
+	// Remove all old error messages.
+	$(".errorMessage").remove();
+
 	// Hook that fires on form submission, before the validation.
 	mw.hook('pf.formValidationBefore').fire();
 
 	var args = {numErrors: 0};
 	mw.hook('pf.formValidation').fire( args );
 	var num_errors = args.numErrors;
-
-	// Remove all old error messages.
-	$(".errorMessage").remove();
 
 	// Make sure all inputs are ignored in the "starter" instance
 	// of any multiple-instance template.
