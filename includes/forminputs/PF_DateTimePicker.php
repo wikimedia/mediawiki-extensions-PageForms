@@ -52,7 +52,8 @@ class PFDateTimePicker extends PFFormInput {
 			'value' => $this->mCurrentValue,
 			'id' => $inputID,
 			'classes' => [ 'pfDateTimePicker', 'pfPicker' ],
-			'infusable' => true
+			'infusable' => true,
+			'disabled' => $this->mIsDisabled
 		] );
 		$text = $widget->toString();
 
