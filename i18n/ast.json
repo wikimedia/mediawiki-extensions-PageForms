@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"pageforms-desc": "Formularios pa crear y editar páxines wiki",
@@ -30,7 +31,7 @@
 	"apihelp-pfautoedit-param-preload": "El nome d'una páxina pa precargar nel formulariu",
 	"createproperty": "Crear una propiedá",
 	"pf-createproperty-with-name": "Crear la propiedá: $1",
-	"pf_createproperty_allowedvalsinput": "Pa permitir sólo determinaos valores, escribi la llista de valores permitíos, separaos por comes (si un valor contien una coma, trócala por \"\\,\"):",
+	"pf_createproperty_allowedvalsinput": "Pa permitir sólo determinaos valores, escribi la llista de valores permitíos, separaos por comes (si un valor contién una coma, trócala por \"\\,\"):",
 	"pf_createproperty_propname": "Nome de la propiedá:",
 	"pf_createproperty_proptype": "Tipu:",
 	"pf_createproperty_editsummary": "Creada una propiedá de tipu [[Has type::$1]]",
@@ -50,8 +51,8 @@
 	"pf_createtemplate_fieldname": "Nome del campu:",
 	"pf_createtemplate_displaylabel": "Amosar la etiqueta:",
 	"pf_createtemplate_semanticproperty": "Propiedá semántica:",
-	"pf_createtemplate_fieldislist": "El campu contien una llista de valores",
-	"pf_createtemplate_fieldishierarchy": "El campu contien una xerarquía",
+	"pf_createtemplate_fieldislist": "El campu contién una llista de valores",
+	"pf_createtemplate_fieldishierarchy": "El campu contién una xerarquía",
 	"pf_createtemplate_hierarchystructureplaceholder": "*Escribi\n**valores\n***de\n***xerarquía\n**nun\n***formatu\n*como\n**esti",
 	"pf_createproperty_allowedvalsforhierarchy": "Valores permitíos pa la xerarquía:",
 	"pf_createtemplate_delimiter": "Delimitador:",
@@ -92,9 +93,9 @@
 	"pf_forminputs_valuesfromcategory": "Una categoría na que les páxines tienen de ser el conxuntu de valores d'esta entrada",
 	"pf_forminputs_valuesfromnamespace": "Un espaciu de nomes nel que les páxines tienen de ser el conxuntu de valores d'esta entrada",
 	"pf_forminputs_valuesfromconcept": "Una páxina de \"conceutu\" de Semantic MediaWiki nel que les páxines tienen de ser el conxuntu de valores d'esta entrada",
-	"pf_forminputs_valuesfromurl": "Una URL que contien datos estructuraos que tienen de ser el conxuntu de valores d'esta entrada",
+	"pf_forminputs_valuesfromurl": "Una URL que contién datos estructuraos que tienen de ser el conxuntu de valores d'esta entrada",
 	"pf_forminputs_values": "El conxuntu de valores d'esta entrada, separaos por comes",
-	"pf_forminputs_list": "Marcar esta entrada como que contien una llista de valores",
+	"pf_forminputs_list": "Marcar esta entrada como que contién una llista de valores",
 	"pf_forminputs_delimiter": "El separador entre valores de campu, si esta entrada tien una llista d'ellos",
 	"pf_forminputs_existingvaluesonly": "Permitir sólo los valores que yá tan na llista",
 	"pf_forminputs_showonselect": "Elementos de la páxina a amosar sólo si tan seleicionaos ciertos valores (por exemplu: \"valor1=>div1;valor2=>div2\")",
