@@ -46,6 +46,7 @@
 	"pf-createtemplate-with-name": "Crear plantilla: $1",
 	"pf_createtemplate_namelabel": "Nombre de la plantilla:",
 	"pf_createtemplate_multipleinstance": "Esta plantilla puede incluirse varias veces en la página.",
+	"pf_createtemplate_fullwikitext": "Usar wikitexto completo en lugar de $1",
 	"pf_createtemplate_connectingproperty": "Nombre de la propiedad para conectar los campos de esta plantilla con el resto de la página:",
 	"pf_createtemplate_categorylabel": "Categoría definida por la plantilla (opcional):",
 	"pf_createtemplate_templatefields": "Campos de la plantilla",
