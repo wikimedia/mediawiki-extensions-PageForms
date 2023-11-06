@@ -46,6 +46,7 @@
 	"pf_bad_date_error": "సరైన తేదీ అయివుండాలి",
 	"uploadwindow": "ఎక్కింపు కిటికీ",
 	"pf_deletionlog": "తొలగింపు చిట్టా",
+	"pf_template_docu": "ఇది \"$1\" మూస.\nదీన్ని కింది ఫార్మాట్‌లో కాల్ చెయ్యాలి:",
 	"pf_form_freetextlabel": "స్వేచ్ఛా పాఠ్యం",
 	"pf_category_hasdefaultform": "ఈ వర్గం $1 అనే ఫారాన్ని వాడుతుంది.",
 	"pf_category_desc": "ఇది $1 అనే వర్గం.",
