@@ -1100,7 +1100,7 @@ END;
 					if ( count( $tag_components ) > 1 ) {
 						throw new MWException( '<div class="error">Error in form definition: \'end template\' tag cannot contain any additional parameters.</div>' );
 					}
-					if ( $source_is_page ) {
+					if ( $source_is_page && !$is_autoedit ) {
 						// Add any unhandled template fields
 						// in the page as hidden variables.
 						$form_text .= PFFormUtils::unhandledFieldsHTML( $tif );
