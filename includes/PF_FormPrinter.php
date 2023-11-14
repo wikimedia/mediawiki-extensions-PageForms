@@ -1220,12 +1220,8 @@ END;
 
 					// Handle the free text field.
 					if ( $field_name == '#freetext#' ) {
-						if ( $cur_value === '' || $cur_value === null ) {
-							$preloaded_free_text = $existing_page_content;
-						} else {
-							// If there was no preloading, this will just be blank.
-							$preloaded_free_text = $cur_value;
-						}
+						// If there was no preloading, this will just be blank.
+						$preloaded_free_text = $cur_value;
 						// Add placeholders for the free text in both the form and
 						// the page, using <free_text> tags - once all the free text
 						// is known (at the end), it will get substituted in.
