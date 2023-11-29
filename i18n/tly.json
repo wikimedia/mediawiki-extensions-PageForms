@@ -2,8 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Patriot Kor",
-			"Patriot Kur"
+			"Patriot Kur",
+			"Гусейн"
 		]
 	},
+	"pf_createform_template": "Šablon:",
+	"pf_blank_namespace": "Əsosə",
 	"pf-datepicker-today": "Imruj"
 }
