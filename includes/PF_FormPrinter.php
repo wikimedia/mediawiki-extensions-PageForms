@@ -771,7 +771,7 @@ END;
 					if ( $wgAmericanDates == true ) {
 						$new_value = "$month $day, $year";
 					} else {
-						$new_value = "$year/$month/$day";
+						$new_value = "$year-$month-$day";
 					}
 					// If there's a day, include whatever
 					// time information we have.
