@@ -4,7 +4,8 @@
 			"ElangoRamanujam",
 			"Jayarathina",
 			"Shanmugamp7",
-			"TRYPPN"
+			"TRYPPN",
+			"Fahimrazick"
 		]
 	},
 	"pf_createproperty_proptype": "வகை:",
@@ -33,7 +34,7 @@
 	"pf_createform_addtemplate": "வார்ப்புருவைச் சேர்",
 	"pf_createform_atend": "இறுதியில்",
 	"pf_createform_add": "சேர்",
-	"pf_createform_choosefield": "சேர்க்க ஒரு புலத்தை தேர்வு செய்யவும்",
+	"pf_createform_choosefield": "சேர்க்க ஒரு புலத்தைத் தெரிவு செய்",
 	"pf_createform_before": "வார்ப்புருவிற்கு முன்:",
 	"createcategory": "ஒரு பகுப்பை உருவாக்கவும்",
 	"pf-createcategory-with-name": "பகுப்பை உருவாக்கு: $1",
@@ -64,7 +65,7 @@
 	"pf-preview-header": "படிவ முன்தோற்றம்",
 	"pf_blank_namespace": "முதன்மையானது",
 	"pf-maps-enteraddress": "இங்கு முகவரியை உள்ளிடவும்",
-	"pf-datepicker-close": "மூடுக",
+	"pf-datepicker-close": "மூடு",
 	"pf-datepicker-prev": "முந்தைய",
 	"pf-datepicker-next": "அடுத்தது",
 	"pf-datepicker-today": "இன்று"
