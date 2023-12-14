@@ -36,7 +36,9 @@ class PFCheckboxInput extends PFFormInput {
 
 		// Can show up here either as an array or a string, depending on
 		// whether it came from user input or a wiki page
-		if ( is_array( $cur_value ) ) {
+		if ( !isset( $cur_value ) ) {
+			$isChecked = false;
+		} elseif ( is_array( $cur_value ) ) {
 			$isChecked = array_key_exists( 'value', $cur_value ) && $cur_value['value'] == 'on';
 		} else {
 			// Default to false - no need to check if it matches
