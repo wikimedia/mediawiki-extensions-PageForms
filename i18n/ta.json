@@ -64,9 +64,9 @@
 	"pf_bad_date_error": "கண்டிப்பாக செல்லத்தக்க தேதியாக இருக்க வேண்டும்",
 	"pf-preview-header": "படிவ முன்தோற்றம்",
 	"pf_blank_namespace": "முதன்மையானது",
-	"pf-maps-enteraddress": "இங்கு முகவரியை உள்ளிடவும்",
+	"pf-maps-enteraddress": "இங்கு முகவரியை உள்ளிடுக",
 	"pf-datepicker-close": "மூடு",
-	"pf-datepicker-prev": "முந்தைய",
+	"pf-datepicker-prev": "முந்திய",
 	"pf-datepicker-next": "அடுத்தது",
 	"pf-datepicker-today": "இன்று"
 }
