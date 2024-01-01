@@ -86,7 +86,7 @@
 	"pf_forms_docu": "הטפסים הבאים קיימים בוויקי הזה.",
 	"pf_forminputs_mandatory": "חובה להזין ערך לתיבת הקלט הזאת",
 	"pf_forminputs_restricted": "רק מפעילי מערכת יכולים לערוך את הקלט הזה",
-	"pf_forminputs_class": "מאפיין class של HTML עבור הקלט הזה",
+	"pf_forminputs_class": "תכונת class של HTML עבור הקלט הזה",
 	"pf_forminputs_default": "ערך התחלתי עבור הקלט הזה",
 	"pf_forminputs_preload": "דף ויקי שתוכנו יהיה הערך ההתחלתי עבור הקלט הזה",
 	"pf_forminputs_property": "מאפיין סמנטי שהשדה הזה מתאים לו",
