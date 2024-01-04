@@ -247,7 +247,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			$fieldAlias = str_replace( '_', ' ', $fieldName );
 		}
 		foreach ( $queryResults as $row ) {
-			if ( !array_key_exists( $fieldAlias, $row ) ) {
+			if ( !isset( $row[$fieldAlias] ) ) {
 				continue;
 			}
 			// Cargo HTML-encodes everything - decode the quotes and
