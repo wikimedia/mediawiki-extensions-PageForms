@@ -147,12 +147,7 @@ END;
 		if ( $page_title->exists() ) {
 			// It exists - see if page is a redirect; if
 			// it is, edit the target page instead.
-			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-				// MW 1.36+
-				$content = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $page_title )->getContent();
-			} else {
-				$content = WikiPage::factory( $page_title )->getContent();
-			}
+			$content = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $page_title )->getContent();
 			if ( $content && $content->getRedirectTarget() ) {
 				$page_title = $content->getRedirectTarget();
 				$page_name = PFUtils::titleURLString( $page_title );

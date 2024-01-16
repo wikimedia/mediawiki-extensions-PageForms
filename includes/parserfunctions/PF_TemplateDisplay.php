@@ -242,12 +242,7 @@ class PFTemplateDisplay {
 		}
 
 		if ( $title->isRedirect() ) {
-			if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-				// MW 1.36+
-				$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
-			} else {
-				$wikiPage = new WikiPage( $title );
-			}
+			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 
 			$title = $wikiPage->getRedirectTarget();
 			if ( !$title->exists() ) {

@@ -50,14 +50,7 @@ class PFTemplate {
 		if ( $templateTitle === null ) {
 			return;
 		}
-		$services = MediaWikiServices::getInstance();
-		if ( method_exists( $services, 'getPageProps' ) ) {
-			// MW 1.36+
-			$pageProps = $services->getPageProps();
-		} else {
-			$pageProps = PageProps::getInstance();
-		}
-		$properties = $pageProps->getProperties(
+		$properties = MediaWikiServices::getInstance()->getPageProps()->getProperties(
 			[ $templateTitle ], [ 'PageFormsTemplateParams' ]
 		);
 		if ( count( $properties ) == 0 ) {

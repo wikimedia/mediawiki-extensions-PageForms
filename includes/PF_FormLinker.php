@@ -26,11 +26,8 @@ class PFFormLinker {
 			return null;
 		}
 
-		$services = MediaWikiServices::getInstance();
-		// MW < 1.36 compatibility
-		$pageProps = method_exists( $services, 'getPageProps' )
-			? $services->getPageProps() : PageProps::getInstance();
-		$props = $pageProps->getProperties( $title, [ 'PFDefaultForm', 'SFDefaultForm' ] );
+		$props = MediaWikiServices::getInstance()->getPageProps()
+			->getProperties( $title, [ 'PFDefaultForm', 'SFDefaultForm' ] );
 		$pageID = $title->getArticleID();
 
 		// Keep backward compatibility with the page property name for Semantic Forms.

@@ -149,12 +149,7 @@ class PFCreateClass extends SpecialPage {
 		$full_text = $pfTemplate->createText();
 
 		$template_title = Title::makeTitleSafe( NS_TEMPLATE, $template_name );
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$template_page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $template_title );
-		} else {
-			$template_page = WikiPage::factory( $template_title );
-		}
+		$template_page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $template_title );
 		$edit_summary = '';
 		PFCreatePageJob::createOrModifyPage( $template_page, $full_text, $edit_summary, $user );
 

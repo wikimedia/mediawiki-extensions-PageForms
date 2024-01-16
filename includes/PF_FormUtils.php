@@ -665,13 +665,7 @@ END;
 	 */
 	public static function purgeCacheOnSave( RenderedRevision $renderedRevision ) {
 		$articleID = $renderedRevision->getRevision()->getPageId();
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $articleID );
-		} else {
-			// MW 1.35
-			$wikiPage = WikiPage::newFromID( $articleID );
-		}
+		$wikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $articleID );
 		if ( $wikiPage == null ) {
 			// @TODO - should this ever happen?
 			return true;

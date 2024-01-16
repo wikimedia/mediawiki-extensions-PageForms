@@ -375,14 +375,8 @@ class PFMappingUtils {
 				$titles[ $k ] = $title;
 			}
 		}
-		$services = MediaWikiServices::getInstance();
-		if ( method_exists( $services, 'getPageProps' ) ) {
-			// MW 1.36+
-			$pageProps = $services->getPageProps();
-		} else {
-			$pageProps = PageProps::getInstance();
-		}
-		$properties = $pageProps->getProperties( $titles, [ 'displaytitle', 'defaultsort' ] );
+		$properties = MediaWikiServices::getInstance()->getPageProps()
+			->getProperties( $titles, [ 'displaytitle', 'defaultsort' ] );
 		foreach ( $titles as $title ) {
 			if ( array_key_exists( $title->getArticleID(), $properties ) ) {
 				$titleprops = $properties[$title->getArticleID()];
