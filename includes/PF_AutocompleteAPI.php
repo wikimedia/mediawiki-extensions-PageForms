@@ -235,7 +235,7 @@ class PFAutocompleteAPI extends ApiBase {
 		$basePropertyName = null,
 		$baseValue = null
 	) {
-		$db = wfGetDB( DB_REPLICA );
+		$db = PFUtils::getReadDB();
 		$sqlOptions = [
 			'LIMIT' => PFValuesUtils::getMaxValuesToRetrieve( $substring )
 		];

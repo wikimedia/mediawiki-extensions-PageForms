@@ -11,6 +11,8 @@ use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Linker\LinkTarget;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\RevisionRecord;
+use Wikimedia\Rdbms\DBConnRef;
+use Wikimedia\Rdbms\IDatabase;
 
 class PFUtils {
 
@@ -296,7 +298,7 @@ END;
 	 * @return string[]
 	 */
 	public static function getAllForms() {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = self::getReadDB();
 		$res = $dbr->select( 'page',
 			'page_title',
 			[ 'page_namespace' => PF_NS_FORM,
@@ -482,5 +484,20 @@ END;
 		}
 		$tableSchema = $tableSchemas[$cargoTable];
 		return $tableSchema->mFieldDescriptions[$cargoField] ?? null;
+	}
+
+	/**
+	 * Provides database for read access
+	 *
+	 * @return IDatabase|DBConnRef
+	 */
+	public static function getReadDB() {
+		$lbFactory = MediaWikiServices::getInstance()->getDBLoadBalancerFactory();
+		if ( method_exists( $lbFactory, 'getReplicaDatabase' ) ) {
+			// MW 1.40+
+			return $lbFactory->getReplicaDatabase();
+		} else {
+			return $lbFactory->getMainLB()->getMaintenanceConnectionRef( DB_REPLICA );
+		}
 	}
 }

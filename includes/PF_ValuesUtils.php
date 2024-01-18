@@ -61,7 +61,7 @@ class PFValuesUtils {
 	 */
 	public static function getCategoriesForPage( $title ) {
 		$categories = [];
-		$db = wfGetDB( DB_REPLICA );
+		$db = PFUtils::getReadDB();
 		$titlekey = $title->getArticleID();
 		if ( $titlekey == 0 ) {
 			// Something's wrong - exit
@@ -87,7 +87,7 @@ class PFValuesUtils {
 	 */
 	public static function getAllCategories() {
 		$categories = [];
-		$db = wfGetDB( DB_REPLICA );
+		$db = PFUtils::getReadDB();
 		$res = $db->select(
 			'category',
 			'cat_title',
@@ -273,7 +273,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 		global $wgPageFormsUseDisplayTitle;
 
-		$db = wfGetDB( DB_REPLICA );
+		$db = PFUtils::getReadDB();
 		$top_category = str_replace( ' ', '_', $top_category );
 		$categories = [ $top_category ];
 		$checkcategories = [ $top_category ];
@@ -562,7 +562,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 			$namespaceConditions[] = "page_namespace = $matchingNamespaceCode";
 		}
 
-		$db = wfGetDB( DB_REPLICA );
+		$db = PFUtils::getReadDB();
 		$conditions = [];
 		$conditions[] = implode( ' OR ', $namespaceConditions );
 		$tables = [ 'page' ];
@@ -871,7 +871,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	public static function getSQLConditionForAutocompleteInColumn( $column, $substring, $replaceSpaces = true ) {
 		global $wgPageFormsAutocompleteOnAllChars;
 
-		$db = wfGetDB( DB_REPLICA );
+		$db = PFUtils::getReadDB();
 
 		// CONVERT() is also supported in PostgreSQL, but it doesn't
 		// seem to work the same way.

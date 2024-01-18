@@ -225,7 +225,7 @@ class PFTree {
 	 * @return array
 	 */
 	private static function getSubcategories( $categoryName ) {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = PFUtils::getReadDB();
 
 		$tables = [ 'page', 'categorylinks' ];
 		$fields = [ 'page_id', 'page_namespace', 'page_title',

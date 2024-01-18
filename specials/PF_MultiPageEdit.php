@@ -175,7 +175,7 @@ class PFMultiPageEdit extends QueryPage {
 	 * form names in an array using helper functions.
 	 */
 	function setTemplateList() {
-		$dbr = wfGetDB( DB_REPLICA );
+		$dbr = PFUtils::getReadDB();
 		$res = $dbr->select(
 			[ 'page' ],
 			[ 'page_title' ],
