@@ -211,14 +211,16 @@ END;
 			$form_body
 		);
 
-		$text .= <<<END
-	<script type="text/javascript">
+		$script = <<<END
 	window.onload = function() {
 		document.editform.submit();
 	}
-	</script>
 
 END;
+
+		$nonce = RequestContext::getMain()->getOutput()->getCSP()->getNonce();
+		$text .= Html::inlineScript( $script, $nonce );
+
 		// @TODO - remove this hook? It seems useless.
 		MediaWikiServices::getInstance()->getHookContainer()->run( 'PageForms::PrintRedirectForm', [ $is_save, !$is_save, false, &$text ] );
 		return $text;
