@@ -788,11 +788,11 @@ class PFAutoeditAPI extends ApiBase {
 			// this tag until we find one that gives a nonexistent
 			// page title.
 			// We cannot use $targetTitle->exists(); it does not use
-			// Title::GAID_FOR_UPDATE, which is needed to get
+			// IDBAccessObject::READ_LATEST, which is needed to get
 			// correct data from cache; use
 			// $targetTitle->getArticleID() instead.
 			$numAttemptsAtTitle = 0;
-			while ( $targetTitle->getArticleID( Title::GAID_FOR_UPDATE ) !== 0 ) {
+			while ( $targetTitle->getArticleID( IDBAccessObject::READ_LATEST ) !== 0 ) {
 				$numAttemptsAtTitle++;
 
 				if ( $isRandom ) {
