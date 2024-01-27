@@ -320,6 +320,8 @@ class PFMappingUtils {
 		bool $doReverseLookup = false
 	) {
 		$labels = [];
+		$pageNamesForValues = [];
+		$allTitles = [];
 		foreach ( $values as $value ) {
 			if ( trim( $value ) === "" ) {
 				continue;
@@ -352,11 +354,13 @@ class PFMappingUtils {
 			if ( $titleInstance === null ) {
 				continue;
 			}
-			$displayTitle = self::getDisplayTitles( [ $titleInstance ] );
-			$displayTitle = reset( $displayTitle );
-			$labels[ $value ] = ( $displayTitle && strtolower( trim( $displayTitle ) ) !== trim( strtolower( $value ) ) )
-				? $displayTitle
-				: $value;
+			$pageNamesForValues[$value] = $titleInstance->getPrefixedText();
+			$allTitles[] = $titleInstance;
+		}
+
+		$allDisplayTitles = self::getDisplayTitles( $allTitles );
+		foreach ( $pageNamesForValues as $value => $pageName ) {
+			$labels[$value] = $allDisplayTitles[$pageName] ?? $value;
 		}
 		return $labels;
 	}
