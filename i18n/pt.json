@@ -228,7 +228,7 @@
 	"pf_autoedit_confirm": "Tem a certeza de que pretende modificar \"$1\"?",
 	"pf_autoedit_notsettogether": "'$1' e '$2' não podem ser definidos na mesma função.",
 	"runquery": "Executar consulta",
-	"pf_runquery_badurl": "Tem de especificar um nome de formulário na URL;\na URL deve ser parecida com 'Special:RunQuery/<form name>'.",
+	"pf_runquery_badurl": "Tem de especificar um nome de formulário no URL;\no URL deve ser parecido com 'Special:RunQuery/<form name>'.",
 	"pf_runquery_title": "Executar consulta: $1",
 	"pf_runquery_additionalquery": "Consulta adicional",
 	"pf_formerrors_header": "Houve erros nas entradas do seu formulário; veja abaixo",
