@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ant176",
 			"Aotake",
 			"Foomin10",
 			"Fryed-peach",
@@ -203,6 +204,7 @@
 	"action-editrestrictedfields": "制限されたフォームフィールドの編集",
 	"action-viewedittab": "フォームで編集できるページの「{{int:edit}}」タブの閲覧",
 	"action-multipageedit": "スプレッドシートを使用した複数ページの編集",
+	"tooltip-ca-formedit": "このページをフォームで編集",
 	"pf-autocomplete-searching": "検索中...",
 	"pf-autocomplete-input-too-short": "$1 文字以上入力してください。",
 	"pf-maps-lookupcoordinates": "住所から座標を算出",
