@@ -744,4 +744,7 @@ END;
 		}
 	}
 
+	public function doesWrites() {
+		return true;
+	}
 }

@@ -234,4 +234,8 @@ class PFFormEdit extends UnlistedSpecialPage {
 	protected function getGroupName() {
 		return 'pf_group';
 	}
+
+	public function doesWrites() {
+		return true;
+	}
 }

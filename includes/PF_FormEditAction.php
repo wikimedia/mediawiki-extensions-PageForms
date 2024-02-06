@@ -303,4 +303,8 @@ class PFFormEditAction extends Action {
 
 		return false;
 	}
+
+	public function doesWrites() {
+		return true;
+	}
 }
