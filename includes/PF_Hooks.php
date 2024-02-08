@@ -9,6 +9,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\ResourceLoader\ResourceLoader;
 
 class PFHooks {
 
@@ -53,13 +54,13 @@ class PFHooks {
 	}
 
 	/**
-	 * ResourceLoaderRegisterModules hook handler
+	 * Called by ResourceLoaderRegisterModules hook.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderRegisterModules
 	 *
-	 * @param ResourceLoader &$resourceLoader The ResourceLoader object
+	 * @param ResourceLoader $resourceLoader The ResourceLoader object
 	 */
-	public static function registerModules( ResourceLoader &$resourceLoader ) {
+	public static function registerModules( ResourceLoader $resourceLoader ) {
 		// These used to use a value of __DIR__ for 'localBasePath',
 		// but apparently in some installations that had a value of
 		// /PageForms/libs and in others just /PageForms, so we'll set
