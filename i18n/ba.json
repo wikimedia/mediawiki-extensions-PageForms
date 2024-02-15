@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bashkorttan",
 			"Айсар"
 		]
 	},
+	"formedit": "Форма менән үҙгәртеү",
 	"pf_autoedit_success": "[[$1]] $2 формаһы ярҙамында үҙгәртелгән."
 }
