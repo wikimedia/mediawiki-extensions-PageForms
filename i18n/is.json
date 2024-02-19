@@ -3,6 +3,7 @@
 		"authors": [
 			"S.Örvarr.S",
 			"Snævar",
+			"Stefán Örvar Sigmundsson",
 			"Sveinn í Felli"
 		]
 	},
@@ -12,7 +13,7 @@
 	"createtemplate": "Búa til sniðmát",
 	"pf_createtemplate_standardformat": "Tafla",
 	"multipageedit": "Breyta mörgum síðum",
-	"createform": "Búa til útfyllingaform",
+	"createform": "Búa til eyðublað",
 	"createcategory": "Búa til flokk",
 	"pf_createcategory_name": "Nafn flokks:",
 	"runquery": "Keyra fyrirspurn",
