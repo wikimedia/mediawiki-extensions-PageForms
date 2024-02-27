@@ -3,7 +3,8 @@
 		"authors": [
 			"Hindustanilanguage",
 			"Saraiki",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Muhammad Shuaib"
 		]
 	},
 	"pf_createproperty_proptype": "قسم:",
@@ -33,6 +34,7 @@
 	"createclass": "ایک کلاس کی تخلیق",
 	"pf_createclass_nameinput": "فارم کے نام:",
 	"pf_createclass_create": "تخلیق کریں",
+	"formedit": "ترمیم بذریعہ فارم",
 	"pf-autoedit-wait": "رکو...",
 	"pf_modified_input_error": "اس تبدیلی کو منظور یا نامنظور کیا جانا چاہیے",
 	"pf-datepicker-close": "بند کرو"
