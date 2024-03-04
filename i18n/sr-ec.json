@@ -20,6 +20,7 @@
 	"pf_createproperty_allowedvalsinput": "Ако желите да овој особини буде дозвољено да има само одређене вредности, унесите списак дозвољених вредност, одвојених зарезима (ако вредност садржи зарез, пишите га као „\\,“):",
 	"pf_createproperty_propname": "Име својства:",
 	"pf_createproperty_proptype": "Врста:",
+	"pf_createproperty_editsummary": "Направљено својство типа $1",
 	"templates": "Шаблони",
 	"pf_templates_docu": "Следећи шаблони постоје на викију.",
 	"pf_templates_definescat": "дефинише категорију: $1",
