@@ -1297,7 +1297,8 @@ END;
 							// $generated_page_name = str_replace('.', '_', $generated_page_name);
 							$generated_page_name = str_replace( ' ', '_', $generated_page_name );
 							$escaped_input_name = str_replace( ' ', '_', $form_field->getInputName() );
-							$generated_page_name = str_ireplace( "<$escaped_input_name>", $cur_value_in_template, $generated_page_name );
+							$generated_page_name = str_ireplace( "<$escaped_input_name>",
+								$cur_value_in_template ?? '', $generated_page_name );
 							// Once the substitution is done, replace underlines back
 							// with spaces.
 							$generated_page_name = str_replace( '_', ' ', $generated_page_name );
