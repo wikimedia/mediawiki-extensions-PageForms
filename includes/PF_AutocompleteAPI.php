@@ -108,20 +108,17 @@ class PFAutocompleteAPI extends ApiBase {
 		}
 		*/
 
-		// Format data as the API requires it - this is not needed
-		// for "values from url", where the data is already formatted
-		// correctly.
-		if ( $external_url === null ) {
-			$formattedData = [];
-			foreach ( $data as $index => $value ) {
-				if ( $map ) {
-					$formattedData[] = [ 'title' => $index, 'displaytitle' => $value ];
-				} else {
-					$formattedData[] = [ 'title' => $value ];
-				}
+		// Format data as the API requires it - in the case of "values
+		// from url", it's a little odd because we are re-adding the
+		// "title" key after having removed it, but the removal was
+		// needed for the sorting.
+		$formattedData = [];
+		foreach ( $data as $index => $value ) {
+			if ( $map ) {
+				$formattedData[] = [ 'title' => $index, 'displaytitle' => $value ];
+			} else {
+				$formattedData[] = [ 'title' => $value ];
 			}
-		} else {
-			$formattedData = $data;
 		}
 
 		// Set top-level elements.

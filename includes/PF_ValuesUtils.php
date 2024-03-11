@@ -855,7 +855,7 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 		}
 		$return_values = [];
 		foreach ( $data->pfautocomplete as $val ) {
-			$return_values[] = (array)$val;
+			$return_values[] = $val->title;
 		}
 		return $return_values;
 	}
