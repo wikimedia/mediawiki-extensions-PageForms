@@ -208,6 +208,7 @@
 	"pf_formedit_remove": "The text for a button that removes one row/\"instance\" in a form",
 	"pf_formedit_addanotherabove": "The text for a button in a form that adds a row/\"instance\" above the current one",
 	"pf_formedit_addanother": "Button; the implied sentence is: Add another [field].\n\nSee also:\n* {{msg-mw|pf createtemplate fieldname}}",
+	"pf-formedit-nodata": "Text to indicate that no data has been entered for a certain subset of a form",
 	"pf_formedit_none": "The label for a form option to leave this field blank",
 	"pf_formedit_emptytitle": "Error message\n\n(probably unused message)",
 	"pf_formedit_hookerror": "Error message\n\n(probably unused message)",

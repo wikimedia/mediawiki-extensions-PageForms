@@ -1137,7 +1137,7 @@ $.fn.possiblyMinimizeAllOpenInstances = function() {
 			valuesStr += curVal;
 		});
 		if ( valuesStr === '' ) {
-			valuesStr = '<em>No data</em>';
+			valuesStr = '<em>' + mw.msg('pf-formedit-nodata') + '</em>';
 		}
 		$instance.find('.instanceMain').fadeOut( "medium", function() {
 			$instance.find('.instanceRearranger').after('<td class="fieldValuesDisplay">' + valuesStr + '</td>');
