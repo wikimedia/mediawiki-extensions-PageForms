@@ -20,6 +20,10 @@ class PFFormField {
 	 * @var PFTemplateField
 	 */
 	public $template_field;
+	/**
+	 * @var array
+	 */
+	public static $mappedValuesCache = [];
 	private $mInputType;
 	private $mIsMandatory;
 	private $mIsHidden;
@@ -453,8 +457,14 @@ class PFFormField {
 				// handling.
 				$f->mUseDisplayTitle = false;
 			}
-			$mappedValues = PFMappingUtils::getMappedValuesForInput( $f->mPossibleValues, $f->mFieldArgs );
-			$f->mPossibleValues = $mappedValues;
+
+			$mappedValuesKey = json_encode( $f->mFieldArgs ) . $mappingType;
+			if ( array_key_exists( $mappedValuesKey, self::$mappedValuesCache ) ) {
+				$f->mPossibleValues = self::$mappedValuesCache[$mappedValuesKey];
+			} else {
+				$f->mPossibleValues = PFMappingUtils::getMappedValuesForInput( $f->mPossibleValues, $f->mFieldArgs );
+				self::$mappedValuesCache[$mappedValuesKey] = $f->mPossibleValues;
+			}
 		}
 
 		if ( $template_in_form->allowsMultiple() ) {
