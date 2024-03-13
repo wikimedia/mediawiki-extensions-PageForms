@@ -190,6 +190,7 @@
 	"pf_formedit_remove": "Отстрани го примероков",
 	"pf_formedit_addanotherabove": "Додај друг примерок над овој",
 	"pf_formedit_addanother": "Додај уште",
+	"pf-formedit-nodata": "Нема податоци",
 	"pf_formedit_none": "Нема/непознато",
 	"pf_formedit_emptytitle": "Грешка: Вметнатите податоци предизвикуваат празен наслов на статијата.",
 	"pf_formedit_hookerror": "Грешка: Менувањето на целната статија е спречено од додаток на МедијаВики.",

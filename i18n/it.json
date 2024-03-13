@@ -156,6 +156,7 @@
 	"pf_formedit_remove": "Rimuovi questa istanza",
 	"pf_formedit_addanotherabove": "Aggiungi un'altra istanza sopra di questa",
 	"pf_formedit_addanother": "Aggiungi un altro",
+	"pf-formedit-nodata": "Nessun dato",
 	"pf_formedit_none": "Nessuno/sconosciuto",
 	"pf_formedit_hookerror": "Errore: un'estensione MediaWiki ha impedito la modifica della pagina di destinazione.",
 	"pf_formedit_saveandcontinueediting": "Salva e continua",

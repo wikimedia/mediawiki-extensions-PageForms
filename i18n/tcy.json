@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"VASANTH S.N."
+			"VASANTH S.N.",
+			"Vishwanatha Badikana"
 		]
 	},
 	"templates": "ಟೆಂಪ್ಲೆಟ್‍ಲು",
@@ -14,6 +15,7 @@
 	"pf_createcategory_name": "ವರ್ಗದೊ ಪುದರ್:",
 	"pf_createclass_create": "ಸೃಷ್ಟಿಸಾಲೆ",
 	"pf_editsource": "ಮೂಲೊನು ಸಂಪಾದನೆ ಮಲ್ಪುಲೆ",
+	"pf-formedit-nodata": "ಮಾಹಿತಿ ಇಲ್ಲ",
 	"pf-autocomplete-searching": "ನಡೊಂತುಂಡು...",
 	"pf-datepicker-close": "ಮುಚ್ಚಿಲೆ",
 	"pf-datepicker-prev": "ದುಂಬುತಾ",
