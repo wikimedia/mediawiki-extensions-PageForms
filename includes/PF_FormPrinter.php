@@ -958,6 +958,7 @@ END;
 		// This is needed in order to make sure $parser->mLinkHolders
 		// is set.
 		$parser->clearState();
+		$parser->setOutputType( Parser::OT_HTML );
 
 		$form_def = PFFormUtils::getFormDefinition( $parser, $form_def, $form_id );
 
