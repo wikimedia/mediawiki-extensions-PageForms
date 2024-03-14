@@ -201,6 +201,7 @@
 	"pf_formedit_remove": "הסרת המופע הזה",
 	"pf_formedit_addanotherabove": "להוסיף עוד מופע מעל זה",
 	"pf_formedit_addanother": "הוספת עוד",
+	"pf-formedit-nodata": "אין נתונים",
 	"pf_formedit_none": "אין/לא ידוע",
 	"pf_formedit_emptytitle": "שגיאה: המידע שהוכנס מייצר כותרת דף ריקה.",
 	"pf_formedit_hookerror": "שגיאה: הרחבת מדיה־ויקי מנעה את השינוי של דף היעד.",

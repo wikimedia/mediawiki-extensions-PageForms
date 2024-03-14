@@ -88,6 +88,7 @@
 	"pf_formedit_edittitle": "Уређивање $1: $2",
 	"pf_formedit_formwarning": "Упозорење: ова страница [[$1|већ постоји]] и не користи овај образац.",
 	"pf_formedit_remove": "Уклони",
+	"pf-formedit-nodata": "Нема података",
 	"pf_formedit_none": "Нема/непознато",
 	"pf-wizard-back": "Назад",
 	"pf-wizard-continue": "Настави",
