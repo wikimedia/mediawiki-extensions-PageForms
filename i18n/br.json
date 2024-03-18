@@ -95,6 +95,7 @@
 	"pf_formedit_formwarning": "Evezh : Ar bajenn-mañ [[$1|zo anezhi dija]], met ne implij ket ar furmskrid-mañ.",
 	"pf_formedit_remove": "Tennañ",
 	"pf_formedit_addanother": "Ouzhpennañ unan all",
+	"pf-formedit-nodata": "Roadenn ebet",
 	"pf_formedit_none": "Hini ebet/dianav",
 	"pf_formedit_saveandcontinueediting": "Enrollañ ha kenderc'hel",
 	"pf_formedit_tooltip_saveandcontinueediting": "Enrollañ ar roadennoù ha kenderc'hel da zegas kemmoù",
