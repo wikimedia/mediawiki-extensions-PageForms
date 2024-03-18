@@ -2132,7 +2132,7 @@ END;
 	 */
 	public static function getParsedValue( $parser, $value ) {
 		if ( !array_key_exists( $value, self::$mParsedValues ) ) {
-			self::$mParsedValues[$value] = $parser->recursiveTagParse( $value );
+			self::$mParsedValues[$value] = trim( $parser->recursiveTagParse( $value ) );
 		}
 
 		return self::$mParsedValues[$value];
