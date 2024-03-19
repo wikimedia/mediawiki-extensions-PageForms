@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abijeet Patro",
 			"Kaustubh",
 			"Saurmandal",
 			"Siddhartha Ghai"
@@ -184,6 +185,7 @@
 	"pf_formedit_remove": "यह उदाहरण हटाएँ",
 	"pf_formedit_addanotherabove": "इस उदाहरण के ऊपर एक और उदाहरण जोड़ें",
 	"pf_formedit_addanother": "दूसरा फ़ील्ड जोड़ें",
+	"pf-formedit-nodata": "कोई आंकड़ा नहीं",
 	"pf_formedit_none": "कोई नहीं",
 	"pf_formedit_emptytitle": "त्रुटि: जोड़े गए डेटा से पृष्ठ का शीर्षक खाली नज़र आता है।",
 	"pf_formedit_hookerror": "त्रुटि: एक मीडियाविकि एक्सटेंशन की वजह से लक्ष्य पृष्ठ में बदलाव न किए जा सके।",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Anterdc99",
 			"Apflu",
 			"Colathewikian",
 			"Diskdance",
@@ -214,6 +215,7 @@
 	"pf_formedit_remove": "删除该实例",
 	"pf_formedit_addanotherabove": "在该实例上方添加其他实例",
 	"pf_formedit_addanother": "添加其他",
+	"pf-formedit-nodata": "没有数据",
 	"pf_formedit_none": "无/未知",
 	"pf_formedit_emptytitle": "错误：插入的数据导致页面标题为空。",
 	"pf_formedit_hookerror": "错误：一个MediaWiki扩展阻止修改目标页面。",
