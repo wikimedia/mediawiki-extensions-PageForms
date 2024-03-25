@@ -256,7 +256,7 @@ class PFOpenLayersInput extends PFFormInput {
 	 * @return string|null
 	 */
 	public static function parseCoordinatesString( $coordinatesString ) {
-		$coordinatesString = trim( $coordinatesString );
+		$coordinatesString = trim( $coordinatesString ?? '' );
 		if ( $coordinatesString === '' ) {
 			return null;
 		}
