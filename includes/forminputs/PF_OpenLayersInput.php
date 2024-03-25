@@ -248,9 +248,10 @@ class PFOpenLayersInput extends PFFormInput {
 	}
 
 	/**
-	 * Parses a coordinate string in (hopefully) any standard format.
+	 * Parses a coordinate string in (hopefully) any standard format,
+	 * returning it as a "lat, lon" string.
 	 *
-	 * Copied from CargoStore::parseCoordinateString() in the Cargo
+	 * Copied from CargoUtils::parseCoordinatesString() in the Cargo
 	 * extension.
 	 * @param string $coordinatesString
 	 * @return string|null
