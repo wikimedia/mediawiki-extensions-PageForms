@@ -135,7 +135,7 @@
 	"pf_createform_nameinput": "表單名稱",
 	"pf_createform_nameinputdesc": " (表單通常使用與其主要模板一樣的名稱) ：",
 	"pf_createform_template": "模板：",
-	"pf_createform_templatelabelinput": "模板標籤 (選填) ：",
+	"pf_createform_templatelabelinput": "模板標籤（非必填）：",
 	"pf_createform_allowmultiple": "在建立頁面時允許此模板使用多個 (或不用) 實例",
 	"pf_createform_field": "欄位：",
 	"pf_createform_fieldprop": "此欄位用來定義類型 $2 的屬性 $1。",
