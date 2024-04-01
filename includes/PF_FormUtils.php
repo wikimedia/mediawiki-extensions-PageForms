@@ -599,6 +599,9 @@ END;
 
 		// Update list of form definitions
 		$listOfFormKeys = $cache->get( $cacheKeyForList );
+		if ( !is_array( $listOfFormKeys ) ) {
+			$listOfFormKeys = [];
+		}
 		// The list of values is used by self::purge, keys are ignored.
 		// This way we automatically override duplicates.
 		$listOfFormKeys[$cacheKeyForForm] = $cacheKeyForForm;
