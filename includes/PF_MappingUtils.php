@@ -303,8 +303,16 @@ class PFMappingUtils {
 
 		$allDisplayTitles = self::getDisplayTitles( $allTitles );
 		foreach ( $pageNamesForValues as $value => $pageName ) {
-			$labels[$value] = $allDisplayTitles[$pageName] ?? $value;
+			if ( isset( $allDisplayTitles[ $pageName ] )
+				&& strtolower( $allDisplayTitles[ $pageName ] ) !== strtolower( $value )
+			) {
+				$displayValue = sprintf( '%s (%s)', $allDisplayTitles[ $pageName ], $value );
+			} else {
+				$displayValue = $value;
+			}
+			$labels[$value] = $displayValue;
 		}
+
 		return $labels;
 	}
 

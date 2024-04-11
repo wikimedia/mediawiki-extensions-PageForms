@@ -754,7 +754,10 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	public static function getRemoteDataTypeAndPossiblySetAutocompleteValues( $autocompleteFieldType, $autocompletionSource, $field_args, $autocompleteSettings ) {
 		global $wgPageFormsMaxLocalAutocompleteValues, $wgPageFormsAutocompleteValues;
 
-		if ( $autocompleteFieldType == 'external_url' || $autocompleteFieldType == 'wikidata' ) {
+		if ( $autocompleteFieldType == 'external_url'
+			|| $autocompleteFieldType == 'wikidata'
+			|| array_key_exists( 'reverselookup', $field_args )
+		) {
 			// Autocompletion from URL is always done remotely.
 			return $autocompleteFieldType;
 		}
@@ -819,16 +822,19 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language \"" . $wgLanguageCode
 	 *
 	 * @param string[]|string $value
 	 * @param string $delimiter
+	 * @param bool $formatWithDisplayTitles
 	 * @return string[]
 	 */
-	public static function getValuesArray( $value, $delimiter ) {
+	public static function getValuesArray( $value, $delimiter, $formatWithDisplayTitles = false ) {
 		if ( is_array( $value ) ) {
 			return $value;
 		} elseif ( $value == null ) {
 			return [];
 		} else {
-			// Remove extra spaces.
-			return array_map( 'trim', explode( $delimiter, $value ) );
+			$values = array_map( 'trim', explode( $delimiter, $value ) );
+			return $formatWithDisplayTitles
+				? array_values( PFMappingUtils::getLabelsForTitles( $values ) )
+				: $values;
 		}
 	}
 
