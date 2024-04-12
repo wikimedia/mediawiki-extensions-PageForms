@@ -1004,7 +1004,7 @@ class PFFormField {
 		} else {
 			$other_args['possible_values'] = $this->template_field->getPossibleValues();
 			if ( $this->hasFieldArg( 'mapping using translate' ) ) {
-				$mappedValues = PFValuesUtils::getValuesWithTranslateMapping( $other_args['possible_values'], $other_args['mapping using translate'] );
+				$mappedValues = PFMappingUtils::getValuesWithTranslateMapping( $other_args['possible_values'], $other_args['mapping using translate'] );
 				$other_args['value_labels'] = array_values( $mappedValues );
 			} else {
 				$other_args['value_labels'] = $this->template_field->getValueLabels();
