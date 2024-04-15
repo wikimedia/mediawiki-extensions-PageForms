@@ -711,9 +711,10 @@ class PFFormField {
 	 * Map a template field value into labels.
 	 * @param string $valueString
 	 * @param string $delimiter
+	 * @param bool $formSubmitted
 	 * @return string|string[]
 	 */
-	public function valueStringToLabels( $valueString, $delimiter ) {
+	public function valueStringToLabels( $valueString, $delimiter, $formSubmitted ) {
 		if ( $valueString == null || trim( $valueString ) === '' ||
 			$this->mPossibleValues === null ) {
 			return $valueString;
@@ -723,6 +724,14 @@ class PFFormField {
 		} else {
 			$values = [ $valueString ];
 		}
+
+		$maxValues = PFValuesUtils::getMaxValuesToRetrieve();
+		if ( $formSubmitted && ( count( $this->mPossibleValues ) >= $maxValues ) ) {
+			// Remote autocompletion.
+			$mappedValues = PFMappingUtils::getMappedValuesForInput( $values, $this->getFieldArgs() );
+			return array_values( $mappedValues );
+		}
+
 		$labels = [];
 		foreach ( $values as $value ) {
 			if ( $value != '' ) {
