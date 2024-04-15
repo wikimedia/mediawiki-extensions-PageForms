@@ -715,7 +715,7 @@ class PFFormField {
 	 * @return string|string[]
 	 */
 	public function valueStringToLabels( $valueString, $delimiter, $formSubmitted ) {
-		if ( $valueString == null || trim( $valueString ) === '' ||
+		if ( $valueString === null || trim( $valueString ) === '' ||
 			$this->mPossibleValues === null ) {
 			return $valueString;
 		}
@@ -742,11 +742,7 @@ class PFFormField {
 				}
 			}
 		}
-		if ( count( $labels ) > 1 ) {
-			return $labels;
-		} else {
-			return $labels[0];
-		}
+		return $labels;
 	}
 
 	public function additionalHTMLForInput( $cur_value, $field_name, $template_name ) {
