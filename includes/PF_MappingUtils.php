@@ -107,7 +107,7 @@ class PFMappingUtils {
 				break;
 			case 'displaytitle':
 				$isReverseLookup = ( array_key_exists( 'reverselookup', $args ) && ( $args['reverselookup'] == 'true' ) );
-				$mappedValues = self::getLabelsFromDisplayTitle( $values, $isReverseLookup );
+				$mappedValues = self::getLabelsForTitles( $values, $isReverseLookup );
 				// @todo - why just array_values ?
 				break;
 		}
@@ -258,7 +258,7 @@ class PFMappingUtils {
 	 * @param bool $doReverseLookup
 	 * @return array
 	 */
-	public static function getLabelsFromDisplayTitle(
+	public static function getLabelsForTitles(
 		array $values,
 		bool $doReverseLookup = false
 	) {
