@@ -40,19 +40,19 @@ class PFCreateClass extends SpecialPage {
 		$req = $this->getRequest();
 		$user = $this->getUser();
 
-		$template_name = trim( $req->getVal( "template_name" ) );
+		$template_name = trim( $req->getVal( "template_name" ) ?? '' );
 		$template_multiple = $req->getBool( "template_multiple" );
-		$use_cargo = trim( $req->getBool( "use_cargo" ) );
-		$cargo_table = trim( $req->getVal( "cargo_table" ) );
-		$use_fullwikitext = trim( $req->getBool( "use_fullwikitext" ) );
+		$use_cargo = $req->getBool( "use_cargo" );
+		$cargo_table = trim( $req->getVal( "cargo_table" ) ?? '' );
+		$use_fullwikitext = $req->getBool( "use_fullwikitext" );
 		// If this is a multiple-instance template, there
 		// shouldn't be a corresponding form or category.
 		if ( $template_multiple ) {
 			$form_name = null;
 			$category_name = null;
 		} else {
-			$form_name = trim( $req->getVal( "form_name" ) );
-			$category_name = trim( $req->getVal( "category_name" ) );
+			$form_name = trim( $req->getVal( "form_name" ) ?? '' );
+			$category_name = trim( $req->getVal( "category_name" ) ?? '' );
 		}
 		$fields = [];
 		$jobs = [];
@@ -61,10 +61,10 @@ class PFCreateClass extends SpecialPage {
 		for ( $i = 1; $req->getVal( "name_$i" ) != ''; $i++ ) {
 			// Go through the query values, setting the appropriate
 			// local variables.
-			$field_name = trim( $req->getVal( "name_$i" ) );
-			$display_label = trim( $req->getVal( "label_$i" ) );
+			$field_name = trim( $req->getVal( "name_$i" ) ?? '' );
+			$display_label = trim( $req->getVal( "label_$i" ) ?? '' );
 			$display_label = $display_label ?: $field_name;
-			$property_name = trim( $req->getVal( "property_name_$i" ) );
+			$property_name = trim( $req->getVal( "property_name_$i" ) ?? '' );
 			$property_type = $req->getVal( "field_type_$i" );
 			$allowed_values = $req->getVal( "allowed_values_$i" );
 			$is_list = $req->getCheck( "is_list_$i" );
